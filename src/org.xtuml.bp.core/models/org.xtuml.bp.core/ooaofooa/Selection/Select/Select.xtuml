@@ -1,0 +1,787 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("6bbeced4-473b-4c7e-82bd-84ca0b59b273",
+	'Select',
+	605,
+	'ACT_SEL',
+	'This class represents a statement that selects a set of  instances.',
+	"4baa0857-ca29-4e4a-b1cb-873757c0f936");
+INSERT INTO O_TFR
+	VALUES ("a3c99e30-15ff-46a5-bcb2-caed0fac8383",
+	"6bbeced4-473b-4c7e-82bd-84ca0b59b273",
+	'dispose',
+	'This operation disconnects an instance, and all instances it is 
+responsible for, from the model.',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select one sr related by self->ACT_SR[R664];
+if ( not_empty sr )
+  unrelate self from sr across R664;
+  delete object instance sr;
+end if;
+
+select one srw related by self->ACT_SRW[R664];
+if ( not_empty srw )
+  unrelate self from srw across R664;
+  select one val related by srw->V_VAL[R611];
+  if ( not_empty val )
+    unrelate srw from val across R611;
+    val.dispose();
+  end if;
+  delete object instance srw;
+end if;
+
+select one var related by self->V_VAR[R638];
+if ( not_empty var )
+  unrelate self from var across R638;
+  if ( not var.Declared )
+    var.dispose();
+  end if;
+end if;
+
+select one val related by self->V_VAL[R613];
+if ( not_empty val )
+  unrelate self from val across R613;
+  val.dispose();
+end if;
+
+select one link related by self->ACT_LNK[R637];
+if ( not_empty link )
+  unrelate self from link across R637;
+  while ( not_empty link )
+    this_link = link;
+    select one link related by this_link->ACT_LNK[R604.''precedes''];
+    this_link.dispose();
+  end while;
+end if;
+delete object instance self;
+',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_DT_PROXY
+	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'void',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("f1263562-d81d-42cc-b4c9-c8c8081cf3a8",
+	"6bbeced4-473b-4c7e-82bd-84ca0b59b273",
+	'execute',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// Select.execute()
+//select one <instance handle> related by <start> -> <relationship link> 
+//->... <relationship link>;
+//select any <instance handle> related by <start> -> <relationship link>
+//-> ... <relationship link>;
+//select many <instance handle set> related by <start> -> <relationship link>
+//-> ... <relationship link>;
+//select one <instance handle> related by <start> -> <relationship link>
+// -> ... <relationship link> where <where expression>;
+//select any <instance handle> related by <start> -> <relationship link>
+//-> ... <relationship link> where <where expression>;
+//select many <instance handle set> related by <start> -><relationship link>
+//-> ... <relationship link> where <where expression>;
+//
+//<start> is an <instance handle set> or <instance handle> obtained from a 
+//        previous select statement.
+//<relationship link> is a <keyletter>[<relationship specification>], where the
+//        square brackets are literal and do not indicate optional text.
+//<keyletter> is the keyletter of the class reached by the specified relationship.
+//<relationship specification> is the specification of the relationship from the source
+//                             to the destination class.
+//<where expression> is a type of boolean expression using the selected keyword.
+//
+//  Get the starting point instance handle(select one or any...)
+select one body related by self->ACT_SMT[R603]->ACT_BLK[R602]->ACT_ACT[R601];
+select one start_val related by self->V_VAL[R613];
+select one start_var related by start_val->V_IRF[R801]->V_VAR[R808];  //  Check for a Variable via Instance Reference
+if (empty start_var)
+  select one start_var related by start_val->V_ISR[R801]->V_VAR[R809];  //  Check for a Variable via Instance Set Reference  
+end if;
+if (empty start_var)
+  pathMsg = "<No Path Available - Empty instance>";
+    if (not_empty body)
+      pathMsg = body.getPath();
+    end if;
+	USER::logError(msg:"Error in Select statement: Cannot locate starting variable",path:pathMsg);
+  return;
+end if;
+// Get the starting point instance handle or set
+select one start_ih related by start_var->V_INT[R814];
+select one start_instance_set related by start_var->V_INS[R814];
+// Grab the stack frame
+select any stack_frame from instances of I_STF where
+                              (selected.Stack_Frame_ID == param.stack_frame_id);
+if (empty stack_frame)
+  //Invalid stack frame ID!
+  pathMsg = "<No Path Available - Empty instance>";
+    if (not_empty body)
+      pathMsg = body.getPath();
+    end if;
+	USER::logError(msg:"Error in Select.execute: Invalid stack frame id used. Using random top stack frame.",path:pathMsg);
+  select any stack from instances of I_STACK;
+  select one stack_frame related by stack->I_STF[R2929];
+end if;
+// Get the local reference we will use in the loop to relate the instances
+select any selection_local related by self->V_VAR[R638]->
+                  V_INT[R814]->L_LCR[R3004]->L_LCL[R3001] where
+                                selected.Stack_Frame_ID == param.stack_frame_id;
+// If this is a many call, then selection_local_reference will be empty, and
+// we should overwrite it with the correct value
+if(self.cardinality == "many")
+  select any selection_local related by self->V_VAR[R638]->
+                  V_INS[R814]->L_LCR[R3003]->L_LCL[R3001] where
+                                selected.Stack_Frame_ID == param.stack_frame_id;
+end if;
+select one selection_local_reference related by selection_local->L_LCR[R3001];
+// If there is an inst in where instance, then the traversal was already
+// performed and we are re-entering after executing a computed piece of the
+// where clause. Therefore, skip the traversal and proceed directly to the
+// where clause execution.
+select any inst_in_where related by stack_frame->I_BSF[R2923]->
+                                       L_LCL[R3000]->L_LSR[R3001]->L_IWC[R3006];
+if (empty inst_in_where)
+  // Perform the instance database traversal.
+  //If this is the first time we are using this instance handle,
+  // then create a new local reference in this block in stack frame
+  if (self.is_implicit)
+    // create the instance reference in the scope of the enclosing block
+    select one block related by self->ACT_SMT[R603]->ACT_BLK[R602];
+    ref_ID = block.newLocalReference(
+                                    stack_frame_id: stack_frame.Stack_Frame_ID);
+    select any selection_local_reference related by block->
+                                  I_BSF[R2923]->L_LCL[R3000]->L_LCR[R3001] where
+                                                  (selected.Local_ID == ref_ID);
+    if(self.cardinality == "many")
+       select one selection_inst_set related by self->V_VAR[R638]->V_INS[R814];
+       relate selection_inst_set to selection_local_reference across R3003;
+    else
+       select one selection_ih related by self->V_VAR[R638]->V_INT[R814];
+       relate selection_ih to selection_local_reference across R3004;
+    end if;
+  end if;
+  // Set value to this block with the right type so we can use it later. The value here is useless.
+  select any start_local_reference from instances of L_LCR;
+  // Get all of the block in stack frames that exist for the stack frame
+  select many block_in_stack_frames related by stack_frame->I_BSF[R2923];
+  // Find the one local reference that matches the block in stack frame where we are executing
+  // WARNING: This implementation is based on the Object Action Language definition that existed in November of 2005.
+  //          If the language is changed to become a strongly typed language where a user can define a variable in an inner block with the same
+  //          name as something that exists in the outer block, then this implementation will not work because it does not walk out of the current
+  //          block.
+  if (not_empty start_ih)
+    select any start_local_reference related by block_in_stack_frames->
+            L_LCL[R3000]->L_LCR[R3001] where selected.Var_ID == start_ih.Var_ID;
+  elif (not_empty start_instance_set)
+    select any start_local_reference related by block_in_stack_frames->
+                                                L_LCL[R3000]->L_LCR[R3001] where
+                                   selected.Var_ID == start_instance_set.Var_ID;
+  else
+    pathMsg = "<No Path Available - Empty instance>";
+    if (not_empty body)
+      pathMsg = body.getPath();
+    end if;
+	USER::logError(msg:"Error in Select.execute.  Did not find a starting point instance handle or set.",path:pathMsg);
+    return;
+  end if;
+  if (empty start_local_reference)
+    pathMsg = "<No Path Available - Empty instance>";
+    if (not_empty body)
+      pathMsg = body.getPath();
+    end if;
+	USER::logError(msg:"Error in Select.execute.  Did not find a starting point reference handle.",path:pathMsg);
+    return;
+  end if;
+  // At this point we are done with getting the starting point
+  // Now, get all the instances related to this local reference regardless of
+  // instance handle or set. This gives us all the relevant instances at the
+  // starting point of this related by statement.
+  select many start_instances related by start_local_reference->
+                             L_LCL[R3001]->RV_RVL[R3306]->RV_SMV[R3300]->
+                                      RV_IRV[R3308]->L_IIR[R3311]->I_INS[R3013];
+  // Since we already have the instance set to use for this link, empty out the
+  // local reference so we can populate it with only the relevant instances for
+  // the latest chain link
+  selection_local_reference.clear();
+  // Set up the starting point for the traversal
+  for each inst in start_instances
+    selection_local_reference.addInstance(inst_id:inst.Inst_ID);
+  end for;
+  select many selection_inst_refs related by selection_local_reference->
+                                              L_LCL[R3001]->RV_RVL[R3306]->
+                                     RV_SMV[R3300]->RV_IRV[R3308]->L_IIR[R3311];
+  // Get the first link in the chain
+  select one chain_link related by self->ACT_LNK[R637];
+  while (not_empty chain_link and not_empty selection_inst_refs)
+    // Get the next link in the chain
+    select one next_link related by chain_link->ACT_LNK[R604.''precedes''];  
+    // Get the association related to this chain link and all the links related
+    // to that association
+    select one association related by chain_link->R_REL[R681];
+    select one assoc_class related by association->R_ASSOC[R206]->
+                            R_ASSR[R211]->R_RGO[R205]->R_OIR[R203]->O_OBJ[R201];
+    select one form related by association->R_SIMP[R206]->R_FORM[R208];
+    select one super related by association->R_SUBSUP[R206]->R_SUPER[R212];
+    select any part related by
+                            association->R_SIMP[R206]->R_PART[R207] where
+                                        selected.Rel_ID == GD::NULL_UNIQUE_ID();
+    fromPart = part;
+    select one aone related by association->R_ASSOC[R206]->R_AONE[R209];
+    select one aoth related by association->R_ASSOC[R206]->R_AOTH[R210];
+    // Decide whether we are navigating an associative instance
+    from_assoc = false;
+    to_assoc = false;
+    // These are all instances of the same class, so select any is safe here
+    select any source_class related by selection_inst_refs->I_INS[R3013]->
+                                                  CSME_CIE[R2962]->O_OBJ[R2961];
+    select one target_class related by chain_link->O_OBJ[R678];
+    if not_empty assoc_class
+      if (source_class  == assoc_class)
+        from_assoc = true;
+      end if;
+      if (target_class == assoc_class)
+        to_assoc = true;
+      end if;
+    end if; // not empty association class
+    traverseFwd = true;
+    checkFwd = true; // separate flag until we clean up traverse forward/back.
+    traverseBack = true;
+    targetPhrase = GD::strip_tics(value:chain_link.Rel_Phrase);
+    // Unformalized associations have 2 participants and no formalizer
+    // Support this kind of association by allowing for 2 part instances
+    select many parts related by association->R_SIMP[R206]->R_PART[R207];
+    if (association.is_reflexive()) // Reflexive case
+      // selecting many parts above allows operation with unformalized assocs
+      // Here we find which of the informal parts is the ''forward'' direction
+      if empty form and empty aone // unformalized and non link association
+        partCount = 1;
+        for each candidatePart in parts
+          if (partCount == 1)
+            fromPart = candidatePart;
+            if (candidatePart.Txt_Phrs == targetPhrase)
+              // the user wants to go from the other side to the one
+              traverseFwd = false;
+              checkFwd = false;
+            else
+              // the user wants to go from one side to the other side
+              traverseBack = false;
+            end if;
+          else //(candidatePart.Txt_Phrs == sourcePhrase)
+            part = candidatePart;
+          end if;
+          partCount = partCount + 1;
+        end for;
+      end if;
+      if not_empty form // formalized
+        if form.Txt_Phrs == targetPhrase
+          // the user wants to go from other side to the one
+          traverseFwd = false;
+          checkFwd = false;
+        else
+          // the user wants to go from one side to the other
+          traverseBack = false;
+        end if;
+        select any part related by association->R_SIMP[R206]->R_PART[R207];
+      end if; // formalized case
+      if (not_empty aone and aone.Txt_Phrs == targetPhrase) // linked assoc
+        // the user wants to go from other side to one side
+        traverseFwd = false;
+        checkFwd = false;
+      end if;
+      if (not_empty aoth and aoth.Txt_Phrs == targetPhrase) // linked assoc
+        // the user wants to go from one side to the other
+        traverseBack = false;
+      end if;
+    else // not reflexive
+      if empty super
+        if empty form
+          // Find which of the informal parts is the ''forward'' direction
+          partCount = 1;
+          for each candidatePart in parts
+            if partCount == 1
+              fromPart = candidatePart;
+            else
+              part = candidatePart;
+            end if;
+            partCount = partCount + 1;
+          end for;
+        else // not_empty form
+          select any part related by association->R_SIMP[R206]->R_PART[R207];
+        end if; // 
+        select one cia related by part->R_RTO[R204]->R_OIR[R203]->O_OBJ[R201];
+        if not_empty aoth
+          select one cia related by aoth->R_RTO[R204]->R_OIR[R203]->O_OBJ[R201];
+        end if;
+        if cia == source_class
+          checkFwd = false;
+        end if;
+      else
+        select one cia related by super->R_RTO[R204]->R_OIR[R203]->O_OBJ[R201];
+        if cia == source_class
+          checkFwd = false;
+        end if;
+      end if;
+    end if; // end reflexive - non-reflexive case
+    // Go through all the instances from the previous link in the chain and see
+    // if they are related to any of the instances in the current chain link.
+    for each inst_in_ref in selection_inst_refs
+      select one inst related by inst_in_ref->I_INS[R3013];
+      inst_in_ref.dispose();
+      // Now build the instance set . . .
+      if (from_assoc)
+        select many links related by inst->I_LIP[R2958]->I_LNK[R2903];
+        for each link in links
+          // if this link is an instance of the association we''re traversing.
+          select one link_assoc related by link->R_REL[R2904];
+          if (link_assoc == association)
+            if (traverseBack)
+              select one inst_src related by link->I_LIP[R2901]->I_INS[R2958];
+              select one src_class related by inst_src->
+                                                  CSME_CIE[R2962]->O_OBJ[R2961];
+              // and if the class of this instance is the desired class . . . 
+              if (src_class == target_class)
+                selection_local_reference.addInstance(inst_id:inst_src.Inst_ID);
+              end if;
+            end if;
+            // consider both legs of the link
+            if (traverseFwd)
+              select one inst_dest related by link->I_LIP[R2902]->I_INS[R2958];
+              select one dest_class related by inst_dest->
+                                                  CSME_CIE[R2962]->O_OBJ[R2961];
+              // and if the class of this instance is the desired class . . . 
+              if (dest_class == target_class)
+                selection_local_reference.addInstance(
+                                                     inst_id:inst_dest.Inst_ID);
+              end if;
+            end if;
+          end if;
+        end for; // each link
+      else  // not coming from an associative
+        // This handles all other cases, simple and link associations, reflexive
+        // and non-reflexive, formalized or not. If unformalized, link instances
+        // can exist in either direction, so we use the target class identity
+        // to determine the correct instances to add to the result.
+        if (traverseFwd)
+          select many links related by inst->I_LIP[R2958]->I_LNK[R2901];
+          for each link in links
+            // if this link is an instance of the association we''re traversing.
+            select one link_assoc related by link->R_REL[R2904];
+            if (link_assoc == association)
+              select one inst_dest related by link->I_LIP[R2902]->I_INS[R2958];
+              if (to_assoc)
+                select one inst_dest related by link->
+                                                     I_LIP[R2903]->I_INS[R2958];
+              end if;
+              select one dest_class related by inst_dest->
+                                                  CSME_CIE[R2962]->O_OBJ[R2961];
+              if (dest_class == target_class)
+                selection_local_reference.addInstance(
+                                                     inst_id:inst_dest.Inst_ID);
+              end if;
+            end if;
+          end for; // each link
+        end if;
+        // consider both directions of the link
+        if (traverseBack)
+          select many links related by inst->I_LIP[R2958]->I_LNK[R2902];
+          for each link in links
+            // if this link is an instance of the association we''re traversing.
+            select one link_assoc related by link->R_REL[R2904];
+            if (link_assoc == association)
+              select one inst_dest related by link->I_LIP[R2901]->I_INS[R2958];
+              if (to_assoc)
+                select one inst_dest related by link->
+                                                     I_LIP[R2903]->I_INS[R2958];
+              end if;
+              select one dest_class related by inst_dest->
+                                                  CSME_CIE[R2962]->O_OBJ[R2961];
+              if (dest_class == target_class)
+                selection_local_reference.addInstance(
+                                                     inst_id:inst_dest.Inst_ID);
+              end if;
+            end if;
+          end for; // each link
+        end if;
+      end if; // coming from an associative
+    end for; // each instance in a reference
+    // Get a new instance set to use for the next link in the chain.
+    select many selection_inst_refs related by selection_local_reference->
+                                                L_LCL[R3001]->RV_RVL[R3306]->
+                                     RV_SMV[R3300]->RV_IRV[R3308]->L_IIR[R3311];
+    if (PREF::getBoolean(name:"bridgepoint_prefs_enable_verifier_audit")== true)
+      auditSev = PREF::getInteger(name:"bridgepoint_prefs_enable_select_audit"); 
+      if auditSev != 0  // 0 == Ignore
+        if cardinality selection_inst_refs == 0;
+          cond = 0;
+          if checkFwd
+            if not_empty aoth
+              cond = aoth.Cond;
+            elif not_empty part
+              cond = part.Cond;
+            // super case: traversing to supertype, is default unconditional
+            end if;
+          else // traverse backwards
+            if not_empty aone
+              cond = aone.Cond;
+            elif not_empty form
+              cond = form.Cond;
+            elif not_empty fromPart
+              cond = fromPart.Cond;
+            elif not_empty super
+              cond = 1; // traversing from supertype, any subtype is conditional
+            end if;
+          end if;
+          if (cond == 0)  // 0 == Unconditional
+            severity = "Warning";
+            assocPhrase = "";
+            if (targetPhrase != "")
+              assocPhrase = " (" + targetPhrase + ")";
+            end if;
+            postFixMsg = "";
+            if auditSev == 2 // 2 == FATAL
+              severity = "FATAL";
+              select one stack related by stack_frame->I_STACK[R2929];
+              stack.suspendReason = "Halted on illegal link instance " +
+                        "population on " + association.get_name() + assocPhrase;
+              stack.runState = RunStateType::Suspended;
+              postFixMsg = GD::newline() + "Execution Halted.  (Problem detected at previous statement)";
+            else // 1 == Warning
+              select one statement related by self->ACT_SMT[R603];
+              postFixMsg = " at: " + statement.Label;
+            end if;
+            message = severity + " Select: Unexpected empty population " +
+                        "found while traversing unconditional association " +
+                              association.get_name() + assocPhrase + postFixMsg;
+            USER::logError(msg:message,path:body.getPath());
+          end if;
+        end if;
+      end if;
+    end if;
+    // Set the next link in the chain
+    chain_link = next_link;
+  end while;
+end if;
+select one where_selection related by self->ACT_SRW[R664];
+select any result related by selection_local_reference->L_LCL[R3001]->
+                      RV_RVL[R3306]->RV_SMV[R3300]->RV_IRV[R3308]->L_IIR[R3311];
+// If there is a where clause and there are instances to filter . . . 
+if (not_empty where_selection and not_empty result)
+  where_selection.execute(stack_frame_id: stack_frame.Stack_Frame_ID);
+end if;
+select any inst_in_where related by stack_frame->I_BSF[R2923]->
+                                       L_LCL[R3000]->L_LSR[R3001]->L_IWC[R3006];
+if (empty inst_in_where)
+  // This has to be done after the where clause has completed processing
+  // (i.e. inst in where is empty) . . . 
+  if (self.cardinality == "any" or self.cardinality == "one")
+    // Leave only the first instance found in the set . . .
+    select any selection_local_reference related by self->
+                                         V_VAR[R638]->V_INT[R814]->L_LCR[R3004];
+    select many iirs related by selection_local_reference->L_LCL[R3001]->
+                      RV_RVL[R3306]->RV_SMV[R3300]->RV_IRV[R3308]->L_IIR[R3311];
+    foundResult = false;
+    for each iir in iirs
+      if (not foundResult)
+        foundResult = true;
+      else
+        iir.dispose();
+      end if;
+    end for;
+  else // self.cardinality == "many"
+    // remove all duplicates from the set
+    select many iirs related by selection_local_reference->L_LCL[R3001]->
+                      RV_RVL[R3306]->RV_SMV[R3300]->RV_IRV[R3308]->L_IIR[R3311];
+    for each iir in iirs
+      select one inst related by iir->I_INS[R3013];
+      if not_empty inst
+        // select the full set of which this reference is a member
+        select many potentialDuplicates related by iir->
+                                                    RV_IRV[R3311]->L_IIR[R3311];
+        originalFound = false;
+        for each potentialDuplicate in potentialDuplicates
+          select one potentialDuplicateInst related by
+                                               potentialDuplicate->I_INS[R3013];
+          if potentialDuplicateInst == inst
+            if originalFound
+              potentialDuplicate.dispose(); // remove the reference from set
+            else
+              originalFound = true; // keep first reference to this instance
+            end if;
+          end if; // we found a matching instance reference
+        end for; // each potentialDuplicate
+      end if; // inst is empty (iir was already disposed when visited)
+    end for; // each instanceInReference
+  end if;
+end if;',
+	1,
+	'',
+	"a3c99e30-15ff-46a5-bcb2-caed0fac8383");
+INSERT INTO O_TPARM
+	VALUES ("b67f636c-b987-4789-bcf2-39628d1a45bb",
+	"f1263562-d81d-42cc-b4c9-c8c8081cf3a8",
+	'stack_frame_id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'unique_id',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("6bbeced4-473b-4c7e-82bd-84ca0b59b273",
+	"e9011b75-e798-45a3-ac83-92ba7c04db4e",
+	0,
+	"57ac4fbc-42e9-46ec-a929-7875093e348c",
+	"63067dfa-ea5b-4c48-bd8c-138b8b76196c",
+	"e7835368-78c6-496e-86ae-c9c3ebb4379a",
+	"fe55fe0e-8913-466e-aa7c-a04d957a07ce",
+	"cd206a69-cb68-48e2-8760-9ec6ca229ae8",
+	"9760bfe6-aef8-496f-beb4-9a0ffdc993f0",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Statement',
+	'Statement_ID',
+	'R603');
+INSERT INTO R_RGO_PROXY
+	VALUES ("6bbeced4-473b-4c7e-82bd-84ca0b59b273",
+	"63067dfa-ea5b-4c48-bd8c-138b8b76196c",
+	"e7835368-78c6-496e-86ae-c9c3ebb4379a",
+	'../../Body/Body.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("57ac4fbc-42e9-46ec-a929-7875093e348c",
+	"e9011b75-e798-45a3-ac83-92ba7c04db4e",
+	0,
+	"63067dfa-ea5b-4c48-bd8c-138b8b76196c",
+	"fe55fe0e-8913-466e-aa7c-a04d957a07ce",
+	'../../Body/Body.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("cd206a69-cb68-48e2-8760-9ec6ca229ae8",
+	"6bbeced4-473b-4c7e-82bd-84ca0b59b273",
+	"57ac4fbc-42e9-46ec-a929-7875093e348c",
+	"e9011b75-e798-45a3-ac83-92ba7c04db4e",
+	1,
+	'Statement_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("57ac4fbc-42e9-46ec-a929-7875093e348c",
+	"e9011b75-e798-45a3-ac83-92ba7c04db4e",
+	'../../Body/Statement/Statement.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("cd206a69-cb68-48e2-8760-9ec6ca229ae8",
+	"6bbeced4-473b-4c7e-82bd-84ca0b59b273",
+	"00000000-0000-0000-0000-000000000000",
+	'Statement_ID',
+	'
+
+',
+	'',
+	'Statement_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("6bbeced4-473b-4c7e-82bd-84ca0b59b273",
+	"04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",
+	0,
+	"aa0af814-2950-42d7-b263-1e32565f47ac",
+	"927cb777-978d-4249-921a-81e8e889157d",
+	"dab724da-8f93-4f75-800c-eb39b5eb5809",
+	"dbfe5146-e37a-4114-bbbd-a6fa78908ac7",
+	"0471b053-70df-4cbd-b002-90cba52a04a3",
+	"2832a2ff-32bc-4451-a2da-bca0dd2794e1",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Variable',
+	'Var_ID',
+	'R638');
+INSERT INTO R_RGO_PROXY
+	VALUES ("6bbeced4-473b-4c7e-82bd-84ca0b59b273",
+	"927cb777-978d-4249-921a-81e8e889157d",
+	"dab724da-8f93-4f75-800c-eb39b5eb5809",
+	'../Selection.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("aa0af814-2950-42d7-b263-1e32565f47ac",
+	"04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",
+	0,
+	"927cb777-978d-4249-921a-81e8e889157d",
+	"dbfe5146-e37a-4114-bbbd-a6fa78908ac7",
+	'../Selection.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("0471b053-70df-4cbd-b002-90cba52a04a3",
+	"6bbeced4-473b-4c7e-82bd-84ca0b59b273",
+	"aa0af814-2950-42d7-b263-1e32565f47ac",
+	"04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",
+	1,
+	'Var_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("aa0af814-2950-42d7-b263-1e32565f47ac",
+	"04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",
+	'../../Value/Variable/Variable.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("0471b053-70df-4cbd-b002-90cba52a04a3",
+	"6bbeced4-473b-4c7e-82bd-84ca0b59b273",
+	"cd206a69-cb68-48e2-8760-9ec6ca229ae8",
+	'Var_ID',
+	'
+
+',
+	'',
+	'Var_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("d1f3345e-595c-49da-816f-2e2cd7f00088",
+	"6bbeced4-473b-4c7e-82bd-84ca0b59b273");
+INSERT INTO O_BATTR
+	VALUES ("d1f3345e-595c-49da-816f-2e2cd7f00088",
+	"6bbeced4-473b-4c7e-82bd-84ca0b59b273");
+INSERT INTO O_ATTR
+	VALUES ("d1f3345e-595c-49da-816f-2e2cd7f00088",
+	"6bbeced4-473b-4c7e-82bd-84ca0b59b273",
+	"0471b053-70df-4cbd-b002-90cba52a04a3",
+	'is_implicit',
+	'Full Name: Is Implicit
+Specifies whether the resulting instance handle found by traversing
+R638 is being used for the first time in this scope or not.',
+	'',
+	'is_implicit',
+	0,
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'boolean',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("4e6fbb09-5edc-45f8-9a08-84a166cbdb9a",
+	"6bbeced4-473b-4c7e-82bd-84ca0b59b273");
+INSERT INTO O_BATTR
+	VALUES ("4e6fbb09-5edc-45f8-9a08-84a166cbdb9a",
+	"6bbeced4-473b-4c7e-82bd-84ca0b59b273");
+INSERT INTO O_ATTR
+	VALUES ("4e6fbb09-5edc-45f8-9a08-84a166cbdb9a",
+	"6bbeced4-473b-4c7e-82bd-84ca0b59b273",
+	"d1f3345e-595c-49da-816f-2e2cd7f00088",
+	'cardinality',
+	'Full Name: Selection Cardinality
+Specifies whether the selection produces a set or an instance as a result.  The cardinality value can be one of the following: one, any, or many.',
+	'',
+	'cardinality',
+	0,
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'string',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("6bbeced4-473b-4c7e-82bd-84ca0b59b273",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	0,
+	"4fd005ad-1159-4343-a12e-ed125f7adea1",
+	"f872fc42-0f6b-4369-98ef-5eb8395a0f74",
+	"bd071a17-5e8f-40dc-a32a-059bfb9997a6",
+	"222600ac-54cd-4a74-9c33-8f94be647893",
+	"d55d1fca-081f-4957-8c04-970335aa05d7",
+	"f1984d09-7351-40df-bc03-dee09ba5d552",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Value',
+	'Value_ID',
+	'R613');
+INSERT INTO R_RGO_PROXY
+	VALUES ("6bbeced4-473b-4c7e-82bd-84ca0b59b273",
+	"f872fc42-0f6b-4369-98ef-5eb8395a0f74",
+	"bd071a17-5e8f-40dc-a32a-059bfb9997a6",
+	'../Selection.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("4fd005ad-1159-4343-a12e-ed125f7adea1",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	0,
+	"f872fc42-0f6b-4369-98ef-5eb8395a0f74",
+	"222600ac-54cd-4a74-9c33-8f94be647893",
+	'../Selection.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("d55d1fca-081f-4957-8c04-970335aa05d7",
+	"6bbeced4-473b-4c7e-82bd-84ca0b59b273",
+	"4fd005ad-1159-4343-a12e-ed125f7adea1",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	1,
+	'Value_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("4fd005ad-1159-4343-a12e-ed125f7adea1",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	'../../Value/Value/Value.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("d55d1fca-081f-4957-8c04-970335aa05d7",
+	"6bbeced4-473b-4c7e-82bd-84ca0b59b273",
+	"4e6fbb09-5edc-45f8-9a08-84a166cbdb9a",
+	'Value_ID',
+	'
+
+',
+	'',
+	'Value_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"6bbeced4-473b-4c7e-82bd-84ca0b59b273");
+INSERT INTO O_OIDA
+	VALUES ("cd206a69-cb68-48e2-8760-9ec6ca229ae8",
+	"6bbeced4-473b-4c7e-82bd-84ca0b59b273",
+	0,
+	'Statement_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"6bbeced4-473b-4c7e-82bd-84ca0b59b273");
+INSERT INTO O_ID
+	VALUES (2,
+	"6bbeced4-473b-4c7e-82bd-84ca0b59b273");
+INSERT INTO S_SS_PROXY
+	VALUES ("4baa0857-ca29-4e4a-b1cb-873757c0f936",
+	'Selection',
+	'This subsystem captures concepts related to selections of instances across associations. Association chain, where and instance extent selections are also covered.
+Notify_Changes:false
+Persistent:false
+// This is used by schema_gen to ignore this subsystem (for publication)
+TRANSLATE_FOR_EXTERNAL_USE:FALSE
+',
+	'ACT',
+	600,
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-00000058000b",
+	'../Selection.xtuml');

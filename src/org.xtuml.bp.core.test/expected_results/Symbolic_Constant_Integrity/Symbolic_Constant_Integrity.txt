@@ -1,0 +1,36 @@
+ERROR: Found another constant under the same specification with a matching name.
+
+Element Name: constant
+Element Path: ModelIntegrityTests::Symbolic Constant Tests::Constant Specification::constant
+
+
+ERROR: Found another constant under the same specification with a matching name.
+
+Element Name: constant
+Element Path: ModelIntegrityTests::Symbolic Constant Tests::Constant Specification::constant
+
+
+ERROR: Found another constant under the same specification with a matching name.
+
+Element Name: constant
+Element Path: ModelIntegrityTests::Symbolic Constant Tests::Constant Specification::constant
+
+
+ERROR: Found another constant under the same specification with a matching name.
+
+Element Name: constant
+Element Path: ModelIntegrityTests::Symbolic Constant Tests::Constant Specification::constant
+
+
+ERROR: Found another constant under the same specification with a matching name.
+
+Element Name: constant
+Element Path: ModelIntegrityTests::Symbolic Constant Tests::Constant Specification 2::constant
+
+
+ERROR: Found another constant under the same specification with a matching name.
+
+Element Name: constant
+Element Path: ModelIntegrityTests::Symbolic Constant Tests::Constant Specification 2::constant
+
+

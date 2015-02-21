@@ -1,0 +1,189 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("e375b5f8-c1a0-4819-9577-30d82c30a194",
+	'Array Value',
+	3303,
+	'RV_AVL',
+	'',
+	"7532d38c-8a9a-4a7d-81a0-61f814f64f06");
+INSERT INTO O_TFR
+	VALUES ("e7c1ecde-4314-46d0-a9a8-a477042a1d34",
+	"e375b5f8-c1a0-4819-9577-30d82c30a194",
+	'dispose',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// Array Value.dispose()
+select many values related by self->RV_VIA[R3302]->RV_RVL[R3302];
+for each value in values
+  select one via related by value->RV_VIA[R3302];
+  unrelate self from value across R3302 using via;
+  delete object instance via;
+  value.dispose();
+end for;
+delete object instance self;
+',
+	1,
+	'',
+	"53d03c5f-962a-4cb5-bbd5-75b28a403637");
+INSERT INTO S_DT_PROXY
+	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'void',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("53d03c5f-962a-4cb5-bbd5-75b28a403637",
+	"e375b5f8-c1a0-4819-9577-30d82c30a194",
+	'arrayCopy',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// Array Value.arrayCopy()
+select any arrayRuntimeValue from instances of RV_RVL where
+                                  selected.RuntimeValue_ID == param.destination;
+select one targetVal related by arrayRuntimeValue->RV_AVL[R3300];
+// We''re going to overwrite this value, dispose all existing values.
+select many values related by targetVal->RV_VIA[R3302]->RV_RVL[R3302];
+for each value in values
+  select one via related by value->RV_VIA[R3302];
+  unrelate targetVal from value across R3302 using via;
+  value.dispose();
+end for;
+// set up the data type for each array member
+select any value related by self->RV_VIA[R3302]->RV_RVL[R3302];
+select one dt related by value->S_DT[R3307];
+// Now begin the copy . . . 
+select many values related by self->RV_VIA[R3302]->RV_RVL[R3302];
+for each value in values
+  select one via related by value->RV_VIA[R3302];
+  create object instance newVal of RV_RVL;
+  create object instance newVia of RV_VIA;
+  relate targetVal to newVal across R3302 using newVia;
+  newVia.Index = via.Index;
+  relate newVal to dt across R3307;
+  select one simplVal related by value->RV_SMV[R3300];
+  select one strctVal related by value->RV_SVL[R3300];
+  select one arrayVal related by value->RV_AVL[R3300];
+  if (not_empty simplVal)
+    newVal.createSimpleValue();
+    select one newSmpl related by newVal->RV_SMV[R3300];
+    newSmpl.setValue(value:simplVal.getValue());
+  elif (not_empty strctVal)
+    create object instance newStrctVal of RV_SVL;
+    relate newStrctVal to newVal across R3300;
+    // Call this method to achieve a full tree of copied values.
+    strctVal.memberWiseCopy(destination:newStrctVal.RuntimeValue_ID);
+  elif (not_empty arrayVal)
+    create object instance newArrayVal of RV_AVL;
+    relate newArrayVal to newVal across R3300;
+    // Recursively call this method to achieve a full tree of copied values.
+    arrayVal.arrayCopy(destination:newArrayVal.RuntimeValue_ID);
+  end if;
+end for;
+// Done . . . ',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_TPARM
+	VALUES ("4e2ce75b-d37e-4591-a668-4cfa543740e2",
+	"53d03c5f-962a-4cb5-bbd5-75b28a403637",
+	'destination',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'unique_id',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("e375b5f8-c1a0-4819-9577-30d82c30a194",
+	"013bfc9e-d3c0-4807-8613-deccd09763b5",
+	0,
+	"79b643e8-6840-46d6-aafa-e1d9f8af1f60",
+	"1f890a60-61f8-46e5-813a-1db8f5234d11",
+	"6c01b44f-c89a-4611-a787-05497cda0778",
+	"1112b44f-b2d6-4f53-9334-be1d5dfea203",
+	"4ce780ad-522e-4b36-b174-13c0ef95745d",
+	"1983a8b9-8dab-4746-b7a1-9a294e961016",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Runtime Value',
+	'RuntimeValue_ID',
+	'R3300');
+INSERT INTO R_RGO_PROXY
+	VALUES ("e375b5f8-c1a0-4819-9577-30d82c30a194",
+	"1f890a60-61f8-46e5-813a-1db8f5234d11",
+	"6c01b44f-c89a-4611-a787-05497cda0778",
+	'../Runtime Value.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("79b643e8-6840-46d6-aafa-e1d9f8af1f60",
+	"013bfc9e-d3c0-4807-8613-deccd09763b5",
+	0,
+	"1f890a60-61f8-46e5-813a-1db8f5234d11",
+	"1112b44f-b2d6-4f53-9334-be1d5dfea203",
+	'../Runtime Value.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("4ce780ad-522e-4b36-b174-13c0ef95745d",
+	"e375b5f8-c1a0-4819-9577-30d82c30a194",
+	"79b643e8-6840-46d6-aafa-e1d9f8af1f60",
+	"013bfc9e-d3c0-4807-8613-deccd09763b5",
+	1,
+	'RuntimeValue_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("79b643e8-6840-46d6-aafa-e1d9f8af1f60",
+	"013bfc9e-d3c0-4807-8613-deccd09763b5",
+	'../Runtime Value/Runtime Value.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("4ce780ad-522e-4b36-b174-13c0ef95745d",
+	"e375b5f8-c1a0-4819-9577-30d82c30a194",
+	"00000000-0000-0000-0000-000000000000",
+	'RuntimeValue_ID',
+	'',
+	'Foo',
+	'RuntimeValue_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_ID
+	VALUES (0,
+	"e375b5f8-c1a0-4819-9577-30d82c30a194");
+INSERT INTO O_OIDA
+	VALUES ("4ce780ad-522e-4b36-b174-13c0ef95745d",
+	"e375b5f8-c1a0-4819-9577-30d82c30a194",
+	0,
+	'RuntimeValue_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"e375b5f8-c1a0-4819-9577-30d82c30a194");
+INSERT INTO O_ID
+	VALUES (2,
+	"e375b5f8-c1a0-4819-9577-30d82c30a194");
+INSERT INTO S_SS_PROXY
+	VALUES ("7532d38c-8a9a-4a7d-81a0-61f814f64f06",
+	'Runtime Value',
+	'// This is used by schema_gen to ignore this subsystem (for publication)
+TRANSLATE_FOR_EXTERNAL_USE:FALSE
+Persistent:false
+',
+	'RV',
+	3300,
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
+	'../Runtime Value.xtuml');

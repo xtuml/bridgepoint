@@ -1,0 +1,139 @@
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("6275d956-4b6f-40ee-a1f9-1eca38223518",
+	'UnformalizeASSR IOBJ_OBJ OBJ UsedRef',
+	1300,
+	'T_UNFORM',
+	'Imported Class',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_REF
+	VALUES ("6275d956-4b6f-40ee-a1f9-1eca38223518",
+	"fae3ef6c-fb58-4d31-ad2e-b33de43d9ba5",
+	0,
+	"1b678d11-9763-4223-9e2f-febd9df435d2",
+	"f3ccb533-8482-4c79-a4b7-742b3be4d347",
+	"b69d6f9e-632f-46bd-a241-1118bec280b7",
+	"c68aef8b-0664-4a5a-90e4-a9bd4f77f4c4",
+	"a4195a9c-84cd-4c31-bef8-c073aa8eedf8",
+	"a118db9d-c762-43ca-bd15-47a4d3e83a11",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'TestClassOtherSide 4',
+	'testAttrFormalizer',
+	'R1205');
+INSERT INTO R_RGO_PROXY
+	VALUES ("6275d956-4b6f-40ee-a1f9-1eca38223518",
+	"f3ccb533-8482-4c79-a4b7-742b3be4d347",
+	"b69d6f9e-632f-46bd-a241-1118bec280b7",
+	'../../UAL Tests/UAL Tests.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("1b678d11-9763-4223-9e2f-febd9df435d2",
+	"fae3ef6c-fb58-4d31-ad2e-b33de43d9ba5",
+	0,
+	"f3ccb533-8482-4c79-a4b7-742b3be4d347",
+	"c68aef8b-0664-4a5a-90e4-a9bd4f77f4c4",
+	'../../UAL Tests/UAL Tests.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("a4195a9c-84cd-4c31-bef8-c073aa8eedf8",
+	"6275d956-4b6f-40ee-a1f9-1eca38223518",
+	"1b678d11-9763-4223-9e2f-febd9df435d2",
+	"fae3ef6c-fb58-4d31-ad2e-b33de43d9ba5",
+	1,
+	'testAttrFormalizer');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("1b678d11-9763-4223-9e2f-febd9df435d2",
+	"fae3ef6c-fb58-4d31-ad2e-b33de43d9ba5",
+	'../../UAL Tests/TestClassOtherSide 4/TestClassOtherSide 4.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("a4195a9c-84cd-4c31-bef8-c073aa8eedf8",
+	"6275d956-4b6f-40ee-a1f9-1eca38223518",
+	"00000000-0000-0000-0000-000000000000",
+	'testAttrFormalizer',
+	'',
+	'',
+	'testAttrFormalizer',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000007",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("6275d956-4b6f-40ee-a1f9-1eca38223518",
+	"a132c25b-149a-46fc-bb2b-120457551402",
+	0,
+	"c4ec0a16-bd08-4f53-84b8-a47eb8e6d898",
+	"f3ccb533-8482-4c79-a4b7-742b3be4d347",
+	"b69d6f9e-632f-46bd-a241-1118bec280b7",
+	"e5ba5e50-610d-46fb-b0ea-0c5bb8074277",
+	"28087e3a-45cb-44b6-9d31-4ab3fe9c270b",
+	"c40cc90d-c758-4d09-b5ce-11248aa5e8dd",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'TestClassOtherSide 5',
+	'testAttrFormalizer',
+	'R1205');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("c4ec0a16-bd08-4f53-84b8-a47eb8e6d898",
+	"a132c25b-149a-46fc-bb2b-120457551402",
+	0,
+	"f3ccb533-8482-4c79-a4b7-742b3be4d347",
+	"e5ba5e50-610d-46fb-b0ea-0c5bb8074277",
+	'../../UAL Tests/UAL Tests.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("28087e3a-45cb-44b6-9d31-4ab3fe9c270b",
+	"6275d956-4b6f-40ee-a1f9-1eca38223518",
+	"c4ec0a16-bd08-4f53-84b8-a47eb8e6d898",
+	"a132c25b-149a-46fc-bb2b-120457551402",
+	1,
+	'testAttrFormalizer');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("c4ec0a16-bd08-4f53-84b8-a47eb8e6d898",
+	"a132c25b-149a-46fc-bb2b-120457551402",
+	'../../UAL Tests/TestClassOtherSide 5/TestClassOtherSide 5.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("28087e3a-45cb-44b6-9d31-4ab3fe9c270b",
+	"6275d956-4b6f-40ee-a1f9-1eca38223518",
+	"a4195a9c-84cd-4c31-bef8-c073aa8eedf8",
+	'testAttrFormalizer',
+	'',
+	'',
+	'testAttrFormalizer',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000007",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"6275d956-4b6f-40ee-a1f9-1eca38223518");
+INSERT INTO O_OIDA
+	VALUES ("a4195a9c-84cd-4c31-bef8-c073aa8eedf8",
+	"6275d956-4b6f-40ee-a1f9-1eca38223518",
+	0,
+	'testAttrFormalizer');
+INSERT INTO O_OIDA
+	VALUES ("28087e3a-45cb-44b6-9d31-4ab3fe9c270b",
+	"6275d956-4b6f-40ee-a1f9-1eca38223518",
+	0,
+	'testAttrFormalizer');
+INSERT INTO O_ID
+	VALUES (1,
+	"6275d956-4b6f-40ee-a1f9-1eca38223518");
+INSERT INTO O_ID
+	VALUES (2,
+	"6275d956-4b6f-40ee-a1f9-1eca38223518");
+INSERT INTO PE_PE
+	VALUES ("6275d956-4b6f-40ee-a1f9-1eca38223518",
+	1,
+	"86f69855-4198-4342-be0b-026aa3d5eda6",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("86f69855-4198-4342-be0b-026aa3d5eda6",
+	"00000000-0000-0000-0000-000000000000",
+	"c6693612-7c4f-42e5-b64f-16c64f288945",
+	'UAL Import',
+	'',
+	0,
+	'../UAL Import.xtuml');

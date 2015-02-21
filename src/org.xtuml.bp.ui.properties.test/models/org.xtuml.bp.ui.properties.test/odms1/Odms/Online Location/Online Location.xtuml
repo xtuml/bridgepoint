@@ -1,0 +1,148 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("bc6ce7c3-fc03-4a01-b237-4c0f7a12a060",
+	'Online Location',
+	15,
+	'D_OL',
+	'Object Description:
+
+Object Role:
+',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_NBATTR
+	VALUES ("f7142ed3-50db-47e3-89da-0f2080f9d860",
+	"bc6ce7c3-fc03-4a01-b237-4c0f7a12a060");
+INSERT INTO O_BATTR
+	VALUES ("f7142ed3-50db-47e3-89da-0f2080f9d860",
+	"bc6ce7c3-fc03-4a01-b237-4c0f7a12a060");
+INSERT INTO O_ATTR
+	VALUES ("f7142ed3-50db-47e3-89da-0f2080f9d860",
+	"bc6ce7c3-fc03-4a01-b237-4c0f7a12a060",
+	"00000000-0000-0000-0000-000000000000",
+	'Online_Location_ID',
+	'Attribute Description:
+
+Attribute Domain:
+',
+	'',
+	'Online_Location_ID',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000002",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("4e8681ef-7aca-4e7b-bdbb-c28eca324e2b",
+	"bc6ce7c3-fc03-4a01-b237-4c0f7a12a060");
+INSERT INTO O_BATTR
+	VALUES ("4e8681ef-7aca-4e7b-bdbb-c28eca324e2b",
+	"bc6ce7c3-fc03-4a01-b237-4c0f7a12a060");
+INSERT INTO O_ATTR
+	VALUES ("4e8681ef-7aca-4e7b-bdbb-c28eca324e2b",
+	"bc6ce7c3-fc03-4a01-b237-4c0f7a12a060",
+	"f7142ed3-50db-47e3-89da-0f2080f9d860",
+	'X_Coordinate',
+	'Attribute Description:
+
+Attribute Domain:
+',
+	'',
+	'X_Coordinate',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000002",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("ca71caf6-b2ef-4d84-9f53-7908a47990b6",
+	"bc6ce7c3-fc03-4a01-b237-4c0f7a12a060");
+INSERT INTO O_BATTR
+	VALUES ("ca71caf6-b2ef-4d84-9f53-7908a47990b6",
+	"bc6ce7c3-fc03-4a01-b237-4c0f7a12a060");
+INSERT INTO O_ATTR
+	VALUES ("ca71caf6-b2ef-4d84-9f53-7908a47990b6",
+	"bc6ce7c3-fc03-4a01-b237-4c0f7a12a060",
+	"4e8681ef-7aca-4e7b-bdbb-c28eca324e2b",
+	'Y_Coordinate',
+	'Attribute Description:
+
+Attribute Domain:
+',
+	'',
+	'Y_Coordinate',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000002",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("bdc1748b-373e-456c-b251-826b05c7ebf5",
+	"bc6ce7c3-fc03-4a01-b237-4c0f7a12a060");
+INSERT INTO O_BATTR
+	VALUES ("bdc1748b-373e-456c-b251-826b05c7ebf5",
+	"bc6ce7c3-fc03-4a01-b237-4c0f7a12a060");
+INSERT INTO O_ATTR
+	VALUES ("bdc1748b-373e-456c-b251-826b05c7ebf5",
+	"bc6ce7c3-fc03-4a01-b237-4c0f7a12a060",
+	"ca71caf6-b2ef-4d84-9f53-7908a47990b6",
+	'Theta_Coordinate',
+	'Attribute Description:
+
+Attribute Domain:
+',
+	'',
+	'Theta_Coordinate',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000002",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("ec4bfd3a-aee7-4b1a-ac86-0bac6602188c",
+	"bc6ce7c3-fc03-4a01-b237-4c0f7a12a060");
+INSERT INTO O_BATTR
+	VALUES ("ec4bfd3a-aee7-4b1a-ac86-0bac6602188c",
+	"bc6ce7c3-fc03-4a01-b237-4c0f7a12a060");
+INSERT INTO O_ATTR
+	VALUES ("ec4bfd3a-aee7-4b1a-ac86-0bac6602188c",
+	"bc6ce7c3-fc03-4a01-b237-4c0f7a12a060",
+	"bdc1748b-373e-456c-b251-826b05c7ebf5",
+	'current_state',
+	'Attribute Description:
+
+Attribute Domain:
+',
+	'',
+	'current_state',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000006",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"bc6ce7c3-fc03-4a01-b237-4c0f7a12a060");
+INSERT INTO O_OIDA
+	VALUES ("f7142ed3-50db-47e3-89da-0f2080f9d860",
+	"bc6ce7c3-fc03-4a01-b237-4c0f7a12a060",
+	0,
+	'Online_Location_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"bc6ce7c3-fc03-4a01-b237-4c0f7a12a060");
+INSERT INTO O_ID
+	VALUES (2,
+	"bc6ce7c3-fc03-4a01-b237-4c0f7a12a060");
+INSERT INTO PE_PE
+	VALUES ("bc6ce7c3-fc03-4a01-b237-4c0f7a12a060",
+	1,
+	"e96c6930-7be7-4437-abe5-f7d202c0cf0c",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("e96c6930-7be7-4437-abe5-f7d202c0cf0c",
+	"00000000-0000-0000-0000-000000000000",
+	"2a8f0b42-d0f7-4ec9-ac6f-3571c4caeba3",
+	'Odms',
+	'Subsystem Description:
+
+Relationship with other Subsystems:
+',
+	1,
+	'../Odms.xtuml');

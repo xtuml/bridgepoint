@@ -1,0 +1,3 @@
+Transaction started: Rename instance(s) of System Model
+ Attribute 'Name' of core.SystemModel changed ( 'Old_Name' -> 'New_NameS_SYS')
+Transaction Ended: Rename instance(s) of System Model with delta size: 1

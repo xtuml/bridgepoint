@@ -1,0 +1,175 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("701f94d5-1c57-470e-bac8-04556bfa6031",
+	'Create Event to Creator',
+	708,
+	'E_CEC',
+	'This class specifies the precreation of a creation event to a class for later delivery. Uses the same concepts as Generate to Creator but does not actually generate the event. It instead yields an event instance that can be generated later using Generate Preexisting Event.',
+	"606f68be-000c-4a29-9fb9-dc0284d01f2a");
+INSERT INTO O_TFR
+	VALUES ("604405d0-c517-4ef2-b10f-25812a2a85da",
+	"701f94d5-1c57-470e-bac8-04556bfa6031",
+	'dispose',
+	'This operation disconnects an instance, and all instances it is 
+responsible for, from the model.',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// do nothing
+delete object instance self;
+',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_DT_PROXY
+	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'void',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("22a0d6ca-711b-4ea7-935f-d45a76054f1e",
+	"701f94d5-1c57-470e-bac8-04556bfa6031",
+	'execute',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// Event: Create Event to Creator.execute()
+
+// Create a pending event for this event
+select one evt related by self->E_CSME[R704]->SM_EVT[R706];
+create object instance evtInst of I_EVI;
+relate evt to evtInst across R2906;
+
+// The instance for this creation transition will be created when the event
+// is generated.  So mark this pending event as a creation transition.
+evtInst.isCreation = true;
+
+// Hook up event data
+select one evt_spec_stmt related by self->E_CSME[R704]->
+                                                       E_CES[R702]->E_ESS[R701];
+valueComputationComplete =
+                      evt_spec_stmt.hookUpEventData(evtInst_ID:evtInst.Event_ID,
+                                          stack_frame_id: param.stack_frame_id);
+if (valueComputationComplete)
+  // Hook up the event instance to the result instance handle
+  select one createEvtStmt related by self->E_CSME[R704]->E_CES[R702];
+  createEvtStmt.hookUpEvtInstToHandle(evtInst_ID:evtInst.Event_ID,
+                                          stack_frame_id: param.stack_frame_id);
+
+  // Find the originating instance for this event and relate this event to it
+  evt_spec_stmt.relateToOriginatingInst(evtInst_ID:evtInst.Event_ID,
+                                          stack_frame_id: param.stack_frame_id);
+end if;',
+	1,
+	'',
+	"604405d0-c517-4ef2-b10f-25812a2a85da");
+INSERT INTO O_TPARM
+	VALUES ("7b650998-ae56-408b-9dca-463d997a9b12",
+	"22a0d6ca-711b-4ea7-935f-d45a76054f1e",
+	'stack_frame_id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'unique_id',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("701f94d5-1c57-470e-bac8-04556bfa6031",
+	"474836ad-558f-45eb-8c7b-a3740b2b73b4",
+	0,
+	"50eb9a91-f356-48f7-b53a-8f9cab18d73b",
+	"d6ced505-cdfb-4d98-81e2-506f2754d01d",
+	"9a59fd3b-2f13-4083-a11b-d6681f87c485",
+	"4a5449f9-28d0-4ba8-af74-ec734a49698a",
+	"5d3fa4ce-7f95-4afa-9c47-9b4430e22c1a",
+	"65843b9f-b3fa-4ad9-8487-c414dc0f3cf8",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Create SM Event Statement',
+	'Statement_ID',
+	'R704');
+INSERT INTO R_RGO_PROXY
+	VALUES ("701f94d5-1c57-470e-bac8-04556bfa6031",
+	"d6ced505-cdfb-4d98-81e2-506f2754d01d",
+	"9a59fd3b-2f13-4083-a11b-d6681f87c485",
+	'../Event.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("50eb9a91-f356-48f7-b53a-8f9cab18d73b",
+	"474836ad-558f-45eb-8c7b-a3740b2b73b4",
+	0,
+	"d6ced505-cdfb-4d98-81e2-506f2754d01d",
+	"4a5449f9-28d0-4ba8-af74-ec734a49698a",
+	'../Event.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("5d3fa4ce-7f95-4afa-9c47-9b4430e22c1a",
+	"701f94d5-1c57-470e-bac8-04556bfa6031",
+	"57ac4fbc-42e9-46ec-a929-7875093e348c",
+	"e9011b75-e798-45a3-ac83-92ba7c04db4e",
+	1,
+	'Statement_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("57ac4fbc-42e9-46ec-a929-7875093e348c",
+	"e9011b75-e798-45a3-ac83-92ba7c04db4e",
+	'../../Body/Statement/Statement.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("5d3fa4ce-7f95-4afa-9c47-9b4430e22c1a",
+	"701f94d5-1c57-470e-bac8-04556bfa6031",
+	"00000000-0000-0000-0000-000000000000",
+	'Statement_ID',
+	'
+
+',
+	'',
+	'Statement_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_ID
+	VALUES (0,
+	"701f94d5-1c57-470e-bac8-04556bfa6031");
+INSERT INTO O_OIDA
+	VALUES ("5d3fa4ce-7f95-4afa-9c47-9b4430e22c1a",
+	"701f94d5-1c57-470e-bac8-04556bfa6031",
+	0,
+	'Statement_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"701f94d5-1c57-470e-bac8-04556bfa6031");
+INSERT INTO O_ID
+	VALUES (2,
+	"701f94d5-1c57-470e-bac8-04556bfa6031");
+INSERT INTO S_SS_PROXY
+	VALUES ("606f68be-000c-4a29-9fb9-dc0284d01f2a",
+	'Event',
+	'This subsystem focuses on the creation and generation
+of events. Events to instances, class, creators and
+external entities are covered, as well as the creation of
+event instances of those types. Finally the generation
+of pre-existing event instances are also covered.
+Notify_Changes:false
+Persistent:false
+// This is used by schema_gen to ignore this subsystem (for publication)
+TRANSLATE_FOR_EXTERNAL_USE:FALSE
+',
+	'E',
+	700,
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-00000068000d",
+	'../Event.xtuml');

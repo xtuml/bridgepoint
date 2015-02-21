@@ -1,0 +1,1347 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 7.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="archetypes.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+Expressions
+</TITLE>
+
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<H1 CLASS="Heading2">
+<A NAME="0_pgfId-517547"></A><A NAME="0_Expressions Section"></A>E<A NAME="0_marker-517546"></A>xpressions</H1>
+<P CLASS="Body">
+<A NAME="0_pgfId-517548"></A>The rule language supports <EM CLASS="Emphasis">
+simple</EM>
+ and <EM CLASS="Emphasis">
+compound </EM>
+expressions.</P>
+<H3 CLASS="Heading3">
+<A NAME="0_pgfId-517550"></A><A NAME="0_marker-517549"></A>Simple Expressions</H3>
+<P CLASS="Body">
+<A NAME="0_pgfId-517551"></A><EM CLASS="Emphasis">
+Simple</EM>
+ expressions are single unary or binary operations:</P>
+<P CLASS="Indent">
+<A NAME="0_pgfId-517553"></A><EM CLASS="Code">
+(&lt;unary_operator&gt; &lt;operand&gt;)</EM>
+</P>
+<P CLASS="Indent">
+<A NAME="0_pgfId-517554"></A><EM CLASS="Code">
+(&lt;operand&gt; &lt;binary_operator&gt; &lt;operand&gt;)</EM>
+</P>
+<P CLASS="Body">
+<A NAME="0_pgfId-517556"></A>where:</P>
+<P CLASS="Indent">
+<A NAME="0_pgfId-517557"></A><EM CLASS="Code">
+&lt;unary_operator&gt;</EM>
+ is a unary operator.</P>
+<P CLASS="Indent">
+<A NAME="0_pgfId-517558"></A><EM CLASS="Code">
+&lt;binary_operator&gt;</EM>
+ is a binary operator.</P>
+<P CLASS="Indent">
+<A NAME="0_pgfId-517559"></A><EM CLASS="Code">
+&lt;operand&gt;</EM>
+ is the operand, i.e., a literal value, class attribute, or transient variable.</P>
+<P CLASS="Body">
+<A NAME="0_pgfId-517561"></A>Here are some examples:</P>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-517562"></A><EM CLASS="Code">.if (empty class_inst)</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-517563"></A><EM CLASS="Code">	.assign number_selected = cardinality class_set</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-519588"></A><EM CLASS="Code">.end if</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-517564"></A><EM CLASS="Code">.if (class_inst.Numb &gt;= 100)</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-517565"></A><EM CLASS="Code">	.assign attr_decl = &quot;${attr_inst.Type} $cr{attr_inst.name};&quot;</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-519589"></A><EM CLASS="Code">.end if</EM>
+</PRE>
+<H3 CLASS="Heading3">
+<A NAME="0_pgfId-517567"></A><A NAME="0_marker-517566"></A>Compound Expressions</H3>
+<P CLASS="Body">
+<A NAME="0_pgfId-517568"></A>Simple expressions can be combined to form a compound expressions:</P>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-517570"></A><EM CLASS="Code">(&lt;unary_operator&gt; &lt;expression&gt;)</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-517571"></A><EM CLASS="Code">(&lt;expression&gt; &lt;binary_operator&gt; &lt;operand&gt;)</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-517572"></A><EM CLASS="Code">(&lt;operand&gt; &lt;binary_operator&gt; &lt;expression&gt;)</EM>
+</PRE>
+<P CLASS="Indent">
+<A NAME="0_pgfId-517573"></A><EM CLASS="Code">
+(&lt;expression&gt; &lt;binary_operator&gt; &lt;expression&gt;)</EM>
+</P>
+<P CLASS="Body">
+<A NAME="0_pgfId-517575"></A>where:</P>
+<P CLASS="Indent">
+<A NAME="0_pgfId-517576"></A><EM CLASS="Code">
+&lt;unary_operator&gt; </EM>
+is a unary operator.</P>
+<P CLASS="Indent">
+<A NAME="0_pgfId-517577"></A><EM CLASS="Code">
+&lt;binary_operator&gt;</EM>
+ is a binary operator.</P>
+<P CLASS="Indent">
+<A NAME="0_pgfId-517578"></A><EM CLASS="Code">
+&lt;operand&gt;</EM>
+ is an operand, i.e., a literal value, class attribute, or transient variable.</P>
+<P CLASS="Indent">
+<A NAME="0_pgfId-517579"></A><EM CLASS="Code">
+&lt;expression&gt;</EM>
+ is an either a simple or compound expression.</P>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-517580"></A>&nbsp;</PRE>
+<P CLASS="Body">
+<A NAME="0_pgfId-517581"></A>Note the required use of the <EM CLASS="Code">
+and</EM>
+ operator to delimit expressions in a compound expression. This takes away the issues surrounding precedence and associativity of operators.</P>
+<P CLASS="Body">
+<A NAME="0_pgfId-517582"></A>Here are some examples:</P>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-517583"></A><EM CLASS="Code">.invoke allocation_strategy = GetAllocationStrategyForClass( class )</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-519642"></A><EM CLASS="Code">.if ( ( allocation_strategy.FixedBlock ) AND ( class.IsLocal ) )</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-517585"></A><EM CLASS="Code">	.select any fixed_block_unit from instances of MA_FBU where ( ( &quot;${selected.Type}&quot; == &quot;LocalAllocationType1&quot;) OR (&quot;${selected.Type}&quot; == &quot;LocalAllocationType2&quot;))</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-519629"></A><EM CLASS="Code">.end if</EM>
+</PRE>
+<H3 CLASS="Heading3">
+<A NAME="0_pgfId-517587"></A><A NAME="0_marker-517586"></A>Operations</H3>
+<P CLASS="Body">
+<A NAME="0_pgfId-517859"></A>The following tables define the core unary, binary, and set operators.   </P>
+<TABLE BORDER="1">
+<CAPTION>
+</CAPTION>
+<TR>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellHeading">
+<A NAME="0_pgfId-517594"></A>Operator</P>
+</TH>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellHeading">
+<A NAME="0_pgfId-517596"></A>Description</P>
+</TH>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body">
+<A NAME="0_pgfId-517599"></A><EM CLASS="Code">
+not</EM>
+<A NAME="0_marker-517598"></A></P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body">
+<A NAME="0_pgfId-517601"></A>Logical Negation</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body">
+<A NAME="0_pgfId-517604"></A><EM CLASS="Code">
+empty</EM>
+<A NAME="0_marker-517603"></A></P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body">
+<A NAME="0_pgfId-517606"></A><EM CLASS="Code">
+inst_ref&lt;Object&gt;</EM>
+ or <EM CLASS="Code">
+inst_ref_set&lt;Object&gt;</EM>
+ test for empty set</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body">
+<A NAME="0_pgfId-517609"></A><EM CLASS="Code">
+not_empty</EM>
+<A NAME="0_marker-517608"></A></P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body">
+<A NAME="0_pgfId-517611"></A><EM CLASS="Code">
+inst_ref&lt;Object&gt;</EM>
+ or <EM CLASS="Code">
+inst_ref_set&lt;Object&gt;</EM>
+ test for not empty set</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body">
+<A NAME="0_pgfId-517614"></A><EM CLASS="Code">
+first</EM>
+<A NAME="0_marker-517613"></A></P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body">
+<A NAME="0_pgfId-517616"></A>Test if the <EM CLASS="Code">
+inst_ref_set&lt;Object&gt;</EM>
+ cursor is on the first in the set</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body">
+<A NAME="0_pgfId-517619"></A><EM CLASS="Code">
+not_first</EM>
+<A NAME="0_marker-517618"></A></P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body">
+<A NAME="0_pgfId-517621"></A>Test if the <EM CLASS="Code">
+inst_ref_set&lt;Object&gt;</EM>
+ cursor is not on the first in the set</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body">
+<A NAME="0_pgfId-517624"></A><EM CLASS="Code">
+last</EM>
+<A NAME="0_marker-517623"></A></P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body">
+<A NAME="0_pgfId-517626"></A>Test if the <EM CLASS="Code">
+inst_ref_set&lt;Object&gt;</EM>
+ cursor is on the last in the set</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body">
+<A NAME="0_pgfId-517629"></A><EM CLASS="Code">
+not_last</EM>
+<A NAME="0_marker-517628"></A></P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body">
+<A NAME="0_pgfId-517631"></A>Test if the <EM CLASS="Code">
+inst_ref_set&lt;Object&gt;</EM>
+ cursor is not on the last in the set</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body">
+<A NAME="0_pgfId-517634"></A><EM CLASS="Code">
+cardinality</EM>
+<A NAME="0_marker-517633"></A></P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body">
+<A NAME="0_pgfId-517636"></A>Count the number of items in <EM CLASS="Code">
+inst_ref_set&lt;Object&gt;</EM>
+</P>
+</TD>
+</TR>
+</TABLE>
+<TABLE BORDER="1">
+<CAPTION>
+</CAPTION>
+<TR>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellHeading">
+<A NAME="0_pgfId-517643"></A>Operator</P>
+</TH>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellHeading">
+<A NAME="0_pgfId-517645"></A>Description</P>
+</TH>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517648"></A><EM CLASS="Code">
+and</EM>
+<A NAME="0_marker-517647"></A></P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517650"></A>logical AND</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517653"></A><EM CLASS="Code">
+or</EM>
+<A NAME="0_marker-517652"></A></P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517655"></A>logical inclusive OR</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517658"></A><EM CLASS="Code">
++</EM>
+<A NAME="0_marker-517657"></A><A NAME="0_marker-527011"></A></P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517660"></A>arithmetic addition (<EM CLASS="Code">
+integer</EM>
+<EM CLASS="Courier-Bold">
+ </EM>
+&amp;<EM CLASS="Courier-Bold">
+ </EM>
+<EM CLASS="Code">
+real</EM>
+) or concatenation (<EM CLASS="Code">
+string</EM>
+)</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517663"></A><EM CLASS="Code">
+-</EM>
+<A NAME="0_marker-517662"></A></P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517665"></A>arithmetic subtraction</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517668"></A><EM CLASS="Code">
+*</EM>
+<A NAME="0_marker-517667"></A><A NAME="0_marker-527012"></A></P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517670"></A>arithmetic multiplication</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517673"></A><EM CLASS="Code">
+/</EM>
+<A NAME="0_marker-517672"></A></P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517675"></A>quotient from arithmetic division</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517678"></A><EM CLASS="Code">
+%</EM>
+<A NAME="0_marker-517677"></A></P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517680"></A>remainder from arithmetic division</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517683"></A><EM CLASS="Code">
+&lt;</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517685"></A>less-than</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517688"></A><EM CLASS="Code">
+&lt;=</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517690"></A>less-than or equal-to</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517693"></A><EM CLASS="Code">
+=</EM>
+<A NAME="0_marker-517692"></A></P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517695"></A>equal-to</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517698"></A><EM CLASS="Code">
+!=</EM>
+<A NAME="0_marker-517697"></A></P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517700"></A>not-equal-to</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517703"></A><EM CLASS="Code">
+&gt;=</EM>
+<A NAME="0_marker-517702"></A></P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517705"></A>greater-than or equal-to</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517708"></A><EM CLASS="Code">
+&gt;</EM>
+<A NAME="0_marker-517707"></A></P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517710"></A>greater-than</P>
+</TD>
+</TR>
+</TABLE>
+<TABLE BORDER="1">
+<CAPTION>
+</CAPTION>
+<TR>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellHeading">
+<A NAME="0_pgfId-517719"></A>Operator</P>
+</TH>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellHeading">
+<A NAME="0_pgfId-517721"></A>Operand</P>
+</TH>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellHeading">
+<A NAME="0_pgfId-517723"></A>Result</P>
+</TH>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517725"></A><EM CLASS="Code">
+not</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517727"></A><EM CLASS="Code">
+boolean</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517729"></A><EM CLASS="Code">
+boolean</EM>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517731"></A><EM CLASS="Code">
+empty</EM>
+</P>
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517732"></A><EM CLASS="Code">
+not_empty</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517734"></A><EM CLASS="Code">
+inst_ref&lt;Object&gt;</EM>
+</P>
+<P CLASS="CellBody">
+<A NAME="0_pgfId-525910"></A><EM CLASS="Code">
+inst_ref&lt;Object&gt;</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517736"></A><EM CLASS="Code">
+boolean</EM>
+</P>
+<P CLASS="CellBody">
+<A NAME="0_pgfId-525919"></A><EM CLASS="Code">
+boolean</EM>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517738"></A><EM CLASS="Code">
+empty</EM>
+</P>
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517739"></A><EM CLASS="Code">
+not_empty</EM>
+</P>
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517740"></A><EM CLASS="Code">
+first</EM>
+</P>
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517741"></A><EM CLASS="Code">
+not_first</EM>
+</P>
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517742"></A><EM CLASS="Code">
+last</EM>
+</P>
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517743"></A><EM CLASS="Code">
+not_last</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517745"></A><EM CLASS="Code">
+inst_ref_set&lt;Object&gt;</EM>
+</P>
+<P CLASS="CellBody">
+<A NAME="0_pgfId-525924"></A><EM CLASS="Code">
+inst_ref_set&lt;Object&gt;</EM>
+</P>
+<P CLASS="CellBody">
+<A NAME="0_pgfId-525929"></A><EM CLASS="Code">
+inst_ref_set&lt;Object&gt;</EM>
+</P>
+<P CLASS="CellBody">
+<A NAME="0_pgfId-525934"></A><EM CLASS="Code">
+inst_ref_set&lt;Object&gt;</EM>
+</P>
+<P CLASS="CellBody">
+<A NAME="0_pgfId-525939"></A><EM CLASS="Code">
+inst_ref_set&lt;Object&gt;</EM>
+</P>
+<P CLASS="CellBody">
+<A NAME="0_pgfId-525944"></A><EM CLASS="Code">
+inst_ref_set&lt;Object&gt;</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517747"></A><EM CLASS="Code">
+boolean</EM>
+</P>
+<P CLASS="CellBody">
+<A NAME="0_pgfId-525949"></A><EM CLASS="Code">
+boolean</EM>
+</P>
+<P CLASS="CellBody">
+<A NAME="0_pgfId-525954"></A><EM CLASS="Code">
+boolean</EM>
+</P>
+<P CLASS="CellBody">
+<A NAME="0_pgfId-525959"></A><EM CLASS="Code">
+boolean</EM>
+</P>
+<P CLASS="CellBody">
+<A NAME="0_pgfId-525964"></A><EM CLASS="Code">
+boolean</EM>
+</P>
+<P CLASS="CellBody">
+<A NAME="0_pgfId-525969"></A><EM CLASS="Code">
+boolean</EM>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517749"></A><EM CLASS="Code">
+cardinality</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517751"></A><EM CLASS="Code">
+inst_ref_set&lt;Object&gt;</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517753"></A><EM CLASS="Code">
+integer</EM>
+</P>
+</TD>
+</TR>
+</TABLE>
+<TABLE BORDER="1">
+<CAPTION>
+</CAPTION>
+<TR>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellHeading">
+<A NAME="0_pgfId-517764"></A>Left Operand</P>
+</TH>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellHeading">
+<A NAME="0_pgfId-517766"></A>Operator</P>
+</TH>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellHeading">
+<A NAME="0_pgfId-517768"></A>Right Operand</P>
+</TH>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellHeading">
+<A NAME="0_pgfId-517770"></A>Result</P>
+</TH>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517772"></A><EM CLASS="Code">
+boolean</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517774"></A><EM CLASS="Code">
+and or == !=</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517776"></A><EM CLASS="Code">
+boolean</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517778"></A><EM CLASS="Code">
+boolean</EM>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517780"></A><EM CLASS="Code">
+integer</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517782"></A><EM CLASS="Code">
++ - * / %</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517784"></A><EM CLASS="Code">
+integer</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517786"></A><EM CLASS="Code">
+integer</EM>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517788"></A><EM CLASS="Code">
+integer</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517790"></A><EM CLASS="Code">
+&lt; &lt;= == != &gt;= &gt;</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517792"></A><EM CLASS="Code">
+integer</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517794"></A><EM CLASS="Code">
+boolean</EM>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517796"></A><EM CLASS="Code">
+integer</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517798"></A><EM CLASS="Code">
++ - * /</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517800"></A><EM CLASS="Code">
+real</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517802"></A><EM CLASS="Code">
+real</EM>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517804"></A><EM CLASS="Code">
+integer</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517806"></A><EM CLASS="Code">
+&lt; &lt;= == != &gt;= &gt;</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517808"></A><EM CLASS="Code">
+real</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517810"></A><EM CLASS="Code">
+boolean</EM>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517812"></A><EM CLASS="Code">
+real</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517814"></A><EM CLASS="Code">
++ - * /</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517816"></A><EM CLASS="Code">
+integer</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517818"></A><EM CLASS="Code">
+real</EM>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517820"></A><EM CLASS="Code">
+real</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517822"></A><EM CLASS="Code">
+&lt; &lt;= == != &gt;= &gt;</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517824"></A><EM CLASS="Code">
+integer</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517826"></A><EM CLASS="Code">
+boolean</EM>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517828"></A><EM CLASS="Code">
+real</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517830"></A><EM CLASS="Code">
++ - * /</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517832"></A><EM CLASS="Code">
+real</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517834"></A><EM CLASS="Code">
+real</EM>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517836"></A><EM CLASS="Code">
+real</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517838"></A><EM CLASS="Code">
+&lt; &lt;= == != &gt;= &gt;</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517840"></A><EM CLASS="Code">
+real</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517842"></A><EM CLASS="Code">
+boolean</EM>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517844"></A><EM CLASS="Code">
+string</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517846"></A><EM CLASS="Code">
++</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517848"></A><EM CLASS="Code">
+string</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517850"></A><EM CLASS="Code">
+string</EM>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517852"></A><EM CLASS="Code">
+string</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517854"></A><EM CLASS="Code">
+&lt; &lt;= == != &gt;= &gt; </EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517856"></A><EM CLASS="Code">
+string</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517858"></A><EM CLASS="Code">
+boolean</EM>
+</P>
+</TD>
+</TR>
+</TABLE>
+<DIV>
+<H2 CLASS="Body-8pt">
+<A NAME="0_pgfId-519662"></A>&nbsp;</H2>
+<TABLE BORDER="1">
+<CAPTION>
+</CAPTION>
+<TR>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellHeading">
+<A NAME="0_pgfId-517870"></A>Left Operand</P>
+</TH>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellHeading">
+<A NAME="0_pgfId-517872"></A>Operator</P>
+</TH>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellHeading">
+<A NAME="0_pgfId-517874"></A>Right Operand</P>
+</TH>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellHeading">
+<A NAME="0_pgfId-517876"></A>Result</P>
+</TH>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517878"></A><EM CLASS="Code">
+&lt;inst_ref&gt;</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517880"></A><EM CLASS="Code">
+|</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517882"></A><EM CLASS="Code">
+&lt;inst_ref&gt;</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517884"></A><EM CLASS="Code">
+&lt;inst_ref_set&gt;</EM>
+</P>
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517885"></A><EM CLASS="Code">
+</EM>
+&nbsp;</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517887"></A><EM CLASS="Code">
+&lt;inst_ref&gt;</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517889"></A><EM CLASS="Code">
+&amp;</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517891"></A><EM CLASS="Code">
+&lt;inst_ref&gt;</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517893"></A><EM CLASS="Code">
+&lt;inst_ref_set&gt;</EM>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517895"></A><EM CLASS="Code">
+&lt;inst_ref&gt;</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517897"></A><EM CLASS="Code">
+-</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517899"></A><EM CLASS="Code">
+&lt;inst_ref&gt;</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517901"></A><EM CLASS="Code">
+&lt;inst_ref_set&gt;</EM>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517903"></A><EM CLASS="Code">
+&lt;inst_ref&gt;</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517905"></A><EM CLASS="Code">
+==</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517907"></A><EM CLASS="Code">
+&lt;inst_ref&gt;</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517909"></A><EM CLASS="Code">
+boolean</EM>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517911"></A><EM CLASS="Code">
+&lt;inst_ref&gt;</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517913"></A><EM CLASS="Code">
+!=</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517915"></A><EM CLASS="Code">
+&lt;inst_ref&gt;</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517917"></A><EM CLASS="Code">
+boolean</EM>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517919"></A><EM CLASS="Code">
+&lt;inst_ref&gt;</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517921"></A><EM CLASS="Code">
+|</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517923"></A><EM CLASS="Code">
+&lt;inst_ref_set&gt;</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517925"></A><EM CLASS="Code">
+&lt;inst_ref_set&gt;</EM>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517927"></A><EM CLASS="Code">
+&lt;inst_ref&gt;</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517929"></A><EM CLASS="Code">
+&amp;</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517931"></A><EM CLASS="Code">
+&lt;inst_ref_set&gt;</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517933"></A><EM CLASS="Code">
+&lt;inst_ref_set&gt;</EM>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517935"></A><EM CLASS="Code">
+&lt;inst_ref&gt;</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517937"></A><EM CLASS="Code">
+-</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517939"></A><EM CLASS="Code">
+&lt;inst_ref_set&gt;</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517941"></A><EM CLASS="Code">
+&lt;inst_ref_set&gt;</EM>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517943"></A><EM CLASS="Code">
+&lt;inst_ref_set&gt;</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517945"></A><EM CLASS="Code">
+|</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517947"></A><EM CLASS="Code">
+&lt;inst_ref&gt;</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517949"></A><EM CLASS="Code">
+&lt;inst_ref_set&gt;</EM>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517951"></A><EM CLASS="Code">
+&lt;inst_ref_set&gt;</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517953"></A><EM CLASS="Code">
+&amp;</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517955"></A><EM CLASS="Code">
+&lt;inst_ref&gt;</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517957"></A><EM CLASS="Code">
+&lt;inst_ref_set&gt;</EM>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517959"></A><EM CLASS="Code">
+&lt;inst_ref_set&gt;</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517961"></A><EM CLASS="Code">
+-</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517963"></A><EM CLASS="Code">
+&lt;inst_ref&gt;</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517965"></A><EM CLASS="Code">
+&lt;inst_ref_set&gt;</EM>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517967"></A><EM CLASS="Code">
+&lt;inst_ref_set&gt;</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517969"></A><EM CLASS="Code">
+|</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517971"></A><EM CLASS="Code">
+&lt;inst_ref_set&gt;</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517973"></A><EM CLASS="Code">
+&lt;inst_ref_set&gt;</EM>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517975"></A><EM CLASS="Code">
+&lt;inst_ref_set&gt;</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517977"></A><EM CLASS="Code">
+&amp;</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517979"></A><EM CLASS="Code">
+&lt;inst_ref_set&gt;</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517981"></A><EM CLASS="Code">
+&lt;inst_ref_set&gt;</EM>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517983"></A><EM CLASS="Code">
+&lt;inst_ref_set&gt;</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517985"></A><EM CLASS="Code">
+-</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517987"></A><EM CLASS="Code">
+&lt;inst_ref_set&gt;</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517989"></A><EM CLASS="Code">
+&lt;inst_ref_set&gt;</EM>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517991"></A><EM CLASS="Code">
+&lt;inst_ref_set&gt;</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517993"></A><EM CLASS="Code">
+==</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517995"></A><EM CLASS="Code">
+&lt;inst_ref_set&gt;</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517997"></A><EM CLASS="Code">
+boolean</EM>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517999"></A><EM CLASS="Code">
+&lt;inst_ref_set&gt;</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-518001"></A><EM CLASS="Code">
+!=</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-518003"></A><EM CLASS="Code">
+&lt;inst_ref_set&gt;</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-518005"></A><EM CLASS="Code">
+boolean</EM>
+</P>
+</TD>
+</TR>
+</TABLE>
+</DIV>
+</BODY>
+</HTML>

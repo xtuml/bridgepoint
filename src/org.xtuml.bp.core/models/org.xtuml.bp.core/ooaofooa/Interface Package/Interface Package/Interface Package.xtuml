@@ -1,0 +1,1148 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("870ee36f-38fe-4fee-8572-806d3c15e993",
+	'Interface Package',
+	4300,
+	'IP_IP',
+	'',
+	"eb74db19-81fd-4e68-afdd-ec658964f576");
+INSERT INTO O_TFR
+	VALUES ("a7ed3c4f-8596-4860-93f7-499d3aa0f0ba",
+	"870ee36f-38fe-4fee-8572-806d3c15e993",
+	'initialize',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'self.Name = ::getUniqueInitialName( 
+    instance: self.convertToInstance(), 
+    candidateName: "Unnamed Interface Package" );',
+	1,
+	'',
+	"6a81599c-9c23-4c5a-bf5d-38048363ae99");
+INSERT INTO S_DT_PROXY
+	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'void',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("31e93523-d63f-4d45-a385-c2f7b70b79f8",
+	"870ee36f-38fe-4fee-8572-806d3c15e993",
+	'convertToInstance',
+	'A utility operation to cast an instance of this type to the
+instance datatype.
+
+Translate: native',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	1,
+	'return this;',
+	0,
+	'',
+	"000ca5fa-ec8a-4b37-ac09-ca245c678ae0");
+INSERT INTO S_DT_PROXY
+	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'instance',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("d510a4e1-38a9-4037-8400-6a8803f3903d",
+	"870ee36f-38fe-4fee-8572-806d3c15e993",
+	'get_compartment_text',
+	'',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	1,
+	'// The component package symbol only contains its name
+// appended by the interface stereotype
+result = "";
+if (param.at == Justification::Center_in_X)
+  result = "«interface»";
+elif (param.at == Justification::Center)
+  result = self.Name;
+end if;
+return result;',
+	1,
+	'',
+	"3b5296ab-afe4-41e9-8dfa-57f5d9f6bce6");
+INSERT INTO O_TPARM
+	VALUES ("07fd76a1-5ef8-40bd-bd4d-ef9538d2cc88",
+	"d510a4e1-38a9-4037-8400-6a8803f3903d",
+	'at',
+	"a9382bea-4a3f-43ec-9191-1f9f158b11a4",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("a9382bea-4a3f-43ec-9191-1f9f158b11a4",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'Justification',
+	'The Justification data type is used to specify text at a given location in a compartment.
+------------------------------------------------------------------------------
+Bridge:GD',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TPARM
+	VALUES ("4fbf4eb8-b0f4-4d0e-8de2-b4229a9f4b4c",
+	"d510a4e1-38a9-4037-8400-6a8803f3903d",
+	'ent_num',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"d296f225-7804-44c6-8bcb-d287a97e3e02",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'integer',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TPARM
+	VALUES ("d296f225-7804-44c6-8bcb-d287a97e3e02",
+	"d510a4e1-38a9-4037-8400-6a8803f3903d",
+	'comp_num',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"07fd76a1-5ef8-40bd-bd4d-ef9538d2cc88",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'string',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("342e6346-b955-4501-ae04-3c883fc2e18b",
+	"870ee36f-38fe-4fee-8572-806d3c15e993",
+	'get_compartments',
+	'',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	1,
+	'return 1;',
+	1,
+	'',
+	"d510a4e1-38a9-4037-8400-6a8803f3903d");
+INSERT INTO O_TFR
+	VALUES ("7187f6f8-0808-41de-a341-cc56f25bead7",
+	"870ee36f-38fe-4fee-8572-806d3c15e993",
+	'get_style',
+	'',
+	"6e636321-0fd1-4577-b185-e4d76b0d0c71",
+	1,
+	'return Style::Folder;',
+	1,
+	'',
+	"e90c14ba-a0d7-41d2-9aac-695a597b5055");
+INSERT INTO S_DT_PROXY
+	VALUES ("6e636321-0fd1-4577-b185-e4d76b0d0c71",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'Style',
+	'The Style data type specifies the precise form a graphical element will take when drawn.
+--------------------------------------------------------------------------
+Bridge:GD',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("6a81599c-9c23-4c5a-bf5d-38048363ae99",
+	"870ee36f-38fe-4fee-8572-806d3c15e993",
+	'get_text_style',
+	'',
+	"6e636321-0fd1-4577-b185-e4d76b0d0c71",
+	1,
+	'return Style::None;',
+	1,
+	'',
+	"7187f6f8-0808-41de-a341-cc56f25bead7");
+INSERT INTO O_TPARM
+	VALUES ("997f9862-1ae0-4973-9d4f-9e30e90b8fe5",
+	"6a81599c-9c23-4c5a-bf5d-38048363ae99",
+	'at',
+	"a9382bea-4a3f-43ec-9191-1f9f158b11a4",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("6870f0ea-ca28-408f-8ef0-cf3c08d56dcc",
+	"6a81599c-9c23-4c5a-bf5d-38048363ae99",
+	'ent_num',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"ba844da4-ac2b-4347-ac07-29452195da84",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("ba844da4-ac2b-4347-ac07-29452195da84",
+	"6a81599c-9c23-4c5a-bf5d-38048363ae99",
+	'comp_num',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"997f9862-1ae0-4973-9d4f-9e30e90b8fe5",
+	'');
+INSERT INTO O_TFR
+	VALUES ("e49d8324-329b-4d3b-8d35-315052ca3a32",
+	"870ee36f-38fe-4fee-8572-806d3c15e993",
+	'get_entries',
+	'',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	1,
+	'return 1;',
+	1,
+	'',
+	"342e6346-b955-4501-ae04-3c883fc2e18b");
+INSERT INTO O_TPARM
+	VALUES ("cb0d15b0-8793-41f6-b881-c4b68c355846",
+	"e49d8324-329b-4d3b-8d35-315052ca3a32",
+	'comp_num',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("a9cf4721-d1b6-48b1-b489-c99f2c184cae",
+	"870ee36f-38fe-4fee-8572-806d3c15e993",
+	'newInterface',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'create object instance interface of C_I;
+relate interface to self across R4303;
+interface.initialize();',
+	1,
+	'',
+	"205eb47d-e369-4743-830f-487100e6a78b");
+INSERT INTO O_TFR
+	VALUES ("f36a3105-fb35-47d5-a887-cbeb0c1edd55",
+	"870ee36f-38fe-4fee-8572-806d3c15e993",
+	'newInterfacePackage',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+select one idiid related by self->IP_IPINIP[R4300];
+if(empty idiid)
+  create object instance idiid of IP_IPINIP;
+  relate self to idiid across R4300;
+end if;
+create object instance interfaceDiagram of IP_IP;
+create object instance sp of EP_SPKG;
+relate interfaceDiagram to sp across R1402;
+relate idiid to interfaceDiagram across R4301;
+interfaceDiagram.initialize();
+select one system related by self->S_SYS[R4304];
+if(empty system)
+  select one system related by self->S_SYS[R4302];
+end if;
+if(not_empty system)
+  relate interfaceDiagram to system across R4304;
+end if;',
+	1,
+	'',
+	"a9cf4721-d1b6-48b1-b489-c99f2c184cae");
+INSERT INTO O_TFR
+	VALUES ("3b5296ab-afe4-41e9-8dfa-57f5d9f6bce6",
+	"870ee36f-38fe-4fee-8572-806d3c15e993",
+	'dispose',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+select one system related by self->S_SYS[R4302];
+if(not_empty system)
+  unrelate self from system across R4302;
+end if;
+
+// unrelate from parent
+select one did related by self->IP_IPINIP[R4301];
+if(not_empty did)
+  unrelate self from did across R4301;
+  // are there any other children?
+  select any other_child related by did->IP_IP[R4301];
+  if empty other_child
+    // no, dispose the interface package in interface package placeholder
+    select one parent related by did->IP_IP[R4300];
+    if not_empty parent
+      unrelate did from parent across R4300;
+    end if;
+    delete object instance did;
+  end if;
+end if;
+
+// delete child Interface diagrams
+select one did related by self->IP_IPINIP[R4300];
+select many diagrams related by did->IP_IP[R4301];
+for each diagram in diagrams
+  diagram.dispose();
+end for;
+// last child will delete the did instance
+
+select many interfaces related by self->C_I[R4303];
+for each i in interfaces
+  unrelate i from self across R4303;
+  i.dispose();
+end for;
+select one system related by self->S_SYS[R4304];
+if(not_empty system)
+  unrelate self from system across R4304;
+end if;
+select one component related by self->C_C[R4206];
+if(not_empty component)
+  unrelate self from component across R4206;
+end if;
+select one componentPackage related by self->CP_CP[R4607];
+if(not_empty componentPackage)
+  unrelate self from componentPackage across R4607;
+end if;
+select one specPkg related by self->EP_SPKG[R1402];
+delete object instance self;
+// we must dispose the supertype after the
+// subtype to allow access to the id through
+// the supertype
+if(not_empty specPkg)
+  unrelate self from specPkg across R1402;
+  specPkg.dispose();
+end if;',
+	1,
+	'',
+	"deb22681-6ab6-4d01-b708-6f65b9e12e8f");
+INSERT INTO O_TFR
+	VALUES ("205eb47d-e369-4743-830f-487100e6a78b",
+	"870ee36f-38fe-4fee-8572-806d3c15e993",
+	'isChildPackageOf',
+	'',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+/*
+ * Check the child tree to see if the given package exists
+ *
+ */
+select many childPkgs related by self->IP_IPINIP[R4300]->IP_IP[R4301];
+for each childPkg in childPkgs
+  if(childPkg.Package_ID == param.Id)
+    return true;
+  else
+    result = childPkg.isChildPackageOf(Id:param.Id);
+    if(result)
+      return result;
+    end if;
+  end if;
+end for;
+return false;',
+	1,
+	'',
+	"a7ed3c4f-8596-4860-93f7-499d3aa0f0ba");
+INSERT INTO O_TPARM
+	VALUES ("b3bf3f1f-9cf1-4a90-8e7b-84643dc7161d",
+	"205eb47d-e369-4743-830f-487100e6a78b",
+	'Id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'unique_id',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO S_DT_PROXY
+	VALUES ("8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'boolean',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("f2aaa46b-d6ae-4c76-b8d8-64931f34b113",
+	"870ee36f-38fe-4fee-8572-806d3c15e993",
+	'associatePackageWithSystem',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+select any system from instances of S_SYS where (selected.Sys_ID == param.sysID);
+if (not_empty system)
+  shouldRelate = true;
+  select one existSystem related by self->S_SYS[R4304];
+  if(not_empty existSystem)
+    if(system == existSystem)
+      shouldRelate = false;
+    end if;
+  end if;
+  if(shouldRelate)
+    if(not_empty existSystem)
+      unrelate self from existSystem across R4304;
+    end if;
+    relate self to system across R4304;
+  end if;
+
+  select many childPkgs related by self->IP_IPINIP[R4300]->IP_IP[R4301];
+  for each childPkg in childPkgs
+    childPkg.associatePackageWithSystem(sysID:system.Sys_ID);
+  end for;
+end if;
+  ',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_TPARM
+	VALUES ("355da726-a100-4e7b-971a-8aef6d138af1",
+	"f2aaa46b-d6ae-4c76-b8d8-64931f34b113",
+	'sysID',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("e90c14ba-a0d7-41d2-9aac-695a597b5055",
+	"870ee36f-38fe-4fee-8572-806d3c15e993",
+	'get_ooa_id',
+	'',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	1,
+	'return self.Package_ID;',
+	1,
+	'',
+	"e49d8324-329b-4d3b-8d35-315052ca3a32");
+INSERT INTO O_TFR
+	VALUES ("000ca5fa-ec8a-4b37-ac09-ca245c678ae0",
+	"870ee36f-38fe-4fee-8572-806d3c15e993",
+	'associateWithSystem',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// unhook from current parent
+self.deassociateFromParent();
+// hook up with system
+select any system from instances of S_SYS
+                                     where (selected.Sys_ID == param.sysID);
+relate self to system across R4302;',
+	1,
+	'',
+	"22cf005f-31a6-4094-b46e-c8024133b265");
+INSERT INTO O_TPARM
+	VALUES ("577fb732-51f3-4872-bf36-3ebf557e07d5",
+	"000ca5fa-ec8a-4b37-ac09-ca245c678ae0",
+	'sysID',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("deb22681-6ab6-4d01-b708-6f65b9e12e8f",
+	"870ee36f-38fe-4fee-8572-806d3c15e993",
+	'deassociateFromParent',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+select one system related by self->S_SYS[R4302];
+if(not_empty system)
+  unrelate self from system across R4302;
+end if;
+select one specPkg related by self->EP_SPKG[R1402];
+select one pkg related by specPkg->EP_PKG[R1400];
+if(not_empty pkg)
+  unrelate specPkg from pkg across R1400;
+end if;
+select one ipinip related by self->IP_IPINIP[R4301];
+if(not_empty ipinip)
+  select one parent related by ipinip->IP_IP[R4300];
+  unrelate ipinip from self across R4301;
+  select many otherIps related by ipinip->IP_IP[R4301];
+  if(empty otherIps)
+    unrelate ipinip from parent across R4300;
+    delete object instance ipinip;
+  end if;
+end if;
+select one componentPackage related by self->CP_CP[R4607];
+if(not_empty componentPackage)
+  unrelate self from componentPackage across R4607;
+end if;
+select one component related by self->C_C[R4206];
+if(not_empty component)
+  unrelate self from component across R4206;
+end if;',
+	1,
+	'',
+	"31e93523-d63f-4d45-a385-c2f7b70b79f8");
+INSERT INTO O_TFR
+	VALUES ("22cf005f-31a6-4094-b46e-c8024133b265",
+	"870ee36f-38fe-4fee-8572-806d3c15e993",
+	'associateWithPackage',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// unhook from current parent
+self.deassociateFromParent();
+// hook up with package
+select any package from instances of EP_PKG
+                                     where (selected.Package_ID == param.pkgID);
+select one specPkg related by self->EP_SPKG[R1402];
+relate specPkg to package across R1400;',
+	1,
+	'',
+	"b0912e68-c59f-43a2-a70e-02fc635fa050");
+INSERT INTO O_TPARM
+	VALUES ("3b8165fe-d718-4a47-ab0a-b715264ab0a7",
+	"22cf005f-31a6-4094-b46e-c8024133b265",
+	'pkgID',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("57d3b431-64df-43b1-83fd-9163ee7bb035",
+	"870ee36f-38fe-4fee-8572-806d3c15e993",
+	'associateWithComponentPackage',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+// unhook from current parent
+self.deassociateFromParent();
+// hook up with component package
+select any cp from instances of CP_CP where (selected.Package_ID == param.cpID);
+relate cp to self across R4607;',
+	1,
+	'',
+	"05bc6adb-1ce2-47b8-9755-b07139501766");
+INSERT INTO O_TPARM
+	VALUES ("a754b43e-a016-4a30-959f-04e70bde502e",
+	"57d3b431-64df-43b1-83fd-9163ee7bb035",
+	'cpID',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("05bc6adb-1ce2-47b8-9755-b07139501766",
+	"870ee36f-38fe-4fee-8572-806d3c15e993",
+	'associateWithComponent',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// unhook from current parent
+self.deassociateFromParent();
+// hook up with component
+select any component from instances of C_C
+                                    where (selected.Id == param.compID);
+relate self to component across R4206;',
+	1,
+	'',
+	"f2aaa46b-d6ae-4c76-b8d8-64931f34b113");
+INSERT INTO O_TPARM
+	VALUES ("3565bb66-b9e1-457d-b40f-f516328f49d1",
+	"05bc6adb-1ce2-47b8-9755-b07139501766",
+	'compID',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("b0912e68-c59f-43a2-a70e-02fc635fa050",
+	"870ee36f-38fe-4fee-8572-806d3c15e993",
+	'associateWithInterfacePackage',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+// unhook from current parent
+self.deassociateFromParent();
+// hook up with interface package
+select any ifacePkg from instances of IP_IP
+                                     where (selected.Package_ID == param.ipID);
+select one ipinip related by ifacePkg->IP_IPINIP[R4300];
+if(empty ipinip)
+  create object instance ipinip of IP_IPINIP;
+  relate ipinip to ifacePkg across R4300;
+end if;
+relate ipinip to self across R4301;',
+	1,
+	'',
+	"57d3b431-64df-43b1-83fd-9163ee7bb035");
+INSERT INTO O_TPARM
+	VALUES ("fe51fd88-85b1-4640-901d-4cc9e4a442e5",
+	"b0912e68-c59f-43a2-a70e-02fc635fa050",
+	'ipID',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("311f4a4d-cc80-4271-a0c8-c6351bfb8666",
+	"870ee36f-38fe-4fee-8572-806d3c15e993",
+	'pasteInterfacePackage',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+select any ifacePkg from instances of IP_IP where (selected.Package_ID == param.id);
+if(not_empty ifacePkg)
+  // guarantee a unique name for the pasted dt package
+  ifacePkg.Name = ::getUniqueInitialNameInParent(instance:ifacePkg.convertToInstance(),
+  						name:ifacePkg.Name, parent:self.convertToInstance());
+  ifacePkg.associateWithInterfacePackage(ipID:self.Package_ID);  
+  select one system related by self->S_SYS[R4304];
+  ifacePkg.associatePackageWithSystem(sysID:system.Sys_ID);
+end if;',
+	1,
+	'',
+	"f36a3105-fb35-47d5-a887-cbeb0c1edd55");
+INSERT INTO O_TPARM
+	VALUES ("66fc7fd3-247b-4931-9ddd-50d0c97e4181",
+	"311f4a4d-cc80-4271-a0c8-c6351bfb8666",
+	'id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("c11d4a65-907f-47d1-a190-69d6e26b7c71",
+	"870ee36f-38fe-4fee-8572-806d3c15e993",
+	'getInterfacePckgCount',
+	'',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+select many interfacePckgs related by self->IP_IPINIP[R4300]->IP_IP[R4301];
+return cardinality interfacePckgs;',
+	1,
+	'',
+	"311f4a4d-cc80-4271-a0c8-c6351bfb8666");
+INSERT INTO O_TFR
+	VALUES ("0276a6dc-754e-4b73-b417-e8bed8c7cbd6",
+	"870ee36f-38fe-4fee-8572-806d3c15e993",
+	'getInterfacePckgId',
+	'',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+id = GD::NULL_UNIQUE_ID();
+select many interfacePckgs related by self->IP_IPINIP[R4300]->IP_IP[R4301];
+// We''re preincrementing the index
+count = -1;
+for each interfacePckg in interfacePckgs
+  if (not_empty interfacePckg)
+      count = count+1;
+  end if;
+  if (count == param.index)
+      return interfacePckg.get_ooa_id();  
+  end if;
+end for;
+return id;',
+	1,
+	'',
+	"c11d4a65-907f-47d1-a190-69d6e26b7c71");
+INSERT INTO O_TPARM
+	VALUES ("43101bc4-2de5-4c86-89b7-3bec5db8609f",
+	"0276a6dc-754e-4b73-b417-e8bed8c7cbd6",
+	'index',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("8ab35bb1-3148-40ac-9adb-e8ede3d0c086",
+	"870ee36f-38fe-4fee-8572-806d3c15e993",
+	'getInterfaceCount',
+	'',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	1,
+	'select many interfaces related by self->C_I[R4303];
+return cardinality interfaces;',
+	1,
+	'',
+	"0276a6dc-754e-4b73-b417-e8bed8c7cbd6");
+INSERT INTO O_TFR
+	VALUES ("34fb7132-26ba-460c-b6d2-c864e3ad3ebb",
+	"870ee36f-38fe-4fee-8572-806d3c15e993",
+	'getInterfaceId',
+	'',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	1,
+	'id = GD::NULL_UNIQUE_ID();
+select many interfaces related by self->C_I[R4303];
+// We''re preincrementing the index
+count = -1;
+for each interface in interfaces
+  if (not_empty interface)
+      count = count+1;
+  end if;
+  if (count == param.index)
+      return interface.Id;  
+  end if;
+end for;
+return id;',
+	1,
+	'',
+	"8ab35bb1-3148-40ac-9adb-e8ede3d0c086");
+INSERT INTO O_TPARM
+	VALUES ("7e3149ea-b2f1-4b20-9d4d-cb573d75c791",
+	"34fb7132-26ba-460c-b6d2-c864e3ad3ebb",
+	'index',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("3eaea49f-7a60-47de-ad48-dce8e97f1cce",
+	"870ee36f-38fe-4fee-8572-806d3c15e993",
+	'pasteInterface',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+select any iface from instances of C_I where (selected.Id == param.id);
+if(not_empty iface)
+  // guarantee a unique name for the pasted dt package
+  iface.Name = ::getUniqueInitialNameInParent(instance:iface.convertToInstance(),
+  						name:iface.Name, parent:self.convertToInstance());
+  relate iface to self across R4303;
+end if;',
+	1,
+	'',
+	"34fb7132-26ba-460c-b6d2-c864e3ad3ebb");
+INSERT INTO O_TPARM
+	VALUES ("381a9b93-31af-4082-855b-a07f34b3e052",
+	"3eaea49f-7a60-47de-ad48-dce8e97f1cce",
+	'id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("0d20a4db-5edd-4737-8cca-04a3e6602898",
+	"870ee36f-38fe-4fee-8572-806d3c15e993",
+	'collectReferencesForSynchronization',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'/**
+ *  Call on all interfaces to gather required elements for
+ *  synchronization
+ */
+select many interfaces related by self->C_I[R4303];
+for each interface in interfaces
+  interface.collectReferencesForSynchronization(
+                   referenceList:param.referenceList, syncType: param.syncType);
+end for;
+select many interfacePkgs related by self->IP_IPINIP[R4300]->IP_IP[R4301];
+for each interfacePkg in interfacePkgs
+  interfacePkg.collectReferencesForSynchronization(
+                   referenceList:param.referenceList, syncType: param.syncType);
+end for;',
+	1,
+	'',
+	"3eaea49f-7a60-47de-ad48-dce8e97f1cce");
+INSERT INTO O_TPARM
+	VALUES ("f1ea80c0-324e-4ba7-80a4-7cf898d0d250",
+	"0d20a4db-5edd-4737-8cca-04a3e6602898",
+	'referenceList',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("c406bdce-8fc5-4731-8d59-cb500d50630a",
+	"0d20a4db-5edd-4737-8cca-04a3e6602898",
+	'syncType',
+	"f4e80333-d340-4a40-8bc6-49b5e3561daf",
+	0,
+	'',
+	"f1ea80c0-324e-4ba7-80a4-7cf898d0d250",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("f4e80333-d340-4a40-8bc6-49b5e3561daf",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'SynchronizationType',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("4f5cfb08-e3aa-4791-bce4-847abdf23068",
+	"870ee36f-38fe-4fee-8572-806d3c15e993");
+INSERT INTO O_BATTR
+	VALUES ("4f5cfb08-e3aa-4791-bce4-847abdf23068",
+	"870ee36f-38fe-4fee-8572-806d3c15e993");
+INSERT INTO O_ATTR
+	VALUES ("4f5cfb08-e3aa-4791-bce4-847abdf23068",
+	"870ee36f-38fe-4fee-8572-806d3c15e993",
+	"4f48971a-3b6e-4cdf-b070-d120f182e4f2",
+	'Name',
+	'Full Name: Interface Diagram Name',
+	'',
+	'Name',
+	0,
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("2faee6d4-fd73-4f36-bfb8-1cedf8a2b4bf",
+	"870ee36f-38fe-4fee-8572-806d3c15e993");
+INSERT INTO O_BATTR
+	VALUES ("2faee6d4-fd73-4f36-bfb8-1cedf8a2b4bf",
+	"870ee36f-38fe-4fee-8572-806d3c15e993");
+INSERT INTO O_ATTR
+	VALUES ("2faee6d4-fd73-4f36-bfb8-1cedf8a2b4bf",
+	"870ee36f-38fe-4fee-8572-806d3c15e993",
+	"4f5cfb08-e3aa-4791-bce4-847abdf23068",
+	'Descrip',
+	'Full Name: Interface Diagram Description
+Description: A textual description of this diagram.',
+	'',
+	'Descrip',
+	0,
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("870ee36f-38fe-4fee-8572-806d3c15e993",
+	"5735d0f8-e286-4832-975e-04887e18a036",
+	0,
+	"9a4da692-4fa6-494b-80c1-90dc7da16bd7",
+	"bce3bed6-e177-4ce7-896f-a0ec004ea208",
+	"85b70257-dab6-43d6-a5ed-aaa1e25001fa",
+	"97563b67-128c-4c5d-b02b-4727d50f9f2c",
+	"3b3f259d-2ce3-4246-80c4-4ae0fa063414",
+	"b7dfbd12-e127-4caa-a806-82cb4cfbf5dd",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'System Model',
+	'Sys_ID',
+	'R4302');
+INSERT INTO R_RGO_PROXY
+	VALUES ("870ee36f-38fe-4fee-8572-806d3c15e993",
+	"bce3bed6-e177-4ce7-896f-a0ec004ea208",
+	"85b70257-dab6-43d6-a5ed-aaa1e25001fa",
+	'../Interface Package.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("9a4da692-4fa6-494b-80c1-90dc7da16bd7",
+	"5735d0f8-e286-4832-975e-04887e18a036",
+	0,
+	"bce3bed6-e177-4ce7-896f-a0ec004ea208",
+	"97563b67-128c-4c5d-b02b-4727d50f9f2c",
+	'../Interface Package.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("3b3f259d-2ce3-4246-80c4-4ae0fa063414",
+	"870ee36f-38fe-4fee-8572-806d3c15e993",
+	"9a4da692-4fa6-494b-80c1-90dc7da16bd7",
+	"5735d0f8-e286-4832-975e-04887e18a036",
+	1,
+	'Sys_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("9a4da692-4fa6-494b-80c1-90dc7da16bd7",
+	"5735d0f8-e286-4832-975e-04887e18a036",
+	'../../Domain/System Model/System Model.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("3b3f259d-2ce3-4246-80c4-4ae0fa063414",
+	"870ee36f-38fe-4fee-8572-806d3c15e993",
+	"82b8791f-6c39-4e8c-84ae-30b0c2614cd5",
+	'Direct_Sys_ID',
+	'',
+	'Direct_',
+	'Sys_ID',
+	1,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("870ee36f-38fe-4fee-8572-806d3c15e993",
+	"5735d0f8-e286-4832-975e-04887e18a036",
+	0,
+	"9a4da692-4fa6-494b-80c1-90dc7da16bd7",
+	"34319565-fcd8-4a08-a258-89363f7e4cf6",
+	"25d908d1-3b4c-4b1b-9ded-debf22779356",
+	"e8bbc8bf-77b4-406b-9dbb-4f13cee8775d",
+	"9ffa590d-2a6c-4f30-9ae4-93056860dd21",
+	"a1fb55b2-d6a6-4d58-b72d-8087117c7ac9",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'System Model',
+	'Sys_ID',
+	'R4304');
+INSERT INTO R_RGO_PROXY
+	VALUES ("870ee36f-38fe-4fee-8572-806d3c15e993",
+	"34319565-fcd8-4a08-a258-89363f7e4cf6",
+	"25d908d1-3b4c-4b1b-9ded-debf22779356",
+	'../Interface Package.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("9a4da692-4fa6-494b-80c1-90dc7da16bd7",
+	"5735d0f8-e286-4832-975e-04887e18a036",
+	0,
+	"34319565-fcd8-4a08-a258-89363f7e4cf6",
+	"e8bbc8bf-77b4-406b-9dbb-4f13cee8775d",
+	'../Interface Package.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("9ffa590d-2a6c-4f30-9ae4-93056860dd21",
+	"870ee36f-38fe-4fee-8572-806d3c15e993",
+	"9a4da692-4fa6-494b-80c1-90dc7da16bd7",
+	"5735d0f8-e286-4832-975e-04887e18a036",
+	1,
+	'Sys_ID');
+INSERT INTO O_ATTR
+	VALUES ("9ffa590d-2a6c-4f30-9ae4-93056860dd21",
+	"870ee36f-38fe-4fee-8572-806d3c15e993",
+	"3b3f259d-2ce3-4246-80c4-4ae0fa063414",
+	'Sys_ID',
+	'',
+	'',
+	'Sys_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("870ee36f-38fe-4fee-8572-806d3c15e993",
+	"cf4966b0-706a-4373-a2ee-7e706918813c",
+	0,
+	"a5a1b94e-be2f-4750-bd58-cf1c2713558a",
+	"9491004c-0a85-439e-b7bc-257234bc75ff",
+	"014bd6e6-e9c1-4d64-b098-8e7209352201",
+	"fe8d926d-f963-4fed-b2c0-39726b3e54df",
+	"18d4ab27-a56f-448d-8ccb-03bb49d7f122",
+	"455f6b83-31b8-49fd-b064-6f0b41b465ff",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Specification Package',
+	'Package_ID',
+	'R1402');
+INSERT INTO R_RGO_PROXY
+	VALUES ("870ee36f-38fe-4fee-8572-806d3c15e993",
+	"9491004c-0a85-439e-b7bc-257234bc75ff",
+	"014bd6e6-e9c1-4d64-b098-8e7209352201",
+	'../../Element Packaging/Element Packaging.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("a5a1b94e-be2f-4750-bd58-cf1c2713558a",
+	"cf4966b0-706a-4373-a2ee-7e706918813c",
+	0,
+	"9491004c-0a85-439e-b7bc-257234bc75ff",
+	"fe8d926d-f963-4fed-b2c0-39726b3e54df",
+	'../../Element Packaging/Element Packaging.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("18d4ab27-a56f-448d-8ccb-03bb49d7f122",
+	"870ee36f-38fe-4fee-8572-806d3c15e993",
+	"a5a1b94e-be2f-4750-bd58-cf1c2713558a",
+	"cf4966b0-706a-4373-a2ee-7e706918813c",
+	1,
+	'Package_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("a5a1b94e-be2f-4750-bd58-cf1c2713558a",
+	"cf4966b0-706a-4373-a2ee-7e706918813c",
+	'../../Element Packaging/Specification Package/Specification Package.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("18d4ab27-a56f-448d-8ccb-03bb49d7f122",
+	"870ee36f-38fe-4fee-8572-806d3c15e993",
+	"00000000-0000-0000-0000-000000000000",
+	'Package_ID',
+	'',
+	'',
+	'Package_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("870ee36f-38fe-4fee-8572-806d3c15e993",
+	"76aac5bd-1f3f-409b-bf58-ab587f190bfd",
+	0,
+	"c75805b5-b512-4d99-97ee-933159f33062",
+	"88a2e413-5be6-4241-8d86-f1a65417d93a",
+	"774407a5-dc13-4adf-b4a7-d8fdc8b33654",
+	"a4fba97b-dae8-45b1-bdd4-df2b2ac55bcc",
+	"4f48971a-3b6e-4cdf-b070-d120f182e4f2",
+	"5277acd9-e5c1-4e3b-8502-00c4aef49282",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Component Package',
+	'Package_ID',
+	'R4607');
+INSERT INTO R_RGO_PROXY
+	VALUES ("870ee36f-38fe-4fee-8572-806d3c15e993",
+	"88a2e413-5be6-4241-8d86-f1a65417d93a",
+	"774407a5-dc13-4adf-b4a7-d8fdc8b33654",
+	'../../Component/Component Packaging/Component Packaging.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("c75805b5-b512-4d99-97ee-933159f33062",
+	"76aac5bd-1f3f-409b-bf58-ab587f190bfd",
+	0,
+	"88a2e413-5be6-4241-8d86-f1a65417d93a",
+	"a4fba97b-dae8-45b1-bdd4-df2b2ac55bcc",
+	'../../Component/Component Packaging/Component Packaging.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("4f48971a-3b6e-4cdf-b070-d120f182e4f2",
+	"870ee36f-38fe-4fee-8572-806d3c15e993",
+	"a5a1b94e-be2f-4750-bd58-cf1c2713558a",
+	"cf4966b0-706a-4373-a2ee-7e706918813c",
+	1,
+	'Package_ID');
+INSERT INTO O_ATTR
+	VALUES ("4f48971a-3b6e-4cdf-b070-d120f182e4f2",
+	"870ee36f-38fe-4fee-8572-806d3c15e993",
+	"bd7a5b02-2759-462d-8258-016a15e5a744",
+	'Component_Package_ID',
+	'',
+	'Component_',
+	'Package_ID',
+	1,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("870ee36f-38fe-4fee-8572-806d3c15e993",
+	"38e5906a-b189-4c0e-b6a8-298c766763e9",
+	0,
+	"8255bc08-8fea-4344-8788-c9ec276d13f7",
+	"5d12fd50-bba9-4acb-b9f2-d891f1ac363d",
+	"543e927a-40e9-417b-bea1-e5294b493ba4",
+	"6e973732-682e-4ef5-8f45-54a30c5d2375",
+	"82b8791f-6c39-4e8c-84ae-30b0c2614cd5",
+	"149a9339-8ea9-453f-a4f3-af455611ea45",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Interface Package in Interface Package',
+	'Package_ID',
+	'R4301');
+INSERT INTO R_RGO_PROXY
+	VALUES ("870ee36f-38fe-4fee-8572-806d3c15e993",
+	"5d12fd50-bba9-4acb-b9f2-d891f1ac363d",
+	"543e927a-40e9-417b-bea1-e5294b493ba4",
+	'../Interface Package.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("8255bc08-8fea-4344-8788-c9ec276d13f7",
+	"38e5906a-b189-4c0e-b6a8-298c766763e9",
+	0,
+	"5d12fd50-bba9-4acb-b9f2-d891f1ac363d",
+	"6e973732-682e-4ef5-8f45-54a30c5d2375",
+	'../Interface Package.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("82b8791f-6c39-4e8c-84ae-30b0c2614cd5",
+	"870ee36f-38fe-4fee-8572-806d3c15e993",
+	"a5a1b94e-be2f-4750-bd58-cf1c2713558a",
+	"cf4966b0-706a-4373-a2ee-7e706918813c",
+	1,
+	'Package_ID');
+INSERT INTO O_ATTR
+	VALUES ("82b8791f-6c39-4e8c-84ae-30b0c2614cd5",
+	"870ee36f-38fe-4fee-8572-806d3c15e993",
+	"18d4ab27-a56f-448d-8ccb-03bb49d7f122",
+	'Parent_Package_ID',
+	'',
+	'Parent_',
+	'Package_ID',
+	1,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("870ee36f-38fe-4fee-8572-806d3c15e993",
+	"2786d973-1537-44a1-81d6-3ddbd2377865",
+	0,
+	"7b9804b1-294c-4909-b563-aae43167f8d6",
+	"43986387-594d-41d4-ac84-d96d3e7337e5",
+	"00e338ae-beeb-49a5-9aae-c5644f733572",
+	"8408cd20-0221-4c95-9897-df985b021832",
+	"bd7a5b02-2759-462d-8258-016a15e5a744",
+	"e0e9a967-c0d1-4d94-88bb-2b3e90134b0b",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Component',
+	'Id',
+	'R4206');
+INSERT INTO R_RGO_PROXY
+	VALUES ("870ee36f-38fe-4fee-8572-806d3c15e993",
+	"43986387-594d-41d4-ac84-d96d3e7337e5",
+	"00e338ae-beeb-49a5-9aae-c5644f733572",
+	'../../Component/Component Nesting/Component Nesting.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("7b9804b1-294c-4909-b563-aae43167f8d6",
+	"2786d973-1537-44a1-81d6-3ddbd2377865",
+	0,
+	"43986387-594d-41d4-ac84-d96d3e7337e5",
+	"8408cd20-0221-4c95-9897-df985b021832",
+	'../../Component/Component Nesting/Component Nesting.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("bd7a5b02-2759-462d-8258-016a15e5a744",
+	"870ee36f-38fe-4fee-8572-806d3c15e993",
+	"5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	1,
+	'Element_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	'../../Packageable Element/Packageable Element/Packageable Element.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("bd7a5b02-2759-462d-8258-016a15e5a744",
+	"870ee36f-38fe-4fee-8572-806d3c15e993",
+	"9ffa590d-2a6c-4f30-9ae4-93056860dd21",
+	'Component_Id',
+	'',
+	'Component_',
+	'Id',
+	1,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"870ee36f-38fe-4fee-8572-806d3c15e993");
+INSERT INTO O_OIDA
+	VALUES ("18d4ab27-a56f-448d-8ccb-03bb49d7f122",
+	"870ee36f-38fe-4fee-8572-806d3c15e993",
+	0,
+	'Package_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"870ee36f-38fe-4fee-8572-806d3c15e993");
+INSERT INTO O_ID
+	VALUES (2,
+	"870ee36f-38fe-4fee-8572-806d3c15e993");
+INSERT INTO S_SS_PROXY
+	VALUES ("eb74db19-81fd-4e68-afdd-ec658964f576",
+	'Interface Package',
+	'// This is used by schema_gen to ignore this subsystem (for publication)
+TRANSLATE_FOR_EXTERNAL_USE:FALSE
+
+The Interface Diagram subsystem captures data specific to the graphical
+implementation of interfaces.',
+	'IP',
+	4300,
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
+	'../Interface Package.xtuml');

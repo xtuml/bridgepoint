@@ -1,0 +1,135 @@
+-- BP 7.1 content: InstanceStateMachine syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO SM_ISM
+	VALUES ("a76311a2-7489-4df7-9e69-4a8122350a68",
+	"9885bc67-712f-42a2-a240-c330a7c5a033");
+INSERT INTO SM_SM
+	VALUES ("a76311a2-7489-4df7-9e69-4a8122350a68",
+	'',
+	3);
+INSERT INTO SM_MOORE
+	VALUES ("a76311a2-7489-4df7-9e69-4a8122350a68");
+INSERT INTO SM_EVTDI
+	VALUES ("39e67d12-5ffa-41c4-b964-311ec3514c99",
+	"a76311a2-7489-4df7-9e69-4a8122350a68",
+	'test',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	'',
+	"cde2d9ce-75bc-47da-a80b-0548f50b55b5",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO SM_PEVT
+	VALUES ("cde2d9ce-75bc-47da-a80b-0548f50b55b5",
+	"a76311a2-7489-4df7-9e69-4a8122350a68",
+	"00000000-0000-0000-0000-000000000000",
+	'B Class',
+	'B',
+	'test_sm');
+INSERT INTO SM_EVT
+	VALUES ("cde2d9ce-75bc-47da-a80b-0548f50b55b5",
+	"a76311a2-7489-4df7-9e69-4a8122350a68",
+	"00000000-0000-0000-0000-000000000000",
+	1,
+	'test_sm',
+	0,
+	'',
+	'B1',
+	'This is a state machine event description.
+');
+INSERT INTO SM_PEVT
+	VALUES ("253b6f16-fd1c-4856-8c20-03acfc3f188a",
+	"a76311a2-7489-4df7-9e69-4a8122350a68",
+	"00000000-0000-0000-0000-000000000000",
+	'B Class',
+	'B',
+	'test_poly');
+INSERT INTO SM_EVT
+	VALUES ("253b6f16-fd1c-4856-8c20-03acfc3f188a",
+	"a76311a2-7489-4df7-9e69-4a8122350a68",
+	"00000000-0000-0000-0000-000000000000",
+	2,
+	'test_poly',
+	0,
+	'',
+	'B2',
+	'');
+INSERT INTO SM_STATE
+	VALUES ("97af8dcd-183c-4afb-b92e-8065148b4378",
+	"a76311a2-7489-4df7-9e69-4a8122350a68",
+	"00000000-0000-0000-0000-000000000000",
+	'State Name',
+	1,
+	0);
+INSERT INTO SM_MOAH
+	VALUES ("bf359afb-2b4a-4f72-b4e6-58b694ca896b",
+	"a76311a2-7489-4df7-9e69-4a8122350a68",
+	"97af8dcd-183c-4afb-b92e-8065148b4378");
+INSERT INTO SM_AH
+	VALUES ("bf359afb-2b4a-4f72-b4e6-58b694ca896b",
+	"a76311a2-7489-4df7-9e69-4a8122350a68");
+INSERT INTO SM_ACT
+	VALUES ("bf359afb-2b4a-4f72-b4e6-58b694ca896b",
+	"a76311a2-7489-4df7-9e69-4a8122350a68",
+	1,
+	'// This is the action
+',
+	'This is the state machine state description
+');
+INSERT INTO GD_MD
+	VALUES ("fd1836d3-2d08-4338-9414-c95f0a7bf92c",
+	8,
+	"a76311a2-7489-4df7-9e69-4a8122350a68",
+	40,
+	1,
+	0,
+	1,
+	1,
+	0,
+	12,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	'',
+	'testProp::Unnamed Subsystem::B Class::Instance State Machine');
+INSERT INTO GD_GE
+	VALUES ("d8a1cce0-fb0d-41c6-89cf-dfc0099f606e",
+	"fd1836d3-2d08-4338-9414-c95f0a7bf92c",
+	"97af8dcd-183c-4afb-b92e-8065148b4378",
+	41,
+	0,
+	'testProp::Unnamed Subsystem::B Class::Instance State Machine::State Name');
+INSERT INTO GD_SHP
+	VALUES ("d8a1cce0-fb0d-41c6-89cf-dfc0099f606e");
+INSERT INTO GD_NCS
+	VALUES ("d8a1cce0-fb0d-41c6-89cf-dfc0099f606e");
+INSERT INTO DIM_ND
+	VALUES (336.000000,
+	144.000000,
+	"d8a1cce0-fb0d-41c6-89cf-dfc0099f606e");
+INSERT INTO DIM_GE
+	VALUES (1744.000000,
+	1344.000000,
+	"d8a1cce0-fb0d-41c6-89cf-dfc0099f606e",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("d8a1cce0-fb0d-41c6-89cf-dfc0099f606e",
+	1,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_DIA
+	VALUES ("fd1836d3-2d08-4338-9414-c95f0a7bf92c",
+	'',
+	1.000000,
+	1600.000000,
+	1179.000000,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("9885bc67-712f-42a2-a240-c330a7c5a033",
+	'B Class',
+	2,
+	'B',
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'../B Class.xtuml');

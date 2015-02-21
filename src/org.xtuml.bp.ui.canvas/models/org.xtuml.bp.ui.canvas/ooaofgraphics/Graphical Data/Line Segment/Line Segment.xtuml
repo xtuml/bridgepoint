@@ -1,0 +1,1105 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
+	'Line Segment',
+	5,
+	'GD_LS',
+	'The line segment is a single line drawn on the model. If the line segment is the first or last line segment, there may be adornments (cardinality, multiplicity) drawn near where the line segment attaches to the GE it starts/ends at.  Note: BridgePoint is very arbitrary about how it populates line segments in terms of begins and ends.  Line segments do not always run from start element to end element - sometimes they are reversed. ',
+	"b5695748-80fc-47fb-b5c7-801b5f28b907");
+INSERT INTO O_TFR
+	VALUES ("d8d8457a-2e0a-43ce-a0ac-978309564994",
+	"77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
+	'isSelected',
+	'',
+	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	1,
+	'// segment is selected if its connector is selected
+select one seg_con_elem related by self->GD_CON[R6]->GD_GE[R2];
+return seg_con_elem.isSelected();
+',
+	1,
+	'',
+	"351be5e7-6e9d-4365-831d-1652aafa7ef0");
+INSERT INTO S_DT_PROXY
+	VALUES ("6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'boolean',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("351be5e7-6e9d-4365-831d-1652aafa7ef0",
+	"77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
+	'isOverVertex',
+	'',
+	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	1,
+	'if (self.isOverStart(x:param.x, y:param.y))
+  return true;
+elif (self.isOverEnd(x:param.x, y:param.y))
+  return true;
+end if;
+return false;',
+	1,
+	'',
+	"02c444e2-dcea-4d4e-ad46-a6bc1ce280e3");
+INSERT INTO O_TPARM
+	VALUES ("5ccf541f-4a00-4c4d-a7f2-1a58d1039b13",
+	"351be5e7-6e9d-4365-831d-1652aafa7ef0",
+	'x',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("388cd7a2-2d0c-4f02-9730-7670074de394",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'integer',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TPARM
+	VALUES ("af2d4e1c-cd31-4b19-a938-896f509a6ee5",
+	"351be5e7-6e9d-4365-831d-1652aafa7ef0",
+	'y',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"5ccf541f-4a00-4c4d-a7f2-1a58d1039b13",
+	'');
+INSERT INTO O_TFR
+	VALUES ("02c444e2-dcea-4d4e-ad46-a6bc1ce280e3",
+	"77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
+	'isOverStart',
+	'',
+	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	1,
+	'select one mdl related by self->GD_CON[R6]->GD_GE[R2]->GD_MD[R1];
+select one diagram related by mdl->DIM_DIA[R18];
+select one segmentStart related by self->DIM_WAY[R21];
+select one segmentEnd related by self->DIM_WAY[R22];
+return GR::isWithinHotspot(x:GR::scale(value:param.x) + diagram.viewportX,
+	y:GR::scale(value:param.y) + diagram.viewportY,
+	x2:segmentStart.positionX, y2:segmentStart.positionY);
+',
+	1,
+	'',
+	"6c198bb7-a795-4df2-b5cf-62f61fcaf99e");
+INSERT INTO O_TPARM
+	VALUES ("3ed97a5e-697a-43e6-bf47-b5e8bdece9e6",
+	"02c444e2-dcea-4d4e-ad46-a6bc1ce280e3",
+	'x',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("f77d01ee-f3a0-436c-89f7-630999400258",
+	"02c444e2-dcea-4d4e-ad46-a6bc1ce280e3",
+	'y',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"3ed97a5e-697a-43e6-bf47-b5e8bdece9e6",
+	'');
+INSERT INTO O_TFR
+	VALUES ("6c198bb7-a795-4df2-b5cf-62f61fcaf99e",
+	"77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
+	'isOverEnd',
+	'',
+	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	1,
+	'select one mdl related by self->GD_CON[R6]->GD_GE[R2]->GD_MD[R1];
+select one diagram related by mdl->DIM_DIA[R18];
+select one segmentEnd related by self->DIM_WAY[R22];
+return GR::isWithinHotspot(x:GR::scale(value:param.x) + diagram.viewportX,
+    y:GR::scale(value:param.y) + diagram.viewportY,
+    x2:segmentEnd.positionX, y2:segmentEnd.positionY);
+',
+	1,
+	'',
+	"d17f439b-a40f-4395-815f-a48c3cd3c794");
+INSERT INTO O_TPARM
+	VALUES ("65ad2c33-12a8-4ca1-9562-cd9402b2a2ee",
+	"6c198bb7-a795-4df2-b5cf-62f61fcaf99e",
+	'x',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("28b35c7c-de90-4993-bab8-486fb94e65cd",
+	"6c198bb7-a795-4df2-b5cf-62f61fcaf99e",
+	'y',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"65ad2c33-12a8-4ca1-9562-cd9402b2a2ee",
+	'');
+INSERT INTO O_TFR
+	VALUES ("c362f14e-3431-431a-9e09-0ed39cc5574c",
+	"77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
+	'move',
+	'',
+	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	1,
+	'self.moveStart(xDelta:param.xDelta, yDelta:param.yDelta, snapToGrid:param.snapToGrid);
+self.moveEnd(xDelta:param.xDelta, yDelta:param.yDelta, snapToGrid:param.snapToGrid);
+',
+	1,
+	'',
+	"d8d8457a-2e0a-43ce-a0ac-978309564994");
+INSERT INTO O_TPARM
+	VALUES ("4e3bd405-1159-4829-a68b-5245ece0b33a",
+	"c362f14e-3431-431a-9e09-0ed39cc5574c",
+	'xDelta',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"af00f533-56d1-48b4-8fa0-b44c47bf1299",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("1f4f524d-cc2a-4534-9dcb-8cbe93e89805",
+	"c362f14e-3431-431a-9e09-0ed39cc5574c",
+	'yDelta',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"4e3bd405-1159-4829-a68b-5245ece0b33a",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("af00f533-56d1-48b4-8fa0-b44c47bf1299",
+	"c362f14e-3431-431a-9e09-0ed39cc5574c",
+	'snapToGrid',
+	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("3852f90c-88c5-467d-9b26-57c8cd438b42",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'void',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("21e64153-3278-41b1-9f2f-a614b6781996",
+	"77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
+	'moveStart',
+	'',
+	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	1,
+	'// if we are to snap this segment''s start to the grid
+select one con related by self->GD_CON[R6];
+select one selfStart related by self->DIM_WAY[R21];
+select one selfEnd related by self->DIM_WAY[R22];
+deltaX = param.xDelta;
+deltaY = param.yDelta;
+
+// only move the attached connectors if we are selected
+// this will mean that attached connectors are only adjusted
+// if the whole unit is being moved
+select one ge related by con->GD_GE[R2];
+if(con.isStartSelected() and con.isEndSelected())
+  self.moveAttachedConnectors(xDelta:deltaX, yDelta:deltaY);
+end if;
+
+if (self.Previous_elementId == OS::NULL_UNIQUE_ID() )
+  //
+  // This is the first segment of the connector
+  //
+  select any endText related by self->GD_CON[R6]->GD_CTXT[R8] where selected.end == End::Start;
+  if (not_empty endText)
+    endText.move(xDelta:deltaX, yDelta:deltaY);
+  end if;
+  // adjust the start anchor point for this connector
+  select one anchor related by self->GD_CON[R6]->DIM_ED[R20]->DIM_CON[R320];
+  if(not_empty anchor)
+    anchor.positionX = anchor.positionX + deltaX;
+    anchor.positionY = anchor.positionY + deltaY;
+  end if;
+end if;
+self.moveMiddleText(xDelta:deltaX, yDelta:deltaY);
+selfStart.positionX = selfStart.positionX + deltaX;
+selfStart.positionY = selfStart.positionY + deltaY;',
+	1,
+	'',
+	"985699a2-58f5-45eb-8375-7763a2808bb6");
+INSERT INTO O_TPARM
+	VALUES ("8f3393ae-f2cd-4e70-b2f4-3444ef7c770b",
+	"21e64153-3278-41b1-9f2f-a614b6781996",
+	'xDelta',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"335a4c01-3e14-4c56-8bda-7ed2c2ac537d",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("a832cc3d-4a19-4c45-9e22-b8d5e9253372",
+	"21e64153-3278-41b1-9f2f-a614b6781996",
+	'yDelta',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"8f3393ae-f2cd-4e70-b2f4-3444ef7c770b",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("335a4c01-3e14-4c56-8bda-7ed2c2ac537d",
+	"21e64153-3278-41b1-9f2f-a614b6781996",
+	'snapToGrid',
+	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("c56f6c15-3224-4e7c-96d4-55f4d22ee547",
+	"77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
+	'moveEnd',
+	'',
+	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	1,
+	'// if we are to snap this segment''s end to the grid
+select one con related by self->GD_CON[R6];
+select one selfStart related by self->DIM_WAY[R21];
+select one selfEnd related by self->DIM_WAY[R22];
+deltaX = param.xDelta;
+deltaY = param.yDelta;
+
+select one nextSegment related by self->GD_LS[R7.''precedes''];
+if (empty nextSegment)
+  //
+  // This is the last segment of the connector
+  //
+  select any endText related by self->GD_CON[R6]->GD_CTXT[R8] where selected.end == End::End;
+  if (not_empty endText)
+    endText.move(xDelta:deltaX, yDelta:deltaY);
+  end if;
+  // adjust the start anchor point for this connector
+  select one anchor related by self->GD_CON[R6]->DIM_ED[R20]->DIM_CON[R321];
+  if(not_empty anchor)
+    anchor.positionX = anchor.positionX + deltaX;
+    anchor.positionY = anchor.positionY + deltaY;
+  end if;
+end if;
+self.moveMiddleText(xDelta:deltaX, yDelta:deltaY);
+selfEnd.positionX = selfEnd.positionX + deltaX;
+selfEnd.positionY = selfEnd.positionY + deltaY;
+',
+	1,
+	'',
+	"c362f14e-3431-431a-9e09-0ed39cc5574c");
+INSERT INTO O_TPARM
+	VALUES ("eb84736f-b157-46e7-8877-cc8505b2470b",
+	"c56f6c15-3224-4e7c-96d4-55f4d22ee547",
+	'xDelta',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"ce6504cc-5b73-4d68-aa95-1690c0e1a75d",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("b53e7657-ec1e-4a38-8a0d-3a780955ff36",
+	"c56f6c15-3224-4e7c-96d4-55f4d22ee547",
+	'yDelta',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"eb84736f-b157-46e7-8877-cc8505b2470b",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("ce6504cc-5b73-4d68-aa95-1690c0e1a75d",
+	"c56f6c15-3224-4e7c-96d4-55f4d22ee547",
+	'snapToGrid',
+	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("d17f439b-a40f-4395-815f-a48c3cd3c794",
+	"77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
+	'isOver',
+	'',
+	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	1,
+	'select one segmentStart related by self->DIM_WAY[R21];
+select one segmentEnd related by self->DIM_WAY[R22];
+return GR::isOver(x:param.x, y:param.y,
+	  x1:segmentStart.positionX, y1:segmentStart.positionY,
+	  x2:segmentEnd.positionX, y2:segmentEnd.positionY,
+	  tolerance:GR::getHotspotSize());
+',
+	1,
+	'',
+	"16d5e8dd-4355-4051-92e0-bd81e9a17831");
+INSERT INTO O_TPARM
+	VALUES ("b681c867-34af-4b4f-a90c-69c8409330f9",
+	"d17f439b-a40f-4395-815f-a48c3cd3c794",
+	'x',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("a718242d-7057-4461-b2e9-1afe7048fb8c",
+	"d17f439b-a40f-4395-815f-a48c3cd3c794",
+	'y',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"b681c867-34af-4b4f-a90c-69c8409330f9",
+	'');
+INSERT INTO O_TFR
+	VALUES ("16d5e8dd-4355-4051-92e0-bd81e9a17831",
+	"77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
+	'isMiddleSegment',
+	'',
+	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	1,
+	'select many segs related by self->GD_CON[R6]->GD_LS[R6];
+//
+// Find center segment
+//
+count = 0;
+for each seg in segs
+  if (seg.elementId == self.elementId)
+    break;
+  end if;
+  count = count + 1;
+end for;
+total_segs = cardinality segs;
+halfway = total_segs / 2;
+return count == halfway;',
+	1,
+	'',
+	"c653f7d3-c6d2-494d-86fd-a8001f3d0518");
+INSERT INTO O_TFR
+	VALUES ("c653f7d3-c6d2-494d-86fd-a8001f3d0518",
+	"77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
+	'intersectsWith',
+	'',
+	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	1,
+	'XIntersect = 0;
+YIntersect = 0;
+intersect_found = false;
+minX = param.x1;
+maxX = param.x2;
+if (minX > maxX)
+  temp = minX; minX = maxX; maxX = temp;
+end if;
+minY = param.y1;
+maxY = param.y2;
+if (minY > maxY)
+  temp = minY; minY = maxY; maxY = temp;
+end if;
+select one segmentStart related by self->DIM_WAY[R21];
+select one segmentEnd related by self->DIM_WAY[R22];
+segMinX = segmentStart.positionX;
+segMaxX = segmentEnd.positionX;
+if (segMinX > segMaxX)
+  temp = segMinX; segMinX = segMaxX; segMaxX = temp;
+end if;
+segMinY = segmentStart.positionY;
+segMaxY = segmentEnd.positionY;
+if (segMinY > segMaxY)
+  temp = segMinY; segMinY = segMaxY; segMaxY = temp;
+end if;
+XIntersect = GR::getXIntersect(x1:param.x1, y1:param.y1, x2:param.x2, y2:param.y2,
+	x3:segmentStart.positionX, y3:segmentStart.positionY, x4:segmentEnd.positionX, y4:segmentEnd.positionY);
+YIntersect = GR::getYIntersect(x1:param.x1, y1:param.y1, x2:param.x2, y2:param.y2,
+	x3:segmentStart.positionX, y3:segmentStart.positionY, x4:segmentEnd.positionX, y4:segmentEnd.positionY);
+if ((XIntersect >= minX and XIntersect <= maxX) and
+      (XIntersect >= segMinX and XIntersect <= segMaxX))
+  if ((YIntersect >= minY and YIntersect <= maxY) and 
+        (YIntersect >= segMinY and YIntersect <= segMaxY))
+    return true;
+  end if;
+end if;
+return false;
+',
+	1,
+	'',
+	"63e22f13-5b17-4d63-baa0-21b44d80b82f");
+INSERT INTO O_TPARM
+	VALUES ("ee63630b-7410-4225-b740-e01605f50802",
+	"c653f7d3-c6d2-494d-86fd-a8001f3d0518",
+	'x1',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("2de6a386-ddb9-4d53-b6d5-9c044ada6606",
+	"c653f7d3-c6d2-494d-86fd-a8001f3d0518",
+	'x2',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"ee63630b-7410-4225-b740-e01605f50802",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("1ae80ee8-7d83-4513-b20b-b68e2ce8adc0",
+	"c653f7d3-c6d2-494d-86fd-a8001f3d0518",
+	'y1',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"2de6a386-ddb9-4d53-b6d5-9c044ada6606",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("0ed572fc-b42a-41c6-8859-42b54395f1f7",
+	"c653f7d3-c6d2-494d-86fd-a8001f3d0518",
+	'y2',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"1ae80ee8-7d83-4513-b20b-b68e2ce8adc0",
+	'');
+INSERT INTO O_TFR
+	VALUES ("7f94e7e5-de71-4d40-a29a-960e1583b098",
+	"77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
+	'dispose',
+	'',
+	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	1,
+	'select one start_way related by self->DIM_WAY[R21];
+if ( not_empty start_way )
+  unrelate self from start_way across R21;
+end if;
+select one end_way related by self->DIM_WAY[R22];
+if ( not_empty end_way )
+  unrelate self from end_way across R22;
+end if;
+select one conn related by self->GD_CON[R5];
+if ( not_empty conn )
+  unrelate self from conn across R5;
+end if;
+select one conn related by self->GD_CON[R6];
+if ( not_empty conn )
+  unrelate self from conn across R6;
+end if;
+select one tool related by self->CT_CTL[R106];
+if ( not_empty tool )
+  unrelate self from tool across R106;
+end if;
+
+select one next_seg related by self->GD_LS[R7.''precedes''];
+select one prior_seg related by self->GD_LS[R7.''follows''];
+if ( not_empty next_seg and not_empty prior_seg )
+  // in the middle of the chain
+  unrelate self from next_seg across R7.''precedes'';
+  unrelate prior_seg from self across R7.''precedes'';
+  relate prior_seg to next_seg across R7.''precedes'';
+else
+  if ( not_empty prior_seg and empty next_seg )
+    // we''re last in list
+    unrelate prior_seg from self across R7.''precedes'';
+  else
+    // we''re first in list
+    unrelate self from next_seg across R7.''precedes'';
+  end if;
+end if;
+
+// dispose any anchors set on this segment
+select many aoses related by self->GD_AOS[R26];
+for each aose in aoses
+  select one gcon related by aose->DIM_CON[R26];
+  if ( not_empty gcon )
+    unrelate self from gcon across R26 using aose;
+    select many startEdges related by gcon->DIM_ED[R320];
+    for each startEdge in startEdges
+      unrelate startEdge from gcon across R320;
+    end for;
+    select many endEdges related by gcon->DIM_ED[R321];
+    for each endEdge in endEdges
+      unrelate endEdge from gcon across R321;
+    end for;
+    gcon.dispose();
+  end if;
+  delete object instance aose;
+end for;
+
+delete object instance self;',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_TFR
+	VALUES ("5ee863d3-0c4f-4125-8c7b-19ff469617f6",
+	"77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
+	'updateEnd',
+	'',
+	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	1,
+	'select one canvas related by self->GD_CON[R6]->GD_GE[R2]->GD_MD[R1];
+select one diagram related by canvas->DIM_DIA[R18];
+select one selfEnd related by self->DIM_WAY[R22];
+selfEnd.positionX = ::roundToGridSnapPoint(
+   	ordinate:(GR::scale(value:param.x) + diagram.viewportX), isConnector:true);
+selfEnd.positionY = ::roundToGridSnapPoint(
+   	ordinate:(GR::scale(value:param.y) + diagram.viewportY), isConnector:true);
+',
+	1,
+	'',
+	"21e64153-3278-41b1-9f2f-a614b6781996");
+INSERT INTO O_TPARM
+	VALUES ("06fbb347-542b-4f2d-8482-623835c151bd",
+	"5ee863d3-0c4f-4125-8c7b-19ff469617f6",
+	'x',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("bb8cc6e3-2512-425d-8e71-d8502a0858e6",
+	"5ee863d3-0c4f-4125-8c7b-19ff469617f6",
+	'y',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"06fbb347-542b-4f2d-8482-623835c151bd",
+	'');
+INSERT INTO O_TFR
+	VALUES ("63e22f13-5b17-4d63-baa0-21b44d80b82f",
+	"77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
+	'getIntersect',
+	'',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	1,
+	'XIntersect = 0;
+YIntersect = 0;
+intersect_found = false;
+minX = param.x1;
+maxX = param.x2;
+if (minX > maxX)
+  temp = minX; minX = maxX; maxX = temp;
+end if;
+minY = param.y1;
+maxY = param.y2;
+if (minY > maxY)
+  temp = minY; minY = maxY; maxY = temp;
+end if;
+select one segmentStart related by self->DIM_WAY[R21];
+select one segmentEnd related by self->DIM_WAY[R22];
+segMinX = segmentStart.positionX;
+segMaxX = segmentEnd.positionX;
+if (segMinX > segMaxX)
+  temp = segMinX; segMinX = segMaxX; segMaxX = temp;
+end if;
+segMinY = segmentStart.positionY;
+segMaxY = segmentEnd.positionY;
+if (segMinY > segMaxY)
+  temp = segMinY; segMinY = segMaxY; segMaxY = temp;
+end if;
+XIntersect = GR::getXIntersect(x1:param.x1, y1:param.y1, x2:param.x2, y2:param.y2,
+	x3:segmentStart.positionX, y3:segmentStart.positionY, x4:segmentEnd.positionX, y4:segmentEnd.positionY);
+YIntersect = GR::getYIntersect(x1:param.x1, y1:param.y1, x2:param.x2, y2:param.y2,
+	x3:segmentStart.positionX, y3:segmentStart.positionY, x4:segmentEnd.positionX, y4:segmentEnd.positionY);
+
+if ((XIntersect >= minX and XIntersect <= maxX) and
+     (XIntersect >= segMinX and XIntersect <= segMaxX))
+  if ((YIntersect >= minY and YIntersect <= maxY) and 
+	  (YIntersect >= segMinY and YIntersect <= segMaxY))
+    	  intersect_found = true;
+  end if;
+end if;
+
+// if an intersect on the line was not found,
+// see if either of the given points are over
+// this segment
+if(intersect_found == false)
+  intersect_found = self.isOver(x:param.x1, y:param.y1);
+  if(not intersect_found)
+    intersect_found = self.isOver(x:param.x2, y:param.y2);
+  end if;
+  // if the point was over the segment, rerturn the closest end as the intersect
+  if(XIntersect == 0) and (YIntersect == 0) and (intersect_found)
+    distanceToSFS = ::getDistance(x1:param.x1, y1:param.y1, x2:segmentStart.positionX, y2:segmentStart.positionY);
+    distanceToSFE = ::getDistance(x1:param.x2, y1:param.y2, x2:segmentStart.positionX, y2:segmentStart.positionY);
+    distanceToEFS = ::getDistance(x1:param.x1, y1:param.y1, x2:segmentEnd.positionX, y2:segmentEnd.positionY);
+    distanceToEFE = ::getDistance(x1:param.x2, y1:param.y2, x2:segmentEnd.positionX, y2:segmentEnd.positionY);
+    minDist = ::min(a:distanceToSFS, b:distanceToSFE);
+    minDist = ::min(a:minDist, b:distanceToEFS);
+    minDist = ::min(a:minDist, b:distanceToEFE);
+    closestEnd = End::None;
+    if(minDist == distanceToSFS or minDist == distanceToEFS)
+      closestEnd = End::Start;
+    else
+      closestEnd = End::End;
+    end if;
+    if(closestEnd == End::Start)
+      XIntersect = segmentStart.positionX;
+      YIntersect = segmentStart.positionY;
+    else
+      XIntersect = segmentEnd.positionX;
+      YIntersect = segmentEnd.positionY;
+    end if;
+  end if;
+end if;
+
+// if no intersect was found, and infinite segment
+// length is to be tested return the point at which
+// the line would intersect
+if(not intersect_found) and (param.testInfinite)
+  if(param.axis == Axis::X)
+    return XIntersect;
+  else
+    return YIntersect;
+  end if;
+end if;
+
+if (intersect_found)
+  if (param.axis == Axis::X)
+    return XIntersect;
+  else
+    return YIntersect;
+  end if;
+else
+  return 0;
+end if;',
+	1,
+	'',
+	"7f94e7e5-de71-4d40-a29a-960e1583b098");
+INSERT INTO O_TPARM
+	VALUES ("5104941c-399d-4829-a90c-e20f52398ed7",
+	"63e22f13-5b17-4d63-baa0-21b44d80b82f",
+	'x1',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"abc6d032-af9d-42eb-8151-c995c189cb99",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("3c15cced-01e2-4b67-ad85-c67196710f66",
+	"63e22f13-5b17-4d63-baa0-21b44d80b82f",
+	'y1',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"09c7d66e-00b9-40f2-8f29-ed6f5248656f",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("09c7d66e-00b9-40f2-8f29-ed6f5248656f",
+	"63e22f13-5b17-4d63-baa0-21b44d80b82f",
+	'x2',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"5104941c-399d-4829-a90c-e20f52398ed7",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("17c8d7a1-0ce4-45ac-9395-df8f73f37920",
+	"63e22f13-5b17-4d63-baa0-21b44d80b82f",
+	'y2',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"3c15cced-01e2-4b67-ad85-c67196710f66",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("d41190ab-11a0-45d3-ba34-d08a846f9b52",
+	"63e22f13-5b17-4d63-baa0-21b44d80b82f",
+	'axis',
+	"cf5d2877-53f0-411b-8843-124449b0f6ea",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("cf5d2877-53f0-411b-8843-124449b0f6ea",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'Axis',
+	'Specifies the X or Y axis.',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TPARM
+	VALUES ("abc6d032-af9d-42eb-8151-c995c189cb99",
+	"63e22f13-5b17-4d63-baa0-21b44d80b82f",
+	'testInfinite',
+	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	0,
+	'',
+	"d41190ab-11a0-45d3-ba34-d08a846f9b52",
+	'');
+INSERT INTO O_TFR
+	VALUES ("985699a2-58f5-45eb-8375-7763a2808bb6",
+	"77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
+	'moveMiddleText',
+	'',
+	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	1,
+	'if (self.isMiddleSegment())
+  select any middleText related by self->GD_CON[R6]->GD_CTXT[R8] where selected.end == End::Middle;
+  if (not_empty middleText)
+    //
+    // Move only half the distance because the other moveStart/moveEnd will do the rest
+    //
+    middleText.move(xDelta:param.xDelta / 2.0, yDelta:param.yDelta / 2.0);
+  end if;
+end if;
+',
+	1,
+	'',
+	"c56f6c15-3224-4e7c-96d4-55f4d22ee547");
+INSERT INTO O_TPARM
+	VALUES ("0bd46b06-9cbf-448c-be32-30e4b008ff23",
+	"985699a2-58f5-45eb-8375-7763a2808bb6",
+	'xDelta',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("2bd3c591-d2fd-4c99-972f-86eca6616c20",
+	"985699a2-58f5-45eb-8375-7763a2808bb6",
+	'yDelta',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"0bd46b06-9cbf-448c-be32-30e4b008ff23",
+	'');
+INSERT INTO O_TFR
+	VALUES ("1728c4bb-5409-4b9a-848f-1187bc213060",
+	"77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
+	'moveAttachedConnectors',
+	'',
+	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	1,
+	'// if this segment has another connector starting on it
+select many links related by self->GD_AOS[R26]->DIM_CON[R26]->DIM_ED[R320];
+for each link in links
+  // Move attached connectors by an interpolated amount
+  select one linkConnector related by link->GD_CON[R20];
+  select many segments related by linkConnector->GD_LS[R6];
+  for each segment in segments
+    select one segmentStart related by segment->DIM_WAY[R21];
+    select one segmentEnd related by segment->DIM_WAY[R22];
+    select one startInMove related by segmentStart->GD_WIM[R24];
+    select one endInMove related by segmentEnd->GD_WIM[R24];
+    if (empty startInMove and empty endInMove)
+      //
+      // If either segment waypoint is in a move due to a hotspot drag, 
+      // the segment is already being moved accordingly. We therefore do not 
+      // want to move it again.
+      //
+      select one prevSegment related by segment->GD_LS[R7.''follows''];
+      if (empty prevSegment)
+          linkConnector.moveStart(xDelta:param.xDelta, yDelta:param.yDelta,
+               snapToGrid:false);
+      end if;
+    end if;
+  end for;
+end for;
+
+// if this segment has another connector ending on it
+select many links related by self->GD_AOS[R26]->DIM_CON[R26]->DIM_ED[R321];
+for each link in links
+  // Move attached connectors by an interpolated amount
+  select one linkConnector related by link->GD_CON[R20];
+  select many segments related by linkConnector->GD_LS[R6];
+  for each segment in segments
+    select one segmentStart related by segment->DIM_WAY[R21];
+    select one segmentEnd related by segment->DIM_WAY[R22];
+    select one startInMove related by segmentStart->GD_WIM[R24];
+    select one endInMove related by segmentEnd->GD_WIM[R24];
+    if (empty startInMove and empty endInMove)
+      //
+      // If either segment waypoint is in a move due to a hotspot drag, 
+      // the segment is already being moved accordingly. We therefore do not 
+      // want to move it again.
+      //
+      select one nextSegment related by segment->GD_LS[R7.''precedes''];
+      if (empty nextSegment)
+          linkConnector.moveEnd(xDelta:param.xDelta, yDelta:param.yDelta,
+                 snapToGrid:false);
+      end if;
+    end if;
+  end for;
+end for;',
+	1,
+	'',
+	"5ee863d3-0c4f-4125-8c7b-19ff469617f6");
+INSERT INTO O_TPARM
+	VALUES ("70ce78a6-a3ab-424e-9e37-61beacdf7f09",
+	"1728c4bb-5409-4b9a-848f-1187bc213060",
+	'xDelta',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("58ad99d1-5b67-43e0-9ea4-79f26099b03d",
+	"1728c4bb-5409-4b9a-848f-1187bc213060",
+	'yDelta',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"70ce78a6-a3ab-424e-9e37-61beacdf7f09",
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("09b28e51-261a-4f6c-8408-01a31af506b9",
+	"77c5fcd0-0f54-42c1-ab6e-4476ff4e6931");
+INSERT INTO O_BATTR
+	VALUES ("09b28e51-261a-4f6c-8408-01a31af506b9",
+	"77c5fcd0-0f54-42c1-ab6e-4476ff4e6931");
+INSERT INTO O_ATTR
+	VALUES ("09b28e51-261a-4f6c-8408-01a31af506b9",
+	"77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
+	"00000000-0000-0000-0000-000000000000",
+	'elementId',
+	'Description: This is an arbitrary identifier for the line segment.
+Full Name: Graphical Element Identifier',
+	'',
+	'elementId',
+	0,
+	"a236c27f-17c7-4c99-8f25-f3efd03eaf0c",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("a236c27f-17c7-4c99-8f25-f3efd03eaf0c",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'unique_id',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
+	"77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
+	0,
+	"09b28e51-261a-4f6c-8408-01a31af506b9",
+	"fac14233-37ae-42cd-a8b8-ceffc02b4a95",
+	"4ded3c81-372a-44aa-9d90-eedb28e47ce4",
+	"ad7ebf6e-7a1c-467a-8831-6cf11aed5412",
+	"1ddf4585-f769-4ed8-b33a-38edb67c746a",
+	"93ba3f9d-47a1-4d98-8637-9a11570e8a12",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Line Segment',
+	'elementId',
+	'R7');
+INSERT INTO R_RGO_PROXY
+	VALUES ("77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
+	"fac14233-37ae-42cd-a8b8-ceffc02b4a95",
+	"4ded3c81-372a-44aa-9d90-eedb28e47ce4",
+	'../Graphical Data.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("09b28e51-261a-4f6c-8408-01a31af506b9",
+	"77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
+	0,
+	"fac14233-37ae-42cd-a8b8-ceffc02b4a95",
+	"ad7ebf6e-7a1c-467a-8831-6cf11aed5412",
+	'../Graphical Data.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("1ddf4585-f769-4ed8-b33a-38edb67c746a",
+	"77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
+	"09b28e51-261a-4f6c-8408-01a31af506b9",
+	"77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
+	1,
+	'elementId');
+INSERT INTO O_ATTR
+	VALUES ("1ddf4585-f769-4ed8-b33a-38edb67c746a",
+	"77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
+	"15636990-dcdd-48c6-bf73-ae1d155423d2",
+	'Previous_elementId',
+	'Description: This is the identifier of the next line segment belonging to the connector.
+Full Name: Next Graphical Element',
+	'Previous_',
+	'GE_ID',
+	1,
+	"66164f00-293e-4c17-ab30-7972c7c57152",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("66164f00-293e-4c17-ab30-7972c7c57152",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
+	"7e1e895a-1165-4c2f-b740-6ef7bea4058a",
+	0,
+	"fdf1eeb1-04c2-458a-8bbd-ffbfe87b7c4a",
+	"3999d950-5376-4791-b35b-b19f8830ae2d",
+	"cfd0b077-82c0-4b31-b59a-d9b034d1b6d6",
+	"e2da1eab-b2f1-4387-877c-83d82f097436",
+	"bab3a64c-5487-4cdf-9068-d003b3445167",
+	"bda78d22-acd0-4369-aa70-4469a253585b",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Waypoint',
+	'Way_ID',
+	'R21');
+INSERT INTO R_RGO_PROXY
+	VALUES ("77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
+	"3999d950-5376-4791-b35b-b19f8830ae2d",
+	"cfd0b077-82c0-4b31-b59a-d9b034d1b6d6",
+	'../Graphical Data.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("fdf1eeb1-04c2-458a-8bbd-ffbfe87b7c4a",
+	"7e1e895a-1165-4c2f-b740-6ef7bea4058a",
+	0,
+	"3999d950-5376-4791-b35b-b19f8830ae2d",
+	"e2da1eab-b2f1-4387-877c-83d82f097436",
+	'../Graphical Data.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("bab3a64c-5487-4cdf-9068-d003b3445167",
+	"77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
+	"fdf1eeb1-04c2-458a-8bbd-ffbfe87b7c4a",
+	"7e1e895a-1165-4c2f-b740-6ef7bea4058a",
+	1,
+	'Way_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("fdf1eeb1-04c2-458a-8bbd-ffbfe87b7c4a",
+	"7e1e895a-1165-4c2f-b740-6ef7bea4058a",
+	'../../UML 2.0 Diagram Interchange/Waypoint/Waypoint.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("bab3a64c-5487-4cdf-9068-d003b3445167",
+	"77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
+	"1ddf4585-f769-4ed8-b33a-38edb67c746a",
+	'start_Way_ID',
+	'',
+	'start_',
+	'Way_ID',
+	1,
+	"66164f00-293e-4c17-ab30-7972c7c57152",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
+	"7e1e895a-1165-4c2f-b740-6ef7bea4058a",
+	0,
+	"fdf1eeb1-04c2-458a-8bbd-ffbfe87b7c4a",
+	"d9a1db74-779b-494a-bba3-11a50a626313",
+	"74fa5a6b-41d3-4da9-babc-b379e312e314",
+	"613865a4-ddcd-4dea-a8b6-439a919d519c",
+	"d4ff6d2f-469b-49fb-b285-a0215ac6ce61",
+	"6261ab9b-617c-4e70-a34e-2947444920cb",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Waypoint',
+	'Way_ID',
+	'R22');
+INSERT INTO R_RGO_PROXY
+	VALUES ("77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
+	"d9a1db74-779b-494a-bba3-11a50a626313",
+	"74fa5a6b-41d3-4da9-babc-b379e312e314",
+	'../Graphical Data.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("fdf1eeb1-04c2-458a-8bbd-ffbfe87b7c4a",
+	"7e1e895a-1165-4c2f-b740-6ef7bea4058a",
+	0,
+	"d9a1db74-779b-494a-bba3-11a50a626313",
+	"613865a4-ddcd-4dea-a8b6-439a919d519c",
+	'../Graphical Data.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("d4ff6d2f-469b-49fb-b285-a0215ac6ce61",
+	"77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
+	"fdf1eeb1-04c2-458a-8bbd-ffbfe87b7c4a",
+	"7e1e895a-1165-4c2f-b740-6ef7bea4058a",
+	1,
+	'Way_ID');
+INSERT INTO O_ATTR
+	VALUES ("d4ff6d2f-469b-49fb-b285-a0215ac6ce61",
+	"77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
+	"bab3a64c-5487-4cdf-9068-d003b3445167",
+	'end_Way_ID',
+	'',
+	'end_',
+	'Way_ID',
+	1,
+	"66164f00-293e-4c17-ab30-7972c7c57152",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
+	"ab69f0d0-314a-4911-947c-2aaf3ed89428",
+	0,
+	"2206f786-33e3-4543-a1b5-ceea6be31825",
+	"2f08e3ae-ee2b-42a9-909d-86a62a3be8e6",
+	"4dfdfbc3-6c75-4927-ab3f-2fea335e990c",
+	"355f8034-adca-4e22-8283-67a046a29438",
+	"15636990-dcdd-48c6-bf73-ae1d155423d2",
+	"58ed53b8-c3d7-4eb4-9fc8-cd6c66ad1fe8",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Connector',
+	'elementId',
+	'R6');
+INSERT INTO R_RGO_PROXY
+	VALUES ("77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
+	"2f08e3ae-ee2b-42a9-909d-86a62a3be8e6",
+	"4dfdfbc3-6c75-4927-ab3f-2fea335e990c",
+	'../Graphical Data.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("2206f786-33e3-4543-a1b5-ceea6be31825",
+	"ab69f0d0-314a-4911-947c-2aaf3ed89428",
+	0,
+	"2f08e3ae-ee2b-42a9-909d-86a62a3be8e6",
+	"355f8034-adca-4e22-8283-67a046a29438",
+	'../Graphical Data.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("15636990-dcdd-48c6-bf73-ae1d155423d2",
+	"77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
+	"53d10295-c89f-4194-94ba-3dab00d071cd",
+	"593e6c1e-5bc8-40f5-b079-a85690d47f08",
+	1,
+	'elementId');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("53d10295-c89f-4194-94ba-3dab00d071cd",
+	"593e6c1e-5bc8-40f5-b079-a85690d47f08",
+	'../../UML 2.0 Diagram Interchange/DiagramElement/DiagramElement.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("15636990-dcdd-48c6-bf73-ae1d155423d2",
+	"77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
+	"09b28e51-261a-4f6c-8408-01a31af506b9",
+	'conn_elementId',
+	'',
+	'conn_',
+	'elementId',
+	1,
+	"66164f00-293e-4c17-ab30-7972c7c57152",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"77c5fcd0-0f54-42c1-ab6e-4476ff4e6931");
+INSERT INTO O_OIDA
+	VALUES ("09b28e51-261a-4f6c-8408-01a31af506b9",
+	"77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
+	0,
+	'elementId');
+INSERT INTO O_ID
+	VALUES (1,
+	"77c5fcd0-0f54-42c1-ab6e-4476ff4e6931");
+INSERT INTO O_ID
+	VALUES (2,
+	"77c5fcd0-0f54-42c1-ab6e-4476ff4e6931");
+INSERT INTO S_SS_PROXY
+	VALUES ("b5695748-80fc-47fb-b5c7-801b5f28b907",
+	'Graphical Data',
+	'The GD (Graphics Domain) subsystem models the graphical elements for a BridgePoint model.
+-------------------------------------------------------
+Import:org.eclipse.swt.graphics.Color
+Notify_Changes:true',
+	'GD',
+	1,
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	"00000000-0000-0000-0000-000001900032",
+	'../Graphical Data.xtuml');

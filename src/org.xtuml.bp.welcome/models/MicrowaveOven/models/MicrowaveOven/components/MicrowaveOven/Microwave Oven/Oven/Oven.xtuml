@@ -1,0 +1,370 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("d41fedf9-3f2c-4216-96e0-94838ac603b1",
+	'Oven',
+	1,
+	'MO_O',
+	'The entire microwave oven assembly (with the exception of the Control Panel), comprising :
+
+* a door
+* an internal light
+* a turntable
+* a magnetron tube
+* a beeper',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_NBATTR
+	VALUES ("143b7b1c-1190-4891-b896-18a1584e1f19",
+	"d41fedf9-3f2c-4216-96e0-94838ac603b1");
+INSERT INTO O_BATTR
+	VALUES ("143b7b1c-1190-4891-b896-18a1584e1f19",
+	"d41fedf9-3f2c-4216-96e0-94838ac603b1");
+INSERT INTO O_ATTR
+	VALUES ("143b7b1c-1190-4891-b896-18a1584e1f19",
+	"d41fedf9-3f2c-4216-96e0-94838ac603b1",
+	"00000000-0000-0000-0000-000000000000",
+	'OvenID',
+	'A uniquely assigned Oven identifier',
+	'',
+	'OvenID',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000005",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("d41fedf9-3f2c-4216-96e0-94838ac603b1",
+	"21726274-a60c-4843-a337-c30d3e6fd999",
+	0,
+	"f1330b84-d00a-403f-81b3-22f1a7ad6040",
+	"60140c5d-1a6e-4624-9e4a-837476af2eb1",
+	"5a18c05a-2ff3-4682-97fd-211ce232ace7",
+	"b08fe931-7779-403b-b3c0-267af778243a",
+	"bc504fe1-7930-42ee-bced-fb1af68e0b13",
+	"8f8e85fb-ea88-4a61-82ae-6075779f2fcd",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Magnetron Tube',
+	'TubeID',
+	'R1');
+INSERT INTO R_RGO_PROXY
+	VALUES ("d41fedf9-3f2c-4216-96e0-94838ac603b1",
+	"60140c5d-1a6e-4624-9e4a-837476af2eb1",
+	"5a18c05a-2ff3-4682-97fd-211ce232ace7",
+	'../Microwave Oven.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("f1330b84-d00a-403f-81b3-22f1a7ad6040",
+	"21726274-a60c-4843-a337-c30d3e6fd999",
+	0,
+	"60140c5d-1a6e-4624-9e4a-837476af2eb1",
+	"b08fe931-7779-403b-b3c0-267af778243a",
+	'../Microwave Oven.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("bc504fe1-7930-42ee-bced-fb1af68e0b13",
+	"d41fedf9-3f2c-4216-96e0-94838ac603b1",
+	"f1330b84-d00a-403f-81b3-22f1a7ad6040",
+	"21726274-a60c-4843-a337-c30d3e6fd999",
+	1,
+	'TubeID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("f1330b84-d00a-403f-81b3-22f1a7ad6040",
+	"21726274-a60c-4843-a337-c30d3e6fd999",
+	'../Magnetron Tube/Magnetron Tube.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("bc504fe1-7930-42ee-bced-fb1af68e0b13",
+	"d41fedf9-3f2c-4216-96e0-94838ac603b1",
+	"143b7b1c-1190-4891-b896-18a1584e1f19",
+	'TubeID',
+	'',
+	'',
+	'TubeID',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000007",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("d41fedf9-3f2c-4216-96e0-94838ac603b1",
+	"74c2f04f-6ead-48bc-9388-7dce6c130237",
+	0,
+	"85927332-434b-406d-a4a2-b5139bd76164",
+	"5ba54947-4cd4-423c-8463-0952e27b38bc",
+	"1e53d5fc-32ed-4562-8507-d06d55529699",
+	"cd351370-5fa9-407b-b363-8623d8d49259",
+	"abe49f75-f12d-4a25-baa4-351555c0bf24",
+	"71dac8d8-3a3a-45a3-8226-980f7f4ea66a",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Internal Light',
+	'LightID',
+	'R2');
+INSERT INTO R_RGO_PROXY
+	VALUES ("d41fedf9-3f2c-4216-96e0-94838ac603b1",
+	"5ba54947-4cd4-423c-8463-0952e27b38bc",
+	"1e53d5fc-32ed-4562-8507-d06d55529699",
+	'../Microwave Oven.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("85927332-434b-406d-a4a2-b5139bd76164",
+	"74c2f04f-6ead-48bc-9388-7dce6c130237",
+	0,
+	"5ba54947-4cd4-423c-8463-0952e27b38bc",
+	"cd351370-5fa9-407b-b363-8623d8d49259",
+	'../Microwave Oven.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("abe49f75-f12d-4a25-baa4-351555c0bf24",
+	"d41fedf9-3f2c-4216-96e0-94838ac603b1",
+	"85927332-434b-406d-a4a2-b5139bd76164",
+	"74c2f04f-6ead-48bc-9388-7dce6c130237",
+	1,
+	'LightID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("85927332-434b-406d-a4a2-b5139bd76164",
+	"74c2f04f-6ead-48bc-9388-7dce6c130237",
+	'../Internal Light/Internal Light.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("abe49f75-f12d-4a25-baa4-351555c0bf24",
+	"d41fedf9-3f2c-4216-96e0-94838ac603b1",
+	"bc504fe1-7930-42ee-bced-fb1af68e0b13",
+	'LightID',
+	'',
+	'',
+	'LightID',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000007",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("d41fedf9-3f2c-4216-96e0-94838ac603b1",
+	"4badd275-8325-4e31-9a84-02ee6714c85a",
+	0,
+	"f1b68858-c581-46d8-80d3-0bf5af85611a",
+	"33512c33-37fa-451c-aa48-6d09c7b2846c",
+	"117473c1-6131-45ba-b946-9906166dd4fe",
+	"b1d7a48a-8569-4265-b9d0-dac69fdc832c",
+	"b809cb75-37fd-4206-a4b4-3e7b30735de0",
+	"b509a360-2624-44d9-9b4c-7adbdc966920",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Beeper',
+	'BeeperID',
+	'R3');
+INSERT INTO R_RGO_PROXY
+	VALUES ("d41fedf9-3f2c-4216-96e0-94838ac603b1",
+	"33512c33-37fa-451c-aa48-6d09c7b2846c",
+	"117473c1-6131-45ba-b946-9906166dd4fe",
+	'../Microwave Oven.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("f1b68858-c581-46d8-80d3-0bf5af85611a",
+	"4badd275-8325-4e31-9a84-02ee6714c85a",
+	0,
+	"33512c33-37fa-451c-aa48-6d09c7b2846c",
+	"b1d7a48a-8569-4265-b9d0-dac69fdc832c",
+	'../Microwave Oven.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("b809cb75-37fd-4206-a4b4-3e7b30735de0",
+	"d41fedf9-3f2c-4216-96e0-94838ac603b1",
+	"f1b68858-c581-46d8-80d3-0bf5af85611a",
+	"4badd275-8325-4e31-9a84-02ee6714c85a",
+	1,
+	'BeeperID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("f1b68858-c581-46d8-80d3-0bf5af85611a",
+	"4badd275-8325-4e31-9a84-02ee6714c85a",
+	'../Beeper/Beeper.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("b809cb75-37fd-4206-a4b4-3e7b30735de0",
+	"d41fedf9-3f2c-4216-96e0-94838ac603b1",
+	"abe49f75-f12d-4a25-baa4-351555c0bf24",
+	'BeeperID',
+	'',
+	'',
+	'BeeperID',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000007",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("d41fedf9-3f2c-4216-96e0-94838ac603b1",
+	"cd4fdb55-c935-485c-af63-77515b5963d5",
+	0,
+	"c7497b6a-dbf5-40dd-ae4b-2b353a570740",
+	"75b012e7-ca9d-4756-8eef-6d959e96bf5f",
+	"fa38d4a3-3c37-4fe9-b8b2-bfcfda1c9a23",
+	"6c99cdd0-3abe-457e-83b6-e4af93310010",
+	"f81f2a03-49f3-420f-a49c-c724c08b70d5",
+	"8fd07093-46fe-4c38-ad3e-28114c85d370",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Door',
+	'DoorID',
+	'R4');
+INSERT INTO R_RGO_PROXY
+	VALUES ("d41fedf9-3f2c-4216-96e0-94838ac603b1",
+	"75b012e7-ca9d-4756-8eef-6d959e96bf5f",
+	"fa38d4a3-3c37-4fe9-b8b2-bfcfda1c9a23",
+	'../Microwave Oven.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("c7497b6a-dbf5-40dd-ae4b-2b353a570740",
+	"cd4fdb55-c935-485c-af63-77515b5963d5",
+	0,
+	"75b012e7-ca9d-4756-8eef-6d959e96bf5f",
+	"6c99cdd0-3abe-457e-83b6-e4af93310010",
+	'../Microwave Oven.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("f81f2a03-49f3-420f-a49c-c724c08b70d5",
+	"d41fedf9-3f2c-4216-96e0-94838ac603b1",
+	"c7497b6a-dbf5-40dd-ae4b-2b353a570740",
+	"cd4fdb55-c935-485c-af63-77515b5963d5",
+	1,
+	'DoorID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("c7497b6a-dbf5-40dd-ae4b-2b353a570740",
+	"cd4fdb55-c935-485c-af63-77515b5963d5",
+	'../Door/Door.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("f81f2a03-49f3-420f-a49c-c724c08b70d5",
+	"d41fedf9-3f2c-4216-96e0-94838ac603b1",
+	"b809cb75-37fd-4206-a4b4-3e7b30735de0",
+	'DoorID',
+	'',
+	'',
+	'DoorID',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000007",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("d41fedf9-3f2c-4216-96e0-94838ac603b1",
+	"48a311fd-78e5-4647-865c-32abb40b09fe",
+	0,
+	"9c573361-0bc4-4860-aacc-90b0d5caf8fd",
+	"d48f5681-a6cf-4d98-a809-43274fd08150",
+	"f92064f9-84b5-44f8-9a89-a1723d329d6a",
+	"68253d80-7a8c-498b-a258-24a9b4c0de24",
+	"8ec9d528-e808-4493-acd4-a043609d84af",
+	"55451c99-a334-47a1-aa0a-946286af32a7",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Turntable',
+	'TurntableID',
+	'R5');
+INSERT INTO R_RGO_PROXY
+	VALUES ("d41fedf9-3f2c-4216-96e0-94838ac603b1",
+	"d48f5681-a6cf-4d98-a809-43274fd08150",
+	"f92064f9-84b5-44f8-9a89-a1723d329d6a",
+	'../Microwave Oven.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("9c573361-0bc4-4860-aacc-90b0d5caf8fd",
+	"48a311fd-78e5-4647-865c-32abb40b09fe",
+	0,
+	"d48f5681-a6cf-4d98-a809-43274fd08150",
+	"68253d80-7a8c-498b-a258-24a9b4c0de24",
+	'../Microwave Oven.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("8ec9d528-e808-4493-acd4-a043609d84af",
+	"d41fedf9-3f2c-4216-96e0-94838ac603b1",
+	"9c573361-0bc4-4860-aacc-90b0d5caf8fd",
+	"48a311fd-78e5-4647-865c-32abb40b09fe",
+	1,
+	'TurntableID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("9c573361-0bc4-4860-aacc-90b0d5caf8fd",
+	"48a311fd-78e5-4647-865c-32abb40b09fe",
+	'../Turntable/Turntable.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("8ec9d528-e808-4493-acd4-a043609d84af",
+	"d41fedf9-3f2c-4216-96e0-94838ac603b1",
+	"f81f2a03-49f3-420f-a49c-c724c08b70d5",
+	'TurntableID',
+	'',
+	'',
+	'TurntableID',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000007",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("7c52fc7e-1792-4573-9d24-a34da8772727",
+	"d41fedf9-3f2c-4216-96e0-94838ac603b1");
+INSERT INTO O_BATTR
+	VALUES ("7c52fc7e-1792-4573-9d24-a34da8772727",
+	"d41fedf9-3f2c-4216-96e0-94838ac603b1");
+INSERT INTO O_ATTR
+	VALUES ("7c52fc7e-1792-4573-9d24-a34da8772727",
+	"d41fedf9-3f2c-4216-96e0-94838ac603b1",
+	"8ec9d528-e808-4493-acd4-a043609d84af",
+	'oven_timer',
+	'A local oven countdown timer, set and reset by the user via the Control Panel',
+	'',
+	'oven_timer',
+	0,
+	"ba5eda7a-def5-0000-0000-00000000000f",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("6329ab2f-f318-4a52-a311-ada41ee0251c",
+	"d41fedf9-3f2c-4216-96e0-94838ac603b1");
+INSERT INTO O_BATTR
+	VALUES ("6329ab2f-f318-4a52-a311-ada41ee0251c",
+	"d41fedf9-3f2c-4216-96e0-94838ac603b1");
+INSERT INTO O_ATTR
+	VALUES ("6329ab2f-f318-4a52-a311-ada41ee0251c",
+	"d41fedf9-3f2c-4216-96e0-94838ac603b1",
+	"7c52fc7e-1792-4573-9d24-a34da8772727",
+	'remaining_cooking_time',
+	'Records any remaining cooking period when cooking is suspended as a consequence of the oven door being opened or the ''cancel'' key being pressed by the oven user. ',
+	'',
+	'remaining_cooking_time',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000002",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("6c9a1043-4ffe-40a7-8c9b-e4fd1d3308f5",
+	"d41fedf9-3f2c-4216-96e0-94838ac603b1");
+INSERT INTO O_BATTR
+	VALUES ("6c9a1043-4ffe-40a7-8c9b-e4fd1d3308f5",
+	"d41fedf9-3f2c-4216-96e0-94838ac603b1");
+INSERT INTO O_ATTR
+	VALUES ("6c9a1043-4ffe-40a7-8c9b-e4fd1d3308f5",
+	"d41fedf9-3f2c-4216-96e0-94838ac603b1",
+	"6329ab2f-f318-4a52-a311-ada41ee0251c",
+	'current_state',
+	'',
+	'',
+	'current_state',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000006",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"d41fedf9-3f2c-4216-96e0-94838ac603b1");
+INSERT INTO O_OIDA
+	VALUES ("143b7b1c-1190-4891-b896-18a1584e1f19",
+	"d41fedf9-3f2c-4216-96e0-94838ac603b1",
+	0,
+	'OvenID');
+INSERT INTO O_ID
+	VALUES (1,
+	"d41fedf9-3f2c-4216-96e0-94838ac603b1");
+INSERT INTO O_ID
+	VALUES (2,
+	"d41fedf9-3f2c-4216-96e0-94838ac603b1");
+INSERT INTO PE_PE
+	VALUES ("d41fedf9-3f2c-4216-96e0-94838ac603b1",
+	1,
+	"235fff0c-3d20-4fa1-8536-1c30278a65d1",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("235fff0c-3d20-4fa1-8536-1c30278a65d1",
+	"00000000-0000-0000-0000-000000000000",
+	"9cd2cdcf-1f2b-42ce-bc35-718a90a05cab",
+	'Microwave Oven',
+	'The microwave oven subsystem models the microwave oven application',
+	1,
+	'../Microwave Oven.xtuml');

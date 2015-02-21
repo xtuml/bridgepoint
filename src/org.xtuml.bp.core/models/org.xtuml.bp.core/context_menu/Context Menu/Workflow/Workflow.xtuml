@@ -1,0 +1,262 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("c78c298a-3afe-43eb-b805-4d43d35bbe6e",
+	'Workflow',
+	2,
+	'W_WOF',
+	'A workflow is a series of actions that the user must go through
+to achieve a specific result. Workflows have context which 
+specifies which instance in the client model to operate on.',
+	"22fe2ec1-5660-4a88-9691-da2fe55e94db");
+INSERT INTO O_NBATTR
+	VALUES ("c937d065-d9b2-43c3-9b90-ad06ce098610",
+	"c78c298a-3afe-43eb-b805-4d43d35bbe6e");
+INSERT INTO O_BATTR
+	VALUES ("c937d065-d9b2-43c3-9b90-ad06ce098610",
+	"c78c298a-3afe-43eb-b805-4d43d35bbe6e");
+INSERT INTO O_ATTR
+	VALUES ("c937d065-d9b2-43c3-9b90-ad06ce098610",
+	"c78c298a-3afe-43eb-b805-4d43d35bbe6e",
+	"00000000-0000-0000-0000-000000000000",
+	'Name',
+	'The name of the workflow.',
+	'',
+	'Name',
+	0,
+	"ff27026a-9d91-4d3d-9c92-888e9483a31c",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("ff27026a-9d91-4d3d-9c92-888e9483a31c",
+	"1078c098-0f8e-425b-9cfb-5e5d9fbff920",
+	'string',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("c78c298a-3afe-43eb-b805-4d43d35bbe6e",
+	"c66296cb-55ee-4c43-9a0b-97893552c80e",
+	0,
+	"2b5ed22c-eaae-459b-8a49-3df66dafdbb6",
+	"a40f59ef-0105-4a21-a988-7edbc20071cf",
+	"886f9ca8-9b92-4dce-8a92-ef4f68dc4b70",
+	"ac9e677b-5880-44c9-b227-8ced42e4650f",
+	"484765dd-706d-452a-bedf-30bcef445d7b",
+	"59de8f9b-6178-4f73-a034-f50cc5dc2d53",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Client Function',
+	'Sync_ID',
+	'R2001');
+INSERT INTO R_RGO_PROXY
+	VALUES ("c78c298a-3afe-43eb-b805-4d43d35bbe6e",
+	"a40f59ef-0105-4a21-a988-7edbc20071cf",
+	"886f9ca8-9b92-4dce-8a92-ef4f68dc4b70",
+	'../Context Menu.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("2b5ed22c-eaae-459b-8a49-3df66dafdbb6",
+	"c66296cb-55ee-4c43-9a0b-97893552c80e",
+	0,
+	"a40f59ef-0105-4a21-a988-7edbc20071cf",
+	"ac9e677b-5880-44c9-b227-8ced42e4650f",
+	'../Context Menu.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("484765dd-706d-452a-bedf-30bcef445d7b",
+	"c78c298a-3afe-43eb-b805-4d43d35bbe6e",
+	"2b5ed22c-eaae-459b-8a49-3df66dafdbb6",
+	"c66296cb-55ee-4c43-9a0b-97893552c80e",
+	1,
+	'Sync_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("2b5ed22c-eaae-459b-8a49-3df66dafdbb6",
+	"c66296cb-55ee-4c43-9a0b-97893552c80e",
+	'../../OOA/Client Function/Client Function.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("484765dd-706d-452a-bedf-30bcef445d7b",
+	"c78c298a-3afe-43eb-b805-4d43d35bbe6e",
+	"c937d065-d9b2-43c3-9b90-ad06ce098610",
+	'Sync_ID',
+	'Each workflow is automatically derived by parsing a function.
+This attribute is a referential to the function from which this
+workflow was created. ',
+	'',
+	'Sync_ID',
+	0,
+	"e9939872-4e30-45f7-852c-a44e7f299f8a",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("e9939872-4e30-45f7-852c-a44e7f299f8a",
+	"1078c098-0f8e-425b-9cfb-5e5d9fbff920",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("c78c298a-3afe-43eb-b805-4d43d35bbe6e",
+	"ce45ee87-d94a-478c-81fb-254b7cc76e33",
+	0,
+	"8182c59d-4612-4f15-8d63-580185203a9b",
+	"72372228-9dad-4fff-83c0-0ef28f66d5d2",
+	"dcf7d290-cae5-4105-bc8d-9b0c14d8bbf4",
+	"f2f471a5-a201-4e1a-89dc-031295bdd2fd",
+	"abd5c35f-ddba-4f2b-8523-9ec500c67cc8",
+	"d8328185-b97e-40f1-b08f-6dc919ea0d50",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Context Menu Entry',
+	'Key_Lett',
+	'R2012');
+INSERT INTO R_RGO_PROXY
+	VALUES ("c78c298a-3afe-43eb-b805-4d43d35bbe6e",
+	"72372228-9dad-4fff-83c0-0ef28f66d5d2",
+	"dcf7d290-cae5-4105-bc8d-9b0c14d8bbf4",
+	'../Context Menu.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("8182c59d-4612-4f15-8d63-580185203a9b",
+	"ce45ee87-d94a-478c-81fb-254b7cc76e33",
+	0,
+	"72372228-9dad-4fff-83c0-0ef28f66d5d2",
+	"f2f471a5-a201-4e1a-89dc-031295bdd2fd",
+	'../Context Menu.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("abd5c35f-ddba-4f2b-8523-9ec500c67cc8",
+	"c78c298a-3afe-43eb-b805-4d43d35bbe6e",
+	"88416d49-92df-441a-b112-7ec25944e6ce",
+	"5c34cfbe-d555-4250-abbb-f45a42ca5d67",
+	1,
+	'Key_Lett');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("88416d49-92df-441a-b112-7ec25944e6ce",
+	"5c34cfbe-d555-4250-abbb-f45a42ca5d67",
+	'../../OOA/Client Class/Client Class.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("abd5c35f-ddba-4f2b-8523-9ec500c67cc8",
+	"c78c298a-3afe-43eb-b805-4d43d35bbe6e",
+	"484765dd-706d-452a-bedf-30bcef445d7b",
+	'Key_Lett',
+	'',
+	'',
+	'Key_Lett',
+	0,
+	"e9939872-4e30-45f7-852c-a44e7f299f8a",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("c78c298a-3afe-43eb-b805-4d43d35bbe6e",
+	"ce45ee87-d94a-478c-81fb-254b7cc76e33",
+	0,
+	"a02aa5cd-1a6e-4de9-a631-daa947fb041a",
+	"72372228-9dad-4fff-83c0-0ef28f66d5d2",
+	"dcf7d290-cae5-4105-bc8d-9b0c14d8bbf4",
+	"f2f471a5-a201-4e1a-89dc-031295bdd2fd",
+	"3d1d78aa-f5da-4267-a8d7-37acb2b47072",
+	"3e712814-dc05-45f1-9db2-ab6f41dd52e9",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Context Menu Entry',
+	'Specialism',
+	'R2012');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("a02aa5cd-1a6e-4de9-a631-daa947fb041a",
+	"ce45ee87-d94a-478c-81fb-254b7cc76e33",
+	0,
+	"72372228-9dad-4fff-83c0-0ef28f66d5d2",
+	"f2f471a5-a201-4e1a-89dc-031295bdd2fd",
+	'../Context Menu.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("3d1d78aa-f5da-4267-a8d7-37acb2b47072",
+	"c78c298a-3afe-43eb-b805-4d43d35bbe6e",
+	"a02aa5cd-1a6e-4de9-a631-daa947fb041a",
+	"ce45ee87-d94a-478c-81fb-254b7cc76e33",
+	1,
+	'Specialism');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("a02aa5cd-1a6e-4de9-a631-daa947fb041a",
+	"ce45ee87-d94a-478c-81fb-254b7cc76e33",
+	'../Context Menu Entry/Context Menu Entry.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("3d1d78aa-f5da-4267-a8d7-37acb2b47072",
+	"c78c298a-3afe-43eb-b805-4d43d35bbe6e",
+	"abd5c35f-ddba-4f2b-8523-9ec500c67cc8",
+	'Specialism',
+	'',
+	'',
+	'Specialism',
+	0,
+	"e9939872-4e30-45f7-852c-a44e7f299f8a",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("c78c298a-3afe-43eb-b805-4d43d35bbe6e",
+	"ce45ee87-d94a-478c-81fb-254b7cc76e33",
+	0,
+	"0063aff7-3a9e-4a07-be3b-f027d9e256f1",
+	"72372228-9dad-4fff-83c0-0ef28f66d5d2",
+	"dcf7d290-cae5-4105-bc8d-9b0c14d8bbf4",
+	"f2f471a5-a201-4e1a-89dc-031295bdd2fd",
+	"8f113d2e-e052-450d-86fa-ee8b08d4fdca",
+	"dd33b80a-80fa-430b-b480-38f66251ebde",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Context Menu Entry',
+	'Label',
+	'R2012');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("0063aff7-3a9e-4a07-be3b-f027d9e256f1",
+	"ce45ee87-d94a-478c-81fb-254b7cc76e33",
+	0,
+	"72372228-9dad-4fff-83c0-0ef28f66d5d2",
+	"f2f471a5-a201-4e1a-89dc-031295bdd2fd",
+	'../Context Menu.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("8f113d2e-e052-450d-86fa-ee8b08d4fdca",
+	"c78c298a-3afe-43eb-b805-4d43d35bbe6e",
+	"0063aff7-3a9e-4a07-be3b-f027d9e256f1",
+	"ce45ee87-d94a-478c-81fb-254b7cc76e33",
+	1,
+	'Label');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("0063aff7-3a9e-4a07-be3b-f027d9e256f1",
+	"ce45ee87-d94a-478c-81fb-254b7cc76e33",
+	'../Context Menu Entry/Context Menu Entry.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("8f113d2e-e052-450d-86fa-ee8b08d4fdca",
+	"c78c298a-3afe-43eb-b805-4d43d35bbe6e",
+	"3d1d78aa-f5da-4267-a8d7-37acb2b47072",
+	'Label',
+	'',
+	'',
+	'Label',
+	0,
+	"e9939872-4e30-45f7-852c-a44e7f299f8a",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"c78c298a-3afe-43eb-b805-4d43d35bbe6e");
+INSERT INTO O_OIDA
+	VALUES ("c937d065-d9b2-43c3-9b90-ad06ce098610",
+	"c78c298a-3afe-43eb-b805-4d43d35bbe6e",
+	0,
+	'Name');
+INSERT INTO O_ID
+	VALUES (1,
+	"c78c298a-3afe-43eb-b805-4d43d35bbe6e");
+INSERT INTO O_ID
+	VALUES (2,
+	"c78c298a-3afe-43eb-b805-4d43d35bbe6e");
+INSERT INTO S_SS_PROXY
+	VALUES ("22fe2ec1-5660-4a88-9691-da2fe55e94db",
+	'Context Menu',
+	'',
+	'CM_',
+	1,
+	"1078c098-0f8e-425b-9cfb-5e5d9fbff920",
+	"00000000-0000-0000-0000-000000100002",
+	'../Context Menu.xtuml');

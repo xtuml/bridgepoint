@@ -1,0 +1,4 @@
+drawPolyline("7980, 6475, 8162, 6475)
+drawText("Informal Message", 0, 0, true)
+drawPolyline("8732, 6840, 8937, 6840)
+drawText("Informal Message", 0, 0, true)

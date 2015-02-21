@@ -1,0 +1,507 @@
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("12813ef2-4f83-46ab-a431-a727324be44d",
+	'Simple Association',
+	205,
+	'R_SIMP',
+	'A simple association (R_SIMP) is an association between two classs which are formalized with referential attributes in one of the classes.  The class that holds the referential attributes for  the association is know as the referring class in the association (R_RGO) and is the formalizer of the association (R_FORM).  The class that participates in the association and carries the identifying attributes used to formalize the association is the referred to class  (R_RTO) and is a participant in the association (R_PART).',
+	"c8d78fd5-1314-444a-bad0-6af79f6e1296");
+INSERT INTO O_TFR
+	VALUES ("2429bee2-78db-4411-b6ee-a300fb083edb",
+	"12813ef2-4f83-46ab-a431-a727324be44d",
+	'get_connector_text',
+	'First determines whether the association has been formalized (there
+is one R_PART and one R_FORM instance if the association is formalized,
+two R_PART instances if not). Then it obtains the phrases by calling
+the operations of the same name in the associated R_PART/R_FORM
+instances.
+-----------------------------------------------------------------------------------
+Bridge:GD
+',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	1,
+	'result = "";
+select one rel related by self->R_REL[R206];
+isReflexive = false;
+if ( not_empty rel )
+  isReflexive = rel.is_reflexive();
+end if;
+
+select many part_set related by self->R_PART[R207];
+if ( cardinality part_set > 1 )
+  // un-formalized
+  if (isReflexive)
+    select any part1 related by self->R_PART[R207];
+    if (param.at == End::Start OR param.at == End::Start_Fixed)
+      if (not_empty part1)
+        result = part1.get_connector_text(at:param.at);
+      end if;
+    elif (param.at == End::End OR param.at == End::End_Fixed)
+      select any part2 related by self->R_PART[R207] 
+        where selected.OIR_ID != part1.OIR_ID;
+      if (not_empty part2)
+        result = part2.get_connector_text(at:param.at);
+      end if;
+    end if;
+  else
+    select any part related by self->R_PART[R207] where (selected.Obj_ID == param.Obj_ID);
+    if (not_empty part)
+      result = part.get_connector_text(at:param.at);
+    end if;
+  end if;
+else
+  if (isReflexive)
+    if (param.at == End::Start OR param.at == End::Start_Fixed)
+      select any part related by self->R_PART[R207];
+      if (not_empty part)
+        result = part.get_connector_text(at:param.at);
+      end if;
+    elif (param.at == End::End OR param.at == End::End_Fixed)
+      select one form related by self->R_FORM[R208];
+      if (not_empty form)
+        result = form.get_connector_text(at:param.at);
+      end if;
+    end if;
+  else
+    select any part related by self->R_PART[R207] where (selected.Obj_ID == param.Obj_ID);
+    if (not_empty part)
+      result = part.get_connector_text(at:param.at);
+    else
+      select one form related by self->R_FORM[R208] where (selected.Obj_ID == param.Obj_ID);
+      if (not_empty form)
+        result = form.get_connector_text(at:param.at);
+      end if;
+    end if;
+  end if;
+end if;
+return result;
+',
+	1,
+	'',
+	"5211e040-9664-4a90-bfe5-b7657a940ec0");
+INSERT INTO O_TPARM
+	VALUES ("9b965e97-81c1-4d07-bfec-92625354516b",
+	"2429bee2-78db-4411-b6ee-a300fb083edb",
+	'Obj_ID',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'unique_id',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TPARM
+	VALUES ("7d71d2d2-28bf-4737-b697-162f358c4def",
+	"2429bee2-78db-4411-b6ee-a300fb083edb",
+	'at',
+	"ae85eca6-6fe4-4125-95e6-95272f0fd7de",
+	0,
+	'',
+	"9b965e97-81c1-4d07-bfec-92625354516b",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("ae85eca6-6fe4-4125-95e6-95272f0fd7de",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'End',
+	'Text is positioned at a user adjustable offset from the Start, Middle and End of a connector. Start_Fixed and End_Fixed specify fixed position text found at the start and end of some connectors.
+-------------------------------------------------------------
+Bridge:GD',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO S_DT_PROXY
+	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'string',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("e6d3b5ac-26c3-493d-8099-123939c26e52",
+	"12813ef2-4f83-46ab-a431-a727324be44d",
+	'dispose',
+	'The dispose operation for the R_SIMP class.',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select one assoc related by self->R_REL[R206];
+unrelate self from assoc across R206;
+select many parts related by self->R_PART[R207];
+for each part in parts
+  unrelate self from part across R207;
+end for;
+select one form related by self->R_FORM[R208];
+if(not_empty form)
+  unrelate self from form across R208;
+end if;
+delete object instance self;',
+	1,
+	'',
+	"d307bb1d-0933-46cc-9cd0-82532dff50e8");
+INSERT INTO S_DT_PROXY
+	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'void',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("20dd5607-d958-4f5a-a12e-bf7de8724de8",
+	"12813ef2-4f83-46ab-a431-a727324be44d",
+	'migrateToLinked',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+// create the class as link
+create object instance assr of R_ASSR;
+
+// Unformalize self if it is formalized
+if (self.isFormalized())
+  self.unformalize();
+end if;
+select one toAssoc related by self->R_REL[R206];
+select any fromClass related by self->R_REL[R206]->S_SS[R4]->S_DOM[R1]->S_SS[R1]->O_OBJ[R2] where (selected.Obj_ID == param.using);
+if (empty fromClass)
+   // see if this is in a package (isInGenericPackage)
+   select any fromClass related by self->R_REL[R206]->PE_PE[R8001]->EP_PKG[R8000]->S_SYS[R1405]->EP_PKG[R1405]->PE_PE[R8000]->O_OBJ[R8001]  where (selected.Obj_ID == param.using);
+end if;
+// migrate the simple association to a linked association
+create object instance assoc of R_ASSOC;
+unrelate self from toAssoc across R206;
+relate assoc to toAssoc across R206;
+//
+select many parts related by self->R_PART[R207];
+if (cardinality parts == 1)
+  // this association is formalized 
+  // migrate from participant to oneside
+  select any part related by self->R_PART[R207];
+  select one rto related by part->R_RTO[R204];
+  unrelate part from rto across R204;
+  unrelate self from part across R207;
+  create object instance aone of R_AONE;
+  aone.Mult = part.Mult;
+  aone.Cond = part.Cond;
+  aone.Txt_Phrs = part.Txt_Phrs;
+  relate rto to aone across R204;
+  delete object instance part;
+  // link the one side to the new linked association
+  relate aone to assoc across R209;
+  // migrate from formalizer to otherside
+  select one form related by self->R_FORM[R208];
+  select one rgo related by form->R_RGO[R205];
+  unrelate form from rgo across R205;
+  unrelate self from form across R208;
+  select one oir related by rgo->R_OIR[R203];
+  unrelate oir from rgo across R203;
+  rgo.dispose();
+  create object instance othRto of R_RTO;
+  relate oir to othRto across R203;
+  create object instance aoth of R_AOTH;
+  aoth.Mult = form.Mult;
+  aoth.Cond = form.Cond;
+  aoth.Txt_Phrs = form.Txt_Phrs;
+  delete object instance form;
+  relate othRto to aoth across R204;
+  // link the other side to the new linked association
+  relate aoth to assoc across R210;
+  select one refClass related by oir->O_OBJ[R201];
+else
+  // this association is unformalized
+  doingOneSide = true;
+  for each part in parts
+    if (doingOneSide)
+      // migrate from participant to oneside
+      select one rto related by part->R_RTO[R204];
+      unrelate part from rto across R204;
+      unrelate self from part across R207;
+      create object instance aone of R_AONE;
+      aone.Mult = part.Mult;
+      aone.Cond = part.Cond;
+      aone.Txt_Phrs = part.Txt_Phrs;
+      delete object instance part;
+      relate rto to aone across R204;
+      // link the one side to the new linked association
+      relate aone to assoc across R209;
+      doingOneSide = false;
+    else
+      // migrate from participant to otherside
+      select one rto related by part->R_RTO[R204];
+      unrelate part from rto across R204;
+      unrelate self from part across R207;
+      create object instance aoth of R_AOTH;
+      aoth.Mult = part.Mult;
+      aoth.Cond = part.Cond;
+      aoth.Txt_Phrs = part.Txt_Phrs;
+      delete object instance part;
+      relate rto to aoth across R204;
+      // link the other side to the new linked association
+      relate aoth to assoc across R210;
+    end if;
+  end for;
+end if;
+// link the fromClass to the association
+create object instance oir of R_OIR;
+relate fromClass to toAssoc across R201 using oir;
+// create the referring class in association
+create object instance rgo of R_RGO;
+relate rgo to oir across R203;
+relate rgo to assr across R205;
+// link it with the linked association
+relate assr to assoc across R211;
+if ( param.imported_id != GD::NULL_UNIQUE_ID() )
+  // link class is an imported class
+  select any imp_class related by fromClass->O_IOBJ[R101] 
+        where selected.IObj_ID == param.imported_id;
+  relate imp_class to oir across R202;
+end if;
+delete object instance self;
+',
+	1,
+	'',
+	"a86047f7-23ce-4ceb-a25c-ce3ed069a544");
+INSERT INTO O_TPARM
+	VALUES ("2e07f806-057c-420b-a31d-1a53bb2df5ad",
+	"20dd5607-d958-4f5a-a12e-bf7de8724de8",
+	'using',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"8aeca9e6-5e90-45de-9892-8b0668b71544",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("8aeca9e6-5e90-45de-9892-8b0668b71544",
+	"20dd5607-d958-4f5a-a12e-bf7de8724de8",
+	'imported_id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("a86047f7-23ce-4ceb-a25c-ce3ed069a544",
+	"12813ef2-4f83-46ab-a431-a727324be44d",
+	'isFormalized',
+	'',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'select one form related by self->R_FORM[R208];
+if ( not_empty form )
+  select any rto related by self->R_PART[R207]->R_RTO[R204];
+  select any rtida related by rto->O_RTIDA[R110];
+  if ( empty rtida )
+    select one assoc related by self->R_REL[R206];
+    rel_num = GD::int_to_string(value: assoc.Numb );
+    USER::logError(msg: "Association R"+rel_num+" has inconsistent formalization data",path:"");
+  end if;
+  return true;
+end if;
+return false;
+',
+	1,
+	'',
+	"2429bee2-78db-4411-b6ee-a300fb083edb");
+INSERT INTO S_DT_PROXY
+	VALUES ("8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'boolean',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("5211e040-9664-4a90-bfe5-b7657a940ec0",
+	"12813ef2-4f83-46ab-a431-a727324be44d",
+	'formalize',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'if ( self.isFormalized() )
+  self.unformalize();
+end if;
+
+select any part related by self->R_PART[R207]
+  where selected.OIR_ID == param.part_oir_id;
+
+// migrate participant to Class As Simple Formalizer
+// select using OIR_ID so that we get a different instance in the reflexive case
+select any form_part related by self->R_PART[R207]
+  where selected.OIR_ID != part.OIR_ID;
+form_part.migrateToFormalizer();
+select one form related by self->R_FORM[R208];
+
+select one part_rto related by part->R_RTO[R204];
+select one part_obj related by part_rto->R_OIR[R203]->O_OBJ[R201];
+select any oid related by part_obj->O_ID[R104] where selected.Oid_ID == param.id_id;
+relate oid to part_rto across R109;
+
+select many oida_set related by oid->O_OIDA[R105];
+
+select one form_rgo related by form->R_RGO[R205];
+select one form_obj related by form_rgo->R_OIR[R203]->O_OBJ[R201];
+for each oida in oida_set
+    newAttr_id = oida.addReference(rel_id: self.Rel_ID,
+        rto_obj_id: part_rto.Obj_ID, rto_oir_id: part_rto.OIR_ID, 
+        rgo_obj_id: form_rgo.Obj_ID, rgo_oir_id: form_rgo.OIR_ID,
+        id: -1);
+end for;
+',
+	1,
+	'',
+	"e6d3b5ac-26c3-493d-8099-123939c26e52");
+INSERT INTO O_TPARM
+	VALUES ("92020e45-ed15-49d8-989b-504cf4c70dda",
+	"5211e040-9664-4a90-bfe5-b7657a940ec0",
+	'part_oir_id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"2943a74f-023d-44a7-89a3-dd36f2d2423f",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("2943a74f-023d-44a7-89a3-dd36f2d2423f",
+	"5211e040-9664-4a90-bfe5-b7657a940ec0",
+	'id_id',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'integer',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("28539e74-6bbf-4203-8256-f42e9da2eb55",
+	"12813ef2-4f83-46ab-a431-a727324be44d",
+	'unformalize',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select any part_rto related by self->R_PART[R207]->R_RTO[R204];  // there is only one
+
+part_rto.unformalize();
+
+// migrate formalizer back to Class As Simple Participant
+select one form related by self->R_FORM[R208];
+form.migrateToParticipant();
+
+
+',
+	1,
+	'',
+	"20dd5607-d958-4f5a-a12e-bf7de8724de8");
+INSERT INTO O_TFR
+	VALUES ("d307bb1d-0933-46cc-9cd0-82532dff50e8",
+	"12813ef2-4f83-46ab-a431-a727324be44d",
+	'canParticipate',
+	'',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'select any part related by self->R_PART[R207]
+    where selected.Obj_ID == param.id;
+if ( not_empty part )
+  select any oida related by part->R_RTO[R204]->R_OIR[R203]->O_OBJ[R201]->O_ID[R104]->O_OIDA[R105];
+  // participant has to have an id with attributes and cardinality of one (value zero)
+  return not_empty oida and part.Mult == 0;
+end if;
+return false;',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_TPARM
+	VALUES ("859bc81f-3673-43e0-9a18-da0dae2d95d9",
+	"d307bb1d-0933-46cc-9cd0-82532dff50e8",
+	'id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_REF
+	VALUES ("12813ef2-4f83-46ab-a431-a727324be44d",
+	"fccf477f-dde6-4d1a-9020-5effbe338738",
+	0,
+	"0e0a4e72-7f7e-46b9-b83c-2c6b882dda5f",
+	"5e6917e8-b125-4a26-bf6b-6c07df0100dd",
+	"73682235-d560-48d8-adb5-fdc75df454d9",
+	"2ba19811-54d9-4de2-bf77-265fcb6e96b6",
+	"9102cbad-fa2d-40fb-bae6-dcc2fbdeba43",
+	"0c8bcfeb-8bd6-4561-8b15-ad1b1783aa62",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Association',
+	'Rel_ID',
+	'R206');
+INSERT INTO R_RGO_PROXY
+	VALUES ("12813ef2-4f83-46ab-a431-a727324be44d",
+	"5e6917e8-b125-4a26-bf6b-6c07df0100dd",
+	"73682235-d560-48d8-adb5-fdc75df454d9",
+	'../Association.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("0e0a4e72-7f7e-46b9-b83c-2c6b882dda5f",
+	"fccf477f-dde6-4d1a-9020-5effbe338738",
+	0,
+	"5e6917e8-b125-4a26-bf6b-6c07df0100dd",
+	"2ba19811-54d9-4de2-bf77-265fcb6e96b6",
+	'../Association.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("9102cbad-fa2d-40fb-bae6-dcc2fbdeba43",
+	"12813ef2-4f83-46ab-a431-a727324be44d",
+	"5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	1,
+	'Element_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	'../../Packageable Element/Packageable Element/Packageable Element.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("9102cbad-fa2d-40fb-bae6-dcc2fbdeba43",
+	"12813ef2-4f83-46ab-a431-a727324be44d",
+	"00000000-0000-0000-0000-000000000000",
+	'Rel_ID',
+	'',
+	'',
+	'Rel_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_ID
+	VALUES (0,
+	"12813ef2-4f83-46ab-a431-a727324be44d");
+INSERT INTO O_OIDA
+	VALUES ("9102cbad-fa2d-40fb-bae6-dcc2fbdeba43",
+	"12813ef2-4f83-46ab-a431-a727324be44d",
+	0,
+	'Rel_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"12813ef2-4f83-46ab-a431-a727324be44d");
+INSERT INTO O_ID
+	VALUES (2,
+	"12813ef2-4f83-46ab-a431-a727324be44d");
+INSERT INTO S_SS_PROXY
+	VALUES ("c8d78fd5-1314-444a-bad0-6af79f6e1296",
+	'Association',
+	'A association (R_REL) captures an association between things in the real world. A association is stated in terms of the formal classs (O_OBJ) that model the real world entities participating in the association. There can be any number of associations between the same two classs and any class can participate in any number of associations with other classs.',
+	'R',
+	201,
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000180003",
+	'../Association.xtuml');

@@ -1,0 +1,137 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("661d412c-60d2-4726-9b1a-4bed7b5a90c8",
+	'Association In Use Case',
+	1210,
+	'UC_AIUC',
+	'',
+	"2597fe35-f53f-4878-817d-73f2d7a1fa0f");
+INSERT INTO O_REF
+	VALUES ("661d412c-60d2-4726-9b1a-4bed7b5a90c8",
+	"0fd3603a-e543-4a86-9042-2f16f4b80852",
+	0,
+	"0797f9e8-e79a-4d97-81e0-89f2e2aa8490",
+	"5e1ab0b8-8049-43f9-941e-b1eceff2471a",
+	"bfa2f867-7a67-4c95-9abf-d62efb380d5c",
+	"cf829d6f-f785-446d-aa09-d46aa36a5ad8",
+	"b8ab01c1-2674-4084-8aaa-b39a8bdb9a37",
+	"dc0e8dde-c5b0-49ec-9f84-d6c79071203d",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Use Case Association',
+	'Assoc_ID',
+	'R1215');
+INSERT INTO R_RGO_PROXY
+	VALUES ("661d412c-60d2-4726-9b1a-4bed7b5a90c8",
+	"5e1ab0b8-8049-43f9-941e-b1eceff2471a",
+	"bfa2f867-7a67-4c95-9abf-d62efb380d5c",
+	'../Use Case.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("0797f9e8-e79a-4d97-81e0-89f2e2aa8490",
+	"0fd3603a-e543-4a86-9042-2f16f4b80852",
+	0,
+	"5e1ab0b8-8049-43f9-941e-b1eceff2471a",
+	"cf829d6f-f785-446d-aa09-d46aa36a5ad8",
+	'../Use Case.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("b8ab01c1-2674-4084-8aaa-b39a8bdb9a37",
+	"661d412c-60d2-4726-9b1a-4bed7b5a90c8",
+	"5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	1,
+	'Element_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	'../../Packageable Element/Packageable Element/Packageable Element.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("b8ab01c1-2674-4084-8aaa-b39a8bdb9a37",
+	"661d412c-60d2-4726-9b1a-4bed7b5a90c8",
+	"00000000-0000-0000-0000-000000000000",
+	'Assoc_ID',
+	'',
+	'',
+	'Assoc_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("661d412c-60d2-4726-9b1a-4bed7b5a90c8",
+	"2d912ded-d79b-40ea-8be6-d2ceaee9721d",
+	0,
+	"6bd6c54b-57ac-413d-818a-3fead7521de3",
+	"a4b4d738-4601-4932-990b-ae83234e14f9",
+	"0b23a10f-ea3c-4cb3-93cb-191efde40304",
+	"b7edf106-0d86-4c9b-a8db-0ec16aff19db",
+	"96d80b88-426b-485f-b442-e001f5a4d03c",
+	"caac6b7d-0291-4d61-a860-88f04b5f1ade",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Use Case Diagram',
+	'Package_ID',
+	'R1214');
+INSERT INTO R_RGO_PROXY
+	VALUES ("661d412c-60d2-4726-9b1a-4bed7b5a90c8",
+	"a4b4d738-4601-4932-990b-ae83234e14f9",
+	"0b23a10f-ea3c-4cb3-93cb-191efde40304",
+	'../Use Case.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("6bd6c54b-57ac-413d-818a-3fead7521de3",
+	"2d912ded-d79b-40ea-8be6-d2ceaee9721d",
+	0,
+	"a4b4d738-4601-4932-990b-ae83234e14f9",
+	"b7edf106-0d86-4c9b-a8db-0ec16aff19db",
+	'../Use Case.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("96d80b88-426b-485f-b442-e001f5a4d03c",
+	"661d412c-60d2-4726-9b1a-4bed7b5a90c8",
+	"a5a1b94e-be2f-4750-bd58-cf1c2713558a",
+	"cf4966b0-706a-4373-a2ee-7e706918813c",
+	1,
+	'Package_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("a5a1b94e-be2f-4750-bd58-cf1c2713558a",
+	"cf4966b0-706a-4373-a2ee-7e706918813c",
+	'../../Element Packaging/Specification Package/Specification Package.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("96d80b88-426b-485f-b442-e001f5a4d03c",
+	"661d412c-60d2-4726-9b1a-4bed7b5a90c8",
+	"b8ab01c1-2674-4084-8aaa-b39a8bdb9a37",
+	'Package_ID',
+	'',
+	'',
+	'Package_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"661d412c-60d2-4726-9b1a-4bed7b5a90c8");
+INSERT INTO O_ID
+	VALUES (1,
+	"661d412c-60d2-4726-9b1a-4bed7b5a90c8");
+INSERT INTO O_ID
+	VALUES (2,
+	"661d412c-60d2-4726-9b1a-4bed7b5a90c8");
+INSERT INTO S_SS_PROXY
+	VALUES ("2597fe35-f53f-4878-817d-73f2d7a1fa0f",
+	'Use Case',
+	'// This is used by schema_gen to ignore this subsystem (for publication)
+TRANSLATE_FOR_EXTERNAL_USE:FALSE',
+	'UC',
+	1200,
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
+	'../Use Case.xtuml');

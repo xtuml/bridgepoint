@@ -1,0 +1,190 @@
+-- BP 7.1 content: FunctionPackage syschar: 3 persistence-version: 7.1.5
+
+INSERT INTO S_FPK
+	VALUES ("b0fc9c92-1a3f-4b51-a975-c79dfc4eaa91",
+	'Invalid Bridge Parameter Test Invocation Functions',
+	"00000000-0000-0000-0000-000000000000",
+	"974d0af7-e621-4f96-be7d-955fc947d471");
+INSERT INTO GD_MD
+	VALUES ("cddd395c-b73e-4169-9e91-ae3a43a1fdb1",
+	101,
+	"b0fc9c92-1a3f-4b51-a975-c79dfc4eaa91",
+	54,
+	0,
+	0,
+	1,
+	1,
+	1,
+	12,
+	1,
+	0,
+	0,
+	200,
+	150,
+	0,
+	'3.2.3');
+INSERT INTO DIM_DIA
+	VALUES ("cddd395c-b73e-4169-9e91-ae3a43a1fdb1",
+	'',
+	1.000000,
+	4000.000000,
+	3000.000000,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_FPIP
+	VALUES ("b0fc9c92-1a3f-4b51-a975-c79dfc4eaa91");
+INSERT INTO PL_FPID
+	VALUES ("b0fc9c92-1a3f-4b51-a975-c79dfc4eaa91",
+	"c3928f56-530d-4984-8114-35933dc4cb31");
+INSERT INTO S_DOM_PROXY
+	VALUES ("c3928f56-530d-4984-8114-35933dc4cb31",
+	'instRef',
+	'',
+	0,
+	"00000000-0000-0000-0000-000000000002",
+	"13c14d34-d225-4949-89b6-fe738cc62cbb",
+	'../../../instRef.xtuml');
+INSERT INTO S_FIP
+	VALUES ("b0fc9c92-1a3f-4b51-a975-c79dfc4eaa91",
+	"1a4c1ec2-3774-43a2-a7c1-031a81e5192e");
+INSERT INTO S_SYNC
+	VALUES ("1a4c1ec2-3774-43a2-a7c1-031a81e5192e",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'BridgeParameter_booleanBinaryOperationLeftOperand_Invalid',
+	'',
+	'::setup(accessType:"Invalid",referenceType:""); 
+select any car from instances of V;
+BPARM2::S_BPARM_booleanBinaryOperationLeftOperand( instRef : car );
+::dispose(accessType:"Invalid",referenceType:"");   ',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("63f91549-9407-42c4-a2c0-fdde2812f080",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'void',
+	'',
+	'',
+	'../../../Datatypes/Datatypes.xtuml');
+INSERT INTO S_FIP
+	VALUES ("b0fc9c92-1a3f-4b51-a975-c79dfc4eaa91",
+	"296bf5b4-091c-4aca-bdfd-9068e9587903");
+INSERT INTO S_SYNC
+	VALUES ("296bf5b4-091c-4aca-bdfd-9068e9587903",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'BridgeParameter_booleanBinaryOperationRightOperand_Invalid',
+	'',
+	'::setup(accessType:"Invalid",referenceType:""); 
+select any car from instances of V;
+BPARM2::S_BPARM_booleanBinaryOperationRightOperand( instRef : car );
+::dispose(accessType:"Invalid",referenceType:"");   ',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'');
+INSERT INTO S_FIP
+	VALUES ("b0fc9c92-1a3f-4b51-a975-c79dfc4eaa91",
+	"03d684b1-08c2-4254-962f-b078decd94d8");
+INSERT INTO S_SYNC
+	VALUES ("03d684b1-08c2-4254-962f-b078decd94d8",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'BridgeParameter_readAttr_Invalid',
+	'',
+	'::setup(accessType:"Invalid",referenceType:""); 
+select any car from instances of V;
+BPARM2::S_BPARM_readAttr( instRef : car );
+::dispose(accessType:"Invalid",referenceType:"");   ',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'');
+INSERT INTO S_FIP
+	VALUES ("b0fc9c92-1a3f-4b51-a975-c79dfc4eaa91",
+	"ec5f8f2b-d06b-4107-bdee-1db8ff31a5bf");
+INSERT INTO S_SYNC
+	VALUES ("ec5f8f2b-d06b-4107-bdee-1db8ff31a5bf",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'BridgeParameter_WhereClause_Invalid',
+	'',
+	'::setup(accessType:"Invalid",referenceType:""); 
+select any car from instances of V;
+BPARM2::S_BPARM_WhereClause( instRef : car );
+::dispose(accessType:"Invalid",referenceType:"");   ',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'');
+INSERT INTO S_FIP
+	VALUES ("b0fc9c92-1a3f-4b51-a975-c79dfc4eaa91",
+	"4270948b-09e7-4d4c-a9fb-e296f0892843");
+INSERT INTO S_SYNC
+	VALUES ("4270948b-09e7-4d4c-a9fb-e296f0892843",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'BridgeParameter_booleanBinaryOperationLeftOperandSet_Invalid',
+	'',
+	'::setup(accessType:"Invalid",referenceType:""); 
+select many car from instances of V;
+BPARM2::S_BPARM_booleanBinaryOperationLeftOperandSet( instRef_set : car );
+::dispose(accessType:"Invalid",referenceType:"");   ',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'');
+INSERT INTO S_FIP
+	VALUES ("b0fc9c92-1a3f-4b51-a975-c79dfc4eaa91",
+	"bff8aa77-7a46-4c5e-bd54-cc07dd97574d");
+INSERT INTO S_SYNC
+	VALUES ("bff8aa77-7a46-4c5e-bd54-cc07dd97574d",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'BridgeParameter_writeAttr_Invalid',
+	'',
+	'::setup(accessType:"Invalid",referenceType:""); 
+select any car from instances of V;
+BPARM2::S_BPARM_writeAttr( instRef : car );
+::dispose(accessType:"Invalid",referenceType:"");   ',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'');
+INSERT INTO S_FIP
+	VALUES ("b0fc9c92-1a3f-4b51-a975-c79dfc4eaa91",
+	"0a6619bb-98c3-4870-8e12-d36eb2f9031c");
+INSERT INTO S_SYNC
+	VALUES ("0a6619bb-98c3-4870-8e12-d36eb2f9031c",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'BridgeParameter_booleanBinaryOperationRightOperandSet_Invalid',
+	'',
+	'::setup(accessType:"Invalid",referenceType:""); 
+select many car from instances of V;
+BPARM2::S_BPARM_booleanBinaryOperationRightOperandSet( instRef_set : car );
+::dispose(accessType:"Invalid",referenceType:"");   ',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'');
+INSERT INTO S_FIP
+	VALUES ("b0fc9c92-1a3f-4b51-a975-c79dfc4eaa91",
+	"eec99a05-10f1-407d-a028-9116f0f4aaef");
+INSERT INTO S_SYNC
+	VALUES ("eec99a05-10f1-407d-a028-9116f0f4aaef",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'BridgeParameter_ActivitiesInvocation_Invalid',
+	'',
+	'::setup(accessType:"Invalid",referenceType:""); 
+select any car from instances of V;
+BPARM2::S_BPARM_ActivitiesInvocation( instRef : car );
+::dispose(accessType:"Invalid",referenceType:"");   ',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'');
+INSERT INTO S_FIP
+	VALUES ("b0fc9c92-1a3f-4b51-a975-c79dfc4eaa91",
+	"4dce4ddb-612e-4ed9-a82c-a49483c16e7e");
+INSERT INTO S_SYNC
+	VALUES ("4dce4ddb-612e-4ed9-a82c-a49483c16e7e",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'BridgeParameter_ActivitiesInvocationSet_Invalid',
+	'',
+	'::setup(accessType:"Invalid",referenceType:""); 
+select many car from instances of V;
+BPARM2::S_BPARM_ActivitiesInvocationSet( instRef_set : car );
+::dispose(accessType:"Invalid",referenceType:"");   ',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'');
+INSERT INTO S_FPIP_PROXY
+	VALUES ("974d0af7-e621-4f96-be7d-955fc947d471",
+	'../Invalid Test Invocation Functions.xtuml');

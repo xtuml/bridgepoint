@@ -1,0 +1,389 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 7.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="bpalref.book.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ Control Structures
+</TITLE>
+
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<H1 CLASS="Chapter-Name">
+<A NAME="50536509_pgfId-518378"></A>Control Structures</H1>
+<H2 CLASS="Heading1">
+<A NAME="50536509_pgfId-516139"></A><A NAME="50536509_marker-517918"></A>If Construct</H2>
+<H3 CLASS="Heading2">
+<A NAME="50536509_pgfId-516921"></A>Syntax</H3>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516143"></A><EM CLASS="Code">// Note that there is no semi-colon following the </EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-518420"></A><EM CLASS="Code">// &quot;if &lt;boolean expression&gt;&quot;</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516316"></A><EM CLASS="Code">if &lt;boolean expression&gt;	</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516144"></A><EM CLASS="Code">  &lt;statements&gt;  // Executed if &lt;boolean expression&gt; is TRUE</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516146"></A><EM CLASS="Code">end if;</EM>
+<A NAME="50536509_marker-517921"></A></PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516149"></A><EM CLASS="Code">if (&lt;boolean expression&gt;)	</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516150"></A><EM CLASS="Code">  &lt;statements&gt;  // Executed if above boolean expression evaluates to TRUE </EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516152"></A><EM CLASS="Code">elif (&lt;boolean expression&gt;) 	</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-543290"></A><EM CLASS="Code">  &lt;statements&gt;  // Executed if above boolean expression evaluates to TRUE</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-518680"></A><EM CLASS="Code">          // and previous boolean expression is FALSE 	</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516155"></A><EM CLASS="Code">else</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516156"></A><EM CLASS="Code">  &lt;statements&gt;  // Executed if both boolean expressions evaluate to FALSE </EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516158"></A><EM CLASS="Code">end if;</EM>
+</PRE>
+<P CLASS="Body-Tight">
+<A NAME="50536509_pgfId-517951"></A><EM CLASS="Code">
+</EM>
+&nbsp;</P>
+<P CLASS="Body-Tight">
+<A NAME="50536509_pgfId-543142"></A><EM CLASS="Code">
+&lt;boolean expression&gt;</EM>
+ is an expression evaluating to <EM CLASS="Code">
+TRUE</EM>
+ or <EM CLASS="Code">
+FALSE</EM>
+.</P>
+<H3 CLASS="Heading2">
+<A NAME="50536509_pgfId-516165"></A>Notes</H3>
+<P CLASS="Body">
+<A NAME="50536509_pgfId-516166"></A>The <EM CLASS="Code">
+if</EM>
+ construct may contain as many <EM CLASS="Code">
+elif</EM>
+ clauses as desired.</P>
+<P CLASS="Body">
+<A NAME="50536509_pgfId-516167"></A>Only one <EM CLASS="Code">
+else</EM>
+ clause may be used, and it must appear at the end of the <EM CLASS="Code">
+if</EM>
+ construct.</P>
+<H3 CLASS="Heading2">
+<A NAME="50536509_pgfId-516169"></A>Example</H3>
+<P CLASS="Body">
+<A NAME="50536509_pgfId-518439"></A>The following example shows an <EM CLASS="Code">
+if/elif/else </EM>
+construct:</P>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516170"></A><EM CLASS="Code">// Assign x with a different number for each name.</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516171"></A><EM CLASS="Code">if (name == &quot;John&quot;)</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516172"></A><EM CLASS="Code">  x = 1;</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516173"></A><EM CLASS="Code">elif (name == &quot;Bill&quot;)</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516174"></A><EM CLASS="Code">  x = 2;</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516175"></A><EM CLASS="Code">elif (name == &quot;Michael&quot;)</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516176"></A><EM CLASS="Code">  x = 3;</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516178"></A><EM CLASS="Code">else</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-518433"></A><EM CLASS="Code">  // If not a known name, assign x to 4.</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-518431"></A><EM CLASS="Code">  x = 4;</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516180"></A><EM CLASS="Code">end if;</EM>
+</PRE>
+<P CLASS="Code">
+<A NAME="50536509_pgfId-518438"></A>&nbsp;</P>
+<P CLASS="Body">
+<A NAME="50536509_pgfId-517806"></A>This example shows nested <EM CLASS="Code">
+if</EM>
+ constructs:</P>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-517825"></A><EM CLASS="Code">// Carousel:  Going</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-517809"></A><EM CLASS="Code">self.destination = rcvd_evt.destination;</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-517810"></A><EM CLASS="Code">delta = self.destination - self.current_position;</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-517811"></A><EM CLASS="Code">if ( delta == 0 )</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-517812"></A><EM CLASS="Code">  generate C2:there to self;</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-517813"></A><EM CLASS="Code">else</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-517814"></A><EM CLASS="Code">  select any probe from instances of SP</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-517815"></A><EM CLASS="Code">    where (selected.current_position == &quot;down&quot;);</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-543302"></A><EM CLASS="Code">  if (not_empty probe)</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-543299"></A><EM CLASS="Code">    generate C2:there to self;</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-543305"></A><EM CLASS="Code">  else</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-543308"></A><EM CLASS="Code">    spin_spot = CARPIO::carousel_spin(</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-517820"></A><EM CLASS="Code">      car_id:self.carousel_ID, destination:delta );</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-517821"></A><EM CLASS="Code">  end if;</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-518442"></A><EM CLASS="Code">end if;</EM>
+</PRE>
+<H2 CLASS="Heading1">
+<A NAME="50536509_pgfId-516183"></A>For Each Loop<A NAME="50536509_marker-516182"></A></H2>
+<P CLASS="Body">
+<A NAME="50536509_pgfId-518415"></A>The <EM CLASS="Code">
+for</EM>
+ <EM CLASS="Code">
+each</EM>
+ loop allows for the iteration over a set of instance handles in an instance handle set.</P>
+<H3 CLASS="Heading2">
+<A NAME="50536509_pgfId-516185"></A>Syntax</H3>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516188"></A><EM CLASS="Code">for each &lt;instance handle&gt; in &lt;instance handle set&gt; // Note no semi-colon	</EM>
+<A NAME="50536509_marker-516186"></A><A NAME="50536509_marker-516187"></A></PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516189"></A><EM CLASS="Code">  &lt;statements&gt;</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516190"></A><EM CLASS="Code">end for;</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-543161"></A>&nbsp;</PRE>
+<P CLASS="Body-Tight">
+<A NAME="50536509_pgfId-516194"></A><EM CLASS="Code">
+&lt;instance handle&gt;</EM>
+ is a local variable referring to a single instance.</P>
+<P CLASS="Body-Tight">
+<A NAME="50536509_pgfId-516196"></A><EM CLASS="Code">
+&lt;instance handle set&gt;</EM>
+ is a local variable referring to a set of instance handles.</P>
+<H3 CLASS="Heading2">
+<A NAME="50536509_pgfId-516198"></A>Notes</H3>
+<P CLASS="Body">
+<A NAME="50536509_pgfId-516199"></A>The statements in the <EM CLASS="Code">
+for</EM>
+ <EM CLASS="Code">
+each</EM>
+ construct are executed once against each instance in <EM CLASS="Code">
+&lt;instance handle set&gt;</EM>
+.</P>
+<P CLASS="Body">
+<A NAME="50536509_pgfId-516200"></A>The order in which the particular instances are processed is undefined.</P>
+<P CLASS="Body">
+<A NAME="50536509_pgfId-516201"></A>Because the statements in the <EM CLASS="Code">
+for</EM>
+ <EM CLASS="Code">
+each</EM>
+ construct can, in principle, be executed in parallel (as when instances are dispersed over multiple processors), the concept of a loop counter is undefined. Consequently, the analyst should not attempt to defeat this restriction.</P>
+<H3 CLASS="Heading2">
+<A NAME="50536509_pgfId-516203"></A>Example</H3>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516204"></A><EM CLASS="Code">// C is the keyletter for the Child object.</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516205"></A><EM CLASS="Code">// children is an implicitly typed variable of &lt;instance handle set&gt; of C.</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516207"></A><EM CLASS="Code">select many children from instances of C;</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516208"></A><EM CLASS="Code">for each child in children</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516209"></A><EM CLASS="Code">  generate C1:'time for bed' () to child;</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516210"></A><EM CLASS="Code">end for;</EM>
+</PRE>
+<H2 CLASS="Heading1">
+<A NAME="50536509_pgfId-516214"></A>While Loop<A NAME="50536509_marker-516213"></A></H2>
+<P CLASS="Body">
+<A NAME="50536509_pgfId-516216"></A>The <EM CLASS="Code">
+while</EM>
+ construct is used to sequentially execute the code it contains for as long as the condition is evaluated as <EM CLASS="Code">
+TRUE</EM>
+.</P>
+<H3 CLASS="Heading2">
+<A NAME="50536509_pgfId-516218"></A>Syntax</H3>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516220"></A><EM CLASS="Code">while (&lt;boolean expression&gt;) // Note no semi-colon </EM>
+<A NAME="50536509_marker-516219"></A></PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516221"></A><EM CLASS="Code">  &lt;statements&gt;</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516222"></A><EM CLASS="Code">end while;</EM>
+<A NAME="50536509_marker-517930"></A></PRE>
+<P CLASS="Body-Tight">
+<A NAME="50536509_pgfId-543192"></A>&nbsp;</P>
+<P CLASS="Body-Tight">
+<A NAME="50536509_pgfId-516224"></A><EM CLASS="Code">
+&lt;boolean expression&gt;</EM>
+ is an expression evaluating to <EM CLASS="Code">
+TRUE</EM>
+ or <EM CLASS="Code">
+FALSE</EM>
+  </P>
+<P CLASS="Body-Tight">
+<A NAME="50536509_pgfId-518696"></A><EM CLASS="Code">
+&lt;statements&gt;</EM>
+ are zero or more OAL statements.</P>
+<H3 CLASS="Heading2">
+<A NAME="50536509_pgfId-516229"></A>Note</H3>
+<P CLASS="Body">
+<A NAME="50536509_pgfId-516230"></A>When the <EM CLASS="Code">
+while</EM>
+ loop is executed, the statements in the <EM CLASS="Code">
+while</EM>
+ construct are executed consecutively as long as the <EM CLASS="Code">
+&lt;boolean expression&gt;</EM>
+ evaluates to <EM CLASS="Code">
+TRUE</EM>
+.</P>
+<H3 CLASS="Heading2">
+<A NAME="50536509_pgfId-516232"></A>Example</H3>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516233"></A><EM CLASS="Code">// Create 20 doors with IDs 1-20</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516234"></A><EM CLASS="Code">i = 1;</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516235"></A><EM CLASS="Code">while (i &lt;= 20)</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516236"></A><EM CLASS="Code">  create object instance d of DOOR;</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516237"></A><EM CLASS="Code">  d.ID = i;</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516238"></A><EM CLASS="Code">  i = i + 1;</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516239"></A><EM CLASS="Code">end while;</EM>
+</PRE>
+<H2 CLASS="Heading1">
+<A NAME="50536509_pgfId-516242"></A>Break<A NAME="50536509_marker-516241"></A></H2>
+<P CLASS="Body">
+<A NAME="50536509_pgfId-516244"></A>The <EM CLASS="Code">
+break</EM>
+ statement allows the early termination of both <EM CLASS="Code">
+for</EM>
+ <EM CLASS="Code">
+each </EM>
+and <EM CLASS="Code">
+while</EM>
+ loops. This can have some significant performance implications in the case of large loops that need not step through the entire iteration.</P>
+<H3 CLASS="Heading2">
+<A NAME="50536509_pgfId-516246"></A>Note</H3>
+<P CLASS="Body">
+<A NAME="50536509_pgfId-516247"></A>The <EM CLASS="Code">
+break</EM>
+ statement only applies to the current <EM CLASS="Code">
+for</EM>
+ <EM CLASS="Code">
+each </EM>
+or <EM CLASS="Code">
+while</EM>
+ loop containing it. To break out of nested loops, the <EM CLASS="Code">
+break</EM>
+ must be repeated for each loop construct the user wishes to exit.</P>
+<H3 CLASS="Heading2">
+<A NAME="50536509_pgfId-516249"></A>Example</H3>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516250"></A><EM CLASS="Code">// Create and relate a B to every A while CTL says to keep</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-518461"></A><EM CLASS="Code">// creating.</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516251"></A><EM CLASS="Code">while (CTL::create())</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516252"></A><EM CLASS="Code">  breakout = FALSE;</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516253"></A><EM CLASS="Code">  for each a in aset</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516254"></A><EM CLASS="Code">    // If this a has name equal to &quot;Jeff&quot;, break out of </EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-518463"></A><EM CLASS="Code">    // for each loop.</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516255"></A><EM CLASS="Code">    if (a.name == &quot;Jeff&quot;)</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516256"></A><EM CLASS="Code">      breakout = TRUE;</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-543338"></A><EM CLASS="Code">      break;</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516258"></A><EM CLASS="Code">    end if;</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516259"></A><EM CLASS="Code">    // Create and relate a new b to the given a.</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516260"></A><EM CLASS="Code">    create object instance b of B;</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516261"></A><EM CLASS="Code">    relate b to a across R1;</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-543341"></A><EM CLASS="Code">  end for;</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-543243"></A><EM CLASS="Code">  // If &quot;Jeff&quot; was found, break out of while loop also.</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-543246"></A><EM CLASS="Code">  if (breakout)</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516265"></A><EM CLASS="Code">    break;</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516266"></A><EM CLASS="Code">  end if;</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516267"></A><EM CLASS="Code">end while;</EM>
+</PRE>
+<H2 CLASS="Heading1">
+<A NAME="50536509_pgfId-516270"></A>Continue<A NAME="50536509_marker-516269"></A></H2>
+<P CLASS="Body">
+<A NAME="50536509_pgfId-516272"></A>The <EM CLASS="Code">
+continue</EM>
+ statement causes the next iteration of the enclosing <EM CLASS="Code">
+for</EM>
+ <EM CLASS="Code">
+each </EM>
+or <EM CLASS="Code">
+while</EM>
+ loop to begin, avoiding execution of the loop's remaining code.</P>
+<H3 CLASS="Heading2">
+<A NAME="50536509_pgfId-516274"></A>Note</H3>
+<P CLASS="Body">
+<A NAME="50536509_pgfId-516275"></A>The <EM CLASS="Code">
+continue</EM>
+ statement only applies to the current loop containing it.</P>
+<H3 CLASS="Heading2">
+<A NAME="50536509_pgfId-516277"></A>Example</H3>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516278"></A><EM CLASS="Code">// Create and relate a B to each A, except for As with ID of 13.</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516279"></A><EM CLASS="Code">for each a in aset</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516280"></A><EM CLASS="Code">  // If a.ID is 13, don't create and relate a B to it and</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-517828"></A><EM CLASS="Code">  // continue to the next.</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516281"></A><EM CLASS="Code">  if (a.ID == 13)</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516282"></A><EM CLASS="Code">    continue;</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516283"></A><EM CLASS="Code">  end if;</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516284"></A><EM CLASS="Code">  create object instance b of B;</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516285"></A><EM CLASS="Code">  relate b to a across R1;</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516286"></A><EM CLASS="Code">end for;</EM>
+</PRE>
+<H2 CLASS="Heading1">
+<A NAME="50536509_pgfId-517587"></A>Nested Control Logic</H2>
+<P CLASS="Body">
+<A NAME="50536509_pgfId-516290"></A>Control logic may be nested to any depth.</P>
+<H3 CLASS="Heading2">
+<A NAME="50536509_pgfId-516389"></A>Example</H3>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516292"></A><EM CLASS="Code">// Send a 'time for bed' event to all children 5 and under.</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516293"></A><EM CLASS="Code">select many children from instances of C;</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516294"></A><EM CLASS="Code">for each child in children</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-518443"></A><EM CLASS="Code">  if (child.age &lt;= 5)</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-518444"></A><EM CLASS="Code">    while (child.awake)</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-518445"></A><EM CLASS="Code">      generate C1:'time for bed' () to child;</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-543356"></A><EM CLASS="Code">      if (not lights.out)</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-518449"></A><EM CLASS="Code">        generate C2:'turn off lights' () to child;</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-543359"></A><EM CLASS="Code">      end if;</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-543362"></A><EM CLASS="Code">    end while;</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-518452"></A><EM CLASS="Code">  end if;</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516303"></A><EM CLASS="Code">end for;</EM>
+</PRE>
+</BODY>
+</HTML>

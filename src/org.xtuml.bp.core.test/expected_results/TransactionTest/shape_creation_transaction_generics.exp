@@ -1,0 +1,46 @@
+Transaction started: shape creation
+ Creation of instance of type: core.Package
+ Creation of instance of type: core.PackageableElement
+  instance of [core.Package] RelatedAcross R8001 To:  instance of [core.PackageableElement]
+  instance of [core.Package] RelatedAcross R1405 To:  instance of [core.SystemModel]
+  instance of [core.PackageableElement] RelatedAcross R8000 To:  instance of [core.Package]
+ Attribute 'Name' of core.Package changed ( '' -> 'Unnamed Package')
+ Attribute 'Type' of core.PackageableElement changed ( '-1' -> '7')
+ Attribute 'Visibility' of core.PackageableElement changed ( '-1' -> '1')
+ Creation of instance of type: ui.canvas.GraphicalElement
+ Creation of instance of type: ui.canvas.Shape
+ Creation of instance of type: ui.canvas.Graphnode
+  instance of [ui.canvas.Shape] RelatedAcross R19 To:  instance of [ui.canvas.Graphnode]
+ Creation of instance of type: ui.canvas.Graphelement
+  instance of [ui.canvas.Graphnode] RelatedAcross R301 To:  instance of [ui.canvas.Graphelement]
+  instance of [ui.canvas.GraphicalElement] RelatedAcross R23 To:  instance of [ui.canvas.Graphelement]
+ Creation of instance of type: ui.canvas.Diagramelement
+  instance of [ui.canvas.Graphelement] RelatedAcross R302 To:  instance of [ui.canvas.Diagramelement]
+ Creation of instance of type: ui.canvas.NoncontainingShape
+  instance of [ui.canvas.NoncontainingShape] RelatedAcross R28 To:  instance of [ui.canvas.Shape]
+  instance of [ui.canvas.Shape] RelatedAcross R2 To:  instance of [ui.canvas.GraphicalElement]
+  instance of [ui.canvas.GraphicalElement] RelatedAcross R1 To:  instance of [ui.canvas.Model]
+  instance of [ui.canvas.GraphicalElement] RelatedAcross R10 To:  instance of [ui.canvas.ElementSpecification]
+  instance of [ui.canvas.ElementSpecification] RelatedAcross R16 To:  instance of [ui.canvas.GraphicalElement]
+ Creation of instance of type: ui.canvas.Model
+ Creation of instance of type: ui.canvas.Diagram
+  instance of [ui.canvas.Model] RelatedAcross R18 To:  instance of [ui.canvas.Diagram]
+  instance of [ui.canvas.Model] RelatedAcross R9 To:  instance of [ui.canvas.ModelSpecification]
+ Attribute 'Ooa_id' of ui.canvas.Model changed ( '00000000-0000-0000-0000-000000000000' -> '4aef1abd-c838-8183-c53d-6cd0e2fb06f4')
+ Attribute 'Printrows' of ui.canvas.Model changed ( '0' -> '1')
+ Attribute 'Printcols' of ui.canvas.Model changed ( '0' -> '1')
+ Attribute 'Islandscape' of ui.canvas.Model changed ( 'false' -> 'true')
+ Attribute 'Zoomfontsize' of ui.canvas.Model changed ( '0' -> '12')
+ Attribute 'Viewportx' of ui.canvas.Diagram changed ( '0.0' -> '4000.0')
+ Attribute 'Viewporty' of ui.canvas.Diagram changed ( '0.0' -> '3000.0')
+ Attribute 'Zoom' of ui.canvas.Diagram changed ( '0.0' -> '1.0')
+ Attribute 'Gridon' of ui.canvas.Model changed ( 'false' -> 'true')
+ Attribute 'Represents' of ui.canvas.Model changed ( 'null' -> ' instance of [core.Package]')
+ Attribute 'Represents' of ui.canvas.GraphicalElement changed ( 'null' -> ' instance of [core.Package]')
+ Attribute 'Ooa_id' of ui.canvas.GraphicalElement changed ( '00000000-0000-0000-0000-000000000000' -> '4aef1abd-c838-8183-c53d-6cd0e2fb06f4')
+  instance of [ui.canvas.ElementSpecification] UN-RelatedAcross R16 To:  instance of [ui.canvas.GraphicalElement]
+ Attribute 'Positionx' of ui.canvas.Graphelement changed ( '0.0' -> '1727.0')
+ Attribute 'Positiony' of ui.canvas.Graphelement changed ( '0.0' -> '1295.0')
+ Attribute 'Width' of ui.canvas.Graphnode changed ( '0.0' -> '73.0')
+ Attribute 'Height' of ui.canvas.Graphnode changed ( '0.0' -> '73.0')
+Transaction Ended: shape creation with delta size: 44

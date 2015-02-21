@@ -1,0 +1,134 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("e788f112-5735-49b1-9079-c93fffc9fb62",
+	'TextElement',
+	17,
+	'DIM_TEL',
+	'TRANSLATE_FOR_EXTERNAL_USE:FALSE',
+	"490299c9-e7aa-468e-82d7-0731c80e4069");
+INSERT INTO O_TFR
+	VALUES ("7a08dfa0-9905-4929-97fe-62f204f0d6d6",
+	"e788f112-5735-49b1-9079-c93fffc9fb62",
+	'dispose',
+	'',
+	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	1,
+	'delete object instance self;
+',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_DT_PROXY
+	VALUES ("3852f90c-88c5-467d-9b26-57c8cd438b42",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'void',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("827682dd-797d-4d3f-af5b-1e2eccf0d1ab",
+	"e788f112-5735-49b1-9079-c93fffc9fb62");
+INSERT INTO O_BATTR
+	VALUES ("827682dd-797d-4d3f-af5b-1e2eccf0d1ab",
+	"e788f112-5735-49b1-9079-c93fffc9fb62");
+INSERT INTO O_ATTR
+	VALUES ("827682dd-797d-4d3f-af5b-1e2eccf0d1ab",
+	"e788f112-5735-49b1-9079-c93fffc9fb62",
+	"00000000-0000-0000-0000-000000000000",
+	'text',
+	'',
+	'',
+	'text',
+	0,
+	"17f3cd98-2d3a-4fe3-ac41-d27b377178a6",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("17f3cd98-2d3a-4fe3-ac41-d27b377178a6",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'string',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("e788f112-5735-49b1-9079-c93fffc9fb62",
+	"5ea47ca3-90a8-4fc1-91ba-99e4f29ab8a5",
+	0,
+	"aec849cd-8334-49d0-9947-0aac370c6dd8",
+	"c4c10913-2f74-44f0-b957-298f797ab227",
+	"6c299b5e-1750-4285-a79a-8c7b198cabf0",
+	"c4811978-94b6-464a-88be-bae2edac2b08",
+	"95a167f9-52fd-434c-af89-93b466ce0ec9",
+	"68c1ff63-00c3-4a6d-bfb3-1c452b5b8919",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'LeafElement',
+	'elementId',
+	'R305');
+INSERT INTO R_RGO_PROXY
+	VALUES ("e788f112-5735-49b1-9079-c93fffc9fb62",
+	"c4c10913-2f74-44f0-b957-298f797ab227",
+	"6c299b5e-1750-4285-a79a-8c7b198cabf0",
+	'../UML 2.0 Diagram Interchange.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("aec849cd-8334-49d0-9947-0aac370c6dd8",
+	"5ea47ca3-90a8-4fc1-91ba-99e4f29ab8a5",
+	0,
+	"c4c10913-2f74-44f0-b957-298f797ab227",
+	"c4811978-94b6-464a-88be-bae2edac2b08",
+	'../UML 2.0 Diagram Interchange.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("95a167f9-52fd-434c-af89-93b466ce0ec9",
+	"e788f112-5735-49b1-9079-c93fffc9fb62",
+	"53d10295-c89f-4194-94ba-3dab00d071cd",
+	"593e6c1e-5bc8-40f5-b079-a85690d47f08",
+	1,
+	'elementId');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("53d10295-c89f-4194-94ba-3dab00d071cd",
+	"593e6c1e-5bc8-40f5-b079-a85690d47f08",
+	'../DiagramElement/DiagramElement.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("95a167f9-52fd-434c-af89-93b466ce0ec9",
+	"e788f112-5735-49b1-9079-c93fffc9fb62",
+	"827682dd-797d-4d3f-af5b-1e2eccf0d1ab",
+	'elementId',
+	'',
+	'',
+	'eleId',
+	0,
+	"66164f00-293e-4c17-ab30-7972c7c57152",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("66164f00-293e-4c17-ab30-7972c7c57152",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_ID
+	VALUES (0,
+	"e788f112-5735-49b1-9079-c93fffc9fb62");
+INSERT INTO O_OIDA
+	VALUES ("95a167f9-52fd-434c-af89-93b466ce0ec9",
+	"e788f112-5735-49b1-9079-c93fffc9fb62",
+	0,
+	'elementId');
+INSERT INTO O_ID
+	VALUES (1,
+	"e788f112-5735-49b1-9079-c93fffc9fb62");
+INSERT INTO O_ID
+	VALUES (2,
+	"e788f112-5735-49b1-9079-c93fffc9fb62");
+INSERT INTO S_SS_PROXY
+	VALUES ("490299c9-e7aa-468e-82d7-0731c80e4069",
+	'UML 2.0 Diagram Interchange',
+	'Notify_Changes:true',
+	'DIM',
+	0,
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	"00000000-0000-0000-0000-000000000000",
+	'../UML 2.0 Diagram Interchange.xtuml');

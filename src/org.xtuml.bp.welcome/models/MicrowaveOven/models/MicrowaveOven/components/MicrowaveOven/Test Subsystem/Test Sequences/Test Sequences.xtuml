@@ -1,0 +1,73 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("18f360d4-bf74-4159-9245-b26abc35a9bc",
+	'Test Sequences',
+	100,
+	'MO_TS',
+	'Two sample test scenarios encapsulated within a class. ',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_NBATTR
+	VALUES ("c992616a-7c5d-476d-baa5-08bbcfe832bb",
+	"18f360d4-bf74-4159-9245-b26abc35a9bc");
+INSERT INTO O_BATTR
+	VALUES ("c992616a-7c5d-476d-baa5-08bbcfe832bb",
+	"18f360d4-bf74-4159-9245-b26abc35a9bc");
+INSERT INTO O_ATTR
+	VALUES ("c992616a-7c5d-476d-baa5-08bbcfe832bb",
+	"18f360d4-bf74-4159-9245-b26abc35a9bc",
+	"00000000-0000-0000-0000-000000000000",
+	'TestSeqID',
+	'',
+	'',
+	'TestSeqID',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000005",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("8c076354-8fdf-4d1c-954e-ac8b5ba13f60",
+	"18f360d4-bf74-4159-9245-b26abc35a9bc");
+INSERT INTO O_BATTR
+	VALUES ("8c076354-8fdf-4d1c-954e-ac8b5ba13f60",
+	"18f360d4-bf74-4159-9245-b26abc35a9bc");
+INSERT INTO O_ATTR
+	VALUES ("8c076354-8fdf-4d1c-954e-ac8b5ba13f60",
+	"18f360d4-bf74-4159-9245-b26abc35a9bc",
+	"c992616a-7c5d-476d-baa5-08bbcfe832bb",
+	'current_state',
+	'',
+	'',
+	'current_state',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000006",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"18f360d4-bf74-4159-9245-b26abc35a9bc");
+INSERT INTO O_OIDA
+	VALUES ("c992616a-7c5d-476d-baa5-08bbcfe832bb",
+	"18f360d4-bf74-4159-9245-b26abc35a9bc",
+	0,
+	'TestSeqID');
+INSERT INTO O_ID
+	VALUES (1,
+	"18f360d4-bf74-4159-9245-b26abc35a9bc");
+INSERT INTO O_ID
+	VALUES (2,
+	"18f360d4-bf74-4159-9245-b26abc35a9bc");
+INSERT INTO PE_PE
+	VALUES ("18f360d4-bf74-4159-9245-b26abc35a9bc",
+	1,
+	"9501113e-eacc-4485-aa09-454d1cf20b3f",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("9501113e-eacc-4485-aa09-454d1cf20b3f",
+	"00000000-0000-0000-0000-000000000000",
+	"9cd2cdcf-1f2b-42ce-bc35-718a90a05cab",
+	'Test Subsystem',
+	'',
+	100,
+	'../Test Subsystem.xtuml');

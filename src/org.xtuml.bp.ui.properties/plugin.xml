@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<!--
+
+ File:      $RCSfile: plugin.xml,v $
+ Version:   $Revision: 1.83 $
+ Modified:  $Date: 2013/06/24 14:48:25 $
+
+ (c) Copyright 2006-2014 by Mentor Graphics Corp.  All rights reserved.
+
+-->
+<plugin
+   id="org.xtuml.bp.ui.properties"
+   name="BridgePoint Properties Plug-in"
+   version="4.2.1"
+   provider-name="xtUML.org">
+
+   <runtime>
+      <library name="properties.jar">
+         <export name="*"/>
+      </library>
+   </runtime>
+   <requires>
+      <import plugin="org.eclipse.core.runtime"/>
+      <import plugin="org.eclipse.ui"/>
+      <import plugin="org.eclipse.ui.ide"/>
+      <import plugin="org.eclipse.ui.views"/>
+      <import plugin="org.xtuml.bp.core"/>
+      <import plugin="org.eclipse.core.resources"/>
+      <import plugin="org.xtuml.bp.ui.text"/>
+   </requires>
+</plugin>

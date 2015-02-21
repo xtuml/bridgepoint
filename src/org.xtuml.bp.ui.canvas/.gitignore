@@ -1,0 +1,8 @@
+bin
+timer.log
+coverage
+*.jar
+build.xml
+temp.folder
+Ooaofgraphics_verify_selects_output.txt
+id_attrs.xml

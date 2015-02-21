@@ -1,0 +1,1732 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("110e3323-6929-4be9-b265-ce681dd25ec3",
+	'Data Type Package',
+	25,
+	'S_DPK',
+	'Data Type Package represents a package of data types.',
+	"703df30a-ee7e-44ec-a7cf-22d2171bb270");
+INSERT INTO O_TFR
+	VALUES ("5f39bd8c-b37d-40a1-9cf0-a70e97d3abbd",
+	"110e3323-6929-4be9-b265-ce681dd25ec3",
+	'initialize',
+	'The initialization operation for this class.',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'self.Name = ::getUniqueInitialName( 
+	instance: self.convertToInstance(), 
+	candidateName: "Unnamed Data Type Package");',
+	1,
+	'',
+	"83e498df-bb46-4e23-ba84-3df6594d3073");
+INSERT INTO S_DT_PROXY
+	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'void',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("18040986-9784-4074-a0da-b4e048ce5f61",
+	"110e3323-6929-4be9-b265-ce681dd25ec3",
+	'dispose',
+	'The dispose operation for this class.  Also disposes the associated Data Type Package in Package.',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select many cdts related by self->S_DT[R39]->S_CDT[R17];
+if (empty cdts)
+  self.internal_dispose();
+end if;
+',
+	1,
+	'',
+	"1727ef01-b628-496c-81d6-6b0268124aa4");
+INSERT INTO O_TFR
+	VALUES ("d8d20c1d-d3cc-46e8-b247-a7377cd001cd",
+	"110e3323-6929-4be9-b265-ce681dd25ec3",
+	'newDatatypePackage',
+	'Create a new Data Type Package in this Data Type Package.
+',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+select one helper related by self->S_DPIP[R37];
+if (empty helper)
+  create object instance helper of S_DPIP;
+  relate self to helper across R37;
+end if;
+create object instance newDPkg of S_DPK;
+create object instance sp of EP_SPKG;
+relate newDPkg to sp across R1402;
+relate helper to newDPkg across R38;
+newDPkg.initialize();',
+	1,
+	'',
+	"b80da2b0-0585-49dd-b315-639f29e23328");
+INSERT INTO O_TFR
+	VALUES ("b80da2b0-0585-49dd-b315-639f29e23328",
+	"110e3323-6929-4be9-b265-ce681dd25ec3",
+	'newDatatype',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+// Data Type Package::newDatatype()
+select any system from instances of S_SYS
+                                  where (selected.Sys_ID == self.getSystemId());
+create object instance dt of S_DT;
+create object instance udt of S_UDT;
+relate dt to udt across R17;
+isSystemLevel = false;
+if(not self.isDomainLevel())
+  isSystemLevel = true;
+end if;
+select any int_dt from instances of S_DT
+                                 where (selected.DT_ID == GD::NULL_UNIQUE_ID());
+if(not isSystemLevel)
+  // if this dt is not being created at the
+  // system level, check for the integer at
+  // the domain level
+  select any dom from instances of S_DOM;
+  select any int_dt related by dom->S_DT[R14] where
+                                                     selected.Name == "integer";
+  if(empty int_dt)
+    // if the default dt was not found this is a formal component
+    // get the default from the system
+    select one dt_sys related by dom->CN_DC[R4204]->C_C[R4204]->CP_CP[R4608]
+                                                                 ->S_SYS[R4606];
+    intdt_id = GD::NULL_UNIQUE_ID();
+    if not_empty dt_sys
+      intdt_id = dt_sys.getCoreTypeId(name:"integer");
+    end if;
+    select any pe from instances of PE_PE where selected.Element_ID == intdt_id;
+    select one int_dt related by pe->S_DT[R8001]; 
+  end if;
+else
+  // if this dt is being created at the system level
+  // get the default dt from the system
+  if(not_empty system)
+    intdt_id = system.getCoreTypeId(name:"integer");
+    select any pe from instances of PE_PE where selected.Element_ID == intdt_id;
+    select one int_dt related by pe->S_DT[R8001]; 
+  end if;
+end if;
+relate udt to int_dt across R18;
+create object instance dip of S_DIP;
+relate dt to self across R39 using dip;
+dt.initialize(newname:"Unnamed Data Type");
+// associate the new data type to the system
+// or domain
+self.associateNewDTWithDomainOrSystem(dt_id:dt.DT_ID);',
+	1,
+	'',
+	"271206a9-e8d2-4397-b17c-66996d014cf8");
+INSERT INTO O_TFR
+	VALUES ("f37605de-8438-4f1d-a351-dc234a03deb5",
+	"110e3323-6929-4be9-b265-ce681dd25ec3",
+	'newEnumeration',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// Data Type Package::newEnumeration()
+create object instance dt of S_DT;
+create object instance edt of S_EDT;
+relate dt to edt across R17;
+create object instance dip of S_DIP;
+relate dt to self across R39 using dip;
+dt.initialize(newname:"Unnamed Enumeration");
+// associate the new data type to the system
+// or domain
+self.associateNewDTWithDomainOrSystem(dt_id:dt.DT_ID);',
+	1,
+	'',
+	"d8d20c1d-d3cc-46e8-b247-a7377cd001cd");
+INSERT INTO O_TFR
+	VALUES ("2325d521-9cc7-4f40-9719-f7c195dfffb2",
+	"110e3323-6929-4be9-b265-ce681dd25ec3",
+	'internal_dispose',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+select many csps related by self->CNST_CIP[R1506]->CNST_CSP[R1506];
+for each csp in csps
+  csp.dispose();
+end for;
+
+// we want to dispose void and integer at the end
+select many dts related by self->S_DT[R39] where (selected.Name != "integer" and selected.Name != "void");
+
+for each dt in dts
+  dt.dispose();
+end for;
+
+select any intDt related by self->S_DT[R39] where (selected.Name == "integer");
+if ( not_empty intDt )
+  intDt.dispose();
+end if;
+select any voidDt related by self->S_DT[R39] where (selected.Name == "void");
+if ( not_empty voidDt )
+  voidDt.dispose();
+end if;
+
+select one dom related by self->S_DOM[R40];
+if not_empty dom
+  unrelate dom from self across R40;
+end if;
+// unrelate from system if system level package
+select one sys related by self->SLD_SDP[R4400]->S_SYS[R4400];
+if(not_empty sys)
+  select one sdp related by self->SLD_SDP[R4400];
+  unrelate self from sys across R4400 using sdp;
+  delete object instance sdp;
+end if;
+
+// dispose all children
+select one dpip related by self->S_DPIP[R37];
+if (not_empty dpip)
+  select many pkgs related by dpip->S_DPK[R38];
+  for each pkg in pkgs
+    pkg.internal_dispose();
+  end for;
+  unrelate self from dpip across R37;
+  delete object instance dpip;
+end if;
+
+// unrelate from parent
+select one dpip related by self->S_DPIP[R38];
+if (not_empty dpip)
+  unrelate self from dpip across R38;
+  select many pkgs related by dpip->S_DPK[R38];
+  if ( empty pkgs )
+    // no children left
+    select one parent_dpk related by dpip->S_DPK[R37];
+    unrelate dpip from parent_dpk across R37;
+    delete object instance dpip;
+  end if;
+end if;
+select one specPkg related by self->EP_SPKG[R1402];
+if(not_empty specPkg)
+  unrelate self from specPkg across R1402;
+  specPkg.dispose();
+end if;
+// Remove all System Datatype in Package instances
+select many sdips related by self->SLD_SDINP[R4401];
+for each sdip in sdips
+  select one dt related by sdip->S_DT[R4401];
+  if not_empty dt
+    unrelate dt from self across R4401 using sdip;
+  end if;
+  select one system related by sdip->S_SYS[R4402];
+  unrelate sdip from system across R4402;
+  delete object instance sdip;
+end for;
+//
+delete object instance self;',
+	1,
+	'',
+	"5f39bd8c-b37d-40a1-9cf0-a70e97d3abbd");
+INSERT INTO O_TFR
+	VALUES ("451b5bc5-b5f0-4840-978f-568a8c1f411d",
+	"110e3323-6929-4be9-b265-ce681dd25ec3",
+	'get_ooa_id',
+	'',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	1,
+	'return self.Package_ID;',
+	1,
+	'',
+	"209ea74c-baf3-4249-9eec-aa29f9ed1ad7");
+INSERT INTO S_DT_PROXY
+	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'unique_id',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("2002fc3f-25b9-4e60-aa26-ba58e3b6f218",
+	"110e3323-6929-4be9-b265-ce681dd25ec3",
+	'get_style',
+	'',
+	"6e636321-0fd1-4577-b185-e4d76b0d0c71",
+	1,
+	'return Style::Folder;',
+	1,
+	'',
+	"451b5bc5-b5f0-4840-978f-568a8c1f411d");
+INSERT INTO S_DT_PROXY
+	VALUES ("6e636321-0fd1-4577-b185-e4d76b0d0c71",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'Style',
+	'The Style data type specifies the precise form a graphical element will take when drawn.
+--------------------------------------------------------------------------
+Bridge:GD',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("7e0b6070-008d-4607-bdde-da078961940e",
+	"110e3323-6929-4be9-b265-ce681dd25ec3",
+	'get_compartments',
+	'',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	1,
+	'return 1;',
+	1,
+	'',
+	"b775d5ee-b57b-4baa-8dc0-7d920f7d91d5");
+INSERT INTO S_DT_PROXY
+	VALUES ("79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'integer',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("b775d5ee-b57b-4baa-8dc0-7d920f7d91d5",
+	"110e3323-6929-4be9-b265-ce681dd25ec3",
+	'get_compartment_text',
+	'',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	1,
+	'result = "";
+if (param.at == Justification::Center_in_X)
+  result = "«data type»";
+elif (param.at == Justification::Center)
+  result = self.Name;
+end if;
+return result;',
+	1,
+	'',
+	"c49ec70a-3bc1-4fc5-a9d2-49186eaf4154");
+INSERT INTO O_TPARM
+	VALUES ("c1614614-422d-4b42-b846-c88abf4866f7",
+	"b775d5ee-b57b-4baa-8dc0-7d920f7d91d5",
+	'comp_num',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"721dbe9c-8e5a-44e4-99e6-1b1795d822be",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("41416ea1-265c-4ba4-a8f0-223c31a74fc0",
+	"b775d5ee-b57b-4baa-8dc0-7d920f7d91d5",
+	'ent_num',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"c1614614-422d-4b42-b846-c88abf4866f7",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("721dbe9c-8e5a-44e4-99e6-1b1795d822be",
+	"b775d5ee-b57b-4baa-8dc0-7d920f7d91d5",
+	'at',
+	"a9382bea-4a3f-43ec-9191-1f9f158b11a4",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("a9382bea-4a3f-43ec-9191-1f9f158b11a4",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'Justification',
+	'The Justification data type is used to specify text at a given location in a compartment.
+------------------------------------------------------------------------------
+Bridge:GD',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO S_DT_PROXY
+	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'string',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("fc52c3ac-a667-4818-93d7-f0306b797907",
+	"110e3323-6929-4be9-b265-ce681dd25ec3",
+	'get_text_style',
+	'',
+	"6e636321-0fd1-4577-b185-e4d76b0d0c71",
+	1,
+	'return Style::None;',
+	1,
+	'',
+	"2002fc3f-25b9-4e60-aa26-ba58e3b6f218");
+INSERT INTO O_TPARM
+	VALUES ("40e67248-3307-4717-82d0-8deea728a234",
+	"fc52c3ac-a667-4818-93d7-f0306b797907",
+	'comp_num',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"a2c41950-293f-4d05-a862-a74c50540378",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("3ef4eed1-4d73-4c45-8c29-613505014c33",
+	"fc52c3ac-a667-4818-93d7-f0306b797907",
+	'ent_num',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"40e67248-3307-4717-82d0-8deea728a234",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("a2c41950-293f-4d05-a862-a74c50540378",
+	"fc52c3ac-a667-4818-93d7-f0306b797907",
+	'at',
+	"a9382bea-4a3f-43ec-9191-1f9f158b11a4",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("209ea74c-baf3-4249-9eec-aa29f9ed1ad7",
+	"110e3323-6929-4be9-b265-ce681dd25ec3",
+	'get_entries',
+	'',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	1,
+	'return 1;',
+	1,
+	'',
+	"7e0b6070-008d-4607-bdde-da078961940e");
+INSERT INTO O_TPARM
+	VALUES ("decc2a1b-ad27-4341-bd92-a1d12cc24954",
+	"209ea74c-baf3-4249-9eec-aa29f9ed1ad7",
+	'comp_num',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("8cd08be6-1e75-4985-82b8-ea146b869831",
+	"110e3323-6929-4be9-b265-ce681dd25ec3",
+	'canDelete',
+	'',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+select many dps related by self->S_DPIP[R37]->S_DPK[R38];
+if (not_empty dps)
+  for each dp in dps
+    if (not dp.canDelete())
+      return false;
+    end if;
+  end for;
+else
+  //checking for core data types
+  select any coredt related by self->S_DT[R39]->S_CDT[R17];
+  if (not_empty coredt)
+    return false;
+  end if;
+  //checking for pre-defined user data types	
+  select many userdts related by self->S_DT[R39]->S_UDT[R17];
+  if (not_empty userdts)
+    for each udt in userdts
+      if (not udt.canDelete())
+        return false;
+      end if;
+    end for;
+  end if;	
+end if;
+return true;',
+	1,
+	'',
+	"0152212f-83df-4664-96b8-6de6aa3ea5e0");
+INSERT INTO S_DT_PROXY
+	VALUES ("8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'boolean',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("3a8fca20-1da9-41bc-9cd3-1b508e103468",
+	"110e3323-6929-4be9-b265-ce681dd25ec3",
+	'canRename',
+	'',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+if (self.Name == ::getCoreDatatypesPackageName())
+  select many otherdps related by self->S_DOM[R40]->S_DPK[R40];
+  if (cardinality otherdps > 1)
+    //If there are more then one Datatype packages with name "Datatypes"
+    //we need make only that one read-only that which can not be deleted.
+    return self.canDelete();
+  end if;
+  select one dpip related by self->S_DPIP[R38];
+  if (empty dpip)
+    return false;
+  end if;
+end if;
+return true;',
+	1,
+	'',
+	"8cd08be6-1e75-4985-82b8-ea146b869831");
+INSERT INTO O_TFR
+	VALUES ("31efc6bb-6b99-41a2-9175-40ebe3503648",
+	"110e3323-6929-4be9-b265-ce681dd25ec3",
+	'convertToInstance',
+	'A utility operation to cast an instance of this type to the
+instance datatype.
+
+Translate: native',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	1,
+	'// just return this instance as an Object
+return this;',
+	0,
+	'',
+	"3a8fca20-1da9-41bc-9cd3-1b508e103468");
+INSERT INTO S_DT_PROXY
+	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'instance',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("3dd4f413-f556-4325-9855-ef287295d046",
+	"110e3323-6929-4be9-b265-ce681dd25ec3",
+	'associateDTSWithSystem',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+/**
+ *  This operation will associate all child dt''s with the given system.
+ *
+ */
+select any system from instances of S_SYS where (selected.Sys_ID == param.sys_id);
+if(not_empty system)
+  // first convert all child dt packages
+  select many childPKGs related by self->S_DPIP[R37]->S_DPK[R38];
+  for each childPKG in childPKGs
+    childPKG.associateDTSWithSystem(sys_id:param.sys_id);
+  end for;
+  // now convert each datatype to a system level one
+  select many dts related by self->S_DIP[R39]->S_DT[R39];
+  for each dt in dts
+    dt.associateDTWithSystem(sys_id:param.sys_id);
+  end for;
+end if;',
+	1,
+	'',
+	"42a6f65d-ae32-4722-bd32-23a70786d709");
+INSERT INTO O_TPARM
+	VALUES ("116b82ca-9918-4f2e-9b3d-310184bebe15",
+	"3dd4f413-f556-4325-9855-ef287295d046",
+	'sys_id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("42a6f65d-ae32-4722-bd32-23a70786d709",
+	"110e3323-6929-4be9-b265-ce681dd25ec3",
+	'associateDTSWithDomain',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+/**
+ *  This operation will associate all child dt''s with the given domain.
+ *
+ */
+select any domain from instances of S_DOM where (selected.Dom_ID == param.dom_id);
+if(not_empty domain)
+  select many childPKGs related by self->S_DPIP[R37]->S_DPK[R38];
+  for each childPKG in childPKGs
+    childPKG.associateDTSWithDomain(dom_id:param.dom_id);
+  end for;
+  // convert each dt to a domain defined one
+  select many dts related by self->S_DIP[R39]->S_DT[R39];
+  for each dt in dts
+    dt.associateDTWithDomain(dom_id:param.dom_id);
+  end for;
+end if;',
+	1,
+	'',
+	"6265b8e3-ef08-407c-b5cb-2eba8a0f7f6f");
+INSERT INTO O_TPARM
+	VALUES ("fb68047f-403d-4a48-97aa-ad8c29d99e33",
+	"42a6f65d-ae32-4722-bd32-23a70786d709",
+	'dom_id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("efdbb3a1-147d-41f0-aab2-1e09ca66c0c1",
+	"110e3323-6929-4be9-b265-ce681dd25ec3",
+	'pasteDataTypePackage',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+select any pkg from instances of S_DPK where (selected.Package_ID == param.id);
+if(not_empty pkg)
+  // guarantee a unique name for the pasted dt package
+  pkg.Name = ::getUniqueInitialNameInParent(instance:pkg.convertToInstance(),
+  						name:pkg.Name, parent:self.convertToInstance());
+  thisPackageIsDomainLevel = self.isDomainLevel();
+  thisPackageIsSystemLevel = not thisPackageIsDomainLevel;
+  pkg.associateWithDataTypePackage(pkgID:self.Package_ID);
+  // setup the dts appropriately for the
+  // the type of dt package this is
+  if(thisPackageIsDomainLevel)
+    pkg.associateDTSWithDomain(dom_id:self.getDomainId());
+    pkg.associateCSPsWithDomain(dom_id:self.getDomainId());
+  elif(thisPackageIsSystemLevel)
+    pkg.associateDTSWithSystem(sys_id:self.getSystemId());
+    pkg.associateCSPsWithSystem(sys_id:self.getSystemId());
+  end if;
+  // before removing any core dts from this package
+  // we must resolve any user dts to new core types
+  pkg.handleUserDataTypeResolution();
+end if;',
+	1,
+	'',
+	"fb74ccbb-ecf8-4d1c-8664-60f10c21b2c3");
+INSERT INTO O_TPARM
+	VALUES ("7e3bb66c-b147-4eb2-9bc9-e2600be5f5b7",
+	"efdbb3a1-147d-41f0-aab2-1e09ca66c0c1",
+	'id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("d4b0d76e-cffe-4919-926d-9f5cae940f18",
+	"110e3323-6929-4be9-b265-ce681dd25ec3",
+	'isDomainLevel',
+	'',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+domId = self.getDomainId();
+select any domain from instances of S_DOM where (selected.Dom_ID == domId);
+return not_empty domain;',
+	1,
+	'',
+	"2325d521-9cc7-4f40-9719-f7c195dfffb2");
+INSERT INTO O_TFR
+	VALUES ("c49ec70a-3bc1-4fc5-a9d2-49186eaf4154",
+	"110e3323-6929-4be9-b265-ce681dd25ec3",
+	'getSystemId',
+	'',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+select one domain related by self->S_DOM[R40];
+if(not_empty domain)
+  // this dt package is at the domain level
+  // return a null id
+  return GD::NULL_UNIQUE_ID();
+end if;
+select one system related by self->SLD_SDP[R4400]->S_SYS[R4400];
+select one package related by self->EP_SPKG[R1402]->EP_PKG[R1400];
+if(not_empty package)
+  select one system related by package->S_SYS[R1405];
+end if;
+if(empty system)
+  select one parent related by self->S_DPIP[R38]->S_DPK[R37];
+  select one topParent related by self->S_DPIP[R38]->S_DPK[R37];
+  while(empty parent)
+    topParent = parent;
+    select one parent related by parent->S_DPIP[R38]->S_DPK[R37];
+  end while;
+  select one system related by topParent->SLD_SDP[R4400]->S_SYS[R4400];
+  if(empty system)
+    // if the root package was not defined directly under the
+    // system, then it is within a package
+    select one package related by topParent->EP_SPKG[R1402]->EP_PKG[R1400];
+    if(not_empty package)
+      select one system related by package->S_SYS[R1405];
+    end if;
+  end if;
+end if;
+if(not_empty system)
+  return system.Sys_ID;
+else
+  return GD::NULL_UNIQUE_ID();
+end if;',
+	1,
+	'',
+	"457b5e20-631b-4954-85a1-6468f27e4a6c");
+INSERT INTO O_TFR
+	VALUES ("1c5651e2-eae1-4c8c-9635-6633ca0a4aa0",
+	"110e3323-6929-4be9-b265-ce681dd25ec3",
+	'getDomainId',
+	'',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+select one domain related by self->S_DOM[R40];
+if(empty domain)
+  select one parent related by self->S_DPIP[R38]->S_DPK[R37];
+  select one topParent related by self->S_DPIP[R38]->S_DPK[R37];
+  while(not_empty parent)
+    topParent = parent;
+    select one parent related by parent->S_DPIP[R38]->S_DPK[R37];
+  end while;
+  select one domain related by topParent->S_DOM[R40];
+end if;
+if(not_empty domain)
+  return domain.Dom_ID;
+else
+  return GD::NULL_UNIQUE_ID();
+end if;',
+	1,
+	'',
+	"18040986-9784-4074-a0da-b4e048ce5f61");
+INSERT INTO O_TFR
+	VALUES ("83e498df-bb46-4e23-ba84-3df6594d3073",
+	"110e3323-6929-4be9-b265-ce681dd25ec3",
+	'handleUserDataTypeResolution',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+select many udts related by self->S_DIP[R39]->S_DT[R39]->S_UDT[R17];
+for each udt in udts
+  if(udt.Gen_Type == 0)
+    udt.resolveDatatype();
+  end if;
+end for;
+// resolve all child package''s dts
+select many childPkgs related by self->S_DPIP[R37]->S_DPK[R38];
+for each childPkg in childPkgs
+  childPkg.handleUserDataTypeResolution();
+end for;',
+	1,
+	'',
+	"fc52c3ac-a667-4818-93d7-f0306b797907");
+INSERT INTO O_TFR
+	VALUES ("2f2f6783-6da5-4aa1-8688-a4fb101d1b9d",
+	"110e3323-6929-4be9-b265-ce681dd25ec3",
+	'pasteUserDataType',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select any udt from instances of S_UDT where (selected.DT_ID == param.id);
+if(not_empty udt)
+  // select the previous dt
+  select one dt related by udt->S_DT[R17];
+  // guarantee a unique name for the pasted dt
+  dt.Name = ::getUniqueInitialNameInParent(instance:dt.convertToInstance(),
+  						name:dt.Name, parent:self.convertToInstance());
+  create object instance dtip of S_DIP;
+  relate dt to self across R39 using dtip;
+  
+  // associate the dt with either a system or domain
+  self.associatePastedDTWithDomainOrSystem(id:dt.DT_ID);
+end if;',
+	1,
+	'',
+	"8a03a4db-3298-4779-9df1-718073426ce4");
+INSERT INTO O_TPARM
+	VALUES ("398a0547-c347-42e7-9bf2-eddc620ea67e",
+	"2f2f6783-6da5-4aa1-8688-a4fb101d1b9d",
+	'id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("8f2b8517-aa47-4a45-8eaa-b77450240d95",
+	"110e3323-6929-4be9-b265-ce681dd25ec3",
+	'pasteEnumerationDataType',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select any edt from instances of S_EDT where (selected.DT_ID == param.id);
+if(not_empty edt)
+  select one dt related by edt->S_DT[R17];
+  // guarantee a unique name for the pasted dt
+  dt.Name = ::getUniqueInitialNameInParent(instance:dt.convertToInstance(),
+  						name:dt.Name, parent:self.convertToInstance());
+  create object instance dtip of S_DIP;
+  relate dt to self across R39 using dtip;
+
+  // associate the dt with either a system or domain
+  self.associatePastedDTWithDomainOrSystem(id:dt.DT_ID);
+
+end if;',
+	1,
+	'',
+	"efdbb3a1-147d-41f0-aab2-1e09ca66c0c1");
+INSERT INTO O_TPARM
+	VALUES ("5a15712d-e369-44de-abea-e005cf4624f7",
+	"8f2b8517-aa47-4a45-8eaa-b77450240d95",
+	'id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("0152212f-83df-4664-96b8-6de6aa3ea5e0",
+	"110e3323-6929-4be9-b265-ce681dd25ec3",
+	'canCopyUserDataType',
+	'',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'select any udt from instances of S_UDT where (selected.DT_ID == param.id);
+if(not_empty udt)
+  if(udt.Gen_Type == 0)
+    return true;
+  end if;
+end if;
+return false;',
+	1,
+	'',
+	"98e1cd20-51f4-4670-addd-6a233ce37f34");
+INSERT INTO O_TPARM
+	VALUES ("a92d236a-64ee-4091-8701-446b5932f262",
+	"0152212f-83df-4664-96b8-6de6aa3ea5e0",
+	'id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("804b6d1b-a1ce-4387-a69b-bd8fbef39286",
+	"110e3323-6929-4be9-b265-ce681dd25ec3",
+	'newStructuredDatatype',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// Data Type Package::newStructuredDatatype()
+create object instance dt of S_DT;
+create object instance sdt of S_SDT;
+relate dt to sdt across R17;
+create object instance dip of S_DIP;
+relate dt to self across R39 using dip;
+dt.initialize(newname:"Unnamed Structured Data Type");
+// associate the new data type to the system
+// or domain
+self.associateNewDTWithDomainOrSystem(dt_id:dt.DT_ID);',
+	1,
+	'',
+	"f37605de-8438-4f1d-a351-dc234a03deb5");
+INSERT INTO O_TFR
+	VALUES ("8a03a4db-3298-4779-9df1-718073426ce4",
+	"110e3323-6929-4be9-b265-ce681dd25ec3",
+	'pasteStructuredDataType',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select any sdt from instances of S_SDT where (selected.DT_ID == param.id);
+if(not_empty sdt)
+  select one dt related by sdt->S_DT[R17];
+  // guarantee a unique name for the pasted dt
+  dt.Name = ::getUniqueInitialNameInParent(instance:dt.convertToInstance(),
+  						name:dt.Name, parent:self.convertToInstance());
+  create object instance dtip of S_DIP;
+  relate dt to self across R39 using dtip;
+  // associate the dt with either a system or domain
+  self.associatePastedDTWithDomainOrSystem(id:dt.DT_ID);
+end if;',
+	1,
+	'',
+	"8f2b8517-aa47-4a45-8eaa-b77450240d95");
+INSERT INTO O_TPARM
+	VALUES ("1f178e79-3bd5-4894-9fa6-2c2b9ba522e6",
+	"8a03a4db-3298-4779-9df1-718073426ce4",
+	'id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("8da4ae94-4192-4cca-9308-659c3f2baf48",
+	"110e3323-6929-4be9-b265-ce681dd25ec3",
+	'associatePastedDTWithDomainOrSystem',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+select any dt related by self->S_DIP[R39]->S_DT[R39] where (selected.DT_ID == param.id);
+domId = self.getDomainId();
+select any domain from instances of S_DOM where (selected.Dom_ID == domId);
+if(not_empty domain)
+  // this is a domain level dt package
+  // associate the datatype with the domain
+  relate dt to domain across R14;
+else
+  // this is a system level dt package
+  // associate the datatype with the system
+  sysId = self.getSystemId();
+  select any system from instances of S_SYS where (selected.Sys_ID == sysId);
+  if(not_empty system)
+    create object instance sdip of SLD_SDINP;
+    relate sdip to system across R4402;
+    relate dt to self across R4401 using sdip;
+  end if;
+end if;',
+	1,
+	'',
+	"628d9ffe-fda6-4ad5-b172-44d2504978f6");
+INSERT INTO O_TPARM
+	VALUES ("2d42140c-4eec-4876-a05b-dba606d4881e",
+	"8da4ae94-4192-4cca-9308-659c3f2baf48",
+	'id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("2d50d83b-746a-4611-a88a-a6aab6e017d6",
+	"110e3323-6929-4be9-b265-ce681dd25ec3",
+	'associateNewDTWithDomainOrSystem',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+select any dt related by self->S_DIP[R39]->S_DT[R39]
+										  where (selected.DT_ID == param.dt_id);
+if(not_empty dt)
+  select any system from instances of S_SYS where (selected.Sys_ID == self.getSystemId());
+  if (not_empty system)
+    create object instance systemDT of SLD_SDINP;
+    relate systemDT to system across R4402;
+    relate dt to self across R4401 using systemDT;
+  else
+    select any domain from instances of S_DOM
+                                  where (selected.Dom_ID == self.getDomainId());
+    relate dt to domain across R14;
+  end if;
+end if;',
+	1,
+	'',
+	"7f3fd6ea-afa2-4475-9c9b-eca6b54a52a2");
+INSERT INTO O_TPARM
+	VALUES ("14cb09a8-c042-4fd9-9053-b3d3fabdcd5b",
+	"2d50d83b-746a-4611-a88a-a6aab6e017d6",
+	'dt_id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("c96f3d3b-efa0-4e31-b43c-48e8b2f97e68",
+	"110e3323-6929-4be9-b265-ce681dd25ec3",
+	'associateWithPackage',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// unhook from current parent
+self.deassociateFromParent();
+// hook up with package
+select any package from instances of EP_PKG
+                                     where (selected.Package_ID == param.pkgID);
+select one specPkg related by self->EP_SPKG[R1402];
+relate specPkg to package across R1400;',
+	1,
+	'',
+	"36219433-11a0-4144-a908-949032ca124f");
+INSERT INTO O_TPARM
+	VALUES ("3c65dcf6-16a9-4ac5-ab03-390a2122398a",
+	"c96f3d3b-efa0-4e31-b43c-48e8b2f97e68",
+	'pkgID',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("1727ef01-b628-496c-81d6-6b0268124aa4",
+	"110e3323-6929-4be9-b265-ce681dd25ec3",
+	'deassociateFromParent',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+select one prevDomain related by self->S_DOM[R40];
+if(not_empty prevDomain)
+  unrelate self from prevDomain across R40;
+end if;
+// unrelate from system if any
+select one sdp related by self->SLD_SDP[R4400];
+if(not_empty sdp)
+  select one system related by sdp->S_SYS[R4400];
+  unrelate self from system across R4400 using sdp;
+  delete object instance sdp;
+end if;
+select one prevDPIP related by self->S_DPIP[R38];
+if(not_empty prevDPIP)
+  unrelate self from prevDPIP across R38;
+  select many pkgs related by prevDPIP->S_DPK[R38];
+  if(empty pkgs)
+    delete object instance prevDPIP;
+  end if;
+end if;
+select one specPkg related by self->EP_SPKG[R1402];
+select one package related by specPkg->EP_PKG[R1400];
+if(not_empty package)
+  unrelate specPkg from package across R1400;
+end if;',
+	1,
+	'',
+	"31efc6bb-6b99-41a2-9175-40ebe3503648");
+INSERT INTO O_TFR
+	VALUES ("31d72b3b-cb32-46bd-9dd2-ab496c6ba2c8",
+	"110e3323-6929-4be9-b265-ce681dd25ec3",
+	'associateWithSystem',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'self.deassociateFromParent();
+select any system from instances of S_SYS
+                                         where (selected.Sys_ID == param.sysID);
+create object instance sdp of SLD_SDP;
+relate self to system across R4400 using sdp;',
+	1,
+	'',
+	"c96f3d3b-efa0-4e31-b43c-48e8b2f97e68");
+INSERT INTO O_TPARM
+	VALUES ("dfade2bb-4dec-4fb9-a393-06e0bd3fb841",
+	"31d72b3b-cb32-46bd-9dd2-ab496c6ba2c8",
+	'sysID',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("36219433-11a0-4144-a908-949032ca124f",
+	"110e3323-6929-4be9-b265-ce681dd25ec3",
+	'associateWithDomain',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+// unhook from current parent
+self.deassociateFromParent();
+// hook up with domain
+select any domain from instances of S_DOM
+                                         where (selected.Dom_ID == param.domID);
+relate domain to self across R40;',
+	1,
+	'',
+	"7340891a-0442-48f2-b86c-94fa95295544");
+INSERT INTO O_TPARM
+	VALUES ("5ef2bda9-344b-4747-8245-ca2d502ae115",
+	"36219433-11a0-4144-a908-949032ca124f",
+	'domID',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("7340891a-0442-48f2-b86c-94fa95295544",
+	"110e3323-6929-4be9-b265-ce681dd25ec3",
+	'associateWithDataTypePackage',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+// unhook from current parent
+self.deassociateFromParent();
+// hook up with domain
+select any dtpkg from instances of S_DPK
+                                     where (selected.Package_ID == param.pkgID);
+
+// setup the necessary nesting elements
+select one dpip related by dtpkg->S_DPIP[R37];
+if(empty dpip)
+  create object instance dpip of S_DPIP;
+  relate dtpkg to dpip across R37;
+end if;
+relate self to dpip across R38;',
+	1,
+	'',
+	"8da4ae94-4192-4cca-9308-659c3f2baf48");
+INSERT INTO O_TPARM
+	VALUES ("3881890c-1b2b-4203-bf29-ea095fe59137",
+	"7340891a-0442-48f2-b86c-94fa95295544",
+	'pkgID',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("457b5e20-631b-4954-85a1-6468f27e4a6c",
+	"110e3323-6929-4be9-b265-ce681dd25ec3",
+	'getPath',
+	'',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+path = self.Name;
+if(param.path != "")
+  path = path + "::" + param.path;
+end if;
+select one pip related by self->S_DPIP[R38]->S_DPK[R37];
+if(not_empty pip)
+  return pip.getPath(path:path);
+else
+  select one package related by self->EP_SPKG[R1402]->EP_PKG[R1400];
+  if(not_empty package)
+    return package.getPath(path:path);
+  else
+    select one domain related by self->S_DOM[R40];
+    if(not_empty domain)
+      return domain.getPath(path:path);
+    else
+      select one system related by self->SLD_SDP[R4400]->S_SYS[R4400];
+      if(not_empty system)
+        return system.Name + "::" + path;
+      end if;
+    end if;
+  end if;
+end if;
+return "";',
+	1,
+	'',
+	"1c5651e2-eae1-4c8c-9635-6633ca0a4aa0");
+INSERT INTO O_TPARM
+	VALUES ("c769d6ba-b8ab-49c7-af10-12965c4a0f3a",
+	"457b5e20-631b-4954-85a1-6468f27e4a6c",
+	'path',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("271206a9-e8d2-4397-b17c-66996d014cf8",
+	"110e3323-6929-4be9-b265-ce681dd25ec3",
+	'newConstantSpecification',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// Data Type Package::newConstantSpecification()
+create object instance csp of CNST_CSP;
+create object instance cip of CNST_CIP;
+relate csp to self across R1506 using cip;
+
+// associate the new Constant Specification to the system or domain
+self.associateNewCSPWithDomainOrSystem(csp_id:csp.Constant_Spec_ID);',
+	1,
+	'',
+	"d4b0d76e-cffe-4919-926d-9f5cae940f18");
+INSERT INTO O_TFR
+	VALUES ("7f3fd6ea-afa2-4475-9c9b-eca6b54a52a2",
+	"110e3323-6929-4be9-b265-ce681dd25ec3",
+	'associateNewCSPWithDomainOrSystem',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// Data Type Package::associateNewCSPWithDomainOrSystem
+select any csp related by self->CNST_CIP[R1506]->CNST_CSP[R1506]
+                              where (selected.Constant_Spec_ID == param.csp_id);
+if(not_empty csp)
+  select any system from instances of S_SYS where (selected.Sys_ID == self.getSystemId());
+  if (not_empty system)
+    create object instance systemCSP of SLD_SCINP;
+    relate systemCSP to system across R4404;
+    relate csp to self across R4403 using systemCSP;
+  else
+    // There is no direct association with a domain.  That is handled by the
+    // containing datatype package if necessary.
+  end if;
+end if;',
+	1,
+	'',
+	"3dd4f413-f556-4325-9855-ef287295d046");
+INSERT INTO O_TPARM
+	VALUES ("8e0af753-ba91-4fba-ae91-d9e8f801204c",
+	"7f3fd6ea-afa2-4475-9c9b-eca6b54a52a2",
+	'csp_id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("628d9ffe-fda6-4ad5-b172-44d2504978f6",
+	"110e3323-6929-4be9-b265-ce681dd25ec3",
+	'associatePastedCSPWithDomainOrSystem',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// Data Type Package::associatePastedCSPWithDomainOrSystem()
+//
+//  Nothing to do here for the domain case as the domain association is handled
+//  by the containing data type package.
+select any csp related by self->CNST_CIP[R1506]->CNST_CSP[R1506]
+                              where (selected.Constant_Spec_ID == param.csp_id);
+sysId = self.getSystemId();
+select any system from instances of S_SYS where (selected.Sys_ID == sysId);
+if(not_empty system)
+  create object instance scip of SLD_SCINP;
+  relate scip to system across R4404;
+  relate csp to self across R4403 using scip;
+end if;',
+	1,
+	'',
+	"2d50d83b-746a-4611-a88a-a6aab6e017d6");
+INSERT INTO O_TPARM
+	VALUES ("adcd37a0-26f2-4529-9398-ce3fd440d932",
+	"628d9ffe-fda6-4ad5-b172-44d2504978f6",
+	'csp_id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("fb74ccbb-ecf8-4d1c-8664-60f10c21b2c3",
+	"110e3323-6929-4be9-b265-ce681dd25ec3",
+	'pasteConstantSpecification',
+	'Called when the user want to paste a cut or copied constant specification.',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+// Data Type Package::pasteConstantSpecification()
+select any csp from instances of CNST_CSP where (selected.Constant_Spec_ID == param.id);
+if(not_empty csp)
+  //unrelate from existing datatype package
+  select one prevCIP related by csp->CNST_CIP[R1506];
+  if (not_empty prevCIP)
+    select one prevDTP related by prevCIP->S_DPK[R1506];
+    unrelate csp from prevDTP across R1506 using prevCIP;
+    delete object instance prevCIP;
+  end if;
+
+  // relate to this package
+  create object instance cip of CNST_CIP;
+  relate csp to self across R1506 using cip;
+
+  // associate the csp with either a system or domain
+  self.associatePastedCSPWithDomainOrSystem(csp_id:csp.Constant_Spec_ID);
+
+end if;',
+	1,
+	'',
+	"804b6d1b-a1ce-4387-a69b-bd8fbef39286");
+INSERT INTO O_TPARM
+	VALUES ("4ea73e70-8d9f-463e-bc4d-3072fc209c9d",
+	"fb74ccbb-ecf8-4d1c-8664-60f10c21b2c3",
+	'id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("ab0513ac-41d3-42c2-b3b5-046cd0b208f8",
+	"110e3323-6929-4be9-b265-ce681dd25ec3",
+	'associateCSPsWithDomain',
+	'This operation will associate all child constant specifications''s with the
+given domain.',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// Data Type Package::associateCSPsWithDomain()
+//
+//  Nothing to do here as the domain association is handled by the containing
+//  data type package.  This function is just provided for completeness.',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_TPARM
+	VALUES ("b74fba4e-223d-4ae1-a771-82c902d2f4f5",
+	"ab0513ac-41d3-42c2-b3b5-046cd0b208f8",
+	'dom_id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("6265b8e3-ef08-407c-b5cb-2eba8a0f7f6f",
+	"110e3323-6929-4be9-b265-ce681dd25ec3",
+	'associateCSPsWithSystem',
+	'This operation will associate all child constant specifications with the
+given system.',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+// Data Type Package::associateCSPsWithSystem()
+select any system from instances of S_SYS where (selected.Sys_ID == param.sys_id);
+if(not_empty system)
+  // First recurse through all child dt packages
+  select many childPKGs related by self->S_DPIP[R37]->S_DPK[R38];
+  for each childPKG in childPKGs
+    childPKG.associateCSPsWithSystem(sys_id:param.sys_id);
+  end for;
+
+  // Now convert each constant specification to a system level one
+  select many csps related by self->CNST_CIP[R1506]->CNST_CSP[R1506];
+  for each csp in csps
+    csp.associateWithSystem(sys_id:param.sys_id);
+  end for;
+end if;',
+	1,
+	'',
+	"ab0513ac-41d3-42c2-b3b5-046cd0b208f8");
+INSERT INTO O_TPARM
+	VALUES ("81b04199-26f4-4d8b-80b6-b8d43e8b7070",
+	"6265b8e3-ef08-407c-b5cb-2eba8a0f7f6f",
+	'sys_id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("fb4cf50d-683f-4d21-af26-540a2a7009ed",
+	"110e3323-6929-4be9-b265-ce681dd25ec3",
+	'getUserDatatypeCount',
+	'',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	1,
+	'select many userDatatypePckgs related by self->S_DT[R39]->S_UDT[R17];
+return cardinality userDatatypePckgs;',
+	1,
+	'',
+	"2f2f6783-6da5-4aa1-8688-a4fb101d1b9d");
+INSERT INTO O_TFR
+	VALUES ("c6d6023c-18c6-4251-ac65-c5f29e7b1b1e",
+	"110e3323-6929-4be9-b265-ce681dd25ec3",
+	'getUserDatatypeId',
+	'',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	1,
+	'id = GD::NULL_UNIQUE_ID();
+select many userDatatypePckgs related by self->S_DT[R39]->S_UDT[R17];
+// We''re preincrementing the index
+count = -1;
+for each userDatatypePckg in userDatatypePckgs
+  if (not_empty userDatatypePckg)
+      count = count+1;
+  end if;
+  if (count == param.index)
+      return userDatatypePckg.get_ooa_id();  
+  end if;
+end for;
+return id;',
+	1,
+	'',
+	"fb4cf50d-683f-4d21-af26-540a2a7009ed");
+INSERT INTO O_TPARM
+	VALUES ("c728ae69-4786-4597-a2f1-f96f8b28c8ed",
+	"c6d6023c-18c6-4251-ac65-c5f29e7b1b1e",
+	'index',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("b243fd90-24cb-475c-abc8-e0b9087f0a11",
+	"110e3323-6929-4be9-b265-ce681dd25ec3",
+	'getStructuredDatatypeCount',
+	'',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	1,
+	'select many structuredDatatypePckgs related by self->S_DT[R39]->S_SDT[R17];
+return cardinality structuredDatatypePckgs;',
+	1,
+	'',
+	"c6d6023c-18c6-4251-ac65-c5f29e7b1b1e");
+INSERT INTO O_TFR
+	VALUES ("df016d26-a0a1-4f1b-b164-55bb04113dd4",
+	"110e3323-6929-4be9-b265-ce681dd25ec3",
+	'getStructuredDatatypeId',
+	'',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	1,
+	'id = GD::NULL_UNIQUE_ID();
+select many structuredDatatypePckgs related by self->S_DT[R39]->S_SDT[R17];
+// We''re preincrementing the index
+count = -1;
+for each structuredDatatypePckg in structuredDatatypePckgs
+  if (not_empty structuredDatatypePckg)
+      count = count+1;
+  end if;
+  if (count == param.index)
+      return structuredDatatypePckg.get_ooa_id();  
+  end if;
+end for;
+return id;',
+	1,
+	'',
+	"b243fd90-24cb-475c-abc8-e0b9087f0a11");
+INSERT INTO O_TPARM
+	VALUES ("dd26258b-24ec-4bfb-bd1b-fef15cd9fff8",
+	"df016d26-a0a1-4f1b-b164-55bb04113dd4",
+	'index',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("df8452b7-41a8-4fb3-98ca-6d1cbd5c4835",
+	"110e3323-6929-4be9-b265-ce681dd25ec3",
+	'getEnumDatatypeCount',
+	'',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	1,
+	'select many enumDatatypePckgs related by self->S_DT[R39]->S_EDT[R17];
+return cardinality enumDatatypePckgs;',
+	1,
+	'',
+	"df016d26-a0a1-4f1b-b164-55bb04113dd4");
+INSERT INTO O_TFR
+	VALUES ("6dbdcd88-5628-4184-a7f9-5f628c9656c1",
+	"110e3323-6929-4be9-b265-ce681dd25ec3",
+	'getEnumDatatypeId',
+	'',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	1,
+	'id = GD::NULL_UNIQUE_ID();
+select many enumDatatypePckgs related by self->S_DT[R39]->S_EDT[R17];
+// We''re preincrementing the index
+count = -1;
+for each enumDatatypePckg in enumDatatypePckgs
+  if (not_empty enumDatatypePckg)
+      count = count+1;
+  end if;
+  if (count == param.index)
+      return enumDatatypePckg.get_ooa_id();  
+  end if;
+end for;
+return id;',
+	1,
+	'',
+	"df8452b7-41a8-4fb3-98ca-6d1cbd5c4835");
+INSERT INTO O_TPARM
+	VALUES ("36d98857-617a-41bb-a260-e3992068638a",
+	"6dbdcd88-5628-4184-a7f9-5f628c9656c1",
+	'index',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("1f53c12f-5b68-40f6-8cc8-72694fbc0820",
+	"110e3323-6929-4be9-b265-ce681dd25ec3",
+	'getConstantSpecCount',
+	'',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	1,
+	'select many constantSpecs related by self->CNST_CSP[R1506];
+return cardinality constantSpecs;',
+	1,
+	'',
+	"6dbdcd88-5628-4184-a7f9-5f628c9656c1");
+INSERT INTO O_TFR
+	VALUES ("cc94fca7-6bfc-4913-b418-b9d7e088ad8d",
+	"110e3323-6929-4be9-b265-ce681dd25ec3",
+	'getConstantSpecId',
+	'',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	1,
+	'id = GD::NULL_UNIQUE_ID();
+select many constantSpecs related by self->CNST_CSP[R1506];
+// We''re preincrementing the index
+count = -1;
+for each constantSpec in constantSpecs
+  if (not_empty constantSpec)
+      count = count+1;
+  end if;
+  if (count == param.index)
+      return constantSpec.get_ooa_id();  
+  end if;
+end for;
+return id;',
+	1,
+	'',
+	"1f53c12f-5b68-40f6-8cc8-72694fbc0820");
+INSERT INTO O_TPARM
+	VALUES ("43d5a767-d6fd-43a3-a299-76cd8a5c276e",
+	"cc94fca7-6bfc-4913-b418-b9d7e088ad8d",
+	'index',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("d5b3c260-3013-424a-a463-21784f4d1030",
+	"110e3323-6929-4be9-b265-ce681dd25ec3",
+	'getDtPckgCount',
+	'',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+select many dataTypePckgs related by self->S_DPIP[R37]->S_DPK[R38];
+return cardinality dataTypePckgs;',
+	1,
+	'',
+	"cc94fca7-6bfc-4913-b418-b9d7e088ad8d");
+INSERT INTO O_TFR
+	VALUES ("1c105300-3a6a-41fa-8a35-5a356d760a94",
+	"110e3323-6929-4be9-b265-ce681dd25ec3",
+	'getDtPckgId',
+	'',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+id = GD::NULL_UNIQUE_ID();
+select many dataTypePckgs related by self->S_DPIP[R37]->S_DPK[R38];
+// We''re preincrementing the index
+count = -1;
+for each dataTypePckg in dataTypePckgs
+  if (not_empty dataTypePckg)
+      count = count+1;
+  end if;
+  if (count == param.index)
+      return dataTypePckg.get_ooa_id();  
+  end if;
+end for;
+return id;',
+	1,
+	'',
+	"d5b3c260-3013-424a-a463-21784f4d1030");
+INSERT INTO O_TPARM
+	VALUES ("edd6b1e7-07b6-4fc8-8b9d-7f6af74eb755",
+	"1c105300-3a6a-41fa-8a35-5a356d760a94",
+	'index',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("98e1cd20-51f4-4670-addd-6a233ce37f34",
+	"110e3323-6929-4be9-b265-ce681dd25ec3",
+	'canCopyCoreDataType',
+	'',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'return false;',
+	1,
+	'',
+	"31d72b3b-cb32-46bd-9dd2-ab496c6ba2c8");
+INSERT INTO O_TPARM
+	VALUES ("4018f759-c886-44cf-9b45-6922f4ab08f3",
+	"98e1cd20-51f4-4670-addd-6a233ce37f34",
+	'id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("c2bbde63-853a-4caf-a1ef-e4879ccb5c70",
+	"110e3323-6929-4be9-b265-ce681dd25ec3");
+INSERT INTO O_BATTR
+	VALUES ("c2bbde63-853a-4caf-a1ef-e4879ccb5c70",
+	"110e3323-6929-4be9-b265-ce681dd25ec3");
+INSERT INTO O_ATTR
+	VALUES ("c2bbde63-853a-4caf-a1ef-e4879ccb5c70",
+	"110e3323-6929-4be9-b265-ce681dd25ec3",
+	"da0b3348-02b1-4bc9-911a-0b5af63bf05a",
+	'Name',
+	'Full Name: Data Type Package Name
+Description: A name for a package of data types.',
+	'',
+	'Name',
+	0,
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("110e3323-6929-4be9-b265-ce681dd25ec3",
+	"07cf2195-f012-4bf5-83c7-f89dd30a8839",
+	0,
+	"4c399c05-3fb3-4c71-9ce8-04c9ec0b59f5",
+	"be02e7fd-21c4-4992-8934-dbaf5151c61d",
+	"4a40df23-c514-4453-924e-6f4c1645ebe6",
+	"463ca1f0-6fbd-4d28-9297-ab45ebe08b89",
+	"e33a224c-d4cd-4685-bdb3-1d110ff7128c",
+	"a747a7ca-1186-4c76-b5c0-a01b6ba2ffe8",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Domain',
+	'Dom_ID',
+	'R40');
+INSERT INTO R_RGO_PROXY
+	VALUES ("110e3323-6929-4be9-b265-ce681dd25ec3",
+	"be02e7fd-21c4-4992-8934-dbaf5151c61d",
+	"4a40df23-c514-4453-924e-6f4c1645ebe6",
+	'../Domain.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("4c399c05-3fb3-4c71-9ce8-04c9ec0b59f5",
+	"07cf2195-f012-4bf5-83c7-f89dd30a8839",
+	0,
+	"be02e7fd-21c4-4992-8934-dbaf5151c61d",
+	"463ca1f0-6fbd-4d28-9297-ab45ebe08b89",
+	'../Domain.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("e33a224c-d4cd-4685-bdb3-1d110ff7128c",
+	"110e3323-6929-4be9-b265-ce681dd25ec3",
+	"4c399c05-3fb3-4c71-9ce8-04c9ec0b59f5",
+	"07cf2195-f012-4bf5-83c7-f89dd30a8839",
+	1,
+	'Dom_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("4c399c05-3fb3-4c71-9ce8-04c9ec0b59f5",
+	"07cf2195-f012-4bf5-83c7-f89dd30a8839",
+	'../Domain/Domain.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("e33a224c-d4cd-4685-bdb3-1d110ff7128c",
+	"110e3323-6929-4be9-b265-ce681dd25ec3",
+	"c2bbde63-853a-4caf-a1ef-e4879ccb5c70",
+	'Dom_ID',
+	'',
+	'',
+	'Dom_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("110e3323-6929-4be9-b265-ce681dd25ec3",
+	"cf4966b0-706a-4373-a2ee-7e706918813c",
+	0,
+	"a5a1b94e-be2f-4750-bd58-cf1c2713558a",
+	"9491004c-0a85-439e-b7bc-257234bc75ff",
+	"b7968d19-c43c-44b3-b3b5-0a250f0c508b",
+	"fe8d926d-f963-4fed-b2c0-39726b3e54df",
+	"da0b3348-02b1-4bc9-911a-0b5af63bf05a",
+	"f0fcc6e7-a528-4016-8414-58697a965047",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Specification Package',
+	'Package_ID',
+	'R1402');
+INSERT INTO R_RGO_PROXY
+	VALUES ("110e3323-6929-4be9-b265-ce681dd25ec3",
+	"9491004c-0a85-439e-b7bc-257234bc75ff",
+	"b7968d19-c43c-44b3-b3b5-0a250f0c508b",
+	'../../Element Packaging/Element Packaging.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("a5a1b94e-be2f-4750-bd58-cf1c2713558a",
+	"cf4966b0-706a-4373-a2ee-7e706918813c",
+	0,
+	"9491004c-0a85-439e-b7bc-257234bc75ff",
+	"fe8d926d-f963-4fed-b2c0-39726b3e54df",
+	'../../Element Packaging/Element Packaging.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("da0b3348-02b1-4bc9-911a-0b5af63bf05a",
+	"110e3323-6929-4be9-b265-ce681dd25ec3",
+	"a5a1b94e-be2f-4750-bd58-cf1c2713558a",
+	"cf4966b0-706a-4373-a2ee-7e706918813c",
+	1,
+	'Package_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("a5a1b94e-be2f-4750-bd58-cf1c2713558a",
+	"cf4966b0-706a-4373-a2ee-7e706918813c",
+	'../../Element Packaging/Specification Package/Specification Package.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("da0b3348-02b1-4bc9-911a-0b5af63bf05a",
+	"110e3323-6929-4be9-b265-ce681dd25ec3",
+	"00000000-0000-0000-0000-000000000000",
+	'Package_ID',
+	'',
+	'',
+	'SpecificationPackage_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("110e3323-6929-4be9-b265-ce681dd25ec3",
+	"10a45045-3baf-4024-a945-8a8e08848c8c",
+	0,
+	"609f09f5-2dad-4023-a453-71e221b95d5f",
+	"6928ae4d-9133-44d6-8413-d412ab47222b",
+	"a5e04235-e748-4321-a962-725322cdbd96",
+	"aa31b519-2984-4704-a744-22471af2a4d1",
+	"b70b05d0-b207-41ac-8bca-d62fd986b8a2",
+	"bc9c4a7d-f552-4492-a159-87f3f8bdfe8d",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Data Type Package in Package',
+	'Package_ID',
+	'R38');
+INSERT INTO R_RGO_PROXY
+	VALUES ("110e3323-6929-4be9-b265-ce681dd25ec3",
+	"6928ae4d-9133-44d6-8413-d412ab47222b",
+	"a5e04235-e748-4321-a962-725322cdbd96",
+	'../Domain.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("609f09f5-2dad-4023-a453-71e221b95d5f",
+	"10a45045-3baf-4024-a945-8a8e08848c8c",
+	0,
+	"6928ae4d-9133-44d6-8413-d412ab47222b",
+	"aa31b519-2984-4704-a744-22471af2a4d1",
+	'../Domain.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("b70b05d0-b207-41ac-8bca-d62fd986b8a2",
+	"110e3323-6929-4be9-b265-ce681dd25ec3",
+	"a5a1b94e-be2f-4750-bd58-cf1c2713558a",
+	"cf4966b0-706a-4373-a2ee-7e706918813c",
+	1,
+	'Package_ID');
+INSERT INTO O_ATTR
+	VALUES ("b70b05d0-b207-41ac-8bca-d62fd986b8a2",
+	"110e3323-6929-4be9-b265-ce681dd25ec3",
+	"e33a224c-d4cd-4685-bdb3-1d110ff7128c",
+	'Parent_Package_ID',
+	'',
+	'Parent_',
+	'Package_ID',
+	1,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"110e3323-6929-4be9-b265-ce681dd25ec3");
+INSERT INTO O_OIDA
+	VALUES ("da0b3348-02b1-4bc9-911a-0b5af63bf05a",
+	"110e3323-6929-4be9-b265-ce681dd25ec3",
+	0,
+	'Package_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"110e3323-6929-4be9-b265-ce681dd25ec3");
+INSERT INTO O_ID
+	VALUES (2,
+	"110e3323-6929-4be9-b265-ce681dd25ec3");
+INSERT INTO S_SS_PROXY
+	VALUES ("703df30a-ee7e-44ec-a7cf-22d2171bb270",
+	'Domain',
+	'A domain (S_DOM) consists of one or more subsystems (S_SS) that each contain an information model that abstracts a portion of the data for the domain: classes (O_OBJ), associations (R_REL), etc.  Breaking a domain into subsystems allows the complexity of the domain to be more easily managed: 1) subsystems are components and can be checked out individually allowing parallelism in development of the models and 2) breaking up a domain into smaller units is easier to understand.  A subsystem is composed of classes that tend to cluster, i.e., they have few associations that span subsystem boundaries.  Inter-subsystem associations, communications, and accesses are captured in the Subsystem Relationship Model (SRM), Subsystem Communication Model (SCM), and Subsystem Access Model (SAM) respectively.',
+	'S',
+	1,
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000100002",
+	'../Domain.xtuml');

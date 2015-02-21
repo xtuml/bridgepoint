@@ -1,0 +1,4 @@
+drawRectangle(11327, 8544, 529, 564)
+drawText("«interface»", 11484, 8554, true)
+drawText("InterfaceAssignmentSet...", 11340, 8606, true)
+drawline(11327, 8671, 11856, 8671)

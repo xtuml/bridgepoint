@@ -1,0 +1,142 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("0290b06f-0a07-484e-af02-e32b5fb48434",
+	'External Entity Package in Domain',
+	1,
+	'PL_EEPID',
+	'',
+	"72fa6244-a6e7-4d68-a86a-d54b054d2ecc");
+INSERT INTO O_REF
+	VALUES ("0290b06f-0a07-484e-af02-e32b5fb48434",
+	"07cf2195-f012-4bf5-83c7-f89dd30a8839",
+	0,
+	"4c399c05-3fb3-4c71-9ce8-04c9ec0b59f5",
+	"0fd61b3d-8c45-4aa3-9b83-80cecd44f208",
+	"5956be3f-1c31-442f-be79-77799dc2a729",
+	"fb2e5572-fb03-467e-bdac-c0ccbd06cc9c",
+	"e988f137-ebf5-45b6-9984-4ee09421c4b1",
+	"440a7601-1514-489b-968e-dd76ca7fc245",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Domain',
+	'Dom_ID',
+	'R300');
+INSERT INTO R_RGO_PROXY
+	VALUES ("0290b06f-0a07-484e-af02-e32b5fb48434",
+	"0fd61b3d-8c45-4aa3-9b83-80cecd44f208",
+	"5956be3f-1c31-442f-be79-77799dc2a729",
+	'../Package Linking.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("4c399c05-3fb3-4c71-9ce8-04c9ec0b59f5",
+	"07cf2195-f012-4bf5-83c7-f89dd30a8839",
+	0,
+	"0fd61b3d-8c45-4aa3-9b83-80cecd44f208",
+	"fb2e5572-fb03-467e-bdac-c0ccbd06cc9c",
+	'../Package Linking.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("e988f137-ebf5-45b6-9984-4ee09421c4b1",
+	"0290b06f-0a07-484e-af02-e32b5fb48434",
+	"4c399c05-3fb3-4c71-9ce8-04c9ec0b59f5",
+	"07cf2195-f012-4bf5-83c7-f89dd30a8839",
+	1,
+	'Dom_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("4c399c05-3fb3-4c71-9ce8-04c9ec0b59f5",
+	"07cf2195-f012-4bf5-83c7-f89dd30a8839",
+	'../../Domain/Domain.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("e988f137-ebf5-45b6-9984-4ee09421c4b1",
+	"0290b06f-0a07-484e-af02-e32b5fb48434",
+	"00000000-0000-0000-0000-000000000000",
+	'Dom_ID',
+	'',
+	'',
+	'Dom_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("0290b06f-0a07-484e-af02-e32b5fb48434",
+	"30cec712-73cf-4c12-84bb-4b29fbfa4fd5",
+	0,
+	"dc0f2565-e2c7-4017-a7fd-191ac6e8a752",
+	"0fd61b3d-8c45-4aa3-9b83-80cecd44f208",
+	"5956be3f-1c31-442f-be79-77799dc2a729",
+	"0e2f6591-3034-4f8e-8c8c-2593ebc39b57",
+	"a2b8b447-b8ca-4d96-9e66-8f4d060f6792",
+	"aae66fb5-ecee-49e7-a657-94e560715c23",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'External Entity Package',
+	'EEPack_ID',
+	'R300');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("dc0f2565-e2c7-4017-a7fd-191ac6e8a752",
+	"30cec712-73cf-4c12-84bb-4b29fbfa4fd5",
+	0,
+	"0fd61b3d-8c45-4aa3-9b83-80cecd44f208",
+	"0e2f6591-3034-4f8e-8c8c-2593ebc39b57",
+	'../Package Linking.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("a2b8b447-b8ca-4d96-9e66-8f4d060f6792",
+	"0290b06f-0a07-484e-af02-e32b5fb48434",
+	"dc0f2565-e2c7-4017-a7fd-191ac6e8a752",
+	"30cec712-73cf-4c12-84bb-4b29fbfa4fd5",
+	1,
+	'EEPack_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("dc0f2565-e2c7-4017-a7fd-191ac6e8a752",
+	"30cec712-73cf-4c12-84bb-4b29fbfa4fd5",
+	'../../External Entity Package/External Entity Package.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("a2b8b447-b8ca-4d96-9e66-8f4d060f6792",
+	"0290b06f-0a07-484e-af02-e32b5fb48434",
+	"e988f137-ebf5-45b6-9984-4ee09421c4b1",
+	'EEPack_ID',
+	'',
+	'',
+	'EEPack_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"0290b06f-0a07-484e-af02-e32b5fb48434");
+INSERT INTO O_OIDA
+	VALUES ("e988f137-ebf5-45b6-9984-4ee09421c4b1",
+	"0290b06f-0a07-484e-af02-e32b5fb48434",
+	0,
+	'Dom_ID');
+INSERT INTO O_OIDA
+	VALUES ("a2b8b447-b8ca-4d96-9e66-8f4d060f6792",
+	"0290b06f-0a07-484e-af02-e32b5fb48434",
+	0,
+	'EEPack_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"0290b06f-0a07-484e-af02-e32b5fb48434");
+INSERT INTO O_ID
+	VALUES (2,
+	"0290b06f-0a07-484e-af02-e32b5fb48434");
+INSERT INTO S_SS_PROXY
+	VALUES ("72fa6244-a6e7-4d68-a86a-d54b054d2ecc",
+	'Package Linking',
+	'// This is used by schema_gen to ignore this subsystem (for publication)
+TRANSLATE_FOR_EXTERNAL_USE:FALSE',
+	'PL',
+	300,
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
+	'../Package Linking.xtuml');

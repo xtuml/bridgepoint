@@ -1,0 +1,265 @@
+.//============================================================================
+.// File:  class.mark
+.//
+.// Description:
+.// この色づけファイルはモデルコンパイラーの翻訳エンジンにS-M OOAオブジェクト
+.// 専門を示す為に使用される。
+.//
+.// Notice:
+.// (C) Copyright 1999-2014 Mentor Graphics Corporation
+.//     All rights reserved.
+.//============================================================================
+.// Notes:
+.// (1) 色づけを指定することにより、アーキタイプのファンクションが実施されます。
+.//     .invokeで始まる色付け定義文中に改行を入れないこと。
+.//     必ず１行に記述すること。各関数の入力パラメータは全て定義すること。
+.//     All indicated function input parameters must be supplied.
+.// (2) 文字列パラメータは、大文字・小文字の違いがある。
+.// (3) .// で始まる行がコメントとなる。
+.// (4) 本ファイル中には空白行を入れないこと。
+.//============================================================================
+.//
+.//
+.//============================================================================
+.// Map xtUML Artifacts to Tasks/Threads
+.//
+.// Call MapClassToTask to assign a class, subsystem or domain to
+.// a particular task.
+.//
+.// MapClassToTask( "ss_name", "class_key_letters", task_number )
+.//
+.// Where the input parameters are:
+.//   ss_name = name of subsystem
+.//   class_key_letters = key letters of the class.
+.//   task_number = the number of the task to which the above is assigned
+.//
+.// NOTES:
+.// (1) To map a specific class, use "" for "ss_name"
+.//     and provide the class key letters in "class_key_letters".
+.// (2) To map all classes in the subsystem to the given task, provide
+.//     the subsystem name for "ss_name" and "*" for the "class_key_letters".
+.// (3) To mark all classes in the domain as mapped to a task, use "*"
+.//     for "ss_name" and "class_key_letters".
+.//
+.// Examples:
+.//   .invoke MapClassToTask( "", "MP", 1 )
+.//   .invoke MapClassToTask( "TRACKING", "*", 3 )
+.//   .invoke MapClassToTask( "*", "*", 0 )
+.//============================================================================
+.//
+.//
+.//============================================================================
+.// オブジェクトのディフォールトのインスタンス数の指定
+.//
+.// TagSystemObjectDefaultExtentSize( value )
+.//
+.// 入力パラメータは次の通りです:
+.//   value = デフォルトのインスタンス数
+.//
+.// Example:
+.//   .invoke TagSystemObjectDefaultExtentSize( 4 )
+.//============================================================================
+.//
+.//
+.//============================================================================
+.// 各オブジェクトのインスタンス数の指定
+.//
+.// TagObjectExtentSize( "key_letters", value )
+.//
+.// 入力パラメータは次の通りです:
+.//   key_letters = オブジェクトのキー文字
+.//   value = インスタンスの最大個数
+.//
+.// Example:
+.//   .invoke TagObjectExtentSize( "MY_OBJ", 20 )
+.//============================================================================
+.//
+.//
+.//============================================================================
+.// 静的インスタンス生成の定義
+.// 
+.// TagStaticPopulation( "object_key_letters",
+.//                      is_read_only, include_file )
+.//
+.//   object_key_letters = オブジェクトのキー文字
+.//   is_read_only = TRUE : リードオンリ・オブジェクト
+.//                  FALSE: 非リードオンリ・オブジェクト
+.//   include_file = インクルードするヘッダファイル名
+.//     (ユーザ定義のマクロまたは自動生成された列挙型定義などを使用する場合に必要
+.// 　  ヘッダファイルを指定する必要がない場合は、""と指定すること。）
+.//
+.// (例）
+.//   .invoke TagStaticPopulation( "T", FALSE, "" )
+.//============================================================================
+.//
+.//
+.//============================================================================
+.// Disable Object Operation Semantics Translation
+.//
+.// To indicate that action semantics associated with an object's operations
+.// (SM transformers) should NOT be translated into ANSI C source code,
+.// use the following mark:
+.//
+.// TagClassOperationTranslationOff( "object_key_letters", "op_name" )
+.//
+.// Where the input parameters are:
+.//   object_key_letters  = Key letters of the object.
+.//   op_name             = Name of the UML operation.
+.//
+.// NOTES:
+.// (1) To disable semantics for all operations of an object, use "*"
+.//     for "op_name".
+.// (2) To disable semantics for all operations of all objects in a
+.//     domain, use "*", "*".
+.//
+.// Examples:
+.//   .invoke TagClassOperationTranslationOff( "T", "Cooking_Initializing" )
+.//   .invoke TagClassOperationTranslationOff( "U_DATA", "*" )
+.//   .invoke TagClassOperationTranslationOff( "*", "*" )
+.//============================================================================
+.//
+.//
+.//============================================================================
+.// Mark Class as Having Preexisting Instances Defined in Data
+.//
+.// To indicate that the given class (or group of classes) has 
+.// preexisting instances defined in data, use the following mark:
+.//
+.// TagPEIsDefinedInData( "ss_name", "class_key_letters" )
+.//
+.// Where the input parameters are:
+.//   ss_name = name of subsystem.
+.//   class_key_letters = key letters of the class.
+.//
+.// NOTES:
+.// (1) To enable PEIs for a specific class, use "" for "ss_name"
+.//     and provide the class key letters in "class_key_letters".
+.// (2) To enable PEIs for all classes in the subsystem, provide
+.//     the subsystem name for "ss_name" and "*" for
+.//     the "class_key_letters".
+.// (3) To enable PEIs for all classes in the domain, use "*"
+.//     for "ss_name" and "*" for "class_key_letters".
+.// (4) There is no harm in marking a class as having preexisting
+.//     instances in data even if it does not.  It will make it eligible
+.//     for preexisting instances.
+.//
+.// Examples:
+.//   .invoke TagPEIsDefinedInData( "", "DOG" )
+.//   .invoke TagPEIsDefinedInData( "EXP", "*" )
+.//   .invoke TagPEIsDefinedInData( "*", "*" )
+.//============================================================================
+.//
+.//
+.//============================================================================
+.// Mark Class as Having a Static Instance Population
+.//
+.// To indicate that the given class (or group of classes) has
+.// a static (number of instances remains constant), use following mark:
+.//
+.// TagStaticInstancePopulation( "ss_name", "class_key_letters" )
+.//
+.// Where the input parameters are:
+.//   class_key_letters  = Key letters of the class.
+.//
+.// NOTES:
+.// (1) To enable a SIP for a specific class, use "" for "ss_name"
+.//     and provide the class key letters in "class_key_letters".
+.// (2) To enable SIPs for all classes in the subsystem, provide
+.//     the subsystem name for "ss_name" and "*" for the
+.//     "class_key_letters".
+.// (3) To enable SIPs for all classes in the domain, use "*"
+.//     for "ss_name" and "class_key_letters".
+.//
+.// Examples:
+.//   .invoke TagStaticInstancePopulation( "", "IMG" )
+.//   .invoke TagStaticInstancePopulation( "OCR", "*" )
+.//   .invoke TagStaticInstancePopulation( "*", "*" )
+.//============================================================================
+.//
+.//
+.//============================================================================
+.// Mark Class as Being Read-Only
+.//
+.// To indicate that the given class (or group of classes) is made
+.// up of instances that are not writable, use the following mark:
+.//
+.// TagReadOnly( "ss_name", "class_key_letters" )
+.//
+.// Where the input parameters are:
+.//   class_key_letters  = Key letters of the class.
+.//
+.// NOTES:
+.// (1) To mark as read-only a specific class, use "" for "ss_name"
+.//     and provide the class key letters in "class_key_letters".
+.// (2) To mark all classes in the subsystem as read-only, provide
+.//     the subsystem name for "ss_name" and "*" for
+.//     the "class_key_letters".
+.// (3) To mark all classes in the domain as read-only, use "*"
+.//     for "ss_name" and "class_key_letters".
+.//
+.// Examples:
+.//   .invoke TagReadOnly( "", "SLOT" )
+.//   .invoke TagReadOnly( "CAB", "*" )
+.//   .invoke TagReadOnly( "*", "*" )
+.//============================================================================
+.//
+.//
+.//============================================================================
+.// Mark Class as Persistent
+.//
+.// Call TagPersistentClass to cause a class to use non-volatile
+.// storage to persist data across power boundaries.
+.//
+.// TagPersistentClass( "ss_name", "class_key_letters" )
+.//
+.// Where the input parameters are:
+.//   ss_name = name of subsystem
+.//   class_key_letters = key letters of the class.
+.//
+.// NOTES:
+.// (1) To mark as persistent a specific class, use "" for "ss_name"
+.//     and provide the class key letters in "class_key_letters".
+.// (2) To mark all classes in the subsystem as persistent, provide
+.//     the subsystem name for "ss_name" and "*" for
+.//     the "class_key_letters".
+.// (3) To mark all classes in the domain as persistent, use "*"
+.//     for "ss_name" and "class_key_letters".
+.//
+.// Examples:
+.//   .invoke TagPersistentClass( "", "MP" )
+.//   .invoke TagPersistentClass( "TRACKING", "*" )
+.//   .invoke TagPersistentClass( "*", "*" )
+.//============================================================================
+.//
+.//
+.//============================================================================
+.// Mark Class as Not Persistent (Unmark Persistence)
+.//
+.// Call TagNonPersistentClass to unmark a class previously marked as
+.// persistent.  This interface undoes what the above TagPersistentClass
+.// does.  This allows a user to conveniently mark all classes persistent
+.// and then unmark a few (rather than explicitly mark as persistent a
+.// large number of classes).
+.//
+.// TagNonPersistentClass( "ss_name", "class_key_letters" )
+.//
+.// Where the input parameters are:
+.//   ss_name = name of subsystem
+.//   class_key_letters = key letters of the class.
+.//
+.// NOTES:
+.// (1) To mark as not persistent a specific class, use "" for "ss_name"
+.//     and provide the class key letters in "class_key_letters".
+.// (2) To mark all classes in the subsystem as not persistent, provide
+.//     the subsystem name for "ss_name" and "*" for
+.//     the "class_key_letters".
+.//
+.// Examples:
+.//   .invoke TagPersistentClass( "", "MP" )
+.//   .invoke TagPersistentClass( "TRACKING", "*" )
+.//============================================================================
+.//
+.//
+.//============================================================================
+.// Do not add anything at the end of this file!
+.//============================================================================

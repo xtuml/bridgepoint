@@ -1,0 +1,537 @@
+-- BP 7.1 content: Subsystem syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO S_SS
+	VALUES ("3357a459-a1e1-4bc3-a4b8-f31d53662ce0",
+	'UITree',
+	'',
+	'T',
+	1,
+	"355fe1ef-ac53-4c0f-98e9-d27f1c9235d9",
+	"00000000-0000-0000-0000-00000070000e");
+INSERT INTO S_SID
+	VALUES ("355fe1ef-ac53-4c0f-98e9-d27f1c9235d9",
+	"3357a459-a1e1-4bc3-a4b8-f31d53662ce0");
+INSERT INTO S_DOM_PROXY
+	VALUES ("355fe1ef-ac53-4c0f-98e9-d27f1c9235d9",
+	'UITree',
+	'========================================================================
+
+File:          $RCSfile$
+Version:   $Revision$
+Modified:  $Date$
+
+(c) Copyright 2003-2014 Mentor Graphics Corporation All rights reserved.
+
+========================================================================
+Licensed under the Apache License, Version 2.0 (the "License"); you may not
+use this file except in compliance with the License.  You may obtain a copy
+of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the
+License for the specific language governing permissions and limitations under
+the License.
+========================================================================
+
+This domain captures the mapping of a client model onto a tree structure. It contains
+additional attributes to facilitate the generation of code for displaying the tree in
+a User Interface tree widget.',
+	0,
+	"00000000-0000-0000-0000-000000000001",
+	"01011a0a-7be9-46ee-a8f8-2ba4cac25a9d",
+	'../UITree.xtuml');
+INSERT INTO R_SIMP
+	VALUES ("9cd67d70-e20d-4006-bf91-6df72779c691");
+INSERT INTO R_REL
+	VALUES ("9cd67d70-e20d-4006-bf91-6df72779c691",
+	1000,
+	'Captures the tree structure itself.
+
+This domain is capturing the tree structure of the client model (which is
+itself a network, not a tree), a parent can have many children of the same
+or different types:
+
+A Tree_Node_Specification is parent of zero or more Tree_Node_specifications
+',
+	"3357a459-a1e1-4bc3-a4b8-f31d53662ce0");
+INSERT INTO R_PART
+	VALUES ("d4ebf854-cf98-4429-900e-e4b213092712",
+	"9cd67d70-e20d-4006-bf91-6df72779c691",
+	"b6179daa-f46c-47ea-9ff7-4cca937743c4",
+	0,
+	0,
+	'specifies parenthood of');
+INSERT INTO O_RTIDA
+	VALUES ("b75e4192-95f9-424b-b1ff-ce881a2be980",
+	"d4ebf854-cf98-4429-900e-e4b213092712",
+	0,
+	"9cd67d70-e20d-4006-bf91-6df72779c691",
+	"b6179daa-f46c-47ea-9ff7-4cca937743c4");
+INSERT INTO O_OIDA_PROXY
+	VALUES ("b75e4192-95f9-424b-b1ff-ce881a2be980",
+	"d4ebf854-cf98-4429-900e-e4b213092712",
+	0,
+	'Tree_Node_Spec_ID',
+	'./Tree_Node_Specification/Tree_Node_Specification.xtuml');
+INSERT INTO R_RTO
+	VALUES ("d4ebf854-cf98-4429-900e-e4b213092712",
+	"9cd67d70-e20d-4006-bf91-6df72779c691",
+	"b6179daa-f46c-47ea-9ff7-4cca937743c4",
+	0);
+INSERT INTO O_ID_PROXY
+	VALUES (0,
+	"d4ebf854-cf98-4429-900e-e4b213092712",
+	'./Tree_Node_Specification/Tree_Node_Specification.xtuml');
+INSERT INTO R_OIR
+	VALUES ("d4ebf854-cf98-4429-900e-e4b213092712",
+	"9cd67d70-e20d-4006-bf91-6df72779c691",
+	"b6179daa-f46c-47ea-9ff7-4cca937743c4",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("d4ebf854-cf98-4429-900e-e4b213092712",
+	'Tree_Node_Specification',
+	1,
+	'T_TNS',
+	'This class specifies what entries are to appear in a display tree. 
+It represents an underlying client model that contains structure
+and data of interest to the user. 
+
+Not all the data in the client model is to be presented in the tree.
+Iinstances of this class specify which data items are to be shown.
+
+Attributes of this class determine which client model entry is to be
+shown and what the tree entry will look like.',
+	"3357a459-a1e1-4bc3-a4b8-f31d53662ce0",
+	'./Tree_Node_Specification/Tree_Node_Specification.xtuml');
+INSERT INTO R_FORM
+	VALUES ("cfd4ccd0-fe89-40fa-9990-54ac3e4034af",
+	"9cd67d70-e20d-4006-bf91-6df72779c691",
+	"d7ab1de0-2868-48ca-af7c-1f5645507af6",
+	1,
+	1,
+	'is specified as parent through');
+INSERT INTO R_RGO
+	VALUES ("cfd4ccd0-fe89-40fa-9990-54ac3e4034af",
+	"9cd67d70-e20d-4006-bf91-6df72779c691",
+	"d7ab1de0-2868-48ca-af7c-1f5645507af6");
+INSERT INTO R_OIR
+	VALUES ("cfd4ccd0-fe89-40fa-9990-54ac3e4034af",
+	"9cd67d70-e20d-4006-bf91-6df72779c691",
+	"d7ab1de0-2868-48ca-af7c-1f5645507af6",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("cfd4ccd0-fe89-40fa-9990-54ac3e4034af",
+	'Tree_Parenthood_Specification',
+	2,
+	'T_TPS',
+	'This class specifies the hierarchy of the tree. Instances of this class define
+which client model entities ''contain'' which other entities from the perspective
+of the displayed tree.
+
+Apart from the referential attributes that formalize the parent-child relationship,
+the attribute, ''ParentChildRelChain'' specifies how to find children given a
+parent and a parent given a child.',
+	"3357a459-a1e1-4bc3-a4b8-f31d53662ce0",
+	'./Tree_Parenthood_Specification/Tree_Parenthood_Specification.xtuml');
+INSERT INTO R_SIMP
+	VALUES ("1f5bbcc9-35a1-443f-89fa-3dd779d6e9b3");
+INSERT INTO R_REL
+	VALUES ("1f5bbcc9-35a1-443f-89fa-3dd779d6e9b3",
+	1001,
+	'Captures the tree structure itself.
+
+No node may appear in more than one branch of the tree,
+even if the apparently same entries appear in more than
+one part fo the tree, they are considered to be of a different
+type:
+
+A Tree_Node_Specification is child of zero or one Tree_Node_specification',
+	"3357a459-a1e1-4bc3-a4b8-f31d53662ce0");
+INSERT INTO R_PART
+	VALUES ("d4ebf854-cf98-4429-900e-e4b213092712",
+	"1f5bbcc9-35a1-443f-89fa-3dd779d6e9b3",
+	"e166cda4-8823-4824-9cc6-24783c32888d",
+	0,
+	0,
+	'specifies childhood of');
+INSERT INTO O_RTIDA
+	VALUES ("b75e4192-95f9-424b-b1ff-ce881a2be980",
+	"d4ebf854-cf98-4429-900e-e4b213092712",
+	0,
+	"1f5bbcc9-35a1-443f-89fa-3dd779d6e9b3",
+	"e166cda4-8823-4824-9cc6-24783c32888d");
+INSERT INTO R_RTO
+	VALUES ("d4ebf854-cf98-4429-900e-e4b213092712",
+	"1f5bbcc9-35a1-443f-89fa-3dd779d6e9b3",
+	"e166cda4-8823-4824-9cc6-24783c32888d",
+	0);
+INSERT INTO R_OIR
+	VALUES ("d4ebf854-cf98-4429-900e-e4b213092712",
+	"1f5bbcc9-35a1-443f-89fa-3dd779d6e9b3",
+	"e166cda4-8823-4824-9cc6-24783c32888d",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_FORM
+	VALUES ("cfd4ccd0-fe89-40fa-9990-54ac3e4034af",
+	"1f5bbcc9-35a1-443f-89fa-3dd779d6e9b3",
+	"c00db8df-c570-4158-946a-c951c23bc625",
+	1,
+	1,
+	'is specified as child through');
+INSERT INTO R_RGO
+	VALUES ("cfd4ccd0-fe89-40fa-9990-54ac3e4034af",
+	"1f5bbcc9-35a1-443f-89fa-3dd779d6e9b3",
+	"c00db8df-c570-4158-946a-c951c23bc625");
+INSERT INTO R_OIR
+	VALUES ("cfd4ccd0-fe89-40fa-9990-54ac3e4034af",
+	"1f5bbcc9-35a1-443f-89fa-3dd779d6e9b3",
+	"c00db8df-c570-4158-946a-c951c23bc625",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_MD
+	VALUES ("b8f7ac11-c2f7-420a-b8e3-8011a59f733a",
+	5,
+	"3357a459-a1e1-4bc3-a4b8-f31d53662ce0",
+	11,
+	1,
+	0,
+	1,
+	1,
+	0,
+	12,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	'',
+	'org.xtuml.bp.ui.tree::UITree::UITree');
+INSERT INTO GD_GE
+	VALUES ("55f69d12-6c9b-4c13-a41c-0ba0d8421319",
+	"b8f7ac11-c2f7-420a-b8e3-8011a59f733a",
+	"d4ebf854-cf98-4429-900e-e4b213092712",
+	21,
+	0,
+	'org.xtuml.bp.ui.tree::UITree::UITree::Tree_Node_Specification');
+INSERT INTO GD_SHP
+	VALUES ("55f69d12-6c9b-4c13-a41c-0ba0d8421319");
+INSERT INTO GD_NCS
+	VALUES ("55f69d12-6c9b-4c13-a41c-0ba0d8421319");
+INSERT INTO DIM_ND
+	VALUES (336.000000,
+	240.000000,
+	"55f69d12-6c9b-4c13-a41c-0ba0d8421319");
+INSERT INTO DIM_GE
+	VALUES (1712.000000,
+	1296.000000,
+	"55f69d12-6c9b-4c13-a41c-0ba0d8421319",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("55f69d12-6c9b-4c13-a41c-0ba0d8421319",
+	1,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_CON
+	VALUES ("5f0e340a-2801-4b27-8a74-19d5e48e813f",
+	1872.000000,
+	1296.000000,
+	"55f69d12-6c9b-4c13-a41c-0ba0d8421319");
+INSERT INTO DIM_CON
+	VALUES ("92eb6d65-0dca-4b9f-b707-5a32c58416ca",
+	1872.000000,
+	1536.000000,
+	"55f69d12-6c9b-4c13-a41c-0ba0d8421319");
+INSERT INTO GD_GE
+	VALUES ("48104ad1-0489-4153-8a34-ee2c813715c2",
+	"b8f7ac11-c2f7-420a-b8e3-8011a59f733a",
+	"cfd4ccd0-fe89-40fa-9990-54ac3e4034af",
+	21,
+	0,
+	'org.xtuml.bp.ui.tree::UITree::UITree::Tree_Parenthood_Specification');
+INSERT INTO GD_SHP
+	VALUES ("48104ad1-0489-4153-8a34-ee2c813715c2");
+INSERT INTO GD_NCS
+	VALUES ("48104ad1-0489-4153-8a34-ee2c813715c2");
+INSERT INTO DIM_ND
+	VALUES (368.000000,
+	176.000000,
+	"48104ad1-0489-4153-8a34-ee2c813715c2");
+INSERT INTO DIM_GE
+	VALUES (2208.000000,
+	1296.000000,
+	"48104ad1-0489-4153-8a34-ee2c813715c2",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("48104ad1-0489-4153-8a34-ee2c813715c2",
+	1,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_CON
+	VALUES ("fee5edde-a399-4003-a670-02f94cb89a46",
+	2400.000000,
+	1296.000000,
+	"48104ad1-0489-4153-8a34-ee2c813715c2");
+INSERT INTO DIM_CON
+	VALUES ("739e6d33-97fb-46e1-a4b8-9d6276e778b8",
+	2400.000000,
+	1472.000000,
+	"48104ad1-0489-4153-8a34-ee2c813715c2");
+INSERT INTO GD_GE
+	VALUES ("db22304e-38de-4966-9055-b77993408533",
+	"b8f7ac11-c2f7-420a-b8e3-8011a59f733a",
+	"9cd67d70-e20d-4006-bf91-6df72779c691",
+	24,
+	0,
+	'org.xtuml.bp.ui.tree::UITree::UITree::R1000');
+INSERT INTO GD_CON
+	VALUES ("db22304e-38de-4966-9055-b77993408533",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_CTXT
+	VALUES ("26b3883f-1ffc-4224-9aa5-e0db3c9e39c0",
+	"db22304e-38de-4966-9055-b77993408533",
+	1,
+	-2.000000,
+	2.000000);
+INSERT INTO DIM_ND
+	VALUES (150.000000,
+	40.000000,
+	"26b3883f-1ffc-4224-9aa5-e0db3c9e39c0");
+INSERT INTO DIM_GE
+	VALUES (1875.000000,
+	1252.000000,
+	"26b3883f-1ffc-4224-9aa5-e0db3c9e39c0",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("26b3883f-1ffc-4224-9aa5-e0db3c9e39c0",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_CTXT
+	VALUES ("5c1511e0-267d-4afa-b410-f0e7e946e1cc",
+	"db22304e-38de-4966-9055-b77993408533",
+	3,
+	-6.000000,
+	3.000000);
+INSERT INTO DIM_ND
+	VALUES (51.000000,
+	22.000000,
+	"5c1511e0-267d-4afa-b410-f0e7e946e1cc");
+INSERT INTO DIM_GE
+	VALUES (2107.000000,
+	1175.000000,
+	"5c1511e0-267d-4afa-b410-f0e7e946e1cc",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("5c1511e0-267d-4afa-b410-f0e7e946e1cc",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_CTXT
+	VALUES ("1275d26e-5a8e-4058-949b-28439ce064f4",
+	"db22304e-38de-4966-9055-b77993408533",
+	2,
+	0.000000,
+	0.000000);
+INSERT INTO DIM_ND
+	VALUES (157.000000,
+	40.000000,
+	"1275d26e-5a8e-4058-949b-28439ce064f4");
+INSERT INTO DIM_GE
+	VALUES (2405.000000,
+	1250.000000,
+	"1275d26e-5a8e-4058-949b-28439ce064f4",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("1275d26e-5a8e-4058-949b-28439ce064f4",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_LS
+	VALUES ("37cb166b-8aeb-481e-9cc4-d74cb95080e8",
+	"db22304e-38de-4966-9055-b77993408533",
+	"00000000-0000-0000-0000-000000000000",
+	"d4dce0e8-fe9f-4acd-969b-1cb9f2a7411e",
+	"78d1ca7c-6a70-4a6e-ae1c-dbf463351285");
+INSERT INTO GD_LS
+	VALUES ("8dcb2d33-1851-4f4b-8074-9f405a33fd2f",
+	"db22304e-38de-4966-9055-b77993408533",
+	"37cb166b-8aeb-481e-9cc4-d74cb95080e8",
+	"78d1ca7c-6a70-4a6e-ae1c-dbf463351285",
+	"7c3abb10-1582-4660-9cf1-c9e2856efc5f");
+INSERT INTO GD_LS
+	VALUES ("194fe66a-fdea-477b-94e2-059c9b7be18b",
+	"db22304e-38de-4966-9055-b77993408533",
+	"8dcb2d33-1851-4f4b-8074-9f405a33fd2f",
+	"7c3abb10-1582-4660-9cf1-c9e2856efc5f",
+	"2d49cd1d-e142-456f-a810-b3750887f17e");
+INSERT INTO DIM_WAY
+	VALUES ("d4dce0e8-fe9f-4acd-969b-1cb9f2a7411e",
+	1872.000000,
+	1296.000000,
+	"db22304e-38de-4966-9055-b77993408533",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_WAY
+	VALUES ("78d1ca7c-6a70-4a6e-ae1c-dbf463351285",
+	1872.000000,
+	1200.000000,
+	"db22304e-38de-4966-9055-b77993408533",
+	"00000000-0000-0000-0000-000000000000",
+	"d4dce0e8-fe9f-4acd-969b-1cb9f2a7411e");
+INSERT INTO DIM_WAY
+	VALUES ("7c3abb10-1582-4660-9cf1-c9e2856efc5f",
+	2400.000000,
+	1200.000000,
+	"db22304e-38de-4966-9055-b77993408533",
+	"00000000-0000-0000-0000-000000000000",
+	"78d1ca7c-6a70-4a6e-ae1c-dbf463351285");
+INSERT INTO DIM_WAY
+	VALUES ("2d49cd1d-e142-456f-a810-b3750887f17e",
+	2400.000000,
+	1296.000000,
+	"db22304e-38de-4966-9055-b77993408533",
+	"00000000-0000-0000-0000-000000000000",
+	"7c3abb10-1582-4660-9cf1-c9e2856efc5f");
+INSERT INTO DIM_GE
+	VALUES (0.000000,
+	0.000000,
+	"db22304e-38de-4966-9055-b77993408533",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("db22304e-38de-4966-9055-b77993408533",
+	1,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ED
+	VALUES ("5f0e340a-2801-4b27-8a74-19d5e48e813f",
+	"fee5edde-a399-4003-a670-02f94cb89a46",
+	"db22304e-38de-4966-9055-b77993408533");
+INSERT INTO GD_GE
+	VALUES ("683299ae-7e9a-4a0e-914f-9cc2764c0ca5",
+	"b8f7ac11-c2f7-420a-b8e3-8011a59f733a",
+	"1f5bbcc9-35a1-443f-89fa-3dd779d6e9b3",
+	24,
+	0,
+	'org.xtuml.bp.ui.tree::UITree::UITree::R1001');
+INSERT INTO GD_CON
+	VALUES ("683299ae-7e9a-4a0e-914f-9cc2764c0ca5",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_CTXT
+	VALUES ("2f8f6252-1234-46c5-892e-396f8ce26743",
+	"683299ae-7e9a-4a0e-914f-9cc2764c0ca5",
+	1,
+	4.000000,
+	1.000000);
+INSERT INTO DIM_ND
+	VALUES (155.000000,
+	22.000000,
+	"2f8f6252-1234-46c5-892e-396f8ce26743");
+INSERT INTO DIM_GE
+	VALUES (1881.000000,
+	1547.000000,
+	"2f8f6252-1234-46c5-892e-396f8ce26743",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("2f8f6252-1234-46c5-892e-396f8ce26743",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_CTXT
+	VALUES ("82b085da-2a85-4706-98de-3a99a7208ea8",
+	"683299ae-7e9a-4a0e-914f-9cc2764c0ca5",
+	3,
+	-16.000000,
+	28.000000);
+INSERT INTO DIM_ND
+	VALUES (51.000000,
+	22.000000,
+	"82b085da-2a85-4706-98de-3a99a7208ea8");
+INSERT INTO DIM_GE
+	VALUES (2097.000000,
+	1648.000000,
+	"82b085da-2a85-4706-98de-3a99a7208ea8",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("82b085da-2a85-4706-98de-3a99a7208ea8",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_CTXT
+	VALUES ("929e1c8a-e2b6-490b-80b6-a18c04d9c1f9",
+	"683299ae-7e9a-4a0e-914f-9cc2764c0ca5",
+	2,
+	0.000000,
+	0.000000);
+INSERT INTO DIM_ND
+	VALUES (145.000000,
+	40.000000,
+	"929e1c8a-e2b6-490b-80b6-a18c04d9c1f9");
+INSERT INTO DIM_GE
+	VALUES (2405.000000,
+	1482.000000,
+	"929e1c8a-e2b6-490b-80b6-a18c04d9c1f9",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("929e1c8a-e2b6-490b-80b6-a18c04d9c1f9",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_LS
+	VALUES ("6d2d10be-e864-4706-b8b1-692cee1f9a22",
+	"683299ae-7e9a-4a0e-914f-9cc2764c0ca5",
+	"00000000-0000-0000-0000-000000000000",
+	"6bee8e2c-caf7-4e49-aff6-11f54078b127",
+	"7c81c7fa-9027-454f-9d49-210eb875c334");
+INSERT INTO GD_LS
+	VALUES ("f59915b2-3f33-4819-9377-b8a6e5264e3d",
+	"683299ae-7e9a-4a0e-914f-9cc2764c0ca5",
+	"6d2d10be-e864-4706-b8b1-692cee1f9a22",
+	"7c81c7fa-9027-454f-9d49-210eb875c334",
+	"c2503b8e-5e9e-408b-a01b-2a005518d5ce");
+INSERT INTO GD_LS
+	VALUES ("90cd1cf4-4fe8-4cb9-974d-a87beb2937bb",
+	"683299ae-7e9a-4a0e-914f-9cc2764c0ca5",
+	"f59915b2-3f33-4819-9377-b8a6e5264e3d",
+	"c2503b8e-5e9e-408b-a01b-2a005518d5ce",
+	"068d0fa2-8636-4344-81c4-e5a602356b0a");
+INSERT INTO DIM_WAY
+	VALUES ("6bee8e2c-caf7-4e49-aff6-11f54078b127",
+	1872.000000,
+	1536.000000,
+	"683299ae-7e9a-4a0e-914f-9cc2764c0ca5",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_WAY
+	VALUES ("7c81c7fa-9027-454f-9d49-210eb875c334",
+	1872.000000,
+	1648.000000,
+	"683299ae-7e9a-4a0e-914f-9cc2764c0ca5",
+	"00000000-0000-0000-0000-000000000000",
+	"6bee8e2c-caf7-4e49-aff6-11f54078b127");
+INSERT INTO DIM_WAY
+	VALUES ("c2503b8e-5e9e-408b-a01b-2a005518d5ce",
+	2400.000000,
+	1648.000000,
+	"683299ae-7e9a-4a0e-914f-9cc2764c0ca5",
+	"00000000-0000-0000-0000-000000000000",
+	"7c81c7fa-9027-454f-9d49-210eb875c334");
+INSERT INTO DIM_WAY
+	VALUES ("068d0fa2-8636-4344-81c4-e5a602356b0a",
+	2400.000000,
+	1472.000000,
+	"683299ae-7e9a-4a0e-914f-9cc2764c0ca5",
+	"00000000-0000-0000-0000-000000000000",
+	"c2503b8e-5e9e-408b-a01b-2a005518d5ce");
+INSERT INTO DIM_GE
+	VALUES (0.000000,
+	0.000000,
+	"683299ae-7e9a-4a0e-914f-9cc2764c0ca5",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("683299ae-7e9a-4a0e-914f-9cc2764c0ca5",
+	1,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ED
+	VALUES ("92eb6d65-0dca-4b9f-b707-5a32c58416ca",
+	"739e6d33-97fb-46e1-a4b8-9d6276e778b8",
+	"683299ae-7e9a-4a0e-914f-9cc2764c0ca5");
+INSERT INTO DIM_DIA
+	VALUES ("b8f7ac11-c2f7-420a-b8e3-8011a59f733a",
+	'',
+	1.000000,
+	1633.000000,
+	1157.000000,
+	"00000000-0000-0000-0000-000000000000");

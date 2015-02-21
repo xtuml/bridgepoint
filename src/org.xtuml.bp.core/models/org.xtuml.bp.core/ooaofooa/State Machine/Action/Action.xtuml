@@ -1,0 +1,292 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("51d28929-d81b-4ffc-8b96-028f5ed244c2",
+	'Action',
+	516,
+	'SM_ACT',
+	'An action defines the action language that gets executed upon arrival into the state (SM_STATE) that is related to the action.  An action may have both action language (SM_ACT.Action_Semantics)  and a description (SM_ACT.Descrip).',
+	"efdb28f6-a485-4b25-9cbf-3e7227398b6a");
+INSERT INTO O_TFR
+	VALUES ("1d49884f-89d5-470f-bc0e-0e649f306567",
+	"51d28929-d81b-4ffc-8b96-028f5ed244c2",
+	'dispose',
+	'Delete this Action.',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select one sm related by self->SM_SM[R515];
+unrelate self from sm across R515;
+select one ah related by self->SM_AH[R514];
+unrelate self from ah across R514;
+ah.dispose();
+// Body Subsystem
+select one body related by self->ACT_SAB[R691]->ACT_ACT[R698];
+if empty body
+  select one body related by self->ACT_TAB[R688]->ACT_ACT[R698];
+end if;
+if (not_empty body)
+  body.dispose();
+end if;
+//
+delete object instance self;
+',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_DT_PROXY
+	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'void',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("cd1c2495-5606-494f-a99b-76779123cbd0",
+	"51d28929-d81b-4ffc-8b96-028f5ed244c2",
+	'get_name',
+	'',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	1,
+	'select one st related by self->SM_AH[R514]->SM_MOAH[R513]->SM_STATE[R511];
+select one transition related by self->SM_AH[R514]->SM_TAH[R513]->SM_TXN[R530];
+if (not_empty st)
+  return "State Action";
+else;
+  if(not_empty transition)
+    return "Transition Action";
+  end if;
+  return ::getOrphanedElementName();
+end if;
+
+',
+	1,
+	'',
+	"1d49884f-89d5-470f-bc0e-0e649f306567");
+INSERT INTO S_DT_PROXY
+	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'string',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("afb1ea8c-31d9-4fc6-9821-682ef090ff45",
+	"51d28929-d81b-4ffc-8b96-028f5ed244c2",
+	'convertToInstance',
+	'A utility operation to cast an instance of this type to the
+instance datatype.
+
+Translate: native',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	1,
+	'// just return this instance as an Object
+return this;',
+	0,
+	'',
+	"cd1c2495-5606-494f-a99b-76779123cbd0");
+INSERT INTO S_DT_PROXY
+	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'instance',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("a32afd01-b620-404d-b94b-f9b2e9082d1a",
+	"51d28929-d81b-4ffc-8b96-028f5ed244c2");
+INSERT INTO O_BATTR
+	VALUES ("a32afd01-b620-404d-b94b-f9b2e9082d1a",
+	"51d28929-d81b-4ffc-8b96-028f5ed244c2");
+INSERT INTO O_ATTR
+	VALUES ("a32afd01-b620-404d-b94b-f9b2e9082d1a",
+	"51d28929-d81b-4ffc-8b96-028f5ed244c2",
+	"00000000-0000-0000-0000-000000000000",
+	'Act_ID',
+	'Full Name: Action Identifier',
+	'',
+	'Act_ID',
+	0,
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'unique_id',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("51d28929-d81b-4ffc-8b96-028f5ed244c2",
+	"92c4f346-0aca-4da2-b132-f4de66fee3e6",
+	0,
+	"a791a1ed-e1c8-4d68-9963-2e6d2379b544",
+	"3174721f-bfb6-47f2-bb46-890a2913cd37",
+	"216a9440-9548-42d3-a472-2b5541f28ce0",
+	"ac311bd3-e328-47ca-93f0-aeb0109e709a",
+	"3fd51053-412a-48f4-98b7-4eed41c49e84",
+	"4784b158-6f6b-43c7-aefb-b2b955ec6744",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'State Machine',
+	'SM_ID',
+	'R515');
+INSERT INTO R_RGO_PROXY
+	VALUES ("51d28929-d81b-4ffc-8b96-028f5ed244c2",
+	"3174721f-bfb6-47f2-bb46-890a2913cd37",
+	"216a9440-9548-42d3-a472-2b5541f28ce0",
+	'../State Machine.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("a791a1ed-e1c8-4d68-9963-2e6d2379b544",
+	"92c4f346-0aca-4da2-b132-f4de66fee3e6",
+	0,
+	"3174721f-bfb6-47f2-bb46-890a2913cd37",
+	"ac311bd3-e328-47ca-93f0-aeb0109e709a",
+	'../State Machine.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("3fd51053-412a-48f4-98b7-4eed41c49e84",
+	"51d28929-d81b-4ffc-8b96-028f5ed244c2",
+	"a791a1ed-e1c8-4d68-9963-2e6d2379b544",
+	"92c4f346-0aca-4da2-b132-f4de66fee3e6",
+	1,
+	'SM_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("a791a1ed-e1c8-4d68-9963-2e6d2379b544",
+	"92c4f346-0aca-4da2-b132-f4de66fee3e6",
+	'../State Machine/State Machine.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("3fd51053-412a-48f4-98b7-4eed41c49e84",
+	"51d28929-d81b-4ffc-8b96-028f5ed244c2",
+	"a32afd01-b620-404d-b94b-f9b2e9082d1a",
+	'SM_ID',
+	'',
+	'',
+	'SM_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("ffb382b3-a9ae-4589-835a-55a6a95f4ce0",
+	"51d28929-d81b-4ffc-8b96-028f5ed244c2");
+INSERT INTO O_BATTR
+	VALUES ("ffb382b3-a9ae-4589-835a-55a6a95f4ce0",
+	"51d28929-d81b-4ffc-8b96-028f5ed244c2");
+INSERT INTO O_ATTR
+	VALUES ("ffb382b3-a9ae-4589-835a-55a6a95f4ce0",
+	"51d28929-d81b-4ffc-8b96-028f5ed244c2",
+	"3fd51053-412a-48f4-98b7-4eed41c49e84",
+	'Suc_Pars',
+	'Full Name: Successful Parse Indicator
+Description: Indicates the status of the parse for the state action specification in the attribute Action_Semantics
+Data Domain: 0=not parsed, 1 = parse successful, 2 = parse unsuccessful, 3 = parse on apply set but never been parsed
+',
+	'',
+	'Suc_Pars',
+	0,
+	"33245ab4-49c2-4c3a-8a59-a08f07153c47",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("33245ab4-49c2-4c3a-8a59-a08f07153c47",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'ParseStatus',
+	'Indicates the status of the parse for an action specification in the attribute Action_Semantics',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_DBATTR
+	VALUES ("59d2c68a-fb72-4918-954e-7e848519a305",
+	"51d28929-d81b-4ffc-8b96-028f5ed244c2",
+	'self.Action_Semantics = ::convertRelocatableTags(in:self.Action_Semantics_internal);
+',
+	1);
+INSERT INTO O_BATTR
+	VALUES ("59d2c68a-fb72-4918-954e-7e848519a305",
+	"51d28929-d81b-4ffc-8b96-028f5ed244c2");
+INSERT INTO O_ATTR
+	VALUES ("59d2c68a-fb72-4918-954e-7e848519a305",
+	"51d28929-d81b-4ffc-8b96-028f5ed244c2",
+	"ffb382b3-a9ae-4589-835a-55a6a95f4ce0",
+	'Action_Semantics',
+	'Full Name: Action Semantics Field
+Description: Action Semantics for the state action
+Persistent:false',
+	'',
+	'Action_Semantics',
+	0,
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("5af6c055-4907-4f6e-9e47-c870b768725f",
+	"51d28929-d81b-4ffc-8b96-028f5ed244c2");
+INSERT INTO O_BATTR
+	VALUES ("5af6c055-4907-4f6e-9e47-c870b768725f",
+	"51d28929-d81b-4ffc-8b96-028f5ed244c2");
+INSERT INTO O_ATTR
+	VALUES ("5af6c055-4907-4f6e-9e47-c870b768725f",
+	"51d28929-d81b-4ffc-8b96-028f5ed244c2",
+	"376f642b-d5cd-4baf-baa8-380b7ff43a5e",
+	'Descrip',
+	'Full Name: Description
+Description: Optional description for the state action.',
+	'',
+	'Descrip',
+	0,
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("376f642b-d5cd-4baf-baa8-380b7ff43a5e",
+	"51d28929-d81b-4ffc-8b96-028f5ed244c2");
+INSERT INTO O_BATTR
+	VALUES ("376f642b-d5cd-4baf-baa8-380b7ff43a5e",
+	"51d28929-d81b-4ffc-8b96-028f5ed244c2");
+INSERT INTO O_ATTR
+	VALUES ("376f642b-d5cd-4baf-baa8-380b7ff43a5e",
+	"51d28929-d81b-4ffc-8b96-028f5ed244c2",
+	"59d2c68a-fb72-4918-954e-7e848519a305",
+	'Action_Semantics_internal',
+	'User_Visible:false',
+	'',
+	'Action_Semantics_internal',
+	0,
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"51d28929-d81b-4ffc-8b96-028f5ed244c2");
+INSERT INTO O_OIDA
+	VALUES ("3fd51053-412a-48f4-98b7-4eed41c49e84",
+	"51d28929-d81b-4ffc-8b96-028f5ed244c2",
+	0,
+	'SM_ID');
+INSERT INTO O_OIDA
+	VALUES ("a32afd01-b620-404d-b94b-f9b2e9082d1a",
+	"51d28929-d81b-4ffc-8b96-028f5ed244c2",
+	0,
+	'Act_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"51d28929-d81b-4ffc-8b96-028f5ed244c2");
+INSERT INTO O_ID
+	VALUES (2,
+	"51d28929-d81b-4ffc-8b96-028f5ed244c2");
+INSERT INTO S_SS_PROXY
+	VALUES ("efdb28f6-a485-4b25-9cbf-3e7227398b6a",
+	'State Machine',
+	'Classes (O_OBJ) that have interesting behavior are given lifecycles. These lifecycles are described using state machines (SM_SM). A state machine consists of states, events, transitions and state actions. The state machine exists for each instance of the class for which it has been modeled (SM_ISM). A state machine can also be an assigner state machine (SM_ASM) of which only one can exists for all class instances. The purpose of the assigner state machine is to act as a single point of control through which competing requests are serialized.',
+	'SM',
+	501,
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000280005",
+	'../State Machine.xtuml');

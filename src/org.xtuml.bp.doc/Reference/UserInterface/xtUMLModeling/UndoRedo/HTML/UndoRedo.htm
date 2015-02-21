@@ -1,0 +1,284 @@
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=us-ascii">
+<meta name=Generator content="Microsoft Word 14 (filtered)">
+<title>Undo and Redo</title>
+<link rel=Stylesheet type="text/css" media=all href="../../../../../techpub.css">
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:SimSun;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:SimSun;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:Tahoma;
+	panose-1:2 11 6 4 3 5 4 4 2 4;}
+@font-face
+	{font-family:"\@SimSun";
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+h1
+	{mso-style-link:"Heading 1 Char";
+	margin-right:0in;
+	margin-left:0in;
+	font-size:18.0pt;}
+h2
+	{mso-style-link:"Heading 2 Char";
+	margin-right:0in;
+	margin-left:0in;
+	line-height:15.6pt;
+	font-size:12.0pt;
+	font-weight:bold;}
+h3
+	{mso-style-link:"Heading 3 Char";
+	margin-right:0in;
+	margin-bottom:2.4pt;
+	margin-left:0in;
+	line-height:15.6pt;
+	font-size:11.0pt;
+	font-weight:bold;}
+h4
+	{mso-style-link:"Heading 4 Char";
+	margin-right:0in;
+	margin-bottom:6.0pt;
+	line-height:15.6pt;
+	font-size:11.0pt;
+	font-weight:bold;}
+h5
+	{mso-style-link:"Heading 5 Char";
+	margin-right:0in;
+	margin-left:0in;
+	font-size:9.0pt;
+	font-weight:bold;}
+h6
+	{mso-style-link:"Heading 6 Char";
+	margin-right:0in;
+	margin-left:0in;
+	font-size:12.0pt;
+	font-weight:bold;}
+a:link, span.MsoHyperlink
+	{color:navy;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{color:#0176B9;
+	text-decoration:underline;}
+p
+	{margin-right:0in;
+	margin-left:0in;
+	font-size:10.0pt;}
+code
+	{font-family:"Courier New";}
+p.MsoAcetate, li.MsoAcetate, div.MsoAcetate
+	{mso-style-link:"Balloon Text Char";
+	margin:0in;
+	margin-bottom:.0001pt;
+	font-size:8.0pt;
+	font-family:"Tahoma","sans-serif";}
+span.Heading1Char
+	{mso-style-name:"Heading 1 Char";
+	mso-style-link:"Heading 1";
+	font-family:"Cambria","serif";
+	color:#365F91;
+	font-weight:bold;}
+span.Heading2Char
+	{mso-style-name:"Heading 2 Char";
+	mso-style-link:"Heading 2";
+	font-family:"Cambria","serif";
+	color:#4F81BD;
+	font-weight:bold;}
+span.Heading3Char
+	{mso-style-name:"Heading 3 Char";
+	mso-style-link:"Heading 3";
+	font-family:"Cambria","serif";
+	color:#4F81BD;
+	font-weight:bold;}
+span.Heading4Char
+	{mso-style-name:"Heading 4 Char";
+	mso-style-link:"Heading 4";
+	font-family:"Cambria","serif";
+	color:#4F81BD;
+	font-weight:bold;
+	font-style:italic;}
+span.Heading5Char
+	{mso-style-name:"Heading 5 Char";
+	mso-style-link:"Heading 5";
+	font-family:"Cambria","serif";
+	color:#243F60;}
+span.Heading6Char
+	{mso-style-name:"Heading 6 Char";
+	mso-style-link:"Heading 6";
+	font-family:"Cambria","serif";
+	color:#243F60;
+	font-style:italic;}
+p.tpcode, li.tpcode, div.tpcode
+	{mso-style-name:tpcode;
+	margin-right:0in;
+	margin-left:0in;
+	font-size:10.0pt;}
+p.leftalign, li.leftalign, div.leftalign
+	{mso-style-name:leftalign;
+	margin-right:0in;
+	margin-left:0in;
+	font-size:10.0pt;}
+span.tpcodeChar
+	{mso-style-name:"tp_code Char";
+	font-family:"Courier New";}
+span.BalloonTextChar
+	{mso-style-name:"Balloon Text Char";
+	mso-style-link:"Balloon Text";
+	font-family:"Tahoma","sans-serif";}
+.MsoChpDefault
+	{font-size:10.0pt;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.25in 1.0in 1.25in;}
+div.WordSection1
+	{page:WordSection1;}
+-->
+</style>
+
+</head>
+
+<body lang=EN-US link=navy vlink="#0176B9">
+
+<div class=WordSection1>
+
+<h1><a name="ur_1001"></a>Undo and Redo </h1>
+
+<p>The xtUML Modeling perspective provides Undo and Redo stacks for each xtUML
+model. For example, the following illustration shows an xtUML project named<a
+name="ur_1002"><span class=tpcodeChar><u>Microwave</u></span> with a single
+xtUML model </a><span class=tpcodeChar>MicrowaveOven</span>. </p>
+
+<p class=leftalign><img width=599 height=291 src="UndoRedo_files/undoRedo1.jpg"
+alt="Description: Model with project"></p>
+
+<p class=leftalign>In this illustration there is one Undo and one Redo stack
+attached to the <span class=tpcodeChar>MicrowaveOven</span> model.&nbsp; If a
+new xtUML model were to be created or imported into the <span class=tpcodeChar>Microwave</span>
+project then new, separate undo and redo stacks would be created for that model
+also. </p>
+
+<p>Undo and Redo stacks are available from Canvas Editors, Outline Views, and -
+when these editors or views are in focus - from <span class=tpcodeChar>Edit</span>
+on the menu bar.&nbsp; The default control key combination for Undo is defined
+as <span class=tpcodeChar>control-Z</span> and the default control key
+combination for Redo is <span class=tpcodeChar>control-Y</span>. </p>
+
+<p><b>NOTE:</b> Because Undo and Redo stacks are model-wide the results of an
+Undo or Redo may not be immediately visible.&nbsp; For example, if an Instance
+State Machine Canvas Editor is currently in focus and the last change on the
+Undo stack represents the deletion of some other state machine, the results of
+executing the Undo will not be visible unless the Model Explorer or Outline
+views are expanded so that they display the affected state machine.</p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>NOTE:</span></b>
+<span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>There are two
+types of xtUML model elements that are not eligible for Undo and Redo.&nbsp;
+Because the Undo and Redo stacks are model specific, when an entire xtUML model
+is deleted the stacks for that model are no longer available.&nbsp; xtUML
+models may be restored from the Local History.&nbsp; In place of Undo and Redo,
+Model elements such as State Action and all Descriptions, that are normally
+modified using text editors are eligible for the Eclipse text editor default </span><span
+class=tpcodeChar><span style='font-size:10.0pt'>Undo Typing</span></span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif"'> and </span><span
+class=tpcodeChar><span style='font-size:10.0pt'>Revert</span></span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif"'> mechanisms.</span></p>
+
+<h2>Accessing the Undo and Redo stacks from Canvas Editors</h2>
+
+<p>To access the Undo or Redo stacks from a Canvas Editor, bring the editor
+into focus and then right-click on any part of the canvas to display the
+context menu. </p>
+
+<p class=leftalign><img width=464 height=276
+src="UndoRedo_files/undoRedo2Canvas.jpg" alt="Description: Canvas context menu"></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>&nbsp;</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>&nbsp;</span></p>
+
+<h2>Accessing the Undo and Redo stacks from the Outline View</h2>
+
+<p>To access the Undo or Redo stacks from the Outline view, bring the view into
+focus and then right-click inside the view to display the context menu. </p>
+
+<p class=leftalign><img width=345 height=200
+src="UndoRedo_files/undoRedo3Outline.jpg"
+alt="Description: Outline view context menu"></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>&nbsp;</span></p>
+
+<h2>Accessing the Undo and Redo Stacks from the Menu Bar</h2>
+
+<p>When either a Canvas Editor or the Outline view is in focus, Undo and Redo
+are available in the <span class=tpcodeChar>Edit</span> menu of the menu bar.</p>
+
+<p class=leftalign><img width=292 height=166
+src="UndoRedo_files/undoRedo4Menu.jpg" alt="Description: Menu bar Edit menu"></p>
+
+<h2>Restoring Deleted xtUML Models</h2>
+
+<p>When an entire xtUML model is deleted from a project the Undo and Redo
+stacks for the model are also deleted.&nbsp; Models deleted in this manner may
+be restored from the Local History.&nbsp; </p>
+
+<p class=leftalign><img width=466 height=377
+src="UndoRedo_files/undoRedoRsc1.jpg" alt="Description: Select Model"></p>
+
+<p class=leftalign>To do this, change to the EDGE Projects perspective,
+navigate to and select the <span class=tpcodeChar>models</span> directory of
+the project that contained the deleted model.&nbsp; Right-click and select <span
+class=tpcodeChar>Restore from Local History&#8230;</span> from the context
+menu.</p>
+
+<p class=leftalign><img width=460 height=517
+src="UndoRedo_files/undoRedoRsc2.jpg" alt="Description: Delete Model"></p>
+
+<p class=leftalign>The <span class=tpcodeChar>Restore from Local History</span>
+dialog box will pop up.&nbsp; Select the models you would like to restore and
+then press the <span class=tpcodeChar>Restore</span> button.</p>
+
+<p class=leftalign><img width=501 height=249
+src="UndoRedo_files/undoRedoRsc3.jpg"
+alt="Description: Change Perspective to Edge Projects"></p>
+
+<p class=leftalign>The model is restored and again accessible from the xtUML
+Modeling perspective.</p>
+
+<p class=leftalign><img width=426 height=265
+src="UndoRedo_files/undoRedoRsc4.jpg" alt="Description: Change back to xtUML"></p>
+
+<h2>Using the Undo and Revert Features of Text Editors</h2>
+
+<h2><span style='font-size:10.0pt;color:windowtext;font-weight:normal'>In place
+of Undo and Redo, model elements such as State Action and all Descriptions that
+are normally modified using text editors are eligible for the Eclipse text
+editor default </span><span class=tpcodeChar><span style='font-size:10.0pt;
+color:windowtext;font-weight:normal'>Undo Typing</span></span><span
+style='font-size:10.0pt;color:windowtext;font-weight:normal'> and </span><span
+class=tpcodeChar><span style='font-size:10.0pt;color:windowtext;font-weight:
+normal'>Revert</span></span><span style='font-size:10.0pt;color:windowtext;
+font-weight:normal'> mechanisms.&nbsp; These mechanisms are available from the
+context menu of each text editor.</span></h2>
+
+<p class=leftalign><img width=461 height=233
+src="UndoRedo_files/undoRedoDesc1.jpg"
+alt="Description: Undo Typing and Revert are available from the context menu."></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>&nbsp;</span></p>
+
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,261 @@
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("ee833f3e-4685-468c-a119-815bc5efb344",
+	'Self Queue Entry',
+	2915,
+	'I_SQE',
+	'',
+	"ce2c2e5b-d701-4d5f-9b67-5db53fc8ca56");
+INSERT INTO O_TFR
+	VALUES ("7c0d94bb-d7f5-43f0-864d-cd4e89a4d444",
+	"ee833f3e-4685-468c-a119-815bc5efb344",
+	'dispose',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// Self Queue Entry.dispose()
+
+select one nextQE related by self->I_SQE[R2947.''follows''];
+if (not_empty nextQE)
+  unrelate self from nextQE across R2947.''follows'';
+end if;
+
+select one pQE related by self->I_SQE[R2947.''precedes''];
+if (not_empty pQE)
+  unrelate self from pQE across R2947.''precedes'';
+end if;
+
+// If this pending event was in the middle of the queue, restore the list
+if (not_empty nextQE and not_empty pQE)
+  relate nextQE to pQE across R2947.''precedes'';
+  relate pQE to nextQE across R2947.''follows'';
+end if;
+
+select one exe related by self->I_EXE[R2946];
+select one pevt related by self->I_EVI[R2946];
+unrelate exe from pevt across R2946 using self;
+
+delete object instance self;',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_DT_PROXY
+	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'void',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("5553640a-8959-45b8-96d8-bb8e240a5d6d",
+	"ee833f3e-4685-468c-a119-815bc5efb344");
+INSERT INTO O_BATTR
+	VALUES ("5553640a-8959-45b8-96d8-bb8e240a5d6d",
+	"ee833f3e-4685-468c-a119-815bc5efb344");
+INSERT INTO O_ATTR
+	VALUES ("5553640a-8959-45b8-96d8-bb8e240a5d6d",
+	"ee833f3e-4685-468c-a119-815bc5efb344",
+	"00000000-0000-0000-0000-000000000000",
+	'Self_Queue_Entry_ID',
+	'',
+	'',
+	'Self_Queue_Entry_ID',
+	0,
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'unique_id',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("ee833f3e-4685-468c-a119-815bc5efb344",
+	"ee833f3e-4685-468c-a119-815bc5efb344",
+	0,
+	"5553640a-8959-45b8-96d8-bb8e240a5d6d",
+	"8564a96b-c9e2-4746-912c-731a8a879459",
+	"e2afbfd7-712b-440c-85c0-769d92c4675f",
+	"f1744ba4-6ab5-4cec-a502-d30eeb5ad700",
+	"b4e88e62-d306-407f-9694-b0acc33c4195",
+	"0f9e381c-e7d2-4c55-8cd0-f3f7d912ff19",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Self Queue Entry',
+	'Self_Queue_Entry_ID',
+	'R2947.''follows''');
+INSERT INTO R_RGO_PROXY
+	VALUES ("ee833f3e-4685-468c-a119-815bc5efb344",
+	"8564a96b-c9e2-4746-912c-731a8a879459",
+	"e2afbfd7-712b-440c-85c0-769d92c4675f",
+	'../Engine.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("5553640a-8959-45b8-96d8-bb8e240a5d6d",
+	"ee833f3e-4685-468c-a119-815bc5efb344",
+	0,
+	"8564a96b-c9e2-4746-912c-731a8a879459",
+	"f1744ba4-6ab5-4cec-a502-d30eeb5ad700",
+	'../Engine.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("b4e88e62-d306-407f-9694-b0acc33c4195",
+	"ee833f3e-4685-468c-a119-815bc5efb344",
+	"5553640a-8959-45b8-96d8-bb8e240a5d6d",
+	"ee833f3e-4685-468c-a119-815bc5efb344",
+	1,
+	'Self_Queue_Entry_ID');
+INSERT INTO O_ATTR
+	VALUES ("b4e88e62-d306-407f-9694-b0acc33c4195",
+	"ee833f3e-4685-468c-a119-815bc5efb344",
+	"75f323f5-d049-4a94-8c32-4588055c623e",
+	'Next_Self_Queue_Entry_ID',
+	'',
+	'Next_',
+	'Self_Queue_Entry_ID',
+	1,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("ee833f3e-4685-468c-a119-815bc5efb344",
+	"e31aa7b2-374b-4a6c-8c11-b9762ce9c824",
+	0,
+	"28aa4283-2190-4d46-b247-2cf82958ad34",
+	"deb5dc4b-7730-48c7-a71c-3304a6fd2f35",
+	"dbdae9bd-94d6-43a3-a01e-6fbf99c7f03e",
+	"098b261e-e9b3-46cf-8e50-407455cc9e1b",
+	"b99316a9-45a3-4d71-a95f-f67e9115c00a",
+	"3567533d-a6d0-466d-af83-3bbc1bbd50db",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Component Instance',
+	'Execution_Engine_ID',
+	'R2946');
+INSERT INTO R_RGO_PROXY
+	VALUES ("ee833f3e-4685-468c-a119-815bc5efb344",
+	"deb5dc4b-7730-48c7-a71c-3304a6fd2f35",
+	"dbdae9bd-94d6-43a3-a01e-6fbf99c7f03e",
+	'../Engine.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("28aa4283-2190-4d46-b247-2cf82958ad34",
+	"e31aa7b2-374b-4a6c-8c11-b9762ce9c824",
+	0,
+	"deb5dc4b-7730-48c7-a71c-3304a6fd2f35",
+	"098b261e-e9b3-46cf-8e50-407455cc9e1b",
+	'../Engine.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("b99316a9-45a3-4d71-a95f-f67e9115c00a",
+	"ee833f3e-4685-468c-a119-815bc5efb344",
+	"28aa4283-2190-4d46-b247-2cf82958ad34",
+	"e31aa7b2-374b-4a6c-8c11-b9762ce9c824",
+	1,
+	'Execution_Engine_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("28aa4283-2190-4d46-b247-2cf82958ad34",
+	"e31aa7b2-374b-4a6c-8c11-b9762ce9c824",
+	'../../Instance/Component Instance/Component Instance.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("b99316a9-45a3-4d71-a95f-f67e9115c00a",
+	"ee833f3e-4685-468c-a119-815bc5efb344",
+	"5553640a-8959-45b8-96d8-bb8e240a5d6d",
+	'Execution_Engine_ID',
+	'',
+	'',
+	'Execution_Engine_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("ee833f3e-4685-468c-a119-815bc5efb344",
+	"79496128-07be-4d16-a155-65a1c3441479",
+	0,
+	"cff65269-f1bb-4153-b4e5-5a68ea6ec78c",
+	"deb5dc4b-7730-48c7-a71c-3304a6fd2f35",
+	"dbdae9bd-94d6-43a3-a01e-6fbf99c7f03e",
+	"4d6a8388-59e8-4d89-ba05-c8e50e1c5b86",
+	"75f323f5-d049-4a94-8c32-4588055c623e",
+	"4f1bbb6b-c984-46aa-b723-232039184d1d",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Pending Event',
+	'Event_ID',
+	'R2946');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("cff65269-f1bb-4153-b4e5-5a68ea6ec78c",
+	"79496128-07be-4d16-a155-65a1c3441479",
+	0,
+	"deb5dc4b-7730-48c7-a71c-3304a6fd2f35",
+	"4d6a8388-59e8-4d89-ba05-c8e50e1c5b86",
+	'../Engine.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("75f323f5-d049-4a94-8c32-4588055c623e",
+	"ee833f3e-4685-468c-a119-815bc5efb344",
+	"cff65269-f1bb-4153-b4e5-5a68ea6ec78c",
+	"79496128-07be-4d16-a155-65a1c3441479",
+	1,
+	'Event_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("cff65269-f1bb-4153-b4e5-5a68ea6ec78c",
+	"79496128-07be-4d16-a155-65a1c3441479",
+	'../../Instance/Pending Event/Pending Event.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("75f323f5-d049-4a94-8c32-4588055c623e",
+	"ee833f3e-4685-468c-a119-815bc5efb344",
+	"b99316a9-45a3-4d71-a95f-f67e9115c00a",
+	'Event_ID',
+	'',
+	'',
+	'Event_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"ee833f3e-4685-468c-a119-815bc5efb344");
+INSERT INTO O_OIDA
+	VALUES ("5553640a-8959-45b8-96d8-bb8e240a5d6d",
+	"ee833f3e-4685-468c-a119-815bc5efb344",
+	0,
+	'Self_Queue_Entry_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"ee833f3e-4685-468c-a119-815bc5efb344");
+INSERT INTO O_OIDA
+	VALUES ("b99316a9-45a3-4d71-a95f-f67e9115c00a",
+	"ee833f3e-4685-468c-a119-815bc5efb344",
+	1,
+	'Execution_Engine_ID');
+INSERT INTO O_OIDA
+	VALUES ("75f323f5-d049-4a94-8c32-4588055c623e",
+	"ee833f3e-4685-468c-a119-815bc5efb344",
+	1,
+	'Event_ID');
+INSERT INTO O_ID
+	VALUES (2,
+	"ee833f3e-4685-468c-a119-815bc5efb344");
+INSERT INTO S_SS_PROXY
+	VALUES ("ce2c2e5b-d701-4d5f-9b67-5db53fc8ca56",
+	'Engine',
+	'// This is used by schema_gen to ignore this subsystem (for publication)
+TRANSLATE_FOR_EXTERNAL_USE:FALSE
+Persistent:false
+Import: java.util.concurrent.locks.ReentrantLock',
+	'I',
+	900,
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
+	'../Engine.xtuml');

@@ -1,0 +1,310 @@
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=Generator content="Microsoft Word 14 (filtered)">
+<title>State Machine Package</title>
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:Wingdings;
+	panose-1:5 0 0 0 0 0 0 0 0 0;}
+@font-face
+	{font-family:SimSun;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:SimSun;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:Webdings;
+	panose-1:5 3 1 2 1 5 9 6 7 3;}
+@font-face
+	{font-family:"\@SimSun";
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+h1
+	{mso-style-link:"Heading 1 Char";
+	margin-right:0in;
+	margin-left:0in;
+	font-size:18.0pt;
+	font-family:"Arial","sans-serif";
+	color:black;
+	font-weight:normal;}
+h2
+	{mso-style-link:"Heading 2 Char";
+	margin-right:0in;
+	margin-left:0in;
+	line-height:15.6pt;
+	font-size:12.0pt;
+	font-family:"Arial","sans-serif";
+	color:navy;
+	font-weight:bold;}
+h3
+	{mso-style-link:"Heading 3 Char";
+	margin-right:0in;
+	margin-bottom:2.4pt;
+	margin-left:0in;
+	font-size:11.0pt;
+	font-family:"Arial","sans-serif";
+	color:navy;
+	font-weight:bold;}
+h4
+	{mso-style-link:"Heading 4 Char";
+	margin-top:7.5pt;
+	margin-right:7.5pt;
+	margin-bottom:2.4pt;
+	margin-left:7.5pt;
+	font-size:11.0pt;
+	font-family:"Arial","sans-serif";
+	color:#0176B9;
+	font-weight:bold;}
+a:link, span.MsoHyperlink
+	{color:navy;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{color:#0176B9;
+	text-decoration:underline;}
+p
+	{margin:7.5pt;
+	font-size:10.0pt;
+	font-family:"Times New Roman","serif";}
+span.Heading1Char
+	{mso-style-name:"Heading 1 Char";
+	mso-style-link:"Heading 1";
+	font-family:"Cambria","serif";
+	color:#365F91;
+	font-weight:bold;}
+span.Heading2Char
+	{mso-style-name:"Heading 2 Char";
+	mso-style-link:"Heading 2";
+	font-family:"Cambria","serif";
+	color:#4F81BD;
+	font-weight:bold;}
+span.Heading3Char
+	{mso-style-name:"Heading 3 Char";
+	mso-style-link:"Heading 3";
+	font-family:"Cambria","serif";
+	color:#4F81BD;
+	font-weight:bold;}
+span.Heading4Char
+	{mso-style-name:"Heading 4 Char";
+	mso-style-link:"Heading 4";
+	font-family:"Cambria","serif";
+	color:#4F81BD;
+	font-weight:bold;
+	font-style:italic;}
+p.preformatted-tpcode, li.preformatted-tpcode, div.preformatted-tpcode
+	{mso-style-name:preformatted-tp_code;
+	margin-top:15.0pt;
+	margin-right:0in;
+	margin-bottom:15.0pt;
+	margin-left:0in;
+	background:silver;
+	border:none;
+	padding:0in;
+	font-size:10.0pt;
+	font-family:"Courier New";}
+p.normalnotoc, li.normalnotoc, div.normalnotoc
+	{mso-style-name:normalnotoc;
+	margin:7.5pt;
+	font-size:11.0pt;
+	font-family:"Times New Roman","serif";}
+p.code, li.code, div.code
+	{mso-style-name:code;
+	margin:7.5pt;
+	font-size:11.0pt;
+	font-family:"Courier New";}
+p.tpcode, li.tpcode, div.tpcode
+	{mso-style-name:tp_code;
+	margin:7.5pt;
+	font-size:10.0pt;
+	font-family:"Courier New";}
+p.tpinput, li.tpinput, div.tpinput
+	{mso-style-name:tp_input;
+	margin:7.5pt;
+	font-size:10.0pt;
+	font-family:"Times New Roman","serif";
+	font-weight:bold;}
+p.tpui, li.tpui, div.tpui
+	{mso-style-name:tp_ui;
+	margin:7.5pt;
+	font-size:10.0pt;
+	font-family:"Times New Roman","serif";
+	color:navy;}
+p.tpvar, li.tpvar, div.tpvar
+	{mso-style-name:tp_var;
+	margin:7.5pt;
+	font-size:10.0pt;
+	font-family:"Times New Roman","serif";
+	font-style:italic;}
+p.tpfooter, li.tpfooter, div.tpfooter
+	{mso-style-name:tp_footer;
+	margin:7.5pt;
+	text-align:center;
+	background:white;
+	font-size:9.0pt;
+	font-family:"Times New Roman","serif";}
+p.sub, li.sub, div.sub
+	{mso-style-name:sub;
+	margin:7.5pt;
+	font-size:10.0pt;
+	font-family:"Times New Roman","serif";}
+p.sublstbody, li.sublstbody, div.sublstbody
+	{mso-style-name:sublstbody;
+	margin:7.5pt;
+	font-size:10.0pt;
+	font-family:"Times New Roman","serif";}
+span.tpfile
+	{mso-style-name:tp_file;
+	color:#990000;
+	letter-spacing:1.2pt;}
+span.tpnote
+	{mso-style-name:tp_note;
+	font-weight:bold;}
+span.tpmenuarrow
+	{mso-style-name:tp_menuarrow;
+	font-family:Webdings;
+	color:navy;}
+span.hypertext
+	{mso-style-name:hypertext;}
+.MsoChpDefault
+	{font-size:10.0pt;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.25in 1.0in 1.25in;}
+div.WordSection1
+	{page:WordSection1;}
+ /* List Definitions */
+ ol
+	{margin-bottom:0in;}
+ul
+	{margin-bottom:0in;}
+-->
+</style>
+
+</head>
+
+<body bgcolor=white lang=EN-US link=navy vlink="#0176B9">
+
+<div class=WordSection1>
+
+<h2>State Machine Package</h2>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>A
+State Machine Package is used to document states, events, transitions, and
+activities that define the behavior for a class.  A class can have to state
+machine packages, an Instance State Machine Package which defines the behavior
+for each instance of the class, and a Class State Machine Package, which
+defines the behavior for the class.</span></p>
+
+<h3>State</h3>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>A
+state is a stable stage in the lifecycle of the class. A class may specify progression
+through a number of states. Each time, progression is triggered by an event and
+specified by the transition to which the event is assigned.</span></p>
+
+<h4>Graphical Notation</h4>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>A
+state is represented by a rectangle with rounded corners.  Each state has to
+compartments.  The first contains the number and name of the state.  The second
+contains the activities executed upon entry into the state.</span></p>
+
+<h3>Event</h3>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>An
+event is an abstraction of significant occurrence in the lifecycle of a class.
+Events cause the transitions from one state to another in a state machine
+diagram. In fact, the only place you can define an event is on the state
+machine diagram. Also, you can only define an event to one state machine.
+Events created in the state machine of a supertype can be assigned to transitions
+on the state machine of subtypes. </span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Every
+event defined on the state machine of a supertype is considered to be
+inheritable by default, so you do not have to declare an event to be
+inheritable.</span></p>
+
+<h4>Graphical Notation</h4>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>An
+event is shown as a text label adorning on a transition. </span></p>
+
+<h4>Using Events</h4>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Events
+which are defined and not already in use on a supertype’s state machine may be
+assigned to a transition of a subtype’s state machine based on the following
+two rules:</span></p>
+
+<p style='margin-left:43.5pt;text-indent:-.25in;line-height:15.6pt'><span
+style='font-family:Wingdings'>§<span style='font:7.0pt "Times New Roman"'>&nbsp;
+</span></span><span style='font-family:"Arial","sans-serif"'>If an event is
+assigned to a transition in a state machine of some supertype, it is not
+available for assignment on transitions of the state machines of any of its
+subtypes.</span></p>
+
+<p style='margin-left:43.5pt;text-indent:-.25in;line-height:15.6pt'><span
+style='font-family:Wingdings'>§<span style='font:7.0pt "Times New Roman"'>&nbsp;
+</span></span><span style='font-family:"Arial","sans-serif"'>If an event
+defined at the supertype level is assigned to a transition on the state machine
+of at least one subtype, the event is not available for assignment on a
+transition of any supertype’s state machine.</span></p>
+
+<h4>Renaming Events</h4>
+
+<p style='margin-top:7.5pt;margin-right:.1in;margin-bottom:0in;margin-left:
+.1in;margin-bottom:.0001pt;line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>You
+may only rename an event within the state chart in which it is defined. You can
+not rename events in a subtype state machine.</span><span style='font-family:
+"Arial","sans-serif"'> </span></p>
+
+<h3>Transition</h3>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>A
+transition represents a progression of an instance from one state to another.</span></p>
+
+<h4>Graphical Notation</h4>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>A
+transition is a uni-directional path between two states denoting a flow of
+control from the source state to the destination state. A transition is always
+labeled with the event that causes the transition from the source to the
+destination state.</span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Transitions
+may show a path between two distinct states, or the same state, the latter
+referred to as a <i>self-transition</i>. Several transitions may cause entry
+into the same state, the only restriction being that each transition must be
+labeled with a unique event and each transition into a state must carry the
+same event parameters.</span></p>
+
+<h3>Activity</h3>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>An
+activity is an executable specification of processing that acts on one or more
+model elements in the domain. What an instance does when it transitions into a
+state is specified by one or more actions. Actions can do many things: create
+and delete instances, select instances from the class extent, select instances
+across relationships, relate and unrelate instances, assign values, compare
+values, and invoke operations in other domains. </span></p>
+
+<h4>Graphical Notation</h4>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Activities
+are shown inside a state symbol.</span></p>
+
+<h3>&nbsp;</h3>
+
+</div>
+
+</body>
+
+</html>

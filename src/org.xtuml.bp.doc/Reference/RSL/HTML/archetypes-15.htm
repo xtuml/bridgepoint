@@ -1,0 +1,852 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml"
+xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:w="urn:schemas-microsoft-com:office:word"
+xmlns:st1="urn:schemas-microsoft-com:office:smarttags"
+xmlns="http://www.w3.org/TR/REC-html40">
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=iso-8859-1">
+<meta name=ProgId content=Word.Document>
+<meta name=Generator content="Microsoft Word 11">
+<meta name=Originator content="Microsoft Word 11">
+<link rel=File-List href="archetypes-15_files/filelist.xml">
+<title> Substitution Variables </title>
+<o:SmartTagType namespaceuri="urn:schemas-microsoft-com:office:smarttags"
+ name="place"/>
+<o:SmartTagType namespaceuri="urn:schemas-microsoft-com:office:smarttags"
+ name="City"/>
+<!--[if gte mso 9]><xml>
+ <o:DocumentProperties>
+  <o:Author>kwilliam</o:Author>
+  <o:LastAuthor>kwilliam</o:LastAuthor>
+  <o:Revision>4</o:Revision>
+  <o:TotalTime>5</o:TotalTime>
+  <o:Created>2006-03-10T20:52:00Z</o:Created>
+  <o:LastSaved>2006-03-11T00:07:00Z</o:LastSaved>
+  <o:Pages>1</o:Pages>
+  <o:Words>1269</o:Words>
+  <o:Characters>7234</o:Characters>
+  <o:Company>Mentor Graphics</o:Company>
+  <o:Lines>60</o:Lines>
+  <o:Paragraphs>16</o:Paragraphs>
+  <o:CharactersWithSpaces>8487</o:CharactersWithSpaces>
+  <o:Version>11.6408</o:Version>
+ </o:DocumentProperties>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <w:WordDocument>
+  <w:ValidateAgainstSchemas/>
+  <w:SaveIfXMLInvalid>false</w:SaveIfXMLInvalid>
+  <w:IgnoreMixedContent>false</w:IgnoreMixedContent>
+  <w:AlwaysShowPlaceholderText>false</w:AlwaysShowPlaceholderText>
+  <w:Compatibility>
+   <w:UseFELayout/>
+  </w:Compatibility>
+  <w:BrowserLevel>MicrosoftInternetExplorer4</w:BrowserLevel>
+ </w:WordDocument>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <w:LatentStyles DefLockedState="false" LatentStyleCount="156">
+ </w:LatentStyles>
+</xml><![endif]--><!--[if !mso]><object
+ classid="clsid:38481807-CA0E-42D2-BF39-B33AF135CC4D" id=ieooui></object>
+<style>
+st1\:*{behavior:url(#ieooui) }
+</style>
+<![endif]-->
+<link rel=Stylesheet type="text/css" media=all href=archetypes.css>
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:SimSun;
+	panose-1:2 1 6 0 3 1 1 1 1 1;
+	mso-font-alt:\5B8B\4F53;
+	mso-font-charset:134;
+	mso-generic-font-family:auto;
+	mso-font-format:other;
+	mso-font-pitch:variable;
+	mso-font-signature:1 135135232 16 0 262144 0;}
+@font-face
+	{font-family:"\@SimSun";
+	panose-1:2 1 6 0 3 1 1 1 1 1;
+	mso-font-charset:134;
+	mso-generic-font-family:auto;
+	mso-font-format:other;
+	mso-font-pitch:variable;
+	mso-font-signature:1 135135232 16 0 262144 0;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{mso-style-parent:"";
+	margin:0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:SimSun;}
+h2
+	{mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	line-height:15.6pt;
+	mso-pagination:widow-orphan;
+	mso-outline-level:2;
+	font-size:12.0pt;
+	font-weight:bold;}
+a:link, span.MsoHyperlink
+	{color:navy;
+	text-decoration:underline;
+	text-underline:single;}
+a:visited, span.MsoHyperlinkFollowed
+	{color:#0176B9;
+	text-decoration:underline;
+	text-underline:single;}
+p
+	{mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	mso-fareast-font-family:SimSun;}
+pre
+	{margin:0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+	font-size:10.0pt;
+	font-family:"Courier New";
+	mso-fareast-font-family:SimSun;}
+p.body-tight, li.body-tight, div.body-tight
+	{mso-style-name:body-tight;
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:23.75pt;
+	margin-bottom:.0001pt;
+	text-align:justify;
+	text-justify:inter-ideograph;
+	mso-pagination:widow-orphan;
+	font-size:11.0pt;
+	mso-fareast-font-family:SimSun;}
+p.indent, li.indent, div.indent
+	{mso-style-name:indent;
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:13.0pt;
+	margin-left:47.5pt;
+	mso-pagination:widow-orphan;
+	font-size:11.0pt;
+	mso-fareast-font-family:SimSun;}
+p.body, li.body, div.body
+	{mso-style-name:body;
+	mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	mso-fareast-font-family:SimSun;}
+p.cellheading, li.cellheading, div.cellheading
+	{mso-style-name:cellheading;
+	mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	mso-fareast-font-family:SimSun;}
+p.cellbody3, li.cellbody3, div.cellbody3
+	{mso-style-name:cellbody3;
+	mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	mso-fareast-font-family:SimSun;}
+@page Section1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.25in 1.0in 1.25in;
+	mso-header-margin:.5in;
+	mso-footer-margin:.5in;
+	mso-paper-source:0;}
+div.Section1
+	{page:Section1;}
+-->
+</style>
+<!--[if gte mso 10]>
+<style>
+ /* Style Definitions */
+ table.MsoNormalTable
+	{mso-style-name:"Table Normal";
+	mso-tstyle-rowband-size:0;
+	mso-tstyle-colband-size:0;
+	mso-style-noshow:yes;
+	mso-style-parent:"";
+	mso-padding-alt:0in 5.4pt 0in 5.4pt;
+	mso-para-margin:0in;
+	mso-para-margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";
+	mso-ansi-language:#0400;
+	mso-fareast-language:#0400;
+	mso-bidi-language:#0400;}
+</style>
+<![endif]-->
+<meta http-equiv=Content-Style-Type content="text/css">
+<!--[if gte mso 9]><xml>
+ <o:shapedefaults v:ext="edit" spidmax="4098"/>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <o:shapelayout v:ext="edit">
+  <o:idmap v:ext="edit" data="1"/>
+ </o:shapelayout></xml><![endif]-->
+</head>
+
+<body bgcolor=white lang=EN-US link=navy vlink="#0176B9" style='tab-interval:
+.5in'>
+
+<div class=Section1>
+
+<h1><a name="0_pgfId-518009"></a><a name="0_24639"></a>S<a
+name="0_marker-518008"></a>ubstitution Variables</h1>
+
+<p class=body><a name="0_pgfId-518010"></a>Literal text lines can contain
+substitution variables which allow you to pull information out of the xtUML
+database and place it in a buffer so it can be emitted to text files.</p>
+
+<p class=body><a name="0_pgfId-518011"></a>A substitution variable takes on the
+following form:</p>
+
+<pre style='margin-left:47.5pt;vertical-align:baseline'><a name="0_pgfId-518013"></a><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>$ &lt;format&gt; { &lt;inst_ref_var&gt; . &lt;attribute&gt; [ : &lt;parse_keyword&gt; ] }</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre>
+
+<p class=body-tight style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><a
+name="0_marker-527016"></a><a name="0_pgfId-518014"></a>or</p>
+
+<pre style='margin-left:47.5pt;vertical-align:baseline'><a name="0_pgfId-518015"></a><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>$ &lt;format&gt; { &lt;inst_chain&gt; . &lt;attribute&gt; [ : &lt;parse_keyword&gt; ] }</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre>
+
+<p class=body-tight style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><a
+name="0_pgfId-518016"></a>or</p>
+
+<pre style='margin-left:47.5pt;vertical-align:baseline'><a name="0_pgfId-518017"></a><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>$ &lt;format&gt; { &lt;frag_ref_var&gt; . &lt;attribute&gt; }</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre>
+
+<p class=body-tight style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><a
+name="0_pgfId-518018"></a>or</p>
+
+<pre style='margin-left:47.5pt;vertical-align:baseline'><a name="0_pgfId-518019"></a><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>$ &lt;format&gt; { &lt;transient_var&gt; }</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre>
+
+<p class=body style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><a
+name="0_pgfId-518021"></a>where:</p>
+
+<p class=indent style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><a
+name="0_pgfId-518022"></a><em><span style='font-family:"Courier New"'>&lt;format&gt;</span></em>
+are string substitution format characters that specify how to format the
+string. </p>
+
+<p class=indent style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><a
+name="0_pgfId-518023"></a><em><span style='font-family:"Courier New"'>&lt;inst_ref_var&gt;</span></em>
+is a reference to an instance in the xtUML database.</p>
+
+<p class=indent style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><a
+name="0_pgfId-518024"></a><em><span style='font-family:"Courier New"'>&lt;inst_chain&gt;</span></em>
+is an instance chain which results in one instance (<a
+href="archetypes-7.htm#0_49252">Instance Chains</a>)</p>
+
+<p class=indent style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><a
+name="0_pgfId-518028"></a><em><span style='font-family:"Courier New"'>&lt;frag_ref_var&gt;</span></em>
+is a reference to a fragment which has been returned from a function.</p>
+
+<p class=indent style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><a
+name="0_pgfId-518029"></a><em><span style='font-family:"Courier New"'>&lt;attribute&gt;</span></em>
+is an attribute of the class referred to by <em><span style='font-family:"Courier New"'>&lt;inst_ref_var&gt;</span></em>
+or attribute of the fragment referred to by <em><span style='font-family:"Courier New"'>&lt;frag_ref_var&gt;</span></em>
+.</p>
+
+<p class=indent style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><a
+name="0_pgfId-518030"></a><em><span style='font-family:"Courier New"'>&lt;parse_keyword&gt;</span></em>
+represents a keyword which is parsed to obtain data from the string on which
+the substitution occurs. Parse keywords are discussed in <a
+href="archetypes-15.htm#0_59880">Parse Keyword</a>.</p>
+
+<p class=indent style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><a
+name="0_pgfId-525974"></a><em><span style='font-family:"Courier New"'>&lt;transient_var&gt;</span></em>
+is a transient variable.</p>
+
+<p class=body style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><a
+name="0_pgfId-518032"></a>Here are some examples:</p>
+
+<p class=indent style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><a
+name="0_pgfId-518033"></a><em><span style='font-family:"Courier New"'>${class_inst.Name}</span></em>
+</p>
+
+<p class=indent style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><a
+name="0_pgfId-518034"></a><em><span style='font-family:"Courier New"'>$_{ss_inst.Name}</span></em>
+</p>
+
+<p class=indent style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><a
+name="0_pgfId-518035"></a><em><span style='font-family:"Courier New"'>${dt_inst.Descrip:TYPE}</span></em>
+</p>
+
+<p class=indent style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><a
+name="0_pgfId-518036"></a><em><span style='font-family:"Courier New"'>${attr_inst-&gt;O_OBJ[R102].Key_Lett}</span></em>
+</p>
+
+<p class=indent style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><a
+name="0_pgfId-518037"></a><em><span style='font-family:"Courier New"'>$_{rattr_inst-&gt;O_BATTR[R113]-&gt;O_ATTR[R106].Name}</span></em>
+</p>
+
+<h3 style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><a
+name="0_pgfId-518039"></a><a name="0_marker-518038"></a>Substitution Variable
+Format Characters</h3>
+
+<p class=body style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><a
+name="0_pgfId-518040"></a>The <em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>&lt;format&gt;</span></em> characters are needed to
+allow the legal names in xtUML models to be transformed into legal names in the
+generated file. For example, spaces are allowed in class names in xtUML models
+but are not allowed in class names in C++. If the class name from the model is
+going to be used as the class name in a generated C++ file, then the class name
+must be transformed into a legal C++ name.</p>
+
+<table class=MsoNormalTable border=1 cellpadding=0 style='mso-cellspacing:1.5pt;
+ mso-padding-alt:0in 5.4pt 0in 5.4pt'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellheading align=center style='text-align:center'><a
+  name="0_pgfId-518048"></a>Format Character</p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellheading align=center style='text-align:center'><a
+  name="0_pgfId-518050"></a>Format Action</p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="0_pgfId-518052"></a><em><span style='font-family:
+  Arial'>U</span></em> <a name="0_marker-526810"></a>or <em><span
+  style='font-size:11.0pt;font-family:"Courier New";color:black'>u</span></em> </p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="0_pgfId-518054"></a>Upper - make all characters
+  upper case</p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="0_pgfId-518056"></a><em><span style='font-size:
+  11.0pt;font-family:"Courier New";color:black'>C</span></em> <a
+  name="0_marker-526811"></a>or <em><span style='font-size:11.0pt;font-family:
+  "Courier New";color:black'>c</span></em> </p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="0_pgfId-518058"></a>Capitalize - make the first
+  character of each word capitalized and all other characters of a word lower
+  case</p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="0_pgfId-518060"></a><em><span style='font-size:
+  11.0pt;font-family:"Courier New";color:black'>L</span></em> <a
+  name="0_marker-526812"></a>or <em><span style='font-size:11.0pt;font-family:
+  "Courier New";color:black'>l</span></em> </p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="0_pgfId-518062"></a>Lower - make all characters
+  lower case</p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="0_pgfId-518064"></a><em><span style='font-size:
+  11.0pt;font-family:"Courier New";color:black'>_</span></em> <a
+  name="0_marker-526813"></a></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="0_pgfId-518066"></a>Underscore - change all white
+  space characters to underscore characters</p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:5'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="0_pgfId-518068"></a><em><span style='font-size:
+  11.0pt;font-family:"Courier New";color:black'>R</span></em> <a
+  name="0_marker-526814"></a>or <em><span style='font-size:11.0pt;font-family:
+  "Courier New";color:black'>r</span></em> </p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="0_pgfId-518070"></a>Remove - remove all white
+  space</p>
+  <p class=cellbody3><a name="0_pgfId-518071"></a>Note: The removal of white
+  space occurs after the capitalization has taken place in the case of the<em><span
+  style='font-family:Arial'> </span></em><em><span style='font-size:11.0pt;
+  font-family:"Courier New";color:black'>CR</span></em> or<em><span
+  style='font-family:Arial'> </span></em><em><span style='font-size:11.0pt;
+  font-family:"Courier New";color:black'>RC</span></em> combination.</p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:6'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="0_pgfId-519748"></a><em><span style='font-size:
+  11.0pt;font-family:"Courier New";color:black'>O</span></em> <a
+  name="0_marker-526815"></a>or <em><span style='font-size:11.0pt;font-family:
+  "Courier New";color:black'>o</span></em> </p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="0_pgfId-519752"></a>cOrba - make the first word
+  all lower case, make the first character of each following word capitalized
+  and all other characters of the words lower case. Characters other than a-Z
+  a-z 0-9 are ignored.</p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:7'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="0_pgfId-519744"></a><em><span style='font-size:
+  11.0pt;font-family:"Courier New";color:black'>T</span></em> <a
+  name="0_marker-526816"></a>or <em><span style='font-size:11.0pt;font-family:
+  "Courier New";color:black'>t</span></em> </p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="0_pgfId-519746"></a>Translate - default user supplied
+  translate format function. No translation is made.</p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:8'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="0_pgfId-519760"></a><em><span style='font-size:
+  11.0pt;font-family:"Courier New";color:black'>Tnosplat</span></em> <a
+  name="0_marker-526817"></a>or <em><span style='font-size:11.0pt;font-family:
+  "Courier New";color:black'>tnosplat</span></em> </p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="0_pgfId-519768"></a>Built-in translate format
+  function that removes *'s (splats). This can be used to remove the *
+  character found in polymorphic events.</p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:9;mso-yfti-lastrow:yes'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="0_pgfId-519756"></a><em><span style='font-size:
+  11.0pt;font-family:"Courier New";color:black'>T&lt;switch&gt;</span></em> <a
+  name="0_marker-526818"></a>or <em><span style='font-size:11.0pt;font-family:
+  "Courier New";color:black'>t&lt;switch&gt;</span></em> </p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="0_pgfId-519775"></a>User-defined translate format
+  function defined by <em><span style='font-size:11.0pt;font-family:"Courier New";
+  color:black'>&lt;switch&gt;</span></em> . The user may define any number of
+  custom translation formatters. <em><span style='font-size:11.0pt;font-family:
+  "Courier New";color:black'><a href="archetypes-15.htm#0_25016">Translate
+  Format Character</a></span></em> </p>
+  </td>
+ </tr>
+</table>
+
+<p class=body style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><a
+name="0_pgfId-519815"></a><a name="0_marker-526819"></a>Here are some examples:</p>
+
+<table class=MsoNormalTable border=0 cellpadding=0 style='mso-cellspacing:1.5pt;
+ mso-padding-alt:0in 5.4pt 0in 5.4pt'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellheading align=center style='text-align:center'><a
+  name="0_pgfId-518079"></a>Input</p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellheading align=center style='text-align:center'><a
+  name="0_pgfId-518081"></a>Format</p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellheading align=center style='text-align:center'><a
+  name="0_pgfId-518083"></a>Output</p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="0_pgfId-518085"></a>Example Text</p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="0_pgfId-518087"></a><em><span style='font-size:
+  11.0pt;font-family:"Courier New";color:black'>u</span></em> </p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="0_pgfId-518089"></a>EXAMPLE TEXT</p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="0_pgfId-533430"></a>Example Text</p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="0_pgfId-518093"></a><em><span style='font-size:
+  11.0pt;font-family:"Courier New";color:black'>u_</span></em> </p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="0_pgfId-533442"></a>EXAMPLE_TEXT</p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="0_pgfId-533436"></a>Example Text</p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="0_pgfId-518099"></a><st1:place w:st="on"><st1:City
+   w:st="on"><em><span style='font-size:11.0pt;font-family:"Courier New";
+    color:black'>ur</span></em></st1:City></st1:place> </p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="0_pgfId-533448"></a>EXAMPLETEXT</p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="0_pgfId-518103"></a>ExamplE TExt</p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="0_pgfId-518105"></a><em><span style='font-size:
+  11.0pt;font-family:"Courier New";color:black'>c</span></em> </p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="0_pgfId-518107"></a>Example Text</p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:5'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="0_pgfId-518109"></a>ExamplE TExt</p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="0_pgfId-518111"></a><em><span style='font-size:
+  11.0pt;font-family:"Courier New";color:black'>c_</span></em> </p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="0_pgfId-519860"></a>Example_Text</p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:6'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="0_pgfId-518115"></a>ExamplE TExt</p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="0_pgfId-518117"></a><em><span style='font-size:
+  11.0pt;font-family:"Courier New";color:black'>cr</span></em> </p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="0_pgfId-519866"></a>ExampleText</p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:7'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="0_pgfId-518121"></a>ExamplE TExt</p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="0_pgfId-518123"></a><em><span style='font-size:
+  11.0pt;font-family:"Courier New";color:black'>l</span></em> </p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="0_pgfId-519872"></a>example text</p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:8'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="0_pgfId-518127"></a>ExamplE TExt</p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="0_pgfId-518129"></a><em><span style='font-size:
+  11.0pt;font-family:"Courier New";color:black'>l_</span></em> </p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="0_pgfId-519878"></a>example_text</p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:9'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="0_pgfId-518133"></a>ExamplE TExt</p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="0_pgfId-518135"></a><em><span style='font-size:
+  11.0pt;font-family:"Courier New";color:black'>lr</span></em> </p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="0_pgfId-519884"></a>exampletext</p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:10'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="0_pgfId-519899"></a>ExamplE@34 TExt</p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="0_pgfId-519901"></a>o</p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="0_pgfId-519903"></a>example34Text</p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:11;mso-yfti-lastrow:yes'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="0_pgfId-519893"></a>* ExamplE TExt *</p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="0_pgfId-519895"></a>_tnosplat</p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="0_pgfId-519897"></a>Example_Text</p>
+  </td>
+ </tr>
+</table>
+
+<h3 style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><a
+name="0_pgfId-519788"></a><a name="0_25016"></a>Translate Format Character</h3>
+
+<p class=body style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><a
+name="0_pgfId-519789"></a><a name="0_marker-526820"></a>The <em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>$t</span></em>
+format character allows the user to execute custom string transformations that
+are not supplied by the BridgePoint UML Suite tools. For example, most computer languages
+only allow ASCII to be used for program source text; if a model contains
+(non-ASCII) international characters, a user-supplied translate function could
+be added to change these strings to an ASCII string that can be used by the
+language compiler. </p>
+
+<p class=body style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><a
+name="0_pgfId-519927"></a>When specifying multiple <em><span style='font-size:
+11.0pt;font-family:"Courier New";color:black'>&lt;format&gt;</span></em>
+characters, the <em><span style='font-size:11.0pt;font-family:"Courier New";
+color:black'>$t</span></em> character must be the last. All characters between
+the `<em><span style='font-size:11.0pt;font-family:"Courier New";color:black'>
+t</span></em> ' and the `<em><span style='font-size:11.0pt;font-family:"Courier New";
+color:black'> {</span></em> ' are assumed to be part of the <em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>&lt;switch&gt;</span></em>
+used by the <em><span style='font-size:11.0pt;font-family:"Courier New";
+color:black'>$t</span></em> format. The <em><span style='font-size:11.0pt;
+font-family:"Courier New";color:black'>$t</span></em> substitution is applied
+before any other substitution (i.e., <em><span style='font-size:11.0pt;
+font-family:"Courier New";color:black'>$ut{...}</span></em> applies <em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>$t</span></em>
+first, then <em><span style='font-size:11.0pt;font-family:"Courier New";
+color:black'>$u</span></em> ). The default translate function supplied with
+BridgePoint UML Suite returns the string unchanged. The supplied translate function
+also ignores all <em><span style='font-size:11.0pt;font-family:"Courier New";
+color:black'>&lt;switch&gt;</span></em> 's except <em><span style='font-size:
+11.0pt;font-family:"Courier New";color:black'>nosplat</span></em> .</p>
+
+<p class=body style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><a
+name="0_pgfId-519793"></a>The translate function is stored in a shared library.
+The code used to implement the default translate function is in the directory <em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>samples/translate</span></em>
+. If the additional functionality for the <em><span style='font-size:11.0pt;
+font-family:"Courier New";color:black'>$t</span></em> format character is
+desired, simply add your changes to the file <em><span style='font-size:11.0pt;
+font-family:"Courier New";color:black'>pt_trans.c</span></em> , re-make the
+library according to the instructions in the makefile appropriate to your
+platform. Be sure that the newly created library (or DLL) replaces the existing
+one in your search path.</p>
+
+<p class=body style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><a
+name="0_pgfId-519794"></a>The shared library must implement these three
+functions:</p>
+
+<pre style='margin-left:47.5pt;vertical-align:baseline'><a name="0_pgfId-519795"></a><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>void *pt_TranslateInit( )</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a name="0_pgfId-519796"></a><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>const char *pt_TranslateString( void *p_parm,</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a name="0_pgfId-519797"></a><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'><span style='mso-spacerun:yes'>                                </span>const char *p_switch, </span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a name="0_pgfId-519798"></a><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'><span style='mso-spacerun:yes'>                                </span>const char *p_string )</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre>
+
+<p class=indent style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><a
+name="0_pgfId-519799"></a><em><span style='font-family:"Courier New"'>void
+pt_TranslateCleanup( void *p_parm )</span></em> </p>
+
+<p class=body style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><a
+name="0_pgfId-519800"></a>The function <em><span style='font-size:11.0pt;
+font-family:"Courier New";color:black'>pt_TranslateInit()</span></em> is called
+once at the start of <em><span style='font-size:11.0pt;font-family:"Courier New";
+color:black'>pt_gen_file</span></em> , before any rule files have been read.
+The user should perform any initialization needed in this function. The value
+returned by the function is the address of any user-specific data that the
+translation functions might need. The return value can be <em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>NULL</span></em>
+.</p>
+
+<p class=body style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><a
+name="0_pgfId-519801"></a>The function <em><span style='font-size:11.0pt;
+font-family:"Courier New";color:black'>pt_TranslateString()</span></em> is
+called whenever the <em><span style='font-size:11.0pt;font-family:"Courier New";
+color:black'>$t</span></em> format character is parsed. The first parameter is
+the value returned by <em><span style='font-size:11.0pt;font-family:"Courier New";
+color:black'>pt_TranslateInit()</span></em> . The second parameter is the <em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>&lt;switch&gt;</span></em>
+value for the <em><span style='font-size:11.0pt;font-family:"Courier New";
+color:black'>$t</span></em> format character. The default transformation is
+passed as an empty string. The third parameter is the string that is contained
+in the substitution variable (between the `<em><span style='font-size:11.0pt;
+font-family:"Courier New";color:black'> {</span></em> ' and `<em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'> }</span></em> '
+in the rule). The function returns the translated string.</p>
+
+<p class=body style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><a
+name="0_pgfId-519802"></a>The function <em><span style='font-size:11.0pt;
+font-family:"Courier New";color:black'>pt_TranslateCleanup()</span></em> is
+called after all rule files have been processed by <em><span style='font-size:
+11.0pt;font-family:"Courier New";color:black'>pt_gen_file</span></em> , and
+shortly before the program exits. It is responsible for any housekeeping that
+must be done (free memory, close files, etc.) before the program exits. The
+parameter is the value returned by <em><span style='font-size:11.0pt;
+font-family:"Courier New";color:black'>pt_TranslateInit()</span></em> .</p>
+
+<h3 style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><a
+name="0_pgfId-518141"></a><a name="0_marker-518140"></a><a name="0_59880"></a>Parse
+Keyword</h3>
+
+<p class=body style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><a
+name="0_pgfId-519942"></a>A parse keyword is a piece of text placed in a string
+attribute of a class (such as a description) in the xtUML model. Rules may gain
+access to the string that follows the parse keyword, up to the next newline
+character, by using substitution variables of the following type:</p>
+
+<pre style='margin-left:47.5pt;vertical-align:baseline'><a name="0_pgfId-519966"></a><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>$format{&lt;inst_ref_var&gt;.&lt;attribute&gt;:&lt;parse-keyword&gt;}</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre>
+
+<p class=indent style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><a
+name="0_pgfId-519973"></a><em><span style='font-family:"Courier New"'>$format{&lt;inst_chain&gt;.&lt;attribute&gt;:&lt;parse-keyword&gt;}
+</span></em></p>
+
+<p class=body style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><a
+name="0_pgfId-519956"></a>For example, if an attribute description contains the
+following text and two parse keywords:</p>
+
+<pre style='margin-left:47.5pt;vertical-align:baseline'><a name="0_pgfId-518144"></a><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>This attribute captures the name of the quick brown fox who jumped over the lazy brown dog.</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a name="0_pgfId-518145"></a><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>TYPE: String</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a name="0_pgfId-518146"></a><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>LENGTH: 64</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a name="0_pgfId-519998"></a><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'>&nbsp;<o:p></o:p></span></pre>
+
+<p class=body style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><a
+name="0_pgfId-518148"></a>the data after <em><span style='font-size:11.0pt;
+font-family:"Courier New";color:black'>TYPE:</span></em> can be assigned to <em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>attr_type</span></em>
+by using the following substitution:</p>
+
+<p class=indent style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><a
+name="0_pgfId-518149"></a><em><span style='font-family:"Courier New"'>.assign
+attr_type = &quot;${attr_inst.Descrip:TYPE}&quot;</span></em> </p>
+
+<p class=body style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><a
+name="0_pgfId-520007"></a>The data after LENGTH: can be obtained with the
+following substitution:</p>
+
+<p class=indent style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><a
+name="0_pgfId-518151"></a>${attr_inst.Descrip:LENGTH}</p>
+
+<p class=body style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><a
+name="0_pgfId-518152"></a>Note that the above examples explicitly place <em><span
+style='font-family:Arial'>architectural</span></em> information into the
+application xtUML models. This has ramifications on the reusability of the xtUML
+models across different application-independent system architectures. Use with
+care!</p>
+
+<h3 style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><a
+name="0_pgfId-520020"></a><a name="0_marker-518153"></a>Information
+Substitution Variables</h3>
+
+<p class=body style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><a
+name="0_pgfId-518155"></a>There are some special substitution variables
+available which can be used anywhere:</p>
+
+<pre style='margin-left:47.5pt;vertical-align:baseline'><a name="0_pgfId-518157"></a><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>${info.date}</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a name="0_marker-518156"></a><a
+name="0_pgfId-518159"></a><em><span style='font-size:11.0pt;font-family:"Courier New";
+color:black'>${info.user_id}</span></em><span style='font-size:11.0pt;
+font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a name="0_marker-518158"></a><a
+name="0_pgfId-518161"></a><em><span style='font-size:11.0pt;font-family:"Courier New";
+color:black'>${info.arch_file_name}</span></em><span style='font-size:11.0pt;
+font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a name="0_marker-518160"></a><a
+name="0_pgfId-518163"></a><em><span style='font-size:11.0pt;font-family:"Courier New";
+color:black'>${info.arch_file_line}</span></em><span style='font-size:11.0pt;
+font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a name="0_marker-518162"></a><a
+name="0_pgfId-518165"></a><em><span style='font-size:11.0pt;font-family:"Courier New";
+color:black'>${info.interpreter_version}</span></em><span style='font-size:
+11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a name="0_marker-518164"></a><a
+name="0_pgfId-518167"></a><em><span style='font-size:11.0pt;font-family:"Courier New";
+color:black'>${info.interpreter_platform}</span></em><span style='font-size:
+11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a name="0_marker-518166"></a><a
+name="0_pgfId-518169"></a><em><span style='font-size:11.0pt;font-family:"Courier New";
+color:black'>${info.unique_num}</span></em><span style='font-size:11.0pt;
+font-family:"Times New Roman";color:black'><o:p></o:p></span></pre>
+
+<p class=body style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><a
+name="0_marker-518168"></a><a name="0_pgfId-518171"></a>The word <em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>info</span></em>
+is a keyword and cannot be used as a transient variable name. The first six are
+commonly used for information placed in the headers of generated files. The
+last is used to produce unique variable names within the generated code.</p>
+
+<p class=indent style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><a
+name="0_pgfId-520028"></a><em><span style='font-family:"Courier New"'>${info.date}</span></em>
+returns the current date and timestamp.</p>
+
+<p class=indent style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><a
+name="0_pgfId-520033"></a><em><span style='font-family:"Courier New"'>${info.user_id}</span></em>
+returns the user id of the user running <em><span style='font-family:"Courier New"'>pt_gen_file</span></em>
+.</p>
+
+<p class=indent style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><a
+name="0_pgfId-520042"></a><em><span style='font-family:"Courier New"'>${info.arch_file_name}</span></em>
+returns the name of the rule file currently being executed.</p>
+
+<p class=indent style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><a
+name="0_pgfId-520047"></a><em><span style='font-family:"Courier New"'>${info.arch_file_line}</span></em>
+returns the current line number in the rule file.</p>
+
+<p class=indent style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><a
+name="0_pgfId-520052"></a><em><span style='font-family:"Courier New"'>${info.interpreter_version}</span></em>
+returns the version of <em><span style='font-family:"Courier New"'>pt_gen_file</span></em>
+.</p>
+
+<p class=indent style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><a
+name="0_pgfId-520061"></a><em><span style='font-family:"Courier New"'>${info.interpreter_platform}</span></em>
+returns the platform on which <em><span style='font-family:"Courier New"'>pt_gen_file</span></em>
+is running.</p>
+
+<p class=body style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><a
+name="0_pgfId-518172"></a><em><span style='font-size:11.0pt;font-family:"Courier New";
+color:black'>${info.unique_num}</span></em> returns a unique integer each time
+it is referenced. For example, the first time it is referenced, it may produce
+1, the next time 2, the next time 3, and so on. The order of the unique numbers
+generated is guaranteed to be exactly the same from one invocation of the <em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>pt_gen_file</span></em>
+to the next.</p>
+
+</div>
+
+</body>
+
+</html>

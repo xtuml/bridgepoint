@@ -1,0 +1,945 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml"
+xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:w="urn:schemas-microsoft-com:office:word"
+xmlns="http://www.w3.org/TR/REC-html40">
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=iso-8859-1">
+<meta name=ProgId content=Word.Document>
+<meta name=Generator content="Microsoft Word 11">
+<meta name=Originator content="Microsoft Word 11">
+<link rel=File-List href="bpalref.book-5_files/filelist.xml">
+<title> Class Manipulations </title>
+<!--[if gte mso 9]><xml>
+ <o:DocumentProperties>
+  <o:Author>MGC</o:Author>
+  <o:LastAuthor>MGC</o:LastAuthor>
+  <o:Revision>4</o:Revision>
+  <o:TotalTime>54</o:TotalTime>
+  <o:Created>2007-11-29T19:46:00Z</o:Created>
+  <o:LastSaved>2007-11-29T20:40:00Z</o:LastSaved>
+  <o:Pages>1</o:Pages>
+  <o:Words>1567</o:Words>
+  <o:Characters>8935</o:Characters>
+  <o:Company>Mentor Graphics</o:Company>
+  <o:Lines>74</o:Lines>
+  <o:Paragraphs>20</o:Paragraphs>
+  <o:CharactersWithSpaces>10482</o:CharactersWithSpaces>
+  <o:Version>11.8132</o:Version>
+ </o:DocumentProperties>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <w:WordDocument>
+  <w:SpellingState>Clean</w:SpellingState>
+  <w:GrammarState>Clean</w:GrammarState>
+  <w:ValidateAgainstSchemas/>
+  <w:SaveIfXMLInvalid>false</w:SaveIfXMLInvalid>
+  <w:IgnoreMixedContent>false</w:IgnoreMixedContent>
+  <w:AlwaysShowPlaceholderText>false</w:AlwaysShowPlaceholderText>
+  <w:Compatibility>
+   <w:UseFELayout/>
+  </w:Compatibility>
+  <w:BrowserLevel>MicrosoftInternetExplorer4</w:BrowserLevel>
+ </w:WordDocument>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <w:LatentStyles DefLockedState="false" LatentStyleCount="156">
+ </w:LatentStyles>
+</xml><![endif]-->
+<link rel=Stylesheet type="text/css" media=all href=bpalref.book.css>
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:"MS Mincho";
+	panose-1:2 2 6 9 4 2 5 8 3 4;
+	mso-font-alt:"\FF2D\FF33 \660E\671D";
+	mso-font-charset:128;
+	mso-generic-font-family:roman;
+	mso-font-format:other;
+	mso-font-pitch:fixed;
+	mso-font-signature:1 134676480 16 0 131072 0;}
+@font-face
+	{font-family:"\@MS Mincho";
+	panose-1:0 0 0 0 0 0 0 0 0 0;
+	mso-font-charset:128;
+	mso-generic-font-family:roman;
+	mso-font-format:other;
+	mso-font-pitch:fixed;
+	mso-font-signature:1 134676480 16 0 131072 0;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{mso-style-parent:"";
+	margin:0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"MS Mincho";}
+h2
+	{mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	line-height:15.6pt;
+	mso-pagination:widow-orphan;
+	mso-outline-level:2;
+	font-size:12.0pt;
+	font-weight:bold;}
+p
+	{mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	mso-fareast-font-family:"MS Mincho";}
+pre
+	{margin-top:0in;
+	margin-bottom:0in;
+	margin-bottom:.0001pt;
+	font-size:10.0pt;
+	font-family:"Courier New";
+	mso-fareast-font-family:"MS Mincho";}
+p.body-tight, li.body-tight, div.body-tight
+	{mso-style-name:body-tight;
+	font-size:11.0pt;
+	mso-fareast-font-family:"MS Mincho";}
+p.indent, li.indent, div.indent
+	{mso-style-name:indent;
+	font-size:11.0pt;
+	mso-fareast-font-family:"MS Mincho";}
+p.body, li.body, div.body
+	{mso-style-name:body;
+	font-size:10.0pt;
+	mso-fareast-font-family:"MS Mincho";}
+p.code, li.code, div.code
+	{mso-style-name:code;
+	font-size:10.0pt;
+	mso-fareast-font-family:"MS Mincho";}
+span.SpellE
+	{mso-style-name:"";
+	mso-spl-e:yes;}
+span.GramE
+	{mso-style-name:"";
+	mso-gram-e:yes;}
+@page Section1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.25in 1.0in 1.25in;
+	mso-header-margin:.5in;
+	mso-footer-margin:.5in;
+	mso-paper-source:0;}
+div.Section1
+	{page:Section1;}
+-->
+</style>
+<!--[if gte mso 10]>
+<style>
+ /* Style Definitions */
+ table.MsoNormalTable
+	{mso-style-name:"Table Normal";
+	mso-tstyle-rowband-size:0;
+	mso-tstyle-colband-size:0;
+	mso-style-noshow:yes;
+	mso-style-parent:"";
+	mso-padding-alt:0in 5.4pt 0in 5.4pt;
+	mso-para-margin:0in;
+	mso-para-margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";
+	mso-ansi-language:#0400;
+	mso-fareast-language:#0400;
+	mso-bidi-language:#0400;}
+</style>
+<![endif]-->
+<meta http-equiv=Content-Style-Type content="text/css">
+<!--[if gte mso 9]><xml>
+ <o:shapedefaults v:ext="edit" spidmax="2050"/>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <o:shapelayout v:ext="edit">
+  <o:idmap v:ext="edit" data="1"/>
+ </o:shapelayout></xml><![endif]-->
+</head>
+
+<body bgcolor=white lang=EN-US link=navy vlink="#0176B9" style='tab-interval:
+.5in'>
+
+<div class=Section1>
+
+<h1><a name="50536510_pgfId-517545"></a>Class Manipulations</h1>
+
+<h2><a name="50536510_pgfId-511389"></a>Creating Instances</h2>
+
+<p class=body><a name="50536510_pgfId-516418"></a>Creation of an instance of a
+class is achieved by use of the <em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>create</span></em> statement.</p>
+
+<h3><a name="50536510_pgfId-516415"></a>Syntax</h3>
+
+<pre style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536510_pgfId-516425"></a><span class=GramE><em><span style='font-size:
+11.0pt;font-family:"Courier New";color:black'>create</span></em></span><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'> object instance &lt;instance handle&gt; of &lt;<span
+class=SpellE>keyletter</span>&gt;;</span></em><span style='font-size:11.0pt;
+font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536510_marker-517977"></a><a name="50536510_marker-517268"></a><a
+name="50536510_marker-517269"></a><a name="50536510_pgfId-516427"></a><span
+class=GramE><em><span style='font-size:11.0pt;font-family:"Courier New";
+color:black'>create</span></em></span><em><span style='font-size:11.0pt;
+font-family:"Courier New";color:black'> object instance of &lt;<span
+class=SpellE>keyletter</span>&gt;;</span></em><span style='font-size:11.0pt;
+font-family:"Times New Roman";color:black'><o:p></o:p></span></pre>
+
+<p class=body><a name="50536510_pgfId-519273"></a>&nbsp;</p>
+
+<p class=body><a name="50536510_pgfId-516431"></a><em><span style='font-size:
+11.0pt;font-family:"Courier New";color:black'>&lt;<span class=SpellE><span
+class=GramE>keyletter</span></span>&gt;</span></em> is the <span class=SpellE>keyletter</span>
+of a class in the model.</p>
+
+<h3><a name="50536510_pgfId-516433"></a>Notes</h3>
+
+<p class=body><a name="50536510_pgfId-516435"></a>The <em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>&lt;instance</span></em>
+<em><span style='font-size:11.0pt;font-family:"Courier New";color:black'>handle&gt;</span></em>
+<a name="50536510_marker-516434"></a>returned is the handle of the newly
+created instance of class <em><span style='font-size:11.0pt;font-family:"Courier New";
+color:black'>&lt;<span class=SpellE>keyletter</span><span class=GramE>&gt;<span
+style='font-size:10.0pt;font-family:Arial;color:windowtext;font-style:normal'>
+.</span></span></span></em> The handle can be used only to refer to an instance
+of class <em><span style='font-size:11.0pt;font-family:"Courier New";
+color:black'>&lt;<span class=SpellE>keyletter</span><span class=GramE>&gt;<span
+style='font-size:10.0pt;font-family:Arial;color:windowtext;font-style:normal'>
+.</span></span></span></em></p>
+
+<p class=body><a name="50536510_pgfId-516437"></a>The <em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>&lt;instance
+handle&gt;</span></em> in the <em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>create</span></em> statement cannot be <span
+class=GramE><em><span style='font-size:11.0pt;font-family:"Courier New";
+color:black'>self</span></em> <a name="50536510_marker-516436"></a><a
+name="50536510_marker-517979"></a>.</span></p>
+
+<p class=body><a name="50536510_pgfId-517352"></a>The value of all identifying
+attributes must be set by the analyst before completion of the action in which
+an instance is created. Note that identifying attributes of type unique ID
+cannot be assigned values, as they are initialized by the system.</p>
+
+<p class=body><a name="50536510_pgfId-517354"></a>All unconditional
+relationships <a name="50536510_marker-517353"></a>that involve the newly
+created instance should be satisfied before completing the action in which the
+instance is created. This can be done either by directly relating the
+associated instance or by generating an event that will cause the newly created
+instance to be properly related.</p>
+
+<h3><a name="50536510_pgfId-516443"></a>Examples</h3>
+
+<pre style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536510_pgfId-516444"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>// <span class=GramE>Create</span> instances of <span
+class=SpellE>autosampler</span> classes</span></em><span style='font-size:11.0pt;
+font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536510_pgfId-517187"></a><span class=GramE><em><span style='font-size:
+11.0pt;font-family:"Courier New";color:black'>create</span></em></span><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'> object instance car of C;</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536510_pgfId-517178"></a><span class=GramE><em><span style='font-size:
+11.0pt;font-family:"Courier New";color:black'>create</span></em></span><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'> object instance row of ROW;</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536510_pgfId-517917"></a><span style='font-size:11.0pt;font-family:
+"Times New Roman";color:black'><o:p>&nbsp;</o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><span style='font-size:11.0pt;
+font-family:"Times New Roman";color:black'>&nbsp;<o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536510_pgfId-517182"></a><span class=GramE><em><span style='font-size:
+11.0pt;font-family:"Courier New";color:black'>create</span></em></span><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'> object instance of SP; // no instance handle needed</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre>
+
+<h2><a name="50536510_pgfId-516475"></a>Selecting Instances</h2>
+
+<p class=body><a name="50536510_pgfId-516477"></a>The <em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>select</span></em>
+statement can be used to assign an instance or set of instances to either an
+instance handle or <span class=GramE>a</span> instance handle set respectively.
+<span class=GramE>An optional <em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>where</span></em> clause can be used at the end of
+the <em><span style='font-size:11.0pt;font-family:"Courier New";color:black'>select</span></em>
+statement to limit the selection.</span> Within the <em><span style='font-size:
+11.0pt;font-family:"Courier New";color:black'>where</span></em> clause, the <em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>selected</span></em>
+instance handle refers to each of the instances in the entire set defined by <em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>&lt;<span
+class=SpellE>keyletter</span><span class=GramE>&gt;<span style='font-size:10.0pt;
+font-family:Arial;color:windowtext;font-style:normal'> .</span></span></span></em>
+The instance handle <em><span style='font-size:11.0pt;font-family:"Courier New";
+color:black'>selected</span></em> is meant to be used as an instance handle in
+a <span class=SpellE><span class=GramE>boolean</span></span> comparison to form
+the <em><span style='font-size:11.0pt;font-family:"Courier New";color:black'>where</span></em>
+expression. The instance or set of instances returned match the criteria of the
+<em><span style='font-size:11.0pt;font-family:"Courier New";color:black'>where</span></em>
+expression, and may be empty.</p>
+
+<h3><a name="50536510_pgfId-516479"></a>Syntax</h3>
+
+<pre style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536510_pgfId-516481"></a><span class=GramE><em><span style='font-size:
+11.0pt;font-family:"Courier New";color:black'>select</span></em></span><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'> any &lt;instance handle&gt; from instances of &lt;<span
+class=SpellE>keyletter</span>&gt;;</span></em><span style='font-size:11.0pt;
+font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536510_marker-517887"></a><a name="50536510_marker-517884"></a><a
+name="50536510_pgfId-516484"></a><span class=GramE><em><span style='font-size:
+11.0pt;font-family:"Courier New";color:black'>select</span></em></span><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'> many &lt;instance handle set&gt; from instances of &lt;<span
+class=SpellE>keyletter</span>&gt;;</span></em><span style='font-size:11.0pt;
+font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536510_marker-517890"></a><a name="50536510_pgfId-516488"></a><span
+class=GramE><em><span style='font-size:11.0pt;font-family:"Courier New";
+color:black'>select</span></em></span><em><span style='font-size:11.0pt;
+font-family:"Courier New";color:black'> any &lt;instance handle&gt; from instances of &lt;<span
+class=SpellE>keyletter</span>&gt; where &lt;where expression&gt;;</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536510_marker-516487"></a><a name="50536510_pgfId-516491"></a><span
+class=GramE><em><span style='font-size:11.0pt;font-family:"Courier New";
+color:black'>select</span></em></span><em><span style='font-size:11.0pt;
+font-family:"Courier New";color:black'> many &lt;instance handle set&gt; from instances of &lt;<span
+class=SpellE>keyletter</span>&gt; where &lt;where expression&gt;;</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre>
+
+<p class=body><a name="50536510_pgfId-518058"></a>&nbsp;</p>
+
+<p class=body><a name="50536510_pgfId-516496"></a><em><span style='font-size:
+11.0pt;font-family:"Courier New";color:black'>&lt;<span class=GramE>instance</span>
+handle&gt;</span></em> <a name="50536510_marker-516495"></a>is the handle for
+an instance of the class specified by <em><span style='font-size:11.0pt;
+font-family:"Courier New";color:black'>&lt;<span class=SpellE>keyletter</span>&gt;</span></em>
+.</p>
+
+<p class=body><a name="50536510_pgfId-516499"></a><em><span style='font-size:
+11.0pt;font-family:"Courier New";color:black'>&lt;<span class=GramE>instance</span>
+handle</span></em> <em><span style='font-size:11.0pt;font-family:"Courier New";
+color:black'>set&gt;</span></em> <a name="50536510_marker-516498"></a>is a set
+of handles for all selected instances of the class specified by <em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>&lt;<span
+class=SpellE>keyletter</span>&gt;</span></em> .</p>
+
+<p class=body><a name="50536510_pgfId-516502"></a><em><span style='font-size:
+11.0pt;font-family:"Courier New";color:black'>&lt;where expression&gt;</span></em>
+is a type of <span class=SpellE><span class=GramE>boolean</span></span>
+expression using <em><span style='font-size:11.0pt;font-family:"Courier New";
+color:black'>selected</span></em> keyword.</p>
+
+<h3><a name="50536510_pgfId-516548"></a>Notes</h3>
+
+<p class=body><a name="50536510_pgfId-516505"></a>If the optional <em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>where</span></em>
+clause is used, the returned instance or set of instances meet the criteria of
+the <em><span style='font-size:11.0pt;font-family:"Courier New";color:black'>where</span></em>
+expression. This implies that the instance handle may be empty, or the instance
+handle set may be empty if no instance fulfills the criteria.</p>
+
+<p class=body><a name="50536510_pgfId-516506"></a><span class=GramE>If the <em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>select</span></em>
+<em><span style='font-size:11.0pt;font-family:"Courier New";color:black'>any</span></em>
+form is used, an arbitrary instance will be obtained from the selected set.</span></p>
+
+<p class=body><a name="50536510_pgfId-516507"></a>If the <em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>select</span></em>
+<em><span style='font-size:11.0pt;font-family:"Courier New";color:black'>many</span></em>
+form is used then the entire set of instances will be obtained.</p>
+
+<p class=body><a name="50536510_pgfId-516508"></a>If the <em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>select</span></em>
+<em><span style='font-size:11.0pt;font-family:"Courier New";color:black'>any</span></em>
+<em><span style='font-size:11.0pt;font-family:"Courier New";color:black'>...</span></em>
+<em><span style='font-size:11.0pt;font-family:"Courier New";color:black'>where</span></em>
+form is used, an arbitrary instance that fulfills the <em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>&lt;where
+expression&gt;</span></em> will be obtained.</p>
+
+<p class=body><a name="50536510_pgfId-516509"></a>If the <em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>select</span></em>
+<em><span style='font-size:11.0pt;font-family:"Courier New";color:black'>many</span></em>
+<em><span style='font-size:11.0pt;font-family:"Courier New";color:black'>...</span></em>
+<em><span style='font-size:11.0pt;font-family:"Courier New";color:black'>where</span></em>
+form is used then the set of instances that fulfill the <em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>&lt;where
+expression&gt;</span></em> will be obtained.</p>
+
+<p class=body><a name="50536510_pgfId-516510"></a>The instance handle <em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>selected</span></em>
+is valid only within &lt;<em><span style='font-size:11.0pt;font-family:"Courier New";
+color:black'> where expression<span class=GramE>&gt;<span style='font-size:
+10.0pt;font-family:Arial;color:windowtext;font-style:normal'> .</span></span></span></em></p>
+
+<h3><a name="50536510_pgfId-516512"></a>Example</h3>
+
+<pre style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536510_pgfId-516513"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>// Select an arbitrary instance.</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536510_pgfId-516514"></a><span class=GramE><em><span style='font-size:
+11.0pt;font-family:"Courier New";color:black'>select</span></em></span><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'> any <span
+class=SpellE>dp_one</span> from instances of DP;</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536510_pgfId-516515"></a><span style='font-size:11.0pt;font-family:
+"Times New Roman";color:black'><o:p>&nbsp;</o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><span style='font-size:11.0pt;
+font-family:"Times New Roman";color:black'>&nbsp;<o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536510_pgfId-516516"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>// Select all instances.</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536510_pgfId-516517"></a><span class=GramE><em><span style='font-size:
+11.0pt;font-family:"Courier New";color:black'>select</span></em></span><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'> many <span
+class=SpellE>dp_set</span> from instances of DP;</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536510_pgfId-516887"></a><span style='font-size:11.0pt;font-family:
+"Times New Roman";color:black'><o:p>&nbsp;</o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><span style='font-size:11.0pt;
+font-family:"Times New Roman";color:black'>&nbsp;<o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536510_pgfId-516519"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>// Select an instance of DP whose available attribute is TRUE.</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536510_pgfId-516520"></a><span class=GramE><em><span style='font-size:
+11.0pt;font-family:"Courier New";color:black'>select</span></em></span><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'> any <span
+class=SpellE>dp_avail</span> from instances of DP where <span class=SpellE>selected.available</span> == TRUE;</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536510_pgfId-516521"></a><span style='font-size:11.0pt;font-family:
+"Times New Roman";color:black'><o:p>&nbsp;</o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><span style='font-size:11.0pt;
+font-family:"Times New Roman";color:black'>&nbsp;<o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536510_pgfId-516522"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>// Select a set of instances from DP whose available attribute is FALSE.</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536510_pgfId-516523"></a><span class=GramE><em><span style='font-size:
+11.0pt;font-family:"Courier New";color:black'>select</span></em></span><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'> many <span
+class=SpellE>dp_unavail_set</span> from instances of DP</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536510_pgfId-517299"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'><span style='mso-spacerun:yes'>  </span><span
+class=GramE>where</span> <span class=SpellE>selected.available</span> == FALSE;</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre>
+
+<p class=code><a name="50536510_pgfId-517195"></a>&nbsp;</p>
+
+<p class=body><a name="50536510_pgfId-517935"></a>Making selections across relationships
+is <span class=GramE>describe</span> in <a
+href="bpalref.book-6.htm#50536511_69593">Relationship Navigation</a>.</p>
+
+<h2><a name="50536510_pgfId-516552"></a><a name="50536510_marker-517897"></a>Writing
+Attributes</h2>
+
+<p class=body><a name="50536510_pgfId-516554"></a>Attributes of instances may
+be set to specified values by use of the <em><span style='font-size:11.0pt;
+font-family:"Courier New";color:black'>assign</span></em> statement.</p>
+
+<h3><a name="50536510_pgfId-516556"></a>Syntax</h3>
+
+<pre style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536510_pgfId-516558"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>[<span class=GramE>assign</span>] &lt;<span
+class=GramE>instance</span> handle&gt;.&lt;attribute&gt; = &lt;expression&gt;;</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre>
+
+<p class=body><a name="50536510_marker-516557"></a><a
+name="50536510_pgfId-518074"></a>&nbsp;</p>
+
+<p class=body><a name="50536510_pgfId-516562"></a><em><span style='font-size:
+11.0pt;font-family:"Courier New";color:black'>&lt;<span class=GramE>instance</span>
+handle&gt;</span></em> is a handle to an instance of a class.</p>
+
+<p class=body><a name="50536510_pgfId-517944"></a><em><span style='font-size:
+11.0pt;font-family:"Courier New";color:black'>&lt;<span class=GramE>attribute</span>&gt;</span></em>
+is the name of an attribute of the class.</p>
+
+<p class=body><a name="50536510_pgfId-516565"></a><em><span style='font-size:
+11.0pt;font-family:"Courier New";color:black'>&lt;<span class=GramE>expression</span>&gt;</span></em>
+is either a <span class=SpellE>boolean</span>, string, or arithmetic
+expression.</p>
+
+<p class=body><a name="50536510_pgfId-516602"></a>The assign statement takes
+the value in <em><span style='font-size:11.0pt;font-family:"Courier New";
+color:black'>&lt;expression&gt;</span></em> and assigns it to the attribute <em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>&lt;attribute&gt;</span></em>
+for the instance specified by <em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>&lt;instance handle<span class=GramE>&gt;<span
+style='font-size:10.0pt;font-family:Arial;color:windowtext;font-style:normal'>
+.</span></span></span></em></p>
+
+<p class=body><a name="50536510_pgfId-517949"></a>The <em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>assign</span></em>
+keyword is optional.</p>
+
+<h3><a name="50536510_pgfId-516569"></a>Notes</h3>
+
+<p class=body><a name="50536510_pgfId-516570"></a>The <em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>&lt;expression&gt;</span></em>
+must evaluate to the data type of <em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>&lt;attribute<span class=GramE>&gt;<span
+style='font-size:10.0pt;font-family:Arial;color:windowtext;font-style:normal'>
+,</span></span></span></em> unless <em><span style='font-size:11.0pt;
+font-family:"Courier New";color:black'>&lt;attribute&gt;</span></em> is either
+a real or an integer, in which case <em><span style='font-size:11.0pt;
+font-family:"Courier New";color:black'>&lt;expression&gt;</span></em> can be
+either a real or integer value.</p>
+
+<p class=body><a name="50536510_pgfId-516571"></a>A value cannot be assigned to
+a referential attribute. Relationships must be maintained via <span
+class=GramE>the <em><span style='font-size:11.0pt;font-family:"Courier New";
+color:black'>relate</span></em></span> and <span class=SpellE><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>unrelate</span></em></span>
+constructs.</p>
+
+<p class=body><a name="50536510_pgfId-517303"></a>A value cannot be assigned to
+an attribute of type unique ID, as such an attribute is initialized by the
+system when the instance is created.</p>
+
+<p class=body><a name="50536510_pgfId-517607"></a><a
+name="50536510_marker-517898"></a>Mathematically-dependent attributes cannot be
+written to, only read. The value of a mathematically-dependent attribute must
+be set within the action of the attribute. See <a
+href="bpalref.book-5.htm#50536510_32565">Writing Mathematically-Dependent
+Attributes</a>.</p>
+
+<h3><a name="50536510_pgfId-516575"></a>Example I</h3>
+
+<pre style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536510_pgfId-516576"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>// Account is a class with attributes branch, <span
+class=SpellE>account_number</span>,</span></em><span style='font-size:11.0pt;
+font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536510_pgfId-517133"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>// and balance.<span style='mso-spacerun:yes'>  </span>Assume <span
+class=SpellE>new_account</span>, <span class=SpellE>this_branch</span>, and <span
+class=SpellE>initial_deposit</span></span></em><span style='font-size:11.0pt;
+font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536510_pgfId-517137"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>// are event supplemental data items.</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536510_pgfId-516578"></a><span style='font-size:11.0pt;font-family:
+"Times New Roman";color:black'><o:p>&nbsp;</o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><span style='font-size:11.0pt;
+font-family:"Times New Roman";color:black'>&nbsp;<o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536510_pgfId-516579"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>// First, create a new instance.</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536510_pgfId-516580"></a><span class=GramE><em><span style='font-size:
+11.0pt;font-family:"Courier New";color:black'>create</span></em></span><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'> object instance <span
+class=SpellE>my_account</span> of ACCT;</span></em><span style='font-size:11.0pt;
+font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536510_pgfId-516581"></a><span style='font-size:11.0pt;font-family:
+"Times New Roman";color:black'><o:p>&nbsp;</o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><span style='font-size:11.0pt;
+font-family:"Times New Roman";color:black'>&nbsp;<o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536510_pgfId-516582"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>// Now set attribute values using the returned instance handle.</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536510_pgfId-516583"></a><span class=SpellE><em><span style='font-size:
+11.0pt;font-family:"Courier New";color:black'>my_account.branch</span></em></span><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'> = <span
+class=SpellE>rcvd_evt.this_branch</span>;</span></em><span style='font-size:
+11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536510_marker-518013"></a><a name="50536510_pgfId-516584"></a><span
+class=SpellE><em><span style='font-size:11.0pt;font-family:"Courier New";
+color:black'>my_account.account_number</span></em></span><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'> = <span
+class=SpellE>rcvd_evt.new_account</span>;</span></em><span style='font-size:
+11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536510_pgfId-517201"></a><span class=SpellE><em><span style='font-size:
+11.0pt;font-family:"Courier New";color:black'>my_account.balance</span></em></span><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'> = <span
+class=SpellE>rcvd_evt.initial_deposit</span>;</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre>
+
+<h3><a name="50536510_pgfId-517955"></a>Example II</h3>
+
+<p class=code><a name="50536510_pgfId-517724"></a>&nbsp;</p>
+
+<pre style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536510_pgfId-517211"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>// <span class=GramE>Create</span> and initialize a row in the <span
+class=SpellE>autosampler</span> carousel.</span></em><span style='font-size:
+11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536510_pgfId-517212"></a><span class=GramE><em><span style='font-size:
+11.0pt;font-family:"Courier New";color:black'>create</span></em></span><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'> object instance row of ROW;</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536510_pgfId-517202"></a><span class=GramE><em><span style='font-size:
+11.0pt;font-family:"Courier New";color:black'>relate</span></em></span><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'> row to car across R1;</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536510_pgfId-517203"></a><span class=SpellE><em><span style='font-size:
+11.0pt;font-family:"Courier New";color:black'>row.radius</span></em></span><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'> = 10;</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536510_pgfId-517204"></a><span class=SpellE><em><span style='font-size:
+11.0pt;font-family:"Courier New";color:black'>row.current_sampling_position</span></em></span><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'> = 0;</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536510_pgfId-517205"></a><span class=SpellE><em><span style='font-size:
+11.0pt;font-family:"Courier New";color:black'>row.maximum_sampling_positions</span></em></span><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'> = 5;</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536510_pgfId-517206"></a><span class=SpellE><em><span style='font-size:
+11.0pt;font-family:"Courier New";color:black'>row.sampling_time</span></em></span><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'> = 5000;</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536510_pgfId-517207"></a><span class=SpellE><em><span style='font-size:
+11.0pt;font-family:"Courier New";color:black'>row.needs_probe</span></em></span><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'> = false;</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre>
+
+<h2><a name="50536510_pgfId-517608"></a><a name="50536510_32565"></a>Writing <a
+name="50536510_marker-517895"></a>Mathematically-Dependent Attributes</h2>
+
+<p class=body><a name="50536510_pgfId-517610"></a>Mathematically-dependent
+attributes are attributes that have their value derived from other modeled
+elements. It is not possible to directly write to a mathematically-dependent
+attribute as described above. Instead, OAL must be used to specify the derived
+value. When the attribute is read in an action, the value of the attribute is
+calculated from the OAL specified in the action for the
+mathematically-dependent attribute.</p>
+
+<p class=body>Mathematically-dependent attributes are specified as such
+explicitly by the user. <span style='mso-spacerun:yes'> </span>This is done by right-clicking
+on the attribute in the Model Explorer.<span style='mso-spacerun:yes'>  </span>In
+the context menu that pops up, select &quot;<b style='mso-bidi-font-weight:
+normal'>Set as Derived Attribute</b>&quot;.<span style='mso-spacerun:yes'> 
+</span>Right-click on the attribute again, but this time select &#8220;<b
+style='mso-bidi-font-weight:normal'>Open <span class=GramE>With</span> &gt;
+Activity Editor</b>&#8221; in the context menu. <span
+style='mso-spacerun:yes'> </span>Enter the appropriate action language in this
+editor.<span style='mso-spacerun:yes'>  </span></p>
+
+<p class=body>The attribute can be changed back to a normal class attribute by
+right-clicking and selecting &#8220;<b style='mso-bidi-font-weight:normal'>Set
+as Base Attribute</b>&#8221; in the context menu. <span
+style='mso-spacerun:yes'> </span>Note that this action will permanently destroy
+all the OAL that currently makes up the attribute&#8217;s activity.</p>
+
+<h3><a name="50536510_pgfId-517611"></a>Syntax</h3>
+
+<p class=body><a name="50536510_pgfId-517612"></a>From within the <span
+class=GramE>action of a mathematically-dependent attribute</span>:</p>
+
+<pre style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536510_pgfId-517620"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>[<span class=GramE>assign</span>] self.&lt;attribute&gt; = &lt;expression&gt;;</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre>
+
+<p class=body><a name="50536510_marker-517619"></a><a
+name="50536510_marker-518011"></a><a name="50536510_marker-517981"></a><a
+name="50536510_marker-518010"></a><a name="50536510_pgfId-518108"></a>&nbsp;</p>
+
+<p class=body><a name="50536510_pgfId-517623"></a><em><span style='font-size:
+11.0pt;font-family:"Courier New";color:black'>&lt;<span class=GramE>attribute</span>&gt;</span></em>
+is the name of the mathematically-dependent attribute.</p>
+
+<p class=body><a name="50536510_pgfId-517624"></a><em><span style='font-size:
+11.0pt;font-family:"Courier New";color:black'>&lt;<span class=GramE>expression</span>&gt;</span></em>
+is either a <span class=SpellE>boolean</span>, string, or arithmetic
+expression.</p>
+
+<p class=body><a name="50536510_pgfId-517625"></a>The assign statement takes
+the value in <em><span style='font-size:11.0pt;font-family:"Courier New";
+color:black'>&lt;expression&gt;</span></em> and assigns it to the attribute <em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>&lt;attribute&gt;</span></em>
+for the instance specified by <span class=GramE><em><span style='font-size:
+11.0pt;font-family:"Courier New";color:black'>self</span></em> .</span></p>
+
+<p class=body><a name="50536510_pgfId-517965"></a>The <em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>assign</span></em>
+keyword is optional.</p>
+
+<h3><a name="50536510_pgfId-517642"></a>Notes</h3>
+
+<p class=body><a name="50536510_pgfId-517643"></a>The <em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>&lt;expression&gt;</span></em>
+must evaluate to the data type of <em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>&lt;attribute<span class=GramE>&gt;<span
+style='font-size:10.0pt;font-family:Arial;color:windowtext;font-style:normal'>
+,</span></span></span></em> unless <em><span style='font-size:11.0pt;
+font-family:"Courier New";color:black'>&lt;attribute&gt;</span></em> is either
+a real or an integer, in which case <em><span style='font-size:11.0pt;
+font-family:"Courier New";color:black'>&lt;expression&gt;</span></em> can be
+either a real or integer value.</p>
+
+<p class=body><a name="50536510_pgfId-517644"></a>A value cannot be assigned to
+a referential attribute. Relationships must be maintained via <span
+class=GramE>the <em><span style='font-size:11.0pt;font-family:"Courier New";
+color:black'>relate</span></em></span> and <span class=SpellE><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>unrelate</span></em></span>
+constructs.</p>
+
+<p class=body><a name="50536510_pgfId-517645"></a>A value cannot be assigned to
+an attribute of type unique ID, as such an attribute is initialized by the
+system when the instance is created.</p>
+
+<p class=body><a name="50536510_pgfId-517656"></a>The action parsing routine
+for attributes checks to see if the variable <em><span style='font-size:11.0pt;
+font-family:"Courier New";color:black'>self</span></em> is written somewhere in
+the state action, and if not, a parse error is reported. </p>
+
+<p class=body><a name="50536510_pgfId-517666"></a>Care should be taken to make
+sure that all paths inside an action actually set the attribute.</p>
+
+<p class=body><a name="50536510_pgfId-517655"></a>The <span class=SpellE><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>param</span></em></span>
+and <em><span style='font-size:11.0pt;font-family:"Courier New";color:black'>return</span></em>
+keywords are not supported in the action of the attribute.</p>
+
+<h3><a name="50536510_pgfId-517649"></a>Example</h3>
+
+<pre style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536510_pgfId-517640"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>// Mathematically-dependent attribute (MDA) action</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536510_pgfId-517662"></a><span class=SpellE><em><span style='font-size:
+11.0pt;font-family:"Courier New";color:black'>self.volume</span></em></span><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'> = <span
+class=SpellE>self.length</span>*<span class=SpellE>self.width</span>*<span
+class=SpellE>self.height</span>;</span></em><span style='font-size:11.0pt;
+font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536510_marker-517986"></a><a name="50536510_pgfId-517663"></a><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p>&nbsp;</o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><span style='font-size:11.0pt;
+font-family:"Times New Roman";color:black'>&nbsp;<o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536510_pgfId-517664"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>// Action reading the MDA volume</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536510_pgfId-517665"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>v = <span class=SpellE>cube.volume</span>;</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre>
+
+<h2><a name="50536510_pgfId-516608"></a><a name="50536510_marker-517896"></a>Reading
+Attributes</h2>
+
+<p class=body><a name="50536510_pgfId-516610"></a>A class attribute may be
+referenced in an expression using the form:</p>
+
+<h3><a name="50536510_pgfId-516612"></a>Syntax</h3>
+
+<pre style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536510_pgfId-516613"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>&lt;<span class=GramE>instance</span> handle&gt;.&lt;attribute&gt;</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre>
+
+<p class=body><a name="50536510_pgfId-518121"></a>&nbsp;</p>
+
+<p class=body><a name="50536510_pgfId-516617"></a><em><span style='font-size:
+11.0pt;font-family:"Courier New";color:black'>&lt;<span class=GramE>instance</span>
+handle&gt;</span></em> is a handle to an instance of a class.</p>
+
+<p class=body><a name="50536510_pgfId-516619"></a><em><span style='font-size:
+11.0pt;font-family:"Courier New";color:black'>&lt;<span class=GramE>attribute</span>&gt;</span></em>
+is the name of an attribute of the class.</p>
+
+<h3><a name="50536510_pgfId-516621"></a>Notes</h3>
+
+<p class=body><a name="50536510_pgfId-516622"></a>You may read the value of any
+attribute, including referential attributes.</p>
+
+<p class=body><a name="50536510_pgfId-517363"></a><em><span style='font-size:
+11.0pt;font-family:"Courier New";color:black'>&lt;<span class=GramE>instance</span>
+handle&gt;.&lt;attribute&gt;</span></em> is an expression and can be used in
+any OAL construct specifying an expression.</p>
+
+<p class=body><a name="50536510_pgfId-516623"></a>When you wish to obtain an
+associated instance, use the relationship navigation constructs rather than
+reading (a succession of) referential attributes. This ensures that code generators
+can detect the purpose of the read and therefore produce accurate and effective
+translation.</p>
+
+<h3><a name="50536510_pgfId-516626"></a>Example</h3>
+
+<pre style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536510_pgfId-516627"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>// <span class=GramE>Create</span> new instance and get handle.</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536510_pgfId-516628"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>Create object instance <span class=SpellE>myrobot</span> of R;</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536510_pgfId-516630"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>// Use the instance handle to read attribute values.</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536510_pgfId-516631"></a><span class=SpellE><span class=GramE><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>myx</span></em></span></span><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'> = <span
+class=SpellE>myrobot.x_position</span>;</span></em><span style='font-size:11.0pt;
+font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536510_pgfId-516632"></a><span class=SpellE><span class=GramE><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>myy</span></em></span></span><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'> = <span
+class=SpellE>myrobot.y_position</span>;</span></em><span style='font-size:11.0pt;
+font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536510_pgfId-517215"></a><span style='font-size:11.0pt;font-family:
+"Times New Roman";color:black'><o:p>&nbsp;</o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><span style='font-size:11.0pt;
+font-family:"Times New Roman";color:black'>&nbsp;<o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536510_pgfId-517223"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>// Position the row for sampling.</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536510_pgfId-517222"></a><span class=GramE><em><span style='font-size:
+11.0pt;font-family:"Courier New";color:black'>select</span></em></span><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'> one car related by self-&gt;C[R1];</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536510_pgfId-517216"></a><span class=SpellE><em><span style='font-size:
+11.0pt;font-family:"Courier New";color:black'>self.next_sampling_position</span></em></span><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'> = <span
+class=SpellE>self.current_sampling_position</span> + 1;</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536510_marker-517992"></a><a name="50536510_pgfId-517217"></a><span
+class=GramE><em><span style='font-size:11.0pt;font-family:"Courier New";
+color:black'>next</span></em></span><em><span style='font-size:11.0pt;
+font-family:"Courier New";color:black'> =</span></em><span style='font-size:
+11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536510_pgfId-519267"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'><span style='mso-spacerun:yes'>  </span><span
+class=SpellE>ROW::convert_<span class=GramE>dest</span></span><span
+class=GramE>(</span> <span class=SpellE>radius:self.radius</span>, <span
+style='mso-tab-count:1'>      </span></span></em><span style='font-size:11.0pt;
+font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536510_pgfId-518142"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'><span style='mso-spacerun:yes'>  </span><span
+class=SpellE>next_sampling_position:self.next_sampling_<span class=GramE>position</span></span><span
+class=GramE> )</span>;</span></em><span style='font-size:11.0pt;font-family:
+"Times New Roman";color:black'><o:p></o:p></span></pre><pre style='margin-left:
+47.5pt;vertical-align:baseline'><a name="50536510_pgfId-519270"></a><span
+class=GramE><em><span style='font-size:11.0pt;font-family:"Courier New";
+color:black'>generate</span></em></span><em><span style='font-size:11.0pt;
+font-family:"Courier New";color:black'> C1:go(<span class=SpellE>destination:next</span>) to car;</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre>
+
+<h2><a name="50536510_pgfId-516658"></a><a name="50536510_marker-517901"></a>Deleting
+Instances</h2>
+
+<h3><a name="50536510_pgfId-516660"></a>Syntax</h3>
+
+<pre style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536510_pgfId-516662"></a><span class=GramE><em><span style='font-size:
+11.0pt;font-family:"Courier New";color:black'>delete</span></em></span><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'> object instance &lt;instance handle&gt;;</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre>
+
+<h3><a name="50536510_marker-516661"></a><a name="50536510_pgfId-516664"></a>Notes</h3>
+
+<p class=body><a name="50536510_pgfId-516665"></a>This statement deletes the
+instance specified by <em><span style='font-size:11.0pt;font-family:"Courier New";
+color:black'>&lt;instance handle<span class=GramE>&gt;<span style='font-size:
+10.0pt;font-family:Arial;color:windowtext;font-style:normal'> .</span></span></span></em></p>
+
+<p class=body><a name="50536510_pgfId-517757"></a>When an instance of a class
+is deleted, it is no longer available to the domain where the class is defined.
+However, sophisticated software architectures can be imagined which support the
+notion that the instance is kept for logging purposes although the defining
+domain cannot see it.</p>
+
+<p class=body><a name="50536510_pgfId-516668"></a>Depending on the
+architecture, deleting an instance may or may not be sufficient to specify
+deletion of any attached relationships<a name="50536510_marker-516669"></a>.
+Because certain architectures may fail if such dangling relationships are used
+at run time, we recommend that the analyst explicitly delete relationships
+before deleting the participating class instances.</p>
+
+<h3><a name="50536510_pgfId-516671"></a>Example</h3>
+
+<pre style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536510_pgfId-516672"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>// Delete every instance of DG with name equal to Fido.</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536510_pgfId-516673"></a><span class=GramE><em><span style='font-size:
+11.0pt;font-family:"Courier New";color:black'>select</span></em></span><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'> many dogs from instances of DG where (<span
+class=SpellE>selected.name</span> == &quot;Fido&quot;);</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536510_pgfId-516674"></a><span class=GramE><em><span style='font-size:
+11.0pt;font-family:"Courier New";color:black'>for</span></em></span><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'> each dog in dogs</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536510_pgfId-518191"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'><span style='mso-spacerun:yes'>  </span><span
+class=GramE>select</span> one owner related by dog-&gt;OWN[R23];</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536510_pgfId-519228"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'><span style='mso-spacerun:yes'>  </span><span
+class=SpellE><span class=GramE>unrelate</span></span> dog from owner;</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536510_pgfId-519231"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'><span style='mso-spacerun:yes'>  </span><span
+class=GramE>delete</span> object instance dog;</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536510_pgfId-516676"></a><span class=GramE><em><span style='font-size:
+11.0pt;font-family:"Courier New";color:black'>end</span></em></span><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'> for;</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre>
+
+<p class=body><a name="50536510_pgfId-519238"></a>&nbsp;</p>
+
+</div>
+
+</body>
+
+</html>

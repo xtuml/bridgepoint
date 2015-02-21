@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin
+   id="org.xtuml.bp.io.mdl"
+   name="BridgePoint Model Plug-in"
+   version="4.2.1"
+   provider-name="xtUML.org"
+   class="org.xtuml.bp.io.mdl.MdlPlugin">
+
+   <runtime>
+      <library name="mdl.jar">
+         <export name="*"/>
+      </library>
+   </runtime>
+   <requires>
+      <import plugin="org.eclipse.core.runtime"/>
+      <import plugin="org.eclipse.ui"/>
+      <import plugin="org.eclipse.ui.ide"/>
+      <import plugin="org.eclipse.core.resources"/>
+      <import plugin="org.xtuml.bp.core"/>
+      <import plugin="org.xtuml.bp.io.core"/>
+      <import plugin="org.xtuml.bp.ui.canvas"/>
+      <import plugin="org.xtuml.bp.ui.text"/>
+      <import plugin="org.xtuml.bp.ui.explorer"/>
+      <import plugin="org.xtuml.bp.als.oal"/>
+   </requires>
+
+
+   <extension
+         point="org.eclipse.ui.exportWizards">
+      <category
+            id="org.xtuml.bp.exportWizards.category"
+            name="xtUML">
+      </category>
+      <wizard
+            category="org.xtuml.bp.exportWizards.category"
+            class="org.xtuml.bp.io.mdl.wizards.ModelExportWizard"
+            icon="platform:/plugin/org.xtuml.bp.core/icons/green-bp.gif"
+            id="org.xtuml.ExportWizard1"
+            name="xtUML Model">
+         <description>
+            Export model data to a xtUML Model file
+         </description>
+      </wizard>
+   </extension>
+   <extension
+         point="org.eclipse.ui.importWizards">
+      <category
+            id="org.xtuml.bp.importWizards.category"
+            name="xtUML">
+      </category>
+      <wizard
+            category="org.xtuml.bp.importWizards.category"
+            class="org.xtuml.bp.io.mdl.wizards.ModelImportWizard"
+            icon="platform:/plugin/org.xtuml.bp.core/icons/green-bp.gif"
+            id="org.xtuml.bp.ModelImportWizard"
+            name="xtUML Model">
+         <description>
+            Import model data from a xtUML model file
+         </description>
+      </wizard>
+   </extension>
+
+</plugin>

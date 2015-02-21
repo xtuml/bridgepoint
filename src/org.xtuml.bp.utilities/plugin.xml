@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.popupMenus">
+<!--  
+      This was introduced to fix a bug in some customer models.   It is
+      believed that all customers who needed it have now used it, therefore it 
+      is no longer needed.  However, we are leaving the code here so it can
+      be easily put back if needed.
+      
+      <objectContribution
+            adaptable="true"
+            id="org.xtuml.bp.utilities.FixMissingMatrixEntries"
+            objectClass="org.xtuml.bp.core.common.NonRootModelElement">
+         <action
+               class="org.xtuml.bp.utilities.data.FixMissingMatrixEntryAction"
+               enablesFor="1"
+               id="org.xtuml.bp.utilities.FixMissingMatrixEntryAction"
+               label="Fix Missing State Matrix Entries..."
+               menubarPath="org.xtuml.bp.utilities/org.xtuml.bp.utilities.separator">
+         </action>
+      </objectContribution>
+-->
+
+<!-- 
+      This was introduced as a test when GEF graphics were added to help
+      assure tree expansion was being done faster then prior versions.  
+      It is being commented-out but left here for possible future use.
+      
+    <objectContribution
+            adaptable="false"
+            id="org.xtuml.bp.utilities.loadByExpansion"
+            objectClass="org.xtuml.bp.core.common.NonRootModelElement">
+         <action
+               class="org.xtuml.bp.utilities.load.LoadByExpansionAction"
+               enablesFor="1"
+               id="org.xtuml.bp.utilities.loadByExpansion"
+               label="Load System By Tree Expansion"
+               menubarPath="org.xtuml.bp.utilities/org.xtuml.bp.utilities.separator">
+         </action>
+      </objectContribution>
+-->
+      
+      <objectContribution
+            adaptable="false"
+            id="org.xtuml.bp.utilities.loadAndPersist"
+            objectClass="org.xtuml.bp.core.common.NonRootModelElement">
+         <action
+               class="org.xtuml.bp.utilities.load.LoadAndPersistAction"
+               enablesFor="+"
+               id="org.xtuml.bp.utilities.loadandPersist"
+               label="Load and Persist"
+               menubarPath="org.xtuml.bp.utilities/org.xtuml.bp.utilities.separator">
+         </action>
+      </objectContribution>
+     
+      <objectContribution
+            adaptable="true"
+            id="org.xtuml.bp.utilities.IntegrityCheckContribution"
+            objectClass="org.xtuml.bp.core.common.NonRootModelElement">
+         <action
+               class="org.xtuml.bp.utilities.actions.CheckModelIntegrity"
+               enablesFor="+"
+               id="org.xtuml.bp.utilities.CheckModelIntegrityAction"
+               label="Check Model Integrity"
+               menubarPath="org.xtuml.bp.utilities/org.xtuml.bp.utilities.separator">
+         </action>
+      </objectContribution>
+      
+   </extension>
+   
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            locationURI="popup:org.eclipse.ui.popup.any">
+         <menu
+               id="org.xtuml.bp.utilities"
+               label="BridgePoint Utilities">
+            <separator
+                  name="org.xtuml.bp.utilities.separator"
+                  visible="false">
+            </separator>
+         </menu>
+      </menuContribution>
+   </extension>
+   <extension
+         point="org.eclipse.ui.actionSets">
+      <actionSet
+            id="org.xtuml.bp.utilities.actionSet"
+            label="BridgePoint Utilities"
+            visible="true">
+         <menu
+               id="org.xtuml.bp.utilities.menu"
+               label="BridgePoint Utilities">
+            <separator
+                  name="org.xtuml.bp.utilities.separator">
+            </separator>
+         </menu>
+         <action
+               id="org.xtuml.bp.utilities.upgradeWorkspaceProjectsAction"
+               label="Upgrade workspace projects..."
+               menubarPath="org.xtuml.bp.utilities.menu/org.xtuml.bp.utilities.separator"
+               style="push">
+            <class
+                  class="org.xtuml.bp.utilities.upgrade.UpgradeWorkspaceProjects">
+            </class>
+         </action>
+      </actionSet>
+   </extension>
+
+</plugin>

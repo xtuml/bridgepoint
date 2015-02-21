@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ File:      $RCSfile: build.xml,v $
+ Version:   $Revision: 1.6 $
+ Modified:  $Date: 2013/01/10 23:20:03 $
+
+ (c) Copyright 2004-2014 Mentor Graphics Corporation  All rights reserved.
+
+-->
+
+<project name="pt_antlr" default="update_jar" basedir=".">
+	
+	<target name="compile">
+	  
+	  <property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter"/>
+	  
+	  <javac srcdir="."
+	  destdir="."/>
+	
+	</target>
+		
+	<target name="update_jar" depends="compile">
+	   
+	   <delete file="antlr.jar">
+	   </delete>
+		
+		<jar destfile="antlr.jar"
+		basedir="." excludes="antlr.jar, .classpath, .project, build.xml, README">
+		</jar>
+		
+	</target>
+	
+</project>
