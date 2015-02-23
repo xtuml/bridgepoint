@@ -19,13 +19,11 @@
 //======================================================================== 
 package org.xtuml.bp.core.common;
 
+import java.util.List;
+
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
-import org.eclipse.core.resources.IWorkspaceRunnable;
-import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.NullProgressMonitor;
 
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.IntegrityIssue_c;
@@ -44,60 +42,80 @@ import org.xtuml.bp.core.inspector.ObjectElement;
  */
 public class IntegrityChecker {
 	
-	static ModelInspector inspector = new ModelInspector();
+	static ModelInspector inspector = new ModelInspector(false);
 	
-	private static IntegrityIssue_c[] issues;
-	
-	public static IntegrityIssue_c[] runIntegrityCheck(final NonRootModelElement element, final IntegrityManager_c manager) {
-		// run this in the job platform so that multiple resource
-		// changes do not collide
-		try {
-			ResourcesPlugin.getWorkspace().run(new IWorkspaceRunnable() {
+	static final String ID_TYPE   = "org.xtuml.core.integrity.element.id";
+	static final String TYPE_TYPE = "org.xtuml.core.integrity.element.type";
+	static final String PATH_TYPE   = "org.xtuml.core.integrity.model.file.path";
 
-				@Override
-				public void run(IProgressMonitor monitor) throws CoreException {
-					NonRootModelElement elementToCheck = element;
-					SystemModel_c system = (SystemModel_c) elementToCheck.getRoot();
-					if(element instanceof SystemModel_c) {
-						system = (SystemModel_c) elementToCheck;
-					}
-					if(!(elementToCheck instanceof Package_c)) {
-						NonRootModelElement pkg = elementToCheck.getFirstParentPackage();
-						if(pkg != null) {
-							elementToCheck = pkg;
-						} else {
-							NonRootModelElement component = elementToCheck.getFirstParentComponent();
-							if(component != null) {
-								elementToCheck = component;
-							}
-						}
-					}
-					manager.relateAcrossR1301To(system);
-					try {
-						if(elementToCheck.getFile() != null && elementToCheck.getFile().isAccessible()) {
-							elementToCheck.getFile().deleteMarkers(IMarker.PROBLEM, true, IFile.DEPTH_ONE);
-						}
-					} catch (CoreException e) {
-						CorePlugin.logError("Unable to delete existing integrity markers.", e);
-					}
-					elementToCheck.Checkintegrity();
-					elementToCheck.checkReferentialIntegrity();
-					ObjectElement[] children = inspector.getChildRelations(elementToCheck);
-					checkChildrenIntegrity(children); 
-					issues = IntegrityIssue_c
-							.getManyMI_IIsOnR1300(manager);
-					createProblemsForIssues(issues);					
-				}
-			}, new NullProgressMonitor());
-		} catch (CoreException e) {
-			CorePlugin.logError("Unable to run integrity checker as a workspace runnable.", e);
-		}
-		IntegrityIssue_c[] issuesFound = issues;
-		issues = new IntegrityIssue_c[0];
-		return issuesFound;
+	public static IntegrityIssue_c[] runIntegrityCheck(
+			final NonRootModelElement element, final IntegrityManager_c manager) {
+		return runIntegrityCheck(element, manager, false);
 	}
 	
-	private static void checkChildrenIntegrity(ObjectElement[] children) {
+	public static IntegrityIssue_c[] runIntegrityCheck(
+			final NonRootModelElement element, final IntegrityManager_c manager, boolean checkDuringLoad) {
+		// run this in the job platform so that multiple resource
+		// changes do not collide
+		NonRootModelElement elementToCheck = element;
+		SystemModel_c system = (SystemModel_c) elementToCheck.getRoot();
+		if (element instanceof SystemModel_c) {
+			system = (SystemModel_c) elementToCheck;
+		}
+		if (!(elementToCheck instanceof Package_c)) {
+			NonRootModelElement pkg = elementToCheck.getFirstParentPackage();
+			if (pkg != null) {
+				elementToCheck = pkg;
+			} else {
+				NonRootModelElement component = elementToCheck
+						.getFirstParentComponent();
+				if (component != null) {
+					elementToCheck = component;
+				}
+			}
+		}
+		manager.relateAcrossR1301To(system);
+		try {
+			if (elementToCheck.getFile() != null
+					&& elementToCheck.getFile().isAccessible()) {
+				elementToCheck.getFile().deleteMarkers(IMarker.PROBLEM, true,
+						IFile.DEPTH_ONE);
+			}
+		} catch (CoreException e) {
+			CorePlugin.logError("Unable to delete existing integrity markers.",
+					e);
+		}
+		if(checkDuringLoad) {
+			// in this case we only want to check
+			// the contents of the PMC
+			checkPMCContents(elementToCheck);
+		} else {
+			elementToCheck.Checkintegrity();
+			elementToCheck.checkReferentialIntegrity();
+			ObjectElement[] children = inspector.getChildRelations(elementToCheck);
+			checkChildrenIntegrity(children, checkDuringLoad);
+		}
+		IntegrityIssue_c[] issues = IntegrityIssue_c
+				.getManyMI_IIsOnR1300(manager);
+		createProblemsForIssues(issues);
+		return issues;
+	}
+	
+	private static void checkPMCContents(NonRootModelElement elementToCheck) {
+		elementToCheck.Checkintegrity();
+		elementToCheck.checkReferentialIntegrity();
+		List<?> children = PersistenceManager.getHierarchyMetaData()
+				.getChildren(elementToCheck, true);
+		for(Object child : children) {
+			if(child instanceof NonRootModelElement) {
+				NonRootModelElement element = (NonRootModelElement) child;
+				element.Checkintegrity();
+				elementToCheck.checkReferentialIntegrity();
+			}
+		}
+	}
+
+	private static void checkChildrenIntegrity(ObjectElement[] children, boolean checkDuringLoad) {
 		for(ObjectElement child : children) {
 			NonRootModelElement nrme = (NonRootModelElement) child.getValue();
 			// skip compare elements
@@ -115,7 +133,7 @@ public class IntegrityChecker {
 			}
 			nrme.Checkintegrity();
 			nrme.checkReferentialIntegrity();
-			checkChildrenIntegrity(inspector.getChildRelations(nrme));
+			checkChildrenIntegrity(inspector.getChildRelations(nrme), checkDuringLoad);
 		}
 	}
 	
@@ -164,9 +182,19 @@ public class IntegrityChecker {
 								.getElement()).getFile().createMarker(IMarker.PROBLEM);
 						createMarker.setAttribute(IMarker.MESSAGE,
 								issue.getDescription());
-						createMarker.setAttribute(IMarker.LOCATION, issue.getPath());
+						createMarker.setAttribute(IMarker.LOCATION, element.getPath());
 						createMarker.setAttribute(IMarker.SEVERITY,
 								IMarker.SEVERITY_ERROR);
+						createMarker.setAttribute(IntegrityChecker.PATH_TYPE, element.getFile().getFullPath().toString());
+						Object[] key = (Object[])element.getInstanceKey();
+						String keyString = "";
+						String sep = "";
+						for (Object elem: key) {
+							keyString = keyString + sep + elem.toString();
+							sep = "%";
+						}
+						createMarker.setAttribute(IntegrityChecker.ID_TYPE, keyString);
+						createMarker.setAttribute(IntegrityChecker.TYPE_TYPE, element.getClass().toString());
 					}
 				}
 			} catch (CoreException e) {
@@ -190,6 +218,11 @@ public class IntegrityChecker {
 			system.unrelateAcrossR1301From(manager);
 		}
 		manager.delete();				
+	}
+	
+	public static void createIntegrityIssuesForLoad(
+			NonRootModelElement element) {
+		CorePlugin.getDefault().getIntegrityScheduler().addElementToQueue(element);
 	}
 	
 }

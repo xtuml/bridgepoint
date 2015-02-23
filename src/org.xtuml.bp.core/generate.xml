@@ -268,6 +268,7 @@
         <srcfiles dir = "arc" includes = "wfl_block.inc"/>
         <srcfiles dir = "arc" includes = "wizard.arc, ui_ident.inc, page.inc, wizard.inc"/>
         <srcfiles dir = "arc" includes = "create_core_plugin.arc"/>
+    	<srcfiles dir = "arc" includes = "quick_fix.arc"/>
     </uptodate>
   </target>
 
@@ -292,7 +293,8 @@
       -import sql/ooaofooa_hierarchy_schema.sql
       -import sql/ooaofooa_hierarchy.pei.sql
       -arch arc/create_context_menus.arc
-      -arch arc/wizard.arc" />
+      -arch arc/wizard.arc
+      -arch arc/quick_fix.arc" />
   </exec>
   <delete file="sql/____file.txt" />
   <delete file="sql/____actn.arc" />
