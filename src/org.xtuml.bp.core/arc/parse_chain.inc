@@ -62,6 +62,7 @@
   .param boolean cast
   .param string query
   .param string p_selection_class
+  .param string loadComponent
   .//
   .// Keep a count so that we close all the parentheses correctly
   .assign num_parens = 0
@@ -90,7 +91,7 @@ ${cn.body}.${nav_func_name}${nav.phrase}(
 							}
 						})
 		.else
-(${p_start_class_name})${p_start_var_name})
+(${p_start_class_name})${p_start_var_name}${loadComponent})
     .end if  
   .else
     .if((query != "") and (num_parens == 1))
@@ -98,9 +99,9 @@ ${p_start_var_name}, new ClassQueryInterface_c() {
 							public boolean evaluate(Object candidate) {
 								return ((${p_selection_class})candidate).${query};
 							}
-						})
+						}${loadComponent})
     .else
-${p_start_var_name})
+${p_start_var_name}${loadComponent})
     .end if
   .end if
   .// Now emit all the closing braces for the 'get' calls
@@ -115,7 +116,7 @@ ${p_start_var_name})
 						}
 			.end if
     .end if
-)
+	)
     .assign num_parens = num_parens - 1
   .end while  
 .end function
@@ -125,10 +126,20 @@ ${p_start_var_name})
   .param string p_rel_chain
   .param string p_nav_card
   .param boolean cast
-    .invoke nav_string = backward_rel_chain_nav_with_query(p_start_class_name, p_start_var_name, p_rel_chain, p_nav_card, cast, "", "")
+    .invoke nav_string = backward_rel_chain_nav_with_query(p_start_class_name, p_start_var_name, p_rel_chain, p_nav_card, cast, "", "", "")
 ${nav_string.body}
 .end function
 .//
+.function generate_backward_rel_chain_nav_load
+  .param inst_ref p_tree_node  .// T_TNS
+  .param string p_rel_chain
+  .param string p_nav_card
+  .param string p_start_var_name
+  .param string p_result_var_name
+  .param string loadComponent
+    .invoke nav_string = generate_backward_rel_chain_nav_from_kl_load( p_tree_node.Key_Lett, p_rel_chain, p_nav_card, p_start_var_name, p_result_var_name, true, loadComponent )
+${nav_string.body}  
+.end function
 .function generate_backward_rel_chain_nav
   .param inst_ref p_tree_node  .// T_TNS
   .param string p_rel_chain
@@ -151,6 +162,18 @@ ${nav_string.body}
 ${nav_string.body}
 .end function
 
+.function generate_backward_rel_chain_nav_from_kl_load
+  .param string kl
+  .param string p_rel_chain
+  .param string p_nav_card
+  .param string p_start_var_name
+  .param string p_result_var_name
+  .param boolean cast
+  .param string loadComponent
+    .invoke nav_string = generate_backward_rel_chain_nav_from_kl_with_query_load(kl, p_rel_chain, p_nav_card, p_start_var_name, p_result_var_name, cast, "", loadComponent);
+${nav_string.body}
+.end function
+
 .function generate_backward_rel_chain_nav_from_kl
   .param string kl
   .param string p_rel_chain
@@ -159,6 +182,19 @@ ${nav_string.body}
   .param string p_result_var_name
   .param boolean cast
     .invoke nav_string = generate_backward_rel_chain_nav_from_kl_with_query(kl, p_rel_chain, p_nav_card, p_start_var_name, p_result_var_name, cast, "");
+${nav_string.body}
+.end function
+
+.function generate_backward_rel_chain_nav_from_kl_with_query_load
+  .param string kl
+  .param string p_rel_chain
+  .param string p_nav_card
+  .param string p_start_var_name
+  .param string p_result_var_name
+  .param boolean cast
+  .param string query
+  .param string loadComponent
+    .invoke nav_string = generate_backward_rel_chain_nav_from_kl_with_query_load_(kl, p_rel_chain, p_nav_card, p_start_var_name, p_result_var_name, cast, query, true, loadComponent);
 ${nav_string.body}
 .end function
 
@@ -173,6 +209,40 @@ ${nav_string.body}
     .invoke nav_string = generate_backward_rel_chain_nav_from_kl_with_query_(kl, p_rel_chain, p_nav_card, p_start_var_name, p_result_var_name, cast, query, true);
 ${nav_string.body}
 .end function
+.function generate_backward_rel_chain_nav_from_kl_with_query_load_
+  .param string kl
+  .param string p_rel_chain
+  .param string p_nav_card
+  .param string p_start_var_name
+  .param string p_result_var_name
+  .param boolean cast
+  .param string query
+  .param boolean closeStatement
+  .param string loadComponent
+.//
+  .invoke nav = parse_chain(p_rel_chain, "backward")
+  .invoke ecn = get_class_name(nav.class)	.//Getting formatted class name for
+  .//
+  .select any start_class from instances of O_OBJ where (selected.Key_Lett == kl)
+  .invoke scn = get_class_name(start_class)
+  .//
+  .// Declare the variable to hold the result of the relationship navigation
+  .if(p_result_var_name != "")
+    .if ( p_nav_card == "one" )
+    ${ecn.body} ${p_result_var_name} = 
+    .else
+    ${ecn.body} [] ${p_result_var_name} = 
+    .end if
+  .end if
+  .//
+  .invoke nav_string = backward_rel_chain_nav_with_query( scn.body, p_start_var_name, p_rel_chain, p_nav_card, cast, query, ecn.body, loadComponent)
+  .if(closeStatement)
+${nav_string.body};
+  .else
+${nav_string.body}  
+  .end if
+.end function
+
 .function generate_backward_rel_chain_nav_from_kl_with_query_
   .param string kl
   .param string p_rel_chain
@@ -198,7 +268,7 @@ ${nav_string.body}
     .end if
   .end if
   .//
-  .invoke nav_string = backward_rel_chain_nav_with_query( scn.body, p_start_var_name, p_rel_chain, p_nav_card, cast, query, ecn.body)
+  .invoke nav_string = backward_rel_chain_nav_with_query( scn.body, p_start_var_name, p_rel_chain, p_nav_card, cast, query, ecn.body, "")
   .if(closeStatement)
 ${nav_string.body};
   .else

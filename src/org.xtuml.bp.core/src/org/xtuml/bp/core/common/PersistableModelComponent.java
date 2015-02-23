@@ -713,12 +713,15 @@ public class PersistableModelComponent implements Comparable {
                 .fillInStackTrace());
           }else{
             importer.finishComponentLoad(monitor, true);
-                status = STATUS_LOADED;
+            // check integrity after load
+    		IntegrityChecker.createIntegrityIssuesForLoad(getRootModelElement());
+
+            status = STATUS_LOADED;
             
-                if( !underlyingResource.equals(dummyCompareName)){
+            if( !underlyingResource.equals(dummyCompareName)){
               try{
                         checkComponentConsistancy(rootME);
-              }catch (CoreException e) {
+             }catch (CoreException e) {
                         status = STATUS_NOTLOADED;
                         PersistenceManager.addInconsistentComponent(this);
                         deleteSelfAndChildren();
