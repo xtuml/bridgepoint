@@ -1,0 +1,4 @@
+drawRectangle(11856, 9108, 166, 60)
+drawRectangle(11856, 9163, 566, 510)
+drawText("«sequence»", 12025, 9172, true)
+drawText("Unnamed Sequence", 11945, 9390, true)

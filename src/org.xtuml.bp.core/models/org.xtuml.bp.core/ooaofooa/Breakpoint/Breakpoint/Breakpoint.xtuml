@@ -1,0 +1,343 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("b6f482cf-cac6-44d1-8171-6f362d3e1a29",
+	'Breakpoint',
+	3100,
+	'BP_BP',
+	'',
+	"786a01f9-5d46-40df-88ec-1a835f72d9e1");
+INSERT INTO O_TFR
+	VALUES ("a4596945-d226-4c6a-96d0-e6cc6f63b923",
+	"b6f482cf-cac6-44d1-8171-6f362d3e1a29",
+	'createBreakpoint',
+	'',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	1,
+	'// Breakpoint.createBreakpoint(); 
+
+// Initialize parameters of breakpoint
+self.target_hit_count = param.hit_count;
+self.enabled = param.enabled; 
+self.for_step = param.for_step;
+self.condition_enabled = false;  
+
+// Create OAL breakpoint
+if (param.breakpoint_type == Breakpoint_Type::OAL)
+  select any statement from instances of ACT_SMT where selected.Statement_ID == param.Element_ID; 
+  if (not_empty statement)
+    create object instance breakpoint of BP_OAL; 
+    relate self to breakpoint across R3102; 
+    relate breakpoint to statement across R3101; 
+    return breakpoint.Breakpoint_ID; 
+  end if; 
+end if; 
+
+// Create event breakpoint
+if (param.breakpoint_type == Breakpoint_Type::Event_BP)
+  select any evt from instances of SM_EVT where selected.SMevt_ID == param.Element_ID; 
+  if (not_empty evt)
+    create object instance breakpoint of BP_EV; 
+    relate self to breakpoint across R3102; 
+    relate breakpoint to evt across R3103; 
+    return breakpoint.Breakpoint_ID; 
+  end if; 
+end if; 
+
+// Create event breakpoint
+if (param.breakpoint_type == Breakpoint_Type::State)
+  select any state from instances of SM_STATE where selected.SMstt_ID == param.Element_ID; 
+  if (not_empty state)
+    create object instance breakpoint of BP_ST; 
+    relate self to breakpoint across R3102; 
+    relate breakpoint to state across R3104; 
+    return breakpoint.Breakpoint_ID; 
+  end if; 
+end if; 
+
+// Error occured when creating breakpoint
+return GD::NULL_UNIQUE_ID(); 
+
+',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_TPARM
+	VALUES ("48992355-df21-4f44-acb9-183d2c3e3c06",
+	"a4596945-d226-4c6a-96d0-e6cc6f63b923",
+	'hit_count',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"970134c4-2935-49bf-9927-a45c052313bb",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'integer',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TPARM
+	VALUES ("4014ea9f-37e3-4c05-a30c-2bbb965e389f",
+	"a4596945-d226-4c6a-96d0-e6cc6f63b923",
+	'enabled',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	0,
+	'',
+	"84e3870d-5656-4ca6-89e9-e9fae05c5bc3",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'boolean',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TPARM
+	VALUES ("970134c4-2935-49bf-9927-a45c052313bb",
+	"a4596945-d226-4c6a-96d0-e6cc6f63b923",
+	'for_step',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	0,
+	'',
+	"4014ea9f-37e3-4c05-a30c-2bbb965e389f",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("84e3870d-5656-4ca6-89e9-e9fae05c5bc3",
+	"a4596945-d226-4c6a-96d0-e6cc6f63b923",
+	'breakpoint_type',
+	"90b210c6-d93e-468b-9acf-d3f0296f6c31",
+	0,
+	'',
+	"8660c5c3-0f7f-4a47-acb1-f1e2730bf552",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("90b210c6-d93e-468b-9acf-d3f0296f6c31",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'Breakpoint_Type',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TPARM
+	VALUES ("8660c5c3-0f7f-4a47-acb1-f1e2730bf552",
+	"a4596945-d226-4c6a-96d0-e6cc6f63b923",
+	'Element_ID',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'unique_id',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("16eb95c0-67c8-4d8f-bcdd-94f7d2b94a23",
+	"b6f482cf-cac6-44d1-8171-6f362d3e1a29",
+	'dispose',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// Breakpoint dispose()
+
+select one condition related by self->BP_CON[R3100];
+if (not_empty condition)
+  unrelate self from condition across R3100; 
+  condition.dispose(); 
+end if; 
+  
+select one OAL_breakpoint related by self->BP_OAL[R3102];
+if (not_empty OAL_breakpoint)
+  unrelate self from OAL_breakpoint across R3102; 
+  OAL_breakpoint.dispose(); 
+end if;  
+ 
+select one event_breakpoint related by self->BP_EV[R3102];
+if (not_empty event_breakpoint)
+  unrelate self from event_breakpoint across R3102; 
+  event_breakpoint.dispose(); 
+end if;     
+ 
+select one state_breakpoint related by self->BP_ST[R3102];
+if (not_empty state_breakpoint)
+  unrelate self from state_breakpoint across R3102; 
+  state_breakpoint.dispose(); 
+end if;     
+
+// Delete self
+delete object instance self; 
+                            ',
+	1,
+	'',
+	"a4596945-d226-4c6a-96d0-e6cc6f63b923");
+INSERT INTO S_DT_PROXY
+	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'void',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("0eac94c9-ec18-4157-a859-87dce9b7a43d",
+	"b6f482cf-cac6-44d1-8171-6f362d3e1a29",
+	'incrementAndTestHitCount',
+	'',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'// Breakpoint.incrementAndTestHitCount()                                
+if (self.enabled)
+if (self.target_hit_count == -1)
+  // hit count is not in use
+  return true;
+else
+  self.hit_count = self.hit_count + 1;
+  if (self.hit_count >= self.target_hit_count)
+    self.hit_count = 0;
+    return true;
+  end if;
+end if;
+end if;
+return false;
+',
+	1,
+	'',
+	"16eb95c0-67c8-4d8f-bcdd-94f7d2b94a23");
+INSERT INTO O_NBATTR
+	VALUES ("3fe66864-8457-464f-9c92-f382b26dfaa4",
+	"b6f482cf-cac6-44d1-8171-6f362d3e1a29");
+INSERT INTO O_BATTR
+	VALUES ("3fe66864-8457-464f-9c92-f382b26dfaa4",
+	"b6f482cf-cac6-44d1-8171-6f362d3e1a29");
+INSERT INTO O_ATTR
+	VALUES ("3fe66864-8457-464f-9c92-f382b26dfaa4",
+	"b6f482cf-cac6-44d1-8171-6f362d3e1a29",
+	"00000000-0000-0000-0000-000000000000",
+	'Breakpoint_ID',
+	'',
+	'',
+	'Breakpoint_ID',
+	0,
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("67e991bb-c15e-44d6-ab8a-9d872e3e4fb1",
+	"b6f482cf-cac6-44d1-8171-6f362d3e1a29");
+INSERT INTO O_BATTR
+	VALUES ("67e991bb-c15e-44d6-ab8a-9d872e3e4fb1",
+	"b6f482cf-cac6-44d1-8171-6f362d3e1a29");
+INSERT INTO O_ATTR
+	VALUES ("67e991bb-c15e-44d6-ab8a-9d872e3e4fb1",
+	"b6f482cf-cac6-44d1-8171-6f362d3e1a29",
+	"3fe66864-8457-464f-9c92-f382b26dfaa4",
+	'enabled',
+	'',
+	'',
+	'enabled',
+	0,
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("f40c146b-2758-498d-9b7a-5e14f1d433e0",
+	"b6f482cf-cac6-44d1-8171-6f362d3e1a29");
+INSERT INTO O_BATTR
+	VALUES ("f40c146b-2758-498d-9b7a-5e14f1d433e0",
+	"b6f482cf-cac6-44d1-8171-6f362d3e1a29");
+INSERT INTO O_ATTR
+	VALUES ("f40c146b-2758-498d-9b7a-5e14f1d433e0",
+	"b6f482cf-cac6-44d1-8171-6f362d3e1a29",
+	"0594b5a2-613b-4574-a97d-9ae5de4654b8",
+	'hit_count',
+	'',
+	'',
+	'hit_count',
+	0,
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("c2c13b93-c03e-49ad-9a5f-4730ef48f157",
+	"b6f482cf-cac6-44d1-8171-6f362d3e1a29");
+INSERT INTO O_BATTR
+	VALUES ("c2c13b93-c03e-49ad-9a5f-4730ef48f157",
+	"b6f482cf-cac6-44d1-8171-6f362d3e1a29");
+INSERT INTO O_ATTR
+	VALUES ("c2c13b93-c03e-49ad-9a5f-4730ef48f157",
+	"b6f482cf-cac6-44d1-8171-6f362d3e1a29",
+	"61042095-c4cd-4a90-a386-e14c8dcc44b2",
+	'for_step',
+	'',
+	'',
+	'for_step',
+	0,
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("0594b5a2-613b-4574-a97d-9ae5de4654b8",
+	"b6f482cf-cac6-44d1-8171-6f362d3e1a29");
+INSERT INTO O_BATTR
+	VALUES ("0594b5a2-613b-4574-a97d-9ae5de4654b8",
+	"b6f482cf-cac6-44d1-8171-6f362d3e1a29");
+INSERT INTO O_ATTR
+	VALUES ("0594b5a2-613b-4574-a97d-9ae5de4654b8",
+	"b6f482cf-cac6-44d1-8171-6f362d3e1a29",
+	"67e991bb-c15e-44d6-ab8a-9d872e3e4fb1",
+	'condition_enabled',
+	'',
+	'',
+	'condition_enabled',
+	0,
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("61042095-c4cd-4a90-a386-e14c8dcc44b2",
+	"b6f482cf-cac6-44d1-8171-6f362d3e1a29");
+INSERT INTO O_BATTR
+	VALUES ("61042095-c4cd-4a90-a386-e14c8dcc44b2",
+	"b6f482cf-cac6-44d1-8171-6f362d3e1a29");
+INSERT INTO O_ATTR
+	VALUES ("61042095-c4cd-4a90-a386-e14c8dcc44b2",
+	"b6f482cf-cac6-44d1-8171-6f362d3e1a29",
+	"f40c146b-2758-498d-9b7a-5e14f1d433e0",
+	'target_hit_count',
+	'',
+	'',
+	'target_hit_count',
+	0,
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"b6f482cf-cac6-44d1-8171-6f362d3e1a29");
+INSERT INTO O_OIDA
+	VALUES ("3fe66864-8457-464f-9c92-f382b26dfaa4",
+	"b6f482cf-cac6-44d1-8171-6f362d3e1a29",
+	0,
+	'Breakpoint_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"b6f482cf-cac6-44d1-8171-6f362d3e1a29");
+INSERT INTO O_ID
+	VALUES (2,
+	"b6f482cf-cac6-44d1-8171-6f362d3e1a29");
+INSERT INTO S_SS_PROXY
+	VALUES ("786a01f9-5d46-40df-88ec-1a835f72d9e1",
+	'Breakpoint',
+	'This subsystem provides breakpoints that can be used in Model Verifier and Model Debugger.
+// This is used by schema_gen to ignore this subsystem (for publication)
+Persistent:false
+TRANSLATE_FOR_EXTERNAL_USE:FALSE
+',
+	'BP',
+	1100,
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
+	'../Breakpoint.xtuml');

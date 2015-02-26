@@ -1,0 +1,158 @@
+AUDIT RESULTS FOR DOMAIN sync
+
+CLASSES WITHOUT IDENTIFIERS:
+Class Objects::Integer
+Class Objects::Real
+Class Objects::Boolean
+Class Objects::String
+Class Objects::Date and Time
+Class Objects::Unique
+Class Objects::Enumeration
+Class Objects::Instance
+Class Objects::Instance Ref
+Class Drivers::Driver
+Class Drivers::Init
+
+SUBSYSTEMS WITHOUT DESCRIPTIONS:
+Objects
+Drivers
+
+FUNCTIONS WITHOUT DESCRIPTIONS:
+int
+real
+string
+bool
+date
+time
+color
+inst
+inst_ref
+number
+uBool
+uInt
+uUnique
+unique
+uReal
+uString
+void
+
+ENUMERATORS WITHOUT DESCRIPTIONS:
+color::red
+color::orange
+color::yellow
+color::green
+color::blue
+color::purple
+number::one
+number::two
+number::three
+number::four
+number::five
+
+EXTERNAL ENTITIES WITHOUT DESCRIPTIONS:
+External Entity Time
+External Entity Logging
+External Entity Architecture
+
+BRIDGES WITHOUT DESCRIPTIONS:
+External Entity Bridge Logging::LogInfo
+External Entity Bridge Logging::LogFailure
+External Entity Bridge Logging::LogSuccess
+External Entity Bridge Architecture::shutdown
+
+CLASSES WITHOUT DESCRIPTIONS:
+Class Objects::Integer
+Class Objects::Real
+Class Objects::Boolean
+Class Objects::String
+Class Objects::Date and Time
+Class Objects::Unique
+Class Objects::Enumeration
+Class Objects::Instance
+Class Objects::Instance Ref
+Class Drivers::Driver
+Class Drivers::Init
+
+ATTRIBUTES WITHOUT DESCRIPTIONS:
+Attribute Integer::width
+Attribute Integer::length
+Attribute Real::width
+Attribute Real::length
+Attribute Boolean::p
+Attribute Boolean::q
+Attribute String::first
+Attribute String::last
+Attribute Date and Time::date
+Attribute Date and Time::time
+Attribute Unique::one
+Attribute Unique::two
+Attribute Enumeration::color
+Attribute Enumeration::size
+Attribute Instance::one
+Attribute Instance::two
+Attribute Instance::three
+Attribute Instance::current_state
+Attribute Instance Ref::one
+Attribute Instance Ref::three
+Attribute Driver::current_state
+Attribute Init::current_state
+
+OPERATIONS WITHOUT DESCRIPTIONS:
+Operation Integer::uInt
+Operation Integer::int
+Operation Integer::int_i
+Operation Integer::uInt_i
+Operation Real::uReal
+Operation Real::real
+Operation Real::real_i
+Operation Real::uReal_i
+Operation Boolean::bool
+Operation Boolean::uBool
+Operation Boolean::bool_i
+Operation Boolean::uBool_i
+Operation String::string
+Operation String::uString
+Operation String::string_i
+Operation String::uString_i
+Operation Date and Time::date
+Operation Date and Time::time
+Operation Date and Time::date_i
+Operation Date and Time::time_i
+Operation Unique::unique
+Operation Unique::uUnique
+Operation Unique::unique_i
+Operation Unique::uUnique_i
+Operation Enumeration::size3
+Operation Enumeration::color3
+Operation Enumeration::color_i
+Operation Enumeration::size_i
+Operation Instance::inst
+Operation Instance::inst_i
+Operation Instance Ref::inst_ref
+Operation Instance Ref::inst_ref_i
+
+STATE MODELS WITHOUT DESCRIPTIONS:
+State Model Instance
+State Model Driver
+State Model Init
+
+EVENTS WITHOUT DESCRIPTIONS:
+Event INST1
+Event INST2
+Event D0
+Event D1
+Event D2
+Event INIT1
+
+EVENT DATA WITHOUT DESCRIPTIONS:
+Event Data Instance::int
+Event Data Driver::int
+Event Data Driver::time
+
+ACTION SPECIFICATIONS WITHOUT DESCRIPTIONS:
+Instance::one
+Instance::two
+Driver::Function
+Driver::Test Complete
+Driver::Waiting
+Init::Initialize

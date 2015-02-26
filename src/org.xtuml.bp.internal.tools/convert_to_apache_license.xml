@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ File:      $RCSfile: convert_to_apache_license.xml,v $
+ Version:   $Revision: 1.4 $
+ Modified:  $Date: 2013/01/29 22:35:09 $
+
+ Copyright 2014 by Mentor Graphics Corp.  All rights reserved.
+
+-->
+<!--
+
+        README:  
+        1) To update a plug-in, change the name in the basedir variable on the 
+           first line of functionality below.  
+        2) Save the change and right-click on this file and select Run As > Ant Build
+        3) Then look at the files that were not modified and see if you need to 
+           add the blurb by hand.  
+        
+-->
+<project name="bp.internal.tools" default="all" basedir="./../org.xtuml.internal.test">
+
+    <target name="all" description="Perform all license conversions" depends="convertToApache_A,convertToApache_B,convertToApache_C,convertToApache_D">
+	</target>
+
+    <target name="convertToApache_A" description="Update the license to Apache" depends="" >
+        <echo>Starting license update on ${basedir}</echo>
+        <echo>This will take a moment...</echo>
+        <replace dir="${basedir}" defaultexcludes="yes" summary="yes">
+          <replacetoken><![CDATA[// This document contains information proprietary and confidential to
+// Project Technology, Inc. and is not for external distribution.]]></replacetoken>
+            
+          <replacevalue><![CDATA[// Licensed under the Apache License, Version 2.0 (the "License"); you may not 
+// use this file except in compliance with the License.  You may obtain a copy 
+// of the License at
+//
+//       http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software 
+// distributed under the License is distributed on an "AS IS" BASIS, WITHOUT 
+// WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the 
+// License for the specific language governing permissions and limitations under
+// the License.]]></replacevalue>
+            
+            <exclude name="**/*.jpg"/>
+            <exclude name="**/*.gif"/>
+            <exclude name="**/*.png"/>
+            <exclude name="**/*.bmp"/>
+        </replace>
+        <echo>Done converting to Apache license.</echo>
+    </target>
+
+    <target name="convertToApache_B" description="Update the license to Apache" depends="" >
+        <echo>Starting license update on ${basedir}</echo>
+        <echo>This will take a moment...</echo>
+        <replace dir="${basedir}" defaultexcludes="yes" summary="yes">
+          <replacetoken><![CDATA[//This document contains information proprietary and confidential to
+//Mentor Graphics Corp. and is not for external distribution.]]></replacetoken>
+            
+          <replacevalue><![CDATA[// Licensed under the Apache License, Version 2.0 (the "License"); you may not 
+// use this file except in compliance with the License.  You may obtain a copy 
+// of the License at
+//
+//       http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software 
+// distributed under the License is distributed on an "AS IS" BASIS, WITHOUT 
+// WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the 
+// License for the specific language governing permissions and limitations under
+// the License.]]></replacevalue>
+            
+            <exclude name="**/*.jpg"/>
+            <exclude name="**/*.gif"/>
+            <exclude name="**/*.png"/>
+            <exclude name="**/*.bmp"/>
+        </replace>
+        <echo>Done converting to Apache license.</echo>
+    </target>
+
+    <target name="convertToApache_C" description="Update the license to Apache" depends="" >
+        <echo>Starting license update on ${basedir}</echo>
+        <echo>This will take a moment...</echo>
+        <replace dir="${basedir}" defaultexcludes="yes" summary="yes">
+          <replacetoken><![CDATA[.//This document contains information proprietary and confidential to
+.//Mentor Graphics Corp. and is not for external distribution.]]></replacetoken>
+            
+          <replacevalue><![CDATA[.// Licensed under the Apache License, Version 2.0 (the "License"); you may not 
+.// use this file except in compliance with the License.  You may obtain a copy 
+.// of the License at
+.//
+.//       http://www.apache.org/licenses/LICENSE-2.0
+.//
+.// Unless required by applicable law or agreed to in writing, software 
+.// distributed under the License is distributed on an "AS IS" BASIS, WITHOUT 
+.// WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the 
+.// License for the specific language governing permissions and limitations under
+.// the License.]]></replacevalue>
+            
+            <exclude name="**/*.jpg"/>
+            <exclude name="**/*.gif"/>
+            <exclude name="**/*.png"/>
+            <exclude name="**/*.bmp"/>
+        </replace>
+        <echo>Done converting to Apache license.</echo>
+    </target>
+
+    <target name="convertToApache_D" description="Update the license to Apache" depends="" >
+        <echo>Starting license update on ${basedir}</echo>
+        <echo>This will take a moment...</echo>
+        <replace dir="${basedir}" defaultexcludes="yes" summary="yes">
+          <replacetoken><![CDATA[This document contains information proprietary and confidential to
+Mentor Graphics Corp. and is not for external distribution.]]></replacetoken>
+            
+          <replacevalue><![CDATA[Licensed under the Apache License, Version 2.0 (the "License"); you may not 
+use this file except in compliance with the License.  You may obtain a copy 
+of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software 
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT 
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the 
+License for the specific language governing permissions and limitations under
+the License.]]></replacevalue>
+            
+            <exclude name="**/*.jpg"/>
+            <exclude name="**/*.gif"/>
+            <exclude name="**/*.png"/>
+            <exclude name="**/*.bmp"/>
+        </replace>
+        <echo>Done converting to Apache license.</echo>
+    </target>
+
+    <target name="removeOldCopyright" description="Remove the old Mentor copyright lines since we're replacing with a new one." >
+        <echo>Starting old copyright removal on ${basedir}</echo>
+        <echo>This will take a moment...</echo>
+        <replaceregexp match="//.*right\s.*2013.*reserved.*(\r?)(\n?)//"
+                       replace="//"
+                       flags="m" >
+            <fileset dir="${basedir}">
+                <include name="**/*"/>
+                <exclude name="**/*.jpg"/>
+                <exclude name="**/*.gif"/>
+                <exclude name="**/*.png"/>
+                <exclude name="**/*.bmp"/>
+            </fileset>
+        </replaceregexp>
+        <echo>Done removing old copyright.</echo>
+    </target>
+</project>

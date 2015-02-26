@@ -1,0 +1,467 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("ef991d82-439b-4b64-9873-de73edc9fcd6",
+	'Containing Shape',
+	18,
+	'GD_CTR',
+	'This is a shape that serves as a container for other elements.',
+	"b5695748-80fc-47fb-b5c7-801b5f28b907");
+INSERT INTO O_TFR
+	VALUES ("643a8635-47f0-4a87-a102-53bdec5ceb9a",
+	"ef991d82-439b-4b64-9873-de73edc9fcd6",
+	'move',
+	'',
+	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	1,
+	'// Find all the shpaes in this container and move them too
+select one ge related by self->GD_SHP[R28]->DIM_ND[R19]->DIM_GE[R301];
+select many diag_elements related by ge->DIM_ELE[R307];
+for each diag_element in diag_elements
+  select one containedShape related by diag_element->DIM_GE[R302]->DIM_ND[R301]->GD_SHP[R19];
+  if (not_empty containedShape)
+    containedShape.move(xDelta:param.xDelta, yDelta:param.yDelta);
+  end if;
+end for;
+
+',
+	1,
+	'',
+	"0f62183b-5a3c-4848-b312-3a1ec88072b4");
+INSERT INTO O_TPARM
+	VALUES ("e6473954-dbd7-42fa-9aff-0686582ec6b5",
+	"643a8635-47f0-4a87-a102-53bdec5ceb9a",
+	'xDelta',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("388cd7a2-2d0c-4f02-9730-7670074de394",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'integer',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TPARM
+	VALUES ("b015e226-cb1e-437e-99c9-19bf20c21347",
+	"643a8635-47f0-4a87-a102-53bdec5ceb9a",
+	'yDelta',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"e6473954-dbd7-42fa-9aff-0686582ec6b5",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("3852f90c-88c5-467d-9b26-57c8cd438b42",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'void',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("0f62183b-5a3c-4848-b312-3a1ec88072b4",
+	"ef991d82-439b-4b64-9873-de73edc9fcd6",
+	'isOverAnyPartOf',
+	'',
+	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	1,
+	'select one shape related by self->GD_SHP[R28];
+select one canvas related by shape->GD_GE[R2]->GD_MD[R1];
+select one diagram related by canvas->DIM_DIA[R18];
+select one graphNode related by shape->DIM_ND[R19];
+select one graphElement related by graphNode->DIM_GE[R301];
+
+x = graphElement.positionX - diagram.viewportX;
+y = graphElement.positionY - diagram.viewportY;
+w = graphNode.width;
+h = graphNode.height;
+
+if (GR::scale(value:param.x) >= x and GR::scale(value:param.x) <= x +w)
+  if (GR::scale(value:param.y) >= y and GR::scale(value:param.y) <= y +h)
+    return true;
+  end if;
+end if;
+
+// for container symbols ask any connectors on the outside
+// of the symbol if the point is over
+// select all connectors which start at the container symbol
+select many connectors related by shape->DIM_ND[R19]
+  		->DIM_GE[R301]->DIM_CON[R311]->DIM_ED[R320]->GD_CON[R20];
+for each connector in connectors
+  result = connector.isOver(x:GR::scale(value:param.x), y:GR::scale(value:param.y));
+  if(result)
+    return true;
+  end if;
+end for;
+// select all connectors which end at the container symbol
+select many connectors related by shape->DIM_ND[R19]
+   		->DIM_GE[R301]->DIM_CON[R311]->DIM_ED[R321]->GD_CON[R20];
+for each connector in connectors
+  result = connector.isOver(x:GR::scale(value:param.x), y:GR::scale(value:param.y));
+  if(result)
+    return true;
+  end if;
+end for;
+
+return false;',
+	1,
+	'',
+	"b464806f-9e53-4b99-a03c-ce77ef7f9e47");
+INSERT INTO O_TPARM
+	VALUES ("f7adfb14-c061-425a-96f4-e37fcffed76e",
+	"0f62183b-5a3c-4848-b312-3a1ec88072b4",
+	'x',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("55d83591-9121-4a0d-8ec6-df80c5ccf1b0",
+	"0f62183b-5a3c-4848-b312-3a1ec88072b4",
+	'y',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"f7adfb14-c061-425a-96f4-e37fcffed76e",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'boolean',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("b464806f-9e53-4b99-a03c-ce77ef7f9e47",
+	"ef991d82-439b-4b64-9873-de73edc9fcd6",
+	'autoResize',
+	'',
+	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	1,
+	'select one node related by self->GD_SHP[R28]->DIM_ND[R19];
+select one graphEle related by node->DIM_GE[R301];
+select many childEles related by graphEle->DIM_ELE[R307];
+X = graphEle.positionX;
+Y = graphEle.positionY;
+W = graphEle.positionX + node.width;
+H = graphEle.positionY + node.height;
+slack = 12;
+for each childEle in childEles
+  select one dimEle related by childEle->DIM_GE[R302];
+  select one childNode related by dimEle->DIM_ND[R301];
+  select one childEdge related by dimEle->DIM_ED[R301];
+  select one childSpec related by dimEle->GD_GE[R23]->GD_ES[R10];
+  if(not childSpec.causeAutoResize)
+    continue;
+  end if;
+  if(not_empty childNode)
+    // first check the left side of containment
+    if(dimEle.positionX < X)
+      X = dimEle.positionX;
+    end if;
+    // then check the top side
+    if(dimEle.positionY < Y)
+      Y = dimEle.positionY;
+    end if;
+    // now the right side
+    if(dimEle.positionX + childNode.width > W)
+      W = dimEle.positionX + childNode.width;
+    end if;
+    // now the bottom side
+    if(dimEle.positionY + childNode.height > H)
+      H = dimEle.positionY + childNode.height;
+    end if;
+  elif(not_empty childEdge)
+    // check all segments of each connector
+    select one connector related by childEdge->GD_CON[R20];
+    select many segments related by connector->GD_LS[R6];
+    for each segment in segments
+      select one startWay related by segment->DIM_WAY[R21];
+      // first check the left side of containment
+      if(startWay.positionX < X)
+        X = startWay.positionX;
+      end if;
+      // then check the top side
+      if(startWay.positionY < Y)
+        Y = startWay.positionY;
+      end if;
+      // now the right side
+      if(startWay.positionX > W)
+        W = startWay.positionX;
+      end if;
+      // now the bottom side
+      if(startWay.positionY > H)
+        H = startWay.positionY;
+      end if;
+      // and now for the end waypoint
+      select one endWay related by segment->DIM_WAY[R22];
+      // first check the left side of containment
+      if(endWay.positionX < X)
+        X = endWay.positionX;
+      end if;
+      // then check the top side
+      if(endWay.positionY < Y)
+        Y = endWay.positionY;
+      end if;
+      // now the right side
+      if(endWay.positionX > W)
+        W = endWay.positionX;
+      end if;
+      // now the bottom side
+      if(endWay.positionY > H)
+        H = endWay.positionY;
+      end if;
+    end for;
+  end if;
+end for;
+originalX = graphEle.positionX;
+originalY = graphEle.positionY;
+originalH = node.height;
+originalW = node.width;
+select one shape related by self->GD_SHP[R28];
+if(X != originalX)
+  graphEle.positionX = X - slack;
+  node.width = node.width + originalX - graphEle.positionX;
+  shape.moveConnectors(Vertex:Vertex::NW, oldShapeHeight:originalH,
+  		oldShapeWidth:originalW, oldShapeX:originalX, oldShapeY:originalY,
+  		xDelta:graphEle.positionX - originalX, yDelta:0);
+end if;
+if(Y != originalY)
+  graphEle.positionY = Y - slack;
+  node.height = node.height + originalY - graphEle.positionY;
+  shape.moveConnectors(Vertex:Vertex::NW, oldShapeHeight:originalH,
+  		oldShapeWidth:originalW, oldShapeX:originalX, oldShapeY:originalY,
+  		xDelta:0, yDelta:graphEle.positionY - originalY);
+end if;
+if(W != originalX + originalW)
+  node.width = W - graphEle.positionX + slack;
+  shape.moveConnectors(Vertex:Vertex::SE, oldShapeHeight:originalH,
+  		oldShapeWidth:originalW, oldShapeX:originalX, oldShapeY:originalY,
+  		xDelta:node.width - originalW, yDelta:0);
+end if;
+if(H != originalY + originalH)
+  node.height = H - graphEle.positionY + slack;
+  shape.moveConnectors(Vertex:Vertex::SE, oldShapeHeight:originalH,
+  		oldShapeWidth:originalW, oldShapeX:originalX, oldShapeY:originalY,
+  		xDelta:0, yDelta:node.height - originalH);
+end if;',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_TFR
+	VALUES ("1b9c7b61-95de-4e95-9681-568cf9ab6a10",
+	"ef991d82-439b-4b64-9873-de73edc9fcd6",
+	'shapeSizeIntersectsInnerElements',
+	'',
+	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	1,
+	'select one node related by self->GD_SHP[R28]->DIM_ND[R19];
+select one graphEle related by node->DIM_GE[R301];
+select many childEles related by graphEle->DIM_ELE[R307];
+X = param.x1;
+Y = param.y1;
+W = param.x2;
+H = param.y2;
+
+for each childEle in childEles
+  select one dimEle related by childEle->DIM_GE[R302];
+  select one childNode related by dimEle->DIM_ND[R301];
+  select one childEdge related by dimEle->DIM_ED[R301];
+  select one childSpec related by dimEle->GD_GE[R23]->GD_ES[R10];
+  if(not childSpec.causeAutoResize)
+    continue;
+  end if;
+  if(not_empty childNode)
+    // first check the left side of containment
+    if(dimEle.positionX < X)
+      return true;
+    end if;
+    // then check the top side
+    if(dimEle.positionY < Y)
+      return true;
+    end if;
+    // now the right side
+    if(dimEle.positionX + childNode.width > W)
+      return true;
+    end if;
+    // now the bottom side
+    if(dimEle.positionY + childNode.height > H)
+      return true;
+    end if;
+  elif(not_empty childEdge)
+    // check all segments of each connector
+    select one connector related by childEdge->GD_CON[R20];
+    select many segments related by connector->GD_LS[R6];
+    for each segment in segments
+      select one startWay related by segment->DIM_WAY[R21];
+      // first check the left side of containment
+      if(startWay.positionX < X)
+        return true;
+      end if;
+      // then check the top side
+      if(startWay.positionY < Y)
+        return true;
+      end if;
+      // now the right side
+      if(startWay.positionX > W)
+        return true;
+      end if;
+      // now the bottom side
+      if(startWay.positionY > H)
+        return true;
+      end if;
+      // and now for the end waypoint
+      select one endWay related by segment->DIM_WAY[R22];
+      // first check the left side of containment
+      if(endWay.positionX < X)
+        return true;
+      end if;
+      // then check the top side
+      if(endWay.positionY < Y)
+        return true;
+      end if;
+      // now the right side
+      if(endWay.positionX > W)
+        return true;
+      end if;
+      // now the bottom side
+      if(endWay.positionY > H)
+        return true;
+      end if;
+    end for;
+  end if;
+end for;
+return false;',
+	1,
+	'',
+	"643a8635-47f0-4a87-a102-53bdec5ceb9a");
+INSERT INTO O_TPARM
+	VALUES ("957e0a76-7dfe-4f63-891d-6a15cd2b7d41",
+	"1b9c7b61-95de-4e95-9681-568cf9ab6a10",
+	'x1',
+	"daa2cf40-15b6-4a53-a5a3-55b15c1951ed",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("daa2cf40-15b6-4a53-a5a3-55b15c1951ed",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'real',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TPARM
+	VALUES ("df884864-221d-44d2-bb94-470db6d3cad8",
+	"1b9c7b61-95de-4e95-9681-568cf9ab6a10",
+	'y1',
+	"daa2cf40-15b6-4a53-a5a3-55b15c1951ed",
+	0,
+	'',
+	"94d3f252-b0f2-4d30-a082-bd7f15b287ca",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("94d3f252-b0f2-4d30-a082-bd7f15b287ca",
+	"1b9c7b61-95de-4e95-9681-568cf9ab6a10",
+	'x2',
+	"daa2cf40-15b6-4a53-a5a3-55b15c1951ed",
+	0,
+	'',
+	"957e0a76-7dfe-4f63-891d-6a15cd2b7d41",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("ef4c589c-db7d-4ffd-a5e9-cd64f2ec8c9e",
+	"1b9c7b61-95de-4e95-9681-568cf9ab6a10",
+	'y2',
+	"daa2cf40-15b6-4a53-a5a3-55b15c1951ed",
+	0,
+	'',
+	"df884864-221d-44d2-bb94-470db6d3cad8",
+	'');
+INSERT INTO O_REF
+	VALUES ("ef991d82-439b-4b64-9873-de73edc9fcd6",
+	"0dbd2431-e353-4456-9834-6923205e88d7",
+	0,
+	"89373e61-1ced-470c-8595-0caf35d1b56c",
+	"4bc0993a-c366-4e44-adb0-c1770c0d6972",
+	"4977866b-de80-4a98-96b3-81e2f872dc40",
+	"b0fced35-d71e-46a4-9598-c08ad29ab5ae",
+	"09eb5fd1-91a2-44ff-8acd-cbd338fd8c93",
+	"98983345-7e42-43cb-a659-bf2a71620ae9",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Shape',
+	'elementId',
+	'R28');
+INSERT INTO R_RGO_PROXY
+	VALUES ("ef991d82-439b-4b64-9873-de73edc9fcd6",
+	"4bc0993a-c366-4e44-adb0-c1770c0d6972",
+	"4977866b-de80-4a98-96b3-81e2f872dc40",
+	'../Graphical Data.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("89373e61-1ced-470c-8595-0caf35d1b56c",
+	"0dbd2431-e353-4456-9834-6923205e88d7",
+	0,
+	"4bc0993a-c366-4e44-adb0-c1770c0d6972",
+	"b0fced35-d71e-46a4-9598-c08ad29ab5ae",
+	'../Graphical Data.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("09eb5fd1-91a2-44ff-8acd-cbd338fd8c93",
+	"ef991d82-439b-4b64-9873-de73edc9fcd6",
+	"53d10295-c89f-4194-94ba-3dab00d071cd",
+	"593e6c1e-5bc8-40f5-b079-a85690d47f08",
+	1,
+	'elementId');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("53d10295-c89f-4194-94ba-3dab00d071cd",
+	"593e6c1e-5bc8-40f5-b079-a85690d47f08",
+	'../../UML 2.0 Diagram Interchange/DiagramElement/DiagramElement.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("09eb5fd1-91a2-44ff-8acd-cbd338fd8c93",
+	"ef991d82-439b-4b64-9873-de73edc9fcd6",
+	"00000000-0000-0000-0000-000000000000",
+	'elementId',
+	'',
+	'',
+	'elementId',
+	0,
+	"66164f00-293e-4c17-ab30-7972c7c57152",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("66164f00-293e-4c17-ab30-7972c7c57152",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_ID
+	VALUES (0,
+	"ef991d82-439b-4b64-9873-de73edc9fcd6");
+INSERT INTO O_OIDA
+	VALUES ("09eb5fd1-91a2-44ff-8acd-cbd338fd8c93",
+	"ef991d82-439b-4b64-9873-de73edc9fcd6",
+	0,
+	'elementId');
+INSERT INTO O_ID
+	VALUES (1,
+	"ef991d82-439b-4b64-9873-de73edc9fcd6");
+INSERT INTO O_ID
+	VALUES (2,
+	"ef991d82-439b-4b64-9873-de73edc9fcd6");
+INSERT INTO S_SS_PROXY
+	VALUES ("b5695748-80fc-47fb-b5c7-801b5f28b907",
+	'Graphical Data',
+	'The GD (Graphics Domain) subsystem models the graphical elements for a BridgePoint model.
+-------------------------------------------------------
+Import:org.eclipse.swt.graphics.Color
+Notify_Changes:true',
+	'GD',
+	1,
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	"00000000-0000-0000-0000-000001900032",
+	'../Graphical Data.xtuml');

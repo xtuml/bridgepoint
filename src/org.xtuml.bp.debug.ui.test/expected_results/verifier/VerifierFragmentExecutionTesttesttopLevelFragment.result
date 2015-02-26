@@ -1,0 +1,4 @@
+User invoked function: UF1
+LogSuccess:  Called top-level function from UF1 successfully
+LogSuccess:  Called top-level bridge from UF1 successfully
+

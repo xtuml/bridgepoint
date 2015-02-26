@@ -1,0 +1,283 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("1fc1c651-fd65-464b-ae5c-73487161c50a",
+	'Graphical Data',
+	4,
+	'GD',
+	'The graphical data is the graphics portion of a model that is stored in the SQL file.
+BridgePoint keeps the model data and graphical data separated, so we need to 
+capture that separation.',
+	"f157564a-4386-4e32-b5c9-0e4d7bd3609a");
+INSERT INTO O_REF
+	VALUES ("1fc1c651-fd65-464b-ae5c-73487161c50a",
+	"69a5ebc7-ef1a-4d3c-995f-e1d75c80d54a",
+	0,
+	"fb78b1f6-8c41-4ee7-9138-026cad67415f",
+	"00c0c081-cb09-4068-a209-0851ce500492",
+	"c815436a-4fa4-4d70-8f59-42a38f5205e6",
+	"82c02e08-123d-4f6d-9be8-05e3bc550654",
+	"2c21ba12-2534-49f2-8c8b-f917d484d41c",
+	"66236f5c-24ed-4dcb-8c95-686f680663fe",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Export Item',
+	'Name',
+	'R4');
+INSERT INTO R_RGO_PROXY
+	VALUES ("1fc1c651-fd65-464b-ae5c-73487161c50a",
+	"00c0c081-cb09-4068-a209-0851ce500492",
+	"c815436a-4fa4-4d70-8f59-42a38f5205e6",
+	'../File IO.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("fb78b1f6-8c41-4ee7-9138-026cad67415f",
+	"69a5ebc7-ef1a-4d3c-995f-e1d75c80d54a",
+	0,
+	"00c0c081-cb09-4068-a209-0851ce500492",
+	"82c02e08-123d-4f6d-9be8-05e3bc550654",
+	'../File IO.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("2c21ba12-2534-49f2-8c8b-f917d484d41c",
+	"1fc1c651-fd65-464b-ae5c-73487161c50a",
+	"fb78b1f6-8c41-4ee7-9138-026cad67415f",
+	"69a5ebc7-ef1a-4d3c-995f-e1d75c80d54a",
+	1,
+	'Name');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("fb78b1f6-8c41-4ee7-9138-026cad67415f",
+	"69a5ebc7-ef1a-4d3c-995f-e1d75c80d54a",
+	'../Export Item/Export Item.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("2c21ba12-2534-49f2-8c8b-f917d484d41c",
+	"1fc1c651-fd65-464b-ae5c-73487161c50a",
+	"00000000-0000-0000-0000-000000000000",
+	'modelName',
+	'This is the name of the model.
+
+Possible values:  "DD", "SRM", "SCM", "SAM", "OIM", "OCM", "OAM", "ISM", "ASM"
+
+',
+	'model',
+	'Name',
+	1,
+	"cf07a926-26a1-4462-bd6f-45a3b930e4b7",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("cf07a926-26a1-4462-bd6f-45a3b930e4b7",
+	"695dce7b-262a-4226-9cbb-c9f897b44c67",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("91940c7a-5192-4fcf-a988-e33f3c5a4daf",
+	"1fc1c651-fd65-464b-ae5c-73487161c50a");
+INSERT INTO O_BATTR
+	VALUES ("91940c7a-5192-4fcf-a988-e33f3c5a4daf",
+	"1fc1c651-fd65-464b-ae5c-73487161c50a");
+INSERT INTO O_ATTR
+	VALUES ("91940c7a-5192-4fcf-a988-e33f3c5a4daf",
+	"1fc1c651-fd65-464b-ae5c-73487161c50a",
+	"2c21ba12-2534-49f2-8c8b-f917d484d41c",
+	'modelId',
+	'This is the identifier for the model in BridgePoint.
+
+The possible values are taken from the file bp:/source/bp5.0/data/include/d_typdef.hh:
+
+enum t_model_type
+{
+    NO_TYPE		= 0,
+
+    DD_TYPE		= 1,
+    SRM_TYPE		= 2,
+    SCM_TYPE		= 3,
+    SAM_TYPE		= 4,
+
+    IM_TYPE		= 5,
+    OCM_TYPE		= 6,
+    OAM_TYPE		= 7,
+
+    ISM_TYPE		= 8,
+    ISTT_TYPE		= 9,
+    ASM_TYPE		= 10,
+    ASTT_TYPE		= 11,
+    ISPT_TYPE		= 12,
+    ASPT_TYPE		= 13,
+
+    PM_TYPE		= 14,
+
+    GREATEST_MODEL_TYPE	= 15
+};
+
+Note that ISTT_TYPE, ASTT_TYPE, ISPT_TYPE, ASPT_TYPE, and PM_TYPE are unused.
+
+',
+	'',
+	'modelId',
+	0,
+	"5e30bc10-6b4e-49f6-a053-8d190acef663",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("5e30bc10-6b4e-49f6-a053-8d190acef663",
+	"695dce7b-262a-4226-9cbb-c9f897b44c67",
+	'string',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("1fc1c651-fd65-464b-ae5c-73487161c50a",
+	"d62bdfae-7686-4844-b0c7-e71e7829446e",
+	0,
+	"81fc25f0-8697-436e-9db9-31d3ed2c0950",
+	"b1b25473-902c-4e24-b5e1-ff572d04f8ad",
+	"b2c80d33-5841-4940-90d3-caee477987ad",
+	"e98b021a-b9f1-4183-b17c-81ef6ecced8c",
+	"565c757a-786e-4de0-bc4c-91a50a74ac87",
+	"188526ad-e24f-4e6e-b0dc-07b3bde47fe2",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'SQL Table',
+	'bpName',
+	'R7');
+INSERT INTO R_RGO_PROXY
+	VALUES ("1fc1c651-fd65-464b-ae5c-73487161c50a",
+	"b1b25473-902c-4e24-b5e1-ff572d04f8ad",
+	"b2c80d33-5841-4940-90d3-caee477987ad",
+	'../File IO.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("81fc25f0-8697-436e-9db9-31d3ed2c0950",
+	"d62bdfae-7686-4844-b0c7-e71e7829446e",
+	0,
+	"b1b25473-902c-4e24-b5e1-ff572d04f8ad",
+	"e98b021a-b9f1-4183-b17c-81ef6ecced8c",
+	'../File IO.xtuml');
+INSERT INTO O_REF
+	VALUES ("1fc1c651-fd65-464b-ae5c-73487161c50a",
+	"68363a50-a0e1-414d-8939-1409ebc1f822",
+	0,
+	"dcd43274-3bc1-41b5-bbaa-c07555218694",
+	"d3f6ca94-62be-4e84-b7ae-aa3b30097bf5",
+	"4e1c4f5e-e02f-4d04-bc3a-7bf68a1c5dde",
+	"3a17831a-3e1b-47b2-851b-47ea1a9c5dea",
+	"565c757a-786e-4de0-bc4c-91a50a74ac87",
+	"087294a3-e13d-4b46-bdd9-25a50ba4d2ca",
+	"188526ad-e24f-4e6e-b0dc-07b3bde47fe2",
+	0,
+	'',
+	'Column',
+	'tableName',
+	'R8');
+INSERT INTO R_RGO_PROXY
+	VALUES ("1fc1c651-fd65-464b-ae5c-73487161c50a",
+	"d3f6ca94-62be-4e84-b7ae-aa3b30097bf5",
+	"4e1c4f5e-e02f-4d04-bc3a-7bf68a1c5dde",
+	'../File IO.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("dcd43274-3bc1-41b5-bbaa-c07555218694",
+	"68363a50-a0e1-414d-8939-1409ebc1f822",
+	0,
+	"d3f6ca94-62be-4e84-b7ae-aa3b30097bf5",
+	"3a17831a-3e1b-47b2-851b-47ea1a9c5dea",
+	'../File IO.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("565c757a-786e-4de0-bc4c-91a50a74ac87",
+	"1fc1c651-fd65-464b-ae5c-73487161c50a",
+	"fb78b1f6-8c41-4ee7-9138-026cad67415f",
+	"69a5ebc7-ef1a-4d3c-995f-e1d75c80d54a",
+	1,
+	'Name');
+INSERT INTO O_ATTR
+	VALUES ("565c757a-786e-4de0-bc4c-91a50a74ac87",
+	"1fc1c651-fd65-464b-ae5c-73487161c50a",
+	"91940c7a-5192-4fcf-a988-e33f3c5a4daf",
+	'tableName',
+	'This is the table the model data is for.
+
+Values: "Domain", "Subsystem", "State Model"
+
+
+',
+	'table',
+	'Name',
+	1,
+	"cf07a926-26a1-4462-bd6f-45a3b930e4b7",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("1fc1c651-fd65-464b-ae5c-73487161c50a",
+	"68363a50-a0e1-414d-8939-1409ebc1f822",
+	0,
+	"6bd06a87-cf2b-45d0-a95b-fcfaa57d29ca",
+	"d3f6ca94-62be-4e84-b7ae-aa3b30097bf5",
+	"4e1c4f5e-e02f-4d04-bc3a-7bf68a1c5dde",
+	"3a17831a-3e1b-47b2-851b-47ea1a9c5dea",
+	"d7d3a1f5-883f-46b9-b143-812b2262d097",
+	"a79e3bc0-df49-4ad5-844f-551537360652",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Column',
+	'Name',
+	'R8');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("6bd06a87-cf2b-45d0-a95b-fcfaa57d29ca",
+	"68363a50-a0e1-414d-8939-1409ebc1f822",
+	0,
+	"d3f6ca94-62be-4e84-b7ae-aa3b30097bf5",
+	"3a17831a-3e1b-47b2-851b-47ea1a9c5dea",
+	'../File IO.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("d7d3a1f5-883f-46b9-b143-812b2262d097",
+	"1fc1c651-fd65-464b-ae5c-73487161c50a",
+	"6bd06a87-cf2b-45d0-a95b-fcfaa57d29ca",
+	"68363a50-a0e1-414d-8939-1409ebc1f822",
+	1,
+	'Name');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("6bd06a87-cf2b-45d0-a95b-fcfaa57d29ca",
+	"68363a50-a0e1-414d-8939-1409ebc1f822",
+	'../Column/Column.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("d7d3a1f5-883f-46b9-b143-812b2262d097",
+	"1fc1c651-fd65-464b-ae5c-73487161c50a",
+	"565c757a-786e-4de0-bc4c-91a50a74ac87",
+	'colName',
+	'This is the primary key of the table the graphical data is for.
+
+Values: "Dom_ID", "SS_ID", "SM_ID"
+
+
+',
+	'col',
+	'Name',
+	1,
+	"cf07a926-26a1-4462-bd6f-45a3b930e4b7",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"1fc1c651-fd65-464b-ae5c-73487161c50a");
+INSERT INTO O_OIDA
+	VALUES ("2c21ba12-2534-49f2-8c8b-f917d484d41c",
+	"1fc1c651-fd65-464b-ae5c-73487161c50a",
+	0,
+	'modelName');
+INSERT INTO O_ID
+	VALUES (1,
+	"1fc1c651-fd65-464b-ae5c-73487161c50a");
+INSERT INTO O_ID
+	VALUES (2,
+	"1fc1c651-fd65-464b-ae5c-73487161c50a");
+INSERT INTO S_SS_PROXY
+	VALUES ("f157564a-4386-4e32-b5c9-0e4d7bd3609a",
+	'File IO',
+	'',
+	'',
+	1,
+	"695dce7b-262a-4226-9cbb-c9f897b44c67",
+	"00000000-0000-0000-0000-000000100002",
+	'../File IO.xtuml');

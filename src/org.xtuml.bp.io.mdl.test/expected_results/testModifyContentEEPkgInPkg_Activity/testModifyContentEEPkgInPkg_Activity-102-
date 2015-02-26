@@ -1,0 +1,6 @@
+drawRectangle(304, 185, 623, 489)
+drawText("«external entity»", 397, 200, true)
+drawText("EE1", 567, 270, true)
+drawline(304, 356, 927, 356)
+drawline(304, 385, 927, 385)
+drawText("«operation»Operation1 : void", 319, 400, true)

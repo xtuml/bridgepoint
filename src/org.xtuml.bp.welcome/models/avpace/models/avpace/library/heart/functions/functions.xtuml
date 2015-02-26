@@ -1,0 +1,89 @@
+-- BP 7.1.6 content: Package syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO EP_PKG
+	VALUES ("e5f54653-9393-4c20-b923-38e3392d7a58",
+	"00000000-0000-0000-0000-000000000000",
+	"15b2a15d-7110-4efa-b644-89bd96e12c0e",
+	'functions',
+	'',
+	0);
+INSERT INTO GD_MD
+	VALUES ("fee088bc-7903-48d7-8286-090d58989c08",
+	112,
+	"e5f54653-9393-4c20-b923-38e3392d7a58",
+	108,
+	0,
+	0,
+	1,
+	1,
+	1,
+	12,
+	1,
+	0,
+	0,
+	0,
+	0,
+	0,
+	'3.1.2',
+	'avpace::library::heart::functions');
+INSERT INTO DIM_DIA
+	VALUES ("fee088bc-7903-48d7-8286-090d58989c08",
+	'',
+	1.000000,
+	4000.000000,
+	3000.000000,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_SYNC
+	VALUES ("aac6a539-bfd4-498e-9465-803364402aab",
+	"00000000-0000-0000-0000-000000000000",
+	'init',
+	'',
+	'// Create the instances of heart and nervous system.
+// Relate them together.
+// Initialize the nervous system with (half) periods for the pulsing.
+// Send message out to the body (pacer) to initialize.
+// Kick off the simulation by sending an event to the nervous system.
+create object instance heart of HEART;
+create object instance snode of SINUS_NODE;
+relate heart to snode across R1;
+snode.systolic_period = 500000;
+snode.diastolic_period = 500000;
+snode.decrement = 0;
+send out_to_body::init(systolic_period:snode.systolic_period, diastolic_period:snode.diastolic_period);
+// Set a timer for the diastolic period to start things going.
+create event instance e of SINUS_NODE2:period() to snode;
+//t = TIM::timer_start_recurring( microseconds:snode.systolic_period + snode.diastolic_period, event_inst:e );
+t = TIM::timer_start( microseconds:snode.systolic_period + snode.diastolic_period, event_inst:e );
+
+',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'');
+INSERT INTO PE_PE
+	VALUES ("aac6a539-bfd4-498e-9465-803364402aab",
+	1,
+	"e5f54653-9393-4c20-b923-38e3392d7a58",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO PE_PE
+	VALUES ("e5f54653-9393-4c20-b923-38e3392d7a58",
+	1,
+	"00000000-0000-0000-0000-000000000000",
+	"ba87c6eb-2533-4e97-ad6a-c00c71348da9",
+	7);
+INSERT INTO C_C_PROXY
+	VALUES ("ba87c6eb-2533-4e97-ad6a-c00c71348da9",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000",
+	'heart',
+	'',
+	0,
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'../heart.xtuml');
+INSERT INTO S_SYS_PROXY
+	VALUES ("15b2a15d-7110-4efa-b644-89bd96e12c0e",
+	'avpace',
+	1,
+	'../../../avpace.xtuml');

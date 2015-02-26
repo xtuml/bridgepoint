@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ File:      $RCSfile: generate.xml,v $
+ Version:   $Revision: 1.3 $
+ Modified:  $Date: 2013/01/17 03:36:07 $
+
+ (c) Copyright 2004-2014 by Mentor Graphics Corp.  All rights reserved.
+
+-->
+<project name="bp.model.compare" default="all" basedir=".">
+  <target name="all"
+          description="Generate Compare tree"
+          depends="java">
+  </target>
+
+  <target name="nb_all"
+        description="Nightly build target"
+        depends="java">
+  </target>
+
+  <property environment="env"/>
+  <property name="bp_bin_dir" value="${env.PT_HOME_DRIVE}${env.PT_HOME}/bin" />
+  <property name="mcj_path" value="../MC-Java" />
+
+  <property name="eclipse-home" value="${basedir}/../.."/>
+
+  <property environment="env"/>
+
+  <property name="sql.input" value="../org.xtuml.bp.core/models/ooaofooa_hierarchy.bak" />
+  <property name="sql.output" value="ooaofooa_hierarchy.sql" />
+
+  <target name="java.depends" >
+    <uptodate property="java.buildNotNeeded" targetfile="src/org/xtuml/bp/model/compare/ComparePluginMessages.properties">
+       <srcfiles dir = "../org.xtuml.bp.core/sql/" includes = "ooaofooa_hierarchy_schema.sql,ooaofooa_hierarchy.pei.sql" />
+       <srcfiles dir = "../org.xtuml.bp.core/sql" includes = "ooaofooa.sql" />
+        <srcfiles dir = "../org.xtuml.bp.ui.canvas/sql/" includes = "ooaofgraphics_hierarchy_schema.sql,ooaofgraphics_hierarchy.pei.sql" />
+        <srcfiles dir = "../org.xtuml.bp.ui.canvas/sql" includes = "ooaofgraphics.sql" />
+    	<srcfiles dir = "arc"        includes = "BuildCompTree.arc, create_properties_file.inc, create_util_class.inc" />
+       <srcfiles dir = "${mcj_path}" includes = "ooa_schema.sql,arch_names.inc"/>
+    </uptodate>
+  </target>
+
+  <target name="java"
+          depends="java.depends"
+          description="Generate the tree Properties file and util class"
+          unless="java.buildNotNeeded" >
+    <echo >Generating Compare Properties File ...</echo>
+    <delete file="CompareTree.gen" />
+    <exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}/xtumlmc_gen_erate" >
+        <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
+    <arg line="-nopersist
+      -import ${mcj_path}/ooa_schema.sql
+      -import ../org.xtuml.bp.core/sql/ooaofooa_hierarchy_schema.sql
+      -import ../org.xtuml.bp.core/sql/ooaofooa.sql
+      -import ../org.xtuml.bp.core/sql/ooaofooa_hierarchy.pei.sql
+      -import ../org.xtuml.bp.ui.canvas/sql/ooaofgraphics.sql
+      -import ../org.xtuml.bp.ui.canvas/sql/ooaofgraphics_hierarchy.pei.sql
+      -arch arc/BuildComparisonTree.arc"/>
+  </exec>
+    <delete file="ooaofooa_hierarchy.gen" />
+    <delete file="____file.txt" />
+    <delete file="key_lett.txt" />
+    <delete file="rel_chain.txt" />
+    <delete file="rel_num.txt" />
+    <delete file="remainder.txt" />
+
+    <touch file="src/org/xtuml/bp/model/compare/ComparePluginMessages.properties" />
+  </target>
+
+  <!-- COMPILE TARGETS -->
+
+  <!-- This target is not used in the eclipse environment.  The eclipse Java
+       builder handles the java compilation when building BridgePoint under
+       eclipse.  This target is used only when building BridgePoint from the
+       command line on the build server. -->
+  <target name="compile"
+        description="Compile project" >
+
+    <echo>Compiling ${ant.project.name}</echo>
+
+    <mkdir dir="../org.xtuml.bp.model.compare/bin" />
+
+    <javac memoryinitialsize="512m" memorymaximumsize="512m" source="1.6"
+        fork="yes" destdir="../org.xtuml.bp.model.compare/bin"
+        debug="true" debuglevel="lines,vars,source" encoding="UTF-8">
+       <src path="../org.xtuml.bp.model.compare/src/org/xtuml/bp/model/compare" />
+       <classpath>
+         <pathelement path="../org.xtuml.bp.core/bin" />
+         <pathelement path="../org.xtuml.bp.io.mdl/bin" />
+         <pathelement path="../org.xtuml.bp.io.core/bin" />
+         <pathelement path="../org.xtuml.bp.ui.explorer/bin" />
+       	 <pathelement path="../org.xtuml.bp.ui.canvas/bin" />
+      	 <pathelement path="../org.xtuml.bp.ui.graphics/bin" />
+         <pathelement path="../org.xtuml.bp.ui.text/bin" />
+         <fileset dir="${eclipse-home}/plugins" casesensitive="yes">
+           <include name="**/org.eclipse.osgi_*.jar" />
+           <include name="**/org.eclipse.jface_*.jar" />
+           <include name="**/org.eclipse.jface.text_*.jar" />
+           <include name="**/org.eclipse.ui.views_*.jar" />
+           <include name="**/org.eclipse.core.resources_*.jar" />
+		   <include name="**/org.eclipse.core.jobs_*.jar" />
+           <include name="**/org.eclipse.ui_*.jar" />
+           <include name="**/org.eclipse.ui.ide_*.jar" />
+           <include name="**/org.eclipse.text_*.jar" />
+           <include name="**/org.eclipse.ui.workbench_*.jar" />
+           <include name="**/org.eclipse.ui.win32_*.jar" />
+           <include name="**/org.eclipse.swt.win32.win32.x86_*.jar" />
+           <include name="**/org.eclipse.ui.workbench.texteditor_*.jar" />
+           <include name="**/org.eclipse.ui.editors_*.jar" />
+           <include name="**/org.eclipse.compare_*.jar" />
+           <include name="**/org.eclipse.compare.core_*.jar" />
+           <include name="**/org.eclipse.core.boot_*.jar" />
+           <include name="**/org.eclipse.core.runtime_*.jar" />
+           <include name="**/org.eclipse.equinox.common_*.jar"/>
+           <include name="**/org.eclipse.equinox.registry_*.jar"/>
+           <include name="**/org.eclipse.core.commands_*.jar"/>
+           <include name="**/org.eclipse.team.ui_*.jar"/>
+           <include name="**/org.eclipse.gef_*.jar"/>
+           <include name="**/org.eclipse.draw2d_*.jar" />
+           <include name="**/org.eclipse.gmf.runtime.draw2d*.jar" />
+           <include name="**/org.eclipse.gmf.runtime.gef*.jar" />
+           <include name="**/org.eclipse.gmf.runtime.diagram*.jar" />
+           <include name="**/org.eclipse.gmf.runtime.common.core*.jar" />
+          </fileset>
+       </classpath>
+    </javac>
+
+  </target>
+
+  <!-- CLEAN TARGETS -->
+
+  <target name="clean_all"
+        description="Clean entire project"
+        depends="clean_classes, clean_properties_util" >
+
+    <echo>Done cleaning for ${ant.project.name}</echo>
+
+  </target>
+
+  <target name="clean_properties_util"
+        description="Remove the properties file" >
+
+    <echo>Removing generated sql file: ${sql.output} ...</echo>
+    <delete file="src/org/xtuml/bp/model/compare/ComparePluginMessages.properties" />
+    <delete file="src/org/xtuml/bp/model/compare/util/Util.java"/>
+
+  </target>
+
+  <target name="clean_classes"
+          description="Remove all compiled class files." >
+
+  <echo>Removing all compiled class files ...</echo>
+  <delete verbose="true" dir="bin" />
+
+  </target>
+</project>

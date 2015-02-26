@@ -1,0 +1,866 @@
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("0849862c-76a0-4d0f-bb84-cf5aef617874",
+	'Auto Reconciliation Specification',
+	19,
+	'GD_ARS',
+	'PEI:true
+Persistent:false
+TRANSLATE_FOR_EXTERNAL_USE:FALSE',
+	"b5695748-80fc-47fb-b5c7-801b5f28b907");
+INSERT INTO O_TFR
+	VALUES ("01642b1d-fb51-4095-a62b-5b504c16dafc",
+	"0849862c-76a0-4d0f-bb84-cf5aef617874",
+	'updateAllElements',
+	'',
+	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	1,
+	'select one modelSpec related by self->GD_MS[R33];
+select one spec related by self->GD_ES[R29];
+select one sourceSpec related by self->GD_ES[R30];
+select one targetSpec related by self->GD_ES[R31];
+// For sure its shape
+if(not empty modelSpec)
+    select many models related by modelSpec->GD_MD[R9];
+    select many elemSpecs related by modelSpec->GD_ES[R11];
+    for each model in models
+      if(not CL::isContainedInSystem(element:model.represents,
+                                                     system_id:param.system_id))
+        // only check elements under the passed system
+        continue;
+      end if;
+           //Get the count of shapes in the model (i.e the number of classes in the class Diagram)
+  	  count = CL::numElements( from:model.represents,using:self.countMethod);
+      select many graphicalElements related by model->GD_GE[R1];
+  	  i=0;
+  	 
+  	  while (i<count)
+  		 elementID = CL::getElementID(from:model.represents,index:i, using:self.elementMethod);
+         found = false;
+         for each graphicalElement in graphicalElements
+          if(graphicalElement.OOA_ID == elementID)
+             found =true;
+             break;
+          end if;         
+         end for;
+         if(found == false)
+           //create the shape
+           model.newShape(arsId:self.Id,shape:elementID);
+           select one newElement related by sourceSpec->GD_GE[R16];
+           if (empty newElement)
+             i = i + 1;
+             continue;
+           end if;
+           //set the OOA_ID of the new GE created
+           newElement.OOA_ID=elementID; 
+           newElement.represents=CL::getInstanceFromOOA_ID(
+                                      rootInst: model.represents,
+                                      OOA_ID: newElement.OOA_ID, 
+                                      OOA_Type: newElement.OOA_Type );
+          unrelate sourceSpec from newElement across R16;
+          //i=count;
+         end if;
+         i=i+1;
+  	  end while;
+    end for;	   
+end if;
+  		
+if(not empty spec)
+   select many autoCreateShapes related by spec->GD_GE[R10];
+  for each autoCreateShape in autoCreateShapes
+  //If this autoCreateShape is Null instance
+  if (autoCreateShape.represents == OS::NULL_INSTANCE())
+  	autoCreateShape.represents = CL::getInstanceFromOOA_ID(
+  	                                   rootInst:autoCreateShape.convertToInstance(),
+  	                                   OOA_ID:autoCreateShape.OOA_ID, 
+  	                                   OOA_Type:autoCreateShape.OOA_Type );
+  end if;
+  
+  if(not CL::isContainedInSystem(element:autoCreateShape.represents,
+                                                     system_id:param.system_id))
+    // only check elements under the passed system
+    continue;
+  end if;
+  
+  
+  select many startCons related by autoCreateShape->DIM_GE[R23]->
+                            DIM_CON[R311]->DIM_ED[R320]->GD_CON[R20]->GD_GE[R2];
+  select many endCons related by autoCreateShape->DIM_GE[R23]->
+                            DIM_CON[R311]->DIM_ED[R321]->GD_CON[R20]->GD_GE[R2];
+  
+  //select one shp related by autoCreateShape->DIM_GE[R23]->DIM_ND[R301]->GD_SHP[R19]->GD_GE[R2];
+  //select one shp related by autoCreateShape->GD_SHP[R2]->GD_GE[R2];//same as autocreate element !!!!!!! :(
+  
+  // do not try to determine if connectors exist when the existsMethod == not used
+  if(self.elementExistsMethod != "not used")
+   for each startCon in startCons
+      select one startConSpec related by startCon->GD_ES[R10];
+      if(startConSpec == targetSpec)
+        if (startCon.represents == OS::NULL_INSTANCE())
+          startCon.represents = CL::getInstanceFromOOA_ID(
+  	                                   rootInst:startCon.convertToInstance(),
+  	                                   OOA_ID:startCon.OOA_ID, 
+  	                                   OOA_Type:startCon.OOA_Type );
+  	         
+        end if;
+       
+        //Removing Connectors
+        if not CL::hasConnector(
+                             element_id:CL::getOOAId(from:startCon.represents),
+                             instance:autoCreateShape.represents,
+                             methodName:self.elementExistsMethod,
+                             elementTypesMatch:sourceSpec == targetSpec) and param.removeElements
+          // if the connector is going to be disposed
+          // and there are other connectors anchored
+          // to it then re-anchor them connector to
+          // the shape that this connector is anchored to
+          select one anchor related by startCon->DIM_GE[R23]->DIM_ED[R301]
+        								                        ->DIM_CON[R320];
+          select many anchoredStartConnectors related by startCon->DIM_GE[R23]
+						                          ->DIM_CON[R311]->DIM_ED[R320];
+          select many anchoredEndConnectors related by startCon->DIM_GE[R23]
+						                          ->DIM_CON[R311]->DIM_ED[R321];
+          for each anchoredStartConnector in anchoredStartConnectors
+            // only do this if it is supported
+            select one autoCreateShapeSpec related by autoCreateShape->GD_ES[R10];
+            select one conSpec related by anchoredStartConnector->GD_CON[R20]
+                                                        ->GD_GE[R2]->GD_ES[R10];
+            select many startTerminals related by  conSpec->TS_CSP[R200]
+                        ->TS_TSP[R202]->TS_SHT[R201]->TS_SSP[R204]->GD_ES[R200];
+            allow = false;
+            for each startTerm in startTerminals
+              if(startTerm == autoCreateShapeSpec)
+                allow = true;
+              end if;
+            end for;
+            if(allow)
+              select one oldAnchor related by anchoredStartConnector->DIM_CON[R320];
+              unrelate anchoredStartConnector from oldAnchor across R320;
+              relate anchoredStartConnector to anchor across R320;
+            end if;
+          end for;
+          for each anchoredEndConnector in anchoredEndConnectors
+            select one autoCreateShapeSpec related by autoCreateShape->GD_ES[R10];
+            select one conSpec related by anchoredStartConnector->GD_CON[R20]
+                                                        ->GD_GE[R2]->GD_ES[R10];
+            select many endTerminals related by  conSpec->TS_CSP[R200]
+                        ->TS_TSP[R203]->TS_SHT[R201]->TS_SSP[R204]->GD_ES[R200];
+            allow = false;
+            for each endTerm in endTerminals
+              if(endTerm == autoCreateShapeSpec)
+                allow = true;
+              end if;
+            end for;
+            if(allow)
+              select one oldAnchor related by anchoredEndConnector->DIM_CON[R321];
+              unrelate anchoredEndConnector from oldAnchor across R321;
+              relate anchoredEndConnector to anchor across R321;
+            end if;
+          end for;
+          startCon.dispose();
+        end if;
+      end if;
+    end for;
+    
+    
+    for each endCon in endCons
+      select one endConSpec related by endCon->GD_ES[R10];
+      if(endConSpec == targetSpec)
+        if (endCon.represents == OS::NULL_INSTANCE())
+          endCon.represents = CL::getInstanceFromOOA_ID(
+  	                                   rootInst:endCon.convertToInstance(),
+  	                                   OOA_ID:endCon.OOA_ID, 
+  	                                   OOA_Type:endCon.OOA_Type );
+        end if;
+        if not CL::hasConnector(
+                             element_id:CL::getOOAId(from:endCon.represents),
+      	                     instance:autoCreateShape.represents,
+                             methodName:self.elementExistsMethod,
+                             elementTypesMatch:sourceSpec == targetSpec) and param.removeElements
+          // if the connector is going to be disposed
+          // and there are other connectors anchored
+          // to it then re-anchor them connector to
+          // the shape that this connector is anchored to
+          select one anchor related by startCon->DIM_GE[R23]->DIM_ED[R301]
+        								                        ->DIM_CON[R321];
+          select many anchoredStartConnectors related by endCon->DIM_GE[R23]
+						                          ->DIM_CON[R311]->DIM_ED[R320];
+          select many anchoredEndConnectors related by endCon->DIM_GE[R23]
+						                          ->DIM_CON[R311]->DIM_ED[R321];
+          for each anchoredStartConnector in anchoredStartConnectors
+            select one oldAnchor related by anchoredStartConnector->DIM_CON[R320];
+            unrelate anchoredStartConnector from oldAnchor across R320;
+            relate anchoredStartConnector to anchor across R320;
+          end for;
+          for each anchoredEndConnector in anchoredEndConnectors
+            select one oldAnchor related by anchoredEndConnector->DIM_CON[R321];
+            unrelate anchoredEndConnector from oldAnchor across R321;
+            relate anchoredEndConnector to anchor across R321;
+          end for;
+          endCon.dispose();
+        end if;
+      end if;
+    end for;
+   end if;
+    
+    // reselect the connectors in case any were removed above
+    select many startCons related by autoCreateShape->DIM_GE[R23]->
+                            DIM_CON[R311]->DIM_ED[R320]->GD_CON[R20]->GD_GE[R2];
+    select many endCons related by autoCreateShape->DIM_GE[R23]->
+                            DIM_CON[R311]->DIM_ED[R321]->GD_CON[R20]->GD_GE[R2];
+    count = CL::numConnectors( from:autoCreateShape.represents,
+                             elementTypesMatch:sourceSpec == targetSpec,
+                             using:self.countMethod);
+    // do not process if the element method == not used
+    if (count > 0 and self.elementMethod != "not used")
+      i = 0;
+      while (i < count)
+        connectorId = CL::getConnectorID(from:autoCreateShape.represents,
+                          elementTypesMatch:sourceSpec == targetSpec,
+                          index:i, using:self.elementMethod);
+        foundMatchingStart = false;
+        for each startCon in startCons
+          if (startCon.represents == OS::NULL_INSTANCE())
+            startCon.represents = CL::getInstanceFromOOA_ID(
+  	                                   rootInst:startCon.convertToInstance(),
+  	                                   OOA_ID:startCon.OOA_ID, 
+  	                                   OOA_Type:startCon.OOA_Type );
+          end if;
+  	      if(CL::getOOAId(from:startCon.represents) == connectorId)
+  	        foundMatchingStart = true;
+            break;
+    	  end if;
+        end for;
+  	    foundMatchingEnd = false;
+  	    
+  	    
+        for each endCon in endCons
+          if (endCon.represents == OS::NULL_INSTANCE())
+            endCon.represents = CL::getInstanceFromOOA_ID(
+  	                                   rootInst:endCon.convertToInstance(),
+  	                                   OOA_ID:endCon.OOA_ID, 
+  	                                   OOA_Type:endCon.OOA_Type );
+          end if;
+          if(CL::getOOAId(from:endCon.represents) == connectorId)
+  	        foundMatchingEnd = true;
+            break;
+  	      end if;  	    
+        end for;
+        
+        
+  	    if(foundMatchingStart or foundMatchingEnd)
+  	      // we do not need to worry as this element
+          // already has a connector matching the given
+  	      // id
+  	      i = i + 1;
+  	      continue;
+  	    end if;
+  	    
+  	    templateConId = OS::NULL_UNIQUE_ID();
+  	    if self.templateElementMethod != ""
+  	      templateConId = CL::getConnectorID(from:autoCreateShape.represents,
+                   index:i, elementTypesMatch:sourceSpec == targetSpec,
+                                              using:self.templateElementMethod);
+  	    end if;
+  	    if templateConId == OS::NULL_UNIQUE_ID()
+  	      templateConId = connectorId;
+  	    end if;
+  	    conID = self.findConnector(connectorID:templateConId);
+  	    if conID != OS::NULL_UNIQUE_ID()
+  	      select one model related by autoCreateShape->GD_MD[R1];
+  	      model.newConnector(connector:conID,
+                           elementId:autoCreateShape.elementId, arsId:self.Id,
+  	                                                  representsId:connectorId);
+  	    end if;
+        i = i + 1;
+      end while;
+    //end if;
+  else // handle connector reconcile
+    count = CL::numConnectors(from:autoCreateShape.represents,
+            elementTypesMatch:sourceSpec == targetSpec, using:self.countMethod);
+    if count == 0
+      select one con related by autoCreateShape->DIM_GE[R23]->
+                                                    DIM_ED[R301]->DIM_CON[R321];
+      if not_empty con
+        con.dispose();
+      end if;
+    end if;
+  end if;
+ 
+end for;
+end if;',
+	1,
+	'',
+	"01e90c90-3e42-4325-9395-f04aa3dcdeec");
+INSERT INTO O_TPARM
+	VALUES ("3916e6b3-f050-4322-91fd-81ec3e84fe27",
+	"01642b1d-fb51-4095-a62b-5b504c16dafc",
+	'system_id',
+	"a236c27f-17c7-4c99-8f25-f3efd03eaf0c",
+	0,
+	'',
+	"fd2558e3-5877-4d39-8219-18b8f47ec7ed",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("a236c27f-17c7-4c99-8f25-f3efd03eaf0c",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'unique_id',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TPARM
+	VALUES ("fd2558e3-5877-4d39-8219-18b8f47ec7ed",
+	"01642b1d-fb51-4095-a62b-5b504c16dafc",
+	'removeElements',
+	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'boolean',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO S_DT_PROXY
+	VALUES ("3852f90c-88c5-467d-9b26-57c8cd438b42",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'void',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("01e90c90-3e42-4325-9395-f04aa3dcdeec",
+	"0849862c-76a0-4d0f-bb84-cf5aef617874",
+	'findConnector',
+	'',
+	"a236c27f-17c7-4c99-8f25-f3efd03eaf0c",
+	1,
+	'select any model related by self->GD_ES[R29]->GD_EMS[R11]->
+                                                          GD_MS[R11]->GD_MD[R9];
+select one spec related by self->GD_ES[R30];
+select many connectors related by  spec->GD_GE[R10]->GD_CON[R2];
+for each connector in connectors
+  select one ge related by connector->GD_GE[R2];
+  if (ge.represents == OS::NULL_INSTANCE())
+    ge.represents = CL::getInstanceFromOOA_ID(
+  	                                   rootInst:ge.convertToInstance(),
+  	                                   OOA_ID:ge.OOA_ID, 
+  	                                   OOA_Type:ge.OOA_Type );
+  end if;
+  id = CL::getOOAId(from:ge.represents);
+  if (id == param.connectorID)
+    return ge.elementId;
+  end if;
+end for;
+return OS::NULL_UNIQUE_ID();',
+	1,
+	'',
+	"c02376d4-138e-44c1-8e19-e42d4e5bdff4");
+INSERT INTO O_TPARM
+	VALUES ("42d98f22-42d8-42d9-bcdb-0c595e38daa3",
+	"01e90c90-3e42-4325-9395-f04aa3dcdeec",
+	'connectorID',
+	"a236c27f-17c7-4c99-8f25-f3efd03eaf0c",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("c02376d4-138e-44c1-8e19-e42d4e5bdff4",
+	"0849862c-76a0-4d0f-bb84-cf5aef617874",
+	'Reconcile',
+	'',
+	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	0,
+	'// we must run the shape creation specs first
+// so that any newly created shapes can be processed
+// next and have connectors created
+select many recSpecs from instances of GD_ARS;
+for each ars in recSpecs
+  select one modelSpec related by ars->GD_MS[R33];
+  if(not_empty modelSpec)
+    ars.updateAllElements(system_id:param.system_id, removeElements:param.removeElements);
+  end if;
+end for;
+// now process all other specs
+for each ars in recSpecs
+  select one modelSpec related by ars->GD_MS[R33];
+  if(empty modelSpec)
+    ars.updateAllElements(system_id:param.system_id, removeElements:param.removeElements);
+    if(ars.reprocess)
+      ars.reprocess = false;
+      ars.updateAllElements(system_id: param.system_id, removeElements:param.removeElements);
+    end if;
+  end if;
+end for;
+',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_TPARM
+	VALUES ("965be58d-e2e1-4b02-a7a2-f2fddb250d11",
+	"c02376d4-138e-44c1-8e19-e42d4e5bdff4",
+	'system_id',
+	"a236c27f-17c7-4c99-8f25-f3efd03eaf0c",
+	0,
+	'',
+	"02ec8ed2-c71a-443c-9187-bd506acbaaca",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("02ec8ed2-c71a-443c-9187-bd506acbaaca",
+	"c02376d4-138e-44c1-8e19-e42d4e5bdff4",
+	'removeElements',
+	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("bb127757-3046-42f0-8eaa-58bc50d7f658",
+	"0849862c-76a0-4d0f-bb84-cf5aef617874",
+	'findShape',
+	'',
+	"a236c27f-17c7-4c99-8f25-f3efd03eaf0c",
+	1,
+	'select any model related by self->GD_ES[R29]->GD_EMS[R11]->
+                                                          GD_MS[R11]->GD_MD[R9];
+select one spec related by self->GD_ES[R30];
+select many shapes related by  spec->GD_GE[R10]->GD_SHP[R2];
+for each shape in shapes
+  select one ge related by shape->GD_GE[R2];
+  if (ge.represents == OS::NULL_INSTANCE())
+    ge.represents = CL::getInstanceFromOOA_ID(
+  	                                   rootInst:ge.convertToInstance(),
+  	                                   OOA_ID:ge.OOA_ID, 
+  	                                   OOA_Type:ge.OOA_Type );
+  end if;
+  id = CL::getOOAId(from:ge.represents);
+  if (id == param.shapeId)
+    return ge.elementId;
+  end if;
+end for;
+return OS::NULL_UNIQUE_ID();',
+	1,
+	'',
+	"01642b1d-fb51-4095-a62b-5b504c16dafc");
+INSERT INTO O_TPARM
+	VALUES ("4d74bdcf-fec2-4fe9-be56-75e7e582a41f",
+	"bb127757-3046-42f0-8eaa-58bc50d7f658",
+	'shapeId',
+	"a236c27f-17c7-4c99-8f25-f3efd03eaf0c",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("649d4944-fc3a-4f9c-99d2-4b2b390dd691",
+	"0849862c-76a0-4d0f-bb84-cf5aef617874");
+INSERT INTO O_BATTR
+	VALUES ("649d4944-fc3a-4f9c-99d2-4b2b390dd691",
+	"0849862c-76a0-4d0f-bb84-cf5aef617874");
+INSERT INTO O_ATTR
+	VALUES ("649d4944-fc3a-4f9c-99d2-4b2b390dd691",
+	"0849862c-76a0-4d0f-bb84-cf5aef617874",
+	"1fe3629d-a75d-452f-be0e-d5025254f3c4",
+	'Name',
+	'',
+	'',
+	'Name',
+	0,
+	"17f3cd98-2d3a-4fe3-ac41-d27b377178a6",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("17f3cd98-2d3a-4fe3-ac41-d27b377178a6",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'string',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("e10da735-ac66-4d53-9464-ac3d84572c93",
+	"0849862c-76a0-4d0f-bb84-cf5aef617874");
+INSERT INTO O_BATTR
+	VALUES ("e10da735-ac66-4d53-9464-ac3d84572c93",
+	"0849862c-76a0-4d0f-bb84-cf5aef617874");
+INSERT INTO O_ATTR
+	VALUES ("e10da735-ac66-4d53-9464-ac3d84572c93",
+	"0849862c-76a0-4d0f-bb84-cf5aef617874",
+	"649d4944-fc3a-4f9c-99d2-4b2b390dd691",
+	'countMethod',
+	'',
+	'',
+	'countMethod',
+	0,
+	"17f3cd98-2d3a-4fe3-ac41-d27b377178a6",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("68ea2f93-55cb-4a7c-a507-cb897697c920",
+	"0849862c-76a0-4d0f-bb84-cf5aef617874");
+INSERT INTO O_BATTR
+	VALUES ("68ea2f93-55cb-4a7c-a507-cb897697c920",
+	"0849862c-76a0-4d0f-bb84-cf5aef617874");
+INSERT INTO O_ATTR
+	VALUES ("68ea2f93-55cb-4a7c-a507-cb897697c920",
+	"0849862c-76a0-4d0f-bb84-cf5aef617874",
+	"e10da735-ac66-4d53-9464-ac3d84572c93",
+	'elementMethod',
+	'',
+	'',
+	'elementMethod',
+	0,
+	"17f3cd98-2d3a-4fe3-ac41-d27b377178a6",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("0849862c-76a0-4d0f-bb84-cf5aef617874",
+	"76253415-b575-4583-9248-5d403cee7647",
+	0,
+	"6b3798a6-af64-46df-a88c-8db2cc520b9a",
+	"e0546353-cd04-4daa-9198-96a6c96ea5b0",
+	"bb396cc9-ae37-4d4f-8c44-01e70b1cedb3",
+	"83b67341-3fc3-4966-a866-aaf92319425b",
+	"c5efaf87-6181-43ab-bc53-54e527873d7f",
+	"5c8e3955-a925-409e-aab5-610abd281b2f",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Element Specification',
+	'OOA_Type',
+	'R29');
+INSERT INTO R_RGO_PROXY
+	VALUES ("0849862c-76a0-4d0f-bb84-cf5aef617874",
+	"e0546353-cd04-4daa-9198-96a6c96ea5b0",
+	"bb396cc9-ae37-4d4f-8c44-01e70b1cedb3",
+	'../Graphical Data.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("6b3798a6-af64-46df-a88c-8db2cc520b9a",
+	"76253415-b575-4583-9248-5d403cee7647",
+	0,
+	"e0546353-cd04-4daa-9198-96a6c96ea5b0",
+	"83b67341-3fc3-4966-a866-aaf92319425b",
+	'../Graphical Data.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("c5efaf87-6181-43ab-bc53-54e527873d7f",
+	"0849862c-76a0-4d0f-bb84-cf5aef617874",
+	"6b3798a6-af64-46df-a88c-8db2cc520b9a",
+	"76253415-b575-4583-9248-5d403cee7647",
+	1,
+	'OOA_Type');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("6b3798a6-af64-46df-a88c-8db2cc520b9a",
+	"76253415-b575-4583-9248-5d403cee7647",
+	'../Element Specification/Element Specification.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("c5efaf87-6181-43ab-bc53-54e527873d7f",
+	"0849862c-76a0-4d0f-bb84-cf5aef617874",
+	"89037c25-7f61-48ca-9f18-935e9fbd4416",
+	'Scan_Target_OOA_Type',
+	'',
+	'Scan_Target_',
+	'OOA_Type',
+	1,
+	"66164f00-293e-4c17-ab30-7972c7c57152",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("66164f00-293e-4c17-ab30-7972c7c57152",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("1fe3629d-a75d-452f-be0e-d5025254f3c4",
+	"0849862c-76a0-4d0f-bb84-cf5aef617874");
+INSERT INTO O_BATTR
+	VALUES ("1fe3629d-a75d-452f-be0e-d5025254f3c4",
+	"0849862c-76a0-4d0f-bb84-cf5aef617874");
+INSERT INTO O_ATTR
+	VALUES ("1fe3629d-a75d-452f-be0e-d5025254f3c4",
+	"0849862c-76a0-4d0f-bb84-cf5aef617874",
+	"00000000-0000-0000-0000-000000000000",
+	'Id',
+	'',
+	'',
+	'Id',
+	0,
+	"a236c27f-17c7-4c99-8f25-f3efd03eaf0c",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("b573c171-3dcd-41ed-ae67-a9ac0543c13e",
+	"0849862c-76a0-4d0f-bb84-cf5aef617874");
+INSERT INTO O_BATTR
+	VALUES ("b573c171-3dcd-41ed-ae67-a9ac0543c13e",
+	"0849862c-76a0-4d0f-bb84-cf5aef617874");
+INSERT INTO O_ATTR
+	VALUES ("b573c171-3dcd-41ed-ae67-a9ac0543c13e",
+	"0849862c-76a0-4d0f-bb84-cf5aef617874",
+	"68ea2f93-55cb-4a7c-a507-cb897697c920",
+	'elementExistsMethod',
+	'',
+	'',
+	'elementExistsMethod',
+	0,
+	"17f3cd98-2d3a-4fe3-ac41-d27b377178a6",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("89037c25-7f61-48ca-9f18-935e9fbd4416",
+	"0849862c-76a0-4d0f-bb84-cf5aef617874");
+INSERT INTO O_BATTR
+	VALUES ("89037c25-7f61-48ca-9f18-935e9fbd4416",
+	"0849862c-76a0-4d0f-bb84-cf5aef617874");
+INSERT INTO O_ATTR
+	VALUES ("89037c25-7f61-48ca-9f18-935e9fbd4416",
+	"0849862c-76a0-4d0f-bb84-cf5aef617874",
+	"b573c171-3dcd-41ed-ae67-a9ac0543c13e",
+	'templateElementMethod',
+	'',
+	'',
+	'templateElementMethod',
+	0,
+	"17f3cd98-2d3a-4fe3-ac41-d27b377178a6",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("0849862c-76a0-4d0f-bb84-cf5aef617874",
+	"76253415-b575-4583-9248-5d403cee7647",
+	0,
+	"6b3798a6-af64-46df-a88c-8db2cc520b9a",
+	"93193641-db8b-4f52-b5f4-67c898b2dbf1",
+	"bf014913-71f0-4c7f-89f1-1309a00aebe7",
+	"be906854-f4b6-4241-9d38-f1c320c5fa0f",
+	"50fa916a-c781-4eb7-9635-861e56583761",
+	"08edc7ac-f584-429c-bd6e-349bbecb17d4",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Element Specification',
+	'OOA_Type',
+	'R30');
+INSERT INTO R_RGO_PROXY
+	VALUES ("0849862c-76a0-4d0f-bb84-cf5aef617874",
+	"93193641-db8b-4f52-b5f4-67c898b2dbf1",
+	"bf014913-71f0-4c7f-89f1-1309a00aebe7",
+	'../Graphical Data.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("6b3798a6-af64-46df-a88c-8db2cc520b9a",
+	"76253415-b575-4583-9248-5d403cee7647",
+	0,
+	"93193641-db8b-4f52-b5f4-67c898b2dbf1",
+	"be906854-f4b6-4241-9d38-f1c320c5fa0f",
+	'../Graphical Data.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("50fa916a-c781-4eb7-9635-861e56583761",
+	"0849862c-76a0-4d0f-bb84-cf5aef617874",
+	"6b3798a6-af64-46df-a88c-8db2cc520b9a",
+	"76253415-b575-4583-9248-5d403cee7647",
+	1,
+	'OOA_Type');
+INSERT INTO O_ATTR
+	VALUES ("50fa916a-c781-4eb7-9635-861e56583761",
+	"0849862c-76a0-4d0f-bb84-cf5aef617874",
+	"200f22dc-01dc-4ba5-9862-8b144810ffad",
+	'Source_OOA_Type',
+	'',
+	'Source_',
+	'OOA_Type',
+	1,
+	"66164f00-293e-4c17-ab30-7972c7c57152",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("0849862c-76a0-4d0f-bb84-cf5aef617874",
+	"76253415-b575-4583-9248-5d403cee7647",
+	0,
+	"6b3798a6-af64-46df-a88c-8db2cc520b9a",
+	"49109c60-6e67-416e-9029-17b9838a13bf",
+	"788ecc3e-8624-496c-9cde-89b6edaa1d10",
+	"a5d307ad-efc7-4d12-8bc6-dedba3c04cba",
+	"200f22dc-01dc-4ba5-9862-8b144810ffad",
+	"582b00f1-04ae-4aa4-87f9-ea662de44895",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Element Specification',
+	'OOA_Type',
+	'R31');
+INSERT INTO R_RGO_PROXY
+	VALUES ("0849862c-76a0-4d0f-bb84-cf5aef617874",
+	"49109c60-6e67-416e-9029-17b9838a13bf",
+	"788ecc3e-8624-496c-9cde-89b6edaa1d10",
+	'../Graphical Data.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("6b3798a6-af64-46df-a88c-8db2cc520b9a",
+	"76253415-b575-4583-9248-5d403cee7647",
+	0,
+	"49109c60-6e67-416e-9029-17b9838a13bf",
+	"a5d307ad-efc7-4d12-8bc6-dedba3c04cba",
+	'../Graphical Data.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("200f22dc-01dc-4ba5-9862-8b144810ffad",
+	"0849862c-76a0-4d0f-bb84-cf5aef617874",
+	"6b3798a6-af64-46df-a88c-8db2cc520b9a",
+	"76253415-b575-4583-9248-5d403cee7647",
+	1,
+	'OOA_Type');
+INSERT INTO O_ATTR
+	VALUES ("200f22dc-01dc-4ba5-9862-8b144810ffad",
+	"0849862c-76a0-4d0f-bb84-cf5aef617874",
+	"c5efaf87-6181-43ab-bc53-54e527873d7f",
+	'Target_OOA_Type',
+	'',
+	'Target_',
+	'OOA_Type',
+	1,
+	"66164f00-293e-4c17-ab30-7972c7c57152",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("0849862c-76a0-4d0f-bb84-cf5aef617874",
+	"0cd14c97-c661-47b7-a063-cf7c345d1bdc",
+	0,
+	"af61b674-5c60-451f-8e71-4938504496fc",
+	"e524f7e2-81e0-40fa-a788-37e7a47fe940",
+	"8486f7c0-5485-43c4-bc52-77b4b366ab19",
+	"57e397eb-3e61-4dd4-ae5e-0e954a7e545b",
+	"13ec2593-a384-402e-bd5c-6c5142a2a485",
+	"882df834-7ddf-4ed5-be46-d8f84ae89126",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Model Specification',
+	'OOA_Type',
+	'R33');
+INSERT INTO R_RGO_PROXY
+	VALUES ("0849862c-76a0-4d0f-bb84-cf5aef617874",
+	"e524f7e2-81e0-40fa-a788-37e7a47fe940",
+	"8486f7c0-5485-43c4-bc52-77b4b366ab19",
+	'../Graphical Data.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("af61b674-5c60-451f-8e71-4938504496fc",
+	"0cd14c97-c661-47b7-a063-cf7c345d1bdc",
+	0,
+	"e524f7e2-81e0-40fa-a788-37e7a47fe940",
+	"57e397eb-3e61-4dd4-ae5e-0e954a7e545b",
+	'../Graphical Data.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("13ec2593-a384-402e-bd5c-6c5142a2a485",
+	"0849862c-76a0-4d0f-bb84-cf5aef617874",
+	"af61b674-5c60-451f-8e71-4938504496fc",
+	"0cd14c97-c661-47b7-a063-cf7c345d1bdc",
+	1,
+	'OOA_Type');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("af61b674-5c60-451f-8e71-4938504496fc",
+	"0cd14c97-c661-47b7-a063-cf7c345d1bdc",
+	'../Model Specification/Model Specification.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("13ec2593-a384-402e-bd5c-6c5142a2a485",
+	"0849862c-76a0-4d0f-bb84-cf5aef617874",
+	"50fa916a-c781-4eb7-9635-861e56583761",
+	'OOA_Type',
+	'',
+	'',
+	'OOA_Type',
+	0,
+	"66164f00-293e-4c17-ab30-7972c7c57152",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("0849862c-76a0-4d0f-bb84-cf5aef617874",
+	"0cd14c97-c661-47b7-a063-cf7c345d1bdc",
+	0,
+	"ce107490-0989-42ef-8800-aeb9ee9f7644",
+	"e524f7e2-81e0-40fa-a788-37e7a47fe940",
+	"8486f7c0-5485-43c4-bc52-77b4b366ab19",
+	"57e397eb-3e61-4dd4-ae5e-0e954a7e545b",
+	"45f1b8ac-2115-4a50-9b6a-eacd460b724e",
+	"7fc87d9d-9730-4eed-b094-b5793bae8a59",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Model Specification',
+	'Model_Type',
+	'R33');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("ce107490-0989-42ef-8800-aeb9ee9f7644",
+	"0cd14c97-c661-47b7-a063-cf7c345d1bdc",
+	0,
+	"e524f7e2-81e0-40fa-a788-37e7a47fe940",
+	"57e397eb-3e61-4dd4-ae5e-0e954a7e545b",
+	'../Graphical Data.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("45f1b8ac-2115-4a50-9b6a-eacd460b724e",
+	"0849862c-76a0-4d0f-bb84-cf5aef617874",
+	"ce107490-0989-42ef-8800-aeb9ee9f7644",
+	"0cd14c97-c661-47b7-a063-cf7c345d1bdc",
+	1,
+	'Model_Type');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("ce107490-0989-42ef-8800-aeb9ee9f7644",
+	"0cd14c97-c661-47b7-a063-cf7c345d1bdc",
+	'../Model Specification/Model Specification.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("45f1b8ac-2115-4a50-9b6a-eacd460b724e",
+	"0849862c-76a0-4d0f-bb84-cf5aef617874",
+	"13ec2593-a384-402e-bd5c-6c5142a2a485",
+	'Model_Type',
+	'',
+	'',
+	'Model_Type',
+	0,
+	"66164f00-293e-4c17-ab30-7972c7c57152",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("b9c00edc-e0d7-49e3-9991-40ab23edae49",
+	"0849862c-76a0-4d0f-bb84-cf5aef617874");
+INSERT INTO O_BATTR
+	VALUES ("b9c00edc-e0d7-49e3-9991-40ab23edae49",
+	"0849862c-76a0-4d0f-bb84-cf5aef617874");
+INSERT INTO O_ATTR
+	VALUES ("b9c00edc-e0d7-49e3-9991-40ab23edae49",
+	"0849862c-76a0-4d0f-bb84-cf5aef617874",
+	"45f1b8ac-2115-4a50-9b6a-eacd460b724e",
+	'reprocess',
+	'',
+	'',
+	'reprocess',
+	0,
+	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"0849862c-76a0-4d0f-bb84-cf5aef617874");
+INSERT INTO O_OIDA
+	VALUES ("1fe3629d-a75d-452f-be0e-d5025254f3c4",
+	"0849862c-76a0-4d0f-bb84-cf5aef617874",
+	0,
+	'Id');
+INSERT INTO O_ID
+	VALUES (1,
+	"0849862c-76a0-4d0f-bb84-cf5aef617874");
+INSERT INTO O_ID
+	VALUES (2,
+	"0849862c-76a0-4d0f-bb84-cf5aef617874");
+INSERT INTO S_SS_PROXY
+	VALUES ("b5695748-80fc-47fb-b5c7-801b5f28b907",
+	'Graphical Data',
+	'The GD (Graphics Domain) subsystem models the graphical elements for a BridgePoint model.
+-------------------------------------------------------
+Import:org.eclipse.swt.graphics.Color
+Notify_Changes:true',
+	'GD',
+	1,
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	"00000000-0000-0000-0000-000001900032",
+	'../Graphical Data.xtuml');

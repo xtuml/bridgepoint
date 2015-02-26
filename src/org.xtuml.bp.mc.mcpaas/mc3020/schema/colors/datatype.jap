@@ -1,0 +1,157 @@
+.//============================================================================
+.// File:  datatype.mark
+.//
+.// Description:
+.// ユーザ定義型の詳細を色づけを定義する。
+.//
+.// IMPORTANT NOTE:
+.// 本色付けファイルで指定するドメイン名は全て'registry.mark' で登録した
+.// ドメインに対する登録名を使用すること。
+.// BridgePointのリポジトリ名（ドメイン名）は使用しないこと。
+.//
+.// Notice:
+.// (C) Copyright 1999-2014 Mentor Graphics Corporation
+.//     All rights reserved.
+.//============================================================================
+.// Notes:
+.// (1) 色付けはarchetype function invocation(s)のファイルの中で指定されます。
+.//     .invokeで始まる色付け定義文中に改行を入れないこと。
+.//    必ず１行に記述すること。各関数の入力パラメータは全て定義すること。
+.// (2) 文字列パラメータは、大文字・小文字の違いがある。
+.// (3) .// で始まる行がコメントとなる。
+.// (4) 本ファイル中には空白行を入れないこと。
+.//============================================================================
+.//
+.//============================================================================
+.// ユーザ定義型の詳細定義:
+.//
+.// ソフトウェア・アーキテクチャーにユーザに定義されたデータ・タイプを
+.// (BridgePoint'Subsystem Partitioning Model'domain data editorに定義された)
+.//「正確」に示すためには、次の関数定義をしてください:
+.//
+.// TagDataTypePrecision( "domain", "dt_name", "tagged_name", "initial_value" )
+.//
+.// パラメータ入力は次の通りです:
+.//   domain - ドメインの登録名。(システム全体に共通のユーザ定義型の場合は'*')
+.//　 dt_name - BridgePointで定義したユーザ定義型
+.//   tagged_name - コード上で実現する型名 (注:2)
+.//   initial_value - （オプション）初期値 (注:3)
+.//                  （例：int型の場合は0 , real の場合は0.0等）
+.//
+.// Examples:
+.//  ドメイン毎:
+.//   .invoke TagDataTypePrecision( "MyDom", "Octet", "uchar_t", "" )
+.//   .invoke TagDataTypePrecision( "MyDom", "FunkyReal", "double", "666.999" )
+.//   .invoke TagDataTypePrecision( "AS", "position", "char", "-1" )
+.//  System Wide Precision:
+.//   .invoke TagDataTypePrecision( "*", "SysWideLong", "long int", "-1" )
+.//
+.// Notes:
+.// (1) 本色付けができるユーザ定義型は、BridgePointで定義したユーザ定義型で、
+.//     core data type が 'integer' 又は 'real'の型、又はenumeration型だけである
+.//     （enumeratin型はcore data typeが'string'であるがintegerと同様の扱いになる）。
+.//     他のcore data typeのユーザ定義型を指定した場合は、コード生成時のエラーと
+.//     なる。
+.// (2) tagged_nameは、標準的にC/C++で定義されている型を定義すること。
+.//　　　　　例： "unsigned char", "long long", "double" 等
+.//     POSIXの型("uchar_t", ulong_t"等)も定義可能である。
+.// (3) ディフォルトの初期値はint型は0, real(float型)は0.0になる。
+.// 　　本パラメータは、これらのディフォルト値以外を初期値とする場合に使用する。
+.//   (3.a) "(unsigned)EACCESS"等のキャストを使用した定義も可能であるが、
+.//         注意して使用すること。
+.//   (3.b) 初期値の定義間違いはコード生成時のエラーにはならない。
+.//============================================================================
+.//
+.//
+.//============================================================================
+.// ユーザ定義型をポインターで実装する場合の詳細定義:
+.//
+.// BridgePointで定義したユーザ定義型をポインターとして実装する場合の
+.// 詳細を定義する。:
+.//
+.// MapDataTypeAsPointer( "domain", "dt_name", "pointer_type", "include_file" )
+.//
+.// パラメータ入力は次の通りです:
+.//   domain - ドメインの登録名。（システム全体に共通のユーザ定義型の場合は'*')
+.//   dt_name - BridgePointで定義したユーザ定義型
+.//   pointer_type - コード上で実現するポインター型名
+.//   include_file - ポインター型を定義するインクルードファイル名
+.//
+.// Examples:
+.//  Domain specific:
+.//   .invoke MapDataTypeAsPointer( "MyDom", "DataPacket", "char", "" )
+.//   .invoke MapDataTypeAsPointer( "MyDom", "AcmeType", "SomeStruct_t", "legacy.h" )
+.//  System Wide:
+.//   .invoke MapDataTypeAsPointer( "*", "OpaquePtr", "void", "" )
+.//
+.// Notes:
+.// (1) 'pointer_type'に'*'を記述しないないこと。記述した場合は、ポインターの
+.//     ポインターとして実装される。
+.// 
+.//============================================================================
+.//
+.//
+.//============================================================================
+.// Specifying Values for Enumerators
+.//
+.// To indicate to the model compiler that a user defined enumeration
+.// data type enumerator (defined in the BridgePoint Subsystem Partitioning
+.// Model (SPM) domain data editor) shall have a value other than the default,
+.// use the following invocation:
+.//
+.// TagEnumeratorDiscreteValue( "domain", "enumeration", "enumerator", "value" )
+.//
+.// Where the input parameters are:
+.//   domain - Registered domain name.  Use "*" to indicate a system wide
+.//     enumeration data type (to be applied to all domains containing
+.//     the user defined enumeration data type).
+.//   enumeration - Name of the enumeration data type as known in the
+.//     application analysis.
+.//   enumerator - Name of the enumerator as known in the application analysis.
+.//   value - A string containing the value to be assigned to the enumerator.
+.//
+.// Examples:
+.//  Domain specific:
+.//   .invoke TagEnumeratorDiscreteValue( "MO", "wattage", "low", "4" )
+.//   .invoke TagEnumeratorDiscreteValue( "MO", "wattage", "med", "0x20" )
+.//  System Wide:
+.//   .invoke TagEnumeratorDiscreteValue( "*", "wattage", "high", "0x40" )
+.//
+.//============================================================================
+.//
+.//
+.//============================================================================
+.// Specifying Value for the Default Un-Initialized Enumerator
+.//
+.// To indicate to the software architecture that the un-initialized enumerator
+.// of an enumeration (defined in the BridgePoint Subsystem Partitioning Model
+.// (SPM) domain data editor) shall have a value other than the default,
+.// use the following invocation:
+.//
+.// TagUninitializedEnumerationValue( "domain", "enumeration", "value" )
+.//
+.// Where the input parameters are:
+.//   domain - Registered domain name.  Use "*" to indicate a system wide
+.//     enumeration data type (to be applied to all domains containing
+.//     the user defined enumeration data type).
+.//   enumeration - Name of the enumeration data type as known in the
+.//     application analysis. Use "*" to indicate ALL enumerations.
+.//   value - A string containing the value to be assigned to the uninitialized
+.//     enumerator.
+.//
+.// Examples:
+.//  Domain specific:
+.//   .invoke TagUninitializedEnumerationValue( "MO", "wattage", "4" )
+.//  All Enumerations in Domain:
+.//   .invoke TagUninitializedEnumerationValue( "MO", "*", "0x40" )
+.//  System Wide:
+.//   .invoke TagUninitializedEnumerationValue( "*", "wattage", "0x20" )
+.//  All Enumerations in All Domains:
+.//   .invoke TagUninitializedEnumerationValue( "*", "*", "100" )
+.//
+.//============================================================================
+.//
+.//
+.//============================================================================
+.// Do not add anything at the end of this file!
+.//============================================================================

@@ -1,0 +1,62 @@
+#===========================================================================
+#
+# Description:
+# This test matrix is used to test rectilinear routing
+#
+#
+# Version:      $Revision: 1.3 $
+#
+# Notice:
+# (C) Copyright 2007-2014 Mentor Graphics Corporation
+#     All rights reserved.
+#===========================================================================
+#
+#
+Degrees of Freedom:
+
+StartTerminal(A)
+1. Start Shape
+2. Start Connector
+3. Start Diagram
+4. End Shape
+5. End Connector
+6. End Diagram
+
+Selection(B)
+1. One
+2. Two
+
+Actions(C)
+1. Creation (Straight and Offset)
+2. Segment Move
+3. Bendpoint Move
+
+Action Degrees(D)
+1. Within Terminal
+2. Outside Terminal East
+3. Outside Terminal West
+4. Outside Terminal North
+5. Outside Terminal South
+
+Results:
+1.  lineOrthogonal      "The line was not routed such that all segments are orthogonal."
+2.  segmentSameSide     "The segment did not remain attached on the original side."
+3.  segmentNewSideEast  "The segment did not move to the east side of attached element."
+4.  segmentNewSideWest  "The segment did not move to the west side of attached element."
+5.  segmentNewSideNorth "The segment did not move to the north side of attached element."
+6.  segmentNewSideSouth "The segment did not move to the south side of attached element."
+
+Matrix:
+     C1D1        C1D2        C1D3        C1D4        C1D5        C2D1        C2D2        C2D3        C2D4        C2D5        C3D1        C3D2        C3D3        C3D4        C3D5         
+A1B1 R1          X           X           X           X           R1R2        R1R5        R1R6        R1R3        R1R4        R1R2        R1R5        R1R6        R1R3        R1R4
+A1B2 X           X           X           X           X           R1R2        R1R5        R1R6        R1R3        R1R4        R1R2        R1R5        R1R6        R1R3        R1R4
+A2B1 R1          X           X           X           X           R1R2        R1R5        R1R6        R1R3        R1R4        R1R2        R1R5        R1R6        R1R3        R1R4
+A2B2 X           X           X           X           X           R1R2        R1R5        R1R6        R1R3        R1R4        R1R2        R1R5        R1R6        R1R3        R1R4
+A3B1 R1          X           X           X           X           R1          X           X           X           X           X           X           X           X           X
+A3B2 X           X           X           X           X           R1          X           X           X           X           X           X           X           X           X
+A4B1 R1          X           X           X           X           R1R2        R1R5        R1R6        R1R3        R1R4        R1R2        R1R5        R1R6        R1R3        R1R4
+A4B2 X           X           X           X           X           R1R2        R1R5        R1R6        R1R3        R1R4        R1R2        R1R5        R1R6        R1R3        R1R4
+A5B1 R1          X           X           X           X           R1R2        R1R5        R1R6        R1R3        R1R4        R1R2        R1R5        R1R6        R1R3        R1R4
+A5B2 X           X           X           X           X           R1R2        R1R5        R1R6        R1R3        R1R4        R1R2        R1R5        R1R6        R1R3        R1R4
+A6B1 R1          X           X           X           X           R1          X           X           X           X           X           X           X           X           X
+A6B2 X           X           X           X           X           R1          X           X           X           X           X           X           X           X           X

@@ -1,0 +1,9 @@
+ERROR: Found a dangling reference.  An element with the following attributes could not be found:
+
+Referenced Element ID: 4c3a3a47-15bc-4b4b-b8bb-fcf5f36f3ef2
+Referenced Element file: /ModelIntegrityTests/models/ModelIntegrityTests/Dangling Reference Tests/Package One/Component/Component.xtuml
+
+Element Name: ModelIntegrityTests::Dangling Reference Tests::Package One::Component
+Element Path: ModelIntegrityTests::Dangling Reference Tests::Package Two::ModelIntegrityTests::Dangling Reference Tests::Package One::Component
+
+

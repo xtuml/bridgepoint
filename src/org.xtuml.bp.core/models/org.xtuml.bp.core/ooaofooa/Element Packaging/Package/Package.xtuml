@@ -1,0 +1,6294 @@
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'Package',
+	1400,
+	'EP_PKG',
+	'',
+	"5f91aa5d-e683-4f22-940b-575b4f24b2d1");
+INSERT INTO O_TFR
+	VALUES ("4c207723-0219-4a68-9eed-45a543d68328",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'dispose',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+select one system related by self->S_SYS[R1401];
+if(not_empty system)
+  unrelate self from system across R1401;
+end if;
+select many specPkgs related by self->EP_SPKG[R1400];
+for each specPkg in specPkgs
+  // A Specification Package can contain a datatype package.  When datatypes
+  // are disposed, they may need to use R1400.  Therefore, we have to call
+  // dispose() before unrelating across R1400.
+  specPkg.dispose();
+  unrelate self from specPkg across R1400;
+end for;
+select many pps related by self->SQ_PP[R956];
+for each pp in pps
+  pp.unformalize();
+end for;
+select many pips related by self->EP_PIP[R1403];
+for each pip in pips
+  select one childPackage related by pip->EP_PKG[R1404];
+  unrelate self from pip across R1403;
+  childPackage.dispose();
+end for;
+select one pip related by self->EP_PIP[R1404];
+if(not_empty pip)
+  unrelate self from pip across R1404;
+  select one parent related by pip->EP_PKG[R1403];
+  if(not_empty parent)
+    unrelate pip from parent across R1403;
+  end if;
+  delete object instance pip;
+end if;
+self.clearScope();
+// dispose Packagable Elements
+select many pes related by self ->PE_PE[R8000];
+for each pe in pes
+  // let the PE_PE.dispose() tear down
+  // this association so that S_DT.dispose()
+  // can properly find a system for type
+  // migration
+  pe.dispose();
+end for;
+// note that the following must be after the
+// call to dispose the PE_PE instances, otherwise
+// data type migration will not work
+select one system related by self->S_SYS[R1405];
+if(not_empty system)
+  unrelate self from system across R1405;
+end if;
+// dispose Packagable Element
+select one pkgElement related by self ->PE_PE[R8001];
+if not_empty  pkgElement 
+  unrelate self from pkgElement across R8001;
+  pkgElement.dispose();
+end if;
+
+select many elemVis related by self->PE_VIS[R8002];
+for each elemV in elemVis
+  select one pe related by elemV->PE_PE[R8002];
+  unrelate self from pe across R8002 using elemV;
+  delete object instance elemV;
+end for;
+select many elemRSs related by self->PE_SRS[R8005];
+for each elemRS in elemRSs
+  elemRS.dispose();
+end for;
+select one compInst related by self->I_EXE[R2970];
+if not_empty compInst
+  unrelate self from compInst across R2970;
+  compInst.dispose();
+end if;
+select many classInEngines related by self->CSME_CIE[R2971];
+for each cie in classInEngines
+  unrelate self from cie across R2971;
+  cie.dispose();
+end for;
+
+
+delete object instance self;
+',
+	1,
+	'',
+	"b2d1db0a-0ef2-4995-89ca-0a46898503ae");
+INSERT INTO S_DT_PROXY
+	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'void',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("b18247f6-6e14-4662-899a-9fb3cc9832d8",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'getPath',
+	'',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+// return a path from this element to the root (system)
+path = self.Name;
+if(param.path != "")
+  path = path + "::" + param.path;
+end if;
+select one system related by self->S_SYS[R1401];
+if(not_empty system)
+  return system.Name + "::" + path;
+else
+  select one parentPkg related by self->EP_PIP[R1404]->EP_PKG[R1403];
+  if(not_empty parentPkg)
+    return parentPkg.getPath(path:path);
+  else
+    select one parentPkg related by self->PE_PE[R8001]->EP_PKG[R8000];
+    if(not_empty parentPkg)
+      return parentPkg.getPath(path:path);
+    else
+      // check for a component as parent
+      select one component related by self->PE_PE[R8001]->C_C[R8003];
+      if(not_empty component)
+        return component.getPath(path:path, includeSelf:true);
+      end if;
+    end if;
+  end if;
+end if;
+return "";',
+	1,
+	'',
+	"4c207723-0219-4a68-9eed-45a543d68328");
+INSERT INTO O_TPARM
+	VALUES ("8463374c-f487-4377-8d6f-a047e321fde7",
+	"b18247f6-6e14-4662-899a-9fb3cc9832d8",
+	'path',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'string',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("9dee1699-8d51-48ec-8428-d76040c1c793",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'initialize',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'name = ::getUniqueInitialName( 
+    instance: self.convertToInstance(), 
+    candidateName: "Unnamed Package" );
+success = ::getNewElementName(name:name,instance: self.convertToInstance(),validateName:true);    
+if ( success!="") 
+ self.Name=success;
+else 
+ self.dispose();
+end if;    ',
+	1,
+	'',
+	"a04c5154-82b1-41e1-9d86-b62273d49939");
+INSERT INTO O_TFR
+	VALUES ("88bdc21e-d7ea-4fe7-aaa5-dd079610df33",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'convertToInstance',
+	'A utility operation to cast an instance of this type to the
+instance datatype.
+
+Translate: native',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	1,
+	'return this;',
+	0,
+	'',
+	"3bc8f719-62ea-4a67-93d3-fa3d0af972b5");
+INSERT INTO S_DT_PROXY
+	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'instance',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("a214835c-7cd4-4cf2-8d70-5d4db4339001",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'get_style',
+	'',
+	"6e636321-0fd1-4577-b185-e4d76b0d0c71",
+	1,
+	'return Style::Folder;',
+	1,
+	'',
+	"5d61a016-e52e-4b34-968c-4906101e2394");
+INSERT INTO S_DT_PROXY
+	VALUES ("6e636321-0fd1-4577-b185-e4d76b0d0c71",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'Style',
+	'The Style data type specifies the precise form a graphical element will take when drawn.
+--------------------------------------------------------------------------
+Bridge:GD',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("5d61a016-e52e-4b34-968c-4906101e2394",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'get_entries',
+	'',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	1,
+	'return 1;',
+	1,
+	'',
+	"7b553e63-8432-42b0-bd29-8f9ce845ffde");
+INSERT INTO O_TPARM
+	VALUES ("302215c0-aeee-4a9c-902a-8399b9d23034",
+	"5d61a016-e52e-4b34-968c-4906101e2394",
+	'comp_num',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'integer',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("7b553e63-8432-42b0-bd29-8f9ce845ffde",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'get_compartments',
+	'',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	1,
+	'return 1;',
+	1,
+	'',
+	"1d463d4c-dc1e-4a1a-9540-85cc7832a05e");
+INSERT INTO O_TFR
+	VALUES ("1d463d4c-dc1e-4a1a-9540-85cc7832a05e",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'get_compartment_text',
+	'',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	1,
+	'result = "";
+if (param.at == Justification::Center_in_X)
+  result = "«package»";
+elif (param.at == Justification::Center)
+  result = self.Name;
+  select one pe related by self->PE_PE[R8001];
+  if not_empty pe
+    result = pe.getVisibilityAdornment() + result;
+  end if;
+end if;
+return result;',
+	1,
+	'',
+	"c37581ca-5a4a-4ea5-83bf-9461372fea83");
+INSERT INTO O_TPARM
+	VALUES ("e5865362-b3e0-4893-956a-3481f7594753",
+	"1d463d4c-dc1e-4a1a-9540-85cc7832a05e",
+	'at',
+	"a9382bea-4a3f-43ec-9191-1f9f158b11a4",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("a9382bea-4a3f-43ec-9191-1f9f158b11a4",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'Justification',
+	'The Justification data type is used to specify text at a given location in a compartment.
+------------------------------------------------------------------------------
+Bridge:GD',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TPARM
+	VALUES ("db400ca5-a23d-4acc-bec9-15a01ac62335",
+	"1d463d4c-dc1e-4a1a-9540-85cc7832a05e",
+	'ent_num',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"13bc5cd0-14a9-4682-ab21-ff6913128d25",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("13bc5cd0-14a9-4682-ab21-ff6913128d25",
+	"1d463d4c-dc1e-4a1a-9540-85cc7832a05e",
+	'comp_num',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"e5865362-b3e0-4893-956a-3481f7594753",
+	'');
+INSERT INTO O_TFR
+	VALUES ("a04c5154-82b1-41e1-9d86-b62273d49939",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'get_text_style',
+	'',
+	"6e636321-0fd1-4577-b185-e4d76b0d0c71",
+	1,
+	'return Style::None;',
+	1,
+	'',
+	"a214835c-7cd4-4cf2-8d70-5d4db4339001");
+INSERT INTO O_TPARM
+	VALUES ("f019754b-0a9f-49eb-8a35-0c7573eab9a3",
+	"a04c5154-82b1-41e1-9d86-b62273d49939",
+	'at',
+	"a9382bea-4a3f-43ec-9191-1f9f158b11a4",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("8c3aa9c5-cad3-4558-b896-ad6870dbff3d",
+	"a04c5154-82b1-41e1-9d86-b62273d49939",
+	'ent_num',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"441b67ee-5b2c-4c22-a9b0-29159f74c8cd",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("441b67ee-5b2c-4c22-a9b0-29159f74c8cd",
+	"a04c5154-82b1-41e1-9d86-b62273d49939",
+	'comp_num',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"f019754b-0a9f-49eb-8a35-0c7573eab9a3",
+	'');
+INSERT INTO O_TFR
+	VALUES ("2a73cabc-5797-4455-9c8b-e4dc3ec3617f",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'actionFilter',
+	'',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'result = false;
+if(param.name == "can")
+  if(param.value == "launchVerifier")
+    // check that all components rooted under this package
+    // can be verified
+    return self.ownsExecutableElementsOrChildOwnsExecutableElements();
+  end if;
+  if param.value == "make public"
+    select one pe related by self->PE_PE[R8001];
+    if not_empty pe 
+      return pe.Visibility != Visibility::Public;
+    end if;
+  elif param.value == "make protected"
+    select one pe related by self->PE_PE[R8001];
+    if not_empty pe 
+      return pe.Visibility != Visibility::Protected;
+    end if;
+  elif param.value == "make private"
+    select one pe related by self->PE_PE[R8001];
+    if not_empty pe 
+      return pe.Visibility != Visibility::Private;
+    end if;
+  end if;
+elif (param.name == "has")
+  if (param.value == "realized components")
+    return self.hasRealizedComponents();
+  end if;
+end if;
+return result;',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_TPARM
+	VALUES ("8d6e51f5-4330-459f-b409-b1483a56aa98",
+	"2a73cabc-5797-4455-9c8b-e4dc3ec3617f",
+	'name',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("00321be9-0476-48b0-bf61-11367903b4a3",
+	"2a73cabc-5797-4455-9c8b-e4dc3ec3617f",
+	'value',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	0,
+	'',
+	"8d6e51f5-4330-459f-b409-b1483a56aa98",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'boolean',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("c37581ca-5a4a-4ea5-83bf-9461372fea83",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'getSystemId',
+	'',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+select one system related by self->S_SYS[R1401];
+if(not_empty system)
+  return system.Sys_ID;
+else
+  select one system related by self->S_SYS[R1405];
+  if not_empty system
+    return system.Sys_ID;
+  end if;
+end if;
+select one parent related by self->EP_PIP[R1404]->EP_PKG[R1403];
+while(not_empty parent)
+  select one system related by parent->S_SYS[R1401];
+  select one parent related by parent->EP_PIP[R1404]->EP_PKG[R1403];
+end while;
+if(not_empty system)
+  return system.Sys_ID;
+end if;
+return GD::NULL_UNIQUE_ID();',
+	1,
+	'',
+	"b18247f6-6e14-4662-899a-9fb3cc9832d8");
+INSERT INTO S_DT_PROXY
+	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'unique_id',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("ed6f8331-fefb-4dac-8da3-a7f126d561ae",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'newPackage',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// Package::newPackage()
+create object instance package of EP_PKG;
+// create Packageable Element supertype and hook up to this package.
+create object instance pe of PE_PE;
+relate package to pe across R8001;
+select one system related by self->S_SYS[R1405];
+relate package to system across R1405;
+relate self to pe across R8000;
+package.initialize();
+pe.type = ElementTypeConstants::PACKAGE;
+pe.initialize();
+',
+	1,
+	'',
+	"5d249ad2-d8d6-4c4e-99ee-ff79b33d25b4");
+INSERT INTO O_TFR
+	VALUES ("2fe93702-07c7-4844-b942-82a9ec8ad533",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'associateWithSystem',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+select one system related by self->S_SYS[R1405];
+if(not_empty system and system.Sys_ID != param.sysID)
+  // different system
+  unrelate self from system across R1405;
+  select one rootSys related by self->S_SYS[R1401];
+  if (not_empty rootSys)
+    unrelate self from system across R1401;
+  end if;  
+end if;
+// first associate all component packages and their
+// children with the system pasted into
+select many componentPackages related by self->EP_SPKG[R1400]->CP_CP[R1402];
+for each componentPackage in componentPackages
+  componentPackage.associatePackageWithSystem(sysID:param.sysID);
+end for;
+// now do the same for every interface package
+select many interfacePackages related by self->EP_SPKG[R1400]->IP_IP[R1402];
+for each interfacePackage in interfacePackages
+  interfacePackage.associatePackageWithSystem(sysID:param.sysID);
+end for;
+// the same for nested packages
+select many pips related by self->EP_PIP[R1403]->EP_PKG[R1404];
+for each pip in pips
+  pip.associateWithSystem(sysID:param.sysID);
+end for;
+//
+select any system from instances of S_SYS where (selected.Sys_ID == param.sysID);
+if(not_empty system)
+  select many packages related by self->PE_PE[R8000]->EP_PKG[R8001];
+  for each package in packages
+    relate package to system across R1405;
+    package.associateWithSystem(sysID:param.sysID);
+  end for;
+  select many components related by self->PE_PE[R8000]->C_C[R8001];
+  for each component in components
+    component.associatePackagesWithSystem(id:param.sysID);
+  end for;
+end if;//
+
+// and the same for data type packages
+select many dtPackages related by self->EP_SPKG[R1400]->S_DPK[R1402];
+for each dtPackage in dtPackages
+  // must associate all dts with the system
+  dtPackage.associateDTSWithSystem(sys_id:param.sysID);
+  // must associate all constant specs with the system
+  dtPackage.associateCSPsWithSystem(sys_id:param.sysID);
+  // before removing any core dts from this package
+  // we must resolve any user dts to new core types
+  dtPackage.handleUserDataTypeResolution();
+end for;',
+	1,
+	'',
+	"2a73cabc-5797-4455-9c8b-e4dc3ec3617f");
+INSERT INTO O_TPARM
+	VALUES ("1ddbb762-6d83-4905-9bd0-b934018b86d6",
+	"2fe93702-07c7-4844-b942-82a9ec8ad533",
+	'sysID',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("c3726071-4d60-41e4-815a-83b5365a1398",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'pastePackage',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select any pkg from instances of EP_PKG where (selected.Package_ID == param.id);
+if(not_empty pkg)
+  select one directSystem related by pkg->S_SYS[R1401];
+  if(not_empty directSystem)
+    unrelate pkg from directSystem across R1401;
+  end if;
+  select one system related by pkg->S_SYS[R1405];
+  if(not_empty system)
+    unrelate pkg from system across R1405;
+  end if;
+  select one pe related by pkg->PE_PE[R8001];
+  relate pe to self across R8000;
+  // guarantee a unique name for the pasted dt package
+  pkg.Name = ::getUniqueInitialNameInParent(instance:pkg.convertToInstance(),
+  						name:pkg.Name, parent:self.convertToInstance());
+  select one thisSystem related by self->S_SYS[R1405];
+  relate pkg to thisSystem across R1405;
+  // associate all children with this
+  // system
+  pkg.associateWithSystem(sysID:thisSystem.Sys_ID);
+  // for any non local event below this package
+  // remove incomplete ones (those that are not
+  // resolvable)
+  pkg.removeIncompleteSignalEvents();
+end if;',
+	1,
+	'',
+	"ed6f8331-fefb-4dac-8da3-a7f126d561ae");
+INSERT INTO O_TPARM
+	VALUES ("4338e404-37fb-418a-8914-757e2799c29b",
+	"c3726071-4d60-41e4-815a-83b5365a1398",
+	'id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("b2d1db0a-0ef2-4995-89ca-0a46898503ae",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'deassociateFromParent',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+// deassociate the pasted pkg with original parent
+select one prevSystem related by self->S_SYS[R1401];
+if(not_empty prevSystem)
+  unrelate self from prevSystem across R1401;
+end if;
+select one pe related by self->PE_PE[R8001];
+if not empty pe 
+  select one pkg related by pe->EP_PKG[R8000];
+  if not_empty pkg
+    unrelate pkg from pe across R8000;
+  end if;
+  unrelate pe from self across R8001;
+  delete object instance pe;
+end if;',
+	1,
+	'',
+	"88bdc21e-d7ea-4fe7-aaa5-dd079610df33");
+INSERT INTO O_TFR
+	VALUES ("3bc8f719-62ea-4a67-93d3-fa3d0af972b5",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'associateWithPackage',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+// unhook from current parent
+self.deassociateFromParent();
+// hook up with package
+select any package from instances of EP_PKG
+                                     where (selected.Package_ID == param.pkgID);
+create object instance pe of PE_PE;
+relate pe to package across R8000;
+relate pe to self across R8001;
+pe.type = ElementTypeConstants::PACKAGE;
+pe.initialize();',
+	1,
+	'',
+	"2fe93702-07c7-4844-b942-82a9ec8ad533");
+INSERT INTO O_TPARM
+	VALUES ("69f35734-6a99-49b3-b627-2c0f69ef4d5c",
+	"3bc8f719-62ea-4a67-93d3-fa3d0af972b5",
+	'pkgID',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("1e564c07-13f4-4bab-8303-93b5f9d78584",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'newDatatype',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// Package::newDatatype()
+
+// Create the new data type
+create object instance dt of S_DT;
+// create Packageable Element supertype and hook up to this package.
+create object instance pe of PE_PE;
+relate dt to pe across R8001;
+relate pe to self across R8000;
+
+create object instance udt of S_UDT;
+relate dt to udt across R17;
+
+// Default to core integer type
+select one system related by self->S_SYS[R1405];
+dt_id = GD::NULL_UNIQUE_ID();
+if not_empty system
+  dt_id = system.getCoreTypeId(name:"integer");
+end if;
+select any int_pe from instances of PE_PE where selected.Element_ID == dt_id;
+select one int_dt related by int_pe->S_DT[R8001]; 
+relate udt to int_dt across R18;
+
+dt.initialize(newname:"Unnamed Data Type");
+pe.type = ElementTypeConstants::DATATYPE;
+pe.initialize();',
+	1,
+	'',
+	"c3726071-4d60-41e4-815a-83b5365a1398");
+INSERT INTO O_TFR
+	VALUES ("8466f9a2-b9ba-46a8-8f90-7741e7b72228",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'newActor',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// Package::newActor()
+create object instance actor of SQ_AP;
+create object instance participant of SQ_P;
+// create Packageable Element supertype and hook up to this package.
+create object instance pe of PE_PE;
+relate participant to pe across R8001;
+relate actor to participant across R930;
+relate self to pe across R8000;
+pe.type = ElementTypeConstants::INTERACTION_PARTICIPANT;
+pe.initialize();
+actor.initialize();',
+	1,
+	'',
+	"d6638630-d722-4328-bb0e-b0ec1192b346");
+INSERT INTO O_TFR
+	VALUES ("fcd03e01-c462-4595-9136-100f6af92b1d",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'newUseCase',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// Package::newUseCase()
+create object instance useCase of IA_UCP;
+create object instance participant of SQ_P;
+// create Packageable Element supertype and hook up to this package.
+create object instance pe of PE_PE;
+relate participant to pe across R8001;
+pe.type = ElementTypeConstants::INTERACTION_PARTICIPANT;
+pe.initialize();
+relate useCase to participant across R930;
+relate self to pe across R8000;
+useCase.initialize();',
+	1,
+	'',
+	"ef7a0d8c-1029-4d42-8da8-4f5e83781454");
+INSERT INTO O_TFR
+	VALUES ("88865e8d-5155-4c71-97e8-7ad31b177373",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'newAssociation',
+	'',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'// Package::newAssociation()
+
+// This operation handles associatin creation for both the Use Case Association
+// and the Class Association.  
+//
+
+select any sourceActor related by self->PE_PE[R8000]->
+                  SQ_P[R8001]->SQ_AP[R930] where selected.Part_ID == param.from;
+select any destinationUC related by self->PE_PE[R8000]->
+                   SQ_P[R8001]->IA_UCP[R930] where selected.Part_ID == param.to;
+if not_empty sourceActor and not_empty destinationUC
+  // This is a Use Case Association
+  
+  create object instance association of UC_UCA;
+  // create Packageable Element supertype and hook up to this package.
+  create object instance pe of PE_PE;
+  relate association to pe across R8001;
+  relate self to pe across R8000;
+  pe.type = ElementTypeConstants::USE_CASE_ASSOCIATION;
+  pe.initialize();
+  create object instance ba of UC_BA;
+  select one sourcePart related by sourceActor->SQ_P[R930];
+  select one destPart related by destinationUC->SQ_P[R930];
+  relate association to sourcePart across R1206;
+  relate association to destPart across R1207;
+  relate association to ba across R1210;
+  return true;
+else
+  // It was not a Use Case association, so see if it is a class assocition.
+  
+  select any fromClass related by self->PE_PE[R8000]->O_OBJ[R8001] where (selected.Obj_ID == param.from);
+  select any fromIClass related by self->PE_PE[R8000]->O_IOBJ[R8001] where (selected.IObj_ID == param.from);
+  if (param.fromIsImported)
+    if (not_empty fromIClass)
+      select one fromClass related by fromIClass->O_OBJ[R101];
+    end if;
+  end if;
+  select any toClass related by self->PE_PE[R8000]->O_OBJ[R8001] where (selected.Obj_ID == param.to);
+  select any toIClass related by self->PE_PE[R8000]->O_IOBJ[R8001] where (selected.IObj_ID == param.to);
+  if (param.toIsImported)
+    if (not_empty toIClass)
+      select one toClass related by toIClass->O_OBJ[R101];
+    end if;
+  end if;
+  //
+  if (not_empty fromClass and not_empty toClass)
+    create object instance assoc of R_REL;
+    // create Packageable Element supertype and hook up to this package.
+    create object instance pe of PE_PE;
+    relate assoc to pe across R8001;
+    relate pe to self across R8000;
+    pe.type = ElementTypeConstants::ASSOCIATION;
+    pe.initialize();
+    assoc.initialize();
+    create object instance simp of R_SIMP;
+    relate simp to assoc across R206;
+    //
+    create object instance fromOIR of R_OIR;
+    relate fromClass to assoc across R201 using fromOIR;
+    create object instance fromRTO of R_RTO;
+    relate fromOIR to fromRTO across R203;
+    create object instance fromPART of R_PART;
+    relate fromPART to fromRTO across R204;
+    relate fromPART to simp across R207;
+    if (param.fromIsImported)
+      if (not_empty fromIClass)
+        relate fromOIR to fromIClass across R202;
+      end if;
+    end if;
+    //
+    create object instance toOIR of R_OIR;
+    relate toClass to assoc across R201 using toOIR;
+    create object instance toRTO of R_RTO;
+    relate toOIR to toRTO across R203;
+    create object instance toPART of R_PART;
+    relate toPART to toRTO across R204;
+    relate toPART to simp across R207;
+    if (param.toIsImported)
+      if (not_empty toIClass)
+        relate toOIR to toIClass across R202;
+      end if;
+    end if;
+    return true;
+  end if;
+end if;
+return false;',
+	1,
+	'',
+	"5eb4cc8d-9e2c-4912-ac6b-3dddf8b6a81f");
+INSERT INTO O_TPARM
+	VALUES ("7597dbad-0357-4521-bd9d-d7956f618818",
+	"88865e8d-5155-4c71-97e8-7ad31b177373",
+	'from',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("0149d9ce-a923-4e9e-8579-5738c65e9f1e",
+	"88865e8d-5155-4c71-97e8-7ad31b177373",
+	'fromIsImported',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	0,
+	'',
+	"7597dbad-0357-4521-bd9d-d7956f618818",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("9f5af7c4-95e1-4068-805b-91a28eb4c1ef",
+	"88865e8d-5155-4c71-97e8-7ad31b177373",
+	'to',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"0149d9ce-a923-4e9e-8579-5738c65e9f1e",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("944ae1f0-69bc-4eb5-9498-9e1a74f688a2",
+	"88865e8d-5155-4c71-97e8-7ad31b177373",
+	'toIsImported',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	0,
+	'',
+	"9f5af7c4-95e1-4068-805b-91a28eb4c1ef",
+	'');
+INSERT INTO O_TFR
+	VALUES ("fb9c5f05-e669-48da-878a-6f4407cb4b43",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'newSendSignalAction',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// Package::newSendSignalAction()
+create object instance node of A_N;
+create object instance act of A_ACT;
+create object instance ss of A_SS;
+// create Packageable Element supertype and hook up to this package.
+create object instance pe of PE_PE;
+relate node to pe across R8001;
+pe.type = ElementTypeConstants::ACTIVITY_NODE;
+pe.initialize();
+
+relate node to act across R1105;
+relate act to ss across R1107;
+relate self to pe across R8000;
+ss.initialize();',
+	1,
+	'',
+	"6caab5c9-aee3-4b63-a30c-f2734f4cc36d");
+INSERT INTO O_TFR
+	VALUES ("7543e6c3-c4e5-4a31-a935-5a254a1384d3",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'newGenericAction',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// Package::newGenericAction()
+create object instance node of A_N;
+create object instance act of A_ACT;
+create object instance ga of A_GA;
+// create Packageable Element supertype and hook up to this package.
+create object instance pe of PE_PE;
+relate node to pe across R8001;
+pe.type = ElementTypeConstants::ACTIVITY_NODE;
+pe.initialize();
+
+relate node to act across R1105;
+relate act to ga across R1107;
+relate self to pe across R8000;
+ga.initialize();',
+	1,
+	'',
+	"ae453031-66b1-4d8f-a830-1c8cd7e91141");
+INSERT INTO O_TFR
+	VALUES ("89afe634-2711-47e6-84a2-22318bd9c61a",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'newClass',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// Package::newClass()
+create object instance cl of O_OBJ;
+// create Packageable Element supertype and hook up to this package.
+create object instance pe of PE_PE;
+relate cl to pe across R8001;
+pe.type = ElementTypeConstants::CLASS;
+pe.initialize();
+
+relate self to pe across R8000;
+cl.initialize();',
+	1,
+	'',
+	"35aa44bc-1610-442d-a2ff-708eb2246863");
+INSERT INTO O_TFR
+	VALUES ("ba7c2916-5468-4c07-aa1f-b0b6f4331857",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'newAcceptEventAction',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// Package::newAcceptEventAction()
+create object instance node of A_N;
+create object instance act of A_ACT;
+create object instance ae of A_AE;
+create object instance aea of A_AEA;
+// create Packageable Element supertype and hook up to this package.
+create object instance pe of PE_PE;
+relate node to pe across R8001;
+pe.type = ElementTypeConstants::ACTIVITY_NODE;
+pe.initialize();
+
+relate node to act across R1105;
+relate act to ae across R1107;
+relate ae to aea across R1112;
+relate self to pe across R8000;
+aea.initialize();',
+	1,
+	'',
+	"6eae435c-f49b-4150-83ef-453246d7e09d");
+INSERT INTO O_TFR
+	VALUES ("a770633e-9a59-4937-81e0-3bf582f1aa85",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'newAcceptTimeEventAction',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// Package::newAcceptTimeEventAction()
+create object instance node of A_N;
+create object instance act of A_ACT;
+create object instance ae of A_AE;
+create object instance ate of A_ATE;
+// create Packageable Element supertype and hook up to this package.
+create object instance pe of PE_PE;
+relate node to pe across R8001;
+pe.type = ElementTypeConstants::ACTIVITY_NODE;
+pe.initialize();
+
+relate node to act across R1105;
+relate act to ae across R1107;
+relate ae to ate across R1112;
+relate self to pe across R8000;
+ate.initialize();',
+	1,
+	'',
+	"37c17e2c-c974-4a07-b3a3-e13a4ac1d407");
+INSERT INTO O_TFR
+	VALUES ("afba991f-b1ac-4a16-ba13-c35ee9a93ecd",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'newComponent',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'create object instance component of C_C;
+// create Packageable Element supertype and hook up to this package.
+create object instance pe of PE_PE;
+relate component to pe across R8001;
+relate pe to self across R8000;
+pe.type = ElementTypeConstants::COMPONENT;
+pe.initialize();
+component.initialize();',
+	1,
+	'',
+	"2cb0dc01-0164-4390-a682-802a24d3fb84");
+INSERT INTO O_TFR
+	VALUES ("ee93f2d3-dcb6-4e75-b1c2-e3b881629e1f",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'newImportedComponent',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'create object instance importedComp of CL_IC;
+// create Packageable Element supertype and hook up to this package.
+create object instance pe of PE_PE;
+relate importedComp to pe across R8001;
+relate pe to self across R8000;
+pe.type = ElementTypeConstants::COMPONENT_REFERENCE;
+pe.initialize();
+',
+	1,
+	'',
+	"6c9f773f-c68b-46c5-a19d-cae00b8676ed");
+INSERT INTO O_TFR
+	VALUES ("e0f0584a-263e-4ad5-bad3-093bbc34c8d7",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'newProvision',
+	'',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'select any component from instances of C_C where (selected.Id == param.from);
+select any requirement from instances of C_R where (selected.Requirement_Id == param.to);
+select any importedRef from instances of CL_IIR where (selected.Id == param.to);
+if(not_empty requirement) and (not_empty component)
+  return component.initializeProvision(requirement_id:requirement.Requirement_Id, provision_id:GD::NULL_UNIQUE_ID(), proceed:true);
+end if;
+if(not_empty importedRef) and (not_empty component)
+  return component.initializeProvision(requirement_id:importedRef.Id, provision_id:GD::NULL_UNIQUE_ID(), proceed:true);
+end if;
+if(empty requirement and not_empty component)
+  return component.initializeProvision(requirement_id:GD::NULL_UNIQUE_ID(), provision_id:GD::NULL_UNIQUE_ID(), proceed:true);
+end if;
+return false;',
+	1,
+	'',
+	"ee93f2d3-dcb6-4e75-b1c2-e3b881629e1f");
+INSERT INTO O_TPARM
+	VALUES ("d2babb68-7f93-46a4-9816-73af8fd8cdc8",
+	"e0f0584a-263e-4ad5-bad3-093bbc34c8d7",
+	'from',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("0ced706d-6c6f-4d6d-8003-d304979e3e76",
+	"e0f0584a-263e-4ad5-bad3-093bbc34c8d7",
+	'fromIsImported',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	0,
+	'',
+	"d2babb68-7f93-46a4-9816-73af8fd8cdc8",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("4898902e-15ed-4f17-a9e2-5a06e39275d7",
+	"e0f0584a-263e-4ad5-bad3-093bbc34c8d7",
+	'to',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"0ced706d-6c6f-4d6d-8003-d304979e3e76",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("67a31920-4021-4585-9016-31503b1edbb5",
+	"e0f0584a-263e-4ad5-bad3-093bbc34c8d7",
+	'toIsImported',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	0,
+	'',
+	"4898902e-15ed-4f17-a9e2-5a06e39275d7",
+	'');
+INSERT INTO O_TFR
+	VALUES ("3e8de48a-2420-4b8a-b996-be9fbf0b2865",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'newRequirement',
+	'',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'select any component from instances of C_C where (selected.Id == param.from);
+select any provision from instances of C_P where (selected.Provision_Id == param.to);
+select any importedRef from instances of CL_IIR where (selected.Id == param.to);
+if(not_empty provision and not_empty component)
+  return component.initializeRequirement(provision_id:provision.Provision_Id, requirement_id:GD::NULL_UNIQUE_ID(), proceed:true);
+end if;
+if(not_empty importedRef) and (not_empty component)
+  return component.initializeRequirement(provision_id:importedRef.Id, requirement_id:GD::NULL_UNIQUE_ID(), proceed:true);
+end if;
+if(not_empty component)
+  return component.initializeRequirement(provision_id:GD::NULL_UNIQUE_ID(), requirement_id:GD::NULL_UNIQUE_ID(), proceed:true);
+end if;
+return false;',
+	1,
+	'',
+	"994dadeb-daa3-4227-86cc-da903ff808b9");
+INSERT INTO O_TPARM
+	VALUES ("d17c0e88-b005-4593-ae4a-85fa51a7f156",
+	"3e8de48a-2420-4b8a-b996-be9fbf0b2865",
+	'from',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("4c52ff08-45a0-45bc-8be9-cf79c0b664fb",
+	"3e8de48a-2420-4b8a-b996-be9fbf0b2865",
+	'fromIsImported',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	0,
+	'',
+	"d17c0e88-b005-4593-ae4a-85fa51a7f156",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("c29f4dc5-d796-4370-916c-33c127f7a7a7",
+	"3e8de48a-2420-4b8a-b996-be9fbf0b2865",
+	'to',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"4c52ff08-45a0-45bc-8be9-cf79c0b664fb",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("36bd660e-6fde-49ad-9942-2423511c7683",
+	"3e8de48a-2420-4b8a-b996-be9fbf0b2865",
+	'toIsImported',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	0,
+	'',
+	"c29f4dc5-d796-4370-916c-33c127f7a7a7",
+	'');
+INSERT INTO O_TFR
+	VALUES ("af122d8e-336f-4b5c-8926-b6e2587868a9",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'newInterface',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'create object instance interface of C_I;
+// create Packageable Element supertype and hook up to this package.
+create object instance pe of PE_PE;
+relate interface to pe across R8001;
+relate pe to self across R8000;
+pe.type = ElementTypeConstants::INTERFACE;
+pe.initialize();
+interface.initialize();
+',
+	1,
+	'',
+	"836341d3-5a17-46f5-ac2d-deb36079dd03");
+INSERT INTO O_TFR
+	VALUES ("5d249ad2-d8d6-4c4e-99ee-ff79b33d25b4",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'get_ooa_id',
+	'',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	1,
+	'return self.Package_ID;',
+	1,
+	'',
+	"9dee1699-8d51-48ec-8428-d76040c1c793");
+INSERT INTO O_TFR
+	VALUES ("c5f7c458-df6d-4184-9b9f-3ff43d7d3ab7",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'newConstantSpecification',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// Data Type Package::newConstantSpecification()
+create object instance csp of CNST_CSP;
+create object instance cip of CNST_CIP;
+// create Packageable Element supertype and hook up to this package.
+create object instance pe of PE_PE;
+relate csp to pe across R8001;
+relate pe to self across R8000;
+pe.type = ElementTypeConstants::CONSTANT;
+pe.initialize();
+csp.initialize();
+',
+	1,
+	'',
+	"dcc872a4-fc8f-44b0-9545-ee146bff1c9b");
+INSERT INTO O_TFR
+	VALUES ("f9bc6349-7186-4719-a677-c3aeb6e97552",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'newEnumeration',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// Data Type Package::newEnumeration()
+create object instance dt of S_DT;
+create object instance dip of S_DIP;
+// create Packageable Element supertype and hook up to this package.
+create object instance pe of PE_PE;
+relate dt to pe across R8001;
+create object instance edt of S_EDT;
+relate dt to edt across R17;
+relate pe to self across R8000;
+pe.type = ElementTypeConstants::DATATYPE;
+pe.initialize();
+
+dt.initialize(newname:"Unnamed Enumeration");
+',
+	1,
+	'',
+	"f8bb0f7f-4b6a-4daf-90cc-8330d24b26b7");
+INSERT INTO O_TFR
+	VALUES ("78ebaeab-0abf-4944-b845-2325ebb55133",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'newStructuredDatatype',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// Data Type Package::newStructuredDatatype()
+create object instance dt of S_DT;
+// create Packageable Element supertype and hook up to this package.
+create object instance pe of PE_PE;
+relate dt to pe across R8001;
+create object instance sdt of S_SDT;
+relate dt to sdt across R17;
+create object instance dip of S_DIP;
+relate pe to self across R8000;
+pe.type = ElementTypeConstants::DATATYPE;
+pe.initialize();
+dt.initialize(newname:"Unnamed Structured Data Type");
+',
+	1,
+	'',
+	"ec9199f1-ca70-4d8e-aad2-072d0256b2ef");
+INSERT INTO O_TFR
+	VALUES ("fd61228a-b908-4f18-9377-6cfa62197045",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'newGeneralization',
+	'',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'select any source related by self->PE_PE[R8000]->SQ_P[R8001] where (selected.Part_ID == param.from);
+select any destination related by self->PE_PE[R8000]->SQ_P[R8001] where (selected.Part_ID == param.to);
+createAssoc = false;
+if((not_empty source) and (not_empty destination) and (source != destination))
+  select one sourceUC related by source->IA_UCP[R930];
+  select one destUC related by destination->IA_UCP[R930];
+  if(not_empty sourceUC and not_empty destUC)
+    createAssoc = true;
+  else
+    select one sourceActor related by source->SQ_AP[R930];
+    select one destActor related by destination->SQ_AP[R930];
+    if(not_empty sourceActor and not_empty destActor)
+      createAssoc = true;
+    end if;
+  end if;
+end if;
+if(createAssoc)
+  create object instance association of UC_UCA;
+  // create Packageable Element supertype and hook up to this package.
+  create object instance pe of PE_PE;
+  relate association to pe across R8001;
+  relate self to pe across R8000;
+  pe.type = ElementTypeConstants::INTERACTION_PARTICIPANT;
+  pe.initialize();
+  create object instance gen of UC_G;
+  if (not_empty source)
+    relate association to source across R1206;
+  end if;
+  if (not_empty destination)
+    relate association to destination across R1207;
+  end if;
+  relate association to gen across R1210;
+  return true;
+end if;
+return false;',
+	1,
+	'',
+	"005049ab-571c-480e-b446-b45dce9c3178");
+INSERT INTO O_TPARM
+	VALUES ("74fd8fd5-05c0-49b7-939c-e75ca6d3f353",
+	"fd61228a-b908-4f18-9377-6cfa62197045",
+	'from',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("dd55b302-4cc5-4dbc-b493-5addb2c06f3c",
+	"fd61228a-b908-4f18-9377-6cfa62197045",
+	'fromIsImported',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	0,
+	'',
+	"74fd8fd5-05c0-49b7-939c-e75ca6d3f353",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("fb98ce8d-177f-44d8-896e-975260982b16",
+	"fd61228a-b908-4f18-9377-6cfa62197045",
+	'to',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"dd55b302-4cc5-4dbc-b493-5addb2c06f3c",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("50111db0-b146-49ba-879a-ee4dc027c6a4",
+	"fd61228a-b908-4f18-9377-6cfa62197045",
+	'toIsImported',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	0,
+	'',
+	"fb98ce8d-177f-44d8-896e-975260982b16",
+	'');
+INSERT INTO O_TFR
+	VALUES ("d75b0b45-169a-4d3a-8744-e3089ae4e8cf",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'newInclude',
+	'',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'select any sourceUC related by self->PE_PE[R8000]->SQ_P[R8001]->IA_UCP[R930] where (selected.Part_ID == param.from);
+select any destinationUC related by self->PE_PE[R8000]->SQ_P[R8001]->IA_UCP[R930] where (selected.Part_ID == param.to);
+if(not_empty sourceUC and not_empty destinationUC) and (sourceUC != destinationUC)
+  create object instance association of UC_UCA;
+  // create Packageable Element supertype and hook up to this package.
+  create object instance pe of PE_PE;
+  relate association to pe across R8001;
+  relate self to pe across R8000;
+  pe.type = ElementTypeConstants::USE_CASE_ASSOCIATION;
+  pe.initialize();
+  create object instance inc of UC_I;
+  select one source related by sourceUC->SQ_P[R930];
+  select one destination related by destinationUC->SQ_P[R930];
+  relate association to source across R1206;
+  relate association to destination across R1207;
+  relate association to inc across R1210;
+  return true;
+end if;
+return false;',
+	1,
+	'',
+	"9d1d8a21-6a77-4222-8df7-33a066fb2cb4");
+INSERT INTO O_TPARM
+	VALUES ("c1fa781e-b2d4-445e-b296-998b5600b791",
+	"d75b0b45-169a-4d3a-8744-e3089ae4e8cf",
+	'from',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("12d0615f-a997-4c6f-9b22-dd59889fded2",
+	"d75b0b45-169a-4d3a-8744-e3089ae4e8cf",
+	'fromIsImported',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	0,
+	'',
+	"c1fa781e-b2d4-445e-b296-998b5600b791",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("342a1eb3-b5d6-4e64-b792-85626e09768c",
+	"d75b0b45-169a-4d3a-8744-e3089ae4e8cf",
+	'to',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"12d0615f-a997-4c6f-9b22-dd59889fded2",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("9a93987d-fb88-44fb-a953-535dcb5023e1",
+	"d75b0b45-169a-4d3a-8744-e3089ae4e8cf",
+	'toIsImported',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	0,
+	'',
+	"342a1eb3-b5d6-4e64-b792-85626e09768c",
+	'');
+INSERT INTO O_TFR
+	VALUES ("5e165afe-1f22-47ad-a97c-7ff393d9ec80",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'newExtend',
+	'',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'select any sourceUC related by self->PE_PE[R8000]->SQ_P[R8001]->IA_UCP[R930] where (selected.Part_ID == param.from);
+select any destinationUC related by self->PE_PE[R8000]->SQ_P[R8001]->IA_UCP[R930] where (selected.Part_ID == param.to);
+if(not_empty sourceUC and not_empty destinationUC) and (sourceUC != destinationUC)
+  create object instance association of UC_UCA;
+  // create Packageable Element supertype and hook up to this package.
+  create object instance pe of PE_PE;
+  relate association to pe across R8001;
+  pe.type = ElementTypeConstants::INTERACTION_PARTICIPANT;
+  pe.initialize();
+  relate self to pe across R8000;
+  create object instance ext of UC_E;
+  select one source related by sourceUC->SQ_P[R930];
+  select one destination related by destinationUC->SQ_P[R930];
+  relate association to source across R1206;
+  relate association to destination across R1207;
+  relate association to ext across R1210;
+  return true;
+end if;
+return false;',
+	1,
+	'',
+	"a3ab299c-a4ee-4ff9-ab37-3907f0d75e10");
+INSERT INTO O_TPARM
+	VALUES ("4aecd539-9ccd-43aa-b971-868137dad82b",
+	"5e165afe-1f22-47ad-a97c-7ff393d9ec80",
+	'from',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("4198c814-a8ac-4f78-92ec-8684f50d55e6",
+	"5e165afe-1f22-47ad-a97c-7ff393d9ec80",
+	'fromIsImported',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	0,
+	'',
+	"4aecd539-9ccd-43aa-b971-868137dad82b",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("75b6ea40-1483-40bb-9bc4-1b906b66d603",
+	"5e165afe-1f22-47ad-a97c-7ff393d9ec80",
+	'to',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"4198c814-a8ac-4f78-92ec-8684f50d55e6",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("1130fade-bf18-4db0-af1a-f0228fb57b3c",
+	"5e165afe-1f22-47ad-a97c-7ff393d9ec80",
+	'toIsImported',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	0,
+	'',
+	"75b6ea40-1483-40bb-9bc4-1b906b66d603",
+	'');
+INSERT INTO O_TFR
+	VALUES ("cb228b11-2692-4abe-944a-f34aeb8fecdd",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'newActivityPartition',
+	'',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'create object instance ap of A_AP;
+// create Packageable Element supertype and hook up to this package.
+create object instance pe of PE_PE;
+relate ap to pe across R8001;
+relate pe to self across R8000;
+pe.type = ElementTypeConstants::ACTIVITY_PARTITION;
+pe.initialize();
+return true;',
+	1,
+	'',
+	"536ec2a3-dbf6-4044-9511-86d7ead88ed0");
+INSERT INTO O_TPARM
+	VALUES ("5a75a6d9-29c1-4b75-8c2e-f05037055d3a",
+	"cb228b11-2692-4abe-944a-f34aeb8fecdd",
+	'to',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("3d1dc035-b974-4afc-b3ae-6a4c9183008b",
+	"cb228b11-2692-4abe-944a-f34aeb8fecdd",
+	'toTypeIsImported',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	0,
+	'',
+	"5a75a6d9-29c1-4b75-8c2e-f05037055d3a",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("05bdf5df-0356-468b-932f-ff8042a311c2",
+	"cb228b11-2692-4abe-944a-f34aeb8fecdd",
+	'from',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"3d1dc035-b974-4afc-b3ae-6a4c9183008b",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("22870f2f-fcc1-4827-a5ec-66985845f876",
+	"cb228b11-2692-4abe-944a-f34aeb8fecdd",
+	'fromTypeIsImported',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	0,
+	'',
+	"05bdf5df-0356-468b-932f-ff8042a311c2",
+	'');
+INSERT INTO O_TFR
+	VALUES ("fe9fa58d-7d0a-4fdf-a65b-e9b951335f17",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'newObjectNode',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'create object instance node of A_N;
+create object instance obj of A_OBJ;
+// create Packageable Element supertype and hook up to this package.
+create object instance pe of PE_PE;
+relate node to pe across R8001;
+relate pe to self across R8000;
+pe.type = ElementTypeConstants::ACTIVITY_NODE;
+pe.initialize();
+
+relate node to obj across R1105;
+obj.initialize();',
+	1,
+	'',
+	"41ae8049-5edf-46a6-9345-d6236c0b5298");
+INSERT INTO O_TFR
+	VALUES ("cd580f09-b6e5-4c7f-9d5a-9d2826f31f48",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'newActivityEdge',
+	'',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'if ( param.from == param.to )
+  return false;
+end if;
+select any fromNode related by self->PE_PE[R8000]->A_N[R8001] where (selected.Id == param.from);
+select any toNode related by self->PE_PE[R8000]->A_N[R8001] where (selected.Id == param.to);
+if (not_empty fromNode and not_empty toNode)
+  if ( fromNode.outgoingEdgeAllowed() and toNode.incomingEdgeAllowed() )
+    create object instance edge of A_E;
+    // create Packageable Element supertype and hook up to this package.
+    create object instance pe of PE_PE;
+    relate edge to pe across R8001;
+    relate pe to self across R8000;
+    pe.type = ElementTypeConstants::ACTIVITY_EDGE;
+    pe.initialize();
+    relate edge to fromNode across R1104;
+    relate edge to toNode across R1103;
+    return true;
+  end if;
+end if;
+return false;',
+	1,
+	'',
+	"cd56dcc0-c962-41ef-8e26-c22664733cca");
+INSERT INTO O_TPARM
+	VALUES ("4c4777dc-329f-4c19-aaba-5f90ab30c92f",
+	"cd580f09-b6e5-4c7f-9d5a-9d2826f31f48",
+	'from',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("1a8d9e10-4fa6-4351-a19e-1b448e3e230f",
+	"cd580f09-b6e5-4c7f-9d5a-9d2826f31f48",
+	'fromTypeIsImported',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	0,
+	'',
+	"4c4777dc-329f-4c19-aaba-5f90ab30c92f",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("1027b513-247d-4477-951a-dff720dec857",
+	"cd580f09-b6e5-4c7f-9d5a-9d2826f31f48",
+	'to',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"1a8d9e10-4fa6-4351-a19e-1b448e3e230f",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("9ca42128-3e04-4cdd-bae5-3dbe44e4ef4c",
+	"cd580f09-b6e5-4c7f-9d5a-9d2826f31f48",
+	'toTypeIsImported',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	0,
+	'',
+	"1027b513-247d-4477-951a-dff720dec857",
+	'');
+INSERT INTO O_TFR
+	VALUES ("4645bfd7-8c6b-4f37-8ee4-9573f7a3aa37",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'newForkJoin',
+	'',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'if(param.from == GD::NULL_UNIQUE_ID()) and (param.to == GD::NULL_UNIQUE_ID())
+  create object instance node of A_N;
+  create object instance ctl of A_CTL;
+  create object instance fj of A_FJ;
+  
+  // create Packageable Element supertype and hook up to this package.
+  create object instance pe of PE_PE;
+  relate node to pe across R8001;
+  relate pe to self across R8000;
+  pe.type = ElementTypeConstants::ACTIVITY_NODE;
+  pe.initialize();
+
+  relate node to ctl across R1105;
+  relate ctl to fj across R1106;
+  
+  return true;
+end if;
+return false;
+',
+	1,
+	'',
+	"037912ca-64b3-41a4-935c-9391bf58483e");
+INSERT INTO O_TPARM
+	VALUES ("b09c8b12-7d3f-404d-883f-ab2402e78b2e",
+	"4645bfd7-8c6b-4f37-8ee4-9573f7a3aa37",
+	'from',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("39999cb0-bb22-4227-829b-2a9e0659b78f",
+	"4645bfd7-8c6b-4f37-8ee4-9573f7a3aa37",
+	'fromTypeIsImported',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	0,
+	'',
+	"b09c8b12-7d3f-404d-883f-ab2402e78b2e",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("99b8499f-6629-4cb4-8976-246386520663",
+	"4645bfd7-8c6b-4f37-8ee4-9573f7a3aa37",
+	'to',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"39999cb0-bb22-4227-829b-2a9e0659b78f",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("65559b37-2532-4ea8-9949-0f19e9ecafc1",
+	"4645bfd7-8c6b-4f37-8ee4-9573f7a3aa37",
+	'toTypeIsImported',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	0,
+	'',
+	"99b8499f-6629-4cb4-8976-246386520663",
+	'');
+INSERT INTO O_TFR
+	VALUES ("11a2e227-3ca9-426b-987d-7557c184096d",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'newDecisionMergeNode',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'create object instance node of A_N;
+create object instance ctl of A_CTL;
+create object instance d of A_DM;
+
+// create Packageable Element supertype and hook up to this package.
+create object instance pe of PE_PE;
+relate node to pe across R8001;
+relate pe to self across R8000;
+pe.type = ElementTypeConstants::ACTIVITY_NODE;
+pe.initialize();
+  
+relate node to ctl across R1105;
+relate ctl to d across R1106;
+
+d.initialize();
+',
+	1,
+	'',
+	"5b1c05ee-327a-4135-9dfb-22fc98a82916");
+INSERT INTO O_TFR
+	VALUES ("613ab097-02f7-4788-b6e9-6c69433fa330",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'newInitialNode',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'create object instance node of A_N;
+create object instance ctl of A_CTL;
+create object instance ini of A_INI;
+// create Packageable Element supertype and hook up to this package.
+create object instance pe of PE_PE;
+relate node to pe across R8001;
+relate pe to self across R8000;
+pe.type = ElementTypeConstants::ACTIVITY_NODE;
+pe.initialize();
+
+relate node to ctl across R1105;
+relate ctl to ini across R1106;
+',
+	1,
+	'',
+	"66c1e03f-1721-4002-84c1-fbec8ceed42d");
+INSERT INTO O_TFR
+	VALUES ("c67c763c-97b3-4f8c-9b06-750ef3dcccf7",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'newActivityFinalNode',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'create object instance node of A_N;
+create object instance ctl of A_CTL;
+create object instance af of A_AF;
+// create Packageable Element supertype and hook up to this package.
+create object instance pe of PE_PE;
+relate node to pe across R8001;
+relate pe to self across R8000;
+pe.type = ElementTypeConstants::ACTIVITY_NODE;
+pe.initialize();
+
+relate node to ctl across R1105;
+relate ctl to af across R1106;
+',
+	1,
+	'',
+	"c1f957d8-2208-4ea0-9360-c36e4caa1302");
+INSERT INTO O_TFR
+	VALUES ("2461489d-5ef1-48be-9b3a-613e4171f6fb",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'newFlowFinalNode',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'create object instance node of A_N;
+create object instance ctl of A_CTL;
+create object instance ff of A_FF;
+// create Packageable Element supertype and hook up to this package.
+create object instance pe of PE_PE;
+relate node to pe across R8001;
+relate pe to self across R8000;
+pe.type = ElementTypeConstants::ACTIVITY_NODE;
+pe.initialize();
+
+relate node to ctl across R1105;
+relate ctl to ff across R1106;',
+	1,
+	'',
+	"0930c5a0-a203-43d2-960f-d7e46693c804");
+INSERT INTO O_TFR
+	VALUES ("669eb51b-637c-42d6-b756-b38d9f32e781",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'newClassInstance',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'create object instance participant of SQ_P;
+create object instance inst of SQ_CIP;
+// create Packageable Element supertype and hook up to this package.
+create object instance pe of PE_PE;
+relate participant to pe across R8001;
+relate pe to self across R8000;
+pe.type = ElementTypeConstants::INTERACTION_PARTICIPANT;
+pe.initialize();
+
+relate participant to inst across R930;
+inst.initialize();',
+	1,
+	'',
+	"55c2911f-bbd4-455a-9fad-5913eeacf65a");
+INSERT INTO O_TFR
+	VALUES ("9d9db3c4-4f50-44d8-ba7c-5d141cdb4949",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'newExternalEntityParticipant',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'create object instance participant of SQ_P;
+create object instance eep of SQ_EEP;
+// create Packageable Element supertype and hook up to this package.
+create object instance pe of PE_PE;
+relate participant to pe across R8001;
+relate pe to self across R8000;
+pe.type = ElementTypeConstants::INTERACTION_PARTICIPANT;
+pe.initialize();
+relate participant to eep across R930;
+eep.initialize();',
+	1,
+	'',
+	"caa9c998-a66b-481a-822d-128d964b3179");
+INSERT INTO O_TFR
+	VALUES ("9acf1859-f944-42c3-80ca-ccc27906a2cf",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'newLifeSpan',
+	'',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'select any part from instances of SQ_P where (selected.Part_ID == param.from);
+select any partTo from instances of SQ_P where (selected.Part_ID == param.to);
+// if the element that this lifespan is drawn to is
+// the instance, we must switch it so that it is the
+// element from which the lifespan is drawn from 
+// so that the logic below works
+if(empty part) and (not_empty partTo)
+  inst = partTo;
+end if;
+if(not_empty part)
+  // don''t allow more that one lifeline per
+  // element
+  select one otherLifeSpan related by part->SQ_LS[R940];
+  if(not_empty otherLifeSpan)
+    return false;
+  end if;
+  // otherwise create the lifespan on this instance
+  create object instance lifeSpanPart of SQ_P;
+  create object instance lifespan of SQ_LS;
+  // create Packageable Element supertype and hook up to this package.
+  create object instance pe of PE_PE;
+  relate lifeSpanPart to pe across R8001;
+  relate pe to self across R8000;
+  pe.type = ElementTypeConstants::INTERACTION_PARTICIPANT;
+  pe.initialize();
+  relate lifespan to part across R940;
+  relate lifespan to lifeSpanPart across R930;
+  return true;
+end if;
+return false;',
+	1,
+	'',
+	"ad5e0592-ea7e-4af4-8bb5-d2dc6bea7d65");
+INSERT INTO O_TPARM
+	VALUES ("cfb800e1-e8cf-4782-a1f7-6ad687665c8e",
+	"9acf1859-f944-42c3-80ca-ccc27906a2cf",
+	'from',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("81b1fc10-3c8f-4545-aeb4-6da5570dc875",
+	"9acf1859-f944-42c3-80ca-ccc27906a2cf",
+	'fromIsImported',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	0,
+	'',
+	"cfb800e1-e8cf-4782-a1f7-6ad687665c8e",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("e0d2f2a6-51c8-4c9c-a4f7-cb6507a75bc2",
+	"9acf1859-f944-42c3-80ca-ccc27906a2cf",
+	'to',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"81b1fc10-3c8f-4545-aeb4-6da5570dc875",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("01e08dce-1c2e-4ee6-aa1a-3d3bc52efa0c",
+	"9acf1859-f944-42c3-80ca-ccc27906a2cf",
+	'toIsImported',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	0,
+	'',
+	"e0d2f2a6-51c8-4c9c-a4f7-cb6507a75bc2",
+	'');
+INSERT INTO O_TFR
+	VALUES ("9d1eb58f-8696-4d70-9fc9-60641f46a085",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'newClassParticipant',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'create object instance participant of SQ_P;
+create object instance cp of SQ_CP;
+// create Packageable Element supertype and hook up to this package.
+create object instance pe of PE_PE;
+relate participant to pe across R8001;
+relate pe to self across R8000;
+pe.type = ElementTypeConstants::INTERACTION_PARTICIPANT;
+pe.initialize();
+relate participant to cp across R930;
+cp.initialize();',
+	1,
+	'',
+	"43f14d76-f887-491f-8673-46f5b63a6a8d");
+INSERT INTO O_TFR
+	VALUES ("d131381b-770d-4f0f-b46a-c156be5ed835",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'newTimingMark',
+	'',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'select any lifespan from instances of SQ_LS where (selected.Part_ID == param.from);
+if(not_empty lifespan)
+  create object instance mark of SQ_TM;
+  relate mark to lifespan across R931;
+  return true;
+end if;
+return false;',
+	1,
+	'',
+	"f3288a8e-592c-4c45-8004-ea9341aa7323");
+INSERT INTO O_TPARM
+	VALUES ("ad4e0049-876a-4a95-a334-d98229dbab9b",
+	"d131381b-770d-4f0f-b46a-c156be5ed835",
+	'from',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("3eaa2fc3-ebbe-4d32-b484-960e2e5dfc50",
+	"d131381b-770d-4f0f-b46a-c156be5ed835",
+	'fromIsImported',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	0,
+	'',
+	"ad4e0049-876a-4a95-a334-d98229dbab9b",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("867d6f3f-8eef-4be4-bd7c-20973d2d7327",
+	"d131381b-770d-4f0f-b46a-c156be5ed835",
+	'to',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"3eaa2fc3-ebbe-4d32-b484-960e2e5dfc50",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("69216ece-5f88-4e0a-bd54-2c5c6dbd3b13",
+	"d131381b-770d-4f0f-b46a-c156be5ed835",
+	'toIsImported',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	0,
+	'',
+	"867d6f3f-8eef-4be4-bd7c-20973d2d7327",
+	'');
+INSERT INTO O_TFR
+	VALUES ("5400b1ee-0ebe-41c8-8fc4-289222dfbee1",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'newTimeSpan',
+	'',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'select any mark from instances of SQ_TM where (selected.Mark_ID == param.from);
+if(not_empty mark)
+  select any otherMark from instances of SQ_TM where (selected.Mark_ID == param.to);
+  if(not_empty otherMark)
+    create object instance span of SQ_TS;
+    relate span to mark across R941;
+    relate span to otherMark across R942;
+    return true;
+  end if;
+end if;
+return false;',
+	1,
+	'',
+	"38d448b1-c3e5-4678-b357-a722a8c21393");
+INSERT INTO O_TPARM
+	VALUES ("f8eed516-bf7f-43c3-a3b7-c12a8d5d388b",
+	"5400b1ee-0ebe-41c8-8fc4-289222dfbee1",
+	'from',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("404ee8bc-e50e-4253-b848-2d8a988bdcdc",
+	"5400b1ee-0ebe-41c8-8fc4-289222dfbee1",
+	'fromIsImported',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	0,
+	'',
+	"f8eed516-bf7f-43c3-a3b7-c12a8d5d388b",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("b61c669c-adda-4b8d-b882-1e4973fae0c3",
+	"5400b1ee-0ebe-41c8-8fc4-289222dfbee1",
+	'to',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"404ee8bc-e50e-4253-b848-2d8a988bdcdc",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("3046f6a5-bbe6-4760-a3c9-5c561b6f8b88",
+	"5400b1ee-0ebe-41c8-8fc4-289222dfbee1",
+	'toIsImported',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	0,
+	'',
+	"b61c669c-adda-4b8d-b882-1e4973fae0c3",
+	'');
+INSERT INTO O_TFR
+	VALUES ("fa4e464d-dfd1-4f47-b019-249614e5ae9c",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'newSyncMessage',
+	'',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'// This operation handles associatin creation for both the Sequence and
+// the Communication Synchronous Message.
+//
+select any fromParticipant from instances of SQ_P where (selected.Part_ID == param.from);
+select any toParticipant from instances of SQ_P where (selected.Part_ID == param.to);
+if not_empty toParticipant
+  // This is a Sequence Synchronous Message.
+  
+  // it only matters that there is a toParticipant
+  if(not_empty toParticipant)
+    create object instance message of MSG_M;
+    // create Packageable Element supertype and hook up to this package.
+    create object instance pe of PE_PE;
+    relate message to pe across R8001;
+    relate pe to self across R8000;
+    pe.type = ElementTypeConstants::MESSAGE;
+    pe.initialize();
+    relate message to toParticipant across R1007;
+    if(not_empty fromParticipant)
+      relate message to fromParticipant across R1008;
+    end if;
+    create object instance sm of MSG_SM;
+    relate message to sm across R1018;
+    sm.initialize();
+    return true;
+  end if;
+else 
+  // only create the message if it does not connect
+  // to anything
+  select any toPart from instances of SQ_P where (selected.Part_ID == param.to);
+  select any fromPart from instances of SQ_P where (selected.Part_ID == param.from);
+  if(empty toPart and empty fromPart)
+    create object instance message of MSG_M;
+    // create Packageable Element supertype and hook up to this package.
+    create object instance pe of PE_PE;
+    relate message to pe across R8001;
+    relate pe to self across R8000;
+    pe.type = ElementTypeConstants::MESSAGE;
+    pe.initialize();
+    create object instance sm of MSG_SM;
+    create object instance mic of COMM_MIC;
+    relate message to sm across R1018;
+    sm.initialize();
+    // set a flag indicating that this participates in
+    // a communication
+    message.participatesInCommunication = true;
+    return true;
+  else
+    return false;
+  end if;
+end if;
+
+return false;
+',
+	1,
+	'',
+	"03ac634d-7fc1-4ee5-863c-c122caca0fcb");
+INSERT INTO O_TPARM
+	VALUES ("cab7fb9e-991f-4484-b6fa-b6494fc8c4c8",
+	"fa4e464d-dfd1-4f47-b019-249614e5ae9c",
+	'from',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("3f69e845-0043-4e05-bcfe-115675a6da00",
+	"fa4e464d-dfd1-4f47-b019-249614e5ae9c",
+	'fromIsImported',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	0,
+	'',
+	"cab7fb9e-991f-4484-b6fa-b6494fc8c4c8",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("34285d23-0320-4a65-ada3-f250fd8c280c",
+	"fa4e464d-dfd1-4f47-b019-249614e5ae9c",
+	'to',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"3f69e845-0043-4e05-bcfe-115675a6da00",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("988f8166-b431-4c3d-9201-e0e9abd56bdd",
+	"fa4e464d-dfd1-4f47-b019-249614e5ae9c",
+	'toIsImported',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	0,
+	'',
+	"34285d23-0320-4a65-ada3-f250fd8c280c",
+	'');
+INSERT INTO O_TFR
+	VALUES ("76abab11-6a19-4162-8be0-e06554633628",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'newASyncMessage',
+	'',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'// This operation handles associatin creation for both the Sequence and
+// the Communication Asyncronous Synchronous Message.
+//
+select any fromParticipant from instances of SQ_P where (selected.Part_ID == param.from);
+select any toParticipant from instances of SQ_P where (selected.Part_ID == param.to);
+if not_empty toParticipant
+  // This is a Sequence Asyncronous Message.
+  
+  // it only matters that there is a toParticipant
+  if(not_empty toParticipant)
+    create object instance message of MSG_M;
+    // create Packageable Element supertype and hook up to this package.
+    create object instance pe of PE_PE;
+    relate message to pe across R8001;
+    relate pe to self across R8000;
+    pe.type = ElementTypeConstants::MESSAGE;
+    pe.initialize();
+    relate message to toParticipant across R1007;
+    if(not_empty fromParticipant)
+      relate message to fromParticipant across R1008;
+    end if;
+    create object instance am of MSG_AM;
+    relate message to am across R1018;
+    am.initialize();
+    return true;
+  end if;
+else 
+  // only create the message if it does not connect
+  // to anything
+  select any toPart from instances of SQ_P where (selected.Part_ID == param.to);
+  select any fromPart from instances of SQ_P where (selected.Part_ID == param.from);
+  if(empty toPart and empty fromPart)
+    create object instance message of MSG_M;
+    // create Packageable Element supertype and hook up to this package.
+    create object instance pe of PE_PE;
+    relate message to pe across R8001;
+    relate pe to self across R8000;
+    pe.type = ElementTypeConstants::MESSAGE;
+    pe.initialize();
+    create object instance am of MSG_AM;
+    create object instance mic of COMM_MIC;
+    relate message to am across R1018;
+    am.initialize();
+    // set a flag indicating that this participates in
+    // a communication
+    message.participatesInCommunication = true;
+    return true;
+  else
+    return false;
+  end if;
+end if;
+return false;
+',
+	1,
+	'',
+	"c520c556-1b31-41a2-a0ac-858dda76a61c");
+INSERT INTO O_TPARM
+	VALUES ("7371f2c8-9273-4cf0-bc73-1db816ff2b7c",
+	"76abab11-6a19-4162-8be0-e06554633628",
+	'from',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("1298cfac-a08f-4d05-9a1d-90889374dd40",
+	"76abab11-6a19-4162-8be0-e06554633628",
+	'fromIsImported',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	0,
+	'',
+	"7371f2c8-9273-4cf0-bc73-1db816ff2b7c",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("2ce71ab7-8bff-4346-9ec9-d85ce36995ec",
+	"76abab11-6a19-4162-8be0-e06554633628",
+	'to',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"1298cfac-a08f-4d05-9a1d-90889374dd40",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("f96e29c3-b552-4a85-ac4f-88c3bef13059",
+	"76abab11-6a19-4162-8be0-e06554633628",
+	'toIsImported',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	0,
+	'',
+	"2ce71ab7-8bff-4346-9ec9-d85ce36995ec",
+	'');
+INSERT INTO O_TFR
+	VALUES ("102ab4f8-f9fe-4287-8a7b-d7728d306811",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'newReturnMessage',
+	'',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'// This operation handles associatin creation for both the Sequence and
+// the Communication Synchronous Message.
+//
+select any fromParticipant from instances of SQ_P where (selected.Part_ID == param.from);
+select any toParticipant from instances of SQ_P where (selected.Part_ID == param.to);
+if not_empty toParticipant
+  // This is a Sequence Return Message.
+  
+  // it only matters that there is a toParticipant
+  if(not_empty toParticipant)
+    create object instance message of MSG_M;
+    // create Packageable Element supertype and hook up to this package.
+    create object instance pe of PE_PE;
+    relate message to pe across R8001;
+    relate pe to self across R8000;
+    pe.type = ElementTypeConstants::MESSAGE;
+    pe.initialize();
+    relate message to toParticipant across R1007;
+    if(not_empty fromParticipant)
+      relate message to fromParticipant across R1008;
+    end if;
+    create object instance rm of MSG_R;
+    relate rm to message across R1018;
+    rm.initialize();
+    return true;
+  end if;
+else
+  // only create the message if it does not connect
+  // to anything
+  select any toPart from instances of SQ_P where (selected.Part_ID == param.to);
+  select any fromPart from instances of SQ_P where (selected.Part_ID == param.from);
+  if(empty toPart and empty fromPart)
+    create object instance message of MSG_M;
+    // create Packageable Element supertype and hook up to this package.
+    create object instance pe of PE_PE;
+    relate message to pe across R8001;
+    relate pe to self across R8000;
+    pe.type = ElementTypeConstants::MESSAGE;
+    pe.initialize();
+    create object instance rm of MSG_R;
+    create object instance mic of COMM_MIC;
+    relate message to rm across R1018;
+    rm.initialize();
+    return true;
+  else
+    return false;
+  end if;
+end if;
+return false;
+',
+	1,
+	'',
+	"0671a5c0-0e3c-41f7-b8cd-e303ddefaa97");
+INSERT INTO O_TPARM
+	VALUES ("92aa8244-40b7-431d-bdab-e3b37882e1b3",
+	"102ab4f8-f9fe-4287-8a7b-d7728d306811",
+	'from',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("e82a78ec-2687-4b85-a156-fdd26e191dd4",
+	"102ab4f8-f9fe-4287-8a7b-d7728d306811",
+	'fromIsImported',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	0,
+	'',
+	"92aa8244-40b7-431d-bdab-e3b37882e1b3",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("e1458421-ee1e-454a-b3a5-754c00a32d0e",
+	"102ab4f8-f9fe-4287-8a7b-d7728d306811",
+	'to',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"e82a78ec-2687-4b85-a156-fdd26e191dd4",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("a7456b87-e308-455d-99f1-7b96734ee7de",
+	"102ab4f8-f9fe-4287-8a7b-d7728d306811",
+	'toIsImported',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	0,
+	'',
+	"e1458421-ee1e-454a-b3a5-754c00a32d0e",
+	'');
+INSERT INTO O_TFR
+	VALUES ("66f505c1-f8f9-4cd4-a6b9-2176e3893b16",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'newComponentParticipant',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'create object instance participant of SQ_P;
+create object instance cp of SQ_COP;
+// create Packageable Element supertype and hook up to this package.
+create object instance pe of PE_PE;
+relate participant to pe across R8001;
+relate pe to self across R8000;
+pe.type = ElementTypeConstants::INTERACTION_PARTICIPANT;
+pe.initialize();
+relate participant to cp across R930;
+cp.initialize();',
+	1,
+	'',
+	"56b00eea-639d-4ee8-bc56-0824bf5a6b5e");
+INSERT INTO O_TFR
+	VALUES ("81556442-ffe3-4e03-b2d1-5ec78387790c",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'newIClass',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'create object instance icl of O_IOBJ;
+// create Packageable Element supertype and hook up to this package.
+create object instance pe of PE_PE;
+relate icl to pe across R8001;
+relate pe to self across R8000;
+pe.type = ElementTypeConstants::IMPORTED_CLASS;
+pe.initialize();
+//
+// Note that no class is assigned to this imported
+// class at creation time. This is achieved by a separate
+// Context Menu action.',
+	1,
+	'',
+	"4abeae8b-c260-4127-b37b-009a322ef1e6");
+INSERT INTO O_TFR
+	VALUES ("a90b61b2-5dfd-4f72-85e6-6ebbc05be150",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'newAssociative',
+	'',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'select any fromClass related by self->PE_PE[R8000]->O_OBJ[R8001] where (selected.Obj_ID == param.from);
+if (param.fromIsImportedClass)
+  select any fromIClass related by self->PE_PE[R8000]->O_IOBJ[R8001] where (selected.IObj_ID == param.from);
+  if (not_empty fromIClass)
+    select one fromClass related by fromIClass->O_OBJ[R101];
+  end if;
+end if;
+select any toAssoc related by self->PE_PE[R8000]->R_REL[R8001] where (selected.Rel_ID == param.to);
+// get the already related class in relationship instances
+select many classes related by toAssoc->R_OIR[R201]->O_OBJ[R201];
+for each clazz in classes
+  if (clazz == fromClass)
+    // A class cannot be it''s own link class
+    return false;
+  end if;
+end for;
+if (empty fromClass or empty toAssoc)
+  // One of the elements was not found
+  return false;
+end if;
+select one simp related by toAssoc->R_SIMP[R206];
+if (empty simp)
+  // Only simple associations can have link classes attached. 
+  return false;
+else
+  if (param.fromIsImportedClass)
+    simp.migrateToLinked(using: fromClass.Obj_ID, imported_id: param.from);
+  else
+    simp.migrateToLinked(using: fromClass.Obj_ID, imported_id: GD::NULL_UNIQUE_ID());
+  end if;
+  return true;
+end if;',
+	1,
+	'',
+	"77212888-116b-4c60-bddd-c90e56bfb25a");
+INSERT INTO O_TPARM
+	VALUES ("63020e4e-6ec4-4919-b6db-1412bb3f74b4",
+	"a90b61b2-5dfd-4f72-85e6-6ebbc05be150",
+	'from',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("4751115c-4532-424a-a13a-84e63cf2ba04",
+	"a90b61b2-5dfd-4f72-85e6-6ebbc05be150",
+	'fromIsImportedClass',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	0,
+	'',
+	"63020e4e-6ec4-4919-b6db-1412bb3f74b4",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("6fe04e8a-2286-491a-8296-1ae14cc96eec",
+	"a90b61b2-5dfd-4f72-85e6-6ebbc05be150",
+	'to',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"4751115c-4532-424a-a13a-84e63cf2ba04",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("20888013-b9b0-460d-8add-5bf9178278ed",
+	"a90b61b2-5dfd-4f72-85e6-6ebbc05be150",
+	'toIsImportedClass',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	0,
+	'',
+	"6fe04e8a-2286-491a-8296-1ae14cc96eec",
+	'');
+INSERT INTO O_TFR
+	VALUES ("b43f55d2-6c0e-4769-8b7e-41d595ef5476",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'newSuperType',
+	'',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'select any fromClass related by self->PE_PE[R8000]->O_OBJ[R8001] where (selected.Obj_ID == param.from);
+select any fromIClass related by self->PE_PE[R8000]->O_IOBJ[R8001] where (selected.IObj_ID == param.from);
+if (param.fromIsImportedClass)
+  if (not_empty fromIClass)
+    select one fromClass related by fromIClass->O_OBJ[R101];
+  end if;
+end if;
+if (not_empty fromClass)
+  create object instance assoc of R_REL;
+  // create Packageable Element supertype and hook up to this package.
+  create object instance pe of PE_PE;
+  relate assoc to pe across R8001;
+  relate pe to self across R8000;
+  pe.type = ElementTypeConstants::ASSOCIATION;
+  pe.initialize();
+  assoc.initialize();
+  create object instance oir of R_OIR;
+  relate assoc to fromClass across R201 using oir;
+  create object instance rto of R_RTO;
+  relate oir to rto across R203;
+  create object instance subsup of R_SUBSUP;
+  relate subsup to assoc across R206;
+  create object instance supertype of R_SUPER;
+  relate supertype to subsup across R212;
+  relate supertype to rto across R204;
+  if (param.fromIsImportedClass)
+    if (not_empty fromIClass)
+      relate oir to fromIClass across R202;
+    end if;
+  end if;
+  return true;
+end if;
+return false;',
+	1,
+	'',
+	"a90b61b2-5dfd-4f72-85e6-6ebbc05be150");
+INSERT INTO O_TPARM
+	VALUES ("a5e42c75-cbfe-431f-8873-49fb2bfca4ce",
+	"b43f55d2-6c0e-4769-8b7e-41d595ef5476",
+	'from',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("05dfdcbb-2554-486f-9bf6-1c8dba5799b7",
+	"b43f55d2-6c0e-4769-8b7e-41d595ef5476",
+	'fromIsImportedClass',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	0,
+	'',
+	"a5e42c75-cbfe-431f-8873-49fb2bfca4ce",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("a64cb3a1-312e-4f17-9deb-9d821af7a223",
+	"b43f55d2-6c0e-4769-8b7e-41d595ef5476",
+	'to',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"05dfdcbb-2554-486f-9bf6-1c8dba5799b7",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("6084e3c0-eebc-4c20-a37c-4a087fce9ddf",
+	"b43f55d2-6c0e-4769-8b7e-41d595ef5476",
+	'toIsImportedClass',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	0,
+	'',
+	"a64cb3a1-312e-4f17-9deb-9d821af7a223",
+	'');
+INSERT INTO O_TFR
+	VALUES ("7c2d6e5f-5c1b-4e94-b608-ef05da6065dc",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'newSubtype',
+	'',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'select any fromClass related by self->PE_PE[R8000]->O_OBJ[R8001] where (selected.Obj_ID == param.from);
+if (param.fromIsImportedClass)
+  select any fromIClass related by self->PE_PE[R8000]->O_IOBJ[R8001] where (selected.IObj_ID == param.from);
+  if (not_empty fromIClass)
+    select one fromClass related by fromIClass->O_OBJ[R101];
+  end if;
+end if;
+if (not_empty fromClass)
+  select any toAssoc related by self->PE_PE[R8000]->R_REL[R8001] where (selected.Rel_ID == param.to);
+  if (not_empty toAssoc)
+    select one subsup related by toAssoc->R_SUBSUP[R206];
+    if (not_empty subsup)
+      select one superClass related by subsup->R_SUPER[R212]->R_RTO[R204]->R_OIR[R203]->O_OBJ[R201];
+      if (fromClass != superClass) // A class cannot be its own supertype . . . . .
+        isAlreadySubClass = false;
+        select many subClasses related by subsup->R_SUB[R213]->R_RGO[R205]->R_OIR[R203]->O_OBJ[R201];
+        for each subClass in subClasses
+          if (fromClass == subClass)
+            isAlreadySubClass = true;
+            break;
+          end if;
+        end for;
+        if (not isAlreadySubClass) // A class cannot be a subtype more than once . . . . . 
+          create object instance cir of R_OIR;
+          relate fromClass to toAssoc across R201 using cir;
+          if (param.fromIsImportedClass)
+            select any fromIClass related by self->PE_PE[R8000]->O_IOBJ[R8001] where
+                                       (selected.IObj_ID == param.from);
+            relate cir to fromIClass across R202;
+          end if;
+          create object instance rgo of R_RGO;
+          relate cir to rgo across R203;
+          create object instance subtype of R_SUB;
+          relate rgo to subtype across R205;
+          relate subtype to subsup across R213;
+          if ( toAssoc.isFormalized() )
+            // add referential attributes
+            unused_oid = fromClass.findUnusedIdentifier();
+            select one sup_rto related by subsup->R_SUPER[R212]->R_RTO[R204];
+            select many oida_set related by sup_rto->O_ID[R109]->O_OIDA[R105];
+            for each oida in oida_set
+              newAttr_id = oida.addReference(rel_id: toAssoc.Rel_ID,
+                  rto_obj_id: sup_rto.Obj_ID, rto_oir_id: sup_rto.OIR_ID, 
+                  rgo_obj_id: rgo.Obj_ID, rgo_oir_id: rgo.OIR_ID,
+                  id: unused_oid);
+            end for;
+          end if;
+          return true;
+        end if; // already sub class
+      end if; // not own supertype
+    end if; // association is supertype / subtype
+  end if;  // association found
+end if;  // class found
+return false;',
+	1,
+	'',
+	"b43f55d2-6c0e-4769-8b7e-41d595ef5476");
+INSERT INTO O_TPARM
+	VALUES ("59d5fff7-80b5-4e0a-9f40-4c39ade72f2c",
+	"7c2d6e5f-5c1b-4e94-b608-ef05da6065dc",
+	'from',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("8cbf3b1e-9cdb-438c-8a6a-fe51a3ea8d5f",
+	"7c2d6e5f-5c1b-4e94-b608-ef05da6065dc",
+	'fromIsImportedClass',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	0,
+	'',
+	"59d5fff7-80b5-4e0a-9f40-4c39ade72f2c",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("f9c61b41-3ab8-43d5-930b-e7584f48cda8",
+	"7c2d6e5f-5c1b-4e94-b608-ef05da6065dc",
+	'to',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"8cbf3b1e-9cdb-438c-8a6a-fe51a3ea8d5f",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("7f52ddb4-47b6-42d1-af81-6dfd3869b434",
+	"7c2d6e5f-5c1b-4e94-b608-ef05da6065dc",
+	'toIsImportedClass',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	0,
+	'',
+	"f9c61b41-3ab8-43d5-930b-e7584f48cda8",
+	'');
+INSERT INTO O_TFR
+	VALUES ("d955f26e-6f9a-4b94-a47b-1125c137e82f",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'newExternalEntity',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'create object instance ee of S_EE;
+// create Packageable Element supertype and hook up to this package.
+create object instance pe of PE_PE;
+relate ee to pe across R8001;
+relate pe to self across R8000;
+pe.type = ElementTypeConstants::EE;
+pe.initialize();
+ee.initialize();',
+	1,
+	'',
+	"7c2d6e5f-5c1b-4e94-b608-ef05da6065dc");
+INSERT INTO O_TFR
+	VALUES ("e53f03d3-daea-46ab-a633-9f8685296024",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'newFunction',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'create object instance fn of S_SYNC;
+// create Packageable Element supertype and hook up to this package.
+create object instance pe of PE_PE;
+relate fn to pe across R8001;
+relate pe to self across R8000;
+pe.type = ElementTypeConstants::FUNCTION;
+pe.initialize();
+create object instance fip of S_FIP;
+fn.initialize();',
+	1,
+	'',
+	"eb891ffd-7eab-42c3-9a86-d554873af559");
+INSERT INTO O_TFR
+	VALUES ("f39982cc-9987-4468-a1f0-55888bd36762",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'getPckgCount',
+	'',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+select many pckgs related by self->PE_PE[R8000]->EP_PKG[R8001];
+return cardinality pckgs;',
+	1,
+	'',
+	"a95a8724-a11e-4ecb-8539-d26ca93fe6f8");
+INSERT INTO O_TFR
+	VALUES ("6a3fb6c6-02f0-4522-adfe-ae2e3e8e952f",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'getPckgId',
+	'',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+id = GD::NULL_UNIQUE_ID();
+select many pckgs related by self->PE_PE[R8000]->EP_PKG[R8001];
+// We''re preincrementing the index
+count = -1;
+for each pckg in pckgs
+  if (not_empty pckg)
+      count = count+1;
+  end if;
+  if (count == param.index)
+      return pckg.Package_ID;  
+  end if;
+end for;
+return id;',
+	1,
+	'',
+	"f39982cc-9987-4468-a1f0-55888bd36762");
+INSERT INTO O_TPARM
+	VALUES ("c126e4f0-c4e8-4590-b381-278a5fb3b115",
+	"6a3fb6c6-02f0-4522-adfe-ae2e3e8e952f",
+	'index',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("8d3ea35d-9e8f-485d-bbfd-575052e8df36",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'getActivityCount',
+	'',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+select many activities related by self->EP_SPKG[R1400]->A_A[R1402];
+return cardinality activities;',
+	1,
+	'',
+	"6a3fb6c6-02f0-4522-adfe-ae2e3e8e952f");
+INSERT INTO O_TFR
+	VALUES ("01166d05-79ef-4fcf-a453-843309688387",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'getActivityId',
+	'',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+id = GD::NULL_UNIQUE_ID();
+select many activities related by self->EP_SPKG[R1400]->A_A[R1402];
+// We''re preincrementing the index
+count = -1;
+for each activity in activities
+  if (not_empty activity)
+      count = count+1;
+  end if;
+  if (count == param.index)
+      return activity.get_ooa_id();  
+  end if;
+end for;
+return id;',
+	1,
+	'',
+	"8d3ea35d-9e8f-485d-bbfd-575052e8df36");
+INSERT INTO O_TPARM
+	VALUES ("02e237a7-01d0-472c-8333-b84171a7f9b6",
+	"01166d05-79ef-4fcf-a453-843309688387",
+	'index',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("d26c41b4-670b-4b58-be36-597f997a2000",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'getCommunicationCount',
+	'',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+select many communications related by self->EP_SPKG[R1400]->COMM_COMM[R1402];
+return cardinality communications;',
+	1,
+	'',
+	"01166d05-79ef-4fcf-a453-843309688387");
+INSERT INTO O_TFR
+	VALUES ("dfa7ec0f-efe0-425b-a2fd-150898339077",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'getCommunicationId',
+	'',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+id = GD::NULL_UNIQUE_ID();
+select many communications related by self->EP_SPKG[R1400]->COMM_COMM[R1402];
+// We''re preincrementing the index
+count = -1;
+for each communication in communications
+  if (not_empty communication)
+      count = count+1;
+  end if;
+  if (count == param.index)
+      return communication.get_ooa_id();  
+  end if;
+end for;
+return id;',
+	1,
+	'',
+	"d26c41b4-670b-4b58-be36-597f997a2000");
+INSERT INTO O_TPARM
+	VALUES ("6cbf94d6-7df7-4fb3-887f-53ee3c79e281",
+	"dfa7ec0f-efe0-425b-a2fd-150898339077",
+	'index',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("df5ff907-c8e0-4467-ace9-1a621c9d57d1",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'getCompPckgCount',
+	'',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+select many compPckgs related by self->EP_SPKG[R1400]->CP_CP[R1402];
+return cardinality compPckgs;',
+	1,
+	'',
+	"dfa7ec0f-efe0-425b-a2fd-150898339077");
+INSERT INTO O_TFR
+	VALUES ("3648c40f-24f3-4d52-a8ad-4c7f8712af56",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'getCompPckgId',
+	'',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+id = GD::NULL_UNIQUE_ID();
+select many compPckgs related by self->EP_SPKG[R1400]->CP_CP[R1402];
+// We''re preincrementing the index
+count = -1;
+for each compPckg in compPckgs
+  if (not_empty compPckg)
+      count = count+1;
+  end if;
+  if (count == param.index)
+      return compPckg.get_ooa_id();  
+  end if;
+end for;
+return id;',
+	1,
+	'',
+	"df5ff907-c8e0-4467-ace9-1a621c9d57d1");
+INSERT INTO O_TPARM
+	VALUES ("731e1b5c-230d-428e-b1e7-ef73f666e7c3",
+	"3648c40f-24f3-4d52-a8ad-4c7f8712af56",
+	'index',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("eb1e3ac0-2267-47fc-a747-18b647ed5816",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'getDatatypePckgCount',
+	'',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+select many datatypePckgs related by self->EP_SPKG[R1400]->S_DPK[R1402];
+return cardinality datatypePckgs;',
+	1,
+	'',
+	"3648c40f-24f3-4d52-a8ad-4c7f8712af56");
+INSERT INTO O_TFR
+	VALUES ("c333c6c1-c200-4cbc-a238-e26c76a7b4e4",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'getDatatypePckgId',
+	'',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+id = GD::NULL_UNIQUE_ID();
+select many datatypePckgs related by self->EP_SPKG[R1400]->S_DPK[R1402];
+// We''re preincrementing the index
+count = -1;
+for each datatypePckg in datatypePckgs
+  if (not_empty datatypePckg)
+      count = count+1;
+  end if;
+  if (count == param.index)
+      return datatypePckg.get_ooa_id();  
+  end if;
+end for;
+return id;',
+	1,
+	'',
+	"eb1e3ac0-2267-47fc-a747-18b647ed5816");
+INSERT INTO O_TPARM
+	VALUES ("acaae4c3-baaa-4e9e-9adb-78256badf504",
+	"c333c6c1-c200-4cbc-a238-e26c76a7b4e4",
+	'index',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("4fd636f2-8673-447d-8dae-4a1b24946864",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'getInterfacePckgCount',
+	'',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+select many interfacePckgs related by self->EP_SPKG[R1400]->IP_IP[R1402];
+return cardinality interfacePckgs;',
+	1,
+	'',
+	"c333c6c1-c200-4cbc-a238-e26c76a7b4e4");
+INSERT INTO O_TFR
+	VALUES ("04f72e59-9f28-44a7-bcad-5331943beee7",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'getInterfacePckgId',
+	'',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+id = GD::NULL_UNIQUE_ID();
+select many interfacePckgs related by self->EP_SPKG[R1400]->IP_IP[R1402];
+// We''re preincrementing the index
+count = -1;
+for each interfacePckg in interfacePckgs
+  if (not_empty interfacePckg)
+      count = count+1;
+  end if;
+  if (count == param.index)
+      return interfacePckg.get_ooa_id();  
+  end if;
+end for;
+return id;',
+	1,
+	'',
+	"4fd636f2-8673-447d-8dae-4a1b24946864");
+INSERT INTO O_TPARM
+	VALUES ("066047da-e8e0-416e-b3dd-e3a4b9da7b86",
+	"04f72e59-9f28-44a7-bcad-5331943beee7",
+	'index',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("a9d0878b-173c-454c-bf5b-b6de0ccee09f",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'getSequenceId',
+	'',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+id = GD::NULL_UNIQUE_ID();
+select many sequences related by self->EP_SPKG[R1400]->SQ_S[R1402];
+// We''re preincrementing the index
+count = -1;
+for each sequence in sequences
+  if (not_empty sequence)
+      count = count+1;
+  end if;
+  if (count == param.index)
+      return sequence.get_ooa_id();  
+  end if;
+end for;
+return id;',
+	1,
+	'',
+	"04f72e59-9f28-44a7-bcad-5331943beee7");
+INSERT INTO O_TPARM
+	VALUES ("88372241-e717-48b0-88d5-69263301f711",
+	"a9d0878b-173c-454c-bf5b-b6de0ccee09f",
+	'index',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("3eb6a4d1-dfec-4943-8a08-c23e7ee459dc",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'getSequenceCount',
+	'',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+select many sequences related by self->EP_SPKG[R1400]->SQ_S[R1402];
+return cardinality sequences;',
+	1,
+	'',
+	"a9d0878b-173c-454c-bf5b-b6de0ccee09f");
+INSERT INTO O_TFR
+	VALUES ("d1a13ded-f65e-4102-9ead-c24bf81ccb1e",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'getUseCaseCount',
+	'',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	1,
+	'select many usecases related by self->PE_PE[R8000]->SQ_P[R8001]->IA_UCP[R930];
+return cardinality usecases;',
+	1,
+	'',
+	"3eb6a4d1-dfec-4943-8a08-c23e7ee459dc");
+INSERT INTO O_TFR
+	VALUES ("53dbf4d3-e13b-4c0a-a492-375e69217ea6",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'getUseCaseId',
+	'',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	1,
+	'id = GD::NULL_UNIQUE_ID();
+select many usecases related by self->PE_PE[R8000]->SQ_P[R8001]->IA_UCP[R930];
+// We''re preincrementing the index
+count = -1;
+for each usecase in usecases
+  count = count + 1;
+  if(count == param.index)
+    return usecase.get_ooa_id();  
+  end if;
+end for;
+return id;',
+	1,
+	'',
+	"d1a13ded-f65e-4102-9ead-c24bf81ccb1e");
+INSERT INTO O_TPARM
+	VALUES ("b24d2b5d-9eb4-4b2f-82ac-ad7fd563779e",
+	"53dbf4d3-e13b-4c0a-a492-375e69217ea6",
+	'index',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("ed0d1960-8756-4dd9-8953-feb71f9a0031",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'collectVisibleElementsForName',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+// Package::collectVisibleElementsForName()
+// This operation is recursive. It is designed to be called in multiple places,
+// both when preparing selection lists and from the parser.
+// It originally gets called from the place where a reference is being evaluated
+// for visibility. The originating package id is the id of the package that
+// contains the reference being evaluated. The originating call takes the form:
+// pkg.collectVisibleElementsForName(name:"element name or *",
+//                 type:ElementTypeConstants::requiredType,
+//                          considerPublicOnly:false, considerParents:true,
+//                                          originatingPkgID:self.Package_ID,
+//                                       delegatingPkgID: GD::NULL_UNIQUE_ID(),
+//                       findFirst:<true for parser use, false for picker use>);
+// If findFirst is true, this operation can returns a newline delimited string
+// list of duplicate names, if duplicates are found. Otherwise it returns the
+// empty string.
+// See also: Component.collectElementsForName()
+select any originatingPackagePE from instances of PE_PE where
+                            selected.Element_ID == param.originatingContainerID;
+select one originatingPackage related by originatingPackagePE->EP_PKG[R8001];
+if self == originatingPackage
+  select any resultSet related by self->PE_SRS[R8005] where
+                    selected.Name == param.name and selected.Type == param.type;
+  if not_empty resultSet
+    // search has already been made and cached, just return immediately;
+    return;
+  else
+    // create the search set
+    create object instance resultSet of PE_SRS;
+    resultSet.Name = param.name;
+    resultSet.Type = param.type;
+    relate self to resultSet across R8005;
+  end if;
+  // Visit all child elements
+  select many elements related by self->PE_PE[R8000];
+  for each element in elements
+    // visit all elements, regardless of visibility
+    element.collectVisibleElementsForName(name:param.name, type:param.type,
+          descending:true, originatingContainerID: param.originatingContainerID,
+                                          delegatingPkgID:GD::NULL_UNIQUE_ID(),
+                                         collectGlobally:param.collectGlobally);
+  end for;
+else // not originating package
+  // Visit all child elements
+  select many elements related by self->PE_PE[R8000];
+  for each element in elements
+    // visit all elements, if they are visible
+    if element.getVisibilityValue() == Visibility::Public or
+                                                   param.descending == false and
+                           element.getVisibilityValue() == Visibility::Protected
+      element.collectVisibleElementsForName(name:param.name, type:param.type,
+         descending:true, originatingContainerID: param.originatingContainerID,
+                                         delegatingPkgID:param.delegatingPkgID,
+                                         collectGlobally:param.collectGlobally);
+    end if;
+  end for;
+end if;
+if param.descending == false
+  // We are ascending the hierarchy. Consider all parents,
+  select one parentPkg related by self->PE_PE[R8001]->EP_PKG[R8000];
+  if not_empty parentPkg
+    select one parentPkgElem related by parentPkg->PE_PE[R8001];
+    if not_empty parentPkgElem
+      parentPkgElem.collectVisibleElementsForName(name:param.name,
+                                    type:param.type, descending:false,
+                       originatingContainerID: param.originatingContainerID,
+                                               delegatingPkgID:self.Package_ID,
+                                         collectGlobally:param.collectGlobally);
+    else
+      // TODO this covers the case that system level packages do not have
+      // a Packageable Element supertype. We must arrange it so that they do
+      // or else they will not be collected. See the way System level data
+      // types are upgraded so that they can be collected.
+      parentPkg.collectVisibleElementsForName(name:param.name, type:param.type,
+         descending:false, originatingContainerID: param.originatingContainerID,
+        delegatingPkgID:self.Package_ID, collectGlobally:param.collectGlobally);
+    end if;
+  else
+    // Are we under a component?
+    select one parentComponent related by self->PE_PE[R8001]->C_C[R8003];
+    if not_empty parentComponent
+      parentComponent.collectVisibleElementsForName(name:param.name,
+        type:param.type, originatingContainerID: param.originatingContainerID,
+                                         delegatingContainerID:self.Package_ID,
+                                         collectGlobally:param.collectGlobally);
+    else
+      select one system related by self->S_SYS[R1401];
+      if not_empty system
+        system.collectVisibleElementsForName(name:param.name, descending:false,
+        type:param.type, originatingContainerID: param.originatingContainerID,
+                                         delegatingContainerID:self.Package_ID,
+                                         collectGlobally:param.collectGlobally);
+              end if;
+            end if;
+  end if;
+end if;',
+	1,
+	'',
+	"53dbf4d3-e13b-4c0a-a492-375e69217ea6");
+INSERT INTO O_TPARM
+	VALUES ("dcb1e715-5d0a-4d73-a240-2d1e3a828739",
+	"ed0d1960-8756-4dd9-8953-feb71f9a0031",
+	'name',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("1e0c264d-e206-4052-92ea-7b3e3138d87f",
+	"ed0d1960-8756-4dd9-8953-feb71f9a0031",
+	'type',
+	"9a52ac80-0dbf-4444-99ce-efd27902d8db",
+	0,
+	'',
+	"dcb1e715-5d0a-4d73-a240-2d1e3a828739",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("9a52ac80-0dbf-4444-99ce-efd27902d8db",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'ElementTypeConstants',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TPARM
+	VALUES ("e0e0eea5-7ae3-4bd5-8e5a-911baa29e796",
+	"ed0d1960-8756-4dd9-8953-feb71f9a0031",
+	'descending',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	0,
+	'',
+	"1e0c264d-e206-4052-92ea-7b3e3138d87f",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("4e31533a-0c02-40d4-89e3-7dc10f089ad5",
+	"ed0d1960-8756-4dd9-8953-feb71f9a0031",
+	'originatingContainerID',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"e0e0eea5-7ae3-4bd5-8e5a-911baa29e796",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("7717c259-1566-4882-bad8-b345f8d2717f",
+	"ed0d1960-8756-4dd9-8953-feb71f9a0031",
+	'delegatingPkgID',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"4e31533a-0c02-40d4-89e3-7dc10f089ad5",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("a3debcf8-1687-4972-b48c-e365536fe805",
+	"ed0d1960-8756-4dd9-8953-feb71f9a0031",
+	'collectGlobally',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	0,
+	'',
+	"7717c259-1566-4882-bad8-b345f8d2717f",
+	'');
+INSERT INTO O_TFR
+	VALUES ("572fa184-4302-4647-b5ce-11233562a203",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'getQualifiedName',
+	'',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	1,
+	'//Package::getQualifiedName()
+result = "";
+select one package related by self->PE_PE[R8001]->EP_PKG[R8000];
+if not_empty package
+  result = package.getQualifiedName();
+else
+  select one comp related by self->PE_PE[R8001]->C_C[R8003];
+  if not_empty comp
+    result = comp.getQualifiedName();
+  else
+    select one system related by self->S_SYS[R1401];
+    if not_empty system
+      result = system.Name;
+    end if;
+  end if;
+end if;
+if result != ""
+  result = result + "::";
+end if;
+result = result + self.Name;
+return result;',
+	1,
+	'',
+	"ed0d1960-8756-4dd9-8953-feb71f9a0031");
+INSERT INTO O_TFR
+	VALUES ("f4d23fe4-a944-45d0-9877-d9d160df947a",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'newLink',
+	'',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'select any fromParticipant from instances of SQ_P where (selected.Part_ID == param.from);
+select any toParticipant from instances of SQ_P where (selected.Part_ID == param.to);
+// it only matters that there is a toParticipant
+if(not_empty toParticipant) and (not_empty fromParticipant)
+  create object instance link of COMM_LNK;
+  relate link to toParticipant across R1134;
+  relate link to fromParticipant across R1133;
+  link.initialize();
+  return true;
+end if;
+return false;
+',
+	1,
+	'',
+	"394c4b08-9f45-49c9-a573-3441df5add73");
+INSERT INTO O_TPARM
+	VALUES ("c3efcb38-fca2-457f-bb4d-2b57da79266d",
+	"f4d23fe4-a944-45d0-9877-d9d160df947a",
+	'from',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("88ff7e4c-58d6-4920-ba70-e98b536b1e90",
+	"f4d23fe4-a944-45d0-9877-d9d160df947a",
+	'fromIsImported',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	0,
+	'',
+	"c3efcb38-fca2-457f-bb4d-2b57da79266d",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("811bdd48-5e92-4d84-b267-ce24cff49fbd",
+	"f4d23fe4-a944-45d0-9877-d9d160df947a",
+	'to',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"88ff7e4c-58d6-4920-ba70-e98b536b1e90",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("2dcad7c6-976b-475f-806b-2a3297d70323",
+	"f4d23fe4-a944-45d0-9877-d9d160df947a",
+	'toIsImported',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	0,
+	'',
+	"811bdd48-5e92-4d84-b267-ce24cff49fbd",
+	'');
+INSERT INTO O_TFR
+	VALUES ("d6638630-d722-4328-bb0e-b0ec1192b346",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'pasteUserDatatype',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select any udt from instances of S_UDT where (selected.DT_ID == param.id);
+if(not_empty udt)  
+  // select the previous dt
+  select one dt related by udt->S_DT[R17];
+  // guarantee a unique name for the pasted dt
+  dt.Name = ::getUniqueInitialNameInParent(instance:dt.convertToInstance(),
+  						name:dt.Name, parent:self.convertToInstance());
+  select one pe related by dt->PE_PE[R8001];
+  relate pe to self across R8000;
+end if;',
+	1,
+	'',
+	"1e564c07-13f4-4bab-8303-93b5f9d78584");
+INSERT INTO O_TPARM
+	VALUES ("27bd6714-d53e-4366-a215-03d027541126",
+	"d6638630-d722-4328-bb0e-b0ec1192b346",
+	'id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("ef7a0d8c-1029-4d42-8da8-4f5e83781454",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'pasteActorParticipant',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select any actor from instances of SQ_AP where (selected.Part_ID == param.id);
+if(not_empty actor)
+  select one part related by actor->SQ_P[R930];
+  select one pe related by part->PE_PE[R8001];
+  relate self to pe across R8000;
+end if;
+',
+	1,
+	'',
+	"8466f9a2-b9ba-46a8-8f90-7741e7b72228");
+INSERT INTO O_TPARM
+	VALUES ("3fb3b93f-55a4-47c6-9d71-74e061e90604",
+	"ef7a0d8c-1029-4d42-8da8-4f5e83781454",
+	'id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("5eb4cc8d-9e2c-4912-ac6b-3dddf8b6a81f",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'pasteUseCaseParticipant',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select any ucp from instances of IA_UCP where (selected.Part_ID == param.id);
+if(not_empty ucp)
+  select one pe related by ucp->SQ_P[R930]->PE_PE[R8001];
+  relate self to pe across R8000;
+end if;',
+	1,
+	'',
+	"fcd03e01-c462-4595-9136-100f6af92b1d");
+INSERT INTO O_TPARM
+	VALUES ("342ce320-3ce3-464d-b613-62e64cee63d9",
+	"5eb4cc8d-9e2c-4912-ac6b-3dddf8b6a81f",
+	'id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("6caab5c9-aee3-4b63-a30c-f2734f4cc36d",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'pasteAssociation',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// This operation handles association paste for both the Use Case Association
+// and the Class Association.  
+//
+
+// first see if this is Use Case
+select any uca from instances of UC_UCA where (selected.Assoc_ID == param.id);
+if(not_empty uca)
+  select one pe related by uca->PE_PE[R8001];
+  relate self to pe across R8000;
+  return;
+end if;
+
+// now see if this is a class association
+select any rel from instances of R_REL where (selected.Rel_ID == param.id);
+if(not_empty rel)
+  select one pe related by rel->PE_PE[R8001];
+  select one existingPkg related by pe->EP_PKG[R8000];
+  relateToPkg = true;
+  if(not_empty existingPkg)
+    if(existingPkg != self)
+      unrelate existingPkg from pe across R8001;
+    else
+      relateToPkg = false;
+    end if;
+  end if;
+  if(relateToPkg)
+    select many assocs related by self->PE_PE[R8000]->R_REL[R8001];
+    for each assoc in assocs
+      // if this other association''s number is 
+      // greater than this association''s number
+      if (assoc.Numb >= rel.Numb)
+        // have this association''s number be just greater 
+        // than this other association''s number
+        rel.Numb = assoc.Numb + 1;
+      end if;
+    end for;      
+    relate self to pe across R8000;
+  end if;
+end if;
+
+',
+	1,
+	'',
+	"88865e8d-5155-4c71-97e8-7ad31b177373");
+INSERT INTO O_TPARM
+	VALUES ("f2ea85d8-8253-40d2-8930-de924009850d",
+	"6caab5c9-aee3-4b63-a30c-f2734f4cc36d",
+	'id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("ae453031-66b1-4d8f-a830-1c8cd7e91141",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'pasteSendSignal',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select any ss from instances of A_SS where (selected.Id == param.id);
+if(not_empty ss)
+  select one pe related by ss->A_ACT[R1107]->A_N[R1105]->PE_PE[R8001];
+  relate self to pe across R8000;
+end if;',
+	1,
+	'',
+	"fb9c5f05-e669-48da-878a-6f4407cb4b43");
+INSERT INTO O_TPARM
+	VALUES ("b82789d6-5914-4462-b150-c55cc0cb3217",
+	"ae453031-66b1-4d8f-a830-1c8cd7e91141",
+	'id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("35aa44bc-1610-442d-a2ff-708eb2246863",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'pasteActivityDiagramAction',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select any ga from instances of A_GA where (selected.Id == param.id);
+if(not_empty ga)
+  select one pe related by ga->A_ACT[R1107]->A_N[R1105]->PE_PE[R8001];  
+  relate self to pe across R8000;
+end if;',
+	1,
+	'',
+	"7543e6c3-c4e5-4a31-a935-5a254a1384d3");
+INSERT INTO O_TPARM
+	VALUES ("998f57d0-fb5e-4e42-9f73-f98896adb146",
+	"35aa44bc-1610-442d-a2ff-708eb2246863",
+	'id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("6eae435c-f49b-4150-83ef-453246d7e09d",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'pasteModelClass',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select any cl from instances of O_OBJ where (selected.Obj_ID == param.id);
+if(not_empty cl)
+  select one pe related by cl->PE_PE[R8001];
+  relate self to pe across R8000;
+
+  select many attributes related by cl->O_ATTR[R102];
+  // handle pasting of attributes
+  for each attribute in attributes
+    result = cl.removeIncompleteReferential(id:attribute.Attr_ID);
+  end for;
+  cl.rename(new_name: ::getUniqueInitialNameInParent(instance:cl.convertToInstance(),
+  						name:cl.Name, parent:self.convertToInstance()));
+  cl.removeIncompleteNonLocalEvents();
+end if;',
+	1,
+	'',
+	"89afe634-2711-47e6-84a2-22318bd9c61a");
+INSERT INTO O_TPARM
+	VALUES ("5e5d4cf3-c513-4b68-831d-8c1b22f4c863",
+	"6eae435c-f49b-4150-83ef-453246d7e09d",
+	'id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("37c17e2c-c974-4a07-b3a3-e13a4ac1d407",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'pasteAcceptEventAction',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select any aea from instances of A_AEA where (selected.Id == param.id);
+if(not_empty aea)
+  select one pe related by aea->A_AE[R1112]->A_ACT[R1107]->A_N[R1105]
+                                                                 ->PE_PE[R8001];  
+  relate self to pe across R8000;
+end if;',
+	1,
+	'',
+	"ba7c2916-5468-4c07-aa1f-b0b6f4331857");
+INSERT INTO O_TPARM
+	VALUES ("0c5c2f81-ee10-4665-99cb-65a5f9166f69",
+	"37c17e2c-c974-4a07-b3a3-e13a4ac1d407",
+	'id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("2cb0dc01-0164-4390-a682-802a24d3fb84",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'pasteAcceptTimeEventAction',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select any ate from instances of A_ATE where (selected.Id == param.id);
+if(not_empty ate)
+  select one pe related by ate->A_AE[R1112]->A_ACT[R1107]->A_N[R1105]
+                                                                 ->PE_PE[R8001];  
+  relate self to pe across R8000;
+end if;',
+	1,
+	'',
+	"a770633e-9a59-4937-81e0-3bf582f1aa85");
+INSERT INTO O_TPARM
+	VALUES ("23f5858b-3211-4738-8212-d62e6f23f344",
+	"2cb0dc01-0164-4390-a682-802a24d3fb84",
+	'id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("6c9f773f-c68b-46c5-a19d-cae00b8676ed",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'pasteComponent',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select any comp from instances of C_C where (selected.Id == param.id);
+if(not_empty comp)
+  select one pe related by comp->PE_PE[R8001];
+  relate self to pe across R8000;
+  comp.rename(new_name: ::getUniqueInitialNameInParent(instance:comp.convertToInstance(),
+                name:comp.Name, parent:self.convertToInstance()));
+  select one system related by self->S_SYS[R1405];
+  comp.associatePackagesWithSystem(id:system.Sys_ID);
+  // for any non local event below this package
+  // remove incomplete ones (those that are not
+  // resolvable)
+  comp.removeIncompleteSignalEvents();
+end if;',
+	1,
+	'',
+	"afba991f-b1ac-4a16-ba13-c35ee9a93ecd");
+INSERT INTO O_TPARM
+	VALUES ("a012365a-ed97-48a6-ad6d-7b5e39e9a51c",
+	"6c9f773f-c68b-46c5-a19d-cae00b8676ed",
+	'id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("994dadeb-daa3-4227-86cc-da903ff808b9",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'pasteProvision',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select any provision from instances of C_P
+                                      where (selected.Provision_Id == param.id);
+if(not_empty provision)
+  // dispose any satisfactions that are not complete
+  // this can occur because the export includes them
+  // regardless of whether or not they are complete
+  select many satisfactions related by provision->C_SF[R4002];
+  for each satisfaction in satisfactions
+    select one requirement related by satisfaction->C_R[R4002];
+    if(not_empty requirement
+                     and Util::isProxy(element:requirement.convertToInstance()))
+      // if this satisfaction is connected to an imported requirement, that
+      // is not a proxy, we do not want to dispose
+      select one importedReq related by satisfaction->CL_IR[R4706];
+      if(empty importedReq 
+                      or Util::isProxy(element:importedReq.convertToInstance()))
+        satisfaction.dispose();
+      end if;
+    end if;
+  end for;
+end if;
+',
+	1,
+	'',
+	"e0f0584a-263e-4ad5-bad3-093bbc34c8d7");
+INSERT INTO O_TPARM
+	VALUES ("a10e261a-16a9-4e81-8f07-6c9e9da88d85",
+	"994dadeb-daa3-4227-86cc-da903ff808b9",
+	'id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("836341d3-5a17-46f5-ac2d-deb36079dd03",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'pasteRequirement',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// just need this to exist for the infrastructure to allow the copy',
+	1,
+	'',
+	"3e8de48a-2420-4b8a-b996-be9fbf0b2865");
+INSERT INTO O_TPARM
+	VALUES ("bf5365c3-3239-4815-b4d0-19cd2b20c305",
+	"836341d3-5a17-46f5-ac2d-deb36079dd03",
+	'id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("dcc872a4-fc8f-44b0-9545-ee146bff1c9b",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'pasteInterface',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select any interface from instances of C_I where (selected.Id == param.id);
+if(not_empty interface)
+  select one pe related by interface->PE_PE[R8001];
+  relate self to pe across R8000;
+  interface.Name = ::getUniqueInitialNameInParent(instance:interface.convertToInstance(), 
+    name:interface.Name, parent:self.convertToInstance());
+end if;',
+	1,
+	'',
+	"af122d8e-336f-4b5c-8926-b6e2587868a9");
+INSERT INTO O_TPARM
+	VALUES ("9670db24-4db3-44f4-862a-4743fa9e44fb",
+	"dcc872a4-fc8f-44b0-9545-ee146bff1c9b",
+	'id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("f8bb0f7f-4b6a-4daf-90cc-8330d24b26b7",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'pasteConstantSpecification',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select any csp from instances of CNST_CSP where (selected.Constant_Spec_ID == param.id);
+if(not_empty csp)
+  select one pe related by csp->PE_PE[R8001];
+  relate self to pe across R8000;
+end if;',
+	1,
+	'',
+	"c5f7c458-df6d-4184-9b9f-3ff43d7d3ab7");
+INSERT INTO O_TPARM
+	VALUES ("8951432b-cbd1-4dd4-97c9-f026898719a1",
+	"f8bb0f7f-4b6a-4daf-90cc-8330d24b26b7",
+	'id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("ec9199f1-ca70-4d8e-aad2-072d0256b2ef",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'pasteEnumerationDatatype',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select any enum from instances of S_EDT where (selected.DT_ID == param.id);
+if(not_empty enum)
+  // select the previous dt
+  select one dt related by enum->S_DT[R17];
+  // guarantee a unique name for the pasted dt
+  dt.Name = ::getUniqueInitialNameInParent(instance:dt.convertToInstance(),
+                        name:dt.Name, parent:self.convertToInstance());
+  select one pe related by dt->PE_PE[R8001];
+  relate pe to self across R8000; 
+end if;',
+	1,
+	'',
+	"f9bc6349-7186-4719-a677-c3aeb6e97552");
+INSERT INTO O_TPARM
+	VALUES ("fb50521f-4d1a-40e5-a246-700f6bd9ad95",
+	"ec9199f1-ca70-4d8e-aad2-072d0256b2ef",
+	'id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("005049ab-571c-480e-b446-b45dce9c3178",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'pasteStructuredDatatype',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select any sdt from instances of S_SDT where (selected.DT_ID == param.id);
+if(not_empty sdt)
+  select one dt related by sdt->S_DT[R17];
+  // guarantee a unique name for the pasted dt
+  dt.Name = ::getUniqueInitialNameInParent(instance:dt.convertToInstance(),
+                        name:dt.Name, parent:self.convertToInstance());
+  select one pe related by dt->PE_PE[R8001];
+  relate pe to self across R8000;
+end if;',
+	1,
+	'',
+	"78ebaeab-0abf-4944-b845-2325ebb55133");
+INSERT INTO O_TPARM
+	VALUES ("49fd985b-c185-4b60-91f0-dad2bce56fbe",
+	"005049ab-571c-480e-b446-b45dce9c3178",
+	'id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("9d1d8a21-6a77-4222-8df7-33a066fb2cb4",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'pasteGeneralization',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select any gen from instances of UC_G where (selected.Assoc_ID == param.id);
+if(not_empty gen)
+  select one assoc related by gen->UC_UCA[R1210];
+  select one pe related by assoc->PE_PE[R8001];
+  relate self to pe across R8000;
+end if;',
+	1,
+	'',
+	"fd61228a-b908-4f18-9377-6cfa62197045");
+INSERT INTO O_TPARM
+	VALUES ("d629520d-8ea8-4bdc-813a-ece73fe7cea5",
+	"9d1d8a21-6a77-4222-8df7-33a066fb2cb4",
+	'id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("a3ab299c-a4ee-4ff9-ab37-3907f0d75e10",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'pasteInclude',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select any inc from instances of UC_I where (selected.Assoc_ID == param.id);
+if(not_empty inc)
+  select one pe related by inc->UC_UCA[R1210]->PE_PE[R8001];
+  relate self to pe across R8000;
+end if;',
+	1,
+	'',
+	"d75b0b45-169a-4d3a-8744-e3089ae4e8cf");
+INSERT INTO O_TPARM
+	VALUES ("9a437caf-5eb0-461e-b2e1-9034d3ae85db",
+	"a3ab299c-a4ee-4ff9-ab37-3907f0d75e10",
+	'id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("536ec2a3-dbf6-4044-9511-86d7ead88ed0",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'pasteExtend',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select any extend from instances of UC_E where (selected.Assoc_ID == param.id);
+if(not_empty extend)
+  select one association related by extend->UC_UCA[R1210];
+  select one pe related by association->PE_PE[R8001];
+  relate self to pe across R8000;
+end if;',
+	1,
+	'',
+	"5e165afe-1f22-47ad-a97c-7ff393d9ec80");
+INSERT INTO O_TPARM
+	VALUES ("783cc5fb-6264-43b2-9f21-6ecdf490a2cc",
+	"536ec2a3-dbf6-4044-9511-86d7ead88ed0",
+	'id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("41ae8049-5edf-46a6-9345-d6236c0b5298",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'pasteActivityPartition',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select any ap from instances of A_AP where (selected.Id == param.id);
+if(not_empty ap)
+  select one pe related by ap->PE_PE[R8001];
+  relate self to pe across R8000;
+end if;',
+	1,
+	'',
+	"cb228b11-2692-4abe-944a-f34aeb8fecdd");
+INSERT INTO O_TPARM
+	VALUES ("d6eb9d35-a711-4d27-aaf7-8f4d5a6e63e0",
+	"41ae8049-5edf-46a6-9345-d6236c0b5298",
+	'id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("cd56dcc0-c962-41ef-8e26-c22664733cca",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'pasteObjectNode',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select any obj from instances of A_OBJ where (selected.Id == param.id);
+if(not_empty obj)
+  select one pe related by obj->A_N[R1105]->PE_PE[R8001];
+  relate self to pe across R8000;
+end if;',
+	1,
+	'',
+	"fe9fa58d-7d0a-4fdf-a65b-e9b951335f17");
+INSERT INTO O_TPARM
+	VALUES ("079e4b31-9b62-4af6-ae89-e955c2bf5cbf",
+	"cd56dcc0-c962-41ef-8e26-c22664733cca",
+	'id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("037912ca-64b3-41a4-935c-9391bf58483e",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'pasteActivityEdge',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select any ae from instances of A_E where (selected.Id == param.id);
+if(not_empty ae)
+  select one pe related by ae->PE_PE[R8001];
+  relate self to pe across R8000;
+end if;',
+	1,
+	'',
+	"cd580f09-b6e5-4c7f-9d5a-9d2826f31f48");
+INSERT INTO O_TPARM
+	VALUES ("7b8632c6-b72c-4ff6-869c-9539b91da48e",
+	"037912ca-64b3-41a4-935c-9391bf58483e",
+	'id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("5b1c05ee-327a-4135-9dfb-22fc98a82916",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'pasteForkJoinNode',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select any fj from instances of A_FJ where (selected.Id == param.id);
+if(not_empty fj)
+  select one pe related by fj->A_CTL[R1106]->A_N[R1105]->PE_PE[R8001];
+  relate self to pe across R8000;
+end if;',
+	1,
+	'',
+	"4645bfd7-8c6b-4f37-8ee4-9573f7a3aa37");
+INSERT INTO O_TPARM
+	VALUES ("58ed67a9-8c37-4d67-a206-61cb4d46430b",
+	"5b1c05ee-327a-4135-9dfb-22fc98a82916",
+	'id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("66c1e03f-1721-4002-84c1-fbec8ceed42d",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'pasteDecisionMergeNode',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select any dmn from instances of A_DM where (selected.Id == param.id);
+if(not_empty dmn)
+  select one pe related by dmn->A_CTL[R1106]->A_N[R1105]->PE_PE[R8001];
+  relate self to pe across R8000;
+end if;',
+	1,
+	'',
+	"11a2e227-3ca9-426b-987d-7557c184096d");
+INSERT INTO O_TPARM
+	VALUES ("71ee6f7b-928b-4933-9b04-45ad7fe5ad72",
+	"66c1e03f-1721-4002-84c1-fbec8ceed42d",
+	'id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("c1f957d8-2208-4ea0-9360-c36e4caa1302",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'pasteInitialNode',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select any ini from instances of A_INI where (selected.Id == param.id);
+if(not_empty ini)
+  select one pe related by ini->A_CTL[R1106]->A_N[R1105]->PE_PE[R8001];
+  relate self to pe across R8000;
+end if;',
+	1,
+	'',
+	"613ab097-02f7-4788-b6e9-6c69433fa330");
+INSERT INTO O_TPARM
+	VALUES ("a622faf0-8de8-4896-ad40-8091f73c5474",
+	"c1f957d8-2208-4ea0-9360-c36e4caa1302",
+	'id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("0930c5a0-a203-43d2-960f-d7e46693c804",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'pasteActivityFinalNode',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select any afn from instances of A_AF where (selected.Id == param.id);
+if(not_empty afn)
+  select one pe related by afn->A_CTL[R1106]->A_N[R1105]->PE_PE[R8001];
+  relate self to pe across R8000;
+end if;',
+	1,
+	'',
+	"c67c763c-97b3-4f8c-9b06-750ef3dcccf7");
+INSERT INTO O_TPARM
+	VALUES ("12000080-791d-4465-99dc-b60d16c2280f",
+	"0930c5a0-a203-43d2-960f-d7e46693c804",
+	'id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("55c2911f-bbd4-455a-9fad-5913eeacf65a",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'pasteFlowFinalNode',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select any ff from instances of A_FF where (selected.Id == param.id);
+if(not_empty ff)
+  select one pe related by ff->A_CTL[R1106]->A_N[R1105]->PE_PE[R8001];
+  relate self to pe across R8000;
+end if;',
+	1,
+	'',
+	"2461489d-5ef1-48be-9b3a-613e4171f6fb");
+INSERT INTO O_TPARM
+	VALUES ("72680c1b-64e8-4a61-972b-e3a788441dff",
+	"55c2911f-bbd4-455a-9fad-5913eeacf65a",
+	'id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("caa9c998-a66b-481a-822d-128d964b3179",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'pasteClassInstanceParticipant',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select any cip from instances of SQ_CIP where (selected.Part_ID == param.id);
+if(not_empty cip)
+  select one part related by cip->SQ_P[R930];
+  select one pe related by part->PE_PE[R8001];
+  relate self to pe across R8000;
+end if;',
+	1,
+	'',
+	"669eb51b-637c-42d6-b756-b38d9f32e781");
+INSERT INTO O_TPARM
+	VALUES ("6d87ef67-d0eb-4c7b-b26e-b866d5f43d6e",
+	"caa9c998-a66b-481a-822d-128d964b3179",
+	'id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("ad5e0592-ea7e-4af4-8bb5-d2dc6bea7d65",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'pasteExternalEntityParticipant',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select any eep from instances of SQ_EEP where (selected.Part_ID == param.id);
+if(not_empty eep)
+  select one part related by eep->SQ_P[R930];
+  select one pe related by part->PE_PE[R8001];
+  relate self to pe across R8000;
+end if;',
+	1,
+	'',
+	"9d9db3c4-4f50-44d8-ba7c-5d141cdb4949");
+INSERT INTO O_TPARM
+	VALUES ("3604dca0-2717-4914-8fb6-e64b3d6bc81d",
+	"ad5e0592-ea7e-4af4-8bb5-d2dc6bea7d65",
+	'id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("43f14d76-f887-491f-8673-46f5b63a6a8d",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'pasteLifeSpan',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select any ls from instances of SQ_LS where (selected.Part_ID == param.id);
+if(not_empty ls)
+  select one pe related by ls->SQ_P[R930]->PE_PE[R8001];
+  relate self to pe across R8000;
+end if;',
+	1,
+	'',
+	"9acf1859-f944-42c3-80ca-ccc27906a2cf");
+INSERT INTO O_TPARM
+	VALUES ("b7e84bc0-c41e-4dac-b774-cd0bc646be94",
+	"43f14d76-f887-491f-8673-46f5b63a6a8d",
+	'id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("f3288a8e-592c-4c45-8004-ea9341aa7323",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'pasteClassParticipant',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select any cp from instances of SQ_CP where (selected.Part_ID == param.id);
+if(not_empty cp)
+  select one part related by cp->SQ_P[R930];
+  select one pe related by part->PE_PE[R8001];
+  relate self to pe across R8000;
+end if;',
+	1,
+	'',
+	"9d1eb58f-8696-4d70-9fc9-60641f46a085");
+INSERT INTO O_TPARM
+	VALUES ("5facef4a-46f7-4103-a8c3-4a21ce1b1873",
+	"f3288a8e-592c-4c45-8004-ea9341aa7323",
+	'id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("38d448b1-c3e5-4678-b357-a722a8c21393",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'pasteTimingMark',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// just need this to exist for the infrastructure to allow the copy',
+	1,
+	'',
+	"d131381b-770d-4f0f-b46a-c156be5ed835");
+INSERT INTO O_TPARM
+	VALUES ("856947f4-9451-4df1-98e8-eb1562a1e11c",
+	"38d448b1-c3e5-4678-b357-a722a8c21393",
+	'id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("03ac634d-7fc1-4ee5-863c-c122caca0fcb",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'pasteTimeSpan',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// just need this to exist for the infrastructure to allow the copy',
+	1,
+	'',
+	"5400b1ee-0ebe-41c8-8fc4-289222dfbee1");
+INSERT INTO O_TPARM
+	VALUES ("5b2ede3a-4fd1-4830-9076-b29669d072d6",
+	"03ac634d-7fc1-4ee5-863c-c122caca0fcb",
+	'id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("c520c556-1b31-41a2-a0ac-858dda76a61c",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'pasteSynchronousMessage',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select any sm from instances of MSG_SM where (selected.Msg_ID == param.id);
+if(not_empty sm)
+  select one pe related by sm->MSG_M[R1018]->PE_PE[R8001];
+  relate self to pe across R8000;
+end if;',
+	1,
+	'',
+	"fa4e464d-dfd1-4f47-b019-249614e5ae9c");
+INSERT INTO O_TPARM
+	VALUES ("79deab52-534b-45ab-9448-d37a3259d14b",
+	"c520c556-1b31-41a2-a0ac-858dda76a61c",
+	'id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("0671a5c0-0e3c-41f7-b8cd-e303ddefaa97",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'pasteAsynchronousMessage',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select any am from instances of MSG_AM where (selected.Msg_ID == param.id);
+if(not_empty am)
+  select one message related by am->MSG_M[R1018];
+  select one pe related by message->PE_PE[R8001];
+  relate self to pe across R8000;
+end if;',
+	1,
+	'',
+	"76abab11-6a19-4162-8be0-e06554633628");
+INSERT INTO O_TPARM
+	VALUES ("9453cfeb-687a-4a22-bdef-a27c78d13963",
+	"0671a5c0-0e3c-41f7-b8cd-e303ddefaa97",
+	'id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("394c4b08-9f45-49c9-a573-3441df5add73",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'pasteReturnMessage',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select any rm from instances of MSG_R where (selected.Msg_ID == param.id);
+if(not_empty rm)
+  select one pe related by rm->MSG_M[R1018]->PE_PE[R8001];
+  relate self to pe across R8000;
+end if;',
+	1,
+	'',
+	"102ab4f8-f9fe-4287-8a7b-d7728d306811");
+INSERT INTO O_TPARM
+	VALUES ("5eafbc9a-d79c-4419-a297-b032da0545f2",
+	"394c4b08-9f45-49c9-a573-3441df5add73",
+	'id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("56b00eea-639d-4ee8-bc56-0824bf5a6b5e",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'pasteCommunicationLink',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// nothing to do, it will be fully copied',
+	1,
+	'',
+	"f4d23fe4-a944-45d0-9877-d9d160df947a");
+INSERT INTO O_TPARM
+	VALUES ("4562706f-c538-4dab-890d-00c60fdc6d99",
+	"56b00eea-639d-4ee8-bc56-0824bf5a6b5e",
+	'id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("4abeae8b-c260-4127-b37b-009a322ef1e6",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'pasteComponentParticipant',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select any cop from instances of SQ_COP where (selected.Part_ID == param.id);
+if(not_empty cop)
+  select one part related by cop->SQ_P[R930];
+  select one pe related by part->PE_PE[R8001];
+  relate self to pe across R8000;
+end if;',
+	1,
+	'',
+	"66f505c1-f8f9-4cd4-a6b9-2176e3893b16");
+INSERT INTO O_TPARM
+	VALUES ("1df803f7-7cf8-4cd6-b34a-7332040785a2",
+	"4abeae8b-c260-4127-b37b-009a322ef1e6",
+	'id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("77212888-116b-4c60-bddd-c90e56bfb25a",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'pasteImportedClass',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select any iobj from instances of O_IOBJ where (selected.IObj_ID == param.id);
+if(not_empty iobj)
+  select one pe related by iobj->PE_PE[R8001];
+  relate self to pe across R8000;
+end if;',
+	1,
+	'',
+	"81556442-ffe3-4e03-b2d1-5ec78387790c");
+INSERT INTO O_TPARM
+	VALUES ("0ed3c573-57cf-46a0-a6ca-1f3164ea12f6",
+	"77212888-116b-4c60-bddd-c90e56bfb25a",
+	'id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("eb891ffd-7eab-42c3-9a86-d554873af559",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'pasteExternalEntity',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select any ee from instances of S_EE where (selected.EE_ID == param.id);
+if(not_empty ee)
+  select one pe related by ee->PE_PE[R8001];
+  relate self to pe across R8000;
+  ee.Name = ::getUniqueInitialNameInParent(instance:ee.convertToInstance(),
+    name:ee.Name, parent:self.convertToInstance());
+end if;',
+	1,
+	'',
+	"d955f26e-6f9a-4b94-a47b-1125c137e82f");
+INSERT INTO O_TPARM
+	VALUES ("949125b5-17e7-4b48-9f3c-3445a6fb6036",
+	"eb891ffd-7eab-42c3-9a86-d554873af559",
+	'id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("a95a8724-a11e-4ecb-8539-d26ca93fe6f8",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'pasteFunction',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select any sync from instances of S_SYNC where (selected.Sync_ID == param.id);
+if(not_empty sync)
+  select one pe related by sync->PE_PE[R8001];
+  relate self to pe across R8000;
+  sync.Name = ::getUniqueInitialNameInParent(instance:sync.convertToInstance(),
+    name:sync.Name, parent:self.convertToInstance());
+end if;',
+	1,
+	'',
+	"e53f03d3-daea-46ab-a633-9f8685296024");
+INSERT INTO O_TPARM
+	VALUES ("fa01b8da-afbf-4731-b625-13e21d0e163e",
+	"a95a8724-a11e-4ecb-8539-d26ca93fe6f8",
+	'id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("d083eda9-a8d4-4696-b434-8ee1d6db8d47",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'clearScope',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// Package.clearScope()
+// dispose all search results
+select many srs related by self->PE_SRS[R8005];
+for each sr in srs
+  sr.dispose();
+end for;',
+	1,
+	'',
+	"572fa184-4302-4647-b5ce-11233562a203");
+INSERT INTO O_TFR
+	VALUES ("331a19c3-da40-4501-bb7e-af49068dacef",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'getContainingComponentId',
+	'',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	1,
+	'// Package.getContainingComponentId()
+select one package related by self->PE_PE[R8001]->EP_PKG[R8000];
+select one component related by self->PE_PE[R8001]->C_C[R8003];
+if not_empty package
+  return package.getContainingComponentId();
+end if;
+if not_empty component
+  return component.Id;
+end if;
+return GD::NULL_UNIQUE_ID();',
+	1,
+	'',
+	"d083eda9-a8d4-4696-b434-8ee1d6db8d47");
+INSERT INTO O_TFR
+	VALUES ("e77749e6-00a2-4922-8d0e-e5edc2d52bbd",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'initializeClasses',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// Package.initializeClasses()
+// Initialize classes ready for Verifier execution
+select any compInst from instances of I_EXE where
+                               selected.Execution_Engine_ID == param.compInstID;
+select many classes related by self->PE_PE[R8000]->O_OBJ[R8001];
+for each clazz in classes
+  create object instance cie of CSME_CIE;
+  relate cie to compInst across R2960;
+  relate cie to clazz across R2961;
+  relate cie to self across R2971;
+end for;
+select many packages related by self->PE_PE[R8000]->EP_PKG[R8001];
+for each package in packages
+  package.initializeClasses(compInstID:param.compInstID);
+end for;',
+	1,
+	'',
+	"331a19c3-da40-4501-bb7e-af49068dacef");
+INSERT INTO O_TPARM
+	VALUES ("b95ba357-e870-41ce-aef0-ef9a61bd50d0",
+	"e77749e6-00a2-4922-8d0e-e5edc2d52bbd",
+	'compInstID',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("32a700f8-b881-4da6-a6c2-faced9a1cfbb",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'isExecutingOrIsChildExecuting',
+	'',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'// Package.isExecutingOrIsChildExecuting()
+select one compInst related by self->I_EXE[R2970];
+if not_empty compInst
+  return true;
+end if;
+select many packages related by self->PE_PE[R8000]->EP_PKG[R8001];
+for each childPkg in packages
+  if childPkg.isExecutingOrIsChildExecuting()
+    return true;
+  end if;
+end for;
+select many components related by self->PE_PE[R8000]->C_C[R8001];
+for each component in components
+  if component.isExecutingOrIsChildExecuting();
+    return true;
+  end if;
+end for;
+select many compRefs related by self->PE_PE[R8000]->CL_IC[R8001];
+for each compRef in compRefs
+  if compRef.isExecuting()
+    return true;
+  end if; 
+end for;
+return false;',
+	1,
+	'',
+	"e77749e6-00a2-4922-8d0e-e5edc2d52bbd");
+INSERT INTO O_TFR
+	VALUES ("211a45d5-6754-484a-9903-ab47cfc589ed",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'isExecutingOrOwnsExecutableElements',
+	'',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'// Package.isExecutingOrOwnsExecutableElements()
+return self.isExecutingOrIsChildExecuting() or
+                     self.ownsExecutableElementsOrChildOwnsExecutableElements();',
+	1,
+	'',
+	"32a700f8-b881-4da6-a6c2-faced9a1cfbb");
+INSERT INTO O_TFR
+	VALUES ("df4a9382-2ce5-454b-9045-62305115e0d2",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'ownsExecutableElementsOrChildOwnsExecutableElements',
+	'',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'// Package.ownsExecutableElementsOrChildOwnsExecutableElements()
+select any func related by self->PE_PE[R8000]->S_SYNC[R8001];
+if not_empty func
+  return true; 
+end if;
+select any modelClass related by self->PE_PE[R8000]->O_OBJ[R8001];
+if not_empty modelClass
+  return true; 
+end if;
+select any comp related by self->PE_PE[R8000]->C_C[R8001];
+if not_empty comp
+  return true; 
+end if;
+select any compR related by self->PE_PE[R8000]->CL_IC[R8001];
+if not_empty compR
+  return true; 
+end if;
+select many packages related by self->PE_PE[R8000]->EP_PKG[R8001];
+for each childPkg in packages
+  if childPkg.ownsExecutableElementsOrChildOwnsExecutableElements()
+    return true;
+  end if;
+end for;
+return false;',
+	1,
+	'',
+	"211a45d5-6754-484a-9903-ab47cfc589ed");
+INSERT INTO O_TFR
+	VALUES ("be969320-7d97-4807-84be-52bd4ada1ba8",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'pasteComponentReference',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select any cr from instances of CL_IC where (selected.Id == param.id);
+if(not_empty cr)
+  select one pe related by cr->PE_PE[R8001];
+  relate self to pe across R8000;
+end if;
+',
+	1,
+	'',
+	"df4a9382-2ce5-454b-9045-62305115e0d2");
+INSERT INTO O_TPARM
+	VALUES ("6e933e62-ed86-4a1f-97cf-5979473022d6",
+	"be969320-7d97-4807-84be-52bd4ada1ba8",
+	'id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("ce9d6799-438f-4bc6-b4fb-6e73d945835f",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'pasteClassAsLink',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'self.pasteAssociation(id:param.id);
+',
+	1,
+	'',
+	"be969320-7d97-4807-84be-52bd4ada1ba8");
+INSERT INTO O_TPARM
+	VALUES ("155109c1-d693-4d4c-9682-7a141bb56d9b",
+	"ce9d6799-438f-4bc6-b4fb-6e73d945835f",
+	'id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("e33d435b-6527-45f1-a3c2-c31b4b8b294b",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'pasteClassAsSubtype',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select any subtype from instances of R_SUB where (selected.OIR_ID == param.id);
+if(not_empty subtype)
+  select one assoc related by subtype->R_SUBSUP[R213]->R_REL[R206];
+  self.pasteAssociation(id:assoc.Rel_ID);
+end if;
+',
+	1,
+	'',
+	"ce9d6799-438f-4bc6-b4fb-6e73d945835f");
+INSERT INTO O_TPARM
+	VALUES ("aecbfdbb-bbf8-41ff-b35d-50dbbd594f1d",
+	"e33d435b-6527-45f1-a3c2-c31b4b8b294b",
+	'id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("e1ea8a8b-9397-4cdf-a341-f9fd38f76cb7",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'pasteBinaryAssociation',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select any binaryAssoc from instances of UC_BA where (selected.Assoc_ID == param.id);
+if(not_empty binaryAssoc)
+  select one association related by binaryAssoc->UC_UCA[R1210];
+  select one pe related by association->PE_PE[R8001];
+  relate self to pe across R8000;
+end if;',
+	1,
+	'',
+	"e33d435b-6527-45f1-a3c2-c31b4b8b294b");
+INSERT INTO O_TPARM
+	VALUES ("1666e65b-728c-48c4-a8c8-983b673206de",
+	"e1ea8a8b-9397-4cdf-a341-f9fd38f76cb7",
+	'id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("d02a660c-cfda-47eb-8737-8d63a8cedfb8",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'canCopyCoreDataType',
+	'',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'return false;',
+	1,
+	'',
+	"e1ea8a8b-9397-4cdf-a341-f9fd38f76cb7");
+INSERT INTO O_TPARM
+	VALUES ("23b96aca-04c9-44db-855c-246708e20128",
+	"d02a660c-cfda-47eb-8737-8d63a8cedfb8",
+	'id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("2a31e4e4-5796-412e-9b55-966c67a9f95a",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'canCopyUserDataType',
+	'',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'select any udt from instances of S_UDT where (selected.DT_ID == param.id);
+if(not_empty udt)
+  if(udt.Gen_Type == 0)
+    return true;
+  end if;
+end if;
+return false;',
+	1,
+	'',
+	"d02a660c-cfda-47eb-8737-8d63a8cedfb8");
+INSERT INTO O_TPARM
+	VALUES ("ed2061ec-10f8-4a53-ae90-69e280c277b6",
+	"2a31e4e4-5796-412e-9b55-966c67a9f95a",
+	'id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("3c34752f-d365-490c-9102-324cd0c5aff0",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'newComponentPackage',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'create object instance package of CP_CP;
+create object instance sp of EP_SPKG;
+relate self to sp across R1400;
+relate package to sp across R1402;
+select any system from instances of S_SYS
+                                  where (selected.Sys_ID == self.getSystemId());
+relate package to system across R4606;
+package.initialize();',
+	1,
+	'',
+	"2a31e4e4-5796-412e-9b55-966c67a9f95a");
+INSERT INTO O_TFR
+	VALUES ("8967f467-0348-414c-91a1-9e1d098cada7",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'newInterfacePackage',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'create object instance interfacePackage of IP_IP;
+create object instance sp of EP_SPKG;
+relate sp to interfacePackage across R1402;
+relate sp to self across R1400;
+select any system from instances of S_SYS
+                                  where (selected.Sys_ID == self.getSystemId());
+relate system to interfacePackage across R4304;
+interfacePackage.initialize();',
+	1,
+	'',
+	"3c34752f-d365-490c-9102-324cd0c5aff0");
+INSERT INTO O_TFR
+	VALUES ("5d94703c-42a8-4dab-8519-b50dfaa7da02",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'newActivity',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'create object instance a of A_A;
+create object instance sp of EP_SPKG;
+relate self to sp across R1400;
+relate a to sp across R1402;
+a.initialize();',
+	1,
+	'',
+	"8967f467-0348-414c-91a1-9e1d098cada7");
+INSERT INTO O_TFR
+	VALUES ("ea833d88-eb9d-462e-a2b3-c20d06804d04",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'newUseCasePackage',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'create object instance ucc of UC_UCC;
+create object instance sp of EP_SPKG;
+relate self to sp across R1400;
+relate sp to ucc across R1402;
+ucc.initialize();',
+	1,
+	'',
+	"5d94703c-42a8-4dab-8519-b50dfaa7da02");
+INSERT INTO O_TFR
+	VALUES ("10f658a6-9f52-40ab-9033-15b888241037",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'newSequence',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'create object instance sequence of SQ_S;
+create object instance sp of EP_SPKG;
+relate self to sp across R1400;
+relate sp to sequence across R1402;
+sequence.initialize();',
+	1,
+	'',
+	"ea833d88-eb9d-462e-a2b3-c20d06804d04");
+INSERT INTO O_TFR
+	VALUES ("070effe2-51f1-4327-99ab-a4d1c643d1f1",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'newCommunication',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'create object instance comm of COMM_COMM;
+create object instance sp of EP_SPKG;
+relate sp to self across R1400;
+relate comm to sp across R1402;
+comm.initialize();',
+	1,
+	'',
+	"10f658a6-9f52-40ab-9033-15b888241037");
+INSERT INTO O_TFR
+	VALUES ("f46acf11-3f1d-4973-b2db-35a987df4ca0",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'newDatatypePackage',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'create object instance dPkg of S_DPK;
+create object instance sp of EP_SPKG;
+relate self to sp across R1400;
+relate sp to dPkg across R1402;
+dPkg.initialize();',
+	1,
+	'',
+	"070effe2-51f1-4327-99ab-a4d1c643d1f1");
+INSERT INTO O_TFR
+	VALUES ("d5850e6b-2ddf-46dd-a225-6c66f7d44570",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'newPackageParticipant',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'create object instance participant of SQ_P;
+create object instance pp of SQ_PP;
+// create Packageable Element supertype and hook up to this package.
+create object instance pe of PE_PE;
+relate participant to pe across R8001;
+relate pe to self across R8000;
+pe.type = ElementTypeConstants::INTERACTION_PARTICIPANT;
+pe.initialize();
+relate participant to pp across R930;
+pp.initialize();',
+	1,
+	'',
+	"f46acf11-3f1d-4973-b2db-35a987df4ca0");
+INSERT INTO O_TFR
+	VALUES ("f65434db-05ad-4bff-bfdb-54cf0071e190",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'pastePackageParticipant',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select any pp from instances of SQ_PP where (selected.Part_ID == param.id);
+if(not_empty pp)
+  select one pe related by pp->SQ_P[R930]->PE_PE[R8001];
+  relate self to pe across R8000;
+end if;',
+	1,
+	'',
+	"d5850e6b-2ddf-46dd-a225-6c66f7d44570");
+INSERT INTO O_TPARM
+	VALUES ("386c2c77-dc2a-4cc6-87cd-14da085d02cd",
+	"f65434db-05ad-4bff-bfdb-54cf0071e190",
+	'id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("210ef9d4-f3a5-48fe-8ecb-def813fdc0c5",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'getUdtCount',
+	'',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	1,
+	'select many udts related by self->PE_PE[R8000]->S_DT[R8001]->S_UDT[R17];
+return cardinality udts;',
+	1,
+	'',
+	"f65434db-05ad-4bff-bfdb-54cf0071e190");
+INSERT INTO O_TFR
+	VALUES ("942e7d8f-99aa-4a56-a370-fdc2559d7f46",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'getUdtId',
+	'',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	1,
+	'id = GD::NULL_UNIQUE_ID();
+select many udts related by self->PE_PE[R8000]->S_DT[R8001]->S_UDT[R17];
+// We''re preincrementing the index
+count = -1;
+for each udt in udts
+  count = count + 1;
+  if(count == param.index)
+    return udt.get_ooa_id();  
+  end if;
+end for;
+return id;',
+	1,
+	'',
+	"210ef9d4-f3a5-48fe-8ecb-def813fdc0c5");
+INSERT INTO O_TPARM
+	VALUES ("3acf395b-a0ea-4765-931a-dc7274fcf651",
+	"942e7d8f-99aa-4a56-a370-fdc2559d7f46",
+	'index',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("c96cacb6-6847-4f22-9c67-cfa81ade4bcf",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'getActorCount',
+	'',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	1,
+	'select many actors related by self->PE_PE[R8000]->SQ_P[R8001]->SQ_AP[R930];
+return cardinality actors;',
+	1,
+	'',
+	"942e7d8f-99aa-4a56-a370-fdc2559d7f46");
+INSERT INTO O_TFR
+	VALUES ("c68bc3d9-51d1-495e-aa54-7feab29bf405",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'getActorId',
+	'',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	1,
+	'id = GD::NULL_UNIQUE_ID();
+select many actors related by self->PE_PE[R8000]->SQ_P[R8001]->SQ_AP[R930];
+// We''re preincrementing the index
+count = -1;
+for each actor in actors
+  count = count + 1;
+  if (count == param.index)
+    return actor.get_ooa_id();  
+  end if;
+end for;
+return id;',
+	1,
+	'',
+	"c96cacb6-6847-4f22-9c67-cfa81ade4bcf");
+INSERT INTO O_TPARM
+	VALUES ("51a5a895-89aa-489e-9190-692562eb721c",
+	"c68bc3d9-51d1-495e-aa54-7feab29bf405",
+	'index',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("0e2adfed-a605-4cb3-989b-069da6298630",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'getSendSigActionCount',
+	'',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	1,
+	'select many sends related by self->PE_PE[R8000]->A_N[R8001]->A_ACT[R1105]
+                                                                  ->A_SS[R1107];
+return cardinality sends;',
+	1,
+	'',
+	"c68bc3d9-51d1-495e-aa54-7feab29bf405");
+INSERT INTO O_TFR
+	VALUES ("e83f856e-39a0-4093-af1d-baa37df9a35c",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'getSendSigActionId',
+	'',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	1,
+	'id = GD::NULL_UNIQUE_ID();
+select many elems related by self->PE_PE[R8000]->A_N[R8001]->A_ACT[R1105]
+                                                                  ->A_SS[R1107];
+// We''re preincrementing the index
+count = -1;
+for each elem in elems
+  count = count + 1;
+  if(count == param.index)
+    return elem.get_ooa_id();  
+  end if;
+end for;
+return id;',
+	1,
+	'',
+	"0e2adfed-a605-4cb3-989b-069da6298630");
+INSERT INTO O_TPARM
+	VALUES ("154ec316-c207-4ae2-8679-a2864102b0e9",
+	"e83f856e-39a0-4093-af1d-baa37df9a35c",
+	'index',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("8c977426-0c8f-48ae-9488-8f9b0078651c",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'getAcceptEvtActionCount',
+	'',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	1,
+	'select many elems related by self->PE_PE[R8000]->A_N[R8001]->A_ACT[R1105]
+                                                    ->A_AE[R1107]->A_AEA[R1112];
+return cardinality elems;',
+	1,
+	'',
+	"e83f856e-39a0-4093-af1d-baa37df9a35c");
+INSERT INTO O_TFR
+	VALUES ("10881142-7326-4e91-9f0e-b6a11284a190",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'getAcceptEvtActionId',
+	'',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	1,
+	'id = GD::NULL_UNIQUE_ID();
+select many elems related by self->PE_PE[R8000]->A_N[R8001]->A_ACT[R1105]
+                                                    ->A_AE[R1107]->A_AEA[R1112];
+// We''re preincrementing the index
+count = -1;
+for each elem in elems
+  count = count + 1;
+  if(count == param.index)
+    return elem.get_ooa_id();  
+  end if;
+end for;
+return id;',
+	1,
+	'',
+	"8c977426-0c8f-48ae-9488-8f9b0078651c");
+INSERT INTO O_TPARM
+	VALUES ("8b64b0cd-203e-4ca1-98f7-06c4ee5fe938",
+	"10881142-7326-4e91-9f0e-b6a11284a190",
+	'index',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("1023c563-7ae9-4393-8116-046f2c70f838",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'getAcceptTimeEvtActionCount',
+	'',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	1,
+	'select many elems related by self->PE_PE[R8000]->A_N[R8001]->A_ACT[R1105]
+                                                    ->A_AE[R1107]->A_ATE[R1112];
+return cardinality elems;',
+	1,
+	'',
+	"10881142-7326-4e91-9f0e-b6a11284a190");
+INSERT INTO O_TFR
+	VALUES ("33e257d1-e40f-4f64-8070-41b53f02ecc6",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'getAcceptTimeEvtActionId',
+	'',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	1,
+	'id = GD::NULL_UNIQUE_ID();
+select many elems related by self->PE_PE[R8000]->A_N[R8001]->A_ACT[R1105]
+                                                    ->A_AE[R1107]->A_ATE[R1112];
+// We''re preincrementing the index
+count = -1;
+for each elem in elems
+  count = count + 1;
+  if(count == param.index)
+    return elem.get_ooa_id();  
+  end if;
+end for;
+return id;',
+	1,
+	'',
+	"1023c563-7ae9-4393-8116-046f2c70f838");
+INSERT INTO O_TPARM
+	VALUES ("f877cba5-78bf-462f-af7b-5a21b6d68ef0",
+	"33e257d1-e40f-4f64-8070-41b53f02ecc6",
+	'index',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("9dc50f39-6442-404c-8e9a-b308d7d399c5",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'getActionCount',
+	'',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	1,
+	'select many elems related by self->PE_PE[R8000]->A_N[R8001]->A_ACT[R1105]
+                                                                  ->A_GA[R1107];
+return cardinality elems;',
+	1,
+	'',
+	"33e257d1-e40f-4f64-8070-41b53f02ecc6");
+INSERT INTO O_TFR
+	VALUES ("3c593158-a243-4b1b-baa5-fbaf718952f2",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'getActionId',
+	'',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	1,
+	'id = GD::NULL_UNIQUE_ID();
+select many elems related by self->PE_PE[R8000]->A_N[R8001]->A_ACT[R1105]
+                                                                  ->A_GA[R1107];
+// We''re preincrementing the index
+count = -1;
+for each elem in elems
+  count = count + 1;
+  if(count == param.index)
+    return elem.get_ooa_id();  
+  end if;
+end for;
+return id;',
+	1,
+	'',
+	"9dc50f39-6442-404c-8e9a-b308d7d399c5");
+INSERT INTO O_TPARM
+	VALUES ("e9fdb977-d05c-4232-be76-aa7f069acd7c",
+	"3c593158-a243-4b1b-baa5-fbaf718952f2",
+	'index',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("6739dab3-145c-48cb-95b4-689ee015148c",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'getClassCount',
+	'',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	1,
+	'select many elems related by self->PE_PE[R8000]->O_OBJ[R8001];
+return cardinality elems;',
+	1,
+	'',
+	"3c593158-a243-4b1b-baa5-fbaf718952f2");
+INSERT INTO O_TFR
+	VALUES ("e478af15-5243-4549-ad3c-6192e463371a",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'getClassId',
+	'',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	1,
+	'id = GD::NULL_UNIQUE_ID();
+select many elems related by self->PE_PE[R8000]->O_OBJ[R8001];
+// We''re preincrementing the index
+count = -1;
+for each elem in elems
+  count = count + 1;
+  if(count == param.index)
+    return elem.get_ooa_id();  
+  end if;
+end for;
+return id;',
+	1,
+	'',
+	"6739dab3-145c-48cb-95b4-689ee015148c");
+INSERT INTO O_TPARM
+	VALUES ("cc7309f8-c749-46af-842c-03989171c088",
+	"e478af15-5243-4549-ad3c-6192e463371a",
+	'index',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("95c40f8d-d973-419c-a491-607bc34332fb",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'getComponentCount',
+	'',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	1,
+	'select many elems related by self->PE_PE[R8000]->C_C[R8001];
+return cardinality elems;',
+	1,
+	'',
+	"e478af15-5243-4549-ad3c-6192e463371a");
+INSERT INTO O_TFR
+	VALUES ("37163165-08d3-412b-8a01-a5c66ac303c0",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'getComponentId',
+	'',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	1,
+	'id = GD::NULL_UNIQUE_ID();
+select many elems related by self->PE_PE[R8000]->C_C[R8001];
+// We''re preincrementing the index
+count = -1;
+for each elem in elems
+  count = count + 1;
+  if (count == param.index)
+    return elem.get_ooa_id();  
+  end if;
+end for;
+return id;',
+	1,
+	'',
+	"95c40f8d-d973-419c-a491-607bc34332fb");
+INSERT INTO O_TPARM
+	VALUES ("858cf0f4-37e4-498c-a611-ac19aa0a1c9b",
+	"37163165-08d3-412b-8a01-a5c66ac303c0",
+	'index',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("65ec2aa1-55b5-4ad1-bfd3-3aad1d955320",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'getCompRefCount',
+	'',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	1,
+	'select many elems related by self->PE_PE[R8000]->CL_IC[R8001];
+return cardinality elems;',
+	1,
+	'',
+	"37163165-08d3-412b-8a01-a5c66ac303c0");
+INSERT INTO O_TFR
+	VALUES ("44cfc540-5ff7-4344-b2fa-306d438530e9",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'getCompRefId',
+	'',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	1,
+	'id = GD::NULL_UNIQUE_ID();
+select many elems related by self->PE_PE[R8000]->CL_IC[R8001];
+// We''re preincrementing the index
+count = -1;
+for each elem in elems
+  count = count + 1;
+  if(count == param.index)
+    return elem.get_ooa_id();  
+  end if;
+end for;
+return id;',
+	1,
+	'',
+	"65ec2aa1-55b5-4ad1-bfd3-3aad1d955320");
+INSERT INTO O_TPARM
+	VALUES ("f6825274-4a91-48ab-bda3-db8eb889d421",
+	"44cfc540-5ff7-4344-b2fa-306d438530e9",
+	'index',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("f2763260-79b8-44ce-8e25-f4ac1d1a7566",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'getIfaceCount',
+	'',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	1,
+	'select many elems related by self->PE_PE[R8000]->C_I[R8001];
+return cardinality elems;',
+	1,
+	'',
+	"44cfc540-5ff7-4344-b2fa-306d438530e9");
+INSERT INTO O_TFR
+	VALUES ("fd5f4b15-eb15-4e6e-a663-c507357dfd43",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'getIfaceId',
+	'',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	1,
+	'id = GD::NULL_UNIQUE_ID();
+select many elems related by self->PE_PE[R8000]->C_I[R8001];
+// We''re preincrementing the index
+count = -1;
+for each elem in elems
+  count = count + 1;
+  if(count == param.index)
+    return elem.get_ooa_id();  
+  end if;
+end for;
+return id;',
+	1,
+	'',
+	"f2763260-79b8-44ce-8e25-f4ac1d1a7566");
+INSERT INTO O_TPARM
+	VALUES ("14459004-6563-499b-a5b5-efb2acb325eb",
+	"fd5f4b15-eb15-4e6e-a663-c507357dfd43",
+	'index',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("030c8cda-0f87-41df-b77a-68da0d641fc5",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'getConstSpecCount',
+	'',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	1,
+	'select many elems related by self->PE_PE[R8000]->CNST_CSP[R8001];
+return cardinality elems;',
+	1,
+	'',
+	"fd5f4b15-eb15-4e6e-a663-c507357dfd43");
+INSERT INTO O_TFR
+	VALUES ("83667403-6320-4a9b-86cf-f2a0fb9d1386",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'getConstSpecId',
+	'',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	1,
+	'id = GD::NULL_UNIQUE_ID();
+select many elems related by self->PE_PE[R8000]->CNST_CSP[R8001];
+// We''re preincrementing the index
+count = -1;
+for each elem in elems
+  count = count + 1;
+  if(count == param.index)
+    return elem.get_ooa_id();  
+  end if;
+end for;
+return id;',
+	1,
+	'',
+	"030c8cda-0f87-41df-b77a-68da0d641fc5");
+INSERT INTO O_TPARM
+	VALUES ("7b0e9a68-74cd-42de-b8af-c1efd63a7359",
+	"83667403-6320-4a9b-86cf-f2a0fb9d1386",
+	'index',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("c39a416b-345e-40cc-bbb7-ccecfe554d82",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'getSDTCount',
+	'',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	1,
+	'select many elems related by self->PE_PE[R8000]->S_DT[R8001]->S_SDT[R17];
+return cardinality elems;',
+	1,
+	'',
+	"83667403-6320-4a9b-86cf-f2a0fb9d1386");
+INSERT INTO O_TFR
+	VALUES ("8ea5abcb-4660-4c77-952e-66c89445c47b",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'getSDTId',
+	'',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	1,
+	'id = GD::NULL_UNIQUE_ID();
+select many elems related by self->PE_PE[R8000]->S_DT[R8001]->S_SDT[R17];
+// We''re preincrementing the index
+count = -1;
+for each elem in elems
+  count = count + 1;
+  if(count == param.index)
+    return elem.get_ooa_id();  
+  end if;
+end for;
+return id;',
+	1,
+	'',
+	"c39a416b-345e-40cc-bbb7-ccecfe554d82");
+INSERT INTO O_TPARM
+	VALUES ("35541302-67d4-44d1-8fbe-ec1886d6fff0",
+	"8ea5abcb-4660-4c77-952e-66c89445c47b",
+	'index',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("ff18c144-951f-42bc-88a8-2bb77a4a45e0",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'getEDTCount',
+	'',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	1,
+	'select many elems related by self->PE_PE[R8000]->S_DT[R8001]->S_EDT[R17];
+return cardinality elems;',
+	1,
+	'',
+	"8ea5abcb-4660-4c77-952e-66c89445c47b");
+INSERT INTO O_TFR
+	VALUES ("77f06f1e-3044-4956-8b6c-665e551c9424",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'getEDTId',
+	'',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	1,
+	'id = GD::NULL_UNIQUE_ID();
+select many elems related by self->PE_PE[R8000]->S_DT[R8001]->S_EDT[R17];
+// We''re preincrementing the index
+count = -1;
+for each elem in elems
+  count = count + 1;
+  if(count == param.index)
+    return elem.get_ooa_id();  
+  end if;
+end for;
+return id;',
+	1,
+	'',
+	"ff18c144-951f-42bc-88a8-2bb77a4a45e0");
+INSERT INTO O_TPARM
+	VALUES ("2ffbd4c7-b33f-4107-a063-52d753842852",
+	"77f06f1e-3044-4956-8b6c-665e551c9424",
+	'index',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("b617d78f-65ca-4ff4-9699-e132f89044f5",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'getCompPartCount',
+	'',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	1,
+	'select many elems related by self->PE_PE[R8000]->SQ_P[R8001]->SQ_COP[R930];
+return cardinality elems;',
+	1,
+	'',
+	"77f06f1e-3044-4956-8b6c-665e551c9424");
+INSERT INTO O_TFR
+	VALUES ("d39bd2c0-4b56-4538-8e60-d84fcaf7a1ed",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'getCompPartId',
+	'',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	1,
+	'id = GD::NULL_UNIQUE_ID();
+select many elems related by self->PE_PE[R8000]->SQ_P[R8001]->SQ_COP[R930];
+// We''re preincrementing the index
+count = -1;
+for each elem in elems
+  count = count + 1;
+  if(count == param.index)
+    return elem.get_ooa_id();  
+  end if;
+end for;
+return id;',
+	1,
+	'',
+	"b617d78f-65ca-4ff4-9699-e132f89044f5");
+INSERT INTO O_TPARM
+	VALUES ("4973c9bc-1372-4797-830d-080314ff9f19",
+	"d39bd2c0-4b56-4538-8e60-d84fcaf7a1ed",
+	'index',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("45d28cf2-8c5c-4347-b436-df7fad19c00f",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'getInstanceCount',
+	'',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	1,
+	'select many elems related by self->PE_PE[R8000]->SQ_P[R8001]->SQ_CIP[R930];
+return cardinality elems;',
+	1,
+	'',
+	"d39bd2c0-4b56-4538-8e60-d84fcaf7a1ed");
+INSERT INTO O_TFR
+	VALUES ("b9a3bcd6-c31e-452d-a545-1c6a9a79f494",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'getInstanceId',
+	'',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	1,
+	'id = GD::NULL_UNIQUE_ID();
+select many elems related by self->PE_PE[R8000]->SQ_P[R8001]->SQ_CIP[R930];
+// We''re preincrementing the index
+count = -1;
+for each elem in elems
+  count = count + 1;
+  if (count == param.index)
+    return elem.get_ooa_id();  
+  end if;
+end for;
+return id;',
+	1,
+	'',
+	"45d28cf2-8c5c-4347-b436-df7fad19c00f");
+INSERT INTO O_TPARM
+	VALUES ("1346ab1d-1d22-42c5-8ca1-4e22bd37f00f",
+	"b9a3bcd6-c31e-452d-a545-1c6a9a79f494",
+	'index',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("28a17932-b06c-46fb-965a-3c4ef75a1ff1",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'getEECount',
+	'',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	1,
+	'select many elems related by self->PE_PE[R8000]->S_EE[R8001];
+return cardinality elems;',
+	1,
+	'',
+	"b9a3bcd6-c31e-452d-a545-1c6a9a79f494");
+INSERT INTO O_TFR
+	VALUES ("9dd7d1c6-5e17-45c9-9ca3-a49a59416bb6",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'getEEId',
+	'',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	1,
+	'id = GD::NULL_UNIQUE_ID();
+select many elems related by self->PE_PE[R8000]->S_EE[R8001];
+// We''re preincrementing the index
+count = -1;
+for each elem in elems
+  count = count + 1;
+  if(count == param.index)
+    return elem.get_ooa_id();  
+  end if;
+end for;
+return id;',
+	1,
+	'',
+	"28a17932-b06c-46fb-965a-3c4ef75a1ff1");
+INSERT INTO O_TPARM
+	VALUES ("9a46c5bb-21b7-437b-910c-e3dc9c573944",
+	"9dd7d1c6-5e17-45c9-9ca3-a49a59416bb6",
+	'index',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("5351ade0-39f4-4fc7-b50d-40226ed74ae2",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'getPkgPartCount',
+	'',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	1,
+	'select many elems related by self->PE_PE[R8000]->SQ_P[R8001]->SQ_PP[R930];
+return cardinality elems;',
+	1,
+	'',
+	"9dd7d1c6-5e17-45c9-9ca3-a49a59416bb6");
+INSERT INTO O_TFR
+	VALUES ("ed8fa141-1da6-4df7-aacf-bb2e18a95799",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'getPkgPartId',
+	'',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	1,
+	'id = GD::NULL_UNIQUE_ID();
+select many elems related by self->PE_PE[R8000]->SQ_P[R8001]->SQ_PP[R930];
+// We''re preincrementing the index
+count = -1;
+for each elem in elems
+  count = count + 1;
+  if(count == param.index)
+    return elem.get_ooa_id();  
+  end if;
+end for;
+return id;',
+	1,
+	'',
+	"5351ade0-39f4-4fc7-b50d-40226ed74ae2");
+INSERT INTO O_TPARM
+	VALUES ("4033caf5-e419-4bd4-919e-3b1c3c4fb270",
+	"ed8fa141-1da6-4df7-aacf-bb2e18a95799",
+	'index',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("6f07802e-5e7e-42de-a1c9-3c94462592a0",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'getClassPartCount',
+	'',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	1,
+	'select many elems related by self->PE_PE[R8000]->SQ_P[R8001]->SQ_CP[R930];
+return cardinality elems;',
+	1,
+	'',
+	"ed8fa141-1da6-4df7-aacf-bb2e18a95799");
+INSERT INTO O_TFR
+	VALUES ("8be2d0d7-2fbc-4e4d-9502-441a93864fd0",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'getClassPartId',
+	'',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	1,
+	'id = GD::NULL_UNIQUE_ID();
+select many elems related by self->PE_PE[R8000]->SQ_P[R8001]->SQ_CP[R930];
+// We''re preincrementing the index
+count = -1;
+for each elem in elems
+  count = count + 1;
+  if (count == param.index)
+    return elem.get_ooa_id();  
+  end if;
+end for;
+return id;',
+	1,
+	'',
+	"6f07802e-5e7e-42de-a1c9-3c94462592a0");
+INSERT INTO O_TPARM
+	VALUES ("2b564616-d710-4f05-8660-32cb5697f95c",
+	"8be2d0d7-2fbc-4e4d-9502-441a93864fd0",
+	'index',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("2777788b-1001-436d-996d-a1c49bfc9255",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'getObjectNodeCount',
+	'',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	1,
+	'select many elems related by self->PE_PE[R8000]->A_N[R8001]->A_OBJ[R1105];
+return cardinality elems;',
+	1,
+	'',
+	"8be2d0d7-2fbc-4e4d-9502-441a93864fd0");
+INSERT INTO O_TFR
+	VALUES ("2c559c1b-8852-4373-9afa-65ae683cd54f",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'getObjectNodeId',
+	'',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	1,
+	'id = GD::NULL_UNIQUE_ID();
+select many elems related by self->PE_PE[R8000]->A_N[R8001]->A_OBJ[R1105];
+// We''re preincrementing the index
+count = -1;
+for each elem in elems
+  count = count + 1;
+  if(count == param.index)
+    return elem.get_ooa_id();  
+  end if;
+end for;
+return id;',
+	1,
+	'',
+	"2777788b-1001-436d-996d-a1c49bfc9255");
+INSERT INTO O_TPARM
+	VALUES ("86c9d028-f476-4d90-94ef-a64b962f7d42",
+	"2c559c1b-8852-4373-9afa-65ae683cd54f",
+	'index',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("e5dceda5-4346-4be6-a925-b498a735a434",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'getDecMergeNodeCount',
+	'',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	1,
+	'select many elems related by self->PE_PE[R8000]->A_N[R8001]->A_CTL[R1105]
+                                                                  ->A_DM[R1106];
+return cardinality elems;',
+	1,
+	'',
+	"2c559c1b-8852-4373-9afa-65ae683cd54f");
+INSERT INTO O_TFR
+	VALUES ("8ac1ca10-fb4f-4398-bfeb-d8f4b246dee1",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'getDecMergeNodeId',
+	'',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	1,
+	'id = GD::NULL_UNIQUE_ID();
+select many elems related by self->PE_PE[R8000]->A_N[R8001]->A_CTL[R1105]
+                                                                  ->A_DM[R1106];
+// We''re preincrementing the index
+count = -1;
+for each elem in elems
+  count = count + 1;
+  if(count == param.index)
+    return elem.get_ooa_id();  
+  end if;
+end for;
+return id;',
+	1,
+	'',
+	"e5dceda5-4346-4be6-a925-b498a735a434");
+INSERT INTO O_TPARM
+	VALUES ("436b854e-ce70-49cc-bf3d-5dd42b157517",
+	"8ac1ca10-fb4f-4398-bfeb-d8f4b246dee1",
+	'index',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("85fea5bb-78b1-4c86-8fe2-0a71827b3d4c",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'getInitNodeCount',
+	'',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	1,
+	'select many elems related by self->PE_PE[R8000]->A_N[R8001]->A_CTL[R1105]
+                                                                 ->A_INI[R1106];
+return cardinality elems;',
+	1,
+	'',
+	"8ac1ca10-fb4f-4398-bfeb-d8f4b246dee1");
+INSERT INTO O_TFR
+	VALUES ("57b1c588-e440-416f-acd1-7e86d9ea311b",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'getInitNodeId',
+	'',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	1,
+	'id = GD::NULL_UNIQUE_ID();
+select many elems related by self->PE_PE[R8000]->A_N[R8001]->A_CTL[R1105]
+                                                                 ->A_INI[R1106];
+// We''re preincrementing the index
+count = -1;
+for each elem in elems
+  count = count + 1;
+  if(count == param.index)
+    return elem.get_ooa_id();  
+  end if;
+end for;
+return id;',
+	1,
+	'',
+	"85fea5bb-78b1-4c86-8fe2-0a71827b3d4c");
+INSERT INTO O_TPARM
+	VALUES ("4180cde5-9a96-49fc-bc5e-c44dfaa68e96",
+	"57b1c588-e440-416f-acd1-7e86d9ea311b",
+	'index',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("97166a23-5198-4154-ac81-384a712f7e63",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'getActFinalNodeCount',
+	'',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	1,
+	'select many elems related by self->PE_PE[R8000]->A_N[R8001]->A_CTL[R1105]
+                                                                  ->A_AF[R1106];
+return cardinality elems;',
+	1,
+	'',
+	"57b1c588-e440-416f-acd1-7e86d9ea311b");
+INSERT INTO O_TFR
+	VALUES ("621965a1-6504-4312-be99-900a1cb3279b",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'getActFinalNodeId',
+	'',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	1,
+	'id = GD::NULL_UNIQUE_ID();
+select many elems related by self->PE_PE[R8000]->A_N[R8001]->A_CTL[R1105]
+                                                                  ->A_AF[R1106];
+// We''re preincrementing the index
+count = -1;
+for each elem in elems
+  count = count + 1;
+  if(count == param.index)
+    return elem.get_ooa_id();  
+  end if;
+end for;
+return id;',
+	1,
+	'',
+	"97166a23-5198-4154-ac81-384a712f7e63");
+INSERT INTO O_TPARM
+	VALUES ("98738c0e-075b-4634-84f4-32002fbcfe27",
+	"621965a1-6504-4312-be99-900a1cb3279b",
+	'index',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("e900eb11-3211-46c7-84ce-8dc07430f671",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'getFlowFinalNodeCount',
+	'',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	1,
+	'select many elems related by self->PE_PE[R8000]->A_N[R8001]->A_CTL[R1105]
+                                                                  ->A_FF[R1106];
+return cardinality elems;',
+	1,
+	'',
+	"621965a1-6504-4312-be99-900a1cb3279b");
+INSERT INTO O_TFR
+	VALUES ("239a27ea-8c28-4e80-a6c7-f7e8e72df7d6",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'getFlowFinalNodeId',
+	'',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	1,
+	'id = GD::NULL_UNIQUE_ID();
+select many elems related by self->PE_PE[R8000]->A_N[R8001]->A_CTL[R1105]
+                                                                  ->A_FF[R1106];
+// We''re preincrementing the index
+count = -1;
+for each elem in elems
+  count = count + 1;
+  if(count == param.index)
+    return elem.get_ooa_id();  
+  end if;
+end for;
+return id;',
+	1,
+	'',
+	"e900eb11-3211-46c7-84ce-8dc07430f671");
+INSERT INTO O_TPARM
+	VALUES ("d5edf620-f112-4d2c-9318-c640445c8095",
+	"239a27ea-8c28-4e80-a6c7-f7e8e72df7d6",
+	'index',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("3cceecb3-8ff3-4e07-8116-03bc2da436bc",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'getIClassCount',
+	'',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	1,
+	'select many elems related by self->PE_PE[R8000]->O_IOBJ[R8001];
+return cardinality elems;',
+	1,
+	'',
+	"239a27ea-8c28-4e80-a6c7-f7e8e72df7d6");
+INSERT INTO O_TFR
+	VALUES ("8a6ca77d-0549-4fb9-af1b-dd1b03195b74",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'getIClassId',
+	'',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	1,
+	'id = GD::NULL_UNIQUE_ID();
+select many elems related by self->PE_PE[R8000]->O_IOBJ[R8001];
+// We''re preincrementing the index
+count = -1;
+for each elem in elems
+  count = count + 1;
+  if(count == param.index)
+    return elem.get_ooa_id();  
+  end if;
+end for;
+return id;',
+	1,
+	'',
+	"3cceecb3-8ff3-4e07-8116-03bc2da436bc");
+INSERT INTO O_TPARM
+	VALUES ("9bf1d0a1-cf73-4560-87ea-4507f4683701",
+	"8a6ca77d-0549-4fb9-af1b-dd1b03195b74",
+	'index',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("1f22076c-2b5e-4f7a-8b19-513a16923007",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'getEEPartCount',
+	'',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	1,
+	'select many elems related by self->PE_PE[R8000]->SQ_P[R8001]->SQ_EEP[R930];
+return cardinality elems;',
+	1,
+	'',
+	"8a6ca77d-0549-4fb9-af1b-dd1b03195b74");
+INSERT INTO O_TFR
+	VALUES ("02218c29-ed68-4c1e-91c5-2cd0e5c44c9a",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'getEEPartId',
+	'',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	1,
+	'id = GD::NULL_UNIQUE_ID();
+select many elems related by self->PE_PE[R8000]->SQ_P[R8001]->SQ_EEP[R930];
+// We''re preincrementing the index
+count = -1;
+for each elem in elems
+  count = count + 1;
+  if (count == param.index)
+    return elem.get_ooa_id();  
+  end if;
+end for;
+return id;',
+	1,
+	'',
+	"1f22076c-2b5e-4f7a-8b19-513a16923007");
+INSERT INTO O_TPARM
+	VALUES ("19105645-ba00-4c30-99d0-da41aa059f91",
+	"02218c29-ed68-4c1e-91c5-2cd0e5c44c9a",
+	'index',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("28296082-abee-47f5-a190-5aee0bb529f0",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'removeIncompleteSignalEvents',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// select all classes under this package and remove any
+// incomplete non local events
+select many classes related by self->PE_PE[R8000]->O_OBJ[R8001];
+for each cls in classes
+  cls.removeIncompleteNonLocalEvents();
+end for;
+// do the same for all child packages
+select many packages related by self->PE_PE[R8000]->EP_PKG[R8001];
+for each package in packages
+  package.removeIncompleteSignalEvents();
+end for;
+// also do the same for components
+select many components related by self->PE_PE[R8000]->C_C[R8001];
+for each component in components
+  component.removeIncompleteSignalEvents();
+end for;',
+	1,
+	'',
+	"02218c29-ed68-4c1e-91c5-2cd0e5c44c9a");
+INSERT INTO O_TFR
+	VALUES ("991b7a44-9bd8-49b1-ac52-7cd25a80e575",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'pasteImportedProvision',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select any iPro from instances of CL_IP where (selected.Id == param.id);
+if(not_empty iPro)
+  // dispose any satisfactions that are not complete
+  // this can occur because the export includes them
+  // regardless of whether or not they are complete
+  select many satisfactions related by iPro->CL_IPINS[R4705]->C_SF[R4705];
+  for each satisfaction in satisfactions
+    select one requirement related by satisfaction->C_R[R4002];
+    if(not_empty requirement
+                     and Util::isProxy(element:requirement.convertToInstance()))
+      // if this satisfaction is connected to an imported requirement, that
+      // is not a proxy, we do not want to dispose
+      select one importedReq related by satisfaction->CL_IR[R4706];
+      if(empty importedReq 
+                      or Util::isProxy(element:importedReq.convertToInstance()))
+        satisfaction.dispose();
+      end if;
+    end if;
+  end for;
+end if;',
+	1,
+	'',
+	"28296082-abee-47f5-a190-5aee0bb529f0");
+INSERT INTO O_TPARM
+	VALUES ("9848a68b-1f16-46a6-a313-b03d56156eb3",
+	"991b7a44-9bd8-49b1-ac52-7cd25a80e575",
+	'id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("e9792cea-3ff0-4aec-b1a4-28b75b87894a",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'pasteImportedRequirement',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// nothing to do here',
+	1,
+	'',
+	"991b7a44-9bd8-49b1-ac52-7cd25a80e575");
+INSERT INTO O_TPARM
+	VALUES ("eca261c2-ce70-4fa7-a382-12db3ae8485a",
+	"e9792cea-3ff0-4aec-b1a4-28b75b87894a",
+	'id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("ad4d17db-9e74-4950-b4d7-fc5ce8e4ed75",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'isContainedBy',
+	'',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'// Package.isContainedBy() GenericPackages only
+select one component related by self->PE_PE[R8001]->C_C[R8003];
+select one package related by self->PE_PE[R8001]->EP_PKG[R8000];
+if not_empty component
+  select one pe related by component->PE_PE[R8001];
+  if not empty pe and pe.Element_ID == param.element_id
+    return true;
+  else
+    return component.isContainedBy(element_id:param.element_id);
+  end if;
+elif not_empty package
+  select one pe related by package->PE_PE[R8001];
+  if not empty pe and pe.Element_ID == param.element_id
+    return true;
+  else
+    return package.isContainedBy(element_id:param.element_id);
+  end if;
+else
+  return false;
+end if;
+',
+	1,
+	'',
+	"e9792cea-3ff0-4aec-b1a4-28b75b87894a");
+INSERT INTO O_TPARM
+	VALUES ("ef030644-a1a9-4c9a-a0f8-5970b2ee4a3e",
+	"ad4d17db-9e74-4950-b4d7-fc5ce8e4ed75",
+	'element_id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("11059585-c21f-4c0c-b33c-0cbecfcf95c7",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'collectReferencesForSynchronization',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'/**
+ *  Call on all children under this package to gather required synchronization
+ *  elements
+ */
+if(param.syncType == SynchronizationType::Pull)
+  // collect direct component reference children
+  select many componentRefs related by self->PE_PE[R8000]->CL_IC[R8001];
+  for each componentRef in componentRefs
+    Util::addElementToList(elementList:param.referenceList,
+                                      element:componentRef.convertToInstance());
+    componentRef.collectReferencesForSynchronization(
+                    referenceList:param.referenceList, syncType:param.syncType);
+  end for;
+end if;
+// collect references from nested packages
+select many pkgs related by self->PE_PE[R8000]->EP_PKG[R8001];
+for each pkg in pkgs
+  pkg.collectReferencesForSynchronization(referenceList:param.referenceList,
+                                                       syncType:param.syncType);
+end for;
+// collect references from all interfaces under this package
+select many interfaces related by self->PE_PE[R8000]->C_I[R8001];
+for each interface in interfaces
+  interface.collectReferencesForSynchronization(
+                    referenceList:param.referenceList, syncType:param.syncType);
+end for;
+// collect reference for all components under this package
+select many components related by self->PE_PE[R8000]->C_C[R8001];
+for each component in components
+  component.collectReferencesForSynchronization(
+                    referenceList:param.referenceList, syncType:param.syncType);
+end for;
+// now for specialized packages
+select many packages related by self->EP_PIP[R1403]->EP_PKG[R1404];
+for each package in packages
+  package.collectReferencesForSynchronization(referenceList:param.referenceList,
+                                                       syncType:param.syncType);
+end for;
+select many componentPkgs related by self->EP_SPKG[R1400]->CP_CP[R1402];
+for each componentPkg in componentPkgs
+  componentPkg.collectReferencesForSynchronization(
+                    referenceList:param.referenceList, syncType:param.syncType);
+end for;
+select many interfacePkgs related by self->EP_SPKG[R1400]->IP_IP[R1402];
+for each interfacePkg in interfacePkgs
+  interfacePkg.collectReferencesForSynchronization(
+                    referenceList:param.referenceList, syncType:param.syncType);
+end for;',
+	1,
+	'',
+	"ad4d17db-9e74-4950-b4d7-fc5ce8e4ed75");
+INSERT INTO O_TPARM
+	VALUES ("1414ca16-0d19-4f76-a72e-48fd9aa8f988",
+	"11059585-c21f-4c0c-b33c-0cbecfcf95c7",
+	'referenceList',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("d93d6932-be49-4c04-ac2a-60ae0118c2dc",
+	"11059585-c21f-4c0c-b33c-0cbecfcf95c7",
+	'syncType',
+	"f4e80333-d340-4a40-8bc6-49b5e3561daf",
+	0,
+	'',
+	"1414ca16-0d19-4f76-a72e-48fd9aa8f988",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("f4e80333-d340-4a40-8bc6-49b5e3561daf",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'SynchronizationType',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("fbac96fe-eb27-42b7-9498-68894bf20b28",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'hasRealizedComponents',
+	'',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'//Package::hasRealizedComponents()
+result = false;
+select many packages related by self->PE_PE[R8000]->EP_PKG[R8001];
+for each package in packages
+  if package.hasRealizedComponents() == true
+    result = true;
+    break;
+  end if;
+end for;
+select many components related by self->PE_PE[R8000]->C_C[R8001];
+for each component in components
+  if component.hasRealizedComponents() == true
+    result = true;
+    break;
+  end if;
+end for;
+select many compRefs related by self->PE_PE[R8000]->CL_IC[R8001];
+for each compRef in compRefs
+  select one component related by compRef->C_C[R4201];
+  if not_empty component and component.hasRealizedComponents() == true
+    result = true;
+    break;
+  end if;
+end for;
+return result;',
+	1,
+	'',
+	"11059585-c21f-4c0c-b33c-0cbecfcf95c7");
+INSERT INTO O_NBATTR
+	VALUES ("bceab74d-6f82-4823-b3be-7791bab58106",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e");
+INSERT INTO O_BATTR
+	VALUES ("bceab74d-6f82-4823-b3be-7791bab58106",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e");
+INSERT INTO O_ATTR
+	VALUES ("bceab74d-6f82-4823-b3be-7791bab58106",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	"45eb5633-f8c3-43d5-85cc-d35ed94508bd",
+	'Name',
+	'Full Name: Package Name',
+	'',
+	'Name',
+	0,
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("4bdedd30-a2bb-4e1a-aa97-d41d48072286",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e");
+INSERT INTO O_BATTR
+	VALUES ("4bdedd30-a2bb-4e1a-aa97-d41d48072286",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e");
+INSERT INTO O_ATTR
+	VALUES ("4bdedd30-a2bb-4e1a-aa97-d41d48072286",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	"bceab74d-6f82-4823-b3be-7791bab58106",
+	'Descrip',
+	'Full Name: Package Description',
+	'',
+	'Descrip',
+	0,
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	"5735d0f8-e286-4832-975e-04887e18a036",
+	0,
+	"9a4da692-4fa6-494b-80c1-90dc7da16bd7",
+	"882c5e46-51c7-4e4f-8dae-610a11de3460",
+	"617dd82b-44b8-4e42-860c-a1907e651633",
+	"7bcef87a-2afe-4b8e-9a97-215862955f27",
+	"cffbbd7e-c763-4b7b-808e-f66180161c3c",
+	"1f4e7dc9-d97c-4013-a446-a0624f8d16e9",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'System Model',
+	'Sys_ID',
+	'R1401');
+INSERT INTO R_RGO_PROXY
+	VALUES ("ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	"882c5e46-51c7-4e4f-8dae-610a11de3460",
+	"617dd82b-44b8-4e42-860c-a1907e651633",
+	'../Element Packaging.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("9a4da692-4fa6-494b-80c1-90dc7da16bd7",
+	"5735d0f8-e286-4832-975e-04887e18a036",
+	0,
+	"882c5e46-51c7-4e4f-8dae-610a11de3460",
+	"7bcef87a-2afe-4b8e-9a97-215862955f27",
+	'../Element Packaging.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("cffbbd7e-c763-4b7b-808e-f66180161c3c",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	"9a4da692-4fa6-494b-80c1-90dc7da16bd7",
+	"5735d0f8-e286-4832-975e-04887e18a036",
+	1,
+	'Sys_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("9a4da692-4fa6-494b-80c1-90dc7da16bd7",
+	"5735d0f8-e286-4832-975e-04887e18a036",
+	'../../Domain/System Model/System Model.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("cffbbd7e-c763-4b7b-808e-f66180161c3c",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	"79df1b10-74db-4df8-a815-0cf62a4752c9",
+	'Sys_ID',
+	'',
+	'',
+	'Sys_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	"5735d0f8-e286-4832-975e-04887e18a036",
+	0,
+	"9a4da692-4fa6-494b-80c1-90dc7da16bd7",
+	"548b49ba-354a-4f35-a420-93d030f18116",
+	"712bfbb7-bbdc-46be-b3a4-1cb401cde6af",
+	"280b792c-0ee4-4be1-a858-430411c95808",
+	"45eb5633-f8c3-43d5-85cc-d35ed94508bd",
+	"2b1d9087-1f65-498b-bbb8-6ba90394b42e",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'System Model',
+	'Sys_ID',
+	'R1405');
+INSERT INTO R_RGO_PROXY
+	VALUES ("ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	"548b49ba-354a-4f35-a420-93d030f18116",
+	"712bfbb7-bbdc-46be-b3a4-1cb401cde6af",
+	'../Element Packaging.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("9a4da692-4fa6-494b-80c1-90dc7da16bd7",
+	"5735d0f8-e286-4832-975e-04887e18a036",
+	0,
+	"548b49ba-354a-4f35-a420-93d030f18116",
+	"280b792c-0ee4-4be1-a858-430411c95808",
+	'../Element Packaging.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("45eb5633-f8c3-43d5-85cc-d35ed94508bd",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	"9a4da692-4fa6-494b-80c1-90dc7da16bd7",
+	"5735d0f8-e286-4832-975e-04887e18a036",
+	1,
+	'Sys_ID');
+INSERT INTO O_ATTR
+	VALUES ("45eb5633-f8c3-43d5-85cc-d35ed94508bd",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	"cffbbd7e-c763-4b7b-808e-f66180161c3c",
+	'Direct_Sys_ID',
+	'',
+	'Direct_',
+	'Sys_ID',
+	1,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	0,
+	"5776264f-c7e9-4abe-839f-24d0750e007c",
+	"08087bed-f0b1-4c84-b515-8662480ac484",
+	"b2367117-930a-4a49-a407-25312290f6e0",
+	"28f75ede-123b-4d84-8dcc-b0537a94aa4a",
+	"79df1b10-74db-4df8-a815-0cf62a4752c9",
+	"bba1c163-0d13-4f73-9c92-dc387dba1bb4",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Packageable Element',
+	'Element_ID',
+	'R8001');
+INSERT INTO R_RGO_PROXY
+	VALUES ("ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	"08087bed-f0b1-4c84-b515-8662480ac484",
+	"b2367117-930a-4a49-a407-25312290f6e0",
+	'../../Packageable Element/Packageable Element.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	0,
+	"08087bed-f0b1-4c84-b515-8662480ac484",
+	"28f75ede-123b-4d84-8dcc-b0537a94aa4a",
+	'../../Packageable Element/Packageable Element.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("79df1b10-74db-4df8-a815-0cf62a4752c9",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	"5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	0,
+	'Element_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	'../../Packageable Element/Packageable Element/Packageable Element.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("79df1b10-74db-4df8-a815-0cf62a4752c9",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	"00000000-0000-0000-0000-000000000000",
+	'Package_ID',
+	'',
+	'',
+	'Package_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("f55df7b5-e84d-46ef-9b3b-b45e91cb56d8",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e");
+INSERT INTO O_BATTR
+	VALUES ("f55df7b5-e84d-46ef-9b3b-b45e91cb56d8",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e");
+INSERT INTO O_ATTR
+	VALUES ("f55df7b5-e84d-46ef-9b3b-b45e91cb56d8",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	"4bdedd30-a2bb-4e1a-aa97-d41d48072286",
+	'Num_Rng',
+	'Full Name: Number Range
+Description:  The number range start is used when classes and associations are created in the package.  The number range start is used as the default auto-numbering start value in for the newly created class number and newly created association number. 
+min_value: 0
+max_value: 9999',
+	'',
+	'Num_Rng',
+	0,
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e");
+INSERT INTO O_OIDA
+	VALUES ("79df1b10-74db-4df8-a815-0cf62a4752c9",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	0,
+	'Package_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e");
+INSERT INTO O_ID
+	VALUES (2,
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e");
+INSERT INTO S_SS_PROXY
+	VALUES ("5f91aa5d-e683-4f22-940b-575b4f24b2d1",
+	'Element Packaging',
+	'',
+	'EP',
+	1400,
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
+	'../Element Packaging.xtuml');

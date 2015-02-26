@@ -1,0 +1,1783 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml"
+xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:w="urn:schemas-microsoft-com:office:word"
+xmlns:m="http://schemas.microsoft.com/office/2004/12/omml"
+xmlns="http://www.w3.org/TR/REC-html40">
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=ProgId content=Word.Document>
+<meta name=Generator content="Microsoft Word 12">
+<meta name=Originator content="Microsoft Word 12">
+<link rel=File-List href="bpalref.book-14_files/filelist.xml">
+<title> Syntax Summary </title>
+<!--[if gte mso 9]><xml>
+ <o:DocumentProperties>
+  <o:Author>kwilliam</o:Author>
+  <o:LastAuthor>Keith Brown</o:LastAuthor>
+  <o:Revision>14</o:Revision>
+  <o:TotalTime>461</o:TotalTime>
+  <o:Created>2005-11-09T18:48:00Z</o:Created>
+  <o:LastSaved>2011-09-13T01:50:00Z</o:LastSaved>
+  <o:Pages>5</o:Pages>
+  <o:Words>2495</o:Words>
+  <o:Characters>14227</o:Characters>
+  <o:Company>Mentor Graphics</o:Company>
+  <o:Lines>118</o:Lines>
+  <o:Paragraphs>33</o:Paragraphs>
+  <o:CharactersWithSpaces>16689</o:CharactersWithSpaces>
+  <o:Version>12.00</o:Version>
+ </o:DocumentProperties>
+</xml><![endif]-->
+<link rel=themeData href="bpalref.book-14_files/themedata.thmx">
+<link rel=colorSchemeMapping href="bpalref.book-14_files/colorschememapping.xml">
+<!--[if gte mso 9]><xml>
+ <w:WordDocument>
+  <w:Zoom>BestFit</w:Zoom>
+  <w:TrackMoves>false</w:TrackMoves>
+  <w:TrackFormatting/>
+  <w:ValidateAgainstSchemas/>
+  <w:SaveIfXMLInvalid>false</w:SaveIfXMLInvalid>
+  <w:IgnoreMixedContent>false</w:IgnoreMixedContent>
+  <w:AlwaysShowPlaceholderText>false</w:AlwaysShowPlaceholderText>
+  <w:DoNotPromoteQF/>
+  <w:LidThemeOther>EN-US</w:LidThemeOther>
+  <w:LidThemeAsian>X-NONE</w:LidThemeAsian>
+  <w:LidThemeComplexScript>X-NONE</w:LidThemeComplexScript>
+  <w:Compatibility>
+   <w:BreakWrappedTables/>
+   <w:SnapToGridInCell/>
+   <w:WrapTextWithPunct/>
+   <w:UseAsianBreakRules/>
+   <w:DontGrowAutofit/>
+   <w:SplitPgBreakAndParaMark/>
+   <w:DontVertAlignCellWithSp/>
+   <w:DontBreakConstrainedForcedTables/>
+   <w:DontVertAlignInTxbx/>
+   <w:Word11KerningPairs/>
+   <w:CachedColBalance/>
+  </w:Compatibility>
+  <w:BrowserLevel>MicrosoftInternetExplorer4</w:BrowserLevel>
+  <m:mathPr>
+   <m:mathFont m:val="Cambria Math"/>
+   <m:brkBin m:val="before"/>
+   <m:brkBinSub m:val="&#45;-"/>
+   <m:smallFrac m:val="off"/>
+   <m:dispDef/>
+   <m:lMargin m:val="0"/>
+   <m:rMargin m:val="0"/>
+   <m:defJc m:val="centerGroup"/>
+   <m:wrapIndent m:val="1440"/>
+   <m:intLim m:val="subSup"/>
+   <m:naryLim m:val="undOvr"/>
+  </m:mathPr></w:WordDocument>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <w:LatentStyles DefLockedState="false" DefUnhideWhenUsed="false"
+  DefSemiHidden="false" DefQFormat="false" LatentStyleCount="267">
+  <w:LsdException Locked="false" QFormat="true" Name="Normal"/>
+  <w:LsdException Locked="false" QFormat="true" Name="heading 1"/>
+  <w:LsdException Locked="false" QFormat="true" Name="heading 2"/>
+  <w:LsdException Locked="false" QFormat="true" Name="heading 3"/>
+  <w:LsdException Locked="false" QFormat="true" Name="heading 4"/>
+  <w:LsdException Locked="false" QFormat="true" Name="heading 5"/>
+  <w:LsdException Locked="false" QFormat="true" Name="heading 6"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   QFormat="true" Name="heading 7"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   QFormat="true" Name="heading 8"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   QFormat="true" Name="heading 9"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   QFormat="true" Name="caption"/>
+  <w:LsdException Locked="false" QFormat="true" Name="Title"/>
+  <w:LsdException Locked="false" Priority="1" Name="Default Paragraph Font"/>
+  <w:LsdException Locked="false" QFormat="true" Name="Subtitle"/>
+  <w:LsdException Locked="false" QFormat="true" Name="Strong"/>
+  <w:LsdException Locked="false" QFormat="true" Name="Emphasis"/>
+  <w:LsdException Locked="false" Priority="99" Name="No List"/>
+  <w:LsdException Locked="false" Priority="99" SemiHidden="true"
+   Name="Placeholder Text"/>
+  <w:LsdException Locked="false" Priority="1" QFormat="true" Name="No Spacing"/>
+  <w:LsdException Locked="false" Priority="60" Name="Light Shading"/>
+  <w:LsdException Locked="false" Priority="61" Name="Light List"/>
+  <w:LsdException Locked="false" Priority="62" Name="Light Grid"/>
+  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1"/>
+  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2"/>
+  <w:LsdException Locked="false" Priority="65" Name="Medium List 1"/>
+  <w:LsdException Locked="false" Priority="66" Name="Medium List 2"/>
+  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1"/>
+  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2"/>
+  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3"/>
+  <w:LsdException Locked="false" Priority="70" Name="Dark List"/>
+  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading"/>
+  <w:LsdException Locked="false" Priority="72" Name="Colorful List"/>
+  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid"/>
+  <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 1"/>
+  <w:LsdException Locked="false" Priority="61" Name="Light List Accent 1"/>
+  <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 1"/>
+  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 1"/>
+  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 1"/>
+  <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 1"/>
+  <w:LsdException Locked="false" Priority="99" SemiHidden="true" Name="Revision"/>
+  <w:LsdException Locked="false" Priority="34" QFormat="true"
+   Name="List Paragraph"/>
+  <w:LsdException Locked="false" Priority="29" QFormat="true" Name="Quote"/>
+  <w:LsdException Locked="false" Priority="30" QFormat="true"
+   Name="Intense Quote"/>
+  <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 1"/>
+  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 1"/>
+  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 1"/>
+  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 1"/>
+  <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 1"/>
+  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 1"/>
+  <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 1"/>
+  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 1"/>
+  <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 2"/>
+  <w:LsdException Locked="false" Priority="61" Name="Light List Accent 2"/>
+  <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 2"/>
+  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 2"/>
+  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 2"/>
+  <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 2"/>
+  <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 2"/>
+  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 2"/>
+  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 2"/>
+  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 2"/>
+  <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 2"/>
+  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 2"/>
+  <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 2"/>
+  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 2"/>
+  <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 3"/>
+  <w:LsdException Locked="false" Priority="61" Name="Light List Accent 3"/>
+  <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 3"/>
+  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 3"/>
+  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 3"/>
+  <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 3"/>
+  <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 3"/>
+  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 3"/>
+  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 3"/>
+  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 3"/>
+  <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 3"/>
+  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 3"/>
+  <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 3"/>
+  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 3"/>
+  <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 4"/>
+  <w:LsdException Locked="false" Priority="61" Name="Light List Accent 4"/>
+  <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 4"/>
+  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 4"/>
+  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 4"/>
+  <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 4"/>
+  <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 4"/>
+  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 4"/>
+  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 4"/>
+  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 4"/>
+  <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 4"/>
+  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 4"/>
+  <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 4"/>
+  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 4"/>
+  <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 5"/>
+  <w:LsdException Locked="false" Priority="61" Name="Light List Accent 5"/>
+  <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 5"/>
+  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 5"/>
+  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 5"/>
+  <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 5"/>
+  <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 5"/>
+  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 5"/>
+  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 5"/>
+  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 5"/>
+  <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 5"/>
+  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 5"/>
+  <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 5"/>
+  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 5"/>
+  <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 6"/>
+  <w:LsdException Locked="false" Priority="61" Name="Light List Accent 6"/>
+  <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 6"/>
+  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 6"/>
+  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 6"/>
+  <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 6"/>
+  <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 6"/>
+  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 6"/>
+  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 6"/>
+  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 6"/>
+  <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 6"/>
+  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 6"/>
+  <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 6"/>
+  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 6"/>
+  <w:LsdException Locked="false" Priority="19" QFormat="true"
+   Name="Subtle Emphasis"/>
+  <w:LsdException Locked="false" Priority="21" QFormat="true"
+   Name="Intense Emphasis"/>
+  <w:LsdException Locked="false" Priority="31" QFormat="true"
+   Name="Subtle Reference"/>
+  <w:LsdException Locked="false" Priority="32" QFormat="true"
+   Name="Intense Reference"/>
+  <w:LsdException Locked="false" Priority="33" QFormat="true" Name="Book Title"/>
+  <w:LsdException Locked="false" Priority="37" SemiHidden="true"
+   UnhideWhenUsed="true" Name="Bibliography"/>
+  <w:LsdException Locked="false" Priority="39" SemiHidden="true"
+   UnhideWhenUsed="true" QFormat="true" Name="TOC Heading"/>
+ </w:LatentStyles>
+</xml><![endif]-->
+<link rel=Stylesheet type="text/css" media=all href=bpalref.book.css>
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:"MS Mincho";
+	panose-1:2 2 6 9 4 2 5 8 3 4;
+	mso-font-alt:"\FF2D\FF33 \660E\671D";
+	mso-font-charset:128;
+	mso-generic-font-family:modern;
+	mso-font-pitch:fixed;
+	mso-font-signature:-536870145 1791491579 18 0 131231 0;}
+@font-face
+	{font-family:SimSun;
+	panose-1:2 1 6 0 3 1 1 1 1 1;
+	mso-font-alt:\5B8B\4F53;
+	mso-font-charset:134;
+	mso-generic-font-family:auto;
+	mso-font-pitch:variable;
+	mso-font-signature:3 680460288 22 0 262145 0;}
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;
+	mso-font-charset:0;
+	mso-generic-font-family:roman;
+	mso-font-pitch:variable;
+	mso-font-signature:-1610611985 1107304683 0 0 415 0;}
+@font-face
+	{font-family:"\@SimSun";
+	panose-1:2 1 6 0 3 1 1 1 1 1;
+	mso-font-charset:134;
+	mso-generic-font-family:auto;
+	mso-font-pitch:variable;
+	mso-font-signature:3 680460288 22 0 262145 0;}
+@font-face
+	{font-family:"\@MS Mincho";
+	panose-1:2 2 6 9 4 2 5 8 3 4;
+	mso-font-charset:128;
+	mso-generic-font-family:modern;
+	mso-font-pitch:fixed;
+	mso-font-signature:-536870145 1791491579 18 0 131231 0;}
+@font-face
+	{font-family:Consolas;
+	panose-1:2 11 6 9 2 2 4 3 2 4;
+	mso-font-charset:0;
+	mso-generic-font-family:modern;
+	mso-font-pitch:fixed;
+	mso-font-signature:-520092929 1073806591 9 0 415 0;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-style-parent:"";
+	margin:0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";
+	mso-fareast-font-family:SimSun;}
+h1
+	{mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-style-link:"Heading 1 Char";
+	mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	mso-line-height-alt:15.6pt;
+	mso-pagination:widow-orphan;
+	mso-outline-level:1;
+	font-size:18.0pt;
+	mso-fareast-font-family:"Times New Roman";
+	mso-fareast-theme-font:minor-fareast;}
+h2
+	{mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-style-link:"Heading 2 Char";
+	mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	line-height:15.6pt;
+	mso-pagination:widow-orphan;
+	mso-outline-level:2;
+	font-size:12.0pt;
+	mso-fareast-font-family:"MS Mincho";
+	font-weight:bold;}
+h3
+	{mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-style-link:"Heading 3 Char";
+	mso-margin-top-alt:auto;
+	margin-right:0in;
+	margin-bottom:2.4pt;
+	margin-left:0in;
+	line-height:15.6pt;
+	mso-pagination:widow-orphan;
+	mso-outline-level:3;
+	font-size:11.0pt;
+	mso-fareast-font-family:"Times New Roman";
+	mso-fareast-theme-font:minor-fareast;
+	font-weight:bold;}
+h4
+	{mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-style-link:"Heading 4 Char";
+	mso-margin-top-alt:auto;
+	margin-right:0in;
+	margin-bottom:2.4pt;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	mso-outline-level:4;
+	font-size:11.0pt;
+	mso-fareast-font-family:"Times New Roman";
+	mso-fareast-theme-font:minor-fareast;
+	font-weight:bold;}
+h5
+	{mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-style-link:"Heading 5 Char";
+	mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	mso-outline-level:5;
+	font-size:9.0pt;
+	mso-fareast-font-family:"Times New Roman";
+	mso-fareast-theme-font:minor-fareast;
+	font-weight:bold;}
+h6
+	{mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-style-link:"Heading 6 Char";
+	mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	mso-outline-level:6;
+	font-size:12.0pt;
+	mso-fareast-font-family:"Times New Roman";
+	mso-fareast-theme-font:minor-fareast;
+	font-weight:bold;}
+a:link, span.MsoHyperlink
+	{mso-style-unhide:no;
+	color:navy;
+	text-decoration:underline;
+	text-underline:single;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-unhide:no;
+	color:#0176B9;
+	text-decoration:underline;
+	text-underline:single;}
+p
+	{mso-style-unhide:no;
+	mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	mso-fareast-font-family:SimSun;}
+pre
+	{mso-style-unhide:no;
+	mso-style-link:"HTML Preformatted Char";
+	margin:0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+	font-size:10.0pt;
+	font-family:"Courier New";
+	mso-fareast-font-family:SimSun;}
+span.Heading1Char
+	{mso-style-name:"Heading 1 Char";
+	mso-style-unhide:no;
+	mso-style-locked:yes;
+	mso-style-link:"Heading 1";
+	mso-ansi-font-size:14.0pt;
+	mso-bidi-font-size:14.0pt;
+	font-family:"Cambria","serif";
+	mso-ascii-font-family:Cambria;
+	mso-ascii-theme-font:major-latin;
+	mso-fareast-font-family:"Times New Roman";
+	mso-fareast-theme-font:major-fareast;
+	mso-hansi-font-family:Cambria;
+	mso-hansi-theme-font:major-latin;
+	mso-bidi-font-family:"Times New Roman";
+	mso-bidi-theme-font:major-bidi;
+	color:#365F91;
+	mso-themecolor:accent1;
+	mso-themeshade:191;
+	font-weight:bold;}
+span.Heading2Char
+	{mso-style-name:"Heading 2 Char";
+	mso-style-unhide:no;
+	mso-style-locked:yes;
+	mso-style-link:"Heading 2";
+	mso-ansi-font-size:13.0pt;
+	mso-bidi-font-size:13.0pt;
+	font-family:"Cambria","serif";
+	mso-ascii-font-family:Cambria;
+	mso-ascii-theme-font:major-latin;
+	mso-fareast-font-family:"Times New Roman";
+	mso-fareast-theme-font:major-fareast;
+	mso-hansi-font-family:Cambria;
+	mso-hansi-theme-font:major-latin;
+	mso-bidi-font-family:"Times New Roman";
+	mso-bidi-theme-font:major-bidi;
+	color:#4F81BD;
+	mso-themecolor:accent1;
+	font-weight:bold;}
+span.Heading3Char
+	{mso-style-name:"Heading 3 Char";
+	mso-style-unhide:no;
+	mso-style-locked:yes;
+	mso-style-link:"Heading 3";
+	mso-ansi-font-size:12.0pt;
+	mso-bidi-font-size:12.0pt;
+	font-family:"Cambria","serif";
+	mso-ascii-font-family:Cambria;
+	mso-ascii-theme-font:major-latin;
+	mso-fareast-font-family:"Times New Roman";
+	mso-fareast-theme-font:major-fareast;
+	mso-hansi-font-family:Cambria;
+	mso-hansi-theme-font:major-latin;
+	mso-bidi-font-family:"Times New Roman";
+	mso-bidi-theme-font:major-bidi;
+	color:#4F81BD;
+	mso-themecolor:accent1;
+	font-weight:bold;}
+span.Heading4Char
+	{mso-style-name:"Heading 4 Char";
+	mso-style-unhide:no;
+	mso-style-locked:yes;
+	mso-style-link:"Heading 4";
+	mso-ansi-font-size:12.0pt;
+	mso-bidi-font-size:12.0pt;
+	font-family:"Cambria","serif";
+	mso-ascii-font-family:Cambria;
+	mso-ascii-theme-font:major-latin;
+	mso-fareast-font-family:"Times New Roman";
+	mso-fareast-theme-font:major-fareast;
+	mso-hansi-font-family:Cambria;
+	mso-hansi-theme-font:major-latin;
+	mso-bidi-font-family:"Times New Roman";
+	mso-bidi-theme-font:major-bidi;
+	color:#4F81BD;
+	mso-themecolor:accent1;
+	font-weight:bold;
+	font-style:italic;}
+span.Heading5Char
+	{mso-style-name:"Heading 5 Char";
+	mso-style-unhide:no;
+	mso-style-locked:yes;
+	mso-style-link:"Heading 5";
+	mso-ansi-font-size:12.0pt;
+	mso-bidi-font-size:12.0pt;
+	font-family:"Cambria","serif";
+	mso-ascii-font-family:Cambria;
+	mso-ascii-theme-font:major-latin;
+	mso-fareast-font-family:"Times New Roman";
+	mso-fareast-theme-font:major-fareast;
+	mso-hansi-font-family:Cambria;
+	mso-hansi-theme-font:major-latin;
+	mso-bidi-font-family:"Times New Roman";
+	mso-bidi-theme-font:major-bidi;
+	color:#243F60;
+	mso-themecolor:accent1;
+	mso-themeshade:127;}
+span.Heading6Char
+	{mso-style-name:"Heading 6 Char";
+	mso-style-unhide:no;
+	mso-style-locked:yes;
+	mso-style-link:"Heading 6";
+	mso-ansi-font-size:12.0pt;
+	mso-bidi-font-size:12.0pt;
+	font-family:"Cambria","serif";
+	mso-ascii-font-family:Cambria;
+	mso-ascii-theme-font:major-latin;
+	mso-fareast-font-family:"Times New Roman";
+	mso-fareast-theme-font:major-fareast;
+	mso-hansi-font-family:Cambria;
+	mso-hansi-theme-font:major-latin;
+	mso-bidi-font-family:"Times New Roman";
+	mso-bidi-theme-font:major-bidi;
+	color:#243F60;
+	mso-themecolor:accent1;
+	mso-themeshade:127;
+	font-style:italic;}
+span.HTMLPreformattedChar
+	{mso-style-name:"HTML Preformatted Char";
+	mso-style-unhide:no;
+	mso-style-locked:yes;
+	mso-style-link:"HTML Preformatted";
+	font-family:Consolas;
+	mso-ascii-font-family:Consolas;
+	mso-fareast-font-family:SimSun;
+	mso-hansi-font-family:Consolas;}
+p.body-tight, li.body-tight, div.body-tight
+	{mso-style-name:body-tight;
+	mso-style-unhide:no;
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:23.75pt;
+	margin-bottom:.0001pt;
+	text-align:justify;
+	mso-pagination:widow-orphan;
+	font-size:11.0pt;
+	mso-fareast-font-family:SimSun;}
+p.indent, li.indent, div.indent
+	{mso-style-name:indent;
+	mso-style-unhide:no;
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:13.0pt;
+	margin-left:47.5pt;
+	mso-pagination:widow-orphan;
+	font-size:11.0pt;
+	mso-fareast-font-family:SimSun;}
+p.body, li.body, div.body
+	{mso-style-name:body;
+	mso-style-unhide:no;
+	mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	mso-fareast-font-family:SimSun;}
+p.cellbody3, li.cellbody3, div.cellbody3
+	{mso-style-name:cellbody3;
+	mso-style-unhide:no;
+	mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	mso-fareast-font-family:SimSun;}
+p.prod-rule, li.prod-rule, div.prod-rule
+	{mso-style-name:prod-rule;
+	mso-style-unhide:no;
+	mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	mso-fareast-font-family:SimSun;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	mso-default-props:yes;
+	font-size:10.0pt;
+	mso-ansi-font-size:10.0pt;
+	mso-bidi-font-size:10.0pt;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.25in 1.0in 1.25in;
+	mso-header-margin:.5in;
+	mso-footer-margin:.5in;
+	mso-paper-source:0;}
+div.WordSection1
+	{page:WordSection1;}
+-->
+</style>
+<!--[if gte mso 10]>
+<style>
+ /* Style Definitions */
+ table.MsoNormalTable
+	{mso-style-name:"Table Normal";
+	mso-tstyle-rowband-size:0;
+	mso-tstyle-colband-size:0;
+	mso-style-noshow:yes;
+	mso-style-priority:99;
+	mso-style-qformat:yes;
+	mso-style-parent:"";
+	mso-padding-alt:0in 5.4pt 0in 5.4pt;
+	mso-para-margin:0in;
+	mso-para-margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Times New Roman","serif";}
+</style>
+<![endif]-->
+<meta http-equiv=Content-Style-Type content="text/css">
+<!--[if gte mso 9]><xml>
+ <o:shapedefaults v:ext="edit" spidmax="4098"/>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <o:shapelayout v:ext="edit">
+  <o:idmap v:ext="edit" data="1"/>
+ </o:shapelayout></xml><![endif]-->
+</head>
+
+<body bgcolor=white lang=EN-US link=navy vlink="#0176B9" style='tab-interval:
+.5in'>
+
+<div class=WordSection1>
+
+<h1><a name="50536519_pgfId-516614"></a><span style='mso-fareast-font-family:
+"Times New Roman"'>Syntax Summary<o:p></o:p></span></h1>
+
+<h2><a name="50536519_pgfId-516615"></a>Language Constructs</h2>
+
+<h3><a name="50536519_pgfId-514406"></a><span style='mso-fareast-font-family:
+"Times New Roman"'>Control Logic<o:p></o:p></span></h3>
+
+<pre style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536519_pgfId-514270"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>if (&lt;boolean expression&gt;)<span
+style='mso-tab-count:1'>  </span></span></em><span style='font-size:11.0pt;
+font-family:"Times New Roman","serif";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536519_pgfId-517756"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'><span style='mso-spacerun:yes'>  </span>// Executed if above boolean expression evaluates to TRUE<span
+style='mso-tab-count:1'>  </span></span></em><span style='font-size:11.0pt;
+font-family:"Times New Roman","serif";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536519_pgfId-517759"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'><span style='mso-spacerun:yes'>  </span>&lt;statements&gt;</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman","serif";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536519_pgfId-514273"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>elif (&lt;boolean expression&gt;)<span
+style='mso-tab-count:1'>       </span></span></em><span style='font-size:11.0pt;
+font-family:"Times New Roman","serif";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536519_pgfId-517762"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'><span style='mso-spacerun:yes'>  </span>// Executed if above boolean expression evaluates to TRUE and previous </span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman","serif";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536519_pgfId-517763"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'><span style='mso-spacerun:yes'> </span><span style='mso-spacerun:yes'> </span>// boolean expression is FALSE<span
+style='mso-tab-count:1'>  </span> </span></em><span style='font-size:11.0pt;
+font-family:"Times New Roman","serif";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536519_pgfId-517766"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'><span style='mso-spacerun:yes'>  </span>&lt;statements&gt;</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman","serif";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536519_pgfId-514276"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>else<span style='mso-tab-count:1'>   </span></span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman","serif";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536519_pgfId-517769"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'><span style='mso-spacerun:yes'>  </span>// Executed if both boolean expressions evaluate to FALSE<span
+style='mso-tab-count:1'>  </span></span></em><span style='font-size:11.0pt;
+font-family:"Times New Roman","serif";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536519_pgfId-517772"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'><span style='mso-spacerun:yes'>  </span>&lt;statements&gt;</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman","serif";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536519_pgfId-514279"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>end if;</span></em><span style='font-size:11.0pt;
+font-family:"Times New Roman","serif";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536519_pgfId-516970"></a><span style='font-size:11.0pt;font-family:
+"Times New Roman","serif";color:black'><o:p>&nbsp;</o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><span style='font-size:11.0pt;
+font-family:"Times New Roman","serif";color:black'>&nbsp;<o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536519_pgfId-514282"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>for each &lt;instance handle&gt; in &lt;instance handle set&gt;<span
+style='mso-tab-count:1'>   </span></span></em><span style='font-size:11.0pt;
+font-family:"Times New Roman","serif";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536519_pgfId-514283"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'><span style='mso-spacerun:yes'>  </span>&lt;statements&gt;</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman","serif";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536519_pgfId-514284"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>end for;</span></em><span style='font-size:11.0pt;
+font-family:"Times New Roman","serif";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536519_pgfId-516973"></a><span style='font-size:11.0pt;font-family:
+"Times New Roman","serif";color:black'><o:p>&nbsp;</o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><span style='font-size:11.0pt;
+font-family:"Times New Roman","serif";color:black'>&nbsp;<o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536519_pgfId-514287"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>while &lt;boolean expression&gt;<span
+style='mso-tab-count:1'> </span></span></em><span style='font-size:11.0pt;
+font-family:"Times New Roman","serif";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536519_pgfId-517775"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'><span style='mso-spacerun:yes'>  </span>&lt;statements&gt;</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman","serif";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536519_pgfId-517186"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>end while;</span></em><span style='font-size:11.0pt;
+font-family:"Times New Roman","serif";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536519_pgfId-517261"></a><span style='font-size:11.0pt;font-family:
+"Times New Roman","serif";color:black'><o:p>&nbsp;</o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><span style='font-size:11.0pt;
+font-family:"Times New Roman","serif";color:black'>&nbsp;<o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536519_pgfId-517262"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>break;</span></em><span style='font-size:11.0pt;
+font-family:"Times New Roman","serif";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536519_pgfId-517263"></a><span style='font-size:11.0pt;font-family:
+"Times New Roman","serif";color:black'><o:p>&nbsp;</o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><span style='font-size:11.0pt;
+font-family:"Times New Roman","serif";color:black'>&nbsp;<o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536519_pgfId-517264"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>continue;</span></em><span style='font-size:11.0pt;
+font-family:"Times New Roman","serif";color:black'><o:p></o:p></span></pre>
+
+<h3 style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><a
+name="50536519_pgfId-517188"></a><span style='mso-fareast-font-family:"Times New Roman"'>Instance
+Creation<o:p></o:p></span></h3>
+
+<pre style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536519_pgfId-517189"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>create object instance &lt;instance handle&gt; of &lt;keyletter&gt;;</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman","serif";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536519_pgfId-514293"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>create object instance of &lt;keyletter&gt;;</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman","serif";color:black'><o:p></o:p></span></pre>
+
+<h3 style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><a
+name="50536519_pgfId-514295"></a><span style='mso-fareast-font-family:"Times New Roman"'>Instance
+Selection<o:p></o:p></span></h3>
+
+<pre style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536519_pgfId-514296"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>select any &lt;instance handle&gt; from instances of &lt;keyletter&gt; [ where &lt;where<span style='mso-spacerun:yes'>   </span>expression&gt; ];</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman","serif";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536519_pgfId-514297"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>select many &lt;instance handle set&gt; from instances of &lt;keyletter&gt; [ where<span style='mso-spacerun:yes'>   </span>&lt;where expression&gt; ];</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman","serif";color:black'><o:p></o:p></span></pre>
+
+<h3 style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><a
+name="50536519_pgfId-514298"></a><span style='mso-fareast-font-family:"Times New Roman"'>Writing
+Attributes<o:p></o:p></span></h3>
+
+<pre style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536519_pgfId-514300"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>[assign] &lt;instance handle&gt;.&lt;attribute&gt; = &lt;expression&gt;;</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman","serif";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536519_pgfId-517266"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>[assign] self.&lt;attribute&gt; = &lt;expression&gt;; // Mathematically-dependent only</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman","serif";color:black'><o:p></o:p></span></pre>
+
+<h3 style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><a
+name="50536519_pgfId-514301"></a><span style='mso-fareast-font-family:"Times New Roman"'>Reading
+Attributes<o:p></o:p></span></h3>
+
+<pre style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536519_pgfId-514303"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>[assign] &lt;variable&gt; = &lt;instance handle&gt;.&lt;attribute&gt;;</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman","serif";color:black'><o:p></o:p></span></pre>
+
+<h3 style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><a
+name="50536519_pgfId-514305"></a><span style='mso-fareast-font-family:"Times New Roman"'>Instance
+Deletion<o:p></o:p></span></h3>
+
+<pre style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536519_pgfId-514306"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>delete object instance &lt;instance handle&gt;;</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman","serif";color:black'><o:p></o:p></span></pre>
+
+<h3 style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><a
+name="50536519_pgfId-514308"></a><span style='mso-fareast-font-family:"Times New Roman"'>Creating
+Instances of a Relationship<o:p></o:p></span></h3>
+
+<pre style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536519_pgfId-514309"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>relate &lt;source instance handle&gt; to &lt;destination instance handle&gt; across<span style='mso-spacerun:yes'>   </span>&lt;relationship specification&gt;;</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman","serif";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536519_pgfId-514310"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>relate &lt;source instance handle&gt; to &lt;destination instance handle&gt; across<span style='mso-spacerun:yes'>   </span>&lt;relationship specification&gt; using &lt;associative instance handle&gt;;</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman","serif";color:black'><o:p></o:p></span></pre>
+
+<h3 style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><a
+name="50536519_pgfId-514313"></a><span style='mso-fareast-font-family:"Times New Roman"'>Deleting
+Instances of a Relationship<o:p></o:p></span></h3>
+
+<pre style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536519_pgfId-514314"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>unrelate &lt;source instance handle&gt; from &lt;destination instance handle&gt; across<span style='mso-spacerun:yes'>   </span>&lt;relationship specification&gt;;</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman","serif";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536519_pgfId-514315"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>unrelate &lt;source instance handle&gt; from &lt;destination instance handle&gt; across<span style='mso-spacerun:yes'>   </span>&lt;relationship specification&gt; using &lt;associative instance handle&gt;;</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman","serif";color:black'><o:p></o:p></span></pre>
+
+<h3 style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><a
+name="50536519_pgfId-514318"></a><span style='mso-fareast-font-family:"Times New Roman"'>Instance
+Selection by Relationship Navigation<o:p></o:p></span></h3>
+
+<pre style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536519_pgfId-514319"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>select one &lt;instance handle&gt; related by &lt;start&gt; -&gt; &lt;relationship link<span style='mso-spacerun:yes'>   </span>chain&gt; [ where &lt;where expression&gt; ];</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman","serif";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536519_pgfId-514320"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>select any &lt;instance handle&gt; related by &lt;start&gt; -&gt; &lt;relationship link<span style='mso-spacerun:yes'>   </span>chain&gt; [ where &lt;where expression&gt; ];</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman","serif";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536519_pgfId-514321"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>select many &lt;instance handle set&gt; related by &lt;start&gt; -&gt; &lt;relationship link<span style='mso-spacerun:yes'>   </span>chain&gt; [ where &lt;where expression&gt; ];</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman","serif";color:black'><o:p></o:p></span></pre>
+
+<h3 style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><a
+name="50536519_pgfId-514325"></a><span style='mso-fareast-font-family:"Times New Roman"'>Creating
+Events<o:p></o:p></span></h3>
+
+<pre style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536519_pgfId-514327"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>create event instance &lt;event instance&gt; of &lt;event label&gt;[:&lt;event meaning&gt;]<span style='mso-spacerun:yes'>   </span>[(&lt;event parameters&gt;)] to &lt;target&gt;;</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman","serif";color:black'><o:p></o:p></span></pre>
+
+<h3 style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><a
+name="50536519_pgfId-517285"></a><span style='mso-fareast-font-family:"Times New Roman"'>Generating
+Events<o:p></o:p></span></h3>
+
+<pre style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536519_pgfId-517308"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>generate &lt;event label&gt;[:&lt;event meaning&gt;] [(&lt;event parameters&gt;)] to<span style='mso-spacerun:yes'>   </span>&lt;target&gt;;</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman","serif";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536519_pgfId-517322"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>generate &lt;event instance&gt;;</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman","serif";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536519_pgfId-517317"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>generate &lt;instance handle&gt;.&lt;attribute&gt;;</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman","serif";color:black'><o:p></o:p></span></pre>
+
+<h3 style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><a
+name="50536519_pgfId-517294"></a><span style='mso-fareast-font-family:"Times New Roman"'>Accessing
+Event Data<o:p></o:p></span></h3>
+
+<pre style='margin-left:47.5pt;vertical-align:baseline'><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>rcvd_evt.&lt;supplemental data item&gt;</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman","serif";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><span style='font-size:11.0pt;
+color:black'>or</span></pre><pre style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536519_pgfId-517295"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>param.&lt;supplemental data item&gt;</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman","serif";color:black'><o:p></o:p></span></pre>
+
+<h3 style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><a
+name="50536519_pgfId-514329"></a><span style='mso-fareast-font-family:"Times New Roman"'>Arithmetic,
+Logical, and String Assignment<o:p></o:p></span></h3>
+
+<pre style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536519_pgfId-514330"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>[assign] &lt;boolean var&gt; = &lt;boolean expression&gt;;</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman","serif";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536519_pgfId-514331"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>[assign] &lt;arithmetic var&gt; = &lt;arithmetic expression&gt;;</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman","serif";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536519_pgfId-514332"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>[assign] &lt;string var&gt; = &lt;string expression&gt;;</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman","serif";color:black'><o:p></o:p></span></pre>
+
+<h3 style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><a
+name="50536519_pgfId-514333"></a><span style='mso-fareast-font-family:"Times New Roman"'>Unary
+Operators<o:p></o:p></span></h3>
+
+<pre style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536519_pgfId-514335"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>empty &lt;handle&gt;</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman","serif";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536519_pgfId-514336"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>not_empty &lt;handle&gt;</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman","serif";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536519_pgfId-514337"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>cardinality &lt;handle&gt;</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman","serif";color:black'><o:p></o:p></span></pre>
+
+<h3 style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><a
+name="50536519_pgfId-514339"></a><span style='mso-fareast-font-family:"Times New Roman"'>Operations<o:p></o:p></span></h3>
+
+<pre style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536519_pgfId-514397"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>[transform] &lt;keyletter&gt;::&lt;operation name&gt; (&lt;data item&gt;:&lt;expression&gt;, ...);</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman","serif";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536519_pgfId-514340"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>[assign] &lt;variable&gt; = [transform] &lt;keyletter&gt;::&lt;operation name&gt; (&lt;data<span style='mso-spacerun:yes'>   </span>item&gt;:&lt;expression&gt;, ...);</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman","serif";color:black'><o:p></o:p></span></pre>
+
+<h3 style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><a
+name="50536519_pgfId-514341"></a><span style='mso-fareast-font-family:"Times New Roman"'>Bridges<o:p></o:p></span></h3>
+
+<pre style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536519_pgfId-514342"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>[bridge] &lt;eekeyletter&gt;::&lt;bridge name&gt; (&lt;data item&gt;:&lt;expression&gt;, ...);</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman","serif";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536519_pgfId-514343"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>[assign] &lt;variable&gt; = [bridge] &lt;eekeyletter&gt;::&lt;bridge name&gt; (&lt;data item&gt;:<span style='mso-spacerun:yes'>  </span>&lt;expression&gt;, ...);</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman","serif";color:black'><o:p></o:p></span></pre>
+
+<h3 style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><a
+name="50536519_pgfId-516793"></a><span style='mso-fareast-font-family:"Times New Roman"'>Functions<o:p></o:p></span></h3>
+
+<pre style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536519_pgfId-516794"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>::&lt;function name&gt; (&lt;data item&gt;:&lt;expression&gt;, ...);</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman","serif";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536519_pgfId-516795"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>[assign] &lt;variable&gt; = ::&lt;function name&gt; (&lt;data item&gt;:&lt;expression&gt;, ...);</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman","serif";color:black'><o:p></o:p></span></pre>
+
+<h3 style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><a
+name="50536519_pgfId-514344"></a><span style='mso-fareast-font-family:"Times New Roman"'>Inter-Component
+Messaging<o:p></o:p></span></h3>
+
+<pre style='margin-left:47.5pt;vertical-align:baseline'><em><span
+style='font-family:"Courier New"'>send &lt;Interface Name&gt;::&lt;Message Name&gt;(&lt;Message Parameter Name&gt;: &lt;value&gt;);<o:p></o:p></span></em></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><em><span style='font-family:
+"Courier New"'>send &lt;Port Name&gt;::&lt;Message Name&gt;(&lt;Message Parameter Name&gt;: &lt;value&gt;);</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman","serif";color:black'><o:p></o:p></span></pre>
+
+<p class=MsoNormal style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><span
+style='mso-fareast-font-family:"Times New Roman"'><o:p>&nbsp;</o:p></span></p>
+
+<pre style='margin-left:47.5pt;vertical-align:baseline'><span style='mso-spacerun:yes'> </span>NOTE: Port names take precedence over interface names whenever ambiguity exists for a given 'send' statement.</pre>
+
+<h3 style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><span
+style='mso-fareast-font-family:"Times New Roman"'>Object Action Language for
+Non-State Actions<o:p></o:p></span></h3>
+
+<pre style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536519_pgfId-514345"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>return &lt;expression&gt;;</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman","serif";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536519_pgfId-514346"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>return;</span></em><span style='font-size:11.0pt;
+font-family:"Times New Roman","serif";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536519_pgfId-517008"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>param.&lt;parameter&gt;</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman","serif";color:black'><o:p></o:p></span></pre>
+
+<h3 style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><a
+name="50536519_pgfId-514348"></a><span style='mso-fareast-font-family:"Times New Roman"'>Date
+and Time <o:p></o:p></span></h3>
+
+<pre style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536519_pgfId-514401"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>[bridge] &lt;date variable&gt; = TIM::create_date (day:&lt;arithmetic expression&gt;,<span style='mso-spacerun:yes'>   </span>month:&lt;arithmetic expression&gt;, year:&lt;arithmetic expression&gt;, second:<span style='mso-spacerun:yes'>  </span>&lt;arithmetic expression&gt;, minute:&lt;arithmetic expression&gt;, hour:<span style='mso-spacerun:yes'>  </span>&lt;arithmetic expression&gt;);</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman","serif";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536519_pgfId-517157"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>[bridge] &lt;date variable&gt; = TIM::current_date (); </span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman","serif";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536519_pgfId-517343"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>[bridge] &lt;time variable&gt; = TIM::current_clock ();</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman","serif";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536519_pgfId-517348"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>&lt;integer variable&gt; = TIM::get_day (date:&lt;date variable&gt;);</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman","serif";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536519_pgfId-517169"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>&lt;integer variable&gt; = TIM::get_month (date:&lt;date variable&gt;);</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman","serif";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536519_pgfId-517170"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>&lt;integer variable&gt; = TIM::get_year (date:&lt;date variable&gt;);</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman","serif";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536519_pgfId-517171"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>&lt;integer variable&gt; = TIM::get_second (date:&lt;date variable&gt;);</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman","serif";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536519_pgfId-517172"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>&lt;integer variable&gt; = TIM::get_minute (date:&lt;date variable&gt;);</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman","serif";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536519_pgfId-517166"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>&lt;integer variable&gt; = TIM::get_hour (date:&lt;date variable&gt;);</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman","serif";color:black'><o:p></o:p></span></pre>
+
+<p class=body style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><a
+name="50536519_pgfId-517332"></a>&nbsp;</p>
+
+<h3 style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><a
+name="50536519_pgfId-514350"></a><span style='mso-fareast-font-family:"Times New Roman"'>Timers<o:p></o:p></span></h3>
+
+<pre style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536519_pgfId-517351"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>[bridge] &lt;timer handle&gt; = TIM::timer_start (microseconds:&lt;arithmetic<span style='mso-spacerun:yes'>   </span>expression&gt;, event_inst:&lt;event instance&gt;);</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman","serif";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536519_pgfId-517364"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>[bridge] &lt;timer handle&gt; = TIM::timer_start_recurring (microseconds:<span style='mso-spacerun:yes'>  </span>&lt;arithmetic expression&gt;, event_inst:&lt;event instance&gt;);</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman","serif";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536519_pgfId-517372"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>[bridge] &lt;integer variable&gt; = TIM::timer_remaining_time (timer_inst_ref:<span style='mso-spacerun:yes'>  </span>&lt;timer handle&gt;);</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman","serif";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536519_pgfId-517383"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>[bridge] &lt;boolean variable&gt; = TIM::timer_reset_time (timer_inst_ref:&lt;timer<span style='mso-spacerun:yes'>   </span>handle&gt;, <span
+style='mso-tab-count:1'>    </span>microseconds:&lt;arithmetic expression&gt;);</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman","serif";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536519_pgfId-517384"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>[bridge] &lt;boolean variable&gt; = TIM::timer_add_time (timer_inst_ref:&lt;timer<span style='mso-spacerun:yes'>   </span>handle&gt;, <span
+style='mso-tab-count:1'>    </span>microseconds:&lt;arithmetic expression&gt;);</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman","serif";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536519_pgfId-517389"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>[bridge] &lt;boolean variable&gt; = TIM::timer_cancel (timer_inst_ref:&lt;timer<span style='mso-spacerun:yes'>   </span>handle&gt;);</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman","serif";color:black'><o:p></o:p></span></pre>
+
+<p class=body style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><a
+name="50536519_pgfId-517373"></a>&nbsp;</p>
+
+<p class=body style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><a
+name="50536519_pgfId-517365"></a>&nbsp;</p>
+
+<h2 style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><a
+name="50536519_pgfId-517357"></a>&nbsp;Using Arrays</h2>
+
+<p class=body style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>BridgePoint
+supports fixed-length and dynamically-sized arrays.<span
+style='mso-spacerun:yes'>  </span>Users can control which types of arrays are
+allowed in the application in the BridgePoint Preferences ( Window &gt;
+Preferences &gt; BridgePoint ). Array indices are 0-based. <span
+style='mso-spacerun:yes'> </span>The parser enforces valid indexing into a fixed-length
+array.<span style='mso-spacerun:yes'>  </span>Valid indices are 0 to size - 1.<span
+style='mso-spacerun:yes'>  </span>Assigning a value to an out of bounds index
+of a dynamically-sized array causes the tool to automatically increase the
+array size such that the given index is valid.</p>
+
+<p class=body style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>Parameters,
+return values, and attributes can be single or multi-dimensional arrays.<span
+style='mso-spacerun:yes'>  </span>Use the Properties view to edit the Array
+Dimensions field. Fixed-length arrays are specified with a non-zero positive literal
+integer or constant inside array brackets: <em><span style='font-size:11.0pt;
+font-family:"Courier New";color:black;font-style:normal;mso-bidi-font-style:
+italic'>[&lt;literal integer | constant &gt;]</span></em>.<span
+style='mso-spacerun:yes'>  </span>Dynamically-sized arrays have no value
+specified inside the array brackets: <em><span style='font-size:11.0pt;
+font-family:"Courier New";color:black;font-style:normal;mso-bidi-font-style:
+italic'>[]</span></em>.</p>
+
+<p class=body style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>Transients
+can be single or multi-dimensional arrays.<span style='mso-spacerun:yes'> 
+</span>Assigning a fixed-length array to a transient makes the transient itself
+a fixed-length array. <span style='mso-spacerun:yes'> </span>Assigning a
+dynamically-sized array to a transient makes the transient itself a dynamically-sized
+array.<span style='mso-spacerun:yes'>  </span>Single-dimension dynamically-sized
+transient arrays may be created directly in OAL by assigning a value to an
+array element of the transient variable.<span style='mso-spacerun:yes'> 
+</span>Multi-dimension transient array creation via array element assignment is
+supported in OAL but not Verifier.</p>
+
+<p class=body style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>Arrays
+support the length operator.<span style='mso-spacerun:yes'>  </span>For
+fixed-length arrays, the length operator returns the size (i.e. last index + 1)
+of the given dimension.<span style='mso-spacerun:yes'>  </span></p>
+
+<p class=body style='margin-left:.5in;tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black;font-style:normal;
+mso-bidi-font-style:italic'>flen = myarray.length;<span
+style='mso-spacerun:yes'>  </span><span style='mso-spacerun:yes'>   </span><span
+style='mso-spacerun:yes'>    </span>// flen = 3 when myarray is a fixed-length [3]
+array<o:p></o:p></span></em></p>
+
+<p class=body style='margin-left:.5in;tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black;font-style:normal;
+mso-bidi-font-style:italic'>flen2 = myclass.arr[2].length; // flen2 = 5 when arr
+is a fixed-length [4][5] array attribute of class myclass<o:p></o:p></span></em></p>
+
+<p class=body style='margin-left:.5in;tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black;font-style:normal;
+mso-bidi-font-style:italic'>flen3 = myclass.arr.length; <span
+style='mso-spacerun:yes'>   </span>// flen3 = 4 when arr is a fixed-length
+[4][5] array attribute of class myclass</span></em><i style='mso-bidi-font-style:
+normal'><o:p></o:p></i></p>
+
+<p class=body style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><a
+name="50536519_pgfId-517356"></a>For dynamically-sized arrays, the length
+operator returns the size (i.e. last written index + 1) of the given dimension.<span
+style='mso-spacerun:yes'>  </span>Note that the value returned by the length
+operator indicates only the overall size of the array dimension, not the number
+of elements that have been initialized within it.</p>
+
+<p class=body style='margin-left:.5in;tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black;font-style:normal;
+mso-bidi-font-style:italic'>darray = param.arr;<span
+style='mso-spacerun:yes'>   </span><span style='mso-spacerun:yes'>    </span>//
+arr is a dynamically-sized array written to in this operation’s caller with arr[2][3]
+= 99;<o:p></o:p></span></em></p>
+
+<p class=body style='margin-left:.5in;tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black;font-style:normal;
+mso-bidi-font-style:italic'>dlen = darray[2].length;<span
+style='mso-spacerun:yes'>  </span>// dlen = 4<o:p></o:p></span></em></p>
+
+<p class=body style='margin-left:.5in;tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black;font-style:normal;
+mso-bidi-font-style:italic'>dlen2 = darray[1].length; // dlen2 = 0.<span
+style='mso-spacerun:yes'>  </span>This dimension was unwritten.<o:p></o:p></span></em></p>
+
+<p class=body style='margin-left:.5in;tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black;font-style:normal;
+mso-bidi-font-style:italic'>dlen3 = darray.length;<span
+style='mso-spacerun:yes'>    </span>// dlen3 = 3</span></em></p>
+
+<p class=body style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><o:p>&nbsp;</o:p></p>
+
+<p class=body style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><o:p>&nbsp;</o:p></p>
+
+<h2 style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><a
+name="50536519_pgfId-514353"></a>Statement Components</h2>
+
+<table class=MsoNormalTable border=1 cellpadding=0 style='mso-cellspacing:1.5pt;
+ mso-yfti-tbllook:1184;mso-padding-alt:0in 5.4pt 0in 5.4pt'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="50536519_pgfId-516679"></a>&lt;arithmetic
+  expression&gt;</p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="50536519_pgfId-516681"></a>an expression
+  evaluating to a real or an integer value. Used in places where only an
+  integer is required.</p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="50536519_pgfId-516683"></a>&lt;arithmetic
+  operator&gt;</p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="50536519_pgfId-516685"></a><em><span
+  style='font-size:11.0pt;font-family:"Courier New";color:black'>a +</span></em>
+  , <em><span style='font-size:11.0pt;font-family:"Courier New";color:black'>-</span></em>
+  , <em><span style='font-size:11.0pt;font-family:"Courier New";color:black'>*</span></em>
+  ,<em><span style='font-size:11.0pt;font-family:"Courier New";color:black'> /</span></em>
+  , or <em><span style='font-size:11.0pt;font-family:"Courier New";color:black'>%</span></em>
+  (remainder from arithmetic division)</p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="50536519_pgfId-516687"></a>&lt;attribute&gt;</p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="50536519_pgfId-516689"></a>the name of an
+  attribute</p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="50536519_pgfId-516691"></a>&lt;binary
+  operator&gt;</p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="50536519_pgfId-516693"></a>an and, or, <em><span
+  style='font-size:11.0pt;font-family:"Courier New";color:black'>+</span></em>
+  , <em><span style='font-size:11.0pt;font-family:"Courier New";color:black'>-</span></em>
+  , <em><span style='font-size:11.0pt;font-family:"Courier New";color:black'>*</span></em>
+  , <em><span style='font-size:11.0pt;font-family:"Courier New";color:black'>/</span></em>
+  , or <em><span style='font-size:11.0pt;font-family:"Courier New";color:black'>%</span></em>
+  </p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="50536519_pgfId-516695"></a>&lt;boolean
+  expression&gt;</p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="50536519_pgfId-516697"></a>an expression
+  evaluating to <em><span style='font-size:11.0pt;font-family:"Courier New";
+  color:black'>TRUE</span></em> or <em><span style='font-size:11.0pt;
+  font-family:"Courier New";color:black'>FALSE</span></em> </p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:5'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="50536519_pgfId-516699"></a>&lt;bridge name&gt;</p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="50536519_pgfId-516701"></a>the name of a bridge
+  defined for the external entity specified by &lt;eekeyletter&gt;.</p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:6'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="50536519_pgfId-516703"></a>&lt;eekeyletter&gt;</p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="50536519_pgfId-516705"></a>the keyletter of an
+  external entity</p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:7'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="50536519_pgfId-516707"></a>&lt;event instance&gt;</p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="50536519_pgfId-516709"></a>a local variable of
+  type event instance</p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:8'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="50536519_pgfId-516711"></a>&lt;event label&gt;</p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="50536519_pgfId-516713"></a>the
+  &lt;keyletter&gt;&lt;event number&gt;</p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:9'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="50536519_pgfId-516715"></a>&lt;event meaning&gt;</p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="50536519_pgfId-516717"></a>the meaning of the
+  event, as in 'turn off the light'; the tick marks may be omitted if the event
+  meaning contains no spaces.</p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:10'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="50536519_pgfId-517401"></a>&lt;event
+  parameters&gt;</p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="50536519_pgfId-517403"></a>the supplemental data
+  items (if any) to be carried by the event. Each data item is given in the
+  form &lt;supplemental data item&gt;:&lt;expression&gt;.</p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:11'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="50536519_pgfId-516731"></a>&lt;handle&gt;</p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="50536519_pgfId-516733"></a>an &lt;instance
+  handle&gt;, &lt;instance handle set&gt;, or a timer handle (or a bridge,
+  operation, or function invocation that returns a timer handle).</p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:12'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="50536519_pgfId-516739"></a>&lt;instance
+  handle&gt;</p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="50536519_pgfId-516741"></a>a local variable
+  referring to a single instance</p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:13'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="50536519_pgfId-517461"></a>&lt;instance handle
+  set&gt;</p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="50536519_pgfId-517456"></a>a local variable referring
+  to a set of instance handles</p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:14'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="50536519_pgfId-516743"></a>&lt;keyletter&gt;</p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="50536519_pgfId-516745"></a>the key letters of a
+  class</p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:15'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="50536519_pgfId-517477"></a>&lt;operation name&gt;</p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="50536519_pgfId-517483"></a>the name of a
+  operation defined for the class specified by &lt;keyletter&gt;.</p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:16'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="50536519_pgfId-516747"></a>&lt;read value<a
+  name="50536519_marker-517638"></a>&gt;</p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="50536519_pgfId-516749"></a>a readable value: a
+  constant, local variable, &lt;instance handle&gt;.&lt;attribute&gt;, <em><span
+  style='font-size:11.0pt;font-family:"Courier New";color:black'>rcvd_evt</span></em>
+  .&lt;supplemental data item&gt;, <em><span style='font-size:11.0pt;
+  font-family:"Courier New";color:black'>param</span></em> .&lt;parameter&gt;,
+  or an invocation of an operation, bridge operation, or function.</p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:17'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="50536519_pgfId-516751"></a>&lt;relationship
+  link&gt;</p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="50536519_pgfId-516753"></a>a
+  &lt;keyletter&gt;[&lt;relationship specification&gt;], where the square
+  brackets are literal and do not indicate optional text.</p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:18'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="50536519_pgfId-517443"></a>&lt;relationship link
+  chain&gt;</p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="50536519_pgfId-517450"></a>&lt;relationship
+  link&gt; or &lt;relationship link&gt; -&gt; ... -&gt; &lt;relationship
+  link&gt;</p>
+  <p class=cellbody3><a name="50536519_pgfId-517445"></a>&nbsp;</p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:19'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="50536519_pgfId-516755"></a>&lt;relationship
+  phrase&gt;</p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="50536519_pgfId-516758"></a>the text description
+  of the relationship enclosed in tick marks</p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:20'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="50536519_pgfId-516760"></a>&lt;relationship
+  specification&gt;</p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="50536519_pgfId-516762"></a>R&lt;number&gt; or
+  R&lt;number&gt;.&lt;relationship phrase&gt;</p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:21'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="50536519_pgfId-516764"></a>&lt;simple string&gt;</p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="50536519_pgfId-516766"></a>any of the following
+  that evaluates to a string value: string constant, local variable, attribute,
+  operation invocation, bridge invocation, function invocation, or a
+  supplemental data item received from an event.</p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:22'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="50536519_pgfId-516768"></a>&lt;string
+  expression&gt;</p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="50536519_pgfId-516770"></a>an expression
+  evaluating to a string value</p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:23'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="50536519_pgfId-516772"></a>&lt;supplemental data
+  item&gt;</p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="50536519_pgfId-516774"></a>the name of a supplemental
+  data item</p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:24'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="50536519_pgfId-516776"></a>&lt;unary operator&gt;</p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="50536519_pgfId-516778"></a>a unary operator such
+  as <em><span style='font-size:11.0pt;font-family:"Courier New";color:black'>not</span></em>
+  for boolean expressions and <em><span style='font-size:11.0pt;font-family:
+  "Courier New";color:black'>+</span></em> and <em><span style='font-size:11.0pt;
+  font-family:"Courier New";color:black'>-</span></em> for arithmetic
+  expressions.</p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:25'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="50536519_pgfId-516780"></a>&lt;unique id&gt;</p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="50536519_pgfId-516782"></a>a variable of type
+  unique ID (or an operation, bridge or function invocation that returns a
+  unique ID).</p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:26;mso-yfti-lastrow:yes'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="50536519_pgfId-516784"></a>&lt;where
+  expression&gt;</p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=cellbody3><a name="50536519_pgfId-516786"></a>a special boolean
+  expression at the end of a select statement; it must contain the <em><span
+  style='font-size:11.0pt;font-family:"Courier New";color:black'>selected</span></em>
+  keyword.</p>
+  </td>
+ </tr>
+</table>
+
+<h2 style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><a
+name="50536519_pgfId-516153"></a><a name="50536519_marker-516163"></a>Production
+Rules</h2>
+
+<div>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><a
+name="50536519_pgfId-516157"></a>This section contains the production rules for
+the language expressed in EBNF.</p>
+
+<p class=prod-rule style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><a
+name="50536519_pgfId-516059"></a>action ::=<span style='mso-spacerun:yes'> 
+</span>block EOF ;</p>
+
+<p class=prod-rule style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>block
+::= ( statement )* ;</p>
+
+<p class=prod-rule style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>statement
+::= ( implicit_ib_transform_statement | function_statement |
+implicit_assignment_statement | implicit_invocation_statement |
+assignment_statement | control_statement | break_statement | bridge_statement |
+send_statement | continue_statement | create_object_statement |
+create_event_statement | delete_statement | for_statement | generate_statement
+| if_statement | relate_statement | return_statement | select_statement |
+transform_statement | while_statement | unrelate_statement | debug_statement |
+empty_statement ) Semicolon ;</p>
+
+<p class=prod-rule style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>assignment_statement
+::= ASSIGN assignment_expr ;</p>
+
+<p class=prod-rule style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>break_statement
+::= BREAK ;</p>
+
+<p class=prod-rule style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>bridge_statement
+::= BRIDGE ( (<span style='mso-spacerun:yes'>  </span>( member_access |
+param_data_access ) EQUAL bridge_invocation ) | bridge_invocation ) ;</p>
+
+<p class=prod-rule style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>send_statement
+::= SEND ( ( (<span style='mso-spacerun:yes'>  </span>member_access |
+param_data_access ) EQUAL message_invocation )<span style='mso-tab-count:1'>  </span>|
+message_invocation ) ;</p>
+
+<p class=prod-rule style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>continue_statement
+::= CONTINUE ;</p>
+
+<p class=prod-rule style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>create_event_statement
+::= CREATE EVENT INSTANCE local_variable OF event_spec ;</p>
+
+<p class=prod-rule style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>create_object_statement
+::= CREATE OBJECT INSTANCE ( (<span style='mso-spacerun:yes'> 
+</span>local_variable OF )=&gt; local_variable )? OF object_keyletters ;</p>
+
+<p class=prod-rule style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>delete_statement
+::= DELETE OBJECT INSTANCE inst_ref_var ;</p>
+
+<p class=prod-rule style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>empty_statement
+::= ;</p>
+
+<p class=prod-rule style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>for_statement
+::= FOR EACH local_variable IN inst_ref_set_var block END<span
+style='mso-spacerun:yes'>  </span>FOR ;</p>
+
+<p class=prod-rule style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>generate_statement
+::= GENERATE ( event_spec | member_access ) ;</p>
+
+<p class=prod-rule style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>if_statement
+::= IF expr block ( ( ELIF expr block )+ )? ( ELSE block )? END IF ;</p>
+
+<p class=prod-rule style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>implicit_assignment_statement
+::= assignment_expr ;</p>
+
+<p class=prod-rule style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>implicit_invocation_statement
+::= invocation ;</p>
+
+<p class=prod-rule style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>implicit_ib_transform_statement
+::= transform_ib_invocation ;</p>
+
+<p class=prod-rule style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>relate_statement
+::= RELATE inst_ref_var TO inst_ref_var ACROSS relationship ( DOT phrase )? (
+USING assoc_obj_inst_ref_var )? ;</p>
+
+<p class=prod-rule style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>return_statement
+::= RETURN ( expr )? ;</p>
+
+<p class=prod-rule style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>select_statement
+::= SELECT ( ONE local_variable object_spec | ANY local_variable object_spec |
+MANY local_variable object_spec ) ;</p>
+
+<p class=prod-rule style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>transform_statement
+::= TRANSFORM ( ( ( member_access | param_data_access ) EQUAL
+transform_invocation ) | transform_invocation ) ;</p>
+
+<p class=prod-rule style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>function_statement
+::= DOUBLECOLON function_invocation ;</p>
+
+<p class=prod-rule style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>unrelate_statement
+::= UNRELATE inst_ref_var FROM inst_ref_var ACROSS relationship ( DOT phrase )?
+( USING assoc_obj_inst_ref_var )? ;</p>
+
+<p class=prod-rule style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>while_statement
+::= WHILE expr block END WHILE ;</p>
+
+<p class=prod-rule style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>assignment_expr
+::= ( member_access EQUAL expr |( PARAM DOT )=&gt; param_data_access EQUAL expr
+) ;</p>
+
+<p class=prod-rule style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>bridge_invocation
+::= ee_keyletters DOUBLECOLON bridge_function LPAREN ( invocation_parameters )?
+RPAREN ;</p>
+
+<p class=prod-rule style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>message_invocation
+::= interface_or_port_name DOUBLECOLON message_name LPAREN ( invocation_parameters
+)? RPAREN ( TO ( rval ) )? ;</p>
+
+<p class=prod-rule style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>invocation
+::= identifier DOUBLECOLON invocation_function LPAREN ( invocation_parameters
+)? RPAREN ;</p>
+
+<p class=prod-rule style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>bridge_expr
+::= BRIDGE bridge_invocation ;</p>
+
+<p class=prod-rule style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>invocation_expr
+::= invocation ;</p>
+
+<p class=prod-rule style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>enumerator_access
+::= enum_data_type DOUBLECOLON enumerator ;</p>
+
+<p class=prod-rule style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>event_spec
+::= event_label ( TIMES )? ( COLON event_meaning )? ( LPAREN ( supp_data )?
+RPAREN )? TO ( ( ( object_keyletters CLASS )=&gt;<span
+style='mso-spacerun:yes'>  </span>object_keyletters CLASS | object_keyletters
+CREATOR ) | ( inst_ref_var_or_ee_keyletters ) ) ;</p>
+
+<p class=prod-rule style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>invocation_parameters
+::= data_item COLON expr ( COMMA data_item COLON expr )* ;</p>
+
+<p class=prod-rule style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>inst_ref_var_or_ee_keyletters
+::= ( local_variable | GENERAL_NAME | kw_as_id2 ) ;</p>
+
+<p class=prod-rule style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>interface_or_port_name
+::= general_name ;</p>
+
+<p class=prod-rule style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>message_name
+::= general_name ;</p>
+
+<p class=prod-rule style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>instance_chain
+::= ( ARROW object_keyletters LSQBR relationship ( DOT phrase )? RSQBR )+ ;</p>
+
+<p class=prod-rule style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>object_spec
+::= ( RELATED BY local_variable instance_chain ( where_spec )? | FROM INSTANCES
+OF object_keyletters ( where_spec )? ) ;</p>
+
+<p class=prod-rule style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>supp_data
+::= supp_data_item COLON expr ( COMMA supp_data_item COLON expr )* ;</p>
+
+<p class=prod-rule style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>function_invocation
+::= function_function LPAREN ( invocation_parameters )? RPAREN ;</p>
+
+<p class=prod-rule style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>transform_ib_invocation
+::= inst_ref_var DOT transformer_function LPAREN ( invocation_parameters )?
+RPAREN ;</p>
+
+<p class=prod-rule style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>transform_invocation
+::= object_keyletters DOUBLECOLON transformer_function LPAREN (
+invocation_parameters )? RPAREN ;</p>
+
+<p class=prod-rule style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>where_spec
+::= WHERE expr ;</p>
+
+<p class=prod-rule style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>assoc_obj_inst_ref_var
+::= inst_ref_var ;</p>
+
+<p class=prod-rule style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>bridge_function
+::= function_name ;</p>
+
+<p class=prod-rule style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>invocation_function
+::= function_name ;</p>
+
+<p class=prod-rule style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>data_item
+::= data_item_name ;</p>
+
+<p class=prod-rule style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>data_item_name
+::= general_name ;</p>
+
+<p class=prod-rule style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>enum_data_type
+::= general_name ;</p>
+
+<p class=prod-rule style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>enumerator
+::= general_name ;</p>
+
+<p class=prod-rule style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>keyletters
+::= general_name ;</p>
+
+<p class=prod-rule style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>ee_keyletters
+::= keyletters ;</p>
+
+<p class=prod-rule style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>event_label
+::= general_name ;</p>
+
+<p class=prod-rule style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>event_meaning
+::= ( phrase ) ;</p>
+
+<p class=prod-rule style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>general_name
+::= ( limited_name | GENERAL_NAME | kw_as_id1 | kw_as_id2 | kw_as_id3 ) ;</p>
+
+<p class=prod-rule style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>svc_general_name
+::= ( limited_name | GENERAL_NAME | kw_as_id1 | kw_as_id2 | kw_as_id3 |
+kw_as_id4 ) ;</p>
+
+<p class=prod-rule style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>limited_name
+::= ID | RELID ;</p>
+
+<p class=prod-rule style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>inst_ref_set_var
+::= local_variable ;</p>
+
+<p class=prod-rule style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>inst_ref_var
+::= local_variable ;</p>
+
+<p class=prod-rule style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>local_variable
+::= root_element_label ;</p>
+
+<p class=prod-rule style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>root_element_label
+::= ( SELECTED | SELF | limited_name | kw_as_id1 ) ;</p>
+
+<p class=prod-rule style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>element_label
+::= general_name ;</p>
+
+<p class=prod-rule style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>function_name
+::= general_name ;</p>
+
+<p class=prod-rule style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>svc_function_name
+::= svc_general_name ;</p>
+
+<p class=prod-rule style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>identifier
+::= general_name ;</p>
+
+<p class=prod-rule style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>object_keyletters
+::= keyletters ;</p>
+
+<p class=prod-rule style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>phrase
+::= ( TICKED_PHRASE | svc_general_name ) ;</p>
+
+<p class=prod-rule style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>relationship
+::= RELID ;</p>
+
+<p class=prod-rule style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>supp_data_item
+::= data_item_name ;</p>
+
+<p class=prod-rule style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>function_function
+::= svc_function_name ;</p>
+
+<p class=prod-rule style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>transformer_function
+::= function_name ;</p>
+
+<p class=prod-rule style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>expr
+::= sub_expr ;</p>
+
+<p class=prod-rule style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>sub_expr
+::= conjunction ( OR conjunction )* ;</p>
+
+<p class=prod-rule style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>conjunction
+::= relational_expr ( AND relational_expr )* ;</p>
+
+<p class=prod-rule style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>relational_expr
+::= addition ( comparison_operator addition )? ;</p>
+
+<p class=prod-rule style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>addition
+::= multiplication ( plus_or_minus multiplication )* ;</p>
+
+<p class=prod-rule style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>multiplication
+::= boolean_negation | sign_expr ( mult_op sign_expr )* ;</p>
+
+<p class=prod-rule style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>sign_expr
+::= ( plus_or_minus )? term ;</p>
+
+<p class=prod-rule style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>boolean_negation
+::= NOT term ;</p>
+
+<p class=prod-rule style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>term
+::= cardinality_op | empty_op | not_empty_op | rval | LPAREN ( assignment_expr
+| expr ) RPAREN ;</p>
+
+<p class=prod-rule style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>cardinality_op
+::=<span style='mso-spacerun:yes'>   </span>CARDINALITY local_variable ;</p>
+
+<p class=prod-rule style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>empty_op
+::=<span style='mso-spacerun:yes'>   </span>EMPTY local_variable ;</p>
+
+<p class=prod-rule style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>not_empty_op
+::=<span style='mso-spacerun:yes'>   </span>NOT_EMPTY local_variable ;</p>
+
+<p class=prod-rule style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>instance_start_segment
+::= root_element_label ( array_refs )? ;</p>
+
+<p class=prod-rule style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>instance_access_segment
+::= element_label ( array_refs )? ;</p>
+
+<p class=prod-rule style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>member_access
+::= instance_start_segment ( DOT instance_access_segment )* ;</p>
+
+<p class=prod-rule style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>param_data_access
+::= PARAM DOT member_access ;</p>
+
+<p class=prod-rule style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>event_data_access
+::= RCVD_EVT DOT member_access ;</p>
+
+<p class=prod-rule style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>array_refs
+::= ( LSQBR expr RSQBR )+ ;</p>
+
+<p class=prod-rule style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>rval
+::= DOUBLECOLON function_invocation | transform_ib_invocation | invocation_expr
+| enumerator_access | member_access | constant_value | (RCVD_EVT DOT) =&gt;
+event_data_access | bridge_expr | (PARAM DOT) =&gt; param_data_access | QMARK ;</p>
+
+<p class=prod-rule style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>constant_value
+::= FRACTION | NUMBER | STRING | TRUE | FALSE ;</p>
+
+<p class=prod-rule style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>comparison_operator
+::= DOUBLEEQUAL | NOTEQUAL | LESSTHAN | LE | GT | GE ;</p>
+
+<p class=prod-rule style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>plus_or_minus
+::= PLUS | MINUS ;</p>
+
+<p class=prod-rule style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>mult_op
+::= TIMES | DIV | MOD ;</p>
+
+</div>
+
+<div>
+
+<h2 style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><a
+name="50536519_pgfId-516022"></a>&nbsp;</h2>
+
+</div>
+
+</div>
+
+</body>
+
+</html>

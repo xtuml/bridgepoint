@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin
+   id="org.antlr"
+   name="%pluginName"
+   version="2.7.2"
+   provider-name="%providerName">
+
+   <runtime>
+      <library name="antlr.jar">
+         <export name="*"/>
+         <packages prefixes="antlr"/>
+      </library>
+   </runtime>
+
+</plugin>

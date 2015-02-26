@@ -1,0 +1,820 @@
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("fccf477f-dde6-4d1a-9020-5effbe338738",
+	'Association',
+	201,
+	'R_REL',
+	'An Association captures an association that exists between things in the real world. An Association is stated in terms of the formal Classs that participates in the association.',
+	"c8d78fd5-1314-444a-bad0-6af79f6e1296");
+INSERT INTO O_TFR
+	VALUES ("fa5d215d-a278-476e-b996-a38e36ca414b",
+	"fccf477f-dde6-4d1a-9020-5effbe338738",
+	'is_reflexive',
+	'Returns true if this is a reflexive association, false otherwise.
+Only Simple and Associative associations can be reflexive.
+',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'select one srel related by self->R_SIMP[R206];
+if ( not_empty srel )
+  select many part_set related by srel->R_PART[R207];
+  if ( cardinality part_set > 1 )
+    select any part1 related by srel->R_PART[R207];
+    select any part2 related by srel->R_PART[R207] 
+      where selected.OIR_ID != part1.OIR_ID;
+    if ( part1.Obj_ID == part2.Obj_ID )
+      return true;
+    end if;
+  else
+    select any part related by srel->R_PART[R207];
+    select one form related by srel->R_FORM[R208];
+    if ( not_empty form )
+      if ( part.Obj_ID == form.Obj_ID )
+        return true;
+      end if;
+    end if;
+  end if;
+else
+  select one arel related by self->R_ASSOC[R206];
+  if ( not_empty arel )
+    select one aone related by arel->R_AONE[R209];
+    select one aoth related by arel->R_AOTH[R210];
+    if ( aone.Obj_ID == aoth.Obj_ID )
+      return true;
+    end if;
+  end if;
+end if;
+return false;
+
+',
+	1,
+	'',
+	"15004697-1285-4784-abdd-2656dbe48e0b");
+INSERT INTO S_DT_PROXY
+	VALUES ("8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'boolean',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("3468a483-ad95-4bef-a1fd-dff54913df1c",
+	"fccf477f-dde6-4d1a-9020-5effbe338738",
+	'get_connector_text',
+	'Gets the text adornments for the Association. This function returns the
+text phrase or cardinality string for the start or end of the Association,
+or the Association number for the middle of the Association depending
+on the value of ''at:End_type''.
+-----------------------------------------------------------------------------------
+Bridge:GD
+',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	1,
+	'result = "";
+Obj_ID = param.OOA_ID;
+if (param.OOA_TypeIsImportedClass)
+  select any impClass from instances of O_IOBJ where (selected.IObj_ID == Obj_ID);
+  if (not_empty impClass)
+    select one modelClass related by impClass->O_OBJ[R101];
+    Obj_ID = modelClass.Obj_ID;
+  end if;
+end if;
+select one superType related by self->R_SUBSUP[R206]->R_SUPER[R212];
+if (param.at == End::Middle AND empty superType)
+  result = "R" + GD::int_to_string(value:self.Numb);
+else
+  select one simp related by self->R_SIMP[R206];
+  if (not_empty simp)
+      result = simp.get_connector_text(Obj_ID:Obj_ID, at:param.at);
+  end if;
+  select one assoc related by self->R_ASSOC[R206];
+  if (not_empty assoc)
+      result = assoc.get_connector_text(Obj_ID:Obj_ID, at:param.at);
+  end if;
+  // super tyupe already selected above
+  if (not_empty superType)
+    result = superType.get_connector_text(at:param.at);
+  end if;
+  select one comp related by self->R_COMP[R206];
+  if (not_empty comp)
+    result = comp.get_connector_text(Obj_ID:Obj_ID, at:param.at);
+  end if;
+end if;
+return result;',
+	1,
+	'',
+	"b384bf80-e350-4849-8785-08972c8a941f");
+INSERT INTO O_TPARM
+	VALUES ("b211da5a-e170-4a0f-9b9e-eb9929e0c991",
+	"3468a483-ad95-4bef-a1fd-dff54913df1c",
+	'OOA_ID',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'unique_id',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TPARM
+	VALUES ("0e7dae09-8391-4e83-a52a-5cbea2e43dc0",
+	"3468a483-ad95-4bef-a1fd-dff54913df1c",
+	'OOA_TypeIsImportedClass',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	0,
+	'',
+	"b211da5a-e170-4a0f-9b9e-eb9929e0c991",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("6e5d47e8-09fa-49d5-9b69-eefc813512f2",
+	"3468a483-ad95-4bef-a1fd-dff54913df1c",
+	'at',
+	"ae85eca6-6fe4-4125-95e6-95272f0fd7de",
+	0,
+	'',
+	"0e7dae09-8391-4e83-a52a-5cbea2e43dc0",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("ae85eca6-6fe4-4125-95e6-95272f0fd7de",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'End',
+	'Text is positioned at a user adjustable offset from the Start, Middle and End of a connector. Start_Fixed and End_Fixed specify fixed position text found at the start and end of some connectors.
+-------------------------------------------------------------
+Bridge:GD',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TPARM
+	VALUES ("cc4a2f88-e32e-49ea-9427-907116cf4e45",
+	"3468a483-ad95-4bef-a1fd-dff54913df1c",
+	'parent_ID',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"6e5d47e8-09fa-49d5-9b69-eefc813512f2",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'string',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("b384bf80-e350-4849-8785-08972c8a941f",
+	"fccf477f-dde6-4d1a-9020-5effbe338738",
+	'get_cardinality_text',
+	'Gets the text for the cardinality adornments. The values of ''Mult''
+and ''Cond'' are used to determine if the text string is to be ''1'',
+''0..1'', ''1..*'' or ''*''.
+-----------------------------------------------------------------------------------
+Bridge:GD
+',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	0,
+	'if (param.Cond == 0)
+  if (param.Mult == 0)
+    return "1";
+  else
+    return "1..*";
+  end if;
+else
+  if (param.Mult == 0)
+    return "0..1";
+  else
+    return "*";
+  end if;
+end if;
+',
+	1,
+	'',
+	"ff2c304d-24e6-4537-a300-4d98bda1f98c");
+INSERT INTO O_TPARM
+	VALUES ("bd937227-54e0-4504-af3a-24c8fe479aaa",
+	"b384bf80-e350-4849-8785-08972c8a941f",
+	'Mult',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"c38b3d2c-6313-4695-93d9-c8df97df2874",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'integer',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TPARM
+	VALUES ("c38b3d2c-6313-4695-93d9-c8df97df2874",
+	"b384bf80-e350-4849-8785-08972c8a941f",
+	'Cond',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("4dda3954-20f5-4ead-a502-54311c7021cf",
+	"fccf477f-dde6-4d1a-9020-5effbe338738",
+	'get_style',
+	'In all cases except supertype (which has a Triangle on it''s end), an
+Association has no special line end style.
+-----------------------------------------------------------------------------------
+Bridge:GD',
+	"6e636321-0fd1-4577-b185-e4d76b0d0c71",
+	1,
+	'if (param.at == End::Start)
+  select one subsup related by self->R_SUBSUP[R206];
+  if (not_empty subsup)
+    return Style::Triangle;
+  else
+    return Style::None;
+  end if;
+end if;
+return Style::None;',
+	1,
+	'',
+	"41ee4306-47d1-45b2-a4c5-91600a0e3391");
+INSERT INTO O_TPARM
+	VALUES ("c60a9535-7e3c-458d-b084-da45e9dd6f54",
+	"4dda3954-20f5-4ead-a502-54311c7021cf",
+	'at',
+	"ae85eca6-6fe4-4125-95e6-95272f0fd7de",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("6e636321-0fd1-4577-b185-e4d76b0d0c71",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'Style',
+	'The Style data type specifies the precise form a graphical element will take when drawn.
+--------------------------------------------------------------------------
+Bridge:GD',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("53927fcd-62fa-49fa-8e8e-ab2bd10fc757",
+	"fccf477f-dde6-4d1a-9020-5effbe338738",
+	'get_name',
+	'Creates a string containing a descriptive name for the instance.',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	1,
+	'return "R" + GD::int_to_string( value: self.Numb );
+',
+	1,
+	'',
+	"3468a483-ad95-4bef-a1fd-dff54913df1c");
+INSERT INTO O_TFR
+	VALUES ("ff2c304d-24e6-4537-a300-4d98bda1f98c",
+	"fccf477f-dde6-4d1a-9020-5effbe338738",
+	'dispose',
+	'The dispose operation for the R_REL class.',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+// Association Subsystem
+if self.isFormalized()
+  self.unformalize();
+end if;
+// Remove RGOs first, for example to migrate associative to simple associations.
+select many rgo_oirs related by self->R_OIR[R201]->R_RGO[R203]->R_OIR[R203];
+select many rto_oirs related by self->R_OIR[R201]->R_RTO[R203]->R_OIR[R203];
+for each rgo_oir in rgo_oirs
+   rgo_oir.dispose();
+end for;
+for each rto_oir in rto_oirs
+     rto_oir.dispose();
+  end for;;
+select one simp related by self->R_SIMP[R206];
+select one assoc related by self->R_ASSOC[R206];
+select one subsup related by self->R_SUBSUP[R206];
+select one comp related by self->R_COMP[R206];
+if (not_empty simp)
+   simp.dispose();
+elif (not_empty assoc)
+   assoc.dispose();
+elif (not_empty subsup)
+   subsup.dispose();
+elif (not_empty comp)
+   comp.dispose();
+end if;
+//
+// Relate and Unrelate Subsystem
+select many rels related by self->ACT_REL[R653];
+for each rel in rels
+  unrelate self from rel across R653;
+end for;
+select many rus related by self->ACT_RU[R654];
+for each ru in rus
+  unrelate self from ru across R654;
+end for;
+select many unrs related by self->ACT_UNR[R655];
+for each unr in unrs
+  unrelate self from unr across R655;
+end for;
+select many urus related by self->ACT_URU[R656];
+for each uru in urus
+  unrelate self from uru across R656;
+end for;
+//
+// Selection subsystem
+select many lnks related by self->ACT_LNK[R681];
+for each lnk in lnks
+  unrelate self from lnk across R681;
+end for;
+//
+// Domain subsystem
+select one ss related by self->S_SS[R4];
+if ( not_empty ss )
+  unrelate self from ss across R4;
+end if;
+//
+// Instance Subsystem
+select many iils related by self->I_LIP[R2959];
+for each iil in iils
+  unrelate self from iil across R2959;
+  iil.dispose();
+end for;
+//
+select many ilinks related by self->I_LNK[R2904];
+for each ilink in ilinks
+  unrelate self from ilink across R2904;
+  ilink.dispose();
+end for;
+// if this association is used to formalize
+// any communication links unformalize them
+select many links related by self->COMM_LNK[R1128];
+for each link in links
+  link.unformalize();
+end for;
+//
+select one pe related by self->PE_PE[R8001];
+if (not_empty pe)
+  unrelate self from pe across R8001;
+  pe.dispose();
+end if;
+//
+// Finally, delete self
+delete object instance self;',
+	1,
+	'',
+	"bc8567f0-7a5f-432b-a22b-450f0d48dc1a");
+INSERT INTO S_DT_PROXY
+	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'void',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("e6b6826c-de26-4157-b77b-e9d823fbe22d",
+	"fccf477f-dde6-4d1a-9020-5effbe338738",
+	'initialize',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+// this association''s default number is either one or
+// the starting value in the number range of its owning subsystem
+// if the range is not zero
+select one packageableElem related by self->PE_PE[R8001];  
+select one package related by packageableElem->EP_PKG[R8000];
+select one component related by packageableElem->C_C[R8003];
+isInGenericPackage = not_empty package or not_empty component;
+if (isInGenericPackage)
+  if (empty package)
+    rootCompIdInPkg = component.getRootComponentId();
+    select any rootComponent from instances of C_C where (selected.Id == rootCompIdInPkg);
+    select one package related by rootComponent->PE_PE[R8001]->EP_PKG[R8000];
+  end if;
+  if ( package.Num_Rng == 0 )
+    self.Numb = 1;
+  else
+    self.Numb = package.Num_Rng;
+  end if;
+  // for each assocation associated with this association''s
+  // owning subsystem
+  select many assocs related by package->PE_PE[R8000]->R_REL[R8001];
+  for each assoc in assocs
+    // if this association equals self, skip it
+    if (assoc.Rel_ID == self.Rel_ID) continue; end if;
+  
+    // if this other association''s number is 
+    // greater than this association''s number
+    if (assoc.Numb >= self.Numb)
+      // have this association''s number be just greater 
+      // than this other association''s number
+      self.Numb = assoc.Numb + 1;
+    end if;
+  end for;
+else
+  select one ss related by self->S_SS[R4];
+  if ( ss.Num_Rng == 0 )
+    self.Numb = 1;
+  else
+    self.Numb = ss.Num_Rng;
+  end if;
+  
+  // for each assocation associated with this association''s
+  // owning subsystem
+  select many assocs related by ss->R_REL[R4];
+  for each assoc in assocs
+    // if this association equals self, skip it
+    if (assoc.Rel_ID == self.Rel_ID) continue; end if;
+  
+    // if this other association''s number is 
+    // greater than this association''s number
+    if (assoc.Numb >= self.Numb)
+      // have this association''s number be just greater 
+      // than this other association''s number
+      self.Numb = assoc.Numb + 1;
+    end if;
+  end for;
+end if;',
+	1,
+	'',
+	"4dda3954-20f5-4ead-a502-54311c7021cf");
+INSERT INTO O_TFR
+	VALUES ("41ee4306-47d1-45b2-a4c5-91600a0e3391",
+	"fccf477f-dde6-4d1a-9020-5effbe338738",
+	'get_ooa_id',
+	'Return the rel id to that the GD can set_up the connector ooa_id.
+-----------------------------------------------------------------------------------
+Bridge:GD',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	1,
+	'return self.Rel_ID;',
+	1,
+	'',
+	"53927fcd-62fa-49fa-8e8e-ab2bd10fc757");
+INSERT INTO O_TFR
+	VALUES ("bc8567f0-7a5f-432b-a22b-450f0d48dc1a",
+	"fccf477f-dde6-4d1a-9020-5effbe338738",
+	'actionFilter',
+	'Bridge: UI
+',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'if (param.name == "type" )
+  if (param.value =="unform simp" )
+    if ( not self.isFormalized() )
+      select one simp related by self->R_SIMP[R206];
+      if ( not_empty simp )
+        select many part_set related by simp->R_PART[R207];
+        num_many_mult = 0;
+        one_mult_has_id = false;
+        for each part in part_set
+          if ( part.Mult == 1 )
+            num_many_mult = num_many_mult + 1;
+          else
+            select any oida related by part->R_RTO[R204]->R_OIR[R203]->O_OBJ[R201]->O_ID[R104]->O_OIDA[R105];
+            if ( not_empty oida )
+              one_mult_has_id = true;
+            end if;
+          end if;
+        end for;
+        // we can only formalize simple relationships if 
+        // there is at most one participant with a many multiplicity
+        return one_mult_has_id and num_many_mult < 2;
+      end if;
+    end if;
+  elif (param.value == "unform assoc" )
+    if ( not self.isFormalized() )
+      select one assoc related by self->R_ASSOC[R206];
+      if not_empty assoc
+        select one aone related by assoc->R_AONE[R209];
+        select one aoth related by assoc->R_AOTH[R210];
+        select any aone_oida related by aone->R_RTO[R204]->R_OIR[R203]->O_OBJ[R201]->O_ID[R104]->O_OIDA[R105];
+        select any aoth_oida related by aoth->R_RTO[R204]->R_OIR[R203]->O_OBJ[R201]->O_ID[R104]->O_OIDA[R105];
+        return not_empty aone_oida and not_empty aoth_oida;
+      end if;
+    end if;
+  elif (param.value == "unform subsup" )
+    if ( not self.isFormalized() )
+      select one subsup related by self->R_SUBSUP[R206];
+      if not_empty subsup
+        select one sup related by subsup->R_SUPER[R212];
+        select any sup_oida related by sup->R_RTO[R204]->R_OIR[R203]->O_OBJ[R201]->O_ID[R104]->O_OIDA[R105];
+        return not_empty sup_oida;
+      end if;
+    end if;
+  end if;
+elif (param.name == "formalized" )
+  if (param.value =="true" )
+    return self.isFormalized();
+  end if; 
+end if;
+return false;
+',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_TPARM
+	VALUES ("2b70ac9f-18b4-4308-9f05-80ac4fea6c9a",
+	"bc8567f0-7a5f-432b-a22b-450f0d48dc1a",
+	'name',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("0b02f1a0-2a5c-48fd-af4b-9f3c55c6aa18",
+	"bc8567f0-7a5f-432b-a22b-450f0d48dc1a",
+	'value',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	0,
+	'',
+	"2b70ac9f-18b4-4308-9f05-80ac4fea6c9a",
+	'');
+INSERT INTO O_TFR
+	VALUES ("15004697-1285-4784-abdd-2656dbe48e0b",
+	"fccf477f-dde6-4d1a-9020-5effbe338738",
+	'isFormalized',
+	'',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'select one simp related by self->R_SIMP[R206];
+if ( not_empty simp )
+  return simp.isFormalized();
+else 
+  select one assoc related by self->R_ASSOC[R206];
+  if ( not_empty assoc )
+    return assoc.isFormalized();
+  else
+    select one subsup related by self->R_SUBSUP[R206];
+    if ( not_empty subsup )
+      return subsup.isFormalized();
+    end if;
+  end if;
+end if;
+return false;',
+	1,
+	'',
+	"e6b6826c-de26-4157-b77b-e9d823fbe22d");
+INSERT INTO O_TFR
+	VALUES ("c3bfb50e-3989-4fda-b43d-6276ecc2a301",
+	"fccf477f-dde6-4d1a-9020-5effbe338738",
+	'unformalize',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select one simp related by self->R_SIMP[R206];
+if ( not_empty simp )
+  simp.unformalize();
+else 
+  select one assoc related by self->R_ASSOC[R206];
+  if ( not_empty assoc )
+    assoc.unformalize();
+  else
+    select one subsup related by self->R_SUBSUP[R206];
+    if ( not_empty subsup )
+      subsup.unformalize();
+    end if;
+  end if;
+end if;
+',
+	1,
+	'',
+	"fa5d215d-a278-476e-b996-a38e36ca414b");
+INSERT INTO O_TFR
+	VALUES ("7db37c64-90c7-45f2-b8f3-82411f18525a",
+	"fccf477f-dde6-4d1a-9020-5effbe338738",
+	'convertToInstance',
+	'A utility operation to cast an instance of this type to the
+instance datatype.
+
+Translate: native',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	1,
+	'// just return this instance as an Object
+return this;',
+	0,
+	'',
+	"c3bfb50e-3989-4fda-b43d-6276ecc2a301");
+INSERT INTO S_DT_PROXY
+	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'instance',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("6efa13c2-a742-41dc-8538-975276af3443",
+	"fccf477f-dde6-4d1a-9020-5effbe338738",
+	'checkIntegrity',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'/**
+ *  Create integrity issues if there are any other associations in this package
+ *  with the same association number
+ */
+select many associations related by self->PE_PE[R8001]->EP_PKG[R8000]
+                                                   ->PE_PE[R8000]->R_REL[R8001];
+select one system related by self->PE_PE[R8001]->EP_PKG[R8000]->S_SYS[R1405];
+sys_id = GD::NULL_UNIQUE_ID();
+if(not_empty system)
+  sys_id = system.Sys_ID;
+end if;
+for each association in associations
+  if(association != self and association.Numb == self.Numb)
+    MI_IM::createIssue(sys_id:sys_id, description:
+                      "Found another association in the same package with a " +
+                                                             "matching number.",
+         severity:Severity::Error, name:self.get_name(), path:self.getPath(),
+                              id:self.Rel_ID, element:self.convertToInstance());
+  end if;
+end for;',
+	1,
+	'',
+	"7db37c64-90c7-45f2-b8f3-82411f18525a");
+INSERT INTO O_TFR
+	VALUES ("2dd6e6e3-5e2f-465e-8d0b-125c0912c492",
+	"fccf477f-dde6-4d1a-9020-5effbe338738",
+	'getPath',
+	'',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	1,
+	'select one package related by self->PE_PE[R8001]->EP_PKG[R8000];
+return package.getPath(path:"") + "::" + self.get_name();',
+	1,
+	'',
+	"6efa13c2-a742-41dc-8538-975276af3443");
+INSERT INTO O_NBATTR
+	VALUES ("40ed956f-425d-4976-8913-ae0859b64e93",
+	"fccf477f-dde6-4d1a-9020-5effbe338738");
+INSERT INTO O_BATTR
+	VALUES ("40ed956f-425d-4976-8913-ae0859b64e93",
+	"fccf477f-dde6-4d1a-9020-5effbe338738");
+INSERT INTO O_ATTR
+	VALUES ("40ed956f-425d-4976-8913-ae0859b64e93",
+	"fccf477f-dde6-4d1a-9020-5effbe338738",
+	"0e0a4e72-7f7e-46b9-b83c-2c6b882dda5f",
+	'Numb',
+	'Full Name: Association Number
+min_value: 0
+max_value: 9999
+',
+	'',
+	'Numb',
+	0,
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("25cd7dfc-04fd-4f79-893f-f7ee4c1b9ab8",
+	"fccf477f-dde6-4d1a-9020-5effbe338738");
+INSERT INTO O_BATTR
+	VALUES ("25cd7dfc-04fd-4f79-893f-f7ee4c1b9ab8",
+	"fccf477f-dde6-4d1a-9020-5effbe338738");
+INSERT INTO O_ATTR
+	VALUES ("25cd7dfc-04fd-4f79-893f-f7ee4c1b9ab8",
+	"fccf477f-dde6-4d1a-9020-5effbe338738",
+	"40ed956f-425d-4976-8913-ae0859b64e93",
+	'Descrip',
+	'Full Name: Association Description',
+	'',
+	'Descrip',
+	0,
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("fccf477f-dde6-4d1a-9020-5effbe338738",
+	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
+	0,
+	"c7b05f2f-7685-4110-b916-e67cfa3caa1d",
+	"514fb721-8dd5-4584-837f-c8b4b6668d3e",
+	"e25b494f-871b-4014-9cd2-b80704324934",
+	"eb1dbf2b-42f5-42ec-ac40-b0c409b8f2b8",
+	"228bbfac-1c18-4486-be97-ac40663f646a",
+	"3667f35e-ff9f-4985-956a-771893eb85cc",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Subsystem',
+	'SS_ID',
+	'R4');
+INSERT INTO R_RGO_PROXY
+	VALUES ("fccf477f-dde6-4d1a-9020-5effbe338738",
+	"514fb721-8dd5-4584-837f-c8b4b6668d3e",
+	"e25b494f-871b-4014-9cd2-b80704324934",
+	'../../Domain/Domain.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("c7b05f2f-7685-4110-b916-e67cfa3caa1d",
+	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
+	0,
+	"514fb721-8dd5-4584-837f-c8b4b6668d3e",
+	"eb1dbf2b-42f5-42ec-ac40-b0c409b8f2b8",
+	'../../Domain/Domain.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("228bbfac-1c18-4486-be97-ac40663f646a",
+	"fccf477f-dde6-4d1a-9020-5effbe338738",
+	"c7b05f2f-7685-4110-b916-e67cfa3caa1d",
+	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
+	1,
+	'SS_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("c7b05f2f-7685-4110-b916-e67cfa3caa1d",
+	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
+	'../../Domain/Subsystem/Subsystem.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("228bbfac-1c18-4486-be97-ac40663f646a",
+	"fccf477f-dde6-4d1a-9020-5effbe338738",
+	"25cd7dfc-04fd-4f79-893f-f7ee4c1b9ab8",
+	'SS_ID',
+	'',
+	'',
+	'SS_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("fccf477f-dde6-4d1a-9020-5effbe338738",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	0,
+	"5776264f-c7e9-4abe-839f-24d0750e007c",
+	"08087bed-f0b1-4c84-b515-8662480ac484",
+	"78a3d93f-4e55-4112-87a0-f78837a3f22d",
+	"28f75ede-123b-4d84-8dcc-b0537a94aa4a",
+	"0e0a4e72-7f7e-46b9-b83c-2c6b882dda5f",
+	"a79f63e6-7fb5-4337-bae2-b45f8db03fb2",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Packageable Element',
+	'Element_ID',
+	'R8001');
+INSERT INTO R_RGO_PROXY
+	VALUES ("fccf477f-dde6-4d1a-9020-5effbe338738",
+	"08087bed-f0b1-4c84-b515-8662480ac484",
+	"78a3d93f-4e55-4112-87a0-f78837a3f22d",
+	'../../Packageable Element/Packageable Element.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	0,
+	"08087bed-f0b1-4c84-b515-8662480ac484",
+	"28f75ede-123b-4d84-8dcc-b0537a94aa4a",
+	'../../Packageable Element/Packageable Element.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("0e0a4e72-7f7e-46b9-b83c-2c6b882dda5f",
+	"fccf477f-dde6-4d1a-9020-5effbe338738",
+	"5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	0,
+	'Element_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	'../../Packageable Element/Packageable Element/Packageable Element.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("0e0a4e72-7f7e-46b9-b83c-2c6b882dda5f",
+	"fccf477f-dde6-4d1a-9020-5effbe338738",
+	"00000000-0000-0000-0000-000000000000",
+	'Rel_ID',
+	'Full Name: Association Identifier',
+	'',
+	'Rel_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"fccf477f-dde6-4d1a-9020-5effbe338738");
+INSERT INTO O_OIDA
+	VALUES ("0e0a4e72-7f7e-46b9-b83c-2c6b882dda5f",
+	"fccf477f-dde6-4d1a-9020-5effbe338738",
+	0,
+	'Rel_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"fccf477f-dde6-4d1a-9020-5effbe338738");
+INSERT INTO O_ID
+	VALUES (2,
+	"fccf477f-dde6-4d1a-9020-5effbe338738");
+INSERT INTO S_SS_PROXY
+	VALUES ("c8d78fd5-1314-444a-bad0-6af79f6e1296",
+	'Association',
+	'A association (R_REL) captures an association between things in the real world. A association is stated in terms of the formal classs (O_OBJ) that model the real world entities participating in the association. There can be any number of associations between the same two classs and any class can participate in any number of associations with other classs.',
+	'R',
+	201,
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000180003",
+	'../Association.xtuml');

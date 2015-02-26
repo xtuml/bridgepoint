@@ -1,0 +1,223 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("f2f30986-3d75-49a2-a82a-4aba285cb2d8",
+	'Instance Set Reference',
+	807,
+	'V_ISR',
+	'This class represents a set of instance references, the result of a select many statement.',
+	"e060f94c-3f82-463e-9d98-d20315b7c196");
+INSERT INTO O_TFR
+	VALUES ("cdafabc6-e820-48ff-bfe8-73914e415cc0",
+	"f2f30986-3d75-49a2-a82a-4aba285cb2d8",
+	'getRuntimeValue',
+	'',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	1,
+	'// Instance set Reference.getRuntimeValue()
+select one body related by self->V_VAL[R801]->ACT_BLK[R826]->ACT_ACT[R601];
+//Grab the stack
+select any stack_frame from instances of I_STF where
+                                selected.Stack_Frame_ID == param.stack_frame_id;
+if (empty stack_frame)
+  //Invalid stack frame ID!
+  pathMsg = "<No Path Available - Empty instance>";
+    if (not_empty body)
+      pathMsg = body.getPath();
+    end if;
+	USER::logError(msg:"Error in Value.getValue: Invalid stack frame id used. Suspending.",path:pathMsg);
+  select any stack from instances of I_STACK;
+  stack.runState = RunStateType::Suspended;
+  select one stack_frame related by stack->I_STF[R2929];
+end if;
+
+// Get all of the block in stack frames that exist for the stack frame
+select many block_in_stack_frames related by stack_frame->I_BSF[R2923];
+for each block_in_stack_frame in block_in_stack_frames
+
+  // Find the one local value that matches the block in stack frame where
+  // we are executing for the transient variable we want to assign
+  select any instRef related by block_in_stack_frame->L_LCL[R3000]->
+                              L_LCR[R3001] where selected.Var_ID == self.Var_ID;
+  if (not_empty instRef)
+    // We found the 1 local reference in this stack frame for this instance
+    // handle id.  So stop looking.
+    // All of this was necessary in order to support nested blocks that
+    // reference variables that were created in outer blocks in this stack frame
+    
+    // WARNING: This implementation is based on the Object Action Language
+    // definition that existed in November of 2005. If the language is changed
+    // to become a strongly typed language where a user can define a variable
+    // in an inner block with the same name as something that exists in the
+    // outer block, then this implementation will not work because it does not
+    // walk out of the current block.
+    return instRef.getRuntimeValue(stack_frame_id:param.stack_frame_id);
+  end if;
+end for;
+// If we get here, the reference was never set up before, set it up now
+select one block related by self->V_VAL[R801]->ACT_BLK[R826];
+localRefID = block.newLocalReference(stack_frame_id:param.stack_frame_id);
+select any localRef related by stack_frame->I_BSF[R2923]->
+               L_LCL[R3000]->L_LCR[R3001] where selected.Local_ID == localRefID;
+select one irHandle related by self->V_VAR[R809]->V_INS[R814];
+relate irHandle to localRef across R3003;
+return localRef.getRuntimeValue(stack_frame_id:param.stack_frame_id);',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_TPARM
+	VALUES ("19831fab-9e4d-4a26-a5c1-a4987b977966",
+	"cdafabc6-e820-48ff-bfe8-73914e415cc0",
+	'stack_frame_id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'unique_id',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("f2f30986-3d75-49a2-a82a-4aba285cb2d8",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	0,
+	"4fd005ad-1159-4343-a12e-ed125f7adea1",
+	"f45cba3b-f381-475e-b8a9-3b355142054d",
+	"7a248ade-4a97-4868-a392-12f4b99ba93a",
+	"0a07b8be-4053-4dc6-a060-df5a70cbbed5",
+	"7ed1d41e-cf15-4985-b3e6-f3978f5bda56",
+	"b349734d-f703-4892-aab2-69f75a9a5511",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Value',
+	'Value_ID',
+	'R801');
+INSERT INTO R_RGO_PROXY
+	VALUES ("f2f30986-3d75-49a2-a82a-4aba285cb2d8",
+	"f45cba3b-f381-475e-b8a9-3b355142054d",
+	"7a248ade-4a97-4868-a392-12f4b99ba93a",
+	'../Value.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("4fd005ad-1159-4343-a12e-ed125f7adea1",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	0,
+	"f45cba3b-f381-475e-b8a9-3b355142054d",
+	"0a07b8be-4053-4dc6-a060-df5a70cbbed5",
+	'../Value.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("7ed1d41e-cf15-4985-b3e6-f3978f5bda56",
+	"f2f30986-3d75-49a2-a82a-4aba285cb2d8",
+	"4fd005ad-1159-4343-a12e-ed125f7adea1",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	1,
+	'Value_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("4fd005ad-1159-4343-a12e-ed125f7adea1",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	'../Value/Value.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("7ed1d41e-cf15-4985-b3e6-f3978f5bda56",
+	"f2f30986-3d75-49a2-a82a-4aba285cb2d8",
+	"00000000-0000-0000-0000-000000000000",
+	'Value_ID',
+	'',
+	'',
+	'Value_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("f2f30986-3d75-49a2-a82a-4aba285cb2d8",
+	"04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",
+	0,
+	"aa0af814-2950-42d7-b263-1e32565f47ac",
+	"dcdb7ecb-898d-447f-9246-5ead653a2abb",
+	"e529f282-df2d-42f3-87b1-d0a6dbfb7891",
+	"b31e659c-63d2-463e-b7c0-4a7c12a05767",
+	"04d9eac2-339b-4c4f-85ba-fd765aee47f3",
+	"ca616e70-d577-45bb-ab7c-544fcd8df76b",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Variable',
+	'Var_ID',
+	'R809');
+INSERT INTO R_RGO_PROXY
+	VALUES ("f2f30986-3d75-49a2-a82a-4aba285cb2d8",
+	"dcdb7ecb-898d-447f-9246-5ead653a2abb",
+	"e529f282-df2d-42f3-87b1-d0a6dbfb7891",
+	'../Value.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("aa0af814-2950-42d7-b263-1e32565f47ac",
+	"04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",
+	0,
+	"dcdb7ecb-898d-447f-9246-5ead653a2abb",
+	"b31e659c-63d2-463e-b7c0-4a7c12a05767",
+	'../Value.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("04d9eac2-339b-4c4f-85ba-fd765aee47f3",
+	"f2f30986-3d75-49a2-a82a-4aba285cb2d8",
+	"aa0af814-2950-42d7-b263-1e32565f47ac",
+	"04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",
+	1,
+	'Var_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("aa0af814-2950-42d7-b263-1e32565f47ac",
+	"04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",
+	'../Variable/Variable.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("04d9eac2-339b-4c4f-85ba-fd765aee47f3",
+	"f2f30986-3d75-49a2-a82a-4aba285cb2d8",
+	"7ed1d41e-cf15-4985-b3e6-f3978f5bda56",
+	'Var_ID',
+	'
+
+',
+	'',
+	'Var_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"f2f30986-3d75-49a2-a82a-4aba285cb2d8");
+INSERT INTO O_OIDA
+	VALUES ("7ed1d41e-cf15-4985-b3e6-f3978f5bda56",
+	"f2f30986-3d75-49a2-a82a-4aba285cb2d8",
+	0,
+	'Value_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"f2f30986-3d75-49a2-a82a-4aba285cb2d8");
+INSERT INTO O_ID
+	VALUES (2,
+	"f2f30986-3d75-49a2-a82a-4aba285cb2d8");
+INSERT INTO S_SS_PROXY
+	VALUES ("e060f94c-3f82-463e-9d98-d20315b7c196",
+	'Value',
+	'This subsystem formalizes the concepts of values (r-values) and variables 
+(l-values). It also captures the concept of an actual parameter.
+Notify_Changes:false
+Persistent:false
+// This is used by schema_gen to ignore this subsystem (for publication)
+TRANSLATE_FOR_EXTERNAL_USE:FALSE
+',
+	'V',
+	800,
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000400008",
+	'../Value.xtuml');

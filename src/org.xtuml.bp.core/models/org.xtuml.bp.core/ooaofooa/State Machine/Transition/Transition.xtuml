@@ -1,0 +1,1742 @@
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("71e37b76-a350-435b-a3fd-e3d016eb39ef",
+	'Transition',
+	508,
+	'SM_TXN',
+	'A transition represents a change in state of an instance.  It is represented by a line between to states (SM_NETXN and SM_NSTXN), or a line into a single state (SM_CRTXN).  Transitions are labeled with a single event (SM_EVT).',
+	"efdb28f6-a485-4b25-9cbf-3e7227398b6a");
+INSERT INTO O_TFR
+	VALUES ("9e21f547-a310-4180-884a-1b08e23cd285",
+	"71e37b76-a350-435b-a3fd-e3d016eb39ef",
+	'get_connector_text',
+	'Returns the empty string for all ends except the Middle. In this case,
+it selects the subtype and delegates the call.
+-----------------------------------------------------------------------------------
+Bridge:GD
+',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	1,
+	'result = "";
+if (param.at == End::Middle)
+  select one nst related by self->SM_NSTXN[R507];
+  if (not_empty nst)
+    result = nst.get_connector_text();
+  end if;
+  select one net related by self->SM_NETXN[R507];
+  if (not_empty net)
+    result = net.get_connector_text();
+  end if;
+  select one action related by self->SM_TAH[R530]->SM_AH[R513]->SM_ACT[R514];
+  if not_empty action and action.Action_Semantics != ""
+    result = result + "/";
+    if PREF::getBoolean(name:"bridgepoint_prefs_show_transition_actions")
+      result = result + GD::newline() + action.Action_Semantics;
+    else
+      result = result + "...";
+    end if;
+  end if;
+end if;
+return result;',
+	1,
+	'',
+	"d5e3199b-cad3-4acd-ad8a-640e15313f6e");
+INSERT INTO O_TPARM
+	VALUES ("0c213218-8b1d-484b-a6b5-e19994d7ce7a",
+	"9e21f547-a310-4180-884a-1b08e23cd285",
+	'OOA_ID',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'unique_id',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TPARM
+	VALUES ("64054cc6-9337-442f-ae9f-be7cc7aa3901",
+	"9e21f547-a310-4180-884a-1b08e23cd285",
+	'OOA_TypeIsImportedClass',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	0,
+	'',
+	"0c213218-8b1d-484b-a6b5-e19994d7ce7a",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'boolean',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TPARM
+	VALUES ("84cb2ff2-4de3-4255-85d9-4971ae505353",
+	"9e21f547-a310-4180-884a-1b08e23cd285",
+	'at',
+	"ae85eca6-6fe4-4125-95e6-95272f0fd7de",
+	0,
+	'',
+	"64054cc6-9337-442f-ae9f-be7cc7aa3901",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("ae85eca6-6fe4-4125-95e6-95272f0fd7de",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'End',
+	'Text is positioned at a user adjustable offset from the Start, Middle and End of a connector. Start_Fixed and End_Fixed specify fixed position text found at the start and end of some connectors.
+-------------------------------------------------------------
+Bridge:GD',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TPARM
+	VALUES ("358c971d-d1c6-4287-99dd-4481bf4fe5f4",
+	"9e21f547-a310-4180-884a-1b08e23cd285",
+	'parent_ID',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"84cb2ff2-4de3-4255-85d9-4971ae505353",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'string',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("57cc9b18-ed63-483b-bd87-635f93c6e339",
+	"71e37b76-a350-435b-a3fd-e3d016eb39ef",
+	'get_style',
+	'Most Transitions have an arrow at the end and no adornment at the
+start. The exception is the Creation Transition which has it''s own
+get_style operation, called from here when necessary.
+-----------------------------------------------------------------------------------
+Bridge:GD',
+	"6e636321-0fd1-4577-b185-e4d76b0d0c71",
+	1,
+	'select one crt related by self->SM_CRTXN[R507];
+if (not_empty crt)
+  return crt.get_style(at:param.at);
+else
+  if (param.at == End::End)
+    return Style::OpenArrow;
+  else
+    return Style::None;
+  end if;
+end if;',
+	1,
+	'',
+	"3ba0b2a9-ae72-42bd-8f34-e5aa31b95634");
+INSERT INTO O_TPARM
+	VALUES ("964df52d-eacd-440a-a561-961a81548636",
+	"57cc9b18-ed63-483b-bd87-635f93c6e339",
+	'at',
+	"ae85eca6-6fe4-4125-95e6-95272f0fd7de",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("6e636321-0fd1-4577-b185-e4d76b0d0c71",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'Style',
+	'The Style data type specifies the precise form a graphical element will take when drawn.
+--------------------------------------------------------------------------
+Bridge:GD',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("d5e3199b-cad3-4acd-ad8a-640e15313f6e",
+	"71e37b76-a350-435b-a3fd-e3d016eb39ef",
+	'dispose',
+	'Dispose this Transition.',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select one nstxn related by self->SM_NSTXN[R507];
+if (not_empty nstxn)
+  select one sig related by nstxn->SM_SEME[R504]->SM_SEVT[R503]->SM_SGEVT[R526];
+  if (not_empty sig)
+    self.removeSignal();
+  else
+    // migrate to a No Event Transition (SM_NETXN)
+    // which will be deleted below
+    self.removeEvent();
+  end if;
+end if;
+                                   
+select one crtxn related by self->SM_CRTXN[R507];
+if (not_empty crtxn)
+  self.removeEvent();
+  unrelate self from crtxn across R507;
+  delete object instance crtxn;
+end if; 
+select one netxn related by self->SM_NETXN[R507];
+if (not_empty netxn)
+  unrelate self from netxn across R507;
+  select one state related by netxn->SM_STATE[R508];
+  unrelate netxn from state across R508;
+  delete object instance netxn;
+end if;
+                                   
+select one sm related by self->SM_SM[R505];
+unrelate self from sm across R505;
+select one state related by self->SM_STATE[R506];
+unrelate self from state across R506;
+select one act related by self->SM_TAH[R530]->SM_AH[R513]->SM_ACT[R514];
+if (not_empty act )
+  act.dispose();
+else
+  // the dispose unit tests don''t populate everything
+  select one meah related by self->SM_MEAH[R512];
+  if ( not_empty meah )
+    select one mealy related by meah->SM_MEALY[R512];
+    unrelate mealy from self across R512 using meah;
+  end if;
+end if;
+select many insts related by self->I_INS[R2953];
+for each inst in insts
+  unrelate self from inst across R2953;
+end for;
+select many classInStates related by self->CSME_CIS[R2952];
+for each classInState in classInStates
+  classInState.dispose();
+end for;
+delete object instance self;',
+	1,
+	'',
+	"fa6f35aa-fbda-4b86-9c36-9ebc6f668d31");
+INSERT INTO S_DT_PROXY
+	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'void',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("3ba0b2a9-ae72-42bd-8f34-e5aa31b95634",
+	"71e37b76-a350-435b-a3fd-e3d016eb39ef",
+	'get_ooa_id',
+	'The ooa_id of a Transition is its Trans_ID
+-----------------------------------------------------------
+Bridge:GD',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	1,
+	'return self.Trans_ID;',
+	1,
+	'',
+	"b3b0fffb-865f-4a6a-864b-28f2e6210fc1");
+INSERT INTO O_TFR
+	VALUES ("0758a4ca-6233-491e-87db-54b4d7a5ea16",
+	"71e37b76-a350-435b-a3fd-e3d016eb39ef",
+	'actionFilter',
+	'Bridge: UI
+',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+if (param.name == "event" )
+  
+  if (param.value == "exists spec pkg" ) or (param.value == "exists generic pkg" )
+  
+    select one cls related by self->SM_SM[R505]->SM_ASM[R517]->O_OBJ[R519];
+    if (empty cls)
+      select one cls related by self->SM_SM[R505]->SM_ISM[R517]->O_OBJ[R518];
+    end if;
+    select one packageableElem related by cls->PE_PE[R8001];
+    select one package related by packageableElem->EP_PKG[R8000];
+    select one cc related by packageableElem->C_C[R8003];
+    isInGenericPackage = not_empty package or not_empty cc;
+    if ((param.value == "exists spec pkg") and (isInGenericPackage))
+      return false;
+    end if;
+    if ((param.value == "exists generic pkg") and (not isInGenericPackage))
+      return false;
+    end if;
+      
+    // might want to enforce data set consistency here
+    // i.e. events only exist if they match the state''s data set
+    select one net related by self->SM_NETXN[R507];
+    select one nst related by self->SM_NSTXN[R507];
+    select one ct related by self->SM_CRTXN[R507];
+    select one stateMachine related by self->SM_SM[R505];
+    select many selfTypeEvents related by stateMachine->SM_EVT[R502];
+    
+	// if this transition belongs to an instance state machine, and is not
+	// a creation transition
+	select one instanceStateMachine related by stateMachine->SM_ISM[R517];
+	numSupertypeEvents = 0;
+	numSelfTypeEvents = cardinality selfTypeEvents;
+	if (not_empty instanceStateMachine and empty ct)
+		// for each event in the domain
+		select many events from instances of SM_EVT;
+		for each event in events
+			// if this event does not belong to this transition''s state machine,
+			// but is assignable to this transition''s state machine
+			if (event.SM_ID != self.SM_ID 
+				and event.isAssignableToStateMachine(
+					assignToMachineId:self.SM_ID, isCreationTransition:false))
+				// there is one more supertype event which might possibly
+				// be assigned to this transition
+				numSupertypeEvents = numSupertypeEvents + 1;
+			end if;
+		end for;	
+		
+		// for each event that belongs to this transition''s state machine
+	    select many events related by stateMachine->SM_EVT[R502]; 
+		for each event in events
+			// if this event is assigned in a subtype state machine
+			if (event.isAssignedInSubtypeStateMachine(
+				supertypeId:instanceStateMachine.Obj_ID))
+				// there is one less self-type event which might possibly
+				// be assigned to this transition 			
+				numSelfTypeEvents = numSelfTypeEvents - 1;
+			end if;
+		end for;
+    else	
+      select many events related by stateMachine->SM_EVT[R502]; 
+	  for each event in events
+	    // if this event is a signal event
+	    select one sigEvt related by event->SM_SEVT[R525]->SM_SGEVT[R526];
+	    if not_empty sigEvt
+          // there is one less self-type event which might possibly
+          // be assigned to this transition 			
+          numSelfTypeEvents = numSelfTypeEvents - 1;
+		end if;
+	  end for;
+	end if;
+
+    if (not_empty net)
+      select one state related by net->SM_STATE[R508];
+      select many newStateTransitions related by state->
+                                                  SM_SEME[R503]->SM_NSTXN[R504];
+      // We discounted signals above, so we need to
+      // discount transitions with signals here.
+      select many signalDrivers related by newStateTransitions->
+                                   SM_SEME[R504]->SM_SEVT[R503]->SM_SGEVT[R526];
+      eventDrivenNewStateTransitions = cardinality newStateTransitions -
+                                                      cardinality signalDrivers;
+      return numSelfTypeEvents + numSupertypeEvents >
+                                                 eventDrivenNewStateTransitions;
+    elif (not_empty nst)
+      select one state related by nst->SM_SEME[R504]->SM_STATE[R503];    
+      select many newStateTransitions related by state->
+                                                  SM_SEME[R503]->SM_NSTXN[R504];
+      // discount signal driven transitions.
+      select many signalDrivers related by newStateTransitions->
+                                   SM_SEME[R504]->SM_SEVT[R503]->SM_SGEVT[R526];
+      eventDrivenNewStateTransitions = cardinality newStateTransitions -
+                                                      cardinality signalDrivers;
+      return numSelfTypeEvents + numSupertypeEvents >
+                                                 eventDrivenNewStateTransitions;
+    elif (not_empty ct)
+      select one state related by self->SM_STATE[R506];          
+      select many creationTransitionsAssigned related by selfTypeEvents
+      	                         ->SM_SEVT[R525]->SM_LEVT[R526]->SM_CRTXN[R509];
+      return numSelfTypeEvents > cardinality creationTransitionsAssigned;
+    end if;  
+
+  elif (param.value == "assigned" )
+    select one levt related by self->SM_NSTXN[R507]->SM_SEME[R504]->
+                                                   SM_SEVT[R503]->SM_LEVT[R526];
+    if empty levt
+      select one levt related by self->SM_CRTXN[R507]->SM_LEVT[R509];
+    end if;
+    return not_empty levt;
+  end if;
+elif param.name == "signal"
+  if (param.value == "exists spec pkg") or (param.value == "exists generic pkg") 
+    select one cls related by self->SM_SM[R505]->SM_ASM[R517]->O_OBJ[R519];
+    if (empty cls)
+      select one cls related by self->SM_SM[R505]->SM_ISM[R517]->O_OBJ[R518];
+    end if;
+    select one packageableElem related by cls->PE_PE[R8001];
+    select one package related by packageableElem->EP_PKG[R8000];
+    // Currently component will always be null, but this may change
+    select one component related by packageableElem->C_C[R8003];
+    if not_empty package
+      compId = package.getContainingComponentId();
+      select any component from instances of C_C where (selected.Id == compId);
+    end if;
+    isInGenericPackage = not_empty package or not_empty component;
+    // if there is no containing component, then this action should be
+    // filtered
+    if(isInGenericPackage and empty component)
+      return false;
+    end if;
+    if ((param.value == "exists spec pkg") and (isInGenericPackage))
+      return false;
+    end if;
+    if ((param.value == "exists generic pkg") and (not isInGenericPackage))
+      return false;
+    end if;
+      
+    if (not isInGenericPackage)   
+      select one component related by self->SM_SM[R505]->SM_ASM[R517]->
+                     O_OBJ[R519]->S_SS[R2]->S_DOM[R1]->CN_DC[R4204]->C_C[R4204];
+    end if;
+      
+    select many provisions related by component->
+                                           C_PO[R4010]->C_IR[R4016]->C_P[R4009];
+    for each provision in provisions
+      if provision.hasAvailableSignalsFor(transition_id:self.Trans_ID)
+        return true;
+      end if;
+    end for;
+    select many requirements related by component->
+                                           C_PO[R4010]->C_IR[R4016]->C_R[R4009];
+    for each requirement in requirements
+      if requirement.hasAvailableSignalsFor(transition_id:self.Trans_ID)
+        return true;
+      end if;
+    end for;
+  elif param.value == "assigned"
+    select one sgEvt related by self->SM_NSTXN[R507]->SM_SEME[R504]->
+                                                  SM_SEVT[R503]->SM_SGEVT[R526];
+    return not_empty sgEvt;
+  end if;
+end if;
+return false;',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_TPARM
+	VALUES ("204ff673-c95b-41f5-80ea-d9056b9ee168",
+	"0758a4ca-6233-491e-87db-54b4d7a5ea16",
+	'name',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("f6c1547c-bd01-46b4-aefb-e9d64ae3df86",
+	"0758a4ca-6233-491e-87db-54b4d7a5ea16",
+	'value',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	0,
+	'',
+	"204ff673-c95b-41f5-80ea-d9056b9ee168",
+	'');
+INSERT INTO O_TFR
+	VALUES ("ceb6881c-a63f-4a2b-9499-480d9fe6bb7a",
+	"71e37b76-a350-435b-a3fd-e3d016eb39ef",
+	'addEvent',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// find the event corresponding to the one given that is associated with 
+// this transition''s state machine, which in fact may be the one given, or not
+// if the given event is polymorphic
+select any event from instances of SM_EVT 
+	where selected.SMevt_ID == param.eventId
+		and selected.SM_ID == param.eventStateMachineId;
+select one sm related by self->SM_SM[R505];
+eventId = event.getAssociatedEventForStateMachine(stateMachineId:sm.SM_ID);
+select any event from instances of SM_EVT where selected.SMevt_ID == eventId;
+ 		
+ select one no_evt_txn related by self->SM_NETXN[R507];
+ if ( not_empty no_evt_txn )
+   select one orig_state related by no_evt_txn->SM_STATE[R508];
+   unrelate no_evt_txn from orig_state across R508;
+   unrelate no_evt_txn from self across R507;
+   delete object instance no_evt_txn;
+   create object instance ns_txn of SM_NSTXN;
+   relate self to ns_txn across R507;
+   
+   select any seme related by orig_state->SM_SEME[R503] 
+       where selected.SMevt_ID == event.SMevt_ID;
+   seme.disposeChOrEi();
+   relate ns_txn to seme across R504;
+ else
+   select one ns_txn related by self->SM_NSTXN[R507];
+   if ( not_empty ns_txn )
+     select one seme related by ns_txn->SM_SEME[R504];
+     select one orig_state related by seme->SM_STATE[R503];
+
+	 // change SEME caused by old event to be cant happen
+	 create object instance ch of SM_CH;
+     unrelate ns_txn from seme across R504;
+     relate seme to ch across R504;
+     
+     // find SEME caused by new event
+     select any new_seme related by orig_state->SM_SEME[R503] 
+         where selected.SMevt_ID == event.SMevt_ID;
+     new_seme.disposeChOrEi();
+     relate new_seme to ns_txn across R504;
+     // state supplemental dataset should be unchanged
+   else
+     select one cr_txn related by self->SM_CRTXN[R507];
+     select one levt related by cr_txn->SM_LEVT[R509];
+     if ( not_empty levt )
+       unrelate cr_txn from levt across R509;
+     end if;
+     select one new_evt related by event->SM_SEVT[R525]->SM_LEVT[R526];         
+     relate cr_txn to new_evt across R509;
+   end if;
+ end if;
+
+',
+	1,
+	'',
+	"0758a4ca-6233-491e-87db-54b4d7a5ea16");
+INSERT INTO O_TPARM
+	VALUES ("15cce609-79e8-4f3c-a487-e9c56be91f97",
+	"ceb6881c-a63f-4a2b-9499-480d9fe6bb7a",
+	'eventId',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("38cac368-2fcf-4d7a-95df-2ae49e3695b9",
+	"ceb6881c-a63f-4a2b-9499-480d9fe6bb7a",
+	'eventStateMachineId',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"15cce609-79e8-4f3c-a487-e9c56be91f97",
+	'');
+INSERT INTO O_TFR
+	VALUES ("07c41bac-ee71-4330-a146-8dcb09c75e70",
+	"71e37b76-a350-435b-a3fd-e3d016eb39ef",
+	'removeEvent',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select one ns_txn related by self->SM_NSTXN[R507];
+if ( not_empty ns_txn )
+ 
+  select one seme related by ns_txn->SM_SEME[R504];
+  create object instance ch of SM_CH;
+  unrelate ns_txn from seme across R504;
+  relate seme to ch across R504;
+
+  create object instance ne_txn of SM_NETXN;
+  unrelate ns_txn from self across R507;
+  relate self to ne_txn across R507;
+  delete object instance ns_txn;
+  select one orig_state related by seme->SM_STATE[R503];
+  relate ne_txn to orig_state across R508;
+  select one dest_state related by self->SM_STATE[R506];
+else
+  select one cr_txn related by self->SM_CRTXN[R507];
+  select one levt related by cr_txn->SM_LEVT[R509];
+  if ( not_empty levt )
+    unrelate cr_txn from levt across R509;
+    select one st related by self->SM_STATE[R506];
+  else
+    // transition doesn''t have an event assigned -- UI prevents this from happening
+  end if;
+end if;',
+	1,
+	'',
+	"bbde2032-356d-4c96-9035-a9a22daec4f0");
+INSERT INTO O_TFR
+	VALUES ("fc8e9b56-669e-445e-9cce-8994d5f633a8",
+	"71e37b76-a350-435b-a3fd-e3d016eb39ef",
+	'updateAssignedEvent',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// Transition.updateAssignedEvent()
+select one stateMachine related by self->SM_SM[R505];
+select one evt related by self->SM_NSTXN[R507]->SM_SEME[R504]->
+                                                    SM_SEVT[R503]->SM_EVT[R525];
+select one sm related by self->SM_SM[R505];
+select one creationTrans related by self->SM_CRTXN[R507];
+select any polyClass from instances of O_OBJ where
+                                        selected.Obj_ID == GD::NULL_UNIQUE_ID();
+isPoly = false;
+if(not_empty evt)
+  // if the copied event is a poly, convert it to a local event
+  select one nlevt related by evt->SM_SEVT[R525]->SM_NLEVT[R526];
+  if(not_empty nlevt)
+    isPoly = true;
+  end if;
+end if;
+creation = false;
+if(not_empty creationTrans)
+  creation = true;
+  select one evt related by creationTrans->SM_LEVT[R509]->
+                                                    SM_SEVT[R526]->SM_EVT[R525];
+end if;
+// there was no event previously assigned, nothing to do.
+if(empty evt)
+  return;
+end if;
+select many dataItems related by evt->SM_EVTDI[R532];
+eventID = sm.findMatchingEvent(id:evt.SMevt_ID,
+                                       isCreation:creation, machineID:sm.SM_ID);
+select any existingEvt related by sm->SM_EVT[R502] where
+                                                   selected.SMevt_ID == eventID;
+if not_empty existingEvt
+  // remove the currently assigned event
+  self.removeEvent();
+  // if a match was found then
+  //   - remove any pasted data items already assigned to the existing event.
+  //   - move any new data items to the existing event and
+  //   - dispose the pasted event instance.
+  warnings = ""; sep = "";
+  for each dataItem in dataItems
+    select one pastedDIDatatype related by dataItem->S_DT[R524];
+    select any existingDataItem related by existingEvt->SM_EVTDI[R532] where
+                                                 selected.Name == dataItem.Name;
+    select one existingDIDatatype related by existingDataItem->S_DT[R524];
+    if not_empty existingDataItem and
+                  existingDIDatatype.Name == pastedDIDatatype.Name and
+                         OS::remove_spaces(s:existingDataItem.Dimensions) ==
+                                        OS::remove_spaces(s:dataItem.Dimensions)
+      dataItem.dispose();
+    else
+      // Report that event parameters were added to the target
+      if empty existingDataItem 
+        warnings = warnings + sep + "Event parameter " + dataItem.Name +
+                                                                   " was added";
+      else  // not_empty existingDataItem and
+        warnType = "";
+        if existingDIDatatype.Name != pastedDIDatatype.Name
+          // Report that an added event parameter type conflict exists
+          warnType = " a type conflict ";
+        else
+          // Report that a dimension declaration incompatibility exists
+          warnType = " an array incompatibility ";
+        end if;
+        warnings = warnings + sep + "An existing event parameter " +
+        dataItem.Name + " was found, but has" + warnType + "with the pasted " +
+        "parameter. The paste has been executed as an additional parameter " +
+        "with the same name. You will need to combine the two parameters or " +
+        "rename one.";
+      end if;
+      sep = ", ";
+      unrelate dataItem from evt across R532;
+      relate dataItem to existingEvt across R532;
+      select one pasteSM related by dataItem->SM_SM[R516];
+      if not_empty pasteSM
+        unrelate dataItem from pasteSM across R516;
+      end if;
+      relate dataItem to sm across R516;
+    end if;
+  end for;
+  if warnings != ""
+    // we must relate the event to the state machine to allow for the
+    // get_name operation to work correctly for the error report.
+    select one pasteSM related by evt->SM_SM[R502];
+    if empty pasteSM
+      relate evt to sm across R502;
+    end if;
+    Util::addPastedElementToProblemList(elementName:evt.get_name(),
+      		                                                  message:warnings);
+  end if;
+  evt.dispose();
+  // and now associate the pasted transition with the match
+  self.addEvent(eventId:existingEvt.SMevt_ID, eventStateMachineId:sm.SM_ID);
+else // existing event was not found in this state machine
+  // if the copied event is a polymorphic event and we didn''t find
+  // a match above we need to try and find a matching one within
+  // the hierarchy
+  relateToSM = true;
+  if(isPoly)
+    polyId = self.locateMatchingPolymorphicEvent(id:evt.SMevt_ID);
+    if(polyId != GD::NULL_UNIQUE_ID())
+      select any polyEvt from instances of SM_EVT where
+                                                    selected.SMevt_ID == polyId;
+      if(not_empty polyEvt)
+        select one poly related by polyEvt->SM_PEVT[R525];
+        if(empty poly)
+          // the instance will not exist unless another
+          // transition has the poly assigned so we create
+          // it here
+          create object instance poly of SM_PEVT;
+          select one matrixEvent related by polyEvt->SM_SEVT[R525];
+          matrixEvent.dispose();
+          relate poly to polyEvt across R525;
+        end if;
+        select one nlevt related by evt->SM_SEVT[R525]->SM_NLEVT[R526];
+        relate nlevt to poly across R527;
+      else
+        evt.dispose();
+        relateToSM = false;
+      end if;
+    else
+      // we must relate the event to the state machine to allow for the
+      // get_name operation to work correctly for the error report.
+      relate evt to sm across R502;
+      message = ::getMissingInheritedEventMessage(missingInheritedEvent:false);
+      Util::addPastedElementToProblemList(elementName:evt.get_name(),
+      		message:message);
+      evt.dispose();
+      relateToSM = false;
+    end if;
+  end if;
+  if(relateToSM)
+    // otherwise hook up the copied event and data items if any
+    relate evt to sm across R502;
+    for each dataItem in dataItems
+      relate dataItem to sm across R516;
+    end for;
+    select one sevt related by evt->SM_SEVT[R525];
+    if not_empty sevt
+      // create SEM entry instances
+      //
+      select many states related by sm->SM_STATE[R501];
+      for each state in states
+        select any existingEvt related by state->SM_SEME[R503]->
+              SM_SEVT[R503]->SM_EVT[R525] where selected.Drv_Lbl == evt.Drv_Lbl;
+        if empty existingEvt
+          create object instance seme of SM_SEME;
+          relate sevt to state across R503 using seme;
+        end if;
+      end for;
+    else
+      pathMsg = "<No Path Available - Empty instance>";
+    if (not_empty stateMachine)
+      pathMsg = stateMachine.getPath();
+    end if;
+	USER::logError(msg:"Internal Error in updateAssignedEvent:" +
+               " No State Event Matrix Event instance found for pasted event.",path:pathMsg);
+    end if;
+    // guarantee a unique number for the event
+    evt.setUniqueNumber(checkForDuplicate:true);
+  end if;
+end if;',
+	1,
+	'',
+	"b28bdaac-2d28-42b2-b4f8-8a6ec6761461");
+INSERT INTO O_TFR
+	VALUES ("bbde2032-356d-4c96-9035-a9a22daec4f0",
+	"71e37b76-a350-435b-a3fd-e3d016eb39ef",
+	'locateMatchingPolymorphicEvent',
+	'',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+/*
+Recursively checks the hierarchy tree, to find a polymorpic event that
+matches the copied polymorphic event.
+*/
+select one stateMachine related by self->SM_SM[R505];
+select one asm related by self->SM_SM[R505]->SM_ASM[R517];
+isClassBased = not_empty asm;
+select one mclass related by asm->O_OBJ[R519];
+if(empty mclass)
+  select one mclass related by self->SM_SM[R505]->SM_ISM[R517]->O_OBJ[R518];
+end if;
+select many machines related by mclass->S_SS[R2]->S_DOM[R1]->S_SS[R1]
+     ->O_OBJ[R2]->SM_ISM[R518]->SM_SM[R517];
+if(isClassBased)
+  select many machines related by mclass->S_SS[R2]->S_DOM[R1]->S_SS[R1]
+     ->O_OBJ[R2]->SM_ASM[R519]->SM_SM[R517];  
+end if;
+
+select one packageableElem related by mclass->PE_PE[R8001];
+select one package related by packageableElem->EP_PKG[R8000];
+select one component related by packageableElem->C_C[R8003];
+isInGenericPackage = not_empty package or not_empty component;
+if (isInGenericPackage)
+  if (not_empty package)
+    select many machines related by package->S_SYS[R1405]->EP_PKG[R1405]->PE_PE[R8000]->O_OBJ[R8001]
+           ->SM_ASM[R519]->SM_SM[R517];
+  else
+    rootCompIdInPkg = component.getRootComponentId();
+    select any rootComponent from instances of C_C where (selected.Id == rootCompIdInPkg);
+    select many machines related by rootComponent->PE_PE[R8001]->EP_PKG[R8000]
+           ->S_SYS[R1405]->EP_PKG[R1405]->PE_PE[R8000]->O_OBJ[R8001]->SM_ASM[R519]->SM_SM[R517];
+  end if;
+end if;
+select many events related by machines->SM_EVT[R502];
+select one copiedEvt related by self->SM_NSTXN[R507]->SM_SEME[R504]->SM_SEVT[R503]->SM_EVT[R525];
+// for all of the possible events see if any match
+for each evt in events
+  // ignore the copied event
+  if(copiedEvt == evt)
+    continue;
+  end if;
+  // do not look for non-local events
+  select one nlevt related by evt->SM_SEVT[R525]->SM_NLEVT[R526];
+  if(not_empty nlevt)
+    continue;
+  end if;
+  // do not use any event that is within the same machine
+  select one sm related by evt->SM_SM[R502];
+  if(sm == stateMachine)
+    continue;
+  end if;
+  if(stateMachine.canAssignEvent(eventId:evt.SMevt_ID, eventStateMachineId:evt.SM_ID, isCreationTransition:false))
+    eventID = sm.findMatchingEvent(id:copiedEvt.SMevt_ID, isCreation:false, machineID:stateMachine.SM_ID);
+    if(eventID != GD::NULL_UNIQUE_ID())
+      return eventID;
+    end if;
+  end if;
+end for;
+return GD::NULL_UNIQUE_ID();',
+	1,
+	'',
+	"b1e8ea2d-4216-4e63-80b5-16896d19670b");
+INSERT INTO O_TPARM
+	VALUES ("e5b8506e-7aac-4f4b-8033-0ed300b1bd5d",
+	"bbde2032-356d-4c96-9035-a9a22daec4f0",
+	'id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("fa6f35aa-fbda-4b86-9c36-9ebc6f668d31",
+	"71e37b76-a350-435b-a3fd-e3d016eb39ef",
+	'addSignal',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+// find the signal for the passed id
+select any signal related by self->SM_SM[R505]->SM_ASM[R517]->O_OBJ[R519]->
+                 S_SS[R2]->S_DOM[R1]->CN_DC[R4204]->C_C[R4204]->C_PO[R4010]->
+                                           C_IR[R4016]->C_I[R4012]->C_EP[R4003]
+                                          where(selected.Id == param.signal_id);
+// check for isInGenericPackage
+if (empty signal)
+  select one pe related by self->SM_SM[R505]->SM_ASM[R517]->O_OBJ[R519]
+                                                                 ->PE_PE[R8001];
+  if(not_empty pe)
+    select one package related by pe->EP_PKG[R8000];
+    // the next call can return a null id, however
+    // the UI code will prevent us from ever getting
+    // here unless a container component exists
+    compId = package.getContainingComponentId();
+    select any component from instances of C_C where (selected.Id == compId);
+    if(not_empty component)
+      select any signal related by component->C_PO[R4010]->C_IR[R4016]
+               ->C_I[R4012]->C_EP[R4003] where (selected.Id == param.signal_id);
+    end if;
+  end if;
+end if;                                          
+select any reqEP related by signal->SPR_REP[R4500]
+                     where (selected.ExecutableProperty_Id == param.signal_id
+                             and selected.Requirement_Id == param.interface_id);
+select one reqSignal related by reqEP->SPR_RS[R4502];
+select any provEP related by signal->SPR_PEP[R4501]
+                     where (selected.ExecutableProperty_Id == param.signal_id
+                               and selected.Provision_Id == param.interface_id);
+select one provSignal related by provEP->SPR_PS[R4503];
+select one sm related by self->SM_SM[R505];
+select one signalEvent related by provSignal->SM_SGEVT[R528];
+if empty signalEvent
+  select one signalEvent related by reqSignal->SM_SGEVT[R529];
+end if;
+if empty signalEvent
+  create object instance signalEvent of SM_SGEVT;
+  create object instance semEvt of SM_SEVT;
+  relate semEvt to signalEvent across R526;
+  name = "";
+  if not_empty provSignal
+    relate signalEvent to provSignal across R528;
+    name = provSignal.Name;
+  else
+    relate signalEvent to reqSignal across R529;
+    name = reqSignal.Name;
+  end if;
+  create object instance evt of SM_EVT;
+  relate evt to semEvt across R525;
+  relate evt to sm across R502;
+  evt.Mning = name;
+  evt.Numb = 1;
+  evt.setUniqueNumber(checkForDuplicate:false);
+  semEvt.createDefaultMatrixEntries();
+end if;
+select one no_evt_txn related by self->SM_NETXN[R507];
+if ( not_empty no_evt_txn )
+  select one orig_state related by no_evt_txn->SM_STATE[R508];
+  unrelate no_evt_txn from orig_state across R508;
+  unrelate no_evt_txn from self across R507;
+  delete object instance no_evt_txn;
+  create object instance ns_txn of SM_NSTXN;
+  relate self to ns_txn across R507;
+  select any seme related by orig_state->SM_SEME[R503]
+                                where selected.SMevt_ID == signalEvent.SMevt_ID;
+  seme.disposeChOrEi();
+  relate ns_txn to seme across R504;
+else
+  select one ns_txn related by self->SM_NSTXN[R507];
+  if ( not_empty ns_txn )
+    select one seme related by ns_txn->SM_SEME[R504];
+    select one orig_state related by seme->SM_STATE[R503];
+                             
+    // change SEME caused by old event to be cant happen
+    create object instance ch of SM_CH;
+    unrelate ns_txn from seme across R504;
+    relate seme to ch across R504;
+                             
+    // find SEME caused by new event
+    select any new_seme related by orig_state->SM_SEME[R503]
+                                where selected.SMevt_ID == signalEvent.SMevt_ID;
+    new_seme.disposeChOrEi();
+    relate new_seme to ns_txn across R504;
+  end if;
+end if;',
+	1,
+	'',
+	"ceb6881c-a63f-4a2b-9499-480d9fe6bb7a");
+INSERT INTO O_TPARM
+	VALUES ("684d659f-988e-4297-b76b-ecfc31188f64",
+	"fa6f35aa-fbda-4b86-9c36-9ebc6f668d31",
+	'signal_id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"a5f31736-c5c5-4023-a624-53286a749b7e",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("a5f31736-c5c5-4023-a624-53286a749b7e",
+	"fa6f35aa-fbda-4b86-9c36-9ebc6f668d31",
+	'interface_id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("b28bdaac-2d28-42b2-b4f8-8a6ec6761461",
+	"71e37b76-a350-435b-a3fd-e3d016eb39ef",
+	'removeSignal',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// Transition::removeSignal()
+select one ns_txn related by self->SM_NSTXN[R507];
+if ( not_empty ns_txn )
+  select one seme related by ns_txn->SM_SEME[R504];
+  create object instance ch of SM_CH;
+  unrelate ns_txn from seme across R504;
+  relate seme to ch across R504;
+  create object instance ne_txn of SM_NETXN;
+  unrelate ns_txn from self across R507;
+  relate self to ne_txn across R507;
+  delete object instance ns_txn;
+  select one orig_state related by seme->SM_STATE[R503];
+  relate ne_txn to orig_state across R508;
+  select one sevt related by seme->SM_SEVT[R503];
+  select many chs related by sevt->SM_SEME[R503]->SM_CH[R504];
+  select many states related by sevt->SM_STATE[R503];
+  if cardinality chs == cardinality states
+    // There are no consumers of this signal left, dispose it.
+    select one evt related by sevt->SM_EVT[R525];
+    evt.dispose();    
+  end if;
+end if;',
+	1,
+	'',
+	"07c41bac-ee71-4330-a146-8dcb09c75e70");
+INSERT INTO O_TFR
+	VALUES ("b1e8ea2d-4216-4e63-80b5-16896d19670b",
+	"71e37b76-a350-435b-a3fd-e3d016eb39ef",
+	'initialize',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// Transition.initialize()
+// Create the action home
+create object instance ah of SM_AH;
+create object instance tah of SM_TAH;
+relate ah to tah across R513;
+select one sm related by self->SM_SM[R505];  
+create object instance act of SM_ACT;
+act.Suc_Pars = ParseStatus::parseInitial;
+relate act to ah across R514;
+relate act to sm across R515;
+relate self to tah across R530;
+',
+	1,
+	'',
+	"57cc9b18-ed63-483b-bd87-635f93c6e339");
+INSERT INTO O_TFR
+	VALUES ("b3b0fffb-865f-4a6a-864b-28f2e6210fc1",
+	"71e37b76-a350-435b-a3fd-e3d016eb39ef",
+	'get_name',
+	'',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	1,
+	'// Transition.get_name()
+result = "";
+select one nst related by self->SM_NSTXN[R507];
+if not_empty nst
+  result = nst.get_name();
+end if;
+select one net related by self->SM_NETXN[R507];
+if not_empty net
+  result = net.get_connector_text();
+end if;
+select one ctxn related by self->SM_CRTXN[R507];
+if(not_empty ctxn)
+  select one evt related by ctxn->SM_LEVT[R509]->SM_SEVT[R526]
+                                                                                              ->SM_EVT[R525];
+  if(not_empty evt)
+    result = evt.get_event_text();
+  else
+    result = "No Event Assigned";
+  end if;
+end if;
+return result;',
+	1,
+	'',
+	"9e21f547-a310-4180-884a-1b08e23cd285");
+INSERT INTO O_TFR
+	VALUES ("02e4369e-1d0b-4c86-85cb-907ef36c1618",
+	"71e37b76-a350-435b-a3fd-e3d016eb39ef",
+	'updateAssignedSignal',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select one evt related by self->SM_NSTXN[R507]->SM_SEME[R504]->SM_SEVT[R503];
+select one machine related by self->SM_SM[R505];
+// note the selection from instances of will work below as we are contained in
+// the same model root as the component
+componentId = machine.getContainingComponentId();
+select any component from instances of C_C where (selected.Id == componentId);
+if(not_empty component)
+  select one signalEvt related by evt->SM_SGEVT[R526];
+  select one proSignal related by signalEvt->SPR_PS[R528];
+  select many interfaces related by component->C_PO[R4010]->C_IR[R4016]
+                                                                   ->C_I[R4012];
+  if(not_empty proSignal and Util::isProxy(element:proSignal.convertToInstance()))
+    signalId = self.locateMatchingProvidedSignal();
+    select any matchingSignal related by interfaces->C_EP[R4003]
+                ->SPR_PEP[R4501]->SPR_PS[R4503] where (selected.Id == signalId);
+    if(not_empty matchingSignal)
+      self.removeSignal();
+      select one pep related by matchingSignal->SPR_PEP[R4503];
+      self.addSignal(interface_id: pep.Provision_Id,
+                                          signal_id: pep.ExecutableProperty_Id);
+    else
+      // look for a matching required signal
+      signalId = self.locateMatchingRequiredSignal();
+      select any matchingReqSignal related by interfaces->C_EP[R4003]
+                ->SPR_REP[R4500]->SPR_RS[R4502] where (selected.Id == signalId);
+      if(not_empty matchingReqSignal)
+        self.removeSignal();
+        select one rep related by matchingReqSignal->SPR_REP[R4502];
+        self.addSignal(interface_id: rep.Requirement_Id,
+                                          signal_id: rep.ExecutableProperty_Id);
+      else
+        // indicate to the user that no matching signal was
+        // found in the destination
+        message = "Matching signals for the following were not found in the ";
+        message = message + "destination.";
+        Util::addPastedElementToProblemList(
+                      elementName:signalEvt.get_event_text(), message: message);
+        self.removeSignal();
+      end if;
+    end if;
+  end if;
+  select one reqSignal related by signalEvt->SPR_RS[R529];
+  if(not_empty reqSignal and Util::isProxy(element:reqSignal.convertToInstance()))
+    signalId = self.locateMatchingRequiredSignal();
+    select any matchingSignal related by interfaces->C_EP[R4003]
+                ->SPR_REP[R4500]->SPR_RS[R4502] where (selected.Id == signalId);
+    if(not_empty matchingSignal)
+      self.removeSignal();
+      select one rep related by matchingSignal->SPR_REP[R4502];
+      self.addSignal(interface_id: rep.Requirement_Id,
+                                          signal_id: rep.ExecutableProperty_Id);
+    else
+      // look for a matching provided signal
+      signalId = self.locateMatchingProvidedSignal();
+      select any matchingProSignal related by interfaces->C_EP[R4003]
+                ->SPR_PEP[R4501]->SPR_PS[R4503] where (selected.Id == signalId);
+      if(not_empty matchingProSignal)
+        self.removeSignal();
+        select one pep related by matchingProSignal->SPR_PEP[R4503];
+        self.addSignal(interface_id: pep.Provision_Id,
+                                          signal_id: pep.ExecutableProperty_Id);
+      else
+        // indicate to the user that no matching signal was
+        // found in the destination
+        message = "Matching signals for the following were not found in the ";
+        message = message + "destination.";
+        Util::addPastedElementToProblemList(
+                      elementName:signalEvt.get_event_text(), message: message);
+        self.removeSignal();
+      end if;
+    end if;
+  end if;
+end if;',
+	1,
+	'',
+	"fc8e9b56-669e-445e-9cce-8994d5f633a8");
+INSERT INTO O_TFR
+	VALUES ("6fa9b560-a9bd-4d8f-9e19-f87741e06207",
+	"71e37b76-a350-435b-a3fd-e3d016eb39ef",
+	'updateAssignedEventOrSignal',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select one creationTrans related by self->SM_CRTXN[R507];
+if(not_empty creationTrans)
+  self.updateAssignedEvent();
+  return;
+end if;
+select one evt related by self->SM_NSTXN[R507]->SM_SEME[R504]->SM_SEVT[R503];
+if(not_empty evt)
+  select one signalEvent related by evt->SM_SGEVT[R526];
+  if(not_empty signalEvent)
+    self.updateAssignedSignal();
+  else
+    self.updateAssignedEvent();
+  end if;
+end if;',
+	1,
+	'',
+	"02e4369e-1d0b-4c86-85cb-907ef36c1618");
+INSERT INTO O_TFR
+	VALUES ("fcf90ea8-98b3-4136-8924-14d38378f154",
+	"71e37b76-a350-435b-a3fd-e3d016eb39ef",
+	'locateMatchingProvidedSignal',
+	'',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	1,
+	'select one stateMachine related by self->SM_SM[R505];
+select one evt related by self->SM_NSTXN[R507]->SM_SEME[R504]->SM_SEVT[R503];
+select one signalEvt related by evt->SM_SGEVT[R526];
+select one proSignal related by signalEvt->SPR_PS[R528];
+
+name = "";
+direction = IFDirectionType::ClientServer;
+select any ep from instances of C_EP
+                                    where (selected.Id == GD::NULL_UNIQUE_ID());
+if(not_empty proSignal)
+  name = proSignal.Name;
+  select one ep related by proSignal->SPR_PEP[R4503]->C_EP[R4501];
+  select one sig related by ep->C_AS[R4004];
+  direction = sig.Direction;
+else
+  select one reqSignal related by signalEvt->SPR_RS[R529];
+  if(not_empty reqSignal)
+    name = reqSignal.Name;
+    direction = IFDirectionType::ClientServer;
+    select one ep related by reqSignal->SPR_REP[R4502]->C_EP[R4500];
+  else
+    pathMsg = "<No Path Available - Empty instance>";
+    if (not_empty stateMachine)
+      pathMsg = stateMachine.getPath();
+    end if;
+	USER::logError(msg:"Signal Event had no associated signal.",path:pathMsg);
+    return GD::NULL_UNIQUE_ID();
+  end if;
+end if;
+select one machine related by self->SM_SM[R505];
+// note the selection from instances of will work below as we are contained in
+// the same model root as the component
+componentId = machine.getContainingComponentId();
+select any component from instances of C_C where (selected.Id == componentId);
+select many interfaces related by component->C_PO[R4010]->C_IR[R4016]
+                                                                   ->C_I[R4012];
+select many testParameters related by ep->C_PP[R4006];
+select any matchingSignal from instances of SPR_PS
+                                    where (selected.Id == GD::NULL_UNIQUE_ID());
+select many existingProSignals related by interfaces->C_EP[R4003]
+                                                ->SPR_PEP[R4501]->SPR_PS[R4503];
+for each existingSignal in existingProSignals
+  select one existingAS related by existingSignal->SPR_PEP[R4503]->C_EP[R4501]
+                                                                  ->C_AS[R4004];
+  if(existingSignal.Name == name and existingAS.Direction == direction)
+    select many parameters related by existingSignal->SPR_PEP[R4503]
+                                                     ->C_EP[R4501]->C_PP[R4006];
+    index = 0;
+    matchNotFound = false; 
+    for each testParm in testParameters
+      internalIndex = 0;
+      select one testType related by testParm->S_DT[R4007];
+      for each parameter in parameters
+        if(internalIndex == index)
+          // param to test
+          if(testParm.Name != parameter.Name)
+            matchNotFound = true;
+            break;
+          end if;
+          select one type related by parameter->S_DT[R4007];
+          if(testType.Name != type.Name)
+            matchNotFound = true;
+            break;
+          end if;
+        end if;
+        internalIndex = internalIndex + 1;
+      end for;
+      if(matchNotFound)
+        break;
+      end if;
+      index = index + 1;
+      if(cardinality parameters < cardinality testParameters)
+        // this is not OK, the existing signal will not satisfy
+        // the copied signal
+        matchNotFound = true;
+        break;
+      end if;
+    end for;
+    if(not matchNotFound)
+      // ask the signal if it can be allocated to this
+      // transition
+      if(existingSignal.isAvailableForAllocationTo(transition_id:self.Trans_ID))
+        matchingSignal = existingSignal;
+        break;
+      end if;
+    end if;
+  end if;
+end for;
+if(not_empty matchingSignal)
+  return matchingSignal.Id;
+else
+  return GD::NULL_UNIQUE_ID();
+end if;',
+	1,
+	'',
+	"6fa9b560-a9bd-4d8f-9e19-f87741e06207");
+INSERT INTO O_TFR
+	VALUES ("ea2bb04d-e77d-423b-84e0-e43c416d7457",
+	"71e37b76-a350-435b-a3fd-e3d016eb39ef",
+	'locateMatchingRequiredSignal',
+	'',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	1,
+	'select one evt related by self->SM_NSTXN[R507]->SM_SEME[R504]->SM_SEVT[R503];
+select one signalEvt related by evt->SM_SGEVT[R526];
+select one reqSignal related by signalEvt->SPR_RS[R529];
+select one machine related by self->SM_SM[R505];
+name = "";
+direction = IFDirectionType::ServerClient;
+select any ep from instances of C_EP
+                                    where (selected.Id == GD::NULL_UNIQUE_ID());
+if(not_empty reqSignal)
+  name = reqSignal.Name;
+  select one ep related by reqSignal->SPR_REP[R4502]->C_EP[R4500];
+  select one sig related by ep->C_AS[R4004];
+  direction = sig.Direction;
+else
+  select one proSignal related by signalEvt->SPR_PS[R528];
+  if(not_empty proSignal)
+    name = proSignal.Name;
+    direction = IFDirectionType::ServerClient;
+    select one ep related by proSignal->SPR_PEP[R4503]->C_EP[R4501];
+  else
+    pathMsg = "<No Path Available - Empty instance>";
+    if (not_empty machine)
+      pathMsg = machine.getPath();
+    end if;
+	USER::logError(msg:"Signal Event had no associated signal.",path:pathMsg);
+    return GD::NULL_UNIQUE_ID();
+  end if;
+end if;
+// note the selection from instances of will work below as we are contained in
+// the same model root as the component
+componentId = machine.getContainingComponentId();
+select any component from instances of C_C where (selected.Id == componentId);
+select many interfaces related by component->C_PO[R4010]->C_IR[R4016]
+                                                                   ->C_I[R4012];
+select many testParameters related by ep->C_PP[R4006];
+select any matchingSignal from instances of SPR_RS
+                                    where (selected.Id == GD::NULL_UNIQUE_ID());
+select many existingReqSignals related by interfaces->C_EP[R4003]
+                                                ->SPR_REP[R4500]->SPR_RS[R4502];
+for each existingSignal in existingReqSignals
+  select one existingSigAS related by existingSignal->SPR_REP[R4502]
+                                                     ->C_EP[R4500]->C_AS[R4004];
+  if(existingSignal.Name == name and existingSigAS.Direction == direction)
+    select many parameters related by existingSignal->SPR_REP[R4502]
+                                                     ->C_EP[R4500]->C_PP[R4006];
+    index = 0;
+    matchNotFound = false;
+    for each testParm in testParameters
+      internalIndex = 0;
+      select one testType related by testParm->S_DT[R4007];
+      for each parameter in parameters
+        if(internalIndex == index)
+          // param to test
+          if(testParm.Name != parameter.Name)
+            matchNotFound = true;
+            break;
+          end if;
+          select one type related by parameter->S_DT[R4007];
+          if(testType.Name != type.Name)
+            matchNotFound = true;
+            break;
+          end if;
+        end if;
+        internalIndex = internalIndex + 1;
+      end for;
+      if(matchNotFound)
+        break;
+      end if;
+      index = index + 1;
+      if(cardinality parameters < cardinality testParameters)
+        // this is not OK, the existing signal will not satisfy
+        // the copied signal
+        matchNotFound = true;
+        break;
+      end if;
+    end for;
+    if(not matchNotFound)
+      // ask the signal if it can be allocated to this
+      // transition
+      if(existingSignal.isAvailableForAllocationTo(transition_id:self.Trans_ID))
+        matchingSignal = existingSignal;
+        break;
+      end if;
+    end if;
+  end if;
+end for;
+if(not_empty matchingSignal)
+  return matchingSignal.Id;
+else
+  return GD::NULL_UNIQUE_ID();
+end if; ',
+	1,
+	'',
+	"fcf90ea8-98b3-4136-8924-14d38378f154");
+INSERT INTO O_TFR
+	VALUES ("14ea58fb-6e80-4594-9ad2-24b3db16d1c9",
+	"71e37b76-a350-435b-a3fd-e3d016eb39ef",
+	'get_label',
+	'',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	1,
+	'// Transition.get_name()
+result = "";
+select one nst related by self->SM_NSTXN[R507];
+if not_empty nst
+  result = nst.get_name();
+end if;
+select one net related by self->SM_NETXN[R507];
+if not_empty net
+  result = net.get_connector_text();
+end if;
+select one destState related by self->SM_STATE[R506];
+select one srcState related by nst->SM_SEME[R504]->SM_STATE[R503];
+if not_empty srcState
+  result = result + " in " + srcState.Name + " to " + destState.Name;
+else
+  result = result + " to creation state: " + destState.Name;
+end if;
+return result;',
+	1,
+	'',
+	"ea2bb04d-e77d-423b-84e0-e43c416d7457");
+INSERT INTO O_TFR
+	VALUES ("ba33eab8-053d-4bed-9ca7-8735470fdd18",
+	"71e37b76-a350-435b-a3fd-e3d016eb39ef",
+	'mergeDispose',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select one nstxn related by self->SM_NSTXN[R507];
+if (not_empty nstxn)
+  unrelate nstxn from self across R507;
+  select one seme related by nstxn->SM_SEME[R504];
+  if(not_empty seme)
+    unrelate nstxn from seme across R504;
+  end if;
+  delete object instance nstxn;
+end if;
+                                   
+select one crtxn related by self->SM_CRTXN[R507];
+if (not_empty crtxn)
+  unrelate self from crtxn across R507;
+  select one evt related by crtxn->SM_LEVT[R509];
+  if(not_empty evt)
+    unrelate evt from crtxn across R509;
+  end if;
+  delete object instance crtxn;
+end if; 
+select one netxn related by self->SM_NETXN[R507];
+if (not_empty netxn)
+  unrelate self from netxn across R507;
+  select one state related by netxn->SM_STATE[R508];
+  unrelate netxn from state across R508;
+  delete object instance netxn;
+end if;
+                                   
+select one sm related by self->SM_SM[R505];
+unrelate self from sm across R505;
+select one state related by self->SM_STATE[R506];
+unrelate self from state across R506;
+select one act related by self->SM_TAH[R530]->SM_AH[R513]->SM_ACT[R514];
+if (not_empty act )
+  act.dispose();
+else
+  // the dispose unit tests don''t populate everything
+  select one meah related by self->SM_MEAH[R512];
+  if ( not_empty meah )
+    select one mealy related by meah->SM_MEALY[R512];
+    unrelate mealy from self across R512 using meah;
+  end if;
+end if;
+select many insts related by self->I_INS[R2953];
+for each inst in insts
+  unrelate self from inst across R2953;
+end for;
+select many classInStates related by self->CSME_CIS[R2952];
+for each classInState in classInStates
+  classInState.dispose();
+end for;
+delete object instance self;',
+	1,
+	'',
+	"14ea58fb-6e80-4594-9ad2-24b3db16d1c9");
+INSERT INTO O_TFR
+	VALUES ("a82fd3c8-fc51-48d6-b0ed-fe41f54aa2d8",
+	"71e37b76-a350-435b-a3fd-e3d016eb39ef",
+	'checkIntegrity',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'/**
+ *  Create an integrity issue if any other transition a the same source state 
+ *  and shares the same assigned event
+ */
+select one class related by self->SM_SM[R505]->SM_ISM[R517]->O_OBJ[R518];
+select one package related by class->PE_PE[R8001]->EP_PKG[R8000];
+machineName = "Instance State Machine";
+if(empty package)
+  select one class related by self->SM_SM[R505]->SM_ASM[R517]->O_OBJ[R519];
+  select one package related by class->PE_PE[R8001]->EP_PKG[R8000];
+  machineName = "Class State Machine";
+end if;
+select one state related by self->SM_NSTXN[R507]->SM_SEME[R504]->SM_STATE[R503];
+select many transitions related by state->SM_SEME[R503]
+                                                 ->SM_NSTXN[R504]->SM_TXN[R507];
+for each transition in transitions
+  select one selfEvt related by self->SM_NSTXN[R507]->SM_SEME[R504]
+                                                                ->SM_SEVT[R503];
+  select one otherEvt related by transition->SM_NSTXN[R507]->SM_SEME[R504]
+                                                                ->SM_SEVT[R503];                                                                
+  if(transition != self and otherEvt == selfEvt)
+    select one system related by package->S_SYS[R1405];
+    sys_id = GD::NULL_UNIQUE_ID();
+    if(not_empty system)
+      sys_id = system.Sys_ID;
+    end if;
+	MI_IM::createIssue(sys_id:sys_id, description:
+	               "Found another transition with the same event assignment " +
+  "leaving the same state.", severity:Severity::Error, name:self.get_name(),
+	                path:class.getPath(path:self.get_name(), includeSelf:true) +
+	              "::" + machineName + "::" + self.get_name(), id:self.SMstt_ID,
+	                                          element:self.convertToInstance());
+  end if;
+end for;',
+	1,
+	'',
+	"ba33eab8-053d-4bed-9ca7-8735470fdd18");
+INSERT INTO O_TFR
+	VALUES ("903b5ac9-63cb-4fd0-9cfd-ee354a1eafd6",
+	"71e37b76-a350-435b-a3fd-e3d016eb39ef",
+	'convertToInstance',
+	'A utility operation to cast an instance of this type to the
+instance datatype.
+
+Translate: native',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	1,
+	'// just return this instance as an Object
+return this;',
+	0,
+	'',
+	"a82fd3c8-fc51-48d6-b0ed-fe41f54aa2d8");
+INSERT INTO S_DT_PROXY
+	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'instance',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("02e1d375-517d-4275-9df2-1a0cf39d6b36",
+	"71e37b76-a350-435b-a3fd-e3d016eb39ef",
+	'mergeStateMachineEventAssignedLocalEvent',
+	'',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'// only process this if it is a removal, which the given UUID will be null
+if(param.event_id == GD::NULL_UNIQUE_ID())
+  select one ns_txn related by self->SM_NSTXN[R507];
+  if ( not_empty ns_txn )
+    select one seme related by ns_txn->SM_SEME[R504];
+    select one event related by seme->SM_SEVT[R503];
+    select one state related by seme->SM_STATE[R503];
+    select many existing related by event->SM_SEME[R503]
+                                 where (selected.SMevt_ID == event.SMevt_ID and
+                                           selected.SMstt_ID == state.SMstt_ID);
+    if(cardinality existing == 1)
+      create object instance ch of SM_CH;
+      relate seme to ch across R504;
+    end if;
+    unrelate ns_txn from seme across R504;
+    create object instance ne_txn of SM_NETXN;
+    unrelate ns_txn from self across R507;
+    relate self to ne_txn across R507;
+    delete object instance ns_txn;
+    select one orig_state related by seme->SM_STATE[R503];
+    relate ne_txn to orig_state across R508;
+    select one dest_state related by self->SM_STATE[R506];
+  else
+    select one cr_txn related by self->SM_CRTXN[R507];
+    select one levt related by cr_txn->SM_LEVT[R509];
+    if ( not_empty levt )
+      unrelate cr_txn from levt across R509;
+    end if;
+  end if;
+  return true;
+end if;
+return false;',
+	1,
+	'',
+	"903b5ac9-63cb-4fd0-9cfd-ee354a1eafd6");
+INSERT INTO O_TPARM
+	VALUES ("e77380c6-816a-479c-8fc0-c5d28e5bc9f2",
+	"02e1d375-517d-4275-9df2-1a0cf39d6b36",
+	'event_id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("977c124f-5c4b-4b2a-a46f-f2adf9a9803f",
+	"71e37b76-a350-435b-a3fd-e3d016eb39ef",
+	'getDescription',
+	'',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	1,
+	'select one action related by self->SM_TAH[R530]->SM_AH[R513]
+                                                                 ->SM_ACT[R514];
+return action.Descrip;',
+	1,
+	'',
+	"02e1d375-517d-4275-9df2-1a0cf39d6b36");
+INSERT INTO O_NBATTR
+	VALUES ("36961925-2727-4c75-b0bf-c2cd8bc2611d",
+	"71e37b76-a350-435b-a3fd-e3d016eb39ef");
+INSERT INTO O_BATTR
+	VALUES ("36961925-2727-4c75-b0bf-c2cd8bc2611d",
+	"71e37b76-a350-435b-a3fd-e3d016eb39ef");
+INSERT INTO O_ATTR
+	VALUES ("36961925-2727-4c75-b0bf-c2cd8bc2611d",
+	"71e37b76-a350-435b-a3fd-e3d016eb39ef",
+	"00000000-0000-0000-0000-000000000000",
+	'Trans_ID',
+	'Full Name: Transition Identifier',
+	'',
+	'Trans_ID',
+	0,
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("71e37b76-a350-435b-a3fd-e3d016eb39ef",
+	"92c4f346-0aca-4da2-b132-f4de66fee3e6",
+	0,
+	"a791a1ed-e1c8-4d68-9963-2e6d2379b544",
+	"95572ac6-4c4e-4ab5-9c5f-38d09a5999e8",
+	"689b1f21-929c-4282-a793-5f92603502fd",
+	"547a8f43-d440-4939-94f0-b4ce91f3c9f8",
+	"3bf68a51-2d0d-4022-8591-336fa194a715",
+	"2f149034-34d8-4325-8837-ca7e3dcbc9bd",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'State Machine',
+	'SM_ID',
+	'R505');
+INSERT INTO R_RGO_PROXY
+	VALUES ("71e37b76-a350-435b-a3fd-e3d016eb39ef",
+	"95572ac6-4c4e-4ab5-9c5f-38d09a5999e8",
+	"689b1f21-929c-4282-a793-5f92603502fd",
+	'../State Machine.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("a791a1ed-e1c8-4d68-9963-2e6d2379b544",
+	"92c4f346-0aca-4da2-b132-f4de66fee3e6",
+	0,
+	"95572ac6-4c4e-4ab5-9c5f-38d09a5999e8",
+	"547a8f43-d440-4939-94f0-b4ce91f3c9f8",
+	'../State Machine.xtuml');
+INSERT INTO O_REF
+	VALUES ("71e37b76-a350-435b-a3fd-e3d016eb39ef",
+	"aee0c0bf-2bc2-41e5-b9ad-01341d2944be",
+	1,
+	"0437ba96-60ca-4aeb-8370-ec104823ae8f",
+	"be366024-6cad-4ddd-a841-bd3687eb9408",
+	"24929000-7e07-4b1d-a3e2-1f07a71353d0",
+	"b837c896-e22d-42b2-b263-2fde6d912407",
+	"3bf68a51-2d0d-4022-8591-336fa194a715",
+	"1089d8e0-171f-4ec1-bcef-63f2a4372162",
+	"2f149034-34d8-4325-8837-ca7e3dcbc9bd",
+	0,
+	'',
+	'State Machine State',
+	'SM_ID',
+	'R506.''is destined to''');
+INSERT INTO R_RGO_PROXY
+	VALUES ("71e37b76-a350-435b-a3fd-e3d016eb39ef",
+	"be366024-6cad-4ddd-a841-bd3687eb9408",
+	"24929000-7e07-4b1d-a3e2-1f07a71353d0",
+	'../State Machine.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("0437ba96-60ca-4aeb-8370-ec104823ae8f",
+	"aee0c0bf-2bc2-41e5-b9ad-01341d2944be",
+	1,
+	"be366024-6cad-4ddd-a841-bd3687eb9408",
+	"b837c896-e22d-42b2-b263-2fde6d912407",
+	'../State Machine.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("3bf68a51-2d0d-4022-8591-336fa194a715",
+	"71e37b76-a350-435b-a3fd-e3d016eb39ef",
+	"a791a1ed-e1c8-4d68-9963-2e6d2379b544",
+	"92c4f346-0aca-4da2-b132-f4de66fee3e6",
+	1,
+	'SM_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("a791a1ed-e1c8-4d68-9963-2e6d2379b544",
+	"92c4f346-0aca-4da2-b132-f4de66fee3e6",
+	'../State Machine/State Machine.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("3bf68a51-2d0d-4022-8591-336fa194a715",
+	"71e37b76-a350-435b-a3fd-e3d016eb39ef",
+	"36961925-2727-4c75-b0bf-c2cd8bc2611d",
+	'SM_ID',
+	'',
+	'',
+	'SM_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("71e37b76-a350-435b-a3fd-e3d016eb39ef",
+	"aee0c0bf-2bc2-41e5-b9ad-01341d2944be",
+	1,
+	"c1895e17-60ab-46d5-b6a1-e61e34c67638",
+	"be366024-6cad-4ddd-a841-bd3687eb9408",
+	"24929000-7e07-4b1d-a3e2-1f07a71353d0",
+	"b837c896-e22d-42b2-b263-2fde6d912407",
+	"dab66ed4-6bf0-4c37-b8ca-3360d2cc01b3",
+	"c2970f24-8aa0-4122-9c4b-33b385be5795",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'State Machine State',
+	'SMstt_ID',
+	'R506.''is destined to''');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("c1895e17-60ab-46d5-b6a1-e61e34c67638",
+	"aee0c0bf-2bc2-41e5-b9ad-01341d2944be",
+	1,
+	"be366024-6cad-4ddd-a841-bd3687eb9408",
+	"b837c896-e22d-42b2-b263-2fde6d912407",
+	'../State Machine.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("dab66ed4-6bf0-4c37-b8ca-3360d2cc01b3",
+	"71e37b76-a350-435b-a3fd-e3d016eb39ef",
+	"c1895e17-60ab-46d5-b6a1-e61e34c67638",
+	"aee0c0bf-2bc2-41e5-b9ad-01341d2944be",
+	1,
+	'SMstt_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("c1895e17-60ab-46d5-b6a1-e61e34c67638",
+	"aee0c0bf-2bc2-41e5-b9ad-01341d2944be",
+	'../State Machine State/State Machine State.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("dab66ed4-6bf0-4c37-b8ca-3360d2cc01b3",
+	"71e37b76-a350-435b-a3fd-e3d016eb39ef",
+	"3bf68a51-2d0d-4022-8591-336fa194a715",
+	'SMstt_ID',
+	'',
+	'',
+	'SMstt_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("71e37b76-a350-435b-a3fd-e3d016eb39ef",
+	"aee0c0bf-2bc2-41e5-b9ad-01341d2944be",
+	1,
+	"8a37312c-1e1d-4e75-8c6e-911c28662d2b",
+	"be366024-6cad-4ddd-a841-bd3687eb9408",
+	"24929000-7e07-4b1d-a3e2-1f07a71353d0",
+	"b837c896-e22d-42b2-b263-2fde6d912407",
+	"fbe2c2dd-ef82-4af4-a387-151247b9c394",
+	"d5480590-a48f-4a24-b429-281f5fafb381",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'State Machine State',
+	'SMspd_ID',
+	'R506.''is destined to''');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("8a37312c-1e1d-4e75-8c6e-911c28662d2b",
+	"aee0c0bf-2bc2-41e5-b9ad-01341d2944be",
+	1,
+	"be366024-6cad-4ddd-a841-bd3687eb9408",
+	"b837c896-e22d-42b2-b263-2fde6d912407",
+	'../State Machine.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("fbe2c2dd-ef82-4af4-a387-151247b9c394",
+	"71e37b76-a350-435b-a3fd-e3d016eb39ef",
+	"6a29b768-e433-4a27-9b47-12b1d34fd0ae",
+	"a4e6c94c-670a-4e7f-b085-6727308a33db",
+	1,
+	'SMspd_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("6a29b768-e433-4a27-9b47-12b1d34fd0ae",
+	"a4e6c94c-670a-4e7f-b085-6727308a33db",
+	'../Event Supplemental Data/Event Supplemental Data.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("fbe2c2dd-ef82-4af4-a387-151247b9c394",
+	"71e37b76-a350-435b-a3fd-e3d016eb39ef",
+	"dab66ed4-6bf0-4c37-b8ca-3360d2cc01b3",
+	'SMspd_ID',
+	'',
+	'',
+	'SMspd_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"71e37b76-a350-435b-a3fd-e3d016eb39ef");
+INSERT INTO O_OIDA
+	VALUES ("36961925-2727-4c75-b0bf-c2cd8bc2611d",
+	"71e37b76-a350-435b-a3fd-e3d016eb39ef",
+	0,
+	'Trans_ID');
+INSERT INTO O_OIDA
+	VALUES ("3bf68a51-2d0d-4022-8591-336fa194a715",
+	"71e37b76-a350-435b-a3fd-e3d016eb39ef",
+	0,
+	'SM_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"71e37b76-a350-435b-a3fd-e3d016eb39ef");
+INSERT INTO O_ID
+	VALUES (2,
+	"71e37b76-a350-435b-a3fd-e3d016eb39ef");
+INSERT INTO S_SS_PROXY
+	VALUES ("efdb28f6-a485-4b25-9cbf-3e7227398b6a",
+	'State Machine',
+	'Classes (O_OBJ) that have interesting behavior are given lifecycles. These lifecycles are described using state machines (SM_SM). A state machine consists of states, events, transitions and state actions. The state machine exists for each instance of the class for which it has been modeled (SM_ISM). A state machine can also be an assigner state machine (SM_ASM) of which only one can exists for all class instances. The purpose of the assigner state machine is to act as a single point of control through which competing requests are serialized.',
+	'SM',
+	501,
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000280005",
+	'../State Machine.xtuml');

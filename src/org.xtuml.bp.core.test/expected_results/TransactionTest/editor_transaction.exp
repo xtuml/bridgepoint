@@ -1,0 +1,3 @@
+Transaction started: Edit property Descrip
+ Attribute 'Descrip' of core.ModelClass changed ( '' -> 'Test description')
+Transaction Ended: Edit property Descrip with delta size: 1

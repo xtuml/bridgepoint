@@ -1,0 +1,221 @@
+.//============================================================================
+.// File:  domain.mark
+.//
+.// Description:
+.// This marking file is used to indicate xtUML domain specialization(s)
+.// to the model compiler's translation engine.
+.//
+.// Notice:
+.// (C) Copyright 1999-2014 Mentor Graphics Corporation
+.//     All rights reserved.
+.//============================================================================
+.// Notes:
+.// (1) Marking is specified via archetype function invocation(s) in this file.
+.//     A function invocation statement MUST be specified on a single line.
+.//     All indicated function input parameters must be supplied.
+.// (2) All quoted string parameters are case sensitive.
+.// (3) Comments in this file start with ".//".
+.// (4) Do not leave any blank lines in this file.
+.//============================================================================
+.//
+.//
+.//============================================================================
+.// Mark Initialization Function:
+.//
+.// To indicate to the model compiler that a function serves as an
+.// initialization function in a domain, use the following invocation
+.// (one for each initialization object):
+.//
+.// MarkInitializationFunction( "component", "function_name" )
+.//
+.// Where the input parameter(s) are:
+.//   component = name of component (domain) containing initialization function
+.//   function_name = name of the domain function (synchronous service)
+.//
+.// Example:
+.//   .invoke MarkInitializationFunction( "*", "setup" )
+.//   .invoke MarkInitializationFunction( "SeatHeater", "test" )
+.//
+.invoke MarkInitializationFunction( "UI", "init" )
+.// Notes:
+.// (1) If multiple functions are tagged, they will be invoked in
+.//     alphabetical order.
+.// (2) Function bearing arguments may not be used as initalization
+.//     functions.
+.// (3) This interface supercedes and obsoletes tagging initialization
+.//     objects.
+.//============================================================================
+.//
+.//
+.//============================================================================
+.// Exclude Function(s) From Implementation Code Generation:
+.//
+.// To indicate to the model compiler that a function should be excluded
+.// from implementation code generation, use the following invocation
+.// (one for each excluded object):
+.//
+.// MarkFunctionTranslationOff( "component", "function_name" )
+.//
+.// Where the input parameter(s) are:
+.//   component = name of component (domain) containing function
+.//   function_name = name of domain function to not be translated
+.//
+.// Example:
+.//   .invoke MarkFunctionTranslationOff( "component", "initialize_AS" )
+.//   .invoke MarkFunctionTranslationOff( "*" )
+.//============================================================================
+.//
+.//
+.//============================================================================
+.// Exclude Object From Implementation Code Generation:
+.//
+.// To indicate to the model compiler that an object should be excluded
+.// from implementation code generation, use the following invocation
+.// (one for each excluded object):
+.//
+.// MarkExcludeObjectFromCodeGen( "component", "key_letters" )
+.//
+.// Where the input parameter(s) are:
+.//   component = name of component (domain) being marked
+.//   key_letters = Key letters of the object to be excluded.
+.//
+.// Example:
+.//   .invoke MarkExcludeObjectFromCodeGen( "TST_OBJ" )
+.//============================================================================
+.//
+.//
+.//============================================================================
+.// Exclude Subsystem From Code Generation:
+.//
+.// To indicate to the model compiler that all objects in a specified
+.// subsystem should be excluded from implementation code generation, use the
+.// following invocation (one for each excluded subsystem):
+.//
+.// MarkExcludeSubsystemFromCodeGen( "component", "subsystem" )
+.//
+.// Where the input parameter(s) are:
+.//   component = name of component (domain) being marked
+.//   subsystem = Name of the subsystem to be excluded.
+.//
+.// NOTES: 1) 'white space' in the subsystem name will be ignored.
+.//        2) The subsystem name is not case sensitive.
+.//
+.// Example:
+.//   .invoke MarkExcludeSubsystemFromCodeGen( "ModelVerifier Unit Tests" )
+.//============================================================================
+.//
+.//
+.//============================================================================
+.// *** Debug Control Marks ***
+.//============================================================================
+.//
+.//
+.//============================================================================
+.// Debug Tooling:  Enable state transition level tracing.
+.//
+.// To indicate to the model compiler that state transition tracing
+.// capabilities should be generated, use the following invocation:
+.//
+.// MarkStateTransitionTracingOn( "component" )
+.//
+.// Where the input parameter(s) are:
+.//   component = name of component (domain) being marked
+.//
+.// Example:
+.//   .invoke MarkStateTransitionTracingOn( "component" )
+.//============================================================================
+.invoke MarkStateTransitionTracingOn( "*" )
+.//
+.//
+.//============================================================================
+.// Debug Tooling:  Enable state action language level tracing.
+.//
+.// To indicate to the model compiler that state action statement tracing
+.// capabilities should be generated, use the following invocation:
+.//
+.// MarkActionStatementTracingOn( "component" )
+.//
+.// Where the input parameter(s) are:
+.//   component = name of component (domain) being marked
+.//
+.// Example:
+.//   .invoke MarkActionStatementTracingOn()
+.//============================================================================
+.invoke MarkActionStatementTracingOn( "*" )
+.//
+.//
+.//============================================================================
+.// Debug Tooling:  Enable detection of empty instance handle usage.
+.//
+.// To steer the model compiler into generating code that detects the
+.// use of empty instance references and instance set references (handles),
+.// use the following invocation:
+.//
+.// MarkEmptyHandleDetectionOn( "component" )
+.//
+.// Where the input parameter(s) are:
+.//   component = name of component (domain) being marked
+.//
+.// Example:
+.//   .invoke MarkEmptyHandleDetectionOn()
+.//============================================================================
+.invoke MarkEmptyHandleDetectionOn( "*" )
+.//
+.//
+.//============================================================================
+.// Debug Tooling:  Disable first pass optimizations in generated code.
+.//
+.// To indicate to the model compiler first pass optimizations in the generated
+.// code should be disabled, use the following invocation:
+.//
+.// MarkFirstPassOptimizationsOff( "component" )
+.//
+.// Where the input parameter(s) are:
+.//   component = name of component (domain) being marked
+.//
+.// Example:
+.//   .invoke MarkFirstPassOptimizationsOff( "ship" )
+.//============================================================================
+.//
+.//
+.//============================================================================
+.// *** Generated Code Commenting and Naming Control Marks ***
+.//
+.// The following marks provide control of action language commenting and
+.// variable naming in the generated code. They are intended to allow style
+.// choices primarily for those modifying or learning about the model compiler.
+.//============================================================================
+.//
+.//
+.//============================================================================
+.// This mark will render the original BPAL state actions as a comment block
+.// prior to the generate code for each state action. By default, block level
+.// comments of the BPAL are not generated.
+.// 
+.// MarkStateActionCommentBlocksEnabled( "component )
+.//
+.// Where the input parameter(s) are:
+.//   component = name of component (domain) being marked
+.// 
+.// Example:
+.//   .invoke MarkStateActionCommentBlocksEnabled( "*" )
+.//============================================================================
+.//
+.//
+.//============================================================================
+.// This mark will disable the emission of BPAL syntax statements immediately
+.// before the corresponding generated code segment. By default, statement
+.// level comments of the BPAL are generated.
+.// 
+.// MarkStateActionStatementCommentsDisabled( "component )
+.//
+.// Where the input parameter(s) are:
+.//   component = name of component (domain) being marked
+.//
+.// Example:
+.//   .invoke MarkStateActionStatementCommentsDisabled( "SeatHeater" )
+.//============================================================================
+.//
+.//============================================================================
+.// Do not add anything at the end of this file!
+.//============================================================================

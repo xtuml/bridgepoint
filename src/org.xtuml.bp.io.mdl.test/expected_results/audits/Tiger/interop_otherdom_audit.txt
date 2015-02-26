@@ -1,0 +1,25 @@
+AUDIT RESULTS FOR DOMAIN interop_otherdom
+
+CLASSES WITHOUT IDENTIFIERS:
+Class Unnamed Subsystem::Unknown Class
+
+SUBSYSTEMS WITHOUT DESCRIPTIONS:
+Unnamed Subsystem
+
+FUNCTIONS WITHOUT DESCRIPTIONS:
+NoParam
+ByRef
+ByVal
+Combo
+
+CLASSES WITHOUT DESCRIPTIONS:
+Class Unnamed Subsystem::Unknown Class
+
+ATTRIBUTES WITHOUT DESCRIPTIONS:
+Attribute Unknown Class::current_state
+
+STATE MODELS WITHOUT DESCRIPTIONS:
+State Model Unknown Class
+
+ACTION SPECIFICATIONS WITHOUT DESCRIPTIONS:
+Unknown Class::State Name

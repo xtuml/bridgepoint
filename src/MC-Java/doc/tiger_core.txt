@@ -1,0 +1,126 @@
+====================================================================
+
+ File:      $RCSfile: tiger_core.txt,v $
+ Version:   $Revision: 1.9 $
+ Modified:  $Date: 2013/01/10 23:16:53 $
+ By:        $Author: rmulvey $
+
+ (c) Copyright 2003-2014 Mentor Graphics Corporation  All rights reserved.
+
+====================================================================
+
+Tiger Pre-Project Analysis, Design and Implementation Note
+Metamodel Core
+
+Abstract
+========
+This document describes the design and operation of the BridgePoint
+Core Metamodel.
+
+Background
+==========
+The Eclipse environment architecture encourages deployment of 
+application functionality across multiple plugins. Usually there
+is one 'master' plugin that contains functionality that supports
+the operation of all the other plug-ins, which often add the UI
+functionality needed to allow user interaction with the 
+application.
+
+This document describes what will goes into the core plugin for the
+new toolsuite and how the plugins interact with the core to perform
+the job of creating analyses in the form of UML diagrams and
+generating code from those diagrams.
+
+Document References
+===================
+[1] How You've Changed! Responding to resource changes in the 
+    Eclipse workspace, 
+http://www.eclipse.org/articles/Article-Resource-deltas/
+                                            resource-deltas.html
+[2] Eclipse API documentation org.eclipse.core.resources
+
+Analysis
+========
+The Eclipse article on resource change handling [1] gives a good 
+example of how information about changes to resources (projects,
+folders and files) is propagated to interested plugins in Eclipse.
+Unfortunately, the mechanism is limited to the file system like 
+components enumerated above. We would like to track changes at a
+greater level of granularity than this; to components within a
+given file.
+
+Design
+======
+A new interface named IModelEntityChangeListener is added to the 
+package org.xtuml.bp.core (at the same time this packaged is moved 
+into its own plugin). Classes which require notification 
+of changes to the model must implement this interface and
+register with the metamodel using:
+
+AddModelEntityChangeListener
+                    (IModelEntityChangeListener newListener)
+
+When notification is no longer required, the method:
+
+RemoveModelEntityChangeListener
+                     (IModelEntityChangeListener toRemove)
+
+is used.
+
+The IModelEntityChangeListener interface requires the
+implementing class to implement a single method:
+ 
+modelEntityChanged(IModelEntityChangeEvent event)
+
+The IModelEntityChangeEvent interface requires the following
+methods:
+
+IModelEntityDelta getDelta() - returns a ModelEntityDelta, rooted
+                               at the system level, describing the
+                               set of changes that happened to 
+                               entities in the system model.
+IModelEntity getEntity()     - returns the entity in question.
+Object getSource()           - returns an object identifying the 
+                               source of this event.
+int getType()                - returns the type of the event (see
+                               IResourceChangeEvent for an 
+                               enumeration and a definition of
+                               the possible event types).
+
+The IModelEntityDelta requires the implementation of the 
+following methods:
+
+int getKind()                - returns the kind of change made. 
+                               Change types are ADDED, CHANGED, 
+                               CONTENT, DESCRIPTION, ACTION_SEM,
+                               MOVED_FROM, MOVED_TO, NO_CHANGE,
+                               REMOVED, REPLACED, TYPE (see 
+                               IResourceDelta for a definition 
+                               of the meanings of these kind 
+                               constants, except ACTION_SEM which
+                               is similar to DESCRIPTION, but 
+                               applies to the action semantics
+                               field of the entity).
+IModelEntityDelta[] getAffectedChildren() - returns an array of 
+                               model entity deltas for all children
+                               of this entity which were added,
+                               removed or changed.
+IModelEntity getEntity()     - returns a handle for the affected 
+                               entity.
+
+All the methods above are adapted from the IResourceDelta family
+of Eclipse classes. They represent a subset of the methods defined
+on those classes. Over time, a need for more of them may present 
+itself.
+
+The modelEntityChanged method is a callback. When it is invoked,
+the receiver tests the event to see the kind of change and re-
+renders itself based on the new state of the data in the metamodel.
+
+Implementation
+==============
+IModelEntityChangeListener implementations envisaged immediately
+are for ExplorerView and CanvasEditor.
+
+End
+===

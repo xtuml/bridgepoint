@@ -1,0 +1,94 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("38e5906a-b189-4c0e-b6a8-298c766763e9",
+	'Interface Package in Interface Package',
+	4301,
+	'IP_IPINIP',
+	'',
+	"eb74db19-81fd-4e68-afdd-ec658964f576");
+INSERT INTO O_REF
+	VALUES ("38e5906a-b189-4c0e-b6a8-298c766763e9",
+	"870ee36f-38fe-4fee-8572-806d3c15e993",
+	0,
+	"18d4ab27-a56f-448d-8ccb-03bb49d7f122",
+	"ca7d638d-5f6d-4a43-a889-3fed797b94cd",
+	"8b6761aa-3bfe-4be5-bc59-f41b1705d46a",
+	"2407f409-579a-4b3d-b064-18aaa7e53a59",
+	"8255bc08-8fea-4344-8788-c9ec276d13f7",
+	"96ca584c-c6d8-4fcc-bc13-cad02dbcaa5d",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Interface Package',
+	'Package_ID',
+	'R4300');
+INSERT INTO R_RGO_PROXY
+	VALUES ("38e5906a-b189-4c0e-b6a8-298c766763e9",
+	"ca7d638d-5f6d-4a43-a889-3fed797b94cd",
+	"8b6761aa-3bfe-4be5-bc59-f41b1705d46a",
+	'../Interface Package.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("18d4ab27-a56f-448d-8ccb-03bb49d7f122",
+	"870ee36f-38fe-4fee-8572-806d3c15e993",
+	0,
+	"ca7d638d-5f6d-4a43-a889-3fed797b94cd",
+	"2407f409-579a-4b3d-b064-18aaa7e53a59",
+	'../Interface Package.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("8255bc08-8fea-4344-8788-c9ec276d13f7",
+	"38e5906a-b189-4c0e-b6a8-298c766763e9",
+	"a5a1b94e-be2f-4750-bd58-cf1c2713558a",
+	"cf4966b0-706a-4373-a2ee-7e706918813c",
+	1,
+	'Package_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("a5a1b94e-be2f-4750-bd58-cf1c2713558a",
+	"cf4966b0-706a-4373-a2ee-7e706918813c",
+	'../../Element Packaging/Specification Package/Specification Package.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("8255bc08-8fea-4344-8788-c9ec276d13f7",
+	"38e5906a-b189-4c0e-b6a8-298c766763e9",
+	"00000000-0000-0000-0000-000000000000",
+	'Package_ID',
+	'',
+	'',
+	'Package_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_ID
+	VALUES (0,
+	"38e5906a-b189-4c0e-b6a8-298c766763e9");
+INSERT INTO O_OIDA
+	VALUES ("8255bc08-8fea-4344-8788-c9ec276d13f7",
+	"38e5906a-b189-4c0e-b6a8-298c766763e9",
+	0,
+	'Package_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"38e5906a-b189-4c0e-b6a8-298c766763e9");
+INSERT INTO O_ID
+	VALUES (2,
+	"38e5906a-b189-4c0e-b6a8-298c766763e9");
+INSERT INTO S_SS_PROXY
+	VALUES ("eb74db19-81fd-4e68-afdd-ec658964f576",
+	'Interface Package',
+	'// This is used by schema_gen to ignore this subsystem (for publication)
+TRANSLATE_FOR_EXTERNAL_USE:FALSE
+
+The Interface Diagram subsystem captures data specific to the graphical
+implementation of interfaces.',
+	'IP',
+	4300,
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
+	'../Interface Package.xtuml');

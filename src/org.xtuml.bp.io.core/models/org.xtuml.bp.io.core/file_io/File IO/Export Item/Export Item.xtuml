@@ -1,0 +1,61 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("69a5ebc7-ef1a-4d3c-995f-e1d75c80d54a",
+	'Export Item',
+	2,
+	'EI',
+	'This class is an abstraction of what is exported from the Tiger application.
+It abstracts two things: model data, and graphical models.',
+	"f157564a-4386-4e32-b5c9-0e4d7bd3609a");
+INSERT INTO O_NBATTR
+	VALUES ("fb78b1f6-8c41-4ee7-9138-026cad67415f",
+	"69a5ebc7-ef1a-4d3c-995f-e1d75c80d54a");
+INSERT INTO O_BATTR
+	VALUES ("fb78b1f6-8c41-4ee7-9138-026cad67415f",
+	"69a5ebc7-ef1a-4d3c-995f-e1d75c80d54a");
+INSERT INTO O_ATTR
+	VALUES ("fb78b1f6-8c41-4ee7-9138-026cad67415f",
+	"69a5ebc7-ef1a-4d3c-995f-e1d75c80d54a",
+	"00000000-0000-0000-0000-000000000000",
+	'Name',
+	'This is the name of the item being exported. It''s value is the union of the identifiers of all
+its subtypes.
+
+',
+	'',
+	'Name',
+	0,
+	"5e30bc10-6b4e-49f6-a053-8d190acef663",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("5e30bc10-6b4e-49f6-a053-8d190acef663",
+	"695dce7b-262a-4226-9cbb-c9f897b44c67",
+	'string',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_ID
+	VALUES (0,
+	"69a5ebc7-ef1a-4d3c-995f-e1d75c80d54a");
+INSERT INTO O_OIDA
+	VALUES ("fb78b1f6-8c41-4ee7-9138-026cad67415f",
+	"69a5ebc7-ef1a-4d3c-995f-e1d75c80d54a",
+	0,
+	'Name');
+INSERT INTO O_ID
+	VALUES (1,
+	"69a5ebc7-ef1a-4d3c-995f-e1d75c80d54a");
+INSERT INTO O_ID
+	VALUES (2,
+	"69a5ebc7-ef1a-4d3c-995f-e1d75c80d54a");
+INSERT INTO S_SS_PROXY
+	VALUES ("f157564a-4386-4e32-b5c9-0e4d7bd3609a",
+	'File IO',
+	'',
+	'',
+	1,
+	"695dce7b-262a-4226-9cbb-c9f897b44c67",
+	"00000000-0000-0000-0000-000000100002",
+	'../File IO.xtuml');

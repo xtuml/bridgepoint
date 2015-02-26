@@ -1,0 +1,135 @@
+AUDIT RESULTS FOR DOMAIN event
+
+SUBSYSTEMS WITHOUT DESCRIPTIONS:
+event
+
+EXTERNAL ENTITIES WITHOUT DESCRIPTIONS:
+External Entity Logging 
+External Entity Time
+External Entity Architecture
+
+EXTERNAL ENTITY EVENTS WITHOUT DESCRIPTIONS:
+External Entity Event EE1
+External Entity Event EE2
+
+EXTERNAL ENTITY EVENT DATA WITHOUT DESCRIPTIONS:
+External Entity Event Data Item b
+External Entity Event Data Item i
+External Entity Event Data Item r
+External Entity Event Data Item s
+
+BRIDGES WITHOUT DESCRIPTIONS:
+External Entity Bridge Logging ::LogSuccess
+External Entity Bridge Logging ::LogFailure
+External Entity Bridge Logging ::LogInfo
+External Entity Bridge External Entity no supdata::bogus
+External Entity Bridge Architecture::shutdown
+
+CLASSES WITHOUT DESCRIPTIONS:
+Class event::Driver
+Class event::G
+Class event::H
+Class event::event init
+Class event::EXDriver
+
+ATTRIBUTES WITHOUT DESCRIPTIONS:
+Attribute Driver::dr_id
+Attribute Driver::testNumber
+Attribute Driver::test_passed_timer
+Attribute Driver::test_failed_timer
+Attribute Driver::current_state
+Attribute G::g_id
+Attribute H::h_id
+Attribute H::current_state
+Attribute event init::id
+Attribute event init::current_state
+Attribute EXDriver::exdr_id
+Attribute EXDriver::test_count
+Attribute EXDriver::current_state
+
+STATE MODELS WITHOUT DESCRIPTIONS:
+State Model Driver
+State Model G
+State Model H
+State Model event init
+State Model EXDriver
+
+EVENTS WITHOUT DESCRIPTIONS:
+Event DR1
+Event DR2
+Event DR3
+Event DR4
+Event DR5
+Event DR6
+Event DR7
+Event DR8
+Event DR9
+Event G_A1
+Event G_A2
+Event G_A3
+Event H1
+Event H2
+Event INIT1
+Event EX1
+Event EX2
+Event EX3
+Event EX4
+
+EVENT DATA WITHOUT DESCRIPTIONS:
+Event Data Driver::b
+Event Data Driver::i
+Event Data Driver::r
+Event Data Driver::s
+Event Data G (Class Based)::b
+Event Data G (Class Based)::i
+Event Data G (Class Based)::r
+Event Data G (Class Based)::s
+Event Data G (Class Based)::dummy
+Event Data H::b
+Event Data H::i
+Event Data H::r
+Event Data H::s
+Event Data EXDriver::b
+Event Data EXDriver::i
+Event Data EXDriver::r
+Event Data EXDriver::s
+Event Data EXDriver::dummy
+
+ACTION SPECIFICATIONS WITHOUT DESCRIPTIONS:
+Driver::Send Event to EE
+Driver::Send Event to Assigner
+Driver::Send Event to Creator
+Driver::Supdata Event to EE
+Driver::Event to EE Received
+Driver::Event to EE Failed
+Driver::Event to Assigner Failed
+Driver::Event to Assigner Received
+Driver::Event to Creator Failed
+Driver::Event to Creator Received
+Driver::Test Complete
+Driver::Supdata Event to EE Failed
+Driver::Supdata Event to EE Received
+Driver::Supdata Event to Assigner
+Driver::Supdata Event to Assigner Failed
+Driver::Supdata Event to Assigner Received
+Driver::Supdata Event to Creator
+Driver::Supdata Event to Creator Failed
+Driver::Supdata Event to Creator Received
+Driver::Second Event to EE Received
+Driver::Second Event to Assigner Received
+Driver::Second Event to Creator Received
+Driver::Second Supdata Event to EE Received
+Driver::Second Supdata Event to Assigner Received
+Driver::Second Supdata Event to Creator Received
+Driver::Start Test and Wait for EE to Initialize
+G::Received Event with no supdata From Driver (Class Based)
+G::Waiting for Event from Driver (Class Based)
+G::Received Event with supdata From Driver (Class Based)
+H::Creation State With Supdata
+H::Creation State Without Supdata
+event init::Initialize System
+EXDriver::Start
+EXDriver::Run
+EXDriver::handle plain timer
+EXDriver::handle timer with supdata
+EXDriver::Creation state

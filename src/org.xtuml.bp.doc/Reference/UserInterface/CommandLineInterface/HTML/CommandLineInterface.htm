@@ -1,0 +1,723 @@
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=Generator content="Microsoft Word 14 (filtered)">
+<title>Command Line Interface</title>
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:"Arial Unicode MS";
+	panose-1:2 11 6 4 2 2 2 2 2 4;}
+@font-face
+	{font-family:Cambria;
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Tahoma;
+	panose-1:2 11 6 4 3 5 4 4 2 4;}
+@font-face
+	{font-family:Webdings;
+	panose-1:5 3 1 2 1 5 9 6 7 3;}
+@font-face
+	{font-family:"\@Arial Unicode MS";
+	panose-1:2 11 6 4 2 2 2 2 2 4;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+h1
+	{mso-style-link:"Heading 1 Char";
+	margin-right:0in;
+	margin-left:0in;
+	font-size:18.0pt;
+	font-family:"Arial","sans-serif";
+	color:black;
+	font-weight:normal;}
+h2
+	{mso-style-link:"Heading 2 Char";
+	margin-right:0in;
+	margin-left:0in;
+	line-height:15.6pt;
+	font-size:12.0pt;
+	font-family:"Arial","sans-serif";
+	color:navy;
+	font-weight:bold;}
+h3
+	{mso-style-link:"Heading 3 Char";
+	margin-right:0in;
+	margin-bottom:2.4pt;
+	margin-left:0in;
+	font-size:11.0pt;
+	font-family:"Arial","sans-serif";
+	color:maroon;
+	font-weight:bold;}
+h4
+	{mso-style-link:"Heading 4 Char";
+	margin-top:7.5pt;
+	margin-right:7.5pt;
+	margin-bottom:2.4pt;
+	margin-left:7.5pt;
+	font-size:11.0pt;
+	font-family:"Arial","sans-serif";
+	color:#0176B9;
+	font-weight:bold;}
+a:link, span.MsoHyperlink
+	{color:navy;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{color:#0176B9;
+	text-decoration:underline;}
+p
+	{margin:7.5pt;
+	font-size:10.0pt;
+	font-family:"Times New Roman","serif";}
+p.MsoAcetate, li.MsoAcetate, div.MsoAcetate
+	{mso-style-link:"Balloon Text Char";
+	margin:0in;
+	margin-bottom:.0001pt;
+	font-size:8.0pt;
+	font-family:"Tahoma","sans-serif";}
+span.Heading1Char
+	{mso-style-name:"Heading 1 Char";
+	mso-style-link:"Heading 1";
+	font-family:"Cambria","serif";
+	color:#365F91;
+	font-weight:bold;}
+span.Heading2Char
+	{mso-style-name:"Heading 2 Char";
+	mso-style-link:"Heading 2";
+	font-family:"Cambria","serif";
+	color:#4F81BD;
+	font-weight:bold;}
+span.Heading3Char
+	{mso-style-name:"Heading 3 Char";
+	mso-style-link:"Heading 3";
+	font-family:"Cambria","serif";
+	color:#4F81BD;
+	font-weight:bold;}
+span.Heading4Char
+	{mso-style-name:"Heading 4 Char";
+	mso-style-link:"Heading 4";
+	font-family:"Cambria","serif";
+	color:#4F81BD;
+	font-weight:bold;
+	font-style:italic;}
+span.BalloonTextChar
+	{mso-style-name:"Balloon Text Char";
+	mso-style-link:"Balloon Text";
+	font-family:"Tahoma","sans-serif";}
+p.preformatted-tpcode, li.preformatted-tpcode, div.preformatted-tpcode
+	{mso-style-name:preformatted-tp_code;
+	margin-top:15.0pt;
+	margin-right:0in;
+	margin-bottom:15.0pt;
+	margin-left:0in;
+	background:silver;
+	font-size:10.0pt;
+	font-family:"Courier New";}
+p.normalnotoc, li.normalnotoc, div.normalnotoc
+	{mso-style-name:normalnotoc;
+	margin:7.5pt;
+	font-size:11.0pt;
+	font-family:"Times New Roman","serif";}
+span.codeChar
+	{mso-style-name:"code Char";
+	mso-style-link:code;
+	font-family:"Courier New";}
+p.code, li.code, div.code
+	{mso-style-name:code;
+	mso-style-link:"code Char";
+	margin:7.5pt;
+	font-size:11.0pt;
+	font-family:"Courier New";}
+span.tpcodeChar
+	{mso-style-name:"tp_code Char";
+	mso-style-link:tp_code;
+	font-family:"Courier New";}
+p.tpcode, li.tpcode, div.tpcode
+	{mso-style-name:tp_code;
+	mso-style-link:"tp_code Char";
+	margin:7.5pt;
+	font-size:10.0pt;
+	font-family:"Courier New";}
+p.tpinput, li.tpinput, div.tpinput
+	{mso-style-name:tp_input;
+	margin:7.5pt;
+	font-size:10.0pt;
+	font-family:"Times New Roman","serif";
+	font-weight:bold;}
+p.tpui, li.tpui, div.tpui
+	{mso-style-name:tp_ui;
+	margin:7.5pt;
+	font-size:10.0pt;
+	font-family:"Times New Roman","serif";
+	color:navy;}
+p.tpvar, li.tpvar, div.tpvar
+	{mso-style-name:tp_var;
+	margin:7.5pt;
+	font-size:10.0pt;
+	font-family:"Times New Roman","serif";
+	font-style:italic;}
+p.tpfooter, li.tpfooter, div.tpfooter
+	{mso-style-name:tp_footer;
+	margin:7.5pt;
+	text-align:center;
+	background:white;
+	font-size:9.0pt;
+	font-family:"Times New Roman","serif";}
+p.sub, li.sub, div.sub
+	{mso-style-name:sub;
+	margin:7.5pt;
+	font-size:10.0pt;
+	font-family:"Times New Roman","serif";}
+p.sublstbody, li.sublstbody, div.sublstbody
+	{mso-style-name:sublstbody;
+	margin:7.5pt;
+	font-size:10.0pt;
+	font-family:"Times New Roman","serif";}
+p.msochpdefault, li.msochpdefault, div.msochpdefault
+	{mso-style-name:msochpdefault;
+	margin:7.5pt;
+	font-size:10.0pt;
+	font-family:"Times New Roman","serif";}
+span.tpfile
+	{mso-style-name:tp_file;
+	color:#990000;
+	letter-spacing:1.2pt;}
+span.tpnote
+	{mso-style-name:tp_note;
+	font-weight:bold;}
+span.tpmenuarrow
+	{mso-style-name:tp_menuarrow;
+	font-family:Webdings;
+	color:navy;}
+span.hypertext
+	{mso-style-name:hypertext;}
+.MsoChpDefault
+	{font-size:10.0pt;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 41.25pt 1.0in 1.25in;}
+div.WordSection1
+	{page:WordSection1;}
+-->
+</style>
+
+<script language="JavaScript"  src="../../../org.eclipse.help/livehelp.js">
+</script>
+</head>
+
+<body bgcolor=white lang=EN-US link=navy vlink="#0176B9">
+
+<div class=WordSection1>
+
+<h1><a name="_Ref100717464">Command Line Interface </a></h1>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>The
+Command Line Interface (CLI) provides a mechanism to automate the execution and
+translation of xtUML projects. The CLI supports Import, Build and Execute tasks
+using the following command structure:</span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>&nbsp;</span></p>
+
+<p style='text-indent:28.5pt;line-height:15.6pt'><b><span style='font-size:
+12.0pt;font-family:"Arial Unicode MS","sans-serif"'>CLI &lt;Build | Import | Execute
+| Merge&gt; &lt;Argument List&gt;</span></b></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>&nbsp;</span></p>
+
+<p style='margin-right:17.25pt;line-height:15.6pt'><span style='font-family:
+"Arial","sans-serif"'>where &lt;Argument List&gt; depends on the task. Further
+details on the options available for each CLI task can be found by entering </span></p>
+
+<p style='margin-right:17.25pt;line-height:15.6pt'><span style='font-family:
+"Arial","sans-serif"'>&nbsp;</span></p>
+
+<p style='margin-right:17.25pt;text-indent:28.5pt;line-height:15.6pt'><b><span
+style='font-size:12.0pt;font-family:"Arial Unicode MS","sans-serif"'>CLI
+&lt;Build | Import | Execute | Merge&gt; -help</span></b></p>
+
+<p style='margin-right:17.25pt;line-height:15.6pt'><span style='font-family:
+"Arial","sans-serif"'>&nbsp;</span></p>
+
+<p style='margin-right:17.25pt;line-height:15.6pt'><span style='font-family:
+"Arial","sans-serif"'>Examples demonstrating the expected usage of the CLI are
+included in the BridgePoint and xtUML Editor (xE) installation, and can be
+found in the folder &lt;<b>Installation root&gt;/eclipse</b>. Note, that the
+examples are specific to the host operating system with CLI.bat intended for
+Windows and CLI.sh intended for Linux.</span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>&nbsp;</span></p>
+
+<h2>Preparing a Project to be used with CLI</h2>
+
+<p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>Prior
+to invoking the CLI, the target project and associated workspace will require
+some setup. Initially, the CLI script must be customized as follows:</span></p>
+
+<p style='margin-left:43.5pt;text-indent:-.25in;line-height:15.6pt'><span
+style='font-family:"Arial","sans-serif"'>1.</span><span style='font-size:7.0pt'>&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style='font-family:"Arial","sans-serif"'>Copy the CLI script into
+the project workspace</span></p>
+
+<p style='margin-left:43.5pt;text-indent:-.25in;line-height:15.6pt'><span
+style='font-family:"Arial","sans-serif"'>2.</span><span style='font-size:7.0pt'>&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style='font-family:"Arial","sans-serif"'>Modify the script to
+assign the WORKSPACE variable to the correct path </span></p>
+
+<p style='margin-left:43.5pt;text-indent:-.25in;line-height:15.6pt'><span
+style='font-family:"Arial","sans-serif"'>3.</span><span style='font-size:7.0pt'>&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style='font-family:"Arial","sans-serif"'>For projects created
+prior to 3.6.0, switch to the Model Explorer view, select the project and then
+perform <b>&lt;Right Mouse Button&gt; &gt; BridgePoint Utilities &gt; Upgrade
+Compiler Settings</b></span></p>
+
+<p style='margin-left:43.5pt;line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>&nbsp;</span></p>
+
+<p style='margin-left:0in;line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>For
+each target project, launch and build configurations are required under the
+following circumstances:</span></p>
+
+<p style='margin-left:43.5pt;text-indent:-.25in;line-height:15.6pt'><span
+style='font-family:"Arial","sans-serif"'>1.</span><span style='font-size:7.0pt'>&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style='font-family:"Arial","sans-serif"'>For projects using the
+Build task,&nbsp; a CDT build configuration must exist for each name requested
+by option –buildConfig</span></p>
+
+<p style='margin-left:43.5pt;text-indent:-.25in;line-height:15.6pt'><span
+style='font-family:"Arial","sans-serif"'>2.</span><span style='font-size:7.0pt'>&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style='font-family:"Arial","sans-serif"'>For projects using the
+Execute task, a launch configuration must exist for each name requested by
+option –launch and each configuration must identify at least one Initializer
+(an interface operation, interface signal or state machine event). It is recommended
+that the &quot;Execution timeout (seconds)&quot; selection be set to a value
+great than 0 (no termination) which will force execution to terminate with a
+timeout error message if the execution time exceeds this limit.</span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>&nbsp;</span></p>
+
+<p style='margin-top:0in;line-height:15.6pt'><span style='left:0px;position:
+absolute;z-index:251658240'><img width=207 height=35
+src="CommandLineInterface_files/image001.gif"><img width=101 height=33
+src="CommandLineInterface_files/image002.gif"><span style='font-family:"Arial","sans-serif"'><img
+width=742 height=637 src="CommandLineInterface_files/image003.gif"></span></p>
+
+<h2>&nbsp;</h2>
+
+<h2>Building a project using the CLI</h2>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>The
+Build task is used to translate an xtUML model using the project’s selected
+model compiler. The task is initiated by</span></p>
+
+<p style='margin-top:12.0pt;margin-right:.1in;margin-bottom:24.0pt;margin-left:
+.1in;text-indent:.4in;line-height:15.6pt'><b><span style='font-size:12.0pt;
+font-family:"Courier New"'>CLI&nbsp; Build&nbsp; &lt;Argument List&gt;</span></b></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>where
+&lt;Argument List&gt; can contain any of the following options</span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>&nbsp;</span></p>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='margin-left:40.1pt;border-collapse:collapse'>
+ <tr>
+  <td width=163 valign=top style='width:122.6pt;border:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p style='margin-left:13.7pt;line-height:15.6pt'><span style='font-family:
+  "Arial","sans-serif"'>-project</span></p>
+  </td>
+  <td width=492 valign=top style='width:369.0pt;border:solid windowtext 1.0pt;
+  border-left:none;padding:0in 5.4pt 0in 5.4pt'>
+  <p style='margin-left:8.1pt;line-height:15.6pt'><span style='font-family:
+  "Arial","sans-serif"'>The name of the project to be built</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width=163 valign=top style='width:122.6pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt'>
+  <p style='margin-left:13.7pt;line-height:15.6pt'><span style='font-family:
+  "Arial","sans-serif"'>-buildConfig</span></p>
+  </td>
+  <td width=492 valign=top style='width:369.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p style='margin-left:8.1pt;line-height:15.6pt'><span style='font-family:
+  "Arial","sans-serif"'>The name of the CDT build configuration to be used. If
+  omitted then the current Active configuration is used</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width=163 valign=top style='width:122.6pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt'>
+  <p style='margin-left:13.7pt;line-height:15.6pt'><span style='font-family:
+  "Arial","sans-serif"'>-prebuildOnly</span></p>
+  </td>
+  <td width=492 valign=top style='width:369.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p style='margin-left:8.1pt;line-height:15.6pt'><span style='font-family:
+  "Arial","sans-serif"'>Only the BridgePoint Model Compiler pre-builder will be
+  executed</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width=163 valign=top style='width:122.6pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt'>
+  <p style='margin-left:13.7pt;line-height:15.6pt'><span style='font-family:
+  "Arial","sans-serif"'>-cleanCLI</span></p>
+  </td>
+  <td width=492 valign=top style='width:369.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p style='margin-left:8.1pt;line-height:15.6pt'><span style='font-family:
+  "Arial","sans-serif"'>Perform a clean build of the project</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width=163 valign=top style='width:122.6pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt'>
+  <p style='margin-left:13.7pt;line-height:15.6pt'><span style='font-family:
+  "Arial","sans-serif"'>-debugCLI</span></p>
+  </td>
+  <td width=492 valign=top style='width:369.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p style='margin-left:8.1pt;line-height:15.6pt'><span style='font-family:
+  "Arial","sans-serif"'>Launch a workbench and leave it open after executing</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width=163 valign=top style='width:122.6pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt'>
+  <p style='margin-left:13.7pt;line-height:15.6pt'><span style='font-family:
+  "Arial","sans-serif"'>-help</span></p>
+  </td>
+  <td width=492 valign=top style='width:369.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p style='margin-left:8.1pt;line-height:15.6pt'><span style='font-family:
+  "Arial","sans-serif"'>Displays usage information</span></p>
+  </td>
+ </tr>
+</table>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>&nbsp;</span></p>
+
+<h2>Importing a project using the CLI</h2>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>The
+Import task is used to add the named project to the current workspace. The task
+is initiated by</span></p>
+
+<p style='margin-top:12.0pt;margin-right:.1in;margin-bottom:24.0pt;margin-left:
+.1in;text-indent:.4in;line-height:15.6pt'><b><span style='font-size:12.0pt;
+font-family:"Courier New"'>CLI&nbsp; Import&nbsp; &lt;Argument List&gt;</span></b></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>where
+&lt;Argument List&gt; can contain any of the following options</span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>&nbsp;</span></p>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='margin-left:7.5pt;border-collapse:collapse'>
+ <tr>
+  <td width=163 valign=top style='width:122.6pt;border:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p style='margin-left:13.7pt;line-height:15.6pt'><span style='font-family:
+  "Arial","sans-serif"'>-project</span></p>
+  </td>
+  <td width=492 valign=top style='width:369.0pt;border:solid windowtext 1.0pt;
+  border-left:none;padding:0in 5.4pt 0in 5.4pt'>
+  <p style='margin-left:8.1pt;line-height:15.6pt'><span style='font-family:
+  "Arial","sans-serif"'>The fully qualified name of the project to be Imported</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width=163 valign=top style='width:122.6pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt'>
+  <p style='margin-left:13.7pt;line-height:15.6pt'><span style='font-family:
+  "Arial","sans-serif"'>-deleteExisting</span></p>
+  </td>
+  <td width=492 valign=top style='width:369.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p style='margin-left:8.1pt;line-height:15.6pt'><span style='font-family:
+  "Arial","sans-serif"'>If a project with the same name exists in the
+  workspace, this option will delete it before importing the named project.</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width=163 valign=top style='width:122.6pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt'>
+  <p style='margin-left:13.7pt;line-height:15.6pt'><span style='font-family:
+  "Arial","sans-serif"'>-help</span></p>
+  </td>
+  <td width=492 valign=top style='width:369.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p style='margin-left:8.1pt;line-height:15.6pt'><span style='font-family:
+  "Arial","sans-serif"'>Displays usage information</span></p>
+  </td>
+ </tr>
+</table>
+
+<p style='margin-left:0in;line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>&nbsp;</span></p>
+
+<h2>Executing a project using the CLI</h2>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>The
+Execute task is used to run an xtUML model using BridgePoint’s xtUML Debug
+Perspective. The task is initiated by</span></p>
+
+<p style='margin-top:12.0pt;margin-right:.1in;margin-bottom:24.0pt;margin-left:
+.1in;text-indent:.4in;line-height:15.6pt'><b><span style='font-size:12.0pt;
+font-family:"Courier New"'>CLI&nbsp; Execute&nbsp; &lt;Argument List&gt;</span></b></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>where
+&lt;Argument List&gt; can contain any of the following options</span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>&nbsp;</span></p>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='margin-left:7.5pt;border-collapse:collapse'>
+ <tr>
+  <td width=163 valign=top style='width:122.6pt;border:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p style='margin-left:13.7pt;line-height:15.6pt'><span style='font-family:
+  "Arial","sans-serif"'>-launch</span></p>
+  </td>
+  <td width=492 valign=top style='width:369.0pt;border:solid windowtext 1.0pt;
+  border-left:none;padding:0in 5.4pt 0in 5.4pt'>
+  <p style='margin-left:8.1pt;line-height:15.6pt'><span style='font-family:
+  "Arial","sans-serif"'>The name of the launch configuration to execute</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width=163 valign=top style='width:122.6pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt'>
+  <p style='margin-left:13.7pt;line-height:15.6pt'><span style='font-family:
+  "Arial","sans-serif"'>-debugCLI</span></p>
+  </td>
+  <td width=492 valign=top style='width:369.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p style='margin-left:8.1pt;line-height:15.6pt'><span style='font-family:
+  "Arial","sans-serif"'>Launch a workbench and leave it open after executing
+  the command</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width=163 valign=top style='width:122.6pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt'>
+  <p style='margin-left:13.7pt;line-height:15.6pt'><span style='font-family:
+  "Arial","sans-serif"'>-help</span></p>
+  </td>
+  <td width=492 valign=top style='width:369.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p style='margin-left:8.1pt;line-height:15.6pt'><span style='font-family:
+  "Arial","sans-serif"'>Displays usage information</span></p>
+  </td>
+ </tr>
+</table>
+
+<h2>Merging changes from a remote version into the local project using the CLI</h2>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>The
+Merge task is used to produce an xtUML model file containing the merged
+resultant from two xtUML model files that are derived from a common ancestor.
+The task is initiated by</span></p>
+
+<p style='margin-top:12.0pt;margin-right:.1in;margin-bottom:24.0pt;margin-left:
+.1in;text-indent:.4in;line-height:15.6pt'><b><span style='font-size:12.0pt;
+font-family:"Courier New"'>CLI&nbsp; Merge&nbsp; &lt;Argument List&gt;</span></b></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>where
+&lt;Argument List&gt; must contain either –help or the other arguments</span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>&nbsp;</span></p>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='margin-left:7.5pt;border-collapse:collapse'>
+ <tr>
+  <td width=163 valign=top style='width:122.6pt;border:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p style='margin-left:13.7pt;line-height:15.6pt'><span style='font-family:
+  "Arial","sans-serif"'>-rightFile</span></p>
+  </td>
+  <td width=492 valign=top style='width:369.0pt;border:solid windowtext 1.0pt;
+  border-left:none;padding:0in 5.4pt 0in 5.4pt'>
+  <p style='margin-left:8.1pt;line-height:15.6pt'><span style='font-family:
+  "Arial","sans-serif"'>The name of the remote File to be used in the
+  comparison</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width=163 valign=top style='width:122.6pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt'>
+  <p style='margin-left:13.7pt;line-height:15.6pt'><span style='font-family:
+  "Arial","sans-serif"'>-leftFile</span></p>
+  </td>
+  <td width=492 valign=top style='width:369.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p style='margin-left:8.1pt;line-height:15.6pt'><span style='font-family:
+  "Arial","sans-serif"'>The name of the local File to be used in the comparison</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width=163 valign=top style='width:122.6pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt'>
+  <p style='margin-left:13.7pt;line-height:15.6pt'><span style='font-family:
+  "Arial","sans-serif"'>-ancestorFile</span></p>
+  </td>
+  <td width=492 valign=top style='width:369.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p style='margin-left:8.1pt;line-height:15.6pt'><span style='font-family:
+  "Arial","sans-serif"'>The name of the common ancestor to the rightFile and
+  the leftFile</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width=163 valign=top style='width:122.6pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt'>
+  <p style='margin-left:13.7pt;line-height:15.6pt'><span style='font-family:
+  "Arial","sans-serif"'>-outputFile</span></p>
+  </td>
+  <td width=492 valign=top style='width:369.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p style='margin-left:8.1pt;line-height:15.6pt'><span style='font-family:
+  "Arial","sans-serif"'>The name of the File to hold the result produced when
+  the leftFile is merged with the rightFile.</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width=163 valign=top style='width:122.6pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt'>
+  <p style='margin-left:13.7pt;line-height:15.6pt'><span style='font-family:
+  "Arial","sans-serif"'>-help</span></p>
+  </td>
+  <td width=492 valign=top style='width:369.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p style='margin-left:8.1pt;line-height:15.6pt'><span style='font-family:
+  "Arial","sans-serif"'>Displays usage information</span></p>
+  </td>
+ </tr>
+</table>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Note
+that the Merge task will fail and no output file generated, if conflicts exist
+between the leftFile and the rightFile. Also, an absolute path must be
+specified for the left, right, ancestor and output files.</span></p>
+
+<p style='margin-left:0in;line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>&nbsp;</span></p>
+
+<h2>Suggestions when Troubleshooting CLI Problems</h2>
+
+<p><span style='font-family:"Arial","sans-serif"'>When problems involving scripts
+that interact with CLI arise, consider these suggestions while investigating
+the problem</span></p>
+
+<p style='margin-left:43.5pt;text-indent:-.25in'><span style='font-family:"Arial","sans-serif"'>1)</span><span
+style='font-size:7.0pt'>&nbsp;&nbsp;&nbsp;&nbsp; </span><span style='font-family:
+"Arial","sans-serif"'>Interactively, repeat the scripted steps inside the tool
+GUI. The information contained in the console window will assist in isolating
+the problem and will confirm whether the issue relates to the CLI or other
+aspects of the scripted process.</span></p>
+
+<p style='margin-left:43.5pt;text-indent:-.25in'><span style='font-family:"Arial","sans-serif"'>2)</span><span
+style='font-size:7.0pt'>&nbsp;&nbsp;&nbsp;&nbsp; </span><span style='font-family:
+"Arial","sans-serif"'>Once confirmed that the issue is most likely a CLI
+problem, modify the eclipsec invocation inside the CLI.bat script to add </span><span
+style='font-size:12.0pt;font-family:"Courier New"'>-debug –console –consoleLog</span><span
+style='font-family:"Arial","sans-serif"'> to the command just before </span><span
+style='font-size:12.0pt;font-family:"Courier New"'>–application</span><span
+style='font-family:"Arial","sans-serif"'> and rerun the script. These
+additional settings will cause extra detail to be added to the console output.</span></p>
+
+<p style='margin-left:43.5pt;text-indent:-.25in'><span style='font-family:"Arial","sans-serif"'>3)</span><span
+style='font-size:7.0pt'>&nbsp;&nbsp;&nbsp;&nbsp; </span><span style='font-family:
+"Arial","sans-serif"'>If the problem continues to be elusive, add </span><span
+style='font-size:12.0pt;font-family:"Courier New"'>–debugCLI</span><span
+style='font-family:"Arial","sans-serif"'> to interesting CLI.bat
+commands.&nbsp; The </span><span style='font-size:12.0pt;font-family:"Courier New"'>–debugCLI</span><span
+style='font-family:"Arial","sans-serif"'> option is analogous to a breakpoint
+at the end of the CLI.bat command that will leave the Eclipse workbench open
+for further interactive probing.</span></p>
+
+<p style='margin-left:0in;text-indent:9.0pt;line-height:15.6pt'><span
+style='font-family:"Arial","sans-serif"'>The combination of these four
+suggestions is often sufficient to isolate and correct CLI problems.</span></p>
+
+<p style='margin-left:0in;line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>&nbsp;</span></p>
+
+<h2>A CLI Example for the GPS Watch</h2>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>In
+this example, the GPS Watch project is imported from the workspace at c:/Projects/BridgePoint/temp
+into the local workspace. Once imported, the project is built using the Debug
+configuration and then executed using the GPS_Watch_test debug configuration.
+To perform this sequence, a simple script containing the following CLI commands
+is sufficient:</span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>&nbsp;</span></p>
+
+<p style='text-indent:37.5pt;line-height:15.6pt'><span style='font-size:12.0pt;
+font-family:"Courier New"'>CLI.bat Import -deleteExisting -project
+“C:/Projects/BridgePoint/temp/GPS_Watch” </span></p>
+
+<p style='text-indent:37.5pt;line-height:15.6pt'><span style='font-size:12.0pt;
+font-family:"Courier New"'>CLI.bat Build -project GPS_Watch -buildConfig Debug
+-cleanCLI </span></p>
+
+<p style='text-indent:37.5pt;line-height:15.6pt'><span style='font-size:12.0pt;
+font-family:"Courier New"'>CLI.bat Execute -launch “GPS Watch With Initializer”
+</span></p>
+
+<p style='margin-left:0in;text-indent:37.5pt;line-height:15.6pt'><span
+style='font-size:12.0pt;font-family:"Courier New"'>&nbsp;</span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>If
+the GPS watch is modified in two branches, GPS1 and GPS2, then a merged
+model.xtuml file can be produced from the CLI command </span></p>
+
+<p style='text-indent:37.5pt;line-height:15.6pt'><span style='font-size:12.0pt;
+font-family:"Courier New"'>CLI.bat Merge –leftFile
+c:\workspace\GPS1\model.xtuml ^</span></p>
+
+<p style='margin-left:106.5pt;text-indent:37.5pt;line-height:15.6pt'><span
+style='font-size:12.0pt;font-family:"Courier New"'>&nbsp;–rightFile
+c:\workspace\GPS2\model.xtuml ^</span></p>
+
+<p style='margin-left:106.5pt;text-indent:37.5pt;line-height:15.6pt'><span
+style='font-size:12.0pt;font-family:"Courier New"'>&nbsp;-ancestorFile
+C:\MentorGraphics\BridgePoint\workspace\GPS_Watch\model.xtuml</span></p>
+
+<p style='margin-left:106.5pt;text-indent:37.5pt;line-height:15.6pt'><span
+style='font-size:12.0pt;font-family:"Courier New"'>&nbsp;-output\File
+c:\workspace\GPS_merge\model.xtuml </span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>&nbsp;</span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>&nbsp;</span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>&nbsp;</span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>&nbsp;</span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>&nbsp;</span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>&nbsp;</span></p>
+
+</div>
+
+</body>
+
+</html>

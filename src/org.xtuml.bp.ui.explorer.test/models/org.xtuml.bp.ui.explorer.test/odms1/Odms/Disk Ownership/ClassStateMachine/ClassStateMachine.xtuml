@@ -1,0 +1,2589 @@
+-- BP 7.1 content: ClassStateMachine syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO SM_ASM
+	VALUES ("11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"df0d2718-284d-482c-b25a-5b0e60552b51");
+INSERT INTO SM_SM
+	VALUES ("11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	'',
+	6);
+INSERT INTO SM_MOORE
+	VALUES ("11d36266-acd5-4436-aa6e-0dc83ed0b2d4");
+INSERT INTO SM_EVTDI
+	VALUES ("95dbb67a-cd3b-41d0-9612-5e663adac4cb",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	'serial_number',
+	'Event Data Item Descriptions:
+',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	'',
+	"b3b4e653-93e6-47b0-9ab6-e297a9b79b5e",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO SM_LEVT
+	VALUES ("2a2cfbee-6880-49e8-839b-79badde810f8",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO SM_SEVT
+	VALUES ("2a2cfbee-6880-49e8-839b-79badde810f8",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO SM_EVT
+	VALUES ("2a2cfbee-6880-49e8-839b-79badde810f8",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000",
+	1,
+	'Disk Requested by QP',
+	0,
+	'',
+	'D_DO_A1',
+	'Event Descriptions:
+');
+INSERT INTO SM_LEVT
+	VALUES ("25200766-d740-47e3-9c32-04bcb854a45c",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO SM_SEVT
+	VALUES ("25200766-d740-47e3-9c32-04bcb854a45c",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO SM_EVT
+	VALUES ("25200766-d740-47e3-9c32-04bcb854a45c",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000",
+	2,
+	'Establish Ownership of an Offline Disk',
+	0,
+	'',
+	'D_DO_A2',
+	'Event Descriptions:
+');
+INSERT INTO SM_LEVT
+	VALUES ("f6481c47-305c-4a2f-a958-ca7110228268",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO SM_SEVT
+	VALUES ("f6481c47-305c-4a2f-a958-ca7110228268",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO SM_EVT
+	VALUES ("f6481c47-305c-4a2f-a958-ca7110228268",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000",
+	3,
+	'Establish Ownership of an Online Disk',
+	0,
+	'',
+	'D_DO_A3',
+	'Event Descriptions:
+');
+INSERT INTO SM_LEVT
+	VALUES ("0c5b24cb-d583-40ad-b99c-698ad81bba5b",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO SM_SEVT
+	VALUES ("0c5b24cb-d583-40ad-b99c-698ad81bba5b",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO SM_EVT
+	VALUES ("0c5b24cb-d583-40ad-b99c-698ad81bba5b",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000",
+	4,
+	'Eject Disk if Possible',
+	0,
+	'',
+	'D_DO_A4',
+	'Event Descriptions:
+');
+INSERT INTO SM_LEVT
+	VALUES ("f45368f1-dd37-4cba-9b4e-d65c4e01c2ce",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO SM_SEVT
+	VALUES ("f45368f1-dd37-4cba-9b4e-d65c4e01c2ce",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO SM_EVT
+	VALUES ("f45368f1-dd37-4cba-9b4e-d65c4e01c2ce",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000",
+	5,
+	'Disk Ownership Released',
+	0,
+	'',
+	'D_DO_A5',
+	'Event Descriptions:
+');
+INSERT INTO SM_LEVT
+	VALUES ("139cb3b8-1274-4e7c-9c35-afc7d9691185",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO SM_SEVT
+	VALUES ("139cb3b8-1274-4e7c-9c35-afc7d9691185",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO SM_EVT
+	VALUES ("139cb3b8-1274-4e7c-9c35-afc7d9691185",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000",
+	6,
+	'Ownership Established',
+	0,
+	'',
+	'D_DO_A6',
+	'Event Descriptions:
+');
+INSERT INTO SM_LEVT
+	VALUES ("b3b4e653-93e6-47b0-9ab6-e297a9b79b5e",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO SM_SEVT
+	VALUES ("b3b4e653-93e6-47b0-9ab6-e297a9b79b5e",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO SM_EVT
+	VALUES ("b3b4e653-93e6-47b0-9ab6-e297a9b79b5e",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000",
+	7,
+	'Disk Now Online',
+	0,
+	'',
+	'D_DO_A7',
+	'Event Descriptions:
+');
+INSERT INTO SM_LEVT
+	VALUES ("e58ff58a-9e29-4342-8a81-9d6502f56388",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO SM_SEVT
+	VALUES ("e58ff58a-9e29-4342-8a81-9d6502f56388",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO SM_EVT
+	VALUES ("e58ff58a-9e29-4342-8a81-9d6502f56388",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000",
+	8,
+	'Disk Now Offline',
+	0,
+	'',
+	'D_DO_A8',
+	'Event Descriptions:
+');
+INSERT INTO SM_STATE
+	VALUES ("4d708727-5b3d-404f-908c-db79b835bb49",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000",
+	'Waiting for a Disk Request',
+	1,
+	0);
+INSERT INTO SM_SEME
+	VALUES ("4d708727-5b3d-404f-908c-db79b835bb49",
+	"2a2cfbee-6880-49e8-839b-79badde810f8",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO SM_EIGN
+	VALUES ("4d708727-5b3d-404f-908c-db79b835bb49",
+	"25200766-d740-47e3-9c32-04bcb854a45c",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO SM_SEME
+	VALUES ("4d708727-5b3d-404f-908c-db79b835bb49",
+	"25200766-d740-47e3-9c32-04bcb854a45c",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO SM_EIGN
+	VALUES ("4d708727-5b3d-404f-908c-db79b835bb49",
+	"f6481c47-305c-4a2f-a958-ca7110228268",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO SM_SEME
+	VALUES ("4d708727-5b3d-404f-908c-db79b835bb49",
+	"f6481c47-305c-4a2f-a958-ca7110228268",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO SM_EIGN
+	VALUES ("4d708727-5b3d-404f-908c-db79b835bb49",
+	"0c5b24cb-d583-40ad-b99c-698ad81bba5b",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO SM_SEME
+	VALUES ("4d708727-5b3d-404f-908c-db79b835bb49",
+	"0c5b24cb-d583-40ad-b99c-698ad81bba5b",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO SM_EIGN
+	VALUES ("4d708727-5b3d-404f-908c-db79b835bb49",
+	"f45368f1-dd37-4cba-9b4e-d65c4e01c2ce",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO SM_SEME
+	VALUES ("4d708727-5b3d-404f-908c-db79b835bb49",
+	"f45368f1-dd37-4cba-9b4e-d65c4e01c2ce",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO SM_EIGN
+	VALUES ("4d708727-5b3d-404f-908c-db79b835bb49",
+	"139cb3b8-1274-4e7c-9c35-afc7d9691185",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO SM_SEME
+	VALUES ("4d708727-5b3d-404f-908c-db79b835bb49",
+	"139cb3b8-1274-4e7c-9c35-afc7d9691185",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO SM_EIGN
+	VALUES ("4d708727-5b3d-404f-908c-db79b835bb49",
+	"b3b4e653-93e6-47b0-9ab6-e297a9b79b5e",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO SM_SEME
+	VALUES ("4d708727-5b3d-404f-908c-db79b835bb49",
+	"b3b4e653-93e6-47b0-9ab6-e297a9b79b5e",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO SM_EIGN
+	VALUES ("4d708727-5b3d-404f-908c-db79b835bb49",
+	"e58ff58a-9e29-4342-8a81-9d6502f56388",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO SM_SEME
+	VALUES ("4d708727-5b3d-404f-908c-db79b835bb49",
+	"e58ff58a-9e29-4342-8a81-9d6502f56388",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO SM_STATE
+	VALUES ("29f418b7-3580-47e0-b7c2-dcf6a30789aa",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000",
+	'Waiting for a Requested Disk to be Ownable',
+	2,
+	0);
+INSERT INTO SM_SEME
+	VALUES ("29f418b7-3580-47e0-b7c2-dcf6a30789aa",
+	"2a2cfbee-6880-49e8-839b-79badde810f8",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO SM_SEME
+	VALUES ("29f418b7-3580-47e0-b7c2-dcf6a30789aa",
+	"25200766-d740-47e3-9c32-04bcb854a45c",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO SM_SEME
+	VALUES ("29f418b7-3580-47e0-b7c2-dcf6a30789aa",
+	"f6481c47-305c-4a2f-a958-ca7110228268",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO SM_SEME
+	VALUES ("29f418b7-3580-47e0-b7c2-dcf6a30789aa",
+	"0c5b24cb-d583-40ad-b99c-698ad81bba5b",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO SM_SEME
+	VALUES ("29f418b7-3580-47e0-b7c2-dcf6a30789aa",
+	"f45368f1-dd37-4cba-9b4e-d65c4e01c2ce",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO SM_EIGN
+	VALUES ("29f418b7-3580-47e0-b7c2-dcf6a30789aa",
+	"139cb3b8-1274-4e7c-9c35-afc7d9691185",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO SM_SEME
+	VALUES ("29f418b7-3580-47e0-b7c2-dcf6a30789aa",
+	"139cb3b8-1274-4e7c-9c35-afc7d9691185",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO SM_EIGN
+	VALUES ("29f418b7-3580-47e0-b7c2-dcf6a30789aa",
+	"b3b4e653-93e6-47b0-9ab6-e297a9b79b5e",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO SM_SEME
+	VALUES ("29f418b7-3580-47e0-b7c2-dcf6a30789aa",
+	"b3b4e653-93e6-47b0-9ab6-e297a9b79b5e",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO SM_EIGN
+	VALUES ("29f418b7-3580-47e0-b7c2-dcf6a30789aa",
+	"e58ff58a-9e29-4342-8a81-9d6502f56388",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO SM_SEME
+	VALUES ("29f418b7-3580-47e0-b7c2-dcf6a30789aa",
+	"e58ff58a-9e29-4342-8a81-9d6502f56388",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO SM_STATE
+	VALUES ("5c18e393-4b20-4693-ae26-af24802ea71a",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000",
+	'Establishing Ownership of an Online Disk',
+	3,
+	0);
+INSERT INTO SM_EIGN
+	VALUES ("5c18e393-4b20-4693-ae26-af24802ea71a",
+	"2a2cfbee-6880-49e8-839b-79badde810f8",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO SM_SEME
+	VALUES ("5c18e393-4b20-4693-ae26-af24802ea71a",
+	"2a2cfbee-6880-49e8-839b-79badde810f8",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO SM_EIGN
+	VALUES ("5c18e393-4b20-4693-ae26-af24802ea71a",
+	"25200766-d740-47e3-9c32-04bcb854a45c",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO SM_SEME
+	VALUES ("5c18e393-4b20-4693-ae26-af24802ea71a",
+	"25200766-d740-47e3-9c32-04bcb854a45c",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO SM_EIGN
+	VALUES ("5c18e393-4b20-4693-ae26-af24802ea71a",
+	"f6481c47-305c-4a2f-a958-ca7110228268",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO SM_SEME
+	VALUES ("5c18e393-4b20-4693-ae26-af24802ea71a",
+	"f6481c47-305c-4a2f-a958-ca7110228268",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO SM_EIGN
+	VALUES ("5c18e393-4b20-4693-ae26-af24802ea71a",
+	"0c5b24cb-d583-40ad-b99c-698ad81bba5b",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO SM_SEME
+	VALUES ("5c18e393-4b20-4693-ae26-af24802ea71a",
+	"0c5b24cb-d583-40ad-b99c-698ad81bba5b",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO SM_EIGN
+	VALUES ("5c18e393-4b20-4693-ae26-af24802ea71a",
+	"f45368f1-dd37-4cba-9b4e-d65c4e01c2ce",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO SM_SEME
+	VALUES ("5c18e393-4b20-4693-ae26-af24802ea71a",
+	"f45368f1-dd37-4cba-9b4e-d65c4e01c2ce",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO SM_SEME
+	VALUES ("5c18e393-4b20-4693-ae26-af24802ea71a",
+	"139cb3b8-1274-4e7c-9c35-afc7d9691185",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO SM_EIGN
+	VALUES ("5c18e393-4b20-4693-ae26-af24802ea71a",
+	"b3b4e653-93e6-47b0-9ab6-e297a9b79b5e",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO SM_SEME
+	VALUES ("5c18e393-4b20-4693-ae26-af24802ea71a",
+	"b3b4e653-93e6-47b0-9ab6-e297a9b79b5e",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO SM_EIGN
+	VALUES ("5c18e393-4b20-4693-ae26-af24802ea71a",
+	"e58ff58a-9e29-4342-8a81-9d6502f56388",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO SM_SEME
+	VALUES ("5c18e393-4b20-4693-ae26-af24802ea71a",
+	"e58ff58a-9e29-4342-8a81-9d6502f56388",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO SM_STATE
+	VALUES ("9c7a6b3c-1ad3-46b4-95f6-065888927600",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000",
+	'Tying to Eject Disk',
+	4,
+	0);
+INSERT INTO SM_CH
+	VALUES ("9c7a6b3c-1ad3-46b4-95f6-065888927600",
+	"2a2cfbee-6880-49e8-839b-79badde810f8",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO SM_SEME
+	VALUES ("9c7a6b3c-1ad3-46b4-95f6-065888927600",
+	"2a2cfbee-6880-49e8-839b-79badde810f8",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO SM_EIGN
+	VALUES ("9c7a6b3c-1ad3-46b4-95f6-065888927600",
+	"25200766-d740-47e3-9c32-04bcb854a45c",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO SM_SEME
+	VALUES ("9c7a6b3c-1ad3-46b4-95f6-065888927600",
+	"25200766-d740-47e3-9c32-04bcb854a45c",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO SM_EIGN
+	VALUES ("9c7a6b3c-1ad3-46b4-95f6-065888927600",
+	"f6481c47-305c-4a2f-a958-ca7110228268",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO SM_SEME
+	VALUES ("9c7a6b3c-1ad3-46b4-95f6-065888927600",
+	"f6481c47-305c-4a2f-a958-ca7110228268",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO SM_EIGN
+	VALUES ("9c7a6b3c-1ad3-46b4-95f6-065888927600",
+	"0c5b24cb-d583-40ad-b99c-698ad81bba5b",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO SM_SEME
+	VALUES ("9c7a6b3c-1ad3-46b4-95f6-065888927600",
+	"0c5b24cb-d583-40ad-b99c-698ad81bba5b",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO SM_SEME
+	VALUES ("9c7a6b3c-1ad3-46b4-95f6-065888927600",
+	"f45368f1-dd37-4cba-9b4e-d65c4e01c2ce",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO SM_EIGN
+	VALUES ("9c7a6b3c-1ad3-46b4-95f6-065888927600",
+	"139cb3b8-1274-4e7c-9c35-afc7d9691185",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO SM_SEME
+	VALUES ("9c7a6b3c-1ad3-46b4-95f6-065888927600",
+	"139cb3b8-1274-4e7c-9c35-afc7d9691185",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO SM_EIGN
+	VALUES ("9c7a6b3c-1ad3-46b4-95f6-065888927600",
+	"b3b4e653-93e6-47b0-9ab6-e297a9b79b5e",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO SM_SEME
+	VALUES ("9c7a6b3c-1ad3-46b4-95f6-065888927600",
+	"b3b4e653-93e6-47b0-9ab6-e297a9b79b5e",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO SM_SEME
+	VALUES ("9c7a6b3c-1ad3-46b4-95f6-065888927600",
+	"e58ff58a-9e29-4342-8a81-9d6502f56388",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO SM_STATE
+	VALUES ("df6137e0-20f6-42dc-8ddb-7f47cfbcc9e0",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000",
+	'Establishing Ownership of an Offline Disk',
+	5,
+	0);
+INSERT INTO SM_EIGN
+	VALUES ("df6137e0-20f6-42dc-8ddb-7f47cfbcc9e0",
+	"2a2cfbee-6880-49e8-839b-79badde810f8",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO SM_SEME
+	VALUES ("df6137e0-20f6-42dc-8ddb-7f47cfbcc9e0",
+	"2a2cfbee-6880-49e8-839b-79badde810f8",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO SM_EIGN
+	VALUES ("df6137e0-20f6-42dc-8ddb-7f47cfbcc9e0",
+	"25200766-d740-47e3-9c32-04bcb854a45c",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO SM_SEME
+	VALUES ("df6137e0-20f6-42dc-8ddb-7f47cfbcc9e0",
+	"25200766-d740-47e3-9c32-04bcb854a45c",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO SM_EIGN
+	VALUES ("df6137e0-20f6-42dc-8ddb-7f47cfbcc9e0",
+	"f6481c47-305c-4a2f-a958-ca7110228268",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO SM_SEME
+	VALUES ("df6137e0-20f6-42dc-8ddb-7f47cfbcc9e0",
+	"f6481c47-305c-4a2f-a958-ca7110228268",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO SM_EIGN
+	VALUES ("df6137e0-20f6-42dc-8ddb-7f47cfbcc9e0",
+	"0c5b24cb-d583-40ad-b99c-698ad81bba5b",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO SM_SEME
+	VALUES ("df6137e0-20f6-42dc-8ddb-7f47cfbcc9e0",
+	"0c5b24cb-d583-40ad-b99c-698ad81bba5b",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO SM_EIGN
+	VALUES ("df6137e0-20f6-42dc-8ddb-7f47cfbcc9e0",
+	"f45368f1-dd37-4cba-9b4e-d65c4e01c2ce",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO SM_SEME
+	VALUES ("df6137e0-20f6-42dc-8ddb-7f47cfbcc9e0",
+	"f45368f1-dd37-4cba-9b4e-d65c4e01c2ce",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO SM_EIGN
+	VALUES ("df6137e0-20f6-42dc-8ddb-7f47cfbcc9e0",
+	"139cb3b8-1274-4e7c-9c35-afc7d9691185",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO SM_SEME
+	VALUES ("df6137e0-20f6-42dc-8ddb-7f47cfbcc9e0",
+	"139cb3b8-1274-4e7c-9c35-afc7d9691185",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO SM_SEME
+	VALUES ("df6137e0-20f6-42dc-8ddb-7f47cfbcc9e0",
+	"b3b4e653-93e6-47b0-9ab6-e297a9b79b5e",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO SM_EIGN
+	VALUES ("df6137e0-20f6-42dc-8ddb-7f47cfbcc9e0",
+	"e58ff58a-9e29-4342-8a81-9d6502f56388",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO SM_SEME
+	VALUES ("df6137e0-20f6-42dc-8ddb-7f47cfbcc9e0",
+	"e58ff58a-9e29-4342-8a81-9d6502f56388",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO SM_STATE
+	VALUES ("8fae1594-591d-4141-9eb3-32ddc37e02b1",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000",
+	'Satisfying Disk Request',
+	6,
+	0);
+INSERT INTO SM_EIGN
+	VALUES ("8fae1594-591d-4141-9eb3-32ddc37e02b1",
+	"2a2cfbee-6880-49e8-839b-79badde810f8",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO SM_SEME
+	VALUES ("8fae1594-591d-4141-9eb3-32ddc37e02b1",
+	"2a2cfbee-6880-49e8-839b-79badde810f8",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO SM_EIGN
+	VALUES ("8fae1594-591d-4141-9eb3-32ddc37e02b1",
+	"25200766-d740-47e3-9c32-04bcb854a45c",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO SM_SEME
+	VALUES ("8fae1594-591d-4141-9eb3-32ddc37e02b1",
+	"25200766-d740-47e3-9c32-04bcb854a45c",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO SM_EIGN
+	VALUES ("8fae1594-591d-4141-9eb3-32ddc37e02b1",
+	"f6481c47-305c-4a2f-a958-ca7110228268",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO SM_SEME
+	VALUES ("8fae1594-591d-4141-9eb3-32ddc37e02b1",
+	"f6481c47-305c-4a2f-a958-ca7110228268",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO SM_EIGN
+	VALUES ("8fae1594-591d-4141-9eb3-32ddc37e02b1",
+	"0c5b24cb-d583-40ad-b99c-698ad81bba5b",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO SM_SEME
+	VALUES ("8fae1594-591d-4141-9eb3-32ddc37e02b1",
+	"0c5b24cb-d583-40ad-b99c-698ad81bba5b",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO SM_EIGN
+	VALUES ("8fae1594-591d-4141-9eb3-32ddc37e02b1",
+	"f45368f1-dd37-4cba-9b4e-d65c4e01c2ce",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO SM_SEME
+	VALUES ("8fae1594-591d-4141-9eb3-32ddc37e02b1",
+	"f45368f1-dd37-4cba-9b4e-d65c4e01c2ce",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO SM_SEME
+	VALUES ("8fae1594-591d-4141-9eb3-32ddc37e02b1",
+	"139cb3b8-1274-4e7c-9c35-afc7d9691185",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO SM_EIGN
+	VALUES ("8fae1594-591d-4141-9eb3-32ddc37e02b1",
+	"b3b4e653-93e6-47b0-9ab6-e297a9b79b5e",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO SM_SEME
+	VALUES ("8fae1594-591d-4141-9eb3-32ddc37e02b1",
+	"b3b4e653-93e6-47b0-9ab6-e297a9b79b5e",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO SM_EIGN
+	VALUES ("8fae1594-591d-4141-9eb3-32ddc37e02b1",
+	"e58ff58a-9e29-4342-8a81-9d6502f56388",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO SM_SEME
+	VALUES ("8fae1594-591d-4141-9eb3-32ddc37e02b1",
+	"e58ff58a-9e29-4342-8a81-9d6502f56388",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO SM_NSTXN
+	VALUES ("029765d0-726d-455f-8ae0-3f00c729263b",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"8fae1594-591d-4141-9eb3-32ddc37e02b1",
+	"139cb3b8-1274-4e7c-9c35-afc7d9691185",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO SM_TXN
+	VALUES ("029765d0-726d-455f-8ae0-3f00c729263b",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"4d708727-5b3d-404f-908c-db79b835bb49",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO SM_NSTXN
+	VALUES ("77416de3-d5f5-4b7a-8b3f-980d7f46e0a8",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"5c18e393-4b20-4693-ae26-af24802ea71a",
+	"139cb3b8-1274-4e7c-9c35-afc7d9691185",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO SM_TXN
+	VALUES ("77416de3-d5f5-4b7a-8b3f-980d7f46e0a8",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"4d708727-5b3d-404f-908c-db79b835bb49",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO SM_NSTXN
+	VALUES ("328a2771-be40-4900-abfa-0e43cba3c331",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"4d708727-5b3d-404f-908c-db79b835bb49",
+	"2a2cfbee-6880-49e8-839b-79badde810f8",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO SM_TXN
+	VALUES ("328a2771-be40-4900-abfa-0e43cba3c331",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"29f418b7-3580-47e0-b7c2-dcf6a30789aa",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO SM_NSTXN
+	VALUES ("e9ce41bf-6b76-4c94-acaf-f91d224ae28d",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"29f418b7-3580-47e0-b7c2-dcf6a30789aa",
+	"f6481c47-305c-4a2f-a958-ca7110228268",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO SM_TXN
+	VALUES ("e9ce41bf-6b76-4c94-acaf-f91d224ae28d",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"5c18e393-4b20-4693-ae26-af24802ea71a",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO SM_NSTXN
+	VALUES ("7651e067-0ba5-4d1d-81ea-35c8c19015ae",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"29f418b7-3580-47e0-b7c2-dcf6a30789aa",
+	"25200766-d740-47e3-9c32-04bcb854a45c",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO SM_TXN
+	VALUES ("7651e067-0ba5-4d1d-81ea-35c8c19015ae",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"df6137e0-20f6-42dc-8ddb-7f47cfbcc9e0",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO SM_NSTXN
+	VALUES ("0864a806-fbd6-4abe-8f11-04cf582711f2",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"29f418b7-3580-47e0-b7c2-dcf6a30789aa",
+	"f45368f1-dd37-4cba-9b4e-d65c4e01c2ce",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO SM_TXN
+	VALUES ("0864a806-fbd6-4abe-8f11-04cf582711f2",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"29f418b7-3580-47e0-b7c2-dcf6a30789aa",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO SM_NSTXN
+	VALUES ("84a5bc5c-0ca2-49a1-baf9-bffebd023d3f",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"29f418b7-3580-47e0-b7c2-dcf6a30789aa",
+	"2a2cfbee-6880-49e8-839b-79badde810f8",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO SM_TXN
+	VALUES ("84a5bc5c-0ca2-49a1-baf9-bffebd023d3f",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"29f418b7-3580-47e0-b7c2-dcf6a30789aa",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO SM_NSTXN
+	VALUES ("c697d94a-713c-42df-9b74-5f03947ed6e3",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"df6137e0-20f6-42dc-8ddb-7f47cfbcc9e0",
+	"b3b4e653-93e6-47b0-9ab6-e297a9b79b5e",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO SM_TXN
+	VALUES ("c697d94a-713c-42df-9b74-5f03947ed6e3",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"8fae1594-591d-4141-9eb3-32ddc37e02b1",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO SM_NSTXN
+	VALUES ("8707ca21-8b5b-4841-ae11-e14981e7b40c",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"9c7a6b3c-1ad3-46b4-95f6-065888927600",
+	"e58ff58a-9e29-4342-8a81-9d6502f56388",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO SM_TXN
+	VALUES ("8707ca21-8b5b-4841-ae11-e14981e7b40c",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"df6137e0-20f6-42dc-8ddb-7f47cfbcc9e0",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO SM_NSTXN
+	VALUES ("00b5a8d5-6b6d-4f70-8c80-eee23b019e45",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"29f418b7-3580-47e0-b7c2-dcf6a30789aa",
+	"0c5b24cb-d583-40ad-b99c-698ad81bba5b",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO SM_TXN
+	VALUES ("00b5a8d5-6b6d-4f70-8c80-eee23b019e45",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"9c7a6b3c-1ad3-46b4-95f6-065888927600",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO SM_NSTXN
+	VALUES ("70828b08-6a71-4f97-8e7b-c9aca78437ba",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"9c7a6b3c-1ad3-46b4-95f6-065888927600",
+	"f45368f1-dd37-4cba-9b4e-d65c4e01c2ce",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO SM_TXN
+	VALUES ("70828b08-6a71-4f97-8e7b-c9aca78437ba",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"29f418b7-3580-47e0-b7c2-dcf6a30789aa",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO SM_MOAH
+	VALUES ("f8d628cd-8e69-4b54-98ee-a580ffe518a3",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"4d708727-5b3d-404f-908c-db79b835bb49");
+INSERT INTO SM_AH
+	VALUES ("f8d628cd-8e69-4b54-98ee-a580ffe518a3",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4");
+INSERT INTO SM_ACT
+	VALUES ("f8d628cd-8e69-4b54-98ee-a580ffe518a3",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	1,
+	'Select many disk_requests from instances of D_DQ;
+Assign request_found = FALSE;
+For each disk_request in disk_requests
+    If (request_found == FALSE)
+        If (disk_request.Request_Pending == TRUE)
+            Assign request_found = TRUE;
+            Generate D_DO_A1:''Disk Requested by QP'' () to D_DO assigner;
+        End if;
+    End if;
+End for;',
+	'');
+INSERT INTO SM_MOAH
+	VALUES ("74386a05-0223-4292-b2e9-069d3754fc49",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"29f418b7-3580-47e0-b7c2-dcf6a30789aa");
+INSERT INTO SM_AH
+	VALUES ("74386a05-0223-4292-b2e9-069d3754fc49",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4");
+INSERT INTO SM_ACT
+	VALUES ("74386a05-0223-4292-b2e9-069d3754fc49",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	1,
+	'Select many disk_requests from instances of D_DQ;
+For each disk_request in disk_requests
+if (disk_request.Request_Pending == TRUE)
+Select one disk related by disk_request->D_D[R1];
+    If (disk.Unowned_in_Cabinet == TRUE)
+        Select one disk_owner related by disk->D_DO[R2];
+        If (empty disk_owner)
+            Generate D_DO_A3:''Establish Ownership of an Online Disk'' () to D_DO assigner;
+        End if;
+    Else 
+    If (disk.Unowned_in_Library == TRUE)
+        Select one disk_owner related by disk->D_DO[R2];
+        If (empty disk_owner)
+            Assign number_of_online = 0;
+            Select many online_disks from instances of D_OND;
+            For each online_disk in online_disks
+                Assign number_of_online = number_of_online + 1;
+            End for;
+
+             Assign number_of_slots = 0;
+             Select many slots from instances of D_S;
+             For each slot in slots
+                 Assign number_of_slots = number_of_slots + 1;
+             End for;
+
+             If (number_of_online < number_of_slots)
+                 Generate D_DO_A2:''Establish Ownership of an Offline Disk'' () to D_DO assigner;
+             Else
+                 Generate D_DO_A4:''Eject Disk if Possible'' () to D_DO assigner;
+             End if;
+        End if;
+    End if;
+    End if;
+End if;
+End for;',
+	'');
+INSERT INTO SM_MOAH
+	VALUES ("d97c5fbf-ac08-4838-acfb-892d1954bba4",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"5c18e393-4b20-4693-ae26-af24802ea71a");
+INSERT INTO SM_AH
+	VALUES ("d97c5fbf-ac08-4838-acfb-892d1954bba4",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4");
+INSERT INTO SM_ACT
+	VALUES ("d97c5fbf-ac08-4838-acfb-892d1954bba4",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	1,
+	'Select many disks from instances of D_D;
+Assign disk_found = FALSE;
+For each disk in disks
+    If (disk_found == FALSE)
+    If (disk.Unowned_in_Cabinet == TRUE)
+        Select any disk_request related by disk->D_DQ[R1];
+        If (not_empty disk_request)
+            Assign disk_found = TRUE;
+            Select one process related by disk_request->D_QP[R1]; 
+            Create  object instance owner of D_DO;
+            Relate disk to process across R2 using owner;
+            Generate D_D1:''Disk Ownership Established'' () to disk;
+            Generate D_DQ2:''Disk Request Satisfied''() to disk_request;
+        End if;
+    End if;
+    End if;
+End for;',
+	'');
+INSERT INTO SM_MOAH
+	VALUES ("2a7913af-0a84-4b97-9712-6d263a8f3993",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"9c7a6b3c-1ad3-46b4-95f6-065888927600");
+INSERT INTO SM_AH
+	VALUES ("2a7913af-0a84-4b97-9712-6d263a8f3993",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4");
+INSERT INTO SM_ACT
+	VALUES ("2a7913af-0a84-4b97-9712-6d263a8f3993",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	1,
+	'Select many disk_set from instances of D_D;
+Assign disk_found = FALSE;
+For each disk in disk_set
+    If (disk_found == FALSE)
+    If (disk.Unowned_in_Cabinet == TRUE)
+        Select one disk_owner related by disk->D_DO[R2];
+        If (empty disk_owner)
+            Select many disk_request related by disk->D_DQ[R1];
+            If (empty disk_request)
+                Assign disk_found = TRUE;
+                Generate D_D6:''Return Unowned Disk to Library'' () to disk;
+            End if;
+        End if;
+    End if;
+    End if;
+End for;',
+	'');
+INSERT INTO SM_MOAH
+	VALUES ("52d42097-9b84-4cc5-8ebd-f53c1d331dca",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"df6137e0-20f6-42dc-8ddb-7f47cfbcc9e0");
+INSERT INTO SM_AH
+	VALUES ("52d42097-9b84-4cc5-8ebd-f53c1d331dca",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4");
+INSERT INTO SM_ACT
+	VALUES ("52d42097-9b84-4cc5-8ebd-f53c1d331dca",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	1,
+	'Select many disks from instances of D_D;
+Assign disk_found = FALSE;
+For each disk in disks
+    If (disk_found == FALSE)
+    If (disk.Unowned_in_Library == TRUE)
+        Select any disk_request related by disk->D_DQ[R1];
+        If (not_empty disk_request) 
+            Assign disk_found = TRUE;
+            Create object instance disk_owner of D_DO;
+            Select one process related by disk_request->D_QP[R1];
+            Relate disk to process across R2 using disk_owner;
+            Generate D_D1:''Disk Ownership Established'' () to disk;
+        End if;
+    End if;
+    End if;
+End for;',
+	'');
+INSERT INTO SM_MOAH
+	VALUES ("552dccee-665a-4a0b-89f8-5ec2aaf8c996",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"8fae1594-591d-4141-9eb3-32ddc37e02b1");
+INSERT INTO SM_AH
+	VALUES ("552dccee-665a-4a0b-89f8-5ec2aaf8c996",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4");
+INSERT INTO SM_ACT
+	VALUES ("552dccee-665a-4a0b-89f8-5ec2aaf8c996",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	1,
+	'Select many disks from instances of D_D;
+Assign disk_found = FALSE;
+For each disk in disks
+    If (disk_found == FALSE)
+        If (disk.Serial_Number == rcvd_evt.serial_number)
+            Assign disk_found = TRUE;
+            Select any disk_request related by disk->D_DQ[R1];
+            Select one process related by disk_request->D_QP[R1];
+            Unrelate disk from process across R1 using disk_request;
+            Generate D_DQ2:''Disk Request Satisfied'' () to disk_request;
+        End if;
+    End if;
+End for;',
+	'');
+INSERT INTO SM_TAH
+	VALUES ("3395f6c1-3c64-456e-b4c5-0e74b3408c8c",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"029765d0-726d-455f-8ae0-3f00c729263b");
+INSERT INTO SM_AH
+	VALUES ("3395f6c1-3c64-456e-b4c5-0e74b3408c8c",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4");
+INSERT INTO SM_ACT
+	VALUES ("3395f6c1-3c64-456e-b4c5-0e74b3408c8c",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	3,
+	'',
+	'');
+INSERT INTO SM_TAH
+	VALUES ("06e0cfc2-76f2-4f83-a6b8-5afd2343f9cf",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"77416de3-d5f5-4b7a-8b3f-980d7f46e0a8");
+INSERT INTO SM_AH
+	VALUES ("06e0cfc2-76f2-4f83-a6b8-5afd2343f9cf",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4");
+INSERT INTO SM_ACT
+	VALUES ("06e0cfc2-76f2-4f83-a6b8-5afd2343f9cf",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	3,
+	'',
+	'');
+INSERT INTO SM_TAH
+	VALUES ("dfceb428-5630-4e1b-ac45-3e521fadcc6e",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"328a2771-be40-4900-abfa-0e43cba3c331");
+INSERT INTO SM_AH
+	VALUES ("dfceb428-5630-4e1b-ac45-3e521fadcc6e",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4");
+INSERT INTO SM_ACT
+	VALUES ("dfceb428-5630-4e1b-ac45-3e521fadcc6e",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	3,
+	'',
+	'');
+INSERT INTO SM_TAH
+	VALUES ("d1228d68-f9be-4f15-9b62-9066a6f77d26",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"e9ce41bf-6b76-4c94-acaf-f91d224ae28d");
+INSERT INTO SM_AH
+	VALUES ("d1228d68-f9be-4f15-9b62-9066a6f77d26",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4");
+INSERT INTO SM_ACT
+	VALUES ("d1228d68-f9be-4f15-9b62-9066a6f77d26",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	3,
+	'',
+	'');
+INSERT INTO SM_TAH
+	VALUES ("85595919-f944-441a-8837-1d11a87d0af9",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"7651e067-0ba5-4d1d-81ea-35c8c19015ae");
+INSERT INTO SM_AH
+	VALUES ("85595919-f944-441a-8837-1d11a87d0af9",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4");
+INSERT INTO SM_ACT
+	VALUES ("85595919-f944-441a-8837-1d11a87d0af9",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	3,
+	'',
+	'');
+INSERT INTO SM_TAH
+	VALUES ("f8066fa8-41e1-432e-ac45-c17c284f994b",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"0864a806-fbd6-4abe-8f11-04cf582711f2");
+INSERT INTO SM_AH
+	VALUES ("f8066fa8-41e1-432e-ac45-c17c284f994b",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4");
+INSERT INTO SM_ACT
+	VALUES ("f8066fa8-41e1-432e-ac45-c17c284f994b",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	3,
+	'',
+	'');
+INSERT INTO SM_TAH
+	VALUES ("ac9a520a-58ad-482b-be54-3c6bba563175",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"84a5bc5c-0ca2-49a1-baf9-bffebd023d3f");
+INSERT INTO SM_AH
+	VALUES ("ac9a520a-58ad-482b-be54-3c6bba563175",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4");
+INSERT INTO SM_ACT
+	VALUES ("ac9a520a-58ad-482b-be54-3c6bba563175",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	3,
+	'',
+	'');
+INSERT INTO SM_TAH
+	VALUES ("e885a510-0416-4d26-b1b9-3b9b75dfae8d",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"c697d94a-713c-42df-9b74-5f03947ed6e3");
+INSERT INTO SM_AH
+	VALUES ("e885a510-0416-4d26-b1b9-3b9b75dfae8d",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4");
+INSERT INTO SM_ACT
+	VALUES ("e885a510-0416-4d26-b1b9-3b9b75dfae8d",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	3,
+	'',
+	'');
+INSERT INTO SM_TAH
+	VALUES ("dbc78b3e-1527-492c-beaf-2efc4619d5dd",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"8707ca21-8b5b-4841-ae11-e14981e7b40c");
+INSERT INTO SM_AH
+	VALUES ("dbc78b3e-1527-492c-beaf-2efc4619d5dd",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4");
+INSERT INTO SM_ACT
+	VALUES ("dbc78b3e-1527-492c-beaf-2efc4619d5dd",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	3,
+	'',
+	'');
+INSERT INTO SM_TAH
+	VALUES ("d410cbb7-5637-46fd-81d0-02d9575cf400",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"00b5a8d5-6b6d-4f70-8c80-eee23b019e45");
+INSERT INTO SM_AH
+	VALUES ("d410cbb7-5637-46fd-81d0-02d9575cf400",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4");
+INSERT INTO SM_ACT
+	VALUES ("d410cbb7-5637-46fd-81d0-02d9575cf400",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	3,
+	'',
+	'');
+INSERT INTO SM_TAH
+	VALUES ("c15b1ae2-f930-4f80-aaa2-0f4fd03e4521",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	"70828b08-6a71-4f97-8e7b-c9aca78437ba");
+INSERT INTO SM_AH
+	VALUES ("c15b1ae2-f930-4f80-aaa2-0f4fd03e4521",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4");
+INSERT INTO SM_ACT
+	VALUES ("c15b1ae2-f930-4f80-aaa2-0f4fd03e4521",
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	3,
+	'',
+	'');
+INSERT INTO GD_MD
+	VALUES ("feacb724-a35d-4fb2-b46a-1acd489dea98",
+	10,
+	"11d36266-acd5-4436-aa6e-0dc83ed0b2d4",
+	40,
+	1,
+	0,
+	1,
+	1,
+	0,
+	12,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	'',
+	'odms1::Odms::Disk Ownership::Class State Machine');
+INSERT INTO GD_GE
+	VALUES ("cd93f286-9961-43e2-a364-be32b1827ff2",
+	"feacb724-a35d-4fb2-b46a-1acd489dea98",
+	"8fae1594-591d-4141-9eb3-32ddc37e02b1",
+	41,
+	0,
+	'odms1::Odms::Disk Ownership::Class State Machine::Satisfying Disk Request');
+INSERT INTO GD_SHP
+	VALUES ("cd93f286-9961-43e2-a364-be32b1827ff2");
+INSERT INTO GD_NCS
+	VALUES ("cd93f286-9961-43e2-a364-be32b1827ff2");
+INSERT INTO DIM_ND
+	VALUES (368.000000,
+	256.000000,
+	"cd93f286-9961-43e2-a364-be32b1827ff2");
+INSERT INTO DIM_GE
+	VALUES (1280.000000,
+	1264.000000,
+	"cd93f286-9961-43e2-a364-be32b1827ff2",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("cd93f286-9961-43e2-a364-be32b1827ff2",
+	1,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_CON
+	VALUES ("b38628dc-2ed1-483c-9db1-8b2753419668",
+	1440.000000,
+	1520.000000,
+	"cd93f286-9961-43e2-a364-be32b1827ff2");
+INSERT INTO DIM_CON
+	VALUES ("b015a2ec-245e-4709-ae7d-0e78ec47f65c",
+	1648.000000,
+	1376.000000,
+	"cd93f286-9961-43e2-a364-be32b1827ff2");
+INSERT INTO GD_GE
+	VALUES ("818d3764-70b4-4335-aa28-2273891822d3",
+	"feacb724-a35d-4fb2-b46a-1acd489dea98",
+	"df6137e0-20f6-42dc-8ddb-7f47cfbcc9e0",
+	41,
+	0,
+	'odms1::Odms::Disk Ownership::Class State Machine::Establishing Ownership of an Offline Disk');
+INSERT INTO GD_SHP
+	VALUES ("818d3764-70b4-4335-aa28-2273891822d3");
+INSERT INTO GD_NCS
+	VALUES ("818d3764-70b4-4335-aa28-2273891822d3");
+INSERT INTO DIM_ND
+	VALUES (352.000000,
+	288.000000,
+	"818d3764-70b4-4335-aa28-2273891822d3");
+INSERT INTO DIM_GE
+	VALUES (1296.000000,
+	1664.000000,
+	"818d3764-70b4-4335-aa28-2273891822d3",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("818d3764-70b4-4335-aa28-2273891822d3",
+	1,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_CON
+	VALUES ("65b52164-54ab-4094-be48-2c583711666c",
+	1456.000000,
+	1952.000000,
+	"818d3764-70b4-4335-aa28-2273891822d3");
+INSERT INTO DIM_CON
+	VALUES ("0f316a8f-1b48-44bd-a865-984d93ea0eb0",
+	1440.000000,
+	1664.000000,
+	"818d3764-70b4-4335-aa28-2273891822d3");
+INSERT INTO DIM_CON
+	VALUES ("54ab7a07-31e7-4bef-8801-bf7d09bffabc",
+	1648.000000,
+	1776.000000,
+	"818d3764-70b4-4335-aa28-2273891822d3");
+INSERT INTO GD_GE
+	VALUES ("ecceff74-b6ef-4314-824f-fb0673f8e420",
+	"feacb724-a35d-4fb2-b46a-1acd489dea98",
+	"9c7a6b3c-1ad3-46b4-95f6-065888927600",
+	41,
+	0,
+	'odms1::Odms::Disk Ownership::Class State Machine::Tying to Eject Disk');
+INSERT INTO GD_SHP
+	VALUES ("ecceff74-b6ef-4314-824f-fb0673f8e420");
+INSERT INTO GD_NCS
+	VALUES ("ecceff74-b6ef-4314-824f-fb0673f8e420");
+INSERT INTO DIM_ND
+	VALUES (400.000000,
+	304.000000,
+	"ecceff74-b6ef-4314-824f-fb0673f8e420");
+INSERT INTO DIM_GE
+	VALUES (1888.000000,
+	2336.000000,
+	"ecceff74-b6ef-4314-824f-fb0673f8e420",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("ecceff74-b6ef-4314-824f-fb0673f8e420",
+	1,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_CON
+	VALUES ("17c75948-3cc6-41c4-bd7f-0d7f6e991337",
+	1888.000000,
+	2496.000000,
+	"ecceff74-b6ef-4314-824f-fb0673f8e420");
+INSERT INTO DIM_CON
+	VALUES ("c2961a7e-a94b-4eb8-830c-d4b63014f64a",
+	2240.000000,
+	2336.000000,
+	"ecceff74-b6ef-4314-824f-fb0673f8e420");
+INSERT INTO DIM_CON
+	VALUES ("90f8cdff-a46b-48fd-a4b5-5ae7ce153fc8",
+	1936.000000,
+	2336.000000,
+	"ecceff74-b6ef-4314-824f-fb0673f8e420");
+INSERT INTO GD_GE
+	VALUES ("0dc318c6-eb50-40ec-b246-aeaf3df1dd7e",
+	"feacb724-a35d-4fb2-b46a-1acd489dea98",
+	"5c18e393-4b20-4693-ae26-af24802ea71a",
+	41,
+	0,
+	'odms1::Odms::Disk Ownership::Class State Machine::Establishing Ownership of an Online Disk');
+INSERT INTO GD_SHP
+	VALUES ("0dc318c6-eb50-40ec-b246-aeaf3df1dd7e");
+INSERT INTO GD_NCS
+	VALUES ("0dc318c6-eb50-40ec-b246-aeaf3df1dd7e");
+INSERT INTO DIM_ND
+	VALUES (384.000000,
+	336.000000,
+	"0dc318c6-eb50-40ec-b246-aeaf3df1dd7e");
+INSERT INTO DIM_GE
+	VALUES (2656.000000,
+	1664.000000,
+	"0dc318c6-eb50-40ec-b246-aeaf3df1dd7e",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("0dc318c6-eb50-40ec-b246-aeaf3df1dd7e",
+	1,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_CON
+	VALUES ("9cb99f38-a693-46f7-9369-9e37b75a74fd",
+	2832.000000,
+	1664.000000,
+	"0dc318c6-eb50-40ec-b246-aeaf3df1dd7e");
+INSERT INTO DIM_CON
+	VALUES ("3521b806-29b4-4bf2-8cda-4e77ba414186",
+	2656.000000,
+	1776.000000,
+	"0dc318c6-eb50-40ec-b246-aeaf3df1dd7e");
+INSERT INTO GD_GE
+	VALUES ("9acfd4f2-06e7-4e70-865e-96ec526659e4",
+	"feacb724-a35d-4fb2-b46a-1acd489dea98",
+	"29f418b7-3580-47e0-b7c2-dcf6a30789aa",
+	41,
+	0,
+	'odms1::Odms::Disk Ownership::Class State Machine::Waiting for a Requested Disk to be Ownable');
+INSERT INTO GD_SHP
+	VALUES ("9acfd4f2-06e7-4e70-865e-96ec526659e4");
+INSERT INTO GD_NCS
+	VALUES ("9acfd4f2-06e7-4e70-865e-96ec526659e4");
+INSERT INTO DIM_ND
+	VALUES (512.000000,
+	528.000000,
+	"9acfd4f2-06e7-4e70-865e-96ec526659e4");
+INSERT INTO DIM_GE
+	VALUES (1888.000000,
+	1664.000000,
+	"9acfd4f2-06e7-4e70-865e-96ec526659e4",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("9acfd4f2-06e7-4e70-865e-96ec526659e4",
+	1,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_CON
+	VALUES ("0c136c5d-4f3e-4720-9f20-6ec013bf127d",
+	2240.000000,
+	2192.000000,
+	"9acfd4f2-06e7-4e70-865e-96ec526659e4");
+INSERT INTO DIM_CON
+	VALUES ("07d2cf80-d57d-4798-a5a6-a4ffd5ea9aad",
+	1936.000000,
+	2192.000000,
+	"9acfd4f2-06e7-4e70-865e-96ec526659e4");
+INSERT INTO DIM_CON
+	VALUES ("0c51ad95-a525-4c30-a75f-acca76150925",
+	2400.000000,
+	1984.000000,
+	"9acfd4f2-06e7-4e70-865e-96ec526659e4");
+INSERT INTO DIM_CON
+	VALUES ("fdc83c2e-99d8-456a-8049-112117f0e76b",
+	2400.000000,
+	2144.000000,
+	"9acfd4f2-06e7-4e70-865e-96ec526659e4");
+INSERT INTO DIM_CON
+	VALUES ("6a3c6b86-f04e-4e15-9d3b-a660273ad976",
+	1888.000000,
+	1984.000000,
+	"9acfd4f2-06e7-4e70-865e-96ec526659e4");
+INSERT INTO DIM_CON
+	VALUES ("621dae2c-b427-4e84-82be-cada15f7145b",
+	1888.000000,
+	2144.000000,
+	"9acfd4f2-06e7-4e70-865e-96ec526659e4");
+INSERT INTO DIM_CON
+	VALUES ("638ab51b-7f53-4b8b-a24a-43eca6fea348",
+	2400.000000,
+	1776.000000,
+	"9acfd4f2-06e7-4e70-865e-96ec526659e4");
+INSERT INTO DIM_CON
+	VALUES ("c8af3f84-8e92-4144-9ae2-b1ed5e6df9b0",
+	1888.000000,
+	1776.000000,
+	"9acfd4f2-06e7-4e70-865e-96ec526659e4");
+INSERT INTO DIM_CON
+	VALUES ("17603ccb-0d68-4329-8ab6-928e873b664f",
+	2176.000000,
+	1664.000000,
+	"9acfd4f2-06e7-4e70-865e-96ec526659e4");
+INSERT INTO GD_GE
+	VALUES ("744bf5bb-cb49-4cdc-aa69-7a2cbfd233b5",
+	"feacb724-a35d-4fb2-b46a-1acd489dea98",
+	"4d708727-5b3d-404f-908c-db79b835bb49",
+	41,
+	0,
+	'odms1::Odms::Disk Ownership::Class State Machine::Waiting for a Disk Request');
+INSERT INTO GD_SHP
+	VALUES ("744bf5bb-cb49-4cdc-aa69-7a2cbfd233b5");
+INSERT INTO GD_NCS
+	VALUES ("744bf5bb-cb49-4cdc-aa69-7a2cbfd233b5");
+INSERT INTO DIM_ND
+	VALUES (448.000000,
+	240.000000,
+	"744bf5bb-cb49-4cdc-aa69-7a2cbfd233b5");
+INSERT INTO DIM_GE
+	VALUES (1888.000000,
+	1264.000000,
+	"744bf5bb-cb49-4cdc-aa69-7a2cbfd233b5",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("744bf5bb-cb49-4cdc-aa69-7a2cbfd233b5",
+	1,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_CON
+	VALUES ("c08f86ec-ca35-4d79-a187-e761bcb3ae3b",
+	2336.000000,
+	1376.000000,
+	"744bf5bb-cb49-4cdc-aa69-7a2cbfd233b5");
+INSERT INTO DIM_CON
+	VALUES ("60102cec-0211-480d-8df5-2b87eccf5988",
+	1888.000000,
+	1376.000000,
+	"744bf5bb-cb49-4cdc-aa69-7a2cbfd233b5");
+INSERT INTO DIM_CON
+	VALUES ("c2ffd99e-c31c-4f3c-a83a-365c2a0f73b7",
+	2176.000000,
+	1504.000000,
+	"744bf5bb-cb49-4cdc-aa69-7a2cbfd233b5");
+INSERT INTO GD_GE
+	VALUES ("ed35c075-a2da-4f0c-9f75-cd91ff77dc41",
+	"feacb724-a35d-4fb2-b46a-1acd489dea98",
+	"8707ca21-8b5b-4841-ae11-e14981e7b40c",
+	42,
+	0,
+	'odms1::Odms::Disk Ownership::Class State Machine::Tying to Eject Disk::D_DO_A8: Disk Now Offline');
+INSERT INTO GD_CON
+	VALUES ("ed35c075-a2da-4f0c-9f75-cd91ff77dc41",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_CTXT
+	VALUES ("0942b7dc-eb7e-4ef9-9647-b6bc7a892ae9",
+	"ed35c075-a2da-4f0c-9f75-cd91ff77dc41",
+	1,
+	0.000000,
+	0.000000);
+INSERT INTO DIM_ND
+	VALUES (0.000000,
+	0.000000,
+	"0942b7dc-eb7e-4ef9-9647-b6bc7a892ae9");
+INSERT INTO DIM_GE
+	VALUES (0.000000,
+	0.000000,
+	"0942b7dc-eb7e-4ef9-9647-b6bc7a892ae9",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("0942b7dc-eb7e-4ef9-9647-b6bc7a892ae9",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_CTXT
+	VALUES ("de8bc596-7aeb-42b7-8439-5aef68621843",
+	"ed35c075-a2da-4f0c-9f75-cd91ff77dc41",
+	3,
+	31.000000,
+	14.000000);
+INSERT INTO DIM_ND
+	VALUES (176.000000,
+	39.000000,
+	"de8bc596-7aeb-42b7-8439-5aef68621843");
+INSERT INTO DIM_GE
+	VALUES (1471.000000,
+	2439.000000,
+	"de8bc596-7aeb-42b7-8439-5aef68621843",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("de8bc596-7aeb-42b7-8439-5aef68621843",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_CTXT
+	VALUES ("31269369-b292-4306-b70d-bd2e3de4bcab",
+	"ed35c075-a2da-4f0c-9f75-cd91ff77dc41",
+	2,
+	0.000000,
+	0.000000);
+INSERT INTO DIM_ND
+	VALUES (0.000000,
+	0.000000,
+	"31269369-b292-4306-b70d-bd2e3de4bcab");
+INSERT INTO DIM_GE
+	VALUES (0.000000,
+	0.000000,
+	"31269369-b292-4306-b70d-bd2e3de4bcab",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("31269369-b292-4306-b70d-bd2e3de4bcab",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_LS
+	VALUES ("baef5edb-7cac-4a7c-90ff-96d986af8cab",
+	"ed35c075-a2da-4f0c-9f75-cd91ff77dc41",
+	"00000000-0000-0000-0000-000000000000",
+	"45bad448-cc5f-4b22-a44c-a7d7706553d7",
+	"70aa4a56-48fe-47f5-9ce6-5bc88ded2aa6");
+INSERT INTO GD_LS
+	VALUES ("42484381-8f46-453b-9647-4308aea72075",
+	"ed35c075-a2da-4f0c-9f75-cd91ff77dc41",
+	"baef5edb-7cac-4a7c-90ff-96d986af8cab",
+	"70aa4a56-48fe-47f5-9ce6-5bc88ded2aa6",
+	"e3cce435-fc35-4b5b-8920-68eaaa878a11");
+INSERT INTO DIM_WAY
+	VALUES ("45bad448-cc5f-4b22-a44c-a7d7706553d7",
+	1888.000000,
+	2496.000000,
+	"ed35c075-a2da-4f0c-9f75-cd91ff77dc41",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_WAY
+	VALUES ("70aa4a56-48fe-47f5-9ce6-5bc88ded2aa6",
+	1456.000000,
+	2496.000000,
+	"ed35c075-a2da-4f0c-9f75-cd91ff77dc41",
+	"00000000-0000-0000-0000-000000000000",
+	"45bad448-cc5f-4b22-a44c-a7d7706553d7");
+INSERT INTO DIM_WAY
+	VALUES ("e3cce435-fc35-4b5b-8920-68eaaa878a11",
+	1456.000000,
+	1952.000000,
+	"ed35c075-a2da-4f0c-9f75-cd91ff77dc41",
+	"00000000-0000-0000-0000-000000000000",
+	"70aa4a56-48fe-47f5-9ce6-5bc88ded2aa6");
+INSERT INTO DIM_GE
+	VALUES (0.000000,
+	0.000000,
+	"ed35c075-a2da-4f0c-9f75-cd91ff77dc41",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("ed35c075-a2da-4f0c-9f75-cd91ff77dc41",
+	1,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ED
+	VALUES ("17c75948-3cc6-41c4-bd7f-0d7f6e991337",
+	"65b52164-54ab-4094-be48-2c583711666c",
+	"ed35c075-a2da-4f0c-9f75-cd91ff77dc41");
+INSERT INTO GD_GE
+	VALUES ("828c72cc-5688-499e-913e-596261bd2eb9",
+	"feacb724-a35d-4fb2-b46a-1acd489dea98",
+	"70828b08-6a71-4f97-8e7b-c9aca78437ba",
+	42,
+	0,
+	'odms1::Odms::Disk Ownership::Class State Machine::Tying to Eject Disk::D_DO_A5: Disk Ownership Released');
+INSERT INTO GD_CON
+	VALUES ("828c72cc-5688-499e-913e-596261bd2eb9",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_CTXT
+	VALUES ("2f29fea6-b0c0-419f-b418-bcf70f383bdd",
+	"828c72cc-5688-499e-913e-596261bd2eb9",
+	1,
+	0.000000,
+	0.000000);
+INSERT INTO DIM_ND
+	VALUES (0.000000,
+	0.000000,
+	"2f29fea6-b0c0-419f-b418-bcf70f383bdd");
+INSERT INTO DIM_GE
+	VALUES (0.000000,
+	0.000000,
+	"2f29fea6-b0c0-419f-b418-bcf70f383bdd",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("2f29fea6-b0c0-419f-b418-bcf70f383bdd",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_CTXT
+	VALUES ("fabfbf7e-d286-4da9-9aea-6e9feeca96d9",
+	"828c72cc-5688-499e-913e-596261bd2eb9",
+	3,
+	25.000000,
+	9.000000);
+INSERT INTO DIM_ND
+	VALUES (201.000000,
+	44.000000,
+	"fabfbf7e-d286-4da9-9aea-6e9feeca96d9");
+INSERT INTO DIM_GE
+	VALUES (2249.000000,
+	2258.000000,
+	"fabfbf7e-d286-4da9-9aea-6e9feeca96d9",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("fabfbf7e-d286-4da9-9aea-6e9feeca96d9",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_CTXT
+	VALUES ("3c1026dd-9c71-4aff-9a92-0464e18816c5",
+	"828c72cc-5688-499e-913e-596261bd2eb9",
+	2,
+	0.000000,
+	0.000000);
+INSERT INTO DIM_ND
+	VALUES (0.000000,
+	0.000000,
+	"3c1026dd-9c71-4aff-9a92-0464e18816c5");
+INSERT INTO DIM_GE
+	VALUES (0.000000,
+	0.000000,
+	"3c1026dd-9c71-4aff-9a92-0464e18816c5",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("3c1026dd-9c71-4aff-9a92-0464e18816c5",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_LS
+	VALUES ("3823e2cb-bd52-4ac6-9135-a1e2f26b95b5",
+	"828c72cc-5688-499e-913e-596261bd2eb9",
+	"00000000-0000-0000-0000-000000000000",
+	"200e98e4-01ea-41a8-9016-59f68a22a0f6",
+	"270c14a5-fa27-4d6d-b0b3-5482966c3932");
+INSERT INTO DIM_WAY
+	VALUES ("200e98e4-01ea-41a8-9016-59f68a22a0f6",
+	2240.000000,
+	2336.000000,
+	"828c72cc-5688-499e-913e-596261bd2eb9",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_WAY
+	VALUES ("270c14a5-fa27-4d6d-b0b3-5482966c3932",
+	2240.000000,
+	2192.000000,
+	"828c72cc-5688-499e-913e-596261bd2eb9",
+	"00000000-0000-0000-0000-000000000000",
+	"200e98e4-01ea-41a8-9016-59f68a22a0f6");
+INSERT INTO DIM_GE
+	VALUES (0.000000,
+	0.000000,
+	"828c72cc-5688-499e-913e-596261bd2eb9",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("828c72cc-5688-499e-913e-596261bd2eb9",
+	1,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ED
+	VALUES ("c2961a7e-a94b-4eb8-830c-d4b63014f64a",
+	"0c136c5d-4f3e-4720-9f20-6ec013bf127d",
+	"828c72cc-5688-499e-913e-596261bd2eb9");
+INSERT INTO GD_GE
+	VALUES ("b92398c9-762b-4d33-ab96-2b6cb9cb3359",
+	"feacb724-a35d-4fb2-b46a-1acd489dea98",
+	"00b5a8d5-6b6d-4f70-8c80-eee23b019e45",
+	42,
+	0,
+	'odms1::Odms::Disk Ownership::Class State Machine::Waiting for a Requested Disk to be Ownable::D_DO_A4: Eject Disk if Possible');
+INSERT INTO GD_CON
+	VALUES ("b92398c9-762b-4d33-ab96-2b6cb9cb3359",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_CTXT
+	VALUES ("bd6c1c0b-1edd-4a52-a9c6-5c9620a94d76",
+	"b92398c9-762b-4d33-ab96-2b6cb9cb3359",
+	1,
+	0.000000,
+	0.000000);
+INSERT INTO DIM_ND
+	VALUES (0.000000,
+	0.000000,
+	"bd6c1c0b-1edd-4a52-a9c6-5c9620a94d76");
+INSERT INTO DIM_GE
+	VALUES (0.000000,
+	0.000000,
+	"bd6c1c0b-1edd-4a52-a9c6-5c9620a94d76",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("bd6c1c0b-1edd-4a52-a9c6-5c9620a94d76",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_CTXT
+	VALUES ("15a5f3da-9759-4d01-8d81-21e79955c007",
+	"b92398c9-762b-4d33-ab96-2b6cb9cb3359",
+	3,
+	-188.000000,
+	-1.000000);
+INSERT INTO DIM_ND
+	VALUES (206.000000,
+	35.000000,
+	"15a5f3da-9759-4d01-8d81-21e79955c007");
+INSERT INTO DIM_GE
+	VALUES (1732.000000,
+	2248.000000,
+	"15a5f3da-9759-4d01-8d81-21e79955c007",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("15a5f3da-9759-4d01-8d81-21e79955c007",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_CTXT
+	VALUES ("f38fe2c2-7e7b-4758-832d-51f29b5757e5",
+	"b92398c9-762b-4d33-ab96-2b6cb9cb3359",
+	2,
+	0.000000,
+	0.000000);
+INSERT INTO DIM_ND
+	VALUES (0.000000,
+	0.000000,
+	"f38fe2c2-7e7b-4758-832d-51f29b5757e5");
+INSERT INTO DIM_GE
+	VALUES (0.000000,
+	0.000000,
+	"f38fe2c2-7e7b-4758-832d-51f29b5757e5",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("f38fe2c2-7e7b-4758-832d-51f29b5757e5",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_LS
+	VALUES ("ef43d156-ab29-4776-be8e-7659c4335fad",
+	"b92398c9-762b-4d33-ab96-2b6cb9cb3359",
+	"00000000-0000-0000-0000-000000000000",
+	"f627ba95-eb00-4e75-aa08-16c8eb9ac8d1",
+	"43d8244c-63cd-46b5-b7e6-f8e5352e64f8");
+INSERT INTO DIM_WAY
+	VALUES ("f627ba95-eb00-4e75-aa08-16c8eb9ac8d1",
+	1936.000000,
+	2192.000000,
+	"b92398c9-762b-4d33-ab96-2b6cb9cb3359",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_WAY
+	VALUES ("43d8244c-63cd-46b5-b7e6-f8e5352e64f8",
+	1936.000000,
+	2336.000000,
+	"b92398c9-762b-4d33-ab96-2b6cb9cb3359",
+	"00000000-0000-0000-0000-000000000000",
+	"f627ba95-eb00-4e75-aa08-16c8eb9ac8d1");
+INSERT INTO DIM_GE
+	VALUES (0.000000,
+	0.000000,
+	"b92398c9-762b-4d33-ab96-2b6cb9cb3359",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("b92398c9-762b-4d33-ab96-2b6cb9cb3359",
+	1,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ED
+	VALUES ("07d2cf80-d57d-4798-a5a6-a4ffd5ea9aad",
+	"90f8cdff-a46b-48fd-a4b5-5ae7ce153fc8",
+	"b92398c9-762b-4d33-ab96-2b6cb9cb3359");
+INSERT INTO GD_GE
+	VALUES ("5aa1ba80-1624-4ec1-8927-3a1bb995e3eb",
+	"feacb724-a35d-4fb2-b46a-1acd489dea98",
+	"0864a806-fbd6-4abe-8f11-04cf582711f2",
+	42,
+	0,
+	'odms1::Odms::Disk Ownership::Class State Machine::Waiting for a Requested Disk to be Ownable::D_DO_A5: Disk Ownership Released');
+INSERT INTO GD_CON
+	VALUES ("5aa1ba80-1624-4ec1-8927-3a1bb995e3eb",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_CTXT
+	VALUES ("7ffdc8f7-2309-4041-9aef-5a529409dbeb",
+	"5aa1ba80-1624-4ec1-8927-3a1bb995e3eb",
+	1,
+	0.000000,
+	0.000000);
+INSERT INTO DIM_ND
+	VALUES (0.000000,
+	0.000000,
+	"7ffdc8f7-2309-4041-9aef-5a529409dbeb");
+INSERT INTO DIM_GE
+	VALUES (0.000000,
+	0.000000,
+	"7ffdc8f7-2309-4041-9aef-5a529409dbeb",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("7ffdc8f7-2309-4041-9aef-5a529409dbeb",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_CTXT
+	VALUES ("bdd455f9-1729-4459-9cc6-39b3edeb4a48",
+	"5aa1ba80-1624-4ec1-8927-3a1bb995e3eb",
+	3,
+	22.000000,
+	-6.000000);
+INSERT INTO DIM_ND
+	VALUES (145.000000,
+	50.000000,
+	"bdd455f9-1729-4459-9cc6-39b3edeb4a48");
+INSERT INTO DIM_GE
+	VALUES (2502.000000,
+	2043.000000,
+	"bdd455f9-1729-4459-9cc6-39b3edeb4a48",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("bdd455f9-1729-4459-9cc6-39b3edeb4a48",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_CTXT
+	VALUES ("7dc8f68d-33a9-46ed-843f-c6dc7d9fe639",
+	"5aa1ba80-1624-4ec1-8927-3a1bb995e3eb",
+	2,
+	0.000000,
+	0.000000);
+INSERT INTO DIM_ND
+	VALUES (0.000000,
+	0.000000,
+	"7dc8f68d-33a9-46ed-843f-c6dc7d9fe639");
+INSERT INTO DIM_GE
+	VALUES (0.000000,
+	0.000000,
+	"7dc8f68d-33a9-46ed-843f-c6dc7d9fe639",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("7dc8f68d-33a9-46ed-843f-c6dc7d9fe639",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_LS
+	VALUES ("06dad829-c56f-4049-a31e-c7062033f9e0",
+	"5aa1ba80-1624-4ec1-8927-3a1bb995e3eb",
+	"00000000-0000-0000-0000-000000000000",
+	"c071f068-12a9-4f58-af7d-2e7c6c64a5f4",
+	"fb583692-7562-4d0a-9675-4e488e1e564d");
+INSERT INTO GD_LS
+	VALUES ("53f7c932-c92d-4dee-9575-46199c18f2ae",
+	"5aa1ba80-1624-4ec1-8927-3a1bb995e3eb",
+	"06dad829-c56f-4049-a31e-c7062033f9e0",
+	"fb583692-7562-4d0a-9675-4e488e1e564d",
+	"086f0ae4-e371-41ae-ba7b-263a5928e5c7");
+INSERT INTO GD_LS
+	VALUES ("01fd56bc-792c-4782-a637-44a77313fa8e",
+	"5aa1ba80-1624-4ec1-8927-3a1bb995e3eb",
+	"53f7c932-c92d-4dee-9575-46199c18f2ae",
+	"086f0ae4-e371-41ae-ba7b-263a5928e5c7",
+	"64085348-0338-4306-a8d7-86462e42f9fb");
+INSERT INTO DIM_WAY
+	VALUES ("c071f068-12a9-4f58-af7d-2e7c6c64a5f4",
+	2400.000000,
+	1984.000000,
+	"5aa1ba80-1624-4ec1-8927-3a1bb995e3eb",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_WAY
+	VALUES ("fb583692-7562-4d0a-9675-4e488e1e564d",
+	2496.000000,
+	1984.000000,
+	"5aa1ba80-1624-4ec1-8927-3a1bb995e3eb",
+	"00000000-0000-0000-0000-000000000000",
+	"c071f068-12a9-4f58-af7d-2e7c6c64a5f4");
+INSERT INTO DIM_WAY
+	VALUES ("086f0ae4-e371-41ae-ba7b-263a5928e5c7",
+	2496.000000,
+	2144.000000,
+	"5aa1ba80-1624-4ec1-8927-3a1bb995e3eb",
+	"00000000-0000-0000-0000-000000000000",
+	"fb583692-7562-4d0a-9675-4e488e1e564d");
+INSERT INTO DIM_WAY
+	VALUES ("64085348-0338-4306-a8d7-86462e42f9fb",
+	2400.000000,
+	2144.000000,
+	"5aa1ba80-1624-4ec1-8927-3a1bb995e3eb",
+	"00000000-0000-0000-0000-000000000000",
+	"086f0ae4-e371-41ae-ba7b-263a5928e5c7");
+INSERT INTO DIM_GE
+	VALUES (0.000000,
+	0.000000,
+	"5aa1ba80-1624-4ec1-8927-3a1bb995e3eb",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("5aa1ba80-1624-4ec1-8927-3a1bb995e3eb",
+	1,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ED
+	VALUES ("0c51ad95-a525-4c30-a75f-acca76150925",
+	"fdc83c2e-99d8-456a-8049-112117f0e76b",
+	"5aa1ba80-1624-4ec1-8927-3a1bb995e3eb");
+INSERT INTO GD_GE
+	VALUES ("96a8e736-a0be-41cf-b3fb-0f93c670d38f",
+	"feacb724-a35d-4fb2-b46a-1acd489dea98",
+	"84a5bc5c-0ca2-49a1-baf9-bffebd023d3f",
+	42,
+	0,
+	'odms1::Odms::Disk Ownership::Class State Machine::Waiting for a Requested Disk to be Ownable::D_DO_A1: Disk Requested by QP');
+INSERT INTO GD_CON
+	VALUES ("96a8e736-a0be-41cf-b3fb-0f93c670d38f",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_CTXT
+	VALUES ("d172edfb-ec04-4c48-b3c7-02b832112331",
+	"96a8e736-a0be-41cf-b3fb-0f93c670d38f",
+	1,
+	0.000000,
+	0.000000);
+INSERT INTO DIM_ND
+	VALUES (0.000000,
+	0.000000,
+	"d172edfb-ec04-4c48-b3c7-02b832112331");
+INSERT INTO DIM_GE
+	VALUES (0.000000,
+	0.000000,
+	"d172edfb-ec04-4c48-b3c7-02b832112331",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("d172edfb-ec04-4c48-b3c7-02b832112331",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_CTXT
+	VALUES ("80d1cfa1-9196-4500-b5e9-5025a25e4b27",
+	"96a8e736-a0be-41cf-b3fb-0f93c670d38f",
+	3,
+	13.000000,
+	-12.000000);
+INSERT INTO DIM_ND
+	VALUES (126.000000,
+	46.000000,
+	"80d1cfa1-9196-4500-b5e9-5025a25e4b27");
+INSERT INTO DIM_GE
+	VALUES (1757.000000,
+	2037.000000,
+	"80d1cfa1-9196-4500-b5e9-5025a25e4b27",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("80d1cfa1-9196-4500-b5e9-5025a25e4b27",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_CTXT
+	VALUES ("84a8d15b-46ff-4f48-920d-75ee27df83d6",
+	"96a8e736-a0be-41cf-b3fb-0f93c670d38f",
+	2,
+	0.000000,
+	0.000000);
+INSERT INTO DIM_ND
+	VALUES (0.000000,
+	0.000000,
+	"84a8d15b-46ff-4f48-920d-75ee27df83d6");
+INSERT INTO DIM_GE
+	VALUES (0.000000,
+	0.000000,
+	"84a8d15b-46ff-4f48-920d-75ee27df83d6",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("84a8d15b-46ff-4f48-920d-75ee27df83d6",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_LS
+	VALUES ("e8b7baf7-02f5-4dbe-b482-4b98c92ab9f5",
+	"96a8e736-a0be-41cf-b3fb-0f93c670d38f",
+	"00000000-0000-0000-0000-000000000000",
+	"9f252ec2-dcf0-49a4-b8a3-c3a7275dc390",
+	"86b0e52e-2375-41f5-8150-66691fc3b2e8");
+INSERT INTO GD_LS
+	VALUES ("871b6daf-4dbc-4f37-b6e8-b5c34ba7b7ed",
+	"96a8e736-a0be-41cf-b3fb-0f93c670d38f",
+	"e8b7baf7-02f5-4dbe-b482-4b98c92ab9f5",
+	"86b0e52e-2375-41f5-8150-66691fc3b2e8",
+	"33a5e765-0459-4e2d-be1a-2181aa9bc838");
+INSERT INTO GD_LS
+	VALUES ("89ce561b-5480-4d45-92c7-91e913040a43",
+	"96a8e736-a0be-41cf-b3fb-0f93c670d38f",
+	"871b6daf-4dbc-4f37-b6e8-b5c34ba7b7ed",
+	"33a5e765-0459-4e2d-be1a-2181aa9bc838",
+	"551b9918-a6ea-42ec-bd99-5c947eeda973");
+INSERT INTO DIM_WAY
+	VALUES ("9f252ec2-dcf0-49a4-b8a3-c3a7275dc390",
+	1888.000000,
+	1984.000000,
+	"96a8e736-a0be-41cf-b3fb-0f93c670d38f",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_WAY
+	VALUES ("86b0e52e-2375-41f5-8150-66691fc3b2e8",
+	1760.000000,
+	1984.000000,
+	"96a8e736-a0be-41cf-b3fb-0f93c670d38f",
+	"00000000-0000-0000-0000-000000000000",
+	"9f252ec2-dcf0-49a4-b8a3-c3a7275dc390");
+INSERT INTO DIM_WAY
+	VALUES ("33a5e765-0459-4e2d-be1a-2181aa9bc838",
+	1760.000000,
+	2144.000000,
+	"96a8e736-a0be-41cf-b3fb-0f93c670d38f",
+	"00000000-0000-0000-0000-000000000000",
+	"86b0e52e-2375-41f5-8150-66691fc3b2e8");
+INSERT INTO DIM_WAY
+	VALUES ("551b9918-a6ea-42ec-bd99-5c947eeda973",
+	1888.000000,
+	2144.000000,
+	"96a8e736-a0be-41cf-b3fb-0f93c670d38f",
+	"00000000-0000-0000-0000-000000000000",
+	"33a5e765-0459-4e2d-be1a-2181aa9bc838");
+INSERT INTO DIM_GE
+	VALUES (0.000000,
+	0.000000,
+	"96a8e736-a0be-41cf-b3fb-0f93c670d38f",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("96a8e736-a0be-41cf-b3fb-0f93c670d38f",
+	1,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ED
+	VALUES ("6a3c6b86-f04e-4e15-9d3b-a660273ad976",
+	"621dae2c-b427-4e84-82be-cada15f7145b",
+	"96a8e736-a0be-41cf-b3fb-0f93c670d38f");
+INSERT INTO GD_GE
+	VALUES ("2c4e1347-ae57-4954-9d18-8ee6a6b1c31c",
+	"feacb724-a35d-4fb2-b46a-1acd489dea98",
+	"77416de3-d5f5-4b7a-8b3f-980d7f46e0a8",
+	42,
+	0,
+	'odms1::Odms::Disk Ownership::Class State Machine::Establishing Ownership of an Online Disk::D_DO_A6: Ownership Established');
+INSERT INTO GD_CON
+	VALUES ("2c4e1347-ae57-4954-9d18-8ee6a6b1c31c",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_CTXT
+	VALUES ("1088bc17-3cda-4254-980a-b4e218e286e1",
+	"2c4e1347-ae57-4954-9d18-8ee6a6b1c31c",
+	1,
+	0.000000,
+	0.000000);
+INSERT INTO DIM_ND
+	VALUES (0.000000,
+	0.000000,
+	"1088bc17-3cda-4254-980a-b4e218e286e1");
+INSERT INTO DIM_GE
+	VALUES (0.000000,
+	0.000000,
+	"1088bc17-3cda-4254-980a-b4e218e286e1",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("1088bc17-3cda-4254-980a-b4e218e286e1",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_CTXT
+	VALUES ("666a3615-1416-43c7-b089-d67f19360faf",
+	"2c4e1347-ae57-4954-9d18-8ee6a6b1c31c",
+	3,
+	-135.000000,
+	-13.000000);
+INSERT INTO DIM_ND
+	VALUES (261.000000,
+	36.000000,
+	"666a3615-1416-43c7-b089-d67f19360faf");
+INSERT INTO DIM_GE
+	VALUES (2568.000000,
+	1338.000000,
+	"666a3615-1416-43c7-b089-d67f19360faf",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("666a3615-1416-43c7-b089-d67f19360faf",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_CTXT
+	VALUES ("13fb2c5e-df0b-46d8-9bee-18e0b0e3f2c2",
+	"2c4e1347-ae57-4954-9d18-8ee6a6b1c31c",
+	2,
+	0.000000,
+	0.000000);
+INSERT INTO DIM_ND
+	VALUES (0.000000,
+	0.000000,
+	"13fb2c5e-df0b-46d8-9bee-18e0b0e3f2c2");
+INSERT INTO DIM_GE
+	VALUES (0.000000,
+	0.000000,
+	"13fb2c5e-df0b-46d8-9bee-18e0b0e3f2c2",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("13fb2c5e-df0b-46d8-9bee-18e0b0e3f2c2",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_LS
+	VALUES ("37172657-9d54-4436-b43b-460bf79825c8",
+	"2c4e1347-ae57-4954-9d18-8ee6a6b1c31c",
+	"00000000-0000-0000-0000-000000000000",
+	"d1d0dcfc-2ae1-4ef4-9c8e-989cb8b8ec8e",
+	"734f9776-fbe2-40b5-98ff-44bb74b12ed7");
+INSERT INTO GD_LS
+	VALUES ("21d408d0-c14d-4ee0-b224-422f26ef88bd",
+	"2c4e1347-ae57-4954-9d18-8ee6a6b1c31c",
+	"37172657-9d54-4436-b43b-460bf79825c8",
+	"734f9776-fbe2-40b5-98ff-44bb74b12ed7",
+	"0cc3087f-75eb-434c-8bba-8200e9bfd20c");
+INSERT INTO DIM_WAY
+	VALUES ("d1d0dcfc-2ae1-4ef4-9c8e-989cb8b8ec8e",
+	2832.000000,
+	1664.000000,
+	"2c4e1347-ae57-4954-9d18-8ee6a6b1c31c",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_WAY
+	VALUES ("734f9776-fbe2-40b5-98ff-44bb74b12ed7",
+	2832.000000,
+	1376.000000,
+	"2c4e1347-ae57-4954-9d18-8ee6a6b1c31c",
+	"00000000-0000-0000-0000-000000000000",
+	"d1d0dcfc-2ae1-4ef4-9c8e-989cb8b8ec8e");
+INSERT INTO DIM_WAY
+	VALUES ("0cc3087f-75eb-434c-8bba-8200e9bfd20c",
+	2336.000000,
+	1376.000000,
+	"2c4e1347-ae57-4954-9d18-8ee6a6b1c31c",
+	"00000000-0000-0000-0000-000000000000",
+	"734f9776-fbe2-40b5-98ff-44bb74b12ed7");
+INSERT INTO DIM_GE
+	VALUES (0.000000,
+	0.000000,
+	"2c4e1347-ae57-4954-9d18-8ee6a6b1c31c",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("2c4e1347-ae57-4954-9d18-8ee6a6b1c31c",
+	1,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ED
+	VALUES ("9cb99f38-a693-46f7-9369-9e37b75a74fd",
+	"c08f86ec-ca35-4d79-a187-e761bcb3ae3b",
+	"2c4e1347-ae57-4954-9d18-8ee6a6b1c31c");
+INSERT INTO GD_GE
+	VALUES ("0448642d-d137-415b-9905-7bee3603abb2",
+	"feacb724-a35d-4fb2-b46a-1acd489dea98",
+	"e9ce41bf-6b76-4c94-acaf-f91d224ae28d",
+	42,
+	0,
+	'odms1::Odms::Disk Ownership::Class State Machine::Waiting for a Requested Disk to be Ownable::D_DO_A3: Establish Ownership of an Online Disk');
+INSERT INTO GD_CON
+	VALUES ("0448642d-d137-415b-9905-7bee3603abb2",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_CTXT
+	VALUES ("af3f7ac2-5dfe-4cf8-a097-74aa2bc5e50a",
+	"0448642d-d137-415b-9905-7bee3603abb2",
+	1,
+	0.000000,
+	0.000000);
+INSERT INTO DIM_ND
+	VALUES (0.000000,
+	0.000000,
+	"af3f7ac2-5dfe-4cf8-a097-74aa2bc5e50a");
+INSERT INTO DIM_GE
+	VALUES (0.000000,
+	0.000000,
+	"af3f7ac2-5dfe-4cf8-a097-74aa2bc5e50a",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("af3f7ac2-5dfe-4cf8-a097-74aa2bc5e50a",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_CTXT
+	VALUES ("f5c5feb5-a959-4d46-9898-090685332508",
+	"0448642d-d137-415b-9905-7bee3603abb2",
+	3,
+	-80.000000,
+	-27.000000);
+INSERT INTO DIM_ND
+	VALUES (200.000000,
+	50.000000,
+	"f5c5feb5-a959-4d46-9898-090685332508");
+INSERT INTO DIM_GE
+	VALUES (2423.000000,
+	1724.000000,
+	"f5c5feb5-a959-4d46-9898-090685332508",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("f5c5feb5-a959-4d46-9898-090685332508",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_CTXT
+	VALUES ("da96c5fb-9135-4096-80e2-481db0f4ed06",
+	"0448642d-d137-415b-9905-7bee3603abb2",
+	2,
+	0.000000,
+	0.000000);
+INSERT INTO DIM_ND
+	VALUES (0.000000,
+	0.000000,
+	"da96c5fb-9135-4096-80e2-481db0f4ed06");
+INSERT INTO DIM_GE
+	VALUES (0.000000,
+	0.000000,
+	"da96c5fb-9135-4096-80e2-481db0f4ed06",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("da96c5fb-9135-4096-80e2-481db0f4ed06",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_LS
+	VALUES ("48034093-5e30-45a5-8981-58e89445eaf8",
+	"0448642d-d137-415b-9905-7bee3603abb2",
+	"00000000-0000-0000-0000-000000000000",
+	"2785c756-0eeb-4dc2-8421-9b2f01c91730",
+	"466340bb-9107-4eaf-856d-7bee5f565097");
+INSERT INTO DIM_WAY
+	VALUES ("2785c756-0eeb-4dc2-8421-9b2f01c91730",
+	2400.000000,
+	1776.000000,
+	"0448642d-d137-415b-9905-7bee3603abb2",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_WAY
+	VALUES ("466340bb-9107-4eaf-856d-7bee5f565097",
+	2656.000000,
+	1776.000000,
+	"0448642d-d137-415b-9905-7bee3603abb2",
+	"00000000-0000-0000-0000-000000000000",
+	"2785c756-0eeb-4dc2-8421-9b2f01c91730");
+INSERT INTO DIM_GE
+	VALUES (0.000000,
+	0.000000,
+	"0448642d-d137-415b-9905-7bee3603abb2",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("0448642d-d137-415b-9905-7bee3603abb2",
+	1,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ED
+	VALUES ("638ab51b-7f53-4b8b-a24a-43eca6fea348",
+	"3521b806-29b4-4bf2-8cda-4e77ba414186",
+	"0448642d-d137-415b-9905-7bee3603abb2");
+INSERT INTO GD_GE
+	VALUES ("43664a04-f65b-4e85-9c2b-c3b9796d8b88",
+	"feacb724-a35d-4fb2-b46a-1acd489dea98",
+	"c697d94a-713c-42df-9b74-5f03947ed6e3",
+	42,
+	0,
+	'odms1::Odms::Disk Ownership::Class State Machine::Establishing Ownership of an Offline Disk::D_DO_A7: Disk Now Online');
+INSERT INTO GD_CON
+	VALUES ("43664a04-f65b-4e85-9c2b-c3b9796d8b88",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_CTXT
+	VALUES ("c1bbd3e5-6dc2-4bae-865a-13bf8a7b58e6",
+	"43664a04-f65b-4e85-9c2b-c3b9796d8b88",
+	1,
+	0.000000,
+	0.000000);
+INSERT INTO DIM_ND
+	VALUES (0.000000,
+	0.000000,
+	"c1bbd3e5-6dc2-4bae-865a-13bf8a7b58e6");
+INSERT INTO DIM_GE
+	VALUES (0.000000,
+	0.000000,
+	"c1bbd3e5-6dc2-4bae-865a-13bf8a7b58e6",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("c1bbd3e5-6dc2-4bae-865a-13bf8a7b58e6",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_CTXT
+	VALUES ("eac7392d-35de-476d-8150-86733304e0ef",
+	"43664a04-f65b-4e85-9c2b-c3b9796d8b88",
+	3,
+	13.000000,
+	-8.000000);
+INSERT INTO DIM_ND
+	VALUES (198.000000,
+	43.000000,
+	"eac7392d-35de-476d-8150-86733304e0ef");
+INSERT INTO DIM_GE
+	VALUES (1437.000000,
+	1569.000000,
+	"eac7392d-35de-476d-8150-86733304e0ef",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("eac7392d-35de-476d-8150-86733304e0ef",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_CTXT
+	VALUES ("0c386417-128c-4ba8-ba2d-68c10fe1d122",
+	"43664a04-f65b-4e85-9c2b-c3b9796d8b88",
+	2,
+	0.000000,
+	0.000000);
+INSERT INTO DIM_ND
+	VALUES (0.000000,
+	0.000000,
+	"0c386417-128c-4ba8-ba2d-68c10fe1d122");
+INSERT INTO DIM_GE
+	VALUES (0.000000,
+	0.000000,
+	"0c386417-128c-4ba8-ba2d-68c10fe1d122",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("0c386417-128c-4ba8-ba2d-68c10fe1d122",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_LS
+	VALUES ("061f7a8b-eb40-4d3f-ac6e-0fe640da9eea",
+	"43664a04-f65b-4e85-9c2b-c3b9796d8b88",
+	"00000000-0000-0000-0000-000000000000",
+	"cd635b45-b62d-4992-ae9f-585456e1f9ec",
+	"107b7318-d408-4b87-a393-fdbafd9a94f9");
+INSERT INTO DIM_WAY
+	VALUES ("cd635b45-b62d-4992-ae9f-585456e1f9ec",
+	1440.000000,
+	1664.000000,
+	"43664a04-f65b-4e85-9c2b-c3b9796d8b88",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_WAY
+	VALUES ("107b7318-d408-4b87-a393-fdbafd9a94f9",
+	1440.000000,
+	1520.000000,
+	"43664a04-f65b-4e85-9c2b-c3b9796d8b88",
+	"00000000-0000-0000-0000-000000000000",
+	"cd635b45-b62d-4992-ae9f-585456e1f9ec");
+INSERT INTO DIM_GE
+	VALUES (0.000000,
+	0.000000,
+	"43664a04-f65b-4e85-9c2b-c3b9796d8b88",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("43664a04-f65b-4e85-9c2b-c3b9796d8b88",
+	1,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ED
+	VALUES ("0f316a8f-1b48-44bd-a865-984d93ea0eb0",
+	"b38628dc-2ed1-483c-9db1-8b2753419668",
+	"43664a04-f65b-4e85-9c2b-c3b9796d8b88");
+INSERT INTO GD_GE
+	VALUES ("ab2ee371-d9cc-47c1-936b-59a64c8e4aed",
+	"feacb724-a35d-4fb2-b46a-1acd489dea98",
+	"029765d0-726d-455f-8ae0-3f00c729263b",
+	42,
+	0,
+	'odms1::Odms::Disk Ownership::Class State Machine::Satisfying Disk Request::D_DO_A6: Ownership Established');
+INSERT INTO GD_CON
+	VALUES ("ab2ee371-d9cc-47c1-936b-59a64c8e4aed",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_CTXT
+	VALUES ("a1da55ab-9587-4a61-8d17-32b95734b284",
+	"ab2ee371-d9cc-47c1-936b-59a64c8e4aed",
+	1,
+	0.000000,
+	0.000000);
+INSERT INTO DIM_ND
+	VALUES (0.000000,
+	0.000000,
+	"a1da55ab-9587-4a61-8d17-32b95734b284");
+INSERT INTO DIM_GE
+	VALUES (0.000000,
+	0.000000,
+	"a1da55ab-9587-4a61-8d17-32b95734b284",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("a1da55ab-9587-4a61-8d17-32b95734b284",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_CTXT
+	VALUES ("88851427-7c53-4607-9a56-8704fe0e4106",
+	"ab2ee371-d9cc-47c1-936b-59a64c8e4aed",
+	3,
+	-54.000000,
+	-23.000000);
+INSERT INTO DIM_ND
+	VALUES (151.000000,
+	42.000000,
+	"88851427-7c53-4607-9a56-8704fe0e4106");
+INSERT INTO DIM_GE
+	VALUES (1689.000000,
+	1328.000000,
+	"88851427-7c53-4607-9a56-8704fe0e4106",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("88851427-7c53-4607-9a56-8704fe0e4106",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_CTXT
+	VALUES ("61da40d0-daec-436b-85dd-7dd9a8f0749d",
+	"ab2ee371-d9cc-47c1-936b-59a64c8e4aed",
+	2,
+	0.000000,
+	0.000000);
+INSERT INTO DIM_ND
+	VALUES (0.000000,
+	0.000000,
+	"61da40d0-daec-436b-85dd-7dd9a8f0749d");
+INSERT INTO DIM_GE
+	VALUES (0.000000,
+	0.000000,
+	"61da40d0-daec-436b-85dd-7dd9a8f0749d",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("61da40d0-daec-436b-85dd-7dd9a8f0749d",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_LS
+	VALUES ("8b666a54-8ece-4b18-8b24-497123139c57",
+	"ab2ee371-d9cc-47c1-936b-59a64c8e4aed",
+	"00000000-0000-0000-0000-000000000000",
+	"f994abe2-5389-4d66-9478-45a67d9e3447",
+	"02dbe5ae-6d59-4997-a558-82b20f659a37");
+INSERT INTO DIM_WAY
+	VALUES ("f994abe2-5389-4d66-9478-45a67d9e3447",
+	1648.000000,
+	1376.000000,
+	"ab2ee371-d9cc-47c1-936b-59a64c8e4aed",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_WAY
+	VALUES ("02dbe5ae-6d59-4997-a558-82b20f659a37",
+	1888.000000,
+	1376.000000,
+	"ab2ee371-d9cc-47c1-936b-59a64c8e4aed",
+	"00000000-0000-0000-0000-000000000000",
+	"f994abe2-5389-4d66-9478-45a67d9e3447");
+INSERT INTO DIM_GE
+	VALUES (0.000000,
+	0.000000,
+	"ab2ee371-d9cc-47c1-936b-59a64c8e4aed",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("ab2ee371-d9cc-47c1-936b-59a64c8e4aed",
+	1,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ED
+	VALUES ("b015a2ec-245e-4709-ae7d-0e78ec47f65c",
+	"60102cec-0211-480d-8df5-2b87eccf5988",
+	"ab2ee371-d9cc-47c1-936b-59a64c8e4aed");
+INSERT INTO GD_GE
+	VALUES ("34f86a5b-3e79-45b8-9363-c02b23193a43",
+	"feacb724-a35d-4fb2-b46a-1acd489dea98",
+	"7651e067-0ba5-4d1d-81ea-35c8c19015ae",
+	42,
+	0,
+	'odms1::Odms::Disk Ownership::Class State Machine::Waiting for a Requested Disk to be Ownable::D_DO_A2: Establish Ownership of an Offline Disk');
+INSERT INTO GD_CON
+	VALUES ("34f86a5b-3e79-45b8-9363-c02b23193a43",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_CTXT
+	VALUES ("4b81ce1e-0a13-4b36-ad6f-d9ba040e1742",
+	"34f86a5b-3e79-45b8-9363-c02b23193a43",
+	1,
+	0.000000,
+	0.000000);
+INSERT INTO DIM_ND
+	VALUES (0.000000,
+	0.000000,
+	"4b81ce1e-0a13-4b36-ad6f-d9ba040e1742");
+INSERT INTO DIM_GE
+	VALUES (0.000000,
+	0.000000,
+	"4b81ce1e-0a13-4b36-ad6f-d9ba040e1742",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("4b81ce1e-0a13-4b36-ad6f-d9ba040e1742",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_CTXT
+	VALUES ("271c4196-afad-46d1-9e09-f2d9388a0398",
+	"34f86a5b-3e79-45b8-9363-c02b23193a43",
+	3,
+	-61.000000,
+	-20.000000);
+INSERT INTO DIM_ND
+	VALUES (164.000000,
+	43.000000,
+	"271c4196-afad-46d1-9e09-f2d9388a0398");
+INSERT INTO DIM_GE
+	VALUES (1682.000000,
+	1731.000000,
+	"271c4196-afad-46d1-9e09-f2d9388a0398",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("271c4196-afad-46d1-9e09-f2d9388a0398",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_CTXT
+	VALUES ("fc3206a4-0818-4082-af90-eba921afa82c",
+	"34f86a5b-3e79-45b8-9363-c02b23193a43",
+	2,
+	0.000000,
+	0.000000);
+INSERT INTO DIM_ND
+	VALUES (0.000000,
+	0.000000,
+	"fc3206a4-0818-4082-af90-eba921afa82c");
+INSERT INTO DIM_GE
+	VALUES (0.000000,
+	0.000000,
+	"fc3206a4-0818-4082-af90-eba921afa82c",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("fc3206a4-0818-4082-af90-eba921afa82c",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_LS
+	VALUES ("9d9dd2cd-13a8-430f-8139-5347ceb7fdd8",
+	"34f86a5b-3e79-45b8-9363-c02b23193a43",
+	"00000000-0000-0000-0000-000000000000",
+	"13bf6e78-d968-4c0f-b94d-655eb5cfed62",
+	"3c502783-a619-491a-b2f4-f73e3d22c3ad");
+INSERT INTO DIM_WAY
+	VALUES ("13bf6e78-d968-4c0f-b94d-655eb5cfed62",
+	1888.000000,
+	1776.000000,
+	"34f86a5b-3e79-45b8-9363-c02b23193a43",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_WAY
+	VALUES ("3c502783-a619-491a-b2f4-f73e3d22c3ad",
+	1648.000000,
+	1776.000000,
+	"34f86a5b-3e79-45b8-9363-c02b23193a43",
+	"00000000-0000-0000-0000-000000000000",
+	"13bf6e78-d968-4c0f-b94d-655eb5cfed62");
+INSERT INTO DIM_GE
+	VALUES (0.000000,
+	0.000000,
+	"34f86a5b-3e79-45b8-9363-c02b23193a43",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("34f86a5b-3e79-45b8-9363-c02b23193a43",
+	1,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ED
+	VALUES ("c8af3f84-8e92-4144-9ae2-b1ed5e6df9b0",
+	"54ab7a07-31e7-4bef-8801-bf7d09bffabc",
+	"34f86a5b-3e79-45b8-9363-c02b23193a43");
+INSERT INTO GD_GE
+	VALUES ("939d92fb-147c-47b2-bfa4-2271efafdffe",
+	"feacb724-a35d-4fb2-b46a-1acd489dea98",
+	"328a2771-be40-4900-abfa-0e43cba3c331",
+	42,
+	0,
+	'odms1::Odms::Disk Ownership::Class State Machine::Waiting for a Disk Request::D_DO_A1: Disk Requested by QP');
+INSERT INTO GD_CON
+	VALUES ("939d92fb-147c-47b2-bfa4-2271efafdffe",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_CTXT
+	VALUES ("f262355b-11d2-4f87-aa57-83d5f654b6de",
+	"939d92fb-147c-47b2-bfa4-2271efafdffe",
+	1,
+	0.000000,
+	0.000000);
+INSERT INTO DIM_ND
+	VALUES (0.000000,
+	0.000000,
+	"f262355b-11d2-4f87-aa57-83d5f654b6de");
+INSERT INTO DIM_GE
+	VALUES (0.000000,
+	0.000000,
+	"f262355b-11d2-4f87-aa57-83d5f654b6de",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("f262355b-11d2-4f87-aa57-83d5f654b6de",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_CTXT
+	VALUES ("27f5a533-97ec-4f9e-8ce1-d6546cd3cff9",
+	"939d92fb-147c-47b2-bfa4-2271efafdffe",
+	3,
+	15.000000,
+	-1.000000);
+INSERT INTO DIM_ND
+	VALUES (214.000000,
+	39.000000,
+	"27f5a533-97ec-4f9e-8ce1-d6546cd3cff9");
+INSERT INTO DIM_GE
+	VALUES (2207.000000,
+	1565.000000,
+	"27f5a533-97ec-4f9e-8ce1-d6546cd3cff9",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("27f5a533-97ec-4f9e-8ce1-d6546cd3cff9",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_CTXT
+	VALUES ("6a01e48b-550a-464b-8e81-3ed0c2916d52",
+	"939d92fb-147c-47b2-bfa4-2271efafdffe",
+	2,
+	0.000000,
+	0.000000);
+INSERT INTO DIM_ND
+	VALUES (0.000000,
+	0.000000,
+	"6a01e48b-550a-464b-8e81-3ed0c2916d52");
+INSERT INTO DIM_GE
+	VALUES (0.000000,
+	0.000000,
+	"6a01e48b-550a-464b-8e81-3ed0c2916d52",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("6a01e48b-550a-464b-8e81-3ed0c2916d52",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_LS
+	VALUES ("84a07525-df07-4b0c-b4a7-7cae96977d88",
+	"939d92fb-147c-47b2-bfa4-2271efafdffe",
+	"00000000-0000-0000-0000-000000000000",
+	"048e1fcc-c37f-4284-b009-99a1bcbcf1a8",
+	"2d4bafcd-c448-4fae-9c5a-615256dbdfa7");
+INSERT INTO DIM_WAY
+	VALUES ("048e1fcc-c37f-4284-b009-99a1bcbcf1a8",
+	2176.000000,
+	1504.000000,
+	"939d92fb-147c-47b2-bfa4-2271efafdffe",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_WAY
+	VALUES ("2d4bafcd-c448-4fae-9c5a-615256dbdfa7",
+	2176.000000,
+	1664.000000,
+	"939d92fb-147c-47b2-bfa4-2271efafdffe",
+	"00000000-0000-0000-0000-000000000000",
+	"048e1fcc-c37f-4284-b009-99a1bcbcf1a8");
+INSERT INTO DIM_GE
+	VALUES (0.000000,
+	0.000000,
+	"939d92fb-147c-47b2-bfa4-2271efafdffe",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("939d92fb-147c-47b2-bfa4-2271efafdffe",
+	1,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ED
+	VALUES ("c2ffd99e-c31c-4f3c-a83a-365c2a0f73b7",
+	"17603ccb-0d68-4329-8ab6-928e873b664f",
+	"939d92fb-147c-47b2-bfa4-2271efafdffe");
+INSERT INTO DIM_DIA
+	VALUES ("feacb724-a35d-4fb2-b46a-1acd489dea98",
+	'',
+	1.000000,
+	1600.000000,
+	1180.000000,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("df0d2718-284d-482c-b25a-5b0e60552b51",
+	'Disk Ownership',
+	11,
+	'D_DO',
+	'Object Description:
+
+Object Role:
+',
+	"00000000-0000-0000-0000-000000000000",
+	'../Disk Ownership.xtuml');

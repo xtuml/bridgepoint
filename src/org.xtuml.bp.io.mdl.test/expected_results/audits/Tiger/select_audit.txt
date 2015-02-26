@@ -1,0 +1,67 @@
+AUDIT RESULTS FOR DOMAIN select
+
+SUBSYSTEMS WITHOUT DESCRIPTIONS:
+select
+
+EXTERNAL ENTITIES WITHOUT DESCRIPTIONS:
+External Entity Logging 
+External Entity Time
+External Entity Architecture
+External Entity Test
+
+BRIDGES WITHOUT DESCRIPTIONS:
+External Entity Bridge Logging ::LogSuccess
+External Entity Bridge Logging ::LogFailure
+External Entity Bridge Logging ::LogInfo
+External Entity Bridge Architecture::shutdown
+External Entity Bridge Test::two
+External Entity Bridge Test::georgette
+
+CLASSES WITHOUT DESCRIPTIONS:
+Class select::Object A
+Class select::Object B
+Class select::Driver
+Class select::select init
+
+ATTRIBUTES WITHOUT DESCRIPTIONS:
+Attribute Object A::oa_id
+Attribute Object A::age
+Attribute Object B::ob_id
+Attribute Object B::x
+Attribute Object B::y
+Attribute Object B::z
+Attribute Object B::bool_t
+Attribute Object B::bool_f
+Attribute Object B::current_state
+Attribute Object B::date
+Attribute Object B::timest
+Attribute Object B::real
+Attribute Driver::driver_id
+Attribute Driver::testNumber
+Attribute Driver::current_state
+Attribute select init::init_id
+Attribute select init::current_state
+
+OPERATIONS WITHOUT DESCRIPTIONS:
+Operation Driver::one
+Operation Driver::bob
+
+STATE MODELS WITHOUT DESCRIPTIONS:
+State Model Object B
+State Model Driver
+State Model select init
+
+EVENTS WITHOUT DESCRIPTIONS:
+Event OB1
+Event DR2
+Event DR1
+Event INIT1
+
+ACTION SPECIFICATIONS WITHOUT DESCRIPTIONS:
+Object B::Exists
+Driver::Simple Expression
+Driver::Parenthesis
+Driver::Compound Expression
+Driver::Multiple Use of Selected
+Driver::Selected Alone
+select init::Initialize System

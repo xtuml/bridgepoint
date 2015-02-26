@@ -1,0 +1,815 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<!--
+
+ File:      $RCSfile: plugin.xml,v $
+ Version:   $Revision: 1.88 $
+ Modified:  $Date: 2013/06/24 14:48:21 $
+
+ (c) Copyright 2006-2014 by Mentor Graphics Corp. All rights reserved.
+
+ ========================================================================
+Licensed under the Apache License, Version 2.0 (the "License"); you may not
+use this file except in compliance with the License.  You may obtain a copy
+of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the
+License for the specific language governing permissions and limitations under
+the License.
+ ========================================================================
+
+-->
+
+<plugin
+   id="org.xtuml.bp.debug.ui"
+     name="BridgePoint Debug UI Plug-in"
+     version="4.2.1"
+     provider-name="xtUML.org"
+     class="org.xtuml.bp.debug.ui.BPDebugUIPlugin">
+
+     <runtime>
+        <library name="verifier.jar">
+           <export name="*"/>
+        </library>
+     </runtime>
+     <requires>
+       <import plugin="org.eclipse.core.runtime"/>
+      <import plugin="org.eclipse.debug.core"/>
+      <import plugin="org.eclipse.debug.ui"/>
+      <import plugin="org.eclipse.core.resources"/>
+      <import plugin="org.eclipse.ui"/>
+      <import plugin="org.eclipse.ui.ide"/>
+      <import plugin="org.eclipse.core.expressions"/>
+      <import plugin="org.xtuml.bp.core"/>
+      <import plugin="org.xtuml.bp.ui.explorer"/>
+      <import plugin="org.xtuml.bp.ui.text"/>
+      <import plugin="org.eclipse.jface.text"/>
+      <import plugin="org.eclipse.ui.workbench.texteditor"/>
+      <import plugin="org.eclipse.ui.editors"/>
+      <import plugin="org.xtuml.bp.ui.session"/>
+      <import plugin="org.xtuml.bp.ui.graphics"/>
+      <import plugin="org.xtuml.bp.io.core"/>
+      <import plugin="org.xtuml.bp.als.oal"/>
+     </requires>
+
+  <extension
+       point="org.eclipse.debug.core.launchConfigurationTypes">
+      <launchConfigurationType
+            sourceLocatorId="org.xtuml.bp.debug.oal.locator"
+            name="xtUML eXecute Application"
+            sourcePathComputerId="org.xtuml.bp.debug.oal.computer"
+            delegate="org.xtuml.bp.debug.ui.launch.BPLaunchDelegate"
+            migrationDelegate="org.xtuml.bp.debug.ui.launch.BPLaunchDelegate"
+            modes="debug"
+            id="org.xtuml.bp.debug.ui.BPApplication">
+        </launchConfigurationType>
+     </extension>
+
+  <extension
+       point="org.eclipse.debug.core.sourceLocators">
+      <sourceLocator
+            name="xtUML eXecute Source Locator"
+            class="org.xtuml.bp.debug.ui.locator.BPSourceLookupDirector"
+            id="org.xtuml.bp.debug.oal.locator"/>
+     </extension>
+  <extension
+       point="org.eclipse.debug.core.sourcePathComputers">
+      <sourcePathComputer
+            class="org.xtuml.bp.debug.ui.locator.BPSourcePathComputerDelegate"
+            id="org.xtuml.bp.debug.oal.computer"/>
+     </extension>
+
+   <!-- launch image -->
+     <extension
+       point="org.eclipse.debug.ui.launchConfigurationTypeImages">
+        <launchConfigurationTypeImage
+            configTypeID="org.xtuml.bp.debug.ui.BPApplication"
+            icon="icons/bp_debug.gif"
+            id="org.xtuml.bp.debug.ui.launch.launchConfigurationTypeImage1"/>
+  </extension>
+
+   <!-- launch tabs -->
+     <extension
+      point="org.eclipse.debug.ui.launchConfigurationTabGroups">
+        <launchConfigurationTabGroup
+            type="org.xtuml.bp.debug.ui.BPApplication"
+            class="org.xtuml.bp.debug.ui.launch.BPMainTabGroup"
+            id="org.xtuml.bp.debug.ui.launch.BPMainTabGroup">
+           <launchMode
+               description="Launch xtUML application in debug mode "
+               mode="debug"
+               perspective="org.xtuml.bp.debug.ui.DebugPerspective"/>
+        </launchConfigurationTabGroup>
+     </extension>
+
+     <!-- launch shortcut -->
+     <extension
+         point="org.eclipse.debug.ui.launchShortcuts">
+        <shortcut
+           id="org.xtuml.bp.debug.ui.launch.LaunchShortcut"
+             class="org.xtuml.bp.debug.ui.launch.LaunchShortcut"
+            icon="platform:/plugin/org.xtuml.bp.core/icons/bp_debug.gif"
+             label="xtUML Launch"
+             modes="debug">
+             <perspective id="org.xtuml.bp.core.perspective"/>
+             <contextualLaunch>
+              <enablement>
+                   <with
+                       variable="selection">
+                        <count
+                            value="1">
+                        </count>
+                       <iterate>
+                           <test property="org.xtuml.bp.debug.ui.XtUMLNature"/>
+                       </iterate>
+                   </with>
+              </enablement>
+           </contextualLaunch>
+        </shortcut>
+     </extension>
+     <extension
+      point="org.eclipse.core.expressions.propertyTesters">
+        <propertyTester
+           class="org.xtuml.bp.debug.ui.launch.LaunchShortcutTester"
+            id="org.xtuml.bp.debug.ui.LaunchShortcutTester"
+            namespace="org.xtuml.bp.debug.ui"
+            properties="XtUMLNature"
+            type="org.eclipse.core.runtime.IAdaptable"/>
+     </extension>
+
+   <extension
+        id="org.xtuml.bp.ui.explorer.viewer"
+        point="org.eclipse.ui.popupMenus">
+        <objectContribution
+            adaptable="false"
+            objectClass="org.xtuml.bp.core.SystemModel_c"
+            id="org.xtuml.bp.debug.ui.launch.LaunchVerifierSystemModel">
+         <action
+               label="Launch Verifier"
+               class="org.xtuml.bp.debug.ui.launch.LaunchVerifierAction"
+               menubarPath="org.xtuml.bp.ui.context-internal"
+               enablesFor="1"
+               id="org.xtuml.bp.debug.ui.launch.LaunchVerifier">
+         </action>
+      </objectContribution>
+   </extension>
+   <extension
+        id="org.xtuml.bp.ui.explorer.viewer"
+        point="org.eclipse.ui.popupMenus">
+        <objectContribution
+            adaptable="false"
+            objectClass="org.xtuml.bp.core.Domain_c"
+            id="org.xtuml.bp.debug.ui.launch.LaunchVerifierDomain">
+         <action
+               label="Launch Verifier"
+               class="org.xtuml.bp.debug.ui.launch.LaunchVerifierAction"
+               menubarPath="org.xtuml.bp.ui.context-internal"
+               enablesFor="*"
+               id="org.xtuml.bp.debug.ui.launch.LaunchVerifier">
+         </action>
+         <filter name="can" value="launchVerifier" />
+      </objectContribution>
+   </extension>
+   <extension
+        id="org.xtuml.bp.ui.explorer.viewer"
+        point="org.eclipse.ui.popupMenus">
+        <objectContribution
+            adaptable="false"
+            objectClass="org.xtuml.bp.core.Component_c"
+            id="org.xtuml.bp.debug.ui.launch.LaunchVerifierComponent">
+         <action
+               label="Launch Verifier"
+               class="org.xtuml.bp.debug.ui.launch.LaunchVerifierAction"
+               menubarPath="org.xtuml.bp.ui.context-internal"
+               enablesFor="*"
+               id="org.xtuml.bp.debug.ui.launch.LaunchVerifier">
+         </action>
+         <filter name="can" value="launchVerifier" />
+      </objectContribution>
+   </extension>
+        <extension
+        id="org.xtuml.bp.ui.explorer.viewer"
+        point="org.eclipse.ui.popupMenus">
+        <objectContribution
+            adaptable="false"
+            objectClass="org.xtuml.bp.core.ComponentPackage_c"
+            id="org.xtuml.bp.debug.ui.launch.LaunchVerifierComponentPackage">
+         <action
+               label="Launch Verifier"
+               class="org.xtuml.bp.debug.ui.launch.LaunchVerifierAction"
+               menubarPath="org.xtuml.bp.ui.context-internal"
+               enablesFor="*"
+               id="org.xtuml.bp.debug.ui.launch.LaunchVerifier">
+         </action>
+         <filter name="can" value="launchVerifier" />
+      </objectContribution>
+   </extension>
+   <extension
+        id="org.xtuml.bp.ui.explorer.viewer"
+        point="org.eclipse.ui.popupMenus">
+        <objectContribution
+            adaptable="false"
+            objectClass="org.xtuml.bp.core.Package_c"
+            id="org.xtuml.bp.debug.ui.launch.LaunchVerifierPackage">
+         <action
+               label="Launch Verifier"
+               class="org.xtuml.bp.debug.ui.launch.LaunchVerifierAction"
+               menubarPath="org.xtuml.bp.ui.context-internal"
+               enablesFor="*"
+               id="org.xtuml.bp.debug.ui.launch.LaunchVerifier">
+         </action>
+         <filter name="can" value="launchVerifier" />
+      </objectContribution>
+   </extension>
+   <extension
+        id="org.xtuml.bp.ui.explorer.viewer"
+        point="org.eclipse.ui.popupMenus">
+        <objectContribution
+            adaptable="false"
+            objectClass="org.xtuml.bp.core.ComponentReference_c"
+            id="org.xtuml.bp.debug.ui.launch.LaunchVerifierImportedComponent">
+         <action
+               label="Launch Verifier"
+               class="org.xtuml.bp.debug.ui.launch.LaunchVerifierAction"
+               menubarPath="org.xtuml.bp.ui.context-internal"
+               enablesFor="*"
+               id="org.xtuml.bp.debug.ui.launch.LaunchVerifier">
+         </action>
+         <filter name="can" value="launchVerifier" />
+      </objectContribution>
+   </extension>
+   <extension
+        id="org.xtuml.bp.ui.explorer.viewer"
+        point="org.eclipse.ui.popupMenus">
+        <objectContribution
+          adaptable="true"
+            objectClass="org.xtuml.bp.core.DomainProxy"
+            id="org.xtuml.bp.debug.ui.launch.LaunchVerifierDomainProxy">
+           <action
+              label="Launch Verifier"
+                class="org.xtuml.bp.debug.ui.launch.LaunchVerifierAction"
+                 menubarPath="org.xtuml.bp.ui.context-internal"
+                 enablesFor="*"
+                 id="org.xtuml.bp.debug.ui.launch.LaunchVerifier">
+           </action>
+           <filter name="can" value="launchVerifier" />
+        </objectContribution>
+        <objectContribution
+            adaptable="false"
+            objectClass="org.xtuml.bp.core.ModelClass_c"
+            id="org.xtuml.bp.debug.ui.actions.MonitorAction">
+            <action
+               label="Put in Spotlight"
+               class="org.xtuml.bp.debug.ui.actions.MonitorAction"
+               menubarPath="org.xtuml.bp.ui.context-internal"
+               enablesFor="+"
+               id="org.xtuml.bp.debug.ui.MonitorAction">
+            </action>
+        </objectContribution>
+        <objectContribution
+            adaptable="false"
+            objectClass="org.xtuml.bp.core.ModelClass_c"
+            id="org.xtuml.bp.debug.ui.MonitorOffActionModelClass">
+            <action
+               label="Remove from Spotlight"
+               class="org.xtuml.bp.debug.ui.actions.MonitorOffAction"
+               menubarPath="org.xtuml.bp.ui.context-internal"
+               enablesFor="+"
+               id="org.xtuml.bp.debug.ui.MonitorOffAction">
+            </action>
+        </objectContribution>
+        <objectContribution
+            adaptable="false"
+            objectClass="org.xtuml.bp.core.ClassInEngine_c"
+            id="org.xtuml.bp.debug.ui.MonitorActionClassInEngine">
+            <action
+               label="Put in Spotlight"
+               class="org.xtuml.bp.debug.ui.actions.MonitorAction"
+               menubarPath="org.xtuml.bp.ui.context-internal"
+               enablesFor="+"
+               id="org.xtuml.bp.debug.ui.MonitorAction">
+            </action>
+        </objectContribution>
+        <objectContribution
+            adaptable="false"
+            objectClass="org.xtuml.bp.core.ClassInEngine_c"
+            id="org.xtuml.bp.debug.ui.MonitorOffActionClassInEngine">
+            <action
+               label="Remove from Spotlight"
+               class="org.xtuml.bp.debug.ui.actions.MonitorOffAction"
+               menubarPath="org.xtuml.bp.ui.context-internal"
+               enablesFor="+"
+               id="org.xtuml.bp.debug.ui.MonitorOffAction">
+            </action>
+        </objectContribution>
+        <objectContribution
+            adaptable="false"
+            objectClass="org.xtuml.bp.core.Instance_c"
+            id="org.xtuml.bp.debug.ui.MonitorAction">
+            <action
+               label="Put in Spotlight"
+               class="org.xtuml.bp.debug.ui.actions.MonitorAction"
+               menubarPath="org.xtuml.bp.ui.context-internal"
+               enablesFor="+"
+               id="org.xtuml.bp.debug.ui.MonitorAction">
+            </action>
+        </objectContribution>
+        <objectContribution
+            adaptable="false"
+            objectClass="org.xtuml.bp.core.Instance_c"
+            id="org.xtuml.bp.debug.ui.MonitorOffActionInstance">
+            <action
+               label="Remove from Spotlight"
+               class="org.xtuml.bp.debug.ui.actions.MonitorOffAction"
+               menubarPath="org.xtuml.bp.ui.context-internal"
+               enablesFor="+"
+               id="org.xtuml.bp.debug.ui.MonitorOffAction">
+            </action>
+        </objectContribution>
+     </extension>
+   <extension
+        id="org.xtuml.bp.ui.explorer.viewer"
+        point="org.eclipse.ui.popupMenus">
+        <objectContribution
+            adaptable="false"
+            objectClass="org.xtuml.bp.core.Package_c"
+            id="org.xtuml.bp.debug.ui.AuditVerifierPackage">
+         <action
+               label="Audit Realized Bindings"
+               class="org.xtuml.bp.debug.ui.actions.AuditRealizedCodeAction"
+               menubarPath="org.xtuml.bp.ui.context-internal"
+               enablesFor="+"
+               id="org.xtuml.bp.debug.ui.AuditVerifier">
+         </action>
+         <filter name="has" value="realized components" />
+      </objectContribution>
+   </extension>
+   <extension
+        id="org.xtuml.bp.ui.explorer.viewer"
+        point="org.eclipse.ui.popupMenus">
+        <objectContribution
+            adaptable="false"
+            objectClass="org.xtuml.bp.core.Component_c"
+            id="org.xtuml.bp.debug.ui.AuditVerifierComponent">
+         <action
+               label="Audit Realized Bindings"
+               class="org.xtuml.bp.debug.ui.actions.AuditRealizedCodeAction"
+               menubarPath="org.xtuml.bp.ui.context-internal"
+               enablesFor="+"
+               id="org.xtuml.bp.debug.ui.AuditVerifier">
+         </action>
+         <filter name="has" value="realized components" />
+      </objectContribution>
+   </extension>
+
+  <!-- Debug Model Presentation -->
+     <extension
+         point="org.eclipse.debug.ui.debugModelPresentations">
+        <debugModelPresentation
+            class="org.xtuml.bp.debug.ui.BPDebugModelPresentation"
+            id="org.xtuml.bp.debug.ui"/>
+     </extension>
+
+   <!--BP Debug Perspective  -->
+     <extension
+         point="org.eclipse.ui.perspectives">
+        <perspective
+            class="org.xtuml.bp.debug.ui.perspective.DebugPerspectiveFactory"
+            icon="platform:/plugin/org.xtuml.bp.core/icons/bp_debug.gif"
+            id="org.xtuml.bp.debug.ui.DebugPerspective"
+            name="xtUML Debugging"/>
+    </extension>
+
+   <!-- Breakpoints  -->
+
+   <extension
+         point="org.eclipse.ui.editorActions">
+      <editorContribution
+            targetID="org.xtuml.bp.ui.text.activity.ActivityEditor"
+            id="org.xtuml.bp.ui.text.activity.ActivityEditor.BreakpointRulerActions">
+         <action
+               label="Toggle &amp;Breakpoint"
+               class="org.eclipse.debug.ui.actions.RulerToggleBreakpointActionDelegate"
+               actionID="RulerDoubleClick"
+               id="org.xtuml.bp.debug.ui.actions.ManageBreakpointRulerAction">
+         </action>
+      </editorContribution>
+   </extension>
+
+   <extension
+         point="org.eclipse.ui.popupMenus">
+      <viewerContribution
+            targetID="#TextRulerContext"
+            id="org.xtuml.bp.ui.text.activity.ActivityEditor.RulerPopupActions">
+         <action
+               label="Breakpoint Properties..."
+               class="org.xtuml.bp.debug.ui.actions.OALBreakpointPropertiesRulerActionDelegate"
+               menubarPath="debug"
+               id="org.xtuml.bp.debug.ui.actions.OALBreakpointPropertiesRulerActionDelegate">
+         </action>
+         <action
+               label="Enable Breakpoint"
+               class="org.xtuml.bp.debug.ui.actions.EnableDisableBreakpointRulerActionDelegate"
+               menubarPath="debug"
+               id="org.xtuml.bp.debug.ui.actions.EnableDisableBreakpointRulerActionDelegate">
+         </action>
+         <action
+               label="Toggle &amp;Breakpoint"
+               class="org.eclipse.debug.ui.actions.RulerToggleBreakpointActionDelegate"
+               menubarPath="debug"
+               id="org.xtuml.bp.debug.ui.actions.BreakpointRulerActionDelegate">
+         </action>
+      </viewerContribution>
+   </extension>
+   <extension
+         point="org.eclipse.ui.popupMenus">
+      <viewerContribution
+            id="org.xtuml.bp.debug.ui.ExecuteFunctionAction"
+            targetID="org.xtuml.bp.ui.session.views.SessionExplorerView">
+         <action
+               class="org.xtuml.bp.debug.ui.actions.ExecuteAction"
+               enablesFor="1"
+               id="org.xtuml.bp.debug.ui.ExecuteProvidedSignalAction"
+               label="Execute"
+               menubarPath="org.xtuml.bp.ui.context-internal">
+         </action>
+         <visibility>
+            <objectClass
+                  name="org.xtuml.bp.core.Function_c">
+            </objectClass>
+         </visibility>
+      </viewerContribution>
+      <viewerContribution
+            id="org.xtuml.bp.debug.ui.ExecuteOperationAction"
+            targetID="org.xtuml.bp.ui.session.views.SessionExplorerView">
+         <action
+               class="org.xtuml.bp.debug.ui.actions.ExecuteAction"
+               enablesFor="1"
+               id="org.xtuml.bp.debug.ui.ExecuteProvidedSignalAction"
+               label="Execute"
+               menubarPath="org.xtuml.bp.ui.context-internal">
+         </action>
+         <visibility>
+            <objectClass
+                  name="org.xtuml.bp.core.Operation_c">
+            </objectClass>
+         </visibility>
+      </viewerContribution>
+      <viewerContribution
+            id="org.xtuml.bp.debug.ui.ExecuteRequiredOperationAction"
+            targetID="org.xtuml.bp.ui.session.views.SessionExplorerView">
+         <action
+               class="org.xtuml.bp.debug.ui.actions.ExecuteAction"
+               enablesFor="1"
+               id="org.xtuml.bp.debug.ui.ExecuteProvidedSignalAction"
+               label="Execute"
+               menubarPath="org.xtuml.bp.ui.context-internal">
+         </action>
+         <visibility>
+            <objectClass
+                  name="org.xtuml.bp.core.RequiredOperation_c">
+            </objectClass>
+         </visibility>
+      </viewerContribution>
+      <viewerContribution
+            id="org.xtuml.bp.debug.ui.ExecuteProvidedOperationAction"
+            targetID="org.xtuml.bp.ui.session.views.SessionExplorerView">
+         <action
+               class="org.xtuml.bp.debug.ui.actions.ExecuteAction"
+               enablesFor="1"
+               id="org.xtuml.bp.debug.ui.ExecuteProvidedSignalAction"
+               label="Execute"
+               menubarPath="org.xtuml.bp.ui.context-internal">
+         </action>
+         <visibility>
+            <objectClass
+                  name="org.xtuml.bp.core.ProvidedOperation_c">
+            </objectClass>
+         </visibility>
+      </viewerContribution>
+      <viewerContribution
+            id="org.xtuml.bp.debug.ui.ExecuteRequiredSignalAction"
+            targetID="org.xtuml.bp.ui.session.views.SessionExplorerView">
+         <action
+               class="org.xtuml.bp.debug.ui.actions.ExecuteAction"
+               enablesFor="1"
+               id="org.xtuml.bp.debug.ui.ExecuteProvidedSignalAction"
+               label="Execute"
+               menubarPath="org.xtuml.bp.ui.context-internal">
+         </action>
+         <visibility>
+            <objectClass
+                  name="org.xtuml.bp.core.RequiredSignal_c">
+            </objectClass>
+         </visibility>
+      </viewerContribution>
+      <viewerContribution
+            id="org.xtuml.bp.debug.ui.ExecuteProvidedSignalAction"
+            targetID="org.xtuml.bp.ui.session.views.SessionExplorerView">
+         <action
+               class="org.xtuml.bp.debug.ui.actions.ExecuteAction"
+               enablesFor="1"
+               id="org.xtuml.bp.debug.ui.ExecuteProvidedSignalAction"
+               label="Execute"
+               menubarPath="org.xtuml.bp.ui.context-internal">
+         </action>
+         <visibility>
+            <objectClass
+                  name="org.xtuml.bp.core.ProvidedSignal_c">
+            </objectClass>
+         </visibility>
+      </viewerContribution>
+      <objectContribution
+            adaptable="true"
+            id="org.xtuml.bp.debug.ui.properties"
+            objectClass="org.xtuml.bp.debug.ui.model.BPBreakpoint">
+         <action
+               label="Breakpoint Properties..."
+               class="org.xtuml.bp.debug.ui.actions.BPBreakpointPropertiesAction"
+               menubarPath="additions"
+               enablesFor="1"
+               id="org.xtuml.bp.debug.ui.actions.BPBreakpointPropertiesAction">
+         </action>
+      </objectContribution>
+      <objectContribution
+            adaptable="true"
+            id="org.xtuml.bp.debug.ui.setAssocBP"
+            objectClass="org.xtuml.bp.core.Association_c">
+         <action
+               label="Set Breakpoint"
+               class="org.xtuml.bp.debug.ui.actions.CreateBPBreakpointAction"
+               menubarPath="org.xtuml.bp.ui.context-internal"
+               enablesFor="1"
+               id="org.xtuml.bp.debug.ui.actions.CreateBPBreakpointAction">
+         </action>
+      </objectContribution>
+      <objectContribution
+            adaptable="true"
+            id="org.xtuml.bp.debug.ui.setEventBP"
+            objectClass="org.xtuml.bp.core.StateMachineEvent_c">
+         <action
+               label="Set Breakpoint"
+               class="org.xtuml.bp.debug.ui.actions.CreateBPBreakpointAction"
+               menubarPath="org.xtuml.bp.ui.context-internal"
+               enablesFor="1"
+               id="org.xtuml.bp.debug.ui.actions.CreateBPBreakpointAction">
+         </action>
+      </objectContribution>
+      <objectContribution
+            adaptable="true"
+            id="org.xtuml.bp.debug.ui.setStateBP"
+            objectClass="org.xtuml.bp.core.StateMachineState_c">
+         <action
+               label="Set Breakpoint"
+               class="org.xtuml.bp.debug.ui.actions.CreateBPBreakpointAction"
+               menubarPath="org.xtuml.bp.ui.context-internal"
+               enablesFor="1"
+               id="org.xtuml.bp.debug.ui.actions.CreateBPBreakpointAction">
+         </action>
+      </objectContribution>
+   </extension>
+   <extension
+         point="org.eclipse.core.runtime.adapters">
+      <factory
+            class="org.xtuml.bp.debug.ui.BPBreakpointAdapterFactory"
+            adaptableType="org.xtuml.bp.ui.text.activity.ActivityEditor">
+         <adapter
+               type="org.eclipse.debug.ui.actions.IToggleBreakpointsTarget">
+         </adapter>
+      </factory>
+   </extension>
+
+   <!--  Breakpoint Definitions -->
+   <extension
+         point="org.eclipse.debug.core.breakpoints">
+      <breakpoint
+            markerType="org.xtuml.bp.debug.ui.bpBreakpoint.marker"
+            class="org.xtuml.bp.debug.ui.model.BPBreakpoint"
+            id="org.xtuml.bp.debug.ui.Breakpoint">
+      </breakpoint>
+   </extension>
+   <extension id="bpBreakpoint.marker"
+       point="org.eclipse.core.resources.markers">
+       <super type="org.eclipse.debug.core.breakpointMarker"></super>
+       <persistent value="true"></persistent>
+       <attribute name="org.xtuml.bp.debug.core.location">
+       </attribute>
+       <attribute name="org.xtuml.bp.debug.core.hitCount">
+       </attribute>
+       <attribute name="org.xtuml.bp.debug.core.modelRootId">
+       </attribute>
+       <attribute name="org.xtuml.bp.debug.core.modelElementId">
+       </attribute>
+       <attribute name="org.xtuml.bp.debug.core.condition">
+       </attribute>
+       <attribute name="org.xtuml.bp.debug.core.conditionEnabled">
+       </attribute>
+       <attribute name="org.xtuml.bp.debug.core.flags">
+       </attribute>
+   </extension>
+   <extension
+         point="org.eclipse.debug.core.breakpoints">
+      <breakpoint
+            markerType="org.xtuml.bp.debug.ui.bpBreakpoint.marker.assoc"
+            class="org.xtuml.bp.debug.ui.model.BPAssocCreateDeleteBreakpoint"
+            id="org.xtuml.bp.debug.ui.AssocBreakpoint">
+      </breakpoint>
+      <breakpoint
+            markerType="org.xtuml.bp.debug.ui.bpBreakpoint.marker.attribute"
+            class="org.xtuml.bp.debug.ui.model.BPAttributeBreakpoint"
+            id="org.xtuml.bp.debug.ui.AttributeBreakpoint">
+      </breakpoint>
+      <breakpoint
+            markerType="org.xtuml.bp.debug.ui.bpBreakpoint.marker.class"
+            class="org.xtuml.bp.debug.ui.model.BPClassCreateDeleteBreakpoint"
+            id="org.xtuml.bp.debug.ui.ClassBreakpoint">
+      </breakpoint>
+      <breakpoint
+            markerType="org.xtuml.bp.debug.ui.bpBreakpoint.marker.event"
+            class="org.xtuml.bp.debug.ui.model.BPEventBreakpoint"
+            id="org.xtuml.bp.debug.ui.EventBreakpoint">
+      </breakpoint>
+      <breakpoint
+            markerType="org.xtuml.bp.debug.ui.bpBreakpoint.marker.state"
+            class="org.xtuml.bp.debug.ui.model.BPStateBreakpoint"
+            id="org.xtuml.bp.debug.ui.StateBreakpoint">
+      </breakpoint>
+      <breakpoint
+            markerType="org.xtuml.bp.debug.ui.bpBreakpoint.marker.pendingEvent"
+            class="org.xtuml.bp.debug.ui.model.BPEventBreakpoint"
+            id="org.xtuml.bp.debug.ui.EventBreakpoint">
+      </breakpoint>
+   </extension>
+   <extension id="bpBreakpoint.marker.assoc"
+       point="org.eclipse.core.resources.markers">
+       <super type="org.xtuml.bp.debug.ui.bpBreakpoint.marker"></super>
+       <persistent value="true"></persistent>
+   </extension>
+   <extension id="bpBreakpoint.marker.attribute"
+       point="org.eclipse.core.resources.markers">
+       <super type="org.xtuml.bp.debug.ui.bpBreakpoint.marker"></super>
+       <persistent value="true"></persistent>
+   </extension>
+   <extension id="bpBreakpoint.marker.class"
+       point="org.eclipse.core.resources.markers">
+       <super type="org.xtuml.bp.debug.ui.bpBreakpoint.marker"></super>
+       <persistent value="true"></persistent>
+   </extension>
+   <extension id="bpBreakpoint.marker.event"
+       point="org.eclipse.core.resources.markers">
+       <super type="org.xtuml.bp.debug.ui.bpBreakpoint.marker"></super>
+       <persistent value="true"></persistent>
+   </extension>
+   <extension id="bpBreakpoint.marker.state"
+       point="org.eclipse.core.resources.markers">
+       <super type="org.xtuml.bp.debug.ui.bpBreakpoint.marker"></super>
+       <persistent value="true"></persistent>
+   </extension>
+   <extension id="bpBreakpoint.marker.pendingEvent"
+       point="org.eclipse.core.resources.markers">
+       <super type="org.xtuml.bp.debug.ui.bpBreakpoint.marker"></super>
+       <persistent value="false"></persistent>
+   </extension>
+   <extension
+         point="org.eclipse.debug.core.breakpoints">
+      <breakpoint
+            markerType="org.xtuml.bp.debug.ui.lineBreakpoint.marker"
+            class="org.xtuml.bp.debug.ui.model.BPLineBreakpoint"
+            id="org.xtuml.bp.debug.ui.lineBreakpoint">
+      </breakpoint>
+   </extension>
+   <extension
+         id="lineBreakpoint.marker"
+         point="org.eclipse.core.resources.markers">
+      <super
+            type="org.eclipse.debug.core.lineBreakpointMarker">
+      </super>
+      <persistent value="true"></persistent>
+       <attribute name="org.xtuml.bp.debug.core.location">
+       </attribute>
+       <attribute name="org.xtuml.bp.debug.core.hitCount">
+       </attribute>
+       <attribute name="org.xtuml.bp.debug.core.modelRootId">
+       </attribute>
+       <attribute name="org.xtuml.bp.debug.core.modelElementId">
+       </attribute>
+       <attribute name="org.xtuml.bp.debug.core.condition">
+       </attribute>
+       <attribute name="org.xtuml.bp.debug.core.conditionEnabled">
+       </attribute>
+   </extension>
+   <extension
+         point="org.eclipse.debug.core.breakpoints">
+      <breakpoint
+            markerType="org.xtuml.bp.debug.ui.verifierException.marker"
+            class="org.xtuml.bp.debug.ui.model.VerifierExceptionBreakpoint"
+            id="org.xtuml.bp.debug.ui.verifierExceptionBreakpoint">
+      </breakpoint>
+   </extension>
+   <extension
+         id="verifierException.marker"
+         point="org.eclipse.core.resources.markers">
+      <super
+            type="org.eclipse.debug.core.breakpointMarker">
+      </super>
+      <persistent value="true"></persistent>
+       <attribute name="org.xtuml.bp.debug.core.exceptionName">
+       </attribute>
+   </extension>
+
+   <!-- Property Pages -->
+   <extension
+         point="org.eclipse.ui.propertyPages">
+
+      <page
+            class="org.xtuml.bp.debug.ui.propertypages.OALLineBreakpointPage"
+            id="org.xtuml.bp.debug.ui.propertypages.OALLineBreakpointPropertiesPage"
+            name="Common"
+            nameFilter="*"
+            objectClass="org.xtuml.bp.debug.ui.model.BPLineBreakpoint"/>
+      <page
+            class="org.xtuml.bp.debug.ui.propertypages.ClassCreateDeleteBreakpointPage"
+            id="org.xtuml.bp.debug.ui.propertypages.ClassCreateDeleteBreakpointPropertiesPage"
+            name="Common"
+            nameFilter="*"
+            objectClass="org.xtuml.bp.debug.ui.model.BPClassCreateDeleteBreakpoint"/>
+      <page
+            class="org.xtuml.bp.debug.ui.propertypages.AssocCreateDeleteBreakpointPage"
+            id="org.xtuml.bp.debug.ui.propertypages.AssocCreateDeleteBreakpointPropertiesPage"
+            name="Common"
+            nameFilter="*"
+            objectClass="org.xtuml.bp.debug.ui.model.BPAssocCreateDeleteBreakpoint"/>
+      <page
+            class="org.xtuml.bp.debug.ui.propertypages.EventBreakpointPage"
+            id="org.xtuml.bp.debug.ui.propertypages.EventBreakpointPropertiesPage"
+            name="Common"
+            nameFilter="*"
+            objectClass="org.xtuml.bp.debug.ui.model.BPEventBreakpoint"/>
+      <page
+            class="org.xtuml.bp.debug.ui.propertypages.StateBreakpointPage"
+            id="org.xtuml.bp.debug.ui.propertypages.StateBreakpointPropertiesPage"
+            name="Common"
+            nameFilter="*"
+            objectClass="org.xtuml.bp.debug.ui.model.BPStateBreakpoint"/>
+      <page
+            class="org.xtuml.bp.debug.ui.propertypages.PendingEventBreakpointPage"
+            id="org.xtuml.bp.debug.ui.propertypages.PendingEventBreakpointPropertiesPage"
+            name="Common"
+            nameFilter="*"
+            objectClass="org.xtuml.bp.debug.ui.model.BPPendingEventBreakpoint"/>
+      <page
+            class="org.xtuml.bp.debug.ui.propertypages.VerifierExceptionBreakpointPage"
+            id="org.xtuml.bp.debug.ui.propertypages.VerifierExceptionBreakpointPage"
+            name="Common"
+            nameFilter="*"
+            objectClass="org.xtuml.bp.debug.ui.model.VerifierExceptionBreakpoint"/>
+            <!--   Disabled in the first release
+      <page
+            class="org.xtuml.bp.debug.ui.propertypages.AttributeBreakpointPage"
+            id="org.xtuml.bp.debug.ui.propertypages.AttributeBreakpointPropertiesPage"
+            name="Common"
+            nameFilter="*"
+            objectClass="org.xtuml.bp.debug.ui.model.BPAttributeBreakpoint"/>
+      <page
+            class="org.xtuml.bp.debug.ui.propertypages.BreakpointFiltersPage"
+            id="org.xtuml.bp.debug.ui.propertypages.OALLineBreakpointFiltersPage"
+            name="Filtering"
+            nameFilter="*"
+            objectClass="org.xtuml.bp.debug.ui.model.BPLineBreakpoint"/>
+      <page
+            class="org.xtuml.bp.debug.ui.propertypages.BreakpointFiltersPage"
+            id="org.xtuml.bp.debug.ui.propertypages.AttrBreakpointFiltersPage"
+            name="Filtering"
+            nameFilter="*"
+            objectClass="org.xtuml.bp.debug.ui.model.BPAttributeBreakpoint"/>
+      <page
+            class="org.xtuml.bp.debug.ui.propertypages.BreakpointFiltersPage"
+            id="org.xtuml.bp.debug.ui.propertypages.ClassBreakpointFiltersPage"
+            name="Filtering"
+            nameFilter="*"
+            objectClass="org.xtuml.bp.debug.ui.model.BPClassCreateDeleteBreakpoint"/>
+      <page
+            class="org.xtuml.bp.debug.ui.propertypages.BreakpointFiltersPage"
+            id="org.xtuml.bp.debug.ui.propertypages.AssocBreakpointFiltersPage"
+            name="Filtering"
+            nameFilter="*"
+            objectClass="org.xtuml.bp.debug.ui.model.BPAssocCreateDeleteBreakpoint"/>
+      <page
+            class="org.xtuml.bp.debug.ui.propertypages.BreakpointFiltersPage"
+            id="org.xtuml.bp.debug.ui.propertypages.EventBreakpointFiltersPage"
+            name="Filtering"
+            nameFilter="*"
+            objectClass="org.xtuml.bp.debug.ui.model.BPEventBreakpoint"/>
+      <page
+            class="org.xtuml.bp.debug.ui.propertypages.BreakpointFiltersPage"
+            id="org.xtuml.bp.debug.ui.propertypages.StateBreakpointFiltersPage"
+            name="Filtering"
+            nameFilter="*"
+            objectClass="org.xtuml.bp.debug.ui.model.BPStateBreakpoint"/>
+            -->
+   </extension>
+</plugin>

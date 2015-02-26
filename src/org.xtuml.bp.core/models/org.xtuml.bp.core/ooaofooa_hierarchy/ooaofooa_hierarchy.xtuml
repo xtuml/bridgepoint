@@ -1,0 +1,112 @@
+-- BP 7.1 content: Domain syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO S_DOM
+	VALUES ("138f69c7-a700-4109-8c2b-e9232b291756",
+	'ooaofooa_hierarchy',
+	'========================================================================
+
+File:          $RCSfile: ooaofooa_hierarchy.xtuml,v $
+Version:   $Revision: 1.12 $
+Modified:  $Date: 2006/04/12 21:39:28 $
+
+(c) Copyright 2003-2014 Mentor Graphics Corporation All rights reserved.
+
+========================================================================
+Licensed under the Apache License, Version 2.0 (the "License"); you may not
+use this file except in compliance with the License.  You may obtain a copy
+of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the
+License for the specific language governing permissions and limitations under
+the License.
+========================================================================
+
+This domain captures the mapping of a client model onto a tree structure. It contains
+additional attributes to facilitate the generation of code for displaying the tree in
+a User Interface tree widget.',
+	0,
+	"00000000-0000-0000-0000-000000000001",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf");
+INSERT INTO GD_MD
+	VALUES ("13465ed9-c14a-416e-ad9e-af4820cb4985",
+	1,
+	"138f69c7-a700-4109-8c2b-e9232b291756",
+	1,
+	1,
+	0,
+	1,
+	1,
+	0,
+	12,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	'',
+	'org.xtuml.bp.core::ooaofooa_hierarchy');
+INSERT INTO GD_GE
+	VALUES ("2fa56ff5-6416-4cb8-ac95-3a83bcb6ff1a",
+	"13465ed9-c14a-416e-ad9e-af4820cb4985",
+	"9a4ff466-14a5-4e47-b07f-84de195f210a",
+	11,
+	0,
+	'org.xtuml.bp.core::ooaofooa_hierarchy::CompTree');
+INSERT INTO GD_SHP
+	VALUES ("2fa56ff5-6416-4cb8-ac95-3a83bcb6ff1a");
+INSERT INTO GD_NCS
+	VALUES ("2fa56ff5-6416-4cb8-ac95-3a83bcb6ff1a");
+INSERT INTO DIM_ND
+	VALUES (208.000000,
+	144.000000,
+	"2fa56ff5-6416-4cb8-ac95-3a83bcb6ff1a");
+INSERT INTO DIM_GE
+	VALUES (1760.000000,
+	1280.000000,
+	"2fa56ff5-6416-4cb8-ac95-3a83bcb6ff1a",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("2fa56ff5-6416-4cb8-ac95-3a83bcb6ff1a",
+	1,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_GE
+	VALUES ("96bd6997-d574-4d01-83c3-65cc37594f9c",
+	"13465ed9-c14a-416e-ad9e-af4820cb4985",
+	"1dd15d00-8d23-4d56-8fa5-12eae410f91d",
+	53,
+	0,
+	'Datatypes');
+INSERT INTO GD_SHP
+	VALUES ("96bd6997-d574-4d01-83c3-65cc37594f9c");
+INSERT INTO GD_NCS
+	VALUES ("96bd6997-d574-4d01-83c3-65cc37594f9c");
+INSERT INTO DIM_ND
+	VALUES (208.000000,
+	144.000000,
+	"96bd6997-d574-4d01-83c3-65cc37594f9c");
+INSERT INTO DIM_GE
+	VALUES (1988.000000,
+	1280.000000,
+	"96bd6997-d574-4d01-83c3-65cc37594f9c",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("96bd6997-d574-4d01-83c3-65cc37594f9c",
+	1,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_DIA
+	VALUES ("13465ed9-c14a-416e-ad9e-af4820cb4985",
+	'',
+	1.000000,
+	1600.000000,
+	1180.000000,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_SYS_PROXY
+	VALUES ("d9bc5487-4193-4817-be1c-6c3f3339aebf",
+	'org.xtuml.bp.core',
+	0,
+	'../org.xtuml.bp.core.xtuml');

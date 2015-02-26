@@ -1,0 +1,2417 @@
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
+	'Model',
+	1,
+	'GD_MD',
+	'A model is a drawing for one particular view of the analysis. There is an instance of model for each glyph on the index window, and each entry in the model element list on the index window. For example, every domain will have four models (DPD, PDD(R), PDD(A), PDD(S)).  Every subsystem will have three models (CD, OCD(A), OCD(S)).  Every state chart has one model (SC).  The STT is not a graphical model.',
+	"b5695748-80fc-47fb-b5c7-801b5f28b907");
+INSERT INTO O_TFR
+	VALUES ("2763a8eb-4ab4-49e5-b0df-290b4dc52619",
+	"09423687-e999-4aba-876d-35e0d3331311",
+	'draw',
+	'To draw the model, select all the graphical elements and
+delegate the draw operation to each element in turn.',
+	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	1,
+	'select one mdlSpec related by self->GD_MS[R9];
+if (empty mdlSpec)
+  select any mdlSpec from instances of GD_MS where (selected.Model_Type == self.Model_Type);
+  if (not_empty mdlSpec)
+    relate mdlSpec to self across R9;
+  end if;
+end if;
+if (not_empty mdlSpec AND NOT param.is_hard_copy)
+  GR::clearBackgroundTo(context:param.context, new:mdlSpec.background);
+end if;
+select many elements related  by self->GD_GE[R1];
+for each element in elements
+  if ( element.getLayer() == 0 )
+    element.draw(context:param.context, disable_selection:param.is_hard_copy);
+  end if;
+end for;
+for each element in elements
+  if ( element.getLayer() == 1 )
+    element.draw(context:param.context, disable_selection:param.is_hard_copy);
+  end if;
+end for;',
+	1,
+	'',
+	"13345b76-b2f2-4a30-8943-bf776678fe93");
+INSERT INTO O_TPARM
+	VALUES ("697caf83-6482-4b9f-9940-6bab180257f4",
+	"2763a8eb-4ab4-49e5-b0df-290b4dc52619",
+	'context',
+	"231cb314-a496-47fb-aee2-1317be81deb5",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("231cb314-a496-47fb-aee2-1317be81deb5",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'GCDelegate',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TPARM
+	VALUES ("9da9f67b-96cd-4cfd-9b45-c6c732aad7d6",
+	"2763a8eb-4ab4-49e5-b0df-290b4dc52619",
+	'is_hard_copy',
+	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	0,
+	'',
+	"697caf83-6482-4b9f-9940-6bab180257f4",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'boolean',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO S_DT_PROXY
+	VALUES ("3852f90c-88c5-467d-9b26-57c8cd438b42",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'void',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("3ec0cc89-856a-4f56-9322-2f5965e2513e",
+	"09423687-e999-4aba-876d-35e0d3331311",
+	'getMaxX',
+	'Gets the maximum X co-ordinate on the canvas.
+This calculation currently allows for connectors but
+not for large text blocks that might affect the sizing.',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	1,
+	'result = 0;
+select many elems related by self->GD_GE[R1];
+for each elem in elems
+  select one graphElem related by elem->DIM_GE[R23];
+  select one shape related by elem->GD_SHP[R2];
+  select one node related by shape->DIM_ND[R19];
+  select one connector related by elem->GD_CON[R2];
+  if (not_empty shape)
+    rightX = graphElem.positionX + node.width;
+    if (rightX > result)
+      if (param.all)
+        result = rightX;
+      else
+        if (elem.isSelected())
+          result = rightX;
+        end if;
+      end if;
+    end if;
+  elif (not_empty connector)
+    select many segs related by connector->GD_LS[R6];
+    for each seg in segs
+	  select one segStart related by seg->DIM_WAY[R21];
+      select one segEnd related by seg->DIM_WAY[R22];
+      if (segStart.positionX > result OR segEnd.positionX > result)
+        if (param.all)
+          result = ::max(a:segStart.positionX, b:segEnd.positionX);
+        else
+          if (elem.isSelected())
+            result = ::max(a:segStart.positionX, b:segEnd.positionX);
+          end if;
+        end if;
+      end if;
+    end for;
+  end if;
+end for;
+return result;',
+	1,
+	'',
+	"ac892970-3d36-43ea-aac2-8944856e5bcc");
+INSERT INTO O_TPARM
+	VALUES ("588a261b-043a-4556-9435-8356daf5a242",
+	"3ec0cc89-856a-4f56-9322-2f5965e2513e",
+	'all',
+	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("388cd7a2-2d0c-4f02-9730-7670074de394",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'integer',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("ec26b824-f8ac-4e61-bb7f-6cda460b4a38",
+	"09423687-e999-4aba-876d-35e0d3331311",
+	'getMaxY',
+	'Gets the maximum Y co-ordinate on the canvas.',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	1,
+	'result = 0;
+select many elems related by self->GD_GE[R1];
+for each elem in elems
+  select one graphElem related by elem->DIM_GE[R23];
+  select one shape related by elem->GD_SHP[R2];
+  select one node related by shape->DIM_ND[R19];
+  select one connector related by elem->GD_CON[R2];
+  if (not_empty shape)
+    bottomY = graphElem.positionY + node.height;
+    if (bottomY > result)
+      if (param.all)
+        result = bottomY;
+      else
+        if (elem.isSelected())
+          result = bottomY;
+        end if;
+      end if;
+    end if;
+  elif (not_empty connector)
+    select many segs related by connector->GD_LS[R6];
+    for each seg in segs
+      select one segStart related by seg->DIM_WAY[R21];
+	  select one segEnd related by seg->DIM_WAY[R22];
+      if (segStart.positionY > result OR segEnd.positionY > result)
+        if (param.all)
+          result = ::max(a:segStart.positionY, b:segEnd.positionY);
+        else
+          if (elem.isSelected())
+            result = ::max(a:segStart.positionY, b:segEnd.positionY);
+          end if;
+        end if;
+      end if;
+    end for;
+  end if;
+end for;
+return result;',
+	1,
+	'',
+	"3ec0cc89-856a-4f56-9322-2f5965e2513e");
+INSERT INTO O_TPARM
+	VALUES ("2263d9be-753f-47c3-a241-e158da7aa99a",
+	"ec26b824-f8ac-4e61-bb7f-6cda460b4a38",
+	'all',
+	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("50de175e-7e4f-46dc-ab29-324cbdac7e50",
+	"09423687-e999-4aba-876d-35e0d3331311",
+	'getMinX',
+	'Gets the minimum X co-ordinate on the canvas.',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	1,
+	'result = OS::MAX_INT();
+select many elems related by self->GD_GE[R1];
+for each elem in elems
+  select one graphElem related by elem->DIM_GE[R23];
+  select one shape related by elem->GD_SHP[R2];
+  select one connector related by elem->GD_CON[R2];
+  if (not_empty shape)
+    topX = graphElem.positionX;
+    if (topX < result)
+      if (param.all)
+        result = topX;
+      else
+        if (elem.isSelected())
+          result = topX;
+        end if;
+      end if;
+    end if;
+  elif (not_empty connector)
+    select many segs related by connector->GD_LS[R6];
+    for each seg in segs
+	  select one segStart related by seg->DIM_WAY[R21];
+      select one segEnd related by seg->DIM_WAY[R22];
+      if (segStart.positionX < result OR segEnd.positionX < result)
+        if (param.all)
+          result = ::min(a:segStart.positionX, b:segEnd.positionX);
+        else
+          if (elem.isSelected())
+            result = ::min(a:segStart.positionX, b:segEnd.positionX);
+          end if;
+        end if;
+      end if;
+    end for;
+  end if;
+end for;
+return result;',
+	1,
+	'',
+	"ec26b824-f8ac-4e61-bb7f-6cda460b4a38");
+INSERT INTO O_TPARM
+	VALUES ("ac224489-c7e1-4f7f-97cc-0c1247af86df",
+	"50de175e-7e4f-46dc-ab29-324cbdac7e50",
+	'all',
+	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("60e2f561-0759-4734-89b6-139ef4fc5b65",
+	"09423687-e999-4aba-876d-35e0d3331311",
+	'getMinY',
+	'Gets the minimum Y co-ordinate on the canvas.',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	1,
+	'result = OS::MAX_INT();
+select many elems related by self->GD_GE[R1];
+for each elem in elems
+  select one graphElem related by elem->DIM_GE[R23];
+  select one shape related by elem->GD_SHP[R2];
+  select one connector related by elem->GD_CON[R2];
+  if (not_empty shape)
+    topY = graphElem.positionY;
+    if (topY < result)
+      if (param.all)
+        result = topY;
+      else
+        if (elem.isSelected())
+          result = topY;
+        end if;
+      end if;
+    end if;
+  elif (not_empty connector)
+    select many segs related by connector->GD_LS[R6];
+    for each seg in segs
+      select one segStart related by seg->DIM_WAY[R21];
+	  select one segEnd related by seg->DIM_WAY[R22];
+      if (segStart.positionY < result OR segEnd.positionY < result)
+        if (param.all)
+          result = ::min(a:segStart.positionY, b:segEnd.positionY);
+        else
+          if (elem.isSelected())
+            result = ::min(a:segStart.positionY, b:segEnd.positionY);
+          end if;
+        end if;
+      end if;
+    end for;
+  end if;
+end for;
+return result;',
+	1,
+	'',
+	"50de175e-7e4f-46dc-ab29-324cbdac7e50");
+INSERT INTO O_TPARM
+	VALUES ("1f361577-c004-48c9-a127-e4cfc936ef70",
+	"60e2f561-0759-4734-89b6-139ef4fc5b65",
+	'all',
+	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("f72545a8-f280-4a3f-9a72-b84e31903ff7",
+	"09423687-e999-4aba-876d-35e0d3331311",
+	'zoomTo',
+	'',
+	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	1,
+	'newX = param.toX;
+newY = param.toY;
+width = param.toW;
+height = param.toH;
+if (param.all)
+  // First, decide whether there are any elementsto zoom in on . . .
+  no_elems = true;
+  select many elems related by self->GD_GE[R1];
+  for each elem in elems
+    if (param.selection)
+      if ( elem.isSelected())
+        no_elems = false;
+        break;
+      end if;
+    else
+        no_elems = false;
+        break;
+    end if;
+  end for;
+  if (no_elems)
+    return;
+  else
+    considerAll = not param.selection;
+    // Add margins to required render area
+    newX = self.getMinX(all:considerAll) - GR::getMargin();
+    newY = self.getMinY(all:considerAll) - GR::getMargin();
+    width = self.getMaxX(all:considerAll) - self.getMinX(all:considerAll) + (GR::getMargin() * 2);
+    height = self.getMaxY(all:considerAll) - self.getMinY(all:considerAll) + (GR::getMargin() * 2);
+  end if;
+end if;
+// Calculate ratios of required to available areas
+widthFactor = OS::intToReal(value:param.avW) /  OS::intToReal(value:width);
+heightFactor =  OS::intToReal(value:param.avH) /  OS::intToReal(value:height);
+select one diagram related by self->DIM_DIA[R18];
+if (widthFactor < heightFactor)
+  diagram.zoom = widthFactor;
+  GR::setZoomFactor(value:diagram.zoom);
+  unscaledHeight = OS::realToInt(value:height * heightFactor);
+  actualHeight = GR::scale(value:unscaledHeight);
+  // Center the canvas in the Y axis
+  newY = newY - ((actualHeight - height) / 2);
+  if (newY < 0)
+    newY = 0;
+  end if;
+else
+  diagram.zoom = heightFactor;
+  GR::setZoomFactor(value:diagram.zoom);
+  unscaledWidth = OS::realToInt(value:width * widthFactor);
+  actualWidth = GR::scale(value:unscaledWidth);
+  // Center the canvas in the X axis
+  newX = newX - ((actualWidth - width) / 2);
+  if (newX < 0)
+    newX = 0;
+  end if;
+end if;
+diagram.viewportX = newX;
+diagram.viewportY = newY;',
+	1,
+	'',
+	"d58a6751-d451-4250-93f1-b2182f743f6a");
+INSERT INTO O_TPARM
+	VALUES ("5d361575-cd70-4edf-aa59-ee0e04f878b2",
+	"f72545a8-f280-4a3f-9a72-b84e31903ff7",
+	'all',
+	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("aefd06b7-b63d-4474-8b4c-4929789e6283",
+	"f72545a8-f280-4a3f-9a72-b84e31903ff7",
+	'selection',
+	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	0,
+	'',
+	"760ed392-05a1-4a14-afc8-b3267dd72f12",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("0f3a8697-8d84-4730-a769-808d539d0c8c",
+	"f72545a8-f280-4a3f-9a72-b84e31903ff7",
+	'toX',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"05f5784f-79ff-48c7-81ba-027fde6c2125",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("929ac1ff-7fcf-46d3-8a1f-b4d693600561",
+	"f72545a8-f280-4a3f-9a72-b84e31903ff7",
+	'toY',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"0f3a8697-8d84-4730-a769-808d539d0c8c",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("05f5784f-79ff-48c7-81ba-027fde6c2125",
+	"f72545a8-f280-4a3f-9a72-b84e31903ff7",
+	'toW',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"d4d6c0db-fa7b-474c-88f6-ab30eac4d425",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("d4d6c0db-fa7b-474c-88f6-ab30eac4d425",
+	"f72545a8-f280-4a3f-9a72-b84e31903ff7",
+	'toH',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"aefd06b7-b63d-4474-8b4c-4929789e6283",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("760ed392-05a1-4a14-afc8-b3267dd72f12",
+	"f72545a8-f280-4a3f-9a72-b84e31903ff7",
+	'avW',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"8889f6df-a1ca-451e-97d4-3eead817bfa3",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("8889f6df-a1ca-451e-97d4-3eead817bfa3",
+	"f72545a8-f280-4a3f-9a72-b84e31903ff7",
+	'avH',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"5d361575-cd70-4edf-aa59-ee0e04f878b2",
+	'');
+INSERT INTO O_TFR
+	VALUES ("d58a6751-d451-4250-93f1-b2182f743f6a",
+	"09423687-e999-4aba-876d-35e0d3331311",
+	'unSelectAll',
+	'',
+	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	1,
+	'CL::clearSelection();',
+	1,
+	'',
+	"d48981be-0eb6-4402-94e3-ed41e7f4ca93");
+INSERT INTO O_TFR
+	VALUES ("ac892970-3d36-43ea-aac2-8944856e5bcc",
+	"09423687-e999-4aba-876d-35e0d3331311",
+	'enableTextMoveUnder',
+	'',
+	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	1,
+	'select one diagram related by self->DIM_DIA[R18];
+scaled_x = GR::scale(value:GR::getAbsoluteXPosition()) + diagram.viewportX;
+scaled_y = GR::scale(value:GR::getAbsoluteYPosition()) + diagram.viewportY;
+select many symbols related by self->GD_GE[R1];
+sel_symb_count = 0;
+for each symb in symbols
+  if (symb.isSelected())
+    sel_symb_count = sel_symb_count + 1;
+  end if;
+end for;
+// do not move the text alone
+// unless only one symbol is
+// selected
+if (sel_symb_count == 1)
+  for each symb in symbols
+    if(symb.isSelected())
+      select one con_elem related by symb->GD_CON[R2];
+      if ( not_empty con_elem )
+        select many texts related by con_elem->GD_CTXT[R8];
+        found = false;
+        for each text in texts
+          if (text.isOver(scaled_x:scaled_x, scaled_y:scaled_y))
+            create object instance tim of GD_TIM;
+            relate self to text across R14 using tim;
+            found = true;
+            break;  // We are only allowed to move one text block at a time . . . . .
+          end if;
+        end for;
+        if ( found )
+          break;
+        end if;
+      else
+        select one shp_text related by symb->GD_SHP[R2]->GD_CTXT[R27];
+        if ( not_empty shp_text )
+          if (shp_text.isOver(scaled_x:scaled_x, scaled_y:scaled_y))
+            create object instance tim of GD_TIM;
+            relate self to shp_text across R14 using tim;
+            break;  // We are only allowed to move one text block at a time . . . . .
+          end if;
+        end if;
+      end if;
+    end if;
+  end for;
+end if;',
+	1,
+	'',
+	"73bc8657-6063-4980-b3b8-a559b0113693");
+INSERT INTO O_TPARM
+	VALUES ("75703901-cff8-4336-ba95-b9bf900dd34c",
+	"ac892970-3d36-43ea-aac2-8944856e5bcc",
+	'x',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("9a794981-8180-4e96-a43c-e8c3847c4e0c",
+	"ac892970-3d36-43ea-aac2-8944856e5bcc",
+	'y',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"75703901-cff8-4336-ba95-b9bf900dd34c",
+	'');
+INSERT INTO O_TFR
+	VALUES ("f7e7d64a-9b49-4f14-8bb3-7b58385b36f5",
+	"09423687-e999-4aba-876d-35e0d3331311",
+	'disableTextMove',
+	'',
+	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	1,
+	'select one con_text related by self->GD_CTXT[R14];
+if (not_empty con_text)
+  select one tim related by self->GD_TIM[R14];
+  unrelate self from con_text across R14 using tim;
+  delete object instance tim;
+end if;',
+	1,
+	'',
+	"73f41fee-1f12-40da-a15e-a123c3cb03ca");
+INSERT INTO O_TFR
+	VALUES ("f74c397c-b239-4f99-bb82-f47ec2c01025",
+	"09423687-e999-4aba-876d-35e0d3331311",
+	'initializeTools',
+	'',
+	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	1,
+	'select many tools related by self->CT_MTL[R100];
+if (empty tools)
+  // create the associated tool activation policy
+  create object instance policy of CT_ACT;
+  relate policy to self across R108;
+
+  // create the selection tool instance
+  create object instance selector of CT_MTL;
+  create object instance selTool of CT_SEL;
+  relate selector to selTool across R102;
+  relate self to selector across R100;
+  selector.initialize();
+
+  // create the scroll tool instance
+  create object instance scroller of CT_MTL;
+  create object instance scrollTool of CT_SCR;
+  relate scroller to scrollTool across R102;
+  relate self to scroller across R100;
+  scroller.initialize();
+
+  select many elemSpecs related by self->GD_MS[R9]->GD_EMS[R11]->GD_ES[R11];
+  for each elemSpec in elemSpecs
+    create object instance mt of CT_MTL;
+    relate mt to elemSpec across R103;
+    relate self to mt across R100;
+    select one conSpec related by elemSpec->TS_CSP[R200];    
+    select one shapeSpec related by elemSpec->TS_SSP[R200];    
+    if (not_empty conSpec)
+      create object instance ct of CT_CTL;
+      relate mt to ct across R102;
+    elif (not_empty shapeSpec)
+      create object instance st of CT_STL;
+      relate mt to st across R102;
+    end if;
+    mt.initialize();
+  end for;
+  generate CT_MTL5:Activate to selector;
+end if;',
+	1,
+	'',
+	"51e540a7-14b1-4173-a062-41ca527309fe");
+INSERT INTO O_TFR
+	VALUES ("4e89ec17-3ec5-4844-885f-4070f714ef72",
+	"09423687-e999-4aba-876d-35e0d3331311",
+	'elementCreated',
+	'This call happens when the user draws a symbol on a canvas.
+The client element instance is created and this call informs the
+graphics domain that this has happened. Accordingly, the
+canvas finds the element specification that is instantiated by
+the currently active tool and delegates the call on to it.',
+	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	1,
+	'select any mt related by self->CT_MTL[R100] where (selected.active == true);
+if (not_empty mt)
+  select one es related by mt->GD_ES[R103];
+  if (not_empty es and es.represents == param.type)
+    es.elementCreated(elem:param.elem);
+  end if;
+end if;
+',
+	1,
+	'',
+	"4613e372-abe2-40fe-9abe-4fcb041a87de");
+INSERT INTO O_TPARM
+	VALUES ("6ae8ef76-1f15-4503-b782-9dd8170844b5",
+	"4e89ec17-3ec5-4844-885f-4070f714ef72",
+	'elem',
+	"68dedb08-fd5a-420e-9ec7-e7985ad0c856",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("68dedb08-fd5a-420e-9ec7-e7985ad0c856",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'instance',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TPARM
+	VALUES ("520dc2e1-054b-475b-b20c-2e56aebcf858",
+	"4e89ec17-3ec5-4844-885f-4070f714ef72",
+	'type',
+	"8d28e864-6cdc-4005-8d8f-a59eb8d6be84",
+	0,
+	'',
+	"6ae8ef76-1f15-4503-b782-9dd8170844b5",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("8d28e864-6cdc-4005-8d8f-a59eb8d6be84",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'class',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("af58e121-ef43-48ed-9a1e-6bc958a41bd6",
+	"09423687-e999-4aba-876d-35e0d3331311",
+	'initialize',
+	'',
+	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	1,
+	'self.OOA_ID = CL::getOOAId(from:param.elem);
+self.UseGlobalPrint = false;
+self.PrintMode = false;
+self.PrintRows = 1;
+self.PrintCols = 1;
+self.IsLandscape = true;
+self.ZoomFontSize = 12;
+select one diagram related by self->DIM_DIA[R18];
+diagram.viewportX = 4000;
+diagram.viewportY = 3000;
+diagram.zoom = 1.0;
+self.GridOn = true;
+self.SelRectX = 0;
+self.SelRectY = 0;
+self.SelRectW = 0;
+self.SelRectH = 0;
+self.represents = param.elem;
+self.initializeOnCreationSymbols();',
+	1,
+	'',
+	"9df65558-864c-4ef1-95a8-5b766007eb20");
+INSERT INTO O_TPARM
+	VALUES ("cfe2a8f7-bf63-460b-b2a2-b787ad7dc3e7",
+	"af58e121-ef43-48ed-9a1e-6bc958a41bd6",
+	'elem',
+	"68dedb08-fd5a-420e-9ec7-e7985ad0c856",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("9619e9e8-72ee-44bf-808c-140e7686a2e4",
+	"09423687-e999-4aba-876d-35e0d3331311",
+	'getToolIdByName',
+	'',
+	"a236c27f-17c7-4c99-8f25-f3efd03eaf0c",
+	1,
+	'toolname=param.toolname;
+result = OS::NULL_UNIQUE_ID();
+select one mod_spec related by self->GD_MS[R9];
+select any elem_spec related by mod_spec->GD_ES[R11]
+                                              where (selected.Name == toolname);
+select any mt related by self->CT_MTL[R100]
+               where (selected.OOA_Type == elem_spec.OOA_Type);
+if (not_empty mt)
+  result = mt.Tool_ID;
+end if;
+return result;
+',
+	1,
+	'',
+	"c5ae818f-cdf4-453a-945f-8c9b96532b36");
+INSERT INTO O_TPARM
+	VALUES ("792e516f-8445-4b0c-b8c7-0eab13c4566d",
+	"9619e9e8-72ee-44bf-808c-140e7686a2e4",
+	'toolname',
+	"17f3cd98-2d3a-4fe3-ac41-d27b377178a6",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("17f3cd98-2d3a-4fe3-ac41-d27b377178a6",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'string',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO S_DT_PROXY
+	VALUES ("a236c27f-17c7-4c99-8f25-f3efd03eaf0c",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'unique_id',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("1b1c764a-31c8-425e-958d-9435abcdbcb4",
+	"09423687-e999-4aba-876d-35e0d3331311",
+	'elementDeleted',
+	'This operation detects symbols and canvases that have had
+their client entity instances deleted. It takes care of disposing
+the relevant graphical instances.',
+	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	1,
+	'select many elems related by self->GD_GE[R1];
+for each elem in elems
+  if (elem.represents == param.elem)
+    elem.dispose();
+  end if;
+end for;
+if (param.elem == self.represents)
+  self.dispose();
+end if;',
+	1,
+	'',
+	"4e89ec17-3ec5-4844-885f-4070f714ef72");
+INSERT INTO O_TPARM
+	VALUES ("5bf58abe-4d44-41ce-979d-fbf034cbecd9",
+	"1b1c764a-31c8-425e-958d-9435abcdbcb4",
+	'elem',
+	"68dedb08-fd5a-420e-9ec7-e7985ad0c856",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("13345b76-b2f2-4a30-8943-bf776678fe93",
+	"09423687-e999-4aba-876d-35e0d3331311",
+	'dispose',
+	'',
+	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	1,
+	'select one ms related by self->GD_MS[R9];
+if (not_empty ms)
+  unrelate self from ms across R9;
+end if;
+select one eir related by self->GD_EIR[R12];
+if (not_empty eir)
+  eir.dispose();
+end if;
+select many ges related by self->GD_GE[R1];
+for each ge in ges
+  ge.dispose();
+end for;
+select many inMoves related by self->GD_WIM[R24];
+for each inMove in inMoves
+  select one waypoint related by inMove->DIM_WAY[R24];
+  unrelate self from waypoint across R24 using inMove;
+  delete object instance inMove;
+end for;
+select one tim related by self->GD_TIM[R14];
+if (not_empty tim)
+  select one txt related by tim->GD_CTXT[R14];
+  unrelate self from txt across R14 using tim;
+  delete object instance tim;
+end if;
+select many mtls related by self->CT_MTL[R100];
+for each mtl in mtls
+  unrelate self from mtl across R100;
+  mtl.dispose();
+end for;
+
+// unrelate the associated tool activation policy
+select one policy related by self->CT_ACT[R108];
+unrelate self from policy across R108;
+
+select many tss related by self->TS_TSP[R207];
+for each ts in tss
+  unrelate self from ts across R207;
+end for;
+
+select one diagram related by self->DIM_DIA[R18];
+unrelate self from diagram across R18;
+delete object instance diagram;
+
+select many styles related by self->STY_S[R402];
+for each style in styles
+  unrelate self from style across R402;
+  style.dispose();
+end for;
+
+select many layers related by self->GD_LAY[R34];
+for each layer in layers
+  layer.dispose();
+end for;
+
+delete object instance self;',
+	1,
+	'',
+	"f7e7d64a-9b49-4f14-8bb3-7b58385b36f5");
+INSERT INTO O_TFR
+	VALUES ("4613e372-abe2-40fe-9abe-4fcb041a87de",
+	"09423687-e999-4aba-876d-35e0d3331311",
+	'elementChanged',
+	'Detects a changed graphical element. The only modeled action for
+this is to update a graphical elements ooa_id. In the case of some
+client elements, the ooa_id is not available when the instance is
+first created. This happens when the element represented is
+a subtype of something else. In this case, the ooa_id becomes
+available only when the element is hooked up with its supertype.',
+	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	1,
+	'// check if there is a graphical element change that we need
+// to update the OOA_ID for.  This currently happens when a new
+// associative line or subtype line is created.
+ooaid = CL::getOOAId(from:param.clientElem);
+select any elem related by self->GD_GE[R1]
+	   where (selected.represents == param.clientElem) ;
+if ( not_empty elem )
+  if (elem.OOA_ID == OS::NULL_UNIQUE_ID() or elem.OOA_ID != ooaid)
+    elem.OOA_ID = ooaid;
+  end if;
+end if;
+// check if there is a model change that needs to get
+// an OOA_ID.  This happens when a new model is created,
+// for example, a new subsystem in a domain.
+if (self.represents == param.clientElem and
+                  (self.OOA_ID == OS::NULL_UNIQUE_ID() or self.OOA_ID != ooaid))
+  self.OOA_ID = CL::getOOAId(from:param.clientElem);
+end if;
+',
+	1,
+	'',
+	"2763a8eb-4ab4-49e5-b0df-290b4dc52619");
+INSERT INTO O_TPARM
+	VALUES ("e384fcb6-01d5-46e0-93ba-04b990a96b11",
+	"4613e372-abe2-40fe-9abe-4fcb041a87de",
+	'clientElem',
+	"68dedb08-fd5a-420e-9ec7-e7985ad0c856",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("b4c73d81-f626-4ccc-80bc-20376a6dbb5e",
+	"09423687-e999-4aba-876d-35e0d3331311",
+	'getScrollToolID',
+	'',
+	"a236c27f-17c7-4c99-8f25-f3efd03eaf0c",
+	1,
+	'// return the ID of the first (and presumably only) scroll tool 
+// associated with this canvas
+select many scrollers related by self->CT_MTL[R100]->CT_SCR[R102];
+for each scroller in scrollers
+	return scroller.Tool_ID;
+end for;
+
+// we should never get here
+return OS::NULL_UNIQUE_ID();',
+	1,
+	'',
+	"3c3a1003-0f6a-45a3-bf05-e2d59f02acc8");
+INSERT INTO O_TFR
+	VALUES ("c5ae818f-cdf4-453a-945f-8c9b96532b36",
+	"09423687-e999-4aba-876d-35e0d3331311",
+	'getSelectionToolID',
+	'',
+	"a236c27f-17c7-4c99-8f25-f3efd03eaf0c",
+	1,
+	'// return the ID of the first (and presumably only) selection tool 
+// associated with this canvas
+select many selectors related by self->CT_MTL[R100]->CT_SEL[R102];
+for each selector in selectors
+	return selector.Tool_ID;
+end for;
+
+// we should never get here
+return OS::NULL_UNIQUE_ID();',
+	1,
+	'',
+	"b4c73d81-f626-4ccc-80bc-20376a6dbb5e");
+INSERT INTO O_TFR
+	VALUES ("73f41fee-1f12-40da-a15e-a123c3cb03ca",
+	"09423687-e999-4aba-876d-35e0d3331311",
+	'activateSelectionTool',
+	'',
+	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	1,
+	'// check what tool is currently active
+select any tool related by self->CT_MTL[R100] where (selected.active == true);
+if(not_empty tool)
+  select any selTool from instances of CT_SEL where (selected.Tool_ID == self.getSelectionToolID());
+  select one selModelTool related by selTool->CT_MTL[R102];
+  // if not a selection tool then set the selection tool
+  // to active
+  if(tool != selModelTool)
+    generate CT_MTL5:Activate to selModelTool;
+  end if;
+end if;',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_TFR
+	VALUES ("dcf1559d-270a-439d-85ea-0e090a0917bf",
+	"09423687-e999-4aba-876d-35e0d3331311",
+	'getToolTipText',
+	'',
+	"17f3cd98-2d3a-4fe3-ac41-d27b377178a6",
+	1,
+	'/*
+Returns the tooltip text to be displayed for the given location, which is 
+given in diagram coordinates. 
+*/
+
+// if the selection tool isn''t the one that''s active, there is no tooltip text
+select any activeTool related by self->CT_MTL[R100] where selected.active;
+select one selectionTool related by activeTool->CT_SEL[R102];
+if (empty selectionTool) return ""; end if;
+
+// for each shape in this diagram (since, for now, only shapes may have 
+// tooltip text)
+select many shapes related by self->GD_GE[R1]->GD_SHP[R2];
+for each shape in shapes
+	// if this shape contains the given location
+	if (shape.isOverDiagramPosition(x:param.x, y:param.y))
+		// defer to this shape what the tooltip text should be
+		select one element related by shape->GD_GE[R2]->DIM_GE[R23];
+		return shape.getToolTipText(
+			x:param.x - element.positionX, 
+			y:param.y - element.positionY);
+	end if;
+end for;
+
+return "";',
+	1,
+	'',
+	"9619e9e8-72ee-44bf-808c-140e7686a2e4");
+INSERT INTO O_TPARM
+	VALUES ("2c1e3669-4274-4903-81ad-921a6ad5efe5",
+	"dcf1559d-270a-439d-85ea-0e090a0917bf",
+	'x',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("515df43e-19a9-458a-8f9e-d77e1beb1f43",
+	"dcf1559d-270a-439d-85ea-0e090a0917bf",
+	'y',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"2c1e3669-4274-4903-81ad-921a6ad5efe5",
+	'');
+INSERT INTO O_TFR
+	VALUES ("3c3a1003-0f6a-45a3-bf05-e2d59f02acc8",
+	"09423687-e999-4aba-876d-35e0d3331311",
+	'getRepresents',
+	'',
+	"68dedb08-fd5a-420e-9ec7-e7985ad0c856",
+	1,
+	'/*
+Returns the model element being depicted at the given location, which is 
+given in diagram coordinates.  The element may include a state machine which 
+is being depicted as an icon within a class shape.  The canvas-model itself
+is returned if no element is found at the location.
+*/
+
+// for each shape in this diagram (since, for now, only shape may contain
+// icons that represent other model elements) 
+select many shapes related by self->GD_GE[R1]->GD_SHP[R2];
+for each shape in shapes
+	// if this shape contains the given location
+	if (shape.isOverDiagramPosition(x:param.x, y:param.y))
+		// return what the shape says the given location represents
+		select one element related by shape->GD_GE[R2]->DIM_GE[R23];
+		return shape.getRepresents(
+			x:param.x - element.positionX, 
+			y:param.y - element.positionY);
+	end if;
+end for;
+
+return self.represents;',
+	1,
+	'',
+	"60e2f561-0759-4734-89b6-139ef4fc5b65");
+INSERT INTO O_TPARM
+	VALUES ("aec298ba-1e57-4834-a71d-80e65e5f9525",
+	"3c3a1003-0f6a-45a3-bf05-e2d59f02acc8",
+	'x',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("855aa1e6-af43-4b93-b23b-d46f4f69bc24",
+	"3c3a1003-0f6a-45a3-bf05-e2d59f02acc8",
+	'y',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"aec298ba-1e57-4834-a71d-80e65e5f9525",
+	'');
+INSERT INTO O_TFR
+	VALUES ("af1d16bd-902f-40c6-b503-1570c6c19093",
+	"09423687-e999-4aba-876d-35e0d3331311",
+	'selectAll',
+	'',
+	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	1,
+	'CL::unSelectAll();
+select many ges related by self->GD_GE[R1];
+for each ge in ges
+  ge.toggleSelect();
+end for;',
+	1,
+	'',
+	"160b4ec5-2ccc-4a1f-ad27-9eea360878f2");
+INSERT INTO O_TFR
+	VALUES ("51e540a7-14b1-4173-a062-41ca527309fe",
+	"09423687-e999-4aba-876d-35e0d3331311",
+	'initializeOnCreationSymbols',
+	'',
+	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	1,
+	'select many specs related by self->GD_MS[R9]->GD_EMS[R11]->GD_ES[R11]
+	where (selected.creationRule == "on canvas creation");
+for each spec in specs
+  //
+  // Create the new graphical element
+  //
+  create object instance elem of GD_GE;
+  create object instance shape of GD_SHP;
+  create object instance graphNode of DIM_ND;
+  relate graphNode to shape across R19;
+  create object instance graphEle of DIM_GE;
+  relate graphEle to graphNode across R301;
+  relate graphEle to elem across R23;
+  create object instance diaEle of DIM_ELE;
+  relate diaEle to graphEle across R302;
+  create object instance container of GD_CTR;
+  relate elem to shape across R2;
+  relate elem to self across R1;
+  relate spec to elem across R10;  
+  relate container to shape across R28;
+  
+  //
+  // If this is a container symbol then create the symbol
+  // with a size that encapsulates most of the diagram
+  //
+  select one diagram related by self->DIM_DIA[R18];
+  graphEle.positionX = 4100;
+  graphEle.positionY = 3100;
+  graphNode.width = GR::getClientWidth() - 200;
+  graphNode.height = GR::getClientHeight() - 200;
+    
+  elem.represents = self.represents;
+  elem.OOA_ID = self.OOA_ID;
+end for;',
+	1,
+	'',
+	"af58e121-ef43-48ed-9a1e-6bc958a41bd6");
+INSERT INTO O_TFR
+	VALUES ("9df65558-864c-4ef1-95a8-5b766007eb20",
+	"09423687-e999-4aba-876d-35e0d3331311",
+	'hasContainerSymbol',
+	'',
+	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	1,
+	'select many containerSpecs related by self->GD_MS[R9]->GD_EMS[R11]->GD_ES[R11]
+	where (selected.symbolType == "container" and
+		selected.creationRule == "on canvas creation");
+return not_empty containerSpecs;',
+	1,
+	'',
+	"dcf1559d-270a-439d-85ea-0e090a0917bf");
+INSERT INTO O_TFR
+	VALUES ("160b4ec5-2ccc-4a1f-ad27-9eea360878f2",
+	"09423687-e999-4aba-876d-35e0d3331311",
+	'newConnector',
+	'',
+	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	1,
+	'select any ars related by self->GD_MS[R9]->GD_EMS[R11]->
+                       GD_ES[R11]->GD_ARS[R29] where selected.Id == param.arsId;
+select one elemSpec related by ars->GD_ES[R29];
+select any shapeEle related by elemSpec->GD_GE[R10]
+	where (selected.elementId == param.elementId);
+select one canvas related by shapeEle->GD_MD[R1];
+select one existingSpec related by ars->GD_ES[R30];
+// get the connector we want to base the reconciliation on
+select any existingConnector related by  existingSpec->GD_GE[R10]->
+                         GD_CON[R2] where selected.elementId == param.connector;
+// detect possible corruption and skip reconciliation if found
+select one startEle related by existingConnector->DIM_ED[R20]->DIM_CON[R320];
+select one endEle related by existingConnector->DIM_ED[R20]->DIM_CON[R321];
+if(empty startEle and empty endEle)
+  select one existingGE related by existingConnector->GD_GE[R2];
+  // we do not reconcile connectors that end on whitespace for
+  // both sides, therefore this element is corrupted
+  CL::logException(message:"Found an invalid connector as the base for" +
+                  " reconciliation."+ OS::newLine() + "The connector id is: " +
+                                      OS::uniqueIdToString(id:param.connector)
+                                     + OS::newLine() + "The connector path is: "
+                                                  + existingGE.represents_path +
+                            OS::newLine() + "The connector has been recreated");
+  existingConnector.dispose();
+  ars.reprocess = true;
+  return;
+end if;
+create object instance newConElem of GD_GE;
+relate newConElem to canvas across R1;
+create object instance connector of GD_CON;
+relate newConElem to connector across R2;
+create object instance graphEdge of DIM_ED;
+relate graphEdge to connector across R20;
+create object instance graphEle of DIM_GE;
+relate graphEle to graphEdge across R301;
+relate graphEle to newConElem across R23;
+create object instance diaEle of DIM_ELE;
+relate diaEle to graphEle across R302;
+create object instance segment of GD_LS;
+create object instance startPoint of DIM_WAY;
+relate startPoint to segment across R21;
+relate startPoint to graphEdge across R319;
+create object instance endPoint of DIM_WAY;
+relate endPoint to segment across R22;
+relate endPoint to graphEdge across R319;
+relate endPoint to startPoint across R324.''follows'';
+relate connector to segment across R6;
+
+// create the start text
+create object instance text of GD_CTXT;
+text.end = End::Start;
+relate connector to text across R8;
+text.createSupertypeInstances(); 
+
+// create the middle text
+create object instance text of GD_CTXT;
+text.end = End::Middle;
+relate connector to text across R8;
+text.createSupertypeInstances();
+
+// create the end text
+create object instance text of GD_CTXT;
+text.end = End::End;
+relate connector to text across R8;
+text.createSupertypeInstances();
+
+// Prepare canvas for drawing segment
+select one diagram related by canvas->DIM_DIA[R18];
+
+select one reconcileToSpec related by ars->GD_ES[R30];
+select one existingConnectorSpec related by existingConnector->
+                                                          GD_GE[R2]->GD_ES[R10];
+// Assert that the identified connector has the correct element specification
+if reconcileToSpec != existingConnectorSpec
+  message = "Supplied connector type " + existingConnectorSpec.Name +
+             "does not match reconciliation type " + reconcileToSpec.Name + ".";
+  CL::logError(message:message);
+else
+  start = true;
+  select one newSpec related by ars->GD_ES[R31];
+  relate newConElem to newSpec across R10;
+  percentOfEdgeLength = 0.0;
+  select one endShape related by existingConnector->DIM_ED[R20]->DIM_CON[R321]
+  																 ->DIM_GE[R311];
+  select one conModel related by existingConnector->GD_GE[R2]->GD_MD[R1];
+  select one shapeDIMGe related by shapeEle->DIM_GE[R23];
+  if(not_empty endShape and conModel == self and shapeDIMGe == endShape)
+    start = false;
+  end if;
+  shapeEdge = existingConnector.getShapeEdge(end:End::Start);
+  if(not start)
+    shapeEdge = existingConnector.getShapeEdge(end:End::End);
+    percentOfEdgeLength = existingConnector.getPercentOfEdgeLength(
+                                                   end:End::End, isStart:start);
+    // adjust the existing connectors anchor so that it anchors to
+    // the connector being created
+    select one existingAnchor related by existingConnector->DIM_ED[R20]
+    															->DIM_CON[R321];
+    unrelate existingAnchor from endShape across R311;
+    relate existingAnchor to graphEle across R311;
+    // create an anchor on segment
+    create object instance aos of GD_AOS;
+    relate existingAnchor to segment across R26 using aos;
+  else
+    percentOfEdgeLength = existingConnector.getPercentOfEdgeLength(
+                                                 end:End::Start, isStart:start);
+  end if;
+
+  if reconcileToSpec != newSpec
+    // we''re creating a diffent kind of element
+    newConElem.represents = CL::getInstanceFromOOA_ID(rootInst:self.represents,
+                          OOA_ID:param.representsId, OOA_Type:newSpec.OOA_Type);
+    newConElem.OOA_ID = param.representsId;
+  else
+    select one existingGE related by existingConnector->GD_GE[R2];
+    newConElem.represents = existingGE.represents;
+    newConElem.OOA_ID = CL::getOOAId(from:existingGE.represents);
+  end if;
+  graphEdge.setConnectorPosition(endingWaypointId:endPoint.Way_ID,
+         shapeEdge:shapeEdge, shapeId:shapeEle.elementId, start:start,
+                                     startingWaypointId:startPoint.Way_ID,
+                                       percentOfEdgeLength:percentOfEdgeLength);
+end if;',
+	1,
+	'',
+	"f74c397c-b239-4f99-bb82-f47ec2c01025");
+INSERT INTO O_TPARM
+	VALUES ("f8989ef0-afab-4b3f-b5ee-a4137c7f7dcb",
+	"160b4ec5-2ccc-4a1f-ad27-9eea360878f2",
+	'elementId',
+	"a236c27f-17c7-4c99-8f25-f3efd03eaf0c",
+	0,
+	'',
+	"ab5c456f-5675-4be9-9d48-7214f5ed4c47",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("ab5c456f-5675-4be9-9d48-7214f5ed4c47",
+	"160b4ec5-2ccc-4a1f-ad27-9eea360878f2",
+	'connector',
+	"a236c27f-17c7-4c99-8f25-f3efd03eaf0c",
+	0,
+	'',
+	"8106611b-cd7b-4ba7-8575-bc74b209c638",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("8106611b-cd7b-4ba7-8575-bc74b209c638",
+	"160b4ec5-2ccc-4a1f-ad27-9eea360878f2",
+	'arsId',
+	"a236c27f-17c7-4c99-8f25-f3efd03eaf0c",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("1a45c3cb-9715-44d4-9873-a6ea916df586",
+	"160b4ec5-2ccc-4a1f-ad27-9eea360878f2",
+	'representsId',
+	"a236c27f-17c7-4c99-8f25-f3efd03eaf0c",
+	0,
+	'',
+	"f8989ef0-afab-4b3f-b5ee-a4137c7f7dcb",
+	'');
+INSERT INTO O_TFR
+	VALUES ("73bc8657-6063-4980-b3b8-a559b0113693",
+	"09423687-e999-4aba-876d-35e0d3331311",
+	'elementSuppressed',
+	'',
+	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	1,
+	'select many elems related by self->GD_GE[R1];
+for each elem in elems
+  if elem.represents == param.elem
+    unrelate self from elem across R1;
+    create object instance eis of GD_EIS;
+    relate self to elem across R32 using eis;
+    break;
+  end if;
+end for;',
+	1,
+	'',
+	"ca503e70-5fe0-459c-9a08-41404ae2a6a4");
+INSERT INTO O_TPARM
+	VALUES ("d3e620e1-575f-40a5-bd7f-e0225b3a4b18",
+	"73bc8657-6063-4980-b3b8-a559b0113693",
+	'elem',
+	"68dedb08-fd5a-420e-9ec7-e7985ad0c856",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("ca503e70-5fe0-459c-9a08-41404ae2a6a4",
+	"09423687-e999-4aba-876d-35e0d3331311",
+	'elementRestored',
+	'',
+	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	1,
+	'select many elems related by self->GD_EIS[R32]->GD_GE[R32];
+for each elem in elems
+  if elem.represents == param.elem
+    select one eis related by elem->GD_EIS[R32];
+    unrelate self from elem across R32 using eis;
+    delete object instance eis;
+    relate self to elem across R1; 
+    break;
+  end if;
+end for;',
+	1,
+	'',
+	"1b1c764a-31c8-425e-958d-9435abcdbcb4");
+INSERT INTO O_TPARM
+	VALUES ("ebb1c4ac-d624-4904-a9b3-52aa6d4f305f",
+	"ca503e70-5fe0-459c-9a08-41404ae2a6a4",
+	'elem',
+	"68dedb08-fd5a-420e-9ec7-e7985ad0c856",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("d48981be-0eb6-4402-94e3-ed41e7f4ca93",
+	"09423687-e999-4aba-876d-35e0d3331311",
+	'showHiddenFloatingText',
+	'',
+	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	1,
+	'select one diagram related by self->DIM_DIA[R18];
+// adjust all connector floating text
+lastXExtent = diagram.viewportX;
+lastYExtent = diagram.viewportY;
+lowestY = lastYExtent;
+maxWidth = 8000;
+maxHeight = 6000;
+select many floatingTexts related by self->GD_GE[R1]->GD_CON[R2]->GD_CTXT[R8];
+for each floatingText in floatingTexts
+  select one node related by floatingText->DIM_ND[R19];
+  select one element related by node->DIM_GE[R301];
+  positionX = element.positionX;
+  positionY = element.positionY;
+  width = node.width;
+  height = node.height;
+  adjust = false;
+  if(positionX >= maxWidth) or (positionX <= 0) or 
+           (positionY >= maxHeight) or (positionY <= 0)
+    adjust = true;
+  end if;
+  if(adjust)
+    // if we are to adjust the position
+    // just line it up at the top left
+    // of the screen
+    if((lastXExtent + 10 + width) >= diagram.viewportX
+                                        + GR::scale(value:GR::getClientWidth()))
+      lastXExtent = diagram.viewportX;
+      lastYExtent = lowestY + 10;      
+    end if;
+    element.positionX = lastXExtent + 10;
+    lastXExtent = lastXExtent + 10 + width;
+    element.positionY = lastYExtent + 10;
+    if((element.positionY + height) > lowestY)
+      lowestY = element.positionY + height;
+    end if;
+  end if;
+end for;
+// adjust all connector floating text
+lastXExtent = diagram.viewportX;
+lastYExtent = diagram.viewportY;
+lowestY = lastYExtent;
+// and now adjust all shape floating text
+select many floatingTexts related by self->GD_GE[R1]->GD_SHP[R2]->GD_CTXT[R27];
+for each floatingText in floatingTexts
+  select one node related by floatingText->DIM_ND[R19];
+  select one element related by node->DIM_GE[R301];
+  positionX = element.positionX;
+  positionY = element.positionY;
+  width = node.width;
+  height = node.height;
+  adjust = false;
+  if(positionX >= maxWidth) or (positionX <= 0) or 
+           (positionY >= maxHeight) or (positionY <= 0)
+    adjust = true;
+  end if;
+  if(adjust)
+    // if we are to adjust the position
+    // just line it up at the top left
+    // of the screen
+    if((lastXExtent + 10 + width) >= diagram.viewportX
+                                        + GR::scale(value:GR::getClientWidth()))
+      lastXExtent = diagram.viewportX;
+      lastYExtent = lowestY + 10;      
+    end if;
+    element.positionX = lastXExtent + 10;
+    lastXExtent = lastXExtent + 10 + width;
+    element.positionY = lastYExtent + 10;
+    if((element.positionY + height) > lowestY)
+      lowestY = element.positionY + height;
+    end if;
+  end if;
+end for;',
+	1,
+	'',
+	"af1d16bd-902f-40c6-b503-1570c6c19093");
+INSERT INTO O_TFR
+	VALUES ("295dc844-08e3-43f8-88c0-9bd764b8f44e",
+	"09423687-e999-4aba-876d-35e0d3331311",
+	'newShape',
+	'',
+	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	1,
+	'select any ars related by self->GD_MS[R9]->GD_ARS[R33] where selected.Id == param.arsId;
+
+if (empty ars)
+  return;
+end if;
+
+select one modelSpec related by ars->GD_MS[R33];
+select many specs related by modelSpec->GD_ES[R11];
+select one reconcileToSpec related by ars->GD_ES[R30];
+  //
+  // Create the new graphical element
+  //
+select many otherShps related by self->GD_GE[R1]->GD_SHP[R2];
+select any rightMostShp related by self->GD_GE[R1]->GD_SHP[R2];
+select one rightMostNode related by rightMostShp->DIM_ND[R19];
+select one rightMostElement related by rightMostNode->DIM_GE[R301];
+for each otherShp in otherShps
+   select one otherNode related by otherShp->DIM_ND[R19];
+   select one otherElement related by otherNode->DIM_GE[R301];
+   if (otherElement.positionX > rightMostElement.positionX)
+       rightMostShp = otherShp;
+       rightMostNode = otherNode;
+       rightMostElement = otherElement;
+  end if;
+end for;
+  create object instance elem of GD_GE;
+  create object instance shape of GD_SHP;
+  create object instance graphNode of DIM_ND;
+  relate graphNode to shape across R19;
+  create object instance graphEle of DIM_GE;
+  relate graphEle to graphNode across R301;
+  relate graphEle to elem across R23;
+  create object instance diaEle of DIM_ELE;
+  relate diaEle to graphEle across R302;
+
+  select any existingShape related by  reconcileToSpec->GD_GE[R10]->GD_SHP[R2] where selected.elementId == param.shape;
+  select one newSpec related by ars->GD_ES[R31]; 
+  
+  select one diagram related by self->DIM_DIA[R18];
+  select one existingShapeSpec related by existingShape->GD_GE[R2]->GD_ES[R10];
+  if (reconcileToSpec.symbolType == "shape")
+    create object instance ncs of GD_NCS;
+    relate ncs to shape across R28;
+  else
+    create object instance containerShp of GD_CTR;
+    relate containerShp to shape across R28;
+  end if;
+  // if this diagram has a container symbol
+  // associate this element as a contained symbol
+  autoResize = false;
+  select any containerShape from instances of GD_CTR where (selected.elementId == param.shape);
+  
+  if(self.hasContainerSymbol())
+    select any containerSpec related by self->GD_MS[R9]->GD_EMS[R11]->GD_ES[R11]
+    	where (selected.symbolType == "container" and
+    		selected.creationRule == "on canvas creation");
+    if(not_empty containerSpec)
+      select any container related by self->GD_GE[R1]->GD_SHP[R2]->GD_CTR[R28]->GD_SHP[R28]->GD_GE[R2];
+      if(not_empty container)
+        select one containerDimGe related by container->DIM_GE[R23];
+        relate diaEle to containerDimGe across R307;
+        select one containerShape related by container->GD_SHP[R2]->GD_CTR[R28];
+        autoResize = true;
+      end if;
+    end if;
+  end if;
+//end if;
+ 
+   //set up the Dimensions
+    self.SelRectW = reconcileToSpec.getDefaultWidth();
+    self.SelRectH = reconcileToSpec.getDefaultHeight();
+    graphNode.width =  self.SelRectW;
+    graphNode.height = self.SelRectH ;
+  //
+  // Set up shape co-ordinates from rectangle size.
+  // Note that the rectangle is captured as raw co-ordinates for fast drawing
+  // so must convert to absolute canvas co-ordinate system before assignment.
+  //
+    xPosn = CL::getRightClickX();
+    yPosn = CL::getRightClickY();
+    
+    if(xPosn == -1 and yPosn == -1) // Selected from the ME
+     
+       if (not_empty rightMostShp)
+        graphEle.positionX = rightMostElement.positionX + rightMostNode.width + ( graphNode.width) / 10;
+        graphEle.positionY = rightMostElement.positionY;
+      else
+        shape.moveToDefaultPosition();
+      end if;
+    else // Right click on canvas
+       graphEle.positionX = xPosn;
+       graphEle.positionY = yPosn;
+   end if;
+  
+  relate elem to shape across R2;
+  relate elem to self across R1;
+  relate reconcileToSpec to elem across R10;
+  relate reconcileToSpec to elem across R16;
+  
+ if ( reconcileToSpec.hasFloatingText )
+   create object instance text of GD_CTXT;
+   text.end = End::Floating;
+   relate shape to text across R27;
+   text.createSupertypeInstances(); 
+ end if;
+ if(autoResize)
+    containerShape.autoResize();
+  end if;
+  CL::setRightClickCoordinates(x:-1,y:-1);',
+	1,
+	'',
+	"f72545a8-f280-4a3f-9a72-b84e31903ff7");
+INSERT INTO O_TPARM
+	VALUES ("91487e72-8a10-4b04-b444-5809e14fbe7a",
+	"295dc844-08e3-43f8-88c0-9bd764b8f44e",
+	'arsId',
+	"a236c27f-17c7-4c99-8f25-f3efd03eaf0c",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("10c906c9-0e1c-4403-af18-3efe33d179db",
+	"295dc844-08e3-43f8-88c0-9bd764b8f44e",
+	'shape',
+	"a236c27f-17c7-4c99-8f25-f3efd03eaf0c",
+	0,
+	'',
+	"91487e72-8a10-4b04-b444-5809e14fbe7a",
+	'');
+INSERT INTO O_TFR
+	VALUES ("1c2b818d-a3ce-4589-86f4-226b83c09c50",
+	"09423687-e999-4aba-876d-35e0d3331311",
+	'createShape',
+	'',
+	"a236c27f-17c7-4c99-8f25-f3efd03eaf0c",
+	1,
+	'select any tool related by self->CT_MTL[R100] where (selected.Tool_ID == param.toolId);
+select one elem_spec related by tool->GD_ES[R103];
+if (not_empty elem_spec)
+  //
+  // Create the new graphical element
+  //
+  create object instance elem of GD_GE;
+  create object instance shape of GD_SHP;
+  create object instance graphNode of DIM_ND;
+  relate graphNode to shape across R19;
+  create object instance graphEle of DIM_GE;
+  relate graphEle to graphNode across R301;
+  relate graphEle to elem across R23;
+  create object instance diaEle of DIM_ELE;
+  relate diaEle to graphEle across R302;
+  if (elem_spec.symbolType == "shape")
+    create object instance ncs of GD_NCS;
+    relate ncs to shape across R28;
+  else
+    create object instance containerShp of GD_CTR;
+    relate containerShp to shape across R28;
+  end if;
+
+  relate elem to shape across R2;
+  relate elem to self across R1;
+  relate elem_spec to elem across R10;
+  relate elem_spec to elem across R16;
+  
+  if ( elem_spec.hasFloatingText )
+    create object instance text of GD_CTXT;
+    text.end = End::Floating;
+    relate shape to text across R27;
+    text.createSupertypeInstances(); 
+  end if;
+  
+  select any containerShape from instances of GD_CTR where (selected.elementId == OS::NULL_UNIQUE_ID());
+  // if this diagram has a container symbol
+  // associate this element as a contained symbol
+  if(self.hasContainerSymbol())
+    select any containerSpec related by self->GD_MS[R9]->GD_EMS[R11]->GD_ES[R11]
+    	where (selected.symbolType == "container" and
+    		selected.creationRule == "on canvas creation");
+    if(not_empty containerSpec)
+      select any container related by self->GD_GE[R1]->GD_SHP[R2]->GD_CTR[R28]->GD_SHP[R28]->GD_GE[R2];
+      if(not_empty container)
+        select one containerDimGe related by container->DIM_GE[R23];
+        relate diaEle to containerDimGe across R307;
+        select one containerShape related by container->GD_SHP[R2]->GD_CTR[R28];
+      end if;
+    end if;
+  end if;
+
+  //
+  // Now create the client instance, if necessary
+  //
+  if(param.createClient)
+    CL::createNode(using:elem_spec.creator, on:self.represents);
+  end if;
+
+  unrelate elem_spec from elem across R16;
+  
+  //
+  // End Transaction
+  //
+  CL::addToSelection(element:elem.represents);
+  
+  return shape.elementId;
+end if;
+return OS::NULL_UNIQUE_ID();',
+	1,
+	'',
+	"295dc844-08e3-43f8-88c0-9bd764b8f44e");
+INSERT INTO O_TPARM
+	VALUES ("4584786d-0991-447c-9c3c-2c29fcb9553a",
+	"1c2b818d-a3ce-4589-86f4-226b83c09c50",
+	'toolId',
+	"a236c27f-17c7-4c99-8f25-f3efd03eaf0c",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("d3f8831c-871d-44af-a5fa-edc69748124e",
+	"1c2b818d-a3ce-4589-86f4-226b83c09c50",
+	'createClient',
+	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	0,
+	'',
+	"4584786d-0991-447c-9c3c-2c29fcb9553a",
+	'');
+INSERT INTO O_TFR
+	VALUES ("6b6669ec-16a5-4848-a757-3a81a528f20a",
+	"09423687-e999-4aba-876d-35e0d3331311",
+	'createConnector',
+	'',
+	"a236c27f-17c7-4c99-8f25-f3efd03eaf0c",
+	1,
+	'select any tool related by self->CT_MTL[R100] where (selected.Tool_ID == param.toolId);
+select one elemSpec related by tool->GD_ES[R103];
+if(not_empty elemSpec)
+  select any startElement related by self->GD_GE[R1] where (selected.elementId == param.startId);
+  select any endElement related by self->GD_GE[R1] where (selected.elementId == param.endId);
+  create object instance conElem of GD_GE;
+  relate conElem to elemSpec across R10;
+  relate conElem to self across R1;
+  create object instance connector of GD_CON;
+  relate conElem to connector across R2;
+  create object instance graphEdge of DIM_ED;
+  relate graphEdge to connector across R20;
+  create object instance graphEle of DIM_GE;
+  relate graphEle to graphEdge across R301;
+  relate graphEle to conElem across R23;
+  create object instance diaEle of DIM_ELE;
+  relate diaEle to graphEle across R302;
+  create object instance segment of GD_LS;
+  create object instance startPoint of DIM_WAY;
+  relate startPoint to segment across R21;
+  relate startPoint to graphEdge across R319;
+  create object instance endPoint of DIM_WAY;
+  relate endPoint to segment across R22;
+  relate endPoint to graphEdge across R319;
+  relate endPoint to startPoint across R324.''follows'';
+  relate connector to segment across R6;
+
+  relate elemSpec to conElem across R16;
+  
+  // create the start text
+  create object instance text of GD_CTXT;
+  text.end = End::Start;
+  relate connector to text across R8;
+  text.createSupertypeInstances(); 
+
+  // create the middle text
+  create object instance text of GD_CTXT;
+  text.end = End::Middle;
+  relate connector to text across R8;
+  text.createSupertypeInstances();
+
+  // create the end text
+  create object instance text of GD_CTXT;
+  text.end = End::End;
+  relate connector to text across R8;
+  text.createSupertypeInstances();
+
+  // Prepare canvas for drawing segment
+  startPoint.positionX = param.x;
+  startPoint.positionY = param.y;
+  endPoint.positionX = param.x1;
+  endPoint.positionY = param.y1;
+
+  // associate with anchor
+  if(not_empty startElement)
+    // create an anchor on the starting element
+    create object instance anchor of DIM_CON;
+    // initialize the anchors position
+    select one segmentStart related by segment->DIM_WAY[R21];
+    select one segmentEnd related by segment->DIM_WAY[R22];
+    anchor.positionX = segmentStart.positionX;
+    anchor.positionY = segmentStart.positionY;
+    select one graphElement related by startElement->DIM_GE[R23];
+    relate anchor to graphElement across R311;
+
+    // make the anchor the one at which the connector starts
+    select one edge related by connector->DIM_ED[R20];
+    relate edge to anchor across R320;
+  end if;
+  
+  if(not_empty endElement)
+    // create an anchor on the ending element
+    create object instance anchor of DIM_CON;
+    // initialize the anchors location
+    select one segmentEnd related by segment->DIM_WAY[R22];
+    anchor.positionX = segmentEnd.positionX;
+    anchor.positionY = segmentEnd.positionY;
+    select one graphElement related by endElement->DIM_GE[R23];
+    relate anchor to graphElement across R311;
+
+    // make the anchor the one at which the connector ends
+    select one edge related by connector->DIM_ED[R20];
+    relate edge to anchor across R321;
+  end if;
+
+  startOOA_ID = OS::NULL_UNIQUE_ID();
+  startOOA_Type = OOAType::None;
+  endOOA_ID = OS::NULL_UNIQUE_ID();
+  endOOA_Type = OOAType::None;
+  if (not_empty startElement)
+    startOOA_ID = CL::getOOAId(from:startElement.represents);
+    startOOA_Type = startElement.OOA_Type;
+  end if;
+  if (not_empty endElement)
+    endOOA_ID = CL::getOOAId(from:endElement.represents);
+    endOOA_Type = endElement.OOA_Type;
+  end if;
+
+  if(param.createClient)
+    //
+    // Create the client instance
+    //
+    success = CL::createConnector(using:elemSpec.creator, on:self.represents,
+                  from:startOOA_ID,
+                  fromIsImportedClass:startOOA_Type == OOAType::ImportedClass,
+                  to:endOOA_ID,
+                  toIsImportedClass:endOOA_Type == OOAType::ImportedClass);
+    if(not success)
+      // delete the created element
+      conElem.dispose();
+    end if;
+  end if;
+
+  unrelate elemSpec from conElem across R16;
+            	
+  return connector.elementId;
+end if;
+return OS::NULL_UNIQUE_ID();',
+	1,
+	'',
+	"1c2b818d-a3ce-4589-86f4-226b83c09c50");
+INSERT INTO O_TPARM
+	VALUES ("479df9ab-3734-4409-bf18-47f89f300c5f",
+	"6b6669ec-16a5-4848-a757-3a81a528f20a",
+	'toolId',
+	"a236c27f-17c7-4c99-8f25-f3efd03eaf0c",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("5bcea6e2-eb65-4c13-b463-a371c81a086a",
+	"6b6669ec-16a5-4848-a757-3a81a528f20a",
+	'createClient',
+	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	0,
+	'',
+	"479df9ab-3734-4409-bf18-47f89f300c5f",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("e8af9e09-9c86-46d5-8070-1b8d6f017f08",
+	"6b6669ec-16a5-4848-a757-3a81a528f20a",
+	'startId',
+	"a236c27f-17c7-4c99-8f25-f3efd03eaf0c",
+	0,
+	'',
+	"5bcea6e2-eb65-4c13-b463-a371c81a086a",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("ed784b79-eaac-4dda-81be-338acf6ae6db",
+	"6b6669ec-16a5-4848-a757-3a81a528f20a",
+	'endId',
+	"a236c27f-17c7-4c99-8f25-f3efd03eaf0c",
+	0,
+	'',
+	"e8af9e09-9c86-46d5-8070-1b8d6f017f08",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("0bd36553-5f11-47db-8064-8d613ab4697c",
+	"6b6669ec-16a5-4848-a757-3a81a528f20a",
+	'x',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"ed784b79-eaac-4dda-81be-338acf6ae6db",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("bdc47e70-f3fc-4f55-910f-e19e0a150c35",
+	"6b6669ec-16a5-4848-a757-3a81a528f20a",
+	'y',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"0bd36553-5f11-47db-8064-8d613ab4697c",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("e04b6df3-5db0-42df-a1af-97ae05d82283",
+	"6b6669ec-16a5-4848-a757-3a81a528f20a",
+	'x1',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"bdc47e70-f3fc-4f55-910f-e19e0a150c35",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("d4f533a2-3745-4007-a64c-b04f7801b6ca",
+	"6b6669ec-16a5-4848-a757-3a81a528f20a",
+	'y1',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"e04b6df3-5db0-42df-a1af-97ae05d82283",
+	'');
+INSERT INTO O_TFR
+	VALUES ("b880ff6e-69b8-435d-a8a6-ede11daf4afd",
+	"09423687-e999-4aba-876d-35e0d3331311",
+	'createNewLayer',
+	'',
+	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	1,
+	'create object instance layer of GD_LAY;
+layer.Layer_Name = param.name;
+layer.visible = true;
+relate layer to self across R34;',
+	1,
+	'',
+	"6b6669ec-16a5-4848-a757-3a81a528f20a");
+INSERT INTO O_TPARM
+	VALUES ("782aec22-4082-4dc3-b5d9-96551b9d9b65",
+	"b880ff6e-69b8-435d-a8a6-ede11daf4afd",
+	'name',
+	"17f3cd98-2d3a-4fe3-ac41-d27b377178a6",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("7f280f6e-0d9c-4698-a81e-e7374dc3f907",
+	"09423687-e999-4aba-876d-35e0d3331311",
+	'get_name',
+	'',
+	"17f3cd98-2d3a-4fe3-ac41-d27b377178a6",
+	1,
+	'return "Graphical Data";',
+	1,
+	'',
+	"b880ff6e-69b8-435d-a8a6-ede11daf4afd");
+INSERT INTO O_TFR
+	VALUES ("65c08e66-6e75-4a15-8918-a83328c75b76",
+	"09423687-e999-4aba-876d-35e0d3331311",
+	'setCachedRepresentsPath',
+	'Translate:native',
+	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	1,
+	'	m_represents_path = p_Value;',
+	0,
+	'',
+	"7f280f6e-0d9c-4698-a81e-e7374dc3f907");
+INSERT INTO O_TPARM
+	VALUES ("ab9320e7-c249-4448-860c-4150600e78cd",
+	"65c08e66-6e75-4a15-8918-a83328c75b76",
+	'value',
+	"17f3cd98-2d3a-4fe3-ac41-d27b377178a6",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("f88f3906-1401-4759-9d43-dd2cfa4eea64",
+	"09423687-e999-4aba-876d-35e0d3331311",
+	'getCachedRepresentsPath',
+	'Translate:native',
+	"17f3cd98-2d3a-4fe3-ac41-d27b377178a6",
+	1,
+	'	return m_represents_path;',
+	0,
+	'',
+	"65c08e66-6e75-4a15-8918-a83328c75b76");
+INSERT INTO O_REF
+	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
+	"0cd14c97-c661-47b7-a063-cf7c345d1bdc",
+	0,
+	"ce107490-0989-42ef-8800-aeb9ee9f7644",
+	"10bbc508-5ab6-4f8d-9c6f-4dacad3822f3",
+	"e9b2d848-6cad-4566-adb2-64548fba8b49",
+	"db8e80b8-4914-49fc-b73a-c8a5848b6b3a",
+	"fb1755f0-871d-4d03-878d-2456f78dbbd7",
+	"a3e0d78c-2cb5-43f7-9f61-dfc19c563efb",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Model Specification',
+	'Model_Type',
+	'R9');
+INSERT INTO R_RGO_PROXY
+	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
+	"10bbc508-5ab6-4f8d-9c6f-4dacad3822f3",
+	"e9b2d848-6cad-4566-adb2-64548fba8b49",
+	'../Graphical Data.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("ce107490-0989-42ef-8800-aeb9ee9f7644",
+	"0cd14c97-c661-47b7-a063-cf7c345d1bdc",
+	0,
+	"10bbc508-5ab6-4f8d-9c6f-4dacad3822f3",
+	"db8e80b8-4914-49fc-b73a-c8a5848b6b3a",
+	'../Graphical Data.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("fb1755f0-871d-4d03-878d-2456f78dbbd7",
+	"09423687-e999-4aba-876d-35e0d3331311",
+	"ce107490-0989-42ef-8800-aeb9ee9f7644",
+	"0cd14c97-c661-47b7-a063-cf7c345d1bdc",
+	1,
+	'Model_Type');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("ce107490-0989-42ef-8800-aeb9ee9f7644",
+	"0cd14c97-c661-47b7-a063-cf7c345d1bdc",
+	'../Model Specification/Model Specification.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("fb1755f0-871d-4d03-878d-2456f78dbbd7",
+	"09423687-e999-4aba-876d-35e0d3331311",
+	"d1783817-101b-46d1-b9a8-907ee4d5efe4",
+	'Model_Type',
+	'User_Visible:false',
+	'',
+	'Model_Type',
+	0,
+	"66164f00-293e-4c17-ab30-7972c7c57152",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("66164f00-293e-4c17-ab30-7972c7c57152",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("dbf1be50-3c78-4ccf-bf3b-f6af7b4462ff",
+	"09423687-e999-4aba-876d-35e0d3331311");
+INSERT INTO O_BATTR
+	VALUES ("dbf1be50-3c78-4ccf-bf3b-f6af7b4462ff",
+	"09423687-e999-4aba-876d-35e0d3331311");
+INSERT INTO O_ATTR
+	VALUES ("dbf1be50-3c78-4ccf-bf3b-f6af7b4462ff",
+	"09423687-e999-4aba-876d-35e0d3331311",
+	"fb1755f0-871d-4d03-878d-2456f78dbbd7",
+	'OOA_ID',
+	'Description: The identifier of the corresponding OOA model for this model (GD_MD).
+Full Name: OOA Model Identifier
+User_Visible:false',
+	'',
+	'OOA_ID',
+	0,
+	"a236c27f-17c7-4c99-8f25-f3efd03eaf0c",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
+	"0cd14c97-c661-47b7-a063-cf7c345d1bdc",
+	0,
+	"af61b674-5c60-451f-8e71-4938504496fc",
+	"10bbc508-5ab6-4f8d-9c6f-4dacad3822f3",
+	"e9b2d848-6cad-4566-adb2-64548fba8b49",
+	"db8e80b8-4914-49fc-b73a-c8a5848b6b3a",
+	"0e2fcd7a-841f-44e5-9a52-1ac74915731e",
+	"39ebba7a-3af8-4b78-bef5-2412e7a98c97",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Model Specification',
+	'OOA_Type',
+	'R9');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("af61b674-5c60-451f-8e71-4938504496fc",
+	"0cd14c97-c661-47b7-a063-cf7c345d1bdc",
+	0,
+	"10bbc508-5ab6-4f8d-9c6f-4dacad3822f3",
+	"db8e80b8-4914-49fc-b73a-c8a5848b6b3a",
+	'../Graphical Data.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("0e2fcd7a-841f-44e5-9a52-1ac74915731e",
+	"09423687-e999-4aba-876d-35e0d3331311",
+	"af61b674-5c60-451f-8e71-4938504496fc",
+	"0cd14c97-c661-47b7-a063-cf7c345d1bdc",
+	1,
+	'OOA_Type');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("af61b674-5c60-451f-8e71-4938504496fc",
+	"0cd14c97-c661-47b7-a063-cf7c345d1bdc",
+	'../Model Specification/Model Specification.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("0e2fcd7a-841f-44e5-9a52-1ac74915731e",
+	"09423687-e999-4aba-876d-35e0d3331311",
+	"dbf1be50-3c78-4ccf-bf3b-f6af7b4462ff",
+	'OOA_Type',
+	'User_Visible:false',
+	'',
+	'OOA_Type',
+	0,
+	"66164f00-293e-4c17-ab30-7972c7c57152",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("3c7d400a-503e-43ec-9325-5ab17f1b5c41",
+	"09423687-e999-4aba-876d-35e0d3331311");
+INSERT INTO O_BATTR
+	VALUES ("3c7d400a-503e-43ec-9325-5ab17f1b5c41",
+	"09423687-e999-4aba-876d-35e0d3331311");
+INSERT INTO O_ATTR
+	VALUES ("3c7d400a-503e-43ec-9325-5ab17f1b5c41",
+	"09423687-e999-4aba-876d-35e0d3331311",
+	"0e2fcd7a-841f-44e5-9a52-1ac74915731e",
+	'UseGlobalPrint',
+	'Description: Defines the print rules for the model.
+Full Name: Global Print Indicator
+Data Domain: If True, use the globally defined rules for printing this model.  If False, use the print rules defined by this model (PrintMode, PrintRows, PrintCols, IsLandscape, ZoomFontSize).
+User_Visible:false',
+	'',
+	'UseGlobalPrint',
+	0,
+	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("5fd087f2-4996-462f-b75e-36eceb9c7ecb",
+	"09423687-e999-4aba-876d-35e0d3331311");
+INSERT INTO O_BATTR
+	VALUES ("5fd087f2-4996-462f-b75e-36eceb9c7ecb",
+	"09423687-e999-4aba-876d-35e0d3331311");
+INSERT INTO O_ATTR
+	VALUES ("5fd087f2-4996-462f-b75e-36eceb9c7ecb",
+	"09423687-e999-4aba-876d-35e0d3331311",
+	"3c7d400a-503e-43ec-9325-5ab17f1b5c41",
+	'PrintMode',
+	'Description: Determines how a model is printed.
+Full Name: Print Mode Indicator
+Data Domain: If False, then use the PrintCols and PrintRows values to determine the size of the output.  If True, then use the ZoomFontSize to determine the size of the output.
+User_Visible:false',
+	'',
+	'PrintMode',
+	0,
+	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("ab2dc950-c5ea-4ccf-b577-7faab585d1c6",
+	"09423687-e999-4aba-876d-35e0d3331311");
+INSERT INTO O_BATTR
+	VALUES ("ab2dc950-c5ea-4ccf-b577-7faab585d1c6",
+	"09423687-e999-4aba-876d-35e0d3331311");
+INSERT INTO O_ATTR
+	VALUES ("ab2dc950-c5ea-4ccf-b577-7faab585d1c6",
+	"09423687-e999-4aba-876d-35e0d3331311",
+	"5fd087f2-4996-462f-b75e-36eceb9c7ecb",
+	'PrintRows',
+	'Description: When printing the model in mosaic mode, this is the number of rows that are printed.
+Full Name: Number of Print Rows
+User_Visible:false',
+	'',
+	'PrintRows',
+	0,
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("6afffb7d-de0b-40bb-8b16-f1bd7501dc6e",
+	"09423687-e999-4aba-876d-35e0d3331311");
+INSERT INTO O_BATTR
+	VALUES ("6afffb7d-de0b-40bb-8b16-f1bd7501dc6e",
+	"09423687-e999-4aba-876d-35e0d3331311");
+INSERT INTO O_ATTR
+	VALUES ("6afffb7d-de0b-40bb-8b16-f1bd7501dc6e",
+	"09423687-e999-4aba-876d-35e0d3331311",
+	"ab2dc950-c5ea-4ccf-b577-7faab585d1c6",
+	'PrintCols',
+	'Description: When printing the model in mosaic mode, this is the number of columns that are printed.
+Full Name: Number of Print Columns
+User_Visible:false',
+	'',
+	'PrintCols',
+	0,
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("b39380dc-8256-4915-a571-e7cb6d0ab7a9",
+	"09423687-e999-4aba-876d-35e0d3331311");
+INSERT INTO O_BATTR
+	VALUES ("b39380dc-8256-4915-a571-e7cb6d0ab7a9",
+	"09423687-e999-4aba-876d-35e0d3331311");
+INSERT INTO O_ATTR
+	VALUES ("b39380dc-8256-4915-a571-e7cb6d0ab7a9",
+	"09423687-e999-4aba-876d-35e0d3331311",
+	"6afffb7d-de0b-40bb-8b16-f1bd7501dc6e",
+	'IsLandscape',
+	'Description: Determines if printing in landscape or portrait mode.
+Full Name: Landscape Indicator
+Data Domain: If true, print the model using the landscape (long axis horizontal) orientation. If false, print the model using the portrait orientation.
+User_Visible:false',
+	'',
+	'IsLandscape',
+	0,
+	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("1f73f449-155c-4a45-a365-a045de43b652",
+	"09423687-e999-4aba-876d-35e0d3331311");
+INSERT INTO O_BATTR
+	VALUES ("1f73f449-155c-4a45-a365-a045de43b652",
+	"09423687-e999-4aba-876d-35e0d3331311");
+INSERT INTO O_ATTR
+	VALUES ("1f73f449-155c-4a45-a365-a045de43b652",
+	"09423687-e999-4aba-876d-35e0d3331311",
+	"b39380dc-8256-4915-a571-e7cb6d0ab7a9",
+	'ZoomFontSize',
+	'Description: When sizing the diagram, if the user requests Zoom to Font Size, use this font size to determine the zoom factor.
+Full Name: Zoom Font Size
+User_Visible:false',
+	'',
+	'ZoomFontSize',
+	0,
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("bfefdb72-69e6-42ba-a579-2ee1a429aa96",
+	"09423687-e999-4aba-876d-35e0d3331311");
+INSERT INTO O_BATTR
+	VALUES ("bfefdb72-69e6-42ba-a579-2ee1a429aa96",
+	"09423687-e999-4aba-876d-35e0d3331311");
+INSERT INTO O_ATTR
+	VALUES ("bfefdb72-69e6-42ba-a579-2ee1a429aa96",
+	"09423687-e999-4aba-876d-35e0d3331311",
+	"1f73f449-155c-4a45-a365-a045de43b652",
+	'GridOn',
+	'Description: Indicates if the grid should be shown.
+Full Name: Grid On Indicator
+Data Domain: If true, the drawing grid is shown on the model. If false, it is not.
+User_Visible:false',
+	'',
+	'GridOn',
+	0,
+	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("5daf1ef1-12e0-40d7-9890-219242341c9c",
+	"09423687-e999-4aba-876d-35e0d3331311");
+INSERT INTO O_BATTR
+	VALUES ("5daf1ef1-12e0-40d7-9890-219242341c9c",
+	"09423687-e999-4aba-876d-35e0d3331311");
+INSERT INTO O_ATTR
+	VALUES ("5daf1ef1-12e0-40d7-9890-219242341c9c",
+	"09423687-e999-4aba-876d-35e0d3331311",
+	"bfefdb72-69e6-42ba-a579-2ee1a429aa96",
+	'SelRectX',
+	'User_Visible:false',
+	'',
+	'SelRectX',
+	0,
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("d1dfbdd4-f1a2-49ad-a041-8b7284de1e65",
+	"09423687-e999-4aba-876d-35e0d3331311");
+INSERT INTO O_BATTR
+	VALUES ("d1dfbdd4-f1a2-49ad-a041-8b7284de1e65",
+	"09423687-e999-4aba-876d-35e0d3331311");
+INSERT INTO O_ATTR
+	VALUES ("d1dfbdd4-f1a2-49ad-a041-8b7284de1e65",
+	"09423687-e999-4aba-876d-35e0d3331311",
+	"5daf1ef1-12e0-40d7-9890-219242341c9c",
+	'SelRectY',
+	'User_Visible:false',
+	'',
+	'SelRectY',
+	0,
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("2c2aadce-4449-4d96-b04b-3a86a2b8baf9",
+	"09423687-e999-4aba-876d-35e0d3331311");
+INSERT INTO O_BATTR
+	VALUES ("2c2aadce-4449-4d96-b04b-3a86a2b8baf9",
+	"09423687-e999-4aba-876d-35e0d3331311");
+INSERT INTO O_ATTR
+	VALUES ("2c2aadce-4449-4d96-b04b-3a86a2b8baf9",
+	"09423687-e999-4aba-876d-35e0d3331311",
+	"d1dfbdd4-f1a2-49ad-a041-8b7284de1e65",
+	'SelRectW',
+	'User_Visible:false',
+	'',
+	'SelRectW',
+	0,
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("35973564-aa76-4e09-a2f3-ba1aea378a65",
+	"09423687-e999-4aba-876d-35e0d3331311");
+INSERT INTO O_BATTR
+	VALUES ("35973564-aa76-4e09-a2f3-ba1aea378a65",
+	"09423687-e999-4aba-876d-35e0d3331311");
+INSERT INTO O_ATTR
+	VALUES ("35973564-aa76-4e09-a2f3-ba1aea378a65",
+	"09423687-e999-4aba-876d-35e0d3331311",
+	"2c2aadce-4449-4d96-b04b-3a86a2b8baf9",
+	'SelRectH',
+	'User_Visible:false',
+	'',
+	'SelRectH',
+	0,
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("a26d4bd6-6e44-4c8e-9306-7cf5c4bf0879",
+	"09423687-e999-4aba-876d-35e0d3331311");
+INSERT INTO O_BATTR
+	VALUES ("a26d4bd6-6e44-4c8e-9306-7cf5c4bf0879",
+	"09423687-e999-4aba-876d-35e0d3331311");
+INSERT INTO O_ATTR
+	VALUES ("a26d4bd6-6e44-4c8e-9306-7cf5c4bf0879",
+	"09423687-e999-4aba-876d-35e0d3331311",
+	"35973564-aa76-4e09-a2f3-ba1aea378a65",
+	'represents',
+	'Full Name: Represented Element',
+	'',
+	'represents',
+	0,
+	"68dedb08-fd5a-420e-9ec7-e7985ad0c856",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("6bda1ed2-61cd-46d4-974c-cdb86c35bed3",
+	"09423687-e999-4aba-876d-35e0d3331311");
+INSERT INTO O_BATTR
+	VALUES ("6bda1ed2-61cd-46d4-974c-cdb86c35bed3",
+	"09423687-e999-4aba-876d-35e0d3331311");
+INSERT INTO O_ATTR
+	VALUES ("6bda1ed2-61cd-46d4-974c-cdb86c35bed3",
+	"09423687-e999-4aba-876d-35e0d3331311",
+	"a26d4bd6-6e44-4c8e-9306-7cf5c4bf0879",
+	'current_state',
+	'User_Visible:false',
+	'',
+	'current_state',
+	0,
+	"aae0ffdc-3a05-4c94-9878-331bc82097dd",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("aae0ffdc-3a05-4c94-9878-331bc82097dd",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'state<State_Model>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
+	"18112b9b-f650-403f-be5c-27e3bda6b9dd",
+	0,
+	"57f2fb06-0e5a-471e-bab1-02b88f324eb4",
+	"e7a8791c-cfa6-4f1b-b551-c3ac42d3d97f",
+	"1a0dd092-9bbc-451a-bcad-60cac028fe8b",
+	"8638bbbd-9397-4e8c-b28e-358a10a6fe20",
+	"d1783817-101b-46d1-b9a8-907ee4d5efe4",
+	"688ecd36-ebc1-47a7-9948-632ce8b12052",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Diagram',
+	'diagramId',
+	'R18');
+INSERT INTO R_RGO_PROXY
+	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
+	"e7a8791c-cfa6-4f1b-b551-c3ac42d3d97f",
+	"1a0dd092-9bbc-451a-bcad-60cac028fe8b",
+	'../Graphical Data.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("57f2fb06-0e5a-471e-bab1-02b88f324eb4",
+	"18112b9b-f650-403f-be5c-27e3bda6b9dd",
+	0,
+	"e7a8791c-cfa6-4f1b-b551-c3ac42d3d97f",
+	"8638bbbd-9397-4e8c-b28e-358a10a6fe20",
+	'../Graphical Data.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("d1783817-101b-46d1-b9a8-907ee4d5efe4",
+	"09423687-e999-4aba-876d-35e0d3331311",
+	"57f2fb06-0e5a-471e-bab1-02b88f324eb4",
+	"18112b9b-f650-403f-be5c-27e3bda6b9dd",
+	1,
+	'diagramId');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("57f2fb06-0e5a-471e-bab1-02b88f324eb4",
+	"18112b9b-f650-403f-be5c-27e3bda6b9dd",
+	'../../UML 2.0 Diagram Interchange/Diagram/Diagram.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("d1783817-101b-46d1-b9a8-907ee4d5efe4",
+	"09423687-e999-4aba-876d-35e0d3331311",
+	"00000000-0000-0000-0000-000000000000",
+	'diagramId',
+	'Not_participating_value: 0',
+	'',
+	'diagramId',
+	0,
+	"66164f00-293e-4c17-ab30-7972c7c57152",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("e9fe75c2-38ae-4bd8-ae70-f606af556d91",
+	"09423687-e999-4aba-876d-35e0d3331311");
+INSERT INTO O_BATTR
+	VALUES ("e9fe75c2-38ae-4bd8-ae70-f606af556d91",
+	"09423687-e999-4aba-876d-35e0d3331311");
+INSERT INTO O_ATTR
+	VALUES ("e9fe75c2-38ae-4bd8-ae70-f606af556d91",
+	"09423687-e999-4aba-876d-35e0d3331311",
+	"6bda1ed2-61cd-46d4-974c-cdb86c35bed3",
+	'version',
+	'Full Name: Data Version',
+	'',
+	'version',
+	0,
+	"17f3cd98-2d3a-4fe3-ac41-d27b377178a6",
+	'',
+	'');
+INSERT INTO O_DBATTR
+	VALUES ("370e12eb-2d5b-4282-83d5-88cb4c3e6c84",
+	"09423687-e999-4aba-876d-35e0d3331311",
+	'if(not CL::isEmpty(element:self.represents))
+  path = CL::getPath(element: self.represents);
+  if(path == "")
+    self.represents_path = self.getCachedRepresentsPath();
+  else
+    self.setCachedRepresentsPath(value:path);
+    self.represents_path = path;
+  end if;
+else
+  self.represents_path = self.getCachedRepresentsPath();
+end if;',
+	1);
+INSERT INTO O_BATTR
+	VALUES ("370e12eb-2d5b-4282-83d5-88cb4c3e6c84",
+	"09423687-e999-4aba-876d-35e0d3331311");
+INSERT INTO O_ATTR
+	VALUES ("370e12eb-2d5b-4282-83d5-88cb4c3e6c84",
+	"09423687-e999-4aba-876d-35e0d3331311",
+	"e9fe75c2-38ae-4bd8-ae70-f606af556d91",
+	'represents_path',
+	'User_Visible:false',
+	'',
+	'represents_path',
+	0,
+	"17f3cd98-2d3a-4fe3-ac41-d27b377178a6",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"09423687-e999-4aba-876d-35e0d3331311");
+INSERT INTO O_OIDA
+	VALUES ("d1783817-101b-46d1-b9a8-907ee4d5efe4",
+	"09423687-e999-4aba-876d-35e0d3331311",
+	0,
+	'diagramId');
+INSERT INTO O_ID
+	VALUES (1,
+	"09423687-e999-4aba-876d-35e0d3331311");
+INSERT INTO O_ID
+	VALUES (2,
+	"09423687-e999-4aba-876d-35e0d3331311");
+INSERT INTO S_SS_PROXY
+	VALUES ("b5695748-80fc-47fb-b5c7-801b5f28b907",
+	'Graphical Data',
+	'The GD (Graphics Domain) subsystem models the graphical elements for a BridgePoint model.
+-------------------------------------------------------
+Import:org.eclipse.swt.graphics.Color
+Notify_Changes:true',
+	'GD',
+	1,
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	"00000000-0000-0000-0000-000001900032",
+	'../Graphical Data.xtuml');

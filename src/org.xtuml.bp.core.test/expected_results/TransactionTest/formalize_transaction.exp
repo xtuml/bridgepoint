@@ -1,0 +1,62 @@
+Transaction started: Binary Formalize
+  instance of [core.ReferentialAttribute] UN-RelatedAcross R113 To:  instance of [core.BaseAttribute]
+  instance of [core.AttributeReferenceInClass] UN-RelatedAcross R108 To:  instance of [core.ReferentialAttribute]
+  instance of [core.AttributeReferenceInClass] UN-RelatedAcross R111 To:  instance of [core.ReferredToIdentifierAttribute]
+  instance of [core.AttributeReferenceInClass] UN-RelatedAcross R111 To:  instance of [core.ReferringClassInAssoc]
+ Deletion of instance of type: core.AttributeReferenceInClass
+  instance of [core.ReferentialAttribute] UN-RelatedAcross R106 To:  instance of [core.Attribute]
+ Deletion of instance of type: core.ReferentialAttribute
+  instance of [core.Attribute] UN-RelatedAcross R114 To:  instance of [core.DataType]
+  instance of [core.Attribute] UN-RelatedAcross R102 To:  instance of [core.ModelClass]
+ Deletion of instance of type: core.Attribute
+  instance of [core.ReferredToIdentifierAttribute] UN-RelatedAcross R110 To:  instance of [core.ClassIdentifierAttribute]
+  instance of [core.ReferredToIdentifierAttribute] UN-RelatedAcross R110 To:  instance of [core.ReferredToClassInAssoc]
+ Deletion of instance of type: core.ReferredToIdentifierAttribute
+  instance of [core.ReferredToClassInAssoc] UN-RelatedAcross R109 To:  instance of [core.ClassIdentifier]
+ Creation of instance of type: core.ReferredToClassInAssoc
+ Creation of instance of type: core.ClassAsSimpleParticipant
+  instance of [core.ReferredToClassInAssoc] RelatedAcross R203 To:  instance of [core.ClassInAssociation]
+  instance of [core.ClassAsSimpleParticipant] RelatedAcross R204 To:  instance of [core.ReferredToClassInAssoc]
+  instance of [core.ClassAsSimpleParticipant] RelatedAcross R207 To:  instance of [core.SimpleAssociation]
+  instance of [core.ClassAsSimpleFormalizer] UN-RelatedAcross R208 To:  instance of [core.SimpleAssociation]
+  instance of [core.ClassAsSimpleFormalizer] UN-RelatedAcross R205 To:  instance of [core.ReferringClassInAssoc]
+ Deletion of instance of type: core.ClassAsSimpleFormalizer
+  instance of [core.ReferringClassInAssoc] UN-RelatedAcross R203 To:  instance of [core.ClassInAssociation]
+ Deletion of instance of type: core.ReferringClassInAssoc
+ Creation of instance of type: core.ReferringClassInAssoc
+ Creation of instance of type: core.ClassAsSimpleFormalizer
+  instance of [core.ReferringClassInAssoc] RelatedAcross R203 To:  instance of [core.ClassInAssociation]
+  instance of [core.ClassAsSimpleFormalizer] RelatedAcross R205 To:  instance of [core.ReferringClassInAssoc]
+  instance of [core.ClassAsSimpleFormalizer] RelatedAcross R208 To:  instance of [core.SimpleAssociation]
+  instance of [core.ClassAsSimpleParticipant] UN-RelatedAcross R207 To:  instance of [core.SimpleAssociation]
+  instance of [core.ClassAsSimpleParticipant] UN-RelatedAcross R204 To:  instance of [core.ReferredToClassInAssoc]
+ Deletion of instance of type: core.ClassAsSimpleParticipant
+  instance of [core.ReferredToClassInAssoc] UN-RelatedAcross R203 To:  instance of [core.ClassInAssociation]
+ Deletion of instance of type: core.ReferredToClassInAssoc
+  instance of [core.ReferredToClassInAssoc] RelatedAcross R109 To:  instance of [core.ClassIdentifier]
+ Creation of instance of type: core.Attribute
+  instance of [core.Attribute] RelatedAcross R102 To:  instance of [core.ModelClass]
+ Attribute 'Root_nam' of core.Attribute changed ( '' -> 'id')
+  instance of [core.Attribute] RelatedAcross R114 To:  instance of [core.DataType]
+ Creation of instance of type: core.BaseAttribute
+  instance of [core.BaseAttribute] RelatedAcross R106 To:  instance of [core.Attribute]
+ Creation of instance of type: core.NewBaseAttribute
+  instance of [core.NewBaseAttribute] RelatedAcross R107 To:  instance of [core.BaseAttribute]
+  instance of [core.NewBaseAttribute] UN-RelatedAcross R107 To:  instance of [core.BaseAttribute]
+ Deletion of instance of type: core.NewBaseAttribute
+  instance of [core.BaseAttribute] UN-RelatedAcross R106 To:  instance of [core.Attribute]
+ Deletion of instance of type: core.BaseAttribute
+ Creation of instance of type: core.ReferentialAttribute
+ Attribute 'Ref_mode' of core.ReferentialAttribute changed ( '0' -> '1')
+  instance of [core.ReferentialAttribute] RelatedAcross R106 To:  instance of [core.Attribute]
+  instance of [core.Attribute] UN-RelatedAcross R114 To:  instance of [core.DataType]
+  instance of [core.Attribute] RelatedAcross R114 To:  instance of [core.DataType]
+  instance of [core.ReferentialAttribute] RelatedAcross R113 To:  instance of [core.BaseAttribute]
+ Creation of instance of type: core.ReferredToIdentifierAttribute
+  instance of [core.ReferredToIdentifierAttribute] RelatedAcross R110 To:  instance of [core.ClassIdentifierAttribute]
+  instance of [core.ReferredToIdentifierAttribute] RelatedAcross R110 To:  instance of [core.ReferredToClassInAssoc]
+ Creation of instance of type: core.AttributeReferenceInClass
+  instance of [core.AttributeReferenceInClass] RelatedAcross R108 To:  instance of [core.ReferentialAttribute]
+  instance of [core.AttributeReferenceInClass] RelatedAcross R111 To:  instance of [core.ReferredToIdentifierAttribute]
+  instance of [core.AttributeReferenceInClass] RelatedAcross R111 To:  instance of [core.ReferringClassInAssoc]
+Transaction Ended: Binary Formalize with delta size: 60

@@ -1,0 +1,2606 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("ab69f0d0-314a-4911-947c-2aaf3ed89428",
+	'Connector',
+	4,
+	'GD_CON',
+	'A connector represents a connection between two graphical elements.  The connection is represented by a set of lines.',
+	"b5695748-80fc-47fb-b5c7-801b5f28b907");
+INSERT INTO O_TFR
+	VALUES ("4d436cce-385f-4443-93a8-d435eb8026b5",
+	"ab69f0d0-314a-4911-947c-2aaf3ed89428",
+	'draw',
+	'Draws a connector by selecting all the segments
+and drawing them. This operation also takes care
+of obtaining and printing the fixed and floating text
+associated with a connector.',
+	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	1,
+	'select one con related by self->GD_GE[R2];
+//
+// Set the connector line style.
+// Most connectors are solid lines, but associative connectors are broken lines
+//
+GR::setLineStyle(context:param.context,
+                            new_style:CL::getConnectorStyle(from:con.represents, at:End::Middle));
+end_style = CL::getConnectorStyle(from:con.represents, at:End::End);
+hs = GR::getHotspotSize();
+semi_circle_radius = hs + 4;
+select one canvas related by con->GD_MD[R1];
+select one diagram related by canvas->DIM_DIA[R18];
+//
+// Draw the connector
+//
+
+// store filled square dimensions
+squareAdornmentOffset = 8;
+squareAdornmentWidth = 16;
+squareAdornmentHeight = 16;
+
+adjustStartAdornment = false;
+adjustEndAdornment = false;
+draw_x = 0;
+draw_y = 0;
+draw_x2 = 0;
+draw_y2 = 0;
+
+adornment_x = 0;
+adornment_y = 0;
+adornment_x2 = 0;
+adornment_y2 = 0;
+
+select many segments related by self->GD_LS[R6];
+end_segment_id = self.getEndingSegmentId();
+start_segment_id = self.getStartingSegmentId();
+select any startSegment related by self->GD_LS[R6] where (selected.elementId == start_segment_id);
+select any endSegment related by self->GD_LS[R6] where (selected.elementId == end_segment_id);
+for each con_segment in segments
+  //
+  // Correct for scroll position
+  //
+  select one segmentStart related by con_segment->DIM_WAY[R21];
+  select one segmentEnd related by con_segment->DIM_WAY[R22];
+
+  x = segmentStart.positionX  - diagram.viewportX;
+  y = segmentStart.positionY - diagram.viewportY;
+  x2 = segmentEnd.positionX  - diagram.viewportX;
+  y2 = segmentEnd.positionY - diagram.viewportY;
+  
+  draw_x = x;
+  draw_y = y;
+  draw_x2 = x2;
+  draw_y2 = y2;
+  
+  if(con_segment == startSegment)
+    // if this connector starts on another connector
+    // which has an style at the connection end which equals
+    // Style::FilledSquare, we need to draw the segment point
+    // to the edge of the filled square
+    select one anchor related by self->DIM_ED[R20]->DIM_CON[R320];
+    if(not_empty anchor)
+      select one anchorCon related by anchor->GD_AOS[R26]->GD_LS[R26]->GD_CON[R6];
+      if(not_empty anchorCon)
+        select one anchorGE related by anchorCon->GD_GE[R2];
+        select one thisSpec related by self->GD_GE[R2]->GD_ES[R10];
+        select one anchorSpec related by anchorGE->GD_ES[R10];
+        select any connectorTerminal related by thisSpec->TS_CSP[R200]->TS_TSP[R202]->TS_CNT[R201]
+      		where (selected.OOA_Type == anchorGE.OOA_Type);
+        if(not_empty connectorTerminal)
+    	   intersectX = ::getIntersectionOfSegmentWithSquare(considerLine:false, axis:Axis::X,
+					squareH:squareAdornmentHeight, squareW:squareAdornmentWidth,
+					squareX:x - squareAdornmentOffset, squareY:y - squareAdornmentOffset, x1:x,
+					x2:x2, y1:y, y2:y2);
+    	   intersectY = ::getIntersectionOfSegmentWithSquare(considerLine:false, axis:Axis::Y,
+					squareH:squareAdornmentHeight, squareW:squareAdornmentWidth,
+					squareX:x - squareAdornmentOffset, squareY:y - squareAdornmentOffset, x1:x,
+					x2:x2, y1:y, y2:y2);
+		  if(intersectX == 0 or intersectY == 0)
+		    // if the intersection is 0 then there
+		    // is actually no line left, due to the
+		    // size being shrunk to nothing
+		    // do not adjust the location
+		    continue;
+		  end if;
+          if(connectorTerminal.terminatesAt == End::Start)
+            anchorStyle = CL::getConnectorStyle(at:End::Start, from:anchorGE.represents);
+            if(anchorStyle == Style::FilledSquare)
+              adjustStartAdornment = true;
+			  draw_x = intersectX;
+			  draw_y = intersectY;
+			  adornment_x = draw_x;
+			  adornment_y = draw_y;
+            end if;
+          elif(connectorTerminal.terminatesAt == End::End)
+            anchorStyle = CL::getConnectorStyle(at:End::End, from:anchorGE.represents);
+            if(anchorStyle == Style::FilledSquare)
+              adjustStartAdornment = true;
+			  draw_x = intersectX;
+			  draw_y = intersectY;
+			  adornment_x = draw_x;
+			  adornment_y = draw_y;
+            end if;        
+          end if;
+        end if;
+      end if;
+    end if;
+  end if;
+  
+  // if this is the last segment we need to shorten
+  // the line for certain styles
+  if(con_segment == endSegment)
+    // if this connector ends on another connector
+    // which has an style at the connection end which equals
+    // Style::FilledSquare, we need to draw the segment point
+    // to the edge of the filled square
+    select one anchor related by self->DIM_ED[R20]->DIM_CON[R321];
+    if(not_empty anchor)
+      select one anchorCon related by anchor->GD_AOS[R26]->GD_LS[R26]->GD_CON[R6];
+      if(not_empty anchorCon)
+        select one anchorGE related by anchorCon->GD_GE[R2];
+        select one thisSpec related by self->GD_GE[R2]->GD_ES[R10];
+        select one anchorSpec related by anchorGE->GD_ES[R10];
+        select any connectorTerminal related by thisSpec->TS_CSP[R200]->TS_TSP[R203]->TS_CNT[R201]
+      		where (selected.OOA_Type == anchorGE.OOA_Type);
+        if(not_empty connectorTerminal)
+    	   intersectX = ::getIntersectionOfSegmentWithSquare(considerLine:false, axis:Axis::X,
+					squareH:squareAdornmentHeight, squareW:squareAdornmentWidth,
+					squareX:x2 - squareAdornmentOffset, squareY:y2 - squareAdornmentOffset, x1:x,
+					x2:x2, y1:y, y2:y2);
+    	   intersectY = ::getIntersectionOfSegmentWithSquare(considerLine:false, axis:Axis::Y,
+					squareH:squareAdornmentHeight, squareW:squareAdornmentWidth,
+					squareX:x2 - squareAdornmentOffset, squareY:y2 - squareAdornmentOffset, x1:x,
+					x2:x2, y1:y, y2:y2);
+		  if(intersectX == 0 or intersectY == 0)
+		    // if the intersection is 0 then there
+		    // is actually no line left, due to the
+		    // size being shrunk to nothing
+		    // do not adjust the location
+		    continue;
+		  end if;
+          if(connectorTerminal.terminatesAt == End::Start)
+            anchorStyle = CL::getConnectorStyle(at:End::Start, from:anchorGE.represents);
+            if(anchorStyle == Style::FilledSquare)
+              adjustEndAdornment = true;
+			  draw_x2 = intersectX;
+			  draw_y2 = intersectY;
+			  adornment_x2 = draw_x2;
+			  adornment_y2 = draw_y2;   
+            end if;
+          elif(connectorTerminal.terminatesAt == End::End)
+            anchorStyle = CL::getConnectorStyle(at:End::End, from:anchorGE.represents);
+            if(anchorStyle == Style::FilledSquare)
+              adjustEndAdornment = true;
+			  draw_x2 = intersectX;
+			  draw_y2 = intersectY;
+			  adornment_x2 = draw_x2;
+			  adornment_y2 = draw_y2;   
+            end if;        
+          end if;
+        end if;
+      end if;
+    end if;
+    if(end_style == Style::SemiCircle) or (end_style == Style::Circle)
+		// find the intersection point of the circle that will
+		// decorate the end of this connector, drawing the line
+		// only to that point
+		radius = hs;
+		if(end_style == Style::SemiCircle)
+		  radius = semi_circle_radius;
+		end if;
+		ellipseH = radius * 2;
+		ellipseW = ellipseH;
+		ellipseX = x2 - radius;
+		ellipseY = y2 - radius;
+		angle = GR::getAngle(x1:x, x2:x2, y1:y, y2:y2);
+		result_x = ::getIntersectionOfSegmentWithEllipse(ellipseH:ellipseH,
+								ellipseW:ellipseW, ellipseX:ellipseX, ellipseY:ellipseY,
+								x:x, x2:x2, y:y, y2:y2, considerLine:false, axis:Axis::X);
+		result_y = ::getIntersectionOfSegmentWithEllipse(ellipseH:ellipseH,
+								ellipseW:ellipseW, ellipseX:ellipseX, ellipseY:ellipseY,
+								x:x, x2:x2, y:y, y2:y2, considerLine:false, axis:Axis::Y);
+	   	draw_x2 = result_x;
+	   	draw_y2 = result_y;
+    end if;
+  end if;
+  GR::drawLine(context:param.context, x:draw_x, y:draw_y,x2:draw_x2,y2:draw_y2);
+  select one elem related by self->GD_GE[R2];
+  if (elem.isSelected()  and not param.disable_selection)
+    GR::drawFlexHandles(context:param.context, x:x, y:y, radius:GR::getHotspotSize());
+    select one nextSegment related by con_segment->GD_LS[R7.''precedes''];
+    if (empty nextSegment)
+      //
+      // Only draw the end point on the last segment
+      //
+    GR::drawFlexHandles(context:param.context, x:x2, y:y2, radius:GR::getHotspotSize());
+    end if;
+  end if;
+end for;
+GR::setLineStyle(context:param.context, new_style:Style::Solid);
+//
+// Draw text phrases
+//
+// Start text
+//
+Startx1 = 0.; Starty1 = 0.; Startx2 = 0.; Starty2 = 0.;
+select one startElem related by self->DIM_ED[R20]->DIM_CON[R320]->DIM_GE[R311]->GD_GE[R23];
+select any seg related by self->GD_LS[R6] 
+    where ( selected.Previous_elementId == OS::NULL_UNIQUE_ID() );
+start_OOA_ID = OS::NULL_UNIQUE_ID();
+start_OOA_Type = OOAType::None;
+if (not_empty startElem)
+  start_OOA_ID = startElem.OOA_ID;
+  start_OOA_Type = startElem.OOA_Type;
+end if;
+//
+// Correct for scroll position
+//
+select one segmentStart related by seg->DIM_WAY[R21];
+select one segmentEnd related by seg->DIM_WAY[R22];
+Startx1 = segmentStart.positionX  - diagram.viewportX;
+Starty1 = segmentStart.positionY - diagram.viewportY;
+Startx2 = segmentEnd.positionX  - diagram.viewportX;
+Starty2 = segmentEnd.positionY - diagram.viewportY;
+if(adjustStartAdornment)
+  Startx1 = adornment_x;
+  Starty1 = adornment_y;
+end if;
+select one canvas related by self->GD_GE[R2]->GD_MD[R1];
+self.drawText(context:param.context,
+                      text:CL::getConnectorText(from:con.represents, end_OOA_ID:start_OOA_ID,
+                                                                  end_OOA_IsImportedClass:start_OOA_Type == OOAType::ImportedClass,
+                                                                  at:End::Start, parent:CL::getOOAId(from:canvas.represents)),
+                      x1:Startx1, y1:Starty1, x2:Startx2, y2:Starty2, at:End::Start, disable_selection:param.disable_selection);
+self.drawFixedText(context:param.context,
+                               text:CL::getConnectorText(from:con.represents, end_OOA_ID:start_OOA_ID,
+                                                                  end_OOA_IsImportedClass:start_OOA_Type == OOAType::ImportedClass,
+                                                                  at:End::Start_Fixed, parent:CL::getOOAId(from:canvas.represents)),
+                      x1:Startx1, y1:Starty1, x2:Startx2, y2:Starty2, at:End::Start_Fixed);
+if (CL::getConnectorStyle(from:con.represents, at:End::Start) == Style::Triangle)
+  angle = GR::getAngle(x1:Startx1, y1:Starty1, x2:Startx2, y2:Starty2);
+  GR::drawTriangle(context:param.context,x:Startx1, y:Starty1, rotation:angle);
+end if;
+//
+// Middle Text
+//
+middle_OOA_ID = OS::NULL_UNIQUE_ID();
+segCount = cardinality segments;
+segCount = segCount /2;
+while (segCount > 1)
+  select one seg related by seg->GD_LS[R7.''precedes''];
+  segCount = segCount - 1;
+end while;
+//
+// Correct for scroll position
+//
+select one segmentStart related by seg->DIM_WAY[R21];
+select one segmentEnd related by seg->DIM_WAY[R22];
+Middlex1 = segmentStart.positionX  - diagram.viewportX;
+Middley1 = segmentStart.positionY - diagram.viewportY;
+Middlex2 = segmentEnd.positionX  - diagram.viewportX;
+Middley2 = segmentEnd.positionY - diagram.viewportY;
+self.drawText(context:param.context,
+                        text:CL::getConnectorText(from:con.represents, end_OOA_ID:middle_OOA_ID, 
+                                                                   end_OOA_IsImportedClass:false, at:End::Middle, parent:CL::getOOAId(from:canvas.represents)),
+                        x1:Middlex1, y1:Middley1, x2:Middlex2, y2:Middley2, at:End::Middle, disable_selection:param.disable_selection);
+//
+// End Text
+//
+select one endElem related by self->DIM_ED[R20]->DIM_CON[R321]->DIM_GE[R311]->GD_GE[R23];
+end_OOA_ID = OS::NULL_UNIQUE_ID();
+end_OOA_Type = OOAType::None;
+if (not_empty endElem)
+  end_OOA_ID = endElem.OOA_ID;
+  end_OOA_Type = endElem.OOA_Type;
+end if;
+select any seg related by self->GD_LS[R6]
+    where ( selected.Previous_elementId == OS::NULL_UNIQUE_ID() );
+segCount = cardinality segments;
+while (segCount > 1)
+  select one seg related by seg->GD_LS[R7.''precedes''];
+  segCount = segCount - 1;
+end while;
+//
+// Correct for scroll position
+//
+select one segmentStart related by seg->DIM_WAY[R21];
+select one segmentEnd related by seg->DIM_WAY[R22];
+Endx1 = segmentStart.positionX  - diagram.viewportX;
+Endy1 = segmentStart.positionY - diagram.viewportY;
+Endx2 = segmentEnd.positionX  - diagram.viewportX;
+Endy2 = segmentEnd.positionY - diagram.viewportY;
+if(adjustEndAdornment)
+  Endx2 = adornment_x2;
+  Endy2 = adornment_y2;
+end if;
+self.drawText(context:param.context,
+                        text:CL::getConnectorText(from:con.represents, end_OOA_ID:end_OOA_ID,
+                                                                   end_OOA_IsImportedClass:end_OOA_Type == OOAType::ImportedClass,
+                                                                   at:End::End, parent:CL::getOOAId(from:canvas.represents)),
+                        x1:Endx1, y1:Endy1, x2:Endx2, y2:Endy2, at:End::End, disable_selection:param.disable_selection);
+self.drawFixedText(context:param.context,
+                                 text:CL::getConnectorText(from:con.represents, end_OOA_ID:end_OOA_ID,
+                                                                    end_OOA_IsImportedClass:end_OOA_Type == OOAType::ImportedClass,
+                                                                    at:End::End_Fixed, parent:CL::getOOAId(from:canvas.represents)),
+                        x1:Endx1, y1:Endy1, x2:Endx2, y2:Endy2, at:End::End_Fixed);
+//
+// Adornments
+//
+style = CL::getConnectorStyle(from:con.represents, at:End::Start);
+angle = GR::getAngle(x1:Startx1, y1:Starty1, x2:Startx2, y2:Starty2);
+if ( style == Style::OpenArrow)
+  GR::drawArrow(context:param.context,x:Startx1, y:Starty1, rotation:angle, filled:false);
+elif (style == Style::FilledArrow)
+  //GR::setFillTo(context:param.context, new:todo);
+  GR::drawArrow(context:param.context,x:Startx1, y:Starty1, rotation:angle, filled:true);
+  GR::setDefaultFill(context:param.context);
+elif(style == Style::FilledSquare)
+  GR::drawRect(context:param.context, x:Startx1 - squareAdornmentOffset, y:Starty1 - squareAdornmentOffset, w:squareAdornmentWidth, h:squareAdornmentHeight, filled:true);
+end if;
+hs = GR::getHotspotSize();
+style = CL::getConnectorStyle(from:con.represents, at:End::End);
+// Note start and end points are reversed because this adornment is on the end
+angle = GR::getAngle(x1:Endx2, y1:Endy2, x2:Endx1, y2:Endy1);
+if ( style == Style::OpenArrow)
+  GR::drawArrow(context:param.context,x:Endx2, y:Endy2, rotation:angle, filled:false);
+elif(style == Style::Triangle)
+  GR::drawTriangle(context:param.context,x:Endx2, y:Endy2, rotation:angle);
+elif (style == Style::FilledArrow)
+  //GR::setFillTo(context:param.context, new:todo);
+  GR::drawArrow(context:param.context,x:Endx2, y:Endy2, rotation:angle, filled:true);
+  GR::setDefaultFill(context:param.context);
+elif(style == Style::FilledSquare)
+  GR::drawRect(context:param.context, x:Endx2 - squareAdornmentOffset, y:Endy2 - squareAdornmentOffset, w:squareAdornmentWidth, h:squareAdornmentHeight, filled:true);
+elif(style == Style::Circle)
+  GR::drawCircle(context:param.context,x:Endx2, y:Endy2, radius:hs, filled:false);
+elif(style == Style::SemiCircle)
+  GR::drawSemiCircle(context:param.context,x:Endx2, y:Endy2, radius:semi_circle_radius, filled:false, rotation:angle);
+end if;
+
+if (CL::getConnectorStyle(from:con.represents, at:End::Start) == Style::FilledCircle)
+  GR::drawCircle(context:param.context,x:Startx1, y:Starty1, radius:hs, filled:true);
+end if;
+if (CL::getConnectorStyle(from:con.represents, at:End::End) == Style::FilledCircle)
+  GR::drawCircle(context:param.context,x:Endx2, y:Endy2, radius:hs, filled:true);
+end if;
+if(CL::getConnectorStyle(from:con.represents, at:End::End) == Style::Cross)
+  angle = GR::getAngle(x1:Endx1, y1:Endy1, x2:Endx2, y2:Endy2);
+  GR::drawCross(context:param.context,x:Endx2, y:Endy2, rotation:angle);
+end if;',
+	1,
+	'',
+	"e2c914e5-151e-4f37-834e-b17eb7bda6d3");
+INSERT INTO O_TPARM
+	VALUES ("d3f2d494-3b41-44f0-92bb-b4a413a0848e",
+	"4d436cce-385f-4443-93a8-d435eb8026b5",
+	'context',
+	"231cb314-a496-47fb-aee2-1317be81deb5",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("231cb314-a496-47fb-aee2-1317be81deb5",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'GCDelegate',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TPARM
+	VALUES ("e3ad9f32-9740-420d-97af-8d261c069728",
+	"4d436cce-385f-4443-93a8-d435eb8026b5",
+	'disable_selection',
+	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	0,
+	'',
+	"d3f2d494-3b41-44f0-92bb-b4a413a0848e",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'boolean',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO S_DT_PROXY
+	VALUES ("3852f90c-88c5-467d-9b26-57c8cd438b42",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'void',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("c1f660cd-9fa0-4d20-a908-3510d27bc389",
+	"ab69f0d0-314a-4911-947c-2aaf3ed89428",
+	'drawText',
+	'Draws the floating text at each end and at the center point
+of a connector. Floating text can be moved by the user. If
+it has been moved, non-zero values are found in the associated
+Connector Text (C_TXT) instance for the relevant text block.',
+	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	1,
+	'if (param.text != "")
+  select any con_text related by self->GD_CTXT[R8] where selected.end == param.at;
+  if (not_empty con_text)
+    con_text.drawText(context: param.context, text: param.text, at: param.at,
+       disable_selection: param.disable_selection, x1: param.x1, y1: param.y1,
+       x2: param.x2, y2: param.y2 );
+  end if;
+end if;',
+	1,
+	'',
+	"16cb5d9b-2c7f-4de6-9991-6781001fd212");
+INSERT INTO O_TPARM
+	VALUES ("38c43a24-6b80-46a8-bb9e-9f9e4a2f294a",
+	"c1f660cd-9fa0-4d20-a908-3510d27bc389",
+	'context',
+	"231cb314-a496-47fb-aee2-1317be81deb5",
+	0,
+	'',
+	"f953db27-43e9-477a-af91-ec050c744800",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("d215389d-a14f-41fb-924c-f18829a4b5c4",
+	"c1f660cd-9fa0-4d20-a908-3510d27bc389",
+	'text',
+	"17f3cd98-2d3a-4fe3-ac41-d27b377178a6",
+	0,
+	'',
+	"306a35d9-ca53-42bb-b2b9-46a2fdbe5e64",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("17f3cd98-2d3a-4fe3-ac41-d27b377178a6",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'string',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TPARM
+	VALUES ("e55587f4-fbc0-4416-8489-dfa2eaee4fb7",
+	"c1f660cd-9fa0-4d20-a908-3510d27bc389",
+	'x1',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"d215389d-a14f-41fb-924c-f18829a4b5c4",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("388cd7a2-2d0c-4f02-9730-7670074de394",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'integer',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TPARM
+	VALUES ("390187de-3889-4527-ba89-1f80bf3d93d9",
+	"c1f660cd-9fa0-4d20-a908-3510d27bc389",
+	'y1',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"b442ed9f-3a77-4ce7-bc4b-8a30ff4d4b5d",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("b442ed9f-3a77-4ce7-bc4b-8a30ff4d4b5d",
+	"c1f660cd-9fa0-4d20-a908-3510d27bc389",
+	'x2',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"e55587f4-fbc0-4416-8489-dfa2eaee4fb7",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("2025c826-811f-45ab-b89c-e0a75fa320e2",
+	"c1f660cd-9fa0-4d20-a908-3510d27bc389",
+	'y2',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"390187de-3889-4527-ba89-1f80bf3d93d9",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("f953db27-43e9-477a-af91-ec050c744800",
+	"c1f660cd-9fa0-4d20-a908-3510d27bc389",
+	'at',
+	"ae246926-3437-45e4-9232-bcc0952dbcee",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("ae246926-3437-45e4-9232-bcc0952dbcee",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'End',
+	'Translate:false',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TPARM
+	VALUES ("306a35d9-ca53-42bb-b2b9-46a2fdbe5e64",
+	"c1f660cd-9fa0-4d20-a908-3510d27bc389",
+	'disable_selection',
+	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	0,
+	'',
+	"38c43a24-6b80-46a8-bb9e-9f9e4a2f294a",
+	'');
+INSERT INTO O_TFR
+	VALUES ("16cb5d9b-2c7f-4de6-9991-6781001fd212",
+	"ab69f0d0-314a-4911-947c-2aaf3ed89428",
+	'drawFixedText',
+	'Draws the fixed text at each end of the connector.
+Fixed text stays at a fixed offset from the connectors
+endpoint. It cannot be moved by the user.',
+	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	1,
+	'if (param.text != "")
+  angle = 0.0;
+  text_x = 0;
+  text_y = 0;
+  if (param.at == End::Start_Fixed)
+    text_x = param.x1;
+    text_y = param.y1;
+    angle = GR::getAngle(x1:param.x1,y1:param.y1,x2:param.x2,y2:param.y2) ;
+  else // param.at == End::End_Fixed
+    text_x = param.x2;
+    text_y = param.y2;
+    angle = GR::getAngle(x1:param.x2,y1:param.y2,x2:param.x1,y2:param.y1) ;
+  end if;
+  end = End::Start;
+  if(param.at == End::End_Fixed)
+    end = End::End;
+  end if;
+  select one ge related by self->GD_GE[R2];
+  style = CL::getConnectorStyle(at:end, from:ge.represents);
+  spacing = GR::getGraphicSpacing();
+  if(style == Style::FilledSquare)
+    spacing = spacing + 3;
+  end if;
+  dir = GR::getDirection(angle:angle);
+  if (dir == Direction::East)
+    text_x = text_x + spacing;
+    text_y = text_y - spacing - GR::getTextExtent(context:param.context, 
+                                                                      text:param.text, axis:Axis::Y);
+  elif (dir == Direction::South)
+    text_x = text_x - spacing - GR::getTextExtent(context:param.context, 
+                                                                      text:param.text, axis:Axis::X);
+    text_y = text_y + spacing;
+  else // dir == Direction::North OR dir == Direction::West
+    text_x = text_x - spacing  - GR::getTextExtent(context:param.context, 
+                                                                      text:param.text, axis:Axis::X);
+    text_y = text_y - spacing - GR::getTextExtent(context:param.context, 
+                                                                      text:param.text, axis:Axis::Y);
+  end if;
+  GR::drawText(context:param.context, 
+                           text:param.text,
+                           x:text_x,
+                           y:text_y,
+                           justified_to:Justification::Left, text_style:Style::None);
+end if;
+',
+	1,
+	'',
+	"4d436cce-385f-4443-93a8-d435eb8026b5");
+INSERT INTO O_TPARM
+	VALUES ("fb6180bd-8c9b-4008-aef6-28b0a1867a45",
+	"16cb5d9b-2c7f-4de6-9991-6781001fd212",
+	'context',
+	"231cb314-a496-47fb-aee2-1317be81deb5",
+	0,
+	'',
+	"7cb0b100-d69b-4b1d-9f88-ffe00d17aa67",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("842f6d3a-ef7c-4caa-8bf6-5117ba035d0d",
+	"16cb5d9b-2c7f-4de6-9991-6781001fd212",
+	'text',
+	"17f3cd98-2d3a-4fe3-ac41-d27b377178a6",
+	0,
+	'',
+	"fb6180bd-8c9b-4008-aef6-28b0a1867a45",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("93b4c257-ded8-4da5-9f69-576a7cdb43fd",
+	"16cb5d9b-2c7f-4de6-9991-6781001fd212",
+	'x1',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"842f6d3a-ef7c-4caa-8bf6-5117ba035d0d",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("8f2fba77-db78-4a35-a089-3940d87c649d",
+	"16cb5d9b-2c7f-4de6-9991-6781001fd212",
+	'y1',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"cc5a88fe-af3c-49f7-bb6d-52db71150584",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("cc5a88fe-af3c-49f7-bb6d-52db71150584",
+	"16cb5d9b-2c7f-4de6-9991-6781001fd212",
+	'x2',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"93b4c257-ded8-4da5-9f69-576a7cdb43fd",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("95eecdb8-173a-4dda-9e22-c5bc6c3be903",
+	"16cb5d9b-2c7f-4de6-9991-6781001fd212",
+	'y2',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"8f2fba77-db78-4a35-a089-3940d87c649d",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("7cb0b100-d69b-4b1d-9f88-ffe00d17aa67",
+	"16cb5d9b-2c7f-4de6-9991-6781001fd212",
+	'at',
+	"ae246926-3437-45e4-9232-bcc0952dbcee",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("85ffd372-98ea-4a3f-9c7b-5c607be9a877",
+	"ab69f0d0-314a-4911-947c-2aaf3ed89428",
+	'isOver',
+	'',
+	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	1,
+	'select one canvas related by self->GD_GE[R2]->GD_MD[R1];
+select many segs related by self->GD_LS[R6];
+scaled_x = GR::scale(value:param.x);
+scaled_y = GR::scale(value:param.y);
+for each seg in segs
+  if (seg.isOver(x:scaled_x, y:scaled_y))
+    return true;
+  end if;
+end for;
+select many texts related by self->GD_CTXT[R8];
+for each text in texts
+  if (text.isOver(scaled_x:scaled_x, scaled_y:scaled_y))
+    return true;
+  end if;
+end for;
+return false;',
+	1,
+	'',
+	"fc9a549b-767e-45ba-a7e7-1012045811e6");
+INSERT INTO O_TPARM
+	VALUES ("f2bdf2b4-4408-4e18-8245-c3f3c64b64dd",
+	"85ffd372-98ea-4a3f-9c7b-5c607be9a877",
+	'x',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("eef9c716-b8ae-4678-8ba1-a1bc65dc9d47",
+	"85ffd372-98ea-4a3f-9c7b-5c607be9a877",
+	'y',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"f2bdf2b4-4408-4e18-8245-c3f3c64b64dd",
+	'');
+INSERT INTO O_TFR
+	VALUES ("424ad60c-88de-43c0-a082-1e521b96d2d3",
+	"ab69f0d0-314a-4911-947c-2aaf3ed89428",
+	'moveStart',
+	'',
+	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	1,
+	'if (self.isEndSelected() or self.endsOnWS())
+  //
+  // Both ends are selected or the connector ends/starts in whitespace.
+  // Either way, move the whole thing
+  //
+  // Note that this also covers the reflexive connector case, since the
+  // element being moved is selected and will be at both ends.
+  //
+  // Do the move only from the perspective of the start shape so that the
+  // connector is only moved once (ie do nothing for this case in moveEnd).
+  //
+  select many segments related by self->GD_LS[R6];
+  for each segment in segments
+    // if there is a segment following this one
+    select one nextSegment related by segment->GD_LS[R7.''precedes''];
+    if (not_empty nextSegment)
+      // move the start of this segment
+      segment.moveStart(xDelta:param.xDelta, yDelta:param.yDelta, snapToGrid:param.snapToGrid);
+      
+      // move the text associated with this segment
+      segment.moveMiddleText(xDelta:param.xDelta, yDelta:param.yDelta);
+              
+    else  // otherwise, there is no next segment
+      //
+      // if the connector ends in whitespace
+      if(self.endsOnWS())
+      
+        // move both endpoints of the segment
+        segment.move(xDelta:param.xDelta, yDelta:param.yDelta, snapToGrid:param.snapToGrid);
+        
+      else  // otherwise, the connector ends on a element
+        //
+        // Connector ends on a shape, only move the start of the segment,
+        // if the connected to shape is moving, it will command the other 
+        // end to be moved.
+        //
+        segment.moveStart(xDelta:param.xDelta, yDelta:param.yDelta, snapToGrid:param.snapToGrid);
+      end if;
+    end if;    
+  end for;
+else
+  //
+  // Only one end is selected, just move the first segment
+  //
+  select many segments related by self->GD_LS[R6];
+  for each segment in segments
+    if (segment.Previous_elementId == OS::NULL_UNIQUE_ID() )
+      segment.moveStart(xDelta:param.xDelta, yDelta:param.yDelta, snapToGrid:param.snapToGrid);
+    end if;
+  end for;
+end if;',
+	1,
+	'',
+	"6ea30434-add9-43de-a06a-5bf315a5fb56");
+INSERT INTO O_TPARM
+	VALUES ("5c58f1a8-93a9-4c0d-bccd-48cecfec7c7c",
+	"424ad60c-88de-43c0-a082-1e521b96d2d3",
+	'xDelta',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"827d1d00-be11-4ce5-89f4-6d732e7edff7",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("6af9ec06-0cd5-40a5-9e11-b6755dd91831",
+	"424ad60c-88de-43c0-a082-1e521b96d2d3",
+	'yDelta',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"5c58f1a8-93a9-4c0d-bccd-48cecfec7c7c",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("827d1d00-be11-4ce5-89f4-6d732e7edff7",
+	"424ad60c-88de-43c0-a082-1e521b96d2d3",
+	'snapToGrid',
+	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("6ea30434-add9-43de-a06a-5bf315a5fb56",
+	"ab69f0d0-314a-4911-947c-2aaf3ed89428",
+	'moveEnd',
+	'',
+	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	1,
+	'// if the connector starts on white space
+// move the whole thing
+if(self.startsOnWS())
+  select any firstSegment related by self->GD_LS[R6] where (selected.elementId == self.getStartingSegmentId());
+  select many segments related by self->GD_LS[R6];
+  for each segment in segments
+    if (segment != firstSegment)
+      // move each segments end point
+      segment.moveEnd(xDelta:param.xDelta, yDelta:param.yDelta, snapToGrid:param.snapToGrid);
+      // move the middle text associated with this segment
+      segment.moveMiddleText(xDelta:param.xDelta, yDelta:param.yDelta);
+    else
+      // otherwise this is the first segment which
+      // needs the start and end moved
+      segment.move(xDelta:param.xDelta, yDelta:param.yDelta, snapToGrid:param.snapToGrid);
+    end if;
+  end for;
+else
+  // otherwise only move the last segment
+  select many segments related by self->GD_LS[R6];
+  for each segment in segments
+    select one nextSegment related by segment->GD_LS[R7.''precedes''];
+    if (empty nextSegment)
+      segment.moveEnd(xDelta:param.xDelta, yDelta:param.yDelta, snapToGrid:param.snapToGrid);
+    end if;
+  end for;
+end if;',
+	1,
+	'',
+	"28289ee6-51be-436d-a0a3-e75b48752750");
+INSERT INTO O_TPARM
+	VALUES ("2266cc1b-11af-41da-b677-91af0e2bd76d",
+	"6ea30434-add9-43de-a06a-5bf315a5fb56",
+	'xDelta',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"9d5e4574-dd8c-4a55-b0ce-5d7ae4220201",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("c1788176-beaa-403e-aead-983976a73cc6",
+	"6ea30434-add9-43de-a06a-5bf315a5fb56",
+	'yDelta',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"2266cc1b-11af-41da-b677-91af0e2bd76d",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("9d5e4574-dd8c-4a55-b0ce-5d7ae4220201",
+	"6ea30434-add9-43de-a06a-5bf315a5fb56",
+	'snapToGrid',
+	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("fc9a549b-767e-45ba-a7e7-1012045811e6",
+	"ab69f0d0-314a-4911-947c-2aaf3ed89428",
+	'isInside',
+	'',
+	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	1,
+	'select one canvas related by self->GD_GE[R2]->GD_MD[R1];
+result = true;
+select many segs related by self->GD_LS[R6];
+for each seg in segs
+  select one segStart related by seg->DIM_WAY[R21];
+  select one segEnd related by seg->DIM_WAY[R22];
+  startX = segStart.positionX;
+  startY = segStart.positionY;
+  endX = segEnd.positionX;
+  endY = segEnd.positionY;
+  if (param.x > startX or param.x + param.w < startX)
+    result = false;
+    break;
+  elif  (param.x > endX or param.x + param.w < endX)
+    result = false;
+    break;
+  elif  (param.y > startY or param.y + param.h < startY)
+    result = false;
+    break;
+  elif  (param.y > endY or param.y + param.h < endY)
+    result = false;
+    break;
+  end if;
+end for;
+return result;',
+	1,
+	'',
+	"c9310f1b-6f70-4823-9873-4fbd4588bf99");
+INSERT INTO O_TPARM
+	VALUES ("8540caa9-8ccb-4e94-8c1e-3e923f5e6467",
+	"fc9a549b-767e-45ba-a7e7-1012045811e6",
+	'x',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"3d008ee0-04ad-4ec3-b133-e2ddbb162605",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("7b96c665-1c28-4012-a856-cf9529763482",
+	"fc9a549b-767e-45ba-a7e7-1012045811e6",
+	'y',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"8540caa9-8ccb-4e94-8c1e-3e923f5e6467",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("3d008ee0-04ad-4ec3-b133-e2ddbb162605",
+	"fc9a549b-767e-45ba-a7e7-1012045811e6",
+	'w',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"40fb8816-3850-47b9-9d24-7a0c6c4b2379",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("40fb8816-3850-47b9-9d24-7a0c6c4b2379",
+	"fc9a549b-767e-45ba-a7e7-1012045811e6",
+	'h',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("c9310f1b-6f70-4823-9873-4fbd4588bf99",
+	"ab69f0d0-314a-4911-947c-2aaf3ed89428",
+	'isEndSelected',
+	'',
+	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	1,
+	'// if this connector is within a container symbol
+// and that symbol is being moved, return that
+// this end is selected
+select one container related by self->DIM_ED[R20]->DIM_GE[R301]->DIM_ELE[R302]->DIM_GE[R307];
+if(not_empty container)
+  select one ge related by container->GD_GE[R23];
+  if(ge.isSelected())
+    return true;
+  end if;
+end if;
+select one end_elem related by self->DIM_ED[R20]->DIM_CON[R321]->DIM_GE[R311]->GD_GE[R23];
+select one con_elem related by end_elem->GD_CON[R2];
+if(not_empty con_elem)
+  if(end_elem.isSelected())
+    return true;
+  else
+    // See if the end element also has the current connector as it''s end
+    // and if so, check the start.  This is done to prevent recursion in the 
+    // case where, for example, the provision is the end of the requirement and the 
+    // requirement is the end of the provision (2 requirements satisfied to 1 provision)
+    select one end_end_elem related by con_elem->DIM_ED[R20]->DIM_CON[R321]->DIM_GE[R311]->GD_GE[R23];
+    select one end_con_elem related by end_end_elem->GD_CON[R2];    
+    if ((not_empty end_con_elem) and (end_con_elem.elementId == self.elementId))
+      return con_elem.isStartSelected();
+    else
+      return con_elem.isEndSelected() and con_elem.isStartSelected();
+    end if;
+  end if;
+else
+  if(not_empty end_elem)
+    return end_elem.isSelected();
+  else
+    select one start_elem related by self->DIM_ED[R20]->DIM_CON[R320]->DIM_GE[R311]->GD_GE[R23];
+    if(not_empty start_elem)
+      select one con_elem related by start_elem->GD_CON[R2];
+      if(start_elem.isSelected())
+        return true;
+      else
+        if(not_empty con_elem)
+          return con_elem.isEndSelected() and con_elem.isStartSelected();
+        end if;
+      end if;
+    end if;
+    // return true as this connector ends on whitespace
+    return true;
+  end if;
+end if;',
+	1,
+	'',
+	"61feb13a-1aac-4d24-8d41-a6f1f46b32e8");
+INSERT INTO O_TFR
+	VALUES ("88a2220f-f48c-447b-95d4-48e547e858c3",
+	"ab69f0d0-314a-4911-947c-2aaf3ed89428",
+	'isStartSelected',
+	'',
+	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	1,
+	'// if this connector is within a container symbol
+// and that symbol is being moved, return that
+// this end is selected
+select one container related by self->DIM_ED[R20]->DIM_GE[R301]->DIM_ELE[R302]->DIM_GE[R307];
+if(not_empty container)
+  select one ge related by container->GD_GE[R23];
+  if(ge.isSelected())
+    return true;
+  end if;
+end if;
+select one start_elem related by self->DIM_ED[R20]->DIM_CON[R320]->DIM_GE[R311]->GD_GE[R23];
+select one con_elem related by start_elem->GD_CON[R2];
+if(not_empty con_elem)
+  if(start_elem.isSelected())
+    return true;
+  else
+    return con_elem.isEndSelected() and con_elem.isStartSelected();
+  end if;
+else
+  if(not_empty start_elem)
+    return start_elem.isSelected();
+  else
+    select one end_elem related by self->DIM_ED[R20]->DIM_CON[R321]->DIM_GE[R311]->GD_GE[R23];
+    if(not_empty end_elem)
+      select one con_elem related by start_elem->GD_CON[R2];
+      if(end_elem.isSelected())
+        return true;
+      else
+        if(not_empty con_elem)
+          return con_elem.isEndSelected() and con_elem.isStartSelected();
+        end if;
+      end if;
+    end if;
+    // return true as this connector starts on whitespace
+    return true;
+  end if;
+end if;',
+	1,
+	'',
+	"3c7c556c-e2fd-44d9-a6d0-4e02089808f4");
+INSERT INTO O_TFR
+	VALUES ("3721f58b-1053-4dfd-9ae8-91529d8312fe",
+	"ab69f0d0-314a-4911-947c-2aaf3ed89428",
+	'endsOnWS',
+	'',
+	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	1,
+	'select one end_anchor related by self->DIM_ED[R20]->DIM_CON[R321];
+return empty end_anchor;
+',
+	1,
+	'',
+	"c1f660cd-9fa0-4d20-a908-3510d27bc389");
+INSERT INTO O_TFR
+	VALUES ("3c7c556c-e2fd-44d9-a6d0-4e02089808f4",
+	"ab69f0d0-314a-4911-947c-2aaf3ed89428",
+	'isOverVertex',
+	'',
+	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	1,
+	'//
+// if the vertex type we are over is not none, then we must be over a vertex . . 
+//
+return self.getVertexUnder(x:param.x, y:param.y) != Vertex::None;',
+	1,
+	'',
+	"3a3aabed-37a4-4605-9aff-4fce85a2e211");
+INSERT INTO O_TPARM
+	VALUES ("cdde09d3-c94b-4d9f-8613-795db4d18899",
+	"3c7c556c-e2fd-44d9-a6d0-4e02089808f4",
+	'x',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("c1840075-df60-446d-bdee-2260e471c7b8",
+	"3c7c556c-e2fd-44d9-a6d0-4e02089808f4",
+	'y',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"cdde09d3-c94b-4d9f-8613-795db4d18899",
+	'');
+INSERT INTO O_TFR
+	VALUES ("c6ceb09b-69c6-45aa-a92f-713474b6d178",
+	"ab69f0d0-314a-4911-947c-2aaf3ed89428",
+	'getEndUnder',
+	'',
+	"ae246926-3437-45e4-9232-bcc0952dbcee",
+	1,
+	'select one model related by self->GD_GE[R2]->GD_MD[R1];
+select one diagram related by model->DIM_DIA[R18];
+scaled_x = GR::scale(value:param.x) + diagram.viewportX;
+scaled_y = GR::scale(value:param.y) + diagram.viewportY;
+select many texts related by self->GD_CTXT[R8];
+for each text in texts
+  select one node related by text->DIM_ND[R19];
+  select one element related by node->DIM_GE[R301];
+  if (GR::isWithinHotspot(x:scaled_x, y:scaled_y, x2:element.positionX, y2:element.positionY))
+     or (GR::isWithinHotspot(x:scaled_x, y:scaled_y, x2:element.positionX, y2:element.positionY + node.height))
+     or (GR::isWithinHotspot(x:scaled_x, y:scaled_y, x2:element.positionX + node.width, y2:element.positionY + node.height))
+     or (GR::isWithinHotspot(x:scaled_x, y:scaled_y, x2:element.positionX + node.width, y2:element.positionY))
+     return text.end;
+  end if;
+end for;
+return End::None;',
+	1,
+	'',
+	"5c1cc96d-d510-4b1c-a8dc-edd4cf6dd0dc");
+INSERT INTO O_TPARM
+	VALUES ("f978ceda-0787-4615-9a78-2f840e5f95a9",
+	"c6ceb09b-69c6-45aa-a92f-713474b6d178",
+	'x',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("0431e28d-84c1-40e5-abb0-e1bc4e33e48a",
+	"c6ceb09b-69c6-45aa-a92f-713474b6d178",
+	'y',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"f978ceda-0787-4615-9a78-2f840e5f95a9",
+	'');
+INSERT INTO O_TFR
+	VALUES ("fc17370e-6e82-4efd-a5db-c78f648b51fa",
+	"ab69f0d0-314a-4911-947c-2aaf3ed89428",
+	'getVertexUnder',
+	'',
+	"000786ec-697f-4d36-931b-d64a58cee282",
+	1,
+	'select one model related by self->GD_GE[R2]->GD_MD[R1];
+select one diagram related by model->DIM_DIA[R18];
+scaled_x = GR::scale(value:param.x) + diagram.viewportX;
+scaled_y = GR::scale(value:param.y) + diagram.viewportY;
+select many texts related by self->GD_CTXT[R8];
+for each text in texts
+  v = text.isOverVertex(scaled_x:scaled_x, scaled_y:scaled_y);
+  if ( v != Vertex::None )
+    return v;
+  end if;
+end for;
+return Vertex::None;
+',
+	1,
+	'',
+	"429199d7-91cb-47de-aade-56d4a46ab8e8");
+INSERT INTO O_TPARM
+	VALUES ("d3a2d93b-183a-4309-a84b-2b58445498c1",
+	"fc17370e-6e82-4efd-a5db-c78f648b51fa",
+	'x',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("717d2f0a-a090-474f-982c-c9d9b94cb467",
+	"fc17370e-6e82-4efd-a5db-c78f648b51fa",
+	'y',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"d3a2d93b-183a-4309-a84b-2b58445498c1",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("000786ec-697f-4d36-931b-d64a58cee282",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'Vertex',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("343bbdfe-39cd-4568-a1e9-2ad1bddddc1f",
+	"ab69f0d0-314a-4911-947c-2aaf3ed89428",
+	'getStartX',
+	'',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	1,
+	'select any segment related by self->GD_LS[R6] 
+  where ( selected.Previous_elementId == OS::NULL_UNIQUE_ID() );
+if (not_empty segment)
+  select one segmentStart related by segment->DIM_WAY[R21];
+  return segmentStart.positionX;
+else
+  return 0;
+end if;
+',
+	1,
+	'',
+	"753220ba-dc2c-47f8-82e7-c710a095316f");
+INSERT INTO O_TFR
+	VALUES ("617f697d-c9ec-4246-9c5c-4bf418368c9f",
+	"ab69f0d0-314a-4911-947c-2aaf3ed89428",
+	'getStartY',
+	'',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	1,
+	'select any segment related by self->GD_LS[R6] 
+  where ( selected.Previous_elementId == OS::NULL_UNIQUE_ID() );
+if (not_empty segment)
+  select one segmentStart related by segment->DIM_WAY[R21];
+  return segmentStart.positionY;
+else
+  return 0;
+end if;',
+	1,
+	'',
+	"343bbdfe-39cd-4568-a1e9-2ad1bddddc1f");
+INSERT INTO O_TFR
+	VALUES ("31900acd-bff1-43b1-bdce-e03417a9a586",
+	"ab69f0d0-314a-4911-947c-2aaf3ed89428",
+	'getEndX',
+	'',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	1,
+	'x = 0;
+select many segments related by self->GD_LS[R6];
+for each segment in segments
+  select one nextSegment related by segment->GD_LS[R7.''precedes''];
+  if (empty nextSegment)
+	select one segmentEnd related by segment->DIM_WAY[R22];
+    x = segmentEnd.positionX;
+    break;
+  end if;
+end for;
+return x;
+',
+	1,
+	'',
+	"c6ceb09b-69c6-45aa-a92f-713474b6d178");
+INSERT INTO O_TFR
+	VALUES ("590e3088-ffd4-4403-b064-aec84a0eca67",
+	"ab69f0d0-314a-4911-947c-2aaf3ed89428",
+	'getEndY',
+	'',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	1,
+	'y = 0;
+select many segments related by self->GD_LS[R6];
+for each segment in segments
+  select one nextSegment related by segment->GD_LS[R7.''precedes''];
+  if (empty nextSegment)
+	select one segmentEnd related by segment->DIM_WAY[R22];
+    y = segmentEnd.positionY;
+    break;
+  end if;
+end for;
+return y;
+',
+	1,
+	'',
+	"31900acd-bff1-43b1-bdce-e03417a9a586");
+INSERT INTO O_TFR
+	VALUES ("e97fa611-52e9-4549-97a1-604d26c26e69",
+	"ab69f0d0-314a-4911-947c-2aaf3ed89428",
+	'moveVertex',
+	'',
+	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	1,
+	'select any text related by self->GD_CTXT[R8] where selected.end == param.End;
+text.moveVertex(xDelta: param.xDelta, 
+     yDelta: param.xDelta, Vertex:param.Vertex);
+',
+	1,
+	'',
+	"424ad60c-88de-43c0-a082-1e521b96d2d3");
+INSERT INTO O_TPARM
+	VALUES ("ce40f854-fa1d-49d4-b2c2-b9e103c00db8",
+	"e97fa611-52e9-4549-97a1-604d26c26e69",
+	'xDelta',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"3f998e42-f912-49be-9f57-1382efcca0dd",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("fea31370-ab93-490e-939a-d06881f4c99e",
+	"e97fa611-52e9-4549-97a1-604d26c26e69",
+	'yDelta',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"ce40f854-fa1d-49d4-b2c2-b9e103c00db8",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("3f998e42-f912-49be-9f57-1382efcca0dd",
+	"e97fa611-52e9-4549-97a1-604d26c26e69",
+	'Vertex',
+	"000786ec-697f-4d36-931b-d64a58cee282",
+	0,
+	'',
+	"42792287-c6f3-4afe-a8b3-0c5a73430009",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("42792287-c6f3-4afe-a8b3-0c5a73430009",
+	"e97fa611-52e9-4549-97a1-604d26c26e69",
+	'End',
+	"ae246926-3437-45e4-9232-bcc0952dbcee",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("14e1d3f3-8c15-4fc0-99b6-6ae2207fbde6",
+	"ab69f0d0-314a-4911-947c-2aaf3ed89428",
+	'getIntersect',
+	'',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	1,
+	'/**
+ *
+ *  Returns the closest intersect of the given segment
+ *  and this connector.
+ *
+ */
+intersect_found = false;
+xIntersect = 0;
+yIntersect = 0;
+//
+// Look for an intersection with all segments.
+//
+shortestDistance = -1;
+select many segs related by self->GD_LS[R6];
+for each seg in segs
+  currentXIntersect = seg.getIntersect(x1:param.x1, y1:param.y1, x2:param.x2, y2:param.y2, axis:Axis::X, testInfinite:param.testInfinite);
+  currentYIntersect = seg.getIntersect(x1:param.x1, y1:param.y1, x2:param.x2, y2:param.y2, axis:Axis::Y, testInfinite:param.testInfinite);
+  if (currentXIntersect != 0 and currentYIntersect != 0)
+    // store the closest intersect point to
+    // the segment in questions end point
+    distance = ::getDistance(x1:param.x2,y1:param.y2,x2:currentXIntersect, y2:currentYIntersect);
+    if(distance < shortestDistance) or (shortestDistance == -1)
+      intersect_found = true;
+      shortestDistance = distance;
+      xIntersect = currentXIntersect;
+      yIntersect = currentYIntersect;
+    end if;
+  end if;
+end for;
+if (intersect_found)
+  if (param.axis == Axis::X)
+    return xIntersect;
+  else
+    return yIntersect;
+  end if;
+else
+  return 0;
+end if;',
+	1,
+	'',
+	"9c93d095-d372-4672-bb89-1e3279fa5393");
+INSERT INTO O_TPARM
+	VALUES ("d0d8aba6-245b-4d4d-a53c-b5c43251a579",
+	"14e1d3f3-8c15-4fc0-99b6-6ae2207fbde6",
+	'x1',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"09240f3a-b8e6-48bf-b2a3-7bb31c8bcd39",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("933cc2fd-e8df-4e7f-a850-2d8e3b3ca3cf",
+	"14e1d3f3-8c15-4fc0-99b6-6ae2207fbde6",
+	'y1',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"3a839024-aef8-4e78-9e93-dc9caf4ab3cf",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("3a839024-aef8-4e78-9e93-dc9caf4ab3cf",
+	"14e1d3f3-8c15-4fc0-99b6-6ae2207fbde6",
+	'x2',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"d0d8aba6-245b-4d4d-a53c-b5c43251a579",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("5feff0f0-21e8-4632-9369-2b9b8cce78cb",
+	"14e1d3f3-8c15-4fc0-99b6-6ae2207fbde6",
+	'y2',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"933cc2fd-e8df-4e7f-a850-2d8e3b3ca3cf",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("53ef83fa-634d-47f5-9d56-44ad977728ea",
+	"14e1d3f3-8c15-4fc0-99b6-6ae2207fbde6",
+	'axis',
+	"cf5d2877-53f0-411b-8843-124449b0f6ea",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("cf5d2877-53f0-411b-8843-124449b0f6ea",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'Axis',
+	'Specifies the X or Y axis.',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TPARM
+	VALUES ("09240f3a-b8e6-48bf-b2a3-7bb31c8bcd39",
+	"14e1d3f3-8c15-4fc0-99b6-6ae2207fbde6",
+	'testInfinite',
+	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	0,
+	'',
+	"53ef83fa-634d-47f5-9d56-44ad977728ea",
+	'');
+INSERT INTO O_TFR
+	VALUES ("5c1cc96d-d510-4b1c-a8dc-edd4cf6dd0dc",
+	"ab69f0d0-314a-4911-947c-2aaf3ed89428",
+	'getDeltaForCropTo',
+	'',
+	"a236c27f-17c7-4c99-8f25-f3efd03eaf0c",
+	1,
+	'/*
+Returns the delta by which the given end of this connector should be moved to 
+crop this connector to the side of the shape to which it is currently 
+connected, after the given vertex of that shape has been moved by the 
+given delta.  The given old-shape values indicate the size and position 
+of the shape before the vertex''s movement, so that this routine may determine 
+to which side of the shape this connector is connected.
+
+The returned Point instance should be disposed by the caller.
+*/
+
+// create our return value instance
+create object instance delta of DIM_PNT;
+delta.x = 0;
+delta.y = 0;
+
+// if the shape''s vertex didn''t actually move
+if (param.deltaX == 0 and param.deltaY == 0)
+	// this connector''s end should stay where it is
+	return delta.pointId;
+end if;
+
+// if the given end is the start
+selfX = 0;
+selfY = 0;
+select any shape from instances of GD_SHP;
+if (param.end == End::Start)
+	// use the shape at which this connector starts
+	select one shape related by self->DIM_ED[R20]->DIM_CON[R320]->DIM_GE[R311]
+		->GD_GE[R23]->GD_SHP[R2];
+
+	// we''ll be concerned with the start of this connector
+	selfX = self.getStartX();
+	selfY = self.getStartY();
+
+// otherwise, the given end is the end
+else
+	// use the shape at which this connector ends
+    select one shape related by self->DIM_ED[R20]->DIM_CON[R321]->DIM_GE[R311]
+    	->GD_GE[R23]->GD_SHP[R2];
+
+	// we''ll be concerned with the end of this connector
+	selfX = self.getEndX();
+	selfY = self.getEndY();
+end if;
+
+// if the given vertex is one of the two on the left side
+// of the shape
+select one graphNode related by shape->DIM_ND[R19];
+select one graphElement related by graphNode->DIM_GE[R301];
+select one ge related by shape->GD_GE[R2];
+style = CL::getShapeStyle(from:ge.represents);
+if(style == Style::Ellipse)
+  result_x = ::getIntersectionOfSegmentWithEllipse(ellipseH:graphNode.height,
+  				ellipseW:graphNode.width, ellipseX:graphElement.positionX, ellipseY:graphElement.positionY,
+	  			x:selfX, x2:selfX + param.deltaX, y:selfY, y2:selfY + param.deltaY, considerLine:false, axis:Axis::X);
+  result_y = ::getIntersectionOfSegmentWithEllipse(ellipseH:graphNode.height,
+  				ellipseW:graphNode.width, ellipseX:graphElement.positionX, ellipseY:graphElement.positionY,
+	  			x:selfX, x2:selfX + param.deltaX, y:selfY, y2:selfY + param.deltaY, considerLine:false, axis:Axis::Y);
+  if(result_x != 0) and (result_y != 0)
+	delta.x =  result_x - selfX;
+	delta.y =  result_y - selfY;
+	return delta.pointId;
+  end if;
+end if;
+shapeSideX = 0;
+shapeSideOldX = 0;
+hotSpotFactorX = 0;
+leftVertex = false; // necessary due to issue 1186
+leftVertex = param.vertex == Vertex::NW or param.vertex == Vertex::SW;
+if (leftVertex)
+	// we''ll be concerned with the left side of the shape
+	shapeSideX = graphElement.positionX;
+	shapeSideOldX = param.oldShapeX;
+	hotSpotFactorX = 1;
+
+// otherwise, the given vertex is one of the two on the right side
+else
+	// we''ll be concerned with the right side of the shape
+	shapeSideX = graphElement.positionX + graphNode.width;
+	shapeSideOldX = param.oldShapeX + param.oldShapeWidth;
+	hotSpotFactorX = -1;
+end if;
+
+// if the given vertex is one of the two on the top side
+// of the shape
+shapeSideY = 0;
+shapeSideOldY = 0;
+hotSpotFactorY = 0;
+topVertex = false; // necessary due to issue 1186
+topVertex = param.vertex == Vertex::NW or param.vertex == Vertex::NE;
+if (topVertex)
+	// we''ll be concerned with the top side of the shape
+	shapeSideY = graphElement.positionY;
+	shapeSideOldY = param.oldShapeY;
+	hotSpotFactorY = 1;
+
+// otherwise, the given vertex is one of the two on the bottom side
+else
+	// we''ll be concerned with the bottom side of the shape
+	shapeSideY = graphElement.positionY + graphNode.height;
+	shapeSideOldY = param.oldShapeY + param.oldShapeHeight;
+	hotSpotFactorY = -1;
+end if;
+
+// if this connector is attached to whichever of the the left or right 
+// sides of the shape is adjacent to the given vertex
+if (selfX == shapeSideOldX)
+	// the connected waypoint should be moved by the given delta-x
+	delta.x = param.deltaX;
+end if;
+
+// if this connector is attached to the top or bottom sides of the shape
+if (selfY == param.oldShapeY 
+	or selfY == param.oldShapeY + param.oldShapeHeight)
+	// if the delta computed so far would put leave the connected
+	// waypoint to the left or the right of the shape
+	limit = shapeSideX + hotSpotFactorX * GR::getHotspotSize();
+	if ((leftVertex and selfX + delta.x < limit) or
+		((not leftVertex) and selfX + delta.x > limit))
+		// limit the delta such that the connected waypoint 
+		// is within the shape''s x-range
+		delta.x = limit - selfX;
+	end if;
+end if;
+
+// if this connector is attached to whichever of the the top or bottom 
+// sides of the shape is adjacent to the given vertex
+if (selfY == shapeSideOldY)
+	// the connected waypoint should be moved by the given delta-y
+	delta.y = param.deltaY;
+end if;
+
+// if this connector is attached to the left or right sides of the shape
+if (selfX == param.oldShapeX 
+	or selfX == param.oldShapeX + param.oldShapeWidth)
+	// if the delta computed so far would put leave the connected
+	// waypoint above or below the shape
+	limit = shapeSideY + hotSpotFactorY * GR::getHotspotSize();
+	if ((topVertex and selfY + delta.y < limit) or
+		((not topVertex) and selfY + delta.y > limit))
+		// limit the delta such that the connected waypoint 
+		// is within the shape''s y-range
+		delta.y = limit - selfY;
+	end if;
+end if;
+
+return delta.pointId;',
+	1,
+	'',
+	"3721f58b-1053-4dfd-9ae8-91529d8312fe");
+INSERT INTO O_TPARM
+	VALUES ("2c9febc2-de7c-4b2b-b5ca-51b107517c70",
+	"5c1cc96d-d510-4b1c-a8dc-edd4cf6dd0dc",
+	'deltaX',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("c43bf892-3447-40e3-bbb1-dfb05a380b1e",
+	"5c1cc96d-d510-4b1c-a8dc-edd4cf6dd0dc",
+	'vertex',
+	"000786ec-697f-4d36-931b-d64a58cee282",
+	0,
+	'',
+	"ad8fc6d5-d867-4111-9ae2-62b96b4dd1e9",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("6e3cdedb-0220-402d-ab66-dcafb4b9ee89",
+	"5c1cc96d-d510-4b1c-a8dc-edd4cf6dd0dc",
+	'end',
+	"ae246926-3437-45e4-9232-bcc0952dbcee",
+	0,
+	'',
+	"36c3db1c-8832-415c-84a8-7c2127269f09",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("36c3db1c-8832-415c-84a8-7c2127269f09",
+	"5c1cc96d-d510-4b1c-a8dc-edd4cf6dd0dc",
+	'deltaY',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"2c9febc2-de7c-4b2b-b5ca-51b107517c70",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("8ef3fff1-cc35-42fd-94b4-37f71fdbc131",
+	"5c1cc96d-d510-4b1c-a8dc-edd4cf6dd0dc",
+	'oldShapeX',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"1d1b45bb-4e02-47bf-8e16-de3600545adf",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("ad8fc6d5-d867-4111-9ae2-62b96b4dd1e9",
+	"5c1cc96d-d510-4b1c-a8dc-edd4cf6dd0dc",
+	'oldShapeY',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"8ef3fff1-cc35-42fd-94b4-37f71fdbc131",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("1d1b45bb-4e02-47bf-8e16-de3600545adf",
+	"5c1cc96d-d510-4b1c-a8dc-edd4cf6dd0dc",
+	'oldShapeWidth',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"e2060706-aed3-4d68-8d4d-336ecb33fe5b",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("e2060706-aed3-4d68-8d4d-336ecb33fe5b",
+	"5c1cc96d-d510-4b1c-a8dc-edd4cf6dd0dc",
+	'oldShapeHeight',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"6e3cdedb-0220-402d-ab66-dcafb4b9ee89",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("a236c27f-17c7-4c99-8f25-f3efd03eaf0c",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'unique_id',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("3a3aabed-37a4-4605-9aff-4fce85a2e211",
+	"ab69f0d0-314a-4911-947c-2aaf3ed89428",
+	'isOverEnd',
+	'',
+	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	1,
+	'result = false;
+select many segments related by self->GD_LS[R6];
+// Find last segment, test against end co-odinates
+for each segment in segments
+  select one nextSegment related by segment->GD_LS[R7.''precedes''];
+  if (empty nextSegment)
+    result = segment.isOverEnd(x:param.x, y:param.y);
+  end if;
+end for;
+return result;',
+	1,
+	'',
+	"85ffd372-98ea-4a3f-9c7b-5c607be9a877");
+INSERT INTO O_TPARM
+	VALUES ("5ba8e8b1-a21f-4b59-94ab-1b03f638f688",
+	"3a3aabed-37a4-4605-9aff-4fce85a2e211",
+	'x',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("54dbe16e-0b9d-41c2-87f1-074d58f86d8a",
+	"3a3aabed-37a4-4605-9aff-4fce85a2e211",
+	'y',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"5ba8e8b1-a21f-4b59-94ab-1b03f638f688",
+	'');
+INSERT INTO O_TFR
+	VALUES ("e2c914e5-151e-4f37-834e-b17eb7bda6d3",
+	"ab69f0d0-314a-4911-947c-2aaf3ed89428",
+	'dispose',
+	'',
+	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	1,
+	'select one ge related by self->GD_GE[R2];
+if ( not_empty ge )
+  ge.dispose();
+else
+  select one seg related by self->GD_LS[R5];
+  if ( not_empty seg )
+    unrelate self from seg across R5;
+  end if;
+                                   
+  select many ctxts related by self->GD_CTXT[R8];
+  for each ctxt in ctxts
+    unrelate self from ctxt across R8;
+    ctxt.dispose();
+  end for;
+  
+  select many segs related by self->GD_LS[R6];
+  for each seg in segs
+    unrelate self from seg across R6;
+    seg.dispose();
+  end for;
+
+  // unrelate this connector''s graph-edge from its graph-connectors
+  select one graphEdge related by self->DIM_ED[R20];
+  if ( not_empty graphEdge )
+    unrelate self from graphEdge across R20;
+    graphEdge.dispose();
+  end if;
+
+  delete object instance self;
+end if;',
+	1,
+	'',
+	"dcb55ba9-d09a-47d4-92b5-5ff19a5cbe9f");
+INSERT INTO O_TFR
+	VALUES ("c7e12f76-f30d-4dbb-8e3d-763803271397",
+	"ab69f0d0-314a-4911-947c-2aaf3ed89428",
+	'reverseSense',
+	'',
+	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	1,
+	'select any segment related by self->GD_LS[R6] 
+  where ( selected.Previous_elementId == OS::NULL_UNIQUE_ID() );
+select one nextSeg related by segment->GD_LS[R7.''precedes''];
+while (not_empty nextSeg)
+  unrelate nextSeg from segment across R7.''follows'';
+  select one newNextSeg related by nextSeg->GD_LS[R7.''precedes''];
+  relate segment to nextSeg across R7.''follows'';
+  segment = nextSeg;
+  nextSeg = newNextSeg;
+end while;
+select many segments related by self->GD_LS[R6];
+for each seg in segments
+  // reverse which are the start and end waypoints of this segment
+  select one segStart related by seg->DIM_WAY[R21];
+  select one segEnd related by seg->DIM_WAY[R22];
+  unrelate segStart from seg across R21;
+  unrelate segEnd from seg across R22;
+  relate segStart to seg across R22;
+  relate segEnd to seg across R21;
+end for;',
+	1,
+	'',
+	"e97fa611-52e9-4549-97a1-604d26c26e69");
+INSERT INTO O_TFR
+	VALUES ("28289ee6-51be-436d-a0a3-e75b48752750",
+	"ab69f0d0-314a-4911-947c-2aaf3ed89428",
+	'move',
+	'',
+	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	1,
+	'// if this connector starts and ends on whitespace
+// move the connector completly
+if(self.startsOnWS() and self.endsOnWS())
+  self.moveStart(xDelta:GR::scale(value:param.x), yDelta:GR::scale(value:param.y), snapToGrid:true);
+  return;
+end if;
+// test that only one graphical element is selected 
+count = 0;
+select many ges related by self->GD_GE[R2]->GD_MD[R1]->GD_GE[R1];
+for each ge in ges
+  if(ge.isSelected())
+   count = count + 1;
+  end if;
+end for;
+if(count == 1)
+  select one model related by self->GD_GE[R2]->GD_MD[R1];
+  select one diagram related by model->DIM_DIA[R18];
+  select one graphEdge related by self->DIM_ED[R20];
+  // end position from move
+  absol_x = GR::getAbsoluteXPosition();
+  absol_y = GR::getAbsoluteYPosition();
+  // scaled end position after move
+  scaled_absol_x = GR::scale(value:absol_x);
+  scaled_absol_y = GR::scale(value:absol_y);
+  // Original mouse position before move
+  scaled_x = scaled_absol_x + diagram.viewportX - GR::scale(value:param.x);
+  scaled_y = scaled_absol_y + diagram.viewportY - GR::scale(value:param.y);
+
+  select many segs related by self->GD_LS[R6];
+  for each seg in segs
+    select one segStart related by seg->DIM_WAY[R21];
+	select one segEnd related by seg->DIM_WAY[R22];
+    // find the segment which the mouse pointer is over
+    if(seg.isOver(x:scaled_absol_x - GR::scale(value:param.x), y:scaled_absol_y - GR::scale(value:param.y)))
+      // don''t allow if over a vertex to avoid adding waypoints over waypoints
+      if (seg.isOverVertex(x:absol_x - param.x, y:absol_y - param.y) != true)
+        // if original segment has a segment that precedes unrelate
+        select one nextSeg related by seg->GD_LS[R7.''precedes''];
+        unrelate seg from nextSeg across R7.''precedes'';
+        // create the new segment that will precede this original segment
+        create object instance newSeg of GD_LS;
+        relate newSeg to self across R6;
+
+        // create the starting point of the new segment
+        create object instance newSegStart of DIM_WAY;
+		relate newSegStart to newSeg across R21;
+		relate newSegStart to graphEdge across R319;
+        newSegStart.positionX = scaled_x;
+        newSegStart.positionY = scaled_y;
+        
+		// make the end point of the original segment the end point of the
+		// new segment
+        unrelate segEnd from seg across R22;
+		relate segEnd to newSeg across R22;
+		
+		// make the start point of the new segment the end point
+		// of the original segment
+		relate newSegStart to seg across R22;
+		
+		// 
+		// if the newly created segment is where any
+		// existing anchors should end up
+		// we must associate the new segments with
+		// the existing anchors
+		select many segmentAnchors related by seg->GD_AOS[R26]->DIM_CON[R26];
+		for each segmentAnchor in segmentAnchors
+		  if(newSeg.isOver(x:segmentAnchor.positionX - diagram.viewportX, y:segmentAnchor.positionY - diagram.viewportY))
+            select one aos related by segmentAnchor->GD_AOS[R26];
+		    unrelate segmentAnchor from seg across R26 using aos;
+            relate segmentAnchor to newSeg across R26 using aos;
+          end if;
+		end for;
+		
+        // relate new segment to original
+        relate seg to newSeg across R7.''precedes'';
+        // if nextSeg exists relate it to the new segment
+        if(not_empty nextSeg)
+          relate newSeg to nextSeg across R7.''precedes'';
+        end if;
+        // create and relate the waypoint-in-move 
+        create object instance inMove of GD_WIM;
+        inMove.originX = scaled_x;
+        inMove.originY = scaled_y;
+        relate newSegStart to model across R24 using inMove;
+        GR::setMouseCursor(type:"waypoint tool");
+
+        // inform the selection tool of the waypoint creation
+        select any selector related by model->CT_MTL[R100]->CT_SEL[R102];
+        generate CT_SEL24:''Waypoint Created''(X:param.x,Y:param.y) to selector;
+        break;
+      end if;
+    end if;
+  end for;
+end if;',
+	1,
+	'',
+	"88a2220f-f48c-447b-95d4-48e547e858c3");
+INSERT INTO O_TPARM
+	VALUES ("23f712c7-0ae6-4eec-981c-6c8d11bcdda0",
+	"28289ee6-51be-436d-a0a3-e75b48752750",
+	'x',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("84e79fdc-c0b5-4f2b-8275-cfae854e0768",
+	"28289ee6-51be-436d-a0a3-e75b48752750",
+	'y',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"23f712c7-0ae6-4eec-981c-6c8d11bcdda0",
+	'');
+INSERT INTO O_TFR
+	VALUES ("61feb13a-1aac-4d24-8d41-a6f1f46b32e8",
+	"ab69f0d0-314a-4911-947c-2aaf3ed89428",
+	'initializeEndWaypointInMove',
+	'Sets up a new waypoint-in-move instance using the waypoint at the given
+end of the connector.  This operation does not initialize waypoint-in-move''s 
+in the middle of the connector. That is done directly in the Model state, 
+''Waiting to Move Hotspot''.',
+	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	1,
+	'// Find the first segment
+select any seg related by self->GD_LS[R6] 
+    where ( selected.Previous_elementId == OS::NULL_UNIQUE_ID() );
+select one canvas related by self->GD_GE[R2]->GD_MD[R1];
+if (param.at == End::End)
+  // Find the last segment
+  select many segments related by self->GD_LS[R6];
+  segCount = cardinality segments;
+  while (segCount > 1)
+    select one seg related by seg->GD_LS[R7.''precedes''];
+    segCount = segCount - 1;
+  end while;
+end if;
+if (not_empty seg)
+  select one waypoint related by seg->DIM_WAY[R21];
+  if (param.at == End::End)
+	  select one waypoint related by seg->DIM_WAY[R22];
+  end if;
+  select one inMove related by waypoint->GD_WIM[R24];
+  if (empty inMove)
+    create object instance inMove of GD_WIM;
+    relate canvas to waypoint across R24 using inMove;
+    inMove.initialize();
+  end if;
+end if;
+',
+	1,
+	'',
+	"e9904f74-052c-429c-821a-f3126522e520");
+INSERT INTO O_TPARM
+	VALUES ("8a791eea-a0f0-4f50-b246-d0acab0ddd49",
+	"61feb13a-1aac-4d24-8d41-a6f1f46b32e8",
+	'at',
+	"ae246926-3437-45e4-9232-bcc0952dbcee",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("429199d7-91cb-47de-aade-56d4a46ab8e8",
+	"ab69f0d0-314a-4911-947c-2aaf3ed89428",
+	'getStartingSegmentId',
+	'',
+	"a236c27f-17c7-4c99-8f25-f3efd03eaf0c",
+	1,
+	'// for each segment of this connector
+select many segments related by self->GD_LS[R6];
+for each segment in segments
+	// if there is no segment preceding this one
+	select one previousSegment related by segment->GD_LS[R7.''follows''];
+	if (empty previousSegment)
+		// return the ID of this segment
+		return segment.elementId;
+	end if;
+end for;
+
+// this should never be reached
+return OS::NULL_UNIQUE_ID();
+',
+	1,
+	'',
+	"617f697d-c9ec-4246-9c5c-4bf418368c9f");
+INSERT INTO O_TFR
+	VALUES ("9c93d095-d372-4672-bb89-1e3279fa5393",
+	"ab69f0d0-314a-4911-947c-2aaf3ed89428",
+	'getEndingSegmentId',
+	'',
+	"a236c27f-17c7-4c99-8f25-f3efd03eaf0c",
+	1,
+	'// for each segment of this connector
+select many segments related by self->GD_LS[R6];
+for each segment in segments
+	// if there is no segment following this one
+	select one nextSegment related by segment->GD_LS[R7.''precedes''];
+	if (empty nextSegment)
+		// return the ID of this segment
+		return segment.elementId;
+	end if;
+end for;
+
+// this should never be reached
+return OS::NULL_UNIQUE_ID();
+',
+	1,
+	'',
+	"590e3088-ffd4-4403-b064-aec84a0eca67");
+INSERT INTO O_TFR
+	VALUES ("69bf8229-6629-484c-8c81-43d615e30d3f",
+	"ab69f0d0-314a-4911-947c-2aaf3ed89428",
+	'startsOnWS',
+	'',
+	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	1,
+	'select one start_anchor related by self->DIM_ED[R20]->DIM_CON[R320];
+return empty start_anchor;',
+	1,
+	'',
+	"c7e12f76-f30d-4dbb-8e3d-763803271397");
+INSERT INTO O_TFR
+	VALUES ("dcb55ba9-d09a-47d4-92b5-5ff19a5cbe9f",
+	"ab69f0d0-314a-4911-947c-2aaf3ed89428",
+	'cropTo',
+	'',
+	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	1,
+	'select any segment from instances of GD_LS where (selected.elementId == param.attachingSegmentId);
+select any anchor from instances of DIM_CON where (selected.conId == param.createdAnchorId);
+select one segmentStart related by segment->DIM_WAY[R21];
+select one segmentEnd related by segment->DIM_WAY[R22];
+x1 = segmentEnd.positionX;
+y1 = segmentEnd.positionY;
+x2 = segmentStart.positionX;
+y2 = segmentStart.positionY;
+// if this segment connects to this connector
+// at it''s end, then switch the sense of the
+// connectors direction so that the correct
+// end will be tested for the intersection
+// point
+if(param.end == End::End)
+  x1 = segmentStart.positionX;
+  y1 = segmentStart.positionY;
+  x2 = segmentEnd.positionX;
+  y2 = segmentEnd.positionY;
+end if;
+intersectX = self.getIntersect(x1:x1, y1:y1, x2:x2, y2:y2, axis:Axis::X, testInfinite:true);
+intersectY = self.getIntersect(x1:x1, y1:y1, x2:x2, y2:y2, axis:Axis::Y, testInfinite:true);
+if ( intersectX != 0 and intersectY != 0 )
+  // if we found an intersect relate the anchor for
+  // the connecting connector to this segment
+  intersectSegmentId = self.getIntersectSegmentId(x:intersectX, y:intersectY);
+  select any seg related by self->GD_LS[R6] where (selected.elementId == intersectSegmentId);
+  create object instance aos of GD_AOS;
+  if(param.end == End::Start)
+    relate anchor to seg across R26 using aos;
+    deltaX = intersectX - segmentStart.positionX;
+    deltaY = intersectY - segmentStart.positionY;
+    segment.moveStart(xDelta:deltaX, yDelta:deltaY, snapToGrid:false);
+  else
+    relate anchor to seg across R26 using aos;
+    deltaX = intersectX - segmentEnd.positionX;
+    deltaY = intersectY - segmentEnd.positionY;
+    segment.moveEnd(xDelta:deltaX, yDelta:deltaY, snapToGrid:false);
+  end if;
+end if;  // intersect found',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_TPARM
+	VALUES ("6eea40ad-94f6-49b8-a33b-b2df7b67b7dc",
+	"dcb55ba9-d09a-47d4-92b5-5ff19a5cbe9f",
+	'attachingSegmentId',
+	"a236c27f-17c7-4c99-8f25-f3efd03eaf0c",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("4a8ae9c9-93ff-4ff3-a16e-8f8ef813b816",
+	"dcb55ba9-d09a-47d4-92b5-5ff19a5cbe9f",
+	'createdAnchorId',
+	"a236c27f-17c7-4c99-8f25-f3efd03eaf0c",
+	0,
+	'',
+	"6eea40ad-94f6-49b8-a33b-b2df7b67b7dc",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("0aa5298e-a49f-464e-836f-52957a355121",
+	"dcb55ba9-d09a-47d4-92b5-5ff19a5cbe9f",
+	'end',
+	"ae246926-3437-45e4-9232-bcc0952dbcee",
+	0,
+	'',
+	"4a8ae9c9-93ff-4ff3-a16e-8f8ef813b816",
+	'');
+INSERT INTO O_TFR
+	VALUES ("5b0a3c2c-64ed-4f0e-ae6b-f7d64d2b122c",
+	"ab69f0d0-314a-4911-947c-2aaf3ed89428",
+	'getIntersectSegmentId',
+	'',
+	"a236c27f-17c7-4c99-8f25-f3efd03eaf0c",
+	1,
+	'select many segs related by self->GD_LS[R6];
+for each seg in segs
+  if(seg.isOver(x:param.x, y:param.y))
+    return seg.elementId;
+  end if;
+end for;
+return OS::NULL_UNIQUE_ID();',
+	1,
+	'',
+	"14e1d3f3-8c15-4fc0-99b6-6ae2207fbde6");
+INSERT INTO O_TPARM
+	VALUES ("a472ef3f-ab94-4912-b72c-f72fc7b0cad8",
+	"5b0a3c2c-64ed-4f0e-ae6b-f7d64d2b122c",
+	'x',
+	"daa2cf40-15b6-4a53-a5a3-55b15c1951ed",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("daa2cf40-15b6-4a53-a5a3-55b15c1951ed",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'real',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TPARM
+	VALUES ("c473f5e8-b5fb-4f7d-88a4-a9bc475cd1ea",
+	"5b0a3c2c-64ed-4f0e-ae6b-f7d64d2b122c",
+	'y',
+	"daa2cf40-15b6-4a53-a5a3-55b15c1951ed",
+	0,
+	'',
+	"a472ef3f-ab94-4912-b72c-f72fc7b0cad8",
+	'');
+INSERT INTO O_TFR
+	VALUES ("e9904f74-052c-429c-821a-f3126522e520",
+	"ab69f0d0-314a-4911-947c-2aaf3ed89428",
+	'getWidth',
+	'',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	1,
+	'select one es related by self->GD_GE[R2]->GD_ES[R10];
+width = es.defaultWidth;
+if (width == 0)
+  width = 1;
+end if;
+return width;',
+	1,
+	'',
+	"fc17370e-6e82-4efd-a5db-c78f648b51fa");
+INSERT INTO O_TFR
+	VALUES ("753220ba-dc2c-47f8-82e7-c710a095316f",
+	"ab69f0d0-314a-4911-947c-2aaf3ed89428",
+	'getShapeEdge',
+	'',
+	"293e701c-c0ef-48ec-86be-6421be45fefb",
+	1,
+	'select any linesegment related by self->GD_LS[R6] where (selected.elementId == self.getStartingSegmentId());
+select one shape related by self->DIM_ED[R20]->DIM_CON[R320]->DIM_GE[R311]->GD_GE[R23]->GD_SHP[R2]->GD_GE[R2];
+if(param.end == End::End)
+  select one shape related by self->DIM_ED[R20]->DIM_CON[R321]->DIM_GE[R311]->GD_GE[R23]->GD_SHP[R2]->GD_GE[R2];
+  select any linesegment related by self->GD_LS[R6] where (selected.elementId == self.getEndingSegmentId());
+end if;
+if(not_empty shape and not_empty linesegment)
+  select one dimGe related by shape->DIM_GE[R23];
+  select one node related by shape->GD_SHP[R2]->DIM_ND[R19];
+  select one waypoint related by linesegment->DIM_WAY[R21];
+  if(param.end == End::End)
+    select one waypoint related by linesegment->DIM_WAY[R22];
+  end if;
+  // first check the north side of the shape
+  if(waypoint.positionY == dimGe.positionY)
+    return Direction::North;
+  end if;
+  // now check the west side of the shape
+  if(waypoint.positionX == dimGe.positionX)
+    return Direction::West;
+  end if;
+  // now check the south side of the shape
+  if(waypoint.positionY == dimGe.positionY + node.height)
+    return Direction::South;
+  end if;
+  // now check the east side of the shape
+  if(waypoint.positionX == dimGe.positionX + node.width)
+    return Direction::East;
+  end if;
+end if;
+return Direction::None;',
+	1,
+	'',
+	"0d456c62-5626-488e-90b3-78fe52bb200f");
+INSERT INTO O_TPARM
+	VALUES ("cd93fd9b-9027-4e4b-a453-a1c891f15201",
+	"753220ba-dc2c-47f8-82e7-c710a095316f",
+	'end',
+	"ae246926-3437-45e4-9232-bcc0952dbcee",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("293e701c-c0ef-48ec-86be-6421be45fefb",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'Direction',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("0d456c62-5626-488e-90b3-78fe52bb200f",
+	"ab69f0d0-314a-4911-947c-2aaf3ed89428",
+	'getPercentOfEdgeLength',
+	'This operation determines the edge that the connector is on, the length of that
+edge, and the connector''s distance from the origin.  The origin is the 
+x-coordinate of the connector for a top or bottom edge or the y-coordinate for 
+the left or right edge. A percentage of the length of the edge is then 
+calculated.  For example:
+Given a rectangle:
+  Bottom Left: 2000,2000
+  Bottom Right 7000,2000
+  Top Left:    2000,5000
+  Top right:   7000,5000
+
+With:
+Connection Point: 3000,5000 (top Edge)
+
+Percent_From_Origin = Distance_From_Origin / (Length_Of_Edge) = 
+Percent_From_Origin = (3000-2000) / (7000-2000) = 
+Percent_From_Origin = 1000 / 5000
+Percent_From_Origin = .20
+',
+	"daa2cf40-15b6-4a53-a5a3-55b15c1951ed",
+	1,
+	'percentFromEdge = 0.0;
+select any linesegment related by self->GD_LS[R6] where (selected.elementId == self.getStartingSegmentId());
+select one shape related by self->DIM_ED[R20]->DIM_CON[R320]->DIM_GE[R311]->GD_GE[R23]->GD_SHP[R2]->GD_GE[R2];
+if(param.end == End::End)
+  select one shape related by self->DIM_ED[R20]->DIM_CON[R321]->DIM_GE[R311]->GD_GE[R23]->GD_SHP[R2]->GD_GE[R2];
+  select any linesegment related by self->GD_LS[R6] where (selected.elementId == self.getEndingSegmentId());
+end if;
+if(not_empty linesegment)
+  select one dimGe related by shape->DIM_GE[R23];
+  select one node related by shape->GD_SHP[R2]->DIM_ND[R19];
+  select one waypoint related by linesegment->DIM_WAY[R21];
+  if(param.end == End::End)
+    select one waypoint related by linesegment->DIM_WAY[R22];
+  end if;
+  if(waypoint.positionY == dimGe.positionY)
+    // north side of the shape
+    percentFromEdge = (waypoint.positionX - dimGe.positionX) / node.width;
+  elif (waypoint.positionY == dimGe.positionY + node.height)
+    // south side of the shape
+    percentFromEdge = (waypoint.positionX - dimGe.positionX) / node.width;
+  elif (waypoint.positionX == dimGe.positionX)
+    // west side of the shape
+    percentFromEdge = (waypoint.positionY - dimGe.positionY) / node.height;
+  elif (waypoint.positionX == dimGe.positionX + node.width)
+    // east side of the shape
+    percentFromEdge = (waypoint.positionY - dimGe.positionY) / node.height;
+  end if;
+end if;
+return percentFromEdge;
+',
+	1,
+	'',
+	"5b0a3c2c-64ed-4f0e-ae6b-f7d64d2b122c");
+INSERT INTO O_TPARM
+	VALUES ("1b96058a-cbed-4998-826c-625a431f42c5",
+	"0d456c62-5626-488e-90b3-78fe52bb200f",
+	'end',
+	"ae246926-3437-45e4-9232-bcc0952dbcee",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("e4e90d56-602d-45d8-945b-5ccbc3725782",
+	"0d456c62-5626-488e-90b3-78fe52bb200f",
+	'isStart',
+	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	0,
+	'',
+	"1b96058a-cbed-4998-826c-625a431f42c5",
+	'');
+INSERT INTO O_TFR
+	VALUES ("d845ef3b-025e-43b6-a2c4-b820bc189893",
+	"ab69f0d0-314a-4911-947c-2aaf3ed89428",
+	'getWaypointAtIndex',
+	'',
+	"a236c27f-17c7-4c99-8f25-f3efd03eaf0c",
+	1,
+	'select many segs related by self->GD_LS[R6];
+current = 0;
+if(param.index + 1 > cardinality segs)
+  return OS::NULL_UNIQUE_ID();
+end if;
+startId = self.getStartingSegmentId();
+select any nextSeg related by self->GD_LS[R6] where (selected.elementId == startId);
+while not_empty nextSeg
+  select one endWay related by nextSeg->DIM_WAY[R22];
+  if(param.index == current)
+    return endWay.Way_ID;
+  end if;
+  current = current + 1;
+  select one nextSeg related by nextSeg->GD_LS[R7.''precedes''];
+end while;
+return OS::NULL_UNIQUE_ID();',
+	1,
+	'',
+	"69bf8229-6629-484c-8c81-43d615e30d3f");
+INSERT INTO O_TPARM
+	VALUES ("ac57ca60-8f58-4e86-8ed2-0792f3d0eb9b",
+	"d845ef3b-025e-43b6-a2c4-b820bc189893",
+	'index',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("3eaea7a2-1145-4fe6-b4b5-9a41fe5a5b33",
+	"ab69f0d0-314a-4911-947c-2aaf3ed89428",
+	'createBendpoint',
+	'',
+	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	1,
+	'id = self.getWaypointAtIndex(index:param.index);
+select any segEnd from instances of DIM_WAY where (selected.Way_ID == id);
+select one seg related by segEnd->GD_LS[R22];
+select one graphEdge related by self->DIM_ED[R20];
+select one model related by self->GD_GE[R2]->GD_MD[R1];
+// if original segment has a segment that precedes unrelate
+select one nextSeg related by seg->GD_LS[R7.''precedes''];
+unrelate seg from nextSeg across R7.''precedes'';
+// create the new segment that will precede this original segment
+create object instance newSeg of GD_LS;
+relate newSeg to self across R6;
+
+// create the starting point of the new segment
+create object instance newSegStart of DIM_WAY;
+relate newSegStart to newSeg across R21;
+relate newSegStart to graphEdge across R319;
+newSegStart.positionX = param.x;
+newSegStart.positionY = param.y;
+
+// make the end point of the original segment the end point of the
+// new segment
+unrelate segEnd from seg across R22;
+relate segEnd to newSeg across R22;
+
+// make the start point of the new segment the end point
+// of the original segment
+relate newSegStart to seg across R22;
+
+// 
+// if the newly created segment is where any
+// existing anchors should end up
+// we must associate the new segments with
+// the existing anchors
+select many segmentAnchors related by seg->GD_AOS[R26]->DIM_CON[R26];
+for each segmentAnchor in segmentAnchors
+  if(newSeg.isOver(x:segmentAnchor.positionX, y:segmentAnchor.positionY))
+    select one aos related by segmentAnchor->GD_AOS[R26];
+    unrelate segmentAnchor from seg across R26 using aos;
+    relate segmentAnchor to newSeg across R26 using aos;
+  end if;
+end for;
+
+// relate new segment to original
+relate seg to newSeg across R7.''precedes'';
+// if nextSeg exists relate it to the new segment
+if(not_empty nextSeg)
+  relate newSeg to nextSeg across R7.''precedes'';
+end if;',
+	1,
+	'',
+	"d845ef3b-025e-43b6-a2c4-b820bc189893");
+INSERT INTO O_TPARM
+	VALUES ("1588ca02-f722-42dc-ad78-23f622d03652",
+	"3eaea7a2-1145-4fe6-b4b5-9a41fe5a5b33",
+	'index',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("7093615c-7147-48f7-9645-a2fb177da001",
+	"3eaea7a2-1145-4fe6-b4b5-9a41fe5a5b33",
+	'x',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"1588ca02-f722-42dc-ad78-23f622d03652",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("a4b88a3a-5c4f-4207-aad3-c457ab35062f",
+	"3eaea7a2-1145-4fe6-b4b5-9a41fe5a5b33",
+	'y',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"7093615c-7147-48f7-9645-a2fb177da001",
+	'');
+INSERT INTO O_TFR
+	VALUES ("2ad4b204-8b67-40c8-a138-33952454ceb1",
+	"ab69f0d0-314a-4911-947c-2aaf3ed89428",
+	'deleteBendpoint',
+	'',
+	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	1,
+	'id = self.getWaypointAtIndex(index:param.index);
+select any waypoint from instances of DIM_WAY where (selected.Way_ID == id);
+// the segment which uses this waypoint as it''s start is
+// the segment we remove
+select one afterSegment related by waypoint->GD_LS[R21];
+select one segment related by waypoint->GD_LS[R22];
+select one afterAfterSegment related by afterSegment->GD_LS[R7.''precedes''];
+select one nextWaypoint related by afterSegment->DIM_WAY[R22];
+select many anchors related by afterSegment->GD_AOS[R26];
+for each anchor in anchors
+  select one con related by anchor->DIM_CON[R26];
+  unrelate con from afterSegment across R26 using anchor;
+  relate con to segment across R26 using anchor;
+end for;
+unrelate afterSegment from segment across R7.''follows'';
+// if a segment exists after the preceding segment unrelate it then relate to the original segment
+if (not_empty afterAfterSegment)
+  unrelate afterSegment from afterAfterSegment across R7.''precedes'';
+  relate segment to afterAfterSegment across R7.''precedes'';
+  select one prevWaypoint related by afterAfterSegment->DIM_WAY[R21];
+  unrelate afterAfterSegment from prevWaypoint across R21;
+  relate waypoint to afterAfterSegment across R21;
+end if;
+waypoint.positionX = nextWaypoint.positionX;
+waypoint.positionY = nextWaypoint.positionY;
+// remove the next segment
+afterSegment.dispose();
+nextWaypoint.dispose();
+',
+	1,
+	'',
+	"3eaea7a2-1145-4fe6-b4b5-9a41fe5a5b33");
+INSERT INTO O_TPARM
+	VALUES ("b6bca771-a385-424f-b934-f6f36f18d1a6",
+	"2ad4b204-8b67-40c8-a138-33952454ceb1",
+	'index',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("0a6cc2f5-63f1-4764-a0a6-82175f7f2426",
+	"ab69f0d0-314a-4911-947c-2aaf3ed89428",
+	'get_name',
+	'',
+	"17f3cd98-2d3a-4fe3-ac41-d27b377178a6",
+	1,
+	'return "Connector";',
+	1,
+	'',
+	"2ad4b204-8b67-40c8-a138-33952454ceb1");
+INSERT INTO O_REF
+	VALUES ("ab69f0d0-314a-4911-947c-2aaf3ed89428",
+	"77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
+	0,
+	"09b28e51-261a-4f6c-8408-01a31af506b9",
+	"23f2e100-2235-4c17-ba37-70aa22fa0b0c",
+	"869a5e4d-1ed2-4a88-8136-60d95bc6447e",
+	"84c22acb-2bdb-42c9-904c-a7f9d01cdfc9",
+	"db199fd5-8135-4424-b0f8-988f8e01d989",
+	"ab33fcbf-17dc-45ef-b119-4a3b367f4aa1",
+	"00000000-0000-0000-0000-000000000000",
+	1,
+	'The line segment referenced must belong to this connector.
+In other words, this assertion must always be true:
+
+Line_Segment[self.assoc_GE_ID].conn_GE_ID == self.GE_ID',
+	'Line Segment',
+	'elementId',
+	'R5');
+INSERT INTO R_RGO_PROXY
+	VALUES ("ab69f0d0-314a-4911-947c-2aaf3ed89428",
+	"23f2e100-2235-4c17-ba37-70aa22fa0b0c",
+	"869a5e4d-1ed2-4a88-8136-60d95bc6447e",
+	'../Graphical Data.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("09b28e51-261a-4f6c-8408-01a31af506b9",
+	"77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
+	0,
+	"23f2e100-2235-4c17-ba37-70aa22fa0b0c",
+	"84c22acb-2bdb-42c9-904c-a7f9d01cdfc9",
+	'../Graphical Data.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("db199fd5-8135-4424-b0f8-988f8e01d989",
+	"ab69f0d0-314a-4911-947c-2aaf3ed89428",
+	"09b28e51-261a-4f6c-8408-01a31af506b9",
+	"77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
+	1,
+	'elementId');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("09b28e51-261a-4f6c-8408-01a31af506b9",
+	"77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
+	'../Line Segment/Line Segment.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("db199fd5-8135-4424-b0f8-988f8e01d989",
+	"ab69f0d0-314a-4911-947c-2aaf3ed89428",
+	"2206f786-33e3-4543-a1b5-ceea6be31825",
+	'Assoc_elementId',
+	'Description: When the connector represents an associative relationship, this is the ID of the line segment that the associative connector terminates at.',
+	'Assoc_',
+	'GE_ID',
+	1,
+	"66164f00-293e-4c17-ab30-7972c7c57152",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("66164f00-293e-4c17-ab30-7972c7c57152",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("ab69f0d0-314a-4911-947c-2aaf3ed89428",
+	"9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
+	0,
+	"ee285046-698d-47d4-8d30-506164f3e21f",
+	"b6240df2-203b-4a4b-88ed-82db847a152e",
+	"d2f9f4ef-aac2-4179-ab02-35c11ad5669f",
+	"937aaa35-965d-445e-b537-14b84a964929",
+	"2206f786-33e3-4543-a1b5-ceea6be31825",
+	"8fb85357-184d-432d-86d6-1ea0d1f02b32",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Graphical Element',
+	'elementId',
+	'R2');
+INSERT INTO R_RGO_PROXY
+	VALUES ("ab69f0d0-314a-4911-947c-2aaf3ed89428",
+	"b6240df2-203b-4a4b-88ed-82db847a152e",
+	"d2f9f4ef-aac2-4179-ab02-35c11ad5669f",
+	'../Graphical Data.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("ee285046-698d-47d4-8d30-506164f3e21f",
+	"9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
+	0,
+	"b6240df2-203b-4a4b-88ed-82db847a152e",
+	"937aaa35-965d-445e-b537-14b84a964929",
+	'../Graphical Data.xtuml');
+INSERT INTO O_REF
+	VALUES ("ab69f0d0-314a-4911-947c-2aaf3ed89428",
+	"0580af92-433a-4442-8b1c-a330fd6a0b16",
+	0,
+	"3e87f726-fa2e-4976-a124-f22b97f8062d",
+	"ed5590d9-fd43-44d3-9b0f-f4da5aaf6b4c",
+	"b212d297-f6ec-4835-bc1d-b9f01a6d8594",
+	"df3ee96a-de4b-433c-b97d-01969e4df983",
+	"2206f786-33e3-4543-a1b5-ceea6be31825",
+	"0e694f54-8b46-44f8-ad4d-284f9499233f",
+	"8fb85357-184d-432d-86d6-1ea0d1f02b32",
+	0,
+	'',
+	'GraphEdge',
+	'elementId',
+	'R20');
+INSERT INTO R_RGO_PROXY
+	VALUES ("ab69f0d0-314a-4911-947c-2aaf3ed89428",
+	"ed5590d9-fd43-44d3-9b0f-f4da5aaf6b4c",
+	"b212d297-f6ec-4835-bc1d-b9f01a6d8594",
+	'../Graphical Data.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("3e87f726-fa2e-4976-a124-f22b97f8062d",
+	"0580af92-433a-4442-8b1c-a330fd6a0b16",
+	0,
+	"ed5590d9-fd43-44d3-9b0f-f4da5aaf6b4c",
+	"df3ee96a-de4b-433c-b97d-01969e4df983",
+	'../Graphical Data.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("2206f786-33e3-4543-a1b5-ceea6be31825",
+	"ab69f0d0-314a-4911-947c-2aaf3ed89428",
+	"53d10295-c89f-4194-94ba-3dab00d071cd",
+	"593e6c1e-5bc8-40f5-b079-a85690d47f08",
+	1,
+	'elementId');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("53d10295-c89f-4194-94ba-3dab00d071cd",
+	"593e6c1e-5bc8-40f5-b079-a85690d47f08",
+	'../../UML 2.0 Diagram Interchange/DiagramElement/DiagramElement.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("2206f786-33e3-4543-a1b5-ceea6be31825",
+	"ab69f0d0-314a-4911-947c-2aaf3ed89428",
+	"00000000-0000-0000-0000-000000000000",
+	'elementId',
+	'',
+	'',
+	'elementId',
+	0,
+	"66164f00-293e-4c17-ab30-7972c7c57152",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("e7c19025-ed40-4b4a-a7ad-5dfa0ad15dc0",
+	"ab69f0d0-314a-4911-947c-2aaf3ed89428");
+INSERT INTO O_BATTR
+	VALUES ("e7c19025-ed40-4b4a-a7ad-5dfa0ad15dc0",
+	"ab69f0d0-314a-4911-947c-2aaf3ed89428");
+INSERT INTO O_ATTR
+	VALUES ("e7c19025-ed40-4b4a-a7ad-5dfa0ad15dc0",
+	"ab69f0d0-314a-4911-947c-2aaf3ed89428",
+	"db199fd5-8135-4424-b0f8-988f8e01d989",
+	'routingType',
+	'Persistent:false
+User_Visible:false',
+	'',
+	'routingType',
+	0,
+	"9308c9a9-a020-44f8-bc62-0e25b5e5d85c",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("9308c9a9-a020-44f8-bc62-0e25b5e5d85c",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'RoutingType',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_ID
+	VALUES (0,
+	"ab69f0d0-314a-4911-947c-2aaf3ed89428");
+INSERT INTO O_OIDA
+	VALUES ("2206f786-33e3-4543-a1b5-ceea6be31825",
+	"ab69f0d0-314a-4911-947c-2aaf3ed89428",
+	0,
+	'elementId');
+INSERT INTO O_ID
+	VALUES (1,
+	"ab69f0d0-314a-4911-947c-2aaf3ed89428");
+INSERT INTO O_ID
+	VALUES (2,
+	"ab69f0d0-314a-4911-947c-2aaf3ed89428");
+INSERT INTO S_SS_PROXY
+	VALUES ("b5695748-80fc-47fb-b5c7-801b5f28b907",
+	'Graphical Data',
+	'The GD (Graphics Domain) subsystem models the graphical elements for a BridgePoint model.
+-------------------------------------------------------
+Import:org.eclipse.swt.graphics.Color
+Notify_Changes:true',
+	'GD',
+	1,
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	"00000000-0000-0000-0000-000001900032",
+	'../Graphical Data.xtuml');

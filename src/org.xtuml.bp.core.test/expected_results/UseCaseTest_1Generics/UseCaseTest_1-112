@@ -1,0 +1,8 @@
+drawRectangle(7890, 5181, 172, 63)
+drawRectangle(7890, 5240, 600, 276)
+drawText("«package»", 8062, 5252, true)
+drawText("+Use Case Diagram", 7948, 5345, true)
+drawRectangle(7696, 5005, 90, 35)
+drawRectangle(7696, 5037, 332, 258)
+drawText("«package»", 7734, 5048, true)
+drawText("+Unname...", 7714, 5134, true)

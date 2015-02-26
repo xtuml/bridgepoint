@@ -1,0 +1,253 @@
+==========================================================================
+
+File:      $RCSfile$
+Version:   $Revision$
+Modified:  $Date$
+
+(c) Copyright 2006-2014 by Mentor Graphics Corp. All rights reserved.
+
+==========================================================================
+Licensed under the Apache License, Version 2.0 (the "License"); you may not 
+use this file except in compliance with the License.  You may obtain a copy 
+of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software 
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT 
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the 
+License for the specific language governing permissions and limitations under
+the License.
+==========================================================================
+
+How to add a node to a generated tree
+----------------------------------------
+
+Quickstart
+------------
+
+  Just skip to the "Instructions" section at the end of this document.
+
+Background
+------------
+It may be useful to understand some basics about how generator is used before
+modifying a generated tree.  Feel free to skip to the "Instructions" section if
+you like though.  When you build a project like bp.ui.explorer that contains a
+generated tree, many things happen under the hood:
+
+* Building the project launches each builder associated with that project in
+  sequence.  You can see all the builders by right clicking on the project
+  and choosing Properties.  Then select Builders.
+
+* The first builder in the list will most likely execute an ANT script called
+  generate.xml in the root folder of the project.
+
+* Previous incarnations of the generator required that all models be input as
+  a .sql file.  Today, generator works perfectly well with the .xtuml model
+  format, but most of our build scripts still expect a .sql file in a sql/
+  folder.  For that reason alone, most of our build scripts make a copy of the
+  xtuml file and place it in the sql folder with a .sql extension.
+
+* If you open a .xtuml model file in a text editor, you will find a series of
+  INSERT commands like you would expect in a database.  However, the tables
+  must exist somewhere right?  The MC-Java\Schemagen.arc file is a tool that
+  will take any model use it to create another sql file containing all the
+  CREATE TABLE commands.  Generator then will read both files to create the
+  database tables and then populate it with all the data from the model.
+
+* If you look inside org.xtuml.bp.ui.tree/sql/UITree_schema.sql with a
+  text editor, you will find tables that match the classes in the UITree.xtuml
+  file.  The ROP statements define the relationships between the classes, and
+  the MC means "many conditional".
+
+* generate.xml is an ANT script that will in turn call other ANT scripts, but it
+  also will execute xtumlmc_gen_erate.exe as a java command in order to process
+  archetypes such as BuildTree.arc.  Here is an example from ...bp.ui.explorer:
+  
+    <exec vmlauncher="false" failonerror="true" 
+                             executable="${bp_bin_dir}\xtumlmc_gen_erate" >
+        <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
+        <env key="CHAIN_UTIL_DIR" value="${chain_util_path}"/>          
+        <arg line="-nopersist 
+            -import ${mcj_path}/ooa_schema.sql 
+            -import ${schema.output_path}/UITree_schema.sql 
+            -import ../org.xtuml.bp.core/sql/ooaofooa.sql 
+            -import sql/UITree.pei.sql 
+            -arch arc/BuildTree.arc" />
+    </exec>
+
+  In the above sample, the generator is called.  The ooa_schema is used to
+  create database tables for the core model.  Those tables are then populated
+  with insert statements found in the ooaofooa.sql file.  However, this project
+  includes the Model Explorer view, which includes a generated tree.  So in
+  addition to creating a database containing the core model, the above sample
+  will also create tables in the database for a tree and populate those tables
+  with the data stored in org.xtuml.bp.ui.explorer/sql/UITree.pei.sql.
+  Once the database is complete, the BuildTree.arc archetype file is executed,
+  and it can make queries into that database in order to create customized java
+  code.  
+
+* Therefore, the most important file in modifying a generated tree is the
+  sql/UITree.pei.sql file in your project because that file contains all the
+  tree data that is used to populate the database tables for the UITree model.
+
+
+Introduction
+------------
+In the sql/UITree.pei.sql file in your project you will find INSERT statements
+for 2 tables: 
+    TNS � Tree node specification
+    TPS � Tree Parenthood specification
+
+Each parameter for these statements matches the attributes for the class in the
+UITree.xtuml model.
+
+    INSERT INTO T_TNS VALUES (
+        Tree_Node_Spec_ID       A unique identifier for the tree entry.
+
+        Icon   (DEPRICATED)     (This field is currently ignored and serves no
+                                purpose.  The icon is specified in the bp.core
+                                project under sql.ooaofooa_hierarchy.pei.sql for
+                                the matching class keyletters.  If you cannot
+                                find a TNS entry in that file for the class
+                                keyletters you intend to use in your tree, just
+                                add a TNS statement to that file too in order
+                                to specify the icon to use.  The icon file
+                                should then be stored in the 
+                                ....nucleus.bp.core/icons/metadata folder)
+                                A string identifying the icon to be shown in the
+                                tree next to the entry.
+
+        Key_Lett                The class key letters for the object represented
+                                by this tree entry.
+                                Examples: O_OBJ, SM_ISM, S_DOM
+
+        Label                   If present, specifies a constant string to be
+                                displayed for the text part of the tree entry.
+                                Used for entries which have no name of their own
+                                but which represent a named part of something
+                                else.
+                                Examples: Instance State Model,Class State Model
+
+        NamingAttribute         If present, specifies an attribute of the client
+                                model that should be read to provide the text
+                                part of the tree entry.
+
+        NamingAttributeRelChain If present, specifies how to navigate from the
+                                represented entity to the entity owning the
+                                attribute specified in 'NamingAttribute'. If
+                                empty, 'NamingAttribute' is assumed to specify
+                                an attribute in the represented entity itself.
+                                This is used in cases where the name of
+                                something is held elsewhere than the current
+                                entity (often in a supertype).
+                                Examples: ->SM_SEVT[R526]->SM_EVT[R525] 
+                                (specifies the location of the name of a local
+                                event), ->S_DT[R17] (specifies the location of
+                                the name of a user defined data type)
+
+        CategoryName            A unique string that identifies this tree entry
+                                type. Used to ensure that entries of the same
+                                type are sorted together and to allow entries of
+                                the same type to be hidden together.  This name
+                                will match the filters list.
+                                Examples: Domains, Classes, Attributes, States
+
+        Sorted                  This attribute is true if there exists a
+                                relationship that sorts the order of the nodes.
+                                The sorting algorithm is defined elsewhere
+                                (core/mdl/ooa_hierarchy).
+
+
+    INSERT INTO T_TPS VALUES (
+        Parent_Tree_Node_Spec_ID The Tree_Node_Spec_ID of the parent element
+
+        Child_Tree_Node_Spec_ID  The Tree_Node_Spec_ID of the child element that
+                                 will be shown underneath the parent element in
+                                 the tree.
+
+        ParentChildRelChain      Specifies how to find children given a parent
+                                 and a parent given any child.  The traversal is
+                                 specified in the sense parent -> child, but
+                                 note that the relationship chain is traversed
+                                 in both directions.
+
+                                 A valid traversal may yield an instance or set
+                                 in the parent -> child direction but must
+                                 always yield an instance when traversed in the
+                                 opposite (child -> parent) direction.
+
+                                 Examples: ->SM_SM[R517]->SM_STATE[R501]
+                                 (specifies the states of an instance or class
+                                 based state chart), ->S_DT[R14]->S_UDT[R17]
+                                 (specifies the user defined datatypes of a
+                                 domain)
+
+Let's look at just a few statements and explain what they mean:
+    INSERT INTO T_TNS VALUES (
+        Tree_Node_Spec_ID        12,
+        Icon                     'event.gif',
+        Key_Lett                 'SM_EVT',
+        Label                    '',
+        NamingAttribute          'Mning',
+        NamingAttributeRelChain  '',
+        CategoryName             'Events',
+        Sorted                   false);
+
+    INSERT INTO T_TNS VALUES (
+        Tree_Node_Spec_ID        25,
+        Icon                     'statechart.gif',
+        Key_Lett                 'SM_ISM',
+        Label                    'Instance State Machine',
+        NamingAttribute          '',
+        NamingAttributeRelChain  '',
+        CategoryName             'Instance State Machines',
+        Sorted                   false);
+
+    INSERT INTO T_TPS VALUES (
+        Parent_Tree_Node_Spec_ID 25,
+        Child_Tree_Node_Spec_ID  12,
+        ParentChildRelChain      '->SM_SM[R517]->SM_EVT[R502]');
+
+These three statements create two nodes that represent two classes: 
+State Machine Event and Instance State Machine.  In the tree, the Instance
+State Machine will be shown first, with all the events for that state machine
+shown as children under that node.  In order to find all the events for a
+given state machine, a database query will traverse from SM_ISM to SM_SM
+across R517 to SM_EVT across R502.  In the tree the Instance State Machine will
+always show the phrase "Instance State Machine", but each event shown will have
+a unique name found in SM_EVT.Mning.  Both of these nodes have their own icon
+to be displayed next to their labels.
+
+
+Instructions
+------------
+1) Open the sql/UITree.pei.sql file in your project
+   If you don't have one, see the How to add a generated tree to a project.txt
+   file in the org.xtuml.bp.ui.tree project.
+
+*) Remember:
+   The TNS statements are nodes in the tree that describe individual elements
+   in the tree.  The TPS statements are parent sprecifications that hook up a
+   parent node to a child node.  One parent node can have many children, but
+   they would be listed in different TPS statements.  
+   
+   The 1st 2 parameters in the TPS statements refer to the 1st parameter in the
+   TNS statements.  The 3rd parameter is the relationship(s) to traverse in the
+   model that takes you from node 1 to node 2.
+
+
+2) Create at least one new TNS statement for the node(s) you want to add.
+
+3) Create a new TPS statement explaining where this node should show up in the
+   tree.
+
+4) Build the project.
+
+The adapter for your new node will be automatically generated along with
+everything else required to display your node in the tree.
+
+Keep in mind however that the root adapter java file is not generated and may
+need some modifying if you 
+
+Enjoy.

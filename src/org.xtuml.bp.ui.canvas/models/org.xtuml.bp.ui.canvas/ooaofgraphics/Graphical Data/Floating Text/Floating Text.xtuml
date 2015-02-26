@@ -1,0 +1,833 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("36263303-f694-42bf-8e61-b117b1a89014",
+	'Floating Text',
+	6,
+	'GD_CTXT',
+	'This class contains the positions for the text at the start, middle and end of the connector.  The positions have a upper left and lower right coordinate, which specifies the size of the box containing the text. The delta coordinate specifies how much to move the box from the default position.  Note: For non supertype/subtype relationships, Start and End are the two relationship phrases and Middle is the relationship number.  For supertype/subtype relationships, Start is the hard-coded phrase, End is the relationship number, and Middle is nothing.  Also note: sometimes BridgePoint reverses the NW and SE coordinates for the connector text when populating the graphical subsystem model.',
+	"b5695748-80fc-47fb-b5c7-801b5f28b907");
+INSERT INTO O_TFR
+	VALUES ("8b14fdcf-ceb2-4934-bb38-ee70bb870902",
+	"36263303-f694-42bf-8e61-b117b1a89014",
+	'move',
+	'',
+	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	1,
+	'select one node related by self->DIM_ND[R19];
+select one element related by node->DIM_GE[R301];
+if (element.positionX != 0 and element.positionY != 0)
+  element.positionX = element.positionX + param.xDelta;
+  element.positionY = element.positionY + param.yDelta;
+end if;',
+	1,
+	'',
+	"7decbaf8-bad6-4393-875e-cd55d7bc29d4");
+INSERT INTO O_TPARM
+	VALUES ("4cb2bee7-54e3-4510-bdb5-b3668d948702",
+	"8b14fdcf-ceb2-4934-bb38-ee70bb870902",
+	'xDelta',
+	"daa2cf40-15b6-4a53-a5a3-55b15c1951ed",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("daa2cf40-15b6-4a53-a5a3-55b15c1951ed",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'real',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TPARM
+	VALUES ("b28ea27b-6dfa-4e0a-ae25-786779607307",
+	"8b14fdcf-ceb2-4934-bb38-ee70bb870902",
+	'yDelta',
+	"daa2cf40-15b6-4a53-a5a3-55b15c1951ed",
+	0,
+	'',
+	"4cb2bee7-54e3-4510-bdb5-b3668d948702",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("3852f90c-88c5-467d-9b26-57c8cd438b42",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'void',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("13f8f74c-ce35-4d3a-b7a8-b6bec0a27871",
+	"36263303-f694-42bf-8e61-b117b1a89014",
+	'isOver',
+	'',
+	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	1,
+	'select one node related by self->DIM_ND[R19];
+select one element related by node->DIM_GE[R301];
+if (param.scaled_x > element.positionX and param.scaled_x < element.positionX + node.width)
+  if (param.scaled_y > element.positionY and param.scaled_y < element.positionY + node.height)
+    return true;
+  end if;
+end if;
+return false;',
+	1,
+	'',
+	"2dcf3fd0-e49c-4883-a93c-a6526e88913c");
+INSERT INTO O_TPARM
+	VALUES ("d244ab99-4467-41cc-8ac1-b30fb7e7d716",
+	"13f8f74c-ce35-4d3a-b7a8-b6bec0a27871",
+	'scaled_x',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("388cd7a2-2d0c-4f02-9730-7670074de394",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'integer',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TPARM
+	VALUES ("db3e21a3-a7a7-4a4e-b012-42ca826fd2ba",
+	"13f8f74c-ce35-4d3a-b7a8-b6bec0a27871",
+	'scaled_y',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"d244ab99-4467-41cc-8ac1-b30fb7e7d716",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'boolean',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("4babc621-7e39-40e0-b81e-6fa50e8b92d5",
+	"36263303-f694-42bf-8e61-b117b1a89014",
+	'dispose',
+	'',
+	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	1,
+	'select one node related by self->DIM_ND[R19];
+if ( not_empty node )
+  node.dispose();
+else
+  select one mdl related by self->GD_MD[R14];
+  if ( not_empty mdl )
+    select one tim related by self->GD_TIM[R14];
+    unrelate self from mdl across R14 using tim;
+    delete object instance tim;
+  end if;
+  select one conn related by self->GD_CON[R8];
+  if ( not_empty conn )
+    unrelate self from conn across R8;
+  end if;
+  select one shape related by self->GD_SHP[R27];
+  if ( not_empty shape )
+    unrelate self from shape across R27;
+  end if;
+  delete object instance self;
+end if;',
+	1,
+	'',
+	"64b09408-52de-4277-9feb-11b4473c0ce4");
+INSERT INTO O_TFR
+	VALUES ("64b09408-52de-4277-9feb-11b4473c0ce4",
+	"36263303-f694-42bf-8e61-b117b1a89014",
+	'createSupertypeInstances',
+	'',
+	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	1,
+	'create object instance node of DIM_ND;
+relate node to self across R19;
+create object instance graphElem of DIM_GE;
+relate graphElem to node across R301;
+create object instance diaElem of DIM_ELE;
+relate diaElem to graphElem across R302;
+',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_TFR
+	VALUES ("7decbaf8-bad6-4393-875e-cd55d7bc29d4",
+	"36263303-f694-42bf-8e61-b117b1a89014",
+	'isOverVertex',
+	'',
+	"000786ec-697f-4d36-931b-d64a58cee282",
+	1,
+	'select one node related by self->DIM_ND[R19];
+select one element related by node->DIM_GE[R301];
+if (GR::isWithinHotspot(x:param.scaled_x, y:param.scaled_y, x2:element.positionX, y2:element.positionY))
+  return Vertex::NW;
+end if;
+if (GR::isWithinHotspot(x:param.scaled_x, y:param.scaled_y, x2:element.positionX, y2:element.positionY + node.height))
+  return Vertex::SW;
+end if;
+if (GR::isWithinHotspot(x:param.scaled_x, y:param.scaled_y, x2:element.positionX + node.width, y2:element.positionY + node.height))
+  return Vertex::SE;
+end if;
+if (GR::isWithinHotspot(x:param.scaled_x, y:param.scaled_y, x2:element.positionX + node.width, y2:element.positionY))
+  return Vertex::NE;
+end if;
+return Vertex::None;',
+	1,
+	'',
+	"13f8f74c-ce35-4d3a-b7a8-b6bec0a27871");
+INSERT INTO O_TPARM
+	VALUES ("9c05713f-889e-4b4c-9a8d-ce6f2204efb8",
+	"7decbaf8-bad6-4393-875e-cd55d7bc29d4",
+	'scaled_x',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("ee3c5a67-6dde-4a8e-a897-6410faa65285",
+	"7decbaf8-bad6-4393-875e-cd55d7bc29d4",
+	'scaled_y',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"9c05713f-889e-4b4c-9a8d-ce6f2204efb8",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("000786ec-697f-4d36-931b-d64a58cee282",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'Vertex',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("0940b2bd-8967-4253-947d-a4cb33e4b540",
+	"36263303-f694-42bf-8e61-b117b1a89014",
+	'moveVertex',
+	'',
+	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	1,
+	'select one node related by self->DIM_ND[R19];
+select one element related by node->DIM_GE[R301];
+nw_x = element.positionX;
+nw_y = element.positionY;
+se_x = element.positionX + node.width;
+se_y = element.positionY + node.height;
+if (param.Vertex == Vertex::NW)
+  nw_x = nw_x + param.xDelta;
+  nw_y = nw_y + param.xDelta;
+end if;
+if (param.Vertex == Vertex::SE)
+  se_x = se_x + param.xDelta;
+  se_y = se_y + param.yDelta;
+end if;
+if (param.Vertex == Vertex::NE)
+  se_x = se_x + param.xDelta;
+  nw_y = nw_y + param.yDelta;
+end if;
+if (param.Vertex == Vertex::SW)
+  nw_x = nw_x + param.xDelta;
+  se_y = se_y + param.yDelta;
+end if;
+if ((se_x - nw_x > GR::getMinShapeSize()) AND (se_y- nw_y > GR::getMinShapeSize()))
+  element.positionX = nw_x;
+  element.positionY = nw_y;
+  node.width = se_x - nw_x;
+  node.height = se_y - nw_y;
+end if;',
+	1,
+	'',
+	"8b14fdcf-ceb2-4934-bb38-ee70bb870902");
+INSERT INTO O_TPARM
+	VALUES ("52baf66d-633a-4bd7-afde-cb955cbbcf46",
+	"0940b2bd-8967-4253-947d-a4cb33e4b540",
+	'xDelta',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"de9a5fbe-2e16-4400-99f5-0214250486ee",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("5dc540f8-d693-4bfa-aafd-58673e4c339d",
+	"0940b2bd-8967-4253-947d-a4cb33e4b540",
+	'yDelta',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"52baf66d-633a-4bd7-afde-cb955cbbcf46",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("de9a5fbe-2e16-4400-99f5-0214250486ee",
+	"0940b2bd-8967-4253-947d-a4cb33e4b540",
+	'Vertex',
+	"000786ec-697f-4d36-931b-d64a58cee282",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("2dcf3fd0-e49c-4883-a93c-a6526e88913c",
+	"36263303-f694-42bf-8e61-b117b1a89014",
+	'drawText',
+	'',
+	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	1,
+	'select one conn related by self->GD_CON[R8];
+select one shp related by self->GD_SHP[R27];
+select any diagram from instances of DIM_DIA;
+elem_selected = false;
+if ( not_empty conn )
+  select one elem related by conn->GD_GE[R2];
+  select one canvas related by elem->GD_MD[R1];
+  select one diagram related by canvas->DIM_DIA[R18];
+  elem_selected = CL::isSelected(element:elem.represents);
+else
+  select one elem related by shp->GD_GE[R2];
+  select one canvas related by elem->GD_MD[R1];
+  select one diagram related by canvas->DIM_DIA[R18];
+  elem_selected = CL::isSelected(element:elem.represents);
+end if;
+
+select one node related by self->DIM_ND[R19];
+select one element related by node->DIM_GE[R301];
+text_x = element.positionX - diagram.viewportX;
+text_y = element.positionY - diagram.viewportY;
+text_w = node.width;
+text_h = node.height;
+if (text_w == 0 and text_h == 0)
+  //
+  // This label has default placement, initialize its position
+  //
+  text_w = GR::getDefaultTextWidth();
+end if;
+textToDraw = GR::wrapTextTo(context:param.context, input:param.text, width:text_w);
+if (text_x == - diagram.viewportX AND text_y == - diagram.viewportY)
+  //
+  // Text is at default position
+  //
+  angle = 0.0;
+  if (param.at == End::Start)
+    angle = GR::getAngle(x1:param.x1,y1:param.y1,x2:param.x2,y2:param.y2) ;
+    text_x = param.x1 + self.deltaX;
+    text_y = param.y1 + self.deltaY;
+  elif (param.at == End::End)
+    angle = GR::getAngle(x1:param.x2,y1:param.y2,x2:param.x1,y2:param.y1) ;
+    text_x = param.x2 + self.deltaX;
+    text_y = param.y2 + self.deltaY;
+  else
+    // at == End::Middle, use forward going angle and midway point of line
+    angle = GR::getAngle(x1:param.x1,y1:param.y1,x2:param.x2,y2:param.y2) ;
+    text_x = param.x1 + ((param.x2 - param.x1) / 2) + self.deltaX;
+    text_y = param.y1 + ((param.y2 - param.y1) / 2) + self.deltaY;
+  end if;
+  dir = GR::getDirection(angle:angle);
+  if (param.at == End::Middle)
+    if (dir == Direction::North OR dir == Direction::South)
+      text_x = text_x - 10 - GR::getTextExtent(context:param.context,
+      text:textToDraw, axis:Axis::X);
+      text_y = text_y - (GR::getTextExtent(context:param.context, 
+      text:textToDraw, axis:Axis::Y) / 2);
+    else
+      text_x = text_x - (GR::getTextExtent(context:param.context,
+      text:textToDraw, axis:Axis::X) / 2);
+      text_y = text_y - 10 - GR::getTextExtent(context:param.context, 
+      text:textToDraw, axis:Axis::Y);
+    end if;
+  else // text block is at an end
+    if (dir == Direction::North)
+      text_x = text_x + 10;
+      text_y = text_y - 10 - GR::getTextExtent(context:param.context, 
+      text:textToDraw, axis:Axis::Y);
+    elif (dir == Direction::West)
+      text_x = text_x - 10 - GR::getTextExtent(context:param.context, 
+      text:textToDraw, axis:Axis::X);
+      text_y = text_y + 20;
+    else // dir == Direction::South OR dir == Direction::East
+      text_x = text_x + 10;
+      text_y = text_y + 10;
+    end if;
+  end if;
+  //
+  // Initialize text width and height
+  //
+  text_w = GR::getTextExtent(context:param.context, text:textToDraw, axis:Axis::X);
+  text_h = GR::getTextExtent(context:param.context, text:textToDraw, axis:Axis::Y);
+  if (text_w < GR::getMinShapeSize())
+    text_w = GR::getMinShapeSize();
+  end if;
+  if (text_h < GR::getMinShapeSize())
+    text_h = GR::getMinShapeSize();
+  end if;
+  element.positionX = text_x + diagram.viewportX;
+  element.positionY = text_y + diagram.viewportY;
+  node.width = text_w;
+  node.height = text_h;
+end if;
+GR::drawText(context:param.context, 
+                       text:textToDraw,
+                       x:text_x,
+                       y:text_y,
+                       justified_to:Justification::Left, text_style:Style::None) ;
+//
+// If selected, draw the resize handles
+//
+if (elem_selected AND NOT param.disable_selection)
+  GR::drawResizeHandles(Context:param.context, x:text_x, y:text_y, w:text_w, h:text_h);
+end if;',
+	1,
+	'',
+	"4babc621-7e39-40e0-b81e-6fa50e8b92d5");
+INSERT INTO O_TPARM
+	VALUES ("40484883-c45d-43dd-9fdc-2e14413de6c0",
+	"2dcf3fd0-e49c-4883-a93c-a6526e88913c",
+	'y2',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"f65124fe-7677-4c6d-81f1-e62a920da250",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("f53c2cae-f1fb-4c48-97f6-b4cb6fe69b40",
+	"2dcf3fd0-e49c-4883-a93c-a6526e88913c",
+	'x2',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"3c994f94-64e7-43fe-96ad-033696e343b3",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("f65124fe-7677-4c6d-81f1-e62a920da250",
+	"2dcf3fd0-e49c-4883-a93c-a6526e88913c",
+	'y1',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"f53c2cae-f1fb-4c48-97f6-b4cb6fe69b40",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("3c994f94-64e7-43fe-96ad-033696e343b3",
+	"2dcf3fd0-e49c-4883-a93c-a6526e88913c",
+	'x1',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"f7a47cf9-60d1-4ad5-aab6-8ad237bc3bbd",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("2d44d431-37e0-4110-a75a-0e720f91c9b9",
+	"2dcf3fd0-e49c-4883-a93c-a6526e88913c",
+	'disable_selection',
+	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	0,
+	'',
+	"38512622-45d7-452c-ade2-ec792e1aa47f",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("accb198c-7cff-4848-b979-32b591b7cf4a",
+	"2dcf3fd0-e49c-4883-a93c-a6526e88913c",
+	'at',
+	"ae246926-3437-45e4-9232-bcc0952dbcee",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("ae246926-3437-45e4-9232-bcc0952dbcee",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'End',
+	'Translate:false',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TPARM
+	VALUES ("f7a47cf9-60d1-4ad5-aab6-8ad237bc3bbd",
+	"2dcf3fd0-e49c-4883-a93c-a6526e88913c",
+	'text',
+	"17f3cd98-2d3a-4fe3-ac41-d27b377178a6",
+	0,
+	'',
+	"2d44d431-37e0-4110-a75a-0e720f91c9b9",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("17f3cd98-2d3a-4fe3-ac41-d27b377178a6",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'string',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TPARM
+	VALUES ("38512622-45d7-452c-ade2-ec792e1aa47f",
+	"2dcf3fd0-e49c-4883-a93c-a6526e88913c",
+	'context',
+	"231cb314-a496-47fb-aee2-1317be81deb5",
+	0,
+	'',
+	"accb198c-7cff-4848-b979-32b591b7cf4a",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("231cb314-a496-47fb-aee2-1317be81deb5",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'GCDelegate',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("de21700d-dab5-49f9-9936-d10e3dca5d08",
+	"36263303-f694-42bf-8e61-b117b1a89014",
+	'setDefaultLocation',
+	'',
+	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	1,
+	'angle = 0.0;
+text_x = 0;
+text_y = 0;
+x1 = 0;
+x2 = 0;
+y1 = 0;
+y2 = 0;
+select one connector related by self->GD_CON[R8];
+if(not_empty connector)
+  // this text is for a connector, calculate
+  // the line according to the end this text
+  // is set for
+  if(self.end == End::Start)
+    startId = connector.getStartingSegmentId();
+    select any segment related by connector->GD_LS[R6]
+                                          where (selected.elementId == startId);
+    select one startWay related by segment->DIM_WAY[R21];
+    select one endWay related by segment->DIM_WAY[R22];
+    x1 = startWay.positionX;
+    y1 = startWay.positionY;
+    x2 = endWay.positionX;
+    y2 = endWay.positionY;
+  elif(self.end == End::End)
+    endId = connector.getEndingSegmentId();
+    select any segment related by connector->GD_LS[R6]
+                                          where (selected.elementId == endId);
+    select one startWay related by segment->DIM_WAY[R21];
+    select one endWay related by segment->DIM_WAY[R22];
+    x1 = startWay.positionX;
+    y1 = startWay.positionY;
+    x2 = endWay.positionX;
+    y2 = endWay.positionY;
+  elif(self.end == End::Middle)
+    select many segments related by connector->GD_LS[R6];
+    select any seg related by connector->GD_LS[R6];
+    segCount = cardinality segments;
+    segCount = segCount /2;
+    while (segCount > 1)
+      select one seg related by seg->GD_LS[R7.''precedes''];
+      segCount = segCount - 1;
+    end while;
+    if(cardinality segments == 3)
+      // use the middle segment
+      select one seg related by seg->GD_LS[R7.''precedes''];
+    end if;
+    select one startWay related by seg->DIM_WAY[R21];
+    select one endWay related by seg->DIM_WAY[R22];
+    x1 = startWay.positionX;
+    y1 = startWay.positionY;
+    x2 = endWay.positionX;
+    y2 = endWay.positionY;
+  end if;
+end if;
+select one shape related by self->GD_SHP[R27];
+if(not_empty shape)
+  select one shapeElem related by shape->GD_GE[R2]->DIM_GE[R23];
+  select one shapeNode related by shape->DIM_ND[R19];
+  yOffset = GR::getMinShapeSize();
+  x1 = shapeElem.positionX;
+  x2 = shapeElem.positionX + shapeNode.width;
+  y1 = shapeElem.positionY + yOffset;
+  y2 = shapeElem.positionY + yOffset;
+end if;
+if (self.end == End::Start)
+  angle = GR::getAngle(x1:x1,y1:y1,x2:x2,y2:y2);
+  text_x = x1 + self.deltaX;
+  text_y = y1 + self.deltaY;
+elif (self.end == End::End)
+  angle = GR::getAngle(x1:x2,y1:y2,x2:x1,y2:y1) ;
+  text_x = x2 + self.deltaX;
+  text_y = y2 + self.deltaY;
+else
+  // at == End::Middle, use forward going angle and midway point of line
+  angle = GR::getAngle(x1:x1,y1:y1,x2:x2,y2:y2) ;
+  text_x = x1 + ((x2 - x1) / 2) + self.deltaX;
+  text_y = y1 + ((y2 - y1) / 2) + self.deltaY;
+end if;
+dir = GR::getDirection(angle:angle);
+if (self.end == End::Middle)
+  if (dir == Direction::North OR dir == Direction::South)
+    text_x = text_x - 25 - param.width;
+    text_y = text_y - (param.height / 2);
+  else
+    text_x = text_x - (param.width / 2);
+    text_y = text_y - 25 - param.height;
+  end if;
+else // text block is at an end
+  if (dir == Direction::North)
+    text_x = text_x + 10;
+    text_y = text_y - 10 - param.height;
+  elif (dir == Direction::West)
+    text_x = text_x - 10 - param.width;
+    text_y = text_y + 20;
+  else // dir == Direction::South OR dir == Direction::East
+    text_x = text_x + 10;
+    text_y = text_y + 10;
+  end if;
+end if;
+select one graphElem related by self->DIM_ND[R19]->DIM_GE[R301];
+graphElem.positionX = text_x;
+graphElem.positionY = text_y;',
+	1,
+	'',
+	"0940b2bd-8967-4253-947d-a4cb33e4b540");
+INSERT INTO O_TPARM
+	VALUES ("9268cdc8-f763-4740-829f-4a4230eff269",
+	"de21700d-dab5-49f9-9936-d10e3dca5d08",
+	'height',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("5112ec2c-d25b-4d7f-8052-3394aa2697d2",
+	"de21700d-dab5-49f9-9936-d10e3dca5d08",
+	'width',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"9268cdc8-f763-4740-829f-4a4230eff269",
+	'');
+INSERT INTO O_TFR
+	VALUES ("3867020e-1195-4d2c-9e66-6bd81e64205f",
+	"36263303-f694-42bf-8e61-b117b1a89014",
+	'get_name',
+	'',
+	"17f3cd98-2d3a-4fe3-ac41-d27b377178a6",
+	1,
+	'return "Floating Text";',
+	1,
+	'',
+	"de21700d-dab5-49f9-9936-d10e3dca5d08");
+INSERT INTO O_NBATTR
+	VALUES ("bf9fdcf6-d214-47c6-b53e-8f2e459cc8ae",
+	"36263303-f694-42bf-8e61-b117b1a89014");
+INSERT INTO O_BATTR
+	VALUES ("bf9fdcf6-d214-47c6-b53e-8f2e459cc8ae",
+	"36263303-f694-42bf-8e61-b117b1a89014");
+INSERT INTO O_ATTR
+	VALUES ("bf9fdcf6-d214-47c6-b53e-8f2e459cc8ae",
+	"36263303-f694-42bf-8e61-b117b1a89014",
+	"40be9321-6a80-421d-a39c-58f5d6d9f1cc",
+	'deltaX',
+	'Description: The X offset of the connector text from the default position.
+Full Name: Connector Text Delta X Value
+User_Visible:false',
+	'',
+	'deltaX',
+	0,
+	"daa2cf40-15b6-4a53-a5a3-55b15c1951ed",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("3eb758fe-cebf-4f32-b705-a92ae8462143",
+	"36263303-f694-42bf-8e61-b117b1a89014");
+INSERT INTO O_BATTR
+	VALUES ("3eb758fe-cebf-4f32-b705-a92ae8462143",
+	"36263303-f694-42bf-8e61-b117b1a89014");
+INSERT INTO O_ATTR
+	VALUES ("3eb758fe-cebf-4f32-b705-a92ae8462143",
+	"36263303-f694-42bf-8e61-b117b1a89014",
+	"bf9fdcf6-d214-47c6-b53e-8f2e459cc8ae",
+	'deltaY',
+	'Description: The Y offset of the connector text from the default position.
+Full Name: Connector Text Delta Y Value
+User_Visible:false',
+	'',
+	'deltaY',
+	0,
+	"daa2cf40-15b6-4a53-a5a3-55b15c1951ed",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("40be9321-6a80-421d-a39c-58f5d6d9f1cc",
+	"36263303-f694-42bf-8e61-b117b1a89014");
+INSERT INTO O_BATTR
+	VALUES ("40be9321-6a80-421d-a39c-58f5d6d9f1cc",
+	"36263303-f694-42bf-8e61-b117b1a89014");
+INSERT INTO O_ATTR
+	VALUES ("40be9321-6a80-421d-a39c-58f5d6d9f1cc",
+	"36263303-f694-42bf-8e61-b117b1a89014",
+	"f3b65ef9-b716-467d-90ad-c26ed5ec7b56",
+	'end',
+	'The end of the connector for which this object is serving as a text: 
+start, middle, or end.
+Full Name: Connector Orientation',
+	'',
+	'end',
+	0,
+	"ae246926-3437-45e4-9232-bcc0952dbcee",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("36263303-f694-42bf-8e61-b117b1a89014",
+	"ab69f0d0-314a-4911-947c-2aaf3ed89428",
+	0,
+	"2206f786-33e3-4543-a1b5-ceea6be31825",
+	"f90784e6-0c5c-41d9-8d84-f4f4184bcfc6",
+	"d7f70f72-9813-4b36-9214-ff5226275d74",
+	"47fc4dd4-ccf7-4c52-bfac-8fd5d48de0ff",
+	"f3b65ef9-b716-467d-90ad-c26ed5ec7b56",
+	"466fbf87-32a4-4689-9e04-523547e71704",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Connector',
+	'elementId',
+	'R8');
+INSERT INTO R_RGO_PROXY
+	VALUES ("36263303-f694-42bf-8e61-b117b1a89014",
+	"f90784e6-0c5c-41d9-8d84-f4f4184bcfc6",
+	"d7f70f72-9813-4b36-9214-ff5226275d74",
+	'../Graphical Data.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("2206f786-33e3-4543-a1b5-ceea6be31825",
+	"ab69f0d0-314a-4911-947c-2aaf3ed89428",
+	0,
+	"f90784e6-0c5c-41d9-8d84-f4f4184bcfc6",
+	"47fc4dd4-ccf7-4c52-bfac-8fd5d48de0ff",
+	'../Graphical Data.xtuml');
+INSERT INTO O_REF
+	VALUES ("36263303-f694-42bf-8e61-b117b1a89014",
+	"0dbd2431-e353-4456-9834-6923205e88d7",
+	0,
+	"89373e61-1ced-470c-8595-0caf35d1b56c",
+	"24137010-9cb0-423b-9eb8-f1056ee5aa16",
+	"eea16246-b8bf-46eb-84d4-3be7fdc12d1f",
+	"9b566db5-05be-4c47-8da0-00484f738041",
+	"f3b65ef9-b716-467d-90ad-c26ed5ec7b56",
+	"e3cecdc9-9e3f-4aea-8ee3-68bd1529c3c7",
+	"466fbf87-32a4-4689-9e04-523547e71704",
+	0,
+	'',
+	'Shape',
+	'elementId',
+	'R27');
+INSERT INTO R_RGO_PROXY
+	VALUES ("36263303-f694-42bf-8e61-b117b1a89014",
+	"24137010-9cb0-423b-9eb8-f1056ee5aa16",
+	"eea16246-b8bf-46eb-84d4-3be7fdc12d1f",
+	'../Graphical Data.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("89373e61-1ced-470c-8595-0caf35d1b56c",
+	"0dbd2431-e353-4456-9834-6923205e88d7",
+	0,
+	"24137010-9cb0-423b-9eb8-f1056ee5aa16",
+	"9b566db5-05be-4c47-8da0-00484f738041",
+	'../Graphical Data.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("f3b65ef9-b716-467d-90ad-c26ed5ec7b56",
+	"36263303-f694-42bf-8e61-b117b1a89014",
+	"53d10295-c89f-4194-94ba-3dab00d071cd",
+	"593e6c1e-5bc8-40f5-b079-a85690d47f08",
+	1,
+	'elementId');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("53d10295-c89f-4194-94ba-3dab00d071cd",
+	"593e6c1e-5bc8-40f5-b079-a85690d47f08",
+	'../../UML 2.0 Diagram Interchange/DiagramElement/DiagramElement.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("f3b65ef9-b716-467d-90ad-c26ed5ec7b56",
+	"36263303-f694-42bf-8e61-b117b1a89014",
+	"70ce96fd-d49f-4b77-a54a-884e47ec3bb1",
+	'conn_elementId',
+	'',
+	'conn_',
+	'elementId',
+	1,
+	"66164f00-293e-4c17-ab30-7972c7c57152",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("66164f00-293e-4c17-ab30-7972c7c57152",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("36263303-f694-42bf-8e61-b117b1a89014",
+	"04bcd415-c1a2-437e-9b8f-2cd45a955c31",
+	0,
+	"13d4e68c-4a5d-44d1-91bb-9dea6f090842",
+	"1336cbb2-f091-4c2c-879c-c54921246e97",
+	"940bc08e-4493-41c1-8a60-16573c0d04a7",
+	"fc262e0a-d529-4e0a-8926-6187325986fc",
+	"70ce96fd-d49f-4b77-a54a-884e47ec3bb1",
+	"5157d149-abfe-4186-aa6a-3f7ba87ba41a",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'GraphNode',
+	'elementId',
+	'R19');
+INSERT INTO R_RGO_PROXY
+	VALUES ("36263303-f694-42bf-8e61-b117b1a89014",
+	"1336cbb2-f091-4c2c-879c-c54921246e97",
+	"940bc08e-4493-41c1-8a60-16573c0d04a7",
+	'../Graphical Data.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("13d4e68c-4a5d-44d1-91bb-9dea6f090842",
+	"04bcd415-c1a2-437e-9b8f-2cd45a955c31",
+	0,
+	"1336cbb2-f091-4c2c-879c-c54921246e97",
+	"fc262e0a-d529-4e0a-8926-6187325986fc",
+	'../Graphical Data.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("70ce96fd-d49f-4b77-a54a-884e47ec3bb1",
+	"36263303-f694-42bf-8e61-b117b1a89014",
+	"53d10295-c89f-4194-94ba-3dab00d071cd",
+	"593e6c1e-5bc8-40f5-b079-a85690d47f08",
+	1,
+	'elementId');
+INSERT INTO O_ATTR
+	VALUES ("70ce96fd-d49f-4b77-a54a-884e47ec3bb1",
+	"36263303-f694-42bf-8e61-b117b1a89014",
+	"00000000-0000-0000-0000-000000000000",
+	'elementId',
+	'',
+	'',
+	'elementId',
+	0,
+	"66164f00-293e-4c17-ab30-7972c7c57152",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"36263303-f694-42bf-8e61-b117b1a89014");
+INSERT INTO O_OIDA
+	VALUES ("70ce96fd-d49f-4b77-a54a-884e47ec3bb1",
+	"36263303-f694-42bf-8e61-b117b1a89014",
+	0,
+	'elementId');
+INSERT INTO O_ID
+	VALUES (1,
+	"36263303-f694-42bf-8e61-b117b1a89014");
+INSERT INTO O_ID
+	VALUES (2,
+	"36263303-f694-42bf-8e61-b117b1a89014");
+INSERT INTO S_SS_PROXY
+	VALUES ("b5695748-80fc-47fb-b5c7-801b5f28b907",
+	'Graphical Data',
+	'The GD (Graphics Domain) subsystem models the graphical elements for a BridgePoint model.
+-------------------------------------------------------
+Import:org.eclipse.swt.graphics.Color
+Notify_Changes:true',
+	'GD',
+	1,
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	"00000000-0000-0000-0000-000001900032",
+	'../Graphical Data.xtuml');

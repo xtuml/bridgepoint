@@ -1,0 +1,221 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("e8ff2dc9-665f-44aa-b4af-7623b9622219",
+	'Break',
+	629,
+	'ACT_BRK',
+	'This class generates a break statement within a block.',
+	"76583c73-7a99-4c81-b260-8109e6cef5ca");
+INSERT INTO O_TFR
+	VALUES ("b1ff01bc-df82-48e2-a5cf-95e569a1c39b",
+	"e8ff2dc9-665f-44aa-b4af-7623b9622219",
+	'dispose',
+	'This operation disconnects an instance, and all instances it is 
+responsible for, from the model.
+',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// do nothing
+delete object instance self;
+
+',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_DT_PROXY
+	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'void',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("2d3afe7f-983b-4c9e-8c78-d6c7fa0bd964",
+	"e8ff2dc9-665f-44aa-b4af-7623b9622219",
+	'execute',
+	'// WARNING: This function assumes that break and continue statements can only exist within a for each or while loop.
+//          If a break or continue statement exists somewhere else, an infinite loop will occur.
+',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// Body:Break.execute()
+
+// WARNING: This function assumes that break and continue statements can only exist within a for each or while loop.
+//          If a break or continue statement exists somewhere else, an infinite loop will occur.
+
+// Find the potentially nested block that is controlled by a for each or a while loop
+
+found_loop_block = FALSE;
+select one containing_block related by self->ACT_SMT[R603]->ACT_BLK[R602];
+
+while (found_loop_block == FALSE)
+
+  // Tell each block of OAL to stop executing up to the originating for each or while loop
+  //containing_block.exitBlock();    
+
+  // Test if break was called within a for loop
+  select one for_statement related by containing_block->ACT_FOR[R605];
+  if (not_empty for_statement)
+    found_loop_block = TRUE;  
+  else
+    // See if break was called within a while loop
+    select one while_statement related by containing_block->ACT_WHL[R608];
+    if (not_empty while_statement)
+      found_loop_block = TRUE;
+    else 
+  
+      // This block isn''t the source of the while or for loop.  Find a nested control structure block.
+      select one if_statement related by containing_block->ACT_IF[R607];
+      select one elif_statement related by containing_block->ACT_EL[R658];
+      select one else_statement related by containing_block->ACT_E[R606];
+    
+      if (not_empty if_statement)
+        select one containing_block related by if_statement->ACT_SMT[R603]->ACT_BLK[R602];
+      elif (not_empty elif_statement)
+        select one containing_block related by elif_statement->ACT_SMT[R603]->ACT_BLK[R602];
+      elif (not_empty else_statement)
+        select one containing_block related by else_statement->ACT_SMT[R603]->ACT_BLK[R602];
+      end if;
+    end if;
+  end if;
+end while;
+
+// Abandon all processing in all blocks below the loop block and stop iterating
+select one for_statement related by containing_block->ACT_FOR[R605];
+select one while_statement related by containing_block->ACT_WHL[R608];
+select one statement related by self->ACT_SMT[R603];
+if (not_empty for_statement)
+  select any stack_frame from instances of I_STF where
+                              (selected.Stack_Frame_ID == param.stack_frame_id);
+  // Abandon set iteration point
+  // Get the local reference to the loop variable
+  select any loop_variable_local_ref related by stack_frame->
+             I_BSF[R2923]->L_LCL[R3000]->L_LCR[R3001] where selected.Local_ID == 
+           for_statement.getLocalLoopVarID(stack_frame_id:param.stack_frame_id);
+  select one set_instance_in_ref related by 
+                                          loop_variable_local_ref->L_IIR[R3012];
+  // Unrelating the loop var from the instance in reference resets the iteration
+  unrelate loop_variable_local_ref from set_instance_in_ref across R3012;
+  // Pop up to for each block level
+  select one target_statement related by for_statement->ACT_SMT[R603];
+  select one containing_block related by target_statement->ACT_BLK[R602];
+  statement.popUpToBlock(block_id:containing_block.Block_ID,
+                                           stack_frame_id:param.stack_frame_id);
+  target_statement.setupNextStatement(stack_frame_id:param.stack_frame_id);
+elif (not_empty while_statement)
+  select one target_statement related by while_statement->ACT_SMT[R603];
+  select one containing_block related by target_statement->ACT_BLK[R602];
+  statement.popUpToBlock(block_id:containing_block.Block_ID,
+                                           stack_frame_id:param.stack_frame_id);
+  target_statement.setupNextStatement(stack_frame_id:param.stack_frame_id);
+end if;',
+	1,
+	'',
+	"b1ff01bc-df82-48e2-a5cf-95e569a1c39b");
+INSERT INTO O_TPARM
+	VALUES ("11ac1b6e-5820-47c2-90e7-dc8340aa196d",
+	"2d3afe7f-983b-4c9e-8c78-d6c7fa0bd964",
+	'stack_frame_id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'unique_id',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("e8ff2dc9-665f-44aa-b4af-7623b9622219",
+	"e9011b75-e798-45a3-ac83-92ba7c04db4e",
+	0,
+	"57ac4fbc-42e9-46ec-a929-7875093e348c",
+	"63067dfa-ea5b-4c48-bd8c-138b8b76196c",
+	"355597d3-a34c-409f-afdf-e0a124292a78",
+	"fe55fe0e-8913-466e-aa7c-a04d957a07ce",
+	"0e13776f-c0d0-40fb-bb99-eda93dde9bb0",
+	"2f31f080-6e07-430b-899c-1f8d4e9e72e0",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Statement',
+	'Statement_ID',
+	'R603');
+INSERT INTO R_RGO_PROXY
+	VALUES ("e8ff2dc9-665f-44aa-b4af-7623b9622219",
+	"63067dfa-ea5b-4c48-bd8c-138b8b76196c",
+	"355597d3-a34c-409f-afdf-e0a124292a78",
+	'../Body.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("57ac4fbc-42e9-46ec-a929-7875093e348c",
+	"e9011b75-e798-45a3-ac83-92ba7c04db4e",
+	0,
+	"63067dfa-ea5b-4c48-bd8c-138b8b76196c",
+	"fe55fe0e-8913-466e-aa7c-a04d957a07ce",
+	'../Body.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("0e13776f-c0d0-40fb-bb99-eda93dde9bb0",
+	"e8ff2dc9-665f-44aa-b4af-7623b9622219",
+	"57ac4fbc-42e9-46ec-a929-7875093e348c",
+	"e9011b75-e798-45a3-ac83-92ba7c04db4e",
+	1,
+	'Statement_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("57ac4fbc-42e9-46ec-a929-7875093e348c",
+	"e9011b75-e798-45a3-ac83-92ba7c04db4e",
+	'../Statement/Statement.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("0e13776f-c0d0-40fb-bb99-eda93dde9bb0",
+	"e8ff2dc9-665f-44aa-b4af-7623b9622219",
+	"00000000-0000-0000-0000-000000000000",
+	'Statement_ID',
+	'
+
+',
+	'',
+	'Statement_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_ID
+	VALUES (0,
+	"e8ff2dc9-665f-44aa-b4af-7623b9622219");
+INSERT INTO O_OIDA
+	VALUES ("0e13776f-c0d0-40fb-bb99-eda93dde9bb0",
+	"e8ff2dc9-665f-44aa-b4af-7623b9622219",
+	0,
+	'Statement_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"e8ff2dc9-665f-44aa-b4af-7623b9622219");
+INSERT INTO O_ID
+	VALUES (2,
+	"e8ff2dc9-665f-44aa-b4af-7623b9622219");
+INSERT INTO S_SS_PROXY
+	VALUES ("76583c73-7a99-4c81-b260-8109e6cef5ca",
+	'Body',
+	'This subsystem abstracts the action itself, the blocks and statements
+it contains together with the flow of control statements such as ''while'',
+''for each'' and ''if''.
+Notify_Changes:false
+Persistent:false
+// This is used by schema_gen to ignore this subsystem (for publication)
+TRANSLATE_FOR_EXTERNAL_USE:FALSE
+',
+	'ACT',
+	600,
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000380007",
+	'../Body.xtuml');

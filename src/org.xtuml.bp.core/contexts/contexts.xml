@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ File:      *RCSfile*
+ Version:   *Revision*
+ Modified:  *Date*
+
+ (c) Copyright 2005-2014 by Mentor Graphics Corp. All rights reserved.
+
+ ========================================================================
+Licensed under the Apache License, Version 2.0 (the "License"); you may not
+use this file except in compliance with the License.  You may obtain a copy
+of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the
+License for the specific language governing permissions and limitations under
+the License.
+ ======================================================================== 
+
+-->
+<contexts>
+	<!-- context entry to allow f1 topics in eclipse owned contexts-->
+	<context id="new_project_wizard_context">
+       <topic label="BridgePoint xtUML Project Wizard" href="/org.xtuml.bp.doc/Reference/UserInterface/xtUMLModeling/Wizards/HTML/xtUMLProject.htm"/>
+	</context>
+	<context id="new_wizard_context">
+	   <topic label="BridgePoint xtUML Project Wizard" href="/org.xtuml.bp.doc/Reference/UserInterface/xtUMLModeling/Wizards/HTML/xtUMLProject.htm"/>
+	   <topic label="BridgePoint xtUML Model Wizard" href="/org.xtuml.bp.doc/Reference/UserInterface/xtUMLModeling/Wizards/HTML/xtUMLModel.htm"/>
+	</context>
+	<context id="new_wizard_shortcut_context">
+        <topic label="BridgePoint xtUML Project Wizard" href="/org.xtuml.bp.doc/Reference/UserInterface/xtUMLModeling/Wizards/HTML/xtUMLProject.htm"/>
+		<topic label="BridgePoint xtUML Model Wizard" href="/org.xtuml.bp.doc/Reference/UserInterface/xtUMLModeling/Wizards/HTML/xtUMLModel.htm"/>
+	</context>
+	<context id="new_wizard_selection_wizard_page_context">
+       <topic label="BridgePoint xtUML Project Wizard" href="/org.xtuml.bp.doc/Reference/UserInterface/xtUMLModeling/Wizards/HTML/xtUMLProject.htm"/>
+	   <topic label="BridgePoint xtUML Model Wizard" href="/org.xtuml.bp.doc/Reference/UserInterface/xtUMLModeling/Wizards/HTML/xtUMLModel.htm"/>
+	</context>
+	<context id="task_list_view_context">
+       <topic label="Problems View (BridgePoint)" href="/org.xtuml.bp.doc/Reference/UserInterface/xtUMLModeling/Views/HTML/Problems.htm"/>
+	</context>
+	<context id="property_sheet_page_help_context">
+       <topic label="Properties View (BridgePoint)" href="/org.xtuml.bp.doc/Reference/UserInterface/xtUMLModeling/Views/HTML/Properties.htm"/>
+	</context>
+	<!-- context entry for new xtUML project Wizard Page -->
+	<context id="newProjectDialogId" >
+		<description>This wizard helps you create a new xtUML Project.</description>
+		<topic href="/org.xtuml.bp.doc/Reference/UserInterface/xtUMLModeling/Wizards/HTML/xtUMLProject.htm"
+			label="BridgePoint xtUML Project Wizard"/>
+	</context>
+	<!-- context entry for new xtUML model Wizard Page -->
+	<context id="newModelDialogId" >
+		<description>This wizard helps you create a new xtUML Model.</description>
+		<topic href="/org.xtuml.bp.doc/Reference/UserInterface/xtUMLModeling/Wizards/HTML/xtUMLModel.htm"
+			label="BridgePoint xtUML Model Wizard"/>
+	</context>
+	<!-- context entry for BridgePoint preference item -->
+	<context id="corePreferencesId" >
+		<description>Allows you to set BridgePoint preferences.</description>
+		<topic href="/org.xtuml.bp.doc/Reference/UserInterface/xtUMLModeling/Preferences/HTML/Preferences.htm"
+			label="Preferences - BridgePoint"/>
+	</context>
+</contexts>

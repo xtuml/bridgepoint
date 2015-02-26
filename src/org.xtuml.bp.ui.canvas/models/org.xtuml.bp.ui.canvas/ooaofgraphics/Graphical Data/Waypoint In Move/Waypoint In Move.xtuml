@@ -1,0 +1,652 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("0ac5a7ee-e799-478f-ae62-a1be52fa199b",
+	'Waypoint In Move',
+	14,
+	'GD_WIM',
+	'One instance of this class exists while a waypoint is being manipulated on the
+diagram.  Its existence is temporary, so it is not persistent.
+
+---------------------------------------------------------------------------------
+Persistent:false
+TRANSLATE_FOR_EXTERNAL_USE:FALSE
+
+',
+	"b5695748-80fc-47fb-b5c7-801b5f28b907");
+INSERT INTO O_TFR
+	VALUES ("eb493384-4d82-4c8c-bf84-b257f8a7cecb",
+	"0ac5a7ee-e799-478f-ae62-a1be52fa199b",
+	'initialize',
+	'',
+	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	1,
+	'//
+// Cache the end being moved in case the user puts
+// the segment down in an inappropriate place.
+//
+select one waypoint related by self->DIM_WAY[R24];
+x = GR::getAbsoluteXPosition();
+y = GR::getAbsoluteYPosition();
+self.originX = waypoint.positionX;
+self.originY = waypoint.positionY;
+
+// if there''s a segment before the waypoint 
+select one seg related by waypoint->GD_LS[R22];
+overEnd = false;
+if (not_empty seg) 
+	// detm if the mouse is over the end of the segment
+	overEnd = seg.isOverEnd(x:x, y:y);
+end if;
+
+// if the mouse is over a segment-end that 
+// corresponds to our waypoint
+if (overEnd)
+  // If this is the last segment, then we also want to move
+  // all segments that are attached to the end of the line . . . .
+  select many attachedCons related by seg->GD_CON[R6]->GD_GE[R2]->DIM_GE[R23]->DIM_CON[R311]->DIM_ED[R321]->GD_CON[R20];
+  select one attachedToCon related by seg->GD_CON[R6]->DIM_ED[R20]->DIM_CON[R321]->DIM_GE[R311]->GD_GE[R23]->GD_CON[R2];
+  select one nextSeg related by seg->GD_LS[R7.''precedes''];
+  if (empty nextSeg)
+    for each attachedCon in attachedCons
+      select any endTermSpec related by attachedCon->GD_GE[R2]->GD_ES[R10]->
+                                                            TS_CSP[R200]->TS_TSP[R203]->TS_CNT[R201];
+      if (not_empty endTermSpec and endTermSpec.terminatesAt == End::End)
+        // The attached connector terminates at the end of this one, so we need to arrange to
+        // move this one too.
+        select one attachedConElem related by attachedCon->GD_GE[R2];
+        //  If it is selected, it will be picked up by the loop in the state action
+        // that called this, so we don''t want to do that twice.
+        if (not attachedConElem.isSelected())
+          attachedCon.initializeEndWaypointInMove(at:End::End);
+        end if;
+      end if;
+    end for;
+    if (not_empty attachedToCon)
+      select one attachedToConSpec related by attachedToCon->GD_GE[R2]->GD_ES[R10];
+      select any endTermSpec related by seg->GD_CON[R6]->GD_GE[R2]->GD_ES[R10]->
+                                                            TS_CSP[R200]->TS_TSP[R203]->TS_CNT[R201] 
+                                                            where (selected.OOA_Type == attachedToConSpec.OOA_Type);
+      if (not_empty endTermSpec and (endTermSpec.terminatesAt != End::Middle))
+        select one attachedToConElem related by attachedToCon->GD_GE[R2];
+        if (not attachedToConElem.isSelected())
+          attachedToCon.initializeEndWaypointInMove(at:endTermSpec.terminatesAt);
+        end if;
+      end if;
+    end if;
+  end if;
+end if;
+
+select one seg related by waypoint->GD_LS[R21];
+overStart = false;
+if(not_empty seg)
+  overStart = seg.isOverStart(x:x, y:y);
+end if;
+
+// if the mouse is over a segment-end that 
+// corresponds to our waypoint
+if (overStart)
+  // If this is the first segment, then we also want to move
+  // all segments that are attached to the end of the line . . . .
+  select many attachedCons related by seg->GD_CON[R6]->GD_GE[R2]->DIM_GE[R23]->DIM_CON[R311]->DIM_ED[R320]->GD_CON[R20];
+  select one attachedToCon related by seg->GD_CON[R6]->DIM_ED[R20]->DIM_CON[R320]->DIM_GE[R311]->GD_GE[R23]->GD_CON[R2];
+  select one con related by seg->GD_CON[R6];
+  id = con.getStartingSegmentId();
+  if (seg.elementId == id)
+    for each attachedCon in attachedCons
+      select any startTermSpec related by attachedCon->GD_GE[R2]->GD_ES[R10]->
+                                                            TS_CSP[R200]->TS_TSP[R202]->TS_CNT[R201];
+      if (not_empty startTermSpec and startTermSpec.terminatesAt == End::Start)
+        // The attached connector terminates at the end of this one, so we need to arrange to
+        // move this one too.
+        select one attachedConElem related by attachedCon->GD_GE[R2];
+        //  If it is selected, it will be picked up by the loop in the state action
+        // that called this, so we don''t want to do that twice.
+        if (not attachedConElem.isSelected())
+          attachedCon.initializeEndWaypointInMove(at:End::Start);
+        end if;
+      end if;
+    end for;
+    if (not_empty attachedToCon)
+      select one attachedToConSpec related by attachedToCon->GD_GE[R2]->GD_ES[R10];
+      select any startTermSpec related by seg->GD_CON[R6]->GD_GE[R2]->GD_ES[R10]->
+                                                            TS_CSP[R200]->TS_TSP[R202]->TS_CNT[R201] 
+                                                            where (selected.OOA_Type == attachedToConSpec.OOA_Type);
+      if (not_empty startTermSpec and (startTermSpec.terminatesAt != End::Middle))
+        select one attachedToConElem related by attachedToCon->GD_GE[R2];
+        if (not attachedToConElem.isSelected())
+          attachedToCon.initializeEndWaypointInMove(at:startTermSpec.terminatesAt);
+        end if;
+      end if;
+    end if;
+  end if;
+end if;
+',
+	1,
+	'',
+	"1dd3025c-5378-4eef-a50a-a068d3dbd15e");
+INSERT INTO S_DT_PROXY
+	VALUES ("3852f90c-88c5-467d-9b26-57c8cd438b42",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'void',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("cee3b332-041b-4881-bc2b-89f2a23bc0ef",
+	"0ac5a7ee-e799-478f-ae62-a1be52fa199b",
+	'finalize',
+	'',
+	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	1,
+	'//
+// The start and end of connectors require special processing after a resize
+//
+select one waypoint related by self->DIM_WAY[R24];
+select one beforeSegment related by waypoint->GD_LS[R22];
+select one afterSegment related by waypoint->GD_LS[R21];
+if (empty beforeSegment)
+  //
+  // Handle case where the beginning of the line is being moved.
+  //
+  segment = afterSegment;
+  select one segmentStart related by segment->DIM_WAY[R21];
+  select one segmentEnd related by segment->DIM_WAY[R22];
+  appropriate_start_point = false;
+  select one start_elem related by segment->GD_CON[R6]->DIM_ED[R20]->DIM_CON[R320]->DIM_GE[R311]->GD_GE[R23];
+  if (not_empty start_elem)
+    select one shp related by start_elem->GD_SHP[R2];
+    if (not_empty shp)
+      appropriate_start_point = self.finalizeOnShape();
+    end if;
+    select one con related by start_elem->GD_CON[R2];
+    if (not_empty con)
+      appropriate_start_point = self.finalizeStartOnConnector();
+    end if;
+    if (not appropriate_start_point)
+      //
+      // Snap back to original position.
+      //
+      segment.moveStart(xDelta:self.originX - segmentStart.positionX, 
+      		yDelta:self.originY - segmentStart.positionY, snapToGrid:false);
+    end if;
+  end if;
+elif  (empty afterSegment)
+  //
+  // Handle case where the end of the line is being moved.
+  //
+  appropriate_end_point = false;
+  segment = beforeSegment;
+  select one end_elem related by segment->GD_CON[R6]->DIM_ED[R20]->DIM_CON[R321]->DIM_GE[R311]->GD_GE[R23];
+  if (not_empty end_elem)
+    select one shp related by end_elem->GD_SHP[R2];
+    if (not_empty shp)
+      appropriate_end_point = self.finalizeOnShape();
+    end if;
+    select one con related by end_elem->GD_CON[R2];
+    if (not_empty con)
+      appropriate_end_point = self.finalizeEndOnConnector();
+    end if; 
+  else
+    //
+    // No end shape attached, anywhere should be OK
+    //
+    appropriate_end_point = true;
+  end if;
+  if (not appropriate_end_point)
+    //
+    // Snap back to original position.
+    //
+    select one segmentEnd related by segment->DIM_WAY[R22];
+    segment.moveEnd(xDelta:self.originX - segmentEnd.positionX, yDelta:self.originY - segmentEnd.positionY,
+    	snapToGrid:false);
+  end if;
+else
+  segment = beforeSegment;
+  select one segmentStart related by segment->DIM_WAY[R21];
+  select one afterAfterSegment related by afterSegment->GD_LS[R7.''precedes''];
+  select one nextWaypoint related by afterSegment->DIM_WAY[R22];
+  select one nextInMove related by nextWaypoint->GD_WIM[R24];
+  select one model related by self->GD_MD[R24];
+  // if waypoint is moved to straighten the line remove it
+  if (GR::isOver(tolerance:GR::getHotspotSize(), x:waypoint.positionX, y:waypoint.positionY, 
+  		x1:segmentStart.positionX, y1:segmentStart.positionY, 
+  		x2:nextWaypoint.positionX, y2:nextWaypoint.positionY))
+    select many anchors related by afterSegment->GD_AOS[R26];
+    for each anchor in anchors
+      select one con related by anchor->DIM_CON[R26];
+      unrelate con from afterSegment across R26 using anchor;
+      relate con to segment across R26 using anchor;
+    end for;
+    unrelate afterSegment from segment across R7.''follows'';
+    // if a segment exists after the preceding segment unrelate it then relate to the original segment
+    if (not_empty afterAfterSegment)
+      unrelate afterSegment from afterAfterSegment across R7.''precedes'';
+      relate segment to afterAfterSegment across R7.''precedes'';
+      select one prevWaypoint related by afterAfterSegment->DIM_WAY[R21];
+      unrelate afterAfterSegment from prevWaypoint across R21;
+      relate waypoint to afterAfterSegment across R21;
+    end if;
+    // unrelate the sif if it exists
+    if (not_empty nextInMove)
+      unrelate nextWaypoint from model across R24 using nextInMove;
+    end if;
+    waypoint.positionX = nextWaypoint.positionX;
+    waypoint.positionY = nextWaypoint.positionY;
+    // remove the next segment
+	afterSegment.dispose();
+	nextWaypoint.dispose();
+  end if;
+end if;
+',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_TFR
+	VALUES ("790dacbd-a5e0-48c6-a687-d13dfd0091bd",
+	"0ac5a7ee-e799-478f-ae62-a1be52fa199b",
+	'finalizeOnShape',
+	'',
+	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	1,
+	'appropriate_point = false;
+select one waypoint related by self->DIM_WAY[R24];
+waypointStartsConnector = true;
+select one segment related by waypoint->GD_LS[R21];
+if (empty segment)
+	waypointStartsConnector = false;
+	select one segment related by waypoint->GD_LS[R22];
+end if;
+select one segmentStart related by segment->DIM_WAY[R21];
+select one segmentEnd related by segment->DIM_WAY[R22];
+select one model related by self->GD_MD[R24];
+select one diagram related by model->DIM_DIA[R18];
+if (waypointStartsConnector)
+  //
+  // The position must be somewhere inside the
+  // shape at which this connector starts.
+  //
+  select one start_elem related by segment->GD_CON[R6]->DIM_ED[R20]->DIM_CON[R320]->DIM_GE[R311]->GD_GE[R23]->GD_SHP[R2];
+  select one ctrShape related by start_elem->GD_CTR[R28];
+  isOver = false;
+  if(not_empty ctrShape)
+    isOver = ctrShape.isOverAnyPartOf(x:GR::unScale(value:segmentStart.positionX -
+    							  diagram.viewportX), y:GR::unScale(
+    							  value:segmentStart.positionY -
+    							  diagram.viewportY));
+  else
+    isOver = start_elem.isOver(x:GR::unScale(value:segmentStart.positionX - diagram.viewportX),
+                                  y:GR::unScale(value:segmentStart.positionY - diagram.viewportY));
+  end if;
+  if (isOver)
+    intersectX = start_elem.getXIntersect(considerLine:false, x1:segmentStart.positionX, y1:segmentStart.positionY,
+		x2:segmentEnd.positionX, y2:segmentEnd.positionY);
+    intersectY = start_elem.getYIntersect(considerLine:false, x1:segmentStart.positionX, y1:segmentStart.positionY,
+		x2:segmentEnd.positionX, y2:segmentEnd.positionY);
+    if (intersectX != 0 and intersectY != 0)
+      appropriate_point = true;
+		// [1] move the segment''s start to the grid snap-point nearest to 
+		// the intersection point along the shape''s edge (note that the 
+		// point will only be a snap-point in one axis if the shape''s edge 
+		// is not itself snapped to the grid)
+		snapPointId = start_elem.getNearestGridSnapPointOnEdge(x:intersectX, y:intersectY);
+		select any snapPoint from instances of DIM_PNT where selected.pointId == snapPointId;
+		segment.moveStart(xDelta:snapPoint.x - segmentStart.positionX, 
+			yDelta:snapPoint.y - segmentStart.positionY, snapToGrid:false);
+		delete object instance snapPoint;
+    end if;
+  end if;
+else
+  //
+  // The position must be somewhere inside the
+  // shape at which this connector ends.
+  //
+  select one end_elem related by segment->GD_CON[R6]->DIM_ED[R20]->DIM_CON[R321]->DIM_GE[R311]->GD_GE[R23]->GD_SHP[R2];
+  select one ctrShape related by end_elem->GD_CTR[R28];
+  isOver = false;
+  if(not_empty ctrShape)
+    isOver = ctrShape.isOverAnyPartOf(x:GR::unScale(value:segmentEnd.positionX -
+    							  diagram.viewportX), y:GR::unScale(
+    							  value:segmentEnd.positionY -
+    							  diagram.viewportY));
+  else
+    isOver = end_elem.isOver(x:GR::unScale(value:segmentEnd.positionX - diagram.viewportX),
+                                  y:GR::unScale(value:segmentEnd.positionY - diagram.viewportY));
+  end if;
+  if (isOver)
+    intersectX = end_elem.getXIntersect(considerLine:false, x1:segmentEnd.positionX, y1:segmentEnd.positionY,
+		x2:segmentStart.positionX, y2:segmentStart.positionY);
+    intersectY = end_elem.getYIntersect(considerLine:false, x1:segmentEnd.positionX, y1:segmentEnd.positionY,
+		x2:segmentStart.positionX, y2:segmentStart.positionY);
+    if (intersectX != 0 and intersectY != 0)
+      appropriate_point = true;
+
+		// see [1], above
+	   	snapPointId = end_elem.getNearestGridSnapPointOnEdge(x:intersectX, y:intersectY);
+	   	select any snapPoint from instances of DIM_PNT where selected.pointId == snapPointId;
+	    segment.moveEnd(xDelta:snapPoint.x - segmentEnd.positionX, 
+	    	yDelta:snapPoint.y - segmentEnd.positionY, snapToGrid:false);
+	   	delete object instance snapPoint;
+    end if;
+  end if;
+end if;
+return appropriate_point; 
+',
+	1,
+	'',
+	"f4142706-5965-4b2d-997b-29045e0c4bf4");
+INSERT INTO S_DT_PROXY
+	VALUES ("6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'boolean',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("f4142706-5965-4b2d-997b-29045e0c4bf4",
+	"0ac5a7ee-e799-478f-ae62-a1be52fa199b",
+	'finalizeEndOnConnector',
+	'',
+	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	1,
+	'appropriate_point = false;
+select one segment related by self->DIM_WAY[R24]->GD_LS[R22];
+select one segmentStart related by segment->DIM_WAY[R21];
+select one segmentEnd related by segment->DIM_WAY[R22];
+select one end_elem related by segment->GD_CON[R6]->DIM_ED[R20]->DIM_CON[R321]->DIM_GE[R311]->GD_GE[R23];
+select one con related by end_elem->GD_CON[R2];
+select one diagram related by end_elem->GD_MD[R1]->DIM_DIA[R18];
+select any endTermSpec related by segment->GD_CON[R6]->GD_GE[R2]->
+                                                    GD_ES[R10]->TS_CSP[R200]->TS_TSP[R203]->TS_CNT[R201];
+if (endTermSpec.terminatesAt == End::Start)
+    appropriate_point = true;
+    segment.moveEnd(xDelta:con.getStartX() - segmentEnd.positionX, 
+    	yDelta:con.getStartY() - segmentEnd.positionY, snapToGrid:false);
+elif (endTermSpec.terminatesAt == End::End)
+    appropriate_point = true;
+    segment.moveEnd(xDelta:con.getEndX() - segmentEnd.positionX, 
+    	yDelta:con.getEndY() - segmentEnd.positionY, snapToGrid:false);
+elif (endTermSpec.terminatesAt == End::Middle)
+  //
+  // The segment being moved must intersect the target line somewhere.
+  //
+  intersectX = con.getIntersect(x1:segmentStart.positionX, y1:segmentStart.positionY,
+		x2:segmentEnd.positionX, y2:segmentEnd.positionY, axis:Axis::X, testInfinite:false);
+  intersectY = con.getIntersect(x1:segmentStart.positionX, y1:segmentStart.positionY,
+		x2:segmentEnd.positionX, y2:segmentEnd.positionY, axis:Axis::Y, testInfinite:false);
+  if (intersectX != 0 and intersectY != 0)
+    appropriate_point = true;
+    segment.moveEnd(xDelta:intersectX - segmentEnd.positionX, 
+    	yDelta:intersectY - segmentEnd.positionY, snapToGrid:false);
+    // if the segment was moved so that it starts or ends on a
+    // different segment, update the anchor association
+    select any intersectSegment related by con->GD_LS[R6] where (selected.elementId == con.getIntersectSegmentId(x:intersectX, y:intersectY));
+    select one existingAnchorSegment related by segment->GD_CON[R6]->DIM_ED[R20]->DIM_CON[R321]->GD_AOS[R26]->GD_LS[R26];
+    if(existingAnchorSegment != intersectSegment)
+      select one aos related by segment->GD_CON[R6]->DIM_ED[R20]->DIM_CON[R321]->GD_AOS[R26];
+      select one gcon related by aos->DIM_CON[R26];
+      unrelate existingAnchorSegment from gcon across R26 using aos;
+      relate intersectSegment to gcon across R26 using aos;
+    end if;
+  end if;  // intersect found
+end if;  // segment terminates in the Middle of the target connector
+return appropriate_point;
+',
+	1,
+	'',
+	"cee3b332-041b-4881-bc2b-89f2a23bc0ef");
+INSERT INTO O_TFR
+	VALUES ("a995a9cf-6541-4f73-8c43-0f15f13d6ed4",
+	"0ac5a7ee-e799-478f-ae62-a1be52fa199b",
+	'finalizeOnWhitespace',
+	'',
+	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	1,
+	'appropriate_point = true;
+select one waypoint related by self->DIM_WAY[R24];
+select one model related by self->GD_MD[R24];
+select one diagram related by model->DIM_DIA[R18];
+select many shps related by model->GD_GE[R1]->GD_SHP[R2];
+for each shp in shps
+  if (shp.isOver(x:GR::unScale(value:waypoint.positionX - diagram.viewportX),
+		y:GR::unScale(value:waypoint.positionY - diagram.viewportY)))
+    appropriate_point = false;
+  end if;
+end for;
+return appropriate_point; ',
+	1,
+	'',
+	"790dacbd-a5e0-48c6-a687-d13dfd0091bd");
+INSERT INTO O_TFR
+	VALUES ("1dd3025c-5378-4eef-a50a-a068d3dbd15e",
+	"0ac5a7ee-e799-478f-ae62-a1be52fa199b",
+	'finalizeStartOnConnector',
+	'',
+	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	1,
+	'appropriate_point = false;
+select one segment related by self->DIM_WAY[R24]->GD_LS[R21];
+select one segmentStart related by segment->DIM_WAY[R21];
+select one segmentEnd related by segment->DIM_WAY[R22];
+select one start_elem related by segment->GD_CON[R6]->DIM_ED[R20]->DIM_CON[R320]->DIM_GE[R311]->GD_GE[R23];
+select one diagram related by start_elem->GD_MD[R1]->DIM_DIA[R18];
+select one con related by start_elem->GD_CON[R2];
+select any startTermSpec related by segment->GD_CON[R6]->GD_GE[R2]->
+                                                    GD_ES[R10]->TS_CSP[R200]->TS_TSP[R202]->TS_CNT[R201];
+if (startTermSpec.terminatesAt == End::Start)
+    appropriate_point = true;
+    segment.moveStart(xDelta:con.getStartX() - segmentStart.positionX, 
+    	yDelta:con.getStartY() - segmentStart.positionY, snapToGrid:false);
+elif (startTermSpec.terminatesAt == End::End)
+    appropriate_point = true;
+    segment.moveStart(xDelta:con.getEndX() - segmentStart.positionX, 
+    	yDelta:con.getEndY() - segmentStart.positionY, snapToGrid:false);
+elif (startTermSpec.terminatesAt == End::Middle)
+  //
+  // The segment being moved must intersect the target line somewhere.
+  //
+  intersectX = con.getIntersect(x1:segmentStart.positionX, y1:segmentStart.positionY,
+		x2:segmentEnd.positionX, y2:segmentEnd.positionY, axis:Axis::X, testInfinite:false);
+  intersectY = con.getIntersect(x1:segmentStart.positionX, y1:segmentStart.positionY,
+		x2:segmentEnd.positionX, y2:segmentEnd.positionY, axis:Axis::Y, testInfinite:false);
+  if (intersectX != 0 and intersectY != 0)
+    appropriate_point = true;
+    segment.moveStart(xDelta:intersectX - segmentStart.positionX, 
+    	yDelta:intersectY - segmentStart.positionY, snapToGrid:false);
+    // if the segment was moved so that it starts or ends on a
+    // different segment, update the anchor association
+    select any intersectSegment related by con->GD_LS[R6] where (selected.elementId == con.getIntersectSegmentId(x:intersectX, y:intersectY));
+    select one existingAnchorSegment related by segment->GD_CON[R6]->DIM_ED[R20]->DIM_CON[R320]->GD_AOS[R26]->GD_LS[R26];
+    if(existingAnchorSegment != intersectSegment)
+      select one aos related by segment->GD_CON[R6]->DIM_ED[R20]->DIM_CON[R320]->GD_AOS[R26];
+      select one gcon related by aos->DIM_CON[R26];
+      unrelate existingAnchorSegment from gcon across R26 using aos;
+      relate intersectSegment to gcon across R26 using aos;
+    end if;
+  end if;  // intersect found
+end if;  // segment terminates in the Middle of the target connector
+return appropriate_point;',
+	1,
+	'',
+	"a995a9cf-6541-4f73-8c43-0f15f13d6ed4");
+INSERT INTO O_NBATTR
+	VALUES ("fe015387-d17b-447b-8c68-2aa37d0e3ae9",
+	"0ac5a7ee-e799-478f-ae62-a1be52fa199b");
+INSERT INTO O_BATTR
+	VALUES ("fe015387-d17b-447b-8c68-2aa37d0e3ae9",
+	"0ac5a7ee-e799-478f-ae62-a1be52fa199b");
+INSERT INTO O_ATTR
+	VALUES ("fe015387-d17b-447b-8c68-2aa37d0e3ae9",
+	"0ac5a7ee-e799-478f-ae62-a1be52fa199b",
+	"21283f5a-d16b-450f-abfa-e220e0ffdde0",
+	'originX',
+	'This attribute caches the x position value at the moment the
+movement begins. The value is used to snap the waypoint back
+to its original position if the user releases the mouse when
+the waypoint is not over an appropriate point.',
+	'',
+	'originX',
+	0,
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("388cd7a2-2d0c-4f02-9730-7670074de394",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'integer',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("f762403c-f8bd-4c52-96c4-99d384a1bd4f",
+	"0ac5a7ee-e799-478f-ae62-a1be52fa199b");
+INSERT INTO O_BATTR
+	VALUES ("f762403c-f8bd-4c52-96c4-99d384a1bd4f",
+	"0ac5a7ee-e799-478f-ae62-a1be52fa199b");
+INSERT INTO O_ATTR
+	VALUES ("f762403c-f8bd-4c52-96c4-99d384a1bd4f",
+	"0ac5a7ee-e799-478f-ae62-a1be52fa199b",
+	"fe015387-d17b-447b-8c68-2aa37d0e3ae9",
+	'originY',
+	'See originX',
+	'',
+	'originY',
+	0,
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("0ac5a7ee-e799-478f-ae62-a1be52fa199b",
+	"7e1e895a-1165-4c2f-b740-6ef7bea4058a",
+	0,
+	"fdf1eeb1-04c2-458a-8bbd-ffbfe87b7c4a",
+	"bc558972-04b0-4d93-8cf2-f4a80825d496",
+	"27364f42-b52f-4047-8330-f4613bdb9030",
+	"bbbbe39c-402a-4aa5-9a95-31e0fb56e5f8",
+	"3c9d3ad5-26ef-40ab-922c-56f73e1e89b4",
+	"1903976f-a3c0-4f54-9788-2f120d89fa37",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Waypoint',
+	'Way_ID',
+	'R24');
+INSERT INTO R_RGO_PROXY
+	VALUES ("0ac5a7ee-e799-478f-ae62-a1be52fa199b",
+	"bc558972-04b0-4d93-8cf2-f4a80825d496",
+	"27364f42-b52f-4047-8330-f4613bdb9030",
+	'../Graphical Data.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("fdf1eeb1-04c2-458a-8bbd-ffbfe87b7c4a",
+	"7e1e895a-1165-4c2f-b740-6ef7bea4058a",
+	0,
+	"bc558972-04b0-4d93-8cf2-f4a80825d496",
+	"bbbbe39c-402a-4aa5-9a95-31e0fb56e5f8",
+	'../Graphical Data.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("3c9d3ad5-26ef-40ab-922c-56f73e1e89b4",
+	"0ac5a7ee-e799-478f-ae62-a1be52fa199b",
+	"fdf1eeb1-04c2-458a-8bbd-ffbfe87b7c4a",
+	"7e1e895a-1165-4c2f-b740-6ef7bea4058a",
+	1,
+	'Way_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("fdf1eeb1-04c2-458a-8bbd-ffbfe87b7c4a",
+	"7e1e895a-1165-4c2f-b740-6ef7bea4058a",
+	'../../UML 2.0 Diagram Interchange/Waypoint/Waypoint.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("3c9d3ad5-26ef-40ab-922c-56f73e1e89b4",
+	"0ac5a7ee-e799-478f-ae62-a1be52fa199b",
+	"00000000-0000-0000-0000-000000000000",
+	'Way_ID',
+	'',
+	'',
+	'Way_ID',
+	0,
+	"66164f00-293e-4c17-ab30-7972c7c57152",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("66164f00-293e-4c17-ab30-7972c7c57152",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("0ac5a7ee-e799-478f-ae62-a1be52fa199b",
+	"09423687-e999-4aba-876d-35e0d3331311",
+	0,
+	"d1783817-101b-46d1-b9a8-907ee4d5efe4",
+	"bc558972-04b0-4d93-8cf2-f4a80825d496",
+	"27364f42-b52f-4047-8330-f4613bdb9030",
+	"6b4308b3-39de-4f3f-a23a-d553f6168f62",
+	"21283f5a-d16b-450f-abfa-e220e0ffdde0",
+	"095bb732-3453-45d4-b23b-6a119ed69edf",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Model',
+	'diagramId',
+	'R24');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("d1783817-101b-46d1-b9a8-907ee4d5efe4",
+	"09423687-e999-4aba-876d-35e0d3331311",
+	0,
+	"bc558972-04b0-4d93-8cf2-f4a80825d496",
+	"6b4308b3-39de-4f3f-a23a-d553f6168f62",
+	'../Graphical Data.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("21283f5a-d16b-450f-abfa-e220e0ffdde0",
+	"0ac5a7ee-e799-478f-ae62-a1be52fa199b",
+	"57f2fb06-0e5a-471e-bab1-02b88f324eb4",
+	"18112b9b-f650-403f-be5c-27e3bda6b9dd",
+	1,
+	'diagramId');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("57f2fb06-0e5a-471e-bab1-02b88f324eb4",
+	"18112b9b-f650-403f-be5c-27e3bda6b9dd",
+	'../../UML 2.0 Diagram Interchange/Diagram/Diagram.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("21283f5a-d16b-450f-abfa-e220e0ffdde0",
+	"0ac5a7ee-e799-478f-ae62-a1be52fa199b",
+	"3c9d3ad5-26ef-40ab-922c-56f73e1e89b4",
+	'diagramId',
+	'',
+	'',
+	'diagramId',
+	0,
+	"66164f00-293e-4c17-ab30-7972c7c57152",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"0ac5a7ee-e799-478f-ae62-a1be52fa199b");
+INSERT INTO O_OIDA
+	VALUES ("3c9d3ad5-26ef-40ab-922c-56f73e1e89b4",
+	"0ac5a7ee-e799-478f-ae62-a1be52fa199b",
+	0,
+	'Way_ID');
+INSERT INTO O_OIDA
+	VALUES ("21283f5a-d16b-450f-abfa-e220e0ffdde0",
+	"0ac5a7ee-e799-478f-ae62-a1be52fa199b",
+	0,
+	'diagramId');
+INSERT INTO O_ID
+	VALUES (1,
+	"0ac5a7ee-e799-478f-ae62-a1be52fa199b");
+INSERT INTO O_ID
+	VALUES (2,
+	"0ac5a7ee-e799-478f-ae62-a1be52fa199b");
+INSERT INTO S_SS_PROXY
+	VALUES ("b5695748-80fc-47fb-b5c7-801b5f28b907",
+	'Graphical Data',
+	'The GD (Graphics Domain) subsystem models the graphical elements for a BridgePoint model.
+-------------------------------------------------------
+Import:org.eclipse.swt.graphics.Color
+Notify_Changes:true',
+	'GD',
+	1,
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	"00000000-0000-0000-0000-000001900032",
+	'../Graphical Data.xtuml');

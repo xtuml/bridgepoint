@@ -1,0 +1,62 @@
+AUDIT RESULTS FOR DOMAIN init2
+
+SUBSYSTEMS WITHOUT DESCRIPTIONS:
+init one
+init two
+init data
+
+EXTERNAL ENTITIES WITHOUT DESCRIPTIONS:
+External Entity Logging 
+External Entity Time
+External Entity Architecture
+External Entity Bridge Op
+
+BRIDGES WITHOUT DESCRIPTIONS:
+External Entity Bridge Logging ::LogSuccess
+External Entity Bridge Logging ::LogFailure
+External Entity Bridge Logging ::LogInfo
+External Entity Bridge Architecture::shutdown
+External Entity Bridge Bridge Op::getandset
+
+CLASSES WITHOUT DESCRIPTIONS:
+Class init one::init one
+Class init two::init two
+Class init data::Object A
+Class init data::Object B
+Class init data::Object C
+
+ATTRIBUTES WITHOUT DESCRIPTIONS:
+Attribute init one::id
+Attribute init one::current_state
+Attribute init two::id
+Attribute init two::current_state
+Attribute Object A::oa_id
+Attribute Object A::
+Attribute Object B::ob_id
+Attribute Object B::u
+Attribute Object B::current_state
+Attribute Object C::oc_id
+
+OPERATIONS WITHOUT DESCRIPTIONS:
+Operation Object B::one
+Operation Object C::one
+
+STATE MODELS WITHOUT DESCRIPTIONS:
+State Model init one
+State Model init two
+State Model Object B
+State Model Object B
+
+EVENTS WITHOUT DESCRIPTIONS:
+Event OB1
+Event OB_A1
+Event OB_A2
+
+ACTION SPECIFICATIONS WITHOUT DESCRIPTIONS:
+init one::init state three
+init one::init state four
+init two::init state seven
+init two::init state eight
+Object B::state one
+Object B::state one (Class Based)
+Object B::Shutdown (Class Based)
