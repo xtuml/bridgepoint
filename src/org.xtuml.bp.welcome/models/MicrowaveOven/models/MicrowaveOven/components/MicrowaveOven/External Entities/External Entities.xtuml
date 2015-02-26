@@ -1,0 +1,553 @@
+-- BP 7.1.6 content: Package syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO EP_PKG
+	VALUES ("bae954bf-1329-4988-9569-07da6c5506ea",
+	"00000000-0000-0000-0000-000000000000",
+	"9cd2cdcf-1f2b-42ce-bc35-718a90a05cab",
+	'External Entities',
+	'',
+	0);
+INSERT INTO GD_MD
+	VALUES ("8d51a331-5cf8-4741-896b-5b7c6a25fc4d",
+	112,
+	"bae954bf-1329-4988-9569-07da6c5506ea",
+	108,
+	0,
+	0,
+	1,
+	1,
+	1,
+	12,
+	1,
+	2311,
+	1524,
+	0,
+	0,
+	0,
+	'',
+	'MicrowaveOven::components::MicrowaveOven::External Entities');
+INSERT INTO GD_GE
+	VALUES ("2bd00649-4ea6-4e3c-8031-fed5f8166f39",
+	"8d51a331-5cf8-4741-896b-5b7c6a25fc4d",
+	"faaf7acd-1518-4cc7-b5cf-c2f47458ecdb",
+	12,
+	0,
+	'MicrowaveOven::components::MicrowaveOven::External Entities::Time');
+INSERT INTO GD_SHP
+	VALUES ("2bd00649-4ea6-4e3c-8031-fed5f8166f39");
+INSERT INTO GD_NCS
+	VALUES ("2bd00649-4ea6-4e3c-8031-fed5f8166f39");
+INSERT INTO DIM_ND
+	VALUES (160.000000,
+	96.000000,
+	"2bd00649-4ea6-4e3c-8031-fed5f8166f39");
+INSERT INTO DIM_GE
+	VALUES (1968.000000,
+	1500.000000,
+	"2bd00649-4ea6-4e3c-8031-fed5f8166f39",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("2bd00649-4ea6-4e3c-8031-fed5f8166f39",
+	1,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_GE
+	VALUES ("c17657d8-2165-4c6f-9662-5b2847712251",
+	"8d51a331-5cf8-4741-896b-5b7c6a25fc4d",
+	"2776f9a9-7100-4b34-a112-ff60e2ac0538",
+	12,
+	0,
+	'MicrowaveOven::components::MicrowaveOven::External Entities::Control Panel');
+INSERT INTO GD_SHP
+	VALUES ("c17657d8-2165-4c6f-9662-5b2847712251");
+INSERT INTO GD_NCS
+	VALUES ("c17657d8-2165-4c6f-9662-5b2847712251");
+INSERT INTO DIM_ND
+	VALUES (160.000000,
+	96.000000,
+	"c17657d8-2165-4c6f-9662-5b2847712251");
+INSERT INTO DIM_GE
+	VALUES (1884.000000,
+	1248.000000,
+	"c17657d8-2165-4c6f-9662-5b2847712251",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("c17657d8-2165-4c6f-9662-5b2847712251",
+	1,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_GE
+	VALUES ("0e31d360-0b96-4b33-9e2c-e47aceef1023",
+	"8d51a331-5cf8-4741-896b-5b7c6a25fc4d",
+	"c881cf8c-ab05-4bbd-a18e-3f39fb88cc4e",
+	12,
+	0,
+	'MicrowaveOven::components::MicrowaveOven::External Entities::Architecture');
+INSERT INTO GD_SHP
+	VALUES ("0e31d360-0b96-4b33-9e2c-e47aceef1023");
+INSERT INTO GD_NCS
+	VALUES ("0e31d360-0b96-4b33-9e2c-e47aceef1023");
+INSERT INTO DIM_ND
+	VALUES (160.000000,
+	96.000000,
+	"0e31d360-0b96-4b33-9e2c-e47aceef1023");
+INSERT INTO DIM_GE
+	VALUES (1776.000000,
+	1500.000000,
+	"0e31d360-0b96-4b33-9e2c-e47aceef1023",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("0e31d360-0b96-4b33-9e2c-e47aceef1023",
+	1,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_DIA
+	VALUES ("8d51a331-5cf8-4741-896b-5b7c6a25fc4d",
+	'',
+	0.996278,
+	1725.000000,
+	1191.000000,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_EE
+	VALUES ("faaf7acd-1518-4cc7-b5cf-c2f47458ecdb",
+	'Time',
+	'The Time external entity provides date, timestamp, and timer related operations.',
+	'TIM',
+	"00000000-0000-0000-0000-000000000000",
+	'',
+	'Time',
+	1);
+INSERT INTO S_BRG
+	VALUES ("0b8017cb-e46d-4a3c-a9a8-c292ac4574c2",
+	"faaf7acd-1518-4cc7-b5cf-c2f47458ecdb",
+	'current_date',
+	'',
+	1,
+	"ba5eda7a-def5-0000-0000-00000000000e",
+	'',
+	1,
+	'');
+INSERT INTO S_BRG
+	VALUES ("b16dbfdb-217f-4905-ad31-13670c3c029b",
+	"faaf7acd-1518-4cc7-b5cf-c2f47458ecdb",
+	'create_date',
+	'',
+	1,
+	"ba5eda7a-def5-0000-0000-00000000000e",
+	'',
+	1,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("82f5448f-df59-4f95-adc4-c6d7fe99219e",
+	"b16dbfdb-217f-4905-ad31-13670c3c029b",
+	'second',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"1cac62b8-c01d-4400-afc1-7e72ba426a69",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("60e54366-2fc6-4ddf-bf9f-47c9ce6b52a6",
+	"b16dbfdb-217f-4905-ad31-13670c3c029b",
+	'minute',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"dbf441d6-4e7c-444a-adf5-c3946af17387",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("dbf441d6-4e7c-444a-adf5-c3946af17387",
+	"b16dbfdb-217f-4905-ad31-13670c3c029b",
+	'hour',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"ab780261-3874-490b-99cb-a013ae2126e8",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("ab780261-3874-490b-99cb-a013ae2126e8",
+	"b16dbfdb-217f-4905-ad31-13670c3c029b",
+	'day',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("1cac62b8-c01d-4400-afc1-7e72ba426a69",
+	"b16dbfdb-217f-4905-ad31-13670c3c029b",
+	'month',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"60e54366-2fc6-4ddf-bf9f-47c9ce6b52a6",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("31471c37-1169-44d5-9006-42288267ab45",
+	"b16dbfdb-217f-4905-ad31-13670c3c029b",
+	'year',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"82f5448f-df59-4f95-adc4-c6d7fe99219e",
+	'');
+INSERT INTO S_BRG
+	VALUES ("b0cda934-ad27-4ea1-b288-9da0be5a0d72",
+	"faaf7acd-1518-4cc7-b5cf-c2f47458ecdb",
+	'get_second',
+	'',
+	1,
+	"ba5eda7a-def5-0000-0000-000000000002",
+	'',
+	1,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("0157ae4a-c288-4ead-a3f4-a585bc685467",
+	"b0cda934-ad27-4ea1-b288-9da0be5a0d72",
+	'date',
+	"ba5eda7a-def5-0000-0000-00000000000e",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BRG
+	VALUES ("d56831ed-23b8-4615-8b54-7f571e810d6f",
+	"faaf7acd-1518-4cc7-b5cf-c2f47458ecdb",
+	'get_minute',
+	'',
+	1,
+	"ba5eda7a-def5-0000-0000-000000000002",
+	'',
+	1,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("9f7f79f5-c97b-4f80-b0e3-6b896de54f6d",
+	"d56831ed-23b8-4615-8b54-7f571e810d6f",
+	'date',
+	"ba5eda7a-def5-0000-0000-00000000000e",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BRG
+	VALUES ("17a14cef-7c05-4ee0-813d-02216fd28453",
+	"faaf7acd-1518-4cc7-b5cf-c2f47458ecdb",
+	'get_hour',
+	'',
+	1,
+	"ba5eda7a-def5-0000-0000-000000000002",
+	'',
+	1,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("0083aa27-b3e2-451a-9175-ef032aa8a0e6",
+	"17a14cef-7c05-4ee0-813d-02216fd28453",
+	'date',
+	"ba5eda7a-def5-0000-0000-00000000000e",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BRG
+	VALUES ("abcce06a-e8b9-4020-92cf-a17b73ae4313",
+	"faaf7acd-1518-4cc7-b5cf-c2f47458ecdb",
+	'get_day',
+	'',
+	1,
+	"ba5eda7a-def5-0000-0000-000000000002",
+	'',
+	1,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("1a05a3f1-61ad-4d1a-b918-73f64d231a30",
+	"abcce06a-e8b9-4020-92cf-a17b73ae4313",
+	'date',
+	"ba5eda7a-def5-0000-0000-00000000000e",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BRG
+	VALUES ("3a37da1a-b7e0-43fa-8556-f53e09017add",
+	"faaf7acd-1518-4cc7-b5cf-c2f47458ecdb",
+	'get_month',
+	'',
+	1,
+	"ba5eda7a-def5-0000-0000-000000000002",
+	'',
+	1,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("da9aa8e5-300c-4cb1-8185-56b2f3fe7a53",
+	"3a37da1a-b7e0-43fa-8556-f53e09017add",
+	'date',
+	"ba5eda7a-def5-0000-0000-00000000000e",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BRG
+	VALUES ("434256da-5dcc-401d-b687-90bf27a59024",
+	"faaf7acd-1518-4cc7-b5cf-c2f47458ecdb",
+	'get_year',
+	'',
+	1,
+	"ba5eda7a-def5-0000-0000-000000000002",
+	'',
+	1,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("f2cdf7f0-3581-47d2-8cc4-af9d59eceb21",
+	"434256da-5dcc-401d-b687-90bf27a59024",
+	'date',
+	"ba5eda7a-def5-0000-0000-00000000000e",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BRG
+	VALUES ("67c628e1-236f-4375-97d1-f3a8dd662420",
+	"faaf7acd-1518-4cc7-b5cf-c2f47458ecdb",
+	'current_clock',
+	'',
+	1,
+	"ba5eda7a-def5-0000-0000-000000000010",
+	'',
+	1,
+	'');
+INSERT INTO S_BRG
+	VALUES ("03a46075-6e6b-44a0-9203-72f9ef1b94a2",
+	"faaf7acd-1518-4cc7-b5cf-c2f47458ecdb",
+	'timer_start',
+	'',
+	1,
+	"ba5eda7a-def5-0000-0000-00000000000f",
+	'',
+	1,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("5a0be35e-a353-4170-a567-0207494ad19f",
+	"03a46075-6e6b-44a0-9203-72f9ef1b94a2",
+	'microseconds',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"af99e038-7372-4790-a2aa-8e028a033f1e",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("af99e038-7372-4790-a2aa-8e028a033f1e",
+	"03a46075-6e6b-44a0-9203-72f9ef1b94a2",
+	'event_inst',
+	"ba5eda7a-def5-0000-0000-00000000000a",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BRG
+	VALUES ("24de498f-b55f-4033-9c95-2a1f7e6a0299",
+	"faaf7acd-1518-4cc7-b5cf-c2f47458ecdb",
+	'timer_start_recurring',
+	'',
+	1,
+	"ba5eda7a-def5-0000-0000-00000000000f",
+	'',
+	1,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("39cd65b1-cc99-435b-b6f8-35a0353b5dba",
+	"24de498f-b55f-4033-9c95-2a1f7e6a0299",
+	'microseconds',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"64656207-6b2b-4d2d-859d-37b705b1723d",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("64656207-6b2b-4d2d-859d-37b705b1723d",
+	"24de498f-b55f-4033-9c95-2a1f7e6a0299",
+	'event_inst',
+	"ba5eda7a-def5-0000-0000-00000000000a",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BRG
+	VALUES ("5a8748d8-e784-410d-8128-4ea7ff1e7c60",
+	"faaf7acd-1518-4cc7-b5cf-c2f47458ecdb",
+	'timer_remaining_time',
+	'',
+	1,
+	"ba5eda7a-def5-0000-0000-000000000002",
+	'',
+	1,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("e5574cd8-4bbf-42d5-8aa8-c2884e73961e",
+	"5a8748d8-e784-410d-8128-4ea7ff1e7c60",
+	'timer_inst_ref',
+	"ba5eda7a-def5-0000-0000-00000000000f",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BRG
+	VALUES ("6e21b3c3-aefc-4287-895d-a981944725dc",
+	"faaf7acd-1518-4cc7-b5cf-c2f47458ecdb",
+	'timer_reset_time',
+	'',
+	1,
+	"ba5eda7a-def5-0000-0000-000000000001",
+	'',
+	1,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("0c1c3c9d-2f4d-48a4-8563-d4d9d6edf0aa",
+	"6e21b3c3-aefc-4287-895d-a981944725dc",
+	'timer_inst_ref',
+	"ba5eda7a-def5-0000-0000-00000000000f",
+	0,
+	'',
+	"f35c15f1-d15b-4f69-af71-4fb5d2021524",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("f35c15f1-d15b-4f69-af71-4fb5d2021524",
+	"6e21b3c3-aefc-4287-895d-a981944725dc",
+	'microseconds',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BRG
+	VALUES ("2117309d-fd08-4954-80f0-a1c4b84c1cf9",
+	"faaf7acd-1518-4cc7-b5cf-c2f47458ecdb",
+	'timer_add_time',
+	'',
+	1,
+	"ba5eda7a-def5-0000-0000-000000000001",
+	'',
+	1,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("db4cff19-800c-4986-96df-fe58feb6da97",
+	"2117309d-fd08-4954-80f0-a1c4b84c1cf9",
+	'timer_inst_ref',
+	"ba5eda7a-def5-0000-0000-00000000000f",
+	0,
+	'',
+	"4b486db2-28bd-4806-b898-d822490cebdf",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("4b486db2-28bd-4806-b898-d822490cebdf",
+	"2117309d-fd08-4954-80f0-a1c4b84c1cf9",
+	'microseconds',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BRG
+	VALUES ("6d44871c-9d26-479a-bf61-067a23a8ce19",
+	"faaf7acd-1518-4cc7-b5cf-c2f47458ecdb",
+	'timer_cancel',
+	'',
+	1,
+	"ba5eda7a-def5-0000-0000-000000000001",
+	'',
+	1,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("dcbc830e-8476-4a04-80d4-df66a58ec645",
+	"6d44871c-9d26-479a-bf61-067a23a8ce19",
+	'timer_inst_ref',
+	"ba5eda7a-def5-0000-0000-00000000000f",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO PE_PE
+	VALUES ("faaf7acd-1518-4cc7-b5cf-c2f47458ecdb",
+	1,
+	"bae954bf-1329-4988-9569-07da6c5506ea",
+	"00000000-0000-0000-0000-000000000000",
+	5);
+INSERT INTO S_EE
+	VALUES ("2776f9a9-7100-4b34-a112-ff60e2ac0538",
+	'Control Panel',
+	'The Control Panel is used to simulate button presses on the microwave oven.  See the Object Communication Diagram (Asynchronous) for a detailed view of the events.',
+	'CP',
+	"00000000-0000-0000-0000-000000000000",
+	'',
+	'Control Panel',
+	1);
+INSERT INTO PE_PE
+	VALUES ("2776f9a9-7100-4b34-a112-ff60e2ac0538",
+	1,
+	"bae954bf-1329-4988-9569-07da6c5506ea",
+	"00000000-0000-0000-0000-000000000000",
+	5);
+INSERT INTO S_EE
+	VALUES ("c881cf8c-ab05-4bbd-a18e-3f39fb88cc4e",
+	'Architecture',
+	'The Architecture external entity is used to model a shutdown bridge operation. This operation is called when the system has finished the test scenario.  
+
+When the microwave oven models are translated into code by the model compiler, the call to this bridge operation is mapped to an architecture method used to shut down the system.',
+	'ARCH',
+	"00000000-0000-0000-0000-000000000000",
+	'',
+	'Architecture',
+	1);
+INSERT INTO S_BRG
+	VALUES ("d6a6aa5e-fb7f-4817-8aec-2548ebc88e3c",
+	"c881cf8c-ab05-4bbd-a18e-3f39fb88cc4e",
+	'shutdown',
+	'',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000000",
+	'',
+	1,
+	'');
+INSERT INTO PE_PE
+	VALUES ("c881cf8c-ab05-4bbd-a18e-3f39fb88cc4e",
+	1,
+	"bae954bf-1329-4988-9569-07da6c5506ea",
+	"00000000-0000-0000-0000-000000000000",
+	5);
+INSERT INTO PE_PE
+	VALUES ("bae954bf-1329-4988-9569-07da6c5506ea",
+	1,
+	"00000000-0000-0000-0000-000000000000",
+	"544a75b3-22ce-4c30-8788-bec6c1772abf",
+	7);
+INSERT INTO C_C_PROXY
+	VALUES ("544a75b3-22ce-4c30-8788-bec6c1772abf",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000",
+	'MicrowaveOven',
+	'
+
+Domain Mission: Microwave Application Domain
+
+To capture the retained data and event sequencing associated with the use of a domestic microwave oven comprising :
+
+* a magnetron tube (with variable power output settings)
+* a turntable
+* an internal light
+* a beeper to signal when cooking is complete
+* an oven door
+
+Bridges to other Domains:
+
+* To Control Panel (Application User Interface Domain)
+* To PIO domain (not shown)
+* To Timer domain
+
+
+',
+	0,
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'../MicrowaveOven.xtuml');
+INSERT INTO S_SYS_PROXY
+	VALUES ("9cd2cdcf-1f2b-42ce-bc35-718a90a05cab",
+	'MicrowaveOven',
+	1,
+	'../../../MicrowaveOven.xtuml');

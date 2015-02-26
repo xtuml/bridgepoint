@@ -1,0 +1,4 @@
+User invoked function: run
+LogInfo:  In EERealizedStaticDataTestLibraryDuplicateRealizedEE::AppLibPort::To: DEFAULT LIB Project
+LogInfo:  In EERealizedStaticDataTestLocalRealizedEE::LocalComponentIPReferenceDuplicateEE::Tester::To(): MODIFIED System Project System Project
+

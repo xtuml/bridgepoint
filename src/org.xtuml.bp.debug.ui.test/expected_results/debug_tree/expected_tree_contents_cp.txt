@@ -1,0 +1,14 @@
+ncpc1 (Running) : Component_c
+Imported Component Container (Running) : Component_c
+VerifierLaunchConfigurationTests::cp::c1 - 1.2 (Running) : ComponentReference_c
+nc1 - 1 (Running) : Component_c
+ncnc1 - 1 (Running) : Component_c
+VerifierLaunchConfigurationTests::cp::fc1 - 1.2 (Running) : ComponentReference_c
+VerifierLaunchConfigurationTests::cp::fc1 - 1.1 (Running) : ComponentReference_c
+c1 (Running) : Component_c
+nc1 - 2 (Running) : Component_c
+ncnc1 - 2 (Running) : Component_c
+VerifierLaunchConfigurationTests::cp::fc1 - 2.2 (Running) : ComponentReference_c
+VerifierLaunchConfigurationTests::cp::fc1 - 2.1 (Running) : ComponentReference_c
+fc1 (Running) : Component_c
+VerifierLaunchConfigurationTests::cp::ncp1::ncpc1 (Running) : ComponentReference_c

@@ -1,0 +1,129 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("4badd275-8325-4e31-9a84-02ee6714c85a",
+	'Beeper',
+	4,
+	'MO_B',
+	'An audible signal generator. 
+
+The beeper repeats four times on completion of the cooking period, signalling to the user that the oven door can be opened to inspect the readiness of the food inside.  ',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_NBATTR
+	VALUES ("f1b68858-c581-46d8-80d3-0bf5af85611a",
+	"4badd275-8325-4e31-9a84-02ee6714c85a");
+INSERT INTO O_BATTR
+	VALUES ("f1b68858-c581-46d8-80d3-0bf5af85611a",
+	"4badd275-8325-4e31-9a84-02ee6714c85a");
+INSERT INTO O_ATTR
+	VALUES ("f1b68858-c581-46d8-80d3-0bf5af85611a",
+	"4badd275-8325-4e31-9a84-02ee6714c85a",
+	"00000000-0000-0000-0000-000000000000",
+	'BeeperID',
+	'The uniquely-specified beeper identifier.',
+	'',
+	'BeeperID',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000005",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("73c7857d-9a6b-4b66-998a-eea4c267f33e",
+	"4badd275-8325-4e31-9a84-02ee6714c85a");
+INSERT INTO O_BATTR
+	VALUES ("73c7857d-9a6b-4b66-998a-eea4c267f33e",
+	"4badd275-8325-4e31-9a84-02ee6714c85a");
+INSERT INTO O_ATTR
+	VALUES ("73c7857d-9a6b-4b66-998a-eea4c267f33e",
+	"4badd275-8325-4e31-9a84-02ee6714c85a",
+	"f1b68858-c581-46d8-80d3-0bf5af85611a",
+	'beeper_timer',
+	'A local timer, used to generate delays of 1 second between the sounding of each beep. ',
+	'',
+	'beeper_timer',
+	0,
+	"ba5eda7a-def5-0000-0000-00000000000f",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("ac2ba4cf-f13e-4801-9337-6bb3a2e2f686",
+	"4badd275-8325-4e31-9a84-02ee6714c85a");
+INSERT INTO O_BATTR
+	VALUES ("ac2ba4cf-f13e-4801-9337-6bb3a2e2f686",
+	"4badd275-8325-4e31-9a84-02ee6714c85a");
+INSERT INTO O_ATTR
+	VALUES ("ac2ba4cf-f13e-4801-9337-6bb3a2e2f686",
+	"4badd275-8325-4e31-9a84-02ee6714c85a",
+	"73c7857d-9a6b-4b66-998a-eea4c267f33e",
+	'beep_count',
+	'A counter, incrementally increasing from zero as the beeper sounds. ',
+	'',
+	'beep_count',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000002",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("823345de-29f4-47c8-805b-8c943f512aed",
+	"4badd275-8325-4e31-9a84-02ee6714c85a");
+INSERT INTO O_BATTR
+	VALUES ("823345de-29f4-47c8-805b-8c943f512aed",
+	"4badd275-8325-4e31-9a84-02ee6714c85a");
+INSERT INTO O_ATTR
+	VALUES ("823345de-29f4-47c8-805b-8c943f512aed",
+	"4badd275-8325-4e31-9a84-02ee6714c85a",
+	"ac2ba4cf-f13e-4801-9337-6bb3a2e2f686",
+	'beeper_delay_over',
+	'The delayed event supplied to the beeper''s local timer, which fires to signify the completion of the 1 second beeper delay.',
+	'',
+	'beeper_delay_over',
+	0,
+	"ba5eda7a-def5-0000-0000-00000000000a",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("cc8e0760-328b-4acc-833e-b86b9ce99814",
+	"4badd275-8325-4e31-9a84-02ee6714c85a");
+INSERT INTO O_BATTR
+	VALUES ("cc8e0760-328b-4acc-833e-b86b9ce99814",
+	"4badd275-8325-4e31-9a84-02ee6714c85a");
+INSERT INTO O_ATTR
+	VALUES ("cc8e0760-328b-4acc-833e-b86b9ce99814",
+	"4badd275-8325-4e31-9a84-02ee6714c85a",
+	"823345de-29f4-47c8-805b-8c943f512aed",
+	'current_state',
+	'',
+	'',
+	'current_state',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000006",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"4badd275-8325-4e31-9a84-02ee6714c85a");
+INSERT INTO O_OIDA
+	VALUES ("f1b68858-c581-46d8-80d3-0bf5af85611a",
+	"4badd275-8325-4e31-9a84-02ee6714c85a",
+	0,
+	'BeeperID');
+INSERT INTO O_ID
+	VALUES (1,
+	"4badd275-8325-4e31-9a84-02ee6714c85a");
+INSERT INTO O_ID
+	VALUES (2,
+	"4badd275-8325-4e31-9a84-02ee6714c85a");
+INSERT INTO PE_PE
+	VALUES ("4badd275-8325-4e31-9a84-02ee6714c85a",
+	1,
+	"235fff0c-3d20-4fa1-8536-1c30278a65d1",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("235fff0c-3d20-4fa1-8536-1c30278a65d1",
+	"00000000-0000-0000-0000-000000000000",
+	"9cd2cdcf-1f2b-42ce-bc35-718a90a05cab",
+	'Microwave Oven',
+	'The microwave oven subsystem models the microwave oven application',
+	1,
+	'../Microwave Oven.xtuml');

@@ -1,0 +1,3 @@
+Simulation started.
+User invoked interface message: sendServerClientParams
+

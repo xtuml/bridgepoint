@@ -1,0 +1,86 @@
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("efb4a3a2-4774-40e3-ab8b-4c2da59a10f4",
+	'Host Monitor',
+	2,
+	'HM',
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_NBATTR
+	VALUES ("23f63b34-fd23-4934-a37b-805aabda9642",
+	"efb4a3a2-4774-40e3-ab8b-4c2da59a10f4");
+INSERT INTO O_BATTR
+	VALUES ("23f63b34-fd23-4934-a37b-805aabda9642",
+	"efb4a3a2-4774-40e3-ab8b-4c2da59a10f4");
+INSERT INTO O_ATTR
+	VALUES ("23f63b34-fd23-4934-a37b-805aabda9642",
+	"efb4a3a2-4774-40e3-ab8b-4c2da59a10f4",
+	"00000000-0000-0000-0000-000000000000",
+	'lastTemp',
+	'',
+	'',
+	'lastTemp',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000002",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("700b2269-494c-42b3-b6ed-a1d9131434a1",
+	"efb4a3a2-4774-40e3-ab8b-4c2da59a10f4");
+INSERT INTO O_BATTR
+	VALUES ("700b2269-494c-42b3-b6ed-a1d9131434a1",
+	"efb4a3a2-4774-40e3-ab8b-4c2da59a10f4");
+INSERT INTO O_ATTR
+	VALUES ("700b2269-494c-42b3-b6ed-a1d9131434a1",
+	"efb4a3a2-4774-40e3-ab8b-4c2da59a10f4",
+	"23f63b34-fd23-4934-a37b-805aabda9642",
+	'lastRate',
+	'',
+	'',
+	'lastRate',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000002",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("8640b6f4-bf85-487c-87ec-f679abd08313",
+	"efb4a3a2-4774-40e3-ab8b-4c2da59a10f4");
+INSERT INTO O_BATTR
+	VALUES ("8640b6f4-bf85-487c-87ec-f679abd08313",
+	"efb4a3a2-4774-40e3-ab8b-4c2da59a10f4");
+INSERT INTO O_ATTR
+	VALUES ("8640b6f4-bf85-487c-87ec-f679abd08313",
+	"efb4a3a2-4774-40e3-ab8b-4c2da59a10f4",
+	"700b2269-494c-42b3-b6ed-a1d9131434a1",
+	'current_state',
+	'',
+	'',
+	'current_state',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000006",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"efb4a3a2-4774-40e3-ab8b-4c2da59a10f4");
+INSERT INTO O_ID
+	VALUES (1,
+	"efb4a3a2-4774-40e3-ab8b-4c2da59a10f4");
+INSERT INTO O_ID
+	VALUES (2,
+	"efb4a3a2-4774-40e3-ab8b-4c2da59a10f4");
+INSERT INTO PE_PE
+	VALUES ("efb4a3a2-4774-40e3-ab8b-4c2da59a10f4",
+	1,
+	"9e99e4fa-9c62-4ccd-856f-347c8c195c9e",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("9e99e4fa-9c62-4ccd-856f-347c8c195c9e",
+	"00000000-0000-0000-0000-000000000000",
+	"15b2a15d-7110-4efa-b644-89bd96e12c0e",
+	'hostmonitor',
+	'',
+	0,
+	'../hostmonitor.xtuml');

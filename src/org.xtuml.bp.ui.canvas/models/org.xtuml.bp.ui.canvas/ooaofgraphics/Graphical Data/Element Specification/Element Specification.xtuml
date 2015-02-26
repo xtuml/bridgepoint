@@ -1,0 +1,666 @@
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("76253415-b575-4583-9248-5d403cee7647",
+	'Element Specification',
+	8,
+	'GD_ES',
+	'An element specification instance defines a type of symbol.
+The OOA_Type defines the OOA of OOA element represented
+by this symbol.
+
+Instances of this class are instantiated at startup from a
+pre-existing instance specification.
+---------------------------------------------------------------------------
+
+PEI:true
+Persistent:false
+TRANSLATE_FOR_EXTERNAL_USE:FALSE
+
+',
+	"b5695748-80fc-47fb-b5c7-801b5f28b907");
+INSERT INTO O_TFR
+	VALUES ("32869d0c-af22-42b1-ac9d-4f6b6dbf6320",
+	"76253415-b575-4583-9248-5d403cee7647",
+	'elementCreated',
+	'',
+	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	1,
+	'select one elem related by self->GD_GE[R16];
+if (not_empty elem)
+  elem.represents = param.elem;
+  elem.OOA_ID = CL::getOOAId(from:param.elem);
+end if;
+',
+	1,
+	'',
+	"fdaed97f-0948-4c30-b86f-18c891745654");
+INSERT INTO O_TPARM
+	VALUES ("f33e7ab2-0c5f-429e-8698-ff8875852fdf",
+	"32869d0c-af22-42b1-ac9d-4f6b6dbf6320",
+	'elem',
+	"68dedb08-fd5a-420e-9ec7-e7985ad0c856",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("68dedb08-fd5a-420e-9ec7-e7985ad0c856",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'instance',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO S_DT_PROXY
+	VALUES ("3852f90c-88c5-467d-9b26-57c8cd438b42",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'void',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("fdaed97f-0948-4c30-b86f-18c891745654",
+	"76253415-b575-4583-9248-5d403cee7647",
+	'defaultLayer',
+	'',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'// return the default layer a graphical element is in, as described in
+// the layer attribute
+return 1;',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_DT_PROXY
+	VALUES ("388cd7a2-2d0c-4f02-9730-7670074de394",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'integer',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("1090e371-4de4-4c76-8b45-16864fc40148",
+	"76253415-b575-4583-9248-5d403cee7647",
+	'getDefaultWidth',
+	'',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	1,
+	'if(self.defaultWidth != 0)
+  return self.defaultWidth;
+else
+  return 200;
+end if;',
+	1,
+	'',
+	"85afaeff-bfad-48bf-b76f-3c17655c13b2");
+INSERT INTO O_TFR
+	VALUES ("85afaeff-bfad-48bf-b76f-3c17655c13b2",
+	"76253415-b575-4583-9248-5d403cee7647",
+	'getDefaultHeight',
+	'',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	1,
+	'if(self.defaultHeight != 0)
+  return self.defaultHeight;
+else
+  return 150;
+end if; ',
+	1,
+	'',
+	"32869d0c-af22-42b1-ac9d-4f6b6dbf6320");
+INSERT INTO O_NBATTR
+	VALUES ("6b3798a6-af64-46df-a88c-8db2cc520b9a",
+	"76253415-b575-4583-9248-5d403cee7647");
+INSERT INTO O_BATTR
+	VALUES ("6b3798a6-af64-46df-a88c-8db2cc520b9a",
+	"76253415-b575-4583-9248-5d403cee7647");
+INSERT INTO O_ATTR
+	VALUES ("6b3798a6-af64-46df-a88c-8db2cc520b9a",
+	"76253415-b575-4583-9248-5d403cee7647",
+	"00000000-0000-0000-0000-000000000000",
+	'OOA_Type',
+	'Description: This is the type of the OOA model element that OOA_ID identifies.
+Full Name: OOA Type
+Data Domain: Subsystem=11, EE=12, Class=21, Imported Class=23, Association=24, Communication Path=28, Access Path=29, Associative Link=34, Subtype=35, Supertype=36, State=41, Transition=42, Derived Communication Path=47, Derived Access Path=48, Core Data Type=50, User Data Type=51, Enumeration Data Type=52, Data Type Package=53, Function Package=54, External Entity Package=55
+',
+	'',
+	'OOA_Type',
+	0,
+	"89cd32c4-a73f-44f5-ac4f-6468ce4ae2bb",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("89cd32c4-a73f-44f5-ac4f-6468ce4ae2bb",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'OOAType',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("43b2b69d-ecdf-4f26-b792-efb8e123ba0b",
+	"76253415-b575-4583-9248-5d403cee7647");
+INSERT INTO O_BATTR
+	VALUES ("43b2b69d-ecdf-4f26-b792-efb8e123ba0b",
+	"76253415-b575-4583-9248-5d403cee7647");
+INSERT INTO O_ATTR
+	VALUES ("43b2b69d-ecdf-4f26-b792-efb8e123ba0b",
+	"76253415-b575-4583-9248-5d403cee7647",
+	"6b3798a6-af64-46df-a88c-8db2cc520b9a",
+	'Name',
+	'',
+	'',
+	'Name',
+	0,
+	"17f3cd98-2d3a-4fe3-ac41-d27b377178a6",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("17f3cd98-2d3a-4fe3-ac41-d27b377178a6",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'string',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("79f552c5-8e11-4aa8-bcc8-39b269829418",
+	"76253415-b575-4583-9248-5d403cee7647");
+INSERT INTO O_BATTR
+	VALUES ("79f552c5-8e11-4aa8-bcc8-39b269829418",
+	"76253415-b575-4583-9248-5d403cee7647");
+INSERT INTO O_ATTR
+	VALUES ("79f552c5-8e11-4aa8-bcc8-39b269829418",
+	"76253415-b575-4583-9248-5d403cee7647",
+	"43b2b69d-ecdf-4f26-b792-efb8e123ba0b",
+	'internal',
+	'',
+	'',
+	'internal',
+	0,
+	"46022655-7bb0-4f23-a05b-a718c3b59c94",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("46022655-7bb0-4f23-a05b-a718c3b59c94",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'Color',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("95d13cc3-7386-49cc-b40e-a9ac8aea6a53",
+	"76253415-b575-4583-9248-5d403cee7647");
+INSERT INTO O_BATTR
+	VALUES ("95d13cc3-7386-49cc-b40e-a9ac8aea6a53",
+	"76253415-b575-4583-9248-5d403cee7647");
+INSERT INTO O_ATTR
+	VALUES ("95d13cc3-7386-49cc-b40e-a9ac8aea6a53",
+	"76253415-b575-4583-9248-5d403cee7647",
+	"79f552c5-8e11-4aa8-bcc8-39b269829418",
+	'represents',
+	'',
+	'',
+	'represents',
+	0,
+	"8d28e864-6cdc-4005-8d8f-a59eb8d6be84",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("8d28e864-6cdc-4005-8d8f-a59eb8d6be84",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'class',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("646a4690-59f6-43ed-879c-c4796d8eca53",
+	"76253415-b575-4583-9248-5d403cee7647");
+INSERT INTO O_BATTR
+	VALUES ("646a4690-59f6-43ed-879c-c4796d8eca53",
+	"76253415-b575-4583-9248-5d403cee7647");
+INSERT INTO O_ATTR
+	VALUES ("646a4690-59f6-43ed-879c-c4796d8eca53",
+	"76253415-b575-4583-9248-5d403cee7647",
+	"95d13cc3-7386-49cc-b40e-a9ac8aea6a53",
+	'creator',
+	'',
+	'',
+	'creator',
+	0,
+	"17f3cd98-2d3a-4fe3-ac41-d27b377178a6",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("b8973914-774b-4c4e-a672-4f9697bebe4f",
+	"76253415-b575-4583-9248-5d403cee7647");
+INSERT INTO O_BATTR
+	VALUES ("b8973914-774b-4c4e-a672-4f9697bebe4f",
+	"76253415-b575-4583-9248-5d403cee7647");
+INSERT INTO O_ATTR
+	VALUES ("b8973914-774b-4c4e-a672-4f9697bebe4f",
+	"76253415-b575-4583-9248-5d403cee7647",
+	"646a4690-59f6-43ed-879c-c4796d8eca53",
+	'isFixedAspectRatio',
+	'',
+	'',
+	'isFixedAspectRatio',
+	0,
+	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'boolean',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("2eef211a-3961-43d4-a4a6-bf3ce3de62d7",
+	"76253415-b575-4583-9248-5d403cee7647");
+INSERT INTO O_BATTR
+	VALUES ("2eef211a-3961-43d4-a4a6-bf3ce3de62d7",
+	"76253415-b575-4583-9248-5d403cee7647");
+INSERT INTO O_ATTR
+	VALUES ("2eef211a-3961-43d4-a4a6-bf3ce3de62d7",
+	"76253415-b575-4583-9248-5d403cee7647",
+	"b8973914-774b-4c4e-a672-4f9697bebe4f",
+	'defaultWidth',
+	'',
+	'',
+	'defaultWidth',
+	0,
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("863b12b9-8596-4c90-9f07-024c831747e8",
+	"76253415-b575-4583-9248-5d403cee7647");
+INSERT INTO O_BATTR
+	VALUES ("863b12b9-8596-4c90-9f07-024c831747e8",
+	"76253415-b575-4583-9248-5d403cee7647");
+INSERT INTO O_ATTR
+	VALUES ("863b12b9-8596-4c90-9f07-024c831747e8",
+	"76253415-b575-4583-9248-5d403cee7647",
+	"2eef211a-3961-43d4-a4a6-bf3ce3de62d7",
+	'defaultHeight',
+	'',
+	'',
+	'defaultHeight',
+	0,
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("8a2b7643-3f1b-486f-aafa-8f51748f47cd",
+	"76253415-b575-4583-9248-5d403cee7647");
+INSERT INTO O_BATTR
+	VALUES ("8a2b7643-3f1b-486f-aafa-8f51748f47cd",
+	"76253415-b575-4583-9248-5d403cee7647");
+INSERT INTO O_ATTR
+	VALUES ("8a2b7643-3f1b-486f-aafa-8f51748f47cd",
+	"76253415-b575-4583-9248-5d403cee7647",
+	"863b12b9-8596-4c90-9f07-024c831747e8",
+	'iconName',
+	'',
+	'',
+	'iconName',
+	0,
+	"17f3cd98-2d3a-4fe3-ac41-d27b377178a6",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("76253415-b575-4583-9248-5d403cee7647",
+	"9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
+	0,
+	"ee285046-698d-47d4-8d30-506164f3e21f",
+	"610836b6-8b80-49f4-ba30-5fc1553915d0",
+	"f704d28a-f3e6-470a-91ad-75d819c49d4c",
+	"83e01f16-7f5d-4494-83f5-3e27dbf25b94",
+	"f06a8d90-bfec-48b9-b9b8-1fa3de75c7d3",
+	"d829b1b1-3224-42e7-9342-4030c692a9cb",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Graphical Element',
+	'elementId',
+	'R16');
+INSERT INTO R_RGO_PROXY
+	VALUES ("76253415-b575-4583-9248-5d403cee7647",
+	"610836b6-8b80-49f4-ba30-5fc1553915d0",
+	"f704d28a-f3e6-470a-91ad-75d819c49d4c",
+	'../Graphical Data.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("ee285046-698d-47d4-8d30-506164f3e21f",
+	"9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
+	0,
+	"610836b6-8b80-49f4-ba30-5fc1553915d0",
+	"83e01f16-7f5d-4494-83f5-3e27dbf25b94",
+	'../Graphical Data.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("f06a8d90-bfec-48b9-b9b8-1fa3de75c7d3",
+	"76253415-b575-4583-9248-5d403cee7647",
+	"53d10295-c89f-4194-94ba-3dab00d071cd",
+	"593e6c1e-5bc8-40f5-b079-a85690d47f08",
+	1,
+	'elementId');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("53d10295-c89f-4194-94ba-3dab00d071cd",
+	"593e6c1e-5bc8-40f5-b079-a85690d47f08",
+	'../../UML 2.0 Diagram Interchange/DiagramElement/DiagramElement.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("f06a8d90-bfec-48b9-b9b8-1fa3de75c7d3",
+	"76253415-b575-4583-9248-5d403cee7647",
+	"8a2b7643-3f1b-486f-aafa-8f51748f47cd",
+	'elementId',
+	'',
+	'',
+	'elementId',
+	0,
+	"66164f00-293e-4c17-ab30-7972c7c57152",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("66164f00-293e-4c17-ab30-7972c7c57152",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("790d2ca0-bee7-4ae1-bccd-31987ce01e5c",
+	"76253415-b575-4583-9248-5d403cee7647");
+INSERT INTO O_BATTR
+	VALUES ("790d2ca0-bee7-4ae1-bccd-31987ce01e5c",
+	"76253415-b575-4583-9248-5d403cee7647");
+INSERT INTO O_ATTR
+	VALUES ("790d2ca0-bee7-4ae1-bccd-31987ce01e5c",
+	"76253415-b575-4583-9248-5d403cee7647",
+	"f06a8d90-bfec-48b9-b9b8-1fa3de75c7d3",
+	'isFixedSize',
+	'',
+	'',
+	'isFixedSize',
+	0,
+	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("fb90d958-afe3-4a3a-8b28-117935bb1d90",
+	"76253415-b575-4583-9248-5d403cee7647");
+INSERT INTO O_BATTR
+	VALUES ("fb90d958-afe3-4a3a-8b28-117935bb1d90",
+	"76253415-b575-4583-9248-5d403cee7647");
+INSERT INTO O_ATTR
+	VALUES ("fb90d958-afe3-4a3a-8b28-117935bb1d90",
+	"76253415-b575-4583-9248-5d403cee7647",
+	"790d2ca0-bee7-4ae1-bccd-31987ce01e5c",
+	'hasFloatingText',
+	'',
+	'',
+	'hasFloatingText',
+	0,
+	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("dff80bd0-d437-4558-ae21-f114cc1c65cb",
+	"76253415-b575-4583-9248-5d403cee7647");
+INSERT INTO O_BATTR
+	VALUES ("dff80bd0-d437-4558-ae21-f114cc1c65cb",
+	"76253415-b575-4583-9248-5d403cee7647");
+INSERT INTO O_ATTR
+	VALUES ("dff80bd0-d437-4558-ae21-f114cc1c65cb",
+	"76253415-b575-4583-9248-5d403cee7647",
+	"fb90d958-afe3-4a3a-8b28-117935bb1d90",
+	'hasNoInteriorColor',
+	'',
+	'',
+	'hasNoInteriorColor',
+	0,
+	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("5c7b79a6-ad09-4c02-b623-0ea5ad87f533",
+	"76253415-b575-4583-9248-5d403cee7647");
+INSERT INTO O_BATTR
+	VALUES ("5c7b79a6-ad09-4c02-b623-0ea5ad87f533",
+	"76253415-b575-4583-9248-5d403cee7647");
+INSERT INTO O_ATTR
+	VALUES ("5c7b79a6-ad09-4c02-b623-0ea5ad87f533",
+	"76253415-b575-4583-9248-5d403cee7647",
+	"dff80bd0-d437-4558-ae21-f114cc1c65cb",
+	'layer',
+	'A graphical element is drawn in a layer.  Layers are like sheets of glass that
+are laid on top of each other.  A lower-numbered layer is behind a higher-numbered
+layer.  The default layer is one.
+                        
+Not_participating_value: 1',
+	'',
+	'layer',
+	0,
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("d0a2c029-adfe-48d1-9cfb-51fa1f97ee28",
+	"76253415-b575-4583-9248-5d403cee7647");
+INSERT INTO O_BATTR
+	VALUES ("d0a2c029-adfe-48d1-9cfb-51fa1f97ee28",
+	"76253415-b575-4583-9248-5d403cee7647");
+INSERT INTO O_ATTR
+	VALUES ("d0a2c029-adfe-48d1-9cfb-51fa1f97ee28",
+	"76253415-b575-4583-9248-5d403cee7647",
+	"5c7b79a6-ad09-4c02-b623-0ea5ad87f533",
+	'antiAliased',
+	'',
+	'',
+	'antiAliased',
+	0,
+	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("6dda9bd5-6493-4171-bd3a-4d677477c5cd",
+	"76253415-b575-4583-9248-5d403cee7647");
+INSERT INTO O_BATTR
+	VALUES ("6dda9bd5-6493-4171-bd3a-4d677477c5cd",
+	"76253415-b575-4583-9248-5d403cee7647");
+INSERT INTO O_ATTR
+	VALUES ("6dda9bd5-6493-4171-bd3a-4d677477c5cd",
+	"76253415-b575-4583-9248-5d403cee7647",
+	"d0a2c029-adfe-48d1-9cfb-51fa1f97ee28",
+	'symbolType',
+	'This will be set to either: "shape","connector", or "container".',
+	'',
+	'symbolType',
+	0,
+	"17f3cd98-2d3a-4fe3-ac41-d27b377178a6",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("91206fde-a263-4cb2-a5b5-e00c2096e83d",
+	"76253415-b575-4583-9248-5d403cee7647");
+INSERT INTO O_BATTR
+	VALUES ("91206fde-a263-4cb2-a5b5-e00c2096e83d",
+	"76253415-b575-4583-9248-5d403cee7647");
+INSERT INTO O_ATTR
+	VALUES ("91206fde-a263-4cb2-a5b5-e00c2096e83d",
+	"76253415-b575-4583-9248-5d403cee7647",
+	"6dda9bd5-6493-4171-bd3a-4d677477c5cd",
+	'isTransparent',
+	'',
+	'',
+	'isTransparent',
+	0,
+	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("f3c05c99-21ae-4878-b715-fcd3f5a2e3ea",
+	"76253415-b575-4583-9248-5d403cee7647");
+INSERT INTO O_BATTR
+	VALUES ("f3c05c99-21ae-4878-b715-fcd3f5a2e3ea",
+	"76253415-b575-4583-9248-5d403cee7647");
+INSERT INTO O_ATTR
+	VALUES ("f3c05c99-21ae-4878-b715-fcd3f5a2e3ea",
+	"76253415-b575-4583-9248-5d403cee7647",
+	"91206fde-a263-4cb2-a5b5-e00c2096e83d",
+	'creationRule',
+	'Valid values are "manual" and "on canvas creation".  When set to 
+"on canvas creation".',
+	'',
+	'creationRule',
+	0,
+	"17f3cd98-2d3a-4fe3-ac41-d27b377178a6",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("c95d263b-b1b3-4255-9df5-b9591bfd3782",
+	"76253415-b575-4583-9248-5d403cee7647");
+INSERT INTO O_BATTR
+	VALUES ("c95d263b-b1b3-4255-9df5-b9591bfd3782",
+	"76253415-b575-4583-9248-5d403cee7647");
+INSERT INTO O_ATTR
+	VALUES ("c95d263b-b1b3-4255-9df5-b9591bfd3782",
+	"76253415-b575-4583-9248-5d403cee7647",
+	"f3c05c99-21ae-4878-b715-fcd3f5a2e3ea",
+	'hasNameCompartment',
+	'',
+	'',
+	'hasNameCompartment',
+	0,
+	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("3abeef79-8265-447c-abd5-443f5b4a6433",
+	"76253415-b575-4583-9248-5d403cee7647");
+INSERT INTO O_BATTR
+	VALUES ("3abeef79-8265-447c-abd5-443f5b4a6433",
+	"76253415-b575-4583-9248-5d403cee7647");
+INSERT INTO O_ATTR
+	VALUES ("3abeef79-8265-447c-abd5-443f5b4a6433",
+	"76253415-b575-4583-9248-5d403cee7647",
+	"c95d263b-b1b3-4255-9df5-b9591bfd3782",
+	'causeAutoResize',
+	'',
+	'',
+	'causeAutoResize',
+	0,
+	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("7212ca6b-326d-4480-829d-8999752ad3f3",
+	"76253415-b575-4583-9248-5d403cee7647");
+INSERT INTO O_BATTR
+	VALUES ("7212ca6b-326d-4480-829d-8999752ad3f3",
+	"76253415-b575-4583-9248-5d403cee7647");
+INSERT INTO O_ATTR
+	VALUES ("7212ca6b-326d-4480-829d-8999752ad3f3",
+	"76253415-b575-4583-9248-5d403cee7647",
+	"3abeef79-8265-447c-abd5-443f5b4a6433",
+	'toolCategory',
+	'',
+	'',
+	'toolCategory',
+	0,
+	"17f3cd98-2d3a-4fe3-ac41-d27b377178a6",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("12e48a35-8fc8-4943-924c-663f0139a1c6",
+	"76253415-b575-4583-9248-5d403cee7647");
+INSERT INTO O_BATTR
+	VALUES ("12e48a35-8fc8-4943-924c-663f0139a1c6",
+	"76253415-b575-4583-9248-5d403cee7647");
+INSERT INTO O_ATTR
+	VALUES ("12e48a35-8fc8-4943-924c-663f0139a1c6",
+	"76253415-b575-4583-9248-5d403cee7647",
+	"7212ca6b-326d-4480-829d-8999752ad3f3",
+	'isAnchorHost',
+	'',
+	'',
+	'isAnchorHost',
+	0,
+	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("76253415-b575-4583-9248-5d403cee7647",
+	"bef8e2b1-510b-4f91-92aa-7aeb9c1fe5be",
+	0,
+	"f0ec00c1-7702-4399-8636-18e344084f7e",
+	"91d6bd67-51f3-4775-955c-c4f98e106f9d",
+	"a4e79568-ba91-4f24-b090-9ccf36d49adb",
+	"ad626bbb-74f5-4ce3-b027-9ca824eaaf79",
+	"1f2def2b-683d-448c-8591-25db2a6badac",
+	"013452b6-7589-4464-bfe3-7f5bac92f62a",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Terminal Specification',
+	'Term_Spec_ID',
+	'R209');
+INSERT INTO R_RGO_PROXY
+	VALUES ("76253415-b575-4583-9248-5d403cee7647",
+	"91d6bd67-51f3-4775-955c-c4f98e106f9d",
+	"a4e79568-ba91-4f24-b090-9ccf36d49adb",
+	'../../Terminal Specifications/Terminal Specifications.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("f0ec00c1-7702-4399-8636-18e344084f7e",
+	"bef8e2b1-510b-4f91-92aa-7aeb9c1fe5be",
+	0,
+	"91d6bd67-51f3-4775-955c-c4f98e106f9d",
+	"ad626bbb-74f5-4ce3-b027-9ca824eaaf79",
+	'../../Terminal Specifications/Terminal Specifications.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("1f2def2b-683d-448c-8591-25db2a6badac",
+	"76253415-b575-4583-9248-5d403cee7647",
+	"f0ec00c1-7702-4399-8636-18e344084f7e",
+	"bef8e2b1-510b-4f91-92aa-7aeb9c1fe5be",
+	1,
+	'Term_Spec_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("f0ec00c1-7702-4399-8636-18e344084f7e",
+	"bef8e2b1-510b-4f91-92aa-7aeb9c1fe5be",
+	'../../Terminal Specifications/Terminal Specification/Terminal Specification.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("1f2def2b-683d-448c-8591-25db2a6badac",
+	"76253415-b575-4583-9248-5d403cee7647",
+	"12e48a35-8fc8-4943-924c-663f0139a1c6",
+	'Term_Spec_ID',
+	'',
+	'',
+	'Term_Spec_ID',
+	0,
+	"66164f00-293e-4c17-ab30-7972c7c57152",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"76253415-b575-4583-9248-5d403cee7647");
+INSERT INTO O_OIDA
+	VALUES ("6b3798a6-af64-46df-a88c-8db2cc520b9a",
+	"76253415-b575-4583-9248-5d403cee7647",
+	0,
+	'OOA_Type');
+INSERT INTO O_ID
+	VALUES (1,
+	"76253415-b575-4583-9248-5d403cee7647");
+INSERT INTO O_ID
+	VALUES (2,
+	"76253415-b575-4583-9248-5d403cee7647");
+INSERT INTO S_SS_PROXY
+	VALUES ("b5695748-80fc-47fb-b5c7-801b5f28b907",
+	'Graphical Data',
+	'The GD (Graphics Domain) subsystem models the graphical elements for a BridgePoint model.
+-------------------------------------------------------
+Import:org.eclipse.swt.graphics.Color
+Notify_Changes:true',
+	'GD',
+	1,
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	"00000000-0000-0000-0000-000001900032",
+	'../Graphical Data.xtuml');

@@ -1,0 +1,57 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("416327bc-a6f0-4f4f-bc4b-21b915f4f9ec",
+	'Element',
+	15,
+	'DIM_ELM',
+	'TRANSLATE_FOR_EXTERNAL_USE:FALSE',
+	"490299c9-e7aa-468e-82d7-0731c80e4069");
+INSERT INTO O_NBATTR
+	VALUES ("3ad3afac-fd52-4599-9a94-8b7add8774c3",
+	"416327bc-a6f0-4f4f-bc4b-21b915f4f9ec");
+INSERT INTO O_BATTR
+	VALUES ("3ad3afac-fd52-4599-9a94-8b7add8774c3",
+	"416327bc-a6f0-4f4f-bc4b-21b915f4f9ec");
+INSERT INTO O_ATTR
+	VALUES ("3ad3afac-fd52-4599-9a94-8b7add8774c3",
+	"416327bc-a6f0-4f4f-bc4b-21b915f4f9ec",
+	"00000000-0000-0000-0000-000000000000",
+	'represents',
+	'',
+	'',
+	'represents',
+	0,
+	"1a94de2d-83d5-4186-b5a8-1e477dc17a99",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("1a94de2d-83d5-4186-b5a8-1e477dc17a99",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'Object',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_ID
+	VALUES (0,
+	"416327bc-a6f0-4f4f-bc4b-21b915f4f9ec");
+INSERT INTO O_OIDA
+	VALUES ("3ad3afac-fd52-4599-9a94-8b7add8774c3",
+	"416327bc-a6f0-4f4f-bc4b-21b915f4f9ec",
+	0,
+	'represents');
+INSERT INTO O_ID
+	VALUES (1,
+	"416327bc-a6f0-4f4f-bc4b-21b915f4f9ec");
+INSERT INTO O_ID
+	VALUES (2,
+	"416327bc-a6f0-4f4f-bc4b-21b915f4f9ec");
+INSERT INTO S_SS_PROXY
+	VALUES ("490299c9-e7aa-468e-82d7-0731c80e4069",
+	'UML 2.0 Diagram Interchange',
+	'Notify_Changes:true',
+	'DIM',
+	0,
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	"00000000-0000-0000-0000-000000000000",
+	'../UML 2.0 Diagram Interchange.xtuml');

@@ -1,0 +1,193 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml"
+xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:w="urn:schemas-microsoft-com:office:word"
+xmlns="http://www.w3.org/TR/REC-html40">
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=iso-8859-1">
+<meta name=ProgId content=Word.Document>
+<meta name=Generator content="Microsoft Word 11">
+<meta name=Originator content="Microsoft Word 11">
+<link rel=File-List href="archetypes-3_files/filelist.xml">
+<title> BridgePoint Rule Specification Language </title>
+<!--[if gte mso 9]><xml>
+ <o:DocumentProperties>
+  <o:Author>kwilliam</o:Author>
+  <o:LastAuthor>kwilliam</o:LastAuthor>
+  <o:Revision>2</o:Revision>
+  <o:TotalTime>1</o:TotalTime>
+  <o:Created>2006-03-10T20:25:00Z</o:Created>
+  <o:LastSaved>2006-03-10T20:26:00Z</o:LastSaved>
+  <o:Pages>1</o:Pages>
+  <o:Words>182</o:Words>
+  <o:Characters>1040</o:Characters>
+  <o:Company>Mentor Graphics</o:Company>
+  <o:Lines>8</o:Lines>
+  <o:Paragraphs>2</o:Paragraphs>
+  <o:CharactersWithSpaces>1220</o:CharactersWithSpaces>
+  <o:Version>11.6408</o:Version>
+ </o:DocumentProperties>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <w:WordDocument>
+  <w:ValidateAgainstSchemas/>
+  <w:SaveIfXMLInvalid>false</w:SaveIfXMLInvalid>
+  <w:IgnoreMixedContent>false</w:IgnoreMixedContent>
+  <w:AlwaysShowPlaceholderText>false</w:AlwaysShowPlaceholderText>
+  <w:Compatibility>
+   <w:UseFELayout/>
+  </w:Compatibility>
+  <w:BrowserLevel>MicrosoftInternetExplorer4</w:BrowserLevel>
+ </w:WordDocument>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <w:LatentStyles DefLockedState="false" LatentStyleCount="156">
+ </w:LatentStyles>
+</xml><![endif]-->
+<link rel=Stylesheet type="text/css" media=all href=archetypes.css>
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:SimSun;
+	panose-1:2 1 6 0 3 1 1 1 1 1;
+	mso-font-alt:\5B8B\4F53;
+	mso-font-charset:134;
+	mso-generic-font-family:auto;
+	mso-font-format:other;
+	mso-font-pitch:variable;
+	mso-font-signature:1 135135232 16 0 262144 0;}
+@font-face
+	{font-family:"\@SimSun";
+	panose-1:2 1 6 0 3 1 1 1 1 1;
+	mso-font-charset:134;
+	mso-generic-font-family:auto;
+	mso-font-format:other;
+	mso-font-pitch:variable;
+	mso-font-signature:1 135135232 16 0 262144 0;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{mso-style-parent:"";
+	margin:0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:SimSun;}
+h2
+	{mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	line-height:15.6pt;
+	mso-pagination:widow-orphan;
+	mso-outline-level:2;
+	font-size:12.0pt;
+	font-weight:bold;}
+p
+	{mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	mso-fareast-font-family:SimSun;}
+pre
+	{margin-top:0in;
+	margin-bottom:0in;
+	margin-bottom:.0001pt;
+	font-size:10.0pt;
+	font-family:"Courier New";
+	mso-fareast-font-family:SimSun;}
+p.body-tight, li.body-tight, div.body-tight
+	{mso-style-name:body-tight;
+	font-size:11.0pt;
+	mso-fareast-font-family:SimSun;}
+p.indent, li.indent, div.indent
+	{mso-style-name:indent;
+	font-size:11.0pt;
+	mso-fareast-font-family:SimSun;}
+p.body, li.body, div.body
+	{mso-style-name:body;
+	font-size:10.0pt;
+	mso-fareast-font-family:SimSun;}
+@page Section1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.25in 1.0in 1.25in;
+	mso-header-margin:.5in;
+	mso-footer-margin:.5in;
+	mso-paper-source:0;}
+div.Section1
+	{page:Section1;}
+-->
+</style>
+<!--[if gte mso 10]>
+<style>
+ /* Style Definitions */
+ table.MsoNormalTable
+	{mso-style-name:"Table Normal";
+	mso-tstyle-rowband-size:0;
+	mso-tstyle-colband-size:0;
+	mso-style-noshow:yes;
+	mso-style-parent:"";
+	mso-padding-alt:0in 5.4pt 0in 5.4pt;
+	mso-para-margin:0in;
+	mso-para-margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";
+	mso-ansi-language:#0400;
+	mso-fareast-language:#0400;
+	mso-bidi-language:#0400;}
+</style>
+<![endif]-->
+<meta http-equiv=Content-Style-Type content="text/css">
+<!--[if gte mso 9]><xml>
+ <o:shapedefaults v:ext="edit" spidmax="2050"/>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <o:shapelayout v:ext="edit">
+  <o:idmap v:ext="edit" data="1"/>
+ </o:shapelayout></xml><![endif]-->
+</head>
+
+<body bgcolor=white lang=EN-US link=navy vlink="#0176B9" style='tab-interval:
+.5in'>
+
+<div class=Section1>
+
+<h1>BridgePoint UML Suite Rule Specification Language</h1>
+
+<p class=body><a name="0_pgfId-513334"></a><em><span style='font-family:Arial'>The
+BridgePoint UML Suite Rule Specification Language (RSL) is used to write translation
+rules that traverse the xtUML database for model data, format it, and create
+text that is emitted to files. This section describes the syntax for the
+language giving examples.</span></em> </p>
+
+<h2><a href="archetypes-4.htm#0_pgfId-513341">Overview</a></h2>
+
+<h2><a href="archetypes-5.htm#0_pgfId-516882">General Language Attributes</a></h2>
+
+<h2><a href="archetypes-6.htm#0_pgfId-516902">Literal Text</a></h2>
+
+<h2><a href="archetypes-7.htm#0_pgfId-516944">Data Access Control Statements</a></h2>
+
+<h2><a href="archetypes-8.htm#0_pgfId-517120">Assignment Control Statements</a></h2>
+
+<h2><a href="archetypes-9.htm#0_pgfId-517235">Test Control Statements</a></h2>
+
+<h2><a href="archetypes-10.htm#0_pgfId-525837">Function Control Statements</a></h2>
+
+<h2><a href="archetypes-11.htm#0_pgfId-517373">Fragment Attributes</a></h2>
+
+<h2><a href="archetypes-12.htm#0_pgfId-519293">File Control Statements</a></h2>
+
+<h2><a href="archetypes-13.htm#0_pgfId-517469">Rvalues</a></h2>
+
+<h2><a href="archetypes-14.htm#65889520_pgfId-517547">Expressions</a></h2>
+
+<h2><a href="archetypes-15.htm#1701601889_pgfId-518009">Substitution Variables</a></h2>
+
+</div>
+
+</body>
+
+</html>

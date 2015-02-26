@@ -1,0 +1,5 @@
+drawText(" 1. State", 13885, 10066, true)
+drawline(13872, 10139, 14439, 10139)
+drawPolyline("13948, 10054, 13948, 9897, 14326, 9897, 14326, 10054)
+drawText("No Event Assigned", 0, -1, true)
+drawPolyline("14345, 10017, 14326, 10054, 14307, 10017)

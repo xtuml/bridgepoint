@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin
+   id="org.xtuml.bp.docgen"
+   name="BridgePoint Documentation Generator Plug-in"
+   version="4.2.1"
+   provider-name="xtUML.org"
+   class="org.xtuml.bp.docgen.DocGenPlugin">
+
+   <runtime>
+      <library name="docgen.jar">
+         <export name="*"/>
+      </library>
+   </runtime>
+   <requires>
+      <import plugin="org.xtuml.bp.core"/>
+      <import plugin="org.xtuml.bp.ui.explorer"/>
+      <import plugin="org.eclipse.core.resources"/>
+      <import plugin="org.eclipse.core.runtime"/>
+      <import plugin="org.eclipse.emf.ecore.xmi"/>
+      <import plugin="org.eclipse.ui"/>
+      <import plugin="org.eclipse.ui.ide"/>
+      <import plugin="org.eclipse.core.variables"/>
+      <import plugin="org.apache.ant"/>
+      <import plugin="org.eclipse.ant.core"/>
+      <import plugin="org.xtuml.bp.mc"/>
+      <import plugin="org.xtuml.bp.mc.c.binary"/>
+      <import plugin="org.xtuml.bp.mc.c.source"/>
+      <import plugin="org.xtuml.bp.mc.cpp.source"/>
+      <import plugin="org.xtuml.bp.mc.systemc.source"/>
+      <import plugin="org.xtuml.bp.mc.vhdl.source"/>
+      <import plugin="org.xtuml.bp.io.image"/>
+      <import plugin="org.eclipse.ui.console"/>
+      <import plugin="org.eclipse.core.filesystem"/>
+   </requires>
+   <extension
+         id="org.xtuml.ui.docgen.makeDocument"
+         point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            id="org.xtuml.bp.docgen.contribution1"
+            objectClass="org.xtuml.bp.core.SystemModel_c">
+         <action
+               class="org.xtuml.bp.docgen.actions.makeDocumentationAction"
+               enablesFor="1"
+               id="org.xtuml.bp.docgen.makeDocumentationAction"
+               label="Create documentation"
+               menubarPath="org.xtuml.bp.ui.context-internal">
+         </action>
+      </objectContribution>
+   </extension>
+  <extension point="org.eclipse.ant.core.antTasks">
+    <antTask
+          class="org.xtuml.bp.docgen.ant.tasks.DocGenTask"
+          eclipseRuntime="true"
+          headless="true"
+          library="docgen.jar"
+          name="document.Emitter"/>
+  </extension>
+</plugin>

@@ -1,0 +1,686 @@
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("0a929dad-7ee8-4c26-aaba-741271d10359",
+	'Relate',
+	608,
+	'ACT_REL',
+	'This class represents a statement that relates two instances together.',
+	"4495cfdc-a8ff-4f91-a2e9-51eae8b1316f");
+INSERT INTO O_TFR
+	VALUES ("c382ce11-7f77-4dcf-a6e7-cc621362f1eb",
+	"0a929dad-7ee8-4c26-aaba-741271d10359",
+	'dispose',
+	'This operation disconnects an instance, and all instances it is 
+responsible for, from the model.',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select one one_var related by self->V_VAR[R615];
+if ( not_empty one_var )
+  unrelate self from one_var across R615;
+end if;
+select one other_var related by self->V_VAR[R616];
+if ( not_empty other_var )
+  unrelate self from other_var across R616;
+end if;
+select one rel related by self->R_REL[R653];
+if ( not_empty rel )
+  unrelate self from rel across R653;
+end if;
+delete object instance self;
+',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_DT_PROXY
+	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'void',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("c0ce17f1-4db3-4189-ab3b-57b254f4a047",
+	"0a929dad-7ee8-4c26-aaba-741271d10359",
+	'execute',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// Relate and Unlrelate:Relate(ACT_REL).execute()
+select one body related by self->V_VAR[R615]->ACT_BLK[R823]->ACT_ACT[R601];
+// relate <source instance handle> to <destination instance handle> across
+// <relationship spectification>
+
+select one source_handle related by self->V_VAR[R615]->V_INT[R814];
+select one destination_handle related by self->V_VAR[R616]->V_INT[R814];
+
+// Grab the stack frame
+select any stack_frame from instances of I_STF where (selected.Stack_Frame_ID == param.stack_frame_id);
+if (empty stack_frame)
+    //Invalid stack frame ID!
+    pathMsg = "<No Path Available - Empty instance>";
+    if (not_empty body)
+      pathMsg = body.getPath();
+    end if;
+	USER::logError(msg:"Error in Relate.execute: Invalid stack frame id used. Using random top stack frame.",path:pathMsg);
+    select any stack from instances of I_STACK;
+    select one stack_frame related by stack->I_STF[R2929];
+end if;
+
+// Set value to this block with the right type so we can use it later.  The value here is useless.
+select any source_local_reference from instances of L_LCR;
+select any destination_local_reference from instances of L_LCR;
+
+// Get all of the block in stack frames that exist for the stack frame
+select many block_in_stack_frames related by stack_frame->I_BSF[R2923];
+for each block_in_stack_frame in block_in_stack_frames
+  // Find the one local value that matches the block in stack frame where we are executing for the transient variable we want to assign
+  select any source_local_reference related by block_in_stack_frame->L_LCL[R3000]->L_LCR[R3001] where selected.Var_ID == source_handle.Var_ID;
+  if (not_empty source_local_reference)
+    // We found the 1 local reference in this stack frame for this instance handle id.  So stop looking.
+    // All of this was necessary in order to support nested blocks that reference variables that were created in outer blocks in this stack frame
+    
+    // WARNING: This implementation is based on the Object Action Language definition that existed in November of 2005.
+    //          If the language is changed to become a strongly typed language where a user can define a variable in an inner block with the same
+    //          name as something that exists in the outer block, then this implementation will not work because it does not walk out of the current
+    //          block.
+    break;
+  end if;
+end for;
+
+// Now do the same to find the correct local reference to use for the destination side of this relate statement
+for each block_in_stack_frame in block_in_stack_frames
+  // Find the one local value that matches the block in stack frame where we are executing for the transient variable we want to assign
+  select any destination_local_reference related by block_in_stack_frame->L_LCL[R3000]->L_LCR[R3001] where selected.Var_ID == destination_handle.Var_ID;
+  if (not_empty destination_local_reference)
+    // We found the 1 local reference in this stack frame for this instance handle id.  So stop looking.
+    // All of this was necessary in order to support nested blocks that reference variables that were created in outer blocks in this stack frame
+    
+    // WARNING: This implementation is based on the Object Action Language definition that existed in November of 2005.
+    //          If the language is changed to become a strongly typed language where a user can define a variable in an inner block with the same
+    //          name as something that exists in the outer block, then this implementation will not work because it does not walk out of the current
+    //          block.
+    break;
+  end if;
+end for;
+
+// Now that we know the correct block in stack frame to use for both the source and destination instances.  Get them.
+select any source related by source_local_reference->L_LCL[R3001]->
+        RV_RVL[R3306]->RV_SMV[R3300]->RV_IRV[R3308]->L_IIR[R3311]->I_INS[R3013];
+select any destination related by destination_local_reference->
+                           L_LCL[R3001]->RV_RVL[R3306]->RV_SMV[R3300]->
+                                      RV_IRV[R3308]->L_IIR[R3311]->I_INS[R3013];
+select one relationship_spec related by self->R_REL[R653];
+
+// Compute the sense of the relation, if any
+reflexive = relationship_spec.is_reflexive();
+rel_phrase = GD::strip_tics(value:self.relationship_phrase);
+
+
+select any srcIil from instances of I_LIP
+                                where (selected.Rel_ID == GD::NULL_UNIQUE_ID());
+select any dstIil from instances of I_LIP
+                                where (selected.Rel_ID == GD::NULL_UNIQUE_ID());
+
+srcMultiplicity = 0;
+if not_empty source
+  // create the link participation
+  create object instance srcIil of I_LIP;
+  relate srcIil to source across R2958;
+  relate srcIil to relationship_spec across R2959;
+  
+  select one sourceClass related by source->CSME_CIE[R2962]->O_OBJ[R2961];
+  select many srcClassInAssociations related by sourceClass->
+                             R_OIR[R201] where selected.Rel_ID == srcIil.Rel_ID;
+  select any srcRgo related by srcClassInAssociations->R_RGO[R203];
+  if reflexive
+    select one form related by srcRgo->
+                             R_FORM[R205] where selected.Txt_Phrs != rel_phrase;
+    select one srcRgo related by form->R_RGO[R205];
+    // If the rel phrase matches, srcRgo will be empty above. If not, srcRgo
+    // will be unchanged and we will proceed to test the correct end.
+  end if;
+  if not_empty srcRgo  // There can only be one
+    select one form related by srcRgo->R_FORM[R205];
+    if not_empty form
+      srcMultiplicity = form.Mult;
+      // No need to test for subype as below,
+      // because we''re not setting relatingFwd here.
+    end if;
+  else
+    select any srcPart related by srcClassInAssociations->
+                                                      R_RTO[R203]->R_PART[R204];
+    if reflexive
+      select any srcPart related by srcClassInAssociations->
+                R_RTO[R203]->R_PART[R204] where selected.Txt_Phrs != rel_phrase;
+    end if;
+    if not_empty srcPart
+      srcMultiplicity = srcPart.Mult;
+    end if;
+  end if;
+end if;
+relatingFwd = true;
+dstMultiplicity = 0;
+if not_empty destination
+  // create the link participation
+  create object instance dstIil of I_LIP;
+  relate dstIil to destination across R2958;
+  relate dstIil to relationship_spec across R2959;
+  
+  select one destClass related by destination->CSME_CIE[R2962]->O_OBJ[R2961];
+  select many dstClassInAssociations related by destClass->
+                             R_OIR[R201] where selected.Rel_ID == dstIil.Rel_ID;
+  select any dstRgo related by dstClassInAssociations->R_RGO[R203];
+  if reflexive
+    select one form related by dstRgo->
+                             R_FORM[R205] where selected.Txt_Phrs == rel_phrase;
+    select one dstRgo related by form->R_RGO[R205];
+    // If the rel phrase matches, dstRgo will be unchanged above. If not,
+    // dstRgo will be empty and we will proceed to test the correct end.
+    // This test does not interfere with subtype detection below, because
+    // subtype/supertype associations cannot be reflexive.
+  end if;
+  if not_empty dstRgo  // There can only be one
+    select one form related by dstRgo->R_FORM[R205];
+    if not_empty form
+      // The destination is playing the role of formalizer in this association,
+      // so we are relating backwards across the association.
+      relatingFwd = false;
+      dstMultiplicity = form.Mult;
+    else
+      select one subType related by  dstRgo->R_SUB[R205];
+      if not_empty subType
+        // Multiplicity is already correct: exactly one.
+        relatingFwd = false;
+      end if;
+    end if;
+  else
+    select any dstPart related by dstClassInAssociations->
+                                                      R_RTO[R203]->R_PART[R204];
+    if reflexive
+      select any dstPart related by dstClassInAssociations->
+                R_RTO[R203]->R_PART[R204] where selected.Txt_Phrs == rel_phrase;
+    end if;
+    if not_empty dstPart
+      dstMultiplicity = dstPart.Mult;
+      if not relationship_spec.isFormalized()
+        // If we''re not formalized, then we assume the first participant
+        // found is going to play the role of the formalizer. Thus, if
+        // the destination rto participant is playing the formalizer
+        // role, then we are relating backwards across the association.
+        select any informalPart related by relationship_spec->
+                                                     R_SIMP[R206]->R_PART[R207];
+        if dstPart == informalPart
+          relatingFwd = false; // The participant is playing a formalizer role.
+        end if;
+      end if;
+    // else it''s a supertype, we''re relating forward, no action needed.
+    end if;
+  end if;
+end if;
+if (reflexive == true and relatingFwd == false)
+  swap = srcMultiplicity;
+  srcMultiplicity = dstMultiplicity;
+  dstMultiplicity = swap;
+end if;
+
+populationError = false;
+if (PREF::getBoolean(name:"bridgepoint_prefs_enable_verifier_audit")== true)
+  auditSev = PREF::getInteger(name:"bridgepoint_prefs_enable_relate_audit"); 
+  if auditSev != 0  // 0 == Ignore
+    message = "";
+    if empty source or empty destination
+      populationError = true;
+      message = "Empty instance";
+      if empty source and empty destination
+       message = message + "s";
+      end if;
+      message = message + " being related on";
+    else
+      if dstMultiplicity == 0 // 0 == Multiplicity one
+        linkCard = 0;
+        if relatingFwd
+          select many fromLinks related by source->I_LIP[R2958]->I_LNK[R2901]
+                            where (selected.Rel_ID == relationship_spec.Rel_ID);
+          linkCard = cardinality fromLinks;
+        else
+          select many toLinks related by source->I_LIP[R2958]->I_LNK[R2902]
+                            where (selected.Rel_ID == relationship_spec.Rel_ID);
+          linkCard = cardinality toLinks;
+        end if;
+        if linkCard > 0 
+          populationError = true;
+          message = "Already related on";
+        end if; // Link cardinality > 1
+      end if; // Destination multiplicity is ''one''
+      if srcMultiplicity == 0 // 0 == Multiplicity one
+        linkCard = 0;
+        if relatingFwd
+          select many toLinks related by destination->I_LIP[R2958]->I_LNK[R2902]
+                            where (selected.Rel_ID == relationship_spec.Rel_ID);
+          linkCard = cardinality toLinks;
+        else
+          select many fromLinks related by destination->I_LIP[R2958]
+             ->I_LNK[R2901] where (selected.Rel_ID == relationship_spec.Rel_ID);
+          linkCard = cardinality fromLinks;
+        end if;
+        if linkCard > 0 
+          populationError = true;
+          message = "Already related on";
+        end if; // Link cardinality > 1
+      end if; // Source multiplicity is ''one''
+    end if; // instances are not deleted
+    if populationError
+      severity = "Warning";
+      assocPhrase = "";
+      if (rel_phrase != "")
+        assocPhrase = " (" + rel_phrase + ")";
+      end if;
+      postFixMsg = "";
+      if auditSev == 2 // 2 == FATAL
+        severity = "FATAL";
+        select one stack related by stack_frame->I_STACK[R2929];
+        if stack.runState == RunStateType::Running
+          // Only suspend execution if running, i.e. allow stepping over
+          stack.suspendReason = "Halted on illegal link instance " +
+                  "population on " + relationship_spec.get_name() + assocPhrase;
+          stack.runState = RunStateType::Suspended;
+          postFixMsg = GD::newline() + "Execution Halted. (Problem detected at previous statement)";
+        end if; // stack is running
+      else // 1 == Warning
+        select one statement related by self->ACT_SMT[R603];
+        postFixMsg = " at: " + statement.Label;
+      end if; // is fatal error selected
+      logMessage = severity + " Relate: " + message + " " +
+                        relationship_spec.get_name() + assocPhrase + postFixMsg;
+      USER::logError(msg:logMessage,path:body.getPath());
+    end if; // population error detected
+  end if; // audit is do not ignore
+end if; // audit enabled
+if not populationError
+  // Relate the given source and destination handles from the statement to link
+  // Create a link for this association
+  create object instance link of I_LNK;
+
+  // Relate that link to our association
+  relate relationship_spec to link across R2904;
+
+  if (relatingFwd)
+    relate link to srcIil across R2901;
+    relate link to dstIil across R2902;
+  else
+    relate link to dstIil across R2901;
+    relate link to srcIil across R2902;
+  end if;
+end if;
+',
+	1,
+	'',
+	"c382ce11-7f77-4dcf-a6e7-cc621362f1eb");
+INSERT INTO O_TPARM
+	VALUES ("8b4cbc89-ecfe-469e-abc6-565d91bd3ccf",
+	"c0ce17f1-4db3-4189-ab3b-57b254f4a047",
+	'stack_frame_id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'unique_id',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("0a929dad-7ee8-4c26-aaba-741271d10359",
+	"e9011b75-e798-45a3-ac83-92ba7c04db4e",
+	0,
+	"57ac4fbc-42e9-46ec-a929-7875093e348c",
+	"63067dfa-ea5b-4c48-bd8c-138b8b76196c",
+	"fa30c8ec-79e1-4a8b-96d7-7370aace00ca",
+	"fe55fe0e-8913-466e-aa7c-a04d957a07ce",
+	"17998fbb-e109-46df-a1cd-1b09cbad565a",
+	"e41c680c-8bad-476e-ab02-cce8fdc1f735",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Statement',
+	'Statement_ID',
+	'R603');
+INSERT INTO R_RGO_PROXY
+	VALUES ("0a929dad-7ee8-4c26-aaba-741271d10359",
+	"63067dfa-ea5b-4c48-bd8c-138b8b76196c",
+	"fa30c8ec-79e1-4a8b-96d7-7370aace00ca",
+	'../../Body/Body.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("57ac4fbc-42e9-46ec-a929-7875093e348c",
+	"e9011b75-e798-45a3-ac83-92ba7c04db4e",
+	0,
+	"63067dfa-ea5b-4c48-bd8c-138b8b76196c",
+	"fe55fe0e-8913-466e-aa7c-a04d957a07ce",
+	'../../Body/Body.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("17998fbb-e109-46df-a1cd-1b09cbad565a",
+	"0a929dad-7ee8-4c26-aaba-741271d10359",
+	"57ac4fbc-42e9-46ec-a929-7875093e348c",
+	"e9011b75-e798-45a3-ac83-92ba7c04db4e",
+	1,
+	'Statement_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("57ac4fbc-42e9-46ec-a929-7875093e348c",
+	"e9011b75-e798-45a3-ac83-92ba7c04db4e",
+	'../../Body/Statement/Statement.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("17998fbb-e109-46df-a1cd-1b09cbad565a",
+	"0a929dad-7ee8-4c26-aaba-741271d10359",
+	"00000000-0000-0000-0000-000000000000",
+	'Statement_ID',
+	'
+
+',
+	'',
+	'Statement_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("0a929dad-7ee8-4c26-aaba-741271d10359",
+	"04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",
+	0,
+	"aa0af814-2950-42d7-b263-1e32565f47ac",
+	"99f312e1-793f-4716-b0df-b283046442da",
+	"b39c9866-93ac-4ae7-b0a6-941a65619320",
+	"e29899d7-24a1-473a-af96-708e98bbaf14",
+	"39c35eaf-362c-45ca-a58f-e26aea4cfb71",
+	"b1ac9731-7929-419f-9727-d7e304292f73",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Variable',
+	'Var_ID',
+	'R615.''one''');
+INSERT INTO R_RGO_PROXY
+	VALUES ("0a929dad-7ee8-4c26-aaba-741271d10359",
+	"99f312e1-793f-4716-b0df-b283046442da",
+	"b39c9866-93ac-4ae7-b0a6-941a65619320",
+	'../Relate And Unrelate.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("aa0af814-2950-42d7-b263-1e32565f47ac",
+	"04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",
+	0,
+	"99f312e1-793f-4716-b0df-b283046442da",
+	"e29899d7-24a1-473a-af96-708e98bbaf14",
+	'../Relate And Unrelate.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("39c35eaf-362c-45ca-a58f-e26aea4cfb71",
+	"0a929dad-7ee8-4c26-aaba-741271d10359",
+	"aa0af814-2950-42d7-b263-1e32565f47ac",
+	"04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",
+	1,
+	'Var_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("aa0af814-2950-42d7-b263-1e32565f47ac",
+	"04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",
+	'../../Value/Variable/Variable.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("39c35eaf-362c-45ca-a58f-e26aea4cfb71",
+	"0a929dad-7ee8-4c26-aaba-741271d10359",
+	"17998fbb-e109-46df-a1cd-1b09cbad565a",
+	'One_Side_Var_ID',
+	'
+
+',
+	'One_Side_',
+	'Var_ID',
+	1,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("0a929dad-7ee8-4c26-aaba-741271d10359",
+	"04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",
+	0,
+	"aa0af814-2950-42d7-b263-1e32565f47ac",
+	"192f2c7f-e59b-4b5e-a422-d6a98b6915a6",
+	"4a504051-689b-474a-a3b1-da47ea452bb0",
+	"ee9d707f-06ff-4285-b0f8-b9578c3e8bbf",
+	"87317111-b7e7-4d29-a2a4-05b42582c5b0",
+	"7f37fc0d-b249-42e8-b032-4450a14de5d1",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Variable',
+	'Var_ID',
+	'R616.''other''');
+INSERT INTO R_RGO_PROXY
+	VALUES ("0a929dad-7ee8-4c26-aaba-741271d10359",
+	"192f2c7f-e59b-4b5e-a422-d6a98b6915a6",
+	"4a504051-689b-474a-a3b1-da47ea452bb0",
+	'../Relate And Unrelate.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("aa0af814-2950-42d7-b263-1e32565f47ac",
+	"04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",
+	0,
+	"192f2c7f-e59b-4b5e-a422-d6a98b6915a6",
+	"ee9d707f-06ff-4285-b0f8-b9578c3e8bbf",
+	'../Relate And Unrelate.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("87317111-b7e7-4d29-a2a4-05b42582c5b0",
+	"0a929dad-7ee8-4c26-aaba-741271d10359",
+	"aa0af814-2950-42d7-b263-1e32565f47ac",
+	"04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",
+	1,
+	'Var_ID');
+INSERT INTO O_ATTR
+	VALUES ("87317111-b7e7-4d29-a2a4-05b42582c5b0",
+	"0a929dad-7ee8-4c26-aaba-741271d10359",
+	"39c35eaf-362c-45ca-a58f-e26aea4cfb71",
+	'Other_Side_Var_ID',
+	'
+
+',
+	'Other_Side_',
+	'Var_ID',
+	1,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("2110a749-aaae-4953-8b51-3b1630068b9a",
+	"0a929dad-7ee8-4c26-aaba-741271d10359");
+INSERT INTO O_BATTR
+	VALUES ("2110a749-aaae-4953-8b51-3b1630068b9a",
+	"0a929dad-7ee8-4c26-aaba-741271d10359");
+INSERT INTO O_ATTR
+	VALUES ("2110a749-aaae-4953-8b51-3b1630068b9a",
+	"0a929dad-7ee8-4c26-aaba-741271d10359",
+	"87317111-b7e7-4d29-a2a4-05b42582c5b0",
+	'relationship_phrase',
+	'Full Name: Relationship Phrase
+Specifies the relationship phrase at the target end of the association.
+Essential for disambiguating the navigation direction of reflexive
+associations.',
+	'',
+	'relationship_phrase',
+	0,
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'string',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("6421106b-3ae2-48cb-995f-88d522957d83",
+	"0a929dad-7ee8-4c26-aaba-741271d10359");
+INSERT INTO O_BATTR
+	VALUES ("6421106b-3ae2-48cb-995f-88d522957d83",
+	"0a929dad-7ee8-4c26-aaba-741271d10359");
+INSERT INTO O_ATTR
+	VALUES ("6421106b-3ae2-48cb-995f-88d522957d83",
+	"0a929dad-7ee8-4c26-aaba-741271d10359",
+	"37bbffba-7741-4539-b46c-dd6a70a6cb70",
+	'associationNumberLineNumber',
+	'',
+	'',
+	'associationNumberLineNumber',
+	0,
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'integer',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("4a420f0c-6d23-44b1-b338-81d524540bb0",
+	"0a929dad-7ee8-4c26-aaba-741271d10359");
+INSERT INTO O_BATTR
+	VALUES ("4a420f0c-6d23-44b1-b338-81d524540bb0",
+	"0a929dad-7ee8-4c26-aaba-741271d10359");
+INSERT INTO O_ATTR
+	VALUES ("4a420f0c-6d23-44b1-b338-81d524540bb0",
+	"0a929dad-7ee8-4c26-aaba-741271d10359",
+	"6421106b-3ae2-48cb-995f-88d522957d83",
+	'associationNumberColumn',
+	'',
+	'',
+	'associationNumberColumn',
+	0,
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("09f1eee8-2b3e-40a8-b4c6-b95fb513b330",
+	"0a929dad-7ee8-4c26-aaba-741271d10359");
+INSERT INTO O_BATTR
+	VALUES ("09f1eee8-2b3e-40a8-b4c6-b95fb513b330",
+	"0a929dad-7ee8-4c26-aaba-741271d10359");
+INSERT INTO O_ATTR
+	VALUES ("09f1eee8-2b3e-40a8-b4c6-b95fb513b330",
+	"0a929dad-7ee8-4c26-aaba-741271d10359",
+	"4a420f0c-6d23-44b1-b338-81d524540bb0",
+	'associationPhraseLineNumber',
+	'',
+	'',
+	'associationPhraseLineNumber',
+	0,
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("0f17b2a8-b0fb-49bb-82ef-ae7cf16b2a32",
+	"0a929dad-7ee8-4c26-aaba-741271d10359");
+INSERT INTO O_BATTR
+	VALUES ("0f17b2a8-b0fb-49bb-82ef-ae7cf16b2a32",
+	"0a929dad-7ee8-4c26-aaba-741271d10359");
+INSERT INTO O_ATTR
+	VALUES ("0f17b2a8-b0fb-49bb-82ef-ae7cf16b2a32",
+	"0a929dad-7ee8-4c26-aaba-741271d10359",
+	"09f1eee8-2b3e-40a8-b4c6-b95fb513b330",
+	'associationPhraseColumn',
+	'',
+	'',
+	'associationPhraseColumn',
+	0,
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("0a929dad-7ee8-4c26-aaba-741271d10359",
+	"fccf477f-dde6-4d1a-9020-5effbe338738",
+	0,
+	"0e0a4e72-7f7e-46b9-b83c-2c6b882dda5f",
+	"d362e004-331d-4ae3-ace4-64a808bb4297",
+	"5d6c6716-1f77-43fd-aef9-84a272e52587",
+	"bd98203c-7c26-4f57-b0a1-4224d383a744",
+	"37bbffba-7741-4539-b46c-dd6a70a6cb70",
+	"dd6be571-4848-46fb-a0c8-38e39e71df5d",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Association',
+	'Rel_ID',
+	'R653.''creates''');
+INSERT INTO R_RGO_PROXY
+	VALUES ("0a929dad-7ee8-4c26-aaba-741271d10359",
+	"d362e004-331d-4ae3-ace4-64a808bb4297",
+	"5d6c6716-1f77-43fd-aef9-84a272e52587",
+	'../Relate And Unrelate.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("0e0a4e72-7f7e-46b9-b83c-2c6b882dda5f",
+	"fccf477f-dde6-4d1a-9020-5effbe338738",
+	0,
+	"d362e004-331d-4ae3-ace4-64a808bb4297",
+	"bd98203c-7c26-4f57-b0a1-4224d383a744",
+	'../Relate And Unrelate.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("37bbffba-7741-4539-b46c-dd6a70a6cb70",
+	"0a929dad-7ee8-4c26-aaba-741271d10359",
+	"5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	1,
+	'Element_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	'../../Packageable Element/Packageable Element/Packageable Element.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("37bbffba-7741-4539-b46c-dd6a70a6cb70",
+	"0a929dad-7ee8-4c26-aaba-741271d10359",
+	"2110a749-aaae-4953-8b51-3b1630068b9a",
+	'Rel_ID',
+	'
+
+',
+	'',
+	'Rel_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"0a929dad-7ee8-4c26-aaba-741271d10359");
+INSERT INTO O_OIDA
+	VALUES ("17998fbb-e109-46df-a1cd-1b09cbad565a",
+	"0a929dad-7ee8-4c26-aaba-741271d10359",
+	0,
+	'Statement_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"0a929dad-7ee8-4c26-aaba-741271d10359");
+INSERT INTO O_ID
+	VALUES (2,
+	"0a929dad-7ee8-4c26-aaba-741271d10359");
+INSERT INTO S_SS_PROXY
+	VALUES ("4495cfdc-a8ff-4f91-a2e9-51eae8b1316f",
+	'Relate And Unrelate',
+	'Captures  the concepts of relating instances together. Also captures
+unrelate and covers relations with link classes.
+Notify_Changes:false
+Persistent:false
+// This is used by schema_gen to ignore this subsystem (for publication)
+TRANSLATE_FOR_EXTERNAL_USE:FALSE
+',
+	'ACT',
+	600,
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-00000050000a",
+	'../Relate And Unrelate.xtuml');

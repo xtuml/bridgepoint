@@ -1,0 +1,274 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("74499f10-8c20-4ad4-9221-8139a8362b8f",
+	'EE to SM Comm Path',
+	402,
+	'CA_EESMC',
+	'An EE to SM communication path represents a path on the Communication Diagram that originates at an External Entity and terminates at a State Machine.  ',
+	"309f0e1c-e3bd-46e3-ad66-49d186565a6b");
+INSERT INTO O_TFR
+	VALUES ("ab493c75-5582-4108-9111-88ad006b6694",
+	"74499f10-8c20-4ad4-9221-8139a8362b8f",
+	'dispose',
+	'Delete this CA_EESMC.
+',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select many eesmes related by self->CA_EESME[R404];
+for each eesme in eesmes
+  select one evt related by eesme->SM_EVT[R405];
+  unrelate eesme from evt across R405;
+  unrelate eesme from self across R404;
+  delete object instance eesme;
+end for;
+select one eem related by self->S_EEM[R402];
+unrelate self from eem across R402;
+select one sm related by self->SM_SM[R403];
+unrelate self from sm across R403;
+select one cp related by self->CA_COMM[R401];
+unrelate self from cp across R401;
+delete object instance self;',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_DT_PROXY
+	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'void',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("74499f10-8c20-4ad4-9221-8139a8362b8f",
+	"2ec510d1-5b04-4d69-a388-844bfa103cc6",
+	0,
+	"79a3e71e-8059-418b-ac00-9ba592bf0ad6",
+	"9315c0b3-5022-44da-9a1d-8be3982d3ee7",
+	"e6479413-5cdf-4cff-90ce-93f6ade29f0c",
+	"98fa227a-be26-45b0-a61c-0e79cf3681e3",
+	"5f4760d6-ecd2-4358-a392-fed984df70f8",
+	"ec870d2c-d9e9-41df-957b-d77fc4e8ef1b",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'
+
+Notes:
+
+',
+	'Communication Path',
+	'CPath_ID',
+	'R401');
+INSERT INTO R_RGO_PROXY
+	VALUES ("74499f10-8c20-4ad4-9221-8139a8362b8f",
+	"9315c0b3-5022-44da-9a1d-8be3982d3ee7",
+	"e6479413-5cdf-4cff-90ce-93f6ade29f0c",
+	'../Communication And Access.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("79a3e71e-8059-418b-ac00-9ba592bf0ad6",
+	"2ec510d1-5b04-4d69-a388-844bfa103cc6",
+	0,
+	"9315c0b3-5022-44da-9a1d-8be3982d3ee7",
+	"98fa227a-be26-45b0-a61c-0e79cf3681e3",
+	'../Communication And Access.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("5f4760d6-ecd2-4358-a392-fed984df70f8",
+	"74499f10-8c20-4ad4-9221-8139a8362b8f",
+	"79a3e71e-8059-418b-ac00-9ba592bf0ad6",
+	"2ec510d1-5b04-4d69-a388-844bfa103cc6",
+	1,
+	'CPath_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("79a3e71e-8059-418b-ac00-9ba592bf0ad6",
+	"2ec510d1-5b04-4d69-a388-844bfa103cc6",
+	'../Communication Path/Communication Path.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("5f4760d6-ecd2-4358-a392-fed984df70f8",
+	"74499f10-8c20-4ad4-9221-8139a8362b8f",
+	"00000000-0000-0000-0000-000000000000",
+	'CPath_ID',
+	'',
+	'',
+	'CPath_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("74499f10-8c20-4ad4-9221-8139a8362b8f",
+	"370cf248-82e0-4e2f-ab33-dd7c04ece691",
+	0,
+	"23b2e1a1-6545-41fc-8935-ad7b2f2755cd",
+	"629808b4-8fdd-4ff0-8721-c88b98860448",
+	"16e371ab-067a-4823-9bc8-e2c58484104c",
+	"b753e709-86d0-496b-b847-1e543a26701f",
+	"afae591b-ff40-4a1a-8cc7-06485000cb6f",
+	"949bfb61-735e-4661-8507-0f4d260cd8a1",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'External Entity in Model',
+	'EEmod_ID',
+	'R402');
+INSERT INTO R_RGO_PROXY
+	VALUES ("74499f10-8c20-4ad4-9221-8139a8362b8f",
+	"629808b4-8fdd-4ff0-8721-c88b98860448",
+	"16e371ab-067a-4823-9bc8-e2c58484104c",
+	'../Communication And Access.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("23b2e1a1-6545-41fc-8935-ad7b2f2755cd",
+	"370cf248-82e0-4e2f-ab33-dd7c04ece691",
+	0,
+	"629808b4-8fdd-4ff0-8721-c88b98860448",
+	"b753e709-86d0-496b-b847-1e543a26701f",
+	'../Communication And Access.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("afae591b-ff40-4a1a-8cc7-06485000cb6f",
+	"74499f10-8c20-4ad4-9221-8139a8362b8f",
+	"23b2e1a1-6545-41fc-8935-ad7b2f2755cd",
+	"370cf248-82e0-4e2f-ab33-dd7c04ece691",
+	1,
+	'EEmod_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("23b2e1a1-6545-41fc-8935-ad7b2f2755cd",
+	"370cf248-82e0-4e2f-ab33-dd7c04ece691",
+	'../../Domain/External Entity in Model/External Entity in Model.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("afae591b-ff40-4a1a-8cc7-06485000cb6f",
+	"74499f10-8c20-4ad4-9221-8139a8362b8f",
+	"5f4760d6-ecd2-4358-a392-fed984df70f8",
+	'EEmod_ID',
+	'',
+	'',
+	'EEmod_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("74499f10-8c20-4ad4-9221-8139a8362b8f",
+	"92c4f346-0aca-4da2-b132-f4de66fee3e6",
+	0,
+	"a791a1ed-e1c8-4d68-9963-2e6d2379b544",
+	"d39e89fc-b651-4451-acc8-26eee9ad5c91",
+	"2e9de448-223a-45c6-931f-e460369e9e1a",
+	"1d2a8596-908b-400c-931d-025bd6e827f8",
+	"9747292c-14fa-4933-adc0-100b5789cbac",
+	"7fa45905-2081-40aa-94d4-387059f9e419",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'State Machine',
+	'SM_ID',
+	'R403');
+INSERT INTO R_RGO_PROXY
+	VALUES ("74499f10-8c20-4ad4-9221-8139a8362b8f",
+	"d39e89fc-b651-4451-acc8-26eee9ad5c91",
+	"2e9de448-223a-45c6-931f-e460369e9e1a",
+	'../Communication And Access.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("a791a1ed-e1c8-4d68-9963-2e6d2379b544",
+	"92c4f346-0aca-4da2-b132-f4de66fee3e6",
+	0,
+	"d39e89fc-b651-4451-acc8-26eee9ad5c91",
+	"1d2a8596-908b-400c-931d-025bd6e827f8",
+	'../Communication And Access.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("9747292c-14fa-4933-adc0-100b5789cbac",
+	"74499f10-8c20-4ad4-9221-8139a8362b8f",
+	"a791a1ed-e1c8-4d68-9963-2e6d2379b544",
+	"92c4f346-0aca-4da2-b132-f4de66fee3e6",
+	1,
+	'SM_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("a791a1ed-e1c8-4d68-9963-2e6d2379b544",
+	"92c4f346-0aca-4da2-b132-f4de66fee3e6",
+	'../../State Machine/State Machine/State Machine.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("9747292c-14fa-4933-adc0-100b5789cbac",
+	"74499f10-8c20-4ad4-9221-8139a8362b8f",
+	"ead26413-e0f7-46af-9dd3-1dd4dd7678c5",
+	'SM_ID',
+	'',
+	'',
+	'SM_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("74499f10-8c20-4ad4-9221-8139a8362b8f",
+	"370cf248-82e0-4e2f-ab33-dd7c04ece691",
+	0,
+	"c63fb109-2385-406e-adce-18e436389ce3",
+	"629808b4-8fdd-4ff0-8721-c88b98860448",
+	"16e371ab-067a-4823-9bc8-e2c58484104c",
+	"b753e709-86d0-496b-b847-1e543a26701f",
+	"ead26413-e0f7-46af-9dd3-1dd4dd7678c5",
+	"dde90aa1-ac42-4960-a2da-cda37dedebd7",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'External Entity in Model',
+	'EE_ID',
+	'R402');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("c63fb109-2385-406e-adce-18e436389ce3",
+	"370cf248-82e0-4e2f-ab33-dd7c04ece691",
+	0,
+	"629808b4-8fdd-4ff0-8721-c88b98860448",
+	"b753e709-86d0-496b-b847-1e543a26701f",
+	'../Communication And Access.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("ead26413-e0f7-46af-9dd3-1dd4dd7678c5",
+	"74499f10-8c20-4ad4-9221-8139a8362b8f",
+	"5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	1,
+	'Element_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	'../../Packageable Element/Packageable Element/Packageable Element.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("ead26413-e0f7-46af-9dd3-1dd4dd7678c5",
+	"74499f10-8c20-4ad4-9221-8139a8362b8f",
+	"afae591b-ff40-4a1a-8cc7-06485000cb6f",
+	'EE_ID',
+	'',
+	'',
+	'EE_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"74499f10-8c20-4ad4-9221-8139a8362b8f");
+INSERT INTO O_OIDA
+	VALUES ("5f4760d6-ecd2-4358-a392-fed984df70f8",
+	"74499f10-8c20-4ad4-9221-8139a8362b8f",
+	0,
+	'CPath_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"74499f10-8c20-4ad4-9221-8139a8362b8f");
+INSERT INTO O_ID
+	VALUES (2,
+	"74499f10-8c20-4ad4-9221-8139a8362b8f");
+INSERT INTO S_SS_PROXY
+	VALUES ("309f0e1c-e3bd-46e3-ad66-49d186565a6b",
+	'Communication And Access',
+	'Interactions between classes (O_OBJ) are modeled by communication (CA_COMM) and access (CA_ACC) paths. Communication paths show the asynchronous (event) and synchronous (data access) communication in the system between two classes and class/external entity (S_EE) pairs.  ',
+	'CA',
+	401,
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000200004",
+	'../Communication And Access.xtuml');

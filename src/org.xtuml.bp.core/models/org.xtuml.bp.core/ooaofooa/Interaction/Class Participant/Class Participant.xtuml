@@ -1,0 +1,1182 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("05b26853-8bf3-4323-8266-03812d16d2ac",
+	'Class Participant',
+	913,
+	'SQ_CP',
+	'This class represents a class which is participating in a sequence.  The
+participating class is always static and never has a life span.',
+	"90afcd0d-03fa-49d5-ac2c-0fd20beede15");
+INSERT INTO O_TFR
+	VALUES ("8fba0f34-4da9-48e2-96ea-ca4efd927da5",
+	"05b26853-8bf3-4323-8266-03812d16d2ac",
+	'dispose',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select one participant related by self->SQ_P[R930];
+if(not_empty participant)
+  participant.dispose();
+else
+  select one mclass related by self->O_OBJ[R939];
+  if(not_empty mclass)
+    unrelate mclass from self across R939;
+  end if;
+select many attrs related by self->SQ_CPA[R935];
+  for each attr in attrs
+    unrelate self from attr across R935;
+    attr.dispose();
+  end for;
+  delete object instance self;
+end if;',
+	1,
+	'',
+	"c50ce073-c339-435c-8987-f3b859c3e413");
+INSERT INTO S_DT_PROXY
+	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'void',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("d77587bf-2de3-4695-8a5b-8b0c628e2b50",
+	"05b26853-8bf3-4323-8266-03812d16d2ac",
+	'get_style',
+	'',
+	"6e636321-0fd1-4577-b185-e4d76b0d0c71",
+	1,
+	'return Style::Box;',
+	1,
+	'',
+	"dab1d33f-da15-4016-b9ef-a85973b45980");
+INSERT INTO S_DT_PROXY
+	VALUES ("6e636321-0fd1-4577-b185-e4d76b0d0c71",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'Style',
+	'The Style data type specifies the precise form a graphical element will take when drawn.
+--------------------------------------------------------------------------
+Bridge:GD',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("86ecddb0-6381-4585-8fe9-76e12ab01888",
+	"05b26853-8bf3-4323-8266-03812d16d2ac",
+	'get_entries',
+	'',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	1,
+	'select one mclass related by self->O_OBJ[R939];
+if(not_empty mclass)
+  // return what the associated model class would
+  return mclass.get_entries(comp_num:param.comp_num);
+end if;
+if (param.comp_num == 1)
+ return 1;
+end if;
+if (param.comp_num == 2)
+  select many attrs related by self->SQ_CPA[R935];
+  return cardinality attrs;
+end if;
+if (param.comp_num == 3)
+  select one participant related by self->SQ_P[R930];
+  compartmentText = participant.getMessageCompartmentText();
+  lineCount = GD::numberOfLines(string:compartmentText);
+  return lineCount;
+end if;
+return 0;',
+	1,
+	'',
+	"700f37a2-37cf-4aa4-84ea-ff3a54d94505");
+INSERT INTO O_TPARM
+	VALUES ("e67a04e9-96db-4ef0-a780-0c8c679ab658",
+	"86ecddb0-6381-4585-8fe9-76e12ab01888",
+	'comp_num',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'integer',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("700f37a2-37cf-4aa4-84ea-ff3a54d94505",
+	"05b26853-8bf3-4323-8266-03812d16d2ac",
+	'get_compartments',
+	'',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	1,
+	'return 3;',
+	1,
+	'',
+	"0c047862-4994-43ae-9cfb-fba4b979725a");
+INSERT INTO O_TFR
+	VALUES ("edd79dfe-1c4f-4d7b-a2b3-a760e16fb28a",
+	"05b26853-8bf3-4323-8266-03812d16d2ac",
+	'get_text_style',
+	'',
+	"6e636321-0fd1-4577-b185-e4d76b0d0c71",
+	1,
+	'select one mclass related by self->O_OBJ[R939];
+if(not_empty mclass)
+  // if this participant is formal return
+  // what the associated element would
+  return mclass.get_text_style(comp_num:param.comp_num, ent_num:param.ent_num, at:param.at);
+end if;
+// otherwise return none
+return Style::None;',
+	1,
+	'',
+	"d77587bf-2de3-4695-8a5b-8b0c628e2b50");
+INSERT INTO O_TPARM
+	VALUES ("3cdf3b15-e5a7-4b81-823c-88bda782bed6",
+	"edd79dfe-1c4f-4d7b-a2b3-a760e16fb28a",
+	'comp_num',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"534baea8-39b9-41a0-aef7-f527d9bebfd9",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("1da53f78-960d-4a92-912b-ab7c494cd598",
+	"edd79dfe-1c4f-4d7b-a2b3-a760e16fb28a",
+	'ent_num',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"3cdf3b15-e5a7-4b81-823c-88bda782bed6",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("534baea8-39b9-41a0-aef7-f527d9bebfd9",
+	"edd79dfe-1c4f-4d7b-a2b3-a760e16fb28a",
+	'at',
+	"a9382bea-4a3f-43ec-9191-1f9f158b11a4",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("a9382bea-4a3f-43ec-9191-1f9f158b11a4",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'Justification',
+	'The Justification data type is used to specify text at a given location in a compartment.
+------------------------------------------------------------------------------
+Bridge:GD',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("dab1d33f-da15-4016-b9ef-a85973b45980",
+	"05b26853-8bf3-4323-8266-03812d16d2ac",
+	'get_ooa_id',
+	'',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	1,
+	'return self.Part_ID;',
+	1,
+	'',
+	"6d82c445-fecf-4ff3-ace4-cc0cb616c9d3");
+INSERT INTO S_DT_PROXY
+	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'unique_id',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("0c047862-4994-43ae-9cfb-fba4b979725a",
+	"05b26853-8bf3-4323-8266-03812d16d2ac",
+	'get_compartment_text',
+	'',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	1,
+	'select one participant related by self->SQ_P[R930];
+select one mclass related by self->O_OBJ[R939];
+if(not_empty mclass)
+  // if this participant is formal
+  // return what the element would
+  // append the path
+  result = "";
+  if((param.comp_num == 1) and (param.ent_num == 1))
+    if(param.at == Justification::Center_in_X)
+      result = GD::newline() + result;
+      result = mclass.getPath(path:"", includeSelf:true) + result;
+      return result;
+    end if;
+  end if;
+  return mclass.get_compartment_text(comp_num:param.comp_num, ent_num:param.ent_num, at:param.at);    
+end if;
+if((param.comp_num == 1) and (param.ent_num == 1))
+  if (param.at == Justification::Center_in_X)
+    return self.InformalName;
+  end if;
+elif(param.comp_num == 2)
+  if(param.at == Justification::Left)
+    cursor = 1;
+    result = "";
+    select many attrs related by self->SQ_CPA[R935];
+    for each attr in attrs
+      if (cursor == param.ent_num)
+		result = result + attr.Name;
+        if(attr.Type != "")
+          result = result + ":" + attr.Type;
+        end if;
+        if(cardinality attrs != cursor)
+          result = result + GD::newline();
+        end if;
+        return result;
+      end if;
+      cursor = cursor + 1;
+    end for;
+  end if;
+elif(param.comp_num == 3)
+  if (param.at == Justification::Left)
+    result = "";
+    // process the drawing only once
+    // this logic will fill compartment 3
+    if (param.ent_num == 1)
+      select many msgs related by self->SQ_P[R930]->MSG_M[R1007];
+      if(not_empty msgs)
+        return participant.getMessageCompartmentText();
+      end if;
+    end if;
+  end if;
+end if;
+return "";',
+	1,
+	'',
+	"4cbb2b72-2ddf-40c9-a8b0-56ba16f296f7");
+INSERT INTO O_TPARM
+	VALUES ("03199600-23ce-4045-968d-2a50c07af44c",
+	"0c047862-4994-43ae-9cfb-fba4b979725a",
+	'comp_num',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"b553f30f-e02f-422c-82f0-f8eeef309ecb",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("b469ad44-25d1-48db-90c0-9964171ea230",
+	"0c047862-4994-43ae-9cfb-fba4b979725a",
+	'ent_num',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"03199600-23ce-4045-968d-2a50c07af44c",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("b553f30f-e02f-422c-82f0-f8eeef309ecb",
+	"0c047862-4994-43ae-9cfb-fba4b979725a",
+	'at',
+	"a9382bea-4a3f-43ec-9191-1f9f158b11a4",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'string',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("cf251d34-bdf6-4891-bd42-1811ed06d93f",
+	"05b26853-8bf3-4323-8266-03812d16d2ac",
+	'initialize',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'name = "Informal Class";
+success = ::getNewElementName(name:name,instance: self.convertToInstance(),validateName:false);     
+if ( success!="") 
+self.InformalName =success;
+else 
+ self.dispose();
+end if;  ',
+	1,
+	'',
+	"edd79dfe-1c4f-4d7b-a2b3-a760e16fb28a");
+INSERT INTO O_TFR
+	VALUES ("988544df-ecbc-4843-8e0d-2d423802297b",
+	"05b26853-8bf3-4323-8266-03812d16d2ac",
+	'newAttribute',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'create object instance attr of SQ_CPA;
+relate attr to self across R935;
+create object instance ia of SQ_IA;
+relate ia to attr across R947;
+attr.initialize();',
+	1,
+	'',
+	"cf251d34-bdf6-4891-bd42-1811ed06d93f");
+INSERT INTO O_TFR
+	VALUES ("95f7738d-e950-47d0-b45f-6ea5ae39977a",
+	"05b26853-8bf3-4323-8266-03812d16d2ac",
+	'actionFilter',
+	'',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'if(param.name == "can")
+  // if the current action is one which requires
+  // this element to be selected along with a
+  // synchronous message
+  if(param.value == "formCommClassOp")
+    // no formalization support yet at system level
+    if(self.definedAtSystemLevel())
+      return false;
+    end if;
+    // if the selection count is not equal two return false, this
+    // prevents the menu entries from existing while only one of the
+    // elements is selected
+    if(Sel::getCurrentSelectionCount() != 2)
+      return false;
+    end if;
+    // return true if this participant
+    // represents a class which contains
+    // at least one class based operation
+    return self.formalClassHasCBOperations();
+  end if;
+  // likewise if the current action is one
+  // which requires this element to be selected
+  // along with an asynchronous message
+  if(param.value == "formCommClassEvent")
+    // no formalization support yet at system level
+    if(self.definedAtSystemLevel())
+      return false;
+    end if;
+    if(Sel::getCurrentSelectionCount() != 2)
+      return false;
+    end if;
+    // return true if this participant represents
+    // a class which contains at least one class
+    // based event
+    return self.formalClassHasCBEvents();
+  end if;
+  if(param.value == "unform")
+    // only allow unformalizing if formal
+    return self.isFormal;
+  end if;
+  if(param.value == "addAttr")
+    // only allow adding attributes if not formal
+    return not self.isFormal;
+  end if;
+  if(param.value == "formClass spec pkg") or (param.value == "formClass generic pkg")
+    select one packageableElem related by self->SQ_P[R930]->PE_PE[R8001];
+    select one package related by packageableElem->EP_PKG[R8000];
+    select one component related by packageableElem->C_C[R8003];
+    isInGenericPackage = not_empty package or not_empty component;
+  
+    if ((param.value == "formClass spec pkg")  and (isInGenericPackage))
+      return false;
+    end if;
+    if ((param.value == "formClass generic pkg") and (not isInGenericPackage))
+      return false;
+    end if;
+    
+    // no formalization support yet at system level
+    if(self.definedAtSystemLevel())
+      return false;
+    end if;
+    // allow formalization if at least one
+    // class exists
+    select many objs from instances of O_OBJ;
+    count = cardinality objs;
+    if(param.value == "formClass generic pkg")
+      count = Util::getElementCountInSystem(
+                                       elementType:ElementTypeConstants::CLASS,
+                                        askingElement:self.convertToInstance());
+    end if;
+    if(count == 1 and self.isFormal)
+      return false;
+    end if;
+    return count != 0;
+  end if;
+end if;
+return false;',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_TPARM
+	VALUES ("d77e0f16-79ee-4e99-bf64-73db76e13ede",
+	"95f7738d-e950-47d0-b45f-6ea5ae39977a",
+	'name',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("efb8d06c-9587-4419-86c7-fa800f46d72a",
+	"95f7738d-e950-47d0-b45f-6ea5ae39977a",
+	'value',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	0,
+	'',
+	"d77e0f16-79ee-4e99-bf64-73db76e13ede",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'boolean',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("57f4f6b0-5681-4292-81a1-877faf35d38c",
+	"05b26853-8bf3-4323-8266-03812d16d2ac",
+	'unformalize',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select one mclass related by self->O_OBJ[R939];
+if(not_empty mclass)
+  unrelate self from mclass across R939;
+end if;
+select one part related by self->SQ_P[R930];
+select many messages related by part->MSG_M[R1007];
+for each message in messages
+  message.unformalize();
+end for;
+// unformalize any communication links connected
+// to this instance
+select many links related by part->COMM_LNK[R1133];
+for each link in links
+  link.unformalize();
+end for;
+select many cpas related by self->SQ_CPA[R935];
+for each cpa in cpas
+  select one fa related by cpa->SQ_FA[R947];
+  if(not_empty fa)
+    unrelate cpa from fa across R947;
+    delete object instance fa;
+  end if;
+  create object instance ia of SQ_IA;
+  relate cpa to ia across R947;
+end for;',
+	1,
+	'',
+	"988544df-ecbc-4843-8e0d-2d423802297b");
+INSERT INTO O_TFR
+	VALUES ("6d82c445-fecf-4ff3-ace4-cc0cb616c9d3",
+	"05b26853-8bf3-4323-8266-03812d16d2ac",
+	'get_name',
+	'',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	1,
+	'return self.Label;',
+	1,
+	'',
+	"86ecddb0-6381-4585-8fe9-76e12ab01888");
+INSERT INTO O_TFR
+	VALUES ("61bf4e89-0806-4d1e-ae0e-f128f46259e7",
+	"05b26853-8bf3-4323-8266-03812d16d2ac",
+	'canRename',
+	'',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'return not self.isFormal;',
+	1,
+	'',
+	"95f7738d-e950-47d0-b45f-6ea5ae39977a");
+INSERT INTO O_TFR
+	VALUES ("4cbb2b72-2ddf-40c9-a8b0-56ba16f296f7",
+	"05b26853-8bf3-4323-8266-03812d16d2ac",
+	'formalize',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select any mclass from instances of O_OBJ
+                                where (selected.Obj_ID == GD::NULL_UNIQUE_ID());
+select one package related by self->SQ_P[R930]->PE_PE[R8001]->EP_PKG[R8000];
+isInGenericPackage = not_empty package;
+if(not isInGenericPackage)
+  select any mclass from instances of O_OBJ
+                                       where (selected.Obj_ID == param.classId);
+else
+  select any pe from instances of PE_PE
+                                   where (selected.Element_ID == param.classId);
+  select one mclass related by pe->O_OBJ[R8001];
+end if;
+if(self.isFormal)
+  self.unformalize();
+end if;
+if (not_empty mclass)
+  relate mclass to self across R939;
+end if;
+// delete all informal class attributes
+select many cpas related by self->SQ_CPA[R935];
+for each cpa in cpas
+  select one ia related by cpa->SQ_IA[R947];
+  if(not_empty ia)
+    unrelate cpa from ia across R947;
+    delete object instance ia;
+  end if;
+  create object instance fa of SQ_FA;
+  relate cpa to fa across R947;
+end for;
+',
+	1,
+	'',
+	"4f03941d-635c-4f4c-84a0-758d5aa5e8cd");
+INSERT INTO O_TPARM
+	VALUES ("f8f424e5-b8cd-4a78-bd9c-2ec9efadd7e3",
+	"4cbb2b72-2ddf-40c9-a8b0-56ba16f296f7",
+	'classId',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("4f03941d-635c-4f4c-84a0-758d5aa5e8cd",
+	"05b26853-8bf3-4323-8266-03812d16d2ac",
+	'formalClassHasCBOperations',
+	'This operation returns true if the class which this class participant represents
+contains at least one class based operation.',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'select one mclass related by self->O_OBJ[R939];
+if(not_empty mclass)
+  select many ops related by mclass->O_TFR[R115] where (selected.Instance_Based == Scope::Class);
+  return not_empty ops;
+end if;
+return false;',
+	1,
+	'',
+	"82cba28d-a66b-4e0f-bf44-f199f74a0f3c");
+INSERT INTO O_TFR
+	VALUES ("82cba28d-a66b-4e0f-bf44-f199f74a0f3c",
+	"05b26853-8bf3-4323-8266-03812d16d2ac",
+	'formalClassHasCBEvents',
+	'This operation returns true if the class which this participant represents
+contains a class based state machine with at least one event.',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'select one mclass related by self->O_OBJ[R939];
+if(not_empty mclass)
+  select one asm related by mclass->SM_ASM[R519];
+  if ( not_empty asm )
+    select many evts related by asm->SM_SM[R517]->SM_EVT[R502];
+    // if there are no class based events check to see if there are any creation
+    // events
+    if(cardinality evts < 1)
+      select many creationTransitions related by mclass->SM_ISM[R518]->SM_SM[R517]->SM_TXN[R505]->SM_CRTXN[R507];
+      foundCreationEvent = false;
+      for each transition in creationTransitions
+        select one event related by transition->SM_LEVT[R509]->SM_SEVT[R526]->SM_EVT[R525];
+        if(not_empty event)
+          foundCreationEvent = true;
+          break;
+        end if;
+      end for;
+      if(foundCreationEvent)
+        return true;
+      else
+        return false;
+      end if;
+    else
+      return true;
+    end if; // not_empty asm
+  end if;
+end if;      
+return false;',
+	1,
+	'',
+	"8fba0f34-4da9-48e2-96ea-ca4efd927da5");
+INSERT INTO O_TFR
+	VALUES ("c50ce073-c339-435c-8987-f3b859c3e413",
+	"05b26853-8bf3-4323-8266-03812d16d2ac",
+	'definedAtSystemLevel',
+	'',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'select one part related by self->SQ_P[R930];
+return part.definedAtSystemLevel();',
+	1,
+	'',
+	"61bf4e89-0806-4d1e-ae0e-f128f46259e7");
+INSERT INTO O_TFR
+	VALUES ("ada6bc52-ba17-4a91-b34f-80876172c263",
+	"05b26853-8bf3-4323-8266-03812d16d2ac",
+	'getClassOperationCount',
+	'',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	1,
+	'if(self.isFormal)
+  select many operations related by self->O_OBJ[R939]->O_TFR[R115]
+                                where (selected.Instance_Based == Scope::Class);
+  return cardinality operations;
+end if;
+return 0;',
+	1,
+	'',
+	"57f4f6b0-5681-4292-81a1-877faf35d38c");
+INSERT INTO O_TFR
+	VALUES ("6a38c4b3-4543-4f08-9773-39c5c3161ade",
+	"05b26853-8bf3-4323-8266-03812d16d2ac",
+	'getClassEventCount',
+	'',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	1,
+	'select one mclass related by self->O_OBJ[R939];
+if(not_empty mclass)
+  select one asm related by mclass->SM_ASM[R519];
+  if ( not_empty asm )
+    select many evts related by asm->SM_SM[R517]->SM_EVT[R502];
+    // include count for any creation events
+    select many creationTransitions related by mclass->SM_ISM[R518]->SM_SM[R517]
+                                                 ->SM_TXN[R505]->SM_CRTXN[R507];
+    count = 0;
+    for each transition in creationTransitions
+      select one event related by transition->SM_LEVT[R509]->SM_SEVT[R526]
+                                                                 ->SM_EVT[R525];
+      if(not_empty event)
+        count = count + 1;
+      end if;
+    end for;
+    return cardinality evts + count;
+  end if;
+end if;      
+return 0;',
+	1,
+	'',
+	"ada6bc52-ba17-4a91-b34f-80876172c263");
+INSERT INTO O_TFR
+	VALUES ("41455187-0957-4076-a49e-2a912a73b1aa",
+	"05b26853-8bf3-4323-8266-03812d16d2ac",
+	'convertToInstance',
+	'A utility operation to cast an instance of this type to the
+instance datatype.
+
+Translate: native',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	1,
+	'return this;',
+	0,
+	'',
+	"6a38c4b3-4543-4f08-9773-39c5c3161ade");
+INSERT INTO S_DT_PROXY
+	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'instance',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("d4de4516-a011-4041-97ca-0370460089d8",
+	"05b26853-8bf3-4323-8266-03812d16d2ac",
+	'pasteClassParticipantAttribute',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select any attribute from instances of SQ_CPA
+                                             where (selected.Ia_ID == param.id);
+if(not_empty attribute)
+  select one existingCp related by attribute->SQ_CP[R935];
+  if(not_empty existingCp)
+    unrelate attribute from existingCp across R935;
+  end if;
+  relate attribute to self across R935;
+end if;',
+	1,
+	'',
+	"41455187-0957-4076-a49e-2a912a73b1aa");
+INSERT INTO O_TPARM
+	VALUES ("cfe3014b-0672-415b-ab87-6d1d0127367f",
+	"d4de4516-a011-4041-97ca-0370460089d8",
+	'id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("11a8d63f-9ccb-4d1e-9a7b-cf544e2a1775",
+	"05b26853-8bf3-4323-8266-03812d16d2ac",
+	'canCopyClassParticipantAttribute',
+	'',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'select any attribute from instances of SQ_CPA
+                                             where (selected.Ia_ID == param.id);
+if(not_empty attribute)
+  select one informal related by attribute->SQ_IA[R947];
+  if(empty informal)
+    return false;
+  end if;
+else
+  return false;
+end if;
+return true;',
+	1,
+	'',
+	"d4de4516-a011-4041-97ca-0370460089d8");
+INSERT INTO O_TPARM
+	VALUES ("f6280ec1-9e50-442e-a71d-405c60d59dd0",
+	"11a8d63f-9ccb-4d1e-9a7b-cf544e2a1775",
+	'id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("d70ca440-a1ab-4162-a70f-da48095a4d49",
+	"05b26853-8bf3-4323-8266-03812d16d2ac",
+	'canPasteClassParticipantAttribute',
+	'',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'return not self.isFormal;',
+	1,
+	'',
+	"11a8d63f-9ccb-4d1e-9a7b-cf544e2a1775");
+INSERT INTO O_TFR
+	VALUES ("c7d03c5a-d404-4be9-ad9a-ba4bc316f650",
+	"05b26853-8bf3-4323-8266-03812d16d2ac",
+	'resolveModelClass',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+select one proxyClass related by self->O_OBJ[R939];
+if(not_empty proxyClass and not Util::isProxy(element:self.convertToInstance()))
+  select one packageableElem related by self->SQ_P[R930]->PE_PE[R8001];
+  select one package related by packageableElem->EP_PKG[R8000];
+  select one component related by packageableElem->C_C[R8003];
+  isInGenericPackage = not_empty package or not_empty component;
+
+  if (isInGenericPackage)
+    if (empty package)
+      rootCompIdInPkg = component.getRootComponentId();
+      select any rootComponent from instances of C_C where (selected.Id == rootCompIdInPkg);
+      select one package related by rootComponent->PE_PE[R8001]->EP_PKG[R8000]; 
+    end if;
+    // locate all visible classes
+    packageableElem.resolveClassRelativeToSelf(expected_name:"");
+    select any resultSet related by component->PE_CRS[R8007] where 
+                                selected.Type == ElementTypeConstants::CLASS; 
+    select many results related by resultSet->PE_CVS[R8008]->PE_PE[R8004];
+    if not_empty package
+      select any pkgResultSet related by package->PE_SRS[R8005] where 
+                                selected.Type == ElementTypeConstants::CLASS; 
+      select many results related by pkgResultSet->PE_VIS[R8006]
+                                                                 ->PE_PE[R8002];
+    end if;    
+    select many classes related by results->O_OBJ[R8001];
+    select any resolvedClass from instances of O_OBJ
+                               where (selected.Obj_ID == GD::NULL_UNIQUE_ID());
+    for each class in classes
+      // first try to resolve the referred to Class by key letters and name
+      if(class.Key_Lett == proxyClass.Key_Lett and class.Name == proxyClass.Name)
+        resolvedClass = class;
+        break;
+      else
+        if(class.Key_Lett == proxyClass.Key_Lett)
+          resolvedClass = class;
+          break;
+        else
+          if(class.Name == proxyClass.Name)
+            resolvedClass = class;
+            break;
+          end if;
+        end if;
+      end if;
+    end for;
+    if(not_empty resolvedClass)
+      relate self to resolvedClass across R939;
+      self.resolveMessageFormalizations();
+    else
+      // unformalize this EEP
+      self.unformalize();
+    end if;
+    return;
+  end if;  // end isInGenericPackage
+  
+  //////////////////////////////////////////////////////////////////////
+  // Note: Everything below this point is for the case when we are using 
+  //       specialized packages.
+  //////////////////////////////////////////////////////////////////////
+  
+  // if a subsystem is resolved by the proxy class
+  // then this CP has already been
+  // resolved or does not need to be as the referred to
+  // class is contained in the copy
+  select one ss related by proxyClass->S_SS[R2];
+  if(empty ss or Util::isProxy(element:ss.convertToInstance()))
+    name = proxyClass.Name;
+    key_letters = proxyClass.Key_Lett;
+    unrelate self from proxyClass across R939;
+    // this is safe as there will only ever be one
+    // domain
+    select any domain from instances of S_DOM;
+    // first try to resolve to referred to class by key letters and name
+    select any clazz related by domain->S_SS[R1]->O_OBJ[R2]
+         where (selected.Key_Lett == key_letters and selected.Name == name);
+    if(empty clazz)
+      // if no class was found try to resolve it by key_letters alone
+      select any clazz related by domain->S_SS[R1]->O_OBJ[R2]
+           where (selected.Key_Lett == key_letters);
+      if(empty clazz)
+        // if still no class was found try to resolve on the name alone
+        select any clazz related by domain->S_SS[R1]->O_OBJ[R2]
+             where (selected.Name == name);
+      end if;
+    end if;
+    classResolved = not_empty clazz;
+    if(classResolved)
+      relate self to clazz across R939;
+      self.resolveMessageFormalizations();
+    else
+      // unformalize this CP
+      self.unformalize();
+    end if;
+  end if;
+end if;
+',
+	1,
+	'',
+	"d70ca440-a1ab-4162-a70f-da48095a4d49");
+INSERT INTO O_TFR
+	VALUES ("aca1878f-4f53-4edb-ae53-4761d3292609",
+	"05b26853-8bf3-4323-8266-03812d16d2ac",
+	'resolveMessageFormalizations',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// first resolve those messages drawn directly to
+// self
+select many messages related by self->SQ_P[R930]->MSG_M[R1007];
+for each message in messages
+  select one syncMessage related by message->MSG_SM[R1018];
+  select one asyncMessage related by message->MSG_AM[R1018];
+  if(not_empty syncMessage)
+    // skip if informal
+    if(not syncMessage.isFormal)
+      continue;
+    end if;
+    select one operationMessage related by syncMessage->MSG_O[R1020];
+    select one opProxy related by operationMessage->O_TFR[R1011];
+    // we match by name, additionally the operation must be class based
+    select any operation related by self->O_OBJ[R939]->O_TFR[R115]
+                                            where (selected.Name == opProxy.Name
+                                   and selected.Instance_Based == Scope::Class);
+    if(not_empty operation)
+      syncMessage.formalizeWithClassOperation(operationId:operation.Tfr_ID);
+    else
+      // otherwise unformalize the message
+      syncMessage.unformalize();
+    end if;
+  elif(not_empty asyncMessage)
+    if(not asyncMessage.isFormal)
+      continue;
+    end if;
+    select one eventMessage related by asyncMessage->MSG_E[R1019];
+    select one evtProxy related by eventMessage->SM_EVT[R1009];
+    // we match by name, additionally the event must be class based
+    // or a creation event
+    select any event related by self->O_OBJ[R939]->SM_ASM[R519]->SM_SM[R517]
+                        ->SM_EVT[R502] where (selected.Mning == evtProxy.Mning);
+    if(empty event)
+      select any event related by self->O_OBJ[R939]->SM_ISM[R518]->SM_SM[R517]
+                                   ->SM_TXN[R505]->SM_CRTXN[R507]->SM_LEVT[R509]
+         ->SM_SEVT[R526]->SM_EVT[R525] where (selected.Mning == evtProxy.Mning);
+    end if;
+    if(not_empty event)
+      asyncMessage.formalizeWithEvent(eventId:event.SMevt_ID);
+    else
+      // otherwise unformalize the message
+      asyncMessage.unformalize();
+    end if;
+  end if;
+end for;
+// now process all messages that go to our lifespan
+select one ls related by self->SQ_P[R930]->SQ_LS[R940];
+if(not_empty ls)
+  select many messages related by ls->SQ_P[R930]->MSG_M[R1007];
+  for each message in messages
+    select one syncMessage related by message->MSG_SM[R1018];
+    select one asyncMessage related by message->MSG_AM[R1018];
+    if(not_empty syncMessage)
+      // skip if informal
+      if(not syncMessage.isFormal)
+        continue;
+      end if;
+      select one operationMessage related by syncMessage->MSG_O[R1020];
+      select one opProxy related by operationMessage->O_TFR[R1011];
+      // we match by name, additionally the operation must be class based
+      select any operation related by self->O_OBJ[R939]->O_TFR[R115]
+                                            where (selected.Name == opProxy.Name
+                                and selected.Instance_Based == Scope::Class);
+      if(not_empty operation)
+        syncMessage.formalizeWithClassOperation(operationId:operation.Tfr_ID);
+      else
+        // otherwise unformalize the message
+        syncMessage.unformalize();
+      end if;
+    elif(not_empty asyncMessage)
+      if(not asyncMessage.isFormal)
+        continue;
+      end if;
+      select one eventMessage related by asyncMessage->MSG_E[R1019];
+      select one evtProxy related by eventMessage->SM_EVT[R1009];
+      // we match by name, additionally the event must be class based
+      // or a creation event
+      select any event related by self->O_OBJ[R939]->SM_ASM[R519]->SM_SM[R517]
+                        ->SM_EVT[R502] where (selected.Mning == evtProxy.Mning);
+      if(empty event)
+        select any event related by self->O_OBJ[R939]->SM_ISM[R518]->SM_SM[R517]
+                                   ->SM_TXN[R505]->SM_CRTXN[R507]->SM_LEVT[R509]
+         ->SM_SEVT[R526]->SM_EVT[R525] where (selected.Mning == evtProxy.Mning);
+      end if;
+      if(not_empty event)
+        asyncMessage.formalizeWithEvent(eventId:event.SMevt_ID);
+      else
+        // otherwise unformalize the message
+        asyncMessage.unformalize();
+      end if;
+    end if;
+  end for;
+end if;',
+	1,
+	'',
+	"c7d03c5a-d404-4be9-ad9a-ba4bc316f650");
+INSERT INTO O_TFR
+	VALUES ("e672a0ae-5d4c-4a13-8a3c-b320264b4144",
+	"05b26853-8bf3-4323-8266-03812d16d2ac",
+	'getConfigurationInheritanceElementId',
+	'',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	1,
+	'select one obj related by self->O_OBJ[R939];
+if(not_empty obj)
+  return obj.convertToInstance();
+end if;
+return self.convertToInstance();',
+	1,
+	'',
+	"aca1878f-4f53-4edb-ae53-4761d3292609");
+INSERT INTO O_DBATTR
+	VALUES ("901f2cab-a463-4b9b-b645-f2259fab6c7c",
+	"05b26853-8bf3-4323-8266-03812d16d2ac",
+	'select one mclass related by self->O_OBJ[R939];
+if(not_empty mclass)
+  self.Label = mclass.Name;
+else
+  self.Label = self.InformalName;
+end if;',
+	1);
+INSERT INTO O_BATTR
+	VALUES ("901f2cab-a463-4b9b-b645-f2259fab6c7c",
+	"05b26853-8bf3-4323-8266-03812d16d2ac");
+INSERT INTO O_ATTR
+	VALUES ("901f2cab-a463-4b9b-b645-f2259fab6c7c",
+	"05b26853-8bf3-4323-8266-03812d16d2ac",
+	"3889cd4f-c950-419c-a139-b66332a33637",
+	'Label',
+	'User_Visible:false',
+	'',
+	'Label',
+	0,
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("1567443f-f0c7-47b2-b545-6cf83f936cec",
+	"05b26853-8bf3-4323-8266-03812d16d2ac");
+INSERT INTO O_BATTR
+	VALUES ("1567443f-f0c7-47b2-b545-6cf83f936cec",
+	"05b26853-8bf3-4323-8266-03812d16d2ac");
+INSERT INTO O_ATTR
+	VALUES ("1567443f-f0c7-47b2-b545-6cf83f936cec",
+	"05b26853-8bf3-4323-8266-03812d16d2ac",
+	"901f2cab-a463-4b9b-b645-f2259fab6c7c",
+	'InformalName',
+	'Full Name: Informal Class Name',
+	'',
+	'InformalName',
+	0,
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("d8bc0029-4cee-4dd4-9109-510eb4d31783",
+	"05b26853-8bf3-4323-8266-03812d16d2ac");
+INSERT INTO O_BATTR
+	VALUES ("d8bc0029-4cee-4dd4-9109-510eb4d31783",
+	"05b26853-8bf3-4323-8266-03812d16d2ac");
+INSERT INTO O_ATTR
+	VALUES ("d8bc0029-4cee-4dd4-9109-510eb4d31783",
+	"05b26853-8bf3-4323-8266-03812d16d2ac",
+	"1567443f-f0c7-47b2-b545-6cf83f936cec",
+	'Descrip',
+	'Full Name: Class Description
+Description: A textual description of this class.',
+	'',
+	'Descrip',
+	0,
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	'',
+	'');
+INSERT INTO O_DBATTR
+	VALUES ("c0eea756-97d8-40ef-a099-36c6e959ed4f",
+	"05b26853-8bf3-4323-8266-03812d16d2ac",
+	'select one mclass related by self->O_OBJ[R939];
+if(not_empty mclass)
+  self.isFormal = true;
+else
+  self.isFormal = false;
+end if;',
+	1);
+INSERT INTO O_BATTR
+	VALUES ("c0eea756-97d8-40ef-a099-36c6e959ed4f",
+	"05b26853-8bf3-4323-8266-03812d16d2ac");
+INSERT INTO O_ATTR
+	VALUES ("c0eea756-97d8-40ef-a099-36c6e959ed4f",
+	"05b26853-8bf3-4323-8266-03812d16d2ac",
+	"d8bc0029-4cee-4dd4-9109-510eb4d31783",
+	'isFormal',
+	'Full Name: Is Formal',
+	'',
+	'isFormal',
+	0,
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("05b26853-8bf3-4323-8266-03812d16d2ac",
+	"0b1fad94-33b5-4bb3-8fb7-d1cc2d9b7b94",
+	0,
+	"415afdba-0e71-45f2-b02e-9cab014f028c",
+	"cd0daf80-d6f7-41f5-8ddb-e7fd950bce7c",
+	"0e88b5b7-8c44-4478-8115-13426d65dc60",
+	"73839a29-1dd4-4d9a-978e-8efee76b9ff1",
+	"5e4be050-2529-4f9a-9e0a-b541b866942a",
+	"44042698-be12-46da-ba5a-008b2b632f56",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Interaction Participant',
+	'Part_ID',
+	'R930');
+INSERT INTO R_RGO_PROXY
+	VALUES ("05b26853-8bf3-4323-8266-03812d16d2ac",
+	"cd0daf80-d6f7-41f5-8ddb-e7fd950bce7c",
+	"0e88b5b7-8c44-4478-8115-13426d65dc60",
+	'../Interaction.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("415afdba-0e71-45f2-b02e-9cab014f028c",
+	"0b1fad94-33b5-4bb3-8fb7-d1cc2d9b7b94",
+	0,
+	"cd0daf80-d6f7-41f5-8ddb-e7fd950bce7c",
+	"73839a29-1dd4-4d9a-978e-8efee76b9ff1",
+	'../Interaction.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("5e4be050-2529-4f9a-9e0a-b541b866942a",
+	"05b26853-8bf3-4323-8266-03812d16d2ac",
+	"5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	1,
+	'Element_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	'../../Packageable Element/Packageable Element/Packageable Element.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("5e4be050-2529-4f9a-9e0a-b541b866942a",
+	"05b26853-8bf3-4323-8266-03812d16d2ac",
+	"00000000-0000-0000-0000-000000000000",
+	'Part_ID',
+	'',
+	'',
+	'Part_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("05b26853-8bf3-4323-8266-03812d16d2ac",
+	"b7630071-9e2a-4183-9986-779dca14c275",
+	0,
+	"e55a865c-b4e5-4e3f-9b84-2e5672cc7e6c",
+	"d8a847a8-9bbc-4de6-937e-93b8c9c72552",
+	"ba72a766-e54e-444c-ba7b-389b2a9cc811",
+	"a1237b9e-8e5b-4271-8931-863b2a608ddc",
+	"3889cd4f-c950-419c-a139-b66332a33637",
+	"4e28a5ee-4845-4e97-b3a8-e3f3e028049f",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Model Class',
+	'Obj_ID',
+	'R939');
+INSERT INTO R_RGO_PROXY
+	VALUES ("05b26853-8bf3-4323-8266-03812d16d2ac",
+	"d8a847a8-9bbc-4de6-937e-93b8c9c72552",
+	"ba72a766-e54e-444c-ba7b-389b2a9cc811",
+	'../Interaction.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("e55a865c-b4e5-4e3f-9b84-2e5672cc7e6c",
+	"b7630071-9e2a-4183-9986-779dca14c275",
+	0,
+	"d8a847a8-9bbc-4de6-937e-93b8c9c72552",
+	"a1237b9e-8e5b-4271-8931-863b2a608ddc",
+	'../Interaction.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("3889cd4f-c950-419c-a139-b66332a33637",
+	"05b26853-8bf3-4323-8266-03812d16d2ac",
+	"5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	1,
+	'Element_ID');
+INSERT INTO O_ATTR
+	VALUES ("3889cd4f-c950-419c-a139-b66332a33637",
+	"05b26853-8bf3-4323-8266-03812d16d2ac",
+	"5e4be050-2529-4f9a-9e0a-b541b866942a",
+	'Obj_ID',
+	'',
+	'',
+	'Obj_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"05b26853-8bf3-4323-8266-03812d16d2ac");
+INSERT INTO O_OIDA
+	VALUES ("5e4be050-2529-4f9a-9e0a-b541b866942a",
+	"05b26853-8bf3-4323-8266-03812d16d2ac",
+	0,
+	'Part_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"05b26853-8bf3-4323-8266-03812d16d2ac");
+INSERT INTO O_ID
+	VALUES (2,
+	"05b26853-8bf3-4323-8266-03812d16d2ac");
+INSERT INTO S_SS_PROXY
+	VALUES ("90afcd0d-03fa-49d5-ac2c-0fd20beede15",
+	'Interaction',
+	'// This is used by schema_gen to ignore this subsystem (for publication)
+TRANSLATE_FOR_EXTERNAL_USE:FALSE',
+	'IA',
+	930,
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
+	'../Interaction.xtuml');

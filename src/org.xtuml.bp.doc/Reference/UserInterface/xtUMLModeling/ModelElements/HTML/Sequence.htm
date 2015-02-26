@@ -1,0 +1,381 @@
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=Generator content="Microsoft Word 14 (filtered)">
+<title>State Machine Package</title>
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:SimSun;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:SimSun;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:"\@SimSun";
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:Webdings;
+	panose-1:5 3 1 2 1 5 9 6 7 3;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+h1
+	{mso-style-link:"Heading 1 Char";
+	margin-right:0in;
+	margin-left:0in;
+	font-size:18.0pt;
+	font-family:"Arial","sans-serif";
+	color:black;
+	font-weight:normal;}
+h2
+	{mso-style-link:"Heading 2 Char";
+	margin-right:0in;
+	margin-left:0in;
+	line-height:15.6pt;
+	font-size:12.0pt;
+	font-family:"Arial","sans-serif";
+	color:navy;
+	font-weight:bold;}
+h3
+	{mso-style-link:"Heading 3 Char";
+	margin-right:0in;
+	margin-bottom:2.4pt;
+	margin-left:0in;
+	font-size:11.0pt;
+	font-family:"Arial","sans-serif";
+	color:navy;
+	font-weight:bold;}
+h4
+	{mso-style-link:"Heading 4 Char";
+	margin-top:7.5pt;
+	margin-right:7.5pt;
+	margin-bottom:2.4pt;
+	margin-left:7.5pt;
+	font-size:11.0pt;
+	font-family:"Arial","sans-serif";
+	color:#0176B9;
+	font-weight:bold;}
+a:link, span.MsoHyperlink
+	{color:navy;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{color:#0176B9;
+	text-decoration:underline;}
+p
+	{margin:7.5pt;
+	font-size:10.0pt;
+	font-family:"Times New Roman","serif";}
+span.Heading1Char
+	{mso-style-name:"Heading 1 Char";
+	mso-style-link:"Heading 1";
+	font-family:"Cambria","serif";
+	color:#365F91;
+	font-weight:bold;}
+span.Heading2Char
+	{mso-style-name:"Heading 2 Char";
+	mso-style-link:"Heading 2";
+	font-family:"Cambria","serif";
+	color:#4F81BD;
+	font-weight:bold;}
+span.Heading3Char
+	{mso-style-name:"Heading 3 Char";
+	mso-style-link:"Heading 3";
+	font-family:"Cambria","serif";
+	color:#4F81BD;
+	font-weight:bold;}
+span.Heading4Char
+	{mso-style-name:"Heading 4 Char";
+	mso-style-link:"Heading 4";
+	font-family:"Cambria","serif";
+	color:#4F81BD;
+	font-weight:bold;
+	font-style:italic;}
+p.preformatted-tpcode, li.preformatted-tpcode, div.preformatted-tpcode
+	{mso-style-name:preformatted-tp_code;
+	margin-top:15.0pt;
+	margin-right:0in;
+	margin-bottom:15.0pt;
+	margin-left:0in;
+	background:silver;
+	border:none;
+	padding:0in;
+	font-size:10.0pt;
+	font-family:"Courier New";}
+p.normalnotoc, li.normalnotoc, div.normalnotoc
+	{mso-style-name:normalnotoc;
+	margin:7.5pt;
+	font-size:11.0pt;
+	font-family:"Times New Roman","serif";}
+p.code, li.code, div.code
+	{mso-style-name:code;
+	margin:7.5pt;
+	font-size:11.0pt;
+	font-family:"Courier New";}
+p.tpcode, li.tpcode, div.tpcode
+	{mso-style-name:tp_code;
+	margin:7.5pt;
+	font-size:10.0pt;
+	font-family:"Courier New";}
+p.tpinput, li.tpinput, div.tpinput
+	{mso-style-name:tp_input;
+	margin:7.5pt;
+	font-size:10.0pt;
+	font-family:"Times New Roman","serif";
+	font-weight:bold;}
+p.tpui, li.tpui, div.tpui
+	{mso-style-name:tp_ui;
+	margin:7.5pt;
+	font-size:10.0pt;
+	font-family:"Times New Roman","serif";
+	color:navy;}
+p.tpvar, li.tpvar, div.tpvar
+	{mso-style-name:tp_var;
+	margin:7.5pt;
+	font-size:10.0pt;
+	font-family:"Times New Roman","serif";
+	font-style:italic;}
+p.tpfooter, li.tpfooter, div.tpfooter
+	{mso-style-name:tp_footer;
+	margin:7.5pt;
+	text-align:center;
+	background:white;
+	font-size:9.0pt;
+	font-family:"Times New Roman","serif";}
+p.sub, li.sub, div.sub
+	{mso-style-name:sub;
+	margin:7.5pt;
+	font-size:10.0pt;
+	font-family:"Times New Roman","serif";}
+p.sublstbody, li.sublstbody, div.sublstbody
+	{mso-style-name:sublstbody;
+	margin:7.5pt;
+	font-size:10.0pt;
+	font-family:"Times New Roman","serif";}
+span.tpfile
+	{mso-style-name:tp_file;
+	color:#990000;
+	letter-spacing:1.2pt;}
+span.tpnote
+	{mso-style-name:tp_note;
+	font-weight:bold;}
+span.tpmenuarrow
+	{mso-style-name:tp_menuarrow;
+	font-family:Webdings;
+	color:navy;}
+span.hypertext
+	{mso-style-name:hypertext;}
+.MsoChpDefault
+	{font-size:10.0pt;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.25in 1.0in 1.25in;}
+div.WordSection1
+	{page:WordSection1;}
+-->
+</style>
+
+</head>
+
+<body bgcolor=white lang=EN-US link=navy vlink="#0176B9">
+
+<div class=WordSection1>
+
+<h2>Sequence Diagram</h2>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Many
+of the following definitions of were derived in part from descriptions and
+definitions in <i>The Unified Modeling Language Reference Manual</i>, Second
+Edition; and <i>UML Distilled</i>, Third Edition.</span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Sequence
+diagrams describe interactions over time between model elements.   Roles of
+elements are drawn in columns arranged horizontally.  The vertical axis
+represents time.  Sequence diagrams are informal in the sense that they do not
+impose behavior on formal diagrams such as the Instance and Class State Machine
+diagrams.  However certain elements on Sequence Diagrams, such as Instances,
+External Entities, Classes and Function Packages may be formalized by
+specifying counterparts in other, formal diagrams.  Formalized elements display
+the properties of their counterparts.  Sequence packages may be placed in
+Domain and Subsystem packages or nested inside other Sequence packages.</span></p>
+
+<h3>Instance</h3>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>An
+instance abstracts a single instance of a class.  The instance may be formal or
+informal.</span></p>
+
+<h4>Graphical Notation</h4>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>An
+instance is represented by a rectangle.  Each instance has two compartments
+separated by a single line.  The top compartment contains the name of the
+instance, followed by a colon and then the name of the class it is formalized
+to if it is formal, or the text ‘Informal Class’ if it is informal.  The bottom
+compartment contains a list of the attributes of the class.</span></p>
+
+<h3>Actor</h3>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>An
+actor is an abstraction of a role played by an element that can be either
+external or internal to the domain.  Actors may be named and may have lifelines
+attached to them.  On Sequence diagrams actors are always informal.  </span></p>
+
+<h4>Graphical Notation</h4>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>An
+actor is represented as a stick figure man symbol.  The name of the actor is
+displayed below the stick figure.</span></p>
+
+<h3>External Entity</h3>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>An
+external entity is an abstraction of functionality external to the domain.  On
+sequence diagrams external entities may be formal or informal.</span></p>
+
+<h4>Graphical Notation</h4>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>An
+external entity is represented by a rectangle.  Each external entity has two
+compartments separated by a double line.  If the external entity is informal
+the top compartment displays the informal name of the external entity.  If the
+external entity is formalized, the top compartment contains the name of the
+domain containing the external entity, two colons, the name of the package
+containing the external entity, two more colons and the formal name.  The
+bottom compartment contains a list of the external entity’s operations.</span></p>
+
+<h3>Class</h3>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>A
+class abstracts the common characteristics of a set of instances that share the
+same attributes, operations, associations and behavior.  On sequence diagrams
+classes may be formal or informal. </span></p>
+
+<h4>Graphical Notation</h4>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>A
+class is represented by a rectangle with three compartments.  If the class is
+informal the first compartment contains the informal class name, the second a
+list of the informal attributes of the class and the third a list of the
+messages received by the class. If the class is formal the contents of the
+three compartments are derived from the counterpart class.</span></p>
+
+<h3>Function Package</h3>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>A
+function package contains functions.  Functions are sets of activities,
+represented in OAL (Object Action Language) that are associated with, and
+global to, the domain that contains them. On sequence diagrams function
+packages may be formal or informal.</span></p>
+
+<h4>Graphical Notation</h4>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>A
+function package is represented by a large rectangle with a smaller rectangle
+attached to the top left of the larger one.  If the package is informal the
+large rectangle contains the stereotype &lt;&lt;function&gt;&gt; and the
+informal name of the package.  If the package is formal the large rectangle
+contains the stereotype &lt;&lt;function&gt;&gt; plus a line of text with the
+name of the domain that contains the counterpart package, two colons, and the
+formal name of the function package.</span></p>
+
+<h3>Lifeline</h3>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>A
+lifeline shows the elapsed time that an element exists.  Lifelines may start
+from class instances and actors and end on any open space in the diagram.  The
+end of a lifeline may be marked as ‘destroyed’.  On sequence diagrams lifelines
+are always informal.     </span></p>
+
+<h4>Graphical Notation</h4>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>A
+lifeline is represented as a thick dashed line that starts from either a class
+instance or an actor and ends on an arbitrary open space on the diagram.  A
+lifeline marked as ‘destroyed’ will have a large ‘X’ on its open end.</span></p>
+
+<h3>Timing Mark</h3>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>A
+timing mark demarks a particular moment in time on a lifeline. A timing mark
+may be named.  On sequence diagrams timing marks are always informal.</span></p>
+
+<h4>Graphical Notation</h4>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>A
+timing mark is represented as a thin solid line that starts from a lifeline and
+ends on an arbitrary open space on the diagram.  Named timing marks will have
+an associated floating text box to contain the name.</span></p>
+
+<h3>Time Span</h3>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>A
+time span demarks an instance of elapsed time between two timing marks.  A time
+span may be named.  On sequence diagrams time spans are always informal.</span></p>
+
+<h4>Graphical Notation</h4>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>A
+time span is represented as a thin solid line that starts from one timing mark
+and ends on another.  Each end of the time span is terminated with an open
+arrow head.  Named time spans will have an associated floating text box to
+contain the name.</span></p>
+
+<h3>Asynchronous Message</h3>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>An
+asynchronous message abstracts the notification of a significant occurrence
+sent to a model element.  An asynchronous message may be either a ‘found’
+message – in other words a message with an indeterminate source, or a message
+with determinate source and destination elements.  Asynchronous messages imply
+that the source element may carry on processing as soon as the message is
+sent.  The element does not wait for a return message.  On sequence diagrams
+asynchronous messages may be either formal or informal.  </span></p>
+
+<h4>Graphical Notation</h4>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>An
+asynchronous message is represented by a thin solid line terminated on the
+destination element with an open arrow head.</span></p>
+
+<h3>Synchronous Message</h3>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>A
+synchronous message abstracts the notification of a significant occurrence sent
+to a model element.  A synchronous message may be either a ‘found’ message – in
+other words a message with an indeterminate source, or a message with
+determinate source and destination elements.  Synchronous messages imply that
+the source element suspends processing until the message is consumed by the
+destination element and control is returned to the source element.  On sequence
+diagrams asynchronous messages may be either formal or informal.  </span></p>
+
+<h4>Graphical Notation</h4>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>A
+synchronous message is represented by a thin solid line terminated on the
+destination element with a solid arrow head.</span></p>
+
+<h3>Return Message</h3>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>A
+return message abstracts the notification to a source element that a message
+has been consumed by the destination element and that processing control is
+returned to the source element.  On sequence diagrams return messages are
+always informal.</span></p>
+
+<h4>Graphical Notation</h4>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>A
+return message is represented by a thin dashed line terminated on the receiving
+element with an open arrow head.</span></p>
+
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,1134 @@
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("47a1eb94-2620-4ecd-85d3-29f76391509f",
+	'Bridge',
+	12,
+	'S_BRG',
+	'A bridge (S_BRG) is a method associated with an external entity (S_EE).  Bridges can be synchronously called from action specifications.  Each bridge as a return type and zero or more parameters (S_BPARM).',
+	"703df30a-ee7e-44ec-a7cf-22d2171bb270");
+INSERT INTO O_TFR
+	VALUES ("9eb42efd-1991-4305-9309-3f1b4a054502",
+	"47a1eb94-2620-4ecd-85d3-29f76391509f",
+	'dispose',
+	'The dispose operation for this class.',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// Domain Subsystem
+select one ee related by self->S_EE[R19];
+unrelate self from ee across R19;
+select many bparms related by self->S_BPARM[R21];
+for each bparm in bparms
+  bparm.dispose();
+end for;
+select one dt related by self->S_DT[R20];
+unrelate self from dt across R20;
+//
+// Body Subsystem
+select one body related by self->ACT_BRB[R697]->ACT_ACT[R698];
+if (not_empty body)
+  body.dispose();
+end if;
+//
+// Invocation Subsystem
+select many invs related by self->ACT_BRG[R674];
+for each inv in invs
+  unrelate self from inv across R674;
+end for;
+//
+// Value Subsystem
+select many brgVals related by self->V_BRV[R828];
+for each brgVal in brgVals
+  unrelate self from brgVal across R828;
+end for;
+// for each message that this bridge
+// is associated with
+select many bms related by self->MSG_B[R1012];
+for each bm in bms
+  select one message related by bm->MSG_SM[R1020]->MSG_M[R1018];
+  message.unformalize();
+end for;
+//
+// Wiring Subsystem
+select one wiring related by self->S_AW[R3200];
+if (not_empty wiring)
+  unrelate wiring from self across R3200;
+  wiring.dispose();
+end if;
+
+select many dims related by self->S_DIM[R50];
+for each dim in dims
+  unrelate self from dim across R50;
+  delete object instance dim;
+end for;
+
+//
+// Finally, delete self
+delete object instance self;',
+	1,
+	'',
+	"16f12a2e-c315-4cf9-ad4c-de974a66233b");
+INSERT INTO S_DT_PROXY
+	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'void',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("d1de5937-f13e-49ed-b8be-e824ba188127",
+	"47a1eb94-2620-4ecd-85d3-29f76391509f",
+	'initialize',
+	'the initialization operation for this class.  Set the name and return value to defaults.',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+select one packageableElem related by self->S_EE[R19]->PE_PE[R8001];
+select one package related by packageableElem->EP_PKG[R8000];
+select one component related by packageableElem->C_C[R8003];
+isInGenericPackage = not_empty package or not_empty component;
+
+if (isInGenericPackage)
+   if (not_empty package)
+     select one system related by package->S_SYS[R1405];
+     def_dt_id = GD::NULL_UNIQUE_ID();
+     if not_empty system
+       def_dt_id = system.getCoreTypeId(name:"void");
+     end if;
+     select any pe from instances of PE_PE where selected.Element_ID == def_dt_id;
+     select one def_dt related by pe->S_DT[R8001]; 
+     if (not_empty def_dt)
+       relate self to def_dt across R20;
+     end if;
+   else
+     rootCompIdInPkg = component.getRootComponentId();
+     select any rootComponent from instances of C_C where (selected.Id == rootCompIdInPkg);
+     select one system related by rootComponent->PE_PE[R8001]->EP_PKG[R8000]->S_SYS[R1405];     
+     def_dt_id = GD::NULL_UNIQUE_ID();
+     if not_empty system
+       def_dt_id = system.getCoreTypeId(name:"void");
+     end if;
+     select any pe from instances of PE_PE where selected.Element_ID == def_dt_id;
+     select one def_dt related by pe->S_DT[R8001]; 
+     if (not_empty def_dt)
+        relate self to def_dt across R20;
+     end if;
+   end if;
+else
+   select any dom from instances of S_DOM;
+  select one component related by dom->CN_DC[R4204]->C_C[R4204];
+  if(not_empty component)
+    // this bridge is part of a formal component
+    // get the default data type from the system
+    select one compSys related by component->CP_CP[R4608]->S_SYS[R4606];
+    def_dt_id = GD::NULL_UNIQUE_ID();
+    if not_empty compSys
+      def_dt_id = compSys.getCoreTypeId(name:"void");
+    end if;
+    select any pe from instances of PE_PE where selected.Element_ID == def_dt_id;
+    select one def_dt related by pe->S_DT[R8001];
+    if(not_empty def_dt)
+      relate self to def_dt across R20;
+    end if;
+  else
+    // this bridge is part of a stand alone domain
+    // get the default data type from the domain
+    select any def_dt related by dom->S_DT[R14] where selected.Name == "void";
+    if(not_empty def_dt)
+      relate self to def_dt across R20;
+    end if;
+  end if;
+end if;
+name = ::getUniqueInitialName( 
+    instance: self.convertToInstance(), 
+    candidateName: "Unnamed Bridge Operation");
+success = ::getNewElementName(name:name,instance: self.convertToInstance(),validateName:true);    
+if ( success!="") 
+ self.Name=success;
+else 
+ self.dispose();
+end if;        
+self.Suc_Pars = ParseStatus::parseInitial;
+',
+	1,
+	'',
+	"b4f06b4d-d54f-4dab-9a54-9ee4ae6dfd27");
+INSERT INTO O_TFR
+	VALUES ("92f921dc-1abb-41a5-a5d6-36c93ccbd17e",
+	"47a1eb94-2620-4ecd-85d3-29f76391509f",
+	'newParameter',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'create object instance bparm of S_BPARM;
+relate self to bparm across R21;
+bparm.initialize();
+self.createMessageArgumentsForParameter(id:bparm.BParm_ID);
+',
+	1,
+	'',
+	"c9f2219c-dcfa-457c-9a84-8b75cfac0c74");
+INSERT INTO O_TFR
+	VALUES ("0962cab9-5e0b-4d9c-a41c-4b9c77ce7200",
+	"47a1eb94-2620-4ecd-85d3-29f76391509f",
+	'isAllowedReturnType',
+	'',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+// Bridge.isAllowedReturnType()
+select one packageableElem related by self->S_EE[R19]->PE_PE[R8001];
+select one package related by packageableElem->EP_PKG[R8000];
+select one component related by packageableElem->C_C[R8003];
+isInGenericPackage = not_empty package or not_empty component;
+if isInGenericPackage
+  if self.getReturnDimensionsCnt() != 0 and param.typeName == "void"
+    return false;
+  else
+    return packageableElem.isAllowedType(isReturnType:true,
+                                                       typeName:param.typeName);
+  end if;
+else
+  if self.getReturnDimensionsCnt() != 0 and param.typeName == "void"
+    return false;
+  else
+    // if this element is at the system level check the
+    // system level data types, otherwise check the 
+    // domain
+    select one domain related by self->S_EE[R19]->S_DOM[R8];
+    if(not_empty domain)
+      select one system related by domain->S_SYS[R28];
+      if(not_empty system)
+        return S_DT::isAllowedReturnType( typeName: param.typeName,
+                                   			dom_id: domain.get_ooa_id() );
+      else
+        // first check the domain level
+        result = S_DT::isAllowedReturnType( typeName: param.typeName,
+                                   				dom_id: domain.get_ooa_id() );
+        if(not result)
+          // if nothing valid check the system level
+          select one system related by domain->CN_DC[R4204]->C_C[R4204]
+      											   ->CP_CP[R4608]->S_SYS[R4606];
+          return Util::isAllowedReturnType(system:system.convertToInstance(),
+                                                       typeName:param.typeName);
+        else
+          return result;
+        end if;
+      end if;
+    end if;
+  end if;
+  return false;
+end if;',
+	1,
+	'',
+	"4344defa-1993-42dc-bc0d-3b9c9b072f22");
+INSERT INTO O_TPARM
+	VALUES ("abcf4ca5-0a8a-4342-9719-2f30dd83d8b4",
+	"0962cab9-5e0b-4d9c-a41c-4b9c77ce7200",
+	'typeName',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'string',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO S_DT_PROXY
+	VALUES ("8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'boolean',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("16f12a2e-c315-4cf9-ad4c-de974a66233b",
+	"47a1eb94-2620-4ecd-85d3-29f76391509f",
+	'convertToInstance',
+	'A utility operation to cast an instance of this type to the
+instance datatype.
+
+Translate: native',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	1,
+	'// just return this instance as an Object
+return this;',
+	0,
+	'',
+	"90d78cdb-2d3a-4712-b5f2-ebb207ab3004");
+INSERT INTO S_DT_PROXY
+	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'instance',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("b4f06b4d-d54f-4dab-9a54-9ee4ae6dfd27",
+	"47a1eb94-2620-4ecd-85d3-29f76391509f",
+	'get_ooa_id',
+	'',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	1,
+	'return self.Brg_ID;',
+	1,
+	'',
+	"fc3ed89d-63a7-4bd0-850e-13da70b7c8f3");
+INSERT INTO S_DT_PROXY
+	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'unique_id',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("2536f60c-236b-450a-8657-b2ea4c50008c",
+	"47a1eb94-2620-4ecd-85d3-29f76391509f",
+	'resolveDatatype',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+select one dtProxy related by self->S_DT[R20];
+if(not_empty dtProxy and not Util::isProxy(element:self.convertToInstance()))
+  name = dtProxy.Name;
+  unrelate dtProxy from self across R20;
+  
+  select one packageableElem related by self->S_EE[R19]->PE_PE[R8001];
+  select one package related by packageableElem->EP_PKG[R8000];
+  select one component related by packageableElem->C_C[R8003];
+  isInGenericPackage = not_empty package or not_empty component;
+  if isInGenericPackage
+    id = packageableElem.resolveDataTypeRelativeToSelf(default_name:"void",
+                                                            expected_name:name);                                                          
+    select any resolvedDt related by package->PE_VIS[R8002]->
+                         PE_PE[R8002]->S_DT[R8001] where selected.DT_ID == id;
+    if (empty resolvedDt)
+      select any resolvedDt related by component->PE_CVS[R8004]->
+                       PE_PE[R8004]->S_DT[R8001] where selected.DT_ID == id;
+    end if;	
+    if not_empty resolvedDt
+      relate resolvedDt to self across R20;
+    end if;
+  else
+    select one domain related by self->S_EE[R19]->S_EEIP[R33]->S_EEPK[R33]
+  										          ->PL_EEPID[R300]->S_DOM[R300];
+    id = domain.resolveDataTypeRelativeToSelf(default_name:"void",
+  													        expected_name:name);
+    // until we have instance reference passing, we search for
+    // the data type related to the domain first then to the
+    // system
+    select any resolvedDT related by domain->S_DT[R14]
+  												   where (selected.DT_ID == id);
+    if(empty resolvedDT)
+      select one domSys related by domain->CN_DC[R4204]->C_C[R4204]
+                                                   ->CP_CP[R4608]->S_SYS[R4606];
+      select any resolvedDT related by domSys->SLD_SDINP[R4402]->S_DT[R4401]
+    				 						       where (selected.DT_ID == id);
+      if empty resolvedDT and not_empty domSys and domSys.useGlobals
+        select any pe related by domSys->G_EIS[R9100]->PE_PE[R9100]
+                                                where selected.Element_ID == id;
+        select one resolvedDT related by pe->S_DT[R8001]; 
+      end if;
+    end if;
+    if(not_empty resolvedDT)
+      relate resolvedDT to self across R20;
+    end if;
+  end if;
+end if;',
+	1,
+	'',
+	"1d245940-7d9d-463b-873a-c82f11e1c32f");
+INSERT INTO O_TFR
+	VALUES ("c9f2219c-dcfa-457c-9a84-8b75cfac0c74",
+	"47a1eb94-2620-4ecd-85d3-29f76391509f",
+	'isVoid',
+	'',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'select one dt related by self->S_DT[R20];
+return dt.Name == "void";',
+	1,
+	'',
+	"ab20ff45-30e3-4181-8443-550574ed61cd");
+INSERT INTO O_TFR
+	VALUES ("fc3ed89d-63a7-4bd0-850e-13da70b7c8f3",
+	"47a1eb94-2620-4ecd-85d3-29f76391509f",
+	'getReturnDimensionsCnt',
+	'',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	1,
+	'select many dims related by self->S_DIM[R50];
+dimensions = cardinality dims;
+return dimensions;
+',
+	1,
+	'',
+	"9eb42efd-1991-4305-9309-3f1b4a054502");
+INSERT INTO S_DT_PROXY
+	VALUES ("79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'integer',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("1d245940-7d9d-463b-873a-c82f11e1c32f",
+	"47a1eb94-2620-4ecd-85d3-29f76391509f",
+	'resizeReturn_Dimensions',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// If the number of dimensions has increased then add dimensions
+while (param.numDimensions > self.getReturnDimensionsCnt())
+  create object instance dim of S_DIM;
+  dim.dimensionCount = self.getReturnDimensionsCnt();
+  relate dim to self across R50;
+end while;
+
+// If the number of dimensions has decreased then remove dimensions
+while (param.numDimensions < self.getReturnDimensionsCnt())
+  select any dim related by self->S_DIM[R50] where (selected.dimensionCount == (self.getReturnDimensionsCnt()-1));
+  unrelate dim from self across R50;
+  delete object instance dim;
+end while;
+
+// Update the specific dimension that was passed-in if its elementCount has 
+// changed.
+if (param.numDimensions > 0) 
+  select any dim related by self->S_DIM[R50] where (selected.dimensionCount == param.dimension);
+  if (dim.elementCount != param.elementCount)
+    dim.elementCount = param.elementCount;
+  end if;
+end if; ',
+	1,
+	'',
+	"92f921dc-1abb-41a5-a5d6-36c93ccbd17e");
+INSERT INTO O_TPARM
+	VALUES ("4117335c-5b5d-4f45-918c-979acc955216",
+	"1d245940-7d9d-463b-873a-c82f11e1c32f",
+	'numDimensions',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"481b7048-2c45-4075-83e1-63be8332b6f6",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("481b7048-2c45-4075-83e1-63be8332b6f6",
+	"1d245940-7d9d-463b-873a-c82f11e1c32f",
+	'elementCount',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"62dcbdce-9f80-41aa-bd00-74dac7d01913",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("62dcbdce-9f80-41aa-bd00-74dac7d01913",
+	"1d245940-7d9d-463b-873a-c82f11e1c32f",
+	'dimension',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("4344defa-1993-42dc-bc0d-3b9c9b072f22",
+	"47a1eb94-2620-4ecd-85d3-29f76391509f",
+	'initializeOrder',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// Alpha-sort the S_BPARM elements if they have not yet been ordered
+select many peers related by self->S_BPARM[R21];
+if (cardinality peers > 1)
+    initialOrderingCheckPerformed = false;
+	select any head related by self->S_BPARM[R21] where (selected.Brg_ID == GD::NULL_UNIQUE_ID());
+	endOfList = head;
+	loopCnt = 0;
+	for each peer in peers
+	  if ( not initialOrderingCheckPerformed)
+	    select one predecessor related by peer->S_BPARM[R55.''precedes''];
+	    select one successor related by peer->S_BPARM[R55.''succeeds''];
+	    initialOrderingCheckPerformed = true;
+	    if (not_empty  predecessor or not_empty  successor)
+	      // Already ordered
+	      break;
+	    end if;
+	    head = peer;
+	    endOfList = peer;
+	  end if;
+	  
+      if (loopCnt == 1)
+        if (peer.Name < head.Name)
+          relate peer to head across R55.''precedes'';
+          endOfList = peer;
+        else
+          relate head to peer across R55.''precedes'';
+          head = peer;
+        end if;
+      elif (loopCnt > 1)
+        insertPoint = head;
+        select one next related by head->S_BPARM[R55.''succeeds''];
+        while (not_empty next)
+          if (next.Name < peer.Name)
+            break;
+          else
+            insertPoint = next;          
+            select one next related by next->S_BPARM[R55.''succeeds''];
+          end if;
+        end while;
+        
+        if (empty next)
+          // New end of list
+          relate peer to endOfList across R55.''precedes'';   
+          endOfList = peer;       
+        else
+          if ((insertPoint == head) and (peer.Name > head.Name))
+            // New head
+            relate head to peer across R55.''precedes'';
+            head = peer;
+          else
+            unrelate next from insertPoint across R55.''precedes'';
+            relate peer to insertPoint across R55.''precedes'';
+            relate next to peer across R55.''precedes'';
+          end if;          
+        end if;
+      end if;
+      
+      loopCnt = loopCnt + 1;
+	end for;
+end if;',
+	1,
+	'',
+	"d1de5937-f13e-49ed-b8be-e824ba188127");
+INSERT INTO O_TFR
+	VALUES ("90d78cdb-2d3a-4712-b5f2-ebb207ab3004",
+	"47a1eb94-2620-4ecd-85d3-29f76391509f",
+	'canReferToDataType',
+	'',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+// select the dt
+select one dt related by self->S_DT[R20];
+if(not_empty dt)
+  select one packageableElem related by self->S_EE[R19]->PE_PE[R8001];
+  select one package related by packageableElem->EP_PKG[R8000];
+  select one component related by packageableElem->C_C[R8003];
+  isInGenericPackage = not_empty package or not_empty component;
+
+  if (isInGenericPackage)
+    return packageableElem.canReferToDataType(dtID:dt.DT_ID, dtName: dt.Name);
+  else
+    // if the data type package is at the system
+    // level we can use the data type as long as
+    // this element belongs to a formal component
+    select one domain related by self->S_EE[R19]->S_DOM[R8];
+    select one dtPkg related by dt->S_DIP[R39]->S_DPK[R39];
+    if(not dtPkg.isDomainLevel())
+      if(domain.participatesInSystem())
+        return true;
+      else
+        return false;
+      end if;
+    else
+      // otherwise the DT must be in the same domain
+      select one dtDomain related by dt->S_DOM[R14];
+      if(dtDomain == domain)
+        return true;
+      end if;
+    end if;
+  end if;
+end if;
+return false;
+',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_TFR
+	VALUES ("ab20ff45-30e3-4181-8443-550574ed61cd",
+	"47a1eb94-2620-4ecd-85d3-29f76391509f",
+	'isReferringToDefaultDataType',
+	'',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'select one dt related by self->S_DT[R20];
+elementType = Util::getSimpleClassName(element:self.convertToInstance());
+if(dt.Name == S_DT::getDefaultDataTypeName(elementType:elementType))
+  return true;
+end if;
+return false;
+',
+	1,
+	'',
+	"0962cab9-5e0b-4d9c-a41c-4b9c77ce7200");
+INSERT INTO O_TFR
+	VALUES ("90d1836c-740f-4727-ac49-f553326c8c49",
+	"47a1eb94-2620-4ecd-85d3-29f76391509f",
+	'getContainingComponentId',
+	'',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	1,
+	'select one ee related by self->S_EE[R19];
+return ee.getContainingComponentId();
+',
+	1,
+	'',
+	"2536f60c-236b-450a-8657-b2ea4c50008c");
+INSERT INTO O_TFR
+	VALUES ("153a923c-0f70-450b-a793-60c12077f275",
+	"47a1eb94-2620-4ecd-85d3-29f76391509f",
+	'canUseDataType',
+	'',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+// Bridge.canUseDataType()
+select one packageableElem related by self->S_EE[R19]->PE_PE[R8001];
+select one package related by packageableElem->EP_PKG[R8000];
+select one component related by packageableElem->C_C[R8003];
+isInGenericPackage = not_empty package or not_empty component;
+if isInGenericPackage
+  // Find the previously created visibility list
+  select any resultSet related by package->PE_SRS[R8005] where
+        selected.Name == "" and selected.Type == ElementTypeConstants::DATATYPE;
+  select any dt related by resultSet->PE_VIS[R8006]->
+                     PE_PE[R8002]->S_DT[R8001] where selected.DT_ID == param.id;
+  if not_empty component
+    // Find the previously created visibility list
+    select any compResultSet related by component->PE_CRS[R8007] where
+        selected.Name == "" and selected.Type == ElementTypeConstants::DATATYPE;
+    select any dt related by compResultSet->PE_CVS[R8008]->
+                     PE_PE[R8004]->S_DT[R8001] where selected.DT_ID == param.id;
+  end if;
+  if(not_empty dt)
+    if(self.isAllowedReturnType(typeName:dt.Name))
+      return true;
+    end if;
+  end if;
+  return false;
+else
+  select one domain related by self->S_EE[R19]->S_DOM[R8];
+  if(domain.participatesInSystem())
+    // system level check both the system
+    // and the domain for the dt
+    select one system related by domain->CN_DC[R4204]->C_C[R4204]->CP_CP[R4608]
+                                                                 ->S_SYS[R4606];
+    select any dt related by system->SLD_SDINP[R4402]->S_DT[R4401]
+                                             where (selected.DT_ID == param.id);
+    if empty dt and not_empty system and system.useGlobals
+      select any pe related by system->G_EIS[R9100]->PE_PE[R9100]
+                                          where selected.Element_ID == param.id;
+      select one dt related by pe->S_DT[R8001]; 
+    end if;
+    if(empty dt)
+      select any dt related by domain->S_DT[R14]
+                                             where (selected.DT_ID == param.id);
+    end if;
+    if(not_empty dt)
+      if(self.isAllowedReturnType(typeName:dt.Name))
+        return true;
+      end if;
+    end if;
+  else
+    // only check the domain for the dt
+    select any dt related by domain->S_DT[R14] where (selected.DT_ID == param.id);
+    if(not_empty dt)
+      if(self.isAllowedReturnType(typeName:dt.Name))
+        return true;
+      end if;
+    end if;
+  end if;
+  return false;
+end if;
+',
+	1,
+	'',
+	"90d1836c-740f-4727-ac49-f553326c8c49");
+INSERT INTO O_TPARM
+	VALUES ("5a764669-cc9e-46bc-b188-5a24b6338bcf",
+	"153a923c-0f70-450b-a793-60c12077f275",
+	'id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("accc4bad-691d-4e71-8ab7-a464ee614aca",
+	"47a1eb94-2620-4ecd-85d3-29f76391509f",
+	'getContainerId',
+	'',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	1,
+	'// Bridge.getContainerId()
+select one ee related by self->S_EE[R19];
+return ee.getContainerId();',
+	1,
+	'',
+	"153a923c-0f70-450b-a793-60c12077f275");
+INSERT INTO O_TFR
+	VALUES ("cabeb45c-8a95-4d86-8363-422c9d675744",
+	"47a1eb94-2620-4ecd-85d3-29f76391509f",
+	'pasteBridgeParameter',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select any parameter from instances of S_BPARM
+                                          where (selected.BParm_ID == param.id);
+if(not_empty parameter)
+  select one existingBrg related by parameter->S_BRG[R21];
+  if(not_empty existingBrg)
+    unrelate parameter from existingBrg across R21;
+  end if;
+  relate parameter to self across R21;
+  parameter.Name = ::getUniqueInitialNameInParent(
+                   instance: parameter.convertToInstance(), name:parameter.Name,
+                                               parent:self.convertToInstance());
+  self.createMessageArgumentsForParameter(id:parameter.BParm_ID);
+  self.addBridgeParameterToOrder(id:parameter.BParm_ID);
+end if;',
+	1,
+	'',
+	"accc4bad-691d-4e71-8ab7-a464ee614aca");
+INSERT INTO O_TPARM
+	VALUES ("08300ce6-b5ee-4b93-bbc4-5d380b14042d",
+	"cabeb45c-8a95-4d86-8363-422c9d675744",
+	'id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("9690f515-58a6-417b-a790-fda4b9fac5b4",
+	"47a1eb94-2620-4ecd-85d3-29f76391509f",
+	'createMessageArgumentsForParameter',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select any parameter from instances of S_BPARM
+                                          where (selected.BParm_ID == param.id);
+if(not_empty parameter)
+  // for each message associated with this bridge
+  // create a message argument
+  select many messages related by self->MSG_B[R1012]->MSG_SM[R1020]->MSG_M[R1018];
+  for each message in messages
+    create object instance arg of MSG_A;
+    create object instance ba of MSG_BA;
+    relate ba to parameter across R1014;
+    relate ba to arg across R1013;
+    relate message to arg across R1001;
+  end for;
+end if;',
+	1,
+	'',
+	"cabeb45c-8a95-4d86-8363-422c9d675744");
+INSERT INTO O_TPARM
+	VALUES ("d2f24784-29c0-416d-8455-59367be85522",
+	"9690f515-58a6-417b-a790-fda4b9fac5b4",
+	'id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("b12e3e4b-7b51-4279-8a0e-d6262af6a5ee",
+	"47a1eb94-2620-4ecd-85d3-29f76391509f",
+	'addBridgeParameterToOrder',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select any parameter from instances of S_BPARM
+                                          where (selected.BParm_ID == param.id);
+if(not_empty parameter)
+  ::changeNotificationEnablement(enabled:false);
+  select many peers related by self->S_BPARM[R21];
+  for each peer in peers
+    if (peer != parameter)
+      select one predecessor related by peer->S_BPARM[R55.''precedes''];
+      if (empty predecessor)
+        relate parameter to peer across R55.''succeeds'';
+      end if;
+    end if;
+  end for;  
+  ::changeNotificationEnablement(enabled:true);
+end if;
+',
+	1,
+	'',
+	"9690f515-58a6-417b-a790-fda4b9fac5b4");
+INSERT INTO O_TPARM
+	VALUES ("98d9ec89-3a5e-4ef9-8be0-412a29b23e9f",
+	"b12e3e4b-7b51-4279-8a0e-d6262af6a5ee",
+	'id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("3a6520c0-ab28-4e05-9723-762bd4e7eb45",
+	"47a1eb94-2620-4ecd-85d3-29f76391509f",
+	'checkIntegrity',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'/**
+ *  Create integrity issues if there are any other bridge operations with a
+ *  matching signature
+ */
+select one ee related by self->S_EE[R19];
+select one system related by ee->PE_PE[R8001]->EP_PKG[R8000]->S_SYS[R1405];
+sys_id = GD::NULL_UNIQUE_ID();
+if(not_empty system)
+  sys_id = system.Sys_ID;
+end if;
+select many bridges related by ee->S_BRG[R19];
+for each brg in bridges
+  if(brg != self and brg.getSignature() == self.getSignature())
+    MI_IM::createIssue(sys_id:sys_id, description:
+                 "Found another bridge under the same external entity with a " +
+                          "matching signature." + GD::newline() + GD::newline()
+                                          + "Signature: " + self.getSignature(),
+                                       severity:Severity::Error, name:self.Name,
+                           path:ee.getPath() + "::" + self.Name,
+                              id:self.Brg_ID, element:self.convertToInstance());
+  end if;
+end for;',
+	1,
+	'',
+	"b12e3e4b-7b51-4279-8a0e-d6262af6a5ee");
+INSERT INTO O_TFR
+	VALUES ("683e2b72-4be1-4c1b-ae03-dbffe2cb5112",
+	"47a1eb94-2620-4ecd-85d3-29f76391509f",
+	'getSignature',
+	'',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	1,
+	'/**
+ *  Return a string representation of this operations signature
+ */
+signature = self.Name;
+count = 0;
+select many parameters related by self->S_BPARM[R21];
+paramLength = cardinality parameters;
+if(paramLength > 0)
+  signature = signature + "(";
+end if;
+for each parameter in parameters
+  select one type related by parameter->S_DT[R22];
+  if(count > 0 and count != paramLength - 1)
+    signature = signature + ", ";
+  end if;
+  signature = signature + type.Name;
+  count = count + 1;
+end for;
+if(paramLength > 0)
+  signature = signature + ")";
+end if;
+return signature;',
+	1,
+	'',
+	"3a6520c0-ab28-4e05-9723-762bd4e7eb45");
+INSERT INTO O_NBATTR
+	VALUES ("eab964fb-80ce-4810-ba03-8a871dfc6923",
+	"47a1eb94-2620-4ecd-85d3-29f76391509f");
+INSERT INTO O_BATTR
+	VALUES ("eab964fb-80ce-4810-ba03-8a871dfc6923",
+	"47a1eb94-2620-4ecd-85d3-29f76391509f");
+INSERT INTO O_ATTR
+	VALUES ("eab964fb-80ce-4810-ba03-8a871dfc6923",
+	"47a1eb94-2620-4ecd-85d3-29f76391509f",
+	"00000000-0000-0000-0000-000000000000",
+	'Brg_ID',
+	'Full Name: Bridge Identifier',
+	'',
+	'Brg_ID',
+	0,
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("81dca733-7d2e-46d7-95f4-fa3a0c523bd7",
+	"47a1eb94-2620-4ecd-85d3-29f76391509f");
+INSERT INTO O_BATTR
+	VALUES ("81dca733-7d2e-46d7-95f4-fa3a0c523bd7",
+	"47a1eb94-2620-4ecd-85d3-29f76391509f");
+INSERT INTO O_ATTR
+	VALUES ("81dca733-7d2e-46d7-95f4-fa3a0c523bd7",
+	"47a1eb94-2620-4ecd-85d3-29f76391509f",
+	"ee303353-3cb4-41bb-ab19-aa27f0b1a8c9",
+	'Name',
+	'Full Name: Bridge Name',
+	'',
+	'Name',
+	0,
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("b8df1bd2-c773-459c-85fb-21103882eb3a",
+	"47a1eb94-2620-4ecd-85d3-29f76391509f");
+INSERT INTO O_BATTR
+	VALUES ("b8df1bd2-c773-459c-85fb-21103882eb3a",
+	"47a1eb94-2620-4ecd-85d3-29f76391509f");
+INSERT INTO O_ATTR
+	VALUES ("b8df1bd2-c773-459c-85fb-21103882eb3a",
+	"47a1eb94-2620-4ecd-85d3-29f76391509f",
+	"81dca733-7d2e-46d7-95f4-fa3a0c523bd7",
+	'Descrip',
+	'Full Name: Bridge Description',
+	'',
+	'Descrip',
+	0,
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("010f8484-9935-485c-a07c-7d37a1f40362",
+	"47a1eb94-2620-4ecd-85d3-29f76391509f");
+INSERT INTO O_BATTR
+	VALUES ("010f8484-9935-485c-a07c-7d37a1f40362",
+	"47a1eb94-2620-4ecd-85d3-29f76391509f");
+INSERT INTO O_ATTR
+	VALUES ("010f8484-9935-485c-a07c-7d37a1f40362",
+	"47a1eb94-2620-4ecd-85d3-29f76391509f",
+	"b8df1bd2-c773-459c-85fb-21103882eb3a",
+	'Brg_Typ',
+	'Full Name: Bridge Type
+Data Domain: 0 = user defined, 1 = built-in
+enum0: User-Defined
+enum1: Built-in
+impl_detail: true
+readonly: true
+
+
+',
+	'',
+	'Brg_Typ',
+	0,
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	'',
+	'');
+INSERT INTO O_DBATTR
+	VALUES ("5732d44f-367f-4a7b-a930-be9267712d4a",
+	"47a1eb94-2620-4ecd-85d3-29f76391509f",
+	'self.Action_Semantics = ::convertRelocatableTags(in:self.Action_Semantics_internal);
+',
+	1);
+INSERT INTO O_BATTR
+	VALUES ("5732d44f-367f-4a7b-a930-be9267712d4a",
+	"47a1eb94-2620-4ecd-85d3-29f76391509f");
+INSERT INTO O_ATTR
+	VALUES ("5732d44f-367f-4a7b-a930-be9267712d4a",
+	"47a1eb94-2620-4ecd-85d3-29f76391509f",
+	"1a3978d8-4c45-4d3b-89f7-29606e24f958",
+	'Action_Semantics',
+	'Full Name: Action Semantics Field
+Description: Action Semantics for the bridge action
+Persistent:false',
+	'',
+	'Action_Semantics',
+	0,
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("e8c20be9-5e05-447f-94a6-f16d1cde6c17",
+	"47a1eb94-2620-4ecd-85d3-29f76391509f");
+INSERT INTO O_BATTR
+	VALUES ("e8c20be9-5e05-447f-94a6-f16d1cde6c17",
+	"47a1eb94-2620-4ecd-85d3-29f76391509f");
+INSERT INTO O_ATTR
+	VALUES ("e8c20be9-5e05-447f-94a6-f16d1cde6c17",
+	"47a1eb94-2620-4ecd-85d3-29f76391509f",
+	"e10d8028-1665-4445-a598-952b621456b6",
+	'Suc_Pars',
+	'Full Name: Successful Parse Indicator
+Description: Indicates the status of the parse for the bridge action specification in the attribute Action_Semantics
+Data Domain: 0=not parsed, 1 = parse successful, 2 = parse unsuccessful, 3 = parse on apply set but never been parsed
+',
+	'',
+	'Suc_Pars',
+	0,
+	"33245ab4-49c2-4c3a-8a59-a08f07153c47",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("33245ab4-49c2-4c3a-8a59-a08f07153c47",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'ParseStatus',
+	'Indicates the status of the parse for an action specification in the attribute Action_Semantics',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("e10d8028-1665-4445-a598-952b621456b6",
+	"47a1eb94-2620-4ecd-85d3-29f76391509f");
+INSERT INTO O_BATTR
+	VALUES ("e10d8028-1665-4445-a598-952b621456b6",
+	"47a1eb94-2620-4ecd-85d3-29f76391509f");
+INSERT INTO O_ATTR
+	VALUES ("e10d8028-1665-4445-a598-952b621456b6",
+	"47a1eb94-2620-4ecd-85d3-29f76391509f",
+	"5732d44f-367f-4a7b-a930-be9267712d4a",
+	'Action_Semantics_internal',
+	'User_Visible:false',
+	'',
+	'Action_Semantics_internal',
+	0,
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("dc4db86d-34fa-4f02-9cda-151909201eb4",
+	"47a1eb94-2620-4ecd-85d3-29f76391509f");
+INSERT INTO O_BATTR
+	VALUES ("dc4db86d-34fa-4f02-9cda-151909201eb4",
+	"47a1eb94-2620-4ecd-85d3-29f76391509f");
+INSERT INTO O_ATTR
+	VALUES ("dc4db86d-34fa-4f02-9cda-151909201eb4",
+	"47a1eb94-2620-4ecd-85d3-29f76391509f",
+	"e8c20be9-5e05-447f-94a6-f16d1cde6c17",
+	'Return_Dimensions',
+	'Full Name: Return Array Dimensions
+DynamicReadOnly:isVoid',
+	'',
+	'Return_Dimensions',
+	0,
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("47a1eb94-2620-4ecd-85d3-29f76391509f",
+	"ead52fac-9782-434b-a35c-c07452c3b26d",
+	0,
+	"0e78201f-a7cd-497b-a6b4-e224ab7915c2",
+	"52039f98-c9f3-4802-962f-149b90e04bdf",
+	"8e68cbeb-a73e-4d7a-9e54-6532e8267325",
+	"234ac0d1-2205-4560-b7a0-8aa9f20f59af",
+	"1a3978d8-4c45-4d3b-89f7-29606e24f958",
+	"541a51ff-e823-4a20-b97c-3c3f4f563f44",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Data Type',
+	'DT_ID',
+	'R20');
+INSERT INTO R_RGO_PROXY
+	VALUES ("47a1eb94-2620-4ecd-85d3-29f76391509f",
+	"52039f98-c9f3-4802-962f-149b90e04bdf",
+	"8e68cbeb-a73e-4d7a-9e54-6532e8267325",
+	'../Domain.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("0e78201f-a7cd-497b-a6b4-e224ab7915c2",
+	"ead52fac-9782-434b-a35c-c07452c3b26d",
+	0,
+	"52039f98-c9f3-4802-962f-149b90e04bdf",
+	"234ac0d1-2205-4560-b7a0-8aa9f20f59af",
+	'../Domain.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("1a3978d8-4c45-4d3b-89f7-29606e24f958",
+	"47a1eb94-2620-4ecd-85d3-29f76391509f",
+	"5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	1,
+	'Element_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	'../../Packageable Element/Packageable Element/Packageable Element.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("1a3978d8-4c45-4d3b-89f7-29606e24f958",
+	"47a1eb94-2620-4ecd-85d3-29f76391509f",
+	"010f8484-9935-485c-a07c-7d37a1f40362",
+	'DT_ID',
+	'',
+	'',
+	'Element_ID',
+	2,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("47a1eb94-2620-4ecd-85d3-29f76391509f",
+	"a361b553-b2e3-46ea-a8f4-8b8633921011",
+	0,
+	"4de1fe24-5765-4921-81ea-ef51f4203fcb",
+	"618bac65-e14f-4550-a88f-575c9e20bd2d",
+	"736fed8f-8acc-44a3-9341-cfcc6be6e89a",
+	"0806f676-ecbc-428b-a27c-f1707717f4b7",
+	"ee303353-3cb4-41bb-ab19-aa27f0b1a8c9",
+	"7f10b384-8be4-4334-8334-28f2f95d0571",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'External Entity',
+	'EE_ID',
+	'R19');
+INSERT INTO R_RGO_PROXY
+	VALUES ("47a1eb94-2620-4ecd-85d3-29f76391509f",
+	"618bac65-e14f-4550-a88f-575c9e20bd2d",
+	"736fed8f-8acc-44a3-9341-cfcc6be6e89a",
+	'../Domain.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("4de1fe24-5765-4921-81ea-ef51f4203fcb",
+	"a361b553-b2e3-46ea-a8f4-8b8633921011",
+	0,
+	"618bac65-e14f-4550-a88f-575c9e20bd2d",
+	"0806f676-ecbc-428b-a27c-f1707717f4b7",
+	'../Domain.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("ee303353-3cb4-41bb-ab19-aa27f0b1a8c9",
+	"47a1eb94-2620-4ecd-85d3-29f76391509f",
+	"5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	1,
+	'Element_ID');
+INSERT INTO O_ATTR
+	VALUES ("ee303353-3cb4-41bb-ab19-aa27f0b1a8c9",
+	"47a1eb94-2620-4ecd-85d3-29f76391509f",
+	"eab964fb-80ce-4810-ba03-8a871dfc6923",
+	'EE_ID',
+	'',
+	'',
+	'EE_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"47a1eb94-2620-4ecd-85d3-29f76391509f");
+INSERT INTO O_OIDA
+	VALUES ("eab964fb-80ce-4810-ba03-8a871dfc6923",
+	"47a1eb94-2620-4ecd-85d3-29f76391509f",
+	0,
+	'Brg_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"47a1eb94-2620-4ecd-85d3-29f76391509f");
+INSERT INTO O_ID
+	VALUES (2,
+	"47a1eb94-2620-4ecd-85d3-29f76391509f");
+INSERT INTO S_SS_PROXY
+	VALUES ("703df30a-ee7e-44ec-a7cf-22d2171bb270",
+	'Domain',
+	'A domain (S_DOM) consists of one or more subsystems (S_SS) that each contain an information model that abstracts a portion of the data for the domain: classes (O_OBJ), associations (R_REL), etc.  Breaking a domain into subsystems allows the complexity of the domain to be more easily managed: 1) subsystems are components and can be checked out individually allowing parallelism in development of the models and 2) breaking up a domain into smaller units is easier to understand.  A subsystem is composed of classes that tend to cluster, i.e., they have few associations that span subsystem boundaries.  Inter-subsystem associations, communications, and accesses are captured in the Subsystem Relationship Model (SRM), Subsystem Communication Model (SCM), and Subsystem Access Model (SAM) respectively.',
+	'S',
+	1,
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000100002",
+	'../Domain.xtuml');

@@ -1,0 +1,56 @@
+AUDIT RESULTS FOR DOMAIN G_COP_R_ALL_interop
+
+EXTERNAL ENTITIES WITHOUT DESCRIPTIONS:
+External Entity Time
+External Entity One EE
+External Entity Another EE
+
+BRIDGES WITHOUT DESCRIPTIONS:
+External Entity Bridge One EE::NoParam
+External Entity Bridge One EE::ByRef
+External Entity Bridge One EE::ByVal
+External Entity Bridge One EE::Combo
+External Entity Bridge Another EE::NoParam
+External Entity Bridge Another EE::ByRef
+External Entity Bridge Another EE::ByVal
+External Entity Bridge Another EE::Combo
+
+CLASSES WITHOUT DESCRIPTIONS:
+Class G_COP_R_ALL_interop::For Operations
+Class G_COP_R_ALL_interop::Test Class
+
+ATTRIBUTES WITHOUT DESCRIPTIONS:
+Attribute Initialization::Init_ID
+Attribute Initialization::current_state
+Attribute Driver::Driver_ID
+Attribute Driver::current_state
+Attribute For Operations::op_id
+Attribute For Operations::some_value
+Attribute Test Class::tc_ID
+
+OPERATIONS WITHOUT DESCRIPTIONS:
+Operation For Operations::InstNoParam
+Operation For Operations::InstByRef
+Operation For Operations::InstByVal
+Operation For Operations::InstCombo
+Operation For Operations::ClassNoParam
+Operation For Operations::ClassByRef
+Operation For Operations::ClassByVal
+Operation For Operations::ClassCombo
+Operation Test Class::TestBRG_FUN
+Operation Test Class::TestBRG_REL
+Operation Test Class::TestCOP
+
+STATE MODELS WITHOUT DESCRIPTIONS:
+State Model Initialization
+State Model Driver
+
+EVENTS WITHOUT DESCRIPTIONS:
+Event INIT1
+Event DRV1
+Event DRV2
+
+ACTION SPECIFICATIONS WITHOUT DESCRIPTIONS:
+Initialization::Initialize
+Driver::Begin Test
+Driver::End Test

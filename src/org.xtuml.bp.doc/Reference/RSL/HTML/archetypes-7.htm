@@ -1,0 +1,846 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml"
+xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:w="urn:schemas-microsoft-com:office:word"
+xmlns="http://www.w3.org/TR/REC-html40">
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=iso-8859-1">
+<meta name=ProgId content=Word.Document>
+<meta name=Generator content="Microsoft Word 11">
+<meta name=Originator content="Microsoft Word 11">
+<link rel=File-List href="archetypes-7_files/filelist.xml">
+<title> Data Access Control Statements </title>
+<!--[if gte mso 9]><xml>
+ <o:DocumentProperties>
+  <o:Author>kwilliam</o:Author>
+  <o:LastAuthor>kwilliam</o:LastAuthor>
+  <o:Revision>2</o:Revision>
+  <o:TotalTime>1</o:TotalTime>
+  <o:Created>2006-03-10T22:09:00Z</o:Created>
+  <o:LastSaved>2006-03-10T22:10:00Z</o:LastSaved>
+  <o:Pages>1</o:Pages>
+  <o:Words>2119</o:Words>
+  <o:Characters>12081</o:Characters>
+  <o:Company>Mentor Graphics</o:Company>
+  <o:Lines>100</o:Lines>
+  <o:Paragraphs>28</o:Paragraphs>
+  <o:CharactersWithSpaces>14172</o:CharactersWithSpaces>
+  <o:Version>11.6408</o:Version>
+ </o:DocumentProperties>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <w:WordDocument>
+  <w:ValidateAgainstSchemas/>
+  <w:SaveIfXMLInvalid>false</w:SaveIfXMLInvalid>
+  <w:IgnoreMixedContent>false</w:IgnoreMixedContent>
+  <w:AlwaysShowPlaceholderText>false</w:AlwaysShowPlaceholderText>
+  <w:Compatibility>
+   <w:UseFELayout/>
+  </w:Compatibility>
+  <w:BrowserLevel>MicrosoftInternetExplorer4</w:BrowserLevel>
+ </w:WordDocument>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <w:LatentStyles DefLockedState="false" LatentStyleCount="156">
+ </w:LatentStyles>
+</xml><![endif]-->
+<link rel=Stylesheet type="text/css" media=all href=archetypes.css>
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:SimSun;
+	panose-1:2 1 6 0 3 1 1 1 1 1;
+	mso-font-alt:\5B8B\4F53;
+	mso-font-charset:134;
+	mso-generic-font-family:auto;
+	mso-font-format:other;
+	mso-font-pitch:variable;
+	mso-font-signature:1 135135232 16 0 262144 0;}
+@font-face
+	{font-family:"\@SimSun";
+	panose-1:2 1 6 0 3 1 1 1 1 1;
+	mso-font-charset:134;
+	mso-generic-font-family:auto;
+	mso-font-format:other;
+	mso-font-pitch:variable;
+	mso-font-signature:1 135135232 16 0 262144 0;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{mso-style-parent:"";
+	margin:0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:SimSun;}
+h2
+	{mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	line-height:15.6pt;
+	mso-pagination:widow-orphan;
+	mso-outline-level:2;
+	font-size:12.0pt;
+	font-weight:bold;}
+p
+	{mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	mso-fareast-font-family:SimSun;}
+pre
+	{margin-top:0in;
+	margin-bottom:0in;
+	margin-bottom:.0001pt;
+	font-size:10.0pt;
+	font-family:"Courier New";
+	mso-fareast-font-family:SimSun;}
+p.body-tight, li.body-tight, div.body-tight
+	{mso-style-name:body-tight;
+	font-size:11.0pt;
+	mso-fareast-font-family:SimSun;}
+p.indent, li.indent, div.indent
+	{mso-style-name:indent;
+	font-size:11.0pt;
+	mso-fareast-font-family:SimSun;}
+p.body, li.body, div.body
+	{mso-style-name:body;
+	font-size:10.0pt;
+	mso-fareast-font-family:SimSun;}
+@page Section1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.25in 1.0in 1.25in;
+	mso-header-margin:.5in;
+	mso-footer-margin:.5in;
+	mso-paper-source:0;}
+div.Section1
+	{page:Section1;}
+ /* List Definitions */
+ @list l0
+	{mso-list-id:1992323452;
+	mso-list-template-ids:-1634452644;}
+ol
+	{margin-bottom:0in;}
+ul
+	{margin-bottom:0in;}
+-->
+</style>
+<!--[if gte mso 10]>
+<style>
+ /* Style Definitions */
+ table.MsoNormalTable
+	{mso-style-name:"Table Normal";
+	mso-tstyle-rowband-size:0;
+	mso-tstyle-colband-size:0;
+	mso-style-noshow:yes;
+	mso-style-parent:"";
+	mso-padding-alt:0in 5.4pt 0in 5.4pt;
+	mso-para-margin:0in;
+	mso-para-margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";
+	mso-ansi-language:#0400;
+	mso-fareast-language:#0400;
+	mso-bidi-language:#0400;}
+</style>
+<![endif]-->
+<meta http-equiv=Content-Style-Type content="text/css">
+<!--[if gte mso 9]><xml>
+ <o:shapedefaults v:ext="edit" spidmax="2050"/>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <o:shapelayout v:ext="edit">
+  <o:idmap v:ext="edit" data="1"/>
+ </o:shapelayout></xml><![endif]-->
+</head>
+
+<body bgcolor=white lang=EN-US link=navy vlink="#0176B9" style='tab-interval:
+.5in'>
+
+<div class=Section1>
+
+<h1><a name="0_pgfId-516944"></a><a name="0_marker-516943"></a>Data Access
+Control Statements</h1>
+
+<p class=body><a name="0_pgfId-516945"></a>Data access control statements
+include the following:</p>
+
+<ol start=1 type=1>
+ <li class=MsoNormal style='mso-margin-top-alt:auto;margin-bottom:3.0pt;
+     mso-list:l0 level1 lfo1;tab-stops:list .5in'><a name="0_pgfId-516946"></a><span
+     style='font-size:10.0pt;font-family:Arial'>Instance selection statements
+     allow for the selecting of instances from the xtUML database. Instances
+     are either returned in an instance reference set, in the case of a </span><em><span
+     style='font-size:11.0pt;font-family:"Courier New";color:black'>select many</span></em><span
+     style='font-size:10.0pt;font-family:Arial'> , or as an instance reference,
+     in the case of </span><em><span style='font-size:11.0pt;font-family:"Courier New";
+     color:black'>select one</span></em><span style='font-size:10.0pt;
+     font-family:Arial'> and </span><em><span style='font-size:11.0pt;
+     font-family:"Courier New";color:black'>select any</span></em><span
+     style='font-size:10.0pt;font-family:Arial'> .<o:p></o:p></span></li>
+ <li class=MsoNormal style='mso-margin-top-alt:auto;margin-bottom:3.0pt;
+     mso-list:l0 level1 lfo1;tab-stops:list .5in'><a name="0_pgfId-518721"></a><span
+     style='font-size:10.0pt;font-family:Arial'>Instance set iteration
+     statements allow for iteration over a set of instances contained in an
+     instance reference set.<o:p></o:p></span></li>
+ <li class=MsoNormal style='mso-margin-top-alt:auto;margin-bottom:3.0pt;
+     mso-list:l0 level1 lfo1;tab-stops:list .5in'><a name="0_pgfId-518722"></a><span
+     style='font-size:10.0pt;font-family:Arial'>Class attribute access
+     statements are used to read and write attribute data of instances in the
+     xtUML database.<o:p></o:p></span></li>
+</ol>
+
+<h3><a name="0_pgfId-518724"></a><a name="0_marker-518723"></a>Instance
+Selection</h3>
+
+<p class=body><a name="0_pgfId-518762"></a>Instances may be selected from the
+xtUML database by using the key letters of the class directly, or by chaining
+through class keyletter/association pairs using an instance reference or
+instance reference set as a starting point.</p>
+
+<p class=body><a name="0_pgfId-518765"></a>The following two statements are used
+to select instances based on the key letters alone:</p>
+
+<pre style='margin-left:47.5pt;vertical-align:baseline'><a name="0_pgfId-518771"></a><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>.select any &lt;inst_ref_var&gt; from instances of &lt;class_keyletters&gt; [ where<span style='mso-spacerun:yes'>   </span>(&lt;condition&gt;) ]</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a name="0_marker-526763"></a><a
+name="0_pgfId-518773"></a><em><span style='font-size:11.0pt;font-family:"Courier New";
+color:black'>.select many &lt;inst_ref_set_var&gt; from instances of &lt;class_keyletters&gt; [<span style='mso-spacerun:yes'>   </span>where (&lt;condition&gt;) ]</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a name="0_marker-526764"></a><a
+name="0_pgfId-559583"></a><span style='font-size:11.0pt;font-family:"Times New Roman";
+color:black'>&nbsp;<o:p></o:p></span></pre>
+
+<p class=body><a name="0_pgfId-516951"></a>The following instance selection
+statements make direct use of chaining through key letter/association pairs to
+select an instance or set of instances:</p>
+
+<pre style='margin-left:47.5pt;vertical-align:baseline'><a name="0_pgfId-518741"></a><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>.select one &lt;inst_ref_var&gt; related by &lt;inst_chain&gt; [ where (&lt;condition&gt;) ]</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a name="0_marker-526765"></a><a
+name="0_pgfId-516961"></a><em><span style='font-size:11.0pt;font-family:"Courier New";
+color:black'>.select any &lt;inst_ref_var&gt; related by &lt;inst_chain&gt; [ where (&lt;condition&gt;) ]</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a name="0_marker-526766"></a><a
+name="0_pgfId-516964"></a><em><span style='font-size:11.0pt;font-family:"Courier New";
+color:black'>.select many &lt;inst_ref_set_var&gt; related by &lt;inst_chain&gt; [ where<span style='mso-spacerun:yes'>   </span>(&lt;condition&gt;) ]</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a name="0_marker-526767"></a><a
+name="0_pgfId-559587"></a><span style='font-size:11.0pt;font-family:"Times New Roman";
+color:black'>&nbsp;<o:p></o:p></span></pre>
+
+<p class=body><a name="0_pgfId-527363"></a><em><span style='font-size:11.0pt;
+font-family:"Courier New";color:black'>&lt;inst_ref_var&gt;</span></em>
+specifies an instance reference variable name used in the selection. After the
+select, the variable contains a reference to 0 or 1 instances: 0 if an instance
+was not found, 1 if the instance was found.</p>
+
+<p class=body><a name="0_pgfId-516974"></a><em><span style='font-size:11.0pt;
+font-family:"Courier New";color:black'>&lt;inst_ref_set_var&gt;</span></em>
+specifies an instance reference set variable name used in the selection. After
+the select, the variable contains a reference to 0, 1, or more instances.</p>
+
+<p class=body><a name="0_pgfId-516975"></a><em><span style='font-size:11.0pt;
+font-family:"Courier New";color:black'>&lt;inst_chain&gt;</span></em> is a
+string containing key letter/association number pairs separated by the <em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>-&gt;</span></em>
+character sequence. <em><span style='font-size:11.0pt;font-family:"Courier New";
+color:black'>&lt;inst_chain&gt;</span></em> specifies an unbroken navigation
+from the instance reference variable or instance reference set variable to the
+destination instance. </p>
+
+<p class=body><a name="0_pgfId-516976"></a><em><span style='font-size:11.0pt;
+font-family:"Courier New";color:black'>&lt;class_keyletters&gt;</span></em> are
+the keyletters of a class in the metamodel.</p>
+
+<p class=body><a name="0_pgfId-516977"></a><em><span style='font-size:11.0pt;
+font-family:"Courier New";color:black'>&lt;condition&gt;</span></em> specifies
+an expression with a boolean result. <em><span style='font-size:11.0pt;
+font-family:"Courier New";color:black'>&lt;condition&gt;</span></em> always
+takes the form of a where clause that discriminates on a attribute of the
+destination class using the <em><span style='font-size:11.0pt;font-family:"Courier New";
+color:black'>selected</span></em> keyword, i.e., <em><span style='font-size:
+11.0pt;font-family:"Courier New";color:black'>.select any class from instances
+of O_OBJ where (selected.Name == &quot;Dog&quot;)</span></em> . <a
+href="archetypes-14.htm#0_Expressions Section">Expressions</a> for more details
+on expressions.</p>
+
+<p class=body><a name="0_pgfId-516982"></a>Here are some examples:</p>
+
+<p class=body><a name="0_pgfId-516983"></a>To select the set of application
+classes in the xtUML database:</p>
+
+<p class=indent><a name="0_pgfId-516984"></a><em><span style='font-family:"Courier New"'>.select
+many class_set from instances of O_OBJ</span></em> </p>
+
+<p class=body><a name="0_pgfId-516985"></a>To select the set of attributes
+related to an arbitrary class instance <em><span style='font-size:11.0pt;
+font-family:"Courier New";color:black'>class_inst</span></em> :</p>
+
+<pre style='margin-left:47.5pt;vertical-align:baseline'><a name="0_pgfId-518829"></a><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>.select any class_inst from instances of O_OBJ</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre>
+
+<p class=indent><a name="0_pgfId-516986"></a><em><span style='font-family:"Courier New"'>.select
+many attr_set related by class_inst-&gt;O_ATTR[R102]</span></em> </p>
+
+<p class=body><a name="0_pgfId-516987"></a>To select the set of associations in
+which the class instance <em><span style='font-size:11.0pt;font-family:"Courier New";
+color:black'>class_inst</span></em> is involved:</p>
+
+<p class=indent><a name="0_pgfId-516988"></a><em><span style='font-family:"Courier New"'>.select
+many rel_set related by class_inst-&gt;R_OIR[R201]-&gt;R_REL[R201]</span></em> </p>
+
+<p class=body><a name="0_pgfId-516989"></a>Note that the navigation through the
+association R201 was in 2 steps - first to the associative-link class and then
+to the other side of the association. If you are wondering where to find
+association R201, please look in the Metamodel Reference.</p>
+
+<h4><a name="0_pgfId-525758"></a><a name="0_marker-526750"></a>Instance Reference
+and Instance Reference Set Variables</h4>
+
+<p class=body><a name="0_pgfId-516990"></a>The resulting <em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>&lt;inst_ref_var&gt;/&lt;inst_ref_set_var&gt;</span></em>
+is a transient variable which follows the implicit declaration rule. When the
+resulting <em><span style='font-size:11.0pt;font-family:"Courier New";
+color:black'>&lt;inst_ref_var&gt;/&lt;inst_ref_set_var&gt;</span></em> is being
+implicitly declared (used for the first time), the referred to class of the
+transient variable is set according to the result of the <em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>.select</span></em>
+. When the resulting <em><span style='font-size:11.0pt;font-family:"Courier New";
+color:black'>&lt;inst_ref_var&gt; /&lt;inst_ref_set_var&gt;</span></em> is
+being reassigned, the referred to class of the new selection must match that of
+the transient variable.</p>
+
+<h4><a name="0_pgfId-516992"></a><a name="0_marker-516991"></a><a name="0_49252"></a>Instance
+Chains</h4>
+
+<p class=body><a name="0_pgfId-516993"></a>The <em><span style='font-size:11.0pt;
+font-family:"Courier New";color:black'>related by</span></em> form of the <em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>.select</span></em>
+statement uses an instance chain to specify a path through the related
+instances. An instance chain is simply a sequence of class key
+letter/association number pairs which specify the path from the source instance
+to the destination class. The result of a select is 0, 1, or more instances of
+the last class of the chain. </p>
+
+<p class=body><a name="0_pgfId-525770"></a>The syntax of the instance chain
+places the focus on the classes of the chain (specified by the class
+keyletters) because the instances of the chain are class instances. The <em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>[]</span></em>
+syntax is intended to indicate access into a table of that classes instances.
+The contents of the <em><span style='font-size:11.0pt;font-family:"Courier New";
+color:black'>[]</span></em> is a specification of which instances are being
+accessed - since the instances are accessed via an association, the contents of
+the <em><span style='font-size:11.0pt;font-family:"Courier New";color:black'>[]</span></em>
+is the association traversal specification.</p>
+
+<p class=body><a name="0_pgfId-516996"></a><a name="0_instance_chains"></a>The
+association traversal specification can be specified as:</p>
+
+<pre style='margin-left:47.5pt;vertical-align:baseline'><a name="0_pgfId-516998"></a><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>R&lt;number&gt;</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre>
+
+<p class=body-tight><a name="0_pgfId-516999"></a>or</p>
+
+<p class=indent><a name="0_pgfId-517000"></a><em><span style='font-family:"Courier New"'>R&lt;number&gt;.'&lt;direction&gt;'</span></em>
+</p>
+
+<p class=body><a name="0_pgfId-587204"></a>where:</p>
+
+<p class=indent><a name="0_pgfId-587205"></a><em><span style='font-family:"Courier New"'>R&lt;number&gt;</span></em>
+is the association number as it appears in the metamodel.</p>
+
+<p class=indent><a name="0_pgfId-587206"></a><em><span style='font-family:"Courier New"'>&lt;direction&gt;</span></em>
+is a specification of the direction of the traversal for the association in
+terms of an association phrase.</p>
+
+<p class=body><a name="0_pgfId-517007"></a><a
+name="0_reflexive_relationship;relationship"></a>The <em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>&lt;direction&gt;</span></em>
+is used when traversing a reflexive association, i.e., an association in which
+a class is related to itself. <em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>&lt;direction&gt;</span></em> is needed so that the
+reflexive association can be traversed in each direction. Examples of reflexive
+associations in the metamodel are R103 (to specify order of attributes) and
+R112 (to specify order of association numbers). For example:</p>
+
+<p class=indent><a name="0_pgfId-517008"></a><em><span style='font-family:"Courier New"'>.select
+one prev_attr related by curr_attr-&gt;O_ATTR[R103.'precedes']</span></em> </p>
+
+<p class=body><a name="0_pgfId-517009"></a>selects the previous attribute
+instance given the current attribute instance and the navigation spec: <em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>-&gt;O_ATTR[R103.'precedes']</span></em>
+. Use the association phrase to read the navigation from left to right, with
+the association phrase as the verb in the middle: start with the instance
+reference variable <em><span style='font-size:11.0pt;font-family:"Courier New";
+color:black'>prev_attr</span></em> , apply the association phrase, and end with
+the instance chain source instance reference variable name. The select
+statement navigation above reads <em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>prev_attr</span></em> <em><span style='font-family:
+Arial'>precedes</span></em> <em><span style='font-size:11.0pt;font-family:"Courier New";
+color:black'>curr_attr</span></em> . Since we are looking for the attribute
+that precedes the current attribute we know that our select statement is
+properly formed.</p>
+
+<p class=body><a name="0_pgfId-518891"></a>If we then wanted to get back to <em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>curr_attr</span></em>
+from <em><span style='font-size:11.0pt;font-family:"Courier New";color:black'>prev_attr</span></em>
+we could write the following <em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>.select</span></em> statement:</p>
+
+<p class=indent><a name="0_pgfId-518894"></a><em><span style='font-family:"Courier New"'>.select
+one next_attr related by prev_attr-&gt;O_ATTR[R103.'succeeds']</span></em> </p>
+
+<p class=body><a name="0_pgfId-518903"></a>The instance reference <em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>next_attr</span></em>
+is the same instance <em><span style='font-size:11.0pt;font-family:"Courier New";
+color:black'>curr_attr</span></em> from the previous <em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>.select</span></em>
+statement.</p>
+
+<h4><a name="0_pgfId-517011"></a><a name="0_Chain_Multiplicity_&amp;_Conditionality"></a>Chain
+Multiplicity &amp; Conditionality</h4>
+
+<p class=body><a name="0_pgfId-517012"></a><a name="0_marker-526769"></a>The
+multiplicity of an instance chain is zero or one if the starting instance
+variable has a multiplicity of zero or one <em><span style='font-family:Arial'>and
+all association traversals in the chain result have multiplicity zero or one</span></em>
+. Otherwise, the multiplicity of the instance chain is zero, one, or more
+(many).</p>
+
+<p class=body><a name="0_pgfId-517013"></a>The keyword <em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>one</span></em>
+can only be used with an instance chain of multiplicity zero or one, whereas
+the keywords <em><span style='font-size:11.0pt;font-family:"Courier New";
+color:black'>any</span></em> and <em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>many</span></em> can only be used with an instance
+chain of multiplicity zero, one, or many.</p>
+
+<p class=body><a name="0_pgfId-517014"></a>The conditionality of an instance
+chain is unconditional if all association traversals in the chain are
+unconditional; otherwise, the instance chain is conditional. The conditionality
+determines how many instances are returned. If any conditional associations
+occur in the instance chain to the target, zero instances may be returned by
+the select statement. In this case the result of the select should always be
+checked for instances before being used.</p>
+
+<h4><a name="0_pgfId-517016"></a><a name="0_Where_Clause"></a>Where Clause</h4>
+
+<p class=body><a name="0_pgfId-517017"></a><a name="0_marker-526770"></a>The
+where clause <em><span style='font-size:11.0pt;font-family:"Courier New";
+color:black'>&lt;condition&gt;</span></em> is used to filter out a subset of
+the instances selected in the <em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>.select from instances of</span></em> or <em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>select related
+by</span></em> statements. <em><span style='font-size:11.0pt;font-family:"Courier New";
+color:black'>&lt;condition&gt;</span></em> is applied separately to each
+instance in the source set. When <em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>&lt;condition&gt;</span></em> is <em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>TRUE</span></em>
+, the matching instance or instances are placed in the instance reference or
+instance reference set variable. Instances for which &lt;condition&gt; is <em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>FALSE</span></em>
+are not included in the result.</p>
+
+<p class=body><a name="0_pgfId-517021"></a><em><span style='font-size:11.0pt;
+font-family:"Courier New";color:black'>&lt;condition&gt;</span></em> is a
+boolean expression (<a href="archetypes-14.htm#0_Expressions Section">Expressions</a>)
+- the current instance being selected is referred to by the <em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>selected</span></em>
+keyword. Here are a few examples.</p>
+
+<p class=body><a name="0_pgfId-517022"></a>To select all attributes named ID:</p>
+
+<p class=indent><a name="0_pgfId-517023"></a><em><span style='font-family:"Courier New"'>.select
+many attr_set from instances of O_ATTR where (selected.Name == &quot;ID&quot;)</span></em>
+</p>
+
+<p class=body><a name="0_pgfId-517025"></a>To select all attributes in classes
+with keyletters <em><span style='font-size:11.0pt;font-family:"Courier New";
+color:black'>DOG</span></em> :</p>
+
+<p class=indent><a name="0_pgfId-517026"></a><em><span style='font-family:"Courier New"'>.select
+many attr_set from instances of O_ATTR where (&quot;${selected
+-&gt;O_OBJ[R102]}.Key_Lett&quot; == &quot;DOG&quot;)</span></em> </p>
+
+<p class=body><a name="0_pgfId-517028"></a>Note: The preceding example uses an
+instance substitution variable in a quoted string (<a
+href="archetypes-13.htm#0_42682">Quoted Strings</a>) and an instance chain
+within the substitution variable (<a href="archetypes-15.htm#0_24639">Substitution
+Variables</a>).</p>
+
+<h3><a name="0_pgfId-517036"></a><a name="0_marker-517035"></a>Instance Set
+Iteration</h3>
+
+<h4><a name="0_pgfId-519007"></a>The <a name="0_marker-527026"></a>For
+Statement</h4>
+
+<p class=body><a name="0_pgfId-517037"></a>Once a set of instances has been
+selected, iteration statements can be written to iterate over each of the
+instances in the set. The control statement which supports this is:</p>
+
+<pre style='margin-left:47.5pt;vertical-align:baseline'><a name="0_pgfId-517040"></a><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>.for each &lt;inst_ref_var&gt; in &lt;inst_ref_set_var&gt;</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a name="0_For_each"></a><a
+name="0_pgfId-517041"></a><em><span style='font-size:11.0pt;font-family:"Courier New";
+color:black'><span style='mso-tab-count:1'>       </span>&lt;stmt_blck&gt;</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre>
+
+<p class=indent><a name="0_pgfId-517043"></a><em><span style='font-family:"Courier New"'>.end
+for</span></em> <a name="0_End_for"></a></p>
+
+<p class=body><a name="0_pgfId-517045"></a>where:</p>
+
+<p class=indent><a name="0_pgfId-517046"></a><em><span style='font-family:"Courier New"'>&lt;inst_ref_var&gt;</span></em>
+is an instance reference variable. Each time the .<em><span style='font-family:
+"Courier New"'> for </span></em>statement is evaluated, this variable is set to
+next instance in the set.</p>
+
+<p class=indent><a name="0_pgfId-517047"></a><em><span style='font-family:"Courier New"'>&lt;inst_ref_set_var&gt;</span></em>
+is an instance reference set that contains 0, 1, or more instances.</p>
+
+<p class=indent><a name="0_pgfId-517048"></a><em><span style='font-family:"Courier New"'>&lt;stmt_blck&gt;</span></em>
+is a block of rule statements.</p>
+
+<p class=body><a name="0_pgfId-517050"></a>The statements in the <em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>.for</span></em>
+structure are executed once for each instance in the set. The iterations are
+sequential in a repeatable order, i.e., the order of the instances in a set are
+consistent from one execution to another. For example:</p>
+
+<pre style='margin-left:47.5pt;vertical-align:baseline'><a name="0_pgfId-517051"></a><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>Beginning of List of Class Names</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a name="0_pgfId-517052"></a><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>.select many class_set from instances of O_OBJ</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a name="0_pgfId-517053"></a><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>.for each class_inst in class_set</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a name="0_pgfId-517054"></a><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'><span
+style='mso-tab-count:1'>       </span>Class name is ${class_inst.Name}</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a name="0_pgfId-517055"></a><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>.end for</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a name="0_pgfId-517056"></a><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>End of List of Class Names</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a name="0_pgfId-518964"></a><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'>&nbsp;<o:p></o:p></span></pre>
+
+<p class=body><a name="0_pgfId-517057"></a>results in the name of each class
+being placed on a separate line in the output buffer. Each time the above
+example is executed, the order of the class names is guaranteed to be the same.</p>
+
+<p class=body><a name="0_pgfId-517058"></a>Note: When instances are added to
+the xtUML database, the order of elements is implementation specific when the
+order is compared to the order before the instances where added.</p>
+
+<p class=body><a name="0_pgfId-517060"></a>The variable <em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>&lt;inst_ref_var&gt;</span></em>
+is scoped within the <em><span style='font-size:11.0pt;font-family:"Courier New";
+color:black'>&lt;stmt_blck&gt;</span></em> , i.e., it goes out of scope after
+the<em><span style='font-family:Arial'> </span></em><em><span style='font-size:
+11.0pt;font-family:"Courier New";color:black'>.end for</span></em> statement.
+However, if the scope of <em><span style='font-size:11.0pt;font-family:"Courier New";
+color:black'>&lt;inst_ref_var&gt;</span></em> needs to extend beyond the <em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>.end for</span></em>
+, then define <em><span style='font-size:11.0pt;font-family:"Courier New";
+color:black'>&lt;inst_ref_var&gt;</span></em> prior to the<em><span
+style='font-family:Arial'> </span></em><em><span style='font-size:11.0pt;
+font-family:"Courier New";color:black'>.for</span></em> statement. In the
+previous example, <em><span style='font-size:11.0pt;font-family:"Courier New";
+color:black'>class_inst</span></em> is out of scope (and no longer on the
+stack) when the <em><span style='font-size:11.0pt;font-family:"Courier New";
+color:black'>End of List of Class Names</span></em> literal text line is
+reached. </p>
+
+<p class=body><a name="0_pgfId-518979"></a>In the following example, <em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>class_inst</span></em>
+is still in scope (and still on the stack) when the <em><span style='font-size:
+11.0pt;font-family:"Courier New";color:black'>End of List of Class Names</span></em>
+literal text line is reached:</p>
+
+<pre style='margin-left:47.5pt;vertical-align:baseline'><a name="0_pgfId-518991"></a><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>Beginning of List of Class Names</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a name="0_pgfId-533098"></a><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>.select any class_inst from instances of O_OBJ</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a name="0_pgfId-533099"></a><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>.select many class_set from instances of O_OBJ</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a name="0_pgfId-533100"></a><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>.for each class_inst in class_set</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a name="0_pgfId-517065"></a><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'><span
+style='mso-tab-count:1'>       </span>Class name is ${class_inst.Name}</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a name="0_pgfId-517066"></a><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>.end for</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a name="0_pgfId-517067"></a><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>Last Class name is ${class_inst.Name}</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a name="0_pgfId-518997"></a><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>End of List of Class Names</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a name="0_pgfId-517068"></a><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'>&nbsp;<o:p></o:p></span></pre>
+
+<p class=body><a name="0_pgfId-517070"></a>The following statement is provided
+to break out of the iteration through the ordered set, presumably because you
+have found what you were looking for:</p>
+
+<p class=indent><a name="0_pgfId-517072"></a><em><span style='font-family:"Courier New"'>.break
+for</span></em> <a name="0_Break_for"></a></p>
+
+<h4><a name="0_pgfId-517075"></a><a name="0_marker-517074"></a>The While
+Statement</h4>
+
+<p class=body><a name="0_pgfId-527307"></a>The <em><span style='font-size:11.0pt;
+font-family:"Courier New";color:black'>.while</span></em> statement provides a
+general purpose iteration mechanism. This complements the other iteration
+mechanism, the <em><span style='font-size:11.0pt;font-family:"Courier New";
+color:black'>.for each</span></em> statement. The <em><span style='font-size:
+11.0pt;font-family:"Courier New";color:black'>.for each</span></em> statement
+is a specific purpose iteration mechanism to iterate through an instance
+reference set. The <em><span style='font-size:11.0pt;font-family:"Courier New";
+color:black'>.while</span></em> statement is a general purpose iteration
+mechanism to iterate until the <em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>.while </span></em>condition is <em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>false</span></em>
+. The syntax of the <em><span style='font-size:11.0pt;font-family:"Courier New";
+color:black'>.while</span></em> statement is:</p>
+
+<pre style='margin-left:47.5pt;vertical-align:baseline'><a name="0_pgfId-527308"></a><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>.while (&lt;boolean expression&gt;)</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a name="0_pgfId-527309"></a><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'><span
+style='mso-tab-count:1'>       </span>&lt;statement&gt;</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a name="0_pgfId-517079"></a><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'><span
+style='mso-tab-count:1'>       </span>&lt;statement&gt;</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a name="0_pgfId-517080"></a><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'><span
+style='mso-tab-count:1'>       </span>...</span></em><span style='font-size:
+11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a name="0_pgfId-517081"></a><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'><span
+style='mso-tab-count:1'>       </span>&lt;statement&gt;</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre>
+
+<p class=indent><a name="0_pgfId-517082"></a><em><span style='font-family:"Courier New"'>.end
+while</span></em> </p>
+
+<p class=body><a name="0_pgfId-527297"></a>The statements between the <em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>.while</span></em>
+and <em><span style='font-size:11.0pt;font-family:"Courier New";color:black'>.end
+while</span></em> are executed in sequence until <em><span style='font-size:
+11.0pt;font-family:"Courier New";color:black'>&lt;boolean expression&gt;</span></em>
+is <em><span style='font-size:11.0pt;font-family:"Courier New";color:black'>false</span></em>
+. The condition is checked before the first iteration. </p>
+
+<p class=body><a name="0_pgfId-517085"></a>A <em><span style='font-size:11.0pt;
+font-family:"Courier New";color:black'>.break while</span></em> statement is
+available, providing an alternative technique to end the iteration. The syntax
+of the <em><span style='font-size:11.0pt;font-family:"Courier New";color:black'>.break
+while</span></em> statement is: </p>
+
+<pre style='margin-left:47.5pt;vertical-align:baseline'><a name="0_pgfId-517086"></a><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>.while (&lt;boolean expression&gt;)</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a name="0_pgfId-517087"></a><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'><span
+style='mso-tab-count:1'>       </span>&lt;statement&gt;</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a name="0_pgfId-517088"></a><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'><span
+style='mso-tab-count:1'>       </span>&lt;statement&gt;</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a name="0_pgfId-517089"></a><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'><span
+style='mso-tab-count:1'>       </span>.break while</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a name="0_pgfId-517090"></a><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'><span
+style='mso-tab-count:1'>       </span>...</span></em><span style='font-size:
+11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a name="0_pgfId-517091"></a><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'><span
+style='mso-tab-count:1'>       </span>&lt;statement&gt;</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a name="0_pgfId-517092"></a><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>.end while</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a name="0_pgfId-519013"></a><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'>&nbsp;<o:p></o:p></span></pre>
+
+<p class=body><a name="0_pgfId-527445"></a>When executed, the <em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>.break while </span></em>statement
+causes control to be transferred to the statement after the <em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>.end while</span></em>
+corresponding to the innermost executing <em><span style='font-size:11.0pt;
+font-family:"Courier New";color:black'>.while</span></em> statement. For
+example: </p>
+
+<pre style='margin-left:47.5pt;vertical-align:baseline'><a name="0_pgfId-527446"></a><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>.assign count = 1</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a name="0_pgfId-527447"></a><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>.while (count &lt; 10)<span style='mso-spacerun:yes'>         </span>.//<span style='mso-spacerun:yes'>  </span>while 1</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a name="0_pgfId-517096"></a><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'><span
+style='mso-tab-count:1'>       </span>.while (1 == 1)<span style='mso-spacerun:yes'>        </span>.//<span style='mso-spacerun:yes'>  </span>while 2</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a name="0_pgfId-527524"></a><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'><span
+style='mso-tab-count:2'>             </span>.if (&lt;condition&gt;)</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a name="0_pgfId-527525"></a><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'><span
+style='mso-tab-count:3'>                    </span>.break while<span style='mso-spacerun:yes'>  </span>.//<span style='mso-spacerun:yes'>  </span>break 2</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a name="0_pgfId-527526"></a><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'><span
+style='mso-tab-count:2'>             </span>.end if</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a name="0_pgfId-517100"></a><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'><span
+style='mso-tab-count:1'>       </span>.end while<span style='mso-tab-count:
+2'>          </span><span style='mso-spacerun:yes'>             </span>.//<span style='mso-spacerun:yes'>  </span>end while 2</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a name="0_pgfId-517101"></a><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'><span
+style='mso-tab-count:1'>       </span>.if (&lt;condition2&gt;)</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a name="0_pgfId-517102"></a><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'><span
+style='mso-tab-count:2'>             </span>.break while<span style='mso-spacerun:yes'>      </span>.// break 1</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a name="0_pgfId-517103"></a><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'><span
+style='mso-tab-count:1'>       </span>.end if</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a name="0_pgfId-517104"></a><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>.end while<span style='mso-spacerun:yes'>                 </span>.// end while1 </span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre>
+
+<p class=body><a name="0_pgfId-517105"></a><i><span style='font-size:11.0pt;
+font-family:"Courier New";color:black'><br>
+</span></i>Execution of <em><span style='font-size:11.0pt;font-family:"Courier New";
+color:black'>break 2</span></em> causes control to transfer to the statement
+following <em><span style='font-size:11.0pt;font-family:"Courier New";
+color:black'>end while 2</span></em> , whereas execution of <em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>break 1</span></em>
+causes control to transfer to the statement following <em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>end while 1</span></em>
+.</p>
+
+<h3><a name="0_pgfId-517109"></a>Class Attribute Access</h3>
+
+<p class=body><a name="0_pgfId-517110"></a>Attribute access statements take the
+form of:</p>
+
+<p class=indent><a name="0_pgfId-517112"></a><em><span style='font-family:"Courier New"'>&lt;inst_ref_var&gt;.&lt;attribute&gt;</span></em>
+</p>
+
+<p class=body><a name="0_pgfId-517114"></a>where:</p>
+
+<p class=indent><a name="0_pgfId-517115"></a>&lt;inst_ref_var&gt; is the
+instance reference variable that refers to an instance.</p>
+
+<p class=indent><a name="0_pgfId-517116"></a>&lt;attribute&gt; is the name of a
+valid attribute for the instance.</p>
+
+<p class=body><a name="0_pgfId-517118"></a>Note: Great care should be taken
+when writing class attributes. Writing a class attribute permanently affects
+the value for all future uses of the attribute - the new value of the attribute
+is stored persistently in the xtUML database. Altering the value of an
+attribute populated from a BridgePoint Builder model is not recommended.
+Changing the values of extended attributes, i.e., those that you have added to
+the default metamodel, is a normal part of system architecture development.</p>
+
+<h3><a name="0_pgfId-519084"></a>Class Instance Creation</h3>
+
+<p class=body><a name="0_pgfId-519085"></a>The <em><span style='font-size:11.0pt;
+font-family:"Courier New";color:black'>.create</span></em> statement supports
+creation of instances in the xtUML database:</p>
+
+<p class=indent><a name="0_pgfId-519086"></a><em><span style='font-family:"Courier New"'>.create
+object instance &lt;inst_ref_var&gt; of &lt;class_keyletters&gt;</span></em> </p>
+
+<p class=body><a name="0_pgfId-519087"></a>where</p>
+
+<p class=indent><a name="0_pgfId-519088"></a>&lt;inst_ref_var&gt; is an
+instance reference variable name that refers to the to-be created instance.</p>
+
+<p class=indent><a name="0_pgfId-519089"></a>&lt;class_keyletters&gt; are the
+keyletters of a metamodel class.</p>
+
+<p class=body><a name="0_pgfId-519090"></a><em><span style='font-family:Arial'>Note:</span></em>
+Great care should be taken when creating new instances of classes. New
+instances are stored persistently in the xtUML database. Note also that there
+is no way to delete such an instance.</p>
+
+<p class=body><a name="0_pgfId-519091"></a>Here are some examples:</p>
+
+<p class=body><a name="0_pgfId-519092"></a>To create an instance of <em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>O_OBJ</span></em>
+metamodel class:</p>
+
+<pre style='margin-left:47.5pt;vertical-align:baseline'><a name="0_pgfId-519093"></a><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>.create object instance class_inst of O_OBJ</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a name="0_pgfId-519094"></a><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>.assign class_inst.Name = &quot;foo&quot;</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a name="0_pgfId-519095"></a><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>.assign class_inst.Numb = 27</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a name="0_pgfId-519096"></a><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>.assign class_inst.Key_Lett = &quot;F&quot;</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a name="0_pgfId-519097"></a><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>.assign class_inst.Descrip = &quot;&quot;</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a name="0_pgfId-519098"></a><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>.// relate the instance to the subsystem</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a name="0_pgfId-519099"></a><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>.select any ss_inst from instances of S_SS</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a name="0_pgfId-519100"></a><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>.assign class_inst.ss_id = ss_inst.ss_id</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a name="0_pgfId-519129"></a><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'>&nbsp;<o:p></o:p></span></pre>
+
+<p class=body><a name="0_pgfId-519101"></a>To unrelate the instance (perhaps
+during translation initialization):</p>
+
+<pre style='margin-left:47.5pt;vertical-align:baseline'><a name="0_pgfId-519102"></a><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>.select any class_inst from instances of O_OBJ</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a name="0_pgfId-519103"></a><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>.assign class_inst.ss_id = 0</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre></div>
+
+</body>
+
+</html>

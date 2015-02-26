@@ -1,0 +1,13 @@
+org.xtuml.bp.ui.canvas/debug = false
+org.xtuml.bp.ui.canvas/debug/functions = false
+org.xtuml.bp.ui.canvas/debug/functions/filter = *
+org.xtuml.bp.ui.canvas/debug/bridges = false
+org.xtuml.bp.ui.canvas/debug/bridges/filter = *
+org.xtuml.bp.ui.canvas/debug/operations = false
+org.xtuml.bp.ui.canvas/debug/operations/filter = *
+org.xtuml.bp.ui.canvas/debug/states = false
+org.xtuml.bp.ui.canvas/debug/states/filter = *
+org.xtuml.bp.ui.canvas/debug/delete = false
+org.xtuml.bp.ui.canvas/debug/delete/filter = *
+org.xtuml.bp.ui.canvas/debug/consistency = false
+org.xtuml.bp.ui.canvas/debug/consistency/filter = *

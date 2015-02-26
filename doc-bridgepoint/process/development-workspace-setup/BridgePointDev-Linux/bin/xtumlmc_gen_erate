@@ -9,6 +9,6 @@ BP_VERSION="4.1.12"
 #
 # DO NOT MODIFY ANY OF THE FOLLOWING LINES
 #
-MC_BIN_DIR="${BP_HOME_DIR}/eclipse_extensions/BridgePoint/eclipse/plugins/com.mentor.nucleus.bp.mc.c.binary_${BP_VERSION}/mc3020/bin"
+MC_BIN_DIR="${BP_HOME_DIR}/eclipse_extensions/BridgePoint/eclipse/plugins/org.xtuml.bp.mc.c.binary_${BP_VERSION}/mc3020/bin"
 
 ${MC_BIN_DIR}/xtumlmc_build xtumlmc_gen_erate $*

@@ -1,0 +1,91 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("d7cb7080-b9cc-4d4d-83d9-28663ad47a0b",
+	'Communication in Communication',
+	1127,
+	'COMM_CIC',
+	'',
+	"80f3247a-4c81-49db-84c9-95a20af2ffaf");
+INSERT INTO O_REF
+	VALUES ("d7cb7080-b9cc-4d4d-83d9-28663ad47a0b",
+	"ebbaac7e-9a48-4ea6-bb48-c27b0d4b08c7",
+	0,
+	"3f61c8ce-f8cd-4e3c-bef6-9658890ae9df",
+	"837b151e-a3db-4edf-aa58-b415b131fc2b",
+	"714c3ca3-b38e-43cc-87ba-b672c00ccf19",
+	"bebdb2ee-81b7-4987-8705-5d52abf2fe76",
+	"03d77f5a-40e0-4a44-a122-e2e080cc2927",
+	"75445a5a-cd29-4969-a05a-ff2501f22ca0",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Communication',
+	'Package_ID',
+	'R1130');
+INSERT INTO R_RGO_PROXY
+	VALUES ("d7cb7080-b9cc-4d4d-83d9-28663ad47a0b",
+	"837b151e-a3db-4edf-aa58-b415b131fc2b",
+	"714c3ca3-b38e-43cc-87ba-b672c00ccf19",
+	'../Communication.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("3f61c8ce-f8cd-4e3c-bef6-9658890ae9df",
+	"ebbaac7e-9a48-4ea6-bb48-c27b0d4b08c7",
+	0,
+	"837b151e-a3db-4edf-aa58-b415b131fc2b",
+	"bebdb2ee-81b7-4987-8705-5d52abf2fe76",
+	'../Communication.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("03d77f5a-40e0-4a44-a122-e2e080cc2927",
+	"d7cb7080-b9cc-4d4d-83d9-28663ad47a0b",
+	"a5a1b94e-be2f-4750-bd58-cf1c2713558a",
+	"cf4966b0-706a-4373-a2ee-7e706918813c",
+	1,
+	'Package_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("a5a1b94e-be2f-4750-bd58-cf1c2713558a",
+	"cf4966b0-706a-4373-a2ee-7e706918813c",
+	'../../Element Packaging/Specification Package/Specification Package.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("03d77f5a-40e0-4a44-a122-e2e080cc2927",
+	"d7cb7080-b9cc-4d4d-83d9-28663ad47a0b",
+	"00000000-0000-0000-0000-000000000000",
+	'Package_ID',
+	'',
+	'',
+	'Package_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_ID
+	VALUES (0,
+	"d7cb7080-b9cc-4d4d-83d9-28663ad47a0b");
+INSERT INTO O_OIDA
+	VALUES ("03d77f5a-40e0-4a44-a122-e2e080cc2927",
+	"d7cb7080-b9cc-4d4d-83d9-28663ad47a0b",
+	0,
+	'Package_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"d7cb7080-b9cc-4d4d-83d9-28663ad47a0b");
+INSERT INTO O_ID
+	VALUES (2,
+	"d7cb7080-b9cc-4d4d-83d9-28663ad47a0b");
+INSERT INTO S_SS_PROXY
+	VALUES ("80f3247a-4c81-49db-84c9-95a20af2ffaf",
+	'Communication',
+	'// This is used by schema_gen to ignore this subsystem (for publication)
+TRANSLATE_FOR_EXTERNAL_USE:FALSE',
+	'COMM',
+	1125,
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
+	'../Communication.xtuml');

@@ -1,0 +1,176 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("8cb48a40-d8df-4000-8e14-a5b29713a75a",
+	'Custom Field Label',
+	8,
+	'W_CFL',
+	'In some cases the default label for a field is not descriptive, and the translation
+technology doesn''t give us the flexibility to output the desired label.  This class specifies
+what the label contents is for those cases.  The label contents can be any legal Java
+expression that results in a String.
+
+The instances of this class are generated if the parse keyword Label<n> (n=1,2)
+exists in the CME function.  Label1 is used for the first and Label2 is
+used for the second ''select related by where'' with a USER bridge invocation in 
+the where clause.  There are only two needed at this time.',
+	"22fe2ec1-5660-4a88-9691-da2fe55e94db");
+INSERT INTO O_REF
+	VALUES ("8cb48a40-d8df-4000-8e14-a5b29713a75a",
+	"6cd96a2c-b51f-4e92-b37c-2428cd7e32be",
+	0,
+	"4c94265d-daa3-4745-8afe-da985c2ac419",
+	"5e5983df-c7cc-4bf6-8f62-3bbb9cfd91c8",
+	"37ae1af8-4f12-45d6-b72a-80bc1d843a6e",
+	"c1f5ad88-a06f-4826-813c-f283246e89d6",
+	"b8445e79-df3e-484a-8fd8-de87304d3b93",
+	"9191db0b-8894-4781-add3-5e22de5b9a7a",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Field',
+	'Name',
+	'R2014');
+INSERT INTO R_RGO_PROXY
+	VALUES ("8cb48a40-d8df-4000-8e14-a5b29713a75a",
+	"5e5983df-c7cc-4bf6-8f62-3bbb9cfd91c8",
+	"37ae1af8-4f12-45d6-b72a-80bc1d843a6e",
+	'../Context Menu.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("4c94265d-daa3-4745-8afe-da985c2ac419",
+	"6cd96a2c-b51f-4e92-b37c-2428cd7e32be",
+	0,
+	"5e5983df-c7cc-4bf6-8f62-3bbb9cfd91c8",
+	"c1f5ad88-a06f-4826-813c-f283246e89d6",
+	'../Context Menu.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("b8445e79-df3e-484a-8fd8-de87304d3b93",
+	"8cb48a40-d8df-4000-8e14-a5b29713a75a",
+	"4c94265d-daa3-4745-8afe-da985c2ac419",
+	"6cd96a2c-b51f-4e92-b37c-2428cd7e32be",
+	1,
+	'Name');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("4c94265d-daa3-4745-8afe-da985c2ac419",
+	"6cd96a2c-b51f-4e92-b37c-2428cd7e32be",
+	'../Field/Field.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("b8445e79-df3e-484a-8fd8-de87304d3b93",
+	"8cb48a40-d8df-4000-8e14-a5b29713a75a",
+	"00000000-0000-0000-0000-000000000000",
+	'Name',
+	'',
+	'',
+	'Name',
+	0,
+	"e9939872-4e30-45f7-852c-a44e7f299f8a",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("e9939872-4e30-45f7-852c-a44e7f299f8a",
+	"1078c098-0f8e-425b-9cfb-5e5d9fbff920",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("8cb48a40-d8df-4000-8e14-a5b29713a75a",
+	"6cd96a2c-b51f-4e92-b37c-2428cd7e32be",
+	0,
+	"e3ff73b0-5a71-48a9-ac4f-0540c51dafcd",
+	"5e5983df-c7cc-4bf6-8f62-3bbb9cfd91c8",
+	"37ae1af8-4f12-45d6-b72a-80bc1d843a6e",
+	"c1f5ad88-a06f-4826-813c-f283246e89d6",
+	"6641b1c9-2609-4801-93c6-61d932358580",
+	"a79e241a-c05b-4bf3-a0a6-7cc00b5b01b7",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Field',
+	'Step_ID',
+	'R2014');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("e3ff73b0-5a71-48a9-ac4f-0540c51dafcd",
+	"6cd96a2c-b51f-4e92-b37c-2428cd7e32be",
+	0,
+	"5e5983df-c7cc-4bf6-8f62-3bbb9cfd91c8",
+	"c1f5ad88-a06f-4826-813c-f283246e89d6",
+	'../Context Menu.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("6641b1c9-2609-4801-93c6-61d932358580",
+	"8cb48a40-d8df-4000-8e14-a5b29713a75a",
+	"a126e1b9-5f5a-44bf-91b9-3f1423dab2b3",
+	"f78b9fb9-2a33-4bee-9d69-666052aa2b92",
+	1,
+	'Step_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("a126e1b9-5f5a-44bf-91b9-3f1423dab2b3",
+	"f78b9fb9-2a33-4bee-9d69-666052aa2b92",
+	'../Step/Step.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("6641b1c9-2609-4801-93c6-61d932358580",
+	"8cb48a40-d8df-4000-8e14-a5b29713a75a",
+	"b8445e79-df3e-484a-8fd8-de87304d3b93",
+	'Step_ID',
+	'',
+	'',
+	'Step_ID',
+	0,
+	"e9939872-4e30-45f7-852c-a44e7f299f8a",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("2abd2033-9956-47cc-84eb-d7e9adfd3f05",
+	"8cb48a40-d8df-4000-8e14-a5b29713a75a");
+INSERT INTO O_BATTR
+	VALUES ("2abd2033-9956-47cc-84eb-d7e9adfd3f05",
+	"8cb48a40-d8df-4000-8e14-a5b29713a75a");
+INSERT INTO O_ATTR
+	VALUES ("2abd2033-9956-47cc-84eb-d7e9adfd3f05",
+	"8cb48a40-d8df-4000-8e14-a5b29713a75a",
+	"6641b1c9-2609-4801-93c6-61d932358580",
+	'Label',
+	'This is a Java expression that results in a String.  The results of the expression is
+passed to the label''s setText() method.
+',
+	'',
+	'Label',
+	0,
+	"ff27026a-9d91-4d3d-9c92-888e9483a31c",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("ff27026a-9d91-4d3d-9c92-888e9483a31c",
+	"1078c098-0f8e-425b-9cfb-5e5d9fbff920",
+	'string',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_ID
+	VALUES (0,
+	"8cb48a40-d8df-4000-8e14-a5b29713a75a");
+INSERT INTO O_OIDA
+	VALUES ("b8445e79-df3e-484a-8fd8-de87304d3b93",
+	"8cb48a40-d8df-4000-8e14-a5b29713a75a",
+	0,
+	'Name');
+INSERT INTO O_OIDA
+	VALUES ("6641b1c9-2609-4801-93c6-61d932358580",
+	"8cb48a40-d8df-4000-8e14-a5b29713a75a",
+	0,
+	'Step_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"8cb48a40-d8df-4000-8e14-a5b29713a75a");
+INSERT INTO O_ID
+	VALUES (2,
+	"8cb48a40-d8df-4000-8e14-a5b29713a75a");
+INSERT INTO S_SS_PROXY
+	VALUES ("22fe2ec1-5660-4a88-9691-da2fe55e94db",
+	'Context Menu',
+	'',
+	'CM_',
+	1,
+	"1078c098-0f8e-425b-9cfb-5e5d9fbff920",
+	"00000000-0000-0000-0000-000000100002",
+	'../Context Menu.xtuml');

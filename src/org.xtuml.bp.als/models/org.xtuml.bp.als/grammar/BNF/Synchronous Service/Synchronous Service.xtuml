@@ -1,0 +1,329 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("4080e1ea-24eb-4088-8582-abb7cc0a494b",
+	'Synchronous Service',
+	16,
+	'S_SYNC',
+	'A synchronous service (S_SYNC) is a method associated with the domain (S_DOM).  It can be thought of as a global function within the domain.  Synchronous services can be synchronously called from action specifications or used to provide a definition for bridge method  in another domain.
+
+This class is a duplicate of the class in the standard meta-model.  It is used
+to specify the processing for validating the sematics of a rule.',
+	"5edea08f-a6e1-4146-8e1c-0cade7a477c7");
+INSERT INTO O_NBATTR
+	VALUES ("108da47d-159a-411b-8006-6f3b83194aa5",
+	"4080e1ea-24eb-4088-8582-abb7cc0a494b");
+INSERT INTO O_BATTR
+	VALUES ("108da47d-159a-411b-8006-6f3b83194aa5",
+	"4080e1ea-24eb-4088-8582-abb7cc0a494b");
+INSERT INTO O_ATTR
+	VALUES ("108da47d-159a-411b-8006-6f3b83194aa5",
+	"4080e1ea-24eb-4088-8582-abb7cc0a494b",
+	"00000000-0000-0000-0000-000000000000",
+	'Sync_ID',
+	'',
+	'',
+	'Sync_ID',
+	0,
+	"0dd326a8-132b-40ba-821c-d4a3d3b8c88d",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("0dd326a8-132b-40ba-821c-d4a3d3b8c88d",
+	"c7485938-5b68-46c4-bc59-f0bb9c943851",
+	'unique_id',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("4080e1ea-24eb-4088-8582-abb7cc0a494b",
+	"2b57062c-49ef-4a81-a220-cf67b7fb920e",
+	0,
+	"48b541d8-cb2e-4382-85b2-61e8a9754078",
+	"edd49109-5653-4f9b-93b4-38d4b6be0984",
+	"316cb909-7129-467f-a65a-d2f6fbe8a94d",
+	"f0d56513-9afa-474f-9bf6-50e79763d7f1",
+	"b3530c15-8b63-4d56-97ae-35960d59aca1",
+	"617e48a7-f216-423c-bfa5-421e2b31b55e",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Domain',
+	'Dom_ID',
+	'R23');
+INSERT INTO R_RGO_PROXY
+	VALUES ("4080e1ea-24eb-4088-8582-abb7cc0a494b",
+	"edd49109-5653-4f9b-93b4-38d4b6be0984",
+	"316cb909-7129-467f-a65a-d2f6fbe8a94d",
+	'../BNF.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("48b541d8-cb2e-4382-85b2-61e8a9754078",
+	"2b57062c-49ef-4a81-a220-cf67b7fb920e",
+	0,
+	"edd49109-5653-4f9b-93b4-38d4b6be0984",
+	"f0d56513-9afa-474f-9bf6-50e79763d7f1",
+	'../BNF.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("b3530c15-8b63-4d56-97ae-35960d59aca1",
+	"4080e1ea-24eb-4088-8582-abb7cc0a494b",
+	"48b541d8-cb2e-4382-85b2-61e8a9754078",
+	"2b57062c-49ef-4a81-a220-cf67b7fb920e",
+	1,
+	'Dom_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("48b541d8-cb2e-4382-85b2-61e8a9754078",
+	"2b57062c-49ef-4a81-a220-cf67b7fb920e",
+	'../Domain/Domain.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("b3530c15-8b63-4d56-97ae-35960d59aca1",
+	"4080e1ea-24eb-4088-8582-abb7cc0a494b",
+	"108da47d-159a-411b-8006-6f3b83194aa5",
+	'Dom_ID',
+	'',
+	'',
+	'Dom_ID',
+	0,
+	"73db19ab-e535-4718-ab07-668918299d9a",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("73db19ab-e535-4718-ab07-668918299d9a",
+	"c7485938-5b68-46c4-bc59-f0bb9c943851",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("669bfa25-f01a-47b7-b6d4-c910eb5397ca",
+	"4080e1ea-24eb-4088-8582-abb7cc0a494b");
+INSERT INTO O_BATTR
+	VALUES ("669bfa25-f01a-47b7-b6d4-c910eb5397ca",
+	"4080e1ea-24eb-4088-8582-abb7cc0a494b");
+INSERT INTO O_ATTR
+	VALUES ("669bfa25-f01a-47b7-b6d4-c910eb5397ca",
+	"4080e1ea-24eb-4088-8582-abb7cc0a494b",
+	"b3530c15-8b63-4d56-97ae-35960d59aca1",
+	'Name',
+	'',
+	'',
+	'Name',
+	0,
+	"8bc628ed-3494-4e74-bb6a-ec37622127df",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("8bc628ed-3494-4e74-bb6a-ec37622127df",
+	"c7485938-5b68-46c4-bc59-f0bb9c943851",
+	'string',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("bbba062b-43ab-4973-bd46-afd71d56e0f8",
+	"4080e1ea-24eb-4088-8582-abb7cc0a494b");
+INSERT INTO O_BATTR
+	VALUES ("bbba062b-43ab-4973-bd46-afd71d56e0f8",
+	"4080e1ea-24eb-4088-8582-abb7cc0a494b");
+INSERT INTO O_ATTR
+	VALUES ("bbba062b-43ab-4973-bd46-afd71d56e0f8",
+	"4080e1ea-24eb-4088-8582-abb7cc0a494b",
+	"669bfa25-f01a-47b7-b6d4-c910eb5397ca",
+	'Descrip',
+	'',
+	'',
+	'Descrip',
+	0,
+	"8bc628ed-3494-4e74-bb6a-ec37622127df",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("0da6d0d4-2e6e-4e7e-b290-9b57152f3068",
+	"4080e1ea-24eb-4088-8582-abb7cc0a494b");
+INSERT INTO O_BATTR
+	VALUES ("0da6d0d4-2e6e-4e7e-b290-9b57152f3068",
+	"4080e1ea-24eb-4088-8582-abb7cc0a494b");
+INSERT INTO O_ATTR
+	VALUES ("0da6d0d4-2e6e-4e7e-b290-9b57152f3068",
+	"4080e1ea-24eb-4088-8582-abb7cc0a494b",
+	"bbba062b-43ab-4973-bd46-afd71d56e0f8",
+	'Action_Semantics',
+	'',
+	'',
+	'Action_Semantics',
+	0,
+	"8bc628ed-3494-4e74-bb6a-ec37622127df",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("4080e1ea-24eb-4088-8582-abb7cc0a494b",
+	"d39db9ff-a0ab-418e-a79a-e750a206c64d",
+	0,
+	"c933bbe0-e3f3-4a48-9ad9-20aecc04454f",
+	"4a417bef-3e71-404d-80db-0a1b10c7fa6d",
+	"ea526674-2af7-417a-9756-4e98ed63ad67",
+	"2965877c-c5dc-448c-a6b5-48dd039b3be8",
+	"0d530d6e-8a35-400f-8079-40065cdbbb51",
+	"23779cf5-3021-4c69-ae79-98dfc4b17f49",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Data Type',
+	'DT_ID',
+	'R25');
+INSERT INTO R_RGO_PROXY
+	VALUES ("4080e1ea-24eb-4088-8582-abb7cc0a494b",
+	"4a417bef-3e71-404d-80db-0a1b10c7fa6d",
+	"ea526674-2af7-417a-9756-4e98ed63ad67",
+	'../BNF.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("c933bbe0-e3f3-4a48-9ad9-20aecc04454f",
+	"d39db9ff-a0ab-418e-a79a-e750a206c64d",
+	0,
+	"4a417bef-3e71-404d-80db-0a1b10c7fa6d",
+	"2965877c-c5dc-448c-a6b5-48dd039b3be8",
+	'../BNF.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("0d530d6e-8a35-400f-8079-40065cdbbb51",
+	"4080e1ea-24eb-4088-8582-abb7cc0a494b",
+	"c933bbe0-e3f3-4a48-9ad9-20aecc04454f",
+	"d39db9ff-a0ab-418e-a79a-e750a206c64d",
+	1,
+	'DT_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("c933bbe0-e3f3-4a48-9ad9-20aecc04454f",
+	"d39db9ff-a0ab-418e-a79a-e750a206c64d",
+	'../Data Type/Data Type.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("0d530d6e-8a35-400f-8079-40065cdbbb51",
+	"4080e1ea-24eb-4088-8582-abb7cc0a494b",
+	"0da6d0d4-2e6e-4e7e-b290-9b57152f3068",
+	'DT_ID',
+	'',
+	'',
+	'DT_ID',
+	0,
+	"73db19ab-e535-4718-ab07-668918299d9a",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("fc00184b-8f75-4083-80ad-0ef7503345ce",
+	"4080e1ea-24eb-4088-8582-abb7cc0a494b");
+INSERT INTO O_BATTR
+	VALUES ("fc00184b-8f75-4083-80ad-0ef7503345ce",
+	"4080e1ea-24eb-4088-8582-abb7cc0a494b");
+INSERT INTO O_ATTR
+	VALUES ("fc00184b-8f75-4083-80ad-0ef7503345ce",
+	"4080e1ea-24eb-4088-8582-abb7cc0a494b",
+	"0d530d6e-8a35-400f-8079-40065cdbbb51",
+	'Suc_Pars',
+	'Full Name: Successful Parse Indicator
+Description: Indicates the status of the parse for the bridge action specification in the attribute Action_Semantics
+Data Domain: 0=not parsed, 1 = parse successful, 2 = parse unsuccessful, 3 = parse on apply set but never been parsed
+',
+	'',
+	'Suc_Pars',
+	0,
+	"bfb63684-46c9-44bd-b4f5-e0ae6cd60407",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("bfb63684-46c9-44bd-b4f5-e0ae6cd60407",
+	"c7485938-5b68-46c4-bc59-f0bb9c943851",
+	'integer',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("4080e1ea-24eb-4088-8582-abb7cc0a494b",
+	"50596432-249d-4b43-b1db-deea1f96bd06",
+	1,
+	"ec0e39e1-c5ef-4371-9f8d-e9d89a7b15b8",
+	"dc0d3f1e-7dde-4fe5-ac15-8066f004334e",
+	"930464f8-a8e9-47ca-b81b-74b37a8cacaf",
+	"77ae854a-b9a7-429c-bb62-d3f4499d3743",
+	"cd0ec203-4d93-43e2-a4aa-eb8db7bc817a",
+	"bfb9ef27-abb1-4af3-bbdd-8065f029bd4a",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Rule',
+	'rule_name',
+	'R9');
+INSERT INTO R_RGO_PROXY
+	VALUES ("4080e1ea-24eb-4088-8582-abb7cc0a494b",
+	"dc0d3f1e-7dde-4fe5-ac15-8066f004334e",
+	"930464f8-a8e9-47ca-b81b-74b37a8cacaf",
+	'../BNF.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("ec0e39e1-c5ef-4371-9f8d-e9d89a7b15b8",
+	"50596432-249d-4b43-b1db-deea1f96bd06",
+	1,
+	"dc0d3f1e-7dde-4fe5-ac15-8066f004334e",
+	"77ae854a-b9a7-429c-bb62-d3f4499d3743",
+	'../BNF.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("cd0ec203-4d93-43e2-a4aa-eb8db7bc817a",
+	"4080e1ea-24eb-4088-8582-abb7cc0a494b",
+	"ec0e39e1-c5ef-4371-9f8d-e9d89a7b15b8",
+	"50596432-249d-4b43-b1db-deea1f96bd06",
+	1,
+	'rule_name');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("ec0e39e1-c5ef-4371-9f8d-e9d89a7b15b8",
+	"50596432-249d-4b43-b1db-deea1f96bd06",
+	'../Rule/Rule.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("cd0ec203-4d93-43e2-a4aa-eb8db7bc817a",
+	"4080e1ea-24eb-4088-8582-abb7cc0a494b",
+	"fc00184b-8f75-4083-80ad-0ef7503345ce",
+	'rule_name',
+	'',
+	'',
+	'rule_name',
+	0,
+	"73db19ab-e535-4718-ab07-668918299d9a",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("42c9ff17-be24-4e9b-8dff-fbed7f554337",
+	"4080e1ea-24eb-4088-8582-abb7cc0a494b");
+INSERT INTO O_BATTR
+	VALUES ("42c9ff17-be24-4e9b-8dff-fbed7f554337",
+	"4080e1ea-24eb-4088-8582-abb7cc0a494b");
+INSERT INTO O_ATTR
+	VALUES ("42c9ff17-be24-4e9b-8dff-fbed7f554337",
+	"4080e1ea-24eb-4088-8582-abb7cc0a494b",
+	"cd0ec203-4d93-43e2-a4aa-eb8db7bc817a",
+	'return_value',
+	'This is the name of the parameter that we return by default.
+
+',
+	'',
+	'return_value',
+	0,
+	"8bc628ed-3494-4e74-bb6a-ec37622127df",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"4080e1ea-24eb-4088-8582-abb7cc0a494b");
+INSERT INTO O_OIDA
+	VALUES ("108da47d-159a-411b-8006-6f3b83194aa5",
+	"4080e1ea-24eb-4088-8582-abb7cc0a494b",
+	0,
+	'Sync_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"4080e1ea-24eb-4088-8582-abb7cc0a494b");
+INSERT INTO O_ID
+	VALUES (2,
+	"4080e1ea-24eb-4088-8582-abb7cc0a494b");
+INSERT INTO S_SS_PROXY
+	VALUES ("5edea08f-a6e1-4146-8e1c-0cade7a477c7",
+	'BNF',
+	'',
+	'',
+	1,
+	"c7485938-5b68-46c4-bc59-f0bb9c943851",
+	"00000000-0000-0000-0000-000000100002",
+	'../BNF.xtuml');

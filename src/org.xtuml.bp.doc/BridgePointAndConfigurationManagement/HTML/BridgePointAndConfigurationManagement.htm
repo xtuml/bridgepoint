@@ -1,0 +1,917 @@
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=Generator content="Microsoft Word 14 (filtered)">
+<title>BridgePoint And Configuration Management</title>
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:Helvetica;
+	panose-1:2 11 6 4 2 2 2 2 2 4;}
+@font-face
+	{font-family:Helvetica;
+	panose-1:2 11 6 4 2 2 2 2 2 4;}
+@font-face
+	{font-family:Cambria;
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Tahoma;
+	panose-1:2 11 6 4 3 5 4 4 2 4;}
+@font-face
+	{font-family:"Lucida Grande";}
+@font-face
+	{font-family:Helvetica-Bold;}
+@font-face
+	{font-family:Times-Roman;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin-top:0in;
+	margin-right:0in;
+	margin-bottom:12.0pt;
+	margin-left:0in;
+	line-height:150%;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+h1
+	{mso-style-link:"Heading 1 Char";
+	margin-top:12.0pt;
+	margin-right:0in;
+	margin-bottom:3.0pt;
+	margin-left:0in;
+	line-height:150%;
+	page-break-after:avoid;
+	font-size:16.0pt;
+	font-family:"Times New Roman","serif";}
+h2
+	{mso-style-link:"Heading 2 Char";
+	margin-top:12.0pt;
+	margin-right:0in;
+	margin-bottom:3.0pt;
+	margin-left:0in;
+	line-height:150%;
+	page-break-after:avoid;
+	font-size:14.0pt;
+	font-family:"Times New Roman","serif";
+	font-style:italic;}
+h3
+	{mso-style-link:"Heading 3 Char";
+	margin-top:12.0pt;
+	margin-right:0in;
+	margin-bottom:3.0pt;
+	margin-left:0in;
+	line-height:150%;
+	page-break-after:avoid;
+	font-size:13.0pt;
+	font-family:"Times New Roman","serif";}
+p.MsoIndex1, li.MsoIndex1, div.MsoIndex1
+	{margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:10.0pt;
+	margin-bottom:.0001pt;
+	text-indent:-10.0pt;
+	line-height:150%;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+p.MsoIndex2, li.MsoIndex2, div.MsoIndex2
+	{margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:20.0pt;
+	margin-bottom:.0001pt;
+	text-indent:-10.0pt;
+	line-height:150%;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+p.MsoToc1, li.MsoToc1, div.MsoToc1
+	{margin-top:0in;
+	margin-right:0in;
+	margin-bottom:5.0pt;
+	margin-left:0in;
+	line-height:150%;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+p.MsoToc3, li.MsoToc3, div.MsoToc3
+	{margin-top:0in;
+	margin-right:0in;
+	margin-bottom:5.0pt;
+	margin-left:24.0pt;
+	line-height:150%;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+p.MsoNormalIndent, li.MsoNormalIndent, div.MsoNormalIndent
+	{margin-top:0in;
+	margin-right:0in;
+	margin-bottom:12.0pt;
+	margin-left:.5in;
+	line-height:150%;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+p.MsoList, li.MsoList, div.MsoList
+	{margin-top:0in;
+	margin-right:0in;
+	margin-bottom:12.0pt;
+	margin-left:.25in;
+	text-indent:-.25in;
+	line-height:150%;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+p.MsoListBullet, li.MsoListBullet, div.MsoListBullet
+	{margin-top:0in;
+	margin-right:0in;
+	margin-bottom:12.0pt;
+	margin-left:.25in;
+	text-indent:-.25in;
+	line-height:150%;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+p.MsoList2, li.MsoList2, div.MsoList2
+	{margin-top:0in;
+	margin-right:0in;
+	margin-bottom:12.0pt;
+	margin-left:.5in;
+	text-indent:-.25in;
+	line-height:150%;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+p.MsoListBullet2, li.MsoListBullet2, div.MsoListBullet2
+	{margin-top:0in;
+	margin-right:0in;
+	margin-bottom:12.0pt;
+	margin-left:.5in;
+	text-indent:-.25in;
+	line-height:150%;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+a:link, span.MsoHyperlink
+	{color:blue;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{color:purple;
+	text-decoration:underline;}
+p.MsoDocumentMap, li.MsoDocumentMap, div.MsoDocumentMap
+	{mso-style-link:"Document Map Char";
+	margin:0in;
+	margin-bottom:.0001pt;
+	line-height:150%;
+	font-size:8.0pt;
+	font-family:"Tahoma","sans-serif";}
+p.MsoAcetate, li.MsoAcetate, div.MsoAcetate
+	{mso-style-link:"Balloon Text Char";
+	margin:0in;
+	margin-bottom:.0001pt;
+	line-height:150%;
+	font-size:9.0pt;
+	font-family:"Lucida Grande";}
+p.MsoListParagraph, li.MsoListParagraph, div.MsoListParagraph
+	{margin-top:0in;
+	margin-right:0in;
+	margin-bottom:12.0pt;
+	margin-left:.5in;
+	line-height:150%;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+p.MsoTocHeading, li.MsoTocHeading, div.MsoTocHeading
+	{margin-top:24.0pt;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:0in;
+	margin-bottom:.0001pt;
+	line-height:115%;
+	page-break-after:avoid;
+	font-size:14.0pt;
+	font-family:"Cambria","serif";
+	color:#365F91;
+	font-weight:bold;}
+span.Heading1Char
+	{mso-style-name:"Heading 1 Char";
+	mso-style-link:"Heading 1";
+	font-family:"Cambria","serif";
+	color:#365F91;
+	font-weight:bold;}
+span.Heading2Char
+	{mso-style-name:"Heading 2 Char";
+	mso-style-link:"Heading 2";
+	font-family:"Cambria","serif";
+	color:#4F81BD;
+	font-weight:bold;}
+span.Heading3Char
+	{mso-style-name:"Heading 3 Char";
+	mso-style-link:"Heading 3";
+	font-family:"Cambria","serif";
+	color:#4F81BD;
+	font-weight:bold;}
+p.msolistcxspfirst, li.msolistcxspfirst, div.msolistcxspfirst
+	{mso-style-name:msolistcxspfirst;
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:.25in;
+	margin-bottom:.0001pt;
+	text-indent:-.25in;
+	line-height:150%;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+p.msolistcxspmiddle, li.msolistcxspmiddle, div.msolistcxspmiddle
+	{mso-style-name:msolistcxspmiddle;
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:.25in;
+	margin-bottom:.0001pt;
+	text-indent:-.25in;
+	line-height:150%;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+p.msolistcxsplast, li.msolistcxsplast, div.msolistcxsplast
+	{mso-style-name:msolistcxsplast;
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:12.0pt;
+	margin-left:.25in;
+	text-indent:-.25in;
+	line-height:150%;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+p.msolist2cxspfirst, li.msolist2cxspfirst, div.msolist2cxspfirst
+	{mso-style-name:msolist2cxspfirst;
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:.5in;
+	margin-bottom:.0001pt;
+	text-indent:-.25in;
+	line-height:150%;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+p.msolist2cxspmiddle, li.msolist2cxspmiddle, div.msolist2cxspmiddle
+	{mso-style-name:msolist2cxspmiddle;
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:.5in;
+	margin-bottom:.0001pt;
+	text-indent:-.25in;
+	line-height:150%;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+p.msolist2cxsplast, li.msolist2cxsplast, div.msolist2cxsplast
+	{mso-style-name:msolist2cxsplast;
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:12.0pt;
+	margin-left:.5in;
+	text-indent:-.25in;
+	line-height:150%;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+p.msolistbullet2cxspfirst, li.msolistbullet2cxspfirst, div.msolistbullet2cxspfirst
+	{mso-style-name:msolistbullet2cxspfirst;
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:.5in;
+	margin-bottom:.0001pt;
+	text-indent:-.25in;
+	line-height:150%;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+p.msolistbullet2cxspmiddle, li.msolistbullet2cxspmiddle, div.msolistbullet2cxspmiddle
+	{mso-style-name:msolistbullet2cxspmiddle;
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:.5in;
+	margin-bottom:.0001pt;
+	text-indent:-.25in;
+	line-height:150%;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+p.msolistbullet2cxsplast, li.msolistbullet2cxsplast, div.msolistbullet2cxsplast
+	{mso-style-name:msolistbullet2cxsplast;
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:12.0pt;
+	margin-left:.5in;
+	text-indent:-.25in;
+	line-height:150%;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+span.DocumentMapChar
+	{mso-style-name:"Document Map Char";
+	mso-style-link:"Document Map";
+	font-family:"Tahoma","sans-serif";}
+span.BalloonTextChar
+	{mso-style-name:"Balloon Text Char";
+	mso-style-link:"Balloon Text";
+	font-family:"Lucida Grande";}
+p.msolistparagraphcxspfirst, li.msolistparagraphcxspfirst, div.msolistparagraphcxspfirst
+	{mso-style-name:msolistparagraphcxspfirst;
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:.5in;
+	margin-bottom:.0001pt;
+	line-height:150%;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+p.msolistparagraphcxspmiddle, li.msolistparagraphcxspmiddle, div.msolistparagraphcxspmiddle
+	{mso-style-name:msolistparagraphcxspmiddle;
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:.5in;
+	margin-bottom:.0001pt;
+	line-height:150%;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+p.msolistparagraphcxsplast, li.msolistparagraphcxsplast, div.msolistparagraphcxsplast
+	{mso-style-name:msolistparagraphcxsplast;
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:12.0pt;
+	margin-left:.5in;
+	line-height:150%;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+p.NoSpacing, li.NoSpacing, div.NoSpacing
+	{mso-style-name:NoSpacing;
+	margin:0in;
+	margin-bottom:.0001pt;
+	line-height:150%;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+p.msochpdefault, li.msochpdefault, div.msochpdefault
+	{mso-style-name:msochpdefault;
+	margin-right:0in;
+	margin-left:0in;
+	font-size:10.0pt;
+	font-family:"Times New Roman","serif";}
+.MsoChpDefault
+	{font-size:10.0pt;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.25in 1.0in 1.25in;}
+div.WordSection1
+	{page:WordSection1;}
+ /* List Definitions */
+ ol
+	{margin-bottom:0in;}
+ul
+	{margin-bottom:0in;}
+-->
+</style>
+
+</head>
+
+<body lang=EN-US link=blue vlink=purple>
+
+<div class=WordSection1>
+
+<h1 align=center style='text-align:center;page-break-before:always'>&nbsp;</h1>
+
+<p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;text-autospace:none'><img width=277 height=90
+src="BridgePointAndConfigurationManagement_files/image001.png" align=left
+hspace=12
+alt="Description: C:\git\xtuml\internal\src\org.xtuml.bp.doc\BridgePointAndConfigurationManagement\HTML\BridgePointAndConfigurationManagement_files\image001.png"><b><span
+style='font-size:20.5pt;font-family:Helvetica-Bold'>&nbsp;</span></b></p>
+
+<p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;text-autospace:none'><b><span style='font-size:20.5pt;font-family:Helvetica-Bold'>&nbsp;</span></b></p>
+
+<p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;text-autospace:none'><b><span style='font-size:20.5pt;font-family:Helvetica-Bold'>&nbsp;</span></b></p>
+
+<p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;text-autospace:none'><b><span style='font-size:20.5pt;font-family:Helvetica-Bold'>&nbsp;</span></b></p>
+
+<p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;text-autospace:none'><b><span style='font-size:20.5pt;font-family:Helvetica-Bold'>&nbsp;</span></b></p>
+
+<p class=MsoNormal align=center style='margin-bottom:0in;margin-bottom:.0001pt;
+text-align:center;line-height:normal;text-autospace:none'><b><span
+style='font-size:20.0pt;font-family:Helvetica-Bold'>BridgePoint and Configuration
+Management Using Subversion </span></b></p>
+
+<p class=MsoNormal align=center style='margin-bottom:0in;margin-bottom:.0001pt;
+text-align:center;line-height:normal;text-autospace:none'><b><span
+style='font-size:20.5pt;font-family:Helvetica-Bold'>&nbsp;</span></b></p>
+
+<p class=MsoNormal align=center style='margin-bottom:0in;margin-bottom:.0001pt;
+text-align:center;line-height:normal;text-autospace:none'><b><span
+style='font-size:20.5pt;font-family:Helvetica-Bold'>&nbsp;</span></b></p>
+
+<p class=MsoNormal align=center style='margin-bottom:0in;margin-bottom:.0001pt;
+text-align:center;line-height:normal;text-autospace:none'><b><span
+style='font-size:20.0pt;font-family:Helvetica-Bold'>Application Note</span></b></p>
+
+<p class=MsoNormal align=center style='margin-bottom:0in;margin-bottom:.0001pt;
+text-align:center;line-height:normal;text-autospace:none'><b><span
+style='font-size:20.0pt;font-family:Helvetica-Bold'>&nbsp;</span></b></p>
+
+<p class=MsoNormal align=center style='margin-bottom:0in;margin-bottom:.0001pt;
+text-align:center;line-height:normal;text-autospace:none'><b><span
+style='font-size:20.0pt;font-family:Helvetica-Bold'>2011</span></b></p>
+
+<p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;text-autospace:none'><b><span style='font-size:13.0pt;font-family:Helvetica-Bold'>&nbsp;</span></b></p>
+
+<p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;text-autospace:none'><b><span style='font-size:13.0pt;font-family:Helvetica-Bold'>&nbsp;</span></b></p>
+
+<p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;text-autospace:none'><b><span style='font-size:13.0pt;font-family:Helvetica-Bold'>&nbsp;</span></b></p>
+
+<p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;text-autospace:none'><b><span style='font-size:13.0pt;font-family:Helvetica-Bold'>&nbsp;</span></b></p>
+
+<p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;text-autospace:none'><b><span style='font-size:13.0pt;font-family:Helvetica-Bold'>&nbsp;</span></b></p>
+
+<p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;text-autospace:none'><b><span style='font-size:13.0pt;font-family:Helvetica-Bold'>&nbsp;</span></b></p>
+
+<p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;text-autospace:none'><b><span style='font-size:13.0pt;font-family:Helvetica-Bold'>&nbsp;</span></b></p>
+
+<p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;text-autospace:none'><b><span style='font-size:13.0pt;font-family:Helvetica-Bold'>&nbsp;</span></b></p>
+
+<p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;text-autospace:none'><b><span style='font-size:13.0pt;font-family:Helvetica-Bold'>&nbsp;</span></b></p>
+
+<p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;text-autospace:none'><b><span style='font-size:13.0pt;font-family:Helvetica-Bold'>&nbsp;</span></b></p>
+
+<p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;text-autospace:none'><b><span style='font-size:13.0pt;font-family:Helvetica-Bold'>&nbsp;</span></b></p>
+
+<p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;text-autospace:none'><b><span style='font-size:13.0pt;font-family:Helvetica-Bold'>&nbsp;</span></b></p>
+
+<p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;text-autospace:none'><b><span style='font-size:13.0pt;font-family:Helvetica-Bold'>&nbsp;</span></b></p>
+
+<p class=MsoNormal align=center style='margin-bottom:30.0pt;text-align:center;
+line-height:normal;text-autospace:none'><b><span style='font-size:9.5pt;
+font-family:Helvetica-Bold'>Copyright </span></b><span style='font-size:9.5pt;
+font-family:"Helvetica","sans-serif"'>� </span><b><span style='font-size:9.5pt;
+font-family:Helvetica-Bold'>Mentor Graphics Corporation 2011 All rights reserved.
+</span></b></p>
+
+<p class=MsoNormal align=center style='margin-top:12.0pt;margin-right:0in;
+margin-bottom:6.0pt;margin-left:0in;text-align:center;line-height:115%;
+text-autospace:none'><span style='font-size:8.0pt;line-height:115%;font-family:
+Times-Roman'>This document contains information that is proprietary to Mentor Graphics
+Corporation. The original recipient of this document may duplicate this
+document in whole or in part for internal business purposes only, provided that
+this entire notice appears in all copies. In duplicating any part of this document,
+the recipient agrees to make every reasonable effort to prevent the unauthorized
+use and distribution of the proprietary information.</span></p>
+
+<p class=MsoNormal align=center style='margin-top:12.0pt;margin-right:0in;
+margin-bottom:6.0pt;margin-left:0in;text-align:center;line-height:normal;
+text-autospace:none'><span style='font-size:8.0pt;font-family:Times-Roman'>_________________________________________________________________________________________________</span></p>
+
+<p class=MsoTocHeading style='margin-bottom:14.0pt'>Table of Contents</p>
+
+<p class=MsoToc1><a href="#_Toc305435007">Glossary<span style='color:windowtext;
+display:none;text-decoration:none'>. 3</span></a></p>
+
+<p class=MsoToc1><a href="#_Toc305435008">Notation<span style='color:windowtext;
+display:none;text-decoration:none'>. 4</span></a></p>
+
+<p class=MsoToc1><a href="#_Toc305435009">BridgePoint and Configuration
+Management Using Subversion<span style='color:windowtext;display:none;
+text-decoration:none'>. 5</span></a></p>
+
+<p class=MsoToc3><a href="#_Toc305435010">Overview of the Recommended Process<span
+style='color:windowtext;display:none;text-decoration:none'>. 5</span></a></p>
+
+<p class=MsoToc3><a href="#_Toc305435011">A Configuration Management Repository<span
+style='color:windowtext;display:none;text-decoration:none'>. 6</span></a></p>
+
+<p class=MsoToc3><a href="#_Toc305435012">Configuring access to the CM
+Repository<span style='color:windowtext;display:none;text-decoration:none'>. 7</span></a></p>
+
+<p class=MsoToc3><a href="#_Toc305435013">Beginning a New Requirement<span
+style='color:windowtext;display:none;text-decoration:none'> 7</span></a></p>
+
+<p class=MsoToc3><a href="#_Toc305435014">Creating a Working Branch<span
+style='color:windowtext;display:none;text-decoration:none'>. 8</span></a></p>
+
+<p class=MsoToc3><a href="#_Toc305435015">Sharing a New Project<span
+style='color:windowtext;display:none;text-decoration:none'> 10</span></a></p>
+
+<p class=MsoToc3><a href="#_Toc305435016">Committing Changes.<span
+style='color:windowtext;display:none;text-decoration:none'> 10</span></a></p>
+
+<p class=MsoToc3><a href="#_Toc305435017">Merging changes into TRUNK<span
+style='color:windowtext;display:none;text-decoration:none'>.. 12</span></a></p>
+
+<p class=MsoToc1><a href="#_Toc305435018">Key Files and Directories<span
+style='color:windowtext;display:none;text-decoration:none'>. 13</span></a></p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<h1 align=center style='margin-bottom:30.0pt;text-align:center;page-break-before:
+always'><a name="_Toc305435007">Glossary</a></h1>
+
+<p class=MsoNormal style='margin-left:103.5pt;text-indent:-103.5pt'>&nbsp; <b>Requirement</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; A concise statement of product requirement or defect.</p>
+
+<p class=MsoNormal style='margin-left:103.5pt;text-indent:-103.5pt'>&nbsp; <b>Branch</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;Same
+definition as for Version below, except that the file revisions in a branch
+(other than the latest branch, see below) are not considered part of the
+mainstream of file changes.&nbsp; Every file in a branch (again, except the
+latest branch) also has a 'root' revision.</p>
+
+<p class=MsoNormal style='margin-left:103.5pt;text-indent:-103.5pt'>&nbsp; <b>Working
+Branch</b>&nbsp;&nbsp; A branch with a name of the form: </p>
+
+<p class=MsoNormal style='margin-left:103.5pt;text-indent:-103.5pt'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+M&lt;milestone#&gt;-&lt;Dev-INITIALS&gt;-i&lt;Issue#&gt;</p>
+
+<p class=MsoNormal style='margin-left:103.5pt;text-indent:-103.5pt'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+All work for a given issue will be done and checked into this branch.</p>
+
+<p class=MsoNormal style='margin-left:103.5pt;text-indent:-103.5pt'>&nbsp; <b>Latest
+Branch</b>&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The branch that contains the
+latest qualified revision of each file in the project. New projects are started
+from the latest branch, so it is very important that all files added to it have
+been fully qualified. For example, in the SVN version control tool, the latest
+branch is called TRUNK.</p>
+
+<p class=MsoNormal style='margin-left:103.7pt;text-indent:-103.7pt'>&nbsp; <b>Revision</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; A multiple digit
+number applied to a specific file. Whereas a filename and path uniquely
+identifies a file; a filename, path and revision uniquely identify a file's
+contents at a specific moment in time. Revision numbers usually take the form
+'w.x'. If branched however, a file takes additional digits for example, in the
+SVN version control tool a file has two additional digits; 'w.x.y.z', where 'w
+and x' represent the simple two number revision that is the root of the branch
+for&nbsp; this file.</p>
+
+<p class=MsoNormal style='margin-left:103.5pt;text-indent:-103.5pt'>&nbsp; <b>Version</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; A named collection
+of files and their revision number that allows reconstitution of the state of
+the engineering database at a particular moment in time.</p>
+
+<h1><a name="_Toc305435008">Notation</a></h1>
+
+<p class=MsoNormal>&lt;RMB&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Right-Mouse Button</p>
+
+<p class=MsoNormal><b><span style='color:#1F497D'>&lt;Text-in-blue&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></b>A sequence of menu selections</p>
+
+<p class=MsoNormal>ALL CAPITALS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Common Subversion term</p>
+
+<h1 align=center style='text-align:center;page-break-before:always'><a
+name="_Toc305435009">BridgePoint and Configuration Management Using Subversion</a></h1>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>BridgePoint is designed to operate standalone with a single modeler
+or in a team environment where models are concurrently developed and shared.
+For small projects or individual modelers, the workspace, project and model
+export facilities of BridgePoint are sufficient to build an effective
+configuration management and archival process. However, for complex projects
+requiring a team of modelers, the most effective BridgePoint teams supplement
+the native capabilities of BridgePoint with software that provides design data
+management, requirement tracing and configuration management. Note,
+Requirements management and broader project-management topics are typically
+team and company specific, and therefore outside the scope of this document.
+However, your local BridgePoint technical representatives are trained in this
+area, and can offer advice on these subjects.</p>
+
+<p class=MsoNormal>This application note will focus on configuration
+management, which is the set of practices and software that allow multiple team
+members to simultaneously work without interference on a common set of model
+elements. Although the discussion is based on the capabilities of a Subversion
+(SVN) repository, the process and practices described are applicable to most
+applications of Configuration Management (CM) software. There are a range of
+software solutions that provide these additional capabilities, and BridgePoint
+is designed to work with all solutions that support the standard eclipse
+framework (TEAM interface). </p>
+
+<h3><a name="_Toc305435010">Overview of the Recommended Process</a></h3>
+
+<p class=MsoNormal>Central to the Recommended Process is the idea of Requirements-driven
+Model development.&nbsp; Under this approach, a project begins based on an
+identified set of requirements that must be satisfied at completion. Each
+requirement should represent a cohesive effort, whether it�s a new capability
+or the repair of a defect. &nbsp;Often, some of these requirements will involve
+resolving defects or issues present in earlier versions of the project. The
+collection of requirements are then selected one at a time on a priority basis,
+and assigned to a modeler. It is at this stage, that the CM process becomes
+involved. </p>
+
+<p class=MsoNormal>Once a requirement is assigned, the modeler will create a
+copy of the golden source, and place it in a work-in-progress area of the CM
+repository. It is common to call the golden source, the TRUNK version, and the
+work-in-progress copy, the BRANCH version. Modelers then introduce their
+changes to the BRANCH copy until the requirement is fully implemented and
+tested. In a team setting where multiple requirements are simultaneously being
+worked on, it is possible for the TRUNK version to change while other
+requirements are still under development. When this occurs, the working BRANCH
+for each of these in-progress requirements must be SYNCHRONIZED with the
+revised TRUNK version. This ensures that when a requirement is completed, the
+resulting BRANCH can be easily MERGED with the current TRUNK version. </p>
+
+<p class=MsoNormal>In the sections that follow, each of the BRANCH, SYNCHRONIZE
+and MERGE steps will be discussed in detail.</p>
+
+<h3><a name="_Toc305435011">A Configuration Management Repository</a></h3>
+
+<p class=MsoNormal style='text-autospace:none'>At the heart of any Configuration
+Management solution is the repository. The repository is a database that stores
+design data files, data on incremental changes to the source files, and
+comments documenting the designer�s intention/motivation for each change. In
+this article we assume that a repository server exists and has been configured
+to store TRUNK, BRANCH and TAG revisions. Our focus will be on the usage of
+TRUNK and BRANCH versions.</p>
+
+<p class=MsoNormal style='text-autospace:none'>Note that a CM Repository can be
+provided either locally through a file system repository or through a remote
+client-server solution. In general, we find that teams employing file system
+repositories often create network security, multi-user access and disaster
+recovery issues. Consequently, we discourage the use of file system
+Repositories, and in this article will only focus on interactions with a
+client-server SVN repository.</p>
+
+<h3 style='page-break-before:always'><a name="_Toc305435012">Configuring access
+to the CM Repository</a></h3>
+
+<p class=MsoNormal>When starting to work on a new requirement, it is
+recommended that the work be contained in a new workspace. With this new workspace,
+the modeler will need to configure access to the CM Repository before creating
+the work in progress BRANCH. To establish this connection, the following steps
+can be used:</p>
+
+<p class=MsoListBullet><span style='font-family:Symbol'>�</span><span
+style='font-size:7.0pt;line-height:150%'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><img width=381 height=479
+src="BridgePointAndConfigurationManagement_files/image002.jpg" align=left
+hspace=12
+alt="Description: C:\git\xtuml\internal\src\org.xtuml.bp.doc\BridgePointAndConfigurationManagement\HTML\BridgePointAndConfigurationManagement_files\image002.jpg">Add
+the SVN Repository perspective to your desktop. It is located under <b><span
+style='color:#1F497D'>Window &gt; Open Perspectives &gt; SVN Repository
+Exploring</span></b></p>
+
+<p class=MsoListBullet><span style='font-family:Symbol'>�</span><span
+style='font-size:7.0pt;line-height:150%'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Next click on the add repository location button <img border=0 width=29
+height=25 src="BridgePointAndConfigurationManagement_files/image003.png"
+alt="Description: C:\git\xtuml\internal\src\org.xtuml.bp.doc\BridgePointAndConfigurationManagement\HTML\BridgePointAndConfigurationManagement_files\image003.png">&nbsp;which
+will open a series of wizard windows.</p>
+
+<p class=MsoListBullet><span style='font-family:Symbol'>�</span><span
+style='font-size:7.0pt;line-height:150%'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Enter the key repository information including URL of the SVN Repository
+server, login credentials and Structure (on the Advanced Tab)</p>
+
+<p class=MsoNormal>When finished, the Repository window will populate with an
+explorer view of the current repository contents. Some teams employ separate repositories
+for select information. In such a case, each repository must be added using the
+steps above, and will appear in the explorer view as a separate tree. The
+Workspace is now ready to assemble the model elements impacted by the
+work-in-progress.</p>
+
+<h3><a name="_Toc305435013">Beginning a New Requirement</a></h3>
+
+<p class=MsoNormal>The first step in establishing the work-in-progress
+workspace is to create a requirement specific subfolder under the BRANCH
+section of the repository. The initial contents of the subfolder are a copy of
+the golden release contained in the TRUNK. The steps to create and populate the
+BRANCH subfolder are described in the section <b>Creating a Working Branch</b>.
+Note that many projects contain both legacy and original model content, and
+that each model data source uses a different series of steps to incorporate
+their data into the local workspace. Where legacy models are to be used, they
+will be CHECKED OUT from projects contained in subfolders under the BRANCH
+section of the repository. The steps necessary to <span style='text-transform:
+uppercase'>check out</span> these legacy models will be described in detail as
+part of the section titled <b>Branching a Project</b>. When it is necessary to
+augment legacy models with new models and projects, this new content is created
+in the BridgePoint workspace, and then SHARED with the repository. The steps to
+create and share new projects are described in the section titled <b>Sharing a
+New Project</b>.&nbsp;&nbsp; </p>
+
+<h3><a name="_Toc305435014">Creating a Working Branch</a></h3>
+
+<p class=MsoNormal>The work-in-progress BRANCH is a key mechanism to allow
+multiple requirements to be worked on simultaneously. A new BRANCH should be
+created for each requirement assigned to a developer, and the name of the
+BRANCH should uniquely identify the requirement and the principal Modeler. For
+the case where resolving a requirement requires spanning multiple releases, we
+recommend that the requirement be separated into multiple IDs and that each ID
+be unique to a release. In this way, requirement traceability can be
+maintained.&nbsp; </p>
+
+<p class=MsoNormal><img width=287 height=272
+src="BridgePointAndConfigurationManagement_files/image004.jpg" align=left
+hspace=12
+alt="Description: C:\git\xtuml\internal\src\org.xtuml.bp.doc\BridgePointAndConfigurationManagement\HTML\BridgePointAndConfigurationManagement_files\image004.jpg">The
+steps to creating a Working branch are:</p>
+
+<p class=MsoListParagraph style='text-indent:-.25in'><span style='font-family:
+Symbol'>�</span><span style='font-size:7.0pt;line-height:150%'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>In the SVN repository, select the golden source from the TRUNK and
+import it into the BridgePoint workspace using <b><span style='color:#1F497D'>&lt;RMB&gt;
+&gt; Check Out</span></b>.&nbsp; </p>
+
+<p class=MsoListParagraph style='text-indent:-.25in'><span style='font-family:
+Symbol'>�</span><span style='font-size:7.0pt;line-height:150%'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Next switch to the Model Explorer view and show history of the project
+using <b><span style='color:#1F497D'>&lt;RMB&gt;&gt;Team&gt;Show History</span></b></p>
+
+<p class=MsoListParagraph style='text-indent:-.25in'><span style='font-family:
+Symbol'>�</span><span style='font-size:7.0pt;line-height:150%'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>(Optional) Perform acceptance testing on the project to confirm
+integrity.</p>
+
+<p class=MsoListParagraph style='text-indent:-.25in'><span style='font-family:
+Symbol'>�</span><span style='font-size:7.0pt;line-height:150%'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Create a branch in the local workspace by selecting a specific revision
+in the History tab (see right) and then branching using <b><span
+style='color:#1F497D'>&lt;RMB&gt;&gt; Branch from</span></b> � </p>
+
+<p class=MsoListParagraph style='text-indent:-.25in'><span style='font-family:
+Symbol'>�</span><span style='font-size:7.0pt;line-height:150%'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><img width=369 height=395
+src="BridgePointAndConfigurationManagement_files/image005.png" align=left
+hspace=12
+alt="Description: C:\git\xtuml\internal\src\org.xtuml.bp.doc\BridgePointAndConfigurationManagement\HTML\BridgePointAndConfigurationManagement_files\image005.png">Complete
+the Branch popup dialog by identifying the BRANCH folder name and entering a
+comment that documents the intent behind this change to the repository. </p>
+
+<p class=MsoListParagraph style='text-indent:-.25in'><span style='font-family:
+Symbol'>�</span><span style='font-size:7.0pt;line-height:150%'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>These steps will be repeated for each project that is necessary for the
+work in progress.<br>
+<br>
+</p>
+
+<p class=MsoNormal>In the steps above, we mention the inclusion of a comment as
+part of the Branch operation. Inexperienced modeling teams often overlook this
+important step, and fail to maintain the integrity of the comment statement.
+Such a failure, in our experience, leads to a process with weaker requirements
+traceability, lower review effectiveness, and lower model quality.&nbsp; </p>
+
+<h3 style='page-break-before:always'><a name="_Toc305435015">Sharing a New
+Project</a></h3>
+
+<p class=MsoNormal><img width=345 height=347
+src="BridgePointAndConfigurationManagement_files/image006.jpg" align=left
+hspace=12
+alt="Description: C:\git\xtuml\internal\src\org.xtuml.bp.doc\BridgePointAndConfigurationManagement\HTML\BridgePointAndConfigurationManagement_files\image006.jpg">For
+the case where resolving a requirement requires introducing new model elements,
+a different procedure is required to create or extend the requirement subfolder
+in BRANCH. The steps for a New Project are:</p>
+
+<p class=MsoListParagraph style='text-indent:-.25in'><span style='font-family:
+Symbol'>�</span><span style='font-size:7.0pt;line-height:150%'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Create the new project in the local BridgePoint workspace <b><span
+style='color:#1F497D'>using File &gt; New &gt; xtUML Project</span></b> and
+then complete the entries of the New Project Wizard. </p>
+
+<p class=MsoListParagraph style='text-indent:-.25in'><span style='font-family:
+Symbol'>�</span><span style='font-size:7.0pt;line-height:150%'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Add the project to the BRANCH subfolder by selecting the project and <b><span
+style='color:#1F497D'>then &lt;RMB&gt;&gt; Team &gt; Share Project</span></b></p>
+
+<p class=MsoListParagraph style='text-indent:-.25in'><span style='font-family:
+Symbol'>�</span><span style='font-size:7.0pt;line-height:150%'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>This will bring up a window where the repository is selected, a path to
+the BRANCH subfolder, and a unique comment is provided. </p>
+
+<p class=MsoNormal>With the completion of the command, the Model Explorer view
+will show both the project name and the path to the SVN repository which will
+be used for CM control and comparison. </p>
+
+<h3><a name="_Toc305435016">Committing Changes.</a></h3>
+
+<p class=MsoNormal>Once the BRANCH folder is fully populated and the local
+projects under Configuration Management, the modeler can begin to enter changes
+that resolve the assigned requirement. As work progresses, the modeler will
+perform unit level testing, fixing all identified errors, and frequently COMMIT
+work to the BRANCH repository as part of the Disaster Prevention Plan. The
+frequency at which incremental changes should be committed is team specific,
+and often influenced by the team�s CM and Disaster Recovery practices. It is
+generally recommendation to commit the work when incremental change can no
+longer be described in three sentences or less. Also, it is a recommended
+practice that commits be grouped into cohesive change sets, and that priority
+is given to logical and functional change sets over esthetic change sets. </p>
+
+<p class=MsoNormal><img width=382 height=213
+src="BridgePointAndConfigurationManagement_files/image007.jpg" align=left
+hspace=12
+alt="Description: C:\git\xtuml\internal\src\org.xtuml.bp.doc\BridgePointAndConfigurationManagement\HTML\BridgePointAndConfigurationManagement_files\image007.jpg">The
+steps to committing changes involve </p>
+
+<p class=MsoListBullet><span style='font-family:Symbol'>�</span><span
+style='font-size:7.0pt;line-height:150%'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>In the Model Explorer select the appropriate project, and then <b><span
+style='color:#1F497D'>&lt;RMB&gt; &gt; Team &gt; Synchronize with Repository</span></b>.
+In Team Synchronizing view a tree of update and change candidates is produced. <br>
+<br>
+</p>
+
+<p class=MsoListBullet><img width=379 height=433
+src="BridgePointAndConfigurationManagement_files/image008.jpg" align=left
+hspace=15
+alt="Description: C:\git\xtuml\internal\src\org.xtuml.bp.doc\BridgePointAndConfigurationManagement\HTML\BridgePointAndConfigurationManagement_files\image008.jpg"><span
+style='font-family:Symbol'>�</span><span style='font-size:7.0pt;line-height:
+150%'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>If update
+candidates are found, then select each update analyze, and then if appropriate <b><span
+style='color:#1F497D'>&lt;RMB&gt;&gt;Update</span></b>. <br>
+Once all updates have been performed, repeat step above.</p>
+
+<p class=MsoListBullet><span style='font-family:Symbol'>�</span><span
+style='font-size:7.0pt;line-height:150%'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Review all changes that are candidates to be Committed.</p>
+
+<p class=MsoListBullet><span style='font-family:Symbol'>�</span><span
+style='font-size:7.0pt;line-height:150%'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Select the root node of a change to be accepted <b><span
+style='color:#1F497D'>and &lt;RMB&gt;&gt;Commit</span></b>� <br>
+Note that when a change is made to the project, its impact often extends across
+multiple files within the hierarchy. To maintain the integrity of the
+BridgePoint Workspace, all affected files must be committed as an atomic step. </p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<h3 style='page-break-before:always'><a name="_Toc305435017">Merging changes into
+TRUNK</a></h3>
+
+<p class=MsoNormal>Eventually the modeler will commit the final set of changes
+that complete the requirement. At this stage, a Final Model Review should be
+performed, and when accepted, the BRANCH is ready to be merged into the TRUNK branch.
+In general, the task of merging a requirement-driven branch with the main
+branch requires a broad understanding of the system.&nbsp; While this work can
+be done by the original modeler, often it is better to have another team member
+perform this work, as this activity can then act as a further inspection of the
+changes as they are merged into the system.&nbsp; This approach can also
+increase cross-functional knowledge within the team.</p>
+
+<p class=MsoNormal>The steps to performing a merge are very similar to the
+commit action described earlier. It involves using Team Synchronizing to
+identify differences between the BRANCH and the TRUNK version. Then select
+specific commits to incrementally construct a repository that contains all the
+changes. Note, that as with commit, it is essential that all files affected by
+a particular change be committed as a single group. This sequence is repeated
+until the BRANCH and TRUNK version no longer contain differences.&nbsp; </p>
+
+<h1 style='page-break-before:always'><a name="_Toc305435018">Key Files and
+Directories</a></h1>
+
+<p class=MsoNormal>When using BridgePoint to do Requirements-driven development,
+the key components that should be placed under CM control are the markings, the
+model, and the eclipse support files. The generated source code does not need
+to be controlled, as it is always available by compiling the model. Here is a
+sample of the files and directories that should be placed in revision control. </p>
+
+<p class=MsoListBullet style='margin-left:.5in'><span style='font-family:Symbol'>�</span><span
+style='font-size:7.0pt;line-height:150%'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>&lt;project name&gt; </p>
+
+<p class=MsoListBullet style='margin-left:.5in'><span style='font-family:Symbol'>�</span><span
+style='font-size:7.0pt;line-height:150%'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>.externalToolBuilders/ </p>
+
+<p class=MsoListBullet style='margin-left:.5in'><span style='font-family:Symbol'>�</span><span
+style='font-size:7.0pt;line-height:150%'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>gen/ </p>
+
+<p class=MsoListBullet style='margin-left:.5in'><span style='font-family:Symbol'>�</span><span
+style='font-size:7.0pt;line-height:150%'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>models/ </p>
+
+<p class=MsoListBullet style='margin-left:.5in'><span style='font-family:Symbol'>�</span><span
+style='font-size:7.0pt;line-height:150%'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>.project </p>
+
+<p class=MsoListBullet style='margin-left:.5in'><span style='font-family:Symbol'>�</span><span
+style='font-size:7.0pt;line-height:150%'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>.cproject</p>
+
+<p class=MsoNormal>Nearly all files (*.mark, *.c, *.h) under the gen/ folder
+should be CM controlled. There is one exception: the subdirectory
+code_generation/ and its contents should not. Therefore, be sure that the
+code_generation/ directory is empty before sharing, synchronizing or committing
+the project into a BRANCH or the TRUNK sub folder.</p>
+
+<h3>&nbsp;</h3>
+
+</div>
+
+</body>
+
+</html>

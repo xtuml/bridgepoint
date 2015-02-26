@@ -1,0 +1,8 @@
+drawRectangle(6351, 4777, 93, 34)
+drawRectangle(6351, 4809, 327, 156)
+drawText("«package»", 6457, 4816, true)
+drawText("+Test Nested FPK 2", 6405, 4875, true)
+drawRectangle(6824, 5250, 64, 24)
+drawRectangle(6824, 5272, 227, 205)
+drawText("«package»", 6879, 5279, true)
+drawText("+Unnamed Pack...", 6833, 5361, true)

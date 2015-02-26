@@ -1,0 +1,1024 @@
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("f021c5c6-f37d-4215-afe4-a3e777964197",
+	'Interface',
+	4001,
+	'C_I',
+	'',
+	"01aecea1-07ec-46e6-a719-cece731803c9");
+INSERT INTO O_TFR
+	VALUES ("102501dd-88ec-4527-ab52-eaabbd3c7749",
+	"f021c5c6-f37d-4215-afe4-a3e777964197",
+	'dispose',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+select many signals related by self->C_EP[R4003];
+for each signal in signals
+  unrelate self from signal across R4003;
+  signal.dispose();
+end for;
+select one id related by self->IP_IP[R4303];
+if(not_empty id)
+  unrelate self from id across R4303;
+end if;
+select one pe related by self->PE_PE[R8001];
+if (not_empty pe)
+  unrelate self from pe across R8001;
+  pe.dispose();
+end if;
+delete object instance self;',
+	1,
+	'',
+	"56b45cda-60fb-4e74-bcd2-fc12691b05e8");
+INSERT INTO S_DT_PROXY
+	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'void',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("56b45cda-60fb-4e74-bcd2-fc12691b05e8",
+	"f021c5c6-f37d-4215-afe4-a3e777964197",
+	'convertToInstance',
+	'A utility operation to cast an instance of this type to the
+instance datatype.
+
+Translate: native',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	1,
+	'return this;',
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_DT_PROXY
+	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'instance',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("73a6b126-7917-47ea-8fef-28f70e9bdce7",
+	"f021c5c6-f37d-4215-afe4-a3e777964197",
+	'get_compartment_text',
+	'',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	1,
+	'select many signaExProps related by self->C_EP[R4003]->C_AS[R4004]->C_EP[R4004];
+select many opExProps related by self->C_EP[R4003]->C_IO[R4004]->C_EP[R4004];
+result = "";
+if (param.comp_num == 1)
+  if (param.at == Justification::Center_in_X)
+    result = "«interface»";
+    result = result + GD::newline();
+    result = result + self.Name;
+  end if;
+elif(param.comp_num == 2)
+  if(((empty opExProps) and (not_empty signaExProps)) and
+  			(param.at == Justification::Center_in_X)) and (param.ent_num == 1)
+    if(not_empty signaExProps)
+      result = "signals" + GD::newline();
+    end if;
+  end if;
+  if(param.at == Justification::Left)
+    if(not_empty opExProps)
+      result = self.get_operation_compartment_text(entry_num: param.ent_num);
+    else
+      if(not_empty signaExProps) and (param.ent_num > 1)
+        result = self.get_signal_compartment_text(entry_num: param.ent_num);
+      end if;
+    end if;
+  end if;
+elif(param.comp_num == 3)
+  if(param.at == Justification::Center_in_X) and (param.ent_num == 1)
+    if(not_empty signaExProps)
+      result = "signals" + GD::newline();
+    end if;
+  end if;
+  if(param.at == Justification::Left) and (param.ent_num > 1)
+    return self.get_signal_compartment_text(entry_num: param.ent_num);
+  end if;
+end if;
+return result;',
+	1,
+	'',
+	"102501dd-88ec-4527-ab52-eaabbd3c7749");
+INSERT INTO O_TPARM
+	VALUES ("4aab5b27-bec7-475b-8d7d-dac2fbfc7075",
+	"73a6b126-7917-47ea-8fef-28f70e9bdce7",
+	'at',
+	"a9382bea-4a3f-43ec-9191-1f9f158b11a4",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("a9382bea-4a3f-43ec-9191-1f9f158b11a4",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'Justification',
+	'The Justification data type is used to specify text at a given location in a compartment.
+------------------------------------------------------------------------------
+Bridge:GD',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TPARM
+	VALUES ("c5d4afdf-869c-414e-b44e-3395b477e113",
+	"73a6b126-7917-47ea-8fef-28f70e9bdce7",
+	'ent_num',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"aa30efe5-4ca3-41be-883e-ec6205297c83",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'integer',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TPARM
+	VALUES ("aa30efe5-4ca3-41be-883e-ec6205297c83",
+	"73a6b126-7917-47ea-8fef-28f70e9bdce7",
+	'comp_num',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"4aab5b27-bec7-475b-8d7d-dac2fbfc7075",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'string',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("7ee72375-f5c8-4fc8-83cb-a7acce29a7da",
+	"f021c5c6-f37d-4215-afe4-a3e777964197",
+	'get_compartments',
+	'',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	1,
+	'select many asyncSignals related by self->C_EP[R4003]->C_AS[R4004];
+select many syncSignals related by self->C_EP[R4003]->C_IO[R4004];
+if(not_empty asyncSignals) and (not_empty syncSignals)
+  return 3;
+else
+  return 2;
+end if;',
+	1,
+	'',
+	"73a6b126-7917-47ea-8fef-28f70e9bdce7");
+INSERT INTO O_TFR
+	VALUES ("f3388d7d-6cda-459d-958c-c4ea67546916",
+	"f021c5c6-f37d-4215-afe4-a3e777964197",
+	'get_entries',
+	'',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	1,
+	'if(param.comp_num == 3)
+  select many sigs related by self->C_EP[R4003]->C_AS[R4004];
+  return cardinality sigs + 1;
+elif(param.comp_num == 2)
+  select many ops related by self->C_EP[R4003]->C_IO[R4004];
+  if(empty ops)
+    select many sigs related by self->C_EP[R4003]->C_AS[R4004];
+    if(not_empty sigs)
+      return cardinality sigs + 1;
+    end if;
+  end if;
+  return cardinality ops;
+end if;
+return 1;',
+	1,
+	'',
+	"7ee72375-f5c8-4fc8-83cb-a7acce29a7da");
+INSERT INTO O_TPARM
+	VALUES ("74febb66-0af9-48e5-b060-cbad571ef7db",
+	"f3388d7d-6cda-459d-958c-c4ea67546916",
+	'comp_num',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("678c416d-77aa-46fd-909d-c5687a36836b",
+	"f021c5c6-f37d-4215-afe4-a3e777964197",
+	'initialize',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'name = ::getUniqueInitialName( 
+    instance: self.convertToInstance(), 
+    candidateName: "Unnamed Interface" );
+success = ::getNewElementName(name:name,instance: self.convertToInstance(),validateName:true);    
+if ( success!="") 
+ self.Name=success;
+else 
+ self.dispose();
+end if;           ',
+	1,
+	'',
+	"7f3e321d-607b-4369-8030-11273bdae3c2");
+INSERT INTO O_TFR
+	VALUES ("530645c4-af1d-4cc6-9591-68b5103b3da6",
+	"f021c5c6-f37d-4215-afe4-a3e777964197",
+	'get_style',
+	'',
+	"6e636321-0fd1-4577-b185-e4d76b0d0c71",
+	1,
+	'return Style::Box;',
+	1,
+	'',
+	"1e65fdde-e216-42b1-9069-b128e2ba99a6");
+INSERT INTO S_DT_PROXY
+	VALUES ("6e636321-0fd1-4577-b185-e4d76b0d0c71",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'Style',
+	'The Style data type specifies the precise form a graphical element will take when drawn.
+--------------------------------------------------------------------------
+Bridge:GD',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("3c1f5f62-34ad-4e92-b906-61cc66035c43",
+	"f021c5c6-f37d-4215-afe4-a3e777964197",
+	'get_text_style',
+	'',
+	"6e636321-0fd1-4577-b185-e4d76b0d0c71",
+	1,
+	'return Style::None;',
+	1,
+	'',
+	"530645c4-af1d-4cc6-9591-68b5103b3da6");
+INSERT INTO O_TPARM
+	VALUES ("9e86ca42-e75e-49b1-b5e2-77f6239c9db8",
+	"3c1f5f62-34ad-4e92-b906-61cc66035c43",
+	'at',
+	"a9382bea-4a3f-43ec-9191-1f9f158b11a4",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("2b5f61f7-69f4-40f7-8936-9506cacff0c3",
+	"3c1f5f62-34ad-4e92-b906-61cc66035c43",
+	'ent_num',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"a04b6b68-42cf-4835-a26c-800cf872bdba",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("a04b6b68-42cf-4835-a26c-800cf872bdba",
+	"3c1f5f62-34ad-4e92-b906-61cc66035c43",
+	'comp_num',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"9e86ca42-e75e-49b1-b5e2-77f6239c9db8",
+	'');
+INSERT INTO O_TFR
+	VALUES ("188e9d6f-eadb-4ff9-a923-d73664ff3a07",
+	"f021c5c6-f37d-4215-afe4-a3e777964197",
+	'newExecutableProperty',
+	'',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	1,
+	'create object instance signal of C_EP;
+relate self to signal across R4003;
+select many references related by self->C_IR[R4012];
+if(param.asynchronous)
+ create object instance asignal of C_AS;
+ relate signal to asignal across R4004;
+ asignal.initialize();
+else
+ create object instance ssignal of C_IO;
+ relate signal to ssignal across R4004;
+ ssignal.initialize();
+end if;
+return signal.Id;',
+	1,
+	'',
+	"3ea48a0a-8577-4aea-bd7b-7747005454c4");
+INSERT INTO O_TPARM
+	VALUES ("30bc3a88-0a69-4bee-98d7-ecf36fac2322",
+	"188e9d6f-eadb-4ff9-a923-d73664ff3a07",
+	'asynchronous',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'boolean',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO S_DT_PROXY
+	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'unique_id',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("c06ebec1-4f10-46cc-8b9d-86bdbc4bfa9c",
+	"f021c5c6-f37d-4215-afe4-a3e777964197",
+	'get_operation_compartment_text',
+	'',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	1,
+	'result = "";
+index = 1;
+select any operation related by self->C_EP[R4003]->C_IO[R4004] where (selected.Previous_Id == GD::NULL_UNIQUE_ID());
+while (not_empty operation)
+  if(index == param.entry_num)
+    result = result + operation.Name;
+    result = result + "(";
+    parm_separator = "";
+    select any parameter related by operation->C_EP[R4004]->C_PP[R4006] where (selected.Previous_PP_Id == GD::NULL_UNIQUE_ID());
+    while (not_empty parameter)
+      result = result + parm_separator;
+      result = result + parameter.Name;
+      result = result + parameter.Dimensions;
+      result = result + ":";
+      select one dt related by parameter->S_DT[R4007];
+      if ( not_empty dt )
+        result = result + dt.Name;
+      else
+        result = result + ::getOrphanedElementName();
+      end if;
+      parm_separator = ", ";
+      select one parameter related by parameter->C_PP[R4021.''precedes''];
+    end while;
+    result = result + ")";
+    select one dt related by operation->S_DT[R4008];
+    result = result + ":" + dt.Name;
+    if dt.Name != "void"
+      result = result + operation.Return_Dimensions;
+    end if;
+    result = result + GD::newline();
+    return result;
+  end if;
+  index = index + 1;
+  select one operation related by operation->C_IO[R4019.''precedes''];
+end while;
+return "";
+',
+	1,
+	'',
+	"f3388d7d-6cda-459d-958c-c4ea67546916");
+INSERT INTO O_TPARM
+	VALUES ("1c3f4a33-836f-408b-ac9f-7796a34df83e",
+	"c06ebec1-4f10-46cc-8b9d-86bdbc4bfa9c",
+	'entry_num',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("1e65fdde-e216-42b1-9069-b128e2ba99a6",
+	"f021c5c6-f37d-4215-afe4-a3e777964197",
+	'get_signal_compartment_text',
+	'',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	1,
+	'result = "";
+// note that we must start at index 2 here.  The reason is that if we have any
+// signals we always reserve the first slot for the signals title
+index = 2;
+select any signal related by self->C_EP[R4003]->C_AS[R4004] where (selected.Previous_Id == GD::NULL_UNIQUE_ID());
+while (not_empty signal)
+  if(index == param.entry_num)
+    result = result + signal.Name;
+    result = result + "(";
+    parm_separator = "";
+    select any parameter related by signal->C_EP[R4004]->C_PP[R4006] where (selected.Previous_PP_Id == GD::NULL_UNIQUE_ID());
+    while (not_empty parameter)
+      result = result + parm_separator;
+      result = result + parameter.Name;
+      result = result + parameter.Dimensions;
+      result = result + ":";
+      select one dt related by parameter->S_DT[R4007];
+      if ( not_empty dt )
+        result = result + dt.Name;
+      else
+        result = result + ::getOrphanedElementName();
+      end if;
+      parm_separator = ", ";
+      select one parameter related by parameter->C_PP[R4021.''precedes''];
+    end while;
+    result = result + ")" + GD::newline();
+    return result;
+  end if;
+  index = index + 1;
+  select one signal related by signal->C_AS[R4020.''precedes''];
+end while;
+return "";',
+	1,
+	'',
+	"c06ebec1-4f10-46cc-8b9d-86bdbc4bfa9c");
+INSERT INTO O_TPARM
+	VALUES ("b66aaeeb-fc94-477f-a94c-2c13079e0616",
+	"1e65fdde-e216-42b1-9069-b128e2ba99a6",
+	'entry_num',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("7f3e321d-607b-4369-8030-11273bdae3c2",
+	"f021c5c6-f37d-4215-afe4-a3e777964197",
+	'hasEPWithDirection',
+	'',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'select any op related by self->C_EP[R4003]->C_IO[R4004] 
+							 	  where (selected.Direction == param.direction);
+select any sig related by self->C_EP[R4003]->C_AS[R4004]
+								  where (selected.Direction == param.direction);
+return not_empty op or not_empty sig;
+',
+	1,
+	'',
+	"3c1f5f62-34ad-4e92-b906-61cc66035c43");
+INSERT INTO O_TPARM
+	VALUES ("d06803a5-6130-4b22-aae5-ae4243049109",
+	"7f3e321d-607b-4369-8030-11273bdae3c2",
+	'direction',
+	"814a8f6f-2c12-497b-b693-a86916fdedf7",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("814a8f6f-2c12-497b-b693-a86916fdedf7",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'IFDirectionType',
+	'BridgePoint allows the user to specify communication direction of individual 
+elements in an interface as opposed to on the interface as a whole (which is 
+what UML does).  For example, in UML when an interface is specified as being 
+provided, all that interface''s operations are one way (from server to 
+client).  Likewise, when a interface is specified as being required, all the 
+operations are one way (from client to server).  In reality, interfaces are 
+not often like this. There is a mixture of client to server and server to 
+client in one interface.     This enum is used at the operation/signal level 
+to determine if it is to be used for client to server or server to client 
+communication.',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("3ea48a0a-8577-4aea-bd7b-7747005454c4",
+	"f021c5c6-f37d-4215-afe4-a3e777964197",
+	'initializeOrder',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// Alpha-sort the C_AS elements if they have not yet been ordered
+select many peers related by self->C_EP[R4003]->C_AS[R4004];
+if (cardinality peers > 1)
+    initialOrderingCheckPerformed = false;
+	select any head related by self->C_EP[R4003]->C_AS[R4004] where (selected.Id == GD::NULL_UNIQUE_ID());
+	endOfList = head;
+	loopCnt = 0;
+	for each peer in peers
+	  if ( not initialOrderingCheckPerformed)
+	    select one predecessor related by peer->C_AS[R4020.''precedes''];
+	    select one successor related by peer->C_AS[R4020.''succeeds''];
+	    initialOrderingCheckPerformed = true;
+	    if (not_empty  predecessor or not_empty  successor)
+	      // Already ordered
+	      break;
+	    end if;
+	    head = peer;
+	    endOfList = peer;
+	  end if;
+	  
+      if (loopCnt == 1)
+        if (peer.Name < head.Name)
+          relate peer to head across R4020.''precedes'';
+          endOfList = peer;
+        else
+          relate head to peer across R4020.''precedes'';
+          head = peer;
+        end if;
+      elif (loopCnt > 1)
+        insertPoint = head;
+        select one next related by head->C_AS[R4020.''succeeds''];
+        while (not_empty next)
+          if (next.Name < peer.Name)
+            break;
+          else
+            insertPoint = next;          
+            select one next related by next->C_AS[R4020.''succeeds''];
+          end if;
+        end while;
+        
+        if (empty next)
+          // New end of list
+          relate peer to endOfList across R4020.''precedes'';   
+          endOfList = peer;       
+        else
+          if ((insertPoint == head) and (peer.Name > head.Name))
+            // New head
+            relate head to peer across R4020.''precedes'';
+            head = peer;
+          else
+            unrelate next from insertPoint across R4020.''precedes'';
+            relate peer to insertPoint across R4020.''precedes'';
+            relate next to peer across R4020.''precedes'';
+          end if;          
+        end if;
+      end if;
+      
+      loopCnt = loopCnt + 1;
+	end for;
+end if;
+
+// Alpha-sort the C_IO elements if they have not yet been ordered
+select many ioPeers related by self->C_EP[R4003]->C_IO[R4004];
+if (cardinality ioPeers > 1)
+    initialOrderingCheckPerformed = false;
+	select any head related by self->C_EP[R4003]->C_IO[R4004] where (selected.Id == GD::NULL_UNIQUE_ID());
+	endOfList = head;
+	loopCnt = 0;
+	for each peer in ioPeers
+	  if ( not initialOrderingCheckPerformed)
+	    select one predecessor related by peer->C_IO[R4019.''precedes''];
+	    select one successor related by peer->C_IO[R4019.''succeeds''];
+	    initialOrderingCheckPerformed = true;
+	    if (not_empty  predecessor or not_empty  successor)
+	      // Already ordered
+	      break;
+	    end if;
+	    head = peer;
+	    endOfList = peer;
+	  end if;
+	  
+      if (loopCnt == 1)
+        if (peer.Name < head.Name)
+          relate peer to head across R4019.''precedes'';
+          endOfList = peer;
+        else
+          relate head to peer across R4019.''precedes'';
+          head = peer;
+        end if;
+      elif (loopCnt > 1)
+        insertPoint = head;
+        select one next related by head->C_IO[R4019.''succeeds''];
+        while (not_empty next)
+          if (next.Name < peer.Name)
+            break;
+          else
+            insertPoint = next;          
+            select one next related by next->C_IO[R4019.''succeeds''];
+          end if;
+        end while;
+        
+        if (empty next)
+          // New end of list
+          relate peer to endOfList across R4019.''precedes'';   
+          endOfList = peer;       
+        else
+          if ((insertPoint == head) and (peer.Name > head.Name))
+            // New head
+            relate head to peer across R4019.''precedes'';
+            head = peer;
+          else
+            unrelate next from insertPoint across R4019.''precedes'';
+            relate peer to insertPoint across R4019.''precedes'';
+            relate next to peer across R4019.''precedes'';
+          end if;          
+        end if;
+      end if;
+      
+      loopCnt = loopCnt + 1;
+	end for;
+end if;',
+	1,
+	'',
+	"678c416d-77aa-46fd-909d-c5687a36836b");
+INSERT INTO O_TFR
+	VALUES ("39bc07cc-1dd1-466a-9867-75441bc61401",
+	"f021c5c6-f37d-4215-afe4-a3e777964197",
+	'get_ooa_id',
+	'',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	1,
+	'return self.Id;',
+	1,
+	'',
+	"188e9d6f-eadb-4ff9-a923-d73664ff3a07");
+INSERT INTO O_TFR
+	VALUES ("d024f903-6559-4097-a5d3-14c889fe553f",
+	"f021c5c6-f37d-4215-afe4-a3e777964197",
+	'pasteInterfaceOperation',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select any iop from instances of C_IO where (selected.Id == param.id);
+if(not_empty iop)
+  select one existingEP related by iop->C_EP[R4004];
+  if(not_empty existingEP)
+    select one existing related by existingEP->C_I[R4003];
+    if(not_empty existing)
+      unrelate existing from existingEP across R4003;
+    end if;
+    relate existingEP to self across R4003;  
+    iop.Name = ::getUniqueInitialNameInParent(instance:iop.convertToInstance(),
+  						name:iop.Name, parent:self.convertToInstance());
+    self.addInterfaceOperationToOrder(id:iop.Id);
+  end if;
+end if;',
+	1,
+	'',
+	"39bc07cc-1dd1-466a-9867-75441bc61401");
+INSERT INTO O_TPARM
+	VALUES ("fea18f37-3309-418a-a63f-a4cd6327f42e",
+	"d024f903-6559-4097-a5d3-14c889fe553f",
+	'id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("df4446ef-776d-48f5-9d19-cebf906415e8",
+	"f021c5c6-f37d-4215-afe4-a3e777964197",
+	'addInterfaceOperationToOrder',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select any interfaceOperation from instances of C_IO
+                                                where (selected.Id == param.id);
+if(not_empty interfaceOperation)
+  ::changeNotificationEnablement(enabled:false);
+  select many peers related by self->C_EP[R4003]->C_IO[R4004];
+  for each peer in peers
+    if (peer != interfaceOperation)
+      select one predecessor related by peer->C_IO[R4019.''precedes''];
+      if (empty predecessor)
+        relate interfaceOperation to peer across R4019.''succeeds'';
+      end if;
+    end if;
+  end for;
+  ::changeNotificationEnablement(enabled:true);
+end if;
+',
+	1,
+	'',
+	"d024f903-6559-4097-a5d3-14c889fe553f");
+INSERT INTO O_TPARM
+	VALUES ("c892d661-65a9-4478-b964-9362d4b7924a",
+	"df4446ef-776d-48f5-9d19-cebf906415e8",
+	'id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("02340862-a81d-42f8-96eb-a21e627342e0",
+	"f021c5c6-f37d-4215-afe4-a3e777964197",
+	'pasteInterfaceSignal',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select any sig from instances of C_AS where (selected.Id == param.id);
+if(not_empty sig)
+  select one existingEP related by sig->C_EP[R4004];
+  if(not_empty existingEP)
+    select one existing related by existingEP->C_I[R4003];
+    if(not_empty existing)
+      unrelate existing from existingEP across R4003;
+    end if;
+    relate existingEP to self across R4003;
+    sig.Name = ::getUniqueInitialNameInParent(instance:sig.convertToInstance(),
+  						name:sig.Name, parent:self.convertToInstance());
+    self.addInterfaceSignalToOrder(id:sig.Id);
+  end if;  
+end if;',
+	1,
+	'',
+	"df4446ef-776d-48f5-9d19-cebf906415e8");
+INSERT INTO O_TPARM
+	VALUES ("293b6d9b-3e87-4097-b576-9c7e5afdbe80",
+	"02340862-a81d-42f8-96eb-a21e627342e0",
+	'id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("cd040bfe-d59b-4ad2-83e1-0d80e9d11a49",
+	"f021c5c6-f37d-4215-afe4-a3e777964197",
+	'addInterfaceSignalToOrder',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select any signal from instances of C_AS where (selected.Id == param.id);
+::changeNotificationEnablement(enabled:false);
+select many peers related by self->C_EP[R4003]->C_AS[R4004];
+for each peer in peers
+  if (peer != signal)
+    select one predecessor related by peer->C_AS[R4020.''precedes''];
+    if (empty predecessor)
+      relate signal to peer across R4020.''succeeds'';
+    end if;
+  end if;
+end for;
+::changeNotificationEnablement(enabled:true);',
+	1,
+	'',
+	"02340862-a81d-42f8-96eb-a21e627342e0");
+INSERT INTO O_TPARM
+	VALUES ("6832b334-1dc3-4306-a2cd-ff7508ff7930",
+	"cd040bfe-d59b-4ad2-83e1-0d80e9d11a49",
+	'id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("c155c509-03e3-466c-aff2-589244cfb2c8",
+	"f021c5c6-f37d-4215-afe4-a3e777964197",
+	'getPath',
+	'',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+// Data Type::getPath()
+path = "";
+if(param.includeSelf)
+  path = self.Name;
+end if;
+if(param.path != "")
+  path = path + "::" + param.path;
+end if;
+select one package related by self->PE_PE[R8001]->EP_PKG[R8000];
+select one component related by self->PE_PE[R8001]->C_C[R8003];
+isInGenericPackage = not_empty package or not_empty component;
+if isInGenericPackage
+  if not_empty package
+    path = package.getQualifiedName();
+  else
+    path = component.getQualifiedName();
+  end if;
+else
+  // not necessary or supported
+  return "";
+end if;
+return path;',
+	1,
+	'',
+	"cd040bfe-d59b-4ad2-83e1-0d80e9d11a49");
+INSERT INTO O_TPARM
+	VALUES ("165e0d2f-15b3-460f-83bb-ac00b9a281ae",
+	"c155c509-03e3-466c-aff2-589244cfb2c8",
+	'path',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("05f1b197-b1c0-4348-bccf-67a7bb2145ed",
+	"c155c509-03e3-466c-aff2-589244cfb2c8",
+	'includeSelf',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	0,
+	'',
+	"165e0d2f-15b3-460f-83bb-ac00b9a281ae",
+	'');
+INSERT INTO O_TFR
+	VALUES ("9d36ddbe-8916-41bc-8164-04af9f5ba9fc",
+	"f021c5c6-f37d-4215-afe4-a3e777964197",
+	'collectReferencesForSynchronization',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'/**
+ *  Collect any references that require synchronization support
+ */
+// only push synchronizations are support here
+if(param.syncType == SynchronizationType::Push)
+  select many interfaceReferences related by self->C_IR[R4012];
+  for each interfaceReference in interfaceReferences
+    interfaceReference.collectReferencesForSynchronization(
+                   referenceList:param.referenceList, syncType: param.syncType);
+  end for;
+end if;',
+	1,
+	'',
+	"c155c509-03e3-466c-aff2-589244cfb2c8");
+INSERT INTO O_TPARM
+	VALUES ("c52ef492-b704-469f-8f23-f6334c5fc4cf",
+	"9d36ddbe-8916-41bc-8164-04af9f5ba9fc",
+	'referenceList',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("8ae7c239-c18b-48fd-8f8d-a913561005e9",
+	"9d36ddbe-8916-41bc-8164-04af9f5ba9fc",
+	'syncType',
+	"f4e80333-d340-4a40-8bc6-49b5e3561daf",
+	0,
+	'',
+	"c52ef492-b704-469f-8f23-f6334c5fc4cf",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("f4e80333-d340-4a40-8bc6-49b5e3561daf",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'SynchronizationType',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("7f16eece-6595-4e3d-be9a-4f17d2b638a3",
+	"f021c5c6-f37d-4215-afe4-a3e777964197");
+INSERT INTO O_BATTR
+	VALUES ("7f16eece-6595-4e3d-be9a-4f17d2b638a3",
+	"f021c5c6-f37d-4215-afe4-a3e777964197");
+INSERT INTO O_ATTR
+	VALUES ("7f16eece-6595-4e3d-be9a-4f17d2b638a3",
+	"f021c5c6-f37d-4215-afe4-a3e777964197",
+	"44635175-f67f-45ac-b770-e504a0994153",
+	'Name',
+	'Full Name: Interface Name',
+	'',
+	'Name',
+	0,
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("4d1bb2f9-78cd-4800-ab7b-658e78639750",
+	"f021c5c6-f37d-4215-afe4-a3e777964197");
+INSERT INTO O_BATTR
+	VALUES ("4d1bb2f9-78cd-4800-ab7b-658e78639750",
+	"f021c5c6-f37d-4215-afe4-a3e777964197");
+INSERT INTO O_ATTR
+	VALUES ("4d1bb2f9-78cd-4800-ab7b-658e78639750",
+	"f021c5c6-f37d-4215-afe4-a3e777964197",
+	"7f16eece-6595-4e3d-be9a-4f17d2b638a3",
+	'Descrip',
+	'Full Name: Interface Description
+Description: A textual description of this provided interface.',
+	'',
+	'Descrip',
+	0,
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("f021c5c6-f37d-4215-afe4-a3e777964197",
+	"870ee36f-38fe-4fee-8572-806d3c15e993",
+	0,
+	"18d4ab27-a56f-448d-8ccb-03bb49d7f122",
+	"6d81c85f-4835-46ba-b11c-b452baf23d2b",
+	"e37cd613-2bf6-46d7-86a4-17378a0a4b4b",
+	"169c800f-8221-4cef-afe7-9e0ff72573ab",
+	"44635175-f67f-45ac-b770-e504a0994153",
+	"e593a8db-d002-4637-ade6-be59050b0305",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Interface Package',
+	'Package_ID',
+	'R4303');
+INSERT INTO R_RGO_PROXY
+	VALUES ("f021c5c6-f37d-4215-afe4-a3e777964197",
+	"6d81c85f-4835-46ba-b11c-b452baf23d2b",
+	"e37cd613-2bf6-46d7-86a4-17378a0a4b4b",
+	'../../Interface Package/Interface Package.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("18d4ab27-a56f-448d-8ccb-03bb49d7f122",
+	"870ee36f-38fe-4fee-8572-806d3c15e993",
+	0,
+	"6d81c85f-4835-46ba-b11c-b452baf23d2b",
+	"169c800f-8221-4cef-afe7-9e0ff72573ab",
+	'../../Interface Package/Interface Package.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("44635175-f67f-45ac-b770-e504a0994153",
+	"f021c5c6-f37d-4215-afe4-a3e777964197",
+	"a5a1b94e-be2f-4750-bd58-cf1c2713558a",
+	"cf4966b0-706a-4373-a2ee-7e706918813c",
+	1,
+	'Package_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("a5a1b94e-be2f-4750-bd58-cf1c2713558a",
+	"cf4966b0-706a-4373-a2ee-7e706918813c",
+	'../../Element Packaging/Specification Package/Specification Package.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("44635175-f67f-45ac-b770-e504a0994153",
+	"f021c5c6-f37d-4215-afe4-a3e777964197",
+	"15525823-13f2-4af0-8153-73e882dc2100",
+	'Package_ID',
+	'',
+	'',
+	'SpecificationPackage_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("f021c5c6-f37d-4215-afe4-a3e777964197",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	0,
+	"5776264f-c7e9-4abe-839f-24d0750e007c",
+	"08087bed-f0b1-4c84-b515-8662480ac484",
+	"eedd55d3-3d5a-4487-846f-0679190d61be",
+	"28f75ede-123b-4d84-8dcc-b0537a94aa4a",
+	"15525823-13f2-4af0-8153-73e882dc2100",
+	"cef2a4c6-9c29-4e6a-957d-3ee4758b4ad2",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Packageable Element',
+	'Element_ID',
+	'R8001');
+INSERT INTO R_RGO_PROXY
+	VALUES ("f021c5c6-f37d-4215-afe4-a3e777964197",
+	"08087bed-f0b1-4c84-b515-8662480ac484",
+	"eedd55d3-3d5a-4487-846f-0679190d61be",
+	'../../Packageable Element/Packageable Element.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	0,
+	"08087bed-f0b1-4c84-b515-8662480ac484",
+	"28f75ede-123b-4d84-8dcc-b0537a94aa4a",
+	'../../Packageable Element/Packageable Element.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("15525823-13f2-4af0-8153-73e882dc2100",
+	"f021c5c6-f37d-4215-afe4-a3e777964197",
+	"5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	0,
+	'Element_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	'../../Packageable Element/Packageable Element/Packageable Element.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("15525823-13f2-4af0-8153-73e882dc2100",
+	"f021c5c6-f37d-4215-afe4-a3e777964197",
+	"00000000-0000-0000-0000-000000000000",
+	'Id',
+	'',
+	'',
+	'Id',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"f021c5c6-f37d-4215-afe4-a3e777964197");
+INSERT INTO O_OIDA
+	VALUES ("15525823-13f2-4af0-8153-73e882dc2100",
+	"f021c5c6-f37d-4215-afe4-a3e777964197",
+	0,
+	'Id');
+INSERT INTO O_ID
+	VALUES (1,
+	"f021c5c6-f37d-4215-afe4-a3e777964197");
+INSERT INTO O_ID
+	VALUES (2,
+	"f021c5c6-f37d-4215-afe4-a3e777964197");
+INSERT INTO S_SS_PROXY
+	VALUES ("01aecea1-07ec-46e6-a719-cece731803c9",
+	'Component',
+	'// This is used by schema_gen to ignore this subsystem (for publication)
+TRANSLATE_FOR_EXTERNAL_USE:FALSE
+
+The component subsystem contains the classes necessary to capture the data
+required for modeling components.',
+	'C',
+	4000,
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
+	'../Component.xtuml');

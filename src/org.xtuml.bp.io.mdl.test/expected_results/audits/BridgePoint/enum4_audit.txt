@@ -1,0 +1,55 @@
+AUDIT RESULTS FOR DOMAIN enum4
+
+SUBSYSTEMS WITHOUT DESCRIPTIONS:
+Enumeration Four
+
+ENUMERATORS WITHOUT DESCRIPTIONS:
+color::red
+color::blue
+color::green
+color::orange
+color::purple
+color::black
+color::violet
+color::rouge
+
+EXTERNAL ENTITIES WITHOUT DESCRIPTIONS:
+External Entity Enum3
+External Entity Logger
+External Entity Architecture
+
+BRIDGES WITHOUT DESCRIPTIONS:
+External Entity Bridge Logger::LogFailure
+External Entity Bridge Logger::LogSuccess
+External Entity Bridge Logger::LogInfo
+External Entity Bridge Architecture::shutdown
+
+CLASSES WITHOUT DESCRIPTIONS:
+Class Enumeration Four::Object A
+Class Enumeration Four::Initialization Object
+
+ATTRIBUTES WITHOUT DESCRIPTIONS:
+Attribute Object A::oa_id
+Attribute Object A::color_one
+Attribute Object A::color_two
+Attribute Object A::current_state
+Attribute Initialization Object::current_state
+Attribute Initialization Object::id
+
+STATE MODELS WITHOUT DESCRIPTIONS:
+State Model Object A
+State Model Initialization Object
+
+EVENTS WITHOUT DESCRIPTIONS:
+Event OA1
+Event OA2
+Event INIT1
+
+EVENT DATA WITHOUT DESCRIPTIONS:
+Event Data Object A::color_one
+Event Data Object A::color_two
+
+ACTION SPECIFICATIONS WITHOUT DESCRIPTIONS:
+Object A::one
+Object A::two
+Initialization Object::Init

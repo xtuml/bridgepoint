@@ -1,0 +1,90 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("434b4f06-d6a1-4e0d-b884-f1f87cdaca3a",
+	'Function Package in Package',
+	21,
+	'S_FPIP',
+	'Function Package in Package represents Function Packages nested within other Function Packages.',
+	"703df30a-ee7e-44ec-a7cf-22d2171bb270");
+INSERT INTO O_REF
+	VALUES ("434b4f06-d6a1-4e0d-b884-f1f87cdaca3a",
+	"d824ae3e-c53c-448b-a2d3-5f986c7705f7",
+	0,
+	"0dbd6a1a-f57b-4432-8623-931a2704d33d",
+	"def446d8-684a-48c7-94e3-88ee4c3f8f1d",
+	"c848be1b-1720-4859-bde8-6feded6aa095",
+	"481369a7-800f-4721-b4f3-64b6decac895",
+	"b41e4af5-1a0f-4e1d-86d0-9b9030aab4eb",
+	"fda2ba6b-951c-44bd-8684-2f25fb454c3f",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Function Package',
+	'FunPack_ID',
+	'R30');
+INSERT INTO R_RGO_PROXY
+	VALUES ("434b4f06-d6a1-4e0d-b884-f1f87cdaca3a",
+	"def446d8-684a-48c7-94e3-88ee4c3f8f1d",
+	"c848be1b-1720-4859-bde8-6feded6aa095",
+	'../Domain.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("0dbd6a1a-f57b-4432-8623-931a2704d33d",
+	"d824ae3e-c53c-448b-a2d3-5f986c7705f7",
+	0,
+	"def446d8-684a-48c7-94e3-88ee4c3f8f1d",
+	"481369a7-800f-4721-b4f3-64b6decac895",
+	'../Domain.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("b41e4af5-1a0f-4e1d-86d0-9b9030aab4eb",
+	"434b4f06-d6a1-4e0d-b884-f1f87cdaca3a",
+	"0dbd6a1a-f57b-4432-8623-931a2704d33d",
+	"d824ae3e-c53c-448b-a2d3-5f986c7705f7",
+	1,
+	'FunPack_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("0dbd6a1a-f57b-4432-8623-931a2704d33d",
+	"d824ae3e-c53c-448b-a2d3-5f986c7705f7",
+	'../Function Package/Function Package.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("b41e4af5-1a0f-4e1d-86d0-9b9030aab4eb",
+	"434b4f06-d6a1-4e0d-b884-f1f87cdaca3a",
+	"00000000-0000-0000-0000-000000000000",
+	'FunPack_ID',
+	'',
+	'',
+	'FunPack_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_ID
+	VALUES (0,
+	"434b4f06-d6a1-4e0d-b884-f1f87cdaca3a");
+INSERT INTO O_OIDA
+	VALUES ("b41e4af5-1a0f-4e1d-86d0-9b9030aab4eb",
+	"434b4f06-d6a1-4e0d-b884-f1f87cdaca3a",
+	0,
+	'FunPack_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"434b4f06-d6a1-4e0d-b884-f1f87cdaca3a");
+INSERT INTO O_ID
+	VALUES (2,
+	"434b4f06-d6a1-4e0d-b884-f1f87cdaca3a");
+INSERT INTO S_SS_PROXY
+	VALUES ("703df30a-ee7e-44ec-a7cf-22d2171bb270",
+	'Domain',
+	'A domain (S_DOM) consists of one or more subsystems (S_SS) that each contain an information model that abstracts a portion of the data for the domain: classes (O_OBJ), associations (R_REL), etc.  Breaking a domain into subsystems allows the complexity of the domain to be more easily managed: 1) subsystems are components and can be checked out individually allowing parallelism in development of the models and 2) breaking up a domain into smaller units is easier to understand.  A subsystem is composed of classes that tend to cluster, i.e., they have few associations that span subsystem boundaries.  Inter-subsystem associations, communications, and accesses are captured in the Subsystem Relationship Model (SRM), Subsystem Communication Model (SCM), and Subsystem Access Model (SAM) respectively.',
+	'S',
+	1,
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000100002",
+	'../Domain.xtuml');

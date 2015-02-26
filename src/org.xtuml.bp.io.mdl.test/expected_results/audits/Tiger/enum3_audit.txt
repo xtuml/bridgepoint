@@ -1,0 +1,103 @@
+AUDIT RESULTS FOR DOMAIN enum3
+
+CLASSES WITHOUT IDENTIFIERS:
+Class Enum3::Initialization Object
+
+SUBSYSTEMS WITHOUT DESCRIPTIONS:
+Enum3
+
+FUNCTIONS WITHOUT DESCRIPTIONS:
+function1
+function2
+function3
+
+ENUMERATORS WITHOUT DESCRIPTIONS:
+color::red
+color::blue
+color::orange
+color::purple
+color::black
+color::violet
+color::rouge
+
+EXTERNAL ENTITIES WITHOUT DESCRIPTIONS:
+External Entity Logger
+External Entity Architecture
+External Entity Enum4
+
+BRIDGES WITHOUT DESCRIPTIONS:
+External Entity Bridge Logger::LogSuccess
+External Entity Bridge Logger::LogFailure
+External Entity Bridge Architecture::shutdown
+External Entity Bridge Enum4::bridge1
+External Entity Bridge Enum4::bridge2
+External Entity Bridge Enum4::bridge3
+
+CLASSES WITHOUT DESCRIPTIONS:
+Class Enum3::Object A
+Class Enum3::Initialization Object
+Class Enum3::Object B
+Class Enum3::Object C
+Class Enum3::Object D
+
+ATTRIBUTES WITHOUT DESCRIPTIONS:
+Attribute Object A::color_changer
+Attribute Object A::oa_id
+Attribute Object A::color_one
+Attribute Object A::color_two
+Attribute Object A::current_state
+Attribute Initialization Object::current_state
+Attribute Object B::color_changer
+Attribute Object B::ob_id
+Attribute Object B::color_one
+Attribute Object B::color_two
+Attribute Object B::current_state
+Attribute Object C::color_changer
+Attribute Object C::oc_id
+Attribute Object C::color_one
+Attribute Object C::color_two
+Attribute Object C::current_state
+Attribute Object D::color_changer
+Attribute Object D::od_id
+Attribute Object D::color_one
+Attribute Object D::color_two
+Attribute Object D::current_state
+
+OPERATIONS WITHOUT DESCRIPTIONS:
+Operation Object B::op1
+Operation Object B::op2
+Operation Object B::op3
+Operation Object C::op4
+Operation Object C::op5
+Operation Object C::op6
+
+STATE MODELS WITHOUT DESCRIPTIONS:
+State Model Object A
+State Model Initialization Object
+State Model Object B
+State Model Object C
+State Model Object D
+
+EVENTS WITHOUT DESCRIPTIONS:
+Event OA1
+Event OA2
+Event OA3
+Event INIT1
+Event OB1
+Event OB2
+Event OC1
+Event OD1
+Event OD2
+
+EVENT DATA WITHOUT DESCRIPTIONS:
+Event Data Object A::color_one
+Event Data Object A::color_two
+Event Data Object B::color_one
+Event Data Object B::color_two
+Event Data Object D::color_one
+Event Data Object D::color_two
+
+ACTION SPECIFICATIONS WITHOUT DESCRIPTIONS:
+Initialization Object::Init
+Object B::Instance Based Operations
+Object D::MDA

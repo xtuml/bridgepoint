@@ -1,0 +1,695 @@
+-- BP 7.1.6 content: Package syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO EP_PKG
+	VALUES ("371c2de3-bdfe-4dd6-9be9-989f15d53d20",
+	"cd173562-bce8-490b-b1bf-78444d01a391",
+	"cd173562-bce8-490b-b1bf-78444d01a391",
+	'External Entities',
+	'',
+	0);
+INSERT INTO GD_MD
+	VALUES ("8ccdd7f2-d5d3-4e32-b35a-20812966b9f5",
+	112,
+	"371c2de3-bdfe-4dd6-9be9-989f15d53d20",
+	108,
+	0,
+	0,
+	1,
+	1,
+	1,
+	12,
+	1,
+	0,
+	0,
+	0,
+	0,
+	0,
+	'3.4.4',
+	'TemplateProject::External Entities');
+INSERT INTO GD_GE
+	VALUES ("e7449cc8-c110-42bb-9193-f0d5db413510",
+	"8ccdd7f2-d5d3-4e32-b35a-20812966b9f5",
+	"c1b7c821-d436-44d1-a073-e125099f8cae",
+	12,
+	0,
+	'TemplateProject::External Entities::Time');
+INSERT INTO GD_SHP
+	VALUES ("e7449cc8-c110-42bb-9193-f0d5db413510");
+INSERT INTO GD_NCS
+	VALUES ("e7449cc8-c110-42bb-9193-f0d5db413510");
+INSERT INTO DIM_ND
+	VALUES (840.000000,
+	361.000000,
+	"e7449cc8-c110-42bb-9193-f0d5db413510");
+INSERT INTO DIM_GE
+	VALUES (4576.000000,
+	3400.000000,
+	"e7449cc8-c110-42bb-9193-f0d5db413510",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("e7449cc8-c110-42bb-9193-f0d5db413510",
+	1,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_GE
+	VALUES ("71ebb924-6ae9-4bd6-8f87-14462c54feb9",
+	"8ccdd7f2-d5d3-4e32-b35a-20812966b9f5",
+	"33f2f5b6-3700-485a-b0f0-8d501358f80b",
+	12,
+	0,
+	'TemplateProject::External Entities::Architecture');
+INSERT INTO GD_SHP
+	VALUES ("71ebb924-6ae9-4bd6-8f87-14462c54feb9");
+INSERT INTO GD_NCS
+	VALUES ("71ebb924-6ae9-4bd6-8f87-14462c54feb9");
+INSERT INTO DIM_ND
+	VALUES (240.000000,
+	108.000000,
+	"71ebb924-6ae9-4bd6-8f87-14462c54feb9");
+INSERT INTO DIM_GE
+	VALUES (4576.000000,
+	3136.000000,
+	"71ebb924-6ae9-4bd6-8f87-14462c54feb9",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("71ebb924-6ae9-4bd6-8f87-14462c54feb9",
+	1,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_GE
+	VALUES ("a3cffadc-135d-4add-beec-e626f3406c55",
+	"8ccdd7f2-d5d3-4e32-b35a-20812966b9f5",
+	"e80cd0e8-dd94-4991-a9f1-5ce58deb2d43",
+	12,
+	0,
+	'TemplateProject::External Entities::Logging');
+INSERT INTO GD_SHP
+	VALUES ("a3cffadc-135d-4add-beec-e626f3406c55");
+INSERT INTO GD_NCS
+	VALUES ("a3cffadc-135d-4add-beec-e626f3406c55");
+INSERT INTO DIM_ND
+	VALUES (372.000000,
+	216.000000,
+	"a3cffadc-135d-4add-beec-e626f3406c55");
+INSERT INTO DIM_GE
+	VALUES (4888.000000,
+	3136.000000,
+	"a3cffadc-135d-4add-beec-e626f3406c55",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("a3cffadc-135d-4add-beec-e626f3406c55",
+	1,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_DIA
+	VALUES ("8ccdd7f2-d5d3-4e32-b35a-20812966b9f5",
+	'',
+	1.000000,
+	4000.000000,
+	3000.000000,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_EE
+	VALUES ("c1b7c821-d436-44d1-a073-e125099f8cae",
+	'Time',
+	'The Time external entity provides date, timestamp, and timer related operations.',
+	'TIM',
+	"00000000-0000-0000-0000-000000000000",
+	'',
+	'Time',
+	1);
+INSERT INTO S_BRG
+	VALUES ("862b0677-aa93-41e0-ba6a-4a63a346d8f6",
+	"c1b7c821-d436-44d1-a073-e125099f8cae",
+	'current_date',
+	'',
+	1,
+	"ba5eda7a-def5-0000-0000-00000000000e",
+	'',
+	1,
+	'');
+INSERT INTO S_BRG
+	VALUES ("520b7b58-d1f2-4373-b368-e2f74a6898e4",
+	"c1b7c821-d436-44d1-a073-e125099f8cae",
+	'create_date',
+	'',
+	1,
+	"ba5eda7a-def5-0000-0000-00000000000e",
+	'',
+	1,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("a771ef2b-eced-4b74-b96e-3f7d2782e874",
+	"520b7b58-d1f2-4373-b368-e2f74a6898e4",
+	'second',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"6014e9dd-3ca5-4616-9b10-9ad7987302e2",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("b3c2d02b-6156-43a0-8d52-1fd26fb5f09f",
+	"520b7b58-d1f2-4373-b368-e2f74a6898e4",
+	'minute',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"76cae24b-99b9-4197-aff2-b6330dad91a3",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("76cae24b-99b9-4197-aff2-b6330dad91a3",
+	"520b7b58-d1f2-4373-b368-e2f74a6898e4",
+	'hour',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"35c401dd-53c8-42c2-84e9-edb4083aa753",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("35c401dd-53c8-42c2-84e9-edb4083aa753",
+	"520b7b58-d1f2-4373-b368-e2f74a6898e4",
+	'day',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("6014e9dd-3ca5-4616-9b10-9ad7987302e2",
+	"520b7b58-d1f2-4373-b368-e2f74a6898e4",
+	'month',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"b3c2d02b-6156-43a0-8d52-1fd26fb5f09f",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("ae89a858-5da8-4a4f-b5b9-cd3a5a043a90",
+	"520b7b58-d1f2-4373-b368-e2f74a6898e4",
+	'year',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"a771ef2b-eced-4b74-b96e-3f7d2782e874",
+	'');
+INSERT INTO S_BRG
+	VALUES ("285abb66-0605-40a3-b842-9d7c8a7a3d87",
+	"c1b7c821-d436-44d1-a073-e125099f8cae",
+	'get_second',
+	'',
+	1,
+	"ba5eda7a-def5-0000-0000-000000000002",
+	'',
+	1,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("3fab00c5-f30a-449e-ba38-80e8c85cd9dd",
+	"285abb66-0605-40a3-b842-9d7c8a7a3d87",
+	'date',
+	"ba5eda7a-def5-0000-0000-00000000000e",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BRG
+	VALUES ("47dc930a-fbec-4f5d-a787-6cfb4752b084",
+	"c1b7c821-d436-44d1-a073-e125099f8cae",
+	'get_minute',
+	'',
+	1,
+	"ba5eda7a-def5-0000-0000-000000000002",
+	'',
+	1,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("2d923241-2adf-4921-8cfe-43a9e385e133",
+	"47dc930a-fbec-4f5d-a787-6cfb4752b084",
+	'date',
+	"ba5eda7a-def5-0000-0000-00000000000e",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BRG
+	VALUES ("bf206c1b-28b8-4b97-9dfa-f6e4cc9800d8",
+	"c1b7c821-d436-44d1-a073-e125099f8cae",
+	'get_hour',
+	'',
+	1,
+	"ba5eda7a-def5-0000-0000-000000000002",
+	'',
+	1,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("ab95c0fc-7cf3-4d82-8685-9076901395f0",
+	"bf206c1b-28b8-4b97-9dfa-f6e4cc9800d8",
+	'date',
+	"ba5eda7a-def5-0000-0000-00000000000e",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BRG
+	VALUES ("c26bdad3-db9f-4ecc-a46f-e868cc9d6ebb",
+	"c1b7c821-d436-44d1-a073-e125099f8cae",
+	'get_day',
+	'',
+	1,
+	"ba5eda7a-def5-0000-0000-000000000002",
+	'',
+	1,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("024e1dcf-a5a6-4e9b-aaea-c3c9585eb27c",
+	"c26bdad3-db9f-4ecc-a46f-e868cc9d6ebb",
+	'date',
+	"ba5eda7a-def5-0000-0000-00000000000e",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BRG
+	VALUES ("f8483bf8-840f-45d2-b5ac-8de977e06f07",
+	"c1b7c821-d436-44d1-a073-e125099f8cae",
+	'get_month',
+	'',
+	1,
+	"ba5eda7a-def5-0000-0000-000000000002",
+	'',
+	1,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("cc6556a6-639a-4140-90c8-c256b7431bb6",
+	"f8483bf8-840f-45d2-b5ac-8de977e06f07",
+	'date',
+	"ba5eda7a-def5-0000-0000-00000000000e",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BRG
+	VALUES ("9ff85efb-17dd-448c-aa0b-3c9f7953ef82",
+	"c1b7c821-d436-44d1-a073-e125099f8cae",
+	'get_year',
+	'',
+	1,
+	"ba5eda7a-def5-0000-0000-000000000002",
+	'',
+	1,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("d9de5ae0-9fb9-4bff-85a2-9d6a035b5e7e",
+	"9ff85efb-17dd-448c-aa0b-3c9f7953ef82",
+	'date',
+	"ba5eda7a-def5-0000-0000-00000000000e",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BRG
+	VALUES ("9cbcdecc-79d8-4ef4-a6d1-cb1eee7c1254",
+	"c1b7c821-d436-44d1-a073-e125099f8cae",
+	'current_clock',
+	'',
+	1,
+	"ba5eda7a-def5-0000-0000-000000000010",
+	'',
+	1,
+	'');
+INSERT INTO S_BRG
+	VALUES ("1ee8b16e-0b87-4fba-9459-efdc90d08a03",
+	"c1b7c821-d436-44d1-a073-e125099f8cae",
+	'timer_start',
+	'This bridge operation starts a timer set to expire in the specified number of
+microseconds, generating the passed event upon expiration. Returns the instance
+handle of the timer.',
+	1,
+	"ba5eda7a-def5-0000-0000-00000000000f",
+	'',
+	1,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("7c4e6e16-7fb1-4abf-8da1-eadca8ef9619",
+	"1ee8b16e-0b87-4fba-9459-efdc90d08a03",
+	'microseconds',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"641af521-a90c-4992-a0ef-320912e74e9c",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("641af521-a90c-4992-a0ef-320912e74e9c",
+	"1ee8b16e-0b87-4fba-9459-efdc90d08a03",
+	'event_inst',
+	"ba5eda7a-def5-0000-0000-00000000000a",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BRG
+	VALUES ("322f4b39-aca0-4119-b796-4c668da0102a",
+	"c1b7c821-d436-44d1-a073-e125099f8cae",
+	'timer_start_recurring',
+	'This bridge operation starts a timer set to expire in the specified number of
+microseconds, generating the passed event upon expiration. Upon expiration, the
+timer will be restarted and fire again in the specified number of microseconds
+generating the passed event. This bridge operation returns the instance handle
+of the timer.',
+	1,
+	"ba5eda7a-def5-0000-0000-00000000000f",
+	'',
+	1,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("239ca3c3-510c-489c-b830-08d855df117d",
+	"322f4b39-aca0-4119-b796-4c668da0102a",
+	'microseconds',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"0c9d2b22-6c6e-46cd-ad99-435343f45d78",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("0c9d2b22-6c6e-46cd-ad99-435343f45d78",
+	"322f4b39-aca0-4119-b796-4c668da0102a",
+	'event_inst',
+	"ba5eda7a-def5-0000-0000-00000000000a",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BRG
+	VALUES ("b0ea4df8-0fec-4c92-9c9d-4a1646448248",
+	"c1b7c821-d436-44d1-a073-e125099f8cae",
+	'timer_remaining_time',
+	'Returns the time remaining (in microseconds) for the passed timer instance. If
+the timer has expired, a zero value is returned.',
+	1,
+	"ba5eda7a-def5-0000-0000-000000000002",
+	'',
+	1,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("a7060368-91bb-41a6-a162-eca50bcf6e63",
+	"b0ea4df8-0fec-4c92-9c9d-4a1646448248",
+	'timer_inst_ref',
+	"ba5eda7a-def5-0000-0000-00000000000f",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BRG
+	VALUES ("797745e6-d697-48da-9337-764451fb5b87",
+	"c1b7c821-d436-44d1-a073-e125099f8cae",
+	'timer_reset_time',
+	'This bridge operation attempts to set the passed existing timer to expire in
+the specified number of microseconds. If the timer exists (that is, it has not
+expired), a TRUE value is returned. If the timer no longer exists, a FALSE value
+is returned.',
+	1,
+	"ba5eda7a-def5-0000-0000-000000000001",
+	'',
+	1,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("a777854e-41f2-4b9b-bf6a-119005e8f2cb",
+	"797745e6-d697-48da-9337-764451fb5b87",
+	'timer_inst_ref',
+	"ba5eda7a-def5-0000-0000-00000000000f",
+	0,
+	'',
+	"aa745b03-92a7-4565-ab09-38345633e45c",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("aa745b03-92a7-4565-ab09-38345633e45c",
+	"797745e6-d697-48da-9337-764451fb5b87",
+	'microseconds',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BRG
+	VALUES ("0e8fe8c1-89ce-42a5-ab70-cd60b2d6047b",
+	"c1b7c821-d436-44d1-a073-e125099f8cae",
+	'timer_add_time',
+	'This bridge operation attempts to add the specified number of microseconds to a
+passed existing timer. If the timer exists (that is, it has not expired), a TRUE
+value is returned. If the timer no longer exists, a FALSE value is returned.',
+	1,
+	"ba5eda7a-def5-0000-0000-000000000001",
+	'',
+	1,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("25b5a52a-1c48-463d-834c-c880df7a175c",
+	"0e8fe8c1-89ce-42a5-ab70-cd60b2d6047b",
+	'timer_inst_ref',
+	"ba5eda7a-def5-0000-0000-00000000000f",
+	0,
+	'',
+	"c4c49235-ff88-451b-923d-c4bf2d024538",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("c4c49235-ff88-451b-923d-c4bf2d024538",
+	"0e8fe8c1-89ce-42a5-ab70-cd60b2d6047b",
+	'microseconds',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BRG
+	VALUES ("14732c81-489d-4e7c-a4de-033723d98da5",
+	"c1b7c821-d436-44d1-a073-e125099f8cae",
+	'timer_cancel',
+	'This bridge operation cancels and deletes the passed timer instance. If the 
+timer exists (that is, it had not expired), a TRUE value is returned. If the
+timer no longer exists, a FALSE value is returned.',
+	1,
+	"ba5eda7a-def5-0000-0000-000000000001",
+	'',
+	1,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("e2e9a209-3469-4724-bb2b-13216bf5576a",
+	"14732c81-489d-4e7c-a4de-033723d98da5",
+	'timer_inst_ref',
+	"ba5eda7a-def5-0000-0000-00000000000f",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO PE_PE
+	VALUES ("c1b7c821-d436-44d1-a073-e125099f8cae",
+	1,
+	"371c2de3-bdfe-4dd6-9be9-989f15d53d20",
+	"00000000-0000-0000-0000-000000000000",
+	5);
+INSERT INTO S_EE
+	VALUES ("33f2f5b6-3700-485a-b0f0-8d501358f80b",
+	'Architecture',
+	'',
+	'ARCH',
+	"00000000-0000-0000-0000-000000000000",
+	'',
+	'Architecture',
+	1);
+INSERT INTO S_BRG
+	VALUES ("d5e551c5-6d06-4225-8e73-cefc34bc279c",
+	"33f2f5b6-3700-485a-b0f0-8d501358f80b",
+	'shutdown',
+	'',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000000",
+	'control stop;',
+	1,
+	'');
+INSERT INTO PE_PE
+	VALUES ("33f2f5b6-3700-485a-b0f0-8d501358f80b",
+	1,
+	"371c2de3-bdfe-4dd6-9be9-989f15d53d20",
+	"00000000-0000-0000-0000-000000000000",
+	5);
+INSERT INTO S_EE
+	VALUES ("e80cd0e8-dd94-4991-a9f1-5ce58deb2d43",
+	'Logging',
+	'',
+	'LOG',
+	"00000000-0000-0000-0000-000000000000",
+	'',
+	'Logging',
+	1);
+INSERT INTO S_BRG
+	VALUES ("f378f3d2-1c10-4952-b85f-060fa7dcfa95",
+	"e80cd0e8-dd94-4991-a9f1-5ce58deb2d43",
+	'LogSuccess',
+	'',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000000",
+	'',
+	1,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("e575eac2-812d-4ad5-a6fe-fa72c294179b",
+	"f378f3d2-1c10-4952-b85f-060fa7dcfa95",
+	'message',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BRG
+	VALUES ("93b3029b-078a-4b91-87dd-294e6656b479",
+	"e80cd0e8-dd94-4991-a9f1-5ce58deb2d43",
+	'LogFailure',
+	'',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000000",
+	'',
+	1,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("e1491924-4dbd-491b-8272-cf010f0c6e9c",
+	"93b3029b-078a-4b91-87dd-294e6656b479",
+	'message',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BRG
+	VALUES ("241f381d-21ce-4e3a-9d4b-a70599252514",
+	"e80cd0e8-dd94-4991-a9f1-5ce58deb2d43",
+	'LogInfo',
+	'',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000000",
+	'',
+	1,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("33e1f18a-8690-4223-8da6-4f70498c4a4c",
+	"241f381d-21ce-4e3a-9d4b-a70599252514",
+	'message',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BRG
+	VALUES ("e34eacee-6679-41fd-9a12-afbe04d6f4ee",
+	"e80cd0e8-dd94-4991-a9f1-5ce58deb2d43",
+	'LogDate',
+	'',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000000",
+	'',
+	1,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("60ea0fed-60cd-4f77-97ff-4711d628aa64",
+	"e34eacee-6679-41fd-9a12-afbe04d6f4ee",
+	'd',
+	"ba5eda7a-def5-0000-0000-00000000000e",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("b4b83cf6-3603-40e7-a858-125ed7147919",
+	"e34eacee-6679-41fd-9a12-afbe04d6f4ee",
+	'message',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"60ea0fed-60cd-4f77-97ff-4711d628aa64",
+	'');
+INSERT INTO S_BRG
+	VALUES ("74de26c6-e4a2-4d15-99a4-a84ec1517318",
+	"e80cd0e8-dd94-4991-a9f1-5ce58deb2d43",
+	'LogTime',
+	'',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000000",
+	'',
+	1,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("d4dac1b7-f86f-4e99-9b2b-d1c9c8af3d34",
+	"74de26c6-e4a2-4d15-99a4-a84ec1517318",
+	't',
+	"ba5eda7a-def5-0000-0000-000000000010",
+	0,
+	'',
+	"bf4a219e-14b6-4348-9822-2bbdd42d839f",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("bf4a219e-14b6-4348-9822-2bbdd42d839f",
+	"74de26c6-e4a2-4d15-99a4-a84ec1517318",
+	'message',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BRG
+	VALUES ("0167fa2f-e821-4272-81a3-f9ec38018945",
+	"e80cd0e8-dd94-4991-a9f1-5ce58deb2d43",
+	'LogReal',
+	'',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000000",
+	'',
+	1,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("5b6578c5-14f3-4f33-9a99-ffed28dcd409",
+	"0167fa2f-e821-4272-81a3-f9ec38018945",
+	'r',
+	"ba5eda7a-def5-0000-0000-000000000003",
+	0,
+	'',
+	"4ce0dda2-c3f5-46b3-a415-81e013ddeb27",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("4ce0dda2-c3f5-46b3-a415-81e013ddeb27",
+	"0167fa2f-e821-4272-81a3-f9ec38018945",
+	'message',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BRG
+	VALUES ("03901545-c5c0-4819-b9df-39f50f67ae19",
+	"e80cd0e8-dd94-4991-a9f1-5ce58deb2d43",
+	'LogInteger',
+	'',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000000",
+	'',
+	1,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("66c49bba-2513-4c41-8002-1f4c53e306a5",
+	"03901545-c5c0-4819-b9df-39f50f67ae19",
+	'message',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO PE_PE
+	VALUES ("e80cd0e8-dd94-4991-a9f1-5ce58deb2d43",
+	1,
+	"371c2de3-bdfe-4dd6-9be9-989f15d53d20",
+	"00000000-0000-0000-0000-000000000000",
+	5);
+INSERT INTO PE_PE
+	VALUES ("371c2de3-bdfe-4dd6-9be9-989f15d53d20",
+	1,
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000",
+	7);
+INSERT INTO S_SYS_PROXY
+	VALUES ("cd173562-bce8-490b-b1bf-78444d01a391",
+	'TemplateProject',
+	1,
+	'../TemplateProject.xtuml');

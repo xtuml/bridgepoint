@@ -1,0 +1,278 @@
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=Generator content="Microsoft Word 14 (filtered)">
+<title>Sequence Diagram</title>
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:SimSun;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:SimSun;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:"\@SimSun";
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:Consolas;
+	panose-1:2 11 6 9 2 2 4 3 2 4;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+h2
+	{mso-style-link:"Heading 2 Char";
+	margin-right:0in;
+	margin-left:0in;
+	line-height:15.6pt;
+	font-size:12.0pt;
+	font-family:"Arial","sans-serif";
+	color:navy;
+	font-weight:bold;}
+h3
+	{mso-style-link:"Heading 3 Char";
+	margin-right:0in;
+	margin-bottom:2.4pt;
+	margin-left:0in;
+	font-size:11.0pt;
+	font-family:"Arial","sans-serif";
+	color:navy;
+	font-weight:bold;}
+h4
+	{mso-style-link:"Heading 4 Char";
+	margin-top:7.5pt;
+	margin-right:7.5pt;
+	margin-bottom:2.4pt;
+	margin-left:7.5pt;
+	font-size:11.0pt;
+	font-family:"Arial","sans-serif";
+	color:#0176B9;
+	font-weight:bold;}
+p.MsoPlainText, li.MsoPlainText, div.MsoPlainText
+	{mso-style-link:"Plain Text Char";
+	margin:0in;
+	margin-bottom:.0001pt;
+	font-size:10.0pt;
+	font-family:"Courier New";}
+p
+	{margin:7.5pt;
+	font-size:10.0pt;
+	font-family:"Times New Roman","serif";}
+span.Heading2Char
+	{mso-style-name:"Heading 2 Char";
+	mso-style-link:"Heading 2";
+	font-family:"Cambria","serif";
+	color:#4F81BD;
+	font-weight:bold;}
+span.Heading3Char
+	{mso-style-name:"Heading 3 Char";
+	mso-style-link:"Heading 3";
+	font-family:"Cambria","serif";
+	color:#4F81BD;
+	font-weight:bold;}
+span.Heading4Char
+	{mso-style-name:"Heading 4 Char";
+	mso-style-link:"Heading 4";
+	font-family:"Cambria","serif";
+	color:#4F81BD;
+	font-weight:bold;
+	font-style:italic;}
+span.PlainTextChar
+	{mso-style-name:"Plain Text Char";
+	mso-style-link:"Plain Text";
+	font-family:"Consolas","serif";}
+.MsoChpDefault
+	{font-size:10.0pt;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.25in 1.0in 1.25in;}
+div.WordSection1
+	{page:WordSection1;}
+-->
+</style>
+
+</head>
+
+<body lang=EN-US>
+
+<div class=WordSection1>
+
+<h2>Communication Diagram</h2>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Many
+of the following definitions of were derived in part from descriptions and
+definitions in <i>The Unified Modeling Language Reference Manual</i>, Second
+Edition; and <i>UML Distilled</i>, Third Edition.</span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Communications
+diagrams describe data link interactions between model elements.  Communication
+diagrams are informal in the sense that they do not impose</span><span
+style='font-family:"Arial","sans-serif"'> behavior on formal diagrams such as
+the instance and class state machine diagrams.  However certain elements on
+communication diagrams, such as instances, external entities, classes and
+function packages may be formalized by specifying counterparts in other, formal
+diagrams.  Formalized elements display the properties of their counterparts. 
+Communication diagrams may be placed in domain and subsystem packages or nested
+inside other communication diagrams.</span></p>
+
+<h3>Instance</h3>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>An
+Instance represents a single instance of a class.  The instance may be formal
+or informal.</span></p>
+
+<h4>Graphical Notation</h4>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>An
+Instance is represented by a rectangle.  Each instance has two compartments
+separated by a single line.  The top compartment contains the name of the
+instance, followed by a colon and then the name of the Class it is formalized
+to if it is formal, or the text ‘Informal Class’ if it is informal.  The bottom
+compartment contains a list of the attributes of the class.</span></p>
+
+<h3>Actor</h3>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>An
+actor is an abstraction of a role played by an element that can be either
+external or internal to the domain.  Actors may be named and may have lifelines
+attached to them.  On Sequence diagrams actors are always informal.  </span></p>
+
+<h4>Graphical Notation</h4>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>An
+actor is represented as a stick figure man symbol.  The name of the actor is
+displayed below the stick figure.</span></p>
+
+<h3>External Entity</h3>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>An
+external entity is an abstraction of functionality external to the domain.  On
+communication diagrams external entities may be formal or informal.</span></p>
+
+<h4>Graphical Notation</h4>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>An
+external entity is represented by a rectangle.  Each external entity has two
+compartments separated by a double line.  If the external entity is informal
+the top compartment displays the informal name of the external entity.  If the
+external entity is formalized, the top compartment contains the name of the
+domain containing the external entity, two colons, the name of the package containing
+the external entity, two more colons and the formal name.  The bottom
+compartment contains a list of the external entity’s operations.</span></p>
+
+<h3>Class</h3>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>A
+class abstracts the common characteristics of a set of instances that share the
+same attributes, operations, associations and behavior.  On communication
+diagrams classes may be formal or informal. </span></p>
+
+<h4>Graphical Notation</h4>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>A
+class is represented by a rectangle with three compartments.  If the class is
+informal the first compartment contains the informal class name, the second a
+list of the informal attributes of the class and the third a list of the
+messages received by the class. If the class is formal the contents of the
+three compartments are derived from the counterpart class.</span></p>
+
+<h3>Function Package</h3>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>A
+function package contains functions.  Functions are sets of activities,
+represented in OAL (Object Action Language) that are associated with, and
+global to, the domain that contains them. On sequence diagrams function
+packages may be formal or informal.</span></p>
+
+<h4>Graphical Notation</h4>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>A
+function package is represented by a large rectangle with a smaller rectangle
+attached to the top left of the larger one.  If the package is informal the
+large rectangle contains the stereotype &lt;&lt;function&gt;&gt; and the
+informal name of the package.  If the package is formal the large rectangle
+contains the stereotype &lt;&lt;function&gt;&gt; plus a line of text with the
+name of the domain that contains the counterpart package, two colons, and the
+formal name of the function package.</span></p>
+
+<h3>Link</h3>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>A
+link abstracts an association that allows elements to exchange messages.  Links
+may start from and end in instances, actors, external entities, classes or
+function packages.  On communication diagrams links are always informal.     </span></p>
+
+<h4>Graphical Notation</h4>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>A
+link is represented as a thin solid line between elements.  End visibility may
+be toggled on or off at either the starting element or terminating element end
+of the link.  End visibility is represented as an open arrow head.  Also, if
+the elements on each end of the link are formalized instances, the link may be
+formalized as well.</span></p>
+
+<h3>Asynchronous Message</h3>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>An
+asynchronous message abstracts the notification of a significant occurrence
+sent along a link to a model element.  Asynchronous messages imply that the
+source elements continue processing as soon as the message is sent; they do not
+wait for a return message.  On communications diagrams, asynchronous messages
+may be either formal or informal.  In order for an asynchronous message to be
+eligible for formalization, the target of the message must be a formalized
+instance.</span></p>
+
+<h4>Graphical Notation</h4>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>An
+asynchronous message is represented by a thin solid line terminated on the
+destination element with an open arrow head.  A formalized message is adorned
+with a floating text box containing the event label, a colon, and the event
+meaning.</span></p>
+
+<h3>Synchronous Message</h3>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>A
+synchronous message abstracts the notification of a significant occurrence sent
+along a link to a model element.  Synchronous messages imply that the source
+elements suspend processing until the message is consumed by the destination
+element and control is returned to the source element.  On communications
+diagrams, synchronous messages may be either formal or informal.  In order for
+a synchronous message to be eligible for formalization, the target of the
+message must be one of the following: a formalized external entity, a class
+containing class operations, or a class instance of a class containing instance
+operations.</span></p>
+
+<h4>Graphical Notation</h4>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>A
+synchronous message is represented by a thin solid line terminated on the
+destination element with a solid arrow head.  A formalized message is adorned
+with a floating text box containing the name of the formalizing operation.</span></p>
+
+<h3>Return Message</h3>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>A
+return message abstracts the notification to a source element that a message
+has been consumed by the destination element and that processing control is
+returned to the source element.  On communication diagrams return messages are
+always informal.</span></p>
+
+<h4>Graphical Notation</h4>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>A
+return message is represented by a thin dashed line terminated with an open
+arrow head.</span></p>
+
+<p class=MsoPlainText>&nbsp;</p>
+
+</div>
+
+</body>
+
+</html>

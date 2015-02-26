@@ -1,0 +1,234 @@
+AUDIT RESULTS FOR DOMAIN im1
+
+SUBSYSTEMS WITHOUT DESCRIPTIONS:
+im1
+
+EXTERNAL ENTITIES WITHOUT DESCRIPTIONS:
+External Entity Time
+External Entity Architecture
+External Entity Logging
+
+BRIDGES WITHOUT DESCRIPTIONS:
+External Entity Bridge Architecture::shutdown
+External Entity Bridge Logging::LogSuccess
+External Entity Bridge Logging::LogFailure
+External Entity Bridge Logging::LogInfo
+
+CLASSES WITHOUT DESCRIPTIONS:
+Class im1::im1 init
+Class im1::Object B 1L Side
+Class im1::Object A
+Class im1::Passive Object 
+Class im1::Object C 1R Side
+Class im1::Object D 1L Side
+Class im1::Object E MR Side
+Class im1::IC Driver
+Class im1::Object F 1L Side
+Class im1::Object G MR Side
+Class im1::Object H 11M Side
+Class im1::Object L 1L Side
+Class im1::Object M 1R Side
+Class im1::Passive Object B
+
+ATTRIBUTES WITHOUT DESCRIPTIONS:
+Attribute im1 init::id
+Attribute im1 init::current_state
+Attribute Object B 1L Side::ob_id
+Attribute Object B 1L Side::i
+Attribute Object B 1L Side::current_state
+Attribute Object A::oa_id
+Attribute Object A::current_state
+Attribute Object A::i
+Attribute Passive Object ::po_id
+Attribute Passive Object ::i
+Attribute Passive Object ::oa_id
+Attribute Object C 1R Side::oc_id
+Attribute Object C 1R Side::i
+Attribute Object C 1R Side::ob_id
+Attribute Object C 1R Side::current_state
+Attribute Object D 1L Side::od_id
+Attribute Object D 1L Side::i
+Attribute Object D 1L Side::ack_count
+Attribute Object D 1L Side::current_state
+Attribute Object E MR Side::oe_id
+Attribute Object E MR Side::i
+Attribute Object E MR Side::od_id
+Attribute Object E MR Side::current_state
+Attribute IC Driver::icd_id
+Attribute IC Driver::ack_count
+Attribute IC Driver::current_state
+Attribute Object F 1L Side::of_id
+Attribute Object F 1L Side::i
+Attribute Object F 1L Side::ack_count
+Attribute Object F 1L Side::current_state
+Attribute Object G MR Side::og_id
+Attribute Object G MR Side::i
+Attribute Object G MR Side::ack_count
+Attribute Object G MR Side::current_state
+Attribute Object H 11M Side::of_id
+Attribute Object H 11M Side::og_id
+Attribute Object H 11M Side::i
+Attribute Object H 11M Side::current_state
+Attribute Object L 1L Side::ol_id
+Attribute Object L 1L Side::i
+Attribute Object L 1L Side::current_state
+Attribute Object M 1R Side::om_id
+Attribute Object M 1R Side::i
+Attribute Object M 1R Side::current_state
+Attribute Passive Object B::pob_id
+Attribute Passive Object B::i
+Attribute Passive Object B::oa_id
+
+REFERENCES WITHOUT DESCRIPTIONS:
+Referential Attribute Passive Object ::oa_id
+Referential Attribute Object C 1R Side::ob_id
+Referential Attribute Object E MR Side::od_id
+Referential Attribute Object H 11M Side::of_id
+Referential Attribute Object H 11M Side::og_id
+Referential Attribute Object M 1R Side::om_id
+Referential Attribute Passive Object B::oa_id
+
+RELATIONSHIPS WITHOUT DESCRIPTIONS:
+im1::R1
+im1::R2
+im1::R3
+im1::R6
+im1::R7
+im1::R8
+
+STATE MODELS WITHOUT DESCRIPTIONS:
+State Model im1 init
+State Model Object B 1L Side
+State Model Object A
+State Model Object C 1R Side
+State Model Object D 1L Side
+State Model Object E MR Side
+State Model IC Driver
+State Model Object F 1L Side
+State Model Object G MR Side
+State Model Object H 11M Side
+State Model Object L 1L Side
+State Model Object M 1R Side
+
+EVENTS WITHOUT DESCRIPTIONS:
+Event INIT1
+Event OB1
+Event OB2
+Event OB3
+Event OB4
+Event OA1
+Event OA2
+Event OA3
+Event OC1
+Event OC2
+Event OC3
+Event OC4
+Event OD1
+Event OD2
+Event OD3
+Event OD4
+Event OD5
+Event OE1
+Event OE2
+Event OE3
+Event OE4
+Event ICD1
+Event ICD2
+Event ICD3
+Event ICD4
+Event ICD5
+Event ICD6
+Event ICD7
+Event ICD8
+Event ICD9
+Event ICD10
+Event ICD11
+Event ICD14
+Event ICD15
+Event ICD16
+Event OF1
+Event OF2
+Event OF3
+Event OF4
+Event OF5
+Event OG1
+Event OG2
+Event OG4
+Event OG3
+Event OG5
+Event OH1
+Event OH2
+Event OL1
+Event OL2
+Event OL3
+Event OL4
+Event OM1
+Event OM2
+Event OM3
+Event OM4
+
+EVENT DATA WITHOUT DESCRIPTIONS:
+Event Data Object B 1L Side::id
+Event Data Object C 1R Side::id
+Event Data Object D 1L Side::id
+Event Data Object E MR Side::id
+Event Data Object F 1L Side::id
+Event Data Object G MR Side::id
+Event Data Object H 11M Side::l_id
+Event Data Object H 11M Side::r_id
+Event Data Object L 1L Side::id
+Event Data Object M 1R Side::id
+
+ACTION SPECIFICATIONS WITHOUT DESCRIPTIONS:
+im1 init::im1 init
+Object B 1L Side::Starting IC2 Test
+Object B 1L Side::Verifying Rel with Instance
+Object B 1L Side::Finishing IC2 Test
+Object B 1L Side::Initial State
+Object A::IC1 1 Object
+Object A::IC1 Complete
+Object A::Initial State
+Object C 1R Side::Starting IC2 Test
+Object C 1R Side::Verifying Rel with Instance
+Object C 1R Side::Finishing IC2 Test
+Object C 1R Side::Initial State
+Object D 1L Side::Starting IC3 Test
+Object D 1L Side::Verifying Rel with Instance
+Object D 1L Side::Waiting for Acks from Related Instances
+Object D 1L Side::Finishing IC3 Test
+Object D 1L Side::Initial State
+Object E MR Side::Starting IC3 Test
+Object E MR Side::Verifying Rel with Instance
+Object E MR Side::Finishing IC3 Test
+Object E MR Side::Initial State
+IC Driver::Running IC1 Test Suite
+IC Driver::Running IC2 Test Suite
+IC Driver::Waiting for IC2 Completions
+IC Driver::Running IC3 Test Suite
+IC Driver::Waiting for IC3 Completions
+IC Driver::Running IC4 Test Suite
+IC Driver::Waiting for IC4 Completions
+IC Driver::Shutting Down
+IC Driver::Running IC7 Test Suite
+IC Driver::Waiting for IC7 Completions
+Object F 1L Side::Starting IC4 Test
+Object F 1L Side::Verifying Rel with Instance
+Object F 1L Side::Waiting for Acks from Related Instances
+Object F 1L Side::Finishing IC4 Test
+Object F 1L Side::Initial State
+Object G MR Side::Starting IC4 Test
+Object G MR Side::Verifying Rel with Instance
+Object G MR Side::Waiting for Acks from Related Instances
+Object G MR Side::Finishing IC4 Test
+Object G MR Side::Initial State
+Object H 11M Side::Verifying Rel with Instance Reply to L Side
+Object H 11M Side::Verifying Rel with Instance Reply to R Side
+Object H 11M Side::Waiting
+Object L 1L Side::Starting IC7 Test
+Object L 1L Side::Verifying Rel with Instance
+Object L 1L Side::Finishing IC7 Test
+Object L 1L Side::Initial State
+Object M 1R Side::Starting IC7 Test
+Object M 1R Side::Verifying Rel with Instance
+Object M 1R Side::Finishing IC7 Test
+Object M 1R Side::Initial State

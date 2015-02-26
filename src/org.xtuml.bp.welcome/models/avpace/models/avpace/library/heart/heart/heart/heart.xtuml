@@ -1,0 +1,50 @@
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("0ab92247-10bb-454c-9d00-8b34354a6cca",
+	'heart',
+	1,
+	'HEART',
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_NBATTR
+	VALUES ("b9dbd7b7-121d-4194-9be0-2b5ed70633e7",
+	"0ab92247-10bb-454c-9d00-8b34354a6cca");
+INSERT INTO O_BATTR
+	VALUES ("b9dbd7b7-121d-4194-9be0-2b5ed70633e7",
+	"0ab92247-10bb-454c-9d00-8b34354a6cca");
+INSERT INTO O_ATTR
+	VALUES ("b9dbd7b7-121d-4194-9be0-2b5ed70633e7",
+	"0ab92247-10bb-454c-9d00-8b34354a6cca",
+	"00000000-0000-0000-0000-000000000000",
+	'current_state',
+	'',
+	'',
+	'current_state',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000006",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"0ab92247-10bb-454c-9d00-8b34354a6cca");
+INSERT INTO O_ID
+	VALUES (1,
+	"0ab92247-10bb-454c-9d00-8b34354a6cca");
+INSERT INTO O_ID
+	VALUES (2,
+	"0ab92247-10bb-454c-9d00-8b34354a6cca");
+INSERT INTO PE_PE
+	VALUES ("0ab92247-10bb-454c-9d00-8b34354a6cca",
+	1,
+	"0299068e-17bb-48bd-a584-a45dea11a6ca",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("0299068e-17bb-48bd-a584-a45dea11a6ca",
+	"00000000-0000-0000-0000-000000000000",
+	"15b2a15d-7110-4efa-b644-89bd96e12c0e",
+	'heart',
+	'',
+	0,
+	'../heart.xtuml');

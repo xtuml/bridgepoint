@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<manifest>
+   <system> 
+      <file src="schema/colors/bridge.mark" dest="gen/bridge.mark"/> 
+      <file src="schema/colors/datatype.mark" dest="gen/datatype.mark"/> 
+      <file src="schema/colors/system.mark" dest="gen/system.mark"/> 
+      <file src="schema/colors/class.mark" dest="gen/class.mark"/> 
+      <file src="schema/colors/domain.mark" dest="gen/domain.mark"/> 
+      <file src="schema/colors/event.mark" dest="gen/event.mark"/>
+      <file src="mcpaas.sh" dest="gen/mcpaas.sh"/> 
+   </system>
+</manifest> 

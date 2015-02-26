@@ -1,0 +1,6 @@
+Simulation started.
+User invoked function: setup
+User invoked function: test
+1:Unit under Test dequeueing. Event: UUT1: Perform Test 1(testParameter)
+1:Unit under Test transition. New State: Testing Previous State: Idle
+

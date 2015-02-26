@@ -1,0 +1,253 @@
+-- BP 7.1 content: Package syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO EP_PKG
+	VALUES ("339b23c8-451d-437a-b55d-2c06aab1c9ee",
+	"00000000-0000-0000-0000-000000000000",
+	"9cd2cdcf-1f2b-42ce-bc35-718a90a05cab",
+	'Functions',
+	'',
+	0);
+INSERT INTO GD_MD
+	VALUES ("3271a1d5-5244-4474-a0cb-641620a8165b",
+	112,
+	"339b23c8-451d-437a-b55d-2c06aab1c9ee",
+	108,
+	0,
+	0,
+	1,
+	1,
+	1,
+	12,
+	1,
+	0,
+	0,
+	0,
+	0,
+	0,
+	'',
+	'MicrowaveOven::components::MicrowaveOven::Functions');
+INSERT INTO DIM_DIA
+	VALUES ("3271a1d5-5244-4474-a0cb-641620a8165b",
+	'',
+	1.000000,
+	4000.000000,
+	3000.000000,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_SYNC
+	VALUES ("a491f0f2-bacf-4caf-b804-f89ef9d64b7a",
+	"00000000-0000-0000-0000-000000000000",
+	'StartCooking',
+	'',
+	'select any oven from instances of MO_O;
+generate MO_O3:''start_cooking''  to oven;',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'');
+INSERT INTO PE_PE
+	VALUES ("a491f0f2-bacf-4caf-b804-f89ef9d64b7a",
+	1,
+	"339b23c8-451d-437a-b55d-2c06aab1c9ee",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("72eb3b37-d5a2-4603-bef8-65e32e5d58d8",
+	"00000000-0000-0000-0000-000000000000",
+	'CancelCooking',
+	'',
+	'select any oven from instances of MO_O;
+generate MO_O4:''cancel_cooking''  to oven;',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'');
+INSERT INTO PE_PE
+	VALUES ("72eb3b37-d5a2-4603-bef8-65e32e5d58d8",
+	1,
+	"339b23c8-451d-437a-b55d-2c06aab1c9ee",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("6826ecfe-ef18-4363-9077-71c238ce1645",
+	"00000000-0000-0000-0000-000000000000",
+	'SpecifyCookingPeriod',
+	'',
+	'// cooking period is to be specified in seconds and must be converted to usec in order
+// to be compatible with BP''s view of time
+
+timePeriod = 1000000 * param.cookingPeriod;
+select any oven from instances of MO_O;
+generate MO_O8:''cooking_period'' (period:timePeriod) to oven;
+',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'');
+INSERT INTO S_SPARM
+	VALUES ("7e08668a-2529-4443-a50b-155ea67bc16e",
+	"6826ecfe-ef18-4363-9077-71c238ce1645",
+	'cookingPeriod',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO PE_PE
+	VALUES ("6826ecfe-ef18-4363-9077-71c238ce1645",
+	1,
+	"339b23c8-451d-437a-b55d-2c06aab1c9ee",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("61d5fb49-5a30-4853-926c-6235d3102f82",
+	"00000000-0000-0000-0000-000000000000",
+	'IncreasePower',
+	'',
+	'select any tube from instances of MO_MT;
+generate MO_MT1:''increase_power''  to tube;',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'');
+INSERT INTO PE_PE
+	VALUES ("61d5fb49-5a30-4853-926c-6235d3102f82",
+	1,
+	"339b23c8-451d-437a-b55d-2c06aab1c9ee",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("d6a43448-a533-4199-9f63-fc47f3a6b33a",
+	"00000000-0000-0000-0000-000000000000",
+	'DecreasePower',
+	'',
+	'select any tube from instances of MO_MT;
+generate MO_MT2:''decrease_power'' to tube;',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'');
+INSERT INTO PE_PE
+	VALUES ("d6a43448-a533-4199-9f63-fc47f3a6b33a",
+	1,
+	"339b23c8-451d-437a-b55d-2c06aab1c9ee",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("79452cf0-9628-4bf6-aaa6-5094133d2e8a",
+	"00000000-0000-0000-0000-000000000000",
+	'OpenDoor',
+	'',
+	'select any door from instances of MO_D;
+generate MO_D1:''release''  to door;',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'');
+INSERT INTO PE_PE
+	VALUES ("79452cf0-9628-4bf6-aaa6-5094133d2e8a",
+	1,
+	"339b23c8-451d-437a-b55d-2c06aab1c9ee",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("6c366375-7387-4caf-9cfe-9f17e476ff9d",
+	"00000000-0000-0000-0000-000000000000",
+	'CloseDoor',
+	'',
+	'select any door from instances of MO_D;
+generate MO_D2:''close''  to door;',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'');
+INSERT INTO PE_PE
+	VALUES ("6c366375-7387-4caf-9cfe-9f17e476ff9d",
+	1,
+	"339b23c8-451d-437a-b55d-2c06aab1c9ee",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("1ab6abce-31ba-4430-87d8-35921585fdf9",
+	"00000000-0000-0000-0000-000000000000",
+	'TestSequence1',
+	'',
+	'create object instance testSequence of MO_TS;
+generate MO_TS2 to testSequence;',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'');
+INSERT INTO PE_PE
+	VALUES ("1ab6abce-31ba-4430-87d8-35921585fdf9",
+	1,
+	"339b23c8-451d-437a-b55d-2c06aab1c9ee",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("6c2399c9-bf75-44a6-92fe-0e6cd0c2d3be",
+	"00000000-0000-0000-0000-000000000000",
+	'DefineOven',
+	'',
+	'// Create the instances in the system.
+create object instance mo of MO_O;
+
+assign mo.remaining_cooking_time = 0;
+
+create object instance tube of MO_MT;
+relate mo to tube across R1;
+assign tube.current_power_output = tube_wattage::high;
+
+create object instance light of MO_IL;
+relate mo to light across R2;
+
+create object instance beeper of MO_B;
+relate mo to beeper across R3;
+
+create object instance door of MO_D;
+relate mo to door across R4;
+assign door.is_secure = false;
+
+create object instance turntable of MO_TRN;
+relate mo to turntable across R5;',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'');
+INSERT INTO PE_PE
+	VALUES ("6c2399c9-bf75-44a6-92fe-0e6cd0c2d3be",
+	1,
+	"339b23c8-451d-437a-b55d-2c06aab1c9ee",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO PE_PE
+	VALUES ("339b23c8-451d-437a-b55d-2c06aab1c9ee",
+	1,
+	"00000000-0000-0000-0000-000000000000",
+	"544a75b3-22ce-4c30-8788-bec6c1772abf",
+	7);
+INSERT INTO C_C_PROXY
+	VALUES ("544a75b3-22ce-4c30-8788-bec6c1772abf",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000",
+	'MicrowaveOven',
+	'
+
+Domain Mission: Microwave Application Domain
+
+To capture the retained data and event sequencing associated with the use of a domestic microwave oven comprising :
+
+* a magnetron tube (with variable power output settings)
+* a turntable
+* an internal light
+* a beeper to signal when cooking is complete
+* an oven door
+
+Bridges to other Domains:
+
+* To Control Panel (Application User Interface Domain)
+* To PIO domain (not shown)
+* To Timer domain
+
+
+',
+	0,
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'../MicrowaveOven.xtuml');
+INSERT INTO S_SYS_PROXY
+	VALUES ("9cd2cdcf-1f2b-42ce-bc35-718a90a05cab",
+	'MicrowaveOven',
+	1,
+	'../../../MicrowaveOven.xtuml');
