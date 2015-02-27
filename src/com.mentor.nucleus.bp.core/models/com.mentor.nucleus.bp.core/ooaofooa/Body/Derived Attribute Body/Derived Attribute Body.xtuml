@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("607b3eaf-95a9-4a66-a123-0398a539af90",
@@ -6,14 +6,14 @@ INSERT INTO O_OBJ
 	633,
 	'ACT_DAB',
 	'This class represents the action language containing body of a derived attribute.',
-	"76583c73-7a99-4c81-b260-8109e6cef5ca");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("b71aac37-fb6c-48d4-8ce3-afdf47fd3181",
 	"607b3eaf-95a9-4a66-a123-0398a539af90",
 	'dispose',
 	'This operation disconnects an instance, and all instances it is 
 responsible for, from the model.',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'  select one dab related by self->O_DBATTR[R693];
   if ( not_empty dab )
@@ -24,19 +24,12 @@ delete object instance self;
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO S_DT_PROXY
-	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'void',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("acc697f5-c802-44ca-9306-335f0f7afacc",
 	"607b3eaf-95a9-4a66-a123-0398a539af90",
 	'getContainingComponentId',
 	'',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'select one clazz related by self->O_DBATTR[R693]->O_BATTR[R107]->O_ATTR[R106]
                                                                   ->O_OBJ[R102];
@@ -44,19 +37,12 @@ return clazz.getContainingComponentId();',
 	1,
 	'',
 	"b71aac37-fb6c-48d4-8ce3-afdf47fd3181");
-INSERT INTO S_DT_PROXY
-	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'unique_id',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("885fbde1-65e0-4d76-8494-b97f1a509cca",
 	"607b3eaf-95a9-4a66-a123-0398a539af90",
 	'getContainerId',
 	'',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'// Derived Attribute Body.getContainerId()
 select one clazz related by self->O_DBATTR[R693]->O_BATTR[R107]->O_ATTR[R106]
@@ -70,7 +56,7 @@ INSERT INTO O_TFR
 	"607b3eaf-95a9-4a66-a123-0398a539af90",
 	'getPath',
 	'',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'select one attribute related by self->O_DBATTR[R693];
 attrPath ="";
@@ -93,13 +79,6 @@ return attrPath;',
 	1,
 	'',
 	"885fbde1-65e0-4d76-8494-b97f1a509cca");
-INSERT INTO S_DT_PROXY
-	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'string',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("607b3eaf-95a9-4a66-a123-0398a539af90",
 	"d1c9af7b-9df6-432a-a25e-96cab24fc6af",
@@ -148,16 +127,9 @@ INSERT INTO O_ATTR
 	'',
 	'Action_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("607b3eaf-95a9-4a66-a123-0398a539af90",
 	"217ade74-f54e-4fda-8497-0513abeb05fc",
@@ -173,7 +145,7 @@ INSERT INTO O_REF
 	'',
 	'Derived Base Attribute',
 	'Attr_ID',
-	'R693');
+	'R693.''specifies processing for''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("607b3eaf-95a9-4a66-a123-0398a539af90",
 	"2fed9c31-9ba4-4bfb-a148-5902f1f5c86c",
@@ -206,7 +178,7 @@ INSERT INTO O_ATTR
 	'',
 	'Attr_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -229,16 +201,9 @@ Bridge:ALS
 	'',
 	'AttributeWritten',
 	0,
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("8e519c45-7dcf-400b-9d4e-954869dbb7e8",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'boolean',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("607b3eaf-95a9-4a66-a123-0398a539af90",
 	"217ade74-f54e-4fda-8497-0513abeb05fc",
@@ -254,7 +219,7 @@ INSERT INTO O_REF
 	'',
 	'Derived Base Attribute',
 	'Obj_ID',
-	'R693');
+	'R693.''specifies processing for''');
 INSERT INTO O_RTIDA_PROXY
 	VALUES ("2b93e4e6-3e7d-4050-8288-dad507e68326",
 	"217ade74-f54e-4fda-8497-0513abeb05fc",
@@ -282,7 +247,7 @@ INSERT INTO O_ATTR
 	'',
 	'Obj_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_ID
@@ -299,8 +264,16 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"607b3eaf-95a9-4a66-a123-0398a539af90");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("607b3eaf-95a9-4a66-a123-0398a539af90",
+	1,
+	"76583c73-7a99-4c81-b260-8109e6cef5ca",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("76583c73-7a99-4c81-b260-8109e6cef5ca",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Body',
 	'This subsystem abstracts the action itself, the blocks and statements
 it contains together with the flow of control statements such as ''while'',
@@ -310,8 +283,5 @@ Persistent:false
 // This is used by schema_gen to ignore this subsystem (for publication)
 TRANSLATE_FOR_EXTERNAL_USE:FALSE
 ',
-	'ACT',
 	600,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000380007",
 	'../Body.xtuml');

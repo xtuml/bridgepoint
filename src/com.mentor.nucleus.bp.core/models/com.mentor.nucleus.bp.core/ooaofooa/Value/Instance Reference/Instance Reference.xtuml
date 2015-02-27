@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("51404733-908d-49c1-99d2-4c71db0693c7",
@@ -6,13 +6,13 @@ INSERT INTO O_OBJ
 	813,
 	'V_IRF',
 	'This class represents an instance reference, the result of a select one or select any statement.',
-	"e060f94c-3f82-463e-9d98-d20315b7c196");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("76d67435-48ba-4a37-a936-c2102de8441c",
 	"51404733-908d-49c1-99d2-4c71db0693c7",
 	'getRuntimeValue',
 	'',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'// Instance Reference.getRuntimeValue()
 select one body related by self->V_VAL[R801]->ACT_BLK[R826]->ACT_ACT[R601];
@@ -69,24 +69,17 @@ INSERT INTO O_TPARM
 	VALUES ("f8425967-2f3e-4cf0-8f91-67d49e6460ad",
 	"76d67435-48ba-4a37-a936-c2102de8441c",
 	'stack_frame_id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'unique_id',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("0d927073-7821-470f-ba02-32433d894c3d",
 	"51404733-908d-49c1-99d2-4c71db0693c7",
 	'setValue',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// Instance Reference.setValue()
 select one body related by self->V_VAL[R801]->ACT_BLK[R826]->ACT_ACT[R601];
@@ -176,7 +169,7 @@ INSERT INTO O_TPARM
 	VALUES ("35dee87d-1c9e-4527-8a0a-4c058a9c8192",
 	"0d927073-7821-470f-ba02-32433d894c3d",
 	'stack_frame_id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -192,7 +185,7 @@ INSERT INTO O_TPARM
 	'');
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
 	'instance',
 	'',
 	'',
@@ -201,18 +194,11 @@ INSERT INTO O_TPARM
 	VALUES ("4bb4e06c-f5ab-4e7d-bb1a-90a44c4e47bd",
 	"0d927073-7821-470f-ba02-32433d894c3d",
 	'member_id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"9b013ed3-065c-47d4-a4f5-7e996abdacd2",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'void',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("51404733-908d-49c1-99d2-4c71db0693c7",
 	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
@@ -261,16 +247,9 @@ INSERT INTO O_ATTR
 	'',
 	'Value_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("51404733-908d-49c1-99d2-4c71db0693c7",
 	"04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",
@@ -286,7 +265,7 @@ INSERT INTO O_REF
 	'',
 	'Variable',
 	'Var_ID',
-	'R808');
+	'R808.''refers to''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("51404733-908d-49c1-99d2-4c71db0693c7",
 	"9d6a9097-6d3b-42b9-9552-7e793c671fc5",
@@ -321,7 +300,7 @@ INSERT INTO O_ATTR
 	'',
 	'Var_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_ID
@@ -338,8 +317,16 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"51404733-908d-49c1-99d2-4c71db0693c7");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("51404733-908d-49c1-99d2-4c71db0693c7",
+	1,
+	"e060f94c-3f82-463e-9d98-d20315b7c196",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("e060f94c-3f82-463e-9d98-d20315b7c196",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Value',
 	'This subsystem formalizes the concepts of values (r-values) and variables 
 (l-values). It also captures the concept of an actual parameter.
@@ -348,8 +335,5 @@ Persistent:false
 // This is used by schema_gen to ignore this subsystem (for publication)
 TRANSLATE_FOR_EXTERNAL_USE:FALSE
 ',
-	'V',
 	800,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000400008",
 	'../Value.xtuml');

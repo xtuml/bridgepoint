@@ -1,4 +1,4 @@
--- BP 7.1 content: Package syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: Package syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO EP_PKG
 	VALUES ("4ca240f1-3fb4-4c7d-92b4-83d9f20f5d53",
@@ -25,14 +25,14 @@ INSERT INTO GD_MD
 	0,
 	0,
 	'',
-	'DeleteTestModel::Datatypes');
+	'com.mentor.nucleus.bp.core.test::DeleteTestModel::Datatypes');
 INSERT INTO GD_GE
 	VALUES ("8c4f14ed-92df-4a7e-9e2b-2d879cbbceaf",
 	"024e3d76-53b1-40c1-a33b-4a1f22f43a86",
 	"d012f770-6897-4b92-864d-6bc5a6c0cc5d",
 	51,
 	0,
-	'DeleteTestModel::Datatypes::arbitrary_id');
+	'com.mentor.nucleus.bp.core.test::DeleteTestModel::Datatypes::arbitrary_id');
 INSERT INTO GD_SHP
 	VALUES ("8c4f14ed-92df-4a7e-9e2b-2d879cbbceaf");
 INSERT INTO GD_NCS

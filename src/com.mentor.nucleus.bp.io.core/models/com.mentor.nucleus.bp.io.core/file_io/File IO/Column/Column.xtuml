@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("68363a50-a0e1-414d-8939-1409ebc1f822",
@@ -6,7 +6,7 @@ INSERT INTO O_OBJ
 	5,
 	'C',
 	'This is a column in a table.',
-	"f157564a-4386-4e32-b5c9-0e4d7bd3609a");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_REF
 	VALUES ("68363a50-a0e1-414d-8939-1409ebc1f822",
 	"d62bdfae-7686-4844-b0c7-e71e7829446e",
@@ -22,7 +22,7 @@ INSERT INTO O_REF
 	'',
 	'SQL Table',
 	'bpName',
-	'R5');
+	'R5.''is part of''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("68363a50-a0e1-414d-8939-1409ebc1f822",
 	"db85b500-395b-43c7-a51c-87e4ae6e79e7",
@@ -50,7 +50,7 @@ INSERT INTO O_REF
 	'',
 	'Column',
 	'tableName',
-	'R6');
+	'R6.''follows''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("68363a50-a0e1-414d-8939-1409ebc1f822",
 	"2820fe0d-f895-4c82-95c5-3ebbf23a02f5",
@@ -85,16 +85,9 @@ INSERT INTO O_ATTR
 	'table',
 	'Name',
 	1,
-	"cf07a926-26a1-4462-bd6f-45a3b930e4b7",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("cf07a926-26a1-4462-bd6f-45a3b930e4b7",
-	"695dce7b-262a-4226-9cbb-c9f897b44c67",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("6bd06a87-cf2b-45d0-a95b-fcfaa57d29ca",
 	"68363a50-a0e1-414d-8939-1409ebc1f822");
@@ -116,16 +109,9 @@ generating  routines in MC-Java.
 	'',
 	'Name',
 	0,
-	"5e30bc10-6b4e-49f6-a053-8d190acef663",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("5e30bc10-6b4e-49f6-a053-8d190acef663",
-	"695dce7b-262a-4226-9cbb-c9f897b44c67",
-	'string',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("68363a50-a0e1-414d-8939-1409ebc1f822",
 	"68363a50-a0e1-414d-8939-1409ebc1f822",
@@ -141,7 +127,7 @@ INSERT INTO O_REF
 	'',
 	'Column',
 	'Name',
-	'R6');
+	'R6.''follows''');
 INSERT INTO O_RTIDA_PROXY
 	VALUES ("6bd06a87-cf2b-45d0-a95b-fcfaa57d29ca",
 	"68363a50-a0e1-414d-8939-1409ebc1f822",
@@ -167,7 +153,7 @@ INSERT INTO O_ATTR
 	'next',
 	'Name',
 	1,
-	"cf07a926-26a1-4462-bd6f-45a3b930e4b7",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -190,7 +176,7 @@ Values: "boolean", "integer", "real", "string"
 	'',
 	'type',
 	0,
-	"5e30bc10-6b4e-49f6-a053-8d190acef663",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -211,16 +197,9 @@ the BP application model.
 	'',
 	'isReferential',
 	0,
-	"d3964502-1097-4d82-9200-171d288e3409",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("d3964502-1097-4d82-9200-171d288e3409",
-	"695dce7b-262a-4226-9cbb-c9f897b44c67",
-	'boolean',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("49e96658-7204-4045-8190-b72cb294459b",
 	"68363a50-a0e1-414d-8939-1409ebc1f822");
@@ -236,7 +215,7 @@ INSERT INTO O_ATTR
 	'',
 	'isIdentifier',
 	0,
-	"d3964502-1097-4d82-9200-171d288e3409",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -254,7 +233,7 @@ INSERT INTO O_ATTR
 	'',
 	'isOptional',
 	0,
-	"d3964502-1097-4d82-9200-171d288e3409",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	'',
 	'');
 INSERT INTO O_ID
@@ -276,12 +255,17 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"68363a50-a0e1-414d-8939-1409ebc1f822");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("68363a50-a0e1-414d-8939-1409ebc1f822",
+	1,
+	"f157564a-4386-4e32-b5c9-0e4d7bd3609a",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("f157564a-4386-4e32-b5c9-0e4d7bd3609a",
+	"00000000-0000-0000-0000-000000000000",
+	"4dacadbd-0ef3-4f12-9693-fcbfe81a2955",
 	'File IO',
 	'',
-	'',
 	1,
-	"695dce7b-262a-4226-9cbb-c9f897b44c67",
-	"00000000-0000-0000-0000-000000100002",
 	'../File IO.xtuml');

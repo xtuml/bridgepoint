@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("982386b4-db03-44d6-827b-fbe9d059c7ff",
@@ -6,14 +6,14 @@ INSERT INTO O_OBJ
 	630,
 	'ACT_CON',
 	'This class generates a continue statement within a block.',
-	"76583c73-7a99-4c81-b260-8109e6cef5ca");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("12f34b37-0713-4e87-ad8b-598f51a335df",
 	"982386b4-db03-44d6-827b-fbe9d059c7ff",
 	'dispose',
 	'This operation disconnects an instance, and all instances it is 
 responsible for, from the model.',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// do nothing
 delete object instance self;
@@ -21,19 +21,12 @@ delete object instance self;
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO S_DT_PROXY
-	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'void',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("96487926-87b5-4952-bfd7-bed05dc16f46",
 	"982386b4-db03-44d6-827b-fbe9d059c7ff",
 	'execute',
 	'This operation will cause all blocks to stop executing until the originating for each or while loop is found.',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// Body:Continue.execute()
 
@@ -99,18 +92,11 @@ INSERT INTO O_TPARM
 	VALUES ("68701fd7-128f-407b-b372-5e146b6ee887",
 	"96487926-87b5-4952-bfd7-bed05dc16f46",
 	'stack_frame_id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'unique_id',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("982386b4-db03-44d6-827b-fbe9d059c7ff",
 	"e9011b75-e798-45a3-ac83-92ba7c04db4e",
@@ -161,16 +147,9 @@ INSERT INTO O_ATTR
 	'',
 	'Statement_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_ID
 	VALUES (0,
 	"982386b4-db03-44d6-827b-fbe9d059c7ff");
@@ -185,8 +164,16 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"982386b4-db03-44d6-827b-fbe9d059c7ff");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("982386b4-db03-44d6-827b-fbe9d059c7ff",
+	1,
+	"76583c73-7a99-4c81-b260-8109e6cef5ca",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("76583c73-7a99-4c81-b260-8109e6cef5ca",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Body',
 	'This subsystem abstracts the action itself, the blocks and statements
 it contains together with the flow of control statements such as ''while'',
@@ -196,8 +183,5 @@ Persistent:false
 // This is used by schema_gen to ignore this subsystem (for publication)
 TRANSLATE_FOR_EXTERNAL_USE:FALSE
 ',
-	'ACT',
 	600,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000380007",
 	'../Body.xtuml');

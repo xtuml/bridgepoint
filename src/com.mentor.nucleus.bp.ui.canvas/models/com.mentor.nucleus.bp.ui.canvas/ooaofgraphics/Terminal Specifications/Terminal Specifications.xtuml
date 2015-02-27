@@ -1,7 +1,9 @@
--- BP 7.1.6 content: Subsystem syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: Package syschar: 3 persistence-version: 7.1.6
 
-INSERT INTO S_SS
+INSERT INTO EP_PKG
 	VALUES ("3aa01b07-08b4-4f56-a64c-5db1a460535b",
+	"00000000-0000-0000-0000-000000000000",
+	"8f801c9a-cf2d-4ef4-b11a-51b8697e3ca8",
 	'Terminal Specifications',
 	'The TS (Terminal Specification) subsystem models specification classes that
 define the legal ending points for BridgePoint connector symbols.
@@ -11,818 +13,12 @@ TRANSLATE_FOR_EXTERNAL_USE:FALSE
 Notify_Changes:false
 
 ',
-	'TS',
-	200,
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	"00000000-0000-0000-0000-000001d8003b");
-INSERT INTO S_SID
-	VALUES ("3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	"3aa01b07-08b4-4f56-a64c-5db1a460535b");
-INSERT INTO S_DOM_PROXY
-	VALUES ("3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	'ooaofgraphics',
-	'========================================================================
-
-File:          $RCSfile$
-Version:   $Revision$
-Modified:  $Date$
-
-(c) Copyright 2004-2014 Mentor Graphics Corporation All rights reserved.
-
-========================================================================
-Licensed under the Apache License, Version 2.0 (the "License"); you may not
-use this file except in compliance with the License.  You may obtain a copy
-of the License at
-
-     http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
-WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the
-License for the specific language governing permissions and limitations under
-the License.
-========================================================================
-
-This is the graphics domain for the Tiger project.
-
-The processing in this model describes the activities
-required for model diagram display and editing.
-
-Import:com.mentor.nucleus.bp.core.*
--------------------------------------------------------------------------------------------------------------
-',
-	0,
-	"00000000-0000-0000-0000-000000000001",
-	"8f801c9a-cf2d-4ef4-b11a-51b8697e3ca8",
-	'../ooaofgraphics.xtuml');
-INSERT INTO O_IOBJ
-	VALUES ("953cdcb8-644f-43de-a8dd-ddd3947a2ca8",
-	"76253415-b575-4583-9248-5d403cee7647",
-	5,
-	"3aa01b07-08b4-4f56-a64c-5db1a460535b",
-	'Element Specification',
-	'GD_ES');
-INSERT INTO O_OBJ_PROXY
-	VALUES ("76253415-b575-4583-9248-5d403cee7647",
-	'Element Specification',
-	8,
-	'GD_ES',
-	'An element specification instance defines a type of symbol.
-The OOA_Type defines the OOA of OOA element represented
-by this symbol.
-
-Instances of this class are instantiated at startup from a
-pre-existing instance specification.
----------------------------------------------------------------------------
-
-PEI:true
-Persistent:false
-TRANSLATE_FOR_EXTERNAL_USE:FALSE
-
-',
-	"b5695748-80fc-47fb-b5c7-801b5f28b907",
-	'../Graphical Data/Element Specification/Element Specification.xtuml');
-INSERT INTO O_IOBJ
-	VALUES ("1ac68318-41c6-404c-95f5-aee0a2e82d2c",
-	"09423687-e999-4aba-876d-35e0d3331311",
-	5,
-	"3aa01b07-08b4-4f56-a64c-5db1a460535b",
-	'Model',
-	'GD_MD');
-INSERT INTO O_OBJ_PROXY
-	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
-	'Model',
-	1,
-	'GD_MD',
-	'A model is a drawing for one particular view of the analysis. There is an instance of model for each glyph on the index window, and each entry in the model element list on the index window. For example, every domain will have four models (DPD, PDD(R), PDD(A), PDD(S)).  Every subsystem will have three models (CD, OCD(A), OCD(S)).  Every state chart has one model (SC).  The STT is not a graphical model.',
-	"b5695748-80fc-47fb-b5c7-801b5f28b907",
-	'../Graphical Data/Model/Model.xtuml');
-INSERT INTO O_IOBJ
-	VALUES ("4fb1a882-fbec-439e-8cda-aa419d305418",
-	"9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
-	5,
-	"3aa01b07-08b4-4f56-a64c-5db1a460535b",
-	'Graphical Element',
-	'GD_GE');
-INSERT INTO O_OBJ_PROXY
-	VALUES ("9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
-	'Graphical Element',
-	2,
-	'GD_GE',
-	'Graphical element abstracts the different shapes and lines that make up the graphical representation of a model on the canvas.',
-	"b5695748-80fc-47fb-b5c7-801b5f28b907",
-	'../Graphical Data/Graphical Element/Graphical Element.xtuml');
-INSERT INTO R_SUBSUP
-	VALUES ("511b9251-6ce9-4a42-a8c3-63752a2a13c2");
-INSERT INTO R_REL
-	VALUES ("511b9251-6ce9-4a42-a8c3-63752a2a13c2",
-	201,
-	'',
-	"3aa01b07-08b4-4f56-a64c-5db1a460535b");
-INSERT INTO R_SUPER
-	VALUES ("bef8e2b1-510b-4f91-92aa-7aeb9c1fe5be",
-	"511b9251-6ce9-4a42-a8c3-63752a2a13c2",
-	"990bc157-b31c-45ab-8a5c-68d7548ba26f");
-INSERT INTO O_RTIDA
-	VALUES ("f0ec00c1-7702-4399-8636-18e344084f7e",
-	"bef8e2b1-510b-4f91-92aa-7aeb9c1fe5be",
-	0,
-	"511b9251-6ce9-4a42-a8c3-63752a2a13c2",
-	"990bc157-b31c-45ab-8a5c-68d7548ba26f");
-INSERT INTO O_OIDA_PROXY
-	VALUES ("f0ec00c1-7702-4399-8636-18e344084f7e",
-	"bef8e2b1-510b-4f91-92aa-7aeb9c1fe5be",
-	0,
-	'Term_Spec_ID',
-	'./Terminal Specification/Terminal Specification.xtuml');
-INSERT INTO R_RTO
-	VALUES ("bef8e2b1-510b-4f91-92aa-7aeb9c1fe5be",
-	"511b9251-6ce9-4a42-a8c3-63752a2a13c2",
-	"990bc157-b31c-45ab-8a5c-68d7548ba26f",
-	0);
-INSERT INTO O_ID_PROXY
-	VALUES (0,
-	"bef8e2b1-510b-4f91-92aa-7aeb9c1fe5be",
-	'./Terminal Specification/Terminal Specification.xtuml');
-INSERT INTO R_OIR
-	VALUES ("bef8e2b1-510b-4f91-92aa-7aeb9c1fe5be",
-	"511b9251-6ce9-4a42-a8c3-63752a2a13c2",
-	"990bc157-b31c-45ab-8a5c-68d7548ba26f",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("bef8e2b1-510b-4f91-92aa-7aeb9c1fe5be",
-	'Terminal Specification',
-	202,
-	'TS_TSP',
-	'Instances of this class represent valid places to start (or end)
-a connector.
-
-Instances of this class are instantiated at startup from a
-pre-existing instance specification.
----------------------------------------------------------------------------
-
-PEI:true
-Persistent:false',
-	"3aa01b07-08b4-4f56-a64c-5db1a460535b",
-	'./Terminal Specification/Terminal Specification.xtuml');
-INSERT INTO R_SUB
-	VALUES ("cbb053ee-6bf3-4720-af62-224208d869ee",
-	"511b9251-6ce9-4a42-a8c3-63752a2a13c2",
-	"41f1c997-2ce2-48be-8125-8ce699c454eb");
-INSERT INTO R_RGO
-	VALUES ("cbb053ee-6bf3-4720-af62-224208d869ee",
-	"511b9251-6ce9-4a42-a8c3-63752a2a13c2",
-	"41f1c997-2ce2-48be-8125-8ce699c454eb");
-INSERT INTO R_OIR
-	VALUES ("cbb053ee-6bf3-4720-af62-224208d869ee",
-	"511b9251-6ce9-4a42-a8c3-63752a2a13c2",
-	"41f1c997-2ce2-48be-8125-8ce699c454eb",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("cbb053ee-6bf3-4720-af62-224208d869ee",
-	'WhiteSpace Terminal',
-	203,
-	'TS_WST',
-	'Instances of this class represent valid cases where a
-connector starts on whitespace.
-
-Instances of this class are instantiated at startup from a
-pre-existing instance specification.
----------------------------------------------------------------------------
-
-PEI:true
-Persistent:false',
-	"3aa01b07-08b4-4f56-a64c-5db1a460535b",
-	'./WhiteSpace Terminal/WhiteSpace Terminal.xtuml');
-INSERT INTO R_SUB
-	VALUES ("745f9c71-a342-4b2d-9a72-8d89e44ad115",
-	"511b9251-6ce9-4a42-a8c3-63752a2a13c2",
-	"b7b7aa80-5869-493c-a941-94ffa2074cec");
-INSERT INTO R_RGO
-	VALUES ("745f9c71-a342-4b2d-9a72-8d89e44ad115",
-	"511b9251-6ce9-4a42-a8c3-63752a2a13c2",
-	"b7b7aa80-5869-493c-a941-94ffa2074cec");
-INSERT INTO R_OIR
-	VALUES ("745f9c71-a342-4b2d-9a72-8d89e44ad115",
-	"511b9251-6ce9-4a42-a8c3-63752a2a13c2",
-	"b7b7aa80-5869-493c-a941-94ffa2074cec",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("745f9c71-a342-4b2d-9a72-8d89e44ad115",
-	'Shape Terminal',
-	204,
-	'TS_SHT',
-	'Instances of this class represent cases where a connector
-can start or end on a shape.
-
-Instances of this class are instantiated at startup from a
-pre-existing instance specification.
----------------------------------------------------------------------------
-
-PEI:true
-Persistent:false',
-	"3aa01b07-08b4-4f56-a64c-5db1a460535b",
-	'./Shape Terminal/Shape Terminal.xtuml');
-INSERT INTO R_SUB
-	VALUES ("a7d2fc6b-67c6-4632-8aa8-987770df262b",
-	"511b9251-6ce9-4a42-a8c3-63752a2a13c2",
-	"64e6850d-3374-4c3b-a874-6db2a217bd62");
-INSERT INTO R_RGO
-	VALUES ("a7d2fc6b-67c6-4632-8aa8-987770df262b",
-	"511b9251-6ce9-4a42-a8c3-63752a2a13c2",
-	"64e6850d-3374-4c3b-a874-6db2a217bd62");
-INSERT INTO R_OIR
-	VALUES ("a7d2fc6b-67c6-4632-8aa8-987770df262b",
-	"511b9251-6ce9-4a42-a8c3-63752a2a13c2",
-	"64e6850d-3374-4c3b-a874-6db2a217bd62",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("a7d2fc6b-67c6-4632-8aa8-987770df262b",
-	'Connector Terminal',
-	205,
-	'TS_CNT',
-	'Instances of this class represent cases where a valid
-start or end point for a connector is another connector.
-
-Instances of this class are instantiated at startup from a
-pre-existing instance specification.
----------------------------------------------------------------------------
-
-PEI:true
-Persistent:false',
-	"3aa01b07-08b4-4f56-a64c-5db1a460535b",
-	'./Connector Terminal/Connector Terminal.xtuml');
-INSERT INTO R_SIMP
-	VALUES ("a59de2d5-ab3b-40eb-b418-bbc38bd228b1");
-INSERT INTO R_REL
-	VALUES ("a59de2d5-ab3b-40eb-b418-bbc38bd228b1",
-	202,
-	'Each connector has a number of possible legal starting
-points. One terminal specification is related to the connector
-specification for each legal starting point.
-
----------------------------------------------------------------------------
-',
-	"3aa01b07-08b4-4f56-a64c-5db1a460535b");
-INSERT INTO R_PART
-	VALUES ("b3901dc9-7d72-49b6-a487-35036f84cbc8",
-	"a59de2d5-ab3b-40eb-b418-bbc38bd228b1",
-	"1f08a826-f7ce-49b2-a586-a907b4778842",
-	0,
-	1,
-	'defines valid start point for');
-INSERT INTO O_RTIDA
-	VALUES ("4446a956-a85d-47f3-bc89-3b8521814de7",
-	"b3901dc9-7d72-49b6-a487-35036f84cbc8",
-	0,
-	"a59de2d5-ab3b-40eb-b418-bbc38bd228b1",
-	"1f08a826-f7ce-49b2-a586-a907b4778842");
-INSERT INTO O_OIDA_PROXY
-	VALUES ("4446a956-a85d-47f3-bc89-3b8521814de7",
-	"b3901dc9-7d72-49b6-a487-35036f84cbc8",
-	0,
-	'OOA_Type',
-	'./Connector Specification/Connector Specification.xtuml');
-INSERT INTO R_RTO
-	VALUES ("b3901dc9-7d72-49b6-a487-35036f84cbc8",
-	"a59de2d5-ab3b-40eb-b418-bbc38bd228b1",
-	"1f08a826-f7ce-49b2-a586-a907b4778842",
-	0);
-INSERT INTO O_ID_PROXY
-	VALUES (0,
-	"b3901dc9-7d72-49b6-a487-35036f84cbc8",
-	'./Connector Specification/Connector Specification.xtuml');
-INSERT INTO R_OIR
-	VALUES ("b3901dc9-7d72-49b6-a487-35036f84cbc8",
-	"a59de2d5-ab3b-40eb-b418-bbc38bd228b1",
-	"1f08a826-f7ce-49b2-a586-a907b4778842",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("b3901dc9-7d72-49b6-a487-35036f84cbc8",
-	'Connector Specification',
-	201,
-	'TS_CSP',
-	'Instances of this class represent connector symbols.
-
-Instances of this class are instantiated at startup from a
-pre-existing instance specification.
----------------------------------------------------------------------------
-
-PEI:true
-Persistent:false',
-	"3aa01b07-08b4-4f56-a64c-5db1a460535b",
-	'./Connector Specification/Connector Specification.xtuml');
-INSERT INTO R_FORM
-	VALUES ("bef8e2b1-510b-4f91-92aa-7aeb9c1fe5be",
-	"a59de2d5-ab3b-40eb-b418-bbc38bd228b1",
-	"5aba73b3-9c0d-4ef5-a163-a43a1fd3b978",
-	1,
-	0,
-	'starts with');
-INSERT INTO R_RGO
-	VALUES ("bef8e2b1-510b-4f91-92aa-7aeb9c1fe5be",
-	"a59de2d5-ab3b-40eb-b418-bbc38bd228b1",
-	"5aba73b3-9c0d-4ef5-a163-a43a1fd3b978");
-INSERT INTO R_OIR
-	VALUES ("bef8e2b1-510b-4f91-92aa-7aeb9c1fe5be",
-	"a59de2d5-ab3b-40eb-b418-bbc38bd228b1",
-	"5aba73b3-9c0d-4ef5-a163-a43a1fd3b978",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_SIMP
-	VALUES ("c3d64508-1fd9-46d8-8ae0-0042a1a7a5dd");
-INSERT INTO R_REL
-	VALUES ("c3d64508-1fd9-46d8-8ae0-0042a1a7a5dd",
-	203,
-	'Each connector has a number of possible legal ending
-points. One terminal specification is related to the connector
-specification for each legal ending point.
-
----------------------------------------------------------------------------
-',
-	"3aa01b07-08b4-4f56-a64c-5db1a460535b");
-INSERT INTO R_PART
-	VALUES ("b3901dc9-7d72-49b6-a487-35036f84cbc8",
-	"c3d64508-1fd9-46d8-8ae0-0042a1a7a5dd",
-	"a1275d3a-2488-4a21-99a8-8ca426f053da",
-	0,
-	1,
-	'defines valid end point for');
-INSERT INTO O_RTIDA
-	VALUES ("4446a956-a85d-47f3-bc89-3b8521814de7",
-	"b3901dc9-7d72-49b6-a487-35036f84cbc8",
-	0,
-	"c3d64508-1fd9-46d8-8ae0-0042a1a7a5dd",
-	"a1275d3a-2488-4a21-99a8-8ca426f053da");
-INSERT INTO R_RTO
-	VALUES ("b3901dc9-7d72-49b6-a487-35036f84cbc8",
-	"c3d64508-1fd9-46d8-8ae0-0042a1a7a5dd",
-	"a1275d3a-2488-4a21-99a8-8ca426f053da",
-	0);
-INSERT INTO R_OIR
-	VALUES ("b3901dc9-7d72-49b6-a487-35036f84cbc8",
-	"c3d64508-1fd9-46d8-8ae0-0042a1a7a5dd",
-	"a1275d3a-2488-4a21-99a8-8ca426f053da",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_FORM
-	VALUES ("bef8e2b1-510b-4f91-92aa-7aeb9c1fe5be",
-	"c3d64508-1fd9-46d8-8ae0-0042a1a7a5dd",
-	"fc965a85-3cb6-493a-a023-76c9d9963329",
-	1,
-	0,
-	'ends with');
-INSERT INTO R_RGO
-	VALUES ("bef8e2b1-510b-4f91-92aa-7aeb9c1fe5be",
-	"c3d64508-1fd9-46d8-8ae0-0042a1a7a5dd",
-	"fc965a85-3cb6-493a-a023-76c9d9963329");
-INSERT INTO R_OIR
-	VALUES ("bef8e2b1-510b-4f91-92aa-7aeb9c1fe5be",
-	"c3d64508-1fd9-46d8-8ae0-0042a1a7a5dd",
-	"fc965a85-3cb6-493a-a023-76c9d9963329",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_SIMP
-	VALUES ("eb6f92f0-161f-4818-bdd3-0b36b413c29d");
-INSERT INTO R_REL
-	VALUES ("eb6f92f0-161f-4818-bdd3-0b36b413c29d",
-	204,
-	'A starting or ending point on a shape must be specific
-about what kind of shape is legal. Each shape terminal
-specifies a single legal shape.
-
-This association captures what the legal shape is.
-
-If more than one shape is legal, then more than one 
-instance of this class is related to the connector
-specification across R202 or R203 as required.
-
----------------------------------------------------------------------------
-',
-	"3aa01b07-08b4-4f56-a64c-5db1a460535b");
-INSERT INTO R_FORM
-	VALUES ("745f9c71-a342-4b2d-9a72-8d89e44ad115",
-	"eb6f92f0-161f-4818-bdd3-0b36b413c29d",
-	"6272009a-1bf4-49af-805b-14e7e37c38b5",
-	1,
-	1,
-	'');
-INSERT INTO R_RGO
-	VALUES ("745f9c71-a342-4b2d-9a72-8d89e44ad115",
-	"eb6f92f0-161f-4818-bdd3-0b36b413c29d",
-	"6272009a-1bf4-49af-805b-14e7e37c38b5");
-INSERT INTO R_OIR
-	VALUES ("745f9c71-a342-4b2d-9a72-8d89e44ad115",
-	"eb6f92f0-161f-4818-bdd3-0b36b413c29d",
-	"6272009a-1bf4-49af-805b-14e7e37c38b5",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_PART
-	VALUES ("e97c507a-0872-4ec3-8b46-1ad4c0dec975",
-	"eb6f92f0-161f-4818-bdd3-0b36b413c29d",
-	"30532c9b-f11a-421f-9fb3-52b747ad9da7",
-	0,
-	0,
-	'specifies termination on');
-INSERT INTO O_RTIDA
-	VALUES ("ed013cd1-4ee7-4cc4-bdca-a3cf6be347b1",
-	"e97c507a-0872-4ec3-8b46-1ad4c0dec975",
-	0,
-	"eb6f92f0-161f-4818-bdd3-0b36b413c29d",
-	"30532c9b-f11a-421f-9fb3-52b747ad9da7");
-INSERT INTO O_OIDA_PROXY
-	VALUES ("ed013cd1-4ee7-4cc4-bdca-a3cf6be347b1",
-	"e97c507a-0872-4ec3-8b46-1ad4c0dec975",
-	0,
-	'OOA_Type',
-	'./Shape Specification/Shape Specification.xtuml');
-INSERT INTO R_RTO
-	VALUES ("e97c507a-0872-4ec3-8b46-1ad4c0dec975",
-	"eb6f92f0-161f-4818-bdd3-0b36b413c29d",
-	"30532c9b-f11a-421f-9fb3-52b747ad9da7",
-	0);
-INSERT INTO O_ID_PROXY
-	VALUES (0,
-	"e97c507a-0872-4ec3-8b46-1ad4c0dec975",
-	'./Shape Specification/Shape Specification.xtuml');
-INSERT INTO R_OIR
-	VALUES ("e97c507a-0872-4ec3-8b46-1ad4c0dec975",
-	"eb6f92f0-161f-4818-bdd3-0b36b413c29d",
-	"30532c9b-f11a-421f-9fb3-52b747ad9da7",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("e97c507a-0872-4ec3-8b46-1ad4c0dec975",
-	'Shape Specification',
-	200,
-	'TS_SSP',
-	'Instances of this class represent shape symbols.
-
-Instances of this class are instantiated at startup from a
-pre-existing instance specification.
----------------------------------------------------------------------------
-
-PEI:true
-Persistent:false',
-	"3aa01b07-08b4-4f56-a64c-5db1a460535b",
-	'./Shape Specification/Shape Specification.xtuml');
-INSERT INTO R_SIMP
-	VALUES ("c6e7155c-9639-4a29-8cf7-1d7a38c3998b");
-INSERT INTO R_REL
-	VALUES ("c6e7155c-9639-4a29-8cf7-1d7a38c3998b",
-	205,
-	'A starting or ending point on a connector must be specific
-about what kind of connector is legal. Each connector terminal
-specifies a single legal connector.
-
-This association captures what the legal connector is.
-
-If more than one target connector is legal, then more than
-one  instance of this class is related to the connector
-specification across R202 or R203 as required.
-
----------------------------------------------------------------------------
-',
-	"3aa01b07-08b4-4f56-a64c-5db1a460535b");
-INSERT INTO R_FORM
-	VALUES ("a7d2fc6b-67c6-4632-8aa8-987770df262b",
-	"c6e7155c-9639-4a29-8cf7-1d7a38c3998b",
-	"8724f1f2-6d0a-488f-af44-cf287e71792a",
-	1,
-	1,
-	'');
-INSERT INTO R_RGO
-	VALUES ("a7d2fc6b-67c6-4632-8aa8-987770df262b",
-	"c6e7155c-9639-4a29-8cf7-1d7a38c3998b",
-	"8724f1f2-6d0a-488f-af44-cf287e71792a");
-INSERT INTO R_OIR
-	VALUES ("a7d2fc6b-67c6-4632-8aa8-987770df262b",
-	"c6e7155c-9639-4a29-8cf7-1d7a38c3998b",
-	"8724f1f2-6d0a-488f-af44-cf287e71792a",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_PART
-	VALUES ("b3901dc9-7d72-49b6-a487-35036f84cbc8",
-	"c6e7155c-9639-4a29-8cf7-1d7a38c3998b",
-	"1eaf0765-25a9-4f96-8049-ed346c70e7cf",
-	0,
-	0,
-	'specifies termination on');
-INSERT INTO O_RTIDA
-	VALUES ("4446a956-a85d-47f3-bc89-3b8521814de7",
-	"b3901dc9-7d72-49b6-a487-35036f84cbc8",
-	0,
-	"c6e7155c-9639-4a29-8cf7-1d7a38c3998b",
-	"1eaf0765-25a9-4f96-8049-ed346c70e7cf");
-INSERT INTO R_RTO
-	VALUES ("b3901dc9-7d72-49b6-a487-35036f84cbc8",
-	"c6e7155c-9639-4a29-8cf7-1d7a38c3998b",
-	"1eaf0765-25a9-4f96-8049-ed346c70e7cf",
-	0);
-INSERT INTO R_OIR
-	VALUES ("b3901dc9-7d72-49b6-a487-35036f84cbc8",
-	"c6e7155c-9639-4a29-8cf7-1d7a38c3998b",
-	"1eaf0765-25a9-4f96-8049-ed346c70e7cf",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_SUBSUP
-	VALUES ("8c30223c-6572-4911-9da1-0e72e3bae4c0");
-INSERT INTO R_REL
-	VALUES ("8c30223c-6572-4911-9da1-0e72e3bae4c0",
-	200,
-	'',
-	"3aa01b07-08b4-4f56-a64c-5db1a460535b");
-INSERT INTO R_SUPER
-	VALUES ("76253415-b575-4583-9248-5d403cee7647",
-	"8c30223c-6572-4911-9da1-0e72e3bae4c0",
-	"6a98c437-ca85-45ad-8237-a7ccdc593dd8");
-INSERT INTO O_RTIDA
-	VALUES ("6b3798a6-af64-46df-a88c-8db2cc520b9a",
-	"76253415-b575-4583-9248-5d403cee7647",
-	0,
-	"8c30223c-6572-4911-9da1-0e72e3bae4c0",
-	"6a98c437-ca85-45ad-8237-a7ccdc593dd8");
-INSERT INTO O_OIDA_PROXY
-	VALUES ("6b3798a6-af64-46df-a88c-8db2cc520b9a",
-	"76253415-b575-4583-9248-5d403cee7647",
-	0,
-	'OOA_Type',
-	'../Graphical Data/Element Specification/Element Specification.xtuml');
-INSERT INTO R_RTO
-	VALUES ("76253415-b575-4583-9248-5d403cee7647",
-	"8c30223c-6572-4911-9da1-0e72e3bae4c0",
-	"6a98c437-ca85-45ad-8237-a7ccdc593dd8",
-	0);
-INSERT INTO O_ID_PROXY
-	VALUES (0,
-	"76253415-b575-4583-9248-5d403cee7647",
-	'../Graphical Data/Element Specification/Element Specification.xtuml');
-INSERT INTO R_OIR
-	VALUES ("76253415-b575-4583-9248-5d403cee7647",
-	"8c30223c-6572-4911-9da1-0e72e3bae4c0",
-	"6a98c437-ca85-45ad-8237-a7ccdc593dd8",
-	"953cdcb8-644f-43de-a8dd-ddd3947a2ca8");
-INSERT INTO R_SUB
-	VALUES ("e97c507a-0872-4ec3-8b46-1ad4c0dec975",
-	"8c30223c-6572-4911-9da1-0e72e3bae4c0",
-	"5cc8c07b-addb-49f7-be48-48ef53dfc8a6");
-INSERT INTO R_RGO
-	VALUES ("e97c507a-0872-4ec3-8b46-1ad4c0dec975",
-	"8c30223c-6572-4911-9da1-0e72e3bae4c0",
-	"5cc8c07b-addb-49f7-be48-48ef53dfc8a6");
-INSERT INTO R_OIR
-	VALUES ("e97c507a-0872-4ec3-8b46-1ad4c0dec975",
-	"8c30223c-6572-4911-9da1-0e72e3bae4c0",
-	"5cc8c07b-addb-49f7-be48-48ef53dfc8a6",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_SUB
-	VALUES ("b3901dc9-7d72-49b6-a487-35036f84cbc8",
-	"8c30223c-6572-4911-9da1-0e72e3bae4c0",
-	"d4638f3d-3a43-4590-bcd8-051e165b5668");
-INSERT INTO R_RGO
-	VALUES ("b3901dc9-7d72-49b6-a487-35036f84cbc8",
-	"8c30223c-6572-4911-9da1-0e72e3bae4c0",
-	"d4638f3d-3a43-4590-bcd8-051e165b5668");
-INSERT INTO R_OIR
-	VALUES ("b3901dc9-7d72-49b6-a487-35036f84cbc8",
-	"8c30223c-6572-4911-9da1-0e72e3bae4c0",
-	"d4638f3d-3a43-4590-bcd8-051e165b5668",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_SIMP
-	VALUES ("892c16f6-5811-4c3c-b46d-570be5400646");
-INSERT INTO R_REL
-	VALUES ("892c16f6-5811-4c3c-b46d-570be5400646",
-	207,
-	'This relationship is used as a convenience to cache the canvas
-currently being drawn on.
-
----------------------------------------------------------------------------
-',
-	"3aa01b07-08b4-4f56-a64c-5db1a460535b");
-INSERT INTO R_PART
-	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
-	"892c16f6-5811-4c3c-b46d-570be5400646",
-	"d91e2112-8d8a-40c4-9279-b717c9ea82ac",
-	0,
-	1,
-	'specifies termination of connector on');
-INSERT INTO O_RTIDA
-	VALUES ("d1783817-101b-46d1-b9a8-907ee4d5efe4",
-	"09423687-e999-4aba-876d-35e0d3331311",
-	0,
-	"892c16f6-5811-4c3c-b46d-570be5400646",
-	"d91e2112-8d8a-40c4-9279-b717c9ea82ac");
-INSERT INTO O_OIDA_PROXY
-	VALUES ("d1783817-101b-46d1-b9a8-907ee4d5efe4",
-	"09423687-e999-4aba-876d-35e0d3331311",
-	0,
-	'diagramId',
-	'../Graphical Data/Model/Model.xtuml');
-INSERT INTO R_RTO
-	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
-	"892c16f6-5811-4c3c-b46d-570be5400646",
-	"d91e2112-8d8a-40c4-9279-b717c9ea82ac",
-	0);
-INSERT INTO O_ID_PROXY
-	VALUES (0,
-	"09423687-e999-4aba-876d-35e0d3331311",
-	'../Graphical Data/Model/Model.xtuml');
-INSERT INTO R_OIR
-	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
-	"892c16f6-5811-4c3c-b46d-570be5400646",
-	"d91e2112-8d8a-40c4-9279-b717c9ea82ac",
-	"1ac68318-41c6-404c-95f5-aee0a2e82d2c");
-INSERT INTO R_FORM
-	VALUES ("bef8e2b1-510b-4f91-92aa-7aeb9c1fe5be",
-	"892c16f6-5811-4c3c-b46d-570be5400646",
-	"11fdd70b-8bdd-463d-a0c7-95a895d3e2f0",
-	1,
-	1,
-	'has valid connector terminations specified by');
-INSERT INTO R_RGO
-	VALUES ("bef8e2b1-510b-4f91-92aa-7aeb9c1fe5be",
-	"892c16f6-5811-4c3c-b46d-570be5400646",
-	"11fdd70b-8bdd-463d-a0c7-95a895d3e2f0");
-INSERT INTO R_OIR
-	VALUES ("bef8e2b1-510b-4f91-92aa-7aeb9c1fe5be",
-	"892c16f6-5811-4c3c-b46d-570be5400646",
-	"11fdd70b-8bdd-463d-a0c7-95a895d3e2f0",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_SIMP
-	VALUES ("b2e77529-5e42-496d-bb11-d468cf5962f5");
-INSERT INTO R_REL
-	VALUES ("b2e77529-5e42-496d-bb11-d468cf5962f5",
-	206,
-	'When the mouse position provided meets the criteria
-of a terminal specification, the graphical element whose
-position met the criteria of the terminal specification is
-captured by this relationship.
-
----------------------------------------------------------------------------
-',
-	"3aa01b07-08b4-4f56-a64c-5db1a460535b");
-INSERT INTO R_PART
-	VALUES ("9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
-	"b2e77529-5e42-496d-bb11-d468cf5962f5",
-	"3f621187-0fc1-459c-b31f-6c9d90a5c7de",
-	0,
-	1,
-	'criteria last met by');
-INSERT INTO O_RTIDA
-	VALUES ("ee285046-698d-47d4-8d30-506164f3e21f",
-	"9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
-	0,
-	"b2e77529-5e42-496d-bb11-d468cf5962f5",
-	"3f621187-0fc1-459c-b31f-6c9d90a5c7de");
-INSERT INTO O_OIDA_PROXY
-	VALUES ("ee285046-698d-47d4-8d30-506164f3e21f",
-	"9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
-	0,
-	'elementId',
-	'../Graphical Data/Graphical Element/Graphical Element.xtuml');
-INSERT INTO R_RTO
-	VALUES ("9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
-	"b2e77529-5e42-496d-bb11-d468cf5962f5",
-	"3f621187-0fc1-459c-b31f-6c9d90a5c7de",
-	0);
-INSERT INTO O_ID_PROXY
-	VALUES (0,
-	"9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
-	'../Graphical Data/Graphical Element/Graphical Element.xtuml');
-INSERT INTO R_OIR
-	VALUES ("9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
-	"b2e77529-5e42-496d-bb11-d468cf5962f5",
-	"3f621187-0fc1-459c-b31f-6c9d90a5c7de",
-	"4fb1a882-fbec-439e-8cda-aa419d305418");
-INSERT INTO R_FORM
-	VALUES ("bef8e2b1-510b-4f91-92aa-7aeb9c1fe5be",
-	"b2e77529-5e42-496d-bb11-d468cf5962f5",
-	"8754fc63-fa98-44fe-add7-dc60e2331436",
-	1,
-	1,
-	'meets criteria of');
-INSERT INTO R_RGO
-	VALUES ("bef8e2b1-510b-4f91-92aa-7aeb9c1fe5be",
-	"b2e77529-5e42-496d-bb11-d468cf5962f5",
-	"8754fc63-fa98-44fe-add7-dc60e2331436");
-INSERT INTO R_OIR
-	VALUES ("bef8e2b1-510b-4f91-92aa-7aeb9c1fe5be",
-	"b2e77529-5e42-496d-bb11-d468cf5962f5",
-	"8754fc63-fa98-44fe-add7-dc60e2331436",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_SUBSUP
-	VALUES ("9714f44d-d746-4278-8e51-570e4f2ec698");
-INSERT INTO R_REL
-	VALUES ("9714f44d-d746-4278-8e51-570e4f2ec698",
-	208,
-	'',
-	"3aa01b07-08b4-4f56-a64c-5db1a460535b");
-INSERT INTO R_SUPER
-	VALUES ("e97c507a-0872-4ec3-8b46-1ad4c0dec975",
-	"9714f44d-d746-4278-8e51-570e4f2ec698",
-	"aeaec041-c8ad-422c-806a-f182de90aed6");
-INSERT INTO O_RTIDA
-	VALUES ("ed013cd1-4ee7-4cc4-bdca-a3cf6be347b1",
-	"e97c507a-0872-4ec3-8b46-1ad4c0dec975",
-	0,
-	"9714f44d-d746-4278-8e51-570e4f2ec698",
-	"aeaec041-c8ad-422c-806a-f182de90aed6");
-INSERT INTO R_RTO
-	VALUES ("e97c507a-0872-4ec3-8b46-1ad4c0dec975",
-	"9714f44d-d746-4278-8e51-570e4f2ec698",
-	"aeaec041-c8ad-422c-806a-f182de90aed6",
-	0);
-INSERT INTO R_OIR
-	VALUES ("e97c507a-0872-4ec3-8b46-1ad4c0dec975",
-	"9714f44d-d746-4278-8e51-570e4f2ec698",
-	"aeaec041-c8ad-422c-806a-f182de90aed6",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_SUB
-	VALUES ("dec57445-a2d0-4d21-954c-11c7140043aa",
-	"9714f44d-d746-4278-8e51-570e4f2ec698",
-	"d8a8678a-6ed8-4a01-bf6d-5e1d8efaa359");
-INSERT INTO R_RGO
-	VALUES ("dec57445-a2d0-4d21-954c-11c7140043aa",
-	"9714f44d-d746-4278-8e51-570e4f2ec698",
-	"d8a8678a-6ed8-4a01-bf6d-5e1d8efaa359");
-INSERT INTO R_OIR
-	VALUES ("dec57445-a2d0-4d21-954c-11c7140043aa",
-	"9714f44d-d746-4278-8e51-570e4f2ec698",
-	"d8a8678a-6ed8-4a01-bf6d-5e1d8efaa359",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("dec57445-a2d0-4d21-954c-11c7140043aa",
-	'NonContaining Shape Specification',
-	206,
-	'TS_NCS',
-	'',
-	"3aa01b07-08b4-4f56-a64c-5db1a460535b",
-	'./NonContaining Shape Specification/NonContaining Shape Specification.xtuml');
-INSERT INTO R_SUB
-	VALUES ("5471121a-a7c1-4606-8f46-2fc1b0213eba",
-	"9714f44d-d746-4278-8e51-570e4f2ec698",
-	"1f66f41d-a123-4c4d-a9d3-912c14319768");
-INSERT INTO R_RGO
-	VALUES ("5471121a-a7c1-4606-8f46-2fc1b0213eba",
-	"9714f44d-d746-4278-8e51-570e4f2ec698",
-	"1f66f41d-a123-4c4d-a9d3-912c14319768");
-INSERT INTO R_OIR
-	VALUES ("5471121a-a7c1-4606-8f46-2fc1b0213eba",
-	"9714f44d-d746-4278-8e51-570e4f2ec698",
-	"1f66f41d-a123-4c4d-a9d3-912c14319768",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("5471121a-a7c1-4606-8f46-2fc1b0213eba",
-	'Containing Shape Specification',
-	207,
-	'TS_CTR',
-	'This is a shape that serves as a container for other elements.',
-	"3aa01b07-08b4-4f56-a64c-5db1a460535b",
-	'./Containing Shape Specification/Containing Shape Specification.xtuml');
-INSERT INTO R_SIMP
-	VALUES ("91d6bd67-51f3-4775-955c-c4f98e106f9d");
-INSERT INTO R_REL
-	VALUES ("91d6bd67-51f3-4775-955c-c4f98e106f9d",
-	209,
-	'',
-	"3aa01b07-08b4-4f56-a64c-5db1a460535b");
-INSERT INTO R_PART
-	VALUES ("bef8e2b1-510b-4f91-92aa-7aeb9c1fe5be",
-	"91d6bd67-51f3-4775-955c-c4f98e106f9d",
-	"ad626bbb-74f5-4ce3-b027-9ca824eaaf79",
-	0,
-	1,
-	'created by');
-INSERT INTO O_RTIDA
-	VALUES ("f0ec00c1-7702-4399-8636-18e344084f7e",
-	"bef8e2b1-510b-4f91-92aa-7aeb9c1fe5be",
-	0,
-	"91d6bd67-51f3-4775-955c-c4f98e106f9d",
-	"ad626bbb-74f5-4ce3-b027-9ca824eaaf79");
-INSERT INTO R_RTO
-	VALUES ("bef8e2b1-510b-4f91-92aa-7aeb9c1fe5be",
-	"91d6bd67-51f3-4775-955c-c4f98e106f9d",
-	"ad626bbb-74f5-4ce3-b027-9ca824eaaf79",
-	0);
-INSERT INTO R_OIR
-	VALUES ("bef8e2b1-510b-4f91-92aa-7aeb9c1fe5be",
-	"91d6bd67-51f3-4775-955c-c4f98e106f9d",
-	"ad626bbb-74f5-4ce3-b027-9ca824eaaf79",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_FORM
-	VALUES ("76253415-b575-4583-9248-5d403cee7647",
-	"91d6bd67-51f3-4775-955c-c4f98e106f9d",
-	"a4e79568-ba91-4f24-b090-9ccf36d49adb",
-	0,
-	1,
-	'creates');
-INSERT INTO R_RGO
-	VALUES ("76253415-b575-4583-9248-5d403cee7647",
-	"91d6bd67-51f3-4775-955c-c4f98e106f9d",
-	"a4e79568-ba91-4f24-b090-9ccf36d49adb");
-INSERT INTO R_OIR
-	VALUES ("76253415-b575-4583-9248-5d403cee7647",
-	"91d6bd67-51f3-4775-955c-c4f98e106f9d",
-	"a4e79568-ba91-4f24-b090-9ccf36d49adb",
-	"953cdcb8-644f-43de-a8dd-ddd3947a2ca8");
+	200);
 INSERT INTO GD_MD
 	VALUES ("d1247387-3664-4c20-b818-3381c10a2c52",
-	5,
+	112,
 	"3aa01b07-08b4-4f56-a64c-5db1a460535b",
-	11,
+	108,
 	1,
 	0,
 	1,
@@ -3153,3 +2349,892 @@ INSERT INTO DIM_DIA
 	1309.000000,
 	574.000000,
 	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_SUBSUP
+	VALUES ("511b9251-6ce9-4a42-a8c3-63752a2a13c2");
+INSERT INTO R_REL
+	VALUES ("511b9251-6ce9-4a42-a8c3-63752a2a13c2",
+	201,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_SUPER
+	VALUES ("bef8e2b1-510b-4f91-92aa-7aeb9c1fe5be",
+	"511b9251-6ce9-4a42-a8c3-63752a2a13c2",
+	"990bc157-b31c-45ab-8a5c-68d7548ba26f");
+INSERT INTO O_RTIDA
+	VALUES ("f0ec00c1-7702-4399-8636-18e344084f7e",
+	"bef8e2b1-510b-4f91-92aa-7aeb9c1fe5be",
+	0,
+	"511b9251-6ce9-4a42-a8c3-63752a2a13c2",
+	"990bc157-b31c-45ab-8a5c-68d7548ba26f");
+INSERT INTO O_OIDA_PROXY
+	VALUES ("f0ec00c1-7702-4399-8636-18e344084f7e",
+	"bef8e2b1-510b-4f91-92aa-7aeb9c1fe5be",
+	0,
+	'Term_Spec_ID',
+	'./Terminal Specification/Terminal Specification.xtuml');
+INSERT INTO R_RTO
+	VALUES ("bef8e2b1-510b-4f91-92aa-7aeb9c1fe5be",
+	"511b9251-6ce9-4a42-a8c3-63752a2a13c2",
+	"990bc157-b31c-45ab-8a5c-68d7548ba26f",
+	0);
+INSERT INTO O_ID_PROXY
+	VALUES (0,
+	"bef8e2b1-510b-4f91-92aa-7aeb9c1fe5be",
+	'./Terminal Specification/Terminal Specification.xtuml');
+INSERT INTO R_OIR
+	VALUES ("bef8e2b1-510b-4f91-92aa-7aeb9c1fe5be",
+	"511b9251-6ce9-4a42-a8c3-63752a2a13c2",
+	"990bc157-b31c-45ab-8a5c-68d7548ba26f",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("bef8e2b1-510b-4f91-92aa-7aeb9c1fe5be",
+	'Terminal Specification',
+	202,
+	'TS_TSP',
+	'Instances of this class represent valid places to start (or end)
+a connector.
+
+Instances of this class are instantiated at startup from a
+pre-existing instance specification.
+---------------------------------------------------------------------------
+
+PEI:true
+Persistent:false',
+	"00000000-0000-0000-0000-000000000000",
+	'./Terminal Specification/Terminal Specification.xtuml');
+INSERT INTO R_SUB
+	VALUES ("cbb053ee-6bf3-4720-af62-224208d869ee",
+	"511b9251-6ce9-4a42-a8c3-63752a2a13c2",
+	"41f1c997-2ce2-48be-8125-8ce699c454eb");
+INSERT INTO R_RGO
+	VALUES ("cbb053ee-6bf3-4720-af62-224208d869ee",
+	"511b9251-6ce9-4a42-a8c3-63752a2a13c2",
+	"41f1c997-2ce2-48be-8125-8ce699c454eb");
+INSERT INTO R_OIR
+	VALUES ("cbb053ee-6bf3-4720-af62-224208d869ee",
+	"511b9251-6ce9-4a42-a8c3-63752a2a13c2",
+	"41f1c997-2ce2-48be-8125-8ce699c454eb",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("cbb053ee-6bf3-4720-af62-224208d869ee",
+	'WhiteSpace Terminal',
+	203,
+	'TS_WST',
+	'Instances of this class represent valid cases where a
+connector starts on whitespace.
+
+Instances of this class are instantiated at startup from a
+pre-existing instance specification.
+---------------------------------------------------------------------------
+
+PEI:true
+Persistent:false',
+	"00000000-0000-0000-0000-000000000000",
+	'./WhiteSpace Terminal/WhiteSpace Terminal.xtuml');
+INSERT INTO R_SUB
+	VALUES ("745f9c71-a342-4b2d-9a72-8d89e44ad115",
+	"511b9251-6ce9-4a42-a8c3-63752a2a13c2",
+	"b7b7aa80-5869-493c-a941-94ffa2074cec");
+INSERT INTO R_RGO
+	VALUES ("745f9c71-a342-4b2d-9a72-8d89e44ad115",
+	"511b9251-6ce9-4a42-a8c3-63752a2a13c2",
+	"b7b7aa80-5869-493c-a941-94ffa2074cec");
+INSERT INTO R_OIR
+	VALUES ("745f9c71-a342-4b2d-9a72-8d89e44ad115",
+	"511b9251-6ce9-4a42-a8c3-63752a2a13c2",
+	"b7b7aa80-5869-493c-a941-94ffa2074cec",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("745f9c71-a342-4b2d-9a72-8d89e44ad115",
+	'Shape Terminal',
+	204,
+	'TS_SHT',
+	'Instances of this class represent cases where a connector
+can start or end on a shape.
+
+Instances of this class are instantiated at startup from a
+pre-existing instance specification.
+---------------------------------------------------------------------------
+
+PEI:true
+Persistent:false',
+	"00000000-0000-0000-0000-000000000000",
+	'./Shape Terminal/Shape Terminal.xtuml');
+INSERT INTO R_SUB
+	VALUES ("a7d2fc6b-67c6-4632-8aa8-987770df262b",
+	"511b9251-6ce9-4a42-a8c3-63752a2a13c2",
+	"64e6850d-3374-4c3b-a874-6db2a217bd62");
+INSERT INTO R_RGO
+	VALUES ("a7d2fc6b-67c6-4632-8aa8-987770df262b",
+	"511b9251-6ce9-4a42-a8c3-63752a2a13c2",
+	"64e6850d-3374-4c3b-a874-6db2a217bd62");
+INSERT INTO R_OIR
+	VALUES ("a7d2fc6b-67c6-4632-8aa8-987770df262b",
+	"511b9251-6ce9-4a42-a8c3-63752a2a13c2",
+	"64e6850d-3374-4c3b-a874-6db2a217bd62",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("a7d2fc6b-67c6-4632-8aa8-987770df262b",
+	'Connector Terminal',
+	205,
+	'TS_CNT',
+	'Instances of this class represent cases where a valid
+start or end point for a connector is another connector.
+
+Instances of this class are instantiated at startup from a
+pre-existing instance specification.
+---------------------------------------------------------------------------
+
+PEI:true
+Persistent:false',
+	"00000000-0000-0000-0000-000000000000",
+	'./Connector Terminal/Connector Terminal.xtuml');
+INSERT INTO PE_PE
+	VALUES ("511b9251-6ce9-4a42-a8c3-63752a2a13c2",
+	1,
+	"3aa01b07-08b4-4f56-a64c-5db1a460535b",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO R_SIMP
+	VALUES ("a59de2d5-ab3b-40eb-b418-bbc38bd228b1");
+INSERT INTO R_REL
+	VALUES ("a59de2d5-ab3b-40eb-b418-bbc38bd228b1",
+	202,
+	'Each connector has a number of possible legal starting
+points. One terminal specification is related to the connector
+specification for each legal starting point.
+
+---------------------------------------------------------------------------
+',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_PART
+	VALUES ("b3901dc9-7d72-49b6-a487-35036f84cbc8",
+	"a59de2d5-ab3b-40eb-b418-bbc38bd228b1",
+	"1f08a826-f7ce-49b2-a586-a907b4778842",
+	0,
+	1,
+	'defines valid start point for');
+INSERT INTO O_RTIDA
+	VALUES ("4446a956-a85d-47f3-bc89-3b8521814de7",
+	"b3901dc9-7d72-49b6-a487-35036f84cbc8",
+	0,
+	"a59de2d5-ab3b-40eb-b418-bbc38bd228b1",
+	"1f08a826-f7ce-49b2-a586-a907b4778842");
+INSERT INTO O_OIDA_PROXY
+	VALUES ("4446a956-a85d-47f3-bc89-3b8521814de7",
+	"b3901dc9-7d72-49b6-a487-35036f84cbc8",
+	0,
+	'OOA_Type',
+	'./Connector Specification/Connector Specification.xtuml');
+INSERT INTO R_RTO
+	VALUES ("b3901dc9-7d72-49b6-a487-35036f84cbc8",
+	"a59de2d5-ab3b-40eb-b418-bbc38bd228b1",
+	"1f08a826-f7ce-49b2-a586-a907b4778842",
+	0);
+INSERT INTO O_ID_PROXY
+	VALUES (0,
+	"b3901dc9-7d72-49b6-a487-35036f84cbc8",
+	'./Connector Specification/Connector Specification.xtuml');
+INSERT INTO R_OIR
+	VALUES ("b3901dc9-7d72-49b6-a487-35036f84cbc8",
+	"a59de2d5-ab3b-40eb-b418-bbc38bd228b1",
+	"1f08a826-f7ce-49b2-a586-a907b4778842",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("b3901dc9-7d72-49b6-a487-35036f84cbc8",
+	'Connector Specification',
+	201,
+	'TS_CSP',
+	'Instances of this class represent connector symbols.
+
+Instances of this class are instantiated at startup from a
+pre-existing instance specification.
+---------------------------------------------------------------------------
+
+PEI:true
+Persistent:false',
+	"00000000-0000-0000-0000-000000000000",
+	'./Connector Specification/Connector Specification.xtuml');
+INSERT INTO R_FORM
+	VALUES ("bef8e2b1-510b-4f91-92aa-7aeb9c1fe5be",
+	"a59de2d5-ab3b-40eb-b418-bbc38bd228b1",
+	"5aba73b3-9c0d-4ef5-a163-a43a1fd3b978",
+	1,
+	0,
+	'starts with');
+INSERT INTO R_RGO
+	VALUES ("bef8e2b1-510b-4f91-92aa-7aeb9c1fe5be",
+	"a59de2d5-ab3b-40eb-b418-bbc38bd228b1",
+	"5aba73b3-9c0d-4ef5-a163-a43a1fd3b978");
+INSERT INTO R_OIR
+	VALUES ("bef8e2b1-510b-4f91-92aa-7aeb9c1fe5be",
+	"a59de2d5-ab3b-40eb-b418-bbc38bd228b1",
+	"5aba73b3-9c0d-4ef5-a163-a43a1fd3b978",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO PE_PE
+	VALUES ("a59de2d5-ab3b-40eb-b418-bbc38bd228b1",
+	1,
+	"3aa01b07-08b4-4f56-a64c-5db1a460535b",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO R_SIMP
+	VALUES ("c3d64508-1fd9-46d8-8ae0-0042a1a7a5dd");
+INSERT INTO R_REL
+	VALUES ("c3d64508-1fd9-46d8-8ae0-0042a1a7a5dd",
+	203,
+	'Each connector has a number of possible legal ending
+points. One terminal specification is related to the connector
+specification for each legal ending point.
+
+---------------------------------------------------------------------------
+',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_PART
+	VALUES ("b3901dc9-7d72-49b6-a487-35036f84cbc8",
+	"c3d64508-1fd9-46d8-8ae0-0042a1a7a5dd",
+	"a1275d3a-2488-4a21-99a8-8ca426f053da",
+	0,
+	1,
+	'defines valid end point for');
+INSERT INTO O_RTIDA
+	VALUES ("4446a956-a85d-47f3-bc89-3b8521814de7",
+	"b3901dc9-7d72-49b6-a487-35036f84cbc8",
+	0,
+	"c3d64508-1fd9-46d8-8ae0-0042a1a7a5dd",
+	"a1275d3a-2488-4a21-99a8-8ca426f053da");
+INSERT INTO R_RTO
+	VALUES ("b3901dc9-7d72-49b6-a487-35036f84cbc8",
+	"c3d64508-1fd9-46d8-8ae0-0042a1a7a5dd",
+	"a1275d3a-2488-4a21-99a8-8ca426f053da",
+	0);
+INSERT INTO R_OIR
+	VALUES ("b3901dc9-7d72-49b6-a487-35036f84cbc8",
+	"c3d64508-1fd9-46d8-8ae0-0042a1a7a5dd",
+	"a1275d3a-2488-4a21-99a8-8ca426f053da",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_FORM
+	VALUES ("bef8e2b1-510b-4f91-92aa-7aeb9c1fe5be",
+	"c3d64508-1fd9-46d8-8ae0-0042a1a7a5dd",
+	"fc965a85-3cb6-493a-a023-76c9d9963329",
+	1,
+	0,
+	'ends with');
+INSERT INTO R_RGO
+	VALUES ("bef8e2b1-510b-4f91-92aa-7aeb9c1fe5be",
+	"c3d64508-1fd9-46d8-8ae0-0042a1a7a5dd",
+	"fc965a85-3cb6-493a-a023-76c9d9963329");
+INSERT INTO R_OIR
+	VALUES ("bef8e2b1-510b-4f91-92aa-7aeb9c1fe5be",
+	"c3d64508-1fd9-46d8-8ae0-0042a1a7a5dd",
+	"fc965a85-3cb6-493a-a023-76c9d9963329",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO PE_PE
+	VALUES ("c3d64508-1fd9-46d8-8ae0-0042a1a7a5dd",
+	1,
+	"3aa01b07-08b4-4f56-a64c-5db1a460535b",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO R_SIMP
+	VALUES ("eb6f92f0-161f-4818-bdd3-0b36b413c29d");
+INSERT INTO R_REL
+	VALUES ("eb6f92f0-161f-4818-bdd3-0b36b413c29d",
+	204,
+	'A starting or ending point on a shape must be specific
+about what kind of shape is legal. Each shape terminal
+specifies a single legal shape.
+
+This association captures what the legal shape is.
+
+If more than one shape is legal, then more than one 
+instance of this class is related to the connector
+specification across R202 or R203 as required.
+
+---------------------------------------------------------------------------
+',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_FORM
+	VALUES ("745f9c71-a342-4b2d-9a72-8d89e44ad115",
+	"eb6f92f0-161f-4818-bdd3-0b36b413c29d",
+	"6272009a-1bf4-49af-805b-14e7e37c38b5",
+	1,
+	1,
+	'');
+INSERT INTO R_RGO
+	VALUES ("745f9c71-a342-4b2d-9a72-8d89e44ad115",
+	"eb6f92f0-161f-4818-bdd3-0b36b413c29d",
+	"6272009a-1bf4-49af-805b-14e7e37c38b5");
+INSERT INTO R_OIR
+	VALUES ("745f9c71-a342-4b2d-9a72-8d89e44ad115",
+	"eb6f92f0-161f-4818-bdd3-0b36b413c29d",
+	"6272009a-1bf4-49af-805b-14e7e37c38b5",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_PART
+	VALUES ("e97c507a-0872-4ec3-8b46-1ad4c0dec975",
+	"eb6f92f0-161f-4818-bdd3-0b36b413c29d",
+	"30532c9b-f11a-421f-9fb3-52b747ad9da7",
+	0,
+	0,
+	'specifies termination on');
+INSERT INTO O_RTIDA
+	VALUES ("ed013cd1-4ee7-4cc4-bdca-a3cf6be347b1",
+	"e97c507a-0872-4ec3-8b46-1ad4c0dec975",
+	0,
+	"eb6f92f0-161f-4818-bdd3-0b36b413c29d",
+	"30532c9b-f11a-421f-9fb3-52b747ad9da7");
+INSERT INTO O_OIDA_PROXY
+	VALUES ("ed013cd1-4ee7-4cc4-bdca-a3cf6be347b1",
+	"e97c507a-0872-4ec3-8b46-1ad4c0dec975",
+	0,
+	'OOA_Type',
+	'./Shape Specification/Shape Specification.xtuml');
+INSERT INTO R_RTO
+	VALUES ("e97c507a-0872-4ec3-8b46-1ad4c0dec975",
+	"eb6f92f0-161f-4818-bdd3-0b36b413c29d",
+	"30532c9b-f11a-421f-9fb3-52b747ad9da7",
+	0);
+INSERT INTO O_ID_PROXY
+	VALUES (0,
+	"e97c507a-0872-4ec3-8b46-1ad4c0dec975",
+	'./Shape Specification/Shape Specification.xtuml');
+INSERT INTO R_OIR
+	VALUES ("e97c507a-0872-4ec3-8b46-1ad4c0dec975",
+	"eb6f92f0-161f-4818-bdd3-0b36b413c29d",
+	"30532c9b-f11a-421f-9fb3-52b747ad9da7",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("e97c507a-0872-4ec3-8b46-1ad4c0dec975",
+	'Shape Specification',
+	200,
+	'TS_SSP',
+	'Instances of this class represent shape symbols.
+
+Instances of this class are instantiated at startup from a
+pre-existing instance specification.
+---------------------------------------------------------------------------
+
+PEI:true
+Persistent:false',
+	"00000000-0000-0000-0000-000000000000",
+	'./Shape Specification/Shape Specification.xtuml');
+INSERT INTO PE_PE
+	VALUES ("eb6f92f0-161f-4818-bdd3-0b36b413c29d",
+	1,
+	"3aa01b07-08b4-4f56-a64c-5db1a460535b",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO R_SIMP
+	VALUES ("c6e7155c-9639-4a29-8cf7-1d7a38c3998b");
+INSERT INTO R_REL
+	VALUES ("c6e7155c-9639-4a29-8cf7-1d7a38c3998b",
+	205,
+	'A starting or ending point on a connector must be specific
+about what kind of connector is legal. Each connector terminal
+specifies a single legal connector.
+
+This association captures what the legal connector is.
+
+If more than one target connector is legal, then more than
+one  instance of this class is related to the connector
+specification across R202 or R203 as required.
+
+---------------------------------------------------------------------------
+',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_FORM
+	VALUES ("a7d2fc6b-67c6-4632-8aa8-987770df262b",
+	"c6e7155c-9639-4a29-8cf7-1d7a38c3998b",
+	"8724f1f2-6d0a-488f-af44-cf287e71792a",
+	1,
+	1,
+	'');
+INSERT INTO R_RGO
+	VALUES ("a7d2fc6b-67c6-4632-8aa8-987770df262b",
+	"c6e7155c-9639-4a29-8cf7-1d7a38c3998b",
+	"8724f1f2-6d0a-488f-af44-cf287e71792a");
+INSERT INTO R_OIR
+	VALUES ("a7d2fc6b-67c6-4632-8aa8-987770df262b",
+	"c6e7155c-9639-4a29-8cf7-1d7a38c3998b",
+	"8724f1f2-6d0a-488f-af44-cf287e71792a",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_PART
+	VALUES ("b3901dc9-7d72-49b6-a487-35036f84cbc8",
+	"c6e7155c-9639-4a29-8cf7-1d7a38c3998b",
+	"1eaf0765-25a9-4f96-8049-ed346c70e7cf",
+	0,
+	0,
+	'specifies termination on');
+INSERT INTO O_RTIDA
+	VALUES ("4446a956-a85d-47f3-bc89-3b8521814de7",
+	"b3901dc9-7d72-49b6-a487-35036f84cbc8",
+	0,
+	"c6e7155c-9639-4a29-8cf7-1d7a38c3998b",
+	"1eaf0765-25a9-4f96-8049-ed346c70e7cf");
+INSERT INTO R_RTO
+	VALUES ("b3901dc9-7d72-49b6-a487-35036f84cbc8",
+	"c6e7155c-9639-4a29-8cf7-1d7a38c3998b",
+	"1eaf0765-25a9-4f96-8049-ed346c70e7cf",
+	0);
+INSERT INTO R_OIR
+	VALUES ("b3901dc9-7d72-49b6-a487-35036f84cbc8",
+	"c6e7155c-9639-4a29-8cf7-1d7a38c3998b",
+	"1eaf0765-25a9-4f96-8049-ed346c70e7cf",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO PE_PE
+	VALUES ("c6e7155c-9639-4a29-8cf7-1d7a38c3998b",
+	1,
+	"3aa01b07-08b4-4f56-a64c-5db1a460535b",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO R_SUBSUP
+	VALUES ("8c30223c-6572-4911-9da1-0e72e3bae4c0");
+INSERT INTO R_REL
+	VALUES ("8c30223c-6572-4911-9da1-0e72e3bae4c0",
+	200,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_SUPER
+	VALUES ("76253415-b575-4583-9248-5d403cee7647",
+	"8c30223c-6572-4911-9da1-0e72e3bae4c0",
+	"6a98c437-ca85-45ad-8237-a7ccdc593dd8");
+INSERT INTO O_RTIDA
+	VALUES ("6b3798a6-af64-46df-a88c-8db2cc520b9a",
+	"76253415-b575-4583-9248-5d403cee7647",
+	0,
+	"8c30223c-6572-4911-9da1-0e72e3bae4c0",
+	"6a98c437-ca85-45ad-8237-a7ccdc593dd8");
+INSERT INTO O_OIDA_PROXY
+	VALUES ("6b3798a6-af64-46df-a88c-8db2cc520b9a",
+	"76253415-b575-4583-9248-5d403cee7647",
+	0,
+	'OOA_Type',
+	'../Graphical Data/Element Specification/Element Specification.xtuml');
+INSERT INTO R_RTO
+	VALUES ("76253415-b575-4583-9248-5d403cee7647",
+	"8c30223c-6572-4911-9da1-0e72e3bae4c0",
+	"6a98c437-ca85-45ad-8237-a7ccdc593dd8",
+	0);
+INSERT INTO O_ID_PROXY
+	VALUES (0,
+	"76253415-b575-4583-9248-5d403cee7647",
+	'../Graphical Data/Element Specification/Element Specification.xtuml');
+INSERT INTO R_OIR
+	VALUES ("76253415-b575-4583-9248-5d403cee7647",
+	"8c30223c-6572-4911-9da1-0e72e3bae4c0",
+	"6a98c437-ca85-45ad-8237-a7ccdc593dd8",
+	"953cdcb8-644f-43de-a8dd-ddd3947a2ca8");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("76253415-b575-4583-9248-5d403cee7647",
+	'Element Specification',
+	8,
+	'GD_ES',
+	'An element specification instance defines a type of symbol.
+The OOA_Type defines the OOA of OOA element represented
+by this symbol.
+
+Instances of this class are instantiated at startup from a
+pre-existing instance specification.
+---------------------------------------------------------------------------
+
+PEI:true
+Persistent:false
+TRANSLATE_FOR_EXTERNAL_USE:FALSE
+
+',
+	"00000000-0000-0000-0000-000000000000",
+	'../Graphical Data/Element Specification/Element Specification.xtuml');
+INSERT INTO R_SUB
+	VALUES ("e97c507a-0872-4ec3-8b46-1ad4c0dec975",
+	"8c30223c-6572-4911-9da1-0e72e3bae4c0",
+	"5cc8c07b-addb-49f7-be48-48ef53dfc8a6");
+INSERT INTO R_RGO
+	VALUES ("e97c507a-0872-4ec3-8b46-1ad4c0dec975",
+	"8c30223c-6572-4911-9da1-0e72e3bae4c0",
+	"5cc8c07b-addb-49f7-be48-48ef53dfc8a6");
+INSERT INTO R_OIR
+	VALUES ("e97c507a-0872-4ec3-8b46-1ad4c0dec975",
+	"8c30223c-6572-4911-9da1-0e72e3bae4c0",
+	"5cc8c07b-addb-49f7-be48-48ef53dfc8a6",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_SUB
+	VALUES ("b3901dc9-7d72-49b6-a487-35036f84cbc8",
+	"8c30223c-6572-4911-9da1-0e72e3bae4c0",
+	"d4638f3d-3a43-4590-bcd8-051e165b5668");
+INSERT INTO R_RGO
+	VALUES ("b3901dc9-7d72-49b6-a487-35036f84cbc8",
+	"8c30223c-6572-4911-9da1-0e72e3bae4c0",
+	"d4638f3d-3a43-4590-bcd8-051e165b5668");
+INSERT INTO R_OIR
+	VALUES ("b3901dc9-7d72-49b6-a487-35036f84cbc8",
+	"8c30223c-6572-4911-9da1-0e72e3bae4c0",
+	"d4638f3d-3a43-4590-bcd8-051e165b5668",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO PE_PE
+	VALUES ("8c30223c-6572-4911-9da1-0e72e3bae4c0",
+	1,
+	"3aa01b07-08b4-4f56-a64c-5db1a460535b",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO R_SIMP
+	VALUES ("892c16f6-5811-4c3c-b46d-570be5400646");
+INSERT INTO R_REL
+	VALUES ("892c16f6-5811-4c3c-b46d-570be5400646",
+	207,
+	'This relationship is used as a convenience to cache the canvas
+currently being drawn on.
+
+---------------------------------------------------------------------------
+',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_PART
+	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
+	"892c16f6-5811-4c3c-b46d-570be5400646",
+	"d91e2112-8d8a-40c4-9279-b717c9ea82ac",
+	0,
+	1,
+	'specifies termination of connector on');
+INSERT INTO O_RTIDA
+	VALUES ("d1783817-101b-46d1-b9a8-907ee4d5efe4",
+	"09423687-e999-4aba-876d-35e0d3331311",
+	0,
+	"892c16f6-5811-4c3c-b46d-570be5400646",
+	"d91e2112-8d8a-40c4-9279-b717c9ea82ac");
+INSERT INTO O_OIDA_PROXY
+	VALUES ("d1783817-101b-46d1-b9a8-907ee4d5efe4",
+	"09423687-e999-4aba-876d-35e0d3331311",
+	0,
+	'diagramId',
+	'../Graphical Data/Model/Model.xtuml');
+INSERT INTO R_RTO
+	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
+	"892c16f6-5811-4c3c-b46d-570be5400646",
+	"d91e2112-8d8a-40c4-9279-b717c9ea82ac",
+	0);
+INSERT INTO O_ID_PROXY
+	VALUES (0,
+	"09423687-e999-4aba-876d-35e0d3331311",
+	'../Graphical Data/Model/Model.xtuml');
+INSERT INTO R_OIR
+	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
+	"892c16f6-5811-4c3c-b46d-570be5400646",
+	"d91e2112-8d8a-40c4-9279-b717c9ea82ac",
+	"1ac68318-41c6-404c-95f5-aee0a2e82d2c");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
+	'Model',
+	1,
+	'GD_MD',
+	'A model is a drawing for one particular view of the analysis. There is an instance of model for each glyph on the index window, and each entry in the model element list on the index window. For example, every domain will have four models (DPD, PDD(R), PDD(A), PDD(S)).  Every subsystem will have three models (CD, OCD(A), OCD(S)).  Every state chart has one model (SC).  The STT is not a graphical model.',
+	"00000000-0000-0000-0000-000000000000",
+	'../Graphical Data/Model/Model.xtuml');
+INSERT INTO R_FORM
+	VALUES ("bef8e2b1-510b-4f91-92aa-7aeb9c1fe5be",
+	"892c16f6-5811-4c3c-b46d-570be5400646",
+	"11fdd70b-8bdd-463d-a0c7-95a895d3e2f0",
+	1,
+	1,
+	'has valid connector terminations specified by');
+INSERT INTO R_RGO
+	VALUES ("bef8e2b1-510b-4f91-92aa-7aeb9c1fe5be",
+	"892c16f6-5811-4c3c-b46d-570be5400646",
+	"11fdd70b-8bdd-463d-a0c7-95a895d3e2f0");
+INSERT INTO R_OIR
+	VALUES ("bef8e2b1-510b-4f91-92aa-7aeb9c1fe5be",
+	"892c16f6-5811-4c3c-b46d-570be5400646",
+	"11fdd70b-8bdd-463d-a0c7-95a895d3e2f0",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO PE_PE
+	VALUES ("892c16f6-5811-4c3c-b46d-570be5400646",
+	1,
+	"3aa01b07-08b4-4f56-a64c-5db1a460535b",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO R_SIMP
+	VALUES ("b2e77529-5e42-496d-bb11-d468cf5962f5");
+INSERT INTO R_REL
+	VALUES ("b2e77529-5e42-496d-bb11-d468cf5962f5",
+	206,
+	'When the mouse position provided meets the criteria
+of a terminal specification, the graphical element whose
+position met the criteria of the terminal specification is
+captured by this relationship.
+
+---------------------------------------------------------------------------
+',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_PART
+	VALUES ("9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
+	"b2e77529-5e42-496d-bb11-d468cf5962f5",
+	"3f621187-0fc1-459c-b31f-6c9d90a5c7de",
+	0,
+	1,
+	'criteria last met by');
+INSERT INTO O_RTIDA
+	VALUES ("ee285046-698d-47d4-8d30-506164f3e21f",
+	"9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
+	0,
+	"b2e77529-5e42-496d-bb11-d468cf5962f5",
+	"3f621187-0fc1-459c-b31f-6c9d90a5c7de");
+INSERT INTO O_OIDA_PROXY
+	VALUES ("ee285046-698d-47d4-8d30-506164f3e21f",
+	"9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
+	0,
+	'elementId',
+	'../Graphical Data/Graphical Element/Graphical Element.xtuml');
+INSERT INTO R_RTO
+	VALUES ("9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
+	"b2e77529-5e42-496d-bb11-d468cf5962f5",
+	"3f621187-0fc1-459c-b31f-6c9d90a5c7de",
+	0);
+INSERT INTO O_ID_PROXY
+	VALUES (0,
+	"9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
+	'../Graphical Data/Graphical Element/Graphical Element.xtuml');
+INSERT INTO R_OIR
+	VALUES ("9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
+	"b2e77529-5e42-496d-bb11-d468cf5962f5",
+	"3f621187-0fc1-459c-b31f-6c9d90a5c7de",
+	"4fb1a882-fbec-439e-8cda-aa419d305418");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
+	'Graphical Element',
+	2,
+	'GD_GE',
+	'Graphical element abstracts the different shapes and lines that make up the graphical representation of a model on the canvas.',
+	"00000000-0000-0000-0000-000000000000",
+	'../Graphical Data/Graphical Element/Graphical Element.xtuml');
+INSERT INTO R_FORM
+	VALUES ("bef8e2b1-510b-4f91-92aa-7aeb9c1fe5be",
+	"b2e77529-5e42-496d-bb11-d468cf5962f5",
+	"8754fc63-fa98-44fe-add7-dc60e2331436",
+	1,
+	1,
+	'meets criteria of');
+INSERT INTO R_RGO
+	VALUES ("bef8e2b1-510b-4f91-92aa-7aeb9c1fe5be",
+	"b2e77529-5e42-496d-bb11-d468cf5962f5",
+	"8754fc63-fa98-44fe-add7-dc60e2331436");
+INSERT INTO R_OIR
+	VALUES ("bef8e2b1-510b-4f91-92aa-7aeb9c1fe5be",
+	"b2e77529-5e42-496d-bb11-d468cf5962f5",
+	"8754fc63-fa98-44fe-add7-dc60e2331436",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO PE_PE
+	VALUES ("b2e77529-5e42-496d-bb11-d468cf5962f5",
+	1,
+	"3aa01b07-08b4-4f56-a64c-5db1a460535b",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO R_SUBSUP
+	VALUES ("9714f44d-d746-4278-8e51-570e4f2ec698");
+INSERT INTO R_REL
+	VALUES ("9714f44d-d746-4278-8e51-570e4f2ec698",
+	208,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_SUPER
+	VALUES ("e97c507a-0872-4ec3-8b46-1ad4c0dec975",
+	"9714f44d-d746-4278-8e51-570e4f2ec698",
+	"aeaec041-c8ad-422c-806a-f182de90aed6");
+INSERT INTO O_RTIDA
+	VALUES ("ed013cd1-4ee7-4cc4-bdca-a3cf6be347b1",
+	"e97c507a-0872-4ec3-8b46-1ad4c0dec975",
+	0,
+	"9714f44d-d746-4278-8e51-570e4f2ec698",
+	"aeaec041-c8ad-422c-806a-f182de90aed6");
+INSERT INTO R_RTO
+	VALUES ("e97c507a-0872-4ec3-8b46-1ad4c0dec975",
+	"9714f44d-d746-4278-8e51-570e4f2ec698",
+	"aeaec041-c8ad-422c-806a-f182de90aed6",
+	0);
+INSERT INTO R_OIR
+	VALUES ("e97c507a-0872-4ec3-8b46-1ad4c0dec975",
+	"9714f44d-d746-4278-8e51-570e4f2ec698",
+	"aeaec041-c8ad-422c-806a-f182de90aed6",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_SUB
+	VALUES ("dec57445-a2d0-4d21-954c-11c7140043aa",
+	"9714f44d-d746-4278-8e51-570e4f2ec698",
+	"d8a8678a-6ed8-4a01-bf6d-5e1d8efaa359");
+INSERT INTO R_RGO
+	VALUES ("dec57445-a2d0-4d21-954c-11c7140043aa",
+	"9714f44d-d746-4278-8e51-570e4f2ec698",
+	"d8a8678a-6ed8-4a01-bf6d-5e1d8efaa359");
+INSERT INTO R_OIR
+	VALUES ("dec57445-a2d0-4d21-954c-11c7140043aa",
+	"9714f44d-d746-4278-8e51-570e4f2ec698",
+	"d8a8678a-6ed8-4a01-bf6d-5e1d8efaa359",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("dec57445-a2d0-4d21-954c-11c7140043aa",
+	'NonContaining Shape Specification',
+	206,
+	'TS_NCS',
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'./NonContaining Shape Specification/NonContaining Shape Specification.xtuml');
+INSERT INTO R_SUB
+	VALUES ("5471121a-a7c1-4606-8f46-2fc1b0213eba",
+	"9714f44d-d746-4278-8e51-570e4f2ec698",
+	"1f66f41d-a123-4c4d-a9d3-912c14319768");
+INSERT INTO R_RGO
+	VALUES ("5471121a-a7c1-4606-8f46-2fc1b0213eba",
+	"9714f44d-d746-4278-8e51-570e4f2ec698",
+	"1f66f41d-a123-4c4d-a9d3-912c14319768");
+INSERT INTO R_OIR
+	VALUES ("5471121a-a7c1-4606-8f46-2fc1b0213eba",
+	"9714f44d-d746-4278-8e51-570e4f2ec698",
+	"1f66f41d-a123-4c4d-a9d3-912c14319768",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("5471121a-a7c1-4606-8f46-2fc1b0213eba",
+	'Containing Shape Specification',
+	207,
+	'TS_CTR',
+	'This is a shape that serves as a container for other elements.',
+	"00000000-0000-0000-0000-000000000000",
+	'./Containing Shape Specification/Containing Shape Specification.xtuml');
+INSERT INTO PE_PE
+	VALUES ("9714f44d-d746-4278-8e51-570e4f2ec698",
+	1,
+	"3aa01b07-08b4-4f56-a64c-5db1a460535b",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO R_SIMP
+	VALUES ("91d6bd67-51f3-4775-955c-c4f98e106f9d");
+INSERT INTO R_REL
+	VALUES ("91d6bd67-51f3-4775-955c-c4f98e106f9d",
+	209,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_PART
+	VALUES ("bef8e2b1-510b-4f91-92aa-7aeb9c1fe5be",
+	"91d6bd67-51f3-4775-955c-c4f98e106f9d",
+	"ad626bbb-74f5-4ce3-b027-9ca824eaaf79",
+	0,
+	1,
+	'created by');
+INSERT INTO O_RTIDA
+	VALUES ("f0ec00c1-7702-4399-8636-18e344084f7e",
+	"bef8e2b1-510b-4f91-92aa-7aeb9c1fe5be",
+	0,
+	"91d6bd67-51f3-4775-955c-c4f98e106f9d",
+	"ad626bbb-74f5-4ce3-b027-9ca824eaaf79");
+INSERT INTO R_RTO
+	VALUES ("bef8e2b1-510b-4f91-92aa-7aeb9c1fe5be",
+	"91d6bd67-51f3-4775-955c-c4f98e106f9d",
+	"ad626bbb-74f5-4ce3-b027-9ca824eaaf79",
+	0);
+INSERT INTO R_OIR
+	VALUES ("bef8e2b1-510b-4f91-92aa-7aeb9c1fe5be",
+	"91d6bd67-51f3-4775-955c-c4f98e106f9d",
+	"ad626bbb-74f5-4ce3-b027-9ca824eaaf79",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_FORM
+	VALUES ("76253415-b575-4583-9248-5d403cee7647",
+	"91d6bd67-51f3-4775-955c-c4f98e106f9d",
+	"a4e79568-ba91-4f24-b090-9ccf36d49adb",
+	0,
+	1,
+	'creates');
+INSERT INTO R_RGO
+	VALUES ("76253415-b575-4583-9248-5d403cee7647",
+	"91d6bd67-51f3-4775-955c-c4f98e106f9d",
+	"a4e79568-ba91-4f24-b090-9ccf36d49adb");
+INSERT INTO R_OIR
+	VALUES ("76253415-b575-4583-9248-5d403cee7647",
+	"91d6bd67-51f3-4775-955c-c4f98e106f9d",
+	"a4e79568-ba91-4f24-b090-9ccf36d49adb",
+	"953cdcb8-644f-43de-a8dd-ddd3947a2ca8");
+INSERT INTO PE_PE
+	VALUES ("91d6bd67-51f3-4775-955c-c4f98e106f9d",
+	1,
+	"3aa01b07-08b4-4f56-a64c-5db1a460535b",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO O_IOBJ
+	VALUES ("953cdcb8-644f-43de-a8dd-ddd3947a2ca8",
+	"76253415-b575-4583-9248-5d403cee7647",
+	5,
+	"00000000-0000-0000-0000-000000000000",
+	'Element Specification',
+	'GD_ES');
+INSERT INTO PE_PE
+	VALUES ("953cdcb8-644f-43de-a8dd-ddd3947a2ca8",
+	1,
+	"3aa01b07-08b4-4f56-a64c-5db1a460535b",
+	"00000000-0000-0000-0000-000000000000",
+	19);
+INSERT INTO O_IOBJ
+	VALUES ("1ac68318-41c6-404c-95f5-aee0a2e82d2c",
+	"09423687-e999-4aba-876d-35e0d3331311",
+	5,
+	"00000000-0000-0000-0000-000000000000",
+	'Model',
+	'GD_MD');
+INSERT INTO PE_PE
+	VALUES ("1ac68318-41c6-404c-95f5-aee0a2e82d2c",
+	1,
+	"3aa01b07-08b4-4f56-a64c-5db1a460535b",
+	"00000000-0000-0000-0000-000000000000",
+	19);
+INSERT INTO O_IOBJ
+	VALUES ("4fb1a882-fbec-439e-8cda-aa419d305418",
+	"9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
+	5,
+	"00000000-0000-0000-0000-000000000000",
+	'Graphical Element',
+	'GD_GE');
+INSERT INTO PE_PE
+	VALUES ("4fb1a882-fbec-439e-8cda-aa419d305418",
+	1,
+	"3aa01b07-08b4-4f56-a64c-5db1a460535b",
+	"00000000-0000-0000-0000-000000000000",
+	19);
+INSERT INTO PE_PE
+	VALUES ("3aa01b07-08b4-4f56-a64c-5db1a460535b",
+	1,
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	"00000000-0000-0000-0000-000000000000",
+	7);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	"8f801c9a-cf2d-4ef4-b11a-51b8697e3ca8",
+	"8f801c9a-cf2d-4ef4-b11a-51b8697e3ca8",
+	'ooaofgraphics',
+	'========================================================================
+
+File:          $RCSfile$
+Version:   $Revision$
+Modified:  $Date$
+
+(c) Copyright 2004-2014 Mentor Graphics Corporation All rights reserved.
+
+========================================================================
+Licensed under the Apache License, Version 2.0 (the "License"); you may not
+use this file except in compliance with the License.  You may obtain a copy
+of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the
+License for the specific language governing permissions and limitations under
+the License.
+========================================================================
+
+This is the graphics domain for the Tiger project.
+
+The processing in this model describes the activities
+required for model diagram display and editing.
+
+Import:com.mentor.nucleus.bp.core.*
+-------------------------------------------------------------------------------------------------------------
+',
+	0,
+	'../ooaofgraphics.xtuml');
+INSERT INTO S_SYS_PROXY
+	VALUES ("8f801c9a-cf2d-4ef4-b11a-51b8697e3ca8",
+	'com.mentor.nucleus.bp.ui.canvas',
+	1,
+	'../../com.mentor.nucleus.bp.ui.canvas.xtuml');

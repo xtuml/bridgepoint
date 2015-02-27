@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("966c2c8a-9ac3-4743-95ff-daeeabe77f39",
@@ -6,13 +6,13 @@ INSERT INTO O_OBJ
 	1019,
 	'MSG_EPA',
 	'',
-	"5b26fa8b-77b9-4af0-807d-28be1c9e1735");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("835e3d74-1167-4503-bbc0-748cb213afdb",
 	"966c2c8a-9ac3-4743-95ff-daeeabe77f39",
 	'dispose',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select one pp related by self->C_PP[R1023];
 if not_empty pp
@@ -26,13 +26,6 @@ delete object instance self;',
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO S_DT_PROXY
-	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'void',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("966c2c8a-9ac3-4743-95ff-daeeabe77f39",
 	"47e060be-45f5-4197-9592-1f6599becfb5",
@@ -81,16 +74,9 @@ INSERT INTO O_ATTR
 	'',
 	'Arg_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("966c2c8a-9ac3-4743-95ff-daeeabe77f39",
 	"dcbde5c3-c845-4c4a-99bf-003c6b74e026",
@@ -106,7 +92,7 @@ INSERT INTO O_REF
 	'',
 	'Property Parameter',
 	'PP_Id',
-	'R1023');
+	'R1023.''is represented by''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("966c2c8a-9ac3-4743-95ff-daeeabe77f39",
 	"3611b931-4120-41db-88a3-cdd744bed9b3",
@@ -139,7 +125,7 @@ INSERT INTO O_ATTR
 	'',
 	'PP_Id',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_ID
@@ -156,13 +142,18 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"966c2c8a-9ac3-4743-95ff-daeeabe77f39");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("966c2c8a-9ac3-4743-95ff-daeeabe77f39",
+	1,
+	"5b26fa8b-77b9-4af0-807d-28be1c9e1735",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("5b26fa8b-77b9-4af0-807d-28be1c9e1735",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Message',
 	'// This is used by schema_gen to ignore this subsystem (for publication)
 TRANSLATE_FOR_EXTERNAL_USE:FALSE',
-	'MSG',
 	1000,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000000000",
 	'../Message.xtuml');

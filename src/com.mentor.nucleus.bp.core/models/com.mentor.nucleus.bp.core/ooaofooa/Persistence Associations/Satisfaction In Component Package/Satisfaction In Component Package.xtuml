@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("3c44bc33-3c06-4b91-ac2a-abbf3d4282c0",
@@ -6,7 +6,7 @@ INSERT INTO O_OBJ
 	9001,
 	'PA_SICP',
 	'User_Visible:false',
-	"efe99441-df3d-4a6a-a82b-f20f78de4afa");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_REF
 	VALUES ("3c44bc33-3c06-4b91-ac2a-abbf3d4282c0",
 	"76aac5bd-1f3f-409b-bf58-ab587f190bfd",
@@ -55,16 +55,9 @@ INSERT INTO O_ATTR
 	'Component',
 	'Package_ID',
 	1,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("3c44bc33-3c06-4b91-ac2a-abbf3d4282c0",
 	"31d55c78-4c8e-4706-afeb-da88c819c621",
@@ -108,7 +101,7 @@ INSERT INTO O_ATTR
 	'Satisfaction_',
 	'Id',
 	1,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_ID
@@ -130,8 +123,16 @@ INSERT INTO O_OIDA
 	"3c44bc33-3c06-4b91-ac2a-abbf3d4282c0",
 	0,
 	'Satisfaction_Id');
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("3c44bc33-3c06-4b91-ac2a-abbf3d4282c0",
+	1,
+	"efe99441-df3d-4a6a-a82b-f20f78de4afa",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("efe99441-df3d-4a6a-a82b-f20f78de4afa",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Persistence Associations',
 	'This subsystem contains associations required to allow correct persistence
 locations.
@@ -143,8 +144,5 @@ export items, this subsystem shall be removed.
 TRANSLATE_FOR_EXTERNAL_USE:FALSE
 
 Persistent:false',
-	'',
 	9000,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000000000",
 	'../Persistence Associations.xtuml');

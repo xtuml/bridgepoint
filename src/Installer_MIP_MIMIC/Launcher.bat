@@ -1,5 +1,5 @@
 @echo off
-set BP_VERSION=4.2.0
+set BP_VERSION=4.2.1
 
 ::
 :: DO NOT MODIFY ANY OF THE FOLLOWING LINES.

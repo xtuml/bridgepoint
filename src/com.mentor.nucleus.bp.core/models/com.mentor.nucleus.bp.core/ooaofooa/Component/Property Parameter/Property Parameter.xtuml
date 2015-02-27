@@ -6,13 +6,13 @@ INSERT INTO O_OBJ
 	4009,
 	'C_PP',
 	'',
-	"01aecea1-07ec-46e6-a719-cece731803c9");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("8425089d-ab52-4652-8308-4b769c953337",
 	"dcbde5c3-c845-4c4a-99bf-003c6b74e026",
 	'initialize',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
 select one system related by self->C_EP[R4006]->C_I[R4003]->IP_IP[R4303]->S_SYS[R4304];
@@ -52,13 +52,6 @@ end if;       ',
 	1,
 	'',
 	"247ca267-59ec-4572-bd17-f024946a4d5e");
-INSERT INTO S_DT_PROXY
-	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'void',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("3cb46d27-1d64-46cc-98cb-a9fb6727d729",
 	"dcbde5c3-c845-4c4a-99bf-003c6b74e026",
@@ -75,7 +68,7 @@ Translate: native',
 	"77b496ce-a170-4010-8fb1-1e05e5d78555");
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
 	'instance',
 	'',
 	'',
@@ -85,7 +78,7 @@ INSERT INTO O_TFR
 	"dcbde5c3-c845-4c4a-99bf-003c6b74e026",
 	'dispose',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select one dt related by self->S_DT[R4007];
 unrelate self from dt across R4007;
@@ -140,7 +133,7 @@ INSERT INTO O_TFR
 	"dcbde5c3-c845-4c4a-99bf-003c6b74e026",
 	'isAllowedType',
 	'',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
 // Property Parameter.isAllowedType()
@@ -163,31 +156,17 @@ INSERT INTO O_TPARM
 	VALUES ("7565946a-027c-4d7c-9993-1628362fa1dd",
 	"ac4a619f-6330-48a7-8f96-716716c135b0",
 	'typeName',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'string',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
-INSERT INTO S_DT_PROXY
-	VALUES ("8e519c45-7dcf-400b-9d4e-954869dbb7e8",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'boolean',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("5a108d63-d4f4-428c-89d2-b4da63faf15c",
 	"dcbde5c3-c845-4c4a-99bf-003c6b74e026",
 	'resolveDatatype',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
 select one dtProxy related by self->S_DT[R4007];
@@ -243,7 +222,7 @@ INSERT INTO O_TFR
 	"dcbde5c3-c845-4c4a-99bf-003c6b74e026",
 	'getDimensionsCnt',
 	'',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	1,
 	'select many dims related by self->S_DIM[R4017];
 dimensions = cardinality dims;
@@ -252,19 +231,12 @@ return dimensions;
 	1,
 	'',
 	"3c84c30c-7165-4f9d-9412-e04697596ffe");
-INSERT INTO S_DT_PROXY
-	VALUES ("79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'integer',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("db948a90-015c-44d9-a6d5-19d4a1cfcfc1",
 	"dcbde5c3-c845-4c4a-99bf-003c6b74e026",
 	'resizeDimensions',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// If the number of dimensions has increased then add dimensions
 while (param.numDimensions > self.getDimensionsCnt())
@@ -296,7 +268,7 @@ INSERT INTO O_TPARM
 	VALUES ("4fd1fe1e-9529-4f44-af43-60f7a2ed669f",
 	"db948a90-015c-44d9-a6d5-19d4a1cfcfc1",
 	'dimension',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -305,7 +277,7 @@ INSERT INTO O_TPARM
 	VALUES ("2db955d1-5e4b-4835-bea4-87fd858273a5",
 	"db948a90-015c-44d9-a6d5-19d4a1cfcfc1",
 	'numDimensions',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"f72f9e9d-87ed-4896-bf1f-f279dc57e685",
@@ -314,7 +286,7 @@ INSERT INTO O_TPARM
 	VALUES ("f72f9e9d-87ed-4896-bf1f-f279dc57e685",
 	"db948a90-015c-44d9-a6d5-19d4a1cfcfc1",
 	'elementCount',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"4fd1fe1e-9529-4f44-af43-60f7a2ed669f",
@@ -358,24 +330,17 @@ INSERT INTO O_TPARM
 	VALUES ("0a37522b-329d-41db-8998-02a9221370f8",
 	"247ca267-59ec-4572-bd17-f024946a4d5e",
 	'stack_frame_id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'unique_id',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("93e77db1-3fd8-49a5-8f11-83b7c203fd13",
 	"dcbde5c3-c845-4c4a-99bf-003c6b74e026",
 	'setValue',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// Subsystem:Property Parameter.setValue()
 // Grab the stack frame
@@ -410,7 +375,7 @@ INSERT INTO O_TPARM
 	VALUES ("d95a03f6-250a-41d1-a145-f7fe98bbb262",
 	"93e77db1-3fd8-49a5-8f11-83b7c203fd13",
 	'stack_frame_id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -428,7 +393,7 @@ INSERT INTO O_TPARM
 	VALUES ("9e492f2f-19f6-40de-8594-1765900b339b",
 	"93e77db1-3fd8-49a5-8f11-83b7c203fd13",
 	'member_id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"0a52964c-f98d-45cf-8cd9-67e866e7d6c4",
@@ -438,7 +403,7 @@ INSERT INTO O_TFR
 	"dcbde5c3-c845-4c4a-99bf-003c6b74e026",
 	'moveUp',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'::changeNotificationEnablement(enabled:false);
 select one prev_attr related by self->C_PP[R4021.''succeeds''];
@@ -474,7 +439,7 @@ INSERT INTO O_TFR
 	"dcbde5c3-c845-4c4a-99bf-003c6b74e026",
 	'moveDown',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'::changeNotificationEnablement(enabled:false);
 select one next_attr related by self->C_PP[R4021.''precedes''];
@@ -511,7 +476,7 @@ INSERT INTO O_TFR
 	"dcbde5c3-c845-4c4a-99bf-003c6b74e026",
 	'actionFilter',
 	'',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'if (param.name == "can" )
   if ( param.value == "move up" )
@@ -531,7 +496,7 @@ INSERT INTO O_TPARM
 	VALUES ("ae18ab0e-f6f9-4737-b3fc-d603d663bca0",
 	"22d31d1f-d43b-4191-823a-a0259fcf995e",
 	'name',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -540,7 +505,7 @@ INSERT INTO O_TPARM
 	VALUES ("2ed8f3c7-d3c3-452c-9205-677840eca2d2",
 	"22d31d1f-d43b-4191-823a-a0259fcf995e",
 	'value',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	0,
 	'',
 	"ae18ab0e-f6f9-4737-b3fc-d603d663bca0",
@@ -550,7 +515,7 @@ INSERT INTO O_TFR
 	"dcbde5c3-c845-4c4a-99bf-003c6b74e026",
 	'canReferToDataType',
 	'',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
 // select the dt
@@ -584,7 +549,7 @@ INSERT INTO O_TFR
 	"dcbde5c3-c845-4c4a-99bf-003c6b74e026",
 	'isReferringToDefaultDataType',
 	'',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'select one dt related by self->S_DT[R4007];
 elementType = Util::getSimpleClassName(element:self.convertToInstance());
@@ -601,7 +566,7 @@ INSERT INTO O_TFR
 	"dcbde5c3-c845-4c4a-99bf-003c6b74e026",
 	'canUseDataType',
 	'',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
 // Property Parameter.canUseDataType()
@@ -655,7 +620,7 @@ INSERT INTO O_TPARM
 	VALUES ("391d9af2-c832-4d55-8be6-d4d2a04d99bc",
 	"77b496ce-a170-4010-8fb1-1e05e5d78555",
 	'id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -665,7 +630,7 @@ INSERT INTO O_TFR
 	"dcbde5c3-c845-4c4a-99bf-003c6b74e026",
 	'getPath',
 	'',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'select one exProperty related by self-> C_EP[R4006];
 select one iface related by exProperty->C_I[R4003]; 
@@ -681,7 +646,7 @@ INSERT INTO O_TFR
 	"dcbde5c3-c845-4c4a-99bf-003c6b74e026",
 	'checkIntegrity',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'/**
  *  Create an integrity issue if there are any other ports on this compoenent
@@ -732,7 +697,7 @@ INSERT INTO O_ATTR
 	'',
 	'PP_Id',
 	0,
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -750,7 +715,7 @@ INSERT INTO O_ATTR
 	'',
 	'Name',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -769,7 +734,7 @@ Description: A textual description of this parameter.',
 	'',
 	'Descrip',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_REF
@@ -787,7 +752,7 @@ INSERT INTO O_REF
 	'',
 	'Executable Property',
 	'Id',
-	'R4006');
+	'R4006.''parameterizes''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("dcbde5c3-c845-4c4a-99bf-003c6b74e026",
 	"cd51af67-a4cc-42ec-a43a-f8004d1b4a37",
@@ -820,16 +785,9 @@ INSERT INTO O_ATTR
 	'Signal_',
 	'Id',
 	1,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("2a4cc07f-27f0-43e0-8858-ba2621a69e77",
 	"dcbde5c3-c845-4c4a-99bf-003c6b74e026");
@@ -849,7 +807,7 @@ enum1: By Reference',
 	'',
 	'By_Ref',
 	0,
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -867,7 +825,7 @@ INSERT INTO O_ATTR
 	'',
 	'Dimensions',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_REF
@@ -885,7 +843,7 @@ INSERT INTO O_REF
 	'',
 	'Property Parameter',
 	'PP_Id',
-	'R4021');
+	'R4021.''succeeds''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("dcbde5c3-c845-4c4a-99bf-003c6b74e026",
 	"fb355602-eda3-4410-a548-7075ef2afaf1",
@@ -914,7 +872,7 @@ INSERT INTO O_ATTR
 	'Previous_',
 	'PP_Id',
 	1,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -932,7 +890,7 @@ INSERT INTO O_REF
 	'',
 	'Data Type',
 	'DT_ID',
-	'R4007');
+	'R4007.''is typed by''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("dcbde5c3-c845-4c4a-99bf-003c6b74e026",
 	"c30e0ea6-c488-4f62-af4c-352380e04105",
@@ -965,7 +923,7 @@ INSERT INTO O_ATTR
 	'',
 	'Element_ID',
 	2,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_ID
@@ -982,16 +940,21 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"dcbde5c3-c845-4c4a-99bf-003c6b74e026");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("dcbde5c3-c845-4c4a-99bf-003c6b74e026",
+	1,
+	"01aecea1-07ec-46e6-a719-cece731803c9",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("01aecea1-07ec-46e6-a719-cece731803c9",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Component',
 	'// This is used by schema_gen to ignore this subsystem (for publication)
 TRANSLATE_FOR_EXTERNAL_USE:FALSE
 
 The component subsystem contains the classes necessary to capture the data
 required for modeling components.',
-	'C',
 	4000,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000000000",
 	'../Component.xtuml');

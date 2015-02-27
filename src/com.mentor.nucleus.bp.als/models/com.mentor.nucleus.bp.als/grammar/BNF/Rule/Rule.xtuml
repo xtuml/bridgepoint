@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("50596432-249d-4b43-b1db-deea1f96bd06",
@@ -6,7 +6,7 @@ INSERT INTO O_OBJ
 	5,
 	'R',
 	'A rule is a collection of other nodes that define a portion of the syntax.',
-	"5edea08f-a6e1-4146-8e1c-0cade7a477c7");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_REF
 	VALUES ("50596432-249d-4b43-b1db-deea1f96bd06",
 	"20b4194f-f64d-47b7-896d-542dccf5f8c7",
@@ -55,16 +55,9 @@ INSERT INTO O_ATTR
 	'',
 	'nodeId',
 	0,
-	"73db19ab-e535-4718-ab07-668918299d9a",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("73db19ab-e535-4718-ab07-668918299d9a",
-	"c7485938-5b68-46c4-bc59-f0bb9c943851",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("ec0e39e1-c5ef-4371-9f8d-e9d89a7b15b8",
 	"50596432-249d-4b43-b1db-deea1f96bd06");
@@ -80,16 +73,9 @@ INSERT INTO O_ATTR
 	'',
 	'rule_name',
 	0,
-	"8bc628ed-3494-4e74-bb6a-ec37622127df",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("8bc628ed-3494-4e74-bb6a-ec37622127df",
-	"c7485938-5b68-46c4-bc59-f0bb9c943851",
-	'string',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("b67a2eff-1f48-4ac4-8141-98473d042c86",
 	"50596432-249d-4b43-b1db-deea1f96bd06");
@@ -108,7 +94,7 @@ Only one parameter is supported.  The type is a core data type.
 	'',
 	'param_type',
 	0,
-	"8bc628ed-3494-4e74-bb6a-ec37622127df",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -128,7 +114,7 @@ Only one parameter to a rule is supported.
 	'',
 	'param_name',
 	0,
-	"8bc628ed-3494-4e74-bb6a-ec37622127df",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -147,16 +133,9 @@ It is usually true.',
 	'',
 	'has_text',
 	0,
-	"c9b1caa6-e86a-4dfe-a5ea-dafda119de4f",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("c9b1caa6-e86a-4dfe-a5ea-dafda119de4f",
-	"c7485938-5b68-46c4-bc59-f0bb9c943851",
-	'boolean',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_ID
 	VALUES (0,
 	"50596432-249d-4b43-b1db-deea1f96bd06");
@@ -176,12 +155,17 @@ INSERT INTO O_OIDA
 INSERT INTO O_ID
 	VALUES (2,
 	"50596432-249d-4b43-b1db-deea1f96bd06");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("50596432-249d-4b43-b1db-deea1f96bd06",
+	1,
+	"5edea08f-a6e1-4146-8e1c-0cade7a477c7",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("5edea08f-a6e1-4146-8e1c-0cade7a477c7",
+	"00000000-0000-0000-0000-000000000000",
+	"c76dedc6-4b25-435f-9310-4f344030485a",
 	'BNF',
 	'',
-	'',
 	1,
-	"c7485938-5b68-46c4-bc59-f0bb9c943851",
-	"00000000-0000-0000-0000-000000100002",
 	'../BNF.xtuml');

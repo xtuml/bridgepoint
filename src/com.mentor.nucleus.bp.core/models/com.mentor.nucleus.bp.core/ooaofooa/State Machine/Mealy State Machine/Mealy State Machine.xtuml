@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("629f6fda-8fcf-4518-a1ca-773d54c24333",
@@ -6,7 +6,7 @@ INSERT INTO O_OBJ
 	512,
 	'SM_MEALY',
 	'A Mealy state machine is one in which actions (SM_ACT) are assigned to transitions (SM_TXN).  The action is executed during the transition from one state to another.  Support for mealy state machines is currently absent from the tool.',
-	"efdb28f6-a485-4b25-9cbf-3e7227398b6a");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_REF
 	VALUES ("629f6fda-8fcf-4518-a1ca-773d54c24333",
 	"92c4f346-0aca-4da2-b132-f4de66fee3e6",
@@ -55,16 +55,9 @@ INSERT INTO O_ATTR
 	'',
 	'SM_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_ID
 	VALUES (0,
 	"629f6fda-8fcf-4518-a1ca-773d54c24333");
@@ -79,12 +72,17 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"629f6fda-8fcf-4518-a1ca-773d54c24333");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("629f6fda-8fcf-4518-a1ca-773d54c24333",
+	1,
+	"efdb28f6-a485-4b25-9cbf-3e7227398b6a",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("efdb28f6-a485-4b25-9cbf-3e7227398b6a",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'State Machine',
 	'Classes (O_OBJ) that have interesting behavior are given lifecycles. These lifecycles are described using state machines (SM_SM). A state machine consists of states, events, transitions and state actions. The state machine exists for each instance of the class for which it has been modeled (SM_ISM). A state machine can also be an assigner state machine (SM_ASM) of which only one can exists for all class instances. The purpose of the assigner state machine is to act as a single point of control through which competing requests are serialized.',
-	'SM',
 	501,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000280005",
 	'../State Machine.xtuml');

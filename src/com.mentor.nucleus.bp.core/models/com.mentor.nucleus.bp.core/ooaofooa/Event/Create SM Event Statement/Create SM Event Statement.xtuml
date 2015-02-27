@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("474836ad-558f-45eb-8c7b-a3740b2b73b4",
@@ -7,7 +7,7 @@ INSERT INTO O_OBJ
 	'E_CSME',
 	'This class captures the common data (the event being created) for a
 statement that creates an instance of an event to a statechart.',
-	"606f68be-000c-4a29-9fb9-dc0284d01f2a");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("eb8bb922-fedd-4731-bb01-7f72e8793346",
 	"474836ad-558f-45eb-8c7b-a3740b2b73b4",
@@ -15,7 +15,7 @@ INSERT INTO O_TFR
 	'This operation disconnects an instance, and all instances it is 
 responsible for, from the model.
 ',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select one cei related by self->E_CEI[R704];
 if ( not_empty cei )
@@ -44,19 +44,12 @@ delete object instance self;
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO S_DT_PROXY
-	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'void',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("03cc716b-2b40-445c-9d9d-79331239250f",
 	"474836ad-558f-45eb-8c7b-a3740b2b73b4",
 	'execute',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'//Create SM Event Statement.execute()
 
@@ -78,18 +71,11 @@ INSERT INTO O_TPARM
 	VALUES ("2e7baf53-8690-430a-b96c-c1d57bc09c6e",
 	"03cc716b-2b40-445c-9d9d-79331239250f",
 	'stack_frame_id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'unique_id',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("474836ad-558f-45eb-8c7b-a3740b2b73b4",
 	"b9bfc391-5d31-4942-b49c-9a74a8607ea6",
@@ -140,16 +126,9 @@ INSERT INTO O_ATTR
 	'',
 	'Statement_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("474836ad-558f-45eb-8c7b-a3740b2b73b4",
 	"31832e28-c7f1-4e83-9c56-28614980fb33",
@@ -165,7 +144,7 @@ INSERT INTO O_REF
 	'',
 	'State Machine Event',
 	'SMevt_ID',
-	'R706');
+	'R706.''creates''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("474836ad-558f-45eb-8c7b-a3740b2b73b4",
 	"ba59be88-ec6e-4d68-972c-bd33e0bd43af",
@@ -200,7 +179,7 @@ INSERT INTO O_ATTR
 	'',
 	'SMevt_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_ID
@@ -217,8 +196,16 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"474836ad-558f-45eb-8c7b-a3740b2b73b4");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("474836ad-558f-45eb-8c7b-a3740b2b73b4",
+	1,
+	"606f68be-000c-4a29-9fb9-dc0284d01f2a",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("606f68be-000c-4a29-9fb9-dc0284d01f2a",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Event',
 	'This subsystem focuses on the creation and generation
 of events. Events to instances, class, creators and
@@ -230,8 +217,5 @@ Persistent:false
 // This is used by schema_gen to ignore this subsystem (for publication)
 TRANSLATE_FOR_EXTERNAL_USE:FALSE
 ',
-	'E',
 	700,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-00000068000d",
 	'../Event.xtuml');

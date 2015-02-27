@@ -1,185 +1,17 @@
--- BP 7.1 content: Subsystem syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: Package syschar: 3 persistence-version: 7.1.6
 
-INSERT INTO S_SS
+INSERT INTO EP_PKG
 	VALUES ("f5d1e1b0-a900-4d86-a529-4413f5e281e4",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Globals',
 	'Persistent:false',
-	'G',
-	0,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO S_SID
-	VALUES ("d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"f5d1e1b0-a900-4d86-a529-4413f5e281e4");
-INSERT INTO S_DOM_PROXY
-	VALUES ("d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'ooaofooa',
-	'========================================================================
-
-File:          $RCSfile: Globals.xtuml,v $
-Version:   $Revision: 1.7 $
-Modified:  $Date: 2013/05/10 13:26:35 $
-
-(c) Copyright 2004-2014 by Mentor Graphics Corp. All rights reserved.
-
-========================================================================
-Licensed under the Apache License, Version 2.0 (the "License"); you may not 
-use this file except in compliance with the License.  You may obtain a copy 
-of the License at
-
-      http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software 
-distributed under the License is distributed on an "AS IS" BASIS, WITHOUT 
-WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the 
-License for the specific language governing permissions and limitations under
-the License.
-========================================================================
-
-This is the application domain for the Tiger project.
-
-The processing in this model describes the activities
-for model capture.
-
-
-
-',
-	1,
-	"00000000-0000-0000-0000-000000000001",
-	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
-	'../ooaofooa.xtuml');
-INSERT INTO O_IOBJ
-	VALUES ("2cb401bd-3240-475f-8062-3a3b47ee4a44",
-	"5735d0f8-e286-4832-975e-04887e18a036",
-	0,
-	"f5d1e1b0-a900-4d86-a529-4413f5e281e4",
-	'System Model',
-	'S_SYS');
-INSERT INTO O_OBJ_PROXY
-	VALUES ("5735d0f8-e286-4832-975e-04887e18a036",
-	'System Model',
-	18,
-	'S_SYS',
-	'A system is described by one or more models, each drawn from different subject matters. Each subject matter model is called a domain.
------------
-PEI:true',
-	"703df30a-ee7e-44ec-a7cf-22d2171bb270",
-	'../Domain/System Model/System Model.xtuml');
-INSERT INTO O_IOBJ
-	VALUES ("ea8a7205-a1f8-4b52-88d3-c3555a43e3e1",
-	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
-	0,
-	"f5d1e1b0-a900-4d86-a529-4413f5e281e4",
-	'Packageable Element',
-	'PE_PE');
-INSERT INTO O_OBJ_PROXY
-	VALUES ("5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
-	'Packageable Element',
-	8000,
-	'PE_PE',
-	'',
-	"61c0aa15-d896-4feb-9c48-5e3f1af4e670",
-	'../Packageable Element/Packageable Element/Packageable Element.xtuml');
-INSERT INTO R_ASSOC
-	VALUES ("32231138-e837-473d-aadd-7c321109f92c");
-INSERT INTO R_REL
-	VALUES ("32231138-e837-473d-aadd-7c321109f92c",
-	9100,
-	'',
-	"f5d1e1b0-a900-4d86-a529-4413f5e281e4");
-INSERT INTO R_AONE
-	VALUES ("5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
-	"32231138-e837-473d-aadd-7c321109f92c",
-	"032d9ad8-45df-445b-bb5d-52609c98a02d",
-	1,
-	1,
-	'');
-INSERT INTO O_RTIDA
-	VALUES ("5776264f-c7e9-4abe-839f-24d0750e007c",
-	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
-	0,
-	"32231138-e837-473d-aadd-7c321109f92c",
-	"032d9ad8-45df-445b-bb5d-52609c98a02d");
-INSERT INTO O_OIDA_PROXY
-	VALUES ("5776264f-c7e9-4abe-839f-24d0750e007c",
-	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
-	0,
-	'Element_ID',
-	'../Packageable Element/Packageable Element/Packageable Element.xtuml');
-INSERT INTO R_RTO
-	VALUES ("5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
-	"32231138-e837-473d-aadd-7c321109f92c",
-	"032d9ad8-45df-445b-bb5d-52609c98a02d",
 	0);
-INSERT INTO O_ID_PROXY
-	VALUES (0,
-	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
-	'../Packageable Element/Packageable Element/Packageable Element.xtuml');
-INSERT INTO R_OIR
-	VALUES ("5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
-	"32231138-e837-473d-aadd-7c321109f92c",
-	"032d9ad8-45df-445b-bb5d-52609c98a02d",
-	"ea8a7205-a1f8-4b52-88d3-c3555a43e3e1");
-INSERT INTO R_AOTH
-	VALUES ("5735d0f8-e286-4832-975e-04887e18a036",
-	"32231138-e837-473d-aadd-7c321109f92c",
-	"55074e07-f499-4bf6-b589-9526f6541cbf",
-	1,
-	1,
-	'');
-INSERT INTO O_RTIDA
-	VALUES ("9a4da692-4fa6-494b-80c1-90dc7da16bd7",
-	"5735d0f8-e286-4832-975e-04887e18a036",
-	0,
-	"32231138-e837-473d-aadd-7c321109f92c",
-	"55074e07-f499-4bf6-b589-9526f6541cbf");
-INSERT INTO O_OIDA_PROXY
-	VALUES ("9a4da692-4fa6-494b-80c1-90dc7da16bd7",
-	"5735d0f8-e286-4832-975e-04887e18a036",
-	0,
-	'Sys_ID',
-	'../Domain/System Model/System Model.xtuml');
-INSERT INTO R_RTO
-	VALUES ("5735d0f8-e286-4832-975e-04887e18a036",
-	"32231138-e837-473d-aadd-7c321109f92c",
-	"55074e07-f499-4bf6-b589-9526f6541cbf",
-	0);
-INSERT INTO O_ID_PROXY
-	VALUES (0,
-	"5735d0f8-e286-4832-975e-04887e18a036",
-	'../Domain/System Model/System Model.xtuml');
-INSERT INTO R_OIR
-	VALUES ("5735d0f8-e286-4832-975e-04887e18a036",
-	"32231138-e837-473d-aadd-7c321109f92c",
-	"55074e07-f499-4bf6-b589-9526f6541cbf",
-	"2cb401bd-3240-475f-8062-3a3b47ee4a44");
-INSERT INTO R_ASSR
-	VALUES ("94c2ec86-b8b5-4053-aa6a-b858410d8c9c",
-	"32231138-e837-473d-aadd-7c321109f92c",
-	"e19b9028-0483-44ee-a888-ee9c62475882",
-	0);
-INSERT INTO R_RGO
-	VALUES ("94c2ec86-b8b5-4053-aa6a-b858410d8c9c",
-	"32231138-e837-473d-aadd-7c321109f92c",
-	"e19b9028-0483-44ee-a888-ee9c62475882");
-INSERT INTO R_OIR
-	VALUES ("94c2ec86-b8b5-4053-aa6a-b858410d8c9c",
-	"32231138-e837-473d-aadd-7c321109f92c",
-	"e19b9028-0483-44ee-a888-ee9c62475882",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("94c2ec86-b8b5-4053-aa6a-b858410d8c9c",
-	'Global Element in System',
-	1,
-	'G_EIS',
-	'',
-	"f5d1e1b0-a900-4d86-a529-4413f5e281e4",
-	'./Global Element in System/Global Element in System.xtuml');
 INSERT INTO GD_MD
 	VALUES ("6d9681f6-96cf-4629-99e1-46c1af3821ab",
-	5,
+	112,
 	"f5d1e1b0-a900-4d86-a529-4413f5e281e4",
-	11,
+	108,
 	0,
 	0,
 	1,
@@ -496,3 +328,196 @@ INSERT INTO DIM_DIA
 	4000.000000,
 	3000.000000,
 	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_ASSOC
+	VALUES ("32231138-e837-473d-aadd-7c321109f92c");
+INSERT INTO R_REL
+	VALUES ("32231138-e837-473d-aadd-7c321109f92c",
+	9100,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_AONE
+	VALUES ("5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	"32231138-e837-473d-aadd-7c321109f92c",
+	"032d9ad8-45df-445b-bb5d-52609c98a02d",
+	1,
+	1,
+	'');
+INSERT INTO O_RTIDA
+	VALUES ("5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	0,
+	"32231138-e837-473d-aadd-7c321109f92c",
+	"032d9ad8-45df-445b-bb5d-52609c98a02d");
+INSERT INTO O_OIDA_PROXY
+	VALUES ("5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	0,
+	'Element_ID',
+	'../Packageable Element/Packageable Element/Packageable Element.xtuml');
+INSERT INTO R_RTO
+	VALUES ("5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	"32231138-e837-473d-aadd-7c321109f92c",
+	"032d9ad8-45df-445b-bb5d-52609c98a02d",
+	0);
+INSERT INTO O_ID_PROXY
+	VALUES (0,
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	'../Packageable Element/Packageable Element/Packageable Element.xtuml');
+INSERT INTO R_OIR
+	VALUES ("5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	"32231138-e837-473d-aadd-7c321109f92c",
+	"032d9ad8-45df-445b-bb5d-52609c98a02d",
+	"ea8a7205-a1f8-4b52-88d3-c3555a43e3e1");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	'Packageable Element',
+	8000,
+	'PE_PE',
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'../Packageable Element/Packageable Element/Packageable Element.xtuml');
+INSERT INTO R_AOTH
+	VALUES ("5735d0f8-e286-4832-975e-04887e18a036",
+	"32231138-e837-473d-aadd-7c321109f92c",
+	"55074e07-f499-4bf6-b589-9526f6541cbf",
+	1,
+	1,
+	'');
+INSERT INTO O_RTIDA
+	VALUES ("9a4da692-4fa6-494b-80c1-90dc7da16bd7",
+	"5735d0f8-e286-4832-975e-04887e18a036",
+	0,
+	"32231138-e837-473d-aadd-7c321109f92c",
+	"55074e07-f499-4bf6-b589-9526f6541cbf");
+INSERT INTO O_OIDA_PROXY
+	VALUES ("9a4da692-4fa6-494b-80c1-90dc7da16bd7",
+	"5735d0f8-e286-4832-975e-04887e18a036",
+	0,
+	'Sys_ID',
+	'../Domain/System Model/System Model.xtuml');
+INSERT INTO R_RTO
+	VALUES ("5735d0f8-e286-4832-975e-04887e18a036",
+	"32231138-e837-473d-aadd-7c321109f92c",
+	"55074e07-f499-4bf6-b589-9526f6541cbf",
+	0);
+INSERT INTO O_ID_PROXY
+	VALUES (0,
+	"5735d0f8-e286-4832-975e-04887e18a036",
+	'../Domain/System Model/System Model.xtuml');
+INSERT INTO R_OIR
+	VALUES ("5735d0f8-e286-4832-975e-04887e18a036",
+	"32231138-e837-473d-aadd-7c321109f92c",
+	"55074e07-f499-4bf6-b589-9526f6541cbf",
+	"2cb401bd-3240-475f-8062-3a3b47ee4a44");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("5735d0f8-e286-4832-975e-04887e18a036",
+	'System Model',
+	18,
+	'S_SYS',
+	'A system is described by one or more models, each drawn from different subject matters. Each subject matter model is called a domain.
+-----------
+PEI:true',
+	"00000000-0000-0000-0000-000000000000",
+	'../Domain/System Model/System Model.xtuml');
+INSERT INTO R_ASSR
+	VALUES ("94c2ec86-b8b5-4053-aa6a-b858410d8c9c",
+	"32231138-e837-473d-aadd-7c321109f92c",
+	"e19b9028-0483-44ee-a888-ee9c62475882",
+	0);
+INSERT INTO R_RGO
+	VALUES ("94c2ec86-b8b5-4053-aa6a-b858410d8c9c",
+	"32231138-e837-473d-aadd-7c321109f92c",
+	"e19b9028-0483-44ee-a888-ee9c62475882");
+INSERT INTO R_OIR
+	VALUES ("94c2ec86-b8b5-4053-aa6a-b858410d8c9c",
+	"32231138-e837-473d-aadd-7c321109f92c",
+	"e19b9028-0483-44ee-a888-ee9c62475882",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("94c2ec86-b8b5-4053-aa6a-b858410d8c9c",
+	'Global Element in System',
+	1,
+	'G_EIS',
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'./Global Element in System/Global Element in System.xtuml');
+INSERT INTO PE_PE
+	VALUES ("32231138-e837-473d-aadd-7c321109f92c",
+	1,
+	"f5d1e1b0-a900-4d86-a529-4413f5e281e4",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO O_IOBJ
+	VALUES ("2cb401bd-3240-475f-8062-3a3b47ee4a44",
+	"5735d0f8-e286-4832-975e-04887e18a036",
+	0,
+	"00000000-0000-0000-0000-000000000000",
+	'System Model',
+	'S_SYS');
+INSERT INTO PE_PE
+	VALUES ("2cb401bd-3240-475f-8062-3a3b47ee4a44",
+	1,
+	"f5d1e1b0-a900-4d86-a529-4413f5e281e4",
+	"00000000-0000-0000-0000-000000000000",
+	19);
+INSERT INTO O_IOBJ
+	VALUES ("ea8a7205-a1f8-4b52-88d3-c3555a43e3e1",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	0,
+	"00000000-0000-0000-0000-000000000000",
+	'Packageable Element',
+	'PE_PE');
+INSERT INTO PE_PE
+	VALUES ("ea8a7205-a1f8-4b52-88d3-c3555a43e3e1",
+	1,
+	"f5d1e1b0-a900-4d86-a529-4413f5e281e4",
+	"00000000-0000-0000-0000-000000000000",
+	19);
+INSERT INTO PE_PE
+	VALUES ("f5d1e1b0-a900-4d86-a529-4413f5e281e4",
+	1,
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
+	7);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
+	'ooaofooa',
+	'========================================================================
+
+File:          $RCSfile: ooaofooa.xtuml,v $
+Version:   $Revision: 1.127 $
+Modified:  $Date: 2006/09/26 15:10:20 $
+
+(c) Copyright 2004-2014 by Mentor Graphics Corp. All rights reserved.
+
+========================================================================
+Licensed under the Apache License, Version 2.0 (the "License"); you may not
+use this file except in compliance with the License.  You may obtain a copy
+of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the
+License for the specific language governing permissions and limitations under
+the License.
+========================================================================
+
+This is the application domain for the Tiger project.
+
+The processing in this model describes the activities
+for model capture.
+
+
+
+',
+	0,
+	'../ooaofooa.xtuml');
+INSERT INTO S_SYS_PROXY
+	VALUES ("d9bc5487-4193-4817-be1c-6c3f3339aebf",
+	'com.mentor.nucleus.bp.core',
+	1,
+	'../../com.mentor.nucleus.bp.core.xtuml');

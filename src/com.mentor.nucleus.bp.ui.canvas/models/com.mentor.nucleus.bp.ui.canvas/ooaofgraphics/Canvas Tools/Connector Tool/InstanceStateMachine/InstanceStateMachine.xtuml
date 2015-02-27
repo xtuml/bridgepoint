@@ -1,4 +1,4 @@
--- BP 7.1 content: InstanceStateMachine syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: InstanceStateMachine syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO SM_ISM
 	VALUES ("3a52d0f6-d185-4d3c-9c01-08c0c1ae8218",
@@ -14,23 +14,16 @@ INSERT INTO SM_EVTDI
 	"3a52d0f6-d185-4d3c-9c01-08c0c1ae8218",
 	'Y',
 	'',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	"56bcec94-ab9c-401d-9edd-b91c8d1a1a65",
 	"832a8543-f69e-4fc4-b7c0-26b8cbb5abd2");
-INSERT INTO S_DT_PROXY
-	VALUES ("388cd7a2-2d0c-4f02-9730-7670074de394",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	'integer',
-	'',
-	'',
-	'../../../Datatypes/Datatypes.xtuml');
 INSERT INTO SM_EVTDI
 	VALUES ("832a8543-f69e-4fc4-b7c0-26b8cbb5abd2",
 	"3a52d0f6-d185-4d3c-9c01-08c0c1ae8218",
 	'X',
 	'',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	"56bcec94-ab9c-401d-9edd-b91c8d1a1a65",
 	"00000000-0000-0000-0000-000000000000");
@@ -39,7 +32,7 @@ INSERT INTO SM_EVTDI
 	"3a52d0f6-d185-4d3c-9c01-08c0c1ae8218",
 	'Y',
 	'',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	"1a341c80-b519-449d-a40f-e54cd52c9076",
 	"28e7b004-37e5-4323-a53c-da172e241006");
@@ -48,7 +41,7 @@ INSERT INTO SM_EVTDI
 	"3a52d0f6-d185-4d3c-9c01-08c0c1ae8218",
 	'Y',
 	'',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	"d8ca3542-6992-4f85-bc72-4293fd5af441",
 	"3646f1f5-20cc-4cab-8da6-df2328175ce2");
@@ -57,7 +50,7 @@ INSERT INTO SM_EVTDI
 	"3a52d0f6-d185-4d3c-9c01-08c0c1ae8218",
 	'Y',
 	'',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	"bc274e49-efd8-4f41-a830-88f2de824339",
 	"293cb5d5-b682-4925-9d58-6d2ae146a26d");
@@ -66,7 +59,7 @@ INSERT INTO SM_EVTDI
 	"3a52d0f6-d185-4d3c-9c01-08c0c1ae8218",
 	'X',
 	'',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	"1a341c80-b519-449d-a40f-e54cd52c9076",
 	"00000000-0000-0000-0000-000000000000");
@@ -75,7 +68,7 @@ INSERT INTO SM_EVTDI
 	"3a52d0f6-d185-4d3c-9c01-08c0c1ae8218",
 	'X',
 	'',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	"d8ca3542-6992-4f85-bc72-4293fd5af441",
 	"00000000-0000-0000-0000-000000000000");
@@ -84,7 +77,7 @@ INSERT INTO SM_EVTDI
 	"3a52d0f6-d185-4d3c-9c01-08c0c1ae8218",
 	'X',
 	'',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	"bc274e49-efd8-4f41-a830-88f2de824339",
 	"00000000-0000-0000-0000-000000000000");
@@ -4055,7 +4048,7 @@ INSERT INTO GD_GE
 	"cd645515-aa74-4c82-9ddb-f2672028f445",
 	42,
 	0,
-	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Connector Tool::Instance State Machine::CT_CTL10: Done');
+	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Connector Tool::Instance State Machine::Clearing Partly Drawn Connector::CT_CTL10: Done');
 INSERT INTO GD_CON
 	VALUES ("e3b17ee3-50d5-45b2-95c9-fe7de2f2e9fe",
 	"00000000-0000-0000-0000-000000000000");
@@ -4155,7 +4148,7 @@ INSERT INTO GD_GE
 	"a941bc00-a17b-4099-9742-66f6d87a1e52",
 	42,
 	0,
-	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Connector Tool::Instance State Machine::CT_CTL4: Unsuitable Location');
+	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Connector Tool::Instance State Machine::Determining Mouse Up Location::CT_CTL4: Unsuitable Location');
 INSERT INTO GD_CON
 	VALUES ("0dfca514-9c8e-480f-a565-cca0e4e30436",
 	"00000000-0000-0000-0000-000000000000");
@@ -4255,7 +4248,7 @@ INSERT INTO GD_GE
 	"abaa09f3-adfd-415c-b35e-4399d61f2824",
 	42,
 	0,
-	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Connector Tool::Instance State Machine::CT_CTL7: Mouse Move');
+	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Connector Tool::Instance State Machine::Mouse Down Tracking End Segment without Drawing::CT_CTL7: Mouse Move');
 INSERT INTO GD_CON
 	VALUES ("cfc87425-ffdf-4b9b-8fd3-d96c44b79cc0",
 	"00000000-0000-0000-0000-000000000000");
@@ -4355,7 +4348,7 @@ INSERT INTO GD_GE
 	"7ae05149-6c5d-4121-bf38-fefa94d2fd59",
 	42,
 	0,
-	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Connector Tool::Instance State Machine::CT_CTL3: Mouse Down');
+	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Connector Tool::Instance State Machine::Tracking End Segment without Drawing::CT_CTL3: Mouse Down');
 INSERT INTO GD_CON
 	VALUES ("8314f74c-4088-4152-82b8-c9eded0701fd",
 	"00000000-0000-0000-0000-000000000000");
@@ -4468,7 +4461,7 @@ INSERT INTO GD_GE
 	"1615a908-21e5-4b83-be44-56d3b3cc51bc",
 	42,
 	0,
-	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Connector Tool::Instance State Machine::CT_CTL7: Mouse Move');
+	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Connector Tool::Instance State Machine::Tracking End Segment without Drawing::CT_CTL7: Mouse Move');
 INSERT INTO GD_CON
 	VALUES ("a9c01e0a-65f7-4274-9890-44a447aa4467",
 	"00000000-0000-0000-0000-000000000000");
@@ -4594,7 +4587,7 @@ INSERT INTO GD_GE
 	"3f063b31-7e63-4fba-ae0a-d335725d8311",
 	42,
 	0,
-	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Connector Tool::Instance State Machine::CT_CTL3: Mouse Down');
+	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Connector Tool::Instance State Machine::Mouse up at Beginning of Segment::CT_CTL3: Mouse Down');
 INSERT INTO GD_CON
 	VALUES ("8f0fc911-b760-4e79-adb1-888c3072f6dc",
 	"00000000-0000-0000-0000-000000000000");
@@ -4694,7 +4687,7 @@ INSERT INTO GD_GE
 	"12505e40-31a7-4942-96ae-d00a22b707d2",
 	42,
 	0,
-	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Connector Tool::Instance State Machine::CT_CTL5: Suitable Location');
+	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Connector Tool::Instance State Machine::Determining Subsequent Mouse Up Location Suitability::CT_CTL5: Suitable Location');
 INSERT INTO GD_CON
 	VALUES ("c4061306-8a79-44a7-8765-d5e58698198d",
 	"00000000-0000-0000-0000-000000000000");
@@ -4794,7 +4787,7 @@ INSERT INTO GD_GE
 	"93a0a0b1-e13e-4d33-9681-cdd3f6083a86",
 	42,
 	0,
-	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Connector Tool::Instance State Machine::CT_CTL7: Mouse Move');
+	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Connector Tool::Instance State Machine::Creating Subsequent Segment::CT_CTL7: Mouse Move');
 INSERT INTO GD_CON
 	VALUES ("07965ea6-8ca9-42db-8a90-7903795b079b",
 	"00000000-0000-0000-0000-000000000000");
@@ -4894,7 +4887,7 @@ INSERT INTO GD_GE
 	"1601706b-81c3-46f0-95dd-f95fa9379f20",
 	42,
 	0,
-	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Connector Tool::Instance State Machine::CT_CTL3: Mouse Down');
+	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Connector Tool::Instance State Machine::Creating Subsequent Segment::CT_CTL3: Mouse Down');
 INSERT INTO GD_CON
 	VALUES ("3ddfdc02-63ea-4858-8cc5-50bad4d530e5",
 	"00000000-0000-0000-0000-000000000000");
@@ -5020,7 +5013,7 @@ INSERT INTO GD_GE
 	"b761f2b1-1833-42af-9f5e-73e7cda93fbf",
 	42,
 	0,
-	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Connector Tool::Instance State Machine::CT_CTL5: Suitable Location');
+	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Connector Tool::Instance State Machine::Determining Mouse Up Location::CT_CTL5: Suitable Location');
 INSERT INTO GD_CON
 	VALUES ("a0ebd498-fada-444a-bc48-f2dc12504692",
 	"00000000-0000-0000-0000-000000000000");
@@ -5120,7 +5113,7 @@ INSERT INTO GD_GE
 	"2293bf4e-15d1-45a5-959e-94fc2a5364cf",
 	42,
 	0,
-	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Connector Tool::Instance State Machine::CT_CTL7: Mouse Move');
+	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Connector Tool::Instance State Machine::Dragging First Segment::CT_CTL7: Mouse Move');
 INSERT INTO GD_CON
 	VALUES ("e244acf4-c9f8-4da8-89a7-e3f603fd3242",
 	"00000000-0000-0000-0000-000000000000");
@@ -5246,7 +5239,7 @@ INSERT INTO GD_GE
 	"5a374fd8-247f-440e-ab08-eb2820462be7",
 	42,
 	0,
-	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Connector Tool::Instance State Machine::CT_CTL7: Mouse Move');
+	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Connector Tool::Instance State Machine::Mouse up at Beginning of Segment::CT_CTL7: Mouse Move');
 INSERT INTO GD_CON
 	VALUES ("4ea90a86-49f4-4e91-8fe1-cfdd04a2c911",
 	"00000000-0000-0000-0000-000000000000");
@@ -5359,7 +5352,7 @@ INSERT INTO GD_GE
 	"6980648e-8586-46f4-85dc-9083d1829b9f",
 	42,
 	0,
-	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Connector Tool::Instance State Machine::CT_CTL6: Mouse Up');
+	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Connector Tool::Instance State Machine::Preparing to Drag Subsequent Segment::CT_CTL6: Mouse Up');
 INSERT INTO GD_CON
 	VALUES ("f97c8162-892b-4e9b-be08-80885f99c05e",
 	"00000000-0000-0000-0000-000000000000");
@@ -5459,7 +5452,7 @@ INSERT INTO GD_GE
 	"f1c248da-0f70-4aed-a062-1a86048ae530",
 	42,
 	0,
-	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Connector Tool::Instance State Machine::CT_CTL8: Complete');
+	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Connector Tool::Instance State Machine::Determining Subsequent Mouse Up Location Suitability::CT_CTL8: Complete');
 INSERT INTO GD_CON
 	VALUES ("c8324a6b-e666-4aca-bca3-06a69495f9f9",
 	"00000000-0000-0000-0000-000000000000");
@@ -5559,7 +5552,7 @@ INSERT INTO GD_GE
 	"df618ec7-4654-4323-9894-452ea385ab57",
 	42,
 	0,
-	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Connector Tool::Instance State Machine::CT_CTL6: Mouse Up');
+	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Connector Tool::Instance State Machine::Dragging Subsequent Segments::CT_CTL6: Mouse Up');
 INSERT INTO GD_CON
 	VALUES ("c220922d-f50a-441e-8724-1fb2cc165b7d",
 	"00000000-0000-0000-0000-000000000000");
@@ -5659,7 +5652,7 @@ INSERT INTO GD_GE
 	"95324451-494c-4c08-be58-abfe05dda47b",
 	42,
 	0,
-	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Connector Tool::Instance State Machine::CT_CTL7: Mouse Move');
+	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Connector Tool::Instance State Machine::Dragging Subsequent Segments::CT_CTL7: Mouse Move');
 INSERT INTO GD_CON
 	VALUES ("227057d7-f065-437f-a43f-80dea9880717",
 	"00000000-0000-0000-0000-000000000000");
@@ -5785,7 +5778,7 @@ INSERT INTO GD_GE
 	"fb91cdd6-f929-409f-888e-27ddffe9c166",
 	42,
 	0,
-	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Connector Tool::Instance State Machine::CT_CTL7: Mouse Move');
+	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Connector Tool::Instance State Machine::Preparing to Drag Subsequent Segment::CT_CTL7: Mouse Move');
 INSERT INTO GD_CON
 	VALUES ("0c54d867-a71b-40ee-a5dd-09d6c7de9ddc",
 	"00000000-0000-0000-0000-000000000000");
@@ -5898,7 +5891,7 @@ INSERT INTO GD_GE
 	"5bc21402-d22f-4b7d-9d0b-2c671cf40377",
 	42,
 	0,
-	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Connector Tool::Instance State Machine::CT_CTL10: Done');
+	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Connector Tool::Instance State Machine::Creating Element::CT_CTL10: Done');
 INSERT INTO GD_CON
 	VALUES ("2ae8d6ee-a658-4ef0-8cfa-b34bca44e10b",
 	"00000000-0000-0000-0000-000000000000");
@@ -5998,7 +5991,7 @@ INSERT INTO GD_GE
 	"a385de92-32b2-48e4-a0e2-9219788656b3",
 	42,
 	0,
-	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Connector Tool::Instance State Machine::CT_CTL8: Complete');
+	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Connector Tool::Instance State Machine::Determining Mouse Up Location::CT_CTL8: Complete');
 INSERT INTO GD_CON
 	VALUES ("7a7405d0-30ef-41bd-b9f2-8d6116291114",
 	"00000000-0000-0000-0000-000000000000");
@@ -6098,7 +6091,7 @@ INSERT INTO GD_GE
 	"dcb1e184-3262-4b7a-a8eb-65e156ebad49",
 	42,
 	0,
-	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Connector Tool::Instance State Machine::CT_CTL6: Mouse Up');
+	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Connector Tool::Instance State Machine::Dragging First Segment::CT_CTL6: Mouse Up');
 INSERT INTO GD_CON
 	VALUES ("99b19b0b-c45f-4102-90f0-fc8f7d28f839",
 	"00000000-0000-0000-0000-000000000000");
@@ -6224,7 +6217,7 @@ INSERT INTO GD_GE
 	"b680114d-3a0b-4a35-84f5-9571665863a2",
 	42,
 	0,
-	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Connector Tool::Instance State Machine::CT_CTL7: Mouse Move');
+	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Connector Tool::Instance State Machine::Creating First Segment::CT_CTL7: Mouse Move');
 INSERT INTO GD_CON
 	VALUES ("a5eb4724-3f07-4076-a43e-15af275c5905",
 	"00000000-0000-0000-0000-000000000000");
@@ -6324,7 +6317,7 @@ INSERT INTO GD_GE
 	"5c735749-c693-4969-a1aa-c6fa10a6c004",
 	42,
 	0,
-	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Connector Tool::Instance State Machine::CT_CTL5: Suitable Location');
+	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Connector Tool::Instance State Machine::Determining Mouse Down Location Suitability::CT_CTL5: Suitable Location');
 INSERT INTO GD_CON
 	VALUES ("436b68b1-aa7e-4505-8544-91caffabd0a0",
 	"00000000-0000-0000-0000-000000000000");
@@ -6424,7 +6417,7 @@ INSERT INTO GD_GE
 	"e3dd04cf-a1a7-4deb-b0f4-43616973c12a",
 	42,
 	0,
-	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Connector Tool::Instance State Machine::CT_CTL4: Unsuitable Location');
+	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Connector Tool::Instance State Machine::Determining Mouse Down Location Suitability::CT_CTL4: Unsuitable Location');
 INSERT INTO GD_CON
 	VALUES ("44e61695-04e6-4a7a-8ad6-a558a26c6527",
 	"00000000-0000-0000-0000-000000000000");
@@ -6524,7 +6517,7 @@ INSERT INTO GD_GE
 	"37da2de0-fe07-479e-87ef-1e3aa1a3fbf1",
 	42,
 	0,
-	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Connector Tool::Instance State Machine::CT_CTL3: Mouse Down');
+	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Connector Tool::Instance State Machine::Waiting for Start Symbol::CT_CTL3: Mouse Down');
 INSERT INTO GD_CON
 	VALUES ("d7a6a9a4-5279-4a4c-9889-629f249e5e14",
 	"00000000-0000-0000-0000-000000000000");
@@ -6624,7 +6617,7 @@ INSERT INTO GD_GE
 	"33fd949a-443d-4b0e-8adb-b55a4990dbc8",
 	42,
 	0,
-	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Connector Tool::Instance State Machine::CT_CTL2: Deactivated');
+	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Connector Tool::Instance State Machine::Waiting for Start Symbol::CT_CTL2: Deactivated');
 INSERT INTO GD_CON
 	VALUES ("80187466-0dd7-444b-b19b-f6fb570ae94f",
 	"00000000-0000-0000-0000-000000000000");
@@ -6724,7 +6717,7 @@ INSERT INTO GD_GE
 	"98430d6c-f048-44e7-bb6e-2a9c64738a26",
 	42,
 	0,
-	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Connector Tool::Instance State Machine::CT_CTL1: Activated');
+	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Connector Tool::Instance State Machine::Idle::CT_CTL1: Activated');
 INSERT INTO GD_CON
 	VALUES ("3b8ea6b1-78c9-4229-aef2-3d9672fdcf51",
 	"00000000-0000-0000-0000-000000000000");
@@ -6824,7 +6817,7 @@ INSERT INTO GD_GE
 	"d5f03dcf-b948-49be-bda1-091229cae517",
 	42,
 	0,
-	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Connector Tool::Instance State Machine::CT_CTL6: Mouse Up');
+	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Connector Tool::Instance State Machine::Mouse Down Tracking End Segment without Drawing::CT_CTL6: Mouse Up');
 INSERT INTO GD_CON
 	VALUES ("4fb0526b-8bde-455d-86d1-a79896031098",
 	"00000000-0000-0000-0000-000000000000");
@@ -6950,7 +6943,7 @@ INSERT INTO GD_GE
 	"98be3802-72c5-4ed8-9dd3-ddc4e587663e",
 	42,
 	0,
-	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Connector Tool::Instance State Machine::CT_CTL4: Unsuitable Location');
+	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Connector Tool::Instance State Machine::Creating Element::CT_CTL4: Unsuitable Location');
 INSERT INTO GD_CON
 	VALUES ("d016cbdb-ffe8-4502-9969-e21ed8298362",
 	"00000000-0000-0000-0000-000000000000");
@@ -7050,7 +7043,7 @@ INSERT INTO GD_GE
 	"9472af4d-f25b-45b0-b060-7d4152b18a4a",
 	42,
 	0,
-	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Connector Tool::Instance State Machine::CT_CTL4: Unsuitable Location');
+	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Connector Tool::Instance State Machine::Determining Subsequent Mouse Up Location Suitability::CT_CTL4: Unsuitable Location');
 INSERT INTO GD_CON
 	VALUES ("4d2d1680-2b21-4b26-bb80-6a0fa460663a",
 	"00000000-0000-0000-0000-000000000000");
@@ -7189,7 +7182,7 @@ INSERT INTO GD_GE
 	"d2c2d372-4260-44b0-8994-409ef0f750d8",
 	42,
 	0,
-	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Connector Tool::Instance State Machine::CT_CTL2: Deactivated');
+	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Connector Tool::Instance State Machine::Dragging First Segment::CT_CTL2: Deactivated');
 INSERT INTO GD_CON
 	VALUES ("cce4cc52-6553-451f-b53a-cf5c488367ca",
 	"00000000-0000-0000-0000-000000000000");
@@ -7302,7 +7295,7 @@ INSERT INTO GD_GE
 	"6731a404-1399-4804-b6cd-be3cbd9f8ff8",
 	42,
 	0,
-	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Connector Tool::Instance State Machine::CT_CTL2: Deactivated');
+	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Connector Tool::Instance State Machine::Creating First Segment::CT_CTL2: Deactivated');
 INSERT INTO GD_CON
 	VALUES ("00ea6470-ed07-4b5e-bdf7-46b5a22dce16",
 	"00000000-0000-0000-0000-000000000000");
@@ -7415,7 +7408,7 @@ INSERT INTO GD_GE
 	"501f85ac-d313-4699-b34f-3dfae59a3383",
 	42,
 	0,
-	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Connector Tool::Instance State Machine::CT_CTL2: Deactivated');
+	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Connector Tool::Instance State Machine::Tracking End Segment without Drawing::CT_CTL2: Deactivated');
 INSERT INTO GD_CON
 	VALUES ("d22e3f34-a4bb-45b8-9af3-1f4de4ef6022",
 	"00000000-0000-0000-0000-000000000000");
@@ -7528,7 +7521,7 @@ INSERT INTO GD_GE
 	"87f7aa22-b863-4054-bb1f-4468042ee021",
 	42,
 	0,
-	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Connector Tool::Instance State Machine::CT_CTL2: Deactivated');
+	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Connector Tool::Instance State Machine::Creating Subsequent Segment::CT_CTL2: Deactivated');
 INSERT INTO GD_CON
 	VALUES ("af5405be-33f8-4b5e-ae11-20a31f99061e",
 	"00000000-0000-0000-0000-000000000000");
@@ -7641,7 +7634,7 @@ INSERT INTO GD_GE
 	"783c961f-446f-41f1-8950-822b0a2d69c7",
 	42,
 	0,
-	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Connector Tool::Instance State Machine::CT_CTL2: Deactivated');
+	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Connector Tool::Instance State Machine::Mouse Down Tracking End Segment without Drawing::CT_CTL2: Deactivated');
 INSERT INTO GD_CON
 	VALUES ("087f553d-035a-45dd-916c-36678e6ec497",
 	"00000000-0000-0000-0000-000000000000");
@@ -7754,7 +7747,7 @@ INSERT INTO GD_GE
 	"2a4c206a-1a64-422d-9682-8066e442e82d",
 	42,
 	0,
-	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Connector Tool::Instance State Machine::CT_CTL2: Deactivated');
+	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Connector Tool::Instance State Machine::Preparing to Drag Subsequent Segment::CT_CTL2: Deactivated');
 INSERT INTO GD_CON
 	VALUES ("b592c049-bd4d-40b7-946e-b74b2ee8ffe4",
 	"00000000-0000-0000-0000-000000000000");
@@ -7893,7 +7886,7 @@ INSERT INTO GD_GE
 	"f9d78031-1506-4ce2-87b7-0bd906aa23a5",
 	42,
 	0,
-	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Connector Tool::Instance State Machine::CT_CTL2: Deactivated');
+	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Connector Tool::Instance State Machine::Mouse up at Beginning of Segment::CT_CTL2: Deactivated');
 INSERT INTO GD_CON
 	VALUES ("8de8c05f-3b92-47ea-9093-994f656a8181",
 	"00000000-0000-0000-0000-000000000000");
@@ -8006,7 +7999,7 @@ INSERT INTO GD_GE
 	"9ddd618a-fa79-431c-8587-edb0a53e5f6a",
 	42,
 	0,
-	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Connector Tool::Instance State Machine::CT_CTL2: Deactivated');
+	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Connector Tool::Instance State Machine::Dragging Subsequent Segments::CT_CTL2: Deactivated');
 INSERT INTO GD_CON
 	VALUES ("c403ae49-c3e8-4518-91ed-a0d0ce16c37d",
 	"00000000-0000-0000-0000-000000000000");
@@ -8132,7 +8125,7 @@ INSERT INTO GD_GE
 	"ab5eafa2-797a-44bf-817a-3969a4937de5",
 	42,
 	0,
-	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Connector Tool::Instance State Machine::CT_CTL10: Done');
+	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Connector Tool::Instance State Machine::Clearing Partial Connector on Deactivate::CT_CTL10: Done');
 INSERT INTO GD_CON
 	VALUES ("3b63a935-92a5-4b4b-a660-b08002362726",
 	"00000000-0000-0000-0000-000000000000");
@@ -8258,7 +8251,7 @@ INSERT INTO GD_GE
 	"6b68450a-9bbc-4bdb-94ad-c3347deeb37f",
 	42,
 	0,
-	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Connector Tool::Instance State Machine::CT_CTL6: Mouse Up');
+	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Connector Tool::Instance State Machine::Creating First Segment::CT_CTL6: Mouse Up');
 INSERT INTO GD_CON
 	VALUES ("52a655a7-8268-40fc-9de9-19852f5767f1",
 	"00000000-0000-0000-0000-000000000000");
@@ -8358,7 +8351,7 @@ INSERT INTO GD_GE
 	"513e807f-3743-4ed0-ab89-0c9cfba753da",
 	42,
 	0,
-	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Connector Tool::Instance State Machine::CT_CTL4: Unsuitable Location');
+	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Connector Tool::Instance State Machine::Creating Segment without Mouse Move::CT_CTL4: Unsuitable Location');
 INSERT INTO GD_CON
 	VALUES ("50e18cb8-eaf2-4d47-95d9-ef52404fb4ec",
 	"00000000-0000-0000-0000-000000000000");
@@ -8484,5 +8477,5 @@ recognizing the end location and finally displaying the
 connector.
 --------------------------------------------------------------------------
 Persistent:false                            ',
-	"afc7af9b-6e70-4780-9ad0-b9f3ec7560c9",
+	"00000000-0000-0000-0000-000000000000",
 	'../Connector Tool.xtuml');

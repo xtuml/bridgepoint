@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("a414fa61-fb3a-4aa2-8385-0b73d87a072d",
@@ -12,7 +12,7 @@ of the displayed tree.
 Apart from the referential attributes that formalize the parent-child relationship,
 the attribute, ''ParentChildRelChain'' specifies how to find children given a
 parent and a parent given a child.',
-	"9a4ff466-14a5-4e47-b07f-84de195f210a");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_REF
 	VALUES ("a414fa61-fb3a-4aa2-8385-0b73d87a072d",
 	"25e75607-ce05-4777-9579-41952aea2d25",
@@ -28,7 +28,7 @@ INSERT INTO O_REF
 	'',
 	'Tree_Node_Specification',
 	'Tree_Node_Spec_ID',
-	'R1000');
+	'R1000.''specifies parenthood of''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("a414fa61-fb3a-4aa2-8385-0b73d87a072d",
 	"e1a86a7d-b64c-4629-805c-aaa4cdeba180",
@@ -61,16 +61,9 @@ INSERT INTO O_ATTR
 	'Parent_',
 	'Tree_Node_Spec_ID',
 	1,
-	"2308f829-cd27-4cf2-93bd-6c9ae5f576b7",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("2308f829-cd27-4cf2-93bd-6c9ae5f576b7",
-	"138f69c7-a700-4109-8c2b-e9232b291756",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("a414fa61-fb3a-4aa2-8385-0b73d87a072d",
 	"25e75607-ce05-4777-9579-41952aea2d25",
@@ -86,7 +79,7 @@ INSERT INTO O_REF
 	'',
 	'Tree_Node_Specification',
 	'Tree_Node_Spec_ID',
-	'R1001');
+	'R1001.''specifies childhood of''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("a414fa61-fb3a-4aa2-8385-0b73d87a072d",
 	"93ce984b-4bb4-4ef7-8f7b-ac949bbcc5dd",
@@ -115,7 +108,7 @@ INSERT INTO O_ATTR
 	'Child_',
 	'Tree_Node_Spec_ID',
 	1,
-	"2308f829-cd27-4cf2-93bd-6c9ae5f576b7",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -143,16 +136,9 @@ the user defined datatypes of a domain)',
 	'',
 	'ParentChildRelChain',
 	0,
-	"03c1b47c-e0b1-4463-ab1e-0820044ee2f4",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("03c1b47c-e0b1-4463-ab1e-0820044ee2f4",
-	"138f69c7-a700-4109-8c2b-e9232b291756",
-	'string',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("d1e6e673-1c26-4877-907f-4b247c7928a3",
 	"a414fa61-fb3a-4aa2-8385-0b73d87a072d");
@@ -168,7 +154,7 @@ INSERT INTO O_ATTR
 	'',
 	'NameOnly',
 	0,
-	"03c1b47c-e0b1-4463-ab1e-0820044ee2f4",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -186,16 +172,9 @@ INSERT INTO O_ATTR
 	'',
 	'UserModifiable',
 	0,
-	"7c34130b-1ce4-46fa-91b6-7fbf47cfe993",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("7c34130b-1ce4-46fa-91b6-7fbf47cfe993",
-	"138f69c7-a700-4109-8c2b-e9232b291756",
-	'boolean',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("d3f8f0c7-22ff-4938-9c1a-01eea149392b",
 	"a414fa61-fb3a-4aa2-8385-0b73d87a072d");
@@ -211,7 +190,7 @@ INSERT INTO O_ATTR
 	'',
 	'CrossModelRootBoundary',
 	0,
-	"7c34130b-1ce4-46fa-91b6-7fbf47cfe993",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -229,7 +208,7 @@ INSERT INTO O_ATTR
 	'',
 	'ModelRootType',
 	0,
-	"03c1b47c-e0b1-4463-ab1e-0820044ee2f4",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -247,7 +226,7 @@ INSERT INTO O_ATTR
 	'',
 	'ExcludedModelRootType',
 	0,
-	"03c1b47c-e0b1-4463-ab1e-0820044ee2f4",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -265,16 +244,9 @@ INSERT INTO O_ATTR
 	'',
 	'TPS_ID',
 	0,
-	"ef34c673-6129-4406-b797-f0f9c0ca9232",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("ef34c673-6129-4406-b797-f0f9c0ca9232",
-	"138f69c7-a700-4109-8c2b-e9232b291756",
-	'integer',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("454b1daa-1482-4a40-ac4b-35289df57f10",
 	"a414fa61-fb3a-4aa2-8385-0b73d87a072d");
@@ -290,7 +262,7 @@ INSERT INTO O_ATTR
 	'',
 	'UseNameOnlyForUniqueness',
 	0,
-	"7c34130b-1ce4-46fa-91b6-7fbf47cfe993",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	'',
 	'');
 INSERT INTO O_REF
@@ -308,7 +280,7 @@ INSERT INTO O_REF
 	'',
 	'Tree_Parenthood_Specification',
 	'TPS_ID',
-	'R1003');
+	'R1003.''succeeds''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("a414fa61-fb3a-4aa2-8385-0b73d87a072d",
 	"9d3934d4-8338-4b82-95eb-52655b89f22d",
@@ -337,7 +309,7 @@ INSERT INTO O_ATTR
 	'Prev_',
 	'TPS_ID',
 	1,
-	"2308f829-cd27-4cf2-93bd-6c9ae5f576b7",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -355,7 +327,7 @@ INSERT INTO O_ATTR
 	'',
 	'filterLogic',
 	0,
-	"03c1b47c-e0b1-4463-ab1e-0820044ee2f4",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -373,7 +345,7 @@ INSERT INTO O_ATTR
 	'',
 	'ExcludedFromProperties',
 	0,
-	"7c34130b-1ce4-46fa-91b6-7fbf47cfe993",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	'',
 	'');
 INSERT INTO O_ID
@@ -400,12 +372,17 @@ INSERT INTO O_OIDA
 INSERT INTO O_ID
 	VALUES (2,
 	"a414fa61-fb3a-4aa2-8385-0b73d87a072d");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("a414fa61-fb3a-4aa2-8385-0b73d87a072d",
+	1,
+	"9a4ff466-14a5-4e47-b07f-84de195f210a",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("9a4ff466-14a5-4e47-b07f-84de195f210a",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'CompTree',
 	'',
-	'T',
 	1,
-	"138f69c7-a700-4109-8c2b-e9232b291756",
-	"00000000-0000-0000-0000-000000100002",
 	'../CompTree.xtuml');

@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("1ea5ab3e-9740-4a8a-bab7-2a1425701e89",
@@ -6,7 +6,7 @@ INSERT INTO O_OBJ
 	7,
 	'AEP',
 	'',
-	"f157564a-4386-4e32-b5c9-0e4d7bd3609a");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_REF
 	VALUES ("1ea5ab3e-9740-4a8a-bab7-2a1425701e89",
 	"10d6122a-7c29-46cd-b5d1-386e15537749",
@@ -22,7 +22,7 @@ INSERT INTO O_REF
 	'',
 	'Export Ordering',
 	'Id',
-	'R10');
+	'R10.''is link to alternate children''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("1ea5ab3e-9740-4a8a-bab7-2a1425701e89",
 	"ff90a98f-72e2-449b-8e64-7e4eee27fbf3",
@@ -55,16 +55,9 @@ INSERT INTO O_ATTR
 	'Parent_',
 	'Id',
 	1,
-	"cf07a926-26a1-4462-bd6f-45a3b930e4b7",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("cf07a926-26a1-4462-bd6f-45a3b930e4b7",
-	"695dce7b-262a-4226-9cbb-c9f897b44c67",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("1ea5ab3e-9740-4a8a-bab7-2a1425701e89",
 	"10d6122a-7c29-46cd-b5d1-386e15537749",
@@ -80,7 +73,7 @@ INSERT INTO O_REF
 	'',
 	'Export Ordering',
 	'Id',
-	'R11');
+	'R11.''links to alternate parent''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("1ea5ab3e-9740-4a8a-bab7-2a1425701e89",
 	"abc1c420-c4a0-4491-91f1-4c8c2e726831",
@@ -109,7 +102,7 @@ INSERT INTO O_ATTR
 	'Child_',
 	'Id',
 	1,
-	"cf07a926-26a1-4462-bd6f-45a3b930e4b7",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -127,16 +120,9 @@ INSERT INTO O_ATTR
 	'',
 	'Rel_Chain',
 	0,
-	"5e30bc10-6b4e-49f6-a053-8d190acef663",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("5e30bc10-6b4e-49f6-a053-8d190acef663",
-	"695dce7b-262a-4226-9cbb-c9f897b44c67",
-	'string',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("5f4cad37-9834-429b-bf94-d406dd2cec3c",
 	"1ea5ab3e-9740-4a8a-bab7-2a1425701e89");
@@ -152,7 +138,7 @@ INSERT INTO O_ATTR
 	'',
 	'Card',
 	0,
-	"5e30bc10-6b4e-49f6-a053-8d190acef663",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -170,16 +156,9 @@ INSERT INTO O_ATTR
 	'',
 	'exportChildrenOfChild',
 	0,
-	"d3964502-1097-4d82-9200-171d288e3409",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("d3964502-1097-4d82-9200-171d288e3409",
-	"695dce7b-262a-4226-9cbb-c9f897b44c67",
-	'boolean',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("4d791467-fa86-444d-9fa2-a7189a8cafbe",
 	"1ea5ab3e-9740-4a8a-bab7-2a1425701e89");
@@ -195,7 +174,7 @@ INSERT INTO O_ATTR
 	'',
 	'writeProxies',
 	0,
-	"d3964502-1097-4d82-9200-171d288e3409",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -213,7 +192,7 @@ INSERT INTO O_ATTR
 	'',
 	'alwaysExportAlternateChildren',
 	0,
-	"d3964502-1097-4d82-9200-171d288e3409",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -231,7 +210,7 @@ INSERT INTO O_ATTR
 	'',
 	'forceProxyWritingForChildren',
 	0,
-	"d3964502-1097-4d82-9200-171d288e3409",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	'',
 	'');
 INSERT INTO O_ID
@@ -243,12 +222,17 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"1ea5ab3e-9740-4a8a-bab7-2a1425701e89");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("1ea5ab3e-9740-4a8a-bab7-2a1425701e89",
+	1,
+	"f157564a-4386-4e32-b5c9-0e4d7bd3609a",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("f157564a-4386-4e32-b5c9-0e4d7bd3609a",
+	"00000000-0000-0000-0000-000000000000",
+	"4dacadbd-0ef3-4f12-9693-fcbfe81a2955",
 	'File IO',
 	'',
-	'',
 	1,
-	"695dce7b-262a-4226-9cbb-c9f897b44c67",
-	"00000000-0000-0000-0000-000000100002",
 	'../File IO.xtuml');

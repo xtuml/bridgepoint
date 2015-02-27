@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("6e354a21-d32e-4d4a-a2dd-39ff210b6230",
@@ -6,7 +6,7 @@ INSERT INTO O_OBJ
 	505,
 	'SM_NSTXN',
 	'A new state transition is an entry in the state event matrix (SEM) that  represents a transition from one state to another upon the receipt of an event while in a particular state.',
-	"efdb28f6-a485-4b25-9cbf-3e7227398b6a");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("4283e5fd-06db-4e79-a24c-450cb8ae7efb",
 	"6e354a21-d32e-4d4a-a2dd-39ff210b6230",
@@ -16,7 +16,7 @@ Event::get_event_text for the event associated with the Transition.
 -----------------------------------------------------------------------------------
 Bridge:GD
 ',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'select one signalEvt related by self->SM_SEME[R504]->
                                                   SM_SEVT[R503]->SM_SGEVT[R526];
@@ -33,19 +33,12 @@ end if;',
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO S_DT_PROXY
-	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'string',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("9d0c1093-e257-4efb-ac64-b3a778be7af9",
 	"6e354a21-d32e-4d4a-a2dd-39ff210b6230",
 	'get_name',
 	'',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'select one signalEvt related by self->SM_SEME[R504]->
                                                   SM_SEVT[R503]->SM_SGEVT[R526];
@@ -112,16 +105,9 @@ INSERT INTO O_ATTR
 	'',
 	'Trans_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("6e354a21-d32e-4d4a-a2dd-39ff210b6230",
 	"dec48676-c96c-4395-bf7a-050a1058da7a",
@@ -195,7 +181,7 @@ INSERT INTO O_ATTR
 	'',
 	'SM_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -243,7 +229,7 @@ INSERT INTO O_ATTR
 	'',
 	'SMstt_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -291,7 +277,7 @@ INSERT INTO O_ATTR
 	'',
 	'SMevt_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -339,7 +325,7 @@ INSERT INTO O_ATTR
 	'',
 	'SMspd_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_ID
@@ -381,12 +367,17 @@ INSERT INTO O_OIDA
 INSERT INTO O_ID
 	VALUES (2,
 	"6e354a21-d32e-4d4a-a2dd-39ff210b6230");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("6e354a21-d32e-4d4a-a2dd-39ff210b6230",
+	1,
+	"efdb28f6-a485-4b25-9cbf-3e7227398b6a",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("efdb28f6-a485-4b25-9cbf-3e7227398b6a",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'State Machine',
 	'Classes (O_OBJ) that have interesting behavior are given lifecycles. These lifecycles are described using state machines (SM_SM). A state machine consists of states, events, transitions and state actions. The state machine exists for each instance of the class for which it has been modeled (SM_ISM). A state machine can also be an assigner state machine (SM_ASM) of which only one can exists for all class instances. The purpose of the assigner state machine is to act as a single point of control through which competing requests are serialized.',
-	'SM',
 	501,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000280005",
 	'../State Machine.xtuml');
