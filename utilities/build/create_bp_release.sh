@@ -106,7 +106,7 @@ function zip_distribution {
     jar_specific_plugins
 
     # Include org.antlr packages in zipped distribuition
-    cp -Rd ${git_repo_root}/internal/src/org.antlr_2.7.2 ${RESULT_FOLDER_EXTENSION}/eclipse/plugins
+    cp -Rd ${GIT_BP}/src/org.antlr_2.7.2 ${RESULT_FOLDER_EXTENSION}/eclipse/plugins
 
     zip -r BridgePoint_extension_${branch}.zip ${RESULT_FOLDER_EXTENSION} > ${pkg_log_dir}/BridgePoint_extension_${branch}_zip.log 2>&1
 	echo -e "Exiting create_bp_release.sh::zip_distribution"    

@@ -25,6 +25,7 @@ export BUILD_MOUNT="/build"
 export ECLIPSE_HOME="${BUILD_MOUNT}/BridgePoint4.2.0/eclipse"
 export BUILD_ROOT="${BUILD_MOUNT}/work"
 export GIT_REPO_ROOT="${BUILD_MOUNT}/git/xtuml"
+export GIT_BP="${GIT_REPO_ROOT}/bridgepoint"
 export BUILD_TOOLS="${BUILD_MOUNT}/utilities/bp_build_tools"
 export PT_HOME="${BUILD_TOOLS}/bridgepoint"
 export PT_HOME_DRIVE=
@@ -116,7 +117,7 @@ echo -e "Setting permissions on tool directories..."
 chmod -R a+rw ${BUILD_TOOLS} 
 echo -e "Done."
 
-cp -f ${GIT_REPO_ROOT}/internal/utilities/build/configure_build_process.sh .
+cp -f ${GIT_REPO_ROOT}/bridgepoint/utilities/build/configure_build_process.sh .
 dos2unix -q configure_build_process.sh
 
 bash configure_build_process.sh >> cfg_output.log
