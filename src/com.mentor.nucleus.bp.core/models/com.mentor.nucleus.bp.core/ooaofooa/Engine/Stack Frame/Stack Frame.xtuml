@@ -6,13 +6,13 @@ INSERT INTO O_OBJ
 	2908,
 	'I_STF',
 	'',
-	"ce2c2e5b-d701-4d5f-9b67-5db53fc8ca56");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("198b0e09-daf7-42c5-b9ca-949f901ac68b",
 	"60fd0d8e-9f75-40a3-b729-2bf3b7068c52",
 	'dispose',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'//  Instance:Stack Frame.dispose()
 
@@ -94,19 +94,12 @@ delete object instance self;',
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO S_DT_PROXY
-	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'void',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("b2b2d864-4a31-41f0-99d0-98fbb79a878d",
 	"60fd0d8e-9f75-40a3-b729-2bf3b7068c52",
 	'stepIn',
 	'',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'// StackFrame.stepIn()
 select any bisf related by self->I_BSF[R2923] where selected.isExecuting; 
@@ -118,19 +111,12 @@ return false;',
 	1,
 	'',
 	"2c880c77-ad9e-4e6f-bdbc-f3e28cc36fb2");
-INSERT INTO S_DT_PROXY
-	VALUES ("8e519c45-7dcf-400b-9d4e-954869dbb7e8",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'boolean',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("20845fb2-fa55-4e86-be04-af5896eba057",
 	"60fd0d8e-9f75-40a3-b729-2bf3b7068c52",
 	'pushValue',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// Stack Frame.pushValue()
 select any val from instances of V_VAL where
@@ -145,24 +131,17 @@ INSERT INTO O_TPARM
 	VALUES ("40d00142-2cfd-4f67-bf4d-d89423f9417a",
 	"20845fb2-fa55-4e86-be04-af5896eba057",
 	'value_id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'unique_id',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("402b5d64-3ed8-4d40-9c64-2f2172619b2c",
 	"60fd0d8e-9f75-40a3-b729-2bf3b7068c52",
 	'popValue',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select any valInStackFrame related by self->I_VSF[R2951] where
                                             selected.Value_ID == param.value_id;
@@ -183,7 +162,7 @@ INSERT INTO O_TPARM
 	VALUES ("7deb3b5c-dafe-4368-bae9-9ca32bb1995a",
 	"402b5d64-3ed8-4d40-9c64-2f2172619b2c",
 	'value_id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -193,7 +172,7 @@ INSERT INTO O_TFR
 	"60fd0d8e-9f75-40a3-b729-2bf3b7068c52",
 	'isDisposed',
 	'',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'select one stack related by self->I_STACK[R2943];
 return empty stack;',
@@ -205,7 +184,7 @@ INSERT INTO O_TFR
 	"60fd0d8e-9f75-40a3-b729-2bf3b7068c52",
 	'resetIfRequired',
 	'',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'// Stack Frame.resetIfRequired()
 //
@@ -264,7 +243,7 @@ INSERT INTO O_TPARM
 	VALUES ("782aa764-0aff-41d8-8248-95ca12dd3d44",
 	"2c880c77-ad9e-4e6f-bdbc-f3e28cc36fb2",
 	'activity_id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -284,7 +263,7 @@ INSERT INTO O_ATTR
 	'',
 	'Stack_Frame_ID',
 	0,
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -302,7 +281,7 @@ INSERT INTO O_ATTR
 	'',
 	'Created_For_Wired_Bridge',
 	0,
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -320,7 +299,7 @@ INSERT INTO O_ATTR
 	'',
 	'Bridge_Caller_Stack_Frame_ID',
 	0,
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	'',
 	'');
 INSERT INTO O_REF
@@ -367,16 +346,9 @@ INSERT INTO O_ATTR
 	'Child_',
 	'Stack_Frame_ID',
 	1,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("60fd0d8e-9f75-40a3-b729-2bf3b7068c52",
 	"94dc4a69-fab9-4ad8-b3cf-c58bf023b9d1",
@@ -425,7 +397,7 @@ INSERT INTO O_ATTR
 	'Top_Stack_Frame_',
 	'Stack_ID',
 	1,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -472,7 +444,7 @@ INSERT INTO O_ATTR
 	'',
 	'Stack_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -490,7 +462,7 @@ INSERT INTO O_ATTR
 	'',
 	'readyForInterrupt',
 	0,
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	'',
 	'');
 INSERT INTO O_REF
@@ -537,7 +509,7 @@ INSERT INTO O_ATTR
 	'Value_Q_',
 	'Stack_ID',
 	1,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -584,7 +556,7 @@ INSERT INTO O_ATTR
 	'Blocking_',
 	'Stack_Frame_ID',
 	1,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -635,7 +607,7 @@ INSERT INTO O_ATTR
 	'',
 	'Inst_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_ID
@@ -652,15 +624,20 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"60fd0d8e-9f75-40a3-b729-2bf3b7068c52");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("60fd0d8e-9f75-40a3-b729-2bf3b7068c52",
+	1,
+	"ce2c2e5b-d701-4d5f-9b67-5db53fc8ca56",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("ce2c2e5b-d701-4d5f-9b67-5db53fc8ca56",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Engine',
 	'// This is used by schema_gen to ignore this subsystem (for publication)
 TRANSLATE_FOR_EXTERNAL_USE:FALSE
 Persistent:false
 Import: java.util.concurrent.locks.ReentrantLock',
-	'I',
 	900,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000000000",
 	'../Engine.xtuml');

@@ -82,15 +82,14 @@ There are three CSV files that contain the CQ data:
 5. Analysis
 -----------
 #### 5.1  Redmine import plug-ins
+The redmine_importer and RedmineIssueImporter plug-ins were both investigated.
+Both packages had their bugs and were only well suited very small and specific
+imports.
 
-##### 5.1.1  redmine_importer
-Put details here.
-
-##### 5.1.2  RedmineIssueImporter
-Put details here.
-
-#### 5.2  MySQLWorkbench
-Put details here.
+#### 5.2  MySQL Workbench
+The MySQL Workbench tool can be used to connect to a MySQL server using a
+SSH tunnel.  Once connected, the CSV files can be loaded and written directly
+to a table in the database.
 
 
 6. Work Required

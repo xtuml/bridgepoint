@@ -6,31 +6,24 @@ INSERT INTO O_OBJ
 	4502,
 	'SPR_RO',
 	'',
-	"6a43182c-b832-4648-b478-ab0441b8613c");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("548e3e07-bc46-4339-b798-8e9c82661031",
 	"5d57cf7a-744e-4b5b-bc6e-e839d04a8fd3",
 	'initialize',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'self.Suc_Pars = ParseStatus::parseInitial;',
 	1,
 	'',
 	"5c56147a-9487-4bf4-a3da-7fd0101d7765");
-INSERT INTO S_DT_PROXY
-	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'void',
-	'',
-	'',
-	'../../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("eb91cc39-9269-4aca-aee4-552adac99401",
 	"5d57cf7a-744e-4b5b-bc6e-e839d04a8fd3",
 	'dispose',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select one rep related by self->SPR_REP[R4502];
 if(not_empty rep)
@@ -55,20 +48,13 @@ INSERT INTO O_TFR
 	"5d57cf7a-744e-4b5b-bc6e-e839d04a8fd3",
 	'getComponentId',
 	'',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'select one rep related by self->SPR_REP[R4502];
 return rep.getComponentId();',
 	1,
 	'',
 	"eb91cc39-9269-4aca-aee4-552adac99401");
-INSERT INTO S_DT_PROXY
-	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'unique_id',
-	'',
-	'',
-	'../../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("7d45edfd-8624-417c-88b3-05e7d9126f78",
 	"5d57cf7a-744e-4b5b-bc6e-e839d04a8fd3",
@@ -88,7 +74,7 @@ return this;
 	"548e3e07-bc46-4339-b798-8e9c82661031");
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
 	'instance',
 	'',
 	'',
@@ -98,7 +84,7 @@ INSERT INTO O_TFR
 	"5d57cf7a-744e-4b5b-bc6e-e839d04a8fd3",
 	'getMessageDirection',
 	'',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	1,
 	'select one operation related by self->SPR_REP[R4502]->C_EP[R4500]->C_IO[R4004];
 if(not_empty operation)
@@ -115,19 +101,12 @@ end if;',
 	1,
 	'',
 	"7d45edfd-8624-417c-88b3-05e7d9126f78");
-INSERT INTO S_DT_PROXY
-	VALUES ("79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'integer',
-	'',
-	'',
-	'../../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("dd21bd6b-d5d0-433d-8ca3-02543b5946ec",
 	"5d57cf7a-744e-4b5b-bc6e-e839d04a8fd3",
 	'isSynchronized',
 	'',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'// ask the supertype if we are synchronized, this operation exist to support
 // ui capabilities
@@ -139,19 +118,12 @@ return true;',
 	1,
 	'',
 	"52f6d0a5-d94f-4b27-a5f2-66933c91f456");
-INSERT INTO S_DT_PROXY
-	VALUES ("8e519c45-7dcf-400b-9d4e-954869dbb7e8",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'boolean',
-	'',
-	'',
-	'../../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("6e5c4d7d-7225-4ab3-a947-2fdc1d0e4d17",
 	"5d57cf7a-744e-4b5b-bc6e-e839d04a8fd3",
 	'collectChanges',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'/*
  *  Collect removal changes
@@ -178,7 +150,7 @@ INSERT INTO O_TFR
 	"5d57cf7a-744e-4b5b-bc6e-e839d04a8fd3",
 	'synchronize',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'/**
  *  Allow owning element to synchronize, but only if we are not synchronized
@@ -197,25 +169,18 @@ INSERT INTO O_TFR
 	"5d57cf7a-744e-4b5b-bc6e-e839d04a8fd3",
 	'getCachedName',
 	'Translate:native',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'	return m_name;',
 	0,
 	'',
 	"15bfb5e3-19d7-48a8-a173-2838937b6a77");
-INSERT INTO S_DT_PROXY
-	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'string',
-	'',
-	'',
-	'../../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("5dfc0903-e9ac-4626-88b1-4ffec0fead47",
 	"5d57cf7a-744e-4b5b-bc6e-e839d04a8fd3",
 	'setCachedName',
 	'Translate:native',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'	m_name = p_Name;',
 	0,
@@ -225,7 +190,7 @@ INSERT INTO O_TPARM
 	VALUES ("407d0151-8391-4dd5-a3b3-06cb7768890d",
 	"5dfc0903-e9ac-4626-88b1-4ffec0fead47",
 	'name',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -235,7 +200,7 @@ INSERT INTO O_TFR
 	"5d57cf7a-744e-4b5b-bc6e-e839d04a8fd3",
 	'initializeUnparsed',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// Required Operation.initializeUnparsed()
 select one rob related by self->ACT_ROB[R685];
@@ -264,7 +229,7 @@ INSERT INTO O_TFR
 	"5d57cf7a-744e-4b5b-bc6e-e839d04a8fd3",
 	'getCachedDescrip',
 	'Translate:native',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'	return m_descrip;',
 	0,
@@ -275,7 +240,7 @@ INSERT INTO O_TFR
 	"5d57cf7a-744e-4b5b-bc6e-e839d04a8fd3",
 	'setCachedDescrip',
 	'Translate:native',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'	m_descrip = p_Descrip;',
 	0,
@@ -285,7 +250,7 @@ INSERT INTO O_TPARM
 	VALUES ("667459e8-1c7e-484a-8a47-f5ddbbc1852e",
 	"fb88b0f8-2ca0-45e4-a239-ceab3980b529",
 	'descrip',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -338,16 +303,9 @@ INSERT INTO O_ATTR
 	'',
 	'Id',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_DBATTR
 	VALUES ("a0506bee-e177-4f89-8785-70840b0bb4b6",
 	"5d57cf7a-744e-4b5b-bc6e-e839d04a8fd3",
@@ -376,7 +334,7 @@ INSERT INTO O_ATTR
 	'',
 	'Name',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_DBATTR
@@ -408,7 +366,7 @@ Description: A textual description of this required operation.',
 	'',
 	'Descrip',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_DBATTR
@@ -431,7 +389,7 @@ Persistent:false
 	'',
 	'Action_Semantics',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -449,7 +407,7 @@ INSERT INTO O_ATTR
 	'',
 	'Action_Semantics_internal',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -475,7 +433,7 @@ Data Domain: 0=not parsed, 1 = parse successful, 2 = parse unsuccessful, 3 = par
 	'');
 INSERT INTO S_DT_PROXY
 	VALUES ("33245ab4-49c2-4c3a-8a59-a08f07153c47",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
 	'ParseStatus',
 	'Indicates the status of the parse for an action specification in the attribute Action_Semantics',
 	'',
@@ -494,16 +452,21 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"5d57cf7a-744e-4b5b-bc6e-e839d04a8fd3");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("5d57cf7a-744e-4b5b-bc6e-e839d04a8fd3",
+	1,
+	"6a43182c-b832-4648-b478-ab0441b8613c",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("6a43182c-b832-4648-b478-ab0441b8613c",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Signal Provisions and Requirements',
 	'// This is used by schema_gen to ignore this subsystem (for publication)
 TRANSLATE_FOR_EXTERNAL_USE:FALSE
 
 The Signal Provisions and Requirements subsystem captures data which will be
 used to define the implementation of provided and required interfaces.',
-	'SPR',
 	4500,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000000000",
 	'../Signal Provisions and Requirements.xtuml');

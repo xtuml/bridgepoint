@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: None
 Bundle-SymbolicName: com.mentor.nucleus.bp.mc.none; singleton:=true
-Bundle-Version: 4.2.0
+Bundle-Version: 4.2.1
 Bundle-Activator: com.mentor.nucleus.bp.mc.none.Activator
 Bundle-Vendor: xtUML.org
 Require-Bundle: org.eclipse.ui,

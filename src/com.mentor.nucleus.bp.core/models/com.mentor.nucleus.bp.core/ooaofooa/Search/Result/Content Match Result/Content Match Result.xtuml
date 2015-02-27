@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("a740be00-8f64-4316-bb89-72a90bd63d71",
@@ -6,7 +6,7 @@ INSERT INTO O_OBJ
 	9804,
 	'SR_CMR',
 	'',
-	"9eb20661-6f4c-4bd7-a6ee-f75c75a80ce9");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_NBATTR
 	VALUES ("075d01f5-6250-4569-8faa-adf645ba31db",
 	"a740be00-8f64-4316-bb89-72a90bd63d71");
@@ -22,16 +22,9 @@ INSERT INTO O_ATTR
 	'',
 	'Id',
 	0,
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'unique_id',
-	'',
-	'',
-	'../../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("63a2e187-4482-42d9-9f27-ad808f6ae9dd",
 	"a740be00-8f64-4316-bb89-72a90bd63d71");
@@ -47,16 +40,9 @@ INSERT INTO O_ATTR
 	'',
 	'startPosition',
 	0,
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'integer',
-	'',
-	'',
-	'../../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("725c0046-9787-4aa7-95b5-8f7fd099e098",
 	"a740be00-8f64-4316-bb89-72a90bd63d71");
@@ -72,7 +58,7 @@ INSERT INTO O_ATTR
 	'',
 	'length',
 	0,
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
 INSERT INTO O_ID
@@ -89,12 +75,17 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"a740be00-8f64-4316-bb89-72a90bd63d71");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("a740be00-8f64-4316-bb89-72a90bd63d71",
+	1,
+	"9eb20661-6f4c-4bd7-a6ee-f75c75a80ce9",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("9eb20661-6f4c-4bd7-a6ee-f75c75a80ce9",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Result',
 	'',
-	'SR',
 	9800,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000000000",
 	'../Result.xtuml');

@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("2d912ded-d79b-40ea-8be6-d2ceaee9721d",
@@ -6,13 +6,13 @@ INSERT INTO O_OBJ
 	1200,
 	'UC_UCC',
 	'',
-	"2597fe35-f53f-4878-817d-73f2d7a1fa0f");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("30744edf-ceb2-49ce-bfd8-fce85ed5f1bc",
 	"2d912ded-d79b-40ea-8be6-d2ceaee9721d",
 	'get_compartment_text',
 	'',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'result = "";
 if (param.at == Justification::Center_in_X)
@@ -28,23 +28,16 @@ INSERT INTO O_TPARM
 	VALUES ("de97369e-a936-430e-badc-dbe482aae24e",
 	"30744edf-ceb2-49ce-bfd8-fce85ed5f1bc",
 	'comp_num',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"dce8e173-9fb9-4a6b-85ca-43a49626f9a1",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'integer',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TPARM
 	VALUES ("7a68c030-c2be-4503-94b1-eb532f18a097",
 	"30744edf-ceb2-49ce-bfd8-fce85ed5f1bc",
 	'ent_num',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"de97369e-a936-430e-badc-dbe482aae24e",
@@ -60,18 +53,11 @@ INSERT INTO O_TPARM
 	'');
 INSERT INTO S_DT_PROXY
 	VALUES ("a9382bea-4a3f-43ec-9191-1f9f158b11a4",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
 	'Justification',
 	'The Justification data type is used to specify text at a given location in a compartment.
 ------------------------------------------------------------------------------
 Bridge:GD',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
-INSERT INTO S_DT_PROXY
-	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'string',
-	'',
 	'',
 	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
@@ -79,7 +65,7 @@ INSERT INTO O_TFR
 	"2d912ded-d79b-40ea-8be6-d2ceaee9721d",
 	'get_compartments',
 	'',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	1,
 	'return 1;',
 	1,
@@ -90,7 +76,7 @@ INSERT INTO O_TFR
 	"2d912ded-d79b-40ea-8be6-d2ceaee9721d",
 	'get_entries',
 	'',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	1,
 	'return 1;',
 	1,
@@ -100,7 +86,7 @@ INSERT INTO O_TPARM
 	VALUES ("ded1bc6c-63a6-4276-bfcf-1548a4f100dd",
 	"f554a183-5598-4392-a471-036359e9f636",
 	'comp_num',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -120,7 +106,7 @@ INSERT INTO O_TPARM
 	VALUES ("9dfc0797-aa59-46ab-a68a-7272554865f1",
 	"cb2b6bf9-ad2a-4a65-8aa2-249d2cf79959",
 	'comp_num',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"6a0f8591-138b-4540-8062-57b3a77cd201",
@@ -129,7 +115,7 @@ INSERT INTO O_TPARM
 	VALUES ("47eead23-9c3b-4e59-8dbb-9091f9b71de3",
 	"cb2b6bf9-ad2a-4a65-8aa2-249d2cf79959",
 	'ent_num',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"9dfc0797-aa59-46ab-a68a-7272554865f1",
@@ -145,7 +131,7 @@ INSERT INTO O_TPARM
 	'');
 INSERT INTO S_DT_PROXY
 	VALUES ("6e636321-0fd1-4577-b185-e4d76b0d0c71",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
 	'Style',
 	'The Style data type specifies the precise form a graphical element will take when drawn.
 --------------------------------------------------------------------------
@@ -168,25 +154,18 @@ INSERT INTO O_TFR
 	"2d912ded-d79b-40ea-8be6-d2ceaee9721d",
 	'get_ooa_id',
 	'',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'return self.Package_ID;',
 	1,
 	'',
 	"f554a183-5598-4392-a471-036359e9f636");
-INSERT INTO S_DT_PROXY
-	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'unique_id',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("ba466388-a4e4-4654-bb64-07b22aa78996",
 	"2d912ded-d79b-40ea-8be6-d2ceaee9721d",
 	'newUseCase',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'create object instance uc of IA_UCP;
 create object instance part of SQ_P;
@@ -197,19 +176,12 @@ uc.initialize();',
 	1,
 	'',
 	"7532ce61-222b-4e3b-beb9-07c3365467b4");
-INSERT INTO S_DT_PROXY
-	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'void',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("035d2895-e83b-4e80-a949-3770c062fd9a",
 	"2d912ded-d79b-40ea-8be6-d2ceaee9721d",
 	'newUseCasePackage',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
 create object instance ucc of UC_UCC;
@@ -230,7 +202,7 @@ INSERT INTO O_TFR
 	"2d912ded-d79b-40ea-8be6-d2ceaee9721d",
 	'initialize',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'self.Name = ::getUniqueInitialName( 
     instance: self.convertToInstance(), 
@@ -243,7 +215,7 @@ INSERT INTO O_TFR
 	"2d912ded-d79b-40ea-8be6-d2ceaee9721d",
 	'newActor',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'create object instance actor of SQ_AP;
 create object instance part of SQ_P;
@@ -259,7 +231,7 @@ INSERT INTO O_TFR
 	"2d912ded-d79b-40ea-8be6-d2ceaee9721d",
 	'newGeneralization',
 	'',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'select any source related by self->UC_PIUC[R1203]->SQ_P[R1203] where (selected.Part_ID == param.from);
 select any destination related by self->UC_PIUC[R1203]->SQ_P[R1203] where (selected.Part_ID == param.to);
@@ -300,7 +272,7 @@ INSERT INTO O_TPARM
 	VALUES ("dcc368be-900f-4c78-a77e-606d91f1e4de",
 	"a72a8fea-31ea-4e0b-9ad5-3dd9e684318a",
 	'from',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -309,7 +281,7 @@ INSERT INTO O_TPARM
 	VALUES ("c2b99507-8843-44b8-9d35-ebd25f36ed62",
 	"a72a8fea-31ea-4e0b-9ad5-3dd9e684318a",
 	'to',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"562e523f-ef59-4a88-b2b0-fc4c907fa4b7",
@@ -318,23 +290,16 @@ INSERT INTO O_TPARM
 	VALUES ("562e523f-ef59-4a88-b2b0-fc4c907fa4b7",
 	"a72a8fea-31ea-4e0b-9ad5-3dd9e684318a",
 	'fromIsImported',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	0,
 	'',
 	"dcc368be-900f-4c78-a77e-606d91f1e4de",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("8e519c45-7dcf-400b-9d4e-954869dbb7e8",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'boolean',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TPARM
 	VALUES ("50d5a432-752d-4722-8160-2fb8111159ad",
 	"a72a8fea-31ea-4e0b-9ad5-3dd9e684318a",
 	'toIsImported',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	0,
 	'',
 	"c2b99507-8843-44b8-9d35-ebd25f36ed62",
@@ -344,7 +309,7 @@ INSERT INTO O_TFR
 	"2d912ded-d79b-40ea-8be6-d2ceaee9721d",
 	'newAssociation',
 	'',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'select any sourceActor related by self->UC_PIUC[R1203]->SQ_P[R1203]->SQ_AP[R930] where (selected.Part_ID == param.from);
 select any destinationUC related by self->UC_PIUC[R1203]->SQ_P[R1203]->IA_UCP[R930] where (selected.Part_ID == param.to);
@@ -369,7 +334,7 @@ INSERT INTO O_TPARM
 	VALUES ("5cf9fd04-6546-44c7-8ecb-03de825572f9",
 	"0ad8a529-409b-427e-aade-6e5dd51a1323",
 	'from',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -378,7 +343,7 @@ INSERT INTO O_TPARM
 	VALUES ("72192125-279d-4c53-af6b-3f6865eb928b",
 	"0ad8a529-409b-427e-aade-6e5dd51a1323",
 	'to',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"ff197974-826f-4699-be48-096de8172698",
@@ -387,7 +352,7 @@ INSERT INTO O_TPARM
 	VALUES ("ff197974-826f-4699-be48-096de8172698",
 	"0ad8a529-409b-427e-aade-6e5dd51a1323",
 	'fromIsImported',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	0,
 	'',
 	"5cf9fd04-6546-44c7-8ecb-03de825572f9",
@@ -396,7 +361,7 @@ INSERT INTO O_TPARM
 	VALUES ("cb2ad802-b518-4eeb-a496-fb61fb7cead2",
 	"0ad8a529-409b-427e-aade-6e5dd51a1323",
 	'toIsImported',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	0,
 	'',
 	"72192125-279d-4c53-af6b-3f6865eb928b",
@@ -406,7 +371,7 @@ INSERT INTO O_TFR
 	"2d912ded-d79b-40ea-8be6-d2ceaee9721d",
 	'newInclude',
 	'',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'select any sourceUC related by self->UC_PIUC[R1203]->SQ_P[R1203]->IA_UCP[R930] where (selected.Part_ID == param.from);
 select any destinationUC related by self->UC_PIUC[R1203]->SQ_P[R1203]->IA_UCP[R930] where (selected.Part_ID == param.to);
@@ -431,7 +396,7 @@ INSERT INTO O_TPARM
 	VALUES ("bec8098b-d7c0-4b78-8d4e-95fd5b28a28c",
 	"7532ce61-222b-4e3b-beb9-07c3365467b4",
 	'from',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -440,7 +405,7 @@ INSERT INTO O_TPARM
 	VALUES ("90484589-2102-4dd4-89ed-f31843ba29d7",
 	"7532ce61-222b-4e3b-beb9-07c3365467b4",
 	'to',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"930f576d-dae5-4138-97b9-323ceeaa5740",
@@ -449,7 +414,7 @@ INSERT INTO O_TPARM
 	VALUES ("930f576d-dae5-4138-97b9-323ceeaa5740",
 	"7532ce61-222b-4e3b-beb9-07c3365467b4",
 	'fromIsImported',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	0,
 	'',
 	"bec8098b-d7c0-4b78-8d4e-95fd5b28a28c",
@@ -458,7 +423,7 @@ INSERT INTO O_TPARM
 	VALUES ("4548ab31-1390-475f-8c93-848e9e2cc461",
 	"7532ce61-222b-4e3b-beb9-07c3365467b4",
 	'toIsImported',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	0,
 	'',
 	"90484589-2102-4dd4-89ed-f31843ba29d7",
@@ -468,7 +433,7 @@ INSERT INTO O_TFR
 	"2d912ded-d79b-40ea-8be6-d2ceaee9721d",
 	'newExtend',
 	'',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'select any sourceUC related by self->UC_PIUC[R1203]->SQ_P[R1203]->IA_UCP[R930] where (selected.Part_ID == param.from);
 select any destinationUC related by self->UC_PIUC[R1203]->SQ_P[R1203]->IA_UCP[R930] where (selected.Part_ID == param.to);
@@ -493,7 +458,7 @@ INSERT INTO O_TPARM
 	VALUES ("aab4da24-9d51-410e-bd99-c4f3538a1eed",
 	"a3736b92-1db2-4b7f-9ff3-e9d84a66542d",
 	'from',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -502,7 +467,7 @@ INSERT INTO O_TPARM
 	VALUES ("f49f77de-faaa-4568-8677-8ce79d8d6c0f",
 	"a3736b92-1db2-4b7f-9ff3-e9d84a66542d",
 	'to',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"938dfe87-9eb8-4ea6-a094-950de3807f9f",
@@ -511,7 +476,7 @@ INSERT INTO O_TPARM
 	VALUES ("938dfe87-9eb8-4ea6-a094-950de3807f9f",
 	"a3736b92-1db2-4b7f-9ff3-e9d84a66542d",
 	'fromIsImported',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	0,
 	'',
 	"aab4da24-9d51-410e-bd99-c4f3538a1eed",
@@ -520,7 +485,7 @@ INSERT INTO O_TPARM
 	VALUES ("4b0974c3-e6f0-4b63-b786-5256c4f2435a",
 	"a3736b92-1db2-4b7f-9ff3-e9d84a66542d",
 	'toIsImported',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	0,
 	'',
 	"f49f77de-faaa-4568-8677-8ce79d8d6c0f",
@@ -530,7 +495,7 @@ INSERT INTO O_TFR
 	"2d912ded-d79b-40ea-8be6-d2ceaee9721d",
 	'dispose',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
 // unrelate from parent
@@ -618,7 +583,7 @@ return this;',
 	"45326112-4524-4f40-b852-8fa45be60ac1");
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
 	'instance',
 	'',
 	'',
@@ -628,7 +593,7 @@ INSERT INTO O_TFR
 	"2d912ded-d79b-40ea-8be6-d2ceaee9721d",
 	'associateWithPackage',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// unhook from current parent
 self.deassociateFromParent();
@@ -644,7 +609,7 @@ INSERT INTO O_TPARM
 	VALUES ("656f5e6b-91f2-482c-bcd3-89fe27d9b554",
 	"28a2f980-052f-47a4-a40b-d9b9c7dc6082",
 	'pkgID',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -654,7 +619,7 @@ INSERT INTO O_TFR
 	"2d912ded-d79b-40ea-8be6-d2ceaee9721d",
 	'associateWithSystem',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// unhook from current parent
 self.deassociateFromParent();
@@ -669,7 +634,7 @@ INSERT INTO O_TPARM
 	VALUES ("30c5c104-4733-4e50-a503-178625c20117",
 	"ae837786-9e43-4326-b080-4dadc146595a",
 	'sysID',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -679,7 +644,7 @@ INSERT INTO O_TFR
 	"2d912ded-d79b-40ea-8be6-d2ceaee9721d",
 	'associateWithSubsystem',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
 // unhook from current parent
@@ -694,7 +659,7 @@ INSERT INTO O_TPARM
 	VALUES ("2b86c45a-9fa8-4a4b-bcc7-6c83ededc167",
 	"332fb241-44cd-45ec-82de-445ac8459140",
 	'ssID',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -704,7 +669,7 @@ INSERT INTO O_TFR
 	"2d912ded-d79b-40ea-8be6-d2ceaee9721d",
 	'associateWithDomain',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
 // unhook from current parent
@@ -720,7 +685,7 @@ INSERT INTO O_TPARM
 	VALUES ("fb46a3fa-0266-4eee-94b6-5f23dd4d4e96",
 	"7a1a7262-c3a8-4005-95b2-a55e5d289fb2",
 	'domID',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -730,7 +695,7 @@ INSERT INTO O_TFR
 	"2d912ded-d79b-40ea-8be6-d2ceaee9721d",
 	'associateWithComponent',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// unhook from current parent
 self.deassociateFromParent();
@@ -745,7 +710,7 @@ INSERT INTO O_TPARM
 	VALUES ("668eedd1-9d93-42ec-a095-a6093c2093ed",
 	"699e5a5b-e3cc-4b11-8025-9722a836a3c8",
 	'compID',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -755,7 +720,7 @@ INSERT INTO O_TFR
 	"2d912ded-d79b-40ea-8be6-d2ceaee9721d",
 	'associateWithComponentPackage',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
 // unhook from current parent
@@ -770,7 +735,7 @@ INSERT INTO O_TPARM
 	VALUES ("22094cde-99da-440e-ad70-0db8f9298b55",
 	"57afc493-7cf1-4894-aae5-7e4193663c8a",
 	'cpID',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -780,7 +745,7 @@ INSERT INTO O_TFR
 	"2d912ded-d79b-40ea-8be6-d2ceaee9721d",
 	'associateWithUseCaseDiagram',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
 // unhook from current parent
@@ -801,7 +766,7 @@ INSERT INTO O_TPARM
 	VALUES ("184a10c6-4943-4961-9786-360eabf8943b",
 	"45326112-4524-4f40-b852-8fa45be60ac1",
 	'ucdID',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -811,7 +776,7 @@ INSERT INTO O_TFR
 	"2d912ded-d79b-40ea-8be6-d2ceaee9721d",
 	'deassociateFromParent',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
 select one system related by self->S_SYS[R1211];
@@ -857,7 +822,7 @@ INSERT INTO O_TFR
 	"2d912ded-d79b-40ea-8be6-d2ceaee9721d",
 	'pasteUseCaseDiagram',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
 select any ucd from instances of UC_UCC where (selected.Package_ID == param.id);
@@ -874,7 +839,7 @@ INSERT INTO O_TPARM
 	VALUES ("378ae75d-29dd-4130-9f01-beca7f7a6832",
 	"13f17e91-6ae8-49a1-8835-023593244b38",
 	'id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -884,7 +849,7 @@ INSERT INTO O_TFR
 	"2d912ded-d79b-40ea-8be6-d2ceaee9721d",
 	'getUsecaseDiagramCount',
 	'',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	1,
 	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
 select many useCases related by self->UC_UIU[R1208]->UC_UCC[R1209];
@@ -897,7 +862,7 @@ INSERT INTO O_TFR
 	"2d912ded-d79b-40ea-8be6-d2ceaee9721d",
 	'getUsecaseDiagramId',
 	'',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
 id = GD::NULL_UNIQUE_ID();
@@ -920,7 +885,7 @@ INSERT INTO O_TPARM
 	VALUES ("ee4c156c-961e-4777-9b8e-3a0bd7e3a4c7",
 	"a28e602d-8524-458e-8bab-e6328ab1ea27",
 	'index',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -930,7 +895,7 @@ INSERT INTO O_TFR
 	"2d912ded-d79b-40ea-8be6-d2ceaee9721d",
 	'getUsecaseCount',
 	'',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	1,
 	'select many useCases related by self->SQ_P[R1203]->IA_UCP[R930];
 return cardinality useCases;',
@@ -942,7 +907,7 @@ INSERT INTO O_TFR
 	"2d912ded-d79b-40ea-8be6-d2ceaee9721d",
 	'getUsecaseId',
 	'',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'id = GD::NULL_UNIQUE_ID();
 select many usecases related by self->SQ_P[R1203]->IA_UCP[R930];
@@ -964,7 +929,7 @@ INSERT INTO O_TPARM
 	VALUES ("da5fed41-283b-477f-8a05-50ec67d095cd",
 	"6ed9b018-8a55-4ec7-bd87-22545ba0abb9",
 	'index',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -974,7 +939,7 @@ INSERT INTO O_TFR
 	"2d912ded-d79b-40ea-8be6-d2ceaee9721d",
 	'getActorCount',
 	'',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	1,
 	'select many actors related by self->SQ_P[R1203]->SQ_AP[R930];
 return cardinality actors;',
@@ -986,7 +951,7 @@ INSERT INTO O_TFR
 	"2d912ded-d79b-40ea-8be6-d2ceaee9721d",
 	'getActorId',
 	'',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'id = GD::NULL_UNIQUE_ID();
 select many actors related by self->SQ_P[R1203]->SQ_AP[R930];
@@ -1008,7 +973,7 @@ INSERT INTO O_TPARM
 	VALUES ("422071c4-548d-4dac-a249-6c0b148227b1",
 	"162bdc76-3301-42bb-9dad-54023621982f",
 	'index',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -1018,7 +983,7 @@ INSERT INTO O_TFR
 	"2d912ded-d79b-40ea-8be6-d2ceaee9721d",
 	'pasteUseCaseParticipant',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select any usecase from instances of IA_UCP
                                            where (selected.Part_ID == param.id);
@@ -1041,7 +1006,7 @@ INSERT INTO O_TPARM
 	VALUES ("51f6d21c-c4fb-475d-ad94-11d8df54f326",
 	"f261892c-aba2-49c3-a903-6ac054816296",
 	'id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -1051,7 +1016,7 @@ INSERT INTO O_TFR
 	"2d912ded-d79b-40ea-8be6-d2ceaee9721d",
 	'pasteActorParticipant',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select any actor from instances of SQ_AP
                                            where (selected.Part_ID == param.id);
@@ -1074,7 +1039,7 @@ INSERT INTO O_TPARM
 	VALUES ("d0576781-1a32-4596-89ed-e0223de3b5ba",
 	"0974e3ae-ba27-4fe6-86f9-27e6316136d0",
 	'id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -1094,7 +1059,7 @@ INSERT INTO O_REF
 	'',
 	'Subsystem',
 	'SS_ID',
-	'R1202');
+	'R1202.''can be displayed in''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("2d912ded-d79b-40ea-8be6-d2ceaee9721d",
 	"452c2b45-e0da-4ca1-9325-5d1413c78741",
@@ -1127,16 +1092,9 @@ INSERT INTO O_ATTR
 	'',
 	'SS_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("2d912ded-d79b-40ea-8be6-d2ceaee9721d",
 	"07cf2195-f012-4bf5-83c7-f89dd30a8839",
@@ -1152,7 +1110,7 @@ INSERT INTO O_REF
 	'',
 	'Domain',
 	'Dom_ID',
-	'R1201');
+	'R1201.''can be displayed in''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("2d912ded-d79b-40ea-8be6-d2ceaee9721d",
 	"77686156-1c95-40f5-a9ba-50dea2da7b89",
@@ -1185,7 +1143,7 @@ INSERT INTO O_ATTR
 	'',
 	'Dom_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -1203,7 +1161,7 @@ INSERT INTO O_ATTR
 	'',
 	'Name',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -1222,7 +1180,7 @@ Description: A textual description of this use case.',
 	'',
 	'Descrip',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_REF
@@ -1273,7 +1231,7 @@ INSERT INTO O_ATTR
 	'',
 	'Sys_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -1324,7 +1282,7 @@ INSERT INTO O_ATTR
 	'',
 	'Package_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -1371,7 +1329,7 @@ INSERT INTO O_ATTR
 	'Component_',
 	'Package_ID',
 	1,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -1389,7 +1347,7 @@ INSERT INTO O_REF
 	'',
 	'Use Case in Use Case',
 	'Package_ID',
-	'R1209');
+	'R1209.''is connection to parent''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("2d912ded-d79b-40ea-8be6-d2ceaee9721d",
 	"fac5be5a-575e-41b0-8d46-0f7182001658",
@@ -1418,7 +1376,7 @@ INSERT INTO O_ATTR
 	'Parent_',
 	'Package_ID',
 	1,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -1469,7 +1427,7 @@ INSERT INTO O_ATTR
 	'Component_',
 	'Id',
 	1,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_ID
@@ -1486,13 +1444,18 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"2d912ded-d79b-40ea-8be6-d2ceaee9721d");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("2d912ded-d79b-40ea-8be6-d2ceaee9721d",
+	1,
+	"2597fe35-f53f-4878-817d-73f2d7a1fa0f",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("2597fe35-f53f-4878-817d-73f2d7a1fa0f",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Use Case',
 	'// This is used by schema_gen to ignore this subsystem (for publication)
 TRANSLATE_FOR_EXTERNAL_USE:FALSE',
-	'UC',
 	1200,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000000000",
 	'../Use Case.xtuml');

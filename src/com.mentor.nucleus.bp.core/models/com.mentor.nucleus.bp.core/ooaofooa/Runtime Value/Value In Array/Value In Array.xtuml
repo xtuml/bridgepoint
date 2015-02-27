@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("69163648-d3d3-4b46-8cd7-09b0907c66a0",
@@ -6,7 +6,7 @@ INSERT INTO O_OBJ
 	3305,
 	'RV_VIA',
 	'',
-	"7532d38c-8a9a-4a7d-81a0-61f814f64f06");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_REF
 	VALUES ("69163648-d3d3-4b46-8cd7-09b0907c66a0",
 	"e375b5f8-c1a0-4819-9577-30d82c30a194",
@@ -55,16 +55,9 @@ INSERT INTO O_ATTR
 	'',
 	'RuntimeValue_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("69163648-d3d3-4b46-8cd7-09b0907c66a0",
 	"013bfc9e-d3c0-4807-8613-deccd09763b5",
@@ -104,7 +97,7 @@ INSERT INTO O_ATTR
 	'Contained',
 	'RuntimeValue_ID',
 	1,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -122,16 +115,9 @@ INSERT INTO O_ATTR
 	'',
 	'Index',
 	0,
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'integer',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_ID
 	VALUES (0,
 	"69163648-d3d3-4b46-8cd7-09b0907c66a0");
@@ -151,15 +137,20 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"69163648-d3d3-4b46-8cd7-09b0907c66a0");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("69163648-d3d3-4b46-8cd7-09b0907c66a0",
+	1,
+	"7532d38c-8a9a-4a7d-81a0-61f814f64f06",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("7532d38c-8a9a-4a7d-81a0-61f814f64f06",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Runtime Value',
 	'// This is used by schema_gen to ignore this subsystem (for publication)
 TRANSLATE_FOR_EXTERNAL_USE:FALSE
 Persistent:false
 ',
-	'RV',
 	3300,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000000000",
 	'../Runtime Value.xtuml');

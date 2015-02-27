@@ -6,14 +6,14 @@ INSERT INTO O_OBJ
 	1,
 	'GD_MD',
 	'A model is a drawing for one particular view of the analysis. There is an instance of model for each glyph on the index window, and each entry in the model element list on the index window. For example, every domain will have four models (DPD, PDD(R), PDD(A), PDD(S)).  Every subsystem will have three models (CD, OCD(A), OCD(S)).  Every state chart has one model (SC).  The STT is not a graphical model.',
-	"b5695748-80fc-47fb-b5c7-801b5f28b907");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("2763a8eb-4ab4-49e5-b0df-290b4dc52619",
 	"09423687-e999-4aba-876d-35e0d3331311",
 	'draw',
 	'To draw the model, select all the graphical elements and
 delegate the draw operation to each element in turn.',
-	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select one mdlSpec related by self->GD_MS[R9];
 if (empty mdlSpec)
@@ -50,7 +50,7 @@ INSERT INTO O_TPARM
 	'');
 INSERT INTO S_DT_PROXY
 	VALUES ("231cb314-a496-47fb-aee2-1317be81deb5",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	"00000000-0000-0000-0000-000000000000",
 	'GCDelegate',
 	'',
 	'',
@@ -59,25 +59,11 @@ INSERT INTO O_TPARM
 	VALUES ("9da9f67b-96cd-4cfd-9b45-c6c732aad7d6",
 	"2763a8eb-4ab4-49e5-b0df-290b4dc52619",
 	'is_hard_copy',
-	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	0,
 	'',
 	"697caf83-6482-4b9f-9940-6bab180257f4",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("6e4aa280-2e22-4146-9b4a-6c2573c456d8",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	'boolean',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
-INSERT INTO S_DT_PROXY
-	VALUES ("3852f90c-88c5-467d-9b26-57c8cd438b42",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	'void',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("3ec0cc89-856a-4f56-9322-2f5965e2513e",
 	"09423687-e999-4aba-876d-35e0d3331311",
@@ -85,7 +71,7 @@ INSERT INTO O_TFR
 	'Gets the maximum X co-ordinate on the canvas.
 This calculation currently allows for connectors but
 not for large text blocks that might affect the sizing.',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	1,
 	'result = 0;
 select many elems related by self->GD_GE[R1];
@@ -130,24 +116,17 @@ INSERT INTO O_TPARM
 	VALUES ("588a261b-043a-4556-9435-8356daf5a242",
 	"3ec0cc89-856a-4f56-9322-2f5965e2513e",
 	'all',
-	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("388cd7a2-2d0c-4f02-9730-7670074de394",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	'integer',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("ec26b824-f8ac-4e61-bb7f-6cda460b4a38",
 	"09423687-e999-4aba-876d-35e0d3331311",
 	'getMaxY',
 	'Gets the maximum Y co-ordinate on the canvas.',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	1,
 	'result = 0;
 select many elems related by self->GD_GE[R1];
@@ -192,7 +171,7 @@ INSERT INTO O_TPARM
 	VALUES ("2263d9be-753f-47c3-a241-e158da7aa99a",
 	"ec26b824-f8ac-4e61-bb7f-6cda460b4a38",
 	'all',
-	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -202,7 +181,7 @@ INSERT INTO O_TFR
 	"09423687-e999-4aba-876d-35e0d3331311",
 	'getMinX',
 	'Gets the minimum X co-ordinate on the canvas.',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	1,
 	'result = OS::MAX_INT();
 select many elems related by self->GD_GE[R1];
@@ -246,7 +225,7 @@ INSERT INTO O_TPARM
 	VALUES ("ac224489-c7e1-4f7f-97cc-0c1247af86df",
 	"50de175e-7e4f-46dc-ab29-324cbdac7e50",
 	'all',
-	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -256,7 +235,7 @@ INSERT INTO O_TFR
 	"09423687-e999-4aba-876d-35e0d3331311",
 	'getMinY',
 	'Gets the minimum Y co-ordinate on the canvas.',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	1,
 	'result = OS::MAX_INT();
 select many elems related by self->GD_GE[R1];
@@ -300,7 +279,7 @@ INSERT INTO O_TPARM
 	VALUES ("1f361577-c004-48c9-a127-e4cfc936ef70",
 	"60e2f561-0759-4734-89b6-139ef4fc5b65",
 	'all',
-	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -310,7 +289,7 @@ INSERT INTO O_TFR
 	"09423687-e999-4aba-876d-35e0d3331311",
 	'zoomTo',
 	'',
-	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'newX = param.toX;
 newY = param.toY;
@@ -376,7 +355,7 @@ INSERT INTO O_TPARM
 	VALUES ("5d361575-cd70-4edf-aa59-ee0e04f878b2",
 	"f72545a8-f280-4a3f-9a72-b84e31903ff7",
 	'all',
-	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -385,7 +364,7 @@ INSERT INTO O_TPARM
 	VALUES ("aefd06b7-b63d-4474-8b4c-4929789e6283",
 	"f72545a8-f280-4a3f-9a72-b84e31903ff7",
 	'selection',
-	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	0,
 	'',
 	"760ed392-05a1-4a14-afc8-b3267dd72f12",
@@ -394,7 +373,7 @@ INSERT INTO O_TPARM
 	VALUES ("0f3a8697-8d84-4730-a769-808d539d0c8c",
 	"f72545a8-f280-4a3f-9a72-b84e31903ff7",
 	'toX',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"05f5784f-79ff-48c7-81ba-027fde6c2125",
@@ -403,7 +382,7 @@ INSERT INTO O_TPARM
 	VALUES ("929ac1ff-7fcf-46d3-8a1f-b4d693600561",
 	"f72545a8-f280-4a3f-9a72-b84e31903ff7",
 	'toY',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"0f3a8697-8d84-4730-a769-808d539d0c8c",
@@ -412,7 +391,7 @@ INSERT INTO O_TPARM
 	VALUES ("05f5784f-79ff-48c7-81ba-027fde6c2125",
 	"f72545a8-f280-4a3f-9a72-b84e31903ff7",
 	'toW',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"d4d6c0db-fa7b-474c-88f6-ab30eac4d425",
@@ -421,7 +400,7 @@ INSERT INTO O_TPARM
 	VALUES ("d4d6c0db-fa7b-474c-88f6-ab30eac4d425",
 	"f72545a8-f280-4a3f-9a72-b84e31903ff7",
 	'toH',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"aefd06b7-b63d-4474-8b4c-4929789e6283",
@@ -430,7 +409,7 @@ INSERT INTO O_TPARM
 	VALUES ("760ed392-05a1-4a14-afc8-b3267dd72f12",
 	"f72545a8-f280-4a3f-9a72-b84e31903ff7",
 	'avW',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"8889f6df-a1ca-451e-97d4-3eead817bfa3",
@@ -439,7 +418,7 @@ INSERT INTO O_TPARM
 	VALUES ("8889f6df-a1ca-451e-97d4-3eead817bfa3",
 	"f72545a8-f280-4a3f-9a72-b84e31903ff7",
 	'avH',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"5d361575-cd70-4edf-aa59-ee0e04f878b2",
@@ -449,7 +428,7 @@ INSERT INTO O_TFR
 	"09423687-e999-4aba-876d-35e0d3331311",
 	'unSelectAll',
 	'',
-	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'CL::clearSelection();',
 	1,
@@ -460,7 +439,7 @@ INSERT INTO O_TFR
 	"09423687-e999-4aba-876d-35e0d3331311",
 	'enableTextMoveUnder',
 	'',
-	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select one diagram related by self->DIM_DIA[R18];
 scaled_x = GR::scale(value:GR::getAbsoluteXPosition()) + diagram.viewportX;
@@ -513,7 +492,7 @@ INSERT INTO O_TPARM
 	VALUES ("75703901-cff8-4336-ba95-b9bf900dd34c",
 	"ac892970-3d36-43ea-aac2-8944856e5bcc",
 	'x',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -522,7 +501,7 @@ INSERT INTO O_TPARM
 	VALUES ("9a794981-8180-4e96-a43c-e8c3847c4e0c",
 	"ac892970-3d36-43ea-aac2-8944856e5bcc",
 	'y',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"75703901-cff8-4336-ba95-b9bf900dd34c",
@@ -532,7 +511,7 @@ INSERT INTO O_TFR
 	"09423687-e999-4aba-876d-35e0d3331311",
 	'disableTextMove',
 	'',
-	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select one con_text related by self->GD_CTXT[R14];
 if (not_empty con_text)
@@ -548,7 +527,7 @@ INSERT INTO O_TFR
 	"09423687-e999-4aba-876d-35e0d3331311",
 	'initializeTools',
 	'',
-	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select many tools related by self->CT_MTL[R100];
 if (empty tools)
@@ -600,7 +579,7 @@ The client element instance is created and this call informs the
 graphics domain that this has happened. Accordingly, the
 canvas finds the element specification that is instantiated by
 the currently active tool and delegates the call on to it.',
-	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select any mt related by self->CT_MTL[R100] where (selected.active == true);
 if (not_empty mt)
@@ -624,7 +603,7 @@ INSERT INTO O_TPARM
 	'');
 INSERT INTO S_DT_PROXY
 	VALUES ("68dedb08-fd5a-420e-9ec7-e7985ad0c856",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	"00000000-0000-0000-0000-000000000000",
 	'instance',
 	'',
 	'',
@@ -640,7 +619,7 @@ INSERT INTO O_TPARM
 	'');
 INSERT INTO S_DT_PROXY
 	VALUES ("8d28e864-6cdc-4005-8d8f-a59eb8d6be84",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	"00000000-0000-0000-0000-000000000000",
 	'class',
 	'',
 	'',
@@ -650,7 +629,7 @@ INSERT INTO O_TFR
 	"09423687-e999-4aba-876d-35e0d3331311",
 	'initialize',
 	'',
-	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'self.OOA_ID = CL::getOOAId(from:param.elem);
 self.UseGlobalPrint = false;
@@ -687,7 +666,7 @@ INSERT INTO O_TFR
 	"09423687-e999-4aba-876d-35e0d3331311",
 	'getToolIdByName',
 	'',
-	"a236c27f-17c7-4c99-8f25-f3efd03eaf0c",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'toolname=param.toolname;
 result = OS::NULL_UNIQUE_ID();
@@ -708,25 +687,11 @@ INSERT INTO O_TPARM
 	VALUES ("792e516f-8445-4b0c-b8c7-0eab13c4566d",
 	"9619e9e8-72ee-44bf-808c-140e7686a2e4",
 	'toolname',
-	"17f3cd98-2d3a-4fe3-ac41-d27b377178a6",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("17f3cd98-2d3a-4fe3-ac41-d27b377178a6",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	'string',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
-INSERT INTO S_DT_PROXY
-	VALUES ("a236c27f-17c7-4c99-8f25-f3efd03eaf0c",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	'unique_id',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("1b1c764a-31c8-425e-958d-9435abcdbcb4",
 	"09423687-e999-4aba-876d-35e0d3331311",
@@ -734,7 +699,7 @@ INSERT INTO O_TFR
 	'This operation detects symbols and canvases that have had
 their client entity instances deleted. It takes care of disposing
 the relevant graphical instances.',
-	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select many elems related by self->GD_GE[R1];
 for each elem in elems
@@ -762,7 +727,7 @@ INSERT INTO O_TFR
 	"09423687-e999-4aba-876d-35e0d3331311",
 	'dispose',
 	'',
-	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select one ms related by self->GD_MS[R9];
 if (not_empty ms)
@@ -832,7 +797,7 @@ client elements, the ooa_id is not available when the instance is
 first created. This happens when the element represented is
 a subtype of something else. In this case, the ooa_id becomes
 available only when the element is hooked up with its supertype.',
-	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// check if there is a graphical element change that we need
 // to update the OOA_ID for.  This currently happens when a new
@@ -870,7 +835,7 @@ INSERT INTO O_TFR
 	"09423687-e999-4aba-876d-35e0d3331311",
 	'getScrollToolID',
 	'',
-	"a236c27f-17c7-4c99-8f25-f3efd03eaf0c",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'// return the ID of the first (and presumably only) scroll tool 
 // associated with this canvas
@@ -889,7 +854,7 @@ INSERT INTO O_TFR
 	"09423687-e999-4aba-876d-35e0d3331311",
 	'getSelectionToolID',
 	'',
-	"a236c27f-17c7-4c99-8f25-f3efd03eaf0c",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'// return the ID of the first (and presumably only) selection tool 
 // associated with this canvas
@@ -908,7 +873,7 @@ INSERT INTO O_TFR
 	"09423687-e999-4aba-876d-35e0d3331311",
 	'activateSelectionTool',
 	'',
-	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// check what tool is currently active
 select any tool related by self->CT_MTL[R100] where (selected.active == true);
@@ -929,7 +894,7 @@ INSERT INTO O_TFR
 	"09423687-e999-4aba-876d-35e0d3331311",
 	'getToolTipText',
 	'',
-	"17f3cd98-2d3a-4fe3-ac41-d27b377178a6",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'/*
 Returns the tooltip text to be displayed for the given location, which is 
@@ -963,7 +928,7 @@ INSERT INTO O_TPARM
 	VALUES ("2c1e3669-4274-4903-81ad-921a6ad5efe5",
 	"dcf1559d-270a-439d-85ea-0e090a0917bf",
 	'x',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -972,7 +937,7 @@ INSERT INTO O_TPARM
 	VALUES ("515df43e-19a9-458a-8f9e-d77e1beb1f43",
 	"dcf1559d-270a-439d-85ea-0e090a0917bf",
 	'y',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"2c1e3669-4274-4903-81ad-921a6ad5efe5",
@@ -1013,7 +978,7 @@ INSERT INTO O_TPARM
 	VALUES ("aec298ba-1e57-4834-a71d-80e65e5f9525",
 	"3c3a1003-0f6a-45a3-bf05-e2d59f02acc8",
 	'x',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -1022,7 +987,7 @@ INSERT INTO O_TPARM
 	VALUES ("855aa1e6-af43-4b93-b23b-d46f4f69bc24",
 	"3c3a1003-0f6a-45a3-bf05-e2d59f02acc8",
 	'y',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"aec298ba-1e57-4834-a71d-80e65e5f9525",
@@ -1032,7 +997,7 @@ INSERT INTO O_TFR
 	"09423687-e999-4aba-876d-35e0d3331311",
 	'selectAll',
 	'',
-	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'CL::unSelectAll();
 select many ges related by self->GD_GE[R1];
@@ -1047,7 +1012,7 @@ INSERT INTO O_TFR
 	"09423687-e999-4aba-876d-35e0d3331311",
 	'initializeOnCreationSymbols',
 	'',
-	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select many specs related by self->GD_MS[R9]->GD_EMS[R11]->GD_ES[R11]
 	where (selected.creationRule == "on canvas creation");
@@ -1091,7 +1056,7 @@ INSERT INTO O_TFR
 	"09423687-e999-4aba-876d-35e0d3331311",
 	'hasContainerSymbol',
 	'',
-	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'select many containerSpecs related by self->GD_MS[R9]->GD_EMS[R11]->GD_ES[R11]
 	where (selected.symbolType == "container" and
@@ -1105,7 +1070,7 @@ INSERT INTO O_TFR
 	"09423687-e999-4aba-876d-35e0d3331311",
 	'newConnector',
 	'',
-	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select any ars related by self->GD_MS[R9]->GD_EMS[R11]->
                        GD_ES[R11]->GD_ARS[R29] where selected.Id == param.arsId;
@@ -1237,7 +1202,7 @@ INSERT INTO O_TPARM
 	VALUES ("f8989ef0-afab-4b3f-b5ee-a4137c7f7dcb",
 	"160b4ec5-2ccc-4a1f-ad27-9eea360878f2",
 	'elementId',
-	"a236c27f-17c7-4c99-8f25-f3efd03eaf0c",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"ab5c456f-5675-4be9-9d48-7214f5ed4c47",
@@ -1246,7 +1211,7 @@ INSERT INTO O_TPARM
 	VALUES ("ab5c456f-5675-4be9-9d48-7214f5ed4c47",
 	"160b4ec5-2ccc-4a1f-ad27-9eea360878f2",
 	'connector',
-	"a236c27f-17c7-4c99-8f25-f3efd03eaf0c",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"8106611b-cd7b-4ba7-8575-bc74b209c638",
@@ -1255,7 +1220,7 @@ INSERT INTO O_TPARM
 	VALUES ("8106611b-cd7b-4ba7-8575-bc74b209c638",
 	"160b4ec5-2ccc-4a1f-ad27-9eea360878f2",
 	'arsId',
-	"a236c27f-17c7-4c99-8f25-f3efd03eaf0c",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -1264,7 +1229,7 @@ INSERT INTO O_TPARM
 	VALUES ("1a45c3cb-9715-44d4-9873-a6ea916df586",
 	"160b4ec5-2ccc-4a1f-ad27-9eea360878f2",
 	'representsId',
-	"a236c27f-17c7-4c99-8f25-f3efd03eaf0c",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"f8989ef0-afab-4b3f-b5ee-a4137c7f7dcb",
@@ -1274,7 +1239,7 @@ INSERT INTO O_TFR
 	"09423687-e999-4aba-876d-35e0d3331311",
 	'elementSuppressed',
 	'',
-	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select many elems related by self->GD_GE[R1];
 for each elem in elems
@@ -1302,7 +1267,7 @@ INSERT INTO O_TFR
 	"09423687-e999-4aba-876d-35e0d3331311",
 	'elementRestored',
 	'',
-	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select many elems related by self->GD_EIS[R32]->GD_GE[R32];
 for each elem in elems
@@ -1331,7 +1296,7 @@ INSERT INTO O_TFR
 	"09423687-e999-4aba-876d-35e0d3331311",
 	'showHiddenFloatingText',
 	'',
-	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select one diagram related by self->DIM_DIA[R18];
 // adjust all connector floating text
@@ -1413,7 +1378,7 @@ INSERT INTO O_TFR
 	"09423687-e999-4aba-876d-35e0d3331311",
 	'newShape',
 	'',
-	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select any ars related by self->GD_MS[R9]->GD_ARS[R33] where selected.Id == param.arsId;
 
@@ -1531,7 +1496,7 @@ INSERT INTO O_TPARM
 	VALUES ("91487e72-8a10-4b04-b444-5809e14fbe7a",
 	"295dc844-08e3-43f8-88c0-9bd764b8f44e",
 	'arsId',
-	"a236c27f-17c7-4c99-8f25-f3efd03eaf0c",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -1540,7 +1505,7 @@ INSERT INTO O_TPARM
 	VALUES ("10c906c9-0e1c-4403-af18-3efe33d179db",
 	"295dc844-08e3-43f8-88c0-9bd764b8f44e",
 	'shape',
-	"a236c27f-17c7-4c99-8f25-f3efd03eaf0c",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"91487e72-8a10-4b04-b444-5809e14fbe7a",
@@ -1550,7 +1515,7 @@ INSERT INTO O_TFR
 	"09423687-e999-4aba-876d-35e0d3331311",
 	'createShape',
 	'',
-	"a236c27f-17c7-4c99-8f25-f3efd03eaf0c",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'select any tool related by self->CT_MTL[R100] where (selected.Tool_ID == param.toolId);
 select one elem_spec related by tool->GD_ES[R103];
@@ -1628,7 +1593,7 @@ INSERT INTO O_TPARM
 	VALUES ("4584786d-0991-447c-9c3c-2c29fcb9553a",
 	"1c2b818d-a3ce-4589-86f4-226b83c09c50",
 	'toolId',
-	"a236c27f-17c7-4c99-8f25-f3efd03eaf0c",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -1637,7 +1602,7 @@ INSERT INTO O_TPARM
 	VALUES ("d3f8831c-871d-44af-a5fa-edc69748124e",
 	"1c2b818d-a3ce-4589-86f4-226b83c09c50",
 	'createClient',
-	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	0,
 	'',
 	"4584786d-0991-447c-9c3c-2c29fcb9553a",
@@ -1647,7 +1612,7 @@ INSERT INTO O_TFR
 	"09423687-e999-4aba-876d-35e0d3331311",
 	'createConnector',
 	'',
-	"a236c27f-17c7-4c99-8f25-f3efd03eaf0c",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'select any tool related by self->CT_MTL[R100] where (selected.Tool_ID == param.toolId);
 select one elemSpec related by tool->GD_ES[R103];
@@ -1774,7 +1739,7 @@ INSERT INTO O_TPARM
 	VALUES ("479df9ab-3734-4409-bf18-47f89f300c5f",
 	"6b6669ec-16a5-4848-a757-3a81a528f20a",
 	'toolId',
-	"a236c27f-17c7-4c99-8f25-f3efd03eaf0c",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -1783,7 +1748,7 @@ INSERT INTO O_TPARM
 	VALUES ("5bcea6e2-eb65-4c13-b463-a371c81a086a",
 	"6b6669ec-16a5-4848-a757-3a81a528f20a",
 	'createClient',
-	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	0,
 	'',
 	"479df9ab-3734-4409-bf18-47f89f300c5f",
@@ -1792,7 +1757,7 @@ INSERT INTO O_TPARM
 	VALUES ("e8af9e09-9c86-46d5-8070-1b8d6f017f08",
 	"6b6669ec-16a5-4848-a757-3a81a528f20a",
 	'startId',
-	"a236c27f-17c7-4c99-8f25-f3efd03eaf0c",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"5bcea6e2-eb65-4c13-b463-a371c81a086a",
@@ -1801,7 +1766,7 @@ INSERT INTO O_TPARM
 	VALUES ("ed784b79-eaac-4dda-81be-338acf6ae6db",
 	"6b6669ec-16a5-4848-a757-3a81a528f20a",
 	'endId',
-	"a236c27f-17c7-4c99-8f25-f3efd03eaf0c",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"e8af9e09-9c86-46d5-8070-1b8d6f017f08",
@@ -1810,7 +1775,7 @@ INSERT INTO O_TPARM
 	VALUES ("0bd36553-5f11-47db-8064-8d613ab4697c",
 	"6b6669ec-16a5-4848-a757-3a81a528f20a",
 	'x',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"ed784b79-eaac-4dda-81be-338acf6ae6db",
@@ -1819,7 +1784,7 @@ INSERT INTO O_TPARM
 	VALUES ("bdc47e70-f3fc-4f55-910f-e19e0a150c35",
 	"6b6669ec-16a5-4848-a757-3a81a528f20a",
 	'y',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"0bd36553-5f11-47db-8064-8d613ab4697c",
@@ -1828,7 +1793,7 @@ INSERT INTO O_TPARM
 	VALUES ("e04b6df3-5db0-42df-a1af-97ae05d82283",
 	"6b6669ec-16a5-4848-a757-3a81a528f20a",
 	'x1',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"bdc47e70-f3fc-4f55-910f-e19e0a150c35",
@@ -1837,7 +1802,7 @@ INSERT INTO O_TPARM
 	VALUES ("d4f533a2-3745-4007-a64c-b04f7801b6ca",
 	"6b6669ec-16a5-4848-a757-3a81a528f20a",
 	'y1',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"e04b6df3-5db0-42df-a1af-97ae05d82283",
@@ -1847,7 +1812,7 @@ INSERT INTO O_TFR
 	"09423687-e999-4aba-876d-35e0d3331311",
 	'createNewLayer',
 	'',
-	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'create object instance layer of GD_LAY;
 layer.Layer_Name = param.name;
@@ -1860,7 +1825,7 @@ INSERT INTO O_TPARM
 	VALUES ("782aec22-4082-4dc3-b5d9-96551b9d9b65",
 	"b880ff6e-69b8-435d-a8a6-ede11daf4afd",
 	'name',
-	"17f3cd98-2d3a-4fe3-ac41-d27b377178a6",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -1870,7 +1835,7 @@ INSERT INTO O_TFR
 	"09423687-e999-4aba-876d-35e0d3331311",
 	'get_name',
 	'',
-	"17f3cd98-2d3a-4fe3-ac41-d27b377178a6",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'return "Graphical Data";',
 	1,
@@ -1881,7 +1846,7 @@ INSERT INTO O_TFR
 	"09423687-e999-4aba-876d-35e0d3331311",
 	'setCachedRepresentsPath',
 	'Translate:native',
-	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'	m_represents_path = p_Value;',
 	0,
@@ -1891,7 +1856,7 @@ INSERT INTO O_TPARM
 	VALUES ("ab9320e7-c249-4448-860c-4150600e78cd",
 	"65c08e66-6e75-4a15-8918-a83328c75b76",
 	'value',
-	"17f3cd98-2d3a-4fe3-ac41-d27b377178a6",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -1901,7 +1866,7 @@ INSERT INTO O_TFR
 	"09423687-e999-4aba-876d-35e0d3331311",
 	'getCachedRepresentsPath',
 	'Translate:native',
-	"17f3cd98-2d3a-4fe3-ac41-d27b377178a6",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'	return m_represents_path;',
 	0,
@@ -1922,7 +1887,7 @@ INSERT INTO O_REF
 	'',
 	'Model Specification',
 	'Model_Type',
-	'R9');
+	'R9.''is instance of''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
 	"10bbc508-5ab6-4f8d-9c6f-4dacad3822f3",
@@ -1955,16 +1920,9 @@ INSERT INTO O_ATTR
 	'',
 	'Model_Type',
 	0,
-	"66164f00-293e-4c17-ab30-7972c7c57152",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("66164f00-293e-4c17-ab30-7972c7c57152",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("dbf1be50-3c78-4ccf-bf3b-f6af7b4462ff",
 	"09423687-e999-4aba-876d-35e0d3331311");
@@ -1982,7 +1940,7 @@ User_Visible:false',
 	'',
 	'OOA_ID',
 	0,
-	"a236c27f-17c7-4c99-8f25-f3efd03eaf0c",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	'',
 	'');
 INSERT INTO O_REF
@@ -2000,7 +1958,7 @@ INSERT INTO O_REF
 	'',
 	'Model Specification',
 	'OOA_Type',
-	'R9');
+	'R9.''is instance of''');
 INSERT INTO O_RTIDA_PROXY
 	VALUES ("af61b674-5c60-451f-8e71-4938504496fc",
 	"0cd14c97-c661-47b7-a063-cf7c345d1bdc",
@@ -2028,7 +1986,7 @@ INSERT INTO O_ATTR
 	'',
 	'OOA_Type',
 	0,
-	"66164f00-293e-4c17-ab30-7972c7c57152",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -2049,7 +2007,7 @@ User_Visible:false',
 	'',
 	'UseGlobalPrint',
 	0,
-	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -2070,7 +2028,7 @@ User_Visible:false',
 	'',
 	'PrintMode',
 	0,
-	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -2090,7 +2048,7 @@ User_Visible:false',
 	'',
 	'PrintRows',
 	0,
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -2110,7 +2068,7 @@ User_Visible:false',
 	'',
 	'PrintCols',
 	0,
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -2131,7 +2089,7 @@ User_Visible:false',
 	'',
 	'IsLandscape',
 	0,
-	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -2151,7 +2109,7 @@ User_Visible:false',
 	'',
 	'ZoomFontSize',
 	0,
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -2172,7 +2130,7 @@ User_Visible:false',
 	'',
 	'GridOn',
 	0,
-	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -2190,7 +2148,7 @@ INSERT INTO O_ATTR
 	'',
 	'SelRectX',
 	0,
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -2208,7 +2166,7 @@ INSERT INTO O_ATTR
 	'',
 	'SelRectY',
 	0,
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -2226,7 +2184,7 @@ INSERT INTO O_ATTR
 	'',
 	'SelRectW',
 	0,
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -2244,7 +2202,7 @@ INSERT INTO O_ATTR
 	'',
 	'SelRectH',
 	0,
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -2280,16 +2238,9 @@ INSERT INTO O_ATTR
 	'',
 	'current_state',
 	0,
-	"aae0ffdc-3a05-4c94-9878-331bc82097dd",
+	"ba5eda7a-def5-0000-0000-000000000006",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("aae0ffdc-3a05-4c94-9878-331bc82097dd",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	'state<State_Model>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
 	"18112b9b-f650-403f-be5c-27e3bda6b9dd",
@@ -2338,7 +2289,7 @@ INSERT INTO O_ATTR
 	'',
 	'diagramId',
 	0,
-	"66164f00-293e-4c17-ab30-7972c7c57152",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -2356,7 +2307,7 @@ INSERT INTO O_ATTR
 	'',
 	'version',
 	0,
-	"17f3cd98-2d3a-4fe3-ac41-d27b377178a6",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_DBATTR
@@ -2386,7 +2337,7 @@ INSERT INTO O_ATTR
 	'',
 	'represents_path',
 	0,
-	"17f3cd98-2d3a-4fe3-ac41-d27b377178a6",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_ID
@@ -2403,15 +2354,20 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"09423687-e999-4aba-876d-35e0d3331311");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
+	1,
+	"b5695748-80fc-47fb-b5c7-801b5f28b907",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("b5695748-80fc-47fb-b5c7-801b5f28b907",
+	"00000000-0000-0000-0000-000000000000",
+	"8f801c9a-cf2d-4ef4-b11a-51b8697e3ca8",
 	'Graphical Data',
 	'The GD (Graphics Domain) subsystem models the graphical elements for a BridgePoint model.
 -------------------------------------------------------
 Import:org.eclipse.swt.graphics.Color
 Notify_Changes:true',
-	'GD',
 	1,
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	"00000000-0000-0000-0000-000001900032",
 	'../Graphical Data.xtuml');

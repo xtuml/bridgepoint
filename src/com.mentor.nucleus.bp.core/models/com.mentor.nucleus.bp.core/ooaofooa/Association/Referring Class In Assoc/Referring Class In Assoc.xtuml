@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("5f12a98d-bc4a-40f7-8642-7a2819fd4159",
@@ -6,13 +6,13 @@ INSERT INTO O_OBJ
 	204,
 	'R_RGO',
 	'A referring Class In Association is a class which contains referential attributes which refer to identifying attributes across the association.',
-	"c8d78fd5-1314-444a-bad0-6af79f6e1296");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("ab504be3-8d95-43b5-a82c-c8dfda6065f0",
 	"5f12a98d-bc4a-40f7-8642-7a2819fd4159",
 	'dispose',
 	'The O_RGO dispose function. ',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// Association Subsystem
 select one link related by self->R_ASSR[R205];
@@ -38,20 +38,13 @@ delete object instance self;',
 	1,
 	'',
 	"7c66209f-7011-4436-9fb1-77330e24358f");
-INSERT INTO S_DT_PROXY
-	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'void',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("7c66209f-7011-4436-9fb1-77330e24358f",
 	"5f12a98d-bc4a-40f7-8642-7a2819fd4159",
 	'clearReferences',
 	'Called by the O_RGO dispose function.
 Clears the associated O_REFs.',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select many refs related by self->O_REF[R111];
 for each ref in refs
@@ -109,16 +102,9 @@ INSERT INTO O_ATTR
 	'',
 	'OIR_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("5f12a98d-bc4a-40f7-8642-7a2819fd4159",
 	"2a83ce0a-3939-4ef4-9a99-70471ff57de9",
@@ -162,7 +148,7 @@ INSERT INTO O_ATTR
 	'',
 	'Obj_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -204,7 +190,7 @@ INSERT INTO O_ATTR
 	'',
 	'Rel_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_ID
@@ -231,12 +217,17 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"5f12a98d-bc4a-40f7-8642-7a2819fd4159");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("5f12a98d-bc4a-40f7-8642-7a2819fd4159",
+	1,
+	"c8d78fd5-1314-444a-bad0-6af79f6e1296",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("c8d78fd5-1314-444a-bad0-6af79f6e1296",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Association',
 	'A association (R_REL) captures an association between things in the real world. A association is stated in terms of the formal classs (O_OBJ) that model the real world entities participating in the association. There can be any number of associations between the same two classs and any class can participate in any number of associations with other classs.',
-	'R',
 	201,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000180003",
 	'../Association.xtuml');

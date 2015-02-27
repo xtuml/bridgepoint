@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("7e1e895a-1165-4c2f-b740-6ef7bea4058a",
@@ -6,13 +6,13 @@ INSERT INTO O_OBJ
 	29,
 	'DIM_WAY',
 	'',
-	"490299c9-e7aa-468e-82d7-0731c80e4069");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("75008049-31d0-4784-90c2-28615ac34d9a",
 	"7e1e895a-1165-4c2f-b740-6ef7bea4058a",
 	'dispose',
 	'',
-	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select one mdl related by self->GD_MD[R24];
 if (not_empty mdl)
@@ -58,31 +58,17 @@ delete object instance self;',
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO S_DT_PROXY
-	VALUES ("3852f90c-88c5-467d-9b26-57c8cd438b42",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	'void',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("73974328-afc0-4909-8589-9fc7f7c79f67",
 	"7e1e895a-1165-4c2f-b740-6ef7bea4058a",
 	'get_name',
 	'',
-	"17f3cd98-2d3a-4fe3-ac41-d27b377178a6",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'return "Bendpoint";',
 	1,
 	'',
 	"75008049-31d0-4784-90c2-28615ac34d9a");
-INSERT INTO S_DT_PROXY
-	VALUES ("17f3cd98-2d3a-4fe3-ac41-d27b377178a6",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	'string',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("2f37b53a-e785-4107-8fc6-ed8f35cb3f7d",
 	"7e1e895a-1165-4c2f-b740-6ef7bea4058a");
@@ -98,16 +84,9 @@ INSERT INTO O_ATTR
 	'',
 	'positionX',
 	0,
-	"daa2cf40-15b6-4a53-a5a3-55b15c1951ed",
+	"ba5eda7a-def5-0000-0000-000000000003",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("daa2cf40-15b6-4a53-a5a3-55b15c1951ed",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	'real',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("a40a2a74-28e8-4161-87d6-baf5bc9613a1",
 	"7e1e895a-1165-4c2f-b740-6ef7bea4058a");
@@ -123,7 +102,7 @@ INSERT INTO O_ATTR
 	'',
 	'positionY',
 	0,
-	"daa2cf40-15b6-4a53-a5a3-55b15c1951ed",
+	"ba5eda7a-def5-0000-0000-000000000003",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -141,16 +120,9 @@ INSERT INTO O_ATTR
 	'',
 	'Way_ID',
 	0,
-	"a236c27f-17c7-4c99-8f25-f3efd03eaf0c",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("a236c27f-17c7-4c99-8f25-f3efd03eaf0c",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	'unique_id',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("7e1e895a-1165-4c2f-b740-6ef7bea4058a",
 	"0580af92-433a-4442-8b1c-a330fd6a0b16",
@@ -166,7 +138,7 @@ INSERT INTO O_REF
 	'',
 	'GraphEdge',
 	'elementId',
-	'R319');
+	'R319.''edge''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("7e1e895a-1165-4c2f-b740-6ef7bea4058a",
 	"c719d38f-e7b1-4c24-8622-7d33f7b455c6",
@@ -199,16 +171,9 @@ INSERT INTO O_ATTR
 	'edge_',
 	'eleId',
 	1,
-	"66164f00-293e-4c17-ab30-7972c7c57152",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("66164f00-293e-4c17-ab30-7972c7c57152",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("7e1e895a-1165-4c2f-b740-6ef7bea4058a",
 	"d92a2832-33c9-4733-9701-0bd49c490cc6",
@@ -224,7 +189,7 @@ INSERT INTO O_REF
 	'',
 	'PolyLine',
 	'elementId',
-	'R323');
+	'R323.''polyline''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("7e1e895a-1165-4c2f-b740-6ef7bea4058a",
 	"8355fdb5-eb5e-47cd-8515-5e850584d70d",
@@ -253,7 +218,7 @@ INSERT INTO O_ATTR
 	'polyLine_',
 	'eleId',
 	1,
-	"66164f00-293e-4c17-ab30-7972c7c57152",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -271,7 +236,7 @@ INSERT INTO O_REF
 	'',
 	'Waypoint',
 	'Way_ID',
-	'R324');
+	'R324.''follows''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("7e1e895a-1165-4c2f-b740-6ef7bea4058a",
 	"e1979d17-91c2-4eaa-81c8-044a40b751c3",
@@ -300,7 +265,7 @@ INSERT INTO O_ATTR
 	'previous_',
 	'Way_ID',
 	1,
-	"66164f00-293e-4c17-ab30-7972c7c57152",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_ID
@@ -317,12 +282,17 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"7e1e895a-1165-4c2f-b740-6ef7bea4058a");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("7e1e895a-1165-4c2f-b740-6ef7bea4058a",
+	1,
+	"490299c9-e7aa-468e-82d7-0731c80e4069",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("490299c9-e7aa-468e-82d7-0731c80e4069",
+	"00000000-0000-0000-0000-000000000000",
+	"8f801c9a-cf2d-4ef4-b11a-51b8697e3ca8",
 	'UML 2.0 Diagram Interchange',
 	'Notify_Changes:true',
-	'DIM',
 	0,
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	"00000000-0000-0000-0000-000000000000",
 	'../UML 2.0 Diagram Interchange.xtuml');

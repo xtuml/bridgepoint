@@ -6,7 +6,7 @@ INSERT INTO O_OBJ
 	201,
 	'R_REL',
 	'An Association captures an association that exists between things in the real world. An Association is stated in terms of the formal Classs that participates in the association.',
-	"c8d78fd5-1314-444a-bad0-6af79f6e1296");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("fa5d215d-a278-476e-b996-a38e36ca414b",
 	"fccf477f-dde6-4d1a-9020-5effbe338738",
@@ -14,7 +14,7 @@ INSERT INTO O_TFR
 	'Returns true if this is a reflexive association, false otherwise.
 Only Simple and Associative associations can be reflexive.
 ',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'select one srel related by self->R_SIMP[R206];
 if ( not_empty srel )
@@ -51,13 +51,6 @@ return false;
 	1,
 	'',
 	"15004697-1285-4784-abdd-2656dbe48e0b");
-INSERT INTO S_DT_PROXY
-	VALUES ("8e519c45-7dcf-400b-9d4e-954869dbb7e8",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'boolean',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("3468a483-ad95-4bef-a1fd-dff54913df1c",
 	"fccf477f-dde6-4d1a-9020-5effbe338738",
@@ -69,7 +62,7 @@ on the value of ''at:End_type''.
 -----------------------------------------------------------------------------------
 Bridge:GD
 ',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'result = "";
 Obj_ID = param.OOA_ID;
@@ -109,23 +102,16 @@ INSERT INTO O_TPARM
 	VALUES ("b211da5a-e170-4a0f-9b9e-eb9929e0c991",
 	"3468a483-ad95-4bef-a1fd-dff54913df1c",
 	'OOA_ID',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'unique_id',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TPARM
 	VALUES ("0e7dae09-8391-4e83-a52a-5cbea2e43dc0",
 	"3468a483-ad95-4bef-a1fd-dff54913df1c",
 	'OOA_TypeIsImportedClass',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	0,
 	'',
 	"b211da5a-e170-4a0f-9b9e-eb9929e0c991",
@@ -141,7 +127,7 @@ INSERT INTO O_TPARM
 	'');
 INSERT INTO S_DT_PROXY
 	VALUES ("ae85eca6-6fe4-4125-95e6-95272f0fd7de",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
 	'End',
 	'Text is positioned at a user adjustable offset from the Start, Middle and End of a connector. Start_Fixed and End_Fixed specify fixed position text found at the start and end of some connectors.
 -------------------------------------------------------------
@@ -152,18 +138,11 @@ INSERT INTO O_TPARM
 	VALUES ("cc4a2f88-e32e-49ea-9427-907116cf4e45",
 	"3468a483-ad95-4bef-a1fd-dff54913df1c",
 	'parent_ID',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"6e5d47e8-09fa-49d5-9b69-eefc813512f2",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'string',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("b384bf80-e350-4849-8785-08972c8a941f",
 	"fccf477f-dde6-4d1a-9020-5effbe338738",
@@ -174,7 +153,7 @@ and ''Cond'' are used to determine if the text string is to be ''1'',
 -----------------------------------------------------------------------------------
 Bridge:GD
 ',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	0,
 	'if (param.Cond == 0)
   if (param.Mult == 0)
@@ -197,23 +176,16 @@ INSERT INTO O_TPARM
 	VALUES ("bd937227-54e0-4504-af3a-24c8fe479aaa",
 	"b384bf80-e350-4849-8785-08972c8a941f",
 	'Mult',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"c38b3d2c-6313-4695-93d9-c8df97df2874",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'integer',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TPARM
 	VALUES ("c38b3d2c-6313-4695-93d9-c8df97df2874",
 	"b384bf80-e350-4849-8785-08972c8a941f",
 	'Cond',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -251,7 +223,7 @@ INSERT INTO O_TPARM
 	'');
 INSERT INTO S_DT_PROXY
 	VALUES ("6e636321-0fd1-4577-b185-e4d76b0d0c71",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
 	'Style',
 	'The Style data type specifies the precise form a graphical element will take when drawn.
 --------------------------------------------------------------------------
@@ -263,7 +235,7 @@ INSERT INTO O_TFR
 	"fccf477f-dde6-4d1a-9020-5effbe338738",
 	'get_name',
 	'Creates a string containing a descriptive name for the instance.',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'return "R" + GD::int_to_string( value: self.Numb );
 ',
@@ -275,7 +247,7 @@ INSERT INTO O_TFR
 	"fccf477f-dde6-4d1a-9020-5effbe338738",
 	'dispose',
 	'The dispose operation for the R_REL class.',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
 // Association Subsystem
@@ -365,19 +337,12 @@ delete object instance self;',
 	1,
 	'',
 	"bc8567f0-7a5f-432b-a22b-450f0d48dc1a");
-INSERT INTO S_DT_PROXY
-	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'void',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("e6b6826c-de26-4157-b77b-e9d823fbe22d",
 	"fccf477f-dde6-4d1a-9020-5effbe338738",
 	'initialize',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
 // this association''s default number is either one or
@@ -447,7 +412,7 @@ INSERT INTO O_TFR
 	'Return the rel id to that the GD can set_up the connector ooa_id.
 -----------------------------------------------------------------------------------
 Bridge:GD',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'return self.Rel_ID;',
 	1,
@@ -459,7 +424,7 @@ INSERT INTO O_TFR
 	'actionFilter',
 	'Bridge: UI
 ',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'if (param.name == "type" )
   if (param.value =="unform simp" )
@@ -519,7 +484,7 @@ INSERT INTO O_TPARM
 	VALUES ("2b70ac9f-18b4-4308-9f05-80ac4fea6c9a",
 	"bc8567f0-7a5f-432b-a22b-450f0d48dc1a",
 	'name',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -528,7 +493,7 @@ INSERT INTO O_TPARM
 	VALUES ("0b02f1a0-2a5c-48fd-af4b-9f3c55c6aa18",
 	"bc8567f0-7a5f-432b-a22b-450f0d48dc1a",
 	'value',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	0,
 	'',
 	"2b70ac9f-18b4-4308-9f05-80ac4fea6c9a",
@@ -538,7 +503,7 @@ INSERT INTO O_TFR
 	"fccf477f-dde6-4d1a-9020-5effbe338738",
 	'isFormalized',
 	'',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'select one simp related by self->R_SIMP[R206];
 if ( not_empty simp )
@@ -563,7 +528,7 @@ INSERT INTO O_TFR
 	"fccf477f-dde6-4d1a-9020-5effbe338738",
 	'unformalize',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select one simp related by self->R_SIMP[R206];
 if ( not_empty simp )
@@ -600,7 +565,7 @@ return this;',
 	"c3bfb50e-3989-4fda-b43d-6276ecc2a301");
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
 	'instance',
 	'',
 	'',
@@ -610,7 +575,7 @@ INSERT INTO O_TFR
 	"fccf477f-dde6-4d1a-9020-5effbe338738",
 	'checkIntegrity',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'/**
  *  Create integrity issues if there are any other associations in this package
@@ -640,7 +605,7 @@ INSERT INTO O_TFR
 	"fccf477f-dde6-4d1a-9020-5effbe338738",
 	'getPath',
 	'',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'select one package related by self->PE_PE[R8001]->EP_PKG[R8000];
 return package.getPath(path:"") + "::" + self.get_name();',
@@ -665,7 +630,7 @@ max_value: 9999
 	'',
 	'Numb',
 	0,
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -683,7 +648,7 @@ INSERT INTO O_ATTR
 	'',
 	'Descrip',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_REF
@@ -701,7 +666,7 @@ INSERT INTO O_REF
 	'',
 	'Subsystem',
 	'SS_ID',
-	'R4');
+	'R4.''abstracts associations between classes in''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("fccf477f-dde6-4d1a-9020-5effbe338738",
 	"514fb721-8dd5-4584-837f-c8b4b6668d3e",
@@ -734,16 +699,9 @@ INSERT INTO O_ATTR
 	'',
 	'SS_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("fccf477f-dde6-4d1a-9020-5effbe338738",
 	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
@@ -792,7 +750,7 @@ INSERT INTO O_ATTR
 	'',
 	'Rel_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_ID
@@ -809,12 +767,17 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"fccf477f-dde6-4d1a-9020-5effbe338738");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("fccf477f-dde6-4d1a-9020-5effbe338738",
+	1,
+	"c8d78fd5-1314-444a-bad0-6af79f6e1296",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("c8d78fd5-1314-444a-bad0-6af79f6e1296",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Association',
 	'A association (R_REL) captures an association between things in the real world. A association is stated in terms of the formal classs (O_OBJ) that model the real world entities participating in the association. There can be any number of associations between the same two classs and any class can participate in any number of associations with other classs.',
-	'R',
 	201,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000180003",
 	'../Association.xtuml');
