@@ -20,7 +20,6 @@ ant_opts="-Declipse-home=${ECLIPSE_HOME}"
 cli_cmd="${ECLIPSE_HOME}/CLI.sh"
 cli_opts="-nl en_US -consoleLog -pluginCustomization ${BUILD_DIR}/com.mentor.nucleus.bp.pkg/plugin_customization.ini -prebuildOnly"
 antlr_tool="pt_antlr"
-git_internal="${GIT_REPO_ROOT}/internal"
 internal_modules="com.mentor.nucleus.bp.als
                   com.mentor.nucleus.bp.internal.tools
                   com.mentor.nucleus.bp.test
@@ -84,7 +83,7 @@ function verify_checkout {
 }
 
 function get_required_modules {
-    cp -rf ${git_internal}/src/${RELEASE_PKG} .
+    cp -rf ${GIT_BP}/src/${RELEASE_PKG} .
     chown -R ${SHELLUSER} ${RELEASE_PKG}
 
     if [ -e ${RELEASE_PKG}/feature.xml ]; then
@@ -94,7 +93,7 @@ function get_required_modules {
         echo "release version: ${release_version}"
     fi
     
-    cp -rf ${git_internal}/src/${antlr_tool} .
+    cp -rf ${GIT_BP}/src/${antlr_tool} .
     chown -R ${SHELLUSER} ${antlr_tool}    
 }
 
@@ -108,7 +107,7 @@ function extract_release_files {
 
     for module in ${modules} ${all_feature_modules} ${model_compiler_modules} ${plugin_fragments}; do
         echo "Checking out ${module} for release: ${BRANCH}"
-        cp -rf ${git_internal}/src/${module} .
+        cp -rf ${GIT_BP}/src/${module} .
         chown -R ${SHELLUSER} ${module}
     done
 	echo -e "Exiting create_release_functions.sh::extract_release_files"
@@ -118,7 +117,7 @@ function extract_unit_test_modules {
 	echo -e "Entering create_release_functions.sh::extract_unit_test_modules"
     for module in ${unit_test_modules}; do
         echo "Checking out ${module} for release: ${BRANCH}"
-		cp -rf ${git_internal}/src/${module} .
+		cp -rf ${GIT_BP}/src/${module} .
         chown -R ${SHELLUSER} ${module}
     done
 	echo -e "Exiting create_release_functions.sh::extract_unit_test_modules"

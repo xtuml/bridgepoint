@@ -12,7 +12,7 @@
 function configure_build_files {
 	echo -e "Entering configure_build_process.sh::configure_build_files"
 	
-    cd ${git_internal}/${utilities_project}/build
+    cd ${GIT_BP}/${utilities_project}/build
     cp -f configure_external_dependencies.sh ${build_dir}/configure_external_dependencies.sh 2>>${error_file}
     cp -f create_bp_release.sh ${build_dir}/create_bp_release.sh 2>>${error_file}
     cp -f create_release_functions.sh ${build_dir}/create_release_functions.sh 2>>${error_file}
@@ -43,7 +43,7 @@ function configure_build_files {
 
 function configure_installer_files {
 	echo -e "Entering configure_build_process.sh::configure_installer_files"
-    cd ${git_internal}/src/${install_project}
+    cd ${GIT_BP}/src/${install_project}
     mkdir -p "${bp_deliverables}/extras"
     mkdir -p "${bp_deliverables}/tools"
     mkdir -p "${bp_deliverables}/EclipseDeliverables"
@@ -83,7 +83,7 @@ function configure_installer_files {
     cd ${git_repo_root}
     cp -rf packaging ${staging_area} 2>>${error_file}
 
-    cd ${git_internal}/${utilities_project}/fontchecker/Release
+    cd ${GIT_BP}/${utilities_project}/fontchecker/Release
     mkdir -p "${bp_deliverables}/tools/fontchecker"
     cp -f font_list.txt ${bp_deliverables}/tools/fontchecker/font_list.txt 2>>${error_file}
     cp -f fontchecker.exe ${bp_deliverables}/tools/fontchecker/fontchecker.exe 2>>${error_file}
@@ -104,8 +104,7 @@ build_dir="${BUILD_ROOT}/${branch}"
 log_dir="${build_dir}/log"
 error_file="${log_dir}/errors.log"
 
-git_internal="${git_repo_root}/internal"
-git_workspace_setup="${git_internal}/doc-internal/process/templates/checklists/development-workspace-setup"
+git_workspace_setup="${GIT_BP}/doc-bridgepoint/process/development-workspace-setup"
 install_project="Installer"
 utilities_project="utilities"
 staging_area="${BUILD_MOUNT}/staging"

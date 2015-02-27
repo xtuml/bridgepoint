@@ -84,7 +84,7 @@ if [ ! -x ${git_repo_root} ]; then
 fi
 
 # Set up each repository
-init_repository internal
+init_repository bridgepoint
 init_repository editor
 init_repository mc
 init_repository packaging
