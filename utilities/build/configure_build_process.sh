@@ -121,32 +121,11 @@ mkdir -p "${bp_deliverables_linux}"
 mkdir -p "${extra_deliverables_linux}"
 mkdir -p "${installer_files_linux}"
 
-
-if [ "${BRANCH}" = "master" ] || [ "${BUILD_TYPE}" = "nonrelease" ]; then
-    echo -e "Removing old build directory: ${BUILD_DIR}"
-
-    rm -rf ${BUILD_DIR}
-fi
-
-#
-# if the given BUILD_DIR exists then move the existing dir to 
-# a dir with the same name and the current timestamp to assure this
-# is a clean build
-#
-if [ ! -x ${BUILD_DIR} ]; then
-    echo -e "Creating build directory: ${BUILD_DIR}"
-    cd ${BUILD_ROOT}; mkdir ${BRANCH}
-else
-    mv ${BUILD_DIR} ${BUILD_DIR}_${TIMESTAMP}
-    echo -e "Release build directory ${BUILD_DIR} already exists.  Moving to ${BUILD_DIR}_${TIMESTAMP}"
-    cd ${BUILD_ROOT}; mkdir ${BRANCH}
-fi
-
 cd ${BUILD_DIR}
 configure_build_files
 configure_installer_files
 
-cd ${BUILD_ROOT}
+cd ${BUILD_DIR}
 
 echo -e "Exiting configure_build_process.sh"
 
