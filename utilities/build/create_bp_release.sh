@@ -2,7 +2,7 @@
 #
 #	create_bp_release.sh requires the following environment variables
 #
-#   ${BRANCH} - product version, actually this is any branch/tag found in git
+#   ${BRANCH} - product version, actually this is any BRANCH/tag found in git
 #   ${GIT_REPO_ROOT} - git repository root
 #   ${BUILD_TYPE} - build type (release/nonrelease)
 #
@@ -80,7 +80,7 @@ function zip_distribution {
 
         # Update the timestamp in the build ID
         if [ -e ${module}/about.mappings ]; then
-            internal_version=`echo ${branch} | cut -d"_" -f 4-`
+            internal_version=`echo ${BRANCH} | cut -d"_" -f 4-`
 
             echo -e "0=${module_release_version} ${internal_version}\n1=${TIMESTAMP}\n" > ${module}/about.mappings
         fi
@@ -108,7 +108,7 @@ function zip_distribution {
     # Include org.antlr packages in zipped distribuition
     cp -Rd ${GIT_BP}/src/org.antlr_2.7.2 ${RESULT_FOLDER_EXTENSION}/eclipse/plugins
 
-    zip -r BridgePoint_extension_${branch}.zip ${RESULT_FOLDER_EXTENSION} > ${pkg_log_dir}/BridgePoint_extension_${branch}_zip.log 2>&1
+    zip -r BridgePoint_extension_${BRANCH}.zip ${RESULT_FOLDER_EXTENSION} > ${pkg_log_dir}/BridgePoint_extension_${BRANCH}_zip.log 2>&1
 	echo -e "Exiting create_bp_release.sh::zip_distribution"    
 }
 
@@ -238,9 +238,6 @@ echo -e "Entering create_bp_release.sh"
 
 date
 
-branch=${BRANCH}
-git_repo_root=${GIT_REPO_ROOT}
-build_type=${BUILD_TYPE}
 pkg_log_dir="${LOG_DIR}/pkg_logs"
 
 doc_module="com.mentor.nucleus.bp.doc"
@@ -279,7 +276,7 @@ source ${BUILD_DIR}/create_release_functions.sh
 # Kick off the build chain
 create_build
 
-echo -e "\nBuild complete, installation can be found at ${RELEASE_DROP}/BridgePoint_extension_${branch}.zip\n"
+echo -e "\nBuild complete, installation can be found at ${RELEASE_DROP}/BridgePoint_extension_${BRANCH}.zip\n"
 
 # Check for errors, if found report them.  Note that the log file is moved after this script runs, 
 # hence the different paths for where we grep and where we report the user to look.
