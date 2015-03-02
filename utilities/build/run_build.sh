@@ -51,11 +51,13 @@ export BUILD_DIR="${BUILD_ROOT}/${BRANCH}"
 export LOG_DIR="${BUILD_DIR}/log"
 export ERROR_FILE="${log_dir}/errors.log"
 export DIFF_FILE="${log_dir}/diff.log"
+export BUILD_LOG=""${log_dir}/build.log""
 export BUILD_ADMIN="build@onefact.net"
 export MAIL_CMD="/usr/sbin/ssmtp"
 export MAIL_TEMP="mailtemp"
 export RELEASE_PKG="com.mentor.nucleus.bp.bld.pkg-feature"
 export SHELLUSER="ubuntu"
+mkdir -p "${LOG_DIR}"
 
 export TIMESTAMP=`date +%Y%m%d%H%M`
 
@@ -111,25 +113,23 @@ pushd .
 cd  "${BUILD_DIR}"
 
 dos2unix -q "${BUILD_ROOT}/init_git_repositories.sh"
-bash "${BUILD_ROOT}/init_git_repositories.sh" > cfg_output.log
+bash "${BUILD_ROOT}/init_git_repositories.sh" >> ${BUILD_LOG}
 
 echo -e "Setting permissions on tool directories..."
 chmod -R a+rw ${BUILD_TOOLS} 
-echo -e "Done."
 
 cp -f ${GIT_REPO_ROOT}/bridgepoint/utilities/build/configure_build_process.sh .
 dos2unix -q configure_build_process.sh
 
-bash configure_build_process.sh >> cfg_output.log
+bash configure_build_process.sh >> ${BUILD_LOG}
 
-bash create_bp_release.sh  > build_output.log
+bash create_bp_release.sh  >> ${BUILD_LOG}
 
-distribute_and_notify $? >> build_output.log
+distribute_and_notify $? >> ${BUILD_LOG}
 
 # Clean up build files
 popd
 mv configure_build_process.sh ${BRANCH}
-mv ${BRANCH}\build_output.log ${BRANCH}\log
 
 cd ${BUILD_ROOT}
 
