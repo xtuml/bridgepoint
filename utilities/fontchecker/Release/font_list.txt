@@ -1,0 +1,20 @@
+# This is the list of fonts to be removed before generator runs.  They
+# are added back after generator exits.
+# If the font name listed here starts with ---, then it will be exactly matched.
+# If it does not, then the given name will be matched as a substring in the system fonts.
+#
+# Define the warning message:
+%BridgePoint found the following fonts in your system.  These may prevent the proper operation of BridgePoint Generator.  Please disable or uninstall these fonts and restart BridgePoint before attempting to use the model compiler.
+#
+Fangsong
+Fan Heiti
+Adobe Gothic
+Adobe Hebrew
+Adobe Heiti
+Adobe Kaiti
+Adobe Song
+Myungjo
+MS-DOS CP 437
+MS-DOS CP 949
+Kozuka
+Ryo
