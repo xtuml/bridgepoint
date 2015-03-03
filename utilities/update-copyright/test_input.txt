@@ -1,0 +1,101 @@
+This file contains test cases for the copyright update script.
+
+Each of the following should be updated:
+
+1      Copyright © 1999-2011 Mentor Graphics Corporation. All rights reserved.
+
+2      © Copyright  1999-2011 Mentor Graphics Corporation. All rights reserved.
+
+3      Copyright © 2011 Mentor Graphics Corporation. All rights reserved.
+   
+4      © Copyright  2011 Mentor Graphics Corporation. All rights reserved.
+
+5      Copyright (C) 1999-2011 Mentor Graphics Corporation. All rights reserved.
+   
+6      (C) Copyright  1999-2011 Mentor Graphics Corporation. All rights reserved.
+
+7      Copyright (C) 2011 Mentor Graphics Corporation. All rights reserved.
+   
+8      (C) Copyright  2011 Mentor Graphics Corporation. All rights reserved.
+
+9      Copyright (c) 1999-2011 Mentor Graphics Corporation. All rights reserved.
+   
+10      (c) Copyright  1999-2011 Mentor Graphics Corporation. All rights reserved.
+
+11      Copyright (c) 2011 Mentor Graphics Corporation. All rights reserved.
+   
+12      (c) Copyright  2011 Mentor Graphics Corporation. All rights reserved.
+
+13      Copyright 1999-2011 Mentor Graphics Corporation. All rights reserved.
+   
+14      Copyright 2011 Mentor Graphics Corporation. All rights reserved.
+
+15      (c) Copyright 1999-2011 Mentor Graphics Corporation. All rights reserved.
+
+16      (c) Copyright       1999-2011 Mentor Graphics Corporation. All rights reserved.
+
+17      Copyright   (c)       1999-2011 Mentor Graphics Corporation. All rights reserved.
+
+18      Copyright (c) 2011 by Mentor Graphics Corporation. All rights reserved.
+   
+19      (c) Copyright  2011 by Mentor Graphics Corporation. All rights reserved.
+
+20      Copyright (c) 1999-2011 by Mentor Graphics Corporation. All rights reserved.
+   
+21      (c) Copyright  1999-2011 by Mentor Graphics Corporation. All rights reserved.
+
+Each of the following should not be updated:
+
+90      Copyright is claimed by Mentor Graphics Corporation. All rights reserved.
+
+91      The Copyright is a sticky thing for Mentor Graphics Corporation.
+
+92      Don't always update Copyright.
+
+93      Copyright 2000-2005
+
+94      (c) Copyright 2000-2005
+
+95      Copyright (c) 2000-2005
+
+101      Copyright © 1999-2011 Acme Corporation. All rights reserved.
+
+102      © Copyright  1999-2011 Acme Corporation. All rights reserved.
+
+103      Copyright © 2011 Acme Corporation. All rights reserved.
+   
+104      © Copyright  2011 Acme Corporation. All rights reserved.
+
+105      Copyright (C) 1999-2011 Acme Corporation. All rights reserved.
+   
+106      (C) Copyright  1999-2011 Acme Corporation. All rights reserved.
+
+107      Copyright (C) 2011 Acme Corporation. All rights reserved.
+   
+108      (C) Copyright  2011 Acme Corporation. All rights reserved.
+
+109      Copyright (c) 1999-2011 Acme Corporation. All rights reserved.
+   
+110      (c) Copyright  1999-2011 Acme Corporation. All rights reserved.
+
+111      Copyright (c) 2011 Acme Corporation. All rights reserved.
+   
+112      (c) Copyright  2011 Acme Corporation. All rights reserved.
+
+113      Copyright 1999-2011 Acme Corporation. All rights reserved.
+   
+114      Copyright 2011 Acme Corporation. All rights reserved.
+
+115      (c) Copyright 1999-2011 Acme Corporation. All rights reserved.
+
+116      (c) Copyright       1999-2011 Acme Corporation. All rights reserved.
+
+117      Copyright   (c)       1999-2011 Acme Corporation. All rights reserved.
+
+118      Copyright (c) 2011 by Acme Corporation. All rights reserved.
+   
+119      (c) Copyright  2011 by Acme Corporation. All rights reserved.
+
+120      Copyright (c) 1999-2011 by Acme Corporation. All rights reserved.
+   
+121      (c) Copyright  1999-2011 by Acme Corporation. All rights reserved.
