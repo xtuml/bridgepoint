@@ -13,6 +13,7 @@
   <!-- Set a meaningful default value for when it is not. -->
   <property name="eclipse-home" value="${basedir}/../.."/>
   <property name="plugins-home" value="${ant.home}/../.."/>
+  <property name="util_bin_dir" value="${eclipse-home}/src/org.xtuml.bp.mc.c.binary/mc3020/bin"/>
 
   <target name="all"
           description="Generate all code for this project"
@@ -24,10 +25,6 @@
           depends="create_gen,plugin_xml,modeladapter_java,editorinputfactories_java,
           literal_rule, delete_gen">
   </target>
-
-  <property environment="env"/>
-  <property name="bp_bin_dir" value="${env.PT_HOME_DRIVE}${env.PT_HOME}/bin" />
-  <property name="mc_bin_dir" value="${env.PT_HOME_DRIVE}${env.PT_HOME}/mc3020/bin" />
 
   <property name="core_sql_dir" value="../org.xtuml.bp.core/sql" />
 
@@ -50,8 +47,8 @@
           description="Create the generation database"
           unless="create_gen.buildNotNeeded" >
   <delete file="sql/db.gen" />
-    <exec dir="sql" vmlauncher="false" failonerror="true" executable="${bp_bin_dir}/xtumlmc_gen_erate" >
-      <arg line="-f db.gen
+    <exec dir="sql" vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
+      <arg line="xtumlmc_gen_erate -f db.gen
         -import ../${mcj_path}/ooa_schema.sql
         -import ../${core_sql_dir}/ooaofooa.sql
         -import clr_schema.sql
@@ -87,8 +84,8 @@
           description="Generate the text plugin.xml file"
           unless="plugin_xml.buildNotNeeded" >
     <echo >Generating plugin.xml ...</echo>
-  <exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}/xtumlmc_gen_erate" >
-    <arg line="-f sql/db.gen
+  <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
+    <arg line="xtumlmc_gen_erate -f sql/db.gen
       -arch arc/create_plugin_xml.arc" />
   </exec>
   <!-- Need to touch the output file for the case where the input data
@@ -114,9 +111,9 @@
           description="Generate the ModelAdapter.java file"
           unless="modeladapter_java.buildNotNeeded" >
     <echo >Generating ModelAdapter.java ...</echo>
-  <exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}/xtumlmc_gen_erate" >
+  <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
         <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
-    <arg line="-f sql/db.gen
+    <arg line="xtumlmc_gen_erate -f sql/db.gen
       -arch arc/create_modeladapter_java.arc" />
   </exec>
   <!-- Need to touch the output file for the case where the input data
@@ -147,10 +144,10 @@
           description="Generate the Activity and Description EditorInput java files"
           unless="editorinputfactories_java.buildNotNeeded" >
     <echo >Activity and Description EditorInputFactory java files ...</echo>
-  <exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}/xtumlmc_gen_erate" >
+  <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
         <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
         <env key="CHAIN_UTIL_DIR" value="${chain_util_path}"/>
-    <arg line="-f sql/db.gen
+    <arg line="xtumlmc_gen_erate -f sql/db.gen
       -arch arc/create_editorinput_factories_java.arc" />
   </exec>
   <!-- Need to touch the output file for the case where the input data
@@ -172,8 +169,8 @@
   </target>
 
   <target name="literal_rule" description="Generate File OALKeywords.java for Syntax Highlighting" unless="literal_rule.buildNotNeeded" depends="literal_rule.depends">
-    <exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}/xtumlmc_gen_erate" >
-    <arg line="-nopersist
+    <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
+    <arg line="xtumlmc_gen_erate -nopersist
       -import ${als.dir}/grammar_schema.sql
       -import ${als.dir}/oal_grammar.sql
       -arch arc/OALKeywords_gen.arc" />

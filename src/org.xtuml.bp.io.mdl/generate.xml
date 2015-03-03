@@ -21,9 +21,7 @@
 
   <property name="eclipse-home" value="${basedir}/../.."/>
   <property name="plugins-home" value="${ant.home}/../.."/>
-
-  <property environment="env"/>
-  <property name="bp_bin_dir" value="${env.PT_HOME_DRIVE}${env.PT_HOME}/bin" />
+  <property name="util_bin_dir" value="${eclipse-home}/src/org.xtuml.bp.mc.c.binary/mc3020/bin"/>
 
   <property name="iocore_path" value="../org.xtuml.bp.io.core" />
 
@@ -53,8 +51,8 @@
           description="Generate the Tiger OOA pre-existing instances file"
           unless="class2table.buildNotNeeded" >
     <echo >Generating ${class2table.output} ...</echo>
-    <exec dir="sql" vmlauncher="false" failonerror="true" executable="${bp_bin_dir}/xtumlmc_gen_erate" >
-    <arg line="-nopersist
+    <exec dir="sql" vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
+    <arg line="xtumlmc_gen_erate -nopersist
       -import ../${mcj_path}/ooa_schema.sql
       -import ../${core_path}/${class2table.input}
       -import ../${canvas_path}/${graphics.model}
@@ -157,8 +155,8 @@
           description="Create the generation database"
           unless="create_gen.buildNotNeeded" >
     <echo >Generating gen_oal.gen ...</echo>
-  <exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}/xtumlmc_gen_erate" >
-    <arg line="-f gen_oal.gen
+  <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
+    <arg line="xtumlmc_gen_erate -f gen_oal.gen
       -import ${iocore_path}/sql/${schema}
             -import ${mcj_path}/ooa_schema.sql
       -import ${core_path}/sql/${sql.output}
@@ -172,10 +170,10 @@
           depends="create_gen"
           description="Create the import java code"
           unless="import.buildNotNeeded" >
-  <exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}/xtumlmc_gen_erate" >
+  <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
         <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
       <env key="CORE_ARC_DIR" value="../org.xtuml.bp.core/arc"/>
-    <arg line="-f gen_oal.gen
+    <arg line="xtumlmc_gen_erate -f gen_oal.gen
       -arch arc/gen_import_java.arc
       -arch arc/gen_xtuml_import_java.arc
       -arch arc/gen_stream_import.arc" />
@@ -190,10 +188,10 @@
           depends="create_gen"
           description="Create the export java code"
           unless="export.buildNotNeeded" >
-  <exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}/xtumlmc_gen_erate" >
+  <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
         <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
       <env key="CORE_ARC_DIR" value="../org.xtuml.bp.core/arc"/>
-    <arg line="-f gen_oal.gen
+    <arg line="xtumlmc_gen_erate -f gen_oal.gen
       -arch arc/gen_export_java.arc
       -arch arc/gen_xtuml_export_java.arc" />
   </exec>
@@ -207,10 +205,10 @@
           depends="export_stream.depends"
           description="Create the export java code"
           unless="export_stream.buildNotNeeded" >
-  <exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}/xtumlmc_gen_erate" >
+  <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
         <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
       <env key="CORE_ARC_DIR" value="../org.xtuml.bp.core/arc"/>
-    <arg line="-f gen_stream.gen
+    <arg line="xtumlmc_gen_erate -f gen_stream.gen
       -import ${iocore_path}/sql/${schema}
       -import ${mcj_path}/ooa_schema.sql
       -import ${core_path}/sql/${sql.output}
@@ -230,11 +228,11 @@
     depends="create_gen"
     description="Generate implementation of IPersistenceHierarchyMetaData"
     unless="uuid_convert_util.buildNotNeeded">
-    <exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}/xtumlmc_gen_erate" >
+    <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
       <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
       <env key="IO_CORE_ARC_DIR" value="${iocore_path}/arc"/>
       <env key="CORE_ARC_DIR" value="../org.xtuml.bp.core/arc"/>
-      <arg line="-f gen_oal.gen
+      <arg line="xtumlmc_gen_erate -f gen_oal.gen
         -arch arc/gen_uuid_convert_util.arc" />
     </exec>
   <!-- Need to touch the output file for the case where the input data
@@ -246,11 +244,11 @@
     depends="create_gen"
     description="Generate implementation of IPersistenceHierarchyMetaData"
     unless="persistence_meta_data.buildNotNeeded">
-    <exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}/xtumlmc_gen_erate" >
+    <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
       <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
       <env key="IO_CORE_ARC_DIR" value="${iocore_path}/arc"/>
       <env key="CORE_ARC_DIR" value="../org.xtuml.bp.core/arc"/>
-      <arg line="-f gen_oal.gen
+      <arg line="xtumlmc_gen_erate -f gen_oal.gen
         -arch arc/create_persistence_meta_data.arc" />
     </exec>
   <!-- Need to touch the output file for the case where the input data
@@ -276,11 +274,11 @@
     depends="create_gen"
     description="Generate implementation of ExternalLink"
     unless="external_link_evaluator.buildNotNeeded">
-    <exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}/xtumlmc_gen_erate" >
+    <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
       <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
       <env key="IO_CORE_ARC_DIR" value="${iocore_path}/arc"/>
       <env key="CORE_ARC_DIR" value="../org.xtuml.bp.core/arc"/>
-      <arg line="-f gen_oal.gen
+      <arg line="xtumlmc_gen_erate -f gen_oal.gen
         -arch arc/create_external_link_evaluator.arc" />
     </exec>
   <touch file="${external_link_evaluator.output}" />
