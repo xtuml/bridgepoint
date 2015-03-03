@@ -16,12 +16,11 @@
 
   <target name="nb_all"  description="Nightly build target" depends="java" />
 
-  <property environment="env"/>
-  <property name="bp_bin_dir" value="${env.PT_HOME_DRIVE}${env.PT_HOME}/bin" />
   <property name="mcj_path" value="../MC-Java" />
 
   <property name="eclipse-home" value="${basedir}/../.."/>
   <property name="plugins-home" value="${ant.home}/../.."/>
+  <property name="util_bin_dir" value="${eclipse-home}/src/org.xtuml.bp.mc.c.binary/mc3020/bin"/>
 
   <property environment="env"/>
 
@@ -43,11 +42,11 @@
           description="Generate the tree Properties file and util class"
           unless="java.buildNotNeeded" >
     <echo >Generating PropertySource files ...</echo>
-    <exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}/xtumlmc_gen_erate" >
+    <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
         <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
         <env key="CHAIN_UTIL_DIR" value="${chain_util_path}"/>
        <env key="CORE_COLOR_DIR" value="${core_color_path}"/>
-    <arg line="-nopersist
+    <arg line="xtumlmc_gen_erate -nopersist
       -import ${mcj_path}/ooa_schema.sql
       -import ${core_sql_dir}/ooaofooa_hierarchy_schema.sql
       -import ${core_sql_dir}/ooaofooa.sql
