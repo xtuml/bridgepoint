@@ -71,7 +71,7 @@ function zip_distribution {
             module_release_version=`awk -F": " '{if (/[0-9]\.[0-9]\.[0-9]/) {print $2; exit;}}' ${module}/META-INF/MANIFEST.MF`
         elif [ -e ${module}/plugin.xml ]; then
             module_release_version=`awk -F"\"" '{if (/ersion.*\=.*[0-9]\.[0-9]\.[0-9]/) {print $2; exit;}}' ${module}/plugin.xml`
-            if [ ${module} = "com.mentor.nucleus.bp.core" ]; then
+            if [ ${module} = "org.xtuml.bp.core" ]; then
               core_release_version=${module_release_version}
             fi
         fi
@@ -240,9 +240,9 @@ date
 
 pkg_log_dir="${LOG_DIR}/pkg_logs"
 
-doc_module="com.mentor.nucleus.bp.doc"
-doc_module_mc3020="com.mentor.nucleus.help.bp.mc"
-pkg_module="com.mentor.nucleus.bp.bld.pkg"
+doc_module="org.xtuml.bp.doc"
+doc_module_mc3020="org.xtuml.help.bp.mc"
+pkg_module="org.xtuml.bp.bld.pkg"
 
 if [ ! -x $pkg_log_dir ]; then
 	echo -e "Creating package log directory: $pkg_log_dir"
@@ -259,16 +259,12 @@ if [ ! -x ${BUILD_DIR}/features ]; then
 	mkdir ${BUILD_DIR}/features
 fi
 
-# Move the log files created by earlier scripts into the new log dir
-mv ${BUILD_ROOT}/cfg_output.log ${LOG_DIR}
-mv ${BUILD_ROOT}/diff.log ${LOG_DIR}
-
 # Set the environment variable, PTC_MCC_DISABLED to true so that consistency 
 # checking is not built
 export PTC_MCC_DISABLED=true
 
 # Get back to the base directory
-cd ${BUILD_ROOT}
+cd ${BUILD_DIR}
 
 # Source the functions script
 source ${BUILD_DIR}/create_release_functions.sh
