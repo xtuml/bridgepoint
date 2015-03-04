@@ -37,7 +37,7 @@
           description="Create the test specs">
 		<delete file="sql/____file.txt" />
 		<exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
-	        <env key="XTUMLMC_HOME" value="${util_bin_dir}../../" />
+	        <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
 			<arg line="xtumlmc_gen_erate -nopersist
               	-import ../${mcj_path}/ooa_schema.sql
               	-import ../../org.xtuml.bp.ui.canvas/sql/ooaofgraphics.sql
@@ -50,7 +50,7 @@
           description="Create the test skeleton">
 		<delete file="sql/____file.txt" />
 		<exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
-			<env key="XTUMLMC_HOME" value="${util_bin_dir}../../" />
+			<env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
 			<arg line="xtumlmc_gen_erate -nopersist
 			    -import ../${mcj_path}/ooa_schema.sql
 			    -import ../../org.xtuml.bp.ui.canvas/sql/ooaofgraphics.sql
@@ -84,7 +84,7 @@
 	<target name="gen_testClass" depends="gen_testClass.depends" description="Create class for testing Ooaofooa.clearDatabase" unless="testClass.buildNotNeeded">
 		<exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
 			<env key="PTC_MC_ARC_DIR" value="${mcj_path}" />
-			<env key="XTUMLMC_HOME" value="${util_bin_dir}../../" />
+			<env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
 			<arg line="xtumlmc_gen_erate -nopersist
 				-import ${mcj_path}/ooa_schema.sql
 				-import sql/${sql.output}

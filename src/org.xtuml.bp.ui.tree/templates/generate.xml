@@ -69,7 +69,7 @@ the License.
   <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
         <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
         <env key="CHAIN_UTIL_DIR" value="${chain_util_path}"/>
-        <env key="XTUMLMC_HOME" value="${util_bin_dir}../../" />
+        <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
     <arg line="xtumlmc_gen_erate -nopersist
       -import ${mcj_path}/ooa_schema.sql
       -import ${schema.output_path}/UITree_schema.sql
