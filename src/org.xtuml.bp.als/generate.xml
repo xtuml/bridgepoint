@@ -112,7 +112,7 @@
     <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe">
     <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
     <env key="ALS_NAME" value="oal" />
-    <env key="XTUMLMC_HOME" value="${util_bin_dir}../../" />
+    <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
     <arg line="xtumlmc_gen_erate -nopersist
       -import sql/grammar_schema.sql
       -import ${antlr.output}
@@ -157,7 +157,7 @@
     <env key="ALS_NAME" value="oal" />
     <env key="VERIFY_SELECTS" value="false" />
     <env key="CHECK_FUNCTIONS_ONLY" value="true" />
-    <env key="XTUMLMC_HOME" value="${util_bin_dir}../../" />
+    <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
     <arg line="xtumlmc_gen_erate -nopersist
       -import ${mcj_path}/ooa_schema.sql
       -import ${ooaofooa_input}
