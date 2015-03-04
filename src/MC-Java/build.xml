@@ -10,11 +10,8 @@
 -->
 <project name="mc-java" default="do.nothing" basedir=".">
 
+  <property name="eclipse-home" value="${basedir}/../.."/>
   <property name="util_bin_dir" value="${eclipse-home}/src/org.xtuml.bp.mc.c.binary/mc3020/bin"/>
-  <property environment="env"/>
-  <property name="bp_bin_dir" value="${env.PT_HOME_DRIVE}${env.PT_HOME}/bin" />
-	<!--bp_bin_dir is still used to call generate_with_file_io.pl which IIRC sets up individual build dirs to run the
-	parallelization in core build.-->
 	
   <target name="do.nothing" />
 
@@ -35,22 +32,24 @@
   	</exec>
     <!-- for NON-parallel core builds -->
 	<exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
-        <env key="PTC_MC_ARC_DIR" value="../../../${param3}" />
+        <env key="PTC_MC_ARC_DIR" value="${param3}" />
         <env key="PTC_MCC_SS_START" value="${param5}" />
         <env key="PTC_MCC_SS_END" value="${param6}" />
         <env key="VERIFY_SELECTS" value="${verify_selects}" />
         <env key="PTC_MCC_ROOT" value="${param1}" />
         <env key="PROJECT_ROOT" value="${mcjava.project.root}" />
         <arg line="xtumlmc_gen_erate -nopersist
-				-import ../../../sql/${param4}.sql
-				-import ../../../../org.xtuml.bp.io.mdl/sql/file_io.pei.sql
-				-import ../../../${param3}/ooa_schema.sql
+				-import sql/${param4}.sql
+				-import ../org.xtuml.bp.io.mdl/sql/file_io.pei.sql
+				-import ${param3}/ooa_schema.sql
 				-d 0
-				-import ../../../sql/${param1}-${param8}.sql
-				-arch ../../../${param3}/verify_selects.arc
-				-arch ../../../${param3}/java.arc" />
+				-import sql/${param1}-${param8}.sql
+				-arch ${param3}/verify_selects.arc
+				-arch ${param3}/java.arc" />
     </exec>
   	<!-- for parallel core builds
+    <property environment="env"/>
+    <property name="bp_bin_dir" value="${env.PT_HOME_DRIVE}${env.PT_HOME}/bin" />
   	<exec vmlauncher="false" failonerror="true" executable="perl" >
 		    <env key="PTC_MC_ARC_DIR" value="../../../${param3}" />
 	    	<env key="PTC_MCC_SS_START" value="${param5}" />
