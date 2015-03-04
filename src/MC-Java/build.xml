@@ -38,6 +38,7 @@
         <env key="VERIFY_SELECTS" value="${verify_selects}" />
         <env key="PTC_MCC_ROOT" value="${param1}" />
         <env key="PROJECT_ROOT" value="${mcjava.project.root}" />
+		<env key="XTUMLMC_HOME" value="${util_bin_dir}../../" />
         <arg line="xtumlmc_gen_erate -nopersist
 				-import sql/${param4}.sql
 				-import ../org.xtuml.bp.io.mdl/sql/file_io.pei.sql
@@ -90,6 +91,7 @@
 		<env key="VERIFY_SELECTS" value="${verify_selects}" />
         <env key="PTC_MCC_ROOT" value="${param1}" />
     	<env key="PROJECT_ROOT" value="${mcjava.project.root}" />
+    	<env key="XTUMLMC_HOME" value="${util_bin_dir}../../" />
 		<arg line="xtumlmc_gen_erate -nopersist
 			-import ${param3}/ooa_schema.sql
 			-import sql/${param1}.sql
@@ -103,10 +105,11 @@
       param2 = MC-Java path
       param3 = TRANSLATE_FOR_EXTERNAL_USE environment variable value
 -->
-    <exec dir="sql" vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
+    <exec dir="sql" vmlauncher="false" failonerror="true" executable="perl" >
 		<env key="OS_CACHE_SIZE" value="64000000" />
 		<env key="TRANSLATE_FOR_EXTERNAL_USE" value="${param3}" />
-		<arg line="xtumlmc_gen_erate -nopersist
+    	<env key="XTUMLMC_HOME" value="${util_bin_dir}../../" />
+		<arg line="${util_bin_dir}/xtumlmc_build xtumlmc_gen_erate -nopersist
 			-import ../${param2}/ooa_schema.sql
 			-import ${param1}
 			-arch ../${param2}/schema_gen.arc" />

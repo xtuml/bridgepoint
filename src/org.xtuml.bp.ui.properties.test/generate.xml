@@ -90,11 +90,12 @@
     <echo >Generating Properties Test class ...</echo>
     <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
         <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
+        <env key="XTUMLMC_HOME" value="${util_bin_dir}../../" />
     <arg line="xtumlmc_gen_erate -nopersist
       -import sql/${ooaofooa_schema.output}
       -import sql/${ooaofgraphics_schema.output}
       -import ${core_sql_dir}/ooaofooa_hierarchy_schema.sql
-            -import sql/proxy_schema.sql
+      -import sql/proxy_schema.sql
       -import ${core_sql_dir}/ooaofooa.sql
       -import ${core_sql_dir}/ooaofooa_hierarchy.pei.sql
       -arch arc/create_view_test.arc" />
@@ -124,6 +125,7 @@
       <echo >Generating Properties Read Only Test class ...</echo>
       <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
           <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
+          <env key="XTUMLMC_HOME" value="${util_bin_dir}../../" />
       <arg line="xtumlmc_gen_erate -nopersist
         -import sql/${ooaofooa_schema.output}
         -d 0 -import sql/${ooaofgraphics_schema.output}
@@ -181,8 +183,9 @@
     <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
         <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
         <env key="CHAIN_UTIL_DIR" value="${chain_util_path}"/>
+        <env key="XTUMLMC_HOME" value="${util_bin_dir}../../" />
     <arg line="xtumlmc_gen_erate -nopersist
-            -import sql/proxy_schema.sql
+      -import sql/proxy_schema.sql
       -import sql/ooaofooa_schema.sql
       -import sql/ooaofgraphics_schema.sql
       -import sql/${sql.output}

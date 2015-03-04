@@ -50,6 +50,7 @@ the License.
 			<env key="OS_CACHE_SIZE" value="64000000" />
 			<env key="PTC_MC_ARC_DIR" value="${mc_java}" />
 			<env key="CHAIN_UTIL_DIR" value="${chain_util_path}" />
+			<env key="XTUMLMC_HOME" value="${util_bin_dir}../../" />
 			<arg line="xtumlmc_gen_erate -nopersist
 				-import ${mc_java}/ooa_schema.sql
 				-import ../org.xtuml.bp.core/sql/ooaofooa_hierarchy_schema.sql

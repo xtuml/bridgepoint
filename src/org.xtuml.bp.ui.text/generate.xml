@@ -48,6 +48,7 @@
           unless="create_gen.buildNotNeeded" >
   <delete file="sql/db.gen" />
     <exec dir="sql" vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
+      <env key="XTUMLMC_HOME" value="${util_bin_dir}../../" />
       <arg line="xtumlmc_gen_erate -f db.gen
         -import ../${mcj_path}/ooa_schema.sql
         -import ../${core_sql_dir}/ooaofooa.sql
@@ -85,6 +86,7 @@
           unless="plugin_xml.buildNotNeeded" >
     <echo >Generating plugin.xml ...</echo>
   <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
+  	<env key="XTUMLMC_HOME" value="${util_bin_dir}../../" />
     <arg line="xtumlmc_gen_erate -f sql/db.gen
       -arch arc/create_plugin_xml.arc" />
   </exec>
@@ -113,6 +115,7 @@
     <echo >Generating ModelAdapter.java ...</echo>
   <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
         <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
+        <env key="XTUMLMC_HOME" value="${util_bin_dir}../../" />
     <arg line="xtumlmc_gen_erate -f sql/db.gen
       -arch arc/create_modeladapter_java.arc" />
   </exec>
@@ -147,6 +150,7 @@
   <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
         <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
         <env key="CHAIN_UTIL_DIR" value="${chain_util_path}"/>
+        <env key="XTUMLMC_HOME" value="${util_bin_dir}../../" />
     <arg line="xtumlmc_gen_erate -f sql/db.gen
       -arch arc/create_editorinput_factories_java.arc" />
   </exec>
@@ -170,6 +174,7 @@
 
   <target name="literal_rule" description="Generate File OALKeywords.java for Syntax Highlighting" unless="literal_rule.buildNotNeeded" depends="literal_rule.depends">
     <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
+    	<env key="XTUMLMC_HOME" value="${util_bin_dir}../../" />
     <arg line="xtumlmc_gen_erate -nopersist
       -import ${als.dir}/grammar_schema.sql
       -import ${als.dir}/oal_grammar.sql
