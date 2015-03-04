@@ -52,6 +52,7 @@
           unless="class2table.buildNotNeeded" >
     <echo >Generating ${class2table.output} ...</echo>
     <exec dir="sql" vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
+    <env key="XTUMLMC_HOME" value="${util_bin_dir}../../" />
     <arg line="xtumlmc_gen_erate -nopersist
       -import ../${mcj_path}/ooa_schema.sql
       -import ../${core_path}/${class2table.input}
@@ -156,9 +157,10 @@
           unless="create_gen.buildNotNeeded" >
     <echo >Generating gen_oal.gen ...</echo>
   <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
+    <env key="XTUMLMC_HOME" value="${util_bin_dir}../../" />
     <arg line="xtumlmc_gen_erate -f gen_oal.gen
       -import ${iocore_path}/sql/${schema}
-            -import ${mcj_path}/ooa_schema.sql
+      -import ${mcj_path}/ooa_schema.sql
       -import ${core_path}/sql/${sql.output}
       -import ${canvas_path}/sql/ooaofgraphics.sql
       -import sql/${class2table.output}
@@ -172,7 +174,8 @@
           unless="import.buildNotNeeded" >
   <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
         <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
-      <env key="CORE_ARC_DIR" value="../org.xtuml.bp.core/arc"/>
+        <env key="CORE_ARC_DIR" value="../org.xtuml.bp.core/arc"/>
+      	<env key="XTUMLMC_HOME" value="${util_bin_dir}../../" />
     <arg line="xtumlmc_gen_erate -f gen_oal.gen
       -arch arc/gen_import_java.arc
       -arch arc/gen_xtuml_import_java.arc
@@ -190,7 +193,8 @@
           unless="export.buildNotNeeded" >
   <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
         <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
-      <env key="CORE_ARC_DIR" value="../org.xtuml.bp.core/arc"/>
+        <env key="CORE_ARC_DIR" value="../org.xtuml.bp.core/arc"/>
+        <env key="XTUMLMC_HOME" value="${util_bin_dir}../../" />
     <arg line="xtumlmc_gen_erate -f gen_oal.gen
       -arch arc/gen_export_java.arc
       -arch arc/gen_xtuml_export_java.arc" />
@@ -207,7 +211,8 @@
           unless="export_stream.buildNotNeeded" >
   <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
         <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
-      <env key="CORE_ARC_DIR" value="../org.xtuml.bp.core/arc"/>
+        <env key="CORE_ARC_DIR" value="../org.xtuml.bp.core/arc"/>
+      	<env key="XTUMLMC_HOME" value="${util_bin_dir}../../" />
     <arg line="xtumlmc_gen_erate -f gen_stream.gen
       -import ${iocore_path}/sql/${schema}
       -import ${mcj_path}/ooa_schema.sql
@@ -232,6 +237,7 @@
       <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
       <env key="IO_CORE_ARC_DIR" value="${iocore_path}/arc"/>
       <env key="CORE_ARC_DIR" value="../org.xtuml.bp.core/arc"/>
+	  <env key="XTUMLMC_HOME" value="${util_bin_dir}../../" />
       <arg line="xtumlmc_gen_erate -f gen_oal.gen
         -arch arc/gen_uuid_convert_util.arc" />
     </exec>
@@ -248,6 +254,7 @@
       <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
       <env key="IO_CORE_ARC_DIR" value="${iocore_path}/arc"/>
       <env key="CORE_ARC_DIR" value="../org.xtuml.bp.core/arc"/>
+      <env key="XTUMLMC_HOME" value="${util_bin_dir}../../" />
       <arg line="xtumlmc_gen_erate -f gen_oal.gen
         -arch arc/create_persistence_meta_data.arc" />
     </exec>
@@ -278,6 +285,7 @@
       <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
       <env key="IO_CORE_ARC_DIR" value="${iocore_path}/arc"/>
       <env key="CORE_ARC_DIR" value="../org.xtuml.bp.core/arc"/>
+      <env key="XTUMLMC_HOME" value="${util_bin_dir}../../" />
       <arg line="xtumlmc_gen_erate -f gen_oal.gen
         -arch arc/create_external_link_evaluator.arc" />
     </exec>

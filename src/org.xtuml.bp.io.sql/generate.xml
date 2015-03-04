@@ -46,6 +46,7 @@
           unless="class2table.buildNotNeeded" >
     <echo >Generating ${class2table.output} ...</echo>
     <exec dir="sql" vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
+    	<env key="XTUMLMC_HOME" value="${util_bin_dir}../../" />
     <arg line="xtumlmc_gen_erate -nopersist
       -import ../${mcj_path}/ooa_schema.sql
       -import bp_ooa_ooa.sql
@@ -86,6 +87,7 @@
           unless="create_gen.buildNotNeeded" >
     <echo >Generating gen_oal.gen ...</echo>
   <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
+  	<env key="XTUMLMC_HOME" value="${util_bin_dir}../../" />
     <arg line="xtumlmc_gen_erate -f gen_oal.gen
       -import ${iocore_path}/sql/${schema}
       -import sql/${class2table.output}
@@ -99,7 +101,8 @@
           unless="import.buildNotNeeded" >
   <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
         <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
-    <env key="CORE_ARC_DIR" value="../org.xtuml.bp.core/arc"/>
+        <env key="CORE_ARC_DIR" value="../org.xtuml.bp.core/arc"/>
+    	<env key="XTUMLMC_HOME" value="${util_bin_dir}../../" />
     <arg line="xtumlmc_gen_erate -f gen_oal.gen
       -arch arc/gen_import_java.arc" />
   </exec>
