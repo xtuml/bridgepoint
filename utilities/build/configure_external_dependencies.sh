@@ -201,14 +201,14 @@ echo -e "Entering configure_external_dependencies.sh"
 
 # Define Locations for Components
 user_supplied_files=${BUILD_DIR}/extra_files_for_build
-bp_pkg=${BUILD_DIR}/com.mentor.nucleus.bp.pkg
-dap=${BUILD_DIR}/com.mentor.nucleus.bp.dap.pkg
-mcc_src=${BUILD_DIR}/com.mentor.nucleus.bp.mc.c.source
-mcc_bin=${BUILD_DIR}/com.mentor.nucleus.bp.mc.c.binary
-mcsystemc_src=${BUILD_DIR}/com.mentor.nucleus.bp.mc.systemc.source
-mccpp_src=${BUILD_DIR}/com.mentor.nucleus.bp.mc.cpp.source
-mcvhdl_src=${BUILD_DIR}/com.mentor.nucleus.bp.mc.vhdl.source
-mc3020_help=${BUILD_DIR}/com.mentor.nucleus.help.bp.mc
+bp_pkg=${BUILD_DIR}/org.xtuml.bp.pkg
+dap=${BUILD_DIR}/org.xtuml.bp.dap.pkg
+mcc_src=${BUILD_DIR}/org.xtuml.bp.mc.c.source
+mcc_bin=${BUILD_DIR}/org.xtuml.bp.mc.c.binary
+mcsystemc_src=${BUILD_DIR}/org.xtuml.bp.mc.systemc.source
+mccpp_src=${BUILD_DIR}/org.xtuml.bp.mc.cpp.source
+mcvhdl_src=${BUILD_DIR}/org.xtuml.bp.mc.vhdl.source
+mc3020_help=${BUILD_DIR}/org.xtuml.help.bp.mc
 
 get_user_supplied_binaries
 
