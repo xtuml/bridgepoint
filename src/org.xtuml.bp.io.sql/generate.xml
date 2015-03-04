@@ -46,11 +46,11 @@
           unless="class2table.buildNotNeeded" >
     <echo >Generating ${class2table.output} ...</echo>
     <exec dir="sql" vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
-    <arg value="xtumlmc_gen_erate -nopersist" />
-    <arg value="-import ../${mcj_path}/ooa_schema.sql"/>
-    <arg value="-import bp_ooa_ooa.sql"/>
-    <arg value="-import bp_gd.sql"/>
-    <arg value="-arch ../${iocore_path}/arc/class2table.arc" />
+    <arg line="xtumlmc_gen_erate -nopersist
+      -import ../${mcj_path}/ooa_schema.sql
+      -import bp_ooa_ooa.sql
+      -import bp_gd.sql
+      -arch ../${iocore_path}/arc/class2table.arc" />
   </exec>
     <delete file="sql/____file.txt" />
   <!-- Need to touch the output file for the case where the input data
