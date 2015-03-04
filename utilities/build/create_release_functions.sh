@@ -18,44 +18,44 @@ echo -e "Entering create_release_functions.sh"
 ant_cmd="ant"
 ant_opts="-Declipse-home=${ECLIPSE_HOME}"
 cli_cmd="${ECLIPSE_HOME}/CLI.sh"
-cli_opts="-nl en_US -consoleLog -pluginCustomization ${BUILD_DIR}/com.mentor.nucleus.bp.pkg/plugin_customization.ini -prebuildOnly"
+cli_opts="-nl en_US -consoleLog -pluginCustomization ${BUILD_DIR}/org.xtuml.bp.pkg/plugin_customization.ini -prebuildOnly"
 antlr_tool="pt_antlr"
-internal_modules="com.mentor.nucleus.bp.als
-                  com.mentor.nucleus.bp.internal.tools
-                  com.mentor.nucleus.bp.test
-                  com.mentor.nucleus.bp.ui.tree"
-unit_test_modules="com.mentor.nucleus.bp.als.oal.test
-                   com.mentor.nucleus.bp.core.test
-                   com.mentor.nucleus.bp.io.sql.test
-                   com.mentor.nucleus.bp.io.mdl.test
-                   com.mentor.nucleus.bp.ui.canvas.test
-                   com.mentor.nucleus.bp.ui.explorer.test
-                   com.mentor.nucleus.bp.ui.text.test
-                   com.mentor.nucleus.bp.ui.properties.test
-                   com.mentor.nucleus.bp.compare.test
-                   com.mentor.nucleus.internal.test
-                   com.mentor.nucleus.bp.search.test
+internal_modules="org.xtuml.bp.als
+                  org.xtuml.bp.internal.tools
+                  org.xtuml.bp.test
+                  org.xtuml.bp.ui.tree"
+unit_test_modules="org.xtuml.bp.als.oal.test
+                   org.xtuml.bp.core.test
+                   org.xtuml.bp.io.sql.test
+                   org.xtuml.bp.io.mdl.test
+                   org.xtuml.bp.ui.canvas.test
+                   org.xtuml.bp.ui.explorer.test
+                   org.xtuml.bp.ui.text.test
+                   org.xtuml.bp.ui.properties.test
+                   org.xtuml.bp.compare.test
+                   org.xtuml.internal.test
+                   org.xtuml.bp.search.test
                    MC-Java.test
-                   com.mentor.nucleus.bp.welcome.test
-                   com.mentor.nucleus.bp.debug.ui.test"
-independent_modules="com.mentor.nucleus.bp.mc.xmiexport
-                     com.mentor.nucleus.bp.mc
-                     com.mentor.nucleus.bp.mc.none
-                     com.mentor.nucleus.bp.mc.c.source
-                     com.mentor.nucleus.bp.mc.c.binary
-                     com.mentor.nucleus.bp.mc.systemc.source
-                     com.mentor.nucleus.bp.mc.cpp.source
-                     com.mentor.nucleus.bp.mc.vhdl.source
-                     com.mentor.nucleus.bp.mc.template
-                     com.mentor.nucleus.help.bp.mc
-                     com.mentor.nucleus.bp.ui.session
-                     com.mentor.nucleus.bp.debug.ui"
-feature_pkg_modules="com.mentor.nucleus.bp.dap.pkg
-                      com.mentor.nucleus.bp.pkg
-                     com.mentor.nucleus.bp.verifier.pkg"
-feature_modules="com.mentor.nucleus.bp.dap.pkg-feature
-                 com.mentor.nucleus.bp.pkg-feature
-                 com.mentor.nucleus.bp.verifier.pkg-feature"
+                   org.xtuml.bp.welcome.test
+                   org.xtuml.bp.debug.ui.test"
+independent_modules="org.xtuml.bp.mc.xmiexport
+                     org.xtuml.bp.mc
+                     org.xtuml.bp.mc.none
+                     org.xtuml.bp.mc.c.source
+                     org.xtuml.bp.mc.c.binary
+                     org.xtuml.bp.mc.systemc.source
+                     org.xtuml.bp.mc.cpp.source
+                     org.xtuml.bp.mc.vhdl.source
+                     org.xtuml.bp.mc.template
+                     org.xtuml.help.bp.mc
+                     org.xtuml.bp.ui.session
+                     org.xtuml.bp.debug.ui"
+feature_pkg_modules="org.xtuml.bp.dap.pkg
+                      org.xtuml.bp.pkg
+                     org.xtuml.bp.verifier.pkg"
+feature_modules="org.xtuml.bp.dap.pkg-feature
+                 org.xtuml.bp.pkg-feature
+                 org.xtuml.bp.verifier.pkg-feature"
 plugin_fragments=""
 all_feature_modules="$feature_pkg_modules $feature_modules"
 model_compiler_modules="MC-Java"
@@ -103,7 +103,7 @@ function extract_release_files {
     modules="${internal_modules} ${plugin_modules}"
 
     # Rearrange modules so that core is built first
-    modules=`echo ${modules} | sed s/com.mentor.nucleus.bp.core// | sed s/^/"com.mentor.nucleus.bp.core "/`
+    modules=`echo ${modules} | sed s/org.xtuml.bp.core// | sed s/^/"org.xtuml.bp.core "/`
 
     for module in ${modules} ${all_feature_modules} ${model_compiler_modules} ${plugin_fragments}; do
         echo "Checking out ${module} for release: ${BRANCH}"
@@ -127,7 +127,7 @@ function build_modules {
 	echo -e "Entering create_release_functions.sh::build_modules"
 
     # remove a number of plugins from the list of modules to build and compile
-    modules=`echo ${modules} | sed s/com.mentor.nucleus.bp.bld.pkg// | sed s/com.mentor.nucleus.bp.doc// | sed s/com.mentor.nucleus.bp.welcome// | sed s/com.mentor.nucleus.bp.test// | sed s/com.mentor.nucleus.help.bp.mc//`
+    modules=`echo ${modules} | sed s/org.xtuml.bp.bld.pkg// | sed s/org.xtuml.bp.doc// | sed s/org.xtuml.bp.welcome// | sed s/org.xtuml.bp.test// | sed s/org.xtuml.help.bp.mc//`
 
     cd ${BUILD_DIR}
 
@@ -147,7 +147,7 @@ function build_modules {
     # Check for errors and place in a temp file for later use.
     for module in ${modules}; do
         # Special case to exclude als.oal package as its built from als
-        if [ ${module} != "com.mentor.nucleus.bp.als.oal" ] && [ ${module} != "com.mentor.nucleus.bp.ui.tree" ] && [ ${module} != "com.mentor.nucleus.bp.internal.tools" ]; then
+        if [ ${module} != "org.xtuml.bp.als.oal" ] && [ ${module} != "org.xtuml.bp.ui.tree" ] && [ ${module} != "org.xtuml.bp.internal.tools" ]; then
             # Check for all cases of error, failed, and failure
             error_count=`grep -c -i -w "ERROR" ${build_log_dir}/${module}_build.log`
             failed_count=`grep -c -i -w "FAILED" ${build_log_dir}/${module}_build.log`
@@ -160,7 +160,7 @@ function build_modules {
         fi
     done
 
-    modules="${modules} com.mentor.nucleus.bp.welcome"
+    modules="${modules} org.xtuml.bp.welcome"
 	echo -e "Exiting create_release_functions.sh::build_modules"
 }
 
@@ -171,9 +171,9 @@ function compile_modules {
 
     # Have to make sure the plugin compilation is ordered properly.
     # Move bp.utilities so it compiles to before bp.mc, and move several others to later in the build order.
-    modules=`echo ${modules} | sed s/com.mentor.nucleus.bp.docgen// | sed s/com.mentor.nucleus.bp.cdt// | sed s/com.mentor.nucleus.bp.utilities// | sed s/com.mentor.nucleus.bp.welcome// | sed s/com.mentor.nucleus.bp.cli//`
-    modules=`echo ${modules} | sed 's/com.mentor.nucleus.bp.mc /com.mentor.nucleus.bp.utilities com.mentor.nucleus.bp.mc /'`
-    modules_to_compile_later="com.mentor.nucleus.bp.docgen com.mentor.nucleus.bp.cdt com.mentor.nucleus.bp.welcome com.mentor.nucleus.bp.cli"
+    modules=`echo ${modules} | sed s/org.xtuml.bp.docgen// | sed s/org.xtuml.bp.cdt// | sed s/org.xtuml.bp.utilities// | sed s/org.xtuml.bp.welcome// | sed s/org.xtuml.bp.cli//`
+    modules=`echo ${modules} | sed 's/org.xtuml.bp.mc /org.xtuml.bp.utilities org.xtuml.bp.mc /'`
+    modules_to_compile_later="org.xtuml.bp.docgen org.xtuml.bp.cdt org.xtuml.bp.welcome org.xtuml.bp.cli"
     
     cd ${BUILD_DIR}
 
@@ -202,7 +202,7 @@ function compile_modules {
     # Check for errors and place in a temp file for later use.
     for module in ${modules}; do
         # Special case to exclude als.oal package as its compiled from als
-        if [ ${module} != "com.mentor.nucleus.bp.als.oal" ] && [ ${module} != "com.mentor.nucleus.bp.ui.tree" ] && [ ${module} != "com.mentor.nucleus.bp.internal.tools" ]; then
+        if [ ${module} != "org.xtuml.bp.als.oal" ] && [ ${module} != "org.xtuml.bp.ui.tree" ] && [ ${module} != "org.xtuml.bp.internal.tools" ]; then
             # Check for all cases of error, failed, and failure
             error_count=`grep -c -i -w "ERROR" ${compile_log_dir}/${module}_compile.log`
             failed_count=`grep -c -i -w "FAILED" ${compile_log_dir}/${module}_compile.log`
