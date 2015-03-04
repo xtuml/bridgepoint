@@ -87,7 +87,7 @@
     </taskdef>
         <PTCodeFormat>
           <fileset dir="../org.xtuml.bp.io.core/src/org/xtuml/bp/io/core/" excludes="CoreExport.java, CoreExportPage.java, CoreExportWizard.java, CoreImport.java
-            CoreImportPage.java, CoreImportWizard.java, CorePlugin.java, IIOCoreHelpContextIds.java, ImportHelper.java"
+            CoreImportPage.java, CoreImportWizard.java, CorePlugin.java, IIOCoreHelpContextIds.java, ImportHelper.java, ImportInteger.java"
             includes="*.java" />
         </PTCodeFormat>
   </target>
