@@ -77,9 +77,10 @@ function verify_checkout {
     dir_count=`ls ${module} | wc -l`
 
     if [ ${dir_count} -le 1 ]; then
-        echo -e "Error checking out ${module} with tag: ${BRANCH}"
+        echo -e "Error in create_release_functions.sh::verify_checkout while checking out ${module} with tag: ${BRANCH}"
         return 1
     fi
+    return 0
 }
 
 function get_required_modules {
@@ -87,6 +88,7 @@ function get_required_modules {
     chown -R ${SHELLUSER} ${RELEASE_PKG}
 
     if [ -e ${RELEASE_PKG}/feature.xml ]; then
+    	dos2unix $BUILD_DIR/$RELEASE_PKG/feature.xml
         plugin_modules=`grep "<plugin id=" $BUILD_DIR/$RELEASE_PKG/feature.xml | awk -F"=" '{printf("%s\n", $2)}' | sed s/\"// | sed s/\"//`
         release_version=`awk -F"\"" '{if (/[0-9]\.[0-9]\.[0-9]/) {print $2; exit;}}' ${BUILD_DIR}/${RELEASE_PKG}/feature.xml`
         plugin_modules="${plugin_modules} ${independent_modules}"
