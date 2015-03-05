@@ -65,7 +65,6 @@ import org.xtuml.bp.core.ui.IModelImport;
 import org.xtuml.bp.core.ui.IModelImport.IFileHeader;
 import org.xtuml.bp.core.ui.marker.UmlProblem;
 import org.xtuml.bp.core.util.UIUtil;
-import org.xtuml.bp.core.util.WorkspaceUtil;
 
 public class ComponentResourceListener implements IResourceChangeListener, IResourceDeltaVisitor{
     
@@ -144,16 +143,6 @@ public class ComponentResourceListener implements IResourceChangeListener, IReso
             Ooaofooa.getDefaultInstance().fireModelElementAboutToBeReloaded(rootME);
 			try {
 				component.load(new NullProgressMonitor(), false, true);
-				WorkspaceJob job = new WorkspaceJob("Integrity check job") {
-					
-					@Override
-					public IStatus runInWorkspace(IProgressMonitor monitor)
-							throws CoreException {
-						IntegrityChecker.createIntegrityIssues(component.getRootModelElement());
-						return Status.OK_STATUS;
-					}
-				};
-				job.schedule();
 				elementMap.put(rootME, component.getRootModelElement());
 			} catch (CoreException e) {
 				CorePlugin.logError("Unable to load replaced component.", e);
