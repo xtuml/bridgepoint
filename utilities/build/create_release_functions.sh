@@ -169,6 +169,7 @@ function build_modules {
 function compile_modules {
 	echo -e "Entering create_release_functions.sh::compile_modules"
 
+	compile_result = "0"
     build_modules
 
     # Have to make sure the plugin compilation is ordered properly.
@@ -211,12 +212,14 @@ function compile_modules {
             failure_count=`grep -c -i -w "FAILURE" ${compile_log_dir}/${module}_compile.log`
 
             if [ ${error_count} -gt 0 ] || [ ${failed_count} -gt 0 ] || [ ${failure_count} -gt 0 ]; then
+            	compile_result = "1"
                 compile_log_path=`cygpath -m ${compile_log_dir}/${module}_compile.log`
                 echo -e "Errors or failures found during the compilation of ${module}. Check ${compile_log_path}.\n" >> ${error_file}
             fi
         fi
     done
 	echo -e "Exiting create_release_functions.sh::compile_modules"
+	return $compile_result
 }
 
 
