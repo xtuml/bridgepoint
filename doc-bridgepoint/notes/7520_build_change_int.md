@@ -57,10 +57,12 @@ in the plug-in set under development (inside the local git repository).
   - PROS: BridgePoint build doesn't rely on the developer to copy the files into the binary MC plug-in  
   - CONS: This path is to a versioned plug-in.  Meaning the path inside ```generate.xml``` must rely on
   the BP_VERSION environment variable that is set in the Launcher script.   
+
 5.1.1.2  Development plug-ins:  
   - PROS: The new path in ```generate.xml``` requires no version, reducing a dependence on the Launcher script.   
   - CONS: BridgePoint build relies on the developer to copy the files into the binary MC plug-in (follow 
   the Developer HOWTO README).  
+
 5.1.1.3  The author's decision was to use a path into the development plug-ins (5.1.1.2).  Depending on how 
 the nightly build is eventually set up on the server, we may need to change this path.  This would be a simple 
 search and replace on the defintions of ```util_bin_dir``` in the code.   
@@ -78,8 +80,7 @@ before build and to remove references to the PT_HOME* and XTUML*_HOME environmen
 5.6  Updated xtumlmc_build script   
 5.6.1  Updated the determination of the platform and setting of ```$osplatform``` variable.  On the author's Windows
 VM the ```uname()``` was return "MINGW64_NT" which the code block at line 76 was not recognizing as Windows.  Fixed.  
-5.6.2  When determining if we're building the bp.core plug-in, handle both cases of name: ```com.mentor.nucleus.bp.core``` or
-```org.xtuml.bp.core```  
+5.6.2  When determining if we're building the bp.core plug-in, handle both cases of name: ```com.mentor.nucleus.bp.core``` or ```org.xtuml.bp.core```    
 5.6.3  This requires a new xtumlmc_build.exe for Windows.  
 
 6. Implementation Comments
@@ -97,14 +98,14 @@ through the code formatter during build.  The format task is modified to ignore 
 7. Unit Test
 ------------
 7.1  Build Cleanly (Run on both Windows and Linux)
-  - Modify Launcher script to remove PT_HOME* and XTUML*_HOME variables.
-  - Start BridgePoint
-  - Build 
-  __R__ Build is successful
+  - Modify Launcher script to remove PT_HOME* and XTUML*_HOME variables.  
+  - Start BridgePoint  
+  - Build  
+  - __R__ Build is successful  
 
 7.2  Verify build
-  - After successful build, run the UI Explorer test
-  __R__ Test is successful
+  - After successful build, run the UI Explorer test  
+  - __R__ Test is successful  
   
 8. Code Changes
 ---------------
