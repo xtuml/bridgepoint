@@ -142,13 +142,18 @@ function create_build {
     # Generate list of modules needing verification
     all_modules="${internal_modules} ${plugin_modules} ${RELEASE_PKG} ${all_feature_modules} ${model_compiler_modules}"
 
+	verify_rval="0"
     for module in $all_modules; do
         echo "Verifying checkout of $module"
         verify_checkout
-        verify_rval="$?"
+        # We let the loop continue to report all possible errors, but we don't
+        # want to reset the error condition when one is present
+        if [ "$verify_rval" != "0" ]; then
+          verify_rval="$?"
+        fi
     done
 
-    if [ "$verify_rval" != "1" ]; then
+    if [ "$verify_rval" != "0" ]; then
         zip_distribution
     fi
 	echo -e "Exiting create_bp_release.sh::create_build"
