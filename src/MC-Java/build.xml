@@ -105,11 +105,11 @@
       param2 = MC-Java path
       param3 = TRANSLATE_FOR_EXTERNAL_USE environment variable value
 -->
-    <exec dir="sql" vmlauncher="false" failonerror="true" executable="perl" >
+    <exec dir="sql" vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
 		<env key="OS_CACHE_SIZE" value="64000000" />
 		<env key="TRANSLATE_FOR_EXTERNAL_USE" value="${param3}" />
     	<env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
-		<arg line="${util_bin_dir}/xtumlmc_build xtumlmc_gen_erate -nopersist
+		<arg line="xtumlmc_gen_erate -nopersist
 			-import ../${param2}/ooa_schema.sql
 			-import ${param1}
 			-arch ../${param2}/schema_gen.arc" />
