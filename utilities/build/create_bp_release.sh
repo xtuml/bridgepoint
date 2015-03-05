@@ -14,7 +14,6 @@
 # will be delivered
 function jar_distribution {
 	echo -e "Entering create_bp_release.sh::jar_distribution"    
-    compile_modules
 
     cd $BUILD_DIR
 
@@ -153,8 +152,13 @@ function create_build {
         fi
     done
 
-    if [ "$verify_rval" != "0" ]; then
-        zip_distribution
+	# don't bother compiling zipping
+    if [ "$verify_rval" = "0" ]; then
+    	compile_modules    	
+    	if [ "$?" != "0" ]; then
+    	  # don't bother zipping if there are compile errors
+          zip_distribution
+        fi
     fi
 	echo -e "Exiting create_bp_release.sh::create_build"
 }
