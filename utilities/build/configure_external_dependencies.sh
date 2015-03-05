@@ -49,7 +49,7 @@ get_user_supplied_binaries ()
         missing_files+="./mcmc.exe"
     fi
     
-    if [ missing_files != ""]; then
+    if [ $missing_files != ""]; then
        echo -e "Error!: Missing files: $missing_files"
        return 1
     fi
@@ -211,7 +211,7 @@ mcvhdl_src=${BUILD_DIR}/org.xtuml.bp.mc.vhdl.source
 mc3020_help=${BUILD_DIR}/org.xtuml.help.bp.mc
 
 get_user_supplied_binaries
-if ["$?" == "0"];  then
+if [ "$?" = "0" ];  then
   configure_mcc_src
   configure_mcc_bin
   configure_mcsystemc_src
