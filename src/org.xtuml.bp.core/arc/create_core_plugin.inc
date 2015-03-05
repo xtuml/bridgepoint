@@ -350,7 +350,13 @@ This file is the plugin manifest for the BridgePoint core plugin.
    <extension point="org.eclipse.team.core.fileTypes">
       <fileTypes extension="xtuml" type="binary" />
    </extension>
-- <!--  Inter-Product Extension Declarations 
+   <!-- Quick Fix for dangling references -->
+   <extension point="org.eclipse.ui.ide.markerResolution">
+      <markerResolutionGenerator
+         markerType="org.eclipse.core.resources.problemmarker"
+         class="org.xtuml.bp.core.common.BPQuickFixer"/>
+   </extension>
+  <!--  Inter-Product Extension Declarations 
   --> 
   <extension-point id="model-compilers" name="xtUML Model Compilers" schema="schema/model-compilers.exsd" /> 
   <extension-point id="code-builders" name="xtUML Code Builders" schema="schema/code-builders.exsd" /> 

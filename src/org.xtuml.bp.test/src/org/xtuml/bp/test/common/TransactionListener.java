@@ -170,6 +170,8 @@ public class TransactionListener implements ITransactionListener {
     
     private String getClassName(Object object){
 		String className = object.getClass().getName();
-		return className.substring(22, className.length()-2);
+		String[] classNameParts = className.split(".");
+		return classNameParts[classNameParts.length - 2] + "."
+				+ classNameParts[classNameParts.length - 1];
     }
 }
