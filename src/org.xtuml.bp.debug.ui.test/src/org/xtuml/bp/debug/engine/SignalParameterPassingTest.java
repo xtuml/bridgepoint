@@ -100,7 +100,7 @@ public class SignalParameterPassingTest extends BaseTest {
 					IDebugUIConstants.PLUGIN_ID + ".switch_to_perspective",
 			"always");
 
-			CVSUtils.checkoutProject(projectName, true);
+			loadProject(projectName);
 
 			// initialize test model
 			final IProject project = ResourcesPlugin.getWorkspace().getRoot()
@@ -127,15 +127,9 @@ public class SignalParameterPassingTest extends BaseTest {
 	
 	public void testSignalParameterPassing() {
 		ModelRoot [] roots = Ooaofooa.getInstancesUnderSystem(projectName);
-		assertTrue("Expected 2 roots found: " + roots.length,
+		assertTrue("Expected 1 root: " + roots.length,
                                                              roots.length == 2);
-		ModelRoot root = null;
-		for(int i = 0; i < roots.length; i++) {
-			if(!roots[i].getId().contains("Datatypes")) {
-				root = roots[i];
-				break;
-			}
-		}
+		ModelRoot root = roots[0];
 		Function_c testFunc = Function_c.FunctionInstance(root,
                                            new Function_by_name_c("startTest"));
 		assertNotNull(testFunc);

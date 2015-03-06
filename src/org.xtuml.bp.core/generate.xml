@@ -265,6 +265,7 @@
         <srcfiles dir = "arc" includes = "wfl_block.inc"/>
         <srcfiles dir = "arc" includes = "wizard.arc, ui_ident.inc, page.inc, wizard.inc"/>
         <srcfiles dir = "arc" includes = "create_core_plugin.arc"/>
+    	<srcfiles dir = "arc" includes = "quick_fix.arc"/>
     </uptodate>
   </target>
 
@@ -290,7 +291,8 @@
       -import sql/ooaofooa_hierarchy_schema.sql
       -import sql/ooaofooa_hierarchy.pei.sql
       -arch arc/create_context_menus.arc
-      -arch arc/wizard.arc" />
+      -arch arc/wizard.arc
+      -arch arc/quick_fix.arc" />
   </exec>
   <delete file="sql/____file.txt" />
   <delete file="sql/____actn.arc" />
@@ -585,7 +587,7 @@
     </taskdef>
         <PTCodeFormat>
           <fileset dir="../org.xtuml.bp.core/src/org/xtuml/bp/core/" excludes="${cvs_java_files}"
-            includes="inspector/*.java,sorter/*.java,ui/*.java,*.java, ui/actions/*.java, util/SupertypeSubtypeUtil.java, util/ActionLanguageDescriptionUtil.java, util/RTOUtil.java" />
+            includes="inspector/*.java,sorter/*.java,ui/*.java,*.java, ui/actions/*.java, util/SupertypeSubtypeUtil.java, util/ActionLanguageDescriptionUtil.java, util/RTOUtil.java, common/BPQuickFix.java" />
         </PTCodeFormat>
   <!-- Need to touch the output file for the case where the input data
        changed, but the output didn't -->
@@ -724,6 +726,7 @@
     	<fileset dir="src/org/xtuml/bp/core/util" includes="GlobalsUtil.java" />
     	<fileset dir="src/org/xtuml/bp/core/util" includes="SupertypeSubtypeUtil.java" />
     	<fileset dir="src/org/xtuml/bp/core/util" includes="RTOUtil.java" />
+    	<fileset dir="src/org/xtuml/bp/core/common" includes="BPQuickFix.java" />
         <fileset dir="src/org/xtuml/bp/core"
            excludes="${cvs_java_files}" />
     </delete>
