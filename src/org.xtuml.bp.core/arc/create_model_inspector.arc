@@ -96,11 +96,17 @@ public class ${inspector_name} implements ${inspector_interface_name}, IModelIns
 
 	private HashMap adaptersMap;
 	private MetadataSortingManager sortingManager;
+	private boolean load = true;
 	
+	public ${inspector_name}(boolean load){
+	    this(null);
+	    this.load = load;
+	}
+
 	public ${inspector_name}(){
 	    this(null);
 	}
-	
+		
 	public ${inspector_name}(MetadataSortingManager aSortingManager){
 		adaptersMap = new HashMap();
 		sortingManager = aSortingManager;
@@ -110,10 +116,13 @@ public class ${inspector_name} implements ${inspector_interface_name}, IModelIns
 	/* 
 	* @see IModelInspectorRegistry#getInspector(Class)
 	*/	
-	public ${inspector_interface_name} getInspector(Class modelClass) {
-		return ((${inspector_interface_name})adaptersMap.get(modelClass.getName()));
+	public IModelClassInspector getInspector(Class modelClass) {
+		IModelClassInspector inspector = ((IModelClassInspector)adaptersMap.get(modelClass.getName()));
+		if(inspector instanceof BaseModelClassInspector) {
+			((BaseModelClassInspector) inspector).load = load;
+		}
+		return inspector;
 	}
-	
 	public MetadataSortingManager getSortingManager() {
 		return sortingManager;
 	}

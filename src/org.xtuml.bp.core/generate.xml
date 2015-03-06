@@ -21,10 +21,7 @@
 
   <property name="eclipse-home" value="${basedir}/../.."/>
   <property name="plugins-home" value="${ant.home}/../.."/>
-
-  <property environment="env"/>
-  <property name="bp_bin_dir" value="${env.PT_HOME_DRIVE}${env.PT_HOME}/bin" />
-  <property name="mc_bin_dir" value="${env.PT_HOME_DRIVE}${env.PT_HOME}/mc3020/bin" />
+  <property name="util_bin_dir" value="${eclipse-home}/src/org.xtuml.bp.mc.c.binary/mc3020/bin"/>
 
   <property name="sql.input" value="models/org.xtuml.bp.core/ooaofooa" />
   <property name="sql.output" value="ooaofooa.sql" />
@@ -56,10 +53,10 @@
           description="Generate the sql version of the OoaofOoa model"
           unless="sql.buildNotNeeded" >
     <echo >Generating ${sql.output} ...</echo>
-  <exec vmlauncher="false" failonerror="true" executable="${mc_bin_dir}/xtumlmc_build.exe" >
+  <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
       <arg line="xtumlmc_cleanse_for_BridgePoint ${file_io_sql.input} sql/${file_io_sql.output} ${subsystems_to_remove}" />
   </exec>
-  <exec vmlauncher="false" failonerror="true" executable="${mc_bin_dir}/xtumlmc_build.exe" >
+  <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
       <arg line="xtumlmc_cleanse_for_BridgePoint ${sql.input} sql/${sql.output} ${subsystems_to_remove}" />
   </exec>
   </target>
@@ -77,7 +74,7 @@
           description="Generate the sql version of the Context Menu Entry model"
           unless="cme.buildNotNeeded" >
     <echo >Generating ${cme.output} ...</echo>
-  <exec vmlauncher="false" failonerror="true" executable="${mc_bin_dir}/xtumlmc_build.exe" >
+  <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
     <arg line="xtumlmc_cleanse_for_BridgePoint ${cme.input} sql/${cme.output} ${subsystems_to_remove}" />
   </exec>
   </target>
@@ -173,7 +170,7 @@
           depends="java.depends"
           unless="java.buildNotNeeded" >
     <echo >Generating java files ...</echo>
-  	<parallel>
+  	<!--<parallel>-->
   <ant antfile="${mcj_path}/build.xml" target="generate-with-file_io.java" >
     <property name="param1" value="ooaofooa" />
     <property name="param2" value="Ooaofooa" />
@@ -222,7 +219,7 @@
       <property name="verify_selects" value="false" />
       <property name="mcjava.project.root" value="${basedir}"/>
     </ant>
-  	</parallel>
+  	<!--</parallel>-->
   <!-- Need to touch the output file for the case where the input data
        changed, but the output didn't -->
   <touch file="${java.output}" />
@@ -243,7 +240,7 @@
           description="Generate the sql version of the OoaofOoa model for cme use"
           unless="cme_sql.buildNotNeeded" >
     <echo >Generating ${sql.output} ...</echo>
-    <exec vmlauncher="false" failonerror="true" executable="${mc_bin_dir}/xtumlmc_build.exe" >
+    <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
       <arg line="xtumlmc_cleanse_for_BridgePoint ${sql.input} ${cme_sql.output} ${subsystems_to_remove}" />
     </exec>
     <touch file="${cme_sql.output}" />
@@ -268,6 +265,7 @@
         <srcfiles dir = "arc" includes = "wfl_block.inc"/>
         <srcfiles dir = "arc" includes = "wizard.arc, ui_ident.inc, page.inc, wizard.inc"/>
         <srcfiles dir = "arc" includes = "create_core_plugin.arc"/>
+    	<srcfiles dir = "arc" includes = "quick_fix.arc"/>
     </uptodate>
   </target>
 
@@ -276,12 +274,13 @@
           description="Generate the Context Menu Entry action classes"
           unless="cme_menus.buildNotNeeded" >
     <echo >Generating Action Classes ...</echo>
-    <exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}/xtumlmc_gen_erate" >
+    <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
         <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
     <env key="VERIFY_SELECTS" value="false" />
     <env key="CHECK_FUNCTIONS_ONLY" value="true" />
     <env key="GEN_CONTEXT_MENU_WIZARD" value="TRUE"/>
-    <arg line="-nopersist
+    <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
+    <arg line="xtumlmc_gen_erate -nopersist
       -import ${mcj_path}/ooa_schema.sql
       -d 0 -import sql/ooaofooa-4.sql
       -arch ${mcj_path}/verify_selects.arc
@@ -292,7 +291,8 @@
       -import sql/ooaofooa_hierarchy_schema.sql
       -import sql/ooaofooa_hierarchy.pei.sql
       -arch arc/create_context_menus.arc
-      -arch arc/wizard.arc" />
+      -arch arc/wizard.arc
+      -arch arc/quick_fix.arc" />
   </exec>
   <delete file="sql/____file.txt" />
   <delete file="sql/____actn.arc" />
@@ -320,7 +320,7 @@
           description="Generate the sql version of the Core Hierarchy/Tree model"
           unless="inspector.sql.buildNotNeeded" >
     <echo >Generating ${inspector.sql.output} ...</echo>
-  <exec vmlauncher="false" failonerror="true" executable="${mc_bin_dir}/xtumlmc_build.exe" >
+  <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
     <arg line="xtumlmc_cleanse_for_BridgePoint ${inspector.sql.input} sql/${inspector.sql.output} ${subsystems_to_remove}" />
   </exec>
   </target>
@@ -367,10 +367,11 @@
           description="Generate the tree adapter files"
           unless="inspector.java.buildNotNeeded" >
     <echo >Generating ${inspector.java.output} ...</echo>
-    <exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}/xtumlmc_gen_erate" >
+    <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
         <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
         <env key="CHAIN_UTIL_DIR" value="${chain_util_path}"/>
-    <arg line="-nopersist
+    	<env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
+    <arg line="xtumlmc_gen_erate -nopersist
       -import ${mcj_path}/ooa_schema.sql
       -import sql/ooaofooa_hierarchy_schema.sql
       -import sql/ooaofooa.sql
@@ -405,10 +406,11 @@
 	
 	<target name="cell_modifiers" depends="cell_modifier.depends" unless="cell_modifier.buildNotNeeded">
 	    <echo >Generating ${cell_modifier.output} ...</echo>
-	    <exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}/xtumlmc_gen_erate" >
+	    <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
 	        <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
 	        <env key="CHAIN_UTIL_DIR" value="${chain_util_path}"/>
-	    <arg line="-nopersist
+	    	<env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
+	    <arg line="xtumlmc_gen_erate -nopersist
 	      -import ${mcj_path}/ooa_schema.sql
 	      -import sql/ooaofooa_hierarchy_schema.sql
 	      -import sql/ooaofooa.sql
@@ -438,12 +440,13 @@
 
 	<target name="generate_supertype_subtype_util" unless="supertype_subtype_util.buildNotNeeded" depends="generate_supertype_subtype_util.depends" >
 	    <echo >Generating ${gssu.output} ...</echo>
-	    <exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}/xtumlmc_gen_erate" >
+	    <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
 	        <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
-	    	<arg line="-nopersist
-	      	-import ${mcj_path}/ooa_schema.sql
-	      	-import sql/ooaofooa.sql
-	      	-arch arc/generate_supertype_subtype_util.arc" />
+	    	<env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
+	    	<arg line="xtumlmc_gen_erate -nopersist
+	      	    -import ${mcj_path}/ooa_schema.sql
+	      	    -import sql/ooaofooa.sql
+	      	    -arch arc/generate_supertype_subtype_util.arc" />
 		</exec>	    	
     <!-- touch the output file in case generator believes there
          are no changes -->
@@ -462,12 +465,13 @@
 
 	<target name="generate_rto_util" unless="rto_util.buildNotNeeded" depends="generate_rto_util.depends" >
 	    <echo >Generating ${grtou.output} ...</echo>
-	    <exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}/xtumlmc_gen_erate" >
+	    <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
 	        <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
-	    	<arg line="-nopersist
-	      	-import ${mcj_path}/ooa_schema.sql
-	      	-import sql/ooaofooa.sql
-	      	-arch arc/generate_rto_util.arc" />
+	    	<env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
+	    	<arg line="xtumlmc_gen_erate -nopersist
+	    		-import ${mcj_path}/ooa_schema.sql
+	    		-import sql/ooaofooa.sql
+	    		-arch arc/generate_rto_util.arc" />
 		</exec>	    	
 		<!-- touch the output file in case generator believes there
 		     are no changes -->
@@ -486,12 +490,13 @@
 
 	<target name="action_language_description_util" unless="action_language_description_util.buildNotNeeded" depends="action_language_description_util.depends" >
 	    <echo >Generating ${ald.output} ...</echo>
-	    <exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}/xtumlmc_gen_erate" >
+	    <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
 	        <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
-	    	<arg line="-nopersist
-	      	-import ${mcj_path}/ooa_schema.sql
-	      	-import sql/ooaofooa.sql
-	      	-arch arc/action_language_description_util.arc" />
+	    	<env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
+	    	<arg line="xtumlmc_gen_erate -nopersist
+	    		-import ${mcj_path}/ooa_schema.sql
+	    		-import sql/ooaofooa.sql
+	    		-arch arc/action_language_description_util.arc" />
 		</exec>	    	
     <!-- touch the output file in case generator believes there
          are no changes -->
@@ -508,12 +513,13 @@
 
 	<target name="generate_globals_util" unless="globals_util.buildNotNeeded" depends="generate_globals_util.depends" >
 	    <echo >Generating ${gu.output} ...</echo>
-	    <exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}/xtumlmc_gen_erate" >
+	    <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
 	        <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
-	    	<arg line="-nopersist
-	      	-import ${mcj_path}/ooa_schema.sql
-	      	-import sql/ooaofooa.sql
-	      	-arch arc/generate_globals_util.arc" />
+	    	<env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
+	    	<arg line="xtumlmc_gen_erate -nopersist
+	    		-import ${mcj_path}/ooa_schema.sql
+	    		-import sql/ooaofooa.sql
+	    		-arch arc/generate_globals_util.arc" />
 		</exec>
 	    <delete file="____file.txt" />
 	</target>
@@ -581,7 +587,7 @@
     </taskdef>
         <PTCodeFormat>
           <fileset dir="../org.xtuml.bp.core/src/org/xtuml/bp/core/" excludes="${cvs_java_files}"
-            includes="inspector/*.java,sorter/*.java,ui/*.java,*.java, ui/actions/*.java, util/SupertypeSubtypeUtil.java, util/ActionLanguageDescriptionUtil.java, util/RTOUtil.java" />
+            includes="inspector/*.java,sorter/*.java,ui/*.java,*.java, ui/actions/*.java, util/SupertypeSubtypeUtil.java, util/ActionLanguageDescriptionUtil.java, util/RTOUtil.java, common/BPQuickFix.java" />
         </PTCodeFormat>
   <!-- Need to touch the output file for the case where the input data
        changed, but the output didn't -->
@@ -720,6 +726,7 @@
     	<fileset dir="src/org/xtuml/bp/core/util" includes="GlobalsUtil.java" />
     	<fileset dir="src/org/xtuml/bp/core/util" includes="SupertypeSubtypeUtil.java" />
     	<fileset dir="src/org/xtuml/bp/core/util" includes="RTOUtil.java" />
+    	<fileset dir="src/org/xtuml/bp/core/common" includes="BPQuickFix.java" />
         <fileset dir="src/org/xtuml/bp/core"
            excludes="${cvs_java_files}" />
     </delete>

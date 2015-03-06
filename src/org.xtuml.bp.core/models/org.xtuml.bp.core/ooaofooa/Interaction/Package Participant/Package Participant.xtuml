@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("c9cdda3e-5e0b-468e-a0ba-5c41c30b54f5",
@@ -219,7 +219,7 @@ if (isInGenericPackage)
   select one pkg related by self->EP_PKG[R956];
   result = "";
   if (param.at == Justification::Center_in_X)
-      result = "«function»";
+      result = "«package»";
   end if;
   if(not_empty pkg)
     if(param.at == Justification::Center)
@@ -651,7 +651,7 @@ INSERT INTO O_REF
 	'',
 	'Package',
 	'Package_ID',
-	'R956');
+	'R956.''represents''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("c9cdda3e-5e0b-468e-a0ba-5c41c30b54f5",
 	"f20fc9dd-3cc2-42f2-a422-190b47c29c01",

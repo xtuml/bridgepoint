@@ -3,12 +3,6 @@
 #-------------------------------------------------------------------------------
 # Functions
 #-------------------------------------------------------------------------------
-error()
-{
-    echo Error! $1
-    exit 1
-}
-
 #
 # Make sure the caller put the required binaries in place
 #
@@ -19,42 +13,48 @@ get_user_supplied_binaries ()
     mkdir $user_supplied_files
     
     # Get the need files from the revision control folder
-    cp ${GIT_REPO_ROOT}/packaging/* $user_supplied_files
+    cp -rf ${GIT_REPO_ROOT}/packaging/* $user_supplied_files
     
     cd $user_supplied_files
+    missing_files=""
     if [ ! -e ./xtumlmc_build.exe ]; then
-        error "Missing ./xtumlmc_build.exe"
+        missing_files+="./xtumlmc_build.exe"
     fi
 
     if [ ! -e ./gen_erate.exe ]; then
-        error "Missing ./gen_erate.exe"
+        missing_files+="./gen_erate.exe"
     fi
 
     if [ ! -e  ./vgalaxy8.vr ]; then
-        error "Missing ./vgalaxy8.vr"
+        missing_files+="./vgalaxy8.vr"
     fi
 
     if [ ! -e  ./vgal8c.dll ]; then
-        error "Missing ./vgal8c.dll"
+        missing_files+="./vgal8c.dll"
     fi
 
     if [ ! -e  ./msvcrt.dll ]; then
-        error "Missing ./msvcrt.dll"
+        missing_files+="./msvcrt.dll"
     fi
 
     if [ ! -e  ./mc3020_doc.zip ]; then
-        error "Missing ./mc3020_doc.zip"
+        missing_files+="./mc3020_doc.zip"
     fi
     
     if [ ! -e  ./mcmc ]; then
-        error "Missing ./mcmc"
+        missing_files+="./mcmc"
     fi
 
     if [ ! -e  ./mcmc.exe ]; then
-        error "Missing ./mcmc.exe"
+        missing_files+="./mcmc.exe"
     fi
     
+    if [ $missing_files != ""]; then
+       echo -e "Error!: Missing files: $missing_files"
+       return 1
+    fi
     echo -e "Exiting configure_external_dependencies.sh::get_user_supplied_binaries"
+    return 0
 }
 
 configure_dap()
@@ -201,24 +201,25 @@ echo -e "Entering configure_external_dependencies.sh"
 
 # Define Locations for Components
 user_supplied_files=${BUILD_DIR}/extra_files_for_build
-bp_pkg=${BUILD_DIR}/com.mentor.nucleus.bp.pkg
-dap=${BUILD_DIR}/com.mentor.nucleus.bp.dap.pkg
-mcc_src=${BUILD_DIR}/com.mentor.nucleus.bp.mc.c.source
-mcc_bin=${BUILD_DIR}/com.mentor.nucleus.bp.mc.c.binary
-mcsystemc_src=${BUILD_DIR}/com.mentor.nucleus.bp.mc.systemc.source
-mccpp_src=${BUILD_DIR}/com.mentor.nucleus.bp.mc.cpp.source
-mcvhdl_src=${BUILD_DIR}/com.mentor.nucleus.bp.mc.vhdl.source
-mc3020_help=${BUILD_DIR}/com.mentor.nucleus.help.bp.mc
+bp_pkg=${BUILD_DIR}/org.xtuml.bp.pkg
+dap=${BUILD_DIR}/org.xtuml.bp.dap.pkg
+mcc_src=${BUILD_DIR}/org.xtuml.bp.mc.c.source
+mcc_bin=${BUILD_DIR}/org.xtuml.bp.mc.c.binary
+mcsystemc_src=${BUILD_DIR}/org.xtuml.bp.mc.systemc.source
+mccpp_src=${BUILD_DIR}/org.xtuml.bp.mc.cpp.source
+mcvhdl_src=${BUILD_DIR}/org.xtuml.bp.mc.vhdl.source
+mc3020_help=${BUILD_DIR}/org.xtuml.help.bp.mc
 
 get_user_supplied_binaries
+if [ "$?" = "0" ];  then
+  configure_mcc_src
+  configure_mcc_bin
+  configure_mcsystemc_src
+  configure_mccpp_src
+  configure_vhdl_src
 
-configure_mcc_src
-configure_mcc_bin
-configure_mcsystemc_src
-configure_mccpp_src
-configure_vhdl_src
-
-configure_dap
+  configure_dap
+fi
 
 cd ${BUILD_DIR}
 

@@ -76,6 +76,7 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.core.runtime.preferences.IEclipsePreferences;
 import org.eclipse.core.runtime.preferences.IEclipsePreferences.IPreferenceChangeListener;
 import org.eclipse.core.runtime.preferences.IScopeContext;
@@ -104,6 +105,7 @@ import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 import org.xtuml.bp.core.common.ComponentResourceListener;
 import org.xtuml.bp.core.common.IAllActivityModifier;
 import org.xtuml.bp.core.common.IPasteListener;
+import org.xtuml.bp.core.common.IntegrityCheckScheduler;
 import org.xtuml.bp.core.common.ModelRoot;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.common.PersistenceChangeTracker;
@@ -152,6 +154,8 @@ public class CorePlugin extends AbstractUIPlugin {
     private static NonRootModelElement[] loadedGlobals;
     
     private ResourceChangeListener projectListener;
+    
+    private IntegrityCheckScheduler scheduler;
     
 	/**
 	 * The constructor.
@@ -412,6 +416,11 @@ public class CorePlugin extends AbstractUIPlugin {
 			return key;
 		}
 	}
+	
+	public IntegrityCheckScheduler getIntegrityScheduler() {
+		return scheduler;
+	}
+	
 	/**
 	 * Returns the plugin's resource bundle,
 	 */
@@ -771,6 +780,12 @@ public class CorePlugin extends AbstractUIPlugin {
         Ooaofooa.addModelChangeListenerToAll(problemListener);
         projectListener = new ProjectListener();
 		ResourcesPlugin.getWorkspace().addResourceChangeListener(projectListener);
+		// start the integrity check scheduler
+		scheduler = new IntegrityCheckScheduler();
+		scheduler.setPriority(Job.DECORATE);
+		scheduler.setSystem(true);
+		scheduler.setRule(ResourcesPlugin.getWorkspace().getRoot());
+		scheduler.schedule(30000);
 	}
 	public void stop(BundleContext context) throws Exception {
 		Ooaofooa.removeModelChangeListenerFromAll(problemListener);
@@ -781,6 +796,9 @@ public class CorePlugin extends AbstractUIPlugin {
 		}
 		projectPreferenceListeners.clear();
 		ResourcesPlugin.getWorkspace().removeResourceChangeListener(projectListener);
+		// stop the integrity scheduler
+		scheduler.stop();
+		scheduler = null;
 		super.stop(context);
 	}
 	/**
