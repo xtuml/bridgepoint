@@ -30,6 +30,7 @@ import org.xtuml.bp.core.sorter.*;
 public abstract class BaseModelClassInspector implements IModelClassInspector {
 
 	MetadataSortingManager sortingManager;
+	public boolean load = true;
 
 	public BaseModelClassInspector(MetadataSortingManager aSortingManager) {
 		super();

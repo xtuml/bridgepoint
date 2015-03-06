@@ -23,7 +23,17 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
+import org.eclipse.core.resources.IWorkspaceRunnable;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.NullProgressMonitor;
+
+import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.IntegrityIssue_c;
 import org.xtuml.bp.core.IntegrityManager_c;
 import org.xtuml.bp.core.Ooaofooa;
@@ -336,10 +346,27 @@ public class ModelIntegrityTests extends BaseTest {
 		writer.close();
 	}
 
-	private String runIntegrityReportForElement(Package_c pkg) {
-		manager = new IntegrityManager_c(Ooaofooa.getDefaultInstance());
-		IntegrityIssue_c[] issues = IntegrityChecker.runIntegrityCheck(pkg, manager);
-		return IntegrityChecker.createReportForIssues(issues);
+	private String runIntegrityReportForElement(final Package_c pkg) {
+		// the integrity checker no longer loads when locating
+		// children, therefore this test must handle the loading
+		pkg.getPersistableComponent().loadComponentAndChildren(
+				new NullProgressMonitor());
+		final List<IntegrityIssue_c> issues = new ArrayList<IntegrityIssue_c>();
+		try {
+			ResourcesPlugin.getWorkspace().run(new IWorkspaceRunnable() {
+				
+				@Override
+				public void run(IProgressMonitor monitor) throws CoreException {
+					manager = new IntegrityManager_c(Ooaofooa.getDefaultInstance());
+					issues.addAll(Arrays.asList(IntegrityChecker
+							.runIntegrityCheck(pkg, manager)));
+				}
+			}, new NullProgressMonitor());
+		} catch (CoreException e) {
+			CorePlugin.logError("Unable to create integrity issue report.", e);
+		}
+		return IntegrityChecker.createReportForIssues(issues
+				.toArray(new IntegrityIssue_c[issues.size()]));
 	}
 
 	private Package_c getPackage(final String string) {

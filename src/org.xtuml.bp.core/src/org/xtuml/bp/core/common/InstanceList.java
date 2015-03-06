@@ -85,10 +85,18 @@ public abstract class InstanceList extends ArrayList<NonRootModelElement> {
      * @return
      */
     public Object getGlobal(Object key) {
-    	return getGlobal(null, key);
+    	return getGlobal(null, key, true);
+    }
+
+    public Object getGlobal(Object key, boolean includeProxies) {
+    	return getGlobal(null, key, includeProxies);
+    }
+
+    public Object getGlobal(SystemModel_c src_system, Object key) {
+    	return getGlobal(src_system, key, true);
     }
     
-	public Object getGlobal(SystemModel_c src_system, Object key) {
+	public Object getGlobal(SystemModel_c src_system, Object key, boolean includeProxies) {
 		if (key instanceof String) {
 			if (key.equals(IdAssigner.NULL_UUID.toString())) {
 				return null;
@@ -142,6 +150,14 @@ public abstract class InstanceList extends ArrayList<NonRootModelElement> {
 						result = currentRoot.getInstanceList(typeOfClass).get(
 								key);
 						if (result != null) {
+							// if this is a proxy and we do not
+							// want to locate one then we skip this one
+							if(result instanceof NonRootModelElement) {
+								NonRootModelElement element = (NonRootModelElement) result;
+								if(!includeProxies && element.isProxy()) {
+									continue;
+								}
+							}
 							break;
 						}
 					}

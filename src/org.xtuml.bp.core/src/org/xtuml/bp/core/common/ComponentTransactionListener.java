@@ -59,8 +59,6 @@ public class ComponentTransactionListener implements ITransactionListener {
 
 	private Transaction transaction = null;
 
-	protected static Object INTEGRITY_ISSUE_JOB_FAMILY = "__intergrity_marker_job";
-
 	public ComponentTransactionListener() {
 
 	}
@@ -267,7 +265,7 @@ public class ComponentTransactionListener implements ITransactionListener {
 			 */
 			@Override
 			public boolean belongsTo(Object family) {
-				return family.equals(INTEGRITY_ISSUE_JOB_FAMILY);
+				return family.equals(IntegrityCheckScheduler.INTEGRITY_ISSUE_JOB_FAMILY);
 			}
 
 			@Override
