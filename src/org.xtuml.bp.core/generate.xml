@@ -583,7 +583,7 @@
     </taskdef>
         <PTCodeFormat>
           <fileset dir="../org.xtuml.bp.core/src/org/xtuml/bp/core/" excludes="${cvs_java_files}"
-            includes="inspector/*.java,sorter/*.java,ui/*.java,*.java, ui/actions/*.java, util/SupertypeSubtypeUtil.java, util/ActionLanguageDescriptionUtil.java, util/RTOUtil.java" />
+            includes="inspector/*.java,sorter/*.java,ui/*.java,*.java, ui/actions/*.java, util/SupertypeSubtypeUtil.java, util/ActionLanguageDescriptionUtil.java, util/RTOUtil.java, common/BPQuickFix.java" />
         </PTCodeFormat>
   <!-- Need to touch the output file for the case where the input data
        changed, but the output didn't -->
@@ -722,6 +722,7 @@
     	<fileset dir="src/org/xtuml/bp/core/util" includes="GlobalsUtil.java" />
     	<fileset dir="src/org/xtuml/bp/core/util" includes="SupertypeSubtypeUtil.java" />
     	<fileset dir="src/org/xtuml/bp/core/util" includes="RTOUtil.java" />
+    	<fileset dir="src/org/xtuml/bp/core/common" includes="BPQuickFix.java" />
         <fileset dir="src/org/xtuml/bp/core"
            excludes="${cvs_java_files}" />
     </delete>

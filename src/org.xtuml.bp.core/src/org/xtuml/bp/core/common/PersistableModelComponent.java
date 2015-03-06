@@ -714,7 +714,7 @@ public class PersistableModelComponent implements Comparable {
           }else{
             importer.finishComponentLoad(monitor, true);
             // check integrity after load, but not for the compare root
-            if(!getRootModelElement().getModelRoot().isCompareRoot()) {
+            if(!rootME.getModelRoot().isCompareRoot()) {
             	IntegrityChecker.createIntegrityIssuesForLoad(getRootModelElement());
             }
 

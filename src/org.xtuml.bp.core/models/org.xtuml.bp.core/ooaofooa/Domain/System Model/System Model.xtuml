@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("5735d0f8-e286-4832-975e-04887e18a036",
@@ -1096,7 +1096,7 @@ end if;
 // Continue to search all models?
 if param.descending == false and param.collectGlobally and
     PREF::getSystemBoolean(systemName:self.Name,
-                     name:"org.xtuml.bp.ui.project.references") == true
+                     name:"com.mentor.nucleus.bp.ui.project.references") == true
   select many systems from instances of S_SYS;
   for each system in systems
     if system != self and system.useGlobals

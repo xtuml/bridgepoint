@@ -29,7 +29,10 @@ import org.xtuml.bp.ui.preference.IPreferenceModel;
 public abstract class BridgePointProjectPreferences extends PreferencePage
 		implements IPreferencePage {
 
-	public final static String BP_PROJECT_PREFERENCES_ID = "org.xtuml.bp.ui.project.preferences"; //$NON-NLS-1$
+	// This id string must remain the same, otherwise previously set preferences
+	// will not be honored
+	// For any future id strings do NOT include the full plug-in name
+	public final static String BP_PROJECT_PREFERENCES_ID = "com.mentor.nucleus.bp.ui.project.preferences"; //$NON-NLS-1$	
 	protected IPreferenceModel model;
 	private Preferences store = null;
 
