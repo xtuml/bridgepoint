@@ -19,11 +19,10 @@
         depends="java">
   </target>
 
-  <property environment="env"/>
-  <property name="bp_bin_dir" value="${env.PT_HOME_DRIVE}${env.PT_HOME}/bin" />
   <property name="mcj_path" value="../MC-Java" />
 
   <property name="eclipse-home" value="${basedir}/../.."/>
+  <property name="util_bin_dir" value="${eclipse-home}/src/org.xtuml.bp.mc.c.binary/mc3020/bin"/>
 
   <property environment="env"/>
 
@@ -47,9 +46,10 @@
           unless="java.buildNotNeeded" >
     <echo >Generating Compare Properties File ...</echo>
     <delete file="CompareTree.gen" />
-    <exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}/xtumlmc_gen_erate" >
+    <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
         <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
-    <arg line="-nopersist
+    	<env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
+    <arg line="xtumlmc_gen_erate -nopersist
       -import ${mcj_path}/ooa_schema.sql
       -import ../org.xtuml.bp.core/sql/ooaofooa_hierarchy_schema.sql
       -import ../org.xtuml.bp.core/sql/ooaofooa.sql

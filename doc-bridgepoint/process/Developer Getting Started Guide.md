@@ -19,11 +19,10 @@ Preparations
   - The BridgePoint source code repositories are housed on Github.com in several repositories under the xtUML organization.  If you do not already have a Github.com account, create one now.
 
   - In order to manage your edits to the source, you need to fork the source code.  For each of the repositories, you must navigate to the source home on Github and click the "Fork" button in the upper right corner:
-    - https://github.com/xtuml/bposs
     - https://github.com/xtuml/bridgepoint
     - https://github.com/xtuml/models
 
-  - Once the process is complete, you will have a fork of each of the repositories under your own Github account.  For the remainder of this document, we will refer to the repositories using the formula ```https://github.com/"username"/"repository".git``` where "username" is your personal Github user name. (For example: ```https://github.com/keithbrown/bposs.git```)
+  - Once the process is complete, you will have a fork of each of the repositories under your own Github account.  For the remainder of this document, we will refer to the repositories using the formula ```https://github.com/"username"/"repository".git``` where "username" is your personal Github user name. (For example: ```https://github.com/keithbrown/bridgepoint.git```)
 
 ### OS-Specific Instructions
 The instructions for Windows and Linux development environments are very similar.  However, the instructions provided here are currently focused on a Windows environment.  Linux-specific instructions are forthcoming.
@@ -43,7 +42,7 @@ Windows Steps
   - Open the Git Repository Exploring perspective
 
   - In the left hand view, select the option to clone and add to view.  This will pop up the "Clone Git Repository" dialog.
-    - Enter the URI: ```https://github.com/"username"/bposs.git```
+    - Enter the URI: ```https://github.com/"username"/bridgepoint.git```
     - Enter your user name and password for your github.com account
     - Select Next
     - Select all the branches
@@ -53,7 +52,7 @@ Windows Steps
 
 ### Set up the Source Code Projects for Eclipse Development
   - Import the projects into your workspace
-    - In the Git Repository Exploring perspective select "bposs"
+    - In the Git Repository Exploring perspective select "bridgepoint"
     - Right Click > Import Projects...
     - Select "Import Projects Into Existing Workspace" and then Next
     - Select all projects (do not select any other options)
@@ -105,13 +104,24 @@ Windows Steps
 
   - Directly after "set BP_JVM=..." add the following:
 ```      
-      set PT_HOME=/work/BridgePointDev/
-      set PT_HOME_DRIVE=c:
-      set XTUMLGEN_HOME=%MGC_EMBEDDED_HOME%/eclipse_extensions/BridgePoint/eclipse/plugins/org.xtuml.bp.dap.pkg_%BP_VERSION%/bridgepoint
-      set XTUML_DEVELOPMENT_REPOSITORY=C:/git/bposs
+      set XTUML_DEVELOPMENT_REPOSITORY=C:/git/bridgepoint
       set XTUML_TEST_MODEL_REPOSITORY=C:/git/models/test/
       set XTUML_PRIVATE_MODEL_REPOSITORY=C:/git/modelsmg/test/
 ```
+
+### Setup Development Environment to Run MC3020 Under a Launch Configuration
+  - Open Windows explorer and navigate to the BridgePoint plug-in installation folder.  The default is:
+```
+c:/MentorGraphics/BridgePoint/eclipse_extensions/BridgePoint/eclipse/plugins/org.xtuml.bp.mc.c.binary_version/mc3020
+```
+  
+  - Select all files and folders in the above folder
+  
+  - Select Copy
+  
+  - Open the Model Explorer view in Eclipse and navigate to: ```c:/git/bridgepoint/src/org.xtuml.bp.mc.c.binary_version/mc3020```
+  
+  - Paste the previous selection into this folder
 
 ### Install Perl
   - Install perl, any perl installation will work.  For a free version you can use Strawberry Perl or download cygwin and install the perl package.
@@ -152,20 +162,6 @@ Windows Steps
               It is is adjusted your graphical compare restuls will not match,
   
 - Launch BridgePoint
-
-### Setup Development Environment to Run MC3020 Under a Launch Configuration
-  - Open Windows explorer and navigate to the BridgePoint plug-in installation folder.  The default is:
-```
-c:/MentorGraphics/BridgePoint/eclipse_extensions/BridgePoint/eclipse/plugins/org.xtuml.bp.mc.c.binary_version/mc3020
-```
-  
-  - Select all files and folders in the above folder
-  
-  - Select Copy
-  
-  - Open the Model Explorer view in Eclipse and navigate to: ```c:/git/bposs/src/org.xtuml.bp.mc.c.binary_version/mc3020```
-  
-  - Paste the previous selection into this folder
 
 ### Set the Unit Test History to Assure the Test Summary Tool Capture all Results
   - Open the JUnit view
