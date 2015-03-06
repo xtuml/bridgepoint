@@ -21,10 +21,7 @@
 
   <property name="eclipse-home" value="${basedir}/../.."/>
   <property name="plugins-home" value="${ant.home}/../.."/>
-
-  <property environment="env"/>
-  <property name="bp_bin_dir" value="${env.PT_HOME_DRIVE}${env.PT_HOME}/bin" />
-  <property name="mc_bin_dir" value="${env.PT_HOME_DRIVE}${env.PT_HOME}/mc3020/bin" />
+  <property name="util_bin_dir" value="${eclipse-home}/src/org.xtuml.bp.mc.c.binary/mc3020/bin"/>
 
   <property name="sql.input" value="models/org.xtuml.bp.ui.canvas/ooaofgraphics" />
   <property name="sql.output" value="ooaofgraphics.sql" />
@@ -41,7 +38,7 @@
           description="Generate the sql version of the OoaofOoa model"
           unless="sql.buildNotNeeded" >
     <echo >Generating ${sql.output} ...</echo>
-  <exec vmlauncher="false" failonerror="true" executable="${mc_bin_dir}/xtumlmc_build.exe" >
+  <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
     <arg line="xtumlmc_cleanse_for_BridgePoint ${sql.input} sql/${sql.output} ${subsystems_to_remove}" />
   </exec>
   </target>
@@ -125,9 +122,10 @@
           description="Generate the Canvas outline file"
           unless="Build_Outline.buildNotNeeded" >
     <echo >Generating ${outline.output} ...</echo>
-    <exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}/xtumlmc_gen_erate" >
+    <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
         <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
-    <arg line="-nopersist
+    	<env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
+    <arg line="xtumlmc_gen_erate -nopersist
       -import ${mcj_path}/ooa_schema.sql
       -import ${tree_schema.output_path}/${tree_schema.output}
       -import ../org.xtuml.bp.core/sql/ooaofooa.sql
@@ -155,7 +153,7 @@
 	          description="Generate the sql version of the Core Hierarchy/Tree model"
 	          unless="inspector.sql.buildNotNeeded" >
 	    <echo >Generating ${inspector.sql.output} ...</echo>
-	  <exec vmlauncher="false" failonerror="true" executable="${mc_bin_dir}/xtumlmc_build.exe" >
+	  <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
 	    <arg line="xtumlmc_cleanse_for_BridgePoint ${inspector.sql.input} sql/${inspector.sql.output} ${subsystems_to_remove}" />
 	  </exec>
 	  </target>
@@ -203,14 +201,15 @@
 	          description="Generate the tree adapter files"
 	          unless="inspector.java.buildNotNeeded" >
 	    <echo >Generating ${inspector.java.output} ...</echo>
-	    <exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}/xtumlmc_gen_erate" >
+	    <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
 	        <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
 	        <env key="CHAIN_UTIL_DIR" value="${chain_util_path}"/>
 	    	<env key="LOCAL_ARC_DIR" value="../org.xtuml.bp.core/arc" />
 	    	<env key="OUTPUT_PATH" value="org/xtuml/bp/ui/canvas" />
 		    <env key="SOURCE_PACKAGE" value="org.xtuml.bp.ui.canvas" />
 	    	<env key="INSPECTOR_NAME" value="GraphicalModelInspector" />
-	    <arg line="-nopersist
+	    	<env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
+	    <arg line="xtumlmc_gen_erate -nopersist
 	      -import ${mcj_path}/ooa_schema.sql
 	      -import sql/ooaofooa_hierarchy_schema.sql
 	      -import sql/ooaofgraphics.sql
@@ -240,13 +239,14 @@
 	
 	<target name="cell_modifiers" depends="cell_modifier.depends" unless="cell_modifier.buildNotNeeded">
 	    <echo >Generating ${cell_modifier.output} ...</echo>
-	    <exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}/xtumlmc_gen_erate" >
+	    <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
 	        <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
 	        <env key="CHAIN_UTIL_DIR" value="${chain_util_path}"/>
 	    	<env key="OUTPUT_PATH" value="org/xtuml/bp/ui/canvas/cells" />
 		    <env key="SOURCE_PACKAGE" value="org.xtuml.bp.ui.canvas.cells" />
 	    	<env key="MODEL_ROOT" value="Ooaofgraphics" />
-	    <arg line="-nopersist
+	    	<env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
+	    <arg line="xtumlmc_gen_erate -nopersist
 	      -import ${mcj_path}/ooa_schema.sql
 		  -import sql/ooaofooa_hierarchy_schema.sql
 	      -import sql/ooaofgraphics.sql

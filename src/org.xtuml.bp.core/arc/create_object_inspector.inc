@@ -132,7 +132,7 @@ ${rel_nav.body} \
           .assign child_var_name_extra = "$r{spec.NameOnly}"
         .end if
       .assign child_var_name = "v_$lr{child.CategoryName}${child_var_name_extra}"
-        .invoke rel_nav = generate_backward_rel_chain_nav(tree_node, spec.ParentChildRelChain, "many", "arg", child_var_name)
+        .invoke rel_nav = generate_backward_rel_chain_nav_load(tree_node, spec.ParentChildRelChain, "many", "arg", child_var_name, ", load")
 ${rel_nav.body}\
     sort(${child_var_name});
     .end if

@@ -301,7 +301,8 @@ Import:org.xtuml.bp.core.common.*
 	'USER',
 	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
 	'',
-	'User');
+	'User',
+	0);
 INSERT INTO S_BRG
 	VALUES ("2065b330-f57e-4fb9-9d45-8503aaafb1a6",
 	"2f1f82f7-9389-4b32-8a37-2885d5c591fc",
@@ -548,7 +549,8 @@ Import:java.util.UUID;import java.util.Calendar',
 	'GD',
 	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
 	'',
-	'Graphics Domain');
+	'Graphics Domain',
+	1);
 INSERT INTO S_BRG
 	VALUES ("49df0b4c-f3b7-4159-8a92-289bc53dc162",
 	"058cdd28-59e8-461f-8413-8013501f3a1a",
@@ -1594,7 +1596,8 @@ Import:java.util.*; import org.xtuml.bp.core.ui.actions.ElementChange
 	'Util',
 	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
 	'',
-	'Utilities');
+	'Utilities',
+	1);
 INSERT INTO S_BRG
 	VALUES ("043564b8-e004-4789-a29f-ca8ce63bad78",
 	"b69262ac-62eb-4030-b329-b967033f0ee0",
@@ -2088,7 +2091,7 @@ INSERT INTO S_BRG
 		// look for other systems if IPRs are enabled
 		SystemModel_c sys = (SystemModel_c) ((NonRootModelElement) p_Askingelement).getRoot();
 		if (Pref_c.Getsystemboolean(
-				"org.xtuml.bp.ui.project.references",
+				"com.mentor.nucleus.bp.ui.project.references",
 				sys.getName())) {
 			SystemModel_c[] systems = SystemModel_c.SystemModelInstances(Ooaofooa.getDefaultInstance());
 			for(SystemModel_c system : systems) {
@@ -2380,7 +2383,8 @@ provider which cannot be modeled.',
 	'Sel',
 	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
 	'',
-	'Selection');
+	'Selection',
+	1);
 INSERT INTO S_BRG
 	VALUES ("d7b1c345-d705-4eb3-8fc6-ef868a4af640",
 	"ca7a7f08-4459-4ff5-bf0b-941446e8b3c5",
@@ -2423,7 +2427,8 @@ Translate: false',
 	'ERR',
 	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
 	'',
-	'Parse Error Reporting');
+	'Parse Error Reporting',
+	1);
 INSERT INTO S_BRG
 	VALUES ("34c3f3bd-33fe-45ec-9185-fe08c495a9ea",
 	"e12d9b52-9420-4f36-a733-995bd2e6fadf",
@@ -2497,7 +2502,8 @@ user data types.',
 	'OS',
 	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
 	'',
-	'Operating System');
+	'Operating System',
+	1);
 INSERT INTO S_BRG
 	VALUES ("4d05e188-4384-4ba1-9009-2280d1607161",
 	"fa4909c3-df7a-4238-91e9-92095e8a6824",
@@ -2638,7 +2644,8 @@ Translate:false',
 	'VM',
 	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
 	'',
-	'Virtual Machine');
+	'Virtual Machine',
+	1);
 INSERT INTO S_BRG
 	VALUES ("c445c967-1cea-4769-93d0-bc54402626d2",
 	"78c0d209-aae1-4a81-a2d1-e5876d473deb",
@@ -2813,7 +2820,8 @@ Import: org.xtuml.bp.core.common.*; import org.eclipse.jface.dialogs.*; import o
 	'PREF',
 	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
 	'',
-	'Preferences');
+	'Preferences',
+	1);
 INSERT INTO S_BRG
 	VALUES ("e505d8b9-b276-4891-b8ff-947bfc8e03e9",
 	"1b0b6da2-9849-46f1-8c76-390cd1e4f934",
@@ -2982,7 +2990,8 @@ INSERT INTO S_EE
 	'Search',
 	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
 	'',
-	'Search');
+	'Search',
+	1);
 INSERT INTO S_BRG
 	VALUES ("a7a39a94-0ad3-4526-840c-33ae87608670",
 	"4dbc824e-7f35-4e67-b275-79632eac75cc",

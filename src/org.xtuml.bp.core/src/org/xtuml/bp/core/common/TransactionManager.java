@@ -864,7 +864,7 @@ public class TransactionManager {
 									.belongsTo(DelayedMarkerJob.FAMILY_DELAYED_MARKER_JOB)
 							|| buildJob.belongsTo("System Data Type Upgrade") //$NON-NLS-1$
 							|| buildJob.belongsTo(FAMILY_TRANSACTION) || buildJob
-								.belongsTo(ComponentTransactionListener.INTEGRITY_ISSUE_JOB_FAMILY)))) {
+								.belongsTo(IntegrityCheckScheduler.INTEGRITY_ISSUE_JOB_FAMILY)))) {
 				return;
 			}
 

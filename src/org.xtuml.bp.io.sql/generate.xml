@@ -21,9 +21,7 @@
 
   <property name="eclipse-home" value="${basedir}/../.."/>
   <property name="plugins-home" value="${ant.home}/../.."/>
-
-  <property environment="env"/>
-  <property name="bp_bin_dir" value="${env.PT_HOME_DRIVE}${env.PT_HOME}/bin" />
+  <property name="util_bin_dir" value="${eclipse-home}/src/org.xtuml.bp.mc.c.binary/mc3020/bin"/>
 
   <property name="iocore_path" value="../org.xtuml.bp.io.core" />
 
@@ -47,12 +45,13 @@
           description="Generate the BP OOA pre-existing instances file"
           unless="class2table.buildNotNeeded" >
     <echo >Generating ${class2table.output} ...</echo>
-    <exec dir="sql" vmlauncher="false" failonerror="true" executable="${bp_bin_dir}/xtumlmc_gen_erate" >
-    <arg value="-nopersist" />
-    <arg value="-import ../${mcj_path}/ooa_schema.sql"/>
-    <arg value="-import bp_ooa_ooa.sql"/>
-    <arg value="-import bp_gd.sql"/>
-    <arg value="-arch ../${iocore_path}/arc/class2table.arc" />
+    <exec dir="sql" vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
+    	<env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
+    <arg line="xtumlmc_gen_erate -nopersist
+      -import ../${mcj_path}/ooa_schema.sql
+      -import bp_ooa_ooa.sql
+      -import bp_gd.sql
+      -arch ../${iocore_path}/arc/class2table.arc" />
   </exec>
     <delete file="sql/____file.txt" />
   <!-- Need to touch the output file for the case where the input data
@@ -87,8 +86,9 @@
           description="Create the generation database"
           unless="create_gen.buildNotNeeded" >
     <echo >Generating gen_oal.gen ...</echo>
-  <exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}/xtumlmc_gen_erate" >
-    <arg line="-f gen_oal.gen
+  <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
+  	<env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
+    <arg line="xtumlmc_gen_erate -f gen_oal.gen
       -import ${iocore_path}/sql/${schema}
       -import sql/${class2table.output}
       -import sql/file_io.pei.sql" />
@@ -99,10 +99,11 @@
           depends="create_gen"
           description="Create the import java code"
           unless="import.buildNotNeeded" >
-  <exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}/xtumlmc_gen_erate" >
+  <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
         <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
-    <env key="CORE_ARC_DIR" value="../org.xtuml.bp.core/arc"/>
-    <arg line="-f gen_oal.gen
+        <env key="CORE_ARC_DIR" value="../org.xtuml.bp.core/arc"/>
+    	<env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
+    <arg line="xtumlmc_gen_erate -f gen_oal.gen
       -arch arc/gen_import_java.arc" />
   </exec>
   <!-- Need to touch the output file for the case where the input data
