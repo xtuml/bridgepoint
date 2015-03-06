@@ -29,11 +29,13 @@ the License.
     depends="sql,schema">
   </target>
 
+  <property name="eclipse-home" value="${basedir}/../.."/>
+  <property name="util_bin_dir" value="${eclipse-home}/src/org.xtuml.bp.mc.c.binary/mc3020/bin"/>
+
   <property name="sql.input" value="models/org.xtuml.bp.ui.tree/UITree" />
   <property name="sql.output" value="uitree.sql" />
   <property name="sql.output_path" value="sql" />
 
-  <property name="mc_bin_dir" value="${env.PT_HOME_DRIVE}${env.PT_HOME}/mc3020/bin" />
   <property name="subsystems_to_remove" value="ACT_ V_ E_ GD_ CT_ TS_ DIM_" />
 
  <target name="sql.depends" >
@@ -47,7 +49,7 @@ the License.
           unless="sql.buildNotNeeded" >
     <echo >Generating ${sql.output_path}/${sql.output} ...</echo>
   	<echo>xtumlmc_cleanse_for_BridgePoint ${sql.input} ${sql.output_path}/${sql.output} ${subsystems_to_remove}</echo>
-	<exec vmlauncher="false" failonerror="true" executable="${mc_bin_dir}/xtumlmc_build.exe" >
+	<exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
 		<arg line="xtumlmc_cleanse_for_BridgePoint ${sql.input} ${sql.output_path}/${sql.output} ${subsystems_to_remove}" />
 	</exec>
   </target>
