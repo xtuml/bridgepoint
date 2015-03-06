@@ -857,7 +857,7 @@ ${result.body}\
     	if (selectedProject != null) {
     		IScopeContext projectScope = new ProjectScope(selectedProject);
     		Preferences projectNode = projectScope.getNode(BridgePointProjectPreferences.BP_PROJECT_PREFERENCES_ID);
-    		preferenceIPR = Pref_c.Getsystemboolean( "org.xtuml.bp.ui.project.references" ,projectName);
+    		preferenceIPR = Pref_c.Getsystemboolean( "com.mentor.nucleus.bp.ui.project.references" ,projectName);
     		if (!preferenceIPR ){
     			PlatformUI.getWorkbench().getDisplay().syncExec(new Runnable() {
     				public void run() {
@@ -870,7 +870,7 @@ ${result.body}\
     				return preferenceIPR;
     			}
     		}
-    		projectNode.putBoolean("org.xtuml.bp.ui.project.references", true);
+    		projectNode.putBoolean("com.mentor.nucleus.bp.ui.project.references", true);
     		return preferenceIPR;
     	}
     	return preferenceIPR;

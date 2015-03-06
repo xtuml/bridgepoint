@@ -20,6 +20,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.osgi.service.prefs.BackingStoreException;
 import org.osgi.service.prefs.Preferences;
 
 import org.xtuml.bp.core.CorePlugin;
@@ -30,8 +31,11 @@ import org.xtuml.bp.core.ui.Selection;
 public class BridgePointProjectReferencesPreferences extends
 		BridgePointProjectPreferences {
 	
-	public final static String BP_PROJECT_REFERENCES_ID = "org.xtuml.bp.ui.project.references"; //$NON-NLS-1$
-	public final static String BP_PROJECT_EMITRTODATA_ID = "org.xtuml.bp.ui.project.emitRTOData"; //$NON-NLS-1$
+	// These id strings must remain the same, otherwise previously set preferences
+	// will not be honored
+	// For any future id strings do NOT include the full plug-in name
+	public final static String BP_PROJECT_REFERENCES_ID = "com.mentor.nucleus.bp.ui.project.references"; //$NON-NLS-1$
+	public final static String BP_PROJECT_EMITRTODATA_ID = "com.mentor.nucleus.bp.ui.project.emitRTOData"; //$NON-NLS-1$
 	
 	private Button allowInterProjectReferences;
 	private Button emitRTOData;

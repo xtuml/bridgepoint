@@ -63,7 +63,7 @@ import org.xtuml.bp.core.UserDataType_c;
 import org.xtuml.bp.core.inspector.IModelClassInspector;
 import org.xtuml.bp.core.inspector.ModelInspector;
 import org.xtuml.bp.core.ui.marker.UmlProblem;
-import org.xtuml.bp.core.util.CoreUtil;
+import org.xtuml.bp.core.ui.preferences.BridgePointProjectReferencesPreferences;
 import org.xtuml.bp.core.util.OoaofgraphicsUtil;
 import org.xtuml.bp.core.util.PersistenceUtil;
 import org.xtuml.bp.core.util.RTOUtil;
@@ -166,7 +166,7 @@ public abstract class NonRootModelElement extends ModelElement implements IAdapt
 									&& getRoot() instanceof SystemModel_c) {
 								if (!Pref_c
 										.Getsystemboolean(
-												"org.xtuml.bp.ui.project.references",
+												BridgePointProjectReferencesPreferences.BP_PROJECT_REFERENCES_ID,
 												getRoot().getName())) {
 									continue;
 								}

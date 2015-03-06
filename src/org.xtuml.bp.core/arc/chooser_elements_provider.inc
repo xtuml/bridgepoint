@@ -149,7 +149,7 @@ public static ${cn.body}[] getElements(${contextClName.body} v_${firstContextIte
       }
 	  .else
 		if (Pref_c.Getsystemboolean(
-				"org.xtuml.bp.ui.project.references", sys.getName()) == true) {
+				"com.mentor.nucleus.bp.ui.project.references", sys.getName()) == true) {
 			SystemModel_c[] systems = SystemModel_c.SystemModelInstances(Ooaofooa.getDefaultInstance());
 			for (int i = 0; i < systems.length; i++) {
 				if (systems[i] != sys && systems[i].getUseglobals()) {

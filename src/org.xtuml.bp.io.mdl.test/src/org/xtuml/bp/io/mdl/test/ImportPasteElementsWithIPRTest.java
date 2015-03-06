@@ -154,8 +154,8 @@ public class ImportPasteElementsWithIPRTest extends BaseTest {
     	if (selectedProject != null) {
     		IScopeContext projectScope = new ProjectScope(selectedProject);
     		Preferences projectNode = projectScope.getNode(BridgePointProjectPreferences.BP_PROJECT_PREFERENCES_ID);
-    		preferenceIPR = Pref_c.Getsystemboolean( "org.xtuml.bp.ui.project.references" ,projectName);
-   			projectNode.putBoolean("org.xtuml.bp.ui.project.references", bool);
+    		preferenceIPR = Pref_c.Getsystemboolean( "com.mentor.nucleus.bp.ui.project.references" ,projectName);
+   			projectNode.putBoolean("com.mentor.nucleus.bp.ui.project.references", bool);
     	}
     	return preferenceIPR;
     }
