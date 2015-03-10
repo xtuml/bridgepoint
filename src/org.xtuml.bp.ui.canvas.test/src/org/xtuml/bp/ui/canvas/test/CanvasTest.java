@@ -61,7 +61,7 @@ import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.io.mdl.ImportModel;
 import org.xtuml.bp.test.TestUtil;
 import org.xtuml.bp.test.common.BaseTest;
-import ort.xtuml.bp.test.common.TestingUtilities;
+import org.xtuml.bp.test.common.TestingUtilities;
 import org.xtuml.bp.test.common.UITestingUtilities;
 import org.xtuml.bp.ui.canvas.CanvasModelListener;
 import org.xtuml.bp.ui.canvas.CanvasPlugin;
