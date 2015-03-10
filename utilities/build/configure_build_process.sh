@@ -13,10 +13,10 @@ function configure_build_files {
 	echo -e "Entering configure_build_process.sh::configure_build_files"
 	
     cd ${GIT_BP}/${utilities_project}/build
-    cp -f configure_external_dependencies.sh ${BUILD_DIR}/configure_external_dependencies.sh 2>>${ERROR_FILE}
-    cp -f create_bp_release.sh ${BUILD_DIR}/create_bp_release.sh 2>>${ERROR_FILE}
-    cp -f create_release_functions.sh ${BUILD_DIR}/create_release_functions.sh 2>>${ERROR_FILE}
-    cp -f process_build.sh ${BUILD_DIR}/process_build.sh 2>>${ERROR_FILE}
+    # Copy files and do the dos2unix translation.
+    tr -d '\r' < configure_external_dependencies.sh > ${BUILD_DIR}/configure_external_dependencies.sh 2>>${ERROR_FILE}
+    tr -d '\r' < create_bp_release.sh > ${BUILD_DIR}/create_bp_release.sh 2>>${ERROR_FILE}
+    tr -d '\r' < create_release_functions.sh > ${BUILD_DIR}/create_release_functions.sh 2>>${ERROR_FILE}
 
 	#
 	# files needed to build the tool  
@@ -34,11 +34,6 @@ function configure_build_files {
     cd ${git_workspace_setup}/dropins
     cp -fr * ${ECLIPSE_HOME}/dropins
     
-    cd ${BUILD_DIR}
-    dos2unix -q configure_external_dependencies.sh
-    dos2unix -q create_bp_release.sh
-    dos2unix -q create_release_functions.sh
-    dos2unix -q process_build.sh
 	echo -e "Exiting configure_build_process.sh::configure_build_files"
 }
 
@@ -57,11 +52,11 @@ function configure_installer_files {
     cp -f splash.bmp ${bp_deliverables}/splash.bmp 2>>${ERROR_FILE}
     cp -f bp.ico ${bp_deliverables}/bp.ico 2>>${ERROR_FILE}
 
-    unix2dos -q ${bp_deliverables}/extras/Launcher.bat
-    unix2dos -q ${bp_deliverables}/extras/CLI.bat
-    unix2dos -q ${bp_deliverables}/tools/create_shortcut.vbs
-    unix2dos -q ${extra_deliverables}/post_install_script.bat
-    unix2dos -q ${extra_deliverables}/pre_uninstall_script.bat
+    unix2dos ${bp_deliverables}/extras/Launcher.bat
+    unix2dos ${bp_deliverables}/extras/CLI.bat
+    unix2dos ${bp_deliverables}/tools/create_shortcut.vbs
+    unix2dos ${extra_deliverables}/post_install_script.bat
+    unix2dos ${extra_deliverables}/pre_uninstall_script.bat
     
     mkdir -p "${bp_deliverables_linux}/extras"
     cp -f Launcher.sh ${bp_deliverables_linux}/extras/Launcher.sh 2>>${ERROR_FILE}
@@ -72,13 +67,13 @@ function configure_installer_files {
     cp -f splash.bmp ${bp_deliverables_linux}/splash.bmp 2>>${ERROR_FILE}
     cp -f bp.ico ${bp_deliverables_linux}/bp.ico 2>>${ERROR_FILE}
 
-    dos2unix -q ${bp_deliverables_linux}/extras/Launcher.sh
-    dos2unix -q ${bp_deliverables_linux}/extras/CLI.sh
-    dos2unix -q ${extra_deliverables_linux}/post_install_script.sh
-    dos2unix -q ${extra_deliverables_linux}/pre_uninstall_script.sh    
+    dos2unix ${bp_deliverables_linux}/extras/Launcher.sh
+    dos2unix ${bp_deliverables_linux}/extras/CLI.sh
+    dos2unix ${extra_deliverables_linux}/post_install_script.sh
+    dos2unix ${extra_deliverables_linux}/pre_uninstall_script.sh    
 
-    dos2unix -q ${BUILD_DIR}/build_installer_bp_linux.sh
-    dos2unix -q ${BUILD_DIR}/build_installer_bp.sh
+    dos2unix ${BUILD_DIR}/build_installer_bp_linux.sh
+    dos2unix ${BUILD_DIR}/build_installer_bp.sh
 
     # copy the entire packing repository to the staging area for the installer to work with
     cd ${GIT_REPO_ROOT}
@@ -89,7 +84,7 @@ function configure_installer_files {
     cp -f font_list.txt ${bp_deliverables}/tools/fontchecker/font_list.txt 2>>${ERROR_FILE}
     cp -f fontchecker.exe ${bp_deliverables}/tools/fontchecker/fontchecker.exe 2>>${ERROR_FILE}
 
-    unix2dos -q ${bp_deliverables}/tools/fontchecker/font_list.txt
+    unix2dos ${bp_deliverables}/tools/fontchecker/font_list.txt
 	echo -e "Exiting configure_build_process.sh::configure_build_files"
 }
 
@@ -123,7 +118,7 @@ mkdir -p "${installer_files_linux}"
 
 cd ${BUILD_DIR}
 configure_build_files
-configure_installer_files
+# configure_installer_files
 
 cd ${BUILD_DIR}
 
