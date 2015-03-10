@@ -1,0 +1,12 @@
+ERROR: Found another member under the same structured data type with a matching name.
+
+Element Name: member
+Element Path: ModelIntegrityTests::Structure Member Tests::Structured Data Type::member
+
+
+ERROR: Found another member under the same structured data type with a matching name.
+
+Element Name: member
+Element Path: ModelIntegrityTests::Structure Member Tests::Structured Data Type::member
+
+

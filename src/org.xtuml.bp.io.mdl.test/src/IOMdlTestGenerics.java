@@ -30,6 +30,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.ui.PlatformUI;
 
 import org.xtuml.bp.core.Ooaofooa;
@@ -111,22 +112,22 @@ public class IOMdlTestGenerics extends TestCase {
 	}
 
 	public void doTest() {
-		importModel("expected_results"  + "/" + Ooaofooa.MODELS_DIRNAME + "/");
-		exportModel("expected_results/" + Ooaofooa.MODELS_DIRNAME + "/");
+		importModel(TestingUtilities.getExpectedResultsPath() + Ooaofooa.MODELS_DIRNAME + "/");
+		exportModel(TestingUtilities.getExpectedResultsPath() + Ooaofooa.MODELS_DIRNAME + "/");
 	}
   
 	
 	public void test_InteractionDiagramUpgradeTestsGenerics() {
 		importModel(Ooaofooa.MODELS_DIRNAME + "/");
-		exportModel("expected_results/"+Ooaofooa.MODELS_DIRNAME + "/");
+		exportModel(TestingUtilities.getExpectedResultsPath() + Ooaofooa.MODELS_DIRNAME + "/");
     }	
     public void test_nested_testGenerics() {
 		importModel(Ooaofooa.MODELS_DIRNAME + "/");
-		exportModel("expected_results/" + Ooaofooa.MODELS_DIRNAME + "/");
+		exportModel(TestingUtilities.getExpectedResultsPath() + Ooaofooa.MODELS_DIRNAME + "/");
 	}
 	public void test_odmsGenerics() {
 		importModel(Ooaofooa.MODELS_DIRNAME + "/");
-		exportModel("expected_results/" + Ooaofooa.MODELS_DIRNAME + "/");
+		exportModel(TestingUtilities.getExpectedResultsPath() + Ooaofooa.MODELS_DIRNAME + "/");
 	}
 	public void test_ooaofooa() { doTest(); }
 	public void test_ooaofgraphics() { doTest(); }
@@ -252,12 +253,18 @@ public class IOMdlTestGenerics extends TestCase {
 		} catch (InvocationTargetException f) {
 			fail( f.toString() );
 		} catch (FileNotFoundException f) {
-			assertEquals( f.toString(), "java.io.FileNotFoundException: bad_dir"  //$NON-NLS-1$
-				+ java.io.File.separator
-				+ "odms.xxx (The system cannot find the path specified)" ); //$NON-NLS-1$
+			String systemError;
+			if (Platform.getOS().contains("win")) {
+				systemError = "The system cannot find the path specified";
+			} else {
+				systemError = "No such file or directory";
+			}
+			assertEquals(
+					"java.io.FileNotFoundException: bad_dir" //$NON-NLS-1$
+							+ java.io.File.separator
+							+ "odms.xxx (" + systemError + ")", f.toString()); //$NON-NLS-1$
 		}
 	}
-
 	public void testExportOdmsWithGraphicsAccessError()
 	{
 		boolean accessError = false;
@@ -270,8 +277,15 @@ public class IOMdlTestGenerics extends TestCase {
 		} catch (InvocationTargetException f) {
 			fail( f.toString() );
 		} catch (FileNotFoundException f) {
+			String systemError;
+			if (Platform.getOS().contains("win")) {
+				systemError = "Access is denied"; 
+			}
+			else {
+				systemError = "Is a directory";
+			}
 			String osPath = new Path(directoryPath).toOSString();
-			assertEquals( f.toString(), "java.io.FileNotFoundException: " + osPath + " (Access is denied)" ); //$NON-NLS-1$//$NON-NLS-2$
+			assertEquals( "java.io.FileNotFoundException: " + osPath + " (" + systemError + ")", f.toString() ); //$NON-NLS-1$//$NON-NLS-2$
 			accessError = true;
 		}
 		assertTrue("access error did not occur", accessError);//$NON-NLS-1$
@@ -296,11 +310,11 @@ public class IOMdlTestGenerics extends TestCase {
 
         String resultFile = m_workspace_path;
         if (generateResults) {
-        	resultFile += "expected_results";
+        	resultFile += TestingUtilities.getExpectedResultsPath();
         } else {
-        	resultFile += "actual_results";
+        	resultFile += "actual_results/";
         }
-        resultFile += "/odmsGenerics";
+        resultFile += "odmsGenerics";
         if (BaseTest.testGlobals) {
             resultFile += "Globals." + Ooaofooa.MODELS_EXT;        	
         } else {
@@ -311,11 +325,11 @@ public class IOMdlTestGenerics extends TestCase {
 		if (!generateResults) {
 			if(BaseTest.testGlobals) {
 			    TestingUtilities.fileContentsCompare(
-				        m_workspace_path + "expected_results/odmsGenericsGlobals." + Ooaofooa.MODELS_EXT,
+				        m_workspace_path + TestingUtilities.getExpectedResultsPath() +"odmsGenericsGlobals." + Ooaofooa.MODELS_EXT,
 				        m_workspace_path + "actual_results/odmsGenericsGlobals." + Ooaofooa.MODELS_EXT );				
 			} else {
 			    TestingUtilities.fileContentsCompare(
-			        m_workspace_path + "expected_results/odmsGenerics." + Ooaofooa.MODELS_EXT,
+			        m_workspace_path + TestingUtilities.getExpectedResultsPath() +"odmsGenericsGlobals." + Ooaofooa.MODELS_EXT,
 			        m_workspace_path + "actual_results/odmsGenerics." + Ooaofooa.MODELS_EXT );
 			}
 		 }

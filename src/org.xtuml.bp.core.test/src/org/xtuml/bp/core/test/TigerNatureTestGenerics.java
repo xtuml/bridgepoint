@@ -36,8 +36,10 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.OperationCanceledException;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.tools.AbstractTool;
+import org.eclipse.gef.ui.actions.DeleteAction;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.IDocument;
@@ -61,45 +63,14 @@ import org.eclipse.ui.dialogs.WizardNewProjectCreationPage;
 import org.eclipse.ui.navigator.CommonNavigator;
 import org.eclipse.ui.views.properties.PropertySheet;
 import org.eclipse.ui.views.properties.PropertySheetPage;
-
-import org.xtuml.bp.core.Attribute_c;
-import org.xtuml.bp.core.CorePlugin;
-import org.xtuml.bp.core.ModelClass_c;
-import org.xtuml.bp.core.Ooaofooa;
-import org.xtuml.bp.core.Operation_c;
-import org.xtuml.bp.core.Package_c;
-import org.xtuml.bp.core.PackageableElement_c;
-import org.xtuml.bp.core.Subsystem_c;
-import org.xtuml.bp.core.SystemModel_c;
-import org.xtuml.bp.core.XtUMLNature;
-import org.xtuml.bp.core.common.ClassQueryInterface_c;
-import org.xtuml.bp.core.common.NonRootModelElement;
-import org.xtuml.bp.core.common.PersistableModelComponent;
-import org.xtuml.bp.core.common.PersistenceManager;
-import org.xtuml.bp.core.common.Transaction;
-import org.xtuml.bp.core.common.TransactionException;
-import org.xtuml.bp.core.common.TransactionManager;
-import org.xtuml.bp.core.ui.AddToIdentifierOnO_ATTRAction;
-import org.xtuml.bp.core.ui.DeleteAction;
-import org.xtuml.bp.core.ui.NewDomainWizard;
-import org.xtuml.bp.core.ui.NewSystemWizard;
-import org.xtuml.bp.core.ui.RenameAction;
-import org.xtuml.bp.core.ui.Selection;
-import org.xtuml.bp.core.ui.WizardNewDomainCreationPage;
+import org.xtuml.bp.io.core.CorePlugin;
 import org.xtuml.bp.test.TestUtil;
 import org.xtuml.bp.test.common.BaseTest;
-import org.xtuml.bp.test.common.CVSUtils;
 import org.xtuml.bp.test.common.CanvasTestUtils;
 import org.xtuml.bp.test.common.ExplorerUtil;
 import org.xtuml.bp.test.common.UITestingUtilities;
-import org.xtuml.bp.ui.canvas.Connector_c;
-import org.xtuml.bp.ui.canvas.GraphicalElement_c;
-import org.xtuml.bp.ui.canvas.Ooaofgraphics;
-import org.xtuml.bp.ui.canvas.Shape_c;
 import org.xtuml.bp.ui.canvas.test.CanvasTest;
 import org.xtuml.bp.ui.graphics.editor.GraphicalEditor;
-import org.xtuml.bp.ui.properties.ClassO_OBJPropertySource;
-import org.xtuml.bp.ui.properties.ModelPropertySourceProvider;
 import org.xtuml.bp.ui.text.activity.ActivityEditor;
 import org.xtuml.bp.ui.text.description.DescriptionEditor;
 import org.xtuml.bp.ui.text.description.ShowDescriptionAction;
@@ -509,12 +480,22 @@ public class TigerNatureTestGenerics extends CanvasTest {
 		gc0.setSelection(false);
 		gc0.notifyListeners(SWT.Selection, null);
 		Text gc2 = (Text) gc[2];
-		gc2.setText("c:\\tiger_test");
+		if (Platform.getOS().contains("win")) {
+			gc2.setText("c:\\tiger_test");
+		}
+		else {
+			gc2.setText("~/tiger_test");
+		}
 
 		nsw.performFinish();
 		dialog.close();
 		// wait on any previous events to process
 		BaseTest.dispatchEvents(0);
+		for (int i = 0; i < 100; i++) {
+			while (Display.getCurrent().readAndDispatch()) {
+				i = 0; // Reset outer loop
+			}
+		}
 
 		assertTrue(
 				"Did not find new project, Test Project Non-Defaults, in the explorer view",

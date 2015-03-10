@@ -61,6 +61,7 @@ import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.io.mdl.ImportModel;
 import org.xtuml.bp.test.TestUtil;
 import org.xtuml.bp.test.common.BaseTest;
+import ort.xtuml.bp.test.common.TestingUtilities;
 import org.xtuml.bp.test.common.UITestingUtilities;
 import org.xtuml.bp.ui.canvas.CanvasModelListener;
 import org.xtuml.bp.ui.canvas.CanvasPlugin;
@@ -110,7 +111,11 @@ public abstract class CanvasTest extends BaseTest {
 		CanvasTestResult result = drawDiagram(editor, zoomGroup, zoomSelected, isHardCopy, new Rectangle(0, 0, 1231, 861));
 
 		// load the expected results for the test being performed
-		String path = m_workspace_path + "expected_results/" + getResultName() + "/";
+		String path = m_workspace_path + TestingUtilities.getExpectedResultsPath() + getResultName();
+		if (testGlobals == true) {
+          path = path + "Globals";
+		}
+		path = path + "/";
 		String filename = editor.getModel().getOoa_idLongBased() + "-" + editor.getModel().getModel_type();
 		
 		String expectedResults = null;
@@ -165,7 +170,7 @@ public abstract class CanvasTest extends BaseTest {
 		CanvasTestResult result = drawDiagram(editor, zoomGroup, zoomSelected, isHardCopy, new Rectangle(0, 0, 1231, 861));
 
 		// load the expected results for the test being performed
-		String path = m_workspace_path + "expected_results/" + getResultName() + "Generics/";
+		String path = m_workspace_path + TestingUtilities.getExpectedResultsPath() + getResultName() + "Generics/";
 		String filename = editor.getModel().getOoa_idLongBased() + "-" + editor.getModel().getModel_type();
 		
 		String expectedResults = null;
@@ -301,10 +306,10 @@ public abstract class CanvasTest extends BaseTest {
     }
   }
   protected void writeResults(String[] results, Model_c uut, ImageData imgData) throws Exception {
-	String folder = m_workspace_path + "expected_results/" + getResultName() + "/"; //$NON-NLS-1$ //$NON-NLS-2$
+	String folder = m_workspace_path + TestingUtilities.getExpectedResultsPath() + getResultName() + "/"; //$NON-NLS-1$ //$NON-NLS-2$
 	if (testGlobals)
 	{
-		folder = m_workspace_path + "expected_results/" + getResultName() + "Globals/"; //$NON-NLS-1$ //$NON-NLS-2$
+		folder = m_workspace_path + TestingUtilities.getExpectedResultsPath() + getResultName() + "Globals/"; //$NON-NLS-1$ //$NON-NLS-2$
 	}
 	if(!(new File(folder).exists())) {
 		(new File(folder)).mkdirs();
@@ -328,7 +333,7 @@ public abstract class CanvasTest extends BaseTest {
     }
   }
   protected void writeResultsGenerics(String[] results, Model_c uut, ImageData imgData) throws Exception {
-		String folder = m_workspace_path + "expected_results/" + getResultName() + "Generics/"; //$NON-NLS-1$ //$NON-NLS-2$
+		String folder = m_workspace_path + TestingUtilities.getExpectedResultsPath() + getResultName() + "Generics/"; //$NON-NLS-1$ //$NON-NLS-2$
 		if(!(new File(folder).exists())) {
 			(new File(folder)).mkdirs();
 		}
@@ -416,7 +421,7 @@ public abstract class CanvasTest extends BaseTest {
         il.save(folderStr + filename + "_act.jpg", 4); //$NON-NLS-1$//$NON-NLS-2$
         
 //      copy expected results image file to actual folder
-		String path_exp = m_workspace_path + "expected_results/" + getResultName() + "/"; //$NON-NLS-1$ //$NON-NLS-2$
+		String path_exp = m_workspace_path + TestingUtilities.getExpectedResultsPath() + getResultName() + "/"; //$NON-NLS-1$ //$NON-NLS-2$
         if(!isFileExists(path_exp, filename)){
                filename=getFileName(uut.getModel_type());
            }
@@ -460,7 +465,7 @@ public abstract class CanvasTest extends BaseTest {
         il.save(folderStr + filename + "_act.jpg", 4); //$NON-NLS-1$//$NON-NLS-2$
         
 //      copy expected results image file to actual folder
-		String path_exp = m_workspace_path + "expected_results/" + getResultName() + "Generics/"; //$NON-NLS-1$ //$NON-NLS-2$
+		String path_exp = m_workspace_path + TestingUtilities.getExpectedResultsPath() + getResultName() + "Generics/"; //$NON-NLS-1$ //$NON-NLS-2$
         if(!isFileExists(path_exp, filename)){
                filename=getFileName(uut.getModel_type());
            }
