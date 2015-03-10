@@ -21,8 +21,11 @@
 #     The resulting plugins are found under ${BUILD_ROOT}
 # 
 
-export BUILD_MOUNT="/build"
-export ECLIPSE_HOME="${BUILD_MOUNT}/BridgePoint4.2.0/eclipse"
+# User defined variables:
+export BUILD_MOUNT="${HOME}/build"
+export ECLIPSE_HOME="${HOME}/MentorGraphics/BridgePoint/eclipse"
+
+# Do not modify these variables:
 export BUILD_ROOT="${BUILD_MOUNT}/work"
 export GIT_REPO_ROOT="${BUILD_MOUNT}/git/xtuml"
 export GIT_BP="${GIT_REPO_ROOT}/bridgepoint"
@@ -56,7 +59,7 @@ export BUILD_ADMIN="build@onefact.net"
 export MAIL_CMD="/usr/sbin/ssmtp"
 export MAIL_TEMP="mailtemp"
 export RELEASE_PKG="org.xtuml.bp.bld.pkg-feature"
-export SHELLUSER="ubuntu"
+export SHELLUSER="${USER}"
 mkdir -p "${LOG_DIR}"
 
 export TIMESTAMP=`date +%Y%m%d%H%M`
@@ -64,7 +67,7 @@ export TIMESTAMP=`date +%Y%m%d%H%M`
 #
 # This is the location, on the build server, where this build is found
 #
-export RELEASE_BASE="/build/releases"
+export RELEASE_BASE="${BUILD_MOUNT}/releases"
 export BUILD_TARGET="${BRANCH}-${TIMESTAMP}"
 export RESULT_FOLDER="${RELEASE_BASE}/${BUILD_TARGET}"
 mkdir -p "${RESULT_FOLDER}"
@@ -106,20 +109,19 @@ echo -e "PT_HOME=${PT_HOME}
 echo -e "PT_HOME_DRIVE=${PT_HOME_DRIVE}
 echo -e "XTUMLGEN_HOME=${XTUMLGEN_HOME}
 
-cd "${BUILD_ROOT}"
-pushd .
-
 # We will perform all work in the build's branch folder. 
 cd  "${BUILD_DIR}"
 
-dos2unix -q "${BUILD_ROOT}/init_git_repositories.sh"
+# Do the dos2unix conversion using translate.
+tr -d '\r' < "${BUILD_ROOT}/init_git_repositories.sh" > "${BUILD_ROOT}/init_git_repositories.tmp"
+mv "${BUILD_ROOT}/init_git_repositories.tmp" "${BUILD_ROOT}/init_git_repositories.sh"
 bash "${BUILD_ROOT}/init_git_repositories.sh" >> ${BUILD_LOG}
 
 echo -e "Setting permissions on tool directories..."
 chmod -R a+rw ${BUILD_TOOLS} 
 
-cp -f ${GIT_REPO_ROOT}/bridgepoint/utilities/build/configure_build_process.sh .
-dos2unix -q configure_build_process.sh
+# Can do the copy and dos2unix translation in one step.
+tr -d '\r' < ${GIT_REPO_ROOT}/bridgepoint/utilities/build/configure_build_process.sh > configure_build_process.sh
 
 bash configure_build_process.sh >> ${BUILD_LOG}
 
@@ -128,10 +130,8 @@ bash create_bp_release.sh  >> ${BUILD_LOG}
 distribute_and_notify $? >> ${BUILD_LOG}
 
 # Clean up build files
-popd
-mv configure_build_process.sh ${BRANCH}
-
 cd ${BUILD_ROOT}
+mv configure_build_process.sh ${BRANCH}
 
 echo -e "End of run_build.sh"
 
