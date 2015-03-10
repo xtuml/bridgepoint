@@ -14,8 +14,8 @@ Present:  Travis,Keith, Bob
 <pre>
 
 -- Num Type  Who  Section  Comment
-_- 01  min   bob  6.1      configurations -> configures
-_- 02  min   skb  6.1      Perhaps leave the code but comment (with a comment why) it out so 
+x- 01  min   bob  6.1      configurations -> configures
+x- 02  min   skb  6.1      Perhaps leave the code but comment (with a comment why) it out so 
                            people could still use parallel if they want
 
 </pre>
