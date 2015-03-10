@@ -15,8 +15,8 @@ variables as well as setting up a "BridgePointDev" folder with special tooling/f
 for xtumlmc_build and xtumlmc_gen_erate.  
 
 This should no longer be needed because the model compilers contain the tooling needed
-to launch xtumlmc_build and generator. This note describes work to update the plug-in ant 
-build files (generate.xml's) to use xtumlmc_build (and it's frontend to xtumlmc_gen_erate) 
+to launch xtumlmc_build and generator. This note describes work to update the plug-in ANT 
+build files (generate.xml's) to use xtumlmc_build (and its frontend to xtumlmc_gen_erate) 
 out of the C binary model compiler ```mc3020/bin``` folder.
 
 2. Document References
@@ -79,7 +79,7 @@ before build and to remove references to the PT_HOME* and XTUML*_HOME environmen
 
 5.6  Updated xtumlmc_build script   
 5.6.1  Updated the determination of the platform and setting of ```$osplatform``` variable.  On the author's Windows
-VM the ```uname()``` was return "MINGW64_NT" which the code block at line 76 was not recognizing as Windows.  Fixed.  
+VM the ```uname()``` was returning "MINGW64_NT" which the code block at line 76 was not recognizing as Windows.  Fixed.  
 5.6.2  When determining if we're building the bp.core plug-in, handle both cases of name: ```com.mentor.nucleus.bp.core``` or ```org.xtuml.bp.core```    
 5.6.3  This requires a new xtumlmc_build.exe for Windows.  
 
@@ -87,7 +87,7 @@ VM the ```uname()``` was return "MINGW64_NT" which the code block at line 76 was
 --------------------------
 6.1  The use of parallel tasks during ```bp.core``` plug-in build has been problematic.
 Different machines, especially VMs have struggled with running tasks in parallel.  Additionally, 
-the parallelization requires a special script ```generate-with-file_io.pl``` that configurations 
+the parallelization requires a special script ```generate-with-file_io.pl``` that configures 
 separate build dirs for the simultaneously running tasks.  Because of the problems and the desire
 to move away from special files in the build, parallelization in ```bp.core``` build is removed.   
 
