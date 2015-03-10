@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("dca77339-6b78-446e-93bc-99d33a2b9a61",
@@ -6,13 +6,13 @@ INSERT INTO O_OBJ
 	627,
 	'ACT_SGN',
 	'',
-	"b1a6258a-4548-4a81-bc3c-a6bab0f22f55");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("a8cb64cd-c2af-4ce9-99e7-a47156090f21",
 	"dca77339-6b78-446e-93bc-99d33a2b9a61",
 	'dispose',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// Signal Invocation.dispose()
 select one reqSig related by self->SPR_RS[R660];
@@ -37,19 +37,12 @@ delete object instance self;',
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO S_DT_PROXY
-	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'void',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("c555b8e1-c2a0-4f2d-8bda-c576912a34df",
 	"dca77339-6b78-446e-93bc-99d33a2b9a61",
 	'execute',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'//Invocation:Signal Invocation.execute()
 // Execute the Signal
@@ -387,24 +380,17 @@ INSERT INTO O_TPARM
 	VALUES ("1eb1849a-8da4-4037-a884-768d89e19b37",
 	"c555b8e1-c2a0-4f2d-8bda-c576912a34df",
 	'stack_frame_id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'unique_id',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("21343775-ea5e-4a3c-b333-1c4bae9554ac",
 	"dca77339-6b78-446e-93bc-99d33a2b9a61",
 	'setupParameterValues',
 	'',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'// Invocation:Signal Invocation.setupParameterValues
 select one body related by self ->ACT_SMT[R603]->ACT_BLK[R602]->ACT_ACT[R601];  
@@ -646,7 +632,7 @@ INSERT INTO O_TPARM
 	VALUES ("ee078ca7-f16e-4b0c-bcf9-5698c5b8060a",
 	"21343775-ea5e-4a3c-b333-1c4bae9554ac",
 	'stack_frame_id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"4c6d58cc-fb2e-4d83-801b-8d06b922a92e",
@@ -655,7 +641,7 @@ INSERT INTO O_TPARM
 	VALUES ("95013b6a-7ef2-494c-9dd9-37f4c391a6c7",
 	"21343775-ea5e-4a3c-b333-1c4bae9554ac",
 	'ee_id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -664,7 +650,7 @@ INSERT INTO O_TPARM
 	VALUES ("4c6d58cc-fb2e-4d83-801b-8d06b922a92e",
 	"21343775-ea5e-4a3c-b333-1c4bae9554ac",
 	'event_inst_id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"95013b6a-7ef2-494c-9dd9-37f4c391a6c7",
@@ -673,23 +659,16 @@ INSERT INTO O_TPARM
 	VALUES ("f52901d7-c077-46bd-a77d-e67a5df00f52",
 	"21343775-ea5e-4a3c-b333-1c4bae9554ac",
 	'executeRemotely',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	0,
 	'',
 	"ee078ca7-f16e-4b0c-bcf9-5698c5b8060a",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("8e519c45-7dcf-400b-9d4e-954869dbb7e8",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'boolean',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TPARM
 	VALUES ("4a6c55eb-3d7e-4ead-aae7-8a53a9812e9c",
 	"21343775-ea5e-4a3c-b333-1c4bae9554ac",
 	'channel_id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"f52901d7-c077-46bd-a77d-e67a5df00f52",
@@ -742,16 +721,9 @@ INSERT INTO O_ATTR
 	'',
 	'Statement_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("4a43ef48-144f-436a-8d6a-ce5ea006cc0d",
 	"dca77339-6b78-446e-93bc-99d33a2b9a61");
@@ -767,16 +739,9 @@ INSERT INTO O_ATTR
 	'',
 	'sigNameLineNumber',
 	0,
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'integer',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("c29edc31-1628-43ea-b514-2c6bd62a49b1",
 	"dca77339-6b78-446e-93bc-99d33a2b9a61");
@@ -792,7 +757,7 @@ INSERT INTO O_ATTR
 	'',
 	'sigNameColumn',
 	0,
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -810,7 +775,7 @@ INSERT INTO O_ATTR
 	'',
 	'ownerNameLineNumber',
 	0,
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -828,7 +793,7 @@ INSERT INTO O_ATTR
 	'',
 	'ownerNameColumn',
 	0,
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
 INSERT INTO O_REF
@@ -846,7 +811,7 @@ INSERT INTO O_REF
 	'',
 	'Provided Signal',
 	'Id',
-	'R663');
+	'R663.''is invocation of''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("dca77339-6b78-446e-93bc-99d33a2b9a61",
 	"163fc901-276a-44ce-88cf-5138bca3bf0e",
@@ -879,7 +844,7 @@ INSERT INTO O_ATTR
 	'ProvidedSig_',
 	'Id',
 	1,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -897,7 +862,7 @@ INSERT INTO O_REF
 	'',
 	'Required Signal',
 	'Id',
-	'R660');
+	'R660.''is invocation of''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("dca77339-6b78-446e-93bc-99d33a2b9a61",
 	"c6e3c5c7-cb46-440d-b805-420d7be05a54",
@@ -930,7 +895,7 @@ INSERT INTO O_ATTR
 	'RequiredSig_',
 	'Id',
 	1,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -948,7 +913,7 @@ INSERT INTO O_REF
 	'',
 	'Value',
 	'Value_ID',
-	'R630');
+	'R630.''has target''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("dca77339-6b78-446e-93bc-99d33a2b9a61",
 	"2eed9fe7-12aa-4e54-b9ea-82fc6ff8a745",
@@ -981,7 +946,7 @@ INSERT INTO O_ATTR
 	'',
 	'Value_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_ID
@@ -998,8 +963,16 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"dca77339-6b78-446e-93bc-99d33a2b9a61");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("dca77339-6b78-446e-93bc-99d33a2b9a61",
+	1,
+	"b1a6258a-4548-4a81-bc3c-a6bab0f22f55",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("b1a6258a-4548-4a81-bc3c-a6bab0f22f55",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Invocation',
 	'This subsystem captures the concepts of call and return. It covers
 calls to operations, bridges and functions and includes the return
@@ -1009,8 +982,5 @@ Persistent:false
 // This is used by schema_gen to ignore this subsystem (for publication)
 TRANSLATE_FOR_EXTERNAL_USE:FALSE
 ',
-	'ACT',
 	600,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-00000060000c",
 	'../Invocation.xtuml');

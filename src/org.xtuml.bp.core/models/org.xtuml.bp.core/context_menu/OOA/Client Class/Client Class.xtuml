@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("5c34cfbe-d555-4250-abbb-f45a42ca5d67",
@@ -6,7 +6,7 @@ INSERT INTO O_OBJ
 	101,
 	'O_OBJ',
 	'',
-	"833c07d3-6635-4c6b-a0ba-8bde6bd0f680");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_NBATTR
 	VALUES ("88416d49-92df-441a-b112-7ec25944e6ce",
 	"5c34cfbe-d555-4250-abbb-f45a42ca5d67");
@@ -22,16 +22,9 @@ INSERT INTO O_ATTR
 	'',
 	'Key_Lett',
 	0,
-	"ff27026a-9d91-4d3d-9c92-888e9483a31c",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("ff27026a-9d91-4d3d-9c92-888e9483a31c",
-	"1078c098-0f8e-425b-9cfb-5e5d9fbff920",
-	'string',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_ID
 	VALUES (0,
 	"5c34cfbe-d555-4250-abbb-f45a42ca5d67");
@@ -46,12 +39,18 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"5c34cfbe-d555-4250-abbb-f45a42ca5d67");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("5c34cfbe-d555-4250-abbb-f45a42ca5d67",
+	1,
+	"833c07d3-6635-4c6b-a0ba-8bde6bd0f680",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("833c07d3-6635-4c6b-a0ba-8bde6bd0f680",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'OOA',
-	'TRANSLATE: FALSE',
-	'',
+	'TRANSLATE: FALSE
+IN_SCHEMA: FALSE',
 	100,
-	"1078c098-0f8e-425b-9cfb-5e5d9fbff920",
-	"00000000-0000-0000-0000-000000180003",
 	'../OOA.xtuml');

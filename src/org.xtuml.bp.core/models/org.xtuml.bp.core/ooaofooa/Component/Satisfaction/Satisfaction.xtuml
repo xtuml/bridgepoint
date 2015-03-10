@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("31d55c78-4c8e-4706-afeb-da88c819c621",
@@ -8,31 +8,24 @@ INSERT INTO O_OBJ
 	'A satisfaction represents the fact that one provided interface satisfies one or
 more requirements.  This link class is setup when a provided interface is
 connected to one or more required interfaces.',
-	"01aecea1-07ec-46e6-a719-cece731803c9");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("ba26d9f2-4de5-4127-98e2-4cb1fcf621b8",
 	"31d55c78-4c8e-4706-afeb-da88c819c621",
 	'satisfiesWithImportedRef',
 	'',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'return self.satisfiesWithImportedPro() or self.satisfiesWithImportedReq();',
 	1,
 	'',
 	"6bd34891-524e-4a57-ae9d-b54377968396");
-INSERT INTO S_DT_PROXY
-	VALUES ("8e519c45-7dcf-400b-9d4e-954869dbb7e8",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'boolean',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("90ce5fb1-035e-4379-a2f7-768002f2dd24",
 	"31d55c78-4c8e-4706-afeb-da88c819c621",
 	'dispose',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
 // Satisfaction.dispose()
@@ -86,19 +79,12 @@ delete object instance self;',
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO S_DT_PROXY
-	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'void',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("547e6b1b-e3e4-4bbb-8557-99c7fa5fbf78",
 	"31d55c78-4c8e-4706-afeb-da88c819c621",
 	'satisfiesWithImportedReq',
 	'',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'select one importedReq related by self->CL_IR[R4706];
 if(not_empty importedReq)
@@ -113,7 +99,7 @@ INSERT INTO O_TFR
 	"31d55c78-4c8e-4706-afeb-da88c819c621",
 	'satisfiesWithImportedPro',
 	'',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'select one importedPro related by self->CL_IPINS[R4705];
 if(not_empty importedPro)
@@ -136,7 +122,7 @@ INSERT INTO O_TFR
 	"547e6b1b-e3e4-4bbb-8557-99c7fa5fbf78");
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
 	'instance',
 	'',
 	'',
@@ -146,19 +132,12 @@ INSERT INTO O_TFR
 	"31d55c78-4c8e-4706-afeb-da88c819c621",
 	'get_name',
 	'',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'return self.Label;',
 	1,
 	'',
 	"af540aaa-52aa-4d95-9d19-1deb93808adb");
-INSERT INTO S_DT_PROXY
-	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'string',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("4285213c-8da5-4c38-94fe-a6688d3a364f",
 	"31d55c78-4c8e-4706-afeb-da88c819c621");
@@ -175,7 +154,7 @@ Description: A textual description of this satisfaction.',
 	'',
 	'Descrip',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_REF
@@ -193,7 +172,7 @@ INSERT INTO O_REF
 	'',
 	'Requirement',
 	'Requirement_Id',
-	'R4002');
+	'R4002.''defines required satisfication''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("31d55c78-4c8e-4706-afeb-da88c819c621",
 	"cd49017d-0826-453a-a772-f28b879e2ac7",
@@ -226,16 +205,9 @@ INSERT INTO O_ATTR
 	'Requirement_',
 	'Requirement_Id',
 	1,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("31d55c78-4c8e-4706-afeb-da88c819c621",
 	"8969f73f-606a-4e4e-a698-aafd54115472",
@@ -251,7 +223,7 @@ INSERT INTO O_REF
 	'',
 	'Provision',
 	'Provision_Id',
-	'R4002');
+	'R4002.''satisfies''');
 INSERT INTO O_RTIDA_PROXY
 	VALUES ("3159b65f-6b8d-4aa9-b0bd-8b8b37f4c9be",
 	"8969f73f-606a-4e4e-a698-aafd54115472",
@@ -275,7 +247,7 @@ INSERT INTO O_ATTR
 	'Provision_',
 	'Provision_Id',
 	1,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -322,7 +294,7 @@ INSERT INTO O_ATTR
 	'',
 	'Id',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_DBATTR
@@ -353,7 +325,7 @@ User_Visible:false',
 	'',
 	'Label',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_ID
@@ -380,16 +352,21 @@ INSERT INTO O_OIDA
 INSERT INTO O_ID
 	VALUES (2,
 	"31d55c78-4c8e-4706-afeb-da88c819c621");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("31d55c78-4c8e-4706-afeb-da88c819c621",
+	1,
+	"01aecea1-07ec-46e6-a719-cece731803c9",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("01aecea1-07ec-46e6-a719-cece731803c9",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Component',
 	'// This is used by schema_gen to ignore this subsystem (for publication)
 TRANSLATE_FOR_EXTERNAL_USE:FALSE
 
 The component subsystem contains the classes necessary to capture the data
 required for modeling components.',
-	'C',
 	4000,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000000000",
 	'../Component.xtuml');

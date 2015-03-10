@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("9f6676b3-4ef2-488b-a15e-a237d0bdf8a0",
@@ -6,13 +6,13 @@ INSERT INTO O_OBJ
 	9801,
 	'SR_M',
 	'',
-	"9eb20661-6f4c-4bd7-a6ee-f75c75a80ce9");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("6159b970-a431-43bc-a7a4-50e2d291572a",
 	"9f6676b3-4ef2-488b-a15e-a237d0bdf8a0",
 	'dispose',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select one contentMatch related by self->SR_CM[R9801];
 if(not_empty contentMatch)
@@ -32,13 +32,6 @@ delete object instance self;',
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO S_DT_PROXY
-	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'void',
-	'',
-	'',
-	'../../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("27364f9d-579f-4bc3-9e4b-59441eb8b81d",
 	"9f6676b3-4ef2-488b-a15e-a237d0bdf8a0",
@@ -52,7 +45,7 @@ INSERT INTO O_TFR
 	"6159b970-a431-43bc-a7a4-50e2d291572a");
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
 	'instance',
 	'',
 	'',
@@ -72,16 +65,9 @@ INSERT INTO O_ATTR
 	'',
 	'Id',
 	0,
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'unique_id',
-	'',
-	'',
-	'../../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("9f6676b3-4ef2-488b-a15e-a237d0bdf8a0",
 	"45ae8ba5-81b9-4b93-83d1-004649f58d0b",
@@ -97,7 +83,7 @@ INSERT INTO O_REF
 	'',
 	'Search Result',
 	'Id',
-	'R9800');
+	'R9800.''provides for''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("9f6676b3-4ef2-488b-a15e-a237d0bdf8a0",
 	"f4d95d6b-90ff-4c47-b65e-af939d4f2ac9",
@@ -130,16 +116,9 @@ INSERT INTO O_ATTR
 	'Result_',
 	'Id',
 	1,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_ID
 	VALUES (0,
 	"9f6676b3-4ef2-488b-a15e-a237d0bdf8a0");
@@ -154,12 +133,17 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"9f6676b3-4ef2-488b-a15e-a237d0bdf8a0");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("9f6676b3-4ef2-488b-a15e-a237d0bdf8a0",
+	1,
+	"9eb20661-6f4c-4bd7-a6ee-f75c75a80ce9",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("9eb20661-6f4c-4bd7-a6ee-f75c75a80ce9",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Result',
 	'',
-	'SR',
 	9800,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000000000",
 	'../Result.xtuml');

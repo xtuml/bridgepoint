@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("6a33f00a-6f18-40e7-b657-d4765d647ff7",
@@ -6,7 +6,7 @@ INSERT INTO O_OBJ
 	521,
 	'SM_ASM',
 	'An assigner state machine is a state machine for a class.  This is in contrast to an instance state machine (SM_ISM) which is a state machine for an instance.',
-	"efdb28f6-a485-4b25-9cbf-3e7227398b6a");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("573abb8a-75b0-40f9-b9ba-c747b7265310",
 	"6a33f00a-6f18-40e7-b657-d4765d647ff7",
@@ -15,7 +15,7 @@ INSERT INTO O_TFR
 ----------------------------------------------------------------------------------------------------------
 Bridge:GD, TEXT
 ',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'select one obj related by self->O_OBJ[R519];
 if ( not_empty obj )
@@ -27,38 +27,24 @@ end if;
 	1,
 	'',
 	"6eff7ef7-eac2-40d2-98aa-9d61bb443854");
-INSERT INTO S_DT_PROXY
-	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'string',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("a445a181-bbb8-4972-9dfc-11fc58278ebf",
 	"6a33f00a-6f18-40e7-b657-d4765d647ff7",
 	'newState',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select one sm related by self->SM_SM[R517];
 sm.newState();',
 	1,
 	'',
 	"e6e433f8-3ba0-4bbf-bb99-eb76375dbb71");
-INSERT INTO S_DT_PROXY
-	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'void',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("e6e433f8-3ba0-4bbf-bb99-eb76375dbb71",
 	"6a33f00a-6f18-40e7-b657-d4765d647ff7",
 	'newEvent',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select one sm related by self->SM_SM[R517];
 sm.newEvent();
@@ -72,7 +58,7 @@ INSERT INTO O_TFR
 	"6a33f00a-6f18-40e7-b657-d4765d647ff7",
 	'newTransition',
 	'',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'select one sm related by self->SM_SM[R517];
 return sm.newTransition(from:param.from, to:param.to);',
@@ -83,23 +69,16 @@ INSERT INTO O_TPARM
 	VALUES ("aaec124a-0afa-4055-9443-17cb1e37f3c3",
 	"42509303-7de3-4c20-9e6d-22497f0478d8",
 	'from',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'unique_id',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TPARM
 	VALUES ("d1723388-0827-41a2-b477-65218d7ab6a7",
 	"42509303-7de3-4c20-9e6d-22497f0478d8",
 	'to',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"c103902a-4344-4724-bdc5-c57022194087",
@@ -108,23 +87,16 @@ INSERT INTO O_TPARM
 	VALUES ("c103902a-4344-4724-bdc5-c57022194087",
 	"42509303-7de3-4c20-9e6d-22497f0478d8",
 	'fromTypeIsImportedClass',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	0,
 	'',
 	"aaec124a-0afa-4055-9443-17cb1e37f3c3",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("8e519c45-7dcf-400b-9d4e-954869dbb7e8",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'boolean',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TPARM
 	VALUES ("a53ecc18-9a1a-4eb3-a633-d7e66f73a00f",
 	"42509303-7de3-4c20-9e6d-22497f0478d8",
 	'toTypeIsImportedClass',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	0,
 	'',
 	"d1723388-0827-41a2-b477-65218d7ab6a7",
@@ -134,7 +106,7 @@ INSERT INTO O_TFR
 	"6a33f00a-6f18-40e7-b657-d4765d647ff7",
 	'newCreationTransition',
 	'',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'select one sm related by self->SM_SM[R517];
 return sm.newCreationTransition(from:param.from, to:param.to);',
@@ -145,7 +117,7 @@ INSERT INTO O_TPARM
 	VALUES ("f4f03f49-b803-490a-909e-b3d8337b9c23",
 	"757a41c8-282d-46b2-9854-e608e7d67e5d",
 	'from',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -154,7 +126,7 @@ INSERT INTO O_TPARM
 	VALUES ("1e531b7b-95a5-4305-84c3-a58628fb0838",
 	"757a41c8-282d-46b2-9854-e608e7d67e5d",
 	'to',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"ba971195-f39a-40f1-868e-7ca889451edb",
@@ -163,7 +135,7 @@ INSERT INTO O_TPARM
 	VALUES ("ba971195-f39a-40f1-868e-7ca889451edb",
 	"757a41c8-282d-46b2-9854-e608e7d67e5d",
 	'fromTypeIsImportedClass',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	0,
 	'',
 	"f4f03f49-b803-490a-909e-b3d8337b9c23",
@@ -172,7 +144,7 @@ INSERT INTO O_TPARM
 	VALUES ("a1a1a692-d402-408b-8825-e6e0fd03e57b",
 	"757a41c8-282d-46b2-9854-e608e7d67e5d",
 	'toTypeIsImportedClass',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	0,
 	'',
 	"1e531b7b-95a5-4305-84c3-a58628fb0838",
@@ -184,7 +156,7 @@ INSERT INTO O_TFR
 	'The ooa_id of a State Machine is it''''s SM_ID.
 -----------------------------------------------------------------------------------
 Bridge:GD',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'return self.SM_ID;',
 	1,
@@ -195,7 +167,7 @@ INSERT INTO O_TFR
 	"6a33f00a-6f18-40e7-b657-d4765d647ff7",
 	'dispose',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select one sm related by self->SM_SM[R517];
 sm.dispose();',
@@ -216,7 +188,7 @@ Translate:native',
 	"00000000-0000-0000-0000-000000000000");
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
 	'instance',
 	'',
 	'',
@@ -226,7 +198,7 @@ INSERT INTO O_TFR
 	"6a33f00a-6f18-40e7-b657-d4765d647ff7",
 	'pasteTransition',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select one sm related by self->SM_SM[R517];
 sm.pasteTransition(id:param.id);',
@@ -237,7 +209,7 @@ INSERT INTO O_TPARM
 	VALUES ("b877d67d-d871-4132-90ac-e4ed67edcc5b",
 	"bd4bf520-ab5d-408c-b476-2782ab253652",
 	'id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -247,7 +219,7 @@ INSERT INTO O_TFR
 	"6a33f00a-6f18-40e7-b657-d4765d647ff7",
 	'pasteStateMachineState',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select one sm related by self->SM_SM[R517];
 sm.pasteStateMachineState(id:param.id);',
@@ -258,7 +230,7 @@ INSERT INTO O_TPARM
 	VALUES ("45a0f5e7-36b6-45a5-bb4a-dccbb9952747",
 	"efe1cca5-ef86-47b8-b4eb-e2914a74b3a6",
 	'id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -268,26 +240,19 @@ INSERT INTO O_TFR
 	"6a33f00a-6f18-40e7-b657-d4765d647ff7",
 	'getStateCount',
 	'',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	1,
 	'select many states related by self->SM_SM[R517]->SM_STATE[R501];
 return cardinality states;',
 	1,
 	'',
 	"bd4bf520-ab5d-408c-b476-2782ab253652");
-INSERT INTO S_DT_PROXY
-	VALUES ("79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'integer',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("35b15c5d-eb63-46fd-b5d3-e1c92f393fd2",
 	"6a33f00a-6f18-40e7-b657-d4765d647ff7",
 	'getStateId',
 	'',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'id = GD::NULL_UNIQUE_ID();
 select many states related by self->SM_SM[R517]->SM_STATE[R501];
@@ -309,7 +274,7 @@ INSERT INTO O_TPARM
 	VALUES ("e7d5d11b-ece7-4559-becf-a153d69dff7f",
 	"35b15c5d-eb63-46fd-b5d3-e1c92f393fd2",
 	'index',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -319,7 +284,7 @@ INSERT INTO O_TFR
 	"6a33f00a-6f18-40e7-b657-d4765d647ff7",
 	'pasteStateMachineEvent',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select one sm related by self->SM_SM[R517];
 sm.pasteStateMachineEvent(id:param.id);',
@@ -330,7 +295,7 @@ INSERT INTO O_TPARM
 	VALUES ("07899ac2-bcbd-4e05-b4ff-a903e7454c0f",
 	"1f2e0a19-6c4d-4208-890a-d21d361bec54",
 	'id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -383,16 +348,9 @@ INSERT INTO O_ATTR
 	'',
 	'SM_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("6a33f00a-6f18-40e7-b657-d4765d647ff7",
 	"b7630071-9e2a-4183-9986-779dca14c275",
@@ -441,7 +399,7 @@ INSERT INTO O_ATTR
 	'',
 	'Obj_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_ID
@@ -458,12 +416,17 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"6a33f00a-6f18-40e7-b657-d4765d647ff7");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("6a33f00a-6f18-40e7-b657-d4765d647ff7",
+	1,
+	"efdb28f6-a485-4b25-9cbf-3e7227398b6a",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("efdb28f6-a485-4b25-9cbf-3e7227398b6a",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'State Machine',
 	'Classes (O_OBJ) that have interesting behavior are given lifecycles. These lifecycles are described using state machines (SM_SM). A state machine consists of states, events, transitions and state actions. The state machine exists for each instance of the class for which it has been modeled (SM_ISM). A state machine can also be an assigner state machine (SM_ASM) of which only one can exists for all class instances. The purpose of the assigner state machine is to act as a single point of control through which competing requests are serialized.',
-	'SM',
 	501,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000280005",
 	'../State Machine.xtuml');

@@ -1,213 +1,18 @@
--- BP 7.1 content: Subsystem syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: Package syschar: 3 persistence-version: 7.1.6
 
-INSERT INTO S_SS
+INSERT INTO EP_PKG
 	VALUES ("14c1a6c0-288e-4a86-a138-700394d86dcb",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Wiring',
 	'Persistent:false
 ',
-	'W',
-	0,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO S_SID
-	VALUES ("d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"14c1a6c0-288e-4a86-a138-700394d86dcb");
-INSERT INTO S_DOM_PROXY
-	VALUES ("d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'ooaofooa',
-	'========================================================================
-
-File:          $RCSfile$
-Version:   $Revision$
-Modified:  $Date$
-
-(c) Copyright 2004-2014 by Mentor Graphics Corp. All rights reserved.
-
-========================================================================
-Licensed under the Apache License, Version 2.0 (the "License"); you may not 
-use this file except in compliance with the License.  You may obtain a copy 
-of the License at
-
-      http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software 
-distributed under the License is distributed on an "AS IS" BASIS, WITHOUT 
-WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the 
-License for the specific language governing permissions and limitations under
-the License.
-========================================================================
-
-This is the application domain for the Tiger project.
-
-The processing in this model describes the activities
-for model capture.
-
-
-
-',
-	1,
-	"00000000-0000-0000-0000-000000000001",
-	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
-	'../ooaofooa.xtuml');
-INSERT INTO O_IOBJ
-	VALUES ("f8125255-7543-4233-b968-e5bf83e54a02",
-	"47a1eb94-2620-4ecd-85d3-29f76391509f",
-	0,
-	"14c1a6c0-288e-4a86-a138-700394d86dcb",
-	'Bridge',
-	'S_BRG');
-INSERT INTO O_OBJ_PROXY
-	VALUES ("47a1eb94-2620-4ecd-85d3-29f76391509f",
-	'Bridge',
-	12,
-	'S_BRG',
-	'A bridge (S_BRG) is a method associated with an external entity (S_EE).  Bridges can be synchronously called from action specifications.  Each bridge as a return type and zero or more parameters (S_BPARM).',
-	"703df30a-ee7e-44ec-a7cf-22d2171bb270",
-	'../Domain/Bridge/Bridge.xtuml');
-INSERT INTO O_IOBJ
-	VALUES ("57d6a7c5-1a76-4927-aaeb-76e947775d64",
-	"bc9a6c16-8809-4681-92ab-421898fa108a",
-	0,
-	"14c1a6c0-288e-4a86-a138-700394d86dcb",
-	'Function',
-	'S_SYNC');
-INSERT INTO O_OBJ_PROXY
-	VALUES ("bc9a6c16-8809-4681-92ab-421898fa108a",
-	'Function',
-	16,
-	'S_SYNC',
-	'A function (S_SYNC) is a method associated with the domain (S_DOM).  It can be thought of as a global function within the domain.  Functions can be synchronously called from action specifications or used to provide a definition for bridge method  in another domain.',
-	"703df30a-ee7e-44ec-a7cf-22d2171bb270",
-	'../Domain/Function/Function.xtuml');
-INSERT INTO R_SIMP
-	VALUES ("b85f7c81-31b1-4cbe-935a-1d3a73e6710a");
-INSERT INTO R_REL
-	VALUES ("b85f7c81-31b1-4cbe-935a-1d3a73e6710a",
-	3201,
-	'',
-	"14c1a6c0-288e-4a86-a138-700394d86dcb");
-INSERT INTO R_PART
-	VALUES ("bc9a6c16-8809-4681-92ab-421898fa108a",
-	"b85f7c81-31b1-4cbe-935a-1d3a73e6710a",
-	"6c7b15f9-7f04-4d23-b1da-1ff7a480ed0a",
-	0,
-	1,
-	'connects bridge execution to');
-INSERT INTO O_RTIDA
-	VALUES ("f637f378-37a8-4ff0-ad72-79c29b0664ea",
-	"bc9a6c16-8809-4681-92ab-421898fa108a",
-	0,
-	"b85f7c81-31b1-4cbe-935a-1d3a73e6710a",
-	"6c7b15f9-7f04-4d23-b1da-1ff7a480ed0a");
-INSERT INTO O_OIDA_PROXY
-	VALUES ("f637f378-37a8-4ff0-ad72-79c29b0664ea",
-	"bc9a6c16-8809-4681-92ab-421898fa108a",
-	0,
-	'Sync_ID',
-	'../Domain/Function/Function.xtuml');
-INSERT INTO R_RTO
-	VALUES ("bc9a6c16-8809-4681-92ab-421898fa108a",
-	"b85f7c81-31b1-4cbe-935a-1d3a73e6710a",
-	"6c7b15f9-7f04-4d23-b1da-1ff7a480ed0a",
 	0);
-INSERT INTO O_ID_PROXY
-	VALUES (0,
-	"bc9a6c16-8809-4681-92ab-421898fa108a",
-	'../Domain/Function/Function.xtuml');
-INSERT INTO R_OIR
-	VALUES ("bc9a6c16-8809-4681-92ab-421898fa108a",
-	"b85f7c81-31b1-4cbe-935a-1d3a73e6710a",
-	"6c7b15f9-7f04-4d23-b1da-1ff7a480ed0a",
-	"57d6a7c5-1a76-4927-aaeb-76e947775d64");
-INSERT INTO R_FORM
-	VALUES ("701cc49f-effd-4ce8-9058-bb47462f46ae",
-	"b85f7c81-31b1-4cbe-935a-1d3a73e6710a",
-	"5ccde223-b312-4d21-8fab-9f7871e888d2",
-	1,
-	1,
-	'provides execution for');
-INSERT INTO R_RGO
-	VALUES ("701cc49f-effd-4ce8-9058-bb47462f46ae",
-	"b85f7c81-31b1-4cbe-935a-1d3a73e6710a",
-	"5ccde223-b312-4d21-8fab-9f7871e888d2");
-INSERT INTO R_OIR
-	VALUES ("701cc49f-effd-4ce8-9058-bb47462f46ae",
-	"b85f7c81-31b1-4cbe-935a-1d3a73e6710a",
-	"5ccde223-b312-4d21-8fab-9f7871e888d2",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("701cc49f-effd-4ce8-9058-bb47462f46ae",
-	'Automatic Wiring',
-	3200,
-	'S_AW',
-	'An instance of Automatic Wiring is created for each bridge within the Domain. 
-Whenever a Bridge is found with no action language in it and has an External
-Entity whose name matches another Domain in the verification and that exposes a 
-Function whose name and arguments match that of the Bridge, the Automatic Wiring
-is then associated with the matching Function.',
-	"14c1a6c0-288e-4a86-a138-700394d86dcb",
-	'./Automatic Wiring/Automatic Wiring.xtuml');
-INSERT INTO R_SIMP
-	VALUES ("640be358-dda1-4b13-bdce-b8ce8a349948");
-INSERT INTO R_REL
-	VALUES ("640be358-dda1-4b13-bdce-b8ce8a349948",
-	3200,
-	'',
-	"14c1a6c0-288e-4a86-a138-700394d86dcb");
-INSERT INTO R_PART
-	VALUES ("47a1eb94-2620-4ecd-85d3-29f76391509f",
-	"640be358-dda1-4b13-bdce-b8ce8a349948",
-	"80f8bf96-f1e2-40da-9df7-8e769f7a79b8",
-	0,
-	0,
-	'for bridge execution');
-INSERT INTO O_RTIDA
-	VALUES ("eab964fb-80ce-4810-ba03-8a871dfc6923",
-	"47a1eb94-2620-4ecd-85d3-29f76391509f",
-	0,
-	"640be358-dda1-4b13-bdce-b8ce8a349948",
-	"80f8bf96-f1e2-40da-9df7-8e769f7a79b8");
-INSERT INTO O_OIDA_PROXY
-	VALUES ("eab964fb-80ce-4810-ba03-8a871dfc6923",
-	"47a1eb94-2620-4ecd-85d3-29f76391509f",
-	0,
-	'Brg_ID',
-	'../Domain/Bridge/Bridge.xtuml');
-INSERT INTO R_RTO
-	VALUES ("47a1eb94-2620-4ecd-85d3-29f76391509f",
-	"640be358-dda1-4b13-bdce-b8ce8a349948",
-	"80f8bf96-f1e2-40da-9df7-8e769f7a79b8",
-	0);
-INSERT INTO O_ID_PROXY
-	VALUES (0,
-	"47a1eb94-2620-4ecd-85d3-29f76391509f",
-	'../Domain/Bridge/Bridge.xtuml');
-INSERT INTO R_OIR
-	VALUES ("47a1eb94-2620-4ecd-85d3-29f76391509f",
-	"640be358-dda1-4b13-bdce-b8ce8a349948",
-	"80f8bf96-f1e2-40da-9df7-8e769f7a79b8",
-	"f8125255-7543-4233-b968-e5bf83e54a02");
-INSERT INTO R_FORM
-	VALUES ("701cc49f-effd-4ce8-9058-bb47462f46ae",
-	"640be358-dda1-4b13-bdce-b8ce8a349948",
-	"0a44ab13-755e-42c6-a9b7-560991a3408f",
-	0,
-	1,
-	'is executed through');
-INSERT INTO R_RGO
-	VALUES ("701cc49f-effd-4ce8-9058-bb47462f46ae",
-	"640be358-dda1-4b13-bdce-b8ce8a349948",
-	"0a44ab13-755e-42c6-a9b7-560991a3408f");
-INSERT INTO R_OIR
-	VALUES ("701cc49f-effd-4ce8-9058-bb47462f46ae",
-	"640be358-dda1-4b13-bdce-b8ce8a349948",
-	"0a44ab13-755e-42c6-a9b7-560991a3408f",
-	"00000000-0000-0000-0000-000000000000");
 INSERT INTO GD_MD
 	VALUES ("6c36a152-4a32-49fc-962f-5ca39c9bf433",
-	5,
+	112,
 	"14c1a6c0-288e-4a86-a138-700394d86dcb",
-	11,
+	108,
 	0,
 	0,
 	1,
@@ -521,3 +326,229 @@ INSERT INTO DIM_DIA
 	3934.000000,
 	2758.000000,
 	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_SIMP
+	VALUES ("b85f7c81-31b1-4cbe-935a-1d3a73e6710a");
+INSERT INTO R_REL
+	VALUES ("b85f7c81-31b1-4cbe-935a-1d3a73e6710a",
+	3201,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_PART
+	VALUES ("bc9a6c16-8809-4681-92ab-421898fa108a",
+	"b85f7c81-31b1-4cbe-935a-1d3a73e6710a",
+	"6c7b15f9-7f04-4d23-b1da-1ff7a480ed0a",
+	0,
+	1,
+	'connects bridge execution to');
+INSERT INTO O_RTIDA
+	VALUES ("f637f378-37a8-4ff0-ad72-79c29b0664ea",
+	"bc9a6c16-8809-4681-92ab-421898fa108a",
+	0,
+	"b85f7c81-31b1-4cbe-935a-1d3a73e6710a",
+	"6c7b15f9-7f04-4d23-b1da-1ff7a480ed0a");
+INSERT INTO O_OIDA_PROXY
+	VALUES ("f637f378-37a8-4ff0-ad72-79c29b0664ea",
+	"bc9a6c16-8809-4681-92ab-421898fa108a",
+	0,
+	'Sync_ID',
+	'../Domain/Function/Function.xtuml');
+INSERT INTO R_RTO
+	VALUES ("bc9a6c16-8809-4681-92ab-421898fa108a",
+	"b85f7c81-31b1-4cbe-935a-1d3a73e6710a",
+	"6c7b15f9-7f04-4d23-b1da-1ff7a480ed0a",
+	0);
+INSERT INTO O_ID_PROXY
+	VALUES (0,
+	"bc9a6c16-8809-4681-92ab-421898fa108a",
+	'../Domain/Function/Function.xtuml');
+INSERT INTO R_OIR
+	VALUES ("bc9a6c16-8809-4681-92ab-421898fa108a",
+	"b85f7c81-31b1-4cbe-935a-1d3a73e6710a",
+	"6c7b15f9-7f04-4d23-b1da-1ff7a480ed0a",
+	"57d6a7c5-1a76-4927-aaeb-76e947775d64");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("bc9a6c16-8809-4681-92ab-421898fa108a",
+	'Function',
+	16,
+	'S_SYNC',
+	'A function (S_SYNC) is a method associated with the domain (S_DOM).  It can be thought of as a global function within the domain.  Functions can be synchronously called from action specifications or used to provide a definition for bridge method  in another domain.',
+	"00000000-0000-0000-0000-000000000000",
+	'../Domain/Function/Function.xtuml');
+INSERT INTO R_FORM
+	VALUES ("701cc49f-effd-4ce8-9058-bb47462f46ae",
+	"b85f7c81-31b1-4cbe-935a-1d3a73e6710a",
+	"5ccde223-b312-4d21-8fab-9f7871e888d2",
+	1,
+	1,
+	'provides execution for');
+INSERT INTO R_RGO
+	VALUES ("701cc49f-effd-4ce8-9058-bb47462f46ae",
+	"b85f7c81-31b1-4cbe-935a-1d3a73e6710a",
+	"5ccde223-b312-4d21-8fab-9f7871e888d2");
+INSERT INTO R_OIR
+	VALUES ("701cc49f-effd-4ce8-9058-bb47462f46ae",
+	"b85f7c81-31b1-4cbe-935a-1d3a73e6710a",
+	"5ccde223-b312-4d21-8fab-9f7871e888d2",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("701cc49f-effd-4ce8-9058-bb47462f46ae",
+	'Automatic Wiring',
+	3200,
+	'S_AW',
+	'An instance of Automatic Wiring is created for each bridge within the Domain. 
+Whenever a Bridge is found with no action language in it and has an External
+Entity whose name matches another Domain in the verification and that exposes a 
+Function whose name and arguments match that of the Bridge, the Automatic Wiring
+is then associated with the matching Function.',
+	"00000000-0000-0000-0000-000000000000",
+	'./Automatic Wiring/Automatic Wiring.xtuml');
+INSERT INTO PE_PE
+	VALUES ("b85f7c81-31b1-4cbe-935a-1d3a73e6710a",
+	1,
+	"14c1a6c0-288e-4a86-a138-700394d86dcb",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO R_SIMP
+	VALUES ("640be358-dda1-4b13-bdce-b8ce8a349948");
+INSERT INTO R_REL
+	VALUES ("640be358-dda1-4b13-bdce-b8ce8a349948",
+	3200,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_PART
+	VALUES ("47a1eb94-2620-4ecd-85d3-29f76391509f",
+	"640be358-dda1-4b13-bdce-b8ce8a349948",
+	"80f8bf96-f1e2-40da-9df7-8e769f7a79b8",
+	0,
+	0,
+	'for bridge execution');
+INSERT INTO O_RTIDA
+	VALUES ("eab964fb-80ce-4810-ba03-8a871dfc6923",
+	"47a1eb94-2620-4ecd-85d3-29f76391509f",
+	0,
+	"640be358-dda1-4b13-bdce-b8ce8a349948",
+	"80f8bf96-f1e2-40da-9df7-8e769f7a79b8");
+INSERT INTO O_OIDA_PROXY
+	VALUES ("eab964fb-80ce-4810-ba03-8a871dfc6923",
+	"47a1eb94-2620-4ecd-85d3-29f76391509f",
+	0,
+	'Brg_ID',
+	'../Domain/Bridge/Bridge.xtuml');
+INSERT INTO R_RTO
+	VALUES ("47a1eb94-2620-4ecd-85d3-29f76391509f",
+	"640be358-dda1-4b13-bdce-b8ce8a349948",
+	"80f8bf96-f1e2-40da-9df7-8e769f7a79b8",
+	0);
+INSERT INTO O_ID_PROXY
+	VALUES (0,
+	"47a1eb94-2620-4ecd-85d3-29f76391509f",
+	'../Domain/Bridge/Bridge.xtuml');
+INSERT INTO R_OIR
+	VALUES ("47a1eb94-2620-4ecd-85d3-29f76391509f",
+	"640be358-dda1-4b13-bdce-b8ce8a349948",
+	"80f8bf96-f1e2-40da-9df7-8e769f7a79b8",
+	"f8125255-7543-4233-b968-e5bf83e54a02");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("47a1eb94-2620-4ecd-85d3-29f76391509f",
+	'Bridge',
+	12,
+	'S_BRG',
+	'A bridge (S_BRG) is a method associated with an external entity (S_EE).  Bridges can be synchronously called from action specifications.  Each bridge as a return type and zero or more parameters (S_BPARM).',
+	"00000000-0000-0000-0000-000000000000",
+	'../Domain/Bridge/Bridge.xtuml');
+INSERT INTO R_FORM
+	VALUES ("701cc49f-effd-4ce8-9058-bb47462f46ae",
+	"640be358-dda1-4b13-bdce-b8ce8a349948",
+	"0a44ab13-755e-42c6-a9b7-560991a3408f",
+	0,
+	1,
+	'is executed through');
+INSERT INTO R_RGO
+	VALUES ("701cc49f-effd-4ce8-9058-bb47462f46ae",
+	"640be358-dda1-4b13-bdce-b8ce8a349948",
+	"0a44ab13-755e-42c6-a9b7-560991a3408f");
+INSERT INTO R_OIR
+	VALUES ("701cc49f-effd-4ce8-9058-bb47462f46ae",
+	"640be358-dda1-4b13-bdce-b8ce8a349948",
+	"0a44ab13-755e-42c6-a9b7-560991a3408f",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO PE_PE
+	VALUES ("640be358-dda1-4b13-bdce-b8ce8a349948",
+	1,
+	"14c1a6c0-288e-4a86-a138-700394d86dcb",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO O_IOBJ
+	VALUES ("f8125255-7543-4233-b968-e5bf83e54a02",
+	"47a1eb94-2620-4ecd-85d3-29f76391509f",
+	0,
+	"00000000-0000-0000-0000-000000000000",
+	'Bridge',
+	'S_BRG');
+INSERT INTO PE_PE
+	VALUES ("f8125255-7543-4233-b968-e5bf83e54a02",
+	1,
+	"14c1a6c0-288e-4a86-a138-700394d86dcb",
+	"00000000-0000-0000-0000-000000000000",
+	19);
+INSERT INTO O_IOBJ
+	VALUES ("57d6a7c5-1a76-4927-aaeb-76e947775d64",
+	"bc9a6c16-8809-4681-92ab-421898fa108a",
+	0,
+	"00000000-0000-0000-0000-000000000000",
+	'Function',
+	'S_SYNC');
+INSERT INTO PE_PE
+	VALUES ("57d6a7c5-1a76-4927-aaeb-76e947775d64",
+	1,
+	"14c1a6c0-288e-4a86-a138-700394d86dcb",
+	"00000000-0000-0000-0000-000000000000",
+	19);
+INSERT INTO PE_PE
+	VALUES ("14c1a6c0-288e-4a86-a138-700394d86dcb",
+	1,
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
+	7);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
+	'ooaofooa',
+	'========================================================================
+
+File:          $RCSfile: ooaofooa.xtuml,v $
+Version:   $Revision: 1.127 $
+Modified:  $Date: 2006/09/26 15:10:20 $
+
+(c) Copyright 2004-2014 by Mentor Graphics Corp. All rights reserved.
+
+========================================================================
+Licensed under the Apache License, Version 2.0 (the "License"); you may not
+use this file except in compliance with the License.  You may obtain a copy
+of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the
+License for the specific language governing permissions and limitations under
+the License.
+========================================================================
+
+This is the application domain for the Tiger project.
+
+The processing in this model describes the activities
+for model capture.
+
+
+
+',
+	0,
+	'../ooaofooa.xtuml');
+INSERT INTO S_SYS_PROXY
+	VALUES ("d9bc5487-4193-4817-be1c-6c3f3339aebf",
+	'org.xtuml.bp.core',
+	1,
+	'../../org.xtuml.bp.core.xtuml');

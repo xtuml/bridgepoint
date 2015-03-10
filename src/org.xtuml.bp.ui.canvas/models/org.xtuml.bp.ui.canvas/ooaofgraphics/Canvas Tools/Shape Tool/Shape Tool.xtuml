@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("50695bda-823e-45d0-84b9-4e67435ffe23",
@@ -12,13 +12,13 @@ shape.
 
 ---------------------------------------------------------------------------
 Persistent:false',
-	"afc7af9b-6e70-4780-9ad0-b9f3ec7560c9");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("2f5728c3-0a36-41d7-867f-c9b2a9151e23",
 	"50695bda-823e-45d0-84b9-4e67435ffe23",
 	'dispose',
 	'',
-	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select one mtl related by self->CT_MTL[R102];
 if ( not_empty mtl )
@@ -28,19 +28,12 @@ delete object instance self;',
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO S_DT_PROXY
-	VALUES ("3852f90c-88c5-467d-9b26-57c8cd438b42",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	'void',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("067ac877-8d07-4d2c-b247-f9f4ead5009c",
 	"50695bda-823e-45d0-84b9-4e67435ffe23",
 	'exceedsMinimumSize',
 	'',
-	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'select one canvas related by self->CT_MTL[R102]->GD_MD[R100];
 width = canvas.SelRectW;
@@ -61,13 +54,6 @@ end if;
 	1,
 	'',
 	"2f5728c3-0a36-41d7-867f-c9b2a9151e23");
-INSERT INTO S_DT_PROXY
-	VALUES ("6e4aa280-2e22-4146-9b4a-6c2573c456d8",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	'boolean',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("50695bda-823e-45d0-84b9-4e67435ffe23",
 	"43aa371a-c94c-48a9-acb6-21b733e4a55e",
@@ -116,16 +102,9 @@ INSERT INTO O_ATTR
 	'',
 	'Tool_ID',
 	0,
-	"66164f00-293e-4c17-ab30-7972c7c57152",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("66164f00-293e-4c17-ab30-7972c7c57152",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("a740fdae-d3c7-4b29-8084-8dd25d0fd964",
 	"50695bda-823e-45d0-84b9-4e67435ffe23");
@@ -141,16 +120,9 @@ INSERT INTO O_ATTR
 	'',
 	'current_state',
 	0,
-	"aae0ffdc-3a05-4c94-9878-331bc82097dd",
+	"ba5eda7a-def5-0000-0000-000000000006",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("aae0ffdc-3a05-4c94-9878-331bc82097dd",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	'state<State_Model>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("dee858a3-99b6-4862-a649-c99363b1fc80",
 	"50695bda-823e-45d0-84b9-4e67435ffe23");
@@ -171,7 +143,7 @@ INSERT INTO O_ATTR
 	'');
 INSERT INTO S_DT_PROXY
 	VALUES ("a172f187-f843-4aeb-af5b-873deb036646",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	"00000000-0000-0000-0000-000000000000",
 	'Transaction',
 	'',
 	'',
@@ -190,15 +162,20 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"50695bda-823e-45d0-84b9-4e67435ffe23");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("50695bda-823e-45d0-84b9-4e67435ffe23",
+	1,
+	"afc7af9b-6e70-4780-9ad0-b9f3ec7560c9",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("afc7af9b-6e70-4780-9ad0-b9f3ec7560c9",
+	"00000000-0000-0000-0000-000000000000",
+	"8f801c9a-cf2d-4ef4-b11a-51b8697e3ca8",
 	'Canvas Tools',
 	'// This is used by schema_gen to ignore this subsystem (for publication)
   TRANSLATE_FOR_EXTERNAL_USE:FALSE
   Notify_Changes:false
 ',
-	'CT',
 	100,
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	"00000000-0000-0000-0000-000001a00034",
 	'../Canvas Tools.xtuml');

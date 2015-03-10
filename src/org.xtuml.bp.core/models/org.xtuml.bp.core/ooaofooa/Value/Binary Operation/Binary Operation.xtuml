@@ -6,14 +6,14 @@ INSERT INTO O_OBJ
 	802,
 	'V_BIN',
 	'Values are yielded by simple or compound expressions. Compound expressions are made up of nested binary operations. This class represents such as binary operations. The operator attribute contains the string identifier of the operation to be carried out.',
-	"e060f94c-3f82-463e-9d98-d20315b7c196");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("437b2013-27cc-4bcc-bff0-0403f6af02ae",
 	"cf40c1ab-d375-4f8d-8664-2593f9c59401",
 	'dispose',
 	'This operation disconnects an instance, and all instances it is 
 responsible for, from the model.',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select one lop related by self->V_VAL[R802];
 if ( not_empty lop )
@@ -30,13 +30,6 @@ delete object instance self;
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO S_DT_PROXY
-	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'void',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("dffe2eb3-3c17-4ddd-a272-1cf1a7184589",
 	"cf40c1ab-d375-4f8d-8664-2593f9c59401",
@@ -70,21 +63,14 @@ INSERT INTO O_TPARM
 	VALUES ("10924281-1032-458e-9941-8f3dffe5bf93",
 	"dffe2eb3-3c17-4ddd-a272-1cf1a7184589",
 	'stack_frame_id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
 INSERT INTO S_DT_PROXY
-	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'unique_id',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
-INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
 	'instance',
 	'',
 	'',
@@ -94,7 +80,7 @@ INSERT INTO O_TFR
 	"cf40c1ab-d375-4f8d-8664-2593f9c59401",
 	'getBoolean',
 	'Performs Binary Operation and returns the boolean value.',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'// Value: Binary Operation.getBoolean()
 select one body related by self->V_VAL[R801]->ACT_BLK[R826]->ACT_ACT[R601];
@@ -530,24 +516,17 @@ INSERT INTO O_TPARM
 	VALUES ("161690f1-dd7c-4066-874d-67c1a92c62d9",
 	"ce8a596d-7205-4f9a-90e2-817850e8b3e4",
 	'stack_frame_id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("8e519c45-7dcf-400b-9d4e-954869dbb7e8",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'boolean',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("aaf12aee-72a0-4fcd-afd0-e88be4d337cd",
 	"cf40c1ab-d375-4f8d-8664-2593f9c59401",
 	'getString',
 	'',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'// Value: Binary Operation.getString()
 select one body related by self->V_VAL[R801]->ACT_BLK[R826]->ACT_ACT[R601];
@@ -582,24 +561,17 @@ INSERT INTO O_TPARM
 	VALUES ("c6ba55e8-65b1-4e73-8b90-a4734f70e39d",
 	"aaf12aee-72a0-4fcd-afd0-e88be4d337cd",
 	'stack_frame_id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'string',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("5a9a5d5b-8712-48a8-a01c-dbe411799c86",
 	"cf40c1ab-d375-4f8d-8664-2593f9c59401",
 	'getInteger',
 	'',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	1,
 	'// Value: Binary Operation.getInteger()
 select one body related by self->V_VAL[R801]->ACT_BLK[R826]->ACT_ACT[R601];
@@ -648,24 +620,17 @@ INSERT INTO O_TPARM
 	VALUES ("2bea981d-9450-4f15-ac31-64be0b0a84b3",
 	"5a9a5d5b-8712-48a8-a01c-dbe411799c86",
 	'stack_frame_id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'integer',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("4b480d20-5645-4b2d-9c69-43c6379ebca5",
 	"cf40c1ab-d375-4f8d-8664-2593f9c59401",
 	'getReal',
 	'',
-	"f07598c3-1cca-4c8c-8603-381ab44c6d81",
+	"ba5eda7a-def5-0000-0000-000000000003",
 	1,
 	'// Value: Binary Operation.getReal()
 select one body related by self->V_VAL[R801]->ACT_BLK[R826]->ACT_ACT[R601];
@@ -727,24 +692,17 @@ INSERT INTO O_TPARM
 	VALUES ("7dc26011-09fa-492a-8583-e4d35f1d4dd9",
 	"4b480d20-5645-4b2d-9c69-43c6379ebca5",
 	'stack_frame_id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("f07598c3-1cca-4c8c-8603-381ab44c6d81",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'real',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("3fbaa48c-2c60-492c-bee8-b734aeb25b36",
 	"cf40c1ab-d375-4f8d-8664-2593f9c59401",
 	'compareInstRefSets',
 	'Translate:native',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'Ooaofooa.log.println(ILogger.OPERATION, "Binary Operation",
 		" Operation entered: BinaryOperation::compareInstRefSets");
@@ -797,7 +755,7 @@ INSERT INTO O_TPARM
 	VALUES ("a8761cf8-c3aa-4b65-803f-e9b988d856b5",
 	"3fbaa48c-2c60-492c-bee8-b734aeb25b36",
 	'rRtVal',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -806,7 +764,7 @@ INSERT INTO O_TPARM
 	VALUES ("163dd006-d2a5-4405-b417-429c2ad8556d",
 	"3fbaa48c-2c60-492c-bee8-b734aeb25b36",
 	'lRtVal',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"a8761cf8-c3aa-4b65-803f-e9b988d856b5",
@@ -859,16 +817,9 @@ INSERT INTO O_ATTR
 	'',
 	'Value_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("cf40c1ab-d375-4f8d-8664-2593f9c59401",
 	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
@@ -884,7 +835,7 @@ INSERT INTO O_REF
 	'',
 	'Value',
 	'Value_ID',
-	'R803');
+	'R803.''has right''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("cf40c1ab-d375-4f8d-8664-2593f9c59401",
 	"34d24cdc-57cc-4407-a647-3e9766d20867",
@@ -913,7 +864,7 @@ INSERT INTO O_ATTR
 	'Right_',
 	'Value_ID',
 	1,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -931,7 +882,7 @@ INSERT INTO O_REF
 	'',
 	'Value',
 	'Value_ID',
-	'R802');
+	'R802.''has left''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("cf40c1ab-d375-4f8d-8664-2593f9c59401",
 	"31f1fdcd-bc21-40d0-a491-ed83526f3c3c",
@@ -960,7 +911,7 @@ INSERT INTO O_ATTR
 	'Left_',
 	'Value_ID',
 	1,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -979,7 +930,7 @@ Data Domain: The character or string representing the operation. These include b
 	'',
 	'Operator',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_ID
@@ -996,8 +947,16 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"cf40c1ab-d375-4f8d-8664-2593f9c59401");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("cf40c1ab-d375-4f8d-8664-2593f9c59401",
+	1,
+	"e060f94c-3f82-463e-9d98-d20315b7c196",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("e060f94c-3f82-463e-9d98-d20315b7c196",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Value',
 	'This subsystem formalizes the concepts of values (r-values) and variables 
 (l-values). It also captures the concept of an actual parameter.
@@ -1006,8 +965,5 @@ Persistent:false
 // This is used by schema_gen to ignore this subsystem (for publication)
 TRANSLATE_FOR_EXTERNAL_USE:FALSE
 ',
-	'V',
 	800,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000400008",
 	'../Value.xtuml');

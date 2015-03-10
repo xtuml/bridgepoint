@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("b2a9b4e2-d405-4882-b8cb-fba3e9906e53",
@@ -6,14 +6,14 @@ INSERT INTO O_OBJ
 	606,
 	'ACT_FOR',
 	'The class represents a for statement in a block of action language.',
-	"76583c73-7a99-4c81-b260-8109e6cef5ca");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("3b4661d6-8c29-4aa6-bb1d-a09d0833ead4",
 	"b2a9b4e2-d405-4882-b8cb-fba3e9906e53",
 	'dispose',
 	'This operation disconnects an instance, and all instances it is 
 responsible for, from the model.',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select one obj related by self->O_OBJ[R670];
 if ( not_empty obj )
@@ -41,19 +41,12 @@ delete object instance self;
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO S_DT_PROXY
-	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'void',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("61e70dce-5ddb-43fe-ae0c-1db3e50a63b5",
 	"b2a9b4e2-d405-4882-b8cb-fba3e9906e53",
 	'execute',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// Body:For Stmt.execute()
 
@@ -198,24 +191,17 @@ INSERT INTO O_TPARM
 	VALUES ("7c852f4d-d0b4-49b5-bd98-caab2bbd3384",
 	"61e70dce-5ddb-43fe-ae0c-1db3e50a63b5",
 	'stack_frame_id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'unique_id',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("483e48a2-e7a3-4772-9e03-7735670adb87",
 	"b2a9b4e2-d405-4882-b8cb-fba3e9906e53",
 	'getLocalLoopVarID',
 	'',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'// Body:For Stmt.getLocalLoopID()
                                     
@@ -264,7 +250,7 @@ INSERT INTO O_TPARM
 	VALUES ("2102c1d2-05d8-4868-aaed-785f71c3a7bd",
 	"483e48a2-e7a3-4772-9e03-7735670adb87",
 	'stack_frame_id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -319,16 +305,9 @@ INSERT INTO O_ATTR
 	'',
 	'Statement_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("b2a9b4e2-d405-4882-b8cb-fba3e9906e53",
 	"b7fa3f21-6c94-47c6-934b-a56a2b7d758e",
@@ -344,7 +323,7 @@ INSERT INTO O_REF
 	'',
 	'Block',
 	'Block_ID',
-	'R605');
+	'R605.''controls''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("b2a9b4e2-d405-4882-b8cb-fba3e9906e53",
 	"03ee3b85-947b-4c84-89ef-3de8c59a5484",
@@ -377,7 +356,7 @@ INSERT INTO O_ATTR
 	'',
 	'Block_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -396,16 +375,9 @@ Specifies whether the loop instance handle found is being used for the first tim
 	'',
 	'is_implicit',
 	0,
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("8e519c45-7dcf-400b-9d4e-954869dbb7e8",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'boolean',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("b2a9b4e2-d405-4882-b8cb-fba3e9906e53",
 	"04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",
@@ -421,7 +393,7 @@ INSERT INTO O_REF
 	'',
 	'Variable',
 	'Var_ID',
-	'R614');
+	'R614.''loop''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("b2a9b4e2-d405-4882-b8cb-fba3e9906e53",
 	"faaa961e-483e-4222-9b3d-774bd1f3d4e6",
@@ -456,7 +428,7 @@ INSERT INTO O_ATTR
 	'Loop_',
 	'Var_ID',
 	1,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -474,7 +446,7 @@ INSERT INTO O_REF
 	'',
 	'Variable',
 	'Var_ID',
-	'R652');
+	'R652.''set''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("b2a9b4e2-d405-4882-b8cb-fba3e9906e53",
 	"3918de15-4686-4c85-a524-fa4440b92744",
@@ -505,7 +477,7 @@ INSERT INTO O_ATTR
 	'Set_',
 	'Var_ID',
 	1,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -523,7 +495,7 @@ INSERT INTO O_REF
 	'',
 	'Model Class',
 	'Obj_ID',
-	'R670');
+	'R670.''iterates a set of''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("b2a9b4e2-d405-4882-b8cb-fba3e9906e53",
 	"1a0a8f65-f2b1-4a24-814e-4d9e838de48e",
@@ -556,7 +528,7 @@ INSERT INTO O_ATTR
 	'',
 	'Obj_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_ID
@@ -573,8 +545,16 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"b2a9b4e2-d405-4882-b8cb-fba3e9906e53");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("b2a9b4e2-d405-4882-b8cb-fba3e9906e53",
+	1,
+	"76583c73-7a99-4c81-b260-8109e6cef5ca",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("76583c73-7a99-4c81-b260-8109e6cef5ca",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Body',
 	'This subsystem abstracts the action itself, the blocks and statements
 it contains together with the flow of control statements such as ''while'',
@@ -584,8 +564,5 @@ Persistent:false
 // This is used by schema_gen to ignore this subsystem (for publication)
 TRANSLATE_FOR_EXTERNAL_USE:FALSE
 ',
-	'ACT',
 	600,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000380007",
 	'../Body.xtuml');

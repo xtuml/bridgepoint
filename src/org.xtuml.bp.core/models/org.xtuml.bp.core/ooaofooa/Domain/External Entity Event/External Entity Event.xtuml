@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("5adc63b1-9773-4ea9-97ef-67828018b3a6",
@@ -6,13 +6,13 @@ INSERT INTO O_OBJ
 	6,
 	'S_EEEVT',
 	'An external entity event (S_EEEVT) represents asynchronous communication between a class (O_OBJ) and an external entity (S_EE).  The communication is shown on the Communication Diagram.  Each external entity event is given a unique label and can have zero or more event data (S_EEEDT).',
-	"703df30a-ee7e-44ec-a7cf-22d2171bb270");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("236f4dba-3ca8-4f82-ac18-2c12b67cd967",
 	"5adc63b1-9773-4ea9-97ef-67828018b3a6",
 	'get_name',
 	'Creates a string containing a descriptive name for the instance.',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'select one ee related by self->S_EE[R10];
 if ( not_empty ee )
@@ -23,19 +23,12 @@ return "";
 	1,
 	'',
 	"5000b34c-7ee4-4e33-9a13-1ccd949ccc36");
-INSERT INTO S_DT_PROXY
-	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'string',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("5000b34c-7ee4-4e33-9a13-1ccd949ccc36",
 	"5adc63b1-9773-4ea9-97ef-67828018b3a6",
 	'dispose',
 	'The dispose operation for this class.',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// Domain Subsystem
 select one ee related by self->S_EE[R10];
@@ -66,13 +59,6 @@ delete object instance self;',
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO S_DT_PROXY
-	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'void',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("65df4a64-820f-444e-8188-d4d6f2d4cb86",
 	"5adc63b1-9773-4ea9-97ef-67828018b3a6");
@@ -88,16 +74,9 @@ INSERT INTO O_ATTR
 	'',
 	'EEevt_ID',
 	0,
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'unique_id',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("00a8f762-2d06-4415-8457-408e39f58815",
 	"5adc63b1-9773-4ea9-97ef-67828018b3a6");
@@ -116,16 +95,9 @@ max_value: 9999
 	'',
 	'Numb',
 	0,
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'integer',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("6dba1e65-5a5c-4c95-8c13-c7c32b6eebda",
 	"5adc63b1-9773-4ea9-97ef-67828018b3a6");
@@ -141,7 +113,7 @@ INSERT INTO O_ATTR
 	'',
 	'Mning',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -164,7 +136,7 @@ enum1: Custom Keyletters
 	'',
 	'Is_Lbl_U',
 	0,
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -183,7 +155,7 @@ Description: Custom Key Letters for the External Entity Event',
 	'',
 	'Unq_Lbl',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_DBATTR
@@ -212,7 +184,7 @@ Data Domain: 0 = derived label created by concatenating EE keyletters + event nu
 	'',
 	'Drv_Lbl',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -230,7 +202,7 @@ INSERT INTO O_ATTR
 	'',
 	'Descrip',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_REF
@@ -248,7 +220,7 @@ INSERT INTO O_REF
 	'',
 	'External Entity',
 	'EE_ID',
-	'R10');
+	'R10.''is vehicle of communication for''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("5adc63b1-9773-4ea9-97ef-67828018b3a6",
 	"0329b88c-f70a-4400-b335-f65779eb3af0",
@@ -281,16 +253,9 @@ INSERT INTO O_ATTR
 	'',
 	'EE_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_ID
 	VALUES (0,
 	"5adc63b1-9773-4ea9-97ef-67828018b3a6");
@@ -310,12 +275,17 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"5adc63b1-9773-4ea9-97ef-67828018b3a6");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("5adc63b1-9773-4ea9-97ef-67828018b3a6",
+	1,
+	"703df30a-ee7e-44ec-a7cf-22d2171bb270",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("703df30a-ee7e-44ec-a7cf-22d2171bb270",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Domain',
 	'A domain (S_DOM) consists of one or more subsystems (S_SS) that each contain an information model that abstracts a portion of the data for the domain: classes (O_OBJ), associations (R_REL), etc.  Breaking a domain into subsystems allows the complexity of the domain to be more easily managed: 1) subsystems are components and can be checked out individually allowing parallelism in development of the models and 2) breaking up a domain into smaller units is easier to understand.  A subsystem is composed of classes that tend to cluster, i.e., they have few associations that span subsystem boundaries.  Inter-subsystem associations, communications, and accesses are captured in the Subsystem Relationship Model (SRM), Subsystem Communication Model (SCM), and Subsystem Access Model (SAM) respectively.',
-	'S',
 	1,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000100002",
 	'../Domain.xtuml');

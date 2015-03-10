@@ -1,7 +1,9 @@
--- BP 7.1 content: Domain syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: Package syschar: 3 persistence-version: 7.1.6
 
-INSERT INTO S_DOM
+INSERT INTO EP_PKG
 	VALUES ("695dce7b-262a-4226-9cbb-c9f897b44c67",
+	"4dacadbd-0ef3-4f12-9693-fcbfe81a2955",
+	"4dacadbd-0ef3-4f12-9693-fcbfe81a2955",
 	'file_io',
 	'========================================================================
 
@@ -30,14 +32,12 @@ exports SQL from the Tiger application to a BridgePoint 6.1 compatible
 sql data file.   The data is also used to import a BridgePoint 6.1 SQL file
 into the Tiger application.
 ',
-	0,
-	"00000000-0000-0000-0000-000000000001",
-	"4dacadbd-0ef3-4f12-9693-fcbfe81a2955");
+	0);
 INSERT INTO GD_MD
 	VALUES ("b4f86c8f-abf0-4297-9815-de78898edf43",
-	1,
+	112,
 	"695dce7b-262a-4226-9cbb-c9f897b44c67",
-	1,
+	108,
 	1,
 	0,
 	1,
@@ -56,7 +56,7 @@ INSERT INTO GD_GE
 	VALUES ("efc012ee-590c-4458-abc9-2588c931543a",
 	"b4f86c8f-abf0-4297-9815-de78898edf43",
 	"f157564a-4386-4e32-b5c9-0e4d7bd3609a",
-	11,
+	108,
 	0,
 	'org.xtuml.bp.io.core::file_io::File IO');
 INSERT INTO GD_SHP
@@ -76,30 +76,6 @@ INSERT INTO DIM_ELE
 	VALUES ("efc012ee-590c-4458-abc9-2588c931543a",
 	1,
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO GD_GE
-	VALUES ("5fed46d0-3baa-4edd-85a6-d262b6baa329",
-	"b4f86c8f-abf0-4297-9815-de78898edf43",
-	"b7ba8f76-b6be-484d-991b-df135420eed9",
-	53,
-	0,
-	'org.xtuml.bp.io.core::file_io::Datatypes');
-INSERT INTO GD_SHP
-	VALUES ("5fed46d0-3baa-4edd-85a6-d262b6baa329");
-INSERT INTO GD_NCS
-	VALUES ("5fed46d0-3baa-4edd-85a6-d262b6baa329");
-INSERT INTO DIM_ND
-	VALUES (272.000000,
-	160.000000,
-	"5fed46d0-3baa-4edd-85a6-d262b6baa329");
-INSERT INTO DIM_GE
-	VALUES (2107.000000,
-	1344.000000,
-	"5fed46d0-3baa-4edd-85a6-d262b6baa329",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO DIM_ELE
-	VALUES ("5fed46d0-3baa-4edd-85a6-d262b6baa329",
-	1,
-	"00000000-0000-0000-0000-000000000000");
 INSERT INTO DIM_DIA
 	VALUES ("b4f86c8f-abf0-4297-9815-de78898edf43",
 	'',
@@ -107,8 +83,14 @@ INSERT INTO DIM_DIA
 	1600.000000,
 	1179.000000,
 	"00000000-0000-0000-0000-000000000000");
+INSERT INTO PE_PE
+	VALUES ("695dce7b-262a-4226-9cbb-c9f897b44c67",
+	0,
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000",
+	7);
 INSERT INTO S_SYS_PROXY
 	VALUES ("4dacadbd-0ef3-4f12-9693-fcbfe81a2955",
 	'org.xtuml.bp.io.core',
-	0,
+	1,
 	'../org.xtuml.bp.io.core.xtuml');

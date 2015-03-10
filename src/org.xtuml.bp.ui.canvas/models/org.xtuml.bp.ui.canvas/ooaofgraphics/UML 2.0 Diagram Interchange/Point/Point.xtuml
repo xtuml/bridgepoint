@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("4af7d4a4-6f90-4ae0-9cfd-8a6f886e4a65",
@@ -9,7 +9,7 @@ INSERT INTO O_OBJ
 Persistent:false
 TRANSLATE_FOR_EXTERNAL_USE:FALSE
 ',
-	"490299c9-e7aa-468e-82d7-0731c80e4069");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_NBATTR
 	VALUES ("457e3317-50e8-4a48-90ba-aa21fa4e13fc",
 	"4af7d4a4-6f90-4ae0-9cfd-8a6f886e4a65");
@@ -25,16 +25,9 @@ INSERT INTO O_ATTR
 	'',
 	'x',
 	0,
-	"daa2cf40-15b6-4a53-a5a3-55b15c1951ed",
+	"ba5eda7a-def5-0000-0000-000000000003",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("daa2cf40-15b6-4a53-a5a3-55b15c1951ed",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	'real',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("80e7a9f4-b760-4839-b19f-796c29aa8235",
 	"4af7d4a4-6f90-4ae0-9cfd-8a6f886e4a65");
@@ -50,7 +43,7 @@ INSERT INTO O_ATTR
 	'',
 	'y',
 	0,
-	"daa2cf40-15b6-4a53-a5a3-55b15c1951ed",
+	"ba5eda7a-def5-0000-0000-000000000003",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -68,16 +61,9 @@ INSERT INTO O_ATTR
 	'',
 	'pointId',
 	0,
-	"a236c27f-17c7-4c99-8f25-f3efd03eaf0c",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("a236c27f-17c7-4c99-8f25-f3efd03eaf0c",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	'unique_id',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_ID
 	VALUES (0,
 	"4af7d4a4-6f90-4ae0-9cfd-8a6f886e4a65");
@@ -92,12 +78,17 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"4af7d4a4-6f90-4ae0-9cfd-8a6f886e4a65");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("4af7d4a4-6f90-4ae0-9cfd-8a6f886e4a65",
+	1,
+	"490299c9-e7aa-468e-82d7-0731c80e4069",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("490299c9-e7aa-468e-82d7-0731c80e4069",
+	"00000000-0000-0000-0000-000000000000",
+	"8f801c9a-cf2d-4ef4-b11a-51b8697e3ca8",
 	'UML 2.0 Diagram Interchange',
 	'Notify_Changes:true',
-	'DIM',
 	0,
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	"00000000-0000-0000-0000-000000000000",
 	'../UML 2.0 Diagram Interchange.xtuml');
