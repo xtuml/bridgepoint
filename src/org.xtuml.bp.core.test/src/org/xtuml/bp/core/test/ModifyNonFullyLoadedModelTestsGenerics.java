@@ -103,7 +103,7 @@ public class ModifyNonFullyLoadedModelTestsGenerics extends CanvasTest
     		domainComp = PersistenceManager.getComponent(pkg);
     		initialized = true;    		
         }
-        resultFolder = m_workspace_path + "/expected_results/";
+        resultFolder = m_workspace_path + TestingUtilities.getExpectedResultsPath();
     }
     
 
@@ -195,8 +195,13 @@ public class ModifyNonFullyLoadedModelTestsGenerics extends CanvasTest
         listener.WaitForTransactionUnderReview();
         otherSS.getTransactionManager().removeTransactionListener(listener);
 
-        BaseTest.compareAndOutputResults(resultFolder + getResultName() + "/"
-            + getResultName() + "-shape_deletion_transaction_generics.exp");
+    	String globalsFlag = "";
+    	if (testGlobals == true) {
+          globalsFlag = "Globals";
+    	}
+        BaseTest.compareAndOutputResults(resultFolder + getResultName() + 
+          globalsFlag + "/" + getResultName() +
+          "-shape_deletion_transaction_generics.exp");
     }
 
     public String getResultName()

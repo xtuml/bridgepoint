@@ -1,0 +1,12 @@
+ERROR: Found another data type under the same package with a matching name.
+
+Element Name: Enumeration
+Element Path: ModelIntegrityTests::Enumeration Data Type Tests::Enumeration
+
+
+ERROR: Found another data type under the same package with a matching name.
+
+Element Name: Enumeration
+Element Path: ModelIntegrityTests::Enumeration Data Type Tests::Enumeration
+
+

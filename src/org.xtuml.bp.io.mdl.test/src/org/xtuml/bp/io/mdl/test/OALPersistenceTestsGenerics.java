@@ -111,13 +111,13 @@ public class OALPersistenceTestsGenerics extends BaseTest {
 			store.setValue(BridgePointPreferencesStore.SHOW_EVENT_PARAMETERS, false); 
 			// export with persisted OAL
 			TestingUtilities.exportModelUsingWizard(m_workspace_path
-					+ (generateResults ? "expected_results"
-							: "actual_results") + "/" + domainName
+					+ (generateResults ? TestingUtilities.getExpectedResultsPath()
+							: "actual_results/") + domainName
 							+ "Generics" + "." + Ooaofooa.MODELS_EXT, true);
 
 			if (!generateResults) { // make sure the exported model has OAL
 				TestingUtilities.fileContentsCompare(m_workspace_path
-						+ "expected_results/" + domainName + "Generics"
+						+ TestingUtilities.getExpectedResultsPath() + domainName + "Generics"
 						+ "." + Ooaofooa.MODELS_EXT, m_workspace_path
 						+ "actual_results/" + domainName + "Generics" + "."
 						+ Ooaofooa.MODELS_EXT);
@@ -138,12 +138,13 @@ public class OALPersistenceTestsGenerics extends BaseTest {
 
 			TestUtil.sleepWithDispatchOfEvents(100);
 			TestingUtilities.exportModelUsingWizard(m_workspace_path
-					+ (generateResults ? "expected_results" : "actual_results")
-					+ "/" + domainName + "." + Ooaofooa.MODELS_EXT, true);
+					+ (generateResults ? TestingUtilities.getExpectedResultsPath()
+					: "actual_results/") + domainName + "."
+					+ Ooaofooa.MODELS_EXT, true);
 
 			if (!generateResults) { // make sure the exported model has OAL
 				TestingUtilities.fileContentsCompare(m_workspace_path
-						+ "expected_results/" + domainName + "."
+						+ TestingUtilities.getExpectedResultsPath() + domainName + "."
 						+ Ooaofooa.MODELS_EXT, m_workspace_path
 						+ "actual_results/" + domainName + "."
 						+ Ooaofooa.MODELS_EXT);

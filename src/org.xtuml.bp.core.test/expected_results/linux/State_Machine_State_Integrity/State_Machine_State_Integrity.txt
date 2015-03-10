@@ -1,0 +1,48 @@
+ERROR: Found another state under the same state machine with the same state number.
+
+Element Name: State
+Element Path: ModelIntegrityTests::State Machine State Tests::Class::State::Instance State Machine::State
+
+
+ERROR: Found another state under the same state machine with a matching name.
+
+Element Name: State
+Element Path: ModelIntegrityTests::State Machine State Tests::Class::State::Instance State Machine::State
+
+
+ERROR: Found another state under the same state machine with the same state number.
+
+Element Name: State
+Element Path: ModelIntegrityTests::State Machine State Tests::Class::State::Instance State Machine::State
+
+
+ERROR: Found another state under the same state machine with a matching name.
+
+Element Name: State
+Element Path: ModelIntegrityTests::State Machine State Tests::Class::State::Instance State Machine::State
+
+
+ERROR: Found another state under the same state machine with the same state number.
+
+Element Name: State
+Element Path: ModelIntegrityTests::State Machine State Tests::Class::State::Class State Machine::State
+
+
+ERROR: Found another state under the same state machine with a matching name.
+
+Element Name: State
+Element Path: ModelIntegrityTests::State Machine State Tests::Class::State::Class State Machine::State
+
+
+ERROR: Found another state under the same state machine with the same state number.
+
+Element Name: State
+Element Path: ModelIntegrityTests::State Machine State Tests::Class::State::Class State Machine::State
+
+
+ERROR: Found another state under the same state machine with a matching name.
+
+Element Name: State
+Element Path: ModelIntegrityTests::State Machine State Tests::Class::State::Class State Machine::State
+
+
