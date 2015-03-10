@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("558681b3-16a8-4412-a2a2-59b606dea487",
@@ -14,13 +14,13 @@ associated with it.
 Persistent:false
 TRANSLATE_FOR_EXTERNAL_USE:FALSE
 ',
-	"b5695748-80fc-47fb-b5c7-801b5f28b907");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("e71a626c-d52b-40cd-9feb-eac13255b15f",
 	"558681b3-16a8-4412-a2a2-59b606dea487",
 	'initialize',
 	'',
-	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select one symbol related by self->GD_GE[R12];
 self.Vertex = symbol.getVertexUnder(x:GR::getAbsoluteXPosition(),
@@ -31,19 +31,12 @@ self.End = symbol.getEndUnder(x:GR::getAbsoluteXPosition(),
 	1,
 	'',
 	"72abd2d3-9e70-40a8-afcf-20b194194b89");
-INSERT INTO S_DT_PROXY
-	VALUES ("3852f90c-88c5-467d-9b26-57c8cd438b42",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	'void',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("72abd2d3-9e70-40a8-afcf-20b194194b89",
 	"558681b3-16a8-4412-a2a2-59b606dea487",
 	'finish',
 	'',
-	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// removed to as the support for resizing text is moved to GEF',
 	1,
@@ -54,7 +47,7 @@ INSERT INTO O_TFR
 	"558681b3-16a8-4412-a2a2-59b606dea487",
 	'dispose',
 	'',
-	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select one model related by self->GD_MD[R12];
 select one ge related by self->GD_GE[R12];
@@ -85,7 +78,7 @@ South East or South West.',
 	'');
 INSERT INTO S_DT_PROXY
 	VALUES ("000786ec-697f-4d36-931b-d64a58cee282",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	"00000000-0000-0000-0000-000000000000",
 	'Vertex',
 	'',
 	'',
@@ -112,7 +105,7 @@ being resized, this attribute value is "None".',
 	'');
 INSERT INTO S_DT_PROXY
 	VALUES ("ae246926-3437-45e4-9232-bcc0952dbcee",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	"00000000-0000-0000-0000-000000000000",
 	'End',
 	'Translate:false',
 	'',
@@ -132,7 +125,7 @@ INSERT INTO O_REF
 	'',
 	'Graphical Element',
 	'elementId',
-	'R12');
+	'R12.''is resizing''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("558681b3-16a8-4412-a2a2-59b606dea487",
 	"2f40ad37-f831-47cd-8202-d9de8077243d",
@@ -165,16 +158,9 @@ INSERT INTO O_ATTR
 	'',
 	'elementId',
 	0,
-	"66164f00-293e-4c17-ab30-7972c7c57152",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("66164f00-293e-4c17-ab30-7972c7c57152",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("558681b3-16a8-4412-a2a2-59b606dea487",
 	"09423687-e999-4aba-876d-35e0d3331311",
@@ -190,7 +176,7 @@ INSERT INTO O_REF
 	'',
 	'Model',
 	'diagramId',
-	'R12');
+	'R12.''is resized in''');
 INSERT INTO O_RTIDA_PROXY
 	VALUES ("d1783817-101b-46d1-b9a8-907ee4d5efe4",
 	"09423687-e999-4aba-876d-35e0d3331311",
@@ -218,7 +204,7 @@ INSERT INTO O_ATTR
 	'',
 	'diagramId',
 	0,
-	"66164f00-293e-4c17-ab30-7972c7c57152",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_ID
@@ -240,15 +226,20 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"558681b3-16a8-4412-a2a2-59b606dea487");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("558681b3-16a8-4412-a2a2-59b606dea487",
+	1,
+	"b5695748-80fc-47fb-b5c7-801b5f28b907",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("b5695748-80fc-47fb-b5c7-801b5f28b907",
+	"00000000-0000-0000-0000-000000000000",
+	"8f801c9a-cf2d-4ef4-b11a-51b8697e3ca8",
 	'Graphical Data',
 	'The GD (Graphics Domain) subsystem models the graphical elements for a BridgePoint model.
 -------------------------------------------------------
 Import:org.eclipse.swt.graphics.Color
 Notify_Changes:true',
-	'GD',
 	1,
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	"00000000-0000-0000-0000-000001900032",
 	'../Graphical Data.xtuml');

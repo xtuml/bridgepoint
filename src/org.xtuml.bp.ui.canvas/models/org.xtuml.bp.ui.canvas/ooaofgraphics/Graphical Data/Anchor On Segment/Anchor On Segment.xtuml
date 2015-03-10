@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("669043e4-6347-4355-ae4b-b1e2d1c1355c",
@@ -6,7 +6,7 @@ INSERT INTO O_OBJ
 	16,
 	'GD_AOS',
 	'',
-	"b5695748-80fc-47fb-b5c7-801b5f28b907");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_REF
 	VALUES ("669043e4-6347-4355-ae4b-b1e2d1c1355c",
 	"a2f9b584-b553-4037-acb2-0227d0fd18ea",
@@ -22,7 +22,7 @@ INSERT INTO O_REF
 	'',
 	'GraphConnector',
 	'conId',
-	'R26');
+	'R26.''is anchor on segment''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("669043e4-6347-4355-ae4b-b1e2d1c1355c",
 	"50b8031a-f20c-450f-9fad-673c751fd49d",
@@ -55,16 +55,9 @@ INSERT INTO O_ATTR
 	'',
 	'conId',
 	0,
-	"66164f00-293e-4c17-ab30-7972c7c57152",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("66164f00-293e-4c17-ab30-7972c7c57152",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("669043e4-6347-4355-ae4b-b1e2d1c1355c",
 	"77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
@@ -80,7 +73,7 @@ INSERT INTO O_REF
 	'',
 	'Line Segment',
 	'elementId',
-	'R26');
+	'R26.''has anchor point''');
 INSERT INTO O_RTIDA_PROXY
 	VALUES ("09b28e51-261a-4f6c-8408-01a31af506b9",
 	"77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
@@ -108,7 +101,7 @@ INSERT INTO O_ATTR
 	'',
 	'elementId',
 	0,
-	"66164f00-293e-4c17-ab30-7972c7c57152",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_ID
@@ -130,15 +123,20 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"669043e4-6347-4355-ae4b-b1e2d1c1355c");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("669043e4-6347-4355-ae4b-b1e2d1c1355c",
+	1,
+	"b5695748-80fc-47fb-b5c7-801b5f28b907",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("b5695748-80fc-47fb-b5c7-801b5f28b907",
+	"00000000-0000-0000-0000-000000000000",
+	"8f801c9a-cf2d-4ef4-b11a-51b8697e3ca8",
 	'Graphical Data',
 	'The GD (Graphics Domain) subsystem models the graphical elements for a BridgePoint model.
 -------------------------------------------------------
 Import:org.eclipse.swt.graphics.Color
 Notify_Changes:true',
-	'GD',
 	1,
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	"00000000-0000-0000-0000-000001900032",
 	'../Graphical Data.xtuml');

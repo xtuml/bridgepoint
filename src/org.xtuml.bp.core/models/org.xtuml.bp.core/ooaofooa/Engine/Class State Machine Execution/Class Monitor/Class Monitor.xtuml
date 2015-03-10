@@ -6,13 +6,13 @@ INSERT INTO O_OBJ
 	2917,
 	'CSME_CLM',
 	'Persistent:false',
-	"3eefe69a-fc9d-43fe-98f9-521c1cb870ac");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("f0320ddc-eff8-4696-b179-2886994378f6",
 	"82fc24e2-9354-449a-832b-038b1f70dd23",
 	'dispose',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// Class Monitor.dispose
 select one cie related by self->CSME_CIE[R2950];
@@ -22,13 +22,6 @@ delete object instance self;',
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO S_DT_PROXY
-	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'void',
-	'',
-	'',
-	'../../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("82fc24e2-9354-449a-832b-038b1f70dd23",
 	"f2bf6a7f-e727-41ab-9daa-0679223b1bb3",
@@ -77,16 +70,9 @@ INSERT INTO O_ATTR
 	'',
 	'CIE_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("82fc24e2-9354-449a-832b-038b1f70dd23",
 	"e31aa7b2-374b-4a6c-8c11-b9762ce9c824",
@@ -130,7 +116,7 @@ INSERT INTO O_ATTR
 	'',
 	'Execution_Engine_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_ID
@@ -152,15 +138,20 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"82fc24e2-9354-449a-832b-038b1f70dd23");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("82fc24e2-9354-449a-832b-038b1f70dd23",
+	1,
+	"3eefe69a-fc9d-43fe-98f9-521c1cb870ac",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("3eefe69a-fc9d-43fe-98f9-521c1cb870ac",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Class State Machine Execution',
 	'// This is used by schema_gen to ignore this subsystem (for publication)
 TRANSLATE_FOR_EXTERNAL_USE:FALSE
 Persistent:false
 Import: java.util.concurrent.locks.ReentrantLock',
-	'',
 	2960,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000000000",
 	'../Class State Machine Execution.xtuml');

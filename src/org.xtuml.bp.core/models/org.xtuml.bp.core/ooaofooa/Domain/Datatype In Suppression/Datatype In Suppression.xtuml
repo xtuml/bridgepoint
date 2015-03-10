@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("1697abd2-b8d9-49ae-b497-7e7b93dbe5bf",
@@ -6,7 +6,7 @@ INSERT INTO O_OBJ
 	35,
 	'S_DIS',
 	'',
-	"703df30a-ee7e-44ec-a7cf-22d2171bb270");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_REF
 	VALUES ("1697abd2-b8d9-49ae-b497-7e7b93dbe5bf",
 	"07cf2195-f012-4bf5-83c7-f89dd30a8839",
@@ -22,7 +22,7 @@ INSERT INTO O_REF
 	'',
 	'Domain',
 	'Dom_ID',
-	'R47');
+	'R47.''is suppressed in''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("1697abd2-b8d9-49ae-b497-7e7b93dbe5bf",
 	"435d00a1-9c30-4292-8113-dbb72188b661",
@@ -55,16 +55,9 @@ INSERT INTO O_ATTR
 	'',
 	'Dom_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("1697abd2-b8d9-49ae-b497-7e7b93dbe5bf",
 	"ead52fac-9782-434b-a35c-c07452c3b26d",
@@ -80,7 +73,7 @@ INSERT INTO O_REF
 	'',
 	'Data Type',
 	'DT_ID',
-	'R47');
+	'R47.''contains suppressed''');
 INSERT INTO O_RTIDA_PROXY
 	VALUES ("0e78201f-a7cd-497b-a6b4-e224ab7915c2",
 	"ead52fac-9782-434b-a35c-c07452c3b26d",
@@ -108,7 +101,7 @@ INSERT INTO O_ATTR
 	'',
 	'Element_ID',
 	2,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_ID
@@ -130,12 +123,17 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"1697abd2-b8d9-49ae-b497-7e7b93dbe5bf");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("1697abd2-b8d9-49ae-b497-7e7b93dbe5bf",
+	1,
+	"703df30a-ee7e-44ec-a7cf-22d2171bb270",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("703df30a-ee7e-44ec-a7cf-22d2171bb270",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Domain',
 	'A domain (S_DOM) consists of one or more subsystems (S_SS) that each contain an information model that abstracts a portion of the data for the domain: classes (O_OBJ), associations (R_REL), etc.  Breaking a domain into subsystems allows the complexity of the domain to be more easily managed: 1) subsystems are components and can be checked out individually allowing parallelism in development of the models and 2) breaking up a domain into smaller units is easier to understand.  A subsystem is composed of classes that tend to cluster, i.e., they have few associations that span subsystem boundaries.  Inter-subsystem associations, communications, and accesses are captured in the Subsystem Relationship Model (SRM), Subsystem Communication Model (SCM), and Subsystem Access Model (SAM) respectively.',
-	'S',
 	1,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000100002",
 	'../Domain.xtuml');

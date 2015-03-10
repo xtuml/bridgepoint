@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("f39ecf63-0742-4445-a935-9ef48dcc5a63",
@@ -6,7 +6,7 @@ INSERT INTO O_OBJ
 	206,
 	'R_PART',
 	'A Class As Simple Participant is the referred to class in a simple association.',
-	"c8d78fd5-1314-444a-bad0-6af79f6e1296");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("c5949b17-471c-4b4d-bd08-2b6a26116dff",
 	"f39ecf63-0742-4445-a935-9ef48dcc5a63",
@@ -17,7 +17,7 @@ it returns the value of the ''Txt_Phrs'' attribute.
 -----------------------------------------------------------------------------------
 Bridge:GD
 ',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'result = "";
 if (param.at == End::Start OR param.at == End::End)
@@ -40,18 +40,11 @@ INSERT INTO O_TPARM
 	'');
 INSERT INTO S_DT_PROXY
 	VALUES ("ae85eca6-6fe4-4125-95e6-95272f0fd7de",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
 	'End',
 	'Text is positioned at a user adjustable offset from the Start, Middle and End of a connector. Start_Fixed and End_Fixed specify fixed position text found at the start and end of some connectors.
 -------------------------------------------------------------
 Bridge:GD',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
-INSERT INTO S_DT_PROXY
-	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'string',
-	'',
 	'',
 	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
@@ -60,7 +53,7 @@ INSERT INTO O_TFR
 	'dispose',
 	'The dispose operation of the R_PART class.
 ',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select one rsimp related by self->R_SIMP[R207];
 unrelate self from rsimp across R207;
@@ -71,19 +64,12 @@ delete object instance self;
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO S_DT_PROXY
-	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'void',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("c18a47d0-d130-4858-8107-729c0a7aaa21",
 	"f39ecf63-0742-4445-a935-9ef48dcc5a63",
 	'get_name',
 	'',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'select one obj related by self->R_RTO[R204]->R_OIR[R203]->O_OBJ[R201];
 return obj.Name;
@@ -96,7 +82,7 @@ INSERT INTO O_TFR
 	"f39ecf63-0742-4445-a935-9ef48dcc5a63",
 	'migrateToFormalizer',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'
 create object instance rgo of R_RGO;
@@ -125,7 +111,7 @@ INSERT INTO O_TFR
 	"f39ecf63-0742-4445-a935-9ef48dcc5a63",
 	'manyMultAllowed',
 	'',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'select one form related by self->R_SIMP[R207]->R_FORM[R208];
 // if empty form, then rel is unformalized, and many multiplicity is allowed
@@ -134,19 +120,12 @@ return empty form;
 	1,
 	'',
 	"c18a47d0-d130-4858-8107-729c0a7aaa21");
-INSERT INTO S_DT_PROXY
-	VALUES ("8e519c45-7dcf-400b-9d4e-954869dbb7e8",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'boolean',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("99f3493a-8133-4aa1-9327-9d6e69056412",
 	"f39ecf63-0742-4445-a935-9ef48dcc5a63",
 	'mergeDispose',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'/**
    *  We must dispose of the Simple Association instance here
@@ -219,16 +198,9 @@ INSERT INTO O_ATTR
 	'',
 	'OIR_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("87eec1ba-e8c4-44f5-9ed2-5fa10754bd88",
 	"f39ecf63-0742-4445-a935-9ef48dcc5a63");
@@ -249,16 +221,9 @@ enum1: Many
 	'',
 	'Mult',
 	0,
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'integer',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("98f390ae-6e8c-4125-b0c4-82e43795360a",
 	"f39ecf63-0742-4445-a935-9ef48dcc5a63");
@@ -279,7 +244,7 @@ enum1: Conditional
 	'',
 	'Cond',
 	0,
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -299,7 +264,7 @@ Description: Text phrase at the participant end of the association
 	'',
 	'Txt_Phrs',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_REF
@@ -345,7 +310,7 @@ INSERT INTO O_ATTR
 	'',
 	'Obj_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -363,7 +328,7 @@ INSERT INTO O_REF
 	'',
 	'Simple Association',
 	'Rel_ID',
-	'R207');
+	'R207.''is related to formalizer via''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("f39ecf63-0742-4445-a935-9ef48dcc5a63",
 	"3afca806-71d6-40f8-b312-708ff4c6af60",
@@ -415,7 +380,7 @@ INSERT INTO O_ATTR
 	'',
 	'Rel_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_ID
@@ -442,12 +407,17 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"f39ecf63-0742-4445-a935-9ef48dcc5a63");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("f39ecf63-0742-4445-a935-9ef48dcc5a63",
+	1,
+	"c8d78fd5-1314-444a-bad0-6af79f6e1296",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("c8d78fd5-1314-444a-bad0-6af79f6e1296",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Association',
 	'A association (R_REL) captures an association between things in the real world. A association is stated in terms of the formal classs (O_OBJ) that model the real world entities participating in the association. There can be any number of associations between the same two classs and any class can participate in any number of associations with other classs.',
-	'R',
 	201,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000180003",
 	'../Association.xtuml');

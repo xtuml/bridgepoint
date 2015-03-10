@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("bb6438e8-228a-429d-b812-3be195c75a4f",
@@ -6,7 +6,7 @@ INSERT INTO O_OBJ
 	4,
 	'T_DAS',
 	'',
-	"9a4ff466-14a5-4e47-b07f-84de195f210a");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_REF
 	VALUES ("bb6438e8-228a-429d-b812-3be195c75a4f",
 	"a414fa61-fb3a-4aa2-8385-0b73d87a072d",
@@ -22,7 +22,7 @@ INSERT INTO O_REF
 	'',
 	'Tree_Parenthood_Specification',
 	'TPS_ID',
-	'R1004');
+	'R1004.''additional association data specified for''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("bb6438e8-228a-429d-b812-3be195c75a4f",
 	"4d9be8b6-6800-4205-9b50-dad50f66d218",
@@ -55,16 +55,9 @@ INSERT INTO O_ATTR
 	'',
 	'TPS_ID',
 	0,
-	"2308f829-cd27-4cf2-93bd-6c9ae5f576b7",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("2308f829-cd27-4cf2-93bd-6c9ae5f576b7",
-	"138f69c7-a700-4109-8c2b-e9232b291756",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("181bce20-0ef2-416c-8890-a977b1368947",
 	"bb6438e8-228a-429d-b812-3be195c75a4f");
@@ -80,16 +73,9 @@ INSERT INTO O_ATTR
 	'',
 	'data_parent_chain',
 	0,
-	"03c1b47c-e0b1-4463-ab1e-0820044ee2f4",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("03c1b47c-e0b1-4463-ab1e-0820044ee2f4",
-	"138f69c7-a700-4109-8c2b-e9232b291756",
-	'string',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("0ac122ff-acd5-4a1b-baad-b9115b5d25aa",
 	"bb6438e8-228a-429d-b812-3be195c75a4f");
@@ -105,7 +91,7 @@ INSERT INTO O_ATTR
 	'',
 	'child_key_lett',
 	0,
-	"03c1b47c-e0b1-4463-ab1e-0820044ee2f4",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -126,7 +112,7 @@ child should be used.',
 	'',
 	'data_child_chain',
 	0,
-	"03c1b47c-e0b1-4463-ab1e-0820044ee2f4",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -144,7 +130,7 @@ INSERT INTO O_ATTR
 	'',
 	'parent_key_lett',
 	0,
-	"03c1b47c-e0b1-4463-ab1e-0820044ee2f4",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_ID
@@ -156,12 +142,17 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"bb6438e8-228a-429d-b812-3be195c75a4f");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("bb6438e8-228a-429d-b812-3be195c75a4f",
+	1,
+	"9a4ff466-14a5-4e47-b07f-84de195f210a",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("9a4ff466-14a5-4e47-b07f-84de195f210a",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'CompTree',
 	'',
-	'T',
 	1,
-	"138f69c7-a700-4109-8c2b-e9232b291756",
-	"00000000-0000-0000-0000-000000100002",
 	'../CompTree.xtuml');

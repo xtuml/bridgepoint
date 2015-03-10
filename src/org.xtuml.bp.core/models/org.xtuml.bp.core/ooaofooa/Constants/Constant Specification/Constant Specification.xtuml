@@ -7,13 +7,13 @@ INSERT INTO O_OBJ
 	'CNST_CSP',
 	'A grouping of constants. The name is informal and does not imply any scoping.
 It is used by the parser to locate the constant.',
-	"64811fd3-cc5f-4963-9036-8a9110e89dda");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("ee919564-ada3-4b60-ae4c-53847b7d50b2",
 	"12e6f27b-b831-4008-9d22-f432b1a57ffe",
 	'associateWithSystem',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
 // Constant Specification::associateWithSystem()
@@ -43,31 +43,17 @@ INSERT INTO O_TPARM
 	VALUES ("85086559-93ad-4788-85c2-794450ad25d0",
 	"ee919564-ada3-4b60-ae4c-53847b7d50b2",
 	'sys_id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'unique_id',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
-INSERT INTO S_DT_PROXY
-	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'void',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("32814bd6-1599-4201-9c12-90e6f8b8a4bd",
 	"12e6f27b-b831-4008-9d22-f432b1a57ffe",
 	'dispose',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
 // Constant Specification (CNST_CSP) dispose operation
@@ -116,7 +102,7 @@ INSERT INTO O_TFR
 	'get_compartment_text',
 	'Return the textual contents of the given compartment.  Compartment one is the
 header info, compartment two is the list of contained constants.',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'result = "";
 if (param.comp_num == 1)
@@ -170,7 +156,7 @@ INSERT INTO O_TPARM
 	'');
 INSERT INTO S_DT_PROXY
 	VALUES ("a9382bea-4a3f-43ec-9191-1f9f158b11a4",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
 	'Justification',
 	'The Justification data type is used to specify text at a given location in a compartment.
 ------------------------------------------------------------------------------
@@ -181,41 +167,27 @@ INSERT INTO O_TPARM
 	VALUES ("cc73c765-383b-49d8-86e0-2b9d04119c25",
 	"99d4ca3b-4856-4c52-ac8e-1fdd4b97dc2d",
 	'comp_num',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"a1912931-585f-4150-b791-01134f75f5f3",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'integer',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TPARM
 	VALUES ("b4d7f200-3141-41f1-b421-bdd87803a694",
 	"99d4ca3b-4856-4c52-ac8e-1fdd4b97dc2d",
 	'ent_num',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"cc73c765-383b-49d8-86e0-2b9d04119c25",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'string',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("c0b4aea1-1241-40a9-b534-bfe33739be0a",
 	"12e6f27b-b831-4008-9d22-f432b1a57ffe",
 	'get_compartments',
 	'Return the number of compartments in the graphical element.  There are 2, the
 header, and the body (which contains all the defined constants).',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	1,
 	'return 2;',
 	1,
@@ -227,7 +199,7 @@ INSERT INTO O_TFR
 	'get_entries',
 	'Returns the number of elements in the given compartment.  One for the top, and
 the number of contained constants for the bottom compartment.',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	1,
 	'if (param.comp_num == 1)
   return 1;
@@ -242,7 +214,7 @@ INSERT INTO O_TPARM
 	VALUES ("4b47046c-1e7a-4a9e-b0fc-fd45dd5ec435",
 	"aa68c6b6-8f32-4903-84d5-8d1da8444ed3",
 	'comp_num',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -252,7 +224,7 @@ INSERT INTO O_TFR
 	"12e6f27b-b831-4008-9d22-f432b1a57ffe",
 	'get_name',
 	'Returns the name of this constant specification.',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'return self.InformalGroupName;',
 	1,
@@ -263,7 +235,7 @@ INSERT INTO O_TFR
 	"12e6f27b-b831-4008-9d22-f432b1a57ffe",
 	'get_ooa_id',
 	'Returns the unique key for this class.',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'return self.Constant_Spec_ID;',
 	1,
@@ -282,7 +254,7 @@ INSERT INTO O_TFR
 	"cf88f20b-e1cb-4a86-9f95-3c6581f5fb99");
 INSERT INTO S_DT_PROXY
 	VALUES ("6e636321-0fd1-4577-b185-e4d76b0d0c71",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
 	'Style',
 	'The Style data type specifies the precise form a graphical element will take when drawn.
 --------------------------------------------------------------------------
@@ -313,7 +285,7 @@ INSERT INTO O_TPARM
 	VALUES ("e189f2ba-ab01-447b-9fc1-1627edf08b42",
 	"9f0d3077-702f-4076-ae40-0940aacfb8c4",
 	'comp_num',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"f8be3091-f3f7-4ae9-bd57-d97cb3437de4",
@@ -322,7 +294,7 @@ INSERT INTO O_TPARM
 	VALUES ("475d945a-ccb8-4ebe-8fc3-7f1c66b42331",
 	"9f0d3077-702f-4076-ae40-0940aacfb8c4",
 	'ent_num',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"e189f2ba-ab01-447b-9fc1-1627edf08b42",
@@ -332,7 +304,7 @@ INSERT INTO O_TFR
 	"12e6f27b-b831-4008-9d22-f432b1a57ffe",
 	'newLiteralSymbolicConstant',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'//
 // Constant Specification.newLiteralSymbolicConstant()
@@ -352,7 +324,7 @@ INSERT INTO O_TFR
 	"12e6f27b-b831-4008-9d22-f432b1a57ffe",
 	'actionFilter',
 	'',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'if(param.name == "can")
   if param.value == "make public"
@@ -389,7 +361,7 @@ INSERT INTO O_TPARM
 	VALUES ("703af6d7-125f-4e92-826e-496948f2fe0d",
 	"07bbc7f8-4b2f-4bd9-9c64-2787b730c7b4",
 	'name',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -398,24 +370,17 @@ INSERT INTO O_TPARM
 	VALUES ("a6daa4f3-36d6-4c3a-8e38-8ccbf6304a94",
 	"07bbc7f8-4b2f-4bd9-9c64-2787b730c7b4",
 	'value',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	0,
 	'',
 	"703af6d7-125f-4e92-826e-496948f2fe0d",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("8e519c45-7dcf-400b-9d4e-954869dbb7e8",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'boolean',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("0b887a39-d05a-40a5-8e04-9ebdcaea4133",
 	"12e6f27b-b831-4008-9d22-f432b1a57ffe",
 	'pasteLiteralSymbolicConstant',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select any lsc from instances of CNST_LSC where (selected.Const_ID == param.id);
 if(not_empty lsc)
@@ -435,7 +400,7 @@ INSERT INTO O_TPARM
 	VALUES ("7d2ff9d6-66be-4d60-ae89-5979d7758b9b",
 	"0b887a39-d05a-40a5-8e04-9ebdcaea4133",
 	'id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -445,7 +410,7 @@ INSERT INTO O_TFR
 	"12e6f27b-b831-4008-9d22-f432b1a57ffe",
 	'addLiteralSymbolicConstantToOrdering',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select any syc from instances of CNST_SYC where (selected.Const_ID == param.id);
 if(not_empty syc)
@@ -468,7 +433,7 @@ INSERT INTO O_TPARM
 	VALUES ("2fe60272-3a90-4fd7-a005-414c164ed505",
 	"363c651e-3258-4e2a-b5e5-b5ec6908c20e",
 	'id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -486,7 +451,7 @@ INSERT INTO O_TFR
 	"363c651e-3258-4e2a-b5e5-b5ec6908c20e");
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
 	'instance',
 	'',
 	'',
@@ -496,7 +461,7 @@ INSERT INTO O_TFR
 	"12e6f27b-b831-4008-9d22-f432b1a57ffe",
 	'initialize',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'name = ::getUniqueInitialName(
     instance: self.convertToInstance(),
@@ -526,7 +491,7 @@ Description: Contains the name of this constant specification.  It is informal i
 	'',
 	'InformalGroupName',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -545,7 +510,7 @@ Description:  A textual description of this constant specification.',
 	'',
 	'Descrip',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_REF
@@ -596,16 +561,9 @@ INSERT INTO O_ATTR
 	'',
 	'Constant_Spec_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_ID
 	VALUES (0,
 	"12e6f27b-b831-4008-9d22-f432b1a57ffe");
@@ -620,14 +578,19 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"12e6f27b-b831-4008-9d22-f432b1a57ffe");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("12e6f27b-b831-4008-9d22-f432b1a57ffe",
+	1,
+	"64811fd3-cc5f-4963-9036-8a9110e89dda",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("64811fd3-cc5f-4963-9036-8a9110e89dda",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Constants',
 	'This subsystem contains the metamodel support for constants.  Individual
 constants are contained inside a constant specification on the datatypes
 diagram.',
-	'CNST',
 	1500,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000000000",
 	'../Constants.xtuml');

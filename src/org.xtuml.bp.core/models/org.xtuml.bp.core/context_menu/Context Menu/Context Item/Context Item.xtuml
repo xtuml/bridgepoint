@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("d67022b1-33a6-407e-bfbc-30f2f83596d5",
@@ -15,7 +15,7 @@ Context Items are specified in a client model function
 by using the action language syntax:
 
 select x from instances of <client_class> where (USER::select(id:<client_class_id>));',
-	"22fe2ec1-5660-4a88-9691-da2fe55e94db");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_NBATTR
 	VALUES ("73ba8235-a705-4f88-b4d0-836b72faa228",
 	"d67022b1-33a6-407e-bfbc-30f2f83596d5");
@@ -34,16 +34,9 @@ makes a call to a USER bridge.',
 	'',
 	'Name',
 	0,
-	"ff27026a-9d91-4d3d-9c92-888e9483a31c",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("ff27026a-9d91-4d3d-9c92-888e9483a31c",
-	"1078c098-0f8e-425b-9cfb-5e5d9fbff920",
-	'string',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("d67022b1-33a6-407e-bfbc-30f2f83596d5",
 	"c78c298a-3afe-43eb-b805-4d43d35bbe6e",
@@ -59,7 +52,7 @@ INSERT INTO O_REF
 	'',
 	'Workflow',
 	'Name',
-	'R2003');
+	'R2003.''provides context for''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("d67022b1-33a6-407e-bfbc-30f2f83596d5",
 	"8087004e-1d38-42db-a3c9-488aaa527f37",
@@ -92,16 +85,9 @@ INSERT INTO O_ATTR
 	'Workflow_',
 	'Name',
 	1,
-	"e9939872-4e30-45f7-852c-a44e7f299f8a",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("e9939872-4e30-45f7-852c-a44e7f299f8a",
-	"1078c098-0f8e-425b-9cfb-5e5d9fbff920",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("d67022b1-33a6-407e-bfbc-30f2f83596d5",
 	"3125a67f-2704-48d5-a653-2a28fd66bd5f",
@@ -117,7 +103,7 @@ INSERT INTO O_REF
 	'',
 	'Statement',
 	'Statement_ID',
-	'R2004');
+	'R2004.''specified by''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("d67022b1-33a6-407e-bfbc-30f2f83596d5",
 	"5bc3a348-b6a7-45ae-91cd-684e03021245",
@@ -151,7 +137,7 @@ exists.',
 	'',
 	'Statement_ID',
 	0,
-	"e9939872-4e30-45f7-852c-a44e7f299f8a",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -169,7 +155,7 @@ INSERT INTO O_REF
 	'',
 	'Client Class',
 	'Key_Lett',
-	'R2002');
+	'R2002.''is of type''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("d67022b1-33a6-407e-bfbc-30f2f83596d5",
 	"9f12404e-c928-450a-845f-a48c41b98bdc",
@@ -203,7 +189,7 @@ selects.',
 	'',
 	'Key_Lett',
 	0,
-	"e9939872-4e30-45f7-852c-a44e7f299f8a",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -225,7 +211,7 @@ represents a set of the client model instances.',
 	'',
 	'Type',
 	0,
-	"ff27026a-9d91-4d3d-9c92-888e9483a31c",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_ID
@@ -247,12 +233,17 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"d67022b1-33a6-407e-bfbc-30f2f83596d5");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("d67022b1-33a6-407e-bfbc-30f2f83596d5",
+	1,
+	"22fe2ec1-5660-4a88-9691-da2fe55e94db",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("22fe2ec1-5660-4a88-9691-da2fe55e94db",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Context Menu',
 	'',
-	'CM_',
 	1,
-	"1078c098-0f8e-425b-9cfb-5e5d9fbff920",
-	"00000000-0000-0000-0000-000000100002",
 	'../Context Menu.xtuml');

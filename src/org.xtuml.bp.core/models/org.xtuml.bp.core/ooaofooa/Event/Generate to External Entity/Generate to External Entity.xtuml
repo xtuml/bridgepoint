@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("70dfadbd-b12d-439e-8895-03cfba3aab2b",
@@ -6,14 +6,14 @@ INSERT INTO O_OBJ
 	707,
 	'E_GEE',
 	'This class represents the generation of an event to an external entity.',
-	"606f68be-000c-4a29-9fb9-dc0284d01f2a");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("fbf88bc7-afc7-4f0e-b055-c059d1020008",
 	"70dfadbd-b12d-439e-8895-03cfba3aab2b",
 	'dispose',
 	'This operation disconnects an instance, and all instances it is 
 responsible for, from the model.',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select one evt related by self->S_EEEVT[R709];
 if ( not empty evt )
@@ -24,13 +24,6 @@ delete object instance self;
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO S_DT_PROXY
-	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'void',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("70dfadbd-b12d-439e-8895-03cfba3aab2b",
 	"0dfdb169-7ae7-4a71-b970-2d2cbe378350",
@@ -81,16 +74,9 @@ INSERT INTO O_ATTR
 	'',
 	'Statement_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("70dfadbd-b12d-439e-8895-03cfba3aab2b",
 	"5adc63b1-9773-4ea9-97ef-67828018b3a6",
@@ -106,7 +92,7 @@ INSERT INTO O_REF
 	'',
 	'External Entity Event',
 	'EEevt_ID',
-	'R709');
+	'R709.''generates''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("70dfadbd-b12d-439e-8895-03cfba3aab2b",
 	"1516a04f-e9bc-40ee-8a8c-50d8510e8a6e",
@@ -141,7 +127,7 @@ INSERT INTO O_ATTR
 	'',
 	'EEevt_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -159,7 +145,7 @@ INSERT INTO O_REF
 	'',
 	'External Entity Event',
 	'EE_ID',
-	'R709');
+	'R709.''generates''');
 INSERT INTO O_RTIDA_PROXY
 	VALUES ("e060c3d3-399d-444e-b65e-e7be44c3ed7f",
 	"5adc63b1-9773-4ea9-97ef-67828018b3a6",
@@ -187,7 +173,7 @@ INSERT INTO O_ATTR
 	'',
 	'EE_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_ID
@@ -204,8 +190,16 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"70dfadbd-b12d-439e-8895-03cfba3aab2b");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("70dfadbd-b12d-439e-8895-03cfba3aab2b",
+	1,
+	"606f68be-000c-4a29-9fb9-dc0284d01f2a",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("606f68be-000c-4a29-9fb9-dc0284d01f2a",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Event',
 	'This subsystem focuses on the creation and generation
 of events. Events to instances, class, creators and
@@ -217,8 +211,5 @@ Persistent:false
 // This is used by schema_gen to ignore this subsystem (for publication)
 TRANSLATE_FOR_EXTERNAL_USE:FALSE
 ',
-	'E',
 	700,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-00000068000d",
 	'../Event.xtuml');
