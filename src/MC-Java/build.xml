@@ -40,6 +40,8 @@
   	<exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
   	      <arg line="xtumlmc_cleanse_for_BridgePoint ${mcjava.project.root}/gen/code_generation sql/${param1}-${param6}.sql" />
   	</exec>
+  	<!-- delete the copied xtuml file to prevent adding previously processed xtumls files -->
+  	<delete file="gen/code_generation/${param1}-${param6}.xtuml" />
     <!-- for NON-parallel core builds -->
   	<exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
 		    <env key="PTC_MC_ARC_DIR" value="${param3}" />
