@@ -123,13 +123,6 @@ public class JavaExportBuilder extends AbstractExportBuilder {
 						m_elements.add(pkg);
 					}
 				}
-				// Backwards compatibility, can be removed once we're fully converted to GP's
-				Domain_c[] domains = Domain_c.getManyS_DOMsOnR28(system);
-				for (Domain_c dom : domains) {
-					if (dom.getName().equals(domName)) {
-						m_elements.add(dom);
-					}
-				}
 				// Add any loaded global elements
 				if (CorePlugin.getLoadedGlobals() != null
 						&& system.getUseglobals() && !append) {
@@ -157,11 +150,6 @@ public class JavaExportBuilder extends AbstractExportBuilder {
 					List<NonRootModelElement> etpsPass1 = new ArrayList<NonRootModelElement>();
 					List<ArrayList<NonRootModelElement>> etpsSubsequentPasses = new ArrayList<ArrayList<NonRootModelElement>>();
 					for (NonRootModelElement etp : etps) {
-						if (etp instanceof Domain_c && ((Domain_c)etp).getName().equals(domName)) {
-							organizePasses(splitPoints, exclude,
-									includeOnly, etpsPass1,
-									etpsSubsequentPasses, (Domain_c)etp);
-						}
 						if (etp instanceof Package_c && ((Package_c)etp).getName().equals(domName)) {
 							organizePasses(splitPoints, exclude,
 									includeOnly, etpsPass1,
