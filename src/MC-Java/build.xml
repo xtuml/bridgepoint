@@ -36,7 +36,7 @@
   	      param6 = pass count
   	-->
   	<echo>Building from: gen/code_generation/${param1}-${param6}.sql</echo>
-  	<copy file="gen/code_generation/${param1}-${param6}.sql" tofile="gen/code_generation/${param1}.xtuml"/>
+  	<copy file="gen/code_generation/${param1}-${param6}.sql" tofile="gen/code_generation/${param1}-${param6}.xtuml"/>
   	<exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
   	      <arg line="xtumlmc_cleanse_for_BridgePoint ${mcjava.project.root}/gen/code_generation sql/${param1}-${param6}.sql" />
   	</exec>
