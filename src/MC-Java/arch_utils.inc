@@ -13,9 +13,9 @@
 .//
 .//====================================================================
 .//
-.function get_domain_name
-  .param inst_ref domain
-$cr{domain.Name}\
+.function get_root_pkg_name
+  .param inst_ref pkg
+$cr{pkg.Name}\
 .end function
 .//
 .//====================================================================
@@ -376,22 +376,20 @@ $r{p_class.Name}ActionFilter\
   .assign attr_result = true
   .if ( class_kl == "ACT_SMT" )
     .invoke gss = get_context_for_statement( elem )
-    .if ( gss.ss_ok )
-      .assign ss = gss.ss
-      .invoke csfnc = check_subsystem_for_notifies_changes(ss)
+    .if ( gss.pkg_ok )
+      .assign pkg = gss.pkg
+      .invoke csfnc = check_pkg_for_notifies_changes(pkg)
       .assign attr_result = csfnc.result
-    .elif ( gss.dom_ok )
-      .assign dom = gss.dom
-      .invoke nc = notifies_changes( dom, "S_DOM" )
-      .assign attr_result = nc.result
+    .elif ( gss.root_ok )
+      .assign attr_result = true
     .end if
   .elif ( class_kl == "O_ATTR" )
     .if ( "$l{elem.Descrip:Persistent}" != "false" )
        .if ("${elem.Descrip:Notify_Changes}" == "false")
           .assign attr_result = false
        .else
-        .select one ss related by elem->O_OBJ[R102]->S_SS[R2]
-        .invoke csfnc = check_subsystem_for_notifies_changes(ss)
+        .select one pkg related by elem->O_OBJ[R102]->PE_PE[R8001]->EP_PKG[R8000]
+        .invoke csfnc = check_pkg_for_notifies_changes(pkg)
         .assign attr_result = csfnc.result
 	   .end if
     .else
@@ -399,8 +397,8 @@ $r{p_class.Name}ActionFilter\
       .assign attr_result = false
     .end if
   .elif ( class_kl == "O_OBJ" )
-    .select one ss related by elem->S_SS[R2]
-    .invoke csfnc = check_subsystem_for_notifies_changes(ss)
+    .select one pkg related by elem->PE_PE[R8001]->EP_PKG[R8000]
+    .invoke csfnc = check_pkg_for_notifies_changes(pkg)
     .assign attr_result = csfnc.result
   .else
     .if ("${elem.Descrip:Notify_Changes}" == "false")
@@ -411,31 +409,32 @@ $r{p_class.Name}ActionFilter\
 .//
 .//====================================================================
 .//
-.function check_subsystem_for_notifies_changes
-  .param inst_ref ss
+.function check_pkg_for_notifies_changes
+  .param inst_ref pkg
   .assign attr_result = true
-  .invoke nc = notifies_changes( ss, "S_SS" )
+  .invoke nc = notifies_changes( pkg, "EP_PKG" )
   .assign attr_result = nc.result
   .if (attr_result)
-    .// still true, also check domain
-    .select one dom related by ss->S_DOM[R1]
-    .invoke nc = notifies_changes( dom, "S_DOM" )
-    .assign attr_result = nc.result
+    .// still true, also check parent package
+    .select one parent related by pkg->PE_PE[R8001]->EP_PKG[R8000]
+    .if (not_empty parent)
+      .invoke nc = notifies_changes( parent, "EP_PKG" )
+      .assign attr_result = nc.result
+    .end if
   .end if
 .end function 
 .//
 .//====================================================================
-.// attr_ss is only valid if attr_ss_ok == true
-.// attr_dom is only valid if attr_dom_ok == true
+.// attr_pkg is only valid if attr_pkg_ok == true
+.// attr_root is only valid if attr_root_ok == true
 .//
 .function get_context_for_statement
   .param inst_ref stmt  .// ACT_SMT
   .//
   .select one act related by stmt->ACT_BLK[R602]->ACT_ACT[R601]
-  .select any attr_ss from instances of S_SS
-  .select any attr_dom from instances of S_DOM
-  .assign attr_ss_ok = false
-  .assign attr_dom_ok = false
+  .select any attr_pkg from instances of EP_PKG
+  .assign attr_pkg_ok = false
+  .assign attr_sys_ok = false
   .assign attr_return_dt_name = "void"
   .select one smact related by act->ACT_SAB[R698]->SM_ACT[R691]
   .if (empty smact)
@@ -444,32 +443,30 @@ $r{p_class.Name}ActionFilter\
   .end if
   .select one ism related by smact->SM_SM[R515]->SM_ISM[R517]
   .if ( not_empty ism )
-    .select one attr_ss related by ism->O_OBJ[R518]->S_SS[R2]
-    .assign attr_ss_ok = true
+    .select one attr_pkg related by ism->O_OBJ[R518]->PE_PE[R8001]->EP_PKG[R8000]
+    .assign attr_pkg_ok = true
   .end if
   .select one asm related by smact->SM_SM[R515]->SM_ASM[R517]
   .if (not_empty asm)
-    .select one attr_ss related by asm->O_OBJ[R519]->S_SS[R2]
-    .assign attr_ss_ok = true
+    .select one attr_pkg related by asm->O_OBJ[R519]->PE_PE[R8001]->EP_PKG[R8000]
+    .assign attr_pkg_ok = true
   .end if
   .select one tfr related by act->ACT_OPB[R698]->O_TFR[R696]
   .if (not_empty tfr)
-    .select one attr_ss related by tfr->O_OBJ[R115]->S_SS[R2]
-    .assign attr_ss_ok = true
+    .select one attr_pkg related by tfr->O_OBJ[R115]->PE_PE[R8001]->EP_PKG[R8000]
+    .assign attr_pkg_ok = true
     .select one ret_dt related by tfr->S_DT[R116]
     .assign attr_return_dt_name = ret_dt.Name
   .end if
   .select one func related by act->ACT_FNB[R698]->S_SYNC[R695]
   .if (not_empty func)
-.//    .select one attr_dom related by func->S_DOM[R23]
-    .assign attr_dom_ok = true
+    .assign attr_root_ok = true
     .select one ret_dt related by func->S_DT[R25]
     .assign attr_return_dt_name = ret_dt.Name
   .end if
   .select one brg related by act->ACT_BRB[R698]->S_BRG[R697]
   .if (not_empty brg)
-.//    .select one attr_dom related by func->S_EE[R19]->S_DOM[R8]
-    .assign attr_dom_ok = true
+    .assign attr_root_ok = true
     .select one ret_dt related by func->S_DT[R20]
     .assign attr_return_dt_name = ret_dt.Name
   .end if
@@ -507,6 +504,7 @@ $r{p_class.Name}ActionFilter\
 .//====================================================================
 .//
 .function gen_parameter_list
+  .param string root_pkg_name
   .param inst_ref_set parameters
   .param boolean prefix_param_delimiter
   .//
@@ -523,7 +521,7 @@ $r{p_class.Name}ActionFilter\
         .if ( parameter.Order == item_number )
           .select one value related by parameter->V_VAL[R800]
           .if (value.buffer == "")
-            .invoke gen_value(value)
+            .invoke gen_value(root_pkg_name, value)
           .end if
 			.//
 			.// now, we want to detm if the parameter is a real, in which case
@@ -981,8 +979,8 @@ ${param_delimiter}${intCast1}${value.buffer}${intCast2}\
 
   .assign attr_result = true
   .//check parent SS property
-  .select one ss related by class->S_SS[R2]
-  .assign persistent_kw = "$l{ss.Descrip:Persistent}"
+  .select one pkg related by class->PE_PE[R8001]->EP_PKG[R8000]
+  .assign persistent_kw = "$l{pkg.Descrip:Persistent}"
   .assign attr_result = not (persistent_kw == "false")
   
   .//Override persistent property if specified in the class
