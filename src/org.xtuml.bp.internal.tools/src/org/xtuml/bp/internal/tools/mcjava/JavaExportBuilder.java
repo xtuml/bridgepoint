@@ -26,6 +26,8 @@ import org.xtuml.bp.core.Domain_c;
 import org.xtuml.bp.core.ExternalEntityPackage_c;
 import org.xtuml.bp.core.FunctionPackage_c;
 import org.xtuml.bp.core.Ooaofooa;
+import org.xtuml.bp.core.Package_c;
+import org.xtuml.bp.core.PackageableElement_c;
 import org.xtuml.bp.core.Subsystem_c;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
@@ -115,7 +117,13 @@ public class JavaExportBuilder extends AbstractExportBuilder {
 				if (originalSystem.isEmpty()) {
 					originalSystem = system.getName();
 				}
-				// m_elements.add(system);
+				Package_c[] topLevelPkgs = Package_c.getManyEP_PKGsOnR1401(system);
+				for (Package_c pkg: topLevelPkgs) {
+					if (pkg.getName().equals(domName)) {
+						m_elements.add(pkg);
+					}
+				}
+				// Backwards compatibility, can be removed once we're fully converted to GP's
 				Domain_c[] domains = Domain_c.getManyS_DOMsOnR28(system);
 				for (Domain_c dom : domains) {
 					if (dom.getName().equals(domName)) {
@@ -149,49 +157,15 @@ public class JavaExportBuilder extends AbstractExportBuilder {
 					List<NonRootModelElement> etpsPass1 = new ArrayList<NonRootModelElement>();
 					List<ArrayList<NonRootModelElement>> etpsSubsequentPasses = new ArrayList<ArrayList<NonRootModelElement>>();
 					for (NonRootModelElement etp : etps) {
-						if (etp instanceof Domain_c) {
-							if (((Domain_c) etp).getName().equals(domName)) {
-								int splitPointsFound = 0;
-								Subsystem_c[] subsystems = Subsystem_c
-										.getManyS_SSsOnR1((Domain_c) etp);
-								for (Subsystem_c subsystem : subsystems) {
-									// Split point is effective even if packages are excluded
-									for (String splitPoint: splitPoints) {
-									  if (subsystem.getName().equals(splitPoint)) {
-										splitPointsFound++;
-										etpsSubsequentPasses.add(new ArrayList<NonRootModelElement>());
-									  }
-									}
-									if (includeOnly.isEmpty() || includeOnly.contains(subsystem.getName())) {
-									  if (!exclude.contains(subsystem.getName())) {
-									    if (splitPointsFound == 0) {
-										  etpsPass1.add(subsystem);
-									    } else {
-										  etpsSubsequentPasses.get(splitPointsFound-1).add(subsystem);
-									    }
-									  }
-									}
-								}
-								List<NonRootModelElement> funcDest = etpsPass1;
-								if (splitPointsFound != 0) {
-									// Functions are always found in the last pass
-									funcDest = etpsSubsequentPasses.get(splitPointsFound-1);
-								}
-								FunctionPackage_c[] fpks = FunctionPackage_c
-										.getManyS_FPKsOnR29((Domain_c) etp);
-								for (FunctionPackage_c fpk : fpks) {
-									if (includeOnly.isEmpty() || includeOnly.contains(fpk.getName())) {
-										  if (!exclude.contains(fpk.getName())) {
-									        funcDest.add(fpk);
-										  }
-									}
-								}
-								ExternalEntityPackage_c[] eepks = ExternalEntityPackage_c
-										.getManyS_EEPKsOnR36((Domain_c) etp);
-								for (ExternalEntityPackage_c eepk : eepks) {
-									etpsPass1.add(eepk);
-								}
-							}
+						if (etp instanceof Domain_c && ((Domain_c)etp).getName().equals(domName)) {
+							organizePasses(splitPoints, exclude,
+									includeOnly, etpsPass1,
+									etpsSubsequentPasses, (Domain_c)etp);
+						}
+						if (etp instanceof Package_c && ((Package_c)etp).getName().equals(domName)) {
+							organizePasses(splitPoints, exclude,
+									includeOnly, etpsPass1,
+									etpsSubsequentPasses, (Package_c)etp);
 						}
 					}
 					String postFix = ".sql";
@@ -331,4 +305,93 @@ public class JavaExportBuilder extends AbstractExportBuilder {
 
 		return m_exportedSystems;
 	}
-}
+
+	private void organizePasses(String[] splitPoints,
+			List<String> exclude, List<String> includeOnly,
+			List<NonRootModelElement> etpsPass1,
+			List<ArrayList<NonRootModelElement>> etpsSubsequentPasses, Package_c etp) {
+		    // Some packages need to be processed in the first pass and others need to be deferred to the last package
+            String firstPass_pkgs = "External Entities";
+		    String deferred_pkgs = "Functions";
+		    List<NonRootModelElement> deferred = new ArrayList<NonRootModelElement>();
+			int splitPointsFound = 0;
+            Package_c[] subPackages = Package_c.getManyEP_PKGsOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(etp));
+            for (Package_c pkg : subPackages) {
+				// Split point is effective even if packages are excluded
+				for (String splitPoint: splitPoints) {
+				  if (pkg.getName().equals(splitPoint)) {
+					splitPointsFound++;
+					etpsSubsequentPasses.add(new ArrayList<NonRootModelElement>());
+				  }
+				}
+				if (includeOnly.isEmpty() || includeOnly.contains(pkg.getName())) {
+                  if (!exclude.contains(pkg.getName())) {
+                	if (deferred_pkgs.contains(pkg.getName())) {
+                		deferred.add(pkg);
+                	}
+                	else {
+                        if (splitPointsFound == 0 || firstPass_pkgs.contains(pkg.getName())) {
+                            etpsPass1.add(pkg);
+                        }
+                        else {
+                          etpsSubsequentPasses.get(splitPointsFound-1).add(pkg);
+                        }
+                    }
+                  }
+                }
+            }
+            if (splitPointsFound == 0) {
+              etpsPass1.addAll(deferred);
+            }
+            else {
+              etpsSubsequentPasses.get(splitPointsFound-1).addAll(deferred);
+            }
+		}
+
+	private void organizePasses(String[] splitPoints,
+			List<String> exclude, List<String> includeOnly,
+			List<NonRootModelElement> etpsPass1,
+			List<ArrayList<NonRootModelElement>> etpsSubsequentPasses,
+			Domain_c etp) {
+			int splitPointsFound = 0;
+			Subsystem_c[] subsystems = Subsystem_c
+					.getManyS_SSsOnR1((Domain_c) etp);
+			for (Subsystem_c subsystem : subsystems) {
+				// Split point is effective even if packages are excluded
+				for (String splitPoint: splitPoints) {
+				  if (subsystem.getName().equals(splitPoint)) {
+					splitPointsFound++;
+					etpsSubsequentPasses.add(new ArrayList<NonRootModelElement>());
+				  }
+				}
+				if (includeOnly.isEmpty() || includeOnly.contains(subsystem.getName())) {
+				  if (!exclude.contains(subsystem.getName())) {
+				    if (splitPointsFound == 0) {
+					  etpsPass1.add(subsystem);
+				    } else {
+					  etpsSubsequentPasses.get(splitPointsFound-1).add(subsystem);
+				    }
+				  }
+				}
+			}
+			List<NonRootModelElement> funcDest = etpsPass1;
+			if (splitPointsFound != 0) {
+				// Functions are always found in the last pass
+				funcDest = etpsSubsequentPasses.get(splitPointsFound-1);
+			}
+			FunctionPackage_c[] fpks = FunctionPackage_c
+					.getManyS_FPKsOnR29((Domain_c) etp);
+			for (FunctionPackage_c fpk : fpks) {
+				if (includeOnly.isEmpty() || includeOnly.contains(fpk.getName())) {
+					  if (!exclude.contains(fpk.getName())) {
+				        funcDest.add(fpk);
+					  }
+				}
+			}
+			ExternalEntityPackage_c[] eepks = ExternalEntityPackage_c
+					.getManyS_EEPKsOnR36((Domain_c) etp);
+			for (ExternalEntityPackage_c eepk : eepks) {
+				etpsPass1.add(eepk);
+			}
+		}
+	}
