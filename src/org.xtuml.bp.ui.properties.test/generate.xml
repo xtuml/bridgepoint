@@ -200,7 +200,7 @@
     <delete file="rel_chain.txt" />
     <delete file="rel_num.txt" />
     <delete file="remainder.txt" />
-  	<delete file="models/org.xtuml.bp.ui.properties.test/Datatypes" />
+  	<delete file="models/org.xtuml.bp.ui.properties.test/Datatypes/Globals.xtuml" />
   </target>
 
   <property name="cvs_java_files" value="EnumRangeTest.java,IsAllowedTypeTest.java,
