@@ -482,11 +482,7 @@ public class BaseTest extends TestCase {
 		
 		clearErrorLogView();
 	}
-	
-	// The following two loadProject() functions are very similar.  The main 
-	// difference is that one pulls the test project from outside the current
-	// workspace (typically a git test model repository) and the other pulls
-	// the test model from somewhere inside the workspace. 
+	 
 	public void loadProject(String projectName) throws CoreException {
     	TestUtil.showBridgePointPerspective();
         
