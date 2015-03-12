@@ -102,7 +102,7 @@ public class PropertiesViewTest2 extends BaseTest
 
         // if it's the first test of this class that's being setup
         if (firstTest) {
-            ensureAvailableAndLoaded("org.xtuml.bp.ui.properties.test", "odms1", false, false, "Package");
+            loadProject("odms");
 
             // open the odms subsystem diagram, as its getting focus will 
             // cause one of our custom properties sheets to be created and 

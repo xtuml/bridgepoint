@@ -1,4 +1,4 @@
--- BP 7.1 content: InstanceStateMachine syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: InstanceStateMachine syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO SM_ISM
 	VALUES ("ea81d828-90cb-4fc8-9a0b-ba8ee0d43b84",
@@ -82,7 +82,7 @@ INSERT INTO SM_SEME
 	"a31c2717-3c47-4946-a1b2-6d79038c3b53",
 	"ea81d828-90cb-4fc8-9a0b-ba8ee0d43b84",
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO SM_EIGN
+INSERT INTO SM_CH
 	VALUES ("da3a2c1c-9882-495d-a943-81f279e28379",
 	"5cb44601-d78d-4793-8961-7702c1dbcb24",
 	"ea81d828-90cb-4fc8-9a0b-ba8ee0d43b84",
@@ -147,15 +147,15 @@ INSERT INTO GD_MD
 	0,
 	0,
 	0,
-	'3.5.3',
-	'testProp::Unnamed Subsystem::C class::Instance State Machine');
+	'4.2.1',
+	'org.xtuml.bp.ui.properties.test::testProp::Unnamed Subsystem::C class::Instance State Machine');
 INSERT INTO GD_GE
 	VALUES ("36a2d516-90e3-4adb-ae90-ec4c3ba63dcd",
 	"ebf8c316-30ca-493c-b248-226420cc7690",
 	"da3a2c1c-9882-495d-a943-81f279e28379",
 	41,
 	0,
-	'testProp::Unnamed Subsystem::C class::Instance State Machine::State Name');
+	'org.xtuml.bp.ui.properties.test::testProp::Unnamed Subsystem::C class::Instance State Machine::State Name');
 INSERT INTO GD_SHP
 	VALUES ("36a2d516-90e3-4adb-ae90-ec4c3ba63dcd");
 INSERT INTO GD_NCS
@@ -189,7 +189,7 @@ INSERT INTO GD_GE
 	"9ac8ccdb-70f8-46d5-9e81-cac31fd4bb98",
 	42,
 	0,
-	'testProp::Unnamed Subsystem::C class::Instance State Machine::State Name::test_sm::B Class');
+	'org.xtuml.bp.ui.properties.test::testProp::Unnamed Subsystem::C class::Instance State Machine::State Name::test_sm::B Class');
 INSERT INTO GD_CON
 	VALUES ("7b65f387-ff66-4213-92e7-2b6d93d3bbe7",
 	"00000000-0000-0000-0000-000000000000");
