@@ -26,8 +26,6 @@
   <property name="sql.input" value="models/org.xtuml.bp.core/ooaofooa" />
   <property name="sql.output" value="ooaofooa.sql" />
 
-  <property name="file_io_sql.input" value="../org.xtuml.bp.io.core/models/org.xtuml.bp.io.core/file_io" />
-  <property name="file_io_sql.output" value="file_io.sql" />
   <property name="subsystems_to_remove" value="ACT_ V_ E_ GD_ CT_ TS_ DIM_ STY_" />
 
   <property name="context_menu_input"
@@ -45,7 +43,6 @@
 
     <uptodate property="sql.buildNotNeeded" targetfile="sql/${sql.output}">
       <srcfiles dir="${sql.input}" excludes="${model_excludes}" includes="**/*.xtuml" />
-      <srcfiles dir="sql" includes="${file_io_sql.output}" />
     </uptodate>
   </target>
 
@@ -53,12 +50,11 @@
           description="Generate the sql version of the OoaofOoa model"
           unless="sql.buildNotNeeded" >
     <echo >Generating ${sql.output} ...</echo>
-  <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
-      <arg line="xtumlmc_cleanse_for_BridgePoint ${file_io_sql.input} sql/${file_io_sql.output} ${subsystems_to_remove}" />
-  </exec>
-  <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
-      <arg line="xtumlmc_cleanse_for_BridgePoint ${sql.input} sql/${sql.output} ${subsystems_to_remove}" />
-  </exec>
+  	<copy file="gen/code_generation/ooaofooa-1.sql" tofile="gen/code_generation/ooaofooa.xtuml"/>
+  	<exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
+  	      <arg line="xtumlmc_cleanse_for_BridgePoint ${basedir}/gen/code_generation sql/ooaofooa.sql" />
+  	</exec>
+  	<delete file="gen/code_generation/ooaofooa.xtuml" />
   </target>
 
   <property name="cme.input" value="models/org.xtuml.bp.core/context_menu" />
@@ -74,9 +70,11 @@
           description="Generate the sql version of the Context Menu Entry model"
           unless="cme.buildNotNeeded" >
     <echo >Generating ${cme.output} ...</echo>
-  <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
-    <arg line="xtumlmc_cleanse_for_BridgePoint ${cme.input} sql/${cme.output} ${subsystems_to_remove}" />
-  </exec>
+  	<copy file="../org.xtuml.bp.pkg/globals/Globals.xtuml" tofile="${cme.input}/Globals.xtuml" />
+  	<exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
+      <arg line="xtumlmc_cleanse_for_BridgePoint ${cme.input} sql/${cme.output} ${subsystems_to_remove}" />
+    </exec>
+  	<delete file="${cme.input}/Globals.xtuml" />
   </target>
 
   <property name="mcj_path" value="../MC-Java" />
@@ -87,7 +85,7 @@
 
   <target name="schema.depends" >
     <uptodate property="schema.buildNotNeeded" targetfile="sql/${schema.output}">
-       <srcfiles dir = "sql"        includes = "${sql.output},${file_io_sql.output}"/>
+       <srcfiles dir = "sql"        includes = "${sql.output}"/>
        <srcfiles dir = "${mcj_path}" includes = "${sg.dep}"/>
     </uptodate>
   </target>
@@ -106,26 +104,22 @@
           description="Generate the Ooa of ooa database schema file"
           unless="schema.buildNotNeeded" >
     <echo >Generating ${schema.output} ...</echo>
-  <ant antfile="${mcj_path}/build.xml" target="generate.schema" >
-    <property name="param1" value="${sql.output}" />
-    <property name="param2" value="${mcj_path}" />
-    <property name="param3" value="TRUE" />
-  </ant>
     <ant antfile="${mcj_path}/build.xml" target="generate.schema" >
-        <property name="param1" value="${file_io_sql.output}" />
-        <property name="param2" value="${mcj_path}" />
-        <property name="param3" value="FALSE" />
-  </ant>
-  <!-- If necessary, freshen the schema used by MC-Java -->
-  <!-- Need to move the output file since the archetype uses the domain
+      <property name="param1" value="${sql.output}" />
+      <property name="param2" value="${mcj_path}" />
+      <property name="param3" value="TRUE" />
+      <property name="param4" value="ooaofooa" />
+    </ant>
+    <!-- If necessary, freshen the schema used by MC-Java -->
+    <!-- Need to move the output file since the archetype uses the domain
        name as the base name of the output file -->
-  <move file="sql/ooaofooa_schema.sql" tofile="sql/ooa_schema.sql" />
-  <condition property="schemaIsUpToDate">
-    <filesmatch file1="sql/ooa_schema.sql" file2="${mcj_path}/ooa_schema.sql" textfile="true"/>
-  </condition>
-  <antcall target="schema.copy"/>
-  <!-- Finally rename the output file to the one expected by the installer -->
-  <move file="sql/ooa_schema.sql" tofile="sql/${schema.output}" />
+    <move file="sql/ooaofooa_schema.sql" tofile="sql/ooa_schema.sql" />
+    <condition property="schemaIsUpToDate">
+      <filesmatch file1="sql/ooa_schema.sql" file2="${mcj_path}/ooa_schema.sql" textfile="true"/>
+    </condition>
+    <antcall target="schema.copy"/>
+    <!-- Finally rename the output file to the one expected by the installer -->
+    <move file="sql/ooa_schema.sql" tofile="sql/${schema.output}" />
   </target>
 
   <property name="cme_schema.output" value="context_menu_schema.sql" />
@@ -145,6 +139,8 @@
   <ant antfile="${mcj_path}/build.xml" target="generate.schema" >
     <property name="param1" value="${cme.output}" />
     <property name="param2" value="${mcj_path}" />
+    <property name="param3" value="FALSE" />
+    <property name="param4" value="context_menu" />
   </ant>
   <!-- Need to touch the output file for the case where the input data
        changed, but the output didn't -->
@@ -175,35 +171,19 @@
     <property name="param1" value="ooaofooa" />
     <property name="param2" value="Ooaofooa" />
     <property name="param3" value="${mcj_path}" />
-    <property name="param4" value="file_io_schema" />
-    <property name="param5" value="" />
-    <property name="param6" value="Constants" />
-  	<property name="param7" value = "org.xtuml.bp.core"/>
-    <property name="param8" value = "1"/>
+    <property name="param4" value="" />
+    <property name="param5" value="Constants" />
+    <property name="param6" value = "1"/>
     <property name="verify_selects" value="false" />
     <property name="mcjava.project.root" value="${basedir}"/>
   </ant>
-     <ant antfile="${mcj_path}/build.xml" target="generate-with-file_io.java" >
-      <property name="param1" value="ooaofooa" />
-      <property name="param2" value="Ooaofooa" />
-      <property name="param3" value="${mcj_path}" />
-      <property name="param4" value="file_io_schema" />
-      <property name="param5" value="Constants" />
-      <property name="param6" value="Invocation" />
-      <property name="param7" value = "org.xtuml.bp.core"/>
-      <property name="param8" value = "2"/>
-      <property name="verify_selects" value="false" />
-      <property name="mcjava.project.root" value="${basedir}"/>
-    </ant>
     <ant antfile="${mcj_path}/build.xml" target="generate-with-file_io.java" >
       <property name="param1" value="ooaofooa" />
       <property name="param2" value="Ooaofooa" />
       <property name="param3" value="${mcj_path}" />
-      <property name="param4" value="file_io_schema" />
+      <property name="param4" value="Constants" />
       <property name="param5" value="Invocation" />
-      <property name="param6" value="Use Case" />
-      <property name="param7" value = "org.xtuml.bp.core"/>
-      <property name="param8" value = "3"/>
+      <property name="param6" value = "2"/>
       <property name="verify_selects" value="false" />
       <property name="mcjava.project.root" value="${basedir}"/>
     </ant>
@@ -211,11 +191,19 @@
       <property name="param1" value="ooaofooa" />
       <property name="param2" value="Ooaofooa" />
       <property name="param3" value="${mcj_path}" />
-      <property name="param4" value="file_io_schema" />
+      <property name="param4" value="Invocation" />
       <property name="param5" value="Use Case" />
-      <property name="param6" value="" />
-      <property name="param7" value = "org.xtuml.bp.core"/>
-      <property name="param8" value = "4"/>
+      <property name="param6" value = "3"/>
+      <property name="verify_selects" value="false" />
+      <property name="mcjava.project.root" value="${basedir}"/>
+    </ant>
+    <ant antfile="${mcj_path}/build.xml" target="generate-with-file_io.java" >
+      <property name="param1" value="ooaofooa" />
+      <property name="param2" value="Ooaofooa" />
+      <property name="param3" value="${mcj_path}" />
+      <property name="param4" value="Use Case" />
+      <property name="param5" value="" />
+      <property name="param6" value = "4"/>
       <property name="verify_selects" value="false" />
       <property name="mcjava.project.root" value="${basedir}"/>
     </ant>
@@ -320,9 +308,11 @@
           description="Generate the sql version of the Core Hierarchy/Tree model"
           unless="inspector.sql.buildNotNeeded" >
     <echo >Generating ${inspector.sql.output} ...</echo>
-  <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
-    <arg line="xtumlmc_cleanse_for_BridgePoint ${inspector.sql.input} sql/${inspector.sql.output} ${subsystems_to_remove}" />
-  </exec>
+  	<copy file="../org.xtuml.bp.pkg/globals/Globals.xtuml" tofile="${inspector.sql.input}/Globals.xtuml" />
+    <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
+      <arg line="xtumlmc_cleanse_for_BridgePoint ${inspector.sql.input} sql/${inspector.sql.output} ${subsystems_to_remove}" />
+    </exec>
+  	<delete file="${inspector.sql.input}/Globals.xtuml" />
   </target>
 
   <property name="inspector.schema.dep" value="ooa_schema.sql,schema_gen.arc" />
@@ -343,6 +333,8 @@
   <ant antfile="${mcj_path}/build.xml" target="generate.schema" >
     <property name="param1" value="${inspector.sql.output}" />
     <property name="param2" value="${mcj_path}" />
+    <property name="param3" value="FALSE" />
+    <property name="param4" value="ooaofooa_hierarchy" />
   </ant>
   <!-- Need to touch the output file for the case where the input data
        changed, but the output didn't -->
@@ -444,9 +436,9 @@
 	        <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
 	    	<env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
 	    	<arg line="xtumlmc_gen_erate -nopersist
-	      	    -import ${mcj_path}/ooa_schema.sql
-	      	    -import sql/ooaofooa.sql
-	      	    -arch arc/generate_supertype_subtype_util.arc" />
+	      	-import ${mcj_path}/ooa_schema.sql
+	      	-import sql/ooaofooa.sql
+	      	-arch arc/generate_supertype_subtype_util.arc" />
 		</exec>	    	
     <!-- touch the output file in case generator believes there
          are no changes -->
@@ -469,9 +461,9 @@
 	        <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
 	    	<env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
 	    	<arg line="xtumlmc_gen_erate -nopersist
-	    		-import ${mcj_path}/ooa_schema.sql
-	    		-import sql/ooaofooa.sql
-	    		-arch arc/generate_rto_util.arc" />
+	      	-import ${mcj_path}/ooa_schema.sql
+	      	-import sql/ooaofooa.sql
+	      	-arch arc/generate_rto_util.arc" />
 		</exec>	    	
 		<!-- touch the output file in case generator believes there
 		     are no changes -->
@@ -494,9 +486,9 @@
 	        <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
 	    	<env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
 	    	<arg line="xtumlmc_gen_erate -nopersist
-	    		-import ${mcj_path}/ooa_schema.sql
-	    		-import sql/ooaofooa.sql
-	    		-arch arc/action_language_description_util.arc" />
+	      	-import ${mcj_path}/ooa_schema.sql
+	      	-import sql/ooaofooa.sql
+	      	-arch arc/action_language_description_util.arc" />
 		</exec>	    	
     <!-- touch the output file in case generator believes there
          are no changes -->
@@ -517,10 +509,10 @@
 	        <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
 	    	<env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
 	    	<arg line="xtumlmc_gen_erate -nopersist
-	    		-import ${mcj_path}/ooa_schema.sql
-	    		-import sql/ooaofooa.sql
-	    		-arch arc/generate_globals_util.arc" />
-		</exec>
+	      	-import ${mcj_path}/ooa_schema.sql
+	      	-import sql/ooaofooa.sql
+	      	-arch arc/generate_globals_util.arc" />
+		</exec>	    	
 	    <delete file="____file.txt" />
 	</target>
 	
@@ -646,7 +638,7 @@
   <target name="clean_all"
         description="Clean entire project"
         depends="clean_classes,clean_java,clean_cme_menus,clean_cme,
-        clean_cme_schema,clean_schema,clean_sql,clean_create_pei,clean_cme_actions,clean_inspector,clean_file_io_sql" >
+        clean_cme_schema,clean_schema,clean_sql,clean_create_pei,clean_cme_actions,clean_inspector" >
 
     <echo>Done cleaning for ${ant.project.name}</echo>
 
@@ -708,13 +700,6 @@
       <echo>Removing generated sql file: ${pei_file} ...</echo>
       <delete file="${pei_file}" />
 
-  </target>
-   <target name="clean_file_io_sql"
-      description="Remove generated clean_file_io_sql files" >
-
-        <echo>Removing generated clean_file_io_sql files:</echo>
-         <delete file="sql/${file_io_sql.output}" />
-         <delete file="sql/file_io_schema.sql" />
   </target>
 
   <target name="clean_java"

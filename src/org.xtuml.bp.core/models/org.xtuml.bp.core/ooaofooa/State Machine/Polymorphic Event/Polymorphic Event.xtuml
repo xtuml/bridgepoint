@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("f9c92898-9f91-432f-9b52-986629847b3d",
@@ -6,13 +6,13 @@ INSERT INTO O_OBJ
 	522,
 	'SM_PEVT',
 	'A polymorphic event (SM_PEVT) is one that is defined in a super-type state machine  and used in one or more sub-type state machines.  Each polymorphic event has one or more aliases (SM_NLEVT) in one or more sub-types.',
-	"efdb28f6-a485-4b25-9cbf-3e7227398b6a");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("726f7a5c-e799-4190-8df9-d8333fd1acea",
 	"f9c92898-9f91-432f-9b52-986629847b3d",
 	'dispose',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select one evt related by self->SM_EVT[R525];
 unrelate self from evt across R525;
@@ -25,19 +25,12 @@ end for;
 	1,
 	'',
 	"6694cd18-0290-4749-847c-47f1389562ce");
-INSERT INTO S_DT_PROXY
-	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'void',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("6694cd18-0290-4749-847c-47f1389562ce",
 	"f9c92898-9f91-432f-9b52-986629847b3d",
 	'createNonLocalEventForStateMachine',
 	'',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'/*
 Creates (and returns the ID of) a non-local event that is an alias of this 
@@ -75,24 +68,17 @@ INSERT INTO O_TPARM
 	VALUES ("0a767631-9eaf-41d1-8c2f-78d03764ab4a",
 	"6694cd18-0290-4749-847c-47f1389562ce",
 	'stateMachineId',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'unique_id',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("846411a4-de05-47b9-a2a7-5e085191be6d",
 	"f9c92898-9f91-432f-9b52-986629847b3d",
 	'migrateToLocalEvent',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// if there are no more non-local events that are aliasing this
 // poly
@@ -123,7 +109,7 @@ INSERT INTO O_TFR
 	"846411a4-de05-47b9-a2a7-5e085191be6d");
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
 	'instance',
 	'',
 	'',
@@ -133,25 +119,18 @@ INSERT INTO O_TFR
 	"f9c92898-9f91-432f-9b52-986629847b3d",
 	'getCachedLocalClassName',
 	'Translate:native',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'	return m_localclassname;',
 	0,
 	'',
 	"50bfa21a-c114-4bca-912a-e5aab0675466");
-INSERT INTO S_DT_PROXY
-	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'string',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("677276c1-db8f-48be-a2e7-2ae43f41dc2a",
 	"f9c92898-9f91-432f-9b52-986629847b3d",
 	'getCachedLocalClassKL',
 	'Translate:native',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'	return m_localclasskl;',
 	0,
@@ -162,7 +141,7 @@ INSERT INTO O_TFR
 	"f9c92898-9f91-432f-9b52-986629847b3d",
 	'setCachedLocalClassName',
 	'Translate:native',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'	m_localclassname = p_Value;',
 	0,
@@ -172,7 +151,7 @@ INSERT INTO O_TPARM
 	VALUES ("8d6eab62-7603-4324-8d50-806af3866f26",
 	"639f4715-f31d-429e-a8fb-e076fcb7132e",
 	'value',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -182,7 +161,7 @@ INSERT INTO O_TFR
 	"f9c92898-9f91-432f-9b52-986629847b3d",
 	'setCachedLocalClassKL',
 	'Translate:native',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'	m_localclasskl = p_Value;',
 	0,
@@ -192,7 +171,7 @@ INSERT INTO O_TPARM
 	VALUES ("f16bfed8-9742-4864-8376-0a3fbc9de298",
 	"b281f228-db32-4462-832f-13f05eabec62",
 	'value',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -202,7 +181,7 @@ INSERT INTO O_TFR
 	"f9c92898-9f91-432f-9b52-986629847b3d",
 	'get_name',
 	'',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'return self.localEventMning;',
 	1,
@@ -213,7 +192,7 @@ INSERT INTO O_TFR
 	"f9c92898-9f91-432f-9b52-986629847b3d",
 	'getCachedLocalEventMning',
 	'Translate:native',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'	return m_localeventmning;',
 	0,
@@ -224,7 +203,7 @@ INSERT INTO O_TFR
 	"f9c92898-9f91-432f-9b52-986629847b3d",
 	'setCachedLocalEventMning',
 	'Translate:native',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'	m_localeventmning = p_Value;',
 	0,
@@ -234,7 +213,7 @@ INSERT INTO O_TPARM
 	VALUES ("b21e9652-7c5f-4fe2-8c95-51a3c20e34fb",
 	"9b406cb4-ae75-42d1-8aa4-69c7ce81d769",
 	'value',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -287,16 +266,9 @@ INSERT INTO O_ATTR
 	'',
 	'SMevt_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("f9c92898-9f91-432f-9b52-986629847b3d",
 	"31832e28-c7f1-4e83-9c56-28614980fb33",
@@ -340,7 +312,7 @@ INSERT INTO O_ATTR
 	'',
 	'SM_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -386,7 +358,7 @@ INSERT INTO O_ATTR
 	'',
 	'SMspd_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_DBATTR
@@ -417,7 +389,7 @@ INSERT INTO O_ATTR
 	'',
 	'localClassName',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_DBATTR
@@ -448,7 +420,7 @@ INSERT INTO O_ATTR
 	'',
 	'localClassKL',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_DBATTR
@@ -474,7 +446,7 @@ INSERT INTO O_ATTR
 	'',
 	'localEventMning',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_ID
@@ -496,12 +468,17 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"f9c92898-9f91-432f-9b52-986629847b3d");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("f9c92898-9f91-432f-9b52-986629847b3d",
+	1,
+	"efdb28f6-a485-4b25-9cbf-3e7227398b6a",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("efdb28f6-a485-4b25-9cbf-3e7227398b6a",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'State Machine',
 	'Classes (O_OBJ) that have interesting behavior are given lifecycles. These lifecycles are described using state machines (SM_SM). A state machine consists of states, events, transitions and state actions. The state machine exists for each instance of the class for which it has been modeled (SM_ISM). A state machine can also be an assigner state machine (SM_ASM) of which only one can exists for all class instances. The purpose of the assigner state machine is to act as a single point of control through which competing requests are serialized.',
-	'SM',
 	501,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000280005",
 	'../State Machine.xtuml');

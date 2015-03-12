@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("d62bdfae-7686-4844-b0c7-e71e7829446e",
@@ -7,7 +7,7 @@ INSERT INTO O_OBJ
 	'T',
 	'This class is the information needed to output data for a table in the 
 BP SQL file.',
-	"f157564a-4386-4e32-b5c9-0e4d7bd3609a");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_REF
 	VALUES ("d62bdfae-7686-4844-b0c7-e71e7829446e",
 	"69a5ebc7-ef1a-4d3c-995f-e1d75c80d54a",
@@ -58,16 +58,9 @@ INSERT INTO O_ATTR
 	'bp',
 	'Name',
 	1,
-	"cf07a926-26a1-4462-bd6f-45a3b930e4b7",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("cf07a926-26a1-4462-bd6f-45a3b930e4b7",
-	"695dce7b-262a-4226-9cbb-c9f897b44c67",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("86412ff3-d37f-4603-acf5-38222341af85",
 	"d62bdfae-7686-4844-b0c7-e71e7829446e");
@@ -89,16 +82,9 @@ generating  routines in MC-Java.
 	'',
 	'Key_Lett',
 	0,
-	"5e30bc10-6b4e-49f6-a053-8d190acef663",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("5e30bc10-6b4e-49f6-a053-8d190acef663",
-	"695dce7b-262a-4226-9cbb-c9f897b44c67",
-	'string',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("40151932-6a97-4af2-8f51-086bb61b1f36",
 	"d62bdfae-7686-4844-b0c7-e71e7829446e");
@@ -118,7 +104,7 @@ generating  routines in MC-Java.
 	'',
 	'Name',
 	0,
-	"5e30bc10-6b4e-49f6-a053-8d190acef663",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -136,7 +122,7 @@ INSERT INTO O_ATTR
 	'',
 	'DomainName',
 	0,
-	"5e30bc10-6b4e-49f6-a053-8d190acef663",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_ID
@@ -153,12 +139,17 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"d62bdfae-7686-4844-b0c7-e71e7829446e");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("d62bdfae-7686-4844-b0c7-e71e7829446e",
+	1,
+	"f157564a-4386-4e32-b5c9-0e4d7bd3609a",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("f157564a-4386-4e32-b5c9-0e4d7bd3609a",
+	"00000000-0000-0000-0000-000000000000",
+	"4dacadbd-0ef3-4f12-9693-fcbfe81a2955",
 	'File IO',
 	'',
-	'',
 	1,
-	"695dce7b-262a-4226-9cbb-c9f897b44c67",
-	"00000000-0000-0000-0000-000000100002",
 	'../File IO.xtuml');

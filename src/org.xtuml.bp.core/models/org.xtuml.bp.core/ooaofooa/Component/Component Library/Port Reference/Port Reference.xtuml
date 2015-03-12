@@ -6,13 +6,13 @@ INSERT INTO O_OBJ
 	4705,
 	'CL_POR',
 	'',
-	"7244f94a-6a20-46c8-8487-5090fedbedbf");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("e026966e-77f1-4cf3-927e-912998248ae8",
 	"d0f2e04e-149e-489c-924c-a42769aa8547",
 	'dispose',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select one compRef related by self ->CL_IC[R4707];
 if (not_empty compRef)
@@ -33,13 +33,6 @@ delete object instance self; ',
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO S_DT_PROXY
-	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'void',
-	'',
-	'',
-	'../../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("10e0deaa-608b-4f5c-9651-39ed9a2f0570",
 	"d0f2e04e-149e-489c-924c-a42769aa8547",
@@ -56,7 +49,7 @@ Translate: native ',
 	"e026966e-77f1-4cf3-927e-912998248ae8");
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
 	'instance',
 	'',
 	'',
@@ -66,7 +59,7 @@ INSERT INTO O_TFR
 	"d0f2e04e-149e-489c-924c-a42769aa8547",
 	'isReferringToDefaultPort',
 	'',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'select one port related by self->C_PO[R4709];
 if(not_empty port)
@@ -76,19 +69,12 @@ return true; ',
 	1,
 	'',
 	"10e0deaa-608b-4f5c-9651-39ed9a2f0570");
-INSERT INTO S_DT_PROXY
-	VALUES ("8e519c45-7dcf-400b-9d4e-954869dbb7e8",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'boolean',
-	'',
-	'',
-	'../../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("dd84f365-f651-490e-856c-d963f7c45e4b",
 	"d0f2e04e-149e-489c-924c-a42769aa8547",
 	'canReferToPort',
 	'',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'select one componentReference related by self->CL_IC[R4707];
 result = componentReference.canReferToComponent();
@@ -101,25 +87,18 @@ INSERT INTO O_TFR
 	"d0f2e04e-149e-489c-924c-a42769aa8547",
 	'getCachedName',
 	'Translate:native',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'	return m_name;  ',
 	0,
 	'',
 	"dd84f365-f651-490e-856c-d963f7c45e4b");
-INSERT INTO S_DT_PROXY
-	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'string',
-	'',
-	'',
-	'../../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("059f96d9-056d-4fd3-89cb-bb6060939c52",
 	"d0f2e04e-149e-489c-924c-a42769aa8547",
 	'setCachedName',
 	'Translate:native',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'	m_name = p_Name; ',
 	0,
@@ -129,7 +108,7 @@ INSERT INTO O_TPARM
 	VALUES ("646d9954-b6fd-45b9-b1f0-07101b287b9b",
 	"059f96d9-056d-4fd3-89cb-bb6060939c52",
 	'name',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -149,16 +128,9 @@ INSERT INTO O_ATTR
 	'',
 	'Id',
 	0,
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'unique_id',
-	'',
-	'',
-	'../../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("d0f2e04e-149e-489c-924c-a42769aa8547",
 	"14d6c781-a341-481a-b67d-09ec4e8b9ed3",
@@ -207,16 +179,9 @@ INSERT INTO O_ATTR
 	'CL_IC_',
 	'Id',
 	1,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("d0f2e04e-149e-489c-924c-a42769aa8547",
 	"2205f09b-595f-431e-98d5-73d007d124b6",
@@ -265,7 +230,7 @@ INSERT INTO O_ATTR
 	'C_PO_',
 	'Id',
 	1,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_DBATTR
@@ -299,7 +264,7 @@ INSERT INTO O_ATTR
 	'',
 	'Name',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_ID
@@ -316,12 +281,17 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"d0f2e04e-149e-489c-924c-a42769aa8547");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("d0f2e04e-149e-489c-924c-a42769aa8547",
+	1,
+	"7244f94a-6a20-46c8-8487-5090fedbedbf",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("7244f94a-6a20-46c8-8487-5090fedbedbf",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Component Library',
 	'',
-	'CL',
 	4700,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000000000",
 	'../Component Library.xtuml');

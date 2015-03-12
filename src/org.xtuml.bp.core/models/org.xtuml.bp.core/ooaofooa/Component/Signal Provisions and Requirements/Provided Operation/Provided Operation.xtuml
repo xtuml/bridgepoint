@@ -6,31 +6,24 @@ INSERT INTO O_OBJ
 	4504,
 	'SPR_PO',
 	'',
-	"6a43182c-b832-4648-b478-ab0441b8613c");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("bae173f0-bb9b-4247-ba03-70d88a76a8be",
 	"d113e0d5-c2e8-4091-a78c-e09abec06ed0",
 	'initialize',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'self.Suc_Pars = ParseStatus::parseInitial;',
 	1,
 	'',
 	"ebcda465-4ce8-4d1c-adfc-d9f64b3869f2");
-INSERT INTO S_DT_PROXY
-	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'void',
-	'',
-	'',
-	'../../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("26eb888e-d1f0-4ec2-9b25-af43685eb6e7",
 	"d113e0d5-c2e8-4091-a78c-e09abec06ed0",
 	'dispose',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select one pep related by self->SPR_PEP[R4503];
 if(not_empty pep)
@@ -55,26 +48,19 @@ INSERT INTO O_TFR
 	"d113e0d5-c2e8-4091-a78c-e09abec06ed0",
 	'getComponentId',
 	'',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'select one pep related by self->SPR_PEP[R4503];
 return pep.getComponentId();',
 	1,
 	'',
 	"26eb888e-d1f0-4ec2-9b25-af43685eb6e7");
-INSERT INTO S_DT_PROXY
-	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'unique_id',
-	'',
-	'',
-	'../../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("30f2ad06-4b7e-43b7-85bc-8649b60e2342",
 	"d113e0d5-c2e8-4091-a78c-e09abec06ed0",
 	'getMessageDirection',
 	'',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	1,
 	'select one operation related by self->SPR_PEP[R4503]->C_EP[R4501]->C_IO[R4004];
 if(not_empty operation)
@@ -91,19 +77,12 @@ end if;',
 	1,
 	'',
 	"bae173f0-bb9b-4247-ba03-70d88a76a8be");
-INSERT INTO S_DT_PROXY
-	VALUES ("79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'integer',
-	'',
-	'',
-	'../../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("b6eedd7d-60f9-43b5-a8ce-76d011f86747",
 	"d113e0d5-c2e8-4091-a78c-e09abec06ed0",
 	'isSynchronized',
 	'',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'// ask the supertype if we are synchronized, this operation exist to support
 // ui capabilities
@@ -115,13 +94,6 @@ return true;',
 	1,
 	'',
 	"30f2ad06-4b7e-43b7-85bc-8649b60e2342");
-INSERT INTO S_DT_PROXY
-	VALUES ("8e519c45-7dcf-400b-9d4e-954869dbb7e8",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'boolean',
-	'',
-	'',
-	'../../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("1b0267c1-4c03-41ea-b718-45102bc1cce5",
 	"d113e0d5-c2e8-4091-a78c-e09abec06ed0",
@@ -138,7 +110,7 @@ Translate: native',
 	"b6eedd7d-60f9-43b5-a8ce-76d011f86747");
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
 	'instance',
 	'',
 	'',
@@ -148,7 +120,7 @@ INSERT INTO O_TFR
 	"d113e0d5-c2e8-4091-a78c-e09abec06ed0",
 	'collectChanges',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'/*
  *  Collect removal changes
@@ -175,7 +147,7 @@ INSERT INTO O_TFR
 	"d113e0d5-c2e8-4091-a78c-e09abec06ed0",
 	'synchronize',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'/**
  *  Allow owning element to synchronize, but only if we are not synchronized
@@ -194,25 +166,18 @@ INSERT INTO O_TFR
 	"d113e0d5-c2e8-4091-a78c-e09abec06ed0",
 	'getCachedName',
 	'Translate:native',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'	return m_name;',
 	0,
 	'',
 	"e13a5a30-c84f-4abc-aa44-3c61f3ffa227");
-INSERT INTO S_DT_PROXY
-	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'string',
-	'',
-	'',
-	'../../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("2c6c4e19-1d6d-4bb5-8d5a-7f8896df0070",
 	"d113e0d5-c2e8-4091-a78c-e09abec06ed0",
 	'setCachedName',
 	'Translate:native',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'	m_name = p_Name;',
 	0,
@@ -222,7 +187,7 @@ INSERT INTO O_TPARM
 	VALUES ("1260c39e-5639-4c68-9ff7-30c090e1aad3",
 	"2c6c4e19-1d6d-4bb5-8d5a-7f8896df0070",
 	'name',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -232,7 +197,7 @@ INSERT INTO O_TFR
 	"d113e0d5-c2e8-4091-a78c-e09abec06ed0",
 	'initializeUnparsed',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// Provided Operation.initializeUnparsed()
 select one pob related by self->ACT_POB[R687];
@@ -261,7 +226,7 @@ INSERT INTO O_TFR
 	"d113e0d5-c2e8-4091-a78c-e09abec06ed0",
 	'getCachedDescrip',
 	'Translate:native',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'	return m_descrip;',
 	0,
@@ -272,7 +237,7 @@ INSERT INTO O_TFR
 	"d113e0d5-c2e8-4091-a78c-e09abec06ed0",
 	'setCachedDescrip',
 	'Translate:native',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'	m_descrip = p_Descrip;',
 	0,
@@ -282,7 +247,7 @@ INSERT INTO O_TPARM
 	VALUES ("b6dfedc2-62c7-4c9e-96d2-7c920d182727",
 	"46957363-64cb-4f0c-9565-760688270195",
 	'descrip',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -335,16 +300,9 @@ INSERT INTO O_ATTR
 	'',
 	'Id',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_DBATTR
 	VALUES ("28d5f59d-e460-4938-b23d-b86005b78c16",
 	"d113e0d5-c2e8-4091-a78c-e09abec06ed0",
@@ -373,7 +331,7 @@ INSERT INTO O_ATTR
 	'',
 	'Name',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_DBATTR
@@ -405,7 +363,7 @@ Description: A textual description of this provided operation.',
 	'',
 	'Descrip',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_DBATTR
@@ -428,7 +386,7 @@ Persistent:false
 	'',
 	'Action_Semantics',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -446,7 +404,7 @@ INSERT INTO O_ATTR
 	'',
 	'Action_Semantics_internal',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -472,7 +430,7 @@ Data Domain: 0=not parsed, 1 = parse successful, 2 = parse unsuccessful, 3 = par
 	'');
 INSERT INTO S_DT_PROXY
 	VALUES ("33245ab4-49c2-4c3a-8a59-a08f07153c47",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
 	'ParseStatus',
 	'Indicates the status of the parse for an action specification in the attribute Action_Semantics',
 	'',
@@ -491,16 +449,21 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"d113e0d5-c2e8-4091-a78c-e09abec06ed0");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("d113e0d5-c2e8-4091-a78c-e09abec06ed0",
+	1,
+	"6a43182c-b832-4648-b478-ab0441b8613c",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("6a43182c-b832-4648-b478-ab0441b8613c",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Signal Provisions and Requirements',
 	'// This is used by schema_gen to ignore this subsystem (for publication)
 TRANSLATE_FOR_EXTERNAL_USE:FALSE
 
 The Signal Provisions and Requirements subsystem captures data which will be
 used to define the implementation of provided and required interfaces.',
-	'SPR',
 	4500,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000000000",
 	'../Signal Provisions and Requirements.xtuml');

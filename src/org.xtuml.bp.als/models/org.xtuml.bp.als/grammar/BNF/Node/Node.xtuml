@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("c8810489-2604-4445-a195-28192dee1e41",
@@ -10,7 +10,7 @@ A node always has a parent (unless it''s the root node)
 Nodes have siblings (that are arranged in a specific order)
 If a node has a ancestor that is a Rule, we keep a reference to
 the Rule, so the Rule can find all of its descendents quickly.',
-	"5edea08f-a6e1-4146-8e1c-0cade7a477c7");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_NBATTR
 	VALUES ("b9e2878f-bc2d-454f-ab46-c30f6f787fda",
 	"c8810489-2604-4445-a195-28192dee1e41");
@@ -29,16 +29,9 @@ It is a string that is an arbitrary number.
 	'',
 	'nodeId',
 	0,
-	"8bc628ed-3494-4e74-bb6a-ec37622127df",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("8bc628ed-3494-4e74-bb6a-ec37622127df",
-	"c7485938-5b68-46c4-bc59-f0bb9c943851",
-	'string',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("c8810489-2604-4445-a195-28192dee1e41",
 	"20b4194f-f64d-47b7-896d-542dccf5f8c7",
@@ -54,7 +47,7 @@ INSERT INTO O_REF
 	'',
 	'Non Leaf Node',
 	'nodeId',
-	'R5');
+	'R5.''is child of''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("c8810489-2604-4445-a195-28192dee1e41",
 	"0995f307-34ee-4285-a719-420d2c7d8536",
@@ -86,16 +79,9 @@ It may be null if the node is the root node (i.e., has no parent).
 	'parent_',
 	'nodeId',
 	1,
-	"73db19ab-e535-4718-ab07-668918299d9a",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("73db19ab-e535-4718-ab07-668918299d9a",
-	"c7485938-5b68-46c4-bc59-f0bb9c943851",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("c8810489-2604-4445-a195-28192dee1e41",
 	"50596432-249d-4b43-b1db-deea1f96bd06",
@@ -111,7 +97,7 @@ INSERT INTO O_REF
 	'',
 	'Rule',
 	'nodeId',
-	'R6');
+	'R6.''is contained in''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("c8810489-2604-4445-a195-28192dee1e41",
 	"2fcce84b-b759-4ea8-b513-ab2249e5dbf6",
@@ -144,7 +130,7 @@ contained in a rule.
 	'containing_rule_',
 	'nodeId',
 	1,
-	"73db19ab-e535-4718-ab07-668918299d9a",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -162,7 +148,7 @@ INSERT INTO O_REF
 	'',
 	'Node',
 	'nodeId',
-	'R7');
+	'R7.''follows''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("c8810489-2604-4445-a195-28192dee1e41",
 	"c4b5db38-7648-4162-bb2d-6de5e567aac2",
@@ -192,7 +178,7 @@ with the same parent_nodeId.  It will be null if this is the first node in the l
 	'next_',
 	'nodeId',
 	1,
-	"73db19ab-e535-4718-ab07-668918299d9a",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -211,7 +197,7 @@ Values:  "Nonleaf", "Leaf"',
 	'',
 	'node_type',
 	0,
-	"8bc628ed-3494-4e74-bb6a-ec37622127df",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -230,16 +216,9 @@ If it is true, then we need a validation function for this node.',
 	'',
 	'validation_required',
 	0,
-	"c9b1caa6-e86a-4dfe-a5ea-dafda119de4f",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("c9b1caa6-e86a-4dfe-a5ea-dafda119de4f",
-	"c7485938-5b68-46c4-bc59-f0bb9c943851",
-	'boolean',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("0f97a944-7b2c-4a02-b5ac-64194da35202",
 	"c8810489-2604-4445-a195-28192dee1e41");
@@ -259,7 +238,7 @@ is an arbitrary integer.',
 	'',
 	'validation_label',
 	0,
-	"8bc628ed-3494-4e74-bb6a-ec37622127df",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -279,7 +258,7 @@ the AST for this node.',
 	'',
 	'label_required',
 	0,
-	"c9b1caa6-e86a-4dfe-a5ea-dafda119de4f",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -298,7 +277,7 @@ If it is true, then the text for the validation label has been emitted.',
 	'',
 	'label_emitted',
 	0,
-	"c9b1caa6-e86a-4dfe-a5ea-dafda119de4f",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -317,7 +296,7 @@ If it is true, then the declaration of the label has been emitted.',
 	'',
 	'label_dcl_emitted',
 	0,
-	"c9b1caa6-e86a-4dfe-a5ea-dafda119de4f",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -336,7 +315,7 @@ This attribute contains the string that is the label for this node.',
 	'',
 	'label',
 	0,
-	"8bc628ed-3494-4e74-bb6a-ec37622127df",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -356,7 +335,7 @@ the node data.',
 	'',
 	'pre_attach',
 	0,
-	"8bc628ed-3494-4e74-bb6a-ec37622127df",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -377,7 +356,7 @@ the node''s data.
 	'',
 	'post_attach',
 	0,
-	"8bc628ed-3494-4e74-bb6a-ec37622127df",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -397,7 +376,7 @@ the terminal value ( for terms).',
 	'',
 	'value',
 	0,
-	"8bc628ed-3494-4e74-bb6a-ec37622127df",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -416,7 +395,7 @@ If it is true, then this node is part of the ''options'' clause.',
 	'',
 	'in_options_sequence',
 	0,
-	"c9b1caa6-e86a-4dfe-a5ea-dafda119de4f",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	'',
 	'');
 INSERT INTO O_ID
@@ -433,12 +412,17 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"c8810489-2604-4445-a195-28192dee1e41");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("c8810489-2604-4445-a195-28192dee1e41",
+	1,
+	"5edea08f-a6e1-4146-8e1c-0cade7a477c7",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("5edea08f-a6e1-4146-8e1c-0cade7a477c7",
+	"00000000-0000-0000-0000-000000000000",
+	"c76dedc6-4b25-435f-9310-4f344030485a",
 	'BNF',
 	'',
-	'',
 	1,
-	"c7485938-5b68-46c4-bc59-f0bb9c943851",
-	"00000000-0000-0000-0000-000000100002",
 	'../BNF.xtuml');

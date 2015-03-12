@@ -21,6 +21,7 @@
 .//==================================================================== 
 .//
 .function gen_value
+  .param string root_pkg_name
   .param inst_ref p_val
   .//
   .// Note:- this function must offer conversions for
@@ -34,7 +35,7 @@
   .if (not_empty brv)
     .select one brg related by brv->S_BRG[R828]
     .select many parms related by brv->V_PAR[R810]
-    .invoke result = gen_bridge_value(p_val, brg, parms)
+    .invoke result = gen_bridge_value(root_pkg_name, p_val, brg, parms)
     .assign p_val.buffer = "${result.body}"
   .end if
   .select one trv related by p_val->V_TRV[R801]
@@ -44,7 +45,7 @@
     .if ( p_val.buffer == "" )
       .select one tfm related by trv->O_TFR[R829]
       .select many parms related by trv->V_PAR[R811]
-      .invoke result = gen_transform_value(trv, tfm, parms)
+      .invoke result = gen_transform_value(root_pkg_name, trv, tfm, parms)
       .assign p_val.buffer = "${result.body}"
     .end if
   .end if
@@ -52,17 +53,17 @@
   .if (not_empty func_val)
     .select one func related by func_val->S_SYNC[R827]
     .select many parms related by func_val->V_PAR[R817]
-    .invoke result = gen_synch_service_value(p_val, func, parms)
+    .invoke result = gen_synch_service_value(root_pkg_name, p_val, func, parms)
     .assign p_val.buffer = "${result.body}"
   .end if
   .select one unary_op related by p_val->V_UNY[R801]
   .if (not_empty unary_op)
-    .invoke result = gen_unary_op_value(p_val)
+    .invoke result = gen_unary_op_value(root_pkg_name, p_val)
     .assign p_val.buffer = "${result.body}"
   .end if
   .select one binary_op related by p_val->V_BIN[R801]
   .if (not_empty binary_op)
-    .invoke result = gen_binary_op_value(p_val)
+    .invoke result = gen_binary_op_value(root_pkg_name, p_val)
     .assign p_val.buffer = "${result.body}"
   .end if
 .end function
@@ -203,11 +204,12 @@
 .end function
 .//
 .function gen_unary_op_values
+  .param string root_pkg_name
   .select many values from instances of V_VAL
   .select many unary_ops related by values->V_UNY[R801]
   .for each unary_op in unary_ops
     .select one val related by unary_op->V_VAL[R801]
-    .invoke result = gen_unary_op_value(val)
+    .invoke result = gen_unary_op_value(root_pkg_name, val)
     .assign val.buffer = "${result.body}"
   .end for
 .end function
@@ -218,11 +220,12 @@
 .//    inst_ref and inst_ref_set
 .//
 .function gen_unary_op_value
+  .param string root_pkg_name
   .param inst_ref val
   .select one unary_op related by val->V_UNY[R801]
   .if (not_empty unary_op)
     .select one p_val related by unary_op->V_VAL[R804]
-    .invoke gen_value(p_val)
+    .invoke gen_value(root_pkg_name, p_val)
     .if ( "$Ur{unary_op.operator}" == "NOT_EMPTY" )
       .select one ir_val related by p_val->V_IRF[R801]
       .if (not_empty ir_val)
@@ -256,21 +259,23 @@
 .end function
 .//
 .function gen_binary_op_values
+  .param string root_pkg_name
   .select many binary_ops from instances of V_BIN
   .for each binary_op in binary_ops
     .select one val related by binary_op->V_VAL[R801]
-    .invoke result = gen_binary_op_value(val)
+    .invoke result = gen_binary_op_value(root_pkg_name, val)
     .assign val.buffer = "${result.body}"
   .end for
 .end function
 .//
 .function gen_binary_op_value
+  .param string root_pkg_name
   .param inst_ref val
   .select one binary_op related by val->V_BIN[R801]
   .select one l_val related by binary_op->V_VAL[R802]
   .select one r_val related by binary_op->V_VAL[R803]
-  .invoke gen_value(l_val)
-  .invoke gen_value(r_val)
+  .invoke gen_value(root_pkg_name, l_val)
+  .invoke gen_value(root_pkg_name, r_val)
   .select one dt related by l_val->S_DT[R820]
   .if (("${binary_op.operator}" == "==") AND ((dt.Name == "string") OR (dt.Name == "unique_id")))
     .// Test for string equality using the equals method otherwise
@@ -292,38 +297,42 @@
 .end function
 .//
 .function gen_bridge_values
-.select many values from instances of V_BRV
-.for each value in values
-  .select one val related by value->V_VAL[R801]
-  .select one bridge related by value->S_BRG[R828]
-  .select many parameters related by value->V_PAR[R810]
-  .invoke result = gen_bridge_value(val,bridge,parameters)
-  .assign val.buffer = "${result.body}"
-.end for
+  .param string root_pkg_name
+  .select many values from instances of V_BRV
+  .for each value in values
+    .select one val related by value->V_VAL[R801]
+    .select one bridge related by value->S_BRG[R828]
+    .select many parameters related by value->V_PAR[R810]
+    .invoke result = gen_bridge_value(root_pkg_name, val, bridge, parameters)
+    .assign val.buffer = "${result.body}"
+  .end for
 .end function
 .//
 .function gen_bridge_value
+  .param string root_pkg_name
   .param inst_ref value
   .param inst_ref bridge
   .param inst_ref_set parameters
   .select one ee related by bridge->S_EE[R19]
   .invoke eecn = get_ee_class_name( ee )
-  .invoke params = gen_parameter_list( parameters, false )
+  .invoke params = gen_parameter_list(root_pkg_name, parameters, false )
 ${eecn.body}.$cr{bridge.Name}(${params.body})\
 .end function
 .//
 .function gen_transform_values
-.select many values from instances of V_TRV
-.for each value in values
-  .select one val related by value->V_VAL[R801]
-  .select one tfm related by value->O_TFR[R829]
-  .select many parameters related by value->V_PAR[R811]
-  .invoke result = gen_transform_value(value,tfm,parameters)
-  .assign val.buffer = "${result.body}"
-.end for
+  .param string root_pkg_name
+  .select many values from instances of V_TRV
+  .for each value in values
+    .select one val related by value->V_VAL[R801]
+    .select one tfm related by value->O_TFR[R829]
+    .select many parameters related by value->V_PAR[R811]
+    .invoke result = gen_transform_value(root_pkg_name, value, tfm, parameters)
+    .assign val.buffer = "${result.body}"
+  .end for
 .end function
 .//
 .function gen_transform_value
+  .param string root_pkg_name
   .param inst_ref value
   .param inst_ref oper
   .param inst_ref_set parameters
@@ -342,32 +351,31 @@ v_${var.Name}.\
     .end if
 $cr{oper.Name}(\
   .end if
-  .invoke params = gen_parameter_list( parameters, root_arg_included )
+  .invoke params = gen_parameter_list(root_pkg_name, parameters, root_arg_included )
 ${params.body})\
 .end function
 .//
 .function gen_synch_service_values
-.select many values from instances of V_FNV
-.for each value in values
-  .select one val related by value->V_VAL[R801]
-  .select one func related by value->S_SYNC[R827]
-  .select many parameters related by value->V_PAR[R817]
-  .invoke result = gen_synch_service_value(val,func,parameters)
-  .assign val.buffer = "${result.body}"
-.end for
+  .param string root_pkg_name
+  .select many values from instances of V_FNV
+  .for each value in values
+    .select one val related by value->V_VAL[R801]
+    .select one func related by value->S_SYNC[R827]
+    .select many parameters related by value->V_PAR[R817]
+    .invoke result = gen_synch_service_value(root_pkg_name, val,func,parameters)
+    .assign val.buffer = "${result.body}"
+  .end for
 .end function
 .//
 .function gen_synch_service_value
+  .param string root_pkg_name
   .param inst_ref value
   .param inst_ref func
   .param inst_ref_set parameters
   .//
-  .select one dom related by func->S_DOM[R23]
-  .if (empty dom)
-    .select one dom related by func->S_FIP[R31]->S_FPK[R31]->S_DOM[R29]
-  .end if
-  .invoke gdn_result = get_domain_name( dom )
-  .invoke params = gen_parameter_list( parameters, true )
-${gdn_result.body}.$cr{func.Name}(modelRoot${params.body})\
+  .select any root_pkg from instances of EP_PKG where (selected.Name == root_pkg_name)
+  .invoke rpn_result = get_root_pkg_name( root_pkg )
+  .invoke params = gen_parameter_list(root_pkg_name, parameters, true )
+${rpn_result.body}.$cr{func.Name}(modelRoot${params.body})\
 .end function
 .//

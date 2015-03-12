@@ -1,308 +1,17 @@
--- BP 7.1 content: Subsystem syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: Package syschar: 3 persistence-version: 7.1.6
 
-INSERT INTO S_SS
+INSERT INTO EP_PKG
 	VALUES ("9daa01e9-3e90-41ba-bff0-f9213b487f5c",
+	"00000000-0000-0000-0000-000000000000",
+	"8f801c9a-cf2d-4ef4-b11a-51b8697e3ca8",
 	'Styles',
 	'',
-	'STY',
-	400,
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO S_SID
-	VALUES ("3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	"9daa01e9-3e90-41ba-bff0-f9213b487f5c");
-INSERT INTO S_DOM_PROXY
-	VALUES ("3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	'ooaofgraphics',
-	'========================================================================
-
-File:          $RCSfile$
-Version:   $Revision$
-Modified:  $Date$
-
-(c) Copyright 2004-2014 Mentor Graphics Corporation All rights reserved.
-
-========================================================================
-Licensed under the Apache License, Version 2.0 (the "License"); you may not
-use this file except in compliance with the License.  You may obtain a copy
-of the License at
-
-     http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
-WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the
-License for the specific language governing permissions and limitations under
-the License.
-========================================================================
-
-This is the graphics domain for the Tiger project.
-
-The processing in this model describes the activities
-required for model diagram display and editing.
-
-Import:org.xtuml.bp.core.*
--------------------------------------------------------------------------------------------------------------
-',
-	0,
-	"00000000-0000-0000-0000-000000000001",
-	"8f801c9a-cf2d-4ef4-b11a-51b8697e3ca8",
-	'../ooaofgraphics.xtuml');
-INSERT INTO O_IOBJ
-	VALUES ("c4f5c5e6-34ef-4e38-a982-1b82dc8c6d7c",
-	"9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
-	0,
-	"9daa01e9-3e90-41ba-bff0-f9213b487f5c",
-	'Graphical Element',
-	'GD_GE');
-INSERT INTO O_OBJ_PROXY
-	VALUES ("9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
-	'Graphical Element',
-	2,
-	'GD_GE',
-	'Graphical element abstracts the different shapes and lines that make up the graphical representation of a model on the canvas.',
-	"b5695748-80fc-47fb-b5c7-801b5f28b907",
-	'../Graphical Data/Graphical Element/Graphical Element.xtuml');
-INSERT INTO O_IOBJ
-	VALUES ("06e33db7-6b3f-4798-885c-b8c9f8421705",
-	"09423687-e999-4aba-876d-35e0d3331311",
-	0,
-	"9daa01e9-3e90-41ba-bff0-f9213b487f5c",
-	'Model',
-	'GD_MD');
-INSERT INTO O_OBJ_PROXY
-	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
-	'Model',
-	1,
-	'GD_MD',
-	'A model is a drawing for one particular view of the analysis. There is an instance of model for each glyph on the index window, and each entry in the model element list on the index window. For example, every domain will have four models (DPD, PDD(R), PDD(A), PDD(S)).  Every subsystem will have three models (CD, OCD(A), OCD(S)).  Every state chart has one model (SC).  The STT is not a graphical model.',
-	"b5695748-80fc-47fb-b5c7-801b5f28b907",
-	'../Graphical Data/Model/Model.xtuml');
-INSERT INTO R_SUBSUP
-	VALUES ("2521cb14-8a89-4e67-bef9-fa8dab5d0e81");
-INSERT INTO R_REL
-	VALUES ("2521cb14-8a89-4e67-bef9-fa8dab5d0e81",
-	400,
-	'',
-	"9daa01e9-3e90-41ba-bff0-f9213b487f5c");
-INSERT INTO R_SUPER
-	VALUES ("548f667c-4311-4aa2-9d52-7aed81972a0f",
-	"2521cb14-8a89-4e67-bef9-fa8dab5d0e81",
-	"2aba61bb-2db7-4aa4-b7ab-7f766c0d4a3e");
-INSERT INTO O_RTIDA
-	VALUES ("c1dcf930-2e28-4db2-b15b-cb905b40ea6f",
-	"548f667c-4311-4aa2-9d52-7aed81972a0f",
-	0,
-	"2521cb14-8a89-4e67-bef9-fa8dab5d0e81",
-	"2aba61bb-2db7-4aa4-b7ab-7f766c0d4a3e");
-INSERT INTO O_OIDA_PROXY
-	VALUES ("c1dcf930-2e28-4db2-b15b-cb905b40ea6f",
-	"548f667c-4311-4aa2-9d52-7aed81972a0f",
-	0,
-	'Style_ID',
-	'./ElementStyle/ElementStyle.xtuml');
-INSERT INTO R_RTO
-	VALUES ("548f667c-4311-4aa2-9d52-7aed81972a0f",
-	"2521cb14-8a89-4e67-bef9-fa8dab5d0e81",
-	"2aba61bb-2db7-4aa4-b7ab-7f766c0d4a3e",
-	0);
-INSERT INTO O_ID_PROXY
-	VALUES (0,
-	"548f667c-4311-4aa2-9d52-7aed81972a0f",
-	'./ElementStyle/ElementStyle.xtuml');
-INSERT INTO R_OIR
-	VALUES ("548f667c-4311-4aa2-9d52-7aed81972a0f",
-	"2521cb14-8a89-4e67-bef9-fa8dab5d0e81",
-	"2aba61bb-2db7-4aa4-b7ab-7f766c0d4a3e",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("548f667c-4311-4aa2-9d52-7aed81972a0f",
-	'ElementStyle',
-	1,
-	'STY_S',
-	'',
-	"9daa01e9-3e90-41ba-bff0-f9213b487f5c",
-	'./ElementStyle/ElementStyle.xtuml');
-INSERT INTO R_SUB
-	VALUES ("77de536a-712e-4ce9-9f2d-4e13b06c521a",
-	"2521cb14-8a89-4e67-bef9-fa8dab5d0e81",
-	"d3d3a655-d83e-46a4-82a8-09cd92231820");
-INSERT INTO R_RGO
-	VALUES ("77de536a-712e-4ce9-9f2d-4e13b06c521a",
-	"2521cb14-8a89-4e67-bef9-fa8dab5d0e81",
-	"d3d3a655-d83e-46a4-82a8-09cd92231820");
-INSERT INTO R_OIR
-	VALUES ("77de536a-712e-4ce9-9f2d-4e13b06c521a",
-	"2521cb14-8a89-4e67-bef9-fa8dab5d0e81",
-	"d3d3a655-d83e-46a4-82a8-09cd92231820",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("77de536a-712e-4ce9-9f2d-4e13b06c521a",
-	'FillColorStyle',
-	2,
-	'STY_FCS',
-	'',
-	"9daa01e9-3e90-41ba-bff0-f9213b487f5c",
-	'./FillColorStyle/FillColorStyle.xtuml');
-INSERT INTO R_SUB
-	VALUES ("6e7244c3-1595-4ec0-8f36-4365269edce8",
-	"2521cb14-8a89-4e67-bef9-fa8dab5d0e81",
-	"556a00e8-e9c1-4fd8-ac8a-18e457b78f46");
-INSERT INTO R_RGO
-	VALUES ("6e7244c3-1595-4ec0-8f36-4365269edce8",
-	"2521cb14-8a89-4e67-bef9-fa8dab5d0e81",
-	"556a00e8-e9c1-4fd8-ac8a-18e457b78f46");
-INSERT INTO R_OIR
-	VALUES ("6e7244c3-1595-4ec0-8f36-4365269edce8",
-	"2521cb14-8a89-4e67-bef9-fa8dab5d0e81",
-	"556a00e8-e9c1-4fd8-ac8a-18e457b78f46",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("6e7244c3-1595-4ec0-8f36-4365269edce8",
-	'LineColorStyle',
-	3,
-	'STY_LCS',
-	'',
-	"9daa01e9-3e90-41ba-bff0-f9213b487f5c",
-	'./LineColorStyle/LineColorStyle.xtuml');
-INSERT INTO R_SUB
-	VALUES ("a0290409-7fed-4393-a001-cd9c346ce6e6",
-	"2521cb14-8a89-4e67-bef9-fa8dab5d0e81",
-	"01f99756-c98e-4239-b15b-8fddab1241aa");
-INSERT INTO R_RGO
-	VALUES ("a0290409-7fed-4393-a001-cd9c346ce6e6",
-	"2521cb14-8a89-4e67-bef9-fa8dab5d0e81",
-	"01f99756-c98e-4239-b15b-8fddab1241aa");
-INSERT INTO R_OIR
-	VALUES ("a0290409-7fed-4393-a001-cd9c346ce6e6",
-	"2521cb14-8a89-4e67-bef9-fa8dab5d0e81",
-	"01f99756-c98e-4239-b15b-8fddab1241aa",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("a0290409-7fed-4393-a001-cd9c346ce6e6",
-	'FontStyle',
-	400,
-	'STY_FS',
-	'',
-	"9daa01e9-3e90-41ba-bff0-f9213b487f5c",
-	'./FontStyle/FontStyle.xtuml');
-INSERT INTO R_SIMP
-	VALUES ("57737583-8bca-4d37-9d46-741d1b448832");
-INSERT INTO R_REL
-	VALUES ("57737583-8bca-4d37-9d46-741d1b448832",
-	401,
-	'',
-	"9daa01e9-3e90-41ba-bff0-f9213b487f5c");
-INSERT INTO R_PART
-	VALUES ("9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
-	"57737583-8bca-4d37-9d46-741d1b448832",
-	"aaee1b45-6f01-4588-9032-a93479022231",
-	0,
-	0,
-	'configures');
-INSERT INTO O_RTIDA
-	VALUES ("ee285046-698d-47d4-8d30-506164f3e21f",
-	"9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
-	0,
-	"57737583-8bca-4d37-9d46-741d1b448832",
-	"aaee1b45-6f01-4588-9032-a93479022231");
-INSERT INTO O_OIDA_PROXY
-	VALUES ("ee285046-698d-47d4-8d30-506164f3e21f",
-	"9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
-	0,
-	'elementId',
-	'../Graphical Data/Graphical Element/Graphical Element.xtuml');
-INSERT INTO R_RTO
-	VALUES ("9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
-	"57737583-8bca-4d37-9d46-741d1b448832",
-	"aaee1b45-6f01-4588-9032-a93479022231",
-	0);
-INSERT INTO O_ID_PROXY
-	VALUES (0,
-	"9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
-	'../Graphical Data/Graphical Element/Graphical Element.xtuml');
-INSERT INTO R_OIR
-	VALUES ("9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
-	"57737583-8bca-4d37-9d46-741d1b448832",
-	"aaee1b45-6f01-4588-9032-a93479022231",
-	"c4f5c5e6-34ef-4e38-a982-1b82dc8c6d7c");
-INSERT INTO R_FORM
-	VALUES ("548f667c-4311-4aa2-9d52-7aed81972a0f",
-	"57737583-8bca-4d37-9d46-741d1b448832",
-	"166d2076-6097-497c-93a1-d04e11cb1079",
-	1,
-	1,
-	'configured by');
-INSERT INTO R_RGO
-	VALUES ("548f667c-4311-4aa2-9d52-7aed81972a0f",
-	"57737583-8bca-4d37-9d46-741d1b448832",
-	"166d2076-6097-497c-93a1-d04e11cb1079");
-INSERT INTO R_OIR
-	VALUES ("548f667c-4311-4aa2-9d52-7aed81972a0f",
-	"57737583-8bca-4d37-9d46-741d1b448832",
-	"166d2076-6097-497c-93a1-d04e11cb1079",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_SIMP
-	VALUES ("72d12241-5015-4fcf-abc5-81a1076ef981");
-INSERT INTO R_REL
-	VALUES ("72d12241-5015-4fcf-abc5-81a1076ef981",
-	402,
-	'',
-	"9daa01e9-3e90-41ba-bff0-f9213b487f5c");
-INSERT INTO R_PART
-	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
-	"72d12241-5015-4fcf-abc5-81a1076ef981",
-	"52637974-509f-48d2-85b0-5ffe7a5de64c",
-	0,
-	0,
-	'configures');
-INSERT INTO O_RTIDA
-	VALUES ("d1783817-101b-46d1-b9a8-907ee4d5efe4",
-	"09423687-e999-4aba-876d-35e0d3331311",
-	0,
-	"72d12241-5015-4fcf-abc5-81a1076ef981",
-	"52637974-509f-48d2-85b0-5ffe7a5de64c");
-INSERT INTO O_OIDA_PROXY
-	VALUES ("d1783817-101b-46d1-b9a8-907ee4d5efe4",
-	"09423687-e999-4aba-876d-35e0d3331311",
-	0,
-	'diagramId',
-	'../Graphical Data/Model/Model.xtuml');
-INSERT INTO R_RTO
-	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
-	"72d12241-5015-4fcf-abc5-81a1076ef981",
-	"52637974-509f-48d2-85b0-5ffe7a5de64c",
-	0);
-INSERT INTO O_ID_PROXY
-	VALUES (0,
-	"09423687-e999-4aba-876d-35e0d3331311",
-	'../Graphical Data/Model/Model.xtuml');
-INSERT INTO R_OIR
-	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
-	"72d12241-5015-4fcf-abc5-81a1076ef981",
-	"52637974-509f-48d2-85b0-5ffe7a5de64c",
-	"06e33db7-6b3f-4798-885c-b8c9f8421705");
-INSERT INTO R_FORM
-	VALUES ("548f667c-4311-4aa2-9d52-7aed81972a0f",
-	"72d12241-5015-4fcf-abc5-81a1076ef981",
-	"d62a62ba-310f-4fd3-8cc3-570aed9d49d9",
-	1,
-	1,
-	'configured by');
-INSERT INTO R_RGO
-	VALUES ("548f667c-4311-4aa2-9d52-7aed81972a0f",
-	"72d12241-5015-4fcf-abc5-81a1076ef981",
-	"d62a62ba-310f-4fd3-8cc3-570aed9d49d9");
-INSERT INTO R_OIR
-	VALUES ("548f667c-4311-4aa2-9d52-7aed81972a0f",
-	"72d12241-5015-4fcf-abc5-81a1076ef981",
-	"d62a62ba-310f-4fd3-8cc3-570aed9d49d9",
-	"00000000-0000-0000-0000-000000000000");
+	400);
 INSERT INTO GD_MD
 	VALUES ("b6958e33-43e8-483d-948f-50069c38cc6e",
-	5,
+	112,
 	"9daa01e9-3e90-41ba-bff0-f9213b487f5c",
-	11,
+	108,
 	0,
 	0,
 	1,
@@ -1223,3 +932,331 @@ INSERT INTO DIM_DIA
 	4000.000000,
 	3000.000000,
 	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_SUBSUP
+	VALUES ("2521cb14-8a89-4e67-bef9-fa8dab5d0e81");
+INSERT INTO R_REL
+	VALUES ("2521cb14-8a89-4e67-bef9-fa8dab5d0e81",
+	400,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_SUPER
+	VALUES ("548f667c-4311-4aa2-9d52-7aed81972a0f",
+	"2521cb14-8a89-4e67-bef9-fa8dab5d0e81",
+	"2aba61bb-2db7-4aa4-b7ab-7f766c0d4a3e");
+INSERT INTO O_RTIDA
+	VALUES ("c1dcf930-2e28-4db2-b15b-cb905b40ea6f",
+	"548f667c-4311-4aa2-9d52-7aed81972a0f",
+	0,
+	"2521cb14-8a89-4e67-bef9-fa8dab5d0e81",
+	"2aba61bb-2db7-4aa4-b7ab-7f766c0d4a3e");
+INSERT INTO O_OIDA_PROXY
+	VALUES ("c1dcf930-2e28-4db2-b15b-cb905b40ea6f",
+	"548f667c-4311-4aa2-9d52-7aed81972a0f",
+	0,
+	'Style_ID',
+	'./ElementStyle/ElementStyle.xtuml');
+INSERT INTO R_RTO
+	VALUES ("548f667c-4311-4aa2-9d52-7aed81972a0f",
+	"2521cb14-8a89-4e67-bef9-fa8dab5d0e81",
+	"2aba61bb-2db7-4aa4-b7ab-7f766c0d4a3e",
+	0);
+INSERT INTO O_ID_PROXY
+	VALUES (0,
+	"548f667c-4311-4aa2-9d52-7aed81972a0f",
+	'./ElementStyle/ElementStyle.xtuml');
+INSERT INTO R_OIR
+	VALUES ("548f667c-4311-4aa2-9d52-7aed81972a0f",
+	"2521cb14-8a89-4e67-bef9-fa8dab5d0e81",
+	"2aba61bb-2db7-4aa4-b7ab-7f766c0d4a3e",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("548f667c-4311-4aa2-9d52-7aed81972a0f",
+	'ElementStyle',
+	1,
+	'STY_S',
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'./ElementStyle/ElementStyle.xtuml');
+INSERT INTO R_SUB
+	VALUES ("77de536a-712e-4ce9-9f2d-4e13b06c521a",
+	"2521cb14-8a89-4e67-bef9-fa8dab5d0e81",
+	"d3d3a655-d83e-46a4-82a8-09cd92231820");
+INSERT INTO R_RGO
+	VALUES ("77de536a-712e-4ce9-9f2d-4e13b06c521a",
+	"2521cb14-8a89-4e67-bef9-fa8dab5d0e81",
+	"d3d3a655-d83e-46a4-82a8-09cd92231820");
+INSERT INTO R_OIR
+	VALUES ("77de536a-712e-4ce9-9f2d-4e13b06c521a",
+	"2521cb14-8a89-4e67-bef9-fa8dab5d0e81",
+	"d3d3a655-d83e-46a4-82a8-09cd92231820",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("77de536a-712e-4ce9-9f2d-4e13b06c521a",
+	'FillColorStyle',
+	2,
+	'STY_FCS',
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'./FillColorStyle/FillColorStyle.xtuml');
+INSERT INTO R_SUB
+	VALUES ("6e7244c3-1595-4ec0-8f36-4365269edce8",
+	"2521cb14-8a89-4e67-bef9-fa8dab5d0e81",
+	"556a00e8-e9c1-4fd8-ac8a-18e457b78f46");
+INSERT INTO R_RGO
+	VALUES ("6e7244c3-1595-4ec0-8f36-4365269edce8",
+	"2521cb14-8a89-4e67-bef9-fa8dab5d0e81",
+	"556a00e8-e9c1-4fd8-ac8a-18e457b78f46");
+INSERT INTO R_OIR
+	VALUES ("6e7244c3-1595-4ec0-8f36-4365269edce8",
+	"2521cb14-8a89-4e67-bef9-fa8dab5d0e81",
+	"556a00e8-e9c1-4fd8-ac8a-18e457b78f46",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("6e7244c3-1595-4ec0-8f36-4365269edce8",
+	'LineColorStyle',
+	3,
+	'STY_LCS',
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'./LineColorStyle/LineColorStyle.xtuml');
+INSERT INTO R_SUB
+	VALUES ("a0290409-7fed-4393-a001-cd9c346ce6e6",
+	"2521cb14-8a89-4e67-bef9-fa8dab5d0e81",
+	"01f99756-c98e-4239-b15b-8fddab1241aa");
+INSERT INTO R_RGO
+	VALUES ("a0290409-7fed-4393-a001-cd9c346ce6e6",
+	"2521cb14-8a89-4e67-bef9-fa8dab5d0e81",
+	"01f99756-c98e-4239-b15b-8fddab1241aa");
+INSERT INTO R_OIR
+	VALUES ("a0290409-7fed-4393-a001-cd9c346ce6e6",
+	"2521cb14-8a89-4e67-bef9-fa8dab5d0e81",
+	"01f99756-c98e-4239-b15b-8fddab1241aa",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("a0290409-7fed-4393-a001-cd9c346ce6e6",
+	'FontStyle',
+	400,
+	'STY_FS',
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'./FontStyle/FontStyle.xtuml');
+INSERT INTO PE_PE
+	VALUES ("2521cb14-8a89-4e67-bef9-fa8dab5d0e81",
+	1,
+	"9daa01e9-3e90-41ba-bff0-f9213b487f5c",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO R_SIMP
+	VALUES ("57737583-8bca-4d37-9d46-741d1b448832");
+INSERT INTO R_REL
+	VALUES ("57737583-8bca-4d37-9d46-741d1b448832",
+	401,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_PART
+	VALUES ("9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
+	"57737583-8bca-4d37-9d46-741d1b448832",
+	"aaee1b45-6f01-4588-9032-a93479022231",
+	0,
+	0,
+	'configures');
+INSERT INTO O_RTIDA
+	VALUES ("ee285046-698d-47d4-8d30-506164f3e21f",
+	"9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
+	0,
+	"57737583-8bca-4d37-9d46-741d1b448832",
+	"aaee1b45-6f01-4588-9032-a93479022231");
+INSERT INTO O_OIDA_PROXY
+	VALUES ("ee285046-698d-47d4-8d30-506164f3e21f",
+	"9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
+	0,
+	'elementId',
+	'../Graphical Data/Graphical Element/Graphical Element.xtuml');
+INSERT INTO R_RTO
+	VALUES ("9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
+	"57737583-8bca-4d37-9d46-741d1b448832",
+	"aaee1b45-6f01-4588-9032-a93479022231",
+	0);
+INSERT INTO O_ID_PROXY
+	VALUES (0,
+	"9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
+	'../Graphical Data/Graphical Element/Graphical Element.xtuml');
+INSERT INTO R_OIR
+	VALUES ("9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
+	"57737583-8bca-4d37-9d46-741d1b448832",
+	"aaee1b45-6f01-4588-9032-a93479022231",
+	"c4f5c5e6-34ef-4e38-a982-1b82dc8c6d7c");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
+	'Graphical Element',
+	2,
+	'GD_GE',
+	'Graphical element abstracts the different shapes and lines that make up the graphical representation of a model on the canvas.',
+	"00000000-0000-0000-0000-000000000000",
+	'../Graphical Data/Graphical Element/Graphical Element.xtuml');
+INSERT INTO R_FORM
+	VALUES ("548f667c-4311-4aa2-9d52-7aed81972a0f",
+	"57737583-8bca-4d37-9d46-741d1b448832",
+	"166d2076-6097-497c-93a1-d04e11cb1079",
+	1,
+	1,
+	'configured by');
+INSERT INTO R_RGO
+	VALUES ("548f667c-4311-4aa2-9d52-7aed81972a0f",
+	"57737583-8bca-4d37-9d46-741d1b448832",
+	"166d2076-6097-497c-93a1-d04e11cb1079");
+INSERT INTO R_OIR
+	VALUES ("548f667c-4311-4aa2-9d52-7aed81972a0f",
+	"57737583-8bca-4d37-9d46-741d1b448832",
+	"166d2076-6097-497c-93a1-d04e11cb1079",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO PE_PE
+	VALUES ("57737583-8bca-4d37-9d46-741d1b448832",
+	1,
+	"9daa01e9-3e90-41ba-bff0-f9213b487f5c",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO R_SIMP
+	VALUES ("72d12241-5015-4fcf-abc5-81a1076ef981");
+INSERT INTO R_REL
+	VALUES ("72d12241-5015-4fcf-abc5-81a1076ef981",
+	402,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_PART
+	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
+	"72d12241-5015-4fcf-abc5-81a1076ef981",
+	"52637974-509f-48d2-85b0-5ffe7a5de64c",
+	0,
+	0,
+	'configures');
+INSERT INTO O_RTIDA
+	VALUES ("d1783817-101b-46d1-b9a8-907ee4d5efe4",
+	"09423687-e999-4aba-876d-35e0d3331311",
+	0,
+	"72d12241-5015-4fcf-abc5-81a1076ef981",
+	"52637974-509f-48d2-85b0-5ffe7a5de64c");
+INSERT INTO O_OIDA_PROXY
+	VALUES ("d1783817-101b-46d1-b9a8-907ee4d5efe4",
+	"09423687-e999-4aba-876d-35e0d3331311",
+	0,
+	'diagramId',
+	'../Graphical Data/Model/Model.xtuml');
+INSERT INTO R_RTO
+	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
+	"72d12241-5015-4fcf-abc5-81a1076ef981",
+	"52637974-509f-48d2-85b0-5ffe7a5de64c",
+	0);
+INSERT INTO O_ID_PROXY
+	VALUES (0,
+	"09423687-e999-4aba-876d-35e0d3331311",
+	'../Graphical Data/Model/Model.xtuml');
+INSERT INTO R_OIR
+	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
+	"72d12241-5015-4fcf-abc5-81a1076ef981",
+	"52637974-509f-48d2-85b0-5ffe7a5de64c",
+	"06e33db7-6b3f-4798-885c-b8c9f8421705");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
+	'Model',
+	1,
+	'GD_MD',
+	'A model is a drawing for one particular view of the analysis. There is an instance of model for each glyph on the index window, and each entry in the model element list on the index window. For example, every domain will have four models (DPD, PDD(R), PDD(A), PDD(S)).  Every subsystem will have three models (CD, OCD(A), OCD(S)).  Every state chart has one model (SC).  The STT is not a graphical model.',
+	"00000000-0000-0000-0000-000000000000",
+	'../Graphical Data/Model/Model.xtuml');
+INSERT INTO R_FORM
+	VALUES ("548f667c-4311-4aa2-9d52-7aed81972a0f",
+	"72d12241-5015-4fcf-abc5-81a1076ef981",
+	"d62a62ba-310f-4fd3-8cc3-570aed9d49d9",
+	1,
+	1,
+	'configured by');
+INSERT INTO R_RGO
+	VALUES ("548f667c-4311-4aa2-9d52-7aed81972a0f",
+	"72d12241-5015-4fcf-abc5-81a1076ef981",
+	"d62a62ba-310f-4fd3-8cc3-570aed9d49d9");
+INSERT INTO R_OIR
+	VALUES ("548f667c-4311-4aa2-9d52-7aed81972a0f",
+	"72d12241-5015-4fcf-abc5-81a1076ef981",
+	"d62a62ba-310f-4fd3-8cc3-570aed9d49d9",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO PE_PE
+	VALUES ("72d12241-5015-4fcf-abc5-81a1076ef981",
+	1,
+	"9daa01e9-3e90-41ba-bff0-f9213b487f5c",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO O_IOBJ
+	VALUES ("c4f5c5e6-34ef-4e38-a982-1b82dc8c6d7c",
+	"9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
+	0,
+	"00000000-0000-0000-0000-000000000000",
+	'Graphical Element',
+	'GD_GE');
+INSERT INTO PE_PE
+	VALUES ("c4f5c5e6-34ef-4e38-a982-1b82dc8c6d7c",
+	1,
+	"9daa01e9-3e90-41ba-bff0-f9213b487f5c",
+	"00000000-0000-0000-0000-000000000000",
+	19);
+INSERT INTO O_IOBJ
+	VALUES ("06e33db7-6b3f-4798-885c-b8c9f8421705",
+	"09423687-e999-4aba-876d-35e0d3331311",
+	0,
+	"00000000-0000-0000-0000-000000000000",
+	'Model',
+	'GD_MD');
+INSERT INTO PE_PE
+	VALUES ("06e33db7-6b3f-4798-885c-b8c9f8421705",
+	1,
+	"9daa01e9-3e90-41ba-bff0-f9213b487f5c",
+	"00000000-0000-0000-0000-000000000000",
+	19);
+INSERT INTO PE_PE
+	VALUES ("9daa01e9-3e90-41ba-bff0-f9213b487f5c",
+	1,
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	"00000000-0000-0000-0000-000000000000",
+	7);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	"8f801c9a-cf2d-4ef4-b11a-51b8697e3ca8",
+	"8f801c9a-cf2d-4ef4-b11a-51b8697e3ca8",
+	'ooaofgraphics',
+	'========================================================================
+
+File:          $RCSfile$
+Version:   $Revision$
+Modified:  $Date$
+
+(c) Copyright 2004-2014 Mentor Graphics Corporation All rights reserved.
+
+========================================================================
+Licensed under the Apache License, Version 2.0 (the "License"); you may not
+use this file except in compliance with the License.  You may obtain a copy
+of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the
+License for the specific language governing permissions and limitations under
+the License.
+========================================================================
+
+This is the graphics domain for the Tiger project.
+
+The processing in this model describes the activities
+required for model diagram display and editing.
+
+Import:org.xtuml.bp.core.*
+-------------------------------------------------------------------------------------------------------------
+',
+	0,
+	'../ooaofgraphics.xtuml');
+INSERT INTO S_SYS_PROXY
+	VALUES ("8f801c9a-cf2d-4ef4-b11a-51b8697e3ca8",
+	'org.xtuml.bp.ui.canvas',
+	1,
+	'../../org.xtuml.bp.ui.canvas.xtuml');

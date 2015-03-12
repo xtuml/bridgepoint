@@ -1,15 +1,17 @@
--- BP 7.1 content: FunctionPackage syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: Package syschar: 3 persistence-version: 7.1.6
 
-INSERT INTO S_FPK
+INSERT INTO EP_PKG
 	VALUES ("f10395e2-6099-42e4-9635-26164f0ea089",
+	"00000000-0000-0000-0000-000000000000",
+	"8f801c9a-cf2d-4ef4-b11a-51b8697e3ca8",
 	'Functions',
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	"00000000-0000-0000-0000-000000000000");
+	'',
+	0);
 INSERT INTO GD_MD
 	VALUES ("3b44eb2a-cf8b-46a2-b829-8a89f10c7a8a",
-	101,
+	112,
 	"f10395e2-6099-42e4-9635-26164f0ea089",
-	54,
+	108,
 	0,
 	0,
 	1,
@@ -31,52 +33,9 @@ INSERT INTO DIM_DIA
 	4000.000000,
 	3000.000000,
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO PL_FPID
-	VALUES ("f10395e2-6099-42e4-9635-26164f0ea089",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69");
-INSERT INTO S_DOM_PROXY
-	VALUES ("3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	'ooaofgraphics',
-	'========================================================================
-
-File:          $RCSfile$
-Version:   $Revision$
-Modified:  $Date$
-
-(c) Copyright 2004-2014 Mentor Graphics Corporation All rights reserved.
-
-========================================================================
-Licensed under the Apache License, Version 2.0 (the "License"); you may not
-use this file except in compliance with the License.  You may obtain a copy
-of the License at
-
-     http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
-WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the
-License for the specific language governing permissions and limitations under
-the License.
-========================================================================
-
-This is the graphics domain for the Tiger project.
-
-The processing in this model describes the activities
-required for model diagram display and editing.
-
-Import:org.xtuml.bp.core.*
--------------------------------------------------------------------------------------------------------------
-',
-	0,
-	"00000000-0000-0000-0000-000000000001",
-	"8f801c9a-cf2d-4ef4-b11a-51b8697e3ca8",
-	'../ooaofgraphics.xtuml');
-INSERT INTO S_FIP
-	VALUES ("f10395e2-6099-42e4-9635-26164f0ea089",
-	"e6d75eb8-1515-4500-af0e-a6f5613f71ce");
 INSERT INTO S_SYNC
 	VALUES ("e6d75eb8-1515-4500-af0e-a6f5613f71ce",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	"00000000-0000-0000-0000-000000000000",
 	'max',
 	'Returns the larger of the two values passed.',
 	'if (param.a > param.b)
@@ -84,40 +43,36 @@ INSERT INTO S_SYNC
 else
   return param.b;
 end if;',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	1,
 	'');
 INSERT INTO S_SPARM
 	VALUES ("59bf1f3c-6ea5-4934-bcbb-03f8f4543a74",
 	"e6d75eb8-1515-4500-af0e-a6f5613f71ce",
 	'a',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("388cd7a2-2d0c-4f02-9730-7670074de394",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	'integer',
-	'',
-	'',
-	'../Datatypes/Datatypes.xtuml');
 INSERT INTO S_SPARM
 	VALUES ("84b38039-fabf-443a-9a1a-3646cd40e755",
 	"e6d75eb8-1515-4500-af0e-a6f5613f71ce",
 	'b',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"59bf1f3c-6ea5-4934-bcbb-03f8f4543a74",
 	'');
-INSERT INTO S_FIP
-	VALUES ("f10395e2-6099-42e4-9635-26164f0ea089",
-	"85c51c6f-0495-423e-98b7-0a71d2faafa6");
+INSERT INTO PE_PE
+	VALUES ("e6d75eb8-1515-4500-af0e-a6f5613f71ce",
+	1,
+	"f10395e2-6099-42e4-9635-26164f0ea089",
+	"00000000-0000-0000-0000-000000000000",
+	1);
 INSERT INTO S_SYNC
 	VALUES ("85c51c6f-0495-423e-98b7-0a71d2faafa6",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	"00000000-0000-0000-0000-000000000000",
 	'min',
 	'Returns the smaller of the two values passed.',
 	'if (param.a < param.b)
@@ -125,14 +80,14 @@ INSERT INTO S_SYNC
 else
   return param.b;
 end if;',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	1,
 	'');
 INSERT INTO S_SPARM
 	VALUES ("6c8e6f20-9a50-400c-8ad8-4d8d3eff862c",
 	"85c51c6f-0495-423e-98b7-0a71d2faafa6",
 	'a',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -141,17 +96,20 @@ INSERT INTO S_SPARM
 	VALUES ("fe54e7ab-5b56-4cb3-b202-6ca7ea3e3e1c",
 	"85c51c6f-0495-423e-98b7-0a71d2faafa6",
 	'b',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"6c8e6f20-9a50-400c-8ad8-4d8d3eff862c",
 	'');
-INSERT INTO S_FIP
-	VALUES ("f10395e2-6099-42e4-9635-26164f0ea089",
-	"f5fc1bb0-9d0e-4f18-bd92-f91720c0c1a2");
+INSERT INTO PE_PE
+	VALUES ("85c51c6f-0495-423e-98b7-0a71d2faafa6",
+	1,
+	"f10395e2-6099-42e4-9635-26164f0ea089",
+	"00000000-0000-0000-0000-000000000000",
+	1);
 INSERT INTO S_SYNC
 	VALUES ("f5fc1bb0-9d0e-4f18-bd92-f91720c0c1a2",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	"00000000-0000-0000-0000-000000000000",
 	'fixBPGraphics',
 	'Converts BridgePoint graphics to Tiger graphics on import.',
 	'select any dpd from instances of GD_MD where (selected.Model_Type == ModelType::DomainPackageDiagram);
@@ -175,22 +133,18 @@ if (not_empty dpd)
   end for;
 end if;
 ',
-	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("3852f90c-88c5-467d-9b26-57c8cd438b42",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	'void',
-	'',
-	'',
-	'../Datatypes/Datatypes.xtuml');
-INSERT INTO S_FIP
-	VALUES ("f10395e2-6099-42e4-9635-26164f0ea089",
-	"a8351949-0fa8-496a-a5c8-3e657c787cc9");
+INSERT INTO PE_PE
+	VALUES ("f5fc1bb0-9d0e-4f18-bd92-f91720c0c1a2",
+	1,
+	"f10395e2-6099-42e4-9635-26164f0ea089",
+	"00000000-0000-0000-0000-000000000000",
+	1);
 INSERT INTO S_SYNC
 	VALUES ("a8351949-0fa8-496a-a5c8-3e657c787cc9",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	"00000000-0000-0000-0000-000000000000",
 	'fixBPFNGraphics',
 	'Creates graphics for BridgePoint functions.',
 	'DPD_Model_Type = ModelType::DomainPackageDiagram;
@@ -251,15 +205,18 @@ if (not_empty fnp and not_empty dpd)
     end if;
   end if;
 end if;',
-	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'');
-INSERT INTO S_FIP
-	VALUES ("f10395e2-6099-42e4-9635-26164f0ea089",
-	"d4c5a644-139a-4ad4-ae1f-e60750bad8dd");
+INSERT INTO PE_PE
+	VALUES ("a8351949-0fa8-496a-a5c8-3e657c787cc9",
+	1,
+	"f10395e2-6099-42e4-9635-26164f0ea089",
+	"00000000-0000-0000-0000-000000000000",
+	1);
 INSERT INTO S_SYNC
 	VALUES ("d4c5a644-139a-4ad4-ae1f-e60750bad8dd",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	"00000000-0000-0000-0000-000000000000",
 	'fixBPDTGraphics',
 	'Creates graphics for BridgePoint data types.',
 	'DPD_Model_Type = ModelType::DomainPackageDiagram;
@@ -410,15 +367,18 @@ if (not_empty dtp and not_empty dpd)
     end for;
   end if;
 end if;',
-	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'');
-INSERT INTO S_FIP
-	VALUES ("f10395e2-6099-42e4-9635-26164f0ea089",
-	"d76c7f4e-e4c4-460f-933c-be9db69267d2");
+INSERT INTO PE_PE
+	VALUES ("d4c5a644-139a-4ad4-ae1f-e60750bad8dd",
+	1,
+	"f10395e2-6099-42e4-9635-26164f0ea089",
+	"00000000-0000-0000-0000-000000000000",
+	1);
 INSERT INTO S_SYNC
 	VALUES ("d76c7f4e-e4c4-460f-933c-be9db69267d2",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	"00000000-0000-0000-0000-000000000000",
 	'fixBPEEGraphics',
 	'Converts BridgePoint External Entities into Tiger style graphics.',
 	'/*
@@ -485,15 +445,18 @@ if (eepGraphNode.width == 0 and not_empty firstEeElement)
 	eepGraphNode.width = eeGraphNode.width;
 	eepGraphNode.height = eeGraphNode.height;
 end if;',
-	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'');
-INSERT INTO S_FIP
-	VALUES ("f10395e2-6099-42e4-9635-26164f0ea089",
-	"559e55bc-6e1b-4723-bd28-a396fa585fdc");
+INSERT INTO PE_PE
+	VALUES ("d76c7f4e-e4c4-460f-933c-be9db69267d2",
+	1,
+	"f10395e2-6099-42e4-9635-26164f0ea089",
+	"00000000-0000-0000-0000-000000000000",
+	1);
 INSERT INTO S_SYNC
 	VALUES ("559e55bc-6e1b-4723-bd28-a396fa585fdc",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	"00000000-0000-0000-0000-000000000000",
 	'TigerToBPGraphics',
 	'Converts Tiger graphics to BridgePoint graphics for export.',
 	'DPD_Model_Type = ModelType::DomainPackageDiagram;
@@ -516,15 +479,18 @@ for each eeGe in eeGes
   unrelate eeGe from mdl across R1;
   relate eeGe to dpd across R1;
 end for;',
-	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'');
-INSERT INTO S_FIP
-	VALUES ("f10395e2-6099-42e4-9635-26164f0ea089",
-	"ae1b1a20-cf38-4389-923a-49721fdb87bf");
+INSERT INTO PE_PE
+	VALUES ("559e55bc-6e1b-4723-bd28-a396fa585fdc",
+	1,
+	"f10395e2-6099-42e4-9635-26164f0ea089",
+	"00000000-0000-0000-0000-000000000000",
+	1);
 INSERT INTO S_SYNC
 	VALUES ("ae1b1a20-cf38-4389-923a-49721fdb87bf",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	"00000000-0000-0000-0000-000000000000",
 	'BPToTigerGraphics',
 	'Converts BridgePoint Graphics back to Tiger style graphics after export.',
 	'::fixBPEEGraphics();
@@ -544,15 +510,18 @@ if (not_empty dpd)
   end for;
 end if;
 ',
-	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'');
-INSERT INTO S_FIP
-	VALUES ("f10395e2-6099-42e4-9635-26164f0ea089",
-	"c7b1d888-da8c-41ce-aa8e-d8004b84cf89");
+INSERT INTO PE_PE
+	VALUES ("ae1b1a20-cf38-4389-923a-49721fdb87bf",
+	1,
+	"f10395e2-6099-42e4-9635-26164f0ea089",
+	"00000000-0000-0000-0000-000000000000",
+	1);
 INSERT INTO S_SYNC
 	VALUES ("c7b1d888-da8c-41ce-aa8e-d8004b84cf89",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	"00000000-0000-0000-0000-000000000000",
 	'roundToGridSnapPointWithinLimits',
 	'',
 	'// calculate the nearest snap value to the value given
@@ -571,30 +540,23 @@ elif (snap > param.max)
 end if;
 
 return snap;',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	1,
 	'');
 INSERT INTO S_SPARM
 	VALUES ("e7e35935-1533-4468-9025-1904d9a4248c",
 	"c7b1d888-da8c-41ce-aa8e-d8004b84cf89",
 	'ordinate',
-	"daa2cf40-15b6-4a53-a5a3-55b15c1951ed",
+	"ba5eda7a-def5-0000-0000-000000000003",
 	0,
 	'',
 	"8f62d726-a72b-4167-a592-f92d18d574a2",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("daa2cf40-15b6-4a53-a5a3-55b15c1951ed",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	'real',
-	'',
-	'',
-	'../Datatypes/Datatypes.xtuml');
 INSERT INTO S_SPARM
 	VALUES ("8f62d726-a72b-4167-a592-f92d18d574a2",
 	"c7b1d888-da8c-41ce-aa8e-d8004b84cf89",
 	'min',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"0068bf8d-55c9-4881-875b-9526bb412031",
@@ -603,7 +565,7 @@ INSERT INTO S_SPARM
 	VALUES ("0068bf8d-55c9-4881-875b-9526bb412031",
 	"c7b1d888-da8c-41ce-aa8e-d8004b84cf89",
 	'max',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"b0960108-f411-42a3-885a-882090ba5949",
@@ -612,45 +574,44 @@ INSERT INTO S_SPARM
 	VALUES ("b0960108-f411-42a3-885a-882090ba5949",
 	"c7b1d888-da8c-41ce-aa8e-d8004b84cf89",
 	'isConnector',
-	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("6e4aa280-2e22-4146-9b4a-6c2573c456d8",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	'boolean',
-	'',
-	'',
-	'../Datatypes/Datatypes.xtuml');
-INSERT INTO S_FIP
-	VALUES ("f10395e2-6099-42e4-9635-26164f0ea089",
-	"60c50177-e1fc-4f30-8981-71070307f52f");
+INSERT INTO PE_PE
+	VALUES ("c7b1d888-da8c-41ce-aa8e-d8004b84cf89",
+	1,
+	"f10395e2-6099-42e4-9635-26164f0ea089",
+	"00000000-0000-0000-0000-000000000000",
+	1);
 INSERT INTO S_SYNC
 	VALUES ("60c50177-e1fc-4f30-8981-71070307f52f",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	"00000000-0000-0000-0000-000000000000",
 	'round',
 	'Translate: native',
 	'return Math.round(p_Value);',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'');
 INSERT INTO S_SPARM
 	VALUES ("24eed6a9-28d1-4914-8297-3e63ba2136e1",
 	"60c50177-e1fc-4f30-8981-71070307f52f",
 	'value',
-	"daa2cf40-15b6-4a53-a5a3-55b15c1951ed",
+	"ba5eda7a-def5-0000-0000-000000000003",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
-INSERT INTO S_FIP
-	VALUES ("f10395e2-6099-42e4-9635-26164f0ea089",
-	"05f67195-0ef8-4b27-80f9-c49e364f1955");
+INSERT INTO PE_PE
+	VALUES ("60c50177-e1fc-4f30-8981-71070307f52f",
+	1,
+	"f10395e2-6099-42e4-9635-26164f0ea089",
+	"00000000-0000-0000-0000-000000000000",
+	1);
 INSERT INTO S_SYNC
 	VALUES ("05f67195-0ef8-4b27-80f9-c49e364f1955",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	"00000000-0000-0000-0000-000000000000",
 	'getGridSnapIncrement',
 	'',
 	'if(param.isConnector)
@@ -658,37 +619,40 @@ INSERT INTO S_SYNC
 else
   return 12;
 end if;',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	1,
 	'');
 INSERT INTO S_SPARM
 	VALUES ("fee7b4a7-601a-4d5c-a5e5-807e5bf514ab",
 	"05f67195-0ef8-4b27-80f9-c49e364f1955",
 	'isConnector',
-	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
-INSERT INTO S_FIP
-	VALUES ("f10395e2-6099-42e4-9635-26164f0ea089",
-	"fb2594a9-e025-4bcb-8acb-cf2934a42bb2");
+INSERT INTO PE_PE
+	VALUES ("05f67195-0ef8-4b27-80f9-c49e364f1955",
+	1,
+	"f10395e2-6099-42e4-9635-26164f0ea089",
+	"00000000-0000-0000-0000-000000000000",
+	1);
 INSERT INTO S_SYNC
 	VALUES ("fb2594a9-e025-4bcb-8acb-cf2934a42bb2",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	"00000000-0000-0000-0000-000000000000",
 	'roundToGridSnapPoint',
 	'',
 	'maxInt = OS::MAX_INT();
 return ::roundToGridSnapPointWithinLimits(ordinate:param.ordinate, 
 	min:-maxInt, max:maxInt, isConnector:param.isConnector);',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	1,
 	'');
 INSERT INTO S_SPARM
 	VALUES ("b08a89dd-3729-4e38-bae5-121bbba3096c",
 	"fb2594a9-e025-4bcb-8acb-cf2934a42bb2",
 	'ordinate',
-	"daa2cf40-15b6-4a53-a5a3-55b15c1951ed",
+	"ba5eda7a-def5-0000-0000-000000000003",
 	0,
 	'',
 	"08844ee9-8c95-441e-8d3d-1fb251ec3c30",
@@ -697,17 +661,20 @@ INSERT INTO S_SPARM
 	VALUES ("08844ee9-8c95-441e-8d3d-1fb251ec3c30",
 	"fb2594a9-e025-4bcb-8acb-cf2934a42bb2",
 	'isConnector',
-	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
-INSERT INTO S_FIP
-	VALUES ("f10395e2-6099-42e4-9635-26164f0ea089",
-	"22da94bc-f04b-48dd-9c8d-8d2199ec4b67");
+INSERT INTO PE_PE
+	VALUES ("fb2594a9-e025-4bcb-8acb-cf2934a42bb2",
+	1,
+	"f10395e2-6099-42e4-9635-26164f0ea089",
+	"00000000-0000-0000-0000-000000000000",
+	1);
 INSERT INTO S_SYNC
 	VALUES ("22da94bc-f04b-48dd-9c8d-8d2199ec4b67",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	"00000000-0000-0000-0000-000000000000",
 	'getDistance',
 	'',
 	'/*
@@ -717,14 +684,14 @@ Returns the distance between the given positions (x1, y1) and (x2, y2).
 a = param.x2 - param.x1;
 b = param.y2 - param.y1;
 return OS::getSquareRoot(value:(a * a + b * b));',
-	"daa2cf40-15b6-4a53-a5a3-55b15c1951ed",
+	"ba5eda7a-def5-0000-0000-000000000003",
 	1,
 	'');
 INSERT INTO S_SPARM
 	VALUES ("b3a34c90-c043-43d5-a4e4-fc572b87307a",
 	"22da94bc-f04b-48dd-9c8d-8d2199ec4b67",
 	'x1',
-	"daa2cf40-15b6-4a53-a5a3-55b15c1951ed",
+	"ba5eda7a-def5-0000-0000-000000000003",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -733,7 +700,7 @@ INSERT INTO S_SPARM
 	VALUES ("85004480-277a-4115-89c0-74257e3c26eb",
 	"22da94bc-f04b-48dd-9c8d-8d2199ec4b67",
 	'y1',
-	"daa2cf40-15b6-4a53-a5a3-55b15c1951ed",
+	"ba5eda7a-def5-0000-0000-000000000003",
 	0,
 	'',
 	"3b127fed-f830-4e6e-a8d0-d126884bcfdd",
@@ -742,7 +709,7 @@ INSERT INTO S_SPARM
 	VALUES ("3b127fed-f830-4e6e-a8d0-d126884bcfdd",
 	"22da94bc-f04b-48dd-9c8d-8d2199ec4b67",
 	'x2',
-	"daa2cf40-15b6-4a53-a5a3-55b15c1951ed",
+	"ba5eda7a-def5-0000-0000-000000000003",
 	0,
 	'',
 	"b3a34c90-c043-43d5-a4e4-fc572b87307a",
@@ -751,53 +718,65 @@ INSERT INTO S_SPARM
 	VALUES ("040712f4-ce90-4d41-872f-5c835b22b8b3",
 	"22da94bc-f04b-48dd-9c8d-8d2199ec4b67",
 	'y2',
-	"daa2cf40-15b6-4a53-a5a3-55b15c1951ed",
+	"ba5eda7a-def5-0000-0000-000000000003",
 	0,
 	'',
 	"85004480-277a-4115-89c0-74257e3c26eb",
 	'');
-INSERT INTO S_FIP
-	VALUES ("f10395e2-6099-42e4-9635-26164f0ea089",
-	"fad10f81-13af-4f98-9aa3-aefec28e0b38");
+INSERT INTO PE_PE
+	VALUES ("22da94bc-f04b-48dd-9c8d-8d2199ec4b67",
+	1,
+	"f10395e2-6099-42e4-9635-26164f0ea089",
+	"00000000-0000-0000-0000-000000000000",
+	1);
 INSERT INTO S_SYNC
 	VALUES ("fad10f81-13af-4f98-9aa3-aefec28e0b38",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	"00000000-0000-0000-0000-000000000000",
 	'getIconDistanceFromEdge',
 	'',
 	'return 4;',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	1,
 	'');
-INSERT INTO S_FIP
-	VALUES ("f10395e2-6099-42e4-9635-26164f0ea089",
-	"270e097d-e2da-4802-a161-22ba55f59cea");
+INSERT INTO PE_PE
+	VALUES ("fad10f81-13af-4f98-9aa3-aefec28e0b38",
+	1,
+	"f10395e2-6099-42e4-9635-26164f0ea089",
+	"00000000-0000-0000-0000-000000000000",
+	1);
 INSERT INTO S_SYNC
 	VALUES ("270e097d-e2da-4802-a161-22ba55f59cea",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	"00000000-0000-0000-0000-000000000000",
 	'getIconSize',
 	'',
 	'return 16;',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	1,
 	'');
-INSERT INTO S_FIP
-	VALUES ("f10395e2-6099-42e4-9635-26164f0ea089",
-	"d5c82af9-0085-46a6-9776-5b1e5a6a0692");
+INSERT INTO PE_PE
+	VALUES ("270e097d-e2da-4802-a161-22ba55f59cea",
+	1,
+	"f10395e2-6099-42e4-9635-26164f0ea089",
+	"00000000-0000-0000-0000-000000000000",
+	1);
 INSERT INTO S_SYNC
 	VALUES ("d5c82af9-0085-46a6-9776-5b1e5a6a0692",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	"00000000-0000-0000-0000-000000000000",
 	'getIconSpacing',
 	'',
 	'return 2;',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	1,
 	'');
-INSERT INTO S_FIP
-	VALUES ("f10395e2-6099-42e4-9635-26164f0ea089",
-	"efd387cc-d10d-423b-8404-142c52f6ad6a");
+INSERT INTO PE_PE
+	VALUES ("d5c82af9-0085-46a6-9776-5b1e5a6a0692",
+	1,
+	"f10395e2-6099-42e4-9635-26164f0ea089",
+	"00000000-0000-0000-0000-000000000000",
+	1);
 INSERT INTO S_SYNC
 	VALUES ("efd387cc-d10d-423b-8404-142c52f6ad6a",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	"00000000-0000-0000-0000-000000000000",
 	'drawDiamond',
 	'',
 	'/**
@@ -814,7 +793,7 @@ GR::polyAddPoint(poly:p, x: x+w,   y:y+h/2 );
 GR::polyAddPoint(poly:p, x: x+w/2, y:y+h );
 GR::polyAddPoint(poly:p, x: x,     y:y+h/2 );
 GR::polyDraw(context: param.context, poly:p);',
-	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'');
 INSERT INTO S_SPARM
@@ -828,7 +807,7 @@ INSERT INTO S_SPARM
 	'');
 INSERT INTO S_DT_PROXY
 	VALUES ("231cb314-a496-47fb-aee2-1317be81deb5",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	"00000000-0000-0000-0000-000000000000",
 	'GCDelegate',
 	'',
 	'',
@@ -837,7 +816,7 @@ INSERT INTO S_SPARM
 	VALUES ("022c1d6d-69d4-4e22-8283-d8ed2ce727b5",
 	"efd387cc-d10d-423b-8404-142c52f6ad6a",
 	'x',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"a5306544-28c1-493d-8b88-2fecb763266e",
@@ -846,7 +825,7 @@ INSERT INTO S_SPARM
 	VALUES ("614868f5-5db4-4b4b-a95d-7f6185af739d",
 	"efd387cc-d10d-423b-8404-142c52f6ad6a",
 	'y',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"022c1d6d-69d4-4e22-8283-d8ed2ce727b5",
@@ -855,7 +834,7 @@ INSERT INTO S_SPARM
 	VALUES ("a5306544-28c1-493d-8b88-2fecb763266e",
 	"efd387cc-d10d-423b-8404-142c52f6ad6a",
 	'w',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"3c8ab358-362a-4f6d-99e1-5ca26e67a4b7",
@@ -864,17 +843,20 @@ INSERT INTO S_SPARM
 	VALUES ("3c8ab358-362a-4f6d-99e1-5ca26e67a4b7",
 	"efd387cc-d10d-423b-8404-142c52f6ad6a",
 	'h',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"b5ecec14-e594-47d6-a080-9edc20825a00",
 	'');
-INSERT INTO S_FIP
-	VALUES ("f10395e2-6099-42e4-9635-26164f0ea089",
-	"aaa10e70-b761-4804-8b74-35b8bb8f4f93");
+INSERT INTO PE_PE
+	VALUES ("efd387cc-d10d-423b-8404-142c52f6ad6a",
+	1,
+	"f10395e2-6099-42e4-9635-26164f0ea089",
+	"00000000-0000-0000-0000-000000000000",
+	1);
 INSERT INTO S_SYNC
 	VALUES ("aaa10e70-b761-4804-8b74-35b8bb8f4f93",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	"00000000-0000-0000-0000-000000000000",
 	'drawConcavePentagon',
 	'',
 	'/**
@@ -893,7 +875,7 @@ GR::polyAddPoint(poly:p, x: x+w,   y:y+h );
 GR::polyAddPoint(poly:p, x: x,     y:y+h );
 GR::polyAddPoint(poly:p, x: x+w/5, y:y+h/2 );
 GR::polyDraw(context: param.context, poly:p);',
-	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'');
 INSERT INTO S_SPARM
@@ -909,7 +891,7 @@ INSERT INTO S_SPARM
 	VALUES ("67f77b4f-5d3f-41bd-bef6-164457656cf7",
 	"aaa10e70-b761-4804-8b74-35b8bb8f4f93",
 	'x',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"1f5add27-9cf5-4578-9237-5fa2d186320c",
@@ -918,7 +900,7 @@ INSERT INTO S_SPARM
 	VALUES ("774d48f9-ac75-4a63-a9ae-50cb3147b97c",
 	"aaa10e70-b761-4804-8b74-35b8bb8f4f93",
 	'y',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"67f77b4f-5d3f-41bd-bef6-164457656cf7",
@@ -927,7 +909,7 @@ INSERT INTO S_SPARM
 	VALUES ("1f5add27-9cf5-4578-9237-5fa2d186320c",
 	"aaa10e70-b761-4804-8b74-35b8bb8f4f93",
 	'w',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"fd4d5983-a543-42c2-b638-85ddd8e70166",
@@ -936,17 +918,20 @@ INSERT INTO S_SPARM
 	VALUES ("fd4d5983-a543-42c2-b638-85ddd8e70166",
 	"aaa10e70-b761-4804-8b74-35b8bb8f4f93",
 	'h',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"e6872af2-59fa-4fb4-9afc-d379f3594ef3",
 	'');
-INSERT INTO S_FIP
-	VALUES ("f10395e2-6099-42e4-9635-26164f0ea089",
-	"07218182-1e3e-4e50-a444-d502b100e30a");
+INSERT INTO PE_PE
+	VALUES ("aaa10e70-b761-4804-8b74-35b8bb8f4f93",
+	1,
+	"f10395e2-6099-42e4-9635-26164f0ea089",
+	"00000000-0000-0000-0000-000000000000",
+	1);
 INSERT INTO S_SYNC
 	VALUES ("07218182-1e3e-4e50-a444-d502b100e30a",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	"00000000-0000-0000-0000-000000000000",
 	'drawConvexPentagon',
 	'',
 	'/**
@@ -965,7 +950,7 @@ GR::polyAddPoint(poly:p, x: x+w,   y:y+h/2 );
 GR::polyAddPoint(poly:p, x: x+(4*w)/5,     y:y+h );
 GR::polyAddPoint(poly:p, x: x, y:y+h );
 GR::polyDraw(context: param.context, poly:p);',
-	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'');
 INSERT INTO S_SPARM
@@ -981,7 +966,7 @@ INSERT INTO S_SPARM
 	VALUES ("9f956d38-cfa5-4a30-9c22-9df268ea30a8",
 	"07218182-1e3e-4e50-a444-d502b100e30a",
 	'x',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"8a6a34c1-3f34-4e06-bf59-5c5818f80d69",
@@ -990,7 +975,7 @@ INSERT INTO S_SPARM
 	VALUES ("8cc01dee-cc39-476f-a9b4-04776d383138",
 	"07218182-1e3e-4e50-a444-d502b100e30a",
 	'y',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"9f956d38-cfa5-4a30-9c22-9df268ea30a8",
@@ -999,7 +984,7 @@ INSERT INTO S_SPARM
 	VALUES ("8a6a34c1-3f34-4e06-bf59-5c5818f80d69",
 	"07218182-1e3e-4e50-a444-d502b100e30a",
 	'w',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"36691e82-497c-4674-9ddf-31653804b5b2",
@@ -1008,17 +993,20 @@ INSERT INTO S_SPARM
 	VALUES ("36691e82-497c-4674-9ddf-31653804b5b2",
 	"07218182-1e3e-4e50-a444-d502b100e30a",
 	'h',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"baa36666-0f66-4146-8ff3-4b835c9939a5",
 	'');
-INSERT INTO S_FIP
-	VALUES ("f10395e2-6099-42e4-9635-26164f0ea089",
-	"a5451ef2-0052-467e-af6d-9b9d98970df1");
+INSERT INTO PE_PE
+	VALUES ("07218182-1e3e-4e50-a444-d502b100e30a",
+	1,
+	"f10395e2-6099-42e4-9635-26164f0ea089",
+	"00000000-0000-0000-0000-000000000000",
+	1);
 INSERT INTO S_SYNC
 	VALUES ("a5451ef2-0052-467e-af6d-9b9d98970df1",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	"00000000-0000-0000-0000-000000000000",
 	'drawHourglass',
 	'',
 	'/**
@@ -1037,7 +1025,7 @@ GR::polyAddPoint(poly:p1, x: x,     y:y+h );
 GR::polyAddPoint(poly:p1, x: x+w,   y:y+h );
 GR::polyAddPoint(poly:p1, x: x,     y:y );
 GR::polyDraw(context: param.context, poly:p1);',
-	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'');
 INSERT INTO S_SPARM
@@ -1053,7 +1041,7 @@ INSERT INTO S_SPARM
 	VALUES ("f6d01aba-f90b-485a-ae83-9f909e3c6fdc",
 	"a5451ef2-0052-467e-af6d-9b9d98970df1",
 	'x',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"9ecffb2c-7f6e-426f-b38d-785d99ee88d8",
@@ -1062,7 +1050,7 @@ INSERT INTO S_SPARM
 	VALUES ("8b7ffe5d-aecc-4630-98cb-fbbaff5f56c1",
 	"a5451ef2-0052-467e-af6d-9b9d98970df1",
 	'y',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"f6d01aba-f90b-485a-ae83-9f909e3c6fdc",
@@ -1071,7 +1059,7 @@ INSERT INTO S_SPARM
 	VALUES ("9ecffb2c-7f6e-426f-b38d-785d99ee88d8",
 	"a5451ef2-0052-467e-af6d-9b9d98970df1",
 	'w',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"5fa91be4-3f69-407d-abc7-7210b5d114d8",
@@ -1080,17 +1068,20 @@ INSERT INTO S_SPARM
 	VALUES ("5fa91be4-3f69-407d-abc7-7210b5d114d8",
 	"a5451ef2-0052-467e-af6d-9b9d98970df1",
 	'h',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"3b9cd9ac-87a4-40ed-9b3e-e27aa9031c53",
 	'');
-INSERT INTO S_FIP
-	VALUES ("f10395e2-6099-42e4-9635-26164f0ea089",
-	"341a7b91-fd81-4d1a-8d8e-2bba8c182089");
+INSERT INTO PE_PE
+	VALUES ("a5451ef2-0052-467e-af6d-9b9d98970df1",
+	1,
+	"f10395e2-6099-42e4-9635-26164f0ea089",
+	"00000000-0000-0000-0000-000000000000",
+	1);
 INSERT INTO S_SYNC
 	VALUES ("341a7b91-fd81-4d1a-8d8e-2bba8c182089",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	"00000000-0000-0000-0000-000000000000",
 	'getIntersectionOfSegmentWithEllipse',
 	'',
 	'/*
@@ -1207,14 +1198,14 @@ else
   return y;
 end if;
 ',
-	"daa2cf40-15b6-4a53-a5a3-55b15c1951ed",
+	"ba5eda7a-def5-0000-0000-000000000003",
 	1,
 	'');
 INSERT INTO S_SPARM
 	VALUES ("d231dc32-718f-4f83-b423-56dcb75dc6e4",
 	"341a7b91-fd81-4d1a-8d8e-2bba8c182089",
 	'ellipseH',
-	"daa2cf40-15b6-4a53-a5a3-55b15c1951ed",
+	"ba5eda7a-def5-0000-0000-000000000003",
 	0,
 	'',
 	"184ae800-9dc6-496d-ba81-3e97c4a72573",
@@ -1223,7 +1214,7 @@ INSERT INTO S_SPARM
 	VALUES ("205d3e40-2c4a-4c9e-942f-80ad155bec32",
 	"341a7b91-fd81-4d1a-8d8e-2bba8c182089",
 	'x',
-	"daa2cf40-15b6-4a53-a5a3-55b15c1951ed",
+	"ba5eda7a-def5-0000-0000-000000000003",
 	0,
 	'',
 	"be2ef912-2d3b-42f6-b8be-c4bcc3b11b82",
@@ -1232,7 +1223,7 @@ INSERT INTO S_SPARM
 	VALUES ("c3d251f8-979e-4716-8074-92a220137101",
 	"341a7b91-fd81-4d1a-8d8e-2bba8c182089",
 	'y2',
-	"daa2cf40-15b6-4a53-a5a3-55b15c1951ed",
+	"ba5eda7a-def5-0000-0000-000000000003",
 	0,
 	'',
 	"60b6fd8f-7375-401d-b292-0599a5f36f9e",
@@ -1241,7 +1232,7 @@ INSERT INTO S_SPARM
 	VALUES ("e58690ea-6f69-420c-aa4e-1dc50bc21b13",
 	"341a7b91-fd81-4d1a-8d8e-2bba8c182089",
 	'x2',
-	"daa2cf40-15b6-4a53-a5a3-55b15c1951ed",
+	"ba5eda7a-def5-0000-0000-000000000003",
 	0,
 	'',
 	"205d3e40-2c4a-4c9e-942f-80ad155bec32",
@@ -1250,7 +1241,7 @@ INSERT INTO S_SPARM
 	VALUES ("60b6fd8f-7375-401d-b292-0599a5f36f9e",
 	"341a7b91-fd81-4d1a-8d8e-2bba8c182089",
 	'y',
-	"daa2cf40-15b6-4a53-a5a3-55b15c1951ed",
+	"ba5eda7a-def5-0000-0000-000000000003",
 	0,
 	'',
 	"e58690ea-6f69-420c-aa4e-1dc50bc21b13",
@@ -1259,7 +1250,7 @@ INSERT INTO S_SPARM
 	VALUES ("be2ef912-2d3b-42f6-b8be-c4bcc3b11b82",
 	"341a7b91-fd81-4d1a-8d8e-2bba8c182089",
 	'ellipseY',
-	"daa2cf40-15b6-4a53-a5a3-55b15c1951ed",
+	"ba5eda7a-def5-0000-0000-000000000003",
 	0,
 	'',
 	"0acbb381-a214-49e6-b6aa-f08c7d166549",
@@ -1268,7 +1259,7 @@ INSERT INTO S_SPARM
 	VALUES ("0acbb381-a214-49e6-b6aa-f08c7d166549",
 	"341a7b91-fd81-4d1a-8d8e-2bba8c182089",
 	'ellipseX',
-	"daa2cf40-15b6-4a53-a5a3-55b15c1951ed",
+	"ba5eda7a-def5-0000-0000-000000000003",
 	0,
 	'',
 	"e589d5dc-a430-4813-883f-1fc5c2af438f",
@@ -1277,7 +1268,7 @@ INSERT INTO S_SPARM
 	VALUES ("e589d5dc-a430-4813-883f-1fc5c2af438f",
 	"341a7b91-fd81-4d1a-8d8e-2bba8c182089",
 	'ellipseW',
-	"daa2cf40-15b6-4a53-a5a3-55b15c1951ed",
+	"ba5eda7a-def5-0000-0000-000000000003",
 	0,
 	'',
 	"d231dc32-718f-4f83-b423-56dcb75dc6e4",
@@ -1286,7 +1277,7 @@ INSERT INTO S_SPARM
 	VALUES ("184ae800-9dc6-496d-ba81-3e97c4a72573",
 	"341a7b91-fd81-4d1a-8d8e-2bba8c182089",
 	'considerLine',
-	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	0,
 	'',
 	"f778600e-e0d7-4708-b04f-1f9654587e52",
@@ -1302,17 +1293,20 @@ INSERT INTO S_SPARM
 	'');
 INSERT INTO S_DT_PROXY
 	VALUES ("cf5d2877-53f0-411b-8843-124449b0f6ea",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	"00000000-0000-0000-0000-000000000000",
 	'Axis',
 	'Specifies the X or Y axis.',
 	'',
 	'../Datatypes/Datatypes.xtuml');
-INSERT INTO S_FIP
-	VALUES ("f10395e2-6099-42e4-9635-26164f0ea089",
-	"2f723e19-a7bd-4c3c-849f-118088c66273");
+INSERT INTO PE_PE
+	VALUES ("341a7b91-fd81-4d1a-8d8e-2bba8c182089",
+	1,
+	"f10395e2-6099-42e4-9635-26164f0ea089",
+	"00000000-0000-0000-0000-000000000000",
+	1);
 INSERT INTO S_SYNC
 	VALUES ("2f723e19-a7bd-4c3c-849f-118088c66273",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	"00000000-0000-0000-0000-000000000000",
 	'getSlope',
 	'',
 	'/*
@@ -1328,14 +1322,14 @@ end if;
 
 // return the slope of the line
 return (param.y2 - param.y) / (param.x2 - param.x);',
-	"daa2cf40-15b6-4a53-a5a3-55b15c1951ed",
+	"ba5eda7a-def5-0000-0000-000000000003",
 	1,
 	'');
 INSERT INTO S_SPARM
 	VALUES ("3f2ecdc9-458f-4e9f-84ac-3aef98960029",
 	"2f723e19-a7bd-4c3c-849f-118088c66273",
 	'x',
-	"daa2cf40-15b6-4a53-a5a3-55b15c1951ed",
+	"ba5eda7a-def5-0000-0000-000000000003",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -1344,7 +1338,7 @@ INSERT INTO S_SPARM
 	VALUES ("379b8936-1275-4766-b2f5-d5a96c114204",
 	"2f723e19-a7bd-4c3c-849f-118088c66273",
 	'x2',
-	"daa2cf40-15b6-4a53-a5a3-55b15c1951ed",
+	"ba5eda7a-def5-0000-0000-000000000003",
 	0,
 	'',
 	"3f2ecdc9-458f-4e9f-84ac-3aef98960029",
@@ -1353,7 +1347,7 @@ INSERT INTO S_SPARM
 	VALUES ("bf82034d-68f0-41f3-85fb-b3d773647c4e",
 	"2f723e19-a7bd-4c3c-849f-118088c66273",
 	'y',
-	"daa2cf40-15b6-4a53-a5a3-55b15c1951ed",
+	"ba5eda7a-def5-0000-0000-000000000003",
 	0,
 	'',
 	"379b8936-1275-4766-b2f5-d5a96c114204",
@@ -1362,17 +1356,20 @@ INSERT INTO S_SPARM
 	VALUES ("24dba22a-5b7a-403b-b745-b38a3f9114c6",
 	"2f723e19-a7bd-4c3c-849f-118088c66273",
 	'y2',
-	"daa2cf40-15b6-4a53-a5a3-55b15c1951ed",
+	"ba5eda7a-def5-0000-0000-000000000003",
 	0,
 	'',
 	"bf82034d-68f0-41f3-85fb-b3d773647c4e",
 	'');
-INSERT INTO S_FIP
-	VALUES ("f10395e2-6099-42e4-9635-26164f0ea089",
-	"2a2e6996-bfbb-44fa-b23e-4a1073702712");
+INSERT INTO PE_PE
+	VALUES ("2f723e19-a7bd-4c3c-849f-118088c66273",
+	1,
+	"f10395e2-6099-42e4-9635-26164f0ea089",
+	"00000000-0000-0000-0000-000000000000",
+	1);
 INSERT INTO S_SYNC
 	VALUES ("2a2e6996-bfbb-44fa-b23e-4a1073702712",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	"00000000-0000-0000-0000-000000000000",
 	'getYIntercept',
 	'',
 	'/*
@@ -1384,14 +1381,14 @@ is vertical, the result will be a very extreme value, instead of undefined.
 // on the line to get the intercept
 slope = ::getSlope(x:param.x, y:param.y, x2:param.x2, y2:param.y2);
 return param.y - slope * param.x;',
-	"daa2cf40-15b6-4a53-a5a3-55b15c1951ed",
+	"ba5eda7a-def5-0000-0000-000000000003",
 	1,
 	'');
 INSERT INTO S_SPARM
 	VALUES ("710e428e-f0b4-4ba1-a5a7-0cd7f6c895f9",
 	"2a2e6996-bfbb-44fa-b23e-4a1073702712",
 	'x',
-	"daa2cf40-15b6-4a53-a5a3-55b15c1951ed",
+	"ba5eda7a-def5-0000-0000-000000000003",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -1400,7 +1397,7 @@ INSERT INTO S_SPARM
 	VALUES ("b12f856e-42ec-4934-b580-51283910842f",
 	"2a2e6996-bfbb-44fa-b23e-4a1073702712",
 	'x2',
-	"daa2cf40-15b6-4a53-a5a3-55b15c1951ed",
+	"ba5eda7a-def5-0000-0000-000000000003",
 	0,
 	'',
 	"710e428e-f0b4-4ba1-a5a7-0cd7f6c895f9",
@@ -1409,7 +1406,7 @@ INSERT INTO S_SPARM
 	VALUES ("9ef497af-47a4-4d05-a49b-0ba3e68656a3",
 	"2a2e6996-bfbb-44fa-b23e-4a1073702712",
 	'y',
-	"daa2cf40-15b6-4a53-a5a3-55b15c1951ed",
+	"ba5eda7a-def5-0000-0000-000000000003",
 	0,
 	'',
 	"b12f856e-42ec-4934-b580-51283910842f",
@@ -1418,17 +1415,20 @@ INSERT INTO S_SPARM
 	VALUES ("a53e0b5e-24ed-40aa-af19-0d2c09d78193",
 	"2a2e6996-bfbb-44fa-b23e-4a1073702712",
 	'y2',
-	"daa2cf40-15b6-4a53-a5a3-55b15c1951ed",
+	"ba5eda7a-def5-0000-0000-000000000003",
 	0,
 	'',
 	"9ef497af-47a4-4d05-a49b-0ba3e68656a3",
 	'');
-INSERT INTO S_FIP
-	VALUES ("f10395e2-6099-42e4-9635-26164f0ea089",
-	"0a5f66ea-01b9-4f28-b503-c51dc1912284");
+INSERT INTO PE_PE
+	VALUES ("2a2e6996-bfbb-44fa-b23e-4a1073702712",
+	1,
+	"f10395e2-6099-42e4-9635-26164f0ea089",
+	"00000000-0000-0000-0000-000000000000",
+	1);
 INSERT INTO S_SYNC
 	VALUES ("0a5f66ea-01b9-4f28-b503-c51dc1912284",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	"00000000-0000-0000-0000-000000000000",
 	'getBoxDefinedBySegmentContains',
 	'',
 	'/*
@@ -1453,14 +1453,14 @@ maxY = ::max(a:y1, b:y2);
 // return whether the given position lies within the box detm''d above
 return ((x >= minX and x <= maxX) and (y >= minY and y <= maxY));
 ',
-	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'');
 INSERT INTO S_SPARM
 	VALUES ("8a167b06-2d79-4ed1-9a3f-02a289be5465",
 	"0a5f66ea-01b9-4f28-b503-c51dc1912284",
 	'x',
-	"daa2cf40-15b6-4a53-a5a3-55b15c1951ed",
+	"ba5eda7a-def5-0000-0000-000000000003",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -1469,7 +1469,7 @@ INSERT INTO S_SPARM
 	VALUES ("216eaf74-204f-4f87-806b-e9a73ede05b1",
 	"0a5f66ea-01b9-4f28-b503-c51dc1912284",
 	'y2',
-	"daa2cf40-15b6-4a53-a5a3-55b15c1951ed",
+	"ba5eda7a-def5-0000-0000-000000000003",
 	0,
 	'',
 	"a6761baa-400f-4d85-992a-990fcae662c1",
@@ -1478,7 +1478,7 @@ INSERT INTO S_SPARM
 	VALUES ("5a4e9649-ede5-4144-afef-f23d21f5d329",
 	"0a5f66ea-01b9-4f28-b503-c51dc1912284",
 	'y',
-	"daa2cf40-15b6-4a53-a5a3-55b15c1951ed",
+	"ba5eda7a-def5-0000-0000-000000000003",
 	0,
 	'',
 	"9160384f-28d7-48af-b00b-2f9a72cb4ccf",
@@ -1487,7 +1487,7 @@ INSERT INTO S_SPARM
 	VALUES ("9160384f-28d7-48af-b00b-2f9a72cb4ccf",
 	"0a5f66ea-01b9-4f28-b503-c51dc1912284",
 	'x2',
-	"daa2cf40-15b6-4a53-a5a3-55b15c1951ed",
+	"ba5eda7a-def5-0000-0000-000000000003",
 	0,
 	'',
 	"d76d4fc1-d169-45c6-887c-fd1d4de15093",
@@ -1496,7 +1496,7 @@ INSERT INTO S_SPARM
 	VALUES ("a6761baa-400f-4d85-992a-990fcae662c1",
 	"0a5f66ea-01b9-4f28-b503-c51dc1912284",
 	'y1',
-	"daa2cf40-15b6-4a53-a5a3-55b15c1951ed",
+	"ba5eda7a-def5-0000-0000-000000000003",
 	0,
 	'',
 	"5a4e9649-ede5-4144-afef-f23d21f5d329",
@@ -1505,17 +1505,20 @@ INSERT INTO S_SPARM
 	VALUES ("d76d4fc1-d169-45c6-887c-fd1d4de15093",
 	"0a5f66ea-01b9-4f28-b503-c51dc1912284",
 	'x1',
-	"daa2cf40-15b6-4a53-a5a3-55b15c1951ed",
+	"ba5eda7a-def5-0000-0000-000000000003",
 	0,
 	'',
 	"8a167b06-2d79-4ed1-9a3f-02a289be5465",
 	'');
-INSERT INTO S_FIP
-	VALUES ("f10395e2-6099-42e4-9635-26164f0ea089",
-	"9d598233-0d79-4730-b1f3-97a49b69e706");
+INSERT INTO PE_PE
+	VALUES ("0a5f66ea-01b9-4f28-b503-c51dc1912284",
+	1,
+	"f10395e2-6099-42e4-9635-26164f0ea089",
+	"00000000-0000-0000-0000-000000000000",
+	1);
 INSERT INTO S_SYNC
 	VALUES ("9d598233-0d79-4730-b1f3-97a49b69e706",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	"00000000-0000-0000-0000-000000000000",
 	'getIntersectionOfSegmentWithSquare',
 	'',
 	'minX = ::min(a:param.x1, b:param.x2);
@@ -1674,14 +1677,14 @@ elif(param.axis == Axis::Y) and (param.considerLine)
 end if;
 
 return 0;',
-	"daa2cf40-15b6-4a53-a5a3-55b15c1951ed",
+	"ba5eda7a-def5-0000-0000-000000000003",
 	1,
 	'');
 INSERT INTO S_SPARM
 	VALUES ("3a1f3bb6-cffb-434e-a48a-1efed13a04ca",
 	"9d598233-0d79-4730-b1f3-97a49b69e706",
 	'squareX',
-	"daa2cf40-15b6-4a53-a5a3-55b15c1951ed",
+	"ba5eda7a-def5-0000-0000-000000000003",
 	0,
 	'',
 	"d731ff82-5ec9-481f-89ec-de70d130e879",
@@ -1699,7 +1702,7 @@ INSERT INTO S_SPARM
 	VALUES ("84842b78-5f3d-4d75-8c4a-8009782be669",
 	"9d598233-0d79-4730-b1f3-97a49b69e706",
 	'y2',
-	"daa2cf40-15b6-4a53-a5a3-55b15c1951ed",
+	"ba5eda7a-def5-0000-0000-000000000003",
 	0,
 	'',
 	"c77c2507-b892-4e2a-a623-6fc66bad6749",
@@ -1708,7 +1711,7 @@ INSERT INTO S_SPARM
 	VALUES ("9b1a3d72-2136-4ee5-b5aa-1b7f6b527334",
 	"9d598233-0d79-4730-b1f3-97a49b69e706",
 	'x2',
-	"daa2cf40-15b6-4a53-a5a3-55b15c1951ed",
+	"ba5eda7a-def5-0000-0000-000000000003",
 	0,
 	'',
 	"23c5388c-5dca-4d0a-8372-54444c582a1d",
@@ -1717,7 +1720,7 @@ INSERT INTO S_SPARM
 	VALUES ("c77c2507-b892-4e2a-a623-6fc66bad6749",
 	"9d598233-0d79-4730-b1f3-97a49b69e706",
 	'y1',
-	"daa2cf40-15b6-4a53-a5a3-55b15c1951ed",
+	"ba5eda7a-def5-0000-0000-000000000003",
 	0,
 	'',
 	"9b1a3d72-2136-4ee5-b5aa-1b7f6b527334",
@@ -1726,7 +1729,7 @@ INSERT INTO S_SPARM
 	VALUES ("23c5388c-5dca-4d0a-8372-54444c582a1d",
 	"9d598233-0d79-4730-b1f3-97a49b69e706",
 	'x1',
-	"daa2cf40-15b6-4a53-a5a3-55b15c1951ed",
+	"ba5eda7a-def5-0000-0000-000000000003",
 	0,
 	'',
 	"4ab442ac-11c9-4a93-85b6-0984a98ed895",
@@ -1735,7 +1738,7 @@ INSERT INTO S_SPARM
 	VALUES ("2b8e7bcc-9c0f-484c-831e-12b6453761eb",
 	"9d598233-0d79-4730-b1f3-97a49b69e706",
 	'squareH',
-	"daa2cf40-15b6-4a53-a5a3-55b15c1951ed",
+	"ba5eda7a-def5-0000-0000-000000000003",
 	0,
 	'',
 	"90e66160-a10e-4c97-b4b6-7035b635570d",
@@ -1744,7 +1747,7 @@ INSERT INTO S_SPARM
 	VALUES ("d731ff82-5ec9-481f-89ec-de70d130e879",
 	"9d598233-0d79-4730-b1f3-97a49b69e706",
 	'squareW',
-	"daa2cf40-15b6-4a53-a5a3-55b15c1951ed",
+	"ba5eda7a-def5-0000-0000-000000000003",
 	0,
 	'',
 	"2b8e7bcc-9c0f-484c-831e-12b6453761eb",
@@ -1753,7 +1756,7 @@ INSERT INTO S_SPARM
 	VALUES ("4ab442ac-11c9-4a93-85b6-0984a98ed895",
 	"9d598233-0d79-4730-b1f3-97a49b69e706",
 	'squareY',
-	"daa2cf40-15b6-4a53-a5a3-55b15c1951ed",
+	"ba5eda7a-def5-0000-0000-000000000003",
 	0,
 	'',
 	"3a1f3bb6-cffb-434e-a48a-1efed13a04ca",
@@ -1762,17 +1765,20 @@ INSERT INTO S_SPARM
 	VALUES ("90e66160-a10e-4c97-b4b6-7035b635570d",
 	"9d598233-0d79-4730-b1f3-97a49b69e706",
 	'considerLine',
-	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	0,
 	'',
 	"2e94499b-e083-4a5e-9048-3163d5d97c67",
 	'');
-INSERT INTO S_FIP
-	VALUES ("f10395e2-6099-42e4-9635-26164f0ea089",
-	"3142aa17-acf5-40e2-8390-ba9691a7f40a");
+INSERT INTO PE_PE
+	VALUES ("9d598233-0d79-4730-b1f3-97a49b69e706",
+	1,
+	"f10395e2-6099-42e4-9635-26164f0ea089",
+	"00000000-0000-0000-0000-000000000000",
+	1);
 INSERT INTO S_SYNC
 	VALUES ("3142aa17-acf5-40e2-8390-ba9691a7f40a",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	"00000000-0000-0000-0000-000000000000",
 	'truncateTextBlock',
 	'Translate: native',
 	'//
@@ -1789,31 +1795,78 @@ if (p_Maxlines < lines.length) {
 	trimmed_text = p_Text;
 }
 return( trimmed_text );',
-	"17f3cd98-2d3a-4fe3-ac41-d27b377178a6",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	0,
 	'');
 INSERT INTO S_SPARM
 	VALUES ("1906d67b-83b3-4e4d-b9af-097c4d7bead5",
 	"3142aa17-acf5-40e2-8390-ba9691a7f40a",
 	'text',
-	"17f3cd98-2d3a-4fe3-ac41-d27b377178a6",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	0,
 	'',
 	"45487ee1-4d66-4c81-812a-d0283451ae93",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("17f3cd98-2d3a-4fe3-ac41-d27b377178a6",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	'string',
-	'',
-	'',
-	'../Datatypes/Datatypes.xtuml');
 INSERT INTO S_SPARM
 	VALUES ("45487ee1-4d66-4c81-812a-d0283451ae93",
 	"3142aa17-acf5-40e2-8390-ba9691a7f40a",
 	'maxLines',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
+INSERT INTO PE_PE
+	VALUES ("3142aa17-acf5-40e2-8390-ba9691a7f40a",
+	1,
+	"f10395e2-6099-42e4-9635-26164f0ea089",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO PE_PE
+	VALUES ("f10395e2-6099-42e4-9635-26164f0ea089",
+	1,
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	"00000000-0000-0000-0000-000000000000",
+	7);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	"8f801c9a-cf2d-4ef4-b11a-51b8697e3ca8",
+	"8f801c9a-cf2d-4ef4-b11a-51b8697e3ca8",
+	'ooaofgraphics',
+	'========================================================================
+
+File:          $RCSfile$
+Version:   $Revision$
+Modified:  $Date$
+
+(c) Copyright 2004-2014 Mentor Graphics Corporation All rights reserved.
+
+========================================================================
+Licensed under the Apache License, Version 2.0 (the "License"); you may not
+use this file except in compliance with the License.  You may obtain a copy
+of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the
+License for the specific language governing permissions and limitations under
+the License.
+========================================================================
+
+This is the graphics domain for the Tiger project.
+
+The processing in this model describes the activities
+required for model diagram display and editing.
+
+Import:org.xtuml.bp.core.*
+-------------------------------------------------------------------------------------------------------------
+',
+	0,
+	'../ooaofgraphics.xtuml');
+INSERT INTO S_SYS_PROXY
+	VALUES ("8f801c9a-cf2d-4ef4-b11a-51b8697e3ca8",
+	'org.xtuml.bp.ui.canvas',
+	1,
+	'../../org.xtuml.bp.ui.canvas.xtuml');

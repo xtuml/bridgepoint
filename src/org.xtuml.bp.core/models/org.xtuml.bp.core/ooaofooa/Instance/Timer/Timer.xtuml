@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("d3bdf15f-16b7-40c7-a34f-e8b92091139d",
@@ -6,13 +6,13 @@ INSERT INTO O_OBJ
 	2913,
 	'I_TIM',
 	'',
-	"97c1ace4-0148-4235-83cb-1fd8e2d2514d");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("ebe5be81-7e5e-4f59-aba1-df328eeddeac",
 	"d3bdf15f-16b7-40c7-a34f-e8b92091139d",
 	'tick',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'if (self.running)
   select one pendingEvt related by self->I_EVI[R2940];
@@ -29,19 +29,12 @@ end if;',
 	1,
 	'',
 	"4c656f6c-9665-40c4-a63d-cf060a3e8cef");
-INSERT INTO S_DT_PROXY
-	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'void',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("12f6ae2d-3c4d-4ba5-8456-ef7abdab5803",
 	"d3bdf15f-16b7-40c7-a34f-e8b92091139d",
 	'fire',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// Timer.fire()
 select one evt related by self->I_EVI[R2940];
@@ -69,7 +62,7 @@ INSERT INTO O_TFR
 	"d3bdf15f-16b7-40c7-a34f-e8b92091139d",
 	'dispose',
 	'',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'result = false;
 select one evt related by self->I_EVI[R2940];
@@ -89,19 +82,12 @@ return result;',
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO S_DT_PROXY
-	VALUES ("8e519c45-7dcf-400b-9d4e-954869dbb7e8",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'boolean',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("4c656f6c-9665-40c4-a63d-cf060a3e8cef",
 	"d3bdf15f-16b7-40c7-a34f-e8b92091139d",
 	'set',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'self.running = false;
 self.recurring = false;
@@ -114,18 +100,11 @@ INSERT INTO O_TPARM
 	VALUES ("8283b821-8ab3-4e17-b703-fa6969552548",
 	"4c656f6c-9665-40c4-a63d-cf060a3e8cef",
 	'delay',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'integer',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("88f3c2ef-bac3-4cbd-a7a5-c30cb8b770e1",
 	"d3bdf15f-16b7-40c7-a34f-e8b92091139d",
@@ -139,7 +118,7 @@ INSERT INTO O_TFR
 	"ebe5be81-7e5e-4f59-aba1-df328eeddeac");
 INSERT INTO S_DT_PROXY
 	VALUES ("f0e53f72-2765-4257-ae4c-e44680e63219",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
 	'long',
 	'',
 	'',
@@ -149,7 +128,7 @@ INSERT INTO O_TFR
 	"d3bdf15f-16b7-40c7-a34f-e8b92091139d",
 	'removeTimer',
 	'Translate:native',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'lib.TIM.removeTimer(this);',
 	0,
@@ -160,7 +139,7 @@ INSERT INTO O_TFR
 	"d3bdf15f-16b7-40c7-a34f-e8b92091139d",
 	'insertTimer',
 	'Translate:native',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'ModelRoot modelRoot = getModelRoot();
 		ComponentInstance_c ee = (ComponentInstance_c) modelRoot
@@ -175,18 +154,11 @@ INSERT INTO O_TPARM
 	VALUES ("d6cfc24d-06be-44b7-ba2b-f3d1cf08b5b2",
 	"b0662693-63a2-4723-b1da-7cc6dcb139c9",
 	'componentInstanceId',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'unique_id',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("8a78b1bf-690c-4c49-a6c0-7a7bbb633956",
 	"d3bdf15f-16b7-40c7-a34f-e8b92091139d");
@@ -202,7 +174,7 @@ INSERT INTO O_ATTR
 	'',
 	'Timer_ID',
 	0,
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -220,7 +192,7 @@ INSERT INTO O_ATTR
 	'',
 	'delay',
 	0,
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -238,7 +210,7 @@ INSERT INTO O_ATTR
 	'',
 	'running',
 	0,
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -256,7 +228,7 @@ INSERT INTO O_ATTR
 	'',
 	'recurring',
 	0,
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	'',
 	'');
 INSERT INTO O_REF
@@ -274,7 +246,7 @@ INSERT INTO O_REF
 	'',
 	'Pending Event',
 	'Event_ID',
-	'R2940');
+	'R2940.''provides delayed delivery of''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("d3bdf15f-16b7-40c7-a34f-e8b92091139d",
 	"9c92f492-b55e-4c0b-b5dc-07c06b449d38",
@@ -307,16 +279,9 @@ INSERT INTO O_ATTR
 	'',
 	'Event_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_DBATTR
 	VALUES ("321d1992-0a0e-4cef-bb65-84c1f0820090",
 	"d3bdf15f-16b7-40c7-a34f-e8b92091139d",
@@ -342,16 +307,9 @@ INSERT INTO O_ATTR
 	'',
 	'Label',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'string',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("ed9b2f39-893d-4b02-a96d-a919589649e5",
 	"d3bdf15f-16b7-40c7-a34f-e8b92091139d");
@@ -384,15 +342,20 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"d3bdf15f-16b7-40c7-a34f-e8b92091139d");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("d3bdf15f-16b7-40c7-a34f-e8b92091139d",
+	1,
+	"97c1ace4-0148-4235-83cb-1fd8e2d2514d",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("97c1ace4-0148-4235-83cb-1fd8e2d2514d",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Instance',
 	'// This is used by schema_gen to ignore this subsystem (for publication)
 TRANSLATE_FOR_EXTERNAL_USE:FALSE
 Persistent:false
 Import: java.util.concurrent.locks.ReentrantLock',
-	'I',
 	900,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000000000",
 	'../Instance.xtuml');

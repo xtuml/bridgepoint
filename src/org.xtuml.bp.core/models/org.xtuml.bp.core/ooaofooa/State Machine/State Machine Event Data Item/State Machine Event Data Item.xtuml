@@ -6,13 +6,13 @@ INSERT INTO O_OBJ
 	517,
 	'SM_EVTDI',
 	'Each state machine (SM_SM) has a pool of event data items that can be used as supplemental data (SM_SUPDT) for the events (SM_EVT) of the state machine.  When an event data item is used as supplemental data for an event an instance of SM_SDI is created.',
-	"efdb28f6-a485-4b25-9cbf-3e7227398b6a");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("c1353b3f-408f-4734-9b4b-c5e4f8f30941",
 	"2ae439ff-559b-458d-88ab-b3bb161e565f",
 	'dispose',
 	'Dispose this State Machine Event Data Item',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// State Machine Subsystem
 select one sm related by self->SM_SM[R516];
@@ -70,19 +70,12 @@ delete object instance self;',
 	1,
 	'',
 	"7ce749ef-8051-4b60-bb5c-65128466df7e");
-INSERT INTO S_DT_PROXY
-	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'void',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("9e60f1e8-c23d-4aeb-8284-71e37fc886b8",
 	"2ae439ff-559b-458d-88ab-b3bb161e565f",
 	'initialize',
 	'Initialize this SM_EVTDI.  Set the name and data type to default values.',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
 select one stateMachine related by self->SM_SM[R516];
@@ -155,7 +148,7 @@ INSERT INTO O_TFR
 	"2ae439ff-559b-458d-88ab-b3bb161e565f",
 	'isAllowedType',
 	'',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
 // if this element is at the system level check the
@@ -215,25 +208,11 @@ INSERT INTO O_TPARM
 	VALUES ("a3a1ad3e-86b0-42bc-b51d-23f1ca4b0c17",
 	"ed3915d3-fa2e-49d9-a780-a10a236a40e5",
 	'typeName',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'string',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
-INSERT INTO S_DT_PROXY
-	VALUES ("8e519c45-7dcf-400b-9d4e-954869dbb7e8",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'boolean',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("7ce749ef-8051-4b60-bb5c-65128466df7e",
 	"2ae439ff-559b-458d-88ab-b3bb161e565f",
@@ -251,7 +230,7 @@ return this;',
 	"981a369f-40ac-4af3-81d9-d974dcea6b68");
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
 	'instance',
 	'',
 	'',
@@ -261,7 +240,7 @@ INSERT INTO O_TFR
 	"2ae439ff-559b-458d-88ab-b3bb161e565f",
 	'resolveDatatype',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
 select one dtProxy related by self->S_DT[R524];
@@ -325,7 +304,7 @@ INSERT INTO O_TFR
 	"2ae439ff-559b-458d-88ab-b3bb161e565f",
 	'resolveExistingDataItem',
 	'',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'select any sm from instances of SM_SM where (selected.SM_ID == param.id);
 if(not_empty sm)
@@ -354,24 +333,17 @@ INSERT INTO O_TPARM
 	VALUES ("9e11ee08-ca58-41b4-a17c-682d79a31928",
 	"f7ce67eb-0fa6-4236-8942-0c2cd1429161",
 	'id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'unique_id',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("769998b9-0785-4927-ac08-c8dd8e2d758a",
 	"2ae439ff-559b-458d-88ab-b3bb161e565f",
 	'resizeDimensions',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// If the number of dimensions has increased then add dimensions
 while (param.numDimensions > self.getDimensionsCnt())
@@ -403,23 +375,16 @@ INSERT INTO O_TPARM
 	VALUES ("f6f97469-f75e-4a62-b283-db1345664e0f",
 	"769998b9-0785-4927-ac08-c8dd8e2d758a",
 	'elementCount',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"6b1d02d5-d86a-48f8-8074-900dc844ef1e",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'integer',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TPARM
 	VALUES ("6b1d02d5-d86a-48f8-8074-900dc844ef1e",
 	"769998b9-0785-4927-ac08-c8dd8e2d758a",
 	'dimension',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -428,7 +393,7 @@ INSERT INTO O_TPARM
 	VALUES ("faa91d74-e479-4756-a03e-2550a8c36531",
 	"769998b9-0785-4927-ac08-c8dd8e2d758a",
 	'numDimensions',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"f6f97469-f75e-4a62-b283-db1345664e0f",
@@ -438,7 +403,7 @@ INSERT INTO O_TFR
 	"2ae439ff-559b-458d-88ab-b3bb161e565f",
 	'getDimensionsCnt',
 	'',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	1,
 	'select many dims related by self->S_DIM[R531];
 dimensions = cardinality dims;
@@ -451,7 +416,7 @@ INSERT INTO O_TFR
 	"2ae439ff-559b-458d-88ab-b3bb161e565f",
 	'moveUp',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'::changeNotificationEnablement(enabled:false);
 select one prev_attr related by self->SM_EVTDI[R533.''succeeds''];
@@ -487,7 +452,7 @@ INSERT INTO O_TFR
 	"2ae439ff-559b-458d-88ab-b3bb161e565f",
 	'moveDown',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'::changeNotificationEnablement(enabled:false);
 select one next_attr related by self->SM_EVTDI[R533.''precedes''];
@@ -524,7 +489,7 @@ INSERT INTO O_TFR
 	"2ae439ff-559b-458d-88ab-b3bb161e565f",
 	'actionFilter',
 	'',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'if (param.name == "can" )
   if ( param.value == "move up" )
@@ -544,7 +509,7 @@ INSERT INTO O_TPARM
 	VALUES ("af71f423-c0b2-4454-9918-2bfe6adfe74d",
 	"89a87863-9f56-46b4-824c-f772dc09e3f5",
 	'name',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -553,7 +518,7 @@ INSERT INTO O_TPARM
 	VALUES ("4926b97e-477e-4a7d-aeac-681aae02f09c",
 	"89a87863-9f56-46b4-824c-f772dc09e3f5",
 	'value',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	0,
 	'',
 	"af71f423-c0b2-4454-9918-2bfe6adfe74d",
@@ -563,7 +528,7 @@ INSERT INTO O_TFR
 	"2ae439ff-559b-458d-88ab-b3bb161e565f",
 	'canReferToDataType',
 	'',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
 // select the dt
@@ -614,7 +579,7 @@ INSERT INTO O_TFR
 	"2ae439ff-559b-458d-88ab-b3bb161e565f",
 	'isReferringToDefaultDataType',
 	'',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'select one dt related by self->S_DT[R524];
 elementType = Util::getSimpleClassName(element:self.convertToInstance());
@@ -631,7 +596,7 @@ INSERT INTO O_TFR
 	"2ae439ff-559b-458d-88ab-b3bb161e565f",
 	'canUseDataType',
 	'',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
 // State Machine Event Data Item.canUseDataType()
@@ -703,7 +668,7 @@ INSERT INTO O_TPARM
 	VALUES ("310ea90b-c954-446f-a914-b942ca2c51f8",
 	"981a369f-40ac-4af3-81d9-d974dcea6b68",
 	'id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -713,7 +678,7 @@ INSERT INTO O_TFR
 	"2ae439ff-559b-458d-88ab-b3bb161e565f",
 	'checkIntegrity',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'/**
  *  Create an integrity issue if there are any other parameters in the same
@@ -760,7 +725,7 @@ INSERT INTO O_ATTR
 	'',
 	'SMedi_ID',
 	0,
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	'',
 	'');
 INSERT INTO O_REF
@@ -778,7 +743,7 @@ INSERT INTO O_REF
 	'',
 	'State Machine',
 	'SM_ID',
-	'R516');
+	'R516.''is carried on events into''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("2ae439ff-559b-458d-88ab-b3bb161e565f",
 	"088e19d4-b9d9-49f1-9308-21772d382ef3",
@@ -806,7 +771,7 @@ INSERT INTO O_REF
 	'',
 	'State Machine Event Data Item',
 	'SM_ID',
-	'R533');
+	'R533.''succeeds''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("2ae439ff-559b-458d-88ab-b3bb161e565f",
 	"8de442e0-e523-4907-af05-07fe174193f3",
@@ -839,16 +804,9 @@ INSERT INTO O_ATTR
 	'',
 	'SM_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("9e01310a-e40a-4532-8642-0e43699eeb17",
 	"2ae439ff-559b-458d-88ab-b3bb161e565f");
@@ -864,7 +822,7 @@ INSERT INTO O_ATTR
 	'',
 	'Name',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -882,7 +840,7 @@ INSERT INTO O_ATTR
 	'',
 	'Descrip',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -900,7 +858,7 @@ INSERT INTO O_ATTR
 	'',
 	'Dimensions',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_REF
@@ -918,7 +876,7 @@ INSERT INTO O_REF
 	'',
 	'State Machine Event',
 	'SMevt_ID',
-	'R532');
+	'R532.''carried by''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("2ae439ff-559b-458d-88ab-b3bb161e565f",
 	"ea73f5ab-6128-48e8-8915-b5aad3b90e01",
@@ -951,7 +909,7 @@ INSERT INTO O_ATTR
 	'',
 	'SMevt_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -969,7 +927,7 @@ INSERT INTO O_REF
 	'',
 	'State Machine Event Data Item',
 	'SMedi_ID',
-	'R533');
+	'R533.''succeeds''');
 INSERT INTO O_RTIDA_PROXY
 	VALUES ("df11d8f5-0e94-4daf-b893-3075ae8258a4",
 	"2ae439ff-559b-458d-88ab-b3bb161e565f",
@@ -993,7 +951,7 @@ INSERT INTO O_ATTR
 	'Previous_',
 	'SMedi_ID',
 	1,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -1011,7 +969,7 @@ INSERT INTO O_REF
 	'',
 	'Data Type',
 	'DT_ID',
-	'R524');
+	'R524.''is defined by''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("2ae439ff-559b-458d-88ab-b3bb161e565f",
 	"923d6885-0499-424d-b5b3-16a6fe5cb7a3",
@@ -1044,7 +1002,7 @@ INSERT INTO O_ATTR
 	'',
 	'Element_ID',
 	2,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_ID
@@ -1066,12 +1024,17 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"2ae439ff-559b-458d-88ab-b3bb161e565f");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("2ae439ff-559b-458d-88ab-b3bb161e565f",
+	1,
+	"efdb28f6-a485-4b25-9cbf-3e7227398b6a",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("efdb28f6-a485-4b25-9cbf-3e7227398b6a",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'State Machine',
 	'Classes (O_OBJ) that have interesting behavior are given lifecycles. These lifecycles are described using state machines (SM_SM). A state machine consists of states, events, transitions and state actions. The state machine exists for each instance of the class for which it has been modeled (SM_ISM). A state machine can also be an assigner state machine (SM_ASM) of which only one can exists for all class instances. The purpose of the assigner state machine is to act as a single point of control through which competing requests are serialized.',
-	'SM',
 	501,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000280005",
 	'../State Machine.xtuml');

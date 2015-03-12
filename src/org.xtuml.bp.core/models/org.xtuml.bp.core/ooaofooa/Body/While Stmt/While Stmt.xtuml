@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("797141e5-601e-41fb-ab57-54c68931d590",
@@ -6,7 +6,7 @@ INSERT INTO O_OBJ
 	619,
 	'ACT_WHL',
 	'This class represents a while statement in a block of action language.',
-	"76583c73-7a99-4c81-b260-8109e6cef5ca");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("46c89112-6f98-4015-8f53-255a5dfcd14b",
 	"797141e5-601e-41fb-ab57-54c68931d590",
@@ -14,7 +14,7 @@ INSERT INTO O_TFR
 	'This operation disconnects an instance, and all instances it is 
 responsible for, from the model.
 ',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select one blk related by self->ACT_BLK[R608];
 if ( not_empty blk )
@@ -32,19 +32,12 @@ delete object instance self;
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO S_DT_PROXY
-	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'void',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("7e4868d1-fc1d-4986-89da-265520ce2f81",
 	"797141e5-601e-41fb-ab57-54c68931d590",
 	'execute',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// While Stmt.execute()
  select one body related by self->ACT_SMT[R603]->ACT_BLK[R602]->ACT_ACT[R601];   
@@ -110,18 +103,11 @@ INSERT INTO O_TPARM
 	VALUES ("082ed20a-4377-438a-ae6f-7e5acd853be3",
 	"7e4868d1-fc1d-4986-89da-265520ce2f81",
 	'stack_frame_id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'unique_id',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("797141e5-601e-41fb-ab57-54c68931d590",
 	"e9011b75-e798-45a3-ac83-92ba7c04db4e",
@@ -172,16 +158,9 @@ INSERT INTO O_ATTR
 	'',
 	'Statement_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("797141e5-601e-41fb-ab57-54c68931d590",
 	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
@@ -197,7 +176,7 @@ INSERT INTO O_REF
 	'',
 	'Value',
 	'Value_ID',
-	'R626');
+	'R626.''continue result''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("797141e5-601e-41fb-ab57-54c68931d590",
 	"79f826f2-c3c2-414a-bfb6-3ec643655a2c",
@@ -232,7 +211,7 @@ INSERT INTO O_ATTR
 	'',
 	'Value_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -250,7 +229,7 @@ INSERT INTO O_REF
 	'',
 	'Block',
 	'Block_ID',
-	'R608');
+	'R608.''controls''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("797141e5-601e-41fb-ab57-54c68931d590",
 	"6a27577c-127a-448a-b911-ec078d141dd5",
@@ -283,7 +262,7 @@ INSERT INTO O_ATTR
 	'',
 	'Block_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_ID
@@ -300,8 +279,16 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"797141e5-601e-41fb-ab57-54c68931d590");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("797141e5-601e-41fb-ab57-54c68931d590",
+	1,
+	"76583c73-7a99-4c81-b260-8109e6cef5ca",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("76583c73-7a99-4c81-b260-8109e6cef5ca",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Body',
 	'This subsystem abstracts the action itself, the blocks and statements
 it contains together with the flow of control statements such as ''while'',
@@ -311,8 +298,5 @@ Persistent:false
 // This is used by schema_gen to ignore this subsystem (for publication)
 TRANSLATE_FOR_EXTERNAL_USE:FALSE
 ',
-	'ACT',
 	600,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000380007",
 	'../Body.xtuml');

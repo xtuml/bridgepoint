@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("dc724d35-6cec-4ccb-9479-1c0d58a74382",
@@ -7,13 +7,13 @@ INSERT INTO O_OBJ
 	'MSG_R',
 	'This class is used to represent a return message.  The return message is never
 formal.',
-	"5b26fa8b-77b9-4af0-807d-28be1c9e1735");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("c3ccd800-d82b-4833-a955-2800a747f4ee",
 	"dc724d35-6cec-4ccb-9479-1c0d58a74382",
 	'dispose',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// dispose supertype
 select one msg related by self->MSG_M[R1018];
@@ -25,19 +25,12 @@ delete object instance self;',
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO S_DT_PROXY
-	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'void',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("ecba5c47-4f10-4718-b7fe-032e86b49bce",
 	"dc724d35-6cec-4ccb-9479-1c0d58a74382",
 	'initialize',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'self.Name = "Unnamed Return";',
 	1,
@@ -48,19 +41,12 @@ INSERT INTO O_TFR
 	"dc724d35-6cec-4ccb-9479-1c0d58a74382",
 	'get_ooa_id',
 	'',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'return self.Msg_ID;',
 	1,
 	'',
 	"106f9ee3-1e5e-488a-89bd-59811ce586ce");
-INSERT INTO S_DT_PROXY
-	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'unique_id',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("5d3a2f4a-5646-400e-8018-a1a6e72231c2",
 	"dc724d35-6cec-4ccb-9479-1c0d58a74382",
@@ -87,7 +73,7 @@ INSERT INTO O_TPARM
 	'');
 INSERT INTO S_DT_PROXY
 	VALUES ("ae85eca6-6fe4-4125-95e6-95272f0fd7de",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
 	'End',
 	'Text is positioned at a user adjustable offset from the Start, Middle and End of a connector. Start_Fixed and End_Fixed specify fixed position text found at the start and end of some connectors.
 -------------------------------------------------------------
@@ -96,7 +82,7 @@ Bridge:GD',
 	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO S_DT_PROXY
 	VALUES ("6e636321-0fd1-4577-b185-e4d76b0d0c71",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
 	'Style',
 	'The Style data type specifies the precise form a graphical element will take when drawn.
 --------------------------------------------------------------------------
@@ -108,7 +94,7 @@ INSERT INTO O_TFR
 	"dc724d35-6cec-4ccb-9479-1c0d58a74382",
 	'get_connector_text',
 	'',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'if(param.at == End::Middle)
   result = self.Name;
@@ -165,7 +151,7 @@ INSERT INTO O_TPARM
 	VALUES ("b63ec5f2-e605-48e3-8e8b-808802cce489",
 	"106f9ee3-1e5e-488a-89bd-59811ce586ce",
 	'Obj_ID',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -174,18 +160,11 @@ INSERT INTO O_TPARM
 	VALUES ("78285ede-fd14-47b2-b4b0-a7f7e7593f20",
 	"106f9ee3-1e5e-488a-89bd-59811ce586ce",
 	'Obj_TypeIsImported',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	0,
 	'',
 	"b63ec5f2-e605-48e3-8e8b-808802cce489",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("8e519c45-7dcf-400b-9d4e-954869dbb7e8",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'boolean',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TPARM
 	VALUES ("ea795ab9-5837-45e4-8f2a-12b76fd471e6",
 	"106f9ee3-1e5e-488a-89bd-59811ce586ce",
@@ -199,24 +178,17 @@ INSERT INTO O_TPARM
 	VALUES ("d68f6e1f-3e7a-4470-adeb-c1ce0f5c5b3f",
 	"106f9ee3-1e5e-488a-89bd-59811ce586ce",
 	'parent_ID',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"ea795ab9-5837-45e4-8f2a-12b76fd471e6",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'string',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("a7c49a09-1b57-4ea3-a4d9-f3e470ead15a",
 	"dc724d35-6cec-4ccb-9479-1c0d58a74382",
 	'newArgument',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// have the supertype create the argument
 select one msg related by self->MSG_M[R1018];
@@ -241,7 +213,7 @@ INSERT INTO O_ATTR
 	'',
 	'ReturnValue',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -259,7 +231,7 @@ INSERT INTO O_ATTR
 	'',
 	'ResultTarget',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -277,7 +249,7 @@ INSERT INTO O_ATTR
 	'',
 	'GuardCondition',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -296,7 +268,7 @@ Description: A textual description of this message.',
 	'',
 	'Descrip',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -314,7 +286,7 @@ INSERT INTO O_ATTR
 	'',
 	'Name',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -332,7 +304,7 @@ INSERT INTO O_ATTR
 	'',
 	'SequenceNumb',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_REF
@@ -383,16 +355,9 @@ INSERT INTO O_ATTR
 	'',
 	'Msg_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_ID
 	VALUES (0,
 	"dc724d35-6cec-4ccb-9479-1c0d58a74382");
@@ -407,13 +372,18 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"dc724d35-6cec-4ccb-9479-1c0d58a74382");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("dc724d35-6cec-4ccb-9479-1c0d58a74382",
+	1,
+	"5b26fa8b-77b9-4af0-807d-28be1c9e1735",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("5b26fa8b-77b9-4af0-807d-28be1c9e1735",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Message',
 	'// This is used by schema_gen to ignore this subsystem (for publication)
 TRANSLATE_FOR_EXTERNAL_USE:FALSE',
-	'MSG',
 	1000,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000000000",
 	'../Message.xtuml');

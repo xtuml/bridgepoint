@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("04492d70-fcaf-49d4-a276-b2b9a316eedf",
@@ -6,7 +6,7 @@ INSERT INTO O_OBJ
 	4014,
 	'C_RID',
 	'',
-	"01aecea1-07ec-46e6-a719-cece731803c9");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_REF
 	VALUES ("04492d70-fcaf-49d4-a276-b2b9a316eedf",
 	"d45618a1-5ecf-4b4d-95a8-ab89b70dec11",
@@ -22,7 +22,7 @@ INSERT INTO O_REF
 	'',
 	'Interface Reference',
 	'Id',
-	'R4013');
+	'R4013.''handles delegation for''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("04492d70-fcaf-49d4-a276-b2b9a316eedf",
 	"91cbeaec-db69-408b-a847-aa9961687786",
@@ -55,16 +55,9 @@ INSERT INTO O_ATTR
 	'Reference_',
 	'Id',
 	1,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("04492d70-fcaf-49d4-a276-b2b9a316eedf",
 	"2c33c814-df21-4342-8961-a520080e79c1",
@@ -80,7 +73,7 @@ INSERT INTO O_REF
 	'',
 	'Delegation',
 	'Id',
-	'R4013');
+	'R4013.''may delegate through''');
 INSERT INTO O_RTIDA_PROXY
 	VALUES ("09351ec1-a7de-4f77-8a99-75315271cd33",
 	"2c33c814-df21-4342-8961-a520080e79c1",
@@ -108,7 +101,7 @@ INSERT INTO O_ATTR
 	'Delegation_',
 	'Id',
 	1,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_ID
@@ -130,16 +123,21 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"04492d70-fcaf-49d4-a276-b2b9a316eedf");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("04492d70-fcaf-49d4-a276-b2b9a316eedf",
+	1,
+	"01aecea1-07ec-46e6-a719-cece731803c9",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("01aecea1-07ec-46e6-a719-cece731803c9",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Component',
 	'// This is used by schema_gen to ignore this subsystem (for publication)
 TRANSLATE_FOR_EXTERNAL_USE:FALSE
 
 The component subsystem contains the classes necessary to capture the data
 required for modeling components.',
-	'C',
 	4000,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000000000",
 	'../Component.xtuml');

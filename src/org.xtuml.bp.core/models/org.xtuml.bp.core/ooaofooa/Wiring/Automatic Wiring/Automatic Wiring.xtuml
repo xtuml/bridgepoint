@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("701cc49f-effd-4ce8-9058-bb47462f46ae",
@@ -10,13 +10,13 @@ Whenever a Bridge is found with no action language in it and has an External
 Entity whose name matches another Domain in the verification and that exposes a 
 Function whose name and arguments match that of the Bridge, the Automatic Wiring
 is then associated with the matching Function.',
-	"14c1a6c0-288e-4a86-a138-700394d86dcb");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("d029d0c2-be61-4074-a587-8807edd38a7e",
 	"701cc49f-effd-4ce8-9058-bb47462f46ae",
 	'dispose',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// Automatic Wiring.dispose()
 
@@ -34,13 +34,6 @@ delete object instance self;',
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO S_DT_PROXY
-	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'void',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("701cc49f-effd-4ce8-9058-bb47462f46ae",
 	"47a1eb94-2620-4ecd-85d3-29f76391509f",
@@ -56,7 +49,7 @@ INSERT INTO O_REF
 	'',
 	'Bridge',
 	'Brg_ID',
-	'R3200');
+	'R3200.''for bridge execution''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("701cc49f-effd-4ce8-9058-bb47462f46ae",
 	"640be358-dda1-4b13-bdce-b8ce8a349948",
@@ -89,16 +82,9 @@ INSERT INTO O_ATTR
 	'',
 	'Brg_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("701cc49f-effd-4ce8-9058-bb47462f46ae",
 	"bc9a6c16-8809-4681-92ab-421898fa108a",
@@ -114,7 +100,7 @@ INSERT INTO O_REF
 	'',
 	'Function',
 	'Sync_ID',
-	'R3201');
+	'R3201.''connects bridge execution to''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("701cc49f-effd-4ce8-9058-bb47462f46ae",
 	"b85f7c81-31b1-4cbe-935a-1d3a73e6710a",
@@ -147,7 +133,7 @@ INSERT INTO O_ATTR
 	'',
 	'Sync_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_ID
@@ -159,13 +145,18 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"701cc49f-effd-4ce8-9058-bb47462f46ae");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("701cc49f-effd-4ce8-9058-bb47462f46ae",
+	1,
+	"14c1a6c0-288e-4a86-a138-700394d86dcb",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("14c1a6c0-288e-4a86-a138-700394d86dcb",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Wiring',
 	'Persistent:false
 ',
-	'W',
 	0,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000000000",
 	'../Wiring.xtuml');
