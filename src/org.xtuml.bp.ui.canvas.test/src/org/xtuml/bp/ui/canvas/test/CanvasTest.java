@@ -421,8 +421,13 @@ public abstract class CanvasTest extends BaseTest {
         il.save(folderStr + filename + "_act.jpg", 4); //$NON-NLS-1$//$NON-NLS-2$
         
 //      copy expected results image file to actual folder
-		String path_exp = m_workspace_path + TestingUtilities.getExpectedResultsPath() + getResultName() + "/"; //$NON-NLS-1$ //$NON-NLS-2$
-        if(!isFileExists(path_exp, filename)){
+		String path_exp = m_workspace_path + TestingUtilities.getExpectedResultsPath() + getResultName();
+		if (testGlobals == true) {
+          path_exp = path_exp + "Globals";
+		}
+		path_exp = path_exp + "/";
+
+		if(!isFileExists(path_exp, filename)){
                filename=getFileName(uut.getModel_type());
            }
         String filename_exp = path_exp+ filename;
