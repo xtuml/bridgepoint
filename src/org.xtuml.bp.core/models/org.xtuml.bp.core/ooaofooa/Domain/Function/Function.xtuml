@@ -6,13 +6,13 @@ INSERT INTO O_OBJ
 	16,
 	'S_SYNC',
 	'A function (S_SYNC) is a method associated with the domain (S_DOM).  It can be thought of as a global function within the domain.  Functions can be synchronously called from action specifications or used to provide a definition for bridge method  in another domain.',
-	"703df30a-ee7e-44ec-a7cf-22d2171bb270");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("e84e0a54-74a3-4c73-8642-a417887258ec",
 	"bc9a6c16-8809-4681-92ab-421898fa108a",
 	'dispose',
 	'The dispose operation for this class.  It also disposes of the associated Function in Package.',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
 // Domain Subsystem
@@ -81,19 +81,12 @@ delete object instance self;',
 	1,
 	'',
 	"e6463a33-a86d-47c4-98dd-1fd5dccdd7fc");
-INSERT INTO S_DT_PROXY
-	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'void',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("c3f33d12-8e23-4a3e-8b78-d165acea17f6",
 	"bc9a6c16-8809-4681-92ab-421898fa108a",
 	'initialize',
 	'The initialization operation for this class.  Set the name and the return value to defaults.',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
 select one packageableElem related by self->PE_PE[R8001];
@@ -172,7 +165,7 @@ INSERT INTO O_TFR
 	'newParameter',
 	'Create a new parameter for this function.
 ',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'create object instance parm of S_SPARM;
 relate self to parm across R24;
@@ -186,7 +179,7 @@ INSERT INTO O_TFR
 	"bc9a6c16-8809-4681-92ab-421898fa108a",
 	'isAllowedReturnType',
 	'',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
 // Function.isAllowedReturnType()
@@ -239,25 +232,11 @@ INSERT INTO O_TPARM
 	VALUES ("143a7ece-2e70-4a00-aa7e-4445a97bad84",
 	"f5f2d76a-ea42-4c43-9339-6cf30bb644dc",
 	'typeName',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'string',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
-INSERT INTO S_DT_PROXY
-	VALUES ("8e519c45-7dcf-400b-9d4e-954869dbb7e8",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'boolean',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("e6463a33-a86d-47c4-98dd-1fd5dccdd7fc",
 	"bc9a6c16-8809-4681-92ab-421898fa108a",
@@ -275,7 +254,7 @@ return this;',
 	"377cfc86-2b6c-444c-b4a9-83a57fe685d6");
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
 	'instance',
 	'',
 	'',
@@ -285,25 +264,18 @@ INSERT INTO O_TFR
 	"bc9a6c16-8809-4681-92ab-421898fa108a",
 	'get_ooa_id',
 	'',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'return self.Sync_ID;',
 	1,
 	'',
 	"c63f53ca-04d8-4091-9361-003be6dd7153");
-INSERT INTO S_DT_PROXY
-	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'unique_id',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("792f8318-ecae-4865-ae93-2b8262a0aede",
 	"bc9a6c16-8809-4681-92ab-421898fa108a",
 	'resolveDatatype',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
 select one dtProxy related by self->S_DT[R25];
@@ -360,7 +332,7 @@ INSERT INTO O_TFR
 	"bc9a6c16-8809-4681-92ab-421898fa108a",
 	'isVoid',
 	'',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'select one dt related by self->S_DT[R25];
 return dt.Name == "void";',
@@ -372,7 +344,7 @@ INSERT INTO O_TFR
 	"bc9a6c16-8809-4681-92ab-421898fa108a",
 	'getReturnDimensionsCnt',
 	'',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	1,
 	'select many dims related by self->S_DIM[R51];
 dimensions = cardinality dims;
@@ -381,19 +353,12 @@ return dimensions;
 	1,
 	'',
 	"e84e0a54-74a3-4c73-8642-a417887258ec");
-INSERT INTO S_DT_PROXY
-	VALUES ("79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'integer',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("f7e2de6c-7e5f-4cf2-8f27-ad67303e4725",
 	"bc9a6c16-8809-4681-92ab-421898fa108a",
 	'resizeReturn_Dimensions',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// If the number of dimensions has increased then add dimensions
 while (param.numDimensions > self.getReturnDimensionsCnt())
@@ -425,7 +390,7 @@ INSERT INTO O_TPARM
 	VALUES ("e579dab4-4d77-4c01-85e1-235c4e76dd29",
 	"f7e2de6c-7e5f-4cf2-8f27-ad67303e4725",
 	'dimension',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -434,7 +399,7 @@ INSERT INTO O_TPARM
 	VALUES ("de4a340f-9e4b-47be-8a24-3f540184eeb1",
 	"f7e2de6c-7e5f-4cf2-8f27-ad67303e4725",
 	'elementCount',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"e579dab4-4d77-4c01-85e1-235c4e76dd29",
@@ -443,7 +408,7 @@ INSERT INTO O_TPARM
 	VALUES ("01498fc3-6c3b-4b16-8377-780bd85bc073",
 	"f7e2de6c-7e5f-4cf2-8f27-ad67303e4725",
 	'numDimensions',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"de4a340f-9e4b-47be-8a24-3f540184eeb1",
@@ -453,7 +418,7 @@ INSERT INTO O_TFR
 	"bc9a6c16-8809-4681-92ab-421898fa108a",
 	'initializeOrder',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// Alpha-sort the S_SPARM elements if they have not yet been ordered
 select many peers related by self->S_SPARM[R24];
@@ -523,7 +488,7 @@ INSERT INTO O_TFR
 	"bc9a6c16-8809-4681-92ab-421898fa108a",
 	'canReferToDataType',
 	'',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
 // select the dt
@@ -567,7 +532,7 @@ INSERT INTO O_TFR
 	"bc9a6c16-8809-4681-92ab-421898fa108a",
 	'isReferringToDefaultDataType',
 	'',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'select one dt related by self->S_DT[R25];
 elementType = Util::getSimpleClassName(element:self.convertToInstance());
@@ -584,7 +549,7 @@ INSERT INTO O_TFR
 	"bc9a6c16-8809-4681-92ab-421898fa108a",
 	'getContainingComponentId',
 	'',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
 select one domain related by self->S_DOM[R23];
@@ -610,7 +575,7 @@ INSERT INTO O_TFR
 	"bc9a6c16-8809-4681-92ab-421898fa108a",
 	'canUseDataType',
 	'',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
 // Function.canUseDataType()
@@ -678,7 +643,7 @@ INSERT INTO O_TPARM
 	VALUES ("5e0905df-3568-4cb5-964a-c17771b62da7",
 	"a85e3cf8-a19a-4706-b38d-181e9d76d13e",
 	'id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -688,7 +653,7 @@ INSERT INTO O_TFR
 	"bc9a6c16-8809-4681-92ab-421898fa108a",
 	'getContainerId',
 	'',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'// Function.getContainerId()
 select one component related by self->PE_PE[R8001]->C_C[R8003];
@@ -710,7 +675,7 @@ INSERT INTO O_TFR
 	"bc9a6c16-8809-4681-92ab-421898fa108a",
 	'pasteFunctionParameter',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select any parm from instances of S_SPARM
                                           where (selected.SParm_ID == param.id);
@@ -732,7 +697,7 @@ INSERT INTO O_TPARM
 	VALUES ("4f7fc644-8e69-4f1c-a696-33954cf7d783",
 	"91999bd3-c71a-4565-ad76-a4c145a19e80",
 	'id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -742,7 +707,7 @@ INSERT INTO O_TFR
 	"bc9a6c16-8809-4681-92ab-421898fa108a",
 	'addParameterToOrder',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select any parameter from instances of S_SPARM
                                           where (selected.SParm_ID == param.id);
@@ -767,7 +732,7 @@ INSERT INTO O_TPARM
 	VALUES ("5742a1ac-aa23-4032-9255-35515b504afc",
 	"8a54d08f-5e81-4512-960d-eeb91cb5ad27",
 	'id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -777,7 +742,7 @@ INSERT INTO O_TFR
 	"bc9a6c16-8809-4681-92ab-421898fa108a",
 	'createMessageArgumentsForParameter',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select any parameter from instances of S_SPARM
                                           where (selected.SParm_ID == param.id);
@@ -800,7 +765,7 @@ INSERT INTO O_TPARM
 	VALUES ("99a79c2a-c8da-46f5-8a83-28937351b580",
 	"77ccad62-994a-4eba-97eb-6f83fcc38f90",
 	'id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -810,7 +775,7 @@ INSERT INTO O_TFR
 	"bc9a6c16-8809-4681-92ab-421898fa108a",
 	'getPath',
 	'',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
 select one packageableElem related by self->PE_PE[R8001];
@@ -844,7 +809,7 @@ INSERT INTO O_TFR
 	"bc9a6c16-8809-4681-92ab-421898fa108a",
 	'checkIntegrity',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'/**
  *  Create integrity issues if there are any other functions with a
@@ -876,7 +841,7 @@ INSERT INTO O_TFR
 	"bc9a6c16-8809-4681-92ab-421898fa108a",
 	'getSignature',
 	'',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'/**
  *  Return a string representation of this functions signature
@@ -918,7 +883,7 @@ INSERT INTO O_REF
 	'',
 	'Domain',
 	'Dom_ID',
-	'R23');
+	'R23.''is defined in ''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("bc9a6c16-8809-4681-92ab-421898fa108a",
 	"d842893b-f5ab-4cbc-92e1-cd4436c1ec0d",
@@ -951,16 +916,9 @@ INSERT INTO O_ATTR
 	'',
 	'Dom_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("d1398f19-3322-4cf6-882c-368b5143249f",
 	"bc9a6c16-8809-4681-92ab-421898fa108a");
@@ -976,7 +934,7 @@ INSERT INTO O_ATTR
 	'',
 	'Name',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -994,7 +952,7 @@ INSERT INTO O_ATTR
 	'',
 	'Descrip',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_DBATTR
@@ -1018,7 +976,7 @@ Persistent:false
 	'',
 	'Action_Semantics',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -1044,7 +1002,7 @@ Data Domain: 0=not parsed, 1 = parse successful, 2 = parse unsuccessful, 3 = par
 	'');
 INSERT INTO S_DT_PROXY
 	VALUES ("33245ab4-49c2-4c3a-8a59-a08f07153c47",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
 	'ParseStatus',
 	'Indicates the status of the parse for an action specification in the attribute Action_Semantics',
 	'',
@@ -1064,7 +1022,7 @@ INSERT INTO O_ATTR
 	'',
 	'Action_Semantics_internal',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -1083,7 +1041,7 @@ DynamicReadOnly:isVoid',
 	'',
 	'Return_Dimensions',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_REF
@@ -1101,7 +1059,7 @@ INSERT INTO O_REF
 	'',
 	'Data Type',
 	'DT_ID',
-	'R25');
+	'R25.''has return type of''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("bc9a6c16-8809-4681-92ab-421898fa108a",
 	"c1e69dd4-ad0a-41a9-82cc-b58b72eb7f0b",
@@ -1134,7 +1092,7 @@ INSERT INTO O_ATTR
 	'',
 	'Element_ID',
 	2,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -1181,7 +1139,7 @@ INSERT INTO O_ATTR
 	'',
 	'Sync_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_ID
@@ -1198,12 +1156,17 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"bc9a6c16-8809-4681-92ab-421898fa108a");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("bc9a6c16-8809-4681-92ab-421898fa108a",
+	1,
+	"703df30a-ee7e-44ec-a7cf-22d2171bb270",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("703df30a-ee7e-44ec-a7cf-22d2171bb270",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Domain',
 	'A domain (S_DOM) consists of one or more subsystems (S_SS) that each contain an information model that abstracts a portion of the data for the domain: classes (O_OBJ), associations (R_REL), etc.  Breaking a domain into subsystems allows the complexity of the domain to be more easily managed: 1) subsystems are components and can be checked out individually allowing parallelism in development of the models and 2) breaking up a domain into smaller units is easier to understand.  A subsystem is composed of classes that tend to cluster, i.e., they have few associations that span subsystem boundaries.  Inter-subsystem associations, communications, and accesses are captured in the Subsystem Relationship Model (SRM), Subsystem Communication Model (SCM), and Subsystem Access Model (SAM) respectively.',
-	'S',
 	1,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000100002",
 	'../Domain.xtuml');

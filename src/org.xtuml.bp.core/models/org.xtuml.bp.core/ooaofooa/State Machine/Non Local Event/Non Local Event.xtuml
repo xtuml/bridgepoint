@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("8f39b160-16d1-419f-9067-069b2d461008",
@@ -6,13 +6,13 @@ INSERT INTO O_OBJ
 	526,
 	'SM_NLEVT',
 	'A non-local event is one that is defined in another state machine.  Non-local events represent entries in SEMs for events that are defined in a super-type but used on transitions in the sub-type.',
-	"efdb28f6-a485-4b25-9cbf-3e7227398b6a");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("a8cbc327-9736-4903-a1d2-904804621abf",
 	"8f39b160-16d1-419f-9067-069b2d461008",
 	'get_name',
 	'',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'select one evt related by self->SM_SEVT[R526]->SM_EVT[R525];
 return evt.get_name();
@@ -20,19 +20,12 @@ return evt.get_name();
 	1,
 	'',
 	"ddbcdaa9-37a5-4b35-a11d-7f9e96226d5f");
-INSERT INTO S_DT_PROXY
-	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'string',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("ddbcdaa9-37a5-4b35-a11d-7f9e96226d5f",
 	"8f39b160-16d1-419f-9067-069b2d461008",
 	'dispose',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select one sevt related by self->SM_SEVT[R526];
 unrelate self from sevt across R526;
@@ -50,19 +43,12 @@ delete object instance self;
 	1,
 	'',
 	"0d2bb15f-99d0-4848-8705-6564141d5e65");
-INSERT INTO S_DT_PROXY
-	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'void',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("fd636efe-e7fc-4a86-83fa-5523da91d788",
 	"8f39b160-16d1-419f-9067-069b2d461008",
 	'checkIfNoLongerAssigned',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'/*
 Checks to see if this non-local event is no longer assigned anywhere in its
@@ -92,7 +78,7 @@ INSERT INTO O_TFR
 	"8f39b160-16d1-419f-9067-069b2d461008",
 	'resolveInheritedEvent',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
 select one poly related by self->SM_PEVT[R527];
@@ -228,7 +214,7 @@ INSERT INTO O_TFR
 	"fd636efe-e7fc-4a86-83fa-5523da91d788");
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
 	'instance',
 	'',
 	'',
@@ -281,16 +267,9 @@ INSERT INTO O_ATTR
 	'',
 	'SMevt_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("8f39b160-16d1-419f-9067-069b2d461008",
 	"173a203b-677e-4e60-8aeb-678f4fd25f4b",
@@ -334,7 +313,7 @@ INSERT INTO O_ATTR
 	'',
 	'SM_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -380,7 +359,7 @@ INSERT INTO O_ATTR
 	'',
 	'SMspd_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -398,7 +377,7 @@ INSERT INTO O_REF
 	'',
 	'Polymorphic Event',
 	'SMevt_ID',
-	'R527');
+	'R527.''is defined by''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("8f39b160-16d1-419f-9067-069b2d461008",
 	"468067e5-bf0f-4a0c-9637-b49a05af6d02",
@@ -429,7 +408,7 @@ INSERT INTO O_ATTR
 	'poly',
 	'SMevt_ID',
 	1,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -447,7 +426,7 @@ INSERT INTO O_REF
 	'',
 	'Polymorphic Event',
 	'SM_ID',
-	'R527');
+	'R527.''is defined by''');
 INSERT INTO O_RTIDA_PROXY
 	VALUES ("b46cd5d4-569f-4ef2-bb98-91374786b835",
 	"f9c92898-9f91-432f-9b52-986629847b3d",
@@ -473,7 +452,7 @@ INSERT INTO O_ATTR
 	'poly',
 	'SM_ID',
 	1,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -493,16 +472,9 @@ INSERT INTO O_ATTR
 	'',
 	'polySMspd_ID',
 	0,
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'unique_id',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("23907323-91b4-4181-a55d-6b30eba40035",
 	"8f39b160-16d1-419f-9067-069b2d461008");
@@ -520,7 +492,7 @@ Description: The local meaning of the non-local event.  The meaning can be overr
 	'',
 	'Local_Meaning',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_DBATTR
@@ -547,7 +519,7 @@ Full Name: Name',
 	'',
 	'Name',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_ID
@@ -574,12 +546,17 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"8f39b160-16d1-419f-9067-069b2d461008");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("8f39b160-16d1-419f-9067-069b2d461008",
+	1,
+	"efdb28f6-a485-4b25-9cbf-3e7227398b6a",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("efdb28f6-a485-4b25-9cbf-3e7227398b6a",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'State Machine',
 	'Classes (O_OBJ) that have interesting behavior are given lifecycles. These lifecycles are described using state machines (SM_SM). A state machine consists of states, events, transitions and state actions. The state machine exists for each instance of the class for which it has been modeled (SM_ISM). A state machine can also be an assigner state machine (SM_ASM) of which only one can exists for all class instances. The purpose of the assigner state machine is to act as a single point of control through which competing requests are serialized.',
-	'SM',
 	501,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000280005",
 	'../State Machine.xtuml');

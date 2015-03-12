@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("b3901dc9-7d72-49b6-a487-35036f84cbc8",
@@ -13,13 +13,13 @@ pre-existing instance specification.
 
 PEI:true
 Persistent:false',
-	"3aa01b07-08b4-4f56-a64c-5db1a460535b");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("003bc917-fc83-4d64-b6e7-f6c9a1f935a3",
 	"b3901dc9-7d72-49b6-a487-35036f84cbc8",
 	'startCriteriaMet',
 	'',
-	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'select many termSpecs related by self->TS_TSP[R202];
 for each termSpec in termSpecs
@@ -31,19 +31,12 @@ return false;',
 	1,
 	'',
 	"ab278e86-4099-4964-8f49-64a58fdc60ef");
-INSERT INTO S_DT_PROXY
-	VALUES ("6e4aa280-2e22-4146-9b4a-6c2573c456d8",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	'boolean',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("ab278e86-4099-4964-8f49-64a58fdc60ef",
 	"b3901dc9-7d72-49b6-a487-35036f84cbc8",
 	'endCriteriaMet',
 	'',
-	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'select many termSpecs related by self->TS_TSP[R203];
 for each termSpec in termSpecs
@@ -103,16 +96,9 @@ INSERT INTO O_ATTR
 	'',
 	'OOA_Type',
 	0,
-	"66164f00-293e-4c17-ab30-7972c7c57152",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("66164f00-293e-4c17-ab30-7972c7c57152",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_ID
 	VALUES (0,
 	"b3901dc9-7d72-49b6-a487-35036f84cbc8");
@@ -127,8 +113,16 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"b3901dc9-7d72-49b6-a487-35036f84cbc8");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("b3901dc9-7d72-49b6-a487-35036f84cbc8",
+	1,
+	"3aa01b07-08b4-4f56-a64c-5db1a460535b",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("3aa01b07-08b4-4f56-a64c-5db1a460535b",
+	"00000000-0000-0000-0000-000000000000",
+	"8f801c9a-cf2d-4ef4-b11a-51b8697e3ca8",
 	'Terminal Specifications',
 	'The TS (Terminal Specification) subsystem models specification classes that
 define the legal ending points for BridgePoint connector symbols.
@@ -138,8 +132,5 @@ TRANSLATE_FOR_EXTERNAL_USE:FALSE
 Notify_Changes:false
 
 ',
-	'TS',
 	200,
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	"00000000-0000-0000-0000-000001d8003b",
 	'../Terminal Specifications.xtuml');

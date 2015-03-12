@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("3e4fba3b-45dd-4a78-b82e-94d3b9291eae",
@@ -15,14 +15,14 @@ requests that transition actions were less useful if this rule is enforced.
 Events now locate their data across simple association 2.
 
 Deprecated:true',
-	"efdb28f6-a485-4b25-9cbf-3e7227398b6a");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("20b297f1-037d-474b-95d5-b5028aab168e",
 	"3e4fba3b-45dd-4a78-b82e-94d3b9291eae",
 	'dispose',
 	'Dispose of this SM_SDI.
 ',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select one supdt related by self->SM_SUPDT[R522];
 select one evtdi related by self->SM_EVTDI[R522];
@@ -32,19 +32,12 @@ delete object instance self;
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO S_DT_PROXY
-	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'void',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("aa3f41fd-fb24-42e5-8606-c5e4b80d7654",
 	"3e4fba3b-45dd-4a78-b82e-94d3b9291eae",
 	'get_name',
 	'',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'select one edi related by self->SM_EVTDI[R522];
 return edi.Name;
@@ -52,13 +45,6 @@ return edi.Name;
 	1,
 	'',
 	"20b297f1-037d-474b-95d5-b5028aab168e");
-INSERT INTO S_DT_PROXY
-	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'string',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("3e4fba3b-45dd-4a78-b82e-94d3b9291eae",
 	"2ae439ff-559b-458d-88ab-b3bb161e565f",
@@ -74,7 +60,7 @@ INSERT INTO O_REF
 	'',
 	'State Machine Event Data Item',
 	'SMedi_ID',
-	'R522');
+	'R522.''is made up of''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("3e4fba3b-45dd-4a78-b82e-94d3b9291eae",
 	"7375fb23-c1ff-4e6e-aa1d-5e8f0277e675",
@@ -107,16 +93,9 @@ INSERT INTO O_ATTR
 	'',
 	'SMedi_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("3e4fba3b-45dd-4a78-b82e-94d3b9291eae",
 	"a4e6c94c-670a-4e7f-b085-6727308a33db",
@@ -132,7 +111,7 @@ INSERT INTO O_REF
 	'',
 	'Event Supplemental Data',
 	'SMspd_ID',
-	'R522');
+	'R522.''makes up''');
 INSERT INTO O_RTIDA_PROXY
 	VALUES ("6a29b768-e433-4a27-9b47-12b1d34fd0ae",
 	"a4e6c94c-670a-4e7f-b085-6727308a33db",
@@ -160,7 +139,7 @@ INSERT INTO O_ATTR
 	'',
 	'SMspd_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -178,7 +157,7 @@ INSERT INTO O_REF
 	'',
 	'State Machine Event Data Item',
 	'SM_ID',
-	'R522');
+	'R522.''is made up of''');
 INSERT INTO O_RTIDA_PROXY
 	VALUES ("3e149605-e079-4c88-a9e7-e69e36fb4225",
 	"2ae439ff-559b-458d-88ab-b3bb161e565f",
@@ -201,7 +180,7 @@ INSERT INTO O_REF
 	'',
 	'Event Supplemental Data',
 	'SM_ID',
-	'R522');
+	'R522.''makes up''');
 INSERT INTO O_RTIDA_PROXY
 	VALUES ("6e71c95a-6059-455d-80e2-51a4be494c27",
 	"a4e6c94c-670a-4e7f-b085-6727308a33db",
@@ -229,7 +208,7 @@ INSERT INTO O_ATTR
 	'',
 	'SM_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_ID
@@ -256,12 +235,17 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"3e4fba3b-45dd-4a78-b82e-94d3b9291eae");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("3e4fba3b-45dd-4a78-b82e-94d3b9291eae",
+	1,
+	"efdb28f6-a485-4b25-9cbf-3e7227398b6a",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("efdb28f6-a485-4b25-9cbf-3e7227398b6a",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'State Machine',
 	'Classes (O_OBJ) that have interesting behavior are given lifecycles. These lifecycles are described using state machines (SM_SM). A state machine consists of states, events, transitions and state actions. The state machine exists for each instance of the class for which it has been modeled (SM_ISM). A state machine can also be an assigner state machine (SM_ASM) of which only one can exists for all class instances. The purpose of the assigner state machine is to act as a single point of control through which competing requests are serialized.',
-	'SM',
 	501,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000280005",
 	'../State Machine.xtuml');

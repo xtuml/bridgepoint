@@ -1,4 +1,4 @@
--- BP 7.1 content: Package syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: Package syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO EP_PKG
 	VALUES ("b24823ec-1334-45d2-ad5f-944a2f2dc2d6",
@@ -25,14 +25,14 @@ INSERT INTO GD_MD
 	0,
 	0,
 	'',
-	'DeleteTestModel::SUB Import');
+	'org.xtuml.bp.core.test::DeleteTestModel::SUB Import');
 INSERT INTO GD_GE
 	VALUES ("6f671a42-5d1c-4758-8e0d-b5d037429708",
 	"46701e4a-e865-497a-baae-a824249f991e",
 	"38f7fcbd-239a-4014-bda9-3f16f9aac84b",
 	21,
 	0,
-	'DeleteTestModel::SUB Import::SUB_IOBJ_SUPER 1');
+	'org.xtuml.bp.core.test::DeleteTestModel::SUB Import::SUB_IOBJ_SUPER 1');
 INSERT INTO GD_SHP
 	VALUES ("6f671a42-5d1c-4758-8e0d-b5d037429708");
 INSERT INTO GD_NCS
@@ -56,7 +56,7 @@ INSERT INTO GD_GE
 	"9224eb07-c188-4116-a340-3b57ede02dc1",
 	21,
 	0,
-	'DeleteTestModel::SUB Import::SUB_IOBJ_SUPER 2');
+	'org.xtuml.bp.core.test::DeleteTestModel::SUB Import::SUB_IOBJ_SUPER 2');
 INSERT INTO GD_SHP
 	VALUES ("8308b4df-ec90-4f42-86f5-e247a7ee3278");
 INSERT INTO GD_NCS

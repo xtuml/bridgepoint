@@ -234,9 +234,9 @@ Subsystem_c subsystem = Subsystem_c.SubsystemInstance(modelRoot, new ClassQueryI
     .end if
   .end if
   .select any obj from instances of O_OBJ where (selected.Key_Lett == kl)
-  .select one ss related by obj->S_SS[R2]
+  .select one pkg related by obj->PE_PE[R8001]->EP_PKG[R8000]
   .if(not_empty obj)
-    .if((((ss.Name == "Component") or (ss.Name == "Component Packaging")) or (ss.Name == "Interface Diagram")) or (ss.Name == "Component Nesting"))
+    .if((((pkg.Name == "Component") or (pkg.Name == "Component Packaging")) or (pkg.Name == "Interface Diagram")) or (pkg.Name == "Component Nesting"))
       .assign attr_result = true
     .end if
   .end if

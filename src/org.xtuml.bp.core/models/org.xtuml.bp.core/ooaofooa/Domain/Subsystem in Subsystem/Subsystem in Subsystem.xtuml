@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("03462464-0683-42c5-99ef-e95e71fef325",
@@ -6,13 +6,13 @@ INSERT INTO O_OBJ
 	30,
 	'S_SIS',
 	'Subsystem in Subsystem represents Subsystems that are nested within other Subsystems.',
-	"703df30a-ee7e-44ec-a7cf-22d2171bb270");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("44d0f62b-9092-4a20-8306-8679d87815f1",
 	"03462464-0683-42c5-99ef-e95e71fef325",
 	'dispose',
 	'Dispose this subsystem in subsytem.',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
 select one pss related by self->S_SS[R41];
@@ -26,13 +26,6 @@ delete object instance self;
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO S_DT_PROXY
-	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'void',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("03462464-0683-42c5-99ef-e95e71fef325",
 	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
@@ -48,7 +41,7 @@ INSERT INTO O_REF
 	'',
 	'Subsystem',
 	'SS_ID',
-	'R41');
+	'R41.''contains children of''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("03462464-0683-42c5-99ef-e95e71fef325",
 	"50db64c9-a3f2-43fe-9245-c221bcadabbd",
@@ -81,16 +74,9 @@ INSERT INTO O_ATTR
 	'Parent_',
 	'SS_ID',
 	1,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("03462464-0683-42c5-99ef-e95e71fef325",
 	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
@@ -106,7 +92,7 @@ INSERT INTO O_REF
 	'',
 	'Subsystem',
 	'SS_ID',
-	'R42');
+	'R42.''contains''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("03462464-0683-42c5-99ef-e95e71fef325",
 	"683a8f88-14db-4adc-b464-0a33a40607aa",
@@ -135,7 +121,7 @@ INSERT INTO O_ATTR
 	'Child_',
 	'SS_ID',
 	1,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_ID
@@ -157,12 +143,17 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"03462464-0683-42c5-99ef-e95e71fef325");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("03462464-0683-42c5-99ef-e95e71fef325",
+	1,
+	"703df30a-ee7e-44ec-a7cf-22d2171bb270",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("703df30a-ee7e-44ec-a7cf-22d2171bb270",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Domain',
 	'A domain (S_DOM) consists of one or more subsystems (S_SS) that each contain an information model that abstracts a portion of the data for the domain: classes (O_OBJ), associations (R_REL), etc.  Breaking a domain into subsystems allows the complexity of the domain to be more easily managed: 1) subsystems are components and can be checked out individually allowing parallelism in development of the models and 2) breaking up a domain into smaller units is easier to understand.  A subsystem is composed of classes that tend to cluster, i.e., they have few associations that span subsystem boundaries.  Inter-subsystem associations, communications, and accesses are captured in the Subsystem Relationship Model (SRM), Subsystem Communication Model (SCM), and Subsystem Access Model (SAM) respectively.',
-	'S',
 	1,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000100002",
 	'../Domain.xtuml');

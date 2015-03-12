@@ -1,484 +1,17 @@
--- BP 7.1 content: Subsystem syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: Package syschar: 3 persistence-version: 7.1.6
 
-INSERT INTO S_SS
+INSERT INTO EP_PKG
 	VALUES ("9a4ff466-14a5-4e47-b07f-84de195f210a",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'CompTree',
 	'',
-	'T',
-	1,
-	"138f69c7-a700-4109-8c2b-e9232b291756",
-	"00000000-0000-0000-0000-000000100002");
-INSERT INTO S_SID
-	VALUES ("138f69c7-a700-4109-8c2b-e9232b291756",
-	"9a4ff466-14a5-4e47-b07f-84de195f210a");
-INSERT INTO S_DOM_PROXY
-	VALUES ("138f69c7-a700-4109-8c2b-e9232b291756",
-	'ooaofooa_hierarchy',
-	'========================================================================
-
-File:          $RCSfile$
-Version:   $Revision$
-Modified:  $Date$
-
-(c) Copyright 2003-2014 Mentor Graphics Corporation All rights reserved.
-
-========================================================================
-Licensed under the Apache License, Version 2.0 (the "License"); you may not
-use this file except in compliance with the License.  You may obtain a copy
-of the License at
-
-     http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
-WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the
-License for the specific language governing permissions and limitations under
-the License.
-========================================================================
-
-This domain captures the mapping of a client model onto a tree structure. It contains
-additional attributes to facilitate the generation of code for displaying the tree in
-a User Interface tree widget.',
-	0,
-	"00000000-0000-0000-0000-000000000001",
-	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
-	'../ooaofooa_hierarchy.xtuml');
-INSERT INTO R_SIMP
-	VALUES ("e1a86a7d-b64c-4629-805c-aaa4cdeba180");
-INSERT INTO R_REL
-	VALUES ("e1a86a7d-b64c-4629-805c-aaa4cdeba180",
-	1000,
-	'Captures the tree structure itself.
-
-This domain is capturing the tree structure of the client model (which is
-itself a network, not a tree), a parent can have many children of the same
-or different types:
-
-A Tree_Node_Specification is parent of zero or more Tree_Node_specifications
-',
-	"9a4ff466-14a5-4e47-b07f-84de195f210a");
-INSERT INTO R_PART
-	VALUES ("25e75607-ce05-4777-9579-41952aea2d25",
-	"e1a86a7d-b64c-4629-805c-aaa4cdeba180",
-	"51e07fc9-71a9-4cdb-af1d-1cc5dcc865cf",
-	0,
-	0,
-	'specifies parenthood of');
-INSERT INTO O_RTIDA
-	VALUES ("66f7f490-0cbe-422a-84a6-1c85b4d4b0b6",
-	"25e75607-ce05-4777-9579-41952aea2d25",
-	0,
-	"e1a86a7d-b64c-4629-805c-aaa4cdeba180",
-	"51e07fc9-71a9-4cdb-af1d-1cc5dcc865cf");
-INSERT INTO O_OIDA_PROXY
-	VALUES ("66f7f490-0cbe-422a-84a6-1c85b4d4b0b6",
-	"25e75607-ce05-4777-9579-41952aea2d25",
-	0,
-	'Tree_Node_Spec_ID',
-	'./Tree_Node_Specification/Tree_Node_Specification.xtuml');
-INSERT INTO R_RTO
-	VALUES ("25e75607-ce05-4777-9579-41952aea2d25",
-	"e1a86a7d-b64c-4629-805c-aaa4cdeba180",
-	"51e07fc9-71a9-4cdb-af1d-1cc5dcc865cf",
-	0);
-INSERT INTO O_ID_PROXY
-	VALUES (0,
-	"25e75607-ce05-4777-9579-41952aea2d25",
-	'./Tree_Node_Specification/Tree_Node_Specification.xtuml');
-INSERT INTO R_OIR
-	VALUES ("25e75607-ce05-4777-9579-41952aea2d25",
-	"e1a86a7d-b64c-4629-805c-aaa4cdeba180",
-	"51e07fc9-71a9-4cdb-af1d-1cc5dcc865cf",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("25e75607-ce05-4777-9579-41952aea2d25",
-	'Tree_Node_Specification',
-	1,
-	'T_TNS',
-	'This class specifies what entries are to appear in a display tree. 
-It represents an underlying client model that contains structure
-and data of interest to the user. 
-
-Not all the data in the client model is to be presented in the tree.
-Iinstances of this class specify which data items are to be shown.
-
-Attributes of this class determine which client model entry is to be
-shown and what the tree entry will look like.',
-	"9a4ff466-14a5-4e47-b07f-84de195f210a",
-	'./Tree_Node_Specification/Tree_Node_Specification.xtuml');
-INSERT INTO R_FORM
-	VALUES ("a414fa61-fb3a-4aa2-8385-0b73d87a072d",
-	"e1a86a7d-b64c-4629-805c-aaa4cdeba180",
-	"eeceb9d2-1f51-4310-8e2e-cab966bd0a6c",
-	1,
-	1,
-	'is specified as parent through');
-INSERT INTO R_RGO
-	VALUES ("a414fa61-fb3a-4aa2-8385-0b73d87a072d",
-	"e1a86a7d-b64c-4629-805c-aaa4cdeba180",
-	"eeceb9d2-1f51-4310-8e2e-cab966bd0a6c");
-INSERT INTO R_OIR
-	VALUES ("a414fa61-fb3a-4aa2-8385-0b73d87a072d",
-	"e1a86a7d-b64c-4629-805c-aaa4cdeba180",
-	"eeceb9d2-1f51-4310-8e2e-cab966bd0a6c",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("a414fa61-fb3a-4aa2-8385-0b73d87a072d",
-	'Tree_Parenthood_Specification',
-	2,
-	'T_TPS',
-	'This class specifies the hierarchy of the tree. Instances of this class define
-which client model entities ''contain'' which other entities from the perspective
-of the displayed tree.
-
-Apart from the referential attributes that formalize the parent-child relationship,
-the attribute, ''ParentChildRelChain'' specifies how to find children given a
-parent and a parent given a child.',
-	"9a4ff466-14a5-4e47-b07f-84de195f210a",
-	'./Tree_Parenthood_Specification/Tree_Parenthood_Specification.xtuml');
-INSERT INTO R_SIMP
-	VALUES ("93ce984b-4bb4-4ef7-8f7b-ac949bbcc5dd");
-INSERT INTO R_REL
-	VALUES ("93ce984b-4bb4-4ef7-8f7b-ac949bbcc5dd",
-	1001,
-	'Captures the tree structure itself.
-
-No node may appear in more than one branch of the tree,
-even if the apparently same entries appear in more than
-one part fo the tree, they are considered to be of a different
-type:
-
-A Tree_Node_Specification is child of zero or one Tree_Node_specification',
-	"9a4ff466-14a5-4e47-b07f-84de195f210a");
-INSERT INTO R_PART
-	VALUES ("25e75607-ce05-4777-9579-41952aea2d25",
-	"93ce984b-4bb4-4ef7-8f7b-ac949bbcc5dd",
-	"0e167dd3-7baa-4ecf-abf2-deba87f61e26",
-	0,
-	0,
-	'specifies childhood of');
-INSERT INTO O_RTIDA
-	VALUES ("66f7f490-0cbe-422a-84a6-1c85b4d4b0b6",
-	"25e75607-ce05-4777-9579-41952aea2d25",
-	0,
-	"93ce984b-4bb4-4ef7-8f7b-ac949bbcc5dd",
-	"0e167dd3-7baa-4ecf-abf2-deba87f61e26");
-INSERT INTO R_RTO
-	VALUES ("25e75607-ce05-4777-9579-41952aea2d25",
-	"93ce984b-4bb4-4ef7-8f7b-ac949bbcc5dd",
-	"0e167dd3-7baa-4ecf-abf2-deba87f61e26",
-	0);
-INSERT INTO R_OIR
-	VALUES ("25e75607-ce05-4777-9579-41952aea2d25",
-	"93ce984b-4bb4-4ef7-8f7b-ac949bbcc5dd",
-	"0e167dd3-7baa-4ecf-abf2-deba87f61e26",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_FORM
-	VALUES ("a414fa61-fb3a-4aa2-8385-0b73d87a072d",
-	"93ce984b-4bb4-4ef7-8f7b-ac949bbcc5dd",
-	"a164865b-1cd7-4751-95d6-45e3573afe61",
-	1,
-	1,
-	'is specified as child through');
-INSERT INTO R_RGO
-	VALUES ("a414fa61-fb3a-4aa2-8385-0b73d87a072d",
-	"93ce984b-4bb4-4ef7-8f7b-ac949bbcc5dd",
-	"a164865b-1cd7-4751-95d6-45e3573afe61");
-INSERT INTO R_OIR
-	VALUES ("a414fa61-fb3a-4aa2-8385-0b73d87a072d",
-	"93ce984b-4bb4-4ef7-8f7b-ac949bbcc5dd",
-	"a164865b-1cd7-4751-95d6-45e3573afe61",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_SIMP
-	VALUES ("5cc73d6c-bd51-457d-ac8f-bd1296b695be");
-INSERT INTO R_REL
-	VALUES ("5cc73d6c-bd51-457d-ac8f-bd1296b695be",
-	1002,
-	'',
-	"9a4ff466-14a5-4e47-b07f-84de195f210a");
-INSERT INTO R_PART
-	VALUES ("a414fa61-fb3a-4aa2-8385-0b73d87a072d",
-	"5cc73d6c-bd51-457d-ac8f-bd1296b695be",
-	"d51ceb44-9810-495f-a262-610ee5d5ec87",
-	0,
-	0,
-	'');
-INSERT INTO O_RTIDA
-	VALUES ("3fe2ca3f-3f66-44a6-a770-434ef7325afa",
-	"a414fa61-fb3a-4aa2-8385-0b73d87a072d",
-	1,
-	"5cc73d6c-bd51-457d-ac8f-bd1296b695be",
-	"d51ceb44-9810-495f-a262-610ee5d5ec87");
-INSERT INTO O_OIDA_PROXY
-	VALUES ("3fe2ca3f-3f66-44a6-a770-434ef7325afa",
-	"a414fa61-fb3a-4aa2-8385-0b73d87a072d",
-	1,
-	'TPS_ID',
-	'./Tree_Parenthood_Specification/Tree_Parenthood_Specification.xtuml');
-INSERT INTO R_RTO
-	VALUES ("a414fa61-fb3a-4aa2-8385-0b73d87a072d",
-	"5cc73d6c-bd51-457d-ac8f-bd1296b695be",
-	"d51ceb44-9810-495f-a262-610ee5d5ec87",
 	1);
-INSERT INTO O_ID_PROXY
-	VALUES (1,
-	"a414fa61-fb3a-4aa2-8385-0b73d87a072d",
-	'./Tree_Parenthood_Specification/Tree_Parenthood_Specification.xtuml');
-INSERT INTO R_OIR
-	VALUES ("a414fa61-fb3a-4aa2-8385-0b73d87a072d",
-	"5cc73d6c-bd51-457d-ac8f-bd1296b695be",
-	"d51ceb44-9810-495f-a262-610ee5d5ec87",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_FORM
-	VALUES ("47663f49-2287-4439-9d31-4dd68486bdd8",
-	"5cc73d6c-bd51-457d-ac8f-bd1296b695be",
-	"b8393479-f70c-4e85-b6c3-50cf810c24ad",
-	1,
-	1,
-	'');
-INSERT INTO R_RGO
-	VALUES ("47663f49-2287-4439-9d31-4dd68486bdd8",
-	"5cc73d6c-bd51-457d-ac8f-bd1296b695be",
-	"b8393479-f70c-4e85-b6c3-50cf810c24ad");
-INSERT INTO R_OIR
-	VALUES ("47663f49-2287-4439-9d31-4dd68486bdd8",
-	"5cc73d6c-bd51-457d-ac8f-bd1296b695be",
-	"b8393479-f70c-4e85-b6c3-50cf810c24ad",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("47663f49-2287-4439-9d31-4dd68486bdd8",
-	'Alternate Child',
-	3,
-	'T_AC',
-	'This class is used to capture alternative children of a parent.  This class will
-be populated when a parent may have more than one child of the same type through
-different parents.  It is assumed that there will only be one child out of all
-of the alternatives.',
-	"9a4ff466-14a5-4e47-b07f-84de195f210a",
-	'./Alternate Child/Alternate Child.xtuml');
-INSERT INTO R_SIMP
-	VALUES ("9d3934d4-8338-4b82-95eb-52655b89f22d");
-INSERT INTO R_REL
-	VALUES ("9d3934d4-8338-4b82-95eb-52655b89f22d",
-	1003,
-	'',
-	"9a4ff466-14a5-4e47-b07f-84de195f210a");
-INSERT INTO R_PART
-	VALUES ("a414fa61-fb3a-4aa2-8385-0b73d87a072d",
-	"9d3934d4-8338-4b82-95eb-52655b89f22d",
-	"f9ee93d8-aa77-466f-88ec-59fc0cd15e76",
-	0,
-	1,
-	'succeeds');
-INSERT INTO O_RTIDA
-	VALUES ("3fe2ca3f-3f66-44a6-a770-434ef7325afa",
-	"a414fa61-fb3a-4aa2-8385-0b73d87a072d",
-	1,
-	"9d3934d4-8338-4b82-95eb-52655b89f22d",
-	"f9ee93d8-aa77-466f-88ec-59fc0cd15e76");
-INSERT INTO R_RTO
-	VALUES ("a414fa61-fb3a-4aa2-8385-0b73d87a072d",
-	"9d3934d4-8338-4b82-95eb-52655b89f22d",
-	"f9ee93d8-aa77-466f-88ec-59fc0cd15e76",
-	1);
-INSERT INTO R_OIR
-	VALUES ("a414fa61-fb3a-4aa2-8385-0b73d87a072d",
-	"9d3934d4-8338-4b82-95eb-52655b89f22d",
-	"f9ee93d8-aa77-466f-88ec-59fc0cd15e76",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_FORM
-	VALUES ("a414fa61-fb3a-4aa2-8385-0b73d87a072d",
-	"9d3934d4-8338-4b82-95eb-52655b89f22d",
-	"68d05328-c867-4d23-bf93-e745323ba84c",
-	0,
-	1,
-	'precedes');
-INSERT INTO R_RGO
-	VALUES ("a414fa61-fb3a-4aa2-8385-0b73d87a072d",
-	"9d3934d4-8338-4b82-95eb-52655b89f22d",
-	"68d05328-c867-4d23-bf93-e745323ba84c");
-INSERT INTO R_OIR
-	VALUES ("a414fa61-fb3a-4aa2-8385-0b73d87a072d",
-	"9d3934d4-8338-4b82-95eb-52655b89f22d",
-	"68d05328-c867-4d23-bf93-e745323ba84c",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_SIMP
-	VALUES ("4d9be8b6-6800-4205-9b50-dad50f66d218");
-INSERT INTO R_REL
-	VALUES ("4d9be8b6-6800-4205-9b50-dad50f66d218",
-	1004,
-	'',
-	"9a4ff466-14a5-4e47-b07f-84de195f210a");
-INSERT INTO R_PART
-	VALUES ("a414fa61-fb3a-4aa2-8385-0b73d87a072d",
-	"4d9be8b6-6800-4205-9b50-dad50f66d218",
-	"f6622467-5574-4b87-9c9a-14f6a7657c2a",
-	0,
-	0,
-	'additional association data specified for');
-INSERT INTO O_RTIDA
-	VALUES ("3fe2ca3f-3f66-44a6-a770-434ef7325afa",
-	"a414fa61-fb3a-4aa2-8385-0b73d87a072d",
-	1,
-	"4d9be8b6-6800-4205-9b50-dad50f66d218",
-	"f6622467-5574-4b87-9c9a-14f6a7657c2a");
-INSERT INTO R_RTO
-	VALUES ("a414fa61-fb3a-4aa2-8385-0b73d87a072d",
-	"4d9be8b6-6800-4205-9b50-dad50f66d218",
-	"f6622467-5574-4b87-9c9a-14f6a7657c2a",
-	1);
-INSERT INTO R_OIR
-	VALUES ("a414fa61-fb3a-4aa2-8385-0b73d87a072d",
-	"4d9be8b6-6800-4205-9b50-dad50f66d218",
-	"f6622467-5574-4b87-9c9a-14f6a7657c2a",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_FORM
-	VALUES ("bb6438e8-228a-429d-b812-3be195c75a4f",
-	"4d9be8b6-6800-4205-9b50-dad50f66d218",
-	"04ed9303-2a84-40b1-b08a-1a976af66bfb",
-	0,
-	1,
-	'additional parent child data specifed through');
-INSERT INTO R_RGO
-	VALUES ("bb6438e8-228a-429d-b812-3be195c75a4f",
-	"4d9be8b6-6800-4205-9b50-dad50f66d218",
-	"04ed9303-2a84-40b1-b08a-1a976af66bfb");
-INSERT INTO R_OIR
-	VALUES ("bb6438e8-228a-429d-b812-3be195c75a4f",
-	"4d9be8b6-6800-4205-9b50-dad50f66d218",
-	"04ed9303-2a84-40b1-b08a-1a976af66bfb",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("bb6438e8-228a-429d-b812-3be195c75a4f",
-	'Data_Association_Specification',
-	4,
-	'T_DAS',
-	'',
-	"9a4ff466-14a5-4e47-b07f-84de195f210a",
-	'./Data_Association_Specification/Data_Association_Specification.xtuml');
-INSERT INTO R_SIMP
-	VALUES ("b4a0aa44-7baa-4c7b-83e0-1102274368a4");
-INSERT INTO R_REL
-	VALUES ("b4a0aa44-7baa-4c7b-83e0-1102274368a4",
-	1005,
-	'',
-	"9a4ff466-14a5-4e47-b07f-84de195f210a");
-INSERT INTO R_PART
-	VALUES ("25e75607-ce05-4777-9579-41952aea2d25",
-	"b4a0aa44-7baa-4c7b-83e0-1102274368a4",
-	"e8a229fb-3e1f-4443-b1b3-e631d1d28019",
-	0,
-	0,
-	'provides link to external data for');
-INSERT INTO O_RTIDA
-	VALUES ("66f7f490-0cbe-422a-84a6-1c85b4d4b0b6",
-	"25e75607-ce05-4777-9579-41952aea2d25",
-	0,
-	"b4a0aa44-7baa-4c7b-83e0-1102274368a4",
-	"e8a229fb-3e1f-4443-b1b3-e631d1d28019");
-INSERT INTO R_RTO
-	VALUES ("25e75607-ce05-4777-9579-41952aea2d25",
-	"b4a0aa44-7baa-4c7b-83e0-1102274368a4",
-	"e8a229fb-3e1f-4443-b1b3-e631d1d28019",
-	0);
-INSERT INTO R_OIR
-	VALUES ("25e75607-ce05-4777-9579-41952aea2d25",
-	"b4a0aa44-7baa-4c7b-83e0-1102274368a4",
-	"e8a229fb-3e1f-4443-b1b3-e631d1d28019",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_FORM
-	VALUES ("9e081a27-cea1-48f6-837a-262c4e888713",
-	"b4a0aa44-7baa-4c7b-83e0-1102274368a4",
-	"49240e9b-23f2-43ae-a101-585fe557bec1",
-	1,
-	1,
-	'gets external data through');
-INSERT INTO R_RGO
-	VALUES ("9e081a27-cea1-48f6-837a-262c4e888713",
-	"b4a0aa44-7baa-4c7b-83e0-1102274368a4",
-	"49240e9b-23f2-43ae-a101-585fe557bec1");
-INSERT INTO R_OIR
-	VALUES ("9e081a27-cea1-48f6-837a-262c4e888713",
-	"b4a0aa44-7baa-4c7b-83e0-1102274368a4",
-	"49240e9b-23f2-43ae-a101-585fe557bec1",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("9e081a27-cea1-48f6-837a-262c4e888713",
-	'External Data Link',
-	5,
-	'T_EDL',
-	'',
-	"9a4ff466-14a5-4e47-b07f-84de195f210a",
-	'./External Data Link/External Data Link.xtuml');
-INSERT INTO R_SIMP
-	VALUES ("1ffd2087-6f06-4432-8fbe-8cc7db212251");
-INSERT INTO R_REL
-	VALUES ("1ffd2087-6f06-4432-8fbe-8cc7db212251",
-	1006,
-	'',
-	"9a4ff466-14a5-4e47-b07f-84de195f210a");
-INSERT INTO R_PART
-	VALUES ("9e081a27-cea1-48f6-837a-262c4e888713",
-	"1ffd2087-6f06-4432-8fbe-8cc7db212251",
-	"58947f01-738f-4699-8b34-fda8ccdfd9e8",
-	0,
-	0,
-	'provides attribute data');
-INSERT INTO O_RTIDA
-	VALUES ("446795cc-4809-44ab-9f7d-37309ae42d16",
-	"9e081a27-cea1-48f6-837a-262c4e888713",
-	0,
-	"1ffd2087-6f06-4432-8fbe-8cc7db212251",
-	"58947f01-738f-4699-8b34-fda8ccdfd9e8");
-INSERT INTO O_OIDA_PROXY
-	VALUES ("446795cc-4809-44ab-9f7d-37309ae42d16",
-	"9e081a27-cea1-48f6-837a-262c4e888713",
-	0,
-	'EDL_ID',
-	'./External Data Link/External Data Link.xtuml');
-INSERT INTO R_RTO
-	VALUES ("9e081a27-cea1-48f6-837a-262c4e888713",
-	"1ffd2087-6f06-4432-8fbe-8cc7db212251",
-	"58947f01-738f-4699-8b34-fda8ccdfd9e8",
-	0);
-INSERT INTO O_ID_PROXY
-	VALUES (0,
-	"9e081a27-cea1-48f6-837a-262c4e888713",
-	'./External Data Link/External Data Link.xtuml');
-INSERT INTO R_OIR
-	VALUES ("9e081a27-cea1-48f6-837a-262c4e888713",
-	"1ffd2087-6f06-4432-8fbe-8cc7db212251",
-	"58947f01-738f-4699-8b34-fda8ccdfd9e8",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_FORM
-	VALUES ("6b417279-4f30-407d-bf83-970845af482e",
-	"1ffd2087-6f06-4432-8fbe-8cc7db212251",
-	"cdf4de74-53a7-49d3-8426-7fc5f829750f",
-	1,
-	1,
-	'provides access to');
-INSERT INTO R_RGO
-	VALUES ("6b417279-4f30-407d-bf83-970845af482e",
-	"1ffd2087-6f06-4432-8fbe-8cc7db212251",
-	"cdf4de74-53a7-49d3-8426-7fc5f829750f");
-INSERT INTO R_OIR
-	VALUES ("6b417279-4f30-407d-bf83-970845af482e",
-	"1ffd2087-6f06-4432-8fbe-8cc7db212251",
-	"cdf4de74-53a7-49d3-8426-7fc5f829750f",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("6b417279-4f30-407d-bf83-970845af482e",
-	'External Attribute',
-	6,
-	'T_EA',
-	'',
-	"9a4ff466-14a5-4e47-b07f-84de195f210a",
-	'./External Attribute/External Attribute.xtuml');
 INSERT INTO GD_MD
 	VALUES ("2d3b2887-a449-4f0c-a530-bd8fa5e90846",
-	5,
+	112,
 	"9a4ff466-14a5-4e47-b07f-84de195f210a",
-	11,
+	108,
 	1,
 	0,
 	1,
@@ -1554,3 +1087,519 @@ INSERT INTO DIM_DIA
 	2347.000000,
 	1089.000000,
 	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_SIMP
+	VALUES ("e1a86a7d-b64c-4629-805c-aaa4cdeba180");
+INSERT INTO R_REL
+	VALUES ("e1a86a7d-b64c-4629-805c-aaa4cdeba180",
+	1000,
+	'Captures the tree structure itself.
+
+This domain is capturing the tree structure of the client model (which is
+itself a network, not a tree), a parent can have many children of the same
+or different types:
+
+A Tree_Node_Specification is parent of zero or more Tree_Node_specifications
+',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_PART
+	VALUES ("25e75607-ce05-4777-9579-41952aea2d25",
+	"e1a86a7d-b64c-4629-805c-aaa4cdeba180",
+	"51e07fc9-71a9-4cdb-af1d-1cc5dcc865cf",
+	0,
+	0,
+	'specifies parenthood of');
+INSERT INTO O_RTIDA
+	VALUES ("66f7f490-0cbe-422a-84a6-1c85b4d4b0b6",
+	"25e75607-ce05-4777-9579-41952aea2d25",
+	0,
+	"e1a86a7d-b64c-4629-805c-aaa4cdeba180",
+	"51e07fc9-71a9-4cdb-af1d-1cc5dcc865cf");
+INSERT INTO O_OIDA_PROXY
+	VALUES ("66f7f490-0cbe-422a-84a6-1c85b4d4b0b6",
+	"25e75607-ce05-4777-9579-41952aea2d25",
+	0,
+	'Tree_Node_Spec_ID',
+	'./Tree_Node_Specification/Tree_Node_Specification.xtuml');
+INSERT INTO R_RTO
+	VALUES ("25e75607-ce05-4777-9579-41952aea2d25",
+	"e1a86a7d-b64c-4629-805c-aaa4cdeba180",
+	"51e07fc9-71a9-4cdb-af1d-1cc5dcc865cf",
+	0);
+INSERT INTO O_ID_PROXY
+	VALUES (0,
+	"25e75607-ce05-4777-9579-41952aea2d25",
+	'./Tree_Node_Specification/Tree_Node_Specification.xtuml');
+INSERT INTO R_OIR
+	VALUES ("25e75607-ce05-4777-9579-41952aea2d25",
+	"e1a86a7d-b64c-4629-805c-aaa4cdeba180",
+	"51e07fc9-71a9-4cdb-af1d-1cc5dcc865cf",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("25e75607-ce05-4777-9579-41952aea2d25",
+	'Tree_Node_Specification',
+	1,
+	'T_TNS',
+	'This class specifies what entries are to appear in a display tree. 
+It represents an underlying client model that contains structure
+and data of interest to the user. 
+
+Not all the data in the client model is to be presented in the tree.
+Iinstances of this class specify which data items are to be shown.
+
+Attributes of this class determine which client model entry is to be
+shown and what the tree entry will look like.',
+	"00000000-0000-0000-0000-000000000000",
+	'./Tree_Node_Specification/Tree_Node_Specification.xtuml');
+INSERT INTO R_FORM
+	VALUES ("a414fa61-fb3a-4aa2-8385-0b73d87a072d",
+	"e1a86a7d-b64c-4629-805c-aaa4cdeba180",
+	"eeceb9d2-1f51-4310-8e2e-cab966bd0a6c",
+	1,
+	1,
+	'is specified as parent through');
+INSERT INTO R_RGO
+	VALUES ("a414fa61-fb3a-4aa2-8385-0b73d87a072d",
+	"e1a86a7d-b64c-4629-805c-aaa4cdeba180",
+	"eeceb9d2-1f51-4310-8e2e-cab966bd0a6c");
+INSERT INTO R_OIR
+	VALUES ("a414fa61-fb3a-4aa2-8385-0b73d87a072d",
+	"e1a86a7d-b64c-4629-805c-aaa4cdeba180",
+	"eeceb9d2-1f51-4310-8e2e-cab966bd0a6c",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("a414fa61-fb3a-4aa2-8385-0b73d87a072d",
+	'Tree_Parenthood_Specification',
+	2,
+	'T_TPS',
+	'This class specifies the hierarchy of the tree. Instances of this class define
+which client model entities ''contain'' which other entities from the perspective
+of the displayed tree.
+
+Apart from the referential attributes that formalize the parent-child relationship,
+the attribute, ''ParentChildRelChain'' specifies how to find children given a
+parent and a parent given a child.',
+	"00000000-0000-0000-0000-000000000000",
+	'./Tree_Parenthood_Specification/Tree_Parenthood_Specification.xtuml');
+INSERT INTO PE_PE
+	VALUES ("e1a86a7d-b64c-4629-805c-aaa4cdeba180",
+	1,
+	"9a4ff466-14a5-4e47-b07f-84de195f210a",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO R_SIMP
+	VALUES ("93ce984b-4bb4-4ef7-8f7b-ac949bbcc5dd");
+INSERT INTO R_REL
+	VALUES ("93ce984b-4bb4-4ef7-8f7b-ac949bbcc5dd",
+	1001,
+	'Captures the tree structure itself.
+
+No node may appear in more than one branch of the tree,
+even if the apparently same entries appear in more than
+one part fo the tree, they are considered to be of a different
+type:
+
+A Tree_Node_Specification is child of zero or one Tree_Node_specification',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_PART
+	VALUES ("25e75607-ce05-4777-9579-41952aea2d25",
+	"93ce984b-4bb4-4ef7-8f7b-ac949bbcc5dd",
+	"0e167dd3-7baa-4ecf-abf2-deba87f61e26",
+	0,
+	0,
+	'specifies childhood of');
+INSERT INTO O_RTIDA
+	VALUES ("66f7f490-0cbe-422a-84a6-1c85b4d4b0b6",
+	"25e75607-ce05-4777-9579-41952aea2d25",
+	0,
+	"93ce984b-4bb4-4ef7-8f7b-ac949bbcc5dd",
+	"0e167dd3-7baa-4ecf-abf2-deba87f61e26");
+INSERT INTO R_RTO
+	VALUES ("25e75607-ce05-4777-9579-41952aea2d25",
+	"93ce984b-4bb4-4ef7-8f7b-ac949bbcc5dd",
+	"0e167dd3-7baa-4ecf-abf2-deba87f61e26",
+	0);
+INSERT INTO R_OIR
+	VALUES ("25e75607-ce05-4777-9579-41952aea2d25",
+	"93ce984b-4bb4-4ef7-8f7b-ac949bbcc5dd",
+	"0e167dd3-7baa-4ecf-abf2-deba87f61e26",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_FORM
+	VALUES ("a414fa61-fb3a-4aa2-8385-0b73d87a072d",
+	"93ce984b-4bb4-4ef7-8f7b-ac949bbcc5dd",
+	"a164865b-1cd7-4751-95d6-45e3573afe61",
+	1,
+	1,
+	'is specified as child through');
+INSERT INTO R_RGO
+	VALUES ("a414fa61-fb3a-4aa2-8385-0b73d87a072d",
+	"93ce984b-4bb4-4ef7-8f7b-ac949bbcc5dd",
+	"a164865b-1cd7-4751-95d6-45e3573afe61");
+INSERT INTO R_OIR
+	VALUES ("a414fa61-fb3a-4aa2-8385-0b73d87a072d",
+	"93ce984b-4bb4-4ef7-8f7b-ac949bbcc5dd",
+	"a164865b-1cd7-4751-95d6-45e3573afe61",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO PE_PE
+	VALUES ("93ce984b-4bb4-4ef7-8f7b-ac949bbcc5dd",
+	1,
+	"9a4ff466-14a5-4e47-b07f-84de195f210a",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO R_SIMP
+	VALUES ("5cc73d6c-bd51-457d-ac8f-bd1296b695be");
+INSERT INTO R_REL
+	VALUES ("5cc73d6c-bd51-457d-ac8f-bd1296b695be",
+	1002,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_PART
+	VALUES ("a414fa61-fb3a-4aa2-8385-0b73d87a072d",
+	"5cc73d6c-bd51-457d-ac8f-bd1296b695be",
+	"d51ceb44-9810-495f-a262-610ee5d5ec87",
+	0,
+	0,
+	'');
+INSERT INTO O_RTIDA
+	VALUES ("3fe2ca3f-3f66-44a6-a770-434ef7325afa",
+	"a414fa61-fb3a-4aa2-8385-0b73d87a072d",
+	1,
+	"5cc73d6c-bd51-457d-ac8f-bd1296b695be",
+	"d51ceb44-9810-495f-a262-610ee5d5ec87");
+INSERT INTO O_OIDA_PROXY
+	VALUES ("3fe2ca3f-3f66-44a6-a770-434ef7325afa",
+	"a414fa61-fb3a-4aa2-8385-0b73d87a072d",
+	1,
+	'TPS_ID',
+	'./Tree_Parenthood_Specification/Tree_Parenthood_Specification.xtuml');
+INSERT INTO R_RTO
+	VALUES ("a414fa61-fb3a-4aa2-8385-0b73d87a072d",
+	"5cc73d6c-bd51-457d-ac8f-bd1296b695be",
+	"d51ceb44-9810-495f-a262-610ee5d5ec87",
+	1);
+INSERT INTO O_ID_PROXY
+	VALUES (1,
+	"a414fa61-fb3a-4aa2-8385-0b73d87a072d",
+	'./Tree_Parenthood_Specification/Tree_Parenthood_Specification.xtuml');
+INSERT INTO R_OIR
+	VALUES ("a414fa61-fb3a-4aa2-8385-0b73d87a072d",
+	"5cc73d6c-bd51-457d-ac8f-bd1296b695be",
+	"d51ceb44-9810-495f-a262-610ee5d5ec87",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_FORM
+	VALUES ("47663f49-2287-4439-9d31-4dd68486bdd8",
+	"5cc73d6c-bd51-457d-ac8f-bd1296b695be",
+	"b8393479-f70c-4e85-b6c3-50cf810c24ad",
+	1,
+	1,
+	'');
+INSERT INTO R_RGO
+	VALUES ("47663f49-2287-4439-9d31-4dd68486bdd8",
+	"5cc73d6c-bd51-457d-ac8f-bd1296b695be",
+	"b8393479-f70c-4e85-b6c3-50cf810c24ad");
+INSERT INTO R_OIR
+	VALUES ("47663f49-2287-4439-9d31-4dd68486bdd8",
+	"5cc73d6c-bd51-457d-ac8f-bd1296b695be",
+	"b8393479-f70c-4e85-b6c3-50cf810c24ad",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("47663f49-2287-4439-9d31-4dd68486bdd8",
+	'Alternate Child',
+	3,
+	'T_AC',
+	'This class is used to capture alternative children of a parent.  This class will
+be populated when a parent may have more than one child of the same type through
+different parents.  It is assumed that there will only be one child out of all
+of the alternatives.',
+	"00000000-0000-0000-0000-000000000000",
+	'./Alternate Child/Alternate Child.xtuml');
+INSERT INTO PE_PE
+	VALUES ("5cc73d6c-bd51-457d-ac8f-bd1296b695be",
+	1,
+	"9a4ff466-14a5-4e47-b07f-84de195f210a",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO R_SIMP
+	VALUES ("9d3934d4-8338-4b82-95eb-52655b89f22d");
+INSERT INTO R_REL
+	VALUES ("9d3934d4-8338-4b82-95eb-52655b89f22d",
+	1003,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_PART
+	VALUES ("a414fa61-fb3a-4aa2-8385-0b73d87a072d",
+	"9d3934d4-8338-4b82-95eb-52655b89f22d",
+	"f9ee93d8-aa77-466f-88ec-59fc0cd15e76",
+	0,
+	1,
+	'succeeds');
+INSERT INTO O_RTIDA
+	VALUES ("3fe2ca3f-3f66-44a6-a770-434ef7325afa",
+	"a414fa61-fb3a-4aa2-8385-0b73d87a072d",
+	1,
+	"9d3934d4-8338-4b82-95eb-52655b89f22d",
+	"f9ee93d8-aa77-466f-88ec-59fc0cd15e76");
+INSERT INTO R_RTO
+	VALUES ("a414fa61-fb3a-4aa2-8385-0b73d87a072d",
+	"9d3934d4-8338-4b82-95eb-52655b89f22d",
+	"f9ee93d8-aa77-466f-88ec-59fc0cd15e76",
+	1);
+INSERT INTO R_OIR
+	VALUES ("a414fa61-fb3a-4aa2-8385-0b73d87a072d",
+	"9d3934d4-8338-4b82-95eb-52655b89f22d",
+	"f9ee93d8-aa77-466f-88ec-59fc0cd15e76",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_FORM
+	VALUES ("a414fa61-fb3a-4aa2-8385-0b73d87a072d",
+	"9d3934d4-8338-4b82-95eb-52655b89f22d",
+	"68d05328-c867-4d23-bf93-e745323ba84c",
+	0,
+	1,
+	'precedes');
+INSERT INTO R_RGO
+	VALUES ("a414fa61-fb3a-4aa2-8385-0b73d87a072d",
+	"9d3934d4-8338-4b82-95eb-52655b89f22d",
+	"68d05328-c867-4d23-bf93-e745323ba84c");
+INSERT INTO R_OIR
+	VALUES ("a414fa61-fb3a-4aa2-8385-0b73d87a072d",
+	"9d3934d4-8338-4b82-95eb-52655b89f22d",
+	"68d05328-c867-4d23-bf93-e745323ba84c",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO PE_PE
+	VALUES ("9d3934d4-8338-4b82-95eb-52655b89f22d",
+	1,
+	"9a4ff466-14a5-4e47-b07f-84de195f210a",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO R_SIMP
+	VALUES ("4d9be8b6-6800-4205-9b50-dad50f66d218");
+INSERT INTO R_REL
+	VALUES ("4d9be8b6-6800-4205-9b50-dad50f66d218",
+	1004,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_PART
+	VALUES ("a414fa61-fb3a-4aa2-8385-0b73d87a072d",
+	"4d9be8b6-6800-4205-9b50-dad50f66d218",
+	"f6622467-5574-4b87-9c9a-14f6a7657c2a",
+	0,
+	0,
+	'additional association data specified for');
+INSERT INTO O_RTIDA
+	VALUES ("3fe2ca3f-3f66-44a6-a770-434ef7325afa",
+	"a414fa61-fb3a-4aa2-8385-0b73d87a072d",
+	1,
+	"4d9be8b6-6800-4205-9b50-dad50f66d218",
+	"f6622467-5574-4b87-9c9a-14f6a7657c2a");
+INSERT INTO R_RTO
+	VALUES ("a414fa61-fb3a-4aa2-8385-0b73d87a072d",
+	"4d9be8b6-6800-4205-9b50-dad50f66d218",
+	"f6622467-5574-4b87-9c9a-14f6a7657c2a",
+	1);
+INSERT INTO R_OIR
+	VALUES ("a414fa61-fb3a-4aa2-8385-0b73d87a072d",
+	"4d9be8b6-6800-4205-9b50-dad50f66d218",
+	"f6622467-5574-4b87-9c9a-14f6a7657c2a",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_FORM
+	VALUES ("bb6438e8-228a-429d-b812-3be195c75a4f",
+	"4d9be8b6-6800-4205-9b50-dad50f66d218",
+	"04ed9303-2a84-40b1-b08a-1a976af66bfb",
+	0,
+	1,
+	'additional parent child data specifed through');
+INSERT INTO R_RGO
+	VALUES ("bb6438e8-228a-429d-b812-3be195c75a4f",
+	"4d9be8b6-6800-4205-9b50-dad50f66d218",
+	"04ed9303-2a84-40b1-b08a-1a976af66bfb");
+INSERT INTO R_OIR
+	VALUES ("bb6438e8-228a-429d-b812-3be195c75a4f",
+	"4d9be8b6-6800-4205-9b50-dad50f66d218",
+	"04ed9303-2a84-40b1-b08a-1a976af66bfb",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("bb6438e8-228a-429d-b812-3be195c75a4f",
+	'Data_Association_Specification',
+	4,
+	'T_DAS',
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'./Data_Association_Specification/Data_Association_Specification.xtuml');
+INSERT INTO PE_PE
+	VALUES ("4d9be8b6-6800-4205-9b50-dad50f66d218",
+	1,
+	"9a4ff466-14a5-4e47-b07f-84de195f210a",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO R_SIMP
+	VALUES ("b4a0aa44-7baa-4c7b-83e0-1102274368a4");
+INSERT INTO R_REL
+	VALUES ("b4a0aa44-7baa-4c7b-83e0-1102274368a4",
+	1005,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_PART
+	VALUES ("25e75607-ce05-4777-9579-41952aea2d25",
+	"b4a0aa44-7baa-4c7b-83e0-1102274368a4",
+	"e8a229fb-3e1f-4443-b1b3-e631d1d28019",
+	0,
+	0,
+	'provides link to external data for');
+INSERT INTO O_RTIDA
+	VALUES ("66f7f490-0cbe-422a-84a6-1c85b4d4b0b6",
+	"25e75607-ce05-4777-9579-41952aea2d25",
+	0,
+	"b4a0aa44-7baa-4c7b-83e0-1102274368a4",
+	"e8a229fb-3e1f-4443-b1b3-e631d1d28019");
+INSERT INTO R_RTO
+	VALUES ("25e75607-ce05-4777-9579-41952aea2d25",
+	"b4a0aa44-7baa-4c7b-83e0-1102274368a4",
+	"e8a229fb-3e1f-4443-b1b3-e631d1d28019",
+	0);
+INSERT INTO R_OIR
+	VALUES ("25e75607-ce05-4777-9579-41952aea2d25",
+	"b4a0aa44-7baa-4c7b-83e0-1102274368a4",
+	"e8a229fb-3e1f-4443-b1b3-e631d1d28019",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_FORM
+	VALUES ("9e081a27-cea1-48f6-837a-262c4e888713",
+	"b4a0aa44-7baa-4c7b-83e0-1102274368a4",
+	"49240e9b-23f2-43ae-a101-585fe557bec1",
+	1,
+	1,
+	'gets external data through');
+INSERT INTO R_RGO
+	VALUES ("9e081a27-cea1-48f6-837a-262c4e888713",
+	"b4a0aa44-7baa-4c7b-83e0-1102274368a4",
+	"49240e9b-23f2-43ae-a101-585fe557bec1");
+INSERT INTO R_OIR
+	VALUES ("9e081a27-cea1-48f6-837a-262c4e888713",
+	"b4a0aa44-7baa-4c7b-83e0-1102274368a4",
+	"49240e9b-23f2-43ae-a101-585fe557bec1",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("9e081a27-cea1-48f6-837a-262c4e888713",
+	'External Data Link',
+	5,
+	'T_EDL',
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'./External Data Link/External Data Link.xtuml');
+INSERT INTO PE_PE
+	VALUES ("b4a0aa44-7baa-4c7b-83e0-1102274368a4",
+	1,
+	"9a4ff466-14a5-4e47-b07f-84de195f210a",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO R_SIMP
+	VALUES ("1ffd2087-6f06-4432-8fbe-8cc7db212251");
+INSERT INTO R_REL
+	VALUES ("1ffd2087-6f06-4432-8fbe-8cc7db212251",
+	1006,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_PART
+	VALUES ("9e081a27-cea1-48f6-837a-262c4e888713",
+	"1ffd2087-6f06-4432-8fbe-8cc7db212251",
+	"58947f01-738f-4699-8b34-fda8ccdfd9e8",
+	0,
+	0,
+	'provides attribute data');
+INSERT INTO O_RTIDA
+	VALUES ("446795cc-4809-44ab-9f7d-37309ae42d16",
+	"9e081a27-cea1-48f6-837a-262c4e888713",
+	0,
+	"1ffd2087-6f06-4432-8fbe-8cc7db212251",
+	"58947f01-738f-4699-8b34-fda8ccdfd9e8");
+INSERT INTO O_OIDA_PROXY
+	VALUES ("446795cc-4809-44ab-9f7d-37309ae42d16",
+	"9e081a27-cea1-48f6-837a-262c4e888713",
+	0,
+	'EDL_ID',
+	'./External Data Link/External Data Link.xtuml');
+INSERT INTO R_RTO
+	VALUES ("9e081a27-cea1-48f6-837a-262c4e888713",
+	"1ffd2087-6f06-4432-8fbe-8cc7db212251",
+	"58947f01-738f-4699-8b34-fda8ccdfd9e8",
+	0);
+INSERT INTO O_ID_PROXY
+	VALUES (0,
+	"9e081a27-cea1-48f6-837a-262c4e888713",
+	'./External Data Link/External Data Link.xtuml');
+INSERT INTO R_OIR
+	VALUES ("9e081a27-cea1-48f6-837a-262c4e888713",
+	"1ffd2087-6f06-4432-8fbe-8cc7db212251",
+	"58947f01-738f-4699-8b34-fda8ccdfd9e8",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_FORM
+	VALUES ("6b417279-4f30-407d-bf83-970845af482e",
+	"1ffd2087-6f06-4432-8fbe-8cc7db212251",
+	"cdf4de74-53a7-49d3-8426-7fc5f829750f",
+	1,
+	1,
+	'provides access to');
+INSERT INTO R_RGO
+	VALUES ("6b417279-4f30-407d-bf83-970845af482e",
+	"1ffd2087-6f06-4432-8fbe-8cc7db212251",
+	"cdf4de74-53a7-49d3-8426-7fc5f829750f");
+INSERT INTO R_OIR
+	VALUES ("6b417279-4f30-407d-bf83-970845af482e",
+	"1ffd2087-6f06-4432-8fbe-8cc7db212251",
+	"cdf4de74-53a7-49d3-8426-7fc5f829750f",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("6b417279-4f30-407d-bf83-970845af482e",
+	'External Attribute',
+	6,
+	'T_EA',
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'./External Attribute/External Attribute.xtuml');
+INSERT INTO PE_PE
+	VALUES ("1ffd2087-6f06-4432-8fbe-8cc7db212251",
+	1,
+	"9a4ff466-14a5-4e47-b07f-84de195f210a",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO PE_PE
+	VALUES ("9a4ff466-14a5-4e47-b07f-84de195f210a",
+	1,
+	"138f69c7-a700-4109-8c2b-e9232b291756",
+	"00000000-0000-0000-0000-000000000000",
+	7);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("138f69c7-a700-4109-8c2b-e9232b291756",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
+	'ooaofooa_hierarchy',
+	'========================================================================
+
+File:          $RCSfile: ooaofooa_hierarchy.xtuml,v $
+Version:   $Revision: 1.12 $
+Modified:  $Date: 2006/04/12 21:39:28 $
+
+(c) Copyright 2003-2014 Mentor Graphics Corporation All rights reserved.
+
+========================================================================
+Licensed under the Apache License, Version 2.0 (the "License"); you may not
+use this file except in compliance with the License.  You may obtain a copy
+of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the
+License for the specific language governing permissions and limitations under
+the License.
+========================================================================
+
+This domain captures the mapping of a client model onto a tree structure. It contains
+additional attributes to facilitate the generation of code for displaying the tree in
+a User Interface tree widget.',
+	0,
+	'../ooaofooa_hierarchy.xtuml');
+INSERT INTO S_SYS_PROXY
+	VALUES ("d9bc5487-4193-4817-be1c-6c3f3339aebf",
+	'org.xtuml.bp.core',
+	1,
+	'../../org.xtuml.bp.core.xtuml');

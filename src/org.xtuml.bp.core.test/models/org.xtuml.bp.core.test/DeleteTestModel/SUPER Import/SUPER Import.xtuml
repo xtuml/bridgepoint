@@ -1,4 +1,4 @@
--- BP 7.1 content: Package syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: Package syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO EP_PKG
 	VALUES ("84723210-35fb-4b1d-8eb9-b9e72f91d4da",
@@ -25,14 +25,14 @@ INSERT INTO GD_MD
 	0,
 	0,
 	'',
-	'DeleteTestModel::SUPER Import');
+	'org.xtuml.bp.core.test::DeleteTestModel::SUPER Import');
 INSERT INTO GD_GE
 	VALUES ("e5c6b625-f32e-4874-9df7-480222e6351a",
 	"a3f5e168-a45f-49a8-93d8-5802bd47e15b",
 	"34f6b27c-263c-4ab0-9938-e873be1e07dc",
 	21,
 	0,
-	'DeleteTestModel::SUPER Import::SUPER_IOBJ_None 1');
+	'org.xtuml.bp.core.test::DeleteTestModel::SUPER Import::SUPER_IOBJ_None 1');
 INSERT INTO GD_SHP
 	VALUES ("e5c6b625-f32e-4874-9df7-480222e6351a");
 INSERT INTO GD_NCS
@@ -56,7 +56,7 @@ INSERT INTO GD_GE
 	"986d222b-fcd4-4cd4-af16-38972ca904db",
 	21,
 	0,
-	'DeleteTestModel::SUPER Import::SUPER_IOBJ_SUB 1');
+	'org.xtuml.bp.core.test::DeleteTestModel::SUPER Import::SUPER_IOBJ_SUB 1');
 INSERT INTO GD_SHP
 	VALUES ("e710fac2-0401-46e1-aba3-c32dc6fa8f94");
 INSERT INTO GD_NCS
@@ -80,7 +80,7 @@ INSERT INTO GD_GE
 	"ff99cfd5-6bc2-4274-b096-dcafbd8df66c",
 	21,
 	0,
-	'DeleteTestModel::SUPER Import::SUPER_IOBJ_SUB 2');
+	'org.xtuml.bp.core.test::DeleteTestModel::SUPER Import::SUPER_IOBJ_SUB 2');
 INSERT INTO GD_SHP
 	VALUES ("e0df45e1-0213-4f56-85cf-37628a8c1473");
 INSERT INTO GD_NCS

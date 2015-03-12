@@ -18,13 +18,13 @@ Persistent:false
 TRANSLATE_FOR_EXTERNAL_USE:FALSE
 
 ',
-	"b5695748-80fc-47fb-b5c7-801b5f28b907");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("32869d0c-af22-42b1-ac9d-4f6b6dbf6320",
 	"76253415-b575-4583-9248-5d403cee7647",
 	'elementCreated',
 	'',
-	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select one elem related by self->GD_GE[R16];
 if (not_empty elem)
@@ -46,15 +46,8 @@ INSERT INTO O_TPARM
 	'');
 INSERT INTO S_DT_PROXY
 	VALUES ("68dedb08-fd5a-420e-9ec7-e7985ad0c856",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	"00000000-0000-0000-0000-000000000000",
 	'instance',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
-INSERT INTO S_DT_PROXY
-	VALUES ("3852f90c-88c5-467d-9b26-57c8cd438b42",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	'void',
 	'',
 	'',
 	'../../Datatypes/Datatypes.xtuml');
@@ -63,7 +56,7 @@ INSERT INTO O_TFR
 	"76253415-b575-4583-9248-5d403cee7647",
 	'defaultLayer',
 	'',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'// return the default layer a graphical element is in, as described in
 // the layer attribute
@@ -71,19 +64,12 @@ return 1;',
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO S_DT_PROXY
-	VALUES ("388cd7a2-2d0c-4f02-9730-7670074de394",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	'integer',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("1090e371-4de4-4c76-8b45-16864fc40148",
 	"76253415-b575-4583-9248-5d403cee7647",
 	'getDefaultWidth',
 	'',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	1,
 	'if(self.defaultWidth != 0)
   return self.defaultWidth;
@@ -98,7 +84,7 @@ INSERT INTO O_TFR
 	"76253415-b575-4583-9248-5d403cee7647",
 	'getDefaultHeight',
 	'',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	1,
 	'if(self.defaultHeight != 0)
   return self.defaultHeight;
@@ -131,7 +117,7 @@ Data Domain: Subsystem=11, EE=12, Class=21, Imported Class=23, Association=24, C
 	'');
 INSERT INTO S_DT_PROXY
 	VALUES ("89cd32c4-a73f-44f5-ac4f-6468ce4ae2bb",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	"00000000-0000-0000-0000-000000000000",
 	'OOAType',
 	'',
 	'',
@@ -151,16 +137,9 @@ INSERT INTO O_ATTR
 	'',
 	'Name',
 	0,
-	"17f3cd98-2d3a-4fe3-ac41-d27b377178a6",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("17f3cd98-2d3a-4fe3-ac41-d27b377178a6",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	'string',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("79f552c5-8e11-4aa8-bcc8-39b269829418",
 	"76253415-b575-4583-9248-5d403cee7647");
@@ -181,7 +160,7 @@ INSERT INTO O_ATTR
 	'');
 INSERT INTO S_DT_PROXY
 	VALUES ("46022655-7bb0-4f23-a05b-a718c3b59c94",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	"00000000-0000-0000-0000-000000000000",
 	'Color',
 	'',
 	'',
@@ -206,7 +185,7 @@ INSERT INTO O_ATTR
 	'');
 INSERT INTO S_DT_PROXY
 	VALUES ("8d28e864-6cdc-4005-8d8f-a59eb8d6be84",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	"00000000-0000-0000-0000-000000000000",
 	'class',
 	'',
 	'',
@@ -226,7 +205,7 @@ INSERT INTO O_ATTR
 	'',
 	'creator',
 	0,
-	"17f3cd98-2d3a-4fe3-ac41-d27b377178a6",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -244,16 +223,9 @@ INSERT INTO O_ATTR
 	'',
 	'isFixedAspectRatio',
 	0,
-	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("6e4aa280-2e22-4146-9b4a-6c2573c456d8",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	'boolean',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("2eef211a-3961-43d4-a4a6-bf3ce3de62d7",
 	"76253415-b575-4583-9248-5d403cee7647");
@@ -269,7 +241,7 @@ INSERT INTO O_ATTR
 	'',
 	'defaultWidth',
 	0,
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -287,7 +259,7 @@ INSERT INTO O_ATTR
 	'',
 	'defaultHeight',
 	0,
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -305,7 +277,7 @@ INSERT INTO O_ATTR
 	'',
 	'iconName',
 	0,
-	"17f3cd98-2d3a-4fe3-ac41-d27b377178a6",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_REF
@@ -323,7 +295,7 @@ INSERT INTO O_REF
 	'',
 	'Graphical Element',
 	'elementId',
-	'R16');
+	'R16.''is creating''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("76253415-b575-4583-9248-5d403cee7647",
 	"610836b6-8b80-49f4-ba30-5fc1553915d0",
@@ -356,16 +328,9 @@ INSERT INTO O_ATTR
 	'',
 	'elementId',
 	0,
-	"66164f00-293e-4c17-ab30-7972c7c57152",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("66164f00-293e-4c17-ab30-7972c7c57152",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("790d2ca0-bee7-4ae1-bccd-31987ce01e5c",
 	"76253415-b575-4583-9248-5d403cee7647");
@@ -381,7 +346,7 @@ INSERT INTO O_ATTR
 	'',
 	'isFixedSize',
 	0,
-	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -399,7 +364,7 @@ INSERT INTO O_ATTR
 	'',
 	'hasFloatingText',
 	0,
-	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -417,7 +382,7 @@ INSERT INTO O_ATTR
 	'',
 	'hasNoInteriorColor',
 	0,
-	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -439,7 +404,7 @@ Not_participating_value: 1',
 	'',
 	'layer',
 	0,
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -457,7 +422,7 @@ INSERT INTO O_ATTR
 	'',
 	'antiAliased',
 	0,
-	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -475,7 +440,7 @@ INSERT INTO O_ATTR
 	'',
 	'symbolType',
 	0,
-	"17f3cd98-2d3a-4fe3-ac41-d27b377178a6",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -493,7 +458,7 @@ INSERT INTO O_ATTR
 	'',
 	'isTransparent',
 	0,
-	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -512,7 +477,7 @@ INSERT INTO O_ATTR
 	'',
 	'creationRule',
 	0,
-	"17f3cd98-2d3a-4fe3-ac41-d27b377178a6",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -530,7 +495,7 @@ INSERT INTO O_ATTR
 	'',
 	'hasNameCompartment',
 	0,
-	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -548,7 +513,7 @@ INSERT INTO O_ATTR
 	'',
 	'causeAutoResize',
 	0,
-	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -566,7 +531,7 @@ INSERT INTO O_ATTR
 	'',
 	'toolCategory',
 	0,
-	"17f3cd98-2d3a-4fe3-ac41-d27b377178a6",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -584,7 +549,7 @@ INSERT INTO O_ATTR
 	'',
 	'isAnchorHost',
 	0,
-	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	'',
 	'');
 INSERT INTO O_REF
@@ -602,7 +567,7 @@ INSERT INTO O_REF
 	'',
 	'Terminal Specification',
 	'Term_Spec_ID',
-	'R209');
+	'R209.''created by''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("76253415-b575-4583-9248-5d403cee7647",
 	"91d6bd67-51f3-4775-955c-c4f98e106f9d",
@@ -635,7 +600,7 @@ INSERT INTO O_ATTR
 	'',
 	'Term_Spec_ID',
 	0,
-	"66164f00-293e-4c17-ab30-7972c7c57152",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_ID
@@ -652,15 +617,20 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"76253415-b575-4583-9248-5d403cee7647");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("76253415-b575-4583-9248-5d403cee7647",
+	1,
+	"b5695748-80fc-47fb-b5c7-801b5f28b907",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("b5695748-80fc-47fb-b5c7-801b5f28b907",
+	"00000000-0000-0000-0000-000000000000",
+	"8f801c9a-cf2d-4ef4-b11a-51b8697e3ca8",
 	'Graphical Data',
 	'The GD (Graphics Domain) subsystem models the graphical elements for a BridgePoint model.
 -------------------------------------------------------
 Import:org.eclipse.swt.graphics.Color
 Notify_Changes:true',
-	'GD',
 	1,
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	"00000000-0000-0000-0000-000001900032",
 	'../Graphical Data.xtuml');

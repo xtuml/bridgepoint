@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("e029b16e-a49c-4c02-9610-2db8e124b32f",
@@ -6,7 +6,7 @@ INSERT INTO O_OBJ
 	9803,
 	'SR_NM',
 	'',
-	"9eb20661-6f4c-4bd7-a6ee-f75c75a80ce9");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_NBATTR
 	VALUES ("c3156441-4d91-46c5-9af2-1bd5b1e0a1f3",
 	"e029b16e-a49c-4c02-9610-2db8e124b32f");
@@ -22,16 +22,9 @@ INSERT INTO O_ATTR
 	'',
 	'Unnamed Attribute',
 	0,
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'integer',
-	'',
-	'',
-	'../../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("e029b16e-a49c-4c02-9610-2db8e124b32f",
 	"9f6676b3-4ef2-488b-a15e-a237d0bdf8a0",
@@ -80,16 +73,9 @@ INSERT INTO O_ATTR
 	'',
 	'Id',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_ID
 	VALUES (0,
 	"e029b16e-a49c-4c02-9610-2db8e124b32f");
@@ -104,12 +90,17 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"e029b16e-a49c-4c02-9610-2db8e124b32f");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("e029b16e-a49c-4c02-9610-2db8e124b32f",
+	1,
+	"9eb20661-6f4c-4bd7-a6ee-f75c75a80ce9",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("9eb20661-6f4c-4bd7-a6ee-f75c75a80ce9",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Result',
 	'',
-	'SR',
 	9800,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000000000",
 	'../Result.xtuml');

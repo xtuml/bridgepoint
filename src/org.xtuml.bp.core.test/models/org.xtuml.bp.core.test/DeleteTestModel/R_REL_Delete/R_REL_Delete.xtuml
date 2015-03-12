@@ -1,4 +1,4 @@
--- BP 7.1 content: Package syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: Package syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO EP_PKG
 	VALUES ("8b1f55d2-d1c1-43a8-bc6f-0f722986ef77",
@@ -25,14 +25,14 @@ INSERT INTO GD_MD
 	0,
 	0,
 	'',
-	'DeleteTestModel::R_REL_Delete');
+	'org.xtuml.bp.core.test::DeleteTestModel::R_REL_Delete');
 INSERT INTO GD_GE
 	VALUES ("5b976019-2732-4019-80d7-8a12a3d2dd06",
 	"ee08c69d-a68e-45aa-a2fb-684f7982308a",
 	"2873f52f-f06f-4b85-9821-d4727d7dff06",
 	21,
 	0,
-	'DeleteTestModel::R_REL_Delete::REL_OBJ_Reflex 1');
+	'org.xtuml.bp.core.test::DeleteTestModel::R_REL_Delete::REL_OBJ_Reflex 1');
 INSERT INTO GD_SHP
 	VALUES ("5b976019-2732-4019-80d7-8a12a3d2dd06");
 INSERT INTO GD_NCS
@@ -66,7 +66,7 @@ INSERT INTO GD_GE
 	"94b95291-72f7-49f9-8a9a-fe266ca40a80",
 	21,
 	0,
-	'DeleteTestModel::R_REL_Delete::REL_OBJ_Reflex 2');
+	'org.xtuml.bp.core.test::DeleteTestModel::R_REL_Delete::REL_OBJ_Reflex 2');
 INSERT INTO GD_SHP
 	VALUES ("4e50659a-c185-4b94-b525-6e6c6cba458e");
 INSERT INTO GD_NCS
@@ -100,7 +100,7 @@ INSERT INTO GD_GE
 	"2ee93489-0b73-4eff-b44c-cb96e28d23d5",
 	21,
 	0,
-	'DeleteTestModel::R_REL_Delete::REL_IOBJ_OBJ 1');
+	'org.xtuml.bp.core.test::DeleteTestModel::R_REL_Delete::REL_IOBJ_OBJ 1');
 INSERT INTO GD_SHP
 	VALUES ("3a8141ce-9465-464b-b2be-4d088cde6836");
 INSERT INTO GD_NCS
@@ -129,7 +129,7 @@ INSERT INTO GD_GE
 	"69116210-84d9-4343-bdd5-0c93977d5aa3",
 	21,
 	0,
-	'DeleteTestModel::R_REL_Delete::REL_IOBJ_OBJ 2');
+	'org.xtuml.bp.core.test::DeleteTestModel::R_REL_Delete::REL_IOBJ_OBJ 2');
 INSERT INTO GD_SHP
 	VALUES ("3ad82897-15d2-46b2-83b0-c6819e8b3f6d");
 INSERT INTO GD_NCS
@@ -158,7 +158,7 @@ INSERT INTO GD_GE
 	"a3d54109-32fb-49fc-a246-41918ec43441",
 	21,
 	0,
-	'DeleteTestModel::R_REL_Delete::REL_OBJ_OBJ 1');
+	'org.xtuml.bp.core.test::DeleteTestModel::R_REL_Delete::REL_OBJ_OBJ 1');
 INSERT INTO GD_SHP
 	VALUES ("f1b64062-2b76-45f1-a6db-d401c2d5ee17");
 INSERT INTO GD_NCS
@@ -187,7 +187,7 @@ INSERT INTO GD_GE
 	"b2546b5d-08e5-486c-944e-24c08d289dd7",
 	21,
 	0,
-	'DeleteTestModel::R_REL_Delete::REL_OBJ_OBJ OtherSide 1');
+	'org.xtuml.bp.core.test::DeleteTestModel::R_REL_Delete::REL_OBJ_OBJ OtherSide 1');
 INSERT INTO GD_SHP
 	VALUES ("9c03cb49-578f-458b-8fb2-4fb91c62e64a");
 INSERT INTO GD_NCS
@@ -216,7 +216,7 @@ INSERT INTO GD_GE
 	"efab14c4-f672-46a0-83cf-a69840c9f176",
 	21,
 	0,
-	'DeleteTestModel::R_REL_Delete::REL_OBJ_OBJ 2');
+	'org.xtuml.bp.core.test::DeleteTestModel::R_REL_Delete::REL_OBJ_OBJ 2');
 INSERT INTO GD_SHP
 	VALUES ("67fa0f73-c854-485f-8e00-54a648d0ac67");
 INSERT INTO GD_NCS
@@ -245,7 +245,7 @@ INSERT INTO GD_GE
 	"bd3cce1f-dd17-4718-9fbf-df18ed850ae0",
 	21,
 	0,
-	'DeleteTestModel::R_REL_Delete::REL_OBJ_OBJ OtherSide 2');
+	'org.xtuml.bp.core.test::DeleteTestModel::R_REL_Delete::REL_OBJ_OBJ OtherSide 2');
 INSERT INTO GD_SHP
 	VALUES ("fd2707ea-a91b-44f5-a5bf-0fd6b60e68b6");
 INSERT INTO GD_NCS
@@ -274,7 +274,7 @@ INSERT INTO GD_GE
 	"89cd7646-7d7e-4ad3-9a5b-1d3074353387",
 	21,
 	0,
-	'DeleteTestModel::R_REL_Delete::REL_OBJ_IOBJ 1');
+	'org.xtuml.bp.core.test::DeleteTestModel::R_REL_Delete::REL_OBJ_IOBJ 1');
 INSERT INTO GD_SHP
 	VALUES ("e5cb5b2b-6d22-447e-9c1a-95ecd9f34301");
 INSERT INTO GD_NCS
@@ -303,7 +303,7 @@ INSERT INTO GD_GE
 	"42c1ede4-bbfc-46d0-a4e7-900fa8ae27da",
 	21,
 	0,
-	'DeleteTestModel::R_REL_Delete::REL_OBJ_IOBJ 2');
+	'org.xtuml.bp.core.test::DeleteTestModel::R_REL_Delete::REL_OBJ_IOBJ 2');
 INSERT INTO GD_SHP
 	VALUES ("b6ea6c3d-744f-4065-bdcb-55640aa524a7");
 INSERT INTO GD_NCS
@@ -332,7 +332,7 @@ INSERT INTO GD_GE
 	"9567e939-1268-41ea-bbae-4a34b8b28a5e",
 	23,
 	0,
-	'DeleteTestModel::R_REL_Delete::REL_IOBJ_Reflex 1');
+	'org.xtuml.bp.core.test::DeleteTestModel::R_REL_Delete::REL_IOBJ_Reflex 1');
 INSERT INTO GD_SHP
 	VALUES ("d2f6351e-8306-46f1-a9e8-5db01f5f588a");
 INSERT INTO GD_NCS
@@ -366,7 +366,7 @@ INSERT INTO GD_GE
 	"b609bf6f-d234-47ec-819c-37cac9cdbf93",
 	23,
 	0,
-	'DeleteTestModel::R_REL_Delete::REL_IOBJ_IOBJ 1');
+	'org.xtuml.bp.core.test::DeleteTestModel::R_REL_Delete::REL_IOBJ_IOBJ 1');
 INSERT INTO GD_SHP
 	VALUES ("b5e2bf5d-8a75-4db2-8319-f8e44d77d7de");
 INSERT INTO GD_NCS
@@ -395,7 +395,7 @@ INSERT INTO GD_GE
 	"cf8a6e62-2cfe-4700-b501-ab82f19aa257",
 	23,
 	0,
-	'DeleteTestModel::R_REL_Delete::Test Import Class OtherSide');
+	'org.xtuml.bp.core.test::DeleteTestModel::R_REL_Delete::Test Import Class OtherSide');
 INSERT INTO GD_SHP
 	VALUES ("121f4a6f-f9da-4560-b4bb-99fffdbfe8e3");
 INSERT INTO GD_NCS
@@ -424,7 +424,7 @@ INSERT INTO GD_GE
 	"2d2a2c19-355e-4561-a587-8006a68a5dcb",
 	23,
 	0,
-	'DeleteTestModel::R_REL_Delete::REL_IOBJ_OBJ 1');
+	'org.xtuml.bp.core.test::DeleteTestModel::R_REL_Delete::REL_IOBJ_OBJ 1');
 INSERT INTO GD_SHP
 	VALUES ("fbf6b4e5-0924-463b-ae51-ec03d5e5d738");
 INSERT INTO GD_NCS
@@ -453,7 +453,7 @@ INSERT INTO GD_GE
 	"a742a899-709a-4e68-a6c3-880dcfd3cfa5",
 	23,
 	0,
-	'DeleteTestModel::R_REL_Delete::REL_IOBJ_OBJ 2');
+	'org.xtuml.bp.core.test::DeleteTestModel::R_REL_Delete::REL_IOBJ_OBJ 2');
 INSERT INTO GD_SHP
 	VALUES ("e5cf3b0d-b818-48cd-b1e7-6e833059bcc4");
 INSERT INTO GD_NCS
@@ -482,7 +482,7 @@ INSERT INTO GD_GE
 	"20932446-d6ee-4a53-905e-9c691cea520f",
 	23,
 	0,
-	'DeleteTestModel::R_REL_Delete::Test Class Formalized 1');
+	'org.xtuml.bp.core.test::DeleteTestModel::R_REL_Delete::Test Class Formalized 1');
 INSERT INTO GD_SHP
 	VALUES ("6761348d-669f-4104-9b13-a74a33bacbde");
 INSERT INTO GD_NCS
@@ -511,7 +511,7 @@ INSERT INTO GD_GE
 	"b717e9fa-b011-4703-8ca2-068c74d274f5",
 	23,
 	0,
-	'DeleteTestModel::R_REL_Delete::Test Import Class OtherSide');
+	'org.xtuml.bp.core.test::DeleteTestModel::R_REL_Delete::Test Import Class OtherSide');
 INSERT INTO GD_SHP
 	VALUES ("21850e00-acb9-4646-8900-4f1efe96bfba");
 INSERT INTO GD_NCS
@@ -540,7 +540,7 @@ INSERT INTO GD_GE
 	"8572ff43-792b-421d-a4c1-97b11d4c6cc7",
 	24,
 	0,
-	'DeleteTestModel::R_REL_Delete::R212');
+	'org.xtuml.bp.core.test::DeleteTestModel::R_REL_Delete::R212');
 INSERT INTO GD_CON
 	VALUES ("029bf89c-3225-40c4-bef2-86a264d35618",
 	"00000000-0000-0000-0000-000000000000");
@@ -640,7 +640,7 @@ INSERT INTO GD_GE
 	"449291d2-80ea-495d-8859-9a4b40b30b72",
 	24,
 	0,
-	'DeleteTestModel::R_REL_Delete::R213');
+	'org.xtuml.bp.core.test::DeleteTestModel::R_REL_Delete::R213');
 INSERT INTO GD_CON
 	VALUES ("c3ad1c39-8000-475d-bf0e-8494327b23d4",
 	"00000000-0000-0000-0000-000000000000");
@@ -740,7 +740,7 @@ INSERT INTO GD_GE
 	"c27a0329-17fc-4bb6-9566-7d1512c2cab6",
 	24,
 	0,
-	'DeleteTestModel::R_REL_Delete::R224');
+	'org.xtuml.bp.core.test::DeleteTestModel::R_REL_Delete::R224');
 INSERT INTO GD_CON
 	VALUES ("35c39b3a-d12a-4c38-ae9d-79f783f1941f",
 	"00000000-0000-0000-0000-000000000000");
@@ -866,7 +866,7 @@ INSERT INTO GD_GE
 	"ac777284-14d8-4a95-ab7c-c0664a13b802",
 	24,
 	0,
-	'DeleteTestModel::R_REL_Delete::R227');
+	'org.xtuml.bp.core.test::DeleteTestModel::R_REL_Delete::R227');
 INSERT INTO GD_CON
 	VALUES ("d79f6f34-e3cc-467d-9311-5a57e86168a6",
 	"00000000-0000-0000-0000-000000000000");
@@ -966,7 +966,7 @@ INSERT INTO GD_GE
 	"07a730ef-5a54-45df-818e-f4d68eb5ff73",
 	24,
 	0,
-	'DeleteTestModel::R_REL_Delete::R228');
+	'org.xtuml.bp.core.test::DeleteTestModel::R_REL_Delete::R228');
 INSERT INTO GD_CON
 	VALUES ("59c6664b-662a-41bc-8f22-6684ded62487",
 	"00000000-0000-0000-0000-000000000000");
@@ -1066,7 +1066,7 @@ INSERT INTO GD_GE
 	"67fc069b-41db-4dc2-b333-c46245dc8f97",
 	24,
 	0,
-	'DeleteTestModel::R_REL_Delete::R233');
+	'org.xtuml.bp.core.test::DeleteTestModel::R_REL_Delete::R233');
 INSERT INTO GD_CON
 	VALUES ("6058ee98-1fe4-4670-ac36-03cf2aa4fdb4",
 	"00000000-0000-0000-0000-000000000000");
@@ -1166,7 +1166,7 @@ INSERT INTO GD_GE
 	"5dcbd6cd-6137-4592-8ec8-c4fa4fc4edb0",
 	24,
 	0,
-	'DeleteTestModel::R_REL_Delete::R234');
+	'org.xtuml.bp.core.test::DeleteTestModel::R_REL_Delete::R234');
 INSERT INTO GD_CON
 	VALUES ("7d6cf5cb-dd9f-40c4-9d8f-8e16a9116d79",
 	"00000000-0000-0000-0000-000000000000");
@@ -1266,7 +1266,7 @@ INSERT INTO GD_GE
 	"9a840c2a-12fc-4fe7-94b7-8db8fc36251a",
 	24,
 	0,
-	'DeleteTestModel::R_REL_Delete::R239');
+	'org.xtuml.bp.core.test::DeleteTestModel::R_REL_Delete::R239');
 INSERT INTO GD_CON
 	VALUES ("dc3fabda-a128-467a-b855-0e2ce6803f3d",
 	"00000000-0000-0000-0000-000000000000");
@@ -1392,7 +1392,7 @@ INSERT INTO GD_GE
 	"ada600af-7661-4ced-9ecf-be4dc50290e1",
 	24,
 	0,
-	'DeleteTestModel::R_REL_Delete::R209');
+	'org.xtuml.bp.core.test::DeleteTestModel::R_REL_Delete::R209');
 INSERT INTO GD_CON
 	VALUES ("3b3ea1f8-d119-4453-8a68-e8cb746c2bed",
 	"00000000-0000-0000-0000-000000000000");
@@ -1531,7 +1531,7 @@ INSERT INTO GD_GE
 	"e5355dfe-280d-40c8-9f54-059734492471",
 	24,
 	0,
-	'DeleteTestModel::R_REL_Delete::R210');
+	'org.xtuml.bp.core.test::DeleteTestModel::R_REL_Delete::R210');
 INSERT INTO GD_CON
 	VALUES ("b6b90651-94e2-43fc-92a0-fd1b72f62dfe",
 	"00000000-0000-0000-0000-000000000000");

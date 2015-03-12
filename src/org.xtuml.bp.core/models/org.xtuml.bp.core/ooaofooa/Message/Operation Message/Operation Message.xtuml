@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("63f2a2e3-abc5-43ae-971e-a7f2a37044dc",
@@ -7,13 +7,13 @@ INSERT INTO O_OBJ
 	'MSG_O',
 	'This class manages the formality between a message and its formal couterpart
 model element.',
-	"5b26fa8b-77b9-4af0-807d-28be1c9e1735");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("fedf7f14-8531-420f-943b-7547c52d6380",
 	"63f2a2e3-abc5-43ae-971e-a7f2a37044dc",
 	'dispose',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select one op related by self->O_TFR[R1011];
 if(not_empty op)
@@ -37,32 +37,18 @@ delete object instance self;',
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO S_DT_PROXY
-	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'void',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("7497ff23-daa6-4cbf-9e59-af669c7d23f5",
 	"63f2a2e3-abc5-43ae-971e-a7f2a37044dc",
 	'get_name',
 	'',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'select one operation related by self->O_TFR[R1011];
 return operation.Name;',
 	1,
 	'',
 	"fedf7f14-8531-420f-943b-7547c52d6380");
-INSERT INTO S_DT_PROXY
-	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'string',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("63f2a2e3-abc5-43ae-971e-a7f2a37044dc",
 	"32854b2d-b225-40d9-abb2-4519ff4e4af7",
@@ -78,7 +64,7 @@ INSERT INTO O_REF
 	'',
 	'Operation',
 	'Tfr_ID',
-	'R1011');
+	'R1011.''is invocation of''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("63f2a2e3-abc5-43ae-971e-a7f2a37044dc",
 	"6ecc80cd-cfe0-42be-99a0-3271c1fdbc28",
@@ -111,16 +97,9 @@ INSERT INTO O_ATTR
 	'',
 	'Tfr_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("63f2a2e3-abc5-43ae-971e-a7f2a37044dc",
 	"422f8e95-ef3d-4d53-a819-1116c0b1eaad",
@@ -169,7 +148,7 @@ INSERT INTO O_ATTR
 	'',
 	'Msg_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_ID
@@ -186,13 +165,18 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"63f2a2e3-abc5-43ae-971e-a7f2a37044dc");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("63f2a2e3-abc5-43ae-971e-a7f2a37044dc",
+	1,
+	"5b26fa8b-77b9-4af0-807d-28be1c9e1735",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("5b26fa8b-77b9-4af0-807d-28be1c9e1735",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Message',
 	'// This is used by schema_gen to ignore this subsystem (for publication)
 TRANSLATE_FOR_EXTERNAL_USE:FALSE',
-	'MSG',
 	1000,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000000000",
 	'../Message.xtuml');
