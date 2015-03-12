@@ -30,14 +30,23 @@ export BUILD_ROOT="${BUILD_MOUNT}/work"
 export GIT_REPO_ROOT="${BUILD_MOUNT}/git/xtuml"
 export GIT_BP="${GIT_REPO_ROOT}/bridgepoint"
 export BUILD_TOOLS="${BUILD_MOUNT}/utilities/bp_build_tools"
-export PT_HOME="${BUILD_TOOLS}/bridgepoint"
-export PT_HOME_DRIVE=
-export XTUMLGEN_HOME="${BUILD_TOOLS}/bridgepoint"
+# export PT_HOME="${BUILD_TOOLS}/bridgepoint"
+# export PT_HOME_DRIVE=
+# export XTUMLGEN_HOME="${BUILD_TOOLS}/bridgepoint"
 # if no arguments are present default to master
 export BRANCH="master"
 if [ $# -eq 1 ]; then
   export BRANCH="$1"
 fi
+
+# echo out variables
+echo "BUILD_MOUNT=${BUILD_MOUNT}
+echo "BUILD_ROOT=${BUILD_ROOT}
+echo "BRANCH=${BRANCH}
+echo "GIT_REPO_ROOT=${GIT_REPO_ROOT}
+echo "PT_HOME=${PT_HOME}
+echo "PT_HOME_DRIVE=${PT_HOME_DRIVE}
+echo "XTUMLGEN_HOME=${XTUMLGEN_HOME}
 
 # this flag is constant and could potentially be removed, but it is 
 # being left in case we do want to have the build be different then other 
@@ -115,7 +124,7 @@ cd  "${BUILD_DIR}"
 # Do the dos2unix conversion using translate.
 tr -d '\r' < "${BUILD_ROOT}/init_git_repositories.sh" > "${BUILD_ROOT}/init_git_repositories.tmp"
 mv "${BUILD_ROOT}/init_git_repositories.tmp" "${BUILD_ROOT}/init_git_repositories.sh"
-bash "${BUILD_ROOT}/init_git_repositories.sh" >> ${BUILD_LOG}
+# bash "${BUILD_ROOT}/init_git_repositories.sh" >> ${BUILD_LOG}
 
 echo -e "Setting permissions on tool directories..."
 chmod -R a+rw ${BUILD_TOOLS} 

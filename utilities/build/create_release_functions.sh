@@ -16,7 +16,7 @@
 #
 echo -e "Entering create_release_functions.sh"
 ant_cmd="ant"
-ant_opts="-Declipse-home=${ECLIPSE_HOME}"
+ant_opts="-Declipse-home=${GIT_BP}"
 cli_cmd="${ECLIPSE_HOME}/CLI.sh"
 cli_opts="-nl en_US -consoleLog -pluginCustomization ${BUILD_DIR}/org.xtuml.bp.pkg/plugin_customization.ini -prebuildOnly"
 antlr_tool="pt_antlr"
@@ -156,7 +156,7 @@ function build_modules {
             failure_count=`grep -c -i -w "FAILURE" ${build_log_dir}/${module}_build.log`
 
             if [ ${error_count} -gt 0 ] || [ ${failed_count} -gt 0 ] || [ ${failure_count} -gt 0 ]; then
-                build_log_path=`cygpath -m ${build_log_dir}/${module}_build.log`
+                build_log_path="${build_log_dir}/${module}_build.log"
                 echo -e "Errors or failures found during the build of $module.  Check ${build_log_path}.\n" >> ${error_file}
             fi
         fi
@@ -213,7 +213,7 @@ function compile_modules {
 
             if [ ${error_count} -gt 0 ] || [ ${failed_count} -gt 0 ] || [ ${failure_count} -gt 0 ]; then
             	compile_result = "1"
-                compile_log_path=`cygpath -m ${compile_log_dir}/${module}_compile.log`
+                compile_log_path="${compile_log_dir}/${module}_compile.log"
                 echo -e "Errors or failures found during the compilation of ${module}. Check ${compile_log_path}.\n" >> ${error_file}
             fi
         fi

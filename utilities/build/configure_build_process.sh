@@ -24,16 +24,6 @@ function configure_build_files {
   	cd ${git_workspace_setup}/BridgePointDev-Linux
 	cp -fr * ${PT_HOME}
 
-   cd ${PT_HOME}
-   chmod a+x ./mc3020/bin/xtumlmc_build.exe
-   chmod a+x ./bin/xtumlmc_gen_erate
-   
-    #
-    # required things from dropins
-    #
-    cd ${git_workspace_setup}/dropins
-    cp -fr * ${ECLIPSE_HOME}/dropins
-    
 	echo -e "Exiting configure_build_process.sh::configure_build_files"
 }
 
@@ -45,7 +35,7 @@ function configure_installer_files {
     mkdir -p "${bp_deliverables}/EclipseDeliverables"
     cp -f Launcher.bat ${bp_deliverables}/extras/Launcher.bat 2>>${ERROR_FILE}
     cp -f CLI.bat ${bp_deliverables}/extras/CLI.bat 2>>${ERROR_FILE}
-    cp -f build_installer_bp.sh ${BUILD_DIR}/build_installer_bp.sh 2>>${ERROR_FILE}
+    tr -d '\r' < build_installer_bp.sh > ${BUILD_DIR}/build_installer_bp.sh 2>>${ERROR_FILE}
     cp -f create_shortcut.vbs ${bp_deliverables}/tools/create_shortcut.vbs 2>>${ERROR_FILE}
     cp -f post_install_script.bat ${extra_deliverables}/post_install_script.bat 2>>${ERROR_FILE}
     cp -f pre_uninstall_script.bat ${extra_deliverables}/pre_uninstall_script.bat 2>>${ERROR_FILE}
@@ -58,22 +48,15 @@ function configure_installer_files {
     unix2dos ${extra_deliverables}/post_install_script.bat
     unix2dos ${extra_deliverables}/pre_uninstall_script.bat
     
+    # Copy files and do the dos2unix translation.
     mkdir -p "${bp_deliverables_linux}/extras"
-    cp -f Launcher.sh ${bp_deliverables_linux}/extras/Launcher.sh 2>>${ERROR_FILE}
-    cp -f CLI.sh ${bp_deliverables_linux}/extras/CLI.sh 2>>${ERROR_FILE}
-    cp -f build_installer_bp_linux.sh ${BUILD_DIR}/build_installer_bp_linux.sh 2>>${ERROR_FILE}
-    cp -f post_install_script.sh ${extra_deliverables_linux}/post_install_script.sh 2>>${ERROR_FILE}
-    cp -f pre_uninstall_script.sh ${extra_deliverables_linux}/pre_uninstall_script.sh 2>>${ERROR_FILE}    
+    tr -d '\r' < Launcher.sh > ${bp_deliverables_linux}/extras/Launcher.sh 2>>${ERROR_FILE}
+    tr -d '\r' < CLI.sh > ${bp_deliverables_linux}/extras/CLI.sh 2>>${ERROR_FILE}
+    tr -d '\r' < build_installer_bp_linux.sh > ${BUILD_DIR}/build_installer_bp_linux.sh 2>>${ERROR_FILE}
+    tr -d '\r' < post_install_script.sh > ${extra_deliverables_linux}/post_install_script.sh 2>>${ERROR_FILE}
+    tr -d '\r' < pre_uninstall_script.sh > ${extra_deliverables_linux}/pre_uninstall_script.sh 2>>${ERROR_FILE}    
     cp -f splash.bmp ${bp_deliverables_linux}/splash.bmp 2>>${ERROR_FILE}
     cp -f bp.ico ${bp_deliverables_linux}/bp.ico 2>>${ERROR_FILE}
-
-    dos2unix ${bp_deliverables_linux}/extras/Launcher.sh
-    dos2unix ${bp_deliverables_linux}/extras/CLI.sh
-    dos2unix ${extra_deliverables_linux}/post_install_script.sh
-    dos2unix ${extra_deliverables_linux}/pre_uninstall_script.sh    
-
-    dos2unix ${BUILD_DIR}/build_installer_bp_linux.sh
-    dos2unix ${BUILD_DIR}/build_installer_bp.sh
 
     # copy the entire packing repository to the staging area for the installer to work with
     cd ${GIT_REPO_ROOT}
