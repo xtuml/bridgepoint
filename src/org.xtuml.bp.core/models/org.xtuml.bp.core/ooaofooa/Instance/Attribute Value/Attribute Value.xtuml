@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("8bfaa268-bfec-4150-9e25-2dd9f6f3c9a5",
@@ -6,13 +6,13 @@ INSERT INTO O_OBJ
 	2903,
 	'I_AVL',
 	'',
-	"97c1ace4-0148-4235-83cb-1fd8e2d2514d");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("5e951303-aab6-4795-8cda-ed671ac330b5",
 	"8bfaa268-bfec-4150-9e25-2dd9f6f3c9a5",
 	'setBoolean',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select one rtVal related by self->RV_RVL[R3304];
 if not_empty rtVal
@@ -27,31 +27,17 @@ INSERT INTO O_TPARM
 	VALUES ("0dc9470a-533e-4d9e-a300-d96c33cc1de6",
 	"5e951303-aab6-4795-8cda-ed671ac330b5",
 	'value',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("8e519c45-7dcf-400b-9d4e-954869dbb7e8",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'boolean',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
-INSERT INTO S_DT_PROXY
-	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'void',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("65e673ed-dbde-4f79-9259-6b6f5caf5b7a",
 	"8bfaa268-bfec-4150-9e25-2dd9f6f3c9a5",
 	'setInteger',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select one rtVal related by self->RV_RVL[R3304];
 if not_empty rtVal
@@ -66,24 +52,17 @@ INSERT INTO O_TPARM
 	VALUES ("cd9ea182-ee1f-4400-903b-9d03782d7e89",
 	"65e673ed-dbde-4f79-9259-6b6f5caf5b7a",
 	'value',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'integer',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("df338680-ec87-47bc-9619-0a812f88df53",
 	"8bfaa268-bfec-4150-9e25-2dd9f6f3c9a5",
 	'setString',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select one rtVal related by self->RV_RVL[R3304];
 if not_empty rtVal
@@ -98,24 +77,17 @@ INSERT INTO O_TPARM
 	VALUES ("d0a73b3c-8df5-4f88-8e2c-a67c2ed93094",
 	"df338680-ec87-47bc-9619-0a812f88df53",
 	'value',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'string',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("e56eb16e-2bf0-4fa3-adf2-57bed2256a70",
 	"8bfaa268-bfec-4150-9e25-2dd9f6f3c9a5",
 	'setReal',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select one rtVal related by self->RV_RVL[R3304];
 if not_empty rtVal
@@ -130,24 +102,17 @@ INSERT INTO O_TPARM
 	VALUES ("1af19291-8430-45f9-b85b-cd0f9c9ff789",
 	"e56eb16e-2bf0-4fa3-adf2-57bed2256a70",
 	'value',
-	"f07598c3-1cca-4c8c-8603-381ab44c6d81",
+	"ba5eda7a-def5-0000-0000-000000000003",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("f07598c3-1cca-4c8c-8603-381ab44c6d81",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'real',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("839ac3c4-c819-412f-ab18-fd1f6f440de2",
 	"8bfaa268-bfec-4150-9e25-2dd9f6f3c9a5",
 	'dispose',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// Instance:Attribute Value.dispose()
 
@@ -183,7 +148,7 @@ INSERT INTO O_TFR
 	"8bfaa268-bfec-4150-9e25-2dd9f6f3c9a5",
 	'setUnique_ID',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select one rtVal related by self->RV_RVL[R3304];
 if not_empty rtVal
@@ -198,18 +163,11 @@ INSERT INTO O_TPARM
 	VALUES ("b972c245-6307-4c1b-9fb8-c2623ea5c117",
 	"6dc052d1-6d4a-4eed-a30d-b9da516dde7e",
 	'value',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'unique_id',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("dad9f2ed-20f7-4675-aa63-703fb55d88bc",
 	"8bfaa268-bfec-4150-9e25-2dd9f6f3c9a5",
@@ -239,7 +197,7 @@ end if;',
 	"8286e32f-84b7-4c4e-8eda-a261a8264b9e");
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
 	'instance',
 	'',
 	'',
@@ -249,7 +207,7 @@ INSERT INTO O_TFR
 	"8bfaa268-bfec-4150-9e25-2dd9f6f3c9a5",
 	'getRuntimeValue',
 	'',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'// Attribute Value.getRuntimeValue
 select one ref_attr related by self->O_ATTR[R2910]->O_RATTR[R106];
@@ -352,7 +310,7 @@ INSERT INTO O_ATTR
 	'',
 	'Value',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_REF
@@ -370,7 +328,7 @@ INSERT INTO O_REF
 	'',
 	'Instance',
 	'Inst_ID',
-	'R2909');
+	'R2909.''defines value for characteristic of''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("8bfaa268-bfec-4150-9e25-2dd9f6f3c9a5",
 	"9b2ba9aa-6ed9-4109-aa35-3696e1be9d33",
@@ -403,16 +361,9 @@ INSERT INTO O_ATTR
 	'',
 	'Inst_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("8bfaa268-bfec-4150-9e25-2dd9f6f3c9a5",
 	"d931d595-21f3-4ce8-bad1-6661a0e261b8",
@@ -428,7 +379,7 @@ INSERT INTO O_REF
 	'',
 	'Attribute',
 	'Attr_ID',
-	'R2910');
+	'R2910.''is instance of''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("8bfaa268-bfec-4150-9e25-2dd9f6f3c9a5",
 	"051140e5-ff8f-4b56-b8d6-80eb59a7b4f6",
@@ -461,7 +412,7 @@ INSERT INTO O_ATTR
 	'',
 	'Attr_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_DBATTR
@@ -523,7 +474,7 @@ INSERT INTO O_ATTR
 	'',
 	'Label',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_REF
@@ -574,7 +525,7 @@ INSERT INTO O_ATTR
 	'',
 	'RuntimeValue_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -592,7 +543,7 @@ INSERT INTO O_REF
 	'',
 	'Attribute',
 	'Obj_ID',
-	'R2910');
+	'R2910.''is instance of''');
 INSERT INTO O_RTIDA_PROXY
 	VALUES ("6b246834-4863-4867-827c-9484e9cedcbf",
 	"d931d595-21f3-4ce8-bad1-6661a0e261b8",
@@ -620,7 +571,7 @@ INSERT INTO O_ATTR
 	'',
 	'Obj_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -638,7 +589,7 @@ INSERT INTO O_REF
 	'',
 	'Runtime Value',
 	'RuntimeValue_ID',
-	'R3312');
+	'R3312.''has derived''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("8bfaa268-bfec-4150-9e25-2dd9f6f3c9a5",
 	"fb0e8f69-7131-40c2-943b-7dc8c1c81438",
@@ -667,7 +618,7 @@ INSERT INTO O_ATTR
 	'Derived_',
 	'RuntimeValue_ID',
 	1,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_ID
@@ -689,15 +640,20 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"8bfaa268-bfec-4150-9e25-2dd9f6f3c9a5");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("8bfaa268-bfec-4150-9e25-2dd9f6f3c9a5",
+	1,
+	"97c1ace4-0148-4235-83cb-1fd8e2d2514d",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("97c1ace4-0148-4235-83cb-1fd8e2d2514d",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Instance',
 	'// This is used by schema_gen to ignore this subsystem (for publication)
 TRANSLATE_FOR_EXTERNAL_USE:FALSE
 Persistent:false
 Import: java.util.concurrent.locks.ReentrantLock',
-	'I',
 	900,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000000000",
 	'../Instance.xtuml');

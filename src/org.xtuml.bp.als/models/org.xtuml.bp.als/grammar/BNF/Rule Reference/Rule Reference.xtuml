@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("6049f0e6-0b7c-4903-a456-e5b0629a5bd5",
@@ -6,7 +6,7 @@ INSERT INTO O_OBJ
 	7,
 	'RR',
 	'This represents the use of a rule in another rule.',
-	"5edea08f-a6e1-4146-8e1c-0cade7a477c7");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_REF
 	VALUES ("6049f0e6-0b7c-4903-a456-e5b0629a5bd5",
 	"d9a46cab-aa5b-44e6-aecf-7d894780ea88",
@@ -55,16 +55,9 @@ INSERT INTO O_ATTR
 	'',
 	'nodeId',
 	0,
-	"73db19ab-e535-4718-ab07-668918299d9a",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("73db19ab-e535-4718-ab07-668918299d9a",
-	"c7485938-5b68-46c4-bc59-f0bb9c943851",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("6049f0e6-0b7c-4903-a456-e5b0629a5bd5",
 	"50596432-249d-4b43-b1db-deea1f96bd06",
@@ -80,7 +73,7 @@ INSERT INTO O_REF
 	'',
 	'Rule',
 	'rule_name',
-	'R4');
+	'R4.''references''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("6049f0e6-0b7c-4903-a456-e5b0629a5bd5",
 	"2aeef1c7-91cc-4b47-892f-12a00546c8ff",
@@ -113,7 +106,7 @@ INSERT INTO O_ATTR
 	'',
 	'rule_name',
 	0,
-	"73db19ab-e535-4718-ab07-668918299d9a",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -132,16 +125,9 @@ INSERT INTO O_ATTR
 	'',
 	'param_val',
 	0,
-	"8bc628ed-3494-4e74-bb6a-ec37622127df",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("8bc628ed-3494-4e74-bb6a-ec37622127df",
-	"c7485938-5b68-46c4-bc59-f0bb9c943851",
-	'string',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("d2a692a8-7356-4387-adaa-1e91df64ee9b",
 	"6049f0e6-0b7c-4903-a456-e5b0629a5bd5");
@@ -159,7 +145,7 @@ evaluation is saved in.  It is initialized at generation time.
 	'',
 	'var_name',
 	0,
-	"8bc628ed-3494-4e74-bb6a-ec37622127df",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_ID
@@ -176,12 +162,17 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"6049f0e6-0b7c-4903-a456-e5b0629a5bd5");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("6049f0e6-0b7c-4903-a456-e5b0629a5bd5",
+	1,
+	"5edea08f-a6e1-4146-8e1c-0cade7a477c7",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("5edea08f-a6e1-4146-8e1c-0cade7a477c7",
+	"00000000-0000-0000-0000-000000000000",
+	"c76dedc6-4b25-435f-9310-4f344030485a",
 	'BNF',
 	'',
-	'',
 	1,
-	"c7485938-5b68-46c4-bc59-f0bb9c943851",
-	"00000000-0000-0000-0000-000000100002",
 	'../BNF.xtuml');

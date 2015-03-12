@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("19d5fca6-fede-484c-aa15-bca4a679ac35",
@@ -9,13 +9,13 @@ INSERT INTO O_OBJ
 
 This local will exist within the block in stack frame of the executing block, and the selected reference call will be able to determine 
 what instance to use when evaluating the where selected.<attribute> clause.',
-	"9c0607c7-7a31-4f1a-885e-70c85a2396e0");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("daf13151-0908-4ea3-ad32-af2e643a0662",
 	"19d5fca6-fede-484c-aa15-bca4a679ac35",
 	'dispose',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// Local: Local Selected Reference.dispose()
 
@@ -37,13 +37,6 @@ delete object instance self;',
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO S_DT_PROXY
-	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'void',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("19d5fca6-fede-484c-aa15-bca4a679ac35",
 	"0bb8d6b3-6fa2-4341-9505-3bca8a909233",
@@ -92,16 +85,9 @@ INSERT INTO O_ATTR
 	'',
 	'Local_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_ID
 	VALUES (0,
 	"19d5fca6-fede-484c-aa15-bca4a679ac35");
@@ -116,13 +102,18 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"19d5fca6-fede-484c-aa15-bca4a679ac35");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("19d5fca6-fede-484c-aa15-bca4a679ac35",
+	1,
+	"9c0607c7-7a31-4f1a-885e-70c85a2396e0",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("9c0607c7-7a31-4f1a-885e-70c85a2396e0",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Local',
 	'Persistent:false
 ',
-	'L',
 	0,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000000000",
 	'../Local.xtuml');

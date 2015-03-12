@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("e696b3ee-749c-4b93-b7b7-30bf612ed55a",
@@ -6,7 +6,7 @@ INSERT INTO O_OBJ
 	1402,
 	'EP_PIP',
 	'',
-	"5f91aa5d-e683-4f22-940b-575b4f24b2d1");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_REF
 	VALUES ("e696b3ee-749c-4b93-b7b7-30bf612ed55a",
 	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
@@ -22,7 +22,7 @@ INSERT INTO O_REF
 	'',
 	'Package',
 	'Package_ID',
-	'R1403');
+	'R1403.''contained within''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("e696b3ee-749c-4b93-b7b7-30bf612ed55a",
 	"aca08cd4-a363-49cc-9030-5e86f51e9159",
@@ -55,16 +55,9 @@ INSERT INTO O_ATTR
 	'Parent_',
 	'Package_ID',
 	1,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("e696b3ee-749c-4b93-b7b7-30bf612ed55a",
 	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
@@ -80,7 +73,7 @@ INSERT INTO O_REF
 	'',
 	'Package',
 	'Package_ID',
-	'R1404');
+	'R1404.''links to parent of''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("e696b3ee-749c-4b93-b7b7-30bf612ed55a",
 	"fb3eeb2c-5b04-44c1-a0ed-257d5dc981c3",
@@ -109,7 +102,7 @@ INSERT INTO O_ATTR
 	'Child_',
 	'Package_ID',
 	1,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_ID
@@ -131,12 +124,17 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"e696b3ee-749c-4b93-b7b7-30bf612ed55a");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("e696b3ee-749c-4b93-b7b7-30bf612ed55a",
+	1,
+	"5f91aa5d-e683-4f22-940b-575b4f24b2d1",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("5f91aa5d-e683-4f22-940b-575b4f24b2d1",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Element Packaging',
 	'',
-	'EP',
 	1400,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000000000",
 	'../Element Packaging.xtuml');

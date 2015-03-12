@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("be1b57d8-161e-4f96-924a-f25b2576174b",
@@ -9,13 +9,13 @@ INSERT INTO O_OBJ
 
 ---------------------------------------------------------------------------
 Persistent:false',
-	"afc7af9b-6e70-4780-9ad0-b9f3ec7560c9");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("b793797d-9510-4615-b0c6-d213cc8874af",
 	"be1b57d8-161e-4f96-924a-f25b2576174b",
 	'dispose',
 	'',
-	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select one mtl related by self->CT_MTL[R102];
 if ( not_empty mtl )
@@ -25,13 +25,6 @@ delete object instance self;',
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO S_DT_PROXY
-	VALUES ("3852f90c-88c5-467d-9b26-57c8cd438b42",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	'void',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("be1b57d8-161e-4f96-924a-f25b2576174b",
 	"43aa371a-c94c-48a9-acb6-21b733e4a55e",
@@ -80,16 +73,9 @@ INSERT INTO O_ATTR
 	'',
 	'Tool_ID',
 	0,
-	"66164f00-293e-4c17-ab30-7972c7c57152",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("66164f00-293e-4c17-ab30-7972c7c57152",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("b62a1de9-c77a-4051-8a9c-4a25cb548bf5",
 	"be1b57d8-161e-4f96-924a-f25b2576174b");
@@ -105,16 +91,9 @@ INSERT INTO O_ATTR
 	'',
 	'current_state',
 	0,
-	"aae0ffdc-3a05-4c94-9878-331bc82097dd",
+	"ba5eda7a-def5-0000-0000-000000000006",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("aae0ffdc-3a05-4c94-9878-331bc82097dd",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	'state<State_Model>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_ID
 	VALUES (0,
 	"be1b57d8-161e-4f96-924a-f25b2576174b");
@@ -129,15 +108,20 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"be1b57d8-161e-4f96-924a-f25b2576174b");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("be1b57d8-161e-4f96-924a-f25b2576174b",
+	1,
+	"afc7af9b-6e70-4780-9ad0-b9f3ec7560c9",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("afc7af9b-6e70-4780-9ad0-b9f3ec7560c9",
+	"00000000-0000-0000-0000-000000000000",
+	"8f801c9a-cf2d-4ef4-b11a-51b8697e3ca8",
 	'Canvas Tools',
 	'// This is used by schema_gen to ignore this subsystem (for publication)
   TRANSLATE_FOR_EXTERNAL_USE:FALSE
   Notify_Changes:false
 ',
-	'CT',
 	100,
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	"00000000-0000-0000-0000-000001a00034",
 	'../Canvas Tools.xtuml');

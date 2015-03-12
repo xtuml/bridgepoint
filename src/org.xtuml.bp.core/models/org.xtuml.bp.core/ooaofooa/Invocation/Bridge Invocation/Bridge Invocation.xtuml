@@ -6,14 +6,14 @@ INSERT INTO O_OBJ
 	620,
 	'ACT_BRG',
 	'This class represents the invocation of an External Entity Bridge.',
-	"b1a6258a-4548-4a81-bc3c-a6bab0f22f55");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("730927e7-9e9c-450f-84f7-821fb603831c",
 	"5c555031-8a96-48b8-b278-74709d129fa3",
 	'dispose',
 	'This operation disconnects an instance, and all instances it is 
 responsible for, from the model.',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select one brg related by self->S_BRG[R674];
 if ( not empty brg )
@@ -31,19 +31,12 @@ delete object instance self;
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO S_DT_PROXY
-	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'void',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("d124d99d-eaca-4c48-92c7-64fee4aad3e3",
 	"5c555031-8a96-48b8-b278-74709d129fa3",
 	'execute',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
 // Invocation:Bridge Invocation.execute()
@@ -254,24 +247,17 @@ INSERT INTO O_TPARM
 	VALUES ("163b0786-09af-48f0-85e7-9019e74e4400",
 	"d124d99d-eaca-4c48-92c7-64fee4aad3e3",
 	'stack_frame_id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'unique_id',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("c2d83609-25e3-420a-b296-1a7ea27950f3",
 	"5c555031-8a96-48b8-b278-74709d129fa3",
 	'setupParameterValues',
 	'Initializes the parameters passing to a bridge invocation.',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'// Invocation:Bridge Invocation.setupParameterValues
 select one body related by self ->ACT_SMT[R603]->ACT_BLK[R602]->ACT_ACT[R601];   
@@ -385,7 +371,7 @@ INSERT INTO O_TPARM
 	VALUES ("ddd8bde2-7d87-41bb-9048-713ada684c79",
 	"c2d83609-25e3-420a-b296-1a7ea27950f3",
 	'stack_frame_id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -394,18 +380,11 @@ INSERT INTO O_TPARM
 	VALUES ("e2eebfe7-7130-41c6-bab7-6507c9e7dbfc",
 	"c2d83609-25e3-420a-b296-1a7ea27950f3",
 	'target_stack_frame_id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"ddd8bde2-7d87-41bb-9048-713ada684c79",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("8e519c45-7dcf-400b-9d4e-954869dbb7e8",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'boolean',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("5c555031-8a96-48b8-b278-74709d129fa3",
 	"e9011b75-e798-45a3-ac83-92ba7c04db4e",
@@ -456,16 +435,9 @@ INSERT INTO O_ATTR
 	'',
 	'Statement_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("5c555031-8a96-48b8-b278-74709d129fa3",
 	"47a1eb94-2620-4ecd-85d3-29f76391509f",
@@ -516,7 +488,7 @@ INSERT INTO O_ATTR
 	'',
 	'Brg_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -534,16 +506,9 @@ INSERT INTO O_ATTR
 	'',
 	'bridgeNameLineNumber',
 	0,
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'integer',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("56ae30f9-e1e2-4a4d-a246-8dc11d89319c",
 	"5c555031-8a96-48b8-b278-74709d129fa3");
@@ -559,7 +524,7 @@ INSERT INTO O_ATTR
 	'',
 	'bridgeNameColumn',
 	0,
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -577,7 +542,7 @@ INSERT INTO O_ATTR
 	'',
 	'externalEntityKeyLettersLineNumber',
 	0,
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -595,7 +560,7 @@ INSERT INTO O_ATTR
 	'',
 	'externalEntityKeyLettersColumn',
 	0,
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
 INSERT INTO O_ID
@@ -612,8 +577,16 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"5c555031-8a96-48b8-b278-74709d129fa3");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("5c555031-8a96-48b8-b278-74709d129fa3",
+	1,
+	"b1a6258a-4548-4a81-bc3c-a6bab0f22f55",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("b1a6258a-4548-4a81-bc3c-a6bab0f22f55",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Invocation',
 	'This subsystem captures the concepts of call and return. It covers
 calls to operations, bridges and functions and includes the return
@@ -623,8 +596,5 @@ Persistent:false
 // This is used by schema_gen to ignore this subsystem (for publication)
 TRANSLATE_FOR_EXTERNAL_USE:FALSE
 ',
-	'ACT',
 	600,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-00000060000c",
 	'../Invocation.xtuml');

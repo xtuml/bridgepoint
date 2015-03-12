@@ -1,4 +1,4 @@
--- BP 7.1 content: InstanceStateMachine syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: InstanceStateMachine syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO SM_ISM
 	VALUES ("776a3600-ee45-44b0-b2d0-c26186d01fd8",
@@ -20,39 +20,25 @@ INSERT INTO SM_EVTDI
 	"776a3600-ee45-44b0-b2d0-c26186d01fd8",
 	'Retain_Selection',
 	'',
-	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	'',
 	"8eabfe41-043c-4400-89f2-a7e1ad29c825",
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO S_DT_PROXY
-	VALUES ("6e4aa280-2e22-4146-9b4a-6c2573c456d8",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	'boolean',
-	'',
-	'',
-	'../../../Datatypes/Datatypes.xtuml');
 INSERT INTO SM_EVTDI
 	VALUES ("048d9b3e-ffae-4cd9-8609-b90737cde821",
 	"776a3600-ee45-44b0-b2d0-c26186d01fd8",
 	'X',
 	'',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	"8eabfe41-043c-4400-89f2-a7e1ad29c825",
 	"99dd2856-4a29-4dcc-8277-7d65c971304d");
-INSERT INTO S_DT_PROXY
-	VALUES ("388cd7a2-2d0c-4f02-9730-7670074de394",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	'integer',
-	'',
-	'',
-	'../../../Datatypes/Datatypes.xtuml');
 INSERT INTO SM_EVTDI
 	VALUES ("b123f3a0-050d-4a4b-82e2-bd0104316ae0",
 	"776a3600-ee45-44b0-b2d0-c26186d01fd8",
 	'Y',
 	'',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	"8eabfe41-043c-4400-89f2-a7e1ad29c825",
 	"048d9b3e-ffae-4cd9-8609-b90737cde821");
@@ -61,7 +47,7 @@ INSERT INTO SM_EVTDI
 	"776a3600-ee45-44b0-b2d0-c26186d01fd8",
 	'Retain_Selection',
 	'',
-	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	'',
 	"99833452-dcd5-4249-84d0-14291852e77a",
 	"00000000-0000-0000-0000-000000000000");
@@ -70,7 +56,7 @@ INSERT INTO SM_EVTDI
 	"776a3600-ee45-44b0-b2d0-c26186d01fd8",
 	'Retain_Selection',
 	'',
-	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	'',
 	"0717e6bb-7a33-459f-a832-2a28aa49bdcb",
 	"00000000-0000-0000-0000-000000000000");
@@ -79,7 +65,7 @@ INSERT INTO SM_EVTDI
 	"776a3600-ee45-44b0-b2d0-c26186d01fd8",
 	'X',
 	'',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	"64514d1f-5022-462a-ae69-4296b3ff9969",
 	"00000000-0000-0000-0000-000000000000");
@@ -88,7 +74,7 @@ INSERT INTO SM_EVTDI
 	"776a3600-ee45-44b0-b2d0-c26186d01fd8",
 	'X',
 	'',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	"316455e5-9c70-42c2-8166-1c6cc2f7e38d",
 	"00000000-0000-0000-0000-000000000000");
@@ -97,7 +83,7 @@ INSERT INTO SM_EVTDI
 	"776a3600-ee45-44b0-b2d0-c26186d01fd8",
 	'X',
 	'',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	"6cde9cb0-b402-489d-869c-d69f71933bc1",
 	"00000000-0000-0000-0000-000000000000");
@@ -106,7 +92,7 @@ INSERT INTO SM_EVTDI
 	"776a3600-ee45-44b0-b2d0-c26186d01fd8",
 	'X',
 	'',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	"920d11ce-6a46-4672-b75e-5cb6ec889ce5",
 	"00000000-0000-0000-0000-000000000000");
@@ -115,7 +101,7 @@ INSERT INTO SM_EVTDI
 	"776a3600-ee45-44b0-b2d0-c26186d01fd8",
 	'X',
 	'',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	"b0882f93-bbf3-49ab-a54f-ecc1dcf2430a",
 	"00000000-0000-0000-0000-000000000000");
@@ -124,7 +110,7 @@ INSERT INTO SM_EVTDI
 	"776a3600-ee45-44b0-b2d0-c26186d01fd8",
 	'X',
 	'',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	"3b386210-c1ef-4a50-9579-c1a8febc2b96",
 	"00000000-0000-0000-0000-000000000000");
@@ -133,7 +119,7 @@ INSERT INTO SM_EVTDI
 	"776a3600-ee45-44b0-b2d0-c26186d01fd8",
 	'X',
 	'',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	"146981c6-5102-4f32-889b-5f366e7d6efd",
 	"00000000-0000-0000-0000-000000000000");
@@ -142,7 +128,7 @@ INSERT INTO SM_EVTDI
 	"776a3600-ee45-44b0-b2d0-c26186d01fd8",
 	'X',
 	'',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	"25081f3d-4317-45fc-9171-cf381498bd51",
 	"00000000-0000-0000-0000-000000000000");
@@ -151,7 +137,7 @@ INSERT INTO SM_EVTDI
 	"776a3600-ee45-44b0-b2d0-c26186d01fd8",
 	'X',
 	'',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	"99833452-dcd5-4249-84d0-14291852e77a",
 	"7b3bf472-2064-4c10-bb32-f456c8d01e0f");
@@ -160,7 +146,7 @@ INSERT INTO SM_EVTDI
 	"776a3600-ee45-44b0-b2d0-c26186d01fd8",
 	'X',
 	'',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	"0717e6bb-7a33-459f-a832-2a28aa49bdcb",
 	"c643d5db-ad3b-4e62-8b5c-2c263036a334");
@@ -169,7 +155,7 @@ INSERT INTO SM_EVTDI
 	"776a3600-ee45-44b0-b2d0-c26186d01fd8",
 	'Y',
 	'',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	"64514d1f-5022-462a-ae69-4296b3ff9969",
 	"0b19b8f7-3cf0-4e56-bbc3-71caa5853165");
@@ -178,7 +164,7 @@ INSERT INTO SM_EVTDI
 	"776a3600-ee45-44b0-b2d0-c26186d01fd8",
 	'Y',
 	'',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	"316455e5-9c70-42c2-8166-1c6cc2f7e38d",
 	"228c80d4-30f4-40db-919e-553bb1496d86");
@@ -187,7 +173,7 @@ INSERT INTO SM_EVTDI
 	"776a3600-ee45-44b0-b2d0-c26186d01fd8",
 	'Y',
 	'',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	"6cde9cb0-b402-489d-869c-d69f71933bc1",
 	"9d878f4f-87d8-49a3-8c3e-8d75c82ca472");
@@ -196,7 +182,7 @@ INSERT INTO SM_EVTDI
 	"776a3600-ee45-44b0-b2d0-c26186d01fd8",
 	'Y',
 	'',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	"920d11ce-6a46-4672-b75e-5cb6ec889ce5",
 	"05a7a8b2-2cd0-4203-8cff-2b04b66b20f3");
@@ -205,7 +191,7 @@ INSERT INTO SM_EVTDI
 	"776a3600-ee45-44b0-b2d0-c26186d01fd8",
 	'Y',
 	'',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	"b0882f93-bbf3-49ab-a54f-ecc1dcf2430a",
 	"8e9adecf-d431-4a38-83bf-7d65f702e7eb");
@@ -214,7 +200,7 @@ INSERT INTO SM_EVTDI
 	"776a3600-ee45-44b0-b2d0-c26186d01fd8",
 	'Y',
 	'',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	"3b386210-c1ef-4a50-9579-c1a8febc2b96",
 	"1717fa56-f5c4-45e9-ad5c-43ebdbead2ca");
@@ -223,7 +209,7 @@ INSERT INTO SM_EVTDI
 	"776a3600-ee45-44b0-b2d0-c26186d01fd8",
 	'Y',
 	'',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	"146981c6-5102-4f32-889b-5f366e7d6efd",
 	"23c043e9-16d1-48bf-a4d0-ddeb4b0a27f4");
@@ -232,7 +218,7 @@ INSERT INTO SM_EVTDI
 	"776a3600-ee45-44b0-b2d0-c26186d01fd8",
 	'Y',
 	'',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	"25081f3d-4317-45fc-9171-cf381498bd51",
 	"1524f2ff-d2d3-4018-83d4-873a6039e96f");
@@ -241,7 +227,7 @@ INSERT INTO SM_EVTDI
 	"776a3600-ee45-44b0-b2d0-c26186d01fd8",
 	'Y',
 	'',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	"99833452-dcd5-4249-84d0-14291852e77a",
 	"5d2858b0-e260-4cb8-8c4f-bf95fe286854");
@@ -250,7 +236,7 @@ INSERT INTO SM_EVTDI
 	"776a3600-ee45-44b0-b2d0-c26186d01fd8",
 	'Y',
 	'',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	"0717e6bb-7a33-459f-a832-2a28aa49bdcb",
 	"0908f197-fe30-45c3-a8c5-f6e53a400ceb");
@@ -7193,7 +7179,7 @@ INSERT INTO GD_GE
 	"03980b63-bd8d-498b-9caa-4a7d4bc421fd",
 	42,
 	0,
-	'org.xtuml.bp.ui.canvas::ooaofgraphics::Canvas Tools::Selection Tool::Instance State Machine::CT_SEL4: Mouse Moved');
+	'org.xtuml.bp.ui.canvas::ooaofgraphics::Canvas Tools::Selection Tool::Instance State Machine::Preparing Selection Rectangle::CT_SEL4: Mouse Moved');
 INSERT INTO GD_CON
 	VALUES ("9dd4813e-d481-4891-af88-df9d430ba7e5",
 	"00000000-0000-0000-0000-000000000000");
@@ -7293,7 +7279,7 @@ INSERT INTO GD_GE
 	"8fc5104d-4f0c-499c-9e1a-58241b02b1db",
 	42,
 	0,
-	'org.xtuml.bp.ui.canvas::ooaofgraphics::Canvas Tools::Selection Tool::Instance State Machine::CT_SEL3: Mouse Released');
+	'org.xtuml.bp.ui.canvas::ooaofgraphics::Canvas Tools::Selection Tool::Instance State Machine::Dragging Selection Rectangle::CT_SEL3: Mouse Released');
 INSERT INTO GD_CON
 	VALUES ("43b64b61-1fce-4ed9-ae47-573a6d8ec873",
 	"00000000-0000-0000-0000-000000000000");
@@ -7393,7 +7379,7 @@ INSERT INTO GD_GE
 	"3a8c97fb-4177-4a6a-a0ba-b251d3b2345f",
 	42,
 	0,
-	'org.xtuml.bp.ui.canvas::ooaofgraphics::Canvas Tools::Selection Tool::Instance State Machine::CT_SEL4: Mouse Moved');
+	'org.xtuml.bp.ui.canvas::ooaofgraphics::Canvas Tools::Selection Tool::Instance State Machine::Dragging Selection Rectangle::CT_SEL4: Mouse Moved');
 INSERT INTO GD_CON
 	VALUES ("1aa05428-75f6-4d3c-af48-8077c16821ee",
 	"00000000-0000-0000-0000-000000000000");
@@ -7519,7 +7505,7 @@ INSERT INTO GD_GE
 	"a3745e8a-1a1a-456f-a765-64e75f40fd98",
 	42,
 	0,
-	'org.xtuml.bp.ui.canvas::ooaofgraphics::Canvas Tools::Selection Tool::Instance State Machine::CT_SEL9: Mouse Pressed over Symbol');
+	'org.xtuml.bp.ui.canvas::ooaofgraphics::Canvas Tools::Selection Tool::Instance State Machine::Checking Mouse Press::CT_SEL9: Mouse Pressed over Symbol');
 INSERT INTO GD_CON
 	VALUES ("bcebc6ae-acd9-4486-9f9b-bbe855463496",
 	"00000000-0000-0000-0000-000000000000");
@@ -7619,7 +7605,7 @@ INSERT INTO GD_GE
 	"b4f30a54-b456-41e2-9a5a-706757cf58fb",
 	42,
 	0,
-	'org.xtuml.bp.ui.canvas::ooaofgraphics::Canvas Tools::Selection Tool::Instance State Machine::CT_SEL4: Mouse Moved');
+	'org.xtuml.bp.ui.canvas::ooaofgraphics::Canvas Tools::Selection Tool::Instance State Machine::Dragging Symbols::CT_SEL4: Mouse Moved');
 INSERT INTO GD_CON
 	VALUES ("cfd4fa71-421c-47ab-b3ef-d440b2360f69",
 	"00000000-0000-0000-0000-000000000000");
@@ -7745,7 +7731,7 @@ INSERT INTO GD_GE
 	"3bcf910d-3666-4247-a1c0-ec486fe9b891",
 	42,
 	0,
-	'org.xtuml.bp.ui.canvas::ooaofgraphics::Canvas Tools::Selection Tool::Instance State Machine::CT_SEL2: Mouse Pressed');
+	'org.xtuml.bp.ui.canvas::ooaofgraphics::Canvas Tools::Selection Tool::Instance State Machine::Idle::CT_SEL2: Mouse Pressed');
 INSERT INTO GD_CON
 	VALUES ("0d9a5c44-5789-4e10-b247-58a601feaf51",
 	"00000000-0000-0000-0000-000000000000");
@@ -7845,7 +7831,7 @@ INSERT INTO GD_GE
 	"2c6eb0ea-dadc-4939-a402-8aa6a869b6ae",
 	42,
 	0,
-	'org.xtuml.bp.ui.canvas::ooaofgraphics::Canvas Tools::Selection Tool::Instance State Machine::CT_SEL6: Done');
+	'org.xtuml.bp.ui.canvas::ooaofgraphics::Canvas Tools::Selection Tool::Instance State Machine::Toggling Symbols Caught By Selection Rectangle::CT_SEL6: Done');
 INSERT INTO GD_CON
 	VALUES ("5e61b79f-7133-4f0a-88b3-20880113523d",
 	"00000000-0000-0000-0000-000000000000");
@@ -7971,7 +7957,7 @@ INSERT INTO GD_GE
 	"19766b5a-2879-44dd-b31a-22db929d550a",
 	42,
 	0,
-	'org.xtuml.bp.ui.canvas::ooaofgraphics::Canvas Tools::Selection Tool::Instance State Machine::CT_SEL12: Mouse Pressed over Selected Symbol');
+	'org.xtuml.bp.ui.canvas::ooaofgraphics::Canvas Tools::Selection Tool::Instance State Machine::Checking Mouse Press::CT_SEL12: Mouse Pressed over Selected Symbol');
 INSERT INTO GD_CON
 	VALUES ("e042bc0c-9c80-4f4f-86a2-cb874acb6848",
 	"00000000-0000-0000-0000-000000000000");
@@ -8071,7 +8057,7 @@ INSERT INTO GD_GE
 	"eb1414e9-3a8b-47e3-b90c-2387c1763a40",
 	42,
 	0,
-	'org.xtuml.bp.ui.canvas::ooaofgraphics::Canvas Tools::Selection Tool::Instance State Machine::CT_SEL5: Mouse Context Pressed');
+	'org.xtuml.bp.ui.canvas::ooaofgraphics::Canvas Tools::Selection Tool::Instance State Machine::Idle::CT_SEL5: Mouse Context Pressed');
 INSERT INTO GD_CON
 	VALUES ("e253103e-4da1-42a1-96cd-a8c09ddfda37",
 	"00000000-0000-0000-0000-000000000000");
@@ -8197,7 +8183,7 @@ INSERT INTO GD_GE
 	"6e9250e6-f3dc-4d5a-8fe2-e4085f9a533c",
 	42,
 	0,
-	'org.xtuml.bp.ui.canvas::ooaofgraphics::Canvas Tools::Selection Tool::Instance State Machine::CT_SEL6: Done');
+	'org.xtuml.bp.ui.canvas::ooaofgraphics::Canvas Tools::Selection Tool::Instance State Machine::Mouse Released::CT_SEL6: Done');
 INSERT INTO GD_CON
 	VALUES ("814f276d-9b8b-4be2-97d8-db200049b476",
 	"00000000-0000-0000-0000-000000000000");
@@ -8310,7 +8296,7 @@ INSERT INTO GD_GE
 	"a9f3d759-ffa4-4988-b087-e972fb32fa9d",
 	42,
 	0,
-	'org.xtuml.bp.ui.canvas::ooaofgraphics::Canvas Tools::Selection Tool::Instance State Machine::CT_SEL3: Mouse Released');
+	'org.xtuml.bp.ui.canvas::ooaofgraphics::Canvas Tools::Selection Tool::Instance State Machine::Preparing Selection Rectangle::CT_SEL3: Mouse Released');
 INSERT INTO GD_CON
 	VALUES ("7799ebeb-bb84-45b0-b251-b20ded98a652",
 	"00000000-0000-0000-0000-000000000000");
@@ -8423,7 +8409,7 @@ INSERT INTO GD_GE
 	"0ac91e10-20b6-4c04-b7ea-6edc467f5888",
 	42,
 	0,
-	'org.xtuml.bp.ui.canvas::ooaofgraphics::Canvas Tools::Selection Tool::Instance State Machine::CT_SEL4: Mouse Moved');
+	'org.xtuml.bp.ui.canvas::ooaofgraphics::Canvas Tools::Selection Tool::Instance State Machine::Idle::CT_SEL4: Mouse Moved');
 INSERT INTO GD_CON
 	VALUES ("4e5539b6-55e8-4eb8-9c32-de75dc9e4ac2",
 	"00000000-0000-0000-0000-000000000000");
@@ -8523,7 +8509,7 @@ INSERT INTO GD_GE
 	"2bd33496-4842-4762-9144-e778248f2490",
 	42,
 	0,
-	'org.xtuml.bp.ui.canvas::ooaofgraphics::Canvas Tools::Selection Tool::Instance State Machine::CT_SEL27: Mouse Moved over NonHotspot');
+	'org.xtuml.bp.ui.canvas::ooaofgraphics::Canvas Tools::Selection Tool::Instance State Machine::Checking for Hotspots::CT_SEL27: Mouse Moved over NonHotspot');
 INSERT INTO GD_CON
 	VALUES ("1d3aa620-69b0-4b8f-8d5d-3afb938dc584",
 	"00000000-0000-0000-0000-000000000000");
@@ -8623,7 +8609,7 @@ INSERT INTO GD_GE
 	"0e813be4-0b9b-4610-b786-ff0b634c5227",
 	42,
 	0,
-	'org.xtuml.bp.ui.canvas::ooaofgraphics::Canvas Tools::Selection Tool::Instance State Machine::CT_SEL19: Mouse Moved over Hotspot');
+	'org.xtuml.bp.ui.canvas::ooaofgraphics::Canvas Tools::Selection Tool::Instance State Machine::Checking for Hotspots::CT_SEL19: Mouse Moved over Hotspot');
 INSERT INTO GD_CON
 	VALUES ("d7f828b4-4327-4a89-997d-382ca9563bdc",
 	"00000000-0000-0000-0000-000000000000");
@@ -8723,7 +8709,7 @@ INSERT INTO GD_GE
 	"0a89c3d8-36db-42e3-b670-04987acb0701",
 	42,
 	0,
-	'org.xtuml.bp.ui.canvas::ooaofgraphics::Canvas Tools::Selection Tool::Instance State Machine::CT_SEL4: Mouse Moved');
+	'org.xtuml.bp.ui.canvas::ooaofgraphics::Canvas Tools::Selection Tool::Instance State Machine::Waiting for Mouse Press over Hotspot::CT_SEL4: Mouse Moved');
 INSERT INTO GD_CON
 	VALUES ("4bc05519-cc8c-405d-80c0-9a39aa1714c5",
 	"00000000-0000-0000-0000-000000000000");
@@ -8823,7 +8809,7 @@ INSERT INTO GD_GE
 	"ce2de329-cccb-4892-8ff0-97ed16e88f40",
 	42,
 	0,
-	'org.xtuml.bp.ui.canvas::ooaofgraphics::Canvas Tools::Selection Tool::Instance State Machine::CT_SEL4: Mouse Moved');
+	'org.xtuml.bp.ui.canvas::ooaofgraphics::Canvas Tools::Selection Tool::Instance State Machine::Moving Hotspot::CT_SEL4: Mouse Moved');
 INSERT INTO GD_CON
 	VALUES ("f54bc1c6-c732-4c69-a603-60312ac8f144",
 	"00000000-0000-0000-0000-000000000000");
@@ -8949,7 +8935,7 @@ INSERT INTO GD_GE
 	"39fa3c05-59ec-4b00-957d-c744b1e09e1c",
 	42,
 	0,
-	'org.xtuml.bp.ui.canvas::ooaofgraphics::Canvas Tools::Selection Tool::Instance State Machine::CT_SEL2: Mouse Pressed');
+	'org.xtuml.bp.ui.canvas::ooaofgraphics::Canvas Tools::Selection Tool::Instance State Machine::Waiting for Mouse Press over Hotspot::CT_SEL2: Mouse Pressed');
 INSERT INTO GD_CON
 	VALUES ("b64b26e3-2030-41ae-a6ad-1134192fff18",
 	"00000000-0000-0000-0000-000000000000");
@@ -9049,7 +9035,7 @@ INSERT INTO GD_GE
 	"9c79646d-f7e0-4bd6-8635-b2f1f6f595c7",
 	42,
 	0,
-	'org.xtuml.bp.ui.canvas::ooaofgraphics::Canvas Tools::Selection Tool::Instance State Machine::CT_SEL6: Done');
+	'org.xtuml.bp.ui.canvas::ooaofgraphics::Canvas Tools::Selection Tool::Instance State Machine::Releasing Text in Move::CT_SEL6: Done');
 INSERT INTO GD_CON
 	VALUES ("e0f1b11f-81a4-4b1d-aa3c-0babdda60232",
 	"00000000-0000-0000-0000-000000000000");
@@ -9162,7 +9148,7 @@ INSERT INTO GD_GE
 	"fe805238-e09d-4d3c-b648-dbe8cedad7b4",
 	42,
 	0,
-	'org.xtuml.bp.ui.canvas::ooaofgraphics::Canvas Tools::Selection Tool::Instance State Machine::CT_SEL3: Mouse Released');
+	'org.xtuml.bp.ui.canvas::ooaofgraphics::Canvas Tools::Selection Tool::Instance State Machine::Picking Up Selected Symbols::CT_SEL3: Mouse Released');
 INSERT INTO GD_CON
 	VALUES ("0df862af-25c7-435e-a7ac-d4966c830af4",
 	"00000000-0000-0000-0000-000000000000");
@@ -9288,7 +9274,7 @@ INSERT INTO GD_GE
 	"b70e8c93-62ca-4ffe-bfd2-d4963d7dbe44",
 	42,
 	0,
-	'org.xtuml.bp.ui.canvas::ooaofgraphics::Canvas Tools::Selection Tool::Instance State Machine::CT_SEL3: Mouse Released');
+	'org.xtuml.bp.ui.canvas::ooaofgraphics::Canvas Tools::Selection Tool::Instance State Machine::Selecting Symbol::CT_SEL3: Mouse Released');
 INSERT INTO GD_CON
 	VALUES ("64d4b7e7-7117-4a84-b851-4d21538a9fe5",
 	"00000000-0000-0000-0000-000000000000");
@@ -9388,7 +9374,7 @@ INSERT INTO GD_GE
 	"10737677-08c2-46c4-bd4c-0d8542497584",
 	42,
 	0,
-	'org.xtuml.bp.ui.canvas::ooaofgraphics::Canvas Tools::Selection Tool::Instance State Machine::CT_SEL8: Mouse Pressed over Whitespace');
+	'org.xtuml.bp.ui.canvas::ooaofgraphics::Canvas Tools::Selection Tool::Instance State Machine::Checking Mouse Press::CT_SEL8: Mouse Pressed over Whitespace');
 INSERT INTO GD_CON
 	VALUES ("474c05f9-719a-4cb1-abc7-e8c2a5bc9423",
 	"00000000-0000-0000-0000-000000000000");
@@ -9501,7 +9487,7 @@ INSERT INTO GD_GE
 	"85eb268f-b37b-49f2-8c9c-6ed01528c690",
 	42,
 	0,
-	'org.xtuml.bp.ui.canvas::ooaofgraphics::Canvas Tools::Selection Tool::Instance State Machine::CT_SEL3: Mouse Released');
+	'org.xtuml.bp.ui.canvas::ooaofgraphics::Canvas Tools::Selection Tool::Instance State Machine::Opening Context Menu::CT_SEL3: Mouse Released');
 INSERT INTO GD_CON
 	VALUES ("4e70f85f-2825-44b1-8a17-d48ec5ea3117",
 	"00000000-0000-0000-0000-000000000000");
@@ -9601,7 +9587,7 @@ INSERT INTO GD_GE
 	"6a63cd8b-bc66-41f9-ad04-4b756f171d15",
 	42,
 	0,
-	'org.xtuml.bp.ui.canvas::ooaofgraphics::Canvas Tools::Selection Tool::Instance State Machine::CT_SEL5: Mouse Context Pressed');
+	'org.xtuml.bp.ui.canvas::ooaofgraphics::Canvas Tools::Selection Tool::Instance State Machine::Waiting for Mouse Press over Hotspot::CT_SEL5: Mouse Context Pressed');
 INSERT INTO GD_CON
 	VALUES ("f8ebc0db-7bfa-4754-b56b-9c1e31305895",
 	"00000000-0000-0000-0000-000000000000");
@@ -9727,7 +9713,7 @@ INSERT INTO GD_GE
 	"45269f46-85b9-44a4-8801-eb5bd8bb8fd3",
 	42,
 	0,
-	'org.xtuml.bp.ui.canvas::ooaofgraphics::Canvas Tools::Selection Tool::Instance State Machine::CT_SEL24: Waypoint Created');
+	'org.xtuml.bp.ui.canvas::ooaofgraphics::Canvas Tools::Selection Tool::Instance State Machine::Dragging Symbols::CT_SEL24: Waypoint Created');
 INSERT INTO GD_CON
 	VALUES ("da5d1294-0444-4551-b9d7-fc6014df79ad",
 	"00000000-0000-0000-0000-000000000000");
@@ -9840,7 +9826,7 @@ INSERT INTO GD_GE
 	"7975b0ec-ae93-48f6-bdc8-a268fc4eebc4",
 	42,
 	0,
-	'org.xtuml.bp.ui.canvas::ooaofgraphics::Canvas Tools::Selection Tool::Instance State Machine::CT_SEL16: Activated');
+	'org.xtuml.bp.ui.canvas::ooaofgraphics::Canvas Tools::Selection Tool::Instance State Machine::Idle::CT_SEL16: Activated');
 INSERT INTO GD_CON
 	VALUES ("0067bb7f-b689-40fa-b4fc-bb2fe5ec45f7",
 	"00000000-0000-0000-0000-000000000000");
@@ -10023,7 +10009,7 @@ INSERT INTO GD_GE
 	"d4a88bb3-60bd-45b2-af44-c61ab88d6694",
 	42,
 	0,
-	'org.xtuml.bp.ui.canvas::ooaofgraphics::Canvas Tools::Selection Tool::Instance State Machine::CT_SEL3: Mouse Released');
+	'org.xtuml.bp.ui.canvas::ooaofgraphics::Canvas Tools::Selection Tool::Instance State Machine::Dragging Symbols::CT_SEL3: Mouse Released');
 INSERT INTO GD_CON
 	VALUES ("57045083-e511-4f75-8d93-afbfb4c2ef92",
 	"00000000-0000-0000-0000-000000000000");
@@ -10157,7 +10143,7 @@ INSERT INTO GD_GE
 	"fb47b4a4-096e-49ae-9d79-e318a4e4a13c",
 	42,
 	0,
-	'org.xtuml.bp.ui.canvas::ooaofgraphics::Canvas Tools::Selection Tool::Instance State Machine::CT_SEL3: Mouse Released');
+	'org.xtuml.bp.ui.canvas::ooaofgraphics::Canvas Tools::Selection Tool::Instance State Machine::Moving Hotspot::CT_SEL3: Mouse Released');
 INSERT INTO GD_CON
 	VALUES ("2c8e07b9-f282-47f0-9b2a-cb275bc0cfb5",
 	"00000000-0000-0000-0000-000000000000");
@@ -10257,7 +10243,7 @@ INSERT INTO GD_GE
 	"ed3aa85d-6182-4930-b6e0-f6169b51d68d",
 	42,
 	0,
-	'org.xtuml.bp.ui.canvas::ooaofgraphics::Canvas Tools::Selection Tool::Instance State Machine::CT_SEL3: Mouse Released');
+	'org.xtuml.bp.ui.canvas::ooaofgraphics::Canvas Tools::Selection Tool::Instance State Machine::Saving Symbol Resize::CT_SEL3: Mouse Released');
 INSERT INTO GD_CON
 	VALUES ("cceb51c0-6b3c-40de-a7a8-3d2e89b41564",
 	"00000000-0000-0000-0000-000000000000");
@@ -10439,7 +10425,7 @@ INSERT INTO GD_GE
 	"7507c2e4-5206-4e8e-ac94-d962c72f93a2",
 	42,
 	0,
-	'org.xtuml.bp.ui.canvas::ooaofgraphics::Canvas Tools::Selection Tool::Instance State Machine::CT_SEL4: Mouse Moved');
+	'org.xtuml.bp.ui.canvas::ooaofgraphics::Canvas Tools::Selection Tool::Instance State Machine::Selecting Symbol::CT_SEL4: Mouse Moved');
 INSERT INTO GD_CON
 	VALUES ("6414825f-7846-43c0-8f70-3518b656769d",
 	"00000000-0000-0000-0000-000000000000");
@@ -10539,7 +10525,7 @@ INSERT INTO GD_GE
 	"72805ad3-e2a8-47bc-b455-c5d6eca8020a",
 	42,
 	0,
-	'org.xtuml.bp.ui.canvas::ooaofgraphics::Canvas Tools::Selection Tool::Instance State Machine::CT_SEL25: Transaction Started');
+	'org.xtuml.bp.ui.canvas::ooaofgraphics::Canvas Tools::Selection Tool::Instance State Machine::Starting Transaction for Dragging selected symbols::CT_SEL25: Transaction Started');
 INSERT INTO GD_CON
 	VALUES ("748c56b3-0154-4f45-b1ee-3f70770388e0",
 	"00000000-0000-0000-0000-000000000000");
@@ -10639,7 +10625,7 @@ INSERT INTO GD_GE
 	"76a3c00b-0e52-4ec5-b74a-15ad6383ab1d",
 	42,
 	0,
-	'org.xtuml.bp.ui.canvas::ooaofgraphics::Canvas Tools::Selection Tool::Instance State Machine::CT_SEL4: Mouse Moved');
+	'org.xtuml.bp.ui.canvas::ooaofgraphics::Canvas Tools::Selection Tool::Instance State Machine::Picking Up Selected Symbols::CT_SEL4: Mouse Moved');
 INSERT INTO GD_CON
 	VALUES ("2637f10f-4b2c-4cef-ac31-7f3d5f9046e6",
 	"00000000-0000-0000-0000-000000000000");
@@ -10739,7 +10725,7 @@ INSERT INTO GD_GE
 	"3e45ee68-8e32-4ff9-9aec-e84d2de7ac2e",
 	42,
 	0,
-	'org.xtuml.bp.ui.canvas::ooaofgraphics::Canvas Tools::Selection Tool::Instance State Machine::CT_SEL3: Mouse Released');
+	'org.xtuml.bp.ui.canvas::ooaofgraphics::Canvas Tools::Selection Tool::Instance State Machine::Starting Transaction for Dragging selected symbols::CT_SEL3: Mouse Released');
 INSERT INTO GD_CON
 	VALUES ("38d022c6-eee0-4489-9cd0-7e46a9bf5d78",
 	"00000000-0000-0000-0000-000000000000");
@@ -10852,7 +10838,7 @@ INSERT INTO GD_GE
 	"ab085809-54a9-43d7-baa9-22420d378d15",
 	42,
 	0,
-	'org.xtuml.bp.ui.canvas::ooaofgraphics::Canvas Tools::Selection Tool::Instance State Machine::CT_SEL3: Mouse Released');
+	'org.xtuml.bp.ui.canvas::ooaofgraphics::Canvas Tools::Selection Tool::Instance State Machine::Saving Symbol Movement::CT_SEL3: Mouse Released');
 INSERT INTO GD_CON
 	VALUES ("4b25d3d1-0534-41ba-90d9-10608407dcc7",
 	"00000000-0000-0000-0000-000000000000");
@@ -10965,7 +10951,7 @@ INSERT INTO GD_GE
 	"55b1c819-4b11-41d4-8319-c8cab4f7e932",
 	42,
 	0,
-	'org.xtuml.bp.ui.canvas::ooaofgraphics::Canvas Tools::Selection Tool::Instance State Machine::CT_SEL4: Mouse Moved');
+	'org.xtuml.bp.ui.canvas::ooaofgraphics::Canvas Tools::Selection Tool::Instance State Machine::Starting Transaction for Dragging selected symbols::CT_SEL4: Mouse Moved');
 INSERT INTO GD_CON
 	VALUES ("eae0ce49-cc6c-4b22-9b9e-7b948ebc08cf",
 	"00000000-0000-0000-0000-000000000000");
@@ -11091,7 +11077,7 @@ INSERT INTO GD_GE
 	"071e783c-ac54-4463-9295-f5036bcb34b8",
 	42,
 	0,
-	'org.xtuml.bp.ui.canvas::ooaofgraphics::Canvas Tools::Selection Tool::Instance State Machine::CT_SEL4: Mouse Moved');
+	'org.xtuml.bp.ui.canvas::ooaofgraphics::Canvas Tools::Selection Tool::Instance State Machine::Waiting to Move Hotspot::CT_SEL4: Mouse Moved');
 INSERT INTO GD_CON
 	VALUES ("29d2b082-929b-453d-bdb6-e3a457dd7686",
 	"00000000-0000-0000-0000-000000000000");
@@ -11238,7 +11224,7 @@ INSERT INTO GD_GE
 	"8a2f952e-d5dc-407b-98c7-fed5525a7f21",
 	42,
 	0,
-	'org.xtuml.bp.ui.canvas::ooaofgraphics::Canvas Tools::Selection Tool::Instance State Machine::CT_SEL3: Mouse Released');
+	'org.xtuml.bp.ui.canvas::ooaofgraphics::Canvas Tools::Selection Tool::Instance State Machine::Waiting to Move Hotspot::CT_SEL3: Mouse Released');
 INSERT INTO GD_CON
 	VALUES ("4ac7d3fd-e8be-4efd-b9ed-81938d4a407a",
 	"00000000-0000-0000-0000-000000000000");
@@ -11338,7 +11324,7 @@ INSERT INTO GD_GE
 	"7701f6a6-6556-421c-a8b2-9f4b3b7661a9",
 	42,
 	0,
-	'org.xtuml.bp.ui.canvas::ooaofgraphics::Canvas Tools::Selection Tool::Instance State Machine::CT_SEL28: Transaction Cancelled');
+	'org.xtuml.bp.ui.canvas::ooaofgraphics::Canvas Tools::Selection Tool::Instance State Machine::Cancelling Resize Transaction::CT_SEL28: Transaction Cancelled');
 INSERT INTO GD_CON
 	VALUES ("979e4c76-b5ad-4c57-9189-c09ddc1dd8c6",
 	"00000000-0000-0000-0000-000000000000");
@@ -11450,5 +11436,5 @@ existing diagram symbols. It is automatically deactivated when another tool is s
 
 ---------------------------------------------------------------------------
 Persistent:false',
-	"afc7af9b-6e70-4780-9ad0-b9f3ec7560c9",
+	"00000000-0000-0000-0000-000000000000",
 	'../Selection Tool.xtuml');
