@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("aed6bfab-0694-4c62-9765-ce062108bf22",
@@ -7,7 +7,7 @@ INSERT INTO O_OBJ
 	'SQ_AP',
 	'The actor participant represents an outside element.  It has a life span and can
 send/receive messages.',
-	"90afcd0d-03fa-49d5-ac2c-0fd20beede15");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("a2612061-eabc-4d36-8927-569ad9a96626",
 	"aed6bfab-0694-4c62-9765-ce062108bf22",
@@ -21,7 +21,7 @@ INSERT INTO O_TFR
 	"86ecdb4f-6fb6-431f-b91a-8a4bba3dd464");
 INSERT INTO S_DT_PROXY
 	VALUES ("6e636321-0fd1-4577-b185-e4d76b0d0c71",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
 	'Style',
 	'The Style data type specifies the precise form a graphical element will take when drawn.
 --------------------------------------------------------------------------
@@ -43,23 +43,16 @@ INSERT INTO O_TPARM
 	VALUES ("a17bb718-4ed4-4598-9a52-8143404aeee0",
 	"66478bc8-7dc3-4b38-9b41-284332a6ee92",
 	'comp_num',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"c8eee045-dfb1-455d-b9c5-707cf27c798a",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'integer',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TPARM
 	VALUES ("738b8737-2ba0-47ce-91b3-6e1c39ea5e5e",
 	"66478bc8-7dc3-4b38-9b41-284332a6ee92",
 	'ent_num',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"a17bb718-4ed4-4598-9a52-8143404aeee0",
@@ -75,7 +68,7 @@ INSERT INTO O_TPARM
 	'');
 INSERT INTO S_DT_PROXY
 	VALUES ("a9382bea-4a3f-43ec-9191-1f9f158b11a4",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
 	'Justification',
 	'The Justification data type is used to specify text at a given location in a compartment.
 ------------------------------------------------------------------------------
@@ -87,25 +80,18 @@ INSERT INTO O_TFR
 	"aed6bfab-0694-4c62-9765-ce062108bf22",
 	'get_ooa_id',
 	'',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'return self.Part_ID;',
 	1,
 	'',
 	"4ee17952-0d60-40c1-87e9-62b9eae59a3d");
-INSERT INTO S_DT_PROXY
-	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'unique_id',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("4ee17952-0d60-40c1-87e9-62b9eae59a3d",
 	"aed6bfab-0694-4c62-9765-ce062108bf22",
 	'get_entries',
 	'',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	1,
 	'return 1;',
 	1,
@@ -115,7 +101,7 @@ INSERT INTO O_TPARM
 	VALUES ("c6fae188-c128-4052-a336-c607a9099ecd",
 	"4ee17952-0d60-40c1-87e9-62b9eae59a3d",
 	'comp_num',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -125,7 +111,7 @@ INSERT INTO O_TFR
 	"aed6bfab-0694-4c62-9765-ce062108bf22",
 	'get_compartment_text',
 	'',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'if(param.at == Justification::Center_in_X) and (param.comp_num == 2)
   return self.Name;
@@ -139,7 +125,7 @@ INSERT INTO O_TPARM
 	VALUES ("48a056c6-d032-4ba8-bf1b-e0a83a0db547",
 	"a1162a4b-fa9e-4216-9936-93dacd1f763c",
 	'comp_num',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"edbd1091-01ab-450e-bd97-d94af7d59ae4",
@@ -148,7 +134,7 @@ INSERT INTO O_TPARM
 	VALUES ("f1a9ef9e-33cf-4f24-9b89-757ba809d555",
 	"a1162a4b-fa9e-4216-9936-93dacd1f763c",
 	'ent_num',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"48a056c6-d032-4ba8-bf1b-e0a83a0db547",
@@ -162,19 +148,12 @@ INSERT INTO O_TPARM
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'string',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("dd8f9ed4-836a-4ab3-a8ef-002edf5cacc5",
 	"aed6bfab-0694-4c62-9765-ce062108bf22",
 	'initialize',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'name = "Unnamed Actor";
 success = ::getNewElementName(name:name,instance: self.convertToInstance(),validateName:false);    
@@ -186,19 +165,12 @@ end if;      ',
 	1,
 	'',
 	"66478bc8-7dc3-4b38-9b41-284332a6ee92");
-INSERT INTO S_DT_PROXY
-	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'void',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("b87a9992-4f20-4c23-90cd-0d840c42ee01",
 	"aed6bfab-0694-4c62-9765-ce062108bf22",
 	'get_compartments',
 	'',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	1,
 	'return 2;',
 	1,
@@ -209,7 +181,7 @@ INSERT INTO O_TFR
 	"aed6bfab-0694-4c62-9765-ce062108bf22",
 	'dispose',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select one ls related by self->SQ_LS[R949];
 if(not_empty ls)
@@ -243,7 +215,7 @@ Translate: native',
 	"dd8f9ed4-836a-4ab3-a8ef-002edf5cacc5");
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
 	'instance',
 	'',
 	'',
@@ -263,7 +235,7 @@ INSERT INTO O_ATTR
 	'',
 	'Name',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -281,7 +253,7 @@ INSERT INTO O_ATTR
 	'',
 	'Descrip',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_REF
@@ -332,16 +304,9 @@ INSERT INTO O_ATTR
 	'',
 	'Part_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("aed6bfab-0694-4c62-9765-ce062108bf22",
 	"2e229f31-74d7-4262-b3e5-6aec62ebb037",
@@ -357,7 +322,7 @@ INSERT INTO O_REF
 	'',
 	'Lifespan',
 	'Part_ID',
-	'R949');
+	'R949.''life is bounded by''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("aed6bfab-0694-4c62-9765-ce062108bf22",
 	"35ce300e-d6c1-4344-9e79-785076d14b6f",
@@ -386,7 +351,7 @@ INSERT INTO O_ATTR
 	'LS_',
 	'Part_ID',
 	1,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_ID
@@ -403,13 +368,18 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"aed6bfab-0694-4c62-9765-ce062108bf22");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("aed6bfab-0694-4c62-9765-ce062108bf22",
+	1,
+	"90afcd0d-03fa-49d5-ac2c-0fd20beede15",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("90afcd0d-03fa-49d5-ac2c-0fd20beede15",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Interaction',
 	'// This is used by schema_gen to ignore this subsystem (for publication)
 TRANSLATE_FOR_EXTERNAL_USE:FALSE',
-	'IA',
 	930,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000000000",
 	'../Interaction.xtuml');

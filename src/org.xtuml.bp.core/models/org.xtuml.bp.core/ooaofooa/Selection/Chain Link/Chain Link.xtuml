@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("03756c5d-05d7-4ac3-abbd-e9c5edd3fc81",
@@ -6,14 +6,14 @@ INSERT INTO O_OBJ
 	627,
 	'ACT_LNK',
 	'This class represents a link in an association chain. In the string "self->O_OND[R5]->D_D[R7]", there are two chain links, one from the current instance to an instance (or set) of the class with keyletters "D_OND" found by traversing association "R5" and from there to an instance or set of the class with keyletters "D_D", crossing "R7". Each link is captured as an instance of this meta-model class. The target class is captured for each link, as is the association used for the traversal. The order of traversal is significant and is also captured.',
-	"4baa0857-ca29-4e4a-b1cb-873757c0f936");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("4cc3b112-b549-4bde-bf7b-aa60f8eeb6f3",
 	"03756c5d-05d7-4ac3-abbd-e9c5edd3fc81",
 	'dispose',
 	'This operation disconnects an instance, and all instances it is 
 responsible for, from the model.',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select one obj related by self->O_OBJ[R678];
 if ( not_empty obj )
@@ -48,13 +48,6 @@ delete object instance self;
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO S_DT_PROXY
-	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'void',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("30fae85c-8050-44c9-bd64-0d0779cf354c",
 	"03756c5d-05d7-4ac3-abbd-e9c5edd3fc81");
@@ -70,16 +63,9 @@ INSERT INTO O_ATTR
 	'',
 	'Link_ID',
 	0,
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'unique_id',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("23372720-b680-43aa-a458-4c8a6aff0254",
 	"03756c5d-05d7-4ac3-abbd-e9c5edd3fc81");
@@ -97,16 +83,9 @@ Essential for disambiguating the navigation direction across the link.',
 	'',
 	'Rel_Phrase',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'string',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("03756c5d-05d7-4ac3-abbd-e9c5edd3fc81",
 	"6bbeced4-473b-4c7e-82bd-84ca0b59b273",
@@ -157,16 +136,9 @@ INSERT INTO O_ATTR
 	'',
 	'Statement_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("03756c5d-05d7-4ac3-abbd-e9c5edd3fc81",
 	"03756c5d-05d7-4ac3-abbd-e9c5edd3fc81",
@@ -182,7 +154,7 @@ INSERT INTO O_REF
 	'',
 	'Chain Link',
 	'Link_ID',
-	'R604');
+	'R604.''precedes''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("03756c5d-05d7-4ac3-abbd-e9c5edd3fc81",
 	"22cd8849-8995-44d1-ae50-a4b2ae73d8fd",
@@ -211,7 +183,7 @@ INSERT INTO O_ATTR
 	'Next_',
 	'Link_ID',
 	1,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -238,7 +210,7 @@ link can result in multiple instances.
 	'');
 INSERT INTO S_DT_PROXY
 	VALUES ("c785b82e-b0aa-4f8c-8df4-f1b9cf451edd",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
 	'Multiplicity',
 	'The Multiplicity data type allows specification of the range of allowable cardinality values.
 --------------------------------------------------------------
@@ -260,16 +232,9 @@ INSERT INTO O_ATTR
 	'',
 	'modelClassKeyLettersLineNumber',
 	0,
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'integer',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("07c0041e-1a96-48b5-a3b5-9990997c493e",
 	"03756c5d-05d7-4ac3-abbd-e9c5edd3fc81");
@@ -285,7 +250,7 @@ INSERT INTO O_ATTR
 	'',
 	'modelClassKeyLettersColumn',
 	0,
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -303,7 +268,7 @@ INSERT INTO O_ATTR
 	'',
 	'associationNumberLineNumber',
 	0,
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -321,7 +286,7 @@ INSERT INTO O_ATTR
 	'',
 	'associationNumberColumn',
 	0,
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -339,7 +304,7 @@ INSERT INTO O_ATTR
 	'',
 	'phraseLineNumber',
 	0,
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -357,7 +322,7 @@ INSERT INTO O_ATTR
 	'',
 	'phraseColumn',
 	0,
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
 INSERT INTO O_REF
@@ -375,7 +340,7 @@ INSERT INTO O_REF
 	'',
 	'Model Class',
 	'Obj_ID',
-	'R678');
+	'R678.''specifies instances of''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("03756c5d-05d7-4ac3-abbd-e9c5edd3fc81",
 	"91abf45c-65d6-445b-88fe-2615f73da787",
@@ -408,7 +373,7 @@ INSERT INTO O_ATTR
 	'',
 	'Obj_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -426,7 +391,7 @@ INSERT INTO O_REF
 	'',
 	'Association',
 	'Rel_ID',
-	'R681');
+	'R681.''specifies traversal of''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("03756c5d-05d7-4ac3-abbd-e9c5edd3fc81",
 	"a7e9d583-3c48-4851-8899-7780e8c6478a",
@@ -457,7 +422,7 @@ INSERT INTO O_ATTR
 	'',
 	'Rel_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_ID
@@ -474,8 +439,16 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"03756c5d-05d7-4ac3-abbd-e9c5edd3fc81");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("03756c5d-05d7-4ac3-abbd-e9c5edd3fc81",
+	1,
+	"4baa0857-ca29-4e4a-b1cb-873757c0f936",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("4baa0857-ca29-4e4a-b1cb-873757c0f936",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Selection',
 	'This subsystem captures concepts related to selections of instances across associations. Association chain, where and instance extent selections are also covered.
 Notify_Changes:false
@@ -483,8 +456,5 @@ Persistent:false
 // This is used by schema_gen to ignore this subsystem (for publication)
 TRANSLATE_FOR_EXTERNAL_USE:FALSE
 ',
-	'ACT',
 	600,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-00000058000b",
 	'../Selection.xtuml');

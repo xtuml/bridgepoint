@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",
@@ -6,14 +6,14 @@ INSERT INTO O_OBJ
 	815,
 	'V_VAR',
 	'This class represents a temporary variable or an instance.',
-	"e060f94c-3f82-463e-9d98-d20315b7c196");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("64e6b32b-af23-4408-ae07-b2fdfbf988cb",
 	"04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",
 	'dispose',
 	'This operation disconnects an instance, and all instances it is 
 responsible for, from the model.',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select one trn related by self->V_TRN[R814];
 if ( not_empty trn )
@@ -193,13 +193,6 @@ delete object instance self;
 	1,
 	'',
 	"e58b9ddd-c972-4d0f-9de6-4efcd2ca2fb0");
-INSERT INTO S_DT_PROXY
-	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'void',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("520d811c-7939-4bbd-bb7c-9dce83b43ed6",
 	"04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",
@@ -207,7 +200,7 @@ INSERT INTO O_TFR
 	'During parsing, all variables are initially created with a Transient Var (V_TRN) subtype.  If it is determined at a later point the Variable instance should have a subtype of Instance (V_INT), this function is called to migrate the V_TRN subtype instance to a V_INT instance.
 --------------------------------------------------------------------------------
 Bridge:ALS',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select one trn related by self->V_TRN[R814];
 if ( not_empty trn )
@@ -228,7 +221,7 @@ INSERT INTO O_TFR
 	'During parsing, all variables are initially created with a Transient Var (V_TRN) subtype.  If it is determined at a later point the Variable instance should have a subtype of Instance Set (V_INS), this function is called to migrate the V_TRN subtype instance to a V_INS instance.
 --------------------------------------------------------------------------------
 Bridge:ALS',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select one trn related by self->V_TRN[R814];
 if ( not_empty trn )
@@ -247,7 +240,7 @@ INSERT INTO O_TFR
 	"04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",
 	'addLocation',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'create object instance loc of V_LOC;
 loc.LineNumber = param.line;
@@ -261,23 +254,16 @@ INSERT INTO O_TPARM
 	VALUES ("8ee6e6ea-f409-4121-a60c-ac40c64f52fc",
 	"4fa7224b-3675-4dbb-b42f-830bd7e52331",
 	'line',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"cce4eac1-9d52-44d6-a3a8-669723fe4970",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'integer',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TPARM
 	VALUES ("cce4eac1-9d52-44d6-a3a8-669723fe4970",
 	"4fa7224b-3675-4dbb-b42f-830bd7e52331",
 	'col',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -287,7 +273,7 @@ INSERT INTO O_TFR
 	"04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",
 	'getDimensionsCnt',
 	'',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	1,
 	'select many dims related by self->S_DIM[R849];
 dimensions = cardinality dims;
@@ -300,7 +286,7 @@ INSERT INTO O_TFR
 	"04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",
 	'resizeDimensions',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// If the number of dimensions has increased then add dimensions
 while (param.numDimensions > self.getDimensionsCnt())
@@ -331,7 +317,7 @@ INSERT INTO O_TPARM
 	VALUES ("9c9d2c97-4891-49c4-815b-7e1c666a84af",
 	"93668d6b-527d-42f2-988f-50ad525550f8",
 	'dimension',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -340,7 +326,7 @@ INSERT INTO O_TPARM
 	VALUES ("3d6a045d-6a2a-44cc-bd27-0cd07c988603",
 	"93668d6b-527d-42f2-988f-50ad525550f8",
 	'elementCount',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"9c9d2c97-4891-49c4-815b-7e1c666a84af",
@@ -349,7 +335,7 @@ INSERT INTO O_TPARM
 	VALUES ("9b977c54-5329-4429-bba0-d95202e52d0d",
 	"93668d6b-527d-42f2-988f-50ad525550f8",
 	'numDimensions',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"3d6a045d-6a2a-44cc-bd27-0cd07c988603",
@@ -359,7 +345,7 @@ INSERT INTO O_TFR
 	"04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",
 	'isReferringToDefaultDataType',
 	'',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'select one dt related by self->S_DT[R848];
 elementType = Util::getSimpleClassName(element:self.convertToInstance());
@@ -370,13 +356,6 @@ return false;',
 	1,
 	'',
 	"598f70d1-a50e-49c2-a88f-0768bc5c9389");
-INSERT INTO S_DT_PROXY
-	VALUES ("8e519c45-7dcf-400b-9d4e-954869dbb7e8",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'boolean',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("e58b9ddd-c972-4d0f-9de6-4efcd2ca2fb0",
 	"04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",
@@ -390,7 +369,7 @@ INSERT INTO O_TFR
 	"266a43ce-de9f-4a17-9ecc-37838e00de98");
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
 	'instance',
 	'',
 	'',
@@ -400,7 +379,7 @@ INSERT INTO O_TFR
 	"04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",
 	'canReferToDataType',
 	'',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
 select one body related by self->ACT_BLK[R823]->ACT_ACT[R601];
@@ -497,16 +476,9 @@ INSERT INTO O_ATTR
 	'',
 	'Var_ID',
 	0,
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'unique_id',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",
 	"b7fa3f21-6c94-47c6-934b-a56a2b7d758e",
@@ -557,16 +529,9 @@ INSERT INTO O_ATTR
 	'',
 	'Block_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("1c8a46a2-602c-4831-8a83-aecf3a594f39",
 	"04ccf45f-92e0-4d09-ba38-c8b5e3c789c4");
@@ -582,16 +547,9 @@ INSERT INTO O_ATTR
 	'',
 	'Name',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'string',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("830b3dde-0ff4-41d4-9e35-7bf57b62d383",
 	"04ccf45f-92e0-4d09-ba38-c8b5e3c789c4");
@@ -609,7 +567,7 @@ Bridge:ALS',
 	'',
 	'Declared',
 	0,
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	'',
 	'');
 INSERT INTO O_REF
@@ -627,7 +585,7 @@ INSERT INTO O_REF
 	'',
 	'Data Type',
 	'DT_ID',
-	'R848');
+	'R848.''has''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",
 	"08bd1099-d1e4-4726-9a04-651bba4e0d72",
@@ -660,7 +618,7 @@ INSERT INTO O_ATTR
 	'',
 	'Element_ID',
 	2,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_ID
@@ -677,8 +635,16 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"04ccf45f-92e0-4d09-ba38-c8b5e3c789c4");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",
+	1,
+	"e060f94c-3f82-463e-9d98-d20315b7c196",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("e060f94c-3f82-463e-9d98-d20315b7c196",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Value',
 	'This subsystem formalizes the concepts of values (r-values) and variables 
 (l-values). It also captures the concept of an actual parameter.
@@ -687,8 +653,5 @@ Persistent:false
 // This is used by schema_gen to ignore this subsystem (for publication)
 TRANSLATE_FOR_EXTERNAL_USE:FALSE
 ',
-	'V',
 	800,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000400008",
 	'../Value.xtuml');

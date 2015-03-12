@@ -8,13 +8,13 @@ INSERT INTO O_OBJ
 	'PEI:true
 Persistent:false
 TRANSLATE_FOR_EXTERNAL_USE:FALSE',
-	"b5695748-80fc-47fb-b5c7-801b5f28b907");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("01642b1d-fb51-4095-a62b-5b504c16dafc",
 	"0849862c-76a0-4d0f-bb84-cf5aef617874",
 	'updateAllElements',
 	'',
-	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select one modelSpec related by self->GD_MS[R33];
 select one spec related by self->GD_ES[R29];
@@ -297,47 +297,26 @@ INSERT INTO O_TPARM
 	VALUES ("3916e6b3-f050-4322-91fd-81ec3e84fe27",
 	"01642b1d-fb51-4095-a62b-5b504c16dafc",
 	'system_id',
-	"a236c27f-17c7-4c99-8f25-f3efd03eaf0c",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"fd2558e3-5877-4d39-8219-18b8f47ec7ed",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("a236c27f-17c7-4c99-8f25-f3efd03eaf0c",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	'unique_id',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TPARM
 	VALUES ("fd2558e3-5877-4d39-8219-18b8f47ec7ed",
 	"01642b1d-fb51-4095-a62b-5b504c16dafc",
 	'removeElements',
-	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("6e4aa280-2e22-4146-9b4a-6c2573c456d8",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	'boolean',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
-INSERT INTO S_DT_PROXY
-	VALUES ("3852f90c-88c5-467d-9b26-57c8cd438b42",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	'void',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("01e90c90-3e42-4325-9395-f04aa3dcdeec",
 	"0849862c-76a0-4d0f-bb84-cf5aef617874",
 	'findConnector',
 	'',
-	"a236c27f-17c7-4c99-8f25-f3efd03eaf0c",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'select any model related by self->GD_ES[R29]->GD_EMS[R11]->
                                                           GD_MS[R11]->GD_MD[R9];
@@ -364,7 +343,7 @@ INSERT INTO O_TPARM
 	VALUES ("42d98f22-42d8-42d9-bcdb-0c595e38daa3",
 	"01e90c90-3e42-4325-9395-f04aa3dcdeec",
 	'connectorID',
-	"a236c27f-17c7-4c99-8f25-f3efd03eaf0c",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -374,7 +353,7 @@ INSERT INTO O_TFR
 	"0849862c-76a0-4d0f-bb84-cf5aef617874",
 	'Reconcile',
 	'',
-	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	0,
 	'// we must run the shape creation specs first
 // so that any newly created shapes can be processed
@@ -405,7 +384,7 @@ INSERT INTO O_TPARM
 	VALUES ("965be58d-e2e1-4b02-a7a2-f2fddb250d11",
 	"c02376d4-138e-44c1-8e19-e42d4e5bdff4",
 	'system_id',
-	"a236c27f-17c7-4c99-8f25-f3efd03eaf0c",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"02ec8ed2-c71a-443c-9187-bd506acbaaca",
@@ -414,7 +393,7 @@ INSERT INTO O_TPARM
 	VALUES ("02ec8ed2-c71a-443c-9187-bd506acbaaca",
 	"c02376d4-138e-44c1-8e19-e42d4e5bdff4",
 	'removeElements',
-	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -424,7 +403,7 @@ INSERT INTO O_TFR
 	"0849862c-76a0-4d0f-bb84-cf5aef617874",
 	'findShape',
 	'',
-	"a236c27f-17c7-4c99-8f25-f3efd03eaf0c",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'select any model related by self->GD_ES[R29]->GD_EMS[R11]->
                                                           GD_MS[R11]->GD_MD[R9];
@@ -451,7 +430,7 @@ INSERT INTO O_TPARM
 	VALUES ("4d74bdcf-fec2-4fe9-be56-75e7e582a41f",
 	"bb127757-3046-42f0-8eaa-58bc50d7f658",
 	'shapeId',
-	"a236c27f-17c7-4c99-8f25-f3efd03eaf0c",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -471,16 +450,9 @@ INSERT INTO O_ATTR
 	'',
 	'Name',
 	0,
-	"17f3cd98-2d3a-4fe3-ac41-d27b377178a6",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("17f3cd98-2d3a-4fe3-ac41-d27b377178a6",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	'string',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("e10da735-ac66-4d53-9464-ac3d84572c93",
 	"0849862c-76a0-4d0f-bb84-cf5aef617874");
@@ -496,7 +468,7 @@ INSERT INTO O_ATTR
 	'',
 	'countMethod',
 	0,
-	"17f3cd98-2d3a-4fe3-ac41-d27b377178a6",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -514,7 +486,7 @@ INSERT INTO O_ATTR
 	'',
 	'elementMethod',
 	0,
-	"17f3cd98-2d3a-4fe3-ac41-d27b377178a6",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_REF
@@ -532,7 +504,7 @@ INSERT INTO O_REF
 	'',
 	'Element Specification',
 	'OOA_Type',
-	'R29');
+	'R29.''reconciles instance population associated with''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("0849862c-76a0-4d0f-bb84-cf5aef617874",
 	"e0546353-cd04-4daa-9198-96a6c96ea5b0",
@@ -565,16 +537,9 @@ INSERT INTO O_ATTR
 	'Scan_Target_',
 	'OOA_Type',
 	1,
-	"66164f00-293e-4c17-ab30-7972c7c57152",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("66164f00-293e-4c17-ab30-7972c7c57152",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("1fe3629d-a75d-452f-be0e-d5025254f3c4",
 	"0849862c-76a0-4d0f-bb84-cf5aef617874");
@@ -590,7 +555,7 @@ INSERT INTO O_ATTR
 	'',
 	'Id',
 	0,
-	"a236c27f-17c7-4c99-8f25-f3efd03eaf0c",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -608,7 +573,7 @@ INSERT INTO O_ATTR
 	'',
 	'elementExistsMethod',
 	0,
-	"17f3cd98-2d3a-4fe3-ac41-d27b377178a6",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -626,7 +591,7 @@ INSERT INTO O_ATTR
 	'',
 	'templateElementMethod',
 	0,
-	"17f3cd98-2d3a-4fe3-ac41-d27b377178a6",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_REF
@@ -644,7 +609,7 @@ INSERT INTO O_REF
 	'',
 	'Element Specification',
 	'OOA_Type',
-	'R30');
+	'R30.''reconciles against instances of''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("0849862c-76a0-4d0f-bb84-cf5aef617874",
 	"93193641-db8b-4f52-b5f4-67c898b2dbf1",
@@ -673,7 +638,7 @@ INSERT INTO O_ATTR
 	'Source_',
 	'OOA_Type',
 	1,
-	"66164f00-293e-4c17-ab30-7972c7c57152",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -691,7 +656,7 @@ INSERT INTO O_REF
 	'',
 	'Element Specification',
 	'OOA_Type',
-	'R31');
+	'R31.''reconciles''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("0849862c-76a0-4d0f-bb84-cf5aef617874",
 	"49109c60-6e67-416e-9029-17b9838a13bf",
@@ -720,7 +685,7 @@ INSERT INTO O_ATTR
 	'Target_',
 	'OOA_Type',
 	1,
-	"66164f00-293e-4c17-ab30-7972c7c57152",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -771,7 +736,7 @@ INSERT INTO O_ATTR
 	'',
 	'OOA_Type',
 	0,
-	"66164f00-293e-4c17-ab30-7972c7c57152",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -817,7 +782,7 @@ INSERT INTO O_ATTR
 	'',
 	'Model_Type',
 	0,
-	"66164f00-293e-4c17-ab30-7972c7c57152",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -835,7 +800,7 @@ INSERT INTO O_ATTR
 	'',
 	'reprocess',
 	0,
-	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	'',
 	'');
 INSERT INTO O_ID
@@ -852,15 +817,20 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"0849862c-76a0-4d0f-bb84-cf5aef617874");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("0849862c-76a0-4d0f-bb84-cf5aef617874",
+	1,
+	"b5695748-80fc-47fb-b5c7-801b5f28b907",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("b5695748-80fc-47fb-b5c7-801b5f28b907",
+	"00000000-0000-0000-0000-000000000000",
+	"8f801c9a-cf2d-4ef4-b11a-51b8697e3ca8",
 	'Graphical Data',
 	'The GD (Graphics Domain) subsystem models the graphical elements for a BridgePoint model.
 -------------------------------------------------------
 Import:org.eclipse.swt.graphics.Color
 Notify_Changes:true',
-	'GD',
 	1,
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	"00000000-0000-0000-0000-000001900032",
 	'../Graphical Data.xtuml');

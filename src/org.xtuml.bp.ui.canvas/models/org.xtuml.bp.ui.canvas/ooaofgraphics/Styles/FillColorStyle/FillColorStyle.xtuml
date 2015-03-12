@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("77de536a-712e-4ce9-9f2d-4e13b06c521a",
@@ -6,25 +6,18 @@ INSERT INTO O_OBJ
 	2,
 	'STY_FCS',
 	'',
-	"9daa01e9-3e90-41ba-bff0-f9213b487f5c");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("3297dfd3-70db-4e3a-bfb3-5432d44d3cab",
 	"77de536a-712e-4ce9-9f2d-4e13b06c521a",
 	'get_name',
 	'',
-	"17f3cd98-2d3a-4fe3-ac41-d27b377178a6",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'return "Fill Color";',
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO S_DT_PROXY
-	VALUES ("17f3cd98-2d3a-4fe3-ac41-d27b377178a6",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	'string',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("77de536a-712e-4ce9-9f2d-4e13b06c521a",
 	"548f667c-4311-4aa2-9d52-7aed81972a0f",
@@ -73,16 +66,9 @@ INSERT INTO O_ATTR
 	'',
 	'Style_ID',
 	0,
-	"66164f00-293e-4c17-ab30-7972c7c57152",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("66164f00-293e-4c17-ab30-7972c7c57152",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("d438aaa9-442f-4b81-83b3-7c70fd9355aa",
 	"77de536a-712e-4ce9-9f2d-4e13b06c521a");
@@ -98,16 +84,9 @@ INSERT INTO O_ATTR
 	'',
 	'red',
 	0,
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("388cd7a2-2d0c-4f02-9730-7670074de394",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	'integer',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("b2ef54ac-2592-423f-b4cf-7a42d3447a31",
 	"77de536a-712e-4ce9-9f2d-4e13b06c521a");
@@ -123,7 +102,7 @@ INSERT INTO O_ATTR
 	'',
 	'green',
 	0,
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -141,7 +120,7 @@ INSERT INTO O_ATTR
 	'',
 	'blue',
 	0,
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
 INSERT INTO O_ID
@@ -158,12 +137,17 @@ INSERT INTO O_OIDA
 	"77de536a-712e-4ce9-9f2d-4e13b06c521a",
 	0,
 	'Style_ID');
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("77de536a-712e-4ce9-9f2d-4e13b06c521a",
+	1,
+	"9daa01e9-3e90-41ba-bff0-f9213b487f5c",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("9daa01e9-3e90-41ba-bff0-f9213b487f5c",
+	"00000000-0000-0000-0000-000000000000",
+	"8f801c9a-cf2d-4ef4-b11a-51b8697e3ca8",
 	'Styles',
 	'',
-	'STY',
 	400,
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	"00000000-0000-0000-0000-000000000000",
 	'../Styles.xtuml');

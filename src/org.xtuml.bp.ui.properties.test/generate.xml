@@ -42,6 +42,8 @@
   <ant antfile="${mcj_path}/build.xml" target="generate.schema" >
     <property name="param1" value="../${core_sql_dir}/ooaofooa.sql" />
     <property name="param2" value="${mcj_path}" />
+    <property name="param3" value="FALSE" />
+    <property name="param4" value="ooaofooa" />
   </ant>
   <!-- Need to touch the output file for the case where the input data
        changed, but the output didn't -->
@@ -66,6 +68,8 @@
   <ant antfile="${mcj_path}/build.xml" target="generate.schema" >
     <property name="param1" value="../${canvas_sql_dir}/ooaofgraphics.sql" />
     <property name="param2" value="${mcj_path}" />
+    <property name="param3" value="FALSE" />
+    <property name="param4" value="ooaofgraphics" />
   </ant>
   <!-- Need to touch the output file for the case where the input data
        changed, but the output didn't -->
@@ -95,7 +99,7 @@
       -import sql/${ooaofooa_schema.output}
       -import sql/${ooaofgraphics_schema.output}
       -import ${core_sql_dir}/ooaofooa_hierarchy_schema.sql
-      -import sql/proxy_schema.sql
+            -import sql/proxy_schema.sql
       -import ${core_sql_dir}/ooaofooa.sql
       -import ${core_sql_dir}/ooaofooa_hierarchy.pei.sql
       -arch arc/create_view_test.arc" />
@@ -185,7 +189,7 @@
         <env key="CHAIN_UTIL_DIR" value="${chain_util_path}"/>
         <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
     <arg line="xtumlmc_gen_erate -nopersist
-      -import sql/proxy_schema.sql
+            -import sql/proxy_schema.sql
       -import sql/ooaofooa_schema.sql
       -import sql/ooaofgraphics_schema.sql
       -import sql/${sql.output}

@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("85ea5f4d-96fc-432f-9832-454a0387cffc",
@@ -6,7 +6,7 @@ INSERT INTO O_OBJ
 	4401,
 	'SLD_SDINP',
 	'',
-	"05616c28-ec11-47f4-9145-bc6ea42e4638");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_REF
 	VALUES ("85ea5f4d-96fc-432f-9832-454a0387cffc",
 	"5735d0f8-e286-4832-975e-04887e18a036",
@@ -22,7 +22,7 @@ INSERT INTO O_REF
 	'',
 	'System Model',
 	'Sys_ID',
-	'R4402');
+	'R4402.''is datatype in''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("85ea5f4d-96fc-432f-9832-454a0387cffc",
 	"a1ab1314-9684-48fa-9a37-e63991091b76",
@@ -55,16 +55,9 @@ INSERT INTO O_ATTR
 	'',
 	'Sys_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("85ea5f4d-96fc-432f-9832-454a0387cffc",
 	"110e3323-6929-4be9-b265-ce681dd25ec3",
@@ -80,7 +73,7 @@ INSERT INTO O_REF
 	'',
 	'Data Type Package',
 	'Package_ID',
-	'R4401');
+	'R4401.''can show in lower package''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("85ea5f4d-96fc-432f-9832-454a0387cffc",
 	"14385b82-10ae-49ea-851c-a363e7dc45f8",
@@ -113,7 +106,7 @@ INSERT INTO O_ATTR
 	'',
 	'Package_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -131,7 +124,7 @@ INSERT INTO O_REF
 	'',
 	'Data Type',
 	'DT_ID',
-	'R4401');
+	'R4401.''may show''');
 INSERT INTO O_RTIDA_PROXY
 	VALUES ("0e78201f-a7cd-497b-a6b4-e224ab7915c2",
 	"ead52fac-9782-434b-a35c-c07452c3b26d",
@@ -159,7 +152,7 @@ INSERT INTO O_ATTR
 	'',
 	'Element_ID',
 	2,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_ID
@@ -181,16 +174,21 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"85ea5f4d-96fc-432f-9832-454a0387cffc");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("85ea5f4d-96fc-432f-9832-454a0387cffc",
+	1,
+	"05616c28-ec11-47f4-9145-bc6ea42e4638",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("05616c28-ec11-47f4-9145-bc6ea42e4638",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'System Level Datatypes',
 	'// This is used by schema_gen to ignore this subsystem (for publication)
 TRANSLATE_FOR_EXTERNAL_USE:FALSE
 
 The System Level Datatypes subsystem exists mainly to setup linking between a
 datatype package and a system, as well as datatypes and a system.',
-	'SLD',
 	4400,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000000000",
 	'../System Level Datatypes.xtuml');

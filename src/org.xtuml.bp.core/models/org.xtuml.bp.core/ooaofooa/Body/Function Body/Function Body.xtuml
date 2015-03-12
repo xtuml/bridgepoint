@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("3048f68f-092c-4db0-b786-5eff71fb0a8c",
@@ -6,14 +6,14 @@ INSERT INTO O_OBJ
 	634,
 	'ACT_FNB',
 	'This class represents the action language containing body of a Function.',
-	"76583c73-7a99-4c81-b260-8109e6cef5ca");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("50e6969b-8a05-4f27-8af1-fcab4bd63c6f",
 	"3048f68f-092c-4db0-b786-5eff71fb0a8c",
 	'dispose',
 	'This operation disconnects an instance, and all instances it is 
 responsible for, from the model.',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'  select one fnb related by self->S_SYNC[R695];
   if ( not_empty fnb )
@@ -24,38 +24,24 @@ delete object instance self;
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO S_DT_PROXY
-	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'void',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("9867e5b4-73d4-43a2-ad0c-de029216fadc",
 	"3048f68f-092c-4db0-b786-5eff71fb0a8c",
 	'getContainingComponentId',
 	'',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'select one function related by self->S_SYNC[R695];
 return function.getContainingComponentId();',
 	1,
 	'',
 	"50e6969b-8a05-4f27-8af1-fcab4bd63c6f");
-INSERT INTO S_DT_PROXY
-	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'unique_id',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("2908fd72-0cdc-4bf1-8d41-78030c976145",
 	"3048f68f-092c-4db0-b786-5eff71fb0a8c",
 	'getContainerId',
 	'',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'// Function Body.getContainerId()
 select one function related by self->S_SYNC[R695];
@@ -68,7 +54,7 @@ INSERT INTO O_TFR
 	"3048f68f-092c-4db0-b786-5eff71fb0a8c",
 	'getPath',
 	'',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'select one function related by self->S_SYNC[R695];
 fnPath ="";
@@ -90,13 +76,6 @@ return fnPath;',
 	1,
 	'',
 	"2908fd72-0cdc-4bf1-8d41-78030c976145");
-INSERT INTO S_DT_PROXY
-	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'string',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("3048f68f-092c-4db0-b786-5eff71fb0a8c",
 	"d1c9af7b-9df6-432a-a25e-96cab24fc6af",
@@ -145,16 +124,9 @@ INSERT INTO O_ATTR
 	'',
 	'Action_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("3048f68f-092c-4db0-b786-5eff71fb0a8c",
 	"bc9a6c16-8809-4681-92ab-421898fa108a",
@@ -170,7 +142,7 @@ INSERT INTO O_REF
 	'',
 	'Function',
 	'Sync_ID',
-	'R695');
+	'R695.''specifies processing for''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("3048f68f-092c-4db0-b786-5eff71fb0a8c",
 	"df0515ac-311d-40e3-811e-288513469730",
@@ -203,7 +175,7 @@ INSERT INTO O_ATTR
 	'',
 	'Sync_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_ID
@@ -220,8 +192,16 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"3048f68f-092c-4db0-b786-5eff71fb0a8c");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("3048f68f-092c-4db0-b786-5eff71fb0a8c",
+	1,
+	"76583c73-7a99-4c81-b260-8109e6cef5ca",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("76583c73-7a99-4c81-b260-8109e6cef5ca",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Body',
 	'This subsystem abstracts the action itself, the blocks and statements
 it contains together with the flow of control statements such as ''while'',
@@ -231,8 +211,5 @@ Persistent:false
 // This is used by schema_gen to ignore this subsystem (for publication)
 TRANSLATE_FOR_EXTERNAL_USE:FALSE
 ',
-	'ACT',
 	600,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000380007",
 	'../Body.xtuml');

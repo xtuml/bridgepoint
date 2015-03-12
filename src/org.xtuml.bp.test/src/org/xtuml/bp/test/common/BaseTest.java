@@ -1023,9 +1023,9 @@ public class BaseTest extends TestCase {
 						+ NEWLINE2 + NEWLINE2 + NEWLINE2 + "\\);", "");
 				
 				// S_SYS_PROXY with 7 lines
-				fileString = fileString.replaceAll("INSERT INTO EP_PKG_PROXY"
+				fileString = fileString.replaceAll("INSERT INTO S_SYS_PROXY"
 						+ NEWLINE1 + NEWLINE1 + NEWLINE1 + NEWLINE1 + NEWLINE1 + NEWLINE1 + NEWLINE1 + "\\);", "");
-				fileString = fileString.replaceAll("INSERT INTO EP_PKG_PROXY"
+				fileString = fileString.replaceAll("INSERT INTO S_SYS_PROXY"
 						+ NEWLINE2 + NEWLINE2 + NEWLINE2 + NEWLINE2 + NEWLINE2 + NEWLINE2 + NEWLINE2 + "\\);", "");
 
 				fileStream.close();

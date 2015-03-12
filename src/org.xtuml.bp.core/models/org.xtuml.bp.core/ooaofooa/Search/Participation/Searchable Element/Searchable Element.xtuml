@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("4a414bd1-b825-4edf-a33e-21ea3a2eedc7",
@@ -6,13 +6,13 @@ INSERT INTO O_OBJ
 	9701,
 	'SP_SE',
 	'',
-	"332560eb-7338-43a5-a3a7-70d093e0846d");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("5ed15dd5-32e2-4fca-b56e-7d4b7133e978",
 	"4a414bd1-b825-4edf-a33e-21ea3a2eedc7",
 	'dispose',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select one descriptionSearchable related by self->SP_DS[R9702];
 if(not_empty descriptionSearchable)
@@ -37,13 +37,6 @@ delete object instance self;',
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO S_DT_PROXY
-	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'void',
-	'',
-	'',
-	'../../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("4a414bd1-b825-4edf-a33e-21ea3a2eedc7",
 	"fa6af3d4-7158-42ce-a887-e54782dc21af",
@@ -59,7 +52,7 @@ INSERT INTO O_REF
 	'',
 	'Search Participant',
 	'Id',
-	'R9700');
+	'R9700.''participates as''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("4a414bd1-b825-4edf-a33e-21ea3a2eedc7",
 	"cc0e950a-b0bf-408b-b298-98d8a537597d",
@@ -92,16 +85,9 @@ INSERT INTO O_ATTR
 	'Participant_',
 	'Id',
 	1,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("58465bdf-90c9-4156-bb6f-9b58b7fe6a3e",
 	"4a414bd1-b825-4edf-a33e-21ea3a2eedc7");
@@ -117,16 +103,9 @@ INSERT INTO O_ATTR
 	'',
 	'Id',
 	0,
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'unique_id',
-	'',
-	'',
-	'../../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("10129839-2626-4bd0-a343-4502544a3eb0",
 	"4a414bd1-b825-4edf-a33e-21ea3a2eedc7");
@@ -142,16 +121,9 @@ INSERT INTO O_ATTR
 	'',
 	'modelRootId',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'string',
-	'',
-	'',
-	'../../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("bc8caee2-1a77-4cd3-871d-ea2ebad68292",
 	"4a414bd1-b825-4edf-a33e-21ea3a2eedc7");
@@ -167,7 +139,7 @@ INSERT INTO O_ATTR
 	'',
 	'className',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -190,7 +162,7 @@ INSERT INTO O_ATTR
 	'');
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
 	'instance',
 	'',
 	'',
@@ -209,12 +181,17 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"4a414bd1-b825-4edf-a33e-21ea3a2eedc7");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("4a414bd1-b825-4edf-a33e-21ea3a2eedc7",
+	1,
+	"332560eb-7338-43a5-a3a7-70d093e0846d",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("332560eb-7338-43a5-a3a7-70d093e0846d",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Participation',
 	'',
-	'SP',
 	9700,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000000000",
 	'../Participation.xtuml');

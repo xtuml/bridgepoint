@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("20b4194f-f64d-47b7-896d-542dccf5f8c7",
@@ -6,7 +6,7 @@ INSERT INTO O_OBJ
 	2,
 	'NLN',
 	'This is a node that has children.',
-	"5edea08f-a6e1-4146-8e1c-0cade7a477c7");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_REF
 	VALUES ("20b4194f-f64d-47b7-896d-542dccf5f8c7",
 	"c8810489-2604-4445-a195-28192dee1e41",
@@ -55,16 +55,9 @@ INSERT INTO O_ATTR
 	'',
 	'nodeId',
 	0,
-	"73db19ab-e535-4718-ab07-668918299d9a",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("73db19ab-e535-4718-ab07-668918299d9a",
-	"c7485938-5b68-46c4-bc59-f0bb9c943851",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("20b4194f-f64d-47b7-896d-542dccf5f8c7",
 	"c8810489-2604-4445-a195-28192dee1e41",
@@ -80,7 +73,7 @@ INSERT INTO O_REF
 	'',
 	'Node',
 	'nodeId',
-	'R8');
+	'R8.''has eldest child''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("20b4194f-f64d-47b7-896d-542dccf5f8c7",
 	"bbf9ff9a-1372-45ee-a9d4-204fb5d4699b",
@@ -112,7 +105,7 @@ child nodes for this node.
 	'first_child_',
 	'nodeId',
 	1,
-	"73db19ab-e535-4718-ab07-668918299d9a",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -131,16 +124,9 @@ Values: "Root", "Ebnf", "Rule"',
 	'',
 	'node_type',
 	0,
-	"8bc628ed-3494-4e74-bb6a-ec37622127df",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("8bc628ed-3494-4e74-bb6a-ec37622127df",
-	"c7485938-5b68-46c4-bc59-f0bb9c943851",
-	'string',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("e9114fb0-43ae-4589-a474-e1a1222c32ba",
 	"20b4194f-f64d-47b7-896d-542dccf5f8c7");
@@ -158,16 +144,9 @@ for the loop variable names.',
 	'',
 	'loop_index',
 	0,
-	"bfb63684-46c9-44bd-b4f5-e0ae6cd60407",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("bfb63684-46c9-44bd-b4f5-e0ae6cd60407",
-	"c7485938-5b68-46c4-bc59-f0bb9c943851",
-	'integer',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("3072e702-d4e3-4b49-bfcd-93b247c0443c",
 	"20b4194f-f64d-47b7-896d-542dccf5f8c7");
@@ -185,7 +164,7 @@ id''s as we iterate in an ENBF.',
 	'',
 	'loop_id_name',
 	0,
-	"8bc628ed-3494-4e74-bb6a-ec37622127df",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -205,7 +184,7 @@ invoked before the processing of the node begins.',
 	'',
 	'fncname_start',
 	0,
-	"8bc628ed-3494-4e74-bb6a-ec37622127df",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -225,7 +204,7 @@ after processing the node.',
 	'',
 	'fncname_end',
 	0,
-	"8bc628ed-3494-4e74-bb6a-ec37622127df",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_ID
@@ -242,12 +221,17 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"20b4194f-f64d-47b7-896d-542dccf5f8c7");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("20b4194f-f64d-47b7-896d-542dccf5f8c7",
+	1,
+	"5edea08f-a6e1-4146-8e1c-0cade7a477c7",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("5edea08f-a6e1-4146-8e1c-0cade7a477c7",
+	"00000000-0000-0000-0000-000000000000",
+	"c76dedc6-4b25-435f-9310-4f344030485a",
 	'BNF',
 	'',
-	'',
 	1,
-	"c7485938-5b68-46c4-bc59-f0bb9c943851",
-	"00000000-0000-0000-0000-000000100002",
 	'../BNF.xtuml');

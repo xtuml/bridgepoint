@@ -6,13 +6,13 @@ INSERT INTO O_OBJ
 	1501,
 	'CNST_SYC',
 	'A constant with a name as opposed to a literal constant that has a value only.',
-	"64811fd3-cc5f-4963-9036-8a9110e89dda");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("53f184d6-5aed-4d7f-b4ec-3b7283447d5e",
 	"d4956257-25ce-4df9-a48f-3600e0983412",
 	'actionFilter',
 	'Returns whether or not a given context menu entry item should be available.',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'if (param.name == "can" )
   if ( param.value == "move up" )
@@ -31,34 +31,20 @@ INSERT INTO O_TPARM
 	VALUES ("f45bbc44-416b-4e41-8e4d-3db8aa928d30",
 	"53f184d6-5aed-4d7f-b4ec-3b7283447d5e",
 	'name',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'string',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TPARM
 	VALUES ("dddc9758-0a0b-4100-83e7-4915c0a3b6a5",
 	"53f184d6-5aed-4d7f-b4ec-3b7283447d5e",
 	'value',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	0,
 	'',
 	"f45bbc44-416b-4e41-8e4d-3db8aa928d30",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("8e519c45-7dcf-400b-9d4e-954869dbb7e8",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'boolean',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("84600969-3aa2-440f-b50d-64ae0811ac3b",
 	"d4956257-25ce-4df9-a48f-3600e0983412",
@@ -75,7 +61,7 @@ return this;',
 	"53f184d6-5aed-4d7f-b4ec-3b7283447d5e");
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
 	'instance',
 	'',
 	'',
@@ -85,7 +71,7 @@ INSERT INTO O_TFR
 	"d4956257-25ce-4df9-a48f-3600e0983412",
 	'dispose',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// Symbolic Constant (CNST_SYC) dispose operation
 
@@ -157,19 +143,12 @@ delete object instance self;',
 	1,
 	'',
 	"84600969-3aa2-440f-b50d-64ae0811ac3b");
-INSERT INTO S_DT_PROXY
-	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'void',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("b552f32c-4a91-4a8b-99e9-bcee7d2478ba",
 	"d4956257-25ce-4df9-a48f-3600e0983412",
 	'initialize',
 	'The initialization operation for this class.',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// Symbolic Constant (CNST_SYC) initialize operation
 select many peers related by self->CNST_CSP[R1504]->CNST_SYC[R1504];
@@ -209,7 +188,7 @@ INSERT INTO O_TFR
 	'moveDown',
 	'Move this Symbolic Constant down in the list of CNST_SYCs in this Constant
 Specification Package.',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'::changeNotificationEnablement(enabled:false);
 select one next_attr related by self->CNST_SYC[R1505.''precedes''];
@@ -246,7 +225,7 @@ INSERT INTO O_TFR
 	'moveUp',
 	'Move this Symbolic Constant up in the list of CNST_SYCs in this Constant
 Specification Package.',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'::changeNotificationEnablement(enabled:false);
 select one prev_attr related by self->CNST_SYC[R1505.''succeeds''];
@@ -283,7 +262,7 @@ INSERT INTO O_TFR
 	'This function is called when the datatype associated with this constant needs to
 be set to the default "integer".  This is needed during initialization and when
 the previously associated datatype is disposed.',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
 // Symbolic Constant (CNST_SYC) setToDefaultDatatype operation
@@ -367,7 +346,7 @@ INSERT INTO O_TFR
 	'resolveDatatype',
 	'This operation is called automatically by the paste infrastructure to fix up
 datatype relationships for pasted elements.',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
 //
@@ -447,7 +426,7 @@ INSERT INTO O_TFR
 	"d4956257-25ce-4df9-a48f-3600e0983412",
 	'checkIntegrity',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'/**
  *  Create an integrity issue if there are any other constants in the same
@@ -491,16 +470,9 @@ INSERT INTO O_ATTR
 	'',
 	'Const_ID',
 	0,
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'unique_id',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("0cb2c6e7-3215-4676-811e-b884b17185b6",
 	"d4956257-25ce-4df9-a48f-3600e0983412");
@@ -517,7 +489,7 @@ Description: The name of this constant',
 	'',
 	'Name',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -536,7 +508,7 @@ Description:  A textual description of the symbolic constant as specified in the
 	'',
 	'Descrip',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_REF
@@ -554,7 +526,7 @@ INSERT INTO O_REF
 	'',
 	'Symbolic Constant',
 	'Const_ID',
-	'R1505');
+	'R1505.''succeeds''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("d4956257-25ce-4df9-a48f-3600e0983412",
 	"2084a456-5f70-4231-8f2c-9f3c8cd18df2",
@@ -583,16 +555,9 @@ INSERT INTO O_ATTR
 	'Previous_',
 	'Const_ID',
 	1,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("d4956257-25ce-4df9-a48f-3600e0983412",
 	"ead52fac-9782-434b-a35c-c07452c3b26d",
@@ -608,7 +573,7 @@ INSERT INTO O_REF
 	'',
 	'Data Type',
 	'DT_ID',
-	'R1500');
+	'R1500.''is defined by''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("d4956257-25ce-4df9-a48f-3600e0983412",
 	"38d89904-4aed-4378-b8a0-f9d6c8af4da2",
@@ -641,7 +606,7 @@ INSERT INTO O_ATTR
 	'',
 	'Element_ID',
 	2,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -659,7 +624,7 @@ INSERT INTO O_REF
 	'',
 	'Symbolic Constant',
 	'DT_ID',
-	'R1505');
+	'R1505.''succeeds''');
 INSERT INTO O_RTIDA_PROXY
 	VALUES ("b2df6829-6115-4bbb-8630-286da95d1591",
 	"d4956257-25ce-4df9-a48f-3600e0983412",
@@ -683,7 +648,7 @@ INSERT INTO O_ATTR
 	'Previous_DT_',
 	'DT_ID',
 	1,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -701,7 +666,7 @@ INSERT INTO O_REF
 	'',
 	'Constant Specification',
 	'Constant_Spec_ID',
-	'R1504');
+	'R1504.''is contained by''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("d4956257-25ce-4df9-a48f-3600e0983412",
 	"c2885aa4-8ac4-4cc7-adc5-09b42f273105",
@@ -730,7 +695,7 @@ INSERT INTO O_ATTR
 	'',
 	'Constant_Spec_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_ID
@@ -752,14 +717,19 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"d4956257-25ce-4df9-a48f-3600e0983412");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("d4956257-25ce-4df9-a48f-3600e0983412",
+	1,
+	"64811fd3-cc5f-4963-9036-8a9110e89dda",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("64811fd3-cc5f-4963-9036-8a9110e89dda",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Constants',
 	'This subsystem contains the metamodel support for constants.  Individual
 constants are contained inside a constant specification on the datatypes
 diagram.',
-	'CNST',
 	1500,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000000000",
 	'../Constants.xtuml');
