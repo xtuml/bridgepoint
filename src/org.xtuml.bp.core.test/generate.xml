@@ -406,11 +406,11 @@
 
   <target name="sql" depends="sql.depends" description="Generate the sql version of the Consistency test model" unless="sql.buildNotNeeded">
     <echo>Generating ${sql.output} ...</echo>
-    <copy file="../org.xtuml.bp.pkg/globals/Globals.xtuml" tofile="${sql.input}/Globals.xtuml" />
+    <copy file="../org.xtuml.bp.pkg/globals/Globals.xtuml" tofile="models/org.xtuml.bp.core.test/consistencyTest/${sql.input}/Globals.xtuml" />
     <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
       <arg line="xtumlmc_cleanse_for_BridgePoint models/org.xtuml.bp.core.test/${sql.input} sql/${sql.output} ${subsystems_to_remove}" />
     </exec>
-    <delete file="${sql.input}/Globals.xtuml" />
+    <delete file="models/org.xtuml.bp.core.test/consistencyTest/${sql.input}/Globals.xtuml" />
   </target>
 
   <target name="schema.depends">
@@ -483,7 +483,7 @@
   <target name="clean_all" description="Clean entire project" depends="clean_classes,clean_java,clean_sql,clean_matrices">
 
     <echo>Done cleaning for ${ant.project.name}</echo>
-
+  	<delete file="____file.txt" />
   </target>
 
   <target name="clean_java" description="Remove the java sources.">
@@ -501,11 +501,15 @@
   </target>
 
   <target name="clean_sql" description="Remove generated sql files">
-  	<fileset dir="sql" includes="*.sql" />
+  	<delete verbose="true">
+  	  <fileset dir="sql" includes="*.sql" />
+  	</delete>
   </target>
   	
   <target name="clean_matrices" description="Remove all generated matrices." >
-  	<fileset dir="matrices/generated" includes="*.txt"/>
+  	<delete verbose="true">
+  	  <fileset dir="matrices/generated" includes="*.txt"/>
+  	</delete>
   </target>
 	
   <target name="clean_classes" description="Remove all compiled class files.">
