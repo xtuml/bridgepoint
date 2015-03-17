@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?>
 
-<!-- 
-    A sample installation file.
--->
-
 <installation version="1.0">
 
     <!-- 
@@ -11,13 +7,7 @@
     -->
     <info>
         <appname>BridgePoint for Windows</appname>
-        <appversion>4.2.0</appversion>
-        <authors>
-            <author name="Keith Brown" email="keith.brown@onefact.net"/>
-            <author name="Robert Mulvey" email="robert.mulvey@onefact.net"/>
-            <author name="Cortland Starrett" email="cortland.starrett@onefact.net"/>
-        </authors>
-        <url>http://onefact.net/</url>
+        <appversion>4.2.1</appversion>
     </info>
 
     <!-- 
@@ -35,7 +25,6 @@
     <variables>
         <variable name="InstallerFrame.logfilePath" value="Default"/>
         <variable name="ShowCreateDirectoryMessage" value="false"/>
-        <variable name="STAGING" value="/staging"/>
     </variables>
 
     <native type="izpack" name="ShellLink.dll"/>
@@ -44,10 +33,10 @@
         The resources section.
     -->
     <resources>
-        <res id="shortcutSpec.xml" src="extras/shortcutSpec.xml"/>
-        <res id="TargetPanel.dir" src="extras/TARGET_WINDOWS.txt"/>
-        <res id="HTMLHelloPanel.info" src="extras/welcome.html"/>
-        <res id="logo" src="extras/1F.png"/>
+        <res id="shortcutSpec.xml" src="installer_extras/shortcutSpec.xml"/>
+        <res id="TargetPanel.dir" src="installer_extras/TARGET_WINDOWS.txt"/>
+        <res id="HTMLHelloPanel.info" src="installer_extras/welcome.html"/>
+        <res id="logo" src="installer_extras/1F.png"/>
     </resources>
 
 
@@ -67,18 +56,18 @@
     <packs>
         <pack name="Eclipse" required="yes">
             <description>Eclipse installation</description>
-            <file src="${STAGING}/BridgePoint_e3.7/EclipseDeliverables/eclipse/" targetdir="$INSTALL_PATH"/>
+            <file src="BridgePoint_e3.7/EclipseDeliverables/eclipse/" targetdir="$INSTALL_PATH"/>
         </pack>
         <pack name="BridgePoint" required="yes">
             <description>BridgePoint installation</description>
-            <file src="$STAGING/BridgePoint_e3.7/BridgepointDeliverables/eclipse_extensions/" targetdir="$INSTALL_PATH"/>
-            <file src="$STAGING/BridgePoint_e3.7/BridgepointDeliverables/extras/" targetdir="$INSTALL_PATH"/>
-            <file src="$STAGING/BridgePoint_e3.7/BridgepointDeliverables/jre/" targetdir="$INSTALL_PATH"/>
-            <file src="$STAGING/BridgePoint_e3.7/BridgepointDeliverables/MinGW/" targetdir="$INSTALL_PATH"/>
-            <file src="$STAGING/BridgePoint_e3.7/BridgepointDeliverables/tools/" targetdir="$INSTALL_PATH"/>
-            <file src="extras/splash.bmp" targetdir="$INSTALL_PATH"/>
-            <file src="extras/bp.ico" targetdir="$INSTALL_PATH"/>
-            <file src="extras/post_install_script.bat" targetdir="$INSTALL_PATH"/>
+            <file src="BridgePoint_e3.7/BridgepointDeliverables/eclipse_extensions/" targetdir="$INSTALL_PATH"/>
+            <file src="BridgePoint_e3.7/BridgepointDeliverables/extras/" targetdir="$INSTALL_PATH"/>
+            <file src="BridgePoint_e3.7/BridgepointDeliverables/jre/" targetdir="$INSTALL_PATH"/>
+            <file src="BridgePoint_e3.7/BridgepointDeliverables/MinGW/" targetdir="$INSTALL_PATH"/>
+            <file src="BridgePoint_e3.7/BridgepointDeliverables/tools/" targetdir="$INSTALL_PATH"/>
+            <file src="installer_extras/splash.bmp" targetdir="$INSTALL_PATH"/>
+            <file src="installer_extras/bp.ico" targetdir="$INSTALL_PATH"/>
+            <file src="installer_extras/post_install_script.bat" targetdir="$INSTALL_PATH"/>
             <executable targetfile="$INSTALL_PATH/post_install_script.bat" stage="postinstall">
                 <args>
                     <arg value="$INSTALL_PATH"/>
