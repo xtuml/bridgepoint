@@ -86,14 +86,14 @@ BridgePoint installer are in order as follows:
 6.4.1 HTMLHelloPanel  
 
 This panel provides the welcome message and any desired information about BridgePoint. The body of
-this paenl is created from custom HTML supporting insertion of BridgePoint and OneFact branding.  
+this panel is created from custom HTML supporting insertion of BridgePoint and OneFact branding.  
 
 6.4.2 TargetPanel  
 
 This panel provides the user with the opportunity to chose the target directory of the installation.
-The default is "$USER_HOME/xtuml/BridgePoint" (Linux) and "C:\xtuml\BridgePoint" (Windows).  
+The default is "$USER_HOME/xtuml/BridgePoint" (Linux) and "C:/xtuml/BridgePoint" (Windows).  
 
-6.4.3 ShortcutPanel (Window only)  
+6.4.3 ShortcutPanel (Windows only)  
 
 This panel gives the user the opportunity to specify creation of Desktop and Start Menu shortcuts.  
 
@@ -105,6 +105,7 @@ and the installation as a whole.
 7. Design Comments
 ------------------
 7.1 Post-install text find and replace  
+
 There are three options for finding and replacing the default target in the installation files:  
 
 1. Employ "parseable" files  
