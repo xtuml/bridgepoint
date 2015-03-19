@@ -1,21 +1,21 @@
 -- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
-	VALUES ("2ba55d0b-027c-4026-b5de-f23242cdb304",
+	VALUES ("c0c0fcf5-6694-49ba-b2ad-221a097da0fe",
 	'Unnamed Class 10',
 	10,
 	'KEY',
 	'',
 	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_NBATTR
-	VALUES ("7fd4e53f-bbc6-49f9-819f-4eba3fab4469",
-	"2ba55d0b-027c-4026-b5de-f23242cdb304");
+	VALUES ("6cc335e9-851e-4145-82c6-c81d40214f9f",
+	"c0c0fcf5-6694-49ba-b2ad-221a097da0fe");
 INSERT INTO O_BATTR
-	VALUES ("7fd4e53f-bbc6-49f9-819f-4eba3fab4469",
-	"2ba55d0b-027c-4026-b5de-f23242cdb304");
+	VALUES ("6cc335e9-851e-4145-82c6-c81d40214f9f",
+	"c0c0fcf5-6694-49ba-b2ad-221a097da0fe");
 INSERT INTO O_ATTR
-	VALUES ("7fd4e53f-bbc6-49f9-819f-4eba3fab4469",
-	"2ba55d0b-027c-4026-b5de-f23242cdb304",
+	VALUES ("6cc335e9-851e-4145-82c6-c81d40214f9f",
+	"c0c0fcf5-6694-49ba-b2ad-221a097da0fe",
 	"00000000-0000-0000-0000-000000000000",
 	'id',
 	'',
@@ -27,26 +27,26 @@ INSERT INTO O_ATTR
 	'');
 INSERT INTO O_ID
 	VALUES (0,
-	"2ba55d0b-027c-4026-b5de-f23242cdb304");
+	"c0c0fcf5-6694-49ba-b2ad-221a097da0fe");
 INSERT INTO O_OIDA
-	VALUES ("7fd4e53f-bbc6-49f9-819f-4eba3fab4469",
-	"2ba55d0b-027c-4026-b5de-f23242cdb304",
+	VALUES ("6cc335e9-851e-4145-82c6-c81d40214f9f",
+	"c0c0fcf5-6694-49ba-b2ad-221a097da0fe",
 	0,
 	'id');
 INSERT INTO O_ID
 	VALUES (1,
-	"2ba55d0b-027c-4026-b5de-f23242cdb304");
+	"c0c0fcf5-6694-49ba-b2ad-221a097da0fe");
 INSERT INTO O_ID
 	VALUES (2,
-	"2ba55d0b-027c-4026-b5de-f23242cdb304");
+	"c0c0fcf5-6694-49ba-b2ad-221a097da0fe");
 INSERT INTO PE_PE
-	VALUES ("2ba55d0b-027c-4026-b5de-f23242cdb304",
+	VALUES ("c0c0fcf5-6694-49ba-b2ad-221a097da0fe",
 	1,
-	"e4f9e775-7755-44e2-9029-b58fd6f81bcf",
+	"09587b8f-07e9-4bcc-a4e9-cdbefd3768a5",
 	"00000000-0000-0000-0000-000000000000",
 	4);
 INSERT INTO EP_PKG_PROXY
-	VALUES ("e4f9e775-7755-44e2-9029-b58fd6f81bcf",
+	VALUES ("09587b8f-07e9-4bcc-a4e9-cdbefd3768a5",
 	"00000000-0000-0000-0000-000000000000",
 	"c6693612-7c4f-42e5-b64f-16c64f288945",
 	'actionFilter Tests',

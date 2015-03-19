@@ -1,21 +1,21 @@
 -- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
-	VALUES ("db9febb8-a85b-483a-b2c7-f5edc6f7a7f5",
+	VALUES ("e8a082f4-d557-4ea0-ae3b-48e678c0c1f2",
 	'TestClassImp 6',
 	1405,
 	'KEY',
 	'',
 	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_NBATTR
-	VALUES ("97beede6-98ef-480c-b828-df50b0f1b3a5",
-	"db9febb8-a85b-483a-b2c7-f5edc6f7a7f5");
+	VALUES ("e43749b4-e681-4c9f-be3e-81267bd07114",
+	"e8a082f4-d557-4ea0-ae3b-48e678c0c1f2");
 INSERT INTO O_BATTR
-	VALUES ("97beede6-98ef-480c-b828-df50b0f1b3a5",
-	"db9febb8-a85b-483a-b2c7-f5edc6f7a7f5");
+	VALUES ("e43749b4-e681-4c9f-be3e-81267bd07114",
+	"e8a082f4-d557-4ea0-ae3b-48e678c0c1f2");
 INSERT INTO O_ATTR
-	VALUES ("97beede6-98ef-480c-b828-df50b0f1b3a5",
-	"db9febb8-a85b-483a-b2c7-f5edc6f7a7f5",
+	VALUES ("e43749b4-e681-4c9f-be3e-81267bd07114",
+	"e8a082f4-d557-4ea0-ae3b-48e678c0c1f2",
 	"00000000-0000-0000-0000-000000000000",
 	'testAttrFormalizer',
 	'',
@@ -27,26 +27,26 @@ INSERT INTO O_ATTR
 	'');
 INSERT INTO O_ID
 	VALUES (0,
-	"db9febb8-a85b-483a-b2c7-f5edc6f7a7f5");
+	"e8a082f4-d557-4ea0-ae3b-48e678c0c1f2");
 INSERT INTO O_OIDA
-	VALUES ("97beede6-98ef-480c-b828-df50b0f1b3a5",
-	"db9febb8-a85b-483a-b2c7-f5edc6f7a7f5",
+	VALUES ("e43749b4-e681-4c9f-be3e-81267bd07114",
+	"e8a082f4-d557-4ea0-ae3b-48e678c0c1f2",
 	0,
 	'testAttrFormalizer');
 INSERT INTO O_ID
 	VALUES (1,
-	"db9febb8-a85b-483a-b2c7-f5edc6f7a7f5");
+	"e8a082f4-d557-4ea0-ae3b-48e678c0c1f2");
 INSERT INTO O_ID
 	VALUES (2,
-	"db9febb8-a85b-483a-b2c7-f5edc6f7a7f5");
+	"e8a082f4-d557-4ea0-ae3b-48e678c0c1f2");
 INSERT INTO PE_PE
-	VALUES ("db9febb8-a85b-483a-b2c7-f5edc6f7a7f5",
+	VALUES ("e8a082f4-d557-4ea0-ae3b-48e678c0c1f2",
 	1,
-	"5adbab97-fe58-40e6-9ba0-d8eef7ed9641",
+	"d412f0ae-f035-4122-9013-3bf5d021cbac",
 	"00000000-0000-0000-0000-000000000000",
 	4);
 INSERT INTO EP_PKG_PROXY
-	VALUES ("5adbab97-fe58-40e6-9ba0-d8eef7ed9641",
+	VALUES ("d412f0ae-f035-4122-9013-3bf5d021cbac",
 	"00000000-0000-0000-0000-000000000000",
 	"c6693612-7c4f-42e5-b64f-16c64f288945",
 	'UAL General Import',
