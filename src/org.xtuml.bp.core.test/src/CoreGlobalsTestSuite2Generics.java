@@ -39,6 +39,7 @@ import org.xtuml.bp.core.test.CommunicationTestsGenerics;
 import org.xtuml.bp.core.test.CoreGlobalsTestSuiteIIGenerics;
 import org.xtuml.bp.core.test.CreationTransitionEventReassignmentTestGenerics;
 import org.xtuml.bp.core.test.DeleteDatatypesTestGenerics;
+import org.xtuml.bp.core.test.FormalizeUnformalizeWithPrefixTestGenerics;
 import org.xtuml.bp.core.test.I810_SlowDeletionTestGenerics;
 import org.xtuml.bp.core.test.IntegrityIssueTests;
 import org.xtuml.bp.core.test.ModelChangeListenersBatchingTestGenerics;
@@ -82,6 +83,7 @@ public class CoreGlobalsTestSuite2Generics extends TestSuite {
 		// turn off autobuild to stop MC-3020 builders from running
 		WorkspaceUtil.setAutobuilding(false);   // throws CoreException
 		CorePlugin.getDefault().getPreferenceStore().setValue(BridgePointPreferencesStore.USE_DEFAULT_NAME_FOR_CREATION, true);
+		addTest(new TestSuite(FormalizeUnformalizeWithPrefixTestGenerics.class));
         addTest(new TestSuite(IntegrityIssueTests.class));
 		addTest(new TestSuite(CoreGlobalsTestSuiteIIGenerics.class));
 		addTest(new TestSuite(MultipleSelectionAssignmentTests.class));
