@@ -75,8 +75,6 @@ Windows Steps
   
   - Using this same procedure, clone the ```https://github.com/"username"/models.git``` repository
   
-  - Using this same procedure, clone the ```https://github.com/"username"/bridgepoint.git``` repository
-
 ### Configure System for Development
   - Copy ```c:/git/bridgepoint/doc-bridgepoint/process/development-workspace-setup/BridgePointDev``` into ```c:/work```
 

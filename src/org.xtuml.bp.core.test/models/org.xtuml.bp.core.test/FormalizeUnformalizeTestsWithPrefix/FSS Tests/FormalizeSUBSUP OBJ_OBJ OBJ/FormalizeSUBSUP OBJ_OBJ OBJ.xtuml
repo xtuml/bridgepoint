@@ -1,21 +1,21 @@
 -- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
-	VALUES ("bbabf9d6-2b43-4cf3-b7bd-a71672e8df28",
+	VALUES ("7c2cb382-5e65-4d21-bcfd-ef8fbcdce7ff",
 	'FormalizeSUBSUP OBJ_OBJ OBJ',
 	600,
 	'T_FORM',
 	'',
 	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_NBATTR
-	VALUES ("6e9e96cc-678a-4b4c-884f-be1f04924e93",
-	"bbabf9d6-2b43-4cf3-b7bd-a71672e8df28");
+	VALUES ("8b2b1617-2a98-4ec0-8006-8e871613756d",
+	"7c2cb382-5e65-4d21-bcfd-ef8fbcdce7ff");
 INSERT INTO O_BATTR
-	VALUES ("6e9e96cc-678a-4b4c-884f-be1f04924e93",
-	"bbabf9d6-2b43-4cf3-b7bd-a71672e8df28");
+	VALUES ("8b2b1617-2a98-4ec0-8006-8e871613756d",
+	"7c2cb382-5e65-4d21-bcfd-ef8fbcdce7ff");
 INSERT INTO O_ATTR
-	VALUES ("6e9e96cc-678a-4b4c-884f-be1f04924e93",
-	"bbabf9d6-2b43-4cf3-b7bd-a71672e8df28",
+	VALUES ("8b2b1617-2a98-4ec0-8006-8e871613756d",
+	"7c2cb382-5e65-4d21-bcfd-ef8fbcdce7ff",
 	"00000000-0000-0000-0000-000000000000",
 	'testAttrFormalizer',
 	'',
@@ -26,15 +26,15 @@ INSERT INTO O_ATTR
 	'',
 	'');
 INSERT INTO O_NBATTR
-	VALUES ("46ad9b43-8271-4ed5-b7e6-b636fd7eb47b",
-	"bbabf9d6-2b43-4cf3-b7bd-a71672e8df28");
+	VALUES ("97049d22-efe4-4ab6-880e-66f64e067597",
+	"7c2cb382-5e65-4d21-bcfd-ef8fbcdce7ff");
 INSERT INTO O_BATTR
-	VALUES ("46ad9b43-8271-4ed5-b7e6-b636fd7eb47b",
-	"bbabf9d6-2b43-4cf3-b7bd-a71672e8df28");
+	VALUES ("97049d22-efe4-4ab6-880e-66f64e067597",
+	"7c2cb382-5e65-4d21-bcfd-ef8fbcdce7ff");
 INSERT INTO O_ATTR
-	VALUES ("46ad9b43-8271-4ed5-b7e6-b636fd7eb47b",
-	"bbabf9d6-2b43-4cf3-b7bd-a71672e8df28",
-	"6e9e96cc-678a-4b4c-884f-be1f04924e93",
+	VALUES ("97049d22-efe4-4ab6-880e-66f64e067597",
+	"7c2cb382-5e65-4d21-bcfd-ef8fbcdce7ff",
+	"8b2b1617-2a98-4ec0-8006-8e871613756d",
 	'testAttrFormalizer2',
 	'',
 	'',
@@ -45,31 +45,31 @@ INSERT INTO O_ATTR
 	'');
 INSERT INTO O_ID
 	VALUES (0,
-	"bbabf9d6-2b43-4cf3-b7bd-a71672e8df28");
+	"7c2cb382-5e65-4d21-bcfd-ef8fbcdce7ff");
 INSERT INTO O_OIDA
-	VALUES ("6e9e96cc-678a-4b4c-884f-be1f04924e93",
-	"bbabf9d6-2b43-4cf3-b7bd-a71672e8df28",
+	VALUES ("8b2b1617-2a98-4ec0-8006-8e871613756d",
+	"7c2cb382-5e65-4d21-bcfd-ef8fbcdce7ff",
 	0,
 	'testAttrFormalizer');
 INSERT INTO O_OIDA
-	VALUES ("46ad9b43-8271-4ed5-b7e6-b636fd7eb47b",
-	"bbabf9d6-2b43-4cf3-b7bd-a71672e8df28",
+	VALUES ("97049d22-efe4-4ab6-880e-66f64e067597",
+	"7c2cb382-5e65-4d21-bcfd-ef8fbcdce7ff",
 	0,
 	'testAttrFormalizer2');
 INSERT INTO O_ID
 	VALUES (1,
-	"bbabf9d6-2b43-4cf3-b7bd-a71672e8df28");
+	"7c2cb382-5e65-4d21-bcfd-ef8fbcdce7ff");
 INSERT INTO O_ID
 	VALUES (2,
-	"bbabf9d6-2b43-4cf3-b7bd-a71672e8df28");
+	"7c2cb382-5e65-4d21-bcfd-ef8fbcdce7ff");
 INSERT INTO PE_PE
-	VALUES ("bbabf9d6-2b43-4cf3-b7bd-a71672e8df28",
+	VALUES ("7c2cb382-5e65-4d21-bcfd-ef8fbcdce7ff",
 	1,
-	"8da366d7-108a-4630-b11b-4d6cef0e5d45",
+	"d61b2fe0-0381-47a8-b9fc-35637d75051e",
 	"00000000-0000-0000-0000-000000000000",
 	4);
 INSERT INTO EP_PKG_PROXY
-	VALUES ("8da366d7-108a-4630-b11b-4d6cef0e5d45",
+	VALUES ("d61b2fe0-0381-47a8-b9fc-35637d75051e",
 	"00000000-0000-0000-0000-000000000000",
 	"c6693612-7c4f-42e5-b64f-16c64f288945",
 	'FSS Tests',
