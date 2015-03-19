@@ -96,7 +96,6 @@ public class CoreGlobalsTestSuiteGenerics extends TestSuite {
 		addTest(new TestSuite(AssignRemoveEventsGenerics.class)); 
 		addTest(new TestSuite(CantHappenEvtIgnoreEvtTestsGenerics.class));
 		addTest(new TestSuite(OperationsTestGenerics.class));
-		addTest(new TestSuite(FormalizeUnformalizeWithPrefixTestGenerics.class));
 		addTest(new TestSuite(DeleteTestGenerics.class));
 		addTest(new TestSuite(TigerNatureTestGenerics.class));
         addTest(new TestSuite(PreferencesTests.class));

@@ -70,7 +70,7 @@ public class FormalizeUnformalizeWithPrefixTestGenerics extends CanvasTest {
 
 		if (!initialized) {
 			ensureAvailableAndLoaded("org.xtuml.bp.core.test",
-					"FormalizeUnformalizeTests", false, false, "Package");
+					"FormalizeUnformalizeTestsWithPrefix", false, false, "Package");
 			initialized = true;
 			m_bp_tree.expandAll();
 
