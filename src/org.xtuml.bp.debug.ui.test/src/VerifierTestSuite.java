@@ -47,6 +47,7 @@ import org.xtuml.bp.debug.test.VIECTest;
 import org.xtuml.bp.debug.test.VerifierTestSuiteI;
 import org.xtuml.bp.debug.test.VerifierUDTAsUDTInitializationTests;
 import org.xtuml.bp.debug.test.breakpoint.BreakpointTest;
+import org.xtuml.bp.debug.test.breakpoint.BreakpointRemovalTest;
 import org.xtuml.bp.debug.ui.launch.VerifierLaunchTestSuite;
 import org.xtuml.bp.debug.ui.session.tree.VerifierSessionExplorerTests;
 import org.xtuml.bp.debug.ui.test.execute.VerifierExecuteActionTests;
@@ -108,6 +109,7 @@ public class VerifierTestSuite extends TestSuite {
 		addTest(new TestSuite(VerifierBindingAuditTest.class));
 		addTest(new TestSuite(VerifierRealizedUDTTest.class));
 		addTest(new TestSuite(VerifierUDTAsUDTInitializationTests.class));
+		addTest(new TestSuite(BreakpointRemovalTest.class)); 
 	}
 
 }
