@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("f3aa740f-cd71-49d6-b30a-057c8e1234a3",
@@ -8,7 +8,7 @@ INSERT INTO O_OBJ
 	'This class is used to capture the fact that a Class Participant Attribute is
 informal.  Clients may use the association between this class and its parent to
 determine the above fact.',
-	"90afcd0d-03fa-49d5-ac2c-0fd20beede15");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_REF
 	VALUES ("f3aa740f-cd71-49d6-b30a-057c8e1234a3",
 	"35f0913d-12d6-430c-9ea7-319b0dbc0ab8",
@@ -57,16 +57,9 @@ INSERT INTO O_ATTR
 	'',
 	'Ia_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_ID
 	VALUES (0,
 	"f3aa740f-cd71-49d6-b30a-057c8e1234a3");
@@ -81,13 +74,18 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"f3aa740f-cd71-49d6-b30a-057c8e1234a3");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("f3aa740f-cd71-49d6-b30a-057c8e1234a3",
+	1,
+	"90afcd0d-03fa-49d5-ac2c-0fd20beede15",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("90afcd0d-03fa-49d5-ac2c-0fd20beede15",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Interaction',
 	'// This is used by schema_gen to ignore this subsystem (for publication)
 TRANSLATE_FOR_EXTERNAL_USE:FALSE',
-	'IA',
 	930,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000000000",
 	'../Interaction.xtuml');

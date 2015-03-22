@@ -482,11 +482,7 @@ public class BaseTest extends TestCase {
 		
 		clearErrorLogView();
 	}
-	
-	// The following two loadProject() functions are very similar.  The main 
-	// difference is that one pulls the test project from outside the current
-	// workspace (typically a git test model repository) and the other pulls
-	// the test model from somewhere inside the workspace. 
+	 
 	public void loadProject(String projectName) throws CoreException {
     	TestUtil.showBridgePointPerspective();
         
@@ -1023,9 +1019,9 @@ public class BaseTest extends TestCase {
 						+ NEWLINE2 + NEWLINE2 + NEWLINE2 + "\\);", "");
 				
 				// S_SYS_PROXY with 7 lines
-				fileString = fileString.replaceAll("INSERT INTO EP_PKG_PROXY"
+				fileString = fileString.replaceAll("INSERT INTO S_SYS_PROXY"
 						+ NEWLINE1 + NEWLINE1 + NEWLINE1 + NEWLINE1 + NEWLINE1 + NEWLINE1 + NEWLINE1 + "\\);", "");
-				fileString = fileString.replaceAll("INSERT INTO EP_PKG_PROXY"
+				fileString = fileString.replaceAll("INSERT INTO S_SYS_PROXY"
 						+ NEWLINE2 + NEWLINE2 + NEWLINE2 + NEWLINE2 + NEWLINE2 + NEWLINE2 + NEWLINE2 + "\\);", "");
 
 				fileStream.close();

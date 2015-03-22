@@ -6,13 +6,13 @@ INSERT INTO O_OBJ
 	2910,
 	'I_STACK',
 	'An instance of this Core class will be created for each core or processor in the system.',
-	"ce2c2e5b-d701-4d5f-9b67-5db53fc8ca56");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("37e38dda-ae68-4dc7-8a9b-f09f9d5b8421",
 	"94dc4a69-fab9-4ad8-b3cf-c58bf023b9d1",
 	'run',
 	'',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'//Instance:Stack.run()
 self.unblock();
@@ -55,19 +55,12 @@ return executionStateChanged;
 	1,
 	'',
 	"6561f32c-1da6-4673-8837-0ac20c84aca0");
-INSERT INTO S_DT_PROXY
-	VALUES ("8e519c45-7dcf-400b-9d4e-954869dbb7e8",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'boolean',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("6561f32c-1da6-4673-8837-0ac20c84aca0",
 	"94dc4a69-fab9-4ad8-b3cf-c58bf023b9d1",
 	'push',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// Stack.push(stack_frame_id - unique_id)
 
@@ -108,31 +101,17 @@ INSERT INTO O_TPARM
 	VALUES ("a85f5040-141b-4392-af38-d0972f645f43",
 	"6561f32c-1da6-4673-8837-0ac20c84aca0",
 	'stack_frame_id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'unique_id',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
-INSERT INTO S_DT_PROXY
-	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'void',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("aa09fa9b-cbf2-4c31-afcf-337619acd5fe",
 	"94dc4a69-fab9-4ad8-b3cf-c58bf023b9d1",
 	'pop',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// Stack.pop()
 
@@ -166,7 +145,7 @@ INSERT INTO O_TPARM
 	VALUES ("afd4853b-5fe3-4a08-887a-e68a61e2fbde",
 	"aa09fa9b-cbf2-4c31-afcf-337619acd5fe",
 	'disposeFrame',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -176,7 +155,7 @@ INSERT INTO O_TFR
 	"94dc4a69-fab9-4ad8-b3cf-c58bf023b9d1",
 	'dispose',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// Stack.dispose()
 
@@ -229,7 +208,7 @@ INSERT INTO O_TFR
 	"94dc4a69-fab9-4ad8-b3cf-c58bf023b9d1",
 	'execute',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// Instance::Stack.execute()
 select one top_stack_frame related by self->I_STF[R2929];
@@ -274,7 +253,7 @@ INSERT INTO O_TPARM
 	VALUES ("75fcb397-de42-4d95-a760-78d713300d6e",
 	"f1e151f7-e7d2-48a4-919f-8258724580c5",
 	'force',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -284,7 +263,7 @@ INSERT INTO O_TFR
 	"94dc4a69-fab9-4ad8-b3cf-c58bf023b9d1",
 	'processEvent',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'signalFound = false;
 // Signals are processed as soon as there
@@ -375,7 +354,7 @@ INSERT INTO O_TFR
 	"94dc4a69-fab9-4ad8-b3cf-c58bf023b9d1",
 	'stepIn',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'//Instance:Stack.stepIn()
 self.runState = RunStateType::Stepping;
@@ -399,7 +378,7 @@ INSERT INTO O_TFR
 	"94dc4a69-fab9-4ad8-b3cf-c58bf023b9d1",
 	'stepOver',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'//Instance:Stack.stepOver()
 self.runState = RunStateType::Stepping;
@@ -456,7 +435,7 @@ INSERT INTO O_TPARM
 	VALUES ("ee6e5812-c417-43f9-81ee-f89f21d4ca07",
 	"b3a13c8f-6fae-4f2e-a5f6-5d7ea7f6a0c1",
 	'stack_frame_id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -466,7 +445,7 @@ INSERT INTO O_TFR
 	"94dc4a69-fab9-4ad8-b3cf-c58bf023b9d1",
 	'enqueue',
 	'synchronized:true',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// Stack.enqueue(stack_frame_id)
 
@@ -521,7 +500,7 @@ INSERT INTO O_TPARM
 	VALUES ("7f2a2de1-ef39-4280-a033-42b55ae6641e",
 	"6c7c6efc-8af2-419d-845d-fb399a7cda6b",
 	'stack_frame_id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -530,7 +509,7 @@ INSERT INTO O_TPARM
 	VALUES ("c7d2d585-0b5c-46f0-82fe-1bdffeb502f2",
 	"6c7c6efc-8af2-419d-845d-fb399a7cda6b",
 	'isActivity',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	0,
 	'',
 	"7f2a2de1-ef39-4280-a033-42b55ae6641e",
@@ -539,7 +518,7 @@ INSERT INTO O_TPARM
 	VALUES ("42d5f57b-29a5-47a5-90d9-fdbf0d84fc71",
 	"6c7c6efc-8af2-419d-845d-fb399a7cda6b",
 	'remote_stack_frame_id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"c7d2d585-0b5c-46f0-82fe-1bdffeb502f2",
@@ -549,7 +528,7 @@ INSERT INTO O_TFR
 	"94dc4a69-fab9-4ad8-b3cf-c58bf023b9d1",
 	'dequeue',
 	'synchronized:true',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// Stack.dequeue()
 // Service incoming intercomponent messages.
@@ -628,7 +607,7 @@ INSERT INTO O_TPARM
 	VALUES ("cf99ec0c-e9a0-4926-9588-fd54a2fff22f",
 	"8122f414-bb94-41e1-8636-7fecb433502c",
 	'deliverEvents',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -638,7 +617,7 @@ INSERT INTO O_TFR
 	"94dc4a69-fab9-4ad8-b3cf-c58bf023b9d1",
 	'unblock',
 	'synchronized:true',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// Stack.unblock()
 // Deal with any returned data from an interface operation call
@@ -760,7 +739,7 @@ INSERT INTO O_ATTR
 	'',
 	'Stack_ID',
 	0,
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -783,7 +762,7 @@ INSERT INTO O_ATTR
 	'');
 INSERT INTO S_DT_PROXY
 	VALUES ("bfc8e5a0-661d-42f0-b43f-513e0df80ebc",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
 	'RunStateType',
 	'',
 	'',
@@ -803,16 +782,9 @@ INSERT INTO O_ATTR
 	'',
 	'suspendReason',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'string',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("94dc4a69-fab9-4ad8-b3cf-c58bf023b9d1",
 	"e31aa7b2-374b-4a6c-8c11-b9762ce9c824",
@@ -861,16 +833,9 @@ INSERT INTO O_ATTR
 	'',
 	'Execution_Engine_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_ID
 	VALUES (0,
 	"94dc4a69-fab9-4ad8-b3cf-c58bf023b9d1");
@@ -885,15 +850,20 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"94dc4a69-fab9-4ad8-b3cf-c58bf023b9d1");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("94dc4a69-fab9-4ad8-b3cf-c58bf023b9d1",
+	1,
+	"ce2c2e5b-d701-4d5f-9b67-5db53fc8ca56",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("ce2c2e5b-d701-4d5f-9b67-5db53fc8ca56",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Engine',
 	'// This is used by schema_gen to ignore this subsystem (for publication)
 TRANSLATE_FOR_EXTERNAL_USE:FALSE
 Persistent:false
 Import: java.util.concurrent.locks.ReentrantLock',
-	'I',
 	900,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000000000",
 	'../Engine.xtuml');

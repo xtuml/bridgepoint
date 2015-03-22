@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("c5c73a79-b24c-42ad-aa76-e137b1d7ebcc",
@@ -6,31 +6,24 @@ INSERT INTO O_OBJ
 	810,
 	'V_LST',
 	'This class represents a literal string, may take any sequence of characters as a value.',
-	"e060f94c-3f82-463e-9d98-d20315b7c196");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("b6c18911-0ea0-4703-bb6a-226a429fd354",
 	"c5c73a79-b24c-42ad-aa76-e137b1d7ebcc",
 	'getString',
 	'',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'return self.Value;',
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO S_DT_PROXY
-	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'string',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("edfce2e0-aac6-4bc6-bf14-515a25bd4b91",
 	"c5c73a79-b24c-42ad-aa76-e137b1d7ebcc",
 	'removeQuotes',
 	'Translate:native',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'//  Value:Literal String.removeQuotes(s: string)
 
@@ -57,7 +50,7 @@ INSERT INTO O_TPARM
 	VALUES ("b49068fd-ba54-4040-ae8d-39374f03eb08",
 	"edfce2e0-aac6-4bc6-bf14-515a25bd4b91",
 	's',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -110,16 +103,9 @@ INSERT INTO O_ATTR
 	'',
 	'Value_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("3b9c8be1-1d9e-485b-89a3-0193d0e43a8e",
 	"c5c73a79-b24c-42ad-aa76-e137b1d7ebcc");
@@ -136,7 +122,7 @@ The actual value of the literal.',
 	'',
 	'Value',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_ID
@@ -153,8 +139,16 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"c5c73a79-b24c-42ad-aa76-e137b1d7ebcc");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("c5c73a79-b24c-42ad-aa76-e137b1d7ebcc",
+	1,
+	"e060f94c-3f82-463e-9d98-d20315b7c196",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("e060f94c-3f82-463e-9d98-d20315b7c196",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Value',
 	'This subsystem formalizes the concepts of values (r-values) and variables 
 (l-values). It also captures the concept of an actual parameter.
@@ -163,8 +157,5 @@ Persistent:false
 // This is used by schema_gen to ignore this subsystem (for publication)
 TRANSLATE_FOR_EXTERNAL_USE:FALSE
 ',
-	'V',
 	800,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000400008",
 	'../Value.xtuml');

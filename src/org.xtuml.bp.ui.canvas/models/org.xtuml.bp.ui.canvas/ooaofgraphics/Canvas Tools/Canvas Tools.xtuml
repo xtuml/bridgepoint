@@ -1,665 +1,20 @@
--- BP 7.1 content: Subsystem syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: Package syschar: 3 persistence-version: 7.1.6
 
-INSERT INTO S_SS
+INSERT INTO EP_PKG
 	VALUES ("afc7af9b-6e70-4780-9ad0-b9f3ec7560c9",
+	"00000000-0000-0000-0000-000000000000",
+	"8f801c9a-cf2d-4ef4-b11a-51b8697e3ca8",
 	'Canvas Tools',
 	'// This is used by schema_gen to ignore this subsystem (for publication)
   TRANSLATE_FOR_EXTERNAL_USE:FALSE
   Notify_Changes:false
 ',
-	'CT',
-	100,
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	"00000000-0000-0000-0000-000001a00034");
-INSERT INTO S_SID
-	VALUES ("3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	"afc7af9b-6e70-4780-9ad0-b9f3ec7560c9");
-INSERT INTO S_DOM_PROXY
-	VALUES ("3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	'ooaofgraphics',
-	'========================================================================
-
-File:          $RCSfile$
-Version:   $Revision$
-Modified:  $Date$
-
-(c) Copyright 2004-2014 Mentor Graphics Corporation All rights reserved.
-
-========================================================================
-Licensed under the Apache License, Version 2.0 (the "License"); you may not
-use this file except in compliance with the License.  You may obtain a copy
-of the License at
-
-     http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
-WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the
-License for the specific language governing permissions and limitations under
-the License.
-========================================================================
-
-This is the graphics domain for the Tiger project.
-
-The processing in this model describes the activities
-required for model diagram display and editing.
-
-Import:org.xtuml.bp.core.*
--------------------------------------------------------------------------------------------------------------
-',
-	0,
-	"00000000-0000-0000-0000-000000000001",
-	"8f801c9a-cf2d-4ef4-b11a-51b8697e3ca8",
-	'../ooaofgraphics.xtuml');
-INSERT INTO O_IOBJ
-	VALUES ("50da1b6b-cd0a-4e5e-bec6-ff993d68ab4e",
-	"76253415-b575-4583-9248-5d403cee7647",
-	5,
-	"afc7af9b-6e70-4780-9ad0-b9f3ec7560c9",
-	'Element Specification',
-	'GD_ES');
-INSERT INTO O_OBJ_PROXY
-	VALUES ("76253415-b575-4583-9248-5d403cee7647",
-	'Element Specification',
-	8,
-	'GD_ES',
-	'An element specification instance defines a type of symbol.
-The OOA_Type defines the OOA of OOA element represented
-by this symbol.
-
-Instances of this class are instantiated at startup from a
-pre-existing instance specification.
----------------------------------------------------------------------------
-
-PEI:true
-Persistent:false
-TRANSLATE_FOR_EXTERNAL_USE:FALSE
-
-',
-	"b5695748-80fc-47fb-b5c7-801b5f28b907",
-	'../Graphical Data/Element Specification/Element Specification.xtuml');
-INSERT INTO O_IOBJ
-	VALUES ("1b3aa6cd-c6b0-4979-8f9a-61cae2fc9da0",
-	"09423687-e999-4aba-876d-35e0d3331311",
-	5,
-	"afc7af9b-6e70-4780-9ad0-b9f3ec7560c9",
-	'Model',
-	'GD_MD');
-INSERT INTO O_OBJ_PROXY
-	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
-	'Model',
-	1,
-	'GD_MD',
-	'A model is a drawing for one particular view of the analysis. There is an instance of model for each glyph on the index window, and each entry in the model element list on the index window. For example, every domain will have four models (DPD, PDD(R), PDD(A), PDD(S)).  Every subsystem will have three models (CD, OCD(A), OCD(S)).  Every state chart has one model (SC).  The STT is not a graphical model.',
-	"b5695748-80fc-47fb-b5c7-801b5f28b907",
-	'../Graphical Data/Model/Model.xtuml');
-INSERT INTO O_IOBJ
-	VALUES ("116549f7-2c80-4a2a-a5fc-8fdb98ab7286",
-	"77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
-	5,
-	"afc7af9b-6e70-4780-9ad0-b9f3ec7560c9",
-	'Line Segment',
-	'GD_LS');
-INSERT INTO O_OBJ_PROXY
-	VALUES ("77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
-	'Line Segment',
-	5,
-	'GD_LS',
-	'The line segment is a single line drawn on the model. If the line segment is the first or last line segment, there may be adornments (cardinality, multiplicity) drawn near where the line segment attaches to the GE it starts/ends at.  Note: BridgePoint is very arbitrary about how it populates line segments in terms of begins and ends.  Line segments do not always run from start element to end element - sometimes they are reversed. ',
-	"b5695748-80fc-47fb-b5c7-801b5f28b907",
-	'../Graphical Data/Line Segment/Line Segment.xtuml');
-INSERT INTO O_IOBJ
-	VALUES ("e69ee033-4143-47e1-90ed-4ecf6368a7fd",
-	"9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
-	5,
-	"afc7af9b-6e70-4780-9ad0-b9f3ec7560c9",
-	'Graphical Element',
-	'GD_GE');
-INSERT INTO O_OBJ_PROXY
-	VALUES ("9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
-	'Graphical Element',
-	2,
-	'GD_GE',
-	'Graphical element abstracts the different shapes and lines that make up the graphical representation of a model on the canvas.',
-	"b5695748-80fc-47fb-b5c7-801b5f28b907",
-	'../Graphical Data/Graphical Element/Graphical Element.xtuml');
-INSERT INTO R_SUBSUP
-	VALUES ("79e74e54-a1b2-4be8-bd1d-af9cec9cb358");
-INSERT INTO R_REL
-	VALUES ("79e74e54-a1b2-4be8-bd1d-af9cec9cb358",
-	102,
-	'',
-	"afc7af9b-6e70-4780-9ad0-b9f3ec7560c9");
-INSERT INTO R_SUPER
-	VALUES ("43aa371a-c94c-48a9-acb6-21b733e4a55e",
-	"79e74e54-a1b2-4be8-bd1d-af9cec9cb358",
-	"10982f14-d77d-457b-9902-02f4d23a5ac0");
-INSERT INTO O_RTIDA
-	VALUES ("0304c426-4444-443b-a662-e29749249eb1",
-	"43aa371a-c94c-48a9-acb6-21b733e4a55e",
-	0,
-	"79e74e54-a1b2-4be8-bd1d-af9cec9cb358",
-	"10982f14-d77d-457b-9902-02f4d23a5ac0");
-INSERT INTO O_OIDA_PROXY
-	VALUES ("0304c426-4444-443b-a662-e29749249eb1",
-	"43aa371a-c94c-48a9-acb6-21b733e4a55e",
-	0,
-	'Tool_ID',
-	'./Model Tool/Model Tool.xtuml');
-INSERT INTO R_RTO
-	VALUES ("43aa371a-c94c-48a9-acb6-21b733e4a55e",
-	"79e74e54-a1b2-4be8-bd1d-af9cec9cb358",
-	"10982f14-d77d-457b-9902-02f4d23a5ac0",
-	0);
-INSERT INTO O_ID_PROXY
-	VALUES (0,
-	"43aa371a-c94c-48a9-acb6-21b733e4a55e",
-	'./Model Tool/Model Tool.xtuml');
-INSERT INTO R_OIR
-	VALUES ("43aa371a-c94c-48a9-acb6-21b733e4a55e",
-	"79e74e54-a1b2-4be8-bd1d-af9cec9cb358",
-	"10982f14-d77d-457b-9902-02f4d23a5ac0",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("43aa371a-c94c-48a9-acb6-21b733e4a55e",
-	'Model Tool',
-	101,
-	'CT_MTL',
-	'Each time a new Model instance is created, a set of Tool
-instances are created for it. There is one Tool instance
-created for each Element Specification associated with
-the Model Specification of which the newly created Model
-is an instance. In additon one Selection Tool instance is
-created for each canvas.
-
----------------------------------------------------------------------------
-Persistent:false',
-	"afc7af9b-6e70-4780-9ad0-b9f3ec7560c9",
-	'./Model Tool/Model Tool.xtuml');
-INSERT INTO R_SUB
-	VALUES ("50695bda-823e-45d0-84b9-4e67435ffe23",
-	"79e74e54-a1b2-4be8-bd1d-af9cec9cb358",
-	"104e9e69-a0a6-4a25-9dcd-768ba5d39c00");
-INSERT INTO R_RGO
-	VALUES ("50695bda-823e-45d0-84b9-4e67435ffe23",
-	"79e74e54-a1b2-4be8-bd1d-af9cec9cb358",
-	"104e9e69-a0a6-4a25-9dcd-768ba5d39c00");
-INSERT INTO R_OIR
-	VALUES ("50695bda-823e-45d0-84b9-4e67435ffe23",
-	"79e74e54-a1b2-4be8-bd1d-af9cec9cb358",
-	"104e9e69-a0a6-4a25-9dcd-768ba5d39c00",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("50695bda-823e-45d0-84b9-4e67435ffe23",
-	'Shape Tool',
-	102,
-	'CT_STL',
-	'The Shape Tool owns the state machine that takes the user
-from enabling the tool, through choosing the location and
-size of the symbol before completing and displaying the
-shape.
-
----------------------------------------------------------------------------
-Persistent:false',
-	"afc7af9b-6e70-4780-9ad0-b9f3ec7560c9",
-	'./Shape Tool/Shape Tool.xtuml');
-INSERT INTO R_SUB
-	VALUES ("1439746f-8b00-4b77-a05f-bf32f9817898",
-	"79e74e54-a1b2-4be8-bd1d-af9cec9cb358",
-	"808a5d71-27cd-4d75-be33-363a002443d8");
-INSERT INTO R_RGO
-	VALUES ("1439746f-8b00-4b77-a05f-bf32f9817898",
-	"79e74e54-a1b2-4be8-bd1d-af9cec9cb358",
-	"808a5d71-27cd-4d75-be33-363a002443d8");
-INSERT INTO R_OIR
-	VALUES ("1439746f-8b00-4b77-a05f-bf32f9817898",
-	"79e74e54-a1b2-4be8-bd1d-af9cec9cb358",
-	"808a5d71-27cd-4d75-be33-363a002443d8",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("1439746f-8b00-4b77-a05f-bf32f9817898",
-	'Selection Tool',
-	103,
-	'CT_SEL',
-	'The Selection Tool is the default tool when a Model canvas is
-first opened. When it is activated it allows the user to drag and modify
-existing diagram symbols. It is automatically deactivated when another tool is selected.
-
----------------------------------------------------------------------------
-Persistent:false',
-	"afc7af9b-6e70-4780-9ad0-b9f3ec7560c9",
-	'./Selection Tool/Selection Tool.xtuml');
-INSERT INTO R_SUB
-	VALUES ("52036122-c8b9-41ef-aab0-5b87e07a7824",
-	"79e74e54-a1b2-4be8-bd1d-af9cec9cb358",
-	"9dbcddfd-488f-4e6b-9937-0a56dd5b7ec7");
-INSERT INTO R_RGO
-	VALUES ("52036122-c8b9-41ef-aab0-5b87e07a7824",
-	"79e74e54-a1b2-4be8-bd1d-af9cec9cb358",
-	"9dbcddfd-488f-4e6b-9937-0a56dd5b7ec7");
-INSERT INTO R_OIR
-	VALUES ("52036122-c8b9-41ef-aab0-5b87e07a7824",
-	"79e74e54-a1b2-4be8-bd1d-af9cec9cb358",
-	"9dbcddfd-488f-4e6b-9937-0a56dd5b7ec7",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("52036122-c8b9-41ef-aab0-5b87e07a7824",
-	'Connector Tool',
-	104,
-	'CT_CTL',
-	'The Connector Tool owns the state machine that takes the
-user from enabling the tool, through choosing the start location
-and either dragging or clicking the connector waypoints to
-recognizing the end location and finally displaying the
-connector.
---------------------------------------------------------------------------
-Persistent:false                            ',
-	"afc7af9b-6e70-4780-9ad0-b9f3ec7560c9",
-	'./Connector Tool/Connector Tool.xtuml');
-INSERT INTO R_SUB
-	VALUES ("be1b57d8-161e-4f96-924a-f25b2576174b",
-	"79e74e54-a1b2-4be8-bd1d-af9cec9cb358",
-	"e5d67d72-4fb6-4ad2-a0d3-1d292307b9c5");
-INSERT INTO R_RGO
-	VALUES ("be1b57d8-161e-4f96-924a-f25b2576174b",
-	"79e74e54-a1b2-4be8-bd1d-af9cec9cb358",
-	"e5d67d72-4fb6-4ad2-a0d3-1d292307b9c5");
-INSERT INTO R_OIR
-	VALUES ("be1b57d8-161e-4f96-924a-f25b2576174b",
-	"79e74e54-a1b2-4be8-bd1d-af9cec9cb358",
-	"e5d67d72-4fb6-4ad2-a0d3-1d292307b9c5",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("be1b57d8-161e-4f96-924a-f25b2576174b",
-	'Scroll Tool',
-	105,
-	'CT_SCR',
-	'This tool lets the user "grab" the canvas and scroll its contents within its current container.  This tool should be available while any other tool is selected, but for drawing tools, only up to the point where a draw is first performed after that tool''s selection.
-
----------------------------------------------------------------------------
-Persistent:false',
-	"afc7af9b-6e70-4780-9ad0-b9f3ec7560c9",
-	'./Scroll Tool/Scroll Tool.xtuml');
-INSERT INTO R_SIMP
-	VALUES ("9644fc6a-9e3f-4bea-90d2-c8ed2a0d0b48");
-INSERT INTO R_REL
-	VALUES ("9644fc6a-9e3f-4bea-90d2-c8ed2a0d0b48",
-	103,
-	'This association captures the element specification that the tool will
-create when it completes its lifecycle. It is conditional at the graphical
-element end because not all tools create elements.',
-	"afc7af9b-6e70-4780-9ad0-b9f3ec7560c9");
-INSERT INTO R_FORM
-	VALUES ("43aa371a-c94c-48a9-acb6-21b733e4a55e",
-	"9644fc6a-9e3f-4bea-90d2-c8ed2a0d0b48",
-	"746b4906-475b-4747-b6b6-17e6304e6960",
-	1,
-	1,
-	'has elements instantiated by');
-INSERT INTO R_RGO
-	VALUES ("43aa371a-c94c-48a9-acb6-21b733e4a55e",
-	"9644fc6a-9e3f-4bea-90d2-c8ed2a0d0b48",
-	"746b4906-475b-4747-b6b6-17e6304e6960");
-INSERT INTO R_OIR
-	VALUES ("43aa371a-c94c-48a9-acb6-21b733e4a55e",
-	"9644fc6a-9e3f-4bea-90d2-c8ed2a0d0b48",
-	"746b4906-475b-4747-b6b6-17e6304e6960",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_PART
-	VALUES ("76253415-b575-4583-9248-5d403cee7647",
-	"9644fc6a-9e3f-4bea-90d2-c8ed2a0d0b48",
-	"d281d8b2-cf22-47f7-9119-0a71aa00df56",
-	0,
-	1,
-	'instantiates elements specified by');
-INSERT INTO O_RTIDA
-	VALUES ("6b3798a6-af64-46df-a88c-8db2cc520b9a",
-	"76253415-b575-4583-9248-5d403cee7647",
-	0,
-	"9644fc6a-9e3f-4bea-90d2-c8ed2a0d0b48",
-	"d281d8b2-cf22-47f7-9119-0a71aa00df56");
-INSERT INTO O_OIDA_PROXY
-	VALUES ("6b3798a6-af64-46df-a88c-8db2cc520b9a",
-	"76253415-b575-4583-9248-5d403cee7647",
-	0,
-	'OOA_Type',
-	'../Graphical Data/Element Specification/Element Specification.xtuml');
-INSERT INTO R_RTO
-	VALUES ("76253415-b575-4583-9248-5d403cee7647",
-	"9644fc6a-9e3f-4bea-90d2-c8ed2a0d0b48",
-	"d281d8b2-cf22-47f7-9119-0a71aa00df56",
-	0);
-INSERT INTO O_ID_PROXY
-	VALUES (0,
-	"76253415-b575-4583-9248-5d403cee7647",
-	'../Graphical Data/Element Specification/Element Specification.xtuml');
-INSERT INTO R_OIR
-	VALUES ("76253415-b575-4583-9248-5d403cee7647",
-	"9644fc6a-9e3f-4bea-90d2-c8ed2a0d0b48",
-	"d281d8b2-cf22-47f7-9119-0a71aa00df56",
-	"50da1b6b-cd0a-4e5e-bec6-ff993d68ab4e");
-INSERT INTO R_SIMP
-	VALUES ("20f384f0-6e59-43a8-9bc4-d9343da69a1d");
-INSERT INTO R_REL
-	VALUES ("20f384f0-6e59-43a8-9bc4-d9343da69a1d",
-	100,
-	'',
-	"afc7af9b-6e70-4780-9ad0-b9f3ec7560c9");
-INSERT INTO R_PART
-	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
-	"20f384f0-6e59-43a8-9bc4-d9343da69a1d",
-	"38ca7d9a-4ce6-4cba-b296-378a3e08b578",
-	0,
-	0,
-	'is assigned to');
-INSERT INTO O_RTIDA
-	VALUES ("d1783817-101b-46d1-b9a8-907ee4d5efe4",
-	"09423687-e999-4aba-876d-35e0d3331311",
-	0,
-	"20f384f0-6e59-43a8-9bc4-d9343da69a1d",
-	"38ca7d9a-4ce6-4cba-b296-378a3e08b578");
-INSERT INTO O_OIDA_PROXY
-	VALUES ("d1783817-101b-46d1-b9a8-907ee4d5efe4",
-	"09423687-e999-4aba-876d-35e0d3331311",
-	0,
-	'diagramId',
-	'../Graphical Data/Model/Model.xtuml');
-INSERT INTO R_RTO
-	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
-	"20f384f0-6e59-43a8-9bc4-d9343da69a1d",
-	"38ca7d9a-4ce6-4cba-b296-378a3e08b578",
-	0);
-INSERT INTO O_ID_PROXY
-	VALUES (0,
-	"09423687-e999-4aba-876d-35e0d3331311",
-	'../Graphical Data/Model/Model.xtuml');
-INSERT INTO R_OIR
-	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
-	"20f384f0-6e59-43a8-9bc4-d9343da69a1d",
-	"38ca7d9a-4ce6-4cba-b296-378a3e08b578",
-	"1b3aa6cd-c6b0-4979-8f9a-61cae2fc9da0");
-INSERT INTO R_FORM
-	VALUES ("43aa371a-c94c-48a9-acb6-21b733e4a55e",
-	"20f384f0-6e59-43a8-9bc4-d9343da69a1d",
-	"144a6b5e-e8e3-4154-b552-a372fac543d7",
-	1,
-	1,
-	'has assigned');
-INSERT INTO R_RGO
-	VALUES ("43aa371a-c94c-48a9-acb6-21b733e4a55e",
-	"20f384f0-6e59-43a8-9bc4-d9343da69a1d",
-	"144a6b5e-e8e3-4154-b552-a372fac543d7");
-INSERT INTO R_OIR
-	VALUES ("43aa371a-c94c-48a9-acb6-21b733e4a55e",
-	"20f384f0-6e59-43a8-9bc4-d9343da69a1d",
-	"144a6b5e-e8e3-4154-b552-a372fac543d7",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_SIMP
-	VALUES ("203ee94b-0d40-476a-bd77-198579f48e79");
-INSERT INTO R_REL
-	VALUES ("203ee94b-0d40-476a-bd77-198579f48e79",
-	106,
-	'',
-	"afc7af9b-6e70-4780-9ad0-b9f3ec7560c9");
-INSERT INTO R_FORM
-	VALUES ("52036122-c8b9-41ef-aab0-5b87e07a7824",
-	"203ee94b-0d40-476a-bd77-198579f48e79",
-	"ca60055a-e5a2-46e5-a6ff-7a5d8c8bb696",
-	0,
-	1,
-	'is being drawn by');
-INSERT INTO R_RGO
-	VALUES ("52036122-c8b9-41ef-aab0-5b87e07a7824",
-	"203ee94b-0d40-476a-bd77-198579f48e79",
-	"ca60055a-e5a2-46e5-a6ff-7a5d8c8bb696");
-INSERT INTO R_OIR
-	VALUES ("52036122-c8b9-41ef-aab0-5b87e07a7824",
-	"203ee94b-0d40-476a-bd77-198579f48e79",
-	"ca60055a-e5a2-46e5-a6ff-7a5d8c8bb696",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_PART
-	VALUES ("77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
-	"203ee94b-0d40-476a-bd77-198579f48e79",
-	"10f16a0b-76f2-4fcb-b8d4-1acd5cffb422",
-	0,
-	1,
-	'is drawing');
-INSERT INTO O_RTIDA
-	VALUES ("09b28e51-261a-4f6c-8408-01a31af506b9",
-	"77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
-	0,
-	"203ee94b-0d40-476a-bd77-198579f48e79",
-	"10f16a0b-76f2-4fcb-b8d4-1acd5cffb422");
-INSERT INTO O_OIDA_PROXY
-	VALUES ("09b28e51-261a-4f6c-8408-01a31af506b9",
-	"77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
-	0,
-	'elementId',
-	'../Graphical Data/Line Segment/Line Segment.xtuml');
-INSERT INTO R_RTO
-	VALUES ("77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
-	"203ee94b-0d40-476a-bd77-198579f48e79",
-	"10f16a0b-76f2-4fcb-b8d4-1acd5cffb422",
-	0);
-INSERT INTO O_ID_PROXY
-	VALUES (0,
-	"77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
-	'../Graphical Data/Line Segment/Line Segment.xtuml');
-INSERT INTO R_OIR
-	VALUES ("77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
-	"203ee94b-0d40-476a-bd77-198579f48e79",
-	"10f16a0b-76f2-4fcb-b8d4-1acd5cffb422",
-	"116549f7-2c80-4a2a-a5fc-8fdb98ab7286");
-INSERT INTO R_SIMP
-	VALUES ("ddde13f4-2335-49b4-a469-e78f3af8d12b");
-INSERT INTO R_REL
-	VALUES ("ddde13f4-2335-49b4-a469-e78f3af8d12b",
-	104,
-	'',
-	"afc7af9b-6e70-4780-9ad0-b9f3ec7560c9");
-INSERT INTO R_FORM
-	VALUES ("52036122-c8b9-41ef-aab0-5b87e07a7824",
-	"ddde13f4-2335-49b4-a469-e78f3af8d12b",
-	"6fefbb0c-b6d8-4984-9dd1-2446ffe28ed6",
-	0,
-	1,
-	'start');
-INSERT INTO R_RGO
-	VALUES ("52036122-c8b9-41ef-aab0-5b87e07a7824",
-	"ddde13f4-2335-49b4-a469-e78f3af8d12b",
-	"6fefbb0c-b6d8-4984-9dd1-2446ffe28ed6");
-INSERT INTO R_OIR
-	VALUES ("52036122-c8b9-41ef-aab0-5b87e07a7824",
-	"ddde13f4-2335-49b4-a469-e78f3af8d12b",
-	"6fefbb0c-b6d8-4984-9dd1-2446ffe28ed6",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_PART
-	VALUES ("9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
-	"ddde13f4-2335-49b4-a469-e78f3af8d12b",
-	"6c4d9c60-99ee-4611-ad2b-8fe59fede195",
-	0,
-	1,
-	'is starting at');
-INSERT INTO O_RTIDA
-	VALUES ("ee285046-698d-47d4-8d30-506164f3e21f",
-	"9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
-	0,
-	"ddde13f4-2335-49b4-a469-e78f3af8d12b",
-	"6c4d9c60-99ee-4611-ad2b-8fe59fede195");
-INSERT INTO O_OIDA_PROXY
-	VALUES ("ee285046-698d-47d4-8d30-506164f3e21f",
-	"9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
-	0,
-	'elementId',
-	'../Graphical Data/Graphical Element/Graphical Element.xtuml');
-INSERT INTO R_RTO
-	VALUES ("9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
-	"ddde13f4-2335-49b4-a469-e78f3af8d12b",
-	"6c4d9c60-99ee-4611-ad2b-8fe59fede195",
-	0);
-INSERT INTO O_ID_PROXY
-	VALUES (0,
-	"9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
-	'../Graphical Data/Graphical Element/Graphical Element.xtuml');
-INSERT INTO R_OIR
-	VALUES ("9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
-	"ddde13f4-2335-49b4-a469-e78f3af8d12b",
-	"6c4d9c60-99ee-4611-ad2b-8fe59fede195",
-	"e69ee033-4143-47e1-90ed-4ecf6368a7fd");
-INSERT INTO R_SIMP
-	VALUES ("18728ecc-7a19-4107-9222-e3db43f4e0e0");
-INSERT INTO R_REL
-	VALUES ("18728ecc-7a19-4107-9222-e3db43f4e0e0",
-	105,
-	'',
-	"afc7af9b-6e70-4780-9ad0-b9f3ec7560c9");
-INSERT INTO R_FORM
-	VALUES ("52036122-c8b9-41ef-aab0-5b87e07a7824",
-	"18728ecc-7a19-4107-9222-e3db43f4e0e0",
-	"b1c992f0-0bce-4e3b-a84c-dbbcc6ff6a7b",
-	0,
-	1,
-	'end');
-INSERT INTO R_RGO
-	VALUES ("52036122-c8b9-41ef-aab0-5b87e07a7824",
-	"18728ecc-7a19-4107-9222-e3db43f4e0e0",
-	"b1c992f0-0bce-4e3b-a84c-dbbcc6ff6a7b");
-INSERT INTO R_OIR
-	VALUES ("52036122-c8b9-41ef-aab0-5b87e07a7824",
-	"18728ecc-7a19-4107-9222-e3db43f4e0e0",
-	"b1c992f0-0bce-4e3b-a84c-dbbcc6ff6a7b",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_PART
-	VALUES ("9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
-	"18728ecc-7a19-4107-9222-e3db43f4e0e0",
-	"451656e0-6907-47f2-b32c-fc0395a064ac",
-	0,
-	1,
-	'is ending at');
-INSERT INTO O_RTIDA
-	VALUES ("ee285046-698d-47d4-8d30-506164f3e21f",
-	"9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
-	0,
-	"18728ecc-7a19-4107-9222-e3db43f4e0e0",
-	"451656e0-6907-47f2-b32c-fc0395a064ac");
-INSERT INTO R_RTO
-	VALUES ("9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
-	"18728ecc-7a19-4107-9222-e3db43f4e0e0",
-	"451656e0-6907-47f2-b32c-fc0395a064ac",
-	0);
-INSERT INTO R_OIR
-	VALUES ("9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
-	"18728ecc-7a19-4107-9222-e3db43f4e0e0",
-	"451656e0-6907-47f2-b32c-fc0395a064ac",
-	"e69ee033-4143-47e1-90ed-4ecf6368a7fd");
-INSERT INTO R_SIMP
-	VALUES ("0e432084-bfb3-42d9-b1d2-db7db29c94fd");
-INSERT INTO R_REL
-	VALUES ("0e432084-bfb3-42d9-b1d2-db7db29c94fd",
-	108,
-	'',
-	"afc7af9b-6e70-4780-9ad0-b9f3ec7560c9");
-INSERT INTO R_FORM
-	VALUES ("a50fbf03-c97f-4aa0-a1b5-73685fbc5d00",
-	"0e432084-bfb3-42d9-b1d2-db7db29c94fd",
-	"667d3254-adeb-492b-9461-b3abd7145c0a",
-	0,
-	1,
-	'employs');
-INSERT INTO R_RGO
-	VALUES ("a50fbf03-c97f-4aa0-a1b5-73685fbc5d00",
-	"0e432084-bfb3-42d9-b1d2-db7db29c94fd",
-	"667d3254-adeb-492b-9461-b3abd7145c0a");
-INSERT INTO R_OIR
-	VALUES ("a50fbf03-c97f-4aa0-a1b5-73685fbc5d00",
-	"0e432084-bfb3-42d9-b1d2-db7db29c94fd",
-	"667d3254-adeb-492b-9461-b3abd7145c0a",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("a50fbf03-c97f-4aa0-a1b5-73685fbc5d00",
-	'Tool Activation Policy',
-	106,
-	'CT_ACT',
-	'Governs which tool of a set of tools (each of a different subtype) may be currently active.
-------------
-Persistent:false
-',
-	"afc7af9b-6e70-4780-9ad0-b9f3ec7560c9",
-	'./Tool Activation Policy/Tool Activation Policy.xtuml');
-INSERT INTO R_PART
-	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
-	"0e432084-bfb3-42d9-b1d2-db7db29c94fd",
-	"005ce4f4-9cb1-4a2f-ad98-a9e4edb440f3",
-	0,
-	0,
-	'governs tool activation for');
-INSERT INTO O_RTIDA
-	VALUES ("d1783817-101b-46d1-b9a8-907ee4d5efe4",
-	"09423687-e999-4aba-876d-35e0d3331311",
-	0,
-	"0e432084-bfb3-42d9-b1d2-db7db29c94fd",
-	"005ce4f4-9cb1-4a2f-ad98-a9e4edb440f3");
-INSERT INTO R_RTO
-	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
-	"0e432084-bfb3-42d9-b1d2-db7db29c94fd",
-	"005ce4f4-9cb1-4a2f-ad98-a9e4edb440f3",
-	0);
-INSERT INTO R_OIR
-	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
-	"0e432084-bfb3-42d9-b1d2-db7db29c94fd",
-	"005ce4f4-9cb1-4a2f-ad98-a9e4edb440f3",
-	"1b3aa6cd-c6b0-4979-8f9a-61cae2fc9da0");
-INSERT INTO R_SIMP
-	VALUES ("e1b55ce8-7e38-4229-98c6-6d45edaa6745");
-INSERT INTO R_REL
-	VALUES ("e1b55ce8-7e38-4229-98c6-6d45edaa6745",
-	109,
-	'',
-	"afc7af9b-6e70-4780-9ad0-b9f3ec7560c9");
-INSERT INTO R_FORM
-	VALUES ("a50fbf03-c97f-4aa0-a1b5-73685fbc5d00",
-	"e1b55ce8-7e38-4229-98c6-6d45edaa6745",
-	"0ae0993b-f026-4c9b-9862-008f2186f28e",
-	0,
-	0,
-	'');
-INSERT INTO R_RGO
-	VALUES ("a50fbf03-c97f-4aa0-a1b5-73685fbc5d00",
-	"e1b55ce8-7e38-4229-98c6-6d45edaa6745",
-	"0ae0993b-f026-4c9b-9862-008f2186f28e");
-INSERT INTO R_OIR
-	VALUES ("a50fbf03-c97f-4aa0-a1b5-73685fbc5d00",
-	"e1b55ce8-7e38-4229-98c6-6d45edaa6745",
-	"0ae0993b-f026-4c9b-9862-008f2186f28e",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_PART
-	VALUES ("43aa371a-c94c-48a9-acb6-21b733e4a55e",
-	"e1b55ce8-7e38-4229-98c6-6d45edaa6745",
-	"2ff51718-8902-4cbd-aa3f-172bedd14799",
-	0,
-	0,
-	'knows as previously active tool');
-INSERT INTO O_RTIDA
-	VALUES ("0304c426-4444-443b-a662-e29749249eb1",
-	"43aa371a-c94c-48a9-acb6-21b733e4a55e",
-	0,
-	"e1b55ce8-7e38-4229-98c6-6d45edaa6745",
-	"2ff51718-8902-4cbd-aa3f-172bedd14799");
-INSERT INTO R_RTO
-	VALUES ("43aa371a-c94c-48a9-acb6-21b733e4a55e",
-	"e1b55ce8-7e38-4229-98c6-6d45edaa6745",
-	"2ff51718-8902-4cbd-aa3f-172bedd14799",
-	0);
-INSERT INTO R_OIR
-	VALUES ("43aa371a-c94c-48a9-acb6-21b733e4a55e",
-	"e1b55ce8-7e38-4229-98c6-6d45edaa6745",
-	"2ff51718-8902-4cbd-aa3f-172bedd14799",
-	"00000000-0000-0000-0000-000000000000");
+	100);
 INSERT INTO GD_MD
 	VALUES ("2edbdd7d-f932-4f0e-af57-4eefb9621cbc",
-	5,
+	112,
 	"afc7af9b-6e70-4780-9ad0-b9f3ec7560c9",
-	11,
+	108,
 	1,
 	0,
 	1,
@@ -2326,3 +1681,727 @@ INSERT INTO DIM_DIA
 	2014.000000,
 	1503.000000,
 	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_SUBSUP
+	VALUES ("79e74e54-a1b2-4be8-bd1d-af9cec9cb358");
+INSERT INTO R_REL
+	VALUES ("79e74e54-a1b2-4be8-bd1d-af9cec9cb358",
+	102,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_SUPER
+	VALUES ("43aa371a-c94c-48a9-acb6-21b733e4a55e",
+	"79e74e54-a1b2-4be8-bd1d-af9cec9cb358",
+	"10982f14-d77d-457b-9902-02f4d23a5ac0");
+INSERT INTO O_RTIDA
+	VALUES ("0304c426-4444-443b-a662-e29749249eb1",
+	"43aa371a-c94c-48a9-acb6-21b733e4a55e",
+	0,
+	"79e74e54-a1b2-4be8-bd1d-af9cec9cb358",
+	"10982f14-d77d-457b-9902-02f4d23a5ac0");
+INSERT INTO O_OIDA_PROXY
+	VALUES ("0304c426-4444-443b-a662-e29749249eb1",
+	"43aa371a-c94c-48a9-acb6-21b733e4a55e",
+	0,
+	'Tool_ID',
+	'./Model Tool/Model Tool.xtuml');
+INSERT INTO R_RTO
+	VALUES ("43aa371a-c94c-48a9-acb6-21b733e4a55e",
+	"79e74e54-a1b2-4be8-bd1d-af9cec9cb358",
+	"10982f14-d77d-457b-9902-02f4d23a5ac0",
+	0);
+INSERT INTO O_ID_PROXY
+	VALUES (0,
+	"43aa371a-c94c-48a9-acb6-21b733e4a55e",
+	'./Model Tool/Model Tool.xtuml');
+INSERT INTO R_OIR
+	VALUES ("43aa371a-c94c-48a9-acb6-21b733e4a55e",
+	"79e74e54-a1b2-4be8-bd1d-af9cec9cb358",
+	"10982f14-d77d-457b-9902-02f4d23a5ac0",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("43aa371a-c94c-48a9-acb6-21b733e4a55e",
+	'Model Tool',
+	101,
+	'CT_MTL',
+	'Each time a new Model instance is created, a set of Tool
+instances are created for it. There is one Tool instance
+created for each Element Specification associated with
+the Model Specification of which the newly created Model
+is an instance. In additon one Selection Tool instance is
+created for each canvas.
+
+---------------------------------------------------------------------------
+Persistent:false',
+	"00000000-0000-0000-0000-000000000000",
+	'./Model Tool/Model Tool.xtuml');
+INSERT INTO R_SUB
+	VALUES ("50695bda-823e-45d0-84b9-4e67435ffe23",
+	"79e74e54-a1b2-4be8-bd1d-af9cec9cb358",
+	"104e9e69-a0a6-4a25-9dcd-768ba5d39c00");
+INSERT INTO R_RGO
+	VALUES ("50695bda-823e-45d0-84b9-4e67435ffe23",
+	"79e74e54-a1b2-4be8-bd1d-af9cec9cb358",
+	"104e9e69-a0a6-4a25-9dcd-768ba5d39c00");
+INSERT INTO R_OIR
+	VALUES ("50695bda-823e-45d0-84b9-4e67435ffe23",
+	"79e74e54-a1b2-4be8-bd1d-af9cec9cb358",
+	"104e9e69-a0a6-4a25-9dcd-768ba5d39c00",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("50695bda-823e-45d0-84b9-4e67435ffe23",
+	'Shape Tool',
+	102,
+	'CT_STL',
+	'The Shape Tool owns the state machine that takes the user
+from enabling the tool, through choosing the location and
+size of the symbol before completing and displaying the
+shape.
+
+---------------------------------------------------------------------------
+Persistent:false',
+	"00000000-0000-0000-0000-000000000000",
+	'./Shape Tool/Shape Tool.xtuml');
+INSERT INTO R_SUB
+	VALUES ("1439746f-8b00-4b77-a05f-bf32f9817898",
+	"79e74e54-a1b2-4be8-bd1d-af9cec9cb358",
+	"808a5d71-27cd-4d75-be33-363a002443d8");
+INSERT INTO R_RGO
+	VALUES ("1439746f-8b00-4b77-a05f-bf32f9817898",
+	"79e74e54-a1b2-4be8-bd1d-af9cec9cb358",
+	"808a5d71-27cd-4d75-be33-363a002443d8");
+INSERT INTO R_OIR
+	VALUES ("1439746f-8b00-4b77-a05f-bf32f9817898",
+	"79e74e54-a1b2-4be8-bd1d-af9cec9cb358",
+	"808a5d71-27cd-4d75-be33-363a002443d8",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("1439746f-8b00-4b77-a05f-bf32f9817898",
+	'Selection Tool',
+	103,
+	'CT_SEL',
+	'The Selection Tool is the default tool when a Model canvas is
+first opened. When it is activated it allows the user to drag and modify
+existing diagram symbols. It is automatically deactivated when another tool is selected.
+
+---------------------------------------------------------------------------
+Persistent:false',
+	"00000000-0000-0000-0000-000000000000",
+	'./Selection Tool/Selection Tool.xtuml');
+INSERT INTO R_SUB
+	VALUES ("52036122-c8b9-41ef-aab0-5b87e07a7824",
+	"79e74e54-a1b2-4be8-bd1d-af9cec9cb358",
+	"9dbcddfd-488f-4e6b-9937-0a56dd5b7ec7");
+INSERT INTO R_RGO
+	VALUES ("52036122-c8b9-41ef-aab0-5b87e07a7824",
+	"79e74e54-a1b2-4be8-bd1d-af9cec9cb358",
+	"9dbcddfd-488f-4e6b-9937-0a56dd5b7ec7");
+INSERT INTO R_OIR
+	VALUES ("52036122-c8b9-41ef-aab0-5b87e07a7824",
+	"79e74e54-a1b2-4be8-bd1d-af9cec9cb358",
+	"9dbcddfd-488f-4e6b-9937-0a56dd5b7ec7",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("52036122-c8b9-41ef-aab0-5b87e07a7824",
+	'Connector Tool',
+	104,
+	'CT_CTL',
+	'The Connector Tool owns the state machine that takes the
+user from enabling the tool, through choosing the start location
+and either dragging or clicking the connector waypoints to
+recognizing the end location and finally displaying the
+connector.
+--------------------------------------------------------------------------
+Persistent:false                            ',
+	"00000000-0000-0000-0000-000000000000",
+	'./Connector Tool/Connector Tool.xtuml');
+INSERT INTO R_SUB
+	VALUES ("be1b57d8-161e-4f96-924a-f25b2576174b",
+	"79e74e54-a1b2-4be8-bd1d-af9cec9cb358",
+	"e5d67d72-4fb6-4ad2-a0d3-1d292307b9c5");
+INSERT INTO R_RGO
+	VALUES ("be1b57d8-161e-4f96-924a-f25b2576174b",
+	"79e74e54-a1b2-4be8-bd1d-af9cec9cb358",
+	"e5d67d72-4fb6-4ad2-a0d3-1d292307b9c5");
+INSERT INTO R_OIR
+	VALUES ("be1b57d8-161e-4f96-924a-f25b2576174b",
+	"79e74e54-a1b2-4be8-bd1d-af9cec9cb358",
+	"e5d67d72-4fb6-4ad2-a0d3-1d292307b9c5",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("be1b57d8-161e-4f96-924a-f25b2576174b",
+	'Scroll Tool',
+	105,
+	'CT_SCR',
+	'This tool lets the user "grab" the canvas and scroll its contents within its current container.  This tool should be available while any other tool is selected, but for drawing tools, only up to the point where a draw is first performed after that tool''s selection.
+
+---------------------------------------------------------------------------
+Persistent:false',
+	"00000000-0000-0000-0000-000000000000",
+	'./Scroll Tool/Scroll Tool.xtuml');
+INSERT INTO PE_PE
+	VALUES ("79e74e54-a1b2-4be8-bd1d-af9cec9cb358",
+	1,
+	"afc7af9b-6e70-4780-9ad0-b9f3ec7560c9",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO R_SIMP
+	VALUES ("9644fc6a-9e3f-4bea-90d2-c8ed2a0d0b48");
+INSERT INTO R_REL
+	VALUES ("9644fc6a-9e3f-4bea-90d2-c8ed2a0d0b48",
+	103,
+	'This association captures the element specification that the tool will
+create when it completes its lifecycle. It is conditional at the graphical
+element end because not all tools create elements.',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_FORM
+	VALUES ("43aa371a-c94c-48a9-acb6-21b733e4a55e",
+	"9644fc6a-9e3f-4bea-90d2-c8ed2a0d0b48",
+	"746b4906-475b-4747-b6b6-17e6304e6960",
+	1,
+	1,
+	'has elements instantiated by');
+INSERT INTO R_RGO
+	VALUES ("43aa371a-c94c-48a9-acb6-21b733e4a55e",
+	"9644fc6a-9e3f-4bea-90d2-c8ed2a0d0b48",
+	"746b4906-475b-4747-b6b6-17e6304e6960");
+INSERT INTO R_OIR
+	VALUES ("43aa371a-c94c-48a9-acb6-21b733e4a55e",
+	"9644fc6a-9e3f-4bea-90d2-c8ed2a0d0b48",
+	"746b4906-475b-4747-b6b6-17e6304e6960",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_PART
+	VALUES ("76253415-b575-4583-9248-5d403cee7647",
+	"9644fc6a-9e3f-4bea-90d2-c8ed2a0d0b48",
+	"d281d8b2-cf22-47f7-9119-0a71aa00df56",
+	0,
+	1,
+	'instantiates elements specified by');
+INSERT INTO O_RTIDA
+	VALUES ("6b3798a6-af64-46df-a88c-8db2cc520b9a",
+	"76253415-b575-4583-9248-5d403cee7647",
+	0,
+	"9644fc6a-9e3f-4bea-90d2-c8ed2a0d0b48",
+	"d281d8b2-cf22-47f7-9119-0a71aa00df56");
+INSERT INTO O_OIDA_PROXY
+	VALUES ("6b3798a6-af64-46df-a88c-8db2cc520b9a",
+	"76253415-b575-4583-9248-5d403cee7647",
+	0,
+	'OOA_Type',
+	'../Graphical Data/Element Specification/Element Specification.xtuml');
+INSERT INTO R_RTO
+	VALUES ("76253415-b575-4583-9248-5d403cee7647",
+	"9644fc6a-9e3f-4bea-90d2-c8ed2a0d0b48",
+	"d281d8b2-cf22-47f7-9119-0a71aa00df56",
+	0);
+INSERT INTO O_ID_PROXY
+	VALUES (0,
+	"76253415-b575-4583-9248-5d403cee7647",
+	'../Graphical Data/Element Specification/Element Specification.xtuml');
+INSERT INTO R_OIR
+	VALUES ("76253415-b575-4583-9248-5d403cee7647",
+	"9644fc6a-9e3f-4bea-90d2-c8ed2a0d0b48",
+	"d281d8b2-cf22-47f7-9119-0a71aa00df56",
+	"50da1b6b-cd0a-4e5e-bec6-ff993d68ab4e");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("76253415-b575-4583-9248-5d403cee7647",
+	'Element Specification',
+	8,
+	'GD_ES',
+	'An element specification instance defines a type of symbol.
+The OOA_Type defines the OOA of OOA element represented
+by this symbol.
+
+Instances of this class are instantiated at startup from a
+pre-existing instance specification.
+---------------------------------------------------------------------------
+
+PEI:true
+Persistent:false
+TRANSLATE_FOR_EXTERNAL_USE:FALSE
+
+',
+	"00000000-0000-0000-0000-000000000000",
+	'../Graphical Data/Element Specification/Element Specification.xtuml');
+INSERT INTO PE_PE
+	VALUES ("9644fc6a-9e3f-4bea-90d2-c8ed2a0d0b48",
+	1,
+	"afc7af9b-6e70-4780-9ad0-b9f3ec7560c9",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO R_SIMP
+	VALUES ("20f384f0-6e59-43a8-9bc4-d9343da69a1d");
+INSERT INTO R_REL
+	VALUES ("20f384f0-6e59-43a8-9bc4-d9343da69a1d",
+	100,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_PART
+	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
+	"20f384f0-6e59-43a8-9bc4-d9343da69a1d",
+	"38ca7d9a-4ce6-4cba-b296-378a3e08b578",
+	0,
+	0,
+	'is assigned to');
+INSERT INTO O_RTIDA
+	VALUES ("d1783817-101b-46d1-b9a8-907ee4d5efe4",
+	"09423687-e999-4aba-876d-35e0d3331311",
+	0,
+	"20f384f0-6e59-43a8-9bc4-d9343da69a1d",
+	"38ca7d9a-4ce6-4cba-b296-378a3e08b578");
+INSERT INTO O_OIDA_PROXY
+	VALUES ("d1783817-101b-46d1-b9a8-907ee4d5efe4",
+	"09423687-e999-4aba-876d-35e0d3331311",
+	0,
+	'diagramId',
+	'../Graphical Data/Model/Model.xtuml');
+INSERT INTO R_RTO
+	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
+	"20f384f0-6e59-43a8-9bc4-d9343da69a1d",
+	"38ca7d9a-4ce6-4cba-b296-378a3e08b578",
+	0);
+INSERT INTO O_ID_PROXY
+	VALUES (0,
+	"09423687-e999-4aba-876d-35e0d3331311",
+	'../Graphical Data/Model/Model.xtuml');
+INSERT INTO R_OIR
+	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
+	"20f384f0-6e59-43a8-9bc4-d9343da69a1d",
+	"38ca7d9a-4ce6-4cba-b296-378a3e08b578",
+	"1b3aa6cd-c6b0-4979-8f9a-61cae2fc9da0");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
+	'Model',
+	1,
+	'GD_MD',
+	'A model is a drawing for one particular view of the analysis. There is an instance of model for each glyph on the index window, and each entry in the model element list on the index window. For example, every domain will have four models (DPD, PDD(R), PDD(A), PDD(S)).  Every subsystem will have three models (CD, OCD(A), OCD(S)).  Every state chart has one model (SC).  The STT is not a graphical model.',
+	"00000000-0000-0000-0000-000000000000",
+	'../Graphical Data/Model/Model.xtuml');
+INSERT INTO R_FORM
+	VALUES ("43aa371a-c94c-48a9-acb6-21b733e4a55e",
+	"20f384f0-6e59-43a8-9bc4-d9343da69a1d",
+	"144a6b5e-e8e3-4154-b552-a372fac543d7",
+	1,
+	1,
+	'has assigned');
+INSERT INTO R_RGO
+	VALUES ("43aa371a-c94c-48a9-acb6-21b733e4a55e",
+	"20f384f0-6e59-43a8-9bc4-d9343da69a1d",
+	"144a6b5e-e8e3-4154-b552-a372fac543d7");
+INSERT INTO R_OIR
+	VALUES ("43aa371a-c94c-48a9-acb6-21b733e4a55e",
+	"20f384f0-6e59-43a8-9bc4-d9343da69a1d",
+	"144a6b5e-e8e3-4154-b552-a372fac543d7",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO PE_PE
+	VALUES ("20f384f0-6e59-43a8-9bc4-d9343da69a1d",
+	1,
+	"afc7af9b-6e70-4780-9ad0-b9f3ec7560c9",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO R_SIMP
+	VALUES ("203ee94b-0d40-476a-bd77-198579f48e79");
+INSERT INTO R_REL
+	VALUES ("203ee94b-0d40-476a-bd77-198579f48e79",
+	106,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_FORM
+	VALUES ("52036122-c8b9-41ef-aab0-5b87e07a7824",
+	"203ee94b-0d40-476a-bd77-198579f48e79",
+	"ca60055a-e5a2-46e5-a6ff-7a5d8c8bb696",
+	0,
+	1,
+	'is being drawn by');
+INSERT INTO R_RGO
+	VALUES ("52036122-c8b9-41ef-aab0-5b87e07a7824",
+	"203ee94b-0d40-476a-bd77-198579f48e79",
+	"ca60055a-e5a2-46e5-a6ff-7a5d8c8bb696");
+INSERT INTO R_OIR
+	VALUES ("52036122-c8b9-41ef-aab0-5b87e07a7824",
+	"203ee94b-0d40-476a-bd77-198579f48e79",
+	"ca60055a-e5a2-46e5-a6ff-7a5d8c8bb696",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_PART
+	VALUES ("77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
+	"203ee94b-0d40-476a-bd77-198579f48e79",
+	"10f16a0b-76f2-4fcb-b8d4-1acd5cffb422",
+	0,
+	1,
+	'is drawing');
+INSERT INTO O_RTIDA
+	VALUES ("09b28e51-261a-4f6c-8408-01a31af506b9",
+	"77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
+	0,
+	"203ee94b-0d40-476a-bd77-198579f48e79",
+	"10f16a0b-76f2-4fcb-b8d4-1acd5cffb422");
+INSERT INTO O_OIDA_PROXY
+	VALUES ("09b28e51-261a-4f6c-8408-01a31af506b9",
+	"77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
+	0,
+	'elementId',
+	'../Graphical Data/Line Segment/Line Segment.xtuml');
+INSERT INTO R_RTO
+	VALUES ("77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
+	"203ee94b-0d40-476a-bd77-198579f48e79",
+	"10f16a0b-76f2-4fcb-b8d4-1acd5cffb422",
+	0);
+INSERT INTO O_ID_PROXY
+	VALUES (0,
+	"77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
+	'../Graphical Data/Line Segment/Line Segment.xtuml');
+INSERT INTO R_OIR
+	VALUES ("77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
+	"203ee94b-0d40-476a-bd77-198579f48e79",
+	"10f16a0b-76f2-4fcb-b8d4-1acd5cffb422",
+	"116549f7-2c80-4a2a-a5fc-8fdb98ab7286");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
+	'Line Segment',
+	5,
+	'GD_LS',
+	'The line segment is a single line drawn on the model. If the line segment is the first or last line segment, there may be adornments (cardinality, multiplicity) drawn near where the line segment attaches to the GE it starts/ends at.  Note: BridgePoint is very arbitrary about how it populates line segments in terms of begins and ends.  Line segments do not always run from start element to end element - sometimes they are reversed. ',
+	"00000000-0000-0000-0000-000000000000",
+	'../Graphical Data/Line Segment/Line Segment.xtuml');
+INSERT INTO PE_PE
+	VALUES ("203ee94b-0d40-476a-bd77-198579f48e79",
+	1,
+	"afc7af9b-6e70-4780-9ad0-b9f3ec7560c9",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO R_SIMP
+	VALUES ("ddde13f4-2335-49b4-a469-e78f3af8d12b");
+INSERT INTO R_REL
+	VALUES ("ddde13f4-2335-49b4-a469-e78f3af8d12b",
+	104,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_FORM
+	VALUES ("52036122-c8b9-41ef-aab0-5b87e07a7824",
+	"ddde13f4-2335-49b4-a469-e78f3af8d12b",
+	"6fefbb0c-b6d8-4984-9dd1-2446ffe28ed6",
+	0,
+	1,
+	'start');
+INSERT INTO R_RGO
+	VALUES ("52036122-c8b9-41ef-aab0-5b87e07a7824",
+	"ddde13f4-2335-49b4-a469-e78f3af8d12b",
+	"6fefbb0c-b6d8-4984-9dd1-2446ffe28ed6");
+INSERT INTO R_OIR
+	VALUES ("52036122-c8b9-41ef-aab0-5b87e07a7824",
+	"ddde13f4-2335-49b4-a469-e78f3af8d12b",
+	"6fefbb0c-b6d8-4984-9dd1-2446ffe28ed6",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_PART
+	VALUES ("9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
+	"ddde13f4-2335-49b4-a469-e78f3af8d12b",
+	"6c4d9c60-99ee-4611-ad2b-8fe59fede195",
+	0,
+	1,
+	'is starting at');
+INSERT INTO O_RTIDA
+	VALUES ("ee285046-698d-47d4-8d30-506164f3e21f",
+	"9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
+	0,
+	"ddde13f4-2335-49b4-a469-e78f3af8d12b",
+	"6c4d9c60-99ee-4611-ad2b-8fe59fede195");
+INSERT INTO O_OIDA_PROXY
+	VALUES ("ee285046-698d-47d4-8d30-506164f3e21f",
+	"9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
+	0,
+	'elementId',
+	'../Graphical Data/Graphical Element/Graphical Element.xtuml');
+INSERT INTO R_RTO
+	VALUES ("9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
+	"ddde13f4-2335-49b4-a469-e78f3af8d12b",
+	"6c4d9c60-99ee-4611-ad2b-8fe59fede195",
+	0);
+INSERT INTO O_ID_PROXY
+	VALUES (0,
+	"9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
+	'../Graphical Data/Graphical Element/Graphical Element.xtuml');
+INSERT INTO R_OIR
+	VALUES ("9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
+	"ddde13f4-2335-49b4-a469-e78f3af8d12b",
+	"6c4d9c60-99ee-4611-ad2b-8fe59fede195",
+	"e69ee033-4143-47e1-90ed-4ecf6368a7fd");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
+	'Graphical Element',
+	2,
+	'GD_GE',
+	'Graphical element abstracts the different shapes and lines that make up the graphical representation of a model on the canvas.',
+	"00000000-0000-0000-0000-000000000000",
+	'../Graphical Data/Graphical Element/Graphical Element.xtuml');
+INSERT INTO PE_PE
+	VALUES ("ddde13f4-2335-49b4-a469-e78f3af8d12b",
+	1,
+	"afc7af9b-6e70-4780-9ad0-b9f3ec7560c9",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO R_SIMP
+	VALUES ("18728ecc-7a19-4107-9222-e3db43f4e0e0");
+INSERT INTO R_REL
+	VALUES ("18728ecc-7a19-4107-9222-e3db43f4e0e0",
+	105,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_FORM
+	VALUES ("52036122-c8b9-41ef-aab0-5b87e07a7824",
+	"18728ecc-7a19-4107-9222-e3db43f4e0e0",
+	"b1c992f0-0bce-4e3b-a84c-dbbcc6ff6a7b",
+	0,
+	1,
+	'end');
+INSERT INTO R_RGO
+	VALUES ("52036122-c8b9-41ef-aab0-5b87e07a7824",
+	"18728ecc-7a19-4107-9222-e3db43f4e0e0",
+	"b1c992f0-0bce-4e3b-a84c-dbbcc6ff6a7b");
+INSERT INTO R_OIR
+	VALUES ("52036122-c8b9-41ef-aab0-5b87e07a7824",
+	"18728ecc-7a19-4107-9222-e3db43f4e0e0",
+	"b1c992f0-0bce-4e3b-a84c-dbbcc6ff6a7b",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_PART
+	VALUES ("9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
+	"18728ecc-7a19-4107-9222-e3db43f4e0e0",
+	"451656e0-6907-47f2-b32c-fc0395a064ac",
+	0,
+	1,
+	'is ending at');
+INSERT INTO O_RTIDA
+	VALUES ("ee285046-698d-47d4-8d30-506164f3e21f",
+	"9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
+	0,
+	"18728ecc-7a19-4107-9222-e3db43f4e0e0",
+	"451656e0-6907-47f2-b32c-fc0395a064ac");
+INSERT INTO R_RTO
+	VALUES ("9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
+	"18728ecc-7a19-4107-9222-e3db43f4e0e0",
+	"451656e0-6907-47f2-b32c-fc0395a064ac",
+	0);
+INSERT INTO R_OIR
+	VALUES ("9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
+	"18728ecc-7a19-4107-9222-e3db43f4e0e0",
+	"451656e0-6907-47f2-b32c-fc0395a064ac",
+	"e69ee033-4143-47e1-90ed-4ecf6368a7fd");
+INSERT INTO PE_PE
+	VALUES ("18728ecc-7a19-4107-9222-e3db43f4e0e0",
+	1,
+	"afc7af9b-6e70-4780-9ad0-b9f3ec7560c9",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO R_SIMP
+	VALUES ("0e432084-bfb3-42d9-b1d2-db7db29c94fd");
+INSERT INTO R_REL
+	VALUES ("0e432084-bfb3-42d9-b1d2-db7db29c94fd",
+	108,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_FORM
+	VALUES ("a50fbf03-c97f-4aa0-a1b5-73685fbc5d00",
+	"0e432084-bfb3-42d9-b1d2-db7db29c94fd",
+	"667d3254-adeb-492b-9461-b3abd7145c0a",
+	0,
+	1,
+	'employs');
+INSERT INTO R_RGO
+	VALUES ("a50fbf03-c97f-4aa0-a1b5-73685fbc5d00",
+	"0e432084-bfb3-42d9-b1d2-db7db29c94fd",
+	"667d3254-adeb-492b-9461-b3abd7145c0a");
+INSERT INTO R_OIR
+	VALUES ("a50fbf03-c97f-4aa0-a1b5-73685fbc5d00",
+	"0e432084-bfb3-42d9-b1d2-db7db29c94fd",
+	"667d3254-adeb-492b-9461-b3abd7145c0a",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("a50fbf03-c97f-4aa0-a1b5-73685fbc5d00",
+	'Tool Activation Policy',
+	106,
+	'CT_ACT',
+	'Governs which tool of a set of tools (each of a different subtype) may be currently active.
+------------
+Persistent:false
+',
+	"00000000-0000-0000-0000-000000000000",
+	'./Tool Activation Policy/Tool Activation Policy.xtuml');
+INSERT INTO R_PART
+	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
+	"0e432084-bfb3-42d9-b1d2-db7db29c94fd",
+	"005ce4f4-9cb1-4a2f-ad98-a9e4edb440f3",
+	0,
+	0,
+	'governs tool activation for');
+INSERT INTO O_RTIDA
+	VALUES ("d1783817-101b-46d1-b9a8-907ee4d5efe4",
+	"09423687-e999-4aba-876d-35e0d3331311",
+	0,
+	"0e432084-bfb3-42d9-b1d2-db7db29c94fd",
+	"005ce4f4-9cb1-4a2f-ad98-a9e4edb440f3");
+INSERT INTO R_RTO
+	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
+	"0e432084-bfb3-42d9-b1d2-db7db29c94fd",
+	"005ce4f4-9cb1-4a2f-ad98-a9e4edb440f3",
+	0);
+INSERT INTO R_OIR
+	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
+	"0e432084-bfb3-42d9-b1d2-db7db29c94fd",
+	"005ce4f4-9cb1-4a2f-ad98-a9e4edb440f3",
+	"1b3aa6cd-c6b0-4979-8f9a-61cae2fc9da0");
+INSERT INTO PE_PE
+	VALUES ("0e432084-bfb3-42d9-b1d2-db7db29c94fd",
+	1,
+	"afc7af9b-6e70-4780-9ad0-b9f3ec7560c9",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO R_SIMP
+	VALUES ("e1b55ce8-7e38-4229-98c6-6d45edaa6745");
+INSERT INTO R_REL
+	VALUES ("e1b55ce8-7e38-4229-98c6-6d45edaa6745",
+	109,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_FORM
+	VALUES ("a50fbf03-c97f-4aa0-a1b5-73685fbc5d00",
+	"e1b55ce8-7e38-4229-98c6-6d45edaa6745",
+	"0ae0993b-f026-4c9b-9862-008f2186f28e",
+	0,
+	0,
+	'');
+INSERT INTO R_RGO
+	VALUES ("a50fbf03-c97f-4aa0-a1b5-73685fbc5d00",
+	"e1b55ce8-7e38-4229-98c6-6d45edaa6745",
+	"0ae0993b-f026-4c9b-9862-008f2186f28e");
+INSERT INTO R_OIR
+	VALUES ("a50fbf03-c97f-4aa0-a1b5-73685fbc5d00",
+	"e1b55ce8-7e38-4229-98c6-6d45edaa6745",
+	"0ae0993b-f026-4c9b-9862-008f2186f28e",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_PART
+	VALUES ("43aa371a-c94c-48a9-acb6-21b733e4a55e",
+	"e1b55ce8-7e38-4229-98c6-6d45edaa6745",
+	"2ff51718-8902-4cbd-aa3f-172bedd14799",
+	0,
+	0,
+	'knows as previously active tool');
+INSERT INTO O_RTIDA
+	VALUES ("0304c426-4444-443b-a662-e29749249eb1",
+	"43aa371a-c94c-48a9-acb6-21b733e4a55e",
+	0,
+	"e1b55ce8-7e38-4229-98c6-6d45edaa6745",
+	"2ff51718-8902-4cbd-aa3f-172bedd14799");
+INSERT INTO R_RTO
+	VALUES ("43aa371a-c94c-48a9-acb6-21b733e4a55e",
+	"e1b55ce8-7e38-4229-98c6-6d45edaa6745",
+	"2ff51718-8902-4cbd-aa3f-172bedd14799",
+	0);
+INSERT INTO R_OIR
+	VALUES ("43aa371a-c94c-48a9-acb6-21b733e4a55e",
+	"e1b55ce8-7e38-4229-98c6-6d45edaa6745",
+	"2ff51718-8902-4cbd-aa3f-172bedd14799",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO PE_PE
+	VALUES ("e1b55ce8-7e38-4229-98c6-6d45edaa6745",
+	1,
+	"afc7af9b-6e70-4780-9ad0-b9f3ec7560c9",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO O_IOBJ
+	VALUES ("50da1b6b-cd0a-4e5e-bec6-ff993d68ab4e",
+	"76253415-b575-4583-9248-5d403cee7647",
+	5,
+	"00000000-0000-0000-0000-000000000000",
+	'Element Specification',
+	'GD_ES');
+INSERT INTO PE_PE
+	VALUES ("50da1b6b-cd0a-4e5e-bec6-ff993d68ab4e",
+	1,
+	"afc7af9b-6e70-4780-9ad0-b9f3ec7560c9",
+	"00000000-0000-0000-0000-000000000000",
+	19);
+INSERT INTO O_IOBJ
+	VALUES ("1b3aa6cd-c6b0-4979-8f9a-61cae2fc9da0",
+	"09423687-e999-4aba-876d-35e0d3331311",
+	5,
+	"00000000-0000-0000-0000-000000000000",
+	'Model',
+	'GD_MD');
+INSERT INTO PE_PE
+	VALUES ("1b3aa6cd-c6b0-4979-8f9a-61cae2fc9da0",
+	1,
+	"afc7af9b-6e70-4780-9ad0-b9f3ec7560c9",
+	"00000000-0000-0000-0000-000000000000",
+	19);
+INSERT INTO O_IOBJ
+	VALUES ("116549f7-2c80-4a2a-a5fc-8fdb98ab7286",
+	"77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
+	5,
+	"00000000-0000-0000-0000-000000000000",
+	'Line Segment',
+	'GD_LS');
+INSERT INTO PE_PE
+	VALUES ("116549f7-2c80-4a2a-a5fc-8fdb98ab7286",
+	1,
+	"afc7af9b-6e70-4780-9ad0-b9f3ec7560c9",
+	"00000000-0000-0000-0000-000000000000",
+	19);
+INSERT INTO O_IOBJ
+	VALUES ("e69ee033-4143-47e1-90ed-4ecf6368a7fd",
+	"9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
+	5,
+	"00000000-0000-0000-0000-000000000000",
+	'Graphical Element',
+	'GD_GE');
+INSERT INTO PE_PE
+	VALUES ("e69ee033-4143-47e1-90ed-4ecf6368a7fd",
+	1,
+	"afc7af9b-6e70-4780-9ad0-b9f3ec7560c9",
+	"00000000-0000-0000-0000-000000000000",
+	19);
+INSERT INTO PE_PE
+	VALUES ("afc7af9b-6e70-4780-9ad0-b9f3ec7560c9",
+	1,
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	"00000000-0000-0000-0000-000000000000",
+	7);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	"8f801c9a-cf2d-4ef4-b11a-51b8697e3ca8",
+	"8f801c9a-cf2d-4ef4-b11a-51b8697e3ca8",
+	'ooaofgraphics',
+	'========================================================================
+
+File:          $RCSfile$
+Version:   $Revision$
+Modified:  $Date$
+
+(c) Copyright 2004-2014 Mentor Graphics Corporation All rights reserved.
+
+========================================================================
+Licensed under the Apache License, Version 2.0 (the "License"); you may not
+use this file except in compliance with the License.  You may obtain a copy
+of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the
+License for the specific language governing permissions and limitations under
+the License.
+========================================================================
+
+This is the graphics domain for the Tiger project.
+
+The processing in this model describes the activities
+required for model diagram display and editing.
+
+Import:org.xtuml.bp.core.*
+-------------------------------------------------------------------------------------------------------------
+',
+	0,
+	'../ooaofgraphics.xtuml');
+INSERT INTO S_SYS_PROXY
+	VALUES ("8f801c9a-cf2d-4ef4-b11a-51b8697e3ca8",
+	'org.xtuml.bp.ui.canvas',
+	1,
+	'../../org.xtuml.bp.ui.canvas.xtuml');

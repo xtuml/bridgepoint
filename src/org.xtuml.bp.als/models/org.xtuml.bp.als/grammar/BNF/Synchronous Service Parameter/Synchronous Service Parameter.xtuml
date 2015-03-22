@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("3a75035b-62d0-4259-9758-f6821fb7bf83",
@@ -6,7 +6,7 @@ INSERT INTO O_OBJ
 	17,
 	'S_SPARM',
 	'A parameter to a synchronous service (S_SYNC) is called a synchronous service parameter (S_SPARM).  Synchronous service parameters are either passed in by value, or by reference.  Synchronous service parameters can be accessed by using the param keyword from within a synchronous service action specification.',
-	"5edea08f-a6e1-4146-8e1c-0cade7a477c7");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_NBATTR
 	VALUES ("eee55f8f-32d1-4665-8a72-a17f47f68b18",
 	"3a75035b-62d0-4259-9758-f6821fb7bf83");
@@ -22,16 +22,9 @@ INSERT INTO O_ATTR
 	'',
 	'SParm_ID',
 	0,
-	"0dd326a8-132b-40ba-821c-d4a3d3b8c88d",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("0dd326a8-132b-40ba-821c-d4a3d3b8c88d",
-	"c7485938-5b68-46c4-bc59-f0bb9c943851",
-	'unique_id',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("3a75035b-62d0-4259-9758-f6821fb7bf83",
 	"4080e1ea-24eb-4088-8582-abb7cc0a494b",
@@ -80,16 +73,9 @@ INSERT INTO O_ATTR
 	'',
 	'Sync_ID',
 	0,
-	"73db19ab-e535-4718-ab07-668918299d9a",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("73db19ab-e535-4718-ab07-668918299d9a",
-	"c7485938-5b68-46c4-bc59-f0bb9c943851",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("bcbdcedb-36f4-46d1-ae38-47f56b18e957",
 	"3a75035b-62d0-4259-9758-f6821fb7bf83");
@@ -105,16 +91,9 @@ INSERT INTO O_ATTR
 	'',
 	'Name',
 	0,
-	"8bc628ed-3494-4e74-bb6a-ec37622127df",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("8bc628ed-3494-4e74-bb6a-ec37622127df",
-	"c7485938-5b68-46c4-bc59-f0bb9c943851",
-	'string',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("3a75035b-62d0-4259-9758-f6821fb7bf83",
 	"d39db9ff-a0ab-418e-a79a-e750a206c64d",
@@ -163,7 +142,7 @@ INSERT INTO O_ATTR
 	'',
 	'DT_ID',
 	0,
-	"73db19ab-e535-4718-ab07-668918299d9a",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -181,16 +160,9 @@ INSERT INTO O_ATTR
 	'',
 	'By_Ref',
 	0,
-	"bfb63684-46c9-44bd-b4f5-e0ae6cd60407",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("bfb63684-46c9-44bd-b4f5-e0ae6cd60407",
-	"c7485938-5b68-46c4-bc59-f0bb9c943851",
-	'integer',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_ID
 	VALUES (0,
 	"3a75035b-62d0-4259-9758-f6821fb7bf83");
@@ -205,12 +177,17 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"3a75035b-62d0-4259-9758-f6821fb7bf83");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("3a75035b-62d0-4259-9758-f6821fb7bf83",
+	1,
+	"5edea08f-a6e1-4146-8e1c-0cade7a477c7",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("5edea08f-a6e1-4146-8e1c-0cade7a477c7",
+	"00000000-0000-0000-0000-000000000000",
+	"c76dedc6-4b25-435f-9310-4f344030485a",
 	'BNF',
 	'',
-	'',
 	1,
-	"c7485938-5b68-46c4-bc59-f0bb9c943851",
-	"00000000-0000-0000-0000-000000100002",
 	'../BNF.xtuml');

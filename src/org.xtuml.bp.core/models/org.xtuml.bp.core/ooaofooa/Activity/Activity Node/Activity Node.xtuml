@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("22460b1d-db48-46a1-bc6d-1f92b3f96978",
@@ -6,13 +6,13 @@ INSERT INTO O_OBJ
 	1101,
 	'A_N',
 	'',
-	"ff5a86d7-6bb8-4818-93a7-db0ed269ab54");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("2312bf3a-d231-444c-b8ad-9b19e4d8ff31",
 	"22460b1d-db48-46a1-bc6d-1f92b3f96978",
 	'dispose',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
 select one parent related by self->A_A[R1101];
@@ -55,19 +55,12 @@ delete object instance self;
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO S_DT_PROXY
-	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'void',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("a9818cee-2442-492a-82b6-b99340f8d975",
 	"22460b1d-db48-46a1-bc6d-1f92b3f96978",
 	'incomingEdgeAllowed',
 	'',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'select one act related by self->A_ACT[R1105];
 if ( not_empty act )
@@ -87,19 +80,12 @@ return false;',
 	1,
 	'',
 	"2312bf3a-d231-444c-b8ad-9b19e4d8ff31");
-INSERT INTO S_DT_PROXY
-	VALUES ("8e519c45-7dcf-400b-9d4e-954869dbb7e8",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'boolean',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("e293baee-acc6-465a-9902-c937b7ec9d69",
 	"22460b1d-db48-46a1-bc6d-1f92b3f96978",
 	'outgoingEdgeAllowed',
 	'',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'select one act related by self->A_ACT[R1105];
 if ( not_empty act )
@@ -124,26 +110,19 @@ INSERT INTO O_TFR
 	"22460b1d-db48-46a1-bc6d-1f92b3f96978",
 	'numIncomingEdges',
 	'',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	1,
 	'select many inEdges related by self->A_E[R1103];
 return cardinality inEdges;',
 	1,
 	'',
 	"a9818cee-2442-492a-82b6-b99340f8d975");
-INSERT INTO S_DT_PROXY
-	VALUES ("79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'integer',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("246c8fa8-99ee-448a-9e6d-b1137b867ea4",
 	"22460b1d-db48-46a1-bc6d-1f92b3f96978",
 	'numOutgoingEdges',
 	'',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	1,
 	'select many outEdges related by self->A_E[R1104];
 return cardinality outEdges;',
@@ -198,16 +177,9 @@ INSERT INTO O_ATTR
 	'',
 	'Package_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("22460b1d-db48-46a1-bc6d-1f92b3f96978",
 	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
@@ -256,7 +228,7 @@ INSERT INTO O_ATTR
 	'',
 	'Id',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_ID
@@ -273,13 +245,18 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"22460b1d-db48-46a1-bc6d-1f92b3f96978");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("22460b1d-db48-46a1-bc6d-1f92b3f96978",
+	1,
+	"ff5a86d7-6bb8-4818-93a7-db0ed269ab54",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("ff5a86d7-6bb8-4818-93a7-db0ed269ab54",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Activity',
 	'// This is used by schema_gen to ignore this subsystem (for publication)
 TRANSLATE_FOR_EXTERNAL_USE:FALSE',
-	'A',
 	1100,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000000000",
 	'../Activity.xtuml');

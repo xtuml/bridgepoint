@@ -1,7 +1,7 @@
 -- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
-	VALUES ("c8e7150b-3e2c-43d4-bf66-4946c82cee45",
+	VALUES ("90d6ae07-fbca-4f2d-891e-22c0e5df13be",
 	'TestClassOtherSide 7',
 	312,
 	'KEY',
@@ -9,21 +9,21 @@ INSERT INTO O_OBJ
 	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_ID
 	VALUES (0,
-	"c8e7150b-3e2c-43d4-bf66-4946c82cee45");
+	"90d6ae07-fbca-4f2d-891e-22c0e5df13be");
 INSERT INTO O_ID
 	VALUES (1,
-	"c8e7150b-3e2c-43d4-bf66-4946c82cee45");
+	"90d6ae07-fbca-4f2d-891e-22c0e5df13be");
 INSERT INTO O_ID
 	VALUES (2,
-	"c8e7150b-3e2c-43d4-bf66-4946c82cee45");
+	"90d6ae07-fbca-4f2d-891e-22c0e5df13be");
 INSERT INTO PE_PE
-	VALUES ("c8e7150b-3e2c-43d4-bf66-4946c82cee45",
+	VALUES ("90d6ae07-fbca-4f2d-891e-22c0e5df13be",
 	1,
-	"4b5d272a-311a-418d-a9b9-41c18029d7f3",
+	"196b8b2b-cb6a-45da-b8aa-2ff6abcfde19",
 	"00000000-0000-0000-0000-000000000000",
 	4);
 INSERT INTO EP_PKG_PROXY
-	VALUES ("4b5d272a-311a-418d-a9b9-41c18029d7f3",
+	VALUES ("196b8b2b-cb6a-45da-b8aa-2ff6abcfde19",
 	"00000000-0000-0000-0000-000000000000",
 	"c6693612-7c4f-42e5-b64f-16c64f288945",
 	'FAL Tests',

@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("6795be43-0ccf-4121-a9f6-9ed6b207a7a2",
@@ -6,7 +6,7 @@ INSERT INTO O_OBJ
 	213,
 	'R_SUPER',
 	'This class represents a class playing a supertype role in a supertype/subtype association.',
-	"c8d78fd5-1314-444a-bad0-6af79f6e1296");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("f42b133b-ff0c-4a67-8467-63d66ed1b7ec",
 	"6795be43-0ccf-4121-a9f6-9ed6b207a7a2",
@@ -17,7 +17,7 @@ for the end (note this differs from every other Association where the
 -----------------------------------------------------------------------------------
 Bridge:GD
 ',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'result = "";
 if (param.at == End::Start)
@@ -46,18 +46,11 @@ INSERT INTO O_TPARM
 	'');
 INSERT INTO S_DT_PROXY
 	VALUES ("ae85eca6-6fe4-4125-95e6-95272f0fd7de",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
 	'End',
 	'Text is positioned at a user adjustable offset from the Start, Middle and End of a connector. Start_Fixed and End_Fixed specify fixed position text found at the start and end of some connectors.
 -------------------------------------------------------------
 Bridge:GD',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
-INSERT INTO S_DT_PROXY
-	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'string',
-	'',
 	'',
 	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
@@ -65,7 +58,7 @@ INSERT INTO O_TFR
 	"6795be43-0ccf-4121-a9f6-9ed6b207a7a2",
 	'dispose',
 	'The dispose operation for the R_SUPER class.',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select one rsubsup related by self->R_SUBSUP[R212];
 unrelate self from rsubsup across R212;
@@ -76,19 +69,12 @@ delete object instance self;
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO S_DT_PROXY
-	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'void',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("080885ae-71af-4336-a936-ff1343109c3a",
 	"6795be43-0ccf-4121-a9f6-9ed6b207a7a2",
 	'get_name',
 	'',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'select one obj related by self->R_RTO[R204]->R_OIR[R203]->O_OBJ[R201];
 return obj.Name;
@@ -144,16 +130,9 @@ INSERT INTO O_ATTR
 	'',
 	'OIR_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("6795be43-0ccf-4121-a9f6-9ed6b207a7a2",
 	"9935b740-f46f-477e-9f9b-70972448e4a7",
@@ -197,7 +176,7 @@ INSERT INTO O_ATTR
 	'',
 	'Obj_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -215,7 +194,7 @@ INSERT INTO O_REF
 	'',
 	'Subtype Supertype Association',
 	'Rel_ID',
-	'R212');
+	'R212.''is related to subtypes via''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("6795be43-0ccf-4121-a9f6-9ed6b207a7a2",
 	"67deae87-bb49-4a07-a102-382c40a191fa",
@@ -267,7 +246,7 @@ INSERT INTO O_ATTR
 	'',
 	'Rel_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_ID
@@ -294,12 +273,17 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"6795be43-0ccf-4121-a9f6-9ed6b207a7a2");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("6795be43-0ccf-4121-a9f6-9ed6b207a7a2",
+	1,
+	"c8d78fd5-1314-444a-bad0-6af79f6e1296",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("c8d78fd5-1314-444a-bad0-6af79f6e1296",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Association',
 	'A association (R_REL) captures an association between things in the real world. A association is stated in terms of the formal classs (O_OBJ) that model the real world entities participating in the association. There can be any number of associations between the same two classs and any class can participate in any number of associations with other classs.',
-	'R',
 	201,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000180003",
 	'../Association.xtuml');

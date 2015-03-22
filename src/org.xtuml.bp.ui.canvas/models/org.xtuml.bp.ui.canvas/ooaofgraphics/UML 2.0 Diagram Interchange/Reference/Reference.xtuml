@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("266788d5-8a3e-44fb-a34c-9cf7eefbaf71",
@@ -6,7 +6,7 @@ INSERT INTO O_OBJ
 	8,
 	'DIM_REF',
 	'TRANSLATE_FOR_EXTERNAL_USE:FALSE',
-	"490299c9-e7aa-468e-82d7-0731c80e4069");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_NBATTR
 	VALUES ("9d8ca128-7910-4ae8-87ff-e8e2ed7b66fb",
 	"266788d5-8a3e-44fb-a34c-9cf7eefbaf71");
@@ -22,16 +22,9 @@ INSERT INTO O_ATTR
 	'',
 	'isIndividualRepresentation',
 	0,
-	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("6e4aa280-2e22-4146-9b4a-6c2573c456d8",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	'boolean',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("266788d5-8a3e-44fb-a34c-9cf7eefbaf71",
 	"593e6c1e-5bc8-40f5-b079-a85690d47f08",
@@ -47,7 +40,7 @@ INSERT INTO O_REF
 	'',
 	'DiagramElement',
 	'elementId',
-	'R308');
+	'R308.''referenced''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("266788d5-8a3e-44fb-a34c-9cf7eefbaf71",
 	"f142faf1-a983-4bbf-a685-676b5740298b",
@@ -80,16 +73,9 @@ INSERT INTO O_ATTR
 	'Leaf_',
 	'eleId',
 	1,
-	"66164f00-293e-4c17-ab30-7972c7c57152",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("66164f00-293e-4c17-ab30-7972c7c57152",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("266788d5-8a3e-44fb-a34c-9cf7eefbaf71",
 	"593e6c1e-5bc8-40f5-b079-a85690d47f08",
@@ -134,7 +120,7 @@ INSERT INTO O_ATTR
 	'',
 	'elementId',
 	0,
-	"66164f00-293e-4c17-ab30-7972c7c57152",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_ID
@@ -156,12 +142,17 @@ INSERT INTO O_OIDA
 INSERT INTO O_ID
 	VALUES (2,
 	"266788d5-8a3e-44fb-a34c-9cf7eefbaf71");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("266788d5-8a3e-44fb-a34c-9cf7eefbaf71",
+	1,
+	"490299c9-e7aa-468e-82d7-0731c80e4069",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("490299c9-e7aa-468e-82d7-0731c80e4069",
+	"00000000-0000-0000-0000-000000000000",
+	"8f801c9a-cf2d-4ef4-b11a-51b8697e3ca8",
 	'UML 2.0 Diagram Interchange',
 	'Notify_Changes:true',
-	'DIM',
 	0,
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	"00000000-0000-0000-0000-000000000000",
 	'../UML 2.0 Diagram Interchange.xtuml');

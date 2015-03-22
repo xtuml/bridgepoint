@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("10e7f438-baae-4666-b25a-b9ce383f89d1",
@@ -6,13 +6,13 @@ INSERT INTO O_OBJ
 	214,
 	'R_SUB',
 	'This class represents a class playing a subtype role in a supertype/subtype association.',
-	"c8d78fd5-1314-444a-bad0-6af79f6e1296");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("912fcdfd-7a1e-4184-9a54-9273098e0e14",
 	"10e7f438-baae-4666-b25a-b9ce383f89d1",
 	'dispose',
 	'The dispose operation for the R_SUB class.',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select one rsubsup related by self->R_SUBSUP[R213];
 select one subtypeClass related by self->R_RGO[R205]->R_OIR[R203]->O_OBJ[R201];
@@ -32,13 +32,6 @@ delete object instance self;
 	1,
 	'',
 	"42af60df-e956-4722-bd31-beef25baafc6");
-INSERT INTO S_DT_PROXY
-	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'void',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("2fae8dec-fabd-4512-8ece-431b961c9c10",
 	"10e7f438-baae-4666-b25a-b9ce383f89d1",
@@ -63,7 +56,7 @@ INSERT INTO O_TPARM
 	'');
 INSERT INTO S_DT_PROXY
 	VALUES ("ae85eca6-6fe4-4125-95e6-95272f0fd7de",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
 	'End',
 	'Text is positioned at a user adjustable offset from the Start, Middle and End of a connector. Start_Fixed and End_Fixed specify fixed position text found at the start and end of some connectors.
 -------------------------------------------------------------
@@ -72,7 +65,7 @@ Bridge:GD',
 	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO S_DT_PROXY
 	VALUES ("6e636321-0fd1-4577-b185-e4d76b0d0c71",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
 	'Style',
 	'The Style data type specifies the precise form a graphical element will take when drawn.
 --------------------------------------------------------------------------
@@ -86,19 +79,12 @@ INSERT INTO O_TFR
 	'The GD needs this value to set up the connector ooa_id.
 ----------------------------------------------------
 Bridge:GD',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'return self.OIR_ID;',
 	1,
 	'',
 	"c5d0086b-b51e-43d7-b4e7-a4c086e2c96b");
-INSERT INTO S_DT_PROXY
-	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'unique_id',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("20a7d4c7-a292-401d-8b23-d7f3d85f9f9d",
 	"10e7f438-baae-4666-b25a-b9ce383f89d1",
@@ -106,7 +92,7 @@ INSERT INTO O_TFR
 	'Subtype lines have no adorning text.
 -----------------------------------------------
 Bridge:GD',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'return "";',
 	1,
@@ -116,7 +102,7 @@ INSERT INTO O_TPARM
 	VALUES ("73b146eb-da98-4d60-85e7-1dd6ed2e5d4e",
 	"20a7d4c7-a292-401d-8b23-d7f3d85f9f9d",
 	'OOA_ID',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -125,18 +111,11 @@ INSERT INTO O_TPARM
 	VALUES ("a70d9af4-c585-4d86-8065-678dbe279819",
 	"20a7d4c7-a292-401d-8b23-d7f3d85f9f9d",
 	'OOA_TypeIsImportedClass',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	0,
 	'',
 	"73b146eb-da98-4d60-85e7-1dd6ed2e5d4e",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("8e519c45-7dcf-400b-9d4e-954869dbb7e8",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'boolean',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TPARM
 	VALUES ("8a839778-2f6c-4fea-8af2-e4c4fff3664c",
 	"20a7d4c7-a292-401d-8b23-d7f3d85f9f9d",
@@ -150,24 +129,17 @@ INSERT INTO O_TPARM
 	VALUES ("e0992e39-d46d-4bc0-90d3-197c7a78ebf1",
 	"20a7d4c7-a292-401d-8b23-d7f3d85f9f9d",
 	'parent_ID',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"8a839778-2f6c-4fea-8af2-e4c4fff3664c",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'string',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("c5d0086b-b51e-43d7-b4e7-a4c086e2c96b",
 	"10e7f438-baae-4666-b25a-b9ce383f89d1",
 	'get_name',
 	'Returns the name of the class which is being subtyped.',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'select one obj related by self->R_RGO[R205]->R_OIR[R203]->O_OBJ[R201];
 return obj.Name;
@@ -181,7 +153,7 @@ INSERT INTO O_TFR
 	'actionFilter',
 	'Bridge: UI
 	',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'select one rel related by self->R_SUBSUP[R213]->R_REL[R206];
 return rel.actionFilter(name: param.name, value: param.value );
@@ -193,7 +165,7 @@ INSERT INTO O_TPARM
 	VALUES ("5043f56b-6820-47ce-853a-f01c601af549",
 	"42af60df-e956-4722-bd31-beef25baafc6",
 	'name',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -202,7 +174,7 @@ INSERT INTO O_TPARM
 	VALUES ("ff93c6c7-d299-4a21-b5c8-fb1e1d94febf",
 	"42af60df-e956-4722-bd31-beef25baafc6",
 	'value',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	0,
 	'',
 	"5043f56b-6820-47ce-853a-f01c601af549",
@@ -255,16 +227,9 @@ INSERT INTO O_ATTR
 	'',
 	'OIR_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("10e7f438-baae-4666-b25a-b9ce383f89d1",
 	"5f12a98d-bc4a-40f7-8642-7a2819fd4159",
@@ -308,7 +273,7 @@ INSERT INTO O_ATTR
 	'',
 	'Obj_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -326,7 +291,7 @@ INSERT INTO O_REF
 	'',
 	'Subtype Supertype Association',
 	'Rel_ID',
-	'R213');
+	'R213.''is related to supertype via''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("10e7f438-baae-4666-b25a-b9ce383f89d1",
 	"cebe2a50-8adc-4e88-994c-625ea57510a0",
@@ -378,7 +343,7 @@ INSERT INTO O_ATTR
 	'',
 	'Rel_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_ID
@@ -405,12 +370,17 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"10e7f438-baae-4666-b25a-b9ce383f89d1");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("10e7f438-baae-4666-b25a-b9ce383f89d1",
+	1,
+	"c8d78fd5-1314-444a-bad0-6af79f6e1296",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("c8d78fd5-1314-444a-bad0-6af79f6e1296",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Association',
 	'A association (R_REL) captures an association between things in the real world. A association is stated in terms of the formal classs (O_OBJ) that model the real world entities participating in the association. There can be any number of associations between the same two classs and any class can participate in any number of associations with other classs.',
-	'R',
 	201,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000180003",
 	'../Association.xtuml');

@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("548f667c-4311-4aa2-9d52-7aed81972a0f",
@@ -6,13 +6,13 @@ INSERT INTO O_OBJ
 	1,
 	'STY_S',
 	'',
-	"9daa01e9-3e90-41ba-bff0-f9213b487f5c");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("80598a50-8fb3-4355-87dc-2f8755021ac4",
 	"548f667c-4311-4aa2-9d52-7aed81972a0f",
 	'dispose',
 	'',
-	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select one ge related by self->GD_GE[R401];
 select one model related by self->GD_MD[R402];
@@ -36,13 +36,6 @@ delete object instance self;',
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO S_DT_PROXY
-	VALUES ("3852f90c-88c5-467d-9b26-57c8cd438b42",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	'void',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("c1dcf930-2e28-4db2-b15b-cb905b40ea6f",
 	"548f667c-4311-4aa2-9d52-7aed81972a0f");
@@ -58,16 +51,9 @@ INSERT INTO O_ATTR
 	'',
 	'Style_ID',
 	0,
-	"a236c27f-17c7-4c99-8f25-f3efd03eaf0c",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("a236c27f-17c7-4c99-8f25-f3efd03eaf0c",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	'unique_id',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("548f667c-4311-4aa2-9d52-7aed81972a0f",
 	"9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
@@ -83,7 +69,7 @@ INSERT INTO O_REF
 	'',
 	'Graphical Element',
 	'elementId',
-	'R401');
+	'R401.''configures''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("548f667c-4311-4aa2-9d52-7aed81972a0f",
 	"57737583-8bca-4d37-9d46-741d1b448832",
@@ -116,16 +102,9 @@ INSERT INTO O_ATTR
 	'',
 	'elementId',
 	0,
-	"66164f00-293e-4c17-ab30-7972c7c57152",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("66164f00-293e-4c17-ab30-7972c7c57152",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("548f667c-4311-4aa2-9d52-7aed81972a0f",
 	"09423687-e999-4aba-876d-35e0d3331311",
@@ -141,7 +120,7 @@ INSERT INTO O_REF
 	'',
 	'Model',
 	'diagramId',
-	'R402');
+	'R402.''configures''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("548f667c-4311-4aa2-9d52-7aed81972a0f",
 	"72d12241-5015-4fcf-abc5-81a1076ef981",
@@ -174,7 +153,7 @@ INSERT INTO O_ATTR
 	'',
 	'diagramId',
 	0,
-	"66164f00-293e-4c17-ab30-7972c7c57152",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_ID
@@ -191,12 +170,17 @@ INSERT INTO O_OIDA
 	"548f667c-4311-4aa2-9d52-7aed81972a0f",
 	0,
 	'Style_ID');
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("548f667c-4311-4aa2-9d52-7aed81972a0f",
+	1,
+	"9daa01e9-3e90-41ba-bff0-f9213b487f5c",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("9daa01e9-3e90-41ba-bff0-f9213b487f5c",
+	"00000000-0000-0000-0000-000000000000",
+	"8f801c9a-cf2d-4ef4-b11a-51b8697e3ca8",
 	'Styles',
 	'',
-	'STY',
 	400,
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	"00000000-0000-0000-0000-000000000000",
 	'../Styles.xtuml');

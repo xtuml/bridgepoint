@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("370cf248-82e0-4e2f-ab33-dd7c04ece691",
@@ -6,13 +6,13 @@ INSERT INTO O_OBJ
 	4,
 	'S_EEM',
 	'The external entity in model (S_EEM) represents the presence of an external entity (S_EE)  in a model such as the Communication Diagram or Synchronous Communication Diagram. The same external entity can be represented by more than one external entity in model in the same model to enhance model layout.',
-	"703df30a-ee7e-44ec-a7cf-22d2171bb270");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("5e3795d2-cfb0-4d0c-b0b1-e91af79f7569",
 	"370cf248-82e0-4e2f-ab33-dd7c04ece691",
 	'dispose',
 	'The dispose operation for this class.',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
 select one ss related by self->S_SS[R7];
@@ -38,13 +38,6 @@ delete object instance self;
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO S_DT_PROXY
-	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'void',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("23b2e1a1-6545-41fc-8935-ad7b2f2755cd",
 	"370cf248-82e0-4e2f-ab33-dd7c04ece691");
@@ -60,16 +53,9 @@ INSERT INTO O_ATTR
 	'',
 	'EEmod_ID',
 	0,
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'unique_id',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("befc6483-e2c4-4a01-8319-8b1af1061357",
 	"370cf248-82e0-4e2f-ab33-dd7c04ece691");
@@ -87,16 +73,9 @@ Data Domain: 6 = Communication Diagram, 7 = Synchronous Communication Diagram',
 	'',
 	'Modl_Typ',
 	0,
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'integer',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("370cf248-82e0-4e2f-ab33-dd7c04ece691",
 	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
@@ -112,7 +91,7 @@ INSERT INTO O_REF
 	'',
 	'Subsystem',
 	'SS_ID',
-	'R7');
+	'R7.''is a presence of an an external entity in''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("370cf248-82e0-4e2f-ab33-dd7c04ece691",
 	"50d25580-7597-4b37-8494-23d2c8216f56",
@@ -145,16 +124,9 @@ INSERT INTO O_ATTR
 	'',
 	'SS_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("370cf248-82e0-4e2f-ab33-dd7c04ece691",
 	"a361b553-b2e3-46ea-a8f4-8b8633921011",
@@ -170,7 +142,7 @@ INSERT INTO O_REF
 	'',
 	'External Entity',
 	'EE_ID',
-	'R9');
+	'R9.''is a presence in subsystem model of''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("370cf248-82e0-4e2f-ab33-dd7c04ece691",
 	"f60d4f17-bd84-467d-a247-30314897dfad",
@@ -203,7 +175,7 @@ INSERT INTO O_ATTR
 	'',
 	'EE_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_ID
@@ -225,12 +197,17 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"370cf248-82e0-4e2f-ab33-dd7c04ece691");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("370cf248-82e0-4e2f-ab33-dd7c04ece691",
+	1,
+	"703df30a-ee7e-44ec-a7cf-22d2171bb270",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("703df30a-ee7e-44ec-a7cf-22d2171bb270",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Domain',
 	'A domain (S_DOM) consists of one or more subsystems (S_SS) that each contain an information model that abstracts a portion of the data for the domain: classes (O_OBJ), associations (R_REL), etc.  Breaking a domain into subsystems allows the complexity of the domain to be more easily managed: 1) subsystems are components and can be checked out individually allowing parallelism in development of the models and 2) breaking up a domain into smaller units is easier to understand.  A subsystem is composed of classes that tend to cluster, i.e., they have few associations that span subsystem boundaries.  Inter-subsystem associations, communications, and accesses are captured in the Subsystem Relationship Model (SRM), Subsystem Communication Model (SCM), and Subsystem Access Model (SAM) respectively.',
-	'S',
 	1,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000100002",
 	'../Domain.xtuml');

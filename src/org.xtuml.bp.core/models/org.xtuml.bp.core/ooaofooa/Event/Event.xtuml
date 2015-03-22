@@ -1,7 +1,9 @@
--- BP 7.1 content: Subsystem syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: Package syschar: 3 persistence-version: 7.1.6
 
-INSERT INTO S_SS
+INSERT INTO EP_PKG
 	VALUES ("606f68be-000c-4a29-9fb9-dc0284d01f2a",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Event',
 	'This subsystem focuses on the creation and generation
 of events. Events to instances, class, creators and
@@ -13,1068 +15,12 @@ Persistent:false
 // This is used by schema_gen to ignore this subsystem (for publication)
 TRANSLATE_FOR_EXTERNAL_USE:FALSE
 ',
-	'E',
-	700,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-00000068000d");
-INSERT INTO S_SID
-	VALUES ("d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"606f68be-000c-4a29-9fb9-dc0284d01f2a");
-INSERT INTO S_DOM_PROXY
-	VALUES ("d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'ooaofooa',
-	'========================================================================
-
-File:          $RCSfile$
-Version:   $Revision$
-Modified:  $Date$
-
-(c) Copyright 2004-2014 by Mentor Graphics Corp. All rights reserved.
-
-========================================================================
-Licensed under the Apache License, Version 2.0 (the "License"); you may not 
-use this file except in compliance with the License.  You may obtain a copy 
-of the License at
-
-      http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software 
-distributed under the License is distributed on an "AS IS" BASIS, WITHOUT 
-WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the 
-License for the specific language governing permissions and limitations under
-the License.
-========================================================================
-
-This is the application domain for the Tiger project.
-
-The processing in this model describes the activities
-for model capture.
-
-
-
-',
-	1,
-	"00000000-0000-0000-0000-000000000001",
-	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
-	'../ooaofooa.xtuml');
-INSERT INTO O_IOBJ
-	VALUES ("95c64024-7771-48bc-b3a1-9e18c37e06ce",
-	"c9df3995-9d10-4b42-b2ca-1c82f443051c",
-	5,
-	"606f68be-000c-4a29-9fb9-dc0284d01f2a",
-	'Actual Parameter',
-	'V_PAR');
-INSERT INTO O_OBJ_PROXY
-	VALUES ("c9df3995-9d10-4b42-b2ca-1c82f443051c",
-	'Actual Parameter',
-	801,
-	'V_PAR',
-	'This class represents the actual parameter value passed to a Function, Bridge or an Operation.',
-	"e060f94c-3f82-463e-9d98-d20315b7c196",
-	'../Value/Actual Parameter/Actual Parameter.xtuml');
-INSERT INTO O_IOBJ
-	VALUES ("a9c2d5bf-11f1-4609-ac03-fd73b56b98c6",
-	"04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",
-	5,
-	"606f68be-000c-4a29-9fb9-dc0284d01f2a",
-	'Variable',
-	'V_VAR');
-INSERT INTO O_OBJ_PROXY
-	VALUES ("04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",
-	'Variable',
-	815,
-	'V_VAR',
-	'This class represents a temporary variable or an instance.',
-	"e060f94c-3f82-463e-9d98-d20315b7c196",
-	'../Value/Variable/Variable.xtuml');
-INSERT INTO O_IOBJ
-	VALUES ("559333e5-c9d8-45f9-93b5-eab2adc2745a",
-	"04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",
-	5,
-	"606f68be-000c-4a29-9fb9-dc0284d01f2a",
-	'Variable',
-	'V_VAR');
-INSERT INTO O_IOBJ
-	VALUES ("652c5914-8a61-4891-af5d-a9855fd0bbc1",
-	"5adc63b1-9773-4ea9-97ef-67828018b3a6",
-	5,
-	"606f68be-000c-4a29-9fb9-dc0284d01f2a",
-	'External Entity Event',
-	'S_EEEVT');
-INSERT INTO O_OBJ_PROXY
-	VALUES ("5adc63b1-9773-4ea9-97ef-67828018b3a6",
-	'External Entity Event',
-	6,
-	'S_EEEVT',
-	'An external entity event (S_EEEVT) represents asynchronous communication between a class (O_OBJ) and an external entity (S_EE).  The communication is shown on the Communication Diagram.  Each external entity event is given a unique label and can have zero or more event data (S_EEEDT).',
-	"703df30a-ee7e-44ec-a7cf-22d2171bb270",
-	'../Domain/External Entity Event/External Entity Event.xtuml');
-INSERT INTO O_IOBJ
-	VALUES ("0ded7426-ba8a-4643-99c8-ddc8a19878cd",
-	"31832e28-c7f1-4e83-9c56-28614980fb33",
-	5,
-	"606f68be-000c-4a29-9fb9-dc0284d01f2a",
-	'State Machine Event',
-	'SM_EVT');
-INSERT INTO O_OBJ_PROXY
-	VALUES ("31832e28-c7f1-4e83-9c56-28614980fb33",
-	'State Machine Event',
-	503,
-	'SM_EVT',
-	'Represents an event for this state machine.  Events can be either State Event Matrix events (SM_SEVT) or polymorphic events (SM_PEVT).',
-	"efdb28f6-a485-4b25-9cbf-3e7227398b6a",
-	'../State Machine/State Machine Event/State Machine Event.xtuml');
-INSERT INTO O_IOBJ
-	VALUES ("a7243c96-bdfe-45f3-84aa-90a7e5e2b2bd",
-	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
-	0,
-	"606f68be-000c-4a29-9fb9-dc0284d01f2a",
-	'Value',
-	'V_VAL');
-INSERT INTO O_OBJ_PROXY
-	VALUES ("80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
-	'Value',
-	800,
-	'V_VAL',
-	'A value (r-value) may be assigned to a variable, attribute or parameter
-(l-values). There are many different kinds of value in a model. This class
-captures this observation in a supertype.',
-	"e060f94c-3f82-463e-9d98-d20315b7c196",
-	'../Value/Value/Value.xtuml');
-INSERT INTO R_SIMP
-	VALUES ("102a61d4-410d-444b-9b6b-b6750a3af1a1");
-INSERT INTO R_REL
-	VALUES ("102a61d4-410d-444b-9b6b-b6750a3af1a1",
-	712,
-	'',
-	"606f68be-000c-4a29-9fb9-dc0284d01f2a");
-INSERT INTO R_FORM
-	VALUES ("56227d49-b934-4d03-a983-b238fd460030",
-	"102a61d4-410d-444b-9b6b-b6750a3af1a1",
-	"7437f58f-48b0-4883-a782-074da4f86b61",
-	1,
-	1,
-	'');
-INSERT INTO R_RGO
-	VALUES ("56227d49-b934-4d03-a983-b238fd460030",
-	"102a61d4-410d-444b-9b6b-b6750a3af1a1",
-	"7437f58f-48b0-4883-a782-074da4f86b61");
-INSERT INTO R_OIR
-	VALUES ("56227d49-b934-4d03-a983-b238fd460030",
-	"102a61d4-410d-444b-9b6b-b6750a3af1a1",
-	"7437f58f-48b0-4883-a782-074da4f86b61",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("56227d49-b934-4d03-a983-b238fd460030",
-	'Generate',
-	701,
-	'E_GEN',
-	'This class represents the generation of an event to a target instance.',
-	"606f68be-000c-4a29-9fb9-dc0284d01f2a",
-	'./Generate/Generate.xtuml');
-INSERT INTO R_PART
-	VALUES ("04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",
-	"102a61d4-410d-444b-9b6b-b6750a3af1a1",
-	"dadb3ea4-b950-4331-a3fe-1d06c6b38db6",
-	0,
-	0,
-	'has recipient');
-INSERT INTO O_RTIDA
-	VALUES ("aa0af814-2950-42d7-b263-1e32565f47ac",
-	"04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",
-	0,
-	"102a61d4-410d-444b-9b6b-b6750a3af1a1",
-	"dadb3ea4-b950-4331-a3fe-1d06c6b38db6");
-INSERT INTO O_OIDA_PROXY
-	VALUES ("aa0af814-2950-42d7-b263-1e32565f47ac",
-	"04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",
-	0,
-	'Var_ID',
-	'../Value/Variable/Variable.xtuml');
-INSERT INTO R_RTO
-	VALUES ("04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",
-	"102a61d4-410d-444b-9b6b-b6750a3af1a1",
-	"dadb3ea4-b950-4331-a3fe-1d06c6b38db6",
-	0);
-INSERT INTO O_ID_PROXY
-	VALUES (0,
-	"04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",
-	'../Value/Variable/Variable.xtuml');
-INSERT INTO R_OIR
-	VALUES ("04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",
-	"102a61d4-410d-444b-9b6b-b6750a3af1a1",
-	"dadb3ea4-b950-4331-a3fe-1d06c6b38db6",
-	"559333e5-c9d8-45f9-93b5-eab2adc2745a");
-INSERT INTO R_SIMP
-	VALUES ("7f54e1f3-09bc-4abc-848a-5dbb72a07bb1");
-INSERT INTO R_REL
-	VALUES ("7f54e1f3-09bc-4abc-848a-5dbb72a07bb1",
-	711,
-	'',
-	"606f68be-000c-4a29-9fb9-dc0284d01f2a");
-INSERT INTO R_FORM
-	VALUES ("56212cde-ea40-4896-b0c6-87c1c9f62042",
-	"7f54e1f3-09bc-4abc-848a-5dbb72a07bb1",
-	"2814e82e-469b-47d6-9fc9-0a4ccfe89bcf",
-	1,
-	1,
-	'');
-INSERT INTO R_RGO
-	VALUES ("56212cde-ea40-4896-b0c6-87c1c9f62042",
-	"7f54e1f3-09bc-4abc-848a-5dbb72a07bb1",
-	"2814e82e-469b-47d6-9fc9-0a4ccfe89bcf");
-INSERT INTO R_OIR
-	VALUES ("56212cde-ea40-4896-b0c6-87c1c9f62042",
-	"7f54e1f3-09bc-4abc-848a-5dbb72a07bb1",
-	"2814e82e-469b-47d6-9fc9-0a4ccfe89bcf",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("56212cde-ea40-4896-b0c6-87c1c9f62042",
-	'Create Event to Instance',
-	700,
-	'E_CEI',
-	'This class represents the precreation of an event to an instance for later delivery. Uses the same concepts as Generate but does not actually generate the event. It instead yields an event instance that can be generated later using Generate Preexisting Event.',
-	"606f68be-000c-4a29-9fb9-dc0284d01f2a",
-	'./Create Event to Instance/Create Event to Instance.xtuml');
-INSERT INTO R_PART
-	VALUES ("04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",
-	"7f54e1f3-09bc-4abc-848a-5dbb72a07bb1",
-	"a0824eec-806c-4106-9058-561fcad84499",
-	0,
-	0,
-	'has recipient');
-INSERT INTO O_RTIDA
-	VALUES ("aa0af814-2950-42d7-b263-1e32565f47ac",
-	"04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",
-	0,
-	"7f54e1f3-09bc-4abc-848a-5dbb72a07bb1",
-	"a0824eec-806c-4106-9058-561fcad84499");
-INSERT INTO R_RTO
-	VALUES ("04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",
-	"7f54e1f3-09bc-4abc-848a-5dbb72a07bb1",
-	"a0824eec-806c-4106-9058-561fcad84499",
-	0);
-INSERT INTO R_OIR
-	VALUES ("04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",
-	"7f54e1f3-09bc-4abc-848a-5dbb72a07bb1",
-	"a0824eec-806c-4106-9058-561fcad84499",
-	"a9c2d5bf-11f1-4609-ac03-fd73b56b98c6");
-INSERT INTO R_SIMP
-	VALUES ("ddb23d0e-b5ef-4acb-a634-c9568a3456e7");
-INSERT INTO R_REL
-	VALUES ("ddb23d0e-b5ef-4acb-a634-c9568a3456e7",
-	708,
-	'',
-	"606f68be-000c-4a29-9fb9-dc0284d01f2a");
-INSERT INTO R_FORM
-	VALUES ("a54881e1-d430-48d7-9f90-2a4f60aa964f",
-	"ddb23d0e-b5ef-4acb-a634-c9568a3456e7",
-	"d049ec21-9c20-4bab-8256-38fa29bdd1fb",
-	1,
-	1,
-	'');
-INSERT INTO R_RGO
-	VALUES ("a54881e1-d430-48d7-9f90-2a4f60aa964f",
-	"ddb23d0e-b5ef-4acb-a634-c9568a3456e7",
-	"d049ec21-9c20-4bab-8256-38fa29bdd1fb");
-INSERT INTO R_OIR
-	VALUES ("a54881e1-d430-48d7-9f90-2a4f60aa964f",
-	"ddb23d0e-b5ef-4acb-a634-c9568a3456e7",
-	"d049ec21-9c20-4bab-8256-38fa29bdd1fb",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("a54881e1-d430-48d7-9f90-2a4f60aa964f",
-	'Create Event to External Entity',
-	706,
-	'E_CEE',
-	'This class specifies the precreation of an event to an external entity for later delivery. Uses the same concepts as Generate to External Entity but does not actually generate the event. It instead yields an event instance that can be generated later using Generate Preexisting Event.',
-	"606f68be-000c-4a29-9fb9-dc0284d01f2a",
-	'./Create Event to External Entity/Create Event to External Entity.xtuml');
-INSERT INTO R_PART
-	VALUES ("5adc63b1-9773-4ea9-97ef-67828018b3a6",
-	"ddb23d0e-b5ef-4acb-a634-c9568a3456e7",
-	"af81cd0a-d769-4244-ae12-046ef0b490d2",
-	0,
-	0,
-	'creates');
-INSERT INTO O_RTIDA
-	VALUES ("65df4a64-820f-444e-8188-d4d6f2d4cb86",
-	"5adc63b1-9773-4ea9-97ef-67828018b3a6",
-	0,
-	"ddb23d0e-b5ef-4acb-a634-c9568a3456e7",
-	"af81cd0a-d769-4244-ae12-046ef0b490d2");
-INSERT INTO O_OIDA_PROXY
-	VALUES ("65df4a64-820f-444e-8188-d4d6f2d4cb86",
-	"5adc63b1-9773-4ea9-97ef-67828018b3a6",
-	0,
-	'EEevt_ID',
-	'../Domain/External Entity Event/External Entity Event.xtuml');
-INSERT INTO O_RTIDA
-	VALUES ("e060c3d3-399d-444e-b65e-e7be44c3ed7f",
-	"5adc63b1-9773-4ea9-97ef-67828018b3a6",
-	0,
-	"ddb23d0e-b5ef-4acb-a634-c9568a3456e7",
-	"af81cd0a-d769-4244-ae12-046ef0b490d2");
-INSERT INTO O_OIDA_PROXY
-	VALUES ("e060c3d3-399d-444e-b65e-e7be44c3ed7f",
-	"5adc63b1-9773-4ea9-97ef-67828018b3a6",
-	0,
-	'EE_ID',
-	'../Domain/External Entity Event/External Entity Event.xtuml');
-INSERT INTO R_RTO
-	VALUES ("5adc63b1-9773-4ea9-97ef-67828018b3a6",
-	"ddb23d0e-b5ef-4acb-a634-c9568a3456e7",
-	"af81cd0a-d769-4244-ae12-046ef0b490d2",
-	0);
-INSERT INTO O_ID_PROXY
-	VALUES (0,
-	"5adc63b1-9773-4ea9-97ef-67828018b3a6",
-	'../Domain/External Entity Event/External Entity Event.xtuml');
-INSERT INTO R_OIR
-	VALUES ("5adc63b1-9773-4ea9-97ef-67828018b3a6",
-	"ddb23d0e-b5ef-4acb-a634-c9568a3456e7",
-	"af81cd0a-d769-4244-ae12-046ef0b490d2",
-	"652c5914-8a61-4891-af5d-a9855fd0bbc1");
-INSERT INTO R_SIMP
-	VALUES ("1516a04f-e9bc-40ee-8a8c-50d8510e8a6e");
-INSERT INTO R_REL
-	VALUES ("1516a04f-e9bc-40ee-8a8c-50d8510e8a6e",
-	709,
-	'',
-	"606f68be-000c-4a29-9fb9-dc0284d01f2a");
-INSERT INTO R_FORM
-	VALUES ("70dfadbd-b12d-439e-8895-03cfba3aab2b",
-	"1516a04f-e9bc-40ee-8a8c-50d8510e8a6e",
-	"d8ede70b-91ce-484b-b5ed-978a622ae616",
-	1,
-	1,
-	'');
-INSERT INTO R_RGO
-	VALUES ("70dfadbd-b12d-439e-8895-03cfba3aab2b",
-	"1516a04f-e9bc-40ee-8a8c-50d8510e8a6e",
-	"d8ede70b-91ce-484b-b5ed-978a622ae616");
-INSERT INTO R_OIR
-	VALUES ("70dfadbd-b12d-439e-8895-03cfba3aab2b",
-	"1516a04f-e9bc-40ee-8a8c-50d8510e8a6e",
-	"d8ede70b-91ce-484b-b5ed-978a622ae616",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("70dfadbd-b12d-439e-8895-03cfba3aab2b",
-	'Generate to External Entity',
-	707,
-	'E_GEE',
-	'This class represents the generation of an event to an external entity.',
-	"606f68be-000c-4a29-9fb9-dc0284d01f2a",
-	'./Generate to External Entity/Generate to External Entity.xtuml');
-INSERT INTO R_PART
-	VALUES ("5adc63b1-9773-4ea9-97ef-67828018b3a6",
-	"1516a04f-e9bc-40ee-8a8c-50d8510e8a6e",
-	"20f4dc2f-e113-453a-a010-092124898f0f",
-	0,
-	0,
-	'generates');
-INSERT INTO O_RTIDA
-	VALUES ("65df4a64-820f-444e-8188-d4d6f2d4cb86",
-	"5adc63b1-9773-4ea9-97ef-67828018b3a6",
-	0,
-	"1516a04f-e9bc-40ee-8a8c-50d8510e8a6e",
-	"20f4dc2f-e113-453a-a010-092124898f0f");
-INSERT INTO O_RTIDA
-	VALUES ("e060c3d3-399d-444e-b65e-e7be44c3ed7f",
-	"5adc63b1-9773-4ea9-97ef-67828018b3a6",
-	0,
-	"1516a04f-e9bc-40ee-8a8c-50d8510e8a6e",
-	"20f4dc2f-e113-453a-a010-092124898f0f");
-INSERT INTO R_RTO
-	VALUES ("5adc63b1-9773-4ea9-97ef-67828018b3a6",
-	"1516a04f-e9bc-40ee-8a8c-50d8510e8a6e",
-	"20f4dc2f-e113-453a-a010-092124898f0f",
-	0);
-INSERT INTO R_OIR
-	VALUES ("5adc63b1-9773-4ea9-97ef-67828018b3a6",
-	"1516a04f-e9bc-40ee-8a8c-50d8510e8a6e",
-	"20f4dc2f-e113-453a-a010-092124898f0f",
-	"652c5914-8a61-4891-af5d-a9855fd0bbc1");
-INSERT INTO R_SUBSUP
-	VALUES ("2d7f0a89-8605-45f0-984c-9e44154bdfc6");
-INSERT INTO R_REL
-	VALUES ("2d7f0a89-8605-45f0-984c-9e44154bdfc6",
-	701,
-	'',
-	"606f68be-000c-4a29-9fb9-dc0284d01f2a");
-INSERT INTO R_SUPER
-	VALUES ("807105ed-4221-4000-89eb-a51948da9ee4",
-	"2d7f0a89-8605-45f0-984c-9e44154bdfc6",
-	"5b9e287d-45a6-4a86-a479-42e88f7d6e02");
-INSERT INTO O_RTIDA
-	VALUES ("56ed8676-8187-49f7-b408-d1c762b9d289",
-	"807105ed-4221-4000-89eb-a51948da9ee4",
-	0,
-	"2d7f0a89-8605-45f0-984c-9e44154bdfc6",
-	"5b9e287d-45a6-4a86-a479-42e88f7d6e02");
-INSERT INTO O_OIDA_PROXY
-	VALUES ("56ed8676-8187-49f7-b408-d1c762b9d289",
-	"807105ed-4221-4000-89eb-a51948da9ee4",
-	0,
-	'Statement_ID',
-	'./Event Specification Statement/Event Specification Statement.xtuml');
-INSERT INTO R_RTO
-	VALUES ("807105ed-4221-4000-89eb-a51948da9ee4",
-	"2d7f0a89-8605-45f0-984c-9e44154bdfc6",
-	"5b9e287d-45a6-4a86-a479-42e88f7d6e02",
-	0);
-INSERT INTO O_ID_PROXY
-	VALUES (0,
-	"807105ed-4221-4000-89eb-a51948da9ee4",
-	'./Event Specification Statement/Event Specification Statement.xtuml');
-INSERT INTO R_OIR
-	VALUES ("807105ed-4221-4000-89eb-a51948da9ee4",
-	"2d7f0a89-8605-45f0-984c-9e44154bdfc6",
-	"5b9e287d-45a6-4a86-a479-42e88f7d6e02",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("807105ed-4221-4000-89eb-a51948da9ee4",
-	'Event Specification Statement',
-	709,
-	'E_ESS',
-	'This class captures the common data of a statement that specifies an
-event for either generation or creation.',
-	"606f68be-000c-4a29-9fb9-dc0284d01f2a",
-	'./Event Specification Statement/Event Specification Statement.xtuml');
-INSERT INTO R_SUB
-	VALUES ("b9bfc391-5d31-4942-b49c-9a74a8607ea6",
-	"2d7f0a89-8605-45f0-984c-9e44154bdfc6",
-	"21f96723-a649-4918-83eb-08cbe24933b2");
-INSERT INTO R_RGO
-	VALUES ("b9bfc391-5d31-4942-b49c-9a74a8607ea6",
-	"2d7f0a89-8605-45f0-984c-9e44154bdfc6",
-	"21f96723-a649-4918-83eb-08cbe24933b2");
-INSERT INTO R_OIR
-	VALUES ("b9bfc391-5d31-4942-b49c-9a74a8607ea6",
-	"2d7f0a89-8605-45f0-984c-9e44154bdfc6",
-	"21f96723-a649-4918-83eb-08cbe24933b2",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("b9bfc391-5d31-4942-b49c-9a74a8607ea6",
-	'Create Event Statement',
-	710,
-	'E_CES',
-	'This class captures the data for a statement that creates an instance
-of an event.',
-	"606f68be-000c-4a29-9fb9-dc0284d01f2a",
-	'./Create Event Statement/Create Event Statement.xtuml');
-INSERT INTO R_SUB
-	VALUES ("0dfdb169-7ae7-4a71-b970-2d2cbe378350",
-	"2d7f0a89-8605-45f0-984c-9e44154bdfc6",
-	"bb36b7de-384a-4117-b531-6bd29d4a5fc2");
-INSERT INTO R_RGO
-	VALUES ("0dfdb169-7ae7-4a71-b970-2d2cbe378350",
-	"2d7f0a89-8605-45f0-984c-9e44154bdfc6",
-	"bb36b7de-384a-4117-b531-6bd29d4a5fc2");
-INSERT INTO R_OIR
-	VALUES ("0dfdb169-7ae7-4a71-b970-2d2cbe378350",
-	"2d7f0a89-8605-45f0-984c-9e44154bdfc6",
-	"bb36b7de-384a-4117-b531-6bd29d4a5fc2",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("0dfdb169-7ae7-4a71-b970-2d2cbe378350",
-	'Generate Event Statement',
-	711,
-	'E_GES',
-	'This class captures the common data for all statements that generate an event.',
-	"606f68be-000c-4a29-9fb9-dc0284d01f2a",
-	'./Generate Event Statement/Generate Event Statement.xtuml');
-INSERT INTO R_SIMP
-	VALUES ("a8660954-d215-4d4e-99b0-1f342d774049");
-INSERT INTO R_REL
-	VALUES ("a8660954-d215-4d4e-99b0-1f342d774049",
-	710,
-	'',
-	"606f68be-000c-4a29-9fb9-dc0284d01f2a");
-INSERT INTO R_FORM
-	VALUES ("b9bfc391-5d31-4942-b49c-9a74a8607ea6",
-	"a8660954-d215-4d4e-99b0-1f342d774049",
-	"811e978b-df3c-49f6-b889-f1d5da09a006",
-	1,
-	1,
-	'');
-INSERT INTO R_RGO
-	VALUES ("b9bfc391-5d31-4942-b49c-9a74a8607ea6",
-	"a8660954-d215-4d4e-99b0-1f342d774049",
-	"811e978b-df3c-49f6-b889-f1d5da09a006");
-INSERT INTO R_OIR
-	VALUES ("b9bfc391-5d31-4942-b49c-9a74a8607ea6",
-	"a8660954-d215-4d4e-99b0-1f342d774049",
-	"811e978b-df3c-49f6-b889-f1d5da09a006",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_PART
-	VALUES ("04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",
-	"a8660954-d215-4d4e-99b0-1f342d774049",
-	"0bda7521-391b-4d7f-8960-696c3f6a97e5",
-	0,
-	0,
-	'result');
-INSERT INTO O_RTIDA
-	VALUES ("aa0af814-2950-42d7-b263-1e32565f47ac",
-	"04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",
-	0,
-	"a8660954-d215-4d4e-99b0-1f342d774049",
-	"0bda7521-391b-4d7f-8960-696c3f6a97e5");
-INSERT INTO R_RTO
-	VALUES ("04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",
-	"a8660954-d215-4d4e-99b0-1f342d774049",
-	"0bda7521-391b-4d7f-8960-696c3f6a97e5",
-	0);
-INSERT INTO R_OIR
-	VALUES ("04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",
-	"a8660954-d215-4d4e-99b0-1f342d774049",
-	"0bda7521-391b-4d7f-8960-696c3f6a97e5",
-	"a9c2d5bf-11f1-4609-ac03-fd73b56b98c6");
-INSERT INTO R_SUBSUP
-	VALUES ("2d078d48-7894-4edd-b8ce-ac45c936d7d2");
-INSERT INTO R_REL
-	VALUES ("2d078d48-7894-4edd-b8ce-ac45c936d7d2",
-	702,
-	'',
-	"606f68be-000c-4a29-9fb9-dc0284d01f2a");
-INSERT INTO R_SUPER
-	VALUES ("b9bfc391-5d31-4942-b49c-9a74a8607ea6",
-	"2d078d48-7894-4edd-b8ce-ac45c936d7d2",
-	"90439783-3b0e-469d-8583-76cd43585fcb");
-INSERT INTO O_RTIDA
-	VALUES ("4ec10b3f-3607-42c9-99f7-966f3244415d",
-	"b9bfc391-5d31-4942-b49c-9a74a8607ea6",
-	0,
-	"2d078d48-7894-4edd-b8ce-ac45c936d7d2",
-	"90439783-3b0e-469d-8583-76cd43585fcb");
-INSERT INTO O_OIDA_PROXY
-	VALUES ("4ec10b3f-3607-42c9-99f7-966f3244415d",
-	"b9bfc391-5d31-4942-b49c-9a74a8607ea6",
-	0,
-	'Statement_ID',
-	'./Create Event Statement/Create Event Statement.xtuml');
-INSERT INTO R_RTO
-	VALUES ("b9bfc391-5d31-4942-b49c-9a74a8607ea6",
-	"2d078d48-7894-4edd-b8ce-ac45c936d7d2",
-	"90439783-3b0e-469d-8583-76cd43585fcb",
-	0);
-INSERT INTO O_ID_PROXY
-	VALUES (0,
-	"b9bfc391-5d31-4942-b49c-9a74a8607ea6",
-	'./Create Event Statement/Create Event Statement.xtuml');
-INSERT INTO R_OIR
-	VALUES ("b9bfc391-5d31-4942-b49c-9a74a8607ea6",
-	"2d078d48-7894-4edd-b8ce-ac45c936d7d2",
-	"90439783-3b0e-469d-8583-76cd43585fcb",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_SUB
-	VALUES ("a54881e1-d430-48d7-9f90-2a4f60aa964f",
-	"2d078d48-7894-4edd-b8ce-ac45c936d7d2",
-	"0e299198-3c87-46ab-a3eb-4938d00a5868");
-INSERT INTO R_RGO
-	VALUES ("a54881e1-d430-48d7-9f90-2a4f60aa964f",
-	"2d078d48-7894-4edd-b8ce-ac45c936d7d2",
-	"0e299198-3c87-46ab-a3eb-4938d00a5868");
-INSERT INTO R_OIR
-	VALUES ("a54881e1-d430-48d7-9f90-2a4f60aa964f",
-	"2d078d48-7894-4edd-b8ce-ac45c936d7d2",
-	"0e299198-3c87-46ab-a3eb-4938d00a5868",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_SUB
-	VALUES ("474836ad-558f-45eb-8c7b-a3740b2b73b4",
-	"2d078d48-7894-4edd-b8ce-ac45c936d7d2",
-	"93644937-d935-42e8-a3fc-209d890787d1");
-INSERT INTO R_RGO
-	VALUES ("474836ad-558f-45eb-8c7b-a3740b2b73b4",
-	"2d078d48-7894-4edd-b8ce-ac45c936d7d2",
-	"93644937-d935-42e8-a3fc-209d890787d1");
-INSERT INTO R_OIR
-	VALUES ("474836ad-558f-45eb-8c7b-a3740b2b73b4",
-	"2d078d48-7894-4edd-b8ce-ac45c936d7d2",
-	"93644937-d935-42e8-a3fc-209d890787d1",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("474836ad-558f-45eb-8c7b-a3740b2b73b4",
-	'Create SM Event Statement',
-	712,
-	'E_CSME',
-	'This class captures the common data (the event being created) for a
-statement that creates an instance of an event to a statechart.',
-	"606f68be-000c-4a29-9fb9-dc0284d01f2a",
-	'./Create SM Event Statement/Create SM Event Statement.xtuml');
-INSERT INTO R_SUBSUP
-	VALUES ("d17b685e-2c59-4c7e-8654-2d2f09d8151a");
-INSERT INTO R_REL
-	VALUES ("d17b685e-2c59-4c7e-8654-2d2f09d8151a",
-	703,
-	'',
-	"606f68be-000c-4a29-9fb9-dc0284d01f2a");
-INSERT INTO R_SUPER
-	VALUES ("0dfdb169-7ae7-4a71-b970-2d2cbe378350",
-	"d17b685e-2c59-4c7e-8654-2d2f09d8151a",
-	"b8911e6b-fe67-4f19-a2ce-43c97b8eb07c");
-INSERT INTO O_RTIDA
-	VALUES ("6aaa7cc7-4b06-4715-bfe2-eedd4d509f3d",
-	"0dfdb169-7ae7-4a71-b970-2d2cbe378350",
-	0,
-	"d17b685e-2c59-4c7e-8654-2d2f09d8151a",
-	"b8911e6b-fe67-4f19-a2ce-43c97b8eb07c");
-INSERT INTO O_OIDA_PROXY
-	VALUES ("6aaa7cc7-4b06-4715-bfe2-eedd4d509f3d",
-	"0dfdb169-7ae7-4a71-b970-2d2cbe378350",
-	0,
-	'Statement_ID',
-	'./Generate Event Statement/Generate Event Statement.xtuml');
-INSERT INTO R_RTO
-	VALUES ("0dfdb169-7ae7-4a71-b970-2d2cbe378350",
-	"d17b685e-2c59-4c7e-8654-2d2f09d8151a",
-	"b8911e6b-fe67-4f19-a2ce-43c97b8eb07c",
-	0);
-INSERT INTO O_ID_PROXY
-	VALUES (0,
-	"0dfdb169-7ae7-4a71-b970-2d2cbe378350",
-	'./Generate Event Statement/Generate Event Statement.xtuml');
-INSERT INTO R_OIR
-	VALUES ("0dfdb169-7ae7-4a71-b970-2d2cbe378350",
-	"d17b685e-2c59-4c7e-8654-2d2f09d8151a",
-	"b8911e6b-fe67-4f19-a2ce-43c97b8eb07c",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_SUB
-	VALUES ("70dfadbd-b12d-439e-8895-03cfba3aab2b",
-	"d17b685e-2c59-4c7e-8654-2d2f09d8151a",
-	"20a483eb-3010-428c-81a2-6a1448eeadd5");
-INSERT INTO R_RGO
-	VALUES ("70dfadbd-b12d-439e-8895-03cfba3aab2b",
-	"d17b685e-2c59-4c7e-8654-2d2f09d8151a",
-	"20a483eb-3010-428c-81a2-6a1448eeadd5");
-INSERT INTO R_OIR
-	VALUES ("70dfadbd-b12d-439e-8895-03cfba3aab2b",
-	"d17b685e-2c59-4c7e-8654-2d2f09d8151a",
-	"20a483eb-3010-428c-81a2-6a1448eeadd5",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_SUB
-	VALUES ("c9d6f9f3-7f71-464d-aa5f-de6671ae0494",
-	"d17b685e-2c59-4c7e-8654-2d2f09d8151a",
-	"20a192dd-2b5f-4d35-ab9e-292a0e73ebcf");
-INSERT INTO R_RGO
-	VALUES ("c9d6f9f3-7f71-464d-aa5f-de6671ae0494",
-	"d17b685e-2c59-4c7e-8654-2d2f09d8151a",
-	"20a192dd-2b5f-4d35-ab9e-292a0e73ebcf");
-INSERT INTO R_OIR
-	VALUES ("c9d6f9f3-7f71-464d-aa5f-de6671ae0494",
-	"d17b685e-2c59-4c7e-8654-2d2f09d8151a",
-	"20a192dd-2b5f-4d35-ab9e-292a0e73ebcf",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("c9d6f9f3-7f71-464d-aa5f-de6671ae0494",
-	'Generate SM Event Statement',
-	713,
-	'E_GSME',
-	'This class captures the common data (the event being generated) for a
-statement that generates an event to a statechart.',
-	"606f68be-000c-4a29-9fb9-dc0284d01f2a",
-	'./Generate SM Event Statement/Generate SM Event Statement.xtuml');
-INSERT INTO R_SIMP
-	VALUES ("ba59be88-ec6e-4d68-972c-bd33e0bd43af");
-INSERT INTO R_REL
-	VALUES ("ba59be88-ec6e-4d68-972c-bd33e0bd43af",
-	706,
-	'',
-	"606f68be-000c-4a29-9fb9-dc0284d01f2a");
-INSERT INTO R_FORM
-	VALUES ("474836ad-558f-45eb-8c7b-a3740b2b73b4",
-	"ba59be88-ec6e-4d68-972c-bd33e0bd43af",
-	"9bd0f36e-1069-4e3e-a281-c40fc4a620d1",
-	1,
-	1,
-	'');
-INSERT INTO R_RGO
-	VALUES ("474836ad-558f-45eb-8c7b-a3740b2b73b4",
-	"ba59be88-ec6e-4d68-972c-bd33e0bd43af",
-	"9bd0f36e-1069-4e3e-a281-c40fc4a620d1");
-INSERT INTO R_OIR
-	VALUES ("474836ad-558f-45eb-8c7b-a3740b2b73b4",
-	"ba59be88-ec6e-4d68-972c-bd33e0bd43af",
-	"9bd0f36e-1069-4e3e-a281-c40fc4a620d1",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_PART
-	VALUES ("31832e28-c7f1-4e83-9c56-28614980fb33",
-	"ba59be88-ec6e-4d68-972c-bd33e0bd43af",
-	"4d10572d-b88e-4b86-9c2b-cc6e9b042cac",
-	0,
-	0,
-	'creates');
-INSERT INTO O_RTIDA
-	VALUES ("230b2bab-457c-4eae-bfe1-b824ac2f5324",
-	"31832e28-c7f1-4e83-9c56-28614980fb33",
-	0,
-	"ba59be88-ec6e-4d68-972c-bd33e0bd43af",
-	"4d10572d-b88e-4b86-9c2b-cc6e9b042cac");
-INSERT INTO O_OIDA_PROXY
-	VALUES ("230b2bab-457c-4eae-bfe1-b824ac2f5324",
-	"31832e28-c7f1-4e83-9c56-28614980fb33",
-	0,
-	'SMevt_ID',
-	'../State Machine/State Machine Event/State Machine Event.xtuml');
-INSERT INTO R_RTO
-	VALUES ("31832e28-c7f1-4e83-9c56-28614980fb33",
-	"ba59be88-ec6e-4d68-972c-bd33e0bd43af",
-	"4d10572d-b88e-4b86-9c2b-cc6e9b042cac",
-	0);
-INSERT INTO O_ID_PROXY
-	VALUES (0,
-	"31832e28-c7f1-4e83-9c56-28614980fb33",
-	'../State Machine/State Machine Event/State Machine Event.xtuml');
-INSERT INTO R_OIR
-	VALUES ("31832e28-c7f1-4e83-9c56-28614980fb33",
-	"ba59be88-ec6e-4d68-972c-bd33e0bd43af",
-	"4d10572d-b88e-4b86-9c2b-cc6e9b042cac",
-	"0ded7426-ba8a-4643-99c8-ddc8a19878cd");
-INSERT INTO R_SUBSUP
-	VALUES ("d6ced505-cdfb-4d98-81e2-506f2754d01d");
-INSERT INTO R_REL
-	VALUES ("d6ced505-cdfb-4d98-81e2-506f2754d01d",
-	704,
-	'',
-	"606f68be-000c-4a29-9fb9-dc0284d01f2a");
-INSERT INTO R_SUPER
-	VALUES ("474836ad-558f-45eb-8c7b-a3740b2b73b4",
-	"d6ced505-cdfb-4d98-81e2-506f2754d01d",
-	"4a5449f9-28d0-4ba8-af74-ec734a49698a");
-INSERT INTO O_RTIDA
-	VALUES ("50eb9a91-f356-48f7-b53a-8f9cab18d73b",
-	"474836ad-558f-45eb-8c7b-a3740b2b73b4",
-	0,
-	"d6ced505-cdfb-4d98-81e2-506f2754d01d",
-	"4a5449f9-28d0-4ba8-af74-ec734a49698a");
-INSERT INTO O_OIDA_PROXY
-	VALUES ("50eb9a91-f356-48f7-b53a-8f9cab18d73b",
-	"474836ad-558f-45eb-8c7b-a3740b2b73b4",
-	0,
-	'Statement_ID',
-	'./Create SM Event Statement/Create SM Event Statement.xtuml');
-INSERT INTO R_RTO
-	VALUES ("474836ad-558f-45eb-8c7b-a3740b2b73b4",
-	"d6ced505-cdfb-4d98-81e2-506f2754d01d",
-	"4a5449f9-28d0-4ba8-af74-ec734a49698a",
-	0);
-INSERT INTO O_ID_PROXY
-	VALUES (0,
-	"474836ad-558f-45eb-8c7b-a3740b2b73b4",
-	'./Create SM Event Statement/Create SM Event Statement.xtuml');
-INSERT INTO R_OIR
-	VALUES ("474836ad-558f-45eb-8c7b-a3740b2b73b4",
-	"d6ced505-cdfb-4d98-81e2-506f2754d01d",
-	"4a5449f9-28d0-4ba8-af74-ec734a49698a",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_SUB
-	VALUES ("56212cde-ea40-4896-b0c6-87c1c9f62042",
-	"d6ced505-cdfb-4d98-81e2-506f2754d01d",
-	"ae78905a-e3b2-403a-ae58-84741394ea0d");
-INSERT INTO R_RGO
-	VALUES ("56212cde-ea40-4896-b0c6-87c1c9f62042",
-	"d6ced505-cdfb-4d98-81e2-506f2754d01d",
-	"ae78905a-e3b2-403a-ae58-84741394ea0d");
-INSERT INTO R_OIR
-	VALUES ("56212cde-ea40-4896-b0c6-87c1c9f62042",
-	"d6ced505-cdfb-4d98-81e2-506f2754d01d",
-	"ae78905a-e3b2-403a-ae58-84741394ea0d",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_SUB
-	VALUES ("f459f8c8-72c1-4c9d-a4c4-d20bce1b8aa8",
-	"d6ced505-cdfb-4d98-81e2-506f2754d01d",
-	"54873a15-1e75-4717-80a3-7f025ec1c00a");
-INSERT INTO R_RGO
-	VALUES ("f459f8c8-72c1-4c9d-a4c4-d20bce1b8aa8",
-	"d6ced505-cdfb-4d98-81e2-506f2754d01d",
-	"54873a15-1e75-4717-80a3-7f025ec1c00a");
-INSERT INTO R_OIR
-	VALUES ("f459f8c8-72c1-4c9d-a4c4-d20bce1b8aa8",
-	"d6ced505-cdfb-4d98-81e2-506f2754d01d",
-	"54873a15-1e75-4717-80a3-7f025ec1c00a",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("f459f8c8-72c1-4c9d-a4c4-d20bce1b8aa8",
-	'Create Event to Class',
-	703,
-	'E_CEA',
-	'This class represents the precreation of an event to a class for later delivery. Uses the same concepts as Generate to Class but does not actually generate the event. It instead yields an event instance that can be generated later using Generate Preexisting Event.',
-	"606f68be-000c-4a29-9fb9-dc0284d01f2a",
-	'./Create Event to Class/Create Event to Class.xtuml');
-INSERT INTO R_SUB
-	VALUES ("701f94d5-1c57-470e-bac8-04556bfa6031",
-	"d6ced505-cdfb-4d98-81e2-506f2754d01d",
-	"9a59fd3b-2f13-4083-a11b-d6681f87c485");
-INSERT INTO R_RGO
-	VALUES ("701f94d5-1c57-470e-bac8-04556bfa6031",
-	"d6ced505-cdfb-4d98-81e2-506f2754d01d",
-	"9a59fd3b-2f13-4083-a11b-d6681f87c485");
-INSERT INTO R_OIR
-	VALUES ("701f94d5-1c57-470e-bac8-04556bfa6031",
-	"d6ced505-cdfb-4d98-81e2-506f2754d01d",
-	"9a59fd3b-2f13-4083-a11b-d6681f87c485",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("701f94d5-1c57-470e-bac8-04556bfa6031",
-	'Create Event to Creator',
-	708,
-	'E_CEC',
-	'This class specifies the precreation of a creation event to a class for later delivery. Uses the same concepts as Generate to Creator but does not actually generate the event. It instead yields an event instance that can be generated later using Generate Preexisting Event.',
-	"606f68be-000c-4a29-9fb9-dc0284d01f2a",
-	'./Create Event to Creator/Create Event to Creator.xtuml');
-INSERT INTO R_SUBSUP
-	VALUES ("44121ee7-6ab4-443d-87d8-6daa567b1eb9");
-INSERT INTO R_REL
-	VALUES ("44121ee7-6ab4-443d-87d8-6daa567b1eb9",
-	705,
-	'',
-	"606f68be-000c-4a29-9fb9-dc0284d01f2a");
-INSERT INTO R_SUPER
-	VALUES ("c9d6f9f3-7f71-464d-aa5f-de6671ae0494",
-	"44121ee7-6ab4-443d-87d8-6daa567b1eb9",
-	"caacd550-2e31-4907-a361-f89968e3a971");
-INSERT INTO O_RTIDA
-	VALUES ("c4e97159-2dbd-4ead-8bdd-d0edb604481f",
-	"c9d6f9f3-7f71-464d-aa5f-de6671ae0494",
-	0,
-	"44121ee7-6ab4-443d-87d8-6daa567b1eb9",
-	"caacd550-2e31-4907-a361-f89968e3a971");
-INSERT INTO O_OIDA_PROXY
-	VALUES ("c4e97159-2dbd-4ead-8bdd-d0edb604481f",
-	"c9d6f9f3-7f71-464d-aa5f-de6671ae0494",
-	0,
-	'Statement_ID',
-	'./Generate SM Event Statement/Generate SM Event Statement.xtuml');
-INSERT INTO R_RTO
-	VALUES ("c9d6f9f3-7f71-464d-aa5f-de6671ae0494",
-	"44121ee7-6ab4-443d-87d8-6daa567b1eb9",
-	"caacd550-2e31-4907-a361-f89968e3a971",
-	0);
-INSERT INTO O_ID_PROXY
-	VALUES (0,
-	"c9d6f9f3-7f71-464d-aa5f-de6671ae0494",
-	'./Generate SM Event Statement/Generate SM Event Statement.xtuml');
-INSERT INTO R_OIR
-	VALUES ("c9d6f9f3-7f71-464d-aa5f-de6671ae0494",
-	"44121ee7-6ab4-443d-87d8-6daa567b1eb9",
-	"caacd550-2e31-4907-a361-f89968e3a971",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_SUB
-	VALUES ("56227d49-b934-4d03-a983-b238fd460030",
-	"44121ee7-6ab4-443d-87d8-6daa567b1eb9",
-	"ae09669c-7e86-4e08-920d-8dc6ab1a6bb7");
-INSERT INTO R_RGO
-	VALUES ("56227d49-b934-4d03-a983-b238fd460030",
-	"44121ee7-6ab4-443d-87d8-6daa567b1eb9",
-	"ae09669c-7e86-4e08-920d-8dc6ab1a6bb7");
-INSERT INTO R_OIR
-	VALUES ("56227d49-b934-4d03-a983-b238fd460030",
-	"44121ee7-6ab4-443d-87d8-6daa567b1eb9",
-	"ae09669c-7e86-4e08-920d-8dc6ab1a6bb7",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_SUB
-	VALUES ("1a05928b-a617-4957-9a3a-c6f1dcc3e3c2",
-	"44121ee7-6ab4-443d-87d8-6daa567b1eb9",
-	"fe3d4a3d-e826-4ccd-a776-687315a725f9");
-INSERT INTO R_RGO
-	VALUES ("1a05928b-a617-4957-9a3a-c6f1dcc3e3c2",
-	"44121ee7-6ab4-443d-87d8-6daa567b1eb9",
-	"fe3d4a3d-e826-4ccd-a776-687315a725f9");
-INSERT INTO R_OIR
-	VALUES ("1a05928b-a617-4957-9a3a-c6f1dcc3e3c2",
-	"44121ee7-6ab4-443d-87d8-6daa567b1eb9",
-	"fe3d4a3d-e826-4ccd-a776-687315a725f9",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("1a05928b-a617-4957-9a3a-c6f1dcc3e3c2",
-	'Generate to Class',
-	704,
-	'E_GAR',
-	'This class represents the generation of an event to a target class.',
-	"606f68be-000c-4a29-9fb9-dc0284d01f2a",
-	'./Generate to Class/Generate to Class.xtuml');
-INSERT INTO R_SUB
-	VALUES ("c821e0c7-aea1-48e4-bc39-843e15e0cef6",
-	"44121ee7-6ab4-443d-87d8-6daa567b1eb9",
-	"6e9eabf4-e26c-4196-a301-ec7cb3504f12");
-INSERT INTO R_RGO
-	VALUES ("c821e0c7-aea1-48e4-bc39-843e15e0cef6",
-	"44121ee7-6ab4-443d-87d8-6daa567b1eb9",
-	"6e9eabf4-e26c-4196-a301-ec7cb3504f12");
-INSERT INTO R_OIR
-	VALUES ("c821e0c7-aea1-48e4-bc39-843e15e0cef6",
-	"44121ee7-6ab4-443d-87d8-6daa567b1eb9",
-	"6e9eabf4-e26c-4196-a301-ec7cb3504f12",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("c821e0c7-aea1-48e4-bc39-843e15e0cef6",
-	'Generate to Creator',
-	705,
-	'E_GEC',
-	'This class represents the generation of a creation event to a target class. This has the effect of creating an instance and then delivering the event to the instance.',
-	"606f68be-000c-4a29-9fb9-dc0284d01f2a",
-	'./Generate to Creator/Generate to Creator.xtuml');
-INSERT INTO R_SIMP
-	VALUES ("bb62b48a-c5b2-4f77-af79-09f1c2516a88");
-INSERT INTO R_REL
-	VALUES ("bb62b48a-c5b2-4f77-af79-09f1c2516a88",
-	707,
-	'',
-	"606f68be-000c-4a29-9fb9-dc0284d01f2a");
-INSERT INTO R_FORM
-	VALUES ("c9d6f9f3-7f71-464d-aa5f-de6671ae0494",
-	"bb62b48a-c5b2-4f77-af79-09f1c2516a88",
-	"38eb844f-e558-4abb-9eab-b22858fe690d",
-	1,
-	1,
-	'');
-INSERT INTO R_RGO
-	VALUES ("c9d6f9f3-7f71-464d-aa5f-de6671ae0494",
-	"bb62b48a-c5b2-4f77-af79-09f1c2516a88",
-	"38eb844f-e558-4abb-9eab-b22858fe690d");
-INSERT INTO R_OIR
-	VALUES ("c9d6f9f3-7f71-464d-aa5f-de6671ae0494",
-	"bb62b48a-c5b2-4f77-af79-09f1c2516a88",
-	"38eb844f-e558-4abb-9eab-b22858fe690d",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_PART
-	VALUES ("31832e28-c7f1-4e83-9c56-28614980fb33",
-	"bb62b48a-c5b2-4f77-af79-09f1c2516a88",
-	"888ca27b-0f7d-4999-939e-888177807ee5",
-	0,
-	0,
-	'generates');
-INSERT INTO O_RTIDA
-	VALUES ("230b2bab-457c-4eae-bfe1-b824ac2f5324",
-	"31832e28-c7f1-4e83-9c56-28614980fb33",
-	0,
-	"bb62b48a-c5b2-4f77-af79-09f1c2516a88",
-	"888ca27b-0f7d-4999-939e-888177807ee5");
-INSERT INTO R_RTO
-	VALUES ("31832e28-c7f1-4e83-9c56-28614980fb33",
-	"bb62b48a-c5b2-4f77-af79-09f1c2516a88",
-	"888ca27b-0f7d-4999-939e-888177807ee5",
-	0);
-INSERT INTO R_OIR
-	VALUES ("31832e28-c7f1-4e83-9c56-28614980fb33",
-	"bb62b48a-c5b2-4f77-af79-09f1c2516a88",
-	"888ca27b-0f7d-4999-939e-888177807ee5",
-	"0ded7426-ba8a-4643-99c8-ddc8a19878cd");
-INSERT INTO R_SIMP
-	VALUES ("f45c730e-58ba-42e8-ba32-5916cb7146aa");
-INSERT INTO R_REL
-	VALUES ("f45c730e-58ba-42e8-ba32-5916cb7146aa",
-	700,
-	'',
-	"606f68be-000c-4a29-9fb9-dc0284d01f2a");
-INSERT INTO R_PART
-	VALUES ("807105ed-4221-4000-89eb-a51948da9ee4",
-	"f45c730e-58ba-42e8-ba32-5916cb7146aa",
-	"5b69febd-693e-47bf-b56f-2ce973c06af2",
-	0,
-	1,
-	'');
-INSERT INTO O_RTIDA
-	VALUES ("56ed8676-8187-49f7-b408-d1c762b9d289",
-	"807105ed-4221-4000-89eb-a51948da9ee4",
-	0,
-	"f45c730e-58ba-42e8-ba32-5916cb7146aa",
-	"5b69febd-693e-47bf-b56f-2ce973c06af2");
-INSERT INTO R_RTO
-	VALUES ("807105ed-4221-4000-89eb-a51948da9ee4",
-	"f45c730e-58ba-42e8-ba32-5916cb7146aa",
-	"5b69febd-693e-47bf-b56f-2ce973c06af2",
-	0);
-INSERT INTO R_OIR
-	VALUES ("807105ed-4221-4000-89eb-a51948da9ee4",
-	"f45c730e-58ba-42e8-ba32-5916cb7146aa",
-	"5b69febd-693e-47bf-b56f-2ce973c06af2",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_FORM
-	VALUES ("c9df3995-9d10-4b42-b2ca-1c82f443051c",
-	"f45c730e-58ba-42e8-ba32-5916cb7146aa",
-	"a496d2eb-7651-45a5-9390-1e9ae7029014",
-	1,
-	1,
-	'');
-INSERT INTO R_RGO
-	VALUES ("c9df3995-9d10-4b42-b2ca-1c82f443051c",
-	"f45c730e-58ba-42e8-ba32-5916cb7146aa",
-	"a496d2eb-7651-45a5-9390-1e9ae7029014");
-INSERT INTO R_OIR
-	VALUES ("c9df3995-9d10-4b42-b2ca-1c82f443051c",
-	"f45c730e-58ba-42e8-ba32-5916cb7146aa",
-	"a496d2eb-7651-45a5-9390-1e9ae7029014",
-	"95c64024-7771-48bc-b3a1-9e18c37e06ce");
-INSERT INTO R_SIMP
-	VALUES ("82294ba6-3638-4995-8076-5204ae1aad18");
-INSERT INTO R_REL
-	VALUES ("82294ba6-3638-4995-8076-5204ae1aad18",
-	714,
-	'',
-	"606f68be-000c-4a29-9fb9-dc0284d01f2a");
-INSERT INTO R_FORM
-	VALUES ("dc8e7dff-4cdb-4160-a179-2f0c9443d0fb",
-	"82294ba6-3638-4995-8076-5204ae1aad18",
-	"ac5c10b4-887c-40bf-899f-413b6900f475",
-	0,
-	1,
-	'holds event to be generated by');
-INSERT INTO R_RGO
-	VALUES ("dc8e7dff-4cdb-4160-a179-2f0c9443d0fb",
-	"82294ba6-3638-4995-8076-5204ae1aad18",
-	"ac5c10b4-887c-40bf-899f-413b6900f475");
-INSERT INTO R_OIR
-	VALUES ("dc8e7dff-4cdb-4160-a179-2f0c9443d0fb",
-	"82294ba6-3638-4995-8076-5204ae1aad18",
-	"ac5c10b4-887c-40bf-899f-413b6900f475",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("dc8e7dff-4cdb-4160-a179-2f0c9443d0fb",
-	'Generate Preexisting Event',
-	702,
-	'E_GPR',
-	'Generates a preexisting event. The event instance captures the event, its data and its target.',
-	"606f68be-000c-4a29-9fb9-dc0284d01f2a",
-	'./Generate Preexisting Event/Generate Preexisting Event.xtuml');
-INSERT INTO R_PART
-	VALUES ("80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
-	"82294ba6-3638-4995-8076-5204ae1aad18",
-	"1b29af3d-093d-4fd4-921e-df1b3cad983c",
-	0,
-	1,
-	'generates event held by');
-INSERT INTO O_RTIDA
-	VALUES ("4fd005ad-1159-4343-a12e-ed125f7adea1",
-	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
-	0,
-	"82294ba6-3638-4995-8076-5204ae1aad18",
-	"1b29af3d-093d-4fd4-921e-df1b3cad983c");
-INSERT INTO O_OIDA_PROXY
-	VALUES ("4fd005ad-1159-4343-a12e-ed125f7adea1",
-	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
-	0,
-	'Value_ID',
-	'../Value/Value/Value.xtuml');
-INSERT INTO R_RTO
-	VALUES ("80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
-	"82294ba6-3638-4995-8076-5204ae1aad18",
-	"1b29af3d-093d-4fd4-921e-df1b3cad983c",
-	0);
-INSERT INTO O_ID_PROXY
-	VALUES (0,
-	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
-	'../Value/Value/Value.xtuml');
-INSERT INTO R_OIR
-	VALUES ("80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
-	"82294ba6-3638-4995-8076-5204ae1aad18",
-	"1b29af3d-093d-4fd4-921e-df1b3cad983c",
-	"a7243c96-bdfe-45f3-84aa-90a7e5e2b2bd");
+	700);
 INSERT INTO GD_MD
 	VALUES ("942d3a6b-72f9-4bc0-9640-afe5e10e259b",
-	5,
+	112,
 	"606f68be-000c-4a29-9fb9-dc0284d01f2a",
-	11,
+	108,
 	1,
 	0,
 	1,
@@ -4532,3 +3478,1184 @@ INSERT INTO DIM_DIA
 	2000.000000,
 	667.000000,
 	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_SIMP
+	VALUES ("102a61d4-410d-444b-9b6b-b6750a3af1a1");
+INSERT INTO R_REL
+	VALUES ("102a61d4-410d-444b-9b6b-b6750a3af1a1",
+	712,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_FORM
+	VALUES ("56227d49-b934-4d03-a983-b238fd460030",
+	"102a61d4-410d-444b-9b6b-b6750a3af1a1",
+	"7437f58f-48b0-4883-a782-074da4f86b61",
+	1,
+	1,
+	'');
+INSERT INTO R_RGO
+	VALUES ("56227d49-b934-4d03-a983-b238fd460030",
+	"102a61d4-410d-444b-9b6b-b6750a3af1a1",
+	"7437f58f-48b0-4883-a782-074da4f86b61");
+INSERT INTO R_OIR
+	VALUES ("56227d49-b934-4d03-a983-b238fd460030",
+	"102a61d4-410d-444b-9b6b-b6750a3af1a1",
+	"7437f58f-48b0-4883-a782-074da4f86b61",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("56227d49-b934-4d03-a983-b238fd460030",
+	'Generate',
+	701,
+	'E_GEN',
+	'This class represents the generation of an event to a target instance.',
+	"00000000-0000-0000-0000-000000000000",
+	'./Generate/Generate.xtuml');
+INSERT INTO R_PART
+	VALUES ("04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",
+	"102a61d4-410d-444b-9b6b-b6750a3af1a1",
+	"dadb3ea4-b950-4331-a3fe-1d06c6b38db6",
+	0,
+	0,
+	'has recipient');
+INSERT INTO O_RTIDA
+	VALUES ("aa0af814-2950-42d7-b263-1e32565f47ac",
+	"04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",
+	0,
+	"102a61d4-410d-444b-9b6b-b6750a3af1a1",
+	"dadb3ea4-b950-4331-a3fe-1d06c6b38db6");
+INSERT INTO O_OIDA_PROXY
+	VALUES ("aa0af814-2950-42d7-b263-1e32565f47ac",
+	"04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",
+	0,
+	'Var_ID',
+	'../Value/Variable/Variable.xtuml');
+INSERT INTO R_RTO
+	VALUES ("04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",
+	"102a61d4-410d-444b-9b6b-b6750a3af1a1",
+	"dadb3ea4-b950-4331-a3fe-1d06c6b38db6",
+	0);
+INSERT INTO O_ID_PROXY
+	VALUES (0,
+	"04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",
+	'../Value/Variable/Variable.xtuml');
+INSERT INTO R_OIR
+	VALUES ("04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",
+	"102a61d4-410d-444b-9b6b-b6750a3af1a1",
+	"dadb3ea4-b950-4331-a3fe-1d06c6b38db6",
+	"559333e5-c9d8-45f9-93b5-eab2adc2745a");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",
+	'Variable',
+	815,
+	'V_VAR',
+	'This class represents a temporary variable or an instance.',
+	"00000000-0000-0000-0000-000000000000",
+	'../Value/Variable/Variable.xtuml');
+INSERT INTO PE_PE
+	VALUES ("102a61d4-410d-444b-9b6b-b6750a3af1a1",
+	1,
+	"606f68be-000c-4a29-9fb9-dc0284d01f2a",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO R_SIMP
+	VALUES ("7f54e1f3-09bc-4abc-848a-5dbb72a07bb1");
+INSERT INTO R_REL
+	VALUES ("7f54e1f3-09bc-4abc-848a-5dbb72a07bb1",
+	711,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_FORM
+	VALUES ("56212cde-ea40-4896-b0c6-87c1c9f62042",
+	"7f54e1f3-09bc-4abc-848a-5dbb72a07bb1",
+	"2814e82e-469b-47d6-9fc9-0a4ccfe89bcf",
+	1,
+	1,
+	'');
+INSERT INTO R_RGO
+	VALUES ("56212cde-ea40-4896-b0c6-87c1c9f62042",
+	"7f54e1f3-09bc-4abc-848a-5dbb72a07bb1",
+	"2814e82e-469b-47d6-9fc9-0a4ccfe89bcf");
+INSERT INTO R_OIR
+	VALUES ("56212cde-ea40-4896-b0c6-87c1c9f62042",
+	"7f54e1f3-09bc-4abc-848a-5dbb72a07bb1",
+	"2814e82e-469b-47d6-9fc9-0a4ccfe89bcf",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("56212cde-ea40-4896-b0c6-87c1c9f62042",
+	'Create Event to Instance',
+	700,
+	'E_CEI',
+	'This class represents the precreation of an event to an instance for later delivery. Uses the same concepts as Generate but does not actually generate the event. It instead yields an event instance that can be generated later using Generate Preexisting Event.',
+	"00000000-0000-0000-0000-000000000000",
+	'./Create Event to Instance/Create Event to Instance.xtuml');
+INSERT INTO R_PART
+	VALUES ("04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",
+	"7f54e1f3-09bc-4abc-848a-5dbb72a07bb1",
+	"a0824eec-806c-4106-9058-561fcad84499",
+	0,
+	0,
+	'has recipient');
+INSERT INTO O_RTIDA
+	VALUES ("aa0af814-2950-42d7-b263-1e32565f47ac",
+	"04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",
+	0,
+	"7f54e1f3-09bc-4abc-848a-5dbb72a07bb1",
+	"a0824eec-806c-4106-9058-561fcad84499");
+INSERT INTO R_RTO
+	VALUES ("04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",
+	"7f54e1f3-09bc-4abc-848a-5dbb72a07bb1",
+	"a0824eec-806c-4106-9058-561fcad84499",
+	0);
+INSERT INTO R_OIR
+	VALUES ("04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",
+	"7f54e1f3-09bc-4abc-848a-5dbb72a07bb1",
+	"a0824eec-806c-4106-9058-561fcad84499",
+	"a9c2d5bf-11f1-4609-ac03-fd73b56b98c6");
+INSERT INTO PE_PE
+	VALUES ("7f54e1f3-09bc-4abc-848a-5dbb72a07bb1",
+	1,
+	"606f68be-000c-4a29-9fb9-dc0284d01f2a",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO R_SIMP
+	VALUES ("ddb23d0e-b5ef-4acb-a634-c9568a3456e7");
+INSERT INTO R_REL
+	VALUES ("ddb23d0e-b5ef-4acb-a634-c9568a3456e7",
+	708,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_FORM
+	VALUES ("a54881e1-d430-48d7-9f90-2a4f60aa964f",
+	"ddb23d0e-b5ef-4acb-a634-c9568a3456e7",
+	"d049ec21-9c20-4bab-8256-38fa29bdd1fb",
+	1,
+	1,
+	'');
+INSERT INTO R_RGO
+	VALUES ("a54881e1-d430-48d7-9f90-2a4f60aa964f",
+	"ddb23d0e-b5ef-4acb-a634-c9568a3456e7",
+	"d049ec21-9c20-4bab-8256-38fa29bdd1fb");
+INSERT INTO R_OIR
+	VALUES ("a54881e1-d430-48d7-9f90-2a4f60aa964f",
+	"ddb23d0e-b5ef-4acb-a634-c9568a3456e7",
+	"d049ec21-9c20-4bab-8256-38fa29bdd1fb",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("a54881e1-d430-48d7-9f90-2a4f60aa964f",
+	'Create Event to External Entity',
+	706,
+	'E_CEE',
+	'This class specifies the precreation of an event to an external entity for later delivery. Uses the same concepts as Generate to External Entity but does not actually generate the event. It instead yields an event instance that can be generated later using Generate Preexisting Event.',
+	"00000000-0000-0000-0000-000000000000",
+	'./Create Event to External Entity/Create Event to External Entity.xtuml');
+INSERT INTO R_PART
+	VALUES ("5adc63b1-9773-4ea9-97ef-67828018b3a6",
+	"ddb23d0e-b5ef-4acb-a634-c9568a3456e7",
+	"af81cd0a-d769-4244-ae12-046ef0b490d2",
+	0,
+	0,
+	'creates');
+INSERT INTO O_RTIDA
+	VALUES ("65df4a64-820f-444e-8188-d4d6f2d4cb86",
+	"5adc63b1-9773-4ea9-97ef-67828018b3a6",
+	0,
+	"ddb23d0e-b5ef-4acb-a634-c9568a3456e7",
+	"af81cd0a-d769-4244-ae12-046ef0b490d2");
+INSERT INTO O_OIDA_PROXY
+	VALUES ("65df4a64-820f-444e-8188-d4d6f2d4cb86",
+	"5adc63b1-9773-4ea9-97ef-67828018b3a6",
+	0,
+	'EEevt_ID',
+	'../Domain/External Entity Event/External Entity Event.xtuml');
+INSERT INTO O_RTIDA
+	VALUES ("e060c3d3-399d-444e-b65e-e7be44c3ed7f",
+	"5adc63b1-9773-4ea9-97ef-67828018b3a6",
+	0,
+	"ddb23d0e-b5ef-4acb-a634-c9568a3456e7",
+	"af81cd0a-d769-4244-ae12-046ef0b490d2");
+INSERT INTO O_OIDA_PROXY
+	VALUES ("e060c3d3-399d-444e-b65e-e7be44c3ed7f",
+	"5adc63b1-9773-4ea9-97ef-67828018b3a6",
+	0,
+	'EE_ID',
+	'../Domain/External Entity Event/External Entity Event.xtuml');
+INSERT INTO R_RTO
+	VALUES ("5adc63b1-9773-4ea9-97ef-67828018b3a6",
+	"ddb23d0e-b5ef-4acb-a634-c9568a3456e7",
+	"af81cd0a-d769-4244-ae12-046ef0b490d2",
+	0);
+INSERT INTO O_ID_PROXY
+	VALUES (0,
+	"5adc63b1-9773-4ea9-97ef-67828018b3a6",
+	'../Domain/External Entity Event/External Entity Event.xtuml');
+INSERT INTO R_OIR
+	VALUES ("5adc63b1-9773-4ea9-97ef-67828018b3a6",
+	"ddb23d0e-b5ef-4acb-a634-c9568a3456e7",
+	"af81cd0a-d769-4244-ae12-046ef0b490d2",
+	"652c5914-8a61-4891-af5d-a9855fd0bbc1");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("5adc63b1-9773-4ea9-97ef-67828018b3a6",
+	'External Entity Event',
+	6,
+	'S_EEEVT',
+	'An external entity event (S_EEEVT) represents asynchronous communication between a class (O_OBJ) and an external entity (S_EE).  The communication is shown on the Communication Diagram.  Each external entity event is given a unique label and can have zero or more event data (S_EEEDT).',
+	"00000000-0000-0000-0000-000000000000",
+	'../Domain/External Entity Event/External Entity Event.xtuml');
+INSERT INTO PE_PE
+	VALUES ("ddb23d0e-b5ef-4acb-a634-c9568a3456e7",
+	1,
+	"606f68be-000c-4a29-9fb9-dc0284d01f2a",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO R_SIMP
+	VALUES ("1516a04f-e9bc-40ee-8a8c-50d8510e8a6e");
+INSERT INTO R_REL
+	VALUES ("1516a04f-e9bc-40ee-8a8c-50d8510e8a6e",
+	709,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_FORM
+	VALUES ("70dfadbd-b12d-439e-8895-03cfba3aab2b",
+	"1516a04f-e9bc-40ee-8a8c-50d8510e8a6e",
+	"d8ede70b-91ce-484b-b5ed-978a622ae616",
+	1,
+	1,
+	'');
+INSERT INTO R_RGO
+	VALUES ("70dfadbd-b12d-439e-8895-03cfba3aab2b",
+	"1516a04f-e9bc-40ee-8a8c-50d8510e8a6e",
+	"d8ede70b-91ce-484b-b5ed-978a622ae616");
+INSERT INTO R_OIR
+	VALUES ("70dfadbd-b12d-439e-8895-03cfba3aab2b",
+	"1516a04f-e9bc-40ee-8a8c-50d8510e8a6e",
+	"d8ede70b-91ce-484b-b5ed-978a622ae616",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("70dfadbd-b12d-439e-8895-03cfba3aab2b",
+	'Generate to External Entity',
+	707,
+	'E_GEE',
+	'This class represents the generation of an event to an external entity.',
+	"00000000-0000-0000-0000-000000000000",
+	'./Generate to External Entity/Generate to External Entity.xtuml');
+INSERT INTO R_PART
+	VALUES ("5adc63b1-9773-4ea9-97ef-67828018b3a6",
+	"1516a04f-e9bc-40ee-8a8c-50d8510e8a6e",
+	"20f4dc2f-e113-453a-a010-092124898f0f",
+	0,
+	0,
+	'generates');
+INSERT INTO O_RTIDA
+	VALUES ("65df4a64-820f-444e-8188-d4d6f2d4cb86",
+	"5adc63b1-9773-4ea9-97ef-67828018b3a6",
+	0,
+	"1516a04f-e9bc-40ee-8a8c-50d8510e8a6e",
+	"20f4dc2f-e113-453a-a010-092124898f0f");
+INSERT INTO O_RTIDA
+	VALUES ("e060c3d3-399d-444e-b65e-e7be44c3ed7f",
+	"5adc63b1-9773-4ea9-97ef-67828018b3a6",
+	0,
+	"1516a04f-e9bc-40ee-8a8c-50d8510e8a6e",
+	"20f4dc2f-e113-453a-a010-092124898f0f");
+INSERT INTO R_RTO
+	VALUES ("5adc63b1-9773-4ea9-97ef-67828018b3a6",
+	"1516a04f-e9bc-40ee-8a8c-50d8510e8a6e",
+	"20f4dc2f-e113-453a-a010-092124898f0f",
+	0);
+INSERT INTO R_OIR
+	VALUES ("5adc63b1-9773-4ea9-97ef-67828018b3a6",
+	"1516a04f-e9bc-40ee-8a8c-50d8510e8a6e",
+	"20f4dc2f-e113-453a-a010-092124898f0f",
+	"652c5914-8a61-4891-af5d-a9855fd0bbc1");
+INSERT INTO PE_PE
+	VALUES ("1516a04f-e9bc-40ee-8a8c-50d8510e8a6e",
+	1,
+	"606f68be-000c-4a29-9fb9-dc0284d01f2a",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO R_SUBSUP
+	VALUES ("2d7f0a89-8605-45f0-984c-9e44154bdfc6");
+INSERT INTO R_REL
+	VALUES ("2d7f0a89-8605-45f0-984c-9e44154bdfc6",
+	701,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_SUPER
+	VALUES ("807105ed-4221-4000-89eb-a51948da9ee4",
+	"2d7f0a89-8605-45f0-984c-9e44154bdfc6",
+	"5b9e287d-45a6-4a86-a479-42e88f7d6e02");
+INSERT INTO O_RTIDA
+	VALUES ("56ed8676-8187-49f7-b408-d1c762b9d289",
+	"807105ed-4221-4000-89eb-a51948da9ee4",
+	0,
+	"2d7f0a89-8605-45f0-984c-9e44154bdfc6",
+	"5b9e287d-45a6-4a86-a479-42e88f7d6e02");
+INSERT INTO O_OIDA_PROXY
+	VALUES ("56ed8676-8187-49f7-b408-d1c762b9d289",
+	"807105ed-4221-4000-89eb-a51948da9ee4",
+	0,
+	'Statement_ID',
+	'./Event Specification Statement/Event Specification Statement.xtuml');
+INSERT INTO R_RTO
+	VALUES ("807105ed-4221-4000-89eb-a51948da9ee4",
+	"2d7f0a89-8605-45f0-984c-9e44154bdfc6",
+	"5b9e287d-45a6-4a86-a479-42e88f7d6e02",
+	0);
+INSERT INTO O_ID_PROXY
+	VALUES (0,
+	"807105ed-4221-4000-89eb-a51948da9ee4",
+	'./Event Specification Statement/Event Specification Statement.xtuml');
+INSERT INTO R_OIR
+	VALUES ("807105ed-4221-4000-89eb-a51948da9ee4",
+	"2d7f0a89-8605-45f0-984c-9e44154bdfc6",
+	"5b9e287d-45a6-4a86-a479-42e88f7d6e02",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("807105ed-4221-4000-89eb-a51948da9ee4",
+	'Event Specification Statement',
+	709,
+	'E_ESS',
+	'This class captures the common data of a statement that specifies an
+event for either generation or creation.',
+	"00000000-0000-0000-0000-000000000000",
+	'./Event Specification Statement/Event Specification Statement.xtuml');
+INSERT INTO R_SUB
+	VALUES ("b9bfc391-5d31-4942-b49c-9a74a8607ea6",
+	"2d7f0a89-8605-45f0-984c-9e44154bdfc6",
+	"21f96723-a649-4918-83eb-08cbe24933b2");
+INSERT INTO R_RGO
+	VALUES ("b9bfc391-5d31-4942-b49c-9a74a8607ea6",
+	"2d7f0a89-8605-45f0-984c-9e44154bdfc6",
+	"21f96723-a649-4918-83eb-08cbe24933b2");
+INSERT INTO R_OIR
+	VALUES ("b9bfc391-5d31-4942-b49c-9a74a8607ea6",
+	"2d7f0a89-8605-45f0-984c-9e44154bdfc6",
+	"21f96723-a649-4918-83eb-08cbe24933b2",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("b9bfc391-5d31-4942-b49c-9a74a8607ea6",
+	'Create Event Statement',
+	710,
+	'E_CES',
+	'This class captures the data for a statement that creates an instance
+of an event.',
+	"00000000-0000-0000-0000-000000000000",
+	'./Create Event Statement/Create Event Statement.xtuml');
+INSERT INTO R_SUB
+	VALUES ("0dfdb169-7ae7-4a71-b970-2d2cbe378350",
+	"2d7f0a89-8605-45f0-984c-9e44154bdfc6",
+	"bb36b7de-384a-4117-b531-6bd29d4a5fc2");
+INSERT INTO R_RGO
+	VALUES ("0dfdb169-7ae7-4a71-b970-2d2cbe378350",
+	"2d7f0a89-8605-45f0-984c-9e44154bdfc6",
+	"bb36b7de-384a-4117-b531-6bd29d4a5fc2");
+INSERT INTO R_OIR
+	VALUES ("0dfdb169-7ae7-4a71-b970-2d2cbe378350",
+	"2d7f0a89-8605-45f0-984c-9e44154bdfc6",
+	"bb36b7de-384a-4117-b531-6bd29d4a5fc2",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("0dfdb169-7ae7-4a71-b970-2d2cbe378350",
+	'Generate Event Statement',
+	711,
+	'E_GES',
+	'This class captures the common data for all statements that generate an event.',
+	"00000000-0000-0000-0000-000000000000",
+	'./Generate Event Statement/Generate Event Statement.xtuml');
+INSERT INTO PE_PE
+	VALUES ("2d7f0a89-8605-45f0-984c-9e44154bdfc6",
+	1,
+	"606f68be-000c-4a29-9fb9-dc0284d01f2a",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO R_SIMP
+	VALUES ("a8660954-d215-4d4e-99b0-1f342d774049");
+INSERT INTO R_REL
+	VALUES ("a8660954-d215-4d4e-99b0-1f342d774049",
+	710,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_FORM
+	VALUES ("b9bfc391-5d31-4942-b49c-9a74a8607ea6",
+	"a8660954-d215-4d4e-99b0-1f342d774049",
+	"811e978b-df3c-49f6-b889-f1d5da09a006",
+	1,
+	1,
+	'');
+INSERT INTO R_RGO
+	VALUES ("b9bfc391-5d31-4942-b49c-9a74a8607ea6",
+	"a8660954-d215-4d4e-99b0-1f342d774049",
+	"811e978b-df3c-49f6-b889-f1d5da09a006");
+INSERT INTO R_OIR
+	VALUES ("b9bfc391-5d31-4942-b49c-9a74a8607ea6",
+	"a8660954-d215-4d4e-99b0-1f342d774049",
+	"811e978b-df3c-49f6-b889-f1d5da09a006",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_PART
+	VALUES ("04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",
+	"a8660954-d215-4d4e-99b0-1f342d774049",
+	"0bda7521-391b-4d7f-8960-696c3f6a97e5",
+	0,
+	0,
+	'result');
+INSERT INTO O_RTIDA
+	VALUES ("aa0af814-2950-42d7-b263-1e32565f47ac",
+	"04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",
+	0,
+	"a8660954-d215-4d4e-99b0-1f342d774049",
+	"0bda7521-391b-4d7f-8960-696c3f6a97e5");
+INSERT INTO R_RTO
+	VALUES ("04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",
+	"a8660954-d215-4d4e-99b0-1f342d774049",
+	"0bda7521-391b-4d7f-8960-696c3f6a97e5",
+	0);
+INSERT INTO R_OIR
+	VALUES ("04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",
+	"a8660954-d215-4d4e-99b0-1f342d774049",
+	"0bda7521-391b-4d7f-8960-696c3f6a97e5",
+	"a9c2d5bf-11f1-4609-ac03-fd73b56b98c6");
+INSERT INTO PE_PE
+	VALUES ("a8660954-d215-4d4e-99b0-1f342d774049",
+	1,
+	"606f68be-000c-4a29-9fb9-dc0284d01f2a",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO R_SUBSUP
+	VALUES ("2d078d48-7894-4edd-b8ce-ac45c936d7d2");
+INSERT INTO R_REL
+	VALUES ("2d078d48-7894-4edd-b8ce-ac45c936d7d2",
+	702,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_SUPER
+	VALUES ("b9bfc391-5d31-4942-b49c-9a74a8607ea6",
+	"2d078d48-7894-4edd-b8ce-ac45c936d7d2",
+	"90439783-3b0e-469d-8583-76cd43585fcb");
+INSERT INTO O_RTIDA
+	VALUES ("4ec10b3f-3607-42c9-99f7-966f3244415d",
+	"b9bfc391-5d31-4942-b49c-9a74a8607ea6",
+	0,
+	"2d078d48-7894-4edd-b8ce-ac45c936d7d2",
+	"90439783-3b0e-469d-8583-76cd43585fcb");
+INSERT INTO O_OIDA_PROXY
+	VALUES ("4ec10b3f-3607-42c9-99f7-966f3244415d",
+	"b9bfc391-5d31-4942-b49c-9a74a8607ea6",
+	0,
+	'Statement_ID',
+	'./Create Event Statement/Create Event Statement.xtuml');
+INSERT INTO R_RTO
+	VALUES ("b9bfc391-5d31-4942-b49c-9a74a8607ea6",
+	"2d078d48-7894-4edd-b8ce-ac45c936d7d2",
+	"90439783-3b0e-469d-8583-76cd43585fcb",
+	0);
+INSERT INTO O_ID_PROXY
+	VALUES (0,
+	"b9bfc391-5d31-4942-b49c-9a74a8607ea6",
+	'./Create Event Statement/Create Event Statement.xtuml');
+INSERT INTO R_OIR
+	VALUES ("b9bfc391-5d31-4942-b49c-9a74a8607ea6",
+	"2d078d48-7894-4edd-b8ce-ac45c936d7d2",
+	"90439783-3b0e-469d-8583-76cd43585fcb",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_SUB
+	VALUES ("a54881e1-d430-48d7-9f90-2a4f60aa964f",
+	"2d078d48-7894-4edd-b8ce-ac45c936d7d2",
+	"0e299198-3c87-46ab-a3eb-4938d00a5868");
+INSERT INTO R_RGO
+	VALUES ("a54881e1-d430-48d7-9f90-2a4f60aa964f",
+	"2d078d48-7894-4edd-b8ce-ac45c936d7d2",
+	"0e299198-3c87-46ab-a3eb-4938d00a5868");
+INSERT INTO R_OIR
+	VALUES ("a54881e1-d430-48d7-9f90-2a4f60aa964f",
+	"2d078d48-7894-4edd-b8ce-ac45c936d7d2",
+	"0e299198-3c87-46ab-a3eb-4938d00a5868",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_SUB
+	VALUES ("474836ad-558f-45eb-8c7b-a3740b2b73b4",
+	"2d078d48-7894-4edd-b8ce-ac45c936d7d2",
+	"93644937-d935-42e8-a3fc-209d890787d1");
+INSERT INTO R_RGO
+	VALUES ("474836ad-558f-45eb-8c7b-a3740b2b73b4",
+	"2d078d48-7894-4edd-b8ce-ac45c936d7d2",
+	"93644937-d935-42e8-a3fc-209d890787d1");
+INSERT INTO R_OIR
+	VALUES ("474836ad-558f-45eb-8c7b-a3740b2b73b4",
+	"2d078d48-7894-4edd-b8ce-ac45c936d7d2",
+	"93644937-d935-42e8-a3fc-209d890787d1",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("474836ad-558f-45eb-8c7b-a3740b2b73b4",
+	'Create SM Event Statement',
+	712,
+	'E_CSME',
+	'This class captures the common data (the event being created) for a
+statement that creates an instance of an event to a statechart.',
+	"00000000-0000-0000-0000-000000000000",
+	'./Create SM Event Statement/Create SM Event Statement.xtuml');
+INSERT INTO PE_PE
+	VALUES ("2d078d48-7894-4edd-b8ce-ac45c936d7d2",
+	1,
+	"606f68be-000c-4a29-9fb9-dc0284d01f2a",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO R_SUBSUP
+	VALUES ("d17b685e-2c59-4c7e-8654-2d2f09d8151a");
+INSERT INTO R_REL
+	VALUES ("d17b685e-2c59-4c7e-8654-2d2f09d8151a",
+	703,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_SUPER
+	VALUES ("0dfdb169-7ae7-4a71-b970-2d2cbe378350",
+	"d17b685e-2c59-4c7e-8654-2d2f09d8151a",
+	"b8911e6b-fe67-4f19-a2ce-43c97b8eb07c");
+INSERT INTO O_RTIDA
+	VALUES ("6aaa7cc7-4b06-4715-bfe2-eedd4d509f3d",
+	"0dfdb169-7ae7-4a71-b970-2d2cbe378350",
+	0,
+	"d17b685e-2c59-4c7e-8654-2d2f09d8151a",
+	"b8911e6b-fe67-4f19-a2ce-43c97b8eb07c");
+INSERT INTO O_OIDA_PROXY
+	VALUES ("6aaa7cc7-4b06-4715-bfe2-eedd4d509f3d",
+	"0dfdb169-7ae7-4a71-b970-2d2cbe378350",
+	0,
+	'Statement_ID',
+	'./Generate Event Statement/Generate Event Statement.xtuml');
+INSERT INTO R_RTO
+	VALUES ("0dfdb169-7ae7-4a71-b970-2d2cbe378350",
+	"d17b685e-2c59-4c7e-8654-2d2f09d8151a",
+	"b8911e6b-fe67-4f19-a2ce-43c97b8eb07c",
+	0);
+INSERT INTO O_ID_PROXY
+	VALUES (0,
+	"0dfdb169-7ae7-4a71-b970-2d2cbe378350",
+	'./Generate Event Statement/Generate Event Statement.xtuml');
+INSERT INTO R_OIR
+	VALUES ("0dfdb169-7ae7-4a71-b970-2d2cbe378350",
+	"d17b685e-2c59-4c7e-8654-2d2f09d8151a",
+	"b8911e6b-fe67-4f19-a2ce-43c97b8eb07c",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_SUB
+	VALUES ("70dfadbd-b12d-439e-8895-03cfba3aab2b",
+	"d17b685e-2c59-4c7e-8654-2d2f09d8151a",
+	"20a483eb-3010-428c-81a2-6a1448eeadd5");
+INSERT INTO R_RGO
+	VALUES ("70dfadbd-b12d-439e-8895-03cfba3aab2b",
+	"d17b685e-2c59-4c7e-8654-2d2f09d8151a",
+	"20a483eb-3010-428c-81a2-6a1448eeadd5");
+INSERT INTO R_OIR
+	VALUES ("70dfadbd-b12d-439e-8895-03cfba3aab2b",
+	"d17b685e-2c59-4c7e-8654-2d2f09d8151a",
+	"20a483eb-3010-428c-81a2-6a1448eeadd5",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_SUB
+	VALUES ("c9d6f9f3-7f71-464d-aa5f-de6671ae0494",
+	"d17b685e-2c59-4c7e-8654-2d2f09d8151a",
+	"20a192dd-2b5f-4d35-ab9e-292a0e73ebcf");
+INSERT INTO R_RGO
+	VALUES ("c9d6f9f3-7f71-464d-aa5f-de6671ae0494",
+	"d17b685e-2c59-4c7e-8654-2d2f09d8151a",
+	"20a192dd-2b5f-4d35-ab9e-292a0e73ebcf");
+INSERT INTO R_OIR
+	VALUES ("c9d6f9f3-7f71-464d-aa5f-de6671ae0494",
+	"d17b685e-2c59-4c7e-8654-2d2f09d8151a",
+	"20a192dd-2b5f-4d35-ab9e-292a0e73ebcf",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("c9d6f9f3-7f71-464d-aa5f-de6671ae0494",
+	'Generate SM Event Statement',
+	713,
+	'E_GSME',
+	'This class captures the common data (the event being generated) for a
+statement that generates an event to a statechart.',
+	"00000000-0000-0000-0000-000000000000",
+	'./Generate SM Event Statement/Generate SM Event Statement.xtuml');
+INSERT INTO PE_PE
+	VALUES ("d17b685e-2c59-4c7e-8654-2d2f09d8151a",
+	1,
+	"606f68be-000c-4a29-9fb9-dc0284d01f2a",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO R_SIMP
+	VALUES ("ba59be88-ec6e-4d68-972c-bd33e0bd43af");
+INSERT INTO R_REL
+	VALUES ("ba59be88-ec6e-4d68-972c-bd33e0bd43af",
+	706,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_FORM
+	VALUES ("474836ad-558f-45eb-8c7b-a3740b2b73b4",
+	"ba59be88-ec6e-4d68-972c-bd33e0bd43af",
+	"9bd0f36e-1069-4e3e-a281-c40fc4a620d1",
+	1,
+	1,
+	'');
+INSERT INTO R_RGO
+	VALUES ("474836ad-558f-45eb-8c7b-a3740b2b73b4",
+	"ba59be88-ec6e-4d68-972c-bd33e0bd43af",
+	"9bd0f36e-1069-4e3e-a281-c40fc4a620d1");
+INSERT INTO R_OIR
+	VALUES ("474836ad-558f-45eb-8c7b-a3740b2b73b4",
+	"ba59be88-ec6e-4d68-972c-bd33e0bd43af",
+	"9bd0f36e-1069-4e3e-a281-c40fc4a620d1",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_PART
+	VALUES ("31832e28-c7f1-4e83-9c56-28614980fb33",
+	"ba59be88-ec6e-4d68-972c-bd33e0bd43af",
+	"4d10572d-b88e-4b86-9c2b-cc6e9b042cac",
+	0,
+	0,
+	'creates');
+INSERT INTO O_RTIDA
+	VALUES ("230b2bab-457c-4eae-bfe1-b824ac2f5324",
+	"31832e28-c7f1-4e83-9c56-28614980fb33",
+	0,
+	"ba59be88-ec6e-4d68-972c-bd33e0bd43af",
+	"4d10572d-b88e-4b86-9c2b-cc6e9b042cac");
+INSERT INTO O_OIDA_PROXY
+	VALUES ("230b2bab-457c-4eae-bfe1-b824ac2f5324",
+	"31832e28-c7f1-4e83-9c56-28614980fb33",
+	0,
+	'SMevt_ID',
+	'../State Machine/State Machine Event/State Machine Event.xtuml');
+INSERT INTO R_RTO
+	VALUES ("31832e28-c7f1-4e83-9c56-28614980fb33",
+	"ba59be88-ec6e-4d68-972c-bd33e0bd43af",
+	"4d10572d-b88e-4b86-9c2b-cc6e9b042cac",
+	0);
+INSERT INTO O_ID_PROXY
+	VALUES (0,
+	"31832e28-c7f1-4e83-9c56-28614980fb33",
+	'../State Machine/State Machine Event/State Machine Event.xtuml');
+INSERT INTO R_OIR
+	VALUES ("31832e28-c7f1-4e83-9c56-28614980fb33",
+	"ba59be88-ec6e-4d68-972c-bd33e0bd43af",
+	"4d10572d-b88e-4b86-9c2b-cc6e9b042cac",
+	"0ded7426-ba8a-4643-99c8-ddc8a19878cd");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("31832e28-c7f1-4e83-9c56-28614980fb33",
+	'State Machine Event',
+	503,
+	'SM_EVT',
+	'Represents an event for this state machine.  Events can be either State Event Matrix events (SM_SEVT) or polymorphic events (SM_PEVT).',
+	"00000000-0000-0000-0000-000000000000",
+	'../State Machine/State Machine Event/State Machine Event.xtuml');
+INSERT INTO PE_PE
+	VALUES ("ba59be88-ec6e-4d68-972c-bd33e0bd43af",
+	1,
+	"606f68be-000c-4a29-9fb9-dc0284d01f2a",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO R_SUBSUP
+	VALUES ("d6ced505-cdfb-4d98-81e2-506f2754d01d");
+INSERT INTO R_REL
+	VALUES ("d6ced505-cdfb-4d98-81e2-506f2754d01d",
+	704,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_SUPER
+	VALUES ("474836ad-558f-45eb-8c7b-a3740b2b73b4",
+	"d6ced505-cdfb-4d98-81e2-506f2754d01d",
+	"4a5449f9-28d0-4ba8-af74-ec734a49698a");
+INSERT INTO O_RTIDA
+	VALUES ("50eb9a91-f356-48f7-b53a-8f9cab18d73b",
+	"474836ad-558f-45eb-8c7b-a3740b2b73b4",
+	0,
+	"d6ced505-cdfb-4d98-81e2-506f2754d01d",
+	"4a5449f9-28d0-4ba8-af74-ec734a49698a");
+INSERT INTO O_OIDA_PROXY
+	VALUES ("50eb9a91-f356-48f7-b53a-8f9cab18d73b",
+	"474836ad-558f-45eb-8c7b-a3740b2b73b4",
+	0,
+	'Statement_ID',
+	'./Create SM Event Statement/Create SM Event Statement.xtuml');
+INSERT INTO R_RTO
+	VALUES ("474836ad-558f-45eb-8c7b-a3740b2b73b4",
+	"d6ced505-cdfb-4d98-81e2-506f2754d01d",
+	"4a5449f9-28d0-4ba8-af74-ec734a49698a",
+	0);
+INSERT INTO O_ID_PROXY
+	VALUES (0,
+	"474836ad-558f-45eb-8c7b-a3740b2b73b4",
+	'./Create SM Event Statement/Create SM Event Statement.xtuml');
+INSERT INTO R_OIR
+	VALUES ("474836ad-558f-45eb-8c7b-a3740b2b73b4",
+	"d6ced505-cdfb-4d98-81e2-506f2754d01d",
+	"4a5449f9-28d0-4ba8-af74-ec734a49698a",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_SUB
+	VALUES ("56212cde-ea40-4896-b0c6-87c1c9f62042",
+	"d6ced505-cdfb-4d98-81e2-506f2754d01d",
+	"ae78905a-e3b2-403a-ae58-84741394ea0d");
+INSERT INTO R_RGO
+	VALUES ("56212cde-ea40-4896-b0c6-87c1c9f62042",
+	"d6ced505-cdfb-4d98-81e2-506f2754d01d",
+	"ae78905a-e3b2-403a-ae58-84741394ea0d");
+INSERT INTO R_OIR
+	VALUES ("56212cde-ea40-4896-b0c6-87c1c9f62042",
+	"d6ced505-cdfb-4d98-81e2-506f2754d01d",
+	"ae78905a-e3b2-403a-ae58-84741394ea0d",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_SUB
+	VALUES ("f459f8c8-72c1-4c9d-a4c4-d20bce1b8aa8",
+	"d6ced505-cdfb-4d98-81e2-506f2754d01d",
+	"54873a15-1e75-4717-80a3-7f025ec1c00a");
+INSERT INTO R_RGO
+	VALUES ("f459f8c8-72c1-4c9d-a4c4-d20bce1b8aa8",
+	"d6ced505-cdfb-4d98-81e2-506f2754d01d",
+	"54873a15-1e75-4717-80a3-7f025ec1c00a");
+INSERT INTO R_OIR
+	VALUES ("f459f8c8-72c1-4c9d-a4c4-d20bce1b8aa8",
+	"d6ced505-cdfb-4d98-81e2-506f2754d01d",
+	"54873a15-1e75-4717-80a3-7f025ec1c00a",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("f459f8c8-72c1-4c9d-a4c4-d20bce1b8aa8",
+	'Create Event to Class',
+	703,
+	'E_CEA',
+	'This class represents the precreation of an event to a class for later delivery. Uses the same concepts as Generate to Class but does not actually generate the event. It instead yields an event instance that can be generated later using Generate Preexisting Event.',
+	"00000000-0000-0000-0000-000000000000",
+	'./Create Event to Class/Create Event to Class.xtuml');
+INSERT INTO R_SUB
+	VALUES ("701f94d5-1c57-470e-bac8-04556bfa6031",
+	"d6ced505-cdfb-4d98-81e2-506f2754d01d",
+	"9a59fd3b-2f13-4083-a11b-d6681f87c485");
+INSERT INTO R_RGO
+	VALUES ("701f94d5-1c57-470e-bac8-04556bfa6031",
+	"d6ced505-cdfb-4d98-81e2-506f2754d01d",
+	"9a59fd3b-2f13-4083-a11b-d6681f87c485");
+INSERT INTO R_OIR
+	VALUES ("701f94d5-1c57-470e-bac8-04556bfa6031",
+	"d6ced505-cdfb-4d98-81e2-506f2754d01d",
+	"9a59fd3b-2f13-4083-a11b-d6681f87c485",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("701f94d5-1c57-470e-bac8-04556bfa6031",
+	'Create Event to Creator',
+	708,
+	'E_CEC',
+	'This class specifies the precreation of a creation event to a class for later delivery. Uses the same concepts as Generate to Creator but does not actually generate the event. It instead yields an event instance that can be generated later using Generate Preexisting Event.',
+	"00000000-0000-0000-0000-000000000000",
+	'./Create Event to Creator/Create Event to Creator.xtuml');
+INSERT INTO PE_PE
+	VALUES ("d6ced505-cdfb-4d98-81e2-506f2754d01d",
+	1,
+	"606f68be-000c-4a29-9fb9-dc0284d01f2a",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO R_SUBSUP
+	VALUES ("44121ee7-6ab4-443d-87d8-6daa567b1eb9");
+INSERT INTO R_REL
+	VALUES ("44121ee7-6ab4-443d-87d8-6daa567b1eb9",
+	705,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_SUPER
+	VALUES ("c9d6f9f3-7f71-464d-aa5f-de6671ae0494",
+	"44121ee7-6ab4-443d-87d8-6daa567b1eb9",
+	"caacd550-2e31-4907-a361-f89968e3a971");
+INSERT INTO O_RTIDA
+	VALUES ("c4e97159-2dbd-4ead-8bdd-d0edb604481f",
+	"c9d6f9f3-7f71-464d-aa5f-de6671ae0494",
+	0,
+	"44121ee7-6ab4-443d-87d8-6daa567b1eb9",
+	"caacd550-2e31-4907-a361-f89968e3a971");
+INSERT INTO O_OIDA_PROXY
+	VALUES ("c4e97159-2dbd-4ead-8bdd-d0edb604481f",
+	"c9d6f9f3-7f71-464d-aa5f-de6671ae0494",
+	0,
+	'Statement_ID',
+	'./Generate SM Event Statement/Generate SM Event Statement.xtuml');
+INSERT INTO R_RTO
+	VALUES ("c9d6f9f3-7f71-464d-aa5f-de6671ae0494",
+	"44121ee7-6ab4-443d-87d8-6daa567b1eb9",
+	"caacd550-2e31-4907-a361-f89968e3a971",
+	0);
+INSERT INTO O_ID_PROXY
+	VALUES (0,
+	"c9d6f9f3-7f71-464d-aa5f-de6671ae0494",
+	'./Generate SM Event Statement/Generate SM Event Statement.xtuml');
+INSERT INTO R_OIR
+	VALUES ("c9d6f9f3-7f71-464d-aa5f-de6671ae0494",
+	"44121ee7-6ab4-443d-87d8-6daa567b1eb9",
+	"caacd550-2e31-4907-a361-f89968e3a971",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_SUB
+	VALUES ("56227d49-b934-4d03-a983-b238fd460030",
+	"44121ee7-6ab4-443d-87d8-6daa567b1eb9",
+	"ae09669c-7e86-4e08-920d-8dc6ab1a6bb7");
+INSERT INTO R_RGO
+	VALUES ("56227d49-b934-4d03-a983-b238fd460030",
+	"44121ee7-6ab4-443d-87d8-6daa567b1eb9",
+	"ae09669c-7e86-4e08-920d-8dc6ab1a6bb7");
+INSERT INTO R_OIR
+	VALUES ("56227d49-b934-4d03-a983-b238fd460030",
+	"44121ee7-6ab4-443d-87d8-6daa567b1eb9",
+	"ae09669c-7e86-4e08-920d-8dc6ab1a6bb7",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_SUB
+	VALUES ("1a05928b-a617-4957-9a3a-c6f1dcc3e3c2",
+	"44121ee7-6ab4-443d-87d8-6daa567b1eb9",
+	"fe3d4a3d-e826-4ccd-a776-687315a725f9");
+INSERT INTO R_RGO
+	VALUES ("1a05928b-a617-4957-9a3a-c6f1dcc3e3c2",
+	"44121ee7-6ab4-443d-87d8-6daa567b1eb9",
+	"fe3d4a3d-e826-4ccd-a776-687315a725f9");
+INSERT INTO R_OIR
+	VALUES ("1a05928b-a617-4957-9a3a-c6f1dcc3e3c2",
+	"44121ee7-6ab4-443d-87d8-6daa567b1eb9",
+	"fe3d4a3d-e826-4ccd-a776-687315a725f9",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("1a05928b-a617-4957-9a3a-c6f1dcc3e3c2",
+	'Generate to Class',
+	704,
+	'E_GAR',
+	'This class represents the generation of an event to a target class.',
+	"00000000-0000-0000-0000-000000000000",
+	'./Generate to Class/Generate to Class.xtuml');
+INSERT INTO R_SUB
+	VALUES ("c821e0c7-aea1-48e4-bc39-843e15e0cef6",
+	"44121ee7-6ab4-443d-87d8-6daa567b1eb9",
+	"6e9eabf4-e26c-4196-a301-ec7cb3504f12");
+INSERT INTO R_RGO
+	VALUES ("c821e0c7-aea1-48e4-bc39-843e15e0cef6",
+	"44121ee7-6ab4-443d-87d8-6daa567b1eb9",
+	"6e9eabf4-e26c-4196-a301-ec7cb3504f12");
+INSERT INTO R_OIR
+	VALUES ("c821e0c7-aea1-48e4-bc39-843e15e0cef6",
+	"44121ee7-6ab4-443d-87d8-6daa567b1eb9",
+	"6e9eabf4-e26c-4196-a301-ec7cb3504f12",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("c821e0c7-aea1-48e4-bc39-843e15e0cef6",
+	'Generate to Creator',
+	705,
+	'E_GEC',
+	'This class represents the generation of a creation event to a target class. This has the effect of creating an instance and then delivering the event to the instance.',
+	"00000000-0000-0000-0000-000000000000",
+	'./Generate to Creator/Generate to Creator.xtuml');
+INSERT INTO PE_PE
+	VALUES ("44121ee7-6ab4-443d-87d8-6daa567b1eb9",
+	1,
+	"606f68be-000c-4a29-9fb9-dc0284d01f2a",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO R_SIMP
+	VALUES ("bb62b48a-c5b2-4f77-af79-09f1c2516a88");
+INSERT INTO R_REL
+	VALUES ("bb62b48a-c5b2-4f77-af79-09f1c2516a88",
+	707,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_FORM
+	VALUES ("c9d6f9f3-7f71-464d-aa5f-de6671ae0494",
+	"bb62b48a-c5b2-4f77-af79-09f1c2516a88",
+	"38eb844f-e558-4abb-9eab-b22858fe690d",
+	1,
+	1,
+	'');
+INSERT INTO R_RGO
+	VALUES ("c9d6f9f3-7f71-464d-aa5f-de6671ae0494",
+	"bb62b48a-c5b2-4f77-af79-09f1c2516a88",
+	"38eb844f-e558-4abb-9eab-b22858fe690d");
+INSERT INTO R_OIR
+	VALUES ("c9d6f9f3-7f71-464d-aa5f-de6671ae0494",
+	"bb62b48a-c5b2-4f77-af79-09f1c2516a88",
+	"38eb844f-e558-4abb-9eab-b22858fe690d",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_PART
+	VALUES ("31832e28-c7f1-4e83-9c56-28614980fb33",
+	"bb62b48a-c5b2-4f77-af79-09f1c2516a88",
+	"888ca27b-0f7d-4999-939e-888177807ee5",
+	0,
+	0,
+	'generates');
+INSERT INTO O_RTIDA
+	VALUES ("230b2bab-457c-4eae-bfe1-b824ac2f5324",
+	"31832e28-c7f1-4e83-9c56-28614980fb33",
+	0,
+	"bb62b48a-c5b2-4f77-af79-09f1c2516a88",
+	"888ca27b-0f7d-4999-939e-888177807ee5");
+INSERT INTO R_RTO
+	VALUES ("31832e28-c7f1-4e83-9c56-28614980fb33",
+	"bb62b48a-c5b2-4f77-af79-09f1c2516a88",
+	"888ca27b-0f7d-4999-939e-888177807ee5",
+	0);
+INSERT INTO R_OIR
+	VALUES ("31832e28-c7f1-4e83-9c56-28614980fb33",
+	"bb62b48a-c5b2-4f77-af79-09f1c2516a88",
+	"888ca27b-0f7d-4999-939e-888177807ee5",
+	"0ded7426-ba8a-4643-99c8-ddc8a19878cd");
+INSERT INTO PE_PE
+	VALUES ("bb62b48a-c5b2-4f77-af79-09f1c2516a88",
+	1,
+	"606f68be-000c-4a29-9fb9-dc0284d01f2a",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO R_SIMP
+	VALUES ("f45c730e-58ba-42e8-ba32-5916cb7146aa");
+INSERT INTO R_REL
+	VALUES ("f45c730e-58ba-42e8-ba32-5916cb7146aa",
+	700,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_PART
+	VALUES ("807105ed-4221-4000-89eb-a51948da9ee4",
+	"f45c730e-58ba-42e8-ba32-5916cb7146aa",
+	"5b69febd-693e-47bf-b56f-2ce973c06af2",
+	0,
+	1,
+	'');
+INSERT INTO O_RTIDA
+	VALUES ("56ed8676-8187-49f7-b408-d1c762b9d289",
+	"807105ed-4221-4000-89eb-a51948da9ee4",
+	0,
+	"f45c730e-58ba-42e8-ba32-5916cb7146aa",
+	"5b69febd-693e-47bf-b56f-2ce973c06af2");
+INSERT INTO R_RTO
+	VALUES ("807105ed-4221-4000-89eb-a51948da9ee4",
+	"f45c730e-58ba-42e8-ba32-5916cb7146aa",
+	"5b69febd-693e-47bf-b56f-2ce973c06af2",
+	0);
+INSERT INTO R_OIR
+	VALUES ("807105ed-4221-4000-89eb-a51948da9ee4",
+	"f45c730e-58ba-42e8-ba32-5916cb7146aa",
+	"5b69febd-693e-47bf-b56f-2ce973c06af2",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_FORM
+	VALUES ("c9df3995-9d10-4b42-b2ca-1c82f443051c",
+	"f45c730e-58ba-42e8-ba32-5916cb7146aa",
+	"a496d2eb-7651-45a5-9390-1e9ae7029014",
+	1,
+	1,
+	'');
+INSERT INTO R_RGO
+	VALUES ("c9df3995-9d10-4b42-b2ca-1c82f443051c",
+	"f45c730e-58ba-42e8-ba32-5916cb7146aa",
+	"a496d2eb-7651-45a5-9390-1e9ae7029014");
+INSERT INTO R_OIR
+	VALUES ("c9df3995-9d10-4b42-b2ca-1c82f443051c",
+	"f45c730e-58ba-42e8-ba32-5916cb7146aa",
+	"a496d2eb-7651-45a5-9390-1e9ae7029014",
+	"95c64024-7771-48bc-b3a1-9e18c37e06ce");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("c9df3995-9d10-4b42-b2ca-1c82f443051c",
+	'Actual Parameter',
+	801,
+	'V_PAR',
+	'This class represents the actual parameter value passed to a Function, Bridge or an Operation.',
+	"00000000-0000-0000-0000-000000000000",
+	'../Value/Actual Parameter/Actual Parameter.xtuml');
+INSERT INTO PE_PE
+	VALUES ("f45c730e-58ba-42e8-ba32-5916cb7146aa",
+	1,
+	"606f68be-000c-4a29-9fb9-dc0284d01f2a",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO R_SIMP
+	VALUES ("82294ba6-3638-4995-8076-5204ae1aad18");
+INSERT INTO R_REL
+	VALUES ("82294ba6-3638-4995-8076-5204ae1aad18",
+	714,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_FORM
+	VALUES ("dc8e7dff-4cdb-4160-a179-2f0c9443d0fb",
+	"82294ba6-3638-4995-8076-5204ae1aad18",
+	"ac5c10b4-887c-40bf-899f-413b6900f475",
+	0,
+	1,
+	'holds event to be generated by');
+INSERT INTO R_RGO
+	VALUES ("dc8e7dff-4cdb-4160-a179-2f0c9443d0fb",
+	"82294ba6-3638-4995-8076-5204ae1aad18",
+	"ac5c10b4-887c-40bf-899f-413b6900f475");
+INSERT INTO R_OIR
+	VALUES ("dc8e7dff-4cdb-4160-a179-2f0c9443d0fb",
+	"82294ba6-3638-4995-8076-5204ae1aad18",
+	"ac5c10b4-887c-40bf-899f-413b6900f475",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("dc8e7dff-4cdb-4160-a179-2f0c9443d0fb",
+	'Generate Preexisting Event',
+	702,
+	'E_GPR',
+	'Generates a preexisting event. The event instance captures the event, its data and its target.',
+	"00000000-0000-0000-0000-000000000000",
+	'./Generate Preexisting Event/Generate Preexisting Event.xtuml');
+INSERT INTO R_PART
+	VALUES ("80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	"82294ba6-3638-4995-8076-5204ae1aad18",
+	"1b29af3d-093d-4fd4-921e-df1b3cad983c",
+	0,
+	1,
+	'generates event held by');
+INSERT INTO O_RTIDA
+	VALUES ("4fd005ad-1159-4343-a12e-ed125f7adea1",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	0,
+	"82294ba6-3638-4995-8076-5204ae1aad18",
+	"1b29af3d-093d-4fd4-921e-df1b3cad983c");
+INSERT INTO O_OIDA_PROXY
+	VALUES ("4fd005ad-1159-4343-a12e-ed125f7adea1",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	0,
+	'Value_ID',
+	'../Value/Value/Value.xtuml');
+INSERT INTO R_RTO
+	VALUES ("80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	"82294ba6-3638-4995-8076-5204ae1aad18",
+	"1b29af3d-093d-4fd4-921e-df1b3cad983c",
+	0);
+INSERT INTO O_ID_PROXY
+	VALUES (0,
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	'../Value/Value/Value.xtuml');
+INSERT INTO R_OIR
+	VALUES ("80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	"82294ba6-3638-4995-8076-5204ae1aad18",
+	"1b29af3d-093d-4fd4-921e-df1b3cad983c",
+	"a7243c96-bdfe-45f3-84aa-90a7e5e2b2bd");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	'Value',
+	800,
+	'V_VAL',
+	'A value (r-value) may be assigned to a variable, attribute or parameter
+(l-values). There are many different kinds of value in a model. This class
+captures this observation in a supertype.',
+	"00000000-0000-0000-0000-000000000000",
+	'../Value/Value/Value.xtuml');
+INSERT INTO PE_PE
+	VALUES ("82294ba6-3638-4995-8076-5204ae1aad18",
+	1,
+	"606f68be-000c-4a29-9fb9-dc0284d01f2a",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO O_IOBJ
+	VALUES ("95c64024-7771-48bc-b3a1-9e18c37e06ce",
+	"c9df3995-9d10-4b42-b2ca-1c82f443051c",
+	5,
+	"00000000-0000-0000-0000-000000000000",
+	'Actual Parameter',
+	'V_PAR');
+INSERT INTO PE_PE
+	VALUES ("95c64024-7771-48bc-b3a1-9e18c37e06ce",
+	1,
+	"606f68be-000c-4a29-9fb9-dc0284d01f2a",
+	"00000000-0000-0000-0000-000000000000",
+	19);
+INSERT INTO O_IOBJ
+	VALUES ("a9c2d5bf-11f1-4609-ac03-fd73b56b98c6",
+	"04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",
+	5,
+	"00000000-0000-0000-0000-000000000000",
+	'Variable',
+	'V_VAR');
+INSERT INTO PE_PE
+	VALUES ("a9c2d5bf-11f1-4609-ac03-fd73b56b98c6",
+	1,
+	"606f68be-000c-4a29-9fb9-dc0284d01f2a",
+	"00000000-0000-0000-0000-000000000000",
+	19);
+INSERT INTO O_IOBJ
+	VALUES ("559333e5-c9d8-45f9-93b5-eab2adc2745a",
+	"04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",
+	5,
+	"00000000-0000-0000-0000-000000000000",
+	'Variable',
+	'V_VAR');
+INSERT INTO PE_PE
+	VALUES ("559333e5-c9d8-45f9-93b5-eab2adc2745a",
+	1,
+	"606f68be-000c-4a29-9fb9-dc0284d01f2a",
+	"00000000-0000-0000-0000-000000000000",
+	19);
+INSERT INTO O_IOBJ
+	VALUES ("652c5914-8a61-4891-af5d-a9855fd0bbc1",
+	"5adc63b1-9773-4ea9-97ef-67828018b3a6",
+	5,
+	"00000000-0000-0000-0000-000000000000",
+	'External Entity Event',
+	'S_EEEVT');
+INSERT INTO PE_PE
+	VALUES ("652c5914-8a61-4891-af5d-a9855fd0bbc1",
+	1,
+	"606f68be-000c-4a29-9fb9-dc0284d01f2a",
+	"00000000-0000-0000-0000-000000000000",
+	19);
+INSERT INTO O_IOBJ
+	VALUES ("0ded7426-ba8a-4643-99c8-ddc8a19878cd",
+	"31832e28-c7f1-4e83-9c56-28614980fb33",
+	5,
+	"00000000-0000-0000-0000-000000000000",
+	'State Machine Event',
+	'SM_EVT');
+INSERT INTO PE_PE
+	VALUES ("0ded7426-ba8a-4643-99c8-ddc8a19878cd",
+	1,
+	"606f68be-000c-4a29-9fb9-dc0284d01f2a",
+	"00000000-0000-0000-0000-000000000000",
+	19);
+INSERT INTO O_IOBJ
+	VALUES ("a7243c96-bdfe-45f3-84aa-90a7e5e2b2bd",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	0,
+	"00000000-0000-0000-0000-000000000000",
+	'Value',
+	'V_VAL');
+INSERT INTO PE_PE
+	VALUES ("a7243c96-bdfe-45f3-84aa-90a7e5e2b2bd",
+	1,
+	"606f68be-000c-4a29-9fb9-dc0284d01f2a",
+	"00000000-0000-0000-0000-000000000000",
+	19);
+INSERT INTO PE_PE
+	VALUES ("606f68be-000c-4a29-9fb9-dc0284d01f2a",
+	1,
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
+	7);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
+	'ooaofooa',
+	'========================================================================
+
+File:          $RCSfile: ooaofooa.xtuml,v $
+Version:   $Revision: 1.127 $
+Modified:  $Date: 2006/09/26 15:10:20 $
+
+(c) Copyright 2004-2014 by Mentor Graphics Corp. All rights reserved.
+
+========================================================================
+Licensed under the Apache License, Version 2.0 (the "License"); you may not
+use this file except in compliance with the License.  You may obtain a copy
+of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the
+License for the specific language governing permissions and limitations under
+the License.
+========================================================================
+
+This is the application domain for the Tiger project.
+
+The processing in this model describes the activities
+for model capture.
+
+
+
+',
+	0,
+	'../ooaofooa.xtuml');
+INSERT INTO S_SYS_PROXY
+	VALUES ("d9bc5487-4193-4817-be1c-6c3f3339aebf",
+	'org.xtuml.bp.core',
+	1,
+	'../../org.xtuml.bp.core.xtuml');

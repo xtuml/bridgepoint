@@ -6,13 +6,13 @@ INSERT INTO O_OBJ
 	9,
 	'S_DT',
 	'An analyst can assign a data type to the various data items in the models, i.e., class attribute, state machine event data item, operation and bridge parameters and return values.  This data type does not capture the representation of the data items, but rather, the characteristics of the data items including:  1) Value Definition, i.e., whole numbers, 2) Value Range, i.e., values between 0 and 10, 3) Operations, i.e., +, -, *, /',
-	"703df30a-ee7e-44ec-a7cf-22d2171bb270");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("fed4c822-5710-4d4f-a1f9-11d58e0cdbe9",
 	"ead52fac-9782-434b-a35c-c07452c3b26d",
 	'dispose',
 	'The dispose operation for this class.  Return values get set to a default of void.  Parameters to integer.',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
 // Get some default core data types
@@ -259,19 +259,12 @@ delete object instance self;',
 	1,
 	'',
 	"223070b1-d040-4076-bcc0-cb4c2145e1b4");
-INSERT INTO S_DT_PROXY
-	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'void',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("b3bb0f76-820b-4040-a53b-141dcdc6e300",
 	"ead52fac-9782-434b-a35c-c07452c3b26d",
 	'initialize',
 	'The initialization operation for this class.',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'name = ::getUniqueInitialName( 
     instance: self.convertToInstance(), 
@@ -290,24 +283,17 @@ INSERT INTO O_TPARM
 	VALUES ("4a90e171-d283-475a-abfc-8bd8c4eb180a",
 	"b3bb0f76-820b-4040-a53b-141dcdc6e300",
 	'newname',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'string',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("0852d31a-5351-452a-bd25-93944aba561d",
 	"ead52fac-9782-434b-a35c-c07452c3b26d",
 	'rename',
 	'Rename this data type.',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'select one cdt related by self->S_CDT[R17];
 if (not_empty cdt)
@@ -324,24 +310,17 @@ INSERT INTO O_TPARM
 	VALUES ("4ad15eda-c50f-467a-bdc3-608c933adc6f",
 	"0852d31a-5351-452a-bd25-93944aba561d",
 	'new_name',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("8e519c45-7dcf-400b-9d4e-954869dbb7e8",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'boolean',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("1ce2cce9-1750-477d-9888-58615de0caf9",
 	"ead52fac-9782-434b-a35c-c07452c3b26d",
 	'isCommonAllowedType',
 	'',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'//data Type::isCommonAllowedType()
 select one udt related by self -> S_UDT[R17];
@@ -382,7 +361,7 @@ INSERT INTO O_TFR
 	"ead52fac-9782-434b-a35c-c07452c3b26d",
 	'isAllowedReturnType',
 	'',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	0,
 	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
 // this operation assumes that the caller is
@@ -409,7 +388,7 @@ INSERT INTO O_TPARM
 	VALUES ("80c99cbe-2bc5-4ac0-8699-a9302056eb4b",
 	"ebeb9217-5098-4c6f-82e4-b7a4d33406c2",
 	'typeName',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -418,24 +397,17 @@ INSERT INTO O_TPARM
 	VALUES ("9353a1d6-e9d3-45ce-b13d-34a42868f47d",
 	"ebeb9217-5098-4c6f-82e4-b7a4d33406c2",
 	'dom_id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"80c99cbe-2bc5-4ac0-8699-a9302056eb4b",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'unique_id',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("c6ea855a-924f-4437-8266-772dc10faff5",
 	"ead52fac-9782-434b-a35c-c07452c3b26d",
 	'isAllowedParameterType',
 	'',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	0,
 	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
 // this operation assumes that the caller is
@@ -461,7 +433,7 @@ INSERT INTO O_TPARM
 	VALUES ("bb00d6e9-a915-4844-a57f-e2d7ed5c5e28",
 	"c6ea855a-924f-4437-8266-772dc10faff5",
 	'typeName',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -470,7 +442,7 @@ INSERT INTO O_TPARM
 	VALUES ("39d39857-57a3-49d5-9af0-03f2b1003fad",
 	"c6ea855a-924f-4437-8266-772dc10faff5",
 	'dom_id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"bb00d6e9-a915-4844-a57f-e2d7ed5c5e28",
@@ -492,7 +464,7 @@ return this;',
 	"366490eb-af67-4215-9be3-e736a0d839c2");
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
 	'instance',
 	'',
 	'',
@@ -554,7 +526,7 @@ INSERT INTO O_TFR
 	"ead52fac-9782-434b-a35c-c07452c3b26d",
 	'getCoreDataTypeName',
 	'',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'select one cdt related by self->S_CDT[R17];
 select one udt related by self->S_UDT[R17];
@@ -616,7 +588,7 @@ INSERT INTO O_TFR
 	"ead52fac-9782-434b-a35c-c07452c3b26d",
 	'associateDTWithDomain',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
 select any domain from instances of S_DOM where (selected.Dom_ID == param.dom_id);
@@ -648,7 +620,7 @@ INSERT INTO O_TPARM
 	VALUES ("5e54293e-a896-425c-b6bf-630674c8a2d2",
 	"dbeb1a7b-a6c6-48db-af24-4eba00709a95",
 	'dom_id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -658,7 +630,7 @@ INSERT INTO O_TFR
 	"ead52fac-9782-434b-a35c-c07452c3b26d",
 	'associateDTWithSystem',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
 select any system from instances of S_SYS
@@ -694,7 +666,7 @@ INSERT INTO O_TPARM
 	VALUES ("67c38201-7435-4940-866b-46c1c30047f7",
 	"366490eb-af67-4215-9be3-e736a0d839c2",
 	'sys_id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -704,7 +676,7 @@ INSERT INTO O_TFR
 	"ead52fac-9782-434b-a35c-c07452c3b26d",
 	'resolveDomain',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
 select one packageableElem related by self->PE_PE[R8001];
@@ -728,7 +700,7 @@ INSERT INTO O_TFR
 	"ead52fac-9782-434b-a35c-c07452c3b26d",
 	'getDefaultDataTypeName',
 	'',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	0,
 	'if(param.elementType == "InterfaceOperation")
   return "void";
@@ -771,7 +743,7 @@ INSERT INTO O_TPARM
 	VALUES ("a8a30cca-1084-44bd-b639-e2ccb9980f07",
 	"3b698a92-8d02-4596-80e7-08b88c26c702",
 	'elementType',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -781,7 +753,7 @@ INSERT INTO O_TFR
 	"ead52fac-9782-434b-a35c-c07452c3b26d",
 	'getPath',
 	'',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
 // Data Type::getPath()
@@ -824,7 +796,7 @@ INSERT INTO O_TPARM
 	VALUES ("79908e4c-773d-436b-b634-fc00358e63b8",
 	"2bf571a5-4f94-404e-899f-1b2ed2dafc5a",
 	'path',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -833,7 +805,7 @@ INSERT INTO O_TPARM
 	VALUES ("a52ae35c-5e95-4976-80aa-77256bc97145",
 	"2bf571a5-4f94-404e-899f-1b2ed2dafc5a",
 	'includeSelf',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	0,
 	'',
 	"79908e4c-773d-436b-b634-fc00358e63b8",
@@ -853,7 +825,7 @@ INSERT INTO O_ATTR
 	'',
 	'Name',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -871,7 +843,7 @@ INSERT INTO O_ATTR
 	'',
 	'Descrip',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_REF
@@ -889,7 +861,7 @@ INSERT INTO O_REF
 	'',
 	'Domain',
 	'Dom_ID',
-	'R14');
+	'R14.''defines types available within''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("ead52fac-9782-434b-a35c-c07452c3b26d",
 	"b8ee1db7-309d-4b21-a102-402f408b4aaa",
@@ -922,16 +894,9 @@ INSERT INTO O_ATTR
 	'',
 	'Dom_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("169f7562-7c51-44ea-92d7-d5d8c375bf13",
 	"ead52fac-9782-434b-a35c-c07452c3b26d");
@@ -949,7 +914,7 @@ Description: This attribute holds text representing the initialization value for
 	'',
 	'DefaultValue',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_REF
@@ -1000,7 +965,7 @@ INSERT INTO O_ATTR
 	'',
 	'DT_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_ID
@@ -1022,12 +987,17 @@ INSERT INTO O_OIDA
 INSERT INTO O_ID
 	VALUES (2,
 	"ead52fac-9782-434b-a35c-c07452c3b26d");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("ead52fac-9782-434b-a35c-c07452c3b26d",
+	1,
+	"703df30a-ee7e-44ec-a7cf-22d2171bb270",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("703df30a-ee7e-44ec-a7cf-22d2171bb270",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Domain',
 	'A domain (S_DOM) consists of one or more subsystems (S_SS) that each contain an information model that abstracts a portion of the data for the domain: classes (O_OBJ), associations (R_REL), etc.  Breaking a domain into subsystems allows the complexity of the domain to be more easily managed: 1) subsystems are components and can be checked out individually allowing parallelism in development of the models and 2) breaking up a domain into smaller units is easier to understand.  A subsystem is composed of classes that tend to cluster, i.e., they have few associations that span subsystem boundaries.  Inter-subsystem associations, communications, and accesses are captured in the Subsystem Relationship Model (SRM), Subsystem Communication Model (SCM), and Subsystem Access Model (SAM) respectively.',
-	'S',
 	1,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000100002",
 	'../Domain.xtuml');

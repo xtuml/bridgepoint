@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("8dda05a2-aafb-4bfc-ba3e-6949da87f72b",
@@ -6,13 +6,13 @@ INSERT INTO O_OBJ
 	212,
 	'R_SUBSUP',
 	'A supertype/subtype association (R_SUBSUP) is an  between two classes, a supertype (R_SUPER) and a subtype (R_SUB).   The class that holds the referential attributes for  the association is know as the referring class in the association (R_RGO) and the class that participates in the association and carries the identifying attributes used to formalize the association is the referred to class  (R_RTO).  Supertype/Subtype associations are always formalized in the subtype (R_SUB).',
-	"c8d78fd5-1314-444a-bad0-6af79f6e1296");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("1a18fcf9-fadb-4aac-8963-310ca26e032d",
 	"8dda05a2-aafb-4bfc-ba3e-6949da87f72b",
 	'dispose',
 	'The dispose operation for the R_SUPSUB class.',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select one assoc related by self->R_REL[R206];
 unrelate self from assoc across R206;
@@ -20,19 +20,12 @@ delete object instance self;',
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO S_DT_PROXY
-	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'void',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("4483e3f2-22d9-4f64-b77b-37e00a8c932d",
 	"8dda05a2-aafb-4bfc-ba3e-6949da87f72b",
 	'isFormalized',
 	'',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'select one rto related by self->R_SUPER[R212]->R_RTO[R204];
 select any rtida related by rto->O_RTIDA[R110];
@@ -41,19 +34,12 @@ return not_empty rtida;
 	1,
 	'',
 	"34770236-2043-419f-b9ad-a04e9600680a");
-INSERT INTO S_DT_PROXY
-	VALUES ("8e519c45-7dcf-400b-9d4e-954869dbb7e8",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'boolean',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("34770236-2043-419f-b9ad-a04e9600680a",
 	"8dda05a2-aafb-4bfc-ba3e-6949da87f72b",
 	'formalize',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'if ( self.isFormalized() )
   self.unformalize();
@@ -90,24 +76,17 @@ INSERT INTO O_TPARM
 	VALUES ("a6833ab9-01d3-468b-9667-d18ceb755fe0",
 	"34770236-2043-419f-b9ad-a04e9600680a",
 	'id',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'integer',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("4670bce9-1563-49c0-a4df-cacdd442fad0",
 	"8dda05a2-aafb-4bfc-ba3e-6949da87f72b",
 	'unformalize',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'
 select one sup_rto related by self->R_SUPER[R212]->R_RTO[R204];
@@ -170,16 +149,9 @@ INSERT INTO O_ATTR
 	'',
 	'Rel_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_ID
 	VALUES (0,
 	"8dda05a2-aafb-4bfc-ba3e-6949da87f72b");
@@ -194,12 +166,17 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"8dda05a2-aafb-4bfc-ba3e-6949da87f72b");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("8dda05a2-aafb-4bfc-ba3e-6949da87f72b",
+	1,
+	"c8d78fd5-1314-444a-bad0-6af79f6e1296",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("c8d78fd5-1314-444a-bad0-6af79f6e1296",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Association',
 	'A association (R_REL) captures an association between things in the real world. A association is stated in terms of the formal classs (O_OBJ) that model the real world entities participating in the association. There can be any number of associations between the same two classs and any class can participate in any number of associations with other classs.',
-	'R',
 	201,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000180003",
 	'../Association.xtuml');

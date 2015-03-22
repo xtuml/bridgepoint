@@ -1,21 +1,21 @@
 -- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
-	VALUES ("0abf6311-5b6c-4f6c-b951-2934229dac36",
+	VALUES ("63e371af-096d-4eaa-bacb-ef4fc52cec01",
 	'FormalizeASSRReflexive OBJ_OBJ',
 	309,
 	'T_FORM',
 	'',
 	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_NBATTR
-	VALUES ("375587b3-9d66-4752-a191-965b1fc8fa9f",
-	"0abf6311-5b6c-4f6c-b951-2934229dac36");
+	VALUES ("193ac47d-ca1a-4059-97e7-496f14d49732",
+	"63e371af-096d-4eaa-bacb-ef4fc52cec01");
 INSERT INTO O_BATTR
-	VALUES ("375587b3-9d66-4752-a191-965b1fc8fa9f",
-	"0abf6311-5b6c-4f6c-b951-2934229dac36");
+	VALUES ("193ac47d-ca1a-4059-97e7-496f14d49732",
+	"63e371af-096d-4eaa-bacb-ef4fc52cec01");
 INSERT INTO O_ATTR
-	VALUES ("375587b3-9d66-4752-a191-965b1fc8fa9f",
-	"0abf6311-5b6c-4f6c-b951-2934229dac36",
+	VALUES ("193ac47d-ca1a-4059-97e7-496f14d49732",
+	"63e371af-096d-4eaa-bacb-ef4fc52cec01",
 	"00000000-0000-0000-0000-000000000000",
 	'testAttrFormalizer',
 	'',
@@ -27,26 +27,26 @@ INSERT INTO O_ATTR
 	'');
 INSERT INTO O_ID
 	VALUES (0,
-	"0abf6311-5b6c-4f6c-b951-2934229dac36");
+	"63e371af-096d-4eaa-bacb-ef4fc52cec01");
 INSERT INTO O_OIDA
-	VALUES ("375587b3-9d66-4752-a191-965b1fc8fa9f",
-	"0abf6311-5b6c-4f6c-b951-2934229dac36",
+	VALUES ("193ac47d-ca1a-4059-97e7-496f14d49732",
+	"63e371af-096d-4eaa-bacb-ef4fc52cec01",
 	0,
 	'testAttrFormalizer');
 INSERT INTO O_ID
 	VALUES (1,
-	"0abf6311-5b6c-4f6c-b951-2934229dac36");
+	"63e371af-096d-4eaa-bacb-ef4fc52cec01");
 INSERT INTO O_ID
 	VALUES (2,
-	"0abf6311-5b6c-4f6c-b951-2934229dac36");
+	"63e371af-096d-4eaa-bacb-ef4fc52cec01");
 INSERT INTO PE_PE
-	VALUES ("0abf6311-5b6c-4f6c-b951-2934229dac36",
+	VALUES ("63e371af-096d-4eaa-bacb-ef4fc52cec01",
 	1,
-	"4b5d272a-311a-418d-a9b9-41c18029d7f3",
+	"196b8b2b-cb6a-45da-b8aa-2ff6abcfde19",
 	"00000000-0000-0000-0000-000000000000",
 	4);
 INSERT INTO EP_PKG_PROXY
-	VALUES ("4b5d272a-311a-418d-a9b9-41c18029d7f3",
+	VALUES ("196b8b2b-cb6a-45da-b8aa-2ff6abcfde19",
 	"00000000-0000-0000-0000-000000000000",
 	"c6693612-7c4f-42e5-b64f-16c64f288945",
 	'FAL Tests',

@@ -6,13 +6,13 @@ INSERT INTO O_OBJ
 	2904,
 	'I_INS',
 	'',
-	"97c1ace4-0148-4235-83cb-1fd8e2d2514d");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("66729cd1-616e-42a8-8039-22ff5d794e39",
 	"c50d7849-51aa-4f4f-a7aa-431b4b07a5e3",
 	'takeEvent',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'//Instance:Instance.takeEvent()
 select one stateMachine related by self ->CSME_CIE[R2962]->O_OBJ[R2961]->SM_ISM[R518]->SM_SM[R517];  
@@ -303,56 +303,35 @@ INSERT INTO O_TPARM
 	VALUES ("d191550f-7f80-4973-aba9-8ee7b5e169ed",
 	"66729cd1-616e-42a8-8039-22ff5d794e39",
 	'stack_id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"928b6a6b-3d52-4c85-8741-f08c2b7ffc22",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'unique_id',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TPARM
 	VALUES ("8470bce5-a6ea-4174-9e5b-d15b6462d7ff",
 	"66729cd1-616e-42a8-8039-22ff5d794e39",
 	'step_in',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	0,
 	'',
 	"d191550f-7f80-4973-aba9-8ee7b5e169ed",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("8e519c45-7dcf-400b-9d4e-954869dbb7e8",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'boolean',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TPARM
 	VALUES ("928b6a6b-3d52-4c85-8741-f08c2b7ffc22",
 	"66729cd1-616e-42a8-8039-22ff5d794e39",
 	'event_queue_entry_id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'void',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("806cfa5c-2f94-4740-be06-c0161d7b1d26",
 	"c50d7849-51aa-4f4f-a7aa-431b4b07a5e3",
 	'dispose',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// Instance:Instance.dispose()
 
@@ -448,7 +427,7 @@ INSERT INTO O_TFR
 an instance upon creation.  For example, it will create any attributes for
 unique identifiers, populate their values, and if an instance state machine
 exists it will relate the states to this instance.',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'//Instance.initialize
 select one stateMachine related by self ->SM_TXN[R2953]->SM_STATE[R506]->SM_SM[R501];
@@ -579,7 +558,7 @@ INSERT INTO O_TPARM
 	VALUES ("2a8d06b2-03c9-44c1-a477-ff4acec12c6c",
 	"32894210-4f53-4e1e-9a5e-d4569a26b598",
 	'initializeState',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -589,7 +568,7 @@ INSERT INTO O_TFR
 	"c50d7849-51aa-4f4f-a7aa-431b4b07a5e3",
 	'stepIn',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// Instance.stepIn()
 select one stateMachine related by self ->SM_TXN[R2953]->SM_STATE[R506]->SM_SM[R501];                                   
@@ -619,7 +598,7 @@ INSERT INTO O_TFR
 	"c50d7849-51aa-4f4f-a7aa-431b4b07a5e3",
 	'stepOver',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// Instance.stepOver()
 select one stateMachine related by self ->SM_TXN[R2953]->SM_STATE[R506]->SM_SM[R501];                                        
@@ -649,7 +628,7 @@ INSERT INTO O_TFR
 	"c50d7849-51aa-4f4f-a7aa-431b4b07a5e3",
 	'takeNextEvent',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// Instance.takeNextEvent()
 select one stateMachine related by self ->SM_TXN[R2953]->SM_STATE[R506]->SM_SM[R501];  
@@ -708,7 +687,7 @@ INSERT INTO O_TPARM
 	VALUES ("af937b09-21d0-495e-8ada-5c475abcb057",
 	"9acfb10e-b9a9-4541-b5aa-7414154be84a",
 	'step_in',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	0,
 	'',
 	"1c7d93fb-e37c-492a-9e0a-0a718142f1b8",
@@ -717,7 +696,7 @@ INSERT INTO O_TPARM
 	VALUES ("1c7d93fb-e37c-492a-9e0a-0a718142f1b8",
 	"9acfb10e-b9a9-4541-b5aa-7414154be84a",
 	'stack_id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -727,7 +706,7 @@ INSERT INTO O_TFR
 	"c50d7849-51aa-4f4f-a7aa-431b4b07a5e3",
 	'get_ooa_id',
 	'',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'return self.Inst_ID;',
 	1,
@@ -738,7 +717,7 @@ INSERT INTO O_TFR
 	"c50d7849-51aa-4f4f-a7aa-431b4b07a5e3",
 	'deliverEventToSubtypeInstance',
 	'',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'// Instance.deliverEventToSubtypeInstance()
 //
@@ -816,7 +795,7 @@ INSERT INTO O_TPARM
 	VALUES ("dd07c707-21ec-47c6-956b-baf4f9607377",
 	"c56fd14b-afcf-4100-bacc-d2de93b68765",
 	'class_id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -825,7 +804,7 @@ INSERT INTO O_TPARM
 	VALUES ("f354f0d6-fc04-4eb0-9431-d944031d2c33",
 	"c56fd14b-afcf-4100-bacc-d2de93b68765",
 	'event_id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"dd07c707-21ec-47c6-956b-baf4f9607377",
@@ -834,7 +813,7 @@ INSERT INTO O_TPARM
 	VALUES ("57466962-f4d5-4b34-a1bd-b1b26e8ad14d",
 	"c56fd14b-afcf-4100-bacc-d2de93b68765",
 	'evt_inst_id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"f354f0d6-fc04-4eb0-9431-d944031d2c33",
@@ -843,7 +822,7 @@ INSERT INTO O_TPARM
 	VALUES ("330f0c1b-690b-4de6-9947-df8c5ece2569",
 	"c56fd14b-afcf-4100-bacc-d2de93b68765",
 	'stack_id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"57466962-f4d5-4b34-a1bd-b1b26e8ad14d",
@@ -852,7 +831,7 @@ INSERT INTO O_TPARM
 	VALUES ("838108dc-f9fd-43e9-b7ae-119f85ea5e51",
 	"c56fd14b-afcf-4100-bacc-d2de93b68765",
 	'step_in',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	0,
 	'',
 	"330f0c1b-690b-4de6-9947-df8c5ece2569",
@@ -872,7 +851,7 @@ INSERT INTO O_ATTR
 	'',
 	'Inst_ID',
 	0,
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -890,16 +869,9 @@ INSERT INTO O_ATTR
 	'',
 	'Name',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'string',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("c50d7849-51aa-4f4f-a7aa-431b4b07a5e3",
 	"aee0c0bf-2bc2-41e5-b9ad-01341d2944be",
@@ -976,16 +948,9 @@ INSERT INTO O_ATTR
 	'',
 	'SM_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("c50d7849-51aa-4f4f-a7aa-431b4b07a5e3",
 	"aee0c0bf-2bc2-41e5-b9ad-01341d2944be",
@@ -1029,7 +994,7 @@ INSERT INTO O_ATTR
 	'',
 	'SMstt_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_DBATTR
@@ -1086,7 +1051,7 @@ INSERT INTO O_ATTR
 	'',
 	'Label',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -1104,7 +1069,7 @@ INSERT INTO O_ATTR
 	'',
 	'Default_Name',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_REF
@@ -1150,7 +1115,7 @@ INSERT INTO O_ATTR
 	'',
 	'Trans_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -1201,7 +1166,7 @@ INSERT INTO O_ATTR
 	'',
 	'Execution_Engine_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -1252,7 +1217,7 @@ INSERT INTO O_ATTR
 	'',
 	'CIE_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_ID
@@ -1269,15 +1234,20 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"c50d7849-51aa-4f4f-a7aa-431b4b07a5e3");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("c50d7849-51aa-4f4f-a7aa-431b4b07a5e3",
+	1,
+	"97c1ace4-0148-4235-83cb-1fd8e2d2514d",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("97c1ace4-0148-4235-83cb-1fd8e2d2514d",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Instance',
 	'// This is used by schema_gen to ignore this subsystem (for publication)
 TRANSLATE_FOR_EXTERNAL_USE:FALSE
 Persistent:false
 Import: java.util.concurrent.locks.ReentrantLock',
-	'I',
 	900,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000000000",
 	'../Instance.xtuml');

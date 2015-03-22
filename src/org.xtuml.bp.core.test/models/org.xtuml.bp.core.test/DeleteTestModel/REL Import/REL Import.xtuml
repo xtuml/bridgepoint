@@ -1,4 +1,4 @@
--- BP 7.1 content: Package syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: Package syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO EP_PKG
 	VALUES ("0cd52bfe-710c-4e3c-8a3a-cd08debd6fac",
@@ -25,14 +25,14 @@ INSERT INTO GD_MD
 	0,
 	0,
 	'',
-	'DeleteTestModel::REL Import');
+	'org.xtuml.bp.core.test::DeleteTestModel::REL Import');
 INSERT INTO GD_GE
 	VALUES ("bd67cc3c-eee9-4196-b75d-397b8d296e4d",
 	"8be26d1b-55f2-4bec-8eb8-c65a9e51f1b6",
 	"54c9730f-5ac6-4434-8535-c3705511540b",
 	21,
 	0,
-	'DeleteTestModel::REL Import::REL_IOBJ_Reflex 1');
+	'org.xtuml.bp.core.test::DeleteTestModel::REL Import::REL_IOBJ_Reflex 1');
 INSERT INTO GD_SHP
 	VALUES ("bd67cc3c-eee9-4196-b75d-397b8d296e4d");
 INSERT INTO GD_NCS
@@ -56,7 +56,7 @@ INSERT INTO GD_GE
 	"738ac448-3e21-4983-bbba-214ea0a70103",
 	21,
 	0,
-	'DeleteTestModel::REL Import::REL_IOBJ_IOBJ 1');
+	'org.xtuml.bp.core.test::DeleteTestModel::REL Import::REL_IOBJ_IOBJ 1');
 INSERT INTO GD_SHP
 	VALUES ("1d01bf6a-1514-4d10-b078-c944b96c0f02");
 INSERT INTO GD_NCS
@@ -80,7 +80,7 @@ INSERT INTO GD_GE
 	"58b33c45-a0ca-44d8-82a4-8b80ad83bc93",
 	21,
 	0,
-	'DeleteTestModel::REL Import::REL_IOBJ_OBJ 1');
+	'org.xtuml.bp.core.test::DeleteTestModel::REL Import::REL_IOBJ_OBJ 1');
 INSERT INTO GD_SHP
 	VALUES ("7704248b-08f2-4bed-a2e7-1146af531cb7");
 INSERT INTO GD_NCS
@@ -104,7 +104,7 @@ INSERT INTO GD_GE
 	"166af340-bf5f-4d0d-b889-4313732cd98b",
 	21,
 	0,
-	'DeleteTestModel::REL Import::REL_IOBJ_OBJ 2');
+	'org.xtuml.bp.core.test::DeleteTestModel::REL Import::REL_IOBJ_OBJ 2');
 INSERT INTO GD_SHP
 	VALUES ("5a4b4434-ae99-4d29-92fc-4a5ce5f2811d");
 INSERT INTO GD_NCS

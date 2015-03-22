@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("cfd4ccd0-fe89-40fa-9990-54ac3e4034af",
@@ -12,7 +12,7 @@ of the displayed tree.
 Apart from the referential attributes that formalize the parent-child relationship,
 the attribute, ''ParentChildRelChain'' specifies how to find children given a
 parent and a parent given a child.',
-	"3357a459-a1e1-4bc3-a4b8-f31d53662ce0");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_REF
 	VALUES ("cfd4ccd0-fe89-40fa-9990-54ac3e4034af",
 	"d4ebf854-cf98-4429-900e-e4b213092712",
@@ -28,7 +28,7 @@ INSERT INTO O_REF
 	'',
 	'Tree_Node_Specification',
 	'Tree_Node_Spec_ID',
-	'R1000');
+	'R1000.''specifies parenthood of''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("cfd4ccd0-fe89-40fa-9990-54ac3e4034af",
 	"9cd67d70-e20d-4006-bf91-6df72779c691",
@@ -61,16 +61,9 @@ INSERT INTO O_ATTR
 	'Parent_',
 	'Tree_Node_Spec_ID',
 	1,
-	"35df0209-3024-4f5b-9f16-019cfef6617c",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("35df0209-3024-4f5b-9f16-019cfef6617c",
-	"355fe1ef-ac53-4c0f-98e9-d27f1c9235d9",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("cfd4ccd0-fe89-40fa-9990-54ac3e4034af",
 	"d4ebf854-cf98-4429-900e-e4b213092712",
@@ -86,7 +79,7 @@ INSERT INTO O_REF
 	'',
 	'Tree_Node_Specification',
 	'Tree_Node_Spec_ID',
-	'R1001');
+	'R1001.''specifies childhood of''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("cfd4ccd0-fe89-40fa-9990-54ac3e4034af",
 	"1f5bbcc9-35a1-443f-89fa-3dd779d6e9b3",
@@ -115,7 +108,7 @@ INSERT INTO O_ATTR
 	'Child_',
 	'Tree_Node_Spec_ID',
 	1,
-	"35df0209-3024-4f5b-9f16-019cfef6617c",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -143,16 +136,9 @@ the user defined datatypes of a domain)',
 	'',
 	'ParentChildRelChain',
 	0,
-	"0b1791d1-b108-4b42-a201-d891aa80f243",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("0b1791d1-b108-4b42-a201-d891aa80f243",
-	"355fe1ef-ac53-4c0f-98e9-d27f1c9235d9",
-	'string',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("ba613013-5e4d-4ac9-ac52-af00ecaa5119",
 	"cfd4ccd0-fe89-40fa-9990-54ac3e4034af");
@@ -168,7 +154,7 @@ INSERT INTO O_ATTR
 	'',
 	'ParentOrder',
 	0,
-	"0b1791d1-b108-4b42-a201-d891aa80f243",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -187,7 +173,7 @@ selecting a child.',
 	'',
 	'WhereClause',
 	0,
-	"0b1791d1-b108-4b42-a201-d891aa80f243",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_ID
@@ -209,12 +195,17 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"cfd4ccd0-fe89-40fa-9990-54ac3e4034af");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("cfd4ccd0-fe89-40fa-9990-54ac3e4034af",
+	1,
+	"3357a459-a1e1-4bc3-a4b8-f31d53662ce0",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("3357a459-a1e1-4bc3-a4b8-f31d53662ce0",
+	"00000000-0000-0000-0000-000000000000",
+	"01011a0a-7be9-46ee-a8f8-2ba4cac25a9d",
 	'UITree',
 	'',
-	'T',
 	1,
-	"355fe1ef-ac53-4c0f-98e9-d27f1c9235d9",
-	"00000000-0000-0000-0000-00000070000e",
 	'../UITree.xtuml');

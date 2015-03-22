@@ -29,11 +29,13 @@ the License.
     depends="sql,schema">
   </target>
 
+  <property name="eclipse-home" value="${basedir}/../.."/>
+  <property name="util_bin_dir" value="${eclipse-home}/src/org.xtuml.bp.mc.c.binary/mc3020/bin"/>
+
   <property name="sql.input" value="models/org.xtuml.bp.ui.tree/UITree" />
   <property name="sql.output" value="uitree.sql" />
   <property name="sql.output_path" value="sql" />
 
-  <property name="mc_bin_dir" value="${env.PT_HOME_DRIVE}${env.PT_HOME}/mc3020/bin" />
   <property name="subsystems_to_remove" value="ACT_ V_ E_ GD_ CT_ TS_ DIM_" />
 
  <target name="sql.depends" >
@@ -45,11 +47,13 @@ the License.
   <target name="sql" depends="sql.depends" 
           description="Generate the sql version of the UI Tree model" 
           unless="sql.buildNotNeeded" >
-    <echo >Generating ${sql.output_path}/${sql.output} ...</echo>
+    <echo >${util_bin_dir}/xtumlmc_build.exe Generating ${sql.output_path}/${sql.output} ...</echo>
+    <copy file="../org.xtuml.bp.pkg/globals/Globals.xtuml" tofile="${sql.input}/Globals.xtuml" />
   	<echo>xtumlmc_cleanse_for_BridgePoint ${sql.input} ${sql.output_path}/${sql.output} ${subsystems_to_remove}</echo>
-	<exec vmlauncher="false" failonerror="true" executable="${mc_bin_dir}/xtumlmc_build.exe" >
+	<exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
 		<arg line="xtumlmc_cleanse_for_BridgePoint ${sql.input} ${sql.output_path}/${sql.output} ${subsystems_to_remove}" />
 	</exec>
+    <delete file="${sql.input}/Globals.xtuml" />
   </target>
 
   <property name="mcj_path" value="../MC-Java" />
@@ -73,6 +77,8 @@ the License.
 	<ant antfile="${mcj_path}/build.xml" target="generate.schema" >
 		<property name="param1" value="${sql.output}" />
 		<property name="param2" value="${mcj_path}" />
+	    <property name="param3" value="FALSE" />
+	    <property name="param4" value="UITree" />
 	</ant>
 	<!-- Need to touch the output file for the case where the input data
 	     changed, but the output didn't -->

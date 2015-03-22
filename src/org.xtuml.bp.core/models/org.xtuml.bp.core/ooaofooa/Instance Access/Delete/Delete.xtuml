@@ -6,14 +6,14 @@ INSERT INTO O_OBJ
 	614,
 	'ACT_DEL',
 	'This class represents a statement that deletes an instance.',
-	"a5aec8ee-6e5a-457e-bc25-cc65635048bb");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("c4ab4766-0402-4320-8a8e-992e2e4d33ea",
 	"0bd7e773-bce3-4d9d-b4dd-52b6c78afaa1",
 	'dispose',
 	'This operation disconnects an instance, and all instances it is 
 responsible for, from the model.',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select one var related by self->V_VAR[R634];
 if ( not_empty var )
@@ -24,19 +24,12 @@ delete object instance self;
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO S_DT_PROXY
-	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'void',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("8039a94e-6722-4516-b50b-17d1380bae2a",
 	"0bd7e773-bce3-4d9d-b4dd-52b6c78afaa1",
 	'execute',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// Instance Access: Delete.execute()
 select one body related by self ->V_VAR[R634]->ACT_BLK[R823]->ACT_ACT[R601];
@@ -159,18 +152,11 @@ INSERT INTO O_TPARM
 	VALUES ("575fdde5-5e7b-4237-8bfc-0fd3bde6dfe4",
 	"8039a94e-6722-4516-b50b-17d1380bae2a",
 	'stack_frame_id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'unique_id',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("0bd7e773-bce3-4d9d-b4dd-52b6c78afaa1",
 	"e9011b75-e798-45a3-ac83-92ba7c04db4e",
@@ -221,16 +207,9 @@ INSERT INTO O_ATTR
 	'',
 	'Statement_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("0bd7e773-bce3-4d9d-b4dd-52b6c78afaa1",
 	"04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",
@@ -281,7 +260,7 @@ INSERT INTO O_ATTR
 	'',
 	'Var_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_ID
@@ -298,8 +277,16 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"0bd7e773-bce3-4d9d-b4dd-52b6c78afaa1");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("0bd7e773-bce3-4d9d-b4dd-52b6c78afaa1",
+	1,
+	"a5aec8ee-6e5a-457e-bc25-cc65635048bb",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("a5aec8ee-6e5a-457e-bc25-cc65635048bb",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Instance Access',
 	'Abstracts the concepts of creation, deletion and assignment to
 instances. Also includes assignment to transient local variables.
@@ -308,8 +295,5 @@ Persistent:false
 // This is used by schema_gen to ignore this subsystem (for publication)
 TRANSLATE_FOR_EXTERNAL_USE:FALSE
 ',
-	'ACT',
 	600,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000480009",
 	'../Instance Access.xtuml');

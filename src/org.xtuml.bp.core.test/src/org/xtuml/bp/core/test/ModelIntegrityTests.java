@@ -347,6 +347,10 @@ public class ModelIntegrityTests extends BaseTest {
 	}
 
 	private String runIntegrityReportForElement(final Package_c pkg) {
+		// the integrity checker no longer loads when locating
+		// children, therefore this test must handle the loading
+		pkg.getPersistableComponent().loadComponentAndChildren(
+				new NullProgressMonitor());
 		final List<IntegrityIssue_c> issues = new ArrayList<IntegrityIssue_c>();
 		try {
 			ResourcesPlugin.getWorkspace().run(new IWorkspaceRunnable() {

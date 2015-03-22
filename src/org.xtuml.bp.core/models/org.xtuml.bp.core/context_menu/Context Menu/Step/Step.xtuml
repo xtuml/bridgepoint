@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("f78b9fb9-2a33-4bee-9d69-666052aa2b92",
@@ -8,7 +8,7 @@ INSERT INTO O_OBJ
 	'A workflow consists of an ordered series of steps. Each step is responsible
 for gathering information from the user.  Information gathered in one step is available
 to following steps.',
-	"22fe2ec1-5660-4a88-9691-da2fe55e94db");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_NBATTR
 	VALUES ("a126e1b9-5f5a-44bf-91b9-3f1423dab2b3",
 	"f78b9fb9-2a33-4bee-9d69-666052aa2b92");
@@ -26,16 +26,9 @@ INSERT INTO O_ATTR
 	'',
 	'Step_ID',
 	0,
-	"ff27026a-9d91-4d3d-9c92-888e9483a31c",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("ff27026a-9d91-4d3d-9c92-888e9483a31c",
-	"1078c098-0f8e-425b-9cfb-5e5d9fbff920",
-	'string',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("f78b9fb9-2a33-4bee-9d69-666052aa2b92",
 	"c78c298a-3afe-43eb-b805-4d43d35bbe6e",
@@ -84,16 +77,9 @@ INSERT INTO O_ATTR
 	'Workflow_',
 	'Name',
 	1,
-	"e9939872-4e30-45f7-852c-a44e7f299f8a",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("e9939872-4e30-45f7-852c-a44e7f299f8a",
-	"1078c098-0f8e-425b-9cfb-5e5d9fbff920",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("f78b9fb9-2a33-4bee-9d69-666052aa2b92",
 	"b02a2bcf-3b45-4c89-8d3d-7cecca20c7fe",
@@ -142,7 +128,7 @@ INSERT INTO O_ATTR
 	'',
 	'Block_ID',
 	0,
-	"e9939872-4e30-45f7-852c-a44e7f299f8a",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -160,7 +146,7 @@ INSERT INTO O_REF
 	'',
 	'Step',
 	'Step_ID',
-	'R2007');
+	'R2007.''contained by''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("f78b9fb9-2a33-4bee-9d69-666052aa2b92",
 	"5c2982b0-cccb-4c4b-87f9-b7272d9d1e6a",
@@ -188,7 +174,7 @@ INSERT INTO O_REF
 	'',
 	'Step',
 	'Parent_Step_ID',
-	'R2008');
+	'R2008.''precedes''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("f78b9fb9-2a33-4bee-9d69-666052aa2b92",
 	"d6e2472c-0f56-4110-999f-2d228b3f0af0",
@@ -217,7 +203,7 @@ INSERT INTO O_ATTR
 	'Parent_',
 	'Step_ID',
 	1,
-	"e9939872-4e30-45f7-852c-a44e7f299f8a",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -235,7 +221,7 @@ INSERT INTO O_REF
 	'',
 	'Step',
 	'Step_ID',
-	'R2008');
+	'R2008.''precedes''');
 INSERT INTO O_RTIDA_PROXY
 	VALUES ("a126e1b9-5f5a-44bf-91b9-3f1423dab2b3",
 	"f78b9fb9-2a33-4bee-9d69-666052aa2b92",
@@ -259,7 +245,7 @@ INSERT INTO O_ATTR
 	'Previous_',
 	'Step_ID',
 	1,
-	"e9939872-4e30-45f7-852c-a44e7f299f8a",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -277,7 +263,7 @@ INSERT INTO O_ATTR
 	'',
 	'buffer',
 	0,
-	"ff27026a-9d91-4d3d-9c92-888e9483a31c",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_ID
@@ -304,12 +290,17 @@ INSERT INTO O_OIDA
 INSERT INTO O_ID
 	VALUES (2,
 	"f78b9fb9-2a33-4bee-9d69-666052aa2b92");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("f78b9fb9-2a33-4bee-9d69-666052aa2b92",
+	1,
+	"22fe2ec1-5660-4a88-9691-da2fe55e94db",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("22fe2ec1-5660-4a88-9691-da2fe55e94db",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Context Menu',
 	'',
-	'CM_',
 	1,
-	"1078c098-0f8e-425b-9cfb-5e5d9fbff920",
-	"00000000-0000-0000-0000-000000100002",
 	'../Context Menu.xtuml');
