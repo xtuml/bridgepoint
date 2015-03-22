@@ -170,8 +170,8 @@ public class TransactionListener implements ITransactionListener {
     
     private String getClassName(Object object){
 		String className = object.getClass().getName();
-		String[] classNameParts = className.split(".");
-		return classNameParts[classNameParts.length - 2] + "."
-				+ classNameParts[classNameParts.length - 1];
+		className = className.replaceAll("org.xtuml.bp", "");
+		className = className.replaceFirst("\\.", "");
+		return className.replaceAll("_c", "");
     }
 }

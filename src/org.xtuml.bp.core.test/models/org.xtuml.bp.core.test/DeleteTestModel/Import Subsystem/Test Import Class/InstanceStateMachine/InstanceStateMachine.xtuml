@@ -1,4 +1,4 @@
--- BP 7.1 content: InstanceStateMachine syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: InstanceStateMachine syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO SM_ISM
 	VALUES ("129e9bb4-952f-44d6-abd2-9d34b1a48bec",
@@ -643,14 +643,14 @@ INSERT INTO GD_MD
 	0,
 	0,
 	'',
-	'DeleteTestModel::Import Subsystem::Test Import Class::Instance State Machine');
+	'org.xtuml.bp.core.test::DeleteTestModel::Import Subsystem::Test Import Class::Instance State Machine');
 INSERT INTO GD_GE
 	VALUES ("ca49851e-d92b-44d6-8ebb-1a349a2cf368",
 	"2477079a-a99f-40a0-b161-54b44880d6f4",
 	"57420a26-ee2c-4f62-899d-46b0b264858f",
 	41,
 	0,
-	'DeleteTestModel::Import Subsystem::Test Import Class::Instance State Machine::TXN_STATE_None 1');
+	'org.xtuml.bp.core.test::DeleteTestModel::Import Subsystem::Test Import Class::Instance State Machine::TXN_STATE_None 1');
 INSERT INTO GD_SHP
 	VALUES ("ca49851e-d92b-44d6-8ebb-1a349a2cf368");
 INSERT INTO GD_NCS
@@ -684,7 +684,7 @@ INSERT INTO GD_GE
 	"3b75f7f5-ffc5-4fe3-8122-24fc82b57997",
 	41,
 	0,
-	'DeleteTestModel::Import Subsystem::Test Import Class::Instance State Machine::TXN_STATE_None 2');
+	'org.xtuml.bp.core.test::DeleteTestModel::Import Subsystem::Test Import Class::Instance State Machine::TXN_STATE_None 2');
 INSERT INTO GD_SHP
 	VALUES ("bd514025-61b4-45ac-a928-228d0c32c2aa");
 INSERT INTO GD_NCS
@@ -718,7 +718,7 @@ INSERT INTO GD_GE
 	"f45e65ac-b90d-41ac-be4e-1a9b755251fa",
 	41,
 	0,
-	'DeleteTestModel::Import Subsystem::Test Import Class::Instance State Machine::TXN_STATE_STATE 1');
+	'org.xtuml.bp.core.test::DeleteTestModel::Import Subsystem::Test Import Class::Instance State Machine::TXN_STATE_STATE 1');
 INSERT INTO GD_SHP
 	VALUES ("06a39dcf-dd8e-4628-8916-7b89bbb918c9");
 INSERT INTO GD_NCS
@@ -747,7 +747,7 @@ INSERT INTO GD_GE
 	"92992960-d8d3-4bd3-bf50-e3f1e412f741",
 	41,
 	0,
-	'DeleteTestModel::Import Subsystem::Test Import Class::Instance State Machine::Test State OtherSide');
+	'org.xtuml.bp.core.test::DeleteTestModel::Import Subsystem::Test Import Class::Instance State Machine::Test State OtherSide');
 INSERT INTO GD_SHP
 	VALUES ("e82aee86-18a2-4169-ae4a-de492881c181");
 INSERT INTO GD_NCS
@@ -776,7 +776,7 @@ INSERT INTO GD_GE
 	"d60ef7ad-3c61-425f-acd7-1f11f1deec85",
 	41,
 	0,
-	'DeleteTestModel::Import Subsystem::Test Import Class::Instance State Machine::TXN_STATE_STATE 2');
+	'org.xtuml.bp.core.test::DeleteTestModel::Import Subsystem::Test Import Class::Instance State Machine::TXN_STATE_STATE 2');
 INSERT INTO GD_SHP
 	VALUES ("11d6ce76-1f2c-4112-9a3b-0629245b71f3");
 INSERT INTO GD_NCS
@@ -805,7 +805,7 @@ INSERT INTO GD_GE
 	"cf441da9-9e44-40e2-b2da-ffd908f9b83c",
 	41,
 	0,
-	'DeleteTestModel::Import Subsystem::Test Import Class::Instance State Machine::Test State OtherSide');
+	'org.xtuml.bp.core.test::DeleteTestModel::Import Subsystem::Test Import Class::Instance State Machine::Test State OtherSide');
 INSERT INTO GD_SHP
 	VALUES ("bfda9c35-7cd8-42ff-a034-cda045b07f09");
 INSERT INTO GD_NCS
@@ -834,7 +834,7 @@ INSERT INTO GD_GE
 	"e0a0366b-1a57-49b6-bf6a-cc1843dbab21",
 	41,
 	0,
-	'DeleteTestModel::Import Subsystem::Test Import Class::Instance State Machine::TXN_CREATION_STATE 1');
+	'org.xtuml.bp.core.test::DeleteTestModel::Import Subsystem::Test Import Class::Instance State Machine::TXN_CREATION_STATE 1');
 INSERT INTO GD_SHP
 	VALUES ("f758073b-edc2-4bd3-98e2-5537401512d6");
 INSERT INTO GD_NCS
@@ -863,7 +863,7 @@ INSERT INTO GD_GE
 	"35a8edcc-f45a-49fb-b14e-e1aaf13d189f",
 	41,
 	0,
-	'DeleteTestModel::Import Subsystem::Test Import Class::Instance State Machine::TXN_CREATION_STATE 2');
+	'org.xtuml.bp.core.test::DeleteTestModel::Import Subsystem::Test Import Class::Instance State Machine::TXN_CREATION_STATE 2');
 INSERT INTO GD_SHP
 	VALUES ("13bd3aa1-5427-4062-b071-86d143f5dbbf");
 INSERT INTO GD_NCS
@@ -892,7 +892,7 @@ INSERT INTO GD_GE
 	"efc51451-8545-4d6e-ab39-b0242093063b",
 	42,
 	0,
-	'DeleteTestModel::Import Subsystem::Test Import Class::Instance State Machine::TXN_STATE_None 1::No Event Assigned');
+	'org.xtuml.bp.core.test::DeleteTestModel::Import Subsystem::Test Import Class::Instance State Machine::TXN_STATE_None 1::No Event Assigned');
 INSERT INTO GD_CON
 	VALUES ("ea1473ee-5a13-48ab-90fe-c3c5b02f0b6e",
 	"00000000-0000-0000-0000-000000000000");
@@ -1018,7 +1018,7 @@ INSERT INTO GD_GE
 	"aeb6a27b-b78e-45c2-b5f5-17dde5a8161a",
 	42,
 	0,
-	'DeleteTestModel::Import Subsystem::Test Import Class::Instance State Machine::TXN_STATE_None 2::No Event Assigned');
+	'org.xtuml.bp.core.test::DeleteTestModel::Import Subsystem::Test Import Class::Instance State Machine::TXN_STATE_None 2::No Event Assigned');
 INSERT INTO GD_CON
 	VALUES ("27988091-2821-4d6c-addd-9a636d6d0308",
 	"00000000-0000-0000-0000-000000000000");
@@ -1144,7 +1144,7 @@ INSERT INTO GD_GE
 	"24ace1f2-a710-4d3d-8ea6-6b2f409d2e70",
 	42,
 	0,
-	'DeleteTestModel::Import Subsystem::Test Import Class::Instance State Machine::TXN_STATE_STATE 1::No Event Assigned');
+	'org.xtuml.bp.core.test::DeleteTestModel::Import Subsystem::Test Import Class::Instance State Machine::TXN_STATE_STATE 1::No Event Assigned');
 INSERT INTO GD_CON
 	VALUES ("97fd4c88-2ff7-4ea8-940a-f930c2ea3fb2",
 	"00000000-0000-0000-0000-000000000000");
@@ -1244,7 +1244,7 @@ INSERT INTO GD_GE
 	"d0504e86-822b-4266-8e54-62f783f7e9c6",
 	42,
 	0,
-	'DeleteTestModel::Import Subsystem::Test Import Class::Instance State Machine::TXN_STATE_STATE 2::No Event Assigned');
+	'org.xtuml.bp.core.test::DeleteTestModel::Import Subsystem::Test Import Class::Instance State Machine::TXN_STATE_STATE 2::No Event Assigned');
 INSERT INTO GD_CON
 	VALUES ("9713664e-5c8e-4dd7-98ed-ac24cbad8a28",
 	"00000000-0000-0000-0000-000000000000");

@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("4a50cb4c-0279-4fc5-8de2-4b36a0452634",
@@ -6,13 +6,13 @@ INSERT INTO O_OBJ
 	3301,
 	'RV_SVL',
 	'',
-	"7532d38c-8a9a-4a7d-81a0-61f814f64f06");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("20bfbc4d-ea07-4185-aa36-7cee851e7b45",
 	"4a50cb4c-0279-4fc5-8de2-4b36a0452634",
 	'memberWiseCopy',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// StructuredValue.memberWiseCopy()
 select any strctRuntimeValue from instances of RV_RVL where
@@ -62,31 +62,17 @@ INSERT INTO O_TPARM
 	VALUES ("73c72121-a35f-428d-8f9f-9b8d28febba7",
 	"20bfbc4d-ea07-4185-aa36-7cee851e7b45",
 	'destination',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'unique_id',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
-INSERT INTO S_DT_PROXY
-	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'void',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("aeb8f953-4fc7-405c-a6b9-2d8872044f85",
 	"4a50cb4c-0279-4fc5-8de2-4b36a0452634",
 	'dispose',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// Structured Value.dispose()
 select many values related by self->RV_VIS[R3301]->RV_RVL[R3301];
@@ -149,16 +135,9 @@ INSERT INTO O_ATTR
 	'Struct',
 	'RuntimeValue_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_ID
 	VALUES (0,
 	"4a50cb4c-0279-4fc5-8de2-4b36a0452634");
@@ -173,15 +152,20 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"4a50cb4c-0279-4fc5-8de2-4b36a0452634");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("4a50cb4c-0279-4fc5-8de2-4b36a0452634",
+	1,
+	"7532d38c-8a9a-4a7d-81a0-61f814f64f06",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("7532d38c-8a9a-4a7d-81a0-61f814f64f06",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Runtime Value',
 	'// This is used by schema_gen to ignore this subsystem (for publication)
 TRANSLATE_FOR_EXTERNAL_USE:FALSE
 Persistent:false
 ',
-	'RV',
 	3300,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000000000",
 	'../Runtime Value.xtuml');

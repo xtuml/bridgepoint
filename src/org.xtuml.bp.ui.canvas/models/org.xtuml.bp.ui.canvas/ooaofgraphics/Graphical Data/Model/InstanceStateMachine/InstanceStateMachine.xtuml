@@ -1,4 +1,4 @@
--- BP 7.1 content: InstanceStateMachine syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: InstanceStateMachine syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO SM_ISM
 	VALUES ("4dc36c9b-791d-4c00-8afb-64c13cb436de",
@@ -20,39 +20,25 @@ INSERT INTO SM_EVTDI
 	"4dc36c9b-791d-4c00-8afb-64c13cb436de",
 	'Retain_Selection',
 	'',
-	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	'',
 	"8009ed48-2600-4881-b10b-ee1c46c4fb60",
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO S_DT_PROXY
-	VALUES ("6e4aa280-2e22-4146-9b4a-6c2573c456d8",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	'boolean',
-	'',
-	'',
-	'../../../Datatypes/Datatypes.xtuml');
 INSERT INTO SM_EVTDI
 	VALUES ("770b50d9-96e9-4794-a78c-5f9121eaf86a",
 	"4dc36c9b-791d-4c00-8afb-64c13cb436de",
 	'X',
 	'',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	"8009ed48-2600-4881-b10b-ee1c46c4fb60",
 	"2fbf17a6-1d22-47ae-93b4-7d7f265d3892");
-INSERT INTO S_DT_PROXY
-	VALUES ("388cd7a2-2d0c-4f02-9730-7670074de394",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	'integer',
-	'',
-	'',
-	'../../../Datatypes/Datatypes.xtuml');
 INSERT INTO SM_EVTDI
 	VALUES ("1b05a161-51e1-4d47-8418-4dd777215990",
 	"4dc36c9b-791d-4c00-8afb-64c13cb436de",
 	'Y',
 	'',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	"8009ed48-2600-4881-b10b-ee1c46c4fb60",
 	"770b50d9-96e9-4794-a78c-5f9121eaf86a");
@@ -61,7 +47,7 @@ INSERT INTO SM_EVTDI
 	"4dc36c9b-791d-4c00-8afb-64c13cb436de",
 	'X',
 	'',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	"04bc5742-95b8-4a53-833c-b187c595e889",
 	"00000000-0000-0000-0000-000000000000");
@@ -70,7 +56,7 @@ INSERT INTO SM_EVTDI
 	"4dc36c9b-791d-4c00-8afb-64c13cb436de",
 	'X',
 	'',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	"bf678cd6-2c4c-4bc5-a4f1-efc32b8e9491",
 	"00000000-0000-0000-0000-000000000000");
@@ -79,7 +65,7 @@ INSERT INTO SM_EVTDI
 	"4dc36c9b-791d-4c00-8afb-64c13cb436de",
 	'X',
 	'',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	"94ad4818-8f59-46be-8fc8-b65972f9c728",
 	"00000000-0000-0000-0000-000000000000");
@@ -88,7 +74,7 @@ INSERT INTO SM_EVTDI
 	"4dc36c9b-791d-4c00-8afb-64c13cb436de",
 	'Y',
 	'',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	"04bc5742-95b8-4a53-833c-b187c595e889",
 	"7492ba44-37c1-49db-b153-7d0db150cab2");
@@ -97,7 +83,7 @@ INSERT INTO SM_EVTDI
 	"4dc36c9b-791d-4c00-8afb-64c13cb436de",
 	'Y',
 	'',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	"bf678cd6-2c4c-4bc5-a4f1-efc32b8e9491",
 	"f0c68380-8aa4-4c35-93dc-cdd470bbb5e7");
@@ -106,7 +92,7 @@ INSERT INTO SM_EVTDI
 	"4dc36c9b-791d-4c00-8afb-64c13cb436de",
 	'Y',
 	'',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	"94ad4818-8f59-46be-8fc8-b65972f9c728",
 	"488448a8-0b05-4b30-bca9-3f4fa0694a9f");
@@ -1953,7 +1939,7 @@ INSERT INTO GD_GE
 	"2a15b94c-e0dc-470b-9d40-5200f203350e",
 	42,
 	0,
-	'org.xtuml.bp.ui.canvas::ooaofgraphics::Graphical Data::Model::Instance State Machine::GD_MD3: Mouse Released');
+	'org.xtuml.bp.ui.canvas::ooaofgraphics::Graphical Data::Model::Instance State Machine::Idle::GD_MD3: Mouse Released');
 INSERT INTO GD_CON
 	VALUES ("4eb50535-05c6-4967-8138-28efe583a5e7",
 	"00000000-0000-0000-0000-000000000000");
@@ -2066,7 +2052,7 @@ INSERT INTO GD_GE
 	"cfb8871d-ade9-471c-86a3-bf8914992e7a",
 	42,
 	0,
-	'org.xtuml.bp.ui.canvas::ooaofgraphics::Graphical Data::Model::Instance State Machine::GD_MD4: Mouse Moved');
+	'org.xtuml.bp.ui.canvas::ooaofgraphics::Graphical Data::Model::Instance State Machine::Idle::GD_MD4: Mouse Moved');
 INSERT INTO GD_CON
 	VALUES ("d8314949-e184-4b5e-9307-1c2c989bc090",
 	"00000000-0000-0000-0000-000000000000");
@@ -2179,7 +2165,7 @@ INSERT INTO GD_GE
 	"a86f3b6f-32d0-4fe0-84db-927f4aefc9e6",
 	42,
 	0,
-	'org.xtuml.bp.ui.canvas::ooaofgraphics::Graphical Data::Model::Instance State Machine::GD_MD2: Mouse Pressed');
+	'org.xtuml.bp.ui.canvas::ooaofgraphics::Graphical Data::Model::Instance State Machine::Idle::GD_MD2: Mouse Pressed');
 INSERT INTO GD_CON
 	VALUES ("e0eb201d-7e78-4af7-9b24-e4dda42860ca",
 	"00000000-0000-0000-0000-000000000000");
@@ -2279,7 +2265,7 @@ INSERT INTO GD_GE
 	"1586b3ce-d349-4b45-9f77-0fd3e6adef02",
 	42,
 	0,
-	'org.xtuml.bp.ui.canvas::ooaofgraphics::Graphical Data::Model::Instance State Machine::GD_MD6: Done');
+	'org.xtuml.bp.ui.canvas::ooaofgraphics::Graphical Data::Model::Instance State Machine::Delegating Mouse Press::GD_MD6: Done');
 INSERT INTO GD_CON
 	VALUES ("8699ee3f-9b25-4a77-81a8-7a1adde4d943",
 	"00000000-0000-0000-0000-000000000000");
@@ -2379,7 +2365,7 @@ INSERT INTO GD_GE
 	"f53ad721-439b-4fae-845d-7e62f73cf8bf",
 	42,
 	0,
-	'org.xtuml.bp.ui.canvas::ooaofgraphics::Graphical Data::Model::Instance State Machine::GD_MD6: Done');
+	'org.xtuml.bp.ui.canvas::ooaofgraphics::Graphical Data::Model::Instance State Machine::Delegating Mouse Move::GD_MD6: Done');
 INSERT INTO GD_CON
 	VALUES ("01ad972c-41bd-4030-97cf-7d2cf0ab6bec",
 	"00000000-0000-0000-0000-000000000000");
@@ -2492,7 +2478,7 @@ INSERT INTO GD_GE
 	"840387e8-2ab2-4f77-a88f-cb0698221938",
 	42,
 	0,
-	'org.xtuml.bp.ui.canvas::ooaofgraphics::Graphical Data::Model::Instance State Machine::GD_MD6: Done');
+	'org.xtuml.bp.ui.canvas::ooaofgraphics::Graphical Data::Model::Instance State Machine::Delegating Mouse Release::GD_MD6: Done');
 INSERT INTO GD_CON
 	VALUES ("105f5076-90de-4b4c-96a7-a042214dfe28",
 	"00000000-0000-0000-0000-000000000000");
@@ -2592,7 +2578,7 @@ INSERT INTO GD_GE
 	"e63060d1-5920-4a09-8b21-6a749cc8714a",
 	42,
 	0,
-	'org.xtuml.bp.ui.canvas::ooaofgraphics::Graphical Data::Model::Instance State Machine::GD_MD24: Space Pressed');
+	'org.xtuml.bp.ui.canvas::ooaofgraphics::Graphical Data::Model::Instance State Machine::Idle::GD_MD24: Space Pressed');
 INSERT INTO GD_CON
 	VALUES ("918d559a-96b2-4051-b0b6-d1f8e6718182",
 	"00000000-0000-0000-0000-000000000000");
@@ -2705,7 +2691,7 @@ INSERT INTO GD_GE
 	"df781048-2f88-4069-ba92-0379c3ea0032",
 	42,
 	0,
-	'org.xtuml.bp.ui.canvas::ooaofgraphics::Graphical Data::Model::Instance State Machine::GD_MD6: Done');
+	'org.xtuml.bp.ui.canvas::ooaofgraphics::Graphical Data::Model::Instance State Machine::Activating Scroll Tool::GD_MD6: Done');
 INSERT INTO GD_CON
 	VALUES ("89ace7b5-7ca1-41f6-9c99-d7ca9bf95bcd",
 	"00000000-0000-0000-0000-000000000000");
@@ -2818,7 +2804,7 @@ INSERT INTO GD_GE
 	"767300c9-07ab-4b6a-97e7-f53cd5128a68",
 	42,
 	0,
-	'org.xtuml.bp.ui.canvas::ooaofgraphics::Graphical Data::Model::Instance State Machine::GD_MD25: Space Released');
+	'org.xtuml.bp.ui.canvas::ooaofgraphics::Graphical Data::Model::Instance State Machine::Idle::GD_MD25: Space Released');
 INSERT INTO GD_CON
 	VALUES ("0edbf301-05df-4658-a7f1-c9924d73771a",
 	"00000000-0000-0000-0000-000000000000");
@@ -2931,7 +2917,7 @@ INSERT INTO GD_GE
 	"db0b9f6f-3846-4f65-ab07-1736d06bbc07",
 	42,
 	0,
-	'org.xtuml.bp.ui.canvas::ooaofgraphics::Graphical Data::Model::Instance State Machine::GD_MD6: Done');
+	'org.xtuml.bp.ui.canvas::ooaofgraphics::Graphical Data::Model::Instance State Machine::Deactivating Scroll Tool::GD_MD6: Done');
 INSERT INTO GD_CON
 	VALUES ("d553bb84-8fd2-46de-818c-9f2d6f6dd827",
 	"00000000-0000-0000-0000-000000000000");
@@ -3031,7 +3017,7 @@ INSERT INTO GD_GE
 	"124c8bff-2de9-4f1c-b311-8b32ef927735",
 	42,
 	0,
-	'org.xtuml.bp.ui.canvas::ooaofgraphics::Graphical Data::Model::Instance State Machine::GD_MD5: Mouse Context Press');
+	'org.xtuml.bp.ui.canvas::ooaofgraphics::Graphical Data::Model::Instance State Machine::Idle::GD_MD5: Mouse Context Press');
 INSERT INTO GD_CON
 	VALUES ("eac30ba0-22e5-480d-861e-e4050f186968",
 	"00000000-0000-0000-0000-000000000000");
@@ -3131,7 +3117,7 @@ INSERT INTO GD_GE
 	"aee7976c-8e60-49bd-adfe-27a74511176b",
 	42,
 	0,
-	'org.xtuml.bp.ui.canvas::ooaofgraphics::Graphical Data::Model::Instance State Machine::GD_MD6: Done');
+	'org.xtuml.bp.ui.canvas::ooaofgraphics::Graphical Data::Model::Instance State Machine::Delegating Mouse Context Press::GD_MD6: Done');
 INSERT INTO GD_CON
 	VALUES ("8c0bb208-8399-4e1b-b8cf-b29f6c20fdc1",
 	"00000000-0000-0000-0000-000000000000");
@@ -3275,7 +3261,7 @@ INSERT INTO GD_GE
 	"b23c203e-4d4a-4edd-9dec-6f06f93a94ed",
 	42,
 	0,
-	'org.xtuml.bp.ui.canvas::ooaofgraphics::Graphical Data::Model::Instance State Machine::GD_MD6: Done');
+	'org.xtuml.bp.ui.canvas::ooaofgraphics::Graphical Data::Model::Instance State Machine::Handling Middle Mouse Button Down::GD_MD6: Done');
 INSERT INTO GD_CON
 	VALUES ("fed4a37d-847b-4c3c-bdb4-c1d7f74ff52e",
 	"00000000-0000-0000-0000-000000000000");
@@ -3375,7 +3361,7 @@ INSERT INTO GD_GE
 	"8b7116e6-0896-4234-88c5-1c7dad488602",
 	42,
 	0,
-	'org.xtuml.bp.ui.canvas::ooaofgraphics::Graphical Data::Model::Instance State Machine::GD_MD26: Mouse Middle Button Press');
+	'org.xtuml.bp.ui.canvas::ooaofgraphics::Graphical Data::Model::Instance State Machine::Idle::GD_MD26: Mouse Middle Button Press');
 INSERT INTO GD_CON
 	VALUES ("395b8cd7-c71a-49a7-8e07-acab20c03b72",
 	"00000000-0000-0000-0000-000000000000");
@@ -3495,5 +3481,5 @@ INSERT INTO O_OBJ_PROXY
 	1,
 	'GD_MD',
 	'A model is a drawing for one particular view of the analysis. There is an instance of model for each glyph on the index window, and each entry in the model element list on the index window. For example, every domain will have four models (DPD, PDD(R), PDD(A), PDD(S)).  Every subsystem will have three models (CD, OCD(A), OCD(S)).  Every state chart has one model (SC).  The STT is not a graphical model.',
-	"b5695748-80fc-47fb-b5c7-801b5f28b907",
+	"00000000-0000-0000-0000-000000000000",
 	'../Model.xtuml');

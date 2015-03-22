@@ -14,13 +14,11 @@
           depends="java,readonly_test,test_data,format_java">
   </target>
 
-  <property environment="env"/>
-  <property name="bp_bin_dir" value="${env.PT_HOME_DRIVE}${env.PT_HOME}/bin" />
-  <property name="mc_bin_dir" value="${env.PT_HOME_DRIVE}${env.PT_HOME}/mc3020/bin" />
   <property name="mcj_path" value="../MC-Java" />
 
   <property name="eclipse-home" value="${basedir}/../.."/>
   <property name="plugins-home" value="${ant.home}/../.."/>
+  <property name="util_bin_dir" value="${eclipse-home}/src/org.xtuml.bp.mc.c.binary/mc3020/bin"/>
 
   <property environment="env"/>
 
@@ -44,6 +42,8 @@
   <ant antfile="${mcj_path}/build.xml" target="generate.schema" >
     <property name="param1" value="../${core_sql_dir}/ooaofooa.sql" />
     <property name="param2" value="${mcj_path}" />
+    <property name="param3" value="FALSE" />
+    <property name="param4" value="ooaofooa" />
   </ant>
   <!-- Need to touch the output file for the case where the input data
        changed, but the output didn't -->
@@ -68,6 +68,8 @@
   <ant antfile="${mcj_path}/build.xml" target="generate.schema" >
     <property name="param1" value="../${canvas_sql_dir}/ooaofgraphics.sql" />
     <property name="param2" value="${mcj_path}" />
+    <property name="param3" value="FALSE" />
+    <property name="param4" value="ooaofgraphics" />
   </ant>
   <!-- Need to touch the output file for the case where the input data
        changed, but the output didn't -->
@@ -90,9 +92,10 @@
           description="Generate the Properties Test files"
           unless="java.buildNotNeeded" >
     <echo >Generating Properties Test class ...</echo>
-    <exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}/xtumlmc_gen_erate" >
+    <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
         <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
-    <arg line="-nopersist
+        <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
+    <arg line="xtumlmc_gen_erate -nopersist
       -import sql/${ooaofooa_schema.output}
       -import sql/${ooaofgraphics_schema.output}
       -import ${core_sql_dir}/ooaofooa_hierarchy_schema.sql
@@ -124,9 +127,10 @@
             description="Generate the Properties Read Only Test files"
             unless="readonly.buildNotNeeded" >
       <echo >Generating Properties Read Only Test class ...</echo>
-      <exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}/xtumlmc_gen_erate" >
+      <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
           <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
-      <arg line="-nopersist
+          <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
+      <arg line="xtumlmc_gen_erate -nopersist
         -import sql/${ooaofooa_schema.output}
         -d 0 -import sql/${ooaofgraphics_schema.output}
         -import ${core_sql_dir}/ooaofooa_hierarchy_schema.sql
@@ -159,7 +163,7 @@
     <copy todir="models/org.xtuml.bp.ui.properties.test/Datatypes/">
     	<fileset dir="../org.xtuml.bp.pkg/globals"><filename name="Globals.xtuml"/></fileset>   	
     </copy>
-    <exec vmlauncher="false" failonerror="true" executable="${mc_bin_dir}/xtumlmc_build.exe" >
+    <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
       <arg line="xtumlmc_cleanse_for_BridgePoint
             ${sql.input.dir}
       ${basedir}/sql/${sql.output}
@@ -180,10 +184,11 @@
           description="Generate the Properties Test Data file"
           unless="test_data.buildNotNeeded" >
     <echo >Generating Test Data files ...</echo>
-    <exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}/xtumlmc_gen_erate" >
+    <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
         <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
         <env key="CHAIN_UTIL_DIR" value="${chain_util_path}"/>
-    <arg line="-nopersist
+        <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
+    <arg line="xtumlmc_gen_erate -nopersist
             -import sql/proxy_schema.sql
       -import sql/ooaofooa_schema.sql
       -import sql/ooaofgraphics_schema.sql
@@ -195,7 +200,7 @@
     <delete file="rel_chain.txt" />
     <delete file="rel_num.txt" />
     <delete file="remainder.txt" />
-  	<delete file="models/org.xtuml.bp.ui.properties.test/Datatypes" />
+  	<delete file="models/org.xtuml.bp.ui.properties.test/Datatypes/Globals.xtuml" />
   </target>
 
   <property name="cvs_java_files" value="EnumRangeTest.java,IsAllowedTypeTest.java,

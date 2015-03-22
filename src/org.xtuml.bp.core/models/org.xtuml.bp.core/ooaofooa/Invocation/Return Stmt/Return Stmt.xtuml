@@ -8,14 +8,14 @@ INSERT INTO O_OBJ
 	'Represents a return statement. It has an optional relationship with a value
 because returns may bear a value depending on whether the callee
 returns void or not.',
-	"b1a6258a-4548-4a81-bc3c-a6bab0f22f55");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("63b45a9a-5205-48f3-8fb5-7bd11f7fc4d1",
 	"a3c1cfbf-1744-4b5e-9297-55e8f611835c",
 	'dispose',
 	'This operation disconnects an instance, and all instances it is 
 responsible for, from the model.',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select one val related by self->V_VAL[R668];
 if ( not_empty val )
@@ -27,19 +27,12 @@ delete object instance self;
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO S_DT_PROXY
-	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'void',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("401cc5a9-adbb-4091-b598-edee33435e16",
 	"a3c1cfbf-1744-4b5e-9297-55e8f611835c",
 	'execute',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// Invocation:Return Stmt.execute()
 select one body related by self ->ACT_SMT[R603]->ACT_BLK[R602]->ACT_ACT[R601];  
@@ -165,18 +158,11 @@ INSERT INTO O_TPARM
 	VALUES ("80b4189e-7ea7-4adc-808b-0c3636ce09b8",
 	"401cc5a9-adbb-4091-b598-edee33435e16",
 	'stack_frame_id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'unique_id',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("a3c1cfbf-1744-4b5e-9297-55e8f611835c",
 	"e9011b75-e798-45a3-ac83-92ba7c04db4e",
@@ -227,16 +213,9 @@ INSERT INTO O_ATTR
 	'',
 	'Statement_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("a3c1cfbf-1744-4b5e-9297-55e8f611835c",
 	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
@@ -287,7 +266,7 @@ INSERT INTO O_ATTR
 	'',
 	'Value_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_ID
@@ -304,8 +283,16 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"a3c1cfbf-1744-4b5e-9297-55e8f611835c");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("a3c1cfbf-1744-4b5e-9297-55e8f611835c",
+	1,
+	"b1a6258a-4548-4a81-bc3c-a6bab0f22f55",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("b1a6258a-4548-4a81-bc3c-a6bab0f22f55",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Invocation',
 	'This subsystem captures the concepts of call and return. It covers
 calls to operations, bridges and functions and includes the return
@@ -315,8 +302,5 @@ Persistent:false
 // This is used by schema_gen to ignore this subsystem (for publication)
 TRANSLATE_FOR_EXTERNAL_USE:FALSE
 ',
-	'ACT',
 	600,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-00000060000c",
 	'../Invocation.xtuml');

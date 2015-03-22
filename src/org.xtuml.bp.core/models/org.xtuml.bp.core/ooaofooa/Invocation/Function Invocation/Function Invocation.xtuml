@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("b1cbfba6-5a38-4205-aa50-7e24677fb997",
@@ -6,14 +6,14 @@ INSERT INTO O_OBJ
 	625,
 	'ACT_FNC',
 	'This class represents the invocation of a function.',
-	"b1a6258a-4548-4a81-bc3c-a6bab0f22f55");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("57478a8b-647d-4ec2-ae38-55721ffbceb4",
 	"b1cbfba6-5a38-4205-aa50-7e24677fb997",
 	'dispose',
 	'This operation disconnects an instance, and all instances it is 
 responsible for, from the model.',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select one sync related by self->S_SYNC[R675];
 if ( not empty sync )
@@ -31,19 +31,12 @@ delete object instance self;
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO S_DT_PROXY
-	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'void',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("eb1e109c-7305-48c3-b6af-b5f26bd4df65",
 	"b1cbfba6-5a38-4205-aa50-7e24677fb997",
 	'execute',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'//Invocation:Function Invocation.execute()
 // Execute the function
@@ -61,18 +54,11 @@ INSERT INTO O_TPARM
 	VALUES ("47ee27c9-e7e3-470b-9086-2609d5ec20db",
 	"eb1e109c-7305-48c3-b6af-b5f26bd4df65",
 	'stack_frame_id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'unique_id',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("227372f7-2317-4dd7-afe1-e2c6aa09c63f",
 	"b1cbfba6-5a38-4205-aa50-7e24677fb997",
@@ -80,7 +66,7 @@ INSERT INTO O_TFR
 	'SetupParameterValues is responsible for taking all of the actual parameter
 values supplied to a function call and creating accessible local values within the
 new executing stack frame.',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'// Invocation:Function Invocation.setupParameterValues
 select one body related by self ->ACT_SMT[R603]->ACT_BLK[R602]->ACT_ACT[R601];  
@@ -196,18 +182,11 @@ INSERT INTO O_TPARM
 	VALUES ("bb77f5e4-b3f2-4144-be42-b0dce2fc0ef7",
 	"227372f7-2317-4dd7-afe1-e2c6aa09c63f",
 	'stack_frame_id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("8e519c45-7dcf-400b-9d4e-954869dbb7e8",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'boolean',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("b1cbfba6-5a38-4205-aa50-7e24677fb997",
 	"e9011b75-e798-45a3-ac83-92ba7c04db4e",
@@ -258,16 +237,9 @@ INSERT INTO O_ATTR
 	'',
 	'Statement_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("c18a1585-ad1e-48a3-838a-4583d6ae7b45",
 	"b1cbfba6-5a38-4205-aa50-7e24677fb997");
@@ -283,16 +255,9 @@ INSERT INTO O_ATTR
 	'',
 	'functionNameLineNumber',
 	0,
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'integer',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("82c5cda6-4352-4449-aa3a-2812cddd6588",
 	"b1cbfba6-5a38-4205-aa50-7e24677fb997");
@@ -308,7 +273,7 @@ INSERT INTO O_ATTR
 	'',
 	'functionNameColumn',
 	0,
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
 INSERT INTO O_REF
@@ -326,7 +291,7 @@ INSERT INTO O_REF
 	'',
 	'Function',
 	'Sync_ID',
-	'R675');
+	'R675.''is an invocation of''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("b1cbfba6-5a38-4205-aa50-7e24677fb997",
 	"ba1daec1-89dd-4125-a955-30cf3f570f60",
@@ -359,7 +324,7 @@ INSERT INTO O_ATTR
 	'',
 	'Sync_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_ID
@@ -376,8 +341,16 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"b1cbfba6-5a38-4205-aa50-7e24677fb997");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("b1cbfba6-5a38-4205-aa50-7e24677fb997",
+	1,
+	"b1a6258a-4548-4a81-bc3c-a6bab0f22f55",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("b1a6258a-4548-4a81-bc3c-a6bab0f22f55",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Invocation',
 	'This subsystem captures the concepts of call and return. It covers
 calls to operations, bridges and functions and includes the return
@@ -387,8 +360,5 @@ Persistent:false
 // This is used by schema_gen to ignore this subsystem (for publication)
 TRANSLATE_FOR_EXTERNAL_USE:FALSE
 ',
-	'ACT',
 	600,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-00000060000c",
 	'../Invocation.xtuml');

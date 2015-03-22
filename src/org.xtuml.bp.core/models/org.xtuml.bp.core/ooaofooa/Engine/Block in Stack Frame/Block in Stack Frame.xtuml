@@ -8,13 +8,13 @@ INSERT INTO O_OBJ
 	'A block of OAL statements can be called recursively, 
 and this association enables the developer to distinguish
 a specific entry into the block within a stack frame.',
-	"ce2c2e5b-d701-4d5f-9b67-5db53fc8ca56");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("f2bb92ad-7d74-4313-87b3-226789452320",
 	"d82f59cf-68e9-4390-a7e9-4f889a65d214",
 	'dispose',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// Block in Stack Frame.dispose()
 select many lcls related by self->L_LCL[R3000];
@@ -37,13 +37,6 @@ delete object instance self;
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO S_DT_PROXY
-	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'void',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("9bdd972f-8a66-4d8e-ad6d-4f8f307aaccd",
 	"d82f59cf-68e9-4390-a7e9-4f889a65d214");
@@ -59,16 +52,9 @@ INSERT INTO O_ATTR
 	'',
 	'isExecuting',
 	0,
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("8e519c45-7dcf-400b-9d4e-954869dbb7e8",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'boolean',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("d82f59cf-68e9-4390-a7e9-4f889a65d214",
 	"b7fa3f21-6c94-47c6-934b-a56a2b7d758e",
@@ -117,16 +103,9 @@ INSERT INTO O_ATTR
 	'',
 	'Block_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("d82f59cf-68e9-4390-a7e9-4f889a65d214",
 	"60fd0d8e-9f75-40a3-b729-2bf3b7068c52",
@@ -170,7 +149,7 @@ INSERT INTO O_ATTR
 	'',
 	'Stack_Frame_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -221,7 +200,7 @@ INSERT INTO O_ATTR
 	'',
 	'Statement_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_ID
@@ -243,15 +222,20 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"d82f59cf-68e9-4390-a7e9-4f889a65d214");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("d82f59cf-68e9-4390-a7e9-4f889a65d214",
+	1,
+	"ce2c2e5b-d701-4d5f-9b67-5db53fc8ca56",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("ce2c2e5b-d701-4d5f-9b67-5db53fc8ca56",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Engine',
 	'// This is used by schema_gen to ignore this subsystem (for publication)
 TRANSLATE_FOR_EXTERNAL_USE:FALSE
 Persistent:false
 Import: java.util.concurrent.locks.ReentrantLock',
-	'I',
 	900,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000000000",
 	'../Engine.xtuml');

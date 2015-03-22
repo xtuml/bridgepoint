@@ -10,7 +10,7 @@
 <booleanAttribute key="clearws" value="true"/>
 <booleanAttribute key="clearwslog" value="false"/>
 <stringAttribute key="configLocation" value="${workspace_loc}/.metadata/.plugins/org.eclipse.pde.core/Search Test"/>
-<booleanAttribute key="default" value="true"/>
+<booleanAttribute key="default" value="false"/>
 <booleanAttribute key="includeOptional" value="true"/>
 <stringAttribute key="location" value="${eclipse_home}/bp_tests/search"/>
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">

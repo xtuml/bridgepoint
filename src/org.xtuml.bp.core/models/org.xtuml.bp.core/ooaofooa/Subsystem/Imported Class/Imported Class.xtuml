@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("fcc05ac4-6434-449e-9045-c76c52ee8c78",
@@ -6,7 +6,7 @@ INSERT INTO O_OBJ
 	102,
 	'O_IOBJ',
 	'Classes can have interactions with classes in other subsystems.  In order to capture these spanning interactions, Classes can be imported into another subsystem.  Spanning interactions can be associations, event communications, or data accesses and are captured in class diagram, communication diagram, and synchronous communication diagram, respectively.  Spanning interactions provide the data for derivation of the subsystem association model, subsystem communication model, and subsystem access model.',
-	"67eb58de-1d2b-4163-8373-ae8e65e99f84");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("bc91d7b0-cd37-4d71-a924-62c815956051",
 	"fcc05ac4-6434-449e-9045-c76c52ee8c78",
@@ -30,7 +30,7 @@ end if;',
 	"4e20081b-f900-48c9-9d49-e85dc60c98fe");
 INSERT INTO S_DT_PROXY
 	VALUES ("6e636321-0fd1-4577-b185-e4d76b0d0c71",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
 	'Style',
 	'The Style data type specifies the precise form a graphical element will take when drawn.
 --------------------------------------------------------------------------
@@ -45,7 +45,7 @@ INSERT INTO O_TFR
 it represents.
 -----------------------------------------------------------------------------------
 Bridge:GD',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	1,
 	'select one cl related by self->O_OBJ[R101];
 if (not_empty cl)
@@ -57,13 +57,6 @@ end if;',
 	1,
 	'',
 	"05c9eab9-c26d-4e88-85f3-e55c0dfc562f");
-INSERT INTO S_DT_PROXY
-	VALUES ("79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'integer',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("05c9eab9-c26d-4e88-85f3-e55c0dfc562f",
 	"fcc05ac4-6434-449e-9045-c76c52ee8c78",
@@ -72,7 +65,7 @@ INSERT INTO O_TFR
 that it adds the stereotype "<<Imported>>" to the name compartment.
 -----------------------------------------------------------------------------------
 Bridge:GD',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'select one cl related by self->O_OBJ[R101];
 if (not_empty cl)
@@ -104,7 +97,7 @@ INSERT INTO O_TPARM
 	VALUES ("40757e82-e8b9-4fcd-b026-9f3622788a21",
 	"05c9eab9-c26d-4e88-85f3-e55c0dfc562f",
 	'comp_num',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"a77ed1ef-f219-47c7-a1df-d99bd60ad140",
@@ -113,7 +106,7 @@ INSERT INTO O_TPARM
 	VALUES ("5e8d85c2-2047-4b4f-84a0-4ee767c6cb51",
 	"05c9eab9-c26d-4e88-85f3-e55c0dfc562f",
 	'ent_num',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"40757e82-e8b9-4fcd-b026-9f3622788a21",
@@ -129,18 +122,11 @@ INSERT INTO O_TPARM
 	'');
 INSERT INTO S_DT_PROXY
 	VALUES ("a9382bea-4a3f-43ec-9191-1f9f158b11a4",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
 	'Justification',
 	'The Justification data type is used to specify text at a given location in a compartment.
 ------------------------------------------------------------------------------
 Bridge:GD',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
-INSERT INTO S_DT_PROXY
-	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'string',
-	'',
 	'',
 	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
@@ -152,7 +138,7 @@ represents, except for the first compartment in which it adds the
 stereotype, "<<Imported>>".
 -----------------------------------------------------------------------------------
 Bridge:GD',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	1,
 	'select one cl related by self->O_OBJ[R101];
 if (not_empty cl)
@@ -173,7 +159,7 @@ INSERT INTO O_TPARM
 	VALUES ("98d952c6-685f-4208-927a-43a8e4f0d95b",
 	"2fcc2c57-0336-4ca2-8df4-cbb442c1ad89",
 	'comp_num',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -201,7 +187,7 @@ INSERT INTO O_TPARM
 	VALUES ("f9c16a66-4847-484e-bd9a-ebb66d617f01",
 	"d0f91843-3568-459e-99b5-55cf53fee2df",
 	'comp_num',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"81f18f5e-e915-430e-b1ce-59c9bcb8cb1d",
@@ -210,7 +196,7 @@ INSERT INTO O_TPARM
 	VALUES ("7e2c0d76-e4d7-4cce-a188-596da674ffdb",
 	"d0f91843-3568-459e-99b5-55cf53fee2df",
 	'ent_num',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"f9c16a66-4847-484e-bd9a-ebb66d617f01",
@@ -231,25 +217,18 @@ INSERT INTO O_TFR
 	'The ooa_id of an Imported Class is it''s IObj_ID
 -----------------------------------------------------------------------------------
 Bridge:GD',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'return self.IObj_ID;',
 	1,
 	'',
 	"e291e203-6773-458d-a76d-fdd8b295f052");
-INSERT INTO S_DT_PROXY
-	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'unique_id',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("8d02c619-b5eb-4173-8a8c-981d6d50fedf",
 	"fcc05ac4-6434-449e-9045-c76c52ee8c78",
 	'dispose',
 	'The dispose operation for an Imported Class.',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
 // Subsystem Subsystem
@@ -306,19 +285,12 @@ delete object instance self;',
 	1,
 	'',
 	"f751e973-7ae0-4fe5-9dd7-d4d9d882d893");
-INSERT INTO S_DT_PROXY
-	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'void',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("e291e203-6773-458d-a76d-fdd8b295f052",
 	"fcc05ac4-6434-449e-9045-c76c52ee8c78",
 	'get_name',
 	'',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'select one obj related by self->O_OBJ[R101];
 if (not_empty obj)
@@ -336,7 +308,7 @@ INSERT INTO O_TFR
 	'actionFilter',
 	'Bridge: UI
 ',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'if (param.name == "unassigned" )
   // See if it is already assigned and if it is return false
@@ -383,7 +355,7 @@ INSERT INTO O_TPARM
 	VALUES ("a65c7d22-f1e6-44c7-bced-52b191d2a658",
 	"8fc3ef85-c77a-49b6-86b8-192a0dfb5c62",
 	'name',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -392,24 +364,17 @@ INSERT INTO O_TPARM
 	VALUES ("a4809307-ad00-4f58-89f0-ed9d657fefaf",
 	"8fc3ef85-c77a-49b6-86b8-192a0dfb5c62",
 	'value',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	0,
 	'',
 	"a65c7d22-f1e6-44c7-bced-52b191d2a658",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("8e519c45-7dcf-400b-9d4e-954869dbb7e8",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'boolean',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("7ffab0fc-8fc5-4ee5-a71a-d3ba51543986",
 	"fcc05ac4-6434-449e-9045-c76c52ee8c78",
 	'getElideCompartmentTextAtEnd',
 	'',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'// elide at the front if the given compartment/entry corresponds to
 // the class''s path (and name), and a class has been assigned to this instance 
@@ -425,7 +390,7 @@ INSERT INTO O_TPARM
 	VALUES ("fda67ed8-0d06-4dcb-8242-68b8428ca887",
 	"7ffab0fc-8fc5-4ee5-a71a-d3ba51543986",
 	'compartmentNum',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -434,7 +399,7 @@ INSERT INTO O_TPARM
 	VALUES ("e0fbecb2-79fb-49c5-ae95-033319a83dea",
 	"7ffab0fc-8fc5-4ee5-a71a-d3ba51543986",
 	'entryNum',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"fda67ed8-0d06-4dcb-8242-68b8428ca887",
@@ -444,7 +409,7 @@ INSERT INTO O_TFR
 	"fcc05ac4-6434-449e-9045-c76c52ee8c78",
 	'resolveModelClass',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
 select one proxyClass related by self->O_OBJ[R101];
@@ -597,7 +562,7 @@ INSERT INTO O_TFR
 	"8fc3ef85-c77a-49b6-86b8-192a0dfb5c62");
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
 	'instance',
 	'',
 	'',
@@ -607,7 +572,7 @@ INSERT INTO O_TFR
 	"fcc05ac4-6434-449e-9045-c76c52ee8c78",
 	'canAssignToClass',
 	'',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
 select one packageableElem related by self->PE_PE[R8001];
@@ -659,7 +624,7 @@ INSERT INTO O_TPARM
 	VALUES ("7861a736-a70b-4827-93ab-89e0251ea66e",
 	"4d1f1e3b-fef4-41b9-9ab1-82f165f5ad34",
 	'Id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -702,7 +667,7 @@ User_Visible: false',
 	'',
 	'Modl_Typ',
 	0,
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
 INSERT INTO O_REF
@@ -720,7 +685,7 @@ INSERT INTO O_REF
 	'',
 	'Subsystem',
 	'SS_ID',
-	'R3');
+	'R3.''represents a class from another subsystem in''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("fcc05ac4-6434-449e-9045-c76c52ee8c78",
 	"36b08b87-4ec5-4616-ac76-bf1175a50a85",
@@ -753,16 +718,9 @@ INSERT INTO O_ATTR
 	'',
 	'SS_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_DBATTR
 	VALUES ("33d2117a-53d4-43f5-aee2-c79846f800cc",
 	"fcc05ac4-6434-449e-9045-c76c52ee8c78",
@@ -790,7 +748,7 @@ Description:  This attribute provides identifying information for the Class rela
 	'',
 	'Obj_Name',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_DBATTR
@@ -820,7 +778,7 @@ Description:  This attribute provides identifying information for the Class rela
 	'',
 	'Obj_KL',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_REF
@@ -838,7 +796,7 @@ INSERT INTO O_REF
 	'',
 	'Model Class',
 	'Obj_ID',
-	'R101');
+	'R101.''represents''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("fcc05ac4-6434-449e-9045-c76c52ee8c78",
 	"9a7bd08b-cef8-467d-a5dc-e581aef13717",
@@ -871,7 +829,7 @@ INSERT INTO O_ATTR
 	'',
 	'Obj_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -919,7 +877,7 @@ Description: Uniquely identifies an instance of imported class',
 	'',
 	'IObj_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_ID
@@ -936,12 +894,17 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"fcc05ac4-6434-449e-9045-c76c52ee8c78");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("fcc05ac4-6434-449e-9045-c76c52ee8c78",
+	1,
+	"67eb58de-1d2b-4163-8373-ae8e65e99f84",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("67eb58de-1d2b-4163-8373-ae8e65e99f84",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Subsystem',
 	'A class (O_OBJ)  is an abstraction of a real world thing that has specific attributes (O_ATTR) and, if active, has a lifecycle model as a state machine (SM_SM).  All instances of the class must have the same characteristics and follow the same state behavior.  Classes fall into many categories, some of which are: tangible things, roles, interactions and specifications. ',
-	'O',
 	101,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000300006",
 	'../Subsystem.xtuml');

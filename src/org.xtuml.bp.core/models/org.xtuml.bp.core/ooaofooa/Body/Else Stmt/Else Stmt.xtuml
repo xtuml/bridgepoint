@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("42f29787-8028-4860-99be-7a0c7d66a5a2",
@@ -6,7 +6,7 @@ INSERT INTO O_OBJ
 	610,
 	'ACT_E',
 	'The class represents an else statement in a block of action language.',
-	"76583c73-7a99-4c81-b260-8109e6cef5ca");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("b795937e-c254-443a-84d6-8cc8e6f891d2",
 	"42f29787-8028-4860-99be-7a0c7d66a5a2",
@@ -14,7 +14,7 @@ INSERT INTO O_TFR
 	'This operation disconnects an instance, and all instances it is 
 responsible for, from the model.
 ',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select one blk related by self->ACT_BLK[R606];
 if ( not_empty blk )
@@ -35,13 +35,6 @@ delete object instance self;
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO S_DT_PROXY
-	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'void',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("42f29787-8028-4860-99be-7a0c7d66a5a2",
 	"e9011b75-e798-45a3-ac83-92ba7c04db4e",
@@ -92,16 +85,9 @@ INSERT INTO O_ATTR
 	'',
 	'Statement_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("42f29787-8028-4860-99be-7a0c7d66a5a2",
 	"b7fa3f21-6c94-47c6-934b-a56a2b7d758e",
@@ -117,7 +103,7 @@ INSERT INTO O_REF
 	'',
 	'Block',
 	'Block_ID',
-	'R606');
+	'R606.''controls''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("42f29787-8028-4860-99be-7a0c7d66a5a2",
 	"490aa778-44e0-446c-bc02-fd15fb0031a0",
@@ -150,7 +136,7 @@ INSERT INTO O_ATTR
 	'',
 	'Block_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -199,7 +185,7 @@ INSERT INTO O_ATTR
 	'If_',
 	'Statement_ID',
 	1,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_ID
@@ -216,8 +202,16 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"42f29787-8028-4860-99be-7a0c7d66a5a2");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("42f29787-8028-4860-99be-7a0c7d66a5a2",
+	1,
+	"76583c73-7a99-4c81-b260-8109e6cef5ca",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("76583c73-7a99-4c81-b260-8109e6cef5ca",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Body',
 	'This subsystem abstracts the action itself, the blocks and statements
 it contains together with the flow of control statements such as ''while'',
@@ -227,8 +221,5 @@ Persistent:false
 // This is used by schema_gen to ignore this subsystem (for publication)
 TRANSLATE_FOR_EXTERNAL_USE:FALSE
 ',
-	'ACT',
 	600,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000380007",
 	'../Body.xtuml');

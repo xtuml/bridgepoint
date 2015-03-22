@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("22c5c5d4-325c-4cdb-8566-d82bb85e797b",
@@ -6,13 +6,13 @@ INSERT INTO O_OBJ
 	626,
 	'ACT_IOP',
 	'',
-	"b1a6258a-4548-4a81-bc3c-a6bab0f22f55");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("a15dd167-94ea-416f-b761-ff446226ac51",
 	"22c5c5d4-325c-4cdb-8566-d82bb85e797b",
 	'dispose',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// Interface Operation Invocation.dispose()
 select one rop related by self->SPR_RO[R657];
@@ -37,19 +37,12 @@ delete object instance self;',
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO S_DT_PROXY
-	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'void',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("e3d9610c-bd14-4226-b29e-80867d9c470f",
 	"22c5c5d4-325c-4cdb-8566-d82bb85e797b",
 	'execute',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'//Invocation:Interface Operation Invocation.execute()
 /* The following conditions apply when executing an interface operation body:
@@ -198,24 +191,17 @@ INSERT INTO O_TPARM
 	VALUES ("8fc5daf1-6626-4fdd-b540-4b3fd5b6ce77",
 	"e3d9610c-bd14-4226-b29e-80867d9c470f",
 	'stack_frame_id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'unique_id',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("b6baa021-a272-4168-957f-e1ea70f2c53a",
 	"22c5c5d4-325c-4cdb-8566-d82bb85e797b",
 	'setupParameterValues',
 	'',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'// Invocation:Interface Operation Invocation.setupParameterValues
 select one body related by self ->ACT_SMT[R603]->ACT_BLK[R602]->ACT_ACT[R601];
@@ -278,18 +264,11 @@ INSERT INTO O_TPARM
 	VALUES ("8e3cf20a-6e2c-40df-a391-e127909e37df",
 	"b6baa021-a272-4168-957f-e1ea70f2c53a",
 	'stack_frame_id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("8e519c45-7dcf-400b-9d4e-954869dbb7e8",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'boolean',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("22c5c5d4-325c-4cdb-8566-d82bb85e797b",
 	"e9011b75-e798-45a3-ac83-92ba7c04db4e",
@@ -338,16 +317,9 @@ INSERT INTO O_ATTR
 	'',
 	'Statement_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("de7ef575-ef38-4e89-9ae1-36f9554416dc",
 	"22c5c5d4-325c-4cdb-8566-d82bb85e797b");
@@ -363,16 +335,9 @@ INSERT INTO O_ATTR
 	'',
 	'opNameLineNumber',
 	0,
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'integer',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("7e9e9587-7c15-44d7-8b73-81d76ed8ed32",
 	"22c5c5d4-325c-4cdb-8566-d82bb85e797b");
@@ -388,7 +353,7 @@ INSERT INTO O_ATTR
 	'',
 	'opNameColumn',
 	0,
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -406,7 +371,7 @@ INSERT INTO O_ATTR
 	'',
 	'ownerNameLineNumber',
 	0,
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -424,7 +389,7 @@ INSERT INTO O_ATTR
 	'',
 	'ownerNameColumn',
 	0,
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
 INSERT INTO O_REF
@@ -442,7 +407,7 @@ INSERT INTO O_REF
 	'',
 	'Provided Operation',
 	'Id',
-	'R680');
+	'R680.''is invocation of''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("22c5c5d4-325c-4cdb-8566-d82bb85e797b",
 	"63958118-e00e-4c58-888e-6f100c2fda53",
@@ -475,7 +440,7 @@ INSERT INTO O_ATTR
 	'ProvidedOp_',
 	'Id',
 	1,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -493,7 +458,7 @@ INSERT INTO O_REF
 	'',
 	'Required Operation',
 	'Id',
-	'R657');
+	'R657.''is invocation of''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("22c5c5d4-325c-4cdb-8566-d82bb85e797b",
 	"2e985ea0-2a92-4e1e-8338-6dcb24d951ed",
@@ -526,7 +491,7 @@ INSERT INTO O_ATTR
 	'RequiredOp_',
 	'Id',
 	1,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -544,7 +509,7 @@ INSERT INTO O_REF
 	'',
 	'Value',
 	'Value_ID',
-	'R629');
+	'R629.''has target''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("22c5c5d4-325c-4cdb-8566-d82bb85e797b",
 	"a6cc7524-8b66-4a36-9fe5-a945ed517206",
@@ -577,7 +542,7 @@ INSERT INTO O_ATTR
 	'',
 	'Value_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_ID
@@ -594,8 +559,16 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"22c5c5d4-325c-4cdb-8566-d82bb85e797b");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("22c5c5d4-325c-4cdb-8566-d82bb85e797b",
+	1,
+	"b1a6258a-4548-4a81-bc3c-a6bab0f22f55",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("b1a6258a-4548-4a81-bc3c-a6bab0f22f55",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Invocation',
 	'This subsystem captures the concepts of call and return. It covers
 calls to operations, bridges and functions and includes the return
@@ -605,8 +578,5 @@ Persistent:false
 // This is used by schema_gen to ignore this subsystem (for publication)
 TRANSLATE_FOR_EXTERNAL_USE:FALSE
 ',
-	'ACT',
 	600,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-00000060000c",
 	'../Invocation.xtuml');

@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("0372e9a2-4087-4880-8e23-a0df2184df2c",
@@ -6,13 +6,13 @@ INSERT INTO O_OBJ
 	640,
 	'ACT_RSB',
 	'',
-	"76583c73-7a99-4c81-b260-8109e6cef5ca");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("215afe87-4e98-42dd-9265-6533f2ccc9cd",
 	"0372e9a2-4087-4880-8e23-a0df2184df2c",
 	'dispose',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select one act related by self->SPR_RS[R684];
 if ( not_empty act )
@@ -22,38 +22,24 @@ delete object instance self;',
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO S_DT_PROXY
-	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'void',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("e5961665-2c04-48c8-95a6-2012052edb75",
 	"0372e9a2-4087-4880-8e23-a0df2184df2c",
 	'getContainingComponentId',
 	'',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'select one requiredSig related by self->SPR_RS[R684];
 return requiredSig.getComponentId();',
 	1,
 	'',
 	"215afe87-4e98-42dd-9265-6533f2ccc9cd");
-INSERT INTO S_DT_PROXY
-	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'unique_id',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("37c2e11e-6f7c-4850-99d5-e96c1e1ad2df",
 	"0372e9a2-4087-4880-8e23-a0df2184df2c",
 	'getContainerId',
 	'',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'// Required Signal Body.getContainerId()
 select one requiredSig related by self->SPR_RS[R684];
@@ -66,7 +52,7 @@ INSERT INTO O_TFR
 	"0372e9a2-4087-4880-8e23-a0df2184df2c",
 	'getPath',
 	'',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'select one requiredSig related by self->SPR_RS[R684];
 requiredSigPath ="";
@@ -80,13 +66,6 @@ return requiredSigPath;',
 	1,
 	'',
 	"37c2e11e-6f7c-4850-99d5-e96c1e1ad2df");
-INSERT INTO S_DT_PROXY
-	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'string',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("0372e9a2-4087-4880-8e23-a0df2184df2c",
 	"d1c9af7b-9df6-432a-a25e-96cab24fc6af",
@@ -135,16 +114,9 @@ INSERT INTO O_ATTR
 	'',
 	'Action_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("0372e9a2-4087-4880-8e23-a0df2184df2c",
 	"7267de3e-fe63-474a-952b-d3155f3e36f2",
@@ -160,7 +132,7 @@ INSERT INTO O_REF
 	'',
 	'Required Signal',
 	'Id',
-	'R684');
+	'R684.''specifies processing for''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("0372e9a2-4087-4880-8e23-a0df2184df2c",
 	"382066b3-75fd-456e-97b7-a7cb96a2f7a5",
@@ -193,7 +165,7 @@ INSERT INTO O_ATTR
 	'',
 	'Id',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_ID
@@ -210,8 +182,16 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"0372e9a2-4087-4880-8e23-a0df2184df2c");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("0372e9a2-4087-4880-8e23-a0df2184df2c",
+	1,
+	"76583c73-7a99-4c81-b260-8109e6cef5ca",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("76583c73-7a99-4c81-b260-8109e6cef5ca",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Body',
 	'This subsystem abstracts the action itself, the blocks and statements
 it contains together with the flow of control statements such as ''while'',
@@ -221,8 +201,5 @@ Persistent:false
 // This is used by schema_gen to ignore this subsystem (for publication)
 TRANSLATE_FOR_EXTERNAL_USE:FALSE
 ',
-	'ACT',
 	600,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000380007",
 	'../Body.xtuml');

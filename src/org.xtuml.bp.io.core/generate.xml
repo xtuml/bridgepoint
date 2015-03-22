@@ -21,14 +21,10 @@
 
   <property name="eclipse-home" value="${basedir}/../.."/>
   <property name="plugins-home" value="${ant.home}/../.."/>
-
-  <property environment="env"/>
-  <property name="bp_bin_dir" value="${env.PT_HOME_DRIVE}${env.PT_HOME}/bin" />
-  <property name="mc_bin_dir" value="${env.PT_HOME_DRIVE}${env.PT_HOME}/mc3020/bin" />
+  <property name="util_bin_dir" value="${eclipse-home}/src/org.xtuml.bp.mc.c.binary/mc3020/bin"/>
 
   <property name="sql.input" value="models/org.xtuml.bp.io.core/file_io" />
   <property name="sql.output" value="file_io.sql" />
-
   <property name="subsystems_to_remove" value="ACT_ V_ E_ GD_ CT_ TS_ DIM_ STY_" />
 
   <target name="sql.depends" >
@@ -41,16 +37,18 @@
           description="Generate the sql version of the File IO model"
           unless="sql.buildNotNeeded" >
     <echo >Generating ${sql.output} ...</echo>
-  <exec vmlauncher="false" failonerror="true" executable="${mc_bin_dir}/xtumlmc_build.exe" >
-    <arg line="xtumlmc_cleanse_for_BridgePoint ${sql.input} sql/${sql.output} ${subsystems_to_remove}" />
-  </exec>
+  	<copy file="../org.xtuml.bp.pkg/globals/Globals.xtuml" tofile="${sql.input}/Globals.xtuml" />
+  	<exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
+      <arg line="xtumlmc_cleanse_for_BridgePoint ${sql.input} sql/${sql.output} ${subsystems_to_remove}"/>
+  	</exec>
+    <delete file="${sql.input}/Globals.xtuml" />
   </target>
 
   <property name="mcj_path" value="../MC-Java" />
   <property name="sg.dep" value="ooa_schema.sql,schema_gen.arc" />
   <property name="schema.output" value="file_io_schema.sql" />
 
-  <target name="schema.depends" >
+  <target name="schema.depends" depends="sql">
     <uptodate property="schema.buildNotNeeded" targetfile="sql/${schema.output}">
        <srcfiles dir = "sql"        includes = "${sql.output}"/>
        <srcfiles dir = "${mcj_path}" includes = "${sg.dep}"/>
@@ -62,9 +60,10 @@
           description="Generate the File IO schema file"
           unless="schema.buildNotNeeded" >
     <echo >Generating ${schema.output} ...</echo>
-  <ant antfile="${mcj_path}/build.xml" target="generate.schema" >
+  <ant antfile="${mcj_path}/build.xml" target="generate.schema" useNativeBasedir="false">
     <property name="param1" value="${sql.output}" />
     <property name="param2" value="${mcj_path}" />
+  	<property name="param4" value="file_io" />
   </ant>
   <!-- Need to touch the output file for the case where the input data
        changed, but the output didn't -->
@@ -90,7 +89,7 @@
     </taskdef>
         <PTCodeFormat>
           <fileset dir="../org.xtuml.bp.io.core/src/org/xtuml/bp/io/core/" excludes="CoreExport.java, CoreExportPage.java, CoreExportWizard.java, CoreImport.java
-            CoreImportPage.java, CoreImportWizard.java, CorePlugin.java, IIOCoreHelpContextIds.java, ImportHelper.java"
+            CoreImportPage.java, CoreImportWizard.java, CorePlugin.java, IIOCoreHelpContextIds.java, ImportHelper.java, ImportInteger.java"
             includes="*.java" />
         </PTCodeFormat>
   </target>

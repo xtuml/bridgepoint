@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("4be00b24-ddb7-4a99-b86a-8fe6f98fd2a0",
@@ -9,7 +9,7 @@ INSERT INTO O_OBJ
 given package. The association R8002 is populated by the operations
 collectVisibleElementsForName() on the Package and PackageableElement classes.
 Persistent:false',
-	"61c0aa15-d896-4feb-9c48-5e3f1af4e670");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_REF
 	VALUES ("4be00b24-ddb7-4a99-b86a-8fe6f98fd2a0",
 	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
@@ -25,7 +25,7 @@ INSERT INTO O_REF
 	'',
 	'Packageable Element',
 	'Element_ID',
-	'R8002');
+	'R8002.''has visibility of''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("4be00b24-ddb7-4a99-b86a-8fe6f98fd2a0",
 	"fdd6aa72-3ee0-4f64-9a8b-8b8538f9490e",
@@ -58,16 +58,9 @@ INSERT INTO O_ATTR
 	'',
 	'Element_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("4be00b24-ddb7-4a99-b86a-8fe6f98fd2a0",
 	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
@@ -83,7 +76,7 @@ INSERT INTO O_REF
 	'',
 	'Package',
 	'Package_ID',
-	'R8002');
+	'R8002.''is visible to elements in''');
 INSERT INTO O_RTIDA_PROXY
 	VALUES ("79df1b10-74db-4df8-a815-0cf62a4752c9",
 	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
@@ -135,7 +128,7 @@ INSERT INTO O_ATTR
 	'',
 	'Package_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -181,7 +174,7 @@ INSERT INTO O_ATTR
 	'',
 	'Name',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -227,7 +220,7 @@ INSERT INTO O_ATTR
 	'',
 	'Type',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -245,16 +238,9 @@ INSERT INTO O_ATTR
 	'',
 	'Visibility_ID',
 	0,
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'unique_id',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_ID
 	VALUES (0,
 	"4be00b24-ddb7-4a99-b86a-8fe6f98fd2a0");
@@ -279,12 +265,17 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"4be00b24-ddb7-4a99-b86a-8fe6f98fd2a0");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("4be00b24-ddb7-4a99-b86a-8fe6f98fd2a0",
+	1,
+	"61c0aa15-d896-4feb-9c48-5e3f1af4e670",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("61c0aa15-d896-4feb-9c48-5e3f1af4e670",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Packageable Element',
 	'',
-	'PE',
 	8000,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000000000",
 	'../Packageable Element.xtuml');

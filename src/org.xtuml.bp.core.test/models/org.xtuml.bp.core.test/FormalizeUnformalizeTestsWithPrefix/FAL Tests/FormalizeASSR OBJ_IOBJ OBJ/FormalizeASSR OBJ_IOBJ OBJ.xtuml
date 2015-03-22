@@ -1,7 +1,7 @@
 -- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
-	VALUES ("2547ba2a-a387-4135-a7a3-a16b4cf0aa6a",
+	VALUES ("e80d7ece-bc6f-42fc-8530-10028f0d46fe",
 	'FormalizeASSR OBJ_IOBJ OBJ',
 	305,
 	'T_FORM',
@@ -9,21 +9,21 @@ INSERT INTO O_OBJ
 	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_ID
 	VALUES (0,
-	"2547ba2a-a387-4135-a7a3-a16b4cf0aa6a");
+	"e80d7ece-bc6f-42fc-8530-10028f0d46fe");
 INSERT INTO O_ID
 	VALUES (1,
-	"2547ba2a-a387-4135-a7a3-a16b4cf0aa6a");
+	"e80d7ece-bc6f-42fc-8530-10028f0d46fe");
 INSERT INTO O_ID
 	VALUES (2,
-	"2547ba2a-a387-4135-a7a3-a16b4cf0aa6a");
+	"e80d7ece-bc6f-42fc-8530-10028f0d46fe");
 INSERT INTO PE_PE
-	VALUES ("2547ba2a-a387-4135-a7a3-a16b4cf0aa6a",
+	VALUES ("e80d7ece-bc6f-42fc-8530-10028f0d46fe",
 	1,
-	"4b5d272a-311a-418d-a9b9-41c18029d7f3",
+	"196b8b2b-cb6a-45da-b8aa-2ff6abcfde19",
 	"00000000-0000-0000-0000-000000000000",
 	4);
 INSERT INTO EP_PKG_PROXY
-	VALUES ("4b5d272a-311a-418d-a9b9-41c18029d7f3",
+	VALUES ("196b8b2b-cb6a-45da-b8aa-2ff6abcfde19",
 	"00000000-0000-0000-0000-000000000000",
 	"c6693612-7c4f-42e5-b64f-16c64f288945",
 	'FAL Tests',

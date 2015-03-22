@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("a707b1cc-6a87-4e46-a671-88ddd93866db",
@@ -6,7 +6,7 @@ INSERT INTO O_OBJ
 	4700,
 	'CL_IPINS',
 	'',
-	"7244f94a-6a20-46c8-8487-5090fedbedbf");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_REF
 	VALUES ("a707b1cc-6a87-4e46-a671-88ddd93866db",
 	"fe361322-0fa4-4c04-a60c-db0fe0cf4b4e",
@@ -22,7 +22,7 @@ INSERT INTO O_REF
 	'',
 	'Imported Provision',
 	'Id',
-	'R4705');
+	'R4705.''satisfaction made with''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("a707b1cc-6a87-4e46-a671-88ddd93866db",
 	"2001d5e1-508d-423b-9c10-d89d2518f6df",
@@ -55,16 +55,9 @@ INSERT INTO O_ATTR
 	'ImportedProvision_',
 	'Id',
 	1,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("a707b1cc-6a87-4e46-a671-88ddd93866db",
 	"31d55c78-4c8e-4706-afeb-da88c819c621",
@@ -80,7 +73,7 @@ INSERT INTO O_REF
 	'',
 	'Satisfaction',
 	'Id',
-	'R4705');
+	'R4705.''provides satisfaction through''');
 INSERT INTO O_RTIDA_PROXY
 	VALUES ("e00fa746-c155-44df-ad10-25826bceebdf",
 	"31d55c78-4c8e-4706-afeb-da88c819c621",
@@ -108,7 +101,7 @@ INSERT INTO O_ATTR
 	'Satisfaction_',
 	'Id',
 	1,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_ID
@@ -130,12 +123,17 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"a707b1cc-6a87-4e46-a671-88ddd93866db");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("a707b1cc-6a87-4e46-a671-88ddd93866db",
+	1,
+	"7244f94a-6a20-46c8-8487-5090fedbedbf",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("7244f94a-6a20-46c8-8487-5090fedbedbf",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Component Library',
 	'',
-	'CL',
 	4700,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000000000",
 	'../Component Library.xtuml');

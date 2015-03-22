@@ -1,7 +1,9 @@
--- BP 7.1 content: Domain syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: Package syschar: 3 persistence-version: 7.1.6
 
-INSERT INTO S_DOM
+INSERT INTO EP_PKG
 	VALUES ("3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	"8f801c9a-cf2d-4ef4-b11a-51b8697e3ca8",
+	"8f801c9a-cf2d-4ef4-b11a-51b8697e3ca8",
 	'ooaofgraphics',
 	'========================================================================
 
@@ -33,14 +35,12 @@ required for model diagram display and editing.
 Import:org.xtuml.bp.core.*
 -------------------------------------------------------------------------------------------------------------
 ',
-	0,
-	"00000000-0000-0000-0000-000000000001",
-	"8f801c9a-cf2d-4ef4-b11a-51b8697e3ca8");
+	0);
 INSERT INTO GD_MD
 	VALUES ("3d86926c-25c3-48ff-bdae-ba7b3249fc4b",
-	1,
+	112,
 	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	1,
+	108,
 	1,
 	0,
 	1,
@@ -59,7 +59,7 @@ INSERT INTO GD_GE
 	VALUES ("6ec8575e-a7b8-4599-93d2-a455300b8f63",
 	"3d86926c-25c3-48ff-bdae-ba7b3249fc4b",
 	"b5695748-80fc-47fb-b5c7-801b5f28b907",
-	11,
+	108,
 	0,
 	'org.xtuml.bp.ui.canvas::ooaofgraphics::Graphical Data');
 INSERT INTO GD_SHP
@@ -83,7 +83,7 @@ INSERT INTO GD_GE
 	VALUES ("e0469985-2bbd-41d8-9184-50fdd0d3359d",
 	"3d86926c-25c3-48ff-bdae-ba7b3249fc4b",
 	"afc7af9b-6e70-4780-9ad0-b9f3ec7560c9",
-	11,
+	108,
 	0,
 	'org.xtuml.bp.ui.canvas::ooaofgraphics::Canvas Tools');
 INSERT INTO GD_SHP
@@ -107,7 +107,7 @@ INSERT INTO GD_GE
 	VALUES ("e94f6ef1-bcea-4a6c-9ad3-106d512c9fef",
 	"3d86926c-25c3-48ff-bdae-ba7b3249fc4b",
 	"3aa01b07-08b4-4f56-a64c-5db1a460535b",
-	11,
+	108,
 	0,
 	'org.xtuml.bp.ui.canvas::ooaofgraphics::Terminal Specifications');
 INSERT INTO GD_SHP
@@ -131,7 +131,7 @@ INSERT INTO GD_GE
 	VALUES ("08e27f70-59d9-4298-b9fe-c49cabc10d0c",
 	"3d86926c-25c3-48ff-bdae-ba7b3249fc4b",
 	"8ab7ebd4-741d-4d90-af5a-e5e461b87386",
-	53,
+	108,
 	0,
 	'org.xtuml.bp.ui.canvas::ooaofgraphics::Datatypes');
 INSERT INTO GD_SHP
@@ -155,7 +155,7 @@ INSERT INTO GD_GE
 	VALUES ("874c5cb6-12f5-47e1-a13a-da55c68e01a6",
 	"3d86926c-25c3-48ff-bdae-ba7b3249fc4b",
 	"f10395e2-6099-42e4-9635-26164f0ea089",
-	54,
+	108,
 	0,
 	'org.xtuml.bp.ui.canvas::ooaofgraphics::Functions');
 INSERT INTO GD_SHP
@@ -179,7 +179,7 @@ INSERT INTO GD_GE
 	VALUES ("83cd0daf-9455-46d4-8010-60641161b8cc",
 	"3d86926c-25c3-48ff-bdae-ba7b3249fc4b",
 	"612b406b-af67-446a-b283-1506dadba0c5",
-	55,
+	108,
 	0,
 	'org.xtuml.bp.ui.canvas::ooaofgraphics::External Entities');
 INSERT INTO GD_SHP
@@ -203,7 +203,7 @@ INSERT INTO GD_GE
 	VALUES ("e0a2614a-20b7-4be8-b9ab-130cccd67b78",
 	"3d86926c-25c3-48ff-bdae-ba7b3249fc4b",
 	"490299c9-e7aa-468e-82d7-0731c80e4069",
-	11,
+	108,
 	0,
 	'org.xtuml.bp.ui.canvas::ooaofgraphics::UML 2.0 Diagram Interchange');
 INSERT INTO GD_SHP
@@ -227,7 +227,7 @@ INSERT INTO GD_GE
 	VALUES ("4c6db24a-58c8-4390-a5e4-f09507cc5b9c",
 	"3d86926c-25c3-48ff-bdae-ba7b3249fc4b",
 	"9daa01e9-3e90-41ba-bff0-f9213b487f5c",
-	11,
+	108,
 	0,
 	'org.xtuml.bp.ui.canvas::ooaofgraphics::Styles');
 INSERT INTO GD_SHP
@@ -254,8 +254,14 @@ INSERT INTO DIM_DIA
 	1678.000000,
 	1015.000000,
 	"00000000-0000-0000-0000-000000000000");
+INSERT INTO PE_PE
+	VALUES ("3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	0,
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000",
+	7);
 INSERT INTO S_SYS_PROXY
 	VALUES ("8f801c9a-cf2d-4ef4-b11a-51b8697e3ca8",
 	'org.xtuml.bp.ui.canvas',
-	0,
+	1,
 	'../org.xtuml.bp.ui.canvas.xtuml');

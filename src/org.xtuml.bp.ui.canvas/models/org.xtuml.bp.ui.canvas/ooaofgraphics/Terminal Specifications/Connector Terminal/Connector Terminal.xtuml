@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("a7d2fc6b-67c6-4632-8aa8-987770df262b",
@@ -14,13 +14,13 @@ pre-existing instance specification.
 
 PEI:true
 Persistent:false',
-	"3aa01b07-08b4-4f56-a64c-5db1a460535b");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("36b2b798-2091-4d92-817d-a5bf7b42ace4",
 	"a7d2fc6b-67c6-4632-8aa8-987770df262b",
 	'criteriaMet',
 	'',
-	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'select any elem from instances of GD_GE;
 select one model related by self->TS_TSP[R201]->GD_MD[R207];
@@ -91,23 +91,16 @@ INSERT INTO O_TPARM
 	VALUES ("d7598ca7-21b5-4f1f-9c64-9949dd03c7b8",
 	"36b2b798-2091-4d92-817d-a5bf7b42ace4",
 	'x1',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("388cd7a2-2d0c-4f02-9730-7670074de394",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	'integer',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TPARM
 	VALUES ("de7cd768-7db4-47c4-b001-97360465d28f",
 	"36b2b798-2091-4d92-817d-a5bf7b42ace4",
 	'y1',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"7405399a-0d84-41ba-968c-b0965a1ba545",
@@ -116,7 +109,7 @@ INSERT INTO O_TPARM
 	VALUES ("7405399a-0d84-41ba-968c-b0965a1ba545",
 	"36b2b798-2091-4d92-817d-a5bf7b42ace4",
 	'x2',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"d7598ca7-21b5-4f1f-9c64-9949dd03c7b8",
@@ -125,18 +118,11 @@ INSERT INTO O_TPARM
 	VALUES ("622e1752-0411-47f7-8e26-15792db53241",
 	"36b2b798-2091-4d92-817d-a5bf7b42ace4",
 	'y2',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"de7cd768-7db4-47c4-b001-97360465d28f",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("6e4aa280-2e22-4146-9b4a-6c2573c456d8",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	'boolean',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("a7d2fc6b-67c6-4632-8aa8-987770df262b",
 	"bef8e2b1-510b-4f91-92aa-7aeb9c1fe5be",
@@ -185,16 +171,9 @@ INSERT INTO O_ATTR
 	'',
 	'Term_Spec_ID',
 	0,
-	"66164f00-293e-4c17-ab30-7972c7c57152",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("66164f00-293e-4c17-ab30-7972c7c57152",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("9a3bfddf-b93d-4a30-a4d1-52dbcc042564",
 	"a7d2fc6b-67c6-4632-8aa8-987770df262b");
@@ -220,7 +199,7 @@ captures the connection point.
 	'');
 INSERT INTO S_DT_PROXY
 	VALUES ("ae246926-3437-45e4-9232-bcc0952dbcee",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	"00000000-0000-0000-0000-000000000000",
 	'End',
 	'Translate:false',
 	'',
@@ -240,7 +219,7 @@ INSERT INTO O_REF
 	'',
 	'Connector Specification',
 	'OOA_Type',
-	'R205');
+	'R205.''specifies termination on''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("a7d2fc6b-67c6-4632-8aa8-987770df262b",
 	"c6e7155c-9639-4a29-8cf7-1d7a38c3998b",
@@ -273,7 +252,7 @@ INSERT INTO O_ATTR
 	'',
 	'OOA_Type',
 	0,
-	"66164f00-293e-4c17-ab30-7972c7c57152",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_ID
@@ -290,8 +269,16 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"a7d2fc6b-67c6-4632-8aa8-987770df262b");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("a7d2fc6b-67c6-4632-8aa8-987770df262b",
+	1,
+	"3aa01b07-08b4-4f56-a64c-5db1a460535b",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("3aa01b07-08b4-4f56-a64c-5db1a460535b",
+	"00000000-0000-0000-0000-000000000000",
+	"8f801c9a-cf2d-4ef4-b11a-51b8697e3ca8",
 	'Terminal Specifications',
 	'The TS (Terminal Specification) subsystem models specification classes that
 define the legal ending points for BridgePoint connector symbols.
@@ -301,8 +288,5 @@ TRANSLATE_FOR_EXTERNAL_USE:FALSE
 Notify_Changes:false
 
 ',
-	'TS',
 	200,
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	"00000000-0000-0000-0000-000001d8003b",
 	'../Terminal Specifications.xtuml');

@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("0b1fad94-33b5-4bb3-8fb7-d1cc2d9b7b94",
@@ -7,13 +7,13 @@ INSERT INTO O_OBJ
 	'SQ_P',
 	'The class represents a participant of a sequence.  The possible participants are
 Class Instance, Class, Function Package, External Entity, and Lifespan.',
-	"90afcd0d-03fa-49d5-ac2c-0fd20beede15");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("d30cb7ad-7d8a-4840-bd63-a5cd27e5c0cc",
 	"0b1fad94-33b5-4bb3-8fb7-d1cc2d9b7b94",
 	'dispose',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
 select one eep related by self->SQ_EEP[R930];
@@ -135,19 +135,12 @@ delete object instance self;',
 	1,
 	'',
 	"a4181c45-0662-44d6-817e-d929332b46ff");
-INSERT INTO S_DT_PROXY
-	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'void',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("fee4dcf9-1a7a-4271-b559-b6eba5952506",
 	"0b1fad94-33b5-4bb3-8fb7-d1cc2d9b7b94",
 	'getMessageCompartmentText',
 	'',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'/**
  *
@@ -189,19 +182,12 @@ return Util::removeDuplicateStrings(completeString:result,
 	1,
 	'',
 	"69fe2f79-c5f5-4a7c-94ae-1e6f9090eb77");
-INSERT INTO S_DT_PROXY
-	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'string',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("69fe2f79-c5f5-4a7c-94ae-1e6f9090eb77",
 	"0b1fad94-33b5-4bb3-8fb7-d1cc2d9b7b94",
 	'getLabel',
 	'',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'select one cip related by self->SQ_CIP[R930];
 if(not_empty cip)
@@ -221,7 +207,7 @@ INSERT INTO O_TFR
 	"0b1fad94-33b5-4bb3-8fb7-d1cc2d9b7b94",
 	'definedAtSystemLevel',
 	'',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'select one sequence related by self->SQ_S[R929];
 select one comm related by self->COMM_COMM[R1126];
@@ -244,19 +230,12 @@ return false;',
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO S_DT_PROXY
-	VALUES ("8e519c45-7dcf-400b-9d4e-954869dbb7e8",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'boolean',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("0cd49a19-a6dc-43e3-9cf3-1c3234037f04",
 	"0b1fad94-33b5-4bb3-8fb7-d1cc2d9b7b94",
 	'getSystemId',
 	'',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'// Interaction Participant.getSystemId()
 // PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
@@ -284,13 +263,6 @@ return GD::NULL_UNIQUE_ID();',
 	1,
 	'',
 	"fee4dcf9-1a7a-4271-b559-b6eba5952506");
-INSERT INTO S_DT_PROXY
-	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'unique_id',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("0b1fad94-33b5-4bb3-8fb7-d1cc2d9b7b94",
 	"5f54b153-dd7d-444e-8526-f71458cc0d4f",
@@ -306,7 +278,7 @@ INSERT INTO O_REF
 	'',
 	'Sequence',
 	'Package_ID',
-	'R929');
+	'R929.''participates in''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("0b1fad94-33b5-4bb3-8fb7-d1cc2d9b7b94",
 	"0d0180d5-1e44-42bf-8663-be86fab36645",
@@ -339,16 +311,9 @@ INSERT INTO O_ATTR
 	'Sequence_',
 	'Package_ID',
 	1,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("0b1fad94-33b5-4bb3-8fb7-d1cc2d9b7b94",
 	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
@@ -397,7 +362,7 @@ INSERT INTO O_ATTR
 	'',
 	'Part_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_ID
@@ -414,13 +379,18 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"0b1fad94-33b5-4bb3-8fb7-d1cc2d9b7b94");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("0b1fad94-33b5-4bb3-8fb7-d1cc2d9b7b94",
+	1,
+	"90afcd0d-03fa-49d5-ac2c-0fd20beede15",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("90afcd0d-03fa-49d5-ac2c-0fd20beede15",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Interaction',
 	'// This is used by schema_gen to ignore this subsystem (for publication)
 TRANSLATE_FOR_EXTERNAL_USE:FALSE',
-	'IA',
 	930,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000000000",
 	'../Interaction.xtuml');

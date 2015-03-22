@@ -1,4 +1,4 @@
--- BP 7.1 content: InstanceStateMachine syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: InstanceStateMachine syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO SM_ISM
 	VALUES ("a76311a2-7489-4df7-9e69-4a8122350a68",
@@ -53,6 +53,24 @@ INSERT INTO SM_EVT
 	'',
 	'B2',
 	'');
+INSERT INTO SM_LEVT
+	VALUES ("88ade848-157b-4e85-9d53-828b9215d47c",
+	"a76311a2-7489-4df7-9e69-4a8122350a68",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO SM_SEVT
+	VALUES ("88ade848-157b-4e85-9d53-828b9215d47c",
+	"a76311a2-7489-4df7-9e69-4a8122350a68",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO SM_EVT
+	VALUES ("88ade848-157b-4e85-9d53-828b9215d47c",
+	"a76311a2-7489-4df7-9e69-4a8122350a68",
+	"00000000-0000-0000-0000-000000000000",
+	3,
+	'eventIgnored',
+	0,
+	'',
+	'B3',
+	'');
 INSERT INTO SM_STATE
 	VALUES ("97af8dcd-183c-4afb-b92e-8065148b4378",
 	"a76311a2-7489-4df7-9e69-4a8122350a68",
@@ -60,6 +78,17 @@ INSERT INTO SM_STATE
 	'State Name',
 	1,
 	0);
+INSERT INTO SM_EIGN
+	VALUES ("97af8dcd-183c-4afb-b92e-8065148b4378",
+	"88ade848-157b-4e85-9d53-828b9215d47c",
+	"a76311a2-7489-4df7-9e69-4a8122350a68",
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO SM_SEME
+	VALUES ("97af8dcd-183c-4afb-b92e-8065148b4378",
+	"88ade848-157b-4e85-9d53-828b9215d47c",
+	"a76311a2-7489-4df7-9e69-4a8122350a68",
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO SM_MOAH
 	VALUES ("bf359afb-2b4a-4f72-b4e6-58b694ca896b",
 	"a76311a2-7489-4df7-9e69-4a8122350a68",
@@ -92,15 +121,15 @@ INSERT INTO GD_MD
 	0,
 	0,
 	0,
-	'',
-	'testProp::Unnamed Subsystem::B Class::Instance State Machine');
+	'4.2.1',
+	'org.xtuml.bp.ui.properties.test::testProp::Unnamed Subsystem::B Class::Instance State Machine');
 INSERT INTO GD_GE
 	VALUES ("d8a1cce0-fb0d-41c6-89cf-dfc0099f606e",
 	"fd1836d3-2d08-4338-9414-c95f0a7bf92c",
 	"97af8dcd-183c-4afb-b92e-8065148b4378",
 	41,
 	0,
-	'testProp::Unnamed Subsystem::B Class::Instance State Machine::State Name');
+	'org.xtuml.bp.ui.properties.test::testProp::Unnamed Subsystem::B Class::Instance State Machine::State Name');
 INSERT INTO GD_SHP
 	VALUES ("d8a1cce0-fb0d-41c6-89cf-dfc0099f606e");
 INSERT INTO GD_NCS

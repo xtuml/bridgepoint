@@ -811,15 +811,17 @@ ${where_clause_arg}\
 .// select instance where statements
 .// --------------------------------------------------------
 .function gen_select_inst_where_statements
+  .param string root_pkg_name
   .select many sel_inst_where_stmts from instances of ACT_FIW
   .for each sel_inst_where_stmt in sel_inst_where_stmts
     .select one statement related by sel_inst_where_stmt->ACT_SMT[R603]
-    .invoke result = gen_select_inst_where_statement(sel_inst_where_stmt)
+    .invoke result = gen_select_inst_where_statement(root_pkg_name, sel_inst_where_stmt)
     .assign statement.buffer = "${result.body}"
   .end for
 .end function
 .//
 .function traverse_where_clause
+  .param string root_pkg_name
   .param inst_ref p_val  .// V_VAL
   .//
   .assign attr_param_decl = ""
@@ -830,7 +832,7 @@ ${where_clause_arg}\
   .select one bin related by p_val->V_BIN[R801]
   .if (not_empty bin)
     .select one lhs related by bin->V_VAL[R802]
-    .invoke x = traverse_where_clause( lhs )
+    .invoke x = traverse_where_clause(root_pkg_name, lhs )
     .if ( x.param_decl != "" )
       .assign attr_param_decl = x.param_decl
       .assign attr_init_stmt  = x.init_stmt
@@ -838,7 +840,7 @@ ${where_clause_arg}\
       .assign attr_args = x.args
     .end if
     .select one rhs related by bin->V_VAL[R803]
-    .invoke y = traverse_where_clause( rhs )
+    .invoke y = traverse_where_clause(root_pkg_name, rhs )
     .if ( y.param_decl != "" )
       .if ( attr_param_decl == "" )
         .assign attr_param_decl = y.param_decl
@@ -852,20 +854,20 @@ ${where_clause_arg}\
         .assign attr_args        = "${attr_args}, ${y.args}"
       .end if
     .end if
-    .invoke result = gen_binary_op_value( p_val )
+    .invoke result = gen_binary_op_value(root_pkg_name, p_val )
     .assign p_val.buffer = "${result.body}"
   .else 
     .select one unary related by p_val->V_UNY[R801]
     .if (not_empty unary)
       .select one operand related by unary->V_VAL[R804]
-      .invoke x = traverse_where_clause( operand )
+      .invoke x = traverse_where_clause(root_pkg_name, operand )
       .if ( x.param_decl != "" )
         .assign attr_param_decl = x.param_decl
         .assign attr_init_stmt  = x.init_stmt
         .assign attr_member_decl = x.member_decl
         .assign attr_args = x.args
       .end if
-      .invoke result = gen_unary_op_value(p_val)
+      .invoke result = gen_unary_op_value(root_pkg_name, p_val)
       .assign p_val.buffer = "${result.body}"
     .else 
       .select one transient_val related by p_val->V_TVL[R801]
@@ -889,6 +891,7 @@ ${where_clause_arg}\
 .end function
 .//
 .function get_class_query_decl
+  .param string root_pkg_name
   .param inst_ref tgt_obj
   .param inst_ref where_clause
   .//
@@ -898,7 +901,7 @@ ${where_clause_arg}\
   .assign new_test_class_name = "$cr{tgt_obj.Name}_test${test_num}_c"
   class ${new_test_class_name} implements ${tcn.body}
   {
-  .invoke twc = traverse_where_clause ( where_clause )
+  .invoke twc = traverse_where_clause (root_pkg_name, where_clause )
   .if ( twc.param_decl != "" )
 	${new_test_class_name}( ${twc.param_decl} ) {
 ${twc.init_stmt}
@@ -915,6 +918,7 @@ ${twc.member_decl}
 .end function
 .//
 .function gen_select_inst_where_statement
+  .param string root_pkg_name
   .param inst_ref sel_inst_where
 .// --------------------------------------------------------
   .// select instance where statement
@@ -959,7 +963,7 @@ ${twc.member_decl}
             .assign non_single_unique_id = false
             .invoke cn = get_class_name( tgt_obj )
 			.select one bVal related by binary->V_VAL[R801];
-            .invoke twc = traverse_where_clause ( bVal )
+            .invoke twc = traverse_where_clause (root_pkg_name, bVal )
             .select one r_val related by binary->V_VAL[R803]
             .assign value = r_val.buffer
             .if(twc.args != "")
@@ -1035,7 +1039,7 @@ v_${var.Name} = v_${var.Name}List.toArray(new ${cn.body}[v_${var.Name}List.size(
     .end for
   .end if
   .if(non_single_unique_id == true)
-    .invoke gcqd = get_class_query_decl( tgt_obj, where_clause )
+    .invoke gcqd = get_class_query_decl(root_pkg_name, tgt_obj, where_clause )
 ${gcqd.body}\
     .invoke gss = gen_select_fiw_statement(sel_inst_where, gcqd.query_new )
 ${gss.body}\
@@ -1074,16 +1078,18 @@ v_${var.Name} = ${cn.body}.$cr{tgt_obj.Name}Instance(${mr}${where_clause_arg}) ;
 .// select related by where statements
 .// --------------------------------------------------------
 .function gen_select_rel_where_statements
+  .param string root_pkg_name
   .invoke cme_env = GET_ENV_VAR( "GEN_CONTEXT_MENU_WIZARD" )
   .select many sel_rel_where_stmts from instances of ACT_SRW
   .for each sel_rel_where_stmt in sel_rel_where_stmts
     .select one statement related by sel_rel_where_stmt->ACT_SEL[R664]->ACT_SMT[R603]
-    .invoke result = gen_select_rel_where_statement(sel_rel_where_stmt, cme_env.result)
+    .invoke result = gen_select_rel_where_statement(root_pkg_name, sel_rel_where_stmt, cme_env.result)
     .assign statement.buffer = "${result.body}"
   .end for
 .end function
 .//
 .function gen_select_rel_where_statement
+  .param string root_pkg_name
   .param inst_ref sel_rel_where_subt
   .param string cme_env
   .//
@@ -1106,7 +1112,7 @@ v_${var.Name} = ${cn.body}.$cr{tgt_obj.Name}Instance(${mr}${where_clause_arg}) ;
     .end if
   .end if
   .if ( emit_code )
-    .invoke gcqd = get_class_query_decl( tgt_obj, where_clause )
+    .invoke gcqd = get_class_query_decl(root_pkg_name, tgt_obj, where_clause )
 ${gcqd.body}\
     .invoke gss = gen_select_inst_rel_by_statement(sel_rel_where_subt, gcqd.query_new )
 ${gss.body}\
@@ -1136,15 +1142,17 @@ ${gss.body}\
 .// generate event statements
 .// --------------------------------------------------------
 .function gen_event_gen_statements
+  .param string root_pkg_name
   .select many event_gen_stmts from instances of E_GEN
   .for each event_gen_stmt in event_gen_stmts
     .select one statement related by event_gen_stmt->E_GSME[R705]->E_GES[R703]->E_ESS[R701]->ACT_SMT[R603]
-    .invoke result = gen_event_gen_statement(event_gen_stmt)
+    .invoke result = gen_event_gen_statement(root_pkg_name, event_gen_stmt)
     .assign statement.buffer = "${result.body}"
   .end for
 .end function
 .//
 .function gen_event_gen_statement
+  .param string root_pkg_name
   .param inst_ref evt_gen
   .select one evt related by evt_gen->E_GSME[R705]->SM_EVT[R707]
   .select one var related by evt_gen->V_VAR[R712]
@@ -1157,7 +1165,7 @@ $cr{evt.Mning}(true \
   .end if
   .select many parameters related by evt_gen->E_GSME[R705]->E_GES[R703]->E_ESS[R701]->V_PAR[R700]
   .if ( not_empty parameters )
-    .invoke params = gen_parameter_list( parameters, false )
+    .invoke params = gen_parameter_list(root_pkg_name, parameters, false )
 , ${params.body} \
   .end if
 ) ;
@@ -1175,15 +1183,17 @@ else {
 .// generate assigner event statement
 .// --------------------------------------------------------
 .function gen_event_gen_ass_statements
+  .param string root_pkg_name
   .select many event_gen_ass_stmts from instances of E_GAR
   .for each event_gen_ass_stmt in event_gen_ass_stmts
     .select one statement related by event_gen_ass_stmt->ACT_SMT[R700]
-    .invoke result = gen_event_gen_ass_statement(event_gen_ass_stmt)
+    .invoke result = gen_event_gen_ass_statement(root_pkg_name, event_gen_ass_stmt)
     .assign statement.buffer = "${result.body}"
   .end for
 .end function
 .//
 .function gen_event_gen_ass_statement
+  .param string root_pkg_name
   .param inst_ref ass_evt_gen
   .select any evt from instances of SM_EVT where (selected.Drv_Lbl == ass_evt_gen.Event_Label)
   .select any object related by evt->SM_SM[R502]->SM_ASM[R517]->O_OBJ[R519]
@@ -1196,7 +1206,7 @@ $cr{tgt_obj.Name}_assgner_c.$cr{evt.Mning}(true \
   .end if
   .select many parameters related by ass_evt_gen->V_PAR[R703]
   .if ( not_empty parameters )
-    .invoke params = gen_parameter_list( parameters, false )
+    .invoke params = gen_parameter_list(root_pkg_name, parameters, false )
 , ${params.body} \
   .end if
 ) ;
@@ -1206,19 +1216,21 @@ $cr{tgt_obj.Name}_assgner_c.$cr{evt.Mning}(true \
 .// transform statement
 .// --------------------------------------------------------
 .function gen_transform_statements
+  .param string root_pkg_name
   .select many transform_stmts from instances of ACT_TFM
   .for each transform_stmt in transform_stmts
     .select one statement related by transform_stmt->ACT_SMT[R603]
 	.if (not_empty statement)
 	   .// some Transforms are declared as values in which
 	   .// case we do not want to generate any code for them here
-       .invoke result = gen_transform_statement(transform_stmt)
+       .invoke result = gen_transform_statement(root_pkg_name, transform_stmt)
        .assign statement.buffer = "${result.body}"
 	.end if
   .end for
 .end function
 .//
 .function gen_transform_statement
+  .param string root_pkg_name
   .param inst_ref transform_call
   .assign root_arg_included = false
   .select one oper related by transform_call->O_TFR[R673]
@@ -1237,7 +1249,7 @@ $cr{oper.Name}(\
   .end if
   .select many parameters related by transform_call->V_PAR[R627]
   .if ( not_empty parameters )
-    .invoke params = gen_parameter_list( parameters, root_arg_included )
+    .invoke params = gen_parameter_list(root_pkg_name, parameters, root_arg_included )
 ${params.body} \
   .end if
 ) ;
@@ -1257,19 +1269,21 @@ else {
 .// bridge statement
 .// --------------------------------------------------------
 .function gen_bridge_statements
+  .param string root_pkg_name
   .select many bridge_stmts from instances of ACT_BRG
   .for each bridge_stmt in bridge_stmts
     .select one statement related by bridge_stmt->ACT_SMT[R603]
 	.if (not_empty statement)
 	   .// some Bridges are declared as values in which
 	   .// case we do not want to generate any code for them here
-       .invoke result = gen_bridge_statement(bridge_stmt)
+       .invoke result = gen_bridge_statement(root_pkg_name, bridge_stmt)
        .assign statement.buffer = "${result.body}"
 	.end if
   .end for
 .end function
 .//
 .function gen_bridge_statement
+  .param string root_pkg_name
   .param inst_ref bridge_call
   .//
   .select one bridge related by bridge_call->S_BRG[R674]
@@ -1277,7 +1291,7 @@ else {
 $cr{ee.Key_Lett}_c.$cr{bridge.Name}(\
   .select many parameters related by bridge_call->V_PAR[R628]
   .if ( not_empty parameters )
-    .invoke params = gen_parameter_list( parameters, false )
+    .invoke params = gen_parameter_list(root_pkg_name, parameters, false )
 ${params.body} \
   .end if
 ) ;
@@ -1287,29 +1301,28 @@ ${params.body} \
 .// function statement
 .// --------------------------------------------------------
 .function gen_function_statements
+  .param string root_pkg_name
   .select many func_stmts from instances of ACT_FNC
   .for each func_stmt in func_stmts
     .select one statement related by func_stmt->ACT_SMT[R603]
 	.if (not_empty statement)
-       .invoke result = gen_func_statement(func_stmt)
+       .invoke result = gen_func_statement(root_pkg_name, func_stmt)
        .assign statement.buffer = "${result.body}"
 	.end if
   .end for
 .end function
 .//
 .function gen_func_statement
+  .param string root_pkg_name
   .param inst_ref func_call
   .//
-  .select one domain related by func_call->S_SYNC[R675]->S_DOM[R23]
-  .if (empty domain)
-    .select one domain related by func_call->S_FIP[R31]->S_FPK[R31]->S_DOM[R29]
-  .end if
-  .invoke result = get_domain_name( domain )
+  .select any root_pkg from instances of EP_PKG where (selected.Name == root_pkg_name)
+  .invoke rpn_result = get_root_pkg_name( root_pkg )
   .select one func related by func_call->S_SYNC[R675]
-${result.body}.$cr{func.Name}(modelRoot \
+${rpn_result.body}.$cr{func.Name}(modelRoot \
   .select many parameters related by func_call->V_PAR[R669]
   .if ( not_empty parameters )
-    .invoke params = gen_parameter_list( parameters, true )
+    .invoke params = gen_parameter_list(root_pkg_name, parameters, true )
 ${params.body} \
   .end if
 ) ;

@@ -6,14 +6,14 @@ INSERT INTO O_OBJ
 	616,
 	'ACT_URU',
 	'This class represents a statement that unrelates two instances that were related together, using a third as a link class instance.',
-	"4495cfdc-a8ff-4f91-a2e9-51eae8b1316f");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("e71c3aa5-fb2a-49fd-8efd-852821144ed9",
 	"ffd7706f-e278-4639-8779-1f07366d4626",
 	'dispose',
 	'This operation disconnects an instance, and all instances it is 
 responsible for, from the model.',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select one one_var related by self->V_VAR[R622];
 if ( not_empty one_var )
@@ -36,19 +36,12 @@ delete object instance self;
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO S_DT_PROXY
-	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'void',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("eba0269c-caa5-4e5d-aab3-f5384da17734",
 	"ffd7706f-e278-4639-8779-1f07366d4626",
 	'execute',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// Relate and Unlrelate:Unrelate Using(ACT_URU).execute()
 select one body related by self->V_VAR[R622]->ACT_BLK[R823]->ACT_ACT[R601];
@@ -225,18 +218,11 @@ INSERT INTO O_TPARM
 	VALUES ("e9f3901d-09fd-47c3-bf3c-2d6fe3f24b1f",
 	"eba0269c-caa5-4e5d-aab3-f5384da17734",
 	'stack_frame_id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'unique_id',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("ffd7706f-e278-4639-8779-1f07366d4626",
 	"e9011b75-e798-45a3-ac83-92ba7c04db4e",
@@ -287,16 +273,9 @@ INSERT INTO O_ATTR
 	'',
 	'Statement_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("ffd7706f-e278-4639-8779-1f07366d4626",
 	"04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",
@@ -347,7 +326,7 @@ INSERT INTO O_ATTR
 	'One_Side_',
 	'Var_ID',
 	1,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -396,7 +375,7 @@ INSERT INTO O_ATTR
 	'Other_Side_',
 	'Var_ID',
 	1,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -445,7 +424,7 @@ INSERT INTO O_ATTR
 	'Associative_',
 	'Var_ID',
 	1,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -466,16 +445,9 @@ associations.',
 	'',
 	'relationship_phrase',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'string',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("308441a8-1d85-4871-b951-2e4aa04ceeaa",
 	"ffd7706f-e278-4639-8779-1f07366d4626");
@@ -491,16 +463,9 @@ INSERT INTO O_ATTR
 	'',
 	'associationNumberLineNumber',
 	0,
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'integer',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("02848e79-7cec-4da7-9255-d9eaade0ee4f",
 	"ffd7706f-e278-4639-8779-1f07366d4626");
@@ -516,7 +481,7 @@ INSERT INTO O_ATTR
 	'',
 	'associationNumberColumn',
 	0,
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -534,7 +499,7 @@ INSERT INTO O_ATTR
 	'',
 	'associationPhraseLineNumber',
 	0,
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -552,7 +517,7 @@ INSERT INTO O_ATTR
 	'',
 	'associationPhraseColumn',
 	0,
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
 INSERT INTO O_REF
@@ -605,7 +570,7 @@ INSERT INTO O_ATTR
 	'',
 	'Rel_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_ID
@@ -622,8 +587,16 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"ffd7706f-e278-4639-8779-1f07366d4626");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("ffd7706f-e278-4639-8779-1f07366d4626",
+	1,
+	"4495cfdc-a8ff-4f91-a2e9-51eae8b1316f",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("4495cfdc-a8ff-4f91-a2e9-51eae8b1316f",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Relate And Unrelate',
 	'Captures  the concepts of relating instances together. Also captures
 unrelate and covers relations with link classes.
@@ -632,8 +605,5 @@ Persistent:false
 // This is used by schema_gen to ignore this subsystem (for publication)
 TRANSLATE_FOR_EXTERNAL_USE:FALSE
 ',
-	'ACT',
 	600,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-00000050000a",
 	'../Relate And Unrelate.xtuml');

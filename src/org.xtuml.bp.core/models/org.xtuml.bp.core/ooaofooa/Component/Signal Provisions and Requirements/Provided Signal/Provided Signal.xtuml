@@ -6,31 +6,24 @@ INSERT INTO O_OBJ
 	4505,
 	'SPR_PS',
 	'',
-	"6a43182c-b832-4648-b478-ab0441b8613c");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("07ec2f6c-b5c0-437f-a273-6d3eda60ee8b",
 	"e85528c7-bdd7-46da-8137-12e7490df0d0",
 	'initialize',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'self.Suc_Pars = ParseStatus::parseInitial;',
 	1,
 	'',
 	"55d257f8-53b5-40d1-aaa6-a031254b72c6");
-INSERT INTO S_DT_PROXY
-	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'void',
-	'',
-	'',
-	'../../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("ec803127-0574-4b09-9ee4-04537665ef21",
 	"e85528c7-bdd7-46da-8137-12e7490df0d0",
 	'dispose',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select one pep related by self->SPR_PEP[R4503];
 if(not_empty pep)
@@ -59,7 +52,7 @@ INSERT INTO O_TFR
 	"e85528c7-bdd7-46da-8137-12e7490df0d0",
 	'isAvailableForAllocationTo',
 	'',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'// Provided Signal::isAvailableForAllocationTo()
 // Returns false if the signal has been allocated to a state machine 
@@ -110,31 +103,17 @@ INSERT INTO O_TPARM
 	VALUES ("2b5534d3-ebe8-4d32-8545-0d0ae9da4925",
 	"8cd2e6f5-85ac-4b95-b645-c656c65f9da6",
 	'transition_id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'unique_id',
-	'',
-	'',
-	'../../../Datatypes/Datatypes.xtuml');
-INSERT INTO S_DT_PROXY
-	VALUES ("8e519c45-7dcf-400b-9d4e-954869dbb7e8",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'boolean',
-	'',
-	'',
-	'../../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("55d257f8-53b5-40d1-aaa6-a031254b72c6",
 	"e85528c7-bdd7-46da-8137-12e7490df0d0",
 	'getComponentId',
 	'',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'select one pep related by self->SPR_PEP[R4503];
 return pep.getComponentId();',
@@ -160,7 +139,7 @@ return this;
 	"8cd2e6f5-85ac-4b95-b645-c656c65f9da6");
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
 	'instance',
 	'',
 	'',
@@ -170,7 +149,7 @@ INSERT INTO O_TFR
 	"e85528c7-bdd7-46da-8137-12e7490df0d0",
 	'getMessageDirection',
 	'',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	1,
 	'select one signal related by self->SPR_PEP[R4503]->C_EP[R4501]->C_AS[R4004];
 if(not_empty signal)
@@ -187,19 +166,12 @@ end if;',
 	1,
 	'',
 	"1a1670b9-1410-42ff-a902-298cd487e455");
-INSERT INTO S_DT_PROXY
-	VALUES ("79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'integer',
-	'',
-	'',
-	'../../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("eb57b38a-8af6-4b9e-baa7-8eba6b1f337b",
 	"e85528c7-bdd7-46da-8137-12e7490df0d0",
 	'isSynchronized',
 	'',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'// ask the supertype if we are synchronized, this operation exist to support
 // ui capabilities
@@ -216,7 +188,7 @@ INSERT INTO O_TFR
 	"e85528c7-bdd7-46da-8137-12e7490df0d0",
 	'collectChanges',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'/*
  *  Collect removal changes
@@ -243,7 +215,7 @@ INSERT INTO O_TFR
 	"e85528c7-bdd7-46da-8137-12e7490df0d0",
 	'synchronize',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'/**
  *  Allow owning element to synchronize, but only if we are not synchronized
@@ -262,25 +234,18 @@ INSERT INTO O_TFR
 	"e85528c7-bdd7-46da-8137-12e7490df0d0",
 	'getCachedName',
 	'Translate:native',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'	return m_name;',
 	0,
 	'',
 	"85230e79-225c-456e-b101-4db02e837e6d");
-INSERT INTO S_DT_PROXY
-	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'string',
-	'',
-	'',
-	'../../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("c01fc587-e186-4e16-b03b-f486c1c1f4d6",
 	"e85528c7-bdd7-46da-8137-12e7490df0d0",
 	'setCachedName',
 	'Translate:native',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'	m_name = p_Name;',
 	0,
@@ -290,7 +255,7 @@ INSERT INTO O_TPARM
 	VALUES ("ae6672c4-c50b-49b3-a4c0-8b664e96e645",
 	"c01fc587-e186-4e16-b03b-f486c1c1f4d6",
 	'name',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -300,7 +265,7 @@ INSERT INTO O_TFR
 	"e85528c7-bdd7-46da-8137-12e7490df0d0",
 	'initializeUnparsed',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// Provided Signal.initializeUnparsed()
 select one psb related by self->ACT_PSB[R686];
@@ -329,7 +294,7 @@ INSERT INTO O_TFR
 	"e85528c7-bdd7-46da-8137-12e7490df0d0",
 	'getCachedDescrip',
 	'Translate:native',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'	return m_descrip;',
 	0,
@@ -340,7 +305,7 @@ INSERT INTO O_TFR
 	"e85528c7-bdd7-46da-8137-12e7490df0d0",
 	'setCachedDescrip',
 	'Translate:native',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'	m_descrip = p_Descrip;',
 	0,
@@ -350,7 +315,7 @@ INSERT INTO O_TPARM
 	VALUES ("64e97fd2-36e6-4b1c-a72a-41c3758ce313",
 	"3be9fe53-5e54-4dd5-84d8-c1564171414d",
 	'descrip',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -403,16 +368,9 @@ INSERT INTO O_ATTR
 	'',
 	'Id',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_DBATTR
 	VALUES ("160452ea-efc5-4cfb-8e4b-03d357f9841d",
 	"e85528c7-bdd7-46da-8137-12e7490df0d0",
@@ -441,7 +399,7 @@ INSERT INTO O_ATTR
 	'',
 	'Name',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_DBATTR
@@ -473,7 +431,7 @@ Description: A textual description of this provided signal.',
 	'',
 	'Descrip',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_DBATTR
@@ -496,7 +454,7 @@ Persistent:false
 	'',
 	'Action_Semantics',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -514,7 +472,7 @@ INSERT INTO O_ATTR
 	'',
 	'Action_Semantics_internal',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -540,7 +498,7 @@ Data Domain: 0=not parsed, 1 = parse successful, 2 = parse unsuccessful, 3 = par
 	'');
 INSERT INTO S_DT_PROXY
 	VALUES ("33245ab4-49c2-4c3a-8a59-a08f07153c47",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
 	'ParseStatus',
 	'Indicates the status of the parse for an action specification in the attribute Action_Semantics',
 	'',
@@ -559,16 +517,21 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"e85528c7-bdd7-46da-8137-12e7490df0d0");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("e85528c7-bdd7-46da-8137-12e7490df0d0",
+	1,
+	"6a43182c-b832-4648-b478-ab0441b8613c",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("6a43182c-b832-4648-b478-ab0441b8613c",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Signal Provisions and Requirements',
 	'// This is used by schema_gen to ignore this subsystem (for publication)
 TRANSLATE_FOR_EXTERNAL_USE:FALSE
 
 The Signal Provisions and Requirements subsystem captures data which will be
 used to define the implementation of provided and required interfaces.',
-	'SPR',
 	4500,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000000000",
 	'../Signal Provisions and Requirements.xtuml');

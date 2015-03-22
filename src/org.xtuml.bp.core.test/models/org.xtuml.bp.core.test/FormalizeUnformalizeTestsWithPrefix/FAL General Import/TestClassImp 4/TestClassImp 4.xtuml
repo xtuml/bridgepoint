@@ -1,21 +1,21 @@
 -- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
-	VALUES ("c34272bb-269c-4349-842c-cab8386c33ca",
+	VALUES ("feb39984-7537-4d76-a8e5-0fe9ed0cf55b",
 	'TestClassImp 4',
 	503,
 	'KEY',
 	'',
 	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_NBATTR
-	VALUES ("fa775d49-fffa-499d-b3e5-dc57f1cee58a",
-	"c34272bb-269c-4349-842c-cab8386c33ca");
+	VALUES ("50733f0b-ace6-482b-b921-70a76d4a646d",
+	"feb39984-7537-4d76-a8e5-0fe9ed0cf55b");
 INSERT INTO O_BATTR
-	VALUES ("fa775d49-fffa-499d-b3e5-dc57f1cee58a",
-	"c34272bb-269c-4349-842c-cab8386c33ca");
+	VALUES ("50733f0b-ace6-482b-b921-70a76d4a646d",
+	"feb39984-7537-4d76-a8e5-0fe9ed0cf55b");
 INSERT INTO O_ATTR
-	VALUES ("fa775d49-fffa-499d-b3e5-dc57f1cee58a",
-	"c34272bb-269c-4349-842c-cab8386c33ca",
+	VALUES ("50733f0b-ace6-482b-b921-70a76d4a646d",
+	"feb39984-7537-4d76-a8e5-0fe9ed0cf55b",
 	"00000000-0000-0000-0000-000000000000",
 	'testAttrFormalizer',
 	'',
@@ -27,26 +27,26 @@ INSERT INTO O_ATTR
 	'');
 INSERT INTO O_ID
 	VALUES (0,
-	"c34272bb-269c-4349-842c-cab8386c33ca");
+	"feb39984-7537-4d76-a8e5-0fe9ed0cf55b");
 INSERT INTO O_OIDA
-	VALUES ("fa775d49-fffa-499d-b3e5-dc57f1cee58a",
-	"c34272bb-269c-4349-842c-cab8386c33ca",
+	VALUES ("50733f0b-ace6-482b-b921-70a76d4a646d",
+	"feb39984-7537-4d76-a8e5-0fe9ed0cf55b",
 	0,
 	'testAttrFormalizer');
 INSERT INTO O_ID
 	VALUES (1,
-	"c34272bb-269c-4349-842c-cab8386c33ca");
+	"feb39984-7537-4d76-a8e5-0fe9ed0cf55b");
 INSERT INTO O_ID
 	VALUES (2,
-	"c34272bb-269c-4349-842c-cab8386c33ca");
+	"feb39984-7537-4d76-a8e5-0fe9ed0cf55b");
 INSERT INTO PE_PE
-	VALUES ("c34272bb-269c-4349-842c-cab8386c33ca",
+	VALUES ("feb39984-7537-4d76-a8e5-0fe9ed0cf55b",
 	1,
-	"e439f783-57f0-4f90-9fda-ceec282ae384",
+	"2c51bcea-6642-48ff-b896-b8a1c46fff53",
 	"00000000-0000-0000-0000-000000000000",
 	4);
 INSERT INTO EP_PKG_PROXY
-	VALUES ("e439f783-57f0-4f90-9fda-ceec282ae384",
+	VALUES ("2c51bcea-6642-48ff-b896-b8a1c46fff53",
 	"00000000-0000-0000-0000-000000000000",
 	"c6693612-7c4f-42e5-b64f-16c64f288945",
 	'FAL General Import',

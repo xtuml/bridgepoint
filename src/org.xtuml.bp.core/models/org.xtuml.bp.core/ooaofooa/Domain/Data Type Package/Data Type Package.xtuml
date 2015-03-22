@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("110e3323-6929-4be9-b265-ce681dd25ec3",
@@ -6,13 +6,13 @@ INSERT INTO O_OBJ
 	25,
 	'S_DPK',
 	'Data Type Package represents a package of data types.',
-	"703df30a-ee7e-44ec-a7cf-22d2171bb270");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("5f39bd8c-b37d-40a1-9cf0-a70e97d3abbd",
 	"110e3323-6929-4be9-b265-ce681dd25ec3",
 	'initialize',
 	'The initialization operation for this class.',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'self.Name = ::getUniqueInitialName( 
 	instance: self.convertToInstance(), 
@@ -20,19 +20,12 @@ INSERT INTO O_TFR
 	1,
 	'',
 	"83e498df-bb46-4e23-ba84-3df6594d3073");
-INSERT INTO S_DT_PROXY
-	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'void',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("18040986-9784-4074-a0da-b4e048ce5f61",
 	"110e3323-6929-4be9-b265-ce681dd25ec3",
 	'dispose',
 	'The dispose operation for this class.  Also disposes the associated Data Type Package in Package.',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select many cdts related by self->S_DT[R39]->S_CDT[R17];
 if (empty cdts)
@@ -48,7 +41,7 @@ INSERT INTO O_TFR
 	'newDatatypePackage',
 	'Create a new Data Type Package in this Data Type Package.
 ',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
 select one helper related by self->S_DPIP[R37];
@@ -69,7 +62,7 @@ INSERT INTO O_TFR
 	"110e3323-6929-4be9-b265-ce681dd25ec3",
 	'newDatatype',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
 // Data Type Package::newDatatype()
@@ -127,7 +120,7 @@ INSERT INTO O_TFR
 	"110e3323-6929-4be9-b265-ce681dd25ec3",
 	'newEnumeration',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// Data Type Package::newEnumeration()
 create object instance dt of S_DT;
@@ -147,7 +140,7 @@ INSERT INTO O_TFR
 	"110e3323-6929-4be9-b265-ce681dd25ec3",
 	'internal_dispose',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
 select many csps related by self->CNST_CIP[R1506]->CNST_CSP[R1506];
@@ -232,19 +225,12 @@ INSERT INTO O_TFR
 	"110e3323-6929-4be9-b265-ce681dd25ec3",
 	'get_ooa_id',
 	'',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'return self.Package_ID;',
 	1,
 	'',
 	"209ea74c-baf3-4249-9eec-aa29f9ed1ad7");
-INSERT INTO S_DT_PROXY
-	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'unique_id',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("2002fc3f-25b9-4e60-aa26-ba58e3b6f218",
 	"110e3323-6929-4be9-b265-ce681dd25ec3",
@@ -258,7 +244,7 @@ INSERT INTO O_TFR
 	"451b5bc5-b5f0-4840-978f-568a8c1f411d");
 INSERT INTO S_DT_PROXY
 	VALUES ("6e636321-0fd1-4577-b185-e4d76b0d0c71",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
 	'Style',
 	'The Style data type specifies the precise form a graphical element will take when drawn.
 --------------------------------------------------------------------------
@@ -270,25 +256,18 @@ INSERT INTO O_TFR
 	"110e3323-6929-4be9-b265-ce681dd25ec3",
 	'get_compartments',
 	'',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	1,
 	'return 1;',
 	1,
 	'',
 	"b775d5ee-b57b-4baa-8dc0-7d920f7d91d5");
-INSERT INTO S_DT_PROXY
-	VALUES ("79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'integer',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("b775d5ee-b57b-4baa-8dc0-7d920f7d91d5",
 	"110e3323-6929-4be9-b265-ce681dd25ec3",
 	'get_compartment_text',
 	'',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'result = "";
 if (param.at == Justification::Center_in_X)
@@ -304,7 +283,7 @@ INSERT INTO O_TPARM
 	VALUES ("c1614614-422d-4b42-b846-c88abf4866f7",
 	"b775d5ee-b57b-4baa-8dc0-7d920f7d91d5",
 	'comp_num',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"721dbe9c-8e5a-44e4-99e6-1b1795d822be",
@@ -313,7 +292,7 @@ INSERT INTO O_TPARM
 	VALUES ("41416ea1-265c-4ba4-a8f0-223c31a74fc0",
 	"b775d5ee-b57b-4baa-8dc0-7d920f7d91d5",
 	'ent_num',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"c1614614-422d-4b42-b846-c88abf4866f7",
@@ -329,18 +308,11 @@ INSERT INTO O_TPARM
 	'');
 INSERT INTO S_DT_PROXY
 	VALUES ("a9382bea-4a3f-43ec-9191-1f9f158b11a4",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
 	'Justification',
 	'The Justification data type is used to specify text at a given location in a compartment.
 ------------------------------------------------------------------------------
 Bridge:GD',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
-INSERT INTO S_DT_PROXY
-	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'string',
-	'',
 	'',
 	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
@@ -358,7 +330,7 @@ INSERT INTO O_TPARM
 	VALUES ("40e67248-3307-4717-82d0-8deea728a234",
 	"fc52c3ac-a667-4818-93d7-f0306b797907",
 	'comp_num',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"a2c41950-293f-4d05-a862-a74c50540378",
@@ -367,7 +339,7 @@ INSERT INTO O_TPARM
 	VALUES ("3ef4eed1-4d73-4c45-8c29-613505014c33",
 	"fc52c3ac-a667-4818-93d7-f0306b797907",
 	'ent_num',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"40e67248-3307-4717-82d0-8deea728a234",
@@ -386,7 +358,7 @@ INSERT INTO O_TFR
 	"110e3323-6929-4be9-b265-ce681dd25ec3",
 	'get_entries',
 	'',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	1,
 	'return 1;',
 	1,
@@ -396,7 +368,7 @@ INSERT INTO O_TPARM
 	VALUES ("decc2a1b-ad27-4341-bd92-a1d12cc24954",
 	"209ea74c-baf3-4249-9eec-aa29f9ed1ad7",
 	'comp_num',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -406,7 +378,7 @@ INSERT INTO O_TFR
 	"110e3323-6929-4be9-b265-ce681dd25ec3",
 	'canDelete',
 	'',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
 select many dps related by self->S_DPIP[R37]->S_DPK[R38];
@@ -436,19 +408,12 @@ return true;',
 	1,
 	'',
 	"0152212f-83df-4664-96b8-6de6aa3ea5e0");
-INSERT INTO S_DT_PROXY
-	VALUES ("8e519c45-7dcf-400b-9d4e-954869dbb7e8",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'boolean',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("3a8fca20-1da9-41bc-9cd3-1b508e103468",
 	"110e3323-6929-4be9-b265-ce681dd25ec3",
 	'canRename',
 	'',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
 if (self.Name == ::getCoreDatatypesPackageName())
@@ -484,7 +449,7 @@ return this;',
 	"3a8fca20-1da9-41bc-9cd3-1b508e103468");
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
 	'instance',
 	'',
 	'',
@@ -494,7 +459,7 @@ INSERT INTO O_TFR
 	"110e3323-6929-4be9-b265-ce681dd25ec3",
 	'associateDTSWithSystem',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
 /**
@@ -521,7 +486,7 @@ INSERT INTO O_TPARM
 	VALUES ("116b82ca-9918-4f2e-9b3d-310184bebe15",
 	"3dd4f413-f556-4325-9855-ef287295d046",
 	'sys_id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -531,7 +496,7 @@ INSERT INTO O_TFR
 	"110e3323-6929-4be9-b265-ce681dd25ec3",
 	'associateDTSWithDomain',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
 /**
@@ -557,7 +522,7 @@ INSERT INTO O_TPARM
 	VALUES ("fb68047f-403d-4a48-97aa-ad8c29d99e33",
 	"42a6f65d-ae32-4722-bd32-23a70786d709",
 	'dom_id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -567,7 +532,7 @@ INSERT INTO O_TFR
 	"110e3323-6929-4be9-b265-ce681dd25ec3",
 	'pasteDataTypePackage',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
 select any pkg from instances of S_DPK where (selected.Package_ID == param.id);
@@ -598,7 +563,7 @@ INSERT INTO O_TPARM
 	VALUES ("7e3bb66c-b147-4eb2-9bc9-e2600be5f5b7",
 	"efdbb3a1-147d-41f0-aab2-1e09ca66c0c1",
 	'id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -608,7 +573,7 @@ INSERT INTO O_TFR
 	"110e3323-6929-4be9-b265-ce681dd25ec3",
 	'isDomainLevel',
 	'',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
 domId = self.getDomainId();
@@ -622,7 +587,7 @@ INSERT INTO O_TFR
 	"110e3323-6929-4be9-b265-ce681dd25ec3",
 	'getSystemId',
 	'',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
 select one domain related by self->S_DOM[R40];
@@ -666,7 +631,7 @@ INSERT INTO O_TFR
 	"110e3323-6929-4be9-b265-ce681dd25ec3",
 	'getDomainId',
 	'',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
 select one domain related by self->S_DOM[R40];
@@ -692,7 +657,7 @@ INSERT INTO O_TFR
 	"110e3323-6929-4be9-b265-ce681dd25ec3",
 	'handleUserDataTypeResolution',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
 select many udts related by self->S_DIP[R39]->S_DT[R39]->S_UDT[R17];
@@ -714,7 +679,7 @@ INSERT INTO O_TFR
 	"110e3323-6929-4be9-b265-ce681dd25ec3",
 	'pasteUserDataType',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select any udt from instances of S_UDT where (selected.DT_ID == param.id);
 if(not_empty udt)
@@ -736,7 +701,7 @@ INSERT INTO O_TPARM
 	VALUES ("398a0547-c347-42e7-9bf2-eddc620ea67e",
 	"2f2f6783-6da5-4aa1-8688-a4fb101d1b9d",
 	'id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -746,7 +711,7 @@ INSERT INTO O_TFR
 	"110e3323-6929-4be9-b265-ce681dd25ec3",
 	'pasteEnumerationDataType',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select any edt from instances of S_EDT where (selected.DT_ID == param.id);
 if(not_empty edt)
@@ -768,7 +733,7 @@ INSERT INTO O_TPARM
 	VALUES ("5a15712d-e369-44de-abea-e005cf4624f7",
 	"8f2b8517-aa47-4a45-8eaa-b77450240d95",
 	'id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -778,7 +743,7 @@ INSERT INTO O_TFR
 	"110e3323-6929-4be9-b265-ce681dd25ec3",
 	'canCopyUserDataType',
 	'',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'select any udt from instances of S_UDT where (selected.DT_ID == param.id);
 if(not_empty udt)
@@ -794,7 +759,7 @@ INSERT INTO O_TPARM
 	VALUES ("a92d236a-64ee-4091-8701-446b5932f262",
 	"0152212f-83df-4664-96b8-6de6aa3ea5e0",
 	'id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -804,7 +769,7 @@ INSERT INTO O_TFR
 	"110e3323-6929-4be9-b265-ce681dd25ec3",
 	'newStructuredDatatype',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// Data Type Package::newStructuredDatatype()
 create object instance dt of S_DT;
@@ -824,7 +789,7 @@ INSERT INTO O_TFR
 	"110e3323-6929-4be9-b265-ce681dd25ec3",
 	'pasteStructuredDataType',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select any sdt from instances of S_SDT where (selected.DT_ID == param.id);
 if(not_empty sdt)
@@ -844,7 +809,7 @@ INSERT INTO O_TPARM
 	VALUES ("1f178e79-3bd5-4894-9fa6-2c2b9ba522e6",
 	"8a03a4db-3298-4779-9df1-718073426ce4",
 	'id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -854,7 +819,7 @@ INSERT INTO O_TFR
 	"110e3323-6929-4be9-b265-ce681dd25ec3",
 	'associatePastedDTWithDomainOrSystem',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
 select any dt related by self->S_DIP[R39]->S_DT[R39] where (selected.DT_ID == param.id);
@@ -882,7 +847,7 @@ INSERT INTO O_TPARM
 	VALUES ("2d42140c-4eec-4876-a05b-dba606d4881e",
 	"8da4ae94-4192-4cca-9308-659c3f2baf48",
 	'id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -892,7 +857,7 @@ INSERT INTO O_TFR
 	"110e3323-6929-4be9-b265-ce681dd25ec3",
 	'associateNewDTWithDomainOrSystem',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
 select any dt related by self->S_DIP[R39]->S_DT[R39]
@@ -916,7 +881,7 @@ INSERT INTO O_TPARM
 	VALUES ("14cb09a8-c042-4fd9-9053-b3d3fabdcd5b",
 	"2d50d83b-746a-4611-a88a-a6aab6e017d6",
 	'dt_id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -926,7 +891,7 @@ INSERT INTO O_TFR
 	"110e3323-6929-4be9-b265-ce681dd25ec3",
 	'associateWithPackage',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// unhook from current parent
 self.deassociateFromParent();
@@ -942,7 +907,7 @@ INSERT INTO O_TPARM
 	VALUES ("3c65dcf6-16a9-4ac5-ab03-390a2122398a",
 	"c96f3d3b-efa0-4e31-b43c-48e8b2f97e68",
 	'pkgID',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -952,7 +917,7 @@ INSERT INTO O_TFR
 	"110e3323-6929-4be9-b265-ce681dd25ec3",
 	'deassociateFromParent',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
 select one prevDomain related by self->S_DOM[R40];
@@ -987,7 +952,7 @@ INSERT INTO O_TFR
 	"110e3323-6929-4be9-b265-ce681dd25ec3",
 	'associateWithSystem',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'self.deassociateFromParent();
 select any system from instances of S_SYS
@@ -1001,7 +966,7 @@ INSERT INTO O_TPARM
 	VALUES ("dfade2bb-4dec-4fb9-a393-06e0bd3fb841",
 	"31d72b3b-cb32-46bd-9dd2-ab496c6ba2c8",
 	'sysID',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -1011,7 +976,7 @@ INSERT INTO O_TFR
 	"110e3323-6929-4be9-b265-ce681dd25ec3",
 	'associateWithDomain',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
 // unhook from current parent
@@ -1027,7 +992,7 @@ INSERT INTO O_TPARM
 	VALUES ("5ef2bda9-344b-4747-8245-ca2d502ae115",
 	"36219433-11a0-4144-a908-949032ca124f",
 	'domID',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -1037,7 +1002,7 @@ INSERT INTO O_TFR
 	"110e3323-6929-4be9-b265-ce681dd25ec3",
 	'associateWithDataTypePackage',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
 // unhook from current parent
@@ -1060,7 +1025,7 @@ INSERT INTO O_TPARM
 	VALUES ("3881890c-1b2b-4203-bf29-ea095fe59137",
 	"7340891a-0442-48f2-b86c-94fa95295544",
 	'pkgID',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -1070,7 +1035,7 @@ INSERT INTO O_TFR
 	"110e3323-6929-4be9-b265-ce681dd25ec3",
 	'getPath',
 	'',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
 path = self.Name;
@@ -1104,7 +1069,7 @@ INSERT INTO O_TPARM
 	VALUES ("c769d6ba-b8ab-49c7-af10-12965c4a0f3a",
 	"457b5e20-631b-4954-85a1-6468f27e4a6c",
 	'path',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -1114,7 +1079,7 @@ INSERT INTO O_TFR
 	"110e3323-6929-4be9-b265-ce681dd25ec3",
 	'newConstantSpecification',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// Data Type Package::newConstantSpecification()
 create object instance csp of CNST_CSP;
@@ -1131,7 +1096,7 @@ INSERT INTO O_TFR
 	"110e3323-6929-4be9-b265-ce681dd25ec3",
 	'associateNewCSPWithDomainOrSystem',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// Data Type Package::associateNewCSPWithDomainOrSystem
 select any csp related by self->CNST_CIP[R1506]->CNST_CSP[R1506]
@@ -1154,7 +1119,7 @@ INSERT INTO O_TPARM
 	VALUES ("8e0af753-ba91-4fba-ae91-d9e8f801204c",
 	"7f3fd6ea-afa2-4475-9c9b-eca6b54a52a2",
 	'csp_id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -1164,7 +1129,7 @@ INSERT INTO O_TFR
 	"110e3323-6929-4be9-b265-ce681dd25ec3",
 	'associatePastedCSPWithDomainOrSystem',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// Data Type Package::associatePastedCSPWithDomainOrSystem()
 //
@@ -1186,7 +1151,7 @@ INSERT INTO O_TPARM
 	VALUES ("adcd37a0-26f2-4529-9398-ce3fd440d932",
 	"628d9ffe-fda6-4ad5-b172-44d2504978f6",
 	'csp_id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -1196,7 +1161,7 @@ INSERT INTO O_TFR
 	"110e3323-6929-4be9-b265-ce681dd25ec3",
 	'pasteConstantSpecification',
 	'Called when the user want to paste a cut or copied constant specification.',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
 // Data Type Package::pasteConstantSpecification()
@@ -1225,7 +1190,7 @@ INSERT INTO O_TPARM
 	VALUES ("4ea73e70-8d9f-463e-bc4d-3072fc209c9d",
 	"fb74ccbb-ecf8-4d1c-8664-60f10c21b2c3",
 	'id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -1236,7 +1201,7 @@ INSERT INTO O_TFR
 	'associateCSPsWithDomain',
 	'This operation will associate all child constant specifications''s with the
 given domain.',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// Data Type Package::associateCSPsWithDomain()
 //
@@ -1249,7 +1214,7 @@ INSERT INTO O_TPARM
 	VALUES ("b74fba4e-223d-4ae1-a771-82c902d2f4f5",
 	"ab0513ac-41d3-42c2-b3b5-046cd0b208f8",
 	'dom_id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -1260,7 +1225,7 @@ INSERT INTO O_TFR
 	'associateCSPsWithSystem',
 	'This operation will associate all child constant specifications with the
 given system.',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
 // Data Type Package::associateCSPsWithSystem()
@@ -1285,7 +1250,7 @@ INSERT INTO O_TPARM
 	VALUES ("81b04199-26f4-4d8b-80b6-b8d43e8b7070",
 	"6265b8e3-ef08-407c-b5cb-2eba8a0f7f6f",
 	'sys_id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -1295,7 +1260,7 @@ INSERT INTO O_TFR
 	"110e3323-6929-4be9-b265-ce681dd25ec3",
 	'getUserDatatypeCount',
 	'',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	1,
 	'select many userDatatypePckgs related by self->S_DT[R39]->S_UDT[R17];
 return cardinality userDatatypePckgs;',
@@ -1307,7 +1272,7 @@ INSERT INTO O_TFR
 	"110e3323-6929-4be9-b265-ce681dd25ec3",
 	'getUserDatatypeId',
 	'',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'id = GD::NULL_UNIQUE_ID();
 select many userDatatypePckgs related by self->S_DT[R39]->S_UDT[R17];
@@ -1329,7 +1294,7 @@ INSERT INTO O_TPARM
 	VALUES ("c728ae69-4786-4597-a2f1-f96f8b28c8ed",
 	"c6d6023c-18c6-4251-ac65-c5f29e7b1b1e",
 	'index',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -1339,7 +1304,7 @@ INSERT INTO O_TFR
 	"110e3323-6929-4be9-b265-ce681dd25ec3",
 	'getStructuredDatatypeCount',
 	'',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	1,
 	'select many structuredDatatypePckgs related by self->S_DT[R39]->S_SDT[R17];
 return cardinality structuredDatatypePckgs;',
@@ -1351,7 +1316,7 @@ INSERT INTO O_TFR
 	"110e3323-6929-4be9-b265-ce681dd25ec3",
 	'getStructuredDatatypeId',
 	'',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'id = GD::NULL_UNIQUE_ID();
 select many structuredDatatypePckgs related by self->S_DT[R39]->S_SDT[R17];
@@ -1373,7 +1338,7 @@ INSERT INTO O_TPARM
 	VALUES ("dd26258b-24ec-4bfb-bd1b-fef15cd9fff8",
 	"df016d26-a0a1-4f1b-b164-55bb04113dd4",
 	'index',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -1383,7 +1348,7 @@ INSERT INTO O_TFR
 	"110e3323-6929-4be9-b265-ce681dd25ec3",
 	'getEnumDatatypeCount',
 	'',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	1,
 	'select many enumDatatypePckgs related by self->S_DT[R39]->S_EDT[R17];
 return cardinality enumDatatypePckgs;',
@@ -1395,7 +1360,7 @@ INSERT INTO O_TFR
 	"110e3323-6929-4be9-b265-ce681dd25ec3",
 	'getEnumDatatypeId',
 	'',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'id = GD::NULL_UNIQUE_ID();
 select many enumDatatypePckgs related by self->S_DT[R39]->S_EDT[R17];
@@ -1417,7 +1382,7 @@ INSERT INTO O_TPARM
 	VALUES ("36d98857-617a-41bb-a260-e3992068638a",
 	"6dbdcd88-5628-4184-a7f9-5f628c9656c1",
 	'index',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -1427,7 +1392,7 @@ INSERT INTO O_TFR
 	"110e3323-6929-4be9-b265-ce681dd25ec3",
 	'getConstantSpecCount',
 	'',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	1,
 	'select many constantSpecs related by self->CNST_CSP[R1506];
 return cardinality constantSpecs;',
@@ -1439,7 +1404,7 @@ INSERT INTO O_TFR
 	"110e3323-6929-4be9-b265-ce681dd25ec3",
 	'getConstantSpecId',
 	'',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'id = GD::NULL_UNIQUE_ID();
 select many constantSpecs related by self->CNST_CSP[R1506];
@@ -1461,7 +1426,7 @@ INSERT INTO O_TPARM
 	VALUES ("43d5a767-d6fd-43a3-a299-76cd8a5c276e",
 	"cc94fca7-6bfc-4913-b418-b9d7e088ad8d",
 	'index',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -1471,7 +1436,7 @@ INSERT INTO O_TFR
 	"110e3323-6929-4be9-b265-ce681dd25ec3",
 	'getDtPckgCount',
 	'',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	1,
 	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
 select many dataTypePckgs related by self->S_DPIP[R37]->S_DPK[R38];
@@ -1484,7 +1449,7 @@ INSERT INTO O_TFR
 	"110e3323-6929-4be9-b265-ce681dd25ec3",
 	'getDtPckgId',
 	'',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
 id = GD::NULL_UNIQUE_ID();
@@ -1507,7 +1472,7 @@ INSERT INTO O_TPARM
 	VALUES ("edd6b1e7-07b6-4fc8-8b9d-7f6af74eb755",
 	"1c105300-3a6a-41fa-8a35-5a356d760a94",
 	'index',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -1517,7 +1482,7 @@ INSERT INTO O_TFR
 	"110e3323-6929-4be9-b265-ce681dd25ec3",
 	'canCopyCoreDataType',
 	'',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'return false;',
 	1,
@@ -1527,7 +1492,7 @@ INSERT INTO O_TPARM
 	VALUES ("4018f759-c886-44cf-9b45-6922f4ab08f3",
 	"98e1cd20-51f4-4670-addd-6a233ce37f34",
 	'id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -1548,7 +1513,7 @@ Description: A name for a package of data types.',
 	'',
 	'Name',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_REF
@@ -1566,7 +1531,7 @@ INSERT INTO O_REF
 	'',
 	'Domain',
 	'Dom_ID',
-	'R40');
+	'R40.''is contained in''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("110e3323-6929-4be9-b265-ce681dd25ec3",
 	"be02e7fd-21c4-4992-8934-dbaf5151c61d",
@@ -1599,16 +1564,9 @@ INSERT INTO O_ATTR
 	'',
 	'Dom_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("110e3323-6929-4be9-b265-ce681dd25ec3",
 	"cf4966b0-706a-4373-a2ee-7e706918813c",
@@ -1657,7 +1615,7 @@ INSERT INTO O_ATTR
 	'',
 	'SpecificationPackage_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -1675,7 +1633,7 @@ INSERT INTO O_REF
 	'',
 	'Data Type Package in Package',
 	'Package_ID',
-	'R38');
+	'R38.''is child via''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("110e3323-6929-4be9-b265-ce681dd25ec3",
 	"6928ae4d-9133-44d6-8413-d412ab47222b",
@@ -1704,7 +1662,7 @@ INSERT INTO O_ATTR
 	'Parent_',
 	'Package_ID',
 	1,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_ID
@@ -1721,12 +1679,17 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"110e3323-6929-4be9-b265-ce681dd25ec3");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("110e3323-6929-4be9-b265-ce681dd25ec3",
+	1,
+	"703df30a-ee7e-44ec-a7cf-22d2171bb270",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("703df30a-ee7e-44ec-a7cf-22d2171bb270",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Domain',
 	'A domain (S_DOM) consists of one or more subsystems (S_SS) that each contain an information model that abstracts a portion of the data for the domain: classes (O_OBJ), associations (R_REL), etc.  Breaking a domain into subsystems allows the complexity of the domain to be more easily managed: 1) subsystems are components and can be checked out individually allowing parallelism in development of the models and 2) breaking up a domain into smaller units is easier to understand.  A subsystem is composed of classes that tend to cluster, i.e., they have few associations that span subsystem boundaries.  Inter-subsystem associations, communications, and accesses are captured in the Subsystem Relationship Model (SRM), Subsystem Communication Model (SCM), and Subsystem Access Model (SAM) respectively.',
-	'S',
 	1,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000100002",
 	'../Domain.xtuml');
