@@ -477,12 +477,19 @@ public class TigerNatureTestGenerics extends CanvasTest {
 
 	public void testNewProjectNonDefaultPath() throws Exception {
 		String location = "c:\\tiger_test";
+		if(!Platform.getOS().contains("win")) {
+			location = Platform.getInstanceLocation().getURL().toString()
+					.replaceAll("file:", "")
+					+ "../tiger_test";
+		}
 		File loc = new File(location);
 		if (loc.exists()) {
 			if (loc.isDirectory()) {
 				deleteDirContents(loc);
 			}
 			assertTrue("Couldn't delete test directory", loc.delete());
+		} else {
+			loc.mkdir();
 		}
 		NewSystemWizard nsw = new NewSystemWizard();
 		nsw.init(PlatformUI.getWorkbench(), null);
@@ -514,7 +521,9 @@ public class TigerNatureTestGenerics extends CanvasTest {
 			gc2.setText("c:\\tiger_test");
 		}
 		else {
-			gc2.setText("~/tiger_test");
+			gc2.setText(Platform.getInstanceLocation().getURL().toString()
+					.replaceAll("file:", "")
+					+ "../tiger_test");
 		}
 
 		nsw.performFinish();

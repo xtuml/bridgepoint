@@ -48,6 +48,7 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.graphics.ImageLoader;
 import org.eclipse.swt.graphics.Rectangle;
+import org.eclipse.swt.internal.gtk.OS;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.PlatformUI;
 
@@ -112,7 +113,7 @@ public abstract class CanvasTest extends BaseTest {
 
 		// load the expected results for the test being performed
 		String path = m_workspace_path + TestingUtilities.getExpectedResultsPath() + getResultName();
-		if (testGlobals == true) {
+		if (testGlobals == true && !OS.IsLinux) {
           path = path + "Globals";
 		}
 		path = path + "/";
@@ -307,7 +308,7 @@ public abstract class CanvasTest extends BaseTest {
   }
   protected void writeResults(String[] results, Model_c uut, ImageData imgData) throws Exception {
 	String folder = m_workspace_path + TestingUtilities.getExpectedResultsPath() + getResultName() + "/"; //$NON-NLS-1$ //$NON-NLS-2$
-	if (testGlobals)
+	if (testGlobals && !OS.IsLinux)
 	{
 		folder = m_workspace_path + TestingUtilities.getExpectedResultsPath() + getResultName() + "Globals/"; //$NON-NLS-1$ //$NON-NLS-2$
 	}
