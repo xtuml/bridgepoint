@@ -1,225 +1,359 @@
+ Operation entered: InstanceStateMachine::Get_name
+ Operation entered: InstanceStateMachine::Get_name
+ Operation entered: InstanceStateMachine::Get_name
+ Operation entered: InstanceStateMachine::Get_name
+ Operation entered: InstanceStateMachine::Get_name
+ Operation entered: InstanceStateMachine::Get_name
+ Operation entered: InstanceStateMachine::Get_name
+ Operation entered: InstanceStateMachine::Get_name
+ Operation entered: InstanceStateMachine::Get_name
+ Operation entered: InstanceStateMachine::Get_name
+ Operation entered: InstanceStateMachine::Get_name
+ Operation entered: InstanceStateMachine::Get_name
+ Operation entered: InstanceStateMachine::Get_name
+ Operation entered: InstanceStateMachine::Get_name
+ Operation entered: InstanceStateMachine::Get_name
+ Operation entered: InstanceStateMachine::Get_name
+ Operation entered: InstanceStateMachine::Get_name
+ Operation entered: InstanceStateMachine::Get_name
+ Operation entered: InstanceStateMachine::Get_name
+ Operation entered: InstanceStateMachine::Get_name
+ Operation entered: InstanceStateMachine::Get_name
+ Operation entered: InstanceStateMachine::Get_name
+ Operation entered: InstanceStateMachine::Get_name
+ Operation entered: InstanceStateMachine::Get_name
+ Operation entered: InstanceStateMachine::Get_name
+ Operation entered: InstanceStateMachine::Get_name
+ Operation entered: InstanceStateMachine::Get_name
+ Operation entered: InstanceStateMachine::Get_name
+ Operation entered: InstanceStateMachine::Get_name
+ Operation entered: InstanceStateMachine::Get_name
+ Operation entered: InstanceStateMachine::Get_name
+ Operation entered: InstanceStateMachine::Get_name
+ Operation entered: InstanceStateMachine::Get_name
+ Operation entered: InstanceStateMachine::Get_name
+ Operation entered: InstanceStateMachine::Get_name
+ Operation entered: InstanceStateMachine::Get_name
+ Operation entered: InstanceStateMachine::Get_name
+ Operation entered: InstanceStateMachine::Get_name
+ Operation entered: InstanceStateMachine::Get_name
+ Operation entered: InstanceStateMachine::Get_name
+ Operation entered: InstanceStateMachine::Get_name
+ Operation entered: InstanceStateMachine::Get_name
+ Operation entered: InstanceStateMachine::Get_name
+ Operation entered: InstanceStateMachine::Get_name
+ Operation entered: InstanceStateMachine::Get_name
+ Operation entered: InstanceStateMachine::Get_name
+ Operation entered: InstanceStateMachine::Get_name
+ Operation entered: ClassStateMachine::Get_name
+ Operation entered: ClassStateMachine::Get_name
+ Operation entered: ClassStateMachine::Get_name
+ Operation entered: ClassStateMachine::Get_name
+ Operation entered: ClassStateMachine::Get_name
+ Operation entered: ClassStateMachine::Get_name
+ Operation entered: ClassStateMachine::Get_name
+ Operation entered: ClassStateMachine::Get_name
+ Operation entered: ClassStateMachine::Get_name
+ Operation entered: ClassStateMachine::Get_name
+ Operation entered: ClassStateMachine::Get_name
+ Operation entered: ClassStateMachine::Get_name
+ Operation entered: InstanceStateMachine::Get_name
  Operation entered: Transition::Get_label
  Operation entered: NewStateTransition::Get_name
  Operation entered: StateMachineEvent::Get_name
+ Operation entered: InstanceStateMachine::Get_name
  Operation entered: Transition::Get_label
  Operation entered: NewStateTransition::Get_name
  Operation entered: StateMachineEvent::Get_name
+ Operation entered: InstanceStateMachine::Get_name
  Operation entered: Transition::Get_label
  Operation entered: NewStateTransition::Get_name
  Operation entered: StateMachineEvent::Get_name
+ Operation entered: InstanceStateMachine::Get_name
  Operation entered: Transition::Get_label
  Operation entered: NewStateTransition::Get_name
  Operation entered: StateMachineEvent::Get_name
+ Operation entered: InstanceStateMachine::Get_name
  Operation entered: Transition::Get_label
  Operation entered: NewStateTransition::Get_name
  Operation entered: StateMachineEvent::Get_name
+ Operation entered: InstanceStateMachine::Get_name
  Operation entered: Transition::Get_label
  Operation entered: NewStateTransition::Get_name
  Operation entered: StateMachineEvent::Get_name
+ Operation entered: InstanceStateMachine::Get_name
  Operation entered: Transition::Get_label
  Operation entered: NewStateTransition::Get_name
  Operation entered: StateMachineEvent::Get_name
+ Operation entered: InstanceStateMachine::Get_name
  Operation entered: Transition::Get_label
  Operation entered: NewStateTransition::Get_name
  Operation entered: StateMachineEvent::Get_name
+ Operation entered: InstanceStateMachine::Get_name
  Operation entered: Transition::Get_label
  Operation entered: NewStateTransition::Get_name
  Operation entered: StateMachineEvent::Get_name
+ Operation entered: InstanceStateMachine::Get_name
  Operation entered: Transition::Get_label
  Operation entered: NewStateTransition::Get_name
  Operation entered: StateMachineEvent::Get_name
+ Operation entered: InstanceStateMachine::Get_name
  Operation entered: Transition::Get_label
  Operation entered: NewStateTransition::Get_name
  Operation entered: StateMachineEvent::Get_name
+ Operation entered: InstanceStateMachine::Get_name
  Operation entered: Transition::Get_label
  Operation entered: NewStateTransition::Get_name
  Operation entered: StateMachineEvent::Get_name
+ Operation entered: InstanceStateMachine::Get_name
  Operation entered: Transition::Get_label
  Operation entered: NewStateTransition::Get_name
  Operation entered: StateMachineEvent::Get_name
+ Operation entered: InstanceStateMachine::Get_name
  Operation entered: Transition::Get_label
  Operation entered: NewStateTransition::Get_name
  Operation entered: StateMachineEvent::Get_name
+ Operation entered: InstanceStateMachine::Get_name
  Operation entered: Transition::Get_label
  Operation entered: NewStateTransition::Get_name
  Operation entered: StateMachineEvent::Get_name
+ Operation entered: InstanceStateMachine::Get_name
  Operation entered: Transition::Get_label
  Operation entered: NewStateTransition::Get_name
  Operation entered: StateMachineEvent::Get_name
+ Operation entered: InstanceStateMachine::Get_name
  Operation entered: Transition::Get_label
  Operation entered: NewStateTransition::Get_name
  Operation entered: StateMachineEvent::Get_name
+ Operation entered: InstanceStateMachine::Get_name
  Operation entered: Transition::Get_label
  Operation entered: NewStateTransition::Get_name
  Operation entered: StateMachineEvent::Get_name
+ Operation entered: InstanceStateMachine::Get_name
  Operation entered: Transition::Get_label
  Operation entered: NewStateTransition::Get_name
  Operation entered: StateMachineEvent::Get_name
+ Operation entered: InstanceStateMachine::Get_name
  Operation entered: Transition::Get_label
  Operation entered: NewStateTransition::Get_name
  Operation entered: StateMachineEvent::Get_name
+ Operation entered: InstanceStateMachine::Get_name
  Operation entered: Transition::Get_label
  Operation entered: NewStateTransition::Get_name
  Operation entered: StateMachineEvent::Get_name
+ Operation entered: InstanceStateMachine::Get_name
  Operation entered: Transition::Get_label
  Operation entered: NewStateTransition::Get_name
  Operation entered: StateMachineEvent::Get_name
+ Operation entered: InstanceStateMachine::Get_name
  Operation entered: Transition::Get_label
  Operation entered: NewStateTransition::Get_name
  Operation entered: StateMachineEvent::Get_name
+ Operation entered: InstanceStateMachine::Get_name
  Operation entered: Transition::Get_label
  Operation entered: NewStateTransition::Get_name
  Operation entered: StateMachineEvent::Get_name
+ Operation entered: InstanceStateMachine::Get_name
  Operation entered: Transition::Get_label
  Operation entered: NewStateTransition::Get_name
  Operation entered: StateMachineEvent::Get_name
+ Operation entered: InstanceStateMachine::Get_name
  Operation entered: Transition::Get_label
  Operation entered: NewStateTransition::Get_name
  Operation entered: StateMachineEvent::Get_name
+ Operation entered: InstanceStateMachine::Get_name
  Operation entered: Transition::Get_label
  Operation entered: NewStateTransition::Get_name
  Operation entered: StateMachineEvent::Get_name
+ Operation entered: InstanceStateMachine::Get_name
  Operation entered: Transition::Get_label
  Operation entered: NewStateTransition::Get_name
  Operation entered: StateMachineEvent::Get_name
+ Operation entered: InstanceStateMachine::Get_name
  Operation entered: Transition::Get_label
  Operation entered: NewStateTransition::Get_name
  Operation entered: StateMachineEvent::Get_name
+ Operation entered: InstanceStateMachine::Get_name
  Operation entered: Transition::Get_label
  Operation entered: NewStateTransition::Get_name
  Operation entered: StateMachineEvent::Get_name
+ Operation entered: InstanceStateMachine::Get_name
  Operation entered: Transition::Get_label
  Operation entered: NewStateTransition::Get_name
  Operation entered: StateMachineEvent::Get_name
+ Operation entered: InstanceStateMachine::Get_name
  Operation entered: Transition::Get_label
  Operation entered: NewStateTransition::Get_name
  Operation entered: StateMachineEvent::Get_name
+ Operation entered: InstanceStateMachine::Get_name
  Operation entered: Transition::Get_label
  Operation entered: NewStateTransition::Get_name
  Operation entered: StateMachineEvent::Get_name
+ Operation entered: InstanceStateMachine::Get_name
  Operation entered: Transition::Get_label
  Operation entered: NewStateTransition::Get_name
  Operation entered: StateMachineEvent::Get_name
+ Operation entered: InstanceStateMachine::Get_name
  Operation entered: Transition::Get_label
  Operation entered: NewStateTransition::Get_name
  Operation entered: StateMachineEvent::Get_name
+ Operation entered: InstanceStateMachine::Get_name
  Operation entered: Transition::Get_label
  Operation entered: NewStateTransition::Get_name
  Operation entered: StateMachineEvent::Get_name
+ Operation entered: InstanceStateMachine::Get_name
  Operation entered: Transition::Get_label
  Operation entered: NewStateTransition::Get_name
  Operation entered: StateMachineEvent::Get_name
+ Operation entered: InstanceStateMachine::Get_name
  Operation entered: Transition::Get_label
  Operation entered: NewStateTransition::Get_name
  Operation entered: StateMachineEvent::Get_name
+ Operation entered: InstanceStateMachine::Get_name
  Operation entered: Transition::Get_label
  Operation entered: NewStateTransition::Get_name
  Operation entered: StateMachineEvent::Get_name
+ Operation entered: InstanceStateMachine::Get_name
  Operation entered: Transition::Get_label
  Operation entered: NewStateTransition::Get_name
  Operation entered: StateMachineEvent::Get_name
+ Operation entered: InstanceStateMachine::Get_name
  Operation entered: Transition::Get_label
  Operation entered: NewStateTransition::Get_name
  Operation entered: StateMachineEvent::Get_name
+ Operation entered: InstanceStateMachine::Get_name
  Operation entered: Transition::Get_label
  Operation entered: NewStateTransition::Get_name
  Operation entered: StateMachineEvent::Get_name
+ Operation entered: InstanceStateMachine::Get_name
  Operation entered: Transition::Get_label
  Operation entered: NewStateTransition::Get_name
  Operation entered: StateMachineEvent::Get_name
+ Operation entered: InstanceStateMachine::Get_name
  Operation entered: Transition::Get_label
  Operation entered: NewStateTransition::Get_name
  Operation entered: StateMachineEvent::Get_name
+ Operation entered: InstanceStateMachine::Get_name
  Operation entered: Transition::Get_label
  Operation entered: NewStateTransition::Get_name
  Operation entered: StateMachineEvent::Get_name
+ Operation entered: InstanceStateMachine::Get_name
  Operation entered: Transition::Get_label
  Operation entered: NewStateTransition::Get_name
  Operation entered: StateMachineEvent::Get_name
+ Operation entered: InstanceStateMachine::Get_name
  Operation entered: Transition::Get_label
  Operation entered: NewStateTransition::Get_name
  Operation entered: StateMachineEvent::Get_name
+ Operation entered: InstanceStateMachine::Get_name
  Operation entered: Transition::Get_label
  Operation entered: NewStateTransition::Get_name
  Operation entered: StateMachineEvent::Get_name
+ Operation entered: InstanceStateMachine::Get_name
  Operation entered: Transition::Get_label
  Operation entered: NewStateTransition::Get_name
  Operation entered: StateMachineEvent::Get_name
+ Operation entered: InstanceStateMachine::Get_name
  Operation entered: Transition::Get_label
  Operation entered: NewStateTransition::Get_name
  Operation entered: StateMachineEvent::Get_name
+ Operation entered: InstanceStateMachine::Get_name
  Operation entered: Transition::Get_label
  Operation entered: NewStateTransition::Get_name
  Operation entered: StateMachineEvent::Get_name
+ Operation entered: InstanceStateMachine::Get_name
  Operation entered: Transition::Get_label
  Operation entered: NewStateTransition::Get_name
  Operation entered: StateMachineEvent::Get_name
+ Operation entered: InstanceStateMachine::Get_name
  Operation entered: Transition::Get_label
  Operation entered: NewStateTransition::Get_name
  Operation entered: StateMachineEvent::Get_name
+ Operation entered: InstanceStateMachine::Get_name
  Operation entered: Transition::Get_label
  Operation entered: NewStateTransition::Get_name
  Operation entered: StateMachineEvent::Get_name
+ Operation entered: InstanceStateMachine::Get_name
  Operation entered: Transition::Get_label
  Operation entered: NewStateTransition::Get_name
  Operation entered: StateMachineEvent::Get_name
+ Operation entered: InstanceStateMachine::Get_name
  Operation entered: Transition::Get_label
  Operation entered: NewStateTransition::Get_name
  Operation entered: StateMachineEvent::Get_name
+ Operation entered: InstanceStateMachine::Get_name
  Operation entered: Transition::Get_label
  Operation entered: NewStateTransition::Get_name
  Operation entered: StateMachineEvent::Get_name
+ Operation entered: InstanceStateMachine::Get_name
  Operation entered: Transition::Get_label
  Operation entered: NewStateTransition::Get_name
  Operation entered: StateMachineEvent::Get_name
+ Operation entered: ClassStateMachine::Get_name
  Operation entered: Transition::Get_label
  Operation entered: NewStateTransition::Get_name
  Operation entered: StateMachineEvent::Get_name
+ Operation entered: ClassStateMachine::Get_name
  Operation entered: Transition::Get_label
  Operation entered: NewStateTransition::Get_name
  Operation entered: StateMachineEvent::Get_name
+ Operation entered: ClassStateMachine::Get_name
  Operation entered: Transition::Get_label
  Operation entered: NewStateTransition::Get_name
  Operation entered: StateMachineEvent::Get_name
+ Operation entered: ClassStateMachine::Get_name
  Operation entered: Transition::Get_label
  Operation entered: NewStateTransition::Get_name
  Operation entered: StateMachineEvent::Get_name
+ Operation entered: ClassStateMachine::Get_name
  Operation entered: Transition::Get_label
  Operation entered: NewStateTransition::Get_name
  Operation entered: StateMachineEvent::Get_name
+ Operation entered: ClassStateMachine::Get_name
  Operation entered: Transition::Get_label
  Operation entered: NewStateTransition::Get_name
  Operation entered: StateMachineEvent::Get_name
+ Operation entered: ClassStateMachine::Get_name
  Operation entered: Transition::Get_label
  Operation entered: NewStateTransition::Get_name
  Operation entered: StateMachineEvent::Get_name
+ Operation entered: ClassStateMachine::Get_name
  Operation entered: Transition::Get_label
  Operation entered: NewStateTransition::Get_name
  Operation entered: StateMachineEvent::Get_name
+ Operation entered: ClassStateMachine::Get_name
  Operation entered: Transition::Get_label
  Operation entered: NewStateTransition::Get_name
  Operation entered: StateMachineEvent::Get_name
+ Operation entered: ClassStateMachine::Get_name
  Operation entered: Transition::Get_label
  Operation entered: NewStateTransition::Get_name
  Operation entered: StateMachineEvent::Get_name
+ Operation entered: ClassStateMachine::Get_name
  Operation entered: Transition::Get_label
  Operation entered: NewStateTransition::Get_name
  Operation entered: StateMachineEvent::Get_name
+ Operation entered: ClassStateMachine::Get_name
  Operation entered: Transition::Get_label
  Operation entered: NewStateTransition::Get_name
  Operation entered: StateMachineEvent::Get_name
+ Operation entered: ClassStateMachine::Get_name
  Operation entered: Transition::Get_label
  Operation entered: NewStateTransition::Get_name
  Operation entered: StateMachineEvent::Get_name
+ Operation entered: ClassStateMachine::Get_name
  Operation entered: Transition::Get_label
  Operation entered: NewStateTransition::Get_name
  Operation entered: StateMachineEvent::Get_name
+ Operation entered: ClassStateMachine::Get_name
  Operation entered: Transition::Get_label
  Operation entered: NewStateTransition::Get_name
  Operation entered: StateMachineEvent::Get_name
+ Operation entered: ClassStateMachine::Get_name
  Operation entered: Transition::Get_label
  Operation entered: NewStateTransition::Get_name
  Operation entered: StateMachineEvent::Get_name
+ Operation entered: ClassStateMachine::Get_name
  Operation entered: Transition::Get_label
  Operation entered: NewStateTransition::Get_name
  Operation entered: StateMachineEvent::Get_name
@@ -246,6 +380,10 @@
  Function entered: Removeinconsistentnonlocalevents
  Operation entered: ModelClass::Removeinconsistentsubtypeignores
  Operation entered: ModelClass::Removeinconsistentsubtypeignores
+ Operation entered: InstanceStateMachine::Get_name
+ Operation entered: InstanceStateMachine::Get_name
+ Operation entered: InstanceStateMachine::Get_name
+ Operation entered: InstanceStateMachine::Get_name
  Operation entered: EventSupplementalData::Dispose
  Operation entered: EventSupplementalData::Dispose
  Operation entered: ModelClass::Initializeorder

@@ -154,7 +154,7 @@ public class ActivityEditorInteraction extends UITextTest {
 	}
 
 	private ActivityEditor getFunctionActivityEditor() {
-		return TextEditorUtils.getActivityEditor("test_function: Function Activity");
+		return TextEditorUtils.getActivityEditor("Functions::test_function");
 	}
 	private static void createMarker(
 		final IFile file,
@@ -576,7 +576,7 @@ public class ActivityEditorInteraction extends UITextTest {
 				IEditorPart editor = PlatformUI.getWorkbench()
 					.getActiveWorkbenchWindow().getActivePage().getActiveEditor();
 				assertTrue("Activity editor was not opened.", editor.getTitle()
-						.equals(bridge.getName() + ": Bridge Activity"));
+						.equals("Time::"+ bridge.getName()));
 			}
 		} finally {
 			try {
