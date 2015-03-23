@@ -291,10 +291,10 @@ public static void closeClassDiagramEditor() {
 }
 
 private static GraphicalEditor getClassDiagramEditor() {
-	return getCanvasEditor("Odms: Class Diagram");
+	return getCanvasEditor("Odms");
 }
 private static GraphicalEditor getDomainCanvasEditor() {
-	return getCanvasEditor("odms: Domain Package Diagram");
+	return getCanvasEditor("odms");
 }
 
 public static void updateTreeItem(Object t1, String newValue ) throws Exception

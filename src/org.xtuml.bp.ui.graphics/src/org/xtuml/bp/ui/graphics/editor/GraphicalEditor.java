@@ -97,6 +97,8 @@ import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ControlEvent;
 import org.eclipse.swt.events.ControlListener;
+import org.eclipse.swt.events.FocusEvent;
+import org.eclipse.swt.events.FocusListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Font;
@@ -143,6 +145,7 @@ import org.xtuml.bp.core.common.TransactionManager;
 import org.xtuml.bp.core.ui.RenameAction;
 import org.xtuml.bp.core.ui.Selection;
 import org.xtuml.bp.core.util.EditorUtil;
+import org.xtuml.bp.core.util.HierarchyUtil;
 import org.xtuml.bp.ui.canvas.CanvasModelListener;
 import org.xtuml.bp.ui.canvas.CanvasPlugin;
 import org.xtuml.bp.ui.canvas.Cl_c;
@@ -522,24 +525,11 @@ public class GraphicalEditor extends GraphicalEditorWithFlyoutPalette implements
 	@Override
 	public String getTitleToolTip() {
 		Object element = getModel().getRepresents();
-		Method method = null;
-		try {
-			method = element.getClass().getMethod("Getpath",
-					new Class[] { String.class });
-		} catch (SecurityException e) {
-		} catch (NoSuchMethodException e) {
-		}
-		if (method != null) {
-			String result = getPartName();
-			try {
-				result = (String) method.invoke(element, new Object[] { "" });
-			} catch (IllegalArgumentException e) {
-			} catch (IllegalAccessException e) {
-			} catch (InvocationTargetException e) {
-			}
-			return result;
-		}
-		return getPartName();
+		if ( element == null)
+			return "";
+		if (!(element instanceof NonRootModelElement))
+			return getPartName();
+		return HierarchyUtil.Getpath(element);
 	}
 
 	public void setEditorInput(IEditorInput input) {
@@ -730,6 +720,12 @@ public class GraphicalEditor extends GraphicalEditorWithFlyoutPalette implements
 			}
 		});
 		((FigureCanvas) getCanvas()).setFont(getFont());
+		getCanvas().addFocusListener(new FocusListener() {
+			public void focusGained(FocusEvent ev) {
+				EditorUtil.refreshEditorTab();
+			}
+			public void focusLost(FocusEvent ev) { /* do nothing */ }
+		});
 	}
 
 	protected boolean shouldZoomFit() {
