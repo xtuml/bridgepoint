@@ -211,7 +211,7 @@ public class RefreshTestCoreGenerics extends BaseTest {
 
 				});
 		CanvasUtilities.openCanvasEditor(sequence);
-		CanvasTestUtilities.getCanvasEditor("RefreshTest: Package Diagram");
+		CanvasTestUtilities.getCanvasEditor("RefreshTest");
 	}
 
 }

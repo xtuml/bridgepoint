@@ -89,7 +89,7 @@ public class ParseAllOnModelReloadTest extends UITextTest
         // model is loaded, below
         IWorkspace workspace = TextPlugin.getWorkspace();
         IFile placeholder = workspace.getRoot().getFile(
-        		componentPath.append("first__State_Machine_State.oal"));
+        		componentPath.append("A__first.oal"));
 
         assertTrue("Activity file which should have no errors has problem markers",
             TextEditorUtils.getMarkers(placeholder).length == 0);

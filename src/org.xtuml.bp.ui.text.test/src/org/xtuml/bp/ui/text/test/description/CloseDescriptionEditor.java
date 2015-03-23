@@ -54,132 +54,132 @@ public class CloseDescriptionEditor extends UITextTest {
 
 	public void testCloseDomainDescription()
 	{	
-		closeDescriptionEditor("testDescrip1: Package Description");
+		closeDescriptionEditor("testDescrip1");
 	}
 
 	public void testCloseExternalEntityDescription()
 	{	
-		closeDescriptionEditor("Test External Entity: External Entity Description");
+		closeDescriptionEditor("Test External Entity");
 	}
 
 	public void testCloseUserDataTypeDescription()
 	{	
-		closeDescriptionEditor("testUDT: User Data Type Description");
+		closeDescriptionEditor("testUDT");
 	}
 
     public void testCloseEnumerationDataTypeDescription()
     {   
-        closeDescriptionEditor("testDT: Enumeration Data Type Description");
+        closeDescriptionEditor("testDT");
     }
     
 	public void testCloseBridgeDescription()
 	{	
-		closeDescriptionEditor("test_bridge: Bridge Description");
+		closeDescriptionEditor("Test External Entity::test_bridge");
 	}
 	
 	public void testCloseEnumeratorDescription()
 	{	
-		closeDescriptionEditor("enum1: Enumerator Description");
+		closeDescriptionEditor("enum1");
 	}
 	
 	public void testCloseFunctionDescription()
 	{	
-		closeDescriptionEditor("test_function: Function Description");
+		closeDescriptionEditor("Functions::test_function");
 	}
 	
 	public void testCloseAssociationDescription()
 	{	
-		closeDescriptionEditor("R1: Association Description");
+		closeDescriptionEditor("R1");
 	}
 	
 	public void testCloseOperationDescription()
 	{	
-		closeDescriptionEditor("op1: Operation Description");
+		closeDescriptionEditor("Test Class::op1");
 	}
 	
 	public void testCloseAttributeDescription()
 	{	
-		closeDescriptionEditor("id: Attribute Description");
+		closeDescriptionEditor("Test Class::id");
 	}
 	
 	public void testCloseModelClassDescription()
 	{	
-		closeDescriptionEditor("Test Class: Model Class Description");
+		closeDescriptionEditor("Test Class");
 	}
 	
 	public void testCloseAttributeReferenceinClassDescription()
 	{	
-		closeDescriptionEditor("Test Class.id(R1): Attribute Reference in Class Description");
+		closeDescriptionEditor("Test Class.id(R1)");
 	}
 		
 	public void testCloseInstanceStateMachineDescription()
 	{	
-		closeDescriptionEditor("Test Class: Instance State Machine Description");
+		closeDescriptionEditor("Test Class");
 	}
 	
 	public void testCloseInstanceStateMachineEventDescription()
 	{	
-		closeDescriptionEditor("T_T1: first: State Machine Event Description");
+		closeDescriptionEditor("T_T1: first");
 	}
 	
 	public void testCloseInstanceEventIgnoredDescription()
 	{	
-		closeDescriptionEditor("T_T1/ISM State: Event Ignored Description");
+		closeDescriptionEditor("T_T1/ISM State");
 	}
 	
 	public void testCloseInstanceCantHappenDescription()
 	{	
-		closeDescriptionEditor("T_T2/ISM State: Cant Happen Description");
+		closeDescriptionEditor("T_T2/ISM State");
 	}
 	
 	public void testCloseInstanceActionDescription()
 	{	
-		closeDescriptionEditor("ISM State: State Machine State Description");
+		closeDescriptionEditor("Test Class::ISM State");
 	}
 	
 	public void testCloseInstanceTransitionActionDescription()
 	{	
-		closeDescriptionEditor("T_T3: third in ISM State to ISM State: Transition Description");
+		closeDescriptionEditor("Test Class::ISM State::T_T3: third");
 	}
 	
 	public void testCloseInstanceStateMachineEventDataItemDescription()
 	{	
-		closeDescriptionEditor("data: State Machine Event Data Item Description");
+		closeDescriptionEditor("data");
 	}
 
 	public void testCloseClassStateMachineDescription()
 	{	
-		closeDescriptionEditor("Test Class: Class State Machine Description");
+		closeDescriptionEditor("Test Class");
 	}
 	
 	public void testCloseClassStateMachineEventDescription()
 	{	
-		closeDescriptionEditor("T_T_A1: first class: State Machine Event Description");
+		closeDescriptionEditor("T_T_A1: first class");
 	}
 	
 	public void testCloseClassEventIgnoredDescription()
 	{	
-		closeDescriptionEditor("T_T_A1/CSM State: Event Ignored Description");
+		closeDescriptionEditor("T_T_A1/CSM State");
 	}
 	
 	public void testCloseClassCantHappenDescription()
 	{	
-		closeDescriptionEditor("T_T_A2/CSM State: Cant Happen Description");
+		closeDescriptionEditor("T_T_A2/CSM State");
 	}
 	
 	public void testCloseClassActionDescription()
 	{	
-		closeDescriptionEditor("CSM State: State Machine State Description");
+		closeDescriptionEditor("Test Class::CSM State");
 	}
 	
 	public void testCloseClassActionTransitionDescription()
 	{	
-		closeDescriptionEditor("T_T_A3: third class in CSM State to CSM State: Transition Description");
+		closeDescriptionEditor("Test Class::CSM State::T_T_A3: third class");
 	}
 	
 	public void testCloseClassStateMachineEventDataItemDescription()
 	{	
-		closeDescriptionEditor("class data: State Machine Event Data Item Description");
+		closeDescriptionEditor("class data");
 	}
 	
 }

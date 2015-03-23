@@ -149,7 +149,7 @@ public class SequenceTestsGenerics extends CanvasTest {
 		Package_c formalSequence = getPackage(diagramName);
 		CanvasUtilities.openCanvasEditor(formalSequence);
 		GraphicalEditor ce = CanvasTestUtilities.getCanvasEditor(diagramName
-				+ ": Package Diagram");
+				);
 		validateOrGenerateResults(ce, generateResults);
 	}
 
@@ -163,7 +163,7 @@ public class SequenceTestsGenerics extends CanvasTest {
 		Package_c informalSequence = getPackage(diagramName);
 		CanvasUtilities.openCanvasEditor(informalSequence);
 		GraphicalEditor ce = CanvasTestUtilities.getCanvasEditor(diagramName
-				+ ": Package Diagram");
+				);
 		validateOrGenerateResults(ce, generateResults);
 	}
 
@@ -176,7 +176,7 @@ public class SequenceTestsGenerics extends CanvasTest {
 		Package_c sis = getPackage(diagramName);
 		CanvasUtilities.openCanvasEditor(sis);
 		GraphicalEditor ce = CanvasTestUtilities.getCanvasEditor(diagramName
-				+ ": Package Diagram");
+				);
 		validateOrGenerateResults(ce, generateResults);
 	}
 
@@ -190,7 +190,7 @@ public class SequenceTestsGenerics extends CanvasTest {
 		Package_c sequence = getPackage(diagramName);
 		CanvasUtilities.openCanvasEditor(sequence);
 		GraphicalEditor ce = CanvasTestUtilities.getCanvasEditor(diagramName
-				+ ": Package Diagram");
+				);
 
 		// select the instance to formalize
 		ClassInstanceParticipant_c instance = ClassInstanceParticipant_c
@@ -227,7 +227,7 @@ public class SequenceTestsGenerics extends CanvasTest {
 		Package_c sequence = getPackage(diagramName);
 		CanvasUtilities.openCanvasEditor(sequence);
 		GraphicalEditor ce = CanvasTestUtilities.getCanvasEditor(diagramName
-				+ ": Package Diagram");
+				);
 
 		// select the instance to formalize
 		ClassInstanceParticipant_c instance = ClassInstanceParticipant_c
@@ -265,7 +265,7 @@ public class SequenceTestsGenerics extends CanvasTest {
 		Package_c sequence = getPackage(diagramName);
 		CanvasUtilities.openCanvasEditor(sequence);
 		GraphicalEditor ce = CanvasTestUtilities.getCanvasEditor(diagramName
-				+ ": Package Diagram");
+				);
 
 		// select the instance to formalize
 		ClassInstanceParticipant_c instance = ClassInstanceParticipant_c
@@ -296,7 +296,7 @@ public class SequenceTestsGenerics extends CanvasTest {
 		Package_c sequence = getPackage(diagramName);
 		CanvasUtilities.openCanvasEditor(sequence);
 		GraphicalEditor ce = CanvasTestUtilities.getCanvasEditor(diagramName
-				+ ": Package Diagram");
+				);
 
 		// select the imported class to formalize
 		ClassParticipant_c importedClass = ClassParticipant_c
@@ -333,7 +333,7 @@ public class SequenceTestsGenerics extends CanvasTest {
 		Package_c sequence = getPackage(diagramName);
 		CanvasUtilities.openCanvasEditor(sequence);
 		GraphicalEditor ce = CanvasTestUtilities.getCanvasEditor(diagramName
-				+ ": Package Diagram");
+				);
 
 		// select the imported class to formalize
 		ClassParticipant_c importedClass = ClassParticipant_c
@@ -371,7 +371,7 @@ public class SequenceTestsGenerics extends CanvasTest {
 		Package_c sequence = getPackage(diagramName);
 		CanvasUtilities.openCanvasEditor(sequence);
 		GraphicalEditor ce = CanvasTestUtilities.getCanvasEditor(diagramName
-				+ ": Package Diagram");
+				);
 
 		// select the imported class to unformalize
 		ClassParticipant_c importedClass = ClassParticipant_c
@@ -403,7 +403,7 @@ public class SequenceTestsGenerics extends CanvasTest {
 		Package_c sequence = getPackage(diagramName);
 		CanvasUtilities.openCanvasEditor(sequence);
 		GraphicalEditor ce = CanvasTestUtilities.getCanvasEditor(diagramName
-				+ ": Package Diagram");
+				);
 
 		// select the instance to formalize
 		PackageParticipant_c fpkg = PackageParticipant_c
@@ -441,7 +441,7 @@ public class SequenceTestsGenerics extends CanvasTest {
 		Package_c sequence = getPackage(diagramName);
 		CanvasUtilities.openCanvasEditor(sequence);
 		GraphicalEditor ce = CanvasTestUtilities.getCanvasEditor(diagramName
-				+ ": Package Diagram");
+				);
 
 		// select the instance to formalize
 		PackageParticipant_c fpkg = PackageParticipant_c
@@ -478,7 +478,7 @@ public class SequenceTestsGenerics extends CanvasTest {
 		Package_c sequence = getPackage(diagramName);
 		CanvasUtilities.openCanvasEditor(sequence);
 		GraphicalEditor ce = CanvasTestUtilities.getCanvasEditor(diagramName
-				+ ": Package Diagram");
+				);
 
 		// select the instance to formalize
 		ExternalEntityParticipant_c ee = ExternalEntityParticipant_c
@@ -515,7 +515,7 @@ public class SequenceTestsGenerics extends CanvasTest {
 		Package_c sequence = getPackage(diagramName);
 		CanvasUtilities.openCanvasEditor(sequence);
 		GraphicalEditor ce = CanvasTestUtilities.getCanvasEditor(diagramName
-				+ ": Package Diagram");
+				);
 
 		// select the instance to formalize
 		ExternalEntityParticipant_c ee = ExternalEntityParticipant_c
@@ -553,7 +553,7 @@ public class SequenceTestsGenerics extends CanvasTest {
 		Package_c sequence = getPackage(diagramName);
 		CanvasUtilities.openCanvasEditor(sequence);
 		GraphicalEditor ce = CanvasTestUtilities.getCanvasEditor(diagramName
-				+ ": Package Diagram");
+				);
 
 		// select the instance to formalize
 		SynchronousMessage_c message = SynchronousMessage_c
@@ -603,7 +603,7 @@ public class SequenceTestsGenerics extends CanvasTest {
 		Package_c sequence = getPackage(diagramName);
 		CanvasUtilities.openCanvasEditor(sequence);
 		GraphicalEditor ce = CanvasTestUtilities.getCanvasEditor(diagramName
-				+ ": Package Diagram");
+				);
 
 		// select the instance to formalize
 		SynchronousMessage_c message = SynchronousMessage_c
@@ -653,7 +653,7 @@ public class SequenceTestsGenerics extends CanvasTest {
 		Package_c sequence = getPackage(diagramName);
 		CanvasUtilities.openCanvasEditor(sequence);
 		GraphicalEditor ce = CanvasTestUtilities.getCanvasEditor(diagramName
-				+ ": Package Diagram");
+				);
 
 		// select the instance to formalize
 		SynchronousMessage_c message = SynchronousMessage_c
@@ -704,7 +704,7 @@ public class SequenceTestsGenerics extends CanvasTest {
 		Package_c sequence = getPackage(diagramName);
 		CanvasUtilities.openCanvasEditor(sequence);
 		GraphicalEditor ce = CanvasTestUtilities.getCanvasEditor(diagramName
-				+ ": Package Diagram");
+				);
 
 		// select the instance to formalize
 		SynchronousMessage_c message = SynchronousMessage_c
@@ -754,7 +754,7 @@ public class SequenceTestsGenerics extends CanvasTest {
 		Package_c sequence = getPackage(diagramName);
 		CanvasUtilities.openCanvasEditor(sequence);
 		GraphicalEditor ce = CanvasTestUtilities.getCanvasEditor(diagramName
-				+ ": Package Diagram");
+				);
 
 		// select the instance to formalize
 		SynchronousMessage_c message = SynchronousMessage_c
@@ -804,7 +804,7 @@ public class SequenceTestsGenerics extends CanvasTest {
 		Package_c sequence = getPackage(diagramName);
 		CanvasUtilities.openCanvasEditor(sequence);
 		GraphicalEditor ce = CanvasTestUtilities.getCanvasEditor(diagramName
-				+ ": Package Diagram");
+				);
 
 		// select the instance to formalize
 		AsynchronousMessage_c message = AsynchronousMessage_c
@@ -854,7 +854,7 @@ public class SequenceTestsGenerics extends CanvasTest {
 		Package_c sequence = getPackage(diagramName);
 		CanvasUtilities.openCanvasEditor(sequence);
 		GraphicalEditor ce = CanvasTestUtilities.getCanvasEditor(diagramName
-				+ ": Package Diagram");
+				);
 
 		// select the instance to formalize
 		AsynchronousMessage_c message = AsynchronousMessage_c
@@ -904,7 +904,7 @@ public class SequenceTestsGenerics extends CanvasTest {
 		Package_c sequence = getPackage(diagramName);
 		CanvasUtilities.openCanvasEditor(sequence);
 		GraphicalEditor ce = CanvasTestUtilities.getCanvasEditor(diagramName
-				+ ": Package Diagram");
+				);
 
 		// select the instance to formalize
 		AsynchronousMessage_c message = AsynchronousMessage_c
@@ -954,7 +954,7 @@ public class SequenceTestsGenerics extends CanvasTest {
 		Package_c sequence = getPackage(diagramName);
 		CanvasUtilities.openCanvasEditor(sequence);
 		GraphicalEditor ce = CanvasTestUtilities.getCanvasEditor(diagramName
-				+ ": Package Diagram");
+				);
 
 		// select the instance to formalize
 		AsynchronousMessage_c message = AsynchronousMessage_c
@@ -1003,7 +1003,7 @@ public class SequenceTestsGenerics extends CanvasTest {
 		Package_c sequence = getPackage(diagramName);
 		CanvasUtilities.openCanvasEditor(sequence);
 		GraphicalEditor ce = CanvasTestUtilities.getCanvasEditor(diagramName
-				+ ": Package Diagram");
+				);
 
 		// select the instance to unformalize
 		PackageParticipant_c fpkg = PackageParticipant_c
@@ -1034,7 +1034,7 @@ public class SequenceTestsGenerics extends CanvasTest {
 		Package_c sequence = getPackage(diagramName);
 		CanvasUtilities.openCanvasEditor(sequence);
 		GraphicalEditor ce = CanvasTestUtilities.getCanvasEditor(diagramName
-				+ ": Package Diagram");
+				);
 
 		// select the instance to unformalize
 		ExternalEntityParticipant_c ee = ExternalEntityParticipant_c
@@ -1065,7 +1065,7 @@ public class SequenceTestsGenerics extends CanvasTest {
 		Package_c sequence = getPackage(diagramName);
 		CanvasUtilities.openCanvasEditor(sequence);
 		GraphicalEditor ce = CanvasTestUtilities.getCanvasEditor(diagramName
-				+ ": Package Diagram");
+				);
 
 		// select the instance to unformalize
 		SynchronousMessage_c message = SynchronousMessage_c
@@ -1096,7 +1096,7 @@ public class SequenceTestsGenerics extends CanvasTest {
 		Package_c sequence = getPackage(diagramName);
 		CanvasUtilities.openCanvasEditor(sequence);
 		GraphicalEditor ce = CanvasTestUtilities.getCanvasEditor(diagramName
-				+ ": Package Diagram");
+				);
 
 		// select the instance to unformalize
 		AsynchronousMessage_c message = AsynchronousMessage_c
@@ -1128,7 +1128,7 @@ public class SequenceTestsGenerics extends CanvasTest {
 		Package_c sequence = getPackage(diagramName);
 		CanvasUtilities.openCanvasEditor(sequence);
 		GraphicalEditor ce = CanvasTestUtilities.getCanvasEditor(diagramName
-				+ ": Package Diagram");
+				);
 
 		test_id = "27";
 
@@ -1267,7 +1267,7 @@ public class SequenceTestsGenerics extends CanvasTest {
 		Package_c sequence = getPackage(diagramName);
 		CanvasUtilities.openCanvasEditor(sequence);
 		GraphicalEditor ce = CanvasTestUtilities.getCanvasEditor(diagramName
-				+ ": Package Diagram");
+				);
 
 		// tests that adding a parameter to a bridge
 		// creates a corresponding message argument
@@ -1322,7 +1322,7 @@ public class SequenceTestsGenerics extends CanvasTest {
 		Package_c sequence = getPackage(diagramName);
 		CanvasUtilities.openCanvasEditor(sequence);
 		GraphicalEditor ce = CanvasTestUtilities.getCanvasEditor(diagramName
-				+ ": Package Diagram");
+				);
 
 		// tests that adding a parameter to a function
 		// creates a corresponding message argument
@@ -1571,7 +1571,7 @@ public class SequenceTestsGenerics extends CanvasTest {
 				});
 		CanvasUtilities.openCanvasEditor(subsystem);
 		GraphicalEditor ce = CanvasTestUtilities.getCanvasEditor(diagramName
-				+ ": Package Diagram");
+				);
 		validateOrGenerateResults(ce, generateResults);
 	}
 
@@ -1585,7 +1585,7 @@ public class SequenceTestsGenerics extends CanvasTest {
 				new Package_by_name_c(diagramName));
 		CanvasUtilities.openCanvasEditor(domain);
 		GraphicalEditor ce = CanvasTestUtilities.getCanvasEditor(diagramName
-				+ ": Package Diagram");
+				);
 		validateOrGenerateResults(ce, generateResults);
 	}
 

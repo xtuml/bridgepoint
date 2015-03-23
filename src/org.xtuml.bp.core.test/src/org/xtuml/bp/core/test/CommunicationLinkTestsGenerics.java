@@ -95,7 +95,7 @@ public class CommunicationLinkTestsGenerics extends CanvasTest {
 		Package_c communication = getPackage(diagramName);
 		CanvasUtilities.openCanvasEditor(communication);
 		GraphicalEditor ce = CanvasTestUtilities.getCanvasEditor(diagramName
-				+ ": Package Diagram");
+				);
 		validateOrGenerateResults(ce, generateResults);
 	}
 
@@ -107,7 +107,7 @@ public class CommunicationLinkTestsGenerics extends CanvasTest {
 		test_id = "2";
 		String diagramName = "Communication in Communication";
 		GraphicalEditor ce = CanvasTestUtilities.getCanvasEditor(diagramName
-				+ ": Package Diagram");
+				);
 
 		CommunicationLink_c testLink = CommunicationLink_c
 				.CommunicationLinkInstance(modelRoot,
@@ -153,7 +153,7 @@ public class CommunicationLinkTestsGenerics extends CanvasTest {
 		test_id = "3";
 		String diagramName = "Communication in Communication";
 		GraphicalEditor ce = CanvasTestUtilities.getCanvasEditor(diagramName
-				+ ": Package Diagram");
+				);
 
 		CommunicationLink_c testLink = CommunicationLink_c
 				.CommunicationLinkInstance(modelRoot,
@@ -199,7 +199,7 @@ public class CommunicationLinkTestsGenerics extends CanvasTest {
 		test_id = "4";
 		String diagramName = "Communication in Communication";
 		GraphicalEditor ce = CanvasTestUtilities.getCanvasEditor(diagramName
-				+ ": Package Diagram");
+				);
 
 		CommunicationLink_c testLink = CommunicationLink_c
 				.CommunicationLinkInstance(modelRoot,
@@ -276,7 +276,7 @@ public class CommunicationLinkTestsGenerics extends CanvasTest {
 		test_id = "6";
 		String diagramName = "Communication in Communication";
 		GraphicalEditor ce = CanvasTestUtilities.getCanvasEditor(diagramName
-				+ ": Package Diagram");
+				);
 
 		CommunicationLink_c testLink = CommunicationLink_c
 				.CommunicationLinkInstance(modelRoot,
@@ -322,7 +322,7 @@ public class CommunicationLinkTestsGenerics extends CanvasTest {
 		test_id = "7";
 		String diagramName = "Communication in Communication";
 		GraphicalEditor ce = CanvasTestUtilities.getCanvasEditor(diagramName
-				+ ": Package Diagram");
+				);
 
 		CommunicationLink_c testLink = CommunicationLink_c
 				.CommunicationLinkInstance(modelRoot,
@@ -401,7 +401,7 @@ public class CommunicationLinkTestsGenerics extends CanvasTest {
 		test_id = "9";
 		String diagramName = "Communication in Communication";
 		GraphicalEditor ce = CanvasTestUtilities.getCanvasEditor(diagramName
-				+ ": Package Diagram");
+				);
 
 		CommunicationLink_c testLink = CommunicationLink_c
 				.CommunicationLinkInstance(modelRoot,

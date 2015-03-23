@@ -98,7 +98,7 @@ public class DuplicateRelationshipNumberParseAllTest extends UITextTest
         IPath path = manager.getComponent(pkg).getContainingDirectoryPath();
         
         path = path.append("Odms/Disk Ownership/ClassStateMachine/");
-        path = path.append("Establishing_Ownership_of_an_Offline_Disk__State_Machine_State.oal");
+        path = path.append("Disk_Ownership__Establishing_Ownership_of_an_Offline_Disk.oal");
         
         // check that there are now problems associated with an
         // activity file for which we know there should be problems
