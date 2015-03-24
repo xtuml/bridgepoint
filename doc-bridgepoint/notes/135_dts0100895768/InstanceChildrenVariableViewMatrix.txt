@@ -1,0 +1,60 @@
+#===========================================================================
+#
+# Description:
+# This test matrix is used to test All different kind of Instance's child 
+# variables in Variables View
+#
+# Version:      $Revision: 1.3 $
+#
+# Notice:
+# (C) Copyright 2007-2013 Mentor Graphics Corporation
+#     All rights reserved.
+#===========================================================================
+#
+#
+Degrees of Freedom:
+
+Association (A)
+1. Normal Mode ( only Attributes displayed under instance )
+2. Enhanced Mode ( Session Explorer mimic mode)
+3. Grouped Mode  ( Session Explorer mode + grouping instances for each association)
+
+Instance Children Types(B)
+1. Attribute
+2. Pending Event
+3. Event
+4. Current State
+5. Unformalized Binary Association M:M
+6. Formalized Binary Association M:M
+7. Reflexive Binary Association	 M:M
+8. Unformalized Linked Association M:M
+9. Formalized Linked Association M:M
+10. Reflexive Linked Association M:M
+11. Unformalized Binary Association M:1
+12. Formalized Binary Association M:1
+13. Reflexive Binary Association M:1
+14. Unformalized Linked Association M:1
+15. Formalized Linked Association M:1
+16. Reflexive Linked Association M:1
+17. Unformalized Binary Association 1:1
+18. Formalized Binary Association  1:1
+19. Reflexive Binary Association 1:1
+20. Unformalized Linked Association 1:1
+21. Formalized Linked Association 1:1
+22. Reflexive Linked Association 1:1
+23. Specialization Association
+24. Referential Attribute
+
+
+Parent Instance Kind in Association(C)
+1. One Side
+2. Other Side 
+3. Linked Side
+
+
+Results:
+1. CorrectVariableValue      "Correct Variable Value"
+2. VariableNotFound 		 "Variable Does Not Exist In Variables Views"
+3. CorrectVariableCount		 "Variables Count Is Correct"
+
+Matrix:

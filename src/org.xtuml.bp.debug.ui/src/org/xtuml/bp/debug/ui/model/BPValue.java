@@ -1,14 +1,20 @@
-package org.xtuml.bp.debug.ui.model;
-
+ package org.xtuml.bp.debug.ui.model;
+ 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.UUID;
-
+ 
+import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.debug.core.DebugException;
 import org.eclipse.debug.core.ILaunch;
 import org.eclipse.debug.core.model.IDebugTarget;
 import org.eclipse.debug.core.model.IValue;
 import org.eclipse.debug.core.model.IVariable;
-
+ 
 import org.xtuml.bp.core.ArrayValue_c;
+import org.xtuml.bp.core.Association_c;
 import org.xtuml.bp.core.AttributeValue_c;
 import org.xtuml.bp.core.ComponentInstance_c;
 import org.xtuml.bp.core.ComponentReferenceValue_c;
@@ -19,23 +25,40 @@ import org.xtuml.bp.core.InstanceInReference_c;
 import org.xtuml.bp.core.InstanceReferenceDataType_c;
 import org.xtuml.bp.core.InstanceReferenceValue_c;
 import org.xtuml.bp.core.Instance_c;
+import org.xtuml.bp.core.LinkParticipation_c;
+import org.xtuml.bp.core.Link_c;
 import org.xtuml.bp.core.LocalReference_c;
 import org.xtuml.bp.core.LocalValue_c;
 import org.xtuml.bp.core.Local_c;
+import org.xtuml.bp.core.NewStateTransition_c;
+import org.xtuml.bp.core.PendingEvent_c;
 import org.xtuml.bp.core.PropertyParameter_c;
 import org.xtuml.bp.core.RuntimeValue_c;
+import org.xtuml.bp.core.SemEvent_c;
 import org.xtuml.bp.core.SimpleCoreValue_c;
 import org.xtuml.bp.core.SimpleValue_c;
+import org.xtuml.bp.core.StateEventMatrixEntry_c;
+import org.xtuml.bp.core.StateMachineEvent_c;
+import org.xtuml.bp.core.StateMachineState_c;
 import org.xtuml.bp.core.StructuredValue_c;
+import org.xtuml.bp.core.Transition_c;
 import org.xtuml.bp.core.ValueInArray_c;
 import org.xtuml.bp.core.ValueInStructure_c;
+import org.xtuml.bp.core.common.NonRootModelElement;
+import org.xtuml.bp.core.common.Transaction;
+import org.xtuml.bp.ui.session.adapters.AssociationsAdapter;
+import org.xtuml.bp.ui.session.adapters.InstancesAdapter;
+import com.sun.corba.se.spi.orbutil.fsm.State;
+import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
 
 public class BPValue extends BPDebugElement implements IValue {
     Object value = null;
-
-	public BPValue(IDebugTarget debugTarget, ILaunch launch, Object val) {
+    BPVariable  var = null;
+	public BPValue(IDebugTarget debugTarget, ILaunch launch, Object val, String Name, BPVariable BPVar){
 		super((BPDebugTarget)debugTarget, launch);
 		value = val;
+        name = Name;
+        var = BPVar;
 	}
 
 	public String getReferenceTypeName() throws DebugException {
@@ -82,15 +105,7 @@ public class BPValue extends BPDebugElement implements IValue {
 			else if ( irv != null){
 				Instance_c [] insts = Instance_c.getManyI_INSsOnR3013(
 						InstanceInReference_c.getManyL_IIRsOnR3311(irv));
-				String sep = "";
-				if (insts.length == 0)
-					return "empty";
-				else {
-				  for (int i=0; i<insts.length;i++) {
-					result = result + sep + insts[i].getLabel();
-					sep = ", ";
-				  }
-			    }
+				result = printInstanceSet(insts); 
 				return result;
 			}
 			else {
@@ -121,6 +136,32 @@ public class BPValue extends BPDebugElement implements IValue {
 		}
 	}
 
+ 	/**
+ 	 * Create a string of instance references array
+ 	 * in form of  
+ 	 *      [<array length>] #:<instance class>, #:<<instance class>, etc
+ 	 * 
+ 	 * @param insts  Instance references array
+ 	 * @return  the form string
+ 	 */
+ 	private String printInstanceSet(Instance_c[] insts) {
+ 		String result = "";
+ 		String sep = "";
+ 		if (insts.length == 0)
+ 			return "empty";
+ 		else if (insts.length == 1)
+  			return insts[0].getLabel();
+ 		else { 
+ 		  result = insts.length > 1 ?  "["+insts.length+"]  " : "";
+ 		  for (int i=0; i<insts.length;i++) {
+ 			result = result + sep + insts[i].getLabel();
+ 			sep = ", ";
+ 		  }
+  	}
+ 		return result;
+ 	}
+ 
+ 	
 	public String getValueString() throws DebugException {
 		if (value instanceof LocalValue_c) { 
 		  LocalValue_c localValue = (LocalValue_c)value;
@@ -183,15 +224,98 @@ public class BPValue extends BPDebugElement implements IValue {
 		else if (value instanceof Instance_c){
 			Instance_c inst = (Instance_c)value;
 			return inst.getLabel();
-		}
+				} 
+		
+	
+		// Show More children for instance
+		try{
+			if (value instanceof StateMachineState_c){
+				return ((StateMachineState_c)value).getName();
+			}
+			else if (value instanceof StateMachineEvent_c){
+				return ((StateMachineEvent_c)value).getName();
+			}
+			else if (value instanceof PendingEvent_c) {
+				String text = ((PendingEvent_c) value).getLabel();
+				if (text == null) {
+					return "";
+				} else {
+					return text;
+				}
+			}
+
+			if (value instanceof Association_c) {
+				Instance_c[] firstInstance = null;
+
+				if (name == "Origin Of") {
+					Link_c[] instanceLinks = this.var.getInstanceLinksForAnAssociation();
+
+					firstInstance = Instance_c .getManyI_INSsOnR2958(
+							LinkParticipation_c.getManyI_LIPsOnR2903(
+									instanceLinks));
+					if (firstInstance.length == 0)
+						firstInstance = Instance_c .getManyI_INSsOnR2958(
+								LinkParticipation_c .getManyI_LIPsOnR2902(
+										instanceLinks));
+
+				} else if (name == "Destination Of") {
+					Link_c[] instanceLinks = this.var.getInstanceLinksForAnAssociation();
+
+					firstInstance = Instance_c .getManyI_INSsOnR2958(
+							LinkParticipation_c .getManyI_LIPsOnR2903(
+									instanceLinks));
+					if (firstInstance.length == 0)
+						firstInstance = Instance_c .getManyI_INSsOnR2958(
+								LinkParticipation_c .getManyI_LIPsOnR2901(
+										instanceLinks));
+				} 
+				else if (name == "Associator For") {
+					Link_c[] instanceLinks = this.var.getInstanceLinksForAnAssociation();
+
+					Instance_c[] first = Instance_c.getManyI_INSsOnR2958(
+						LinkParticipation_c .getManyI_LIPsOnR2901(
+									instanceLinks));
+					Instance_c[] second = Instance_c .getManyI_INSsOnR2958(
+							LinkParticipation_c .getManyI_LIPsOnR2902(
+									instanceLinks));
+
+					firstInstance = new Instance_c[first.length + second.length];
+					System.arraycopy(first, 0, firstInstance, 0, first.length);
+					System.arraycopy(second, 0,firstInstance , first.length, second.length);
+				}
+				return printInstanceSet(firstInstance);
+
+			}else if ( value instanceof PendingEvent_c){
+				return ((PendingEvent_c) value).getLabel();
+			}else if ( value instanceof PendingEvent_c[]){
+				PendingEvent_c[] events =  (PendingEvent_c[]) value;
+				String result = "";
+				String sep = "";
+				if (events.length == 0)
+					return "empty";
+				else {
+					result = events.length > 1 ?  "["+events.length+"]  " : "";
+					for (int i=0; i<events.length;i++) {
+						result = result + sep + events[i].getLabel();
+						sep = ", ";
+					}
+				}
+				return result;
+			}
+		}catch (Exception e) {
 		return "Undefined";
+       }
+	return "Undefined";
 	}
 
 	public boolean isAllocated() throws DebugException {
 		// TODO Auto-generated method stub
 		return false;
 	}
-
+	
+	public String getValueStringForButtonTextPane() throws DebugException{
+		return getValueString();
+	}
 
 	public IVariable[] getVariables(RuntimeValue_c p_rv) throws DebugException {
 
@@ -206,11 +330,11 @@ public class BPValue extends BPDebugElement implements IValue {
 			InstanceReferenceValue_c irv = InstanceReferenceValue_c.getOneRV_IRVOnR3308(simVal);
 			if ( scv != null){
 				rvs = new RuntimeValue_c[0];
-				return getChildern(rvs);
+				return getChildern(rvs, null, null, null);
 			}
 			else if  ( crv != null){
 				rvs = new RuntimeValue_c[0];
-				return getChildern(rvs);
+				return getChildern(rvs, null, null, null);
 			}
 			else if ( irv != null){
 				Instance_c [] insts = Instance_c.getManyI_INSsOnR3013(
@@ -218,14 +342,14 @@ public class BPValue extends BPDebugElement implements IValue {
 				if (insts.length == 1) {
 					AttributeValue_c[] vals = AttributeValue_c.
 					                                 getManyI_AVLsOnR2909(insts[0]);
-					return getChildern(vals);
+					return getInstanceChildern(insts[0]);
 				}
 				else if (insts.length > 1) {
-					return getChildern(insts);
+					return getChildern(insts, null, null, null);
 				}
 				else if  (insts.length == 0) {
 					rvs = new RuntimeValue_c[0];
-					return getChildern(rvs);
+					return getChildern(rvs, null, null, null);
 				}
 			}
 			else {
@@ -236,29 +360,124 @@ public class BPValue extends BPDebugElement implements IValue {
 		else if ( strVal != null){
 		    rvs = RuntimeValue_c.getManyRV_RVLsOnR3301(
 	                   ValueInStructure_c.getManyRV_VISsOnR3301(strVal));
-		    return getChildern(rvs);
+		    return getChildern(rvs, null, null, null);
 		}
 		else if (arrVal !=null ){
 			ValueInArray_c [] vias = ValueInArray_c.getManyRV_VIAsOnR3302(arrVal);
 			rvs = RuntimeValue_c.getManyRV_RVLsOnR3302(vias);
-			return getChildern(rvs);
+			return getChildern(rvs, null, null, null);
 		}
 		else {
 			
 		}
 		
 	
-		return getChildern(rvs);
+		return getChildern(rvs, null, null, null);
 	}
+	/**
+	 * Collect all instance children.
+	 * Support two modes based on BP Verifier preference.
+	 * 
+	 * 
+	 * @param instance  the instance to collect children for
+	 * @return An array with instance children
+	 */
+	private IVariable[] getInstanceChildern(Instance_c inst) {
+		AttributeValue_c[] vals = AttributeValue_c.getManyI_AVLsOnR2909(inst);
+		StateMachineEvent_c event = null;
+		
+		try{
+			// Last Executed Transition
+			event = StateMachineEvent_c.getOneSM_EVTOnR525(
+					SemEvent_c.getOneSM_SEVTOnR503(
+							StateEventMatrixEntry_c.getOneSM_SEMEOnR504(
+									NewStateTransition_c.getManySM_NSTXNsOnR507(
+											Transition_c.getOneSM_TXNOnR2953(inst)))));
 
+			StateMachineState_c currentState = StateMachineState_c.getOneSM_STATEOnR2915(inst);
+
+			// collect associations based on instance relation direction
+			Link_c[] originLinks = Link_c.getManyI_LNKsOnR2901(LinkParticipation_c .getManyI_LIPsOnR2958(inst));
+			Association_c[] originAssocs = Association_c.getManyR_RELsOnR2904(originLinks);
+			// Link_c instance used later in order to determine which links related to each association belongs to this instance
+			IVariable[] originLinksChildern = getChildern(originAssocs, "Origin Of", originLinks, inst);
+
+
+			Link_c[] destLinks = Link_c.getManyI_LNKsOnR2902(LinkParticipation_c .getManyI_LIPsOnR2958(inst));
+			Association_c[] destAssocs = Association_c.getManyR_RELsOnR2904(destLinks);
+			// Link_c instance used later in order to determine which links related to each association belongs to this instance
+			IVariable[] destLinksChildern = getChildern(destAssocs, "Destination Of", destLinks, inst);
+
+			Link_c[] assocLinks = Link_c.getManyI_LNKsOnR2903(LinkParticipation_c .getManyI_LIPsOnR2958(inst));
+			Association_c[] linkedAsscos = Association_c.getManyR_RELsOnR2904(assocLinks);
+			// Link_c instance used later in order to determine which links related to each association belongs to this instance
+        	IVariable[] assocLinksChildern = getChildern(linkedAsscos, "Associator For", assocLinks, inst);
+
+			IVariable[] attibutesChildern = getChildern(vals, null, null, null);
+
+			// Collect Pending events instance
+			PendingEvent_c[] pendingEvents = PendingEvent_c.getManyI_EVIsOnR2935(inst);
+
+			int validState = 0;
+			int validEvent = 0;
+			int validPendingEvents = 0;
+			if (pendingEvents.length != 0){
+				validPendingEvents = 1;
+			}
+			if (currentState != null ){
+				validState = 1;
+			}
+			if (event!= null){
+				validEvent = 1;
+			}
+
+			// Create the whole children arrays
+			IVariable[] childern = new IVariable[originLinksChildern.length
+			                                     + destLinksChildern.length + assocLinksChildern.length + attibutesChildern.length + validEvent + validState + validPendingEvents];
+
+			if (childern.length == 0){
+				return childern;
+			}
+
+			childern[0] = new BPVariable(getDebugTarget(), getLaunch(), event, null);
+			childern[validEvent] = new BPVariable(getDebugTarget(), getLaunch(), currentState, null);
+			
+			int childernIndex = validState + validEvent;
+			// Add Attributes to children list
+			if (attibutesChildern.length !=0){
+				System.arraycopy(attibutesChildern, 0, childern, childernIndex, attibutesChildern.length);
+			}
+			// update the children list index
+			childernIndex = childernIndex + attibutesChildern.length;
+			// Add Pending events
+			childern[childernIndex ] = new BPVariable(getDebugTarget(), getLaunch(), pendingEvents, null);
+			
+			childernIndex = childernIndex + validPendingEvents;
+			if (originLinksChildern.length !=0){
+				System.arraycopy(originLinksChildern, 0, childern, childernIndex, originLinksChildern.length);
+			}
+			childernIndex = childernIndex + originLinksChildern.length;
+			if (destLinksChildern.length !=0){
+				System.arraycopy(destLinksChildern, 0, childern, childernIndex, destLinksChildern.length);
+			}
+			childernIndex = childernIndex + destLinksChildern.length;
+			if (assocLinksChildern.length !=0){
+				System.arraycopy(assocLinksChildern, 0, childern, childernIndex, assocLinksChildern.length);
+			}
+			return childern;
+		}catch (Exception e) {
+				IVariable[] attibutesChildern = getChildern(vals, null, null, null);
+				return attibutesChildern;
+			}
+ 	}
 	/**
 	 * @param objects : represents the child values for the select variable in Variable View
 	 * @return 
 	 */
-	private IVariable[] getChildern(Object[] objects) {
+	private IVariable[] getChildern(Object[] objects, String Name, Object[] linkedValue, Object Instance)  {
 		IVariable [] result = new IVariable[objects.length];
 		  for (int i=0; i< objects.length; i++) {
-		    result[i] = new BPVariable(getDebugTarget(), getLaunch(), objects[i]);
+		    result[i] = new BPVariable(getDebugTarget(), getLaunch(), objects[i], Name, linkedValue, Instance);
 		  }
 		  return result;
 	}
@@ -294,16 +513,64 @@ public class BPValue extends BPDebugElement implements IValue {
 		else if (value instanceof RuntimeValue_c) {
 			return getVariables((RuntimeValue_c)value);
 		}
-		else if (value instanceof Instance_c){
-			AttributeValue_c[] vals = AttributeValue_c
-			.getManyI_AVLsOnR2909((Instance_c)value);
-			return getChildern(vals);
+		else if (value instanceof Instance_c){			 
+			return getInstanceChildern((Instance_c)value);
 		}
 		else 
-		{
-			// report error
+		{		
+					// Show More children for instance
+					try{
+						if (value instanceof Association_c) {
+							Instance_c[] firstInstance = null;
+			
+							if (name == "Origin Of") {
+								Link_c[] instanceLinks = this.var.getInstanceLinksForAnAssociation();
+			
+								firstInstance = Instance_c .getManyI_INSsOnR2958(
+										LinkParticipation_c.getManyI_LIPsOnR2903(
+												instanceLinks));
+								if (firstInstance.length == 0)
+									firstInstance = Instance_c .getManyI_INSsOnR2958(
+											LinkParticipation_c .getManyI_LIPsOnR2902(
+													instanceLinks));
+			
+							} else if (name == "Destination Of") {
+								Link_c[] instanceLinks = this.var.getInstanceLinksForAnAssociation();
+			
+								firstInstance = Instance_c .getManyI_INSsOnR2958(
+										LinkParticipation_c .getManyI_LIPsOnR2903(
+												instanceLinks));
+								if (firstInstance.length == 0)
+									firstInstance = Instance_c .getManyI_INSsOnR2958(
+											LinkParticipation_c .getManyI_LIPsOnR2901(
+													instanceLinks));
+							} 
+			
+							else if (name == "Associator For") {
+								Link_c[] instanceLinks = this.var.getInstanceLinksForAnAssociation();
+			
+			
+								Instance_c[] first = Instance_c.getManyI_INSsOnR2958(
+										LinkParticipation_c .getManyI_LIPsOnR2901(
+												instanceLinks));
+			
+								Instance_c[] second = Instance_c .getManyI_INSsOnR2958(
+										LinkParticipation_c .getManyI_LIPsOnR2902(
+												instanceLinks));
+			
+								firstInstance = new Instance_c[first.length + second.length];
+								System.arraycopy(first, 0, firstInstance, 0, first.length);
+								System.arraycopy(second, 0,firstInstance , first.length, second.length);
+							}
+							return getChildern(firstInstance, null, null, null);
+						} else if ( value instanceof PendingEvent_c[]){
+							return getChildern((Object[]) value, null , null, null);
+						}
+					}catch (Exception e) {
+						return new IVariable[0];
+					}
 		}
-		return new IVariable[0];
+		 		return new IVariable[0];
 	}
 
 	public boolean hasVariables() throws DebugException {
