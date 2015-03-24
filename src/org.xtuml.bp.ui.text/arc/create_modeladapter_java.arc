@@ -80,6 +80,8 @@ import org.eclipse.core.runtime.Path;
 
 import org.xtuml.bp.core.*;
 import org.xtuml.bp.core.common.*;
+import org.xtuml.bp.core.inspector.IModelClassInspector;
+import org.xtuml.bp.core.inspector.ModelInspector;
 
 public class ${modelAdapterClass}
 {
