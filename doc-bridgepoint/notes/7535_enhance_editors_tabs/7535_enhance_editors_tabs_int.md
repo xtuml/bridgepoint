@@ -70,168 +70,156 @@ leads to a NPE as the old editor element is used instead of the current one.
 
 8. Code Changes
 ---------------
-Branch name: 229_dts0101055471_2
+Branch name: rdmn7535_git229
 
 <pre>
 
-com.mentor.nucleus.bp.core [internal 229_dts0101055471_2]/icons/
-    Description_decorator.gif
-com.mentor.nucleus.bp.core [internal 229_dts0101055471_2]/icons/metadata/
-    System.gif
-com.mentor.nucleus.bp.core [internal 229_dts0101055471_2]/models/
-    com.mentor.nucleus.bp.core/ooaofooa/State Machine/Transition/
-    Transition.xtuml
-com.mentor.nucleus.bp.core [internal 229_dts0101055471_2]/src/com/mentor/
-    nucleus/bp/core/util/EditorUtil.java
-com.mentor.nucleus.bp.core [internal 229_dts0101055471_2]/src/com/mentor/
-    nucleus/bp/core/util/HierarchyUtil.java
+doc-bridgepoint [bridgepoint rdmn7535_git229]/notes/7535_enhance_editors_tabs/
+    7535_enhance_editors_tabs_dnt.md
+doc-bridgepoint [bridgepoint rdmn7535_git229]/notes/7535_enhance_editors_tabs/
+    7535_enhance_editors_tabs_int.md
 
-com.mentor.nucleus.bp.core.test [internal 229_dts0101055471_2]/src/com/mentor/
-    nucleus/bp/core/test/CommunicationLinkTestsGenerics.java
-com.mentor.nucleus.bp.core.test [internal 229_dts0101055471_2]/src/com/mentor/
-    nucleus/bp/core/test/CommunicationMessageTestsGenerics.java
-com.mentor.nucleus.bp.core.test [internal 229_dts0101055471_2]/src/com/mentor/
-    nucleus/bp/core/test/CommunicationTestsGenerics.java
-com.mentor.nucleus.bp.core.test [internal 229_dts0101055471_2]/src/com/mentor/
-    nucleus/bp/core/test/ComponentFormalizationTests.java
-com.mentor.nucleus.bp.core.test [internal 229_dts0101055471_2]/src/com/mentor/
-    nucleus/bp/core/test/ModelTransactionTestGenerics.java
-com.mentor.nucleus.bp.core.test [internal 229_dts0101055471_2]/src/com/mentor/
-    nucleus/bp/core/test/ModificationValidationTestsGenerics.java
-com.mentor.nucleus.bp.core.test [internal 229_dts0101055471_2]/src/com/mentor/
-    nucleus/bp/core/test/RefreshTestCoreGenerics.java
-com.mentor.nucleus.bp.core.test [internal 229_dts0101055471_2]/src/com/mentor/
-    nucleus/bp/core/test/RenameInvolvingResourceTestGenerics.java
-com.mentor.nucleus.bp.core.test [internal 229_dts0101055471_2]/src/com/mentor/
-    nucleus/bp/core/test/SequenceTestsGenerics.java
-com.mentor.nucleus.bp.core.test [internal 229_dts0101055471_2]/src/com/mentor/
-    nucleus/bp/core/test/TigerNatureExistingProjectsTestGenerics.java
-com.mentor.nucleus.bp.core.test [internal 229_dts0101055471_2]/src/com/mentor/
-    nucleus/bp/core/test/UseCaseTestsGenerics.java
+org.xtuml.bp.core [bridgepoint rdmn7535_git229]/icons/Description_decorator.gif
+org.xtuml.bp.core [bridgepoint rdmn7535_git229]/icons/metadata/System.gif
+org.xtuml.bp.core [bridgepoint rdmn7535_git229]/models/org.xtuml.bp.core/
+    ooaofooa/State Machine/Transition/Transition.xtuml
+org.xtuml.bp.core [bridgepoint rdmn7535_git229]/src/org/xtuml/bp/core/util/
+    EditorUtil.java
+org.xtuml.bp.core [bridgepoint rdmn7535_git229]/src/org/xtuml/bp/core/util/
+    HierarchyUtil.java
 
-com.mentor.nucleus.bp.debug.ui.test [internal 229_dts0101055471_2]/src/com/
-    mentor/nucleus/bp/debug/engine/VerifierTransitionActionTests.java
-com.mentor.nucleus.bp.debug.ui.test [internal 229_dts0101055471_2]/src/com/
-    mentor/nucleus/bp/debug/ui/test/execute/VerifierInterfaceExecutionTests.java
+org.xtuml.bp.core.test [bridgepoint rdmn7535_git229]/src/org/xtuml/bp/core/
+    test/CommunicationLinkTestsGenerics.java
+org.xtuml.bp.core.test [bridgepoint rdmn7535_git229]/src/org/xtuml/bp/core/
+    test/CommunicationMessageTestsGenerics.java
+org.xtuml.bp.core.test [bridgepoint rdmn7535_git229]/src/org/xtuml/bp/core/
+    test/CommunicationTestsGenerics.java
+org.xtuml.bp.core.test [bridgepoint rdmn7535_git229]/src/org/xtuml/bp/core/
+    test/ComponentFormalizationTests.java
+org.xtuml.bp.core.test [bridgepoint rdmn7535_git229]/src/org/xtuml/bp/core/
+    test/ModelTransactionTestGenerics.java
+org.xtuml.bp.core.test [bridgepoint rdmn7535_git229]/src/org/xtuml/bp/core/
+    test/ModificationValidationTestsGenerics.java
+org.xtuml.bp.core.test [bridgepoint rdmn7535_git229]/src/org/xtuml/bp/core/
+    test/RefreshTestCoreGenerics.java
+org.xtuml.bp.core.test [bridgepoint rdmn7535_git229]/src/org/xtuml/bp/core/
+    test/RenameInvolvingResourceTestGenerics.java
+org.xtuml.bp.core.test [bridgepoint rdmn7535_git229]/src/org/xtuml/bp/core/
+    test/SequenceTestsGenerics.java
+org.xtuml.bp.core.test [bridgepoint rdmn7535_git229]/src/org/xtuml/bp/core/
+    test/TigerNatureExistingProjectsTestGenerics.java
+org.xtuml.bp.core.test [bridgepoint rdmn7535_git229]/src/org/xtuml/bp/core/
+    test/UseCaseTestsGenerics.java
 
-com.mentor.nucleus.bp.debug.ui.test.execute.
+org.xtuml.bp.debug.ui.test [bridgepoint rdmn7535_git229]/src/org/xtuml/bp/
+    debug/engine/VerifierTransitionActionTests.java
+org.xtuml.bp.debug.ui.test [bridgepoint rdmn7535_git229]/src/org/xtuml/bp/
+    debug/ui/test/execute/VerifierInterfaceExecutionTests.java
 
-com.mentor.nucleus.bp.io.mdl.test [internal 229_dts0101055471_2]/src/com/
-    mentor/nucleus/bp/io/mdl/test/IOMdlNestedTestGenerics.java
-com.mentor.nucleus.bp.io.mdl.test [internal 229_dts0101055471_2]/src/com/
-    mentor/nucleus/bp/io/mdl/test/IOMdlUnicodeTestGenerics.java
-com.mentor.nucleus.bp.io.mdl.test [internal 229_dts0101055471_2]/src/com/
-    mentor/nucleus/bp/io/mdl/test/pkgcm/EditorTestUtilities.java
-com.mentor.nucleus.bp.io.mdl.test [internal 229_dts0101055471_2]/src/com/
-    mentor/nucleus/bp/io/mdl/test/pkgcm/ModifyRelationTest.java
-com.mentor.nucleus.bp.io.mdl.test [internal 229_dts0101055471_2]/src/com/
-    mentor/nucleus/bp/io/mdl/test/pkgcm/restore/
-    PkgCMRestoreModifyRelationTest.java
+org.xtuml.bp.io.mdl.test [bridgepoint rdmn7535_git229]/src/org/xtuml/bp/io/mdl/
+    test/IOMdlNestedTestGenerics.java
+org.xtuml.bp.io.mdl.test [bridgepoint rdmn7535_git229]/src/org/xtuml/bp/io/mdl/
+    test/IOMdlUnicodeTestGenerics.java
+org.xtuml.bp.io.mdl.test [bridgepoint rdmn7535_git229]/src/org/xtuml/bp/io/mdl/
+    test/pkgcm/EditorTestUtilities.java
+org.xtuml.bp.io.mdl.test [bridgepoint rdmn7535_git229]/src/org/xtuml/bp/io/mdl/
+    test/pkgcm/ModifyRelationTest.java
+org.xtuml.bp.io.mdl.test [bridgepoint rdmn7535_git229]/src/org/xtuml/bp/io/mdl/
+    test/pkgcm/restore/PkgCMRestoreModifyRelationTest.java
 
-com.mentor.nucleus.bp.io.sql.test [internal 229_dts0101055471_2]/
-    expected_results/odms.imp
-com.mentor.nucleus.bp.io.sql.test [internal 229_dts0101055471_2]/
-    expected_results/test_ca_smsmc2.imp
+org.xtuml.bp.io.sql.test [bridgepoint rdmn7535_git229]/expected_results/odms.imp
+org.xtuml.bp.io.sql.test [bridgepoint rdmn7535_git229]/expected_results/
+    test_ca_smsmc2.imp
 
-com.mentor.nucleus.bp.pkg [internal 229_dts0101055471_2]/
-    plugin_customization.ini
+org.xtuml.bp.pkg [bridgepoint rdmn7535_git229]/plugin_customization.ini
 
-com.mentor.nucleus.bp.test [internal 229_dts0101055471_2]/src/com/mentor/
-    nucleus/bp/test/common/CanvasTestUtils.java
-com.mentor.nucleus.bp.test [internal 229_dts0101055471_2]/src/com/mentor/
-    nucleus/bp/test/common/GenericEditorUtil.java
-com.mentor.nucleus.bp.test [internal 229_dts0101055471_2]/src/com/mentor/
-    nucleus/bp/test/common/TextEditorUtils.java
+org.xtuml.bp.test [bridgepoint rdmn7535_git229]/src/org/xtuml/bp/test/common/
+    CanvasTestUtils.java
+org.xtuml.bp.test [bridgepoint rdmn7535_git229]/src/org/xtuml/bp/test/common/
+    GenericEditorUtil.java
+org.xtuml.bp.test [bridgepoint rdmn7535_git229]/src/org/xtuml/bp/test/common/
+    TextEditorUtils.java
 
-com.mentor.nucleus.bp.ui.canvas [internal 229_dts0101055471_2]/src/com/mentor/
-    nucleus/bp/ui/canvas/Cl_c.java
-com.mentor.nucleus.bp.ui.canvas [internal 229_dts0101055471_2]/src/com/mentor/
-    nucleus/bp/ui/canvas/util/GraphicsUtil.java
+org.xtuml.bp.ui.canvas [bridgepoint rdmn7535_git229]/src/org/xtuml/bp/ui/
+    canvas/Cl_c.java
+org.xtuml.bp.ui.canvas [bridgepoint rdmn7535_git229]/src/org/xtuml/bp/ui/
+    canvas/util/GraphicsUtil.java
 
-com.mentor.nucleus.bp.ui.canvas.test [internal 229_dts0101055471_2]/src/com/
-    mentor/nucleus/bp/ui/canvas/test/CanvasCopyTests.java
-com.mentor.nucleus.bp.ui.canvas.test [internal 229_dts0101055471_2]/src/com/
-    mentor/nucleus/bp/ui/canvas/test/CanvasEditorReloadContentsTest.java
-com.mentor.nucleus.bp.ui.canvas.test [internal 229_dts0101055471_2]/src/com/
-    mentor/nucleus/bp/ui/canvas/test/CanvasTestUtilities.java
-com.mentor.nucleus.bp.ui.canvas.test [internal 229_dts0101055471_2]/src/com/
-    mentor/nucleus/bp/ui/canvas/test/ClassToStateDiagramNavigationTest.java
-com.mentor.nucleus.bp.ui.canvas.test [internal 229_dts0101055471_2]/src/com/
-    mentor/nucleus/bp/ui/canvas/test/CloseCanvasEditor.java
-com.mentor.nucleus.bp.ui.canvas.test [internal 229_dts0101055471_2]/src/com/
-    mentor/nucleus/bp/ui/canvas/test/ConnectorsAsAnchorsTest.java
-com.mentor.nucleus.bp.ui.canvas.test [internal 229_dts0101055471_2]/src/com/
-    mentor/nucleus/bp/ui/canvas/test/FreeFloatingConnectorTest.java
-com.mentor.nucleus.bp.ui.canvas.test [internal 229_dts0101055471_2]/src/com/
-    mentor/nucleus/bp/ui/canvas/test/I835OpenDiagramEditorWithSearchView.java
-com.mentor.nucleus.bp.ui.canvas.test [internal 229_dts0101055471_2]/src/com/
-    mentor/nucleus/bp/ui/canvas/test/OpenCanvasEditor.java
-com.mentor.nucleus.bp.ui.canvas.test [internal 229_dts0101055471_2]/src/com/
-    mentor/nucleus/bp/ui/canvas/test/ShapeResizeTest.java
+org.xtuml.bp.ui.canvas.test [bridgepoint rdmn7535_git229]/src/org/xtuml/bp/ui/
+    canvas/test/CanvasCopyTests.java
+org.xtuml.bp.ui.canvas.test [bridgepoint rdmn7535_git229]/src/org/xtuml/bp/ui/
+    canvas/test/CanvasEditorReloadContentsTest.java
+org.xtuml.bp.ui.canvas.test [bridgepoint rdmn7535_git229]/src/org/xtuml/bp/ui/
+    canvas/test/CanvasTestUtilities.java
+org.xtuml.bp.ui.canvas.test [bridgepoint rdmn7535_git229]/src/org/xtuml/bp/ui/
+    canvas/test/ClassToStateDiagramNavigationTest.java
+org.xtuml.bp.ui.canvas.test [bridgepoint rdmn7535_git229]/src/org/xtuml/bp/ui/
+    canvas/test/CloseCanvasEditor.java
+org.xtuml.bp.ui.canvas.test [bridgepoint rdmn7535_git229]/src/org/xtuml/bp/ui/
+    canvas/test/ConnectorsAsAnchorsTest.java
+org.xtuml.bp.ui.canvas.test [bridgepoint rdmn7535_git229]/src/org/xtuml/bp/ui/
+    canvas/test/FreeFloatingConnectorTest.java
+org.xtuml.bp.ui.canvas.test [bridgepoint rdmn7535_git229]/src/org/xtuml/bp/ui/
+    canvas/test/I835OpenDiagramEditorWithSearchView.java
+org.xtuml.bp.ui.canvas.test [bridgepoint rdmn7535_git229]/src/org/xtuml/bp/ui/
+    canvas/test/OpenCanvasEditor.java
+org.xtuml.bp.ui.canvas.test [bridgepoint rdmn7535_git229]/src/org/xtuml/bp/ui/
+    canvas/test/ShapeResizeTest.java
 
-com.mentor.nucleus.bp.ui.graphics [internal 229_dts0101055471_2]/src/com/
-    mentor/nucleus/bp/ui/graphics/editor/GraphicalEditor.java
-com.mentor.nucleus.bp.ui.graphics [internal 229_dts0101055471_2]/src/com/
-    mentor/nucleus/bp/ui/graphics/editor/ModelEditor.java
+org.xtuml.bp.ui.graphics [bridgepoint rdmn7535_git229]/src/org/xtuml/bp/ui/
+    graphics/editor/GraphicalEditor.java
+org.xtuml.bp.ui.graphics [bridgepoint rdmn7535_git229]/src/org/xtuml/bp/ui/
+    graphics/editor/ModelEditor.java
 
-com.mentor.nucleus.bp.ui.properties.test [internal 229_dts0101055471_2]/src/
-    com/mentor/nucleus/bp/ui/properties/test/RefreshTestProp.java
+org.xtuml.bp.ui.properties.test [bridgepoint rdmn7535_git229]/src/org/xtuml/bp/
+    ui/properties/test/RefreshTestProp.java
 
-com.mentor.nucleus.bp.ui.text [internal 229_dts0101055471_2]/arc/
+org.xtuml.bp.ui.text [bridgepoint rdmn7535_git229]/arc/
     create_modeladapter_java.arc
-com.mentor.nucleus.bp.ui.text [internal 229_dts0101055471_2]/src/com/mentor/
-    nucleus/bp/ui/text/activity/ActivityEditor.java
-com.mentor.nucleus.bp.ui.text [internal 229_dts0101055471_2]/src/com/mentor/
-    nucleus/bp/ui/text/activity/ActivityEditorInput.java
-com.mentor.nucleus.bp.ui.text [internal 229_dts0101055471_2]/src/com/mentor/
-    nucleus/bp/ui/text/description/DescriptionEditor.java
-com.mentor.nucleus.bp.ui.text [internal 229_dts0101055471_2]/src/com/mentor/
-    nucleus/bp/ui/text/description/DescriptionEditorInput.java
-com.mentor.nucleus.bp.ui.text [internal 229_dts0101055471_2]/src/com/mentor/
-    nucleus/bp/ui/text/placeholder/PlaceHolderEntry.java
+org.xtuml.bp.ui.text [bridgepoint rdmn7535_git229]/src/org/xtuml/bp/ui/text/
+    activity/ActivityEditor.java
+org.xtuml.bp.ui.text [bridgepoint rdmn7535_git229]/src/org/xtuml/bp/ui/text/
+    activity/ActivityEditorInput.java
+org.xtuml.bp.ui.text [bridgepoint rdmn7535_git229]/src/org/xtuml/bp/ui/text/
+    description/DescriptionEditor.java
+org.xtuml.bp.ui.text [bridgepoint rdmn7535_git229]/src/org/xtuml/bp/ui/text/
+    description/DescriptionEditorInput.java
+org.xtuml.bp.ui.text [bridgepoint rdmn7535_git229]/src/org/xtuml/bp/ui/text/
+    placeholder/PlaceHolderEntry.java
 
-com.mentor.nucleus.bp.ui.text.test [internal 229_dts0101055471_2]/src/
-    UITextSuite.java
-com.mentor.nucleus.bp.ui.text.test [internal 229_dts0101055471_2]/src/com/
-    mentor/nucleus/bp/ui/text/test/DuplicateRelationshipNumberParseAllTest.java
-com.mentor.nucleus.bp.ui.text.test [internal 229_dts0101055471_2]/src/com/
-    mentor/nucleus/bp/ui/text/test/ParseAllOnModelReloadTest.java
-com.mentor.nucleus.bp.ui.text.test [internal 229_dts0101055471_2]/src/com/
-    mentor/nucleus/bp/ui/text/test/PlaceHolderUpdateTest.java
-com.mentor.nucleus.bp.ui.text.test [internal 229_dts0101055471_2]/src/com/
-    mentor/nucleus/bp/ui/text/test/TextEditorReloadContentsTest.java
-com.mentor.nucleus.bp.ui.text.test [internal 229_dts0101055471_2]/src/com/
-    mentor/nucleus/bp/ui/text/test/activity/ActivityEditorInteraction.java
-com.mentor.nucleus.bp.ui.text.test [internal 229_dts0101055471_2]/src/com/
-    mentor/nucleus/bp/ui/text/test/activity/CloseActivityEditor.java
-com.mentor.nucleus.bp.ui.text.test [internal 229_dts0101055471_2]/src/com/
-    mentor/nucleus/bp/ui/text/test/activity/I643OALKeywordsHighlightingTest.java
-com.mentor.nucleus.bp.ui.text.test [internal 229_dts0101055471_2]/src/com/
-    mentor/nucleus/bp/ui/text/test/activity/
-    I697OpenActivityEditorFromMarker.java
-com.mentor.nucleus.bp.ui.text.test [internal 229_dts0101055471_2]/src/com/
-    mentor/nucleus/bp/ui/text/test/activity/OpenActivityEditor.java
-com.mentor.nucleus.bp.ui.text.test [internal 229_dts0101055471_2]/src/com/
-    mentor/nucleus/bp/ui/text/test/activity/ParseActivity.java
-com.mentor.nucleus.bp.ui.text.test [internal 229_dts0101055471_2]/src/com/
-    mentor/nucleus/bp/ui/text/test/description/CloseDescriptionEditor.java
-com.mentor.nucleus.bp.ui.text.test [internal 229_dts0101055471_2]/src/com/
-    mentor/nucleus/bp/ui/text/test/description/DescriptionEditorInteraction.java
-com.mentor.nucleus.bp.ui.text.test [internal 229_dts0101055471_2]/src/com/
-    mentor/nucleus/bp/ui/text/test/description/OpenDescriptionEditor.java
-com.mentor.nucleus.bp.ui.text.test [internal 229_dts0101055471_2]/src/com/
-    mentor/nucleus/bp/ui/text/test/i673Tests/rename/
-    I673RenameObjectsAndTestActivityEditors.java
-com.mentor.nucleus.bp.ui.text.test [internal 229_dts0101055471_2]/src/com/
-    mentor/nucleus/bp/ui/text/test/i673Tests/rename/
-    I673RenameObjectsAndTestDescriptionEditors.java
+org.xtuml.bp.ui.text.test [bridgepoint rdmn7535_git229]/src/UITextSuite.java
+org.xtuml.bp.ui.text.test [bridgepoint rdmn7535_git229]/src/org/xtuml/bp/ui/
+    text/test/DuplicateRelationshipNumberParseAllTest.java
+org.xtuml.bp.ui.text.test [bridgepoint rdmn7535_git229]/src/org/xtuml/bp/ui/
+    text/test/ParseAllOnModelReloadTest.java
+org.xtuml.bp.ui.text.test [bridgepoint rdmn7535_git229]/src/org/xtuml/bp/ui/
+    text/test/PlaceHolderUpdateTest.java
+org.xtuml.bp.ui.text.test [bridgepoint rdmn7535_git229]/src/org/xtuml/bp/ui/
+    text/test/TextEditorReloadContentsTest.java
+org.xtuml.bp.ui.text.test [bridgepoint rdmn7535_git229]/src/org/xtuml/bp/ui/
+    text/test/activity/ActivityEditorInteraction.java
+org.xtuml.bp.ui.text.test [bridgepoint rdmn7535_git229]/src/org/xtuml/bp/ui/
+    text/test/activity/CloseActivityEditor.java
+org.xtuml.bp.ui.text.test [bridgepoint rdmn7535_git229]/src/org/xtuml/bp/ui/
+    text/test/activity/I643OALKeywordsHighlightingTest.java
+org.xtuml.bp.ui.text.test [bridgepoint rdmn7535_git229]/src/org/xtuml/bp/ui/
+    text/test/activity/I697OpenActivityEditorFromMarker.java
+org.xtuml.bp.ui.text.test [bridgepoint rdmn7535_git229]/src/org/xtuml/bp/ui/
+    text/test/activity/OpenActivityEditor.java
+org.xtuml.bp.ui.text.test [bridgepoint rdmn7535_git229]/src/org/xtuml/bp/ui/
+    text/test/activity/ParseActivity.java
+org.xtuml.bp.ui.text.test [bridgepoint rdmn7535_git229]/src/org/xtuml/bp/ui/
+    text/test/description/CloseDescriptionEditor.java
+org.xtuml.bp.ui.text.test [bridgepoint rdmn7535_git229]/src/org/xtuml/bp/ui/
+    text/test/description/DescriptionEditorInteraction.java
+org.xtuml.bp.ui.text.test [bridgepoint rdmn7535_git229]/src/org/xtuml/bp/ui/
+    text/test/description/OpenDescriptionEditor.java
+org.xtuml.bp.ui.text.test [bridgepoint rdmn7535_git229]/src/org/xtuml/bp/ui/
+    text/test/i673Tests/rename/I673RenameObjectsAndTestActivityEditors.java
+org.xtuml.bp.ui.text.test [bridgepoint rdmn7535_git229]/src/org/xtuml/bp/ui/
+    text/test/i673Tests/rename/I673RenameObjectsAndTestDescriptionEditors.java
 
-doc-internal [internal 229_dts0101055471_2]/notes/229_dts0101055471/
-    229_dts0101055471_dnt.md
-doc-internal [internal 229_dts0101055471_2]/notes/229_dts0101055471/
-    229_dts0101055471_int.md
-doc-internal [internal 229_dts0101055471_2]/review-minutes/Leo/
-    229_UI_updates_rvm.md
+
 
 
 
