@@ -19,9 +19,9 @@ the License.
 <plugin
    id="org.xtuml.bp.internal.tools"
    name="BridgePoint Tools Plug-in"
-   version="1.0.8"
+   version="1.0.6"
    provider-name="xtUML.org"
-   class="com.mentor.nucleus.bp.internal.tools.ToolsPlugin">
+   class="org.xtuml.bp.internal.tools.mcjava.Activator">
 
    <runtime>
       <library name="tools.jar">
@@ -52,8 +52,22 @@ the License.
       <import plugin="org.xtuml.bp.io.core"/>
       <import plugin="org.xtuml.bp.io.mdl"/>
       <import plugin="org.xtuml.bp.utilities"/>
+      <import plugin="org.xtuml.bp.mc"/>
    </requires>
 
+   <extension
+         id="MCJavaNature"
+         name="model compiler nature"
+         point="org.eclipse.core.resources.natures">
+      <runtime>
+         <run
+               class="org.xtuml.bp.internal.tools.mcjava.MCJavaNature">
+         </run>
+      </runtime>
+      <builder
+            id="org.xtuml.bp.internal.tools.mc_java_export_builder">
+      </builder>
+   </extension>
    <extension point="org.eclipse.ui.viewActions">
 		<viewContribution 
 			id="org.xtuml.bp.internal.tools.process.scrapeCodeChanges" 
@@ -164,5 +178,13 @@ the License.
             class="org.xtuml.bp.internal.tools.views.BPInstancePopulationView"
             id="org.xtuml.bp.internal.tools.views.BPInstancePopulationView">
       </view>
+   </extension>
+   <extension
+         id="mc_java_export_builder"
+         name="Java Model Compiler Pre-Builder"
+         point="org.eclipse.core.resources.builders">
+      <builder>
+        <run class="org.xtuml.bp.internal.tools.mcjava.JavaExportBuilder" />
+      </builder>
    </extension>
 </plugin>
