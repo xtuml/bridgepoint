@@ -19,10 +19,11 @@ function configure_build_files {
     tr -d '\r' < create_release_functions.sh > ${BUILD_DIR}/create_release_functions.sh 2>>${ERROR_FILE}
 
 	#
-	# files needed to build the tool  
+	# Files needed to build the tool.  Populate the git repo mc.c.binary plug-in
+	# with the model compiler files from the BP we're using to build.  
 	#	
-  	cd ${git_workspace_setup}/BridgePointDev-Linux
-	cp -fr * ${PT_HOME}
+  	cd ${ECLIPSE_HOME}/../eclipse_extensions/BridgePoint/eclipse/plugins/${mc_project}_${BP_VERSION}
+	cp -fr mc3020 ${GIT_BP}/src/${mc_project}
 
 	echo -e "Exiting configure_build_process.sh::configure_build_files"
 }
@@ -79,6 +80,7 @@ date
 git_workspace_setup="${GIT_BP}/doc-bridgepoint/process/development-workspace-setup"
 install_project="Installer"
 utilities_project="utilities"
+mc_project="org.xtuml.bp.mc.c.binary"
 staging_area="${BUILD_MOUNT}/staging"
 eclipse_ver="3.7"
 

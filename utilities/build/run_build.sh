@@ -7,14 +7,14 @@
 #
 #  Since it is the starting point for the build chain, it must be manually put 
 #  into place for the build server to run. The variable BUILD_MOUNT holds the 
-#  build server location that is the root for the build.  git and ant must
-#  be installed on the build server
+#  build server location that is the root for the build.
 #  
 #  Build Server Requirements:
 #  1) run_build.sh, and init_git_repositories.sh must be present in ${BUILD_ROOT}
 #  2) BridgePoint must be installed to the folder pointed to by the 
-#     ${ECLIPSE_HOME} variable defined below
-#  3) git must be installed on the build server
+#     ${ECLIPSE_HOME} variable defined below.  The BridgePoint version must be 
+#     in this ECLIPSE_HOME must be specified.
+#  3) git and ant must be installed on the build server
 # 
 #  The build is performed under ${BUILD_ROOT}.  The result of the build:
 #  1) plugins
@@ -24,15 +24,13 @@
 # User defined variables:
 export BUILD_MOUNT="${HOME}/build"
 export ECLIPSE_HOME="${HOME}/MentorGraphics/BridgePoint/eclipse"
+export BP_VERSION="4.2.0"
 
 # Do not modify these variables:
 export BUILD_ROOT="${BUILD_MOUNT}/work"
 export GIT_REPO_ROOT="${BUILD_MOUNT}/git/xtuml"
 export GIT_BP="${GIT_REPO_ROOT}/bridgepoint"
 export BUILD_TOOLS="${BUILD_MOUNT}/utilities/bp_build_tools"
-# export PT_HOME="${BUILD_TOOLS}/bridgepoint"
-# export PT_HOME_DRIVE=
-# export XTUMLGEN_HOME="${BUILD_TOOLS}/bridgepoint"
 # if no arguments are present default to master
 export BRANCH="master"
 if [ $# -eq 1 ]; then
@@ -40,13 +38,10 @@ if [ $# -eq 1 ]; then
 fi
 
 # echo out variables
-echo "BUILD_MOUNT=${BUILD_MOUNT}
-echo "BUILD_ROOT=${BUILD_ROOT}
-echo "BRANCH=${BRANCH}
-echo "GIT_REPO_ROOT=${GIT_REPO_ROOT}
-echo "PT_HOME=${PT_HOME}
-echo "PT_HOME_DRIVE=${PT_HOME_DRIVE}
-echo "XTUMLGEN_HOME=${XTUMLGEN_HOME}
+echo "BUILD_MOUNT=${BUILD_MOUNT}"
+echo "BUILD_ROOT=${BUILD_ROOT}"
+echo "BRANCH=${BRANCH}"
+echo "GIT_REPO_ROOT=${GIT_REPO_ROOT}"
 
 # this flag is constant and could potentially be removed, but it is 
 # being left in case we do want to have the build be different then other 
@@ -110,21 +105,21 @@ mkdir -p "${LOG_DIR}"
 mkdir -p "${BUILD_TOOLS}"
 mkdir -p "${GIT_REPO_ROOT}"
 mkdir -p "${BUILD_ROOT}"
-mkdir -p "${PT_HOME}"
-echo -e "BUILD_ROOT=${BUILD_ROOT}
-echo -e "BRANCH=${BRANCH}
-echo -e "GIT_REPO_ROOT=${GIT_REPO_ROOT}
-echo -e "PT_HOME=${PT_HOME}
-echo -e "PT_HOME_DRIVE=${PT_HOME_DRIVE}
-echo -e "XTUMLGEN_HOME=${XTUMLGEN_HOME}
 
 # We will perform all work in the build's branch folder. 
 cd  "${BUILD_DIR}"
 
 # Do the dos2unix conversion using translate.
 tr -d '\r' < "${BUILD_ROOT}/init_git_repositories.sh" > "${BUILD_ROOT}/init_git_repositories.tmp"
-mv "${BUILD_ROOT}/init_git_repositories.tmp" "${BUILD_ROOT}/init_git_repositories.sh"
-# bash "${BUILD_ROOT}/init_git_repositories.sh" >> ${BUILD_LOG}
+cmp -s "${BUILD_ROOT}/init_git_repositories.sh" "${BUILD_ROOT}/init_git_repositories.tmp" >/dev/null 2>&1
+if [ $? -eq 1 ]; then
+  echo -e "Putting new init_git_repositories.sh into place"
+  mv "${BUILD_ROOT}/init_git_repositories.tmp" "${BUILD_ROOT}/init_git_repositories.sh"
+  chmod a+x "${BUILD_ROOT}/init_git_repositories.sh"
+else
+  rm -f "${BUILD_ROOT}/init_git_repositories.tmp"
+fi
+bash "${BUILD_ROOT}/init_git_repositories.sh" >> ${BUILD_LOG}
 
 echo -e "Setting permissions on tool directories..."
 chmod -R a+rw ${BUILD_TOOLS} 
