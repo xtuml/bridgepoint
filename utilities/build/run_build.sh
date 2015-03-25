@@ -48,6 +48,8 @@ export BUILD_TYPE="nonrelease"
 export ALLOW_FALLBACK="yes"
 
 export BUILD_DIR="${BUILD_ROOT}/${BRANCH}"
+# Set "WORKSPACE" to an environment variable that CLI can use.
+export WORKSPACE="${BUILD_DIR}"
 export LOG_DIR="${BUILD_DIR}/log"
 export ERROR_FILE="${LOG_DIR}/errors.log"
 export DIFF_FILE="${LOG_DIR}/diff.log"
