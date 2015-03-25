@@ -730,6 +730,16 @@ public class DebugUITestUtilities {
 		return "";
 	}
 	
+	public static int getVariableCount(TreeItem[] Items, String VariableName){
+		int count = 0;
+		for (int i = 0; i < Items.length; i++) {
+ 			if (Items[i].getText().indexOf(VariableName) != -1) {
+				count++;
+			}
+		}
+		return count;
+	}
+	
 	/**
 	 * Use this method to expand a variable tree in Variables View
 	 * 
