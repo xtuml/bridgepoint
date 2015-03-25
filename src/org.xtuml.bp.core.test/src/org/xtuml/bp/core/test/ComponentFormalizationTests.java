@@ -168,7 +168,7 @@ public class ComponentFormalizationTests extends BaseTest {
 		assertTrue(
 				"The file element in Model Explorer was not named correctly for a formal component.",
 				fileFacade.getText().equals(
-						testDomain.getName() + ": Component Diagram"));
+						testDomain.getName()));
 		// open the component diagram
 		CanvasUtilities.openCanvasEditor(component);
 		GraphicalEditor ce = ((ModelEditor) PlatformUI.getWorkbench()

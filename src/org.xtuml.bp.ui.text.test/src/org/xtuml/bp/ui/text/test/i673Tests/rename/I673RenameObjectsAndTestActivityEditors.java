@@ -48,7 +48,7 @@ public class I673RenameObjectsAndTestActivityEditors extends UITextTest {
 		super("test", name); //$NON-NLS-1$
 	}
 
-	IEditorPart renameObjectAndCheckActivityEditor(Object obj, String editorTitlePostFix){
+	IEditorPart renameObjectAndCheckActivityEditor(String editorTitlePreFix, Object obj){
 		ActivityEditor ae = (ActivityEditor)openAndReturnActivityEditor(obj);
 		assertNotNull(ae);
 		
@@ -57,7 +57,7 @@ public class I673RenameObjectsAndTestActivityEditors extends UITextTest {
 		
 		String newName = getName(obj);
 		
-		ae = TextEditorUtils.getActivityEditor(newName+ editorTitlePostFix);
+		ae = TextEditorUtils.getActivityEditor( editorTitlePreFix + newName);
 		assertNotNull("Activity Editor for Name: " + newName + " not renamed", ae);		 //$NON-NLS-1$ //$NON-NLS-2$
 		return ae;
 	}
@@ -72,7 +72,7 @@ public class I673RenameObjectsAndTestActivityEditors extends UITextTest {
 		Bridge_c brg = Bridge_c.BridgeInstance(modelRoot);
 		assertNotNull(brg);
 		
-		IEditorPart ed = renameObjectAndCheckActivityEditor(brg, ": Bridge Activity");
+		IEditorPart ed = renameObjectAndCheckActivityEditor("Test External Entity New::", brg);
 		PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().closeEditor(ed, false);
 	}
 	
@@ -80,7 +80,7 @@ public class I673RenameObjectsAndTestActivityEditors extends UITextTest {
 		Function_c func = Function_c.FunctionInstance(modelRoot);
 		assertNotNull(func);
 		
-		IEditorPart ed = renameObjectAndCheckActivityEditor(func, ": Function Activity");
+		IEditorPart ed = renameObjectAndCheckActivityEditor("Functions::", func );
 		PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().closeEditor(ed, false);
 	}
 	
@@ -88,7 +88,7 @@ public class I673RenameObjectsAndTestActivityEditors extends UITextTest {
 		Operation_c op = Operation_c.OperationInstance(modelRoot);
 		assertNotNull(op);
 		
-		IEditorPart ed = renameObjectAndCheckActivityEditor(op, ": Operation Activity");
+		IEditorPart ed = renameObjectAndCheckActivityEditor("Test Class New::", op) ;
 		PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().closeEditor(ed, false);
 	}
 	
@@ -96,7 +96,7 @@ public class I673RenameObjectsAndTestActivityEditors extends UITextTest {
 		StateMachineState_c state = StateMachineState_c.StateMachineStateInstance(modelRoot);
 		assertNotNull(state);
 		
-		IEditorPart ed = renameObjectAndCheckActivityEditor(state, ": State Machine State Activity");
+		IEditorPart ed = renameObjectAndCheckActivityEditor("Test Class New::", state);
 		PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().closeEditor(ed, false);
 	}
 	
@@ -112,7 +112,7 @@ public class I673RenameObjectsAndTestActivityEditors extends UITextTest {
 		Attribute_c attr = Attribute_c.AttributeInstance(modelRoot, new FindDerviedAttribute());
 		assertNotNull(attr);
 		
-		IEditorPart ed = renameObjectAndCheckActivityEditor(attr, ": Attribute Activity");
+		IEditorPart ed = renameObjectAndCheckActivityEditor("Test Class New::", attr);
 		PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().closeEditor(ed, false);
 	}
 	

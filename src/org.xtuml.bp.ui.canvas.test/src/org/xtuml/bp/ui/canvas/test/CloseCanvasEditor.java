@@ -58,12 +58,12 @@ public class CloseCanvasEditor extends TestCase {
 	
 	public void testClosePD()
 	{	
-		closeCanvasEditor("odms: Package Diagram");
+		closeCanvasEditor("odms");
 	}
 
 	public void testCloseSC()
 	{	
-		closeCanvasEditor("Disk: Instance State Machine");
+		closeCanvasEditor("Disk");
 	}
 	
 }
