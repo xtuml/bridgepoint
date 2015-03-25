@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("37ce39d4-f4ad-4ace-84bf-0d8906ae81d6",
@@ -12,13 +12,13 @@ The instance holds data we''d like to remember across the duration of the drag.
 Persistent:false
 TRANSLATE_FOR_EXTERNAL_USE:FALSE
 ',
-	"b5695748-80fc-47fb-b5c7-801b5f28b907");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("29493195-0306-4fcd-8509-da8f80d24c4e",
 	"37ce39d4-f4ad-4ace-84bf-0d8906ae81d6",
 	'dispose',
 	'',
-	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select one elem related by self->GD_GE[R25];
 select one model related by self->GD_MD[R25];
@@ -28,13 +28,6 @@ delete object instance self;',
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO S_DT_PROXY
-	VALUES ("3852f90c-88c5-467d-9b26-57c8cd438b42",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	'void',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("37ce39d4-f4ad-4ace-84bf-0d8906ae81d6",
 	"9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
@@ -50,7 +43,7 @@ INSERT INTO O_REF
 	'',
 	'Graphical Element',
 	'elementId',
-	'R25');
+	'R25.''is moving''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("37ce39d4-f4ad-4ace-84bf-0d8906ae81d6",
 	"75534c55-b016-4f50-bd1e-bf09d1d27f2d",
@@ -83,16 +76,9 @@ INSERT INTO O_ATTR
 	'',
 	'elementId',
 	0,
-	"66164f00-293e-4c17-ab30-7972c7c57152",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("66164f00-293e-4c17-ab30-7972c7c57152",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("37ce39d4-f4ad-4ace-84bf-0d8906ae81d6",
 	"09423687-e999-4aba-876d-35e0d3331311",
@@ -108,7 +94,7 @@ INSERT INTO O_REF
 	'',
 	'Model',
 	'diagramId',
-	'R25');
+	'R25.''is moving in''');
 INSERT INTO O_RTIDA_PROXY
 	VALUES ("d1783817-101b-46d1-b9a8-907ee4d5efe4",
 	"09423687-e999-4aba-876d-35e0d3331311",
@@ -136,7 +122,7 @@ INSERT INTO O_ATTR
 	'',
 	'diagramId',
 	0,
-	"66164f00-293e-4c17-ab30-7972c7c57152",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -159,16 +145,9 @@ look at the total drag so far.
 	'',
 	'startingX',
 	0,
-	"daa2cf40-15b6-4a53-a5a3-55b15c1951ed",
+	"ba5eda7a-def5-0000-0000-000000000003",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("daa2cf40-15b6-4a53-a5a3-55b15c1951ed",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	'real',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("a8fec529-e407-4ebd-8be3-a5d221cb60ce",
 	"37ce39d4-f4ad-4ace-84bf-0d8906ae81d6");
@@ -184,7 +163,7 @@ INSERT INTO O_ATTR
 	'',
 	'startingY',
 	0,
-	"daa2cf40-15b6-4a53-a5a3-55b15c1951ed",
+	"ba5eda7a-def5-0000-0000-000000000003",
 	'',
 	'');
 INSERT INTO O_ID
@@ -206,15 +185,20 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"37ce39d4-f4ad-4ace-84bf-0d8906ae81d6");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("37ce39d4-f4ad-4ace-84bf-0d8906ae81d6",
+	1,
+	"b5695748-80fc-47fb-b5c7-801b5f28b907",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("b5695748-80fc-47fb-b5c7-801b5f28b907",
+	"00000000-0000-0000-0000-000000000000",
+	"8f801c9a-cf2d-4ef4-b11a-51b8697e3ca8",
 	'Graphical Data',
 	'The GD (Graphics Domain) subsystem models the graphical elements for a BridgePoint model.
 -------------------------------------------------------
 Import:org.eclipse.swt.graphics.Color
 Notify_Changes:true',
-	'GD',
 	1,
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	"00000000-0000-0000-0000-000001900032",
 	'../Graphical Data.xtuml');

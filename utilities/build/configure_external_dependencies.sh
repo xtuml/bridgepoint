@@ -193,6 +193,24 @@ configure_vhdl_src()
 }
 
 
+configure_java_src()
+{
+    echo ""
+    echo "Configuring java_src for build."
+
+    # Copy in the "bp.mc.c.source/mc3020/" dir
+    cd $java_src
+    rm -rf mc3020
+    cp -rf $mcc_src/mc3020 .
+    
+    # We don't want the model-based MC for this version, so remove it
+    rm -f ./mc3020/bin/mcmc
+    rm -f ./mc3020/bin/mcmc.exe
+     
+    cd ${BUILD_DIR}
+}
+
+
 #-------------------------------------------------------------------------------
 # Main
 #-------------------------------------------------------------------------------
@@ -208,6 +226,7 @@ mcc_bin=${BUILD_DIR}/org.xtuml.bp.mc.c.binary
 mcsystemc_src=${BUILD_DIR}/org.xtuml.bp.mc.systemc.source
 mccpp_src=${BUILD_DIR}/org.xtuml.bp.mc.cpp.source
 mcvhdl_src=${BUILD_DIR}/org.xtuml.bp.mc.vhdl.source
+mcjava_src=${BUILD_DIR}/com.mentor.nucleus.bp.mc.java.source
 mc3020_help=${BUILD_DIR}/org.xtuml.help.bp.mc
 
 get_user_supplied_binaries
@@ -217,7 +236,8 @@ if [ "$?" = "0" ];  then
   configure_mcsystemc_src
   configure_mccpp_src
   configure_vhdl_src
-
+  configure_java_src
+  
   configure_dap
 fi
 

@@ -6,7 +6,7 @@ INSERT INTO O_OBJ
 	2922,
 	'I_ICQE',
 	'',
-	"ce2c2e5b-d701-4d5f-9b67-5db53fc8ca56");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_REF
 	VALUES ("c6f33688-a3a0-4b3b-b3d7-c80fe6bf5be4",
 	"94dc4a69-fab9-4ad8-b3cf-c58bf023b9d1",
@@ -55,16 +55,9 @@ INSERT INTO O_ATTR
 	'',
 	'Stack_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("c6f33688-a3a0-4b3b-b3d7-c80fe6bf5be4",
 	"60fd0d8e-9f75-40a3-b729-2bf3b7068c52",
@@ -108,7 +101,7 @@ INSERT INTO O_ATTR
 	'',
 	'Stack_Frame_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -159,7 +152,7 @@ INSERT INTO O_ATTR
 	'',
 	'Execution_Engine_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_ID
@@ -181,15 +174,20 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"c6f33688-a3a0-4b3b-b3d7-c80fe6bf5be4");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("c6f33688-a3a0-4b3b-b3d7-c80fe6bf5be4",
+	1,
+	"ce2c2e5b-d701-4d5f-9b67-5db53fc8ca56",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("ce2c2e5b-d701-4d5f-9b67-5db53fc8ca56",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Engine',
 	'// This is used by schema_gen to ignore this subsystem (for publication)
 TRANSLATE_FOR_EXTERNAL_USE:FALSE
 Persistent:false
 Import: java.util.concurrent.locks.ReentrantLock',
-	'I',
 	900,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000000000",
 	'../Engine.xtuml');

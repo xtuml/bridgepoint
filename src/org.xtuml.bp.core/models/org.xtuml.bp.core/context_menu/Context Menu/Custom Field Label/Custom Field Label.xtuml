@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("8cb48a40-d8df-4000-8e14-a5b29713a75a",
@@ -14,7 +14,7 @@ The instances of this class are generated if the parse keyword Label<n> (n=1,2)
 exists in the CME function.  Label1 is used for the first and Label2 is
 used for the second ''select related by where'' with a USER bridge invocation in 
 the where clause.  There are only two needed at this time.',
-	"22fe2ec1-5660-4a88-9691-da2fe55e94db");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_REF
 	VALUES ("8cb48a40-d8df-4000-8e14-a5b29713a75a",
 	"6cd96a2c-b51f-4e92-b37c-2428cd7e32be",
@@ -63,16 +63,9 @@ INSERT INTO O_ATTR
 	'',
 	'Name',
 	0,
-	"e9939872-4e30-45f7-852c-a44e7f299f8a",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("e9939872-4e30-45f7-852c-a44e7f299f8a",
-	"1078c098-0f8e-425b-9cfb-5e5d9fbff920",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("8cb48a40-d8df-4000-8e14-a5b29713a75a",
 	"6cd96a2c-b51f-4e92-b37c-2428cd7e32be",
@@ -116,7 +109,7 @@ INSERT INTO O_ATTR
 	'',
 	'Step_ID',
 	0,
-	"e9939872-4e30-45f7-852c-a44e7f299f8a",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -136,16 +129,9 @@ passed to the label''s setText() method.
 	'',
 	'Label',
 	0,
-	"ff27026a-9d91-4d3d-9c92-888e9483a31c",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("ff27026a-9d91-4d3d-9c92-888e9483a31c",
-	"1078c098-0f8e-425b-9cfb-5e5d9fbff920",
-	'string',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_ID
 	VALUES (0,
 	"8cb48a40-d8df-4000-8e14-a5b29713a75a");
@@ -165,12 +151,17 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"8cb48a40-d8df-4000-8e14-a5b29713a75a");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("8cb48a40-d8df-4000-8e14-a5b29713a75a",
+	1,
+	"22fe2ec1-5660-4a88-9691-da2fe55e94db",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("22fe2ec1-5660-4a88-9691-da2fe55e94db",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Context Menu',
 	'',
-	'CM_',
 	1,
-	"1078c098-0f8e-425b-9cfb-5e5d9fbff920",
-	"00000000-0000-0000-0000-000000100002",
 	'../Context Menu.xtuml');

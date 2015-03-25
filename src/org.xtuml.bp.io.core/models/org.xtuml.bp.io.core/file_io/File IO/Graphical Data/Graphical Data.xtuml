@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("1fc1c651-fd65-464b-ae5c-73487161c50a",
@@ -8,7 +8,7 @@ INSERT INTO O_OBJ
 	'The graphical data is the graphics portion of a model that is stored in the SQL file.
 BridgePoint keeps the model data and graphical data separated, so we need to 
 capture that separation.',
-	"f157564a-4386-4e32-b5c9-0e4d7bd3609a");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_REF
 	VALUES ("1fc1c651-fd65-464b-ae5c-73487161c50a",
 	"69a5ebc7-ef1a-4d3c-995f-e1d75c80d54a",
@@ -61,16 +61,9 @@ Possible values:  "DD", "SRM", "SCM", "SAM", "OIM", "OCM", "OAM", "ISM", "ASM"
 	'model',
 	'Name',
 	1,
-	"cf07a926-26a1-4462-bd6f-45a3b930e4b7",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("cf07a926-26a1-4462-bd6f-45a3b930e4b7",
-	"695dce7b-262a-4226-9cbb-c9f897b44c67",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("91940c7a-5192-4fcf-a988-e33f3c5a4daf",
 	"1fc1c651-fd65-464b-ae5c-73487161c50a");
@@ -117,16 +110,9 @@ Note that ISTT_TYPE, ASTT_TYPE, ISPT_TYPE, ASPT_TYPE, and PM_TYPE are unused.
 	'',
 	'modelId',
 	0,
-	"5e30bc10-6b4e-49f6-a053-8d190acef663",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("5e30bc10-6b4e-49f6-a053-8d190acef663",
-	"695dce7b-262a-4226-9cbb-c9f897b44c67",
-	'string',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("1fc1c651-fd65-464b-ae5c-73487161c50a",
 	"d62bdfae-7686-4844-b0c7-e71e7829446e",
@@ -142,7 +128,7 @@ INSERT INTO O_REF
 	'',
 	'SQL Table',
 	'bpName',
-	'R7');
+	'R7.''is for''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("1fc1c651-fd65-464b-ae5c-73487161c50a",
 	"b1b25473-902c-4e24-b5e1-ff572d04f8ad",
@@ -170,7 +156,7 @@ INSERT INTO O_REF
 	'',
 	'Column',
 	'tableName',
-	'R8');
+	'R8.''has model id''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("1fc1c651-fd65-464b-ae5c-73487161c50a",
 	"d3f6ca94-62be-4e84-b7ae-aa3b30097bf5",
@@ -204,7 +190,7 @@ Values: "Domain", "Subsystem", "State Model"
 	'table',
 	'Name',
 	1,
-	"cf07a926-26a1-4462-bd6f-45a3b930e4b7",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -222,7 +208,7 @@ INSERT INTO O_REF
 	'',
 	'Column',
 	'Name',
-	'R8');
+	'R8.''has model id''');
 INSERT INTO O_RTIDA_PROXY
 	VALUES ("6bd06a87-cf2b-45d0-a95b-fcfaa57d29ca",
 	"68363a50-a0e1-414d-8939-1409ebc1f822",
@@ -255,7 +241,7 @@ Values: "Dom_ID", "SS_ID", "SM_ID"
 	'col',
 	'Name',
 	1,
-	"cf07a926-26a1-4462-bd6f-45a3b930e4b7",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_ID
@@ -272,12 +258,17 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"1fc1c651-fd65-464b-ae5c-73487161c50a");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("1fc1c651-fd65-464b-ae5c-73487161c50a",
+	1,
+	"f157564a-4386-4e32-b5c9-0e4d7bd3609a",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("f157564a-4386-4e32-b5c9-0e4d7bd3609a",
+	"00000000-0000-0000-0000-000000000000",
+	"4dacadbd-0ef3-4f12-9693-fcbfe81a2955",
 	'File IO',
 	'',
-	'',
 	1,
-	"695dce7b-262a-4226-9cbb-c9f897b44c67",
-	"00000000-0000-0000-0000-000000100002",
 	'../File IO.xtuml');

@@ -1,604 +1,17 @@
--- BP 7.1.6 content: Subsystem syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: Package syschar: 3 persistence-version: 7.1.6
 
-INSERT INTO S_SS
+INSERT INTO EP_PKG
 	VALUES ("7244f94a-6a20-46c8-8487-5090fedbedbf",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Component Library',
 	'',
-	'CL',
-	4700,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_IOBJ
-	VALUES ("d4f40709-e8fe-4a58-af94-2acbf626a3f2",
-	"d45618a1-5ecf-4b4d-95a8-ab89b70dec11",
-	0,
-	"7244f94a-6a20-46c8-8487-5090fedbedbf",
-	'Interface Reference',
-	'C_IR');
-INSERT INTO O_OBJ_PROXY
-	VALUES ("d45618a1-5ecf-4b4d-95a8-ab89b70dec11",
-	'Interface Reference',
-	4011,
-	'C_IR',
-	'',
-	"01aecea1-07ec-46e6-a719-cece731803c9",
-	'../Interface Reference/Interface Reference.xtuml');
-INSERT INTO O_IOBJ
-	VALUES ("25ee4ebe-a0b8-471b-9689-4d5a437004d7",
-	"2c33c814-df21-4342-8961-a520080e79c1",
-	0,
-	"7244f94a-6a20-46c8-8487-5090fedbedbf",
-	'Delegation',
-	'C_DG');
-INSERT INTO O_OBJ_PROXY
-	VALUES ("2c33c814-df21-4342-8961-a520080e79c1",
-	'Delegation',
-	4012,
-	'C_DG',
-	'',
-	"01aecea1-07ec-46e6-a719-cece731803c9",
-	'../Delegation/Delegation.xtuml');
-INSERT INTO O_IOBJ
-	VALUES ("7ff9b38b-858d-44d7-b065-67880cee8b4d",
-	"31d55c78-4c8e-4706-afeb-da88c819c621",
-	0,
-	"7244f94a-6a20-46c8-8487-5090fedbedbf",
-	'Satisfaction',
-	'C_SF');
-INSERT INTO O_OBJ_PROXY
-	VALUES ("31d55c78-4c8e-4706-afeb-da88c819c621",
-	'Satisfaction',
-	4007,
-	'C_SF',
-	'A satisfaction represents the fact that one provided interface satisfies one or
-more requirements.  This link class is setup when a provided interface is
-connected to one or more required interfaces.',
-	"01aecea1-07ec-46e6-a719-cece731803c9",
-	'../Satisfaction/Satisfaction.xtuml');
-INSERT INTO O_IOBJ
-	VALUES ("8bf9d77c-34b3-4a0a-8f66-734f9c2f2d7b",
-	"2205f09b-595f-431e-98d5-73d007d124b6",
-	0,
-	"7244f94a-6a20-46c8-8487-5090fedbedbf",
-	'Port',
-	'C_PO');
-INSERT INTO O_OBJ_PROXY
-	VALUES ("2205f09b-595f-431e-98d5-73d007d124b6",
-	'Port',
-	4013,
-	'C_PO',
-	'',
-	"01aecea1-07ec-46e6-a719-cece731803c9",
-	'../Port/Port.xtuml');
-INSERT INTO R_SIMP
-	VALUES ("da506614-285c-48f1-a956-e8de17ba530c");
-INSERT INTO R_REL
-	VALUES ("da506614-285c-48f1-a956-e8de17ba530c",
-	4701,
-	'CrossComponent:true',
-	"7244f94a-6a20-46c8-8487-5090fedbedbf");
-INSERT INTO R_PART
-	VALUES ("d45618a1-5ecf-4b4d-95a8-ab89b70dec11",
-	"da506614-285c-48f1-a956-e8de17ba530c",
-	"ac8dec09-ddc2-445c-8db7-bb3348294421",
-	0,
-	1,
-	'imports');
-INSERT INTO O_RTIDA
-	VALUES ("79ea6409-f6d5-47f6-a3e1-4fc015199794",
-	"d45618a1-5ecf-4b4d-95a8-ab89b70dec11",
-	0,
-	"da506614-285c-48f1-a956-e8de17ba530c",
-	"ac8dec09-ddc2-445c-8db7-bb3348294421");
-INSERT INTO O_OIDA_PROXY
-	VALUES ("79ea6409-f6d5-47f6-a3e1-4fc015199794",
-	"d45618a1-5ecf-4b4d-95a8-ab89b70dec11",
-	0,
-	'Id',
-	'../Interface Reference/Interface Reference.xtuml');
-INSERT INTO R_RTO
-	VALUES ("d45618a1-5ecf-4b4d-95a8-ab89b70dec11",
-	"da506614-285c-48f1-a956-e8de17ba530c",
-	"ac8dec09-ddc2-445c-8db7-bb3348294421",
-	0);
-INSERT INTO O_ID_PROXY
-	VALUES (0,
-	"d45618a1-5ecf-4b4d-95a8-ab89b70dec11",
-	'../Interface Reference/Interface Reference.xtuml');
-INSERT INTO R_OIR
-	VALUES ("d45618a1-5ecf-4b4d-95a8-ab89b70dec11",
-	"da506614-285c-48f1-a956-e8de17ba530c",
-	"ac8dec09-ddc2-445c-8db7-bb3348294421",
-	"d4f40709-e8fe-4a58-af94-2acbf626a3f2");
-INSERT INTO R_FORM
-	VALUES ("e695ccff-28f5-4931-89dd-59c6995c1a73",
-	"da506614-285c-48f1-a956-e8de17ba530c",
-	"a20cab0c-52ef-4afd-81da-cac598bb15c1",
-	1,
-	1,
-	'is imported');
-INSERT INTO R_RGO
-	VALUES ("e695ccff-28f5-4931-89dd-59c6995c1a73",
-	"da506614-285c-48f1-a956-e8de17ba530c",
-	"a20cab0c-52ef-4afd-81da-cac598bb15c1");
-INSERT INTO R_OIR
-	VALUES ("e695ccff-28f5-4931-89dd-59c6995c1a73",
-	"da506614-285c-48f1-a956-e8de17ba530c",
-	"a20cab0c-52ef-4afd-81da-cac598bb15c1",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("e695ccff-28f5-4931-89dd-59c6995c1a73",
-	'Imported Reference',
-	4703,
-	'CL_IIR',
-	'',
-	"7244f94a-6a20-46c8-8487-5090fedbedbf",
-	'./Imported Reference/Imported Reference.xtuml');
-INSERT INTO R_SUBSUP
-	VALUES ("6de64175-d8d0-4738-81d8-2d8b585bfb63");
-INSERT INTO R_REL
-	VALUES ("6de64175-d8d0-4738-81d8-2d8b585bfb63",
-	4703,
-	'',
-	"7244f94a-6a20-46c8-8487-5090fedbedbf");
-INSERT INTO R_SUPER
-	VALUES ("e695ccff-28f5-4931-89dd-59c6995c1a73",
-	"6de64175-d8d0-4738-81d8-2d8b585bfb63",
-	"440899d7-09a0-4d63-8cac-e6b4ff0f22e1");
-INSERT INTO O_RTIDA
-	VALUES ("0e6673f7-3b58-4c65-9d9d-89e0a72b575d",
-	"e695ccff-28f5-4931-89dd-59c6995c1a73",
-	0,
-	"6de64175-d8d0-4738-81d8-2d8b585bfb63",
-	"440899d7-09a0-4d63-8cac-e6b4ff0f22e1");
-INSERT INTO O_OIDA_PROXY
-	VALUES ("0e6673f7-3b58-4c65-9d9d-89e0a72b575d",
-	"e695ccff-28f5-4931-89dd-59c6995c1a73",
-	0,
-	'Id',
-	'./Imported Reference/Imported Reference.xtuml');
-INSERT INTO R_RTO
-	VALUES ("e695ccff-28f5-4931-89dd-59c6995c1a73",
-	"6de64175-d8d0-4738-81d8-2d8b585bfb63",
-	"440899d7-09a0-4d63-8cac-e6b4ff0f22e1",
-	0);
-INSERT INTO O_ID_PROXY
-	VALUES (0,
-	"e695ccff-28f5-4931-89dd-59c6995c1a73",
-	'./Imported Reference/Imported Reference.xtuml');
-INSERT INTO R_OIR
-	VALUES ("e695ccff-28f5-4931-89dd-59c6995c1a73",
-	"6de64175-d8d0-4738-81d8-2d8b585bfb63",
-	"440899d7-09a0-4d63-8cac-e6b4ff0f22e1",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_SUB
-	VALUES ("fe361322-0fa4-4c04-a60c-db0fe0cf4b4e",
-	"6de64175-d8d0-4738-81d8-2d8b585bfb63",
-	"a533dc66-b434-4628-a705-42d87e796e39");
-INSERT INTO R_RGO
-	VALUES ("fe361322-0fa4-4c04-a60c-db0fe0cf4b4e",
-	"6de64175-d8d0-4738-81d8-2d8b585bfb63",
-	"a533dc66-b434-4628-a705-42d87e796e39");
-INSERT INTO R_OIR
-	VALUES ("fe361322-0fa4-4c04-a60c-db0fe0cf4b4e",
-	"6de64175-d8d0-4738-81d8-2d8b585bfb63",
-	"a533dc66-b434-4628-a705-42d87e796e39",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("fe361322-0fa4-4c04-a60c-db0fe0cf4b4e",
-	'Imported Provision',
-	4701,
-	'CL_IP',
-	'',
-	"7244f94a-6a20-46c8-8487-5090fedbedbf",
-	'./Imported Provision/Imported Provision.xtuml');
-INSERT INTO R_SUB
-	VALUES ("7f4be496-f22b-4efc-af0d-8a4fdb873e98",
-	"6de64175-d8d0-4738-81d8-2d8b585bfb63",
-	"27fb24af-36ed-4fff-af3f-1f3373cc9b37");
-INSERT INTO R_RGO
-	VALUES ("7f4be496-f22b-4efc-af0d-8a4fdb873e98",
-	"6de64175-d8d0-4738-81d8-2d8b585bfb63",
-	"27fb24af-36ed-4fff-af3f-1f3373cc9b37");
-INSERT INTO R_OIR
-	VALUES ("7f4be496-f22b-4efc-af0d-8a4fdb873e98",
-	"6de64175-d8d0-4738-81d8-2d8b585bfb63",
-	"27fb24af-36ed-4fff-af3f-1f3373cc9b37",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("7f4be496-f22b-4efc-af0d-8a4fdb873e98",
-	'Imported Requirement',
-	4702,
-	'CL_IR',
-	'',
-	"7244f94a-6a20-46c8-8487-5090fedbedbf",
-	'./Imported Requirement/Imported Requirement.xtuml');
-INSERT INTO R_SIMP
-	VALUES ("bd790862-d08a-4bee-8cfa-e8bb4b043d99");
-INSERT INTO R_REL
-	VALUES ("bd790862-d08a-4bee-8cfa-e8bb4b043d99",
-	4704,
-	'CrossComponent:true',
-	"7244f94a-6a20-46c8-8487-5090fedbedbf");
-INSERT INTO R_FORM
-	VALUES ("e695ccff-28f5-4931-89dd-59c6995c1a73",
-	"bd790862-d08a-4bee-8cfa-e8bb4b043d99",
-	"36fa80c2-b3a5-4d61-b54c-8fe4931aaae0",
-	0,
-	1,
-	'delivers communication through');
-INSERT INTO R_RGO
-	VALUES ("e695ccff-28f5-4931-89dd-59c6995c1a73",
-	"bd790862-d08a-4bee-8cfa-e8bb4b043d99",
-	"36fa80c2-b3a5-4d61-b54c-8fe4931aaae0");
-INSERT INTO R_OIR
-	VALUES ("e695ccff-28f5-4931-89dd-59c6995c1a73",
-	"bd790862-d08a-4bee-8cfa-e8bb4b043d99",
-	"36fa80c2-b3a5-4d61-b54c-8fe4931aaae0",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_PART
-	VALUES ("2c33c814-df21-4342-8961-a520080e79c1",
-	"bd790862-d08a-4bee-8cfa-e8bb4b043d99",
-	"9cc7f4fa-8821-4108-9325-3a8ea6e16778",
-	0,
-	1,
-	'accepts communication through');
-INSERT INTO O_RTIDA
-	VALUES ("09351ec1-a7de-4f77-8a99-75315271cd33",
-	"2c33c814-df21-4342-8961-a520080e79c1",
-	0,
-	"bd790862-d08a-4bee-8cfa-e8bb4b043d99",
-	"9cc7f4fa-8821-4108-9325-3a8ea6e16778");
-INSERT INTO O_OIDA_PROXY
-	VALUES ("09351ec1-a7de-4f77-8a99-75315271cd33",
-	"2c33c814-df21-4342-8961-a520080e79c1",
-	0,
-	'Id',
-	'../Delegation/Delegation.xtuml');
-INSERT INTO R_RTO
-	VALUES ("2c33c814-df21-4342-8961-a520080e79c1",
-	"bd790862-d08a-4bee-8cfa-e8bb4b043d99",
-	"9cc7f4fa-8821-4108-9325-3a8ea6e16778",
-	0);
-INSERT INTO O_ID_PROXY
-	VALUES (0,
-	"2c33c814-df21-4342-8961-a520080e79c1",
-	'../Delegation/Delegation.xtuml');
-INSERT INTO R_OIR
-	VALUES ("2c33c814-df21-4342-8961-a520080e79c1",
-	"bd790862-d08a-4bee-8cfa-e8bb4b043d99",
-	"9cc7f4fa-8821-4108-9325-3a8ea6e16778",
-	"25ee4ebe-a0b8-471b-9689-4d5a437004d7");
-INSERT INTO R_ASSOC
-	VALUES ("2001d5e1-508d-423b-9c10-d89d2518f6df");
-INSERT INTO R_REL
-	VALUES ("2001d5e1-508d-423b-9c10-d89d2518f6df",
-	4705,
-	'CrossComponent:true',
-	"7244f94a-6a20-46c8-8487-5090fedbedbf");
-INSERT INTO R_AONE
-	VALUES ("31d55c78-4c8e-4706-afeb-da88c819c621",
-	"2001d5e1-508d-423b-9c10-d89d2518f6df",
-	"322acb28-ed1c-43f2-9e28-b85ff57f13fb",
-	1,
-	1,
-	'provides satisfaction through');
-INSERT INTO O_RTIDA
-	VALUES ("e00fa746-c155-44df-ad10-25826bceebdf",
-	"31d55c78-4c8e-4706-afeb-da88c819c621",
-	0,
-	"2001d5e1-508d-423b-9c10-d89d2518f6df",
-	"322acb28-ed1c-43f2-9e28-b85ff57f13fb");
-INSERT INTO O_OIDA_PROXY
-	VALUES ("e00fa746-c155-44df-ad10-25826bceebdf",
-	"31d55c78-4c8e-4706-afeb-da88c819c621",
-	0,
-	'Id',
-	'../Satisfaction/Satisfaction.xtuml');
-INSERT INTO R_RTO
-	VALUES ("31d55c78-4c8e-4706-afeb-da88c819c621",
-	"2001d5e1-508d-423b-9c10-d89d2518f6df",
-	"322acb28-ed1c-43f2-9e28-b85ff57f13fb",
-	0);
-INSERT INTO O_ID_PROXY
-	VALUES (0,
-	"31d55c78-4c8e-4706-afeb-da88c819c621",
-	'../Satisfaction/Satisfaction.xtuml');
-INSERT INTO R_OIR
-	VALUES ("31d55c78-4c8e-4706-afeb-da88c819c621",
-	"2001d5e1-508d-423b-9c10-d89d2518f6df",
-	"322acb28-ed1c-43f2-9e28-b85ff57f13fb",
-	"7ff9b38b-858d-44d7-b065-67880cee8b4d");
-INSERT INTO R_AOTH
-	VALUES ("fe361322-0fa4-4c04-a60c-db0fe0cf4b4e",
-	"2001d5e1-508d-423b-9c10-d89d2518f6df",
-	"f0854fbd-3060-4928-9d31-51f853af6b16",
-	0,
-	1,
-	'satisfaction made with');
-INSERT INTO O_RTIDA
-	VALUES ("263cd096-0f94-4840-8c04-88c370bba1ce",
-	"fe361322-0fa4-4c04-a60c-db0fe0cf4b4e",
-	0,
-	"2001d5e1-508d-423b-9c10-d89d2518f6df",
-	"f0854fbd-3060-4928-9d31-51f853af6b16");
-INSERT INTO O_OIDA_PROXY
-	VALUES ("263cd096-0f94-4840-8c04-88c370bba1ce",
-	"fe361322-0fa4-4c04-a60c-db0fe0cf4b4e",
-	0,
-	'Id',
-	'./Imported Provision/Imported Provision.xtuml');
-INSERT INTO R_RTO
-	VALUES ("fe361322-0fa4-4c04-a60c-db0fe0cf4b4e",
-	"2001d5e1-508d-423b-9c10-d89d2518f6df",
-	"f0854fbd-3060-4928-9d31-51f853af6b16",
-	0);
-INSERT INTO O_ID_PROXY
-	VALUES (0,
-	"fe361322-0fa4-4c04-a60c-db0fe0cf4b4e",
-	'./Imported Provision/Imported Provision.xtuml');
-INSERT INTO R_OIR
-	VALUES ("fe361322-0fa4-4c04-a60c-db0fe0cf4b4e",
-	"2001d5e1-508d-423b-9c10-d89d2518f6df",
-	"f0854fbd-3060-4928-9d31-51f853af6b16",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_ASSR
-	VALUES ("a707b1cc-6a87-4e46-a671-88ddd93866db",
-	"2001d5e1-508d-423b-9c10-d89d2518f6df",
-	"c96c2973-bd39-4702-8373-447fcba79a29",
-	0);
-INSERT INTO R_RGO
-	VALUES ("a707b1cc-6a87-4e46-a671-88ddd93866db",
-	"2001d5e1-508d-423b-9c10-d89d2518f6df",
-	"c96c2973-bd39-4702-8373-447fcba79a29");
-INSERT INTO R_OIR
-	VALUES ("a707b1cc-6a87-4e46-a671-88ddd93866db",
-	"2001d5e1-508d-423b-9c10-d89d2518f6df",
-	"c96c2973-bd39-4702-8373-447fcba79a29",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("a707b1cc-6a87-4e46-a671-88ddd93866db",
-	'Imported Provision In Satisfaction',
-	4700,
-	'CL_IPINS',
-	'',
-	"7244f94a-6a20-46c8-8487-5090fedbedbf",
-	'./Imported Provision In Satisfaction/Imported Provision In Satisfaction.xtuml');
-INSERT INTO R_SIMP
-	VALUES ("c201aaed-ab0a-4659-93f7-80ea84c19991");
-INSERT INTO R_REL
-	VALUES ("c201aaed-ab0a-4659-93f7-80ea84c19991",
-	4706,
-	'CrossComponent:true',
-	"7244f94a-6a20-46c8-8487-5090fedbedbf");
-INSERT INTO R_FORM
-	VALUES ("7f4be496-f22b-4efc-af0d-8a4fdb873e98",
-	"c201aaed-ab0a-4659-93f7-80ea84c19991",
-	"df6e4d15-3057-40da-b13e-d864feeef3cc",
-	0,
-	1,
-	'satisfaction made with');
-INSERT INTO R_RGO
-	VALUES ("7f4be496-f22b-4efc-af0d-8a4fdb873e98",
-	"c201aaed-ab0a-4659-93f7-80ea84c19991",
-	"df6e4d15-3057-40da-b13e-d864feeef3cc");
-INSERT INTO R_OIR
-	VALUES ("7f4be496-f22b-4efc-af0d-8a4fdb873e98",
-	"c201aaed-ab0a-4659-93f7-80ea84c19991",
-	"df6e4d15-3057-40da-b13e-d864feeef3cc",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_PART
-	VALUES ("31d55c78-4c8e-4706-afeb-da88c819c621",
-	"c201aaed-ab0a-4659-93f7-80ea84c19991",
-	"33fde33c-e3c4-49f2-80ad-0b5be6ca1a63",
-	0,
-	1,
-	'provides satisfaction through');
-INSERT INTO O_RTIDA
-	VALUES ("e00fa746-c155-44df-ad10-25826bceebdf",
-	"31d55c78-4c8e-4706-afeb-da88c819c621",
-	0,
-	"c201aaed-ab0a-4659-93f7-80ea84c19991",
-	"33fde33c-e3c4-49f2-80ad-0b5be6ca1a63");
-INSERT INTO R_RTO
-	VALUES ("31d55c78-4c8e-4706-afeb-da88c819c621",
-	"c201aaed-ab0a-4659-93f7-80ea84c19991",
-	"33fde33c-e3c4-49f2-80ad-0b5be6ca1a63",
-	0);
-INSERT INTO R_OIR
-	VALUES ("31d55c78-4c8e-4706-afeb-da88c819c621",
-	"c201aaed-ab0a-4659-93f7-80ea84c19991",
-	"33fde33c-e3c4-49f2-80ad-0b5be6ca1a63",
-	"7ff9b38b-858d-44d7-b065-67880cee8b4d");
-INSERT INTO R_SIMP
-	VALUES ("811ea3b5-d19c-45c5-90d2-41cb7713c156");
-INSERT INTO R_REL
-	VALUES ("811ea3b5-d19c-45c5-90d2-41cb7713c156",
-	4707,
-	'',
-	"7244f94a-6a20-46c8-8487-5090fedbedbf");
-INSERT INTO R_FORM
-	VALUES ("d0f2e04e-149e-489c-924c-a42769aa8547",
-	"811ea3b5-d19c-45c5-90d2-41cb7713c156",
-	"1362d2be-1097-4dfe-ba6f-0d9b1f371376",
-	1,
-	1,
-	'communicates through');
-INSERT INTO R_RGO
-	VALUES ("d0f2e04e-149e-489c-924c-a42769aa8547",
-	"811ea3b5-d19c-45c5-90d2-41cb7713c156",
-	"1362d2be-1097-4dfe-ba6f-0d9b1f371376");
-INSERT INTO R_OIR
-	VALUES ("d0f2e04e-149e-489c-924c-a42769aa8547",
-	"811ea3b5-d19c-45c5-90d2-41cb7713c156",
-	"1362d2be-1097-4dfe-ba6f-0d9b1f371376",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("d0f2e04e-149e-489c-924c-a42769aa8547",
-	'Port Reference',
-	4705,
-	'CL_POR',
-	'',
-	"7244f94a-6a20-46c8-8487-5090fedbedbf",
-	'./Port Reference/Port Reference.xtuml');
-INSERT INTO R_PART
-	VALUES ("14d6c781-a341-481a-b67d-09ec4e8b9ed3",
-	"811ea3b5-d19c-45c5-90d2-41cb7713c156",
-	"6af5f674-b9ea-4550-91da-e6deb4318828",
-	0,
-	0,
-	'orginates from');
-INSERT INTO O_RTIDA
-	VALUES ("bb116e28-b106-49aa-b480-95c153ff8155",
-	"14d6c781-a341-481a-b67d-09ec4e8b9ed3",
-	0,
-	"811ea3b5-d19c-45c5-90d2-41cb7713c156",
-	"6af5f674-b9ea-4550-91da-e6deb4318828");
-INSERT INTO O_OIDA_PROXY
-	VALUES ("bb116e28-b106-49aa-b480-95c153ff8155",
-	"14d6c781-a341-481a-b67d-09ec4e8b9ed3",
-	0,
-	'Id',
-	'./Component Reference/Component Reference.xtuml');
-INSERT INTO R_RTO
-	VALUES ("14d6c781-a341-481a-b67d-09ec4e8b9ed3",
-	"811ea3b5-d19c-45c5-90d2-41cb7713c156",
-	"6af5f674-b9ea-4550-91da-e6deb4318828",
-	0);
-INSERT INTO O_ID_PROXY
-	VALUES (0,
-	"14d6c781-a341-481a-b67d-09ec4e8b9ed3",
-	'./Component Reference/Component Reference.xtuml');
-INSERT INTO R_OIR
-	VALUES ("14d6c781-a341-481a-b67d-09ec4e8b9ed3",
-	"811ea3b5-d19c-45c5-90d2-41cb7713c156",
-	"6af5f674-b9ea-4550-91da-e6deb4318828",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("14d6c781-a341-481a-b67d-09ec4e8b9ed3",
-	'Component Reference',
-	4704,
-	'CL_IC',
-	'',
-	"7244f94a-6a20-46c8-8487-5090fedbedbf",
-	'./Component Reference/Component Reference.xtuml');
-INSERT INTO R_SIMP
-	VALUES ("3ceba4ae-e7a9-46e6-af91-906e2a8ab8e9");
-INSERT INTO R_REL
-	VALUES ("3ceba4ae-e7a9-46e6-af91-906e2a8ab8e9",
-	4708,
-	'',
-	"7244f94a-6a20-46c8-8487-5090fedbedbf");
-INSERT INTO R_PART
-	VALUES ("d0f2e04e-149e-489c-924c-a42769aa8547",
-	"3ceba4ae-e7a9-46e6-af91-906e2a8ab8e9",
-	"332eb6bd-9b16-4246-bbf5-4d8ca3d22c85",
-	0,
-	0,
-	'originates from');
-INSERT INTO O_RTIDA
-	VALUES ("4357dcf1-5dbb-4204-a161-cbb722089299",
-	"d0f2e04e-149e-489c-924c-a42769aa8547",
-	0,
-	"3ceba4ae-e7a9-46e6-af91-906e2a8ab8e9",
-	"332eb6bd-9b16-4246-bbf5-4d8ca3d22c85");
-INSERT INTO O_OIDA_PROXY
-	VALUES ("4357dcf1-5dbb-4204-a161-cbb722089299",
-	"d0f2e04e-149e-489c-924c-a42769aa8547",
-	0,
-	'Id',
-	'./Port Reference/Port Reference.xtuml');
-INSERT INTO R_RTO
-	VALUES ("d0f2e04e-149e-489c-924c-a42769aa8547",
-	"3ceba4ae-e7a9-46e6-af91-906e2a8ab8e9",
-	"332eb6bd-9b16-4246-bbf5-4d8ca3d22c85",
-	0);
-INSERT INTO O_ID_PROXY
-	VALUES (0,
-	"d0f2e04e-149e-489c-924c-a42769aa8547",
-	'./Port Reference/Port Reference.xtuml');
-INSERT INTO R_OIR
-	VALUES ("d0f2e04e-149e-489c-924c-a42769aa8547",
-	"3ceba4ae-e7a9-46e6-af91-906e2a8ab8e9",
-	"332eb6bd-9b16-4246-bbf5-4d8ca3d22c85",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_FORM
-	VALUES ("e695ccff-28f5-4931-89dd-59c6995c1a73",
-	"3ceba4ae-e7a9-46e6-af91-906e2a8ab8e9",
-	"dfc9cd57-bc66-4844-bd06-f6c2b8bf81b8",
-	1,
-	1,
-	'exposes');
-INSERT INTO R_RGO
-	VALUES ("e695ccff-28f5-4931-89dd-59c6995c1a73",
-	"3ceba4ae-e7a9-46e6-af91-906e2a8ab8e9",
-	"dfc9cd57-bc66-4844-bd06-f6c2b8bf81b8");
-INSERT INTO R_OIR
-	VALUES ("e695ccff-28f5-4931-89dd-59c6995c1a73",
-	"3ceba4ae-e7a9-46e6-af91-906e2a8ab8e9",
-	"dfc9cd57-bc66-4844-bd06-f6c2b8bf81b8",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_SIMP
-	VALUES ("836e5a78-2612-4c49-ab64-a24f3cee9e6e");
-INSERT INTO R_REL
-	VALUES ("836e5a78-2612-4c49-ab64-a24f3cee9e6e",
-	4709,
-	'',
-	"7244f94a-6a20-46c8-8487-5090fedbedbf");
-INSERT INTO R_FORM
-	VALUES ("d0f2e04e-149e-489c-924c-a42769aa8547",
-	"836e5a78-2612-4c49-ab64-a24f3cee9e6e",
-	"393d23f9-9ec9-49f4-9a53-3dd7b00af7df",
-	1,
-	1,
-	'is referenced by');
-INSERT INTO R_RGO
-	VALUES ("d0f2e04e-149e-489c-924c-a42769aa8547",
-	"836e5a78-2612-4c49-ab64-a24f3cee9e6e",
-	"393d23f9-9ec9-49f4-9a53-3dd7b00af7df");
-INSERT INTO R_OIR
-	VALUES ("d0f2e04e-149e-489c-924c-a42769aa8547",
-	"836e5a78-2612-4c49-ab64-a24f3cee9e6e",
-	"393d23f9-9ec9-49f4-9a53-3dd7b00af7df",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_PART
-	VALUES ("2205f09b-595f-431e-98d5-73d007d124b6",
-	"836e5a78-2612-4c49-ab64-a24f3cee9e6e",
-	"ce6c360e-2970-4654-978f-be7e0728e344",
-	0,
-	1,
-	'references');
-INSERT INTO O_RTIDA
-	VALUES ("06df9730-51f8-4b64-9960-55a27e6576be",
-	"2205f09b-595f-431e-98d5-73d007d124b6",
-	0,
-	"836e5a78-2612-4c49-ab64-a24f3cee9e6e",
-	"ce6c360e-2970-4654-978f-be7e0728e344");
-INSERT INTO O_OIDA_PROXY
-	VALUES ("06df9730-51f8-4b64-9960-55a27e6576be",
-	"2205f09b-595f-431e-98d5-73d007d124b6",
-	0,
-	'Id',
-	'../Port/Port.xtuml');
-INSERT INTO R_RTO
-	VALUES ("2205f09b-595f-431e-98d5-73d007d124b6",
-	"836e5a78-2612-4c49-ab64-a24f3cee9e6e",
-	"ce6c360e-2970-4654-978f-be7e0728e344",
-	0);
-INSERT INTO O_ID_PROXY
-	VALUES (0,
-	"2205f09b-595f-431e-98d5-73d007d124b6",
-	'../Port/Port.xtuml');
-INSERT INTO R_OIR
-	VALUES ("2205f09b-595f-431e-98d5-73d007d124b6",
-	"836e5a78-2612-4c49-ab64-a24f3cee9e6e",
-	"ce6c360e-2970-4654-978f-be7e0728e344",
-	"8bf9d77c-34b3-4a0a-8f66-734f9c2f2d7b");
+	4700);
 INSERT INTO GD_MD
 	VALUES ("a7370e29-07be-4128-8a4c-687ae7bfff9e",
-	5,
+	112,
 	"7244f94a-6a20-46c8-8487-5090fedbedbf",
-	11,
+	108,
 	0,
 	0,
 	1,
@@ -612,14 +25,14 @@ INSERT INTO GD_MD
 	0,
 	0,
 	'4.1.12',
-	'org.xtuml.bp.core::ooaofooa::Component Library');
+	'org.xtuml.bp.core::ooaofooa::Component::Component Library');
 INSERT INTO GD_GE
 	VALUES ("eb334f49-5b48-4483-a6ff-8dc3aad5e753",
 	"a7370e29-07be-4128-8a4c-687ae7bfff9e",
 	"e695ccff-28f5-4931-89dd-59c6995c1a73",
 	21,
 	0,
-	'org.xtuml.bp.core::ooaofooa::Component Library::Imported Reference');
+	'org.xtuml.bp.core::ooaofooa::Component::Component Library::Imported Reference');
 INSERT INTO GD_SHP
 	VALUES ("eb334f49-5b48-4483-a6ff-8dc3aad5e753");
 INSERT INTO GD_NCS
@@ -688,7 +101,7 @@ INSERT INTO GD_GE
 	"14d6c781-a341-481a-b67d-09ec4e8b9ed3",
 	21,
 	0,
-	'org.xtuml.bp.core::ooaofooa::Component Library::Component Reference');
+	'org.xtuml.bp.core::ooaofooa::Component::Component Library::Component Reference');
 INSERT INTO GD_SHP
 	VALUES ("00f9dbfa-2477-4257-9d4f-a0274f947165");
 INSERT INTO GD_NCS
@@ -757,7 +170,7 @@ INSERT INTO GD_GE
 	"d4f40709-e8fe-4a58-af94-2acbf626a3f2",
 	23,
 	0,
-	'org.xtuml.bp.core::ooaofooa::Component Library::Interface Reference');
+	'org.xtuml.bp.core::ooaofooa::Component::Component Library::Interface Reference');
 INSERT INTO GD_SHP
 	VALUES ("22ee82eb-faf1-4ddf-9e3e-a462597055b1");
 INSERT INTO GD_NCS
@@ -786,7 +199,7 @@ INSERT INTO GD_GE
 	"da506614-285c-48f1-a956-e8de17ba530c",
 	24,
 	0,
-	'org.xtuml.bp.core::ooaofooa::Component Library::R4701');
+	'org.xtuml.bp.core::ooaofooa::Component::Component Library::R4701');
 INSERT INTO GD_CON
 	VALUES ("1d7ebabf-6c40-4628-ba4d-24c1f4144336",
 	"00000000-0000-0000-0000-000000000000");
@@ -886,7 +299,7 @@ INSERT INTO GD_GE
 	"fe361322-0fa4-4c04-a60c-db0fe0cf4b4e",
 	21,
 	0,
-	'org.xtuml.bp.core::ooaofooa::Component Library::Imported Provision');
+	'org.xtuml.bp.core::ooaofooa::Component::Component Library::Imported Provision');
 INSERT INTO GD_SHP
 	VALUES ("7d1c8ffe-6c5c-4df7-9451-8adfd85f95aa");
 INSERT INTO GD_NCS
@@ -945,7 +358,7 @@ INSERT INTO GD_GE
 	"7f4be496-f22b-4efc-af0d-8a4fdb873e98",
 	21,
 	0,
-	'org.xtuml.bp.core::ooaofooa::Component Library::Imported Requirement');
+	'org.xtuml.bp.core::ooaofooa::Component::Component Library::Imported Requirement');
 INSERT INTO GD_SHP
 	VALUES ("a14914e8-d87d-49c2-a83b-bcb2d892ee11");
 INSERT INTO GD_NCS
@@ -1004,7 +417,7 @@ INSERT INTO GD_GE
 	"6de64175-d8d0-4738-81d8-2d8b585bfb63",
 	36,
 	0,
-	'org.xtuml.bp.core::ooaofooa::Component Library::R4703');
+	'org.xtuml.bp.core::ooaofooa::Component::Component Library::R4703');
 INSERT INTO GD_CON
 	VALUES ("6c46e37a-c8e1-408b-8476-a3d163950c6e",
 	"00000000-0000-0000-0000-000000000000");
@@ -1120,7 +533,7 @@ INSERT INTO GD_GE
 	"a533dc66-b434-4628-a705-42d87e796e39",
 	35,
 	0,
-	'org.xtuml.bp.core::ooaofooa::Component Library::R4703::Imported Provision');
+	'org.xtuml.bp.core::ooaofooa::Component::Component Library::R4703::Imported Provision');
 INSERT INTO GD_CON
 	VALUES ("510de839-b535-4dc8-a74c-59149d41ad5a",
 	"00000000-0000-0000-0000-000000000000");
@@ -1233,7 +646,7 @@ INSERT INTO GD_GE
 	"27fb24af-36ed-4fff-af3f-1f3373cc9b37",
 	35,
 	0,
-	'org.xtuml.bp.core::ooaofooa::Component Library::R4703::Imported Requirement');
+	'org.xtuml.bp.core::ooaofooa::Component::Component Library::R4703::Imported Requirement');
 INSERT INTO GD_CON
 	VALUES ("5f6cc504-edea-4372-ad97-8f0216904516",
 	"00000000-0000-0000-0000-000000000000");
@@ -1346,7 +759,7 @@ INSERT INTO GD_GE
 	"25ee4ebe-a0b8-471b-9689-4d5a437004d7",
 	23,
 	0,
-	'org.xtuml.bp.core::ooaofooa::Component Library::Delegation');
+	'org.xtuml.bp.core::ooaofooa::Component::Component Library::Delegation');
 INSERT INTO GD_SHP
 	VALUES ("b2533703-7bba-451e-929a-d34d8fe6e92e");
 INSERT INTO GD_NCS
@@ -1375,7 +788,7 @@ INSERT INTO GD_GE
 	"bd790862-d08a-4bee-8cfa-e8bb4b043d99",
 	24,
 	0,
-	'org.xtuml.bp.core::ooaofooa::Component Library::R4704');
+	'org.xtuml.bp.core::ooaofooa::Component::Component Library::R4704');
 INSERT INTO GD_CON
 	VALUES ("27b0f90e-fd07-44cd-a99d-9b46fde14eb3",
 	"00000000-0000-0000-0000-000000000000");
@@ -1475,7 +888,7 @@ INSERT INTO GD_GE
 	"7ff9b38b-858d-44d7-b065-67880cee8b4d",
 	23,
 	0,
-	'org.xtuml.bp.core::ooaofooa::Component Library::Satisfaction');
+	'org.xtuml.bp.core::ooaofooa::Component::Component Library::Satisfaction');
 INSERT INTO GD_SHP
 	VALUES ("c96e9b0e-2dc6-4fc2-9421-3e414b3684cc");
 INSERT INTO GD_NCS
@@ -1509,7 +922,7 @@ INSERT INTO GD_GE
 	"a707b1cc-6a87-4e46-a671-88ddd93866db",
 	21,
 	0,
-	'org.xtuml.bp.core::ooaofooa::Component Library::Imported Provision In Satisfaction');
+	'org.xtuml.bp.core::ooaofooa::Component::Component Library::Imported Provision In Satisfaction');
 INSERT INTO GD_SHP
 	VALUES ("d12cd6c3-6d15-4615-a6b2-12ea21f62622");
 INSERT INTO GD_NCS
@@ -1538,7 +951,7 @@ INSERT INTO GD_GE
 	"2001d5e1-508d-423b-9c10-d89d2518f6df",
 	24,
 	0,
-	'org.xtuml.bp.core::ooaofooa::Component Library::R4705');
+	'org.xtuml.bp.core::ooaofooa::Component::Component Library::R4705');
 INSERT INTO GD_CON
 	VALUES ("be4a495f-afa8-4546-99fc-0492eafb8e09",
 	"00000000-0000-0000-0000-000000000000");
@@ -1646,7 +1059,7 @@ INSERT INTO GD_GE
 	"2001d5e1-508d-423b-9c10-d89d2518f6df",
 	34,
 	0,
-	'org.xtuml.bp.core::ooaofooa::Component Library::R4705::Imported Provision In Satisfaction');
+	'org.xtuml.bp.core::ooaofooa::Component::Component Library::R4705::Imported Provision In Satisfaction');
 INSERT INTO GD_CON
 	VALUES ("547d0629-e0c2-46dd-8b97-b6546099e62b",
 	"00000000-0000-0000-0000-000000000000");
@@ -1746,7 +1159,7 @@ INSERT INTO GD_GE
 	"c201aaed-ab0a-4659-93f7-80ea84c19991",
 	24,
 	0,
-	'org.xtuml.bp.core::ooaofooa::Component Library::R4706');
+	'org.xtuml.bp.core::ooaofooa::Component::Component Library::R4706');
 INSERT INTO GD_CON
 	VALUES ("852ea2ad-1a9e-4a29-961b-adea2fc66813",
 	"00000000-0000-0000-0000-000000000000");
@@ -1846,7 +1259,7 @@ INSERT INTO GD_GE
 	"d0f2e04e-149e-489c-924c-a42769aa8547",
 	21,
 	0,
-	'org.xtuml.bp.core::ooaofooa::Component Library::Port Reference');
+	'org.xtuml.bp.core::ooaofooa::Component::Component Library::Port Reference');
 INSERT INTO GD_SHP
 	VALUES ("6bab516e-ff56-4dc3-b85f-b9e7d0e2c3c2");
 INSERT INTO GD_NCS
@@ -1885,7 +1298,7 @@ INSERT INTO GD_GE
 	"8bf9d77c-34b3-4a0a-8f66-734f9c2f2d7b",
 	23,
 	0,
-	'org.xtuml.bp.core::ooaofooa::Component Library::Port');
+	'org.xtuml.bp.core::ooaofooa::Component::Component Library::Port');
 INSERT INTO GD_SHP
 	VALUES ("c01e4702-0e2f-4da1-b342-5c9bf95d860e");
 INSERT INTO GD_NCS
@@ -1914,7 +1327,7 @@ INSERT INTO GD_GE
 	"811ea3b5-d19c-45c5-90d2-41cb7713c156",
 	24,
 	0,
-	'org.xtuml.bp.core::ooaofooa::Component Library::R4707');
+	'org.xtuml.bp.core::ooaofooa::Component::Component Library::R4707');
 INSERT INTO GD_CON
 	VALUES ("9dad9304-8376-4d0c-bd72-c9d50a3d104a",
 	"00000000-0000-0000-0000-000000000000");
@@ -2014,7 +1427,7 @@ INSERT INTO GD_GE
 	"3ceba4ae-e7a9-46e6-af91-906e2a8ab8e9",
 	24,
 	0,
-	'org.xtuml.bp.core::ooaofooa::Component Library::R4708');
+	'org.xtuml.bp.core::ooaofooa::Component::Component Library::R4708');
 INSERT INTO GD_CON
 	VALUES ("eb20039e-2e98-41a7-be71-ed732d72da6d",
 	"00000000-0000-0000-0000-000000000000");
@@ -2114,7 +1527,7 @@ INSERT INTO GD_GE
 	"836e5a78-2612-4c49-ab64-a24f3cee9e6e",
 	24,
 	0,
-	'org.xtuml.bp.core::ooaofooa::Component Library::R4709');
+	'org.xtuml.bp.core::ooaofooa::Component::Component Library::R4709');
 INSERT INTO GD_CON
 	VALUES ("6cf54f38-cb18-441c-9fda-1a981f3529f9",
 	"00000000-0000-0000-0000-000000000000");
@@ -2215,56 +1628,684 @@ INSERT INTO DIM_DIA
 	3058.000000,
 	2885.000000,
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO S_SIS
+INSERT INTO R_SIMP
+	VALUES ("da506614-285c-48f1-a956-e8de17ba530c");
+INSERT INTO R_REL
+	VALUES ("da506614-285c-48f1-a956-e8de17ba530c",
+	4701,
+	'CrossComponent:true',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_PART
+	VALUES ("d45618a1-5ecf-4b4d-95a8-ab89b70dec11",
+	"da506614-285c-48f1-a956-e8de17ba530c",
+	"ac8dec09-ddc2-445c-8db7-bb3348294421",
+	0,
+	1,
+	'imports');
+INSERT INTO O_RTIDA
+	VALUES ("79ea6409-f6d5-47f6-a3e1-4fc015199794",
+	"d45618a1-5ecf-4b4d-95a8-ab89b70dec11",
+	0,
+	"da506614-285c-48f1-a956-e8de17ba530c",
+	"ac8dec09-ddc2-445c-8db7-bb3348294421");
+INSERT INTO O_OIDA_PROXY
+	VALUES ("79ea6409-f6d5-47f6-a3e1-4fc015199794",
+	"d45618a1-5ecf-4b4d-95a8-ab89b70dec11",
+	0,
+	'Id',
+	'../Interface Reference/Interface Reference.xtuml');
+INSERT INTO R_RTO
+	VALUES ("d45618a1-5ecf-4b4d-95a8-ab89b70dec11",
+	"da506614-285c-48f1-a956-e8de17ba530c",
+	"ac8dec09-ddc2-445c-8db7-bb3348294421",
+	0);
+INSERT INTO O_ID_PROXY
+	VALUES (0,
+	"d45618a1-5ecf-4b4d-95a8-ab89b70dec11",
+	'../Interface Reference/Interface Reference.xtuml');
+INSERT INTO R_OIR
+	VALUES ("d45618a1-5ecf-4b4d-95a8-ab89b70dec11",
+	"da506614-285c-48f1-a956-e8de17ba530c",
+	"ac8dec09-ddc2-445c-8db7-bb3348294421",
+	"d4f40709-e8fe-4a58-af94-2acbf626a3f2");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("d45618a1-5ecf-4b4d-95a8-ab89b70dec11",
+	'Interface Reference',
+	4011,
+	'C_IR',
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'../Interface Reference/Interface Reference.xtuml');
+INSERT INTO R_FORM
+	VALUES ("e695ccff-28f5-4931-89dd-59c6995c1a73",
+	"da506614-285c-48f1-a956-e8de17ba530c",
+	"a20cab0c-52ef-4afd-81da-cac598bb15c1",
+	1,
+	1,
+	'is imported');
+INSERT INTO R_RGO
+	VALUES ("e695ccff-28f5-4931-89dd-59c6995c1a73",
+	"da506614-285c-48f1-a956-e8de17ba530c",
+	"a20cab0c-52ef-4afd-81da-cac598bb15c1");
+INSERT INTO R_OIR
+	VALUES ("e695ccff-28f5-4931-89dd-59c6995c1a73",
+	"da506614-285c-48f1-a956-e8de17ba530c",
+	"a20cab0c-52ef-4afd-81da-cac598bb15c1",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("e695ccff-28f5-4931-89dd-59c6995c1a73",
+	'Imported Reference',
+	4703,
+	'CL_IIR',
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'./Imported Reference/Imported Reference.xtuml');
+INSERT INTO PE_PE
+	VALUES ("da506614-285c-48f1-a956-e8de17ba530c",
+	1,
+	"7244f94a-6a20-46c8-8487-5090fedbedbf",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO R_SUBSUP
+	VALUES ("6de64175-d8d0-4738-81d8-2d8b585bfb63");
+INSERT INTO R_REL
+	VALUES ("6de64175-d8d0-4738-81d8-2d8b585bfb63",
+	4703,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_SUPER
+	VALUES ("e695ccff-28f5-4931-89dd-59c6995c1a73",
+	"6de64175-d8d0-4738-81d8-2d8b585bfb63",
+	"440899d7-09a0-4d63-8cac-e6b4ff0f22e1");
+INSERT INTO O_RTIDA
+	VALUES ("0e6673f7-3b58-4c65-9d9d-89e0a72b575d",
+	"e695ccff-28f5-4931-89dd-59c6995c1a73",
+	0,
+	"6de64175-d8d0-4738-81d8-2d8b585bfb63",
+	"440899d7-09a0-4d63-8cac-e6b4ff0f22e1");
+INSERT INTO O_OIDA_PROXY
+	VALUES ("0e6673f7-3b58-4c65-9d9d-89e0a72b575d",
+	"e695ccff-28f5-4931-89dd-59c6995c1a73",
+	0,
+	'Id',
+	'./Imported Reference/Imported Reference.xtuml');
+INSERT INTO R_RTO
+	VALUES ("e695ccff-28f5-4931-89dd-59c6995c1a73",
+	"6de64175-d8d0-4738-81d8-2d8b585bfb63",
+	"440899d7-09a0-4d63-8cac-e6b4ff0f22e1",
+	0);
+INSERT INTO O_ID_PROXY
+	VALUES (0,
+	"e695ccff-28f5-4931-89dd-59c6995c1a73",
+	'./Imported Reference/Imported Reference.xtuml');
+INSERT INTO R_OIR
+	VALUES ("e695ccff-28f5-4931-89dd-59c6995c1a73",
+	"6de64175-d8d0-4738-81d8-2d8b585bfb63",
+	"440899d7-09a0-4d63-8cac-e6b4ff0f22e1",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_SUB
+	VALUES ("fe361322-0fa4-4c04-a60c-db0fe0cf4b4e",
+	"6de64175-d8d0-4738-81d8-2d8b585bfb63",
+	"a533dc66-b434-4628-a705-42d87e796e39");
+INSERT INTO R_RGO
+	VALUES ("fe361322-0fa4-4c04-a60c-db0fe0cf4b4e",
+	"6de64175-d8d0-4738-81d8-2d8b585bfb63",
+	"a533dc66-b434-4628-a705-42d87e796e39");
+INSERT INTO R_OIR
+	VALUES ("fe361322-0fa4-4c04-a60c-db0fe0cf4b4e",
+	"6de64175-d8d0-4738-81d8-2d8b585bfb63",
+	"a533dc66-b434-4628-a705-42d87e796e39",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("fe361322-0fa4-4c04-a60c-db0fe0cf4b4e",
+	'Imported Provision',
+	4701,
+	'CL_IP',
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'./Imported Provision/Imported Provision.xtuml');
+INSERT INTO R_SUB
+	VALUES ("7f4be496-f22b-4efc-af0d-8a4fdb873e98",
+	"6de64175-d8d0-4738-81d8-2d8b585bfb63",
+	"27fb24af-36ed-4fff-af3f-1f3373cc9b37");
+INSERT INTO R_RGO
+	VALUES ("7f4be496-f22b-4efc-af0d-8a4fdb873e98",
+	"6de64175-d8d0-4738-81d8-2d8b585bfb63",
+	"27fb24af-36ed-4fff-af3f-1f3373cc9b37");
+INSERT INTO R_OIR
+	VALUES ("7f4be496-f22b-4efc-af0d-8a4fdb873e98",
+	"6de64175-d8d0-4738-81d8-2d8b585bfb63",
+	"27fb24af-36ed-4fff-af3f-1f3373cc9b37",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("7f4be496-f22b-4efc-af0d-8a4fdb873e98",
+	'Imported Requirement',
+	4702,
+	'CL_IR',
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'./Imported Requirement/Imported Requirement.xtuml');
+INSERT INTO PE_PE
+	VALUES ("6de64175-d8d0-4738-81d8-2d8b585bfb63",
+	1,
+	"7244f94a-6a20-46c8-8487-5090fedbedbf",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO R_SIMP
+	VALUES ("bd790862-d08a-4bee-8cfa-e8bb4b043d99");
+INSERT INTO R_REL
+	VALUES ("bd790862-d08a-4bee-8cfa-e8bb4b043d99",
+	4704,
+	'CrossComponent:true',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_FORM
+	VALUES ("e695ccff-28f5-4931-89dd-59c6995c1a73",
+	"bd790862-d08a-4bee-8cfa-e8bb4b043d99",
+	"36fa80c2-b3a5-4d61-b54c-8fe4931aaae0",
+	0,
+	1,
+	'delivers communication through');
+INSERT INTO R_RGO
+	VALUES ("e695ccff-28f5-4931-89dd-59c6995c1a73",
+	"bd790862-d08a-4bee-8cfa-e8bb4b043d99",
+	"36fa80c2-b3a5-4d61-b54c-8fe4931aaae0");
+INSERT INTO R_OIR
+	VALUES ("e695ccff-28f5-4931-89dd-59c6995c1a73",
+	"bd790862-d08a-4bee-8cfa-e8bb4b043d99",
+	"36fa80c2-b3a5-4d61-b54c-8fe4931aaae0",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_PART
+	VALUES ("2c33c814-df21-4342-8961-a520080e79c1",
+	"bd790862-d08a-4bee-8cfa-e8bb4b043d99",
+	"9cc7f4fa-8821-4108-9325-3a8ea6e16778",
+	0,
+	1,
+	'accepts communication through');
+INSERT INTO O_RTIDA
+	VALUES ("09351ec1-a7de-4f77-8a99-75315271cd33",
+	"2c33c814-df21-4342-8961-a520080e79c1",
+	0,
+	"bd790862-d08a-4bee-8cfa-e8bb4b043d99",
+	"9cc7f4fa-8821-4108-9325-3a8ea6e16778");
+INSERT INTO O_OIDA_PROXY
+	VALUES ("09351ec1-a7de-4f77-8a99-75315271cd33",
+	"2c33c814-df21-4342-8961-a520080e79c1",
+	0,
+	'Id',
+	'../Delegation/Delegation.xtuml');
+INSERT INTO R_RTO
+	VALUES ("2c33c814-df21-4342-8961-a520080e79c1",
+	"bd790862-d08a-4bee-8cfa-e8bb4b043d99",
+	"9cc7f4fa-8821-4108-9325-3a8ea6e16778",
+	0);
+INSERT INTO O_ID_PROXY
+	VALUES (0,
+	"2c33c814-df21-4342-8961-a520080e79c1",
+	'../Delegation/Delegation.xtuml');
+INSERT INTO R_OIR
+	VALUES ("2c33c814-df21-4342-8961-a520080e79c1",
+	"bd790862-d08a-4bee-8cfa-e8bb4b043d99",
+	"9cc7f4fa-8821-4108-9325-3a8ea6e16778",
+	"25ee4ebe-a0b8-471b-9689-4d5a437004d7");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("2c33c814-df21-4342-8961-a520080e79c1",
+	'Delegation',
+	4012,
+	'C_DG',
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'../Delegation/Delegation.xtuml');
+INSERT INTO PE_PE
+	VALUES ("bd790862-d08a-4bee-8cfa-e8bb4b043d99",
+	1,
+	"7244f94a-6a20-46c8-8487-5090fedbedbf",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO R_ASSOC
+	VALUES ("2001d5e1-508d-423b-9c10-d89d2518f6df");
+INSERT INTO R_REL
+	VALUES ("2001d5e1-508d-423b-9c10-d89d2518f6df",
+	4705,
+	'CrossComponent:true',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_AONE
+	VALUES ("31d55c78-4c8e-4706-afeb-da88c819c621",
+	"2001d5e1-508d-423b-9c10-d89d2518f6df",
+	"322acb28-ed1c-43f2-9e28-b85ff57f13fb",
+	1,
+	1,
+	'provides satisfaction through');
+INSERT INTO O_RTIDA
+	VALUES ("e00fa746-c155-44df-ad10-25826bceebdf",
+	"31d55c78-4c8e-4706-afeb-da88c819c621",
+	0,
+	"2001d5e1-508d-423b-9c10-d89d2518f6df",
+	"322acb28-ed1c-43f2-9e28-b85ff57f13fb");
+INSERT INTO O_OIDA_PROXY
+	VALUES ("e00fa746-c155-44df-ad10-25826bceebdf",
+	"31d55c78-4c8e-4706-afeb-da88c819c621",
+	0,
+	'Id',
+	'../Satisfaction/Satisfaction.xtuml');
+INSERT INTO R_RTO
+	VALUES ("31d55c78-4c8e-4706-afeb-da88c819c621",
+	"2001d5e1-508d-423b-9c10-d89d2518f6df",
+	"322acb28-ed1c-43f2-9e28-b85ff57f13fb",
+	0);
+INSERT INTO O_ID_PROXY
+	VALUES (0,
+	"31d55c78-4c8e-4706-afeb-da88c819c621",
+	'../Satisfaction/Satisfaction.xtuml');
+INSERT INTO R_OIR
+	VALUES ("31d55c78-4c8e-4706-afeb-da88c819c621",
+	"2001d5e1-508d-423b-9c10-d89d2518f6df",
+	"322acb28-ed1c-43f2-9e28-b85ff57f13fb",
+	"7ff9b38b-858d-44d7-b065-67880cee8b4d");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("31d55c78-4c8e-4706-afeb-da88c819c621",
+	'Satisfaction',
+	4007,
+	'C_SF',
+	'A satisfaction represents the fact that one provided interface satisfies one or
+more requirements.  This link class is setup when a provided interface is
+connected to one or more required interfaces.',
+	"00000000-0000-0000-0000-000000000000",
+	'../Satisfaction/Satisfaction.xtuml');
+INSERT INTO R_AOTH
+	VALUES ("fe361322-0fa4-4c04-a60c-db0fe0cf4b4e",
+	"2001d5e1-508d-423b-9c10-d89d2518f6df",
+	"f0854fbd-3060-4928-9d31-51f853af6b16",
+	0,
+	1,
+	'satisfaction made with');
+INSERT INTO O_RTIDA
+	VALUES ("263cd096-0f94-4840-8c04-88c370bba1ce",
+	"fe361322-0fa4-4c04-a60c-db0fe0cf4b4e",
+	0,
+	"2001d5e1-508d-423b-9c10-d89d2518f6df",
+	"f0854fbd-3060-4928-9d31-51f853af6b16");
+INSERT INTO O_OIDA_PROXY
+	VALUES ("263cd096-0f94-4840-8c04-88c370bba1ce",
+	"fe361322-0fa4-4c04-a60c-db0fe0cf4b4e",
+	0,
+	'Id',
+	'./Imported Provision/Imported Provision.xtuml');
+INSERT INTO R_RTO
+	VALUES ("fe361322-0fa4-4c04-a60c-db0fe0cf4b4e",
+	"2001d5e1-508d-423b-9c10-d89d2518f6df",
+	"f0854fbd-3060-4928-9d31-51f853af6b16",
+	0);
+INSERT INTO O_ID_PROXY
+	VALUES (0,
+	"fe361322-0fa4-4c04-a60c-db0fe0cf4b4e",
+	'./Imported Provision/Imported Provision.xtuml');
+INSERT INTO R_OIR
+	VALUES ("fe361322-0fa4-4c04-a60c-db0fe0cf4b4e",
+	"2001d5e1-508d-423b-9c10-d89d2518f6df",
+	"f0854fbd-3060-4928-9d31-51f853af6b16",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_ASSR
+	VALUES ("a707b1cc-6a87-4e46-a671-88ddd93866db",
+	"2001d5e1-508d-423b-9c10-d89d2518f6df",
+	"c96c2973-bd39-4702-8373-447fcba79a29",
+	0);
+INSERT INTO R_RGO
+	VALUES ("a707b1cc-6a87-4e46-a671-88ddd93866db",
+	"2001d5e1-508d-423b-9c10-d89d2518f6df",
+	"c96c2973-bd39-4702-8373-447fcba79a29");
+INSERT INTO R_OIR
+	VALUES ("a707b1cc-6a87-4e46-a671-88ddd93866db",
+	"2001d5e1-508d-423b-9c10-d89d2518f6df",
+	"c96c2973-bd39-4702-8373-447fcba79a29",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("a707b1cc-6a87-4e46-a671-88ddd93866db",
+	'Imported Provision In Satisfaction',
+	4700,
+	'CL_IPINS',
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'./Imported Provision In Satisfaction/Imported Provision In Satisfaction.xtuml');
+INSERT INTO PE_PE
+	VALUES ("2001d5e1-508d-423b-9c10-d89d2518f6df",
+	1,
+	"7244f94a-6a20-46c8-8487-5090fedbedbf",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO R_SIMP
+	VALUES ("c201aaed-ab0a-4659-93f7-80ea84c19991");
+INSERT INTO R_REL
+	VALUES ("c201aaed-ab0a-4659-93f7-80ea84c19991",
+	4706,
+	'CrossComponent:true',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_FORM
+	VALUES ("7f4be496-f22b-4efc-af0d-8a4fdb873e98",
+	"c201aaed-ab0a-4659-93f7-80ea84c19991",
+	"df6e4d15-3057-40da-b13e-d864feeef3cc",
+	0,
+	1,
+	'satisfaction made with');
+INSERT INTO R_RGO
+	VALUES ("7f4be496-f22b-4efc-af0d-8a4fdb873e98",
+	"c201aaed-ab0a-4659-93f7-80ea84c19991",
+	"df6e4d15-3057-40da-b13e-d864feeef3cc");
+INSERT INTO R_OIR
+	VALUES ("7f4be496-f22b-4efc-af0d-8a4fdb873e98",
+	"c201aaed-ab0a-4659-93f7-80ea84c19991",
+	"df6e4d15-3057-40da-b13e-d864feeef3cc",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_PART
+	VALUES ("31d55c78-4c8e-4706-afeb-da88c819c621",
+	"c201aaed-ab0a-4659-93f7-80ea84c19991",
+	"33fde33c-e3c4-49f2-80ad-0b5be6ca1a63",
+	0,
+	1,
+	'provides satisfaction through');
+INSERT INTO O_RTIDA
+	VALUES ("e00fa746-c155-44df-ad10-25826bceebdf",
+	"31d55c78-4c8e-4706-afeb-da88c819c621",
+	0,
+	"c201aaed-ab0a-4659-93f7-80ea84c19991",
+	"33fde33c-e3c4-49f2-80ad-0b5be6ca1a63");
+INSERT INTO R_RTO
+	VALUES ("31d55c78-4c8e-4706-afeb-da88c819c621",
+	"c201aaed-ab0a-4659-93f7-80ea84c19991",
+	"33fde33c-e3c4-49f2-80ad-0b5be6ca1a63",
+	0);
+INSERT INTO R_OIR
+	VALUES ("31d55c78-4c8e-4706-afeb-da88c819c621",
+	"c201aaed-ab0a-4659-93f7-80ea84c19991",
+	"33fde33c-e3c4-49f2-80ad-0b5be6ca1a63",
+	"7ff9b38b-858d-44d7-b065-67880cee8b4d");
+INSERT INTO PE_PE
+	VALUES ("c201aaed-ab0a-4659-93f7-80ea84c19991",
+	1,
+	"7244f94a-6a20-46c8-8487-5090fedbedbf",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO R_SIMP
+	VALUES ("811ea3b5-d19c-45c5-90d2-41cb7713c156");
+INSERT INTO R_REL
+	VALUES ("811ea3b5-d19c-45c5-90d2-41cb7713c156",
+	4707,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_FORM
+	VALUES ("d0f2e04e-149e-489c-924c-a42769aa8547",
+	"811ea3b5-d19c-45c5-90d2-41cb7713c156",
+	"1362d2be-1097-4dfe-ba6f-0d9b1f371376",
+	1,
+	1,
+	'communicates through');
+INSERT INTO R_RGO
+	VALUES ("d0f2e04e-149e-489c-924c-a42769aa8547",
+	"811ea3b5-d19c-45c5-90d2-41cb7713c156",
+	"1362d2be-1097-4dfe-ba6f-0d9b1f371376");
+INSERT INTO R_OIR
+	VALUES ("d0f2e04e-149e-489c-924c-a42769aa8547",
+	"811ea3b5-d19c-45c5-90d2-41cb7713c156",
+	"1362d2be-1097-4dfe-ba6f-0d9b1f371376",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("d0f2e04e-149e-489c-924c-a42769aa8547",
+	'Port Reference',
+	4705,
+	'CL_POR',
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'./Port Reference/Port Reference.xtuml');
+INSERT INTO R_PART
+	VALUES ("14d6c781-a341-481a-b67d-09ec4e8b9ed3",
+	"811ea3b5-d19c-45c5-90d2-41cb7713c156",
+	"6af5f674-b9ea-4550-91da-e6deb4318828",
+	0,
+	0,
+	'orginates from');
+INSERT INTO O_RTIDA
+	VALUES ("bb116e28-b106-49aa-b480-95c153ff8155",
+	"14d6c781-a341-481a-b67d-09ec4e8b9ed3",
+	0,
+	"811ea3b5-d19c-45c5-90d2-41cb7713c156",
+	"6af5f674-b9ea-4550-91da-e6deb4318828");
+INSERT INTO O_OIDA_PROXY
+	VALUES ("bb116e28-b106-49aa-b480-95c153ff8155",
+	"14d6c781-a341-481a-b67d-09ec4e8b9ed3",
+	0,
+	'Id',
+	'./Component Reference/Component Reference.xtuml');
+INSERT INTO R_RTO
+	VALUES ("14d6c781-a341-481a-b67d-09ec4e8b9ed3",
+	"811ea3b5-d19c-45c5-90d2-41cb7713c156",
+	"6af5f674-b9ea-4550-91da-e6deb4318828",
+	0);
+INSERT INTO O_ID_PROXY
+	VALUES (0,
+	"14d6c781-a341-481a-b67d-09ec4e8b9ed3",
+	'./Component Reference/Component Reference.xtuml');
+INSERT INTO R_OIR
+	VALUES ("14d6c781-a341-481a-b67d-09ec4e8b9ed3",
+	"811ea3b5-d19c-45c5-90d2-41cb7713c156",
+	"6af5f674-b9ea-4550-91da-e6deb4318828",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("14d6c781-a341-481a-b67d-09ec4e8b9ed3",
+	'Component Reference',
+	4704,
+	'CL_IC',
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'./Component Reference/Component Reference.xtuml');
+INSERT INTO PE_PE
+	VALUES ("811ea3b5-d19c-45c5-90d2-41cb7713c156",
+	1,
+	"7244f94a-6a20-46c8-8487-5090fedbedbf",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO R_SIMP
+	VALUES ("3ceba4ae-e7a9-46e6-af91-906e2a8ab8e9");
+INSERT INTO R_REL
+	VALUES ("3ceba4ae-e7a9-46e6-af91-906e2a8ab8e9",
+	4708,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_PART
+	VALUES ("d0f2e04e-149e-489c-924c-a42769aa8547",
+	"3ceba4ae-e7a9-46e6-af91-906e2a8ab8e9",
+	"332eb6bd-9b16-4246-bbf5-4d8ca3d22c85",
+	0,
+	0,
+	'originates from');
+INSERT INTO O_RTIDA
+	VALUES ("4357dcf1-5dbb-4204-a161-cbb722089299",
+	"d0f2e04e-149e-489c-924c-a42769aa8547",
+	0,
+	"3ceba4ae-e7a9-46e6-af91-906e2a8ab8e9",
+	"332eb6bd-9b16-4246-bbf5-4d8ca3d22c85");
+INSERT INTO O_OIDA_PROXY
+	VALUES ("4357dcf1-5dbb-4204-a161-cbb722089299",
+	"d0f2e04e-149e-489c-924c-a42769aa8547",
+	0,
+	'Id',
+	'./Port Reference/Port Reference.xtuml');
+INSERT INTO R_RTO
+	VALUES ("d0f2e04e-149e-489c-924c-a42769aa8547",
+	"3ceba4ae-e7a9-46e6-af91-906e2a8ab8e9",
+	"332eb6bd-9b16-4246-bbf5-4d8ca3d22c85",
+	0);
+INSERT INTO O_ID_PROXY
+	VALUES (0,
+	"d0f2e04e-149e-489c-924c-a42769aa8547",
+	'./Port Reference/Port Reference.xtuml');
+INSERT INTO R_OIR
+	VALUES ("d0f2e04e-149e-489c-924c-a42769aa8547",
+	"3ceba4ae-e7a9-46e6-af91-906e2a8ab8e9",
+	"332eb6bd-9b16-4246-bbf5-4d8ca3d22c85",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_FORM
+	VALUES ("e695ccff-28f5-4931-89dd-59c6995c1a73",
+	"3ceba4ae-e7a9-46e6-af91-906e2a8ab8e9",
+	"dfc9cd57-bc66-4844-bd06-f6c2b8bf81b8",
+	1,
+	1,
+	'exposes');
+INSERT INTO R_RGO
+	VALUES ("e695ccff-28f5-4931-89dd-59c6995c1a73",
+	"3ceba4ae-e7a9-46e6-af91-906e2a8ab8e9",
+	"dfc9cd57-bc66-4844-bd06-f6c2b8bf81b8");
+INSERT INTO R_OIR
+	VALUES ("e695ccff-28f5-4931-89dd-59c6995c1a73",
+	"3ceba4ae-e7a9-46e6-af91-906e2a8ab8e9",
+	"dfc9cd57-bc66-4844-bd06-f6c2b8bf81b8",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO PE_PE
+	VALUES ("3ceba4ae-e7a9-46e6-af91-906e2a8ab8e9",
+	1,
+	"7244f94a-6a20-46c8-8487-5090fedbedbf",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO R_SIMP
+	VALUES ("836e5a78-2612-4c49-ab64-a24f3cee9e6e");
+INSERT INTO R_REL
+	VALUES ("836e5a78-2612-4c49-ab64-a24f3cee9e6e",
+	4709,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_FORM
+	VALUES ("d0f2e04e-149e-489c-924c-a42769aa8547",
+	"836e5a78-2612-4c49-ab64-a24f3cee9e6e",
+	"393d23f9-9ec9-49f4-9a53-3dd7b00af7df",
+	1,
+	1,
+	'is referenced by');
+INSERT INTO R_RGO
+	VALUES ("d0f2e04e-149e-489c-924c-a42769aa8547",
+	"836e5a78-2612-4c49-ab64-a24f3cee9e6e",
+	"393d23f9-9ec9-49f4-9a53-3dd7b00af7df");
+INSERT INTO R_OIR
+	VALUES ("d0f2e04e-149e-489c-924c-a42769aa8547",
+	"836e5a78-2612-4c49-ab64-a24f3cee9e6e",
+	"393d23f9-9ec9-49f4-9a53-3dd7b00af7df",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_PART
+	VALUES ("2205f09b-595f-431e-98d5-73d007d124b6",
+	"836e5a78-2612-4c49-ab64-a24f3cee9e6e",
+	"ce6c360e-2970-4654-978f-be7e0728e344",
+	0,
+	1,
+	'references');
+INSERT INTO O_RTIDA
+	VALUES ("06df9730-51f8-4b64-9960-55a27e6576be",
+	"2205f09b-595f-431e-98d5-73d007d124b6",
+	0,
+	"836e5a78-2612-4c49-ab64-a24f3cee9e6e",
+	"ce6c360e-2970-4654-978f-be7e0728e344");
+INSERT INTO O_OIDA_PROXY
+	VALUES ("06df9730-51f8-4b64-9960-55a27e6576be",
+	"2205f09b-595f-431e-98d5-73d007d124b6",
+	0,
+	'Id',
+	'../Port/Port.xtuml');
+INSERT INTO R_RTO
+	VALUES ("2205f09b-595f-431e-98d5-73d007d124b6",
+	"836e5a78-2612-4c49-ab64-a24f3cee9e6e",
+	"ce6c360e-2970-4654-978f-be7e0728e344",
+	0);
+INSERT INTO O_ID_PROXY
+	VALUES (0,
+	"2205f09b-595f-431e-98d5-73d007d124b6",
+	'../Port/Port.xtuml');
+INSERT INTO R_OIR
+	VALUES ("2205f09b-595f-431e-98d5-73d007d124b6",
+	"836e5a78-2612-4c49-ab64-a24f3cee9e6e",
+	"ce6c360e-2970-4654-978f-be7e0728e344",
+	"8bf9d77c-34b3-4a0a-8f66-734f9c2f2d7b");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("2205f09b-595f-431e-98d5-73d007d124b6",
+	'Port',
+	4013,
+	'C_PO',
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'../Port/Port.xtuml');
+INSERT INTO PE_PE
+	VALUES ("836e5a78-2612-4c49-ab64-a24f3cee9e6e",
+	1,
+	"7244f94a-6a20-46c8-8487-5090fedbedbf",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO O_IOBJ
+	VALUES ("d4f40709-e8fe-4a58-af94-2acbf626a3f2",
+	"d45618a1-5ecf-4b4d-95a8-ab89b70dec11",
+	0,
+	"00000000-0000-0000-0000-000000000000",
+	'Interface Reference',
+	'C_IR');
+INSERT INTO PE_PE
+	VALUES ("d4f40709-e8fe-4a58-af94-2acbf626a3f2",
+	1,
+	"7244f94a-6a20-46c8-8487-5090fedbedbf",
+	"00000000-0000-0000-0000-000000000000",
+	19);
+INSERT INTO O_IOBJ
+	VALUES ("25ee4ebe-a0b8-471b-9689-4d5a437004d7",
+	"2c33c814-df21-4342-8961-a520080e79c1",
+	0,
+	"00000000-0000-0000-0000-000000000000",
+	'Delegation',
+	'C_DG');
+INSERT INTO PE_PE
+	VALUES ("25ee4ebe-a0b8-471b-9689-4d5a437004d7",
+	1,
+	"7244f94a-6a20-46c8-8487-5090fedbedbf",
+	"00000000-0000-0000-0000-000000000000",
+	19);
+INSERT INTO O_IOBJ
+	VALUES ("7ff9b38b-858d-44d7-b065-67880cee8b4d",
+	"31d55c78-4c8e-4706-afeb-da88c819c621",
+	0,
+	"00000000-0000-0000-0000-000000000000",
+	'Satisfaction',
+	'C_SF');
+INSERT INTO PE_PE
+	VALUES ("7ff9b38b-858d-44d7-b065-67880cee8b4d",
+	1,
+	"7244f94a-6a20-46c8-8487-5090fedbedbf",
+	"00000000-0000-0000-0000-000000000000",
+	19);
+INSERT INTO O_IOBJ
+	VALUES ("8bf9d77c-34b3-4a0a-8f66-734f9c2f2d7b",
+	"2205f09b-595f-431e-98d5-73d007d124b6",
+	0,
+	"00000000-0000-0000-0000-000000000000",
+	'Port',
+	'C_PO');
+INSERT INTO PE_PE
+	VALUES ("8bf9d77c-34b3-4a0a-8f66-734f9c2f2d7b",
+	1,
+	"7244f94a-6a20-46c8-8487-5090fedbedbf",
+	"00000000-0000-0000-0000-000000000000",
+	19);
+INSERT INTO PE_PE
+	VALUES ("7244f94a-6a20-46c8-8487-5090fedbedbf",
+	1,
+	"01aecea1-07ec-46e6-a719-cece731803c9",
+	"00000000-0000-0000-0000-000000000000",
+	7);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("01aecea1-07ec-46e6-a719-cece731803c9",
-	"7244f94a-6a20-46c8-8487-5090fedbedbf");
-INSERT INTO S_SS_PROXY
-	VALUES ("01aecea1-07ec-46e6-a719-cece731803c9",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Component',
 	'// This is used by schema_gen to ignore this subsystem (for publication)
 TRANSLATE_FOR_EXTERNAL_USE:FALSE
 
 The component subsystem contains the classes necessary to capture the data
 required for modeling components.',
-	'C',
 	4000,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000000000",
 	'../Component.xtuml');
-INSERT INTO S_DOM_PROXY
-	VALUES ("d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'ooaofooa',
-	'========================================================================
-
-File:          $RCSfile: ooaofooa.xtuml,v $
-Version:   $Revision: 1.127 $
-Modified:  $Date: 2006/09/26 15:10:20 $
-
-(c) Copyright 2004-2014 by Mentor Graphics Corp. All rights reserved.
-
-========================================================================
-Licensed under the Apache License, Version 2.0 (the "License"); you may not
-use this file except in compliance with the License.  You may obtain a copy
-of the License at
-
-     http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
-WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the
-License for the specific language governing permissions and limitations under
-the License.
-========================================================================
-
-This is the application domain for the Tiger project.
-
-The processing in this model describes the activities
-for model capture.
-
-
-
-',
+INSERT INTO S_SYS_PROXY
+	VALUES ("d9bc5487-4193-4817-be1c-6c3f3339aebf",
+	'org.xtuml.bp.core',
 	1,
-	"00000000-0000-0000-0000-000000000001",
-	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
-	'../../ooaofooa.xtuml');
+	'../../../org.xtuml.bp.core.xtuml');

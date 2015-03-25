@@ -1,7 +1,9 @@
--- BP 7.1 content: Domain syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: Package syschar: 3 persistence-version: 7.1.6
 
-INSERT INTO S_DOM
+INSERT INTO EP_PKG
 	VALUES ("355fe1ef-ac53-4c0f-98e9-d27f1c9235d9",
+	"01011a0a-7be9-46ee-a8f8-2ba4cac25a9d",
+	"01011a0a-7be9-46ee-a8f8-2ba4cac25a9d",
 	'UITree',
 	'========================================================================
 
@@ -28,14 +30,12 @@ the License.
 This domain captures the mapping of a client model onto a tree structure. It contains
 additional attributes to facilitate the generation of code for displaying the tree in
 a User Interface tree widget.',
-	0,
-	"00000000-0000-0000-0000-000000000001",
-	"01011a0a-7be9-46ee-a8f8-2ba4cac25a9d");
+	0);
 INSERT INTO GD_MD
 	VALUES ("1c65e3bf-086f-4fc2-be75-8a317c71eb06",
-	1,
+	112,
 	"355fe1ef-ac53-4c0f-98e9-d27f1c9235d9",
-	1,
+	108,
 	1,
 	0,
 	1,
@@ -54,7 +54,7 @@ INSERT INTO GD_GE
 	VALUES ("2bbeaa3a-68e0-457c-a22e-1d3d4dcaa81a",
 	"1c65e3bf-086f-4fc2-be75-8a317c71eb06",
 	"3357a459-a1e1-4bc3-a4b8-f31d53662ce0",
-	11,
+	108,
 	0,
 	'org.xtuml.bp.ui.tree::UITree::UITree');
 INSERT INTO GD_SHP
@@ -74,30 +74,6 @@ INSERT INTO DIM_ELE
 	VALUES ("2bbeaa3a-68e0-457c-a22e-1d3d4dcaa81a",
 	1,
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO GD_GE
-	VALUES ("37aaf364-106c-4a5d-b034-734972f274ec",
-	"1c65e3bf-086f-4fc2-be75-8a317c71eb06",
-	"bbf1cd83-03e7-4670-baa2-9d679376f9e3",
-	53,
-	0,
-	'org.xtuml.bp.ui.tree::UITree::Datatypes');
-INSERT INTO GD_SHP
-	VALUES ("37aaf364-106c-4a5d-b034-734972f274ec");
-INSERT INTO GD_NCS
-	VALUES ("37aaf364-106c-4a5d-b034-734972f274ec");
-INSERT INTO DIM_ND
-	VALUES (208.000000,
-	144.000000,
-	"37aaf364-106c-4a5d-b034-734972f274ec");
-INSERT INTO DIM_GE
-	VALUES (1988.000000,
-	1280.000000,
-	"37aaf364-106c-4a5d-b034-734972f274ec",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO DIM_ELE
-	VALUES ("37aaf364-106c-4a5d-b034-734972f274ec",
-	1,
-	"00000000-0000-0000-0000-000000000000");
 INSERT INTO DIM_DIA
 	VALUES ("1c65e3bf-086f-4fc2-be75-8a317c71eb06",
 	'',
@@ -105,8 +81,14 @@ INSERT INTO DIM_DIA
 	1600.000000,
 	1180.000000,
 	"00000000-0000-0000-0000-000000000000");
+INSERT INTO PE_PE
+	VALUES ("355fe1ef-ac53-4c0f-98e9-d27f1c9235d9",
+	0,
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000",
+	7);
 INSERT INTO S_SYS_PROXY
 	VALUES ("01011a0a-7be9-46ee-a8f8-2ba4cac25a9d",
 	'org.xtuml.bp.ui.tree',
-	0,
+	1,
 	'../org.xtuml.bp.ui.tree.xtuml');

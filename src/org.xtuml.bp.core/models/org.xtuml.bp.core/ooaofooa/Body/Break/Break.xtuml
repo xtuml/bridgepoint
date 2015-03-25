@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("e8ff2dc9-665f-44aa-b4af-7623b9622219",
@@ -6,7 +6,7 @@ INSERT INTO O_OBJ
 	629,
 	'ACT_BRK',
 	'This class generates a break statement within a block.',
-	"76583c73-7a99-4c81-b260-8109e6cef5ca");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("b1ff01bc-df82-48e2-a5cf-95e569a1c39b",
 	"e8ff2dc9-665f-44aa-b4af-7623b9622219",
@@ -14,7 +14,7 @@ INSERT INTO O_TFR
 	'This operation disconnects an instance, and all instances it is 
 responsible for, from the model.
 ',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// do nothing
 delete object instance self;
@@ -23,13 +23,6 @@ delete object instance self;
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO S_DT_PROXY
-	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'void',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("2d3afe7f-983b-4c9e-8c78-d6c7fa0bd964",
 	"e8ff2dc9-665f-44aa-b4af-7623b9622219",
@@ -37,7 +30,7 @@ INSERT INTO O_TFR
 	'// WARNING: This function assumes that break and continue statements can only exist within a for each or while loop.
 //          If a break or continue statement exists somewhere else, an infinite loop will occur.
 ',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// Body:Break.execute()
 
@@ -117,18 +110,11 @@ INSERT INTO O_TPARM
 	VALUES ("11ac1b6e-5820-47c2-90e7-dc8340aa196d",
 	"2d3afe7f-983b-4c9e-8c78-d6c7fa0bd964",
 	'stack_frame_id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'unique_id',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("e8ff2dc9-665f-44aa-b4af-7623b9622219",
 	"e9011b75-e798-45a3-ac83-92ba7c04db4e",
@@ -179,16 +165,9 @@ INSERT INTO O_ATTR
 	'',
 	'Statement_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_ID
 	VALUES (0,
 	"e8ff2dc9-665f-44aa-b4af-7623b9622219");
@@ -203,8 +182,16 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"e8ff2dc9-665f-44aa-b4af-7623b9622219");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("e8ff2dc9-665f-44aa-b4af-7623b9622219",
+	1,
+	"76583c73-7a99-4c81-b260-8109e6cef5ca",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("76583c73-7a99-4c81-b260-8109e6cef5ca",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Body',
 	'This subsystem abstracts the action itself, the blocks and statements
 it contains together with the flow of control statements such as ''while'',
@@ -214,8 +201,5 @@ Persistent:false
 // This is used by schema_gen to ignore this subsystem (for publication)
 TRANSLATE_FOR_EXTERNAL_USE:FALSE
 ',
-	'ACT',
 	600,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000380007",
 	'../Body.xtuml');

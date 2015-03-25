@@ -172,7 +172,7 @@
       	<env key="GEN_FULL_TESTS" value=""/>
     	<env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
     <arg line="xtumlmc_gen_erate -nopersist
-    	-import ${mcj_path}/ooa_schema.sql
+      -import ${mcj_path}/ooa_schema.sql
         -import ../org.xtuml.bp.ui.tree/sql/UITree_schema.sql
         -import ../org.xtuml.bp.core/sql/ooaofooa.sql
         -import ../org.xtuml.bp.ui.explorer/sql/UITree.pei.sql
@@ -186,9 +186,9 @@
       <arg line="xtumlmc_gen_erate -nopersist
         -import ${mcj_path}/ooa_schema.sql
         -import ../org.xtuml.bp.ui.tree/sql/UITree_schema.sql
-      	-import ../org.xtuml.bp.core/sql/ooaofooa.sql
+      -import ../org.xtuml.bp.core/sql/ooaofooa.sql
         -import ../org.xtuml.bp.ui.explorer/sql/UITree.pei.sql
-        -arch arc/generate_test_matrix_for_copy_paste.arc" />
+      -arch arc/generate_test_matrix_for_copy_paste.arc" />
   </exec>
     <delete file="____file.txt" />
   <!-- Need to touch the output file for the case where the input data
@@ -222,7 +222,7 @@
     <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
           <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
           <env key="CHAIN_UTIL_DIR" value="${chain_util_path}"/>
-          <env key="GEN_FULL_TESTS" value=""/>
+        	<env key="GEN_FULL_TESTS" value=""/>
           <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
       <arg line="xtumlmc_gen_erate -nopersist
           -import ${mcj_path}/ooa_schema.sql
@@ -406,9 +406,11 @@
 
   <target name="sql" depends="sql.depends" description="Generate the sql version of the Consistency test model" unless="sql.buildNotNeeded">
     <echo>Generating ${sql.output} ...</echo>
+    <copy file="../org.xtuml.bp.pkg/globals/Globals.xtuml" tofile="models/org.xtuml.bp.core.test/consistencyTest/${sql.input}/Globals.xtuml" />
     <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
       <arg line="xtumlmc_cleanse_for_BridgePoint models/org.xtuml.bp.core.test/${sql.input} sql/${sql.output} ${subsystems_to_remove}" />
     </exec>
+    <delete file="models/org.xtuml.bp.core.test/consistencyTest/${sql.input}/Globals.xtuml" />
   </target>
 
   <target name="schema.depends">
@@ -424,6 +426,7 @@
       <property name="param1" value="${sql.output}" />
       <property name="param2" value="${mcj_path}" />
       <property name="param3" value="TRUE" />
+      <property name="param4" value="consistencyTest" />
     </ant>
     <!-- Need to move the output file since the archetype uses the domain
        name as the base name of the output file -->
@@ -480,7 +483,7 @@
   <target name="clean_all" description="Clean entire project" depends="clean_classes,clean_java,clean_sql,clean_matrices">
 
     <echo>Done cleaning for ${ant.project.name}</echo>
-
+  	<delete file="____file.txt" />
   </target>
 
   <target name="clean_java" description="Remove the java sources.">
@@ -498,11 +501,15 @@
   </target>
 
   <target name="clean_sql" description="Remove generated sql files">
-  	<fileset dir="sql" includes="*.sql" />
+  	<delete verbose="true">
+  	  <fileset dir="sql" includes="*.sql" />
+  	</delete>
   </target>
   	
   <target name="clean_matrices" description="Remove all generated matrices." >
-  	<fileset dir="matrices/generated" includes="*.txt"/>
+  	<delete verbose="true">
+  	  <fileset dir="matrices/generated" includes="*.txt"/>
+  	</delete>
   </target>
 	
   <target name="clean_classes" description="Remove all compiled class files.">

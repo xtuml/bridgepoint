@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("b83584fb-8d8c-4c4b-9e2e-186c2254b93c",
@@ -6,7 +6,7 @@ INSERT INTO O_OBJ
 	509,
 	'SM_NETXN',
 	'A no event transition is a transition between to states to which no event is currently assigned. ',
-	"efdb28f6-a485-4b25-9cbf-3e7227398b6a");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("141b12cc-9f00-4ea6-8c05-c95404fb13c4",
 	"b83584fb-8d8c-4c4b-9e2e-186c2254b93c",
@@ -15,25 +15,18 @@ INSERT INTO O_TFR
 -----------------------------------------------------------------------------------
 Bridge:GD
 ',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'return "No Event Assigned";',
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO S_DT_PROXY
-	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'string',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("d19019eb-e368-4bb2-b1f4-236d27ceb68b",
 	"b83584fb-8d8c-4c4b-9e2e-186c2254b93c",
 	'get_name',
 	'',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'select one initial_state related by self->SM_STATE[R508];
 select one final_state related by self->SM_TXN[R507]->SM_STATE[R506];
@@ -97,16 +90,9 @@ INSERT INTO O_ATTR
 	'',
 	'Trans_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("b83584fb-8d8c-4c4b-9e2e-186c2254b93c",
 	"aee0c0bf-2bc2-41e5-b9ad-01341d2944be",
@@ -122,7 +108,7 @@ INSERT INTO O_REF
 	'',
 	'State Machine State',
 	'SM_ID',
-	'R508');
+	'R508.''originates from''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("b83584fb-8d8c-4c4b-9e2e-186c2254b93c",
 	"add46dd8-c0fe-4d29-91fa-3782b2101f03",
@@ -178,7 +164,7 @@ INSERT INTO O_ATTR
 	'',
 	'SM_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -196,7 +182,7 @@ INSERT INTO O_REF
 	'',
 	'State Machine State',
 	'SMstt_ID',
-	'R508');
+	'R508.''originates from''');
 INSERT INTO O_RTIDA_PROXY
 	VALUES ("c1895e17-60ab-46d5-b6a1-e61e34c67638",
 	"aee0c0bf-2bc2-41e5-b9ad-01341d2944be",
@@ -224,7 +210,7 @@ INSERT INTO O_ATTR
 	'',
 	'SMstt_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -244,16 +230,9 @@ INSERT INTO O_ATTR
 	'',
 	'SMspd_ID',
 	0,
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'unique_id',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_ID
 	VALUES (0,
 	"b83584fb-8d8c-4c4b-9e2e-186c2254b93c");
@@ -273,12 +252,17 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"b83584fb-8d8c-4c4b-9e2e-186c2254b93c");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("b83584fb-8d8c-4c4b-9e2e-186c2254b93c",
+	1,
+	"efdb28f6-a485-4b25-9cbf-3e7227398b6a",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("efdb28f6-a485-4b25-9cbf-3e7227398b6a",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'State Machine',
 	'Classes (O_OBJ) that have interesting behavior are given lifecycles. These lifecycles are described using state machines (SM_SM). A state machine consists of states, events, transitions and state actions. The state machine exists for each instance of the class for which it has been modeled (SM_ISM). A state machine can also be an assigner state machine (SM_ASM) of which only one can exists for all class instances. The purpose of the assigner state machine is to act as a single point of control through which competing requests are serialized.',
-	'SM',
 	501,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000280005",
 	'../State Machine.xtuml');

@@ -13,6 +13,8 @@
 .// subsequent gen_import for building an instance database.
 .//
 .//====================================================================
+.invoke mc_root_pkg_name = GET_ENV_VAR("PTC_MCC_ROOT")
+.assign root_pkg_name = mc_root_pkg_name.result
 .invoke ext_env = GET_ENV_VAR( "TRANSLATE_FOR_EXTERNAL_USE" )
 .assign external_use = ext_env.result
 .if ( external_use == "TRUE" )
@@ -46,7 +48,7 @@
 .select any dt_inst from instances of S_DT
 .for each ih_obj in obj_set
   .assign trans_obj = true
-  .select one subsystem related by ih_obj->S_SS[R2]
+  .select one subsystem related by ih_obj->PE_PE[R8001]->EP_PKG[R8000]
   .assign translate = "${subsystem.descrip:IN_SCHEMA}"
   .if (translate == "FALSE")
     .assign trans_obj = false
@@ -173,7 +175,7 @@ CREATE TABLE $_{ih_obj.Key_Lett} (
       .if (part_object.Key_Lett == "O_RAVR")
         .assign trans_rel = false
       .end if
-      .select one subsystem related by part_object->S_SS[R2]
+      .select one subsystem related by part_object->PE_PE[R8001]->EP_PKG[R8000]
       .if (subsystem.Name == "Runtime Value")
         .assign trans_rel = false
       .end if
@@ -401,7 +403,4 @@ $_{att.Name}\
   .end if
 .end for
 
-.select any domain from instances of S_DOM
-.assign outfile_name = domain.Name
-.emit to file "${outfile_name}_schema.sql"
-
+.emit to file "${root_pkg_name}_schema.sql"

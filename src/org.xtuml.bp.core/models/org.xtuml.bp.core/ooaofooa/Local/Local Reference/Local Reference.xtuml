@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("058d461b-89d2-486a-b6c3-0d7335a5c146",
@@ -6,13 +6,13 @@ INSERT INTO O_OBJ
 	3001,
 	'L_LCR',
 	'',
-	"9c0607c7-7a31-4f1a-885e-70c85a2396e0");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("95436e09-fb9c-42fd-a182-4f82be28c2b0",
 	"058d461b-89d2-486a-b6c3-0d7335a5c146",
 	'dispose',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// Local: Local Reference.dispose()
 
@@ -40,19 +40,12 @@ delete object instance self;',
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO S_DT_PROXY
-	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'void',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("79fc5397-9b9a-42ba-ab7d-2a410108c688",
 	"058d461b-89d2-486a-b6c3-0d7335a5c146",
 	'getRuntimeValue',
 	'',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'// Local: Local Reference.getRuntimeValue()
 
@@ -70,18 +63,11 @@ INSERT INTO O_TPARM
 	VALUES ("1f68516c-a8aa-4b5f-85b1-db1d9f0d4a3f",
 	"79fc5397-9b9a-42ba-ab7d-2a410108c688",
 	'stack_frame_id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'unique_id',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("cc31fe16-bc35-4329-b4cd-699f72aa6c9f",
 	"058d461b-89d2-486a-b6c3-0d7335a5c146",
@@ -103,14 +89,14 @@ INSERT INTO O_TPARM
 	VALUES ("32bd92a0-8506-414e-aeb0-b830b798c609",
 	"cc31fe16-bc35-4329-b4cd-699f72aa6c9f",
 	'stack_frame_id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
 	'instance',
 	'',
 	'',
@@ -120,7 +106,7 @@ INSERT INTO O_TFR
 	"058d461b-89d2-486a-b6c3-0d7335a5c146",
 	'setValue',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// Local: Local Reference.setValue
 
@@ -141,7 +127,7 @@ INSERT INTO O_TPARM
 	VALUES ("925c6567-a628-4273-a0f5-434962944f13",
 	"9687145a-1962-4083-a9f3-12d1533b4536",
 	'stack_frame_id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -160,7 +146,7 @@ INSERT INTO O_TFR
 	"058d461b-89d2-486a-b6c3-0d7335a5c146",
 	'addInstance',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'//Local Reference.addInstance
 select any inst from instances of I_INS where selected.Inst_ID == param.inst_id;
@@ -185,7 +171,7 @@ INSERT INTO O_TPARM
 	VALUES ("3e7918b7-e309-44af-bda8-2ea52a3d84d4",
 	"bb542c89-d44f-4b92-9ba0-7964b3dc2610",
 	'inst_id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -195,7 +181,7 @@ INSERT INTO O_TFR
 	"058d461b-89d2-486a-b6c3-0d7335a5c146",
 	'clear',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select one selection_rv related by self->L_LCL[R3001]->
                                     RV_RVL[R3306]->RV_SMV[R3300]->RV_IRV[R3308];
@@ -217,7 +203,7 @@ INSERT INTO O_TFR
 	"058d461b-89d2-486a-b6c3-0d7335a5c146",
 	'purge',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// Local Reference.purge()
 select any inst from instances of I_INS where selected.Inst_ID == param.inst_id;
@@ -242,7 +228,7 @@ INSERT INTO O_TPARM
 	VALUES ("c53a72e5-db8c-4c80-b3bc-78bddc035202",
 	"7b1bb883-fa06-4834-9c7b-475441a8fad5",
 	'inst_id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -295,16 +281,9 @@ INSERT INTO O_ATTR
 	'',
 	'Local_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("058d461b-89d2-486a-b6c3-0d7335a5c146",
 	"7d3f482b-bd30-4b8b-8729-72434cf8eb22",
@@ -320,7 +299,7 @@ INSERT INTO O_REF
 	'',
 	'Instance Set',
 	'Var_ID',
-	'R3003');
+	'R3003.''is value of''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("058d461b-89d2-486a-b6c3-0d7335a5c146",
 	"26056984-4aa4-4b16-8b81-0b36abf64d38",
@@ -348,7 +327,7 @@ INSERT INTO O_REF
 	'',
 	'Instance Handle',
 	'Var_ID',
-	'R3004');
+	'R3004.''is value of''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("058d461b-89d2-486a-b6c3-0d7335a5c146",
 	"e30809a2-96e4-420a-9f24-9f7a1734d02c",
@@ -381,7 +360,7 @@ INSERT INTO O_ATTR
 	'',
 	'Var_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -399,7 +378,7 @@ INSERT INTO O_REF
 	'',
 	'Instance in Reference',
 	'RuntimeValue_ID',
-	'R3012');
+	'R3012.''loops over set of''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("058d461b-89d2-486a-b6c3-0d7335a5c146",
 	"ca1f5631-7c60-4d21-b0fb-dd4f29b1358b",
@@ -432,7 +411,7 @@ INSERT INTO O_ATTR
 	'',
 	'RuntimeValue_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -450,7 +429,7 @@ INSERT INTO O_REF
 	'',
 	'Instance in Reference',
 	'Inst_ID',
-	'R3012');
+	'R3012.''loops over set of''');
 INSERT INTO O_RTIDA_PROXY
 	VALUES ("68d88cc1-5e28-4e9b-95e0-dc5893b5cea0",
 	"bb08d5d2-523e-4e50-a261-47a54b297b94",
@@ -478,7 +457,7 @@ INSERT INTO O_ATTR
 	'',
 	'Inst_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_ID
@@ -495,13 +474,18 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"058d461b-89d2-486a-b6c3-0d7335a5c146");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("058d461b-89d2-486a-b6c3-0d7335a5c146",
+	1,
+	"9c0607c7-7a31-4f1a-885e-70c85a2396e0",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("9c0607c7-7a31-4f1a-885e-70c85a2396e0",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Local',
 	'Persistent:false
 ',
-	'L',
 	0,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000000000",
 	'../Local.xtuml');

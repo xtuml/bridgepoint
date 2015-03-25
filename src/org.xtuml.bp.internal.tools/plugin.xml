@@ -1,13 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.0"?>
 <!--
-
- File:      $RCSfile: plugin.xml,v $
- Version:   $Revision: 1.40.8.1 $
- Modified:  $Date: 2013/07/26 10:13:29 $
-
- (c) Copyright 2005-2014 by Mentor Graphics Corp. All rights reserved.
-
  ========================================================================
 Licensed under the Apache License, Version 2.0 (the "License"); you may not
 use this file except in compliance with the License.  You may obtain a copy
@@ -26,9 +19,9 @@ the License.
 <plugin
    id="org.xtuml.bp.internal.tools"
    name="BridgePoint Tools Plug-in"
-   version="1.0.6"
+   version="1.0.8"
    provider-name="xtUML.org"
-   class="org.xtuml.bp.internal.tools.mcjava.Activator">
+   class="com.mentor.nucleus.bp.internal.tools.ToolsPlugin">
 
    <runtime>
       <library name="tools.jar">
@@ -59,22 +52,8 @@ the License.
       <import plugin="org.xtuml.bp.io.core"/>
       <import plugin="org.xtuml.bp.io.mdl"/>
       <import plugin="org.xtuml.bp.utilities"/>
-      <import plugin="org.xtuml.bp.mc"/>
    </requires>
 
-   <extension
-         id="MCJavaNature"
-         name="model compiler nature"
-         point="org.eclipse.core.resources.natures">
-      <runtime>
-         <run
-               class="org.xtuml.bp.internal.tools.mcjava.MCJavaNature">
-         </run>
-      </runtime>
-      <builder
-            id="org.xtuml.bp.internal.tools.mc_java_export_builder">
-      </builder>
-   </extension>
    <extension point="org.eclipse.ui.viewActions">
 		<viewContribution 
 			id="org.xtuml.bp.internal.tools.process.scrapeCodeChanges" 
@@ -185,13 +164,5 @@ the License.
             class="org.xtuml.bp.internal.tools.views.BPInstancePopulationView"
             id="org.xtuml.bp.internal.tools.views.BPInstancePopulationView">
       </view>
-   </extension>
-   <extension
-         id="mc_java_export_builder"
-         name="Java Model Compiler Pre-Builder"
-         point="org.eclipse.core.resources.builders">
-      <builder>
-        <run class="org.xtuml.bp.internal.tools.mcjava.JavaExportBuilder" />
-      </builder>
    </extension>
 </plugin>

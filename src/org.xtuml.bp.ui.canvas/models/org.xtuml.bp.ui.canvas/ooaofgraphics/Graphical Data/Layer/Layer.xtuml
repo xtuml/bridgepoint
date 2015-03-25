@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("5cf6c181-af37-4eac-8fe2-ea007fd9220d",
@@ -6,13 +6,13 @@ INSERT INTO O_OBJ
 	21,
 	'GD_LAY',
 	'',
-	"b5695748-80fc-47fb-b5c7-801b5f28b907");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("7b0989ee-a608-42cb-bbac-f6c3813020ef",
 	"5cf6c181-af37-4eac-8fe2-ea007fd9220d",
 	'addElementToLayer',
 	'',
-	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select any ge related by self->GD_MD[R34]->GD_GE[R1]
                                   where (selected.elementId == param.elementId);
@@ -27,31 +27,17 @@ INSERT INTO O_TPARM
 	VALUES ("62927fcb-343f-48a9-9404-b2960ebce55d",
 	"7b0989ee-a608-42cb-bbac-f6c3813020ef",
 	'elementId',
-	"a236c27f-17c7-4c99-8f25-f3efd03eaf0c",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("a236c27f-17c7-4c99-8f25-f3efd03eaf0c",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	'unique_id',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
-INSERT INTO S_DT_PROXY
-	VALUES ("3852f90c-88c5-467d-9b26-57c8cd438b42",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	'void',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("146a27d7-b37d-448e-bf88-0df3b84d8416",
 	"5cf6c181-af37-4eac-8fe2-ea007fd9220d",
 	'dispose',
 	'',
-	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select one model related by self->GD_MD[R34];
 if(not_empty model)
@@ -72,19 +58,12 @@ INSERT INTO O_TFR
 	"5cf6c181-af37-4eac-8fe2-ea007fd9220d",
 	'get_name',
 	'',
-	"17f3cd98-2d3a-4fe3-ac41-d27b377178a6",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'return self.Layer_Name;',
 	1,
 	'',
 	"146a27d7-b37d-448e-bf88-0df3b84d8416");
-INSERT INTO S_DT_PROXY
-	VALUES ("17f3cd98-2d3a-4fe3-ac41-d27b377178a6",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	'string',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("a246b659-140d-4ce4-91c3-7aea62cdf070",
 	"5cf6c181-af37-4eac-8fe2-ea007fd9220d");
@@ -101,7 +80,7 @@ INSERT INTO O_ATTR
 	'',
 	'Layer_Name',
 	0,
-	"17f3cd98-2d3a-4fe3-ac41-d27b377178a6",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_REF
@@ -119,7 +98,7 @@ INSERT INTO O_REF
 	'',
 	'Model',
 	'diagramId',
-	'R34');
+	'R34.''contains elements of''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("5cf6c181-af37-4eac-8fe2-ea007fd9220d",
 	"8ec49a30-c35c-455e-84d4-07e7a3fc53ea",
@@ -152,16 +131,9 @@ INSERT INTO O_ATTR
 	'',
 	'diagramId',
 	0,
-	"66164f00-293e-4c17-ab30-7972c7c57152",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("66164f00-293e-4c17-ab30-7972c7c57152",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("33fad6f7-da97-4e3d-acd6-00947741cd02",
 	"5cf6c181-af37-4eac-8fe2-ea007fd9220d");
@@ -177,16 +149,9 @@ INSERT INTO O_ATTR
 	'',
 	'visible',
 	0,
-	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("6e4aa280-2e22-4146-9b4a-6c2573c456d8",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	'boolean',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_ID
 	VALUES (0,
 	"5cf6c181-af37-4eac-8fe2-ea007fd9220d");
@@ -201,15 +166,20 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"5cf6c181-af37-4eac-8fe2-ea007fd9220d");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("5cf6c181-af37-4eac-8fe2-ea007fd9220d",
+	1,
+	"b5695748-80fc-47fb-b5c7-801b5f28b907",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("b5695748-80fc-47fb-b5c7-801b5f28b907",
+	"00000000-0000-0000-0000-000000000000",
+	"8f801c9a-cf2d-4ef4-b11a-51b8697e3ca8",
 	'Graphical Data',
 	'The GD (Graphics Domain) subsystem models the graphical elements for a BridgePoint model.
 -------------------------------------------------------
 Import:org.eclipse.swt.graphics.Color
 Notify_Changes:true',
-	'GD',
 	1,
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	"00000000-0000-0000-0000-000001900032",
 	'../Graphical Data.xtuml');

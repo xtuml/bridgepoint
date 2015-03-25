@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("3f9a694a-f499-449a-a48d-7baca2480ceb",
@@ -6,7 +6,7 @@ INSERT INTO O_OBJ
 	4203,
 	'CN_DC',
 	'',
-	"675a1f4a-34a9-412f-990a-badff1261a13");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_REF
 	VALUES ("3f9a694a-f499-449a-a48d-7baca2480ceb",
 	"07cf2195-f012-4bf5-83c7-f89dd30a8839",
@@ -22,7 +22,7 @@ INSERT INTO O_REF
 	'',
 	'Domain',
 	'Dom_ID',
-	'R4204');
+	'R4204.''has subject matter of''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("3f9a694a-f499-449a-a48d-7baca2480ceb",
 	"17d61d79-7063-48df-a8b7-1279abe7bab2",
@@ -55,16 +55,9 @@ INSERT INTO O_ATTR
 	'',
 	'Dom_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("3f9a694a-f499-449a-a48d-7baca2480ceb",
 	"2786d973-1537-44a1-81d6-3ddbd2377865",
@@ -80,7 +73,7 @@ INSERT INTO O_REF
 	'',
 	'Component',
 	'Id',
-	'R4204');
+	'R4204.''defined subject matter for''');
 INSERT INTO O_RTIDA_PROXY
 	VALUES ("7b9804b1-294c-4909-b563-aae43167f8d6",
 	"2786d973-1537-44a1-81d6-3ddbd2377865",
@@ -108,7 +101,7 @@ INSERT INTO O_ATTR
 	'',
 	'Id',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_ID
@@ -130,15 +123,20 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"3f9a694a-f499-449a-a48d-7baca2480ceb");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("3f9a694a-f499-449a-a48d-7baca2480ceb",
+	1,
+	"675a1f4a-34a9-412f-990a-badff1261a13",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("675a1f4a-34a9-412f-990a-badff1261a13",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Component Nesting',
 	'// This is used by schema_gen to ignore this subsystem (for publication)
 TRANSLATE_FOR_EXTERNAL_USE:FALSE
 
 The Component Diagram subsystem captures data specific to diagram behavior.',
-	'CD',
 	4200,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000000000",
 	'../Component Nesting.xtuml');

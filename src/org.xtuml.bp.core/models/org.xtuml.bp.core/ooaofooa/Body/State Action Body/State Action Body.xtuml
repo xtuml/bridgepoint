@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("382eabd6-14ce-4293-8f90-06a00c79ec3e",
@@ -6,14 +6,14 @@ INSERT INTO O_OBJ
 	632,
 	'ACT_SAB',
 	'This class represents the action language containing body of a State Action.',
-	"76583c73-7a99-4c81-b260-8109e6cef5ca");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("43073efe-a06c-47aa-b33a-9b638e88eb1a",
 	"382eabd6-14ce-4293-8f90-06a00c79ec3e",
 	'dispose',
 	'This operation disconnects an instance, and all instances it is 
 responsible for, from the model.',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// State Action Body.dispose()
 select one act related by self->SM_ACT[R691];
@@ -25,38 +25,24 @@ delete object instance self;
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO S_DT_PROXY
-	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'void',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("32f9d457-96b7-4f13-8d3f-a1f2c6355635",
 	"382eabd6-14ce-4293-8f90-06a00c79ec3e",
 	'getContainingComponentId',
 	'',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'select one stateMachine related by self->SM_ACT[R691]->SM_SM[R515];
 return stateMachine.getContainingComponentId();',
 	1,
 	'',
 	"43073efe-a06c-47aa-b33a-9b638e88eb1a");
-INSERT INTO S_DT_PROXY
-	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'unique_id',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("f70e2c94-b8f0-4526-bd4d-18ff1cfca60e",
 	"382eabd6-14ce-4293-8f90-06a00c79ec3e",
 	'getContainerId',
 	'',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'// State Action Body.getContainerId()
 select one stateMachine related by self->SM_ACT[R691]->SM_SM[R515];
@@ -69,7 +55,7 @@ INSERT INTO O_TFR
 	"382eabd6-14ce-4293-8f90-06a00c79ec3e",
 	'getPath',
 	'',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	' select one action related by self->SM_ACT[R691];
  select one state related by action->SM_AH[R514]->SM_MOAH[R513]->SM_STATE[R511];
@@ -100,13 +86,6 @@ return actionPath;',
 	1,
 	'',
 	"f70e2c94-b8f0-4526-bd4d-18ff1cfca60e");
-INSERT INTO S_DT_PROXY
-	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'string',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("382eabd6-14ce-4293-8f90-06a00c79ec3e",
 	"d1c9af7b-9df6-432a-a25e-96cab24fc6af",
@@ -155,16 +134,9 @@ INSERT INTO O_ATTR
 	'',
 	'Action_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("382eabd6-14ce-4293-8f90-06a00c79ec3e",
 	"51d28929-d81b-4ffc-8b96-028f5ed244c2",
@@ -180,7 +152,7 @@ INSERT INTO O_REF
 	'',
 	'Action',
 	'SM_ID',
-	'R691');
+	'R691.''specifies processing for''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("382eabd6-14ce-4293-8f90-06a00c79ec3e",
 	"90d92a07-841c-429b-afbc-0f533b8123da",
@@ -213,7 +185,7 @@ INSERT INTO O_ATTR
 	'',
 	'SM_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -231,7 +203,7 @@ INSERT INTO O_REF
 	'',
 	'Action',
 	'Act_ID',
-	'R691');
+	'R691.''specifies processing for''');
 INSERT INTO O_RTIDA_PROXY
 	VALUES ("a32afd01-b620-404d-b94b-f9b2e9082d1a",
 	"51d28929-d81b-4ffc-8b96-028f5ed244c2",
@@ -259,7 +231,7 @@ INSERT INTO O_ATTR
 	'',
 	'Act_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_ID
@@ -276,8 +248,16 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"382eabd6-14ce-4293-8f90-06a00c79ec3e");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("382eabd6-14ce-4293-8f90-06a00c79ec3e",
+	1,
+	"76583c73-7a99-4c81-b260-8109e6cef5ca",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("76583c73-7a99-4c81-b260-8109e6cef5ca",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Body',
 	'This subsystem abstracts the action itself, the blocks and statements
 it contains together with the flow of control statements such as ''while'',
@@ -287,8 +267,5 @@ Persistent:false
 // This is used by schema_gen to ignore this subsystem (for publication)
 TRANSLATE_FOR_EXTERNAL_USE:FALSE
 ',
-	'ACT',
 	600,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000380007",
 	'../Body.xtuml');
