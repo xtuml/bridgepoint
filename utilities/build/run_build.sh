@@ -30,7 +30,6 @@ export BP_VERSION="4.2.0"
 export BUILD_ROOT="${BUILD_MOUNT}/work"
 export GIT_REPO_ROOT="${BUILD_MOUNT}/git/xtuml"
 export GIT_BP="${GIT_REPO_ROOT}/bridgepoint"
-export BUILD_TOOLS="${BUILD_MOUNT}/utilities/bp_build_tools"
 # if no arguments are present default to master
 export BRANCH="master"
 if [ $# -eq 1 ]; then
@@ -104,7 +103,6 @@ rm -rf ${BUILD_DIR}
 
 mkdir -p "${BUILD_DIR}"
 mkdir -p "${LOG_DIR}"
-mkdir -p "${BUILD_TOOLS}"
 mkdir -p "${GIT_REPO_ROOT}"
 mkdir -p "${BUILD_ROOT}"
 
@@ -122,9 +120,6 @@ else
   rm -f "${BUILD_ROOT}/init_git_repositories.tmp"
 fi
 bash "${BUILD_ROOT}/init_git_repositories.sh" >> ${BUILD_LOG}
-
-echo -e "Setting permissions on tool directories..."
-chmod -R a+rw ${BUILD_TOOLS} 
 
 # Can do the copy and dos2unix translation in one step.
 tr -d '\r' < ${GIT_REPO_ROOT}/bridgepoint/utilities/build/configure_build_process.sh > configure_build_process.sh
