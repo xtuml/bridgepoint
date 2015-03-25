@@ -188,7 +188,7 @@ public class CanvasEditorReloadContentsTest extends CanvasTest
     	InstanceStateMachine_c uut = InstanceStateMachine_c.getOneSM_ISMOnR518(mc);
     	TestCase.assertNotNull(uut);
     	CanvasTestUtils.openCanvasEditor(uut);
-    	GraphicalEditor editor = CanvasTestUtils.getCanvasEditor("Disk: Instance State Machine");
+    	GraphicalEditor editor = CanvasTestUtils.getCanvasEditor("Disk");
 
         // find a state's shape that is in the canvas
         StateMachineState_c state = StateMachineState_c.getOneSM_STATEOnR501(
@@ -203,7 +203,7 @@ public class CanvasEditorReloadContentsTest extends CanvasTest
         while (d.readAndDispatch()) ;
         
         // verify that the canvas editor is still open
-    	GraphicalEditor afterEditor = CanvasTestUtils.getCanvasEditor("Disk: Instance State Machine");
+    	GraphicalEditor afterEditor = CanvasTestUtils.getCanvasEditor("Disk");
         assertNotNull("Editor closed by file reload", afterEditor);  
     }
 

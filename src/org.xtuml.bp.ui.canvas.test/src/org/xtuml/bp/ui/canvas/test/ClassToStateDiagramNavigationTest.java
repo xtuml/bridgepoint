@@ -136,7 +136,7 @@ public class ClassToStateDiagramNavigationTest extends BaseTest
         WorkbenchPart editorOpened = (WorkbenchPart) EditorUtil.getCurrentEditor();
         assertTrue("Instance state machine diagram wasn't opened", 
             editorOpened.getPartName().startsWith(
-                className + ": Instance State Machine"));
+                className));
         
         // close the editor just opened
         EditorUtil.closeEditor((IEditorPart) editorOpened);
@@ -155,8 +155,7 @@ public class ClassToStateDiagramNavigationTest extends BaseTest
         // class state machine
         editorOpened = (WorkbenchPart) EditorUtil.getCurrentEditor();
         assertTrue("Class state machine diagram wasn't opened", 
-            editorOpened.getPartName().startsWith(
-                className + ": Class State Machine"));
+            editorOpened.getPartName().startsWith( className ));
         
         // close the editor just opened
         EditorUtil.closeEditor((IEditorPart) editorOpened);
@@ -175,8 +174,7 @@ public class ClassToStateDiagramNavigationTest extends BaseTest
         // description editor
         editorOpened = (WorkbenchPart) EditorUtil.getCurrentEditor();
         assertTrue("Class description editor was not opened.", 
-            editorOpened.getPartName().startsWith(
-                className + ": Model Class Description"));
+            editorOpened.getPartName().startsWith( className ));
         
         // close the editor just opened
         EditorUtil.closeEditor((IEditorPart) editorOpened);
@@ -225,8 +223,7 @@ public class ClassToStateDiagramNavigationTest extends BaseTest
         // instance state machine
         WorkbenchPart editorOpened = (WorkbenchPart) EditorUtil.getCurrentEditor();
         assertTrue("Instance state machine diagram wasn't opened", 
-            editorOpened.getPartName().startsWith(
-                className + ": Instance State Machine"));
+            editorOpened.getPartName().startsWith( className ));
         
         // close the editor just opened
         EditorUtil.closeEditor((IEditorPart) editorOpened);
@@ -260,7 +257,7 @@ public class ClassToStateDiagramNavigationTest extends BaseTest
         editorOpened = (WorkbenchPart) EditorUtil.getCurrentEditor();
         assertTrue("Class state machine diagram wasn't opened", 
             editorOpened.getPartName().startsWith(
-                className + ": Class State Machine"));
+                className ));
         
         // close the editor just opened
         EditorUtil.closeEditor((IEditorPart) editorOpened);
