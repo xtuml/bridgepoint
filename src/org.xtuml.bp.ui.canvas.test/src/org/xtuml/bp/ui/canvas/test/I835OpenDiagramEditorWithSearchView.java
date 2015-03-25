@@ -85,7 +85,7 @@ public class I835OpenDiagramEditorWithSearchView extends BaseTest {
 		Display d = Display.getCurrent();
 		while(d.readAndDispatch()){}
 		
-		GraphicalEditor ed = CanvasTestUtils.getCanvasEditor("Subsystem: Package Diagram");
+		GraphicalEditor ed = CanvasTestUtils.getCanvasEditor("Subsystem");
 		assertNotNull(ed);	
 		
 		// Running the search query now

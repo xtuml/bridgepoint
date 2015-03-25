@@ -73,7 +73,7 @@ public class I697OpenActivityEditorFromMarker extends UITextTest {
 			assertNotNull(uut);
 
 			ActivityEditorInteraction.openActivityEditor(uut);
-			return TextEditorUtils.getActivityEditor("test_function: Function Activity"); //$NON-NLS-1$
+			return TextEditorUtils.getActivityEditor("Functions::test_function"); //$NON-NLS-1$
 	}
 	
 	private ActivityEditor openTransitionActivityEditor(){
@@ -81,7 +81,7 @@ public class I697OpenActivityEditorFromMarker extends UITextTest {
 		assertNotNull(uut);
 
 		ActivityEditorInteraction.openActivityEditor(uut);
-		return TextEditorUtils.getActivityEditor("T_T_A3: third class in CSM State to CSM State: Transition Activity"); //$NON-NLS-1$
+		return TextEditorUtils.getActivityEditor("Test Class::CSM State::T_T_A3: third class"); //$NON-NLS-1$
     }
 
 	private ActivityEditor openCreationTransitionActivityEditor(){
@@ -89,7 +89,7 @@ public class I697OpenActivityEditorFromMarker extends UITextTest {
 		assertNotNull(uut);
 
 		ActivityEditorInteraction.openActivityEditor(uut);
-		return TextEditorUtils.getActivityEditor("No Event Assigned to creation state: ISM Creation State: Creation Transition Activity"); //$NON-NLS-1$
+		return TextEditorUtils.getActivityEditor("Test Class::No Event Assigned to creation state: ISM Creation State"); //$NON-NLS-1$
     }
 
 	private void openFuncActivityEditorAndAddMarker(final String markerMessage, final String markerType, final int line){

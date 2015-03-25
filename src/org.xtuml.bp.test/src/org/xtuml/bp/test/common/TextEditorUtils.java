@@ -177,7 +177,7 @@ public class TextEditorUtils
     public static DescriptionEditor getDomainDescriptionEditor(
         Domain_c domain)
     {
-        String title = domain.getName() + ": Domain Description";
+        String title = domain.getName();
         return getDescriptionEditor(title);
     }
 
@@ -225,7 +225,7 @@ public class TextEditorUtils
     public static DescriptionEditor getPackageDescriptionEditor(
         Package_c pkg)
     {
-        String title = pkg.getName() + ": Package Description";
+        String title = pkg.getName();
         return getDescriptionEditor(title);
     }
     

@@ -48,6 +48,7 @@ import org.xtuml.bp.core.MooreActionHome_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Operation_c;
 import org.xtuml.bp.core.Package_c;
+import org.xtuml.bp.core.PackageableElement_c;
 import org.xtuml.bp.core.SemEvent_c;
 import org.xtuml.bp.core.StateEventMatrixEntry_c;
 import org.xtuml.bp.core.StateMachineEventDataItem_c;
@@ -110,7 +111,7 @@ public class OpenDescriptionEditor extends UITextTest {
 		assertNotNull(uut);
 
 		DescriptionEditorInteraction.openDescriptionEditor(uut);
-		validateDescriptionEditor("testDescrip1: Package Description", uut.getDescrip());
+		validateDescriptionEditor("testDescrip1", uut.getDescrip());
 	}
 
 	public void testOpenExternalEntityDescription()
@@ -119,7 +120,7 @@ public class OpenDescriptionEditor extends UITextTest {
 		assertNotNull(uut);
 
 		DescriptionEditorInteraction.openDescriptionEditor(uut);
-		validateDescriptionEditor( "Test External Entity: External Entity Description", uut.getDescrip());
+		validateDescriptionEditor( "Test External Entity", uut.getDescrip());
 	}
 
 	public void testOpenUserDataTypeDescription()
@@ -136,7 +137,7 @@ public class OpenDescriptionEditor extends UITextTest {
         UserDataType_c udt = UserDataType_c.getOneS_UDTOnR17(uut);
         assertNotNull(udt);
 		DescriptionEditorInteraction.openDescriptionEditor(udt);
-		validateDescriptionEditor( "testUDT: User Data Type Description", uut.getDescrip());
+		validateDescriptionEditor( "testUDT", uut.getDescrip());
 	}
 
     public void testOpenEnumerationDataTypeDescription()
@@ -153,16 +154,17 @@ public class OpenDescriptionEditor extends UITextTest {
         EnumerationDataType_c edt = EnumerationDataType_c.getOneS_EDTOnR17(uut);
         assertNotNull(edt);
         DescriptionEditorInteraction.openDescriptionEditor(edt);
-        validateDescriptionEditor( "testDT: Enumeration Data Type Description", uut.getDescrip());
+        validateDescriptionEditor( "testDT", uut.getDescrip());
     }
     
 	public void testOpenBridgeDescription()
 	{	
 		final Bridge_c uut = Bridge_c.BridgeInstance(modelRoot);
 		assertNotNull(uut);
+		ExternalEntity_c parent = ExternalEntity_c.getOneS_EEOnR19(uut);
 
 		DescriptionEditorInteraction.openDescriptionEditor(uut);
-		validateDescriptionEditor( "test_bridge: Bridge Description", uut.getDescrip());
+		validateDescriptionEditor( parent.getName() +"::" + "test_bridge", uut.getDescrip());
 	}
 	
 	public void testOpenEnumeratorDescription()
@@ -171,16 +173,17 @@ public class OpenDescriptionEditor extends UITextTest {
 		assertNotNull(uut);
 
 		DescriptionEditorInteraction.openDescriptionEditor(uut);
-		validateDescriptionEditor( "enum1: Enumerator Description", uut.getDescrip());
+		validateDescriptionEditor( "enum1", uut.getDescrip());
 	}
 	
 	public void testOpenFunctionDescription()
 	{	
 		final Function_c uut = Function_c.FunctionInstance(modelRoot);
 		assertNotNull(uut);
+		Package_c parent = Package_c.getOneEP_PKGOnR8000(PackageableElement_c.getOnePE_PEOnR8001(uut));
 
 		DescriptionEditorInteraction.openDescriptionEditor(uut);
-		validateDescriptionEditor( "test_function: Function Description", uut.getDescrip());
+		validateDescriptionEditor(parent.getName() +"::" + "test_function", uut.getDescrip());
 	}
 	
 	public void testOpenAssociationDescription()
@@ -189,25 +192,28 @@ public class OpenDescriptionEditor extends UITextTest {
 		assertNotNull(uut);
 
 		DescriptionEditorInteraction.openDescriptionEditor(uut);
-		validateDescriptionEditor("R1: Association Description", uut.getDescrip());
+		validateDescriptionEditor("R1", uut.getDescrip());
 	}
 	
 	public void testOpenOperationDescription()
 	{	
 		final Operation_c uut = Operation_c.OperationInstance(modelRoot);
 		assertNotNull(uut);
+		ModelClass_c parent = ModelClass_c.getOneO_OBJOnR115(uut);
 
 		DescriptionEditorInteraction.openDescriptionEditor(uut);
-		validateDescriptionEditor("op1: Operation Description", uut.getDescrip());
+		validateDescriptionEditor(parent.getName() +"::" +"op1", uut.getDescrip());
 	}
 	
 	public void testOpenAttributeDescription()
 	{	
 		final Attribute_c uut = Attribute_c.AttributeInstance(modelRoot);
 		assertNotNull(uut);
+		
+		ModelClass_c parent = ModelClass_c.getOneO_OBJOnR102(uut);
 
 		DescriptionEditorInteraction.openDescriptionEditor(uut);
-		validateDescriptionEditor("id: Attribute Description", uut.getDescrip());
+		validateDescriptionEditor(parent.getName() +"::" +"id", uut.getDescrip());
 	}
 	
 	public void testOpenModelClassDescription()
@@ -216,7 +222,7 @@ public class OpenDescriptionEditor extends UITextTest {
 		assertNotNull(uut);
 
 		DescriptionEditorInteraction.openDescriptionEditor(uut);
-		validateDescriptionEditor("Test Class: Model Class Description", uut.getDescrip());
+		validateDescriptionEditor("Test Class", uut.getDescrip());
 	}
 	
 	public void testOpenAttributeReferenceinClassDescription()
@@ -225,7 +231,7 @@ public class OpenDescriptionEditor extends UITextTest {
 		assertNotNull(uut);
 
 		DescriptionEditorInteraction.openDescriptionEditor(uut);
-		validateDescriptionEditor("Test Class.id(R1): Attribute Reference in Class Description", uut.getDescrip());
+		validateDescriptionEditor("Test Class.id(R1)", uut.getDescrip());
 	}
 		
 	public void testOpenInstanceStateMachineDescription()
@@ -234,7 +240,7 @@ public class OpenDescriptionEditor extends UITextTest {
 		assertNotNull(uut);
 
 		DescriptionEditorInteraction.openDescriptionEditor(uut);
-		validateDescriptionEditor("Test Class: Instance State Machine Description", StateMachine_c.getOneSM_SMOnR517(uut).getDescrip());
+		validateDescriptionEditor("Test Class", StateMachine_c.getOneSM_SMOnR517(uut).getDescrip());
 	}
 	
 	public void testOpenInstanceStateMachineEventDescription()
@@ -250,7 +256,7 @@ public class OpenDescriptionEditor extends UITextTest {
 		assertNotNull(uut);
 
 		DescriptionEditorInteraction.openDescriptionEditor(uut);
-		validateDescriptionEditor("T_T1: first: State Machine Event Description", uut.getDescrip());
+		validateDescriptionEditor("T_T1: first", uut.getDescrip());
 	}
 	
 	public void testOpenInstanceEventIgnoredDescription()
@@ -268,7 +274,7 @@ public class OpenDescriptionEditor extends UITextTest {
 		assertNotNull(uut);
 
 		DescriptionEditorInteraction.openDescriptionEditor(uut);
-		validateDescriptionEditor("T_T1/ISM State: Event Ignored Description", uut.getDescrip());
+		validateDescriptionEditor("T_T1/ISM State", uut.getDescrip());
 	}
 	
 	public void testOpenInstanceCantHappenDescription()
@@ -286,7 +292,7 @@ public class OpenDescriptionEditor extends UITextTest {
 		assertNotNull(uut);
 
 		DescriptionEditorInteraction.openDescriptionEditor(uut);
-		validateDescriptionEditor("T_T2/ISM State: Cant Happen Description", uut.getDescrip());
+		validateDescriptionEditor("T_T2/ISM State", uut.getDescrip());
         //T_T_A2
 	}
 	
@@ -302,13 +308,15 @@ public class OpenDescriptionEditor extends UITextTest {
         };
 		final StateMachineState_c uut = StateMachineState_c.StateMachineStateInstance(modelRoot,smeQuery);
 		assertNotNull(uut);
+		InstanceStateMachine_c ism = InstanceStateMachine_c.getOneSM_ISMOnR517(StateMachine_c.getOneSM_SMOnR501(uut));
+		ModelClass_c parent = ModelClass_c.getOneO_OBJOnR518(ism);
 
 		DescriptionEditorInteraction.openDescriptionEditor(uut);
 		Action_c source =
 			Action_c.getOneSM_ACTOnR514(
 				ActionHome_c.getOneSM_AHOnR513(
 					MooreActionHome_c.getOneSM_MOAHOnR511(uut)));
-		validateDescriptionEditor("ISM State: State Machine State Description", source.getDescrip());
+		validateDescriptionEditor(parent.getName() +"::"+ "ISM State", source.getDescrip());
 	}
 	
 	public void testOpenInstanceTransitionActionDescription()
@@ -322,7 +330,7 @@ public class OpenDescriptionEditor extends UITextTest {
 			Action_c.getOneSM_ACTOnR514(
 				ActionHome_c.getOneSM_AHOnR513(
 					TransitionActionHome_c.getOneSM_TAHOnR530(uut)));
-		validateDescriptionEditor("T_T3: third in ISM State to ISM State: Transition Description", source.getDescrip());
+		validateDescriptionEditor("Test Class::ISM State::T_T3: third", source.getDescrip());
 	}
 	
 	public void testOpenInstanceStateMachineEventDataItemDescription()
@@ -339,7 +347,7 @@ public class OpenDescriptionEditor extends UITextTest {
 		assertNotNull(uut);
 
 		DescriptionEditorInteraction.openDescriptionEditor(uut);
-		validateDescriptionEditor("data: State Machine Event Data Item Description", uut.getDescrip());
+		validateDescriptionEditor("data", uut.getDescrip());
 	}
 
 	public void testOpenClassStateMachineDescription()
@@ -348,7 +356,7 @@ public class OpenDescriptionEditor extends UITextTest {
 		assertNotNull(uut);
 
 		DescriptionEditorInteraction.openDescriptionEditor(uut);
-		validateDescriptionEditor("Test Class: Class State Machine Description", StateMachine_c.getOneSM_SMOnR517(uut).getDescrip());
+		validateDescriptionEditor("Test Class", StateMachine_c.getOneSM_SMOnR517(uut).getDescrip());
 	}
 	
 	public void testOpenClassStateMachineEventDescription()
@@ -358,7 +366,7 @@ public class OpenDescriptionEditor extends UITextTest {
 		assertNotNull(uut);
 
 		DescriptionEditorInteraction.openDescriptionEditor(uut);
-		validateDescriptionEditor("T_T_A1: first class: State Machine Event Description", uut.getDescrip());
+		validateDescriptionEditor("T_T_A1: first class", uut.getDescrip());
 	}
 	
 	public void testOpenClassEventIgnoredDescription()
@@ -375,7 +383,7 @@ public class OpenDescriptionEditor extends UITextTest {
 		assertNotNull(uut);
 
 		DescriptionEditorInteraction.openDescriptionEditor(uut);
-		validateDescriptionEditor("T_T_A1/CSM State: Event Ignored Description", uut.getDescrip());
+		validateDescriptionEditor("T_T_A1/CSM State", uut.getDescrip());
 	}
 	
 	public void testOpenClassCantHappenDescription()
@@ -392,7 +400,7 @@ public class OpenDescriptionEditor extends UITextTest {
 		assertNotNull(uut);
 
 		DescriptionEditorInteraction.openDescriptionEditor(uut);
-		validateDescriptionEditor("T_T_A2/CSM State: Cant Happen Description", uut.getDescrip());
+		validateDescriptionEditor("T_T_A2/CSM State", uut.getDescrip());
 	}
 	
 	public void testOpenClassActionDescription()
@@ -406,7 +414,7 @@ public class OpenDescriptionEditor extends UITextTest {
 			Action_c.getOneSM_ACTOnR514(
 				ActionHome_c.getOneSM_AHOnR513(
 					MooreActionHome_c.getOneSM_MOAHOnR511(uut)));
-		validateDescriptionEditor("CSM State: State Machine State Description", source.getDescrip());
+		validateDescriptionEditor("Test Class::CSM State", source.getDescrip());
 	}
 	
 	public void testOpenClassTransitionActionDescription()
@@ -420,7 +428,7 @@ public class OpenDescriptionEditor extends UITextTest {
 			Action_c.getOneSM_ACTOnR514(
 				ActionHome_c.getOneSM_AHOnR513(
 					TransitionActionHome_c.getOneSM_TAHOnR530(uut)));
-		validateDescriptionEditor("T_T_A3: third class in CSM State to CSM State: Transition Description", source.getDescrip());
+		validateDescriptionEditor("Test Class::CSM State::T_T_A3: third class", source.getDescrip());
 	}
 	
 	public void testOpenClassStateMachineEventDataItemDescription()
