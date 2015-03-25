@@ -70,7 +70,7 @@ function configure_installer_files {
     cp -f fontchecker.exe ${bp_deliverables}/tools/fontchecker/fontchecker.exe 2>>${ERROR_FILE}
 
     unix2dos ${bp_deliverables}/tools/fontchecker/font_list.txt
-	echo -e "Exiting configure_build_process.sh::configure_build_files"
+	echo -e "Exiting configure_build_process.sh::configure_installer_files"
 }
 
 #-------------------------------------------------------------------------------
