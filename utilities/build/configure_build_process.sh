@@ -17,7 +17,8 @@ function configure_build_files {
     cp -f create_bp_release.sh ${BUILD_DIR}/create_bp_release.sh 2>>${ERROR_FILE}
     cp -f create_release_functions.sh ${BUILD_DIR}/create_release_functions.sh 2>>${ERROR_FILE}
     cp -f process_build.sh ${BUILD_DIR}/process_build.sh 2>>${ERROR_FILE}
-
+	cp -f plugin_customization.ini ${BUILD_DIR}/plugin_customization.ini 2>>${ERROR_FILE}
+	
 	#
 	# files needed to build the tool  
 	#	
