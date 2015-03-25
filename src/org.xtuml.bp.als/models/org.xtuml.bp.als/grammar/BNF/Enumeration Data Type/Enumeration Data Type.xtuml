@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("f8fb1511-0a54-4a59-a4c0-996aa9f4e1c6",
@@ -6,7 +6,7 @@ INSERT INTO O_OBJ
 	14,
 	'S_EDT',
 	'An enumeration is a data type represented by a set of constants called enumerators.  For example, an enumeration called Colors might have three enumerators Red, Blue, and Green.',
-	"5edea08f-a6e1-4146-8e1c-0cade7a477c7");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_REF
 	VALUES ("f8fb1511-0a54-4a59-a4c0-996aa9f4e1c6",
 	"d39db9ff-a0ab-418e-a79a-e750a206c64d",
@@ -55,16 +55,9 @@ INSERT INTO O_ATTR
 	'',
 	'DT_ID',
 	0,
-	"73db19ab-e535-4718-ab07-668918299d9a",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("73db19ab-e535-4718-ab07-668918299d9a",
-	"c7485938-5b68-46c4-bc59-f0bb9c943851",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_ID
 	VALUES (0,
 	"f8fb1511-0a54-4a59-a4c0-996aa9f4e1c6");
@@ -79,12 +72,17 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"f8fb1511-0a54-4a59-a4c0-996aa9f4e1c6");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("f8fb1511-0a54-4a59-a4c0-996aa9f4e1c6",
+	1,
+	"5edea08f-a6e1-4146-8e1c-0cade7a477c7",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("5edea08f-a6e1-4146-8e1c-0cade7a477c7",
+	"00000000-0000-0000-0000-000000000000",
+	"c76dedc6-4b25-435f-9310-4f344030485a",
 	'BNF',
 	'',
-	'',
 	1,
-	"c7485938-5b68-46c4-bc59-f0bb9c943851",
-	"00000000-0000-0000-0000-000000100002",
 	'../BNF.xtuml');

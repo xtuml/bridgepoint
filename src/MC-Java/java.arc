@@ -28,7 +28,6 @@
 .assign mc_ss_end = mc_ss_end_check.result
 .invoke mc_root_pkg_name = GET_ENV_VAR("PTC_MCC_ROOT")
 .assign mc_root_pkg = mc_root_pkg_name.result
-
 .//
 .include "${mc_archetypes}/do_type.inc"
 .include "${mc_archetypes}/arch_utils.inc"
@@ -488,9 +487,9 @@ p_${an.body}\
 .//
 .//====================================================================
 .//
-.select any domain from instances of S_DOM where (selected.Name == mc_root_pkg)
-.invoke gdn_result = get_domain_name( domain )
-.include "${project_root}/color/${gdn_result.body}_package_spec.clr"
+.select any root_pkg from instances of EP_PKG where (selected.Name == mc_root_pkg)
+.invoke rpn_result = get_root_pkg_name( root_pkg )
+.include "color/${rpn_result.body}_package_spec.clr"
 .invoke package = get_package()
 .assign application_root_class = package.application_root_class
 .if(application_root_class == "Ooaofooa")
@@ -509,7 +508,7 @@ p_${an.body}\
 .// - put in by wgt
 .print "Time is: ${info.date}"
 .assign send_changes = package.is_eclipse_plugin
-.invoke translate_all_oal( application_root_class, send_changes );
+.invoke translate_all_oal( mc_root_pkg, application_root_class, send_changes );
 .print "Time is: ${info.date}"
 .//
 .//
@@ -523,8 +522,9 @@ p_${an.body}\
   .//
   .//
   .// Generate a class for each External Entity (except TIM)
-  .//   
-  .select many ees related by domain->S_EE[R8] where (("$l{selected.Descrip:Translate}" != "false") and (selected.Key_Lett != "TIM"))
+  .//
+  .// This should really recursively descend to find EE's. At the moment it relies on EE's being in the top tier of packages.
+  .select many ees related by root_pkg->PE_PE[R8000]->EP_PKG[R8001]->PE_PE[R8000]->S_EE[R8001] where (("$l{selected.Descrip:Translate}" != "false") and (selected.Key_Lett != "TIM"))
   .for each ee in ees
 package ${package.name} ;
     .invoke eecn = get_ee_class_name(ee)
@@ -598,24 +598,24 @@ ${blck.body}
   .// End External Entities
   .//
 .end if 
-.include "${project_root}/color/${gdn_result.body}_import_spec.clr"
+.include "${project_root}/color/${rpn_result.body}_import_spec.clr"
 .// Generate a class for each object
 .//
-.select many subsystems from instances of S_SS
-.for each subsystem in subsystems
-  .if ((mc_ss_start != "") and (mc_ss_start == "${subsystem.Name}"))
+.select many packages from instances of EP_PKG
+.for each pkg in packages
+  .if ((mc_ss_start != "") and (mc_ss_start == "${pkg.Name}"))
     .assign translate_enabled = true
   .end if
-  .if ((mc_ss_end != "") and (mc_ss_end == "${subsystem.Name}"))
+  .if ((mc_ss_end != "") and (mc_ss_end == "${pkg.Name}"))
     .assign translate_enabled = false
     .break for
   .end if
   .if (translate_enabled == true)
-    .if ("${subsystem.Descrip:Translate}" == "false")
-      .print "Subsystem ${subsystem.Name} ignored"
+    .if ("${pkg.Descrip:Translate}" == "false")
+      .print "Package ${pkg.Name} ignored"
     .else
       .invoke tcn = get_test_class_name()
-      .select many objects related by subsystem->O_OBJ[R2]
+      .select many objects related by pkg->PE_PE[R8000]->O_OBJ[R8001]
       .for each object in objects
         .print " Translating Object:   ${object.Name}"
         .invoke cn = get_class_name ( object )
@@ -655,8 +655,8 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.ui.IContributorResourceAdapter;
           .end if
         .end if
-        .if ("${subsystem.Descrip:Import}" != "")
-import ${subsystem.Descrip:Import};
+        .if ("${pkg.Descrip:Import}" != "")
+import ${pkg.Descrip:Import};
         .end if
         .if (package.is_eclipse_plugin)
 import org.xtuml.bp.core.common.*;      
@@ -1951,7 +1951,7 @@ ${blck.body}
   // end declare accessors
         .end if
  .//
-        .invoke gccc = gen_class_consistency_checks( object, gdn_result.body, package )
+        .invoke gccc = gen_class_consistency_checks( object, rpn_result.body, package )
 ${gccc.body}
 
 .//  
@@ -2213,7 +2213,7 @@ ${gsm.body}\
       .end for
     .end if
   .end if .// if translate_enabled
-.end for .// each subsystem
+.end for .// each package
 .//
 .//
 .if (translate_enabled == true)
@@ -2388,8 +2388,8 @@ IProgressMonitor pm\
 ${dom_cons.body}
   //
   // Domain level functions
-
-  .select many functions related by domain->S_SYNC[R23] where (("$U_{selected.Descrip:ContextMenuFunction}" != "TRUE") and ("$U_{selected.Descrip:ParserValidateFunction}" != "TRUE"))
+  .// This should really recursively descend to find functions. At the moment it relies on functions being in the top tier of packages.
+  .select many functions related by root_pkg->PE_PE[R8000]->EP_PKG[R8001]->PE_PE[R8000]->S_SYNC[R8001] where (("$U_{selected.Descrip:ContextMenuFunction}" != "TRUE") and ("$U_{selected.Descrip:ParserValidateFunction}" != "TRUE"))
   .for each function in functions
     .select one ret_type related by function->S_DT[R25]
     .invoke type = do_type(ret_type)
@@ -2489,7 +2489,7 @@ ${blck.body}
         m_myMasterTimer.start() ;
     }
 
-  .include "${project_root}/color/${gdn_result.body}_startspec.clr"
+  .include "${project_root}/color/${rpn_result.body}_startspec.clr"
   .invoke result = define_startspec()
   .if (result.init_class != "")
     .assign init_class_name = "${result.init_class}_c"

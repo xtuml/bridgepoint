@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("e05f76b4-4853-48c4-a7d9-95ba9fd82569",
@@ -7,7 +7,7 @@ INSERT INTO O_OBJ
 	'ROOT',
 	'This is the root of the tree. 
 It doesn''t have a parent.',
-	"5edea08f-a6e1-4146-8e1c-0cade7a477c7");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_REF
 	VALUES ("e05f76b4-4853-48c4-a7d9-95ba9fd82569",
 	"20b4194f-f64d-47b7-896d-542dccf5f8c7",
@@ -56,16 +56,9 @@ INSERT INTO O_ATTR
 	'',
 	'nodeId',
 	0,
-	"73db19ab-e535-4718-ab07-668918299d9a",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("73db19ab-e535-4718-ab07-668918299d9a",
-	"c7485938-5b68-46c4-bc59-f0bb9c943851",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_ID
 	VALUES (0,
 	"e05f76b4-4853-48c4-a7d9-95ba9fd82569");
@@ -80,12 +73,17 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"e05f76b4-4853-48c4-a7d9-95ba9fd82569");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("e05f76b4-4853-48c4-a7d9-95ba9fd82569",
+	1,
+	"5edea08f-a6e1-4146-8e1c-0cade7a477c7",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("5edea08f-a6e1-4146-8e1c-0cade7a477c7",
+	"00000000-0000-0000-0000-000000000000",
+	"c76dedc6-4b25-435f-9310-4f344030485a",
 	'BNF',
 	'',
-	'',
 	1,
-	"c7485938-5b68-46c4-bc59-f0bb9c943851",
-	"00000000-0000-0000-0000-000000100002",
 	'../BNF.xtuml');

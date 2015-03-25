@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("4080e1ea-24eb-4088-8582-abb7cc0a494b",
@@ -9,7 +9,7 @@ INSERT INTO O_OBJ
 
 This class is a duplicate of the class in the standard meta-model.  It is used
 to specify the processing for validating the sematics of a rule.',
-	"5edea08f-a6e1-4146-8e1c-0cade7a477c7");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_NBATTR
 	VALUES ("108da47d-159a-411b-8006-6f3b83194aa5",
 	"4080e1ea-24eb-4088-8582-abb7cc0a494b");
@@ -25,16 +25,9 @@ INSERT INTO O_ATTR
 	'',
 	'Sync_ID',
 	0,
-	"0dd326a8-132b-40ba-821c-d4a3d3b8c88d",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("0dd326a8-132b-40ba-821c-d4a3d3b8c88d",
-	"c7485938-5b68-46c4-bc59-f0bb9c943851",
-	'unique_id',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("4080e1ea-24eb-4088-8582-abb7cc0a494b",
 	"2b57062c-49ef-4a81-a220-cf67b7fb920e",
@@ -83,16 +76,9 @@ INSERT INTO O_ATTR
 	'',
 	'Dom_ID',
 	0,
-	"73db19ab-e535-4718-ab07-668918299d9a",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("73db19ab-e535-4718-ab07-668918299d9a",
-	"c7485938-5b68-46c4-bc59-f0bb9c943851",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("669bfa25-f01a-47b7-b6d4-c910eb5397ca",
 	"4080e1ea-24eb-4088-8582-abb7cc0a494b");
@@ -108,16 +94,9 @@ INSERT INTO O_ATTR
 	'',
 	'Name',
 	0,
-	"8bc628ed-3494-4e74-bb6a-ec37622127df",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("8bc628ed-3494-4e74-bb6a-ec37622127df",
-	"c7485938-5b68-46c4-bc59-f0bb9c943851",
-	'string',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("bbba062b-43ab-4973-bd46-afd71d56e0f8",
 	"4080e1ea-24eb-4088-8582-abb7cc0a494b");
@@ -133,7 +112,7 @@ INSERT INTO O_ATTR
 	'',
 	'Descrip',
 	0,
-	"8bc628ed-3494-4e74-bb6a-ec37622127df",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -151,7 +130,7 @@ INSERT INTO O_ATTR
 	'',
 	'Action_Semantics',
 	0,
-	"8bc628ed-3494-4e74-bb6a-ec37622127df",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_REF
@@ -202,7 +181,7 @@ INSERT INTO O_ATTR
 	'',
 	'DT_ID',
 	0,
-	"73db19ab-e535-4718-ab07-668918299d9a",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -223,16 +202,9 @@ Data Domain: 0=not parsed, 1 = parse successful, 2 = parse unsuccessful, 3 = par
 	'',
 	'Suc_Pars',
 	0,
-	"bfb63684-46c9-44bd-b4f5-e0ae6cd60407",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("bfb63684-46c9-44bd-b4f5-e0ae6cd60407",
-	"c7485938-5b68-46c4-bc59-f0bb9c943851",
-	'integer',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("4080e1ea-24eb-4088-8582-abb7cc0a494b",
 	"50596432-249d-4b43-b1db-deea1f96bd06",
@@ -248,7 +220,7 @@ INSERT INTO O_REF
 	'',
 	'Rule',
 	'rule_name',
-	'R9');
+	'R9.''is validation function for''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("4080e1ea-24eb-4088-8582-abb7cc0a494b",
 	"dc0d3f1e-7dde-4fe5-ac15-8066f004334e",
@@ -281,7 +253,7 @@ INSERT INTO O_ATTR
 	'',
 	'rule_name',
 	0,
-	"73db19ab-e535-4718-ab07-668918299d9a",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -301,7 +273,7 @@ INSERT INTO O_ATTR
 	'',
 	'return_value',
 	0,
-	"8bc628ed-3494-4e74-bb6a-ec37622127df",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_ID
@@ -318,12 +290,17 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"4080e1ea-24eb-4088-8582-abb7cc0a494b");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("4080e1ea-24eb-4088-8582-abb7cc0a494b",
+	1,
+	"5edea08f-a6e1-4146-8e1c-0cade7a477c7",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("5edea08f-a6e1-4146-8e1c-0cade7a477c7",
+	"00000000-0000-0000-0000-000000000000",
+	"c76dedc6-4b25-435f-9310-4f344030485a",
 	'BNF',
 	'',
-	'',
 	1,
-	"c7485938-5b68-46c4-bc59-f0bb9c943851",
-	"00000000-0000-0000-0000-000000100002",
 	'../BNF.xtuml');

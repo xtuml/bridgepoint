@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("9935b740-f46f-477e-9f9b-70972448e4a7",
@@ -6,13 +6,13 @@ INSERT INTO O_OBJ
 	203,
 	'R_RTO',
 	'A Referred To Class In Association is a class which contains identifying attributes which are referred to across the association.',
-	"c8d78fd5-1314-444a-bad0-6af79f6e1296");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("61f26ac1-7c2b-4776-892b-e60608734217",
 	"9935b740-f46f-477e-9f9b-70972448e4a7",
 	'dispose',
 	'The dispose function for the O_RTO class.',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// Association Subsystem
 select one zuper related by self->R_SUPER[R204];
@@ -49,19 +49,12 @@ delete object instance self;
 	1,
 	'',
 	"0d5b1689-4e03-4282-9248-1972f85b2679");
-INSERT INTO S_DT_PROXY
-	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'void',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("72e1fa3c-3515-4129-b222-37d67571a6ca",
 	"9935b740-f46f-477e-9f9b-70972448e4a7",
 	'unformalize',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select many rtida_set related by self->O_RTIDA[R110];
 for each rtida in rtida_set
@@ -85,7 +78,7 @@ INSERT INTO O_TFR
 	"9935b740-f46f-477e-9f9b-70972448e4a7",
 	'addAttributeToIdentifier',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select any oida related by self->O_ID[R109]->O_OIDA[R105] 
      where selected.Attr_ID == param.attr_id;
@@ -126,18 +119,11 @@ INSERT INTO O_TPARM
 	VALUES ("b5c9d19c-a416-4e81-83eb-645d42a18275",
 	"0d5b1689-4e03-4282-9248-1972f85b2679",
 	'attr_id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'unique_id',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("9935b740-f46f-477e-9f9b-70972448e4a7",
 	"2a83ce0a-3939-4ef4-9a99-70471ff57de9",
@@ -186,16 +172,9 @@ INSERT INTO O_ATTR
 	'',
 	'OIR_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("9935b740-f46f-477e-9f9b-70972448e4a7",
 	"e9a8dc7f-1edd-4949-94f3-2bec374f55ea",
@@ -211,7 +190,7 @@ INSERT INTO O_REF
 	'',
 	'Class Identifier',
 	'Oid_ID',
-	'R109');
+	'R109.''is identified in this association by''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("9935b740-f46f-477e-9f9b-70972448e4a7",
 	"d5a28b72-acbe-439c-bbb4-56ef4b7b9492",
@@ -245,7 +224,7 @@ INSERT INTO O_ATTR
 	'',
 	'Oid_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -286,7 +265,7 @@ INSERT INTO O_REF
 	'',
 	'Class Identifier',
 	'Obj_ID',
-	'R109');
+	'R109.''is identified in this association by''');
 INSERT INTO O_RTIDA_PROXY
 	VALUES ("bbca05ce-8a70-453f-bb75-591cce7fd1f8",
 	"e9a8dc7f-1edd-4949-94f3-2bec374f55ea",
@@ -314,7 +293,7 @@ INSERT INTO O_ATTR
 	'',
 	'Obj_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -356,7 +335,7 @@ INSERT INTO O_ATTR
 	'',
 	'Rel_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_ID
@@ -403,12 +382,17 @@ INSERT INTO O_OIDA
 INSERT INTO O_ID
 	VALUES (2,
 	"9935b740-f46f-477e-9f9b-70972448e4a7");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("9935b740-f46f-477e-9f9b-70972448e4a7",
+	1,
+	"c8d78fd5-1314-444a-bad0-6af79f6e1296",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("c8d78fd5-1314-444a-bad0-6af79f6e1296",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Association',
 	'A association (R_REL) captures an association between things in the real world. A association is stated in terms of the formal classs (O_OBJ) that model the real world entities participating in the association. There can be any number of associations between the same two classs and any class can participate in any number of associations with other classs.',
-	'R',
 	201,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000180003",
 	'../Association.xtuml');

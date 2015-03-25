@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("cd73dfae-c851-4e8f-8e35-d581ce48620e",
@@ -8,13 +8,13 @@ INSERT INTO O_OBJ
 	'This class represents an instances attribute along with its value.  These may
 be informal or directly derived from their formal model counterpart, i.e a real
 instances attributes.',
-	"90afcd0d-03fa-49d5-ac2c-0fd20beede15");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("1b5957d2-c2a7-4c3f-bb6e-d39aa14ca9e4",
 	"cd73dfae-c851-4e8f-8e35-d581ce48620e",
 	'dispose',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select one attr related by self->O_ATTR[R938];
 if(not_empty attr)
@@ -42,19 +42,12 @@ delete object instance self;',
 	1,
 	'',
 	"ac08968b-63f9-4052-a2cc-96c5074b744e");
-INSERT INTO S_DT_PROXY
-	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'void',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("82c444a3-ebe3-4278-9906-035aef45f54b",
 	"cd73dfae-c851-4e8f-8e35-d581ce48620e",
 	'initialize',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'name = "Informal Attribute";
 success = ::getNewElementName(name:name,instance: self.convertToInstance(),validateName:false);    
@@ -71,43 +64,29 @@ INSERT INTO O_TFR
 	"cd73dfae-c851-4e8f-8e35-d581ce48620e",
 	'get_name',
 	'',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'return self.Label;',
 	1,
 	'',
 	"1b5957d2-c2a7-4c3f-bb6e-d39aa14ca9e4");
-INSERT INTO S_DT_PROXY
-	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'string',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("ac08968b-63f9-4052-a2cc-96c5074b744e",
 	"cd73dfae-c851-4e8f-8e35-d581ce48620e",
 	'canRename',
 	'',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'return not self.isFormal;',
 	1,
 	'',
 	"7e296f8e-04fb-469d-99b2-a80d6b516e07");
-INSERT INTO S_DT_PROXY
-	VALUES ("8e519c45-7dcf-400b-9d4e-954869dbb7e8",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'boolean',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("7e296f8e-04fb-469d-99b2-a80d6b516e07",
 	"cd73dfae-c851-4e8f-8e35-d581ce48620e",
 	'canDelete',
 	'',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'return not self.isFormal;',
 	1,
@@ -129,7 +108,7 @@ Translate: native',
 	"1552837b-41d7-474f-91a8-e1082963d459");
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
 	'instance',
 	'',
 	'',
@@ -139,7 +118,7 @@ INSERT INTO O_TFR
 	"cd73dfae-c851-4e8f-8e35-d581ce48620e",
 	'resolveAttributeLocal',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select one attrProxy related by self->O_ATTR[R938];
 // if the component is not actually a proxy this imported
@@ -178,16 +157,9 @@ INSERT INTO O_ATTR
 	'',
 	'Av_ID',
 	0,
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'unique_id',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("cd73dfae-c851-4e8f-8e35-d581ce48620e",
 	"d931d595-21f3-4ce8-bad1-6661a0e261b8",
@@ -203,7 +175,7 @@ INSERT INTO O_REF
 	'',
 	'Attribute',
 	'Attr_ID',
-	'R938');
+	'R938.''references''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("cd73dfae-c851-4e8f-8e35-d581ce48620e",
 	"a5d68859-99fb-4c13-8b39-6b9293639ff5",
@@ -236,16 +208,9 @@ INSERT INTO O_ATTR
 	'',
 	'Attr_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_DBATTR
 	VALUES ("894c55a6-bded-4938-bc9d-bc8a7d6ab6b1",
 	"cd73dfae-c851-4e8f-8e35-d581ce48620e",
@@ -276,7 +241,7 @@ INSERT INTO O_ATTR
 	'',
 	'Label',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -294,7 +259,7 @@ INSERT INTO O_ATTR
 	'',
 	'Value',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -312,7 +277,7 @@ INSERT INTO O_ATTR
 	'',
 	'InformalName',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -331,7 +296,7 @@ Description: A textual description of this instance attribute.',
 	'',
 	'Descrip',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_DBATTR
@@ -352,7 +317,7 @@ INSERT INTO O_ATTR
 	'',
 	'isFormal',
 	0,
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	'',
 	'');
 INSERT INTO O_REF
@@ -370,7 +335,7 @@ INSERT INTO O_REF
 	'',
 	'Class Instance Participant',
 	'Part_ID',
-	'R936');
+	'R936.''owns informal''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("cd73dfae-c851-4e8f-8e35-d581ce48620e",
 	"7a433dc2-1abf-413a-bc21-e52f3ccd0c93",
@@ -403,7 +368,7 @@ INSERT INTO O_ATTR
 	'Informal_',
 	'Part_ID',
 	1,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -421,7 +386,7 @@ INSERT INTO O_REF
 	'',
 	'Class Instance Participant',
 	'Part_ID',
-	'R937');
+	'R937.''owns formal''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("cd73dfae-c851-4e8f-8e35-d581ce48620e",
 	"b2ecff62-878f-4537-93e2-a6ede3c7b857",
@@ -450,7 +415,7 @@ INSERT INTO O_ATTR
 	'Formal_',
 	'Part_ID',
 	1,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -468,7 +433,7 @@ INSERT INTO O_REF
 	'',
 	'Attribute',
 	'Obj_ID',
-	'R938');
+	'R938.''references''');
 INSERT INTO O_RTIDA_PROXY
 	VALUES ("6b246834-4863-4867-827c-9484e9cedcbf",
 	"d931d595-21f3-4ce8-bad1-6661a0e261b8",
@@ -492,7 +457,7 @@ INSERT INTO O_ATTR
 	'',
 	'Obj_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_ID
@@ -509,13 +474,18 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"cd73dfae-c851-4e8f-8e35-d581ce48620e");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("cd73dfae-c851-4e8f-8e35-d581ce48620e",
+	1,
+	"90afcd0d-03fa-49d5-ac2c-0fd20beede15",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("90afcd0d-03fa-49d5-ac2c-0fd20beede15",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Interaction',
 	'// This is used by schema_gen to ignore this subsystem (for publication)
 TRANSLATE_FOR_EXTERNAL_USE:FALSE',
-	'IA',
 	930,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000000000",
 	'../Interaction.xtuml');

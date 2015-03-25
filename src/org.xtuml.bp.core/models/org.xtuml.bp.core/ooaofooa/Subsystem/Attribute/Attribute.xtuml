@@ -6,14 +6,14 @@ INSERT INTO O_OBJ
 	103,
 	'O_ATTR',
 	'An attribute is an abstraction of a single characteristic possessed by a class.  Usually classes contain a set of attributes to completely capture all pertinent information.  Each attribute is given a unique name within a class.',
-	"67eb58de-1d2b-4163-8373-ae8e65e99f84");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("a2bfa948-8b43-4a3e-a957-ecb18414077d",
 	"d931d595-21f3-4ce8-bad1-6661a0e261b8",
 	'dispose',
 	'Dispose this Attribute.
 ',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// Subsystem Subsystem
 select many oidas related by self->O_OIDA[R105];
@@ -111,20 +111,13 @@ delete object instance self;',
 	1,
 	'',
 	"fb881be8-f606-4f84-940f-bed31d6c0623");
-INSERT INTO S_DT_PROXY
-	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'void',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("ce5360b9-5110-451b-9e9e-6b3315e89ba4",
 	"d931d595-21f3-4ce8-bad1-6661a0e261b8",
 	'initialize',
 	'Initialize this new Attribute.
 ',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
 self.Prefix = "";
@@ -189,7 +182,7 @@ INSERT INTO O_TFR
 	"d931d595-21f3-4ce8-bad1-6661a0e261b8",
 	'isAllowedType',
 	'',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
 // Attribute::isAllowedType()
@@ -271,32 +264,18 @@ INSERT INTO O_TPARM
 	VALUES ("8becbf1f-3588-4821-9fef-a6e57d34b466",
 	"bffd6d75-3acc-4b10-b4bf-03ebc55cdf97",
 	'typeName',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'string',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
-INSERT INTO S_DT_PROXY
-	VALUES ("8e519c45-7dcf-400b-9d4e-954869dbb7e8",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'boolean',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("248dae07-3b09-4e3c-b998-ce2cc489d4f4",
 	"d931d595-21f3-4ce8-bad1-6661a0e261b8",
 	'actionFilter',
 	'Bridge: UI
 ',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'if (param.name == "subtype" )
   if (param.value =="O_NBATTR" )
@@ -368,7 +347,7 @@ INSERT INTO O_TPARM
 	VALUES ("eb04ed01-8259-4ea2-a916-9e55d4cbf5d3",
 	"248dae07-3b09-4e3c-b998-ce2cc489d4f4",
 	'name',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -377,7 +356,7 @@ INSERT INTO O_TPARM
 	VALUES ("dabbce79-6bd6-45a7-aa78-ea48996ccdd1",
 	"248dae07-3b09-4e3c-b998-ce2cc489d4f4",
 	'value',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	0,
 	'',
 	"eb04ed01-8259-4ea2-a916-9e55d4cbf5d3",
@@ -387,7 +366,7 @@ INSERT INTO O_TFR
 	"d931d595-21f3-4ce8-bad1-6661a0e261b8",
 	'isPartOfId',
 	'',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'select any oida related by self->O_OIDA[R105] where (selected.Oid_ID == param.id );
 return not_empty oida;
@@ -399,24 +378,17 @@ INSERT INTO O_TPARM
 	VALUES ("7d902748-141e-41fe-8399-c96b706e5441",
 	"edb6062f-f781-4cc6-ba30-8822673da1ca",
 	'id',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'integer',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("b377a524-acd3-49b7-9612-406871f454bc",
 	"d931d595-21f3-4ce8-bad1-6661a0e261b8",
 	'migrateBaseToDerived',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select one battr related by self->O_BATTR[R106];
 if ( not_empty battr )
@@ -438,7 +410,7 @@ INSERT INTO O_TFR
 	"d931d595-21f3-4ce8-bad1-6661a0e261b8",
 	'migrateDerivedToBase',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select one battr related by self->O_BATTR[R106];
 if ( not_empty battr )
@@ -459,7 +431,7 @@ INSERT INTO O_TFR
 	"d931d595-21f3-4ce8-bad1-6661a0e261b8",
 	'migrateBaseToReferential',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select one battr related by self->O_BATTR[R106];
 if ( not_empty battr )
@@ -479,7 +451,7 @@ INSERT INTO O_TFR
 	"d931d595-21f3-4ce8-bad1-6661a0e261b8",
 	'moveUp',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'::changeNotificationEnablement(enabled:false);
 select one prev_attr related by self->O_ATTR[R103.''succeeds''];
@@ -515,7 +487,7 @@ INSERT INTO O_TFR
 	"d931d595-21f3-4ce8-bad1-6661a0e261b8",
 	'moveDown',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'::changeNotificationEnablement(enabled:false);
 select one next_attr related by self->O_ATTR[R103.''precedes''];
@@ -551,7 +523,7 @@ INSERT INTO O_TFR
 	"d931d595-21f3-4ce8-bad1-6661a0e261b8",
 	'addToIdentifier',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select any oid related by self->O_OBJ[R102]->O_ID[R104]
      where selected.Oid_ID == param.oid;
@@ -568,7 +540,7 @@ INSERT INTO O_TPARM
 	VALUES ("53fae7a2-c368-4ff0-a3fd-91e2443fb29f",
 	"a94de2b5-9c21-456e-81ca-772f7528e429",
 	'oid',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -578,7 +550,7 @@ INSERT INTO O_TFR
 	"d931d595-21f3-4ce8-bad1-6661a0e261b8",
 	'removeFromIdentifier',
 	'',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'select any oida related by self->O_OIDA[R105]
     where selected.Oid_ID == param.oid;
@@ -604,7 +576,7 @@ INSERT INTO O_TPARM
 	VALUES ("e556dba9-0334-4e0f-bf24-8fd931658a11",
 	"bec06d11-0978-4b1d-9577-20c953c471db",
 	'oid',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -614,7 +586,7 @@ INSERT INTO O_TFR
 	"d931d595-21f3-4ce8-bad1-6661a0e261b8",
 	'canDelete',
 	'',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'if (self.Name == "current_state")
   select one dt related by self->S_DT[R114];
@@ -653,7 +625,7 @@ INSERT INTO O_TFR
 	"d931d595-21f3-4ce8-bad1-6661a0e261b8",
 	'canRename',
 	'',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'if (self.Name == "current_state")
   select one dt related by self->S_DT[R114];
@@ -694,7 +666,7 @@ INSERT INTO O_TFR
 	"d931d595-21f3-4ce8-bad1-6661a0e261b8",
 	'get_root',
 	'',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'select one battr related by self->O_BATTR[R106];
 if ( not_empty battr )
@@ -711,7 +683,7 @@ INSERT INTO O_TFR
 	"d931d595-21f3-4ce8-bad1-6661a0e261b8",
 	'get_prefix',
 	'',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'select one battr related by self->O_BATTR[R106];
 if ( not_empty battr )
@@ -745,7 +717,7 @@ return this;',
 	"b27c2949-5ff0-47cb-b585-a413c1c29136");
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
 	'instance',
 	'',
 	'',
@@ -755,25 +727,18 @@ INSERT INTO O_TFR
 	"d931d595-21f3-4ce8-bad1-6661a0e261b8",
 	'get_ooa_id',
 	'',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'return self.Attr_ID;',
 	1,
 	'',
 	"042bd8a7-50c8-498d-9aff-4d1b60045556");
-INSERT INTO S_DT_PROXY
-	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'unique_id',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("3beb1cd7-9ca7-4b86-b212-a3c831632884",
 	"d931d595-21f3-4ce8-bad1-6661a0e261b8",
 	'resolveDatatype',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
 
@@ -839,7 +804,7 @@ INSERT INTO O_TFR
 	"d931d595-21f3-4ce8-bad1-6661a0e261b8",
 	'getDimensionsCnt',
 	'',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	1,
 	'select many dims related by self->S_DIM[R120];
 dimensions = cardinality dims;
@@ -852,7 +817,7 @@ INSERT INTO O_TFR
 	"d931d595-21f3-4ce8-bad1-6661a0e261b8",
 	'resizeDimensions',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// If the number of dimensions has increased then add dimensions
 while (param.numDimensions > self.getDimensionsCnt())
@@ -884,7 +849,7 @@ INSERT INTO O_TPARM
 	VALUES ("f416e82c-c3ce-413e-8338-aa3a539db0f0",
 	"ade8bc8c-fc3c-4cf7-a1b7-9f859c2ec19b",
 	'numDimensions',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"20e2c5cc-5c9b-4d74-8d71-09a0f23239f3",
@@ -893,7 +858,7 @@ INSERT INTO O_TPARM
 	VALUES ("20e2c5cc-5c9b-4d74-8d71-09a0f23239f3",
 	"ade8bc8c-fc3c-4cf7-a1b7-9f859c2ec19b",
 	'elementCount',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"ffdd5783-44f6-4e2d-9890-0e6e1581e86d",
@@ -902,7 +867,7 @@ INSERT INTO O_TPARM
 	VALUES ("ffdd5783-44f6-4e2d-9890-0e6e1581e86d",
 	"ade8bc8c-fc3c-4cf7-a1b7-9f859c2ec19b",
 	'dimension',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -912,7 +877,7 @@ INSERT INTO O_TFR
 	"d931d595-21f3-4ce8-bad1-6661a0e261b8",
 	'canReferToDataType',
 	'',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
 // select the dt
@@ -955,7 +920,7 @@ INSERT INTO O_TFR
 	"d931d595-21f3-4ce8-bad1-6661a0e261b8",
 	'isReferringToDefaultDataType',
 	'',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'select one dt related by self->S_DT[R114];
 elementType = Util::getSimpleClassName(element:self.convertToInstance());
@@ -971,7 +936,7 @@ INSERT INTO O_TFR
 	"d931d595-21f3-4ce8-bad1-6661a0e261b8",
 	'canUseDataType',
 	'',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
 // Attribute::canUseDataType()
@@ -1054,7 +1019,7 @@ INSERT INTO O_TPARM
 	VALUES ("c26d9043-b6ad-407a-bbbf-a49cb28734ef",
 	"f854ce28-93eb-4799-a3b7-103e85e0faa6",
 	'id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -1064,7 +1029,7 @@ INSERT INTO O_TFR
 	"d931d595-21f3-4ce8-bad1-6661a0e261b8",
 	'checkIntegrity',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// check for any attributes with the same name
 select one package related by self->O_OBJ[R102]->PE_PE[R8001]->EP_PKG[R8000];
@@ -1103,7 +1068,7 @@ Description: A unique identifier for an instance of attribute.',
 	'',
 	'Attr_ID',
 	0,
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	'',
 	'');
 INSERT INTO O_REF
@@ -1121,7 +1086,7 @@ INSERT INTO O_REF
 	'',
 	'Attribute',
 	'Attr_ID',
-	'R103');
+	'R103.''succeeds''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("d931d595-21f3-4ce8-bad1-6661a0e261b8",
 	"9e3e32ea-b1ca-4976-960d-d05d8ea26753",
@@ -1150,16 +1115,9 @@ INSERT INTO O_ATTR
 	'P',
 	'Attr_ID',
 	1,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_DBATTR
 	VALUES ("63bdb3e9-b5a0-4c55-aea8-ab8773c51ba4",
 	"d931d595-21f3-4ce8-bad1-6661a0e261b8",
@@ -1200,7 +1158,7 @@ Description: The name of the class attribute as it appears on the OIM of the app
 	'',
 	'Name',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -1219,7 +1177,7 @@ Description:  A textual description of the class attribute as specified in the a
 	'',
 	'Descrip',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -1238,7 +1196,7 @@ Description: Prefix for the attribute.',
 	'',
 	'Prefix',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -1257,7 +1215,7 @@ Description: The root name (name without prefix) of the attribute',
 	'',
 	'Root_Nam',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -1282,7 +1240,7 @@ enum2: Referred To Prefix
 	'',
 	'Pfx_Mode',
 	0,
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -1300,7 +1258,7 @@ INSERT INTO O_ATTR
 	'',
 	'Dimensions',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -1320,7 +1278,7 @@ Description: This attribute holds text representing the initialization value for
 	'',
 	'DefaultValue',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_REF
@@ -1338,7 +1296,7 @@ INSERT INTO O_REF
 	'',
 	'Data Type',
 	'DT_ID',
-	'R114');
+	'R114.''defines type of''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("d931d595-21f3-4ce8-bad1-6661a0e261b8",
 	"14334a89-3f24-4ee1-863a-9e95d7252700",
@@ -1371,7 +1329,7 @@ INSERT INTO O_ATTR
 	'',
 	'Element_ID',
 	2,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -1389,7 +1347,7 @@ INSERT INTO O_REF
 	'',
 	'Model Class',
 	'Obj_ID',
-	'R102');
+	'R102.''abstracts characteristics of''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("d931d595-21f3-4ce8-bad1-6661a0e261b8",
 	"ead7527d-2e25-4550-b604-6ba93c18a4da",
@@ -1417,7 +1375,7 @@ INSERT INTO O_REF
 	'',
 	'Attribute',
 	'Obj_ID',
-	'R103');
+	'R103.''succeeds''');
 INSERT INTO O_RTIDA_PROXY
 	VALUES ("6b246834-4863-4867-827c-9484e9cedcbf",
 	"d931d595-21f3-4ce8-bad1-6661a0e261b8",
@@ -1441,7 +1399,7 @@ INSERT INTO O_ATTR
 	'',
 	'Obj_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_ID
@@ -1463,12 +1421,17 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"d931d595-21f3-4ce8-bad1-6661a0e261b8");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("d931d595-21f3-4ce8-bad1-6661a0e261b8",
+	1,
+	"67eb58de-1d2b-4163-8373-ae8e65e99f84",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("67eb58de-1d2b-4163-8373-ae8e65e99f84",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Subsystem',
 	'A class (O_OBJ)  is an abstraction of a real world thing that has specific attributes (O_ATTR) and, if active, has a lifecycle model as a state machine (SM_SM).  All instances of the class must have the same characteristics and follow the same state behavior.  Classes fall into many categories, some of which are: tangible things, roles, interactions and specifications. ',
-	'O',
 	101,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000300006",
 	'../Subsystem.xtuml');

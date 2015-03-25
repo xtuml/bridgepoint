@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("7e90f7bc-14dd-4b30-83a0-cfbdca100bd0",
@@ -6,14 +6,14 @@ INSERT INTO O_OBJ
 	822,
 	'V_FNV',
 	'This class represents the value returned by a function invocation.',
-	"e060f94c-3f82-463e-9d98-d20315b7c196");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("a554dbfd-eedf-48e5-9a01-98782897bf10",
 	"7e90f7bc-14dd-4b30-83a0-cfbdca100bd0",
 	'dispose',
 	'This operation disconnects an instance, and all instances it is 
 responsible for, from the model.',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select one sync related by self->S_SYNC[R827];
 if ( not empty sync )
@@ -30,19 +30,12 @@ delete object instance self;
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO S_DT_PROXY
-	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'void',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("b72d48d4-084b-4e53-a0b7-61830cf695f4",
 	"7e90f7bc-14dd-4b30-83a0-cfbdca100bd0",
 	'getValue',
 	'Executes a function and returns a result.',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// (V_FNV) Value:Function Value.getValue()
 
@@ -86,24 +79,17 @@ INSERT INTO O_TPARM
 	VALUES ("1c16ed7b-9e9a-4ed8-b645-5bba13a07865",
 	"b72d48d4-084b-4e53-a0b7-61830cf695f4",
 	'stack_frame_id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'unique_id',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("652eaee5-0289-4714-9fc2-2ae0fbd1ee52",
 	"7e90f7bc-14dd-4b30-83a0-cfbdca100bd0",
 	'setupParameterValues',
 	'Initializes the parameters passing to a function.',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'// Value:Function Value.setupParameterValues()
 select one body related by self->V_VAL[R801]->ACT_BLK[R826]->ACT_ACT[R601];
@@ -217,18 +203,11 @@ INSERT INTO O_TPARM
 	VALUES ("e819a990-7240-48f4-ae5a-31fc02035d35",
 	"652eaee5-0289-4714-9fc2-2ae0fbd1ee52",
 	'stack_frame_id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("8e519c45-7dcf-400b-9d4e-954869dbb7e8",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'boolean',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("7e90f7bc-14dd-4b30-83a0-cfbdca100bd0",
 	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
@@ -277,16 +256,9 @@ INSERT INTO O_ATTR
 	'',
 	'Value_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("31a6f335-e0a2-4e15-903a-bfcfddfd2d49",
 	"7e90f7bc-14dd-4b30-83a0-cfbdca100bd0");
@@ -304,7 +276,7 @@ Bridge:ALS',
 	'',
 	'ParmListOK',
 	0,
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	'',
 	'');
 INSERT INTO O_REF
@@ -357,7 +329,7 @@ INSERT INTO O_ATTR
 	'',
 	'Sync_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_ID
@@ -374,8 +346,16 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"7e90f7bc-14dd-4b30-83a0-cfbdca100bd0");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("7e90f7bc-14dd-4b30-83a0-cfbdca100bd0",
+	1,
+	"e060f94c-3f82-463e-9d98-d20315b7c196",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("e060f94c-3f82-463e-9d98-d20315b7c196",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Value',
 	'This subsystem formalizes the concepts of values (r-values) and variables 
 (l-values). It also captures the concept of an actual parameter.
@@ -384,8 +364,5 @@ Persistent:false
 // This is used by schema_gen to ignore this subsystem (for publication)
 TRANSLATE_FOR_EXTERNAL_USE:FALSE
 ',
-	'V',
 	800,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000400008",
 	'../Value.xtuml');

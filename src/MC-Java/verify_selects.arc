@@ -703,8 +703,8 @@
 .invoke check_env = GET_ENV_VAR( "VERIFY_SELECTS" )
 .invoke func_env = GET_ENV_VAR( "CHECK_FUNCTIONS_ONLY" )
 .if(check_env.result == "true")
-  .select any domain from instances of S_DOM where (selected.Name == mc_root_pkg)
-  .invoke gdn_result = get_domain_name( domain )
+  .select any root_pkg from instances of EP_PKG where (selected.Name == mc_root_pkg)
+  .invoke gdn_result = get_root_pkg_name( root_pkg )
   .// Pre-processing to setup association between if statement and elif/else statements
   .select many else_stmts from instances of ACT_E
   .for each else_stmt in else_stmts

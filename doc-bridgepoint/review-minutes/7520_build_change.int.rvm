@@ -1,0 +1,30 @@
+---
+
+This work is licensed under the Creative Commons CC0 License
+
+---
+
+# Move BridgePoint build away from special configuration and tools
+### xtUML Project Review Minutes
+
+Reviewed:  https://github.com/keithbrown/bridgepoint/blob/7520_build_tools_change/doc-bridgepoint/notes/7520_build_change_int.md
+           1615b40fe3af5970f8f028e99ff586a76a5f0003
+Present:  Travis,Keith, Bob
+
+<pre>
+
+-- Num Type  Who  Section  Comment
+x- 01  min   bob  6.1      configurations -> configures
+x- 02  min   skb  6.1      Perhaps leave the code but comment (with a comment why) it out so 
+                           people could still use parallel if they want
+
+</pre>
+
+code review:
+  no observations
+
+No major observations, a re-review is not required.
+
+
+End
+---

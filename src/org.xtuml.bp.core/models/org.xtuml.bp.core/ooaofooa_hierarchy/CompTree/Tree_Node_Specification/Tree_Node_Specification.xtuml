@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("25e75607-ce05-4777-9579-41952aea2d25",
@@ -14,7 +14,7 @@ Iinstances of this class specify which data items are to be shown.
 
 Attributes of this class determine which client model entry is to be
 shown and what the tree entry will look like.',
-	"9a4ff466-14a5-4e47-b07f-84de195f210a");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_NBATTR
 	VALUES ("66f7f490-0cbe-422a-84a6-1c85b4d4b0b6",
 	"25e75607-ce05-4777-9579-41952aea2d25");
@@ -30,16 +30,9 @@ INSERT INTO O_ATTR
 	'',
 	'Tree_Node_Spec_ID',
 	0,
-	"6bea20b4-8e35-4cf6-a7e4-55271e6443e6",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("6bea20b4-8e35-4cf6-a7e4-55271e6443e6",
-	"138f69c7-a700-4109-8c2b-e9232b291756",
-	'unique_id',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("778d662a-d781-4afa-8379-881225c231fb",
 	"25e75607-ce05-4777-9579-41952aea2d25");
@@ -55,16 +48,9 @@ INSERT INTO O_ATTR
 	'',
 	'Icon',
 	0,
-	"03c1b47c-e0b1-4463-ab1e-0820044ee2f4",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("03c1b47c-e0b1-4463-ab1e-0820044ee2f4",
-	"138f69c7-a700-4109-8c2b-e9232b291756",
-	'string',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("29318a2d-76eb-44c3-923b-8bc752e0325d",
 	"25e75607-ce05-4777-9579-41952aea2d25");
@@ -82,7 +68,7 @@ Examples: O_OBJ, SM_ISM, S_DOM',
 	'',
 	'Key_Lett',
 	0,
-	"03c1b47c-e0b1-4463-ab1e-0820044ee2f4",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -104,7 +90,7 @@ Examples: Instance State Model, Class State Model',
 	'',
 	'Label',
 	0,
-	"03c1b47c-e0b1-4463-ab1e-0820044ee2f4",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -123,7 +109,7 @@ read to provide the text part of the tree entry.',
 	'',
 	'NamingAttribute',
 	0,
-	"03c1b47c-e0b1-4463-ab1e-0820044ee2f4",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -149,7 +135,7 @@ of the name of a user defined data type)',
 	'',
 	'NamingAttributeRelChain',
 	0,
-	"03c1b47c-e0b1-4463-ab1e-0820044ee2f4",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -171,7 +157,7 @@ Examples: Domains, Classes, Attributes, States',
 	'',
 	'CategoryName',
 	0,
-	"03c1b47c-e0b1-4463-ab1e-0820044ee2f4",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -189,16 +175,9 @@ INSERT INTO O_ATTR
 	'',
 	'SortingRelationNumber',
 	0,
-	"ef34c673-6129-4406-b797-f0f9c0ca9232",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("ef34c673-6129-4406-b797-f0f9c0ca9232",
-	"138f69c7-a700-4109-8c2b-e9232b291756",
-	'integer',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("c4afd019-ec84-40ea-a6f3-8773de8761ac",
 	"25e75607-ce05-4777-9579-41952aea2d25");
@@ -214,7 +193,7 @@ INSERT INTO O_ATTR
 	'',
 	'SortingRelationPhrase',
 	0,
-	"03c1b47c-e0b1-4463-ab1e-0820044ee2f4",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -232,7 +211,7 @@ INSERT INTO O_ATTR
 	'',
 	'NonLabelNamingAttribute',
 	0,
-	"03c1b47c-e0b1-4463-ab1e-0820044ee2f4",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_ID
@@ -249,12 +228,17 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"25e75607-ce05-4777-9579-41952aea2d25");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("25e75607-ce05-4777-9579-41952aea2d25",
+	1,
+	"9a4ff466-14a5-4e47-b07f-84de195f210a",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("9a4ff466-14a5-4e47-b07f-84de195f210a",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'CompTree',
 	'',
-	'T',
 	1,
-	"138f69c7-a700-4109-8c2b-e9232b291756",
-	"00000000-0000-0000-0000-000000100002",
 	'../CompTree.xtuml');

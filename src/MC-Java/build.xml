@@ -15,39 +15,51 @@
 	
   <target name="do.nothing" />
 
-  <target name="generate-with-file_io.java" description="Generate Java code for domain">
+  <target name="file_io.schema">
+  	<!--Build required file.io schema-->
+  	<!--No need for any conditions on this target, since the
+  	    schema target already has the needed conditionals -->
+    <ant antfile="../org.xtuml.bp.io.core/generate.xml" target="schema" useNativeBasedir="true">
+      <property name="sql.input" value="models/org.xtuml.bp.io.core/file_io" />
+      <property name="sql.output" value="file_io.sql" />
+      <property name="subsystems_to_remove" value="ACT_ V_ E_ GD_ CT_ TS_ DIM_ STY_" />
+      <property name="schema.output" value="file_io_schema.sql" />
+  	</ant>
+  </target>
+
+  <target name="generate-with-file_io.java" description="Generate Java code for domain" depends="file_io.schema">
   	<!--  param1 = <domain name>
   	      param2 = $c{ <domain name> }
   	      param3 = MC-Java path
-  	      param4 = file_io_schema
-  	      param5 = start package
-  	      param6 = end package
-  	      param7 = prebuilder exported filename
-  	      param8 = pass count
+  	      param4 = start package
+  	      param5 = end package
+  	      param6 = pass count
   	-->
-  	<echo>Building from: gen/code_generation/${param1}-${param8}.sql</echo>
-  	<copy file="gen/code_generation/${param1}-${param8}.sql" tofile="gen/code_generation/${param1}-${param8}.xtuml"/>
+  	<echo>Building from: gen/code_generation/${param1}-${param6}.sql</echo>
+  	<copy file="gen/code_generation/${param1}-${param6}.sql" tofile="gen/code_generation/${param1}-${param6}.xtuml"/>
   	<exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
-  	      <arg line="xtumlmc_cleanse_for_BridgePoint ${mcjava.project.root}/gen/code_generation/${param1}-${param8}.xtuml sql/${param1}-${param8}.sql" />
+  	      <arg line="xtumlmc_cleanse_for_BridgePoint ${mcjava.project.root}/gen/code_generation sql/${param1}-${param6}.sql" />
   	</exec>
+  	<!-- delete the copied xtuml file to prevent adding previously processed xtumls files -->
+  	<delete file="gen/code_generation/${param1}-${param6}.xtuml" />
     <!-- for NON-parallel core builds -->
-	<exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
-        <env key="PTC_MC_ARC_DIR" value="${param3}" />
-        <env key="PTC_MCC_SS_START" value="${param5}" />
-        <env key="PTC_MCC_SS_END" value="${param6}" />
-        <env key="VERIFY_SELECTS" value="${verify_selects}" />
-        <env key="PTC_MCC_ROOT" value="${param1}" />
-        <env key="PROJECT_ROOT" value="${mcjava.project.root}" />
-		<env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
-        <arg line="xtumlmc_gen_erate -nopersist
-				-import sql/${param4}.sql
+  	<exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
+		    <env key="PTC_MC_ARC_DIR" value="${param3}" />
+	    	<env key="PTC_MCC_SS_START" value="${param4}" />
+	    	<env key="PTC_MCC_SS_END" value="${param5}" />
+			<env key="VERIFY_SELECTS" value="${verify_selects}" />
+            <env key="PTC_MCC_ROOT" value="${param1}" />
+  		    <env key="PROJECT_ROOT" value="${mcjava.project.root}" />
+  		    <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
+			<arg line="xtumlmc_gen_erate -nopersist
+				-import ../org.xtuml.bp.io.core/sql/file_io_schema.sql
 				-import ../org.xtuml.bp.io.mdl/sql/file_io.pei.sql
 				-import ${param3}/ooa_schema.sql
 				-d 0
-				-import sql/${param1}-${param8}.sql
+				-import sql/${param1}-${param6}.sql
 				-arch ${param3}/verify_selects.arc
 				-arch ${param3}/java.arc" />
-    </exec>
+		</exec>
   	<!-- for parallel core builds
     <property environment="env"/>
     <property name="bp_bin_dir" value="${env.PT_HOME_DRIVE}${env.PT_HOME}/bin" />
@@ -100,14 +112,16 @@
 	</exec>
   </target>
 
-  <target name="generate.schema" description="Generate schema from sql file">
+	<target name="generate.schema" description="Generate schema from sql file">
 <!--  param1 = input file name
       param2 = MC-Java path
       param3 = TRANSLATE_FOR_EXTERNAL_USE environment variable value
+      param4 = root package name
 -->
     <exec dir="sql" vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
 		<env key="OS_CACHE_SIZE" value="64000000" />
 		<env key="TRANSLATE_FOR_EXTERNAL_USE" value="${param3}" />
+        <env key="PTC_MCC_ROOT" value="${param4}" />
     	<env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
 		<arg line="xtumlmc_gen_erate -nopersist
 			-import ../${param2}/ooa_schema.sql
@@ -119,4 +133,3 @@
   </target>
 
 </project>
-

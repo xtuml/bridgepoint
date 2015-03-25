@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("74499f10-8c20-4ad4-9221-8139a8362b8f",
@@ -6,14 +6,14 @@ INSERT INTO O_OBJ
 	402,
 	'CA_EESMC',
 	'An EE to SM communication path represents a path on the Communication Diagram that originates at an External Entity and terminates at a State Machine.  ',
-	"309f0e1c-e3bd-46e3-ad66-49d186565a6b");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("ab493c75-5582-4108-9111-88ad006b6694",
 	"74499f10-8c20-4ad4-9221-8139a8362b8f",
 	'dispose',
 	'Delete this CA_EESMC.
 ',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select many eesmes related by self->CA_EESME[R404];
 for each eesme in eesmes
@@ -32,13 +32,6 @@ delete object instance self;',
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO S_DT_PROXY
-	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'void',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("74499f10-8c20-4ad4-9221-8139a8362b8f",
 	"2ec510d1-5b04-4d69-a388-844bfa103cc6",
@@ -91,16 +84,9 @@ INSERT INTO O_ATTR
 	'',
 	'CPath_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("74499f10-8c20-4ad4-9221-8139a8362b8f",
 	"370cf248-82e0-4e2f-ab33-dd7c04ece691",
@@ -116,7 +102,7 @@ INSERT INTO O_REF
 	'',
 	'External Entity in Model',
 	'EEmod_ID',
-	'R402');
+	'R402.''originates from''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("74499f10-8c20-4ad4-9221-8139a8362b8f",
 	"629808b4-8fdd-4ff0-8721-c88b98860448",
@@ -149,7 +135,7 @@ INSERT INTO O_ATTR
 	'',
 	'EEmod_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -167,7 +153,7 @@ INSERT INTO O_REF
 	'',
 	'State Machine',
 	'SM_ID',
-	'R403');
+	'R403.''shows event communication to''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("74499f10-8c20-4ad4-9221-8139a8362b8f",
 	"d39e89fc-b651-4451-acc8-26eee9ad5c91",
@@ -200,7 +186,7 @@ INSERT INTO O_ATTR
 	'',
 	'SM_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -218,7 +204,7 @@ INSERT INTO O_REF
 	'',
 	'External Entity in Model',
 	'EE_ID',
-	'R402');
+	'R402.''originates from''');
 INSERT INTO O_RTIDA_PROXY
 	VALUES ("c63fb109-2385-406e-adce-18e436389ce3",
 	"370cf248-82e0-4e2f-ab33-dd7c04ece691",
@@ -246,7 +232,7 @@ INSERT INTO O_ATTR
 	'',
 	'EE_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_ID
@@ -263,12 +249,17 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"74499f10-8c20-4ad4-9221-8139a8362b8f");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("74499f10-8c20-4ad4-9221-8139a8362b8f",
+	1,
+	"309f0e1c-e3bd-46e3-ad66-49d186565a6b",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("309f0e1c-e3bd-46e3-ad66-49d186565a6b",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Communication And Access',
 	'Interactions between classes (O_OBJ) are modeled by communication (CA_COMM) and access (CA_ACC) paths. Communication paths show the asynchronous (event) and synchronous (data access) communication in the system between two classes and class/external entity (S_EE) pairs.  ',
-	'CA',
 	401,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000200004",
 	'../Communication And Access.xtuml');

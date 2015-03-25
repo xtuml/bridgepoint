@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("36263303-f694-42bf-8e61-b117b1a89014",
@@ -6,13 +6,13 @@ INSERT INTO O_OBJ
 	6,
 	'GD_CTXT',
 	'This class contains the positions for the text at the start, middle and end of the connector.  The positions have a upper left and lower right coordinate, which specifies the size of the box containing the text. The delta coordinate specifies how much to move the box from the default position.  Note: For non supertype/subtype relationships, Start and End are the two relationship phrases and Middle is the relationship number.  For supertype/subtype relationships, Start is the hard-coded phrase, End is the relationship number, and Middle is nothing.  Also note: sometimes BridgePoint reverses the NW and SE coordinates for the connector text when populating the graphical subsystem model.',
-	"b5695748-80fc-47fb-b5c7-801b5f28b907");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("8b14fdcf-ceb2-4934-bb38-ee70bb870902",
 	"36263303-f694-42bf-8e61-b117b1a89014",
 	'move',
 	'',
-	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select one node related by self->DIM_ND[R19];
 select one element related by node->DIM_GE[R301];
@@ -27,40 +27,26 @@ INSERT INTO O_TPARM
 	VALUES ("4cb2bee7-54e3-4510-bdb5-b3668d948702",
 	"8b14fdcf-ceb2-4934-bb38-ee70bb870902",
 	'xDelta',
-	"daa2cf40-15b6-4a53-a5a3-55b15c1951ed",
+	"ba5eda7a-def5-0000-0000-000000000003",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("daa2cf40-15b6-4a53-a5a3-55b15c1951ed",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	'real',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TPARM
 	VALUES ("b28ea27b-6dfa-4e0a-ae25-786779607307",
 	"8b14fdcf-ceb2-4934-bb38-ee70bb870902",
 	'yDelta',
-	"daa2cf40-15b6-4a53-a5a3-55b15c1951ed",
+	"ba5eda7a-def5-0000-0000-000000000003",
 	0,
 	'',
 	"4cb2bee7-54e3-4510-bdb5-b3668d948702",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("3852f90c-88c5-467d-9b26-57c8cd438b42",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	'void',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("13f8f74c-ce35-4d3a-b7a8-b6bec0a27871",
 	"36263303-f694-42bf-8e61-b117b1a89014",
 	'isOver',
 	'',
-	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'select one node related by self->DIM_ND[R19];
 select one element related by node->DIM_GE[R301];
@@ -77,40 +63,26 @@ INSERT INTO O_TPARM
 	VALUES ("d244ab99-4467-41cc-8ac1-b30fb7e7d716",
 	"13f8f74c-ce35-4d3a-b7a8-b6bec0a27871",
 	'scaled_x',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("388cd7a2-2d0c-4f02-9730-7670074de394",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	'integer',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TPARM
 	VALUES ("db3e21a3-a7a7-4a4e-b012-42ca826fd2ba",
 	"13f8f74c-ce35-4d3a-b7a8-b6bec0a27871",
 	'scaled_y',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"d244ab99-4467-41cc-8ac1-b30fb7e7d716",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("6e4aa280-2e22-4146-9b4a-6c2573c456d8",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	'boolean',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("4babc621-7e39-40e0-b81e-6fa50e8b92d5",
 	"36263303-f694-42bf-8e61-b117b1a89014",
 	'dispose',
 	'',
-	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select one node related by self->DIM_ND[R19];
 if ( not_empty node )
@@ -140,7 +112,7 @@ INSERT INTO O_TFR
 	"36263303-f694-42bf-8e61-b117b1a89014",
 	'createSupertypeInstances',
 	'',
-	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'create object instance node of DIM_ND;
 relate node to self across R19;
@@ -181,7 +153,7 @@ INSERT INTO O_TPARM
 	VALUES ("9c05713f-889e-4b4c-9a8d-ce6f2204efb8",
 	"7decbaf8-bad6-4393-875e-cd55d7bc29d4",
 	'scaled_x',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -190,14 +162,14 @@ INSERT INTO O_TPARM
 	VALUES ("ee3c5a67-6dde-4a8e-a897-6410faa65285",
 	"7decbaf8-bad6-4393-875e-cd55d7bc29d4",
 	'scaled_y',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"9c05713f-889e-4b4c-9a8d-ce6f2204efb8",
 	'');
 INSERT INTO S_DT_PROXY
 	VALUES ("000786ec-697f-4d36-931b-d64a58cee282",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	"00000000-0000-0000-0000-000000000000",
 	'Vertex',
 	'',
 	'',
@@ -207,7 +179,7 @@ INSERT INTO O_TFR
 	"36263303-f694-42bf-8e61-b117b1a89014",
 	'moveVertex',
 	'',
-	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select one node related by self->DIM_ND[R19];
 select one element related by node->DIM_GE[R301];
@@ -244,7 +216,7 @@ INSERT INTO O_TPARM
 	VALUES ("52baf66d-633a-4bd7-afde-cb955cbbcf46",
 	"0940b2bd-8967-4253-947d-a4cb33e4b540",
 	'xDelta',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"de9a5fbe-2e16-4400-99f5-0214250486ee",
@@ -253,7 +225,7 @@ INSERT INTO O_TPARM
 	VALUES ("5dc540f8-d693-4bfa-aafd-58673e4c339d",
 	"0940b2bd-8967-4253-947d-a4cb33e4b540",
 	'yDelta',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"52baf66d-633a-4bd7-afde-cb955cbbcf46",
@@ -272,7 +244,7 @@ INSERT INTO O_TFR
 	"36263303-f694-42bf-8e61-b117b1a89014",
 	'drawText',
 	'',
-	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select one conn related by self->GD_CON[R8];
 select one shp related by self->GD_SHP[R27];
@@ -383,7 +355,7 @@ INSERT INTO O_TPARM
 	VALUES ("40484883-c45d-43dd-9fdc-2e14413de6c0",
 	"2dcf3fd0-e49c-4883-a93c-a6526e88913c",
 	'y2',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"f65124fe-7677-4c6d-81f1-e62a920da250",
@@ -392,7 +364,7 @@ INSERT INTO O_TPARM
 	VALUES ("f53c2cae-f1fb-4c48-97f6-b4cb6fe69b40",
 	"2dcf3fd0-e49c-4883-a93c-a6526e88913c",
 	'x2',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"3c994f94-64e7-43fe-96ad-033696e343b3",
@@ -401,7 +373,7 @@ INSERT INTO O_TPARM
 	VALUES ("f65124fe-7677-4c6d-81f1-e62a920da250",
 	"2dcf3fd0-e49c-4883-a93c-a6526e88913c",
 	'y1',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"f53c2cae-f1fb-4c48-97f6-b4cb6fe69b40",
@@ -410,7 +382,7 @@ INSERT INTO O_TPARM
 	VALUES ("3c994f94-64e7-43fe-96ad-033696e343b3",
 	"2dcf3fd0-e49c-4883-a93c-a6526e88913c",
 	'x1',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"f7a47cf9-60d1-4ad5-aab6-8ad237bc3bbd",
@@ -419,7 +391,7 @@ INSERT INTO O_TPARM
 	VALUES ("2d44d431-37e0-4110-a75a-0e720f91c9b9",
 	"2dcf3fd0-e49c-4883-a93c-a6526e88913c",
 	'disable_selection',
-	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	0,
 	'',
 	"38512622-45d7-452c-ade2-ec792e1aa47f",
@@ -435,7 +407,7 @@ INSERT INTO O_TPARM
 	'');
 INSERT INTO S_DT_PROXY
 	VALUES ("ae246926-3437-45e4-9232-bcc0952dbcee",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	"00000000-0000-0000-0000-000000000000",
 	'End',
 	'Translate:false',
 	'',
@@ -444,18 +416,11 @@ INSERT INTO O_TPARM
 	VALUES ("f7a47cf9-60d1-4ad5-aab6-8ad237bc3bbd",
 	"2dcf3fd0-e49c-4883-a93c-a6526e88913c",
 	'text',
-	"17f3cd98-2d3a-4fe3-ac41-d27b377178a6",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	0,
 	'',
 	"2d44d431-37e0-4110-a75a-0e720f91c9b9",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("17f3cd98-2d3a-4fe3-ac41-d27b377178a6",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	'string',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TPARM
 	VALUES ("38512622-45d7-452c-ade2-ec792e1aa47f",
 	"2dcf3fd0-e49c-4883-a93c-a6526e88913c",
@@ -467,7 +432,7 @@ INSERT INTO O_TPARM
 	'');
 INSERT INTO S_DT_PROXY
 	VALUES ("231cb314-a496-47fb-aee2-1317be81deb5",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	"00000000-0000-0000-0000-000000000000",
 	'GCDelegate',
 	'',
 	'',
@@ -477,7 +442,7 @@ INSERT INTO O_TFR
 	"36263303-f694-42bf-8e61-b117b1a89014",
 	'setDefaultLocation',
 	'',
-	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'angle = 0.0;
 text_x = 0;
@@ -587,7 +552,7 @@ INSERT INTO O_TPARM
 	VALUES ("9268cdc8-f763-4740-829f-4a4230eff269",
 	"de21700d-dab5-49f9-9936-d10e3dca5d08",
 	'height',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -596,7 +561,7 @@ INSERT INTO O_TPARM
 	VALUES ("5112ec2c-d25b-4d7f-8052-3394aa2697d2",
 	"de21700d-dab5-49f9-9936-d10e3dca5d08",
 	'width',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"9268cdc8-f763-4740-829f-4a4230eff269",
@@ -606,7 +571,7 @@ INSERT INTO O_TFR
 	"36263303-f694-42bf-8e61-b117b1a89014",
 	'get_name',
 	'',
-	"17f3cd98-2d3a-4fe3-ac41-d27b377178a6",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'return "Floating Text";',
 	1,
@@ -629,7 +594,7 @@ User_Visible:false',
 	'',
 	'deltaX',
 	0,
-	"daa2cf40-15b6-4a53-a5a3-55b15c1951ed",
+	"ba5eda7a-def5-0000-0000-000000000003",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -649,7 +614,7 @@ User_Visible:false',
 	'',
 	'deltaY',
 	0,
-	"daa2cf40-15b6-4a53-a5a3-55b15c1951ed",
+	"ba5eda7a-def5-0000-0000-000000000003",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -687,7 +652,7 @@ INSERT INTO O_REF
 	'',
 	'Connector',
 	'elementId',
-	'R8');
+	'R8.''is text for''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("36263303-f694-42bf-8e61-b117b1a89014",
 	"f90784e6-0c5c-41d9-8d84-f4f4184bcfc6",
@@ -715,7 +680,7 @@ INSERT INTO O_REF
 	'',
 	'Shape',
 	'elementId',
-	'R27');
+	'R27.''is text for''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("36263303-f694-42bf-8e61-b117b1a89014",
 	"24137010-9cb0-423b-9eb8-f1056ee5aa16",
@@ -748,16 +713,9 @@ INSERT INTO O_ATTR
 	'conn_',
 	'elementId',
 	1,
-	"66164f00-293e-4c17-ab30-7972c7c57152",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("66164f00-293e-4c17-ab30-7972c7c57152",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("36263303-f694-42bf-8e61-b117b1a89014",
 	"04bcd415-c1a2-437e-9b8f-2cd45a955c31",
@@ -802,7 +760,7 @@ INSERT INTO O_ATTR
 	'',
 	'elementId',
 	0,
-	"66164f00-293e-4c17-ab30-7972c7c57152",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_ID
@@ -819,15 +777,20 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"36263303-f694-42bf-8e61-b117b1a89014");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("36263303-f694-42bf-8e61-b117b1a89014",
+	1,
+	"b5695748-80fc-47fb-b5c7-801b5f28b907",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("b5695748-80fc-47fb-b5c7-801b5f28b907",
+	"00000000-0000-0000-0000-000000000000",
+	"8f801c9a-cf2d-4ef4-b11a-51b8697e3ca8",
 	'Graphical Data',
 	'The GD (Graphics Domain) subsystem models the graphical elements for a BridgePoint model.
 -------------------------------------------------------
 Import:org.eclipse.swt.graphics.Color
 Notify_Changes:true',
-	'GD',
 	1,
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	"00000000-0000-0000-0000-000001900032",
 	'../Graphical Data.xtuml');
