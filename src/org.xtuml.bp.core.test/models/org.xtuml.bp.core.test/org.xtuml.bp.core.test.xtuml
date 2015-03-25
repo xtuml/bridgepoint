@@ -1,4 +1,4 @@
--- BP 7.1.6 content: SystemModel syschar: 3 persistence-version: 7.1.5
+-- BP 7.1.6 content: SystemModel syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO S_SYS
 	VALUES ("c6693612-7c4f-42e5-b64f-16c64f288945",
