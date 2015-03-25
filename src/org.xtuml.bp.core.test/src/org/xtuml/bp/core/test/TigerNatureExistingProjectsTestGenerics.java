@@ -179,7 +179,7 @@ public class TigerNatureExistingProjectsTestGenerics extends CanvasTest {
 		String id = "";
 		for (int i = 0; i < editorReferences.length; i++) {
 			if (editorReferences[i].getName().equals(
-					"Sequence Diagram: Package Diagram")) {
+					"Sequence Diagram")) {
 				editorInput = editorReferences[i].getEditorInput();
 				id = editorReferences[i].getId();
 			}
@@ -218,7 +218,7 @@ public class TigerNatureExistingProjectsTestGenerics extends CanvasTest {
 	// tree is opened to the selected class
 
 	public void testLinkWithEditor() {
-		IEditorPart ss = checkForOpenEditors("TestSS: Package Diagram");
+		IEditorPart ss = checkForOpenEditors("TestSS");
 		assertNotNull(ss);
 
 		// bring the canvas editor to the front
@@ -278,13 +278,13 @@ public class TigerNatureExistingProjectsTestGenerics extends CanvasTest {
 	public void testEditorsRemainOpenAfterClose() {
 		assertNotNull(
 				"Editor, TestSS: Class Diagram, did not correctly restore",
-				checkForOpenEditors("TestSS: Package Diagram"));
+				checkForOpenEditors("TestSS"));
 		assertNotNull(
 				"Editor, testOp: Operation Activity, did not correctly restore",
-				checkForOpenEditors("testOp: Operation Activity"));
+				checkForOpenEditors("TestClass1::testOp"));
 		assertNotNull(
 				"Editor, TestClass1: Model Class Description, did not correctly restore",
-				checkForOpenEditors("TestClass1: Model Class Description"));
+				checkForOpenEditors("TestClass1"));
 	}
 
 	public void testPlacholderInstances() {

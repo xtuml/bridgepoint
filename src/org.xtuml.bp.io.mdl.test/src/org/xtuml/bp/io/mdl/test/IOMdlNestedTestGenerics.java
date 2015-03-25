@@ -136,7 +136,7 @@ public class IOMdlNestedTestGenerics extends CanvasTest {
 		IOMdlUtilities mtu = new IOMdlUtilities();
 		Package_c uut = Package_c.PackageInstance(modelRoot, (mtu.new Package_by_name_c("Test DPK")));
 		CanvasTestUtils.openCanvasEditor(uut);
-		GraphicalEditor ce = CanvasTestUtils.getCanvasEditor("Test DPK: Package Diagram");
+		GraphicalEditor ce = CanvasTestUtils.getCanvasEditor("Test DPK");
 		AbstractTool tool = UITestingUtilities.getTool("Package");		
 		UITestingUtilities.activateTool(tool);
 		
@@ -155,7 +155,7 @@ public class IOMdlNestedTestGenerics extends CanvasTest {
 		Package_c uut = Package_c.PackageInstance(modelRoot, (mtu.new Package_by_name_c("Test Nested FPK")));
 		
 		CanvasTestUtils.openCanvasEditor(uut);
-		GraphicalEditor ce = CanvasTestUtils.getCanvasEditor("Test Nested FPK: Package Diagram");
+		GraphicalEditor ce = CanvasTestUtils.getCanvasEditor("Test Nested FPK");
 		AbstractTool tool = UITestingUtilities.getTool("Package");		
 		UITestingUtilities.activateTool(tool);
 		
@@ -174,7 +174,7 @@ public class IOMdlNestedTestGenerics extends CanvasTest {
 		Package_c uut = Package_c.PackageInstance(modelRoot, (mtu.new Package_by_name_c("Test Nested EEPK")));
 		
 		CanvasTestUtils.openCanvasEditor(uut);
-		GraphicalEditor ce = CanvasTestUtils.getCanvasEditor("Test Nested EEPK: Package Diagram");
+		GraphicalEditor ce = CanvasTestUtils.getCanvasEditor("Test Nested EEPK");
 		AbstractTool tool = UITestingUtilities.getTool("Package");		
 		UITestingUtilities.activateTool(tool);
 		
@@ -193,7 +193,7 @@ public class IOMdlNestedTestGenerics extends CanvasTest {
 		Package_c uut = Package_c.PackageInstance(modelRoot, (mtu.new Package_by_name_c("Test Nested SS")));
 		
 		CanvasTestUtils.openCanvasEditor(uut);
-		GraphicalEditor ce = CanvasTestUtils.getCanvasEditor("Test Nested SS: Package Diagram");
+		GraphicalEditor ce = CanvasTestUtils.getCanvasEditor("Test Nested SS");
 		AbstractTool tool = UITestingUtilities.getTool("Package");		
 		UITestingUtilities.activateTool(tool);
 		

@@ -76,7 +76,7 @@ abstract class ModifyRelationTest extends PkgCMBaseTest {
 
     protected String shapeToCreate;
 
-    protected String editorTitles[];
+    protected int editorType[];
 
     protected int childrenCount;
 
@@ -130,9 +130,9 @@ abstract class ModifyRelationTest extends PkgCMBaseTest {
         if (baseEditor != null)
             m_wp.activate(baseEditor);
 
-        editorTitles = new String[openEditors.length];
+        editorType = new int[openEditors.length];
         for (int i = 0; i < openEditors.length; i++) {
-            editorTitles[i] = ((IEditorPart) openEditors[i]).getTitle();
+            editorType[i] =EditorTestUtilities.getEditorType ((IEditorPart) openEditors[i]);
 
         }
 
@@ -408,12 +408,10 @@ abstract class ModifyRelationTest extends PkgCMBaseTest {
                .getActivePage().getActiveEditor() != null){
     	   title = UITestingUtilities.getActiveEditor().getTitle();
     	   assertNotNull(title);
-    	   if(title.indexOf(':') > -1)
-    	   title = title.substring(title.indexOf(':') + 2, title.length());
+    	   IEditorPart activeEditor = UITestingUtilities.getActiveEditor();
     	   i = 0;
-    	   while(!editorTitles[i].substring(editorTitles[i].indexOf(':') + 2, editorTitles[i].length()).
-    			   equals(title)){
-    		   if (i + 1 > editorTitles.length || editorTitles[i+1] == null)
+    	   while(editorType[i]!=  EditorTestUtilities.getEditorType(activeEditor) ){
+    		   if (i + 1 > editorType.length )
     			   assertTrue(false);
     		   i++;    		   
     	   }
@@ -441,14 +439,11 @@ abstract class ModifyRelationTest extends PkgCMBaseTest {
        String title = null;
        while(PlatformUI.getWorkbench().getActiveWorkbenchWindow()
                .getActivePage().getActiveEditor() != null){
-    	   title = UITestingUtilities.getActiveEditor().getTitle();
-    	   assertNotNull(title);
-    	   if(title.indexOf(':') > -1)
-    	   title = title.substring(title.indexOf(':') + 2, title.length());
+    	   IEditorPart activeEditor = UITestingUtilities.getActiveEditor();
+    	   
     	   i = 0;
-    	   while(!editorTitles[i].substring(editorTitles[i].indexOf(':') + 2, editorTitles[i].length()).
-    			   equals(title)){
-    		   if (i + 1 > editorTitles.length || editorTitles[i+1] == null)
+    	   while(editorType[i]!=  EditorTestUtilities.getEditorType(activeEditor) ){
+    		   if (i + 1 > editorType.length )
     			   assertTrue(false);
     		   i++;    		   
     	   }
