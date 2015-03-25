@@ -99,7 +99,9 @@ function get_required_modules {
     chown -R ${SHELLUSER} ${RELEASE_PKG}
 
     if [ -e ${RELEASE_PKG}/feature.xml ]; then
-    	dos2unix $BUILD_DIR/$RELEASE_PKG/feature.xml
+    	# Do the dos2unix conversion using translate
+    	tr -d '\r' < "$BUILD_DIR/$RELEASE_PKG/feature.xml" > "$BUILD_DIR/$RELEASE_PKG/feature.xml.tmp"
+    	mv "$BUILD_DIR/$RELEASE_PKG/feature.xml.tmp" "$BUILD_DIR/$RELEASE_PKG/feature.xml"
         plugin_modules=`grep "<plugin id=" $BUILD_DIR/$RELEASE_PKG/feature.xml | awk -F"=" '{printf("%s\n", $2)}' | sed s/\"// | sed s/\"//`
         release_version=`awk -F"\"" '{if (/[0-9]\.[0-9]\.[0-9]/) {print $2; exit;}}' ${BUILD_DIR}/${RELEASE_PKG}/feature.xml`
         plugin_modules="${plugin_modules} ${independent_modules}"
