@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Java Model Compiler
-Bundle-SymbolicName: org.xtuml.bp.mc.java;singleton:=true
+Bundle-SymbolicName: org.xtuml.bp.mc.java.source;singleton:=true
 Bundle-Version: 4.1.17
 Bundle-Activator: com.mentor.nucleus.bp.mc.java.Activator
 Bundle-Vendor: Mentor Graphics

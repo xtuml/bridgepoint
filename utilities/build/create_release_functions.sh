@@ -55,7 +55,7 @@ independent_modules="org.xtuml.bp.mc.xmiexport
                      org.xtuml.bp.mc.systemc.source
                      org.xtuml.bp.mc.cpp.source
                      org.xtuml.bp.mc.vhdl.source
-                     com.mentor.nucleus.bp.mc.java.source
+                     org.xtuml.bp.mc.java.source
                      org.xtuml.bp.mc.template
                      org.xtuml.help.bp.mc
                      org.xtuml.bp.ui.session

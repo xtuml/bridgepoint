@@ -226,7 +226,7 @@ mcc_bin=${BUILD_DIR}/org.xtuml.bp.mc.c.binary
 mcsystemc_src=${BUILD_DIR}/org.xtuml.bp.mc.systemc.source
 mccpp_src=${BUILD_DIR}/org.xtuml.bp.mc.cpp.source
 mcvhdl_src=${BUILD_DIR}/org.xtuml.bp.mc.vhdl.source
-mcjava_src=${BUILD_DIR}/com.mentor.nucleus.bp.mc.java.source
+mcjava_src=${BUILD_DIR}/org.xtuml.bp.mc.java.source
 mc3020_help=${BUILD_DIR}/org.xtuml.help.bp.mc
 
 get_user_supplied_binaries
