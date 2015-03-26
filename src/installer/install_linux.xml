@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?>
+
+<installation version="1.0">
+
+    <!-- 
+        The info section.
+    -->
+    <info>
+        <appname>BridgePoint for Linux</appname>
+        <appversion>4.2.1</appversion>
+    </info>
+
+    <!-- 
+        The gui preferences indication.
+    -->
+    <guiprefs width="640" height="480" resizable="no"/>
+
+    <!-- 
+        The locale section.
+    -->
+    <locale>
+        <langpack iso3="eng"/>
+    </locale>
+
+    <variables>
+        <variable name="InstallerFrame.logfilePath" value="Default"/>
+        <variable name="ShowCreateDirectoryMessage" value="false"/>
+    </variables>
+
+
+    <!-- 
+        The resources section.
+    -->
+    <resources>
+        <res id="TargetPanel.dir" src="installer_extras/TARGET_LINUX.txt"/>
+        <res id="HTMLHelloPanel.info" src="installer_extras/welcome.html"/>
+        <res id="logo" src="installer_extras/1F.png"/>
+    </resources>
+
+
+    <!-- 
+        The panels section.
+    -->
+    <panels>
+        <panel classname="HTMLHelloPanel"/>
+        <panel classname="TargetPanel"/>
+        <panel classname="InstallPanel"/>
+    </panels>
+
+    <!-- 
+        The packs section.
+    -->
+    <packs>
+        <pack name="Eclipse" required="yes">
+            <description>Eclipse installation</description>
+            <file src="BridgePoint_for_Linux_e3.7/EclipseDeliverables/eclipse/" targetdir="$INSTALL_PATH"/>
+        </pack>
+        <pack name="BridgePoint" required="yes">
+            <description>BridgePoint installation</description>
+            <!-- main files -->
+            <file src="BridgePoint_for_Linux_e3.7/BridgepointDeliverables/eclipse_extensions/" targetdir="$INSTALL_PATH"/>
+            <file src="BridgePoint_for_Linux_e3.7/BridgepointDeliverables/extras/" targetdir="$INSTALL_PATH"/>
+            <file src="BridgePoint_for_Linux_e3.7/BridgepointDeliverables/jre/" targetdir="$INSTALL_PATH"/>
+            <file src="BridgePoint_for_Linux_e3.7/BridgepointDeliverables/tools/" targetdir="$INSTALL_PATH"/>
+            <file src="installer_extras/splash.bmp" targetdir="$INSTALL_PATH"/>
+            <file src="installer_extras/bp.ico" targetdir="$INSTALL_PATH"/>
+
+            <!-- move links, Launcher, and CLI -->
+            <file src="BridgePoint_for_Linux_e3.7/BridgePointDeliverables/extras/links/com.mentor.BridgePoint.ide.link" targetdir="$INSTALL_PATH/eclipse/links"/>
+            <file src="BridgePoint_for_Linux_e3.7/BridgePointDeliverables/extras/Launcher.sh" targetdir="$INSTALL_PATH/eclipse/"/>
+            <file src="BridgePoint_for_Linux_e3.7/BridgePointDeliverables/extras/CLI.sh" targetdir="$INSTALL_PATH/eclipse/"/>
+            <executable targetfile="$INSTALL_PATH/eclipse/Launcher.sh" keep="true"/>
+            <executable targetfile="$INSTALL_PATH/eclipse/CLI.sh" keep="true"/>
+
+            <!-- post install script -->
+            <file src="installer_extras/post_install_script.sh" targetdir="$INSTALL_PATH"/>
+            <executable targetfile="$INSTALL_PATH/post_install_script.sh" stage="postinstall">
+                <args>
+                    <arg value="$INSTALL_PATH"/>
+                    <arg value="$INSTALL_PATH/eclipse"/>
+                </args>
+            </executable>
+        </pack>
+    </packs>
+
+</installation>
