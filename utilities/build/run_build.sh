@@ -122,7 +122,7 @@ fi
 bash "${BUILD_ROOT}/init_git_repositories.sh" >> ${BUILD_LOG}
 
 # Can do the copy and dos2unix translation in one step.
-tr -d '\r' < ${GIT_REPO_ROOT}/bridgepoint/utilities/build/configure_build_process.sh > configure_build_process.sh
+tr -d '\r' < ${GIT_BP}/utilities/build/configure_build_process.sh > configure_build_process.sh
 chmod a+x configure_build_process.sh
 
 bash configure_build_process.sh >> ${BUILD_LOG}
