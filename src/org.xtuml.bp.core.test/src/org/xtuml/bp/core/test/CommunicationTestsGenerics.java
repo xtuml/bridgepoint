@@ -100,7 +100,7 @@ public class CommunicationTestsGenerics extends CanvasTest {
 //		Communication_c communication = getCommunication(diagramName);
 //		CanvasTestUtilities.openCanvasEditor(communication);
 //		ce = CanvasTestUtilities.getCanvasEditor(diagramName
-//				+ ": Communication Diagram");
+//				);
 //		validateOrGenerateResults(ce, generateResults);
 	}
 
@@ -113,14 +113,14 @@ public class CommunicationTestsGenerics extends CanvasTest {
 //		Subsystem_c subsystem = Subsystem_c.SubsystemInstance(modelRoot);
 //		CanvasTestUtilities.openCanvasEditor(subsystem);
 //		GraphicalEditor ce = CanvasTestUtilities.getCanvasEditor(diagramName
-//				+ ": Class Diagram");
+//				);
 //		validateOrGenerateResults(ce, generateResults);
 //		test_id = "4";
 //		diagramName = "Communication in Subsystem";
 //		Communication_c communication = getCommunication(diagramName);
 //		CanvasTestUtilities.openCanvasEditor(communication);
 //		ce = CanvasTestUtilities.getCanvasEditor(diagramName
-//				+ ": Communication Diagram");
+//				);
 //		validateOrGenerateResults(ce, generateResults);
 	}
 

@@ -209,7 +209,7 @@ public class ModelTransactionTestGenerics extends BaseTest {
 		CanvasTestUtils.openCanvasEditor(dom);
 
 		GraphicalEditor ce = CanvasTestUtils
-				.getCanvasEditor("testTransaction: Package Diagram");
+				.getCanvasEditor("testTransaction");
 
 		Ooaofooa.setPersistEnabled(true);
 

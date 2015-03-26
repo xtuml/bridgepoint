@@ -83,7 +83,7 @@ public class UseCaseTestsGenerics extends CanvasTest {
 				new Package_by_name_c(diagramName));
 		CanvasUtilities.openCanvasEditor(domain);
 		GraphicalEditor ce = CanvasTestUtilities.getCanvasEditor(diagramName
-				+ ": Package Diagram");
+				);
 
 		AbstractTool tool = UITestingUtilities.getTool("Package");
 		UITestingUtilities.activateTool(tool);
@@ -111,7 +111,7 @@ public class UseCaseTestsGenerics extends CanvasTest {
 				new Package_by_name_c("Use Case Diagram"));
 		CanvasUtilities.openCanvasEditor(ucc);
 		GraphicalEditor ce = CanvasTestUtilities.getCanvasEditor(ucc.getName()
-				+ ": Package Diagram");
+				);
 
 		AbstractTool tool = UITestingUtilities.getTool("Use Case");
 		UITestingUtilities.activateTool(tool);
@@ -225,7 +225,7 @@ public class UseCaseTestsGenerics extends CanvasTest {
 	//				new Package_by_name_c(diagramName));
 	//		CanvasTestUtilities.openCanvasEditor(domain);
 	//		GraphicalEditor ce = CanvasTestUtilities.getCanvasEditor(diagramName
-	//				+ ": Package Diagram");
+	//				);
 	//
 	//		AbstractTool tool = UITestingUtilities.getTool("Package");
 	//		UITestingUtilities.activateTool(tool);
@@ -241,7 +241,7 @@ public class UseCaseTestsGenerics extends CanvasTest {
 	//				new Package_by_name_c("Unnamed Package"));
 	//		CanvasTestUtilities.openCanvasEditor(ss);
 	//		ce = CanvasTestUtilities.getCanvasEditor(ss.getName()
-	//				+ ": Class Diagram");
+	//				);
 	//
 	//		tool = UITestingUtilities.getTool("Use Case Diagram");
 	//		UITestingUtilities.activateTool(tool);
