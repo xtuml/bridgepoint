@@ -1734,7 +1734,7 @@ public class VerifierInterfaceExecutionTests extends BaseTest {
 		String result = DebugUITestUtilities.getValueForVariable("result");
 		assertEquals(
 				"Default parameter value was not as expected for variable result.",
-				"", result);
+				"false", result);
 		
 		// compare the trace
 		File expectedResults = new File(

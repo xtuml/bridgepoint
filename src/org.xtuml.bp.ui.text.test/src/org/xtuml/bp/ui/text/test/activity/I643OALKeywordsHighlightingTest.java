@@ -91,7 +91,7 @@ public class I643OALKeywordsHighlightingTest extends BaseTest {
 		assertEquals(str, actualActivity);
 
 		assertEquals(activityEditor.getTitle(),
-				"test_function: Function Activity");//$NON-NLS-1$
+				"Functions::test_function");//$NON-NLS-1$
 
 		activityEditor.setFocus();
 		while (display.readAndDispatch())

@@ -225,10 +225,10 @@ public static GraphicalEditor openClassDiagramEditor(Ooaofooa modelRoot) {
 	return getClassDiagramEditor();
 }
 private static GraphicalEditor getClassDiagramEditor() {
-	return getCanvasEditor("Odms: Package Diagram");
+	return getCanvasEditor("Odms");
 }
 private static GraphicalEditor getDomainCanvasEditor() {
-	return getCanvasEditor("odms: Package Diagram");
+	return getCanvasEditor("odms");
 }
 
 public static void updateTreeItem(Object t1, String newValue ) throws Exception

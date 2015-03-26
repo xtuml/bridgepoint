@@ -62,6 +62,7 @@ public class UITextSuite extends TestSuite {
 		addTest(new I589TestSuite());
 		addTest(new DescriptionEditorTestSuite());
         addTest(new ActivityEditorTestSuite());
+        addTest(new TestSuite(RelocatablesTest.class));
         addTest(new TestSuite(OALKeywordRuleTest.class));
         addTest(new TestSuite(I643OALKeywordsHighlightingTest.class));
         addTest(new i372TestSuite());
