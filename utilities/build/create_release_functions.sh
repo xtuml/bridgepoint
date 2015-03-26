@@ -109,7 +109,7 @@ function get_required_modules {
     fi
     
     # Import ${antlr_tool} into the build workspace
-    ${cli_cmd} Import ${cli_opts} -deleteExisting -project "${GIT_REPO_ROOT}/src/${antlr_tool}`         
+    ${cli_cmd} Import ${cli_opts} -deleteExisting -project "${GIT_REPO_ROOT}/src/${antlr_tool}"         
     chown -R ${SHELLUSER} ${antlr_tool}    
 }
 
@@ -176,7 +176,7 @@ function build_modules {
             failure_count=`grep -c -i -w "FAILURE" ${module_build_log}`
 
             if [ ${error_count} -gt 0 ] || [ ${failed_count} -gt 0 ] || [ ${failure_count} -gt 0 ]; then
-                echo -e "Errors or failures found during the build of $module.  Check ${module_build_log}.\n" >> ${error_file}
+                echo -e "Errors or failures found during the build of $module.  Check ${module_build_log}.\n" >> ${ERROR_FILE}
             fi
         fi
     done
