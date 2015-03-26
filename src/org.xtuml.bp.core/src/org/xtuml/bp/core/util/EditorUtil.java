@@ -26,7 +26,11 @@ import java.util.Iterator;
 
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.IEditorReference;
+import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.internal.EditorReference;
 
 import org.xtuml.bp.core.ActorParticipant_c;
 import org.xtuml.bp.core.ClassInstanceParticipant_c;
@@ -63,6 +67,8 @@ import org.xtuml.bp.core.common.TransactionManager;
  */
 public class EditorUtil
 {
+    private static boolean startupEclipse = true;
+
     /**
      * Returns the editor that is currently active in the workbench.
      */
@@ -287,4 +293,25 @@ public class EditorUtil
         
         return forElement;
     }
+    
+    public static void refreshEditorTab(){
+		  if (startupEclipse){
+			  startupEclipse = false;
+			  IWorkbenchWindow[] workbenchWindows = org.eclipse.ui.PlatformUI.getWorkbench().getWorkbenchWindows();
+			  for (IWorkbenchWindow window : workbenchWindows) {
+				  IWorkbenchPage[] pages = window.getPages();
+				  for (IWorkbenchPage page : pages) {
+
+					  IEditorReference[] editorReferences = page.getEditorReferences();
+					  for (IEditorReference editorReference : editorReferences) {
+
+						  EditorReference editor = (EditorReference) editorReference;
+						  if (editor.getId().contains("com.mentor.nucleus.bp")){
+							  editor.getPart(true);
+						  }
+					  }
+				  }
+			  }
+		  }
+	  }
 }

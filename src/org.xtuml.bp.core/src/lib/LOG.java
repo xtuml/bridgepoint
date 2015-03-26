@@ -22,6 +22,9 @@
 
 package lib;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.UUID;
 
 import org.xtuml.bp.core.CorePlugin;
@@ -68,9 +71,15 @@ public class LOG {
 	// Bridge: LogDate
 	// ============================================================================
 	public static void LogDate(Object ee_d, String ee_message) {
-		String objString = (ee_d == null) ? "<null>" : ee_d.toString();
-		CorePlugin.out.println("LogDate:  " + objString + " "
-				+ ee_message);
+		String objString = null;
+				if (ee_d != null) {
+					SimpleDateFormat format = new SimpleDateFormat(
+							"EEE MMM dd yyyy HH:mm:ss zzz");
+					Date date = ((GregorianCalendar) ee_d).getTime();
+					objString = format.format(date);
+				}
+				CorePlugin.out.println("LogDate:  " + objString + " " + ee_message);
+
 	}
 
 	// ============================================================================
