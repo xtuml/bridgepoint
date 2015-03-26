@@ -26,7 +26,7 @@ ant_opts="-Declipse-home=${GIT_BP}"
 # set it here so it is not overrid
 #
 cli_cmd="${ECLIPSE_HOME}/CLI.sh"
-cli_opts="-nl en_US -consoleLog -pluginCustomization ${BUILD_DIR}/plugin_customization.ini -prebuildOnly"
+cli_opts="-nl en_US -consoleLog -pluginCustomization ${BUILD_DIR}/plugin_customization.ini"
 
 antlr_tool="pt_antlr"
 internal_modules="org.xtuml.bp.als
@@ -171,11 +171,14 @@ function build_modules {
         # Special case to exclude als.oal package as its built from als
         if [ ${module} != "org.xtuml.bp.als.oal" ] && [ ${module} != "org.xtuml.bp.ui.tree" ] && [ ${module} != "org.xtuml.bp.internal.tools" ]; then
             # Check for all cases of error, failed, and failure
-            error_count=`grep -c -i -w "ERROR" ${module_build_log}`
-            failed_count=`grep -c -i -w "FAILED" ${module_build_log}`
-            failure_count=`grep -c -i -w "FAILURE" ${module_build_log}`
+            grep -c -i -w "ERROR" ${module_build_log}
+            error_count=$?
+            grep -c -i -w "FAILED" ${module_build_log}
+            failed_count=$?
+            grep -c -i -w "FAILURE" ${module_build_log}
+            failure_count=$?
 
-            if [ ${error_count} -gt 0 ] || [ ${failed_count} -gt 0 ] || [ ${failure_count} -gt 0 ]; then
+            if [ ${error_count} -ne 1 ] || [ ${failed_count} -ne 1 ] || [ ${failure_count} -ne 1 ]; then
                 echo -e "Errors or failures found during the build of $module.  Check ${module_build_log}.\n" >> ${ERROR_FILE}
             fi
         fi
@@ -226,11 +229,14 @@ function compile_modules {
         # Special case to exclude als.oal package as its compiled from als
         if [ ${module} != "org.xtuml.bp.als.oal" ] && [ ${module} != "org.xtuml.bp.ui.tree" ] && [ ${module} != "org.xtuml.bp.internal.tools" ]; then
             # Check for all cases of error, failed, and failure
-            error_count=`grep -c -i -w "ERROR" ${compile_log_dir}/${module}_compile.log`
-            failed_count=`grep -c -i -w "FAILED" ${compile_log_dir}/${module}_compile.log`
-            failure_count=`grep -c -i -w "FAILURE" ${compile_log_dir}/${module}_compile.log`
+            grep -c -i -w "ERROR" ${compile_log_dir}/${module}_compile.log
+            error_count=$?
+            grep -c -i -w "FAILED" ${compile_log_dir}/${module}_compile.log
+            failed_count=$?
+            grep -c -i -w "FAILURE" ${compile_log_dir}/${module}_compile.log
+            failure_count=$?
 
-            if [ ${error_count} -gt 0 ] || [ ${failed_count} -gt 0 ] || [ ${failure_count} -gt 0 ]; then
+            if [ ${error_count} -ne 1 ] || [ ${failed_count} -ne 1 ] || [ ${failure_count} -ne 1 ]; then
             	compile_result="1"
                 compile_log_path="${compile_log_dir}/${module}_compile.log"
                 echo -e "Errors or failures found during the compilation of ${module}. Check ${compile_log_path}.\n" >> ${ERROR_FILE}
