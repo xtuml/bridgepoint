@@ -95,7 +95,7 @@ function verify_checkout {
 
 function get_required_modules {    
     # Import the top level release package into the build workspace
-    ${cli_cmd} Import ${cli_opts} -deleteExisting -project "${git_internal}/src/${RELEASE_PKG}" 
+    ${cli_cmd} Import ${cli_opts} -deleteExisting -project "${GIT_BP}/src/${RELEASE_PKG}" 
     chown -R ${SHELLUSER} ${RELEASE_PKG}
 
     if [ -e ${RELEASE_PKG}/feature.xml ]; then
@@ -109,7 +109,7 @@ function get_required_modules {
     fi
     
     # Import ${antlr_tool} into the build workspace
-    ${cli_cmd} Import ${cli_opts} -deleteExisting -project "${GIT_REPO_ROOT}/src/${antlr_tool}"         
+    ${cli_cmd} Import ${cli_opts} -deleteExisting -project "${GIT_BP}/src/${antlr_tool}"         
     chown -R ${SHELLUSER} ${antlr_tool}    
 }
 
@@ -124,7 +124,7 @@ function extract_release_files {
 	# Import all of the projects we need into the build workspace
     for module in ${modules} ${all_feature_modules} ${model_compiler_modules} ${plugin_fragments}; do
         echo "Importing into build workspace: ${module} for release: ${BRANCH}"
-        ${cli_cmd} Import ${cli_opts} -deleteExisting -project "${GIT_REPO_ROOT}/src/${module}"
+        ${cli_cmd} Import ${cli_opts} -deleteExisting -project "${GIT_BP}/src/${module}"
         chown -R ${SHELLUSER} ${module}
     done
 	echo -e "Exiting create_release_functions.sh::extract_release_files"
@@ -134,7 +134,7 @@ function extract_unit_test_modules {
 	echo -e "Entering create_release_functions.sh::extract_unit_test_modules"
     for module in ${unit_test_modules}; do
         echo "Importing into build workspace: ${module} for release: ${BRANCH}"
-		${cli_cmd} Import ${cli_opts} -deleteExisting -project "${GIT_REPO_ROOT}/src/${module}"
+		${cli_cmd} Import ${cli_opts} -deleteExisting -project "${GIT_BP}/src/${module}"
         chown -R ${SHELLUSER} ${module}
     done
 	echo -e "Exiting create_release_functions.sh::extract_unit_test_modules"
