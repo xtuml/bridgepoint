@@ -72,7 +72,7 @@ public class ModificationValidationTestsGenerics extends BaseTest {
 		TestUtil.changeFileReadonlyStatus(true, domain.getFile());
 
 		GraphicalEditor ce = CanvasTestUtils
-				.getCanvasEditor("ModificationValidationTests: Package Diagram");
+				.getCanvasEditor("ModificationValidationTests");
 
 		// give the diagram focus
 		ce.getSite().getPage().activate(ce.getSite().getPart());
