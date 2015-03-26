@@ -23,7 +23,7 @@ init_repository ()
   
   if [ ! -x "${git_repo_root}/${repo_name}" ]; then
     cd ${git_repo_root}
-    git clone 'https://mgbuilder:bui!db0y@github.com/xtuml/${repo_name}.git'
+    git clone https://mgbuilder:bui!db0y@github.com/xtuml/${repo_name}.git
   fi
   cd ${git_repo_root}/${repo_name}
   
