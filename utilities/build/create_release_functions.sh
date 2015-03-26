@@ -26,7 +26,7 @@ ant_opts="-Declipse-home=${GIT_BP}"
 # set it here so it is not overrid
 #
 cli_cmd="${ECLIPSE_HOME}/CLI.sh"
-cli_opts="-nl en_US -consoleLog -pluginCustomization ${BUILD_DIR}/plugin_customization.ini -prebuildOnly"
+cli_opts="-nl en_US -consoleLog -pluginCustomization ${BUILD_DIR}/plugin_customization.ini"
 
 antlr_tool="pt_antlr"
 internal_modules="org.xtuml.bp.als
