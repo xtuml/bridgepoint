@@ -44,11 +44,12 @@ function configure_installer_files {
     cp -f splash.bmp ${bp_deliverables}/splash.bmp 2>>${ERROR_FILE}
     cp -f bp.ico ${bp_deliverables}/bp.ico 2>>${ERROR_FILE}
 
-    unix2dos ${bp_deliverables}/extras/Launcher.bat
-    unix2dos ${bp_deliverables}/extras/CLI.bat
-    unix2dos ${bp_deliverables}/tools/create_shortcut.vbs
-    unix2dos ${extra_deliverables}/post_install_script.bat
-    unix2dos ${extra_deliverables}/pre_uninstall_script.bat
+    # SKB (3/24/15) - I think these are here simply as a safety measure
+    #unix2dos ${bp_deliverables}/extras/Launcher.bat
+    #unix2dos ${bp_deliverables}/extras/CLI.bat
+    #unix2dos ${bp_deliverables}/tools/create_shortcut.vbs
+    #unix2dos ${extra_deliverables}/post_install_script.bat
+    #unix2dos ${extra_deliverables}/pre_uninstall_script.bat
     
     # Copy files and do the dos2unix translation.
     mkdir -p "${bp_deliverables_linux}/extras"
@@ -81,7 +82,7 @@ date
 git_workspace_setup="${GIT_BP}/doc-bridgepoint/process/development-workspace-setup"
 install_project="Installer"
 utilities_project="utilities"
-mc_project="org.xtuml.bp.mc.c.binary"
+mc_project="com.mentor.nucleus.bp.mc.c.binary"
 staging_area="${BUILD_MOUNT}/staging"
 eclipse_ver="3.7"
 
