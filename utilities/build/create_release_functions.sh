@@ -23,7 +23,7 @@ ant_opts="-Declipse-home=${GIT_BP}"
 # as the location for the workspace being built.  This must be set properly
 # for the cli build to function.  This is why we have a copy of the CLI.sh
 # in the utilities/build folder that does NOT set WORKSPACE.  It allows us to
-# set it here so it is not overrid
+# set it here so it is not overriden
 #
 cli_cmd="${ECLIPSE_HOME}/CLI.sh"
 cli_opts="-nl en_US -consoleLog -pluginCustomization ${BUILD_DIR}/plugin_customization.ini"
