@@ -85,7 +85,6 @@ fi
 
 # Set up each repository
 init_repository bridgepoint
-init_repository editor
 init_repository mc
 init_repository packaging
 
