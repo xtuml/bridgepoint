@@ -285,10 +285,10 @@ echo -e "\nBuild complete, installation can be found at ${RELEASE_DROP}/BridgePo
 
 # Check for errors, if found report them.  Note that the log file is moved after this script runs, 
 # hence the different paths for where we grep and where we report the user to look.
-grep -c -i -w "Error" ${BUILD_DIR}/build_output.log
+grep -c -i -w "Error" ${BUILD_LOG}
 error_count=$?
 if [ ${error_count} -ne 1 ]; then
-    echo -e "Errors found in the output log. Check ${LOG_DIR}/build_output.log." >> ${ERROR_FILE}
+    echo -e "Errors found in the output log. Check ${BUILD_LOG}." >> ${ERROR_FILE}
 fi
 
 if [ -f $ERROR_FILE ]; then
