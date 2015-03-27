@@ -73,7 +73,7 @@ function configure_installer_files {
     cp -f fontchecker.exe ${bp_deliverables}/tools/fontchecker/fontchecker.exe 2>>${ERROR_FILE}
 
     # TODO SKB (3/24/15) - I think this unix2dos is here simply as a safety measure, but no longer needed
-    unix2dos ${bp_deliverables}/tools/fontchecker/font_list.txt
+    #unix2dos ${bp_deliverables}/tools/fontchecker/font_list.txt
 	echo -e "Exiting configure_build_process.sh::configure_installer_files"
 }
 
