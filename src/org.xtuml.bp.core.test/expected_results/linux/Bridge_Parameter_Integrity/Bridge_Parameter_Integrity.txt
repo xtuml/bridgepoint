@@ -1,0 +1,12 @@
+ERROR: Found another parameter under the same bridge with a matching name.
+
+Element Name: param
+Element Path: param::ModelIntegrityTests::Bridge Parameter Tests::External Entity
+
+
+ERROR: Found another parameter under the same bridge with a matching name.
+
+Element Name: param
+Element Path: param::ModelIntegrityTests::Bridge Parameter Tests::External Entity
+
+

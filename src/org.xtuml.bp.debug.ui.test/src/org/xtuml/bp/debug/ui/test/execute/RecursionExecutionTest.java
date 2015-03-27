@@ -12,6 +12,7 @@ package org.xtuml.bp.debug.ui.test.execute;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Menu;
@@ -117,6 +118,9 @@ public class RecursionExecutionTest extends BaseTest {
 
 		String actualConsoleText = DebugUITestUtilities.getConsoleText("null");
 		String expectedConsoleText = "User invoked function: testDeleteInRecursion\r\nLogReal:  6.0   Instance to delete  \r\nLogInfo:  All instances have been deleted\r\nUser invoked function: testDeleteInRecursion\r\nLogReal:  5.0   Instance to delete  \r\nLogInfo:  All instances have been deleted\r\nUser invoked function: testDeleteInRecursion\r\nLogReal:  4.0   Instance to delete  \r\nLogInfo:  All instances have been deleted\r\nUser invoked function: testDeleteInRecursion\r\nLogReal:  3.0   Instance to delete  \r\nLogInfo:  All instances have been deleted\r\nUser invoked function: testDeleteInRecursion\r\nLogReal:  2.0   Instance to delete  \r\nLogInfo:  All instances have been deleted\r\n";	
+		if (!Platform.getOS().contains("win")) {
+			expectedConsoleText = expectedConsoleText.replace("\r", "");
+		}
 
 		assertEquals(expectedConsoleText , actualConsoleText);
 		

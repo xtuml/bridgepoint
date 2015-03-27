@@ -26,6 +26,7 @@ import java.io.File;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.debug.internal.ui.DebugUIPlugin;
 import org.eclipse.debug.ui.IDebugUIConstants;
 import org.eclipse.ui.PlatformUI;
@@ -175,6 +176,9 @@ public class VerifierCreationTransitionDebugTest extends BaseTest {
 				m_workspace_path
 						+ "expected_results/verifier/" + result_txt);
 		String expected_results = TestUtil.getTextFileContents(expectedResults)+"\r\n";
+		if (!Platform.getOS().contains("win")) {
+			expected_results = expected_results.replace("\r", "");
+		}
 		// get the text representation of the debug tree
 		String actual_results = DebugUITestUtilities
 				.getConsoleText(expected_results);

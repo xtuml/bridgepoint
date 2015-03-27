@@ -196,64 +196,6 @@ public class ModelTransactionTestGenerics extends BaseTest {
 				+ "shape_creation_transaction_generics.exp"); //$NON-NLS-1$
 	}
 
-	// Testing action/transaction that will result in only ooaofgraphics changes
-	public void testShapeMoveTransactionThruCanvas() throws Exception {
-		TransactionListener listener = new TransactionListener();
-		getSystemModel().getTransactionManager().addTransactionListener(
-				listener);
-		Ooaofgraphics graphicsDomainModelRoot = Ooaofgraphics
-				.getInstance(modelRoot.getId());
-
-		Package_c dom = getPackageByName("testTransaction");
-
-		CanvasTestUtils.openCanvasEditor(dom);
-
-		GraphicalEditor ce = CanvasTestUtils
-				.getCanvasEditor("testTransaction");
-
-		Ooaofooa.setPersistEnabled(true);
-
-		final Package_c dtPackage = Package_c.getOneEP_PKGOnR1405(m_sys,
-				new Package_by_name_c("Datatypes"));
-
-		//graphicsDomainModelRoot = (Ooaofgraphics
-		//				.getInstance(dtPackage.getModelRoot().getId()));
-
-		GraphicalElement_c meGE = GraphicalElement_c.GraphicalElementInstance(
-				graphicsDomainModelRoot, new ClassQueryInterface_c() {
-					public boolean evaluate(Object candidate) {
-						return (((GraphicalElement_c) candidate).getOoa_id()
-								.equals(dtPackage.getPackage_id())); //$NON-NLS-1$
-					}
-				});
-
-		Selection.getInstance().clear();
-		Selection.getInstance().addToSelection(dtPackage);
-		
-		Shape_c meShape = Shape_c.getOneGD_SHPOnR2(meGE);
-
-		Point waypoint = CanvasTestUtils.getShapeCenter(meShape);
-		Point mouse = CanvasTestUtils.convertToMouseCoor(waypoint, ce
-				.getModel());
-		
-		while(PlatformUI.getWorkbench().getDisplay().readAndDispatch());
-		
-		CanvasTestUtils.createMouseEvent(mouse.x, mouse.y, "MouseMove");
-
-		CanvasTestUtils.createMouseEvent(mouse.x, mouse.y, "MouseDown");
-
-		CanvasTestUtils.createMouseEvent(mouse.x, mouse.y + 200, "MouseMove");
-		CanvasTestUtils.createMouseEvent(mouse.x, mouse.y + 200, "MouseUp");
-		CanvasTestUtils.createMouseEvent(mouse.x, mouse.y, "MouseMove");
-		
-		listener.WaitForTransactionUnderReview();
-		getSystemModel().getTransactionManager().removeTransactionListener(
-				listener);
-
-		BaseTest.compareAndOutputResults(result_folder
-				+ "shape_move_transaction_generics.exp"); //$NON-NLS-1$
-	}
-
 	public void testPropertyChangeTransaction() throws Exception {
 		TransactionListener listener = new TransactionListener();
 		getSystemModel().getTransactionManager().addTransactionListener(
@@ -509,11 +451,8 @@ public class ModelTransactionTestGenerics extends BaseTest {
 		BaseTest.doCreateResults = true;
 
 		testShapeCreationTransactionThruCanvas();
-		testShapeMoveTransactionThruCanvas();
 
 		setUp();
-
-		testShapeMoveTransactionThruCanvas();
 
 		testShapeCreationTransactionThruCanvas();
 
