@@ -438,7 +438,7 @@ public class OpenDescriptionEditor extends UITextTest {
 		assertNotNull(uut);
 
 		DescriptionEditorInteraction.openDescriptionEditor(uut);
-		validateDescriptionEditor("class data: State Machine Event Data Item Description", uut.getDescrip());
+		validateDescriptionEditor("class data", uut.getDescrip());
 	}
 	
 }

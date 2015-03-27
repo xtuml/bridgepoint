@@ -25,6 +25,7 @@ import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.Comparator;
 
+import org.eclipse.core.runtime.Platform;
 import org.xtuml.bp.core.Modeleventnotification_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.common.AttributeChangeModelDelta;
@@ -76,7 +77,17 @@ public class TransactionListener implements ITransactionListener {
             IModelDelta[] modelDeltas = transaction.getDeltas(modelRoots[i]);
             for (int j = 0; j < modelDeltas.length; j++) {
                 IModelDelta delta = modelDeltas[j];
-                
+				// if under linux skip logging position changes
+				if (!Platform.getOS().contains("win")) {
+					if (delta.getKind() == Modeleventnotification_c.DELTA_ATTRIBUTE_CHANGE) {
+						AttributeChangeModelDelta attrDelta = (AttributeChangeModelDelta) delta;
+						if (attrDelta.getAttributeName().equals("Positionx")
+								|| attrDelta.getAttributeName().equals(
+										"Positiony")) {
+							continue;
+						}
+					}
+				}
                 BaseTest.resultLogger.addToLog(" ", new ModelDeltaLogable(delta));  //$NON-NLS-1$//$NON-NLS-2$
                 displayCount++;
             }

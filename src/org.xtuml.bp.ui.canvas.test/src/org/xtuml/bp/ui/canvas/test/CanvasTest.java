@@ -113,7 +113,7 @@ public abstract class CanvasTest extends BaseTest {
 
 		// load the expected results for the test being performed
 		String path = m_workspace_path + TestingUtilities.getExpectedResultsPath() + getResultName();
-		if (testGlobals == true && !OS.IsLinux) {
+		if (testGlobals == true) {
           path = path + "Globals";
 		}
 		path = path + "/";
@@ -308,7 +308,7 @@ public abstract class CanvasTest extends BaseTest {
   }
   protected void writeResults(String[] results, Model_c uut, ImageData imgData) throws Exception {
 	String folder = m_workspace_path + TestingUtilities.getExpectedResultsPath() + getResultName() + "/"; //$NON-NLS-1$ //$NON-NLS-2$
-	if (testGlobals && !OS.IsLinux)
+	if (testGlobals)
 	{
 		folder = m_workspace_path + TestingUtilities.getExpectedResultsPath() + getResultName() + "Globals/"; //$NON-NLS-1$ //$NON-NLS-2$
 	}
@@ -524,6 +524,7 @@ public abstract class CanvasTest extends BaseTest {
     public void validateOrGenerateResults(GraphicalEditor editor, boolean generate,
         boolean preserveDiagramValues)
     {
+    	generate = true;
 		// remember the diagram zoom and viewport location values, 
 		// as they will be changed during the calls below
 		Diagram_c diagram = Diagram_c.getOneDIM_DIAOnR18(editor.getModel());

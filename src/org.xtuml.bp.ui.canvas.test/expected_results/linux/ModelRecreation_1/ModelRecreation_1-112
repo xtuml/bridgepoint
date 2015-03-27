@@ -1,7 +1,7 @@
 drawRectangle(...)
 drawRectangle(...)
 drawText("«package»", ...)
-drawText("+TestSubsystem1", ...)
+drawText("+wimx", ...)
 drawRectangle(...)
 drawRectangle(...)
 drawText("«package»", ...)

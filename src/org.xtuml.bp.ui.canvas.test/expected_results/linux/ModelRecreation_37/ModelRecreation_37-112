@@ -1,7 +1,7 @@
 drawRectangle(...)
 drawRectangle(...)
 drawText("«package»", ...)
-drawText("+G_STE_del_inst...", ...)
+drawText("+G_IOP_R_ALL_interop", ...)
 drawRectangle(...)
 drawRectangle(...)
 drawText("«package»", ...)

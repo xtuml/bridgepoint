@@ -1,7 +1,7 @@
 drawRectangle(...)
 drawRectangle(...)
 drawText("«package»", ...)
-drawText("+Test4", ...)
+drawText("+mt1", ...)
 drawRectangle(...)
 drawRectangle(...)
 drawText("«package»", ...)
