@@ -21,6 +21,67 @@
 #     The resulting plugins are found under ${BUILD_ROOT}
 # 
 
+#-------------------------------------------------------------------------------
+# Functions
+#-------------------------------------------------------------------------------
+
+#
+# Distribute the build and notify watchers that a build is complete.
+# If there are no errors that we also call the installer build script to 
+# allow the installers to be built.
+#
+function distribute_and_notify {
+	echo -e "Entering run_build.sh::distribute_and_notify"
+	if [ "$1" = "0" ]; then
+	  # TODO: This was the prior implementation.  It needs to be reworked (RSH)
+	  # ${RSH} ${DISTRIBUTION_SERVER} "(cd '${RELEASE_BASE}'; if [ ! -x '${RESULT_FOLDER}' ]; then mkdir '${RESULT_FOLDER}'; fi; cp -f '${RELEASE_DROP}'/BridgePoint_extension_'${BRANCH}'.zip '${BUILD_RESULT_FOLDER}'/BridgePoint_extension_'${BRANCH}'.zip ; )"
+	  echo -e "Creating dated backup of the build"
+	else
+	  echo -e "create_bp_release.sh returned with a non-zero value ($?)"
+	fi
+	  
+	# Prune similar releases that are five days old.
+	# TODO: This was the prior implementation.  It needs to be reworked
+	# ${RSH} ${DISTRIBUTION_SERVER} "(cd '${RELEASE_BASE}'; find -name '${BRANCH}-*' -mtime 5 -exec rm -rf {} \; ;)"
+	
+	# Build email report
+	
+	echo -e "From: Nightly Build System <issues@onefact.net>" > ${MAIL_TEMP}
+	if [ -s ${ERROR_FILE} ]; then
+	  echo -e "Subject: ERROR - Nightly build report for ${BUILD_TARGET} [#654]"  >> ${MAIL_TEMP}
+	else
+	  echo -e "Subject: Nightly build report for ${BUILD_TARGET} [#654]"  >> ${MAIL_TEMP}
+	fi
+	echo -e "To: ${BUILD_ADMIN}" >> ${MAIL_TEMP}
+	echo -e "Nightly build report for: ${BUILD_TARGET}" >> ${MAIL_TEMP}
+	echo -e "The files that were used for the nightly build, and the logs of each build are located at: ${BUILD_DIR} on `hostname`" >> ${MAIL_TEMP}
+	
+	# Search for errors in the logs
+	if [ -s ${ERROR_FILE} ]; then
+	  echo -e "The following was written to the error log:" >> ${MAIL_TEMP}
+	  echo -e "---------------" >> ${MAIL_TEMP}
+	  cat ${ERROR_FILE} >> ${MAIL_TEMP}
+	  echo -e "---------------\n" >> ${MAIL_TEMP}
+	else
+	  echo -e "The release can be downloaded at: ${DOWNLOAD_URL}" >> ${MAIL_TEMP}
+	  
+	  echo -e "\nCHANGELOG:" >> ${MAIL_TEMP}
+	  echo -e "---------------" >> ${MAIL_TEMP}
+	  cat ${DIFF_FILE} >> ${MAIL_TEMP}
+	  
+	  ./build_installer_bp.sh ${BRANCH}
+	  ./build_installer_bp_linux.sh ${BRANCH}
+	fi
+	cat ${MAIL_TEMP} | ${MAIL_CMD} ${BUILD_ADMIN}
+	
+	rm -rf ${MAIL_TEMP}
+	echo -e "Exiting run_build.sh::distribute_and_notify"
+}
+
+#-------------------------------------------------------------------------------
+# Main
+#-------------------------------------------------------------------------------
+
 # User defined variables:
 export BUILD_MOUNT="${HOME}/build"
 export ECLIPSE_HOME="${HOME}/MentorGraphics/BridgePoint/eclipse"
@@ -136,56 +197,3 @@ cd ${BUILD_ROOT}
 mv configure_build_process.sh ${BRANCH}
 
 echo -e "End of run_build.sh"
-
-#
-# distribute the build and notify watchers that a build is complete
-# if there are no errors that we also call the installer build script to 
-# allow the installers to be built
-#
-function distribute_and_notify {
-	echo -e "Entering run_build.sh::distribute_and_notify"
-	if [ "$1" = "0" ]; then
-	  # TODO: This was the prior implementation.  It needs to be reworked (RSH)
-	  # ${RSH} ${DISTRIBUTION_SERVER} "(cd '${RELEASE_BASE}'; if [ ! -x '${RESULT_FOLDER}' ]; then mkdir '${RESULT_FOLDER}'; fi; cp -f '${RELEASE_DROP}'/BridgePoint_extension_'${BRANCH}'.zip '${BUILD_RESULT_FOLDER}'/BridgePoint_extension_'${BRANCH}'.zip ; )"
-	  echo -e "Creating dated backup of the build"
-	else
-	  echo -e "create_bp_release.sh returned with a non-zero value ($?)"
-	fi
-	  
-	# Prune similar releases that are five days old.
-	# TODO: This was the prior implementation.  It needs to be reworked
-	# ${RSH} ${DISTRIBUTION_SERVER} "(cd '${RELEASE_BASE}'; find -name '${BRANCH}-*' -mtime 5 -exec rm -rf {} \; ;)"
-	
-	# Build email report
-	
-	echo -e "From: Nightly Build System <issues@onefact.net>" > ${MAIL_TEMP}
-	if [ -s ${ERROR_FILE} ]; then
-	  echo -e "Subject: ERROR - Nightly build report for ${BUILD_TARGET} [#654]"  >> ${MAIL_TEMP}
-	else
-	  echo -e "Subject: Nightly build report for ${BUILD_TARGET} [#654]"  >> ${MAIL_TEMP}
-	fi
-	echo -e "To: ${BUILD_ADMIN}" >> ${MAIL_TEMP}
-	echo -e "Nightly build report for: ${BUILD_TARGET}" >> ${MAIL_TEMP}
-	echo -e "The files that were used for the nightly build, and the logs of each build are located at: ${BUILD_DIR} on `hostname`" >> ${MAIL_TEMP}
-	
-	# Search for errors in the logs
-	if [ -s ${ERROR_FILE} ]; then
-	  echo -e "The following was written to the error log:" >> ${MAIL_TEMP}
-	  echo -e "---------------" >> ${MAIL_TEMP}
-	  cat ${ERROR_FILE} >> ${MAIL_TEMP}
-	  echo -e "---------------\n" >> ${MAIL_TEMP}
-	else
-	  echo -e "The release can be downloaded at: ${DOWNLOAD_URL}" >> ${MAIL_TEMP}
-	  
-	  echo -e "\nCHANGELOG:" >> ${MAIL_TEMP}
-	  echo -e "---------------" >> ${MAIL_TEMP}
-	  cat ${DIFF_FILE} >> ${MAIL_TEMP}
-	  
-	  ./build_installer_bp.sh ${BRANCH}
-	  ./build_installer_bp_linux.sh ${BRANCH}
-	fi
-	cat ${MAIL_TEMP} | ${MAIL_CMD} ${BUILD_ADMIN}
-	
-	rm -rf ${MAIL_TEMP}
-	echo -e "Exiting run_build.sh::distribute_and_notify"
-}
