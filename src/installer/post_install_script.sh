@@ -30,7 +30,8 @@ configure_mc_files()
   cp "$TARGET/extras/wine_addons/msvcrt.dll" "$TARGET/eclipse_extensions/BridgePoint/eclipse/plugins/${MC_NAME}_${BPVER}/mc3020/bin"
 
   cp "$TARGET/eclipse_extensions/BridgePoint/eclipse/plugins/${MC_NAME}_${BPVER}/mc3020/bin/xtumlmc_build.exe" "$TARGET/eclipse_extensions/BridgePoint/eclipse/plugins/${MC_NAME}_${BPVER}/mc3020/bin/xtumlmc_build.exe.win"
-  dos2unix < "$TARGET/eclipse_extensions/BridgePoint/eclipse/plugins/${MC_NAME}_${BPVER}/mc3020/bin/xtumlmc_build" > "$TARGET/eclipse_extensions/BridgePoint/eclipse/plugins/${MC_NAME}_${BPVER}/mc3020/bin/xtumlmc_build.exe"
+  # Convert to unix file format and put into target at the same time
+  tr -d '\r' < "$TARGET/eclipse_extensions/BridgePoint/eclipse/plugins/${MC_NAME}_${BPVER}/mc3020/bin/xtumlmc_build" > "$TARGET/eclipse_extensions/BridgePoint/eclipse/plugins/${MC_NAME}_${BPVER}/mc3020/bin/xtumlmc_build.exe"
   chmod 775 "$TARGET/eclipse_extensions/BridgePoint/eclipse/plugins/${MC_NAME}_${BPVER}/mc3020/bin/xtumlmc_build.exe"
   echo "Done"
 }
@@ -54,9 +55,13 @@ then
 fi
 sed -e 's;'"C:/MentorGraphics/BridgePoint"';'"$TARGET"';g' -i "$TARGET/eclipse_extensions/BridgePoint/eclipse/plugins/org.xtuml.bp.welcome_$BPVER/models/GPS Watch/.classpath"
 
-dos2unix "$TARGET/eclipse/eclipse.ini"
-dos2unix "$TARGET/eclipse/Launcher.sh"
-dos2unix "$TARGET/eclipse/CLI.sh"
+# Make sure these key files are in UNIX format
+tr -d '\r' < "$TARGET/eclipse/eclipse.ini" > "$TARGET/eclipse/eclipse.d2u"
+tr -d '\r' < "$TARGET/eclipse/Launcher.sh" > "$TARGET/eclipse/Launcher.d2u"
+tr -d '\r' < "$TARGET/eclipse/CLI.sh" > "$TARGET/eclipse/CLI.d2u"
+mv -f "$TARGET/eclipse/eclipse.d2u" "$TARGET/eclipse/eclipse.ini"
+mv -f "$TARGET/eclipse/Launcher.d2u" "$TARGET/eclipse/Launcher.sh"
+mv -f "$TARGET/eclipse/CLI.d2u" "$TARGET/eclipse/CLI.sh"
 
 # Move files need by Wine-based generator
 echo "Moving files for wine-based generator for bp.dap."
