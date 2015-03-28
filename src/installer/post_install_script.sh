@@ -44,7 +44,7 @@ ECLIPSEDIR=$2
 # Update the following files to reflect the target location provided by the user...
 echo "Updating install path in config files"
 BP_PATH=C:/mgc/BridgePoint
-sed -e 's;'"$BP_PATH"';'"$TARGET"';g' -i "$TARGET/eclipse/links/com.mentor.BridgePoint.ide.link"
+sed -e 's;'"$BP_PATH"';'"$TARGET"';g' -i "$TARGET/eclipse/links/BridgePoint.ide.link"
 sed -e 's;'"$BP_PATH"';'"$TARGET"';g' -i "$TARGET/eclipse/Launcher.sh"
 sed -e 's;'"$BP_PATH"';'"$TARGET"';g' -i "$TARGET/eclipse/CLI.sh"
 sed -e 's;'"$BP_PATH"';'"$TARGET"';g' -i "$TARGET/tools/docgen/docgen.xsl"
@@ -52,7 +52,7 @@ if [ -f "$TARGET/eclipse/eclipse.ini" ]
 then
   sed -e 's;'"$BP_PATH"';'"$TARGET"';g' -i "$TARGET/eclipse/eclipse.ini"
 fi
-sed -e 's;'"C:/MentorGraphics/BridgePoint"';'"$TARGET"';g' -i "$TARGET/eclipse_extensions/BridgePoint/eclipse/plugins/com.mentor.nucleus.bp.welcome_$BPVER/models/GPS Watch/.classpath"
+sed -e 's;'"C:/MentorGraphics/BridgePoint"';'"$TARGET"';g' -i "$TARGET/eclipse_extensions/BridgePoint/eclipse/plugins/org.xtuml.bp.welcome_$BPVER/models/GPS Watch/.classpath"
 
 dos2unix "$TARGET/eclipse/eclipse.ini"
 dos2unix "$TARGET/eclipse/Launcher.sh"
@@ -60,26 +60,26 @@ dos2unix "$TARGET/eclipse/CLI.sh"
 
 # Move files need by Wine-based generator
 echo "Moving files for wine-based generator for bp.dap."
-cp "$TARGET/extras/wine_addons/MGLS.DLL" "$TARGET/eclipse_extensions/BridgePoint/eclipse/plugins/com.mentor.nucleus.bp.dap.pkg_$BPVER/bridgepoint/win32/client/bin"
-cp "$TARGET/extras/wine_addons/mgc.pkginfo" "$TARGET/eclipse_extensions/BridgePoint/eclipse/plugins/com.mentor.nucleus.bp.dap.pkg_$BPVER/bridgepoint/win32/client/bin"
-cp "$TARGET/extras/wine_addons/msvcirt.dll" "$TARGET/eclipse_extensions/BridgePoint/eclipse/plugins/com.mentor.nucleus.bp.dap.pkg_$BPVER/bridgepoint/win32/client/bin"
-cp "$TARGET/extras/wine_addons/msvcp60.dll" "$TARGET/eclipse_extensions/BridgePoint/eclipse/plugins/com.mentor.nucleus.bp.dap.pkg_$BPVER/bridgepoint/win32/client/bin"
-cp "$TARGET/extras/wine_addons/msvcrt.dll" "$TARGET/eclipse_extensions/BridgePoint/eclipse/plugins/com.mentor.nucleus.bp.dap.pkg_$BPVER/bridgepoint/win32/client/bin"
+cp "$TARGET/extras/wine_addons/MGLS.DLL" "$TARGET/eclipse_extensions/BridgePoint/eclipse/plugins/org.xtuml.bp.dap.pkg_$BPVER/bridgepoint/win32/client/bin"
+cp "$TARGET/extras/wine_addons/mgc.pkginfo" "$TARGET/eclipse_extensions/BridgePoint/eclipse/plugins/org.xtuml.bp.dap.pkg_$BPVER/bridgepoint/win32/client/bin"
+cp "$TARGET/extras/wine_addons/msvcirt.dll" "$TARGET/eclipse_extensions/BridgePoint/eclipse/plugins/org.xtuml.bp.dap.pkg_$BPVER/bridgepoint/win32/client/bin"
+cp "$TARGET/extras/wine_addons/msvcp60.dll" "$TARGET/eclipse_extensions/BridgePoint/eclipse/plugins/org.xtuml.bp.dap.pkg_$BPVER/bridgepoint/win32/client/bin"
+cp "$TARGET/extras/wine_addons/msvcrt.dll" "$TARGET/eclipse_extensions/BridgePoint/eclipse/plugins/org.xtuml.bp.dap.pkg_$BPVER/bridgepoint/win32/client/bin"
 echo "Done"
 
-MC_NAME="com.mentor.nucleus.bp.mc.c.binary"
+MC_NAME="org.xtuml.bp.mc.c.binary"
 configure_mc_files
 
-MC_NAME="com.mentor.nucleus.bp.mc.c.source"
+MC_NAME="org.xtuml.bp.mc.c.source"
 configure_mc_files
 
-MC_NAME="com.mentor.nucleus.bp.mc.cpp.source"
+MC_NAME="org.xtuml.bp.mc.cpp.source"
 configure_mc_files
 
-MC_NAME="com.mentor.nucleus.bp.mc.vhdl.source"
+MC_NAME="org.xtuml.bp.mc.vhdl.source"
 configure_mc_files
 
-MC_NAME="com.mentor.nucleus.bp.mc.systemc.source"
+MC_NAME="org.xtuml.bp.mc.systemc.source"
 configure_mc_files
 # Done moving files for wine-based generation
 
@@ -97,7 +97,7 @@ SHOWRN=true
 if [ $SHOWRN ]
 then
 	echo "Found the Release notes flag file $RNFLAGFILE"
-	firefox "$TARGET/eclipse_extensions/BridgePoint/eclipse/plugins/com.mentor.nucleus.bp.doc_$BPVER/ReleaseNotes/HTML/ReleaseNotes.htm" &
+	firefox "$TARGET/eclipse_extensions/BridgePoint/eclipse/plugins/org.xtuml.bp.doc_$BPVER/ReleaseNotes/HTML/ReleaseNotes.htm" &
 fi
 echo Done
 
