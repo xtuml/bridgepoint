@@ -49,8 +49,12 @@ public class ExportBuilder extends AbstractExportBuilder {
 	private ByteArrayOutputStream m_outStream;
 	private List<NonRootModelElement> m_elements;
 	private List<SystemModel_c> m_exportedSystems;
-	private Map<String, String> m_args;
-
+	private String m_sourceProject = "";
+	private String m_rootPkgName = "";
+	private String[] m_splitPoints = new String[0];
+	private List<String> m_dontParse = new ArrayList<String>();
+	private List<String> m_parseOnly = new ArrayList<String>();
+	
 	public ExportBuilder() {
 		super(Activator.getDefault(), MCNature.getDefault());
 		m_elements = new ArrayList<NonRootModelElement>();
@@ -81,10 +85,62 @@ public class ExportBuilder extends AbstractExportBuilder {
 	// is turned on.
 	protected IProject[] build(int kind, Map args, IProgressMonitor monitor)
 			throws CoreException {
-		m_args = args;
+		setArgs(args);
 		return super.build(kind, args, monitor);
 	}
 
+	/**
+	 * This routine sets all variables that come from the .project file
+	 * 
+	 * @param args This is the list of arguments that were read from the 
+	 * the project's .project file
+	 * 
+	 * @throws CoreException
+	 */
+	private void setArgs(Map<String, String> args) throws CoreException{
+		String statusMsg = "ExportBuilder::setArgs()\n";
+		
+		// This is used when the project bring built is not the same as the one being
+		// exported.  This is only currently used by the bp.als build.
+        if (args.containsKey("SourceProject")) {
+        	m_sourceProject = args.get("SourceProject");
+        	statusMsg += "\tSourceProject: " + m_sourceProject + "\n";
+        }
+
+		if (args.containsKey("RootPackageName")) {
+			m_rootPkgName = args.get("RootPackageName");
+        	statusMsg += "\tRootPackageName: " + m_rootPkgName + "\n";
+		} else {
+			String errorMsg = "No RootPackageName in .project java_export_builder section.";
+			IStatus status = new Status(IStatus.ERROR,
+					AbstractExportBuilder.class.getPackage().getName(),
+					IStatus.ERROR, errorMsg, null);
+			throw new CoreException(status);
+		}
+
+		if (args.containsKey("SplitAtPackage")) {
+			m_splitPoints = args.get("SplitAtPackage").split(",");
+        	statusMsg += "\tSplitAtPackage: " + m_splitPoints.toString() + "\n";
+		}
+		
+		if (args.containsKey("DontParse")) {
+			String[] excluding = args.get("DontParse").toString().split(",");
+        	statusMsg += "\tDontParse: " + excluding.toString() + "\n";
+			for (String exclusion: excluding) {
+			  m_dontParse.add(exclusion);
+			}
+		}
+		
+		if (args.containsKey("ParseOnly")) {
+			String[] including = args.get("ParseOnly").toString().split(",");
+        	statusMsg += "\tParseOnly: " + including.toString() + "\n";
+			for (String inclusion: including) {
+			  m_parseOnly.add(inclusion);
+			}
+		}
+		
+		System.out.println(statusMsg);
+	}
 	
 	public List<SystemModel_c> exportSystem(SystemModel_c system,
 			String destDir, final IProgressMonitor monitor, boolean append,
@@ -93,208 +149,191 @@ public class ExportBuilder extends AbstractExportBuilder {
 		String errorMsg = "Unable to export to destination file.";
 		boolean exportSucceeded = false;
 		Exception exception = null;
-		String domName = "";
-        if (m_args.containsKey("SourceProject")) {
-    		final String projName = m_args.get("SourceProject");
-    		system = SystemModel_c.SystemModelInstance(Ooaofooa
-    				.getDefaultInstance(), new ClassQueryInterface_c() {
-    			public boolean evaluate(Object candidate) {
-    				return ((SystemModel_c) candidate).getName().equals(projName);
-    			}
-    		});
-
-        }
-		if (m_args.containsKey("RootPackageName")) {
-			domName = m_args.get("RootPackageName");
-			String[] splitPoints = new String[0];
-			if (m_args.containsKey("SplitAtPackage")) {
-				splitPoints = m_args.get("SplitAtPackage").split(",");
-			}
-			List<String> exclude = new ArrayList<String>();
-			if (m_args.containsKey("ExcludePackages")) {
-				String[] excluding = m_args.get("DontParse").toString().split(",");
-				for (String exclusion: excluding) {
-				  exclude.add(exclusion);
-				}
-			}
-			List<String> includeOnly = new ArrayList<String>();
-			if (m_args.containsKey("ParseOnly")) {
-				String[] including = m_args.get("ParseOnly").toString().split(",");
-				for (String inclusion: including) {
-				  includeOnly.add(inclusion);
-				}
-			}
-			try {
-				FileOutputStream fos;
-
-				m_elements.clear();
-				if (originalSystem.isEmpty()) {
-					originalSystem = system.getName();
-				}
-				Package_c[] topLevelPkgs = Package_c.getManyEP_PKGsOnR1401(system);
-				for (Package_c pkg: topLevelPkgs) {
-					if (pkg.getName().equals(domName)) {
-						m_elements.add(pkg);
-					}
-				}
-				// Add any loaded global elements
-				if (CorePlugin.getLoadedGlobals() != null
-						&& system.getUseglobals() && !append) {
-					m_elements.addAll(Arrays.asList(CorePlugin
-							.getLoadedGlobals()));
-				}
-
-				m_outStream = new ByteArrayOutputStream();
-				m_exporter = org.xtuml.bp.core.CorePlugin
-						.getStreamExportFactory()
-						.create(new SingleQuoteFilterOutputStream(m_outStream),
-								m_elements
-										.toArray(new NonRootModelElement[m_elements
-												.size()]), true, true);
-
-				if (m_exporter instanceof CoreExport) {
-					CoreExport exporter = (CoreExport) m_exporter;
-
-					exporter.setExportOAL(CoreExport.YES);
-					exporter.setExportGraphics(CoreExport.NO);
-					// Perform a parse-all to assure the model is up to date
-					List<NonRootModelElement> etps = exporter
-							.getElementsToParse(m_elements
-									.toArray(new NonRootModelElement[0]));
-					List<NonRootModelElement> etpsPass1 = new ArrayList<NonRootModelElement>();
-					List<ArrayList<NonRootModelElement>> etpsSubsequentPasses = new ArrayList<ArrayList<NonRootModelElement>>();
-					for (NonRootModelElement etp : etps) {
-						if (etp instanceof Package_c && ((Package_c)etp).getName().equals(domName)) {
-							organizePasses(splitPoints, exclude,
-									includeOnly, etpsPass1,
-									etpsSubsequentPasses, (Package_c)etp);
+		
+		if (!m_sourceProject.isEmpty()) {
+			system = SystemModel_c.SystemModelInstance(
+					Ooaofooa.getDefaultInstance(), new ClassQueryInterface_c() {
+						public boolean evaluate(Object candidate) {
+							return ((SystemModel_c) candidate).getName()
+									.equals(m_sourceProject);
 						}
+					});
+
+		}
+
+		try {
+			FileOutputStream fos;
+
+			m_elements.clear();
+			if (originalSystem.isEmpty()) {
+				originalSystem = system.getName();
+			}
+			Package_c[] topLevelPkgs = Package_c.getManyEP_PKGsOnR1401(system);
+			for (Package_c pkg : topLevelPkgs) {
+				if (pkg.getName().equals(m_rootPkgName)) {
+					m_elements.add(pkg);
+				}
+			}
+			// Add any loaded global elements
+			if (CorePlugin.getLoadedGlobals() != null && system.getUseglobals()
+					&& !append) {
+				m_elements.addAll(Arrays.asList(CorePlugin.getLoadedGlobals()));
+			}
+
+			m_outStream = new ByteArrayOutputStream();
+			m_exporter = org.xtuml.bp.core.CorePlugin.getStreamExportFactory()
+					.create(new SingleQuoteFilterOutputStream(m_outStream),
+							m_elements
+									.toArray(new NonRootModelElement[m_elements
+											.size()]), true, true);
+
+			if (m_exporter instanceof CoreExport) {
+				CoreExport exporter = (CoreExport) m_exporter;
+
+				exporter.setExportOAL(CoreExport.YES);
+				exporter.setExportGraphics(CoreExport.NO);
+				// Perform a parse-all to assure the model is up to date
+				List<NonRootModelElement> etps = exporter
+						.getElementsToParse(m_elements
+								.toArray(new NonRootModelElement[0]));
+				List<NonRootModelElement> etpsPass1 = new ArrayList<NonRootModelElement>();
+				List<ArrayList<NonRootModelElement>> etpsSubsequentPasses = new ArrayList<ArrayList<NonRootModelElement>>();
+				for (NonRootModelElement etp : etps) {
+					if (etp instanceof Package_c
+							&& ((Package_c) etp).getName()
+									.equals(m_rootPkgName)) {
+						organizePasses(etpsPass1, etpsSubsequentPasses,
+								(Package_c) etp);
 					}
-					String postFix = ".sql";
-					if (!etpsSubsequentPasses.isEmpty()) {
-						postFix = "-1.sql";
+				}
+				String postFix = ".sql";
+				if (!etpsSubsequentPasses.isEmpty()) {
+					postFix = "-1.sql";
+				}
+				// Pass1
+				int passNumber = 1;
+				// Make sure the code generation folder exists
+				IProject proj = (IProject) system
+						.getAdapter(org.eclipse.core.resources.IProject.class);
+				IFolder genFolder = proj
+						.getFolder(AbstractActivator.GEN_FOLDER_NAME);
+				if (!genFolder.exists()) {
+					genFolder.create(true, true, new NullProgressMonitor());
+				}
+				IFolder codeFolder = genFolder.getFolder(getCodeGenFolderPath()
+						.lastSegment());
+				if (!codeFolder.exists()) {
+					codeFolder.create(true, true, new NullProgressMonitor());
+				}
+				String destFileName = destDir + m_rootPkgName + postFix;
+				System.out.println("ExportBuilder.java::exportSystem() - Creating filename: " + destFileName);
+				m_outputFile = new File(destFileName);
+				if (m_outputFile.exists() && !append) {
+					m_outputFile.delete();
+				}
+				exporter.parseAllForExport(etpsPass1
+						.toArray(new NonRootModelElement[etpsPass1.size()]),
+						monitor);
+
+				m_exporter.run(monitor);
+				m_outputFile.createNewFile();
+				fos = new FileOutputStream(m_outputFile, append);
+				fos.write(m_outStream.toByteArray());
+				fos.close();
+				// Subsequent passes
+				for (ArrayList<NonRootModelElement> etpsSubsequentPass : etpsSubsequentPasses) {
+					passNumber++;
+					m_outStream = new ByteArrayOutputStream();
+					m_exporter = org.xtuml.bp.core.CorePlugin
+							.getStreamExportFactory()
+							.create(new SingleQuoteFilterOutputStream(
+									m_outStream),
+									m_elements
+											.toArray(new NonRootModelElement[m_elements
+													.size()]), true, true);
+					if (m_exporter instanceof CoreExport) {
+						exporter = (CoreExport) m_exporter;
+
+						exporter.setExportOAL(CoreExport.YES);
+						exporter.setExportGraphics(CoreExport.NO);
 					}
-					// Pass1
-					int passNumber = 1;
-				    // Make sure the code generation folder exists
-					IProject proj = (IProject)system.getAdapter(org.eclipse.core.resources.IProject.class);
-					IFolder genFolder = proj.getFolder(AbstractActivator.GEN_FOLDER_NAME);
-					if (!genFolder.exists()) {
-					  genFolder.create(true, true, new NullProgressMonitor());
-					}
-					IFolder codeFolder = genFolder.getFolder(getCodeGenFolderPath().lastSegment());
-					if(!codeFolder.exists()) {
-						codeFolder.create(true,  true, new NullProgressMonitor());
-					}
-					m_outputFile = new File(destDir + domName + postFix);
+					m_outputFile = new File(destDir + m_rootPkgName + "-"
+							+ passNumber + ".sql");
 					if (m_outputFile.exists() && !append) {
 						m_outputFile.delete();
 					}
-					exporter.parseAllForExport(
-							etpsPass1.toArray(new NonRootModelElement[etpsPass1
+					exporter.parseAllForExport(etpsSubsequentPass
+							.toArray(new NonRootModelElement[etpsSubsequentPass
 									.size()]), monitor);
-
 					m_exporter.run(monitor);
 					m_outputFile.createNewFile();
 					fos = new FileOutputStream(m_outputFile, append);
 					fos.write(m_outStream.toByteArray());
 					fos.close();
-					// Subsequent passes
-					for (ArrayList<NonRootModelElement>etpsSubsequentPass: etpsSubsequentPasses) {
-						passNumber++;
-						m_outStream = new ByteArrayOutputStream();
-						m_exporter = org.xtuml.bp.core.CorePlugin
-								.getStreamExportFactory()
-								.create(new SingleQuoteFilterOutputStream(
-										m_outStream),
-										m_elements
-												.toArray(new NonRootModelElement[m_elements
-														.size()]), true, true);
-						if (m_exporter instanceof CoreExport) {
-							exporter = (CoreExport) m_exporter;
-
-							exporter.setExportOAL(CoreExport.YES);
-							exporter.setExportGraphics(CoreExport.NO);
-						}
-						m_outputFile = new File(destDir + domName + "-" + passNumber + ".sql");
-						if (m_outputFile.exists() && !append) {
-							m_outputFile.delete();
-						}
-						exporter.parseAllForExport(etpsSubsequentPass
-								.toArray(new NonRootModelElement[etpsSubsequentPass
-										.size()]), monitor);
-						m_exporter.run(monitor);
-						m_outputFile.createNewFile();
-						fos = new FileOutputStream(m_outputFile, append);
-						fos.write(m_outStream.toByteArray());
-						fos.close();
-					}
-					exportSucceeded = true;
-
-					// Check to see if the user has set the preferences to
-					// export RTO data for this project.
-					// Their project setting overrides the workspace setting. If
-					// they've never set the value
-					// for the project, the workspace setting is used as the
-					// default.
-					boolean doEmitRTOs = BridgePointProjectReferencesPreferences
-							.getProjectBoolean(
-									BridgePointProjectReferencesPreferences.BP_PROJECT_EMITRTODATA_ID,
-									originalSystem);
-					if (doEmitRTOs) {
-						Set<String> rtoSystems = ((ExportModelStream) m_exporter)
-								.getSavedRTOSystems();
-						m_elements.clear();
-						for (String rtoSystem : rtoSystems) {
-							// Maintain a list of already exported systems -
-							// only export if we haven't already.
-							SystemModel_c referredToSystem = ProjectUtilities
-									.getSystemModel(rtoSystem);
-							if ((referredToSystem != null)
-									&& !m_exportedSystems
-											.contains(referredToSystem)) {
-								// Now that we have a referred to system in
-								// hand, export it and append
-								// the data to our original system's file. Note
-								// that this will cause a parse
-								// on the referredToSystem.
-								m_exportedSystems.add(referredToSystem);
-								exportSystem(referredToSystem, destDir,
-										monitor, true, originalSystem);
-							}
-						}
-					}
-				} else {
-					throw new RuntimeException(
-							"Failed to obtain a CoreExport instance.");
 				}
+				exportSucceeded = true;
 
-			} catch (FileNotFoundException e) {
-				exception = e;
-				CorePlugin.logError(errorMsg, e);
-			} catch (IOException e) {
-				exception = e;
-				CorePlugin.logError(errorMsg, e);
-				if (m_outputFile.exists())
-					m_outputFile.delete();
-			} catch (InvocationTargetException e) {
-				exception = e;
-				CorePlugin.logError(errorMsg, e);
-			} catch (InterruptedException e) {
-				exception = e;
-				CorePlugin.logError(errorMsg, e);
-				if (m_outputFile.exists())
-					m_outputFile.delete();
-			} catch (RuntimeException e) {
-				exception = e;
-				errorMsg += "  " + e.getMessage();
-				CorePlugin.logError(errorMsg, e);
+				// Check to see if the user has set the preferences to
+				// export RTO data for this project.
+				// Their project setting overrides the workspace setting. If
+				// they've never set the value
+				// for the project, the workspace setting is used as the
+				// default.
+				boolean doEmitRTOs = BridgePointProjectReferencesPreferences
+						.getProjectBoolean(
+								BridgePointProjectReferencesPreferences.BP_PROJECT_EMITRTODATA_ID,
+								originalSystem);
+				if (doEmitRTOs) {
+					Set<String> rtoSystems = ((ExportModelStream) m_exporter)
+							.getSavedRTOSystems();
+					m_elements.clear();
+					for (String rtoSystem : rtoSystems) {
+						// Maintain a list of already exported systems -
+						// only export if we haven't already.
+						SystemModel_c referredToSystem = ProjectUtilities
+								.getSystemModel(rtoSystem);
+						if ((referredToSystem != null)
+								&& !m_exportedSystems
+										.contains(referredToSystem)) {
+							// Now that we have a referred to system in
+							// hand, export it and append
+							// the data to our original system's file. Note
+							// that this will cause a parse
+							// on the referredToSystem.
+							m_exportedSystems.add(referredToSystem);
+							exportSystem(referredToSystem, destDir, monitor,
+									true, originalSystem);
+						}
+					}
+				}
+			} else {
+				throw new RuntimeException(
+						"Failed to obtain a CoreExport instance.");
 			}
 
-			m_elements.clear();
-		} else {
-			errorMsg = "No RootPackageName in .project java_export_builder section.";
+		} catch (FileNotFoundException e) {
+			exception = e;
+			CorePlugin.logError(errorMsg, e);
+		} catch (IOException e) {
+			exception = e;
+			CorePlugin.logError(errorMsg, e);
+			if (m_outputFile.exists())
+				m_outputFile.delete();
+		} catch (InvocationTargetException e) {
+			exception = e;
+			CorePlugin.logError(errorMsg, e);
+		} catch (InterruptedException e) {
+			exception = e;
+			CorePlugin.logError(errorMsg, e);
+			if (m_outputFile.exists())
+				m_outputFile.delete();
+		} catch (RuntimeException e) {
+			exception = e;
+			errorMsg += "  " + e.getMessage();
+			CorePlugin.logError(errorMsg, e);
 		}
+
+		m_elements.clear();
 
 		// If the export failed we do not want to proceed with the
 		// model compiler build.
@@ -308,51 +347,51 @@ public class ExportBuilder extends AbstractExportBuilder {
 		return m_exportedSystems;
 	}
 
-	private void organizePasses(String[] splitPoints,
-			List<String> exclude, List<String> includeOnly,
-			List<NonRootModelElement> etpsPass1,
-			List<ArrayList<NonRootModelElement>> etpsSubsequentPasses, Package_c etp) {
-		    // Some packages need to be processed in the first pass and others need to be deferred to the last package
-            String firstPass_pkgs = "External Entities";
-		    String deferred_pkgs = "Functions";
-		    List<NonRootModelElement> deferred = new ArrayList<NonRootModelElement>();
-			int splitPointsFound = 0;
-            Package_c[] subPackages = Package_c.getManyEP_PKGsOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(etp));
-            for (Package_c pkg : subPackages) {
-				// Split point is effective even if packages are excluded
-				for (String splitPoint: splitPoints) {
-				  if (pkg.getName().equals(splitPoint)) {
+	private void organizePasses(List<NonRootModelElement> etpsPass1,
+			List<ArrayList<NonRootModelElement>> etpsSubsequentPasses,
+			Package_c etp) {
+		// Some packages need to be processed in the first pass and others need
+		// to be deferred to the last package
+		String firstPass_pkgs = "External Entities";
+		String deferred_pkgs = "Functions";
+		List<NonRootModelElement> deferred = new ArrayList<NonRootModelElement>();
+		int splitPointsFound = 0;
+		Package_c[] subPackages = Package_c
+				.getManyEP_PKGsOnR8001(PackageableElement_c
+						.getManyPE_PEsOnR8000(etp));
+		for (Package_c pkg : subPackages) {
+			// Split point is effective even if packages are excluded
+			for (String splitPoint : m_splitPoints) {
+				if (pkg.getName().equals(splitPoint)) {
 					splitPointsFound++;
-					etpsSubsequentPasses.add(new ArrayList<NonRootModelElement>());
-				  }
+					etpsSubsequentPasses
+							.add(new ArrayList<NonRootModelElement>());
 				}
-				if (includeOnly.isEmpty() || includeOnly.contains(pkg.getName())) {
-                  if (!exclude.contains(pkg.getName())) {
-                	if (deferred_pkgs.contains(pkg.getName())) {
-                		deferred.add(pkg);
-                	}
-                	else {
-                        if (splitPointsFound == 0 || firstPass_pkgs.contains(pkg.getName())) {
-                            etpsPass1.add(pkg);
-                        }
-                        else {
-                          etpsSubsequentPasses.get(splitPointsFound-1).add(pkg);
-                        }
-                    }
-                  }
-                }
-            }
-            if (splitPointsFound == 0) {
-              etpsPass1.addAll(deferred);
-            }
-            else {
-              etpsSubsequentPasses.get(splitPointsFound-1).addAll(deferred);
-            }
+			}
+			if (m_parseOnly.isEmpty() || m_parseOnly.contains(pkg.getName())) {
+				if (!m_dontParse.contains(pkg.getName())) {
+					if (deferred_pkgs.contains(pkg.getName())) {
+						deferred.add(pkg);
+					} else {
+						if (splitPointsFound == 0
+								|| firstPass_pkgs.contains(pkg.getName())) {
+							etpsPass1.add(pkg);
+						} else {
+							etpsSubsequentPasses.get(splitPointsFound - 1).add(
+									pkg);
+						}
+					}
+				}
+			}
 		}
+		if (splitPointsFound == 0) {
+			etpsPass1.addAll(deferred);
+		} else {
+			etpsSubsequentPasses.get(splitPointsFound - 1).addAll(deferred);
+		}
+	}
 
-	private void organizePasses(String[] splitPoints,
-			List<String> exclude, List<String> includeOnly,
-			List<NonRootModelElement> etpsPass1,
+	private void organizePasses(List<NonRootModelElement> etpsPass1,
 			List<ArrayList<NonRootModelElement>> etpsSubsequentPasses,
 			Domain_c etp) {
 			int splitPointsFound = 0;
@@ -360,14 +399,14 @@ public class ExportBuilder extends AbstractExportBuilder {
 					.getManyS_SSsOnR1((Domain_c) etp);
 			for (Subsystem_c subsystem : subsystems) {
 				// Split point is effective even if packages are excluded
-				for (String splitPoint: splitPoints) {
+				for (String splitPoint: m_splitPoints) {
 				  if (subsystem.getName().equals(splitPoint)) {
 					splitPointsFound++;
 					etpsSubsequentPasses.add(new ArrayList<NonRootModelElement>());
 				  }
 				}
-				if (includeOnly.isEmpty() || includeOnly.contains(subsystem.getName())) {
-				  if (!exclude.contains(subsystem.getName())) {
+				if (m_parseOnly.isEmpty() || m_parseOnly.contains(subsystem.getName())) {
+				  if (!m_dontParse.contains(subsystem.getName())) {
 				    if (splitPointsFound == 0) {
 					  etpsPass1.add(subsystem);
 				    } else {
@@ -384,8 +423,8 @@ public class ExportBuilder extends AbstractExportBuilder {
 			FunctionPackage_c[] fpks = FunctionPackage_c
 					.getManyS_FPKsOnR29((Domain_c) etp);
 			for (FunctionPackage_c fpk : fpks) {
-				if (includeOnly.isEmpty() || includeOnly.contains(fpk.getName())) {
-					  if (!exclude.contains(fpk.getName())) {
+				if (m_parseOnly.isEmpty() || m_parseOnly.contains(fpk.getName())) {
+					  if (!m_dontParse.contains(fpk.getName())) {
 				        funcDest.add(fpk);
 					  }
 				}
