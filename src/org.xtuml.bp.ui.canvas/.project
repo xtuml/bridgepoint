@@ -45,7 +45,7 @@
 		</buildCommand>
 	</buildSpec>
 	<natures>
-		<nature>com.mentor.nucleus.bp.core.xtumlnature</nature>
+		<nature>org.xtuml.bp.core.xtumlnature</nature>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 		<nature>org.eclipse.pde.PluginNature</nature>
 		<nature>org.antlr.eclipse.core.antlrnature</nature>

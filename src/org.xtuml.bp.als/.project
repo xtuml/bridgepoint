@@ -33,6 +33,6 @@
 		</buildCommand>
 	</buildSpec>
 	<natures>
-		<nature>com.mentor.nucleus.bp.core.xtumlnature</nature>
+		<nature>org.xtuml.bp.core.xtumlnature</nature>
 	</natures>
 </projectDescription>
