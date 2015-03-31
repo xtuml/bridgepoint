@@ -28,7 +28,7 @@ function configure_build_files {
 	# Files needed to build the tool.  Populate the git repo mc.c.binary plug-in
 	# with the model compiler files from the BP we're using to build.  
 	#	
-  	cd ${ECLIPSE_HOME}/../eclipse_extensions/BridgePoint/eclipse/plugins/${orig_mc_project}_${HOST_BP_VERSION}
+  	cd ${ECLIPSE_HOME}/plugins/${orig_mc_project}_${HOST_BP_VERSION}
 	cp -fr mc3020 ${GIT_BP}/src/${mc_project}/mc3020
 	cp -fr mc3020 ${GIT_BP}/src/${mcjava_project}/mc3020
 
