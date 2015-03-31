@@ -1,0 +1,24 @@
+ERROR: Another class within the same package has been found with the same key letters.
+
+Element Name: Class 2
+Element Path: ModelIntegrityTests::Class Tests::Class 2::Class 2
+
+
+WARNING: Another class within the same package has been found with the same number.
+
+Element Name: Class 2
+Element Path: ModelIntegrityTests::Class Tests::Class 2::Class 2
+
+
+ERROR: Another class within the same package has been found with the same key letters.
+
+Element Name: Class
+Element Path: ModelIntegrityTests::Class Tests::Class::Class
+
+
+WARNING: Another class within the same package has been found with the same number.
+
+Element Name: Class
+Element Path: ModelIntegrityTests::Class Tests::Class::Class
+
+

@@ -1,0 +1,16 @@
+ERROR: Found another operation under the same interface with a matching signature.
+
+Signature: InterfaceOperationSameSig(integer)
+
+Element Name: InterfaceOperationSameSig
+Element Path: ModelIntegrityTests::Interface Operation Tests
+
+
+ERROR: Found another operation under the same interface with a matching signature.
+
+Signature: InterfaceOperationSameSig(integer)
+
+Element Name: InterfaceOperationSameSig
+Element Path: ModelIntegrityTests::Interface Operation Tests
+
+

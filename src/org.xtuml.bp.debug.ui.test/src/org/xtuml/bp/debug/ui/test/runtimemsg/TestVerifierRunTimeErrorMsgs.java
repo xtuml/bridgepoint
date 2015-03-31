@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Menu;
@@ -1276,7 +1277,11 @@ public class TestVerifierRunTimeErrorMsgs extends BaseTest {
     boolean checkResult_Sys_Pkg_ModelClass_StateMachine_CTEvent() {
     	boolean Sys_Pkg_ModelClass_StateMachine_CTEvent = false;
     	String actual_results = DebugUITestUtilities.getConsoleText("null");
-    	if (actual_results.contains("User invoked function: ExecuteA1CT\r\n"))
+    	String expected_results = "User invoked function: ExecuteA1CT\r\n";
+    	if (!Platform.getOS().contains("win")) {
+    		expected_results = expected_results.replace("\r", "");
+    	}
+    	if (actual_results.contains(expected_results))
     	{
     		Sys_Pkg_ModelClass_StateMachine_CTEvent= true;
     	}

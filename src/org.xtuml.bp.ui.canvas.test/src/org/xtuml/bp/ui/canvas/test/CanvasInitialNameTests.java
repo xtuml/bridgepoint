@@ -27,6 +27,7 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.dialogs.InputDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Point;
@@ -64,6 +65,7 @@ import org.xtuml.bp.ui.graphics.editor.GraphicalEditor;
 public class CanvasInitialNameTests extends BaseTest {
 
 	private static final String INVALID_CHAR_ERROR = "* is an invalid character in resource name '*'.";
+	private static final String INVALID_UNIX_CHAR_ERROR = "/ is an invalid character in resource name '/'.";
 	private static final String EXISTING_FOLDER_ERROR = "A model element with the same name already exists.\r\n\r\n"
 			+ "This is most likely due to uncommitted renames or deletions."
 			+ "  If this is the case, please commit any outstanding changes before proceeding.\r\n\r\n"
@@ -185,19 +187,39 @@ public class CanvasInitialNameTests extends BaseTest {
 	}
 
 	public void testPackageWithInvalidCharacter() {
-		doNewCMETest("Package", INVALID_CHAR_ERROR, "*");
+		if (Platform.getOS().contains("win")) {
+			doNewCMETest("Package", INVALID_CHAR_ERROR, "*");
+		}
+		else {
+			doNewCMETest("Package", INVALID_UNIX_CHAR_ERROR, "/");
+		}
 	}
 
 	public void testClassWithInvalidCharacter() {
-		doNewCMETest("Classes::Class", INVALID_CHAR_ERROR, "*");
+		if (Platform.getOS().contains("win")) {
+		    doNewCMETest("Classes::Class", INVALID_CHAR_ERROR, "*");
+		}
+		else {
+			doNewCMETest("Classes::Class", INVALID_UNIX_CHAR_ERROR, "/");
+		}
 	}
 
 	public void testComponentWithInvalidCharacter() {
-		doNewCMETest("Components::Component", INVALID_CHAR_ERROR, "*");
+		if (Platform.getOS().contains("win")) {
+		    doNewCMETest("Components::Component", INVALID_CHAR_ERROR, "*");
+		}
+		else {
+			doNewCMETest("Components::Component", INVALID_UNIX_CHAR_ERROR, "/");
+		}
 	}
 
 	public void testInterfaceWithInvalidCharacter() {
-		doNewCMETest("Components::Interface", INVALID_CHAR_ERROR, "*");
+		if (Platform.getOS().contains("win")) {
+		    doNewCMETest("Components::Interface", INVALID_CHAR_ERROR, "*");
+		}
+		else {
+			doNewCMETest("Components::Interface", INVALID_UNIX_CHAR_ERROR, "/");
+		}
 	}
 
 	public void testPackageGraphicalToolWithInvalidCharacter() {
@@ -334,7 +356,11 @@ public class CanvasInitialNameTests extends BaseTest {
 						+ getName())).create(true, true,
 				new NullProgressMonitor());
 		BaseTest.dispatchEvents(0);
-		doNewCMETest("Package", EXISTING_FOLDER_ERROR, getName());
+		String expectedError = EXISTING_FOLDER_ERROR;
+		if (!Platform.getOS().contains("win")) {
+			expectedError = expectedError.replace("\r", "");
+		}
+		doNewCMETest("Package", expectedError, getName());
 	}
 
 	public void testNewClassCMEExistingFolder() throws CoreException {
@@ -344,7 +370,11 @@ public class CanvasInitialNameTests extends BaseTest {
 						+ getName())).create(true, true,
 				new NullProgressMonitor());
 		BaseTest.dispatchEvents(0);
-		doNewCMETest("Classes::Class", EXISTING_FOLDER_ERROR, getName());
+		String expectedError = EXISTING_FOLDER_ERROR;
+		if (!Platform.getOS().contains("win")) {
+			expectedError = expectedError.replace("\r", "");
+		}
+		doNewCMETest("Classes::Class", expectedError, getName());
 	}
 
 	public void testNewComponentCMEExistingFolder() throws CoreException {
@@ -354,7 +384,11 @@ public class CanvasInitialNameTests extends BaseTest {
 						+ getName())).create(true, true,
 				new NullProgressMonitor());
 		BaseTest.dispatchEvents(0);
-		doNewCMETest("Components::Component", EXISTING_FOLDER_ERROR, getName());
+		String expectedError = EXISTING_FOLDER_ERROR;
+		if (!Platform.getOS().contains("win")) {
+			expectedError = expectedError.replace("\r", "");
+		}
+		doNewCMETest("Components::Component", expectedError, getName());
 	}
 
 	public void testNewInterfaceCMEExistingFolder() throws CoreException {
@@ -364,7 +398,11 @@ public class CanvasInitialNameTests extends BaseTest {
 						+ getName())).create(true, true,
 				new NullProgressMonitor());
 		BaseTest.dispatchEvents(0);
-		doNewCMETest("Components::Interface", EXISTING_FOLDER_ERROR, getName());
+		String expectedError = EXISTING_FOLDER_ERROR;
+		if (!Platform.getOS().contains("win")) {
+			expectedError = expectedError.replace("\r", "");
+		}
+		doNewCMETest("Components::Interface", expectedError, getName());
 	}
 
 	public void testRenamePackageExistingFolder() throws CoreException {
@@ -537,7 +575,7 @@ public class CanvasInitialNameTests extends BaseTest {
 
 	private void validateErrorMessage(final String expectedResult,
 			final String value) {
-		PlatformUI.getWorkbench().getDisplay().timerExec(300, new Runnable() {
+		PlatformUI.getWorkbench().getDisplay().timerExec(500, new Runnable() {
 
 			@Override
 			public void run() {

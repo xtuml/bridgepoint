@@ -33,6 +33,9 @@ public class OdoTimer {
 		  String workSpLoc = OdoView.getEclipseVar("eclipse_home");
           FileReader reader = new FileReader(workSpLoc + fileName);
           int read = reader.read(time);
+          if ( read == -1 ) {
+        	  throw new FileNotFoundException("Odometer file exists but is not initialized.");
+          }
           // If we get here, the value was read ok
           millitime = Long.parseLong(String.valueOf(charTime).substring(0,read));
           reader.close();
