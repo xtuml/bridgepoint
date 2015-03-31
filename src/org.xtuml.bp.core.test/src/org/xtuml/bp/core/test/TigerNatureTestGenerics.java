@@ -36,6 +36,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.OperationCanceledException;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.tools.AbstractTool;
 import org.eclipse.jface.action.Action;
@@ -476,12 +477,19 @@ public class TigerNatureTestGenerics extends CanvasTest {
 
 	public void testNewProjectNonDefaultPath() throws Exception {
 		String location = "c:\\tiger_test";
+		if(!Platform.getOS().contains("win")) {
+			location = Platform.getInstanceLocation().getURL().toString()
+					.replaceAll("file:", "")
+					+ "../tiger_test";
+		}
 		File loc = new File(location);
 		if (loc.exists()) {
 			if (loc.isDirectory()) {
 				deleteDirContents(loc);
 			}
 			assertTrue("Couldn't delete test directory", loc.delete());
+		} else {
+			loc.mkdir();
 		}
 		NewSystemWizard nsw = new NewSystemWizard();
 		nsw.init(PlatformUI.getWorkbench(), null);
@@ -509,12 +517,24 @@ public class TigerNatureTestGenerics extends CanvasTest {
 		gc0.setSelection(false);
 		gc0.notifyListeners(SWT.Selection, null);
 		Text gc2 = (Text) gc[2];
-		gc2.setText("c:\\tiger_test");
+		if (Platform.getOS().contains("win")) {
+			gc2.setText("c:\\tiger_test");
+		}
+		else {
+			gc2.setText(Platform.getInstanceLocation().getURL().toString()
+					.replaceAll("file:", "")
+					+ "../tiger_test");
+		}
 
 		nsw.performFinish();
 		dialog.close();
 		// wait on any previous events to process
 		BaseTest.dispatchEvents(0);
+		for (int i = 0; i < 100; i++) {
+			while (Display.getCurrent().readAndDispatch()) {
+				i = 0; // Reset outer loop
+			}
+		}
 
 		assertTrue(
 				"Did not find new project, Test Project Non-Defaults, in the explorer view",

@@ -1,0 +1,5 @@
+drawText(" 1. State", ...)
+drawline(...)
+drawPolyline(8 omitted points)
+drawText("No Event Assigned", ...)
+drawPolyline(6 omitted points)

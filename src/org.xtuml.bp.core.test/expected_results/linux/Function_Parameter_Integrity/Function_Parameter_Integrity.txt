@@ -1,0 +1,12 @@
+ERROR: Found another parameter under the same function with a matching name.
+
+Element Name: param
+Element Path: ModelIntegrityTests::Function Parameter Tests::Function::param
+
+
+ERROR: Found another parameter under the same function with a matching name.
+
+Element Name: param
+Element Path: ModelIntegrityTests::Function Parameter Tests::Function::param
+
+

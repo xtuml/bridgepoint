@@ -27,6 +27,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.debug.core.DebugPlugin;
 import org.eclipse.debug.core.IBreakpointManager;
 import org.eclipse.debug.core.Launch;
@@ -128,6 +129,9 @@ public class SendMessageOverDelegationTest extends BaseTest {
 		DebugUITestUtilities.waitForExecution();
 		
 		String expectedConsoleText = "User invoked function: sendOpWithoutReturn\r\nLogSuccess:  LevelOneDelegationComponent has consumed the messsage as expected\r\nLogSuccess:  LevelTwoDelegationComponent has consumed the messsage as expected\r\n";
+		if (!Platform.getOS().contains("win")) {
+			expectedConsoleText = expectedConsoleText.replace("\r", "");
+		}
 		String actualConsoleText = DebugUITestUtilities.getConsoleText("null");
 		assertEquals(expectedConsoleText, actualConsoleText);
 
@@ -187,6 +191,9 @@ public class SendMessageOverDelegationTest extends BaseTest {
 		String expectedConsoleText = "User invoked function: longdelegationWithReturn" +
 				"\r\nLogSuccess:  FourOfFourDelegation has consumed the messsage as expected" +
 				"\r\nLogSuccess:  Correct return value from delegated message\r\n";
+		if (!Platform.getOS().contains("win")) {
+			expectedConsoleText = expectedConsoleText.replace("\r", "");
+		}
 		String actualConsoleText = DebugUITestUtilities.getConsoleText("null");
 		assertEquals(expectedConsoleText, actualConsoleText);
 		
@@ -255,6 +262,9 @@ public class SendMessageOverDelegationTest extends BaseTest {
 		String expectedConsoleText = "User invoked function: LongDelegation" +
 				"\r\nLogSuccess:  TestDriverComponent has consumed the messsage as expected" +
 				"\r\nLogSuccess:  Correct return value from delegated message\r\n";
+		if (!Platform.getOS().contains("win")) {
+			expectedConsoleText = expectedConsoleText.replace("\r", "");
+		}
 		String actualConsoleText = DebugUITestUtilities.getConsoleText("null");
 		assertEquals(expectedConsoleText, actualConsoleText);
 		
@@ -279,6 +289,9 @@ public class SendMessageOverDelegationTest extends BaseTest {
 		DebugUITestUtilities.waitForExecution();
 		
 		String expectedConsoleText = "User invoked function: sendSignal\r\nLogSuccess:  LevelOneDelegationComponent has consumed the messsage as expected\r\nLogSuccess:  LevelTwoDelegationComponent has consumed the messsage as expected\r\n";
+		if (!Platform.getOS().contains("win")) {
+			expectedConsoleText = expectedConsoleText.replace("\r", "");
+		}
 		String actualConsoleText = DebugUITestUtilities.getConsoleText("null");
 		assertEquals(expectedConsoleText, actualConsoleText);
 		

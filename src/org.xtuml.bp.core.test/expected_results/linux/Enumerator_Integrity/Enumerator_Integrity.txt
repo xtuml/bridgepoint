@@ -1,0 +1,12 @@
+ERROR: Found another enumerator under the same enumeration data type with a matching name.
+
+Element Name: Enumerator
+Element Path: ModelIntegrityTests::Enumerator Tests::Enumeration::Enumerator
+
+
+ERROR: Found another enumerator under the same enumeration data type with a matching name.
+
+Element Name: Enumerator
+Element Path: ModelIntegrityTests::Enumerator Tests::Enumeration::Enumerator
+
+
