@@ -69,8 +69,8 @@ function distribute_and_notify {
 	  echo -e "---------------" >> ${MAIL_TEMP}
 	  cat ${DIFF_FILE} >> ${MAIL_TEMP}
 	  
-	  # TODO - ./build_installer_bp.sh ${BRANCH} ${BUILD_MOUNT}/staging /bin/TODOIZPACKPATH ${RESULT_FOLDER} windows
-	  # TODO - ./build_installer_bp.sh ${BRANCH} ${BUILD_MOUNT}/staging /bin/TODOIZPACKPATH ${RESULT_FOLDER} linux
+	  # TODO - ./build_installer_bp.sh ${BRANCH} ${STAGING_AREA} /bin/TODOIZPACKPATH ${RESULT_FOLDER} windows
+	  # TODO - ./build_installer_bp.sh ${BRANCH} ${STAGING_AREA} /bin/TODOIZPACKPATH ${RESULT_FOLDER} linux
 	fi
 	cat ${MAIL_TEMP} | ${MAIL_CMD} ${BUILD_ADMIN}
 	
@@ -85,8 +85,7 @@ function distribute_and_notify {
 # User defined variables:
 export BUILD_MOUNT="${HOME}/build"
 export ECLIPSE_HOME="${HOME}/MentorGraphics/BridgePoint/eclipse"
-export HOST_BP_VERSION="4.2.0"
-export BP_VERSION="4.2.1"
+export HOST_BP_VERSION="4.2.1"
 
 # Do not modify these variables:
 export BUILD_ROOT="${BUILD_MOUNT}/work"
@@ -144,6 +143,10 @@ mkdir -p "${RESULT_FOLDER}"
 #
 export RESULT_FOLDER_EXTENSION="${RELEASE_BASE}/${BUILD_TARGET}-extension"
 mkdir -p "${RESULT_FOLDER_EXTENSION}"
+
+
+export STAGING_AREA=${BUILD_MOUNT}/staging
+mkdir -p "${STAGING_AREA}"
 
 # 
 # This section defines the external location for the build (the place where
