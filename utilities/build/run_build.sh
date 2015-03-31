@@ -85,8 +85,7 @@ function distribute_and_notify {
 # User defined variables:
 export BUILD_MOUNT="${HOME}/build"
 export ECLIPSE_HOME="${HOME}/MentorGraphics/BridgePoint/eclipse"
-export HOST_BP_VERSION="4.2.0"
-export BP_VERSION="4.2.1"
+export HOST_BP_VERSION="4.2.1"
 
 # Do not modify these variables:
 export BUILD_ROOT="${BUILD_MOUNT}/work"
