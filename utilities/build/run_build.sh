@@ -7,138 +7,28 @@
 #
 #  Since it is the starting point for the build chain, it must be manually put 
 #  into place for the build server to run. The variable BUILD_MOUNT holds the 
-#  build server location that is the root for the build.  git and ant must
-#  be installed on the build server
+#  build server location that is the root for the build.
 #  
 #  Build Server Requirements:
 #  1) run_build.sh, and init_git_repositories.sh must be present in ${BUILD_ROOT}
 #  2) BridgePoint must be installed to the folder pointed to by the 
-#     ${ECLIPSE_HOME} variable defined below
-#  3) git must be installed on the build server
+#     ${ECLIPSE_HOME} variable defined below.  The BridgePoint version must be 
+#     in this ECLIPSE_HOME must be specified.
+#  3) git and ant must be installed on the build server
 # 
 #  The build is performed under ${BUILD_ROOT}.  The result of the build:
 #  1) plugins
 #     The resulting plugins are found under ${BUILD_ROOT}
 # 
 
-export BUILD_MOUNT="/build"
-export ECLIPSE_HOME="${BUILD_MOUNT}/BridgePoint4.2.0/eclipse"
-export BUILD_ROOT="${BUILD_MOUNT}/work"
-export GIT_REPO_ROOT="${BUILD_MOUNT}/git/xtuml"
-export GIT_BP="${GIT_REPO_ROOT}/bridgepoint"
-export BUILD_TOOLS="${BUILD_MOUNT}/utilities/bp_build_tools"
-export PT_HOME="${BUILD_TOOLS}/bridgepoint"
-export PT_HOME_DRIVE=
-export XTUMLGEN_HOME="${BUILD_TOOLS}/bridgepoint"
-# if no arguments are present default to master
-export BRANCH="master"
-if [ $# -eq 1 ]; then
-  export BRANCH="$1"
-fi
-
-# this flag is constant and could potentially be removed, but it is 
-# being left in case we do want to have the build be different then other 
-# releases.
-export BUILD_TYPE="nonrelease"
-
-# This variable is used to decided if we want to look in head for files not
-# found in the specified branch.  Currently it is always set  to yes.  It
-# is being left in the script to allow this to be modified in the future if
-# desired
-export ALLOW_FALLBACK="yes"
-
-export BUILD_DIR="${BUILD_ROOT}/${BRANCH}"
-export LOG_DIR="${BUILD_DIR}/log"
-export ERROR_FILE="${LOG_DIR}/errors.log"
-export DIFF_FILE="${LOG_DIR}/diff.log"
-export BUILD_LOG=""${LOG_DIR}/build.log""
-export BUILD_ADMIN="build@onefact.net"
-export MAIL_CMD="/usr/sbin/ssmtp"
-export MAIL_TEMP="mailtemp"
-export RELEASE_PKG="org.xtuml.bp.bld.pkg-feature"
-export SHELLUSER="ubuntu"
-mkdir -p "${LOG_DIR}"
-
-export TIMESTAMP=`date +%Y%m%d%H%M`
+#-------------------------------------------------------------------------------
+# Functions
+#-------------------------------------------------------------------------------
 
 #
-# This is the location, on the build server, where this build is found
-#
-export RELEASE_BASE="/build/releases"
-export BUILD_TARGET="${BRANCH}-${TIMESTAMP}"
-export RESULT_FOLDER="${RELEASE_BASE}/${BUILD_TARGET}"
-mkdir -p "${RESULT_FOLDER}"
-
-#
-# This is where the extension result goes
-#
-export RESULT_FOLDER_EXTENSION="${RELEASE_BASE}/${BUILD_TARGET}-extension"
-mkdir -p "${RESULT_FOLDER_EXTENSION}"
-
-# 
-# This section defines the external location for the build (the place where
-# customers go to get this release). 
-# Note that items in the following section will eventually need to be github 
-# pages (I think) for now the release is not being moved off of the build server.
-#
-export RELEASE_DROP="${RELEASE_BASE}/${BRANCH}"
-mkdir -p "${RELEASE_DROP}"
-export DOWNLOAD_URL="http://xtuml.github.io/bridgepoint/"
-export DISTRIBUTION_SERVER=""
-
-# We do not currently use this, but when we were using cvs we tagged nightly 
-# builds, and this was the format of the tag
-export BUILD_TAG="`date +N%F`"
-
-# assure that we are starting with a clean build folder.
-rm -rf ${BUILD_DIR}
-
-mkdir -p "${BUILD_DIR}"
-mkdir -p "${LOG_DIR}"
-mkdir -p "${BUILD_TOOLS}"
-mkdir -p "${GIT_REPO_ROOT}"
-mkdir -p "${BUILD_ROOT}"
-mkdir -p "${PT_HOME}"
-echo -e "BUILD_ROOT=${BUILD_ROOT}
-echo -e "BRANCH=${BRANCH}
-echo -e "GIT_REPO_ROOT=${GIT_REPO_ROOT}
-echo -e "PT_HOME=${PT_HOME}
-echo -e "PT_HOME_DRIVE=${PT_HOME_DRIVE}
-echo -e "XTUMLGEN_HOME=${XTUMLGEN_HOME}
-
-cd "${BUILD_ROOT}"
-pushd .
-
-# We will perform all work in the build's branch folder. 
-cd  "${BUILD_DIR}"
-
-dos2unix -q "${BUILD_ROOT}/init_git_repositories.sh"
-bash "${BUILD_ROOT}/init_git_repositories.sh" >> ${BUILD_LOG}
-
-echo -e "Setting permissions on tool directories..."
-chmod -R a+rw ${BUILD_TOOLS} 
-
-cp -f ${GIT_REPO_ROOT}/bridgepoint/utilities/build/configure_build_process.sh .
-dos2unix -q configure_build_process.sh
-
-bash configure_build_process.sh >> ${BUILD_LOG}
-
-bash create_bp_release.sh  >> ${BUILD_LOG}
-
-distribute_and_notify $? >> ${BUILD_LOG}
-
-# Clean up build files
-popd
-mv configure_build_process.sh ${BRANCH}
-
-cd ${BUILD_ROOT}
-
-echo -e "End of run_build.sh"
-
-#
-# distribute the build and notify watchers that a build is complete
-# if there are no errors that we also call the installer build script to 
-# allow the installers to be built
+# Distribute the build and notify watchers that a build is complete.
+# If there are no errors that we also call the installer build script to 
+# allow the installers to be built.
 #
 function distribute_and_notify {
 	echo -e "Entering run_build.sh::distribute_and_notify"
@@ -179,11 +69,132 @@ function distribute_and_notify {
 	  echo -e "---------------" >> ${MAIL_TEMP}
 	  cat ${DIFF_FILE} >> ${MAIL_TEMP}
 	  
-	  ./build_installer_bp.sh ${BRANCH}
-	  ./build_installer_bp_linux.sh ${BRANCH}
+	  # TODO - ./build_installer_bp.sh ${BRANCH} ${BUILD_MOUNT}/staging /bin/TODOIZPACKPATH ${RESULT_FOLDER} windows
+	  # TODO - ./build_installer_bp.sh ${BRANCH} ${BUILD_MOUNT}/staging /bin/TODOIZPACKPATH ${RESULT_FOLDER} linux
 	fi
 	cat ${MAIL_TEMP} | ${MAIL_CMD} ${BUILD_ADMIN}
 	
 	rm -rf ${MAIL_TEMP}
 	echo -e "Exiting run_build.sh::distribute_and_notify"
 }
+
+#-------------------------------------------------------------------------------
+# Main
+#-------------------------------------------------------------------------------
+
+# User defined variables:
+export BUILD_MOUNT="${HOME}/build"
+export ECLIPSE_HOME="${HOME}/MentorGraphics/BridgePoint/eclipse"
+export HOST_BP_VERSION="4.2.0"
+export BP_VERSION="4.2.1"
+
+# Do not modify these variables:
+export BUILD_ROOT="${BUILD_MOUNT}/work"
+export GIT_REPO_ROOT="${BUILD_MOUNT}/git/xtuml"
+export GIT_BP="${GIT_REPO_ROOT}/bridgepoint"
+# if no arguments are present default to master
+export BRANCH="master"
+if [ $# -eq 1 ]; then
+  export BRANCH="$1"
+fi
+
+# echo out variables
+echo "BUILD_MOUNT=${BUILD_MOUNT}"
+echo "BUILD_ROOT=${BUILD_ROOT}"
+echo "BRANCH=${BRANCH}"
+echo "GIT_REPO_ROOT=${GIT_REPO_ROOT}"
+
+# this flag is constant and could potentially be removed, but it is 
+# being left in case we do want to have the build be different then other 
+# releases.
+export BUILD_TYPE="nonrelease"
+
+# This variable is used to decided if we want to look in head for files not
+# found in the specified branch.  Currently it is always set  to yes.  It
+# is being left in the script to allow this to be modified in the future if
+# desired
+export ALLOW_FALLBACK="yes"
+
+export BUILD_DIR="${BUILD_ROOT}/${BRANCH}"
+# Set "WORKSPACE" to an environment variable that CLI can use.
+export WORKSPACE="${BUILD_DIR}"
+export LOG_DIR="${BUILD_DIR}/log"
+export ERROR_FILE="${LOG_DIR}/errors.log"
+export DIFF_FILE="${LOG_DIR}/diff.log"
+export BUILD_LOG=""${LOG_DIR}/build.log""
+export BUILD_ADMIN="build@onefact.net"
+export MAIL_CMD="/usr/sbin/ssmtp"
+export MAIL_TEMP="mailtemp"
+export RELEASE_PKG="org.xtuml.bp.bld.pkg-feature"
+export SHELLUSER="${USER}"
+mkdir -p "${LOG_DIR}"
+
+export TIMESTAMP=`date +%Y%m%d%H%M`
+
+#
+# This is the location, on the build server, where this build is found
+#
+export RELEASE_BASE="${BUILD_MOUNT}/releases"
+export BUILD_TARGET="${BRANCH}-${TIMESTAMP}"
+export RESULT_FOLDER="${RELEASE_BASE}/${BUILD_TARGET}"
+mkdir -p "${RESULT_FOLDER}"
+
+#
+# This is where the extension result goes
+#
+export RESULT_FOLDER_EXTENSION="${RELEASE_BASE}/${BUILD_TARGET}-extension"
+mkdir -p "${RESULT_FOLDER_EXTENSION}"
+
+# 
+# This section defines the external location for the build (the place where
+# customers go to get this release). 
+# Note that items in the following section will eventually need to be github 
+# pages (I think) for now the release is not being moved off of the build server.
+#
+export RELEASE_DROP="${RELEASE_BASE}/${BRANCH}"
+mkdir -p "${RELEASE_DROP}"
+export DOWNLOAD_URL="http://xtuml.github.io/bridgepoint/"
+export DISTRIBUTION_SERVER=""
+
+# We do not currently use this, but when we were using cvs we tagged nightly 
+# builds, and this was the format of the tag
+export BUILD_TAG="`date +N%F`"
+
+# assure that we are starting with a clean build folder.
+rm -rf ${BUILD_DIR}
+
+mkdir -p "${BUILD_DIR}"
+mkdir -p "${LOG_DIR}"
+mkdir -p "${GIT_REPO_ROOT}"
+mkdir -p "${BUILD_ROOT}"
+
+# We will perform all work in the build's branch folder. 
+cd  "${BUILD_DIR}"
+
+# Do the dos2unix conversion using translate.
+tr -d '\r' < "${BUILD_ROOT}/init_git_repositories.sh" > "${BUILD_ROOT}/init_git_repositories.tmp"
+cmp -s "${BUILD_ROOT}/init_git_repositories.sh" "${BUILD_ROOT}/init_git_repositories.tmp" >/dev/null 2>&1
+if [ $? -eq 1 ]; then
+  echo -e "Putting new init_git_repositories.sh into place"
+  mv "${BUILD_ROOT}/init_git_repositories.tmp" "${BUILD_ROOT}/init_git_repositories.sh"
+  chmod a+x "${BUILD_ROOT}/init_git_repositories.sh"
+else
+  rm -f "${BUILD_ROOT}/init_git_repositories.tmp"
+fi
+bash "${BUILD_ROOT}/init_git_repositories.sh" >> ${BUILD_LOG}
+
+# Can do the copy and dos2unix translation in one step.
+tr -d '\r' < ${GIT_BP}/utilities/build/configure_build_process.sh > configure_build_process.sh
+chmod a+x configure_build_process.sh
+
+bash configure_build_process.sh >> ${BUILD_LOG}
+
+bash create_bp_release.sh  >> ${BUILD_LOG}
+
+distribute_and_notify $? >> ${BUILD_LOG}
+
+# Clean up build files
+cd ${BUILD_ROOT}
+mv configure_build_process.sh ${BRANCH}
+
+echo -e "End of run_build.sh"
