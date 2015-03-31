@@ -29,8 +29,8 @@ function configure_build_files {
 	# with the model compiler files from the BP we're using to build.  
 	#	
   	cd ${ECLIPSE_HOME}/plugins/${orig_mc_project}_${HOST_BP_VERSION}
-	cp -fr mc3020 ${GIT_BP}/src/${mc_project}/mc3020
-	cp -fr mc3020 ${GIT_BP}/src/${mcjava_project}/mc3020
+	cp -fr mc3020/* ${GIT_BP}/src/${mc_project}/mc3020
+	cp -fr mc3020/* ${GIT_BP}/src/${mcjava_project}/mc3020
 
 	echo -e "Exiting configure_build_process.sh::configure_build_files"
 }
