@@ -38,13 +38,13 @@ function configure_build_files {
 function configure_installer_files {
 	echo -e "Entering configure_build_process.sh::configure_installer_files"
 	
-	cd ${staging_area}
+	cd ${STAGING_AREA}
 	rm -rf installer_extras 2>>${ERROR_FILE}
     rm -rf BridgePoint_e${eclipse_ver} 2>>${ERROR_FILE}
     rm -rf BridgePoint_Linux_e${eclipse_ver} 2>>${ERROR_FILE}
     cd ${GIT_REPO_ROOT}/packaging/install_bases
-    cp -rf BridgePoint_e${eclipse_ver} ${staging_area} 2>>${ERROR_FILE}
-    cp -rf BridgePoint_Linux_e${eclipse_ver} ${staging_area} 2>>${ERROR_FILE}
+    cp -rf BridgePoint_e${eclipse_ver} ${STAGING_AREA} 2>>${ERROR_FILE}
+    cp -rf BridgePoint_Linux_e${eclipse_ver} ${STAGING_AREA} 2>>${ERROR_FILE}
 	
     cd ${GIT_BP}/src/${install_project}
     
@@ -101,20 +101,19 @@ utilities_project="utilities"
 orig_mc_project="com.mentor.nucleus.bp.mc.c.binary"
 mc_project="org.xtuml.bp.mc.c.binary"
 mcjava_project="org.xtuml.bp.mc.java.source"
-staging_area="${BUILD_MOUNT}/staging"
 eclipse_ver="3.7"
 
 echo -e "Entering configure_build_process.sh   BUILD_DIR=${BUILD_DIR} BRANCH=${BRANCH} GIT_REPO_ROOT=${GIT_REPO_ROOT} BUILD_TYPE=${BUILD_TYPE}"
 #
 # The following folders are used to stage the files required by the installer
 #
-bp_deliverables="${staging_area}/BridgePoint_e${eclipse_ver}/BridgePointDeliverables"
-extra_deliverables="${staging_area}/BridgePoint_e${eclipse_ver}/vcredist_x86"
-bp_deliverables_linux="${staging_area}/BridgePoint_for_Linux_e${eclipse_ver}/BridgePointDeliverables"
-extra_deliverables_linux="${staging_area}/BridgePoint_for_Linux_e${eclipse_ver}/install_tools"
-installer_extras="${staging_area}/installer_extras"
-installer_files="${staging_area}/installer/BridgePoint_e${eclipse_ver}/src"
-installer_files_linux="${staging_area}/installer/BridgePoint_Linux_e${eclipse_ver}/src"
+bp_deliverables="${STAGING_AREA}/BridgePoint_e${eclipse_ver}/BridgePointDeliverables"
+extra_deliverables="${STAGING_AREA}/BridgePoint_e${eclipse_ver}/vcredist_x86"
+bp_deliverables_linux="${STAGING_AREA}/BridgePoint_for_Linux_e${eclipse_ver}/BridgePointDeliverables"
+extra_deliverables_linux="${STAGING_AREA}/BridgePoint_for_Linux_e${eclipse_ver}/install_tools"
+installer_extras="${STAGING_AREA}/installer_extras"
+installer_files="${STAGING_AREA}/installer/BridgePoint_e${eclipse_ver}/src"
+installer_files_linux="${STAGING_AREA}/installer/BridgePoint_Linux_e${eclipse_ver}/src"
 
 cd ${BUILD_DIR}
 configure_build_files
