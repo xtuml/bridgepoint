@@ -6,7 +6,7 @@
 	</projects>
 	<buildSpec>
 		<buildCommand>
-			<name>com.mentor.nucleus.bp.internal.tools.mc_java_export_builder</name>
+			<name>org.xtuml.bp.mc.java.source.export_builder</name>
 			<arguments>
 				<dictionary>
 					<key>RootPackageName</key>
@@ -44,7 +44,7 @@
 		</buildCommand>
 	</buildSpec>
 	<natures>
-		<nature>com.mentor.nucleus.bp.core.xtumlnature</nature>
+		<nature>org.xtuml.bp.core.xtumlnature</nature>
 		<nature>org.eclipse.pde.PluginNature</nature>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
