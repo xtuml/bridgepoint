@@ -98,7 +98,7 @@ install_project="installer"
 utilities_project="utilities"
 # TODO - once the base BridgePoint is updated to the new plugin names, then orig_mc_project
 #   should go away and we'll only use mc_project.
-orig_mc_project="com.mentor.nucleus.bp.mc.c.binary"
+orig_mc_project="org.xtuml.bp.mc.c.binary"
 mc_project="org.xtuml.bp.mc.c.binary"
 mcjava_project="org.xtuml.bp.mc.java.source"
 eclipse_ver="3.7"
