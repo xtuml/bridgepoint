@@ -69,8 +69,8 @@ function distribute_and_notify {
 	  echo -e "---------------" >> ${MAIL_TEMP}
 	  cat ${DIFF_FILE} >> ${MAIL_TEMP}
 	  
-	  # TODO - ./build_installer_bp.sh ${BRANCH} ${BUILD_MOUNT}/staging /bin/TODOIZPACKPATH ${RESULT_FOLDER} windows
-	  # TODO - ./build_installer_bp.sh ${BRANCH} ${BUILD_MOUNT}/staging /bin/TODOIZPACKPATH ${RESULT_FOLDER} linux
+	  # TODO - ./build_installer_bp.sh ${BRANCH} ${STAGING_AREA} /bin/TODOIZPACKPATH ${RESULT_FOLDER} windows
+	  # TODO - ./build_installer_bp.sh ${BRANCH} ${STAGING_AREA} /bin/TODOIZPACKPATH ${RESULT_FOLDER} linux
 	fi
 	cat ${MAIL_TEMP} | ${MAIL_CMD} ${BUILD_ADMIN}
 	
@@ -144,6 +144,10 @@ mkdir -p "${RESULT_FOLDER}"
 #
 export RESULT_FOLDER_EXTENSION="${RELEASE_BASE}/${BUILD_TARGET}-extension"
 mkdir -p "${RESULT_FOLDER_EXTENSION}"
+
+
+export STAGING_AREA=${BUILD_MOUNT}/staging
+mkdir -p "${STAGING_AREA}"
 
 # 
 # This section defines the external location for the build (the place where
