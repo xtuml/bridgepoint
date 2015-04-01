@@ -33,7 +33,7 @@ if not "%WORKSPACE%"=="" goto RunApp
   :: choose to set the value in the environment, or modify the following line to
   :: point to the correct location.
   ::
-  set WORKSPACE=%~d0\mgc\BridgePoint\workspace
+  set WORKSPACE=%~d0\xtuml\BridgePoint\workspace
 goto RunApp
 
 :RunApp
@@ -43,8 +43,8 @@ echo Using WORKSPACE=%WORKSPACE%
 :: DO NOT MODIFY ANY OF THE FOLLOWING LINES.
 ::
 set ORIGINAL_PATH=%PATH%
-set PATH=%PATH%;%~d0\mgc\BridgePoint\tools\docgen\docbook
-set BPHOMEDIR=%~d0\mgc\BridgePoint
+set PATH=%PATH%;%~d0\xtuml\BridgePoint\tools\docgen\docbook
+set BPHOMEDIR=%~d0\xtuml\BridgePoint
 set LAUNCHER=%BPHOMEDIR%\eclipse\plugins\org.eclipse.equinox.launcher_1.2.0.v20110502.jar
 set APPLICATION=org.xtuml.bp.cli.%1
 set BP_JVM=%BPHOMEDIR%\jre\bin\java.exe
