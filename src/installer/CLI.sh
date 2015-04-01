@@ -1,5 +1,5 @@
 #!/bin/bash
-BPHOMEDIR="C:/mgc/BridgePoint"
+BPHOMEDIR="C:/xtuml/BridgePoint"
 
 function die() {
   echo -e $@

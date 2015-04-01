@@ -44,7 +44,7 @@ ECLIPSEDIR=$2
 
 # Update the following files to reflect the target location provided by the user...
 echo "Updating install path in config files"
-BP_PATH=C:/mgc/BridgePoint
+BP_PATH=C:/xtuml/BridgePoint
 sed -e 's;'"$BP_PATH"';'"$TARGET"';g' -i "$TARGET/eclipse/links/BridgePoint.ide.link"
 sed -e 's;'"$BP_PATH"';'"$TARGET"';g' -i "$TARGET/eclipse/Launcher.sh"
 sed -e 's;'"$BP_PATH"';'"$TARGET"';g' -i "$TARGET/eclipse/CLI.sh"
