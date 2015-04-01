@@ -140,16 +140,6 @@ function extract_unit_test_modules {
 	echo -e "Exiting create_release_functions.sh::extract_unit_test_modules"
 }
 
-#
-# Note that with CLI in place this routine really should not be needed anynomre
-# because we should be able to simple call "CLI Build" on the plugin and that
-# will cause the whole build chain to run.  However, because of project 
-# dependency issues we often use "build automatically" onthe entire project
-# when building locally to allow rebuilds to occurs as needed.  Given this fact, 
-# this routine is being kept in place to facilitate the ablity to focus on the
-# build (translation) phase prior to attempted compilation.  This allows us
-# to clearly see translation errors prior to attempted compilation
-#
 function build_modules {
 	echo -e "Entering create_release_functions.sh::build_modules"
 
@@ -162,38 +152,50 @@ function build_modules {
         echo -e "Building version ${BRANCH} of ${module} with the following command lines:"
         echo -e "        ${cli_cmd} Build ${cli_opts} -prebuildOnly -project ${module}"
         echo -e "        ${ant_cmd} ${ant_opts} -f ${module}/generate.xml nb_all"
-        ${cli_cmd} Build ${cli_opts} -prebuildOnly -project "${module}" > ${build_log_dir}/${module}_build.log 2>&1
+        ${cli_cmd} Build ${cli_opts} -project "${module}" > ${build_log_dir}/${module}_build.log 2>&1
     done
 
-    # Check for errors and place in a temp file for later use.
-    for module in ${modules}; do
-    	module_build_log="${build_log_dir}/${module}_build.log"
-        # Special case to exclude als.oal package as its built from als
-        if [ ${module} != "org.xtuml.bp.als.oal" ] && [ ${module} != "org.xtuml.bp.ui.tree" ] && [ ${module} != "org.xtuml.bp.internal.tools" ]; then
-            # Check for all cases of error, failed, and failure
-            grep -c -i -w "ERROR" ${module_build_log}
-            error_count=$?
-            grep -c -i -w "FAILED" ${module_build_log}
-            failed_count=$?
-            grep -c -i -w "FAILURE" ${module_build_log}
-            failure_count=$?
+# Don't bother checking the build logs, there is too much cruft from CLI and
+# ordering issues
+#
+#    # Check for errors and place in a temp file for later use.
+#    for module in ${modules}; do
+#    	module_build_log="${build_log_dir}/${module}_build.log"
+#        # Special case to exclude als.oal package as its built from als
+#        if [ ${module} != "org.xtuml.bp.als.oal" ] && [ ${module} != "org.xtuml.bp.ui.tree" ] && [ ${module} != "org.xtuml.bp.internal.tools" ]; then
+#            # Check for all cases of error, failed, and failure
+#            grep -c -i -w "ERROR" ${module_build_log}
+#            error_count=$?
+#            grep -c -i -w "FAILED" ${module_build_log}
+#            failed_count=$?
+#            grep -c -i -w "FAILURE" ${module_build_log}
+#            failure_count=$?
+#
+#            if [ ${error_count} -ne 1 ] || [ ${failed_count} -ne 1 ] || [ ${failure_count} -ne 1 ]; then
+#                echo -e "Errors or failures found during the build of $module.  Check ${module_build_log}.\n" >> ${ERROR_FILE}
+#            fi
+#        fi
+#    done
 
-            if [ ${error_count} -ne 1 ] || [ ${failed_count} -ne 1 ] || [ ${failure_count} -ne 1 ]; then
-                echo -e "Errors or failures found during the build of $module.  Check ${module_build_log}.\n" >> ${ERROR_FILE}
-            fi
-        fi
-    done
-
-    modules="${modules} org.xtuml.bp.welcome"
 	echo -e "Exiting create_release_functions.sh::build_modules"
 }
 
+#
+# Note that with CLI in place this routine really should not be needed anymore
+# because we should be able to simple call "CLI Build" on the plugin and that
+# will cause the whole build chain to run.  However, because of project 
+# dependency issues we often use "build automatically" on the entire project
+# when building locally to allow rebuilds to occurs as needed.  Given this fact, 
+# this routine is being kept in place to facilitate the ability to focus on the
+# build (translation) phase prior to attempted compilation.  This allows us
+# to clearly see translation errors prior to attempted compilation
+#
 function compile_modules {
 	echo -e "Entering create_release_functions.sh::compile_modules"
 
 	compile_result="0"
-    build_modules
 
+    modules="${modules} org.xtuml.bp.welcome"
     # Have to make sure the plugin compilation is ordered properly.
     # Move bp.utilities so it compiles to before bp.mc, and move several others to later in the build order.
     modules=`echo ${modules} | sed s/org.xtuml.bp.docgen// | sed s/org.xtuml.bp.cdt// | sed s/org.xtuml.bp.utilities// | sed s/org.xtuml.bp.welcome// | sed s/org.xtuml.bp.cli//`

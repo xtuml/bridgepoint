@@ -152,8 +152,9 @@ function create_build {
         fi
     done
 
-	# don't bother compiling zipping
+	# don't bother compiling or zipping if checkout failed
     if [ "$verify_rval" = "0" ]; then
+    	build_modules
     	compile_modules    	
     	if [ "$?" != "0" ]; then
     	  # don't bother zipping if there are compile errors
