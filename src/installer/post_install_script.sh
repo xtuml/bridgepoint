@@ -23,8 +23,6 @@ BPVER=4.2.0
 configure_mc_files()
 {
   echo "Moving files for wine-based generator for: $MC_NAME."
-  cp "$TARGET/extras/wine_addons/MGLS.DLL" "$TARGET/eclipse_extensions/BridgePoint/eclipse/plugins/${MC_NAME}_${BPVER}/mc3020/bin"
-  cp "$TARGET/extras/wine_addons/mgc.pkginfo" "$TARGET/eclipse_extensions/BridgePoint/eclipse/plugins/${MC_NAME}_${BPVER}/mc3020/bin"
   cp "$TARGET/extras/wine_addons/msvcirt.dll" "$TARGET/eclipse_extensions/BridgePoint/eclipse/plugins/${MC_NAME}_${BPVER}/mc3020/bin"
   cp "$TARGET/extras/wine_addons/msvcp60.dll" "$TARGET/eclipse_extensions/BridgePoint/eclipse/plugins/${MC_NAME}_${BPVER}/mc3020/bin"
   cp "$TARGET/extras/wine_addons/msvcrt.dll" "$TARGET/eclipse_extensions/BridgePoint/eclipse/plugins/${MC_NAME}_${BPVER}/mc3020/bin"
@@ -45,7 +43,6 @@ ECLIPSEDIR=$2
 # Update the following files to reflect the target location provided by the user...
 echo "Updating install path in config files"
 BP_PATH=C:/xtuml/BridgePoint
-sed -e 's;'"$BP_PATH"';'"$TARGET"';g' -i "$TARGET/eclipse/links/BridgePoint.ide.link"
 sed -e 's;'"$BP_PATH"';'"$TARGET"';g' -i "$TARGET/eclipse/Launcher.sh"
 sed -e 's;'"$BP_PATH"';'"$TARGET"';g' -i "$TARGET/eclipse/CLI.sh"
 sed -e 's;'"$BP_PATH"';'"$TARGET"';g' -i "$TARGET/tools/docgen/docgen.xsl"
@@ -65,8 +62,6 @@ mv -f "$TARGET/eclipse/CLI.d2u" "$TARGET/eclipse/CLI.sh"
 
 # Move files need by Wine-based generator
 echo "Moving files for wine-based generator for bp.dap."
-cp "$TARGET/extras/wine_addons/MGLS.DLL" "$TARGET/eclipse_extensions/BridgePoint/eclipse/plugins/org.xtuml.bp.dap.pkg_$BPVER/bridgepoint/win32/client/bin"
-cp "$TARGET/extras/wine_addons/mgc.pkginfo" "$TARGET/eclipse_extensions/BridgePoint/eclipse/plugins/org.xtuml.bp.dap.pkg_$BPVER/bridgepoint/win32/client/bin"
 cp "$TARGET/extras/wine_addons/msvcirt.dll" "$TARGET/eclipse_extensions/BridgePoint/eclipse/plugins/org.xtuml.bp.dap.pkg_$BPVER/bridgepoint/win32/client/bin"
 cp "$TARGET/extras/wine_addons/msvcp60.dll" "$TARGET/eclipse_extensions/BridgePoint/eclipse/plugins/org.xtuml.bp.dap.pkg_$BPVER/bridgepoint/win32/client/bin"
 cp "$TARGET/extras/wine_addons/msvcrt.dll" "$TARGET/eclipse_extensions/BridgePoint/eclipse/plugins/org.xtuml.bp.dap.pkg_$BPVER/bridgepoint/win32/client/bin"

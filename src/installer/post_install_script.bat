@@ -21,7 +21,6 @@ SET BP_PATH=C:\xtuml\BridgePoint
 SET TGT_PATH=%TARGET%
 "%TARGET%\tools\update_text" -c "%TARGET%\tools\docgen\docgen.xsl" "%BP_PATH%" "%TGT_PATH%"
 "%TARGET%\tools\update_text" "%TARGET%\MinGW\mingwgnu.bat" "%BP_PATH%" "%TGT_PATH%"
-"%TARGET%\tools\update_text" -c "%TARGET%\extras\links\BridgePoint.ide.link" "%BP_PATH%" "%TGT_PATH%"
 IF NOT EXIST "%TARGET%\eclipse\eclipse.ini" GOTO NoBPEclipse
   "%TARGET%\tools\update_text" "%TARGET%\eclipse\eclipse.ini" "%BP_PATH%" "%TGT_PATH%"
   :NoBPEclipse
@@ -36,7 +35,6 @@ IF EXIST "%ECLIPSEDIR%/links" GOTO LinksDirReady
   MKDIR "%ECLIPSEDIR%/links"
   :LinksDirReady
 echo Eclipse installation is at: %ECLIPSEDIR%
-MOVE "%TARGET%\extras\links\com.mentor.BridgePoint.ide.link" "%ECLIPSEDIR%\links\"
 MOVE "%TARGET%\extras\Launcher.bat" "%ECLIPSEDIR%/"
 MOVE "%TARGET%\extras\CLI.bat" "%ECLIPSEDIR%/"
 GOTO EclipseUpdateDone

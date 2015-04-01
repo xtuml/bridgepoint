@@ -66,7 +66,6 @@
             <file src="installer_extras/bp.ico" targetdir="$INSTALL_PATH"/>
 
             <!-- move links, Launcher, and CLI -->
-            <file src="BridgePoint_for_Linux_e3.7/BridgePointDeliverables/extras/links/com.mentor.BridgePoint.ide.link" targetdir="$INSTALL_PATH/eclipse/links"/>
             <file src="BridgePoint_for_Linux_e3.7/BridgePointDeliverables/extras/Launcher.sh" targetdir="$INSTALL_PATH/eclipse/"/>
             <file src="BridgePoint_for_Linux_e3.7/BridgePointDeliverables/extras/CLI.sh" targetdir="$INSTALL_PATH/eclipse/"/>
             <executable targetfile="$INSTALL_PATH/eclipse/Launcher.sh" keep="true"/>
