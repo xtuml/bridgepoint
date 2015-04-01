@@ -1,6 +1,5 @@
 #!/bin/bash
 BPHOMEDIR="C:/mgc/BridgePoint"
-BP_VERSION="4.2.1"
 
 function die() {
   echo -e $@
@@ -56,7 +55,6 @@ fi
 #
 export ORIGINAL_PATH=$PATH
 export PATH=$PATH:$BPHOMEDIR/tools/docgen/docbook
-export MGC_EMBEDDED_HOME=$BPHOMEDIR
 LAUNCHER="$BPHOMEDIR/eclipse/plugins/org.eclipse.equinox.launcher_1.2.0.v20110502.jar"
 APPLICATION="org.xtuml.bp.cli.$1"
 
