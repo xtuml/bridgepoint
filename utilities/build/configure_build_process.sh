@@ -109,13 +109,19 @@ echo -e "Entering configure_build_process.sh   BUILD_DIR=${BUILD_DIR} BRANCH=${B
 # The following folders are used to stage the files required by the installer
 #
 bp_deliverables="${STAGING_AREA}/BridgePoint_e${eclipse_ver}/BridgePointDeliverables"
+mkdir -p ${bp_deliverables}
 extra_deliverables="${STAGING_AREA}/BridgePoint_e${eclipse_ver}/vcredist_x86"
+mkdir -p ${extra_deliverables}
 bp_deliverables_linux="${STAGING_AREA}/BridgePoint_for_Linux_e${eclipse_ver}/BridgePointDeliverables"
+mkdir -p ${bp_deliverables_linux}
 extra_deliverables_linux="${STAGING_AREA}/BridgePoint_for_Linux_e${eclipse_ver}/install_tools"
+mkdir -p ${extra_deliverables_linux}
 installer_extras="${STAGING_AREA}/installer_extras"
-mkdir -p ${}
+mkdir -p ${installer_extras}
 installer_files="${STAGING_AREA}/installer/BridgePoint_e${eclipse_ver}/src"
+mkdir -p ${installer_files}
 installer_files_linux="${STAGING_AREA}/installer/BridgePoint_Linux_e${eclipse_ver}/src"
+mkdir -p ${installer_files_linux}
 
 cd ${BUILD_DIR}
 configure_build_files
