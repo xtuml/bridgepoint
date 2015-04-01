@@ -4,9 +4,9 @@
 :: DO NOT MODIFY ANY OF THE FOLLOWING LINES.
 ::
 set ORIGINAL_PATH=%PATH%
-set PATH=%PATH%;%~d0\mgc\BridgePoint\tools\docgen\docbook
-set BPHOMEDIR=%~d0\mgc\BridgePoint
-set BP_JVM=%MGC_EMBEDDED_HOME%\jre\bin\javaw.exe
+set PATH=%PATH%;%~d0\xtuml\BridgePoint\tools\docgen\docbook
+set BPHOMEDIR=%~d0\xtuml\BridgePoint
+set BP_JVM=%BPHOMEDIR%\jre\bin\javaw.exe
 
 :: Check for fonts that trip up generator
 cd %BPHOMEDIR%\tools\fontchecker

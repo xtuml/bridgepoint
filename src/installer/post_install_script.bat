@@ -17,7 +17,7 @@ SET BP_PATH=MentorGraphics\BridgePoint
 SET TGT_PATH=%TARGET:~3%
 "%TARGET%\tools\update_text" "%TARGET%\extras\Launcher.bat" "%BP_PATH%" "%TGT_PATH%"
 "%TARGET%\tools\update_text" "%TARGET%\extras\CLI.bat" "%BP_PATH%" "%TGT_PATH%"
-SET BP_PATH=C:\mgc\BridgePoint
+SET BP_PATH=C:\xtuml\BridgePoint
 SET TGT_PATH=%TARGET%
 "%TARGET%\tools\update_text" -c "%TARGET%\tools\docgen\docgen.xsl" "%BP_PATH%" "%TGT_PATH%"
 "%TARGET%\tools\update_text" "%TARGET%\MinGW\mingwgnu.bat" "%BP_PATH%" "%TGT_PATH%"
