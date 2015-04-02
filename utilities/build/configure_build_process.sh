@@ -28,7 +28,7 @@ function configure_build_files {
 	# Files needed to build the tool.  Populate the git repo mc.c.binary plug-in
 	# with the model compiler files from the BP we're using to build.  
 	#	
-  	cd ${ECLIPSE_HOME}/plugins/${orig_mc_project}_${HOST_BP_VERSION}
+  	cd ${ECLIPSE_HOME}/plugins/${mc_project}_${HOST_BP_VERSION}
 	cp -fr mc3020/* ${GIT_BP}/src/${mc_project}/mc3020
 	cp -fr mc3020/* ${GIT_BP}/src/${mcjava_project}/mc3020
 
@@ -97,9 +97,6 @@ date
 git_workspace_setup="${GIT_BP}/doc-bridgepoint/process/development-workspace-setup"
 install_project="installer"
 utilities_project="utilities"
-# TODO - once the base BridgePoint is updated to the new plugin names, then orig_mc_project
-#   should go away and we'll only use mc_project.
-orig_mc_project="org.xtuml.bp.mc.c.binary"
 mc_project="org.xtuml.bp.mc.c.binary"
 mcjava_project="org.xtuml.bp.mc.java.source"
 eclipse_ver="3.7"

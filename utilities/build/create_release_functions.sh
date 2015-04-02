@@ -148,12 +148,23 @@ function build_modules {
 
     cd ${BUILD_DIR}
 
-    for module in ${modules}; do
-        echo -e "Building version ${BRANCH} of ${module} with the following command lines:"
-        echo -e "        ${cli_cmd} Build ${cli_opts} -prebuildOnly -project ${module}"
-        echo -e "        ${ant_cmd} ${ant_opts} -f ${module}/generate.xml nb_all"
-        ${cli_cmd} Build ${cli_opts} -project "${module}" > ${build_log_dir}/${module}_build.log 2>&1
-    done
+	###  Clean build
+	bp_jvm=$ECLIPSE_HOME/../jre/lib/i386/client/libjvm.so
+	${ECLIPSE_HOME}/eclipse -vm $bp_jvm -application org.eclipse.cdt.managedbuilder.core.headlessbuild -cleanBuild all -data "$WORKSPACE"
+	
+	## build bp.core first
+	${ECLIPSE_HOME}/eclipse -vm $bp_jvm -application org.eclipse.cdt.managedbuilder.core.headlessbuild -build "org.xtuml.bp.core" -data "$WORKSPACE"
+	
+	## build all
+	${ECLIPSE_HOME}/eclipse -vm $bp_jvm -application org.eclipse.cdt.managedbuilder.core.headlessbuild -build "org.xtuml.bp.core" -data "$WORKSPACE"
+	
+	## touch a a generated filess to fix dependencies
+	if [ -e "$BPBUILD/git/xtuml/bridgepoint/plugin.xml" ]; then 
+	  touch "$BPBUILD/git/xtuml/bridgepoint/plugin.xml"
+	fi
+	
+	## build all again
+	${ECLIPSE_HOME}/eclipse -vm $bp_jvm -application org.eclipse.cdt.managedbuilder.core.headlessbuild -build "org.xtuml.bp.core" -data "$WORKSPACE"
 
 # Don't bother checking the build logs, there is too much cruft from CLI and
 # ordering issues
@@ -179,74 +190,4 @@ function build_modules {
 
 	echo -e "Exiting create_release_functions.sh::build_modules"
 }
-
-#
-# Note that with CLI in place this routine really should not be needed anymore
-# because we should be able to simple call "CLI Build" on the plugin and that
-# will cause the whole build chain to run.  However, because of project 
-# dependency issues we often use "build automatically" on the entire project
-# when building locally to allow rebuilds to occurs as needed.  Given this fact, 
-# this routine is being kept in place to facilitate the ability to focus on the
-# build (translation) phase prior to attempted compilation.  This allows us
-# to clearly see translation errors prior to attempted compilation
-#
-function compile_modules {
-	echo -e "Entering create_release_functions.sh::compile_modules"
-
-	compile_result="0"
-
-    modules="${modules} org.xtuml.bp.welcome"
-    # Have to make sure the plugin compilation is ordered properly.
-    # Move bp.utilities so it compiles to before bp.mc, and move several others to later in the build order.
-    modules=`echo ${modules} | sed s/org.xtuml.bp.docgen// | sed s/org.xtuml.bp.cdt// | sed s/org.xtuml.bp.utilities// | sed s/org.xtuml.bp.welcome// | sed s/org.xtuml.bp.cli//`
-    modules=`echo ${modules} | sed 's/org.xtuml.bp.mc /org.xtuml.bp.utilities org.xtuml.bp.mc /'`
-    modules_to_compile_later="org.xtuml.bp.docgen org.xtuml.bp.cdt org.xtuml.bp.welcome org.xtuml.bp.cli"
-    
-    cd ${BUILD_DIR}
-
-    for module in ${modules}; do
-        if [ -e ${module}/generate.xml ]; then
-            echo -e "Compiling version ${BRANCH} of ${module}"
-            ${ant_cmd} ${ant_opts} -f ${module}/generate.xml compile > ${compile_log_dir}/${module}_compile.log 2>&1
-        elif [ -e ${module}/build.xml  ] && [ ! -e ${module}/generate.xml ]; then
-            echo -e "Compiling version ${BRANCH} of ${module}"
-            ${ant_cmd} ${ant_opts} -f ${module}/build.xml compile > ${compile_log_dir}/${module}_compile.log 2>&1
-        fi
-    done
-
-    for module in ${modules_to_compile_later}; do
-        if [ -e ${module}/generate.xml ]; then
-            echo -e "Compiling version ${BRANCH} of ${module}"
-             ${ant_cmd} ${ant_opts} -f ${module}/generate.xml compile > ${compile_log_dir}/${module}_compile.log 2>&1
-        elif [ -e ${module}/build.xml  ] && [ ! -e ${module}/generate.xml ]; then
-            echo -e "Compiling version ${BRANCH} of ${module}"
-            ${ant_cmd} ${ant_opts} -f ${module}/build.xml compile > ${compile_log_dir}/${module}_compile.log 2>&1
-        fi
-    done
-    
-    modules="${modules} ${modules_to_compile_later}"
-    
-    # Check for errors and place in a temp file for later use.
-    for module in ${modules}; do
-        # Special case to exclude als.oal package as its compiled from als
-        if [ ${module} != "org.xtuml.bp.als.oal" ] && [ ${module} != "org.xtuml.bp.ui.tree" ] && [ ${module} != "org.xtuml.bp.internal.tools" ]; then
-            # Check for all cases of error, failed, and failure
-            grep -c -i -w "ERROR" ${compile_log_dir}/${module}_compile.log
-            error_count=$?
-            grep -c -i -w "FAILED" ${compile_log_dir}/${module}_compile.log
-            failed_count=$?
-            grep -c -i -w "FAILURE" ${compile_log_dir}/${module}_compile.log
-            failure_count=$?
-
-            if [ ${error_count} -ne 1 ] || [ ${failed_count} -ne 1 ] || [ ${failure_count} -ne 1 ]; then
-            	compile_result="1"
-                compile_log_path="${compile_log_dir}/${module}_compile.log"
-                echo -e "Errors or failures found during the compilation of ${module}. Check ${compile_log_path}.\n" >> ${ERROR_FILE}
-            fi
-        fi
-    done
-	echo -e "Exiting create_release_functions.sh::compile_modules"
-	return $compile_result
-}
-
 

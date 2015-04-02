@@ -133,6 +133,9 @@ function create_build {
 	
     cd $BUILD_DIR
 
+	# These functionss import the plugins into the workspace.
+	# Right now this is done with CLI.  We will not need to use CLI
+	# anymore if the cdt headless build's -import flag works for us	
     get_required_modules
     extract_release_files
     
@@ -154,12 +157,8 @@ function create_build {
 
 	# don't bother compiling or zipping if checkout failed
     if [ "$verify_rval" = "0" ]; then
-    	build_modules
-    	compile_modules    	
-    	if [ "$?" != "0" ]; then
-    	  # don't bother zipping if there are compile errors
-          zip_distribution
-        fi
+        ./headless_build.sh
+        zip_distribution
     fi
 	echo -e "Exiting create_bp_release.sh::create_build"
 }
