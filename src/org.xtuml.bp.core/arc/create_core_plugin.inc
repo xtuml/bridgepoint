@@ -62,17 +62,12 @@ This file is the plugin manifest for the BridgePoint core plugin.
    id="org.xtuml.bp.core"
    name="BridgePoint Core Plug-in"
    version="4.2.1"
-   provider-name="Mentor Graphics"
+   provider-name="xtUML.org"
    class="org.xtuml.bp.core.CorePlugin">
 
    <runtime>
       <library name="core.jar">
         <export name="*"/>
-      </library>
-      <library name="jlc_2013_2.jar">
-        <export
-               name="*">
-        </export>
       </library>
    </runtime>
    <requires>

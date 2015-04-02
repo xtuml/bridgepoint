@@ -602,7 +602,6 @@
        <src path="src/org/xtuml/bp" />
        <src path="src/lib" />
        <classpath>
-         <pathelement path="jlc_2013_2.jar" />
          <pathelement path="bin/org/xtuml/bp/core" />
          <pathelement path="bin/lib" />
        	 <fileset dir="${eclipse-home}/plugins" casesensitive="yes">
