@@ -157,7 +157,12 @@ function create_build {
 
 	# don't bother compiling or zipping if checkout failed
     if [ "$verify_rval" = "0" ]; then
+    	# Can do the copy and dos2unix translation in one step.
+		tr -d '\r' < ${GIT_BP}/utilities/build/headless_build.sh > headless_build.sh
+		chmod a+x headless_build.sh
         ./headless_build.sh
+        ## TODO: We need to check the build. The following routine use to do that
+        # check_build_modules
         zip_distribution
     fi
 	echo -e "Exiting create_bp_release.sh::create_build"

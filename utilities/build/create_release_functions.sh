@@ -140,54 +140,34 @@ function extract_unit_test_modules {
 	echo -e "Exiting create_release_functions.sh::extract_unit_test_modules"
 }
 
-function build_modules {
-	echo -e "Entering create_release_functions.sh::build_modules"
+function check_build_modules {
+	echo -e "Entering create_release_functions.sh::check_build_modules"
 
     # remove a number of plugins from the list of modules to build and compile
     modules=`echo ${modules} | sed s/org.xtuml.bp.bld.pkg// | sed s/org.xtuml.bp.doc// | sed s/org.xtuml.bp.welcome// | sed s/org.xtuml.bp.test// | sed s/org.xtuml.help.bp.mc//`
 
     cd ${BUILD_DIR}
 
-	###  Clean build
-	bp_jvm=$ECLIPSE_HOME/../jre/lib/i386/client/libjvm.so
-	${ECLIPSE_HOME}/eclipse -vm $bp_jvm -application org.eclipse.cdt.managedbuilder.core.headlessbuild -cleanBuild all -data "$WORKSPACE"
+	#
+	# Check for errors and place in a temp file for later use.
+	for module in ${modules}; do
+		module_build_log="${build_log_dir}/${module}_build.log"
+	 Special case to exclude als.oal package as its built from als
+	    if [ ${module} != "org.xtuml.bp.als.oal" ] && [ ${module} != "org.xtuml.bp.ui.tree" ] && [ ${module} != "org.xtuml.bp.internal.tools" ]; then
+	        Check for all cases of error, failed, and failure
+	        grep -c -i -w "ERROR" ${module_build_log}
+	        error_count=$?
+	        grep -c -i -w "FAILED" ${module_build_log}
+	        failed_count=$?
+	        grep -c -i -w "FAILURE" ${module_build_log}
+	        failure_count=$?
 	
-	## build bp.core first
-	${ECLIPSE_HOME}/eclipse -vm $bp_jvm -application org.eclipse.cdt.managedbuilder.core.headlessbuild -build "org.xtuml.bp.core" -data "$WORKSPACE"
-	
-	## build all
-	${ECLIPSE_HOME}/eclipse -vm $bp_jvm -application org.eclipse.cdt.managedbuilder.core.headlessbuild -build "org.xtuml.bp.core" -data "$WORKSPACE"
-	
-	## touch a a generated filess to fix dependencies
-	if [ -e "$BPBUILD/git/xtuml/bridgepoint/plugin.xml" ]; then 
-	  touch "$BPBUILD/git/xtuml/bridgepoint/plugin.xml"
-	fi
-	
-	## build all again
-	${ECLIPSE_HOME}/eclipse -vm $bp_jvm -application org.eclipse.cdt.managedbuilder.core.headlessbuild -build "org.xtuml.bp.core" -data "$WORKSPACE"
+	        if [ ${error_count} -ne 1 ] || [ ${failed_count} -ne 1 ] || [ ${failure_count} -ne 1 ]; then
+	            echo -e "Errors or failures found during the build of $module.  Check ${module_build_log}.\n" >> ${ERROR_FILE}
+	        fi
+	    fi
+	done
 
-# Don't bother checking the build logs, there is too much cruft from CLI and
-# ordering issues
-#
-#    # Check for errors and place in a temp file for later use.
-#    for module in ${modules}; do
-#    	module_build_log="${build_log_dir}/${module}_build.log"
-#        # Special case to exclude als.oal package as its built from als
-#        if [ ${module} != "org.xtuml.bp.als.oal" ] && [ ${module} != "org.xtuml.bp.ui.tree" ] && [ ${module} != "org.xtuml.bp.internal.tools" ]; then
-#            # Check for all cases of error, failed, and failure
-#            grep -c -i -w "ERROR" ${module_build_log}
-#            error_count=$?
-#            grep -c -i -w "FAILED" ${module_build_log}
-#            failed_count=$?
-#            grep -c -i -w "FAILURE" ${module_build_log}
-#            failure_count=$?
-#
-#            if [ ${error_count} -ne 1 ] || [ ${failed_count} -ne 1 ] || [ ${failure_count} -ne 1 ]; then
-#                echo -e "Errors or failures found during the build of $module.  Check ${module_build_log}.\n" >> ${ERROR_FILE}
-#            fi
-#        fi
-#    done
-
-	echo -e "Exiting create_release_functions.sh::build_modules"
+	echo -e "Exiting create_release_functions.sh::check_build_modules"
 }
 
