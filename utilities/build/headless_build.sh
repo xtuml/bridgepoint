@@ -37,7 +37,7 @@ export GDK_NATIVE_WINDOWS=true
 export BP_JVM=$BPHOMEDIR/jre/lib/i386/client/libjvm.so
 
 bp_jvm="-vm $ECLIPSE_HOME/../jre/lib/i386/client/libjvm.so"
-eclipse_args="${bp_jvm} -nosplash -application org.eclipse.cdt.managedbuilder.core.headlessbuild --launcher.suppressErrors"
+eclipse_args="${bp_jvm} -pluginCustomization ${WORKSPACE}/plugin_customization.ini -nosplash -application org.eclipse.cdt.managedbuilder.core.headlessbuild --launcher.suppressErrors"
 vm_args="-vmargs -Dorg.eclipse.cdt.core.console=org.eclipse.cdt.core.systemConsole -Declipse.log.level=ALL"
 
 ####  importAll  
