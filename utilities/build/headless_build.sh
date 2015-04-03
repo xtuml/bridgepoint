@@ -44,13 +44,13 @@ vm_args="-vmargs -Dorg.eclipse.cdt.core.console=org.eclipse.cdt.core.systemConso
 ####  For all projects under the given BP repository location
 ####  Use the -import option
 import_cmd=""
-for PROJECT in $(ls -1 ${GIT_BP}); do 
+for PROJECT in $(ls -1 "${GIT_BP}"/src); do 
   if [ "$PROJECT" != "org.antlr_2.7.2" ] && [ "$PROJECT" != "README.md" ]; then
-    import_cmd+=" -import ${GIT_BP}/$PROJECT "
+    import_cmd+=" -import "${GIT_BP}"/src/"$PROJECT" "
   fi
 done
 echo "Importing projects: ${import_cmd}"
-${ECLIPSE_HOME}/eclipse ${eclipse_args} -import "$GIT_BP/$PROJECT" -data "${WORKSPACE}"
+${ECLIPSE_HOME}/eclipse ${eclipse_args} ${import_cmd} -data "${WORKSPACE}"
 
 ###  Clean build
 ${ECLIPSE_HOME}/eclipse ${eclipse_args} -cleanBuild all -data "$WORKSPACE" ${vm_args}
