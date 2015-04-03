@@ -133,12 +133,6 @@ function create_build {
 	
     cd $BUILD_DIR
 
-	# These functionss import the plugins into the workspace.
-	# Right now this is done with CLI.  We will not need to use CLI
-	# anymore if the cdt headless build's -import flag works for us	
-    get_required_modules
-    extract_release_files
-    
     ./configure_external_dependencies.sh > ${LOG_DIR}/configure_externals.log 2>&1
     
     # Generate list of modules needing verification

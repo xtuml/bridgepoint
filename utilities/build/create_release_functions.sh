@@ -12,74 +12,14 @@
 #    RELEASE_PKG - the eclipse feature package
 #
 #
-# Note: ant should be installed on the build server
-#
 echo -e "Entering create_release_functions.sh"
-ant_cmd="ant"
-ant_opts="-Declipse-home=${GIT_BP}"
-
-#
-# Note that the Bridgepoint cli uses the environment variable "WORKSPACE"
-# as the location for the workspace being built.  This must be set properly
-# for the cli build to function.  This is why we have a copy of the CLI.sh
-# in the utilities/build folder that does NOT set WORKSPACE.  It allows us to
-# set it here so it is not overriden
-#
-cli_cmd="${ECLIPSE_HOME}/CLI.sh"
-cli_opts="-nl en_US -consoleLog -pluginCustomization ${BUILD_DIR}/plugin_customization.ini"
-
-antlr_tool="pt_antlr"
-internal_modules="org.xtuml.bp.als
-                  org.xtuml.bp.internal.tools
-                  org.xtuml.bp.test
-                  org.xtuml.bp.ui.tree"
-unit_test_modules="org.xtuml.bp.als.oal.test
-                   org.xtuml.bp.core.test
-                   org.xtuml.bp.io.sql.test
-                   org.xtuml.bp.io.mdl.test
-                   org.xtuml.bp.ui.canvas.test
-                   org.xtuml.bp.ui.explorer.test
-                   org.xtuml.bp.ui.text.test
-                   org.xtuml.bp.ui.properties.test
-                   org.xtuml.bp.compare.test
-                   org.xtuml.internal.test
-                   org.xtuml.bp.search.test
-                   MC-Java.test
-                   org.xtuml.bp.welcome.test
-                   org.xtuml.bp.debug.ui.test"
-independent_modules="org.xtuml.bp.mc.xmiexport
-                     org.xtuml.bp.mc
-                     org.xtuml.bp.mc.none
-                     org.xtuml.bp.mc.c.source
-                     org.xtuml.bp.mc.c.binary
-                     org.xtuml.bp.mc.systemc.source
-                     org.xtuml.bp.mc.cpp.source
-                     org.xtuml.bp.mc.vhdl.source
-                     org.xtuml.bp.mc.java.source
-                     org.xtuml.bp.mc.template
-                     org.xtuml.help.bp.mc
-                     org.xtuml.bp.ui.session
-                     org.xtuml.bp.debug.ui"
-feature_pkg_modules="org.xtuml.bp.dap.pkg
-                      org.xtuml.bp.pkg
-                     org.xtuml.bp.verifier.pkg"
-feature_modules="org.xtuml.bp.dap.pkg-feature
-                 org.xtuml.bp.pkg-feature
-                 org.xtuml.bp.verifier.pkg-feature"
-plugin_fragments=""
-all_feature_modules="$feature_pkg_modules $feature_modules"
-model_compiler_modules="MC-Java"
 
 build_log_dir="${LOG_DIR}/build_logs"
-compile_log_dir="${LOG_DIR}/compile_logs"
 
 if [ ! -d ${build_log_dir} ]; then
     mkdir -p $build_log_dir
 fi
 
-if [ ! -d ${compile_log_dir} ]; then
-    mkdir -p ${compile_log_dir}
-fi
 echo -e "Exiting create_release_functions.sh"
 
 
@@ -91,53 +31,6 @@ function verify_checkout {
         return 1
     fi
     return 0
-}
-
-function get_required_modules {    
-    # Import the top level release package into the build workspace
-    ${cli_cmd} Import ${cli_opts} -deleteExisting -project "${GIT_BP}/src/${RELEASE_PKG}" 
-    chown -R ${SHELLUSER} ${RELEASE_PKG}
-
-    if [ -e ${RELEASE_PKG}/feature.xml ]; then
-    	# Do the dos2unix conversion using translate
-    	tr -d '\r' < "$BUILD_DIR/$RELEASE_PKG/feature.xml" > "$BUILD_DIR/$RELEASE_PKG/feature.xml.tmp"
-    	mv "$BUILD_DIR/$RELEASE_PKG/feature.xml.tmp" "$BUILD_DIR/$RELEASE_PKG/feature.xml"
-        plugin_modules=`grep "<plugin id=" $BUILD_DIR/$RELEASE_PKG/feature.xml | awk -F"=" '{printf("%s\n", $2)}' | sed s/\"// | sed s/\"//`
-        release_version=`awk -F"\"" '{if (/[0-9]\.[0-9]\.[0-9]/) {print $2; exit;}}' ${BUILD_DIR}/${RELEASE_PKG}/feature.xml`
-        plugin_modules="${plugin_modules} ${independent_modules}"
-        echo "release version: ${release_version}"
-    fi
-    
-    # Import ${antlr_tool} into the build workspace
-    ${cli_cmd} Import ${cli_opts} -deleteExisting -project "${GIT_BP}/src/${antlr_tool}"         
-    chown -R ${SHELLUSER} ${antlr_tool}    
-}
-
-function extract_release_files {
-	echo -e "Entering create_release_functions.sh::extract_release_files"
-	
-    modules="${internal_modules} ${plugin_modules}"
-
-    # Rearrange modules so that core is built first
-    modules=`echo ${modules} | sed s/org.xtuml.bp.core// | sed s/^/"org.xtuml.bp.core "/`
-
-	# Import all of the projects we need into the build workspace
-    for module in ${modules} ${all_feature_modules} ${model_compiler_modules} ${plugin_fragments}; do
-        echo "Importing into build workspace: ${module} for release: ${BRANCH}"
-        ${cli_cmd} Import ${cli_opts} -deleteExisting -project "${GIT_BP}/src/${module}"
-        chown -R ${SHELLUSER} ${module}
-    done
-	echo -e "Exiting create_release_functions.sh::extract_release_files"
-}
-
-function extract_unit_test_modules {
-	echo -e "Entering create_release_functions.sh::extract_unit_test_modules"
-    for module in ${unit_test_modules}; do
-        echo "Importing into build workspace: ${module} for release: ${BRANCH}"
-		${cli_cmd} Import ${cli_opts} -deleteExisting -project "${GIT_BP}/src/${module}"
-        chown -R ${SHELLUSER} ${module}
-    done
-	echo -e "Exiting create_release_functions.sh::extract_unit_test_modules"
 }
 
 function check_build_modules {
