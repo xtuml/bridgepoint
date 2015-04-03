@@ -7,3 +7,4 @@ bin
 .java_formatted
 id_attrs.xml
 ____file.txt
+.DS_Store
