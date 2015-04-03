@@ -40,8 +40,15 @@ bp_jvm="-vm $ECLIPSE_HOME/../jre/lib/i386/client/libjvm.so"
 eclipse_args="${bp_jvm} -pluginCustomization ${WORKSPACE}/plugin_customization.ini -nosplash -application org.eclipse.cdt.managedbuilder.core.headlessbuild --launcher.suppressErrors"
 vm_args="-vmargs -Dorg.eclipse.cdt.core.console=org.eclipse.cdt.core.systemConsole -Declipse.log.level=ALL"
 
-####  importAll  
-# ${ECLIPSE_HOME}/eclipse ${eclipse_args} -importAll "$GIT_BP" -data "${WORKSPACE}"
+####  importAll 
+####  For all projects under the given BP repository location
+####  Use the -import option
+for PROJECT in $(ls -1 ${GIT_BP}); do 
+  if [ "$PROJECT" != "org.antlr_2.7.2" ] && [ "$PROJECT" != "README.md" ]; then
+    echo Importing project: ${GIT_BP}/$PROJECT
+    ${ECLIPSE_HOME}/eclipse ${eclipse_args} -import "$GIT_BP/$PROJECT" -data "${WORKSPACE}"
+  fi
+done
 
 ###  Clean build
 ${ECLIPSE_HOME}/eclipse ${eclipse_args} -cleanBuild all -data "$WORKSPACE" ${vm_args}
