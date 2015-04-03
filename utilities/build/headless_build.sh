@@ -11,25 +11,25 @@
 ###  If branch is not set then default to master, but if command-line argument
 ###  is given use it as the branch name regardless of if BRANCH is already set 
 ###
-if [ $BRANCH -eq "" ]; then
+if [ "$BRANCH" == "" ]; then
   export BRANCH="master"
 fi
 if [ $# -eq 1 ]; then
   export BRANCH="$1"
 fi
 
-if [ $BPHOMEDIR -eq "" ]; then
+if [ "$BPHOMEDIR" == "" ]; then
   export BPHOMEDIR="${HOME}/MentorGraphics/BridgePoint"
 fi  
 
-if [ $ECLIPSE_HOME -eq "" ]; then
+if [ "$ECLIPSE_HOME" == "" ]; then
   export ECLIPSE_HOME="${BPHOMEDIR}/eclipse"
 fi
-if [ $WORKSPACE -eq "" ]; then
+if [ "$WORKSPACE" == "" ]; then
   export WORKSPACE="${HOME}/build/work/${BRANCH}"
 fi
 
-if [ $GIT_BP -eq "" ]; then
+if [ "$GIT_BP" == "" ]; then
 	export GIT_BP="${HOME}/build/git/xtuml/bridgepoint"
 fi
 
@@ -46,11 +46,8 @@ vm_args="-vmargs -Dorg.eclipse.cdt.core.console=org.eclipse.cdt.core.systemConso
 ###  Clean build
 ${ECLIPSE_HOME}/eclipse ${eclipse_args} -cleanBuild all -data "$WORKSPACE" ${vm_args}
 
-## build bp.core first
-${ECLIPSE_HOME}/eclipse ${eclipse_args} -build "org.xtuml.bp.core" -data "$WORKSPACE" ${vm_args}
-
 ## build all
-${ECLIPSE_HOME}/eclipse ${eclipse_args} -build "org.xtuml.bp.core" -data "$WORKSPACE" ${vm_args}
+${ECLIPSE_HOME}/eclipse ${eclipse_args} -build all -data "$WORKSPACE" ${vm_args}
 
 ## touch a a generated filess to fix dependencies
 if [ -e "$GIT_BP/plugin.xml" ]; then 
@@ -58,4 +55,4 @@ if [ -e "$GIT_BP/plugin.xml" ]; then
 fi
 
 ## build all again
-${ECLIPSE_HOME}/eclipse ${eclipse_args} -build "org.xtuml.bp.core" -data "$WORKSPACE" ${vm_args}
+${ECLIPSE_HOME}/eclipse ${eclipse_args} -build all -data "$WORKSPACE" ${vm_args}
