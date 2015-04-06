@@ -73,7 +73,6 @@ function configure_installer_files {
 
     # Next set up the linux files
     # Copy files and do the dos2unix translation.
-    tr -d '\r' < build_installer_bp_linux.sh > ${BUILD_DIR}/build_installer_bp_linux.sh 2>>${ERROR_FILE}
     mkdir -p ${bp_deliverables_linux}/extras
     tr -d '\r' < Launcher.sh > ${bp_deliverables_linux}/extras/Launcher.sh 2>>${ERROR_FILE}
     tr -d '\r' < CLI.sh > ${bp_deliverables_linux}/extras/CLI.sh 2>>${ERROR_FILE}
