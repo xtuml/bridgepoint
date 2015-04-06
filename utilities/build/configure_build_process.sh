@@ -63,6 +63,7 @@ function configure_installer_files {
 
     # Next set up the windows files
     tr -d '\r' < build_installer_bp.sh > ${BUILD_DIR}/build_installer_bp.sh 2>>${ERROR_FILE}
+    chmod a+x ${BUILD_DIR}/build_installer_bp.sh
     mkdir -p ${bp_deliverables}/extras
     cp -f Launcher.bat ${bp_deliverables}/extras 2>>${ERROR_FILE}
     cp -f CLI.bat ${bp_deliverables}/extras 2>>${ERROR_FILE}
