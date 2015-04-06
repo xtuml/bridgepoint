@@ -42,9 +42,7 @@ function configure_installer_files {
 	rm -rf installer_extras 2>>${ERROR_FILE}
 	mkdir -p installer_extras
     rm -rf BridgePoint_e${eclipse_ver} 2>>${ERROR_FILE}
-	mkdir -p BridgePoint_e${eclipse_ver}
-    rm -rf BridgePoint_Linux_e${eclipse_ver} 2>>${ERROR_FILE}
-	mkdir -p BridgePoint_Linux_e${eclipse_ver}
+    rm -rf BridgePoint_for_Linux_e${eclipse_ver} 2>>${ERROR_FILE}
     
     cd ${GIT_REPO_ROOT}/packaging/install_bases
     cp -rf BridgePoint_e${eclipse_ver} ${STAGING_AREA} 2>>${ERROR_FILE}
@@ -116,7 +114,7 @@ installer_extras="${STAGING_AREA}/installer_extras"
 mkdir -p ${installer_extras}
 installer_files="${STAGING_AREA}/installer/BridgePoint_e${eclipse_ver}/src"
 mkdir -p ${installer_files}
-installer_files_linux="${STAGING_AREA}/installer/BridgePoint_Linux_e${eclipse_ver}/src"
+installer_files_linux="${STAGING_AREA}/installer/BridgePoint_for_Linux_e${eclipse_ver}/src"
 mkdir -p ${installer_files_linux}
 
 cd ${BUILD_DIR}
