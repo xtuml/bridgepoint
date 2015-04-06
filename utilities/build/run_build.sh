@@ -12,8 +12,9 @@
 #  Build Server Requirements:
 #  1) run_build.sh, and init_git_repositories.sh must be present in ${BUILD_ROOT}
 #  2) BridgePoint must be installed to the folder pointed to by the 
-#     ${ECLIPSE_HOME} variable defined below.  The BridgePoint version must be 
-#     in this ECLIPSE_HOME must be specified.
+#     ${BPHOMEDIR} variable from the environment or defined below.  The 
+#     BridgePoint version must be defined in environment ${HOST_BP_VERSION} or 
+#     changed below.
 #  3) git and ant must be installed on the build server
 # 
 #  The build is performed under ${BUILD_ROOT}.  The result of the build:
@@ -83,9 +84,15 @@ function distribute_and_notify {
 #-------------------------------------------------------------------------------
 
 # User defined variables:
+if [ "$BPHOMEDIR" = "" ]; then
+  export BPHOMEDIR="${HOME}/MentorGraphics/BridgePoint"
+fi  
+if [ "$HOST_BP_VERSION" = "" ]; then
+  export HOST_BP_VERSION="4.2.1"
+fi
+
 export BUILD_MOUNT="${HOME}/build"
-export ECLIPSE_HOME="${HOME}/MentorGraphics/BridgePoint/eclipse"
-export HOST_BP_VERSION="4.2.1"
+export ECLIPSE_HOME="${BPHOMEDIR}/eclipse"
 
 # Do not modify these variables:
 export BUILD_ROOT="${BUILD_MOUNT}/work"
@@ -97,11 +104,19 @@ if [ $# -eq 1 ]; then
   export BRANCH="$1"
 fi
 
+# Make sure github credentials are available in the environment
+if [ "${GITUSER}" = "" ] || [ "${GITPASS}" = "" ]; then
+  echo "The build requires the environment variables GITUSER and GITPASS to be set for checking files out of gihub."
+  exit 1
+fi
+
 # echo out variables
 echo "BUILD_MOUNT=${BUILD_MOUNT}"
 echo "BUILD_ROOT=${BUILD_ROOT}"
 echo "BRANCH=${BRANCH}"
 echo "GIT_REPO_ROOT=${GIT_REPO_ROOT}"
+echo "BPHOMEDIR=${BPHOMEDIR}"
+echo "HOST_BP_VERSION=${HOST_BP_VERSION}"
 
 # this flag is constant and could potentially be removed, but it is 
 # being left in case we do want to have the build be different then other 
@@ -184,7 +199,7 @@ if [ $? -eq 1 ]; then
 else
   rm -f "${BUILD_ROOT}/init_git_repositories.tmp"
 fi
-bash "${BUILD_ROOT}/init_git_repositories.sh" >> ${BUILD_LOG}
+bash "${BUILD_ROOT}/init_git_repositories.sh" >> ${BUILD_LOG} 2>&1
 
 # Can do the copy and dos2unix translation in one step.
 tr -d '\r' < ${GIT_BP}/utilities/build/configure_build_process.sh > configure_build_process.sh
@@ -195,9 +210,5 @@ bash configure_build_process.sh >> ${BUILD_LOG}
 bash create_bp_release.sh  >> ${BUILD_LOG}
 
 distribute_and_notify $? >> ${BUILD_LOG}
-
-# Clean up build files
-cd ${BUILD_ROOT}
-mv configure_build_process.sh ${BRANCH}
 
 echo -e "End of run_build.sh"
