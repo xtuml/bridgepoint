@@ -92,7 +92,7 @@ echo "INFO: Done."
 # Start IzPack
 echo "INFO: Running IzPack to create the installer."
 cd ${GIT_BP}/src/${install_project}
-${IZPACK_PATH}/install/bin/compile install_${OS}.xml -b ${STAGING_PATH} -o ${OUTPUT_DIR}/${PRODUCT_NAME}_${OS}.jar
+${IZPACK_PATH}/bin/compile install_${OS}.xml -b ${STAGING_PATH} -o ${OUTPUT_DIR}/${PRODUCT_NAME}_${OS}.jar
 echo "INFO: Done."
 
 # Rename the output file
