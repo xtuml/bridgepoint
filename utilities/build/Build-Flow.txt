@@ -20,5 +20,5 @@ NEW:
 1.3.1	source create_release_functions.sh
 1.3.2	configure_external_dependencies
 1.4 <Installer>build_installer_bp.sh 
-1.5 <Installer>build_installer_bp_linux.sh 
+1.5 <Installer>build_installer_bp.sh 
 		
