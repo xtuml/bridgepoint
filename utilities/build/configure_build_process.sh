@@ -42,9 +42,7 @@ function configure_installer_files {
 	rm -rf installer_extras 2>>${ERROR_FILE}
 	mkdir -p installer_extras
     rm -rf BridgePoint_e${eclipse_ver} 2>>${ERROR_FILE}
-	mkdir -p BridgePoint_e${eclipse_ver}
-    rm -rf BridgePoint_Linux_e${eclipse_ver} 2>>${ERROR_FILE}
-	mkdir -p BridgePoint_Linux_e${eclipse_ver}
+    rm -rf BridgePoint_for_Linux_e${eclipse_ver} 2>>${ERROR_FILE}
     
     cd ${GIT_REPO_ROOT}/packaging/install_bases
     cp -rf BridgePoint_e${eclipse_ver} ${STAGING_AREA} 2>>${ERROR_FILE}
@@ -65,6 +63,7 @@ function configure_installer_files {
 
     # Next set up the windows files
     tr -d '\r' < build_installer_bp.sh > ${BUILD_DIR}/build_installer_bp.sh 2>>${ERROR_FILE}
+    chmod a+x ${BUILD_DIR}/build_installer_bp.sh
     mkdir -p ${bp_deliverables}/extras
     cp -f Launcher.bat ${bp_deliverables}/extras 2>>${ERROR_FILE}
     cp -f CLI.bat ${bp_deliverables}/extras 2>>${ERROR_FILE}
@@ -73,7 +72,6 @@ function configure_installer_files {
 
     # Next set up the linux files
     # Copy files and do the dos2unix translation.
-    tr -d '\r' < build_installer_bp_linux.sh > ${BUILD_DIR}/build_installer_bp_linux.sh 2>>${ERROR_FILE}
     mkdir -p ${bp_deliverables_linux}/extras
     tr -d '\r' < Launcher.sh > ${bp_deliverables_linux}/extras/Launcher.sh 2>>${ERROR_FILE}
     tr -d '\r' < CLI.sh > ${bp_deliverables_linux}/extras/CLI.sh 2>>${ERROR_FILE}
@@ -117,7 +115,7 @@ installer_extras="${STAGING_AREA}/installer_extras"
 mkdir -p ${installer_extras}
 installer_files="${STAGING_AREA}/installer/BridgePoint_e${eclipse_ver}/src"
 mkdir -p ${installer_files}
-installer_files_linux="${STAGING_AREA}/installer/BridgePoint_Linux_e${eclipse_ver}/src"
+installer_files_linux="${STAGING_AREA}/installer/BridgePoint_for_Linux_e${eclipse_ver}/src"
 mkdir -p ${installer_files_linux}
 
 cd ${BUILD_DIR}
