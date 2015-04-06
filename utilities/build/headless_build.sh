@@ -40,28 +40,35 @@ bp_jvm="-vm $ECLIPSE_HOME/../jre/lib/i386/client/libjvm.so"
 eclipse_args="${bp_jvm} -pluginCustomization ${WORKSPACE}/plugin_customization.ini -nosplash -application org.eclipse.cdt.managedbuilder.core.headlessbuild --launcher.suppressErrors"
 vm_args="-vmargs -Dorg.eclipse.cdt.core.console=org.eclipse.cdt.core.systemConsole -Declipse.log.level=ALL"
 
-####  importAll 
-####  For all projects under the given BP repository location
-####  Use the -import option
+####  Import all plugins
+####  Note:
+####  1) we have a separate -import for each plugin as opposed
+####  to using -importAll <tree> because importAll imports nested projects,
+####  and our build does not allow this.
+####  2) -import <plugin> is import such that it may spawn a separate thread 
+####  for each import.  This means the order of import is not guaranteed
+####
 import_cmd=""
 for PROJECT in $(ls -1 "${GIT_BP}"/src); do 
   if [ "$PROJECT" != "org.antlr_2.7.2" ] && [ "$PROJECT" != "README.md" ]; then
-    import_cmd+=" -import "${GIT_BP}"/src/"$PROJECT" "
+    import_cmd+=" -import ${GIT_BP}/src/$PROJECT "
   fi
 done
-echo "Importing projects: ${import_cmd}"
-${ECLIPSE_HOME}/eclipse ${eclipse_args} ${import_cmd} -data "${WORKSPACE}"
+echo "Importing projects."
+${ECLIPSE_HOME}/eclipse ${eclipse_args} ${import_cmd} -data "${WORKSPACE}" ${vm_args}
 
 ###  Clean build
+echo "Performing a clean build."
 ${ECLIPSE_HOME}/eclipse ${eclipse_args} -cleanBuild all -data "$WORKSPACE" ${vm_args}
-
-## build all
-${ECLIPSE_HOME}/eclipse ${eclipse_args} -build all -data "$WORKSPACE" ${vm_args}
 
 ## touch a a generated filess to fix dependencies
 if [ -e "$GIT_BP/plugin.xml" ]; then 
+  echo "Touching a generated file: ($GIT_BP/plugin.xml)" 
   touch "$GIT_BP/plugin.xml"
+else
+  echo "ERROR! $GIT_BP/plugin.xml was not generated" 
 fi
 
 ## build all again
+echo "Performing a build."
 ${ECLIPSE_HOME}/eclipse ${eclipse_args} -build all -data "$WORKSPACE" ${vm_args}
