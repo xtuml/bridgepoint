@@ -1,15 +1,25 @@
 #!/bin/bash
 #
-#  init_git_repositories.sh requires the following environment variables
+#=====================================================================
 #
-#   $BRANCH - product version, actually this is any branch/tag found in git
-#   $GIT_REPO_ROOT - git repository root 
-#   $ALLOW_FALLBACK - allow fallback to master is specified branch does not 
-#            exist (yes or no)
+# File:      init_git_repositories.sh
+#
+#=====================================================================
 #
 #  Since this starting point for pulling the rest of the data from revision
 #  control, it must be manually put into place for the build server to run.
 #
+
+# Check arguments
+if [ $# -ne 3 ]; then
+    echo
+    echo "Usage: ./init_git_repositories.sh <product_branch> <git_repo_root> <allow_fallback>"
+    echo "      product_branch -- e.g. master, R4_2_1"
+    echo "      git_repo_root -- path to the location of the git repository root"
+    echo "      allow_fallback -- if the branch cannot be found, use master? (yes/no)"
+    echo
+    exit 0
+fi
 
 #-------------------------------------------------------------------------------
 # Functions
@@ -51,17 +61,12 @@ init_repository ()
     fi
   fi
   
-  echo -e "\nChanges since yesterday for repository: ${repo_name}" >> ${diff_file}
-  echo -e "------------------------------------------------------" >> ${diff_file}
   # If the branch we're using is master, we make a hard changeover to the state of origin/master.
-  # Otherwise, merge in the latest origin changes to the local branch (but don't autocommit
-  # fast forwards or stage other commits)
+  # Otherwise, pull in the latest origin changes to the local branch
   if [ "${branch}" = "master" ]; then
     git reset --hard origin/master
-    git diff --name-status HEAD@{yesterday} >> ${diff_file}
   else
-    git merge origin/${branch} --no-commit --no-ff
-    git diff --name-status HEAD@{yesterday} >> ${diff_file}
+    git pull
   fi
   echo -e "Exiting init_git_repositories.sh::init_repository"
 }
@@ -72,10 +77,9 @@ init_repository ()
 #-------------------------------------------------------------------------------
 echo -e "Entering init_git_repositories.sh"
 
-branch=${BRANCH}
-git_repo_root=${GIT_REPO_ROOT}
-allow_fallback=${ALLOW_FALLBACK}
-diff_file="${BUILD_DIR}/diff.log"
+branch=$1
+git_repo_root=$2
+allow_fallback=$3
 
 # Create git repo parent
 if [ ! -x ${git_repo_root} ]; then

@@ -103,7 +103,8 @@ fi
 
 # Make sure github credentials are available in the environment
 if [ "${GITUSER}" = "" ] || [ "${GITPASS}" = "" ]; then
-  echo "The build requires the environment variables GITUSER and GITPASS to be set for checking files out of gihub."
+  echo "The build requires the environment variables GITUSER and GITPASS to be set for checking files out of github."
+  echo "GITPASS may be a real password or, preferably, a github API token for the specified GITUSER."
   exit 1
 fi
 
@@ -197,7 +198,7 @@ else
   rm -f "${BUILD_ROOT}/init_git_repositories.tmp"
 fi
 echo -e "Getting files from github, this could take a while."
-bash "${BUILD_ROOT}/init_git_repositories.sh" >> ${BUILD_LOG} 2>&1
+bash "${BUILD_ROOT}/init_git_repositories.sh ${BRANCH} ${GIT_REPO_ROOT} ${ALLOW_FALLBACK}" >> ${BUILD_LOG} 2>&1
 echo -e "Done."
 
 # Can do the copy and dos2unix translation in one step.
@@ -208,11 +209,12 @@ bash configure_build_process.sh >> ${BUILD_LOG}
 
 bash configure_external_dependencies.sh > ${LOG_DIR}/configure_externals.log 2>&1
 
-bash create_bp_release.sh  >> ${BUILD_LOG}
+# TODO - put back - bash create_bp_release.sh  >> ${BUILD_LOG}
 
 if [ ! -s ${ERROR_FILE} ]; then
-  ./build_installer_bp.sh ${BRANCH} ${STAGING_AREA} /opt/IzPack ${RESULT_FOLDER} windows
-  ./build_installer_bp.sh ${BRANCH} ${STAGING_AREA} /opt/IzPack ${RESULT_FOLDER} linux
+  bp_release_version=`awk -F"\"" '{if (/ersion.*\=.*[0-9]\.[0-9]\.[0-9]/) {print $2; exit;}}' ${GIT_BP}/src/org.xtuml.bp.core/plugin.xml`
+  ./build_installer_bp.sh ${BRANCH} ${STAGING_AREA} /opt/IzPack ${RESULT_FOLDER} windows ${bp_release_version}
+  ./build_installer_bp.sh ${BRANCH} ${STAGING_AREA} /opt/IzPack ${RESULT_FOLDER} linux ${bp_release_version}
 fi
 
 if [ -e ${MAIL_CMD} ]; then
