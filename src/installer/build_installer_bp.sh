@@ -9,7 +9,7 @@
 date
 
 # Check arguments
-if [ $# -ne 5 ]; then
+if [ $# -ne 6 ]; then
     echo
     echo "Usage: ./build_installer_bp.sh <product_branch> <staging_path> <izpack_path> <output_dir> <os> <release_version>"
     echo "      product_branch -- e.g. master, R4_2_1"
