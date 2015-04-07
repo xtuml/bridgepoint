@@ -26,6 +26,7 @@ get_user_supplied_binaries ()
 {
     echo -e "Entering configure_external_dependencies.sh::get_user_supplied_binaries"
     
+    echo -e "Checking files in ${user_supplied_files}"
     cd $user_supplied_files
     missing_files=""
     if [ ! -e ./xtumlmc_build.exe ]; then
