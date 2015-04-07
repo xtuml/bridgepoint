@@ -61,7 +61,7 @@ get_user_supplied_binaries ()
         missing_files+="./mcmc.exe"
     fi
     
-    if [ $missing_files != ""]; then
+    if [ "$missing_files" != ""]; then
        echo -e "Error!: Missing files: $missing_files"
        return 1
     fi
