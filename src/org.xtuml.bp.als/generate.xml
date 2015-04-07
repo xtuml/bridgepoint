@@ -37,6 +37,7 @@
           description="Generate the sql version of the Grammar model"
           unless="sql.buildNotNeeded" >
     <echo >Generating ${sql.output} ...</echo>
+    <echo >Using: ${util_bin_dir}/xtumlmc_build.exe ...</echo>  	
   	<copy file="../org.xtuml.bp.pkg/globals/Globals.xtuml" tofile="${sql.input}/Globals.xtuml" />
     <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
       <arg line="xtumlmc_cleanse_for_BridgePoint ${sql.input} sql/${sql.output} ${subsystems_to_remove}" />
