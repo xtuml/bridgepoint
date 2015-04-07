@@ -27,6 +27,8 @@ IZPACK_PATH="$3"
 OUTPUT_DIR="$4"
 OS_ARG="$5"
 OUTPUT_DIR_EXTENSION="${OUTPUT_DIR}-extension"
+# TODO - remove override below (which is here for testing)
+OUTPUT_DIR_EXTENSION="/tmp/installer-testing"
 
 # Assume windows unless we case-insensitively match Linux on the argument
 OS="windows"
