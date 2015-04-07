@@ -40,7 +40,8 @@
   <target name="sql.depends" >
     <echo >Eclipse home: ${eclipse-home}</echo>
     <echo >Plugins home: ${plugins-home}</echo>
-
+    <echo >Util home (xtumlmc_build.exe): ${util_bin_dir}</echo>
+  	
     <uptodate property="sql.buildNotNeeded" targetfile="sql/${sql.output}">
       <srcfiles dir="${sql.input}" excludes="${model_excludes}" includes="**/*.xtuml" />
     </uptodate>
