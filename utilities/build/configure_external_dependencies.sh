@@ -103,6 +103,9 @@ configure_mcc_src()
     rm -rf mc3020
     mkdir mc3020
     cd mc3020
+    cp -r ${GIT_REPO_ROOT}/mc/arc ./arc
+    rm -rf ./arc/sysc
+    mv ./arc/c ./arc/specialized
     cp -r ${GIT_REPO_ROOT}/mc/bin ./bin
     cp -r ${GIT_REPO_ROOT}/mc/schema ./schema
     mv ./schema/default-manifest.xml ./
@@ -151,9 +154,18 @@ configure_mcsystemc_src()
     rm -rf mc3020
     cp -rf $mcc_src/mc3020 .
 
+    # We brought across the C source arcs when we did this.  Remove and bring in SystemC.
+    cd mc3020
+    rm -rf ./arc
+    cp -r ${GIT_REPO_ROOT}/mc/arc ./arc
+    rm -rf ./arc/c
+    mv ./arc/sysc ./arc/specialized
+    mv ./schema/colors/system.mark ./schema/colors/system.mark.orig
+    cat ./schema/colors/system.mark.sysc ./schema/colors/system.mark.orig > ./schema/colors/system.mark
+    
     # We don't want the model-based MC for this version, so remove it
-    rm -f ./mc3020/bin/mcmc
-    rm -f ./mc3020/bin/mcmc.exe
+    rm -f ./bin/mcmc
+    rm -f ./bin/mcmc.exe
      
     cd ${BUILD_DIR}
 }
@@ -168,9 +180,16 @@ configure_mccpp_src()
     rm -rf mc3020
     cp -rf $mcc_src/mc3020 .
 
+    # We brought across the C source arcs when we did this.  Remove and bring in SystemC/C++.
+    cd mc3020
+    rm -rf ./arc
+    cp -r ${GIT_REPO_ROOT}/mc/arc ./arc
+    rm -rf ./arc/c
+    mv ./arc/sysc ./arc/specialized
+
     # We don't want the model-based MC for this version, so remove it
-    rm -f ./mc3020/bin/mcmc
-    rm -f ./mc3020/bin/mcmc.exe
+    rm -f ./bin/mcmc
+    rm -f ./bin/mcmc.exe
      
     cd ${BUILD_DIR}
 }
