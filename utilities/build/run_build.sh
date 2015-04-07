@@ -68,10 +68,7 @@ function distribute_and_notify {
 	  
 	  echo -e "\nCHANGELOG:" >> ${MAIL_TEMP}
 	  echo -e "---------------" >> ${MAIL_TEMP}
-	  cat ${DIFF_FILE} >> ${MAIL_TEMP}
-	  
-	  # TODO - ./build_installer_bp.sh ${BRANCH} ${STAGING_AREA} /bin/TODOIZPACKPATH ${RESULT_FOLDER} windows
-	  # TODO - ./build_installer_bp.sh ${BRANCH} ${STAGING_AREA} /bin/TODOIZPACKPATH ${RESULT_FOLDER} linux
+	  cat ${DIFF_FILE} >> ${MAIL_TEMP}	  
 	fi
 	cat ${MAIL_TEMP} | ${MAIL_CMD} ${BUILD_ADMIN}
 	
@@ -199,7 +196,9 @@ if [ $? -eq 1 ]; then
 else
   rm -f "${BUILD_ROOT}/init_git_repositories.tmp"
 fi
+echo -e "Getting files from github, this could take a while."
 bash "${BUILD_ROOT}/init_git_repositories.sh" >> ${BUILD_LOG} 2>&1
+echo -e "Done."
 
 # Can do the copy and dos2unix translation in one step.
 tr -d '\r' < ${GIT_BP}/utilities/build/configure_build_process.sh > configure_build_process.sh
@@ -207,8 +206,17 @@ chmod a+x configure_build_process.sh
 
 bash configure_build_process.sh >> ${BUILD_LOG}
 
+bash configure_external_dependencies.sh > ${LOG_DIR}/configure_externals.log 2>&1
+
 bash create_bp_release.sh  >> ${BUILD_LOG}
 
-distribute_and_notify $? >> ${BUILD_LOG}
+if [ ! -s ${ERROR_FILE} ]; then
+  ./build_installer_bp.sh ${BRANCH} ${STAGING_AREA} /opt/IzPack ${RESULT_FOLDER} windows
+  ./build_installer_bp.sh ${BRANCH} ${STAGING_AREA} /opt/IzPack ${RESULT_FOLDER} linux
+fi
+
+if [ -e ${MAIL_CMD} ]; then
+  distribute_and_notify $? >> ${BUILD_LOG}
+fi 
 
 echo -e "End of run_build.sh"

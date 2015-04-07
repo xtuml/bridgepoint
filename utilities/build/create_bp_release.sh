@@ -133,8 +133,6 @@ function create_build {
 	
     cd $BUILD_DIR
 
-    ./configure_external_dependencies.sh > ${LOG_DIR}/configure_externals.log 2>&1
-    
     # Generate list of modules needing verification
     all_modules="${internal_modules} ${plugin_modules} ${RELEASE_PKG} ${all_feature_modules} ${model_compiler_modules}"
 
