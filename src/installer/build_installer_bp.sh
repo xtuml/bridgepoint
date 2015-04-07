@@ -40,13 +40,14 @@ fi
 
 PRODUCT_NAME="BridgePoint"
 ECLIPSE_VER="3.7"
-TEMP_DIR="/temp"
+TEMP_DIR="/tmp"
 SEQUENCE_CREATOR="org.xtuml.bp.sequencecapture_${BP_VERSION}.jar"
 # TODO - SERVER="tucson.wv"
 # TODO - REMOTE_RELEASE_DIR="/arch1/products/tiger/releases/${PRODUCT_VER}"
 EXT_SRC_FILE="${PRODUCT_NAME}_extension_${PRODUCT_VER}.zip"
-
 INSTALLER_DATA_DIR="${BP_BASE_DIR}/${PRODUCT_NAME}Deliverables/eclipse_extensions"
+
+echo "INFO: Building ${PRODUCT_NAME} installer for ${OS}."
 
 # Put the new BridgePoint extension in place for the installer
 echo "INFO: Copying new source data to ${TEMP_DIR}."
@@ -120,4 +121,4 @@ cp -f "${PRODUCT_NAME}_${PRODUCT_VER}_${DATESTAMP}_${OS}.jar" "${OUTPUT_DIR}"
 # TODO - ssh ${SERVER} "(cd '${REMOTE_RELEASE_DIR}'; chmod 755 ${PRODUCT_NAME}_${PRODUCT_VER}_*.jar)"
 echo "INFO: Done."
 
-echo "INFO: ${OS} installer creation complete.  Goodbye."
+echo "INFO: ${PRODUCT_NAME} for ${OS} installer creation complete.  Goodbye."
