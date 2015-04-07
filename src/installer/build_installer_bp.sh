@@ -30,18 +30,19 @@ OUTPUT_DIR_EXTENSION="${OUTPUT_DIR}-extension"
 # TODO - remove override below (which is here for testing)
 OUTPUT_DIR_EXTENSION="/tmp/installer-testing"
 
+PRODUCT_NAME="BridgePoint"
+ECLIPSE_VER="3.7"
+
 # Assume windows unless we case-insensitively match Linux on the argument
 OS="windows"
-BP_BASE_DIR="${STAGING_PATH}/BridgePoint_e${ECLIPSE_VER}"
+BP_BASE_DIR="${STAGING_PATH}/${PRODUCT_NAME}_e${ECLIPSE_VER}"
 MCMC_EXE="org.xtuml.bp.mc.c.binary_${BP_VERSION}/mc3020/bin/mcmc.exe"
 if [ "${OS_ARG,,}" = "linux" ]; then
   OS="linux"
-  BP_BASE_DIR="${STAGING_PATH}/BridgePoint_for_Linux_e${ECLIPSE_VER}"
+  BP_BASE_DIR="${STAGING_PATH}/${PRODUCT_NAME}_for_Linux_e${ECLIPSE_VER}"
   MCMC_EXE="org.xtuml.bp.mc.c.binary_${BP_VERSION}/mc3020/bin/mcmc"
 fi
 
-PRODUCT_NAME="BridgePoint"
-ECLIPSE_VER="3.7"
 TEMP_DIR="/tmp"
 SEQUENCE_CREATOR="org.xtuml.bp.sequencecapture_${BP_VERSION}.jar"
 # TODO - SERVER="tucson.wv"
@@ -51,7 +52,7 @@ INSTALLER_DATA_DIR="${BP_BASE_DIR}/${PRODUCT_NAME}Deliverables/eclipse_extension
 
 echo "INFO: Building ${PRODUCT_NAME} installer for ${OS}."
 
-# Put the new BridgePoint extension in place for the installer
+# Put the new ${PRODUCT_NAME} extension in place for the installer
 echo "INFO: Copying new source data to ${TEMP_DIR}."
 cd "${TEMP_DIR}"
 echo "INFO:   Copying in ${OUTPUT_DIR_EXTENSION}/${EXT_SRC_FILE}."
