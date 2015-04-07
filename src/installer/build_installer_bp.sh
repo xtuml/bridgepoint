@@ -45,6 +45,7 @@ if [ "${OS_ARG,,}" = "linux" ]; then
   MCMC_EXE="org.xtuml.bp.mc.c.binary_${BP_VERSION}/mc3020/bin/mcmc"
 fi
 
+INSTALL_PROJECT="installer"
 TEMP_DIR="/tmp"
 SEQUENCE_CREATOR="org.xtuml.bp.sequencecapture_${BP_VERSION}.jar"
 # TODO - SERVER="tucson.wv"
@@ -97,7 +98,7 @@ echo "INFO: Done."
 
 # Start IzPack
 echo "INFO: Running IzPack to create the installer."
-cd ${GIT_BP}/src/${install_project}
+cd ${GIT_BP}/src/${INSTALL_PROJECT}
 ${IZPACK_PATH}/bin/compile install_${OS}.xml -b ${STAGING_PATH} -o ${OUTPUT_DIR}/${PRODUCT_NAME}_${OS}.jar
 echo "INFO: Done."
 
