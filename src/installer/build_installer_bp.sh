@@ -11,21 +11,23 @@ date
 # Check arguments
 if [ $# -ne 5 ]; then
     echo
-    echo "Usage: ./build_installer_bp.sh <product_version> <staging_path> <izpack_path> <output_dir> <os>"
-    echo "      product_version -- e.g. master, R4_2_1"
+    echo "Usage: ./build_installer_bp.sh <product_branch> <staging_path> <izpack_path> <output_dir> <os> <release_version>"
+    echo "      product_branch -- e.g. master, R4_2_1"
     echo "      staging_path -- path to the location of the Eclipse bases and BridgePoint deliverables"
     echo "      izpack_path -- path to the root of the izpack installation"
     echo "      output_dir -- path to the location to output the installers"
     echo "      os - windows or linux"
+    echo "      release_version -- e.g. 4.2.1"
     echo
     exit 0
 fi
 
-PRODUCT_VER="$1"
+PRODUCT_BRANCH="$1"
 STAGING_PATH="$2"
 IZPACK_PATH="$3"
 OUTPUT_DIR="$4"
 OS_ARG="$5"
+BP_VERSION="$6"
 OUTPUT_DIR_EXTENSION="${OUTPUT_DIR}-extension"
 # TODO - remove override below (which is here for testing)
 OUTPUT_DIR_EXTENSION="/tmp/installer-testing"
@@ -46,8 +48,8 @@ fi
 TEMP_DIR="/tmp"
 SEQUENCE_CREATOR="org.xtuml.bp.sequencecapture_${BP_VERSION}.jar"
 # TODO - SERVER="tucson.wv"
-# TODO - REMOTE_RELEASE_DIR="/arch1/products/tiger/releases/${PRODUCT_VER}"
-EXT_SRC_FILE="${PRODUCT_NAME}_extension_${PRODUCT_VER}.zip"
+# TODO - REMOTE_RELEASE_DIR="/arch1/products/tiger/releases/${PRODUCT_BRANCH}"
+EXT_SRC_FILE="${PRODUCT_NAME}_extension_${PRODUCT_BRANCH}.zip"
 INSTALLER_DATA_DIR="${BP_BASE_DIR}/${PRODUCT_NAME}Deliverables/eclipse_extensions"
 
 echo "INFO: Building ${PRODUCT_NAME} installer for ${OS}."
@@ -66,10 +68,10 @@ echo "INFO: Done."
 echo "INFO: Unzipping new source data in ${TEMP_DIR}."
 echo "INFO:   Unzipping ${EXT_SRC_FILE}."
 rm -rf ${PRODUCT_NAME}
-rm -rf ${PRODUCT_NAME}_${PRODUCT_VER}
+rm -rf ${PRODUCT_NAME}_${PRODUCT_BRANCH}
 unzip -q "${EXT_SRC_FILE}"
-if [ -e "${PRODUCT_NAME}_${PRODUCT_VER}" ]; then
-  mv "${PRODUCT_NAME}_${PRODUCT_VER}" "${PRODUCT_NAME}"
+if [ -e "${PRODUCT_NAME}_${PRODUCT_BRANCH}" ]; then
+  mv "${PRODUCT_NAME}_${PRODUCT_BRANCH}" "${PRODUCT_NAME}"
   rm -f "${EXT_SRC_FILE}"
 else
   echo "ERROR: Error creating the new extension directory.  Exiting."
@@ -101,15 +103,15 @@ echo "INFO: Done."
 
 # Rename the output file
 DATESTAMP=`date +%Y%m%d%H%M`
-echo "INFO: Renaming the output file to ${PRODUCT_NAME}_${PRODUCT_VER}_${DATESTAMP}.jar."
-if [ "${PRODUCT_VER}" = "master" ]; then
-  rm -rf ${PRODUCT_NAME}_${PRODUCT_VER}_*.jar
+echo "INFO: Renaming the output file to ${PRODUCT_NAME}_${PRODUCT_BRANCH}_${DATESTAMP}.jar."
+if [ "${PRODUCT_BRANCH}" = "master" ]; then
+  rm -rf ${PRODUCT_NAME}_${PRODUCT_BRANCH}_*.jar
 fi
-mv "${PRODUCT_NAME}_${OS}.jar" "${PRODUCT_NAME}_${PRODUCT_VER}_${DATESTAMP}_${OS}.jar"
+mv "${PRODUCT_NAME}_${OS}.jar" "${PRODUCT_NAME}_${PRODUCT_BRANCH}_${DATESTAMP}_${OS}.jar"
 echo "INFO: Done."
 
 # Make sure the output looks good
-size=$(du -k ${PRODUCT_NAME}_${PRODUCT_VER}_${DATESTAMP}_${OS}.jar | sed 's/\([0-9]*\)\(.*\)/\1/')
+size=$(du -k ${PRODUCT_NAME}_${PRODUCT_BRANCH}_${DATESTAMP}_${OS}.jar | sed 's/\([0-9]*\)\(.*\)/\1/')
 if [ ${size} -lt 300000 ]; then
   echo "ERROR: Created installer file size is less than expected, exiting."
   exit 5
@@ -117,11 +119,11 @@ fi
 
 # Move it to the release area
 echo "INFO: Copying the new installer to the release website."
-if [ "${PRODUCT_VER}" = "master" ]; then
-  # TODO - ssh ${SERVER} "(cd '${REMOTE_RELEASE_DIR}'; rm -rf ${PRODUCT_NAME}_${PRODUCT_VER}_*.jar)"
+if [ "${PRODUCT_BRANCH}" = "master" ]; then
+  # TODO - ssh ${SERVER} "(cd '${REMOTE_RELEASE_DIR}'; rm -rf ${PRODUCT_NAME}_${PRODUCT_BRANCH}_*.jar)"
 fi
-cp -f "${PRODUCT_NAME}_${PRODUCT_VER}_${DATESTAMP}_${OS}.jar" "${OUTPUT_DIR}"
-# TODO - ssh ${SERVER} "(cd '${REMOTE_RELEASE_DIR}'; chmod 755 ${PRODUCT_NAME}_${PRODUCT_VER}_*.jar)"
+cp -f "${PRODUCT_NAME}_${PRODUCT_BRANCH}_${DATESTAMP}_${OS}.jar" "${OUTPUT_DIR}"
+# TODO - ssh ${SERVER} "(cd '${REMOTE_RELEASE_DIR}'; chmod 755 ${PRODUCT_NAME}_${PRODUCT_BRANCH}_*.jar)"
 echo "INFO: Done."
 
 echo "INFO: ${PRODUCT_NAME} for ${OS} installer creation complete.  Goodbye."
