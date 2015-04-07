@@ -100,8 +100,8 @@ configure_mcc_src()
     echo "Configuring mcc_src for build."
 
     cd $mcc_src
-    rm -rf mc3020
-    mkdir mc3020
+    rm -rf mc3020/bin
+    rm -rf mc3020/schema
     cd mc3020
     cp -r ${GIT_REPO_ROOT}/mc/arc ./arc
     rm -rf ./arc/sysc
@@ -118,9 +118,11 @@ configure_mcc_src()
     cp -f $user_supplied_files/mcmc              ./bin
     cp -f $user_supplied_files/mcmc.exe          ./bin
     cp -f $user_supplied_files/msvcrt.dll        ./bin
+    cp -f $user_supplied_files/msvcirt.dll       ./bin
+    cp -f $user_supplied_files/msvcp60.dll       ./bin
     cp -f $user_supplied_files/vgal8c.dll        ./bin
     cp -f $user_supplied_files/vgalaxy8.vr       ./bin
-
+    
     cd ${BUILD_DIR}
     cp -f $user_supplied_files/mc3020_doc.zip $mc3020_help/doc.zip
     rm -f $mc3020_help/techpub.css
@@ -138,8 +140,11 @@ configure_mcc_bin()
 
     # Copy in the "bp.mc.c.source/mc3020/" dir
     cd $mcc_bin
-    rm -rf mc3020
     cp -rf $mcc_src/mc3020 .
+    
+    # We brought across the C source arcs when we did this.  Remove.
+    cd mc3020
+    rm -rf ./arc
     
     cd ${BUILD_DIR}
 }
@@ -151,7 +156,6 @@ configure_mcsystemc_src()
 
     # Copy in the "bp.mc.c.source/mc3020/" dir
     cd $mcsystemc_src
-    rm -rf mc3020
     cp -rf $mcc_src/mc3020 .
 
     # We brought across the C source arcs when we did this.  Remove and bring in SystemC.
@@ -177,7 +181,6 @@ configure_mccpp_src()
 
     # Copy in the "bp.mc.c.source/mc3020/" dir
     cd $mccpp_src
-    rm -rf mc3020
     cp -rf $mcc_src/mc3020 .
 
     # We brought across the C source arcs when we did this.  Remove and bring in SystemC/C++.
@@ -199,10 +202,9 @@ configure_vhdl_src()
     echo ""
     echo "Configuring mcvhdl_src for build."
 
-    # Copy in the "bp.mc.c.source/mc3020/" dir
+    # Copy in the "bp.mc.c.binary/mc3020/" dir
     cd $mcvhdl_src
-    rm -rf mc3020
-    cp -rf $mcc_src/mc3020 .
+    cp -rf $mcc_bin/mc3020 .
     
     # We don't want the model-based MC for this version, so remove it
     rm -f ./mc3020/bin/mcmc
@@ -217,10 +219,9 @@ configure_java_src()
     echo ""
     echo "Configuring java_src for build."
 
-    # Copy in the "bp.mc.c.source/mc3020/" dir
+    # Copy in the "bp.mc.c.binary/mc3020/" dir
     cd $java_src
-    rm -rf mc3020
-    cp -rf $mcc_src/mc3020 .
+    cp -rf $mcc_bin/mc3020 .
     
     # We don't want the model-based MC for this version, so remove it
     rm -f ./mc3020/bin/mcmc
