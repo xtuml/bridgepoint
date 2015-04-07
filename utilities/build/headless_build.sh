@@ -38,7 +38,6 @@ export BP_JVM=$BPHOMEDIR/jre/lib/i386/client/libjvm.so
 
 bp_jvm="-vm $ECLIPSE_HOME/../jre/lib/i386/client/libjvm.so"
 eclipse_args="${bp_jvm} -pluginCustomization ${WORKSPACE}/plugin_customization.ini -nosplash -application org.eclipse.cdt.managedbuilder.core.headlessbuild --launcher.suppressErrors"
-vm_args="-vmargs -Dorg.eclipse.cdt.core.console=org.eclipse.cdt.core.systemConsole -Declipse.log.level=ALL"
 
 ####  Import all plugins
 ####  Note:
@@ -55,11 +54,11 @@ for PROJECT in $(ls -1 "${GIT_BP}"/src); do
   fi
 done
 echo "Importing projects."
-${ECLIPSE_HOME}/eclipse ${eclipse_args} ${import_cmd} -data "${WORKSPACE}" ${vm_args}
+${ECLIPSE_HOME}/eclipse ${eclipse_args} ${import_cmd} -data "${WORKSPACE}" 
 
 ###  Clean build
 echo "Performing a clean build."
-${ECLIPSE_HOME}/eclipse ${eclipse_args} -cleanBuild all -data "$WORKSPACE" ${vm_args}
+${ECLIPSE_HOME}/eclipse ${eclipse_args} -cleanBuild all -data "$WORKSPACE" 
 
 ## touch a a generated filess to fix dependencies
 if [ -e "$GIT_BP/plugin.xml" ]; then 
@@ -71,4 +70,4 @@ fi
 
 ## build all again
 echo "Performing a build."
-${ECLIPSE_HOME}/eclipse ${eclipse_args} -build all -data "$WORKSPACE" ${vm_args}
+${ECLIPSE_HOME}/eclipse ${eclipse_args} -build all -data "$WORKSPACE" 
