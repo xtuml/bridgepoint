@@ -98,7 +98,7 @@ configure_dap()
     cp -f $user_supplied_files/vgalaxy8.vr     ./win32/client/bin
     cp -f $user_supplied_files/msvcrt.dll      ./win32/client/bin
     cp -f $user_supplied_files/vgal8c.dll      ./win32/client/lib
-    cp -f $MC3020/mc3020/schema/sql/xtumlmc_schema.sql ./xtumlmc_schema.sql
+    cp -f ${git_repo_root}/mc/schema/sql/xtumlmc_schema.sql ./xtumlmc_schema.sql
     
     cd $dap/bridgepoint/win32/client
     cp -f ${git_repo_root}/mc/libTRANS/libTRANS.dll ./lib/libTRANS.dll
