@@ -105,6 +105,7 @@ echo "INFO: Done."
 # Rename the output file
 DATESTAMP=`date +%Y%m%d%H%M`
 echo "INFO: Renaming the output file to ${PRODUCT_NAME}_${PRODUCT_BRANCH}_${DATESTAMP}.jar."
+cd "${OUTPUT_DIR}"
 if [ "${PRODUCT_BRANCH}" = "master" ]; then
   rm -rf ${PRODUCT_NAME}_${PRODUCT_BRANCH}_*.jar
 fi
@@ -118,12 +119,11 @@ if [ ${size} -lt 300000 ]; then
   exit 5
 fi
 
-# Move it to the release area
+# Publish it to the external release area
 echo "INFO: Copying the new installer to the release website."
 if [ "${PRODUCT_BRANCH}" = "master" ]; then
   # TODO - ssh ${SERVER} "(cd '${REMOTE_RELEASE_DIR}'; rm -rf ${PRODUCT_NAME}_${PRODUCT_BRANCH}_*.jar)"
 fi
-cp -f "${PRODUCT_NAME}_${PRODUCT_BRANCH}_${DATESTAMP}_${OS}.jar" "${OUTPUT_DIR}"
 # TODO - ssh ${SERVER} "(cd '${REMOTE_RELEASE_DIR}'; chmod 755 ${PRODUCT_NAME}_${PRODUCT_BRANCH}_*.jar)"
 echo "INFO: Done."
 
