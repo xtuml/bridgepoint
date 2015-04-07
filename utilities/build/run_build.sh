@@ -198,7 +198,7 @@ else
   rm -f "${BUILD_ROOT}/init_git_repositories.tmp"
 fi
 echo -e "Getting files from github, this could take a while."
-bash "${BUILD_ROOT}/init_git_repositories.sh ${BRANCH} ${GIT_REPO_ROOT} ${ALLOW_FALLBACK}" >> ${BUILD_LOG} 2>&1
+bash "${BUILD_ROOT}/init_git_repositories.sh" ${BRANCH} ${GIT_REPO_ROOT} ${ALLOW_FALLBACK} >> ${BUILD_LOG} 2>&1
 echo -e "Done."
 
 # Can do the copy and dos2unix translation in one step.
@@ -206,15 +206,21 @@ tr -d '\r' < ${GIT_BP}/utilities/build/configure_build_process.sh > configure_bu
 chmod a+x configure_build_process.sh
 
 bash configure_build_process.sh >> ${BUILD_LOG}
+cd  "${BUILD_DIR}"
 
-bash configure_external_dependencies.sh > ${LOG_DIR}/configure_externals.log 2>&1
+bash configure_external_dependencies.sh ${GIT_REPO_ROOT} > ${LOG_DIR}/configure_externals.log 2>&1
+cd  "${BUILD_DIR}"
 
 # TODO - put back - bash create_bp_release.sh  >> ${BUILD_LOG}
+cd  "${BUILD_DIR}"
 
 if [ ! -s ${ERROR_FILE} ]; then
-  bp_release_version=`awk -F"\"" '{if (/ersion.*\=.*[0-9]\.[0-9]\.[0-9]/) {print $2; exit;}}' ${GIT_BP}/src/org.xtuml.bp.core/plugin.xml`
+  bp_release_version=`awk -F"\"" '{if (/ersion.*\=.*[0-9]\.[0-9]\.[0-9]/) {print $2; exit;}}' ${GIT_BP}/src/org.xtuml.bp.pkg/plugin.xml`
   ./build_installer_bp.sh ${BRANCH} ${STAGING_AREA} /opt/IzPack ${RESULT_FOLDER} windows ${bp_release_version}
+  cd  "${BUILD_DIR}"
+  
   ./build_installer_bp.sh ${BRANCH} ${STAGING_AREA} /opt/IzPack ${RESULT_FOLDER} linux ${bp_release_version}
+  cd  "${BUILD_DIR}"
 fi
 
 if [ -e ${MAIL_CMD} ]; then

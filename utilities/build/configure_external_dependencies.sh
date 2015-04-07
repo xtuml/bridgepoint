@@ -1,5 +1,21 @@
 #!/bin/bash
 #
+#=====================================================================
+#
+# File:      configure_external_dependencies.sh
+#
+#=====================================================================
+#
+
+# Check arguments
+if [ $# -ne 1 ]; then
+    echo
+    echo "Usage: ./configure_external_dependencies.sh <git_repo_root>"
+    echo "      git_repo_root -- path to the root of the git repositories"
+    echo
+    exit 0
+fi
+
 #-------------------------------------------------------------------------------
 # Functions
 #-------------------------------------------------------------------------------
@@ -9,11 +25,6 @@
 get_user_supplied_binaries ()
 {
     echo -e "Entering configure_external_dependencies.sh::get_user_supplied_binaries"
-    
-    mkdir $user_supplied_files
-    
-    # Get the need files from the revision control folder
-    cp -rf ${GIT_REPO_ROOT}/packaging/* $user_supplied_files
     
     cd $user_supplied_files
     missing_files=""
@@ -71,13 +82,13 @@ configure_dap()
     mkdir win32/client/bin
     mkdir win32/client/lib
 
-    cp -r ${GIT_REPO_ROOT}/mc/etc/generator/bin ./bin
+    cp -r ${git_repo_root}/mc/etc/generator/bin ./bin
 
     cd $dap/bridgepoint/samples
-    cp -f ${GIT_REPO_ROOT}/mc/libTRANS/libTRANS.def ./translate/libTRANS.def
-    cp -f ${GIT_REPO_ROOT}/mc/libTRANS/libTRANS.mk  ./translate/libTRANS.mk
-    cp -f ${GIT_REPO_ROOT}/mc/libTRANS/pt_trans.c   ./translate/pt_trans.c
-    cp -f ${GIT_REPO_ROOT}/mc/libTRANS/pt_trans.h   ./translate/pt_trans.h
+    cp -f ${git_repo_root}/mc/libTRANS/libTRANS.def ./translate/libTRANS.def
+    cp -f ${git_repo_root}/mc/libTRANS/libTRANS.mk  ./translate/libTRANS.mk
+    cp -f ${git_repo_root}/mc/libTRANS/pt_trans.c   ./translate/pt_trans.c
+    cp -f ${git_repo_root}/mc/libTRANS/pt_trans.h   ./translate/pt_trans.h
 
     cd $dap/bridgepoint
     cp -f $user_supplied_files/gen_erate.exe   ./win32/client/bin/gen_erate.exe
@@ -89,9 +100,7 @@ configure_dap()
     cp -f $MC3020/mc3020/schema/sql/xtumlmc_schema.sql ./xtumlmc_schema.sql
     
     cd $dap/bridgepoint/win32/client
-    cp -f ${GIT_REPO_ROOT}/mc/libTRANS/libTRANS.dll ./lib/libTRANS.dll
-
-    cd ${BUILD_DIR}
+    cp -f ${git_repo_root}/mc/libTRANS/libTRANS.dll ./lib/libTRANS.dll
 }
 
 configure_mcc_src()
@@ -103,15 +112,15 @@ configure_mcc_src()
     rm -rf mc3020/bin
     rm -rf mc3020/schema
     cd mc3020
-    cp -r ${GIT_REPO_ROOT}/mc/arc ./arc
+    cp -r ${git_repo_root}/mc/arc ./arc
     rm -rf ./arc/sysc
     mv ./arc/c ./arc/specialized
-    cp -r ${GIT_REPO_ROOT}/mc/bin ./bin
-    cp -r ${GIT_REPO_ROOT}/mc/schema ./schema
+    cp -r ${git_repo_root}/mc/bin ./bin
+    cp -r ${git_repo_root}/mc/schema ./schema
     mv ./schema/default-manifest.xml ./
 
     cd $mcc_src/mc3020
-    cp -f ${GIT_REPO_ROOT}/mc/libTRANS/libTRANS.dll ./bin
+    cp -f ${git_repo_root}/mc/libTRANS/libTRANS.dll ./bin
     
     cp -f $user_supplied_files/xtumlmc_build.exe ./bin
     cp -f $user_supplied_files/gen_erate.exe     ./bin
@@ -123,14 +132,12 @@ configure_mcc_src()
     cp -f $user_supplied_files/vgal8c.dll        ./bin
     cp -f $user_supplied_files/vgalaxy8.vr       ./bin
     
-    cd ${BUILD_DIR}
+    cd ${bp_src_dir}
     cp -f $user_supplied_files/mc3020_doc.zip $mc3020_help/doc.zip
     rm -f $mc3020_help/techpub.css
     rm -f $mc3020_help/toc.xml    
-    cp -r ${GIT_REPO_ROOT}/mc/doc/ug/xml/techpub.css $mc3020_help
-    cp -r ${GIT_REPO_ROOT}/mc/doc/ug/xml/toc.xml $mc3020_help
-    
-    cd ${BUILD_DIR}
+    cp -r ${git_repo_root}/mc/doc/ug/xml/techpub.css $mc3020_help
+    cp -r ${git_repo_root}/mc/doc/ug/xml/toc.xml $mc3020_help
 }
 
 configure_mcc_bin()
@@ -145,8 +152,6 @@ configure_mcc_bin()
     # We brought across the C source arcs when we did this.  Remove.
     cd mc3020
     rm -rf ./arc
-    
-    cd ${BUILD_DIR}
 }
 
 configure_mcsystemc_src()
@@ -161,7 +166,7 @@ configure_mcsystemc_src()
     # We brought across the C source arcs when we did this.  Remove and bring in SystemC.
     cd mc3020
     rm -rf ./arc
-    cp -r ${GIT_REPO_ROOT}/mc/arc ./arc
+    cp -r ${git_repo_root}/mc/arc ./arc
     rm -rf ./arc/c
     mv ./arc/sysc ./arc/specialized
     mv ./schema/colors/system.mark ./schema/colors/system.mark.orig
@@ -170,8 +175,6 @@ configure_mcsystemc_src()
     # We don't want the model-based MC for this version, so remove it
     rm -f ./bin/mcmc
     rm -f ./bin/mcmc.exe
-     
-    cd ${BUILD_DIR}
 }
 
 configure_mccpp_src()
@@ -186,15 +189,13 @@ configure_mccpp_src()
     # We brought across the C source arcs when we did this.  Remove and bring in SystemC/C++.
     cd mc3020
     rm -rf ./arc
-    cp -r ${GIT_REPO_ROOT}/mc/arc ./arc
+    cp -r ${git_repo_root}/mc/arc ./arc
     rm -rf ./arc/c
     mv ./arc/sysc ./arc/specialized
 
     # We don't want the model-based MC for this version, so remove it
     rm -f ./bin/mcmc
     rm -f ./bin/mcmc.exe
-     
-    cd ${BUILD_DIR}
 }
 
 configure_vhdl_src()
@@ -209,8 +210,6 @@ configure_vhdl_src()
     # We don't want the model-based MC for this version, so remove it
     rm -f ./mc3020/bin/mcmc
     rm -f ./mc3020/bin/mcmc.exe
-     
-    cd ${BUILD_DIR}
 }
 
 
@@ -226,8 +225,6 @@ configure_java_src()
     # We don't want the model-based MC for this version, so remove it
     rm -f ./mc3020/bin/mcmc
     rm -f ./mc3020/bin/mcmc.exe
-     
-    cd ${BUILD_DIR}
 }
 
 
@@ -237,17 +234,20 @@ configure_java_src()
 
 echo -e "Entering configure_external_dependencies.sh"
 
+git_repo_root=$1
+bp_src_dir=${git_repo_root}/bridgepoint/src
+
 # Define Locations for Components
-user_supplied_files=${BUILD_DIR}/extra_files_for_build
-bp_pkg=${BUILD_DIR}/org.xtuml.bp.pkg
-dap=${BUILD_DIR}/org.xtuml.bp.dap.pkg
-mcc_src=${BUILD_DIR}/org.xtuml.bp.mc.c.source
-mcc_bin=${BUILD_DIR}/org.xtuml.bp.mc.c.binary
-mcsystemc_src=${BUILD_DIR}/org.xtuml.bp.mc.systemc.source
-mccpp_src=${BUILD_DIR}/org.xtuml.bp.mc.cpp.source
-mcvhdl_src=${BUILD_DIR}/org.xtuml.bp.mc.vhdl.source
-mcjava_src=${BUILD_DIR}/org.xtuml.bp.mc.java.source
-mc3020_help=${BUILD_DIR}/org.xtuml.help.bp.mc
+user_supplied_files=${git_repo_root}/packaging/build/extra_files
+bp_pkg=${bp_src_dir}/org.xtuml.bp.pkg
+dap=${bp_src_dir}/org.xtuml.bp.dap.pkg
+mcc_src=${bp_src_dir}/org.xtuml.bp.mc.c.source
+mcc_bin=${bp_src_dir}/org.xtuml.bp.mc.c.binary
+mcsystemc_src=${bp_src_dir}/org.xtuml.bp.mc.systemc.source
+mccpp_src=${bp_src_dir}/org.xtuml.bp.mc.cpp.source
+mcvhdl_src=${bp_src_dir}/org.xtuml.bp.mc.vhdl.source
+mcjava_src=${bp_src_dir}/org.xtuml.bp.mc.java.source
+mc3020_help=${bp_src_dir}/org.xtuml.help.bp.mc
 
 get_user_supplied_binaries
 if [ "$?" = "0" ];  then
@@ -260,8 +260,6 @@ if [ "$?" = "0" ];  then
   
   configure_dap
 fi
-
-cd ${BUILD_DIR}
 
 echo -e "Exiting configure_external_dependencies.sh"
 
