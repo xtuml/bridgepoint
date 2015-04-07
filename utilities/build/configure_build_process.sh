@@ -30,13 +30,13 @@ function configure_build_files {
 	#	
   	cd ${ECLIPSE_HOME}/plugins/${mc_project}_${HOST_BP_VERSION}
 	cp -fr mc3020/* ${GIT_BP}/src/${mc_project}/mc3020
-	chmod a+x ${GIT_BP}/src/${mc_project}/mc3020/xtumlmc_build*  2>>${ERROR_FILE}
-	chmod a+x ${GIT_BP}/src/${mc_project}/mc3020/gen_erate*  2>>${ERROR_FILE}
-	chmod a+x ${GIT_BP}/src/${mc_project}/mc3020/mcmc*  2>>${ERROR_FILE}
+	chmod a+x ${GIT_BP}/src/${mc_project}/mc3020/bin/xtumlmc_build*  2>>${ERROR_FILE}
+	chmod a+x ${GIT_BP}/src/${mc_project}/mc3020/bin/gen_erate*  2>>${ERROR_FILE}
+	chmod a+x ${GIT_BP}/src/${mc_project}/mc3020/bin/mcmc*  2>>${ERROR_FILE}
 	cp -fr mc3020/* ${GIT_BP}/src/${mcjava_project}/mc3020
-	chmod a+x ${GIT_BP}/src/${mcjava_project}/mc3020/xtumlmc_build* 2>>${ERROR_FILE}
-	chmod a+x ${GIT_BP}/src/${mcjava_project}/mc3020/gen_erate* 2>>${ERROR_FILE}
-	chmod a+x ${GIT_BP}/src/${mcjava_project}/mc3020/mcmc* 2>>${ERROR_FILE}
+	chmod a+x ${GIT_BP}/src/${mcjava_project}/mc3020/bin/xtumlmc_build* 2>>${ERROR_FILE}
+	chmod a+x ${GIT_BP}/src/${mcjava_project}/mc3020/bin/gen_erate* 2>>${ERROR_FILE}
+	chmod a+x ${GIT_BP}/src/${mcjava_project}/mc3020/bin/mcmc* 2>>${ERROR_FILE}
 
 	echo -e "Exiting configure_build_process.sh::configure_build_files"
 }
