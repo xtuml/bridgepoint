@@ -33,6 +33,8 @@ if [ "$GIT_BP" == "" ]; then
 	export GIT_BP="${HOME}/build/git/xtuml/bridgepoint"
 fi
 
+export CORE="${GIT_BP}/src/org.xtuml.bp.core"
+
 export GDK_NATIVE_WINDOWS=true
 export BP_JVM=$BPHOMEDIR/jre/lib/i386/client/libjvm.so
 
@@ -65,11 +67,11 @@ ${ECLIPSE_HOME}/eclipse ${eclipse_args} -cleanBuild all -data "$WORKSPACE"
 rm -f "${WORKSPACE}/.metadata/.log"
 
 ## touch a a generated filess to fix dependencies
-if [ -e "$GIT_BP/plugin.xml" ]; then 
-  echo "Touching a generated file: ($GIT_BP/plugin.xml)" 
-  touch "$GIT_BP/plugin.xml"
+if [ -e "${CORE}/plugin.xml" ]; then 
+  echo "Touching a generated file: ($CORE/plugin.xml)" 
+  touch "$CORE/plugin.xml"
 else
-  echo "ERROR! $GIT_BP/plugin.xml was not generated" 
+  echo "ERROR! $CORE/plugin.xml was not generated" 
 fi
 
 ## build all again
