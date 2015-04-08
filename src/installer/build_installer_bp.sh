@@ -170,6 +170,7 @@ fi
 echo "INFO: Copying the new installer to the release website."
 if [ "${PRODUCT_BRANCH}" = "master" ]; then
   # TODO - ssh ${SERVER} "(cd '${REMOTE_RELEASE_DIR}'; rm -rf ${PRODUCT_NAME}_${PRODUCT_BRANCH}_*.jar)"
+  dummy=1
 fi
 # TODO - ssh ${SERVER} "(cd '${REMOTE_RELEASE_DIR}'; chmod 755 ${PRODUCT_NAME}_${PRODUCT_BRANCH}_*.jar)"
 echo "INFO: Done."
