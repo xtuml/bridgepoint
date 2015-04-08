@@ -24,20 +24,6 @@ function configure_build_files {
     chmod a+x ${BUILD_DIR}/create_release_functions.sh 2>>${ERROR_FILE}
 	chmod a+x ${BUILD_DIR}/plugin_customization.ini 2>>${ERROR_FILE}
 	
-	#
-	# Files needed to build the tool.  Populate the git repo mc.c.binary plug-in
-	# with the model compiler files from the BP we're using to build.  
-	#	
-  	cd ${ECLIPSE_HOME}/plugins/${mc_project}_${HOST_BP_VERSION}
-	cp -fr mc3020/* ${GIT_BP}/src/${mc_project}/mc3020
-	chmod a+x ${GIT_BP}/src/${mc_project}/mc3020/bin/xtumlmc_build*  2>>${ERROR_FILE}
-	chmod a+x ${GIT_BP}/src/${mc_project}/mc3020/bin/gen_erate*  2>>${ERROR_FILE}
-	chmod a+x ${GIT_BP}/src/${mc_project}/mc3020/bin/mcmc*  2>>${ERROR_FILE}
-	cp -fr mc3020/* ${GIT_BP}/src/${mcjava_project}/mc3020
-	chmod a+x ${GIT_BP}/src/${mcjava_project}/mc3020/bin/xtumlmc_build* 2>>${ERROR_FILE}
-	chmod a+x ${GIT_BP}/src/${mcjava_project}/mc3020/bin/gen_erate* 2>>${ERROR_FILE}
-	chmod a+x ${GIT_BP}/src/${mcjava_project}/mc3020/bin/mcmc* 2>>${ERROR_FILE}
-
 	echo -e "Exiting configure_build_process.sh::configure_build_files"
 }
 
@@ -67,9 +53,10 @@ function configure_installer_files {
     cp -f post_install_script.bat ${installer_extras} 2>>${ERROR_FILE}
     tr -d '\r' < post_install_script.sh > ${installer_extras}/post_install_script.sh 2>>${ERROR_FILE}
 
-    # Next set up the windows files
     tr -d '\r' < build_installer_bp.sh > ${BUILD_DIR}/build_installer_bp.sh 2>>${ERROR_FILE}
     chmod a+x ${BUILD_DIR}/build_installer_bp.sh
+
+    # Next set up the windows files
     mkdir -p ${bp_deliverables}/extras
     cp -f Launcher.bat ${bp_deliverables}/extras 2>>${ERROR_FILE}
     cp -f CLI.bat ${bp_deliverables}/extras 2>>${ERROR_FILE}
