@@ -149,7 +149,6 @@ export MAIL_CMD="/usr/sbin/ssmtp"
 export MAIL_TEMP="mailtemp"
 export RELEASE_PKG="org.xtuml.bp.bld.pkg-feature"
 export SHELLUSER="${USER}"
-mkdir -p "${LOG_DIR}"
 
 export TIMESTAMP=`date +%Y%m%d%H%M`
 
