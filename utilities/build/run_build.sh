@@ -205,7 +205,7 @@ cd  "${BUILD_DIR}"
 bash configure_external_dependencies.sh ${GIT_REPO_ROOT} > ${LOG_DIR}/configure_externals.log 2>&1
 cd  "${BUILD_DIR}"
 
-# TODO - put back - bash create_bp_release.sh  >> ${BUILD_LOG}
+bash create_bp_release.sh  >> ${BUILD_LOG}
 cd  "${BUILD_DIR}"
 
 if [ ! -s ${ERROR_FILE} ]; then
