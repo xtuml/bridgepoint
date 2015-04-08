@@ -5,6 +5,15 @@
 #
 #  This script runs the nightly build.
 #
+#  The script requires at least two parameters:
+#    
+#     BPHOMEDIR   - This is the location of a BridgePoint installation
+#     BUILD_MOUNT - This holds the build server location that is the 
+#                   root for the build
+#  Optional:
+#     BRANCH      - This is an optional parameter that allows you to configure
+#                   the branch to build
+#               
 #  Since it is the starting point for the build chain, it must be manually put 
 #  into place for the build server to run. The variable BUILD_MOUNT holds the 
 #  build server location that is the root for the build.
@@ -78,12 +87,19 @@ function distribute_and_notify {
 # Main
 #-------------------------------------------------------------------------------
 
-# User defined variables:
-if [ "$BPHOMEDIR" = "" ]; then
-  export BPHOMEDIR="${HOME}/MentorGraphics/BridgePoint"
-fi  
+# Verify parameters
+if [ "$#" -lt 2 ]; then
 
-export BUILD_MOUNT="${HOME}/build"
+echo "At least two parameters are required.  See below for usage."
+echo
+echo "run_build.sh BridgePoint_Home_Directory Build_Root"
+echo
+echo "See the script header for more detail."
+exit 1
+fi 
+
+export BPHOMEDIR="$1"
+export BUILD_MOUNT="$2/build"
 export ECLIPSE_HOME="${BPHOMEDIR}/eclipse"
 
 # Do not modify these variables:
@@ -92,8 +108,8 @@ export GIT_REPO_ROOT="${BUILD_MOUNT}/git/xtuml"
 export GIT_BP="${GIT_REPO_ROOT}/bridgepoint"
 # if no arguments are present default to master
 export BRANCH="master"
-if [ $# -eq 1 ]; then
-  export BRANCH="$1"
+if [ "$3" != "" ]; then
+  export BRANCH="$3"
 fi
 
 # Make sure github credentials are available in the environment
