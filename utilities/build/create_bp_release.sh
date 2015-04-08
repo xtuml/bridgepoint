@@ -136,27 +136,14 @@ function create_build {
     # Generate list of modules needing verification
     all_modules="${internal_modules} ${plugin_modules} ${RELEASE_PKG} ${all_feature_modules} ${model_compiler_modules}"
 
-	verify_rval="0"
-    for module in $all_modules; do
-        echo "Verifying checkout of $module"
-        verify_checkout
-        # We let the loop continue to report all possible errors, but we don't
-        # want to reset the error condition when one is present
-        if [ "$verify_rval" != "0" ]; then
-          verify_rval="$?"
-        fi
-    done
-
-	# don't bother compiling or zipping if checkout failed
-    if [ "$verify_rval" = "0" ]; then
-    	# Can do the copy and dos2unix translation in one step.
-		tr -d '\r' < ${GIT_BP}/utilities/build/headless_build.sh > headless_build.sh
-		chmod a+x headless_build.sh
-        ./headless_build.sh
-        ## TODO: We need to check the build. The following routine use to do that
-        # check_build_modules
-        zip_distribution
-    fi
+    # Can do the copy and dos2unix translation in one step.
+	tr -d '\r' < ${GIT_BP}/utilities/build/headless_build.sh > headless_build.sh
+	chmod a+x headless_build.sh
+    ./headless_build.sh
+    ## TODO: We need to check the build. The following routine used to do that
+    # check_build_modules
+    zip_distribution
+        
 	echo -e "Exiting create_bp_release.sh::create_build"
 }
 

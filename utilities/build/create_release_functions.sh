@@ -5,11 +5,9 @@
 #
 #    The following variables must be defined in any calling script
 #
-#    GIT_REPO_ROOT - the directory that is the parent folder of the git repositories
 #    BUILD_DIR - the directory for which to build the release
 #    LOG_DIR - the directory where logs will be kept.
 #    BRANCH - the branch/tag representing the release version
-#    RELEASE_PKG - the eclipse feature package
 #
 #
 echo -e "Entering create_release_functions.sh"
@@ -23,16 +21,6 @@ fi
 echo -e "Exiting create_release_functions.sh"
 
 
-function verify_checkout {
-    dir_count=`ls ${module} | wc -l`
-
-    if [ ${dir_count} -le 1 ]; then
-        echo -e "Error in create_release_functions.sh::verify_checkout while checking out ${module} with tag: ${BRANCH}"
-        return 1
-    fi
-    return 0
-}
-
 function check_build_modules {
 	echo -e "Entering create_release_functions.sh::check_build_modules"
 
@@ -45,7 +33,7 @@ function check_build_modules {
 	# Check for errors and place in a temp file for later use.
 	for module in ${modules}; do
 		module_build_log="${build_log_dir}/${module}_build.log"
-	 Special case to exclude als.oal package as its built from als
+	    # Special case to exclude als.oal package as its built from als
 	    if [ ${module} != "org.xtuml.bp.als.oal" ] && [ ${module} != "org.xtuml.bp.ui.tree" ] && [ ${module} != "org.xtuml.bp.internal.tools" ]; then
 	        Check for all cases of error, failed, and failure
 	        grep -c -i -w "ERROR" ${module_build_log}
