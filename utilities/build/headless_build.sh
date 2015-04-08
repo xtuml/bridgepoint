@@ -60,6 +60,10 @@ ${ECLIPSE_HOME}/eclipse ${eclipse_args} ${import_cmd} -data "${WORKSPACE}"
 echo "Performing a clean build."
 ${ECLIPSE_HOME}/eclipse ${eclipse_args} -cleanBuild all -data "$WORKSPACE" 
 
+# Remove previous logs, we really don't care about any failures that happen
+# prior to this final build
+rm -f "${WORKSPACE}/.metadata/.log"
+
 ## touch a a generated filess to fix dependencies
 if [ -e "$GIT_BP/plugin.xml" ]; then 
   echo "Touching a generated file: ($GIT_BP/plugin.xml)" 
