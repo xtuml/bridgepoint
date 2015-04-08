@@ -80,6 +80,53 @@ else
 fi
 echo "INFO: Done."
 
+echo "INFO: Configuring correct xtumlmc_build.exe for ${OS}."
+cd "${PRODUCT_NAME}/eclipse/plugins"
+if [ "${OS}" = "Linux" ]; then
+      mcplugin="./org.xtuml.bp.mc.c.binary_${BP_VERSION}/mc3020/bin"
+      rm -f ${mcplugin}/xtumlmc_build.exe.win
+      cp -f ${mcplugin}/xtumlmc_build ${mcplugin}/xtumlmc_build.exe
+
+      mcplugin="./org.xtuml.bp.mc.c.source_${BP_VERSION}/mc3020/bin"
+      rm -f ${mcplugin}/xtumlmc_build.exe.win
+      cp -f ${mcplugin}/xtumlmc_build ${mcplugin}/xtumlmc_build.exe
+
+      mcplugin="./org.xtuml.bp.mc.cpp.source_${BP_VERSION}/mc3020/bin"
+      rm -f ${mcplugin}/xtumlmc_build.exe.win
+      cp -f ${mcplugin}/xtumlmc_build ${mcplugin}/xtumlmc_build.exe
+
+      mcplugin="./org.xtuml.bp.mc.java.source_${BP_VERSION}/mc3020/bin"
+      rm -f ${mcplugin}/xtumlmc_build.exe.win
+      cp -f ${mcplugin}/xtumlmc_build ${mcplugin}/xtumlmc_build.exe
+
+      mcplugin="./org.xtuml.bp.mc.systemc.source_${BP_VERSION}/mc3020/bin"
+      rm -f ${mcplugin}/xtumlmc_build.exe.win
+      cp -f ${mcplugin}/xtumlmc_build ${mcplugin}/xtumlmc_build.exe
+
+      mcplugin="./org.xtuml.bp.mc.vhdl.source_${BP_VERSION}/mc3020/bin"
+      rm -f ${mcplugin}/xtumlmc_build.exe.win
+      cp -f ${mcplugin}/xtumlmc_build ${mcplugin}/xtumlmc_build.exe
+else
+      mcplugin="./org.xtuml.bp.mc.c.binary_${BP_VERSION}/mc3020/bin"
+      mv -f ${mcplugin}/xtumlmc_build.exe.win ${mcplugin}/xtumlmc_build.exe
+
+      mcplugin="./org.xtuml.bp.mc.c.source_${BP_VERSION}/mc3020/bin"
+      mv -f ${mcplugin}/xtumlmc_build.exe.win ${mcplugin}/xtumlmc_build.exe
+
+      mcplugin="./org.xtuml.bp.mc.cpp.source_${BP_VERSION}/mc3020/bin"
+      mv -f ${mcplugin}/xtumlmc_build.exe.win ${mcplugin}/xtumlmc_build.exe
+
+      mcplugin="./org.xtuml.bp.mc.java.source_${BP_VERSION}/mc3020/bin"
+      mv -f ${mcplugin}/xtumlmc_build.exe.win ${mcplugin}/xtumlmc_build.exe
+
+      mcplugin="./org.xtuml.bp.mc.systemc.source_${BP_VERSION}/mc3020/bin"
+      mv -f ${mcplugin}/xtumlmc_build.exe.win ${mcplugin}/xtumlmc_build.exe
+
+      mcplugin="./org.xtuml.bp.mc.vhdl.source_${BP_VERSION}/mc3020/bin"
+      mv -f ${mcplugin}/xtumlmc_build.exe.win ${mcplugin}/xtumlmc_build.exe
+fi
+echo "INFO: Done."
+
 echo "INFO: Moving new extension data to ${INSTALLER_DATA_DIR}."
 cd "${INSTALLER_DATA_DIR}"
 rm -rf ${PRODUCT_NAME}
@@ -114,7 +161,7 @@ echo "INFO: Done."
 
 # Make sure the output looks good
 size=$(du -k ${PRODUCT_NAME}_${PRODUCT_BRANCH}_${DATESTAMP}_${OS}.jar | sed 's/\([0-9]*\)\(.*\)/\1/')
-if [ ${size} -lt 300000 ]; then
+if [ "${size}" -lt "300000" ]; then
   echo "ERROR: Created installer file size is less than expected, exiting."
   exit 5
 fi
