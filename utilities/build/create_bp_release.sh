@@ -259,9 +259,6 @@ export PTC_MCC_DISABLED=true
 # Get back to the base directory
 cd ${BUILD_DIR}
 
-# Source the functions script
-source ${BUILD_DIR}/create_release_functions.sh
-
 # Kick off the build chain
 create_build
 
