@@ -29,8 +29,6 @@ OUTPUT_DIR="$4"
 OS_ARG="$5"
 BP_VERSION="$6"
 OUTPUT_DIR_EXTENSION="${OUTPUT_DIR}-extension"
-# TODO - remove override below (which is here for testing)
-OUTPUT_DIR_EXTENSION="/tmp/installer-testing"
 
 PRODUCT_NAME="BridgePoint"
 ECLIPSE_VER="3.7"
