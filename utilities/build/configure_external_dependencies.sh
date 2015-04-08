@@ -126,12 +126,24 @@ configure_mcc_src()
     cp -f $user_supplied_files/xtumlmc_build.exe ./bin
     cp -f $user_supplied_files/gen_erate.exe     ./bin
     cp -f $user_supplied_files/mcmc              ./bin
+    cp -f $user_supplied_files/mcmc64            ./bin
     cp -f $user_supplied_files/mcmc.exe          ./bin
     cp -f $user_supplied_files/msvcrt.dll        ./bin
     cp -f $user_supplied_files/msvcirt.dll       ./bin
     cp -f $user_supplied_files/msvcp60.dll       ./bin
     cp -f $user_supplied_files/vgal8c.dll        ./bin
     cp -f $user_supplied_files/vgalaxy8.vr       ./bin
+    
+    # Since we're using the plug-in files themselves to build BridgePoint, make sure
+    # they are executable and the xtumlmc_build.exe is in the right state (Windows vs. Linux)
+    chmod a+x ./bin/xtumlmc_build*
+	chmod a+x ./bin/gen_erate*
+	chmod a+x ./bin/mcmc*
+	build_os=$(uname)
+    if [ "${build_os}" = "Linux" ];  then
+      mv -f ./bin/xtumlmc_build.exe ./bin/xtumlmc_build.exe.win
+      cp -f ./bin/xtumlmc_build ./bin/xtumlmc_build.exe
+	fi
     
     cd ${bp_src_dir}
     cp -f $user_supplied_files/mc3020_doc.zip $mc3020_help/doc.zip
@@ -175,6 +187,7 @@ configure_mcsystemc_src()
     
     # We don't want the model-based MC for this version, so remove it
     rm -f ./bin/mcmc
+    rm -f ./bin/mcmc64
     rm -f ./bin/mcmc.exe
 }
 
@@ -196,6 +209,7 @@ configure_mccpp_src()
 
     # We don't want the model-based MC for this version, so remove it
     rm -f ./bin/mcmc
+    rm -f ./bin/mcmc64
     rm -f ./bin/mcmc.exe
 }
 
@@ -210,6 +224,7 @@ configure_vhdl_src()
     
     # We don't want the model-based MC for this version, so remove it
     rm -f ./mc3020/bin/mcmc
+    rm -f ./mc3020/bin/mcmc64
     rm -f ./mc3020/bin/mcmc.exe
 }
 
@@ -225,6 +240,7 @@ configure_java_src()
     
     # We don't want the model-based MC for this version, so remove it
     rm -f ./mc3020/bin/mcmc
+    rm -f ./mc3020/bin/mcmc64
     rm -f ./mc3020/bin/mcmc.exe
 }
 
