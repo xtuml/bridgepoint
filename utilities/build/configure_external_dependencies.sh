@@ -136,13 +136,15 @@ configure_mcc_src()
     
     # Since we're using the plug-in files themselves to build BridgePoint, make sure
     # they are executable and the xtumlmc_build.exe is in the right state (Windows vs. Linux)
+    # and are in unix file format
     chmod a+x ./bin/xtumlmc_build*
 	chmod a+x ./bin/gen_erate*
 	chmod a+x ./bin/mcmc*
 	build_os=$(uname)
     if [ "${build_os}" = "Linux" ];  then
       mv -f ./bin/xtumlmc_build.exe ./bin/xtumlmc_build.exe.win
-      cp -f ./bin/xtumlmc_build ./bin/xtumlmc_build.exe
+      tr -d '\r' < ./bin/xtumlmc_build > ./bin/xtumlmc_build.exe
+      cp -f ./bin/xtumlmc_build.exe ./bin/xtumlmc_build
 	fi
     
     cd ${bp_src_dir}
