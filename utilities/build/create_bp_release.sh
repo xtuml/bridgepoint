@@ -140,8 +140,6 @@ function create_build {
 	tr -d '\r' < ${GIT_BP}/utilities/build/headless_build.sh > headless_build.sh
 	chmod a+x headless_build.sh
     ./headless_build.sh
-    ## TODO: We need to check the build. The following routine used to do that
-    # check_build_modules
     zip_distribution
         
 	echo -e "Exiting create_bp_release.sh::create_build"

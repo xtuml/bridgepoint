@@ -58,15 +58,25 @@ done
 echo "Importing projects."
 ${ECLIPSE_HOME}/eclipse ${eclipse_args} ${import_cmd} -data "${WORKSPACE}" 
 
+# Before running the build make sure the ant log folder is present
+# The import calls will have created the .metadata folder
+mkdir -p ${WORKSPACE}/.metadata/bridgepoint/build/log
+
 ###  Clean build
 echo "Performing a clean build."
 ${ECLIPSE_HOME}/eclipse ${eclipse_args} -cleanBuild all -data "$WORKSPACE" 
+
+# Scan ant output logs and search for compile errors, exit with a failure
+# code if any errors or failures are found
+./verify_build.sh
+# Grab the code_generation and compile result
+CODE_COMPILE_RETVAL=$?
 
 # Remove previous logs, we really don't care about any failures that happen
 # prior to this final build
 rm -f "${WORKSPACE}/.metadata/.log"
 
-## touch a a generated filess to fix dependencies
+## touch a generated file to fix dependencies
 if [ -e "${CORE}/plugin.xml" ]; then 
   echo "Touching a generated file: ($CORE/plugin.xml)" 
   touch "$CORE/plugin.xml"
@@ -77,3 +87,12 @@ fi
 ## build all again
 echo "Performing a build."
 ${ECLIPSE_HOME}/eclipse ${eclipse_args} -build all -data "$WORKSPACE" 
+RETVAL=$?
+if [ $RETVAL -eq 0 ] && [ CODE_COMPILE_RETVAL -eq 0 ]; then
+	echo "The build SUCCEEDED."
+	exit 0
+fi
+if [ $RETVAL -ne 0 ];
+ 	echo "The build FAILED."
+ 	exit 1
+fi
