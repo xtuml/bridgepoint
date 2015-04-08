@@ -12,9 +12,7 @@
 #  Build Server Requirements:
 #  1) run_build.sh, and init_git_repositories.sh must be present in ${BUILD_ROOT}
 #  2) BridgePoint must be installed to the folder pointed to by the 
-#     ${BPHOMEDIR} variable from the environment or defined below.  The 
-#     BridgePoint version must be defined in environment ${HOST_BP_VERSION} or 
-#     changed below.
+#     ${BPHOMEDIR} variable from the environment or defined below.  
 #  3) git and ant must be installed on the build server
 # 
 #  The build is performed under ${BUILD_ROOT}.  The result of the build:
@@ -84,9 +82,6 @@ function distribute_and_notify {
 if [ "$BPHOMEDIR" = "" ]; then
   export BPHOMEDIR="${HOME}/MentorGraphics/BridgePoint"
 fi  
-if [ "$HOST_BP_VERSION" = "" ]; then
-  export HOST_BP_VERSION="4.2.1"
-fi
 
 export BUILD_MOUNT="${HOME}/build"
 export ECLIPSE_HOME="${BPHOMEDIR}/eclipse"
@@ -114,7 +109,6 @@ echo "BUILD_ROOT=${BUILD_ROOT}"
 echo "BRANCH=${BRANCH}"
 echo "GIT_REPO_ROOT=${GIT_REPO_ROOT}"
 echo "BPHOMEDIR=${BPHOMEDIR}"
-echo "HOST_BP_VERSION=${HOST_BP_VERSION}"
 
 # this flag is constant and could potentially be removed, but it is 
 # being left in case we do want to have the build be different then other 
