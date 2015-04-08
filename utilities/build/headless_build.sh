@@ -92,7 +92,7 @@ if [ $RETVAL -eq 0 ] && [ CODE_COMPILE_RETVAL -eq 0 ]; then
 	echo "The build SUCCEEDED."
 	exit 0
 fi
-if [ $RETVAL -ne 0 ];
+if [ $RETVAL -ne 0 ]; then
  	echo "The build FAILED."
  	exit 1
 fi

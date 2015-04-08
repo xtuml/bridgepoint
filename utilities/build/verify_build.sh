@@ -15,7 +15,7 @@ grep -c -i -w "FAILED" *
 failed_count=$?
 grep -c -i -w "FAILURE" *
 failure_count=$?
-cat org.xtuml.bp.core.log
+
 cd $original_dir
 
 if [ ${error_count} -ne 1 ] || [ ${failed_count} -ne 1 ] || [ ${failure_count} -ne 1 ]; then
