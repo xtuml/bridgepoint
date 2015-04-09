@@ -34,8 +34,8 @@ function jar_distribution {
     echo -e "Creating a jar of each project"
 
     for module in ${plugin_modules}; do
-        echo -e "  Creating jar for ${module}"
-        if [ $module != ${pkg_module} ] && [ $module != ${doc_module} ] && [ $module != ${doc_module_mc3020} ]; then
+        if [ -d "${module}/src" ]; then
+            echo -e "  Creating jar for ${module}"
             cd ${module}/src
             # First copy all files other than .java from the src to the bin
             echo -e "    Ready to loop to find files to package."
@@ -59,9 +59,11 @@ function jar_distribution {
             echo -e "    jar file name is ${jar_name}"
             jar -cvf ${jar_name} . > ${pkg_log_dir}/${jar_name}.log 2>&1
             echo -e "    Finished creating jar file."
-
-            cd ${GIT_BP}/src
+        else
+            echo -e "  Skipping jar creation for ${module}"
         fi
+        
+        cd ${GIT_BP}/src        
     done
 	echo -e "Exiting create_bp_release.sh::jar_distribution"    
 }
@@ -102,8 +104,6 @@ function zip_distribution {
         
         mv $module/bin/*.jar ${BUILD_DIR}/plugins/${module}_${module_release_version} > /dev/null 2>&1
     done
-
-    mkdir ${BUILD_DIR}/features/${pkg_module}_${release_version}
 
     create_all_features
 
@@ -238,7 +238,6 @@ pkg_log_dir="${LOG_DIR}/pkg_logs"
 
 doc_module="org.xtuml.bp.doc"
 doc_module_mc3020="org.xtuml.help.bp.mc"
-pkg_module="org.xtuml.bp.bld.pkg"
 feature_modules=""
 plugin_modules=""
 plugins_to_jar=""
