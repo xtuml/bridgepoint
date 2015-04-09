@@ -79,7 +79,7 @@
   <target name="grammar.depends" >
     <uptodate property="grammar.buildNotNeeded" targetfile="${antlr.output}">
        <srcfiles dir = "../org.xtuml.bp.als.oal/bnf" includes = "oal.bnf"/>
-       <srcfiles dir = "../pt_antlr" includes = "antlr.jar"/>
+       <srcfiles dir = "lib" includes = "antlr.jar"/>
     </uptodate>
   </target>
 
@@ -88,7 +88,7 @@
           description="Generate the Grammar file"
           unless="grammar.buildNotNeeded" >
     <echo >Generating ${antlr.output} ...</echo>
-    <java dir="." fork="true" classpath="../pt_antlr/antlr.jar" classname="antlr.Tool" >
+    <java dir="." fork="true" classpath="lib/antlr.jar" classname="antlr.Tool" >
       <arg value="-nocodegen" />
       <arg value="-sql=${antlr.output}" />
       <arg value="../org.xtuml.bp.als.oal/bnf/oal.bnf" />
