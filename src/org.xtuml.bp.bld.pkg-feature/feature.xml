@@ -139,8 +139,64 @@ the License.
          install-size="0"
          version="4.2.1"/>
 
+   <plugin id="org.xtuml.bp.ui.session"
+         download-size="0"
+         install-size="0"
+         version="4.2.1"/>
+
    <plugin id="org.xtuml.bp.cli"
          download-size="0"
          install-size="0"
          version="4.2.1"/>
+
+   <plugin id="org.xtuml.help.bp.mc"
+         download-size="0"
+         install-size="0"
+         version="4.2.1"/>
+
+   <plugin id="org.xtuml.bp.mc"
+         download-size="0"
+         install-size="0"
+         version="4.2.1"/>
+
+   <plugin id="org.xtuml.bp.mc.c.binary"
+         download-size="0"
+         install-size="0"
+         version="4.2.1"/>
+
+   <plugin id="org.xtuml.bp.mc.c.source"
+         download-size="0"
+         install-size="0"
+         version="4.2.1"/>
+
+   <plugin id="org.xtuml.bp.mc.cpp.source"
+         download-size="0"
+         install-size="0"
+         version="4.2.1"/>
+
+   <plugin id="org.xtuml.bp.mc.java.source"
+         download-size="0"
+         install-size="0"
+         version="4.2.1"/>
+
+   <plugin id="org.xtuml.bp.mc.none"
+         download-size="0"
+         install-size="0"
+         version="4.2.1"/>
+
+   <plugin id="org.xtuml.bp.mc.systemc.source"
+         download-size="0"
+         install-size="0"
+         version="4.2.1"/>
+
+   <plugin id="org.xtuml.bp.mc.template"
+         download-size="0"
+         install-size="0"
+         version="4.2.1"/>
+
+   <plugin id="org.xtuml.bp.mc.vhdl.source"
+         download-size="0"
+         install-size="0"
+         version="4.2.1"/>
+
 </feature>
