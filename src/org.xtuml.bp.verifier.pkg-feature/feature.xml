@@ -29,4 +29,10 @@ the License.
          install-size="0"
          version="4.2.1"/>
 
+   <plugin
+         id="org.xtuml.bp.debug.ui"
+         download-size="0"
+         install-size="0"
+         version="4.2.1"/>
+
 </feature>
