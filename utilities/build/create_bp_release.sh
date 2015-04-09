@@ -159,11 +159,6 @@ function create_build {
 	echo -e "Exiting create_bp_release.sh::create_build"
 }
 
-function create_feature {
-    cd ${GIT_BP}/src
-    copy_included_files ${RELEASE_PKG} features ${pkg_module}_${release_version}
-}
-
 function copy_included_files {
 	echo -e "Entering create_bp_release.sh::copy_included_files"
 	
@@ -208,8 +203,6 @@ function copy_included_files {
 function create_all_features {
 	echo -e "Entering create_bp_release.sh::create_all_features"
 	
-    create_feature
-
     cd ${GIT_BP}/src
 
     echo -e "Processing features: ${feature_modules}"
@@ -228,7 +221,6 @@ function create_all_features {
           mv ${feature_less}/about.mappings.tmp ${feature_less}/about.mappings
         fi
       fi
-      copy_included_files ${feature_less} plugins ${feature_less}_${feature_version}
     done
 	echo -e "Exiting create_bp_release.sh::create_all_features"
 }
