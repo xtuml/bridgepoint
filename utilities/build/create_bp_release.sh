@@ -11,6 +11,8 @@
 #-------------------------------------------------------------------------------
 
 function configure_module_lists {
+    cd ${GIT_BP}/src
+    
     feature_file_list=$(find . -name "feature.xml")
 
     feature_modules=$(find . -name "feature.xml" | sed 's|/feature.xml||' | sed 's|./||')
@@ -269,9 +271,7 @@ fi
 # checking is not built
 export PTC_MCC_DISABLED=true
 
-# Get back to the base directory
-cd ${BUILD_DIR}
-
+# Set up the lists of features and plug-ins
 configure_module_lists
 
 # Kick off the build chain
