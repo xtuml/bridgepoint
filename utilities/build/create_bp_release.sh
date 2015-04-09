@@ -29,7 +29,7 @@ function configure_module_lists {
 function jar_distribution {
 	echo -e "Entering create_bp_release.sh::jar_distribution"    
 
-    cd $BUILD_DIR
+    cd ${GIT_BP}/src
 
     echo -e "Creating a jar of each project"
 
@@ -72,7 +72,7 @@ function zip_distribution {
 	echo -e "Entering create_bp_release.sh::zip_distribution"    
     jar_distribution
 
-    cd $BUILD_DIR
+    cd ${GIT_BP}/src
 
     echo -e "Zipping the distribution"
 
@@ -98,11 +98,11 @@ function zip_distribution {
             echo -e "0=${module_release_version} ${internal_version}\n1=${TIMESTAMP}\n" > ${module}/about.mappings
         fi
 
-        mkdir plugins/${module}_${module_release_version}
+        mkdir ${BUILD_DIR}/plugins/${module}_${module_release_version}
 
         copy_included_files ${module} plugins ${module}_${module_release_version}
 
-        mv $module/bin/*.jar plugins/${module}_${module_release_version} > /dev/null 2>&1
+        mv $module/bin/*.jar ${BUILD_DIR}/plugins/${module}_${module_release_version} > /dev/null 2>&1
     done
 
     mkdir ${BUILD_DIR}/features/${pkg_module}_${release_version}
@@ -160,20 +160,20 @@ function create_build {
 }
 
 function create_feature {
-    cd $BUILD_DIR
+    cd ${GIT_BP}/src
     copy_included_files ${RELEASE_PKG} features ${pkg_module}_${release_version}
 }
 
 function copy_included_files {
 	echo -e "Entering create_bp_release.sh::copy_included_files"
 	
-    # This function copies all files listed in a plugins
+    # This function copies all files listed in a plugin's
     # bin.includes variable from its build.properties file
     #
     # args: 1 = module 2 = parent folder (features or plugins) 3 = destination folder
     echo -e "  copying files: ${1} to ${2}/${3}"
-    if [ ! -d ${2}/${3} ]; then
-      mkdir ${2}/${3}
+    if [ ! -d ${BUILD_DIR}/${2}/${3} ]; then
+      mkdir ${BUILD_DIR}/${2}/${3}
     fi
     if [ -e ${1}/build.properties ]; then
       include_files=`echo -e "\n" | cat ${1}/build.properties - | awk '{if (/bin.includes = /) {print $3; getline; while (/^[[:blank:]]/) {print $1; getline;}}}' - | tr -d '\\\\' | tr -d ','`
@@ -193,14 +193,12 @@ function copy_included_files {
             cp --parents ${file} ${BUILD_DIR}/${2}/${3}/ > /dev/null 2>&1
           fi
         fi
-
-        cd $BUILD_DIR
       done
 
       exclude_files=`echo -e "\n" | cat ${1}/build.properties - | awk '{if (/bin.excludes = /) {print $3; getline; while (/^[[:blank:]]/) {print $1; getline;}}}' - | tr -d '\\\\' | tr -d ','`
 
       for file in ${exclude_files}; do
-        rm -rf ${2}/${3}/${file}
+        rm -rf ${BUILD_DIR}/${2}/${3}/${file}
       done
 
     fi
@@ -212,7 +210,7 @@ function create_all_features {
 	
     create_feature
 
-    cd $BUILD_DIR
+    cd ${GIT_BP}/src
 
     echo -e "Processing features: ${feature_modules}"
     for feature in $feature_modules; do
@@ -270,6 +268,8 @@ fi
 # Set the environment variable, PTC_MCC_DISABLED to true so that consistency 
 # checking is not built
 export PTC_MCC_DISABLED=true
+
+release_version=`awk -F"\"" '{if (/ersion.*\=.*[0-9]\.[0-9]\.[0-9]/) {print $2; exit;}}' ${GIT_BP}/src/org.xtuml.bp.pkg/plugin.xml`
 
 # Set up the lists of features and plug-ins
 configure_module_lists
