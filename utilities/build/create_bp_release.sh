@@ -19,7 +19,7 @@ function jar_distribution {
 
     echo -e "Creating a jar of each project"
 
-    for module in $plugin_modules; do
+    for module in ${plugin_modules}; do
         echo -e "  Creating jar for ${module}"
         if [ $module != ${pkg_module} ] && [ $module != ${doc_module} ] && [ $module != ${doc_module_mc3020} ]; then
             cd ${module}/src
@@ -62,7 +62,7 @@ function zip_distribution {
 
     echo -e "Zipping the distribution"
 
-    for module in $plugin_modules ${plugin_fragments}; do
+    for module in ${plugin_modules}; do
         module_release_version="${release_version}"
 
         # If MANIFEST.MF or plugin.xml file exists, get plugin version from there
@@ -133,9 +133,6 @@ function create_build {
 	
     cd $BUILD_DIR
 
-    # Generate list of modules needing verification
-    all_modules="${internal_modules} ${plugin_modules} ${RELEASE_PKG} ${all_feature_modules} ${model_compiler_modules}"
-
     # Can do the copy and dos2unix translation in one step.
 	tr -d '\r' < ${GIT_BP}/utilities/build/headless_build.sh > headless_build.sh
 	chmod a+x headless_build.sh
@@ -169,7 +166,7 @@ function copy_included_files {
       for file in ${include_files}; do
         cd ${1}
 
-        if [ ${file} = "." ]; then
+        if [ "${file}" = "." ]; then
           # Special handling for plugins that will be packaged as jars
           file="bin/com/"
           cp -Rd ${file} ${BUILD_DIR}/${2}/${3}/
