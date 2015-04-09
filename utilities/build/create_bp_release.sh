@@ -150,7 +150,7 @@ function create_build {
 	chmod a+x headless_build.sh
 	# prepare the verify script as well
 	tr -d '\r' < ${GIT_BP}/utilities/build/verify_build.sh > verify_build.sh
-	chmod a+x headless_build.sh	
+	chmod a+x verify_build.sh
     ./headless_build.sh
     zip_distribution
         
