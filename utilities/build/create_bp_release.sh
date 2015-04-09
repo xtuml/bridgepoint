@@ -39,28 +39,28 @@ function jar_distribution {
             cd ${module}/src
             # First copy all files other than .java from the src to the bin
             echo -e "    Ready to loop to find files to package."
-            file_list=`find . -path "*.java"  -prune -o -print`
+            file_list=$(find . -path "*.java"  -prune -o -print | sed s/.*gitignore// | sed '/^\s*$/d')
             echo -e "    The files are: ${file_list}"
             for file in ${file_list}; do
                 echo -e "    Found file ${file}"
                 if [ ! -d ${file} ]; then
                     mod_dir=`dirname ${file}`
                     echo -e "      mod_dir=${mod_dir}"
-                    echo -e "    Copying $file to ${BUILD_DIR}/${module}/bin/${mod_dir}"
-                    cp $file ${BUILD_DIR}/${module}/bin/${mod_dir}
+                    echo -e "      Copying $file to ${GIT_BP}/src/${module}/bin/${mod_dir}"
+                    cp $file ${GIT_BP}/src/${module}/bin/${mod_dir}
                 fi
                 echo -e "      ready to look for next file"
             done
             echo -e "    Finished looping."
 
-            cd ${BUILD_DIR}/${module}/bin
+            cd ${GIT_BP}/src/${module}/bin
 
             jar_name=`grep -e "^source.*jar =" ../build.properties | awk '/^source/,/ =/ { sub("source.", ""); print $1;}' -`
             echo -e "    jar file name is ${jar_name}"
             jar -cvf ${jar_name} . > ${pkg_log_dir}/${jar_name}.log 2>&1
             echo -e "    Finished creating jar file."
 
-            cd $BUILD_DIR
+            cd ${GIT_BP}/src
         fi
     done
 	echo -e "Exiting create_bp_release.sh::jar_distribution"    
@@ -84,9 +84,6 @@ function zip_distribution {
             module_release_version=`awk -F": " '{if (/[0-9]\.[0-9]\.[0-9]/) {print $2; exit;}}' ${module}/META-INF/MANIFEST.MF`
         elif [ -e ${module}/plugin.xml ]; then
             module_release_version=`awk -F"\"" '{if (/ersion.*\=.*[0-9]\.[0-9]\.[0-9]/) {print $2; exit;}}' ${module}/plugin.xml`
-            if [ ${module} = "org.xtuml.bp.core" ]; then
-              core_release_version=${module_release_version}
-            fi
         fi
 
         echo -e "  Zipping ${module} (${module_release_version})"
@@ -101,7 +98,8 @@ function zip_distribution {
         mkdir ${BUILD_DIR}/plugins/${module}_${module_release_version}
 
         copy_included_files ${module} plugins ${module}_${module_release_version}
-
+        cd ${GIT_BP}/src
+        
         mv $module/bin/*.jar ${BUILD_DIR}/plugins/${module}_${module_release_version} > /dev/null 2>&1
     done
 
@@ -213,7 +211,8 @@ function create_all_features {
       feature_less=`echo $feature | sed s/"-feature"//`
 
       copy_included_files $feature features ${feature_less}_${feature_version}
-
+      
+      cd ${BUILD_DIR}/plugins
       if [ -e ${feature_less}/about.mappings ]; then
         ib=`cat ${feature_less}/about.mappings | grep -c "Internal Build"`
         if [ $ib -gt 0 ]; then
@@ -221,6 +220,8 @@ function create_all_features {
           mv ${feature_less}/about.mappings.tmp ${feature_less}/about.mappings
         fi
       fi
+      
+      cd ${GIT_BP}/src
     done
 	echo -e "Exiting create_bp_release.sh::create_all_features"
 }
