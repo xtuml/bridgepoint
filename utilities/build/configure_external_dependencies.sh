@@ -237,7 +237,7 @@ configure_java_src()
     echo "Configuring java_src for build."
 
     # Copy in the "bp.mc.c.binary/mc3020/" dir
-    cd $java_src
+    cd $mcjava_src
     cp -rf $mcc_bin/mc3020 .
     
     # We don't want the model-based MC for this version, so remove it
