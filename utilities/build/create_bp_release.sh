@@ -136,9 +136,10 @@ function create_build {
     # Can do the copy and dos2unix translation in one step.
 	tr -d '\r' < ${GIT_BP}/utilities/build/headless_build.sh > headless_build.sh
 	chmod a+x headless_build.sh
+	# prepare the verify script as well
+	tr -d '\r' < ${GIT_BP}/utilities/build/verify_build.sh > verify_build.sh
+	chmod a+x headless_build.sh	
     ./headless_build.sh
-    ## TODO: We need to check the build. The following routine used to do that
-    # check_build_modules
     zip_distribution
         
 	echo -e "Exiting create_bp_release.sh::create_build"
