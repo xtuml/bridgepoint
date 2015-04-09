@@ -223,13 +223,19 @@ cd  "${BUILD_DIR}"
 bash create_bp_release.sh  >> ${BUILD_LOG}
 cd  "${BUILD_DIR}"
 
+if [ "$IZPACK_PATH" = "" ]; then
+  export IZPACK_PATH="/usr/local/IzPack"
+fi  
+
 if [ ! -s ${ERROR_FILE} ]; then
-  bp_release_version=`awk -F"\"" '{if (/ersion.*\=.*[0-9]\.[0-9]\.[0-9]/) {print $2; exit;}}' ${GIT_BP}/src/org.xtuml.bp.pkg/plugin.xml`
-  ./build_installer_bp.sh ${BRANCH} ${STAGING_AREA} /opt/IzPack ${RESULT_FOLDER} windows ${bp_release_version}
-  cd  "${BUILD_DIR}"
+  if [ -e ${IZPACK_PATH}/bin/compile ]; then
+    bp_release_version=`awk -F"\"" '{if (/ersion.*\=.*[0-9]\.[0-9]\.[0-9]/) {print $2; exit;}}' ${GIT_BP}/src/org.xtuml.bp.pkg/plugin.xml`
+    ./build_installer_bp.sh ${BRANCH} ${STAGING_AREA} ${IZPACK_PATH} ${RESULT_FOLDER} windows ${bp_release_version}
+    cd  "${BUILD_DIR}"
   
-  ./build_installer_bp.sh ${BRANCH} ${STAGING_AREA} /opt/IzPack ${RESULT_FOLDER} linux ${bp_release_version}
-  cd  "${BUILD_DIR}"
+    ./build_installer_bp.sh ${BRANCH} ${STAGING_AREA} ${IZPACK_PATH} ${RESULT_FOLDER} linux ${bp_release_version}
+    cd  "${BUILD_DIR}"
+  fi
 fi
 
 if [ -e ${MAIL_CMD} ]; then
