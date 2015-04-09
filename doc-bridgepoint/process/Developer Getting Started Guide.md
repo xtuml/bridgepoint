@@ -64,7 +64,6 @@ Windows Steps
   - Close these projects (Right click on the project, select Close Project):
     - libTrans
     - MC-Java.test
-    - pt_antlr
 
 ### Clone Additional Repositories
   - Switch to the Git Repository Exploring perspective

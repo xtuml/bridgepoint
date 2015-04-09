@@ -150,11 +150,13 @@ function create_build {
     # Can do the copy and dos2unix translation in one step.
 	tr -d '\r' < ${GIT_BP}/utilities/build/headless_build.sh > headless_build.sh
 	chmod a+x headless_build.sh
-	# prepare the verify script as well
-	tr -d '\r' < ${GIT_BP}/utilities/build/verify_build.sh > verify_build.sh
-	chmod a+x verify_build.sh
     ./headless_build.sh
-    zip_distribution
+    RETVAL=$?
+	if [ $RETVAL -eq 0 ]; then
+		# if the headless_build failed
+		# do not perform zipping
+		zip_distribution
+	fi
         
 	echo -e "Exiting create_bp_release.sh::create_build"
 }
