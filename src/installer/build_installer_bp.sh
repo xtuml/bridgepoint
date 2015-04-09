@@ -149,7 +149,7 @@ echo "INFO: Done."
 
 # Rename the output file
 DATESTAMP=`date +%Y%m%d%H%M`
-echo "INFO: Renaming the output file to ${PRODUCT_NAME}_${PRODUCT_BRANCH}_${DATESTAMP}.jar."
+echo "INFO: Renaming the output file to ${PRODUCT_NAME}_${PRODUCT_BRANCH}_${DATESTAMP}_${OS}.jar."
 cd "${OUTPUT_DIR}"
 if [ "${PRODUCT_BRANCH}" = "master" ]; then
   rm -rf ${PRODUCT_NAME}_${PRODUCT_BRANCH}_*.jar
