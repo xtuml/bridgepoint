@@ -10,6 +10,18 @@
 # Functions
 #-------------------------------------------------------------------------------
 
+function configure_module_lists {
+    feature_file_list=$(find . -name "feature.xml")
+
+    feature_modules=$(find . -name "feature.xml" | sed 's|/feature.xml||' | sed 's|./||')
+
+    for feature in ${feature_file_list}; do
+        plugins=$(sed -n '/<plugin/{:start /\/>/!{N;b start};/plugin\s*id=/p}' ${feature} | awk -F"id=" '{printf("%s\n", $2)}' | sed '/^\s*$/d' | sed s/\"// | sed s/\"//)
+        plugins="$(echo $plugins | tr -d '\r')"
+        plugin_modules="${plugins} ${plugin_modules} "
+    done
+}
+
 # The jar_distribution function creates a jar file for every package that 
 # will be delivered
 function jar_distribution {
@@ -234,6 +246,9 @@ pkg_log_dir="${LOG_DIR}/pkg_logs"
 doc_module="org.xtuml.bp.doc"
 doc_module_mc3020="org.xtuml.help.bp.mc"
 pkg_module="org.xtuml.bp.bld.pkg"
+feature_modules=""
+plugin_modules=""
+plugins_to_jar=""
 
 if [ ! -x $pkg_log_dir ]; then
 	echo -e "Creating package log directory: $pkg_log_dir"
@@ -256,6 +271,8 @@ export PTC_MCC_DISABLED=true
 
 # Get back to the base directory
 cd ${BUILD_DIR}
+
+configure_module_lists
 
 # Kick off the build chain
 create_build
