@@ -163,7 +163,7 @@ mkdir -p "${RESULT_FOLDER}"
 #
 # This is where the extension result goes
 #
-export RESULT_FOLDER_EXTENSION="${RELEASE_BASE}/${BUILD_TARGET}-extension"
+export RESULT_FOLDER_EXTENSION="${RELEASE_BASE}/${BUILD_TARGET}-extension/BridgePoint_${BRANCH}"
 mkdir -p "${RESULT_FOLDER_EXTENSION}"
 
 

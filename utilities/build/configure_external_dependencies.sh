@@ -61,7 +61,7 @@ get_user_supplied_binaries ()
         missing_files+="./mcmc.exe"
     fi
     
-    if [ "$missing_files" != ""]; then
+    if [ "$missing_files" != "" ]; then
        echo -e "Error!: Missing files: $missing_files"
        return 1
     fi
@@ -237,7 +237,7 @@ configure_java_src()
     echo "Configuring java_src for build."
 
     # Copy in the "bp.mc.c.binary/mc3020/" dir
-    cd $java_src
+    cd $mcjava_src
     cp -rf $mcc_bin/mc3020 .
     
     # We don't want the model-based MC for this version, so remove it
