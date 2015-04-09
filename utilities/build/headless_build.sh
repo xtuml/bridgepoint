@@ -83,7 +83,7 @@ echo "Performing a build."
 ${ECLIPSE_HOME}/eclipse ${eclipse_cdt_args} -build all -data "$WORKSPACE" 
 
 RETVAL=$?
-if [ $RETVAL -eq 0 ] && [ $CODE_COMPILE_RETVAL -eq 0 ]; then
+if [ $RETVAL -eq 0 ]; then
 	echo "The build SUCCEEDED."
 	exit 0
 fi
