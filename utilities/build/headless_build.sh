@@ -39,8 +39,7 @@ export GDK_NATIVE_WINDOWS=true
 export BP_JVM=$BPHOMEDIR/jre/lib/i386/client/libjvm.so
 
 bp_jvm="-vm $ECLIPSE_HOME/../jre/lib/i386/client/libjvm.so"
-eclipse_args="${bp_jvm} -pluginCustomization ${WORKSPACE}/plugin_customization.ini -nosplash -application org.eclipse.jdt.apt.core.aptBuild --launcher.suppressErrors"
-eclipse_cdt_args="${bp_jvm} -pluginCustomization ${WORKSPACE}/plugin_customization.ini -nosplash -application org.eclipse.cdt.managedbuilder.core.headlessbuild --launcher.suppressErrors"
+eclipse_args="${bp_jvm} -pluginCustomization ${WORKSPACE}/plugin_customization.ini -nosplash -application org.eclipse.cdt.managedbuilder.core.headlessbuild --launcher.suppressErrors"
 
 ####  Import all plugins
 ####  Note:
@@ -57,18 +56,19 @@ for PROJECT in $(ls -1 "${GIT_BP}"/src); do
   fi
 done
 echo "Importing projects."
-${ECLIPSE_HOME}/eclipse ${eclipse_cdt_args} ${import_cmd} -data "${WORKSPACE}" 
+${ECLIPSE_HOME}/eclipse ${eclipse_args} ${import_cmd} -data "${WORKSPACE}" 
 
 # Before running the build make sure the ant log folder is present
 # The import calls will have created the .metadata folder
 mkdir -p ${WORKSPACE}/.metadata/bridgepoint/build/log
 
-# Remove previous logs before we build
-rm -f "${WORKSPACE}/.metadata/.log"
-
 ###  Clean build
 echo "Performing a clean build."
-${ECLIPSE_HOME}/eclipse ${eclipse_args} -data "$WORKSPACE"
+${ECLIPSE_HOME}/eclipse ${eclipse_args} -cleanBuild all -data "$WORKSPACE" 
+
+# Remove previous logs, we really don't care about any failures that happen
+# prior to this final build
+rm -f "${WORKSPACE}/.metadata/.log"
 
 ## touch a generated file to fix dependencies
 if [ -e "${CORE}/plugin.xml" ]; then 
@@ -80,8 +80,7 @@ fi
 
 ## build all again
 echo "Performing a build."
-${ECLIPSE_HOME}/eclipse ${eclipse_cdt_args} -build all -data "$WORKSPACE" 
-
+${ECLIPSE_HOME}/eclipse ${eclipse_args} -build all -data "$WORKSPACE" 
 RETVAL=$?
 if [ $RETVAL -eq 0 ]; then
 	echo "The build SUCCEEDED."
