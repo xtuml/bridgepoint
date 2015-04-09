@@ -83,9 +83,12 @@ function zip_distribution {
 
         # If MANIFEST.MF or plugin.xml file exists, get plugin version from there
         if [ -e ${module}/META-INF/MANIFEST.MF ]; then
-            module_release_version=`awk -F": " '{if (/[0-9]\.[0-9]\.[0-9]/) {print $2; exit;}}' ${module}/META-INF/MANIFEST.MF`
+            module_release_version=$(awk -F": " '{if (/[0-9]\.[0-9]\.[0-9]/) {print $2; exit;}}' ${module}/META-INF/MANIFEST.MF)
+            module_release_version="$(echo ${module_release_version} | tr -d '\r')"
+            echo -e "Extracted version ${module_release_version} from MANIFEST.MF"
         elif [ -e ${module}/plugin.xml ]; then
-            module_release_version=`awk -F"\"" '{if (/ersion.*\=.*[0-9]\.[0-9]\.[0-9]/) {print $2; exit;}}' ${module}/plugin.xml`
+            module_release_version=$(awk -F"\"" '{if (/ersion.*\=.*[0-9]\.[0-9]\.[0-9]/) {print $2; exit;}}' ${module}/plugin.xml | sed '/^\s*$/d')
+            echo -e "Extracted version ${module_release_version} from plugin.xml"
         fi
 
         echo -e "  Zipping ${module} (${module_release_version})"
@@ -93,7 +96,6 @@ function zip_distribution {
         # Update the timestamp in the build ID
         if [ -e ${module}/about.mappings ]; then
             internal_version=`echo ${BRANCH} | cut -d"_" -f 4-`
-
             echo -e "0=${module_release_version} ${internal_version}\n1=${TIMESTAMP}\n" > ${module}/about.mappings
         fi
 
@@ -108,7 +110,6 @@ function zip_distribution {
     create_all_features
 
     cd ${BUILD_DIR}
-    mkdir ${RESULT_FOLDER_EXTENSION}
     mkdir ${RESULT_FOLDER_EXTENSION}/eclipse
     touch ${RESULT_FOLDER_EXTENSION}/eclipse/.eclipseextension
     cp -Rd features ${RESULT_FOLDER_EXTENSION}/eclipse
@@ -119,7 +120,8 @@ function zip_distribution {
     # Include org.antlr packages in zipped distribuition
     cp -Rd ${GIT_BP}/src/org.antlr_2.7.2 ${RESULT_FOLDER_EXTENSION}/eclipse/plugins
 
-    zip -r BridgePoint_extension_${BRANCH}.zip ${RESULT_FOLDER_EXTENSION} > ${pkg_log_dir}/BridgePoint_extension_${BRANCH}_zip.log 2>&1
+    cd ${RESULT_FOLDER_EXTENSION}/..
+    zip -r BridgePoint_extension_${BRANCH}.zip BridgePoint_${BRANCH} > ${pkg_log_dir}/BridgePoint_extension_${BRANCH}_zip.log 2>&1
 	echo -e "Exiting create_bp_release.sh::zip_distribution"    
 }
 
@@ -169,14 +171,13 @@ function copy_included_files {
       mkdir ${BUILD_DIR}/${2}/${3}
     fi
     if [ -e ${1}/build.properties ]; then
-      include_files=`echo -e "\n" | cat ${1}/build.properties - | awk '{if (/bin.includes = /) {print $3; getline; while (/^[[:blank:]]/) {print $1; getline;}}}' - | tr -d '\\\\' | tr -d ','`
-
+	  include_files=$(echo -e "\n" | cat ${1}/build.properties - | awk '{if (/bin.includes = /) {print $3; getline; while (! /=/) {print $1; if (getline != 1) break;}}}' - | tr -d '\\\\' | tr -d ',' | tr -d '\r')
+	  
+      cd ${1}
       for file in ${include_files}; do
-        cd ${1}
-
         if [ "${file}" = "." ]; then
           # Special handling for plugins that will be packaged as jars
-          file="bin/com/"
+          file="bin/org/"
           cp -Rd ${file} ${BUILD_DIR}/${2}/${3}/
           plugins_to_jar="${plugins_to_jar} ${1}"
         else
@@ -185,10 +186,11 @@ function copy_included_files {
           else
             cp --parents ${file} ${BUILD_DIR}/${2}/${3}/ > /dev/null 2>&1
           fi
-        fi
+        fi        
       done
+      cd ..
 
-      exclude_files=`echo -e "\n" | cat ${1}/build.properties - | awk '{if (/bin.excludes = /) {print $3; getline; while (/^[[:blank:]]/) {print $1; getline;}}}' - | tr -d '\\\\' | tr -d ','`
+	  exclude_files=$(echo -e "\n" | cat ${1}/build.properties - | awk '{if (/bin.excludes = /) {print $3; getline; while (! /=/) {print $1; if (getline != 1) break;}}}' - | tr -d '\\\\' | tr -d ',' | tr -d '\r')
 
       for file in ${exclude_files}; do
         rm -rf ${BUILD_DIR}/${2}/${3}/${file}
@@ -206,21 +208,10 @@ function create_all_features {
     echo -e "Processing features: ${feature_modules}"
     for feature in $feature_modules; do
       echo "  Processing ${feature}"
-      feature_version=`awk -F"\"" '{if (/[0-9]\.[0-9]\.[0-9]/) {print $2; exit;}}' ${feature}/feature.xml`
-
-      feature_less=`echo $feature | sed s/"-feature"//`
+      feature_version=$(awk -F"\"" '{if (/[0-9]\.[0-9]\.[0-9]/) {print $2; exit;}}' ${feature}/feature.xml | sed '/^\s*$/d')
+      feature_less=$(echo $feature | sed s/"-feature"//)
 
       copy_included_files $feature features ${feature_less}_${feature_version}
-      
-      cd ${BUILD_DIR}/plugins
-      if [ -e ${feature_less}/about.mappings ]; then
-        ib=`cat ${feature_less}/about.mappings | grep -c "Internal Build"`
-        if [ $ib -gt 0 ]; then
-          cat ${feature_less}/about.mappings | sed s/"1=Internal Build"/1=${TIMESTAMP}/ > ${feature_less}/about.mappings.tmp
-          mv ${feature_less}/about.mappings.tmp ${feature_less}/about.mappings
-        fi
-      fi
-      
       cd ${GIT_BP}/src
     done
 	echo -e "Exiting create_bp_release.sh::create_all_features"
@@ -236,8 +227,6 @@ date
 
 pkg_log_dir="${LOG_DIR}/pkg_logs"
 
-doc_module="org.xtuml.bp.doc"
-doc_module_mc3020="org.xtuml.help.bp.mc"
 feature_modules=""
 plugin_modules=""
 plugins_to_jar=""
