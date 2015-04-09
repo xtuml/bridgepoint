@@ -57,7 +57,7 @@ for PROJECT in $(ls -1 "${GIT_BP}"/src); do
   fi
 done
 echo "Importing projects."
-${ECLIPSE_HOME}/eclipse ${eclipse_args} ${import_cmd} -data "${WORKSPACE}" 
+${ECLIPSE_HOME}/eclipse ${eclipse_cdt_args} ${import_cmd} -data "${WORKSPACE}" 
 
 # Before running the build make sure the ant log folder is present
 # The import calls will have created the .metadata folder
