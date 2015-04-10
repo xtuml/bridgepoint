@@ -42,6 +42,7 @@ BP_PATH=C:/xtuml/BridgePoint
 sed -e 's;'"$BP_PATH"';'"$TARGET"';g' -i "$TARGET/eclipse/Launcher.sh"
 sed -e 's;'"$BP_PATH"';'"$TARGET"';g' -i "$TARGET/eclipse/CLI.sh"
 sed -e 's;'"$BP_PATH"';'"$TARGET"';g' -i "$TARGET/tools/docgen/docgen.xsl"
+chmod 775 "$TARGET/tools/docgen/docgen"
 if [ -f "$TARGET/eclipse/eclipse.ini" ]
 then
   sed -e 's;'"$BP_PATH"';'"$TARGET"';g' -i "$TARGET/eclipse/eclipse.ini"
