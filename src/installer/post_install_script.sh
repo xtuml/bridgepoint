@@ -23,7 +23,10 @@ BPVER=4.2.1
 configure_mc_files()
 {
   echo "Configuring translation support files for: $MC_NAME."
+  chmod 775 "$TARGET/eclipse_extensions/BridgePoint/eclipse/plugins/${MC_NAME}_${BPVER}/mc3020/bin/xtumlmc_build"
   chmod 775 "$TARGET/eclipse_extensions/BridgePoint/eclipse/plugins/${MC_NAME}_${BPVER}/mc3020/bin/xtumlmc_build.exe"
+  chmod 775 "$TARGET/eclipse_extensions/BridgePoint/eclipse/plugins/${MC_NAME}_${BPVER}/mc3020/bin/gen_erate.exe"
+  chmod 775 "$TARGET/eclipse_extensions/BridgePoint/eclipse/plugins/${MC_NAME}_${BPVER}/mc3020/bin/mcmc"
   echo "Done"
 }
 
