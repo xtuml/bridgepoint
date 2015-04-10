@@ -230,7 +230,7 @@ if [ "$IZPACK_PATH" = "" ]; then
   export IZPACK_PATH="/usr/local/IzPack"
 fi  
 
-if [ ! -s ${ERROR_FILE} ]; then
+#if [ ! -s ${ERROR_FILE} ]; then
   if [ -e ${IZPACK_PATH}/bin/compile ]; then
     bp_release_version=`awk -F"\"" '{if (/ersion.*\=.*[0-9]\.[0-9]\.[0-9]/) {print $2; exit;}}' ${GIT_BP}/src/org.xtuml.bp.pkg/plugin.xml`
     bash build_installer_bp.sh ${BRANCH} ${STAGING_AREA} ${IZPACK_PATH} ${RESULT_FOLDER} windows ${bp_release_version} >> ${BUILD_LOG}
@@ -239,7 +239,7 @@ if [ ! -s ${ERROR_FILE} ]; then
     bash build_installer_bp.sh ${BRANCH} ${STAGING_AREA} ${IZPACK_PATH} ${RESULT_FOLDER} linux ${bp_release_version} >> ${BUILD_LOG}
     cd  "${BUILD_DIR}"
   fi
-fi
+#fi
 
 if [ -e ${MAIL_CMD} ]; then
   distribute_and_notify $? >> ${BUILD_LOG}

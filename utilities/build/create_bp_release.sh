@@ -152,11 +152,11 @@ function create_build {
 	chmod a+x headless_build.sh
     ./headless_build.sh
     RETVAL=$?
-	if [ $RETVAL -eq 0 ]; then
+	#if [ $RETVAL -eq 0 ]; then
 		# if the headless_build failed
 		# do not perform zipping
 		zip_distribution
-	fi
+	#fi
         
 	echo -e "Exiting create_bp_release.sh::create_build"
 }
