@@ -102,6 +102,8 @@ echo "See the script header for more detail."
 exit 1
 fi 
 
+date 
+
 export BPHOMEDIR="$1"
 if [ "$2" = "/" ]; then
   export BUILD_MOUNT="/build"
