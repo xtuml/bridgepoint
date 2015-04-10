@@ -153,6 +153,7 @@ function create_build {
 	chmod a+x headless_build.sh
     ./headless_build.sh
     RETVAL=$?
+    # TODO - we'll re-enable this check when headless_build stops reporting errors
 	#if [ $RETVAL -eq 0 ]; then
 		# if the headless_build failed
 		# do not perform zipping
