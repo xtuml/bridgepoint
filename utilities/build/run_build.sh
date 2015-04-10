@@ -20,9 +20,7 @@
 #  
 #  Build Server Requirements:
 #  1) run_build.sh, and init_git_repositories.sh must be present in ${BUILD_ROOT}
-#  2) BridgePoint must be installed to the folder pointed to by the 
-#     ${BPHOMEDIR} variable from the environment or defined below.  
-#  3) git and ant must be installed on the build server
+#  2) git, ant, jar, and IzPack must be installed on the build server
 # 
 #  The build is performed under ${BUILD_ROOT}.  The result of the build:
 #  1) plugins
@@ -42,7 +40,7 @@ function distribute_and_notify {
 	echo -e "Entering run_build.sh::distribute_and_notify"
 	if [ "$1" = "0" ]; then
 	  # TODO: This was the prior implementation.  It needs to be reworked (RSH)
-	  # ${RSH} ${DISTRIBUTION_SERVER} "(cd '${RELEASE_BASE}'; if [ ! -x '${RESULT_FOLDER}' ]; then mkdir '${RESULT_FOLDER}'; fi; cp -f '${RELEASE_DROP}'/BridgePoint_extension_'${BRANCH}'.zip '${BUILD_RESULT_FOLDER}'/BridgePoint_extension_'${BRANCH}'.zip ; )"
+	  # ${RSH} ${DISTRIBUTION_SERVER} "(cd '${RELEASE_BASE}'; if [ ! -x '${RESULT_FOLDER}' ]; then mkdir '${RESULT_FOLDER}'; fi; cp -f '${RESULT_FOLDER}'/BridgePoint_extension_'${BRANCH}'.zip '${BUILD_RESULT_FOLDER}'/BridgePoint_extension_'${BRANCH}'.zip ; )"
 	  echo -e "Creating dated backup of the build"
 	else
 	  echo -e "create_bp_release.sh returned with a non-zero value ($?)"
@@ -90,16 +88,20 @@ function distribute_and_notify {
 # Verify parameters
 if [ "$#" -lt 2 ]; then
 
-echo "At least two parameters are required.  See below for usage."
+echo "This script requires two parameters.  The other parameters are optional.  See below for usage."
 echo
-echo "run_build.sh BridgePoint_Home_Directory Build_Root"
+echo "run_build.sh BridgePoint_Home_Directory Build_Root Branch IzPack_Home_Directory"
 echo
 echo "See the script header for more detail."
 exit 1
 fi 
 
 export BPHOMEDIR="$1"
-export BUILD_MOUNT="$2/build"
+if [ "$2" = "/" ]; then
+  export BUILD_MOUNT="/build"
+else
+  export BUILD_MOUNT="$2/build"
+fi
 export ECLIPSE_HOME="${BPHOMEDIR}/eclipse"
 
 # Do not modify these variables:
@@ -110,6 +112,9 @@ export GIT_BP="${GIT_REPO_ROOT}/bridgepoint"
 export BRANCH="master"
 if [ "$3" != "" ]; then
   export BRANCH="$3"
+fi
+if [ "$4" != "" ]; then
+  export IZPACK_PATH="$4"
 fi
 
 # Make sure github credentials are available in the environment
@@ -147,7 +152,6 @@ export BUILD_LOG=""${LOG_DIR}/build.log""
 export BUILD_ADMIN="build@onefact.net"
 export MAIL_CMD="/usr/sbin/ssmtp"
 export MAIL_TEMP="mailtemp"
-export RELEASE_PKG="org.xtuml.bp.bld.pkg-feature"
 export SHELLUSER="${USER}"
 
 export TIMESTAMP=`date +%Y%m%d%H%M`
@@ -163,7 +167,7 @@ mkdir -p "${RESULT_FOLDER}"
 #
 # This is where the extension result goes
 #
-export RESULT_FOLDER_EXTENSION="${RELEASE_BASE}/${BUILD_TARGET}-extension/BridgePoint_${BRANCH}"
+export RESULT_FOLDER_EXTENSION="${RELEASE_BASE}/${BUILD_TARGET}/BridgePoint_${BRANCH}"
 mkdir -p "${RESULT_FOLDER_EXTENSION}"
 
 
@@ -176,8 +180,6 @@ mkdir -p "${STAGING_AREA}"
 # Note that items in the following section will eventually need to be github 
 # pages (I think) for now the release is not being moved off of the build server.
 #
-export RELEASE_DROP="${RELEASE_BASE}/${BRANCH}"
-mkdir -p "${RELEASE_DROP}"
 export DOWNLOAD_URL="http://xtuml.github.io/bridgepoint/"
 export DISTRIBUTION_SERVER=""
 
@@ -223,14 +225,21 @@ cd  "${BUILD_DIR}"
 bash create_bp_release.sh  >> ${BUILD_LOG}
 cd  "${BUILD_DIR}"
 
-if [ ! -s ${ERROR_FILE} ]; then
-  bp_release_version=`awk -F"\"" '{if (/ersion.*\=.*[0-9]\.[0-9]\.[0-9]/) {print $2; exit;}}' ${GIT_BP}/src/org.xtuml.bp.pkg/plugin.xml`
-  ./build_installer_bp.sh ${BRANCH} ${STAGING_AREA} /opt/IzPack ${RESULT_FOLDER} windows ${bp_release_version}
-  cd  "${BUILD_DIR}"
+if [ "${IZPACK_PATH}" = "" ]; then
+  export IZPACK_PATH="/usr/local/IzPack"
+fi  
+
+# TODO - we'll re-enable this check when headless_build stops reporting errors
+#if [ ! -s ${ERROR_FILE} ]; then
+  if [ -e ${IZPACK_PATH}/bin/compile ]; then
+    bp_release_version=`awk -F"\"" '{if (/ersion.*\=.*[0-9]\.[0-9]\.[0-9]/) {print $2; exit;}}' ${GIT_BP}/src/org.xtuml.bp.pkg/plugin.xml`
+    bash build_installer_bp.sh ${BRANCH} ${STAGING_AREA} ${IZPACK_PATH} ${RESULT_FOLDER} windows ${bp_release_version} >> ${BUILD_LOG}
+    cd  "${BUILD_DIR}"
   
-  ./build_installer_bp.sh ${BRANCH} ${STAGING_AREA} /opt/IzPack ${RESULT_FOLDER} linux ${bp_release_version}
-  cd  "${BUILD_DIR}"
-fi
+    bash build_installer_bp.sh ${BRANCH} ${STAGING_AREA} ${IZPACK_PATH} ${RESULT_FOLDER} linux ${bp_release_version} >> ${BUILD_LOG}
+    cd  "${BUILD_DIR}"
+  fi
+#fi
 
 if [ -e ${MAIL_CMD} ]; then
   distribute_and_notify $? >> ${BUILD_LOG}

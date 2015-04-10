@@ -15,7 +15,7 @@
 #               
 
 echo Starting post-install script
-BPVER=4.2.0
+BPVER=4.2.1
 
 #===============================================================================
 # UTILITY FUNCTIONS
@@ -52,6 +52,8 @@ tr -d '\r' < "$TARGET/eclipse/CLI.sh" > "$TARGET/eclipse/CLI.d2u"
 mv -f "$TARGET/eclipse/eclipse.d2u" "$TARGET/eclipse/eclipse.ini"
 mv -f "$TARGET/eclipse/Launcher.d2u" "$TARGET/eclipse/Launcher.sh"
 mv -f "$TARGET/eclipse/CLI.d2u" "$TARGET/eclipse/CLI.sh"
+chmod +x "$TARGET/eclipse/Launcher.sh"
+chmod +x "$TARGET/eclipse/CLI.sh"
 
 echo "Copying files for wine-based generator for bp.dap."
 cp "$TARGET/eclipse_extensions/BridgePoint/eclipse/plugins/org.xtuml.bp.mc.c.binary_$BPVER/mc3020/bin/msvcirt.dll" "$TARGET/eclipse_extensions/BridgePoint/eclipse/plugins/org.xtuml.bp.dap.pkg_$BPVER/bridgepoint/win32/client/bin"

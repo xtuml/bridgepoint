@@ -113,6 +113,7 @@ configure_mcc_src()
     rm -rf mc3020/bin
     rm -rf mc3020/schema
     cd mc3020
+    rm -rf ./arc
     cp -r ${git_repo_root}/mc/arc ./arc
     rm -rf ./arc/sysc
     mv ./arc/c ./arc/specialized
