@@ -122,6 +122,7 @@ function zip_distribution {
 
     cd ${RESULT_FOLDER_EXTENSION}/..
     zip -r BridgePoint_extension_${BRANCH}.zip BridgePoint_${BRANCH} > ${pkg_log_dir}/BridgePoint_extension_${BRANCH}_zip.log 2>&1
+	rm -rf BridgePoint_${BRANCH}
 	echo -e "Exiting create_bp_release.sh::zip_distribution"    
 }
 
@@ -260,7 +261,7 @@ configure_module_lists
 # Kick off the build chain
 create_build
 
-echo -e "\nBuild complete, installation can be found at ${RELEASE_DROP}/BridgePoint_extension_${BRANCH}.zip\n"
+echo -e "\nBuild complete, installation can be found at ${RESULT_FOLDER}/BridgePoint_extension_${BRANCH}.zip\n"
 
 # Check for errors, if found report them.  Note that the log file is moved after this script runs, 
 # hence the different paths for where we grep and where we report the user to look.
