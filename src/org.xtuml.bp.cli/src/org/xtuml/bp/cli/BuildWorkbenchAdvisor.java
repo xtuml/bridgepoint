@@ -69,7 +69,7 @@ public class BuildWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
 		}
 		try {
 			IProject[] projects = null;
-			if (projectName == "") {
+			if (projectName.equals("")) {
 				projects = ResourcesPlugin.getWorkspace().getRoot()
 						.getProjects();
 			} else {
@@ -213,6 +213,7 @@ public class BuildWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
 		// If the user specified a build configuration use it.
 		// 
 		IConfiguration configs[] = info.getManagedProject().getConfigurations();
+
 		boolean foundConfig = false;
 		for (int i = 0; !foundConfig && i < configs.length; i++) {
 			if (configs[i].getName().equalsIgnoreCase(buildConfigString)) {
@@ -220,11 +221,13 @@ public class BuildWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
 				buildConfig = configs[i];
 			}
 		}
-        if (!foundConfig) {
+        if (!foundConfig && !buildConfigString.equals("all")) {
             System.err.println("Warning: Unable to locate the specified build configuration: "
                     + buildConfigString + ".  Using the project's default build configuration.");
         } else {
-            info.setDefaultConfiguration(buildConfig);
+    		if(!buildConfigString.equals("all")) {
+    			info.setDefaultConfiguration(buildConfig);
+    		}
         }
 		return originalConfig;
 	}
