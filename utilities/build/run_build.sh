@@ -229,6 +229,7 @@ if [ "$IZPACK_PATH" = "" ]; then
   export IZPACK_PATH="/usr/local/IzPack"
 fi  
 
+# TODO - we'll re-enable this check when headless_build stops reporting errors
 #if [ ! -s ${ERROR_FILE} ]; then
   if [ -e ${IZPACK_PATH}/bin/compile ]; then
     bp_release_version=`awk -F"\"" '{if (/ersion.*\=.*[0-9]\.[0-9]\.[0-9]/) {print $2; exit;}}' ${GIT_BP}/src/org.xtuml.bp.pkg/plugin.xml`
