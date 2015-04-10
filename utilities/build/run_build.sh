@@ -75,6 +75,12 @@ function distribute_and_notify {
 	  echo -e "---------------" >> ${MAIL_TEMP}
 	  cat ${DIFF_FILE} >> ${MAIL_TEMP}	  
 	fi
+	
+	# TODO - temporary copy location until we upload it somewhere...
+	SERVER_IP=$(dig +short myip.opendns.com @resolver1.opendns.com)
+	SCP_CMD="scp youruser@${SERVER_IP}:${RESULT_FOLDER}/BridgePoint_${BRANCH}_linux.jar BridgePoint_linux.jar"
+	echo -e "You can copy the release via: ${SCP_CMD}" >> ${MAIL_TEMP}
+	
 	cat ${MAIL_TEMP} | ${MAIL_CMD} ${BUILD_ADMIN}
 	
 	rm -rf ${MAIL_TEMP}
