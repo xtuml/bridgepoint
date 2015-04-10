@@ -28,7 +28,6 @@ IZPACK_PATH="$3"
 OUTPUT_DIR="$4"
 OS_ARG="$5"
 BP_VERSION="$6"
-OUTPUT_DIR_EXTENSION="${OUTPUT_DIR}-extension"
 
 PRODUCT_NAME="BridgePoint"
 ECLIPSE_VER="3.7"
@@ -56,9 +55,9 @@ echo "INFO: Building ${PRODUCT_NAME} installer for ${OS}."
 # Put the new ${PRODUCT_NAME} extension in place for the installer
 echo "INFO: Copying new source data to ${TEMP_DIR}."
 cd "${TEMP_DIR}"
-echo "INFO:   Copying in ${OUTPUT_DIR_EXTENSION}/${EXT_SRC_FILE}."
-cp -f "${OUTPUT_DIR_EXTENSION}/${EXT_SRC_FILE}" .
-if [ ! -e "${OUTPUT_DIR_EXTENSION}/${EXT_SRC_FILE}" ]; then
+echo "INFO:   Copying in ${OUTPUT_DIR}/${EXT_SRC_FILE}."
+cp -f "${OUTPUT_DIR}/${EXT_SRC_FILE}" .
+if [ ! -e "${OUTPUT_DIR}/${EXT_SRC_FILE}" ]; then
   echo "ERROR: Source extension (${TEMP_DIR}/${EXT_SRC_FILE}) does not exist.  Exiting."
   exit 2
 fi
