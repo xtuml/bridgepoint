@@ -90,9 +90,9 @@ function distribute_and_notify {
 # Verify parameters
 if [ "$#" -lt 2 ]; then
 
-echo "At least two parameters are required.  See below for usage."
+echo "This script requires two parameters.  The other parameters are optional.  See below for usage."
 echo
-echo "run_build.sh BridgePoint_Home_Directory Build_Root"
+echo "run_build.sh BridgePoint_Home_Directory Build_Root Branch IzPack_Home_Directory"
 echo
 echo "See the script header for more detail."
 exit 1
@@ -110,6 +110,9 @@ export GIT_BP="${GIT_REPO_ROOT}/bridgepoint"
 export BRANCH="master"
 if [ "$3" != "" ]; then
   export BRANCH="$3"
+fi
+if [ "$4" != "" ]; then
+  export IZPACK_PATH="$4"
 fi
 
 # Make sure github credentials are available in the environment
@@ -230,10 +233,10 @@ fi
 if [ ! -s ${ERROR_FILE} ]; then
   if [ -e ${IZPACK_PATH}/bin/compile ]; then
     bp_release_version=`awk -F"\"" '{if (/ersion.*\=.*[0-9]\.[0-9]\.[0-9]/) {print $2; exit;}}' ${GIT_BP}/src/org.xtuml.bp.pkg/plugin.xml`
-    ./build_installer_bp.sh ${BRANCH} ${STAGING_AREA} ${IZPACK_PATH} ${RESULT_FOLDER} windows ${bp_release_version}
+    bash build_installer_bp.sh ${BRANCH} ${STAGING_AREA} ${IZPACK_PATH} ${RESULT_FOLDER} windows ${bp_release_version} >> ${BUILD_LOG}
     cd  "${BUILD_DIR}"
   
-    ./build_installer_bp.sh ${BRANCH} ${STAGING_AREA} ${IZPACK_PATH} ${RESULT_FOLDER} linux ${bp_release_version}
+    bash build_installer_bp.sh ${BRANCH} ${STAGING_AREA} ${IZPACK_PATH} ${RESULT_FOLDER} linux ${bp_release_version} >> ${BUILD_LOG}
     cd  "${BUILD_DIR}"
   fi
 fi
