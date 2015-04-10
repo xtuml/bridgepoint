@@ -148,17 +148,16 @@ ${IZPACK_PATH}/bin/compile install_${OS}.xml -b ${STAGING_PATH} -o ${OUTPUT_DIR}
 echo "INFO: Done."
 
 # Rename the output file
-DATESTAMP=`date +%Y%m%d%H%M`
-echo "INFO: Renaming the output file to ${PRODUCT_NAME}_${PRODUCT_BRANCH}_${DATESTAMP}_${OS}.jar."
+echo "INFO: Renaming the output file to ${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS}.jar."
 cd "${OUTPUT_DIR}"
 if [ "${PRODUCT_BRANCH}" = "master" ]; then
   rm -rf ${PRODUCT_NAME}_${PRODUCT_BRANCH}_*.jar
 fi
-mv "${PRODUCT_NAME}_${OS}.jar" "${PRODUCT_NAME}_${PRODUCT_BRANCH}_${DATESTAMP}_${OS}.jar"
+mv "${PRODUCT_NAME}_${OS}.jar" "${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS}.jar"
 echo "INFO: Done."
 
 # Make sure the output looks good
-size=$(du -k ${PRODUCT_NAME}_${PRODUCT_BRANCH}_${DATESTAMP}_${OS}.jar | sed 's/\([0-9]*\)\(.*\)/\1/')
+size=$(du -k ${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS}.jar | sed 's/\([0-9]*\)\(.*\)/\1/')
 if [ "${size}" -lt "300000" ]; then
   echo "ERROR: Created installer file size is less than expected, exiting."
   exit 5
