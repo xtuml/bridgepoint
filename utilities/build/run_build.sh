@@ -225,7 +225,7 @@ cd  "${BUILD_DIR}"
 bash create_bp_release.sh  >> ${BUILD_LOG}
 cd  "${BUILD_DIR}"
 
-if [ "$IZPACK_PATH" = "" ]; then
+if [ "${IZPACK_PATH}" = "" ]; then
   export IZPACK_PATH="/usr/local/IzPack"
 fi  
 
