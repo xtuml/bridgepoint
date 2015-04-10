@@ -135,10 +135,11 @@ cd "${BP_BASE_DIR}/BridgePointDeliverables/tools/docgen"
 cp -f "${INSTALLER_DATA_DIR}/${PRODUCT_NAME}/eclipse/plugins/${MCMC_EXE}" docgen.exe
 echo "INFO: Done."
 
-echo "INFO: Disabling sequence creator plugin."
-cd "${INSTALLER_DATA_DIR}/${PRODUCT_NAME}/eclipse/plugins/"
-mv -f ${SEQUENCE_CREATOR} ${SEQUENCE_CREATOR}.no
-echo "INFO: Done."
+# TODO - do we want to disable or not???
+#echo "INFO: Disabling sequence creator plugin."
+#cd "${INSTALLER_DATA_DIR}/${PRODUCT_NAME}/eclipse/plugins/"
+#mv -f ${SEQUENCE_CREATOR} ${SEQUENCE_CREATOR}.no
+#echo "INFO: Done."
 
 # Start IzPack
 echo "INFO: Running IzPack to create the installer."
