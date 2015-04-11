@@ -35,11 +35,13 @@ ECLIPSE_VER="3.7"
 # Assume windows unless we case-insensitively match Linux on the argument
 OS="windows"
 BP_BASE_DIR="${STAGING_PATH}/${PRODUCT_NAME}_e${ECLIPSE_VER}"
+DOCGEN_EXE="docgen.exe"
 MCMC_EXE="org.xtuml.bp.mc.c.binary_${BP_VERSION}/mc3020/bin/mcmc.exe"
 if [ "${OS_ARG,,}" = "linux" ]; then
   OS="linux"
   BP_BASE_DIR="${STAGING_PATH}/${PRODUCT_NAME}_for_Linux_e${ECLIPSE_VER}"
   MCMC_EXE="org.xtuml.bp.mc.c.binary_${BP_VERSION}/mc3020/bin/mcmc"
+  DOCGEN_EXE="docgen"
 fi
 
 INSTALL_PROJECT="installer"
@@ -139,7 +141,7 @@ echo "INFO: Done."
 
 echo "INFO: Setting up docgen executable"
 cd "${BP_BASE_DIR}/BridgePointDeliverables/tools/docgen"
-cp -f "${INSTALLER_DATA_DIR}/plugins/${MCMC_EXE}" docgen.exe
+cp -f "${INSTALLER_DATA_DIR}/plugins/${MCMC_EXE}" ${DOCGEN_EXE}
 echo "INFO: Done."
 
 # TODO - do we want to disable or not???
