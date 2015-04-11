@@ -47,7 +47,6 @@ if [ -f "$TARGET/eclipse/eclipse.ini" ]
 then
   sed -e 's;'"$BP_PATH"';'"$TARGET"';g' -i "$TARGET/eclipse/eclipse.ini"
 fi
-sed -e 's;'"C:/MentorGraphics/BridgePoint"';'"$TARGET"';g' -i "$TARGET/eclipse/plugins/org.xtuml.bp.welcome_$BPVER/models/GPS Watch/.classpath"
 
 # Make sure these key files are in UNIX format
 tr -d '\r' < "$TARGET/eclipse/eclipse.ini" > "$TARGET/eclipse/eclipse.d2u"
