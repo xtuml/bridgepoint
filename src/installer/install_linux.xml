@@ -58,7 +58,6 @@
         <pack name="BridgePoint" required="yes">
             <description>BridgePoint installation</description>
             <!-- main files -->
-            <file src="BridgePoint_for_Linux_e3.7/BridgePointDeliverables/eclipse_extensions/" targetdir="$INSTALL_PATH"/>
             <file src="BridgePoint_for_Linux_e3.7/BridgePointDeliverables/extras/" targetdir="$INSTALL_PATH"/>
             <file src="BridgePoint_for_Linux_e3.7/BridgePointDeliverables/jre/" targetdir="$INSTALL_PATH"/>
             <file src="BridgePoint_for_Linux_e3.7/BridgePointDeliverables/tools/" targetdir="$INSTALL_PATH"/>

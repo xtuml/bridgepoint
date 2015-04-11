@@ -60,7 +60,6 @@
         </pack>
         <pack name="BridgePoint" required="yes">
             <description>BridgePoint installation</description>
-            <file src="BridgePoint_e3.7/BridgePointDeliverables/eclipse_extensions/" targetdir="$INSTALL_PATH"/>
             <file src="BridgePoint_e3.7/BridgePointDeliverables/extras/" targetdir="$INSTALL_PATH"/>
             <file src="BridgePoint_e3.7/BridgePointDeliverables/jre/" targetdir="$INSTALL_PATH"/>
             <file src="BridgePoint_e3.7/BridgePointDeliverables/MinGW/" targetdir="$INSTALL_PATH"/>
