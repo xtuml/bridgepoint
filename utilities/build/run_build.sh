@@ -10,9 +10,12 @@
 #     BPHOMEDIR   - This is the location of a BridgePoint installation
 #     BUILD_MOUNT - This holds the build server location that is the 
 #                   root for the build
+#
 #  Optional:
 #     BRANCH      - This is an optional parameter that allows you to configure
 #                   the branch to build
+#     IZPACK_PATH - Path to where IzPack is installed
+#     XTUMLORG_USER - The username for the upload account
 #               
 #  Since it is the starting point for the build chain, it must be manually put 
 #  into place for the build server to run. The variable BUILD_MOUNT holds the 
@@ -69,7 +72,8 @@ function distribute_and_notify {
 	  cat ${ERROR_FILE} >> ${MAIL_TEMP}
 	  echo -e "---------------\n" >> ${MAIL_TEMP}
 	else
-	  echo -e "The release can be downloaded at: ${DOWNLOAD_URL}" >> ${MAIL_TEMP}
+	  echo -e "The Linux release can be downloaded at: ${DOWNLOAD_URL}_linux.jar" >> ${MAIL_TEMP}
+	  echo -e "The Windows release can be downloaded at: ${DOWNLOAD_URL}_windows.jar" >> ${MAIL_TEMP}
 	  
 	  echo -e "\nCHANGELOG:" >> ${MAIL_TEMP}
 	  echo -e "---------------" >> ${MAIL_TEMP}
@@ -80,6 +84,9 @@ function distribute_and_notify {
 	SERVER_IP=$(dig +short myip.opendns.com @resolver1.opendns.com)
 	SCP_CMD="scp youruser@${SERVER_IP}:${RESULT_FOLDER}/BridgePoint_${BRANCH}_linux.jar BridgePoint_linux.jar"
 	echo -e "You can copy the release via: ${SCP_CMD}" >> ${MAIL_TEMP}
+	echo -e "---------------" >> ${MAIL_TEMP}
+	echo -e "The Linux release can be downloaded at: ${DOWNLOAD_URL}_linux.jar" >> ${MAIL_TEMP}
+    echo -e "The Windows release can be downloaded at: ${DOWNLOAD_URL}_windows.jar" >> ${MAIL_TEMP}
 	
 	cat ${MAIL_TEMP} | ${MAIL_CMD} ${BUILD_ADMIN}
 	
@@ -123,6 +130,9 @@ if [ "$3" != "" ]; then
 fi
 if [ "$4" != "" ]; then
   export IZPACK_PATH="$4"
+fi
+if [ "$5" != "" ]; then
+  export XTUMLORG_USER="$5"
 fi
 
 # Make sure github credentials are available in the environment
@@ -188,7 +198,7 @@ mkdir -p "${STAGING_AREA}"
 # Note that items in the following section will eventually need to be github 
 # pages (I think) for now the release is not being moved off of the build server.
 #
-export DOWNLOAD_URL="http://xtuml.github.io/bridgepoint/"
+export DOWNLOAD_URL="http://xtuml.org/BridgePoint"
 export DISTRIBUTION_SERVER=""
 
 # We do not currently use this, but when we were using cvs we tagged nightly 
@@ -241,10 +251,10 @@ fi
 #if [ ! -s ${ERROR_FILE} ]; then
   if [ -e ${IZPACK_PATH}/bin/compile ]; then
     bp_release_version=`awk -F"\"" '{if (/ersion.*\=.*[0-9]\.[0-9]\.[0-9]/) {print $2; exit;}}' ${GIT_BP}/src/org.xtuml.bp.pkg/plugin.xml`
-    bash build_installer_bp.sh ${BRANCH} ${STAGING_AREA} ${IZPACK_PATH} ${RESULT_FOLDER} windows ${bp_release_version} >> ${BUILD_LOG}
+    bash build_installer_bp.sh ${BRANCH} ${STAGING_AREA} ${IZPACK_PATH} ${RESULT_FOLDER} windows ${bp_release_version} ${XTUMLORG_USER} >> ${BUILD_LOG}
     cd  "${BUILD_DIR}"
   
-    bash build_installer_bp.sh ${BRANCH} ${STAGING_AREA} ${IZPACK_PATH} ${RESULT_FOLDER} linux ${bp_release_version} >> ${BUILD_LOG}
+    bash build_installer_bp.sh ${BRANCH} ${STAGING_AREA} ${IZPACK_PATH} ${RESULT_FOLDER} linux ${bp_release_version} ${XTUMLORG_USER} >> ${BUILD_LOG}
     cd  "${BUILD_DIR}"
   fi
 #fi
