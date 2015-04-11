@@ -95,7 +95,10 @@ function zip_distribution {
 
         # Update the timestamp in the build ID
         if [ -e ${module}/about.mappings ]; then
-            internal_version=`echo ${BRANCH} | cut -d"_" -f 4-`
+            internal_version=""
+            if [ "${BRANCH}" != "master" ]; then
+                internal_version="${BRANCH}"
+            fi
             echo -e "0=${module_release_version} ${internal_version}\n1=${TIMESTAMP}\n" > ${module}/about.mappings
         fi
 
