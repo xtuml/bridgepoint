@@ -409,7 +409,7 @@ public class Generator extends Task {
     {
         // Run xsltproc to convert doc.xml into doc.html
         String homedir = System.getenv("ECLIPSE_HOME"); //$NON-NLS-1$
-        String app = homedir + DOCGEN_DIR + XSLTPROC_EXE;
+        String app = homedir + "/.." + DOCGEN_DIR + XSLTPROC_EXE;
         String xslfile = DOCGEN_XSL;
         String xmlfile = DOC_XML; 
         String htmlfile = DOC_HTML;
