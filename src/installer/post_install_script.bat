@@ -13,7 +13,7 @@ SET ECLIPSEDIR=%2
 
 :: Update the following files to reflect the target location provided by the user...
 echo Updating install path in config files
-SET BP_PATH=MentorGraphics\BridgePoint
+SET BP_PATH=xtuml\BridgePoint
 SET TGT_PATH=%TARGET:~3%
 "%TARGET%\tools\update_text" "%TARGET%\extras\Launcher.bat" "%BP_PATH%" "%TGT_PATH%"
 "%TARGET%\tools\update_text" "%TARGET%\extras\CLI.bat" "%BP_PATH%" "%TGT_PATH%"
