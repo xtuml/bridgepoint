@@ -23,10 +23,10 @@ BPVER=4.2.1
 configure_mc_files()
 {
   echo "Configuring translation support files for: $MC_NAME."
-  chmod 775 "$TARGET/eclipse_extensions/BridgePoint/eclipse/plugins/${MC_NAME}_${BPVER}/mc3020/bin/xtumlmc_build"
-  chmod 775 "$TARGET/eclipse_extensions/BridgePoint/eclipse/plugins/${MC_NAME}_${BPVER}/mc3020/bin/xtumlmc_build.exe"
-  chmod 775 "$TARGET/eclipse_extensions/BridgePoint/eclipse/plugins/${MC_NAME}_${BPVER}/mc3020/bin/gen_erate.exe"
-  chmod 775 "$TARGET/eclipse_extensions/BridgePoint/eclipse/plugins/${MC_NAME}_${BPVER}/mc3020/bin/mcmc"
+  chmod 775 "$TARGET/eclipse/plugins/${MC_NAME}_${BPVER}/mc3020/bin/xtumlmc_build"
+  chmod 775 "$TARGET/eclipse/plugins/${MC_NAME}_${BPVER}/mc3020/bin/xtumlmc_build.exe"
+  chmod 775 "$TARGET/eclipse/plugins/${MC_NAME}_${BPVER}/mc3020/bin/gen_erate.exe"
+  chmod 775 "$TARGET/eclipse/plugins/${MC_NAME}_${BPVER}/mc3020/bin/mcmc"
   echo "Done"
 }
 
@@ -47,7 +47,7 @@ if [ -f "$TARGET/eclipse/eclipse.ini" ]
 then
   sed -e 's;'"$BP_PATH"';'"$TARGET"';g' -i "$TARGET/eclipse/eclipse.ini"
 fi
-sed -e 's;'"C:/MentorGraphics/BridgePoint"';'"$TARGET"';g' -i "$TARGET/eclipse_extensions/BridgePoint/eclipse/plugins/org.xtuml.bp.welcome_$BPVER/models/GPS Watch/.classpath"
+sed -e 's;'"C:/MentorGraphics/BridgePoint"';'"$TARGET"';g' -i "$TARGET/eclipse/plugins/org.xtuml.bp.welcome_$BPVER/models/GPS Watch/.classpath"
 
 # Make sure these key files are in UNIX format
 tr -d '\r' < "$TARGET/eclipse/eclipse.ini" > "$TARGET/eclipse/eclipse.d2u"
@@ -60,9 +60,9 @@ chmod +x "$TARGET/eclipse/Launcher.sh"
 chmod +x "$TARGET/eclipse/CLI.sh"
 
 echo "Copying files for wine-based generator for bp.dap."
-cp "$TARGET/eclipse_extensions/BridgePoint/eclipse/plugins/org.xtuml.bp.mc.c.binary_$BPVER/mc3020/bin/msvcirt.dll" "$TARGET/eclipse_extensions/BridgePoint/eclipse/plugins/org.xtuml.bp.dap.pkg_$BPVER/bridgepoint/win32/client/bin"
-cp "$TARGET/eclipse_extensions/BridgePoint/eclipse/plugins/org.xtuml.bp.mc.c.binary_$BPVER/mc3020/bin/msvcp60.dll" "$TARGET/eclipse_extensions/BridgePoint/eclipse/plugins/org.xtuml.bp.dap.pkg_$BPVER/bridgepoint/win32/client/bin"
-cp "$TARGET/eclipse_extensions/BridgePoint/eclipse/plugins/org.xtuml.bp.mc.c.binary_$BPVER/mc3020/bin/msvcrt.dll" "$TARGET/eclipse_extensions/BridgePoint/eclipse/plugins/org.xtuml.bp.dap.pkg_$BPVER/bridgepoint/win32/client/bin"
+cp "$TARGET/eclipse/plugins/org.xtuml.bp.mc.c.binary_$BPVER/mc3020/bin/msvcirt.dll" "$TARGET/eclipse/plugins/org.xtuml.bp.dap.pkg_$BPVER/bridgepoint/win32/client/bin"
+cp "$TARGET/eclipse/plugins/org.xtuml.bp.mc.c.binary_$BPVER/mc3020/bin/msvcp60.dll" "$TARGET/eclipse/plugins/org.xtuml.bp.dap.pkg_$BPVER/bridgepoint/win32/client/bin"
+cp "$TARGET/eclipse/plugins/org.xtuml.bp.mc.c.binary_$BPVER/mc3020/bin/msvcrt.dll" "$TARGET/eclipse/plugins/org.xtuml.bp.dap.pkg_$BPVER/bridgepoint/win32/client/bin"
 echo "Done"
 
 MC_NAME="org.xtuml.bp.mc.c.binary"
@@ -94,7 +94,7 @@ SHOWRN=true
 if [ $SHOWRN ]
 then
 	echo "Found the Release notes flag file $RNFLAGFILE"
-	firefox "$TARGET/eclipse_extensions/BridgePoint/eclipse/plugins/org.xtuml.bp.doc_$BPVER/ReleaseNotes/HTML/ReleaseNotes.htm" &
+	firefox "$TARGET/eclipse/plugins/org.xtuml.bp.doc_$BPVER/ReleaseNotes/HTML/ReleaseNotes.htm" &
 fi
 echo Done
 

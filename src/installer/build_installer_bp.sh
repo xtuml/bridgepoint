@@ -48,7 +48,7 @@ SEQUENCE_CREATOR="org.xtuml.bp.sequencecapture_${BP_VERSION}.jar"
 # TODO - SERVER="tucson.wv"
 # TODO - REMOTE_RELEASE_DIR="/arch1/products/tiger/releases/${PRODUCT_BRANCH}"
 EXT_SRC_FILE="${PRODUCT_NAME}_extension_${PRODUCT_BRANCH}.zip"
-INSTALLER_DATA_DIR="${BP_BASE_DIR}/${PRODUCT_NAME}Deliverables/eclipse_extensions"
+INSTALLER_DATA_DIR="${BP_BASE_DIR}/EclipseDeliverables/eclipse"
 
 echo "INFO: Building ${PRODUCT_NAME} installer for ${OS}."
 
@@ -132,18 +132,19 @@ echo "INFO: Done."
 
 echo "INFO: Moving new extension data to ${INSTALLER_DATA_DIR}."
 cd "${INSTALLER_DATA_DIR}"
-rm -rf ${PRODUCT_NAME}
-mv "${TEMP_DIR}/${PRODUCT_NAME}" .
+cp -r "${TEMP_DIR}/${PRODUCT_NAME}/eclipse/features" .
+cp -r "${TEMP_DIR}/${PRODUCT_NAME}/eclipse/plugins" .
+rm -rf "${TEMP_DIR}/${PRODUCT_NAME}"
 echo "INFO: Done."
 
 echo "INFO: Setting up docgen executable"
 cd "${BP_BASE_DIR}/BridgePointDeliverables/tools/docgen"
-cp -f "${INSTALLER_DATA_DIR}/${PRODUCT_NAME}/eclipse/plugins/${MCMC_EXE}" docgen.exe
+cp -f "${INSTALLER_DATA_DIR}/plugins/${MCMC_EXE}" docgen.exe
 echo "INFO: Done."
 
 # TODO - do we want to disable or not???
 #echo "INFO: Disabling sequence creator plugin."
-#cd "${INSTALLER_DATA_DIR}/${PRODUCT_NAME}/eclipse/plugins/"
+#cd "${INSTALLER_DATA_DIR}/plugins/"
 #mv -f ${SEQUENCE_CREATOR} ${SEQUENCE_CREATOR}.no
 #echo "INFO: Done."
 
