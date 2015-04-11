@@ -13,7 +13,7 @@
     <!-- 
         The gui preferences indication.
     -->
-    <guiprefs width="660" height="480" resizable="no"/>
+    <guiprefs width="655" height="480" resizable="no"/>
 
     <!-- 
         The locale section.
