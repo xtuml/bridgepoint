@@ -376,8 +376,8 @@ public class Generator extends Task {
         throws IOException, RuntimeException, CoreException, InterruptedException 
     {
         // Call docgen.exe 
-        String homedir = System.getenv("MGC_EMBEDDED_HOME"); //$NON-NLS-1$
-        String app = homedir + DOCGEN_DIR + DOCGEN_EXE;
+        String homedir = System.getenv("ECLIPSE_HOME"); //$NON-NLS-1$
+        String app = homedir + "/.." + DOCGEN_DIR + DOCGEN_EXE;
         String outputfile = DOC_XML;
         File output = new File(workingDir + outputfile);
         File input = new File(workingDir + DOCGEN_INPUT);
@@ -408,7 +408,7 @@ public class Generator extends Task {
         throws IOException, RuntimeException, CoreException, InterruptedException 
     {
         // Run xsltproc to convert doc.xml into doc.html
-        String homedir = System.getenv("MGC_EMBEDDED_HOME").replaceAll("\\\\", "/"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+        String homedir = System.getenv("ECLIPSE_HOME"); //$NON-NLS-1$
         String app = homedir + DOCGEN_DIR + XSLTPROC_EXE;
         String xslfile = DOCGEN_XSL;
         String xmlfile = DOC_XML; 
