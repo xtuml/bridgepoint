@@ -9,7 +9,7 @@
 date
 
 # Check arguments
-if [ $# -ne 6 ]; then
+if [ $# -lt 6 ]; then
     echo
     echo "Usage: ./build_installer_bp.sh <product_branch> <staging_path> <izpack_path> <output_dir> <os> <release_version> <xtuml.org username>"
     echo "      product_branch -- e.g. master, R4_2_1"
@@ -31,6 +31,8 @@ OUTPUT_DIR="$4"
 OS_ARG="$5"
 BP_VERSION="$6"
 XTUMLORG_USER="$7"
+
+echo "Installer invocation: ./build_installer_bp.sh ${PRODUCT_BRANCH} ${STAGING_PATH} ${IZPACK_PATH} ${OUTPUT_DIR} ${OS_ARG} ${BP_VERSION} ${XTUMLORG_USER}"
 
 PRODUCT_NAME="BridgePoint"
 ECLIPSE_VER="3.7"
@@ -155,8 +157,7 @@ echo "INFO: Done."
 
 # Start IzPack
 echo "INFO: Running IzPack to create the installer."
-cd ${GIT_BP}/src/${INSTALL_PROJECT}
-${IZPACK_PATH}/bin/compile install_${OS}.xml -b ${STAGING_PATH} -o ${OUTPUT_DIR}/${PRODUCT_NAME}_${OS}.jar
+${IZPACK_PATH}/bin/compile ${STAGING_PATH}/installer_extras/install_${OS}.xml -b ${STAGING_PATH} -o ${OUTPUT_DIR}/${PRODUCT_NAME}_${OS}.jar
 echo "INFO: Done."
 
 # Rename the output file
