@@ -198,7 +198,7 @@ mkdir -p "${STAGING_AREA}"
 # Note that items in the following section will eventually need to be github 
 # pages (I think) for now the release is not being moved off of the build server.
 #
-export DOWNLOAD_URL="http://xtuml.org/BridgePoint"
+export DOWNLOAD_URL="http://xtuml.org/wp-content/uploads/BridgePoint"
 export DISTRIBUTION_SERVER=""
 
 # We do not currently use this, but when we were using cvs we tagged nightly 
