@@ -46,6 +46,8 @@ function configure_installer_files {
     cp -f 1F.png ${installer_extras} 2>>${ERROR_FILE}
     cp -f TARGET_WINDOWS.txt ${installer_extras} 2>>${ERROR_FILE}
     cp -f TARGET_LINUX.txt ${installer_extras} 2>>${ERROR_FILE}
+    cp -f install_linux.xml ${installer_extras} 2>>${ERROR_FILE}
+    cp -f install_windows.xml ${installer_extras} 2>>${ERROR_FILE}
     cp -f welcome.html ${installer_extras} 2>>${ERROR_FILE}
     cp -f shortcutSpec.xml ${installer_extras} 2>>${ERROR_FILE}
     cp -f post_install_script.bat ${installer_extras} 2>>${ERROR_FILE}
