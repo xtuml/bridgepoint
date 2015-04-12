@@ -85,8 +85,8 @@ function distribute_and_notify {
 	SCP_CMD="scp youruser@${SERVER_IP}:${RESULT_FOLDER}/BridgePoint_${BRANCH}_linux.jar BridgePoint_linux.jar"
 	echo -e "You can copy the release via: ${SCP_CMD}" >> ${MAIL_TEMP}
 	echo -e "---------------" >> ${MAIL_TEMP}
-	echo -e "The Linux release can be downloaded at: ${DOWNLOAD_URL}_linux.jar" >> ${MAIL_TEMP}
-    echo -e "The Windows release can be downloaded at: ${DOWNLOAD_URL}_windows.jar" >> ${MAIL_TEMP}
+	echo -e "The Linux release can be downloaded at: ${DOWNLOAD_URL}_${BRANCH}_linux.jar" >> ${MAIL_TEMP}
+    echo -e "The Windows release can be downloaded at: ${DOWNLOAD_URL}_${BRANCH}_windows.jar" >> ${MAIL_TEMP}
 	
 	cat ${MAIL_TEMP} | ${MAIL_CMD} ${BUILD_ADMIN}
 	
