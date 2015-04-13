@@ -33,9 +33,9 @@ Installation Steps
 ### Install BridgePoint
   - Download the latest released version of the tool.  You will find all the releases at [1].
 
-  - Run the installer, in Windows it is BridgePoint_v<version>.exe.  In linux the installer is BridgePoint_v<version>.ixl.  For linux you must change the permissions to be executable:
+  - Run the installer, in Windows it is BridgePoint_v(bp_version).exe.  In linux the installer is BridgePoint_v(bp_version).ixl.  For linux you must change the permissions to be executable:
     ```bash
-      username@hostname:~/Downloads$ chmod u+x BridgePoint_v<version>.ixl
+      username@hostname:~/Downloads$ chmod u+x BridgePoint_v(bp_version).ixl
     ```
     You may install wherever you like, but these instructions
      For Windows: 
@@ -44,7 +44,7 @@ Installation Steps
      	assume the default:  ```/home/$USER/xtuml/BridgePoint```
 
 ### Clone the Primary Github Repository
-  - Launch BridgePoint by executing the Launcher.bat (Windows) or the Launcher.sh (Linux) file under the <installed_location>/eclipse directory.  During startup, enter the name of a new eclipse workspace that will become your development workspace. ```Windows Example:  c:/workspace/current```, ```Linux Example:  /home/$USER/current/```
+  - Launch BridgePoint by executing the Launcher.bat (Windows) or the Launcher.sh (Linux) file under the (installed_location)/eclipse directory.  During startup, enter the name of a new eclipse workspace that will become your development workspace. ```Windows Example:  c:/workspace/current```, ```Linux Example:  /home/$USER/current/```
 
   - Close the Welcome to BridgePoint UML page if open
 
