@@ -10,6 +10,9 @@ References
 ------------
 [1]  https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/Developer%20Getting%20Started%20Guide.md
 
+Notes
+-----
+The current build scripts are only tested and used in linux.  While they may work in a cygwin environment it is suggested that a linux environment be used.   
 
 Preparations
 ------------
@@ -50,8 +53,8 @@ username@hostname:~$ cd work
 - build/git/xtuml/bridgepoint/utilities/build/init_git_repositories.sh
 - build/git/xtuml/bridgepoint/utilities/build/run_build.sh
 ```bash
-username@hostname:~$ cp ../git/xtuml/bridgepoint/utilities/build/init_git_repositories.sh .
-username@hostname:~$ cp ../git/xtuml/bridgepoint/utilities/build/run_build.sh .
+username@hostname:~$ tr -d '\r' < ../git/xtuml/bridgepoint/utilities/build/init_git_repositories.sh > init_git_repositories.sh
+username@hostname:~$ tr -d '\r' < ../git/xtuml/bridgepoint/utilities/build/run_build.sh > run_build.sh
 ```
 ### Configure your git account information.  This includes GITUSER and GITPASS, where GITPASS can be a real password or, preferably, a github API token for the specified user.
 ```bash
@@ -62,4 +65,4 @@ username@hostname:~$ export GITPASS="RealPassword", or "TOKEN"
 ```bash
 username@hostname:~$ ./run_build.sh <BridgePoint_Installation> <Build_Directory_Parent> <optional:<git_branch_name>>
 ```
-### Once the build is complete you will see plugins located under the build/releases/branch-timestamp-extension folder.
+### Once the build is complete you will see plugins located under the build/releases/branch-timestamp folder.
