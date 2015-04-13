@@ -61,7 +61,7 @@ This file is the plugin manifest for the BridgePoint core plugin.
 <plugin
    id="org.xtuml.bp.core"
    name="BridgePoint Core Plug-in"
-   version="4.2.1"
+   version="5.0.0"
    provider-name="xtUML.org"
    class="org.xtuml.bp.core.CorePlugin">
 
