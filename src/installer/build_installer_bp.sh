@@ -17,7 +17,7 @@ if [ $# -lt 6 ]; then
     echo "      izpack_path -- path to the root of the izpack installation"
     echo "      output_dir -- path to the location to output the installers"
     echo "      os - windows or linux"
-    echo "      release_version -- e.g. 4.2.1"
+    echo "      release_version -- e.g. 5.0.0"
     echo "   optional:"
     echo "      xtumlorg_username -- name of user account at GoDaddy"
     echo
