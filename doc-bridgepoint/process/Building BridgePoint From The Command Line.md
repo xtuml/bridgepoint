@@ -16,7 +16,8 @@ The current build scripts are only tested and used in linux.  While they may wor
 
 Preparations
 ------------
-### Execute the procedures outlined in reference [1].   
+### Execute the procedures outlined in reference [1].      
+### Install the latest izpack 4.x version from http://izpack.org/downloads/   
 
 Build Environment Setup
 -----------------------
@@ -61,8 +62,8 @@ username@hostname:~$ tr -d '\r' < ../git/xtuml/bridgepoint/utilities/build/run_b
 username@hostname:~$ export GITUSER="username@somedomain.com"
 username@hostname:~$ export GITPASS="RealPassword", or "TOKEN"
 ```
-### Run the build script
+### Run the build script, there are two optional arguments here.  One is to specify a branch to build, by default it is master.  The other is to specify a username for a target location for the release to be posted (some folder on a webserver)
 ```bash
-username@hostname:~$ ./run_build.sh <BridgePoint_Installation> <Build_Directory_Parent> <optional:<git_branch_name>>
+username@hostname:~$ ./run_build.sh <BridgePoint_Installation> <Build_Directory_Parent> <optional:<git_branch_name>> <optional:<release_target_user_name>>
 ```
 ### Once the build is complete you will see plugins located under the build/releases/branch-timestamp folder.
