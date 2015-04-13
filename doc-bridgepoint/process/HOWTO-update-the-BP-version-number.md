@@ -34,7 +34,7 @@ Steps
   - Turn off Build Automatically if it is turned on
   
   - Update your development workspace with the latest version from github master
-   of all plug-in and support projects (e.g. installer, utilities, mc, etc...)
+   of all plug-in and support projects (e.g. installer, utilities)
    
   - Create an issue in github for the version bump.
   
