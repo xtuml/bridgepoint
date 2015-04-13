@@ -62,4 +62,4 @@ username@hostname:~$ export GITPASS="RealPassword", or "TOKEN"
 ```bash
 username@hostname:~$ ./run_build.sh <BridgePoint_Installation> <Build_Directory_Parent> <optional:<git_branch_name>>
 ```
-### Once the build is complete you will see plugins located under the build/releases/<branch/master>-timestamp-extension folder.
+### Once the build is complete you will see plugins located under the build/releases/branch-timestamp-extension folder.
