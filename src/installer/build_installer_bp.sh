@@ -163,10 +163,7 @@ echo "INFO: Done."
 # Rename the output file
 echo "INFO: Renaming the output file to ${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS}.jar."
 cd "${OUTPUT_DIR}"
-if [ "${PRODUCT_BRANCH}" = "master" ]; then
-  rm -rf ${PRODUCT_NAME}_${PRODUCT_BRANCH}_*.jar
-fi
-mv "${PRODUCT_NAME}_${OS}.jar" "${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS}.jar"
+mv -f "${PRODUCT_NAME}_${OS}.jar" "${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS}.jar"
 echo "INFO: Done."
 
 # Make sure the output looks good
