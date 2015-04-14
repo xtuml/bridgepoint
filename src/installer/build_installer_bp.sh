@@ -164,6 +164,7 @@ echo "INFO: Done."
 echo "INFO: Renaming the output file to ${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS}.jar."
 cd "${OUTPUT_DIR}"
 mv -f "${PRODUCT_NAME}_${OS}.jar" "${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS}.jar"
+chmod g+w "${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS}.jar"
 echo "INFO: Done."
 
 # Make sure the output looks good
