@@ -37,6 +37,7 @@
           description="Generate the sql version of the Grammar model"
           unless="sql.buildNotNeeded" >
     <echo >Generating ${sql.output} ...</echo>
+    <echo >Using: ${util_bin_dir}/xtumlmc_build.exe ...</echo>  	
   	<copy file="../org.xtuml.bp.pkg/globals/Globals.xtuml" tofile="${sql.input}/Globals.xtuml" />
     <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
       <arg line="xtumlmc_cleanse_for_BridgePoint ${sql.input} sql/${sql.output} ${subsystems_to_remove}" />
@@ -78,7 +79,7 @@
   <target name="grammar.depends" >
     <uptodate property="grammar.buildNotNeeded" targetfile="${antlr.output}">
        <srcfiles dir = "../org.xtuml.bp.als.oal/bnf" includes = "oal.bnf"/>
-       <srcfiles dir = "../pt_antlr" includes = "antlr.jar"/>
+       <srcfiles dir = "lib" includes = "antlr.jar"/>
     </uptodate>
   </target>
 
@@ -87,7 +88,7 @@
           description="Generate the Grammar file"
           unless="grammar.buildNotNeeded" >
     <echo >Generating ${antlr.output} ...</echo>
-    <java dir="." fork="true" classpath="../pt_antlr/antlr.jar" classname="antlr.Tool" >
+    <java dir="." fork="true" classpath="lib/antlr.jar" classname="antlr.Tool" >
       <arg value="-nocodegen" />
       <arg value="-sql=${antlr.output}" />
       <arg value="../org.xtuml.bp.als.oal/bnf/oal.bnf" />

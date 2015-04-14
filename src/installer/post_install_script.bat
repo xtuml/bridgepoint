@@ -1,7 +1,7 @@
 @echo off
 
 echo Starting post-install script
-SET BPVER=4.2.0
+SET BPVER=5.0.0
 
 :: Localization Note: To support UNICODE paths for Source, Target, or MIP 
 :: location, the scripts should ignore the command line $1, $2 arguments and use
@@ -13,7 +13,7 @@ SET ECLIPSEDIR=%2
 
 :: Update the following files to reflect the target location provided by the user...
 echo Updating install path in config files
-SET BP_PATH=MentorGraphics\BridgePoint
+SET BP_PATH=xtuml\BridgePoint
 SET TGT_PATH=%TARGET:~3%
 "%TARGET%\tools\update_text" "%TARGET%\extras\Launcher.bat" "%BP_PATH%" "%TGT_PATH%"
 "%TARGET%\tools\update_text" "%TARGET%\extras\CLI.bat" "%BP_PATH%" "%TGT_PATH%"
@@ -25,7 +25,6 @@ IF NOT EXIST "%TARGET%\eclipse\eclipse.ini" GOTO NoBPEclipse
   "%TARGET%\tools\update_text" "%TARGET%\eclipse\eclipse.ini" "%BP_PATH%" "%TGT_PATH%"
   :NoBPEclipse
 echo Done
-"%TARGET%\tools\update_text" -c "%TARGET%\eclipse_extensions\BridgePoint\eclipse\plugins\org.xtuml.bp.welcome_%BPVER%\models\GPS Watch\.classpath" "C:/MentorGraphics/BridgePoint" "%TGT_PATH%" 
 
 :: Move the eclipse-related files from "extras/" to the eclipse directory specified in "extras/eclipsedir.txt".  This will either
 :: be the eclipse installation under the BP install, or the users pre-existing eclipse installation.
@@ -47,7 +46,7 @@ echo Done
 echo Release notes display (or not)
 SET RNFLAGFILE=%TARGET%\extras\rnflag.txt
 IF EXIST "%RNFLAGFILE%" ECHO Found the Release notes flag file %RNFLAGFILE%
-START iexplore "file://%TARGET%\eclipse_extensions\BridgePoint\eclipse\plugins\org.xtuml.bp.doc_%BPVER%\ReleaseNotes\HTML\ReleaseNotes.htm"
+START iexplore "file://%TARGET%\eclipse\plugins\org.xtuml.bp.doc_%BPVER%\ReleaseNotes\HTML\ReleaseNotes.htm"
 DEL "%RNFLAGFILE%"
 GOTO ReleaseNotesDone
 :ReleaseNotesDone

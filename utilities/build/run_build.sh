@@ -5,16 +5,25 @@
 #
 #  This script runs the nightly build.
 #
+#  The script requires at least two parameters:
+#    
+#     BPHOMEDIR   - This is the location of a BridgePoint installation
+#     BUILD_MOUNT - This holds the build server location that is the 
+#                   root for the build
+#
+#  Optional:
+#     BRANCH      - This is an optional parameter that allows you to configure
+#                   the branch to build
+#     IZPACK_PATH - Path to where IzPack is installed
+#     XTUMLORG_USER - The username for the upload account
+#               
 #  Since it is the starting point for the build chain, it must be manually put 
 #  into place for the build server to run. The variable BUILD_MOUNT holds the 
 #  build server location that is the root for the build.
 #  
 #  Build Server Requirements:
 #  1) run_build.sh, and init_git_repositories.sh must be present in ${BUILD_ROOT}
-#  2) BridgePoint must be installed to the folder pointed to by the 
-#     ${ECLIPSE_HOME} variable defined below.  The BridgePoint version must be 
-#     in this ECLIPSE_HOME must be specified.
-#  3) git and ant must be installed on the build server
+#  2) git, ant, jar, and IzPack must be installed on the build server
 # 
 #  The build is performed under ${BUILD_ROOT}.  The result of the build:
 #  1) plugins
@@ -34,7 +43,7 @@ function distribute_and_notify {
 	echo -e "Entering run_build.sh::distribute_and_notify"
 	if [ "$1" = "0" ]; then
 	  # TODO: This was the prior implementation.  It needs to be reworked (RSH)
-	  # ${RSH} ${DISTRIBUTION_SERVER} "(cd '${RELEASE_BASE}'; if [ ! -x '${RESULT_FOLDER}' ]; then mkdir '${RESULT_FOLDER}'; fi; cp -f '${RELEASE_DROP}'/BridgePoint_extension_'${BRANCH}'.zip '${BUILD_RESULT_FOLDER}'/BridgePoint_extension_'${BRANCH}'.zip ; )"
+	  # ${RSH} ${DISTRIBUTION_SERVER} "(cd '${RELEASE_BASE}'; if [ ! -x '${RESULT_FOLDER}' ]; then mkdir '${RESULT_FOLDER}'; fi; cp -f '${RESULT_FOLDER}'/BridgePoint_extension_'${BRANCH}'.zip '${BUILD_RESULT_FOLDER}'/BridgePoint_extension_'${BRANCH}'.zip ; )"
 	  echo -e "Creating dated backup of the build"
 	else
 	  echo -e "create_bp_release.sh returned with a non-zero value ($?)"
@@ -63,15 +72,22 @@ function distribute_and_notify {
 	  cat ${ERROR_FILE} >> ${MAIL_TEMP}
 	  echo -e "---------------\n" >> ${MAIL_TEMP}
 	else
-	  echo -e "The release can be downloaded at: ${DOWNLOAD_URL}" >> ${MAIL_TEMP}
+	  echo -e "The Linux release can be downloaded at: ${DOWNLOAD_URL}_linux.jar" >> ${MAIL_TEMP}
+	  echo -e "The Windows release can be downloaded at: ${DOWNLOAD_URL}_windows.jar" >> ${MAIL_TEMP}
 	  
 	  echo -e "\nCHANGELOG:" >> ${MAIL_TEMP}
 	  echo -e "---------------" >> ${MAIL_TEMP}
-	  cat ${DIFF_FILE} >> ${MAIL_TEMP}
-	  
-	  # TODO - ./build_installer_bp.sh ${BRANCH} ${STAGING_AREA} /bin/TODOIZPACKPATH ${RESULT_FOLDER} windows
-	  # TODO - ./build_installer_bp.sh ${BRANCH} ${STAGING_AREA} /bin/TODOIZPACKPATH ${RESULT_FOLDER} linux
+	  cat ${DIFF_FILE} >> ${MAIL_TEMP}	  
 	fi
+	
+	# TODO - temporary copy location until we upload it somewhere...
+	SERVER_IP=$(dig +short myip.opendns.com @resolver1.opendns.com)
+	SCP_CMD="scp youruser@${SERVER_IP}:${RESULT_FOLDER}/BridgePoint_${BRANCH}_linux.jar BridgePoint_linux.jar"
+	echo -e "You can copy the release via: ${SCP_CMD}" >> ${MAIL_TEMP}
+	echo -e "---------------" >> ${MAIL_TEMP}
+	echo -e "The Linux release can be downloaded at: ${DOWNLOAD_URL}_${BRANCH}_linux.jar" >> ${MAIL_TEMP}
+    echo -e "The Windows release can be downloaded at: ${DOWNLOAD_URL}_${BRANCH}_windows.jar" >> ${MAIL_TEMP}
+	
 	cat ${MAIL_TEMP} | ${MAIL_CMD} ${BUILD_ADMIN}
 	
 	rm -rf ${MAIL_TEMP}
@@ -82,10 +98,26 @@ function distribute_and_notify {
 # Main
 #-------------------------------------------------------------------------------
 
-# User defined variables:
-export BUILD_MOUNT="${HOME}/build"
-export ECLIPSE_HOME="${HOME}/MentorGraphics/BridgePoint/eclipse"
-export HOST_BP_VERSION="4.2.1"
+# Verify parameters
+if [ "$#" -lt 2 ]; then
+
+echo "This script requires two parameters.  The other parameters are optional.  See below for usage."
+echo
+echo "run_build.sh BridgePoint_Home_Directory Build_Root Branch IzPack_Home_Directory"
+echo
+echo "See the script header for more detail."
+exit 1
+fi 
+
+date 
+
+export BPHOMEDIR="$1"
+if [ "$2" = "/" ]; then
+  export BUILD_MOUNT="/build"
+else
+  export BUILD_MOUNT="$2/build"
+fi
+export ECLIPSE_HOME="${BPHOMEDIR}/eclipse"
 
 # Do not modify these variables:
 export BUILD_ROOT="${BUILD_MOUNT}/work"
@@ -93,8 +125,21 @@ export GIT_REPO_ROOT="${BUILD_MOUNT}/git/xtuml"
 export GIT_BP="${GIT_REPO_ROOT}/bridgepoint"
 # if no arguments are present default to master
 export BRANCH="master"
-if [ $# -eq 1 ]; then
-  export BRANCH="$1"
+if [ "$3" != "" ]; then
+  export BRANCH="$3"
+fi
+if [ "$4" != "" ]; then
+  export IZPACK_PATH="$4"
+fi
+if [ "$5" != "" ]; then
+  export XTUMLORG_USER="$5"
+fi
+
+# Make sure github credentials are available in the environment
+if [ "${GITUSER}" = "" ] || [ "${GITPASS}" = "" ]; then
+  echo "The build requires the environment variables GITUSER and GITPASS to be set for checking files out of github."
+  echo "GITPASS may be a real password or, preferably, a github API token for the specified GITUSER."
+  exit 1
 fi
 
 # echo out variables
@@ -102,6 +147,7 @@ echo "BUILD_MOUNT=${BUILD_MOUNT}"
 echo "BUILD_ROOT=${BUILD_ROOT}"
 echo "BRANCH=${BRANCH}"
 echo "GIT_REPO_ROOT=${GIT_REPO_ROOT}"
+echo "BPHOMEDIR=${BPHOMEDIR}"
 
 # this flag is constant and could potentially be removed, but it is 
 # being left in case we do want to have the build be different then other 
@@ -124,9 +170,7 @@ export BUILD_LOG=""${LOG_DIR}/build.log""
 export BUILD_ADMIN="build@onefact.net"
 export MAIL_CMD="/usr/sbin/ssmtp"
 export MAIL_TEMP="mailtemp"
-export RELEASE_PKG="org.xtuml.bp.bld.pkg-feature"
 export SHELLUSER="${USER}"
-mkdir -p "${LOG_DIR}"
 
 export TIMESTAMP=`date +%Y%m%d%H%M`
 
@@ -141,7 +185,7 @@ mkdir -p "${RESULT_FOLDER}"
 #
 # This is where the extension result goes
 #
-export RESULT_FOLDER_EXTENSION="${RELEASE_BASE}/${BUILD_TARGET}-extension"
+export RESULT_FOLDER_EXTENSION="${RELEASE_BASE}/${BUILD_TARGET}/BridgePoint_${BRANCH}"
 mkdir -p "${RESULT_FOLDER_EXTENSION}"
 
 
@@ -154,9 +198,7 @@ mkdir -p "${STAGING_AREA}"
 # Note that items in the following section will eventually need to be github 
 # pages (I think) for now the release is not being moved off of the build server.
 #
-export RELEASE_DROP="${RELEASE_BASE}/${BRANCH}"
-mkdir -p "${RELEASE_DROP}"
-export DOWNLOAD_URL="http://xtuml.github.io/bridgepoint/"
+export DOWNLOAD_URL="http://xtuml.org/wp-content/uploads/BridgePoint"
 export DISTRIBUTION_SERVER=""
 
 # We do not currently use this, but when we were using cvs we tagged nightly 
@@ -184,20 +226,41 @@ if [ $? -eq 1 ]; then
 else
   rm -f "${BUILD_ROOT}/init_git_repositories.tmp"
 fi
-bash "${BUILD_ROOT}/init_git_repositories.sh" >> ${BUILD_LOG}
+echo -e "Getting files from github, this could take a while."
+bash "${BUILD_ROOT}/init_git_repositories.sh" ${BRANCH} ${GIT_REPO_ROOT} ${ALLOW_FALLBACK} >> ${BUILD_LOG} 2>&1
+echo -e "Done."
 
 # Can do the copy and dos2unix translation in one step.
 tr -d '\r' < ${GIT_BP}/utilities/build/configure_build_process.sh > configure_build_process.sh
 chmod a+x configure_build_process.sh
 
 bash configure_build_process.sh >> ${BUILD_LOG}
+cd  "${BUILD_DIR}"
+
+bash configure_external_dependencies.sh ${GIT_REPO_ROOT} > ${LOG_DIR}/configure_externals.log 2>&1
+cd  "${BUILD_DIR}"
 
 bash create_bp_release.sh  >> ${BUILD_LOG}
+cd  "${BUILD_DIR}"
 
-distribute_and_notify $? >> ${BUILD_LOG}
+if [ "${IZPACK_PATH}" = "" ]; then
+  export IZPACK_PATH="/usr/local/IzPack"
+fi  
 
-# Clean up build files
-cd ${BUILD_ROOT}
-mv configure_build_process.sh ${BRANCH}
+# TODO - we'll re-enable this check when headless_build stops reporting errors
+#if [ ! -s ${ERROR_FILE} ]; then
+  if [ -e ${IZPACK_PATH}/bin/compile ]; then
+    bp_release_version=`awk -F"\"" '{if (/ersion.*\=.*[0-9]\.[0-9]\.[0-9]/) {print $2; exit;}}' ${GIT_BP}/src/org.xtuml.bp.pkg/plugin.xml`
+    bash build_installer_bp.sh ${BRANCH} ${STAGING_AREA} ${IZPACK_PATH} ${RESULT_FOLDER} windows ${bp_release_version} ${XTUMLORG_USER} >> ${BUILD_LOG}
+    cd  "${BUILD_DIR}"
+  
+    bash build_installer_bp.sh ${BRANCH} ${STAGING_AREA} ${IZPACK_PATH} ${RESULT_FOLDER} linux ${bp_release_version} ${XTUMLORG_USER} >> ${BUILD_LOG}
+    cd  "${BUILD_DIR}"
+  fi
+#fi
+
+if [ -e ${MAIL_CMD} ]; then
+  distribute_and_notify $? >> ${BUILD_LOG}
+fi 
 
 echo -e "End of run_build.sh"
