@@ -23,6 +23,7 @@ package org.xtuml.bp.debug.test;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.debug.internal.ui.DebugUIPlugin;
 import org.eclipse.debug.ui.IDebugUIConstants;
 import org.eclipse.jface.viewers.StructuredSelection;
@@ -155,6 +156,9 @@ public class VIECParameterTest extends BaseTest {
 				"LogInfo:  Call received\r\nLogInfo:  CallerID  :3333\r\n" +
 				"LogInfo:  CalledID  :6666\r\n" +
 				"LogInfo:  ServiceID :9999\r\n";
+		if (!Platform.getOS().contains("win")) {
+			expectedConsoleText = expectedConsoleText.replace("\r", "");
+		}
 
 		String actualConsoleText = DebugUITestUtilities.getConsoleText("null");
 		assertEquals(expectedConsoleText, actualConsoleText);

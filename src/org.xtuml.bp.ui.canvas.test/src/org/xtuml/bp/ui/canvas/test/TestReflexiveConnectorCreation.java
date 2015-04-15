@@ -54,6 +54,7 @@ public class TestReflexiveConnectorCreation extends BaseTest {
 		// disable grid snapping for easier testing
 		CorePlugin.getDefault().getPreferenceStore().setValue(
 				BridgePointPreferencesStore.SNAP_TO_GRID, false);
+		UITestingUtilities.resizeMainWindow(1280, 1024);
 	}
 
 	@Override

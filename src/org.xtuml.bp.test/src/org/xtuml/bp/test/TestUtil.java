@@ -1084,6 +1084,11 @@ public class TestUtil
                 FailableRunnable innerRunnable = new FailableRunnable() {
                     @Override
                     public void run() {
+                    	for (int i=0; i < 100; i++) {
+                      	  while (Display.getCurrent().readAndDispatch()) {
+                      		  i = 0;  // Reset outer loop
+                      	  }
+                      	}
                         boolean found = false;
                         // locate the dialog
                         Shell[] shells = PlatformUI.getWorkbench().getDisplay()

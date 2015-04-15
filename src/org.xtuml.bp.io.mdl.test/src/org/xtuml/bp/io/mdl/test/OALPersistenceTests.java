@@ -113,7 +113,7 @@ public class OALPersistenceTests extends TestCase {
 	        
 	        if (!generateResults) {  // make sure the exported model has OAL
 	            TestingUtilities.fileContentsCompare( 
-	                m_workspace_path + "expected_results/" + domainName + "." +  Ooaofooa.MODELS_EXT, 
+		                m_workspace_path + TestingUtilities.getExpectedResultsPath() + domainName + "." +  Ooaofooa.MODELS_EXT, 
 	                m_workspace_path + "actual_results/" + domainName + "." +  Ooaofooa.MODELS_EXT );
 	        }
         } catch (CoreException f) {

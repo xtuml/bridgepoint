@@ -23,6 +23,7 @@ package org.xtuml.bp.debug.test;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Menu;
@@ -134,6 +135,9 @@ public class VIECTest extends BaseTest {
 				"Calculate factorial for number 3\r\nLogInfo:  Calculate factorial for smaller number\r\nLogInfo:  " +
 				"Calculate factorial for number 2\r\nLogInfo:  Calculate factorial for smaller number\r\nLogInfo:  " +
 				"Calculate factorial for number 1\r\nLogReal:  120.0 is the result  \r\n";
+		if (!Platform.getOS().contains("win")) {
+			expectedConsoleText = expectedConsoleText.replace("\r", "");
+		}
 		String actualConsoleText = DebugUITestUtilities.getConsoleText("null");
 		assertEquals(expectedConsoleText, actualConsoleText);
 		
@@ -174,6 +178,9 @@ public class VIECTest extends BaseTest {
 			"for smaller number\r\nLogInfo:  Calculate factorial for number 2\r\nLogInfo:  Calculate" +
 			" factorial for smaller number\r\nLogInfo:  Calculate factorial for number 1\r\nLogInfo:  " +
 			"Final result24\r\n";
+	if (!Platform.getOS().contains("win")) {
+		expectedConsoleText = expectedConsoleText.replace("\r", "");
+	}
 	String actualConsoleText = DebugUITestUtilities.getConsoleText("null");
 	assertEquals(expectedConsoleText, actualConsoleText);
 

@@ -1,0 +1,12 @@
+ERROR: Found another data type under the same package with a matching name.
+
+Element Name: Structured Data Type
+Element Path: ModelIntegrityTests::Structured Data Type Tests::Structured Data Type
+
+
+ERROR: Found another data type under the same package with a matching name.
+
+Element Name: Structured Data Type
+Element Path: ModelIntegrityTests::Structured Data Type Tests::Structured Data Type
+
+
