@@ -1,5 +1,4 @@
 @echo off
-set BP_VERSION=4.2.1
 
 ::Check that a valid argument is specified
 if "%1"=="Build" goto ArgsOK
@@ -34,7 +33,7 @@ if not "%WORKSPACE%"=="" goto RunApp
   :: choose to set the value in the environment, or modify the following line to
   :: point to the correct location.
   ::
-  set WORKSPACE=%~d0\mgc\BridgePoint\workspace
+  set WORKSPACE=%~d0\xtuml\BridgePoint\workspace
 goto RunApp
 
 :RunApp
@@ -44,25 +43,25 @@ echo Using WORKSPACE=%WORKSPACE%
 :: DO NOT MODIFY ANY OF THE FOLLOWING LINES.
 ::
 set ORIGINAL_PATH=%PATH%
-set PATH=%PATH%;%~d0\mgc\BridgePoint\tools\docgen\docbook
-set MGC_EMBEDDED_HOME=%~d0\mgc\BridgePoint
-set LAUNCHER=%MGC_EMBEDDED_HOME%\eclipse\plugins\org.eclipse.equinox.launcher_1.2.0.v20110502.jar
+set PATH=%PATH%;%~d0\xtuml\BridgePoint\tools\docgen\docbook
+set BPHOMEDIR=%~d0\xtuml\BridgePoint
+set LAUNCHER=%BPHOMEDIR%\eclipse\plugins\org.eclipse.equinox.launcher_1.2.0.v20110502.jar
 set APPLICATION=org.xtuml.bp.cli.%1
-set BP_JVM=%MGC_EMBEDDED_HOME%\jre\bin\java.exe
+set BP_JVM=%BPHOMEDIR%\jre\bin\java.exe
 
 :: Save the user current working directory
 pushd .
 
 :: Check for fonts that trip up generator
-cd %MGC_EMBEDDED_HOME%\tools\fontchecker
+cd %BPHOMEDIR%\tools\fontchecker
 fontchecker.exe
 
 :: Configure to run MinGW
-call %MGC_EMBEDDED_HOME%\MinGW\mingwgnu.bat
+call %BPHOMEDIR%\MinGW\mingwgnu.bat
 @echo off
 
 :: Run command line action
-cd %MGC_EMBEDDED_HOME%\eclipse
+cd %BPHOMEDIR%\eclipse
 set COMMAND=eclipsec.exe --launcher.suppressErrors -vm %BP_JVM% -clean -noSplash -data %WORKSPACE% -application %APPLICATION% %2 %3 %4 %5 %6 %7 %8 %9
 echo %COMMAND%
 %COMMAND%
