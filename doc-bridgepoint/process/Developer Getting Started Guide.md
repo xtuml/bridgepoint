@@ -43,6 +43,10 @@ Any instructions below that are OS specific will be indicated.
 
 Installation Steps
 ------------
+### Install wine for linux
+  - Install the latest wine for your OS
+    e.g, username@hostname:~ sudo apt-get install wine
+    
 ### Install BridgePoint
   - Download the latest released version of the tool.  You will find all the releases at [1].
 
@@ -133,7 +137,7 @@ Installation Steps
     - Select Next
     - Select Next again
     - Accept the license agreement
-    - Select Finish.  The files are installed and you are prompted to restart. Perform the restart.
+    - Select Finish.  The files are installed and you are prompted to restart. DO NOT restart yet.
     
   - Exit BridgePoint
 
@@ -153,32 +157,32 @@ For linux GIT_PATH is:
 For Windows use set:
     set XTUML_DEVELOPMENT_REPOSITORY=<GIT_PATH>/bridgepoint
     set XTUML_TEST_MODEL_REPOSITORY=<GIT_PATH>/models/test
-    set XTUML_PRIVATE_MODEL_REPOSITORY=<GIT_PATH>/modelsmg/test
     
 For linux use export:
     export XTUML_DEVELOPMENT_REPOSITORY=<GIT_PATH>/bridgepoint
     export XTUML_TEST_MODEL_REPOSITORY=<GIT_PATH>/models/test
-    export XTUML_PRIVATE_MODEL_REPOSITORY=<GIT_PATH>/modelsmg/test
 
 ```
 
 ### Setup Development Environment to Run MC3020 Under a Launch Configuration
+  - Start BridgePoint using the bat (windows) or sh (linux) script.  Opening the workspace created above.
+  
   - Open a file explorer and navigate to the BridgePoint plug-in installation folder.  The defaults are:
 ```
 For Windows:
 
-c:/xtuml/BridgePoint/eclipse_extensions/BridgePoint/eclipse/plugins/org.xtuml.bp.mc.c.binary_<bp_version>/mc3020
+c:/xtuml/BridgePoint/eclipse/plugins/org.xtuml.bp.mc.c.binary_<bp_version>/mc3020
 
 For linux:
 
-/home/$USER/xtuml/BridgePoint/eclipse_extensions/BridgePoint/eclipse/plugins/org.xtuml.bp.mc.c.binary_<bp_version>/mc3020
+/home/$USER/xtuml/BridgePoint/eclipse/plugins/org.xtuml.bp.mc.c.binary_<bp_version>/mc3020
 ```
   
   - Select all files and folders in the above folder
   
   - Select Copy
   
-  - Open the Navigator view in Eclipse and navigate to: ```org.xtuml.bp.mc.c.binary_<bp_version>/mc3020```
+  - Open the Navigator view in Eclipse and navigate to: ```org.xtuml.bp.mc.c.binary/mc3020```
   
   - Paste the previous selection into this folder
 
@@ -187,9 +191,12 @@ For linux:
   
   - Once installed be sure to add the perl location to your PATH variable.
 
+### Adjust ant permissions in linux
+  ```bash
+  - Change directory to <bp_install>/eclipse/plugins/org.apache.ant_1.8.2.<latest_version>/bin
+  - Run chmod u+x antRun
+  ```
 ### Build BridgePoint
-  - Start BridgePoint
-   
   - Select Project > Build Automatically
 
   - The build will take a while and should finish successfully
