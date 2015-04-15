@@ -28,7 +28,13 @@ Preparations
     - Then click the New pull request button on the right of the page (green button)
     - Next choose the base fork pull down, select your fork/<repository>
     - Now choose the head fork pull down, select xtuml/<repository>
-    - 
+    - Click the Create pull request button (green button)
+    - Enter a message describing the pull request (updating to the latest xtuml master)
+    - Again click the Create pull request button (green button)
+    - On the next page click the Merge pull request button (green button)
+    - Enter a message describing the merge (updating to the latest xtuml master) 
+    - Click the Confirm Merge button (green button)
+    - The fork is now up to date
     
   - Install a java JRE or JDK.
 
