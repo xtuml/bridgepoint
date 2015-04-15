@@ -10,8 +10,7 @@ This document is intended to provide an interested xtUML & Java developer the in
 
 References
 ------------
-[1]  http://xtuml.org/download/
-
+[1]  http://xtuml.org/download/  (Note the download files are appended with the jar extension)
 
 Preparations
 ------------
@@ -21,22 +20,36 @@ Preparations
   - In order to manage your edits to the source, you need to fork the source code.  For each of the repositories, you must navigate to the source home on Github and click the "Fork" button in the upper right corner and select your github account:
     - https://github.com/xtuml/bridgepoint
     - https://github.com/xtuml/models
-
+    
   - Once the process is complete, you will have a fork of each of the repositories under your own Github account.  For the remainder of this document, we will refer to the repositories using the formula ```https://github.com/"username"/"repository".git``` where "username" is your personal Github user name. (For example: ```https://github.com/keithbrown/bridgepoint.git```)
+  
+  - If you previously had a github fork and are re-using it then follow these steps:
+    - On the https://github.com/"username"/<repository> site select the Pull requests link on the right of the page
+    - Then click the New pull request button on the right of the page (green button)
+    - Next choose the base fork pull down, select your fork/<repository>
+    - Now choose the head fork pull down, select xtuml/<repository>
+    - 
+    
+  - Install a java JRE or JDK.
 
 ### OS-Specific Instructions
 Any instructions below that are OS specific will be indicated.
-
 
 Installation Steps
 ------------
 ### Install BridgePoint
   - Download the latest released version of the tool.  You will find all the releases at [1].
 
-  - Run the installer, in Windows it is BridgePoint_v(bp_version).exe.  In linux the installer is BridgePoint_v(bp_version).ixl.  For linux you must change the permissions to be executable:
+  - Run the installer, the file name is BridgePoint_(bp_version)_<OS>.jar.
     ```bash
-      username@hostname:~/Downloads$ chmod u+x BridgePoint_v(bp_version).ixl
+    For Windows:
+      - Open the command prompt (cmd) and run
+      		c:\> java -jar <download location>/BridgePoint_<bp_version>_<OS>.jar -console
+    For linux:
+      - Open a terminal and run
+      		username@hostname:~/Downloads$ java -jar <download location>/BridgePoint_<bp_version>_<OS>.jar -console
     ```
+      
     You may install wherever you like, but these instructions
      For Windows: 
      	assume the default:  ```c:/xtuml/BridgePoint```
@@ -58,7 +71,7 @@ Installation Steps
     - Select Next
     - For the Local Destination enter a folder where you want to store your local git repositories. __DO NOT SELECT YOUR WORKSPACE FOLDER!__ ```Example: (Windows) c:/git or (Linux) /home/$USER/git  (These instructions assume this is the folder used)```
     - Select Finish.
-
+    
 ### Set up the Source Code Projects for Eclipse Development
   - Import the projects into your workspace
     - In the Git Repository Exploring perspective select "bridgepoint"
