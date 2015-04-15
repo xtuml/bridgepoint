@@ -25,6 +25,8 @@ package org.xtuml.bp.core.test;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.swt.widgets.Display;
+
 import org.xtuml.bp.core.InteractionParticipant_c;
 import org.xtuml.bp.core.PackageParticipant_c;
 import org.xtuml.bp.core.Package_c;
@@ -66,7 +68,7 @@ public class TestVisibilityInElementChooser extends BaseTest {
 		Selection.getInstance().clear();
 		Selection.getInstance().addToSelection(testInstance);
 		List<FailableRunnable> runnables = new ArrayList<FailableRunnable>();
-		FailableRunnable runnable = TestUtil.chooseItemInDialog(0, "Another Nested Package", true);
+		FailableRunnable runnable = TestUtil.chooseItemInDialog(100, "Another Nested Package", true);
 		runnables.add(runnable);
 		runnable = TestUtil.chooseItemInDialog(runnable, "Nested Package", true);
 		runnables.add(runnable);

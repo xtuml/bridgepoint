@@ -17,13 +17,13 @@
 <project name="bp.internal.tools" default="SummarizeResults" basedir=".">
 
 	<property environment="env"/>
-    <property name="unittestPath" value="${env.MGC_EMBEDDED_HOME}/eclipse/test_results/" />
+    <property name="unittestPath" value="${env.HOME}/test_results/" />
 
 	<target name="SummarizeResults" description="Summarize the BridgePoint unit test results">
 	    <!-- 
-	      --   Strip out the "testrun" tag in the xml file.  The junitreport 
-	      --    expects this xml file to start with "testsuite", and if it does 
-	      --    not it will not process the files
+	         Strip out the "testrun" tag in the xml file.  The junitreport 
+	          expects this xml file to start with "testsuite", and if it does 
+	          not it will not process the files
 	      --> 
 		<replaceregexp match=".*{1}/?testrun.*" replace="" flags="g" byline="true">
 		  <fileset dir="${unittestPath}">
@@ -33,7 +33,7 @@
 		</replaceregexp>
 	
 	    <!--
-	      -- Run the report
+	       Run the report
 	      -->
 		<junitreport todir="${unittestPath}">
 		  <fileset dir="${unittestPath}">

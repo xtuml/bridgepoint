@@ -37,6 +37,7 @@ import junit.framework.TestCase;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.Platform;
 
 import org.xtuml.bp.core.Association_c;
 import org.xtuml.bp.core.ClassInAssociation_c;
@@ -99,8 +100,15 @@ public class IOTest extends TestCase {
     private void outputLogsCompare(String expected_file)
     {   
         String[] log1Entries = log1.getLogs(), log2Entries = log2.getLogs();
+        String lineSep;
+        if (Platform.getOS().contains("win")) {
+        	lineSep = "\r\n";
+        }
+        else {
+        	lineSep = "\n";
+        }
         String actualResults = TestUtil.join(log1Entries) 
-            + (log2Entries.length > 0 ? "\r\n" + TestUtil.join(log2Entries) : "");
+            + (log2Entries.length > 0 ? lineSep + TestUtil.join(log2Entries) : "");
         String expectedResults = TestUtil.getTextFileContents(
             new Path(expected_file).toFile());
         assertEquals(expectedResults, actualResults);

@@ -359,9 +359,15 @@ public class TestingUtilities {
 
 	public static void sortFile(String in_file, String out_file) {
 		try {
-			String in_str = '"' + in_file.replace('/', '\\') + '"';
-			String out_str = '"' + out_file.replace('/', '\\') + '"';
-			String cmd = "sort /REC 65535 /O " + out_str + " " + in_str;
+			String cmd;
+			if (Platform.getOS().contains("win")) {
+				String in_str = '"' + in_file.replace('/', '\\') + '"';
+				String out_str = '"' + out_file.replace('/', '\\') + '"';
+				cmd = "sort /REC 65535 /O " + out_str + " " + in_str;
+			}
+			else {
+				cmd = "sort -S 65535 -o " + out_file + " " + in_file;
+			}
 			Process p = Runtime.getRuntime().exec(cmd);
 			p.waitFor();
 			TestCase.assertEquals(0, p.exitValue());
@@ -863,6 +869,15 @@ public class TestingUtilities {
 		}
 		ProjectUtilities.importExistingProject(testProjectPath, true);
 		BaseTest.dispatchEvents(0);
+	}
+
+	public static String getExpectedResultsPath() {
+		String result = "expected_results/";
+		String os = Platform.getOS(); 
+		if (!os.contains("win")) {
+			result = result + os + "/";
+		}
+		return result;
 	}
 
 }

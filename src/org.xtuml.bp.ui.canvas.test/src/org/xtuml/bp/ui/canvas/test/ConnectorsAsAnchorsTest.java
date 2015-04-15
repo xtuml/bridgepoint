@@ -54,7 +54,7 @@ import org.xtuml.bp.utilities.ui.CanvasUtilities;
 public class ConnectorsAsAnchorsTest extends CanvasTest {
 	private String test_id;
 
-	private static boolean generateResults;
+	private static boolean generateResults = false;
 
 	public ConnectorsAsAnchorsTest(String arg0) {
 		super(null, arg0);

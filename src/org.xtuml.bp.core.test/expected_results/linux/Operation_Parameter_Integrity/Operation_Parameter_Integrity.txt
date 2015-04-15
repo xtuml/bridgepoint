@@ -1,0 +1,12 @@
+ERROR: Found another parameter under the same operation with a matching name.
+
+Element Name: param
+Element Path: ModelIntegrityTests::Operation Parameter Tests::Class::Operation::param
+
+
+ERROR: Found another parameter under the same operation with a matching name.
+
+Element Name: param
+Element Path: ModelIntegrityTests::Operation Parameter Tests::Class::Operation::param
+
+
