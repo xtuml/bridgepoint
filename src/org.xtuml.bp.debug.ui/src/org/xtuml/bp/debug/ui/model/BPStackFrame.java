@@ -150,13 +150,13 @@ public class BPStackFrame extends BPDebugElement implements IStackFrame {
 		          BlockInStackFrame_c.getManyI_BSFsOnR2923(stackFrame)));
 		IVariable [] result = new IVariable[evtdis.length + localVals.length + localRefs.length];
 		for(int i=0; i < evtdis.length; i++) {
-			result[i] = new BPVariable(getDebugTarget(), getLaunch(), evtdis[i]);
+			result[i] = new BPVariable(getDebugTarget(), getLaunch(), evtdis[i], null);
 		}
 		for (int i=0; i < localVals.length; i++) {
-          result[i + evtdis.length] = new BPVariable(getDebugTarget(), getLaunch(), localVals[i]);
+          result[i + evtdis.length] = new BPVariable(getDebugTarget(), getLaunch(), localVals[i], null);
 		}
 		for (int i=0; i < localRefs.length; i++) {
-	      result[i + evtdis.length + localVals.length] = new BPVariable(getDebugTarget(), getLaunch(), localRefs[i]);
+	      result[i + evtdis.length + localVals.length] = new BPVariable(getDebugTarget(), getLaunch(), localRefs[i], null);
 		}
 		return result;
 	  }
@@ -164,7 +164,7 @@ public class BPStackFrame extends BPDebugElement implements IStackFrame {
         DataItemValue_c [] divs = DataItemValue_c.getManyI_DIVsOnR2933(event);
 		IVariable [] result = new IVariable[divs.length];
 		for(int i=0; i < divs.length; i++) {
-			result[i] = new BPVariable(getDebugTarget(), getLaunch(), divs[i]);
+			result[i] = new BPVariable(getDebugTarget(), getLaunch(), divs[i], null);
 		}
 		return result;
 	  }

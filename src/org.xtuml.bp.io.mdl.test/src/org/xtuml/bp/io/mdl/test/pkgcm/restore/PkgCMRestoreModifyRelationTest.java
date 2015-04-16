@@ -108,9 +108,12 @@ public class PkgCMRestoreModifyRelationTest extends PkgCMModifyRelationTest {
             baseEditor= (GraphicalEditor) EditorTestUtilities.findEditor(title);
         }
         int edCount = Integer.valueOf(getProperty("editorCount")).intValue();
-        editorTitles = new  String[edCount];
+        editorType = new  int[edCount];
         for (int i = 0; i < edCount-1; i++) {
-            editorTitles[i] = getProperty("title" + String.valueOf(i));
+        	// This part shall be fixed again if the test to be run agian. 
+        	// This changes made in part of 229
+        	
+        	// editorType[i] = getProperty("title" + String.valueOf(i));
         }
 
     }

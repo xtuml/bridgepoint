@@ -27,6 +27,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.debug.core.DebugPlugin;
 import org.eclipse.debug.core.IBreakpointManager;
 import org.eclipse.debug.core.Launch;
@@ -129,6 +130,9 @@ public class RealizedClassTest extends BaseTest {
 		DebugUITestUtilities.waitForExecution();
 		
 		String expectedConsoleText = "User invoked function: test\r\nLogSuccess:  Correct Value\r\nLogSuccess:  Correct Value\r\nLogSuccess:  Correct Value\r\nLogSuccess:  Correct Value\r\nLogSuccess:  Correct Value\r\nLogSuccess:  Correct Value\r\nLogSuccess:  Correct Value\r\nLogSuccess:  Correct Value\r\nLogSuccess:  Correct Value\r\nLogSuccess:  Correct Value\r\nLogSuccess:  Correct Value\r\nLogSuccess:  Correct Value\r\nLogSuccess:  Correct Value\r\nLogSuccess:  Correct Value\r\nLogSuccess:  Correct Value\r\nLogSuccess:  Correct Value\r\nLogSuccess:  Correct Value\r\nLogSuccess:  Correct Value\r\nLogSuccess:  Correct Value\r\nLogSuccess:  Correct Value\r\n";
+		if (!Platform.getOS().contains("win")) {
+			expectedConsoleText = expectedConsoleText.replace("\r", "");
+		}
 		String actualConsoleText = DebugUITestUtilities.getConsoleText("null");
 		assertEquals(expectedConsoleText, actualConsoleText);
 
@@ -148,6 +152,9 @@ public class RealizedClassTest extends BaseTest {
 	    DebugUITestUtilities.waitForBPThreads(m_sys);
 	    DebugUITestUtilities.waitForExecution();
 	    String expectedConsoleText = "User invoked function: test_function\r\nLogInfo:  Hello, World!\r\n";
+		if (!Platform.getOS().contains("win")) {
+			expectedConsoleText = expectedConsoleText.replace("\r", "");
+		}
 	    String actualConsoleText = DebugUITestUtilities.getConsoleText("null");
 	    assertEquals(expectedConsoleText, actualConsoleText);
 	}

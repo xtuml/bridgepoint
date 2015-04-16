@@ -40,16 +40,22 @@ import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.FileEditorInput;
 
+import org.xtuml.bp.core.Association_c;
 import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.DataItemValue_c;
 import org.xtuml.bp.core.ComponentReference_c;
+import org.xtuml.bp.core.LinkParticipation_c;
 import org.xtuml.bp.core.LocalReference_c;
 import org.xtuml.bp.core.LocalValue_c;
+import org.xtuml.bp.core.PendingEvent_c;
+import org.xtuml.bp.core.StateMachineEvent_c;
+import org.xtuml.bp.core.StateMachineState_c;
 import org.xtuml.bp.debug.ui.model.BPBreakpoint;
 import org.xtuml.bp.debug.ui.model.BPProcess;
 import org.xtuml.bp.debug.ui.model.BPStackFrame;
 import org.xtuml.bp.debug.ui.model.BPThread;
+import org.xtuml.bp.debug.ui.model.BPValue;
 import org.xtuml.bp.debug.ui.model.BPVariable;
 import org.xtuml.bp.debug.ui.model.VerifierExceptionBreakpoint;
 import org.xtuml.bp.ui.text.IModelElementEditorInputFactory;
@@ -160,6 +166,34 @@ public class BPDebugModelPresentation implements IDebugModelPresentation {
                     images.put("metadata/operation.gif", image);
             	}
             }
+             else if (debugVariable.getType() == Association_c.class ) {
+	             	image = images.get("metadata/Association.gif");
+             	if (image == null) {
+             		image = CorePlugin.getImageDescriptor("metadata/Association.gif").createImage();
+             		images.put("metadata/Association.gif", image);
+             	}
+             }
+             else if (debugVariable.getType() == StateMachineState_c.class ) {
+             	image = images.get("metadata/State.gif");
+             	if (image == null) {
+             		image = CorePlugin.getImageDescriptor("metadata/State.gif").createImage();
+             		images.put("metadata/State.gif", image);
+             	}
+             }
+             else if (debugVariable.getType() == PendingEvent_c.class ) {
+             	image = images.get("metadata/Event.gif");
+             	if (image == null) {
+             		image = CorePlugin.getImageDescriptor("metadata/Event.gif").createImage();
+             		images.put("metadata/Event.gif", image);
+             	}
+             }
+             else if (debugVariable.getType() == StateMachineEvent_c.class ) {
+             	image = images.get("metadata/Event.gif");
+             	if (image == null) {
+             		image = CorePlugin.getImageDescriptor("metadata/Event.gif").createImage();
+             		images.put("metadata/Event.gif", image);
+             	}
+             }
             else {
             	image = images.get("metadata/attribute.gif");
             	if (image == null) {
@@ -198,7 +232,7 @@ public class BPDebugModelPresentation implements IDebugModelPresentation {
         String detail = ""; //$NON-NLS-1$
 
         try {
-            detail = value.getValueString();
+            detail = ((BPValue) value).getValueStringForButtonTextPane();
         } catch (DebugException e) {
         }
 

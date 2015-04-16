@@ -196,7 +196,7 @@ public class VerifierTransitionActionTests extends BaseTest {
 		assertEquals(expected_results, actual_results);
 	}
 	public void testISMTransitionAction() {
-		checkTransitionActionBreakPoint("Idle to Testing",
+		checkTransitionActionBreakPoint("Idle::UUT1: Perform Test 1",
                                         "ISM_BP_Transition_Action_test.result");
 	}
 	public void testCSMTransitionAction() {

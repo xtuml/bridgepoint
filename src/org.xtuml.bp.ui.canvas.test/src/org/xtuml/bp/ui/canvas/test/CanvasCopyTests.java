@@ -72,7 +72,7 @@ public class CanvasCopyTests extends CanvasTest {
 			}
 		});
 		CanvasTestUtils.openDiagramEditor(uut);	
-		CanvasUtilities.openCanvasEditor("Microwave Oven: Package Diagram");
+		CanvasUtilities.openCanvasEditor("Microwave Oven");
 		GraphicalEditor ce = ((ModelEditor) PlatformUI.getWorkbench()
 				.getActiveWorkbenchWindow().getActivePage().getActiveEditor())
 				.getGraphicalEditor();

@@ -36,12 +36,15 @@ import org.xtuml.bp.core.Bridge_c;
 import org.xtuml.bp.core.ClassStateMachine_c;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.DerivedBaseAttribute_c;
+import org.xtuml.bp.core.ExternalEntity_c;
 import org.xtuml.bp.core.Function_c;
 import org.xtuml.bp.core.InstanceStateMachine_c;
+import org.xtuml.bp.core.ModelClass_c;
 import org.xtuml.bp.core.MooreActionHome_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Operation_c;
 import org.xtuml.bp.core.Package_c;
+import org.xtuml.bp.core.PackageableElement_c;
 import org.xtuml.bp.core.StateMachineState_c;
 import org.xtuml.bp.core.StateMachine_c;
 import org.xtuml.bp.core.TransitionActionHome_c;
@@ -99,18 +102,20 @@ public class OpenActivityEditor extends UITextTest {
 	{	
 		final Bridge_c uut = Bridge_c.BridgeInstance(modelRoot);
 		assertNotNull(uut);
+		ExternalEntity_c parent = ExternalEntity_c.getOneS_EEOnR19(uut);
 
 		ActivityEditorInteraction.openActivityEditor(uut);
-		validateActivityEditor( "test_bridge: Bridge Activity", uut.getAction_semantics());
+		validateActivityEditor( parent.getName() +"::" +"test_bridge", uut.getAction_semantics());
 	}
 	
 	public void testOpenFunctionActivity()
 	{	
 		final Function_c uut = Function_c.FunctionInstance(modelRoot);
 		assertNotNull(uut);
+		Package_c parent = Package_c.getOneEP_PKGOnR8000(PackageableElement_c.getOnePE_PEOnR8001(uut));
 
 		ActivityEditorInteraction.openActivityEditor(uut);
-		validateActivityEditor( "test_function: Function Activity", uut.getAction_semantics());
+		validateActivityEditor(parent.getName() +"::" + "test_function", uut.getAction_semantics());
 	}
 	
 	public void testOpenInstanceOperationActivity()
@@ -124,9 +129,10 @@ public class OpenActivityEditor extends UITextTest {
 		}
 		final Operation_c uut = Operation_c.OperationInstance(modelRoot, new findop1());
 		assertNotNull(uut);
+		ModelClass_c parent = ModelClass_c.getOneO_OBJOnR115(uut);
 
 		ActivityEditorInteraction.openActivityEditor(uut);
-		validateActivityEditor("op1: Operation Activity", uut.getAction_semantics());
+		validateActivityEditor(parent.getName() + "::" + "op1", uut.getAction_semantics());
 	}
 	
 	public void testOpenClassOperationActivity()
@@ -140,9 +146,10 @@ public class OpenActivityEditor extends UITextTest {
 		}
 		final Operation_c uut = Operation_c.OperationInstance(modelRoot, new findop2());
 		assertNotNull(uut);
+		ModelClass_c parent = ModelClass_c.getOneO_OBJOnR115(uut);
 
 		ActivityEditorInteraction.openActivityEditor(uut);
-		validateActivityEditor("op2: Operation Activity", uut.getAction_semantics());
+		validateActivityEditor(parent.getName() + "::" + "op2", uut.getAction_semantics());
 	}
 
 
@@ -157,11 +164,12 @@ public class OpenActivityEditor extends UITextTest {
 		}
 		final Attribute_c uut = Attribute_c.AttributeInstance(modelRoot, new findmda());
 		assertNotNull(uut);
+		ModelClass_c parent = ModelClass_c.getOneO_OBJOnR102(uut);
 
 		ActivityEditorInteraction.openActivityEditor(uut);
 		DerivedBaseAttribute_c dba = DerivedBaseAttribute_c.getOneO_DBATTROnR107(
 			BaseAttribute_c.getOneO_BATTROnR106(uut));
-		validateActivityEditor("mda: Attribute Activity", dba.getAction_semantics());
+		validateActivityEditor(parent.getName() +"::" +"mda", dba.getAction_semantics());
 	}
 	
 
@@ -178,13 +186,15 @@ public class OpenActivityEditor extends UITextTest {
         
 		final StateMachineState_c uut = StateMachineState_c.StateMachineStateInstance(modelRoot,smeQuery);
 		assertNotNull(uut);
+		InstanceStateMachine_c ism = InstanceStateMachine_c.getOneSM_ISMOnR517(StateMachine_c.getOneSM_SMOnR501(uut));
+		ModelClass_c parent = ModelClass_c.getOneO_OBJOnR518(ism);
 
 		ActivityEditorInteraction.openActivityEditor(uut);
 		Action_c source =
 			Action_c.getOneSM_ACTOnR514(
 				ActionHome_c.getOneSM_AHOnR513(
 					MooreActionHome_c.getOneSM_MOAHOnR511(uut)));
-		validateActivityEditor("ISM State: State Machine State Activity", source.getAction_semantics());
+		validateActivityEditor(parent.getName() +"::" +"ISM State", source.getAction_semantics());
 	}
 	
 	public void testOpenInstanceTransitionActionActivity()
@@ -198,7 +208,7 @@ public class OpenActivityEditor extends UITextTest {
 			Action_c.getOneSM_ACTOnR514(
 				ActionHome_c.getOneSM_AHOnR513(
 					TransitionActionHome_c.getOneSM_TAHOnR530(uut)));
-		validateActivityEditor("T_T3: third in ISM State to ISM State: Transition Activity", source.getAction_semantics());
+		validateActivityEditor("Test Class::ISM State::T_T3: third", source.getAction_semantics());
 	}
 	
 	public void testOpenClassActionActivity()
@@ -206,13 +216,14 @@ public class OpenActivityEditor extends UITextTest {
 		final ClassStateMachine_c csm = ClassStateMachine_c.ClassStateMachineInstance(modelRoot);
 		final StateMachineState_c uut = StateMachineState_c.getOneSM_STATEOnR501(StateMachine_c.getOneSM_SMOnR517(csm));
 		assertNotNull(uut);
+		ModelClass_c parent = ModelClass_c.getOneO_OBJOnR519(csm);
 
 		ActivityEditorInteraction.openActivityEditor(uut);
 		Action_c source =
 			Action_c.getOneSM_ACTOnR514(
 				ActionHome_c.getOneSM_AHOnR513(
 					MooreActionHome_c.getOneSM_MOAHOnR511(uut)));
-		validateActivityEditor("CSM State: State Machine State Activity", source.getAction_semantics());
+		validateActivityEditor(parent.getName() +"::" +"CSM State", source.getAction_semantics());
 	}
 
 	public void testOpenClassActionTransitionActivity()
@@ -226,7 +237,7 @@ public class OpenActivityEditor extends UITextTest {
 			Action_c.getOneSM_ACTOnR514(
 				ActionHome_c.getOneSM_AHOnR513(
 					TransitionActionHome_c.getOneSM_TAHOnR530(uut)));
-		validateActivityEditor("T_T_A3: third class in CSM State to CSM State: Transition Activity", source.getAction_semantics());
+		validateActivityEditor("Test Class::CSM State::T_T_A3: third class", source.getAction_semantics());
 	}
 	
 	

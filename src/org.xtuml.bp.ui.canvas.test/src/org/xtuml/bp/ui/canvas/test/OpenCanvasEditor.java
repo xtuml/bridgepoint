@@ -82,7 +82,7 @@ public class OpenCanvasEditor extends BaseTest {
 			}
 		});
 		CanvasTestUtils.openDiagramEditor(uut);
-		validateCanvasEditor("odms: Package Diagram", uut.getDescrip());
+		validateCanvasEditor("odms", uut.getDescrip());
 	}
 	
 	public void testOpenInstanceStateChartDiagram()
@@ -90,7 +90,7 @@ public class OpenCanvasEditor extends BaseTest {
 		CanvasTestUtils ctu = new CanvasTestUtils();
 		final InstanceStateMachine_c uut = InstanceStateMachine_c.getOneSM_ISMOnR518(ModelClass_c.ModelClassInstance(modelRoot, ctu.new Class_by_name_c("Disk")));
 		CanvasTestUtils.openDiagramEditor(uut);		
-		validateCanvasEditor( "Disk: Instance State Machine", uut.Get_name());
+		validateCanvasEditor( "Disk", uut.Get_name());
 
 	}
 			

@@ -220,6 +220,7 @@ public class VerifierStaticVariablesInRealizedClassesTest extends BaseTest {
 	}
 	
 	private void doTest(String packageName, String resultName) {
+		DebugUITestUtilities.clearConsoleOutput();
 		Package_c testPkg = findPackageByName(LocalEE_sys, packageName);
 
 		runVerifier(new NonRootModelElement[] {testPkg});

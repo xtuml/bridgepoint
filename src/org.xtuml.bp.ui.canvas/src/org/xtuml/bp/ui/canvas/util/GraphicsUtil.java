@@ -60,29 +60,9 @@ public class GraphicsUtil {
 
 		String title = CoreUtil.getName(element);
 		if (title != null) {
-			return title + getCanvasEditorPostTitle(element, true);		
+			return title;	
 		}
 		return null;
-	}
-	
-	public static String getCanvasEditorPostTitle(final NonRootModelElement element, boolean checkElementToEdit) {
-		ModelSpecification_c[] modelSpecs = ModelSpecification_c
-			.ModelSpecificationInstances(Ooaofgraphics
-				.getDefaultInstance());
-		Class clazz = element.getClass();
-		if(checkElementToEdit) {
-			Object elementToEdit = EditorUtil.getElementToEdit(element);
-			if(elementToEdit.getClass() != clazz) {
-				clazz = elementToEdit.getClass();
-			}
-		}
-		for (int i = 0; i < modelSpecs.length; i++) {
-			if (modelSpecs[i].getRepresents() == clazz) {
-				return ": " + modelSpecs[i].getName();
-		
-			}
-		}
-		return "";
 	}
     
     public static PersistableModelComponent getComponentOfElementInResize(final NonRootModelElement me) {

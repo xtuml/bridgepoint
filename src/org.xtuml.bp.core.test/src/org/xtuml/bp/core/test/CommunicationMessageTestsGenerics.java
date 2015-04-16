@@ -136,7 +136,7 @@ public class CommunicationMessageTestsGenerics extends CanvasTest {
 		CanvasUtilities.openCanvasEditor(communication);
 
 		GraphicalEditor ce = CanvasTestUtilities.getCanvasEditor(diagramName
-				+ ": Package Diagram");
+				);
 		// test that an external entity participant may
 		// be formalized against an external entity
 		ExternalEntityParticipant_c eep = ExternalEntityParticipant_c
@@ -237,7 +237,7 @@ public class CommunicationMessageTestsGenerics extends CanvasTest {
 		CanvasUtilities.openCanvasEditor(communication);
 
 		GraphicalEditor ce = CanvasTestUtilities.getCanvasEditor(diagramName
-				+ ": Package Diagram");
+				);
 		// test that an external entity participant may
 		// be formalized against an external entity
 		PackageParticipant_c fpp = PackageParticipant_c.PackageParticipantInstance(communication.getModelRoot(),
@@ -328,7 +328,7 @@ public class CommunicationMessageTestsGenerics extends CanvasTest {
 		CanvasUtilities.openCanvasEditor(communication);
 
 		GraphicalEditor ce = CanvasTestUtilities.getCanvasEditor(diagramName
-				+ ": Package Diagram");
+				);
 		// test that an external entity participant may
 		// be formalized against an external entity
 		ClassInstanceParticipant_c cip = ClassInstanceParticipant_c
@@ -419,7 +419,7 @@ public class CommunicationMessageTestsGenerics extends CanvasTest {
 		CanvasUtilities.openCanvasEditor(communication);
 
 		GraphicalEditor ce = CanvasTestUtilities.getCanvasEditor(diagramName
-				+ ": Package Diagram");
+				);
 		// test that an external entity participant may
 		// be formalized against an external entity
 		ClassParticipant_c cp = ClassParticipant_c.ClassParticipantInstance(
@@ -509,7 +509,7 @@ public class CommunicationMessageTestsGenerics extends CanvasTest {
 		CanvasUtilities.openCanvasEditor(communication);
 
 		GraphicalEditor ce = CanvasTestUtilities.getCanvasEditor(diagramName
-				+ ": Package Diagram");
+				);
 		// test that an external entity participant may
 		// be formalized against an external entity
 		ClassParticipant_c cp = ClassParticipant_c.ClassParticipantInstance(
@@ -600,7 +600,7 @@ public class CommunicationMessageTestsGenerics extends CanvasTest {
 		CanvasUtilities.openCanvasEditor(communication);
 
 		GraphicalEditor ce = CanvasTestUtilities.getCanvasEditor(diagramName
-				+ ": Package Diagram");
+				);
 		// test that an external entity participant may
 		// be formalized against an external entity
 		ClassInstanceParticipant_c cip = ClassInstanceParticipant_c

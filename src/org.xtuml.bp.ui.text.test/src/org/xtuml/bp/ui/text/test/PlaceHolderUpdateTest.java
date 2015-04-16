@@ -99,7 +99,7 @@ public class PlaceHolderUpdateTest extends UITextTest
     {
         // open an editor on an activity in the domain
         String stateName = "Waiting for a Disk Request";
-        String editorTitle = stateName + ": State Machine State Activity";
+        String editorTitle = "Disk Ownership::"+ stateName;
         ActivityEditor editor = TextEditorUtils.openActivityEditor(modelRoot, stateName, editorTitle);
         
         TextEditorUtils.createProblemMarker(editor);

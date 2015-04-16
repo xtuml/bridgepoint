@@ -25,6 +25,7 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.gef.tools.AbstractTool;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Display;
@@ -78,6 +79,7 @@ public class TigerNatureExistingProjectsTestGenerics extends CanvasTest {
 
 	String test_id = null;
 	boolean generateResults = getGenerateResults();
+	String[] expected_string;
 
 	private static boolean getGenerateResults() {
 		String env = System.getenv("generateResults");
@@ -91,6 +93,20 @@ public class TigerNatureExistingProjectsTestGenerics extends CanvasTest {
 
 	public TigerNatureExistingProjectsTestGenerics(String name) {
 		super("org.xtuml.bp.core.test", name);
+		if (Platform.getOS().contains("win")) {
+			  expected_string = new String[]{
+					"drawRectangle(16416, 12384, 384, 432)",
+					"drawText(" + String.valueOf('"') + "Unnamed ..."
+							+ String.valueOf('"') + ", 16432, 12397, true)",
+					"drawline(16416, 12492, 16800, 12492)"};
+			}
+			else {
+	          expected_string = new String[]{
+							"drawRectangle(...)",
+							"drawText(" + String.valueOf('"') + "Unname..."
+									+ String.valueOf('"') + ", ...)",
+							"drawline(...)"};
+			}
 	}
 
 	protected String getResultName() {
@@ -149,11 +165,6 @@ public class TigerNatureExistingProjectsTestGenerics extends CanvasTest {
 		return null;
 	}
 
-	String[] expected_string = new String[]{
-			"drawRectangle(16416, 12384, 384, 432)",
-			"drawText(" + String.valueOf('"') + "Unnamed ..."
-					+ String.valueOf('"') + ", 16432, 12397, true)",
-			"drawline(16416, 12492, 16800, 12492)"};
 	/**
 	 * Create a new shape on an existing sequence diagram, testing
 	 * that it is drawn correctly.
@@ -168,7 +179,7 @@ public class TigerNatureExistingProjectsTestGenerics extends CanvasTest {
 		String id = "";
 		for (int i = 0; i < editorReferences.length; i++) {
 			if (editorReferences[i].getName().equals(
-					"Sequence Diagram: Package Diagram")) {
+					"Sequence Diagram")) {
 				editorInput = editorReferences[i].getEditorInput();
 				id = editorReferences[i].getId();
 			}
@@ -207,7 +218,7 @@ public class TigerNatureExistingProjectsTestGenerics extends CanvasTest {
 	// tree is opened to the selected class
 
 	public void testLinkWithEditor() {
-		IEditorPart ss = checkForOpenEditors("TestSS: Package Diagram");
+		IEditorPart ss = checkForOpenEditors("TestSS");
 		assertNotNull(ss);
 
 		// bring the canvas editor to the front
@@ -267,13 +278,13 @@ public class TigerNatureExistingProjectsTestGenerics extends CanvasTest {
 	public void testEditorsRemainOpenAfterClose() {
 		assertNotNull(
 				"Editor, TestSS: Class Diagram, did not correctly restore",
-				checkForOpenEditors("TestSS: Package Diagram"));
+				checkForOpenEditors("TestSS"));
 		assertNotNull(
 				"Editor, testOp: Operation Activity, did not correctly restore",
-				checkForOpenEditors("testOp: Operation Activity"));
+				checkForOpenEditors("TestClass1::testOp"));
 		assertNotNull(
 				"Editor, TestClass1: Model Class Description, did not correctly restore",
-				checkForOpenEditors("TestClass1: Model Class Description"));
+				checkForOpenEditors("TestClass1"));
 	}
 
 	public void testPlacholderInstances() {

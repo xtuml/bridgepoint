@@ -44,6 +44,7 @@
 .assign both_obj_set = result.both_obj_set
 .assign both_source_set = result.dsc_source_set | result.oal_source_set
 .assign all_set = both_obj_set | both_source_set
+.assign oal_set = result.oal_source_set | oal_obj_set
 .invoke result = get_model_adapter_class_name()
 .assign modelAdapterClass = result.class_name
 .invoke result = get_test_class_name()
@@ -79,6 +80,8 @@ import org.eclipse.core.runtime.Path;
 
 import org.xtuml.bp.core.*;
 import org.xtuml.bp.core.common.*;
+import org.xtuml.bp.core.inspector.IModelClassInspector;
+import org.xtuml.bp.core.inspector.ModelInspector;
 
 public class ${modelAdapterClass}
 {
@@ -213,12 +216,18 @@ public class ${modelAdapterClass}
     }
         
 	.assign found = false
+	.assign is_oal = false;
 	.select many attr_set related by obj->O_ATTR[R102]
 	.for each attr in attr_set
 	  .if ("$l{attr.name}" == "name")
 	    .assign found = true
 	    .break for
 	  .end if
+	  .for each oal in oal_set
+	  	.if ( obj.Key_Lett == oal.Key_Lett)
+	  		.assign is_oal = true;
+	  	.end if
+	  .end for    
 	.end for    
 	.if (not found )
 	private static String m_getNameValid = "no"; //$$NON-NLS-1$$
@@ -233,7 +242,23 @@ public class ${modelAdapterClass}
 	  }
 	  ${classname} obj = (${classname})modelElement;
 	.if (found)
-	  return obj.get$cr{attr.name}() + ": ${obj.Name}"; //$$NON-NLS-1$$
+	  .if (is_oal)
+		try{
+	  	ModelInspector inspector = new ModelInspector();
+		IModelClassInspector elementInspector = inspector.getInspector(obj .getClass());
+			NonRootModelElement parent = (NonRootModelElement) elementInspector .getParent(obj);
+	    .if (((obj.Key_Lett == "SPR_RO") or (obj.Key_Lett == "SPR_RS")) or ((obj.Key_Lett == "SPR_PO") or (obj.Key_Lett == "SPR_PS")) ) 
+	    .// return the Port as parent instead of interface reference for interface operations and signals instead of Interface Reference
+	    	elementInspector = inspector.getInspector(parent.getClass());
+			parent = (NonRootModelElement) elementInspector .getParent(parent);
+		.end if	    
+	    return parent.getName() + "::" + obj.get$cr{attr.name}(); //$$NON-NLS-1$$
+		}catch(Exception e){
+			return obj.get$cr{attr.name}(); //  Return the element name if the parent element is not found
+		}
+	  .else
+	  return obj.get$cr{attr.name}(); //$$NON-NLS-1$$
+	  .end if
 	.else
 	  if ( m_getNameValid != null && m_getNameValid.equals("no") ) //$$NON-NLS-1$$
 	  {
@@ -242,7 +267,25 @@ public class ${modelAdapterClass}
 		  m_getNameValid = "yes"; //$$NON-NLS-1$$
 	  }
 	  if ( m_getNameValid != null && m_getNameValid.equals("yes") ) //$$NON-NLS-1$$
-	    return ModelAdapter.getName( obj ) + ": ${obj.Name}"; 
+	  .if (is_oal)
+	  	{
+	  	try{
+	  	ModelInspector inspector = new ModelInspector();
+		IModelClassInspector elementInspector = inspector.getInspector(obj .getClass());
+		NonRootModelElement parent = (NonRootModelElement) elementInspector .getParent(obj);
+	    .if (obj.Key_Lett == "SM_TXN")
+	    	.// Return the model class as parent for transition
+	    	elementInspector = inspector.getInspector(parent.getClass());
+			parent = (NonRootModelElement) elementInspector .getParent(parent);
+	    .end if
+	    return parent.getName() + "::" + ModelAdapter.getName( obj ); //$$NON-NLS-1$$
+	    }catch(Exception e){
+			return ModelAdapter.getName( obj ); //  Return the element name if the parent element is not found
+		}
+		}
+	  .else
+	    return ModelAdapter.getName( obj ); 
+	  .end if
 	  else
 	    return "UNKNOWN"; 
 	.end if

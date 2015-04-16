@@ -353,66 +353,7 @@ public class GenericEditorUtil {
         return false;
     }
 
-    /**
-     * This funcation take desired parameters and returns expected title
-     * @param componentRoot ME for which to generate Title
-     * @param newName new name of ME, when componentRoot is ISM or CSM,
-     *  newName will be name of its class  
-     * @param editorType of editor for which to generate Title
-	 * @return editor title string for given editor type and ME; returns null if
-	 *         given editor type is not supported for given ME, so this method
-	 *         can be to check wether given editor type is supported by given ME
-	 */
-	static public String getComponentEditorTitleString(
-			NonRootModelElement componentRoot,String newName, int editorType) {
-		String title = newName;
 		
-		if (componentRoot instanceof Domain_c) {
-			if (editorType == EDITOR_TYPE_DESC)
-				title += ": Domain Description"; //$NON-NLS-1$
-			else if (editorType == EDITOR_TYPE_CANVAS)
-				title += ": Domain Package Diagram"; //$NON-NLS-1$
-		}
-		if (componentRoot instanceof DataTypePackage_c) {
-			if (editorType == EDITOR_TYPE_CANVAS)
-				title += ": Data Type Package Diagram"; //$NON-NLS-1$
-		}
-		if (componentRoot instanceof ExternalEntityPackage_c) {
-			if (editorType == EDITOR_TYPE_CANVAS)
-				title += ": External Entity Package Diagram"; //$NON-NLS-1$
-		}
-		if (componentRoot instanceof FunctionPackage_c) {
-			if (editorType == EDITOR_TYPE_CANVAS)
-				title += ": Function Package Diagram"; //$NON-NLS-1$
-		}
-		if (componentRoot instanceof Subsystem_c) {
-			if (editorType == EDITOR_TYPE_CANVAS)
-				title += ": Class Diagram"; //$NON-NLS-1$
-			else if (editorType == EDITOR_TYPE_DESC)
-				title += ": Subsystem Description"; //$NON-NLS-1$
-		}
-		if (componentRoot instanceof ModelClass_c) {
-		    if (editorType == EDITOR_TYPE_CANVAS)
-                title += ": Class Diagram"; //$NON-NLS-1$
-		    else if (editorType == EDITOR_TYPE_DESC)
-				title += ": Model Class Description"; //$NON-NLS-1$
-		}
-        // when componentRoot is ISM or CSM, newName will be name of its class
-		if (componentRoot instanceof InstanceStateMachine_c) {
-			if (editorType == EDITOR_TYPE_CANVAS)
-				title += ": Instance State Machine"; //$NON-NLS-1$
-			else if (editorType == EDITOR_TYPE_DESC)
-				title += ": Instance State Machine Description"; //$NON-NLS-1$
-		}
-		if (componentRoot instanceof ClassStateMachine_c) {
-			if (editorType == EDITOR_TYPE_CANVAS)
-				title += ": Class State Machine"; //$NON-NLS-1$
-			else if (editorType == EDITOR_TYPE_DESC)
-				title += ": Class State Machine Description"; //$NON-NLS-1$
-			
-		}
-		return title;
-	}
 	
 	static List findMEsWithText(NonRootModelElement element, String type) {
 		return findMEsWithText(element, null, 2, type);
@@ -534,7 +475,7 @@ public class GenericEditorUtil {
             
         }
         String curTitle=editor.getTitle();
-	    String expTitle=getComponentEditorTitleString(me, newName, getEditorType(editor));
+	    String expTitle=newName;
     	TestCase.assertEquals("editor title not updated ",expTitle,curTitle);
 		
 	}

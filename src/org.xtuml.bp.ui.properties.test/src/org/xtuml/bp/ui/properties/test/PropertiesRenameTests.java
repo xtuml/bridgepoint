@@ -20,6 +20,7 @@ package org.xtuml.bp.ui.properties.test;
 // License for the specific language governing permissions and limitations under
 // the License.
 //=====================================================================
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.viewers.ICellEditorValidator;
 
 import org.xtuml.bp.core.BridgeParameter_c;
@@ -161,29 +162,49 @@ public class PropertiesRenameTests extends BaseTest {
 
 	public void testRenamePackageInvalidOSChar() {
 		Package_c uut = Package_c.PackageInstance(modelRoot);
-		doRenameTestInvalidChar(uut, new PackageNameValidator(), "* is an invalid character in resource name '*'.");
+		if (Platform.getOS().contains("win")) {
+			doRenameTestInvalidChar(uut, new PackageNameValidator(), "* is an invalid character in resource name '*'.", "*");
+		}
+		else {
+			doRenameTestInvalidChar(uut, new PackageNameValidator(), "/ is an invalid character in resource name '/'.", "/");
+		}
 	}
 
 	public void testRenameClassInvalidOSChar() {
 		ModelClass_c uut = ModelClass_c.ModelClassInstance(modelRoot);
-		doRenameTestInvalidChar(uut, new ModelClassNameValidator(), "* is an invalid character in resource name '*'.");
+		if (Platform.getOS().contains("win")) {
+			doRenameTestInvalidChar(uut, new ModelClassNameValidator(), "* is an invalid character in resource name '*'.", "*");
+		}
+		else {
+			doRenameTestInvalidChar(uut, new ModelClassNameValidator(), "/ is an invalid character in resource name '/'.", "/");
+		}
 	}
 
 	public void testRenameComponentInvalidOSChar() {
 		Component_c uut = Component_c.ComponentInstance(modelRoot);
-		doRenameTestInvalidChar(uut, new ComponentNameValidator(), "* is an invalid character in resource name '*'.");
+		if (Platform.getOS().contains("win")) {
+			doRenameTestInvalidChar(uut, new ComponentNameValidator(), "* is an invalid character in resource name '*'.", "*");
+		}
+		else {
+			doRenameTestInvalidChar(uut, new ComponentNameValidator(), "/ is an invalid character in resource name '/'.", "/");
+		}
 	}
 
 	public void testRenameInterfaceInvalidOSChar() {
 		Interface_c uut = Interface_c.InterfaceInstance(modelRoot);
-		doRenameTestInvalidChar(uut, new InterfaceNameValidator(), "* is an invalid character in resource name '*'.");
+		if (Platform.getOS().contains("win")) {
+			doRenameTestInvalidChar(uut, new InterfaceNameValidator(), "* is an invalid character in resource name '*'.", "*");
+		}
+		else {
+			doRenameTestInvalidChar(uut, new InterfaceNameValidator(), "/ is an invalid character in resource name '/'.", "/");
+		}
 	}
 
 	private void doRenameTestInvalidChar(NonRootModelElement uut,
-			ICellEditorValidator validator, String expected) {
+			ICellEditorValidator validator, String expected, String value) {
 		Selection.getInstance().clear();
 		Selection.getInstance().addToSelection(uut);
-		assertEquals(expected, validator.isValid("*"));
+		assertEquals(expected, validator.isValid(value));
 	}
 
 	private void doRenameTestSpaces(NonRootModelElement uut,

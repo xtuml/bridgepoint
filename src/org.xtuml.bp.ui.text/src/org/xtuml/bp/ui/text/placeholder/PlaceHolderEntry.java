@@ -128,6 +128,7 @@ public class PlaceHolderEntry {
 		if(placeHolderFile != null){
 			placeHolderFile.addReference(requester);
 		}
+		updateModelElementID(id);
 		
 		return placeHolderFile;
 	}
@@ -200,6 +201,13 @@ public class PlaceHolderEntry {
 	// Factory methods for PlaceHolderFileProxy
 	private PlaceHolderFileProxy createPlaceHolderFile(ModelElementID aModelElementID, IFile existingFile){
 		return createPlaceHolderFile(aModelElementID, existingFile.getFileExtension(), existingFile);
+	}
+	
+	private void updateModelElementID(ModelElementID newID){
+		if(!modelElementID.equals(newID)){
+			modelElementID = newID;
+			lastModelElementName = newID.getLastValidName();
+		}
 	}
 	
 	private PlaceHolderFileProxy createPlaceHolderFile(ModelElementID aModelElementID, String extension, IFile existingFile){

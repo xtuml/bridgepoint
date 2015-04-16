@@ -117,7 +117,7 @@ public class IOMdlUnicodeTestGenerics extends CanvasTest {
         // We just need to draw the Diagram to prove we printed the right thing
         //
         CanvasTestUtils.openCanvasEditor(uut);
-        GraphicalEditor ce = CanvasTestUtils.getCanvasEditor("Odms: Package Diagram");
+        GraphicalEditor ce = CanvasTestUtils.getCanvasEditor("Odms");
         validateOrGenerateResultsGenerics(ce, generateResults);
     }
 }

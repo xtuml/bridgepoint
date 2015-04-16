@@ -1,0 +1,1 @@
+The generator will write log files to this directory.

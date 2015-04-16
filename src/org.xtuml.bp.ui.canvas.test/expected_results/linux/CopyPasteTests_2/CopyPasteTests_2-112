@@ -1,0 +1,8 @@
+drawRectangle(...)
+drawText("«dataType»", ...)
+drawText("+User Data Type", ...)
+drawText("{ integer }", ...)
+drawRectangle(...)
+drawText("+«enumeration»", ...)
+drawText("Enumeration Data Type", ...)
+drawline(...)

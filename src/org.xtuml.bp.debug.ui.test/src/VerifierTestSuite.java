@@ -41,6 +41,7 @@ import org.xtuml.bp.debug.engine.VerifierCreationTransitionDebugTest;
 import org.xtuml.bp.debug.engine.VerifierMessageTest;
 import org.xtuml.bp.debug.engine.VerifierMessageTestGlobals;
 import org.xtuml.bp.debug.engine.VerifierTransitionActionTests;
+import org.xtuml.bp.debug.test.DateLoggingTests;
 import org.xtuml.bp.debug.test.RealizedClassTest;
 import org.xtuml.bp.debug.test.VIECParameterTest;
 import org.xtuml.bp.debug.test.VIECTest;
@@ -108,6 +109,7 @@ public class VerifierTestSuite extends TestSuite {
 		addTest(new TestSuite(VerifierBindingAuditTest.class));
 		addTest(new TestSuite(VerifierRealizedUDTTest.class));
 		addTest(new TestSuite(VerifierUDTAsUDTInitializationTests.class));
+		addTest(new TestSuite(DateLoggingTests.class));
 	}
 
 }

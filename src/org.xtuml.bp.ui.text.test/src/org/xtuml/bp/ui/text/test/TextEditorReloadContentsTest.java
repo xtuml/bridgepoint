@@ -90,7 +90,7 @@ public class TextEditorReloadContentsTest extends UITextTest
     {
         // open an editor on an activity in the domain
         String stateName = "Waiting for a Disk to be Waiting";
-        String editorTitle = stateName + ": State Machine State Activity";
+        String editorTitle = "Drive_Disk Assignment::"+stateName;
         ActivityEditor editor = TextEditorUtils.openActivityEditor(modelRoot, stateName, editorTitle);
     	    	
         // remember what the original contents of the editor are,

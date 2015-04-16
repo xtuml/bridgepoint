@@ -12,6 +12,7 @@ package org.xtuml.bp.ui.text.description;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.text.DocumentEvent;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.IDocumentListener;
@@ -25,16 +26,22 @@ import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.FocusListener;
+import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.internal.OverlayIcon;
 import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.texteditor.DefaultRangeIndicator;
 import org.eclipse.ui.texteditor.IDocumentProvider;
 
+import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.common.NullEditorInput;
 import org.xtuml.bp.core.ui.Selection;
+import org.xtuml.bp.core.util.EditorUtil;
+import org.xtuml.bp.core.util.HierarchyUtil;
 import org.xtuml.bp.ui.text.AbstractModelElementEditorInput;
 import org.xtuml.bp.ui.text.AbstractModelElementPropertyEditorInput;
 import org.xtuml.bp.ui.text.AbstractModelElementTextEditor;
@@ -147,6 +154,7 @@ public class DescriptionEditor extends AbstractModelElementTextEditor
 					StructuredSelection sel = new StructuredSelection(selObj);
 					Selection.getInstance().setSelection(sel);
 				}
+				EditorUtil.refreshEditorTab();
 			}
 			public void focusLost(FocusEvent ev) { /* do nothing */ }
 		};
@@ -175,6 +183,41 @@ public class DescriptionEditor extends AbstractModelElementTextEditor
   public boolean isSaveAsAllowed()
   {
     return false;
+  }
+  
+  @Override
+  public Image getTitleImage() {
+	  Object element = ((DescriptionEditorInput)this.getEditorInput()).getModelElement();;
+	  return decorateElementIconWithDescription(element);
+  }
+  
+  @Override
+	public String getTitleToolTip() {
+		Object element = ((DescriptionEditorInput)this.getEditorInput()).getModelElement();
+		if ( element == null)
+			return "";
+		return HierarchyUtil.Getpath(element);
+	}
+  
+  public Image decorateElementIconWithDescription(Object element){
+
+
+	  String type = element.getClass().getName();
+	  //Removing the packge name from the type string
+	  //We need to remove the full package path
+
+	  if (type.lastIndexOf('.') != -1)
+		  type = type.substring(type.lastIndexOf('.') + 1);
+	  
+	  
+	  ImageDescriptor descriptor = CorePlugin.getImageDescriptorFor(type, false ,element, true);
+
+	  ImageDescriptor descriptionIconDescrip = CorePlugin.getImageDescriptor("Description_decorator.gif");
+
+	  // decorate the icon of the model element with description decoration
+	  OverlayIcon resultIcon = new OverlayIcon(descriptor, descriptionIconDescrip, new Point(16, 16));
+
+	  return resultIcon.createImage();
   }
   
   /* only for use by unit test code */
