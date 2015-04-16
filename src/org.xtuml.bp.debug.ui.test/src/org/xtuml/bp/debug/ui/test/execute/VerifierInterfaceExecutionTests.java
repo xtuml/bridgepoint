@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.debug.core.DebugException;
 import org.eclipse.debug.core.model.IDebugTarget;
 import org.eclipse.debug.core.model.IProcess;
@@ -1734,7 +1735,7 @@ public class VerifierInterfaceExecutionTests extends BaseTest {
 		String result = DebugUITestUtilities.getValueForVariable("result");
 		assertEquals(
 				"Default parameter value was not as expected for variable result.",
-				"", result);
+				"false", result);
 		
 		// compare the trace
 		File expectedResults = new File(
@@ -2250,6 +2251,9 @@ public class VerifierInterfaceExecutionTests extends BaseTest {
         DebugUITestUtilities.waitForBPThreads(m_sys);
 		
 		String expectedConsoleText = "User invoked function: test\r\nLogInfo:  Test Pass\r\n";	
+		if (!Platform.getOS().contains("win")) {
+			expectedConsoleText = expectedConsoleText.replace("\r", "");
+		}
 		org.eclipse.ui.PlatformUI.getWorkbench().getDisplay().readAndDispatch();
 		String actualConsoleText = DebugUITestUtilities.getConsoleText("null");
 		

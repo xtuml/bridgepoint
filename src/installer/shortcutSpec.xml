@@ -1,0 +1,15 @@
+<shortcuts>
+    <skipIfNotSupported/>
+    <programGroup defaultName="xtuml\BridgePoint" location="startMenu"/>
+    <shortcut
+        name="BridgePoint"
+        target="$INSTALL_PATH\eclipse\Launcher.bat"
+        commandLine=""
+        iconFile="$INSTALL_PATH\bp.ico"
+        programGroup="no"
+        desktop="yes"
+        applications="no"
+        startMenu="no"
+        startup="no">
+    </shortcut>
+</shortcuts>

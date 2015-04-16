@@ -28,6 +28,7 @@ import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.FocusListener;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IEditorInput;
@@ -43,6 +44,7 @@ import antlr.TokenStreamRecognitionException;
 
 import org.xtuml.bp.als.oal.OalLexer;
 import org.xtuml.bp.core.Block_c;
+import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Parsestatus_c;
 import org.xtuml.bp.core.common.IModelDelta;
@@ -54,6 +56,8 @@ import org.xtuml.bp.core.relocatables.RelocatableTagConversionUtil;
 import org.xtuml.bp.core.relocatables.RelocatableTagCreationUtil;
 import org.xtuml.bp.core.relocatables.Relocatables;
 import org.xtuml.bp.core.ui.Selection;
+import org.xtuml.bp.core.util.EditorUtil;
+import org.xtuml.bp.core.util.HierarchyUtil;
 import org.xtuml.bp.ui.text.AbstractModelElementEditorInput;
 import org.xtuml.bp.ui.text.DocumentProvider;
 import org.xtuml.bp.ui.text.EditorConfiguration;
@@ -442,6 +446,7 @@ public class ActivityEditor extends OALEditor
 	                StructuredSelection sel = new StructuredSelection(selObj);
 					Selection.getInstance().setSelection(sel);
                 }
+                EditorUtil.refreshEditorTab();
             }
             public void focusLost(FocusEvent ev) { /* do nothing */ }
         };
@@ -490,6 +495,21 @@ public class ActivityEditor extends OALEditor
   {
     return new ActivityAnnotationAccess();
   }
+  
+  @Override
+  public Image getTitleImage() {
+	  Object element = ((ActivityEditorInput)this.getEditorInput()).getModelElement();
+	  return CorePlugin.getImageFor(element);
+  }
+  
+  @Override
+  public String getTitleToolTip() {
+	  Object element = ((ActivityEditorInput)this.getEditorInput()).getModelElement();
+	  if (element == null)
+		  return "";
+	  return HierarchyUtil.Getpath(element);
+  }
+  
 /**
  * only for use by unit test code
  */

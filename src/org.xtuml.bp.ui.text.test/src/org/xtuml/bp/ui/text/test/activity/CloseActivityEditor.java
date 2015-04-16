@@ -53,48 +53,48 @@ public class CloseActivityEditor extends UITextTest {
 	}
 	public void testCloseBridgeActivity()
 	{	
-		closeActivityEditor( "test_bridge: Bridge Activity" );
+		closeActivityEditor( "Test External Entity::test_bridge" );
 	}
 	
 	public void testCloseFunctionActivity()
 	{	
-		closeActivityEditor( "test_function: Function Activity");
+		closeActivityEditor( "Functions::test_function");
 	}
 	
 	public void testCloseInstanceOperationActivity()
 	{	
-		closeActivityEditor("op1: Operation Activity");
+		closeActivityEditor("Test Class::op1");
 	}
 	
 	public void testCloseClassOperationActivity()
 	{	
-		closeActivityEditor("op2: Operation Activity");
+		closeActivityEditor("Test Class::op2");
 	}
 
 
 	public void testCloseAttributeActivity()
 	{	
-		closeActivityEditor("mda: Attribute Activity");
+		closeActivityEditor("Test Class::mda");
 	}
 	
 
 	public void testCloseInstanceActionActivity()
 	{	
-		closeActivityEditor("ISM State: State Machine State Activity");
+		closeActivityEditor("Test Class::ISM State");
 	}
 	
 	public void testCloseInstanceTransitionActionActivity()
 	{	
-		closeActivityEditor("T_T3: third in ISM State to ISM State: Transition Activity");
+		closeActivityEditor("Test Class::ISM State::T_T3: third");
 	}
 	
 	public void testCloseClassActionActivity()
 	{	
-		closeActivityEditor("CSM State: State Machine State Activity");
+		closeActivityEditor("Test Class::CSM State");
 	}
 	
 	public void testCloseClassTransitionActionActivity()
 	{	
-		closeActivityEditor("T_T_A3: third class in CSM State to CSM State: Transition Activity");
+		closeActivityEditor("Test Class::CSM State::T_T_A3: third class");
 	}
 }

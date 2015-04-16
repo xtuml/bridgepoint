@@ -75,7 +75,7 @@ public class TransitionActionPersistenceTests extends CanvasTest {
         		                                           Ooaofooa.MODELS_EXT);
         if (!generateResults) {
             TestingUtilities.fileContentsCompare( 
-                m_workspace_path + "expected_results/" +
+                m_workspace_path + TestingUtilities.getExpectedResultsPath() +
                 "testTransitionActionPersistence/InstanceStateMachine." +
                                                             Ooaofooa.MODELS_EXT,
                                                          actualPath.toString());
@@ -108,7 +108,7 @@ public class TransitionActionPersistenceTests extends CanvasTest {
         		                                           Ooaofooa.MODELS_EXT);
         if (!generateResults) {
             TestingUtilities.fileContentsCompare( 
-                m_workspace_path + "expected_results/" +
+                m_workspace_path + TestingUtilities.getExpectedResultsPath() +
                 "testTransitionActionPersistence/ClassStateMachine." +
                                                             Ooaofooa.MODELS_EXT,
                                                          actualPath.toString());

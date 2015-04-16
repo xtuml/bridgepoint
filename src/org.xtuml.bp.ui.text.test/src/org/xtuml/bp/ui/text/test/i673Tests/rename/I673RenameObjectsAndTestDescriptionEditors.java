@@ -95,7 +95,7 @@ public class I673RenameObjectsAndTestDescriptionEditors extends UITextTest {
 		}
 	}
 	
-	IEditorPart renameObjectAndCheckDescriptionEditor(Object obj, String editorTitlePostFix, int attributeType){
+	IEditorPart renameObjectAndCheckDescriptionEditor(String prefix, Object obj, int attributeType){
 		DescriptionEditor de = (DescriptionEditor)openAndReturnDescriptionEditor(obj);
 		assertNotNull(de);
 		
@@ -107,7 +107,7 @@ public class I673RenameObjectsAndTestDescriptionEditors extends UITextTest {
 		
 		String newName = getName(obj);
 		
-		de = TextEditorUtils.getDescriptionEditor(newName+ editorTitlePostFix);
+		de = TextEditorUtils.getDescriptionEditor(prefix + newName);
 		assertNotNull("Description Editor for Name: " + newName + " not renamed", de);		 //$NON-NLS-1$ //$NON-NLS-2$
 		return de;
 	}
@@ -129,7 +129,7 @@ public class I673RenameObjectsAndTestDescriptionEditors extends UITextTest {
 		Package_c pkg = Package_c.PackageInstance(modelRoot, pkgQuery);
 		assertNotNull(pkg);
 		
-		IEditorPart ed = renameObjectAndCheckDescriptionEditor(pkg, ": Package Description", UITextTest.STRING_TYPE_ATTR);
+		IEditorPart ed = renameObjectAndCheckDescriptionEditor("", pkg, UITextTest.STRING_TYPE_ATTR);
 		PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().closeEditor(ed, false);
 	}
 	
@@ -137,7 +137,7 @@ public class I673RenameObjectsAndTestDescriptionEditors extends UITextTest {
 		ExternalEntity_c ee = ExternalEntity_c.ExternalEntityInstance(modelRoot);
 		assertNotNull(ee);
 		
-		IEditorPart eeEditor = renameObjectAndCheckDescriptionEditor(ee, ": External Entity Description",UITextTest.STRING_TYPE_ATTR);
+		IEditorPart eeEditor = renameObjectAndCheckDescriptionEditor("", ee, UITextTest.STRING_TYPE_ATTR);
 		PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().closeAllEditors(false);		
 	}
 	
@@ -145,7 +145,7 @@ public class I673RenameObjectsAndTestDescriptionEditors extends UITextTest {
 		Bridge_c brg = Bridge_c.BridgeInstance(modelRoot);
 		assertNotNull(brg);
 		
-		IEditorPart ed = renameObjectAndCheckDescriptionEditor(brg, ": Bridge Description", UITextTest.STRING_TYPE_ATTR);
+		IEditorPart ed = renameObjectAndCheckDescriptionEditor("Test External Entity New::", brg, UITextTest.STRING_TYPE_ATTR);
 		PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().closeEditor(ed, false);
 	}
 	
@@ -153,7 +153,7 @@ public class I673RenameObjectsAndTestDescriptionEditors extends UITextTest {
 		Enumerator_c v_enum = Enumerator_c.EnumeratorInstance(modelRoot);
 		assertNotNull(v_enum);
 		
-		IEditorPart ed = renameObjectAndCheckDescriptionEditor(v_enum, ": Enumerator Description", UITextTest.STRING_TYPE_ATTR);
+		IEditorPart ed = renameObjectAndCheckDescriptionEditor("", v_enum, UITextTest.STRING_TYPE_ATTR);
 		PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().closeEditor(ed, false);
 	}
 	
@@ -161,7 +161,7 @@ public class I673RenameObjectsAndTestDescriptionEditors extends UITextTest {
 		Function_c func = Function_c.FunctionInstance(modelRoot);
 		assertNotNull(func);
 		
-		IEditorPart ed = renameObjectAndCheckDescriptionEditor(func, ": Function Description", UITextTest.STRING_TYPE_ATTR);
+		IEditorPart ed = renameObjectAndCheckDescriptionEditor("Functions::", func, UITextTest.STRING_TYPE_ATTR);
 		PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().closeEditor(ed, false);
 	}
 	
@@ -175,10 +175,10 @@ public class I673RenameObjectsAndTestDescriptionEditors extends UITextTest {
 		
 		DescriptionEditorInteraction.openDescriptionEditor(ref);
 		
-		IEditorPart ed = renameObjectAndCheckDescriptionEditor(assoc, ": Association Description", UITextTest.INTEGER_TYPE_ATTR);
+		IEditorPart ed = renameObjectAndCheckDescriptionEditor("", assoc, UITextTest.INTEGER_TYPE_ATTR);
 		
 		String refName = getName(ref);
-		DescriptionEditor refEditor = TextEditorUtils.getDescriptionEditor( refName + ": Attribute Reference in Class Description");
+		DescriptionEditor refEditor = TextEditorUtils.getDescriptionEditor( refName);
 		assertNotNull("O_REF rename failed on R_REL rename", refEditor); //$NON-NLS-1$
 		
 		PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().closeAllEditors(false);
@@ -188,7 +188,7 @@ public class I673RenameObjectsAndTestDescriptionEditors extends UITextTest {
 		StateMachineEventDataItem_c smevtdi= StateMachineEventDataItem_c.StateMachineEventDataItemInstance(modelRoot);
 		assertNotNull(smevtdi);
 		
-		IEditorPart ed = renameObjectAndCheckDescriptionEditor(smevtdi, ": State Machine Event Data Item Description", UITextTest.STRING_TYPE_ATTR);
+		IEditorPart ed = renameObjectAndCheckDescriptionEditor("", smevtdi, UITextTest.STRING_TYPE_ATTR);
 		PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().closeEditor(ed, false);
 	}
 	
@@ -196,7 +196,7 @@ public class I673RenameObjectsAndTestDescriptionEditors extends UITextTest {
 		Operation_c op = Operation_c.OperationInstance(modelRoot);
 		assertNotNull(op);
 		
-		IEditorPart ed = renameObjectAndCheckDescriptionEditor(op, ": Operation Description", UITextTest.STRING_TYPE_ATTR);
+		IEditorPart ed = renameObjectAndCheckDescriptionEditor("Test Class::", op, UITextTest.STRING_TYPE_ATTR);
 		PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().closeEditor(ed, false);
 		
 	}
@@ -209,10 +209,10 @@ public class I673RenameObjectsAndTestDescriptionEditors extends UITextTest {
         
 		DescriptionEditorInteraction.openDescriptionEditor(ref);
 				
-		IEditorPart ed = renameObjectAndCheckDescriptionEditor(attr, ": Attribute Description", UITextTest.STRING_TYPE_ATTR);
+		IEditorPart ed = renameObjectAndCheckDescriptionEditor("Test Class::", attr, UITextTest.STRING_TYPE_ATTR);
 		
 		String refName = getName(ref);
-		DescriptionEditor refEditor = TextEditorUtils.getDescriptionEditor( refName + ": Attribute Reference in Class Description");
+		DescriptionEditor refEditor = TextEditorUtils.getDescriptionEditor( refName);
 		assertNotNull("O_REF rename failed on O_ATTR rename", refEditor); //$NON-NLS-1$
 		
 		PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().closeAllEditors(false);	
@@ -233,14 +233,14 @@ public class I673RenameObjectsAndTestDescriptionEditors extends UITextTest {
 		assertNotNull(asm);
 		DescriptionEditorInteraction.openDescriptionEditor(asm);
 		while( d.readAndDispatch() ){}
-		renameObjectAndCheckDescriptionEditor(obj, ": Model Class Description", UITextTest.STRING_TYPE_ATTR);
+		renameObjectAndCheckDescriptionEditor("", obj, UITextTest.STRING_TYPE_ATTR);
 		
 		String ismName = getName(ism);
-		DescriptionEditor ismEditor = TextEditorUtils.getDescriptionEditor( ismName + ": Instance State Machine Description");
+		DescriptionEditor ismEditor = TextEditorUtils.getDescriptionEditor( ismName );
 		assertNotNull("SM_ISM rename failed on O_OBJ rename", ismEditor); //$NON-NLS-1$
 		
 		String asmName = getName(asm);
-		DescriptionEditor asmEditor = TextEditorUtils.getDescriptionEditor( asmName + ": Class State Machine Description");
+		DescriptionEditor asmEditor = TextEditorUtils.getDescriptionEditor( asmName );
 		assertNotNull("SM_ASM rename failed on O_OBJ rename", asmEditor); //$NON-NLS-1$
 		
         AttributeReferenceInClass_c ref = AttributeReferenceInClass_c.AttributeReferenceInClassInstance(modelRoot);
@@ -259,11 +259,11 @@ public class I673RenameObjectsAndTestDescriptionEditors extends UITextTest {
 		
 		//Check O_REF, SM_EVT effected by O_OBJ Key Lett Renamed		
 		String refName = getName(ref);
-		DescriptionEditor refEditor = TextEditorUtils.getDescriptionEditor( refName + ": Attribute Reference in Class Description");
+		DescriptionEditor refEditor = TextEditorUtils.getDescriptionEditor( refName );
 		assertNotNull("O_REF rename failed on O_OBJ rename", refEditor); //$NON-NLS-1$
 			
 		String eventName = getName(event);
-		DescriptionEditor eventEditor = TextEditorUtils.getDescriptionEditor( eventName + ": State Machine Event Description");
+		DescriptionEditor eventEditor = TextEditorUtils.getDescriptionEditor( eventName );
 		assertNotNull("SM_EVT rename failed on O_OBJ rename", eventEditor); //$NON-NLS-1$
 		
 		PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().closeAllEditors(false);
@@ -277,7 +277,7 @@ public class I673RenameObjectsAndTestDescriptionEditors extends UITextTest {
 		UserDataType_c udt= UserDataType_c.UserDataTypeInstance(modelRoot);
 		assertNotNull(udt);
 		
-		IEditorPart ed = renameObjectAndCheckDescriptionEditor(udt, ": User Data Type Description", UITextTest.STRING_TYPE_ATTR);
+		IEditorPart ed = renameObjectAndCheckDescriptionEditor("", udt, UITextTest.STRING_TYPE_ATTR);
 		PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().closeEditor(ed, false);
 	}
 	
@@ -285,7 +285,7 @@ public class I673RenameObjectsAndTestDescriptionEditors extends UITextTest {
 		EnumerationDataType_c edt= EnumerationDataType_c.EnumerationDataTypeInstance(modelRoot);
 		assertNotNull(edt);
 		
-		IEditorPart ed = renameObjectAndCheckDescriptionEditor(edt, ": Enumeration Data Type Description", UITextTest.STRING_TYPE_ATTR);
+		IEditorPart ed = renameObjectAndCheckDescriptionEditor("", edt, UITextTest.STRING_TYPE_ATTR);
 		PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().closeEditor(ed, false);
 	}
 	
@@ -308,14 +308,14 @@ public class I673RenameObjectsAndTestDescriptionEditors extends UITextTest {
 		assertNotNull(ch);
 		DescriptionEditorInteraction.openDescriptionEditor(ch);
 		
-		IEditorPart ed = renameObjectAndCheckDescriptionEditor(state, ": State Machine State Description", UITextTest.STRING_TYPE_ATTR);
+		IEditorPart ed = renameObjectAndCheckDescriptionEditor("Test Class New::", state, UITextTest.STRING_TYPE_ATTR);
 		
 		String evignName = getName(evign);
-		DescriptionEditor evignEditor = TextEditorUtils.getDescriptionEditor( evignName + ": Event Ignored Description");
+		DescriptionEditor evignEditor = TextEditorUtils.getDescriptionEditor( evignName );
 		assertNotNull("SM_EVIGN rename failed on SM_STATE rename", evignEditor); //$NON-NLS-1$
 		
 		String chName = getName(ch);
-		DescriptionEditor chEditor = TextEditorUtils.getDescriptionEditor( chName + ": Cant Happen Description");
+		DescriptionEditor chEditor = TextEditorUtils.getDescriptionEditor( chName );
 		assertNotNull("SM_CH rename failed on SM_STATE rename", chEditor); //$NON-NLS-1$
 				
 		PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().closeAllEditors(false);
@@ -331,10 +331,10 @@ public class I673RenameObjectsAndTestDescriptionEditors extends UITextTest {
 		assertNotNull(evign);
 		DescriptionEditorInteraction.openDescriptionEditor(evign);
 		
-		renameObjectAndCheckDescriptionEditor(event, ": State Machine Event Description", UITextTest.STRING_TYPE_ATTR);
+		renameObjectAndCheckDescriptionEditor("", event, UITextTest.STRING_TYPE_ATTR);
 		
 		String evignName = getName(evign);
-		DescriptionEditor evignEditor = TextEditorUtils.getDescriptionEditor( evignName + ": Event Ignored Description");
+		DescriptionEditor evignEditor = TextEditorUtils.getDescriptionEditor( evignName );
 		assertNotNull("SM_EVIGN rename failed on SM_EVT rename", evignEditor); //$NON-NLS-1$
 		
 		//Setting the event.Numb, also effects the name of EVT, but does not effect the other editors
@@ -344,7 +344,7 @@ public class I673RenameObjectsAndTestDescriptionEditors extends UITextTest {
 		while( d.readAndDispatch() ){}
 		
 		String eventNewName = getName(event);
-		DescriptionEditor eventEditor = TextEditorUtils.getDescriptionEditor(eventNewName + ": State Machine Event Description");
+		DescriptionEditor eventEditor = TextEditorUtils.getDescriptionEditor(eventNewName );
 		assertNotNull(eventEditor);
 		
 		//Now checking for non-derived Drv_Lbl and setting value of indicator
@@ -354,11 +354,11 @@ public class I673RenameObjectsAndTestDescriptionEditors extends UITextTest {
 		while( d.readAndDispatch() ){}
 		
 		evignName = getName(evign);
-		evignEditor = TextEditorUtils.getDescriptionEditor( evignName + ": Event Ignored Description");
+		evignEditor = TextEditorUtils.getDescriptionEditor( evignName );
 		assertNotNull("SM_EVIGN rename failed on SM_EVT rename", evignEditor); //$NON-NLS-1$
 		
 		eventNewName = getName(event);
-		eventEditor = TextEditorUtils.getDescriptionEditor(eventNewName + ": State Machine Event Description");
+		eventEditor = TextEditorUtils.getDescriptionEditor(eventNewName );
 		assertNotNull(eventEditor);
 		
 		//Now checking for non-derived Drv_Lbl only.
@@ -367,11 +367,11 @@ public class I673RenameObjectsAndTestDescriptionEditors extends UITextTest {
 		while( d.readAndDispatch() ){}
 		
 		evignName = getName(evign);
-		evignEditor = TextEditorUtils.getDescriptionEditor( evignName + ": Event Ignored Description");
+		evignEditor = TextEditorUtils.getDescriptionEditor( evignName);
 		assertNotNull("SM_EVIGN rename failed on SM_EVT rename", evignEditor); //$NON-NLS-1$
 		
 		eventNewName = getName(event);
-		eventEditor = TextEditorUtils.getDescriptionEditor(eventNewName + ": State Machine Event Description");
+		eventEditor = TextEditorUtils.getDescriptionEditor(eventNewName );
 		assertNotNull(eventEditor);
 		
 		PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().closeAllEditors(false);
@@ -399,10 +399,10 @@ public class I673RenameObjectsAndTestDescriptionEditors extends UITextTest {
 		assertNotNull(ch);
 		DescriptionEditorInteraction.openDescriptionEditor(ch);
 		
-		renameObjectAndCheckDescriptionEditor(event, ": State Machine Event Description", UITextTest.STRING_TYPE_ATTR);
+		renameObjectAndCheckDescriptionEditor("", event, UITextTest.STRING_TYPE_ATTR);
 				
 		String chName = getName(ch);
-		DescriptionEditor chEditor = TextEditorUtils.getDescriptionEditor( chName + ": Cant Happen Description");
+		DescriptionEditor chEditor = TextEditorUtils.getDescriptionEditor( chName);
 		assertNotNull("SM_CH rename failed on SM_EVT rename", chEditor); //$NON-NLS-1$
 		
 		
@@ -414,11 +414,11 @@ public class I673RenameObjectsAndTestDescriptionEditors extends UITextTest {
 		while( d.readAndDispatch() ){}
 		
 		chName = getName(ch);
-		chEditor = TextEditorUtils.getDescriptionEditor( chName + ": Cant Happen Description");
+		chEditor = TextEditorUtils.getDescriptionEditor( chName);
 		assertNotNull("SM_CH rename failed on SM_EVT rename", chEditor); //$NON-NLS-1$
 		
 		String eventNewName = getName(event);
-		DescriptionEditor eventEditor = TextEditorUtils.getDescriptionEditor(eventNewName + ": State Machine Event Description");
+		DescriptionEditor eventEditor = TextEditorUtils.getDescriptionEditor(eventNewName );
 		assertNotNull(eventEditor);
 		
 		//Now checking for non-derived Drv_Lbl only
@@ -426,11 +426,11 @@ public class I673RenameObjectsAndTestDescriptionEditors extends UITextTest {
 		while( d.readAndDispatch() ){}
 		
 		chName = getName(ch);
-		chEditor = TextEditorUtils.getDescriptionEditor( chName + ": Cant Happen Description");
+		chEditor = TextEditorUtils.getDescriptionEditor( chName );
 		assertNotNull("SM_CH rename failed on SM_EVT rename", chEditor); //$NON-NLS-1$
 		
 		eventNewName = getName(event);
-		eventEditor = TextEditorUtils.getDescriptionEditor(eventNewName + ": State Machine Event Description");
+		eventEditor = TextEditorUtils.getDescriptionEditor(eventNewName );
 		assertNotNull(eventEditor);
 				
 		PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().closeAllEditors(false);

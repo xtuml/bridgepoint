@@ -39,8 +39,6 @@ Transaction started: shape creation
  Attribute 'Represents' of ui.canvas.GraphicalElement changed ( 'null' -> ' instance of [core.Package]')
  Attribute 'Ooa_id' of ui.canvas.GraphicalElement changed ( '00000000-0000-0000-0000-000000000000' -> '4aef1abd-c838-8183-c53d-6cd0e2fb06f4')
   instance of [ui.canvas.ElementSpecification] UN-RelatedAcross R16 To:  instance of [ui.canvas.GraphicalElement]
- Attribute 'Positionx' of ui.canvas.Graphelement changed ( '0.0' -> '1727.0')
- Attribute 'Positiony' of ui.canvas.Graphelement changed ( '0.0' -> '1295.0')
  Attribute 'Width' of ui.canvas.Graphnode changed ( '0.0' -> '73.0')
  Attribute 'Height' of ui.canvas.Graphnode changed ( '0.0' -> '73.0')
-Transaction Ended: shape creation with delta size: 44
+Transaction Ended: shape creation with delta size: 42

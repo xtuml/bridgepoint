@@ -74,6 +74,10 @@ abstract public class BPDebugElement extends PlatformObject
     public String getName() {
         return name;
     }
+    
+    public void setName(String Name){
+      	name = Name;
+    }
 
     int getState() {
         return state;

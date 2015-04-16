@@ -9,7 +9,10 @@ public class GlobalsTestEnabler extends BaseTest {
   }
 
   public void testGlobally() {
-	testGlobals = true;
+		testGlobals = true;
+	  if(getName().contains("FormalizeUnformalizeTestGenerics")) {
+		  testGlobals = false;
+	  }
   }
 
 }

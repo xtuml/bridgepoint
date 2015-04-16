@@ -95,7 +95,7 @@ public class ShapeResizeTest extends BaseTest
         
         // click within the state, to select it
         GraphicalEditor editor = CanvasTestUtils.getCanvasEditor(
-            "Dialing Monitor: Instance State Machine");
+            "Dialing Monitor");
         editor.zoomAll();
         Model_c canvas = editor.getModel();
         Point mouse = CanvasTestUtils.convertToMouseCoor(corner, canvas);

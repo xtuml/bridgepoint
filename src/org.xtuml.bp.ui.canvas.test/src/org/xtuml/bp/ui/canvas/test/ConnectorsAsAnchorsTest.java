@@ -54,7 +54,7 @@ import org.xtuml.bp.utilities.ui.CanvasUtilities;
 public class ConnectorsAsAnchorsTest extends CanvasTest {
 	private String test_id;
 
-	private static boolean generateResults;
+	private static boolean generateResults = false;
 
 	public ConnectorsAsAnchorsTest(String arg0) {
 		super(null, arg0);
@@ -90,8 +90,7 @@ public class ConnectorsAsAnchorsTest extends CanvasTest {
 		String diagramName = "SQ A";
 		Package_c sequence = getPackage(diagramName);
 		CanvasTestUtils.openCanvasEditor(sequence);
-		GraphicalEditor ce = CanvasTestUtils.getCanvasEditor(diagramName
-				+ ": Package Diagram");
+		GraphicalEditor ce = CanvasTestUtils.getCanvasEditor(diagramName);
 
 		ClassInstanceParticipant_c cip = ClassInstanceParticipant_c
 				.ClassInstanceParticipantInstance(modelRoot,
@@ -150,7 +149,7 @@ public class ConnectorsAsAnchorsTest extends CanvasTest {
 		Sequence_c sequence = getSequence(diagramName);
 		CanvasTestUtils.openCanvasEditor(sequence);
 		GraphicalEditor ce = CanvasTestUtils.getCanvasEditor(diagramName
-				+ ": Package Diagram");
+				);
 
 		final ClassInstanceParticipant_c cip = ClassInstanceParticipant_c
 				.ClassInstanceParticipantInstance(modelRoot,
@@ -203,7 +202,7 @@ public class ConnectorsAsAnchorsTest extends CanvasTest {
 		Sequence_c sequence = getSequence(diagramName);
 		CanvasTestUtils.openCanvasEditor(sequence);
 		GraphicalEditor ce = CanvasTestUtils.getCanvasEditor(diagramName
-				+ ": Package Diagram");
+				);
 
 		final ClassInstanceParticipant_c cip = ClassInstanceParticipant_c
 				.ClassInstanceParticipantInstance(modelRoot,
@@ -259,8 +258,7 @@ public class ConnectorsAsAnchorsTest extends CanvasTest {
 		String diagramName = "SQ B";
 		Package_c sequence = getPackage(diagramName);
 		CanvasTestUtils.openCanvasEditor(sequence);
-		GraphicalEditor ce = CanvasTestUtils.getCanvasEditor(diagramName
-				+ ": Package Diagram");
+		GraphicalEditor ce = CanvasTestUtils.getCanvasEditor(diagramName);
 
 		// get the class instance which has the lifespan needed
 		// for testing
@@ -356,8 +354,7 @@ public class ConnectorsAsAnchorsTest extends CanvasTest {
 		String diagramName = "SQ B";
 		Package_c sequence = getPackage(diagramName);
 		CanvasTestUtils.openCanvasEditor(sequence);
-		GraphicalEditor ce = CanvasTestUtils.getCanvasEditor(diagramName
-				+ ": Package Diagram");
+		GraphicalEditor ce = CanvasTestUtils.getCanvasEditor(diagramName);
 
 		// get the class instance which has the lifespan needed
 		// for testing
@@ -507,8 +504,7 @@ public class ConnectorsAsAnchorsTest extends CanvasTest {
 		String diagramName = "SQ C";
 		Package_c sequence = getPackage(diagramName);
 		CanvasUtilities.openCanvasEditor(sequence);
-		GraphicalEditor ce = CanvasTestUtilities.getCanvasEditor(diagramName
-				+ ": Package Diagram");
+		GraphicalEditor ce = CanvasTestUtilities.getCanvasEditor(diagramName);
 
 		ActorParticipant_c actor = ActorParticipant_c
 				.ActorParticipantInstance(modelRoot);

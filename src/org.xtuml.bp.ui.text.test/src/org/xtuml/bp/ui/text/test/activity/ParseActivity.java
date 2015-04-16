@@ -135,10 +135,10 @@ public class ParseActivity extends UITextTest {
 		assertNotNull(uut);
 
 		ActivityEditorInteraction.openActivityEditor(uut);
-		validateActivityEditorParse( "test_bridge: Bridge Activity", uut.getAction_semantics(), true);
+		validateActivityEditorParse( "Test External Entity::test_bridge", uut.getAction_semantics(), true);
         
         uut.setSuc_pars(Parsestatus_c.doNotParse);
-        validateActivityEditorParse( "test_bridge: Bridge Activity", uut.getAction_semantics(), false);
+        validateActivityEditorParse( "Test External Entity::test_bridge", uut.getAction_semantics(), false);
         uut.setSuc_pars(Parsestatus_c.parseSuccessful);
 	}
 	
@@ -148,10 +148,10 @@ public class ParseActivity extends UITextTest {
 		assertNotNull(uut);
 
 		ActivityEditorInteraction.openActivityEditor(uut);
-		validateActivityEditorParse( "test_function: Function Activity", uut.getAction_semantics(), true);
+		validateActivityEditorParse( "Functions::test_function", uut.getAction_semantics(), true);
 
         uut.setSuc_pars(Parsestatus_c.doNotParse);
-        validateActivityEditorParse( "test_function: Function Activity", uut.getAction_semantics(), false);
+        validateActivityEditorParse( "Functions::test_function", uut.getAction_semantics(), false);
         uut.setSuc_pars(Parsestatus_c.parseSuccessful);
     }
 	
@@ -168,10 +168,10 @@ public class ParseActivity extends UITextTest {
 		assertNotNull(uut);
 
 		ActivityEditorInteraction.openActivityEditor(uut);
-		validateActivityEditorParse("op1: Operation Activity", uut.getAction_semantics(), true);
+		validateActivityEditorParse("Test Class::op1", uut.getAction_semantics(), true);
 
         uut.setSuc_pars(Parsestatus_c.doNotParse);
-        validateActivityEditorParse( "op1: Operation Activity", uut.getAction_semantics(), false);
+        validateActivityEditorParse( "Test Class::op1", uut.getAction_semantics(), false);
         uut.setSuc_pars(Parsestatus_c.parseSuccessful);
 	}
 	
@@ -188,10 +188,10 @@ public class ParseActivity extends UITextTest {
 		assertNotNull(uut);
 
 		ActivityEditorInteraction.openActivityEditor(uut);
-		validateActivityEditorParse("op2: Operation Activity", uut.getAction_semantics(), true);
+		validateActivityEditorParse("Test Class::op2", uut.getAction_semantics(), true);
 
         uut.setSuc_pars(Parsestatus_c.doNotParse);
-        validateActivityEditorParse( "op2: Operation Activity", uut.getAction_semantics(), false);
+        validateActivityEditorParse( "Test Class::op2", uut.getAction_semantics(), false);
         uut.setSuc_pars(Parsestatus_c.parseSuccessful);
 	}
 
@@ -220,10 +220,10 @@ public class ParseActivity extends UITextTest {
 			Action_c.getOneSM_ACTOnR514(
 				ActionHome_c.getOneSM_AHOnR513(
 					MooreActionHome_c.getOneSM_MOAHOnR511(uut)));
-		validateActivityEditorParse("ISM State: State Machine State Activity", source.getAction_semantics(), true);
+		validateActivityEditorParse("Test Class::ISM State", source.getAction_semantics(), true);
 
         source.setSuc_pars(Parsestatus_c.doNotParse);
-        validateActivityEditorParse( "ISM State: State Machine State Activity", source.getAction_semantics(), false);
+        validateActivityEditorParse( "Test Class::ISM State", source.getAction_semantics(), false);
         source.setSuc_pars(Parsestatus_c.parseSuccessful);
 	}
 	
@@ -238,10 +238,10 @@ public class ParseActivity extends UITextTest {
 			Action_c.getOneSM_ACTOnR514(
 				ActionHome_c.getOneSM_AHOnR513(
 					TransitionActionHome_c.getOneSM_TAHOnR530(uut)));
-		validateActivityEditorParse("T_T3: third in ISM State to ISM State: Transition Activity", source.getAction_semantics(), true);
+		validateActivityEditorParse("Test Class::ISM State::T_T3: third", source.getAction_semantics(), true);
 
         source.setSuc_pars(Parsestatus_c.doNotParse);
-        validateActivityEditorParse( "T_T3: third in ISM State to ISM State: Transition Activity", source.getAction_semantics(), false);
+        validateActivityEditorParse( "Test Class::ISM State::T_T3: third", source.getAction_semantics(), false);
         source.setSuc_pars(Parsestatus_c.parseSuccessful);
 	}
 	
@@ -256,10 +256,10 @@ public class ParseActivity extends UITextTest {
 				ActionHome_c.getOneSM_AHOnR513(
 					TransitionActionHome_c.getOneSM_TAHOnR530(
 							 Transition_c.getOneSM_TXNOnR507(uut))));
-		validateActivityEditorParse("No Event Assigned to creation state: ISM Creation State: Creation Transition Activity", source.getAction_semantics(), true);
+		validateActivityEditorParse("Test Class::No Event Assigned to creation state: ISM Creation State", source.getAction_semantics(), true);
 
         source.setSuc_pars(Parsestatus_c.doNotParse);
-        validateActivityEditorParse( "No Event Assigned to creation state: ISM Creation State: Creation Transition Activity", source.getAction_semantics(), false);
+        validateActivityEditorParse( "Test Class::No Event Assigned to creation state: ISM Creation State", source.getAction_semantics(), false);
         source.setSuc_pars(Parsestatus_c.parseSuccessful);
 	}
 	
@@ -274,10 +274,10 @@ public class ParseActivity extends UITextTest {
 			Action_c.getOneSM_ACTOnR514(
 				ActionHome_c.getOneSM_AHOnR513(
 					MooreActionHome_c.getOneSM_MOAHOnR511(uut)));
-		validateActivityEditorParse("CSM State: State Machine State Activity", source.getAction_semantics(), true);
+		validateActivityEditorParse("Test Class::CSM State", source.getAction_semantics(), true);
 
         source.setSuc_pars(Parsestatus_c.doNotParse);
-        validateActivityEditorParse( "CSM State: State Machine State Activity", source.getAction_semantics(), false);
+        validateActivityEditorParse( "Test Class::CSM State", source.getAction_semantics(), false);
         source.setSuc_pars(Parsestatus_c.parseSuccessful);
 	}
 	
@@ -293,10 +293,10 @@ public class ParseActivity extends UITextTest {
 			Action_c.getOneSM_ACTOnR514(
 				ActionHome_c.getOneSM_AHOnR513(
 					TransitionActionHome_c.getOneSM_TAHOnR530(uut)));
-		validateActivityEditorParse("T_T_A3: third class in CSM State to CSM State: Transition Activity", source.getAction_semantics(), true);
+		validateActivityEditorParse("Test Class::CSM State::T_T_A3: third class", source.getAction_semantics(), true);
 
         source.setSuc_pars(Parsestatus_c.doNotParse);
-        validateActivityEditorParse( "T_T_A3: third class in CSM State to CSM State: Transition Activity", source.getAction_semantics(), false);
+        validateActivityEditorParse( "Test Class::CSM State::T_T_A3: third class", source.getAction_semantics(), false);
         source.setSuc_pars(Parsestatus_c.parseSuccessful);
 	}
 	

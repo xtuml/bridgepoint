@@ -129,8 +129,7 @@ public class FreeFloatingConnectorTest extends CanvasTest {
 		String diagramName = "FFT Communication";
 		Package_c communication = getCommunication(diagramName);
 		CanvasUtilities.openCanvasEditor(communication);
-		GraphicalEditor ce = CanvasTestUtilities.getCanvasEditor(diagramName
-				+ ": Package Diagram");
+		GraphicalEditor ce = CanvasTestUtilities.getCanvasEditor(diagramName);
 		
 		AbstractTool tool = UITestingUtilities.getTool("Synchronous Message");
 		

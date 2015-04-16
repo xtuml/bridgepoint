@@ -1,0 +1,24 @@
+ERROR: Found another parameter under the same event with a matching name.
+
+Element Name: param
+Element Path: KEY1::Instance Based Satate Machine::ModelIntegrityTests::State Machine Event Data Item Tests::Class::Class::param
+
+
+ERROR: Found another parameter under the same event with a matching name.
+
+Element Name: param
+Element Path: KEY1::Instance Based Satate Machine::ModelIntegrityTests::State Machine Event Data Item Tests::Class::Class::param
+
+
+ERROR: Found another parameter under the same event with a matching name.
+
+Element Name: param
+Element Path: KEY_A1::Class Based Satate Machine::ModelIntegrityTests::State Machine Event Data Item Tests::Class::Class::param
+
+
+ERROR: Found another parameter under the same event with a matching name.
+
+Element Name: param
+Element Path: KEY_A1::Class Based Satate Machine::ModelIntegrityTests::State Machine Event Data Item Tests::Class::Class::param
+
+

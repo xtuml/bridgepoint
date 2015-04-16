@@ -401,12 +401,12 @@ public class VerifierExecuteActionTestsGlobals extends BaseTest {
 		assertTrue("Unexpected suspend state, expected stack trace not found.",
 				stackTrace.equals("class::opWithParams line: 2"));
 
-		// Commenting out known failure tests.  See dts0100656068
-/*		String xValue = DebugUITestUtilities.getValueForVariable("x");
+		// This area has been problematic in the past.  See this file's history and dts0100656068.
+		String xValue = DebugUITestUtilities.getValueForVariable("x");
 		assertEquals("Default parameter value was not as expected for variable x.", "0", xValue);
 		String yValue = DebugUITestUtilities.getValueForVariable("y");
 		assertEquals("Default parameter value was not as expected for variable y.", "0", yValue);
-*/	}
+	}
 	
 	public void testExecuteSignalAssignedToTransition() {
     Package_c cp = Package_c.getOneEP_PKGOnR1405(m_sys, new ClassQueryInterface_c() {
@@ -662,12 +662,12 @@ public class VerifierExecuteActionTestsGlobals extends BaseTest {
 				+ System.getProperty("line.separator")
 				+ "Port1::clientserversigparams" + " (x:integer, y:integer)"));
 		
-		// Commenting out known failure tests.  See dts0100656068
-/*		String xValue = DebugUITestUtilities.getValueForVariable("x");
+		// This area has been problematic in the past.  See this file's history and dts0100656068.
+ 		String xValue = DebugUITestUtilities.getValueForVariable("x");
 		assertEquals("Default parameter value was not as expected for variable x.", "0", xValue);
 		String yValue = DebugUITestUtilities.getValueForVariable("y");
 		assertEquals("Default parameter value was not as expected for variable x.", "0", yValue);
-*/	}
+ 	}
 	
 	public void testExecuteSignalNotAssignedToTransition() {
     Package_c cp = Package_c.getOneEP_PKGOnR1405(m_sys, new ClassQueryInterface_c() {
@@ -898,12 +898,12 @@ public class VerifierExecuteActionTestsGlobals extends BaseTest {
 		assertTrue("Unexpected suspend state, expected stack trace not found.",
 				stackTrace.equals("Port2::Interface::clientserversigparams line: 2"));
 		
-		// Commenting out known failure tests.  See dts0100656068
-/*		String xValue = DebugUITestUtilities.getValueForVariable("x");
+		// This area has been problematic in the past.  See this file's history and dts0100656068.
+		String xValue = DebugUITestUtilities.getValueForVariable("x");
 		assertEquals("Default parameter value was not as expected for variable x.", "0", xValue);
 		String yValue = DebugUITestUtilities.getValueForVariable("y");
 		assertEquals("Default parameter value was not as expected for variable x.", "0", yValue);
-*/	}
+ 	}
 	
     public void testExecuteInterfaceOperation() {
       Package_c cp = Package_c.getOneEP_PKGOnR1405(m_sys, new ClassQueryInterface_c() {
@@ -1130,12 +1130,12 @@ public class VerifierExecuteActionTestsGlobals extends BaseTest {
 		assertTrue("Unexpected suspend state, expected stack trace not found.",
 				stackTrace.equals("Port2::Interface::clientserveropparams line: 2"));
 		
-		// Commenting out known failure tests.  See dts0100656068
-/*		String xValue = DebugUITestUtilities.getValueForVariable("x");
+		// This area has been problematic in the past.  See this file's history and dts0100656068.
+ 		String xValue = DebugUITestUtilities.getValueForVariable("x");
 		assertEquals("Default parameter value was not as expected for variable x.", "0", xValue);
 		String yValue = DebugUITestUtilities.getValueForVariable("y");
 		assertEquals("Default parameter value was not as expected for variable x.", "0", yValue);
-*/
+ 
     }
     
     public void testTerminateAndRelaunch() {

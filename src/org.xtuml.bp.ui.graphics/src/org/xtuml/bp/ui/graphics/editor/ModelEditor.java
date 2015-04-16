@@ -38,6 +38,7 @@ import org.eclipse.draw2d.Viewport;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
@@ -172,6 +173,18 @@ public class ModelEditor extends MultiPageEditorPart implements ILinkWithEditorL
 		if(fGraphicalEditor == null)
 			return "";
 		return fGraphicalEditor.getTitleToolTip();
+	}
+	
+	@Override
+	public Image getTitleImage() {
+		Object element = this.fGraphicalEditor.getModel().getRepresents();
+		return CorePlugin.getImageFor(element);
+	}
+	
+	
+	@Override
+	public String getTitle() {
+		return getPartName();
 	}
 	
 	@Override

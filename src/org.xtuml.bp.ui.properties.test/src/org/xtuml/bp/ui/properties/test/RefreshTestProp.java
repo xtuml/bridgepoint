@@ -83,7 +83,7 @@ public class RefreshTestProp extends BaseTest {
 		String diagramName = "Test SQ";
 		Package_c sequence = getSequence(diagramName);
 		CanvasUtilities.openCanvasEditor(sequence);
-		CanvasTestUtilities.getCanvasEditor(diagramName + ": Sequence Diagram");
+		CanvasTestUtilities.getCanvasEditor(diagramName);
 
         while(PlatformUI.getWorkbench().getDisplay().readAndDispatch());
         IWorkbenchPage page = PlatformUI.getWorkbench()
@@ -126,7 +126,7 @@ public class RefreshTestProp extends BaseTest {
 		String diagramName = "Test SQ";
 		Package_c sequence = getSequence(diagramName);
 		CanvasUtilities.openCanvasEditor(sequence);
-		CanvasTestUtilities.getCanvasEditor(diagramName + ": Sequence Diagram");
+		CanvasTestUtilities.getCanvasEditor(diagramName);
 
         while(PlatformUI.getWorkbench().getDisplay().readAndDispatch());
         IWorkbenchPage page = PlatformUI.getWorkbench()
@@ -167,7 +167,7 @@ public class RefreshTestProp extends BaseTest {
 		String diagramName = "Test SQ";
 		Package_c sequence = getSequence(diagramName);
 		CanvasUtilities.openCanvasEditor(sequence);
-		CanvasTestUtilities.getCanvasEditor(diagramName + ": Sequence Diagram");
+		CanvasTestUtilities.getCanvasEditor(diagramName);
 
         while(PlatformUI.getWorkbench().getDisplay().readAndDispatch());
         IWorkbenchPage page = PlatformUI.getWorkbench()
@@ -207,7 +207,7 @@ public class RefreshTestProp extends BaseTest {
 		String diagramName = "Test SQ";
 		Package_c sequence = getSequence(diagramName);
 		CanvasUtilities.openCanvasEditor(sequence);
-		CanvasTestUtilities.getCanvasEditor(diagramName + ": Sequence Diagram");
+		CanvasTestUtilities.getCanvasEditor(diagramName);
 
         while(PlatformUI.getWorkbench().getDisplay().readAndDispatch());
         IWorkbenchPage page = PlatformUI.getWorkbench()
@@ -248,7 +248,7 @@ public class RefreshTestProp extends BaseTest {
 		String diagramName = "Test SQ";
 		Package_c sequence = getSequence(diagramName);
 		CanvasUtilities.openCanvasEditor(sequence);
-		CanvasTestUtilities.getCanvasEditor(diagramName + ": Sequence Diagram");
+		CanvasTestUtilities.getCanvasEditor(diagramName);
 
         while(PlatformUI.getWorkbench().getDisplay().readAndDispatch());
         IWorkbenchPage page = PlatformUI.getWorkbench()
@@ -289,7 +289,7 @@ public class RefreshTestProp extends BaseTest {
 		String diagramName = "Test SQ";
 		Package_c sequence = getSequence(diagramName);
 		CanvasUtilities.openCanvasEditor(sequence);
-		CanvasTestUtilities.getCanvasEditor(diagramName + ": Sequence Diagram");
+		CanvasTestUtilities.getCanvasEditor(diagramName);
 
         while(PlatformUI.getWorkbench().getDisplay().readAndDispatch());
         IWorkbenchPage page = PlatformUI.getWorkbench()
@@ -331,7 +331,7 @@ public class RefreshTestProp extends BaseTest {
 		String diagramName = "Test SQ";
 		Package_c sequence = getSequence(diagramName);
 		CanvasUtilities.openCanvasEditor(sequence);
-		CanvasTestUtilities.getCanvasEditor(diagramName + ": Sequence Diagram");
+		CanvasTestUtilities.getCanvasEditor(diagramName);
 
         while(PlatformUI.getWorkbench().getDisplay().readAndDispatch());
         IWorkbenchPage page = PlatformUI.getWorkbench()
@@ -371,7 +371,7 @@ public class RefreshTestProp extends BaseTest {
 		String diagramName = "Test SQ";
 		Package_c sequence = getSequence(diagramName);
 		CanvasUtilities.openCanvasEditor(sequence);
-		CanvasTestUtilities.getCanvasEditor(diagramName + ": Sequence Diagram");
+		CanvasTestUtilities.getCanvasEditor(diagramName);
 
         while(PlatformUI.getWorkbench().getDisplay().readAndDispatch());
         IWorkbenchPage page = PlatformUI.getWorkbench()
@@ -412,7 +412,7 @@ public class RefreshTestProp extends BaseTest {
 		String diagramName = "Test SQ";
 		Package_c sequence = getSequence(diagramName);
 		CanvasUtilities.openCanvasEditor(sequence);
-		CanvasTestUtilities.getCanvasEditor(diagramName + ": Sequence Diagram");
+		CanvasTestUtilities.getCanvasEditor(diagramName);
 
         while(PlatformUI.getWorkbench().getDisplay().readAndDispatch());
         IWorkbenchPage page = PlatformUI.getWorkbench()
@@ -454,7 +454,7 @@ public class RefreshTestProp extends BaseTest {
 		String diagramName = "Test SQ";
 		Package_c sequence = getSequence(diagramName);
 		CanvasUtilities.openCanvasEditor(sequence);
-		CanvasTestUtilities.getCanvasEditor(diagramName + ": Sequence Diagram");
+		CanvasTestUtilities.getCanvasEditor(diagramName);
 
         while(PlatformUI.getWorkbench().getDisplay().readAndDispatch());
         IWorkbenchPage page = PlatformUI.getWorkbench()
@@ -495,7 +495,7 @@ public class RefreshTestProp extends BaseTest {
 		String diagramName = "Test SQ";
 		Package_c sequence = getSequence(diagramName);
 		CanvasUtilities.openCanvasEditor(sequence);
-		CanvasTestUtilities.getCanvasEditor(diagramName + ": Sequence Diagram");
+		CanvasTestUtilities.getCanvasEditor(diagramName);
 
         while(PlatformUI.getWorkbench().getDisplay().readAndDispatch());
         IWorkbenchPage page = PlatformUI.getWorkbench()
@@ -535,7 +535,7 @@ public class RefreshTestProp extends BaseTest {
 		String diagramName = "Test SQ";
 		Package_c sequence = getSequence(diagramName);
 		CanvasUtilities.openCanvasEditor(sequence);
-		CanvasTestUtilities.getCanvasEditor(diagramName + ": Sequence Diagram");
+		CanvasTestUtilities.getCanvasEditor(diagramName);
 
         while(PlatformUI.getWorkbench().getDisplay().readAndDispatch());
         IWorkbenchPage page = PlatformUI.getWorkbench()

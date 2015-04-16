@@ -42,6 +42,7 @@ import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.IntegrityChecker;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.TestingUtilities;
 
 public class ModelIntegrityTests extends BaseTest {
 
@@ -322,7 +323,7 @@ public class ModelIntegrityTests extends BaseTest {
 	}
 	
 	private String getExpectedResults() throws IOException {
-		String path = m_workspace_path + "expected_results/" + test_id + "/"
+		String path = m_workspace_path + TestingUtilities.getExpectedResultsPath() + test_id + "/"
 				+ test_id + ".txt";
 		File file = new File(path);
 		char[] chars = new char[(int) file.length()];
@@ -332,7 +333,7 @@ public class ModelIntegrityTests extends BaseTest {
 	}
 
 	private void writeExpectedResults(String report) throws IOException {
-		String path = m_workspace_path + "expected_results/" + test_id + "/";
+		String path = m_workspace_path + TestingUtilities.getExpectedResultsPath() + test_id + "/";
 		File folder = new File(path);
 		if(!folder.exists()) {
 			folder.mkdir();

@@ -139,7 +139,7 @@ public class RenameInvolvingResourceTestGenerics extends CoreTest {
 
 		);
 		GraphicalEditor reOpenedEditor = CanvasTestUtils
-				.getCanvasEditor(testModelName + ": Package Diagram");
+				.getCanvasEditor(testModelName);
 
 		// check that the re-opening above simply activated the previously-opened 
 		// domain editor

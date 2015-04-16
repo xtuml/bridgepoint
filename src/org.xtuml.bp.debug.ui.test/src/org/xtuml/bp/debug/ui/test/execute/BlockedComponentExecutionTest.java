@@ -12,6 +12,7 @@ package org.xtuml.bp.debug.ui.test.execute;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Menu;
@@ -115,6 +116,9 @@ public class BlockedComponentExecutionTest extends BaseTest {
 
 		String actualConsoleText = DebugUITestUtilities.getConsoleText("null");
 		String expectedConsoleText = "User invoked function: run\r\nLogInfo:  Signal 1 Begin.\r\nLogInfo:  Signal 1 End.\r\nLogInfo:  Beginning test.\r\nLogInfo:  Signal 2 Begin.\r\nLogInfo:  Signal 2 End.\r\nLogSuccess:  Blocking test PASSED.\r\n";	
+		if (!Platform.getOS().contains("win")) {
+			expectedConsoleText = expectedConsoleText.replace("\r", "");
+		}
 
 		assertEquals(expectedConsoleText , actualConsoleText);
 		

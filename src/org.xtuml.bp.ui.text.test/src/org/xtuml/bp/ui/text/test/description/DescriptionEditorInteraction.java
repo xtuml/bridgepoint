@@ -129,7 +129,7 @@ public class DescriptionEditorInteraction extends UITextTest {
 
 	private DescriptionEditor getPackageDescriptionEditor()
 	{	
-		return TextEditorUtils.getDescriptionEditor("testDescrip1: Package Description");
+		return TextEditorUtils.getDescriptionEditor("testDescrip1");
 	}
 
 	private Package_c getTopPackage()

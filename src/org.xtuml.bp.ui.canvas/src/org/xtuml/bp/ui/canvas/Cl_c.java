@@ -128,6 +128,7 @@ import org.xtuml.bp.core.inspector.IModelClassInspector;
 import org.xtuml.bp.core.inspector.ModelInspector;
 import org.xtuml.bp.core.ui.Selection;
 import org.xtuml.bp.core.util.CoreUtil;
+import org.xtuml.bp.core.util.HierarchyUtil;
 
 // Client
 public class Cl_c {
@@ -327,70 +328,7 @@ public class Cl_c {
      * @param element - the represented client element
      */
 	public static String Getpath(Object element) {
-		NonRootModelElement nrme = getElement(element);
-		ModelInspector inspector = new ModelInspector();
-		String path = nrme.getName();
-		if(element instanceof ClassStateMachine_c) {
-			path = "Class State Machine";
-		} else if(element instanceof InstanceStateMachine_c) {
-			path = "Instance State Machine";
-		}
-		IModelClassInspector elementInspector = inspector.getInspector(nrme
-				.getClass());
-		if (elementInspector != null) {
-			NonRootModelElement parent = (NonRootModelElement) elementInspector
-					.getParent(nrme);
-			while (parent != null) {
-				if(parent instanceof ClassStateMachine_c) {
-					path = "Class State Machine" + "::" + path;
-				} else if(parent instanceof InstanceStateMachine_c) {
-					path = "Instance State Machine" + "::" + path;
-				} else {
-				path = parent.getName() + "::" + path;
-				}
-				parent = (NonRootModelElement) inspector.getParent(parent);
-			}
-		}
-		if (nrme.getModelRoot().isCompareRoot()) {
-			return "";
-				}
-		return path;
-	}
-    
-    private static NonRootModelElement getElement(Object element) {
-    	if(element instanceof CreationTransition_c) {
-    		return Transition_c.getOneSM_TXNOnR507((CreationTransition_c) element);
-    	}
-    	if(element instanceof NoEventTransition_c) {
-    		return Transition_c.getOneSM_TXNOnR507((NoEventTransition_c) element);
-    	}
-    	if(element instanceof NewStateTransition_c) {
-    		return Transition_c.getOneSM_TXNOnR507((NewStateTransition_c) element);
-    	}
-    	if(element instanceof DataType_c) {
-    		DataType_c dt = (DataType_c) element;
-    		CoreDataType_c cdt = CoreDataType_c.getOneS_CDTOnR17(dt);
-    		UserDataType_c udt = UserDataType_c.getOneS_UDTOnR17(dt);
-    		StructuredDataType_c sdt = StructuredDataType_c.getOneS_SDTOnR17(dt);
-    		InstanceReferenceDataType_c irdt = InstanceReferenceDataType_c.getOneS_IRDTOnR17(dt);
-    		EnumerationDataType_c edt = EnumerationDataType_c.getOneS_EDTOnR17(dt);
-    		if(cdt != null) {
-    			return cdt;
-    		}
-    		if(udt != null) {
-    			return udt;
-    		}
-    		if(sdt != null) {
-    			return sdt;
-    		}
-    		if(irdt != null) {
-    			return irdt;
-    		}
-    		if(edt != null) {
-    			return edt;
-    		}
-    	}
-    	return (NonRootModelElement) element;
+		return HierarchyUtil.Getpath(element);
 	}
 
 	public static Object Getinstancefromooa_id(
