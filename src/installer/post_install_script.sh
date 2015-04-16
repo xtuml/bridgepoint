@@ -79,6 +79,9 @@ configure_mc_files
 MC_NAME="org.xtuml.bp.mc.systemc.source"
 configure_mc_files
 
+MC_NAME="org.xtuml.bp.mc.java.source"
+configure_mc_files
+
 # Initialize eclipse p2 and configuration data
 echo "Initializing eclipse configuration"
 export BP_JVM=$TARGET/jre/lib/i386/client/libjvm.so
