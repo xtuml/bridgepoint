@@ -257,6 +257,9 @@ fi
   
     bash build_installer_bp.sh ${BRANCH} ${STAGING_AREA} ${IZPACK_PATH} ${RESULT_FOLDER} linux ${bp_release_version} ${XTUMLORG_USER} >> ${BUILD_LOG}
     cd  "${BUILD_DIR}"
+    
+    bash build_installer_bp.sh ${BRANCH} ${STAGING_AREA} ${IZPACK_PATH} ${RESULT_FOLDER} osx ${bp_release_version} ${XTUMLORG_USER} >> ${BUILD_LOG}
+    cd  "${BUILD_DIR}"
   fi
 #fi
 
