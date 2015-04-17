@@ -165,6 +165,14 @@ echo "INFO: Renaming the output file to ${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS}.
 cd "${OUTPUT_DIR}"
 mv -f "${PRODUCT_NAME}_${OS}.jar" "${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS}.jar"
 chmod g+w "${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS}.jar"
+# Create a windows executable and an OSX application
+# Make sure python scripts are executable
+chmod u+x ${IZPACK_PATH}/utils/wrappers/izpack2exe/izpack2exe.py
+chmod u+x ${IZPACK_PATH}/utils/wrappers/izpack2app/izpack2app.py
+echo "INFO: Creating windows executable"
+${IZPACK_PATH}/utils/wrapppers/izpack2exe/izpack2exe.py --file ${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS}.jar --output ${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS}.exe
+echo "INFO: Creating OSX application"
+${IZPACK_PATH}/utils/wrappers/izpack2app/izpack2app.py ${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS}.jar ${PRODUCT_NAME}_${PRODUCT_BRANCH}_osx.app
 echo "INFO: Done."
 
 # Make sure the output looks good
@@ -183,6 +191,8 @@ fi
 # TODO - ssh ${SERVER} "(cd '${REMOTE_RELEASE_DIR}'; chmod 755 ${PRODUCT_NAME}_${PRODUCT_BRANCH}_*.jar)"
 if [ "${XTUMLORG_USER}" != "" ]; then
   scp ${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS}.jar ${XTUMLORG_USER}@${SERVER}:${REMOTE_RELEASE_DIR}/${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS}.jar
+  scp ${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS}.jar ${XTUMLORG_USER}@${SERVER}:${REMOTE_RELEASE_DIR}/${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS}.exe
+  scp ${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS}.jar ${XTUMLORG_USER}@${SERVER}:${REMOTE_RELEASE_DIR}/${PRODUCT_NAME}_${PRODUCT_BRANCH}_osx.app
 fi
 echo "INFO: Done."
 

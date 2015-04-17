@@ -86,7 +86,8 @@ function distribute_and_notify {
 	echo -e "You can copy the release via: ${SCP_CMD}" >> ${MAIL_TEMP}
 	echo -e "---------------" >> ${MAIL_TEMP}
 	echo -e "The Linux release can be downloaded at: ${DOWNLOAD_URL}_${BRANCH}_linux.jar" >> ${MAIL_TEMP}
-    echo -e "The Windows release can be downloaded at: ${DOWNLOAD_URL}_${BRANCH}_windows.jar" >> ${MAIL_TEMP}
+    echo -e "The Windows release can be downloaded at: ${DOWNLOAD_URL}_${BRANCH}_windows.exe" >> ${MAIL_TEMP}
+    echo -e "The OSX release can be downloaded at: ${DOWNLOAD_URL}_${BRANCH}_osx.app" >> ${MAIL_TEMP}
 	
 	cat ${MAIL_TEMP} | ${MAIL_CMD} ${BUILD_ADMIN}
 	
