@@ -166,9 +166,6 @@ cd "${OUTPUT_DIR}"
 mv -f "${PRODUCT_NAME}_${OS}.jar" "${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS}.jar"
 chmod g+w "${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS}.jar"
 # Create a windows executable and an OSX application
-# Make sure python scripts are executable
-chmod u+x ${IZPACK_PATH}/utils/wrappers/izpack2exe/izpack2exe.py
-chmod u+x ${IZPACK_PATH}/utils/wrappers/izpack2app/izpack2app.py
 if [ "${OS}" = "windows" ]; then
   echo "INFO: Creating windows executable"
   ${IZPACK_PATH}/utils/wrappers/izpack2exe/izpack2exe.py --file ${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS}.jar --output ${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS}.exe
