@@ -86,7 +86,7 @@ echo "INFO: Done."
 
 echo "INFO: Configuring correct xtumlmc_build.exe for ${OS}."
 cd "${PRODUCT_NAME}/eclipse/plugins"
-if [ "${OS}" = "linux" ]; then
+if [ "${OS}" = "linux" ] || [ "$OS" = "osx" ]; then
       mcplugin="./org.xtuml.bp.mc.c.binary_${BP_VERSION}/mc3020/bin"
       rm -f ${mcplugin}/xtumlmc_build.exe.win
       tr -d '\r' < ${mcplugin}/xtumlmc_build > ${mcplugin}/xtumlmc_build.exe
@@ -169,10 +169,14 @@ chmod g+w "${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS}.jar"
 # Make sure python scripts are executable
 chmod u+x ${IZPACK_PATH}/utils/wrappers/izpack2exe/izpack2exe.py
 chmod u+x ${IZPACK_PATH}/utils/wrappers/izpack2app/izpack2app.py
-echo "INFO: Creating windows executable"
-${IZPACK_PATH}/utils/wrapppers/izpack2exe/izpack2exe.py --file ${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS}.jar --output ${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS}.exe
-echo "INFO: Creating OSX application"
-${IZPACK_PATH}/utils/wrappers/izpack2app/izpack2app.py ${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS}.jar ${PRODUCT_NAME}_${PRODUCT_BRANCH}_osx.app
+if [ "$OS" = "windows" ]; then
+  echo "INFO: Creating windows executable"
+  ${IZPACK_PATH}/utils/wrapppers/izpack2exe/izpack2exe.py --file ${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS}.jar --output ${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS}.exe
+fi
+if [ "$OS" = "osx" ]; then
+  echo "INFO: Creating OSX application"
+  ${IZPACK_PATH}/utils/wrappers/izpack2app/izpack2app.py ${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS}.jar ${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS}.app
+fi
 echo "INFO: Done."
 
 # Make sure the output looks good
