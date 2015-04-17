@@ -16,7 +16,7 @@ if [ $# -lt 6 ]; then
     echo "      staging_path -- path to the location of the Eclipse bases and BridgePoint deliverables"
     echo "      izpack_path -- path to the root of the izpack installation"
     echo "      output_dir -- path to the location to output the installers"
-    echo "      os - windows or linux"
+    echo "      os - windows, linux or osx"
     echo "      release_version -- e.g. 5.0.0"
     echo "   optional:"
     echo "      xtumlorg_username -- name of user account at GoDaddy"
@@ -42,9 +42,14 @@ OS="windows"
 BP_BASE_DIR="${STAGING_PATH}/${PRODUCT_NAME}_e${ECLIPSE_VER}"
 DOCGEN_EXE="docgen.exe"
 MCMC_EXE="org.xtuml.bp.mc.c.binary_${BP_VERSION}/mc3020/bin/mcmc.exe"
-if [ "${OS_ARG,,}" = "linux" ]; then
-  OS="linux"
-  BP_BASE_DIR="${STAGING_PATH}/${PRODUCT_NAME}_for_Linux_e${ECLIPSE_VER}"
+if [ "${OS_ARG,,}" = "linux" ] || [ "${OS_ARG,,}" = "osx" ]; then
+  if [ "${OS_ARG,,}" = "linux" ]; then
+    OS="linux"
+    BP_BASE_DIR="${STAGING_PATH}/${PRODUCT_NAME}_for_Linux_e${ECLIPSE_VER}"
+  else
+    OS="osx"
+    BP_BASE_DIR="${STAGING_PATH}/${PRODUCT_NAME}_for_OSx_e${ECLIPSE_VER}"
+  fi
   MCMC_EXE="org.xtuml.bp.mc.c.binary_${BP_VERSION}/mc3020/bin/mcmc"
   DOCGEN_EXE="docgen"
 fi
@@ -171,7 +176,7 @@ chmod u+x ${IZPACK_PATH}/utils/wrappers/izpack2exe/izpack2exe.py
 chmod u+x ${IZPACK_PATH}/utils/wrappers/izpack2app/izpack2app.py
 if [ "$OS" = "windows" ]; then
   echo "INFO: Creating windows executable"
-  ${IZPACK_PATH}/utils/wrapppers/izpack2exe/izpack2exe.py --file ${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS}.jar --output ${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS}.exe
+  ${IZPACK_PATH}/utils/wrappers/izpack2exe/izpack2exe.py --file ${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS}.jar --output ${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS}.exe
 fi
 if [ "$OS" = "osx" ]; then
   echo "INFO: Creating OSX application"
@@ -195,8 +200,11 @@ fi
 # TODO - ssh ${SERVER} "(cd '${REMOTE_RELEASE_DIR}'; chmod 755 ${PRODUCT_NAME}_${PRODUCT_BRANCH}_*.jar)"
 if [ "${XTUMLORG_USER}" != "" ]; then
   scp ${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS}.jar ${XTUMLORG_USER}@${SERVER}:${REMOTE_RELEASE_DIR}/${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS}.jar
-  scp ${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS}.jar ${XTUMLORG_USER}@${SERVER}:${REMOTE_RELEASE_DIR}/${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS}.exe
-  scp ${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS}.jar ${XTUMLORG_USER}@${SERVER}:${REMOTE_RELEASE_DIR}/${PRODUCT_NAME}_${PRODUCT_BRANCH}_osx.app
+  if [ "${OS}" = "windows" ]; then
+    scp ${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS}.exe ${XTUMLORG_USER}@${SERVER}:${REMOTE_RELEASE_DIR}/${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS}.exe
+  elif [ "${OS}" = "osx" ]; then
+    scp -r ${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS}.app ${XTUMLORG_USER}@${SERVER}:${REMOTE_RELEASE_DIR}/${PRODUCT_NAME}_${PRODUCT_BRANCH}_osx.app
+  fi
 fi
 echo "INFO: Done."
 
