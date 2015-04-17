@@ -86,7 +86,7 @@ echo "INFO: Done."
 
 echo "INFO: Configuring correct xtumlmc_build.exe for ${OS}."
 cd "${PRODUCT_NAME}/eclipse/plugins"
-if [ "${OS}" = "linux" ] || [ "$OS" = "osx" ]; then
+if [ "${OS}" = "linux" ]; then
       mcplugin="./org.xtuml.bp.mc.c.binary_${BP_VERSION}/mc3020/bin"
       rm -f ${mcplugin}/xtumlmc_build.exe.win
       tr -d '\r' < ${mcplugin}/xtumlmc_build > ${mcplugin}/xtumlmc_build.exe
