@@ -197,7 +197,7 @@ if [ "${XTUMLORG_USER}" != "" ]; then
   if [ "${OS}" = "windows" ]; then
     scp ${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS}.exe ${XTUMLORG_USER}@${SERVER}:${REMOTE_RELEASE_DIR}/${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS}.exe
   elif [ "${OS_ARG,,}" = "osx" ]; then
-    scp -r ${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS}.app ${XTUMLORG_USER}@${SERVER}:${REMOTE_RELEASE_DIR}/${PRODUCT_NAME}_${PRODUCT_BRANCH}_osx.app
+    scp -r ${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS_ARG,,}.app.zip ${XTUMLORG_USER}@${SERVER}:${REMOTE_RELEASE_DIR}/${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS_ARG,,}.app.zip
   fi
 fi
 echo "INFO: Done."
