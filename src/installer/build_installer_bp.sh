@@ -43,13 +43,8 @@ BP_BASE_DIR="${STAGING_PATH}/${PRODUCT_NAME}_e${ECLIPSE_VER}"
 DOCGEN_EXE="docgen.exe"
 MCMC_EXE="org.xtuml.bp.mc.c.binary_${BP_VERSION}/mc3020/bin/mcmc.exe"
 if [ "${OS_ARG,,}" = "linux" ] || [ "${OS_ARG,,}" = "osx" ]; then
-  if [ "${OS_ARG,,}" = "linux" ]; then
-    OS="linux"
-    BP_BASE_DIR="${STAGING_PATH}/${PRODUCT_NAME}_for_Linux_e${ECLIPSE_VER}"
-  else
-    OS="osx"
-    BP_BASE_DIR="${STAGING_PATH}/${PRODUCT_NAME}_for_OSx_e${ECLIPSE_VER}"
-  fi
+  OS="linux"
+  BP_BASE_DIR="${STAGING_PATH}/${PRODUCT_NAME}_for_Linux_e${ECLIPSE_VER}"
   MCMC_EXE="org.xtuml.bp.mc.c.binary_${BP_VERSION}/mc3020/bin/mcmc"
   DOCGEN_EXE="docgen"
 fi
@@ -174,13 +169,13 @@ chmod g+w "${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS}.jar"
 # Make sure python scripts are executable
 chmod u+x ${IZPACK_PATH}/utils/wrappers/izpack2exe/izpack2exe.py
 chmod u+x ${IZPACK_PATH}/utils/wrappers/izpack2app/izpack2app.py
-if [ "$OS" = "windows" ]; then
+if [ "${OS}" = "windows" ]; then
   echo "INFO: Creating windows executable"
   ${IZPACK_PATH}/utils/wrappers/izpack2exe/izpack2exe.py --file ${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS}.jar --output ${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS}.exe
 fi
-if [ "$OS" = "osx" ]; then
+if [ "${OS_ARG,,}" = "osx" ]; then
   echo "INFO: Creating OSX application"
-  ${IZPACK_PATH}/utils/wrappers/izpack2app/izpack2app.py ${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS}.jar ${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS}.app
+  ${IZPACK_PATH}/utils/wrappers/izpack2app/izpack2app.py ${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS}.jar ${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS_ARG,,}.app
 fi
 echo "INFO: Done."
 
