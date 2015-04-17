@@ -173,6 +173,8 @@ fi
 if [ "${OS_ARG,,}" = "osx" ]; then
   echo "INFO: Creating OSX application"
   ${IZPACK_PATH}/utils/wrappers/izpack2app/izpack2app.py ${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS}.jar ${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS_ARG,,}.app
+  # Zip the file for download
+  zip ${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS_ARG,,}.app.zip ${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS_ARG,,}.app/
 fi
 echo "INFO: Done."
 
