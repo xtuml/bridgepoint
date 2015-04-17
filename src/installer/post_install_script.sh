@@ -39,13 +39,21 @@ ECLIPSEDIR=$2
 # Update the following files to reflect the target location provided by the user...
 echo "Updating install path in config files"
 BP_PATH=C:/xtuml/BridgePoint
-sed -e 's;'"$BP_PATH"';'"$TARGET"';g' -i "$TARGET/eclipse/Launcher.sh"
-sed -e 's;'"$BP_PATH"';'"$TARGET"';g' -i "$TARGET/eclipse/CLI.sh"
-sed -e 's;'"$BP_PATH"';'"$TARGET"';g' -i "$TARGET/tools/docgen/docgen.xsl"
+sed -e 's;'"$BP_PATH"';'"$TARGET"';g' "$TARGET/eclipse/Launcher.sh" > "$TARGET/eclipse/Launcher.sh.tmp"
+chmod --reference="$TARGET/eclipse/Launcher.sh" "$TARGET/eclipse/Launcher.sh.tmp"
+mv -f "$TARGET/eclipse/Launcher.sh.tmp" "$TARGET/eclipse/Launcher.sh"
+sed -e 's;'"$BP_PATH"';'"$TARGET"';g' "$TARGET/eclipse/CLI.sh" > "$TARGET/eclipse/CLI.sh.tmp"
+chmod --reference="$TARGET/eclipse/CLI.sh" "$TARGET/eclipse/CLI.sh.tmp"
+mv -f "$TARGET/eclipse/CLI.sh.tmp" "$TARGET/eclipse/CLI.sh"
+sed -e 's;'"$BP_PATH"';'"$TARGET"';g' "$TARGET/tools/docgen/docgen.xsl" > "$TARGET/tools/docgen/docgen.xsl.tmp"
+chmod --reference="$TARGET/tools/docgen/docgen.xsl" "$TARGET/tools/docgen/docgen.xsl.tmp"
+mv -f "$TARGET/tools/docgen/docgen.xsl.tmp" "$TARGET/tools/docgen/docgen.xsl"
 chmod 775 "$TARGET/tools/docgen/docgen"
 if [ -f "$TARGET/eclipse/eclipse.ini" ]
 then
-  sed -e 's;'"$BP_PATH"';'"$TARGET"';g' -i "$TARGET/eclipse/eclipse.ini"
+  sed -e 's;'"$BP_PATH"';'"$TARGET"';g' "$TARGET/eclipse/eclipse.ini" > "$TARGET/eclipse/eclipse.ini.tmp"
+  chmod --reference="$TARGET/eclipse/eclipse.ini" "$TARGET/eclipse/eclipse.ini.tmp"
+  mv -f "$TARGET/eclipse/eclipse.ini.tmp" "$TARGET/eclipse/eclipse.ini"
 fi
 
 # Make sure these key files are in UNIX format
