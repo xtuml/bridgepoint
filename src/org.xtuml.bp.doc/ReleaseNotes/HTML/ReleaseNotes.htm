@@ -2,476 +2,124 @@
 
 <head>
 <meta http-equiv=Content-Type content="text/html; charset=windows-1252">
-<meta name=Generator content="Microsoft Word 14 (filtered)">
 <title>BridgePoint UML Suite Release Notes</title>
-<style>
-<!--
- /* Font Definitions */
- @font-face
-	{font-family:Cambria;
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:Consolas;
-	panose-1:2 11 6 9 2 2 4 3 2 4;}
-@font-face
-	{font-family:Webdings;
-	panose-1:5 3 1 2 1 5 9 6 7 3;}
- /* Style Definitions */
- p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0in;
-	margin-bottom:.0001pt;
-	font-size:12.0pt;
-	font-family:"Times New Roman","serif";}
-h1
-	{mso-style-link:"Heading 1 Char";
-	margin-right:0in;
-	margin-left:0in;
-	font-size:18.0pt;
-	font-family:"Arial","sans-serif";
-	color:black;
-	font-weight:normal;}
-h2
-	{mso-style-link:"Heading 2 Char";
-	margin-right:0in;
-	margin-left:0in;
-	line-height:15.6pt;
-	font-size:12.0pt;
-	font-family:"Arial","sans-serif";
-	color:navy;
-	font-weight:bold;}
-h3
-	{mso-style-link:"Heading 3 Char";
-	margin-right:0in;
-	margin-bottom:2.4pt;
-	margin-left:0in;
-	font-size:11.0pt;
-	font-family:"Arial","sans-serif";
-	color:navy;
-	font-weight:bold;}
-h4
-	{mso-style-link:"Heading 4 Char";
-	margin-top:7.5pt;
-	margin-right:7.5pt;
-	margin-bottom:2.4pt;
-	margin-left:7.5pt;
-	font-size:11.0pt;
-	font-family:"Arial","sans-serif";
-	color:#0176B9;
-	font-weight:bold;}
-a:link, span.MsoHyperlink
-	{color:navy;
-	text-decoration:underline;}
-a:visited, span.MsoHyperlinkFollowed
-	{color:#0176B9;
-	text-decoration:underline;}
-p
-	{margin:7.5pt;
-	font-size:10.0pt;
-	font-family:"Times New Roman","serif";}
-pre
-	{mso-style-link:"HTML Preformatted Char";
-	margin:0in;
-	margin-bottom:.0001pt;
-	font-size:10.0pt;
-	font-family:"Courier New";}
-p.MsoListParagraph, li.MsoListParagraph, div.MsoListParagraph
-	{margin-top:0in;
-	margin-right:0in;
-	margin-bottom:0in;
-	margin-left:.5in;
-	margin-bottom:.0001pt;
-	font-size:12.0pt;
-	font-family:"Times New Roman","serif";}
-span.Heading1Char
-	{mso-style-name:"Heading 1 Char";
-	mso-style-link:"Heading 1";
-	font-family:"Cambria","serif";
-	color:#365F91;
-	font-weight:bold;}
-span.Heading2Char
-	{mso-style-name:"Heading 2 Char";
-	mso-style-link:"Heading 2";
-	font-family:"Cambria","serif";
-	color:#4F81BD;
-	font-weight:bold;}
-span.Heading3Char
-	{mso-style-name:"Heading 3 Char";
-	mso-style-link:"Heading 3";
-	font-family:"Cambria","serif";
-	color:#4F81BD;
-	font-weight:bold;}
-span.Heading4Char
-	{mso-style-name:"Heading 4 Char";
-	mso-style-link:"Heading 4";
-	font-family:"Cambria","serif";
-	color:#4F81BD;
-	font-weight:bold;
-	font-style:italic;}
-span.HTMLPreformattedChar
-	{mso-style-name:"HTML Preformatted Char";
-	mso-style-link:"HTML Preformatted";
-	font-family:Consolas;}
-p.msolistparagraphcxspfirst, li.msolistparagraphcxspfirst, div.msolistparagraphcxspfirst
-	{mso-style-name:msolistparagraphcxspfirst;
-	margin-top:0in;
-	margin-right:0in;
-	margin-bottom:0in;
-	margin-left:.5in;
-	margin-bottom:.0001pt;
-	font-size:12.0pt;
-	font-family:"Times New Roman","serif";}
-p.msolistparagraphcxspmiddle, li.msolistparagraphcxspmiddle, div.msolistparagraphcxspmiddle
-	{mso-style-name:msolistparagraphcxspmiddle;
-	margin-top:0in;
-	margin-right:0in;
-	margin-bottom:0in;
-	margin-left:.5in;
-	margin-bottom:.0001pt;
-	font-size:12.0pt;
-	font-family:"Times New Roman","serif";}
-p.msolistparagraphcxsplast, li.msolistparagraphcxsplast, div.msolistparagraphcxsplast
-	{mso-style-name:msolistparagraphcxsplast;
-	margin-top:0in;
-	margin-right:0in;
-	margin-bottom:0in;
-	margin-left:.5in;
-	margin-bottom:.0001pt;
-	font-size:12.0pt;
-	font-family:"Times New Roman","serif";}
-p.msolistparagraph0, li.msolistparagraph0, div.msolistparagraph0
-	{mso-style-name:msolistparagraph;
-	margin-top:0in;
-	margin-right:0in;
-	margin-bottom:0in;
-	margin-left:.5in;
-	margin-bottom:.0001pt;
-	font-size:12.0pt;
-	font-family:"Times New Roman","serif";}
-p.msolistparagraphCxSpFirst0, li.msolistparagraphCxSpFirst0, div.msolistparagraphCxSpFirst0
-	{mso-style-name:msolistparagraphCxSpFirst;
-	margin-top:0in;
-	margin-right:0in;
-	margin-bottom:0in;
-	margin-left:.5in;
-	margin-bottom:.0001pt;
-	font-size:12.0pt;
-	font-family:"Times New Roman","serif";}
-p.msolistparagraphCxSpMiddle0, li.msolistparagraphCxSpMiddle0, div.msolistparagraphCxSpMiddle0
-	{mso-style-name:msolistparagraphCxSpMiddle;
-	margin-top:0in;
-	margin-right:0in;
-	margin-bottom:0in;
-	margin-left:.5in;
-	margin-bottom:.0001pt;
-	font-size:12.0pt;
-	font-family:"Times New Roman","serif";}
-p.msolistparagraphCxSpLast0, li.msolistparagraphCxSpLast0, div.msolistparagraphCxSpLast0
-	{mso-style-name:msolistparagraphCxSpLast;
-	margin-top:0in;
-	margin-right:0in;
-	margin-bottom:0in;
-	margin-left:.5in;
-	margin-bottom:.0001pt;
-	font-size:12.0pt;
-	font-family:"Times New Roman","serif";}
-p.preformatted-tpcode, li.preformatted-tpcode, div.preformatted-tpcode
-	{mso-style-name:preformatted-tp_code;
-	margin-top:15.0pt;
-	margin-right:0in;
-	margin-bottom:15.0pt;
-	margin-left:0in;
-	background:silver;
-	font-size:10.0pt;
-	font-family:"Courier New";}
-p.normalnotoc, li.normalnotoc, div.normalnotoc
-	{mso-style-name:normalnotoc;
-	margin:7.5pt;
-	font-size:11.0pt;
-	font-family:"Times New Roman","serif";}
-p.code, li.code, div.code
-	{mso-style-name:code;
-	margin:7.5pt;
-	font-size:11.0pt;
-	font-family:"Courier New";}
-p.tpcode, li.tpcode, div.tpcode
-	{mso-style-name:tp_code;
-	margin:7.5pt;
-	font-size:10.0pt;
-	font-family:"Courier New";}
-p.tpinput, li.tpinput, div.tpinput
-	{mso-style-name:tp_input;
-	margin:7.5pt;
-	font-size:10.0pt;
-	font-family:"Times New Roman","serif";
-	font-weight:bold;}
-p.tpui, li.tpui, div.tpui
-	{mso-style-name:tp_ui;
-	margin:7.5pt;
-	font-size:10.0pt;
-	font-family:"Times New Roman","serif";
-	color:navy;}
-p.tpvar, li.tpvar, div.tpvar
-	{mso-style-name:tp_var;
-	margin:7.5pt;
-	font-size:10.0pt;
-	font-family:"Times New Roman","serif";
-	font-style:italic;}
-p.tpfooter, li.tpfooter, div.tpfooter
-	{mso-style-name:tp_footer;
-	margin:7.5pt;
-	text-align:center;
-	background:white;
-	font-size:9.0pt;
-	font-family:"Times New Roman","serif";}
-p.sub, li.sub, div.sub
-	{mso-style-name:sub;
-	margin:7.5pt;
-	font-size:10.0pt;
-	font-family:"Times New Roman","serif";}
-p.sublstbody, li.sublstbody, div.sublstbody
-	{mso-style-name:sublstbody;
-	margin:7.5pt;
-	font-size:10.0pt;
-	font-family:"Times New Roman","serif";}
-p.msochpdefault, li.msochpdefault, div.msochpdefault
-	{mso-style-name:msochpdefault;
-	margin:7.5pt;
-	font-size:10.0pt;
-	font-family:"Times New Roman","serif";}
-span.tpfile
-	{mso-style-name:tp_file;
-	color:#990000;
-	letter-spacing:1.2pt;}
-span.tpnote
-	{mso-style-name:tp_note;
-	font-weight:bold;}
-span.tpmenuarrow
-	{mso-style-name:tp_menuarrow;
-	font-family:Webdings;
-	color:navy;}
-span.hypertext
-	{mso-style-name:hypertext;}
-.MsoChpDefault
-	{font-size:10.0pt;}
-@page WordSection1
-	{size:8.5in 11.0in;
-	margin:1.0in 1.25in 1.0in 1.25in;}
-div.WordSection1
-	{page:WordSection1;}
- /* List Definitions */
- ol
-	{margin-bottom:0in;}
-ul
-	{margin-bottom:0in;}
--->
-</style>
-
 </head>
 
 <body bgcolor=white lang=EN-US link=navy vlink="#0176B9">
 
-<div class=WordSection1>
+<h1>BridgePoint xtUML Release Notes</h1>
 
-<h1><a name="Command_View"></a><span style='font-size:20.0pt'>BridgePoint xtUML
-Release Notes</span></h1>
+<p>Release 5.0.0</p>
 
-<p class=MsoNormal><span style='font-family:"Arial","sans-serif"'>&nbsp;</span></p>
+<p>Last revised April 2015</span></p>
 
-<p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>Release
-4.2.0</span></p>
+<p>&nbsp;</p>
 
-<p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>Last
-revised November 2014</span></p>
+<h2>1. Legal Information</h2>
 
-<p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>&nbsp;</span></p>
+<p>TRADEMARKS: The trademarks, logos and service marks (&quot;Marks&quot;) used
+ herein are the property of One Fact or other third parties. No one is 
+permitted to use these Marks without the prior written consent of One Fact or 
+the respective third-party owner. The use herein of a third-party Mark is not 
+an attempt to indicate One Fact as a source of a product, but is intended to 
+indicate a product from, or associated with, a particular third party.&nbsp; A 
+current list of One Fact trademarks may be viewed at <a href="http://onefact.net/about-us/trademarks/">http://onefact.net/about-us/trademarks/</a>
+.</p>
 
-<p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>&nbsp;</span></p>
+<p>&nbsp;</p>
 
-<ol style='margin-top:0in' start=1 type=1>
- <li class=MsoNormal style='color:blue'><span style='color:windowtext'><a
-     href="#_Legal_Information"><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
-     color:blue'>Legal Information</span></a></span></li>
- <li class=MsoNormal style='color:blue'><span style='color:windowtext'><a
-     href="#_System_Requirements"><span style='font-size:10.0pt;font-family:
-     "Arial","sans-serif";color:blue'>System Requirements</span></a></span></li>
- <li class=MsoNormal style='color:blue'><span style='color:windowtext'><a
-     href="#_General_Notes"><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
-     color:blue'>General Notes</span></a></span></li>
- <li class=MsoNormal style='color:blue'><span style='color:windowtext'><a
-     href="#_Interoperability_with_Previous"><span style='font-size:10.0pt;
-     font-family:"Arial","sans-serif";color:blue'>Interoperability with
-     Previous Releases</span></a></span></li>
- <li class=MsoNormal style='color:blue'><span style='color:windowtext'><a
-     href="#_Known_Issues"><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
-     color:blue'>Known Issues</span></a></span></li>
- <li class=MsoNormal style='color:blue'><span style='color:windowtext'><a
-     href="#_Closed_Issues"><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
-     color:blue'>Closed Issues</span></a></span></li>
-</ol>
+<p>A copy of the Apache 2.0 License Agreement is available at <a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a></u>.</p>
 
-<p class=MsoNormal>&nbsp;</p>
+<p>&nbsp;</p>
 
-<h2 style='margin-top:12.0pt;margin-right:0in;margin-bottom:3.0pt;margin-left:
-.25in;text-indent:-.25in;line-height:normal;page-break-after:avoid'><a
-name="_Legal_Information"></a>1.<span style='font-size:7.0pt;font-family:"Times New Roman","serif"'>&nbsp;&nbsp;&nbsp;
-</span>Legal Information</h2>
+<h2>2. System Requirements</h2>
 
-<p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>TRADEMARKS:
-The trademarks, logos and service marks (&quot;Marks&quot;) used herein are the
-property of One Fact or other third parties.&nbsp; No one is permitted to use
-these Marks without the prior written consent of One Fact or the respective
-third-party owner. The use herein of a third-party Mark is not an attempt to
-indicate One Fact as a source of a product, but is intended to indicate a
-product from, or associated with, a particular third party.&nbsp; A current
-list of One Fact trademarks may be viewed at <a
-href="http://onefact.net/about-us/trademarks/">http://onefact.net/about-us/trademarks/</a>
-.</span></p>
-
-<p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></p>
-
-<p style='margin-left:0in'><span style='font-family:"Arial","sans-serif"'>A
-copy of the Apache 2.0 License Agreement is available at <u><span
-style='color:blue'><a href="http://www.apache.org/licenses/LICENSE-2.0"><span
-style='color:blue'>http://www.apache.org/licenses/LICENSE-2.0</span></a></span></u>.</span></p>
-
-<p class=MsoNormal>&nbsp;</p>
-
-<h2 style='margin-top:12.0pt;margin-right:0in;margin-bottom:3.0pt;margin-left:
-.25in;text-indent:-.25in;line-height:normal;page-break-after:avoid'><a
-name="_System_Requirements"></a>2.<span style='font-size:7.0pt;font-family:
-"Times New Roman","serif"'>&nbsp;&nbsp;&nbsp; </span>System Requirements</h2>
-
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='border-collapse:collapse'>
+<table border=0 cellspacing=0 cellpadding=0 style='border-collapse:collapse'>
  <tr>
   <td width=192 valign=top style='width:2.0in;border:solid windowtext 1.0pt;
   padding:0in 5.4pt 0in 5.4pt'>
-  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>Operating
-  System</span></p>
+  <p>Operating System</p>
   </td>
   <td width=446 valign=top style='width:4.65in;border:solid windowtext 1.0pt;
   border-left:none;padding:0in 5.4pt 0in 5.4pt'>
-  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
-  color:black'>Windows 7, Windows 8,&nbsp; RedHat Enterprise Linux 5</span></p>
+  <p>Windows 7, Windows 8, Linux variants</p>
   </td>
  </tr>
  <tr>
   <td width=192 valign=top style='width:2.0in;border:solid windowtext 1.0pt;
   border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>*Eclipse</span></p>
+  <p>*Eclipse</p>
   </td>
   <td width=446 valign=top style='width:4.65in;border-top:none;border-left:
   none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
   padding:0in 5.4pt 0in 5.4pt'>
-  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>Version
-  3.7.2</span></p>
+  <p>Version 3.7.2</p>
   </td>
  </tr>
  <tr>
   <td width=192 valign=top style='width:2.0in;border:solid windowtext 1.0pt;
   border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>*Java
-  Virtual Machine</span></p>
+  <p>*Java Virtual Machine</p>
   </td>
   <td width=446 valign=top style='width:4.65in;border-top:none;border-left:
   none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
   padding:0in 5.4pt 0in 5.4pt'>
-  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>Version
-  1.6 or later</span></p>
+  <p>Version 1.6 or later</p>
   </td>
  </tr>
  <tr>
   <td width=192 valign=top style='width:2.0in;border:solid windowtext 1.0pt;
   border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>&nbsp;</span></p>
+  <p>&nbsp;</p>
   </td>
   <td width=446 valign=top style='width:4.65in;border-top:none;border-left:
   none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
   padding:0in 5.4pt 0in 5.4pt'>
-  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>&nbsp;</span></p>
+  <p>&nbsp;</p>
   </td>
  </tr>
  <tr>
   <td width=192 valign=top style='width:2.0in;border:solid windowtext 1.0pt;
   border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>*(supplied
-  by installer)</span></p>
+  <p>*(supplied by installer)</p>
   </td>
   <td width=446 valign=top style='width:4.65in;border-top:none;border-left:
   none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
   padding:0in 5.4pt 0in 5.4pt'>
-  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>&nbsp;</span></p>
+  <p>&nbsp;</p>
   </td>
  </tr>
 </table>
 
-<p class=MsoNormal>&nbsp;</p>
+<p>&nbsp;</p>
 
-<p class=MsoNormal>&nbsp;</p>
+<h2>3. General Notes</h2>
 
-<h2 style='margin-top:12.0pt;margin-right:0in;margin-bottom:3.0pt;margin-left:
-.25in;text-indent:-.25in;line-height:normal;page-break-after:avoid'><a
-name="_General_Notes"></a>3.<span style='font-size:7.0pt;font-family:"Times New Roman","serif"'>&nbsp;&nbsp;&nbsp;
-</span>General Notes</h2>
-
-<ul style='margin-top:0in' type=disc>
- <li class=MsoNormal style='margin-bottom:12.0pt'><span style='font-size:10.0pt;
-     font-family:"Arial","sans-serif"'>A summary of the release highlights and
-     new functionality is available on the </span><a
-     href="../../WhatsNew/HTML/WhatsNew.htm"><span style='font-size:10.0pt;
-     font-family:"Arial","sans-serif"'>Whats New</span></a><span
-     style='font-size:10.0pt;font-family:"Arial","sans-serif"'> page.</span></li>
-</ul>
-
-<ul style='margin-top:0in' type=disc>
- <li class=MsoNormal style='margin-bottom:12.0pt'><b><span style='font-size:
-     10.0pt;font-family:"Arial","sans-serif";color:red'>IMPORTANT:</span></b><span
-     style='font-size:10.0pt;font-family:"Arial","sans-serif"'> BridgePoint 4.2.0
-     and later releases represent a major change in the licensing of the
-     tool.&nbsp; The xtUML Execute and xtUML Translate tools are now open
-     source and licensed under Apache 2.0, the same as xtUML Editor.&nbsp;
-     FlexNET licenses keys are no longer required to run BridgePoint.&nbsp;
+<ul>
+ <li>A summary of the release highlights and new functionality is available on 
+the <a href="../../WhatsNew/HTML/WhatsNew.htm">Whats New</a> page.</li>
+ <li><b><span style='color:red'>IMPORTANT:</span></b> BridgePoint 5.0.0
+     is a completely open source version of the software.
      Please see <a href="http://xtuml.org/">xtUML.org</a> and <a
      href="http://onefact.net/">onefact.net</a> for ongoing development and
-     support of BridgePoint. &nbsp;</span> <span style='font-size:10.0pt;
-     font-family:"Arial","sans-serif"'>&nbsp;</span></li>
+     support of BridgePoint. </li>
 </ul>
 
-<p class=MsoNormal>&nbsp;</p>
+<p>&nbsp;</p>
 
-<h2 style='margin-top:12.0pt;margin-right:0in;margin-bottom:3.0pt;margin-left:
-.25in;text-indent:-.25in;line-height:normal;page-break-after:avoid'><a
-name="_Interoperability_with_Previous"></a>4.<span style='font-size:7.0pt;
-font-family:"Times New Roman","serif"'>&nbsp;&nbsp;&nbsp; </span>Interoperability
-with Previous Releases</h2>
+<h2>4. Interoperability with Previous Releases</h2>
 
-<p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>BridgePoint
-4.2.0 is fully data compatible with workspaces and projects created with
-BridgePoint 3.7.0 and xtUML.org�s xtUML Editor 3.7.2.&nbsp; BridgePoint 4.2.0
-can open model projects created with BridgePoint 3.5.x and 3.6.x, but requires
-the projects to be upgraded completely to generic packages just like the 3.7.x
-series of tools.</span></p>
-
-<p class=MsoNormal>&nbsp;</p>
-
-<p class=MsoNormal>&nbsp;</p>
-
-<h2 style='margin-top:12.0pt;margin-right:0in;margin-bottom:3.0pt;margin-left:
-.25in;text-indent:-.25in;line-height:normal;page-break-after:avoid'><a
-name="_Known_Issues"></a>5.<span style='font-size:7.0pt;font-family:"Times New Roman","serif"'>&nbsp;&nbsp;&nbsp;
-</span>Known Issues</h2>
-
-<h3><span style='color:maroon'>Installer</span></h3>
-
-<ul style='margin-top:0in' type=disc>
- <li class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>Cannot
-     install from folder with unicode character in path&nbsp;</span></li>
- <li class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>Install
-     into folder with unicode character in path not working.&nbsp;</span></li>
+<ul>
+ <li>BridgePoint 5.0.0 is fully data compatible with workspaces and projects 
+created with BridgePoint 4.2.0.</li>
+ <li>When opening workspaces created with previous versions, the xtUML Modeling 
+perspective will not show properly the first time.  You will need to close and 
+re-open the perspective.</li>
 </ul>
 
-<p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>&nbsp;</span></p>
+<p>&nbsp;</p>
+
+<h2>5. Known Issues</h2>
 
 <h3><span style='color:maroon'>xtUML Editor</span></h3>
 
