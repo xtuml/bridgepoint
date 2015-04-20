@@ -174,7 +174,7 @@ if [ "${OS_ARG,,}" = "osx" ]; then
   echo "INFO: Creating OSX application"
   ${IZPACK_PATH}/utils/wrappers/izpack2app/izpack2app.py ${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS}.jar ${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS_ARG,,}.app
   # Zip the file for download
-  zip ${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS_ARG,,}.app.zip ${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS_ARG,,}.app/
+  zip -r ${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS_ARG,,}.app.zip ${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS_ARG,,}.app
 fi
 echo "INFO: Done."
 
@@ -197,7 +197,7 @@ if [ "${XTUMLORG_USER}" != "" ]; then
   if [ "${OS}" = "windows" ]; then
     scp ${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS}.exe ${XTUMLORG_USER}@${SERVER}:${REMOTE_RELEASE_DIR}/${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS}.exe
   elif [ "${OS_ARG,,}" = "osx" ]; then
-    scp -r ${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS_ARG,,}.app.zip ${XTUMLORG_USER}@${SERVER}:${REMOTE_RELEASE_DIR}/${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS_ARG,,}.app.zip
+    scp ${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS_ARG,,}.app.zip ${XTUMLORG_USER}@${SERVER}:${REMOTE_RELEASE_DIR}/${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS_ARG,,}.app.zip
   fi
 fi
 echo "INFO: Done."
