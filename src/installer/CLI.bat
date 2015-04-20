@@ -1,5 +1,11 @@
 @echo off
 
+:: This command gets the location of the directory that holds this script.  We
+:: use this to set up the rest of the paths for launching.  If you want to copy
+:: this script elsewhere, you should modify BPHOMEDIR to explicitly set the 
+:: location where BridgePoint is installed to.
+set BPHOMEDIR=%~dp0\..
+
 ::Check that a valid argument is specified
 if "%1"=="Build" goto ArgsOK
 if "%1"=="Execute" goto ArgsOK
@@ -33,7 +39,7 @@ if not "%WORKSPACE%"=="" goto RunApp
   :: choose to set the value in the environment, or modify the following line to
   :: point to the correct location.
   ::
-  set WORKSPACE=%~d0\xtuml\BridgePoint\workspace
+  set WORKSPACE=%~dp0\..\workspace
 goto RunApp
 
 :RunApp
@@ -42,9 +48,6 @@ echo Using WORKSPACE=%WORKSPACE%
 ::
 :: DO NOT MODIFY ANY OF THE FOLLOWING LINES.
 ::
-set ORIGINAL_PATH=%PATH%
-set PATH=%PATH%;%~d0\xtuml\BridgePoint\tools\docgen\docbook
-set BPHOMEDIR=%~d0\xtuml\BridgePoint
 set LAUNCHER=%BPHOMEDIR%\eclipse\plugins\org.eclipse.equinox.launcher_1.2.0.v20110502.jar
 set APPLICATION=org.xtuml.bp.cli.%1
 set BP_JVM=%BPHOMEDIR%\jre\bin\java.exe
@@ -68,6 +71,5 @@ echo %COMMAND%
 
 :: Change back to users directory and restore the PATH
 popd
-set PATH=%ORIGINAL_PATH%
 
 :exit
