@@ -21,6 +21,7 @@ function configure_build_files {
     chmod a+x ${BUILD_DIR}/configure_external_dependencies.sh 2>>${ERROR_FILE}
     chmod a+x ${BUILD_DIR}/create_bp_release.sh 2>>${ERROR_FILE}
 	chmod a+x ${BUILD_DIR}/plugin_customization.ini 2>>${ERROR_FILE}
+	chmod -R g+w ${BUILD_DIR}
 	
 	echo -e "Exiting configure_build_process.sh::configure_build_files"
 }
@@ -74,6 +75,8 @@ function configure_installer_files {
     mkdir -p ${bp_deliverables_linux}/tools/fontchecker
     cp -f font_list.txt ${bp_deliverables}/tools/fontchecker/font_list.txt 2>>${ERROR_FILE}
     cp -f fontchecker.exe ${bp_deliverables}/tools/fontchecker/fontchecker.exe 2>>${ERROR_FILE}
+    
+    chmod -R g+w ${STAGING_AREA}
     
 	echo -e "Exiting configure_build_process.sh::configure_installer_files"
 }
