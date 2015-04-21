@@ -6,14 +6,17 @@
         The info section.
     -->
     <info>
-        <appname>BridgePoint for Linux</appname>
+        <appname>BridgePoint for Linux (by OneFact.net)</appname>
         <appversion>5.0.0</appversion>
     </info>
 
     <!-- 
         The gui preferences indication.
     -->
-    <guiprefs width="655" height="480" resizable="no"/>
+    <guiprefs width="870" height="600" resizable="no">
+      <modifier key="headingPanelCounter" value="progressbar"/>
+      <modifier key="headingPanelCounterPos" value="inNavigationPanel"/>
+    </guiprefs>
 
     <!-- 
         The locale section.
@@ -34,7 +37,9 @@
     <resources>
         <res id="TargetPanel.dir" src="installer_extras/TARGET_LINUX.txt"/>
         <res id="HTMLHelloPanel.info" src="installer_extras/welcome.html"/>
-        <res id="logo" src="installer_extras/1F.png"/>
+        <res id="HTMLHelloPanel.done" src="installer_extras/done.html"/>
+        <res id="logo" src="installer_extras/xtuml_puzzle.png"/>
+        <res id="Installer.image" src="installer_extras/side-image.png" />
     </resources>
 
 
@@ -45,6 +50,7 @@
         <panel classname="HTMLHelloPanel"/>
         <panel classname="TargetPanel"/>
         <panel classname="InstallPanel"/>
+        <panel classname="HTMLHelloPanel" id="done"/>
     </panels>
 
     <!-- 
