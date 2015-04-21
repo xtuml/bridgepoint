@@ -1,11 +1,14 @@
 @echo off
 
+:: This command gets the location of the directory that holds this script.  We
+:: use this to set up the rest of the paths for launching.  If you want to copy
+:: this script elsewhere, you should modify BPHOMEDIR to explicitly set the 
+:: location where BridgePoint is installed to.
+set BPHOMEDIR=%~dp0\..
+
 ::
 :: DO NOT MODIFY ANY OF THE FOLLOWING LINES.
 ::
-set ORIGINAL_PATH=%PATH%
-set PATH=%PATH%;%~d0\xtuml\BridgePoint\tools\docgen\docbook
-set BPHOMEDIR=%~d0\xtuml\BridgePoint
 set BP_JVM=%BPHOMEDIR%\jre\bin\javaw.exe
 
 :: Check for fonts that trip up generator
@@ -19,6 +22,3 @@ call %BPHOMEDIR%\MinGW\mingwgnu.bat
 :: Run BridgePoint
 cd %BPHOMEDIR%\eclipse
 start eclipse.exe -vm %BP_JVM% %1 %2 %3 %4 %5 %6 %7 %8 %9
-
-:: Restore the PATH
-set PATH=%ORIGINAL_PATH%
