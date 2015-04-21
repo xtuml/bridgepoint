@@ -269,5 +269,6 @@ fi
 
 chmod -R g+w ${BUILD_DIR}
 chmod -R g+w ${RESULT_FOLDER}
+chmod -R g+w ${GIT_REPO_ROOT}
 
 echo -e "End of run_build.sh"
