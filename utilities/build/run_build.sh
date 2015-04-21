@@ -267,4 +267,7 @@ if [ -e ${MAIL_CMD} ]; then
   distribute_and_notify $? >> ${BUILD_LOG}
 fi 
 
+chmod -R g+w ${BUILD_DIR}
+chmod -R g+w ${RESULT_FOLDER}
+
 echo -e "End of run_build.sh"
