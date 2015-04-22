@@ -108,10 +108,6 @@ extra_deliverables_linux="${STAGING_AREA}/BridgePoint_for_Linux_e${eclipse_ver}/
 mkdir -p ${extra_deliverables_linux}
 installer_extras="${STAGING_AREA}/installer_extras"
 mkdir -p ${installer_extras}
-installer_files="${STAGING_AREA}/installer/BridgePoint_e${eclipse_ver}/src"
-mkdir -p ${installer_files}
-installer_files_linux="${STAGING_AREA}/installer/BridgePoint_for_Linux_e${eclipse_ver}/src"
-mkdir -p ${installer_files_linux}
 
 cd ${BUILD_DIR}
 configure_build_files
