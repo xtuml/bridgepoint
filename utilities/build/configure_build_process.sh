@@ -50,6 +50,7 @@ function configure_installer_files {
     cp -f install_linux.xml ${installer_extras} 2>>${ERROR_FILE}
     cp -f install_windows.xml ${installer_extras} 2>>${ERROR_FILE}
     cp -f welcome.html ${installer_extras} 2>>${ERROR_FILE}
+    cp -f done.html ${installer_extras} 2>>${ERROR_FILE}
     cp -f shortcutSpec.xml ${installer_extras} 2>>${ERROR_FILE}
     cp -f post_install_script.bat ${installer_extras} 2>>${ERROR_FILE}
     tr -d '\r' < post_install_script.sh > ${installer_extras}/post_install_script.sh 2>>${ERROR_FILE}
