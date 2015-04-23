@@ -12,9 +12,8 @@
 #                   root for the build
 #
 #  Optional:
-#     BRANCH      - This is an optional parameter that allows you to configure
+#     BRANCH_NAME   - This is an optional parameter that allows you to configure
 #                   the branch to build
-#     IZPACK_PATH - Path to where IzPack is installed
 #     XTUMLORG_USER - The username for the upload account
 #               
 #  Since it is the starting point for the build chain, it must be manually put 
@@ -23,7 +22,7 @@
 #  
 #  Build Server Requirements:
 #  1) run_build.sh, and init_git_repositories.sh must be present in ${BUILD_ROOT}
-#  2) git, ant, jar, and IzPack must be installed on the build server
+#  2) git, ant, and jar must be installed on the build server
 # 
 #  The build is performed under ${BUILD_ROOT}.  The result of the build:
 #  1) plugins
@@ -104,7 +103,7 @@ if [ "$#" -lt 2 ]; then
 
 echo "This script requires two parameters.  The other parameters are optional.  See below for usage."
 echo
-echo "run_build.sh BridgePoint_Home_Directory Build_Root Branch IzPack_Home_Directory"
+echo "run_build.sh BridgePoint_Home_Directory Build_Root Branch_Name Xtumlorg_SSH_Username"
 echo
 echo "See the script header for more detail."
 exit 1
@@ -130,10 +129,7 @@ if [ "$3" != "" ]; then
   export BRANCH="$3"
 fi
 if [ "$4" != "" ]; then
-  export IZPACK_PATH="$4"
-fi
-if [ "$5" != "" ]; then
-  export XTUMLORG_USER="$5"
+  export XTUMLORG_USER="$4"
 fi
 
 # Make sure github credentials are available in the environment
@@ -229,39 +225,38 @@ else
 fi
 echo -e "Getting files from github, this could take a while."
 bash "${BUILD_ROOT}/init_git_repositories.sh" ${BRANCH} ${GIT_REPO_ROOT} ${ALLOW_FALLBACK} >> ${BUILD_LOG} 2>&1
-echo -e "Done."
+echo -e "Done getting files from github."
 
 # Can do the copy and dos2unix translation in one step.
+echo -e "Configuring files for the build process."
 tr -d '\r' < ${GIT_BP}/utilities/build/configure_build_process.sh > configure_build_process.sh
 chmod a+x configure_build_process.sh
 
 bash configure_build_process.sh >> ${BUILD_LOG}
 cd  "${BUILD_DIR}"
+echo -e "Done configuring files for the build process."
 
+echo -e "Configuring external dependencies."
 bash configure_external_dependencies.sh ${GIT_REPO_ROOT} > ${LOG_DIR}/configure_externals.log 2>&1
 cd  "${BUILD_DIR}"
+echo -e "Done configuring external dependencies."
 
+echo -e "Building BridgePoint.  This will take a long time."
 bash create_bp_release.sh  >> ${BUILD_LOG}
 cd  "${BUILD_DIR}"
-
-if [ "${IZPACK_PATH}" = "" ]; then
-  export IZPACK_PATH="/usr/local/IzPack"
-fi  
+echo -e "Done building."
 
 # TODO - we'll re-enable this check when headless_build stops reporting errors
+echo -e "Packaging BridgePoint into a full eclipse environment."
 #if [ ! -s ${ERROR_FILE} ]; then
-  if [ -e ${IZPACK_PATH}/bin/compile ]; then
-    bp_release_version=`awk -F"\"" '{if (/ersion.*\=.*[0-9]\.[0-9]\.[0-9]/) {print $2; exit;}}' ${GIT_BP}/src/org.xtuml.bp.pkg/plugin.xml`
-    bash build_installer_bp.sh ${BRANCH} ${STAGING_AREA} ${IZPACK_PATH} ${RESULT_FOLDER} windows ${bp_release_version} ${XTUMLORG_USER} >> ${BUILD_LOG}
-    cd  "${BUILD_DIR}"
+  bp_release_version=`awk -F"\"" '{if (/ersion.*\=.*[0-9]\.[0-9]\.[0-9]/) {print $2; exit;}}' ${GIT_BP}/src/org.xtuml.bp.pkg/plugin.xml`
+  bash build_installer_bp.sh ${BRANCH} ${STAGING_AREA} ${RESULT_FOLDER} windows ${bp_release_version} ${XTUMLORG_USER} >> ${BUILD_LOG}
+  cd  "${BUILD_DIR}"
   
-    bash build_installer_bp.sh ${BRANCH} ${STAGING_AREA} ${IZPACK_PATH} ${RESULT_FOLDER} linux ${bp_release_version} ${XTUMLORG_USER} >> ${BUILD_LOG}
-    cd  "${BUILD_DIR}"
-    
-    bash build_installer_bp.sh ${BRANCH} ${STAGING_AREA} ${IZPACK_PATH} ${RESULT_FOLDER} osx ${bp_release_version} ${XTUMLORG_USER} >> ${BUILD_LOG}
-    cd  "${BUILD_DIR}"
-  fi
+  bash build_installer_bp.sh ${BRANCH} ${STAGING_AREA} ${RESULT_FOLDER} linux ${bp_release_version} ${XTUMLORG_USER} >> ${BUILD_LOG}
+  cd  "${BUILD_DIR}"
 #fi
+echo -e "Done building installation."
 
 if [ -e ${MAIL_CMD} ]; then
   distribute_and_notify $? >> ${BUILD_LOG}
