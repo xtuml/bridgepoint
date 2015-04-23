@@ -70,29 +70,29 @@ NUM_REBUILDS="2"
 rebuild_iter="0"
 
 while [ $rebuild_iter -lt $NUM_REBUILDS ]; do
-# Remove previous logs, we really don't care about any failures that happen
-# prior to this final build
-rm -f "${WORKSPACE}/.metadata/.log"
+  # Remove previous logs, we really don't care about any failures that happen
+  # prior to this final build
+  rm -f "${WORKSPACE}/.metadata/.log"
 
-## touch a generated file to fix dependencies
-if [ -e "${CORE}/plugin.xml" ]; then 
-  echo "Touching a generated file: ($CORE/plugin.xml)" 
-  touch "$CORE/plugin.xml"
-else
-  echo "ERROR! $CORE/plugin.xml was not generated" 
-fi
+  ## touch a generated file to fix dependencies
+  if [ -e "${CORE}/plugin.xml" ]; then 
+    echo "Touching a generated file: ($CORE/plugin.xml)" 
+    touch "$CORE/plugin.xml"
+  else
+    echo "ERROR! $CORE/plugin.xml was not generated" 
+  fi
 
-## build all again
-echo "Performing a build."
-${ECLIPSE_HOME}/eclipse ${eclipse_args} -build all -data "$WORKSPACE" 
-RETVAL=$?
-if [ $RETVAL -eq 0 ]; then
-	echo "The build SUCCEEDED."
-	exit 0
-fi
-if [ $RETVAL -ne 0 ]; then
- 	echo "The build FAILED."
- 	exit 1
-fi
-rebuild_iter=$[$rebuild_iter+1]
+  ## build all again
+  echo "Performing a build."
+  ${ECLIPSE_HOME}/eclipse ${eclipse_args} -build all -data "$WORKSPACE" 
+  RETVAL=$?
+  if [ $RETVAL -eq 0 ]; then
+    echo "The build SUCCEEDED."
+    exit 0
+  fi
+  if [ $RETVAL -ne 0 ]; then
+    echo "The build FAILED."
+    exit 1
+  fi
+  rebuild_iter=$[$rebuild_iter+1]
 done
