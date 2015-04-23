@@ -135,7 +135,7 @@ else
 fi
 echo "INFO: Done."
 
-echo "INFO: Moving new extension data to ${INSTALLER_DATA_DIR}."
+echo "INFO: Moving new update site data to ${INSTALLER_DATA_DIR}."
 cd "${INSTALLER_DATA_DIR}"
 cp -r "${TEMP_DIR}/${PRODUCT_NAME}/eclipse/features" .
 cp -r "${TEMP_DIR}/${PRODUCT_NAME}/eclipse/plugins" .
@@ -146,12 +146,6 @@ echo "INFO: Setting up docgen executable"
 cd "${BP_BASE_DIR}/BridgePointDeliverables/tools/docgen"
 cp -f "${INSTALLER_DATA_DIR}/plugins/${MCMC_EXE}" ${DOCGEN_EXE}
 echo "INFO: Done."
-
-# TODO - do we want to disable or not???
-#echo "INFO: Disabling sequence creator plugin."
-#cd "${INSTALLER_DATA_DIR}/plugins/"
-#mv -f ${SEQUENCE_CREATOR} ${SEQUENCE_CREATOR}.no
-#echo "INFO: Done."
 
 # Reorganize files into a structure that can be zipped up as the "installer"
 echo "INFO: Zipping up the whole installation to ${OUTPUT_DIR}/${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS}.zip"
