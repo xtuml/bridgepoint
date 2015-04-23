@@ -68,9 +68,6 @@ function configure_installer_files {
     # Copy files and do the dos2unix translation.
     tr -d '\r' < Launcher.sh > ${eclipse_deliverables_linux}/eclipse/Launcher.sh 2>>${ERROR_FILE}
     tr -d '\r' < CLI.sh > ${eclipse_deliverables_linux}/eclipse/CLI.sh 2>>${ERROR_FILE}
-    chmod a+x ${eclipse_deliverables_linux}/eclipse/Launcher.sh 2>>${ERROR_FILE}
-    chmod a+x ${eclipse_deliverables_linux}/eclipse/CLI.sh 2>>${ERROR_FILE}
-    chmod a+x ${eclipse_deliverables_linux}/eclipse/eclipse 2>>${ERROR_FILE}
 
 	# Add in the Windows fontchecker
     cd ${GIT_BP}/${utilities_project}/fontchecker/Release
