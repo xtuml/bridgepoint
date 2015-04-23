@@ -14,7 +14,6 @@
 #  Optional:
 #     BRANCH      - This is an optional parameter that allows you to configure
 #                   the branch to build
-#     IZPACK_PATH - Path to where IzPack is installed
 #     XTUMLORG_USER - The username for the upload account
 #               
 #  Since it is the starting point for the build chain, it must be manually put 
@@ -23,7 +22,7 @@
 #  
 #  Build Server Requirements:
 #  1) run_build.sh, and init_git_repositories.sh must be present in ${BUILD_ROOT}
-#  2) git, ant, jar, and IzPack must be installed on the build server
+#  2) git, ant, and jar must be installed on the build server
 # 
 #  The build is performed under ${BUILD_ROOT}.  The result of the build:
 #  1) plugins
@@ -104,7 +103,7 @@ if [ "$#" -lt 2 ]; then
 
 echo "This script requires two parameters.  The other parameters are optional.  See below for usage."
 echo
-echo "run_build.sh BridgePoint_Home_Directory Build_Root Branch IzPack_Home_Directory Xtumlorg_SSH_Username"
+echo "run_build.sh BridgePoint_Home_Directory Build_Root Branch Xtumlorg_SSH_Username"
 echo
 echo "See the script header for more detail."
 exit 1
@@ -130,10 +129,7 @@ if [ "$3" != "" ]; then
   export BRANCH="$3"
 fi
 if [ "$4" != "" ]; then
-  export IZPACK_PATH="$4"
-fi
-if [ "$5" != "" ]; then
-  export XTUMLORG_USER="$5"
+  export XTUMLORG_USER="$4"
 fi
 
 # Make sure github credentials are available in the environment
@@ -244,20 +240,14 @@ cd  "${BUILD_DIR}"
 bash create_bp_release.sh  >> ${BUILD_LOG}
 cd  "${BUILD_DIR}"
 
-if [ "${IZPACK_PATH}" = "" ]; then
-  export IZPACK_PATH="/usr/local/IzPack"
-fi  
-
 # TODO - we'll re-enable this check when headless_build stops reporting errors
 #if [ ! -s ${ERROR_FILE} ]; then
-  if [ -e ${IZPACK_PATH}/bin/compile ]; then
-    bp_release_version=`awk -F"\"" '{if (/ersion.*\=.*[0-9]\.[0-9]\.[0-9]/) {print $2; exit;}}' ${GIT_BP}/src/org.xtuml.bp.pkg/plugin.xml`
-    bash build_installer_bp.sh ${BRANCH} ${STAGING_AREA} ${RESULT_FOLDER} windows ${bp_release_version} ${XTUMLORG_USER} >> ${BUILD_LOG}
-    cd  "${BUILD_DIR}"
+  bp_release_version=`awk -F"\"" '{if (/ersion.*\=.*[0-9]\.[0-9]\.[0-9]/) {print $2; exit;}}' ${GIT_BP}/src/org.xtuml.bp.pkg/plugin.xml`
+  bash build_installer_bp.sh ${BRANCH} ${STAGING_AREA} ${RESULT_FOLDER} windows ${bp_release_version} ${XTUMLORG_USER} >> ${BUILD_LOG}
+  cd  "${BUILD_DIR}"
   
-    bash build_installer_bp.sh ${BRANCH} ${STAGING_AREA} ${RESULT_FOLDER} linux ${bp_release_version} ${XTUMLORG_USER} >> ${BUILD_LOG}
-    cd  "${BUILD_DIR}"
-  fi
+  bash build_installer_bp.sh ${BRANCH} ${STAGING_AREA} ${RESULT_FOLDER} linux ${bp_release_version} ${XTUMLORG_USER} >> ${BUILD_LOG}
+  cd  "${BUILD_DIR}"
 #fi
 
 if [ -e ${MAIL_CMD} ]; then
