@@ -104,7 +104,7 @@ if [ "$#" -lt 2 ]; then
 
 echo "This script requires two parameters.  The other parameters are optional.  See below for usage."
 echo
-echo "run_build.sh BridgePoint_Home_Directory Build_Root Branch IzPack_Home_Directory"
+echo "run_build.sh BridgePoint_Home_Directory Build_Root Branch IzPack_Home_Directory Xtumlorg_SSH_Username"
 echo
 echo "See the script header for more detail."
 exit 1
@@ -252,13 +252,10 @@ fi
 #if [ ! -s ${ERROR_FILE} ]; then
   if [ -e ${IZPACK_PATH}/bin/compile ]; then
     bp_release_version=`awk -F"\"" '{if (/ersion.*\=.*[0-9]\.[0-9]\.[0-9]/) {print $2; exit;}}' ${GIT_BP}/src/org.xtuml.bp.pkg/plugin.xml`
-    bash build_installer_bp.sh ${BRANCH} ${STAGING_AREA} ${IZPACK_PATH} ${RESULT_FOLDER} windows ${bp_release_version} ${XTUMLORG_USER} >> ${BUILD_LOG}
+    bash build_installer_bp.sh ${BRANCH} ${STAGING_AREA} ${RESULT_FOLDER} windows ${bp_release_version} ${XTUMLORG_USER} >> ${BUILD_LOG}
     cd  "${BUILD_DIR}"
   
-    bash build_installer_bp.sh ${BRANCH} ${STAGING_AREA} ${IZPACK_PATH} ${RESULT_FOLDER} linux ${bp_release_version} ${XTUMLORG_USER} >> ${BUILD_LOG}
-    cd  "${BUILD_DIR}"
-    
-    bash build_installer_bp.sh ${BRANCH} ${STAGING_AREA} ${IZPACK_PATH} ${RESULT_FOLDER} osx ${bp_release_version} ${XTUMLORG_USER} >> ${BUILD_LOG}
+    bash build_installer_bp.sh ${BRANCH} ${STAGING_AREA} ${RESULT_FOLDER} linux ${bp_release_version} ${XTUMLORG_USER} >> ${BUILD_LOG}
     cd  "${BUILD_DIR}"
   fi
 #fi
