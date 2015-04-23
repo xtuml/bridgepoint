@@ -66,6 +66,10 @@ mkdir -p ${WORKSPACE}/.metadata/bridgepoint/build/log
 echo "Performing a clean build."
 ${ECLIPSE_HOME}/eclipse ${eclipse_args} -cleanBuild all -data "$WORKSPACE" 
 
+NUM_REBUILDS="2"
+rebuild_iter="0"
+
+while [ $rebuild_iter -lt $NUM_REBUILDS ]; do
 # Remove previous logs, we really don't care about any failures that happen
 # prior to this final build
 rm -f "${WORKSPACE}/.metadata/.log"
@@ -90,3 +94,5 @@ if [ $RETVAL -ne 0 ]; then
  	echo "The build FAILED."
  	exit 1
 fi
+rebuild_iter=$[$rebuild_iter+1]
+done
