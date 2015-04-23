@@ -9,12 +9,11 @@
 date
 
 # Check arguments
-if [ $# -lt 6 ]; then
+if [ $# -lt 5 ]; then
     echo
-    echo "Usage: ./build_installer_bp.sh <product_branch> <staging_path> <izpack_path> <output_dir> <os> <release_version> <xtuml.org username>"
+    echo "Usage: ./build_installer_bp.sh <product_branch> <staging_path> <output_dir> <os> <release_version> <xtuml.org username>"
     echo "      product_branch -- e.g. master, R4_2_1"
     echo "      staging_path -- path to the location of the Eclipse bases and BridgePoint deliverables"
-    echo "      izpack_path -- path to the root of the izpack installation"
     echo "      output_dir -- path to the location to output the installers"
     echo "      os - windows, linux or osx"
     echo "      release_version -- e.g. 5.0.0"
@@ -26,13 +25,12 @@ fi
 
 PRODUCT_BRANCH="$1"
 STAGING_PATH="$2"
-IZPACK_PATH="$3"
-OUTPUT_DIR="$4"
-OS_ARG="$5"
-BP_VERSION="$6"
-XTUMLORG_USER="$7"
+OUTPUT_DIR="$3"
+OS_ARG="$4"
+BP_VERSION="$5"
+XTUMLORG_USER="$6"
 
-echo "Installer invocation: ./build_installer_bp.sh ${PRODUCT_BRANCH} ${STAGING_PATH} ${IZPACK_PATH} ${OUTPUT_DIR} ${OS_ARG} ${BP_VERSION} ${XTUMLORG_USER}"
+echo "Installer invocation: ./build_installer_bp.sh ${PRODUCT_BRANCH} ${STAGING_PATH} ${OUTPUT_DIR} ${OS_ARG} ${BP_VERSION} ${XTUMLORG_USER}"
 
 PRODUCT_NAME="BridgePoint"
 ECLIPSE_VER="3.7"
@@ -155,31 +153,21 @@ echo "INFO: Done."
 #mv -f ${SEQUENCE_CREATOR} ${SEQUENCE_CREATOR}.no
 #echo "INFO: Done."
 
-# Start IzPack
-echo "INFO: Running IzPack to create the installer."
-${IZPACK_PATH}/bin/compile ${STAGING_PATH}/installer_extras/install_${OS}.xml -b ${STAGING_PATH} -o ${OUTPUT_DIR}/${PRODUCT_NAME}_${OS}.jar
-echo "INFO: Done."
-
-# Rename the output file
-echo "INFO: Renaming the output file to ${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS}.jar."
+# Reorganize files into a structure that can be zipped up as the "installer"
+echo "INFO: Zipping up the whole installation to ${OUTPUT_DIR}/${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS}.zip"
+cd ${BP_BASE_DIR}
+mv EclipseDeliverables BridgePoint
+mv BridgePointDeliverables/* BridgePoint
+rmdir BridgePointDeliverables
+cp ../installer_extras/bp.ico BridgePoint
+cp ../installer_extras/splash.bmp BridgePoint
+zip -r "${OUTPUT_DIR}/${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS}.zip" BridgePoint  
 cd "${OUTPUT_DIR}"
-mv -f "${PRODUCT_NAME}_${OS}.jar" "${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS}.jar"
-chmod g+w "${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS}.jar"
-# Create a windows executable and an OSX application
-if [ "${OS}" = "windows" ]; then
-  echo "INFO: Creating windows executable"
-  ${IZPACK_PATH}/utils/wrappers/izpack2exe/izpack2exe.py --file ${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS}.jar --output ${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS}.exe
-fi
-if [ "${OS_ARG,,}" = "osx" ]; then
-  echo "INFO: Creating OSX application"
-  ${IZPACK_PATH}/utils/wrappers/izpack2app/izpack2app.py ${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS}.jar ${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS_ARG,,}.app
-  # Zip the file for download
-  zip -r ${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS_ARG,,}.app.zip ${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS_ARG,,}.app
-fi
+chmod g+w "${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS}.zip"
 echo "INFO: Done."
 
 # Make sure the output looks good
-size=$(du -k ${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS}.jar | sed 's/\([0-9]*\)\(.*\)/\1/')
+size=$(du -k ${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS}.zip | sed 's/\([0-9]*\)\(.*\)/\1/')
 if [ "${size}" -lt "300000" ]; then
   echo "ERROR: Created installer file size is less than expected, exiting."
   exit 5
@@ -188,17 +176,12 @@ fi
 # Publish it to the external release area
 echo "INFO: Copying the new installer to the release website."
 if [ "${PRODUCT_BRANCH}" = "master" ]; then
-  # TODO - ssh ${SERVER} "(cd '${REMOTE_RELEASE_DIR}'; rm -rf ${PRODUCT_NAME}_${PRODUCT_BRANCH}_*.jar)"
+  # TODO - ssh ${SERVER} "(cd '${REMOTE_RELEASE_DIR}'; rm -rf ${PRODUCT_NAME}_${PRODUCT_BRANCH}_*.zip)"
   dummy=1
 fi
-# TODO - ssh ${SERVER} "(cd '${REMOTE_RELEASE_DIR}'; chmod 755 ${PRODUCT_NAME}_${PRODUCT_BRANCH}_*.jar)"
+# TODO - ssh ${SERVER} "(cd '${REMOTE_RELEASE_DIR}'; chmod 755 ${PRODUCT_NAME}_${PRODUCT_BRANCH}_*.zip)"
 if [ "${XTUMLORG_USER}" != "" ]; then
-  scp ${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS}.jar ${XTUMLORG_USER}@${SERVER}:${REMOTE_RELEASE_DIR}/${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS}.jar
-  if [ "${OS}" = "windows" ]; then
-    scp ${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS}.exe ${XTUMLORG_USER}@${SERVER}:${REMOTE_RELEASE_DIR}/${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS}.exe
-  elif [ "${OS_ARG,,}" = "osx" ]; then
-    scp ${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS_ARG,,}.app.zip ${XTUMLORG_USER}@${SERVER}:${REMOTE_RELEASE_DIR}/${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS_ARG,,}.app.zip
-  fi
+  scp ${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS}.zip ${XTUMLORG_USER}@${SERVER}:${REMOTE_RELEASE_DIR}/${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS}.zip
 fi
 echo "INFO: Done."
 
