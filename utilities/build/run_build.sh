@@ -225,22 +225,29 @@ else
 fi
 echo -e "Getting files from github, this could take a while."
 bash "${BUILD_ROOT}/init_git_repositories.sh" ${BRANCH} ${GIT_REPO_ROOT} ${ALLOW_FALLBACK} >> ${BUILD_LOG} 2>&1
-echo -e "Done."
+echo -e "Done getting files from github."
 
 # Can do the copy and dos2unix translation in one step.
+echo -e "Configuring files for the build process."
 tr -d '\r' < ${GIT_BP}/utilities/build/configure_build_process.sh > configure_build_process.sh
 chmod a+x configure_build_process.sh
 
 bash configure_build_process.sh >> ${BUILD_LOG}
 cd  "${BUILD_DIR}"
+echo -e "Done configuring files for the build process."
 
+echo -e "Configuring external dependencies."
 bash configure_external_dependencies.sh ${GIT_REPO_ROOT} > ${LOG_DIR}/configure_externals.log 2>&1
 cd  "${BUILD_DIR}"
+echo -e "Done configuring external dependencies."
 
+echo -e "Building BridgePoint.  This will take a long time."
 bash create_bp_release.sh  >> ${BUILD_LOG}
 cd  "${BUILD_DIR}"
+echo -e "Done building."
 
 # TODO - we'll re-enable this check when headless_build stops reporting errors
+echo -e "Packaging BridgePoint into a full eclipse environment."
 #if [ ! -s ${ERROR_FILE} ]; then
   bp_release_version=`awk -F"\"" '{if (/ersion.*\=.*[0-9]\.[0-9]\.[0-9]/) {print $2; exit;}}' ${GIT_BP}/src/org.xtuml.bp.pkg/plugin.xml`
   bash build_installer_bp.sh ${BRANCH} ${STAGING_AREA} ${RESULT_FOLDER} windows ${bp_release_version} ${XTUMLORG_USER} >> ${BUILD_LOG}
@@ -249,6 +256,7 @@ cd  "${BUILD_DIR}"
   bash build_installer_bp.sh ${BRANCH} ${STAGING_AREA} ${RESULT_FOLDER} linux ${bp_release_version} ${XTUMLORG_USER} >> ${BUILD_LOG}
   cd  "${BUILD_DIR}"
 #fi
+echo -e "Done building installation."
 
 if [ -e ${MAIL_CMD} ]; then
   distribute_and_notify $? >> ${BUILD_LOG}
