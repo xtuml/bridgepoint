@@ -12,7 +12,7 @@
 #                   root for the build
 #
 #  Optional:
-#     BRANCH      - This is an optional parameter that allows you to configure
+#     BRANCH_NAME   - This is an optional parameter that allows you to configure
 #                   the branch to build
 #     XTUMLORG_USER - The username for the upload account
 #               
@@ -103,7 +103,7 @@ if [ "$#" -lt 2 ]; then
 
 echo "This script requires two parameters.  The other parameters are optional.  See below for usage."
 echo
-echo "run_build.sh BridgePoint_Home_Directory Build_Root Branch Xtumlorg_SSH_Username"
+echo "run_build.sh BridgePoint_Home_Directory Build_Root Branch_Name Xtumlorg_SSH_Username"
 echo
 echo "See the script header for more detail."
 exit 1
