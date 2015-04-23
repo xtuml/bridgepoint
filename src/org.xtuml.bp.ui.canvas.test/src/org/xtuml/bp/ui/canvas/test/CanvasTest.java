@@ -523,7 +523,6 @@ public abstract class CanvasTest extends BaseTest {
     public void validateOrGenerateResults(GraphicalEditor editor, boolean generate,
         boolean preserveDiagramValues)
     {
-    	generate = true;
 		// remember the diagram zoom and viewport location values, 
 		// as they will be changed during the calls below
 		Diagram_c diagram = Diagram_c.getOneDIM_DIAOnR18(editor.getModel());
