@@ -36,17 +36,7 @@ configure_mc_files()
 TARGET=$1
 ECLIPSEDIR=$2
 
-# Update the following files to reflect the target location provided by the user...
-echo "Updating install path in config files"
-BP_PATH=C:/xtuml/BridgePoint
-sed -e 's;'"$BP_PATH"';'"$TARGET"';g' -i "$TARGET/eclipse/Launcher.sh"
-sed -e 's;'"$BP_PATH"';'"$TARGET"';g' -i "$TARGET/eclipse/CLI.sh"
-sed -e 's;'"$BP_PATH"';'"$TARGET"';g' -i "$TARGET/tools/docgen/docgen.xsl"
 chmod 775 "$TARGET/tools/docgen/docgen"
-if [ -f "$TARGET/eclipse/eclipse.ini" ]
-then
-  sed -e 's;'"$BP_PATH"';'"$TARGET"';g' -i "$TARGET/eclipse/eclipse.ini"
-fi
 
 # Make sure these key files are in UNIX format
 tr -d '\r' < "$TARGET/eclipse/eclipse.ini" > "$TARGET/eclipse/eclipse.d2u"
@@ -79,6 +69,9 @@ configure_mc_files
 MC_NAME="org.xtuml.bp.mc.systemc.source"
 configure_mc_files
 
+MC_NAME="org.xtuml.bp.mc.java.source"
+configure_mc_files
+
 # Initialize eclipse p2 and configuration data
 echo "Initializing eclipse configuration"
 export BP_JVM=$TARGET/jre/lib/i386/client/libjvm.so
@@ -86,15 +79,5 @@ chmod +x "$TARGET/jre/bin/java"
 chmod +x "$TARGET/eclipse/eclipse"
 "$TARGET/eclipse/eclipse" -vm $BP_JVM -initialize &
 echo "Done"
-
-# Show release notes or not depending on their selection in the installer.
-echo "Release notes display (or not)"
-SHOWRN=true
-if [ $SHOWRN ]
-then
-	echo "Found the Release notes flag file $RNFLAGFILE"
-	firefox "$TARGET/eclipse/plugins/org.xtuml.bp.doc_$BPVER/ReleaseNotes/HTML/ReleaseNotes.htm" &
-fi
-echo Done
 
 echo Post-install script complete

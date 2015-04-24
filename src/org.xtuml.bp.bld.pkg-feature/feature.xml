@@ -199,4 +199,19 @@ the License.
          install-size="0"
          version="5.0.0"/>
 
+   <plugin id="org.xtuml.bp.internal.tools"
+         download-size="0"
+         install-size="0"
+         version="5.0.0"/>
+
+   <plugin id="org.xtuml.bp.test"
+         download-size="0"
+         install-size="0"
+         version="5.0.0"/>
+
+   <plugin id="org.xtuml.bp.compare"
+         download-size="0"
+         install-size="0"
+         version="5.0.0"/>
+
 </feature>

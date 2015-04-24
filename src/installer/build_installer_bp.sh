@@ -9,14 +9,13 @@
 date
 
 # Check arguments
-if [ $# -lt 6 ]; then
+if [ $# -lt 5 ]; then
     echo
-    echo "Usage: ./build_installer_bp.sh <product_branch> <staging_path> <izpack_path> <output_dir> <os> <release_version> <xtuml.org username>"
+    echo "Usage: ./build_installer_bp.sh <product_branch> <staging_path> <output_dir> <os> <release_version> <xtuml.org username>"
     echo "      product_branch -- e.g. master, R4_2_1"
     echo "      staging_path -- path to the location of the Eclipse bases and BridgePoint deliverables"
-    echo "      izpack_path -- path to the root of the izpack installation"
     echo "      output_dir -- path to the location to output the installers"
-    echo "      os - windows or linux"
+    echo "      os - windows, linux or osx"
     echo "      release_version -- e.g. 5.0.0"
     echo "   optional:"
     echo "      xtumlorg_username -- name of user account at GoDaddy"
@@ -26,13 +25,12 @@ fi
 
 PRODUCT_BRANCH="$1"
 STAGING_PATH="$2"
-IZPACK_PATH="$3"
-OUTPUT_DIR="$4"
-OS_ARG="$5"
-BP_VERSION="$6"
-XTUMLORG_USER="$7"
+OUTPUT_DIR="$3"
+OS_ARG="$4"
+BP_VERSION="$5"
+XTUMLORG_USER="$6"
 
-echo "Installer invocation: ./build_installer_bp.sh ${PRODUCT_BRANCH} ${STAGING_PATH} ${IZPACK_PATH} ${OUTPUT_DIR} ${OS_ARG} ${BP_VERSION} ${XTUMLORG_USER}"
+echo "Installer invocation: ./build_installer_bp.sh ${PRODUCT_BRANCH} ${STAGING_PATH} ${OUTPUT_DIR} ${OS_ARG} ${BP_VERSION} ${XTUMLORG_USER}"
 
 PRODUCT_NAME="BridgePoint"
 ECLIPSE_VER="3.7"
@@ -42,7 +40,7 @@ OS="windows"
 BP_BASE_DIR="${STAGING_PATH}/${PRODUCT_NAME}_e${ECLIPSE_VER}"
 DOCGEN_EXE="docgen.exe"
 MCMC_EXE="org.xtuml.bp.mc.c.binary_${BP_VERSION}/mc3020/bin/mcmc.exe"
-if [ "${OS_ARG,,}" = "linux" ]; then
+if [ "${OS_ARG,,}" = "linux" ] || [ "${OS_ARG,,}" = "osx" ]; then
   OS="linux"
   BP_BASE_DIR="${STAGING_PATH}/${PRODUCT_NAME}_for_Linux_e${ECLIPSE_VER}"
   MCMC_EXE="org.xtuml.bp.mc.c.binary_${BP_VERSION}/mc3020/bin/mcmc"
@@ -88,32 +86,26 @@ echo "INFO: Configuring correct xtumlmc_build.exe for ${OS}."
 cd "${PRODUCT_NAME}/eclipse/plugins"
 if [ "${OS}" = "linux" ]; then
       mcplugin="./org.xtuml.bp.mc.c.binary_${BP_VERSION}/mc3020/bin"
-      rm -f ${mcplugin}/xtumlmc_build.exe.win
       tr -d '\r' < ${mcplugin}/xtumlmc_build > ${mcplugin}/xtumlmc_build.exe
       cp -f ${mcplugin}/xtumlmc_build.exe ${mcplugin}/xtumlmc_build
 
       mcplugin="./org.xtuml.bp.mc.c.source_${BP_VERSION}/mc3020/bin"
-      rm -f ${mcplugin}/xtumlmc_build.exe.win
       tr -d '\r' < ${mcplugin}/xtumlmc_build > ${mcplugin}/xtumlmc_build.exe
       cp -f ${mcplugin}/xtumlmc_build.exe ${mcplugin}/xtumlmc_build
 
       mcplugin="./org.xtuml.bp.mc.cpp.source_${BP_VERSION}/mc3020/bin"
-      rm -f ${mcplugin}/xtumlmc_build.exe.win
       tr -d '\r' < ${mcplugin}/xtumlmc_build > ${mcplugin}/xtumlmc_build.exe
       cp -f ${mcplugin}/xtumlmc_build.exe ${mcplugin}/xtumlmc_build
 
       mcplugin="./org.xtuml.bp.mc.java.source_${BP_VERSION}/mc3020/bin"
-      rm -f ${mcplugin}/xtumlmc_build.exe.win
       tr -d '\r' < ${mcplugin}/xtumlmc_build > ${mcplugin}/xtumlmc_build.exe
       cp -f ${mcplugin}/xtumlmc_build.exe ${mcplugin}/xtumlmc_build
 
       mcplugin="./org.xtuml.bp.mc.systemc.source_${BP_VERSION}/mc3020/bin"
-      rm -f ${mcplugin}/xtumlmc_build.exe.win
       tr -d '\r' < ${mcplugin}/xtumlmc_build > ${mcplugin}/xtumlmc_build.exe
       cp -f ${mcplugin}/xtumlmc_build.exe ${mcplugin}/xtumlmc_build
 
       mcplugin="./org.xtuml.bp.mc.vhdl.source_${BP_VERSION}/mc3020/bin"
-      rm -f ${mcplugin}/xtumlmc_build.exe.win
       tr -d '\r' < ${mcplugin}/xtumlmc_build > ${mcplugin}/xtumlmc_build.exe
       cp -f ${mcplugin}/xtumlmc_build.exe ${mcplugin}/xtumlmc_build
 else
@@ -137,7 +129,7 @@ else
 fi
 echo "INFO: Done."
 
-echo "INFO: Moving new extension data to ${INSTALLER_DATA_DIR}."
+echo "INFO: Moving new update site data to ${INSTALLER_DATA_DIR}."
 cd "${INSTALLER_DATA_DIR}"
 cp -r "${TEMP_DIR}/${PRODUCT_NAME}/eclipse/features" .
 cp -r "${TEMP_DIR}/${PRODUCT_NAME}/eclipse/plugins" .
@@ -149,26 +141,25 @@ cd "${BP_BASE_DIR}/BridgePointDeliverables/tools/docgen"
 cp -f "${INSTALLER_DATA_DIR}/plugins/${MCMC_EXE}" ${DOCGEN_EXE}
 echo "INFO: Done."
 
-# TODO - do we want to disable or not???
-#echo "INFO: Disabling sequence creator plugin."
-#cd "${INSTALLER_DATA_DIR}/plugins/"
-#mv -f ${SEQUENCE_CREATOR} ${SEQUENCE_CREATOR}.no
-#echo "INFO: Done."
-
-# Start IzPack
-echo "INFO: Running IzPack to create the installer."
-${IZPACK_PATH}/bin/compile ${STAGING_PATH}/installer_extras/install_${OS}.xml -b ${STAGING_PATH} -o ${OUTPUT_DIR}/${PRODUCT_NAME}_${OS}.jar
-echo "INFO: Done."
-
-# Rename the output file
-echo "INFO: Renaming the output file to ${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS}.jar."
+# Reorganize files into a structure that can be zipped up as the "installer"
+echo "INFO: Zipping up the whole installation to ${OUTPUT_DIR}/${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS}.zip"
+cd ${BP_BASE_DIR}
+mv EclipseDeliverables BridgePoint
+mv BridgePointDeliverables/* BridgePoint
+rmdir BridgePointDeliverables
+cp ../installer_extras/bp.ico BridgePoint
+cp ../installer_extras/splash.bmp BridgePoint
+# There are various files in the installation that need to be executable.  
+# Some are even part of the eclipse base (like antRun).  Here we just come in
+# with a wide sweep and make everything executable. 
+chmod -R a+x BridgePoint
+zip -r "${OUTPUT_DIR}/${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS}.zip" BridgePoint  
 cd "${OUTPUT_DIR}"
-mv -f "${PRODUCT_NAME}_${OS}.jar" "${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS}.jar"
-chmod g+w "${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS}.jar"
+chmod g+w "${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS}.zip"
 echo "INFO: Done."
 
 # Make sure the output looks good
-size=$(du -k ${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS}.jar | sed 's/\([0-9]*\)\(.*\)/\1/')
+size=$(du -k ${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS}.zip | sed 's/\([0-9]*\)\(.*\)/\1/')
 if [ "${size}" -lt "300000" ]; then
   echo "ERROR: Created installer file size is less than expected, exiting."
   exit 5
@@ -177,12 +168,12 @@ fi
 # Publish it to the external release area
 echo "INFO: Copying the new installer to the release website."
 if [ "${PRODUCT_BRANCH}" = "master" ]; then
-  # TODO - ssh ${SERVER} "(cd '${REMOTE_RELEASE_DIR}'; rm -rf ${PRODUCT_NAME}_${PRODUCT_BRANCH}_*.jar)"
+  # TODO - ssh ${SERVER} "(cd '${REMOTE_RELEASE_DIR}'; rm -rf ${PRODUCT_NAME}_${PRODUCT_BRANCH}_*.zip)"
   dummy=1
 fi
-# TODO - ssh ${SERVER} "(cd '${REMOTE_RELEASE_DIR}'; chmod 755 ${PRODUCT_NAME}_${PRODUCT_BRANCH}_*.jar)"
+# TODO - ssh ${SERVER} "(cd '${REMOTE_RELEASE_DIR}'; chmod 755 ${PRODUCT_NAME}_${PRODUCT_BRANCH}_*.zip)"
 if [ "${XTUMLORG_USER}" != "" ]; then
-  scp ${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS}.jar ${XTUMLORG_USER}@${SERVER}:${REMOTE_RELEASE_DIR}/${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS}.jar
+  scp ${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS}.zip ${XTUMLORG_USER}@${SERVER}:${REMOTE_RELEASE_DIR}/${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS}.zip
 fi
 echo "INFO: Done."
 

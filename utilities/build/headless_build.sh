@@ -1,5 +1,36 @@
 #!/bin/bash
 
+build()
+{
+  perform_clean="$1"
+  file_to_touch="$2"	
+  
+  # Remove previous logs, we really don't care about any failures that happen
+  # prior to this final build
+  rm -f "${WORKSPACE}/.metadata/.log"
+
+  if [ ${file_to_touch} != "" ]; then
+    if [ -e "${file_to_touch}" ]; then 
+      echo "Touching a generated file: ($file_to_touch)" 
+      touch "$file_to_touch"
+    else
+      echo "ERROR! file not present:  $file_to_touch" 
+      exit 1
+    fi
+  fi
+  
+  if [ $perform_clean == "yes"]; then
+    ###  Clean build
+    echo "Performing a clean build."
+    ${ECLIPSE_HOME}/eclipse ${eclipse_args} -cleanBuild all -data "$WORKSPACE" 
+  else
+    echo "Performing a build (not clean)."
+    ${ECLIPSE_HOME}/eclipse ${eclipse_args} all -data "$WORKSPACE" 
+  fi
+  
+  exit $?
+}
+
 ##
 ## This script is written so that is uses environment variables from the 
 ## server build script, if present.  However, if not, it has defaults to allow
@@ -33,7 +64,6 @@ if [ "$GIT_BP" == "" ]; then
 	export GIT_BP="${HOME}/build/git/xtuml/bridgepoint"
 fi
 
-export CORE="${GIT_BP}/src/org.xtuml.bp.core"
 
 export GDK_NATIVE_WINDOWS=true
 export BP_JVM=$BPHOMEDIR/jre/lib/i386/client/libjvm.so
@@ -62,31 +92,21 @@ ${ECLIPSE_HOME}/eclipse ${eclipse_args} ${import_cmd} -data "${WORKSPACE}"
 # The import calls will have created the .metadata folder
 mkdir -p ${WORKSPACE}/.metadata/bridgepoint/build/log
 
-###  Clean build
-echo "Performing a clean build."
-${ECLIPSE_HOME}/eclipse ${eclipse_args} -cleanBuild all -data "$WORKSPACE" 
-
-# Remove previous logs, we really don't care about any failures that happen
-# prior to this final build
-rm -f "${WORKSPACE}/.metadata/.log"
-
-## touch a generated file to fix dependencies
-if [ -e "${CORE}/plugin.xml" ]; then 
-  echo "Touching a generated file: ($CORE/plugin.xml)" 
-  touch "$CORE/plugin.xml"
-else
-  echo "ERROR! $CORE/plugin.xml was not generated" 
-fi
-
-## build all again
-echo "Performing a build."
-${ECLIPSE_HOME}/eclipse ${eclipse_args} -build all -data "$WORKSPACE" 
+build "yes" ""
 RETVAL=$?
-if [ $RETVAL -eq 0 ]; then
-	echo "The build SUCCEEDED."
-	exit 0
-fi
 if [ $RETVAL -ne 0 ]; then
- 	echo "The build FAILED."
- 	exit 1
+  echo "The first build FAILED."
+  exit 1
+fi
+
+build "no" "${GIT_BP}/src/org.xtuml.bp.core/plugin.xml"
+if [ $RETVAL -ne 0 ]; then
+  echo "The second build FAILED."
+  exit 1
+fi
+
+build "no" "${GIT_BP}/src/org.xtuml.bp.io.core/src/org/xtuml/bp/io/core/SqlLexer.java"
+if [ $RETVAL -ne 0 ]; then
+  echo "The third build FAILED."
+  exit 1
 fi
