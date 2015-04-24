@@ -9,7 +9,7 @@ build()
   # prior to this final build
   rm -f "${WORKSPACE}/.metadata/.log"
 
-  if [ ${file_to_touch} != "" ]; then
+  if [ "${file_to_touch}" != "" ]; then
     if [ -e "${file_to_touch}" ]; then 
       echo "Touching a generated file: ($file_to_touch)" 
       touch "$file_to_touch"
@@ -19,7 +19,7 @@ build()
     fi
   fi
   
-  if [ $perform_clean == "yes"]; then
+  if [ "$perform_clean" == "yes" ]; then
     ###  Clean build
     echo "Performing a clean build."
     ${ECLIPSE_HOME}/eclipse ${eclipse_args} -cleanBuild all -data "$WORKSPACE" 
