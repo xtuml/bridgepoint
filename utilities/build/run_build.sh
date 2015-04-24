@@ -17,6 +17,7 @@
 #     UPLOAD_SPEC - This optional argument, if present, will upload the build to this given location.  example: user@myserver.com:/myfolder
 #                   For xtuml.org this is: 
 #					  n5e22526185966@xtuml.org:/home/n5e22526185966/html/wp-content/uploads
+#     package_only - This optional argument, if present and set to "yes" cause the build script to only package and notify
 #               
 #  Since it is the starting point for the build chain, it must be manually put 
 #  into place for the build server to run. The variable BUILD_MOUNT holds the 
@@ -81,15 +82,22 @@ function distribute_and_notify {
 	  cat ${DIFF_FILE} >> ${MAIL_TEMP}	  
 	fi
 	
-	# TODO - temporary copy location until we upload it somewhere...
 	SERVER_IP=$(dig +short myip.opendns.com @resolver1.opendns.com)
-	SCP_CMD="scp youruser@${SERVER_IP}:${RESULT_FOLDER}/BridgePoint_${BRANCH}_linux.jar BridgePoint_linux.jar"
-	echo -e "You can copy the release via: ${SCP_CMD}" >> ${MAIL_TEMP}
-	echo -e "---------------" >> ${MAIL_TEMP}
-	echo -e "The Linux release can be downloaded at: ${DOWNLOAD_URL}_${BRANCH}_linux.jar" >> ${MAIL_TEMP}
-    echo -e "The Windows release can be downloaded at: ${DOWNLOAD_URL}_${BRANCH}_windows.exe" >> ${MAIL_TEMP}
-    echo -e "The OSx release can be downloaded at: ${DOWNLOAD_URL}_${BRANCH}_osx.app.zip" >> ${MAIL_TEMP}
+	SCP_CMD="scp youruser@${SERVER_IP}:${RESULT_FOLDER}/*.zip"
 	
+	if [ "${package_only}" == "yes" ]; then
+	  echo -e "You can copy the release via: ${SCP_CMD}" >> ${MAIL_TEMP}
+	  echo -e "---------------" >> ${MAIL_TEMP}
+	  echo -e "The Linux release can be downloaded at: ${DOWNLOAD_URL}_${BRANCH}_linux.zip" >> ${MAIL_TEMP}
+          echo -e "The Windows release can be downloaded at: ${DOWNLOAD_URL}_${BRANCH}_windows.zip" >> ${MAIL_TEMP}
+          echo -e "The update site can be downloaded at: ${DOWNLOAD_URL}_extension_${BRANCH}.zip" >> ${MAIL_TEMP}
+	else
+          echo -e "BUILD STEP 1 IS COMPLETE\n\n" >> ${MAIL_TEMP}
+          echo -e "The build completed. If no errors were reported above, then:" >> ${MAIL_TEMP}
+          echo -e "  ssh youruser@${SERVER_IP}" >> ${MAIL_TEMP}
+          echo -e "then open the open the build workspace and turn on build automatically." >> ${MAIL_TEMP}
+          echo -e "If no errors are present, run the build again and specify, yes, for package_only" >> ${MAIL_TEMP}
+        fi
 	cat ${MAIL_TEMP} | ${MAIL_CMD} ${BUILD_ADMIN}
 	
 	rm -rf ${MAIL_TEMP}
@@ -105,7 +113,7 @@ if [ "$#" -lt 2 ]; then
 
 echo "This script requires two parameters.  The other parameters are optional.  See below for usage."
 echo
-echo "run_build.sh BridgePoint_Home_Directory Build_Root <Branch_Name> <upload location>"
+echo "run_build.sh BridgePoint_Home_Directory Build_Root <Branch_Name> <upload location> <package only>"
 echo
 echo "See the script header for more detail."
 exit 1
@@ -132,6 +140,9 @@ if [ "$3" != "" ]; then
 fi
 if [ "$4" != "" ]; then
   export UPLOAD_SPEC="$4"
+fi
+if [ "$4" != "" ]; then
+  export package_only="$5"
 fi
 
 # Make sure github credentials are available in the environment
@@ -225,28 +236,31 @@ if [ $? -eq 1 ]; then
 else
   rm -f "${BUILD_ROOT}/init_git_repositories.tmp"
 fi
-echo -e "Getting files from github, this could take a while."
-bash "${BUILD_ROOT}/init_git_repositories.sh" ${BRANCH} ${GIT_REPO_ROOT} ${ALLOW_FALLBACK} >> ${BUILD_LOG} 2>&1
-echo -e "Done getting files from github."
 
-# Can do the copy and dos2unix translation in one step.
-echo -e "Configuring files for the build process."
-tr -d '\r' < ${GIT_BP}/utilities/build/configure_build_process.sh > configure_build_process.sh
-chmod a+x configure_build_process.sh
+if [ "${package_only}" != "yes" ]; then
+  echo -e "Getting files from github, this could take a while."
+  bash "${BUILD_ROOT}/init_git_repositories.sh" ${BRANCH} ${GIT_REPO_ROOT} ${ALLOW_FALLBACK} >> ${BUILD_LOG} 2>&1
+  echo -e "Done getting files from github."
 
-bash configure_build_process.sh >> ${BUILD_LOG}
-cd  "${BUILD_DIR}"
-echo -e "Done configuring files for the build process."
+  # Can do the copy and dos2unix translation in one step.
+  echo -e "Configuring files for the build process."
+  tr -d '\r' < ${GIT_BP}/utilities/build/configure_build_process.sh > configure_build_process.sh
+  chmod a+x configure_build_process.sh
 
-echo -e "Configuring external dependencies."
-bash configure_external_dependencies.sh ${GIT_REPO_ROOT} > ${LOG_DIR}/configure_externals.log 2>&1
-cd  "${BUILD_DIR}"
-echo -e "Done configuring external dependencies."
+  bash configure_build_process.sh >> ${BUILD_LOG}
+  cd  "${BUILD_DIR}"
+  echo -e "Done configuring files for the build process."
 
-echo -e "Building BridgePoint.  This will take a long time."
-bash create_bp_release.sh  >> ${BUILD_LOG}
-cd  "${BUILD_DIR}"
-echo -e "Done building."
+  echo -e "Configuring external dependencies."
+  bash configure_external_dependencies.sh ${GIT_REPO_ROOT} > ${LOG_DIR}/configure_externals.log 2>&1
+  cd  "${BUILD_DIR}"
+  echo -e "Done configuring external dependencies."
+
+  echo -e "Building BridgePoint.  This will take a long time."
+  bash create_bp_release.sh  >> ${BUILD_LOG}
+  cd  "${BUILD_DIR}"
+  echo -e "Done building."
+fi 
 
 # TODO - we'll re-enable this check when headless_build stops reporting errors
 echo -e "Packaging BridgePoint into a full eclipse environment."
