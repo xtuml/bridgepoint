@@ -14,7 +14,9 @@
 #  Optional:
 #     BRANCH_NAME   - This is an optional parameter that allows you to configure
 #                   the branch to build
-#     XTUMLORG_USER - The username for the upload account
+#     UPLOAD_SPEC - This optional argument, if present, will upload the build to this given location.  example: user@myserver.com:/myfolder
+#                   For xtuml.org this is: 
+#					  n5e22526185966@xtuml.org:/home/n5e22526185966/html/wp-content/uploads
 #               
 #  Since it is the starting point for the build chain, it must be manually put 
 #  into place for the build server to run. The variable BUILD_MOUNT holds the 
@@ -103,7 +105,7 @@ if [ "$#" -lt 2 ]; then
 
 echo "This script requires two parameters.  The other parameters are optional.  See below for usage."
 echo
-echo "run_build.sh BridgePoint_Home_Directory Build_Root Branch_Name Xtumlorg_SSH_Username"
+echo "run_build.sh BridgePoint_Home_Directory Build_Root <Branch_Name> <upload location>"
 echo
 echo "See the script header for more detail."
 exit 1
@@ -129,7 +131,7 @@ if [ "$3" != "" ]; then
   export BRANCH="$3"
 fi
 if [ "$4" != "" ]; then
-  export XTUMLORG_USER="$4"
+  export UPLOAD_SPEC="$4"
 fi
 
 # Make sure github credentials are available in the environment
@@ -250,10 +252,10 @@ echo -e "Done building."
 echo -e "Packaging BridgePoint into a full eclipse environment."
 #if [ ! -s ${ERROR_FILE} ]; then
   bp_release_version=`awk -F"\"" '{if (/ersion.*\=.*[0-9]\.[0-9]\.[0-9]/) {print $2; exit;}}' ${GIT_BP}/src/org.xtuml.bp.pkg/plugin.xml`
-  bash build_installer_bp.sh ${BRANCH} ${STAGING_AREA} ${RESULT_FOLDER} windows ${bp_release_version} ${XTUMLORG_USER} >> ${BUILD_LOG}
+  bash build_installer_bp.sh ${BRANCH} ${STAGING_AREA} ${RESULT_FOLDER} windows ${bp_release_version} ${UPLOAD_SPEC} >> ${BUILD_LOG}
   cd  "${BUILD_DIR}"
   
-  bash build_installer_bp.sh ${BRANCH} ${STAGING_AREA} ${RESULT_FOLDER} linux ${bp_release_version} ${XTUMLORG_USER} >> ${BUILD_LOG}
+  bash build_installer_bp.sh ${BRANCH} ${STAGING_AREA} ${RESULT_FOLDER} linux ${bp_release_version} ${UPLOAD_SPEC} >> ${BUILD_LOG}
   cd  "${BUILD_DIR}"
 #fi
 echo -e "Done building installation."

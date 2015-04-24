@@ -11,14 +11,14 @@ date
 # Check arguments
 if [ $# -lt 5 ]; then
     echo
-    echo "Usage: ./build_installer_bp.sh <product_branch> <staging_path> <output_dir> <os> <release_version> <xtuml.org username>"
+    echo "Usage: ./build_installer_bp.sh <product_branch> <staging_path> <output_dir> <os> <release_version> <upload location>"
     echo "      product_branch -- e.g. master, R4_2_1"
     echo "      staging_path -- path to the location of the Eclipse bases and BridgePoint deliverables"
     echo "      output_dir -- path to the location to output the installers"
     echo "      os - windows, linux or osx"
     echo "      release_version -- e.g. 5.0.0"
     echo "   optional:"
-    echo "      xtumlorg_username -- name of user account at GoDaddy"
+    echo "      SCP_UPLOAD_FOLDER_SPEC -- folder specification for scp upload: user@myserver.com:/myfolder"
     echo
     exit 0
 fi
@@ -28,9 +28,9 @@ STAGING_PATH="$2"
 OUTPUT_DIR="$3"
 OS_ARG="$4"
 BP_VERSION="$5"
-XTUMLORG_USER="$6"
+SCP_UPLOAD_FOLDER_SPEC="$6"
 
-echo "Installer invocation: ./build_installer_bp.sh ${PRODUCT_BRANCH} ${STAGING_PATH} ${OUTPUT_DIR} ${OS_ARG} ${BP_VERSION} ${XTUMLORG_USER}"
+echo "Installer invocation: ./build_installer_bp.sh ${PRODUCT_BRANCH} ${STAGING_PATH} ${OUTPUT_DIR} ${OS_ARG} ${BP_VERSION} ${SCP_UPLOAD_FOLDER_SPEC}"
 
 PRODUCT_NAME="BridgePoint"
 ECLIPSE_VER="3.7"
@@ -51,7 +51,6 @@ INSTALL_PROJECT="installer"
 TEMP_DIR="/tmp"
 SEQUENCE_CREATOR="org.xtuml.bp.sequencecapture_${BP_VERSION}.jar"
 SERVER="xtuml.org"
-REMOTE_RELEASE_DIR="/home/${XTUMLORG_USER}/html/wp-content/uploads"
 EXT_SRC_FILE="${PRODUCT_NAME}_extension_${PRODUCT_BRANCH}.zip"
 INSTALLER_DATA_DIR="${BP_BASE_DIR}/EclipseDeliverables/eclipse"
 
@@ -168,13 +167,9 @@ fi
 # Publish it to the external release area
 echo "INFO: Copying the new installer to the release website."
 if [ "${PRODUCT_BRANCH}" = "master" ]; then
-  # TODO - ssh ${SERVER} "(cd '${REMOTE_RELEASE_DIR}'; rm -rf ${PRODUCT_NAME}_${PRODUCT_BRANCH}_*.zip)"
-  dummy=1
+  # TODO - 
 fi
-# TODO - ssh ${SERVER} "(cd '${REMOTE_RELEASE_DIR}'; chmod 755 ${PRODUCT_NAME}_${PRODUCT_BRANCH}_*.zip)"
-if [ "${XTUMLORG_USER}" != "" ]; then
-  scp ${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS}.zip ${XTUMLORG_USER}@${SERVER}:${REMOTE_RELEASE_DIR}/${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS}.zip
+if [ "${SCP_UPLOAD_FOLDER_SPEC}" != "" ]; then
+  scp "${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS}.zip" "${SCP_UPLOAD_FOLDER_SPEC}"
 fi
-echo "INFO: Done."
-
 echo "INFO: ${PRODUCT_NAME} for ${OS} installer creation complete.  Goodbye."
