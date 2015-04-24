@@ -19,7 +19,7 @@ build()
     fi
   fi
   
-  if [ "$perform_clean" == "yes"]; then
+  if [ "$perform_clean" == "yes" ]; then
     ###  Clean build
     echo "Performing a clean build."
     ${ECLIPSE_HOME}/eclipse ${eclipse_args} -cleanBuild all -data "$WORKSPACE" 
