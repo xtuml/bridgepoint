@@ -165,11 +165,11 @@ if [ "${size}" -lt "300000" ]; then
 fi
 
 # Publish it to the external release area
-echo "INFO: Copying the new installer to the release website."
 #if [ "${PRODUCT_BRANCH}" == "master" ]; then
   # TODO - 
 #fi
 if [ "${SCP_UPLOAD_FOLDER_SPEC}" != "" ]; then
+  echo "INFO: Copying the new installer to the release website.  (${SCP_UPLOAD_FOLDER_SPEC)"
   scp "${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS}.zip" "${SCP_UPLOAD_FOLDER_SPEC}"
 fi
-echo "INFO: ${PRODUCT_NAME} for ${OS} installer creation complete.  Goodbye."
+echo "INFO: ${PRODUCT_NAME} for ${OS} installer creation complete." 
