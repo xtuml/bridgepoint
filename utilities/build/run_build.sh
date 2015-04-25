@@ -215,13 +215,15 @@ export DISTRIBUTION_SERVER=""
 # builds, and this was the format of the tag
 export BUILD_TAG="`date +N%F`"
 
-# assure that we are starting with a clean build folder.
-rm -rf ${BUILD_DIR}
+if [ "${package_only}" != "yes" ]; then
+  # assure that we are starting with a clean build folder.
+  rm -rf ${BUILD_DIR}
 
-mkdir -p "${BUILD_DIR}"
-mkdir -p "${LOG_DIR}"
-mkdir -p "${GIT_REPO_ROOT}"
-mkdir -p "${BUILD_ROOT}"
+  mkdir -p "${BUILD_DIR}"
+  mkdir -p "${LOG_DIR}"
+  mkdir -p "${GIT_REPO_ROOT}"
+  mkdir -p "${BUILD_ROOT}"
+fi
 
 # We will perform all work in the build's branch folder. 
 cd  "${BUILD_DIR}"
