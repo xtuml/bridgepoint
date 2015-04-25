@@ -71,6 +71,10 @@ export BP_JVM=$BPHOMEDIR/jre/lib/i386/client/libjvm.so
 bp_jvm="-vm $ECLIPSE_HOME/../jre/lib/i386/client/libjvm.so"
 eclipse_args="${bp_jvm} -pluginCustomization ${WORKSPACE}/plugin_customization.ini -nosplash -application org.eclipse.cdt.managedbuilder.core.headlessbuild --launcher.suppressErrors"
 
+# Set the environment variable, PTC_MCC_DISABLED to true so that consistency
+# checking is not built
+export PTC_MCC_DISABLED=true
+
 ####  Import all plugins
 ####  Note:
 ####  1) we have a separate -import for each plugin as opposed

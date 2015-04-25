@@ -238,7 +238,7 @@ if [ $? -eq 1 ]; then
 else
   rm -f "${BUILD_ROOT}/init_git_repositories.tmp"
 fi
-
+RETVAL=0
 if [ "${package_only}" != "yes" ]; then
   echo -e "Getting files from github, this could take a while."
   bash "${BUILD_ROOT}/init_git_repositories.sh" ${BRANCH} ${GIT_REPO_ROOT} ${ALLOW_FALLBACK} >> ${BUILD_LOG} 2>&1
@@ -259,24 +259,50 @@ if [ "${package_only}" != "yes" ]; then
   echo -e "Done configuring external dependencies."
 
   echo -e "Building BridgePoint.  This will take a long time."
-  bash create_bp_release.sh  >> ${BUILD_LOG}
-  cd  "${BUILD_DIR}"
+  cd $BUILD_DIR
+  tr -d '\r' < ${GIT_BP}/utilities/build/headless_build.sh > headless_build.sh
+  chmod a+x headless_build.sh
+  ./headless_build.sh
+  RETVAL=$?
   echo -e "Done building."
 fi 
 
 # TODO - we'll re-enable this check when headless_build stops reporting errors
 echo -e "Packaging BridgePoint into a full eclipse environment."
 #if [ ! -s ${ERROR_FILE} ]; then
-  bp_release_version=`awk -F"\"" '{if (/ersion.*\=.*[0-9]\.[0-9]\.[0-9]/) {print $2; exit;}}' ${GIT_BP}/src/org.xtuml.bp.pkg/plugin.xml`
-  bash build_installer_bp.sh ${BRANCH} ${STAGING_AREA} ${RESULT_FOLDER} windows ${bp_release_version} ${UPLOAD_SPEC} >> ${BUILD_LOG}
-  cd  "${BUILD_DIR}"
-  
-  bash build_installer_bp.sh ${BRANCH} ${STAGING_AREA} ${RESULT_FOLDER} linux ${bp_release_version} ${UPLOAD_SPEC} >> ${BUILD_LOG}
-  cd  "${BUILD_DIR}"
+  #exit 1
 #fi
-echo -e "Done building installation."
+# TODO - we'll re-enable this check when headless_build stops reporting errors
+#if [ $RETVAL -eq 0 ]; then
+  #exit 1
+#fi
+
+# This packages the build
+cd  "${BUILD_DIR}"
+bash create_bp_release.sh  >> ${BUILD_LOG}
+
+
+# Check for errors, if found report them.  Note that the log file is moved after this script runs,
+# hence the different paths for where we grep and where we report the user to look.
+grep -c -i -w "Error" ${BUILD_LOG}
+error_count=$?
+if [ ${error_count} -ne 1 ]; then
+    echo -e "Errors found in the output log. Check ${BUILD_LOG}." >> ${ERROR_FILE}
+fi
+
+if [ -f $ERROR_FILE ]; then
+    echo -e "Errors found during release creation:\n\n\n"
+    cat $ERROR_FILE
+fi
+
+bp_release_version=`awk -F"\"" '{if (/ersion.*\=.*[0-9]\.[0-9]\.[0-9]/) {print $2; exit;}}' ${GIT_BP}/src/org.xtuml.bp.pkg/plugin.xml`
+bash build_installer_bp.sh ${BRANCH} ${STAGING_AREA} ${RESULT_FOLDER} windows ${bp_release_version} ${UPLOAD_SPEC} >> ${BUILD_LOG}
+cd  "${BUILD_DIR}"
+  
+bash build_installer_bp.sh ${BRANCH} ${STAGING_AREA} ${RESULT_FOLDER} linux ${bp_release_version} ${UPLOAD_SPEC} >> ${BUILD_LOG}
 
 if [ -e ${MAIL_CMD} ]; then
+  cd  "${BUILD_DIR}"
   distribute_and_notify $? >> ${BUILD_LOG}
 fi 
 
@@ -284,4 +310,5 @@ chmod -R g+w ${BUILD_DIR}
 chmod -R g+w ${RESULT_FOLDER}
 chmod -R g+w ${GIT_REPO_ROOT}
 
+date
 echo -e "End of run_build.sh"
