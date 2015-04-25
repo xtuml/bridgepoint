@@ -95,7 +95,7 @@ function distribute_and_notify {
           echo -e "BUILD STEP 1 IS COMPLETE\n\n" >> ${MAIL_TEMP}
           echo -e "The build completed. If no errors were reported above, then:" >> ${MAIL_TEMP}
           echo -e "  ssh youruser@${SERVER_IP}" >> ${MAIL_TEMP}
-          echo -e "then open the open the build workspace and turn on build automatically." >> ${MAIL_TEMP}
+          echo -e "Next, open the build workspace ( $BUILD_DIR ) and turn on build automatically." >> ${MAIL_TEMP}
           echo -e "If no errors are present, run the build again and specify, yes, for package_only" >> ${MAIL_TEMP}
         fi
 	cat ${MAIL_TEMP} | ${MAIL_CMD} ${BUILD_ADMIN}
