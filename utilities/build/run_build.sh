@@ -140,9 +140,13 @@ if [ "$3" != "" ]; then
 fi
 if [ "$4" != "" ]; then
   export UPLOAD_SPEC="$4"
+else
+  export UPLOAD_SPEC=""
 fi
-if [ "$4" != "" ]; then
+if [ "$5" != "" ]; then
   export package_only="$5"
+else
+  export package_only=""
 fi
 
 # Make sure github credentials are available in the environment
@@ -294,10 +298,10 @@ else
   fi
 
   bp_release_version=`awk -F"\"" '{if (/ersion.*\=.*[0-9]\.[0-9]\.[0-9]/) {print $2; exit;}}' ${GIT_BP}/src/org.xtuml.bp.pkg/plugin.xml`
-  bash build_installer_bp.sh ${BRANCH} ${STAGING_AREA} ${RESULT_FOLDER} windows ${bp_release_version} ${UPLOAD_SPEC} >> ${BUILD_LOG}
+  bash build_installer_bp.sh ${BRANCH} ${STAGING_AREA} ${RESULT_FOLDER} windows ${bp_release_version} "${UPLOAD_SPEC}" >> ${BUILD_LOG}
 cd  "${BUILD_DIR}"
   
-  bash build_installer_bp.sh ${BRANCH} ${STAGING_AREA} ${RESULT_FOLDER} linux ${bp_release_version} ${UPLOAD_SPEC} >> ${BUILD_LOG}
+  bash build_installer_bp.sh ${BRANCH} ${STAGING_AREA} ${RESULT_FOLDER} linux ${bp_release_version} "${UPLOAD_SPEC}" >> ${BUILD_LOG}
 fi
 
 # This get called regardless of if we are building or packaging to notify the the build is complete
