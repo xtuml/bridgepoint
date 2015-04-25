@@ -146,26 +146,6 @@ function jar_specific_plugins {
 	echo -e "Exiting create_bp_release.sh::jar_specific_plugins"    
 }
 
-function create_build {
-	echo -e "Entering create_bp_release.sh::create_build"
-	
-    cd $BUILD_DIR
-
-    # Can do the copy and dos2unix translation in one step.
-	tr -d '\r' < ${GIT_BP}/utilities/build/headless_build.sh > headless_build.sh
-	chmod a+x headless_build.sh
-    ./headless_build.sh
-    RETVAL=$?
-    # TODO - we'll re-enable this check when headless_build stops reporting errors
-	#if [ $RETVAL -eq 0 ]; then
-		# if the headless_build failed
-		# do not perform zipping
-		zip_distribution
-	#fi
-        
-	echo -e "Exiting create_bp_release.sh::create_build"
-}
-
 function copy_included_files {
 	echo -e "Entering create_bp_release.sh::copy_included_files"
 	
@@ -239,48 +219,28 @@ plugin_modules=""
 plugins_to_jar=""
 
 if [ ! -x $pkg_log_dir ]; then
-	echo -e "Creating package log directory: $pkg_log_dir"
-	mkdir ${pkg_log_dir}
+  echo -e "Creating package log directory: $pkg_log_dir"
+  mkdir ${pkg_log_dir}
 fi
 
 if [ ! -x $BUILD_DIR/plugins ]; then
-    echo -e "Creating plugin directory: ${BUILD_DIR}/plugins"
-    mkdir ${BUILD_DIR}/plugins
+  echo -e "Creating plugin directory: ${BUILD_DIR}/plugins"
+  mkdir ${BUILD_DIR}/plugins
 fi
 
 if [ ! -x ${BUILD_DIR}/features ]; then
-	echo -e "Creating feature directory: ${BUILD_DIR}/features"
-	mkdir ${BUILD_DIR}/features
+  echo -e "Creating feature directory: ${BUILD_DIR}/features"
+  mkdir ${BUILD_DIR}/features
 fi
-
-# Set the environment variable, PTC_MCC_DISABLED to true so that consistency 
-# checking is not built
-export PTC_MCC_DISABLED=true
 
 release_version=`awk -F"\"" '{if (/ersion.*\=.*[0-9]\.[0-9]\.[0-9]/) {print $2; exit;}}' ${GIT_BP}/src/org.xtuml.bp.pkg/plugin.xml`
 
 # Set up the lists of features and plug-ins
 configure_module_lists
 
-# Kick off the build chain
-create_build
+zip_distribution
 
-echo -e "\nBuild complete, installation can be found at ${RESULT_FOLDER}/BridgePoint_extension_${BRANCH}.zip\n"
-
-# Check for errors, if found report them.  Note that the log file is moved after this script runs, 
-# hence the different paths for where we grep and where we report the user to look.
-grep -c -i -w "Error" ${BUILD_LOG}
-error_count=$?
-if [ ${error_count} -ne 1 ]; then
-    echo -e "Errors found in the output log. Check ${BUILD_LOG}." >> ${ERROR_FILE}
-fi
-
-if [ -f $ERROR_FILE ]; then
-    echo -e "Errors found during release creation:\n\n\n"
-    cat $ERROR_FILE
-fi
-
-date
+echo -e "\nPackaging complete, installation can be found at ${RESULT_FOLDER}/BridgePoint_extension_${BRANCH}.zip\n"
 
 echo -e "Exiting create_bp_release.sh"
 
