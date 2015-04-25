@@ -166,7 +166,7 @@ fi
 
 # Publish it to the external release area
 echo "INFO: Copying the new installer to the release website."
-if [ "${PRODUCT_BRANCH}" = "master" ]; then
+if [ "${PRODUCT_BRANCH}" == "master" ]; then
   # TODO - 
 fi
 if [ "${SCP_UPLOAD_FOLDER_SPEC}" != "" ]; then
