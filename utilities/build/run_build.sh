@@ -218,12 +218,12 @@ export BUILD_TAG="`date +N%F`"
 if [ "${package_only}" != "yes" ]; then
   # assure that we are starting with a clean build folder.
   rm -rf ${BUILD_DIR}
-
-  mkdir -p "${BUILD_DIR}"
-  mkdir -p "${LOG_DIR}"
-  mkdir -p "${GIT_REPO_ROOT}"
-  mkdir -p "${BUILD_ROOT}"
 fi
+
+mkdir -p "${BUILD_DIR}"
+mkdir -p "${LOG_DIR}"
+mkdir -p "${GIT_REPO_ROOT}"
+mkdir -p "${BUILD_ROOT}"
 
 # We will perform all work in the build's branch folder. 
 cd  "${BUILD_DIR}"
@@ -265,47 +265,46 @@ if [ "${package_only}" != "yes" ]; then
   ./headless_build.sh
   RETVAL=$?
   echo -e "Done building."
-fi 
 
-# TODO - we'll re-enable this check when headless_build stops reporting errors
-echo -e "Packaging BridgePoint into a full eclipse environment."
-#if [ ! -s ${ERROR_FILE} ]; then
-  #exit 1
-#fi
-# TODO - we'll re-enable this check when headless_build stops reporting errors
-#if [ $RETVAL -eq 0 ]; then
-  #exit 1
-#fi
+  # TODO - we'll re-enable this check when headless_build stops reporting errors
+  echo -e "Packaging BridgePoint into a full eclipse environment."
+  #if [ ! -s ${ERROR_FILE} ]; then
+    #exit 1
+  #fi
+  # TODO - we'll re-enable this check when headless_build stops reporting errors
+  #if [ $RETVAL -eq 0 ]; then
+    #exit 1
+  #fi
+else
+  # This packages the build
+  cd  "${BUILD_DIR}"
+  bash create_bp_release.sh  >> ${BUILD_LOG}
 
-# This packages the build
-cd  "${BUILD_DIR}"
-bash create_bp_release.sh  >> ${BUILD_LOG}
-
-
-# Check for errors, if found report them.  Note that the log file is moved after this script runs,
-# hence the different paths for where we grep and where we report the user to look.
-grep -c -i -w "Error" ${BUILD_LOG}
-error_count=$?
-if [ ${error_count} -ne 1 ]; then
+  # Check for errors, if found report them.  Note that the log file is moved after this script runs,
+  # hence the different paths for where we grep and where we report the user to look.
+  grep -c -i -w "Error" ${BUILD_LOG}
+  error_count=$?
+  if [ ${error_count} -ne 1 ]; then
     echo -e "Errors found in the output log. Check ${BUILD_LOG}." >> ${ERROR_FILE}
-fi
+  fi
 
-if [ -f $ERROR_FILE ]; then
+  if [ -f $ERROR_FILE ]; then
     echo -e "Errors found during release creation:\n\n\n"
     cat $ERROR_FILE
-fi
+  fi
 
-bp_release_version=`awk -F"\"" '{if (/ersion.*\=.*[0-9]\.[0-9]\.[0-9]/) {print $2; exit;}}' ${GIT_BP}/src/org.xtuml.bp.pkg/plugin.xml`
-bash build_installer_bp.sh ${BRANCH} ${STAGING_AREA} ${RESULT_FOLDER} windows ${bp_release_version} ${UPLOAD_SPEC} >> ${BUILD_LOG}
+  bp_release_version=`awk -F"\"" '{if (/ersion.*\=.*[0-9]\.[0-9]\.[0-9]/) {print $2; exit;}}' ${GIT_BP}/src/org.xtuml.bp.pkg/plugin.xml`
+  bash build_installer_bp.sh ${BRANCH} ${STAGING_AREA} ${RESULT_FOLDER} windows ${bp_release_version} ${UPLOAD_SPEC} >> ${BUILD_LOG}
 cd  "${BUILD_DIR}"
   
-bash build_installer_bp.sh ${BRANCH} ${STAGING_AREA} ${RESULT_FOLDER} linux ${bp_release_version} ${UPLOAD_SPEC} >> ${BUILD_LOG}
+  bash build_installer_bp.sh ${BRANCH} ${STAGING_AREA} ${RESULT_FOLDER} linux ${bp_release_version} ${UPLOAD_SPEC} >> ${BUILD_LOG}
+fi
 
+# This get called regardless of if we are building or packaging to notify the the build is complete
 if [ -e ${MAIL_CMD} ]; then
   cd  "${BUILD_DIR}"
   distribute_and_notify $? >> ${BUILD_LOG}
 fi 
-
 chmod -R g+w ${BUILD_DIR}
 chmod -R g+w ${RESULT_FOLDER}
 chmod -R g+w ${GIT_REPO_ROOT}
