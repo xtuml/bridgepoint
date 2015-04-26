@@ -18,6 +18,7 @@
 #                   For xtuml.org this is: 
 #					  n5e22526185966@xtuml.org:/home/n5e22526185966/html/wp-content/uploads
 #     package_only - This optional argument, if present and set to "yes" cause the build script to only package and notify
+#     clean - This optional argument, it defaults to yes.  If yes, a clean build if performed.
 #               
 #  Since it is the starting point for the build chain, it must be manually put 
 #  into place for the build server to run. The variable BUILD_MOUNT holds the 
@@ -110,13 +111,12 @@ function distribute_and_notify {
 
 # Verify parameters
 if [ "$#" -lt 2 ]; then
-
-echo "This script requires two parameters.  The other parameters are optional.  See below for usage."
-echo
-echo "run_build.sh BridgePoint_Home_Directory Build_Root <Branch_Name> <upload location> <package only>"
-echo
-echo "See the script header for more detail."
-exit 1
+  echo "This script requires two parameters.  The other parameters are optional.  See below for usage."
+  echo
+  echo "run_build.sh BridgePoint_Home_Directory Build_Root <Branch_Name> <upload location> <package only> <clean>"
+  echo
+  echo "See the script header for more detail."
+  exit 1
 fi 
 
 date 
@@ -147,6 +147,11 @@ if [ "$5" != "" ]; then
   export package_only="$5"
 else
   export package_only=""
+fi
+if [ "$6" != "" ]; then
+  export clean="$6"
+else
+  export clean="yes"
 fi
 
 # Make sure github credentials are available in the environment
@@ -266,7 +271,8 @@ if [ "${package_only}" != "yes" ]; then
   cd $BUILD_DIR
   tr -d '\r' < ${GIT_BP}/utilities/build/headless_build.sh > headless_build.sh
   chmod a+x headless_build.sh
-  ./headless_build.sh
+
+  ./headless_build.sh "${BRANCH}" "${BPHOMEDIR}" "${ECLIPSE_HOME}" "${WORKSPACE}" "${GIT_BP}" "${clean}"
   RETVAL=$?
   echo -e "Done building."
 
