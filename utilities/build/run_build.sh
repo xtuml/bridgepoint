@@ -279,30 +279,29 @@ if [ "${package_only}" != "yes" ]; then
   #if [ $RETVAL -eq 0 ]; then
     #exit 1
   #fi
-else
-  # This packages the build
-  cd  "${BUILD_DIR}"
-  bash create_bp_release.sh  >> ${BUILD_LOG}
+fi
+# This packages the build
+cd  "${BUILD_DIR}"
+bash create_bp_release.sh  >> ${BUILD_LOG}
 
-  # Check for errors, if found report them.  Note that the log file is moved after this script runs,
-  # hence the different paths for where we grep and where we report the user to look.
-  grep -c -i -w "Error" ${BUILD_LOG}
-  error_count=$?
-  if [ ${error_count} -ne 1 ]; then
-    echo -e "Errors found in the output log. Check ${BUILD_LOG}." >> ${ERROR_FILE}
-  fi
+# Check for errors, if found report them.  Note that the log file is moved after this script runs,
+# hence the different paths for where we grep and where we report the user to look.
+grep -c -i -w "Error" ${BUILD_LOG}
+error_count=$?
+if [ ${error_count} -ne 1 ]; then
+  echo -e "Errors found in the output log. Check ${BUILD_LOG}." >> ${ERROR_FILE}
+fi
 
-  if [ -f $ERROR_FILE ]; then
-    echo -e "Errors found during release creation:\n\n\n"
-    cat $ERROR_FILE
-  fi
+if [ -f $ERROR_FILE ]; then
+  echo -e "Errors found during release creation:\n\n\n"
+  cat $ERROR_FILE
+fi
 
-  bp_release_version=`awk -F"\"" '{if (/ersion.*\=.*[0-9]\.[0-9]\.[0-9]/) {print $2; exit;}}' ${GIT_BP}/src/org.xtuml.bp.pkg/plugin.xml`
-  bash build_installer_bp.sh ${BRANCH} ${STAGING_AREA} ${RESULT_FOLDER} windows ${bp_release_version} "${UPLOAD_SPEC}" >> ${BUILD_LOG}
+bp_release_version=`awk -F"\"" '{if (/ersion.*\=.*[0-9]\.[0-9]\.[0-9]/) {print $2; exit;}}' ${GIT_BP}/src/org.xtuml.bp.pkg/plugin.xml`
+bash build_installer_bp.sh ${BRANCH} ${STAGING_AREA} ${RESULT_FOLDER} windows ${bp_release_version} "${UPLOAD_SPEC}" >> ${BUILD_LOG}
 cd  "${BUILD_DIR}"
   
-  bash build_installer_bp.sh ${BRANCH} ${STAGING_AREA} ${RESULT_FOLDER} linux ${bp_release_version} "${UPLOAD_SPEC}" >> ${BUILD_LOG}
-fi
+bash build_installer_bp.sh ${BRANCH} ${STAGING_AREA} ${RESULT_FOLDER} linux ${bp_release_version} "${UPLOAD_SPEC}" >> ${BUILD_LOG}
 
 # This get called regardless of if we are building or packaging to notify the the build is complete
 if [ -e ${MAIL_CMD} ]; then
