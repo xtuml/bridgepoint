@@ -25,7 +25,7 @@ build()
     ${eclipse_home}/eclipse ${eclipse_args} -cleanBuild all -data "$workspace" 
   else
     echo "Performing a build (not clean)."
-    ${eclipse_home}/eclipse ${eclipse_args} all -data "$workspace" 
+    ${eclipse_home}/eclipse ${eclipse_args} -build all -data "$workspace" 
   fi
   
   exit $?
