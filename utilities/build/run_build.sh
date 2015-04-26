@@ -86,20 +86,13 @@ function distribute_and_notify {
 	SERVER_IP=$(dig +short myip.opendns.com @resolver1.opendns.com)
 	SCP_CMD="scp youruser@${SERVER_IP}:${RESULT_FOLDER}/*.zip"
 	
-	if [ "${package_only}" == "yes" ]; then
-	  echo
-	  echo -e "You can copy the release via: ${SCP_CMD}" >> ${MAIL_TEMP}
-	  echo -e "---------------" >> ${MAIL_TEMP}
-	  echo -e "The Linux release can be downloaded at: ${DOWNLOAD_URL}_${BRANCH}_linux.zip" >> ${MAIL_TEMP}
-          echo -e "The Windows release can be downloaded at: ${DOWNLOAD_URL}_${BRANCH}_windows.zip" >> ${MAIL_TEMP}
-          echo -e "The update site can be downloaded at: ${DOWNLOAD_URL}_extension_${BRANCH}.zip" >> ${MAIL_TEMP}
-	  echo
-          echo -e "The build completed. If no errors were reported above, then:" >> ${MAIL_TEMP}
-          echo -e "  ssh youruser@${SERVER_IP}" >> ${MAIL_TEMP}
-          echo -e "Next, open the build workspace ( $BUILD_DIR ) and turn on build automatically." >> ${MAIL_TEMP}
-          echo -e "If nothing builds, then the build is good.  However, if something does build then, " >> ${MAIL_TEMP}
-          echo -e "run the build again and specify, yes, for package_only" >> ${MAIL_TEMP}
-        fi
+	echo -e " " >> ${MAIL_TEMP}
+	echo -e "You can copy the release via: ${SCP_CMD}" >> ${MAIL_TEMP}
+	echo -e "---------------" >> ${MAIL_TEMP}
+	echo -e "The Linux release can be downloaded at: ${DOWNLOAD_URL}_${BRANCH}_linux.zip" >> ${MAIL_TEMP}
+        echo -e "The Windows release can be downloaded at: ${DOWNLOAD_URL}_${BRANCH}_windows.zip" >> ${MAIL_TEMP}
+	echo -e " " >> ${MAIL_TEMP}
+
 	cat ${MAIL_TEMP} | ${MAIL_CMD} ${BUILD_ADMIN}
 	
 	rm -rf ${MAIL_TEMP}
