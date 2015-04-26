@@ -35,7 +35,7 @@ build()
 if [ "$#" -lt 2 ]; then
   echo "Usage:"
   echo
-  echo headless_build.sh <branch name> <bridgepoint home folder> <eclipse home folder> <workspace folder> <bridgepoint git folder> <clean flag>
+  echo "headless_build.sh <branch name> <bridgepoint home folder> <eclipse home folder> <workspace folder> <bridgepoint git folder> <clean flag>"
   echo
   echo "See the script header for more detail."
 
