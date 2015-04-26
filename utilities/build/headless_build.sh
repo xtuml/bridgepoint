@@ -44,9 +44,9 @@ fi
 branch="$1"
 bphomedir="$2"
 eclipse_home="$3"
-workspace="$3"
-git_bp="$4"
-perform_clean="$5"
+workspace="$4"
+git_bp="$5"
+perform_clean="$6"
 BP_JVM=$bphomedir/jre/lib/i386/client/libjvm.so
 
 bp_jvm="-vm $eclipse_home/../jre/lib/i386/client/libjvm.so"
