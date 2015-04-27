@@ -75,17 +75,18 @@ Instructions
     - libTrans
     - pt_antlr
 
-  - Apply required preferences  
-    __NOTE TODO:__ Most, but not all of these are in c:/git/bridgepoint/utilities/build/plugin_customization.ini. We can probably put them all in here, and specify it when the -pluginCustimization flag to the VM.  We should also be able to set the unit test history here.
-
   - Exit BridgePoint
 
-  - Edit ```~/xtuml/BridgePoint/eclipse/Launcher.sh``` in a text editor
+  - Edit ```~/xtuml/BridgePoint/eclipse/Launcher.sh``` in a text editor (in Windows Launcher.bat)
     - Directly after "set BP_JVM=..." add the following:
 ```      
       set XTUML_DEVELOPMENT_REPOSITORY=~/build/git/bridgepoint
       set XTUML_TEST_MODEL_REPOSITORY=~/build/git/models/test/
       set XTUML_PRIVATE_MODEL_REPOSITORY=~/build/git/modelsmg/test/
+```
+    - Between the BP_JVM argument and the first command-line argument put this:
+```
+      -pluginCustomization ~/git/bridgepoint/utilities/build/plugin_customization.ini
 ```
 
   - Prepare the development environment to call gen_erate:
@@ -130,5 +131,5 @@ Instructions
               That setting must be set to "smaller" 100%
               It is is adjusted your graphical compare restuls will not match,
 
-## Congratulations!  Your environment is now built and ready for unit testing.
+## Congratulations!  Your environment is now built and ready for BridgePoint development.
 
