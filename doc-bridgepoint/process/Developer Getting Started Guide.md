@@ -1,21 +1,18 @@
 Developer Getting Started Guide
-----------------------------------------
+-------------------------------
 
-
-Abstract
-------------
+Overview
+--------
 This document is intended to provide an the information needed to create a fully functional development environment capable of building and testing BridgePoint eclipse plug-ins.  This will allow the developer to modify and extend the existing plug-ins as well as test changes made using the existing test unit tests.
 
-References
-------------
-[1]  http://xtuml.org/download/ This is the location of BridgePoint Downloads.
+Preparation 
+-----------
+[1] [This is a link to git documentation that describes working with forks. BridgePoint development requires developers to have a working knowlegde of git and git forks.  
+Throughout this document, we will refer to the repositories using the formula ```https://github.com/"username"/"repository".git``` where "username" is your personal Github user name. (For example: ```https://github.com/keithbrown/bridgepoint.git```)](https://help.github.com/articles/fork-a-repo/ "fork-a-repo")
 
-[2] https://help.github.com/articles/fork-a-repo/ This is a link to git documentation that describes working with forks. BridgePoint development requires developers to have a working knowlegde of git and git forks.  
-Throughout this document, we will refer to the repositories using the formula ```https://github.com/"username"/"repository".git``` where "username" is your personal Github user name. (For example: ```https://github.com/keithbrown/bridgepoint.git```)
+[2] [If you have any problems or questions, post to the forums at this location.](https://xtuml.org/community/forum/xtuml-forum/ "xtuml-forum")
 
-[3] https://xtuml.org/community/forum/xtuml-forum/ If you have any problems or questions, post to the forums at this location.
-
-[4] The instructions below use ~ in the example path names.  If you are building on Windows, you can replace ~ with "c:" in the instructions.
+[3] The instructions below use ~ in the example path names.  If you are building on Windows, you can replace ~ with "c:" in the instructions.
 
 Instructions
 ------------
@@ -30,7 +27,7 @@ Instructions
     - https://github.com/xtuml/packaging
     - https://github.com/xtuml/models
     
-  - Download the latest released version of the tool.  You will find all the releases at [1].
+  - [Download the latest released version of the tool](http://xtuml.org/download/ "xtuml.org/download").
   
   - Install BridgePoint.  You may install wherever you like, but these instructions 
      assume:  ```~/xtuml/BridgePoint```
