@@ -61,7 +61,7 @@ Instructions
   git clone https://github.com/"username"/bridgepoint.git ~/git/bridgepoint
   git clone https://github.com/"username"/mc.git ~/git/mc
   git clone https://github.com/"username"/packaging.git ~/git/packaging
-  git clone https://github.com/"username"/models.git ~/git/nodels
+  git clone https://github.com/"username"/models.git ~/git/models
   ```
     
   - Launch BridgePoint.  During startup, enter the name of a new eclipse workspace that will become your development workspace. ```Example:  ~/workspace```
