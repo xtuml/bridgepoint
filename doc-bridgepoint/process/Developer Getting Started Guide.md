@@ -82,8 +82,11 @@ Instructions
 
   - Launch BridgePoint.  During startup, enter the name of a new eclipse workspace that will become your development workspace. ```Example:  ~/workspace```
 
-  - Switch to the git repository perspective and import the existing BridgePoint projects that were cloned above into your workspace.
+  - Switch to the git repository perspective and add the repositories that were cloned above.
+  
+  - Import existing projects from the BridgePoint repository into your workspace.
     - __WARNING!: Ensure "Search for nested projects" is Unchecked.__
+    - __WARNING!: Only import the BridgePoint and MC projects. The other repositoires are not needed for build.__
 
   - Switch to the Java perspective
     - Close these projects (Right click on the project, select Close Project):
