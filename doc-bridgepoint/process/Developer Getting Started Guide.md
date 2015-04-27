@@ -63,19 +63,6 @@ Instructions
   git clone https://github.com/"username"/models.git ~/git/models
   ```
     
-  - Launch BridgePoint.  During startup, enter the name of a new eclipse workspace that will become your development workspace. ```Example:  ~/workspace```
-
-  - Switch to the git repository perspective and import the existing BridgePoint projects that were clones above into your workspace.
-    - __WARNING!: Ensure "Search for nested projects" is Unchecked.__
-
-  - Switch to the Java perspective: Using menu Window > Open Perspective > Other... > Java
-
-  - Close these projects (Right click on the project, select Close Project):
-    - libTrans
-    - pt_antlr
-
-  - Exit BridgePoint
-
   - Edit ```~/xtuml/BridgePoint/eclipse/Launcher.sh``` in a text editor (in Windows Launcher.bat)
     - Directly after "set BP_JVM=..." add the following:
     ```      
@@ -88,18 +75,21 @@ Instructions
       -pluginCustomization ~/git/bridgepoint/utilities/build/plugin_customization.ini
     ```
 
-  - Prepare the development environment to call gen_erate:
-    - Open a file explorer and navigate to the BridgePoint plug-in installation folder.  The default is:
-    ```
-    ~/xtuml/BridgePoint/eclipse_extensions/BridgePoint/eclipse/plugins/org.xtuml.bp.mc.c.binary_<version>/mc3020
-    ```
-    - Select all files and folders in the above folder
-    - Select Copy
-    - Open the Model Explorer view in Eclipse and navigate to: ```org.xtuml.bp.mc.c.binary_version/mc3020```
-    - Paste the previous selection into this folder
+  - Prepare the development environment to call gen_erate. In the command below replace "<version>" with the version of the product:
+  ```
+  cp -R ~/xtuml/BridgePoint/eclipse_extensions/BridgePoint/eclipse/plugins/org.xtuml.bp.mc.c.binary_<version>/mc3020/* ~/git/bridgepoint/src/org.xtuml.bp.mc.c.binary/mc3020
+  ```
 
-  - Start BridgePoint
-   
+  - Launch BridgePoint.  During startup, enter the name of a new eclipse workspace that will become your development workspace. ```Example:  ~/workspace```
+
+  - Switch to the git repository perspective and import the existing BridgePoint projects that were cloned above into your workspace.
+    - __WARNING!: Ensure "Search for nested projects" is Unchecked.__
+
+  - Switch to the Java perspective
+    - Close these projects (Right click on the project, select Close Project):
+      - libTrans
+      - pt_antlr
+
   - Select Project > Build Automatically
 
   - The build will take a while and should finish successfully
