@@ -13,6 +13,7 @@ References
 [2] https://help.github.com/articles/fork-a-repo/ This is a link to git documentation that describes working with forks. BridgePoint development requires developers to have a working knowlegde of git and git forks.  
 Throughout this document, we will refer to the repositories using the formula ```https://github.com/"username"/"repository".git``` where "username" is your personal Github user name. (For example: ```https://github.com/keithbrown/bridgepoint.git```)
 
+[3] https://xtuml.org/community/forum/xtuml-forum/ If you have any problems or questions, post to the forums at this location.
 
 Instructions
 ------------
@@ -30,7 +31,7 @@ Instructions
      assume:  ```~/xtuml/BridgePoint```
 
   - The following packages are required to build BridgePoint.  Install them now.  For convience installing
-    under Linux Ubunutu the installation commands are presented below for Ubunutu.  If installing in a 
+    under Linux Ubunutu, the installation commands are presented below.  If installing in a 
     different Linux environment use must use the commands appropraite for your environment.  
     ```
     sudo apt-get install libxtst6:i386  
@@ -47,9 +48,6 @@ Instructions
     sudo apr-get install ant  
     sudo apr-get install git  
     sudo apt-get install default-jdk  
-    cd /usr/bin  
-    sudo ln -s  fromdos dos2unix  
-    sudo ln -s todos unix2dos111
 ```
   
   - Launch BridgePoint.  During startup, enter the name of a new eclipse workspace that will become your development workspace. ```Example:  ~/workspace```
@@ -100,7 +98,7 @@ Instructions
 
   - The build will take a while and should finish successfully
 
-### Instructions specific to Windows 7 or Windows Vista
+### Instructions specific to Windows 7 or Windows Vista required to run some BridgePoint unit tests
   - Exit BridgePoint
     - Configure Windows Vista or 7 for unit test running.   Skip this step for other OSes.
       - Bring up the Windows Color and Appearance settings
