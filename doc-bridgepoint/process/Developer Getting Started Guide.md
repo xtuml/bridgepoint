@@ -31,8 +31,7 @@ Instructions
      assume:  ```~/xtuml/BridgePoint```
 
   - The following 3rd party tools are required to build BridgePoint.  Install them now.    
-
-    __LINUX__ - For convience installing
+    - __LINUX__ - For convience installing
     under Linux Ubunutu, the installation commands are presented below.  If installing in a 
     different Linux environment use must use the commands appropraite for your environment.
     ```
@@ -50,8 +49,8 @@ Instructions
     sudo apr-get install ant  
     sudo apr-get install git  
     sudo apt-get install default-jdk  
-```
-    __WINDOWS__
+    ```
+    - __WINDOWS__
       - Perl ([We recommend strawberry perl.](http://strawberryperl.com/ "strawberry perl"))
       - [JDK](http://www.oracle.com/technetwork/java/javase/downloads/index.html "Oracle JDK")
       - [Cygwin (Make sure to select Git)](http://cygwin.com/install.html "Cygwin Install")
@@ -85,15 +84,15 @@ Instructions
       set XTUML_PRIVATE_MODEL_REPOSITORY=~/build/git/modelsmg/test/
     ```
     - Between the BP_JVM argument and the first command-line argument put this:
-```
+    ```
       -pluginCustomization ~/git/bridgepoint/utilities/build/plugin_customization.ini
-```
+    ```
 
   - Prepare the development environment to call gen_erate:
     - Open a file explorer and navigate to the BridgePoint plug-in installation folder.  The default is:
-```
-~/xtuml/BridgePoint/eclipse_extensions/BridgePoint/eclipse/plugins/org.xtuml.bp.mc.c.binary_<version>/mc3020
-```
+    ```
+    ~/xtuml/BridgePoint/eclipse_extensions/BridgePoint/eclipse/plugins/org.xtuml.bp.mc.c.binary_<version>/mc3020
+    ```
     - Select all files and folders in the above folder
     - Select Copy
     - Open the Model Explorer view in Eclipse and navigate to: ```org.xtuml.bp.mc.c.binary_version/mc3020```
