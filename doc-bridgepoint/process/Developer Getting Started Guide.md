@@ -54,10 +54,10 @@ Preparations
   - Launch BridgePoint.  During startup, enter the name of a new eclipse workspace that will become your development workspace. ```Example:  ~/workspace```
 
   - Clone the BridgePoint repository: ```https://github.com/"username"/bridgepoint.git```
-    - WARNING!: For the Local Destination enter a folder where you want to store your local git repositories. __DO NOT SELECT YOUR WORKSPACE FOLDER!__ ```Example: ~/build/git  (These instructions assume this is the folder used)```
+    - __WARNING!__: For the Local Destination enter a folder where you want to store your local git repositories. __DO NOT SELECT YOUR WORKSPACE FOLDER!__ ```Example: ~/build/git  (These instructions assume this is the folder used)```
 
   - Import the BridgePoint projects into your workspace
-    - NOTE!: Ensure "Search for nested projects" is UNchecked.
+    - __NOTE!__: Ensure "Search for nested projects" is UNchecked.
 
   - Switch to the Java perspective: Using menu Window > Open Perspective > Other... > Java
 
@@ -66,12 +66,12 @@ Preparations
     - pt_antlr
 
   - Clone the ```https://github.com/"username"/models.git``` repository
-    - NOTE: Do NOT import these project into your workspace.
+    - __NOTE!__: Do NOT import these project into your workspace.
     
   - Apply required preferences
-    NOTE TODO: Most, but not all of these are in c:/git/bridgepoint/utilities/build/plugin_customization.ini. We can probably put them all in here, and specify it when the -pluginCustimization flag to the VM.  We should also be able to set the unit test history here.
+    __NOTE TODO__: Most, but not all of these are in c:/git/bridgepoint/utilities/build/plugin_customization.ini. We can probably put them all in here, and specify it when the -pluginCustimization flag to the VM.  We should also be able to set the unit test history here.
 
-  - TODO: Make sure the default installation imported this: ```~/build/git/bridgepoint/doc-bridgepoint/process/development-workspace-setup/xtUML_dev_eclipse_addons.p2f```
+  - __TODO__: Make sure the default installation imported this: ```~/build/git/bridgepoint/doc-bridgepoint/process/development-workspace-setup/xtUML_dev_eclipse_addons.p2f```
 
   - Exit BridgePoint
 
