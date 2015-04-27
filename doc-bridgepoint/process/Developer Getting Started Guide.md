@@ -31,22 +31,22 @@ Preparations
   - The following packages are required to build BridgePoint.  Install them now.  For convience installing
     under Linux Ubunutu the installation commands are presented below for Ubunutu.  If installing in a 
     different Linux environment use must use the commands appropraite for your environment.  
-    apt-get install libxtst6:i386  
-    apt-get install libgtk2.0-0:i386  
-    apt-get install gtk2-engines:i386  
-    apt-get install gtk2-engines-*:i386  
-    apt-get install --reinstall unity-gtk2-module:i386  
-    apt-get install libgtkmm-2.4-1c2:i386  
-    apt-get install libcanberra-gtk-module:i386  
-    apt-get install tofrodos   
-    apt-get install wine  
+    sudo apt-get install libxtst6:i386  
+    sudo apt-get install libgtk2.0-0:i386  
+    sudo apt-get install gtk2-engines:i386  
+    sudo apt-get install gtk2-engines-*:i386  
+    sudo apt-get install --reinstall unity-gtk2-module:i386  
+    sudo apt-get install libgtkmm-2.4-1c2:i386  
+    sudo apt-get install libcanberra-gtk-module:i386  
+    sudo apt-get install tofrodos   
+    sudo apt-get install wine  
     sudo apt-get install libstdc++5  
     sudo apt-get install g++  
     sudo apr-get install ant  
     sudo apr-get install git  
     sudo apt-get install  openjdk-7-jdk  
     cd /usr/bin  
-    sudo ln -s  fromdos dos2unix 
+    sudo ln -s  fromdos dos2unix  
     sudo ln -s todos unix2dos  
   
   - Launch BridgePoint.  During startup, enter the name of a new eclipse workspace that will become your development workspace. ```Example:  ~/workspace```
