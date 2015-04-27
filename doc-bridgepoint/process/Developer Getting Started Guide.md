@@ -22,6 +22,7 @@ Instructions
   - For each of the following git repositories create a fork:
     - https://github.com/xtuml/bridgepoint
     - https://github.com/xtuml/models
+    - https://github.com/xtuml/packaging
     
   - Download the latest released version of the tool.  You will find all the releases at [1].
   
