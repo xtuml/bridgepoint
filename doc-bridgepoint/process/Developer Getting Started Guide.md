@@ -79,11 +79,11 @@ Instructions
 
   - Edit ```~/xtuml/BridgePoint/eclipse/Launcher.sh``` in a text editor (in Windows Launcher.bat)
     - Directly after "set BP_JVM=..." add the following:
-```      
+    ```      
       set XTUML_DEVELOPMENT_REPOSITORY=~/build/git/bridgepoint
       set XTUML_TEST_MODEL_REPOSITORY=~/build/git/models/test/
       set XTUML_PRIVATE_MODEL_REPOSITORY=~/build/git/modelsmg/test/
-```
+    ```
     - Between the BP_JVM argument and the first command-line argument put this:
 ```
       -pluginCustomization ~/git/bridgepoint/utilities/build/plugin_customization.ini
