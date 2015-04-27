@@ -17,8 +17,6 @@ Throughout this document, we will refer to the repositories using the formula ``
 Instructions
 ------------
 
-  - These instructions 
-  
   - If you do not already have a Github.com account, create one now.
 
   - For each of the following git repositories create a fork:
@@ -54,10 +52,8 @@ Instructions
     sudo apt-get install default-jdk  
 ```
     __WINDOWS__
-    ```
-    Perl
-    JDK
-    ```
+      - Perl ([We recommend strawberry perl.](http://strawberryperl.com/ "strawberry perl"))
+      - [JDK](http://www.oracle.com/technetwork/java/javase/downloads/index.html "Oracle JDK")
 
   - Launch BridgePoint.  During startup, enter the name of a new eclipse workspace that will become your development workspace. ```Example:  ~/workspace```
 
