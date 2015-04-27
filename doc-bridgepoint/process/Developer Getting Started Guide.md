@@ -14,9 +14,9 @@ References
 Throughout this document, we will refer to the repositories using the formula ```https://github.com/"username"/"repository".git``` where "username" is your personal Github user name. (For example: ```https://github.com/keithbrown/bridgepoint.git```)
 
 
-Preparations
+Instructions
 ------------
-### GitHub
+
   - If you do not already have a Github.com account, create one now.
 
   - For each of the following git repositories create a fork:
@@ -45,7 +45,7 @@ Preparations
     sudo apt-get install g++  
     sudo apr-get install ant  
     sudo apr-get install git  
-    sudo apt-get install  openjdk-7-jdk  
+    sudo apt-get install default-jdk  
     cd /usr/bin  
     sudo ln -s  fromdos dos2unix  
     sudo ln -s todos unix2dos111
