@@ -9,7 +9,7 @@ Preparation
 -----------
 [1] [This is a link to git documentation that describes working with forks. BridgePoint development requires developers to have a working knowlegde of git and git forks. Throughout this document, we will refer to the repositories using the formula: ```https://github.com/"username"/"repository".git``` where "username" is your personal Github user name. (For example: ```https://github.com/keithbrown/bridgepoint.git```)](https://help.github.com/articles/fork-a-repo/ "fork-a-repo")
 
-[2] The instructions below use "~" in the example path names.  If you are building on Windows replace "~" with "c:" in the instructions.
+[2] The instructions below use "~" in the example path names.  If you are building on Windows replace "~" with "c:" (or "/cygdrive/c" when using cygwin) in the instructions.
 
 [3] [If you have any problems or questions, post to the xtuml.orgforums at this location.] (https://xtuml.org/community/forum/xtuml-forum/ "xtuml-forum")
 
@@ -54,14 +54,20 @@ Instructions
     __WINDOWS__
       - Perl ([We recommend strawberry perl.](http://strawberryperl.com/ "strawberry perl"))
       - [JDK](http://www.oracle.com/technetwork/java/javase/downloads/index.html "Oracle JDK")
+      - [Cygwin (Make sure to select Git)](http://cygwin.com/install.html "Cygwin Install")
 
+  - Clone the repositories:
+  ```
+  git clone https://github.com/"username"/bridgepoint.git ~/git/bridgepoint
+  git clone https://github.com/"username"/mc.git ~/git/mc
+  git clone https://github.com/"username"/packaging.git ~/git/packaging
+  git clone https://github.com/"username"/models.git ~/git/nodels
+  ```
+    
   - Launch BridgePoint.  During startup, enter the name of a new eclipse workspace that will become your development workspace. ```Example:  ~/workspace```
 
-  - Clone the BridgePoint repository: ```https://github.com/"username"/bridgepoint.git```
-    - __WARNING!:__ For the Local Destination enter a folder where you want to store your local git repositories. __DO NOT SELECT YOUR WORKSPACE FOLDER!__ ```Example: ~/build/git  (These instructions assume this is the folder used)```
-
-  - Import the BridgePoint projects into your workspace
-    - __NOTE!:__ Ensure "Search for nested projects" is Unchecked.
+  - Switch to the git repository perspective and import the existing BridgePoint projects that were clones above into your workspace.
+    - __WARNING!: Ensure "Search for nested projects" is Unchecked.__
 
   - Switch to the Java perspective: Using menu Window > Open Perspective > Other... > Java
 
@@ -69,9 +75,6 @@ Instructions
     - libTrans
     - pt_antlr
 
-  - Clone the ```https://github.com/"username"/models.git``` repository
-    - __NOTE!:__ Do NOT import these project into your workspace.
-    
   - Apply required preferences  
     __NOTE TODO:__ Most, but not all of these are in c:/git/bridgepoint/utilities/build/plugin_customization.ini. We can probably put them all in here, and specify it when the -pluginCustimization flag to the VM.  We should also be able to set the unit test history here.
 
@@ -90,7 +93,7 @@ Instructions
   - Prepare the development environment to call gen_erate:
     - Open a file explorer and navigate to the BridgePoint plug-in installation folder.  The default is:
 ```
-~/xtuml/BridgePoint/eclipse_extensions/BridgePoint/eclipse/plugins/org.xtuml.bp.mc.c.binary_version/mc3020
+~/xtuml/BridgePoint/eclipse_extensions/BridgePoint/eclipse/plugins/org.xtuml.bp.mc.c.binary_<version>/mc3020
 ```
     - Select all files and folders in the above folder
     - Select Copy
