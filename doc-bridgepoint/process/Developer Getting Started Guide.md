@@ -78,8 +78,6 @@ Instructions
   - Apply required preferences  
     __NOTE TODO:__ Most, but not all of these are in c:/git/bridgepoint/utilities/build/plugin_customization.ini. We can probably put them all in here, and specify it when the -pluginCustimization flag to the VM.  We should also be able to set the unit test history here.
 
-  - __TODO:__ Make sure the default installation imported this: ```~/build/git/bridgepoint/doc-bridgepoint/process/development-workspace-setup/xtUML_dev_eclipse_addons.p2f```
-
   - Exit BridgePoint
 
   - Edit ```~/xtuml/BridgePoint/eclipse/Launcher.sh``` in a text editor
