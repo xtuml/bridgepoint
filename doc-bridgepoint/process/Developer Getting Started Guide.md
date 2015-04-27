@@ -26,12 +26,12 @@ Preparations
   - Download the latest released version of the tool.  You will find all the releases at [1].
   
   - Install BridgePoint.  You may install wherever you like, but these instructions 
-     assume:  ```c:/xtuml/BridgePoint```
+     assume:  ```~/xtuml/BridgePoint```
 
   - The following packages are required to build BridgePoint.  Install them now.  For convience installing
     under Linux Ubunutu the installation commands are presented below for Ubunutu.  If installing in a 
     different Linux environment use must use the commands appropraite for your environment.  
-    sudo apt-get install libxtst6:i386  
+    ```sudo apt-get install libxtst6:i386  
     sudo apt-get install libgtk2.0-0:i386  
     sudo apt-get install gtk2-engines:i386  
     sudo apt-get install gtk2-engines-*:i386  
@@ -47,12 +47,12 @@ Preparations
     sudo apt-get install  openjdk-7-jdk  
     cd /usr/bin  
     sudo ln -s  fromdos dos2unix  
-    sudo ln -s todos unix2dos  
+    sudo ln -s todos unix2dos```  
   
   - Launch BridgePoint.  During startup, enter the name of a new eclipse workspace that will become your development workspace. ```Example:  ~/workspace```
 
   - Clone the BridgePoint repository: ```https://github.com/"username"/bridgepoint.git```
-    - WARNING!: For the Local Destination enter a folder where you want to store your local git repositories. __DO NOT SELECT YOUR WORKSPACE FOLDER!__ ```Example: c:/git  (These instructions assume this is the folder used)```
+    - WARNING!: For the Local Destination enter a folder where you want to store your local git repositories. __DO NOT SELECT YOUR WORKSPACE FOLDER!__ ```Example: ~/build/git  (These instructions assume this is the folder used)```
 
   - Import the BridgePoint projects into your workspace
     - NOTE!: Ensure "Search for nested projects" is UNchecked.
@@ -61,7 +61,6 @@ Preparations
 
   - Close these projects (Right click on the project, select Close Project):
     - libTrans
-    - MC-Java.test
     - pt_antlr
 
   - Clone the ```https://github.com/"username"/models.git``` repository
@@ -70,26 +69,26 @@ Preparations
   - Apply required preferences
     NOTE TODO: Most, but not all of these are in c:/git/bridgepoint/utilities/build/plugin_customization.ini. We can probably put them all in here, and specify it when the -pluginCustimization flag to the VM.  We should also be able to set the unit test history here.
 
-  - TODO: Make sure the default installation includes this: ```c:/git/bridgepoint/doc-bridgepoint/process/development-workspace-setup/xtUML_dev_eclipse_addons.p2f```
+  - TODO: Make sure the default installation imported this: ```~/build/git/bridgepoint/doc-bridgepoint/process/development-workspace-setup/xtUML_dev_eclipse_addons.p2f```
 
   - Exit BridgePoint
 
-  - Edit ```c:/MentorGraphics/BridgePoint/eclipse/Launcher.bat``` in a text editor
+  - Edit ```~/xtuml/BridgePoint/eclipse/Launcher.sh``` in a text editor
     - Directly after "set BP_JVM=..." add the following:
 ```      
-      set XTUML_DEVELOPMENT_REPOSITORY=C:/git/bridgepoint
-      set XTUML_TEST_MODEL_REPOSITORY=C:/git/models/test/
-      set XTUML_PRIVATE_MODEL_REPOSITORY=C:/git/modelsmg/test/
+      set XTUML_DEVELOPMENT_REPOSITORY=~/build/git/bridgepoint
+      set XTUML_TEST_MODEL_REPOSITORY=~/build/git/models/test/
+      set XTUML_PRIVATE_MODEL_REPOSITORY=~/build/git/modelsmg/test/
 ```
 
   - Prepare the development environment to call gen_erate:
-    - Open Windows explorer and navigate to the BridgePoint plug-in installation folder.  The default is:
+    - Open a file explorer and navigate to the BridgePoint plug-in installation folder.  The default is:
 ```
-c:/xtuml/BridgePoint/eclipse_extensions/BridgePoint/eclipse/plugins/org.xtuml.bp.mc.c.binary_version/mc3020
+~/xtuml/BridgePoint/eclipse_extensions/BridgePoint/eclipse/plugins/org.xtuml.bp.mc.c.binary_version/mc3020
 ```
     - Select all files and folders in the above folder
     - Select Copy
-    - Open the Model Explorer view in Eclipse and navigate to: ```c:/git/bridgepoint/src/org.xtuml.bp.mc.c.binary_version/mc3020```
+    - Open the Model Explorer view in Eclipse and navigate to: ```org.xtuml.bp.mc.c.binary_version/mc3020```
     - Paste the previous selection into this folder
 
   - Start BridgePoint
