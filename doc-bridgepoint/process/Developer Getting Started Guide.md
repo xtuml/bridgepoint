@@ -19,7 +19,7 @@ Preparations
 ### GitHub
   - If you do not already have a Github.com account, create one now.
 
-  - For each of the following git repositories:
+  - For each of the following git repositories create a fork:
     - https://github.com/xtuml/bridgepoint
     - https://github.com/xtuml/models
     
