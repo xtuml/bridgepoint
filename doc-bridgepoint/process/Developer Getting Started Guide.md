@@ -15,24 +15,31 @@ Throughout this document, we will refer to the repositories using the formula ``
 
 [3] https://xtuml.org/community/forum/xtuml-forum/ If you have any problems or questions, post to the forums at this location.
 
+[4] The instructions below use ~ in the example path names.  If you are building on Windows, you can replace ~ with "c:" in the instructions.
+
 Instructions
 ------------
 
+  - These instructions 
+  
   - If you do not already have a Github.com account, create one now.
 
   - For each of the following git repositories create a fork:
     - https://github.com/xtuml/bridgepoint
-    - https://github.com/xtuml/models
+    - https://github.com/xtuml/mc
     - https://github.com/xtuml/packaging
+    - https://github.com/xtuml/models
     
   - Download the latest released version of the tool.  You will find all the releases at [1].
   
   - Install BridgePoint.  You may install wherever you like, but these instructions 
      assume:  ```~/xtuml/BridgePoint```
 
-  - The following packages are required to build BridgePoint.  Install them now.  For convience installing
+  - The following 3rd party tools are required to build BridgePoint.  Install them now.    
+
+    __LINUX__ - For convience installing
     under Linux Ubunutu, the installation commands are presented below.  If installing in a 
-    different Linux environment use must use the commands appropraite for your environment.  
+    different Linux environment use must use the commands appropraite for your environment.
     ```
     sudo apt-get install libxtst6:i386  
     sudo apt-get install libgtk2.0-0:i386  
@@ -49,7 +56,12 @@ Instructions
     sudo apr-get install git  
     sudo apt-get install default-jdk  
 ```
-  
+    __WINDOWS__
+    ```
+    Perl
+    JDK
+    ```
+
   - Launch BridgePoint.  During startup, enter the name of a new eclipse workspace that will become your development workspace. ```Example:  ~/workspace```
 
   - Clone the BridgePoint repository: ```https://github.com/"username"/bridgepoint.git```
