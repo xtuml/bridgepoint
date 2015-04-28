@@ -5,7 +5,7 @@ Preparation
 -----------
 [1] [This is a link to git documentation that describes working with forks.](https://help.github.com/articles/fork-a-repo/ "fork-a-repo") BridgePoint development requires developers to have a working knowlegde of git and git forks. Throughout this document we will refer to the repositories using the formula: ```https://github.com/"username"/"repository".git``` where "username" is your personal Github user name. (For example: ```https://github.com/keithbrown/bridgepoint.git```)
 
-[2] This document may be used in Linux or Windows, but it's examples use Linux. In Windows cygwin is recommended to ease setup. Throughout this document we use "~" in the example path names.  If you are building on Windows replace "~" with  "c:" (or "/cygdrive/c" when using the cygwin shell).  Additionally, for Windows, when the instructions read Launcher.sh, replace with Launcher.bat.
+[2] This document may be used in Linux or Windows, but it's examples use Linux. In Windows, cygwin is used to ease setup. Throughout this document we use "~" in the example path names.  If you are building on Windows replace "~" with  "c:" (or "/cygdrive/c" when using the cygwin shell).  Additionally, for Windows, when the instructions read Launcher.sh, replace with Launcher.bat.
 
 [3] If you have any problems or questions, post to the [xtuml.org forums] (https://xtuml.org/community/forum/xtuml-forum/) for help.
 
@@ -76,7 +76,7 @@ Instructions
   cp -R ~/xtuml/BridgePoint/eclipse_extensions/BridgePoint/eclipse/plugins/org.xtuml.bp.mc.c.binary_<version>/mc3020/* ~/git/bridgepoint/src/org.xtuml.bp.mc.c.binary/mc3020
   ```
 
-  - Launch BridgePoint (```~/xtuml/BridgePoint/Launcher.sh```)
+  - Launch BridgePoint (Linux:```~/xtuml/BridgePoint/Launcher.sh```  Windows:``` c:/xtuml/BridgePoint/Launcher.bat```)
     - During startup, enter the name of a new eclipse workspace that will become your development workspace.   
     (Example:  ```~/workspace```)
 
