@@ -53,7 +53,7 @@ Instructions
     - __WINDOWS__
       - Perl ([We recommend strawberry perl.](http://strawberryperl.com/ "strawberry perl"))
       - [JDK](http://www.oracle.com/technetwork/java/javase/downloads/index.html "Oracle JDK")
-      - [Cygwin](http://cygwin.com/install.html "Cygwin Install")(Make sure to select Git)
+      - [Cygwin](http://cygwin.com/install.html "Cygwin Install") (Make sure to select Git)
 
   - Clone the repositories:
   ```
