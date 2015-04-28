@@ -11,7 +11,7 @@ Preparation
 
 [2] The instructions below use "~" in the example path names.  If you are building on Windows replace "~" with "c:" (or "/cygdrive/c" when using cygwin) in the instructions.
 
-[3] [If you have any problems or questions, post to the xtuml.orgforums at this location.] (https://xtuml.org/community/forum/xtuml-forum/ "xtuml-forum")
+[3] If you have any problems or questions, post to the [xtuml.org forums] (https://xtuml.org/community/forum/xtuml-forum/) for help.
 
 
 Instructions
