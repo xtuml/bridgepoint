@@ -1,15 +1,11 @@
-Developer Getting Started Guide
--------------------------------
-
-Overview
---------
+## Developer Getting Started Guide
 This document provides the information required to create a fully functional BridgePoint development environment.  This will allow the developer to debug, modify, and extend BridgePoint functionality and execute BridgePoint unit tests.
 
 Preparation 
 -----------
 [1] [This is a link to git documentation that describes working with forks.](https://help.github.com/articles/fork-a-repo/ "fork-a-repo") BridgePoint development requires developers to have a working knowlegde of git and git forks. Throughout this document we will refer to the repositories using the formula: ```https://github.com/"username"/"repository".git``` where "username" is your personal Github user name. (For example: ```https://github.com/keithbrown/bridgepoint.git```)
 
-[2] Throughout this document we use "~" in the example path names.  If you are building on Windows replace "~" with  "c:" (or "/cygdrive/c" when using cygwin).
+[2] This document may be used in Linux or Windows, but it's examples use Linux. In Windows cygwin is recommended to ease setup. Throughout this document we use "~" in the example path names.  If you are building on Windows replace "~" with  "c:" (or "/cygdrive/c" when using the cygwin shell).  Additionally, for Windows, when the instructions read Launcher.sh, replace with Launcher.bat.
 
 [3] If you have any problems or questions, post to the [xtuml.org forums] (https://xtuml.org/community/forum/xtuml-forum/) for help.
 
@@ -80,7 +76,12 @@ Instructions
   cp -R ~/xtuml/BridgePoint/eclipse_extensions/BridgePoint/eclipse/plugins/org.xtuml.bp.mc.c.binary_<version>/mc3020/* ~/git/bridgepoint/src/org.xtuml.bp.mc.c.binary/mc3020
   ```
 
-  - Launch BridgePoint.  During startup, enter the name of a new eclipse workspace that will become your development workspace. ```Example:  ~/workspace```
+  - Launch BridgePoint.  
+  ```~/xtuml/BridgePoint/Launcher.sh
+  ```
+    - During startup, enter the name of a new eclipse workspace that will become your development workspace.   
+    ```Example:  ~/workspace
+    ```
 
   - Switch to the git repository perspective and add the repositories that were cloned above.
   
@@ -97,31 +98,32 @@ Instructions
 
   - The build will take a while and should finish successfully
 
-### Instructions specific to Windows 7 or Windows Vista required to run some BridgePoint unit tests
-  - Exit BridgePoint
-    - Configure Windows Vista or 7 for unit test running.   Skip this step for other OSes.
-      - Bring up the Windows Color and Appearance settings
-        - Right click on the desktop background and select Personalize
-        - In Vista select the Windows Color and Appearance hyperlink
-        - In Windows 7 select the Windows Color hyperlink
-        - In the window that appears, change the following attributes:
-          - Active Title Bar    Size: 25 Font: Trebuchet 10
-          - Border Padding      Size: 0
-          - Caption Buttons     Size: 25
-          - Icon                Size: 32 Font: Tahoma 8
-          - Inactive Title Bar  Size: 25 Font: Trebuchet 10
-          - Menu                Size: 19 Font: Tahoma 8
-          - Message Box                  Font: Tahoma 8
-          - Palette Title       Size: 17 Font: Tahoma 8
-          - Selected Items      Size: 19 Font: Tahoma 8
-          - Tooltip                      Font: Tahoma 8
-        - If you have a smaller screen or resolution potential you may need to
+Additional Instructions specific to MS Windows
+----------------------------------------------
+  - Configure Windows Vista or 7 for unit test running.   Skip this step for other OSes.
+    - Exit BridgePoint
+    - Bring up the Windows Color and Appearance settings
+      - Right click on the desktop background and select Personalize
+      - In Vista select the Windows Color and Appearance hyperlink
+      - In Windows 7 select the Windows Color hyperlink
+      - In the window that appears, change the following attributes:
+        - Active Title Bar    Size: 25 Font: Trebuchet 10
+        - Border Padding      Size: 0
+        - Caption Buttons     Size: 25
+        - Icon                Size: 32 Font: Tahoma 8
+        - Inactive Title Bar  Size: 25 Font: Trebuchet 10
+        - Menu                Size: 19 Font: Tahoma 8
+        - Message Box                  Font: Tahoma 8
+        - Palette Title       Size: 17 Font: Tahoma 8
+        - Selected Items      Size: 19 Font: Tahoma 8
+        - Tooltip                      Font: Tahoma 8
+    - If you have a smaller screen or resolution potential you may need to
           configure the start menu to not always be on top, or set it to auto-hide.
-        - Note: Do NOT use the Windows setting that scaling text to make it easier to see. 
+    - Note: Do NOT use the Windows setting that scales text to make it easier to see. 
               This setting, in Windows 7, is found here:
               Personalize > Display > "Make it easier to read what is on your machine"
               That setting must be set to "smaller" 100%
               It is is adjusted your graphical compare restuls will not match,
 
-## Congratulations!  Your environment is now built and ready for BridgePoint development.
+### Congratulations!  Your environment is now built and ready for BridgePoint development.
 
