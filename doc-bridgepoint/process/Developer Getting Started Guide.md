@@ -7,7 +7,9 @@ Preparation
 
 [2] This document may be used in Linux or Windows, but it's examples use Linux. In Windows, cygwin is used to ease setup. Throughout this document we use "~" in the example path names.  If you are building on Windows replace "~" with  "c:" (or "/cygdrive/c" when using the cygwin shell).  Additionally, for Windows, when the instructions read Launcher.sh, replace with Launcher.bat.
 
-[3] If you have any problems or questions, post to the [xtuml.org forums] (https://xtuml.org/community/forum/xtuml-forum/) for help.
+[3] This document uses ```~/git``` as the root folder for git repostiories, and it uses ```~/workspace``` as the development workspace. You can substitute any folder you desire, but you must be consistent.
+
+[4] If you have any problems or questions, post to the [xtuml.org forums] (https://xtuml.org/community/forum/xtuml-forum/) for help.
 
 
 Instructions
@@ -53,27 +55,27 @@ Instructions
 
   - Clone the repositories:
   ```
-  git clone https://github.com/"username"/bridgepoint.git ~/build/git/bridgepoint
-  git clone https://github.com/"username"/mc.git ~/build/git/mc
-  git clone https://github.com/"username"/packaging.git ~/build/git/packaging
-  git clone https://github.com/"username"/models.git ~/build/git/models
+  git clone https://github.com/"username"/bridgepoint.git ~/git/bridgepoint
+  git clone https://github.com/"username"/mc.git ~/git/mc
+  git clone https://github.com/"username"/packaging.git ~/git/packaging
+  git clone https://github.com/"username"/models.git ~/git/models
   ```
     
   - Edit ```~/xtuml/BridgePoint/eclipse/Launcher.sh``` in a text editor (in Windows Launcher.bat)
     - Directly after "set BP_JVM=..." add the following:
     ```      
-      set XTUML_DEVELOPMENT_REPOSITORY=~/build/git/bridgepoint
-      set XTUML_TEST_MODEL_REPOSITORY=~/build/git/models/test/
-      set XTUML_PRIVATE_MODEL_REPOSITORY=~/build/git/modelsmg/test/
+      set XTUML_DEVELOPMENT_REPOSITORY=~/git/bridgepoint
+      set XTUML_TEST_MODEL_REPOSITORY=~/git/models/test/
+      set XTUML_PRIVATE_MODEL_REPOSITORY=~/git/modelsmg/test/
     ```
     - Between the BP_JVM argument and the first command-line argument put this:
     ```
-      -pluginCustomization ~/build/git/bridgepoint/utilities/build/plugin_customization.ini
+      -pluginCustomization ~/git/bridgepoint/utilities/build/plugin_customization.ini
     ```
 
   - Prepare the development environment to call gen_erate. In the command below replace "\<version\>" with the version of the product:
   ```
-  cp -R ~/xtuml/BridgePoint/eclipse/plugins/org.xtuml.bp.mc.c.binary_<version>/mc3020/* ~/build/git/bridgepoint/src/org.xtuml.bp.mc.c.binary/mc3020
+  cp -R ~/xtuml/BridgePoint/eclipse/plugins/org.xtuml.bp.mc.c.binary_<version>/mc3020/* ~/git/bridgepoint/src/org.xtuml.bp.mc.c.binary/mc3020
   ```
 
   - Launch BridgePoint (```~/xtuml/BridgePoint/Launcher.sh```)
