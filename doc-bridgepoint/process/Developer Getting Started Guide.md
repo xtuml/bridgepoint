@@ -17,7 +17,7 @@ Preparation
 Instructions
 ------------
 
-  - If you do not already have a Github.com account, create one now.
+  - If you do not already have a Github.com account, [create one now.](https://github.com/join)
 
   - For each of the following git repositories create a fork:
     - https://github.com/xtuml/bridgepoint
@@ -32,8 +32,8 @@ Instructions
 
   - The following 3rd party tools are required to build BridgePoint.  Install them now.    
     - __LINUX__ - For convience installing
-    under Linux Ubunutu, the installation commands are presented below.  If installing in a 
-    different Linux environment use must use the commands appropraite for your environment.
+    under Linux Ubuntu, the installation commands are presented below.  If installing in a 
+    different Linux environment you must use the commands appropraite for your environment.
     ```
     sudo apt-get install libxtst6:i386  
     sudo apt-get install libgtk2.0-0:i386  
