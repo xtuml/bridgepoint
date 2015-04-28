@@ -6,17 +6,15 @@
 #  This script runs the nightly build.
 #
 #  The script requires at least two parameters:
-#    
-#     BPHOMEDIR   - This is the location of a BridgePoint installation
-#     BUILD_MOUNT - This holds the build server location that is the 
+#      
+#     BridgePoint_Home_Directory - This is the location of a BridgePoint installation
+#     Build_Root - This holds the build server location that is the 
 #                   root for the build
 #
 #  Optional:
-#     BRANCH_NAME   - This is an optional parameter that allows you to configure
+#     Branch_Name - This is an optional parameter that allows you to configure
 #                   the branch to build
-#     UPLOAD_SPEC - This optional argument, if present, will upload the build to this given location.  example: user@myserver.com:/myfolder
-#                   For xtuml.org this is: 
-#					  n5e22526185966@xtuml.org:/home/n5e22526185966/html/wp-content/uploads
+#     upload location - This optional argument, if present, will upload the build to this given location.  example: user@myserver.com:/myfolder
 #     package_only - This optional argument, if present and set to "yes" cause the build script to only package and notify
 #     clean - This optional argument, it defaults to yes.  If yes, a clean build if performed.
 #               
@@ -28,9 +26,8 @@
 #  1) run_build.sh, and init_git_repositories.sh must be present in ${BUILD_ROOT}
 #  2) git, ant, and jar must be installed on the build server
 # 
-#  The build is performed under ${BUILD_ROOT}.  The result of the build:
-#  1) plugins
-#     The resulting plugins are found under ${BUILD_ROOT}
+#  The build is performed under ${Build_Root}.  The resulting update site and 
+#  zipfile installers are found under ${Build_Root}/releases
 # 
 
 #-------------------------------------------------------------------------------
@@ -115,17 +112,16 @@ fi
 
 date 
 
-export BPHOMEDIR="$1"
+BPHOMEDIR="$1"
 if [ "$2" = "/" ]; then
-  export BUILD_MOUNT="/build"
+  BUILD_MOUNT="/build"
 else
-  export BUILD_MOUNT="$2/build"
+  BUILD_MOUNT="$2/build"
 fi
-export ECLIPSE_HOME="${BPHOMEDIR}/eclipse"
 
 # Do not modify these variables:
-export BUILD_ROOT="${BUILD_MOUNT}/work"
-export GIT_REPO_ROOT="${BUILD_MOUNT}/git/xtuml"
+BUILD_ROOT="${BUILD_MOUNT}/work"
+GIT_REPO_ROOT="${BUILD_MOUNT}/git/xtuml"
 export GIT_BP="${GIT_REPO_ROOT}/bridgepoint"
 # if no arguments are present default to master
 export BRANCH="master"
@@ -133,19 +129,19 @@ if [ "$3" != "" ]; then
   export BRANCH="$3"
 fi
 if [ "$4" != "" ]; then
-  export UPLOAD_SPEC="$4"
+  UPLOAD_SPEC="$4"
 else
-  export UPLOAD_SPEC=""
+  UPLOAD_SPEC=""
 fi
 if [ "$5" != "" ]; then
-  export package_only="$5"
+  package_only="$5"
 else
-  export package_only=""
+  package_only=""
 fi
 if [ "$6" != "" ]; then
-  export clean="$6"
+  clean="$6"
 else
-  export clean="yes"
+  clean="yes"
 fi
 
 # Make sure github credentials are available in the environment
@@ -165,33 +161,32 @@ echo "BPHOMEDIR=${BPHOMEDIR}"
 # this flag is constant and could potentially be removed, but it is 
 # being left in case we do want to have the build be different then other 
 # releases.
-export BUILD_TYPE="nonrelease"
+BUILD_TYPE="nonrelease"
 
 # This variable is used to decided if we want to look in head for files not
 # found in the specified branch.  Currently it is always set  to yes.  It
 # is being left in the script to allow this to be modified in the future if
 # desired
-export ALLOW_FALLBACK="yes"
+ALLOW_FALLBACK="yes"
 
 export BUILD_DIR="${BUILD_ROOT}/${BRANCH}"
 # Set "WORKSPACE" to an environment variable that CLI can use.
 export WORKSPACE="${BUILD_DIR}"
 export LOG_DIR="${BUILD_DIR}/log"
 export ERROR_FILE="${LOG_DIR}/errors.log"
-export DIFF_FILE="${LOG_DIR}/diff.log"
-export BUILD_LOG=""${LOG_DIR}/build.log""
-export BUILD_ADMIN="build@onefact.net"
-export MAIL_CMD="/usr/sbin/ssmtp"
-export MAIL_TEMP="mailtemp"
-export SHELLUSER="${USER}"
+DIFF_FILE="${LOG_DIR}/diff.log"
+BUILD_LOG=""${LOG_DIR}/build.log""
+BUILD_ADMIN="build@onefact.net"
+MAIL_CMD="/usr/sbin/ssmtp"
+MAIL_TEMP="mailtemp"
 
 export TIMESTAMP=`date +%Y%m%d%H%M`
 
 #
 # This is the location, on the build server, where this build is found
 #
-export RELEASE_BASE="${BUILD_MOUNT}/releases"
-export BUILD_TARGET="${BRANCH}-${TIMESTAMP}"
+RELEASE_BASE="${BUILD_MOUNT}/releases"
+BUILD_TARGET="${BRANCH}-${TIMESTAMP}"
 export RESULT_FOLDER="${RELEASE_BASE}/${BUILD_TARGET}"
 mkdir -p "${RESULT_FOLDER}"
 
@@ -208,15 +203,9 @@ mkdir -p "${STAGING_AREA}"
 # 
 # This section defines the external location for the build (the place where
 # customers go to get this release). 
-# Note that items in the following section will eventually need to be github 
-# pages (I think) for now the release is not being moved off of the build server.
 #
-export DOWNLOAD_URL="http://xtuml.org/wp-content/uploads/BridgePoint"
-export DISTRIBUTION_SERVER=""
-
-# We do not currently use this, but when we were using cvs we tagged nightly 
-# builds, and this was the format of the tag
-export BUILD_TAG="`date +N%F`"
+DOWNLOAD_URL="http://xtuml.org/wp-content/uploads/BridgePoint"
+DISTRIBUTION_SERVER=""
 
 if [ "${package_only}" != "yes" ]; then
   # assure that we are starting with a clean build folder.
@@ -252,7 +241,7 @@ if [ "${package_only}" != "yes" ]; then
   tr -d '\r' < ${GIT_BP}/utilities/build/configure_build_process.sh > configure_build_process.sh
   chmod a+x configure_build_process.sh
 
-  bash configure_build_process.sh >> ${BUILD_LOG}
+  bash configure_build_process.sh ${BUILD_DIR} ${GIT_REPO_ROOT} >> ${BUILD_LOG}
   cd  "${BUILD_DIR}"
   echo -e "Done configuring files for the build process."
 
@@ -266,7 +255,7 @@ if [ "${package_only}" != "yes" ]; then
   tr -d '\r' < ${GIT_BP}/utilities/build/headless_build.sh > headless_build.sh
   chmod a+x headless_build.sh
 
-  ./headless_build.sh "${BRANCH}" "${BPHOMEDIR}" "${ECLIPSE_HOME}" "${WORKSPACE}" "${GIT_BP}" "${clean}"
+  ./headless_build.sh "${BRANCH}" "${BPHOMEDIR}" "${WORKSPACE}" "${GIT_BP}" "${clean}"
   RETVAL=$?
   echo -e "Done building."
 
