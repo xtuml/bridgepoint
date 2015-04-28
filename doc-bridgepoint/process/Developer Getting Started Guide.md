@@ -27,8 +27,8 @@ Instructions
     
   - [Download the latest released version of the tool](http://xtuml.org/download/ "xtuml.org/download").
   
-  - Install BridgePoint.  You may install wherever you like, but these instructions 
-     assume:  ```~/xtuml/BridgePoint```
+  - Install BridgePoint.  
+    - You may unzip wherever you like, but these instructions assume:  ```~/xtuml```
 
   - The following 3rd party tools are required to build BridgePoint.  Install them now.    
     - __LINUX__ - For convience installing
