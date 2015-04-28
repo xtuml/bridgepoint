@@ -75,7 +75,7 @@ Instructions
       -pluginCustomization ~/git/bridgepoint/utilities/build/plugin_customization.ini
     ```
 
-  - Prepare the development environment to call gen_erate. In the command below replace "<version>" with the version of the product:
+  - Prepare the development environment to call gen_erate. In the command below replace "\<version\>" with the version of the product:
   ```
   cp -R ~/xtuml/BridgePoint/eclipse_extensions/BridgePoint/eclipse/plugins/org.xtuml.bp.mc.c.binary_<version>/mc3020/* ~/git/bridgepoint/src/org.xtuml.bp.mc.c.binary/mc3020
   ```
