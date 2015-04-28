@@ -3,8 +3,6 @@
 #	create_bp_release.sh requires the following environment variables
 #
 #   ${BRANCH} - product version, actually this is any BRANCH/tag found in git
-#   ${GIT_REPO_ROOT} - git repository root
-#   ${BUILD_TYPE} - build type (release/nonrelease)
 #
 #-------------------------------------------------------------------------------
 # Functions
