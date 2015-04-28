@@ -33,7 +33,7 @@ Instructions
   - The following 3rd party tools are required to build BridgePoint.  Install them now.    
     - __LINUX__ - For convience installing
     under Linux Ubuntu, the installation commands are presented below.  If installing in a 
-    different Linux environment you must use the commands appropraite for your environment.
+    different Linux environment you must use the commands appropriate for your environment.
     ```
     sudo apt-get install libxtst6:i386  
     sudo apt-get install libgtk2.0-0:i386  
