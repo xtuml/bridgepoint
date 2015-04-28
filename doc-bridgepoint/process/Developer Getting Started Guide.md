@@ -44,8 +44,8 @@ Instructions
     sudo apt-get install wine  
     sudo apt-get install libstdc++5  
     sudo apt-get install g++  
-    sudo apr-get install ant  
-    sudo apr-get install git  
+    sudo apt-get install ant  
+    sudo apt-get install git  
     sudo apt-get install default-jdk  
     ```
     - __WINDOWS__
@@ -62,13 +62,13 @@ Instructions
   ```
     
   - Edit ```~/xtuml/BridgePoint/eclipse/Launcher.sh``` in a text editor (in Windows Launcher.bat)
-    - Directly after "set BP_JVM=..." add the following:
+    - Directly after "export BP_JVM=..." add the following (on Windows substitute "set" for "export"):
     ```      
-      set XTUML_DEVELOPMENT_REPOSITORY=~/git/bridgepoint
-      set XTUML_TEST_MODEL_REPOSITORY=~/git/models/test/
-      set XTUML_PRIVATE_MODEL_REPOSITORY=~/git/modelsmg/test/
+      export XTUML_DEVELOPMENT_REPOSITORY=~/git/bridgepoint
+      export XTUML_TEST_MODEL_REPOSITORY=~/git/models/test/
+      export XTUML_PRIVATE_MODEL_REPOSITORY=~/git/modelsmg/test/
     ```
-    - Between the BP_JVM argument and the first command-line argument put this:
+    - On the eclipse invocation, between the ```$BP_JVM``` argument and the ```$1``` argument add this:
     ```
       -pluginCustomization ~/git/bridgepoint/utilities/build/plugin_customization.ini
     ```
