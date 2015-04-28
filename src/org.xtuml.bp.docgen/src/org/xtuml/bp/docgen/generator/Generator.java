@@ -64,6 +64,7 @@ public class Generator extends Task {
     public static final String DOCGEN_DIR = "/tools/docgen/"; //$NON-NLS-1$
     public static final String DOCGEN_EXE = "docgen"; //$NON-NLS-1$
     public static final String XSLTPROC_EXE = "docbook/xsltproc"; //$NON-NLS-1$
+    public static final String XHTMLFILES = DOCGEN_DIR + "docbook/docbook-xsl-1.75.1/xhtml/"; //$NON-NLS-1$
     public static final String DOC_DIR = "doc/"; //$NON-NLS-1$
     public static final String DOCGEN_INPUT = "a.xtuml"; //$NON-NLS-1$
     public static final String DOC_HTML = "doc.html"; //$NON-NLS-1$
@@ -376,7 +377,7 @@ public class Generator extends Task {
         throws IOException, RuntimeException, CoreException, InterruptedException 
     {
         // Call docgen.exe 
-        String homedir = System.getenv("MGC_EMBEDDED_HOME"); //$NON-NLS-1$
+        String homedir = System.getenv("BPHOMEDIR"); //$NON-NLS-1$
         String app = homedir + DOCGEN_DIR + DOCGEN_EXE;
         String outputfile = DOC_XML;
         File output = new File(workingDir + outputfile);
@@ -408,8 +409,9 @@ public class Generator extends Task {
         throws IOException, RuntimeException, CoreException, InterruptedException 
     {
         // Run xsltproc to convert doc.xml into doc.html
-        String homedir = System.getenv("MGC_EMBEDDED_HOME").replaceAll("\\\\", "/"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+        String homedir = System.getenv("BPHOMEDIR"); //$NON-NLS-1$
         String app = homedir + DOCGEN_DIR + XSLTPROC_EXE;
+        String includepath = "--path " + homedir + "/.." + XHTMLFILES;
         String xslfile = DOCGEN_XSL;
         String xmlfile = DOC_XML; 
         String htmlfile = DOC_HTML;
@@ -434,7 +436,7 @@ public class Generator extends Task {
             }
         }
         
-        ProcessBuilder pb = new ProcessBuilder(app, xslfile, xmlfile); 
+        ProcessBuilder pb = new ProcessBuilder(app, includepath, xslfile, xmlfile); 
         pb.directory(new File(workingDir));
         pb.redirectErrorStream(true);
         Process process = pb.start();
