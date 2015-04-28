@@ -76,14 +76,9 @@ Instructions
   cp -R ~/xtuml/BridgePoint/eclipse_extensions/BridgePoint/eclipse/plugins/org.xtuml.bp.mc.c.binary_<version>/mc3020/* ~/git/bridgepoint/src/org.xtuml.bp.mc.c.binary/mc3020
   ```
 
-  - Launch BridgePoint.  
-  ```
-  ~/xtuml/BridgePoint/Launcher.sh
-  ```
+  - Launch BridgePoint (```~/xtuml/BridgePoint/Launcher.sh```)
     - During startup, enter the name of a new eclipse workspace that will become your development workspace.   
-    ```
-    Example:  ~/workspace
-    ```
+    (Example:  ```~/workspace```)
 
   - Switch to the git repository perspective and add the repositories that were cloned above.
   
