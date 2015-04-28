@@ -122,11 +122,11 @@ fi
 # Do not modify these variables:
 BUILD_ROOT="${BUILD_MOUNT}/work"
 GIT_REPO_ROOT="${BUILD_MOUNT}/git/xtuml"
-export GIT_BP="${GIT_REPO_ROOT}/bridgepoint"
+GIT_BP="${GIT_REPO_ROOT}/bridgepoint"
 # if no arguments are present default to master
-export BRANCH="master"
+BRANCH="master"
 if [ "$3" != "" ]; then
-  export BRANCH="$3"
+  BRANCH="$3"
 fi
 if [ "$4" != "" ]; then
   UPLOAD_SPEC="$4"
@@ -169,35 +169,34 @@ BUILD_TYPE="nonrelease"
 # desired
 ALLOW_FALLBACK="yes"
 
-export BUILD_DIR="${BUILD_ROOT}/${BRANCH}"
-# Set "WORKSPACE" to an environment variable that CLI can use.
-export WORKSPACE="${BUILD_DIR}"
-export LOG_DIR="${BUILD_DIR}/log"
-export ERROR_FILE="${LOG_DIR}/errors.log"
+BUILD_DIR="${BUILD_ROOT}/${BRANCH}"
+WORKSPACE="${BUILD_DIR}"
+LOG_DIR="${BUILD_DIR}/log"
+ERROR_FILE="${LOG_DIR}/errors.log"
 DIFF_FILE="${LOG_DIR}/diff.log"
 BUILD_LOG=""${LOG_DIR}/build.log""
 BUILD_ADMIN="build@onefact.net"
 MAIL_CMD="/usr/sbin/ssmtp"
 MAIL_TEMP="mailtemp"
 
-export TIMESTAMP=`date +%Y%m%d%H%M`
+TIMESTAMP=`date +%Y%m%d%H%M`
 
 #
 # This is the location, on the build server, where this build is found
 #
 RELEASE_BASE="${BUILD_MOUNT}/releases"
 BUILD_TARGET="${BRANCH}-${TIMESTAMP}"
-export RESULT_FOLDER="${RELEASE_BASE}/${BUILD_TARGET}"
+RESULT_FOLDER="${RELEASE_BASE}/${BUILD_TARGET}"
 mkdir -p "${RESULT_FOLDER}"
 
 #
 # This is where the extension result goes
 #
-export RESULT_FOLDER_EXTENSION="${RELEASE_BASE}/${BUILD_TARGET}/BridgePoint_${BRANCH}"
+RESULT_FOLDER_EXTENSION="${RELEASE_BASE}/${BUILD_TARGET}/BridgePoint_${BRANCH}"
 mkdir -p "${RESULT_FOLDER_EXTENSION}"
 
 
-export STAGING_AREA=${BUILD_MOUNT}/staging
+STAGING_AREA=${BUILD_MOUNT}/staging
 mkdir -p "${STAGING_AREA}"
 
 # 
@@ -241,7 +240,7 @@ if [ "${package_only}" != "yes" ]; then
   tr -d '\r' < ${GIT_BP}/utilities/build/configure_build_process.sh > configure_build_process.sh
   chmod a+x configure_build_process.sh
 
-  bash configure_build_process.sh ${BUILD_DIR} ${GIT_REPO_ROOT} >> ${BUILD_LOG}
+  bash configure_build_process.sh ${BUILD_DIR} ${GIT_REPO_ROOT} ${ERROR_FILE} ${STAGING_AREA} >> ${BUILD_LOG}
   cd  "${BUILD_DIR}"
   echo -e "Done configuring files for the build process."
 
@@ -269,9 +268,10 @@ if [ "${package_only}" != "yes" ]; then
     #exit 1
   #fi
 fi
+
 # This packages the build
 cd  "${BUILD_DIR}"
-bash create_bp_release.sh  >> ${BUILD_LOG}
+bash create_bp_release.sh "${BUILD_DIR}" "${BRANCH}" "${GIT_BP}" "${LOG_DIR}" "${TIMESTAMP}" "${RESULT_FOLDER_EXTENSION}" >> ${BUILD_LOG}
 
 # Check for errors, if found report them.  Note that the log file is moved after this script runs,
 # hence the different paths for where we grep and where we report the user to look.
