@@ -2,15 +2,13 @@
 
 set ORIGINAL_DIR=%CD%
 
-:: This command gets the location of the directory that holds this script.  We
-:: use this to set up the rest of the paths for launching.  If you want to copy
-:: this script elsewhere, you should modify BPHOMEDIR to explicitly set the 
-:: location where BridgePoint is installed to.
-set BPHOMEDIR=%~dp0%
+:: The eclipse directory. The Launcher is expected to be in this folder
+set DIR=%~dp0%
 
-::
-:: DO NOT MODIFY ANY OF THE FOLLOWING LINES.
-::
+:: BPHOMEDIR is used at runtime to determine the base installation folder.
+set BPHOMEDIR=%~dp0%/..
+
+:: The JVM tested with BridgePoint
 set BP_JVM=%BPHOMEDIR%/../jre/bin/javaw.exe
 
 :: Check for fonts that trip up generator
