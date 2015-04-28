@@ -139,7 +139,7 @@ public class ExportBuilder extends AbstractExportBuilder {
 			}
 		}
 		
-		System.out.println(statusMsg);
+		//System.out.println(statusMsg);
 	}
 	
 	public List<SystemModel_c> exportSystem(SystemModel_c system,
@@ -226,7 +226,7 @@ public class ExportBuilder extends AbstractExportBuilder {
 					codeFolder.create(true, true, new NullProgressMonitor());
 				}
 				String destFileName = destDir + m_rootPkgName + postFix;
-				System.out.println("ExportBuilder.java::exportSystem() - Creating filename: " + destFileName);
+				// System.out.println("ExportBuilder.java::exportSystem() - Creating filename: " + destFileName);
 				m_outputFile = new File(destFileName);
 				if (m_outputFile.exists() && !append) {
 					m_outputFile.delete();

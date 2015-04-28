@@ -40,7 +40,8 @@
   <target name="sql.depends" >
     <echo >Eclipse home: ${eclipse-home}</echo>
     <echo >Plugins home: ${plugins-home}</echo>
-
+    <echo >Util home (xtumlmc_build.exe): ${util_bin_dir}</echo>
+  	
     <uptodate property="sql.buildNotNeeded" targetfile="sql/${sql.output}">
       <srcfiles dir="${sql.input}" excludes="${model_excludes}" includes="**/*.xtuml" />
     </uptodate>
@@ -602,7 +603,6 @@
        <src path="src/org/xtuml/bp" />
        <src path="src/lib" />
        <classpath>
-         <pathelement path="jlc_2013_2.jar" />
          <pathelement path="bin/org/xtuml/bp/core" />
          <pathelement path="bin/lib" />
        	 <fileset dir="${eclipse-home}/plugins" casesensitive="yes">
