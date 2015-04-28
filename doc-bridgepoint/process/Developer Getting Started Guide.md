@@ -53,10 +53,10 @@ Instructions
 
   - Clone the repositories:
   ```
-  git clone https://github.com/"username"/bridgepoint.git ~/git/bridgepoint
-  git clone https://github.com/"username"/mc.git ~/git/mc
-  git clone https://github.com/"username"/packaging.git ~/git/packaging
-  git clone https://github.com/"username"/models.git ~/git/models
+  git clone https://github.com/"username"/bridgepoint.git ~/build/git/bridgepoint
+  git clone https://github.com/"username"/mc.git ~/build/git/mc
+  git clone https://github.com/"username"/packaging.git ~/build/git/packaging
+  git clone https://github.com/"username"/models.git ~/build/git/models
   ```
     
   - Edit ```~/xtuml/BridgePoint/eclipse/Launcher.sh``` in a text editor (in Windows Launcher.bat)
@@ -68,12 +68,12 @@ Instructions
     ```
     - Between the BP_JVM argument and the first command-line argument put this:
     ```
-      -pluginCustomization ~/git/bridgepoint/utilities/build/plugin_customization.ini
+      -pluginCustomization ~/build/git/bridgepoint/utilities/build/plugin_customization.ini
     ```
 
   - Prepare the development environment to call gen_erate. In the command below replace "\<version\>" with the version of the product:
   ```
-  cp -R ~/xtuml/BridgePoint/eclipse_extensions/BridgePoint/eclipse/plugins/org.xtuml.bp.mc.c.binary_<version>/mc3020/* ~/git/bridgepoint/src/org.xtuml.bp.mc.c.binary/mc3020
+  cp -R ~/xtuml/BridgePoint/eclipse/plugins/org.xtuml.bp.mc.c.binary_<version>/mc3020/* ~/build/git/bridgepoint/src/org.xtuml.bp.mc.c.binary/mc3020
   ```
 
   - Launch BridgePoint (```~/xtuml/BridgePoint/Launcher.sh```)
@@ -84,7 +84,7 @@ Instructions
   
   - Import existing projects from the BridgePoint repository into your workspace.
     - __WARNING!: Ensure "Search for nested projects" is Unchecked.__
-    - __WARNING!: Only import the BridgePoint and MC projects. The other repositoires are not needed for build.__
+    - __WARNING!: Only import the BridgePoint projects. The other repositoires are not needed for build.__
 
   - Switch to the Java perspective
     - Close these projects (Right click on the project, select Close Project):
