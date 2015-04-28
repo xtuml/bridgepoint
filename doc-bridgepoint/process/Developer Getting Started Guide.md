@@ -1,4 +1,4 @@
-## Developer Getting Started Guide
+# Developer Getting Started Guide
 This document provides the information required to create a fully functional BridgePoint development environment.  This will allow the developer to debug, modify, and extend BridgePoint functionality and execute BridgePoint unit tests.
 
 Preparation 
