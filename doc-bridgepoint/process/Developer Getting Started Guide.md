@@ -3,7 +3,7 @@ Developer Getting Started Guide
 
 Overview
 --------
-This document is intended to provide an the information needed to create a fully functional development environment capable of building and testing BridgePoint eclipse plug-ins.  This will allow the developer to modify and extend the existing plug-ins as well as test changes made using the existing test unit tests.
+This document provides the information required to create a fully functional BridgePoint development environment.  This will allow the developer to debug, modify, and extend BridgePoint functionality and execute BridgePoint unit tests.
 
 Preparation 
 -----------
