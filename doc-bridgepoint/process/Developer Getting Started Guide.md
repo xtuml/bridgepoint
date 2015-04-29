@@ -17,7 +17,8 @@ Instructions
 
   - If you do not already have a Github.com account, [create one now.](https://github.com/join)
 
-  - For each of the following git repositories create a fork:
+  - For each of the following git repositories create a fork:  
+    __WARNING!:__ If you already have a fork, [assure your fork is up to date]( https://help.github.com/articles/merging-an-upstream-repository-into-your-fork).
     - https://github.com/xtuml/bridgepoint
     - https://github.com/xtuml/mc
     - https://github.com/xtuml/packaging
@@ -85,8 +86,8 @@ Instructions
   - Switch to the git repository perspective and add the repositories that were cloned above.
   
   - Import existing projects from the BridgePoint repository into your workspace.
-    - __WARNING!: Ensure "Search for nested projects" is Unchecked.__
-    - __WARNING!: Only import the BridgePoint projects. The other repositoires are not needed for build.__
+    - __WARNING!:__ Ensure "Search for nested projects" is Unchecked.
+    - __WARNING!:__ Import all projects this the bridgepoint repository, but do NOT import any projects frmo the other repositoroes.  Only projects from bridgepoint are needed in the workspace.
 
   - Switch to the Java perspective
     - Close these projects (Right click on the project, select Close Project):
