@@ -86,7 +86,7 @@ Instructions
   
   - Import existing projects from the BridgePoint repository into your workspace.
     - __WARNING!: Ensure "Search for nested projects" is Unchecked.__
-    - __WARNING!: Only import the BridgePoint projects. The other repositoires are not needed for build.__
+    - __WARNING!: Only import the BridgePoint projects. The other repositories are not needed for build.__
 
   - Switch to the Java perspective
     - Close these projects (Right click on the project, select Close Project):
