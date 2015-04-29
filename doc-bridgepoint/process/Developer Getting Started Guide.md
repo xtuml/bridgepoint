@@ -45,8 +45,8 @@ Instructions
     sudo apt-get install wine  
     sudo apt-get install libstdc++5  
     sudo apt-get install g++  
-    sudo apr-get install ant  
-    sudo apr-get install git  
+    sudo apt-get install ant  
+    sudo apt-get install git  
     sudo apt-get install default-jdk  
     ```
     - __WINDOWS__
@@ -63,13 +63,13 @@ Instructions
   ```
     
   - Edit ```~/xtuml/BridgePoint/eclipse/Launcher.sh``` in a text editor (in Windows Launcher.bat)
-    - Directly after "set BP_JVM=..." add the following:
+    - Directly after "export BP_JVM=..." add the following (on Windows substitute "set" for "export"):
     ```      
-      set XTUML_DEVELOPMENT_REPOSITORY=~/git/bridgepoint
-      set XTUML_TEST_MODEL_REPOSITORY=~/git/models/test/
-      set XTUML_PRIVATE_MODEL_REPOSITORY=~/git/modelsmg/test/
+      export XTUML_DEVELOPMENT_REPOSITORY=~/git/bridgepoint
+      export XTUML_TEST_MODEL_REPOSITORY=~/git/models/test/
+      export XTUML_PRIVATE_MODEL_REPOSITORY=~/git/modelsmg/test/
     ```
-    - Between the BP_JVM argument and the first command-line argument put this:
+    - On the eclipse invocation, between the ```$BP_JVM``` argument and the ```$1``` argument add this:
     ```
       -pluginCustomization ~/git/bridgepoint/utilities/build/plugin_customization.ini
     ```
@@ -87,7 +87,7 @@ Instructions
   
   - Import existing projects from the BridgePoint repository into your workspace.
     - __WARNING!:__ Ensure "Search for nested projects" is Unchecked.
-    - __WARNING!:__ Import all projects this the bridgepoint repository, but do NOT import any projects frmo the other repositoroes.  Only projects from bridgepoint are needed in the workspace.
+    - __WARNING!:__ Import all projects from this bridgepoint repository, but do NOT import any projects from the other repositories.  Only projects from bridgepoint are needed in the workspace.
 
   - Switch to the Java perspective
     - Close these projects (Right click on the project, select Close Project):
