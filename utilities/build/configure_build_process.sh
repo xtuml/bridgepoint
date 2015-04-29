@@ -21,6 +21,7 @@ function configure_build_files {
     chmod a+x ${BUILD_DIR}/configure_external_dependencies.sh 2>>${ERROR_FILE}
     chmod a+x ${BUILD_DIR}/create_bp_release.sh 2>>${ERROR_FILE}
 	chmod a+x ${BUILD_DIR}/plugin_customization.ini 2>>${ERROR_FILE}
+	chmod -R g+w ${BUILD_DIR}
 	
 	echo -e "Exiting configure_build_process.sh::configure_build_files"
 }
@@ -49,6 +50,7 @@ function configure_installer_files {
     cp -f install_linux.xml ${installer_extras} 2>>${ERROR_FILE}
     cp -f install_windows.xml ${installer_extras} 2>>${ERROR_FILE}
     cp -f welcome.html ${installer_extras} 2>>${ERROR_FILE}
+    cp -f done.html ${installer_extras} 2>>${ERROR_FILE}
     cp -f shortcutSpec.xml ${installer_extras} 2>>${ERROR_FILE}
     cp -f post_install_script.bat ${installer_extras} 2>>${ERROR_FILE}
     tr -d '\r' < post_install_script.sh > ${installer_extras}/post_install_script.sh 2>>${ERROR_FILE}
@@ -57,23 +59,23 @@ function configure_installer_files {
     chmod a+x ${BUILD_DIR}/build_installer_bp.sh
 
     # Next set up the windows files
-    mkdir -p ${bp_deliverables}/extras
-    cp -f Launcher.bat ${bp_deliverables}/extras 2>>${ERROR_FILE}
-    cp -f CLI.bat ${bp_deliverables}/extras 2>>${ERROR_FILE}
+    cp -f Launcher.bat ${eclipse_deliverables}/eclipse 2>>${ERROR_FILE}
+    cp -f CLI.bat ${eclipse_deliverables}/eclipse 2>>${ERROR_FILE}
     mkdir -p ${bp_deliverables}/tools
     cp -f create_shortcut.vbs ${bp_deliverables}/tools 2>>${ERROR_FILE}
 
     # Next set up the linux files
     # Copy files and do the dos2unix translation.
-    mkdir -p ${bp_deliverables_linux}/extras
-    tr -d '\r' < Launcher.sh > ${bp_deliverables_linux}/extras/Launcher.sh 2>>${ERROR_FILE}
-    tr -d '\r' < CLI.sh > ${bp_deliverables_linux}/extras/CLI.sh 2>>${ERROR_FILE}
+    tr -d '\r' < Launcher.sh > ${eclipse_deliverables_linux}/eclipse/Launcher.sh 2>>${ERROR_FILE}
+    tr -d '\r' < CLI.sh > ${eclipse_deliverables_linux}/eclipse/CLI.sh 2>>${ERROR_FILE}
 
 	# Add in the Windows fontchecker
     cd ${GIT_BP}/${utilities_project}/fontchecker/Release
-    mkdir -p ${bp_deliverables_linux}/tools/fontchecker
+    mkdir -p ${bp_deliverables}/tools/fontchecker
     cp -f font_list.txt ${bp_deliverables}/tools/fontchecker/font_list.txt 2>>${ERROR_FILE}
     cp -f fontchecker.exe ${bp_deliverables}/tools/fontchecker/fontchecker.exe 2>>${ERROR_FILE}
+    
+    chmod -R g+w ${STAGING_AREA}
     
 	echo -e "Exiting configure_build_process.sh::configure_installer_files"
 }
@@ -96,18 +98,13 @@ echo -e "Entering configure_build_process.sh   BUILD_DIR=${BUILD_DIR} BRANCH=${B
 #
 bp_deliverables="${STAGING_AREA}/BridgePoint_e${eclipse_ver}/BridgePointDeliverables"
 mkdir -p ${bp_deliverables}
-extra_deliverables="${STAGING_AREA}/BridgePoint_e${eclipse_ver}/vcredist_x86"
-mkdir -p ${extra_deliverables}
 bp_deliverables_linux="${STAGING_AREA}/BridgePoint_for_Linux_e${eclipse_ver}/BridgePointDeliverables"
 mkdir -p ${bp_deliverables_linux}
-extra_deliverables_linux="${STAGING_AREA}/BridgePoint_for_Linux_e${eclipse_ver}/install_tools"
-mkdir -p ${extra_deliverables_linux}
 installer_extras="${STAGING_AREA}/installer_extras"
 mkdir -p ${installer_extras}
-installer_files="${STAGING_AREA}/installer/BridgePoint_e${eclipse_ver}/src"
-mkdir -p ${installer_files}
-installer_files_linux="${STAGING_AREA}/installer/BridgePoint_for_Linux_e${eclipse_ver}/src"
-mkdir -p ${installer_files_linux}
+
+eclipse_deliverables="${STAGING_AREA}/BridgePoint_e${eclipse_ver}/EclipseDeliverables"
+eclipse_deliverables_linux="${STAGING_AREA}/BridgePoint_for_Linux_e${eclipse_ver}/EclipseDeliverables"
 
 cd ${BUILD_DIR}
 configure_build_files
