@@ -34,20 +34,7 @@ Instructions
     under Linux Ubuntu, the installation commands are presented below.  If installing in a 
     different Linux environment you must use the commands appropriate for your environment.
     ```
-    sudo apt-get install libxtst6:i386  
-    sudo apt-get install libgtk2.0-0:i386  
-    sudo apt-get install gtk2-engines:i386  
-    sudo apt-get install gtk2-engines-*:i386  
-    sudo apt-get install --reinstall unity-gtk2-module:i386  
-    sudo apt-get install libgtkmm-2.4-1c2:i386  
-    sudo apt-get install libcanberra-gtk-module:i386  
-    sudo apt-get install tofrodos   
-    sudo apt-get install wine  
-    sudo apt-get install libstdc++5  
-    sudo apt-get install g++  
-    sudo apt-get install ant  
-    sudo apt-get install git  
-    sudo apt-get install default-jdk  
+    sudo apt-get install libxtst6:i386 libgtk2.0-0:i386 gtk2-engines:i386 gtk2-engines-*:i386 --reinstall unity-gtk2-module:i386 libgtkmm-2.4-1c2:i386 libcanberra-gtk-module:i386 tofrodos wine libstdc++5 g++ ant git default-jdk  
     ```
     - __WINDOWS__
       - Perl ([We recommend strawberry perl.](http://strawberryperl.com/ "strawberry perl"))
