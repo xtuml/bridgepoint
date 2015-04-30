@@ -2,11 +2,10 @@
 
 set ORIGINAL_DIR=%CD%
 
-:: The eclipse directory. The Launcher is expected to be in this folder
-set DIR=%~dp0%
-
 :: BPHOMEDIR is used at runtime to determine the base installation folder.
-set BPHOMEDIR=%~dp0%/..
+:: It is the BridgePoint folder.
+cd "%~dp0%/.."
+set BPHOMEDIR=%CD%
 
 :: The JVM tested with BridgePoint
 set BP_JVM=%BPHOMEDIR%/../jre/bin/javaw.exe
