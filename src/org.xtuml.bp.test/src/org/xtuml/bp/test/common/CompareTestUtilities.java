@@ -700,6 +700,8 @@ public class CompareTestUtilities {
 		Tree tree = viewer.getTree();
 		viewer.expandAll();
 
+		BaseTest.dispatchEvents(0);
+		
 		TreeItem localItem = UITestingUtilities.findItemInTree(tree,
 				elementName);
 		viewer.setSelection(new StructuredSelection(localItem.getData()));
