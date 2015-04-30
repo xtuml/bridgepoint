@@ -411,12 +411,10 @@ public class Generator extends Task {
         // Run xsltproc to convert doc.xml into doc.html
         String homedir = System.getenv("BPHOMEDIR"); //$NON-NLS-1$
         String app = homedir + DOCGEN_DIR + XSLTPROC_EXE;
-        String includepath = "--path " + homedir + "/.." + XHTMLFILES;
-        String xslfile = DOCGEN_XSL;
-        String xmlfile = DOC_XML; 
-        String htmlfile = DOC_HTML;
+        String docbook_folder = homedir + XHTMLFILES;
         String workingDir = workDir.replaceAll("\\\\", "/"); //$NON-NLS-1$ //$NON-NLS-2$
-        File output = new File(workingDir + htmlfile);
+        String input_xmlfile = workingDir + "/" + DOC_XML; 
+        File output = new File(workingDir + "/" + DOC_HTML);
 
         if (output.exists()) {
             output.delete();
@@ -424,8 +422,18 @@ public class Generator extends Task {
 
         IFileSystem fileSystem = EFS.getLocalFileSystem();
         
-        IFileStore srcxsl = fileSystem.getStore(new File(homedir + DOCGEN_DIR + xslfile).toURI());
-        IFileStore tgtxsl = fileSystem.getStore(new File(workingDir + xslfile).toURI());
+        // move docgen into the same folder as docbook.xsl.  This is done because docgen.xsl includes docbook.xsl and
+        // for that include to be resolved we have to have one of 3 things:
+        // 1) docgen.xsl and docbooks.csl are in the same folder (this is what we have done)
+        // 2) Use the xsltproc --path option to add a path for docbook.xsl
+        //    Note: This was preferred, but failed because at runtime the --path option was seen as an invalid
+        //          option.  this was odd because it works on the command-line, but it does not work, at least in linux,
+        //          at runtime.
+        // 3) modify the include specific in doc.xml to have a full of relative path to docbook.xsl.
+        //    Note: This was the option used prior to v5.0 of the tool.  Version 5.0 removed the post-processing of installation
+        //          that performed this modifiation, so this option is no longer possible, and is was not a desirable option anyway.
+        IFileStore srcxsl = fileSystem.getStore(new File(homedir + DOCGEN_DIR + DOCGEN_XSL).toURI());
+        IFileStore tgtxsl = fileSystem.getStore(new File(docbook_folder + "/" + DOCGEN_XSL).toURI());
         srcxsl.copy(tgtxsl, EFS.OVERWRITE, null);
         
         IFileStore[] children = fileSystem.getStore(new File(homedir + DOCGEN_DIR).toURI()).childStores(EFS.NONE, null);
@@ -436,9 +444,14 @@ public class Generator extends Task {
             }
         }
         
-        ProcessBuilder pb = new ProcessBuilder(app, includepath, xslfile, xmlfile); 
-        pb.directory(new File(workingDir));
+        ProcessBuilder pb = new ProcessBuilder(); 
         pb.redirectErrorStream(true);
+        pb.directory(new File(docbook_folder));
+        ArrayList<String> cmd_line = new ArrayList<String>();
+        cmd_line.add(app);
+        cmd_line.add(DOCGEN_XSL);
+        cmd_line.add(input_xmlfile);    
+        pb.command(cmd_line);
         Process process = pb.start();
         int exitVal = doWaitFor(process, output);
         
