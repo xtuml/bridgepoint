@@ -22,35 +22,36 @@ build()
   if [ "$perform_clean" == "yes" ]; then
     ###  Clean build
     echo "Performing a clean build."
-    ${eclipse_home}/eclipse ${eclipse_args} -cleanBuild all -data "$workspace" 
+    ${bphomedir}/eclipse/eclipse ${eclipse_args} -cleanBuild all -data "$workspace" 
   else
     echo "Performing a build (not clean)."
-    ${eclipse_home}/eclipse ${eclipse_args} -build all -data "$workspace" 
+    ${bphomedir}/eclipse/eclipse ${eclipse_args} -build all -data "$workspace" 
   fi
   
   exit $?
 }
 
 ## Verify the command-line
-if [ "$#" -lt 2 ]; then
+if [ "$#" -lt 4 ]; then
   echo "Usage:"
   echo
-  echo "headless_build.sh <branch name> <bridgepoint home folder> <eclipse home folder> <workspace folder> <bridgepoint git folder> <clean flag>"
-  echo
-  echo "See the script header for more detail."
+  echo "headless_build.sh <branch name> <BridgePoint home folder> <workspace folder> <BridgePoint git folder> <clean flag>"
+  echo "    branch name - name of a branch in git to build"
+  echo "    BridgePoint home folder - path of the BridgePoint installation to use (e.g. /home/ubuntu/xtuml/BridgePoint"
+  echo "    workspace folder - path to the workspace to build"
+  echo "    BridgePoint git folder - path to the local BridgePoint git repository"
+  echo "    clean flag - run a clean build or not (yes / no)"
 
   exit 1
 fi
 branch="$1"
 bphomedir="$2"
-eclipse_home="$3"
-workspace="$4"
-git_bp="$5"
-perform_clean="$6"
-BP_JVM=$bphomedir/jre/lib/i386/client/libjvm.so
+workspace="$3"
+git_bp="$4"
+perform_clean="$5"
+bp_jvm=$bphomedir/jre/lib/i386/client/libjvm.so
 
-bp_jvm="-vm $eclipse_home/../jre/lib/i386/client/libjvm.so"
-eclipse_args="${bp_jvm} -pluginCustomization ${workspace}/plugin_customization.ini -nosplash -application org.eclipse.cdt.managedbuilder.core.headlessbuild --launcher.suppressErrors"
+eclipse_args="-vm ${bp_jvm} -pluginCustomization ${workspace}/plugin_customization.ini -nosplash -application org.eclipse.cdt.managedbuilder.core.headlessbuild --launcher.suppressErrors"
 
 
 # Set the environment variable, PTC_MCC_DISABLED to true so that consistency
@@ -73,7 +74,7 @@ for PROJECT in $(ls -1 "${git_bp}"/src); do
   fi
 done
 echo "Importing projects."
-${eclipse_home}/eclipse ${eclipse_args} ${import_cmd} -data "${workspace}" 
+${bphomedir}/eclipse/eclipse ${eclipse_args} ${import_cmd} -data "${workspace}" 
 
 # Before running the build make sure the ant log folder is present
 # The import calls will have created the .metadata folder

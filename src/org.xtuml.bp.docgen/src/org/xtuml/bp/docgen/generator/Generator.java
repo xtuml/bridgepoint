@@ -411,23 +411,17 @@ public class Generator extends Task {
         // Run xsltproc to convert doc.xml into doc.html
         String homedir = System.getenv("BPHOMEDIR"); //$NON-NLS-1$
         String app = homedir + DOCGEN_DIR + XSLTPROC_EXE;
-        String includepath = "--path " + homedir + "/.." + XHTMLFILES;
-        String xslfile = DOCGEN_XSL;
-        String xmlfile = DOC_XML; 
-        String htmlfile = DOC_HTML;
+        String docbook_folder = homedir + XHTMLFILES;
         String workingDir = workDir.replaceAll("\\\\", "/"); //$NON-NLS-1$ //$NON-NLS-2$
-        File output = new File(workingDir + htmlfile);
+        String input_xmlfile = workingDir + "/" + DOC_XML; 
+        File output = new File(workingDir + "/" + DOC_HTML);
 
         if (output.exists()) {
             output.delete();
         }
 
         IFileSystem fileSystem = EFS.getLocalFileSystem();
-        
-        IFileStore srcxsl = fileSystem.getStore(new File(homedir + DOCGEN_DIR + xslfile).toURI());
-        IFileStore tgtxsl = fileSystem.getStore(new File(workingDir + xslfile).toURI());
-        srcxsl.copy(tgtxsl, EFS.OVERWRITE, null);
-        
+         
         IFileStore[] children = fileSystem.getStore(new File(homedir + DOCGEN_DIR).toURI()).childStores(EFS.NONE, null);
         for (IFileStore child: children) {
             if (child.getName().endsWith(CSSFILE)) {
@@ -436,9 +430,14 @@ public class Generator extends Task {
             }
         }
         
-        ProcessBuilder pb = new ProcessBuilder(app, includepath, xslfile, xmlfile); 
-        pb.directory(new File(workingDir));
+        ProcessBuilder pb = new ProcessBuilder(); 
         pb.redirectErrorStream(true);
+        pb.directory(new File(docbook_folder));
+        ArrayList<String> cmd_line = new ArrayList<String>();
+        cmd_line.add(app);
+        cmd_line.add(DOCGEN_XSL);
+        cmd_line.add(input_xmlfile);    
+        pb.command(cmd_line);
         Process process = pb.start();
         int exitVal = doWaitFor(process, output);
         

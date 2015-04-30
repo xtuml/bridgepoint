@@ -1,11 +1,7 @@
 #!/bin/bash
 #
-#	configure_build_process.sh requires the following environment variables
-#
-#   ${BRANCH} - product version, actually this is any branch/tag found in git
-#   ${GIT_BP} - bridgepoint git repository root
-#   ${GIT_REPO_ROOT} - git repository root
-#   ${BUILD_TYPE} - build type (release/nonrelease)
+#	configure_build_process.sh requires arguments.  See the usage screen for 
+#     more info.
 #
 #-------------------------------------------------------------------------------
 # Functions
@@ -13,15 +9,15 @@
 function configure_build_files {
 	echo -e "Entering configure_build_process.sh::configure_build_files"
 	
-    cd ${GIT_BP}/${utilities_project}/build
+    cd ${git_bp}/${utilities_project}/build
     # Copy files and do the dos2unix translation.
-    tr -d '\r' < configure_external_dependencies.sh > ${BUILD_DIR}/configure_external_dependencies.sh 2>>${ERROR_FILE}
-    tr -d '\r' < create_bp_release.sh > ${BUILD_DIR}/create_bp_release.sh 2>>${ERROR_FILE}
-	tr -d '\r' < plugin_customization.ini > ${BUILD_DIR}/plugin_customization.ini 2>>${ERROR_FILE}
-    chmod a+x ${BUILD_DIR}/configure_external_dependencies.sh 2>>${ERROR_FILE}
-    chmod a+x ${BUILD_DIR}/create_bp_release.sh 2>>${ERROR_FILE}
-	chmod a+x ${BUILD_DIR}/plugin_customization.ini 2>>${ERROR_FILE}
-	chmod -R g+w ${BUILD_DIR}
+    tr -d '\r' < configure_external_dependencies.sh > ${build_dir}/configure_external_dependencies.sh 2>>${error_file}
+    tr -d '\r' < create_bp_release.sh > ${build_dir}/create_bp_release.sh 2>>${error_file}
+	tr -d '\r' < plugin_customization.ini > ${build_dir}/plugin_customization.ini 2>>${error_file}
+    chmod a+x ${build_dir}/configure_external_dependencies.sh 2>>${error_file}
+    chmod a+x ${build_dir}/create_bp_release.sh 2>>${error_file}
+	chmod a+x ${build_dir}/plugin_customization.ini 2>>${error_file}
+	chmod -R g+w ${build_dir}
 	
 	echo -e "Exiting configure_build_process.sh::configure_build_files"
 }
@@ -29,53 +25,53 @@ function configure_build_files {
 function configure_installer_files {
 	echo -e "Entering configure_build_process.sh::configure_installer_files"
 	
-	cd ${STAGING_AREA}
-	rm -rf installer_extras 2>>${ERROR_FILE}
+	cd ${staging_area}
+	rm -rf installer_extras 2>>${error_file}
 	mkdir -p installer_extras
-    rm -rf BridgePoint_e${eclipse_ver} 2>>${ERROR_FILE}
-    rm -rf BridgePoint_for_Linux_e${eclipse_ver} 2>>${ERROR_FILE}
+    rm -rf BridgePoint_e${eclipse_ver} 2>>${error_file}
+    rm -rf BridgePoint_for_Linux_e${eclipse_ver} 2>>${error_file}
     
-    cd ${GIT_REPO_ROOT}/packaging/install_bases
-    cp -rf BridgePoint_e${eclipse_ver} ${STAGING_AREA} 2>>${ERROR_FILE}
-    cp -rf BridgePoint_for_Linux_e${eclipse_ver} ${STAGING_AREA} 2>>${ERROR_FILE}
+    cd ${git_repo_root}/packaging/install_bases
+    cp -rf BridgePoint_e${eclipse_ver} ${staging_area} 2>>${error_file}
+    cp -rf BridgePoint_for_Linux_e${eclipse_ver} ${staging_area} 2>>${error_file}
 	
-    cd ${GIT_BP}/src/${install_project}
+    cd ${git_bp}/src/${install_project}
     
     # First set up the extra files used by the installer
-    cp -f splash.bmp ${installer_extras} 2>>${ERROR_FILE}
-    cp -f bp.ico ${installer_extras} 2>>${ERROR_FILE}
-    cp -f 1F.png ${installer_extras} 2>>${ERROR_FILE}
-    cp -f TARGET_WINDOWS.txt ${installer_extras} 2>>${ERROR_FILE}
-    cp -f TARGET_LINUX.txt ${installer_extras} 2>>${ERROR_FILE}
-    cp -f install_linux.xml ${installer_extras} 2>>${ERROR_FILE}
-    cp -f install_windows.xml ${installer_extras} 2>>${ERROR_FILE}
-    cp -f welcome.html ${installer_extras} 2>>${ERROR_FILE}
-    cp -f done.html ${installer_extras} 2>>${ERROR_FILE}
-    cp -f shortcutSpec.xml ${installer_extras} 2>>${ERROR_FILE}
-    cp -f post_install_script.bat ${installer_extras} 2>>${ERROR_FILE}
-    tr -d '\r' < post_install_script.sh > ${installer_extras}/post_install_script.sh 2>>${ERROR_FILE}
+    cp -f splash.bmp ${installer_extras} 2>>${error_file}
+    cp -f bp.ico ${installer_extras} 2>>${error_file}
+    cp -f 1F.png ${installer_extras} 2>>${error_file}
+    cp -f TARGET_WINDOWS.txt ${installer_extras} 2>>${error_file}
+    cp -f TARGET_LINUX.txt ${installer_extras} 2>>${error_file}
+    cp -f install_linux.xml ${installer_extras} 2>>${error_file}
+    cp -f install_windows.xml ${installer_extras} 2>>${error_file}
+    cp -f welcome.html ${installer_extras} 2>>${error_file}
+    cp -f done.html ${installer_extras} 2>>${error_file}
+    cp -f shortcutSpec.xml ${installer_extras} 2>>${error_file}
+    cp -f post_install_script.bat ${installer_extras} 2>>${error_file}
+    tr -d '\r' < post_install_script.sh > ${installer_extras}/post_install_script.sh 2>>${error_file}
 
-    tr -d '\r' < build_installer_bp.sh > ${BUILD_DIR}/build_installer_bp.sh 2>>${ERROR_FILE}
-    chmod a+x ${BUILD_DIR}/build_installer_bp.sh
+    tr -d '\r' < build_installer_bp.sh > ${build_dir}/build_installer_bp.sh 2>>${error_file}
+    chmod a+x ${build_dir}/build_installer_bp.sh
 
     # Next set up the windows files
-    cp -f Launcher.bat ${eclipse_deliverables}/eclipse 2>>${ERROR_FILE}
-    cp -f CLI.bat ${eclipse_deliverables}/eclipse 2>>${ERROR_FILE}
+    cp -f Launcher.bat ${eclipse_deliverables}/eclipse 2>>${error_file}
+    cp -f CLI.bat ${eclipse_deliverables}/eclipse 2>>${error_file}
     mkdir -p ${bp_deliverables}/tools
-    cp -f create_shortcut.vbs ${bp_deliverables}/tools 2>>${ERROR_FILE}
+    cp -f create_shortcut.vbs ${bp_deliverables}/tools 2>>${error_file}
 
     # Next set up the linux files
     # Copy files and do the dos2unix translation.
-    tr -d '\r' < Launcher.sh > ${eclipse_deliverables_linux}/eclipse/Launcher.sh 2>>${ERROR_FILE}
-    tr -d '\r' < CLI.sh > ${eclipse_deliverables_linux}/eclipse/CLI.sh 2>>${ERROR_FILE}
+    tr -d '\r' < Launcher.sh > ${eclipse_deliverables_linux}/eclipse/Launcher.sh 2>>${error_file}
+    tr -d '\r' < CLI.sh > ${eclipse_deliverables_linux}/eclipse/CLI.sh 2>>${error_file}
 
 	# Add in the Windows fontchecker
-    cd ${GIT_BP}/${utilities_project}/fontchecker/Release
+    cd ${git_bp}/${utilities_project}/fontchecker/Release
     mkdir -p ${bp_deliverables}/tools/fontchecker
-    cp -f font_list.txt ${bp_deliverables}/tools/fontchecker/font_list.txt 2>>${ERROR_FILE}
-    cp -f fontchecker.exe ${bp_deliverables}/tools/fontchecker/fontchecker.exe 2>>${ERROR_FILE}
+    cp -f font_list.txt ${bp_deliverables}/tools/fontchecker/font_list.txt 2>>${error_file}
+    cp -f fontchecker.exe ${bp_deliverables}/tools/fontchecker/fontchecker.exe 2>>${error_file}
     
-    chmod -R g+w ${STAGING_AREA}
+    chmod -R g+w ${staging_area}
     
 	echo -e "Exiting configure_build_process.sh::configure_installer_files"
 }
@@ -85,32 +81,52 @@ function configure_installer_files {
 #-------------------------------------------------------------------------------
 date
 
-git_workspace_setup="${GIT_BP}/doc-bridgepoint/process/development-workspace-setup"
+# Verify parameters
+if [ "$#" -lt 4 ]; then
+  echo "This script requires two parameters.  See below for usage."
+  echo
+  echo "configure_build_process.sh Build_Dir Git_repo_root Error_file Staging_area"
+  echo ""
+  echo "  Build_Dir - path to folder where the build is taking place"
+  echo "  Git_repo_root - path to local root of all git repositories"
+  echo "  Error_file - name of the file where errors are logged"
+  echo "  Staging_area - path to the folder where we stage files to be packaged for installation"
+  echo ""
+  exit 1
+fi 
+
+build_dir="$1"
+git_repo_root="$2"
+error_file="$3"
+staging_area="$4"
+
+git_bp="${git_repo_root}/bridgepoint"
+git_workspace_setup="${git_bp}/doc-bridgepoint/process/development-workspace-setup"
 install_project="installer"
 utilities_project="utilities"
 mc_project="org.xtuml.bp.mc.c.binary"
 mcjava_project="org.xtuml.bp.mc.java.source"
 eclipse_ver="3.7"
 
-echo -e "Entering configure_build_process.sh   BUILD_DIR=${BUILD_DIR} BRANCH=${BRANCH} GIT_REPO_ROOT=${GIT_REPO_ROOT} BUILD_TYPE=${BUILD_TYPE}"
+echo -e "Entering configure_build_process.sh   build_dir=${build_dir} git_repo_root=${git_repo_root}"
 #
 # The following folders are used to stage the files required by the installer
 #
-bp_deliverables="${STAGING_AREA}/BridgePoint_e${eclipse_ver}/BridgePointDeliverables"
+bp_deliverables="${staging_area}/BridgePoint_e${eclipse_ver}/BridgePointDeliverables"
 mkdir -p ${bp_deliverables}
-bp_deliverables_linux="${STAGING_AREA}/BridgePoint_for_Linux_e${eclipse_ver}/BridgePointDeliverables"
+bp_deliverables_linux="${staging_area}/BridgePoint_for_Linux_e${eclipse_ver}/BridgePointDeliverables"
 mkdir -p ${bp_deliverables_linux}
-installer_extras="${STAGING_AREA}/installer_extras"
+installer_extras="${staging_area}/installer_extras"
 mkdir -p ${installer_extras}
 
-eclipse_deliverables="${STAGING_AREA}/BridgePoint_e${eclipse_ver}/EclipseDeliverables"
-eclipse_deliverables_linux="${STAGING_AREA}/BridgePoint_for_Linux_e${eclipse_ver}/EclipseDeliverables"
+eclipse_deliverables="${staging_area}/BridgePoint_e${eclipse_ver}/EclipseDeliverables"
+eclipse_deliverables_linux="${staging_area}/BridgePoint_for_Linux_e${eclipse_ver}/EclipseDeliverables"
 
-cd ${BUILD_DIR}
+cd ${build_dir}
 configure_build_files
 configure_installer_files
 
-cd ${BUILD_DIR}
+cd ${build_dir}
 
 echo -e "Exiting configure_build_process.sh"
 
