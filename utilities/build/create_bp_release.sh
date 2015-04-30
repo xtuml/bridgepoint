@@ -1,17 +1,11 @@
 #!/bin/bash
-#
-#	create_bp_release.sh requires the following environment variables
-#
-#   ${BRANCH} - product version, actually this is any BRANCH/tag found in git
-#   ${GIT_REPO_ROOT} - git repository root
-#   ${BUILD_TYPE} - build type (release/nonrelease)
-#
+
 #-------------------------------------------------------------------------------
 # Functions
 #-------------------------------------------------------------------------------
 
 function configure_module_lists {
-    cd ${GIT_BP}/src
+    cd ${git_bp}/src
     
     feature_file_list=$(find . -name "feature.xml")
 
@@ -29,7 +23,7 @@ function configure_module_lists {
 function jar_distribution {
 	echo -e "Entering create_bp_release.sh::jar_distribution"    
 
-    cd ${GIT_BP}/src
+    cd ${git_bp}/src
 
     echo -e "Creating a jar of each project"
 
@@ -46,14 +40,14 @@ function jar_distribution {
                 if [ ! -d ${file} ]; then
                     mod_dir=`dirname ${file}`
                     echo -e "      mod_dir=${mod_dir}"
-                    echo -e "      Copying $file to ${GIT_BP}/src/${module}/bin/${mod_dir}"
-                    cp $file ${GIT_BP}/src/${module}/bin/${mod_dir}
+                    echo -e "      Copying $file to ${git_bp}/src/${module}/bin/${mod_dir}"
+                    cp $file ${git_bp}/src/${module}/bin/${mod_dir}
                 fi
                 echo -e "      ready to look for next file"
             done
             echo -e "    Finished looping."
 
-            cd ${GIT_BP}/src/${module}/bin
+            cd ${git_bp}/src/${module}/bin
 
             jar_name=`grep -e "^source.*jar =" ../build.properties | awk '/^source/,/ =/ { sub("source.", ""); print $1;}' -`
             echo -e "    jar file name is ${jar_name}"
@@ -63,7 +57,7 @@ function jar_distribution {
             echo -e "  Skipping jar creation for ${module}"
         fi
         
-        cd ${GIT_BP}/src        
+        cd ${git_bp}/src        
     done
 	echo -e "Exiting create_bp_release.sh::jar_distribution"    
 }
@@ -74,7 +68,7 @@ function zip_distribution {
 	echo -e "Entering create_bp_release.sh::zip_distribution"    
     jar_distribution
 
-    cd ${GIT_BP}/src
+    cd ${git_bp}/src
 
     echo -e "Zipping the distribution"
 
@@ -96,42 +90,38 @@ function zip_distribution {
         # Update the timestamp in the build ID
         if [ -e ${module}/about.mappings ]; then
             internal_version=""
-            if [ "${BRANCH}" != "master" ]; then
-                internal_version="${BRANCH}"
+            if [ "${branch}" != "master" ]; then
+                internal_version="${branch}"
             fi
-            echo -e "0=${module_release_version} ${internal_version}\n1=${TIMESTAMP}\n" > ${module}/about.mappings
+            echo -e "0=${module_release_version} ${internal_version}\n1=${timestamp}\n" > ${module}/about.mappings
         fi
 
-        mkdir ${BUILD_DIR}/plugins/${module}_${module_release_version}
+        mkdir -p ${build_dir}/plugins/${module}_${module_release_version}
 
         copy_included_files ${module} plugins ${module}_${module_release_version}
-        cd ${GIT_BP}/src
+        cd ${git_bp}/src
         
-        mv $module/bin/*.jar ${BUILD_DIR}/plugins/${module}_${module_release_version} > /dev/null 2>&1
+         cp -f $module/bin/*.jar ${build_dir}/plugins/${module}_${module_release_version} > /dev/null 2>&1
     done
 
     create_all_features
 
-    cd ${BUILD_DIR}
-    mkdir ${RESULT_FOLDER_EXTENSION}/eclipse
-    touch ${RESULT_FOLDER_EXTENSION}/eclipse/.eclipseextension
-    cp -Rd features ${RESULT_FOLDER_EXTENSION}/eclipse
-    cp -Rd plugins ${RESULT_FOLDER_EXTENSION}/eclipse
+    cd ${build_dir}
+    mkdir -p ${site_result_dir}/eclipse
+    cp -Rd features ${site_result_dir}/eclipse
+    cp -Rd plugins ${site_result_dir}/eclipse
 
     jar_specific_plugins
 
-    # Include org.antlr packages in zipped distribuition
-    cp -Rd ${GIT_BP}/src/org.antlr_2.7.2 ${RESULT_FOLDER_EXTENSION}/eclipse/plugins
-
-    cd ${RESULT_FOLDER_EXTENSION}/..
-    zip -r BridgePoint_extension_${BRANCH}.zip BridgePoint_${BRANCH} > ${pkg_log_dir}/BridgePoint_extension_${BRANCH}_zip.log 2>&1
-	rm -rf BridgePoint_${BRANCH}
+    cd ${site_result_dir}/..
+    zip -r BridgePoint_extension_${branch}.zip BridgePoint_${branch} > ${pkg_log_dir}/BridgePoint_extension_${branch}_zip.log 2>&1
+	rm -rf BridgePoint_${branch}
 	echo -e "Exiting create_bp_release.sh::zip_distribution"    
 }
 
 function jar_specific_plugins {
-	echo -e "Entering create_bp_release.sh::jar_specific_plugins"    
-    cd ${RESULT_FOLDER_EXTENSION}/eclipse/plugins
+    echo -e "Entering create_bp_release.sh::jar_specific_plugins"    
+    cd ${site_result_dir}/eclipse/plugins
     for jarplugin in ${plugins_to_jar}; do
       jar_plugin_fullname="${jarplugin}_${release_version}"
       echo -e "Converting ${jar_plugin_fullname} to a jar file."
@@ -142,40 +132,20 @@ function jar_specific_plugins {
       cd ../
       rm -rf "${jar_plugin_fullname}"      
     done
-    cd ${BUILD_DIR}
-	echo -e "Exiting create_bp_release.sh::jar_specific_plugins"    
-}
-
-function create_build {
-	echo -e "Entering create_bp_release.sh::create_build"
-	
-    cd $BUILD_DIR
-
-    # Can do the copy and dos2unix translation in one step.
-	tr -d '\r' < ${GIT_BP}/utilities/build/headless_build.sh > headless_build.sh
-	chmod a+x headless_build.sh
-    ./headless_build.sh
-    RETVAL=$?
-    # TODO - we'll re-enable this check when headless_build stops reporting errors
-	#if [ $RETVAL -eq 0 ]; then
-		# if the headless_build failed
-		# do not perform zipping
-		zip_distribution
-	#fi
-        
-	echo -e "Exiting create_bp_release.sh::create_build"
+    cd ${build_dir}
+    echo -e "Exiting create_bp_release.sh::jar_specific_plugins"    
 }
 
 function copy_included_files {
-	echo -e "Entering create_bp_release.sh::copy_included_files"
+    echo -e "Entering create_bp_release.sh::copy_included_files"
 	
     # This function copies all files listed in a plugin's
     # bin.includes variable from its build.properties file
     #
     # args: 1 = module 2 = parent folder (features or plugins) 3 = destination folder
     echo -e "  copying files: ${1} to ${2}/${3}"
-    if [ ! -d ${BUILD_DIR}/${2}/${3} ]; then
-      mkdir ${BUILD_DIR}/${2}/${3}
+    if [ ! -d ${build_dir}/${2}/${3} ]; then
+      mkdir -p ${build_dir}/${2}/${3}
     fi
     if [ -e ${1}/build.properties ]; then
 	  include_files=$(echo -e "\n" | cat ${1}/build.properties - | awk '{if (/bin.includes = /) {print $3; getline; while (! /=/) {print $1; if (getline != 1) break;}}}' - | tr -d '\\\\' | tr -d ',' | tr -d '\r')
@@ -185,13 +155,13 @@ function copy_included_files {
         if [ "${file}" = "." ]; then
           # Special handling for plugins that will be packaged as jars
           file="bin/org/"
-          cp -Rd ${file} ${BUILD_DIR}/${2}/${3}/
+          cp -Rd ${file} ${build_dir}/${2}/${3}/
           plugins_to_jar="${plugins_to_jar} ${1}"
         else
           if [ -d ${file} ]; then
-            cp --parents -Rd ${file} ${BUILD_DIR}/${2}/${3}/
+            cp --parents -Rd ${file} ${build_dir}/${2}/${3}/
           else
-            cp --parents ${file} ${BUILD_DIR}/${2}/${3}/ > /dev/null 2>&1
+            cp --parents ${file} ${build_dir}/${2}/${3}/ > /dev/null 2>&1
           fi
         fi        
       done
@@ -200,7 +170,7 @@ function copy_included_files {
 	  exclude_files=$(echo -e "\n" | cat ${1}/build.properties - | awk '{if (/bin.excludes = /) {print $3; getline; while (! /=/) {print $1; if (getline != 1) break;}}}' - | tr -d '\\\\' | tr -d ',' | tr -d '\r')
 
       for file in ${exclude_files}; do
-        rm -rf ${BUILD_DIR}/${2}/${3}/${file}
+        rm -rf ${build_dir}/${2}/${3}/${file}
       done
 
     fi
@@ -210,7 +180,7 @@ function copy_included_files {
 function create_all_features {
 	echo -e "Entering create_bp_release.sh::create_all_features"
 	
-    cd ${GIT_BP}/src
+    cd ${git_bp}/src
 
     echo -e "Processing features: ${feature_modules}"
     for feature in $feature_modules; do
@@ -219,7 +189,7 @@ function create_all_features {
       feature_less=$(echo $feature | sed s/"-feature"//)
 
       copy_included_files $feature features ${feature_less}_${feature_version}
-      cd ${GIT_BP}/src
+      cd ${git_bp}/src
     done
 	echo -e "Exiting create_bp_release.sh::create_all_features"
 }
@@ -232,55 +202,55 @@ echo -e "Entering create_bp_release.sh"
 
 date
 
-pkg_log_dir="${LOG_DIR}/pkg_logs"
+if [ "$#" -lt 6 ]; then
+  echo "This script has required parameters.  See below for usage."
+  echo
+  echo "create_bp_release.sh Build_dir Branch_name Git_BP Log_dir Timestamp Site_result_dir"
+  echo ""
+  echo "  Build_dir - path to the folder where the build is happening"
+  echo "  Branch_name - product version, any branch/tag found in git"
+  echo "  Git_BP - path to BridgePoint git repository"
+  echo "  Log_dir - path to the folder where logs are stored"
+  echo "  Timestamp - the timestamp to apply to the build IDs"
+  echo "  Site_result_dir - path to folder where the update site data is packaged"
+  echo ""
+  exit 1
+fi 
+
+build_dir="$1"
+branch="$2"
+git_bp="$3"
+log_dir="$4"
+timestamp="$5"
+site_result_dir="$6"
+
+pkg_log_dir="${log_dir}/pkg_logs"
 
 feature_modules=""
 plugin_modules=""
 plugins_to_jar=""
 
 if [ ! -x $pkg_log_dir ]; then
-	echo -e "Creating package log directory: $pkg_log_dir"
-	mkdir ${pkg_log_dir}
+  echo -e "Creating package log directory: $pkg_log_dir"
+  mkdir -p ${pkg_log_dir}
 fi
 
-if [ ! -x $BUILD_DIR/plugins ]; then
-    echo -e "Creating plugin directory: ${BUILD_DIR}/plugins"
-    mkdir ${BUILD_DIR}/plugins
+if [ ! -x ${build_dir}/plugins ]; then
+  echo -e "Creating plugin directory: ${build_dir}/plugins"
+  mkdir -p ${build_dir}/plugins
 fi
 
-if [ ! -x ${BUILD_DIR}/features ]; then
-	echo -e "Creating feature directory: ${BUILD_DIR}/features"
-	mkdir ${BUILD_DIR}/features
+if [ ! -x ${build_dir}/features ]; then
+  echo -e "Creating feature directory: ${build_dir}/features"
+  mkdir -p ${build_dir}/features
 fi
 
-# Set the environment variable, PTC_MCC_DISABLED to true so that consistency 
-# checking is not built
-export PTC_MCC_DISABLED=true
-
-release_version=`awk -F"\"" '{if (/ersion.*\=.*[0-9]\.[0-9]\.[0-9]/) {print $2; exit;}}' ${GIT_BP}/src/org.xtuml.bp.pkg/plugin.xml`
+release_version=`awk -F"\"" '{if (/ersion.*\=.*[0-9]\.[0-9]\.[0-9]/) {print $2; exit;}}' ${git_bp}/src/org.xtuml.bp.pkg/plugin.xml`
 
 # Set up the lists of features and plug-ins
 configure_module_lists
 
-# Kick off the build chain
-create_build
-
-echo -e "\nBuild complete, installation can be found at ${RESULT_FOLDER}/BridgePoint_extension_${BRANCH}.zip\n"
-
-# Check for errors, if found report them.  Note that the log file is moved after this script runs, 
-# hence the different paths for where we grep and where we report the user to look.
-grep -c -i -w "Error" ${BUILD_LOG}
-error_count=$?
-if [ ${error_count} -ne 1 ]; then
-    echo -e "Errors found in the output log. Check ${BUILD_LOG}." >> ${ERROR_FILE}
-fi
-
-if [ -f $ERROR_FILE ]; then
-    echo -e "Errors found during release creation:\n\n\n"
-    cat $ERROR_FILE
-fi
-
-date
+zip_distribution
 
 echo -e "Exiting create_bp_release.sh"
 
