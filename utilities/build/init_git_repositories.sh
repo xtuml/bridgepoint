@@ -42,7 +42,10 @@ init_repository ()
   git fetch --prune
   
   # Just to be safe, discard any local changes before we try to switch branches.
-  git reset --hard HEAD
+  # Note: I am removing this because while it may seem "safe" for the build we
+  #       have to consider developers using this script.  This will wipe up their
+  #       local changes.
+  # git reset --hard HEAD
 
   # Switch to the desired branch.  First see if we've used it before.  If not,
   # then get it from the remote.
