@@ -10,7 +10,7 @@
     
 Installation <a id="installation"></a>
 ------------
-  * Errors During Unzip<a id="unziperrors"></a>
+  * Errors During Unzip  <a id="unziperrors"></a>  
   When unzipping the BridgePoint distribution if you see a message that indicates a duplicate file is 
   being installed or there missing files in the distribution, the problem is likely with the 
   unzip utility you are using.  We suggest you use [7-Zip](http://www.7-zip.org/download.html).
@@ -31,8 +31,7 @@ BridgePoint Developer Issues <a id="bpdevelopers"></a>
   - Right click on bp.als/generate.xml and choose Run As...
   - Uncheck everything
   - Check grammar
-  - Click Run  
-  '''  
+  - Click Run'''  
   This problem is that ANTRL is not running when it should in some cases. This is a sporatic dependancy 
   issue that has not yet been completly resolved.  It is raised in the issue tracking system as 
   issue [7631](https://support.onefact.net/redmine/issues/7631).
@@ -47,7 +46,8 @@ BridgePoint Developer Issues <a id="bpdevelopers"></a>
       * Debian Wheezy:  
         ```$ sudo apt-get install ia32-libs ia32-libs-gtk libgtk2.0-0 lib32ncurses5 ant git```
   
-* Windows Test Configuration  <a id="windowstesting"></a>
+* Windows Unit Test Configuration  <a id="windowstesting"></a>  
+  This is used when runnning unit tests under Windows.  These instructions are used to prepare the Windows environment to run graphical compare tests.  If you do not want or need to run graphical compare tests, you do not have to perform these stpes, but some BridgePoint unit tests will fail in Windows if you do not perform these steps.
   - Configure Windows Vista or 7 for unit test running.   Skip this step for other OSes.
     - Exit BridgePoint
     - Bring up the Windows Color and Appearance settings
