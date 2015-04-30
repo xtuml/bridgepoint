@@ -26,7 +26,7 @@ BridgePoint Developer Issues <a id="bpdevelopers"></a>
   - Open a terminal (or cygwin shell if windows)
   - Open the Navigator view in eclipse
   - Delete org.xtuml.bp.als/sql/oal_grammar.sql
-  - "touch" <installation folder>/BridgePoint/eclipse/plugins/org.xtuml.bp.als.oal/bnf/oal.bnf
+  - "touch" \<installation folder\>/BridgePoint/eclipse/plugins/org.xtuml.bp.als.oal/bnf/oal.bnf
     - (just change a comment)
   - Right click on org.xtuml.bp.als/generate.xml and choose ```Run As... > Ant Build...```
   - Uncheck everything
@@ -38,9 +38,9 @@ BridgePoint Developer Issues <a id="bpdevelopers"></a>
   issue [7631](https://support.onefact.net/redmine/issues/7631).
   
 * Linux Distribution-Specific Instructions <a id="linux"></a>
-  * Package Requirements for various Linux Distributions  
+  * Package Requirements for Various Linux Distributions  
     The BridgePoint [Developer's Getting Started Instructions](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/Developer%20Getting%20Started%20Guide.md) 
-    has instructions specifically for Linux Ubuntu. Here are package requirements for some other Linux Distributions.  
+    has instructions specifically for Linux Ubuntu. Here are package requirements for some other Linux distributions.  
       * Fedora 19:  
         ```$ sudo yum install wine gcc-c++  dos2unix compat-libstdc++-33 gtk2.i686 ant git```
       
