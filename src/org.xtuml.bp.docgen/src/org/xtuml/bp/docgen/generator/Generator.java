@@ -421,21 +421,7 @@ public class Generator extends Task {
         }
 
         IFileSystem fileSystem = EFS.getLocalFileSystem();
-        
-        // move docgen into the same folder as docbook.xsl.  This is done because docgen.xsl includes docbook.xsl and
-        // for that include to be resolved we have to have one of 3 things:
-        // 1) docgen.xsl and docbooks.csl are in the same folder (this is what we have done)
-        // 2) Use the xsltproc --path option to add a path for docbook.xsl
-        //    Note: This was preferred, but failed because at runtime the --path option was seen as an invalid
-        //          option.  this was odd because it works on the command-line, but it does not work, at least in linux,
-        //          at runtime.
-        // 3) modify the include specific in doc.xml to have a full of relative path to docbook.xsl.
-        //    Note: This was the option used prior to v5.0 of the tool.  Version 5.0 removed the post-processing of installation
-        //          that performed this modifiation, so this option is no longer possible, and is was not a desirable option anyway.
-        IFileStore srcxsl = fileSystem.getStore(new File(homedir + DOCGEN_DIR + DOCGEN_XSL).toURI());
-        IFileStore tgtxsl = fileSystem.getStore(new File(docbook_folder + "/" + DOCGEN_XSL).toURI());
-        srcxsl.copy(tgtxsl, EFS.OVERWRITE, null);
-        
+         
         IFileStore[] children = fileSystem.getStore(new File(homedir + DOCGEN_DIR).toURI()).childStores(EFS.NONE, null);
         for (IFileStore child: children) {
             if (child.getName().endsWith(CSSFILE)) {
