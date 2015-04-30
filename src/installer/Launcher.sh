@@ -1,10 +1,8 @@
 #!/bin/bash
 
-# The eclipse directory. The Launcher is expected to be in this folder
-ECLIPSEDIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
-
 # BPHOMEDIR is used at runtime to determine the base installation folder.
-export BPHOMEDIR="$DIR/.."
+# It is the BridgePoint folder.
+export BPHOMEDIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )
 
 # The JVM tested with BridgePoint
 export BP_JVM=$BPHOMEDIR/jre/lib/i386/client/libjvm.so
