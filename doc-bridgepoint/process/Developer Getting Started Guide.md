@@ -3,7 +3,7 @@ This document provides the information required to create a fully functional Bri
 
 Preparation 
 -----------
-1) [This is a link to git documentation that describes working with forks.](https://help.github.com/articles/fork-a-repo/ "fork-a-repo") BridgePoint development requires developers to have a working knowlegde of git and git forks. Throughout this document we will refer to the repositories using the formula: ```https://github.com/"username"/"repository".git``` where "username" is your personal Github user name. (For example: ```https://github.com/keithbrown/bridgepoint.git```)
+1) [This is a link to git documentation that describes working with forks.](https://help.github.com/articles/fork-a-repo/ "fork-a-repo") BridgePoint development requires developers to have a working knowledge of git and git forks. Throughout this document we will refer to the repositories using the formula: ```https://github.com/"username"/"repository".git``` where "username" is your personal Github user name. (For example: ```https://github.com/keithbrown/bridgepoint.git```)
 
 2) This document may be used in Linux or Windows, but its examples use Linux. In Windows, cygwin is used to ease setup. Throughout this document we use "~" in the example path names.  If you are building on Windows replace "~" with  "c:" (or "/cygdrive/c" when using the cygwin shell).  Additionally, for Windows, when the instructions read Launcher.sh, replace with Launcher.bat.
 
@@ -17,7 +17,8 @@ Instructions
 
   - If you do not already have a Github.com account, [create one now.](https://github.com/join)
 
-  - For each of the following git repositories create a fork:
+  - For each of the following git repositories create a fork:  
+    __WARNING!:__ If you already have a fork, [assure your fork is up to date]( https://help.github.com/articles/merging-an-upstream-repository-into-your-fork).
     - https://github.com/xtuml/bridgepoint
     - https://github.com/xtuml/mc
     - https://github.com/xtuml/packaging
@@ -33,20 +34,7 @@ Instructions
     under Linux Ubuntu, the installation commands are presented below.  If installing in a 
     different Linux environment you must use the commands appropriate for your environment.
     ```
-    sudo apt-get install libxtst6:i386  
-    sudo apt-get install libgtk2.0-0:i386  
-    sudo apt-get install gtk2-engines:i386  
-    sudo apt-get install gtk2-engines-*:i386  
-    sudo apt-get install --reinstall unity-gtk2-module:i386  
-    sudo apt-get install libgtkmm-2.4-1c2:i386  
-    sudo apt-get install libcanberra-gtk-module:i386  
-    sudo apt-get install tofrodos   
-    sudo apt-get install wine  
-    sudo apt-get install libstdc++5  
-    sudo apt-get install g++  
-    sudo apt-get install ant  
-    sudo apt-get install git  
-    sudo apt-get install default-jdk  
+    sudo apt-get install libxtst6:i386 libgtk2.0-0:i386 gtk2-engines:i386 gtk2-engines-*:i386 --reinstall unity-gtk2-module:i386 libgtkmm-2.4-1c2:i386 libcanberra-gtk-module:i386 tofrodos wine libstdc++5 g++ ant git default-jdk  
     ```
     - __WINDOWS__
       - Perl ([We recommend strawberry perl.](http://strawberryperl.com/ "strawberry perl"))
@@ -85,8 +73,8 @@ Instructions
   - Switch to the git repository perspective and add the repositories that were cloned above.
   
   - Import existing projects from the BridgePoint repository into your workspace.
-    - __WARNING!: Ensure "Search for nested projects" is Unchecked.__
-    - __WARNING!: Only import the BridgePoint projects. The other repositories are not needed for build.__
+    - __WARNING!:__ Ensure "Search for nested projects" is Unchecked.
+    - __WARNING!:__ Import all projects from this bridgepoint repository, but do NOT import any projects from the other repositories.  Only projects from bridgepoint are needed in the workspace.
 
   - Switch to the Java perspective
     - Close these projects (Right click on the project, select Close Project):

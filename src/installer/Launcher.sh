@@ -1,16 +1,15 @@
 #!/bin/bash
-# This command gets the location of the directory that holds this script.  We
-# use this to set up the rest of the paths for launching.  If you want to copy
-# this script elsewhere, you should modify BPHOMEDIR to explicitly set the 
-# location where BridgePoint is installed to.
-DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
-BPHOMEDIR="$DIR/.."
 
-#
-# DO NOT MODIFY ANY OF THE FOLLOWING LINES.
-#
-export GDK_NATIVE_WINDOWS=true
+# BPHOMEDIR is used at runtime to determine the base installation folder.
+# It is the BridgePoint folder.
+export BPHOMEDIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )
+
+# The JVM tested with BridgePoint
 export BP_JVM=$BPHOMEDIR/jre/lib/i386/client/libjvm.so
+
+# GDK_NATIVE_WINDOWS=1 simply makes sure that every GDK window gets its native 
+# X window, making problematic applications work better.
+export GDK_NATIVE_WINDOWS=true
 
 $BPHOMEDIR/eclipse/eclipse -vm $BP_JVM $1 $2 $3 $4 $5 $6 $7 $8 $9
 
