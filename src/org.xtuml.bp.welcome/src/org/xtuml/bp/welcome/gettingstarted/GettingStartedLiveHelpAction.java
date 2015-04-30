@@ -33,8 +33,9 @@ public class GettingStartedLiveHelpAction implements ILiveHelpAction {
 				action.run(null, props);
                 
                 Shell helpShell = Display.getCurrent().getActiveShell();
-                if (! helpShell.isDisposed())
+                if (helpShell != null && ! helpShell.isDisposed()) {
                     helpShell.forceActive();
+                }
 			}
     	});
 	}
