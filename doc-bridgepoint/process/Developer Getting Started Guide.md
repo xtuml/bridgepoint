@@ -85,8 +85,8 @@ Instructions
 
   - The build will take a while and should finish successfully
 
-### [Additional Instructions specific to MS Windows](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/FAQ.md#windowstesting) 
-
 ### Congratulations!  Your environment is now built and ready for BridgePoint development.
 
   - [If you had any build problems get help here.](#help)
+  - [If you want to run unit tests on MS Windows you must perform some additional steps described here.](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/FAQ.md#windowstesting) 
+
