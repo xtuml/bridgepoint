@@ -60,7 +60,6 @@ function distribute_and_notify {
 	echo -e "WARNING: The build server is not checking for error, you should look at the buildserver workspace before using the build." >> ${MAIL_TEMP}
 	echo -e "" >> ${MAIL_TEMP}
 
-	DOWNLOAD_URL="http://xtuml.org/wp-content/uploads/BridgePoint"
 
         # TODO FIXME: check for errors
 	# Search for errors in the logs
@@ -72,13 +71,14 @@ function distribute_and_notify {
 
 	SERVER_IP=$(dig +short myip.opendns.com @resolver1.opendns.com)
 	SCP_CMD="scp youruser@${SERVER_IP}:${RESULT_FOLDER}/*.zip"
+	DOWNLOAD_URL="http://support.onefact.net/redmine/releases/"
 	
 	echo -e " " >> ${MAIL_TEMP}
 	echo -e "Downloads:" >> ${MAIL_TEMP}
 	echo -e "----------" >> ${MAIL_TEMP}
 	echo -e "You can copy the release via: ${SCP_CMD}" >> ${MAIL_TEMP}
-	echo -e "The Linux release can be downloaded at: ${DOWNLOAD_URL}_${BRANCH}_linux.zip" >> ${MAIL_TEMP}
-        echo -e "The Windows release can be downloaded at: ${DOWNLOAD_URL}_${BRANCH}_windows.zip" >> ${MAIL_TEMP}
+	echo -e "The Linux release can be downloaded at: ${DOWNLOAD_URL}BridgePoint_${BRANCH}_linux.zip" >> ${MAIL_TEMP}
+        echo -e "The Windows release can be downloaded at: ${DOWNLOAD_URL}BridgePoint_${BRANCH}_windows.zip" >> ${MAIL_TEMP}
 	echo -e " " >> ${MAIL_TEMP}
 	
 	rm -rf ${MAIL_TEMP}
