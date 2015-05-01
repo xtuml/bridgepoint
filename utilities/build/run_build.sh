@@ -41,58 +41,49 @@
 #
 function distribute_and_notify {
 	echo -e "Entering run_build.sh::distribute_and_notify"
-	if [ "$1" = "0" ]; then
-	  # TODO: This was the prior implementation.  It needs to be reworked (RSH)
-	  # ${RSH} ${DISTRIBUTION_SERVER} "(cd '${RELEASE_BASE}'; if [ ! -x '${RESULT_FOLDER}' ]; then mkdir '${RESULT_FOLDER}'; fi; cp -f '${RESULT_FOLDER}'/BridgePoint_extension_'${BRANCH}'.zip '${BUILD_RESULT_FOLDER}'/BridgePoint_extension_'${BRANCH}'.zip ; )"
-	  echo -e "Creating dated backup of the build"
-	else
-	  echo -e "create_bp_release.sh returned with a non-zero value ($?)"
-	fi
-	  
-	# Prune similar releases that are five days old.
-	# TODO: This was the prior implementation.  It needs to be reworked
-	# ${RSH} ${DISTRIBUTION_SERVER} "(cd '${RELEASE_BASE}'; find -name '${BRANCH}-*' -mtime 5 -exec rm -rf {} \; ;)"
 	
 	# Build email report
-	
 	echo -e "From: Nightly Build System <issues@onefact.net>" > ${MAIL_TEMP}
-	if [ -s ${ERROR_FILE} ]; then
-	  echo -e "Subject: ERROR - Nightly build report for ${BUILD_TARGET} [#654]"  >> ${MAIL_TEMP}
-	else
-	  echo -e "Subject: Nightly build report for ${BUILD_TARGET} [#654]"  >> ${MAIL_TEMP}
-	fi
+	
+	# TODO FIXME: If there are error report error in the subject
+	echo -e "Subject: Nightly build report for ${BUILD_TARGET} [#654]"  >> ${MAIL_TEMP}
+	
+	BUILD_ADMIN="build@onefact.net,issues@onefact.net"
 	echo -e "To: ${BUILD_ADMIN}" >> ${MAIL_TEMP}
-	echo -e "Nightly build report for: ${BUILD_TARGET}" >> ${MAIL_TEMP}
+	
+	# I blank line need to come after the "To" field or lines get lost
+	echo -e "" >> ${MAIL_TEMP}
+	
+	echo -e "Build report for: ${BUILD_TARGET}" >> ${MAIL_TEMP}
 	echo -e "The files that were used for the nightly build, and the logs of each build are located at: ${BUILD_DIR} on `hostname`" >> ${MAIL_TEMP}
-	
+	echo -e "" >> ${MAIL_TEMP}
+	echo -e "WARNING: The build server is not checking for error, you should look at the buildserver workspace before using the build." >> ${MAIL_TEMP}
+	echo -e "" >> ${MAIL_TEMP}
+
+	DOWNLOAD_URL="http://xtuml.org/wp-content/uploads/BridgePoint"
+
+        # TODO FIXME: check for errors
 	# Search for errors in the logs
-	if [ -s ${ERROR_FILE} ]; then
-	  echo -e "The following was written to the error log:" >> ${MAIL_TEMP}
-	  echo -e "---------------" >> ${MAIL_TEMP}
-	  cat ${ERROR_FILE} >> ${MAIL_TEMP}
-	  echo -e "---------------\n" >> ${MAIL_TEMP}
-	else
-	  echo -e "The Linux release can be downloaded at: ${DOWNLOAD_URL}_linux.jar" >> ${MAIL_TEMP}
-	  echo -e "The Windows release can be downloaded at: ${DOWNLOAD_URL}_windows.jar" >> ${MAIL_TEMP}
-	  
-	  echo -e "\nCHANGELOG:" >> ${MAIL_TEMP}
-	  echo -e "---------------" >> ${MAIL_TEMP}
-	  cat ${DIFF_FILE} >> ${MAIL_TEMP}	  
-	fi
 	
+	# TODO FIXME: Give the changes
+	#echo -e "\nCHANGELOG:" >> ${MAIL_TEMP}
+	#echo -e "---------------" >> ${MAIL_TEMP}
+	#cat ${DIFF_FILE} >> ${MAIL_TEMP}	  
+
 	SERVER_IP=$(dig +short myip.opendns.com @resolver1.opendns.com)
 	SCP_CMD="scp youruser@${SERVER_IP}:${RESULT_FOLDER}/*.zip"
 	
 	echo -e " " >> ${MAIL_TEMP}
+	echo -e "Downloads:" >> ${MAIL_TEMP}
+	echo -e "----------" >> ${MAIL_TEMP}
 	echo -e "You can copy the release via: ${SCP_CMD}" >> ${MAIL_TEMP}
-	echo -e "---------------" >> ${MAIL_TEMP}
 	echo -e "The Linux release can be downloaded at: ${DOWNLOAD_URL}_${BRANCH}_linux.zip" >> ${MAIL_TEMP}
         echo -e "The Windows release can be downloaded at: ${DOWNLOAD_URL}_${BRANCH}_windows.zip" >> ${MAIL_TEMP}
 	echo -e " " >> ${MAIL_TEMP}
-
-	cat ${MAIL_TEMP} | ${MAIL_CMD} ${BUILD_ADMIN}
 	
 	rm -rf ${MAIL_TEMP}
+	cat ${MAIL_TEMP} | ${MAIL_CMD} ${BUILD_ADMIN}
+	
 	echo -e "Exiting run_build.sh::distribute_and_notify"
 }
 
@@ -175,7 +166,6 @@ LOG_DIR="${BUILD_DIR}/log"
 ERROR_FILE="${LOG_DIR}/errors.log"
 DIFF_FILE="${LOG_DIR}/diff.log"
 BUILD_LOG=""${LOG_DIR}/build.log""
-BUILD_ADMIN="build@onefact.net,issues@onefact.net"
 MAIL_CMD="/usr/sbin/ssmtp"
 MAIL_TEMP="mailtemp"
 
@@ -198,13 +188,6 @@ mkdir -p "${RESULT_FOLDER_EXTENSION}"
 
 STAGING_AREA=${BUILD_MOUNT}/staging
 mkdir -p "${STAGING_AREA}"
-
-# 
-# This section defines the external location for the build (the place where
-# customers go to get this release). 
-#
-DOWNLOAD_URL="http://xtuml.org/wp-content/uploads/BridgePoint"
-DISTRIBUTION_SERVER=""
 
 if [ "${package_only}" != "yes" ]; then
   # assure that we are starting with a clean build folder.
@@ -293,7 +276,7 @@ cd  "${BUILD_DIR}"
 bash build_installer_bp.sh ${BRANCH} ${STAGING_AREA} ${RESULT_FOLDER} linux ${bp_release_version} "${UPLOAD_SPEC}" >> ${BUILD_LOG}
 
 # This get called regardless of if we are building or packaging to notify the the build is complete
-if [ -e ${MAIL_CMD} ]; then
+if [ $? != "0" ]; then
   cd  "${BUILD_DIR}"
   distribute_and_notify $? >> ${BUILD_LOG}
 fi 
