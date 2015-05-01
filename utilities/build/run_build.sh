@@ -175,7 +175,7 @@ LOG_DIR="${BUILD_DIR}/log"
 ERROR_FILE="${LOG_DIR}/errors.log"
 DIFF_FILE="${LOG_DIR}/diff.log"
 BUILD_LOG=""${LOG_DIR}/build.log""
-BUILD_ADMIN="build@onefact.net"
+BUILD_ADMIN="build@onefact.net,issues@onefact.net"
 MAIL_CMD="/usr/sbin/ssmtp"
 MAIL_TEMP="mailtemp"
 
