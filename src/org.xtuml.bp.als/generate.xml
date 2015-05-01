@@ -212,18 +212,12 @@
           <fileset dir="${plugins-home}/plugins" casesensitive="yes">
             <include name="**/antlr.jar" />
           </fileset>
-          <fileset dir="${plugins-home}/dropins" casesensitive="yes">
-            <include name="**/antlr.jar" />
-          </fileset>
         </classpath>
     </antlr>
 
     <antlr target="../org.xtuml.bp.als.oal/src/org/xtuml/bp/als/oal/oal_lex.g" >
         <classpath>
           <fileset dir="${plugins-home}/plugins" casesensitive="yes">
-            <include name="**/antlr.jar" />
-          </fileset>
-          <fileset dir="${plugins-home}/dropins" casesensitive="yes">
             <include name="**/antlr.jar" />
           </fileset>
         </classpath>
