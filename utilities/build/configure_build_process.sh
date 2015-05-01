@@ -36,20 +36,7 @@ function configure_installer_files {
     cp -rf BridgePoint_for_Linux_e${eclipse_ver} ${staging_area} 2>>${error_file}
 	
     cd ${git_bp}/src/${install_project}
-    
-    # First set up the extra files used by the installer
-    cp -f splash.bmp ${installer_extras} 2>>${error_file}
     cp -f bp.ico ${installer_extras} 2>>${error_file}
-    cp -f 1F.png ${installer_extras} 2>>${error_file}
-    cp -f TARGET_WINDOWS.txt ${installer_extras} 2>>${error_file}
-    cp -f TARGET_LINUX.txt ${installer_extras} 2>>${error_file}
-    cp -f install_linux.xml ${installer_extras} 2>>${error_file}
-    cp -f install_windows.xml ${installer_extras} 2>>${error_file}
-    cp -f welcome.html ${installer_extras} 2>>${error_file}
-    cp -f done.html ${installer_extras} 2>>${error_file}
-    cp -f shortcutSpec.xml ${installer_extras} 2>>${error_file}
-    cp -f post_install_script.bat ${installer_extras} 2>>${error_file}
-    tr -d '\r' < post_install_script.sh > ${installer_extras}/post_install_script.sh 2>>${error_file}
 
     tr -d '\r' < build_installer_bp.sh > ${build_dir}/build_installer_bp.sh 2>>${error_file}
     chmod a+x ${build_dir}/build_installer_bp.sh
