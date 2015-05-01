@@ -85,32 +85,7 @@ Instructions
 
   - The build will take a while and should finish successfully
 
-Additional Instructions specific to MS Windows
-----------------------------------------------
-  - Configure Windows Vista or 7 for unit test running.   Skip this step for other OSes.
-    - Exit BridgePoint
-    - Bring up the Windows Color and Appearance settings
-      - Right click on the desktop background and select Personalize
-      - In Vista select the Windows Color and Appearance hyperlink
-      - In Windows 7 select the Windows Color hyperlink
-      - In the window that appears, change the following attributes:
-        - Active Title Bar    Size: 25 Font: Trebuchet 10
-        - Border Padding      Size: 0
-        - Caption Buttons     Size: 25
-        - Icon                Size: 32 Font: Tahoma 8
-        - Inactive Title Bar  Size: 25 Font: Trebuchet 10
-        - Menu                Size: 19 Font: Tahoma 8
-        - Message Box                  Font: Tahoma 8
-        - Palette Title       Size: 17 Font: Tahoma 8
-        - Selected Items      Size: 19 Font: Tahoma 8
-        - Tooltip                      Font: Tahoma 8
-    - If you have a smaller screen or resolution potential you may need to
-          configure the start menu to not always be on top, or set it to auto-hide.
-    - Note: Do NOT use the Windows setting that scales text to make it easier to see. 
-              This setting, in Windows 7, is found here:
-              Personalize > Display > "Make it easier to read what is on your machine"
-              That setting must be set to "smaller" 100%
-              It is is adjusted your graphical compare restuls will not match,
+### [Additional Instructions specific to MS Windows](https://github.com/xtuml/bridgepoint/tree/master/doc-bridgepoint/process/#windowstesting) 
 
 ### Congratulations!  Your environment is now built and ready for BridgePoint development.
 
