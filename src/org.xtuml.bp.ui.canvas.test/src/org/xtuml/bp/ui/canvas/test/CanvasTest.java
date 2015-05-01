@@ -112,9 +112,6 @@ public abstract class CanvasTest extends BaseTest {
 
 		// load the expected results for the test being performed
 		String path = m_workspace_path + TestingUtilities.getExpectedResultsPath() + getResultName();
-		if (testGlobals == true) {
-          path = path + "Globals";
-		}
 		path = path + "/";
 		String filename = editor.getModel().getOoa_idLongBased() + "-" + editor.getModel().getModel_type();
 		
