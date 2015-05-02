@@ -276,9 +276,10 @@ if [ ${error_count} -ne 1 ]; then
   echo -e "Errors found in the build output log. Check ${BUILD_LOG}." >> ${ERROR_FILE}
 fi
 
-# This get called regardless of if we are building or packaging to notify the the build is complete
-cd  "${BUILD_DIR}"
-distribute_and_notify  
+if [ "${UPLOAD_SPEC}" != "" ]; then
+  cd  "${BUILD_DIR}"
+  distribute_and_notify  
+fi
 
 date
 echo -e "End of run_build.sh"
