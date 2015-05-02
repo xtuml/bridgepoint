@@ -60,16 +60,17 @@ function distribute_and_notify {
 	END=$(date +%s)
 	DIFF=$(( $END - $START ))
 	BUILD_ADMIN="build@onefact.net,issues@onefact.net"
+	SERVER_IP=$(dig +short myip.opendns.com @resolver1.opendns.com)
+
 	echo -e "To: ${BUILD_ADMIN}" >> ${MAIL_TEMP}
 	# A blank line needs to come after the "To" field or lines get lost
 	echo -e "" >> ${MAIL_TEMP}
 	echo -e "Build report for branch name: ${BRANCH}" >> ${MAIL_TEMP}
 	echo -e "This build took: $((DIFF/60)) minutes" >> ${MAIL_TEMP}
-	echo -e "The workspace for this build is located at: ${BUILD_DIR} on `hostname`" >> ${MAIL_TEMP}
-	echo -e "The complete logs are under ${LOG_DIR} on `hostname`" >> ${MAIL_TEMP}
+	echo -e "The workspace for this build is located at: ${BUILD_DIR} on ${SERVER_IP}" >> ${MAIL_TEMP}
+	echo -e "The complete logs are under ${LOG_DIR} on ${SERVER_IP}" >> ${MAIL_TEMP}
 	echo -e "" >> ${MAIL_TEMP}
 
-	SERVER_IP=$(dig +short myip.opendns.com @resolver1.opendns.com)
 	SCP_CMD="scp youruser@${SERVER_IP}:${RESULT_FOLDER}/*.zip"
 	DOWNLOAD_URL="http://support.onefact.net/redmine/releases"
 
@@ -84,8 +85,10 @@ function distribute_and_notify {
 	scp "${BUILD_LOG}" "${UPLOAD_SPEC}"
 	scp "${ERROR_FILE}" "${UPLOAD_SPEC}"
 	scp "${DIFF_FILE}" "${UPLOAD_SPEC}"
+	scp "${ECLIPE_LOG}" "${UPLOAD_SPEC}"
 	echo -e "Build log: ${DOWNLOAD_URL}/${BL}" >> ${MAIL_TEMP}
 	echo -e "Error log: ${DOWNLOAD_URL}/${EF}" >> ${MAIL_TEMP}
+	echo -e "Eclipse log: ${DOWNLOAD_URL}/${EL}" >> ${MAIL_TEMP}
 	echo -e "GIT change log for the last 2 days for this branch: ${DOWNLOAD_URL}/${DF}" >> ${MAIL_TEMP}
 	echo -e "" >> ${MAIL_TEMP}
 
@@ -180,9 +183,11 @@ LOG_DIR="${BUILD_DIR}/log"
 EF="errors.txt"
 DF="diff.txt"
 BL="build.txt"
+EL=".log"
 ERROR_FILE="${LOG_DIR}/${EF}"
 DIFF_FILE="${LOG_DIR}/${DF}"
 BUILD_LOG="${LOG_DIR}/${BL}"
+ECLIPSE_LOG="${BUILD_DIR}/.metadata/${EL}"
 MAIL_CMD="/usr/sbin/ssmtp"
 TIMESTAMP=`date +%Y%m%d%H%M`
 RELEASE_BASE="${BUILD_MOUNT}/releases"
