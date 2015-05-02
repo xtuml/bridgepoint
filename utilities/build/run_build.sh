@@ -47,7 +47,7 @@ function distribute_and_notify {
 	echo -e "From: Nightly Build System <issues@onefact.net>" > ${MAIL_TEMP}
 	
 	errorlog_not_empty=0
-	if [ -s ${ERROR_FILE } ]; then
+	if [ -s ${ERROR_FILE} ]; then
 	  errorlog_not_empty=1
 	fi
 	if [ $errorlog_not_empty ]; then
@@ -72,9 +72,9 @@ function distribute_and_notify {
 
 	SERVER_IP=$(dig +short myip.opendns.com @resolver1.opendns.com)
 	SCP_CMD="scp youruser@${SERVER_IP}:${RESULT_FOLDER}/*.zip"
-	DOWNLOAD_URL="http://support.onefact.net/redmine/releases/"
+	DOWNLOAD_URL="http://support.onefact.net/redmine/releases"
 
-	if [ [ $errorlog_not_empty ]; then
+	if [ $errorlog_not_empty ]; then
 	  echo -e "ERROR!: The following errors are present in the error log." >> ${MAIL_TEMP}
 	  echo -e "----------------------------------------------------------" >> ${MAIL_TEMP}
 	  cat ${ERROR_FILE} >> ${MAIL_TEMP}
@@ -84,15 +84,15 @@ function distribute_and_notify {
 
 	scp "${BUILD_LOG}" "${UPLOAD_SPEC}"
 	scp "${ERROR_FILE}" "${UPLOAD_SPEC}"
-	echo -e "Build log: ${DOWNLOAD_URL}/${BL}"
-	echo -e "Error log: ${DOWNLOAD_URL}/${EF}"
-	echo -e ""
+	echo -e "Build log: ${DOWNLOAD_URL}/${BL}" >> ${MAIL_TEMP}
+	echo -e "Error log: ${DOWNLOAD_URL}/${EF}" >> ${MAIL_TEMP}
+	echo -e "" >> ${MAIL_TEMP}
 
 	echo -e "Downloads:" >> ${MAIL_TEMP}
 	echo -e "----------" >> ${MAIL_TEMP}
 	echo -e "You can copy these builds directly from the build server: ${SCP_CMD}" >> ${MAIL_TEMP}
-	echo -e "The Linux release can be downloaded at: ${DOWNLOAD_URL}BridgePoint_${BRANCH}_linux.zip" >> ${MAIL_TEMP}
-        echo -e "The Windows release can be downloaded at: ${DOWNLOAD_URL}BridgePoint_${BRANCH}_windows.zip" >> ${MAIL_TEMP}
+	echo -e "The Linux release can be downloaded at: ${DOWNLOAD_URL}/BridgePoint_${BRANCH}_linux.zip" >> ${MAIL_TEMP}
+        echo -e "The Windows release can be downloaded at: ${DOWNLOAD_URL}/BridgePoint_${BRANCH}_windows.zip" >> ${MAIL_TEMP}
 	echo -e " " >> ${MAIL_TEMP}
 	
 	cat ${MAIL_TEMP} | ${MAIL_CMD} "${BUILD_ADMIN}"
@@ -183,32 +183,21 @@ ERROR_FILE="${LOG_DIR}/${EF}"
 DIFF_FILE="${LOG_DIR}/${DF}"
 BUILD_LOG="${LOG_DIR}/${BL}"
 MAIL_CMD="/usr/sbin/ssmtp"
-
 TIMESTAMP=`date +%Y%m%d%H%M`
-
-#
-# This is the location, on the build server, where this build is found
-#
 RELEASE_BASE="${BUILD_MOUNT}/releases"
 BUILD_TARGET="${BRANCH}-${TIMESTAMP}"
 RESULT_FOLDER="${RELEASE_BASE}/${BUILD_TARGET}"
-mkdir -p "${RESULT_FOLDER}"
-
-#
-# This is where the extension result goes
-#
 RESULT_FOLDER_EXTENSION="${RELEASE_BASE}/${BUILD_TARGET}/BridgePoint_${BRANCH}"
-mkdir -p "${RESULT_FOLDER_EXTENSION}"
-
-
 STAGING_AREA=${BUILD_MOUNT}/staging
-mkdir -p "${STAGING_AREA}"
 
 if [ "${package_only}" != "yes" ]; then
   # assure that we are starting with a clean build folder.
   rm -rf ${BUILD_DIR}
 fi
 
+mkdir -p "${RESULT_FOLDER}"
+mkdir -p "${RESULT_FOLDER_EXTENSION}"
+mkdir -p "${STAGING_AREA}"
 mkdir -p "${BUILD_DIR}"
 mkdir -p "${LOG_DIR}"
 mkdir -p "${GIT_REPO_ROOT}"
