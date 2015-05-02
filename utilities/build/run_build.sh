@@ -40,14 +40,14 @@
 # allow the installers to be built.
 #
 function distribute_and_notify {
-	echo -e "Entering run_build.sh::distribute_and_notify"
+	echo -e "Entering run_build.sh::distribute_and_notify" 
 	MAIL_TEMP="mailtemp"
 
 	# Build email report
 	echo -e "From: Nightly Build System <issues@onefact.net>" > ${MAIL_TEMP}
 	
 	errorlog_not_empty=0
-	if [ -s ${ERROR_FILE } ]
+	if [ -s ${ERROR_FILE } ]; then
 	  errorlog_not_empty=1
 	fi
 	if [ $errorlog_not_empty ]; then
@@ -81,7 +81,13 @@ function distribute_and_notify {
 	  echo -e "----------------------------------------------------------" >> ${MAIL_TEMP}
 	  echo -e "" >> ${MAIL_TEMP}
 	fi
-	
+
+	scp "${BUILD_LOG}" "${UPLOAD_SPEC}"
+	scp "${ERROR_FILE}" "${UPLOAD_SPEC}"
+	echo -e "Build log: ${DOWNLOAD_URL}/${BL}"
+	echo -e "Error log: ${DOWNLOAD_URL}/${EF}"
+	echo -e ""
+
 	echo -e "Downloads:" >> ${MAIL_TEMP}
 	echo -e "----------" >> ${MAIL_TEMP}
 	echo -e "You can copy these builds directly from the build server: ${SCP_CMD}" >> ${MAIL_TEMP}
@@ -170,9 +176,12 @@ ALLOW_FALLBACK="yes"
 BUILD_DIR="${BUILD_ROOT}/${BRANCH}"
 WORKSPACE="${BUILD_DIR}"
 LOG_DIR="${BUILD_DIR}/log"
-ERROR_FILE="${LOG_DIR}/errors.log"
-DIFF_FILE="${LOG_DIR}/diff.log"
-BUILD_LOG=""${LOG_DIR}/build.log""
+EF="errors.txt"
+DF="diff.txt"
+BL="build.txt"
+ERROR_FILE="${LOG_DIR}/${EF}"
+DIFF_FILE="${LOG_DIR}/${DF}"
+BUILD_LOG="${LOG_DIR}/${BL}""
 MAIL_CMD="/usr/sbin/ssmtp"
 
 TIMESTAMP=`date +%Y%m%d%H%M`
@@ -262,19 +271,6 @@ fi
 cd  "${BUILD_DIR}"
 bash create_bp_release.sh "${BUILD_DIR}" "${BRANCH}" "${GIT_BP}" "${LOG_DIR}" "${TIMESTAMP}" "${RESULT_FOLDER_EXTENSION}" >> ${BUILD_LOG}
 
-# Check for errors, if found report them.  Note that the log file is moved after this script runs,
-# hence the different paths for where we grep and where we report the user to look.
-grep -c -i -w "Error" ${BUILD_LOG}
-error_count=$?
-if [ ${error_count} -ne 1 ]; then
-  echo -e "Errors found in the output log. Check ${BUILD_LOG}." >> ${ERROR_FILE}
-fi
-
-if [ -f $ERROR_FILE ]; then
-  echo -e "Errors found during release creation:\n\n\n" 
-  cat $ERROR_FILE
-fi
-
 bp_release_version=`awk -F"\"" '{if (/ersion.*\=.*[0-9]\.[0-9]\.[0-9]/) {print $2; exit;}}' ${GIT_BP}/src/org.xtuml.bp.pkg/plugin.xml`
 bash build_installer_bp.sh ${BRANCH} ${STAGING_AREA} ${RESULT_FOLDER} windows ${bp_release_version} "${UPLOAD_SPEC}" >> ${BUILD_LOG}
 cd  "${BUILD_DIR}"
@@ -284,9 +280,15 @@ if [ $? != "0" ]; then
   echo -e "Error! The build_installer_bp.sh script failed." >> ${ERROR_FILE}
 fi
 
+grep -c -i -w "Error" ${BUILD_LOG}
+error_count=$?
+if [ ${error_count} -ne 1 ]; then
+  echo -e "Errors found in the build output log. Check ${BUILD_LOG}." >> ${ERROR_FILE}
+fi
+
 # This get called regardless of if we are building or packaging to notify the the build is complete
 cd  "${BUILD_DIR}"
-distribute_and_notify  >> ${BUILD_LOG}
+distribute_and_notify  
 
 date
 echo -e "End of run_build.sh"
