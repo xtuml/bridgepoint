@@ -181,7 +181,7 @@ DF="diff.txt"
 BL="build.txt"
 ERROR_FILE="${LOG_DIR}/${EF}"
 DIFF_FILE="${LOG_DIR}/${DF}"
-BUILD_LOG="${LOG_DIR}/${BL}""
+BUILD_LOG="${LOG_DIR}/${BL}"
 MAIL_CMD="/usr/sbin/ssmtp"
 
 TIMESTAMP=`date +%Y%m%d%H%M`
