@@ -55,6 +55,11 @@ function distribute_and_notify {
 	else
 	  echo -e "Subject: Nightly build report for ${BUILD_TARGET} [#654]"  >> ${MAIL_TEMP}
 	fi
+
+	# Get the changes from the last 2 days
+	cd ${GIT_BP}
+	git log --name-status --since="2 days ago" >> ${DIFF_FILE}
+	cd "${BUILD_DIR}"
 	
 	END=$(date +%s)
 	DIFF=$(( $END - $START ))
@@ -67,12 +72,6 @@ function distribute_and_notify {
 	echo -e "The workspace for this build is located at: ${BUILD_DIR} on `hostname`" >> ${MAIL_TEMP}
 	echo -e "The complete logs are under ${LOG_DIR} on `hostname`" >> ${MAIL_TEMP}
 	echo -e "" >> ${MAIL_TEMP}
-
-
-	# TODO FIXME: Give the changes
-	#echo -e "\nCHANGELOG:" >> ${MAIL_TEMP}
-	#echo -e "---------------" >> ${MAIL_TEMP}
-	#cat ${DIFF_FILE} >> ${MAIL_TEMP}	  
 
 	SERVER_IP=$(dig +short myip.opendns.com @resolver1.opendns.com)
 	SCP_CMD="scp youruser@${SERVER_IP}:${RESULT_FOLDER}/*.zip"
@@ -88,8 +87,10 @@ function distribute_and_notify {
 
 	scp "${BUILD_LOG}" "${UPLOAD_SPEC}"
 	scp "${ERROR_FILE}" "${UPLOAD_SPEC}"
+	scp "${DIFF_FILE}" "${UPLOAD_SPEC}"
 	echo -e "Build log: ${DOWNLOAD_URL}/${BL}" >> ${MAIL_TEMP}
 	echo -e "Error log: ${DOWNLOAD_URL}/${EF}" >> ${MAIL_TEMP}
+	echo -e "GIT change log for the last 2 days for this branch: ${DOWNLOAD_URL}/${DF}" >> ${MAIL_TEMP}
 	echo -e "" >> ${MAIL_TEMP}
 
 	echo -e "Downloads:" >> ${MAIL_TEMP}
