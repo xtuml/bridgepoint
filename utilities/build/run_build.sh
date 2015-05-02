@@ -41,29 +41,30 @@
 #
 function distribute_and_notify {
 	echo -e "Entering run_build.sh::distribute_and_notify"
-	
+	MAIL_TEMP="mailtemp"
+
 	# Build email report
 	echo -e "From: Nightly Build System <issues@onefact.net>" > ${MAIL_TEMP}
 	
-	# TODO FIXME: If there are error report error in the subject
-	echo -e "Subject: Nightly build report for ${BUILD_TARGET} [#654]"  >> ${MAIL_TEMP}
+	errorlog_not_empty=0
+	if [ -s ${ERROR_FILE } ]
+	  errorlog_not_empty=1
+	fi
+	if [ $errorlog_not_empty ]; then
+	  echo -e "Subject: Error! Nightly build report for ${BUILD_TARGET} [#654]"  >> ${MAIL_TEMP}
+	else
+	  echo -e "Subject: Nightly build report for ${BUILD_TARGET} [#654]"  >> ${MAIL_TEMP}
+	fi
 	
 	BUILD_ADMIN="build@onefact.net,issues@onefact.net"
 	echo -e "To: ${BUILD_ADMIN}" >> ${MAIL_TEMP}
-	
-	# I blank line need to come after the "To" field or lines get lost
+	# A blank line needs to come after the "To" field or lines get lost
 	echo -e "" >> ${MAIL_TEMP}
-	
 	echo -e "Build report for: ${BUILD_TARGET}" >> ${MAIL_TEMP}
-	echo -e "The files that were used for the nightly build, and the logs of each build are located at: ${BUILD_DIR} on `hostname`" >> ${MAIL_TEMP}
-	echo -e "" >> ${MAIL_TEMP}
-	echo -e "WARNING: The build server is not checking for error, you should look at the buildserver workspace before using the build." >> ${MAIL_TEMP}
+	echo -e "The logs for this build are located at: ${BUILD_DIR} on `hostname`" >> ${MAIL_TEMP}
 	echo -e "" >> ${MAIL_TEMP}
 
 
-        # TODO FIXME: check for errors
-	# Search for errors in the logs
-	
 	# TODO FIXME: Give the changes
 	#echo -e "\nCHANGELOG:" >> ${MAIL_TEMP}
 	#echo -e "---------------" >> ${MAIL_TEMP}
@@ -72,17 +73,23 @@ function distribute_and_notify {
 	SERVER_IP=$(dig +short myip.opendns.com @resolver1.opendns.com)
 	SCP_CMD="scp youruser@${SERVER_IP}:${RESULT_FOLDER}/*.zip"
 	DOWNLOAD_URL="http://support.onefact.net/redmine/releases/"
+
+	if [ [ $errorlog_not_empty ]; then
+	  echo -e "ERROR!: The following errors are present in the error log." >> ${MAIL_TEMP}
+	  echo -e "----------------------------------------------------------" >> ${MAIL_TEMP}
+	  cat ${ERROR_FILE} >> ${MAIL_TEMP}
+	  echo -e "----------------------------------------------------------" >> ${MAIL_TEMP}
+	  echo -e "" >> ${MAIL_TEMP}
+	fi
 	
-	echo -e " " >> ${MAIL_TEMP}
 	echo -e "Downloads:" >> ${MAIL_TEMP}
 	echo -e "----------" >> ${MAIL_TEMP}
-	echo -e "You can copy the release via: ${SCP_CMD}" >> ${MAIL_TEMP}
+	echo -e "You can copy these builds directly from the build server: ${SCP_CMD}" >> ${MAIL_TEMP}
 	echo -e "The Linux release can be downloaded at: ${DOWNLOAD_URL}BridgePoint_${BRANCH}_linux.zip" >> ${MAIL_TEMP}
         echo -e "The Windows release can be downloaded at: ${DOWNLOAD_URL}BridgePoint_${BRANCH}_windows.zip" >> ${MAIL_TEMP}
 	echo -e " " >> ${MAIL_TEMP}
 	
-	rm -rf ${MAIL_TEMP}
-	cat ${MAIL_TEMP} | ${MAIL_CMD} ${BUILD_ADMIN}
+	cat ${MAIL_TEMP} | ${MAIL_CMD} "${BUILD_ADMIN}"
 	
 	echo -e "Exiting run_build.sh::distribute_and_notify"
 }
@@ -167,7 +174,6 @@ ERROR_FILE="${LOG_DIR}/errors.log"
 DIFF_FILE="${LOG_DIR}/diff.log"
 BUILD_LOG=""${LOG_DIR}/build.log""
 MAIL_CMD="/usr/sbin/ssmtp"
-MAIL_TEMP="mailtemp"
 
 TIMESTAMP=`date +%Y%m%d%H%M`
 
@@ -265,7 +271,7 @@ if [ ${error_count} -ne 1 ]; then
 fi
 
 if [ -f $ERROR_FILE ]; then
-  echo -e "Errors found during release creation:\n\n\n"
+  echo -e "Errors found during release creation:\n\n\n" 
   cat $ERROR_FILE
 fi
 
@@ -274,15 +280,13 @@ bash build_installer_bp.sh ${BRANCH} ${STAGING_AREA} ${RESULT_FOLDER} windows ${
 cd  "${BUILD_DIR}"
   
 bash build_installer_bp.sh ${BRANCH} ${STAGING_AREA} ${RESULT_FOLDER} linux ${bp_release_version} "${UPLOAD_SPEC}" >> ${BUILD_LOG}
+if [ $? != "0" ]; then
+  echo -e "Error! The build_installer_bp.sh script failed." >> ${ERROR_FILE}
+fi
 
 # This get called regardless of if we are building or packaging to notify the the build is complete
-if [ $? != "0" ]; then
-  cd  "${BUILD_DIR}"
-  distribute_and_notify $? >> ${BUILD_LOG}
-fi 
-chmod -R g+w ${BUILD_DIR}
-chmod -R g+w ${RESULT_FOLDER}
-chmod -R g+w ${GIT_REPO_ROOT}
+cd  "${BUILD_DIR}"
+distribute_and_notify  >> ${BUILD_LOG}
 
 date
 echo -e "End of run_build.sh"
