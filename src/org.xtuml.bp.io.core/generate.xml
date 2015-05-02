@@ -164,9 +164,6 @@
   	    <fileset dir="${plugins-home}/plugins" casesensitive="yes">
   	      <include name="**/antlr.jar" />
   	    </fileset>
-        <fileset dir="${plugins-home}/dropins" casesensitive="yes">
-          <include name="**/antlr.jar" />
-        </fileset>
   	  </classpath>
     </antlr>
 
