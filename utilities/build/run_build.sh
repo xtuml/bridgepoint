@@ -56,12 +56,16 @@ function distribute_and_notify {
 	  echo -e "Subject: Nightly build report for ${BUILD_TARGET} [#654]"  >> ${MAIL_TEMP}
 	fi
 	
+	END=$(date +%s)
+	DIFF=$(( $END - $START ))
 	BUILD_ADMIN="build@onefact.net,issues@onefact.net"
 	echo -e "To: ${BUILD_ADMIN}" >> ${MAIL_TEMP}
 	# A blank line needs to come after the "To" field or lines get lost
 	echo -e "" >> ${MAIL_TEMP}
-	echo -e "Build report for: ${BUILD_TARGET}" >> ${MAIL_TEMP}
-	echo -e "The logs for this build are located at: ${BUILD_DIR} on `hostname`" >> ${MAIL_TEMP}
+	echo -e "Build report for branch name: ${BRANCH}" >> ${MAIL_TEMP}
+	echo -e "This build took: $((DIFF/60)) minutes" >> ${MAIL_TEMP}
+	echo -e "The workspace for this build is located at: ${BUILD_DIR} on `hostname`" >> ${MAIL_TEMP}
+	echo -e "The complete logs are under ${LOG_DIR} on `hostname`" >> ${MAIL_TEMP}
 	echo -e "" >> ${MAIL_TEMP}
 
 
@@ -114,7 +118,7 @@ if [ "$#" -lt 2 ]; then
   exit 1
 fi 
 
-date 
+START=$(date +%s)
 
 BPHOMEDIR="$1"
 if [ "$2" = "/" ]; then
