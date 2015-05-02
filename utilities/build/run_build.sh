@@ -46,11 +46,7 @@ function distribute_and_notify {
 	# Build email report
 	echo -e "From: Nightly Build System <issues@onefact.net>" > ${MAIL_TEMP}
 	
-	errorlog_not_empty=0
 	if [ -s ${ERROR_FILE} ]; then
-	  errorlog_not_empty=1
-	fi
-	if [ $errorlog_not_empty ]; then
 	  echo -e "Subject: Error! Nightly build report for ${BUILD_TARGET} [#654]"  >> ${MAIL_TEMP}
 	else
 	  echo -e "Subject: Nightly build report for ${BUILD_TARGET} [#654]"  >> ${MAIL_TEMP}
@@ -77,8 +73,8 @@ function distribute_and_notify {
 	SCP_CMD="scp youruser@${SERVER_IP}:${RESULT_FOLDER}/*.zip"
 	DOWNLOAD_URL="http://support.onefact.net/redmine/releases"
 
-	if [ $errorlog_not_empty ]; then
-	  echo -e "ERROR!: The following errors are present in the error log." >> ${MAIL_TEMP}
+	if [ -s ${ERROR_FILE} ]; then
+	  echo -e "ERROR!: The following errors are present in the error log:" >> ${MAIL_TEMP}
 	  echo -e "----------------------------------------------------------" >> ${MAIL_TEMP}
 	  cat ${ERROR_FILE} >> ${MAIL_TEMP}
 	  echo -e "----------------------------------------------------------" >> ${MAIL_TEMP}
