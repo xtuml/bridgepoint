@@ -85,7 +85,7 @@ function distribute_and_notify {
 	scp "${BUILD_LOG}" "${UPLOAD_SPEC}"
 	scp "${ERROR_FILE}" "${UPLOAD_SPEC}"
 	scp "${DIFF_FILE}" "${UPLOAD_SPEC}"
-	scp "${ECLIPE_LOG}" "${UPLOAD_SPEC}"
+	scp "${ECLIPSE_LOG}" "${UPLOAD_SPEC}"
 	echo -e "Build log: ${DOWNLOAD_URL}/${BL}" >> ${MAIL_TEMP}
 	echo -e "Error log: ${DOWNLOAD_URL}/${EF}" >> ${MAIL_TEMP}
 	echo -e "Eclipse log: ${DOWNLOAD_URL}/${EL}" >> ${MAIL_TEMP}
