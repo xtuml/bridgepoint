@@ -1,0 +1,7 @@
+eclipse.preferences.version=1
+environment/workspace=
+environment/workspace/append=true
+environment/workspace/appendContributed=true
+errorparser.default.ids=org.eclipse.cdt.core.GASErrorParser;org.eclipse.cdt.core.GCCErrorParser;org.eclipse.cdt.core.GLDErrorParser;org.eclipse.cdt.core.GmakeErrorParser;org.eclipse.cdt.core.VCErrorParser;org.eclipse.cdt.core.CWDLocator;org.eclipse.cdt.core.MakeErrorParser
+indexer/indexerId=org.eclipse.cdt.core.nullindexer
+indexer/updatePolicy=0

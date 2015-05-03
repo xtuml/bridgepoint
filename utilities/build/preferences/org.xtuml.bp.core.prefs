@@ -1,0 +1,7 @@
+bridgepoint_prefs_allow_implicit_component_addressing=true
+bridgepoint_prefs_allow_operations_in_where=true
+bridgepoint_prefs_export_graphics=never
+bridgepoint_prefs_export_oal=always
+bridgepoint_prefs_gradient_base_color=13158600
+bridgepoint_prefs_parse_all_on_resource_change=prompt
+eclipse.preferences.version=1
