@@ -94,3 +94,10 @@ if [ $RETVAL -ne 0 ]; then
   exit 1
 fi
 
+build "no" "${GIT_BP}/src/org.xtuml.bp.core/plugin.xml"
+if [ $RETVAL -ne 0 ]; then
+  echo "The second build FAILED."
+  exit 1
+fi
+
+
