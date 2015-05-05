@@ -51,13 +51,20 @@ git_bp="$4"
 perform_clean="$5"
 bp_jvm=$bphomedir/jre/lib/i386/client/libjvm.so
 
-eclipse_args="-vm ${bp_jvm} -pluginCustomization ${workspace}/plugin_customization.ini -nosplash -application org.eclipse.cdt.managedbuilder.core.headlessbuild --launcher.suppressErrors"
+eclipse_args="-vm ${bp_jvm} -nosplash -application org.eclipse.cdt.managedbuilder.core.headlessbuild --launcher.suppressErrors"
 
 
 # Set the environment variable, PTC_MCC_DISABLED to true so that consistency
 # checking is not built
 export PTC_MCC_DISABLED=true
 export GDK_NATIVE_WINDOWS=true
+
+###
+### Setup the workspace by "priming it" with the needed settings
+###
+workspace_settings_folder="${workspace}/.metadata/.plugins/org.eclipse.core.runtime/.settings"
+mkdir -p "${workspace_settings_folder}"
+cp -f "${git_bp}"/utilities/build/preferences/* "${workspace_settings_folder}"
 
 ####  Import all plugins
 ####  Note:
@@ -86,4 +93,11 @@ if [ $RETVAL -ne 0 ]; then
   echo "The first build FAILED."
   exit 1
 fi
+
+build "no" "${GIT_BP}/src/org.xtuml.bp.core/plugin.xml"
+if [ $RETVAL -ne 0 ]; then
+  echo "The second build FAILED."
+  exit 1
+fi
+
 
