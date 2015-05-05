@@ -282,6 +282,12 @@ fi
 sed -e 's;error: pathspec;warning: pathspec;' < ${BUILD_LOG} > ${BUILD_LOG}_new
 mv ${BUILD_LOG}_new ${BUILD_LOG}
 
+# Quick check to make sure core.jar file size is "big enough"
+size=$( wc -c "${git_bp}/src/org.xtuml.bp.core/bin/core.jar" | awk '{print $1}' )
+if [ $size -lt 11000000 ]; then
+  echo -e "ERROR: The build did not succeed.  The core.jar file is too small." >> ${BUILD_LOG}
+fi
+
 grep -c -i -w "Error" ${BUILD_LOG}
 error_count=$?
 if [ ${error_count} -ne 1 ]; then
