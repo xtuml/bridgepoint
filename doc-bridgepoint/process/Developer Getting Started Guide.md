@@ -56,14 +56,14 @@ Instructions
       export XTUML_TEST_MODEL_REPOSITORY=~/git/models/test/
       export XTUML_PRIVATE_MODEL_REPOSITORY=~/git/modelsmg/test/
     ```
-    - On the eclipse invocation, between the ```$BP_JVM``` argument and the ```$1``` argument add this:
-    ```
-      -pluginCustomization ~/git/bridgepoint/utilities/build/plugin_customization.ini
-    ```
-
   - Prepare the development environment to call gen_erate. In the command below replace "\<version\>" with the version of the product:
   ```
   cp -R ~/xtuml/BridgePoint/eclipse/plugins/org.xtuml.bp.mc.c.binary_<version>/mc3020/* ~/git/bridgepoint/src/org.xtuml.bp.mc.c.binary/mc3020
+  ```
+  - Prepare your development workspace with the required preferences. 
+  ```
+  mkdir -p ~/workspace/.metadata/.plugins/org.eclipse.core.runtime/.settings
+  cp -f ~/git/bridgepoint/utilities/build/preferences/*  ~workspace/.metadata/.plugins/org.eclipse.core.runtime/.settings
   ```
 
   - Launch BridgePoint (```~/xtuml/BridgePoint/eclipse/Launcher.sh```)
