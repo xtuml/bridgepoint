@@ -22,10 +22,10 @@ build()
   if [ "$perform_clean" == "yes" ]; then
     ###  Clean build
     echo "Performing a clean build."
-    ${bphomedir}/eclipse/eclipse ${eclipse_args} -cleanBuild all -data "$workspace" 
+    "${bp_launcher}" ${launcher_args} -cleanBuild all -data "$workspace" 
   else
     echo "Performing a build (not clean)."
-    ${bphomedir}/eclipse/eclipse ${eclipse_args} -build all -data "$workspace" 
+    "${bp_launcher}" ${launcher_args} -build all -data "$workspace" 
   fi
   
   exit $?
@@ -45,13 +45,12 @@ if [ "$#" -lt 4 ]; then
   exit 1
 fi
 branch="$1"
-bphomedir="$2"
+bp_launcher="$2"/eclipse/Launcher.sh
 workspace="$3"
 git_bp="$4"
 perform_clean="$5"
-bp_jvm=$bphomedir/jre/lib/i386/client/libjvm.so
 
-eclipse_args="-vm ${bp_jvm} -nosplash -application org.eclipse.cdt.managedbuilder.core.headlessbuild --launcher.suppressErrors"
+launcher_args="-nosplash -application org.eclipse.cdt.managedbuilder.core.headlessbuild --launcher.suppressErrors"
 
 
 # Set the environment variable, PTC_MCC_DISABLED to true so that consistency
@@ -67,13 +66,9 @@ mkdir -p "${workspace_settings_folder}"
 cp -f "${git_bp}"/utilities/build/preferences/* "${workspace_settings_folder}"
 
 ####  Import all plugins
-####  Note:
-####  1) we have a separate -import for each plugin as opposed
+####  We have a separate -import for each plugin as opposed
 ####  to using -importAll <tree> because importAll imports nested projects,
 ####  and our build does not allow this.
-####  2) -import <plugin> is import such that it may spawn a separate thread 
-####  for each import.  This means the order of import is not guaranteed
-####
 import_cmd=""
 for PROJECT in $(ls -1 "${git_bp}"/src); do 
   if [ "$PROJECT" != "org.antlr_2.7.2" ] && [ "$PROJECT" != "README.md" ]; then
@@ -81,23 +76,15 @@ for PROJECT in $(ls -1 "${git_bp}"/src); do
   fi
 done
 echo "Importing projects."
-${bphomedir}/eclipse/eclipse ${eclipse_args} ${import_cmd} -data "${workspace}" 
-
-# Before running the build make sure the ant log folder is present
-# The import calls will have created the .metadata folder
-mkdir -p ${workspace}/.metadata/bridgepoint/build/log
+"${bp_launcher}" ${launcher_args} ${import_cmd} -data "${workspace}" 
+echo "Importing projects. - DONE"
 
 build "${perform_clean}" ""
 RETVAL=$?
 if [ $RETVAL -ne 0 ]; then
-  echo "The first build FAILED."
+  echo "ERROR! The headless build FAILED."
   exit 1
 fi
 
-build "no" "${GIT_BP}/src/org.xtuml.bp.core/plugin.xml"
-if [ $RETVAL -ne 0 ]; then
-  echo "The second build FAILED."
-  exit 1
-fi
 
 
