@@ -13,10 +13,12 @@ function configure_build_files {
     # Copy files and do the dos2unix translation.
     tr -d '\r' < configure_external_dependencies.sh > ${build_dir}/configure_external_dependencies.sh 2>>${error_file}
     tr -d '\r' < create_bp_release.sh > ${build_dir}/create_bp_release.sh 2>>${error_file}
-	tr -d '\r' < plugin_customization.ini > ${build_dir}/plugin_customization.ini 2>>${error_file}
+    mkdir -p ${build_dir}/preferences
+	for PREFERENCE in $(ls -1 preferences); do 
+      tr -d '\r' < process/$PREFERENCE > ${build_dir}/preferences/$PROJECT 2>>${error_file}
+	done    
     chmod a+x ${build_dir}/configure_external_dependencies.sh 2>>${error_file}
     chmod a+x ${build_dir}/create_bp_release.sh 2>>${error_file}
-	chmod a+x ${build_dir}/plugin_customization.ini 2>>${error_file}
 	chmod -R g+w ${build_dir}
 	
 	echo -e "Exiting configure_build_process.sh::configure_build_files"

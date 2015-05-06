@@ -63,7 +63,7 @@ export GDK_NATIVE_WINDOWS=true
 ###
 workspace_settings_folder="${workspace}/.metadata/.plugins/org.eclipse.core.runtime/.settings"
 mkdir -p "${workspace_settings_folder}"
-cp -f "${git_bp}"/utilities/build/preferences/* "${workspace_settings_folder}"
+cp -f "${workspace}"/preferences/* "${workspace_settings_folder}"
 
 ####  Import all plugins
 ####  We have a separate -import for each plugin as opposed
