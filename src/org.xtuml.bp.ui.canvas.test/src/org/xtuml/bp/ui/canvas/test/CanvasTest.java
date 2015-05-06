@@ -304,10 +304,7 @@ public abstract class CanvasTest extends BaseTest {
   }
   protected void writeResults(String[] results, Model_c uut, ImageData imgData) throws Exception {
 	String folder = m_workspace_path + TestingUtilities.getExpectedResultsPath() + getResultName() + "/"; //$NON-NLS-1$ //$NON-NLS-2$
-	if (testGlobals)
-	{
-		folder = m_workspace_path + TestingUtilities.getExpectedResultsPath() + getResultName() + "Globals/"; //$NON-NLS-1$ //$NON-NLS-2$
-	}
+	
 	if(!(new File(folder).exists())) {
 		(new File(folder)).mkdirs();
 	}
