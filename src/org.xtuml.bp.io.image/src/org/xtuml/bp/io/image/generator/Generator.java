@@ -199,7 +199,8 @@ public class Generator extends Task {
 							ptCanvas, modelRoot);
 					String fileNameBody = GraphicsUtil
 							.getCanvasEditorTitle((NonRootModelElement) ptCanvas
-									.getRepresents());
+									.getRepresents()) + GraphicsUtil.getCanvasEditorPostTitle(
+											(NonRootModelElement) ptCanvas.getRepresents(), true);
 					fileNameBody = fileNameBody.replace(": ", "-"); //$NON-NLS-1$ //$NON-NLS-2$
 					if (!containerName.isEmpty()) {
 						fileNameBody = containerName + fileNameBody;
