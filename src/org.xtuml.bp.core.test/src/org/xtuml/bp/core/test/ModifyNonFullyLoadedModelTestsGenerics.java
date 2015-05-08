@@ -199,8 +199,7 @@ public class ModifyNonFullyLoadedModelTestsGenerics extends CanvasTest
     	if (testGlobals == true) {
           globalsFlag = "Globals";
     	}
-        BaseTest.compareAndOutputResults(resultFolder + getResultName() + 
-          globalsFlag + "/" + getResultName() +
+        BaseTest.compareAndOutputResults(resultFolder + getResultName() + "/" + getResultName() +
           "-shape_deletion_transaction_generics.exp");
     }
 

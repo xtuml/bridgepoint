@@ -1,10 +1,6 @@
 ==========================================================================
 
-File:      $RCSfile: Test_Readme.txt,v $
-Version:   $Revision: 1.11 $
-Modified:  $Date: 2013/01/10 23:05:15 $
-
-(c) Copyright 2005-2014 by Mentor Graphics Corp. All rights reserved.
+File:      Test_Readme.txt
 
 ==========================================================================
 Licensed under the Apache License, Version 2.0 (the "License"); you may not 
@@ -29,7 +25,6 @@ To run test:
 - Change workspace data to '${eclipse_home}/bp_tests/welcome'
 - Check 'Clear workspace data before launching'
 - Set VM args to '-DWORKSPACE_PATH=${workspace_loc}/org.xtuml.bp.welcome.test/ -DLOGFILE_PATH=${eclipse_home}/bp_tests/welcome/.metadata/.log'
-- On the Plug-ins tab, make sure the org.xtuml.internal.test plugin 
-	is enabled in order to test issue 1833 - the name change of the EDGE Builder.
+- On the Plug-ins tab, make sure the org.xtuml.internal.test plug-in is enabled 
 	
 	

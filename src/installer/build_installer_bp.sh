@@ -138,6 +138,7 @@ echo "INFO: Done."
 echo "INFO: Setting up docgen executable"
 cd "${BP_BASE_DIR}/BridgePointDeliverables/tools/docgen"
 cp -f "${INSTALLER_DATA_DIR}/plugins/${MCMC_EXE}" ${DOCGEN_EXE}
+cp -f "./docgen.xsl" "./docbook/docbook-xsl-1.75.1/xhtml/"
 echo "INFO: Done."
 
 # Reorganize files into a structure that can be zipped up as the "installer"
@@ -147,7 +148,7 @@ mv EclipseDeliverables BridgePoint
 mv BridgePointDeliverables/* BridgePoint
 rmdir BridgePointDeliverables
 cp ../installer_extras/bp.ico BridgePoint
-cp ../installer_extras/splash.bmp BridgePoint
+
 # There are various files in the installation that need to be executable.  
 # Some are even part of the eclipse base (like antRun).  Here we just come in
 # with a wide sweep and make everything executable. 

@@ -13,7 +13,7 @@ fi
 
 # copy additional files to staging directory
 
-mkdir $1/installer_extras && cp 1F.png TARGET_LINUX.txt TARGET_WINDOWS.txt bp.ico post_install_script.bat post_install_script.sh shortcutSpec.xml splash.bmp welcome.html $1/installer_extras
+mkdir $1/installer_extras && cp 1F.png TARGET_LINUX.txt TARGET_WINDOWS.txt bp.ico post_install_script.bat post_install_script.sh shortcutSpec.xml welcome.html $1/installer_extras
 if [ $? -ne 0 ]; then
     rm -rf $1/installer_extras
     exit $?
