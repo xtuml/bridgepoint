@@ -11,12 +11,12 @@
 <project name="bp.core" default="all" basedir=".">
   <target name="all"
           description="Generate all code for this project"
-          depends="sql,schema,java,cme,cme_schema,cme_menus,inspector.java, cell_modifiers,generate_supertype_subtype_util, action_language_description_util, generate_rto_util, generate_globals_util, format_java">
+          depends="sql,schema,java,cme,cme_schema,cme_menus,inspector.java, cell_modifiers,generate_supertype_subtype_util, action_language_description_util, generate_rto_util, generate_globals_util, format_java, refresh">
   </target>
 
   <target name="nb_all"
           description="Generate all code for this project"
-          depends="sql,schema,java,cme,cme_schema,cme_menus,inspector.java, cell_modifiers,generate_supertype_subtype_util, action_language_description_util, generate_globals_util, generate_rto_util">
+          depends="sql,schema,java,cme,cme_schema,cme_menus,inspector.java, cell_modifiers,generate_supertype_subtype_util, action_language_description_util, generate_globals_util, generate_rto_util, refresh">
   </target>
 
   <property name="eclipse-home" value="${basedir}/../.."/>
@@ -587,6 +587,14 @@
   <touch file="${java.output}" />
   </target>
 
+  <!-- Important: you have to choose "Run in the same JRE as workspace" at the Ant run configuration.
+	-->
+  <target name="refresh"
+	description="Refresh project" >
+    <echo>Refreshing ${ant.project.name}</echo>
+    <eclipse.refreshLocal resource="../org.xtuml.bp.core/src/org/xtuml/bp/core" depth="infinite" />
+  </target>
+	  	
   <!-- COMPILE TARGETS -->
 
   <!-- This target is not used in the eclipse environment.  The eclipse Java
