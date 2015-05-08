@@ -6,17 +6,15 @@
 #  This script runs the nightly build.
 #
 #  The script requires at least two parameters:
-#    
-#     BPHOMEDIR   - This is the location of a BridgePoint installation
-#     BUILD_MOUNT - This holds the build server location that is the 
+#      
+#     BridgePoint_Home_Directory - This is the location of a BridgePoint installation
+#     Build_Root - This holds the build server location that is the 
 #                   root for the build
 #
 #  Optional:
-#     BRANCH_NAME   - This is an optional parameter that allows you to configure
+#     Branch_Name - This is an optional parameter that allows you to configure
 #                   the branch to build
-#     UPLOAD_SPEC - This optional argument, if present, will upload the build to this given location.  example: user@myserver.com:/myfolder
-#                   For xtuml.org this is: 
-#					  n5e22526185966@xtuml.org:/home/n5e22526185966/html/wp-content/uploads
+#     upload location - This optional argument, if present, will upload the build to this given location.  example: user@myserver.com:/myfolder
 #     package_only - This optional argument, if present and set to "yes" cause the build script to only package and notify
 #     clean - This optional argument, it defaults to yes.  If yes, a clean build if performed.
 #               
@@ -28,9 +26,8 @@
 #  1) run_build.sh, and init_git_repositories.sh must be present in ${BUILD_ROOT}
 #  2) git, ant, and jar must be installed on the build server
 # 
-#  The build is performed under ${BUILD_ROOT}.  The result of the build:
-#  1) plugins
-#     The resulting plugins are found under ${BUILD_ROOT}
+#  The build is performed under ${Build_Root}.  The resulting update site and 
+#  zipfile installers are found under ${Build_Root}/releases
 # 
 
 #-------------------------------------------------------------------------------
@@ -43,59 +40,70 @@
 # allow the installers to be built.
 #
 function distribute_and_notify {
-	echo -e "Entering run_build.sh::distribute_and_notify"
-	if [ "$1" = "0" ]; then
-	  # TODO: This was the prior implementation.  It needs to be reworked (RSH)
-	  # ${RSH} ${DISTRIBUTION_SERVER} "(cd '${RELEASE_BASE}'; if [ ! -x '${RESULT_FOLDER}' ]; then mkdir '${RESULT_FOLDER}'; fi; cp -f '${RESULT_FOLDER}'/BridgePoint_extension_'${BRANCH}'.zip '${BUILD_RESULT_FOLDER}'/BridgePoint_extension_'${BRANCH}'.zip ; )"
-	  echo -e "Creating dated backup of the build"
-	else
-	  echo -e "create_bp_release.sh returned with a non-zero value ($?)"
-	fi
-	  
-	# Prune similar releases that are five days old.
-	# TODO: This was the prior implementation.  It needs to be reworked
-	# ${RSH} ${DISTRIBUTION_SERVER} "(cd '${RELEASE_BASE}'; find -name '${BRANCH}-*' -mtime 5 -exec rm -rf {} \; ;)"
-	
+	echo -e "Entering run_build.sh::distribute_and_notify" 
+	MAIL_TEMP="mailtemp"
+
 	# Build email report
-	
 	echo -e "From: Nightly Build System <issues@onefact.net>" > ${MAIL_TEMP}
+	
 	if [ -s ${ERROR_FILE} ]; then
-	  echo -e "Subject: ERROR - Nightly build report for ${BUILD_TARGET} [#654]"  >> ${MAIL_TEMP}
+	  echo -e "Subject: Error! Nightly build report for ${BUILD_TARGET} [#654]"  >> ${MAIL_TEMP}
 	else
 	  echo -e "Subject: Nightly build report for ${BUILD_TARGET} [#654]"  >> ${MAIL_TEMP}
 	fi
-	echo -e "To: ${BUILD_ADMIN}" >> ${MAIL_TEMP}
-	echo -e "Nightly build report for: ${BUILD_TARGET}" >> ${MAIL_TEMP}
-	echo -e "The files that were used for the nightly build, and the logs of each build are located at: ${BUILD_DIR} on `hostname`" >> ${MAIL_TEMP}
-	
-	# Search for errors in the logs
-	if [ -s ${ERROR_FILE} ]; then
-	  echo -e "The following was written to the error log:" >> ${MAIL_TEMP}
-	  echo -e "---------------" >> ${MAIL_TEMP}
-	  cat ${ERROR_FILE} >> ${MAIL_TEMP}
-	  echo -e "---------------\n" >> ${MAIL_TEMP}
-	else
-	  echo -e "The Linux release can be downloaded at: ${DOWNLOAD_URL}_linux.jar" >> ${MAIL_TEMP}
-	  echo -e "The Windows release can be downloaded at: ${DOWNLOAD_URL}_windows.jar" >> ${MAIL_TEMP}
-	  
-	  echo -e "\nCHANGELOG:" >> ${MAIL_TEMP}
-	  echo -e "---------------" >> ${MAIL_TEMP}
-	  cat ${DIFF_FILE} >> ${MAIL_TEMP}	  
-	fi
-	
-	SERVER_IP=$(dig +short myip.opendns.com @resolver1.opendns.com)
-	SCP_CMD="scp youruser@${SERVER_IP}:${RESULT_FOLDER}/*.zip"
-	
-	echo -e " " >> ${MAIL_TEMP}
-	echo -e "You can copy the release via: ${SCP_CMD}" >> ${MAIL_TEMP}
-	echo -e "---------------" >> ${MAIL_TEMP}
-	echo -e "The Linux release can be downloaded at: ${DOWNLOAD_URL}_${BRANCH}_linux.zip" >> ${MAIL_TEMP}
-        echo -e "The Windows release can be downloaded at: ${DOWNLOAD_URL}_${BRANCH}_windows.zip" >> ${MAIL_TEMP}
-	echo -e " " >> ${MAIL_TEMP}
 
-	cat ${MAIL_TEMP} | ${MAIL_CMD} ${BUILD_ADMIN}
+	# Get the changes from the last 2 days
+	cd ${GIT_BP}
+	git log --name-status --since="2 days ago" >> ${DIFF_FILE}
+	cd "${BUILD_DIR}"
 	
-	rm -rf ${MAIL_TEMP}
+	END=$(date +%s)
+	DIFF=$(( $END - $START ))
+	BUILD_ADMIN="build@onefact.net,issues@onefact.net"
+	SERVER_IP=$(dig +short myip.opendns.com @resolver1.opendns.com)
+
+	echo -e "To: ${BUILD_ADMIN}" >> ${MAIL_TEMP}
+	# A blank line needs to come after the "To" field or lines get lost
+	echo -e "" >> ${MAIL_TEMP}
+	echo -e "Build report for branch name: ${BRANCH}" >> ${MAIL_TEMP}
+	echo -e "This build took: $((DIFF/60)) minutes" >> ${MAIL_TEMP}
+	echo -e "The workspace for this build is located at: ${BUILD_DIR} on ${SERVER_IP}" >> ${MAIL_TEMP}
+	echo -e "The complete logs are under ${LOG_DIR} on ${SERVER_IP}" >> ${MAIL_TEMP}
+	echo -e "" >> ${MAIL_TEMP}
+
+	SCP_CMD="scp youruser@${SERVER_IP}:${RESULT_FOLDER}/*.zip"
+	DOWNLOAD_URL="http://support.onefact.net/redmine/releases"
+
+	if [ -s ${ERROR_FILE} ]; then
+	  echo -e "ERROR!: The following errors are present in the error log:" >> ${MAIL_TEMP}
+	  echo -e "----------------------------------------------------------" >> ${MAIL_TEMP}
+	  cat ${ERROR_FILE} >> ${MAIL_TEMP}
+	  echo -e "----------------------------------------------------------" >> ${MAIL_TEMP}
+	  echo -e "" >> ${MAIL_TEMP}
+	fi
+
+	if [ "${UPLOAD_SPEC}" != "" ]; then
+      scp "${BUILD_LOG}" "${UPLOAD_SPEC}"
+      scp "${ERROR_FILE}" "${UPLOAD_SPEC}"
+      scp "${DIFF_FILE}" "${UPLOAD_SPEC}"
+      scp "${ECLIPSE_LOG}" "${UPLOAD_SPEC}"
+      echo -e "Build log: ${DOWNLOAD_URL}/${BL}" >> ${MAIL_TEMP}
+      echo -e "Error log: ${DOWNLOAD_URL}/${EF}" >> ${MAIL_TEMP}
+      echo -e "Eclipse log: ${DOWNLOAD_URL}/${EL}" >> ${MAIL_TEMP}
+      echo -e "GIT change log for the last 2 days for this branch: ${DOWNLOAD_URL}/${DF}" >> ${MAIL_TEMP}
+      echo -e "" >> ${MAIL_TEMP}
+
+      echo -e "Downloads:" >> ${MAIL_TEMP}
+      echo -e "----------" >> ${MAIL_TEMP}
+      echo -e "You can copy these builds directly from the build server: ${SCP_CMD}" >> ${MAIL_TEMP}
+      echo -e "The Linux release can be downloaded at: ${DOWNLOAD_URL}/BridgePoint_${BRANCH}_linux.zip" >> ${MAIL_TEMP}
+      echo -e "The Windows release can be downloaded at: ${DOWNLOAD_URL}/BridgePoint_${BRANCH}_windows.zip" >> ${MAIL_TEMP}
+      echo -e " " >> ${MAIL_TEMP}
+	
+	  cat ${MAIL_TEMP} | ${MAIL_CMD} "${BUILD_ADMIN}"
+	else
+	  echo -e "${MAIL_TEMP}"
+	fi
 	echo -e "Exiting run_build.sh::distribute_and_notify"
 }
 
@@ -113,39 +121,38 @@ if [ "$#" -lt 2 ]; then
   exit 1
 fi 
 
-date 
+START=$(date +%s)
 
-export BPHOMEDIR="$1"
+BPHOMEDIR="$1"
 if [ "$2" = "/" ]; then
-  export BUILD_MOUNT="/build"
+  BUILD_MOUNT="/build"
 else
-  export BUILD_MOUNT="$2/build"
+  BUILD_MOUNT="$2/build"
 fi
-export ECLIPSE_HOME="${BPHOMEDIR}/eclipse"
 
 # Do not modify these variables:
-export BUILD_ROOT="${BUILD_MOUNT}/work"
-export GIT_REPO_ROOT="${BUILD_MOUNT}/git/xtuml"
-export GIT_BP="${GIT_REPO_ROOT}/bridgepoint"
+BUILD_ROOT="${BUILD_MOUNT}/work"
+GIT_REPO_ROOT="${BUILD_MOUNT}/git/xtuml"
+GIT_BP="${GIT_REPO_ROOT}/bridgepoint"
 # if no arguments are present default to master
-export BRANCH="master"
+BRANCH="master"
 if [ "$3" != "" ]; then
-  export BRANCH="$3"
+  BRANCH="$3"
 fi
 if [ "$4" != "" ]; then
-  export UPLOAD_SPEC="$4"
+  UPLOAD_SPEC="$4"
 else
-  export UPLOAD_SPEC=""
+  UPLOAD_SPEC=""
 fi
 if [ "$5" != "" ]; then
-  export package_only="$5"
+  package_only="$5"
 else
-  export package_only=""
+  package_only=""
 fi
 if [ "$6" != "" ]; then
-  export clean="$6"
+  clean="$6"
 else
-  export clean="yes"
+  clean="yes"
 fi
 
 # Make sure github credentials are available in the environment
@@ -165,64 +172,41 @@ echo "BPHOMEDIR=${BPHOMEDIR}"
 # this flag is constant and could potentially be removed, but it is 
 # being left in case we do want to have the build be different then other 
 # releases.
-export BUILD_TYPE="nonrelease"
+BUILD_TYPE="nonrelease"
 
 # This variable is used to decided if we want to look in head for files not
 # found in the specified branch.  Currently it is always set  to yes.  It
 # is being left in the script to allow this to be modified in the future if
 # desired
-export ALLOW_FALLBACK="yes"
+ALLOW_FALLBACK="yes"
 
-export BUILD_DIR="${BUILD_ROOT}/${BRANCH}"
-# Set "WORKSPACE" to an environment variable that CLI can use.
-export WORKSPACE="${BUILD_DIR}"
-export LOG_DIR="${BUILD_DIR}/log"
-export ERROR_FILE="${LOG_DIR}/errors.log"
-export DIFF_FILE="${LOG_DIR}/diff.log"
-export BUILD_LOG=""${LOG_DIR}/build.log""
-export BUILD_ADMIN="build@onefact.net"
-export MAIL_CMD="/usr/sbin/ssmtp"
-export MAIL_TEMP="mailtemp"
-export SHELLUSER="${USER}"
-
-export TIMESTAMP=`date +%Y%m%d%H%M`
-
-#
-# This is the location, on the build server, where this build is found
-#
-export RELEASE_BASE="${BUILD_MOUNT}/releases"
-export BUILD_TARGET="${BRANCH}-${TIMESTAMP}"
-export RESULT_FOLDER="${RELEASE_BASE}/${BUILD_TARGET}"
-mkdir -p "${RESULT_FOLDER}"
-
-#
-# This is where the extension result goes
-#
-export RESULT_FOLDER_EXTENSION="${RELEASE_BASE}/${BUILD_TARGET}/BridgePoint_${BRANCH}"
-mkdir -p "${RESULT_FOLDER_EXTENSION}"
-
-
-export STAGING_AREA=${BUILD_MOUNT}/staging
-mkdir -p "${STAGING_AREA}"
-
-# 
-# This section defines the external location for the build (the place where
-# customers go to get this release). 
-# Note that items in the following section will eventually need to be github 
-# pages (I think) for now the release is not being moved off of the build server.
-#
-export DOWNLOAD_URL="http://xtuml.org/wp-content/uploads/BridgePoint"
-export DISTRIBUTION_SERVER=""
-
-# We do not currently use this, but when we were using cvs we tagged nightly 
-# builds, and this was the format of the tag
-export BUILD_TAG="`date +N%F`"
+BUILD_DIR="${BUILD_ROOT}/${BRANCH}"
+WORKSPACE="${BUILD_DIR}"
+LOG_DIR="${BUILD_DIR}/log"
+EF="errors.txt"
+DF="diff.txt"
+BL="build.txt"
+EL=".log"
+ERROR_FILE="${LOG_DIR}/${EF}"
+DIFF_FILE="${LOG_DIR}/${DF}"
+BUILD_LOG="${LOG_DIR}/${BL}"
+ECLIPSE_LOG="${BUILD_DIR}/.metadata/${EL}"
+MAIL_CMD="/usr/sbin/ssmtp"
+TIMESTAMP=`date +%Y%m%d%H%M`
+RELEASE_BASE="${BUILD_MOUNT}/releases"
+BUILD_TARGET="${BRANCH}-${TIMESTAMP}"
+RESULT_FOLDER="${RELEASE_BASE}/${BUILD_TARGET}"
+RESULT_FOLDER_EXTENSION="${RELEASE_BASE}/${BUILD_TARGET}/BridgePoint_${BRANCH}"
+STAGING_AREA=${BUILD_MOUNT}/staging
 
 if [ "${package_only}" != "yes" ]; then
   # assure that we are starting with a clean build folder.
   rm -rf ${BUILD_DIR}
 fi
 
+mkdir -p "${RESULT_FOLDER}"
+mkdir -p "${RESULT_FOLDER_EXTENSION}"
+mkdir -p "${STAGING_AREA}"
 mkdir -p "${BUILD_DIR}"
 mkdir -p "${LOG_DIR}"
 mkdir -p "${GIT_REPO_ROOT}"
@@ -252,7 +236,7 @@ if [ "${package_only}" != "yes" ]; then
   tr -d '\r' < ${GIT_BP}/utilities/build/configure_build_process.sh > configure_build_process.sh
   chmod a+x configure_build_process.sh
 
-  bash configure_build_process.sh >> ${BUILD_LOG}
+  bash configure_build_process.sh ${BUILD_DIR} ${GIT_REPO_ROOT} ${ERROR_FILE} ${STAGING_AREA} >> ${BUILD_LOG}
   cd  "${BUILD_DIR}"
   echo -e "Done configuring files for the build process."
 
@@ -266,7 +250,7 @@ if [ "${package_only}" != "yes" ]; then
   tr -d '\r' < ${GIT_BP}/utilities/build/headless_build.sh > headless_build.sh
   chmod a+x headless_build.sh
 
-  ./headless_build.sh "${BRANCH}" "${BPHOMEDIR}" "${ECLIPSE_HOME}" "${WORKSPACE}" "${GIT_BP}" "${clean}"
+  ./headless_build.sh "${BRANCH}" "${BPHOMEDIR}" "${WORKSPACE}" "${GIT_BP}" "${clean}"
   RETVAL=$?
   echo -e "Done building."
 
@@ -280,37 +264,38 @@ if [ "${package_only}" != "yes" ]; then
     #exit 1
   #fi
 fi
+
 # This packages the build
 cd  "${BUILD_DIR}"
-bash create_bp_release.sh  >> ${BUILD_LOG}
-
-# Check for errors, if found report them.  Note that the log file is moved after this script runs,
-# hence the different paths for where we grep and where we report the user to look.
-grep -c -i -w "Error" ${BUILD_LOG}
-error_count=$?
-if [ ${error_count} -ne 1 ]; then
-  echo -e "Errors found in the output log. Check ${BUILD_LOG}." >> ${ERROR_FILE}
-fi
-
-if [ -f $ERROR_FILE ]; then
-  echo -e "Errors found during release creation:\n\n\n"
-  cat $ERROR_FILE
-fi
+bash create_bp_release.sh "${BUILD_DIR}" "${BRANCH}" "${GIT_BP}" "${LOG_DIR}" "${TIMESTAMP}" "${RESULT_FOLDER_EXTENSION}" >> ${BUILD_LOG}
 
 bp_release_version=`awk -F"\"" '{if (/ersion.*\=.*[0-9]\.[0-9]\.[0-9]/) {print $2; exit;}}' ${GIT_BP}/src/org.xtuml.bp.pkg/plugin.xml`
 bash build_installer_bp.sh ${BRANCH} ${STAGING_AREA} ${RESULT_FOLDER} windows ${bp_release_version} "${UPLOAD_SPEC}" >> ${BUILD_LOG}
 cd  "${BUILD_DIR}"
   
 bash build_installer_bp.sh ${BRANCH} ${STAGING_AREA} ${RESULT_FOLDER} linux ${bp_release_version} "${UPLOAD_SPEC}" >> ${BUILD_LOG}
+if [ $? != "0" ]; then
+  echo -e "Error! The build_installer_bp.sh script failed." >> ${ERROR_FILE}
+fi
 
-# This get called regardless of if we are building or packaging to notify the the build is complete
-if [ -e ${MAIL_CMD} ]; then
-  cd  "${BUILD_DIR}"
-  distribute_and_notify $? >> ${BUILD_LOG}
-fi 
-chmod -R g+w ${BUILD_DIR}
-chmod -R g+w ${RESULT_FOLDER}
-chmod -R g+w ${GIT_REPO_ROOT}
+# Change git errors logged when we try to check out an invalid branch into warnings
+sed -e 's;error: pathspec;warning: pathspec;' < ${BUILD_LOG} > ${BUILD_LOG}_new
+mv ${BUILD_LOG}_new ${BUILD_LOG}
+
+# Quick check to make sure core.jar file size is "big enough"
+size=$( wc -c "${GIT_BP}/src/org.xtuml.bp.core/bin/core.jar" | awk '{print $1}' )
+if [ $size -lt 11000000 ]; then
+  echo -e "ERROR: The build did not succeed.  The core.jar file is too small." >> ${BUILD_LOG}
+fi
+
+grep -c -i -w "Error" ${BUILD_LOG}
+error_count=$?
+if [ ${error_count} -ne 1 ]; then
+  echo -e "Errors found in the build output log. Check ${BUILD_LOG}." >> ${ERROR_FILE}
+fi
+
+cd  "${BUILD_DIR}"
+distribute_and_notify  
 
 date
 echo -e "End of run_build.sh"

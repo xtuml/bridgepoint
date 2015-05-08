@@ -1,12 +1,19 @@
 #!/bin/bash
 
-##
-## Note: This script is written so that is uses environment variables from the 
-## server build script, if present.
-##
+if [ "$#" -lt 1 ]; then
+  echo "This script has required parameters.  See below for usage."
+  echo
+  echo "verify_build.sh Build_dir"
+  echo ""
+  echo "  Build_dir - path to the workspace being built"
+  echo ""
+  exit 1
+fi 
+
+workspace="$1"
 
 original_dir="$PWD"
-cd ${WORKSPACE}/.metadata/bridgepoint/build/log
+cd ${workspace}/.metadata/bridgepoint/build/log
 
 # Check for all cases of error, failed, and failure
 grep -c -i -w "ERROR" *
