@@ -19,6 +19,6 @@ call %BPHOMEDIR%/MinGW/mingwgnu.bat
 
 :: Run BridgePoint
 cd %BPHOMEDIR%/eclipse
-start eclipse.exe -vm %BP_JVM% %1 %2 %3 %4 %5 %6 %7 %8 %9
+start eclipse.exe -vm %BP_JVM% "%*"
 
 cd %ORIGINAL_DIR%

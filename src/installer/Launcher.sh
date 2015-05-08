@@ -11,5 +11,5 @@ export BP_JVM=$BPHOMEDIR/jre/lib/i386/client/libjvm.so
 # X window, making problematic applications work better.
 export GDK_NATIVE_WINDOWS=true
 
-$BPHOMEDIR/eclipse/eclipse -vm $BP_JVM $1 $2 $3 $4 $5 $6 $7 $8 $9
+$BPHOMEDIR/eclipse/eclipse -vm $BP_JVM "$*"
 
