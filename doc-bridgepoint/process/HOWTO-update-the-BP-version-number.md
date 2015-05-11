@@ -44,21 +44,6 @@ Steps
    commit this to the issue used for the version bump.
   - Right-click update_BP_version.xml, select "Run As > Ant Build"
 
-  - Go to the bp.doc plug-in and search under that plug-in for the old version 
-   number(example: 1.5.1)
-  RESULT - Several html files are found
-
-  - Copy the new version (ex 1.5.2)  to the Windows Clipboard
-
-  - Work through the Search view in Eclipse and for each match found open the 
-   file in MS Word and update the version using MS Word.
-   
-       IMPORTANT: 
-         1) Do not update any HTML file versions inside eclipse.  Navigate
-            to the file on disk and edit the file with MS Word.
-         2) The Release Notes and What's New files should be written with 
-            MS Word "Save As..." as type "Web Page, Filtered"
-                  
   - Select all projects in the workspace, refresh them to pick up the changes
 
   R Version update is now complete, all files that must be modified are now
