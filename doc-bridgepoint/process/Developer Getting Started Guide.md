@@ -63,7 +63,7 @@ Instructions
   - Prepare your development workspace with the required preferences. 
   ```
   mkdir -p ~/workspace/.metadata/.plugins/org.eclipse.core.runtime/.settings
-  cp -f ~/git/bridgepoint/utilities/build/preferences/*  ~workspace/.metadata/.plugins/org.eclipse.core.runtime/.settings
+  cp -f ~/git/bridgepoint/utilities/build/preferences/*  ~/workspace/.metadata/.plugins/org.eclipse.core.runtime/.settings
   ```
 
   - Launch BridgePoint (```~/xtuml/BridgePoint/eclipse/Launcher.sh```)
