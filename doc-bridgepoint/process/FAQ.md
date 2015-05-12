@@ -10,7 +10,7 @@
     * [What is a Model Compiler?](#whatismc)
     * [Where can I get model execution and translation support?](#xt_support)
     * [Where can I find out more about xtUML methodology and tools?](#morextumlinfo)
-    * [Where is the xtUML Editor?](#xtumleditor)
+    * [What happened to the xtUML Editor?](#xtumleditor)
   * [Installation Issues](#installation)
     * [Errors During Unzip](#unziperrors)
   * [BridgePoint Developer Issues](#bpdevelopers)
@@ -33,20 +33,22 @@ xtUML Profile <a id="xtuml_profile"></a>
   The xtUML process defines a recommended methodology and style guide for doing model-driven development with a focus on early execution followed by translation of application models into design-level code.
   
   * What is Object Action Language?   <a id="whatisoal"></a>  
-  The Object Action Language (OAL) is used to define the semantics for the processing that occurs in an action. An action can be associated with states, functions, and interface messages.OAL is used for:  
-    - data access
-    - event generation
-    - test
-    - transformation
-    - bridge and function
-    - inter-component messaging
+  The Object Action Language (OAL) is used to define the semantics for the processing that occurs in an action. An action can be associated with states, functions, and interface messages.OAL is used for:
   
-  It supports these through:  
-    - control logic
-    - access to the data described by the class diagram
-    - access to the data supplied by events initiating actions
-    - the ability to generate events
-    - access to timers and to the current time and date
+  - data access
+  - event generation
+  - test
+  - transformation
+  - bridge and function
+  - inter-component messaging  
+  
+  It supports these through:
+  
+  - control logic
+  - access to the data described by the class diagram
+  - access to the data supplied by events initiating actions
+  - the ability to generate events
+  - access to timers and to the current time and date
   
   Using OAL allows the application developer to have the flexibility of a platform-independent model that is not tied to a specific target language or premature partitioning of the hardware and software components. This frees the developers from worrying about language-specific constructs and allows the model compiler to create efficient, retargetable, standards-compliant implementation code.
   
