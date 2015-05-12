@@ -11,7 +11,7 @@
     * [Where can I get model execution and translation support?](#xt_support)
     * [Where can I find out more about xtUML methodology and tools?](#morextumlinfo)
     * [What happened to the xtUML Editor?](#xtumleditor)
-  * [Installation Issues](#installation)
+  * [BridgePoint Installation](#installation)
     * [Errors During Unzip](#unziperrors)
   * [BridgePoint Developer Issues](#bpdevelopers)
     * [ANTLR Build Error](#antlrbuilderror)
@@ -64,7 +64,7 @@ xtUML Profile <a id="xtuml_profile"></a>
   * What happened to the xtUML Editor?]  <a id="xtumleditor"></a>  
 In September 2012 the front-end UML editor of the commercial BridgePoint xtUML environment was moved into the open source domain providing the industry with a free entry point into full model-driven development flows that can be augmented with user-developed model compilers. In November 2014 the remaining elements of BridgePoint were made open source rendering the Verifier (eXecution) and model compilers (Translation) fully accessible at the source level.  
 
-Installation <a id="installation"></a>
+BridgePoint Installation <a id="installation"></a>
 ------------
   * Errors During Unzip  <a id="unziperrors"></a>  
   When unzipping the BridgePoint distribution if you see a message that indicates a duplicate file is 
