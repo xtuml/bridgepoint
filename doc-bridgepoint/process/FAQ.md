@@ -17,7 +17,9 @@
     * [ANTLR Build Error](#antlrbuilderror)
     * [Linux Distribution-Specific Instructions](#linux)
     * [Windows Unit Test Configuration](#windowstesting)
-    
+  * [Verifier](#verifier)
+    * [What does "Nothing to verify." mean?](#nothingtoverify) 
+  
 xtUML Profile <a id="xtuml_profile"></a>
 ------------
   * What is xtUML?  <a id="whatisxtuml"></a>  
@@ -126,3 +128,15 @@ BridgePoint Developer Issues <a id="bpdevelopers"></a>
     - If you have a smaller screen or resolution potential you may need to configure the start menu to not always be on top, or set it to auto-hide.
     - Note: Do NOT use the Windows setting that scales text to make it easier to see. This setting, in Windows 7, is found here: ```Personalize > Display > "Make it easier to read what is on your machine"```.  This setting must be set to ```"smaller" 100%```.  If it is adjusted your graphical compare results will not match.
   
+Verifer <a id="verifier"></a>
+------------
+* What does "Nothing to verify." mean?  <a id="nothingtoverify"></a>  
+  Here are things to check:
+ 
+  - Make sure the selected element is being parsed successfully. If there is an OAL error there will be nothing to launch.  
+  – Make sure there is some OAL in the models elements under the selected launch configuration.  
+  - Are the packages containing the classes inside a component?  They need to be.  
+  – Someome other error in the selected launch configuration in likely present.  
+  
+  If you are still having trouble, check out [this thread on the xtuml.org forums](https://xtuml.org/community/topic/what-does-nothing-to-verify-mean/) and ask for help there.
+
