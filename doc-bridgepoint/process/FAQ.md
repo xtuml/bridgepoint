@@ -129,7 +129,7 @@ Verifer <a id="verifier"></a>
 ------------
 
 * **What does "Nothing to verify." mean?**  <a id="nothingtoverify"></a>  
-  Here are things to check:
+  It means that the execution engine did not find parsed instances to execute. Here are things to check:
   * Make sure the selected element is being parsed successfully. If there is an OAL error there will be nothing to launch.
   * Make sure there is some OAL in the model elements that are under the selected launch configuration.
   * Are the packages containing the classes inside a component? They need to be.
