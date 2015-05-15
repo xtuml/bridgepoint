@@ -160,7 +160,7 @@ Milestone: Deliver 7682 [2]
    
 6.2 Build BridgePoint using the build scripts
    
-Estimated time: 1 week
+Estimated time: 1 week   
 Milestone: Deliver 7683 [3]   
 
 6.2.1 Use the build server to create a BridgePoint release
