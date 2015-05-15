@@ -138,26 +138,41 @@ be looked into.
 
 6. Work Required
 ----------------
-6.1 Install BridgePoint into 4.x eclipse base   
-6.1.1 Install osgi compatibility plugins using p2 installer   
-6.1.2 Unzip BridgePoint plugins-only to eclipse/dropins   
-6.1.3 Copy org.antlr* plugins to eclipse/dropins   
-6.1.4 Build BridgePoint with 4.x eclipse base   
-6.1.5 Convert existing plugins to 4.x versions   
-6.2 Update build scripts   
-6.2.1 Adjust build scripts to place BridgePoint plugins under the dropins folder   
-6.2.2 Adjust build scripts to include org.antlr* plugins under the dropins   
-      folder   
-6.3 Update install base to 4.x   
-6.4 Build BridgePoint using the build scripts   
-6.4.1 Run unit tests for build   
-6.4.2 Copy all *.test plugins into the installation folder   
-6.4.3 Run all unit tests   
-6.5 Update for the required IFile API changes   
-6.6 Create a new ClassLoader implementation   
-6.7 Update the launch configurations as needed   
-6.8 Look into the CDT launcher group that is used to run all tests at once   
-6.9 Address plugin requirement issues in ui.text (missing org.eclipse.core.boot)   
+6.1 Setup BridgePoint to build with 4.x base
+
+Estimated time: 1 week
+
+6.1.1 Install BridgePoint into 4.x eclipse base   
+6.1.2 Install osgi compatibility plugins using p2 installer   
+6.1.3 Unzip BridgePoint plugins-only to eclipse/dropins   
+6.1.4 Copy org.antlr* plugins to eclipse/dropins   
+6.1.5 Build BridgePoint with 4.x eclipse base   
+6.1.6 Convert existing plugins to 4.x versions   
+6.1.7 Update build scripts   
+6.1.7.1 Adjust build scripts to place BridgePoint plugins under the dropins folder   
+6.1.7.2 Adjust build scripts to include org.antlr* plugins under the dropins   
+      folder         
+6.1.8 Update install base to 4.x
+   
+6.4 Build BridgePoint using the build scripts
+   
+Estimated time: 1 week
+
+6.4.1 Use the build server to create a BridgePoint release
+6.4.2 Run unit tests for build   
+6.4.3 Copy all *.test plugins into the installation folder   
+6.4.4 Run all unit tests   
+6.4.5 Document any unit test issues
+
+6.5 Address API issues
+
+Estimated time: 2 weeks
+
+6.5.1 Update for the required IFile API changes   
+6.5.2 Create a new ClassLoader implementation   
+6.5.3 Update the launch configurations as needed   
+6.5.4 Look into the CDT launcher group that is used to run all tests at once   
+6.5.5 Address plugin requirement issues in ui.text (missing org.eclipse.core.boot)   
 
 7. Acceptance Test
 ------------------
