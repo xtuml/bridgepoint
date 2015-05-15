@@ -15,6 +15,9 @@ code base.
 2. Document References
 ----------------------
 [1] [BridgePoint DEI #36](https://support.onefact.net/redmine/issues/36)  
+[2] https://support.onefact.net/redmine/issues/7682   
+[3] https://support.onefact.net/redmine/issues/7683   
+[4] https://support.onefact.net/redmine/issues/7684   
 
 3. Background
 -------------
@@ -140,7 +143,8 @@ be looked into.
 ----------------
 6.1 Setup BridgePoint to build with 4.x base
 
-Estimated time: 1 week
+Estimated time: 1 week   
+Milestone: Deliver 7682 [2]   
 
 6.1.1 Install BridgePoint into 4.x eclipse base   
 6.1.2 Install osgi compatibility plugins using p2 installer   
@@ -154,25 +158,29 @@ Estimated time: 1 week
       folder         
 6.1.8 Update install base to 4.x
    
-6.4 Build BridgePoint using the build scripts
+6.2 Build BridgePoint using the build scripts
    
 Estimated time: 1 week
+Milestone: Deliver 7683 [3]   
 
-6.4.1 Use the build server to create a BridgePoint release
-6.4.2 Run unit tests for build   
-6.4.3 Copy all *.test plugins into the installation folder   
-6.4.4 Run all unit tests   
-6.4.5 Document any unit test issues
+6.2.1 Use the build server to create a BridgePoint release
+6.2.2 Run unit tests for build   
+6.2.3 Copy all *.test plugins into the installation folder   
+6.2.4 Run all unit tests   
+6.2.5 Document any unit test issues
 
-6.5 Address API issues
+6.3 Address API issues
 
-Estimated time: 2 weeks
+Estimated time: 2 weeks   
+Milestone: Deliver 7684   
 
-6.5.1 Update for the required IFile API changes   
-6.5.2 Create a new ClassLoader implementation   
-6.5.3 Update the launch configurations as needed   
-6.5.4 Look into the CDT launcher group that is used to run all tests at once   
-6.5.5 Address plugin requirement issues in ui.text (missing org.eclipse.core.boot)   
+6.3.1 Update for the required IFile API changes   
+6.3.2 Create a new ClassLoader implementation   
+6.3.3 Update the launch configurations as needed   
+6.3.4 Look into the CDT launcher group that is used to run all tests at once   
+6.3.5 Address plugin requirement issues in ui.text (missing org.eclipse.core.boot)   
+6.3.6 Run unit tests on the workspace plug-ins
+6.3.6.1 Address any issues found in the unit test run   
 
 7. Acceptance Test
 ------------------
