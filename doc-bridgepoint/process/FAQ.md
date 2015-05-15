@@ -130,10 +130,10 @@ Verifer <a id="verifier"></a>
 
 * **What does "Nothing to verify." mean?**  <a id="nothingtoverify"></a>  
   It means that the execution engine did not find parsed instances to execute. Here are things to check:
-  * Make sure the selected element is being parsed successfully. If there is an OAL error there will be nothing to launch.
-  * Make sure there is some OAL in the model elements that are under the selected launch configuration.
+  * Make sure the selected element is being parsed successfully. If there is an OAL error there will be nothing to launch.  Check the Problems view for errors.
+  * Make sure there is some OAL in the model elements that are under the selected launch configuration.  Inspect your model to verify there are elements under the project/component you are launching that contain action language. 
   * Are the packages containing the classes inside a component? They need to be.
-  * Someome other error in the selected launch configuration in likely present.  
+  * Some other error in the selected launch configuration is likely present.  Check the Problems view and Error Log view for indications of issues in the model you are launching.  
   
   If you are still having trouble, check out [this thread on the xtuml.org forums](https://xtuml.org/community/topic/what-does-nothing-to-verify-mean/) and ask for help there.
 
