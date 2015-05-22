@@ -4,55 +4,77 @@ This work is licensed under the Creative Commons CC0 License
 
 ---
 
-# Move BridgePoint to eclipse 4.x
+# Move BridgePoint to eclipse 4.4
 ### xtUML Project Analysis Note
 
 1. Abstract
 -----------
-This note analyzes the work required to move BridgePoint onto the eclipse 4.x
+This note analyzes the work required to move BridgePoint onto the eclipse 4.4
 code base.
 
 2. Document References
 ----------------------
 [1] [BridgePoint DEI #36](https://support.onefact.net/redmine/issues/36)  
-[2] https://support.onefact.net/redmine/issues/7682   
-[3] https://support.onefact.net/redmine/issues/7683   
-[4] https://support.onefact.net/redmine/issues/7684   
+[2] https://support.onefact.net/redmine/issues/7702 - Install BridgePoint into eclipse 4.4
+[3] https://support.onefact.net/redmine/issues/7682 - Setup BridgePoint to build with eclipse 4.4 base   
+[4] https://support.onefact.net/redmine/issues/7683 - Build BridgePoint using the build scripts   
+[5] https://support.onefact.net/redmine/issues/7684 - Address API changes   
 
 3. Background
 -------------
 BridgePoint has worked with the eclipse 3.x branch for a very long time.  
-Upgrades to the eclipse 4.x branch have been pushed off due to other work.  We 
+Upgrades to the eclipse 4.4 branch have been pushed off due to other work.  We 
 are now ready to begin upgrading.   
 
+BridgePoint currently uses the EMT 3.7.2 version of eclipse.   
+
 4. Requirements
----------------
-4.1 All existing eclipse APIs used shall be updated to work with the new eclipse
-    code base.      
-4.2 Any API that has been changed or removed shall have a replacement which
+---------------  
+4.1 Any API that has been changed or removed shall have a replacement which
     allows for the same functionality.     
-4.3 All existing unit tests shall pass.   
+4.2 All existing unit tests shall pass.   
+4.3 Use the latest eGit plug-ins for the eclipse base.   
+4.4 The design shall call out the exact version of eclipse we use for the base.  This base must allow users to develop BridgePoint as well as non-BridgePoint plug-ins.   
+4.5 When this work is complete the tool shall still work under the eclipse 3.7.2 environment.   
+4.6 OS specific launch configurations shall be removed, the common ones shall work on all supported OSs.   
 
 5. Analysis
 -----------
-5.1 Building the tool
+5.1 Installing and running BridgePoint
 
-In order to build BridgePoint we must install BridgePoint in the 4.x base.  To
+The first step to installing BridgePoint will be to decide on the eclipse
+version to use.  Currently it is expected to be eclipse 4.4 (Luna).
+ 
+Installing and running BridgePoint on 4.4 is very different from building on
+the eclipse 4.4 base.  Section 5.2 below describes the process of building
+BridgePoint on the eclipse 4.4 base. 
+
+In order to build BridgePoint we must install BridgePoint in the 4.4 base.  To
 do so we currently have to do the following:
 
 - osgi.compatibility.plugins must be installed
 - BridgePoint must be installed in the dropins folder under the eclipse install
 - org.antlr* plugins must also be installed in the dropins folder.
 
-Conversion of all plugins to the 4.x format needs to be considered.  In doing so
+We shall also install the unit test plug-ins.   
+
+A smoke test as well as all automated tests shall be run.   
+
+During the initial install we must use the dropins folder, the latest OSGI p2
+support does not allow us to place our plug-ins in the plugins folder.  An
+attempt was made without success, the plug-ins were never registered.   
+
+Conversion of all plugins to the 4.4 format needs to be considered.  In doing so
 the compatibility plugins would not be required.  Using the dropins folder will
 allow us to simply place the BridgePoint folder with the addition of the
 org.antlr* plugins.  This may be nice considering that it would be easier to
 differentiate between eclipse plugins and BridgePoint's plugins.
 
-5.2 Existing eclipse APIs   
+5.2 Building the tool
 
-5.2.1 IFile API   
+5.2.1 Existing eclipse APIs   
+
+5.2.2 IFile API   
 
 Upgrading shows that the IFile API has changed.  The API change is a newly added
 interface requirement.  This addition is IFile.accept(IResourceProxyVisitor
@@ -73,10 +95,13 @@ at least hidden from the public API.  This class did not provide much over
 java's default ClassLoader class.  It did implement the ParallelClassLoader
 interface from eclipse which requires consideration.
 
+When initially used the DefaultClassLoader class was an internal class.  Using
+it provided a quicker solution.
+
 If the DefaultClassLoader class cannot be used anymore or there is no migration
 guide for it then we shall re-implement the design based off of the java
-ClassLoader API.  In this case the original documentation and author shall be
-consulted.
+ClassLoader API.  In this case the original documentation shall be consulted
+[5].
 
 5.4 Unit tests
 
@@ -97,9 +122,10 @@ launch configurations.  The naming shall not be changed.
 It appears that the launch group support from CDT has been removed.  This
 support allowed us to run all unit tests without interaction.  Investigation
 into this removal shall be performed.  If the functionality cannot be returned
-we shall bring back the in-house action that performed similar functionality.
-We also shall consider the utility that allows automatic collection of the test
-results.
+we shall investigate what eclipse does to run multiple launches.  A complete
+solution shall work in the UI.  We also shall consider the utility that allows
+automatic collection of the test results.  Automatic collection of the results
+shall work and be stored as it was before.   
 
 5.4.3 UI test utilities
 
@@ -113,7 +139,7 @@ related to setting information into the import project wizard.
 
 5.5.1 eGit issues   
 
-5.5.2 Workspace synchronization   
+5.5.1.1 Workspace synchronization   
 
 During the analysis phase it was found that with eGit the 'Synchronize with
 workspace' action no longer works.  It is present but exceptions occur.  Further
@@ -131,7 +157,7 @@ Another data point is that if using 'Synchronize with workspace' on the git
 bridgepoint repository, with only the doc-bridgepoint project checked out it
 works.
  
-5.5.3 Missing git projects
+5.5.1.2 Missing git projects
 
 In one case the tool was shut down and the machine restarted.  When eclipse was
 reopened none of the existing projects were shown in the workspace.  This issue
@@ -141,67 +167,88 @@ be looked into.
 
 6. Work Required
 ----------------
-6.1 Setup BridgePoint to build with 4.x base
+BridgePoint 5.0 shall be used for setting up the initial install base.   
+
+Note that code generation is working by default.  The issues we have are in code
+compilation.   
+
+6.1 Install and run BridgePoint with the 4.4 base   
 
 Estimated time: 1 week   
-Milestone: Deliver 7682 [2]   
+Milestone: Deliver 7702 [2]
 
-6.1.1 Install BridgePoint into 4.x eclipse base   
+6.1.1 Install BridgePoint into 4.4 eclipse base   
 6.1.2 Install osgi compatibility plugins using p2 installer   
+6.1.2.3 Help > Install New Software...  
+6.1.2.4 Select work with: The Eclipse Project Updates   
+6.1.2.5 Check the Eclipse 2.0 Style Plugin Support   
+6.1.2.6 Run the installer and restart the tool   
 6.1.3 Unzip BridgePoint plugins-only to eclipse/dropins   
 6.1.4 Copy org.antlr* plugins to eclipse/dropins   
-6.1.5 Build BridgePoint with 4.x eclipse base   
-6.1.6 Convert existing plugins to 4.x versions   
+6.1.5 Copy org.xtuml.*.test plugins to eclipse dropins
+6.1.6 Run automated tests for the BridgePoint suite
+
+6.1 Setup BridgePoint to build with 4.4 base
+
+Estimated time: 1 week   
+Milestone: Deliver 7682 [3]   
+
+6.1.5 Build BridgePoint with 4.4 eclipse base   
+6.1.6 Convert existing plugins to 4.4 versions   
 6.1.7 Update build scripts   
 6.1.7.1 Adjust build scripts to place BridgePoint plugins under the dropins folder   
 6.1.7.2 Adjust build scripts to include org.antlr* plugins under the dropins   
       folder         
-6.1.8 Update install base to 4.x
-   
-6.2 Build BridgePoint using the build scripts
-   
-Estimated time: 1 week   
-Milestone: Deliver 7683 [3]   
-
-6.2.1 Use the build server to create a BridgePoint release
-6.2.2 Run unit tests for build   
-6.2.3 Copy all *.test plugins into the installation folder   
-6.2.4 Run all unit tests   
-6.2.5 Document any unit test issues
+6.1.8 Update install base to 4.4
 
 6.3 Address API issues
 
 Estimated time: 2 weeks   
-Milestone: Deliver 7684   
+Milestone: Deliver 7684 [5]   
 
-6.3.1 Update for the required IFile API changes   
-6.3.2 Create a new ClassLoader implementation   
-6.3.3 Update the launch configurations as needed   
-6.3.4 Look into the CDT launcher group that is used to run all tests at once   
-6.3.5 Address plugin requirement issues in ui.text (missing org.eclipse.core.boot)   
-6.3.6 Run unit tests on the workspace plug-ins
-6.3.6.1 Address any issues found in the unit test run   
+6.2.1 Update for the required IFile API changes   
+6.2.2 Create a new ClassLoader implementation   
+6.2.3 Update the launch configurations as needed   
+6.2.4 Look into the CDT launcher group that is used to run all tests at once   
+6.2.5 Address plugin requirement issues in ui.text (missing org.eclipse.core.boot)   
+6.2.6 Run unit tests on the workspace plug-ins
+6.2.6.1 Address any issues found in the unit test run   
+   
+6.3 Build BridgePoint using the build scripts
+   
+Estimated time: 1 week   
+Milestone: Deliver 7683 [4]   
+
+6.3.1 Use the build server to create a BridgePoint release
+6.3.2 Run unit tests for build   
+6.3.3 Copy all *.test plugins into the installation folder   
+6.3.4 Run all unit tests   
+6.3.5 Document any unit test issues
 
 7. Acceptance Test
 ------------------
-7.1 Installation into 4.x
+7.1 Installation into 4.4
 
 The tool shall be usable and unit tests shall pass with an installed version of
-BridgePoint
+BridgePoint.   
 
-7.2 Build version of BridgePoint on 4.x
+7.2 Build version of BridgePoint on 4.4
 
-The tool shall not require the compatibility plugins.   
+The tool shall not require the compatibility plugins.      
 
-7.2 Code base
+7.3 Code base
 
-The entire BridgePoint code base shall build without error.
+The entire BridgePoint code base shall build without error.   
 
-7.2.1 Testing
+7.3.1 Testing
 
 All unit tests shall run and pass.
 
-7.3 DefaultClassLoader removal
+7.3.2 Automated testing
+
+All tests shall be able to run with a single action.   
+
+7.4 DefaultClassLoader removal
 
 Manual tests shall be performed regarding realized implementations in verifier.
 The automated tests may not include full coverage.   
