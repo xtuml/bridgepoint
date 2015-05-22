@@ -219,7 +219,7 @@ Milestone: Deliver 7684 [5]
 Estimated time: 1 week   
 Milestone: Deliver 7683 [4]   
 
-6.4.1 Use the build server to create a BridgePoint release
+6.4.1 Use the build server to create a BridgePoint release   
 6.4.2 Run unit tests for build   
 6.4.3 Copy all *.test plugins into the installation folder   
 6.4.4 Run all unit tests   
