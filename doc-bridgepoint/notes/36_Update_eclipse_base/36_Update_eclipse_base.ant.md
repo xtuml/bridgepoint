@@ -15,7 +15,7 @@ code base.
 2. Document References
 ----------------------
 [1] [BridgePoint DEI #36](https://support.onefact.net/redmine/issues/36)  
-[2] https://support.onefact.net/redmine/issues/7702 - Install BridgePoint into eclipse 4.4
+[2] https://support.onefact.net/redmine/issues/7702 - Install BridgePoint into eclipse 4.4   
 [3] https://support.onefact.net/redmine/issues/7682 - Setup BridgePoint to build with eclipse 4.4 base   
 [4] https://support.onefact.net/redmine/issues/7683 - Build BridgePoint using the build scripts   
 [5] https://support.onefact.net/redmine/issues/7684 - Address API changes   
@@ -188,42 +188,42 @@ Milestone: Deliver 7702 [2]
 6.1.5 Copy org.xtuml.*.test plugins to eclipse dropins
 6.1.6 Run automated tests for the BridgePoint suite
 
-6.1 Setup BridgePoint to build with 4.4 base
+6.2 Setup BridgePoint to build with 4.4 base
 
 Estimated time: 1 week   
 Milestone: Deliver 7682 [3]   
 
-6.1.5 Build BridgePoint with 4.4 eclipse base   
-6.1.6 Convert existing plugins to 4.4 versions   
-6.1.7 Update build scripts   
-6.1.7.1 Adjust build scripts to place BridgePoint plugins under the dropins folder   
-6.1.7.2 Adjust build scripts to include org.antlr* plugins under the dropins   
+6.2.5 Build BridgePoint with 4.4 eclipse base   
+6.2.6 Convert existing plugins to 4.4 versions   
+6.2.7 Update build scripts   
+6.2.7.1 Adjust build scripts to place BridgePoint plugins under the dropins folder   
+6.2.7.2 Adjust build scripts to include org.antlr* plugins under the dropins   
       folder         
-6.1.8 Update install base to 4.4
+6.2.8 Update install base to 4.4
 
 6.3 Address API issues
 
 Estimated time: 2 weeks   
 Milestone: Deliver 7684 [5]   
 
-6.2.1 Update for the required IFile API changes   
-6.2.2 Create a new ClassLoader implementation   
-6.2.3 Update the launch configurations as needed   
-6.2.4 Look into the CDT launcher group that is used to run all tests at once   
-6.2.5 Address plugin requirement issues in ui.text (missing org.eclipse.core.boot)   
-6.2.6 Run unit tests on the workspace plug-ins
-6.2.6.1 Address any issues found in the unit test run   
+6.3.1 Update for the required IFile API changes   
+6.3.2 Create a new ClassLoader implementation   
+6.3.3 Update the launch configurations as needed   
+6.3.4 Look into the CDT launcher group that is used to run all tests at once   
+6.3.5 Address plugin requirement issues in ui.text (missing org.eclipse.core.boot)   
+6.3.6 Run unit tests on the workspace plug-ins
+6.3.6.1 Address any issues found in the unit test run   
    
-6.3 Build BridgePoint using the build scripts
+6.4 Build BridgePoint using the build scripts
    
 Estimated time: 1 week   
 Milestone: Deliver 7683 [4]   
 
-6.3.1 Use the build server to create a BridgePoint release
-6.3.2 Run unit tests for build   
-6.3.3 Copy all *.test plugins into the installation folder   
-6.3.4 Run all unit tests   
-6.3.5 Document any unit test issues
+6.4.1 Use the build server to create a BridgePoint release
+6.4.2 Run unit tests for build   
+6.4.3 Copy all *.test plugins into the installation folder   
+6.4.4 Run all unit tests   
+6.4.5 Document any unit test issues
 
 7. Acceptance Test
 ------------------
