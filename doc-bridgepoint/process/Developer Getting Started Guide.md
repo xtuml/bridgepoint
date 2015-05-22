@@ -1,5 +1,5 @@
 # Developer Getting Started Guide
-This document provides the information required to create a fully functional BridgePoint development environment.  This will allow the developer to debug, modify, and extend BridgePoint functionality and execute BridgePoint unit tests.
+This document provides the information required to create a fully functional BridgePoint development environment.  
 
 Preparation 
 -----------
@@ -7,9 +7,9 @@ Preparation
 
 2) This document may be used in Linux or Windows, but its examples use Linux. In Windows, cygwin is used to ease setup. Throughout this document we use "~" in the example path names.  If you are building on Windows replace "~" with  "c:" (or "/cygdrive/c" when using the cygwin shell).  Additionally, for Windows, when the instructions read Launcher.sh, replace with Launcher.bat.
 
-3) This document uses ```~/git``` as the root folder for git repostiories, and it uses ```~/workspace``` as the development workspace. You can substitute any folder you desire, but you must be consistent.
+3) This document uses ```~/git``` as the root folder for git repostiories, and it uses ```~/workspace``` as the development workspace. You may substitute any folder you desire, but you must be consistent.
 
-4) <a id="help"></a>If you have any problems or questions, check the [Build FAQ](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/FAQ.md#bpdevelopers) or post to the [xtUML.org Forums] (https://xtuml.org/community/forum/xtuml-forum/) for help.
+4) <a id="help"></a>If you have any problems or questions, check the [FAQ](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/FAQ.md#bpdevelopers) or post to the [xtUML.org Forums] (https://xtuml.org/community/forum/xtuml-forum/) for help.
 
 
 Instructions
@@ -30,9 +30,8 @@ Instructions
     - You may unzip wherever you like, but these instructions assume:  ```~/xtuml```
 
   - The following 3rd party tools are required to build BridgePoint.  Install them now.    
-    - __LINUX__ - For convience installing
-    under Linux Ubuntu, the installation commands are presented below.  If installing in a 
-    different Linux environment you must use the commands appropriate for your environment.
+    - __LINUX__ - Linux Ubuntu installation commands are presented below.  If installing in a 
+    different Linux distribution you must use the [commands appropriate for your Linux distribution](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/FAQ.md#linux).
     ```
     sudo apt-get install libxtst6:i386 libgtk2.0-0:i386 gtk2-engines:i386 gtk2-engines-*:i386 --reinstall unity-gtk2-module:i386 libgtkmm-2.4-1c2:i386 libcanberra-gtk-module:i386 tofrodos wine libstdc++5 g++ ant git default-jdk  
     ```
@@ -49,13 +48,6 @@ Instructions
   git clone https://github.com/"username"/models.git ~/git/models
   ```
     
-  - Edit ```~/xtuml/BridgePoint/eclipse/Launcher.sh``` in a text editor (in Windows Launcher.bat)
-    - Directly after "export BP_JVM=..." add the following (on Windows substitute "set" for "export"):
-    ```      
-      export XTUML_DEVELOPMENT_REPOSITORY=~/git/bridgepoint
-      export XTUML_TEST_MODEL_REPOSITORY=~/git/models/test/
-      export XTUML_PRIVATE_MODEL_REPOSITORY=~/git/modelsmg/test/
-    ```
   - Prepare the development environment to call gen_erate. In the command below replace "\<version\>" with the version of the product:
   ```
   cp -R ~/xtuml/BridgePoint/eclipse/plugins/org.xtuml.bp.mc.c.binary_<version>/mc3020/* ~/git/bridgepoint/src/org.xtuml.bp.mc.c.binary/mc3020
@@ -88,5 +80,13 @@ Instructions
 ### Congratulations!  Your environment is now built and ready for BridgePoint development.
 
   - [If you had any build problems get help here.](#help)
-  - [If you want to run unit tests on MS Windows you must perform some additional steps described here.](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/FAQ.md#windowstesting) 
+  - If you want to run BridgePoint unit tests you will need to perform this additional step:
+    - Edit ```~/xtuml/BridgePoint/eclipse/Launcher.sh``` in a text editor (in Windows Launcher.bat)
+      - Directly after "export BP_JVM=..." add the following (on Windows substitute "set" for "export"):
+      ```      
+        export XTUML_DEVELOPMENT_REPOSITORY=~/git/bridgepoint
+        export XTUML_TEST_MODEL_REPOSITORY=~/git/models/test/
+        export XTUML_PRIVATE_MODEL_REPOSITORY=~/git/modelsmg/test/
+      ```
+  - Additionally, if you want to run BridgePoint unit tests on MS Windows you must perform some additional steps [described here.](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/FAQ.md#windowstesting) 
 
