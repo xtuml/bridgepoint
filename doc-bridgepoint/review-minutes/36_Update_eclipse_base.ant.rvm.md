@@ -37,14 +37,15 @@ x- 25  min   Bob  4        Add requirement "After this work is done, the BridgeP
 Re-review comments:
 
 _- 1  min   TRL  5.3       Bad reference number, should be [6] locate original documentation
-_- 2  min   Bob  General   All fixes shall be applied in the eclipse 3.7 version
-_- 3  min   TRL  General   Install fixed 3.7 version changes into a 4.4 version
-_- 4  min   TRL  General   Run smoke test with new installation
-_- 5  min   KB   6.1       Numbering issue 6.1.2.3
-_- 6  min   KB   6.2       Numbering issue 6.2.5
-_- 7  min   KB   6.2.6     Clarify what this section is describing (converting plug-ins to 3.x format)
-_- 8  min   KB   6.2.8     Change to mention we update the build scripts to support a 4.4 build
-_- 9  min   Bob  6         Add a section to describe addressing 4.4 issues in 3.7 and testing both versions
+                          TRL: Waiting on access to old documents
+x- 2  min   Bob  General   All fixes shall be applied in the eclipse 3.7 version
+x- 3  min   TRL  General   Install fixed 3.7 version changes into a 4.4 version
+x- 4  min   TRL  General   Run smoke test with new installation
+x- 5  min   KB   6.1       Numbering issue 6.1.2.3
+x- 6  min   KB   6.2       Numbering issue 6.2.5
+x- 7  min   KB   6.2.6     Clarify what this section is describing (converting plug-ins to 3.x format)
+x- 8  min   KB   6.2.8     Change to mention we update the build scripts to support a 4.4 build
+x- 9  min   Bob  6         Add a section to describe addressing 4.4 issues in 3.7 and testing both versions
 
 </pre>
 
