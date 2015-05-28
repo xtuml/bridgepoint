@@ -17,9 +17,9 @@ This note describes the steps to install and run BridgePoint under the eclipse
 [1] [BridgePoint DEI #7702](https://support.onefact.net/redmine/issues/7702)  
 [2] https://github.com/travislondon/bridgepoint/blob/master/doc-bridgepoint/notes/36_Update_eclipse_base/36_Update_eclipse_base.ant.md   
 [3] [BridgePoint DEI #7684](https://support.onefact.net/redmine/issues/7684)   
-[4] https://github.com/xtuml/packaging/tree/master/install_bases/BridgePoint_e3.7/EclipseDeliverables
-[5] http://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/luna/SR2/eclipse-modeling-luna-SR2-win32.zip
-[6] http://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/luna/SR2/eclipse-modeling-luna-SR2-linux-gtk.tar.gz
+[4] https://github.com/xtuml/packaging/tree/master/install_bases/BridgePoint_e3.7/EclipseDeliverables   
+[5] http://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/luna/SR2/eclipse-modeling-luna-SR2-win32.zip   
+[6] http://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/luna/SR2/eclipse-modeling-luna-SR2-linux-gtk.tar.gz   
 
 3. Background
 -------------
