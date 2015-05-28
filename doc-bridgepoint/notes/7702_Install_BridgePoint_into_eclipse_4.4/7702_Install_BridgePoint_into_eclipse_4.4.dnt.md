@@ -41,7 +41,7 @@ See [2].
 ---------
 6.1 Install BridgePoint into 4.4 eclipse base   
 
-The work here is to download the eclipse 4.4 zip file.  The chosen eclipse release
+The work here is to download the eclipse 4.4 zip file.  The chosen eclipse release   
 is code named Luna and the two zip files are at [5] and [6].  Next we shall   
 install the Eclipse 2.0 Style Plugin support.  At this point we can unzip an   
 update-site version of BridgePoint under the dropins directory.  Doing so will   
