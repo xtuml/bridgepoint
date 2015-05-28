@@ -70,6 +70,10 @@ allow us to simply place the BridgePoint folder with the addition of the
 org.antlr* plugins.  This may be nice considering that it would be easier to
 differentiate between eclipse plugins and BridgePoint's plugins.
 
+For any issues found they shall be applied in our current eclipse base.  This   
+will allow for us to run the automated tests under our current version and    
+provide a testing base for backward compatibility.   
+
 5.2 Building the tool
 
 5.2.1 Existing eclipse APIs   
@@ -179,42 +183,59 @@ Milestone: Deliver 7702 [2]
 
 6.1.1 Install BridgePoint into 4.4 eclipse base   
 6.1.2 Install osgi compatibility plugins using p2 installer   
-6.1.2.3 Help > Install New Software...  
-6.1.2.4 Select work with: The Eclipse Project Updates   
-6.1.2.5 Check the Eclipse 2.0 Style Plugin Support   
-6.1.2.6 Run the installer and restart the tool   
+6.1.2.1 Help > Install New Software...  
+6.1.2.2 Select work with: The Eclipse Project Updates   
+6.1.2.3 Check the Eclipse 2.0 Style Plugin Support   
+6.1.2.4 Run the installer and restart the tool   
 6.1.3 Unzip BridgePoint plugins-only to eclipse/dropins   
 6.1.4 Copy org.antlr* plugins to eclipse/dropins   
 6.1.5 Copy org.xtuml.*.test plugins to eclipse dropins
-6.1.6 Run automated tests for the BridgePoint suite
+6.1.6 Run a smoke test on the installed BridgePoint   
+6.1.7 Run automated tests for the BridgePoint suite
+6.1.8 Report any issues found with testing   
+6.1.9 Add eclipse install bases under the packaging repository   
 
 6.2 Setup BridgePoint to build with 4.4 base
 
+6.2.1 Build BridgePoint with 4.4 eclipse base    
+
+In this step BridgePoint will get generated and built.  There will be   
+compilation errors which will be addressed later.   
+
+6.2.1.1 Address API issues
+
 Estimated time: 1 week   
-Milestone: Deliver 7682 [3]   
-
-6.2.5 Build BridgePoint with 4.4 eclipse base   
-6.2.6 Convert existing plugins to 4.4 versions   
-6.2.7 Update build scripts   
-6.2.7.1 Adjust build scripts to place BridgePoint plugins under the dropins folder   
-6.2.7.2 Adjust build scripts to include org.antlr* plugins under the dropins   
-      folder         
-6.2.8 Update install base to 4.4
-
-6.3 Address API issues
-
-Estimated time: 2 weeks   
 Milestone: Deliver 7684 [5]   
 
-6.3.1 Update for the required IFile API changes   
-6.3.2 Create a new ClassLoader implementation   
-6.3.3 Update the launch configurations as needed   
-6.3.4 Look into the CDT launcher group that is used to run all tests at once   
-6.3.5 Address plugin requirement issues in ui.text (missing org.eclipse.core.boot)   
-6.3.6 Run unit tests on the workspace plug-ins
-6.3.6.1 Address any issues found in the unit test run   
+6.2.1.1.1 Update for the required IFile API changes   
+6.2.1.1.2 Create a new ClassLoader implementation   
+6.2.1.1.3 Update the launch configurations as needed   
+6.2.1.1.4 Look into the CDT launcher group that is used to run all tests at once   
+6.2.1.1.5 Address plugin requirement issues in ui.text (missing org.eclipse.core.boot)   
+6.2.1.1.6 Convert existing plugins to 3.x style versions by adding the required   
+        MANIFEST data.   
+        
+6.2.1.2 Check out addressed API changes into eclipse 3.7
+
+In this step we will test building with the API changes in an eclipse 3.7 base.   
+
+Estimated time: 1 week   
+Milestone: Deliver 7682 [3]   
+ 
+6.2.1.2.1 Build the source with API fixes in the eclipse 3.7 environment   
+6.2.1.2.2 Address any build issues in the eclipse 3.7 environment   
+6.2.1.2.3 Run automated tests and address any issues    
+
+6.3 Update build scripts   
+
+6.3.1 Update build scripts to point at the new install base   
+6.3.2 Update build scripts to support a version parameter   
+6.3.3 Create a build based off of the eclipse 4.4 version   
+6.3.4 Run automated tests with an installed BP/eclipse 4.4 version   
+6.3.5 Report any issues found with the unit tests
+6.3.6 Run a smoke test and report any issues   
    
-6.4 Build BridgePoint using the build scripts
+6.4 Build BridgePoint using the built version based on eclipse 4.4
    
 Estimated time: 1 week   
 Milestone: Deliver 7683 [4]   
