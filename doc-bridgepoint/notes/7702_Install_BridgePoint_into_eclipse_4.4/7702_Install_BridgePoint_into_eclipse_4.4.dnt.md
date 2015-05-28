@@ -18,6 +18,8 @@ This note describes the steps to install and run BridgePoint under the eclipse
 [2] https://github.com/travislondon/bridgepoint/blob/master/doc-bridgepoint/notes/36_Update_eclipse_base/36_Update_eclipse_base.ant.md   
 [3] [BridgePoint DEI #7684](https://support.onefact.net/redmine/issues/7684)   
 [4] https://github.com/xtuml/packaging/tree/master/install_bases/BridgePoint_e3.7/EclipseDeliverables
+[5] http://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/luna/SR2/eclipse-modeling-luna-SR2-win32.zip
+[6] http://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/luna/SR2/eclipse-modeling-luna-SR2-linux-gtk.tar.gz
 
 3. Background
 -------------
@@ -39,12 +41,13 @@ See [2].
 ---------
 6.1 Install BridgePoint into 4.4 eclipse base   
 
-The work here is to download the eclipse 4.4 zip file.  Next we shall install   
-the Eclipse 2.0 Style Plugin support.  At this point we can unzip an update-site   
-version of BridgePoint under the dropins directory.  Doing so will require us to   
-manually copy all org.antlr.* plug-ins from another fully installed version of    
-BridgePoint.  The version of BridgePoint to copy the plug-ins from shall be 5.0.    
-These plug-ins shall also live in the dropins folder.   
+The work here is to download the eclipse 4.4 zip file.  The chosen eclipse release
+is code named Luna and the two zip files are at [5] and [6].  Next we shall   
+install the Eclipse 2.0 Style Plugin support.  At this point we can unzip an   
+update-site version of BridgePoint under the dropins directory.  Doing so will   
+require us to manually copy all org.antlr.* plug-ins from another fully installed   
+version of BridgePoint.  The version of BridgePoint to copy the plug-ins from   
+shall be 5.0.  These plug-ins shall also live in the dropins folder.  
 
 6.2 Run automated tests   
 
