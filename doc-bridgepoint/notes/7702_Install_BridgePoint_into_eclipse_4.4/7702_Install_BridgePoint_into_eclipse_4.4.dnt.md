@@ -5,7 +5,7 @@ This work is licensed under the Creative Commons CC0 License
 ---
 
 # Install and run BridgePoint with the 4.4 base
-### xtUML Project Analysis Note
+### xtUML Project Design Note
 
 1. Abstract
 -----------
@@ -69,6 +69,10 @@ bridgepoint repository.  Once done, each test under the JUnit-Plugin test
 category shall be run.  The results shall be captured under the document   
 repository.   
 
+6.2.3 Run smoke test
+
+A smoke test shall be run and the results reported.   
+
 6.3 Update the installer base   
 
 The installer base shall be updated to include the eclipse 4.4 base.  At this   
@@ -85,6 +89,7 @@ Eclipse 2.0 Style Plugin support must be done through the UI itself.
 ------------
 8.1 BridgePoint shall be installed in eclipse 4.4   
 8.2 Unit tests shall be run against the installed version of BridgePoint
+8.3 Run smoke test on installed BridgePoint plug-ins   
 
 End
 ---
