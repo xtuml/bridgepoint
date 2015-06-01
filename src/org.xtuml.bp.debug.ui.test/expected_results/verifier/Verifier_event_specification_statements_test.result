@@ -26,7 +26,7 @@ LogFailure:  Test event to self prioritization without self keyword: FAIL
 LogInfo:  Starting assigner event to self prioritization test
 LogSuccess:  Test assigner event to self prioritization: Pass
 LogInfo:  Starting generating stored events twice test
-Could not fire event CALLSTOREDEVENTTWICE2: go to  because the event has already been fired. at CALLSTOREDEVENTTWICE2::Instance Based Satate Machine::Verifier_event_specification_statements_test::Verifier_event_specification_statements_test::Verifier_event_specification_statements_test::test::Call stored event twice::Call stored event twice
+Could not fire event CALLSTOREDEVENTTWICE2: go to  because the event has already been fired. at CALLSTOREDEVENTTWICE2::Instance Based State Machine::Verifier_event_specification_statements_test::Verifier_event_specification_statements_test::Verifier_event_specification_statements_test::test::Call stored event twice::Call stored event twice
 LogSuccess:  Test generating stored events twice test: Pass
 LogInfo:  Test multiple events to other instances
 LogSuccess:  Test multiple events to other instances: Pass
