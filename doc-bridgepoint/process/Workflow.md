@@ -14,7 +14,7 @@ change management for the git repositories.
 -------------
 The BridgePoint Issue Tracker [1] is hosted by One Fact.  The BridgePoint source code and documentation repositories are hosted on github under the xtuml organization [2].
 
-The Developer’s Getting Started Guide [3] explains how to set up a development environment and pull the BridgePoint source code.  It explains how developers use git forks to create their development environment. Each developer's work is be done in their own fork. The xtUML team strongly recommends you use branches within forks.  We recommend the branch be named ```&lt;issue_num&gt;_&lt;short description&gt;``` (for example: ```7630_build_updates```).  This adds valuable information that is visible to other developers on the repository's network graph.  
+The Developer’s Getting Started Guide [3] explains how to set up a development environment and pull the BridgePoint source code.  It explains how developers use git forks to create their development environment. Each developer's work is be done in their own fork. The xtUML team strongly recommends you use branches within forks.  We recommend the branch be named ```<issue_num>_<short description>``` (for example: ```7630_build_updates```).  This adds valuable information that is visible to other developers on the repository's network graph.  
 
 Once your development environment is configured, the workflow is:
 * Issue is created.  Email notifications of the issue creation are automatically sent by the system. (Issue state is __New__)
@@ -25,7 +25,7 @@ Once your development environment is configured, the workflow is:
 * Investigate and write the appropriate analysis and/or design notes
 * Review the note with us
 * Complete the work in your fork.  During development, commit early and often.
-  * When a commit message is made in git we use the following format: ```job #&lt;issue_num&gt; - &lt;change description&gt;```.  There is a cron job that looks for the ```#&lt;issue_num&gt;``` in a message and, when found, sends the comment to the  specified issue number in the issue tracking system. This serves as a means of requirements tracing. The issue in the issue tracking system ends-up holding links to every individual change that was made (and the comment associated with the change).
+  * When a commit message is made in git we use the following format: ```job #<issue_num> - <change description>```.  There is a cron job that looks for the ```#<issue_num>``` in a message and, when found, sends the comment to the  specified issue number in the issue tracking system. This serves as a means of requirements tracing. The issue in the issue tracking system ends-up holding links to every individual change that was made (and the comment associated with the change).
   * Note that the cron job only runs against the xtuml master repositories, not forks. This means, you will not see all your comments go into the issue until your fork’s branch is promoted.
 * Review again as needed (depending on issue size)
 * Run tests
