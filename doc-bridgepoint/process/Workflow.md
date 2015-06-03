@@ -9,7 +9,9 @@ change management for the git repositories.
 ----------------------
 [1] [BridgePoint Issue Tracker] (https://support.onefact.net)  
 [2] [xtUML github organization] (https://github.com/xtuml)  
-[3] [Developer's Getting Started Guide] (https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/Developer%20Getting%20Started%20Guide.md)  
+[3] [Developer's Getting Started Guide] (https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/Developer%20Getting%20Started%20Guide.md)    
+[4] [Process Document Templates: Analysis Note (ANT), Design Note (DNT), Implementation Note (INT)] (https://github.com/xtuml/bridgepoint/tree/master/doc-bridgepoint/process/templates)  
+
 3. Workflow
 -------------
 The BridgePoint Issue Tracker [1] is hosted by One Fact.  The BridgePoint source code and documentation repositories are hosted on github under the xtuml organization [2].
@@ -20,7 +22,7 @@ Once your development environment is configured, the workflow is:
 * Issue is created.  Email notifications of the issue creation are automatically sent by the system. (Issue state is __New__)
 * A manager looks at the new issue and asks for clarifications if necessary (Manager changes issue state from __New &gt; Acknowledged__)
 * Developer (you) starts working on an issue. (Developer changes issue state from __Acknowledged &gt; In progress__) 
-* You makes sure your fork is up to date with xtuml's repository master.  Merge the latest xtuml repository master branch into your fork's master.
+* You make sure your fork is up to date with xtuml's repository master.  Merge the latest xtuml repository master branch into your fork's master.
 * You create a new branch using the naming scheme described above
 * Investigate and write the appropriate analysis and/or design notes
 * Review the note with us
@@ -29,7 +31,10 @@ Once your development environment is configured, the workflow is:
   * Note that the cron job only runs against the xtuml master repositories, not forks. This means, you will not see all your comments go into the issue until your fork’s branch is promoted.
 * Review again as needed (depending on issue size)
 * Run tests
-* When ready for promotion you will create a pull request to merge your branch into the xtuml master branch. (Developer changes issue state from __In progress &gt; Resolved__)
+* When ready for promotion:
+  * Merge the latest xtuml master branch into your development branch to pick up any new changes to master.
+  * Create an implementation note [4] to capture the work done.  Compare the branch with master and use the "Scrape code changes" action in the Synchronize view's menu to get the list of changed files.  Put the changed files list into the INT.
+  * Create a pull request to merge your branch into the xtuml master branch. (Developer changes issue state from __In progress &gt; Resolved__)
 * A manager with permission to service that pull request will review and promote the changes. (Manager changes issue state from __Resolved &gt; Closed__)
   * We do not delete branches after the promotion is complete.
 
