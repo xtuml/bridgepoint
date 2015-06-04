@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: BridgePoint Generator
+Bundle-SymbolicName: org.xtuml.bp.dap.pkg;singleton:=true
+Bundle-Version: 5.1.0
+Bundle-ClassPath: pkg.jar
+Bundle-Activator: org.xtuml.bp.dap.pkg.Unreferenced
+Bundle-Vendor: xtUML.org
+Bundle-Localization: plugin
+Bundle-ActivationPolicy: lazy
