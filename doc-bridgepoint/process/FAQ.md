@@ -74,14 +74,12 @@ BridgePoint Installation <a id="installation"></a>
   BridgePoint model compilers, a seperate process runs during model translation.  This process is a stand-alone
   32-bit binary, so it too may use up to 4GB of RAM.  Therefore, the current maximum possible usage is 8GB.  
 
-  RAM
-  ---
+  #####RAM
   Experience has shown that the tool runs very well with 4GB of RAM under Linux environments.  In Windows, 8GB is 
   the minimum recomendation. The tool does not offically support Mac OS, but it does run well with 4GB of RAM on 
   a Mac.
 
-  Processor
-  ---------
+  #####Processor
   Eclipse utilizes threading very well. Mutli-core processors help performance when editing models. However,
   model translation uses a single thread.  Therefore, translation performance is not improved with multiple 
   processors.  Model execution performance is single-threaded when "deterministic execution" is selected, and
