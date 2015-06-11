@@ -12,6 +12,7 @@
     * [Where can I find out more about xtUML methodology and tools?](#morextumlinfo)
     * [What happened to the xtUML Editor?](#xtumleditor)
   * [BridgePoint Installation](#installation)
+    * [Machine Recomendations](#machinerecomendations)
     * [Errors During Unzip](#unziperrors)
   * [BridgePoint Developer Issues](#bpdevelopers)
     * [ANTLR Build Error](#antlrbuilderror)
@@ -65,6 +66,25 @@ In September 2012 the front-end UML editor of the commercial BridgePoint xtUML e
 
 BridgePoint Installation <a id="installation"></a>
 ------------
+* **Hardware Requirements and Recomendations**  <a id="machinerecomendations"></a>  
+  BridgePoint runs under [Eclipse](https://www.eclipse.org/). Hence, machine resource usage comes largely from
+  Eclipse. As of this writting, there are no published hardware requirements for Eclipse.  Eclipse offers 32 and
+  64-bit versions. BridgePoint is built using only the 32-bit version of Eclipse. BridgePoint plugins under
+  Eclipse will never use more than 4GB of RAM while editing and executing models.  However, for people using
+  BridgePoint model compilers, a seperate process runs during model translation.  This process is a stand-alone
+  32-bit binary, so it too may use up to 4GB of RAM.  Therefore, the current maximum possible usage is 8GB.  
+
+  #####RAM
+  Experience has shown that the tool runs very well with 4GB of RAM under Linux environments.  In Windows, 8GB is 
+  the minimum recomendation. The tool does not offically support Mac OS, but it does run well with 4GB of RAM on 
+  a Mac.
+
+  #####Processor
+  Eclipse utilizes threading very well. Mutli-core processors help performance when editing models. However,
+  model translation uses a single thread.  Therefore, translation performance is not improved with multiple 
+  processors.  Model execution performance is single-threaded when "deterministic execution" is selected, and
+  multi-threaded when it is not selected.  In general, any processor running at 1GHz and beyond will work fine.
+  
 * **Errors During Unzip**  <a id="unziperrors"></a>  
   When unzipping the BridgePoint distribution if you see a message that indicates a duplicate file is 
   being installed or there missing files in the distribution, the problem is likely with the 
