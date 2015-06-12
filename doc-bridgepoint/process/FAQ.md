@@ -12,7 +12,10 @@
     * [Where can I find out more about xtUML methodology and tools?](#morextumlinfo)
     * [What happened to the xtUML Editor?](#xtumleditor)
   * [BridgePoint Installation](#installation)
+    * [Machine Recomendations](#machinerecomendations)
     * [Errors During Unzip](#unziperrors)
+    * [Shared/Multi-user Installation](#sharedinstall)
+    * [Starting BridgePoint](#launchers)
   * [BridgePoint Developer Issues](#bpdevelopers)
     * [ANTLR Build Error](#antlrbuilderror)
     * [Linux Distribution-Specific Instructions](#linux)
@@ -65,11 +68,54 @@ In September 2012 the front-end UML editor of the commercial BridgePoint xtUML e
 
 BridgePoint Installation <a id="installation"></a>
 ------------
+* **Hardware Requirements and Recomendations**  <a id="machinerecomendations"></a>  
+  BridgePoint runs under [Eclipse](https://www.eclipse.org/). Hence, machine resource usage comes largely from
+  Eclipse. As of this writting, there are no published hardware requirements for Eclipse.  Eclipse offers 32 and
+  64-bit versions. BridgePoint is built using only the 32-bit version of Eclipse. BridgePoint plugins under
+  Eclipse will never use more than 4GB of RAM while editing and executing models.  However, for people using
+  BridgePoint model compilers, a seperate process runs during model translation.  This process is a stand-alone
+  32-bit binary, so it too may use up to 4GB of RAM.  Therefore, the current maximum possible usage is 8GB.  
+
+  #####RAM
+  Experience has shown that the tool runs very well with 4GB of RAM under Linux environments.  In Windows, 8GB is 
+  the minimum recomendation. The tool does not offically support Mac OS, but it does run well with 4GB of RAM on 
+  a Mac.
+
+  #####Processor
+  Eclipse utilizes threading very well. Mutli-core processors help performance when editing models. However,
+  model translation uses a single thread.  Therefore, translation performance is not improved with multiple 
+  processors.  Model execution performance is single-threaded when "deterministic execution" is selected, and
+  multi-threaded when it is not selected.  In general, any processor running at 1GHz and beyond will work fine.
+  
 * **Errors During Unzip**  <a id="unziperrors"></a>  
   When unzipping the BridgePoint distribution if you see a message that indicates a duplicate file is 
   being installed or there missing files in the distribution, the problem is likely with the 
-  unzip utility you are using.  We suggest you use [7-Zip](http://www.7-zip.org/download.html).
-  
+  unzip utility you are using.  We suggest you use [7-Zip](http://www.7-zip.org/download.html) on Windows.
+
+* **Shared/Multi-user Installation**  <a id="sharedinstall"></a>  
+  System administrators may wish to install BridgePoint into shared folder such as ```/usr/local``` 
+  or ```/opt/xtuml``` on a Linux system.  The Eclipse infrastructure BridgePoint uses [supports this working
+  mode](http://help.eclipse.org/juno/index.jsp?topic=%2Forg.eclipse.platform.doc.isv%2Freference%2Fmisc%2Fmulti_user_installs.html&cp=2_1_3_7).  However, an extra step is required to be performed by the system administrator
+  doing the installation or the BridgePoint plug-ins will not be available when a user runs the tool.  This is
+  required because eclipse performs dynamic discovery of new features/plug-ins at startup.  When it finds 
+  the BridgePoint features it attempts to write the new configuration information into the installation folder.
+  Since a normal user does not have write access to this folder, the BridgePoint features will not be loaded for
+  the user.  By having the system administrator run the initialization, the plug-ins will be configured and 
+  available for future use by any user.  The system admin must do this:
+```
+$ sudo unzip BridgePoint_<version>_linux.zip
+$ cd BridgePoint/eclipse
+$ sudo ./eclipse -initialize
+```
+
+* **Starting BridgePoint**  <a id="launchers"></a>  
+  After you unzip the BridgePoint zipfile, you will have a folder named ```BridgePoint```.  This folder can be
+  renamed if you like.  For example, sometimes it is useful to have a vanilla BridgePoint and another for
+  development or experimentation.  Thus, you may want to rename after unzipping to something like
+  ```BP5Dev```.  Either way, to start BridgePoint, navigate to the ```eclipse``` folder inside your installation
+  folder and execute the ```Launcher.[bat|sh]``` script.
+
+
 BridgePoint Developer Issues <a id="bpdevelopers"></a>
 ----------------------------
 
