@@ -88,8 +88,33 @@ BridgePoint Installation <a id="installation"></a>
 * **Errors During Unzip**  <a id="unziperrors"></a>  
   When unzipping the BridgePoint distribution if you see a message that indicates a duplicate file is 
   being installed or there missing files in the distribution, the problem is likely with the 
-  unzip utility you are using.  We suggest you use [7-Zip](http://www.7-zip.org/download.html).
+  unzip utility you are using.  We suggest you use [7-Zip](http://www.7-zip.org/download.html) on Windows.
+
+* **Shared/Multi-user Installation**  <a id="sharedinstall"></a>  
+  System administrators may wish to install BridgePoint into shared folder such as ```/usr/local``` 
+  or ```/opt/xtuml``` on a Linux system.  The Eclipse infrastructure BridgePoint uses [supports this working
+  mode](http://help.eclipse.org/juno/index.jsp?topic=%2Forg.eclipse.platform.doc.isv%2Freference%2Fmisc%2Fmulti_user_installs.html&cp=2_1_3_7).  However, an extra step is required to be performed by the system administrator
+  doing the installation or the BridgePoint plug-ins will not be available when a user runs the tool.  The system
+  admin must do this:
+```
+$ sudo unzip BridgePoint_<version>_linux.zip
+$ cd BridgePoint/eclipse
+$ sudo ./eclipse -initialize
+```
+  This is required because eclipse performs dynamic discovery of new features/plug-ins at startup.  When it finds 
+  the BridgePoint features it attempts to write the new configuration information into the installation folder.
+  Since a normal user does not have write access to this folder, the BridgePoint features will not be loaded for
+  the user.  By having the system administrator run the initialization, the plug-ins will be configured and 
+  available for future use by any user.
   
+* **Starting BridgePoint**  <a id="launchers"></a>  
+  After you unzip the BridgePoint zipfile, you will have a folder named ```BridgePoint```.  This folder can be
+  renamed if you like.  For example, sometimes it is useful to have a vanilla BridgePoint and another for
+  development or experimentation.  Thus, you may want to rename after unzipping to something like
+  ```BP5Dev```.  Either way, to start BridgePoint, navigate to the ```eclipse``` folder inside your installation
+  folder and execute the ```Launcher.[bat|sh]``` script.
+
+
 BridgePoint Developer Issues <a id="bpdevelopers"></a>
 ----------------------------
 
