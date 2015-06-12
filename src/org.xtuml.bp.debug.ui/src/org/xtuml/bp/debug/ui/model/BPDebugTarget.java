@@ -1607,7 +1607,6 @@ public class BPDebugTarget extends BPDebugElement implements IDebugTarget {
 		if (targets.isEmpty()) {
 			TIM.stopTimers();
 		}
-		BPClassLoader.resetTheDefinitionsCache();
 		// Cancel the timer. 
 		if (executionTimer != null) {
 			executionTimer.cancel();

@@ -11,7 +11,6 @@ package org.xtuml.bp.welcome.cheatsheets.library;
 //
 import org.eclipse.jface.action.Action;
 
-import org.xtuml.bp.cdt.Activator;
 import org.xtuml.bp.ui.explorer.ExplorerView;
 import org.xtuml.bp.utilities.ui.CanvasUtilities;
 

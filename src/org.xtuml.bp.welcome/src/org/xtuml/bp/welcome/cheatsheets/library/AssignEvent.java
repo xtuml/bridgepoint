@@ -32,10 +32,10 @@ public class AssignEvent extends Action implements ICheatSheetAction {
 	@Override
 	public void run(String[] params, ICheatSheetManager manager) {
 		String connectorName = params[0];
-		GraphicalEditor activeEditor = (GraphicalEditor) CheatSheetsUIUtilities.getActiveEditor();
+		GraphicalEditor activeEditor = (GraphicalEditor) CheatSheetsUIUtilities.getActiveEditor(); 
 		
 		Model_c model = activeEditor.getModel();
-		Connector_c[] connectors = Connector_c.getManyGD_CONsOnR2(GraphicalElement_c.getManyGD_GEsOnR1(model));
+		Connector_c[] connectors = Connector_c.getManyGD_CONsOnR2(GraphicalElement_c.getManyGD_GEsOnR1(model));  
 		Connector_c requiredConnector = CheatSheetsUtilities.getDesiredConnector(connectors,connectorName);
 		if ( requiredConnector==null){
 			CheatSheetsUtilities.canNotFindElementReport(null, connectorName);
