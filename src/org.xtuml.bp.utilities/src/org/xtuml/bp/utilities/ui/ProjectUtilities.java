@@ -36,6 +36,7 @@ import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
@@ -45,7 +46,6 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.WorkbenchException;
 import org.eclipse.ui.wizards.datatransfer.ExternalProjectImportWizard;
-
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Modeleventnotification_c;
 import org.xtuml.bp.core.Ooaofooa;
@@ -433,11 +433,20 @@ public class ProjectUtilities {
 					// Set the text associated with this button to the 
 					// fully qualified folder name.  We then have to select 
 					// the browse button
-					((Text)allChildren[i+1]).setEnabled(true);
-					((Text)allChildren[i+1]).setText(fqFilePath);					
-					((Text)allChildren[i+1]).notifyListeners(SWT.FocusOut, new Event());
-					// set focus elsewhere
-					((Text)allChildren[i+1]).setEnabled(false);
+					if(allChildren[i+1] instanceof Combo) {
+						((Combo)allChildren[i+1]).setEnabled(true);
+						((Combo)allChildren[i+1]).setText(fqFilePath);					
+						((Combo)allChildren[i+1]).notifyListeners(SWT.FocusOut, new Event());
+						// set focus elsewhere
+						((Combo)allChildren[i+1]).setEnabled(false);
+					} else {
+						// for pre eclipse 4.4 use Text widget
+						((Text)allChildren[i+1]).setEnabled(true);
+						((Text)allChildren[i+1]).setText(fqFilePath);					
+						((Text)allChildren[i+1]).notifyListeners(SWT.FocusOut, new Event());
+						// set focus elsewhere
+						((Text)allChildren[i+1]).setEnabled(false);							
+					}
 					((Button)allChildren[i]).setSelection(true);
 					optionsSet++;
 				} else if (btnText.equalsIgnoreCase("Select &archive file:")) {

@@ -1,0 +1,35 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: BridgePoint Debug UI Plug-in
+Bundle-SymbolicName: org.xtuml.bp.debug.ui; singleton:=true
+Bundle-Version: 5.1.0
+Bundle-ClassPath: verifier.jar
+Bundle-Activator: org.xtuml.bp.debug.ui.BPDebugUIPlugin
+Bundle-Vendor: xtUML.org
+Export-Package: org.xtuml.bp.debug.java.access,
+ org.xtuml.bp.debug.ui,
+ org.xtuml.bp.debug.ui.actions,
+ org.xtuml.bp.debug.ui.launch,
+ org.xtuml.bp.debug.ui.locator,
+ org.xtuml.bp.debug.ui.model,
+ org.xtuml.bp.debug.ui.perspective,
+ org.xtuml.bp.debug.ui.propertypages
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.debug.core,
+ org.eclipse.debug.ui,
+ org.eclipse.core.resources,
+ org.eclipse.ui,
+ org.eclipse.ui.ide,
+ org.eclipse.core.expressions,
+ org.xtuml.bp.core,
+ org.xtuml.bp.ui.explorer,
+ org.xtuml.bp.ui.text,
+ org.eclipse.jface.text,
+ org.eclipse.ui.workbench.texteditor,
+ org.eclipse.ui.editors,
+ org.xtuml.bp.ui.session,
+ org.xtuml.bp.ui.graphics,
+ org.xtuml.bp.io.core,
+ org.xtuml.bp.als.oal
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
