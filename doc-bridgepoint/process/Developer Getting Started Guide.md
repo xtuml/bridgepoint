@@ -74,8 +74,8 @@ Instructions
       - pt_antlr
 
   - Select Project > Build Automatically
-
-  - The build will take a while and should finish successfully
+    - This will cause each project in the workspace to build.  The builder will build dependent projects first. Since all projects are being processed, the build will take a while and should finish successfully.
+    - Note: During ongoing development, if you are going to modify model files, you likely want to turn Build Automatically off because of the long build times of models.  If you are just modifying Java files, you likely want to have Build Automatically on since java files rebuild quickly.
 
 ### Congratulations!  Your environment is now built and ready for BridgePoint development.
 
