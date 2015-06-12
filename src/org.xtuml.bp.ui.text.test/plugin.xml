@@ -27,5 +27,9 @@ plugin.
 --> 
 <plugin>
 
+<<<<<<< HEAD
     
+=======
+    
+>>>>>>> branch '7684_Adress_API_changes' of https://github.com/travislondon/bridgepoint.git
 </plugin>

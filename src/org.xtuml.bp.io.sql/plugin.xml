@@ -1,6 +1,15 @@
+<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.0"?>
 <plugin>
 
     
 </plugin>
+=======
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+
+    
+</plugin>
+>>>>>>> branch '7684_Adress_API_changes' of https://github.com/travislondon/bridgepoint.git

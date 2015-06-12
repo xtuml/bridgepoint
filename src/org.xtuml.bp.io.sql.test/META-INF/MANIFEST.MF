@@ -7,6 +7,7 @@ Bundle-ClassPath: sqltest.jar
 Bundle-Activator: org.xtuml.bp.io.sql.test.IOSqlTestPlugin
 Bundle-Vendor: xtUML.org
 Bundle-Localization: plugin
+<<<<<<< HEAD
 Export-Package: org.xtuml.bp.io.sql.test
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.ui,
@@ -19,6 +20,21 @@ Require-Bundle: org.eclipse.core.runtime,
  org.junit,
  org.xtuml.bp.core,
  org.xtuml.bp.ui.canvas,
+=======
+Export-Package: ,
+ org.xtuml.bp.io.sql.test
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.ui,
+ org.eclipse.ui.ide,
+ org.eclipse.ui.views,
+ org.eclipse.jface.text,
+ org.eclipse.ui.workbench.texteditor,
+ org.eclipse.ui.editors,
+ org.eclipse.core.resources,
+ org.xtuml.bp.core,
+ org.xtuml.bp.ui.canvas,
+ org.junit,
+>>>>>>> branch '7684_Adress_API_changes' of https://github.com/travislondon/bridgepoint.git
  org.xtuml.bp.io.core,
  org.xtuml.bp.io.sql,
  org.xtuml.bp.test

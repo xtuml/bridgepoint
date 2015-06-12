@@ -32,8 +32,14 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.ui.views,
  org.eclipse.jface.text,
  org.eclipse.ui.ide,
+<<<<<<< HEAD
  org.eclipse.core.variables,
  org.eclipse.osgi
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Import-Package: org.eclipse.jdt.internal.core
+=======
+ org.eclipse.core.variables
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+>>>>>>> branch '7684_Adress_API_changes' of https://github.com/travislondon/bridgepoint.git
