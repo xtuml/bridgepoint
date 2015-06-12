@@ -14,6 +14,8 @@
   * [BridgePoint Installation](#installation)
     * [Machine Recomendations](#machinerecomendations)
     * [Errors During Unzip](#unziperrors)
+    * [Shared/Multi-user Installation](#sharedinstall)
+    * [Starting BridgePoint](#launchers)
   * [BridgePoint Developer Issues](#bpdevelopers)
     * [ANTLR Build Error](#antlrbuilderror)
     * [Linux Distribution-Specific Instructions](#linux)
@@ -94,19 +96,18 @@ BridgePoint Installation <a id="installation"></a>
   System administrators may wish to install BridgePoint into shared folder such as ```/usr/local``` 
   or ```/opt/xtuml``` on a Linux system.  The Eclipse infrastructure BridgePoint uses [supports this working
   mode](http://help.eclipse.org/juno/index.jsp?topic=%2Forg.eclipse.platform.doc.isv%2Freference%2Fmisc%2Fmulti_user_installs.html&cp=2_1_3_7).  However, an extra step is required to be performed by the system administrator
-  doing the installation or the BridgePoint plug-ins will not be available when a user runs the tool.  The system
-  admin must do this:
+  doing the installation or the BridgePoint plug-ins will not be available when a user runs the tool.  This is
+  required because eclipse performs dynamic discovery of new features/plug-ins at startup.  When it finds 
+  the BridgePoint features it attempts to write the new configuration information into the installation folder.
+  Since a normal user does not have write access to this folder, the BridgePoint features will not be loaded for
+  the user.  By having the system administrator run the initialization, the plug-ins will be configured and 
+  available for future use by any user.  The system admin must do this:
 ```
 $ sudo unzip BridgePoint_<version>_linux.zip
 $ cd BridgePoint/eclipse
 $ sudo ./eclipse -initialize
 ```
-  This is required because eclipse performs dynamic discovery of new features/plug-ins at startup.  When it finds 
-  the BridgePoint features it attempts to write the new configuration information into the installation folder.
-  Since a normal user does not have write access to this folder, the BridgePoint features will not be loaded for
-  the user.  By having the system administrator run the initialization, the plug-ins will be configured and 
-  available for future use by any user.
-  
+
 * **Starting BridgePoint**  <a id="launchers"></a>  
   After you unzip the BridgePoint zipfile, you will have a folder named ```BridgePoint```.  This folder can be
   renamed if you like.  For example, sometimes it is useful to have a vanilla BridgePoint and another for
