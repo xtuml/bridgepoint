@@ -25,7 +25,9 @@
   * [Model Translation / Model Compilers](#mcs)
     * [How does model translation work?  What role does the model-based model compiler play?](#translationprocess)
     * [What is publicly available?  Can anyone outside the xtUML dev team actually build Generator?](#buildinggenerator)  
-    * [Galaxy, Windows, Visual C++ dependencies...  What's required to eliminate them?](#replacinggenerator)  
+    * [Generator dependencies: Galaxy, Windows, Visual C++...  What's required to eliminate them?](#replacinggenerator)
+    * [How often to these tools change?  When would I have to rebuild them?](#rebuildingmctools)  
+
 
 
 xtUML Profile <a id="xtuml_profile"></a>
@@ -215,6 +217,12 @@ Therefore, in most cases the model translation flow is this:
 
 The model and source code for mcmc and xtumlmc_build are publicly available in the [github xtuml/mc repository](http://github.com/xtuml/mc).  The xtUML development team builds mcmc into Linux and Windows binaries with native gcc tools on Ubuntu Linux.  The model, source code, and library dependencies for generator are publicly available in the [github xtuml/generator repository](http://github.com/xtuml/generator).  The xtUML development team builds generator on Windows 7 using the required build environment, Visual C++ 6.0 w/ SP1 applied.  
 
-* **Galaxy, Windows, Visual C++ dependencies...  What's required to eliminate them?**  <a id="replacinggenerator"></a>  
+* **Generator dependencies: Galaxy, Windows, Visual C++...  What's required to eliminate them?**  <a id="replacinggenerator"></a>  
 
 Generator is a legacy application that is dependent on the Galaxy string processing library and PCCTS parser tool.   It is required to be built with Microsoft Visual C++ 6.0 with VC6 Service Pack 1 applied.  After much investigation, the xtUML dev team has decided that the engineering effort required to modernize this tool is too great to be a worthwhile endeavor.  Instead, our effort will be directed to extend the model-based model compiler to add the capability of generating the structural model elements.  
+
+* **How often to these tools change?  When would I have to rebuild them?**  <a id="rebuildingmctools"></a>  
+
+  * xtumlmc_build has been a very stable application that changes very little over time.  Linux users never have to rebuild the application.  They can simply modify the script and use the changes immediately.  In our experience, Windows users do not attempt or need to modify this script, but if they did the [instructions for rebuilding the EXE version using Strawberry Perl are available](https://github.com/xtuml/mc/blob/master/bin/README.md).  
+  * mcmc must be rebuilt any time the model compiler is enhanced or fixed in the area of OAL translation.  The xtUML dev team generally rebuilds mcmc with each new release of BridgePoint.  Since this tool is recently open sourced, we cannot yet say how often customers wish to rebuild the tool.  However, as before, the [instructions to do so are available](https://github.com/xtuml/mc/blob/master/model/com.mentor.nucleus.bp.core/gen/HOWTO%20Create%20mcmc-docgen.txt).
+  * Owing to it's closed source heritage, Generator contains a binary version of the C model compiler source templates.  Thus, any time the C MC changed, generator was rebuilt to pick up these changes.  Since generator is now open source, users must no longer rely on the binary model compiler.  Our team has not made changes to the generator source code in a very long time (years).  Thus, it is highly unlikely that end users or developers will either and therefore they won't need to rebuild generator.  As with the other tools, the [instructions to rebuild generator are available](https://github.com/xtuml/generator/blob/master/src/gen_erate/README.txt) if needed.
