@@ -60,16 +60,17 @@ function distribute_and_notify {
 	END=$(date +%s)
 	DIFF=$(( $END - $START ))
 	BUILD_ADMIN="build@onefact.net,issues@onefact.net"
+	SERVER_IP=$(dig +short myip.opendns.com @resolver1.opendns.com)
+
 	echo -e "To: ${BUILD_ADMIN}" >> ${MAIL_TEMP}
 	# A blank line needs to come after the "To" field or lines get lost
 	echo -e "" >> ${MAIL_TEMP}
 	echo -e "Build report for branch name: ${BRANCH}" >> ${MAIL_TEMP}
 	echo -e "This build took: $((DIFF/60)) minutes" >> ${MAIL_TEMP}
-	echo -e "The workspace for this build is located at: ${BUILD_DIR} on `hostname`" >> ${MAIL_TEMP}
-	echo -e "The complete logs are under ${LOG_DIR} on `hostname`" >> ${MAIL_TEMP}
+	echo -e "The workspace for this build is located at: ${BUILD_DIR} on ${SERVER_IP}" >> ${MAIL_TEMP}
+	echo -e "The complete logs are under ${LOG_DIR} on ${SERVER_IP}" >> ${MAIL_TEMP}
 	echo -e "" >> ${MAIL_TEMP}
 
-	SERVER_IP=$(dig +short myip.opendns.com @resolver1.opendns.com)
 	SCP_CMD="scp youruser@${SERVER_IP}:${RESULT_FOLDER}/*.zip"
 	DOWNLOAD_URL="http://support.onefact.net/redmine/releases"
 
@@ -81,23 +82,28 @@ function distribute_and_notify {
 	  echo -e "" >> ${MAIL_TEMP}
 	fi
 
-	scp "${BUILD_LOG}" "${UPLOAD_SPEC}"
-	scp "${ERROR_FILE}" "${UPLOAD_SPEC}"
-	scp "${DIFF_FILE}" "${UPLOAD_SPEC}"
-	echo -e "Build log: ${DOWNLOAD_URL}/${BL}" >> ${MAIL_TEMP}
-	echo -e "Error log: ${DOWNLOAD_URL}/${EF}" >> ${MAIL_TEMP}
-	echo -e "GIT change log for the last 2 days for this branch: ${DOWNLOAD_URL}/${DF}" >> ${MAIL_TEMP}
-	echo -e "" >> ${MAIL_TEMP}
+	if [ "${UPLOAD_SPEC}" != "" ]; then
+      scp "${BUILD_LOG}" "${UPLOAD_SPEC}"
+      scp "${ERROR_FILE}" "${UPLOAD_SPEC}"
+      scp "${DIFF_FILE}" "${UPLOAD_SPEC}"
+      scp "${ECLIPSE_LOG}" "${UPLOAD_SPEC}"
+      echo -e "Build log: ${DOWNLOAD_URL}/${BL}" >> ${MAIL_TEMP}
+      echo -e "Error log: ${DOWNLOAD_URL}/${EF}" >> ${MAIL_TEMP}
+      echo -e "Eclipse log: ${DOWNLOAD_URL}/${EL}" >> ${MAIL_TEMP}
+      echo -e "GIT change log for the last 2 days for this branch: ${DOWNLOAD_URL}/${DF}" >> ${MAIL_TEMP}
+      echo -e "" >> ${MAIL_TEMP}
 
-	echo -e "Downloads:" >> ${MAIL_TEMP}
-	echo -e "----------" >> ${MAIL_TEMP}
-	echo -e "You can copy these builds directly from the build server: ${SCP_CMD}" >> ${MAIL_TEMP}
-	echo -e "The Linux release can be downloaded at: ${DOWNLOAD_URL}/BridgePoint_${BRANCH}_linux.zip" >> ${MAIL_TEMP}
-        echo -e "The Windows release can be downloaded at: ${DOWNLOAD_URL}/BridgePoint_${BRANCH}_windows.zip" >> ${MAIL_TEMP}
-	echo -e " " >> ${MAIL_TEMP}
+      echo -e "Downloads:" >> ${MAIL_TEMP}
+      echo -e "----------" >> ${MAIL_TEMP}
+      echo -e "You can copy these builds directly from the build server: ${SCP_CMD}" >> ${MAIL_TEMP}
+      echo -e "The Linux release can be downloaded at: ${DOWNLOAD_URL}/BridgePoint_${BRANCH}_linux.zip" >> ${MAIL_TEMP}
+      echo -e "The Windows release can be downloaded at: ${DOWNLOAD_URL}/BridgePoint_${BRANCH}_windows.zip" >> ${MAIL_TEMP}
+      echo -e " " >> ${MAIL_TEMP}
 	
-	cat ${MAIL_TEMP} | ${MAIL_CMD} "${BUILD_ADMIN}"
-	
+	  cat ${MAIL_TEMP} | ${MAIL_CMD} "${BUILD_ADMIN}"
+	else
+	  echo -e "${MAIL_TEMP}"
+	fi
 	echo -e "Exiting run_build.sh::distribute_and_notify"
 }
 
@@ -180,9 +186,11 @@ LOG_DIR="${BUILD_DIR}/log"
 EF="errors.txt"
 DF="diff.txt"
 BL="build.txt"
+EL=".log"
 ERROR_FILE="${LOG_DIR}/${EF}"
 DIFF_FILE="${LOG_DIR}/${DF}"
 BUILD_LOG="${LOG_DIR}/${BL}"
+ECLIPSE_LOG="${BUILD_DIR}/.metadata/${EL}"
 MAIL_CMD="/usr/sbin/ssmtp"
 TIMESTAMP=`date +%Y%m%d%H%M`
 RELEASE_BASE="${BUILD_MOUNT}/releases"
@@ -270,13 +278,22 @@ if [ $? != "0" ]; then
   echo -e "Error! The build_installer_bp.sh script failed." >> ${ERROR_FILE}
 fi
 
+# Change git errors logged when we try to check out an invalid branch into warnings
+sed -e 's;error: pathspec;warning: pathspec;' < ${BUILD_LOG} > ${BUILD_LOG}_new
+mv ${BUILD_LOG}_new ${BUILD_LOG}
+
+# Quick check to make sure core.jar file size is "big enough"
+size=$( wc -c "${GIT_BP}/src/org.xtuml.bp.core/bin/core.jar" | awk '{print $1}' )
+if [ $size -lt 11000000 ]; then
+  echo -e "ERROR: The build did not succeed.  The core.jar file is too small." >> ${BUILD_LOG}
+fi
+
 grep -c -i -w "Error" ${BUILD_LOG}
 error_count=$?
 if [ ${error_count} -ne 1 ]; then
   echo -e "Errors found in the build output log. Check ${BUILD_LOG}." >> ${ERROR_FILE}
 fi
 
-# This get called regardless of if we are building or packaging to notify the the build is complete
 cd  "${BUILD_DIR}"
 distribute_and_notify  
 
