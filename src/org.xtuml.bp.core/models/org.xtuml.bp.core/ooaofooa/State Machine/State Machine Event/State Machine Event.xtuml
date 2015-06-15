@@ -1077,10 +1077,10 @@ select one classSM related by sm->SM_ASM[R517];
 select one instSM related by sm->SM_ISM[R517];
 if (not_empty classSM)
     select one modelClass related by classSM->O_OBJ[R519];
-    result =result+"::Class Based Satate Machine::"+modelClass.getPath(path:modelClass.Name,includeSelf:true);
+    result =result+"::Class Based State Machine::"+modelClass.getPath(path:modelClass.Name,includeSelf:true);
 elif (not_empty instSM)
     select one modelClass related by instSM->O_OBJ[R518];
-    result =result+"::Instance Based Satate Machine::"+modelClass.getPath(path:modelClass.Name,includeSelf:true);
+    result =result+"::Instance Based State Machine::"+modelClass.getPath(path:modelClass.Name,includeSelf:true);
 end if; 
 
 return result;
