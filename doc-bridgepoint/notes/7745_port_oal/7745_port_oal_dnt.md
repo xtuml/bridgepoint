@@ -74,10 +74,10 @@ will be able to be disabled via a preference.
 6.6  Add a new test JUnit class to ```org.xtuml.bp.als.oal.test``` to verify the 
   functionality.   
      
-  |.|                                     Send uses Port Name |  Send uses Interface Name |
-  |-|---------------------------------------------------------|---------------------------| 
-  |Pref set to require Port names     |          Success      |     Error                 |
-  |Pref set not to require Port names |          Success      |     Success               |
+  |.|                                     Send uses Port Name |  Send uses Interface Name |   
+  |-|---------------------------------------------------------|---------------------------|    
+  |Pref set to require Port names     |          Success      |     Error                 |   
+  |Pref set not to require Port names |          Success      |     Success               |   
      
 7. Design Comments
 ------------------
