@@ -25,7 +25,7 @@ formalize the port. This is very confusing and also hard to understand if the
 component has more than one port using a specific interface. Only allow the port 
 name to be used in action code."   
 
-The xtUML development team has agrees that the requested feature is valuable, but
+The xtUML development team agrees that the requested feature is valuable, but
 is concerned about breaking existing models.  Therefore, the port name restriction 
 will be able to be disabled via a preference.
 
@@ -47,8 +47,11 @@ will be able to be disabled via a preference.
   point in question is the ```message_invocation``` rule.   
 5.2 The OAL implementation of the port or interface name check is the meta-model at 
   ```bp.core::ooaofooa::Functions::OAL Validation Functions::Message_name_valid```.    
-5.3 The example GPS Watch application uses interface-based message sending.  This 
-  model needs to be updated to use port-names instead.
+5.3 Example models   
+5.3.1  BridgePoint includes example applications that use interface-based message sending.  These 
+  models need to be updated to use port-names instead.  
+5.3.2  Models to check are: GPS Watch, avpace (in BridgePoint cheatsheets), and 
+  the two-component Template Project.    
 5.4 Preferences   
 5.4.1 BrigePoint supports setting per-project or per-workspace preferences.  The new
   action language preference proposed in this note shall be implemented as a workspace
@@ -64,8 +67,8 @@ will be able to be disabled via a preference.
   interface name is used.  
 6.2  Add a new preference to the UI preference page specified in 5.4.2.   
 6.3  Add new backend preference setting to the preference model and store classes
-  specified in 5.4.3.
-6.4  Add a new default for the preference in ```bridgepoint/src/org.xtuml.bp.pkg/plugin_customization.ini```.
+  specified in 5.4.3.   
+6.4  Add a new default for the preference in ```bridgepoint/src/org.xtuml.bp.pkg/plugin_customization.ini```.   
 6.5  Update the GPS Watch model to use port names.  As an initial test of the new
   preference functionality, set the preference to require port names, then parse
   the GPS Watch.  Use an OAL activity search for "send" to inspect all inter-component
@@ -85,11 +88,17 @@ None.
 
 8. Unit Test
 ------------
-8.1  GPS Watch shall parse all activities without error when interface names in
+8.1  Example models   
+8.1.1  GPS Watch shall parse all activities without error when interface names in
   messages are not allowed.   
+8.1.2  avpace from the BridgePoint cheatsheets shall parse all activities without error when interface names in
+  messages are not allowed.   
+8.1.3  Example 2-component Template Project shall parse all activities without error when interface names in
+  messages are not allowed.      
 8.2  New JUnit tests that validate the parsing behavior of messages when the preference
   is on and off shall pass.   
-    
+8.3  All existing JUnit test suites shall pass.      
+
 End
 ---
 
