@@ -46,8 +46,7 @@ will be able to be disabled via a preference.
 5.1 The OAL grammar BNF (```bridgepoint/src/org.xtuml.bp.als.oal/bnf/oal.bnf```) key
   point in question is the ```message_invocation``` rule.   
 5.2 The OAL implementation of the port or interface name check is the meta-model at 
-  ```bp.core::ooaofooa::Functions::OAL Validation Functions::Message_name_valid```. We will  
-  add a preference check in here in the interface checking block.
+  ```bp.core::ooaofooa::Functions::OAL Validation Functions::Message_name_valid```.    
 5.3 The example GPS Watch application uses interface-based message sending.  This 
   model needs to be updated to use port-names instead.
 5.4 Preferences   
@@ -59,13 +58,38 @@ will be able to be disabled via a preference.
 
 6. Design
 ---------
-
+6.1  Add a preference check in the interface checking block of code inside
+  ```bp.core::ooaofooa::Functions::OAL Validation Functions::Message_name_valid```.
+  Indicate a parse error when the preference is set to require port names and an
+  interface name is used.  
+6.2  Add a new preference to the UI preference page specified in 5.4.2.   
+6.3  Add new backend preference setting to the preference model and store classes
+  specified in 5.4.3.
+6.4  Add a new default for the preference in ```bridgepoint/src/org.xtuml.bp.pkg/plugin_customization.ini```.
+6.5  Update the GPS Watch model to use port names.  As an initial test of the new
+  preference functionality, set the preference to require port names, then parse
+  the GPS Watch.  Use an OAL activity search for "send" to inspect all inter-component
+  messages and verify the preference change and parse caught all the required places
+  to change.   
+6.6  Add a new test JUnit class to ```org.xtuml.bp.als.oal.test``` to verify the 
+  functionality.   
+     
+  |.|                                     Send uses Port Name |  Send uses Interface Name |
+  |-|---------------------------------------------------------|---------------------------| 
+  |Pref set to require Port names     |          Success      |     Error                 |
+  |Pref set not to require Port names |          Success      |     Success               |
+     
 7. Design Comments
 ------------------
+None.
 
 8. Unit Test
 ------------
-
+8.1  GPS Watch shall parse all activities without error when interface names in
+  messages are not allowed.   
+8.2  New JUnit tests that validate the parsing behavior of messages when the preference
+  is on and off shall pass.   
+    
 End
 ---
 
