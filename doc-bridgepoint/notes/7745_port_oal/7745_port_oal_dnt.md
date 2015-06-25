@@ -46,7 +46,7 @@ will be able to be disabled via a preference.
 5.1 The OAL grammar BNF (```bridgepoint/src/org.xtuml.bp.als.oal/bnf/oal.bnf```) key
   point in question is the ```message_invocation``` rule.   
 5.2 The OAL implementation of the port or interface name check is the meta-model at 
-  ```bp.core::ooaofooa::Functions::OAL Validation Functions::Message_name_valid```.    
+  ```bp.core::ooaofooa::Functions::OAL Validation Functions::Message_name_validate```.    
 5.3 Example models   
 5.3.1  BridgePoint includes example applications that use interface-based message sending.  These 
   models need to be updated to use port-names instead.  
@@ -62,7 +62,7 @@ will be able to be disabled via a preference.
 6. Design
 ---------
 6.1  Add a preference check in the interface checking block of code inside
-  ```bp.core::ooaofooa::Functions::OAL Validation Functions::Message_name_valid```.
+  ```bp.core::ooaofooa::Functions::OAL Validation Functions::Message_name_validate```.
   Indicate a parse error when the preference is set to require port names and an
   interface name is used.  
 6.2  Add a new preference to the UI preference page specified in 5.4.2.   
