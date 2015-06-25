@@ -1,4 +1,4 @@
--- BP 7.1 content: ClassStateMachine syschar: 3 persistence-version: 7.1.5
+-- BP 7.1.6 content: ClassStateMachine syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO SM_ASM
 	VALUES ("208abec5-b869-4f5f-acff-7b0940ddda2b",
@@ -14,7 +14,8 @@ INSERT INTO SM_SGEVT
 	"208abec5-b869-4f5f-acff-7b0940ddda2b",
 	"00000000-0000-0000-0000-000000000000",
 	"95d8bd78-3d3b-45b0-ab16-4289c0af092e",
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	'HR::registerListener');
 INSERT INTO SPR_PS_PROXY
 	VALUES ("95d8bd78-3d3b-45b0-ab16-4289c0af092e",
 	'registerListener',
@@ -34,14 +35,15 @@ INSERT INTO SM_EVT
 	'registerListener',
 	0,
 	'',
-	'HeartRateMonitor_A1',
+	'HR::registerListener',
 	'');
 INSERT INTO SM_SGEVT
 	VALUES ("d87f2ba8-8584-4de2-9563-52a4f15df114",
 	"208abec5-b869-4f5f-acff-7b0940ddda2b",
 	"00000000-0000-0000-0000-000000000000",
 	"f3d5d876-13df-40ca-8b23-f3b89bb9e437",
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	'HR::unregisterListener');
 INSERT INTO SPR_PS_PROXY
 	VALUES ("f3d5d876-13df-40ca-8b23-f3b89bb9e437",
 	'unregisterListener',
@@ -61,7 +63,7 @@ INSERT INTO SM_EVT
 	'unregisterListener',
 	0,
 	'',
-	'HeartRateMonitor_A2',
+	'HR::unregisterListener',
 	'');
 INSERT INTO SM_LEVT
 	VALUES ("21d964e9-30cf-468a-990b-3b2ea831f5a3",
@@ -201,7 +203,7 @@ INSERT INTO SM_ACT
 	"208abec5-b869-4f5f-acff-7b0940ddda2b",
 	1,
 	'select any monitor from instances of HeartRateMonitor;
-send HeartRateProvider::heartRateChanged(heartRate: monitor.recentHeartRate);
+send HR::heartRateChanged(heartRate: monitor.recentHeartRate);
 monitor.recentHeartRate = monitor.recentHeartRate + 1.0;',
 	'');
 INSERT INTO SM_TAH
@@ -272,13 +274,15 @@ INSERT INTO GD_MD
 	0,
 	0,
 	0,
-	'');
+	'',
+	'GPS Watch::Library::HeartRateMonitor::HeartRateMonitor::HeartRateMonitor::Class State Machine');
 INSERT INTO GD_GE
 	VALUES ("35daa71c-83e4-4e99-b3b9-389db6452069",
 	"4fccaad3-edc3-4961-b0c7-8c9361b81145",
 	"493764c1-db39-4945-85b4-65a7376db8aa",
 	41,
-	0);
+	0,
+	'GPS Watch::Library::HeartRateMonitor::HeartRateMonitor::HeartRateMonitor::Class State Machine::idle');
 INSERT INTO GD_SHP
 	VALUES ("35daa71c-83e4-4e99-b3b9-389db6452069");
 INSERT INTO GD_NCS
@@ -311,7 +315,8 @@ INSERT INTO GD_GE
 	"4fccaad3-edc3-4961-b0c7-8c9361b81145",
 	"4502dd3d-8627-4d95-8cd8-4635ad16dbd5",
 	41,
-	0);
+	0,
+	'GPS Watch::Library::HeartRateMonitor::HeartRateMonitor::HeartRateMonitor::Class State Machine::monitoring');
 INSERT INTO GD_SHP
 	VALUES ("3ca48cfe-469c-4e9b-a866-5878112234d9");
 INSERT INTO GD_NCS
@@ -354,7 +359,8 @@ INSERT INTO GD_GE
 	"4fccaad3-edc3-4961-b0c7-8c9361b81145",
 	"67bfd622-fc2a-4a19-a7ef-98cab02c670b",
 	42,
-	0);
+	0,
+	'GPS Watch::Library::HeartRateMonitor::HeartRateMonitor::HeartRateMonitor::Class State Machine::idle::HR::registerListener');
 INSERT INTO GD_CON
 	VALUES ("449739f8-6411-4ed5-8f4e-148394e77bf1",
 	"00000000-0000-0000-0000-000000000000");
@@ -453,7 +459,8 @@ INSERT INTO GD_GE
 	"4fccaad3-edc3-4961-b0c7-8c9361b81145",
 	"05275ba9-8e8b-4e50-bd51-635798fbf42d",
 	42,
-	0);
+	0,
+	'GPS Watch::Library::HeartRateMonitor::HeartRateMonitor::HeartRateMonitor::Class State Machine::monitoring::HR::unregisterListener');
 INSERT INTO GD_CON
 	VALUES ("3ae13a1b-f448-4ae4-9a3c-02a5ad60d626",
 	"00000000-0000-0000-0000-000000000000");
@@ -552,7 +559,8 @@ INSERT INTO GD_GE
 	"4fccaad3-edc3-4961-b0c7-8c9361b81145",
 	"05cbcf3c-c747-4112-85e9-5f8837e5ddb2",
 	42,
-	0);
+	0,
+	'GPS Watch::Library::HeartRateMonitor::HeartRateMonitor::HeartRateMonitor::Class State Machine::monitoring::HeartRateMonitor_A3: timeout');
 INSERT INTO GD_CON
 	VALUES ("726a2084-98f9-46fe-8c4f-20128780a5d3",
 	"00000000-0000-0000-0000-000000000000");
