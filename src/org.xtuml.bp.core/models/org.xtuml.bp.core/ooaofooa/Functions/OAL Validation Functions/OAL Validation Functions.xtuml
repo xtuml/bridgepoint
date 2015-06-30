@@ -28262,39 +28262,39 @@ if isInGenericPackage
         end if;
       else // port name does not match the owner name . . .
         //    see if the interface name matches
-        allowIFName = PREF::getBoolean( name:"bridgepoint_prefs_allow_interface_name_in_ic_message" );
-        if ( allowIFName == true )
-          select many ifRefs related by port->C_IR[R4016];
-          for each candidateIfRef in ifRefs
-            select one interface related by candidateIfRef->C_I[R4012];
-            if not_empty interface
-              if interface.Name == ownerName
-                if not ifRef_found
-                  select many ios related by candidateIfRef->C_I[R4012]->C_EP[R4003]->
-                                 C_IO[R4004] where selected.Name == param.a2_text;
-                  select many sigs related by candidateIfRef->C_I[R4012]->C_EP[R4003]->
-                                 C_AS[R4004] where selected.Name == param.a2_text;
-                  if (cardinality ios + cardinality sigs) > 1
-                    ERR::reportParseError( 
-                       msg: "Ambiguous message reference found ->" +
-                               ownerName + "::%s<-", token: param.a1_rule_token );
-                  else
+        select many ifRefs related by port->C_IR[R4016];
+        for each candidateIfRef in ifRefs
+          select one interface related by candidateIfRef->C_I[R4012];
+          if not_empty interface
+            if interface.Name == ownerName
+              if not ifRef_found
+                select many ios related by candidateIfRef->C_I[R4012]->C_EP[R4003]->
+                               C_IO[R4004] where selected.Name == param.a2_text;
+                select many sigs related by candidateIfRef->C_I[R4012]->C_EP[R4003]->
+                               C_AS[R4004] where selected.Name == param.a2_text;
+                if (cardinality ios + cardinality sigs) > 1
+                  ERR::reportParseError( 
+                     msg: "Ambiguous message reference found ->" +
+                             ownerName + "::%s<-", token: param.a1_rule_token );
+                else
+                  allowIFName = PREF::getBoolean( name:"bridgepoint_prefs_allow_interface_name_in_ic_message" );
+                  if ( allowIFName == true )
                     ifRef = candidateIfRef;
                     ifRef_found = true;
+                  else
+                    ERR::reportParseError( 
+                       msg: "Interface names are not allowed for sending messages.  Use the port name.",
+                       token: param.a1_rule_token );
                   end if;
-                else
-                  ERR::reportParseError( 
-                       msg: "Ambiguous interface or port reference found ->" +
-                               ownerName + "::%s<-", token: param.a1_rule_token );
                 end if;
+              else
+                ERR::reportParseError( 
+                     msg: "Ambiguous interface or port reference found ->" +
+                             ownerName + "::%s<-", token: param.a1_rule_token );
               end if;
             end if;
-          end for;
-        else
-          ERR::reportParseError( 
-               msg: "Interface names are not allowed for sending messages.  Use the port name.",
-               token: param.a1_rule_token );
-        end if;
+          end if;
+        end for;
       end if;
     end for;
     if ifRef_found
