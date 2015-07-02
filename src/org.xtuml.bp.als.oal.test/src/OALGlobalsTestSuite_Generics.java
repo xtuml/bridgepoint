@@ -54,6 +54,7 @@ import org.xtuml.bp.als.oal.test.SingleDimensionFixedArrayAssigmentTest_7_Generi
 import org.xtuml.bp.als.oal.test.SingleDimensionFixedArrayAssigmentTest_8_Generics;
 import org.xtuml.bp.als.oal.test.SingleDimensionFixedArrayAssigmentTest_9_Generics;
 import org.xtuml.bp.als.oal.test.SupportConstantsViaIPRTests;
+import org.xtuml.bp.als.oal.test.TestAllowInterfaceNameInICMsg_Generics;
 import org.xtuml.bp.als.oal.test.TestArray_Generics;
 import org.xtuml.bp.als.oal.test.TestAssign_Generics;
 import org.xtuml.bp.als.oal.test.TestAttribute_Generics;
@@ -79,6 +80,7 @@ public class OALGlobalsTestSuite_Generics extends TestSuite {
 	public OALGlobalsTestSuite_Generics() {
 		addTest(new TestSuite(OalParserGlobalsTest_Generics.class));
 		addTest(new TestSuite(OalParserTest_Generics.class));
+		addTest(new TestSuite(TestAllowInterfaceNameInICMsg_Generics.class));
 		addTest(new TestSuite(TestArray_Generics.class));
 		addTest(new TestSuite(TestInvocation_Generics.class));
 		addTest(new TestSuite(TestBPPrefAllowPromotion_Generics.class));
