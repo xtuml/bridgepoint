@@ -112,38 +112,6 @@ public class TestAllowInterfaceNameInICMsg_Generics extends BaseTest {
 	public static Action_c[] m_testAction = new Action_c[3];
 
 	private void populateStateActionInstances() {
-/*		class Object_test1_c implements ClassQueryInterface_c {
-			Object_test1_c(String p) {
-				m_p = p;
-			}
-			private String m_p;
-			public boolean evaluate(Object inst) {
-				ModelClass_c selected = (ModelClass_c)inst;
-				return selected.getName().equals(m_p);
-			}
-		}
-
-		ModelClass_c obj = ModelClass_c.ModelClassInstance(modelRoot, new Object_test1_c("HeartRateMonitor"));//$NON-NLS-1$
-
-		ClassStateMachine_c asm = ClassStateMachine_c.getOneSM_ASMOnR519(obj);
-		StateMachine_c sm_a = StateMachine_c.getOneSM_SMOnR517(asm);
-		StateMachineState_c [] states = StateMachineState_c.getManySM_STATEsOnR501(sm_a);
-		Action_c a_acts[] = Action_c.getManySM_ACTsOnR514(
-				                ActionHome_c.getManySM_AHsOnR513(
-						      MooreActionHome_c.getManySM_MOAHsOnR511(states)));
-		for ( int i = 0; i < a_acts.length; ++i )
-		{
-			ActionHome_c ah = ActionHome_c.getOneSM_AHOnR514(a_acts[i]);
-			MooreActionHome_c moah = MooreActionHome_c.getOneSM_MOAHOnR513(ah);
-			if (moah != null) {
-			  StateMachineState_c st = StateMachineState_c.getOneSM_STATEOnR511(moah);
-			  if ( st.getName().equals("idle") )//$NON-NLS-1$
-			    m_testAction[STATE_ASM_IDLE] = a_acts[i];
-			  else if ( st.getName().equals("monitoring") )//$NON-NLS-1$
-			    m_testAction[STATE_ASM_MONITORING] = a_acts[i];
-			}
-		}*/
-
 		StateMachine_c sm = StateMachine_c.StateMachineInstance(modelRoot);
 		assertNotNull("State Machine not found.", sm);
 
