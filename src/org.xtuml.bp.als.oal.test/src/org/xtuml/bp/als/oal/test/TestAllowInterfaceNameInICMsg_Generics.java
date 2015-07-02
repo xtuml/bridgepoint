@@ -79,7 +79,7 @@ public class TestAllowInterfaceNameInICMsg_Generics extends BaseTest {
         String act = "select any monitor from instances of HeartRateMonitor; send HeartRateProvider::heartRateChanged(heartRate: monitor.recentHeartRate); "; //$NON-NLS-1$
         String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_STATE, STATE_ASM_IDLE);
         String lines[] = x.split("\n");//$NON-NLS-1$
-        assertEquals(":1:80-95: Interface names are not allowed for sending messages. Use the port name.", lines[0]); //$NON-NLS-1$
+        assertEquals(":1:80-95: Interface names are not allowed for sending messages.  Use the port name.", lines[0]); //$NON-NLS-1$
     }
 
     public void testSendUsingPortNameWhenIntefaceNameDisallowed() throws RecognitionException, TokenStreamException {
