@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.0"?>
 <plugin>
@@ -15,21 +14,3 @@
    </extension>
 
 </plugin>
-=======
-<?xml version="1.0" encoding="UTF-8"?>
-<?eclipse version="3.0"?>
-<plugin>
-
-     <extension
-         point="org.eclipse.ui.views">
-      <view
-            name="Session Explorer"
-            icon="platform:/plugin/org.xtuml.bp.core/icons/green-bp.gif"
-            category="org.xtuml.bp.core.ui.viewcats.bp"
-            class="org.xtuml.bp.ui.session.views.SessionExplorerView"
-            id="org.xtuml.bp.ui.session.views.SessionExplorerView">
-      </view>
-   </extension>
-
-</plugin>
->>>>>>> branch '7684_Adress_API_changes' of https://github.com/travislondon/bridgepoint.git

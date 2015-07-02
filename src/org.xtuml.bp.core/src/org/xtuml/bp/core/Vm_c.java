@@ -3,7 +3,6 @@ package org.xtuml.bp.core;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import java.security.SecureClassLoader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -22,6 +21,8 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.variables.VariablesPlugin;
+import org.eclipse.osgi.internal.baseadaptor.DefaultClassLoader;
+
 import org.xtuml.bp.core.common.ILogger;
 import org.xtuml.bp.core.common.IdAssigner;
 import org.xtuml.bp.core.util.BPClassLoader;
@@ -142,11 +143,11 @@ public class Vm_c {
     private static BPClassLoader createClassLoader(IPath path) {
         BPClassLoader result = null;
         ClassLoader cll = Vm_c.class.getClassLoader();
-        if (cll instanceof SecureClassLoader) {
-        	BPClassLoader dcl = (BPClassLoader) cll;
+        if (cll instanceof DefaultClassLoader) {
+            DefaultClassLoader dcl = (DefaultClassLoader) cll;
             String[] appendedClasspath = new String[1];
             appendedClasspath[0] = "external:" + path.toString(); //$NON-NLS-1$
-            result = new BPClassLoader(new String[] {appendedClasspath.toString()});
+            result = new BPClassLoader(appendedClasspath, dcl);
             result.initialize();
         }
         return result;
