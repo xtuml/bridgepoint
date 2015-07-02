@@ -2128,7 +2128,6 @@ import org.eclipse.core.resources.IProject;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.debug.internal.ui.launchConfigurations.LaunchConfigurationsDialog;
 import org.eclipse.gef.tools.AbstractTool;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.dialogs.Dialog;

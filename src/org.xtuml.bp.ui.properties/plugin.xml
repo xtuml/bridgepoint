@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.0"?>
 <!--
@@ -14,20 +13,3 @@
 
     
 </plugin>
-=======
-<?xml version="1.0" encoding="UTF-8"?>
-<?eclipse version="3.0"?>
-<!--
-
- File:      $RCSfile: plugin.xml,v $
- Version:   $Revision: 1.83 $
- Modified:  $Date: 2013/06/24 14:48:25 $
-
- (c) Copyright 2006-2014 by Mentor Graphics Corp.  All rights reserved.
-
--->
-<plugin>
-
-    
-</plugin>
->>>>>>> branch '7684_Adress_API_changes' of https://github.com/travislondon/bridgepoint.git
