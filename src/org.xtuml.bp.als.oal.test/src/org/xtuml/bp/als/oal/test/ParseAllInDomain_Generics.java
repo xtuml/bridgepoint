@@ -80,7 +80,14 @@ public class ParseAllInDomain_Generics extends BaseTest {
       store.setValue(
               BridgePointPreferencesStore.ALLOW_OPERATIONS_IN_WHERE, true);
 	}
-    public void test_ComponentSyntaxTest() { parseAllActivities(); }
+    public void test_ComponentSyntaxTest() { 
+    	// This test was written before the Interface Name preference was introduced.
+    	// The expected error messages depend on the preference being disabled.
+    	IPreferenceStore store = CorePlugin.getDefault().getPreferenceStore();
+        store.setValue(BridgePointPreferencesStore.ALLOW_INTERFACE_NAME_IN_IC_MESSAGE, true);
+        parseAllActivities();
+        store.setValue(BridgePointPreferencesStore.ALLOW_INTERFACE_NAME_IN_IC_MESSAGE, false);
+    }
     public void test_array_test() { parseAllActivities(); }
 	public void test_asc() { parseAllActivities(); }
     public void test_BP50_evt() { parseAllActivities(); }
