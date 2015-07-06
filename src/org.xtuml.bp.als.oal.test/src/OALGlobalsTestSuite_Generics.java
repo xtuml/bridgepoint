@@ -80,7 +80,6 @@ public class OALGlobalsTestSuite_Generics extends TestSuite {
 	public OALGlobalsTestSuite_Generics() {
 		addTest(new TestSuite(OalParserGlobalsTest_Generics.class));
 		addTest(new TestSuite(OalParserTest_Generics.class));
-		addTest(new TestSuite(TestAllowInterfaceNameInICMsg_Generics.class));
 		addTest(new TestSuite(TestArray_Generics.class));
 		addTest(new TestSuite(TestInvocation_Generics.class));
 		addTest(new TestSuite(TestBPPrefAllowPromotion_Generics.class));
@@ -123,6 +122,7 @@ public class OALGlobalsTestSuite_Generics extends TestSuite {
 		addTest(new TestSuite(ComponentScopeTest_Generics.class));
 		addTest(new TestSuite(TestConstant_Generics.class));
 	    addTest(new TestSuite(TestSelectWhere_Generics.class));
+		addTest(new TestSuite(TestAllowInterfaceNameInICMsg_Generics.class));
 	    addTest(new TestSuite(PolyEventTest.class));
 	    addTest(new TestSuite(ParseErrorForEmptySynchronousMessagesTests.class));
 	    addTest(new TestSuite(SupportConstantsViaIPRTests.class));
