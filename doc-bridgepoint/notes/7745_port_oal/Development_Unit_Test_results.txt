@@ -7,28 +7,28 @@ OS Name:  	Ubuntu 14
 Test Suite                              				Status			TestRuns	
 ----------------------------------------------------------------------------------------------------------------------------------
 Core Generic Upgrade Test			                    pass            39
-UI Canvas CCP Test			                            FAIL
+UI Canvas CCP Test			                            FAIL in model recreation tests
 Core Test                                               pass            1002		
 UI Explorer Test	                                    pass            18		
 Core Test - Workspace Setup		                        pass            14	
-Parse All Test		
-IO MDL PkgCM Tests			
-Core Test 2			                                    FAIL
-Debug - Verifier Test			
+Parse All Test		                                    31e/121f
+IO MDL PkgCM Tests			                            pass            108
+Core Test 2			                                    pass            400
+Debug - Verifier Test			                        11 FAIL
 Core Test - System Level Tests	                        pass            24		
-Core Test 2 - Consistency			
-IO MDL Tests			
+Core Test 2 - Consistency			                    pass            17
+IO MDL Tests			                                FAIL
 UI Properties Test			                            pass            163
 Core Test - Existing Projects	                        pass            15		
-Model Compare Test	                                    FAIL		
-Welcome Test			
-UI Canvas Suite 1			
-Core Test - RTO Move			
+Model Compare Test	                                    15 FAIL		
+Welcome Test			                                pass            13
+UI Canvas Suite 1			                            FAIL
+Core Test - RTO Move                                    pass            144			
 Search Test			                                    pass            10
-UI Canvas Suite 2			
-IO MDL Tests 2			
-IO SQL Test		
-Debug - Verifier Test 2			
+UI Canvas Suite 2                                       pass            270			
+IO MDL Tests 2                                          pass            77			
+IO SQL Test		                                        pass            8
+Debug - Verifier Test 2			                        FAIL - HUNG
 UI Text Test	                                        pass           163	
 
 Reference 1: These are test failures that come and go on retest.
