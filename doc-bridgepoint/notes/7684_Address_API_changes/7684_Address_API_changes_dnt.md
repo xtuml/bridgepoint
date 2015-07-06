@@ -72,6 +72,12 @@ changed to a Combo.
 
 7. Design Comments
 ------------------
+7.1 Unit test issues   
+
+Testing has shown that some expected results require update.  Work was recently   
+done to update test models and get rid of some integrity issues.  This work was   
+done under linux and the windows results were not updated.  This issue updates   
+those results.    
 
 8. Unit Test
 ------------
