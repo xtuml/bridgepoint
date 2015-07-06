@@ -14,7 +14,7 @@ Present:  Keith,Bob,Travis
 <pre>
 
 -- Num Type  Who  Section  Comment
-_- 01  min   TRL  7      describe the unit test changes made 
+x- 01  min   TRL  7      describe the unit test changes made 
 
 </pre>
    
