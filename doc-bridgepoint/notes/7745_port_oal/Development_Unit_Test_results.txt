@@ -11,7 +11,7 @@ UI Canvas CCP Test			                            FAIL in model recreation tests
 Core Test                                               pass            1002		
 UI Explorer Test	                                    pass            18		
 Core Test - Workspace Setup		                        pass            14	
-Parse All Test		                                    31e/121f
+Parse All Test		                                    20f
 IO MDL PkgCM Tests			                            pass            108
 Core Test 2			                                    pass            400
 Debug - Verifier Test			                        11 FAIL
