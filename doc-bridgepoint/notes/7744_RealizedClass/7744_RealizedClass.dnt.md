@@ -113,16 +113,16 @@ None.
 8. Unit Test
 ------------
 8.1  Starting with a workspace that contains two projects, Project B has a 
-	shared realized external entity, and Project A invokes this external entity
-8.2 Launch only project A in verifier
-8.3 Execute test function that invokes the realized external entity
-8.4 Terminate and relaunch the verifier
-8.5 Re-execute the test function
-_R No LinkingError.
-8.6 Launch both projects in verifier
-8.7 terminate project B
-8.8 Execte test function in Project A
-_R No linkingError, and result shows the class definition is not reseted.
+	shared realized external entity, and Project A invokes this external entity  
+8.2 Launch only project A in verifier  
+8.3 Execute test function that invokes the realized external entity  
+8.4 Terminate and relaunch the verifier  
+8.5 Re-execute the test function  
+_R No LinkingError.  
+8.6 Launch both projects in verifier  
+8.7 terminate project B  
+8.8 Execte test function in Project A  
+_R No linkingError, and result shows the class definition is not reseted.  
 
 End
 ---
