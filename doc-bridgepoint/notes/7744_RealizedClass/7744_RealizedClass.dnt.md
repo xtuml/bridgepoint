@@ -12,9 +12,7 @@ This work is licensed under the Creative Commons CC0 License
 -----------
 When a project that uses a shared realized external entity by inter-project
 is terminated in verifier. Java LinkingError exception is thrown when re-execute 
-this model in verifier and invoke the shared external entity.
-This issue reported by Saab
-
+this model in verifier and invoke the shared external entity.  
 
 2. Document References
 ----------------------
