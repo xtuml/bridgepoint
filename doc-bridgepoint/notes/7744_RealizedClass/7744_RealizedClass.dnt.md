@@ -97,12 +97,21 @@ error can be triggered also without need to restart the verifier.
 	terminated project relaunched, it may not behave as desired/expected as 
 	class definition is already created and no longer in the original state.  
 	
+5.3.3  Delete the definitions and class loader related only with the terminated
+	project. Also, if any project tries to invoke model element that are defined
+	in a project that is not running in verifier, the invocation is canceled 
+	and warning invocation failure	message will be printed in the console 
+	asking the user to add the project to the verifier session.  
+	
 6. Design
 ---------
 6.1  Approach 5.3.1 is considered the better one for implementation, as this 
 	approach side effect will be only on the terminated projects that own shared 
 	library. while approach 5.3.2 side effects will affects all projects that 
-	use the shared realized external entity including the owner project.  
+	use the shared realized external entity including the owner project. 
+	Approach 5.3.3 is not chosen, because it is outside the issue scope as
+	it affects not only the realized external entity, and the tool will 
+	be more restricted.
 
 7. Design Comments
 ------------------
