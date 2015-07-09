@@ -75,13 +75,10 @@ INSERT INTO O_TFR
 	'the initialization operation for this class.  Set the name and return value to defaults.',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select one packageableElem related by self->S_EE[R19]->PE_PE[R8001];
+	'select one packageableElem related by self->S_EE[R19]->PE_PE[R8001];
 select one package related by packageableElem->EP_PKG[R8000];
 select one component related by packageableElem->C_C[R8003];
-isInGenericPackage = not_empty package or not_empty component;
 
-if (isInGenericPackage)
    if (not_empty package)
      select one system related by package->S_SYS[R1405];
      def_dt_id = GD::NULL_UNIQUE_ID();
@@ -107,31 +104,7 @@ if (isInGenericPackage)
         relate self to def_dt across R20;
      end if;
    end if;
-else
-   select any dom from instances of S_DOM;
-  select one component related by dom->CN_DC[R4204]->C_C[R4204];
-  if(not_empty component)
-    // this bridge is part of a formal component
-    // get the default data type from the system
-    select one compSys related by component->CP_CP[R4608]->S_SYS[R4606];
-    def_dt_id = GD::NULL_UNIQUE_ID();
-    if not_empty compSys
-      def_dt_id = compSys.getCoreTypeId(name:"void");
-    end if;
-    select any pe from instances of PE_PE where selected.Element_ID == def_dt_id;
-    select one def_dt related by pe->S_DT[R8001];
-    if(not_empty def_dt)
-      relate self to def_dt across R20;
-    end if;
-  else
-    // this bridge is part of a stand alone domain
-    // get the default data type from the domain
-    select any def_dt related by dom->S_DT[R14] where selected.Name == "void";
-    if(not_empty def_dt)
-      relate self to def_dt across R20;
-    end if;
-  end if;
-end if;
+
 name = ::getUniqueInitialName( 
     instance: self.convertToInstance(), 
     candidateName: "Unnamed Bridge Operation");
@@ -168,50 +141,18 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-// Bridge.isAllowedReturnType()
+	'// Bridge.isAllowedReturnType()
 select one packageableElem related by self->S_EE[R19]->PE_PE[R8001];
-select one package related by packageableElem->EP_PKG[R8000];
-select one component related by packageableElem->C_C[R8003];
-isInGenericPackage = not_empty package or not_empty component;
-if isInGenericPackage
+
   if self.getReturnDimensionsCnt() != 0 and param.typeName == "void"
     return false;
   else
     return packageableElem.isAllowedType(isReturnType:true,
                                                        typeName:param.typeName);
   end if;
-else
-  if self.getReturnDimensionsCnt() != 0 and param.typeName == "void"
-    return false;
-  else
-    // if this element is at the system level check the
-    // system level data types, otherwise check the 
-    // domain
-    select one domain related by self->S_EE[R19]->S_DOM[R8];
-    if(not_empty domain)
-      select one system related by domain->S_SYS[R28];
-      if(not_empty system)
-        return S_DT::isAllowedReturnType( typeName: param.typeName,
-                                   			dom_id: domain.get_ooa_id() );
-      else
-        // first check the domain level
-        result = S_DT::isAllowedReturnType( typeName: param.typeName,
-                                   				dom_id: domain.get_ooa_id() );
-        if(not result)
-          // if nothing valid check the system level
-          select one system related by domain->CN_DC[R4204]->C_C[R4204]
-      											   ->CP_CP[R4608]->S_SYS[R4606];
-          return Util::isAllowedReturnType(system:system.convertToInstance(),
-                                                       typeName:param.typeName);
-        else
-          return result;
-        end if;
-      end if;
-    end if;
-  end if;
+
   return false;
-end if;',
+',
 	1,
 	'',
 	"4344defa-1993-42dc-bc0d-3b9c9b072f22");
@@ -264,8 +205,7 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select one dtProxy related by self->S_DT[R20];
+	'select one dtProxy related by self->S_DT[R20];
 if(not_empty dtProxy and not Util::isProxy(element:self.convertToInstance()))
   name = dtProxy.Name;
   unrelate dtProxy from self across R20;
@@ -273,8 +213,7 @@ if(not_empty dtProxy and not Util::isProxy(element:self.convertToInstance()))
   select one packageableElem related by self->S_EE[R19]->PE_PE[R8001];
   select one package related by packageableElem->EP_PKG[R8000];
   select one component related by packageableElem->C_C[R8003];
-  isInGenericPackage = not_empty package or not_empty component;
-  if isInGenericPackage
+
     id = packageableElem.resolveDataTypeRelativeToSelf(default_name:"void",
                                                             expected_name:name);                                                          
     select any resolvedDt related by package->PE_VIS[R8002]->
@@ -286,31 +225,6 @@ if(not_empty dtProxy and not Util::isProxy(element:self.convertToInstance()))
     if not_empty resolvedDt
       relate resolvedDt to self across R20;
     end if;
-  else
-    select one domain related by self->S_EE[R19]->S_EEIP[R33]->S_EEPK[R33]
-  										          ->PL_EEPID[R300]->S_DOM[R300];
-    id = domain.resolveDataTypeRelativeToSelf(default_name:"void",
-  													        expected_name:name);
-    // until we have instance reference passing, we search for
-    // the data type related to the domain first then to the
-    // system
-    select any resolvedDT related by domain->S_DT[R14]
-  												   where (selected.DT_ID == id);
-    if(empty resolvedDT)
-      select one domSys related by domain->CN_DC[R4204]->C_C[R4204]
-                                                   ->CP_CP[R4608]->S_SYS[R4606];
-      select any resolvedDT related by domSys->SLD_SDINP[R4402]->S_DT[R4401]
-    				 						       where (selected.DT_ID == id);
-      if empty resolvedDT and not_empty domSys and domSys.useGlobals
-        select any pe related by domSys->G_EIS[R9100]->PE_PE[R9100]
-                                                where selected.Element_ID == id;
-        select one resolvedDT related by pe->S_DT[R8001]; 
-      end if;
-    end if;
-    if(not_empty resolvedDT)
-      relate resolvedDT to self across R20;
-    end if;
-  end if;
 end if;',
 	1,
 	'',
@@ -477,37 +391,14 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-// select the dt
+	'// select the dt
 select one dt related by self->S_DT[R20];
 if(not_empty dt)
   select one packageableElem related by self->S_EE[R19]->PE_PE[R8001];
   select one package related by packageableElem->EP_PKG[R8000];
   select one component related by packageableElem->C_C[R8003];
-  isInGenericPackage = not_empty package or not_empty component;
 
-  if (isInGenericPackage)
     return packageableElem.canReferToDataType(dtID:dt.DT_ID, dtName: dt.Name);
-  else
-    // if the data type package is at the system
-    // level we can use the data type as long as
-    // this element belongs to a formal component
-    select one domain related by self->S_EE[R19]->S_DOM[R8];
-    select one dtPkg related by dt->S_DIP[R39]->S_DPK[R39];
-    if(not dtPkg.isDomainLevel())
-      if(domain.participatesInSystem())
-        return true;
-      else
-        return false;
-      end if;
-    else
-      // otherwise the DT must be in the same domain
-      select one dtDomain related by dt->S_DOM[R14];
-      if(dtDomain == domain)
-        return true;
-      end if;
-    end if;
-  end if;
 end if;
 return false;
 ',
@@ -551,13 +442,11 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-// Bridge.canUseDataType()
+	'// Bridge.canUseDataType()
 select one packageableElem related by self->S_EE[R19]->PE_PE[R8001];
 select one package related by packageableElem->EP_PKG[R8000];
 select one component related by packageableElem->C_C[R8003];
-isInGenericPackage = not_empty package or not_empty component;
-if isInGenericPackage
+
   // Find the previously created visibility list
   select any resultSet related by package->PE_SRS[R8005] where
         selected.Name == "" and selected.Type == ElementTypeConstants::DATATYPE;
@@ -576,40 +465,6 @@ if isInGenericPackage
     end if;
   end if;
   return false;
-else
-  select one domain related by self->S_EE[R19]->S_DOM[R8];
-  if(domain.participatesInSystem())
-    // system level check both the system
-    // and the domain for the dt
-    select one system related by domain->CN_DC[R4204]->C_C[R4204]->CP_CP[R4608]
-                                                                 ->S_SYS[R4606];
-    select any dt related by system->SLD_SDINP[R4402]->S_DT[R4401]
-                                             where (selected.DT_ID == param.id);
-    if empty dt and not_empty system and system.useGlobals
-      select any pe related by system->G_EIS[R9100]->PE_PE[R9100]
-                                          where selected.Element_ID == param.id;
-      select one dt related by pe->S_DT[R8001]; 
-    end if;
-    if(empty dt)
-      select any dt related by domain->S_DT[R14]
-                                             where (selected.DT_ID == param.id);
-    end if;
-    if(not_empty dt)
-      if(self.isAllowedReturnType(typeName:dt.Name))
-        return true;
-      end if;
-    end if;
-  else
-    // only check the domain for the dt
-    select any dt related by domain->S_DT[R14] where (selected.DT_ID == param.id);
-    if(not_empty dt)
-      if(self.isAllowedReturnType(typeName:dt.Name))
-        return true;
-      end if;
-    end if;
-  end if;
-  return false;
-end if;
 ',
 	1,
 	'',

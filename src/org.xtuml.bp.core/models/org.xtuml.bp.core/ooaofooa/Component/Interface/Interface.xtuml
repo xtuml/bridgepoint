@@ -724,8 +724,7 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-// Data Type::getPath()
+	'// Data Type::getPath()
 path = "";
 if(param.includeSelf)
   path = self.Name;
@@ -735,17 +734,11 @@ if(param.path != "")
 end if;
 select one package related by self->PE_PE[R8001]->EP_PKG[R8000];
 select one component related by self->PE_PE[R8001]->C_C[R8003];
-isInGenericPackage = not_empty package or not_empty component;
-if isInGenericPackage
   if not_empty package
     path = package.getQualifiedName();
   else
     path = component.getQualifiedName();
   end if;
-else
-  // not necessary or supported
-  return "";
-end if;
 return path;',
 	1,
 	'',

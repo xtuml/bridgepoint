@@ -112,7 +112,6 @@ public class ParserAllActivityModifier implements IAllActivityModifier
     private boolean setProvided = false;
     
     private NonRootModelElement m_parent = null;
-    private NonRootModelElement m_domain = null;
     private PackageableElement_c m_pkgElem = null;
     private Package_c m_pkg = null;
     
@@ -160,13 +159,9 @@ public class ParserAllActivityModifier implements IAllActivityModifier
     public ParserAllActivityModifier(NonRootModelElement parent, IProgressMonitor monitor)
     {
     	m_parent = parent;
-    	if(parent instanceof Domain_c) {
-    		m_domain = parent;
-    	} else if (parent instanceof Component_c) {
-    		m_domain = Domain_c.getOneS_DOMOnR4204(DomainAsComponent_c.getOneCN_DCOnR4204((Component_c) parent));
-    		if (m_domain == null) {
-    			m_pkgElem = PackageableElement_c.getOnePE_PEOnR8001((Component_c)parent);
-    		}
+
+    	if (parent instanceof Component_c) {
+    		m_pkgElem = PackageableElement_c.getOnePE_PEOnR8001((Component_c)parent);
     	} else if (parent instanceof Package_c) {
     		m_pkgElem = PackageableElement_c.getOnePE_PEOnR8001((Package_c)parent);
     		m_pkg = (Package_c) parent;
@@ -651,23 +646,8 @@ public class ParserAllActivityModifier implements IAllActivityModifier
     private void getAllInterfaceSignals() {
     	m_required_signals = null;  // clear any existing entries
 	    m_provided_signals = null;
-        if(parseAll && m_domain != null && m_parent instanceof Component_c){
-		  Component_c component = ((Component_c)m_parent);
-		  m_required_signals = RequiredSignal_c
-				.getManySPR_RSsOnR4502(RequiredExecutableProperty_c
-						.getManySPR_REPsOnR4500(Requirement_c
-								.getManyC_RsOnR4009(InterfaceReference_c
-										.getManyC_IRsOnR4016(Port_c
-												.getManyC_POsOnR4010(component)))));
-		  m_provided_signals = ProvidedSignal_c
-				.getManySPR_PSsOnR4503(ProvidedExecutableProperty_c
-						.getManySPR_PEPsOnR4501(Provision_c
-								.getManyC_PsOnR4009(InterfaceReference_c
-										.getManyC_IRsOnR4016(Port_c
-												.getManyC_POsOnR4010(component)))));
-        }
-        else if (parseAll && m_pkgElem != null) {
-        	// isInGenericPackage == true
+        if (parseAll && m_pkgElem != null) {
+
             ArrayList<RequiredSignal_c> rs_set = new ArrayList<RequiredSignal_c>();
             addRequiredSignalsToList(rs_set, m_pkgElem);
           ArrayList<NonRootModelElement> act_set =
@@ -687,7 +667,7 @@ public class ParserAllActivityModifier implements IAllActivityModifier
             assert(m_provided_signals == pv_set.toArray(new ProvidedSignal_c[pv_set.size()]));
         }
         else if (parseAll && m_pkg != null) {
-        	// isInGenericPackage == true
+
             ArrayList<RequiredSignal_c> rs_set = new ArrayList<RequiredSignal_c>();
             addRequiredSignalsToList(rs_set, m_pkg);
           ArrayList<NonRootModelElement> act_set =
@@ -727,7 +707,7 @@ public class ParserAllActivityModifier implements IAllActivityModifier
 												.getManyC_POsOnR4010(component)))));
       }
       else if (parseAll && m_pkgElem != null) {
-    	  // isInGenericPackage == true
+
           ArrayList<RequiredOperation_c> ro_set =
         	                               new ArrayList<RequiredOperation_c>();
           addRequiredOperationsToList(ro_set, m_pkgElem);
@@ -747,7 +727,7 @@ public class ParserAllActivityModifier implements IAllActivityModifier
     	  assert(m_provided_operations == po_set.toArray(new ProvidedOperation_c[po_set.size()]));
       }
       else if (parseAll && m_pkg != null) {
-      	  // isInGenericPackage == true
+  
           ArrayList<RequiredOperation_c> ro_set =
           	                               new ArrayList<RequiredOperation_c>();
           addRequiredOperationsToList(ro_set, m_pkg);
@@ -1066,11 +1046,10 @@ public class ParserAllActivityModifier implements IAllActivityModifier
     private void resetAllPackages()
     {
         if (parseAll && m_pkgElem != null) {
-        	// isInGenericPackage == true
+
             resetPackagesBelow(m_pkgElem);
         }
         else if (parseAll && m_pkg != null) {
-            // isInGenericPackage == true
             resetPackagesBelow(m_pkg);
         }
     }
@@ -1121,18 +1100,8 @@ public class ParserAllActivityModifier implements IAllActivityModifier
     {
     	Function_c[] priorElements = m_func_set;
         if ( m_func_set != null )  m_func_set = null;  // clear any existing entries
-        if(parseAll && m_domain != null){
-            ArrayList function_set = new ArrayList();
-            // navigating to all packages will cause them to be loaded
-            FunctionPackage_c[] fpk_set = FunctionPackage_c.getManyS_FPKsOnR29((Domain_c) m_domain);
-            addFunctionsToList(function_set, fpk_set);
-            for ( int i = 0; i < fpk_set.length; ++i ) {
-                loadChildFPKs(function_set, fpk_set[i]);
-            }
-        	m_func_set = (Function_c[])function_set.toArray(new Function_c[function_set.size()]);
-        }
-        else if (parseAll && m_pkgElem != null) {
-            // isInGenericPackage == true
+        if (parseAll && m_pkgElem != null) {
+            // 
             ArrayList<Function_c> function_set = new ArrayList<Function_c>();
             addFunctionsToList(function_set, m_pkgElem);
           ArrayList<NonRootModelElement> act_set =
@@ -1142,7 +1111,7 @@ public class ParserAllActivityModifier implements IAllActivityModifier
             assert(m_func_set == function_set.toArray(new Function_c[function_set.size()]));
         }
         else if (parseAll && m_pkg != null) {
-            // isInGenericPackage == true
+            // 
             ArrayList<Function_c> function_set = new ArrayList<Function_c>();
             addFunctionsToList(function_set, m_pkg, onlySharedFragments);
           ArrayList<NonRootModelElement> act_set =
@@ -1250,18 +1219,8 @@ public class ParserAllActivityModifier implements IAllActivityModifier
     {
 	   	Bridge_c[] priorElements = m_bridge_set;
         if ( m_bridge_set != null )  m_bridge_set = null;  // clear any existing entries
-        if(parseAll && m_domain != null){
-            ArrayList bridge_set = new ArrayList();
-            // navigating to all packages will cause them to be loaded
-            ExternalEntityPackage_c[] eepk_set = ExternalEntityPackage_c.getManyS_EEPKsOnR36((Domain_c) m_domain);
-            addBridgesToList(bridge_set, eepk_set);
-            for ( int i = 0; i < eepk_set.length; ++i ) {
-                loadChildEEPKs(bridge_set, eepk_set[i]);
-            }
-            m_bridge_set = (Bridge_c[])bridge_set.toArray(new Bridge_c[bridge_set.size()]);
-        }
-        else if (parseAll && m_pkgElem != null) {
-            // isInGenericPackage == true
+        if (parseAll && m_pkgElem != null) {
+            // 
             ArrayList<Bridge_c> bridge_set = new ArrayList<Bridge_c>();
             addBridgesToList(bridge_set, m_pkgElem);
           ArrayList<NonRootModelElement> act_set =
@@ -1271,7 +1230,7 @@ public class ParserAllActivityModifier implements IAllActivityModifier
             assert(m_bridge_set == bridge_set.toArray(new Bridge_c[bridge_set.size()]));
         }
         else if (parseAll && m_pkg != null) {
-            // isInGenericPackage == true
+            // 
             ArrayList<Bridge_c> bridge_set = new ArrayList<Bridge_c>();
             addBridgesToList(bridge_set, m_pkg, onlySharedFragments);
           ArrayList<NonRootModelElement> act_set =
@@ -1379,16 +1338,7 @@ public class ParserAllActivityModifier implements IAllActivityModifier
     private void getAllSubsystems()
     {
         if ( m_ss_set != null )  m_ss_set = null;  // clear any existing entries
-        if(parseAll && m_domain != null){
-            ArrayList ss_result_set = new ArrayList();
-            // navigating to all packages will cause them to be loaded
-            Subsystem_c[] ss_set = Subsystem_c.getManyS_SSsOnR43((Domain_c) m_domain);
-            for ( int i = 0; i < ss_set.length; ++i ) {
-                ss_result_set.add(ss_set[i]);
-                loadChildSSs(ss_result_set, ss_set[i]);
-            }
-            m_ss_set = (Subsystem_c[])ss_result_set.toArray(new Subsystem_c[ss_result_set.size()]);
-        }else{
+
           if (m_parent instanceof Subsystem_c) {
               ArrayList<Subsystem_c> ss_result_set = new ArrayList<Subsystem_c>();
               ss_result_set.add((Subsystem_c)m_parent);
@@ -1399,7 +1349,7 @@ public class ParserAllActivityModifier implements IAllActivityModifier
               }
               m_ss_set = ss_result_set.toArray(new Subsystem_c[ss_result_set.size()]);
           }
-        }
+
     }
     private void loadChildSSs(ArrayList ss_result_set, Subsystem_c ss) {
         Subsystem_c[] child_ss_set = Subsystem_c.getManyS_SSsOnR42(
@@ -1419,7 +1369,7 @@ public class ParserAllActivityModifier implements IAllActivityModifier
                             m_ss_set));
         }
         else if (parseAll && m_pkgElem != null) {
-        	// isInGenericPackage == true
+
             ArrayList<Operation_c> op_set = new ArrayList<Operation_c>();
             addOperationsToList(op_set, m_pkgElem);
           ArrayList<NonRootModelElement> act_set =
@@ -1429,7 +1379,7 @@ public class ParserAllActivityModifier implements IAllActivityModifier
             assert(m_op_set == op_set.toArray(new Operation_c[op_set.size()]));
         }
         else if (parseAll && m_pkg != null) {
-        	// isInGenericPackage == true
+
             ArrayList<Operation_c> op_set = new ArrayList<Operation_c>();
             addOperationsToList(op_set, m_pkg);
           ArrayList<NonRootModelElement> act_set =
@@ -1511,7 +1461,7 @@ public class ParserAllActivityModifier implements IAllActivityModifier
                                             m_ss_set))))));
         }
         else if (parseAll && m_pkgElem != null) {
-        	// isInGenericPackage == true
+
             ArrayList<Attribute_c> attr_set = new ArrayList<Attribute_c>();
             addMDAsToList(attr_set, m_pkgElem);
           ArrayList<NonRootModelElement> act_set =
@@ -1521,7 +1471,7 @@ public class ParserAllActivityModifier implements IAllActivityModifier
             assert(m_mda_set == attr_set.toArray(new Attribute_c[attr_set.size()]));
         }
         else if (parseAll && m_pkg != null) {
-        	// isInGenericPackage == true
+
             ArrayList<Attribute_c> attr_set = new ArrayList<Attribute_c>();
             addMDAsToList(attr_set, m_pkg);
           ArrayList<NonRootModelElement> act_set =
@@ -1617,7 +1567,7 @@ public class ParserAllActivityModifier implements IAllActivityModifier
                                     m_ss_set))));
         }
         else if (parseAll && m_pkgElem != null) {
-        	// isInGenericPackage == true
+
             ArrayList<StateMachineState_c> state_set = new ArrayList<StateMachineState_c>();
             addStatesToList(state_set, m_pkgElem, SMKind.instanceBased);
           ArrayList<NonRootModelElement> act_set =
@@ -1627,7 +1577,7 @@ public class ParserAllActivityModifier implements IAllActivityModifier
             assert(m_ism_state_set == state_set.toArray(new StateMachineState_c[state_set.size()]));
         }
         else if (parseAll && m_pkg != null) {
-        	// isInGenericPackage == true
+
             ArrayList<StateMachineState_c> state_set = new ArrayList<StateMachineState_c>();
             addStatesToList(state_set, m_pkg, SMKind.instanceBased);
           ArrayList<NonRootModelElement> act_set =
@@ -1649,7 +1599,7 @@ public class ParserAllActivityModifier implements IAllActivityModifier
                                     m_ss_set))));
         }
         else if (parseAll && m_pkgElem != null) {
-        	// isInGenericPackage == true
+
             ArrayList<StateMachineState_c> state_set = new ArrayList<StateMachineState_c>();
             addStatesToList(state_set, m_pkgElem, SMKind.classBased);
           ArrayList<NonRootModelElement> act_set =
@@ -1660,7 +1610,7 @@ public class ParserAllActivityModifier implements IAllActivityModifier
         	assert(m_csm_state_set == state_set.toArray(new StateMachineState_c[state_set.size()]));
         }
         else if (parseAll && m_pkg != null) {
-        	// isInGenericPackage == true
+
             ArrayList<StateMachineState_c> state_set = new ArrayList<StateMachineState_c>();
             addStatesToList(state_set, m_pkg, SMKind.classBased);
           ArrayList<NonRootModelElement> act_set =
@@ -1777,7 +1727,7 @@ public class ParserAllActivityModifier implements IAllActivityModifier
                                     m_ss_set))));
         }
         else if (parseAll && m_pkgElem != null) {
-        	// isInGenericPackage == true
+
             ArrayList<Transition_c> tran_set = new ArrayList<Transition_c>();
             addTransitionsToList(tran_set, m_pkgElem, SMKind.instanceBased);
           ArrayList<NonRootModelElement> act_set =
@@ -1787,7 +1737,7 @@ public class ParserAllActivityModifier implements IAllActivityModifier
         	assert(m_ism_transitions == tran_set.toArray(new Transition_c[tran_set.size()]));
         }
         else if (parseAll && m_pkg != null) {
-        	// isInGenericPackage == true
+
             ArrayList<Transition_c> tran_set = new ArrayList<Transition_c>();
             addTransitionsToList(tran_set, m_pkg, SMKind.instanceBased);
           ArrayList<NonRootModelElement> act_set =
@@ -1807,7 +1757,7 @@ public class ParserAllActivityModifier implements IAllActivityModifier
                                     m_ss_set))));
         }
         else if (parseAll && m_pkgElem != null) {
-        	// isInGenericPackage == true
+
             ArrayList<Transition_c> tran_set = new ArrayList<Transition_c>();
             addTransitionsToList(tran_set, m_pkgElem, SMKind.classBased);
           ArrayList<NonRootModelElement> act_set =
@@ -1817,7 +1767,7 @@ public class ParserAllActivityModifier implements IAllActivityModifier
         	assert(m_csm_transitions == tran_set.toArray(new Transition_c[tran_set.size()]));
         }
         else if (parseAll && m_pkg != null) {
-        	// isInGenericPackage == true
+
             ArrayList<Transition_c> tran_set = new ArrayList<Transition_c>();
             addTransitionsToList(tran_set, m_pkg, SMKind.classBased);
           ArrayList<NonRootModelElement> act_set =

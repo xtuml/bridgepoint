@@ -88,12 +88,10 @@ public class ${java_class} {
   
   public java.util.UUID m_act_id = IdAssigner.NULL_UUID;
   private ${java_class} Self = null;
-  private Domain_c m_dom = null;
   private NonRootModelElement m_nrme = null;
   
   public ${java_class}(Domain_c dom) {
     Self = this;
-    m_dom = dom;
   }
 
   public ${java_class}(NonRootModelElement nrme) {

@@ -317,32 +317,17 @@ INSERT INTO O_TFR
 	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
 if(param.name == "can" )
   if(param.value == "formalize" )
-    select one comm related by self->SQ_P[R1133]->COMM_COMM[R1126];
-	isInGenericPkg = false;
 	select one pkg related by self->SQ_P[R1133]->PE_PE[R8001]->EP_PKG[R8000];
 	if (not_empty pkg)
 	  isInGenericPkg = true;
 	end if;
 
-	if (isInGenericPkg)
      select many assocs related by pkg->S_SYS[R1405]->EP_PKG[R1405]->PE_PE[R8000]->R_REL[R8001];
       for each assoc in assocs
         if(self.participatesWithFormalParticipants(assocId:assoc.Rel_ID))
           return true;
         end if;
       end for;
-	else
-      domName = comm.getPath(domainNameOnly:true);
-      select any domain from instances of S_DOM where (selected.Name == domName);
-      if(not_empty domain)
-        select many assocs related by domain->S_SS[R1]->O_OBJ[R2]->R_OIR[R201]->R_REL[R201];
-        for each assoc in assocs
-          if(self.participatesWithFormalParticipants(assocId:assoc.Rel_ID))
-            return true;
-          end if;
-        end for;
-      end if;
-	end if;   
   elif(param.value == "unformalize")
     return self.isFormal;
   end if;

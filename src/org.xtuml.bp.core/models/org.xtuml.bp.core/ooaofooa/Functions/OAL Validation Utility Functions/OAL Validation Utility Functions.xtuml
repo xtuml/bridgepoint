@@ -7131,9 +7131,7 @@ ParserUtilityFunction: TRUE
 Translate: native
 ',
 	'java.util.UUID result = org.xtuml.bp.core.common.IdAssigner.NULL_UUID;
-if (this.m_dom != null) {
-  result = this.m_dom.getDom_id();
-}
+
 if (this.m_nrme != null) {
   result = this.m_nrme.Get_ooa_id();
 }
