@@ -20,67 +20,16 @@ select one pe related by self->PE_PE[R8001];
 select one PKG related by pe->EP_PKG[R8000]; 
 select one systemModel related by PKG->S_SYS[R1405];
 
-select any dom from instances of S_DOM;
-select any intdt related by dom->S_DT[R14] where selected.Name == "integer";
-select any voidDt related by dom->S_DT[R14] where selected.Name == "void";
 
-select one rootPkg related by self->S_DIP[R39]->S_DPK[R39];
-actualRootPkg = rootPkg;
-select one sys related by rootPkg->SLD_SDP[R4400]->S_SYS[R4400];
-if(empty sys)
-  while(not_empty rootPkg)
-    select one sys related by rootPkg->SLD_SDP[R4400]->S_SYS[R4400];
-    select one rootPkg related by rootPkg->S_DPIP[R38]->S_DPK[R37];
-    if(not_empty rootPkg)
-      actualRootPkg = rootPkg;
-    end if;
-  end while;
-end if;
-if(empty sys)
-  select one sys related by actualRootPkg->EP_SPKG[R1402]->
-                                                  EP_PKG[R1400]->S_SYS[R1405];
-  if empty sys
-    select one sys related by dom->S_SYS[R28];
-  end if;
-end if;
-if((empty intdt) and (not_empty sys))
-  intdt_id = sys.getCoreTypeId(name:"integer");
-  select any pe from instances of PE_PE where selected.Element_ID == intdt_id;
-  select one intdt related by pe->S_DT[R8001]; 
-end if;
-if(empty voidDt and not_empty sys)
-  voiddt_id = sys.getCoreTypeId(name:"void");
-  select any pe from instances of PE_PE where selected.Element_ID == voiddt_id;
-  select one voidDt related by pe->S_DT[R8001]; 
-end if;
 
-if(empty intdt and empty voidDt)
-  // if the void and int data types are still
-  // empty then this domain may be the formal
-  // content of a component
-  select one compSys related by self->S_DOM[R14]->CN_DC[R4204]->C_C[R4204]
-                                                   ->CP_CP[R4608]->S_SYS[R4606];
-  if not_empty compSys
-    intdt_id = compSys.getCoreTypeId(name:"integer");
-    select any pe from instances of PE_PE where selected.Element_ID == intdt_id;
-    select one intdt related by pe->S_DT[R8001]; 
-    voiddt_id = compSys.getCoreTypeId(name:"void");
-    select any pe from instances of PE_PE where selected.Element_ID == voiddt_id;
-    select one voidDt related by pe->S_DT[R8001];
-  end if;
-end if;
-if(empty intdt and empty voidDt)
-  // if the void and int data types are still empty
-  if (not_empty systemModel) 
-    // look for them from the system associated with the owning package
-    intdt_id = systemModel.getCoreTypeId(name:"integer");
-    select any pe from instances of PE_PE where selected.Element_ID == intdt_id;
-    select one intdt related by pe->S_DT[R8001]; 
-    voiddt_id = systemModel.getCoreTypeId(name:"void");
-    select any pe from instances of PE_PE where selected.Element_ID == voiddt_id;
-    select one voidDt related by pe->S_DT[R8001]; 
-  end if;                                               
-end if;
+ // look for them from the system associated with the owning package
+ intdt_id = systemModel.getCoreTypeId(name:"integer");
+ select any pe from instances of PE_PE where selected.Element_ID == intdt_id;
+ select one intdt related by pe->S_DT[R8001]; 
+ voiddt_id = systemModel.getCoreTypeId(name:"void");
+ select any pe from instances of PE_PE where selected.Element_ID == voiddt_id;
+ select one voidDt related by pe->S_DT[R8001]; 
+
 //
 // Domain Subsystem
 select many brgs related by self->S_BRG[R20];
@@ -190,35 +139,6 @@ for each vvar in vvars
   Util::collectModelElementsNames(elementType:"- Variable : ",elementName:vvar.Name);
 end for;
 //
-// Finally, unrelate self from DIP and DPK, delete the DIP, and thendelete self
-select one dip related by self->S_DIP[R39];
-if (not_empty dip)
-  select one dpk related by self->S_DPK[R39];
-  unrelate self from dpk across R39 using dip;
-  delete object instance dip;
-end if;
-// unrelate from all domains if a system level datatype
-select many sdips related by self->SLD_SDINP[R4401];
-for each sdip in sdips
-  select one dtp related by sdip->S_DPK[R4401];
-  unrelate self from dtp across R4401 using sdip;
-  select one system related by sdip->S_SYS[R4402];
-  unrelate sdip from system across R4402;
-  delete object instance sdip;
-end for;
-//
-select one dom related by self->S_DOM[R14];
-if(not_empty dom)
-  unrelate self from dom across R14;
-end if;
-
-select many diss related by self->S_DIS[R47];
-for each dis in diss
-  select one domain related by dis->S_DOM[R47];
-  unrelate self from domain across R47 using dis;
-  delete object instance dis;
-end for;
-
 select many ios related by self->C_IO[R4008];
 for each io in ios
   unrelate self from io across R4008;

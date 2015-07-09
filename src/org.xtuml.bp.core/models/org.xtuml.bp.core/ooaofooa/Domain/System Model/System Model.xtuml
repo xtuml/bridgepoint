@@ -169,7 +169,7 @@ Translate: native',
 	'return this;',
 	0,
 	'',
-	"d5dd2a3d-d436-4037-8f41-777df1a2aee6");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
 	"00000000-0000-0000-0000-000000000000",
@@ -177,67 +177,6 @@ INSERT INTO S_DT_PROXY
 	'',
 	'',
 	'../../Datatypes/Datatypes.xtuml');
-INSERT INTO O_TFR
-	VALUES ("431846bf-c4b4-4618-a381-e6a09efe6685",
-	"5735d0f8-e286-4832-975e-04887e18a036",
-	'pasteDataTypePackage',
-	'Currently renamed to disable support.',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select any dtpkg from instances of S_DPK where (selected.Package_ID == param.id);
-if(not_empty dtpkg)
-  // guarantee a unique name for the pasted dt package
-  dtpkg.Name = ::getUniqueInitialNameInParent(instance:dtpkg.convertToInstance(),
-  						name:dtpkg.Name, parent:self.convertToInstance());
-  dtpkg.associateWithSystem(sysID:self.Sys_ID);
-  // convert child dts to system level ones
-  dtpkg.associateDTSWithSystem(sys_id:self.Sys_ID);
-  // convert child constant specs to system level ones
-  dtpkg.associateCSPsWithSystem(sys_id:self.Sys_ID);
-  // before removing any core dts from this package
-  // we must resolve any user dts to new core types
-  dtpkg.handleUserDataTypeResolution();
-end if;',
-	1,
-	'',
-	"99a62784-42b6-46d3-830d-65919e0ed0f3");
-INSERT INTO O_TPARM
-	VALUES ("c5b82bbd-1840-40a0-82a7-5e3dc6d1e61e",
-	"431846bf-c4b4-4618-a381-e6a09efe6685",
-	'id',
-	"ba5eda7a-def5-0000-0000-000000000005",
-	0,
-	'',
-	"00000000-0000-0000-0000-000000000000",
-	'');
-INSERT INTO O_TFR
-	VALUES ("d5dd2a3d-d436-4037-8f41-777df1a2aee6",
-	"5735d0f8-e286-4832-975e-04887e18a036",
-	'canCopyDataTypePackage',
-	'',
-	"ba5eda7a-def5-0000-0000-000000000001",
-	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select any dtPackage related by self->SLD_SDP[R4400]->S_DPK[R4400] where (selected.Package_ID == param.id);
-if(not_empty dtPackage)
-  if(dtPackage.Name != ::getCoreDatatypesPackageName())
-    return true;
-  end if;
-end if;
-return false;',
-	1,
-	'',
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_TPARM
-	VALUES ("d94737cc-bb91-406f-8216-3490bd4e78d2",
-	"d5dd2a3d-d436-4037-8f41-777df1a2aee6",
-	'id',
-	"ba5eda7a-def5-0000-0000-000000000005",
-	0,
-	'',
-	"00000000-0000-0000-0000-000000000000",
-	'');
 INSERT INTO O_TFR
 	VALUES ("deaf82a1-9fd7-4833-aeb5-489e1f30c247",
 	"5735d0f8-e286-4832-975e-04887e18a036",
@@ -249,100 +188,6 @@ INSERT INTO O_TFR
 	1,
 	'',
 	"ad61a63e-afc7-4e27-8ca6-119c7c6e7350");
-INSERT INTO O_TFR
-	VALUES ("00b22b06-cf76-4dcb-92dc-441cc23da3cf",
-	"5735d0f8-e286-4832-975e-04887e18a036",
-	'pasteInterfacePackage',
-	'',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select any ifacePkg from instances of IP_IP where (selected.Package_ID == param.id);
-if(not_empty ifacePkg)
-  // guarantee a unique name for the pasted dt package
-  ifacePkg.Name = ::getUniqueInitialNameInParent(instance:ifacePkg.convertToInstance(),
-  						name:ifacePkg.Name, parent:self.convertToInstance());
-  ifacePkg.associateWithSystem(sysID:self.Sys_ID);  
-  ifacePkg.associatePackageWithSystem(sysID:self.Sys_ID);
-end if;',
-	1,
-	'',
-	"d2dfef4c-c452-4850-8db7-7352ce354d73");
-INSERT INTO O_TPARM
-	VALUES ("2a44f122-8b3c-4955-96b8-3ac369cbc2ba",
-	"00b22b06-cf76-4dcb-92dc-441cc23da3cf",
-	'id',
-	"ba5eda7a-def5-0000-0000-000000000005",
-	0,
-	'',
-	"00000000-0000-0000-0000-000000000000",
-	'');
-INSERT INTO O_TFR
-	VALUES ("99a62784-42b6-46d3-830d-65919e0ed0f3",
-	"5735d0f8-e286-4832-975e-04887e18a036",
-	'pasteComponentPackage',
-	'',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select any compPkg from instances of CP_CP where (selected.Package_ID == param.id);
-if(not_empty compPkg)
-  // guarantee a unique name for the pasted component package
-  compPkg.Name = ::getUniqueInitialNameInParent(instance:compPkg.convertToInstance(),
-  						name:compPkg.Name, parent:self.convertToInstance());
-  compPkg.associateWithSystem(sysID:self.Sys_ID);  
-  // associate component packages with the system 
-  compPkg.associatePackageWithSystem(sysID:self.Sys_ID);
-  // remove any non local events that cannot be resolved
-  compPkg.removeIncompleteSignalEvents();
-end if;',
-	1,
-	'',
-	"b6039407-1048-4027-a791-1c536353f9f2");
-INSERT INTO O_TPARM
-	VALUES ("3a40f374-f768-4728-a889-726786768b91",
-	"99a62784-42b6-46d3-830d-65919e0ed0f3",
-	'id',
-	"ba5eda7a-def5-0000-0000-000000000005",
-	0,
-	'',
-	"00000000-0000-0000-0000-000000000000",
-	'');
-INSERT INTO O_TFR
-	VALUES ("d2dfef4c-c452-4850-8db7-7352ce354d73",
-	"5735d0f8-e286-4832-975e-04887e18a036",
-	'pasteDomain',
-	'',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select any domain from instances of S_DOM where (selected.Dom_ID == param.id);
-if(not_empty domain)
-  // guarantee a unique name for the pasted domain
-  domain.Name = ::getUniqueInitialNameInParent(instance:domain.convertToInstance(),
-  						name:domain.Name, parent:self.convertToInstance());
-  // deassociate the pasted pkg with original parent
-  select one prevSystem related by domain->S_SYS[R28];
-  if(not_empty prevSystem)
-    unrelate domain from prevSystem across R28;
-  end if;
-  // associate with new system
-  relate domain to self across R28;
-  // remove any non local events that cannot be resolved
-  domain.removeIncompleteSignalEvents();
-end if;',
-	1,
-	'',
-	"431846bf-c4b4-4618-a381-e6a09efe6685");
-INSERT INTO O_TPARM
-	VALUES ("7e609f89-42d8-4500-adff-f713a741d8d2",
-	"d2dfef4c-c452-4850-8db7-7352ce354d73",
-	'id',
-	"ba5eda7a-def5-0000-0000-000000000005",
-	0,
-	'',
-	"00000000-0000-0000-0000-000000000000",
-	'');
 INSERT INTO O_TFR
 	VALUES ("3a622bd7-cfdb-4312-b277-f14cf1addefb",
 	"5735d0f8-e286-4832-975e-04887e18a036",
@@ -374,7 +219,7 @@ relate comm to self across R1136;
 comm.initialize();',
 	1,
 	'',
-	"61acc792-6d9b-4daf-bb1a-ea499041e94d");
+	"deaf82a1-9fd7-4833-aeb5-489e1f30c247");
 INSERT INTO O_TFR
 	VALUES ("b492958f-58da-44a1-8b3f-6161a31014c0",
 	"5735d0f8-e286-4832-975e-04887e18a036",
@@ -391,22 +236,6 @@ ucc.initialize();',
 	1,
 	'',
 	"9be3d443-3949-45ed-bc62-dd5e87cccb23");
-INSERT INTO O_TFR
-	VALUES ("61acc792-6d9b-4daf-bb1a-ea499041e94d",
-	"5735d0f8-e286-4832-975e-04887e18a036",
-	'newActivity',
-	'',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-create object instance a of A_A;
-create object instance sp of EP_SPKG;
-relate a to sp across R1402;
-relate self to a across R1113;
-a.initialize();',
-	1,
-	'',
-	"deaf82a1-9fd7-4833-aeb5-489e1f30c247");
 INSERT INTO O_TFR
 	VALUES ("473f938e-4109-4818-b6ae-4e7213f0fc38",
 	"5735d0f8-e286-4832-975e-04887e18a036",
@@ -457,67 +286,10 @@ if(not_empty pkg)
 end if;',
 	1,
 	'',
-	"00b22b06-cf76-4dcb-92dc-441cc23da3cf");
+	"b492958f-58da-44a1-8b3f-6161a31014c0");
 INSERT INTO O_TPARM
 	VALUES ("0b0e43be-7b0e-4507-a732-76cbd17492f2",
 	"17fcd3bd-c02c-45df-bef3-b5b5a8487e15",
-	'id',
-	"ba5eda7a-def5-0000-0000-000000000005",
-	0,
-	'',
-	"00000000-0000-0000-0000-000000000000",
-	'');
-INSERT INTO O_TFR
-	VALUES ("af1cbd4f-9a2d-4238-b320-086d6b9c728f",
-	"5735d0f8-e286-4832-975e-04887e18a036",
-	'pasteActivity',
-	'',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select any activity from instances of A_A
-                                        where (selected.Package_ID == param.id);
-if(not_empty activity)
-  // guarantee a unique name for the pasted element
-  activity.Name = ::getUniqueInitialNameInParent
-                                         (instance:activity.convertToInstance(),
-     					   name:activity.Name, parent:self.convertToInstance());
-  activity.associateWithSystem(sysID:self.Sys_ID);
-end if;',
-	1,
-	'',
-	"b492958f-58da-44a1-8b3f-6161a31014c0");
-INSERT INTO O_TPARM
-	VALUES ("28d389ac-a306-4716-9e67-fec2b074d084",
-	"af1cbd4f-9a2d-4238-b320-086d6b9c728f",
-	'id',
-	"ba5eda7a-def5-0000-0000-000000000005",
-	0,
-	'',
-	"00000000-0000-0000-0000-000000000000",
-	'');
-INSERT INTO O_TFR
-	VALUES ("b6039407-1048-4027-a791-1c536353f9f2",
-	"5735d0f8-e286-4832-975e-04887e18a036",
-	'pasteCommunication',
-	'',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select any comm from instances of COMM_COMM
-                                        where (selected.Package_ID == param.id);
-if(not_empty comm)
-  // guarantee a unique name for the pasted element
-  comm.Name = ::getUniqueInitialNameInParent (instance:comm.convertToInstance(),
-     					   name:comm.Name, parent:self.convertToInstance());
-  comm.associateWithSystem(sysID:self.Sys_ID);
-end if;',
-	1,
-	'',
-	"af1cbd4f-9a2d-4238-b320-086d6b9c728f");
-INSERT INTO O_TPARM
-	VALUES ("182b2fda-e575-4fb9-95b6-99dee4e50ca8",
-	"b6039407-1048-4027-a791-1c536353f9f2",
 	'id',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
