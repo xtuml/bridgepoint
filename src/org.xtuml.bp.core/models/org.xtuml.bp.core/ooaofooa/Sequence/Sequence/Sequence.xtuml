@@ -1929,57 +1929,6 @@ INSERT INTO O_ATTR
 	'');
 INSERT INTO O_REF
 	VALUES ("5f54b153-dd7d-444e-8526-f71458cc0d4f",
-	"76aac5bd-1f3f-409b-bf58-ab587f190bfd",
-	0,
-	"c75805b5-b512-4d99-97ee-933159f33062",
-	"3531f4bd-ab1b-4d8a-add8-d31e0a38f43e",
-	"488621ca-97c5-4a94-ada4-386ab648bc3e",
-	"e85b7114-5467-4f5f-ba60-f9be8b1afb41",
-	"a48d585f-0a46-4de0-bc2e-29da73060192",
-	"64fce3cf-e62e-4fd4-ae41-4aef4ec8ae93",
-	"00000000-0000-0000-0000-000000000000",
-	0,
-	'',
-	'Component Package',
-	'SpecificationPackage_ID',
-	'R951');
-INSERT INTO R_RGO_PROXY
-	VALUES ("5f54b153-dd7d-444e-8526-f71458cc0d4f",
-	"3531f4bd-ab1b-4d8a-add8-d31e0a38f43e",
-	"488621ca-97c5-4a94-ada4-386ab648bc3e",
-	'../Sequence.xtuml');
-INSERT INTO O_RTIDA_PROXY
-	VALUES ("c75805b5-b512-4d99-97ee-933159f33062",
-	"76aac5bd-1f3f-409b-bf58-ab587f190bfd",
-	0,
-	"3531f4bd-ab1b-4d8a-add8-d31e0a38f43e",
-	"e85b7114-5467-4f5f-ba60-f9be8b1afb41",
-	'../Sequence.xtuml');
-INSERT INTO O_RATTR
-	VALUES ("a48d585f-0a46-4de0-bc2e-29da73060192",
-	"5f54b153-dd7d-444e-8526-f71458cc0d4f",
-	"c75805b5-b512-4d99-97ee-933159f33062",
-	"76aac5bd-1f3f-409b-bf58-ab587f190bfd",
-	1,
-	'SpecificationPackage_ID');
-INSERT INTO O_BATTR_PROXY
-	VALUES ("c75805b5-b512-4d99-97ee-933159f33062",
-	"76aac5bd-1f3f-409b-bf58-ab587f190bfd",
-	'../../Component/Component Packaging/Component Package/Component Package.xtuml');
-INSERT INTO O_ATTR
-	VALUES ("a48d585f-0a46-4de0-bc2e-29da73060192",
-	"5f54b153-dd7d-444e-8526-f71458cc0d4f",
-	"c59e9891-b33c-4db1-99ad-c469295c58c8",
-	'Component_SpecificationPackage_ID',
-	'',
-	'Component_',
-	'Package_ID',
-	1,
-	"ba5eda7a-def5-0000-0000-000000000007",
-	'',
-	'');
-INSERT INTO O_REF
-	VALUES ("5f54b153-dd7d-444e-8526-f71458cc0d4f",
 	"90e625be-eb94-478b-84b1-59fe801c253a",
 	0,
 	"2c0a9065-60b2-4439-89b1-4f2e732a311d",
@@ -2067,7 +2016,7 @@ INSERT INTO O_BATTR_PROXY
 INSERT INTO O_ATTR
 	VALUES ("ab168b3e-834f-47e3-8694-344873e262d4",
 	"5f54b153-dd7d-444e-8526-f71458cc0d4f",
-	"a48d585f-0a46-4de0-bc2e-29da73060192",
+	"c59e9891-b33c-4db1-99ad-c469295c58c8",
 	'Component_Id',
 	'',
 	'Component_',
