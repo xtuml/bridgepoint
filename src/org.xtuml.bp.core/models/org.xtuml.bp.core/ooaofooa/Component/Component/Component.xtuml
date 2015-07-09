@@ -2107,7 +2107,7 @@ INSERT INTO O_TFR
 return not_empty provision;',
 	1,
 	'',
-	"b1d4e8c5-d67f-49b1-947f-0eabe338d697");
+	"5b44ade6-037e-4280-8bee-784bd4ef0822");
 INSERT INTO O_TPARM
 	VALUES ("d5d6759d-0253-491c-bbe1-581861fe2548",
 	"33e8d0d3-8657-484c-9c6e-00d070cf60e9",
@@ -2169,25 +2169,6 @@ return not_empty exeEng;',
 	1,
 	'',
 	"cca61026-dd78-4021-9aec-01de6f85b45e");
-INSERT INTO O_TFR
-	VALUES ("b1d4e8c5-d67f-49b1-947f-0eabe338d697",
-	"2786d973-1537-44a1-81d6-3ddbd2377865",
-	'newUseCasePackage',
-	'',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-// When in a generic package we will not allow specialized packages by 
-// filtering the option in the UI.  Therefore this not be invoked when the 
-// component is under a generic package.
-create object instance ucc of UC_UCC;
-create object instance sp of EP_SPKG;
-relate ucc to sp across R1402;
-relate self to ucc across R1213;
-ucc.initialize();',
-	1,
-	'',
-	"5b44ade6-037e-4280-8bee-784bd4ef0822");
 INSERT INTO O_TFR
 	VALUES ("ce9a0b7e-d87b-48a9-b4e1-3243a2594935",
 	"2786d973-1537-44a1-81d6-3ddbd2377865",
