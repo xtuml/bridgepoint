@@ -43,8 +43,8 @@ INSERT INTO DIM_ND
 	168.000000,
 	"4be1c7dc-6fbc-4345-b719-cef10db8f684");
 INSERT INTO DIM_GE
-	VALUES (4992.000000,
-	3180.000000,
+	VALUES (4692.000000,
+	3168.000000,
 	"4be1c7dc-6fbc-4345-b719-cef10db8f684",
 	"00000000-0000-0000-0000-000000000000");
 INSERT INTO DIM_ELE
@@ -2795,91 +2795,6 @@ INSERT INTO DIM_ED
 	VALUES ("0ae218ab-480c-41bd-9fca-046f94e1fc88",
 	"bc4c58bc-2284-4625-b128-cb61ff442462",
 	"8dfb5e3c-3ad7-49d7-bb10-c04d417d54a0");
-INSERT INTO GD_GE
-	VALUES ("10f912bb-9958-43e3-848d-f0f12c663384",
-	"8ab4e18b-b574-4ca1-a763-044175e0c407",
-	"9744b333-dc23-462a-80f7-c6af00e4d3a5",
-	23,
-	0,
-	'org.xtuml.bp.core::ooaofooa::Activity::Component');
-INSERT INTO GD_SHP
-	VALUES ("10f912bb-9958-43e3-848d-f0f12c663384");
-INSERT INTO GD_NCS
-	VALUES ("10f912bb-9958-43e3-848d-f0f12c663384");
-INSERT INTO DIM_ND
-	VALUES (324.000000,
-	132.000000,
-	"10f912bb-9958-43e3-848d-f0f12c663384");
-INSERT INTO DIM_GE
-	VALUES (4596.000000,
-	2592.000000,
-	"10f912bb-9958-43e3-848d-f0f12c663384",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO DIM_ELE
-	VALUES ("10f912bb-9958-43e3-848d-f0f12c663384",
-	0,
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO DIM_CON
-	VALUES ("48e1c017-ac00-4148-9b0b-d837c05747ad",
-	4662.000000,
-	2724.000000,
-	"10f912bb-9958-43e3-848d-f0f12c663384");
-INSERT INTO GD_GE
-	VALUES ("66eac6d0-5a17-41ac-9c1f-6e2e01fd5990",
-	"8ab4e18b-b574-4ca1-a763-044175e0c407",
-	"ba948593-88c4-4b1c-bee7-6a108e45306b",
-	21,
-	0,
-	'org.xtuml.bp.core::ooaofooa::Activity::Activity');
-INSERT INTO GD_SHP
-	VALUES ("66eac6d0-5a17-41ac-9c1f-6e2e01fd5990");
-INSERT INTO GD_NCS
-	VALUES ("66eac6d0-5a17-41ac-9c1f-6e2e01fd5990");
-INSERT INTO DIM_ND
-	VALUES (200.000000,
-	150.000000,
-	"66eac6d0-5a17-41ac-9c1f-6e2e01fd5990");
-INSERT INTO DIM_GE
-	VALUES (3805.000000,
-	2937.000000,
-	"66eac6d0-5a17-41ac-9c1f-6e2e01fd5990",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO DIM_ELE
-	VALUES ("66eac6d0-5a17-41ac-9c1f-6e2e01fd5990",
-	0,
-	"00000000-0000-0000-0000-000000000000");
-<<<<<<< HEAD
-=======
-INSERT INTO DIM_CON
-	VALUES ("2f30211a-ded1-4cdf-8c86-61bb1f13ccb4",
-	4548.000000,
-	2724.000000,
-	"3c1b0860-80f2-4093-a258-ed70bbb1bc83");
-INSERT INTO GD_GE
-	VALUES ("66eac6d0-5a17-41ac-9c1f-6e2e01fd5990",
-	"8ab4e18b-b574-4ca1-a763-044175e0c407",
-	"ba948593-88c4-4b1c-bee7-6a108e45306b",
-	21,
-	0,
-	'org.xtuml.bp.core::ooaofooa::Activity::Activity');
-INSERT INTO GD_SHP
-	VALUES ("66eac6d0-5a17-41ac-9c1f-6e2e01fd5990");
-INSERT INTO GD_NCS
-	VALUES ("66eac6d0-5a17-41ac-9c1f-6e2e01fd5990");
-INSERT INTO DIM_ND
-	VALUES (200.000000,
-	150.000000,
-	"66eac6d0-5a17-41ac-9c1f-6e2e01fd5990");
-INSERT INTO DIM_GE
-	VALUES (3805.000000,
-	2937.000000,
-	"66eac6d0-5a17-41ac-9c1f-6e2e01fd5990",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO DIM_ELE
-	VALUES ("66eac6d0-5a17-41ac-9c1f-6e2e01fd5990",
-	0,
-	"00000000-0000-0000-0000-000000000000");
->>>>>>> branch '7769_remove_sp' of https://github.com/rmulvey/bridgepoint.git
 INSERT INTO DIM_DIA
 	VALUES ("8ab4e18b-b574-4ca1-a763-044175e0c407",
 	'',
@@ -3452,34 +3367,6 @@ INSERT INTO PE_PE
 	"ff5a86d7-6bb8-4818-93a7-db0ed269ab54",
 	"00000000-0000-0000-0000-000000000000",
 	9);
-INSERT INTO O_IOBJ
-	VALUES ("9744b333-dc23-462a-80f7-c6af00e4d3a5",
-	"2786d973-1537-44a1-81d6-3ddbd2377865",
-	0,
-	"00000000-0000-0000-0000-000000000000",
-	'Component',
-	'C_C');
-INSERT INTO PE_PE
-	VALUES ("9744b333-dc23-462a-80f7-c6af00e4d3a5",
-	1,
-	"ff5a86d7-6bb8-4818-93a7-db0ed269ab54",
-	"00000000-0000-0000-0000-000000000000",
-	19);
-INSERT INTO O_OBJ_PROXY
-	VALUES ("2786d973-1537-44a1-81d6-3ddbd2377865",
-	'Component',
-	4000,
-	'C_C',
-	'A component defines the content of a system.  Its associations with other
-components are defined through interfaces that are either provided or required
-by the component.
-
-A Component is related to an Interface through two different link classes,
-Requirement and Provision.  The links are setup when either the Provision or
-Requirement is formalized against an interface that is defined in an Interface
-Diagram',
-	"00000000-0000-0000-0000-000000000000",
-	'../Component/Component/Component.xtuml');
 INSERT INTO PE_PE
 	VALUES ("ff5a86d7-6bb8-4818-93a7-db0ed269ab54",
 	1,

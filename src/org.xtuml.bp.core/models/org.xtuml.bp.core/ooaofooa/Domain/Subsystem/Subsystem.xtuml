@@ -221,7 +221,7 @@ relate self to icl across R3;
 // Context Menu action.',
 	1,
 	'',
-	"4141bbb8-c93b-43f9-816b-0ed2a9f31fcf");
+	"8b0b2eb8-83e2-4a30-b617-97e66fe3871c");
 INSERT INTO O_TFR
 	VALUES ("98017086-dfe0-4775-b70d-7b770243f67c",
 	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
@@ -345,7 +345,7 @@ relate dom to child across R1;
 child.initialize();',
 	1,
 	'',
-	"ead4dedc-5a81-44af-8ec3-c5315377e4fd");
+	"d2eca685-3469-45f9-bf42-62dc68956744");
 INSERT INTO O_TFR
 	VALUES ("fe20ef0b-0f91-4840-ae65-cdf780d9ddb3",
 	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
@@ -406,7 +406,7 @@ end if;
 return false;',
 	1,
 	'',
-	"afc40341-85df-48d3-8047-dc47c86ccb82");
+	"7f73eede-f4fe-4ef5-bc53-88f209a43af3");
 INSERT INTO O_TPARM
 	VALUES ("3424be08-3505-49c8-89db-5a91c2c0b045",
 	"fe20ef0b-0f91-4840-ae65-cdf780d9ddb3",
@@ -696,22 +696,6 @@ INSERT INTO O_TPARM
 	"7379b4e4-84ae-4145-b12c-aea5d464b190",
 	'');
 INSERT INTO O_TFR
-	VALUES ("ead4dedc-5a81-44af-8ec3-c5315377e4fd",
-	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
-	'newSequence',
-	'',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-create object instance sequence of SQ_S;
-create object instance sp of EP_SPKG;
-relate sequence to sp across R1402;
-relate self to sequence across R914;
-sequence.initialize();',
-	1,
-	'',
-	"d2eca685-3469-45f9-bf42-62dc68956744");
-INSERT INTO O_TFR
 	VALUES ("8e4ed72b-24e8-4afa-a548-204a0a5389ec",
 	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
 	'getPath',
@@ -745,54 +729,6 @@ INSERT INTO O_TPARM
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
-INSERT INTO O_TFR
-	VALUES ("4141bbb8-c93b-43f9-816b-0ed2a9f31fcf",
-	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
-	'newCommunication',
-	'',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-create object instance communication of COMM_COMM;
-create object instance sp of EP_SPKG;
-relate communication to sp across R1402;
-relate self to communication across R1131;
-communication.initialize();',
-	1,
-	'',
-	"8b0b2eb8-83e2-4a30-b617-97e66fe3871c");
-INSERT INTO O_TFR
-	VALUES ("a4afcdeb-f7fb-4de0-8192-151a58bae902",
-	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
-	'newUseCasePackage',
-	'',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-create object instance ucc of UC_UCC;
-create object instance sp of EP_SPKG;
-relate ucc to sp across R1402;
-relate self to ucc across R1202;
-ucc.initialize();',
-	1,
-	'',
-	"19b6ae99-5670-49ea-af01-cb0e1e3f6816");
-INSERT INTO O_TFR
-	VALUES ("afc40341-85df-48d3-8047-dc47c86ccb82",
-	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
-	'newActivity',
-	'',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-create object instance a of A_A;
-create object instance sp of EP_SPKG;
-relate a to sp across R1402;
-relate self to a across R1108;
-a.initialize();',
-	1,
-	'',
-	"7f73eede-f4fe-4ef5-bc53-88f209a43af3");
 INSERT INTO O_TFR
 	VALUES ("90423854-0903-4aca-8311-fa6e1f52f307",
 	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
@@ -962,7 +898,7 @@ if(not_empty iobj)
 end if;',
 	1,
 	'',
-	"90356533-c54c-4cee-9f4a-faf6366eb24e");
+	"10aa8efa-3f30-4cb1-b6d0-9a292afaf158");
 INSERT INTO O_TPARM
 	VALUES ("c8cb8a5b-1460-44d9-9a91-1aed45d5acec",
 	"79f86cd2-99f3-4b25-bdc1-cfeaaf049cf5",
@@ -1099,38 +1035,10 @@ if(not_empty activity)
 end if;',
 	1,
 	'',
-	"a4afcdeb-f7fb-4de0-8192-151a58bae902");
+	"19b6ae99-5670-49ea-af01-cb0e1e3f6816");
 INSERT INTO O_TPARM
 	VALUES ("386ebfc6-d1cb-4149-905e-123152c69592",
 	"4fd204e4-ed48-4f52-8ced-5cb9ecf59803",
-	'id',
-	"ba5eda7a-def5-0000-0000-000000000005",
-	0,
-	'',
-	"00000000-0000-0000-0000-000000000000",
-	'');
-INSERT INTO O_TFR
-	VALUES ("90356533-c54c-4cee-9f4a-faf6366eb24e",
-	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
-	'pasteCommunication',
-	'',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select any comm from instances of COMM_COMM
-                                        where (selected.Package_ID == param.id);
-if(not_empty comm)
-  // guarantee a unique name for the pasted element
-  comm.Name = ::getUniqueInitialNameInParent (instance:comm.convertToInstance(),
-     					   name:comm.Name, parent:self.convertToInstance());
-  comm.associateWithSubsystem(ssID:self.SS_ID);
-end if;',
-	1,
-	'',
-	"10aa8efa-3f30-4cb1-b6d0-9a292afaf158");
-INSERT INTO O_TPARM
-	VALUES ("882386fd-51be-4e48-8f6f-656eaaedea18",
-	"90356533-c54c-4cee-9f4a-faf6366eb24e",
 	'id',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	0,

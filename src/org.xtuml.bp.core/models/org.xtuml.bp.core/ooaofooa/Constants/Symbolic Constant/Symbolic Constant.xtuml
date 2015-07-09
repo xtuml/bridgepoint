@@ -266,39 +266,21 @@ the previously associated datatype is disposed.',
 	1,
 	'// Symbolic Constant (CNST_SYC) setToDefaultDatatype operation
 
-// Get the integer core data type
-select any dom from instances of S_DOM;
-select any intdt related by dom->S_DT[R14] where selected.Name == "integer";
 
-select one rootPkg related by self->CNST_CSP[R1504]->CNST_CIP[R1506]->S_DPK[R1506];
-actualRootPkg = rootPkg;
-select one sys related by rootPkg->SLD_SDP[R4400]->S_SYS[R4400];
-if(empty sys)
-  while(not_empty rootPkg)
-    select one sys related by rootPkg->SLD_SDP[R4400]->S_SYS[R4400];
-    select one rootPkg related by rootPkg->S_DPIP[R38]->S_DPK[R37];
-    if(not_empty rootPkg)
-      actualRootPkg = rootPkg;
-    end if;
-  end while;
+// if empty we may be in a generic package
+select one sys related by self->CNST_CSP[R1504]->PE_PE[R8001]->EP_PKG[R8000]->S_SYS[R1405];
+int_dt_id = GD::NULL_UNIQUE_ID();
+if not_empty sys
+  int_dt_id = sys.getCoreTypeId(name:"integer");
+end if;
+select any pe from instances of PE_PE where selected.Element_ID == int_dt_id;
+select one int_dt related by pe->S_DT[R8001];
+if (empty int_dt)
+  // TBD Why is this here?
+  select any int_dt related by sys->EP_PKG[R1405]->PE_PE[R8000]->S_DT[R8001] where (selected.Name == "integer");
 end if;
 
-if (empty sys)
-  // if empty we may be in a generic package
-  select one sys related by self->CNST_CSP[R1504]->PE_PE[R8001]->EP_PKG[R8000]->S_SYS[R1405];
-  int_dt_id = GD::NULL_UNIQUE_ID();
-  if not_empty sys
-    int_dt_id = sys.getCoreTypeId(name:"integer");
-  end if;
-  select any pe from instances of PE_PE where selected.Element_ID == int_dt_id;
-  select one int_dt related by pe->S_DT[R8001];
-  if (empty int_dt)
-    // TBD Why is this here?
-    select any int_dt related by sys->EP_PKG[R1405]->PE_PE[R8000]->S_DT[R8001] where (selected.Name == "integer");
-  end if;
-end if;
-// TBD What is the difference between int_dt and intdt? Why do we need both?
-if((empty intdt) and (not_empty sys))
+if(not_empty sys)
   intdt_id = GD::NULL_UNIQUE_ID();
   if not_empty sys
     intdt_id = sys.getCoreTypeId(name:"integer");
@@ -307,27 +289,11 @@ if((empty intdt) and (not_empty sys))
   select one intdt related by pe->S_DT[R8001]; 
 end if;
 
-if(empty intdt)
-  // if the integer data type is still empty then this domain is the formal
-  // content of a component
-  select one dtPkg related by self->CNST_CSP[R1504]->CNST_CIP[R1506]->S_DPK[R1506];
-  select any domain from instances of S_DOM where (selected.Dom_ID == dtPkg.getDomainId());
-
-  select one compSys related by domain->CN_DC[R4204]->C_C[R4204]->CP_CP[R4608]->S_SYS[R4606];
-  intdt_id = GD::NULL_UNIQUE_ID();
-  if not_empty compSys
-    intdt_id = compSys.getCoreTypeId(name:"integer");
-  end if;
-  select any pe from instances of PE_PE where selected.Element_ID == intdt_id;
-  select one intdt related by pe->S_DT[R8001]; 
-end if;
-
-
 // Now that we have the integer datatype, clean up the CNST_SYC->S_DT
 // association and reset them to the integer. Set the value of the constant to 0.
 select one dt related by self->S_DT[R1500];
 unrelate self from dt across R1500;
-relate self to intdt across R1500;
+relate self to int_dt across R1500;
 select one lsc related by self->CNST_LFSC[R1502]->CNST_LSC[R1503];
 if (not_empty lsc)
   lsc.Value = "0";
