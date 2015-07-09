@@ -507,57 +507,6 @@ return self.convertToInstance();',
 	1,
 	'',
 	"100f915e-af2e-4901-b5ce-42093167ca84");
-INSERT INTO O_REF
-	VALUES ("28055b02-0b76-442a-9b5a-d865c30460b2",
-	"d824ae3e-c53c-448b-a2d3-5f986c7705f7",
-	0,
-	"0dbd6a1a-f57b-4432-8623-931a2704d33d",
-	"c444827e-bf17-4d70-9248-e16ec0fc2a2b",
-	"b89e92e4-62a8-40ce-82a7-3aff7e4439d0",
-	"926aaf52-f0f9-429f-a094-ed7d32846948",
-	"94afb088-1a99-4546-b792-d6ca82989580",
-	"0dbd3aba-09c3-47ac-938f-4a6f8f20f1fe",
-	"00000000-0000-0000-0000-000000000000",
-	0,
-	'',
-	'Function Package',
-	'FunPack_ID',
-	'R932.''represents''');
-INSERT INTO R_RGO_PROXY
-	VALUES ("28055b02-0b76-442a-9b5a-d865c30460b2",
-	"c444827e-bf17-4d70-9248-e16ec0fc2a2b",
-	"b89e92e4-62a8-40ce-82a7-3aff7e4439d0",
-	'../Interaction.xtuml');
-INSERT INTO O_RTIDA_PROXY
-	VALUES ("0dbd6a1a-f57b-4432-8623-931a2704d33d",
-	"d824ae3e-c53c-448b-a2d3-5f986c7705f7",
-	0,
-	"c444827e-bf17-4d70-9248-e16ec0fc2a2b",
-	"926aaf52-f0f9-429f-a094-ed7d32846948",
-	'../Interaction.xtuml');
-INSERT INTO O_RATTR
-	VALUES ("94afb088-1a99-4546-b792-d6ca82989580",
-	"28055b02-0b76-442a-9b5a-d865c30460b2",
-	"0dbd6a1a-f57b-4432-8623-931a2704d33d",
-	"d824ae3e-c53c-448b-a2d3-5f986c7705f7",
-	1,
-	'FunPack_ID');
-INSERT INTO O_BATTR_PROXY
-	VALUES ("0dbd6a1a-f57b-4432-8623-931a2704d33d",
-	"d824ae3e-c53c-448b-a2d3-5f986c7705f7",
-	'../../Domain/Function Package/Function Package.xtuml');
-INSERT INTO O_ATTR
-	VALUES ("94afb088-1a99-4546-b792-d6ca82989580",
-	"28055b02-0b76-442a-9b5a-d865c30460b2",
-	"f8846555-6312-44bf-a82a-2fd2ef427a66",
-	'FunPack_ID',
-	'',
-	'',
-	'FunPack_ID',
-	0,
-	"ba5eda7a-def5-0000-0000-000000000007",
-	'',
-	'');
 INSERT INTO O_DBATTR
 	VALUES ("55b33363-18ba-42c3-83cc-d2d37b54531e",
 	"28055b02-0b76-442a-9b5a-d865c30460b2",
@@ -589,7 +538,7 @@ INSERT INTO O_BATTR
 INSERT INTO O_ATTR
 	VALUES ("55b33363-18ba-42c3-83cc-d2d37b54531e",
 	"28055b02-0b76-442a-9b5a-d865c30460b2",
-	"94afb088-1a99-4546-b792-d6ca82989580",
+	"f8846555-6312-44bf-a82a-2fd2ef427a66",
 	'Label',
 	'User_Visible:false',
 	'',
