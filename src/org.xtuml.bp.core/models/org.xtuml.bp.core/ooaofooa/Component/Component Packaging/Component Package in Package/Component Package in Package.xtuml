@@ -60,7 +60,7 @@ INSERT INTO O_REF
 	0,
 	'',
 	'Component Package',
-	'Package_ID',
+	'SpecificationPackage_ID',
 	'R4600.''may be nested in''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("e12cbbac-1b80-406f-b3ad-a6d745b59761",
@@ -77,19 +77,19 @@ INSERT INTO O_RTIDA_PROXY
 INSERT INTO O_RATTR
 	VALUES ("e1e9c286-a56e-4ab7-bcca-9eafb32688b4",
 	"e12cbbac-1b80-406f-b3ad-a6d745b59761",
-	"a5a1b94e-be2f-4750-bd58-cf1c2713558a",
-	"cf4966b0-706a-4373-a2ee-7e706918813c",
+	"c75805b5-b512-4d99-97ee-933159f33062",
+	"76aac5bd-1f3f-409b-bf58-ab587f190bfd",
 	1,
-	'Package_ID');
+	'SpecificationPackage_ID');
 INSERT INTO O_BATTR_PROXY
-	VALUES ("a5a1b94e-be2f-4750-bd58-cf1c2713558a",
-	"cf4966b0-706a-4373-a2ee-7e706918813c",
-	'../../../Element Packaging/Specification Package/Specification Package.xtuml');
+	VALUES ("c75805b5-b512-4d99-97ee-933159f33062",
+	"76aac5bd-1f3f-409b-bf58-ab587f190bfd",
+	'../Component Package/Component Package.xtuml');
 INSERT INTO O_ATTR
 	VALUES ("e1e9c286-a56e-4ab7-bcca-9eafb32688b4",
 	"e12cbbac-1b80-406f-b3ad-a6d745b59761",
 	"11a322d0-9d36-4206-91ee-5a8179934949",
-	'Parent_Package_ID',
+	'Parent_SpecificationPackage_ID',
 	'',
 	'Parent_',
 	'Package_ID',
