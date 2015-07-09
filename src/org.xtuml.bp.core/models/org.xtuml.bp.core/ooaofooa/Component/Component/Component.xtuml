@@ -746,7 +746,7 @@ else
 end if;',
 	1,
 	'',
-	"cd61bb44-169b-4321-a098-06d659e6aefc");
+	"d4dab3ed-9a1e-48c9-9c47-bfe26102542c");
 INSERT INTO O_TFR
 	VALUES ("a2d0128a-5ba8-4529-a1b6-821bafc44eb2",
 	"2786d973-1537-44a1-81d6-3ddbd2377865",
@@ -795,7 +795,7 @@ return false;
 ',
 	1,
 	'',
-	"ff8c143f-25c8-4cd3-b981-89ffd8b042bd");
+	"e99b2387-1d0b-4300-ac66-86c9d1401213");
 INSERT INTO O_TPARM
 	VALUES ("01ae6caa-bbcd-4d24-b8ce-76dfbcfde097",
 	"a2d0128a-5ba8-4529-a1b6-821bafc44eb2",
@@ -1190,35 +1190,6 @@ INSERT INTO O_TPARM
 	'',
 	"ec1778f8-afc7-409d-941a-c265be6dfcff",
 	'');
-INSERT INTO O_TFR
-	VALUES ("ff8c143f-25c8-4cd3-b981-89ffd8b042bd",
-	"2786d973-1537-44a1-81d6-3ddbd2377865",
-	'newInterfacePackage',
-	'',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-// When in a generic package we will not allow specialized packages by 
-// filtering the option in the UI.  Therefore this not be invoked when the 
-// component is under a generic package.
-create object instance specPkg of EP_SPKG;
-create object instance interfacePackage of IP_IP;
-relate interfacePackage to specPkg across R1402;
-relate self to interfacePackage across R4206;
-select one componentPackage related by self->CP_CP[R4604];
-if(empty componentPackage)
-  select one parentComp related by self->CN_CIC[R4203]->C_C[R4202];
-  while(empty componentPackage)
-    select one componentPackage related by parentComp->CP_CP[R4604];
-    select one parentComp related by parentComp->CN_CIC[R4203]->C_C[R4202];
-  end while;
-end if;
-select one system related by componentPackage->S_SYS[R4606];
-relate system to interfacePackage across R4304;
-interfacePackage.initialize();',
-	1,
-	'',
-	"e99b2387-1d0b-4300-ac66-86c9d1401213");
 INSERT INTO O_TFR
 	VALUES ("cca61026-dd78-4021-9aec-01de6f85b45e",
 	"2786d973-1537-44a1-81d6-3ddbd2377865",
@@ -2199,63 +2170,6 @@ return not_empty exeEng;',
 	'',
 	"cca61026-dd78-4021-9aec-01de6f85b45e");
 INSERT INTO O_TFR
-	VALUES ("97ff86aa-e5c5-45b2-9fd8-66670c5bea0a",
-	"2786d973-1537-44a1-81d6-3ddbd2377865",
-	'newActivity',
-	'',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-// When in a generic package we will not allow specialized packages by 
-// filtering the option in the UI.  Therefore this not be invoked when the 
-// component is under a generic package.
-create object instance a of A_A;
-create object instance sp of EP_SPKG;
-relate a to sp across R1402;
-relate self to a across R1115;
-a.initialize();',
-	1,
-	'',
-	"d4dab3ed-9a1e-48c9-9c47-bfe26102542c");
-INSERT INTO O_TFR
-	VALUES ("cd61bb44-169b-4321-a098-06d659e6aefc",
-	"2786d973-1537-44a1-81d6-3ddbd2377865",
-	'newCommunication',
-	'',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-// When in a generic package we will not allow specialized packages by 
-// filtering the option in the UI.  Therefore this not be invoked when the 
-// component is under a generic package.
-create object instance comm of COMM_COMM;
-create object instance sp of EP_SPKG;
-relate comm to sp across R1402;
-relate comm to self across R1138;
-comm.initialize();',
-	1,
-	'',
-	"97ff86aa-e5c5-45b2-9fd8-66670c5bea0a");
-INSERT INTO O_TFR
-	VALUES ("199a2be6-8e81-4f06-b696-504e81258840",
-	"2786d973-1537-44a1-81d6-3ddbd2377865",
-	'newSequence',
-	'',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-// When in a generic package we will not allow specialized packages by 
-// filtering the option in the UI.  Therefore this not be invoked when the 
-// component is under a generic package.
-create object instance sequence of SQ_S;
-create object instance sp of EP_SPKG;
-relate sequence to sp across R1402;
-relate self to sequence across R952;
-sequence.initialize();',
-	1,
-	'',
-	"5b44ade6-037e-4280-8bee-784bd4ef0822");
-INSERT INTO O_TFR
 	VALUES ("b1d4e8c5-d67f-49b1-947f-0eabe338d697",
 	"2786d973-1537-44a1-81d6-3ddbd2377865",
 	'newUseCasePackage',
@@ -2273,7 +2187,7 @@ relate self to ucc across R1213;
 ucc.initialize();',
 	1,
 	'',
-	"199a2be6-8e81-4f06-b696-504e81258840");
+	"5b44ade6-037e-4280-8bee-784bd4ef0822");
 INSERT INTO O_TFR
 	VALUES ("ce9a0b7e-d87b-48a9-b4e1-3243a2594935",
 	"2786d973-1537-44a1-81d6-3ddbd2377865",
@@ -2532,52 +2446,6 @@ INSERT INTO O_TPARM
 	"00000000-0000-0000-0000-000000000000",
 	'');
 INSERT INTO O_TFR
-	VALUES ("b96f8964-625c-4bb9-b86a-4facab839ff7",
-	"2786d973-1537-44a1-81d6-3ddbd2377865",
-	'getSequenceCount',
-	'',
-	"ba5eda7a-def5-0000-0000-000000000002",
-	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select many sequences related by self->SQ_S[R952];
-return cardinality sequences;',
-	1,
-	'',
-	"07fdf50a-c9a5-45ee-8ee8-f329f05d20c0");
-INSERT INTO O_TFR
-	VALUES ("434f69d7-c56c-4d8b-a51c-d5bde8de8c18",
-	"2786d973-1537-44a1-81d6-3ddbd2377865",
-	'getSequenceId',
-	'',
-	"ba5eda7a-def5-0000-0000-000000000005",
-	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-id = GD::NULL_UNIQUE_ID();
-select many sequences related by self->SQ_S[R952];
-// We''re preincrementing the index
-count = -1;
-for each sequence in sequences
-  if (not_empty sequence)
-      count = count+1;
-  end if;
-  if (count == param.index)
-      return sequence.get_ooa_id();  
-  end if;
-end for;
-return id;',
-	1,
-	'',
-	"b96f8964-625c-4bb9-b86a-4facab839ff7");
-INSERT INTO O_TPARM
-	VALUES ("39ffdaec-4473-4f63-b636-5fde771195db",
-	"434f69d7-c56c-4d8b-a51c-d5bde8de8c18",
-	'index',
-	"ba5eda7a-def5-0000-0000-000000000002",
-	0,
-	'',
-	"00000000-0000-0000-0000-000000000000",
-	'');
-INSERT INTO O_TFR
 	VALUES ("7b476b39-f7eb-4676-a50b-04a9dedc5249",
 	"2786d973-1537-44a1-81d6-3ddbd2377865",
 	'getCommunicationCount',
@@ -2589,7 +2457,7 @@ select many communications related by self->COMM_COMM[R1138];
 return cardinality communications;',
 	1,
 	'',
-	"434f69d7-c56c-4d8b-a51c-d5bde8de8c18");
+	"07fdf50a-c9a5-45ee-8ee8-f329f05d20c0");
 INSERT INTO O_TFR
 	VALUES ("2a6ad5ff-146f-46e7-b4c3-29937e30a6b8",
 	"2786d973-1537-44a1-81d6-3ddbd2377865",

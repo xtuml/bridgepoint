@@ -265,57 +265,6 @@ return GD::NULL_UNIQUE_ID();',
 	"fee4dcf9-1a7a-4271-b559-b6eba5952506");
 INSERT INTO O_REF
 	VALUES ("0b1fad94-33b5-4bb3-8fb7-d1cc2d9b7b94",
-	"5f54b153-dd7d-444e-8526-f71458cc0d4f",
-	0,
-	"2c2f7672-4c97-4574-8c41-ffcfc117177f",
-	"0d0180d5-1e44-42bf-8663-be86fab36645",
-	"59be145e-6831-4d35-92bd-cb685939be4c",
-	"87e91f88-5e8e-4297-9f9d-5bf181db3bee",
-	"99019078-232a-4faa-9736-5cb52a4ac7fd",
-	"6b7ca13a-0d73-48aa-b559-670943e0557d",
-	"00000000-0000-0000-0000-000000000000",
-	0,
-	'',
-	'Sequence',
-	'Package_ID',
-	'R929.''participates in''');
-INSERT INTO R_RGO_PROXY
-	VALUES ("0b1fad94-33b5-4bb3-8fb7-d1cc2d9b7b94",
-	"0d0180d5-1e44-42bf-8663-be86fab36645",
-	"59be145e-6831-4d35-92bd-cb685939be4c",
-	'../../Sequence/Sequence.xtuml');
-INSERT INTO O_RTIDA_PROXY
-	VALUES ("2c2f7672-4c97-4574-8c41-ffcfc117177f",
-	"5f54b153-dd7d-444e-8526-f71458cc0d4f",
-	0,
-	"0d0180d5-1e44-42bf-8663-be86fab36645",
-	"87e91f88-5e8e-4297-9f9d-5bf181db3bee",
-	'../../Sequence/Sequence.xtuml');
-INSERT INTO O_RATTR
-	VALUES ("99019078-232a-4faa-9736-5cb52a4ac7fd",
-	"0b1fad94-33b5-4bb3-8fb7-d1cc2d9b7b94",
-	"2c2f7672-4c97-4574-8c41-ffcfc117177f",
-	"5f54b153-dd7d-444e-8526-f71458cc0d4f",
-	1,
-	'Package_ID');
-INSERT INTO O_BATTR_PROXY
-	VALUES ("2c2f7672-4c97-4574-8c41-ffcfc117177f",
-	"5f54b153-dd7d-444e-8526-f71458cc0d4f",
-	'../../Sequence/Sequence/Sequence.xtuml');
-INSERT INTO O_ATTR
-	VALUES ("99019078-232a-4faa-9736-5cb52a4ac7fd",
-	"0b1fad94-33b5-4bb3-8fb7-d1cc2d9b7b94",
-	"415afdba-0e71-45f2-b02e-9cab014f028c",
-	'Sequence_Package_ID',
-	'',
-	'Sequence_',
-	'Package_ID',
-	1,
-	"ba5eda7a-def5-0000-0000-000000000007",
-	'',
-	'');
-INSERT INTO O_REF
-	VALUES ("0b1fad94-33b5-4bb3-8fb7-d1cc2d9b7b94",
 	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
 	0,
 	"5776264f-c7e9-4abe-839f-24d0750e007c",

@@ -823,7 +823,7 @@ INSERT INTO O_BATTR
 INSERT INTO O_ATTR
 	VALUES ("7f16eece-6595-4e3d-be9a-4f17d2b638a3",
 	"f021c5c6-f37d-4215-afe4-a3e777964197",
-	"44635175-f67f-45ac-b770-e504a0994153",
+	"15525823-13f2-4af0-8153-73e882dc2100",
 	'Name',
 	'Full Name: Interface Name',
 	'',
@@ -849,57 +849,6 @@ Description: A textual description of this provided interface.',
 	'Descrip',
 	0,
 	"ba5eda7a-def5-0000-0000-000000000004",
-	'',
-	'');
-INSERT INTO O_REF
-	VALUES ("f021c5c6-f37d-4215-afe4-a3e777964197",
-	"870ee36f-38fe-4fee-8572-806d3c15e993",
-	0,
-	"18d4ab27-a56f-448d-8ccb-03bb49d7f122",
-	"6d81c85f-4835-46ba-b11c-b452baf23d2b",
-	"e37cd613-2bf6-46d7-86a4-17378a0a4b4b",
-	"169c800f-8221-4cef-afe7-9e0ff72573ab",
-	"44635175-f67f-45ac-b770-e504a0994153",
-	"e593a8db-d002-4637-ade6-be59050b0305",
-	"00000000-0000-0000-0000-000000000000",
-	0,
-	'',
-	'Interface Package',
-	'Package_ID',
-	'R4303');
-INSERT INTO R_RGO_PROXY
-	VALUES ("f021c5c6-f37d-4215-afe4-a3e777964197",
-	"6d81c85f-4835-46ba-b11c-b452baf23d2b",
-	"e37cd613-2bf6-46d7-86a4-17378a0a4b4b",
-	'../../Interface Package/Interface Package.xtuml');
-INSERT INTO O_RTIDA_PROXY
-	VALUES ("18d4ab27-a56f-448d-8ccb-03bb49d7f122",
-	"870ee36f-38fe-4fee-8572-806d3c15e993",
-	0,
-	"6d81c85f-4835-46ba-b11c-b452baf23d2b",
-	"169c800f-8221-4cef-afe7-9e0ff72573ab",
-	'../../Interface Package/Interface Package.xtuml');
-INSERT INTO O_RATTR
-	VALUES ("44635175-f67f-45ac-b770-e504a0994153",
-	"f021c5c6-f37d-4215-afe4-a3e777964197",
-	"18d4ab27-a56f-448d-8ccb-03bb49d7f122",
-	"870ee36f-38fe-4fee-8572-806d3c15e993",
-	1,
-	'Package_ID');
-INSERT INTO O_BATTR_PROXY
-	VALUES ("18d4ab27-a56f-448d-8ccb-03bb49d7f122",
-	"870ee36f-38fe-4fee-8572-806d3c15e993",
-	'../../Interface Package/Interface Package/Interface Package.xtuml');
-INSERT INTO O_ATTR
-	VALUES ("44635175-f67f-45ac-b770-e504a0994153",
-	"f021c5c6-f37d-4215-afe4-a3e777964197",
-	"15525823-13f2-4af0-8153-73e882dc2100",
-	'Package_ID',
-	'',
-	'',
-	'SpecificationPackage_ID',
-	0,
-	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
