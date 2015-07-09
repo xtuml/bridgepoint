@@ -17,64 +17,34 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-name = "";
+	'name = "";
 if(param.at == End::Middle)
   select one comp related by self->C_IR[R4009]->C_PO[R4016]->C_C[R4010];
-  select one parentCP related by comp->CP_CP[R4604];
-  if(empty parentCP)
-    select one parentComp related by comp->CN_CIC[R4203]->C_C[R4202];
-    if(not_empty parentComp)
-      while(empty parentCP)
-        select one parentCP related by parentComp->CP_CP[R4604];
-        select one parentComp related by parentComp->CN_CIC[R4203]->C_C[R4202];
-      end while;
-    end if;
-  end if;
   
   select one packageableElem related by comp->PE_PE[R8001];
   select one package related by packageableElem->EP_PKG[R8000];
   select one component related by packageableElem->C_C[R8003];
-  isInGenericPackage = ((not_empty package or not_empty component) and (empty parentCP));
   
-  if(not_empty parentCP or isInGenericPackage)
-    if (isInGenericPackage) 
-      select one system related by package->S_SYS[R1405];
-      if (empty system)
-        rootCompIdInPkg = component.getRootComponentId();
-        select any rootComponent from instances of C_C where (selected.Id == rootCompIdInPkg);
-        select one system related by rootComponent->PE_PE[R8001]->EP_PKG[R8000]->S_SYS[R1405];
-      end if;
-      select any parentPackage related by system->EP_PKG[R1405] where (selected.Package_ID == param.parent_ID);
-      if(empty parentPackage)
-        // this is not a requirement shown in a component package
-        // if this requirement is not associated with a component
-        // that is nested in the component with the given id
-        // then always draw the name
-        select one nestingComp related by comp->PE_PE[R8001]->C_C[R8003];
-        if(empty nestingComp or nestingComp.Id != param.parent_ID)
-          if(param.at == End::Middle)
-            return self.Name;
-          end if;
-        end if;
-      end if;
-    else
-      select one system related by parentCP->S_SYS[R4606];
-      select any parentPackage related by system->CP_CP[R4606] where (selected.Package_ID == param.parent_ID);
-      if(empty parentPackage)
-        // this is not a requirement shown in a component package
-        // if this requirement is not associated with a component
-        // that is nested in the component with the given id
-        // then always draw the name
-        select one nestingComp related by comp->CN_CIC[R4203]->C_C[R4202];
-        if(empty nestingComp or nestingComp.Id != param.parent_ID)
-          if(param.at == End::Middle)
-            return self.Name;
-          end if;
-        end if;
+  select one system related by package->S_SYS[R1405];
+  if (empty system)
+    rootCompIdInPkg = component.getRootComponentId();
+    select any rootComponent from instances of C_C where (selected.Id == rootCompIdInPkg);
+    select one system related by rootComponent->PE_PE[R8001]->EP_PKG[R8000]->S_SYS[R1405];
+  end if;
+  select any parentPackage related by system->EP_PKG[R1405] where (selected.Package_ID == param.parent_ID);
+  if(empty parentPackage)
+    // this is not a requirement shown in a component package
+    // if this requirement is not associated with a component
+    // that is nested in the component with the given id
+    // then always draw the name
+    select one nestingComp related by comp->PE_PE[R8001]->C_C[R8003];
+    if(empty nestingComp or nestingComp.Id != param.parent_ID)
+      if(param.at == End::Middle)
+        return self.Name;
       end if;
     end if;
   end if;
+
   select many satisfactions related by self->C_SF[R4002];
   // if there is at least one satisfaction made with out
   // an imported ref, don''t show the text for this
