@@ -755,7 +755,7 @@ INSERT INTO O_BATTR
 INSERT INTO O_ATTR
 	VALUES ("4f5cfb08-e3aa-4791-bce4-847abdf23068",
 	"870ee36f-38fe-4fee-8572-806d3c15e993",
-	"4f48971a-3b6e-4cdf-b070-d120f182e4f2",
+	"bd7a5b02-2759-462d-8258-016a15e5a744",
 	'Name',
 	'Full Name: Interface Diagram Name',
 	'',
@@ -897,57 +897,6 @@ INSERT INTO O_ATTR
 	'Package_ID',
 	0,
 	"ba5eda7a-def5-0000-0000-000000000005",
-	'',
-	'');
-INSERT INTO O_REF
-	VALUES ("870ee36f-38fe-4fee-8572-806d3c15e993",
-	"76aac5bd-1f3f-409b-bf58-ab587f190bfd",
-	0,
-	"c75805b5-b512-4d99-97ee-933159f33062",
-	"88a2e413-5be6-4241-8d86-f1a65417d93a",
-	"774407a5-dc13-4adf-b4a7-d8fdc8b33654",
-	"a4fba97b-dae8-45b1-bdd4-df2b2ac55bcc",
-	"4f48971a-3b6e-4cdf-b070-d120f182e4f2",
-	"5277acd9-e5c1-4e3b-8502-00c4aef49282",
-	"00000000-0000-0000-0000-000000000000",
-	0,
-	'',
-	'Component Package',
-	'SpecificationPackage_ID',
-	'R4607.''may exist in''');
-INSERT INTO R_RGO_PROXY
-	VALUES ("870ee36f-38fe-4fee-8572-806d3c15e993",
-	"88a2e413-5be6-4241-8d86-f1a65417d93a",
-	"774407a5-dc13-4adf-b4a7-d8fdc8b33654",
-	'../../Component/Component Packaging/Component Packaging.xtuml');
-INSERT INTO O_RTIDA_PROXY
-	VALUES ("c75805b5-b512-4d99-97ee-933159f33062",
-	"76aac5bd-1f3f-409b-bf58-ab587f190bfd",
-	0,
-	"88a2e413-5be6-4241-8d86-f1a65417d93a",
-	"a4fba97b-dae8-45b1-bdd4-df2b2ac55bcc",
-	'../../Component/Component Packaging/Component Packaging.xtuml');
-INSERT INTO O_RATTR
-	VALUES ("4f48971a-3b6e-4cdf-b070-d120f182e4f2",
-	"870ee36f-38fe-4fee-8572-806d3c15e993",
-	"c75805b5-b512-4d99-97ee-933159f33062",
-	"76aac5bd-1f3f-409b-bf58-ab587f190bfd",
-	1,
-	'SpecificationPackage_ID');
-INSERT INTO O_BATTR_PROXY
-	VALUES ("c75805b5-b512-4d99-97ee-933159f33062",
-	"76aac5bd-1f3f-409b-bf58-ab587f190bfd",
-	'../../Component/Component Packaging/Component Package/Component Package.xtuml');
-INSERT INTO O_ATTR
-	VALUES ("4f48971a-3b6e-4cdf-b070-d120f182e4f2",
-	"870ee36f-38fe-4fee-8572-806d3c15e993",
-	"bd7a5b02-2759-462d-8258-016a15e5a744",
-	'Component_SpecificationPackage_ID',
-	'',
-	'Component_',
-	'Package_ID',
-	1,
-	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
