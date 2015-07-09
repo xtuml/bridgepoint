@@ -301,12 +301,6 @@ for each lnk in lnks
   unrelate self from lnk across R681;
 end for;
 //
-// Domain subsystem
-select one ss related by self->S_SS[R4];
-if ( not_empty ss )
-  unrelate self from ss across R4;
-end if;
-//
 // Instance Subsystem
 select many iils related by self->I_LIP[R2959];
 for each iil in iils
@@ -344,15 +338,13 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-// this association''s default number is either one or
+	'// this association''s default number is either one or
 // the starting value in the number range of its owning subsystem
 // if the range is not zero
 select one packageableElem related by self->PE_PE[R8001];  
 select one package related by packageableElem->EP_PKG[R8000];
 select one component related by packageableElem->C_C[R8003];
-isInGenericPackage = not_empty package or not_empty component;
-if (isInGenericPackage)
+
   if (empty package)
     rootCompIdInPkg = component.getRootComponentId();
     select any rootComponent from instances of C_C where (selected.Id == rootCompIdInPkg);
@@ -378,30 +370,7 @@ if (isInGenericPackage)
       self.Numb = assoc.Numb + 1;
     end if;
   end for;
-else
-  select one ss related by self->S_SS[R4];
-  if ( ss.Num_Rng == 0 )
-    self.Numb = 1;
-  else
-    self.Numb = ss.Num_Rng;
-  end if;
-  
-  // for each assocation associated with this association''s
-  // owning subsystem
-  select many assocs related by ss->R_REL[R4];
-  for each assoc in assocs
-    // if this association equals self, skip it
-    if (assoc.Rel_ID == self.Rel_ID) continue; end if;
-  
-    // if this other association''s number is 
-    // greater than this association''s number
-    if (assoc.Numb >= self.Numb)
-      // have this association''s number be just greater 
-      // than this other association''s number
-      self.Numb = assoc.Numb + 1;
-    end if;
-  end for;
-end if;',
+',
 	1,
 	'',
 	"4dda3954-20f5-4ead-a502-54311c7021cf");

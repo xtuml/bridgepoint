@@ -14,15 +14,8 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select one parent related by self->A_A[R1101];
-if ( not_empty parent )
-  unrelate self from parent across R1101;
-end if;
-
-select one act related by self->A_ACT[R1105];
+	'select one act related by self->A_ACT[R1105];
 if ( not_empty act )
-  unrelate self from act across R1105;
   act.dispose();
 end if;
 select one obj related by self->A_OBJ[R1105];
