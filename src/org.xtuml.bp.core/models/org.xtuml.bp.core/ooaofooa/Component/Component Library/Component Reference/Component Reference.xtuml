@@ -14,86 +14,11 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-if(param.name == "can")
+	'if(param.name == "can")
   select one package related by self->PE_PE[R8001]->EP_PKG[R8000];
   select one component related by self->PE_PE[R8001]->C_C[R8003];
-  isInGenericPackage = not_empty package or not_empty component;
     
-  if((param.value == "assign spec pkg"))
-    if (isInGenericPackage)
-      return false;
-    end if;
-    
-    if(self.isAssigned())
-      // disabled until all bugs are resolved
-      // with the reassignment feature
-      return false;
-    end if;
-    
-    /**
-     *  Currently the only limitations are that a component
-     *  may not be used if it defined in the same package or
-     *  component, or if it is defined in the hierarchy under
-     *  another component.  Additionally matching usable interfaces
-     *  and matching interfaces (if already assigned) must be
-     *  available 
-     */
-    nestedInComponent = false;
-    select one container related by self->C_C[R4205];
-    select one thisPackage related by self->CP_CP[R4605];
-    if(empty thisPackage)
-      if(not_empty container)
-        nestedInComponent = true;
-        select one compPackage related by container->CP_CP[R4604];
-        while(empty thisPackage)
-          select one thisPackage related by container->CP_CP[R4604];
-          if(empty thisPackage)
-            select one container related by container->CN_CIC[R4203]
-                                                                   ->C_C[R4202];
-          end if;
-        end while;
-      end if;
-    end if;
-    if(not_empty thisPackage)
-      comp_id = GD::NULL_UNIQUE_ID();
-      if(not_empty container)
-        comp_id = container.Id;
-      end if;
-      select one system related by thisPackage->S_SYS[R4606];
-      if (not_empty system)
-        select many packages related by system->CP_CP[R4606];
-        if(not nestedInComponent)
-          // do not allow components defined within the component
-          // package as this imported component
-          select many packages related by system->CP_CP[R4606] where 
-                                  selected.Package_ID != thisPackage.Package_ID;
-        end if;
-        // this selection prevents the component that hosts the
-        // imported component from being available
-        select many comps related by packages->C_C[R4604]
-                                                 where (selected.Id != comp_id);
-        foundNoComp = false;
-        if(self.isAssigned())
-          select one currentComp related by self->C_C[R4201];
-          for each comp in comps
-            if(self.componentHasMatchingInterfaces(id:comp.Id) and (not (comp.Id == currentComp.Id)))
-              return true;
-            end if;
-          end for;
-        else
-          for each comp in comps
-            if(self.componentHasMatchingInterfaces(id:comp.Id))
-              return true;
-            end if;
-          end for;
-        end if;
-      end if;
-    end if;    
-  elif(param.value == "assign generic pkg")
-    if (not isInGenericPackage)
-      return false;
-    end if;
+  if(param.value == "assign generic pkg")
     
     if(self.isAssigned())
       // disabled until all bugs are resolved
@@ -243,36 +168,13 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-// Imported Component.assignToComp()
-select any componentPackage from instances of CP_CP where
-                                    selected.Package_ID == GD::NULL_UNIQUE_ID();
+	'// Imported Component.assignToComp()
 select any comp from instances of C_C where selected.Id == GD::NULL_UNIQUE_ID();
 select one packageableElem related by self->PE_PE[R8001]; 
 select one contPackage related by packageableElem->EP_PKG[R8000];
 select one contComponent related by packageableElem->C_C[R8003];
-isInGenericPackage = (not_empty contPackage or not_empty contComponent);
-if isInGenericPackage
-  select any pe from instances of PE_PE where selected.Element_ID == param.Id;
-  select one comp related by pe->C_C[R8001];
-else
-  select one componentPackage related by self->CP_CP[R4605];
-  if(empty componentPackage)
-    select one component related by self->C_C[R4205];
-    if(not_empty component)
-      while(empty componentPackage)
-        select one componentPackage related by component->CP_CP[R4604];
-        select one component related by component->CN_CIC[R4203]->C_C[R4202];
-      end while;
-    end if;
-  end if;
-
-  if(not_empty componentPackage)
-    select one system related by componentPackage->S_SYS[R4606];
-    select any comp related by system->CP_CP[R4606]->C_C[R4604] where
-                                                        selected.Id == param.Id;
-  end if;
-end if;
+select any pe from instances of PE_PE where selected.Element_ID == param.Id;
+select one comp related by pe->C_C[R8001];
 if(not_empty comp)
   if(self.isAssigned())
     select one existingComp related by self->C_C[R4201];
@@ -617,88 +519,6 @@ INSERT INTO O_TFR
 	1,
 	'',
 	"2bf17aff-6967-4c6a-a27f-3e8daca6f72b");
-INSERT INTO O_TFR
-	VALUES ("b5260da4-32b5-462d-8b1e-ec821b70f494",
-	"14d6c781-a341-481a-b67d-09ec4e8b9ed3",
-	'canAssignToCompInPackage',
-	'',
-	"ba5eda7a-def5-0000-0000-000000000001",
-	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select one pkg related by self->PE_PE[R8001]->EP_PKG[R8000];
-if (not_empty pkg)
-  // if in a generic package there will be no package assignment
-  return false;
-end if;
-select one compPackage related by self->CP_CP[R4605];
-nestedInComponent = false;
-if(empty compPackage)
-  select one container related by self->C_C[R4205];
-  if(not_empty container)
-    nestedInComponent = true;
-    while(empty compPackage)
-      select one compPackage related by container->CP_CP[R4604];
-      select one container related by container->CN_CIC[R4203]->C_C[R4202];
-    end while;
-  end if;
-end if;
-if(nestedInComponent)
-  if(compPackage.Package_ID == param.Id)
-    // only return false if this imported component is nested
-    // in a component which is along the path of the given
-    // package and the only component available is the parent
-    // component
-    select many components related by compPackage->C_C[R4604];
-    if(cardinality components == 1)
-      return false;
-    end if;
-    for each component in components
-      if(self.componentHasMatchingInterfaces(id:component.Id))
-        return true;
-      end if;
-    end for;
-  end if;
-else
-  if( (not_empty compPackage) and (compPackage.Package_ID == param.Id) )
-    return false;
-  end if;
-end if;
-select one system related by compPackage->S_SYS[R4606];
-select any package related by system->CP_CP[R4606]
-												where (selected.Package_ID == param.Id);
-select many comps related by package->C_C[R4604];
-if(cardinality comps == 0)
-  return false;
-else
-  existingCompId = GD::NULL_UNIQUE_ID();
-  if(self.isAssigned())
-    // if assigned get the component id
-    // so that we prevent packages which
-    // only contain the component we are
-    // assigned to
-    select one existingComp related by self->C_C[R4201];
-    existingCompId = existingComp.Id;
-  end if;
-  for each comp in comps
-    if(self.componentHasMatchingInterfaces(id:comp.Id)
-                                                  and comp.Id != existingCompId)
-      return true;
-    end if;
-  end for;
-end if;
-return false;',
-	1,
-	'',
-	"943dc050-ef93-484e-8098-a3ace6cf7196");
-INSERT INTO O_TPARM
-	VALUES ("4b0f2801-7157-4784-97d4-d1b880493b4d",
-	"b5260da4-32b5-462d-8b1e-ec821b70f494",
-	'Id',
-	"ba5eda7a-def5-0000-0000-000000000005",
-	0,
-	'',
-	"00000000-0000-0000-0000-000000000000",
-	'');
 INSERT INTO O_TFR
 	VALUES ("943dc050-ef93-484e-8098-a3ace6cf7196",
 	"14d6c781-a341-481a-b67d-09ec4e8b9ed3",
@@ -1202,7 +1022,7 @@ end if;
 return true;',
 	1,
 	'',
-	"b5260da4-32b5-462d-8b1e-ec821b70f494");
+	"943dc050-ef93-484e-8098-a3ace6cf7196");
 INSERT INTO O_TPARM
 	VALUES ("9f4690a1-7190-424b-bf98-7c94cc43d742",
 	"22d3c97d-facb-45dc-8630-70d8b6129857",

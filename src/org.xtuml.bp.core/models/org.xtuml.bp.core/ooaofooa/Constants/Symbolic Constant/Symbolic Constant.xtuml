@@ -264,8 +264,7 @@ be set to the default "integer".  This is needed during initialization and when
 the previously associated datatype is disposed.',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-// Symbolic Constant (CNST_SYC) setToDefaultDatatype operation
+	'// Symbolic Constant (CNST_SYC) setToDefaultDatatype operation
 
 // Get the integer core data type
 select any dom from instances of S_DOM;
@@ -282,10 +281,6 @@ if(empty sys)
       actualRootPkg = rootPkg;
     end if;
   end while;
-end if;
-if(empty sys)
-  select one sys related by actualRootPkg->EP_SPKG[R1402]->EP_PKG[R1400]
-                                                                 ->S_SYS[R1405];
 end if;
 
 if (empty sys)
