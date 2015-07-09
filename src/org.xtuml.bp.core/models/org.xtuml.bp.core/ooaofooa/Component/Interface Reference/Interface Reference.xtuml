@@ -726,15 +726,9 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select any interface related by self->C_PO[R4016]->C_C[R4010]->CP_CP[R4608]
-										->S_SYS[R4606]->IP_IP[R4304]->C_I[R4303]
-									  where (selected.Id == param.interface_id);
-if (empty interface)
-  select any interfacePe from instances of PE_PE
+	'select any interfacePe from instances of PE_PE
                               where (selected.Element_ID == param.interface_id);
-  select one interface related by interfacePe->C_I[R8001];
-end if;
+select one interface related by interfacePe->C_I[R8001];
 
 if(not_empty interface)
   select many operations related by interface->C_EP[R4003]->C_IO[R4004];
@@ -844,8 +838,7 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select one currentInterface related by self->C_I[R4012];
+	'select one currentInterface related by self->C_I[R4012];
 if(empty currentInterface)
   return GD::NULL_UNIQUE_ID();
 end if;
@@ -854,19 +847,10 @@ if(Util::isProxy(element:currentInterface.convertToInstance()))
   name = currentInterface.Name;
   select any system from instances of S_SYS where (selected.Sys_ID
   															== param.system_id);
-  isInGenericPkg = false;
   select one pkg related by self->C_PO[R4016]->C_C[R4010]->PE_PE[R8001]
                                                                 ->EP_PKG[R8000];
   select one comp related by self->C_PO[R4016]->C_C[R4010]->PE_PE[R8001]
                                                                    ->C_C[R8003];
-  if (not_empty pkg or not_empty comp)
-    isInGenericPkg = true;
-  else
-    if(param.pe != GD::NULL_UNIQUE_ID())
-      isInGenericPkg = true;
-    end if;
-  end if;
-  if (isInGenericPkg)
     select one packageableElement related by self->C_PO[R4016]->C_C[R4010]
                                                                  ->PE_PE[R8001];
     if(param.pe != GD::NULL_UNIQUE_ID())
@@ -901,13 +885,6 @@ if(Util::isProxy(element:currentInterface.convertToInstance()))
 	    return interface.Id;
 	  end for;	  
     end if;
-  else
-    select any interface related by system->IP_IP[R4304]->C_I[R4303]
-  												  where (selected.Name == name);
-    if(not_empty interface)
-      return interface.Id;
-    end if;
-  end if;   
   
 else
   id = currentInterface.Id;
@@ -1304,9 +1281,8 @@ if(not_empty interface)
   isTornDown = Util::isProxy(element:interface.convertToInstance());
   if(not isTornDown)
     // check for parents
-    select one pkg related by interface->IP_IP[R4303];
     select one pe related by interface->PE_PE[R8001];
-    if(empty pkg and empty pe)
+    if(empty pe)
       isTornDown = true;
     end if;
   end if;
