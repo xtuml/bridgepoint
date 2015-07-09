@@ -1660,57 +1660,6 @@ max_value: 9999
 	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
-INSERT INTO O_REF
-	VALUES ("7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
-	"07cf2195-f012-4bf5-83c7-f89dd30a8839",
-	0,
-	"4c399c05-3fb3-4c71-9ce8-04c9ec0b59f5",
-	"da413166-5343-4eb9-b628-16d1c6a5c104",
-	"d09a38b5-76b1-4745-a8a8-8408fa595c55",
-	"82f3976f-81fc-4e31-ad05-41c7094504f0",
-	"0b032f85-2d13-43fb-a502-b5177caee7c4",
-	"07b0088f-7627-47a2-a8c6-4464800be1fd",
-	"00000000-0000-0000-0000-000000000000",
-	0,
-	'',
-	'Domain',
-	'Dom_ID',
-	'R1.''is first level of partitioning for''');
-INSERT INTO R_RGO_PROXY
-	VALUES ("7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
-	"da413166-5343-4eb9-b628-16d1c6a5c104",
-	"d09a38b5-76b1-4745-a8a8-8408fa595c55",
-	'../Domain.xtuml');
-INSERT INTO O_RTIDA_PROXY
-	VALUES ("4c399c05-3fb3-4c71-9ce8-04c9ec0b59f5",
-	"07cf2195-f012-4bf5-83c7-f89dd30a8839",
-	0,
-	"da413166-5343-4eb9-b628-16d1c6a5c104",
-	"82f3976f-81fc-4e31-ad05-41c7094504f0",
-	'../Domain.xtuml');
-INSERT INTO O_RATTR
-	VALUES ("0b032f85-2d13-43fb-a502-b5177caee7c4",
-	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
-	"4c399c05-3fb3-4c71-9ce8-04c9ec0b59f5",
-	"07cf2195-f012-4bf5-83c7-f89dd30a8839",
-	1,
-	'Dom_ID');
-INSERT INTO O_BATTR_PROXY
-	VALUES ("4c399c05-3fb3-4c71-9ce8-04c9ec0b59f5",
-	"07cf2195-f012-4bf5-83c7-f89dd30a8839",
-	'../Domain/Domain.xtuml');
-INSERT INTO O_ATTR
-	VALUES ("0b032f85-2d13-43fb-a502-b5177caee7c4",
-	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
-	"11923149-9e73-4f53-8291-ab8701ace1a4",
-	'Dom_ID',
-	'',
-	'',
-	'Dom_ID',
-	0,
-	"ba5eda7a-def5-0000-0000-000000000007",
-	'',
-	'');
 INSERT INTO O_NBATTR
 	VALUES ("71af4e86-30d0-4983-b145-8d43dd3bc62c",
 	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43");
@@ -1720,7 +1669,7 @@ INSERT INTO O_BATTR
 INSERT INTO O_ATTR
 	VALUES ("71af4e86-30d0-4983-b145-8d43dd3bc62c",
 	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
-	"0b032f85-2d13-43fb-a502-b5177caee7c4",
+	"11923149-9e73-4f53-8291-ab8701ace1a4",
 	'Config_ID',
 	'Full Name: Configuration Identifier',
 	'',

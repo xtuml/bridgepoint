@@ -581,57 +581,6 @@ Description: A name for a package of external entities.',
 	'');
 INSERT INTO O_REF
 	VALUES ("30cec712-73cf-4c12-84bb-4b29fbfa4fd5",
-	"07cf2195-f012-4bf5-83c7-f89dd30a8839",
-	0,
-	"4c399c05-3fb3-4c71-9ce8-04c9ec0b59f5",
-	"7130308b-91d6-4722-bb0e-a16e32da0b09",
-	"64c06211-3ba3-4737-8dc0-c55b61682f53",
-	"b6b3bfe7-d483-4afa-a337-9563785cd46b",
-	"c7f166f6-b169-4d91-a445-5876b233c134",
-	"3ec72be7-ff61-4884-bff6-58102d9ad6a7",
-	"00000000-0000-0000-0000-000000000000",
-	0,
-	'',
-	'Domain',
-	'Dom_ID',
-	'R36.''is contained in''');
-INSERT INTO R_RGO_PROXY
-	VALUES ("30cec712-73cf-4c12-84bb-4b29fbfa4fd5",
-	"7130308b-91d6-4722-bb0e-a16e32da0b09",
-	"64c06211-3ba3-4737-8dc0-c55b61682f53",
-	'../Domain.xtuml');
-INSERT INTO O_RTIDA_PROXY
-	VALUES ("4c399c05-3fb3-4c71-9ce8-04c9ec0b59f5",
-	"07cf2195-f012-4bf5-83c7-f89dd30a8839",
-	0,
-	"7130308b-91d6-4722-bb0e-a16e32da0b09",
-	"b6b3bfe7-d483-4afa-a337-9563785cd46b",
-	'../Domain.xtuml');
-INSERT INTO O_RATTR
-	VALUES ("c7f166f6-b169-4d91-a445-5876b233c134",
-	"30cec712-73cf-4c12-84bb-4b29fbfa4fd5",
-	"4c399c05-3fb3-4c71-9ce8-04c9ec0b59f5",
-	"07cf2195-f012-4bf5-83c7-f89dd30a8839",
-	1,
-	'Dom_ID');
-INSERT INTO O_BATTR_PROXY
-	VALUES ("4c399c05-3fb3-4c71-9ce8-04c9ec0b59f5",
-	"07cf2195-f012-4bf5-83c7-f89dd30a8839",
-	'../Domain/Domain.xtuml');
-INSERT INTO O_ATTR
-	VALUES ("c7f166f6-b169-4d91-a445-5876b233c134",
-	"30cec712-73cf-4c12-84bb-4b29fbfa4fd5",
-	"1fd65e51-6dfd-4559-aac8-f50b3e2c9c8b",
-	'Dom_ID',
-	'',
-	'',
-	'Dom_ID',
-	0,
-	"ba5eda7a-def5-0000-0000-000000000007",
-	'',
-	'');
-INSERT INTO O_REF
-	VALUES ("30cec712-73cf-4c12-84bb-4b29fbfa4fd5",
 	"21a145f3-797e-4f17-810e-6dcf3d435da9",
 	0,
 	"12d80798-2759-41a1-baf4-20f3a12644b5",
@@ -668,7 +617,7 @@ INSERT INTO O_RATTR
 INSERT INTO O_ATTR
 	VALUES ("df00cf5b-bc3c-4e8e-abd0-66759801b1f8",
 	"30cec712-73cf-4c12-84bb-4b29fbfa4fd5",
-	"c7f166f6-b169-4d91-a445-5876b233c134",
+	"1fd65e51-6dfd-4559-aac8-f50b3e2c9c8b",
 	'Parent_EEPack_ID',
 	'',
 	'Parent_',

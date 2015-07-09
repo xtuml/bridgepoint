@@ -539,57 +539,6 @@ The key letters assigned to an external entity on a domains SPM.',
 	'');
 INSERT INTO O_REF
 	VALUES ("a361b553-b2e3-46ea-a8f4-8b8633921011",
-	"07cf2195-f012-4bf5-83c7-f89dd30a8839",
-	0,
-	"4c399c05-3fb3-4c71-9ce8-04c9ec0b59f5",
-	"b09cd808-3bc7-4c0d-8841-c6b9e6efd52f",
-	"c981b30e-9d0b-4c20-9d04-77257a164743",
-	"0fd1f6d8-b44c-4dec-9c1e-3d19edb0bacd",
-	"10cdb156-4ae5-4a51-86d9-ee4bce9f0de2",
-	"bfbbb815-064f-4b2e-9013-fb7f23aa2464",
-	"00000000-0000-0000-0000-000000000000",
-	0,
-	'',
-	'Domain',
-	'Dom_ID',
-	'R8.''interacts with''');
-INSERT INTO R_RGO_PROXY
-	VALUES ("a361b553-b2e3-46ea-a8f4-8b8633921011",
-	"b09cd808-3bc7-4c0d-8841-c6b9e6efd52f",
-	"c981b30e-9d0b-4c20-9d04-77257a164743",
-	'../Domain.xtuml');
-INSERT INTO O_RTIDA_PROXY
-	VALUES ("4c399c05-3fb3-4c71-9ce8-04c9ec0b59f5",
-	"07cf2195-f012-4bf5-83c7-f89dd30a8839",
-	0,
-	"b09cd808-3bc7-4c0d-8841-c6b9e6efd52f",
-	"0fd1f6d8-b44c-4dec-9c1e-3d19edb0bacd",
-	'../Domain.xtuml');
-INSERT INTO O_RATTR
-	VALUES ("10cdb156-4ae5-4a51-86d9-ee4bce9f0de2",
-	"a361b553-b2e3-46ea-a8f4-8b8633921011",
-	"4c399c05-3fb3-4c71-9ce8-04c9ec0b59f5",
-	"07cf2195-f012-4bf5-83c7-f89dd30a8839",
-	1,
-	'Dom_ID');
-INSERT INTO O_BATTR_PROXY
-	VALUES ("4c399c05-3fb3-4c71-9ce8-04c9ec0b59f5",
-	"07cf2195-f012-4bf5-83c7-f89dd30a8839",
-	'../Domain/Domain.xtuml');
-INSERT INTO O_ATTR
-	VALUES ("10cdb156-4ae5-4a51-86d9-ee4bce9f0de2",
-	"a361b553-b2e3-46ea-a8f4-8b8633921011",
-	"5272e8f6-410b-43f3-97cd-5d33c915a2fc",
-	'Dom_ID',
-	'',
-	'',
-	'Dom_ID',
-	0,
-	"ba5eda7a-def5-0000-0000-000000000007",
-	'',
-	'');
-INSERT INTO O_REF
-	VALUES ("a361b553-b2e3-46ea-a8f4-8b8633921011",
 	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
 	0,
 	"5776264f-c7e9-4abe-839f-24d0750e007c",
@@ -649,7 +598,7 @@ INSERT INTO O_BATTR
 INSERT INTO O_ATTR
 	VALUES ("e9a91c54-22ea-4a4c-9b52-4cf27c191ec7",
 	"a361b553-b2e3-46ea-a8f4-8b8633921011",
-	"10cdb156-4ae5-4a51-86d9-ee4bce9f0de2",
+	"5272e8f6-410b-43f3-97cd-5d33c915a2fc",
 	'Realized_Class_Path',
 	'Full Name: Realized External Entity Path',
 	'',
