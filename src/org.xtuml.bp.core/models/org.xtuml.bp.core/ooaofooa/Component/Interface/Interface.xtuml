@@ -882,14 +882,14 @@ INSERT INTO O_RTIDA_PROXY
 INSERT INTO O_RATTR
 	VALUES ("44635175-f67f-45ac-b770-e504a0994153",
 	"f021c5c6-f37d-4215-afe4-a3e777964197",
-	"a5a1b94e-be2f-4750-bd58-cf1c2713558a",
-	"cf4966b0-706a-4373-a2ee-7e706918813c",
+	"18d4ab27-a56f-448d-8ccb-03bb49d7f122",
+	"870ee36f-38fe-4fee-8572-806d3c15e993",
 	1,
 	'Package_ID');
 INSERT INTO O_BATTR_PROXY
-	VALUES ("a5a1b94e-be2f-4750-bd58-cf1c2713558a",
-	"cf4966b0-706a-4373-a2ee-7e706918813c",
-	'../../Element Packaging/Specification Package/Specification Package.xtuml');
+	VALUES ("18d4ab27-a56f-448d-8ccb-03bb49d7f122",
+	"870ee36f-38fe-4fee-8572-806d3c15e993",
+	'../../Interface Package/Interface Package/Interface Package.xtuml');
 INSERT INTO O_ATTR
 	VALUES ("44635175-f67f-45ac-b770-e504a0994153",
 	"f021c5c6-f37d-4215-afe4-a3e777964197",

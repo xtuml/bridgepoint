@@ -1853,55 +1853,22 @@ INSERT INTO O_ATTR
 	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO O_REF
-	VALUES ("76aac5bd-1f3f-409b-bf58-ab587f190bfd",
-	"cf4966b0-706a-4373-a2ee-7e706918813c",
-	0,
-	"a5a1b94e-be2f-4750-bd58-cf1c2713558a",
-	"9491004c-0a85-439e-b7bc-257234bc75ff",
-	"cd3b88f6-0aa8-4b76-8e62-444739d90e0b",
-	"fe8d926d-f963-4fed-b2c0-39726b3e54df",
-	"c75805b5-b512-4d99-97ee-933159f33062",
-	"716f346f-b0c5-4e79-b741-1063ac0f151f",
-	"00000000-0000-0000-0000-000000000000",
-	0,
-	'',
-	'Specification Package',
-	'Package_ID',
-	'R1402');
-INSERT INTO R_RGO_PROXY
-	VALUES ("76aac5bd-1f3f-409b-bf58-ab587f190bfd",
-	"9491004c-0a85-439e-b7bc-257234bc75ff",
-	"cd3b88f6-0aa8-4b76-8e62-444739d90e0b",
-	'../../../Element Packaging/Element Packaging.xtuml');
-INSERT INTO O_RTIDA_PROXY
-	VALUES ("a5a1b94e-be2f-4750-bd58-cf1c2713558a",
-	"cf4966b0-706a-4373-a2ee-7e706918813c",
-	0,
-	"9491004c-0a85-439e-b7bc-257234bc75ff",
-	"fe8d926d-f963-4fed-b2c0-39726b3e54df",
-	'../../../Element Packaging/Element Packaging.xtuml');
-INSERT INTO O_RATTR
+INSERT INTO O_NBATTR
 	VALUES ("c75805b5-b512-4d99-97ee-933159f33062",
-	"76aac5bd-1f3f-409b-bf58-ab587f190bfd",
-	"a5a1b94e-be2f-4750-bd58-cf1c2713558a",
-	"cf4966b0-706a-4373-a2ee-7e706918813c",
-	1,
-	'Package_ID');
-INSERT INTO O_BATTR_PROXY
-	VALUES ("a5a1b94e-be2f-4750-bd58-cf1c2713558a",
-	"cf4966b0-706a-4373-a2ee-7e706918813c",
-	'../../../Element Packaging/Specification Package/Specification Package.xtuml');
+	"76aac5bd-1f3f-409b-bf58-ab587f190bfd");
+INSERT INTO O_BATTR
+	VALUES ("c75805b5-b512-4d99-97ee-933159f33062",
+	"76aac5bd-1f3f-409b-bf58-ab587f190bfd");
 INSERT INTO O_ATTR
 	VALUES ("c75805b5-b512-4d99-97ee-933159f33062",
 	"76aac5bd-1f3f-409b-bf58-ab587f190bfd",
 	"00000000-0000-0000-0000-000000000000",
-	'Package_ID',
+	'SpecificationPackage_ID',
 	'',
 	'',
 	'SpecificationPackage_ID',
 	0,
-	"ba5eda7a-def5-0000-0000-000000000007",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	'',
 	'');
 INSERT INTO O_ID
@@ -1911,7 +1878,7 @@ INSERT INTO O_OIDA
 	VALUES ("c75805b5-b512-4d99-97ee-933159f33062",
 	"76aac5bd-1f3f-409b-bf58-ab587f190bfd",
 	0,
-	'Package_ID');
+	'SpecificationPackage_ID');
 INSERT INTO O_ID
 	VALUES (1,
 	"76aac5bd-1f3f-409b-bf58-ab587f190bfd");

@@ -4436,7 +4436,7 @@ INSERT INTO O_REF
 	0,
 	'',
 	'Component Package',
-	'Package_ID',
+	'SpecificationPackage_ID',
 	'R4604.''may exist in''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("2786d973-1537-44a1-81d6-3ddbd2377865",
@@ -4453,19 +4453,19 @@ INSERT INTO O_RTIDA_PROXY
 INSERT INTO O_RATTR
 	VALUES ("36bb14b0-7dcc-4f01-a6af-60969c245ebf",
 	"2786d973-1537-44a1-81d6-3ddbd2377865",
-	"a5a1b94e-be2f-4750-bd58-cf1c2713558a",
-	"cf4966b0-706a-4373-a2ee-7e706918813c",
+	"c75805b5-b512-4d99-97ee-933159f33062",
+	"76aac5bd-1f3f-409b-bf58-ab587f190bfd",
 	1,
-	'Package_ID');
+	'SpecificationPackage_ID');
 INSERT INTO O_BATTR_PROXY
-	VALUES ("a5a1b94e-be2f-4750-bd58-cf1c2713558a",
-	"cf4966b0-706a-4373-a2ee-7e706918813c",
-	'../../Element Packaging/Specification Package/Specification Package.xtuml');
+	VALUES ("c75805b5-b512-4d99-97ee-933159f33062",
+	"76aac5bd-1f3f-409b-bf58-ab587f190bfd",
+	'../Component Packaging/Component Package/Component Package.xtuml');
 INSERT INTO O_ATTR
 	VALUES ("36bb14b0-7dcc-4f01-a6af-60969c245ebf",
 	"2786d973-1537-44a1-81d6-3ddbd2377865",
 	"7b9804b1-294c-4909-b563-aae43167f8d6",
-	'Package_ID',
+	'SpecificationPackage_ID',
 	'',
 	'',
 	'SpecificationPackage_ID',
@@ -4487,7 +4487,7 @@ INSERT INTO O_REF
 	0,
 	'',
 	'Component Package',
-	'Package_ID',
+	'SpecificationPackage_ID',
 	'R4608.''has root''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("2786d973-1537-44a1-81d6-3ddbd2377865",
@@ -4504,15 +4504,15 @@ INSERT INTO O_RTIDA_PROXY
 INSERT INTO O_RATTR
 	VALUES ("f5b96576-4c97-4fa0-a9e6-d1150c195e0e",
 	"2786d973-1537-44a1-81d6-3ddbd2377865",
-	"a5a1b94e-be2f-4750-bd58-cf1c2713558a",
-	"cf4966b0-706a-4373-a2ee-7e706918813c",
+	"c75805b5-b512-4d99-97ee-933159f33062",
+	"76aac5bd-1f3f-409b-bf58-ab587f190bfd",
 	1,
-	'Package_ID');
+	'SpecificationPackage_ID');
 INSERT INTO O_ATTR
 	VALUES ("f5b96576-4c97-4fa0-a9e6-d1150c195e0e",
 	"2786d973-1537-44a1-81d6-3ddbd2377865",
 	"edbf70d8-05ec-4227-b08e-a765634cc5c3",
-	'Root_Package_ID',
+	'Root_SpecificationPackage_ID',
 	'',
 	'Root_',
 	'Package_ID',
