@@ -670,57 +670,6 @@ User_Visible: false',
 	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
-INSERT INTO O_REF
-	VALUES ("fcc05ac4-6434-449e-9045-c76c52ee8c78",
-	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
-	0,
-	"c7b05f2f-7685-4110-b916-e67cfa3caa1d",
-	"36b08b87-4ec5-4616-ac76-bf1175a50a85",
-	"32efd2c5-1ded-4434-b37e-1852682d1fb5",
-	"6a73c2fd-5e3b-430c-962c-8abaa470b210",
-	"9510104d-0ee5-454e-89f2-e16cc55a4bc3",
-	"fef84cca-ecc6-450b-912b-f9100a55d9a5",
-	"00000000-0000-0000-0000-000000000000",
-	0,
-	'',
-	'Subsystem',
-	'SS_ID',
-	'R3.''represents a class from another subsystem in''');
-INSERT INTO R_RGO_PROXY
-	VALUES ("fcc05ac4-6434-449e-9045-c76c52ee8c78",
-	"36b08b87-4ec5-4616-ac76-bf1175a50a85",
-	"32efd2c5-1ded-4434-b37e-1852682d1fb5",
-	'../../Domain/Domain.xtuml');
-INSERT INTO O_RTIDA_PROXY
-	VALUES ("c7b05f2f-7685-4110-b916-e67cfa3caa1d",
-	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
-	0,
-	"36b08b87-4ec5-4616-ac76-bf1175a50a85",
-	"6a73c2fd-5e3b-430c-962c-8abaa470b210",
-	'../../Domain/Domain.xtuml');
-INSERT INTO O_RATTR
-	VALUES ("9510104d-0ee5-454e-89f2-e16cc55a4bc3",
-	"fcc05ac4-6434-449e-9045-c76c52ee8c78",
-	"c7b05f2f-7685-4110-b916-e67cfa3caa1d",
-	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
-	1,
-	'SS_ID');
-INSERT INTO O_BATTR_PROXY
-	VALUES ("c7b05f2f-7685-4110-b916-e67cfa3caa1d",
-	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
-	'../../Domain/Subsystem/Subsystem.xtuml');
-INSERT INTO O_ATTR
-	VALUES ("9510104d-0ee5-454e-89f2-e16cc55a4bc3",
-	"fcc05ac4-6434-449e-9045-c76c52ee8c78",
-	"a94ea28b-2350-4269-9287-788cea2336c6",
-	'SS_ID',
-	'',
-	'',
-	'SS_ID',
-	0,
-	"ba5eda7a-def5-0000-0000-000000000007",
-	'',
-	'');
 INSERT INTO O_DBATTR
 	VALUES ("33d2117a-53d4-43f5-aee2-c79846f800cc",
 	"fcc05ac4-6434-449e-9045-c76c52ee8c78",
@@ -739,7 +688,7 @@ INSERT INTO O_BATTR
 INSERT INTO O_ATTR
 	VALUES ("33d2117a-53d4-43f5-aee2-c79846f800cc",
 	"fcc05ac4-6434-449e-9045-c76c52ee8c78",
-	"9510104d-0ee5-454e-89f2-e16cc55a4bc3",
+	"a94ea28b-2350-4269-9287-788cea2336c6",
 	'Obj_Name',
 	'Full Name: Class Name
 Description:  This attribute provides identifying information for the Class related to this Imported Class.  This is used to associate the Imported Class to its related Class when importing a subsystem containing the Imported Class into a new/different domain.

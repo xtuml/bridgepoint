@@ -1996,57 +1996,6 @@ Description: This is a description of the class as entered by the user.',
 	'');
 INSERT INTO O_REF
 	VALUES ("b7630071-9e2a-4183-9986-779dca14c275",
-	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
-	0,
-	"c7b05f2f-7685-4110-b916-e67cfa3caa1d",
-	"b546c771-d03a-49e8-ba24-c221183f06a8",
-	"0e48cfc5-89fd-407e-9dfc-98f8fb40eaca",
-	"1c5bbc07-5033-4bdf-80e4-acdfeead521f",
-	"2111b10e-7e13-454f-b568-10465e7eb2b6",
-	"69af67e3-1e93-415e-a167-aea424b9bd35",
-	"00000000-0000-0000-0000-000000000000",
-	0,
-	'',
-	'Subsystem',
-	'SS_ID',
-	'R2.''is contained in''');
-INSERT INTO R_RGO_PROXY
-	VALUES ("b7630071-9e2a-4183-9986-779dca14c275",
-	"b546c771-d03a-49e8-ba24-c221183f06a8",
-	"0e48cfc5-89fd-407e-9dfc-98f8fb40eaca",
-	'../../Domain/Domain.xtuml');
-INSERT INTO O_RTIDA_PROXY
-	VALUES ("c7b05f2f-7685-4110-b916-e67cfa3caa1d",
-	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
-	0,
-	"b546c771-d03a-49e8-ba24-c221183f06a8",
-	"1c5bbc07-5033-4bdf-80e4-acdfeead521f",
-	'../../Domain/Domain.xtuml');
-INSERT INTO O_RATTR
-	VALUES ("2111b10e-7e13-454f-b568-10465e7eb2b6",
-	"b7630071-9e2a-4183-9986-779dca14c275",
-	"c7b05f2f-7685-4110-b916-e67cfa3caa1d",
-	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
-	1,
-	'SS_ID');
-INSERT INTO O_BATTR_PROXY
-	VALUES ("c7b05f2f-7685-4110-b916-e67cfa3caa1d",
-	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
-	'../../Domain/Subsystem/Subsystem.xtuml');
-INSERT INTO O_ATTR
-	VALUES ("2111b10e-7e13-454f-b568-10465e7eb2b6",
-	"b7630071-9e2a-4183-9986-779dca14c275",
-	"26632e2d-f9a9-4c11-a25b-49a661851bb1",
-	'SS_ID',
-	'',
-	'',
-	'SS_ID',
-	0,
-	"ba5eda7a-def5-0000-0000-000000000007",
-	'',
-	'');
-INSERT INTO O_REF
-	VALUES ("b7630071-9e2a-4183-9986-779dca14c275",
 	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
 	0,
 	"5776264f-c7e9-4abe-839f-24d0750e007c",

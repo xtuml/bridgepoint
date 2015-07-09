@@ -71,61 +71,6 @@ INSERT INTO O_ATTR
 	'');
 INSERT INTO O_REF
 	VALUES ("a6d0904f-38a7-4a81-bedc-605435f24b9a",
-	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
-	0,
-	"c7b05f2f-7685-4110-b916-e67cfa3caa1d",
-	"42171951-db84-4b57-a6e8-c1d842e7f420",
-	"5d5b7216-f6ff-4df3-95fd-749b06bceae2",
-	"325843dd-5cf1-4fea-946a-d4695440ac35",
-	"cd29bccc-cf43-4774-9158-186e69472c27",
-	"ad6a4244-450f-44bd-890c-faaf489b9f65",
-	"00000000-0000-0000-0000-000000000000",
-	0,
-	'
-
-Notes:
-
-',
-	'Subsystem',
-	'SS_ID',
-	'R6.''abstracts synchronous data access between classes in''');
-INSERT INTO R_RGO_PROXY
-	VALUES ("a6d0904f-38a7-4a81-bedc-605435f24b9a",
-	"42171951-db84-4b57-a6e8-c1d842e7f420",
-	"5d5b7216-f6ff-4df3-95fd-749b06bceae2",
-	'../../Domain/Domain.xtuml');
-INSERT INTO O_RTIDA_PROXY
-	VALUES ("c7b05f2f-7685-4110-b916-e67cfa3caa1d",
-	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
-	0,
-	"42171951-db84-4b57-a6e8-c1d842e7f420",
-	"325843dd-5cf1-4fea-946a-d4695440ac35",
-	'../../Domain/Domain.xtuml');
-INSERT INTO O_RATTR
-	VALUES ("cd29bccc-cf43-4774-9158-186e69472c27",
-	"a6d0904f-38a7-4a81-bedc-605435f24b9a",
-	"c7b05f2f-7685-4110-b916-e67cfa3caa1d",
-	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
-	1,
-	'SS_ID');
-INSERT INTO O_BATTR_PROXY
-	VALUES ("c7b05f2f-7685-4110-b916-e67cfa3caa1d",
-	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
-	'../../Domain/Subsystem/Subsystem.xtuml');
-INSERT INTO O_ATTR
-	VALUES ("cd29bccc-cf43-4774-9158-186e69472c27",
-	"a6d0904f-38a7-4a81-bedc-605435f24b9a",
-	"a93cdc3a-0716-4ebe-95d8-4048ec676b1f",
-	'SS_ID',
-	'',
-	'',
-	'SS_ID',
-	0,
-	"ba5eda7a-def5-0000-0000-000000000007",
-	'',
-	'');
-INSERT INTO O_REF
-	VALUES ("a6d0904f-38a7-4a81-bedc-605435f24b9a",
 	"92c4f346-0aca-4da2-b132-f4de66fee3e6",
 	0,
 	"a791a1ed-e1c8-4d68-9963-2e6d2379b544",
@@ -166,7 +111,7 @@ INSERT INTO O_BATTR_PROXY
 INSERT INTO O_ATTR
 	VALUES ("c667e501-9760-4344-a20f-1e67378237cc",
 	"a6d0904f-38a7-4a81-bedc-605435f24b9a",
-	"cd29bccc-cf43-4774-9158-186e69472c27",
+	"a93cdc3a-0716-4ebe-95d8-4048ec676b1f",
 	'SM_ID',
 	'',
 	'',

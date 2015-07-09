@@ -106,40 +106,6 @@ delete object instance self;
 	'',
 	"802d3dd1-b7d0-455a-8bd0-e2e2c988eb42");
 INSERT INTO O_TFR
-	VALUES ("fe91f811-8654-44b7-9789-19d9392e4d93",
-	"5735d0f8-e286-4832-975e-04887e18a036",
-	'newComponentPackage',
-	'',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-create object instance compPackage of CP_CP;
-create object instance sp of EP_SPKG;
-relate compPackage to sp across R1402;
-relate self to compPackage across R4602;
-relate self to compPackage across R4606;
-compPackage.initialize();',
-	1,
-	'',
-	"c03212d0-664f-41a2-88a7-5c0fd18b26f8");
-INSERT INTO O_TFR
-	VALUES ("53d7d357-2120-4b6f-a139-2ff243870169",
-	"5735d0f8-e286-4832-975e-04887e18a036",
-	'newInterfacePackage',
-	'',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-create object instance interfaceDiagram of IP_IP;
-create object instance sp of EP_SPKG;
-relate interfaceDiagram to sp across R1402;
-relate self to interfaceDiagram across R4302;
-relate self to interfaceDiagram across R4304;
-interfaceDiagram.initialize();',
-	1,
-	'',
-	"fe91f811-8654-44b7-9789-19d9392e4d93");
-INSERT INTO O_TFR
 	VALUES ("9be3d443-3949-45ed-bc62-dd5e87cccb23",
 	"5735d0f8-e286-4832-975e-04887e18a036",
 	'newSystemDTPkg',
@@ -205,22 +171,6 @@ sequence.initialize();',
 	'',
 	"473f938e-4109-4818-b6ae-4e7213f0fc38");
 INSERT INTO O_TFR
-	VALUES ("c03212d0-664f-41a2-88a7-5c0fd18b26f8",
-	"5735d0f8-e286-4832-975e-04887e18a036",
-	'newCommunication',
-	'',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-create object instance comm of COMM_COMM;
-create object instance sp of EP_SPKG;
-relate comm to sp across R1402;
-relate comm to self across R1136;
-comm.initialize();',
-	1,
-	'',
-	"deaf82a1-9fd7-4833-aeb5-489e1f30c247");
-INSERT INTO O_TFR
 	VALUES ("b492958f-58da-44a1-8b3f-6161a31014c0",
 	"5735d0f8-e286-4832-975e-04887e18a036",
 	'newUseCasePackage',
@@ -253,7 +203,7 @@ pe.initialize();
 package.initialize();',
 	1,
 	'',
-	"53d7d357-2120-4b6f-a139-2ff243870169");
+	"deaf82a1-9fd7-4833-aeb5-489e1f30c247");
 INSERT INTO O_TFR
 	VALUES ("17fcd3bd-c02c-45df-bef3-b5b5a8487e15",
 	"5735d0f8-e286-4832-975e-04887e18a036",
