@@ -1909,45 +1909,12 @@ INSERT INTO O_ATTR
 	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO O_REF
-	VALUES ("5f54b153-dd7d-444e-8526-f71458cc0d4f",
-	"cf4966b0-706a-4373-a2ee-7e706918813c",
-	0,
-	"a5a1b94e-be2f-4750-bd58-cf1c2713558a",
-	"9491004c-0a85-439e-b7bc-257234bc75ff",
-	"60080f99-db62-44ef-9a78-6b556481905b",
-	"fe8d926d-f963-4fed-b2c0-39726b3e54df",
-	"2c2f7672-4c97-4574-8c41-ffcfc117177f",
-	"db9f0500-2c60-4ef9-a542-f93208138e46",
-	"00000000-0000-0000-0000-000000000000",
-	0,
-	'',
-	'Specification Package',
-	'Package_ID',
-	'R1402');
-INSERT INTO R_RGO_PROXY
-	VALUES ("5f54b153-dd7d-444e-8526-f71458cc0d4f",
-	"9491004c-0a85-439e-b7bc-257234bc75ff",
-	"60080f99-db62-44ef-9a78-6b556481905b",
-	'../../Element Packaging/Element Packaging.xtuml');
-INSERT INTO O_RTIDA_PROXY
-	VALUES ("a5a1b94e-be2f-4750-bd58-cf1c2713558a",
-	"cf4966b0-706a-4373-a2ee-7e706918813c",
-	0,
-	"9491004c-0a85-439e-b7bc-257234bc75ff",
-	"fe8d926d-f963-4fed-b2c0-39726b3e54df",
-	'../../Element Packaging/Element Packaging.xtuml');
-INSERT INTO O_RATTR
+INSERT INTO O_NBATTR
 	VALUES ("2c2f7672-4c97-4574-8c41-ffcfc117177f",
-	"5f54b153-dd7d-444e-8526-f71458cc0d4f",
-	"a5a1b94e-be2f-4750-bd58-cf1c2713558a",
-	"cf4966b0-706a-4373-a2ee-7e706918813c",
-	1,
-	'Package_ID');
-INSERT INTO O_BATTR_PROXY
-	VALUES ("a5a1b94e-be2f-4750-bd58-cf1c2713558a",
-	"cf4966b0-706a-4373-a2ee-7e706918813c",
-	'../../Element Packaging/Specification Package/Specification Package.xtuml');
+	"5f54b153-dd7d-444e-8526-f71458cc0d4f");
+INSERT INTO O_BATTR
+	VALUES ("2c2f7672-4c97-4574-8c41-ffcfc117177f",
+	"5f54b153-dd7d-444e-8526-f71458cc0d4f");
 INSERT INTO O_ATTR
 	VALUES ("2c2f7672-4c97-4574-8c41-ffcfc117177f",
 	"5f54b153-dd7d-444e-8526-f71458cc0d4f",
@@ -1957,7 +1924,7 @@ INSERT INTO O_ATTR
 	'',
 	'Package_ID',
 	0,
-	"ba5eda7a-def5-0000-0000-000000000007",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	'',
 	'');
 INSERT INTO O_REF
@@ -1974,7 +1941,7 @@ INSERT INTO O_REF
 	0,
 	'',
 	'Component Package',
-	'Package_ID',
+	'SpecificationPackage_ID',
 	'R951');
 INSERT INTO R_RGO_PROXY
 	VALUES ("5f54b153-dd7d-444e-8526-f71458cc0d4f",
@@ -1991,15 +1958,19 @@ INSERT INTO O_RTIDA_PROXY
 INSERT INTO O_RATTR
 	VALUES ("a48d585f-0a46-4de0-bc2e-29da73060192",
 	"5f54b153-dd7d-444e-8526-f71458cc0d4f",
-	"a5a1b94e-be2f-4750-bd58-cf1c2713558a",
-	"cf4966b0-706a-4373-a2ee-7e706918813c",
+	"c75805b5-b512-4d99-97ee-933159f33062",
+	"76aac5bd-1f3f-409b-bf58-ab587f190bfd",
 	1,
-	'Package_ID');
+	'SpecificationPackage_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("c75805b5-b512-4d99-97ee-933159f33062",
+	"76aac5bd-1f3f-409b-bf58-ab587f190bfd",
+	'../../Component/Component Packaging/Component Package/Component Package.xtuml');
 INSERT INTO O_ATTR
 	VALUES ("a48d585f-0a46-4de0-bc2e-29da73060192",
 	"5f54b153-dd7d-444e-8526-f71458cc0d4f",
 	"c59e9891-b33c-4db1-99ad-c469295c58c8",
-	'Component_Package_ID',
+	'Component_SpecificationPackage_ID',
 	'',
 	'Component_',
 	'Package_ID',
@@ -2038,8 +2009,8 @@ INSERT INTO O_RTIDA_PROXY
 INSERT INTO O_RATTR
 	VALUES ("b68b560a-5519-49d9-8bcf-89af9e1bf2b1",
 	"5f54b153-dd7d-444e-8526-f71458cc0d4f",
-	"a5a1b94e-be2f-4750-bd58-cf1c2713558a",
-	"cf4966b0-706a-4373-a2ee-7e706918813c",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000",
 	1,
 	'Package_ID');
 INSERT INTO O_ATTR

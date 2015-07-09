@@ -131,57 +131,6 @@ return cardinality outEdges;',
 	"0eb5919d-ac5d-4596-b659-1df2e862f454");
 INSERT INTO O_REF
 	VALUES ("22460b1d-db48-46a1-bc6d-1f92b3f96978",
-	"ba948593-88c4-4b1c-bee7-6a108e45306b",
-	0,
-	"4363377a-5678-4a69-abc2-e0fb3039636f",
-	"0241251c-f90b-40fb-9ff0-1b6a4022db98",
-	"56448d32-934c-4c73-bf6e-994890d6d317",
-	"5fceb8bb-f0b3-4f02-a31b-0face081faa1",
-	"547f758e-00e6-4064-b125-9ed5cfa9210a",
-	"5b9138b9-9bbb-432b-b007-dd3d711909a7",
-	"00000000-0000-0000-0000-000000000000",
-	0,
-	'',
-	'Activity',
-	'Package_ID',
-	'R1101');
-INSERT INTO R_RGO_PROXY
-	VALUES ("22460b1d-db48-46a1-bc6d-1f92b3f96978",
-	"0241251c-f90b-40fb-9ff0-1b6a4022db98",
-	"56448d32-934c-4c73-bf6e-994890d6d317",
-	'../Activity.xtuml');
-INSERT INTO O_RTIDA_PROXY
-	VALUES ("4363377a-5678-4a69-abc2-e0fb3039636f",
-	"ba948593-88c4-4b1c-bee7-6a108e45306b",
-	0,
-	"0241251c-f90b-40fb-9ff0-1b6a4022db98",
-	"5fceb8bb-f0b3-4f02-a31b-0face081faa1",
-	'../Activity.xtuml');
-INSERT INTO O_RATTR
-	VALUES ("547f758e-00e6-4064-b125-9ed5cfa9210a",
-	"22460b1d-db48-46a1-bc6d-1f92b3f96978",
-	"a5a1b94e-be2f-4750-bd58-cf1c2713558a",
-	"cf4966b0-706a-4373-a2ee-7e706918813c",
-	1,
-	'Package_ID');
-INSERT INTO O_BATTR_PROXY
-	VALUES ("a5a1b94e-be2f-4750-bd58-cf1c2713558a",
-	"cf4966b0-706a-4373-a2ee-7e706918813c",
-	'../../Element Packaging/Specification Package/Specification Package.xtuml');
-INSERT INTO O_ATTR
-	VALUES ("547f758e-00e6-4064-b125-9ed5cfa9210a",
-	"22460b1d-db48-46a1-bc6d-1f92b3f96978",
-	"a5e49891-ecbd-4b0a-9e2c-3182d9baa3bf",
-	'Package_ID',
-	'',
-	'',
-	'Package_ID',
-	0,
-	"ba5eda7a-def5-0000-0000-000000000007",
-	'',
-	'');
-INSERT INTO O_REF
-	VALUES ("22460b1d-db48-46a1-bc6d-1f92b3f96978",
 	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
 	0,
 	"5776264f-c7e9-4abe-839f-24d0750e007c",
