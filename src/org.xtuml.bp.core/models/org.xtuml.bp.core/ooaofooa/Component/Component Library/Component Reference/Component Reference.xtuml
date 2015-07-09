@@ -526,13 +526,10 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select one packageableElem related by self->PE_PE[R8001];
+	'select one packageableElem related by self->PE_PE[R8001];
 select one package related by packageableElem->EP_PKG[R8000];
 select one component related by packageableElem->C_C[R8003];
-isInGenericPackage = not_empty package or not_empty component;
 
-if (isInGenericPackage)
   // do not allow assignment to any parent component in this hierarchy
   parentPackage = package;
   parentComp = component;
@@ -579,54 +576,8 @@ if (isInGenericPackage)
     end if;
   end if;
   return true;
-end if;
 
-// Below this is for when we are NOT under a generic package
-
-select one compPackage related by self->CP_CP[R4605];
-if(empty compPackage)
-  select one container related by self->C_C[R4205];
-  if(not_empty container)
-    while(empty compPackage)
-      select one compPackage related by container->CP_CP[R4604];
-      if(not_empty compPackage)
-        if(container.Id == param.Id)
-          // do not allow our top component parent
-          return false;
-        end if;
-      end if;
-      select one container related by container->CN_CIC[R4203]->C_C[R4202];
-    end while;
-  end if;
-end if;
-if(not_empty compPackage)
-  select any component related by compPackage->S_SYS[R4606]->CP_CP[R4606]
-  								   ->C_C[R4604] where (selected.Id == param.Id);
-  if(not_empty component)
-    existingCompId = GD::NULL_UNIQUE_ID();
-    if(self.isAssigned())
-      // if assigned get the component id
-      // so that we prevent packages which
-      // only contain the component we are
-      // assigned to
-      select one existingComp related by self->C_C[R4201];
-      existingCompId = existingComp.Id;
-    end if;
-    if(self.componentHasMatchingInterfaces(id:component.Id))
-      if(param.checkExistingType)
-        if(component.Id == existingCompId)
-          return false;
-        end if;
-      end if;
-      return true;
-    else
-      return false;
-    end if;
-  end if;
-else
-  return false;					  
-end if;
-return true;',
+',
 	1,
 	'',
 	"5c3e974b-63d6-4853-8096-fb1dd5fde19a");
@@ -949,8 +900,7 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-// if this imported component is not assigned, or assigned
+	'// if this imported component is not assigned, or assigned
 // to a component with no imported refs then it''s allowed
 if(not self.isAssigned())
   return true; 
@@ -964,34 +914,20 @@ else
   end if;
 end if;
 
-select one packageableElem related by self->PE_PE[R8001];
-select one package related by packageableElem->EP_PKG[R8000];
-select one comp related by packageableElem->C_C[R8003];
-isInGenericPackage = not_empty package or not_empty comp;
 
-// otherwise see that the component has matching interfaces
-// for each imported reference
-select one compPackage related by self->CP_CP[R4605];
-if(empty compPackage and not isInGenericPackage)
-  select one container related by self->C_C[R4205];
-  if(not_empty container)
-    while(empty compPackage)
-      select one compPackage related by container->CP_CP[R4604];
-      select one container related by container->CN_CIC[R4203]->C_C[R4202];
-    end while;
-  end if;
-end if;
-
-if(not_empty compPackage or isInGenericPackage)
-  select one system related by compPackage->S_SYS[R4606];
-  select any component related by compPackage->S_SYS[R4606]->CP_CP[R4606]
-   								   ->C_C[R4604] where (selected.Id == param.id);
-  if (isInGenericPackage)
-    select any compPe from instances of PE_PE
+  select any compPe from instances of PE_PE
                                         where (selected.Element_ID == param.id);
-    select one component related by compPe->C_C[R8001];
-  end if;
-  if(not_empty component and not_empty system)
+  select one component related by compPe->C_C[R8001];
+  
+  if(not_empty component)
+		rootCompIdInPkg = component.getRootComponentId();
+        select any rootComponent from instances of C_C
+                                         where (selected.Id == rootCompIdInPkg);
+        select one package related by rootComponent->PE_PE[R8001]
+                                                                ->EP_PKG[R8000];
+        select one system related by rootComponent->PE_PE[R8001]
+                                                  ->EP_PKG[R8000]->S_SYS[R1405];
+
     select many importedRefs related by self->CL_POR[R4707]->CL_IIR[R4708]->C_IR[R4701];
     for each importedRef in importedRefs
       select one importedInterface related by importedRef->C_I[R4012];
@@ -1018,7 +954,7 @@ if(not_empty compPackage or isInGenericPackage)
       end if;
     end for;
   end if;
-end if;
+
 return true;',
 	1,
 	'',
@@ -1039,8 +975,7 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-/*
+	'/*
  *  See if the given component has any interfaces that
  *  are not accessible in the parent of this imported
  *  component
@@ -1049,7 +984,7 @@ select one packageableElem related by self->PE_PE[R8001];
 select one package related by packageableElem->EP_PKG[R8000];
 select one comp related by packageableElem->C_C[R8003];
 isInGenericPackage = not_empty package or not_empty comp;
-if isInGenericPackage
+
   select any pe from instances of PE_PE where selected.Element_ID == param.id;
   select one candidateComponent related by pe->C_C[R8001];
   if(not_empty candidateComponent)
@@ -1091,56 +1026,7 @@ if isInGenericPackage
     // if we get here then there were none that were unusable
     return false;
   end if;
-else // Specific package case
-  nested = false;
-  // Assertion: We''re either in a component package or a component
-  select one compPackage related by self->CP_CP[R4605];
-  if(empty compPackage)
-    // We should be in a component
-    select one container related by self->C_C[R4205];
-    if(not_empty container)
-      nested = true;
-      // traverse up the component containment hierarchy until package is found
-      while(empty compPackage)
-        select one compPackage related by container->CP_CP[R4604];
-        select one container related by container->CN_CIC[R4203]->C_C[R4202];
-      end while;
-    // else component container is not empty
-      // can''t happen otherwise Assertion above is false
-    end if;
-  end if;
-  // At this point comp package is the component package container of this
-  // component reference and ''nested'' is true iff the reference was immediately
-  // under a component.
-  if(not_empty compPackage)
-    select one system related by compPackage->S_SYS[R4606];
-    select any component related by system->CP_CP[R4606]->C_C[R4604]
-  												where (selected.Id == param.id);
-    if(not_empty component)
-      select many irs related by component->C_PO[R4010]->C_IR[R4016];
-      for each ir in irs
-        select one interface related by ir->C_I[R4012];
-        if(not_empty interface)
-          select one interfacePkg related by interface->IP_IP[R4303];
-          if(nested)
-            select one container related by self->C_C[R4205];
-            if(not container.interfacePackageIsAlongParentPath(id:interfacePkg.Package_ID))
-              return true;
-            end if;
-          else
-            if(not compPackage.interfacePackageIsAlongParentPath(id:interfacePkg.Package_ID))
-              return true;
-            end if;
-          end if;
-        end if;
-      end for;
-      // if we get here then there were none that were unusable
-      return false;
-    end if;
-  // else comp package is empty
-    // cant happen otherwise while statement above would never exit
-  end if;
-end if;
+
 return true;',
 	1,
 	'',
@@ -1161,8 +1047,7 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select one componentProxy related by self->C_C[R4201];
+	'select one componentProxy related by self->C_C[R4201];
 // if the component is not actually a proxy this imported
 // component has already been handled
 if(not_empty componentProxy) and
@@ -1170,11 +1055,8 @@ if(not_empty componentProxy) and
                        and (not Util::isProxy(element:self.convertToInstance()))
   name = componentProxy.Name;
   
-  select one system related by self->CP_CP[R4605]->S_SYS[R4606];
   select any resolvedComp from instances of C_C
                           where (selected.Id == GD::NULL_UNIQUE_ID());
-  select many resolvedComps related by system->CP_CP[R4606]->C_C[R4604]
-                            where (selected.Name == name);
                             
   select one packageableElem related by self->PE_PE[R8001];
   select one package related by packageableElem->EP_PKG[R8000];
@@ -1182,7 +1064,6 @@ if(not_empty componentProxy) and
   isInGenericPackage = not_empty package or not_empty component;
   
   
-  if (isInGenericPackage)
     if (not_empty package)
       select one system related by package->S_SYS[R1405];
     else
@@ -1200,21 +1081,6 @@ if(not_empty componentProxy) and
       select many resolvedComps related by component->PE_CVS[R8004]->
                        			                      PE_PE[R8004]->C_C[R8001];
     end if;	
-  else
-    select one system related by self->CP_CP[R4605]->S_SYS[R4606];
-    if(empty system)
-      // if the system is empty this imported component
-      // is most likely nested within a component
-      select one system related by self->C_C[R4205]->CP_CP[R4608]->S_SYS[R4606];
-    end if;
-    select many resolvedComps related by system->CP_CP[R4606]->C_C[R4604]
-                                                  where (selected.Name == name);
-    if(cardinality resolvedComps == 0 and system.useGlobals)
-      // check globally if enabled
-      select many resolvedComps related by system->G_EIS[R9100]->PE_PE[R9100]->
-                                                                     C_C[R8001];
-    end if;
-  end if;
   
   for each comp in resolvedComps
     if(self.canAssignToComp(Id:comp.Id, checkExistingType:true))
@@ -1244,16 +1110,13 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select any resolvedCompPe from instances of PE_PE
+	'select any resolvedCompPe from instances of PE_PE
                                         where (selected.Element_ID == param.Id);
 select any resolvedComp from instances of C_C
                                     where (selected.Id == GD::NULL_UNIQUE_ID());
-isInGenericPackage = false;
 if(empty resolvedCompPe)
   select any resolvedComp from instances of C_C where (selected.Id == param.Id);
 else
-  isInGenericPackage = true;
   select one resolvedComp related by resolvedCompPe->C_C[R8001];
 end if;
 if(not_empty resolvedComp)
@@ -1263,7 +1126,7 @@ if(not_empty resolvedComp)
     select one proxyInterface related by reference->C_I[R4012];
     if(not_empty proxyInterface and
                       Util::isProxy(element:proxyInterface.convertToInstance()))
-      if (isInGenericPackage)
+
         select one package related by resolvedCompPe->EP_PKG[R8000];
         select one component related by resolvedCompPe->C_C[R8003];
         select one system related by package->S_SYS[R1405];
@@ -1285,19 +1148,7 @@ if(not_empty resolvedComp)
             relate reference to interface across R4012; 
           end if;
         end if;
-      else
-          select one compPkg related by resolvedComp->CP_CP[R4608];
-          select one system related by compPkg->S_SYS[R4606];
-          id = reference.findMatchingInterface(system_id:system.Sys_ID, pe:GD::NULL_UNIQUE_ID());
-          if(id != GD::NULL_UNIQUE_ID())
-            select any interface related by system->IP_IP[R4304]->C_I[R4303]
-    												  where (selected.Id == id); 
-            if(not_empty interface)
-              unrelate reference from proxyInterface across R4012;
-              relate reference to interface across R4012; 
-            end if;
-          end if;
-      end if;
+
     end if;
   end for;
 end if;',

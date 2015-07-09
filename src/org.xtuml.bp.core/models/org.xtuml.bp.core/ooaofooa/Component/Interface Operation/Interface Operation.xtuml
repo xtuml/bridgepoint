@@ -53,26 +53,19 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select one system related by self->C_EP[R4004]->C_I[R4003]->IP_IP[R4303]->S_SYS[R4304];
-
-select one packageableElem related by self->C_EP[R4004]->C_I[R4003]->PE_PE[R8001];
+	'select one packageableElem related by self->C_EP[R4004]->C_I[R4003]->PE_PE[R8001];
 select one package related by packageableElem->EP_PKG[R8000];
 select one component related by packageableElem->C_C[R8003];
-isInGenericPackage = not_empty package or not_empty component;
-  
-if (isInGenericPackage)
-  if (empty package)
+select one system related by package->S_SYS[R1405];  
+  if (empty system)
     rootCompIdInPkg = component.getRootComponentId();
     select any rootComponent from instances of C_C where (selected.Id == rootCompIdInPkg);
     select one system related by rootComponent->PE_PE[R8001]->EP_PKG[R8000]->S_SYS[R1405];
-  else
-    select one system related by package->S_SYS[R1405];  
   end if;
-end if;                                   
+
 select one interface related by self->C_EP[R4004]->C_I[R4003];
 interface.addInterfaceOperationToOrder(id:self.Id);
-if (isInGenericPackage)
+
   def_dt_id = GD::NULL_UNIQUE_ID();
   if not_empty system
     def_dt_id = system.getCoreTypeId(name:"void");
@@ -80,10 +73,6 @@ if (isInGenericPackage)
   select any pe from instances of PE_PE where selected.Element_ID == def_dt_id;
   select one def_dt related by pe->S_DT[R8001]; 
   relate self to def_dt across R4008;
-else
-  select any def_dt related by system->SLD_SDP[R4400]->S_DPK[R4400]->SLD_SDINP[R4401]->S_DT[R4401] where (selected.Name == "void");
-  relate self to def_dt across R4008;
-end if;
 
 name = "Unnamed Operation";
 success = ::getNewElementName(name:name,instance: self.convertToInstance(),validateName:true);    
@@ -147,34 +136,19 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select one packageableElem related by self->C_EP[R4004]->
+	'select one packageableElem related by self->C_EP[R4004]->
                                                        C_I[R4003]->PE_PE[R8001];
 select one package related by packageableElem->EP_PKG[R8000];
 select one component related by packageableElem->C_C[R8003];
-isInGenericPackage = not_empty package or not_empty component;
-if isInGenericPackage
+
+
   if self.getReturnDimensionsCnt() != 0 and param.typeName == "void"
     return false;
   else
     return packageableElem.isAllowedType(isReturnType:true,
                                                        typeName:param.typeName);
   end if;
-else
-  if self.getReturnDimensionsCnt() != 0 and param.typeName == "void"
-    return false;
-  else
-    select one system related by self->C_EP[R4004]->C_I[R4003]->
-                                                     IP_IP[R4303]->S_SYS[R4304];                                                    
-    // Get S_SYS when in generic package
-    if (empty system)
-      select one system related by self->C_EP[R4004]->C_I[R4003]->PE_PE[R8001]->
-                                     EP_PKG[R8000]->S_SYS[R1405];
-    end if;
-    return Util::isAllowedReturnType( typeName: param.typeName,
-                                           system: system.convertToInstance() );
-  end if;
-end if;',
+',
 	1,
 	'',
 	"f274f4cd-e7ff-4a03-8084-f38f0dd1fa5a");
@@ -221,8 +195,7 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select one dtProxy related by self->S_DT[R4008];
+	'select one dtProxy related by self->S_DT[R4008];
 if(not_empty dtProxy and not Util::isProxy(element:self.convertToInstance()))
   name = dtProxy.Name;
   unrelate dtProxy from self across R4008;
@@ -231,8 +204,7 @@ if(not_empty dtProxy and not Util::isProxy(element:self.convertToInstance()))
        ->PE_PE[R8001];
   select one package related by packageableElem->EP_PKG[R8000];
   select one component related by packageableElem->C_C[R8003];
-  isInGenericPackage = not_empty package or not_empty component;
-  if isInGenericPackage
+
     id = packageableElem.resolveDataTypeRelativeToSelf(default_name:"void",
                                                             expected_name:name);
     select any resolvedDt related by package->PE_VIS[R8002]->
@@ -244,32 +216,7 @@ if(not_empty dtProxy and not Util::isProxy(element:self.convertToInstance()))
     if not_empty resolvedDt
       relate resolvedDt to self across R4008;
     end if;
-  else
-    select one system related by self->C_EP[R4004]->C_I[R4003]->IP_IP[R4303]
-                                                                 ->S_SYS[R4304];                     
-    select any resolvedDT related by system->SLD_SDINP[R4402]->S_DT[R4401]
-                                                  where (selected.Name == name);
-    r_dt_id = GD::NULL_UNIQUE_ID();
-    if not_empty system
-      r_dt_id = system.getCoreTypeId(name:name);
-    end if;
-    select any pe from instances of PE_PE where selected.Element_ID == r_dt_id;
-    select one resolvedDT related by pe->S_DT[R8001]; 
-    // if one was not resolved
-    if(empty resolvedDT)
-      // default back to void type
-      r_dt_id = GD::NULL_UNIQUE_ID();
-      if not_empty system
-        r_dt_id = system.getCoreTypeId(name:"void");
-      end if;
-      select any pe from instances of PE_PE where
-                                                 selected.Element_ID == r_dt_id;
-      select one resolvedDT related by pe->S_DT[R8001]; 
-    end if;
-    if(not_empty resolvedDT)
-      relate resolvedDT to self across R4008;
-    end if;
-  end if;
+
 end if;',
 	1,
 	'',
@@ -471,27 +418,13 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-// select the dt
+	'// select the dt
 select one dt related by self->S_DT[R4008];
 if(not_empty dt)
   select one packageableElem related by self->C_EP[R4004]->C_I[R4003]->PE_PE[R8001];
   select one package related by packageableElem->EP_PKG[R8000];
   select one component related by packageableElem->C_C[R8003];
-  isInGenericPackage = not_empty package or not_empty component;
-
-  if (isInGenericPackage)
     return packageableElem.canReferToDataType(dtID:dt.DT_ID, dtName: dt.Name);
-  else
-    // as long as the data type package
-    // is not defined within a domain
-    // then the dt is allowed
-    select one dtPkg related by dt->S_DIP[R39]->S_DPK[R39];
-    if((not_empty dtPkg) and (dtPkg.isDomainLevel()))
-      return false;
-    end if;
-    return true;
-  end if;
 end if;
 return false;
 ',
@@ -550,8 +483,6 @@ select one packageableElem related by self->
                                           C_EP[R4004]->C_I[R4003]->PE_PE[R8001];
 select one package related by packageableElem->EP_PKG[R8000];
 select one component related by packageableElem->C_C[R8003];
-isInGenericPackage = not_empty package or not_empty component;
-if isInGenericPackage
   // Find the previously created visibility list
   select any resultSet related by package->PE_SRS[R8005] where
         selected.Name == "" and selected.Type == ElementTypeConstants::DATATYPE;
@@ -570,30 +501,7 @@ if isInGenericPackage
     end if;
   end if;
   return false;
-else
-  select one interface related by self->C_EP[R4004]->C_I[R4003];
-  select one system related by interface->IP_IP[R4303]->S_SYS[R4304];
-  // Get S_SYS when in generic package
-  if (empty system)
-    select one system related by self->C_EP[R4004]->C_I[R4003]->PE_PE[R8001]->
-                                   EP_PKG[R8000]->S_SYS[R1405];
-  end if;
-  select any dt related by system->SLD_SDINP[R4402]->S_DT[R4401]
-                                             where (selected.DT_ID == param.id);
-  if empty dt and not_empty system and system.useGlobals
-    select any pe related by system->G_EIS[R9100]->PE_PE[R9100]
-                                          where selected.Element_ID == param.id;
-    select one dt related by pe->S_DT[R8001]; 
-  end if;
-  if(not_empty dt)
-    // if the dt is at the system level and
-    // is an allowed return type it is usable 
-    if(self.isAllowedReturnType(typeName:dt.Name))
-	  return true;
-    end if;
-  end if;
-end if;
-return false;',
+',
 	1,
 	'',
 	"2ba317f1-c083-48ac-8293-9970317d040e");

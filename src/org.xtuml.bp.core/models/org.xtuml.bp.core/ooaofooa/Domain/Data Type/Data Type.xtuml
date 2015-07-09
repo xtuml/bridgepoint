@@ -592,30 +592,6 @@ INSERT INTO O_TPARM
 	"00000000-0000-0000-0000-000000000000",
 	'');
 INSERT INTO O_TFR
-	VALUES ("93679332-e1d2-4dbd-a2ae-ba6e345eaf2d",
-	"ead52fac-9782-434b-a35c-c07452c3b26d",
-	'resolveDomain',
-	'',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select one packageableElem related by self->PE_PE[R8001];
-select one package related by packageableElem->EP_PKG[R8000];
-select one component related by packageableElem->C_C[R8003];
-isInGenericPackage = not_empty package or not_empty component;
-select one irdt related by self->S_IRDT[R17];
-if ((not isInGenericPackage) and (not_empty irdt))
-  select one target_dom related by irdt->O_OBJ[R123]->S_SS[R2]->S_DOM[R1];
-  select one existing_dom related by self->S_DOM[R14];
-  if (target_dom != existing_dom)
-    unrelate self from existing_dom across R14;
-    relate self to target_dom across R14;
-  end if;
-end if;',
-	1,
-	'',
-	"0852d31a-5351-452a-bd25-93944aba561d");
-INSERT INTO O_TFR
 	VALUES ("3b698a92-8d02-4596-80e7-08b88c26c702",
 	"ead52fac-9782-434b-a35c-c07452c3b26d",
 	'getDefaultDataTypeName',
@@ -675,8 +651,7 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-// Data Type::getPath()
+	'// Data Type::getPath()
 path = "";
 if(param.includeSelf)
   path = self.Name;
@@ -684,11 +659,9 @@ end if;
 if(param.path != "")
   path = path + "::" + param.path;
 end if;
-select one dtPackage related by self->S_DIP[R39]->S_DPK[R39];
 select one package related by self->PE_PE[R8001]->EP_PKG[R8000];
 select one component related by self->PE_PE[R8001]->C_C[R8003];
-isInGenericPackage = not_empty package or not_empty component;
-if isInGenericPackage
+
   if not_empty package
     if(path != "")
       path = package.getQualifiedName() + "::" + path;
@@ -702,16 +675,10 @@ if isInGenericPackage
       path = component.getQualifiedName();
     end if;
   end if;
-else
-  // It has to be in here or else we have a corrupted model
-  if not_empty dtPackage
-    path = dtPackage.getPath(path:path);
-  end if;
-end if;
 return path;',
 	1,
 	'',
-	"93679332-e1d2-4dbd-a2ae-ba6e345eaf2d");
+	"0852d31a-5351-452a-bd25-93944aba561d");
 INSERT INTO O_TPARM
 	VALUES ("79908e4c-773d-436b-b634-fc00358e63b8",
 	"2bf571a5-4f94-404e-899f-1b2ed2dafc5a",

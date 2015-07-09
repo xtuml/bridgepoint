@@ -29,45 +29,10 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.UUID;
 
-import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IAdaptable;
-import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.core.runtime.Path;
-
-import org.xtuml.bp.core.ClassStateMachine_c;
-import org.xtuml.bp.core.ComponentResultSet_c;
-import org.xtuml.bp.core.ComponentVisibility_c;
-import org.xtuml.bp.core.Component_c;
-import org.xtuml.bp.core.CoreDataType_c;
-import org.xtuml.bp.core.CorePlugin;
-import org.xtuml.bp.core.DataTypePackage_c;
-import org.xtuml.bp.core.DataType_c;
-import org.xtuml.bp.core.ElementVisibility_c;
-import org.xtuml.bp.core.Elementtypeconstants_c;
-import org.xtuml.bp.core.Gd_c;
-import org.xtuml.bp.core.InstanceStateMachine_c;
-import org.xtuml.bp.core.IntegrityManager_c;
-import org.xtuml.bp.core.Ooaofooa;
-import org.xtuml.bp.core.Package_c;
-import org.xtuml.bp.core.PackageableElement_c;
-import org.xtuml.bp.core.Pref_c;
-import org.xtuml.bp.core.SearchResultSet_c;
-import org.xtuml.bp.core.Severity_c;
-import org.xtuml.bp.core.SpecificationPackage_c;
-import org.xtuml.bp.core.SystemDatatypePackage_c;
-import org.xtuml.bp.core.SystemModel_c;
-import org.xtuml.bp.core.UserDataType_c;
-import org.xtuml.bp.core.inspector.IModelClassInspector;
-import org.xtuml.bp.core.inspector.ModelInspector;
 import org.xtuml.bp.core.ui.marker.UmlProblem;
 import org.xtuml.bp.core.ui.preferences.BridgePointProjectReferencesPreferences;
 import org.xtuml.bp.core.util.OoaofgraphicsUtil;
 import org.xtuml.bp.core.util.PersistenceUtil;
-import org.xtuml.bp.core.util.RTOUtil;
-import org.xtuml.bp.core.util.SupertypeSubtypeUtil;
 import org.xtuml.bp.core.util.UIUtil;
 
 
@@ -870,33 +835,6 @@ public abstract class NonRootModelElement extends ModelElement implements IAdapt
         }
     }
     
-	public boolean isInGenericPackage() {
-		PersistableModelComponent parent = getPersistableComponent();
-		while (parent != null) {
-			if (parent.getRootModelElement() instanceof Package_c) {
-				if (verifyPackageAsGeneric((Package_c) parent
-						.getRootModelElement())) {
-					return true;
-				}
-			}
-			if (parent.getRootModelElement() instanceof DataTypePackage_c) {
-				DataTypePackage_c dtPkg = (DataTypePackage_c) parent.getRootModelElement();
-				SystemModel_c system = SystemModel_c
-						.getOneS_SYSOnR4400(SystemDatatypePackage_c
-								.getOneSLD_SDPOnR4400(dtPkg, true), true);
-				if (system != null && dtPkg.getName().equals(
-						Ooaofooa.Getcoredatatypespackagename(Ooaofooa
-								.getDefaultInstance()))) {
-					if(selfIsCoreDataType()) {
-						return true;
-					}
-				}
-			}
-			parent = parent.getParent();
-		}
-		return false;
-	}
-
 	public boolean selfIsCoreDataType() {
 		NonRootModelElement test = this;
 		if(this instanceof DataType_c) {
@@ -920,12 +858,6 @@ public abstract class NonRootModelElement extends ModelElement implements IAdapt
 		return false;
 	}
 
-	public boolean verifyPackageAsGeneric(Package_c pkg) {
-		return PackageableElement_c.getOnePE_PEOnR8001(pkg) != null
-				&& SpecificationPackage_c.getOneEP_SPKGOnR1400(pkg) == null;
-	}
-
-
 	public Package_c getParentPackage() {
 		PersistableModelComponent parent = getPersistableComponent();
 		if (parent != null) {
@@ -933,14 +865,7 @@ public abstract class NonRootModelElement extends ModelElement implements IAdapt
 		}
 		while (parent != null) {
 			if (parent.getRootModelElement() instanceof Package_c) {
-				if (verifyPackageAsGeneric((Package_c) parent
-						.getRootModelElement())) {
-					return (Package_c) parent.getRootModelElement();
-				} else {
-					// if we find a package and it is not generic
-					// then return null
-					return null;
-				}
+				return (Package_c) parent.getRootModelElement();
 			}			
 			parent = parent.getParent();
 		}
@@ -966,14 +891,7 @@ public abstract class NonRootModelElement extends ModelElement implements IAdapt
 		}
 		while (parent != null) {
 			if (parent.getRootModelElement() instanceof Package_c) {
-				if (verifyPackageAsGeneric((Package_c) parent
-						.getRootModelElement())) {
-					return (Package_c) parent.getRootModelElement();
-				} else {
-					// if we find a package and it is not generic
-					// then return null
-					return null;
-				}
+				return (Package_c) parent.getRootModelElement();
 			}
 			
 			// Any caller of this method needs to handle the null case.
@@ -1006,16 +924,7 @@ public abstract class NonRootModelElement extends ModelElement implements IAdapt
 				return null;
 			}
 			if (parent.getRootModelElement() instanceof Component_c) {
-				PackageableElement_c pe = PackageableElement_c
-						.getOnePE_PEOnR8001((Component_c) parent
-								.getRootModelElement());
-				if(pe != null) {
-					return (Component_c) parent.getRootModelElement();
-				} else {
-					// if we hit a component and it is not under generics
-					// then return null;
-					return null;
-				}
+				return (Component_c) parent.getRootModelElement();
 			}
 			parent = parent.getParent();
 		}

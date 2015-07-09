@@ -469,9 +469,7 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-// locate the component package
-isInGenericPkg = false;
+	'// locate the component package
 select one system related by self->C_PO[R4016]->C_C[R4010]->PE_PE[R8001]
                                                   ->EP_PKG[R8000]->S_SYS[R1405];
 if(empty system)
@@ -485,10 +483,7 @@ if(empty system)
                                                                  ->S_SYS[R1405];
   end if;
 end if;
-if (not_empty system)
-  isInGenericPkg = true;
-end if;
-if (isInGenericPkg)
+
   // verify that there is at least one interface
   // which we can formalize against
   select one package related by self->C_PO[R4016]->C_C[R4010]->PE_PE[R8001]
@@ -528,28 +523,7 @@ if (isInGenericPkg)
       end if;
     end for;
   end if;
-else
-  select one componentPackage related by self->C_PO[R4016]->C_C[R4010]->CP_CP[R4608];
-  select one system related by componentPackage->S_SYS[R4606];
-  if (not_empty system)
-    // select all interface packages in the system
-    select many diagrams related by system->IP_IP[R4304];
-    for each diagram in diagrams
-      // if this package is within scope this reference
-      // can be formalized against an interface
-      if(self.canUseInterfacesInPackage(Id:diagram.Package_ID))
-        // verify that there is at least one interface
-        // which we can formalize against
-        select many interfaces related by diagram->C_I[R4303];
-        for each interface in interfaces
-          if(interface.Id != self.Formal_Interface_Id)
-            return true;
-          end if;
-        end for;
-      end if;
-    end for;
-  end if;
-end if;
+
 return false;',
 	1,
 	'',

@@ -351,29 +351,17 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select one packageableElem related by self->PE_PE[R8001];
+	'select one packageableElem related by self->PE_PE[R8001];
 select one package related by packageableElem->EP_PKG[R8000];
 select one component related by packageableElem->C_C[R8003];
-isInGenericPackage = not_empty package or not_empty component;
+
 result="";
-if (isInGenericPackage)
   if (not_empty package)
     result=package.getPath(path:self.Name);
   else
     result=component.getPath(path:self.Name, includeSelf:true);
   end if;
-else
-  select one domain related by self->S_DOM[R8];
-  select one epkg related by self->S_EEIP[R33]->S_EEPK[R33];
-  result = epkg.Name;
-  select one epip related by epkg->S_EEPIP[R35]->S_EEPK[R34];
-  while(not_empty epip)
-    result = epip.Name + "::" + result;
-    select one epip related by epip->S_EEPIP[R35]->S_EEPK[R34];
-  end while;
-  result=domain.Name + "::" + result + "::" + self.Name;
-end if;
+
 return result;',
 	1,
 	'',
@@ -407,11 +395,7 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-// External Entity.getContainingComponentId()
-select one domain related by self->S_DOM[R8];
-isInGenericPackage = empty domain;
-if isInGenericPackage
+	'// External Entity.getContainingComponentId()
   select one package related by self->PE_PE[R8001]->EP_PKG[R8000];
   select one component related by self->PE_PE[R8001]->C_C[R8003];
   if not_empty package
@@ -422,8 +406,7 @@ if isInGenericPackage
   end if;
   USER::logError(msg:"External Entity has no parent in External Entity.getContainingComponentId()",path:self.getPath());
   return GD::NULL_UNIQUE_ID();
-end if;
-return domain.getContainingComponentId();',
+',
 	1,
 	'',
 	"c6099bc7-cf40-4dc0-9253-e53ad114ffc3");

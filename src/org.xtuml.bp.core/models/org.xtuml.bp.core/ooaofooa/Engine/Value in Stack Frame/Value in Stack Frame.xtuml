@@ -41,15 +41,13 @@ INSERT INTO O_TFR
 	'',
 	"bc3722c8-5188-4529-8519-cf9eb9816b17",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select one stack related by self->I_STF[R2951]->I_STACK[R2943];
+	'select one stack related by self->I_STF[R2951]->I_STACK[R2943];
 if(empty stack)
   select one stack related by self->I_STF[R2951]->I_STACK[R2929];
 end if;
-select one dom related by stack->I_EXE[R2930]->S_DOM[R2948];
-select any dataType related by dom->S_DT[R14] where
-                                           selected.DT_ID == param.data_type_id;
-if(empty dataType)
+
+  select any dataType from instances of S_DT where
+                                           selected.DT_ID == GD::NULL_UNIQUE_ID();
   // see if the element being verified is a component
   select one component related by stack->I_EXE[R2930]->C_C[R2955];
   if(empty component)
@@ -59,42 +57,22 @@ if(empty dataType)
   if(not_empty component)
     select one packageableElem related by component->PE_PE[R8001];
     select one package related by packageableElem->EP_PKG[R8000];
-    select one pkgComp related by packageableElem->C_C[R8003];
-    isInGenericPackage = not_empty package or not_empty component;
   
-    if (isInGenericPackage)
       if (empty package)
+        select one pkgComp related by packageableElem->C_C[R8003];
         rootCompIdInPkg = pkgComp.getRootComponentId();
         select any rootComponent from instances of C_C where (selected.Id == rootCompIdInPkg);
             
         select one package related by rootComponent->PE_PE[R8001]->EP_PKG[R8000];
       end if;
       select one system related by package->S_SYS[R1405];
-      select any dataType related by system->SLD_SDINP[R4402]->S_DT[R4401]
-                                   where (selected.DT_ID == param.data_type_id);
-      if empty dataType and not_empty system and system.useGlobals
+
+      if not_empty system and system.useGlobals
         select any dataType related by system->G_EIS[R9100]->PE_PE[R9100]->
                        S_DT[R8001] where (selected.DT_ID == param.data_type_id);
       end if;
-    else
-      // see if the data type is at the system level
-      select one system related by component->CP_CP[R4608]->S_SYS[R4606];
-      select any dataType related by system->SLD_SDINP[R4402]->S_DT[R4401]
-                                   where (selected.DT_ID == param.data_type_id);
-      if empty dataType and not_empty system and system.useGlobals
-        select any dataType related by system->G_EIS[R9100]->PE_PE[R9100]->
-                       S_DT[R8001] where (selected.DT_ID == param.data_type_id);
-      end if;
-      // if the data type was not found it may be that this
-      // component is formalized against a domain, and that
-      // domain holds the data type
-      if(empty dataType)
-        select any dataType related by component->CN_DC[R4204]->S_DOM[R4204]
-                         ->S_DT[R14] where (selected.DT_ID == param.data_type_id);
-      end if;
-    end if;
   end if;
-end if;
+
 if (empty dataType)
   // see if the element being verified is a package
   select one pkg related by stack->I_EXE[R2930]->EP_PKG[R2970];

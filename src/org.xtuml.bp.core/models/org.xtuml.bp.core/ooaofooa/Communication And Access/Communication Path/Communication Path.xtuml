@@ -14,8 +14,7 @@ INSERT INTO O_TFR
 	'The dispose operation for the CA_COMM class.',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select one smeec related by self->CA_SMEEC[R401];
+	'select one smeec related by self->CA_SMEEC[R401];
 if (not_empty smeec)
   smeec.dispose();
 end if;
@@ -28,11 +27,6 @@ if not_empty eesmc
   eesmc.dispose();
 end if;
 //
-// Domain subsystem
-select one ss related by self->S_SS[R5];
-if ( not_empty ss )
-  unrelate self from ss across R5;
-end if;
 delete object instance self;',
 	1,
 	'',
