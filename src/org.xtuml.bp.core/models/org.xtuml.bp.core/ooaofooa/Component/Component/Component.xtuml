@@ -610,27 +610,8 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select one dac related by self->CN_DC[R4204];
+	'select one dac related by self->CN_DC[R4204];
 if(not_empty dac)
-  select one domain related by dac->S_DOM[R4204];
-  if (not_empty domain)
-    // Restore all suppressed data types
-    domain.associateChildrenWithSuppressedDatatypes();
-    unrelate self from domain across R4204 using dac;
-    select many suppressions related by domain->S_DIS[R47];
-    select any rootDtPkg related by domain->S_DPK[R40] where
-                             selected.Parent_Package_ID == GD::NULL_UNIQUE_ID();
-    for each suppression in suppressions
-      select one dt related by suppression->S_DT[R47];
-      unrelate dt from domain across R47 using suppression;
-      delete object instance suppression;
-      relate dt to domain across R14;
-      create object instance dip of S_DIP;
-      // Suppressed data types are always restored to the root DT Package
-      relate dt to rootDtPkg across R39 using dip;
-    end for;
-  end if;
   delete object instance dac;
   select one componentPackage related by self->CP_CP[R4604];
   select one parentComp related by self->CN_CIC[R4203]->C_C[R4202];
@@ -640,7 +621,6 @@ if(not_empty dac)
   end while;
   if (not_empty componentPackage)
     select one system related by componentPackage->S_SYS[R4606];
-    relate domain to system across R28;
   end if;
 end if;',
 	1,
@@ -766,7 +746,7 @@ else
 end if;',
 	1,
 	'',
-	"cd61bb44-169b-4321-a098-06d659e6aefc");
+	"d4dab3ed-9a1e-48c9-9c47-bfe26102542c");
 INSERT INTO O_TFR
 	VALUES ("a2d0128a-5ba8-4529-a1b6-821bafc44eb2",
 	"2786d973-1537-44a1-81d6-3ddbd2377865",
@@ -815,7 +795,7 @@ return false;
 ',
 	1,
 	'',
-	"ff8c143f-25c8-4cd3-b981-89ffd8b042bd");
+	"e99b2387-1d0b-4300-ac66-86c9d1401213");
 INSERT INTO O_TPARM
 	VALUES ("01ae6caa-bbcd-4d24-b8ce-76dfbcfde097",
 	"a2d0128a-5ba8-4529-a1b6-821bafc44eb2",
@@ -1210,35 +1190,6 @@ INSERT INTO O_TPARM
 	'',
 	"ec1778f8-afc7-409d-941a-c265be6dfcff",
 	'');
-INSERT INTO O_TFR
-	VALUES ("ff8c143f-25c8-4cd3-b981-89ffd8b042bd",
-	"2786d973-1537-44a1-81d6-3ddbd2377865",
-	'newInterfacePackage',
-	'',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-// When in a generic package we will not allow specialized packages by 
-// filtering the option in the UI.  Therefore this not be invoked when the 
-// component is under a generic package.
-create object instance specPkg of EP_SPKG;
-create object instance interfacePackage of IP_IP;
-relate interfacePackage to specPkg across R1402;
-relate self to interfacePackage across R4206;
-select one componentPackage related by self->CP_CP[R4604];
-if(empty componentPackage)
-  select one parentComp related by self->CN_CIC[R4203]->C_C[R4202];
-  while(empty componentPackage)
-    select one componentPackage related by parentComp->CP_CP[R4604];
-    select one parentComp related by parentComp->CN_CIC[R4203]->C_C[R4202];
-  end while;
-end if;
-select one system related by componentPackage->S_SYS[R4606];
-relate system to interfacePackage across R4304;
-interfacePackage.initialize();',
-	1,
-	'',
-	"e99b2387-1d0b-4300-ac66-86c9d1401213");
 INSERT INTO O_TFR
 	VALUES ("cca61026-dd78-4021-9aec-01de6f85b45e",
 	"2786d973-1537-44a1-81d6-3ddbd2377865",
@@ -2219,44 +2170,6 @@ return not_empty exeEng;',
 	'',
 	"cca61026-dd78-4021-9aec-01de6f85b45e");
 INSERT INTO O_TFR
-	VALUES ("97ff86aa-e5c5-45b2-9fd8-66670c5bea0a",
-	"2786d973-1537-44a1-81d6-3ddbd2377865",
-	'newActivity',
-	'',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-// When in a generic package we will not allow specialized packages by 
-// filtering the option in the UI.  Therefore this not be invoked when the 
-// component is under a generic package.
-create object instance a of A_A;
-create object instance sp of EP_SPKG;
-relate a to sp across R1402;
-relate self to a across R1115;
-a.initialize();',
-	1,
-	'',
-	"d4dab3ed-9a1e-48c9-9c47-bfe26102542c");
-INSERT INTO O_TFR
-	VALUES ("cd61bb44-169b-4321-a098-06d659e6aefc",
-	"2786d973-1537-44a1-81d6-3ddbd2377865",
-	'newCommunication',
-	'',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-// When in a generic package we will not allow specialized packages by 
-// filtering the option in the UI.  Therefore this not be invoked when the 
-// component is under a generic package.
-create object instance comm of COMM_COMM;
-create object instance sp of EP_SPKG;
-relate comm to sp across R1402;
-relate comm to self across R1138;
-comm.initialize();',
-	1,
-	'',
-	"97ff86aa-e5c5-45b2-9fd8-66670c5bea0a");
-INSERT INTO O_TFR
 	VALUES ("199a2be6-8e81-4f06-b696-504e81258840",
 	"2786d973-1537-44a1-81d6-3ddbd2377865",
 	'newSequence',
@@ -2333,43 +2246,6 @@ INSERT INTO O_TPARM
 	"00000000-0000-0000-0000-000000000000",
 	'');
 INSERT INTO O_TFR
-	VALUES ("cab421ca-ee44-4465-8a49-1bf15676444e",
-	"2786d973-1537-44a1-81d6-3ddbd2377865",
-	'pasteCommunication',
-	'',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'// if this component is formalized to a domain, then pass on the
-// paste call
-select one domain related by self->CN_DC[R4204]->S_DOM[R4204];
-if(not_empty domain)
-  domain.pasteCommunication(id:param.id);
-end if;
-// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-// When in a generic package we will not allow specialized packages by 
-// filtering the option in the UI.  Therefore this not be invoked when the 
-// component is under a generic package.
-select any comm from instances of COMM_COMM
-                                        where (selected.Package_ID == param.id);
-if(not_empty comm)
-  // guarantee a unique name for the pasted element
-  comm.Name = ::getUniqueInitialNameInParent (instance:comm.convertToInstance(),
-     					   name:comm.Name, parent:self.convertToInstance());
-  comm.associateWithComponent(compID:self.Id);
-end if;',
-	1,
-	'',
-	"ce9a0b7e-d87b-48a9-b4e1-3243a2594935");
-INSERT INTO O_TPARM
-	VALUES ("c83a641d-e7b1-485d-add9-28caedbd400a",
-	"cab421ca-ee44-4465-8a49-1bf15676444e",
-	'id',
-	"ba5eda7a-def5-0000-0000-000000000005",
-	0,
-	'',
-	"00000000-0000-0000-0000-000000000000",
-	'');
-INSERT INTO O_TFR
 	VALUES ("ed4f81f8-1f4a-40e1-a34d-39a73037042f",
 	"2786d973-1537-44a1-81d6-3ddbd2377865",
 	'pasteInterfacePackage',
@@ -2391,7 +2267,7 @@ if(not_empty ifacePkg)
 end if;',
 	1,
 	'',
-	"cab421ca-ee44-4465-8a49-1bf15676444e");
+	"ce9a0b7e-d87b-48a9-b4e1-3243a2594935");
 INSERT INTO O_TPARM
 	VALUES ("537d564b-e0b3-4e08-8658-556e200f628d",
 	"ed4f81f8-1f4a-40e1-a34d-39a73037042f",
@@ -4370,7 +4246,7 @@ INSERT INTO O_BATTR_PROXY
 INSERT INTO O_ATTR
 	VALUES ("6dae0868-75e9-4e28-b4b5-a004ba9ab608",
 	"2786d973-1537-44a1-81d6-3ddbd2377865",
-	"36bb14b0-7dcc-4f01-a6af-60969c245ebf",
+	"7b9804b1-294c-4909-b563-aae43167f8d6",
 	'NestedComponent_Id',
 	'',
 	'NestedComponent_',
@@ -4420,104 +4296,6 @@ Persistent:false',
 	'Label',
 	0,
 	"ba5eda7a-def5-0000-0000-000000000004",
-	'',
-	'');
-INSERT INTO O_REF
-	VALUES ("2786d973-1537-44a1-81d6-3ddbd2377865",
-	"76aac5bd-1f3f-409b-bf58-ab587f190bfd",
-	0,
-	"c75805b5-b512-4d99-97ee-933159f33062",
-	"47e5a3fe-c66c-452e-ad11-176493cde21c",
-	"02286da6-374d-4236-b681-393a62c16a55",
-	"275bd2d1-aa05-4aa7-a1df-86942b41e7e1",
-	"36bb14b0-7dcc-4f01-a6af-60969c245ebf",
-	"36981e28-c90b-4642-87f3-d86425633fdf",
-	"00000000-0000-0000-0000-000000000000",
-	0,
-	'',
-	'Component Package',
-	'SpecificationPackage_ID',
-	'R4604.''may exist in''');
-INSERT INTO R_RGO_PROXY
-	VALUES ("2786d973-1537-44a1-81d6-3ddbd2377865",
-	"47e5a3fe-c66c-452e-ad11-176493cde21c",
-	"02286da6-374d-4236-b681-393a62c16a55",
-	'../Component Packaging/Component Packaging.xtuml');
-INSERT INTO O_RTIDA_PROXY
-	VALUES ("c75805b5-b512-4d99-97ee-933159f33062",
-	"76aac5bd-1f3f-409b-bf58-ab587f190bfd",
-	0,
-	"47e5a3fe-c66c-452e-ad11-176493cde21c",
-	"275bd2d1-aa05-4aa7-a1df-86942b41e7e1",
-	'../Component Packaging/Component Packaging.xtuml');
-INSERT INTO O_RATTR
-	VALUES ("36bb14b0-7dcc-4f01-a6af-60969c245ebf",
-	"2786d973-1537-44a1-81d6-3ddbd2377865",
-	"c75805b5-b512-4d99-97ee-933159f33062",
-	"76aac5bd-1f3f-409b-bf58-ab587f190bfd",
-	1,
-	'SpecificationPackage_ID');
-INSERT INTO O_BATTR_PROXY
-	VALUES ("c75805b5-b512-4d99-97ee-933159f33062",
-	"76aac5bd-1f3f-409b-bf58-ab587f190bfd",
-	'../Component Packaging/Component Package/Component Package.xtuml');
-INSERT INTO O_ATTR
-	VALUES ("36bb14b0-7dcc-4f01-a6af-60969c245ebf",
-	"2786d973-1537-44a1-81d6-3ddbd2377865",
-	"7b9804b1-294c-4909-b563-aae43167f8d6",
-	'SpecificationPackage_ID',
-	'',
-	'',
-	'SpecificationPackage_ID',
-	0,
-	"ba5eda7a-def5-0000-0000-000000000007",
-	'',
-	'');
-INSERT INTO O_REF
-	VALUES ("2786d973-1537-44a1-81d6-3ddbd2377865",
-	"76aac5bd-1f3f-409b-bf58-ab587f190bfd",
-	0,
-	"c75805b5-b512-4d99-97ee-933159f33062",
-	"6e7728eb-5a17-4263-a596-60dbd567dad4",
-	"fccd2d09-1f1a-4898-9336-8e0ceeeab4c0",
-	"eac5c5f8-1519-4ae8-82fd-648b42028333",
-	"f5b96576-4c97-4fa0-a9e6-d1150c195e0e",
-	"a1bfe8ad-69e9-4afc-92a7-e0d255a878fb",
-	"00000000-0000-0000-0000-000000000000",
-	0,
-	'',
-	'Component Package',
-	'SpecificationPackage_ID',
-	'R4608.''has root''');
-INSERT INTO R_RGO_PROXY
-	VALUES ("2786d973-1537-44a1-81d6-3ddbd2377865",
-	"6e7728eb-5a17-4263-a596-60dbd567dad4",
-	"fccd2d09-1f1a-4898-9336-8e0ceeeab4c0",
-	'../Component Packaging/Component Packaging.xtuml');
-INSERT INTO O_RTIDA_PROXY
-	VALUES ("c75805b5-b512-4d99-97ee-933159f33062",
-	"76aac5bd-1f3f-409b-bf58-ab587f190bfd",
-	0,
-	"6e7728eb-5a17-4263-a596-60dbd567dad4",
-	"eac5c5f8-1519-4ae8-82fd-648b42028333",
-	'../Component Packaging/Component Packaging.xtuml');
-INSERT INTO O_RATTR
-	VALUES ("f5b96576-4c97-4fa0-a9e6-d1150c195e0e",
-	"2786d973-1537-44a1-81d6-3ddbd2377865",
-	"c75805b5-b512-4d99-97ee-933159f33062",
-	"76aac5bd-1f3f-409b-bf58-ab587f190bfd",
-	1,
-	'SpecificationPackage_ID');
-INSERT INTO O_ATTR
-	VALUES ("f5b96576-4c97-4fa0-a9e6-d1150c195e0e",
-	"2786d973-1537-44a1-81d6-3ddbd2377865",
-	"edbf70d8-05ec-4227-b08e-a765634cc5c3",
-	'Root_SpecificationPackage_ID',
-	'',
-	'Root_',
-	'Package_ID',
-	1,
-	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -4580,7 +4358,7 @@ INSERT INTO O_BATTR
 INSERT INTO O_ATTR
 	VALUES ("759ed624-58ea-4eac-a5fb-e1144a55f799",
 	"2786d973-1537-44a1-81d6-3ddbd2377865",
-	"f5b96576-4c97-4fa0-a9e6-d1150c195e0e",
+	"edbf70d8-05ec-4227-b08e-a765634cc5c3",
 	'isRealized',
 	'Full Name: Realized Component
 Description: If true, Verifier will bind to an externally supplied implementation.',
