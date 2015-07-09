@@ -1753,55 +1753,22 @@ INSERT INTO O_ATTR
 	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO O_REF
-	VALUES ("ebbaac7e-9a48-4ea6-bb48-c27b0d4b08c7",
-	"cf4966b0-706a-4373-a2ee-7e706918813c",
-	0,
-	"a5a1b94e-be2f-4750-bd58-cf1c2713558a",
-	"9491004c-0a85-439e-b7bc-257234bc75ff",
-	"172816f3-f5f1-4d1c-ae16-22c797770e97",
-	"fe8d926d-f963-4fed-b2c0-39726b3e54df",
-	"3f61c8ce-f8cd-4e3c-bef6-9658890ae9df",
-	"e99074d2-c538-455e-ab87-5339d27b803a",
-	"00000000-0000-0000-0000-000000000000",
-	0,
-	'',
-	'Specification Package',
-	'Package_ID',
-	'R1402');
-INSERT INTO R_RGO_PROXY
-	VALUES ("ebbaac7e-9a48-4ea6-bb48-c27b0d4b08c7",
-	"9491004c-0a85-439e-b7bc-257234bc75ff",
-	"172816f3-f5f1-4d1c-ae16-22c797770e97",
-	'../../Element Packaging/Element Packaging.xtuml');
-INSERT INTO O_RTIDA_PROXY
-	VALUES ("a5a1b94e-be2f-4750-bd58-cf1c2713558a",
-	"cf4966b0-706a-4373-a2ee-7e706918813c",
-	0,
-	"9491004c-0a85-439e-b7bc-257234bc75ff",
-	"fe8d926d-f963-4fed-b2c0-39726b3e54df",
-	'../../Element Packaging/Element Packaging.xtuml');
-INSERT INTO O_RATTR
+INSERT INTO O_NBATTR
 	VALUES ("3f61c8ce-f8cd-4e3c-bef6-9658890ae9df",
-	"ebbaac7e-9a48-4ea6-bb48-c27b0d4b08c7",
-	"a5a1b94e-be2f-4750-bd58-cf1c2713558a",
-	"cf4966b0-706a-4373-a2ee-7e706918813c",
-	1,
-	'Package_ID');
-INSERT INTO O_BATTR_PROXY
-	VALUES ("a5a1b94e-be2f-4750-bd58-cf1c2713558a",
-	"cf4966b0-706a-4373-a2ee-7e706918813c",
-	'../../Element Packaging/Specification Package/Specification Package.xtuml');
+	"ebbaac7e-9a48-4ea6-bb48-c27b0d4b08c7");
+INSERT INTO O_BATTR
+	VALUES ("3f61c8ce-f8cd-4e3c-bef6-9658890ae9df",
+	"ebbaac7e-9a48-4ea6-bb48-c27b0d4b08c7");
 INSERT INTO O_ATTR
 	VALUES ("3f61c8ce-f8cd-4e3c-bef6-9658890ae9df",
 	"ebbaac7e-9a48-4ea6-bb48-c27b0d4b08c7",
 	"00000000-0000-0000-0000-000000000000",
-	'Package_ID',
+	'SpecificationPackage_ID',
 	'',
 	'',
 	'SpecificationPackage_ID',
 	0,
-	"ba5eda7a-def5-0000-0000-000000000007",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	'',
 	'');
 INSERT INTO O_REF
@@ -1818,7 +1785,7 @@ INSERT INTO O_REF
 	0,
 	'',
 	'Component Package',
-	'Package_ID',
+	'SpecificationPackage_ID',
 	'R1137');
 INSERT INTO R_RGO_PROXY
 	VALUES ("ebbaac7e-9a48-4ea6-bb48-c27b0d4b08c7",
@@ -1835,15 +1802,19 @@ INSERT INTO O_RTIDA_PROXY
 INSERT INTO O_RATTR
 	VALUES ("1fb8b09b-5e2f-454a-982d-2a5c167c4976",
 	"ebbaac7e-9a48-4ea6-bb48-c27b0d4b08c7",
-	"a5a1b94e-be2f-4750-bd58-cf1c2713558a",
-	"cf4966b0-706a-4373-a2ee-7e706918813c",
+	"c75805b5-b512-4d99-97ee-933159f33062",
+	"76aac5bd-1f3f-409b-bf58-ab587f190bfd",
 	1,
-	'Package_ID');
+	'SpecificationPackage_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("c75805b5-b512-4d99-97ee-933159f33062",
+	"76aac5bd-1f3f-409b-bf58-ab587f190bfd",
+	'../../Component/Component Packaging/Component Package/Component Package.xtuml');
 INSERT INTO O_ATTR
 	VALUES ("1fb8b09b-5e2f-454a-982d-2a5c167c4976",
 	"ebbaac7e-9a48-4ea6-bb48-c27b0d4b08c7",
 	"11564069-8323-48ca-88ef-85c9a5395a2d",
-	'Component_Package_ID',
+	'Component_SpecificationPackage_ID',
 	'',
 	'Component_',
 	'Package_ID',
@@ -1865,7 +1836,7 @@ INSERT INTO O_REF
 	0,
 	'',
 	'Communication in Communication',
-	'Package_ID',
+	'SpecificationPackage_ID',
 	'R1129.''is connection to parent''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("ebbaac7e-9a48-4ea6-bb48-c27b0d4b08c7",
@@ -1882,15 +1853,15 @@ INSERT INTO O_RTIDA_PROXY
 INSERT INTO O_RATTR
 	VALUES ("252b2c8d-4adb-4f6c-b13f-1cb804877868",
 	"ebbaac7e-9a48-4ea6-bb48-c27b0d4b08c7",
-	"a5a1b94e-be2f-4750-bd58-cf1c2713558a",
-	"cf4966b0-706a-4373-a2ee-7e706918813c",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000",
 	1,
 	'Package_ID');
 INSERT INTO O_ATTR
 	VALUES ("252b2c8d-4adb-4f6c-b13f-1cb804877868",
 	"ebbaac7e-9a48-4ea6-bb48-c27b0d4b08c7",
 	"5a616a0b-788c-40e8-bb26-bca2248e2a68",
-	'CIC_Package_ID',
+	'CIC_SpecificationPackage_ID',
 	'',
 	'CIC_',
 	'Package_ID',
@@ -1956,7 +1927,7 @@ INSERT INTO O_OIDA
 	VALUES ("3f61c8ce-f8cd-4e3c-bef6-9658890ae9df",
 	"ebbaac7e-9a48-4ea6-bb48-c27b0d4b08c7",
 	0,
-	'Package_ID');
+	'SpecificationPackage_ID');
 INSERT INTO O_ID
 	VALUES (1,
 	"ebbaac7e-9a48-4ea6-bb48-c27b0d4b08c7");
