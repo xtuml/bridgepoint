@@ -1,0 +1,34 @@
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("5786560e-25d0-407b-aa4f-12ca3c37d82d",
+	'Constant in Package',
+	1504,
+	'CNST_CIP',
+	'Constant in Package represents the constants contained within a particular package.',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_ID
+	VALUES (0,
+	"5786560e-25d0-407b-aa4f-12ca3c37d82d");
+INSERT INTO O_ID
+	VALUES (1,
+	"5786560e-25d0-407b-aa4f-12ca3c37d82d");
+INSERT INTO O_ID
+	VALUES (2,
+	"5786560e-25d0-407b-aa4f-12ca3c37d82d");
+INSERT INTO PE_PE
+	VALUES ("5786560e-25d0-407b-aa4f-12ca3c37d82d",
+	1,
+	"64811fd3-cc5f-4963-9036-8a9110e89dda",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("64811fd3-cc5f-4963-9036-8a9110e89dda",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
+	'Constants',
+	'This subsystem contains the metamodel support for constants.  Individual
+constants are contained inside a constant specification on the datatypes
+diagram.',
+	1500,
+	'../Constants.xtuml');
