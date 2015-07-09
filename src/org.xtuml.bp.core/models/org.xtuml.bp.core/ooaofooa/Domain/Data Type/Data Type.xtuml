@@ -819,7 +819,7 @@ INSERT INTO O_BATTR
 INSERT INTO O_ATTR
 	VALUES ("cbfb448a-f0dc-4961-8e66-276b89eed6d4",
 	"ead52fac-9782-434b-a35c-c07452c3b26d",
-	"fd8dd533-2f25-456e-95f1-e65aa1c769e9",
+	"0e78201f-a7cd-497b-a6b4-e224ab7915c2",
 	'Name',
 	'Full Name: Data Type Name',
 	'',
@@ -844,57 +844,6 @@ INSERT INTO O_ATTR
 	'Descrip',
 	0,
 	"ba5eda7a-def5-0000-0000-000000000004",
-	'',
-	'');
-INSERT INTO O_REF
-	VALUES ("ead52fac-9782-434b-a35c-c07452c3b26d",
-	"07cf2195-f012-4bf5-83c7-f89dd30a8839",
-	0,
-	"4c399c05-3fb3-4c71-9ce8-04c9ec0b59f5",
-	"b8ee1db7-309d-4b21-a102-402f408b4aaa",
-	"143f1cda-9f19-4b1b-b0e7-9d4ec5d7f7be",
-	"e72a8b2a-620f-4edc-81de-ae4da6514845",
-	"fd8dd533-2f25-456e-95f1-e65aa1c769e9",
-	"32b71411-544c-4c0a-9f9e-58090267d9c2",
-	"00000000-0000-0000-0000-000000000000",
-	0,
-	'',
-	'Domain',
-	'Dom_ID',
-	'R14.''defines types available within''');
-INSERT INTO R_RGO_PROXY
-	VALUES ("ead52fac-9782-434b-a35c-c07452c3b26d",
-	"b8ee1db7-309d-4b21-a102-402f408b4aaa",
-	"143f1cda-9f19-4b1b-b0e7-9d4ec5d7f7be",
-	'../Domain.xtuml');
-INSERT INTO O_RTIDA_PROXY
-	VALUES ("4c399c05-3fb3-4c71-9ce8-04c9ec0b59f5",
-	"07cf2195-f012-4bf5-83c7-f89dd30a8839",
-	0,
-	"b8ee1db7-309d-4b21-a102-402f408b4aaa",
-	"e72a8b2a-620f-4edc-81de-ae4da6514845",
-	'../Domain.xtuml');
-INSERT INTO O_RATTR
-	VALUES ("fd8dd533-2f25-456e-95f1-e65aa1c769e9",
-	"ead52fac-9782-434b-a35c-c07452c3b26d",
-	"4c399c05-3fb3-4c71-9ce8-04c9ec0b59f5",
-	"07cf2195-f012-4bf5-83c7-f89dd30a8839",
-	1,
-	'Dom_ID');
-INSERT INTO O_BATTR_PROXY
-	VALUES ("4c399c05-3fb3-4c71-9ce8-04c9ec0b59f5",
-	"07cf2195-f012-4bf5-83c7-f89dd30a8839",
-	'../Domain/Domain.xtuml');
-INSERT INTO O_ATTR
-	VALUES ("fd8dd533-2f25-456e-95f1-e65aa1c769e9",
-	"ead52fac-9782-434b-a35c-c07452c3b26d",
-	"0e78201f-a7cd-497b-a6b4-e224ab7915c2",
-	'Dom_ID',
-	'',
-	'',
-	'Dom_ID',
-	0,
-	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_NBATTR
