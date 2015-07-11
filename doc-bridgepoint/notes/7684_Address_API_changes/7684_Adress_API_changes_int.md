@@ -14,8 +14,8 @@ Eclipse 4.4 base.  Additionally, it includes files changes for issue #7745 [2].
 
 2. Document References
 ----------------------
-[1] /doc-bridgepoint/notes/7684_Address_API_changes/7684_Address_API_changes_dnt.md  
-[2] /doc-bridgepoint/notes/7684_Address_API_changes/7684_Address_API_changes_dnt.md   
+[1] https://github.com/travislondon/bridgepoint/blob/7684_Adress_API_changes/doc-bridgepoint/notes/7684_Address_API_changes/7684_Address_API_changes_dnt.md  
+[2] https://github.com/keithbrown/bridgepoint/blob/7745_port_oal/doc-bridgepoint/notes/7745_port_oal/7745_port_oal_dnt.md   
 
 3. Background
 -------------
