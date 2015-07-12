@@ -14,13 +14,10 @@ INSERT INTO O_TFR
 	'The dispose operation for this class.  Return values get set to a default of void.  Parameters to integer.',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-// Get some default core data types
+	'// Get some default core data types
 select one pe related by self->PE_PE[R8001];
 select one PKG related by pe->EP_PKG[R8000]; 
 select one systemModel related by PKG->S_SYS[R1405];
-
-
 
  // look for them from the system associated with the owning package
  intdt_id = systemModel.getCoreTypeId(name:"integer");
@@ -283,15 +280,11 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000001",
 	0,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-// this operation assumes that the caller is
+	'// this operation assumes that the caller is
 // within a domain context
-select any dom from instances of S_DOM where (selected.Dom_ID == param.dom_id);
-select any dt related by dom->S_DT[R14] where
-                                                selected.Name == param.typeName;
-if (empty dt)
+// TODO: BOB Check to see if this is needed anymore since GP removal.
   select any dt from instances of S_DT where (selected.Name == param.typeName);
-end if;                                                
+
 if not_empty dt 
   if ( dt.isCommonAllowedType() )
     return true;
@@ -329,22 +322,7 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000001",
 	0,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-// this operation assumes that the caller is
-// within a domain context
-select any dom from instances of S_DOM where (selected.Dom_ID == param.dom_id);
-if(not_empty dom)
-  select any dt related by dom->S_DT[R14] where
-                                                selected.Name == param.typeName;
-  if not_empty dt 
-    return dt.isCommonAllowedType();
-  end if;
-else
-  select any dt from instances of S_DT where (selected.Name == param.typeName);  
-  if not_empty dt 
-    return dt.isCommonAllowedType();
-  end if;
-end if;
+	'// TODO: BOB remove this function and all places that invoke it
 return false;',
 	1,
 	'',
@@ -381,7 +359,7 @@ Translate: native',
 return this;',
 	0,
 	'',
-	"366490eb-af67-4215-9be3-e736a0d839c2");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
 	"00000000-0000-0000-0000-000000000000",
@@ -503,94 +481,6 @@ end if;',
 	1,
 	'',
 	"fed4c822-5710-4d4f-a1f9-11d58e0cdbe9");
-INSERT INTO O_TFR
-	VALUES ("dbeb1a7b-a6c6-48db-af24-4eba00709a95",
-	"ead52fac-9782-434b-a35c-c07452c3b26d",
-	'associateDTWithDomain',
-	'',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select any domain from instances of S_DOM where (selected.Dom_ID == param.dom_id);
-select any systemDt related by self->SLD_SDINP[R4401];
-if(not_empty systemDt and not_empty domain)
-  // this dt is a system level dt
-  // unrelate from system
-  select one system related by systemDt->S_SYS[R4402];
-  unrelate systemDt from system across R4402;
-  select one pkg related by systemDt->S_DPK[R4401];
-  unrelate self from pkg across R4401 using systemDt;
-  delete object instance systemDt;
-  // associate to domain
-  relate domain to self across R14;
-elif(not_empty domain and empty systemDt)
-  // this dt was previously a domain level dt
-  // just update to point at the new
-  // domain
-  select one prevDomain related by self->S_DOM[R14];
-  if(not_empty prevDomain)
-    unrelate self from prevDomain across R14;
-    relate self to domain across R14;
-  end if;
-end if;',
-	1,
-	'',
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_TPARM
-	VALUES ("5e54293e-a896-425c-b6bf-630674c8a2d2",
-	"dbeb1a7b-a6c6-48db-af24-4eba00709a95",
-	'dom_id',
-	"ba5eda7a-def5-0000-0000-000000000005",
-	0,
-	'',
-	"00000000-0000-0000-0000-000000000000",
-	'');
-INSERT INTO O_TFR
-	VALUES ("366490eb-af67-4215-9be3-e736a0d839c2",
-	"ead52fac-9782-434b-a35c-c07452c3b26d",
-	'associateDTWithSystem',
-	'',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select any system from instances of S_SYS
-                                        where (selected.Sys_ID == param.sys_id);
-select one prevDomain related by self->S_DOM[R14];
-if(not_empty prevDomain and not_empty system)
-  // this instance was previously a domain level dt
-  // first unrelate from domain
-  unrelate self from prevDomain across R14;
-  // now associate the datatype with the system
-  create object instance sdinp of SLD_SDINP;
-  relate sdinp to system across R4402;
-  select one pkg related by self->S_DIP[R39]->S_DPK[R39];
-  relate pkg to self across R4401 using sdinp;
-elif(empty prevDomain and not_empty system)
-  // this instance was previously a system level dt
-  // associate it with the new system
-  select any sdip related by self->SLD_SDINP[R4401];
-  if(not_empty sdip)
-    select one prevSystem related by sdip->S_SYS[R4402];
-    unrelate sdip from prevSystem across R4402;
-    relate sdip to system across R4402;
-    select one prevPkg related by sdip->S_DPK[R4401];
-    unrelate self from prevPkg across R4401 using sdip;
-    select one pkg related by self->S_DIP[R39]->S_DPK[R39];
-    relate pkg to self across R4401 using sdip;
-  end if;
-end if;',
-	1,
-	'',
-	"dbeb1a7b-a6c6-48db-af24-4eba00709a95");
-INSERT INTO O_TPARM
-	VALUES ("67c38201-7435-4940-866b-46c1c30047f7",
-	"366490eb-af67-4215-9be3-e736a0d839c2",
-	'sys_id',
-	"ba5eda7a-def5-0000-0000-000000000005",
-	0,
-	'',
-	"00000000-0000-0000-0000-000000000000",
-	'');
 INSERT INTO O_TFR
 	VALUES ("3b698a92-8d02-4596-80e7-08b88c26c702",
 	"ead52fac-9782-434b-a35c-c07452c3b26d",

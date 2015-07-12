@@ -65,19 +65,9 @@ if(not_empty rm)
   unrelate self from rm across R1018;
   rm.dispose();
 end if;
-// unrelate self from communication if
-// necessary
-select one mic related by self->COMM_MIC[R1135];
-if(not_empty mic)
-  select one comm related by mic->COMM_COMM[R1135];
-  if (not_empty comm)
-    unrelate self from comm across R1135 using mic;
-  end if;
-end if;
+
 select one mis related by self->SQ_MIS[R954];
 if(not_empty mis)
-  select one sequence related by mis->SQ_S[R953];
-  unrelate mis from sequence across R953;
   unrelate mis from self across R954;
   delete object instance mis;
 end if;
@@ -229,10 +219,8 @@ INSERT INTO O_TFR
 	'select one destPart related by self->SQ_P[R1007];
 if(not_empty destPart)
   select one packageableElem related by destPart->PE_PE[R8001];
-  select one package related by packageableElem->EP_PKG[R8000];
   select one component related by packageableElem->C_C[R8003];
-  isInGenericPackage = not_empty package or not_empty component;
-  if (isInGenericPackage)
+
     select one sync related by self->MSG_SM[R1018];
     select one async related by self->MSG_AM[R1018];
     if(not_empty sync)
@@ -256,12 +244,7 @@ if(not_empty destPart)
     if(not_empty pkg)
       unrelate self from destPart across R1007;
     end if;
-  else
-    select one comm related by destPart->COMM_PIC[R1126]->COMM_COMM[R1126];
-    if(not_empty comm)
-      unrelate self from destPart across R1007;
-    end if;
-  end if;
+
 end if;',
 	1,
 	'',

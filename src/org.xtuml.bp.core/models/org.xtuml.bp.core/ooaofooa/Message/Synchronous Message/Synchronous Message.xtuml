@@ -287,8 +287,7 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select one packageableElem related by self->MSG_M[R1018]->PE_PE[R8001];
+	'select one packageableElem related by self->MSG_M[R1018]->PE_PE[R8001];
 select one package related by packageableElem->EP_PKG[R8000];
 select one message related by self->MSG_M[R1018];
 if(empty message)
@@ -301,7 +300,6 @@ if(empty package and message.participatesInCommunication)
                                                                 ->EP_PKG[R8000];
 end if;
 select one component related by packageableElem->C_C[R8003];
-isInGenericPackage = not_empty package or not_empty component;
 
 if(param.name == "can")
   if(param.value == "addArg")
@@ -316,11 +314,9 @@ if(param.name == "can")
                                                      ->SQ_P[R940]->SQ_EEP[R930];
     end if;
     if(not_empty eep)
-      select one communication related by eep->SQ_P[R930]->COMM_PIC[R1126]
-                                                             ->COMM_COMM[R1126];
       // another filter will be used for communication
       // diagrams
-      if(not_empty communication or message.participatesInCommunication)
+      if(not_empty message and message.participatesInCommunication)
         return false;
       end if;
       // if there is only one possible operation, and we are formal
@@ -340,13 +336,6 @@ if(param.name == "can")
                                                      ->SQ_P[R940]->SQ_FPP[R930];
     end if;
     if(not_empty fpp)
-      select one communication related by fpp->SQ_P[R930]->COMM_PIC[R1126]
-                                                             ->COMM_COMM[R1126];
-      // another filter will be used for communication
-      // diagrams
-      if(not_empty communication)
-        return false;
-      end if; 
       // if there is only one possible function, and we are formal
       // do not allow
       if(self.isFormal)
@@ -387,7 +376,6 @@ if(param.name == "can")
     if(not_empty cip)
       // if the instance is shown on a communication
       // do not allow
-      if (isInGenericPackage)
         if(message.participatesInCommunication)
           return false;
         else
@@ -400,32 +388,10 @@ if(param.name == "can")
           end if;
           return cip.formalClassHasCBOperations();
         end if;
-      else      
-        select one communication related by cip->SQ_P[R930]->COMM_PIC[R1126]->COMM_COMM[R1126];
-        if(not_empty communication)
-          return false;
-        else
-          // if there is only one possible operation, and we are formal
-          // do not allow
-          if(self.isFormal)
-            if(cip.getClassOperationCount() == 1)
-              return false;
-            end if;
-          end if;
-          return cip.formalClassHasCBOperations();
-        end if;
-      end if;
     elif(not_empty cp)
-      select one communication related by cp->SQ_P[R930]->COMM_PIC[R1126]
-                                                             ->COMM_COMM[R1126];
-      if(not_empty communication)
-        return false;
-      end if;
-      if (isInGenericPackage)
         if(message.participatesInCommunication)
           return false;
         end if;
-      end if;
       // if there is only one possible operation, and we are formal
       // do not allow
       if(self.isFormal)
@@ -439,9 +405,7 @@ if(param.name == "can")
     select one ls related by self->MSG_M[R1018]->SQ_P[R1007]->SQ_LS[R930];
     if(not_empty ls)
       select one cip related by ls->SQ_P[R940]->SQ_CIP[R930];
-      select one communication related by cip->SQ_P[R930]->COMM_PIC[R1126]
-                                                             ->COMM_COMM[R1126];
-      if(not_empty communication or message.participatesInCommunication)
+      if(not_empty message and message.participatesInCommunication)
         // another filter will handle the communication case
         return false;
       end if;
@@ -481,9 +445,7 @@ if(param.name == "can")
     if(not_empty cop)
       // do not allow if on a communication diagram, other
       // filters will handle this
-      select one communication related by cop->SQ_P[R930]->COMM_PIC[R1126]
-                                                             ->COMM_COMM[R1126];
-      if(not_empty communication or message.participatesInCommunication)
+      if(not_empty message and message.participatesInCommunication)
         return false;
       end if;
       return cop.isFormalAndHasIFOperations();
@@ -495,23 +457,8 @@ if(param.name == "can")
     
     // if this message is not shown on a communication diagram
     // do not allow
-    select one communication related by self->MSG_M[R1018]->COMM_MIC[R1135]
-                                                             ->COMM_COMM[R1135];
-    if(empty communication)
-      // if the above association is not setup, the message is associated with
-      // a participant already, get the communication through this participant
-      select one communication related by self->MSG_M[R1018]->SQ_P[R1007]->COMM_PIC[R1126]->COMM_COMM[R1126];
-      if(empty communication and not message.participatesInCommunication)
-        return false;
-      end if;
-    end if;
-    pkgID = GD::NULL_UNIQUE_ID();
-    if (not_empty communication)
-      pkgID = communication.Package_ID;
-    else
       pkgID = package.Package_ID;
-    end if;
-      
+
     // if the selection count does not equal two return false, this
     // prevents the menu entries from existing while only one of the
     // elements is selected

@@ -80,8 +80,7 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-// Execution Engine.stop()
+	'// Execution Engine.stop()
 
 //Halt execution on all stacks
 select one stack related by self->I_STACK[R2930];
@@ -90,11 +89,6 @@ if(not_empty stack)
   unrelate self from stack across R2930;
   stack.dispose();
 end if;  
-
-select one domain related by self->S_DOM[R2948];
-if (not_empty domain)
-  unrelate self from domain across R2948;
-end if;
 
 select one pkg related by self->EP_PKG[R2970];
 if (not_empty pkg)
@@ -149,32 +143,6 @@ self.unlockQueue(queue_name:"I_EQE");
 // instances will take care of most of the events
 // but some will be associated only through a sending
 // class
-if(empty domain)
-  select one domain related by component->CN_DC[R4204]->S_DOM[R4204];
-end if;
-if(not_empty domain)
-  select many pendingEvents related by domain->S_SS[R1]->O_OBJ[R2]->SM_ISM[R518]
-         ->SM_SM[R517]->SM_EVT[R502]->I_EVI[R2906];
-  for each pendingEvent in pendingEvents
-    pendingEvent.dispose();
-  end for;
-  select many pendingEvents related by domain->S_SS[R1]->O_OBJ[R2]->SM_ASM[R519]
-         ->SM_SM[R517]->SM_EVT[R502]->I_EVI[R2906];
-  for each pendingEvent in pendingEvents
-    pendingEvent.dispose();
-  end for;
-  // dispose all class in state instances
-  select many ciss related by domain->S_SS[R1]->O_OBJ[R2]->SM_ASM[R519]
-         ->SM_SM[R517]->SM_TXN[R505]->CSME_CIS[R2952];
-  for each cis in ciss
-    cis.dispose();
-  end for;
-  select many ciss related by domain->S_SS[R1]->O_OBJ[R2]->SM_ISM[R518]
-         ->SM_SM[R517]->SM_TXN[R505]->CSME_CIS[R2952];
-  for each cis in ciss
-    cis.dispose();
-  end for;
-end if;
 
 if(not_empty pkg)
   select many pendingEvents related by pkg->PE_PE[R8000]->O_OBJ[R8001]->SM_ISM[R518]
@@ -224,17 +192,12 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-// Execution Engine.reset
-select one domain related by self->S_DOM[R2948];
+	'// Execution Engine.reset
 select one pkg related by self->EP_PKG[R2970];
 select one component related by self->C_C[R2955];
 select one icomponent related by self->CL_IC[R2963];
 
 domainLevel = true;
-if(empty domain)
-  domainLevel = false;
-end if;
                              
 pkgLevel = true;
 if(empty pkg)
@@ -268,24 +231,6 @@ for each evt in evts
   evt.dispose();
 end for;
 self.unlockQueue(queue_name:"I_SQE");
-
-// Remove any cached automatic wiring
-select many functions related by domain->S_SYNC[R23];
-for each function in functions
-  select many wirings related by function->S_AW[R3201];
-  for each wiring in wirings
-    unrelate function from wiring across R3201;
-    // Don''t dispose the wiring, it will revert to unwired in the client domain
-  end for;
-end for;
-
-select many brgs related by domain->S_EE[R8]->S_BRG[R19];
-for each brg in brgs
-  select one wiring related by brg->S_AW[R3200];
-  if (not_empty wiring)
-    wiring.dispose();
-  end if;
-end for;
 
 select many cies related by self->CSME_CIE[R2960];
 for each cie in cies
@@ -326,75 +271,59 @@ else
   for each breakpoint in oalBreakpoints
     breakpoint.dispose();
   end for;
-  select many eventBreakpoints related by component->CN_DC[R4204]->S_DOM[R4204]
-                  ->S_SS[R1]->O_OBJ[R2]->SM_ISM[R518]->SM_SM[R517]->SM_EVT[R502]
-                      ->BP_EV[R3103]->BP_BP[R3102];
-  if (isInGenericPackage)
-    if (empty package)
+
+      select many eventBreakpoints related by package->PE_PE[R8000]->O_OBJ[R8001]
+                      ->SM_ISM[R518]->SM_SM[R517]->SM_EVT[R502]
+                      ->BP_EV[R3103]->BP_BP[R3102];  
+    if (empty eventBreakpoints)
       select many eventBreakpoints related by rootComponent->PE_PE[R8001]->EP_PKG[R8000]
                       ->PE_PE[R8000]->O_OBJ[R8001]
                       ->SM_ISM[R518]->SM_SM[R517]->SM_EVT[R502]
                       ->BP_EV[R3103]->BP_BP[R3102];  
-    else
-      select many eventBreakpoints related by package->PE_PE[R8000]->O_OBJ[R8001]
-                      ->SM_ISM[R518]->SM_SM[R517]->SM_EVT[R502]
-                      ->BP_EV[R3103]->BP_BP[R3102];  
     end if;
-  end if;
   for each breakpoint in eventBreakpoints
     breakpoint.dispose();
   end for;
-  select many eventBreakpoints related by component->CN_DC[R4204]->S_DOM[R4204]
-                  ->S_SS[R1]->O_OBJ[R2]->SM_ASM[R519]->SM_SM[R517]->SM_EVT[R502]
-                      ->BP_EV[R3103]->BP_BP[R3102];
-  if (isInGenericPackage)
-    if (empty package)
+  
+      select many eventBreakpoints related by package->PE_PE[R8000]->O_OBJ[R8001]
+                      ->SM_ASM[R519]->SM_SM[R517]->SM_EVT[R502]
+                      ->BP_EV[R3103]->BP_BP[R3102];  
+    if (empty eventBreakpoints)
       select many eventBreakpoints related by rootComponent->PE_PE[R8001]->EP_PKG[R8000]
                       ->PE_PE[R8000]->O_OBJ[R8001]
                       ->SM_ASM[R519]->SM_SM[R517]->SM_EVT[R502]
                       ->BP_EV[R3103]->BP_BP[R3102];  
-    else
-      select many eventBreakpoints related by package->PE_PE[R8000]->O_OBJ[R8001]
-                      ->SM_ASM[R519]->SM_SM[R517]->SM_EVT[R502]
-                      ->BP_EV[R3103]->BP_BP[R3102];  
     end if;
-  end if;
+
   for each breakpoint in eventBreakpoints
     breakpoint.dispose();
   end for;
-  select many stateBreakpoints related by component->CN_DC[R4204]->S_DOM[R4204]
-                ->S_SS[R1]->O_OBJ[R2]->SM_ISM[R518]->SM_SM[R517]->SM_STATE[R501]
-                      ->BP_ST[R3104]->BP_BP[R3102];
-  if (isInGenericPackage)
-    if (empty package)
+
+
+      select many stateBreakpoints related by package->PE_PE[R8000]->O_OBJ[R8001]
+                      ->SM_ISM[R518]->SM_SM[R517]->SM_STATE[R501]
+                      ->BP_ST[R3104]->BP_BP[R3102];  
+    if (empty stateBreakpoints)
       select many stateBreakpoints related by rootComponent->PE_PE[R8001]->EP_PKG[R8000]
                       ->PE_PE[R8000]->O_OBJ[R8001]
                       ->SM_ISM[R518]->SM_SM[R517]->SM_STATE[R501]
                       ->BP_ST[R3104]->BP_BP[R3102];  
-    else
-      select many stateBreakpoints related by package->PE_PE[R8000]->O_OBJ[R8001]
-                      ->SM_ISM[R518]->SM_SM[R517]->SM_STATE[R501]
-                      ->BP_ST[R3104]->BP_BP[R3102];  
     end if;
-  end if;
+
   for each breakpoint in stateBreakpoints
     breakpoint.dispose();
   end for;
-  select many stateBreakpoints related by component->CN_DC[R4204]->S_DOM[R4204]
-                ->S_SS[R1]->O_OBJ[R2]->SM_ASM[R519]->SM_SM[R517]->SM_STATE[R501]
-                      ->BP_ST[R3104]->BP_BP[R3102];
-  if (isInGenericPackage)
+  
+      select many stateBreakpoints related by package->PE_PE[R8000]->O_OBJ[R8001]
+                      ->SM_ASM[R519]->SM_SM[R517]->SM_STATE[R501]
+                      ->BP_ST[R3104]->BP_BP[R3102];  
     if (empty package)
       select many stateBreakpoints related by rootComponent->PE_PE[R8001]->EP_PKG[R8000]
                       ->PE_PE[R8000]->O_OBJ[R8001]
                       ->SM_ASM[R519]->SM_SM[R517]->SM_STATE[R501]
                       ->BP_ST[R3104]->BP_BP[R3102];  
-    else
-      select many stateBreakpoints related by package->PE_PE[R8000]->O_OBJ[R8001]
-                      ->SM_ASM[R519]->SM_SM[R517]->SM_STATE[R501]
-                      ->BP_ST[R3104]->BP_BP[R3102];  
     end if;
-  end if;
+
   for each breakpoint in stateBreakpoints
     breakpoint.dispose();
   end for;
@@ -410,19 +339,6 @@ end if;
 // instances will take care of most of the events
 // but some will be associated only through a sending
 // class
-if(not_empty domain)
-  select many pendingEvents related by domain->S_SS[R1]->O_OBJ[R2]->SM_ISM[R518]
-         ->SM_SM[R517]->SM_EVT[R502]->I_EVI[R2906];
-  for each pendingEvent in pendingEvents
-    pendingEvent.dispose();
-  end for;
-  select many pendingEvents related by domain->S_SS[R1]->O_OBJ[R2]->SM_ASM[R519]
-         ->SM_SM[R517]->SM_EVT[R502]->I_EVI[R2906];
-  for each pendingEvent in pendingEvents
-    pendingEvent.dispose();
-  end for;
-end if;
-
 if(not_empty pkg)
   select many pendingEvents related by pkg->PE_PE[R8000]->O_OBJ[R8001]->SM_ISM[R518]
          ->SM_SM[R517]->SM_EVT[R502]->I_EVI[R2906];
@@ -448,8 +364,7 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-// Execution Engine.dispose()
+	'// Execution Engine.dispose()
 select many cies related by self->CSME_CIE[R2960];
 for each cie in cies
   unrelate self from cie across R2960;
@@ -486,10 +401,6 @@ for each selfEvQEntry in selfEvQEntries
 end for;
 self.unlockQueue(queue_name:"I_SQE");
 
-select one dom related by self->S_DOM[R2948];
-if not_empty dom
-  unrelate self from dom across R2948;
-end if;
 select one comp related by self->C_C[R2955];
 if(not_empty comp)
   unrelate self from comp across R2955;
@@ -507,32 +418,7 @@ end if;
 if(empty comp)
   select one comp related by icomponent->C_C[R4201];
 end if;
-if(empty dom)
-  select one dom related by comp->CN_DC[R4204]->S_DOM[R4204];
-end if;
-if(not_empty dom)
-  select many pendingEvents related by dom->S_SS[R1]->O_OBJ[R2]->SM_ISM[R518]
-         ->SM_SM[R517]->SM_EVT[R502]->I_EVI[R2906];
-  for each pendingEvent in pendingEvents
-    pendingEvent.dispose();
-  end for;
-  select many pendingEvents related by dom->S_SS[R1]->O_OBJ[R2]->SM_ASM[R519]
-         ->SM_SM[R517]->SM_EVT[R502]->I_EVI[R2906];
-  for each pendingEvent in pendingEvents
-    pendingEvent.dispose();
-  end for;
-  // dispose all class in state instances
-  select many ciss related by dom->S_SS[R1]->O_OBJ[R2]->SM_ASM[R519]
-         ->SM_SM[R517]->SM_TXN[R505]->CSME_CIS[R2952];
-  for each cis in ciss
-    cis.dispose();
-  end for;
-  select many ciss related by dom->S_SS[R1]->O_OBJ[R2]->SM_ISM[R518]
-         ->SM_SM[R517]->SM_TXN[R505]->CSME_CIS[R2952];
-  for each cis in ciss
-    cis.dispose();
-  end for;
-end if;
+
 select many insts related by self->I_INS[R2957];
 for each inst in insts
   inst.dispose();
@@ -654,22 +540,7 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select one domain related by self->S_DOM[R2948];
-if(empty domain)
-  select one component related by self->C_C[R2955];
-  if(not_empty component)
-    select one domain related by component->CN_DC[R4204]->S_DOM[R4204];
-  else
-    select one icomponent related by self->CL_IC[R2963];
-    if(not_empty icomponent)
-      select one domain related by icomponent->C_C[R4201]->CN_DC[R4204]
-                                                                 ->S_DOM[R4204];
-    end if;
-  end if;
-end if;
-isInGenericPackage = empty domain;
-if(isInGenericPackage)
+	'
   select one package related by self->EP_PKG[R2970];
   if not_empty package
     package.initializeClasses(compInstID:self.Execution_Engine_ID);
@@ -689,19 +560,6 @@ if(isInGenericPackage)
       end if;
     end if;
   end if;
-else
-  // create a class in engine for every class in
-  // the domain
-  select many subsystems related by domain->S_SS[R1];
-  for each subsystem in subsystems
-    select many classes related by subsystem->O_OBJ[R2];
-    for each clazz in classes
-      create object instance cie of CSME_CIE;
-      relate cie to self across R2960;
-      relate cie to clazz across R2961;
-    end for;
-  end for;
-end if;
 ',
 	1,
 	'',
@@ -1379,10 +1237,7 @@ if(not_empty icomponent)
     result = result + " - " + GD::int_to_string(value:number);
   end if;
 end if;
-select one domain related by self->S_DOM[R2948];
-if(not_empty domain)
-  result = domain.Name;
-end if;
+
 if not Util::isNull(element:self.RealizedBy)
   result = result + " (Realized)";
 end if;

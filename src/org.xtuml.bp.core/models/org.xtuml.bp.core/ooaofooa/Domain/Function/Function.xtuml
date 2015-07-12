@@ -14,8 +14,7 @@ INSERT INTO O_TFR
 	'The dispose operation for this class.  It also disposes of the associated Function in Package.',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-// Domain Subsystem
+	'// Domain Subsystem
 select one pe related by self->PE_PE[R8001];
 if(not_empty pe)
   // PE_PE.dispose() will call back into this function at which time the
@@ -29,16 +28,6 @@ for each fparm in fparms
 end for;
 select one dt related by self->S_DT[R25];
 unrelate self from dt across R25;
-select one fip related by self->S_FIP[R31];
-if (not_empty fip)
-  select one fPkg related by fip->S_FPK[R31];
-  unrelate self from fPkg across R31 using fip;
-  delete object instance fip;
-end if;
-select one dom related by self->S_DOM[R23];
-if (not_empty dom)
-  unrelate self from dom across R23;
-end if;
 //
 //Body Subsystem
 select one body related by self->ACT_FNB[R695]->ACT_ACT[R698];

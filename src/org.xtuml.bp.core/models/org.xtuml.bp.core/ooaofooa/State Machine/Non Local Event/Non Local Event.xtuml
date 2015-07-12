@@ -80,8 +80,7 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select one poly related by self->SM_PEVT[R527];
+	'select one poly related by self->SM_PEVT[R527];
 if(not_empty poly and not Util::isProxy(element:self.convertToInstance()))
   remove = false;
   select one evt related by poly->SM_EVT[R525];
@@ -126,12 +125,6 @@ if(not_empty poly and not Util::isProxy(element:self.convertToInstance()))
           // if not we are pasting both classes and the imported
           // class has not been related to the new subsystem yet
           // we do that now.
-          select one iobjSS related by iobj->S_SS[R3];
-          select one clazzSS related by clazz->S_SS[R2];
-          if(iobjSS != clazzSS)
-            unrelate iobj from iobjSS across R3;
-            relate iobj to clazzSS across R3;
-          end if;
           iobj.resolveModelClass();
           select one resolvedClass related by iobj->O_OBJ[R101];
           if(empty resolvedClass)
