@@ -230,8 +230,7 @@ INSERT INTO O_TFR
 	'The dispose operation for an Imported Class.',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-// Subsystem Subsystem
+	'// Subsystem Subsystem
 select one realObj related by self->O_OBJ[R101];
 if (not_empty realObj)
   unrelate self from realObj across R101;
@@ -250,12 +249,6 @@ for each oir in oirs
     oir.dispose();
   end if;
 end for;
-//
-// Domain Subsystem
-select one ss related by self->S_SS[R3];
-if (not_empty ss)
-  unrelate self from ss across R3;
-end if;
 //
 // Communication and Access Subsystem
 select many oaps related by self->CA_ACC[R425];
@@ -319,13 +312,7 @@ INSERT INTO O_TFR
   
   select one packageableElem related by self->PE_PE[R8001];
   select one package related by packageableElem->EP_PKG[R8000];
-  select one component related by packageableElem->C_C[R8003];
-  isInGenericPackage = not_empty package or not_empty component;
   
-  if (param.value =="generic pkg" )
-    if(not isInGenericPackage)
-      return false;
-    end if;
     // collect visible classes, and return true if any
     // are available
     if(not_empty package)
@@ -342,9 +329,6 @@ INSERT INTO O_TFR
       select many pes related by srs->PE_VIS[R8006]->PE_PE[R8002];
       return cardinality pes != 0;
     end if;
-  elif (param.value =="spec pkg")
-    return (not isInGenericPackage);
-  end if;
 end if;
 return false;
 ',
@@ -411,15 +395,12 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select one proxyClass related by self->O_OBJ[R101];
+	'select one proxyClass related by self->O_OBJ[R101];
 if(not_empty proxyClass and not Util::isProxy(element:self.convertToInstance()))
   select one packageableElem related by self->PE_PE[R8001];
   select one package related by packageableElem->EP_PKG[R8000];
   select one component related by packageableElem->C_C[R8003];
-  isInGenericPackage = not_empty package or not_empty component;
 
-  if (isInGenericPackage)
     clazz = proxyClass;
     if (empty package)
       rootCompIdInPkg = component.getRootComponentId();
@@ -468,82 +449,7 @@ if(not_empty proxyClass and not Util::isProxy(element:self.convertToInstance()))
         assoc.dispose();
       end for;
     end if;
-    return;
-  end if;  // end isInGenericPackage
   
-  //////////////////////////////////////////////////////////////////////
-  // Note: Everything below this point is for the case when we are using 
-  //       specialized packages.
-  //////////////////////////////////////////////////////////////////////
-  
-  // if a subsystem is resolved by the proxy class
-  // then this imported class has already been
-  // resolved or does not need to be as the referred to
-  // class is contained in the copy
-  select one ss related by proxyClass->S_SS[R2];
-  if(empty ss or Util::isProxy(element:ss.convertToInstance()))
-    name = proxyClass.Name;
-    key_letters = proxyClass.Key_Lett;
-    unrelate self from proxyClass across R101;
-    select one otherSS related by self->S_SS[R3];
-    // this is safe as there will only ever be one
-    // domain
-    select any domain from instances of S_DOM;
-    // first try to resolve to referred to class by key letters and name
-    select any clazz related by domain->S_SS[R1]->O_OBJ[R2]
-         where (selected.Key_Lett == key_letters and selected.Name == name and selected.SS_ID != otherSS.SS_ID);
-    if(empty clazz)
-      // if no class was found try to resolve it by key_letters alone
-      select any clazz related by domain->S_SS[R1]->O_OBJ[R2]
-           where (selected.Key_Lett == key_letters and selected.SS_ID != otherSS.SS_ID);
-      if(empty clazz)
-        // if still no class was found try to resolve on the name alone
-        select any clazz related by domain->S_SS[R1]->O_OBJ[R2]
-             where (selected.Name == name and selected.SS_ID != otherSS.SS_ID);
-      end if;
-    end if;
-    classResolved = not_empty clazz;
-    select one ss related by clazz->S_SS[R2];
-    if(ss == otherSS)
-      // do not allow import resolution to a class
-      // that is in the same subsystem as the imported
-      // class
-      classResolved = false;
-    end if;
-    if(classResolved)
-      relate self to clazz across R101;
-      // update any class in associations
-      select many cias related by self->R_OIR[R202];
-      for each cia in cias
-        select one existingClass related by cia->O_OBJ[R201];
-        select one assoc related by cia->R_REL[R201];
-        if(existingClass != clazz)
-          unrelate existingClass from assoc across R201 using cia;
-          relate clazz to assoc across R201 using cia;
-        end if;
-      end for;
-      // unformalize any associations connected to this imported class
-      select many assocs related by self->R_OIR[R202]->R_REL[R201];
-      for each assoc in assocs
-        // only unformalize if this association has not already been
-        // unformalized
-        if(assoc.isFormalized())
-          assoc.unformalize();
-        end if;
-      end for;      
-    else
-      // no class could be resolved
-      message = ::getMissingClassMessage();
-      // add message to a list that will display in a warning dialog at
-      // the end of the paste operation
-      Util::addPastedElementToProblemList(elementName:self.Obj_Name + "::" + self.Obj_KL, message:message);
-      // dispose any associations connected to this imported class
-      select many assocs related by self->R_OIR[R202]->R_REL[R201];
-      for each assoc in assocs
-        assoc.dispose();
-      end for;
-    end if;
-  end if;
 end if;
 ',
 	1,
@@ -574,8 +480,7 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select one packageableElem related by self->PE_PE[R8001];
+	'select one packageableElem related by self->PE_PE[R8001];
 select one package related by packageableElem->EP_PKG[R8000];
 if (empty package)
   select one rootComponent related by packageableElem->C_C[R8003];
@@ -585,9 +490,7 @@ if (empty package)
     select one package related by rootComponent->PE_PE[R8001]->EP_PKG[R8000];
   end if;
 end if;
-isInGenericPackage = not_empty package;
 
-if (isInGenericPackage)
   select any candidatePe from instances of PE_PE where
                                                 selected.Element_ID == param.Id;
   if not_empty candidatePe
@@ -605,16 +508,7 @@ if (isInGenericPackage)
     end if;
     return true;
   end if;
-else
-  // Below this is for when we are NOT under a generic package
-  select any candidateClass from instances of O_OBJ where
-                                                    selected.Obj_ID == param.Id;
-  select one subsystem related by self->S_SS[R3];
-  select one candidateContainerSS related by candidateClass->S_SS[R2];
-  if not_empty subsystem and not_empty candidateContainerSS
-    return subsystem != candidateContainerSS;
-  end if;
-end if;
+
 return false;
 ',
 	1,

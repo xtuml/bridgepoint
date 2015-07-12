@@ -15,8 +15,7 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select one eep related by self->SQ_EEP[R930];
+	'select one eep related by self->SQ_EEP[R930];
 select one fpp related by self->SQ_FPP[R930];
 select one cp related by self->SQ_CP[R930];
 select one cip related by self->SQ_CIP[R930];
@@ -69,19 +68,7 @@ select many messages related by self->MSG_M[R1008];
 for each message in messages
   message.dispose();
 end for;
-select one sequence related by self->SQ_S[R929];
-if(not_empty sequence)
-  unrelate self from sequence across R929;
-end if;
-// dispose or unrelate communication associations
-select one pic related by self->COMM_PIC[R1126];
-if(not_empty pic)
-  select one comm related by pic->COMM_COMM[R1126];
-  if (not_empty comm)
-    unrelate self from comm across R1126 using pic;
-  end if;
-  delete object instance pic;
-end if;
+
 select many comAssocs related by self->COMM_LNK[R1133];
 for each comAssoc in comAssocs
   comAssoc.dispose();
@@ -90,14 +77,6 @@ select many comAssocs related by self->COMM_LNK[R1134];
 for each comAssoc in comAssocs
   comAssoc.dispose();
 end for;
-select one piuc related by self->UC_PIUC[R1203];
-if(not_empty piuc)
-  select one ucc related by piuc->UC_UCC[R1203];
-  if (not_empty ucc)
-    unrelate self from ucc across R1203 using piuc;
-  end if;
-  delete object instance piuc;
-end if;
 select many startUcas related by self->UC_UCA[R1206];
 for each uca in startUcas
   unrelate self from uca across R1206;
@@ -209,24 +188,7 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
-	'select one sequence related by self->SQ_S[R929];
-select one comm related by self->COMM_COMM[R1126];
-if(not_empty sequence)
-  select one domain related by sequence->S_DOM[R913];
-  select one ss related by sequence->S_SS[R914];
-  select one sis related by sequence->SQ_SIS[R928];
-  if(empty domain and empty ss and empty sis)
-    return true;
-  end if;
-elif(not_empty comm)
-  select one domain related by comm->S_DOM[R1132];
-  select one ss related by comm->S_SS[R1131];
-  select one sis related by comm->COMM_CIC[R1129];
-  if(empty domain and empty ss and empty sis)
-    return true;
-  end if;
-end if;
-return false;',
+	'return false;',
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000");
@@ -242,22 +204,13 @@ INSERT INTO O_TFR
 select one packageableElem related by self->PE_PE[R8001];
 select one package related by packageableElem->EP_PKG[R8000];
 select one component related by packageableElem->C_C[R8003];
-isInGenericPackage = not_empty package or not_empty component;
-if (isInGenericPackage)
+
   if not_empty package
     return package.getSystemId();
   elif not_empty component
     return component.getSystemId();
   end if; 
-else
-  select one sequence related by self->SQ_S[R929];
-  select one comm related by self->COMM_COMM[R1126];
-  if(not_empty sequence)
-    return sequence.getSystemId();
-  elif(not_empty comm)
-    return comm.getSystemId();
-  end if;
-end if;
+
 USER::logError(msg:"Interaction Participant.getSystemId: No parent found.",path:"");
 return GD::NULL_UNIQUE_ID();',
 	1,

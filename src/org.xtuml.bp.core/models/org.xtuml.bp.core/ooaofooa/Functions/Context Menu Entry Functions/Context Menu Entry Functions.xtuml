@@ -106,100 +106,6 @@ INSERT INTO PE_PE
 	"00000000-0000-0000-0000-000000000000",
 	1);
 INSERT INTO S_SYNC
-	VALUES ("017b2c13-5c56-430d-8b88-1111eedd512b",
-	"00000000-0000-0000-0000-000000000000",
-	'S_DOM_Delete',
-	'ContextMenuFunction: TRUE
-',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select many doms from instances of S_DOM where USER::selectOne(id:selected.Dom_ID);
-for each dom in doms
-  dom.dispose();
-end for;',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("017b2c13-5c56-430d-8b88-1111eedd512b",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("d173a976-71f5-4ba8-a745-8ad2df8c79e3",
-	"00000000-0000-0000-0000-000000000000",
-	'S_DOM_Rename',
-	'ContextMenuFunction: TRUE
-',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select any dom from instances of S_DOM where USER::selectOne(id:selected.Dom_ID);
-dom.Name = param.new_name;',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO S_SPARM
-	VALUES ("8d26115d-9415-4485-9ca1-2df2d2f83204",
-	"d173a976-71f5-4ba8-a745-8ad2df8c79e3",
-	'new_name',
-	"ba5eda7a-def5-0000-0000-000000000004",
-	0,
-	'',
-	"00000000-0000-0000-0000-000000000000",
-	'');
-INSERT INTO PE_PE
-	VALUES ("d173a976-71f5-4ba8-a745-8ad2df8c79e3",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("ea1df330-69fb-47b4-a394-08b657de8eab",
-	"00000000-0000-0000-0000-000000000000",
-	'S_SS_Delete',
-	'ContextMenuFunction: TRUE
-',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select many sss from instances of S_SS where USER::selectOne(id:selected.SS_ID);
-for each ss in sss
-  ss.dispose();
-end for;',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("ea1df330-69fb-47b4-a394-08b657de8eab",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("ff511629-0269-4d00-9427-ea28fcec9c7e",
-	"00000000-0000-0000-0000-000000000000",
-	'S_SS_Rename',
-	'ContextMenuFunction: TRUE
-',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select any ss from instances of S_SS where USER::selectOne(id:selected.SS_ID);
-ss.Name = param.new_name;',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO S_SPARM
-	VALUES ("ded0eca4-e635-41cb-8b2c-cb2bacbf51ab",
-	"ff511629-0269-4d00-9427-ea28fcec9c7e",
-	'new_name',
-	"ba5eda7a-def5-0000-0000-000000000004",
-	0,
-	'',
-	"00000000-0000-0000-0000-000000000000",
-	'');
-INSERT INTO PE_PE
-	VALUES ("ff511629-0269-4d00-9427-ea28fcec9c7e",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
 	VALUES ("51c47cdd-2d7f-4520-b96c-7e15c8dbd11e",
 	"00000000-0000-0000-0000-000000000000",
 	'S_SYNC_Delete',
@@ -475,166 +381,6 @@ INSERT INTO S_SPARM
 	'');
 INSERT INTO PE_PE
 	VALUES ("a33799f0-500a-4201-a53e-3d66e26b772a",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("17223f5f-b3f9-479f-abef-b73c26e41b78",
-	"00000000-0000-0000-0000-000000000000",
-	'S_FPK_Delete',
-	'ContextMenuFunction: TRUE
-',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select many fPkgs from instances of S_FPK where USER::selectOne(id:selected.FunPack_ID);
-for each fPkg in fPkgs
-  fPkg.dispose();
-end for;',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("17223f5f-b3f9-479f-abef-b73c26e41b78",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("1be95c13-9957-4c1f-bc75-7fe24be2e61a",
-	"00000000-0000-0000-0000-000000000000",
-	'S_FPK_Rename',
-	'ContextMenuFunction: TRUE
-',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select any fPkg from instances of S_FPK where USER::selectOne(id:selected.FunPack_ID);
-fPkg.Name = param.new_name;',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO S_SPARM
-	VALUES ("eb630389-4fa4-4358-aad6-80a123000dca",
-	"1be95c13-9957-4c1f-bc75-7fe24be2e61a",
-	'new_name',
-	"ba5eda7a-def5-0000-0000-000000000004",
-	0,
-	'',
-	"00000000-0000-0000-0000-000000000000",
-	'');
-INSERT INTO PE_PE
-	VALUES ("1be95c13-9957-4c1f-bc75-7fe24be2e61a",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("c77b6b62-eefc-4602-887d-2155fe5abe7b",
-	"00000000-0000-0000-0000-000000000000",
-	'S_FPK_NewFunction',
-	'ContextMenuFunction: TRUE
-',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select any fPkg from instances of S_FPK where USER::selectOne(id:selected.FunPack_ID);
-fPkg.newFunction();
-',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("c77b6b62-eefc-4602-887d-2155fe5abe7b",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("1e30c7d7-0683-4d47-a670-de79289d0b28",
-	"00000000-0000-0000-0000-000000000000",
-	'S_DPK_Delete',
-	'ContextMenuFunction: TRUE
-',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select many dPkgs from instances of S_DPK where USER::selectOne(id:selected.Package_ID);
-for each dPkg in dPkgs
-  dPkg.dispose();
-end for;',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("1e30c7d7-0683-4d47-a670-de79289d0b28",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("2bc7f46c-a6fb-4a94-aff0-2a1d6e5119fa",
-	"00000000-0000-0000-0000-000000000000",
-	'S_DPK_Rename',
-	'ContextMenuFunction: TRUE
-',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select any dPkg from instances of S_DPK where USER::selectOne(id:selected.Package_ID);
-dPkg.Name = param.new_name;',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO S_SPARM
-	VALUES ("0d697851-c4c8-4189-a503-7bb8a91c2719",
-	"2bc7f46c-a6fb-4a94-aff0-2a1d6e5119fa",
-	'new_name',
-	"ba5eda7a-def5-0000-0000-000000000004",
-	0,
-	'',
-	"00000000-0000-0000-0000-000000000000",
-	'');
-INSERT INTO PE_PE
-	VALUES ("2bc7f46c-a6fb-4a94-aff0-2a1d6e5119fa",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("abefef4f-df26-40f0-aaca-e2ee77775075",
-	"00000000-0000-0000-0000-000000000000",
-	'S_EEPK_Delete',
-	'ContextMenuFunction: TRUE
-',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select many ePkgs from instances of S_EEPK where USER::selectOne(id:selected.EEPack_ID);
-for each ePkg in ePkgs
-  ePkg.dispose();
-end for;',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("abefef4f-df26-40f0-aaca-e2ee77775075",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("6eaea19a-b9d8-4036-8ad7-982f4bcf361f",
-	"00000000-0000-0000-0000-000000000000",
-	'S_EEPK_Rename',
-	'ContextMenuFunction: TRUE
-',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select any ePkg from instances of S_EEPK where USER::selectOne(id:selected.EEPack_ID);
-ePkg.Name = param.new_name;',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO S_SPARM
-	VALUES ("52ac3811-bcd0-4d43-8493-3c9d593e0b9c",
-	"6eaea19a-b9d8-4036-8ad7-982f4bcf361f",
-	'new_name',
-	"ba5eda7a-def5-0000-0000-000000000004",
-	0,
-	'',
-	"00000000-0000-0000-0000-000000000000",
-	'');
-INSERT INTO PE_PE
-	VALUES ("6eaea19a-b9d8-4036-8ad7-982f4bcf361f",
 	1,
 	"42d5848f-dabe-43e1-9ac4-b840f2789360",
 	"00000000-0000-0000-0000-000000000000",
@@ -1432,53 +1178,6 @@ INSERT INTO PE_PE
 	"00000000-0000-0000-0000-000000000000",
 	1);
 INSERT INTO S_SYNC
-	VALUES ("897d052b-a7e7-4c0d-bd54-eeb5cbc520b3",
-	"00000000-0000-0000-0000-000000000000",
-	'SQ_S_Delete',
-	'ContextMenuFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select many sequences from instances of SQ_S where USER::selectOne(id:selected.Package_ID);
-for each sequence in sequences
-  sequence.dispose();
-end for;',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("897d052b-a7e7-4c0d-bd54-eeb5cbc520b3",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("f11aff27-9ee4-43d0-9270-a8a41cc6cc3b",
-	"00000000-0000-0000-0000-000000000000",
-	'SQ_S_Rename',
-	'ContextMenuFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select any sequence from instances of SQ_S where USER::selectOne(id:selected.Package_ID);
-if(not_empty sequence)
-  sequence.Name = param.new_name;
-end if;',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO S_SPARM
-	VALUES ("b0e974e3-5b9a-4451-b174-5ead70c75ed1",
-	"f11aff27-9ee4-43d0-9270-a8a41cc6cc3b",
-	'new_name',
-	"ba5eda7a-def5-0000-0000-000000000004",
-	0,
-	'',
-	"00000000-0000-0000-0000-000000000000",
-	'');
-INSERT INTO PE_PE
-	VALUES ("f11aff27-9ee4-43d0-9270-a8a41cc6cc3b",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
 	VALUES ("dc237918-8c1b-47aa-9c19-100577f7d8c5",
 	"00000000-0000-0000-0000-000000000000",
 	'SQ_EEP_Delete',
@@ -1767,51 +1466,11 @@ INSERT INTO PE_PE
 	"00000000-0000-0000-0000-000000000000",
 	1);
 INSERT INTO S_SYNC
-	VALUES ("17342155-2747-4a09-99c5-287743942ac3",
-	"00000000-0000-0000-0000-000000000000",
-	'SQ_CIP_SpecializedPackageInstanceFormalize',
-	'ContextMenuFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select any cip from instances of SQ_CIP where USER::selectOne(id:selected.Part_ID);
-select one mclass related by cip->O_OBJ[R934];
-  existingId = GD::NULL_UNIQUE_ID();
-  if(not_empty mclass)
-    existingId = mclass.Obj_ID;
-  end if;
-select one participant related by cip->SQ_P[R930];
-select one sequence related by participant->SQ_S[R929];
-select one communication related by participant->COMM_COMM[R1126];
-domName = "";
-if(not_empty sequence)
-  domName = sequence.getPath(domainNameOnly:true);
-elif(not_empty communication)
-  domName = communication.getPath(domainNameOnly:true);
-end if;
-select any domain from instances of S_DOM where (selected.Name == domName);
-select any Subsystem related by domain->S_SS[R1] where USER::selectOne(id:selected.SS_ID);
-if ( not_empty Subsystem )
-  select any Class related by Subsystem->O_OBJ[R2]
-               where USER::selectOne(id:selected.Obj_ID) and selected.Obj_ID != existingId;
-  if ( not_empty Class )
-    cip.formalize(classId:Class.Obj_ID); 
-  end if;
-end if;',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("17342155-2747-4a09-99c5-287743942ac3",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
 	VALUES ("87fbe048-c8cb-43f4-8c8b-2d180df790d5",
 	"00000000-0000-0000-0000-000000000000",
 	'MSG_SM_InstanceOperationFormalize',
 	'ContextMenuFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select any syncMessage from instances of MSG_SM where USER::selectOne(id:selected.Msg_ID);
+	'select any syncMessage from instances of MSG_SM where USER::selectOne(id:selected.Msg_ID);
 select one operation related by syncMessage->MSG_O[R1020]->O_TFR[R1011];
 existingId = GD::NULL_UNIQUE_ID();
 if(not_empty operation)
@@ -1831,8 +1490,7 @@ else
   select one cip related by message->SQ_P[R1007]->SQ_CIP[R930];
 
   if(not_empty cip)
-    select one communication related by cip->SQ_P[R930]->COMM_PIC[R1126]->COMM_COMM[R1126];
-    if(not_empty communication or message.participatesInCommunication)
+    if(message.participatesInCommunication)
       select one mclass related by cip->O_OBJ[R934];
     end if;
   end if;  
@@ -1906,81 +1564,11 @@ INSERT INTO PE_PE
 	"00000000-0000-0000-0000-000000000000",
 	1);
 INSERT INTO S_SYNC
-	VALUES ("2610d061-8af2-46cf-aedf-8e333dbbd2c2",
-	"00000000-0000-0000-0000-000000000000",
-	'SQ_EEP_SpecializedPackageExternalEntityFormalize',
-	'ContextMenuFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select any eep from instances of SQ_EEP where USER::selectOne(id:selected.Part_ID);
-select one ee related by eep->S_EE[R933];
-existingId = GD::NULL_UNIQUE_ID();
-if(not_empty ee)
-  existingId = ee.EE_ID;
-end if;
-select one participant related by eep->SQ_P[R930];
-
-select one sequence related by participant->SQ_S[R929];
-select one communication related by participant->COMM_COMM[R1126];
-domName = "";
-if(not_empty sequence)
-  domName = sequence.getPath(domainNameOnly:true);
-elif(not_empty communication)
-  domName = communication.getPath(domainNameOnly:true);
-end if;
-select any domain from instances of S_DOM where (selected.Name == domName);
-if ( not_empty domain )
-  select any Package related by domain->S_EEPK[R300] where USER::selectOne(id:selected.EEPack_ID);
-  if(not_empty Package)
-    select any Entity related by Package->S_EEIP[R33]->S_EE[R33]
-                    where USER::selectOne(id:selected.EE_ID) and selected.EE_ID != existingId;
-    if ( not_empty Entity )
-      eep.formalize(eeId:Entity.EE_ID);
-    end if;
-  end if;
-end if;',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("2610d061-8af2-46cf-aedf-8e333dbbd2c2",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
 	VALUES ("edb07e8e-9af2-4ed5-8752-e90a65d2288f",
 	"00000000-0000-0000-0000-000000000000",
 	'SQ_FPP_Formalize',
 	'ContextMenuFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select any fpp from instances of SQ_FPP where USER::selectOne(id:selected.Part_ID);
-select one fpk related by fpp->S_FPK[R932];
-existingId = GD::NULL_UNIQUE_ID();
-if(not_empty fpk)
-  existingId = fpk.FunPack_ID;
-end if;
-select one participant related by fpp->SQ_P[R930];
-
-select one packageableElem related by participant->PE_PE[R8001];
-select one package related by packageableElem->EP_PKG[R8000];
-select one component related by packageableElem->C_C[R8003];
-isInGenericPackage = not_empty package or not_empty component;
-select one sequence related by participant->SQ_S[R929];
-select one communication related by participant->COMM_COMM[R1126];
-domName = "";
-if(not_empty sequence)
-  domName = sequence.getPath(domainNameOnly:true);
-elif(not_empty communication)
-  domName = communication.getPath(domainNameOnly:true);
-end if;
-select any domain from instances of S_DOM where (selected.Name == domName);
-if ( not_empty domain )
-  select any Package related by domain->PL_FPID[R301]->S_FPK[R301]
-              where USER::selectOne(id:selected.FunPack_ID) and selected.FunPack_ID != existingId;
-  if ( not_empty Package )
-    fpp.formalize(fpId:Package.FunPack_ID);
-  end if;
-end if;',
+	'// TODO: BOB This and the CME Pei entry associated can be removed now that SPs are gone',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'');
@@ -2004,45 +1592,6 @@ end if;',
 	'');
 INSERT INTO PE_PE
 	VALUES ("17d4bb17-f82e-454f-adbd-3eb4e3e68770",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("c7535496-f86f-45cd-bc73-347e2591870d",
-	"00000000-0000-0000-0000-000000000000",
-	'SQ_CP_SpecializedPackageClassFormalize',
-	'ContextMenuFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select any cp from instances of SQ_CP where USER::selectOne(id:selected.Part_ID);
-select one mclass related by cp->O_OBJ[R939];
-existingId = GD::NULL_UNIQUE_ID();
-if(not_empty mclass)
-  existingId = mclass.Obj_ID;
-end if;
-select one participant related by cp->SQ_P[R930];
-select one sequence related by participant->SQ_S[R929];
-select one communication related by participant->COMM_COMM[R1126];
-domName = "";
-if(not_empty sequence)
-  domName = sequence.getPath(domainNameOnly:true);
-elif(not_empty communication)
-  domName = communication.getPath(domainNameOnly:true);
-end if;
-select any domain from instances of S_DOM where (selected.Name == domName);
-select any Subsystem related by domain->S_SS[R1] where USER::selectOne(id:selected.SS_ID);
-if ( not_empty Subsystem )
-  select any Class related by Subsystem->O_OBJ[R2]
-               where USER::selectOne(id:selected.Obj_ID) and selected.Obj_ID != existingId;
-  if ( not_empty Class )
-    cp.formalize(classId:Class.Obj_ID);
-  end if;
-end if;',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("c7535496-f86f-45cd-bc73-347e2591870d",
 	1,
 	"42d5848f-dabe-43e1-9ac4-b840f2789360",
 	"00000000-0000-0000-0000-000000000000",
@@ -2098,16 +1647,6 @@ end if;
 select one fpp related by participant->SQ_FPP[R930];
 if(empty fpp)
   select one fpp related by participant->SQ_LS[R930]->SQ_P[R940]->SQ_FPP[R930];
-end if;
-if(not_empty fpp)
-  select one fpk related by fpp->S_FPK[R932];
-  if(not_empty fpk)
-    select any Message related by fpk->S_FIP[R31]->S_SYNC[R31]
-            where USER::selectOne(id:selected.Sync_ID) and selected.Sync_ID != existingId;
-    if(not_empty Message)
-      syncMessage.formalizeWithFunction(functionId:Message.Sync_ID);
-    end if;
-  end if;
 end if;
 ',
 	"ba5eda7a-def5-0000-0000-000000000000",
@@ -2214,8 +1753,7 @@ INSERT INTO S_SYNC
 	"00000000-0000-0000-0000-000000000000",
 	'MSG_SM_ClassOperationFormalize',
 	'ContextMenuFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select any syncMessage from instances of MSG_SM where USER::selectOne(id:selected.Msg_ID);
+	'select any syncMessage from instances of MSG_SM where USER::selectOne(id:selected.Msg_ID);
 select one operation related by syncMessage->MSG_O[R1020]->O_TFR[R1011];
 existingId = GD::NULL_UNIQUE_ID();
 if(not_empty operation)
@@ -2232,8 +1770,7 @@ select one cip related by participant->SQ_CIP[R930];
 select one mclass related by cp->O_OBJ[R939];
 if(empty mclass) and (not_empty cip)
   // only allow if not on a communication
-  select one communication related by cip->SQ_P[R930]->COMM_PIC[R1126]->COMM_COMM[R1126];
-  if(empty communication or not message.participatesInCommunication)
+  if(not message.participatesInCommunication)
     select one mclass related by cip->O_OBJ[R934];
   end if;
 end if;
@@ -2259,8 +1796,7 @@ INSERT INTO S_SYNC
 	"00000000-0000-0000-0000-000000000000",
 	'MSG_AM_InstanceEventFormalize',
 	'ContextMenuFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select any asyncMessage from instances of MSG_AM where USER::selectOne(id:selected.Msg_ID);
+	'select any asyncMessage from instances of MSG_AM where USER::selectOne(id:selected.Msg_ID);
 select one message related by asyncMessage->MSG_M[R1018];
 select one participant related by message->SQ_P[R1007];
 select one ls related by participant->SQ_LS[R930];
@@ -2268,14 +1804,6 @@ select one cip related by ls->SQ_P[R940]->SQ_CIP[R930];
 select any cipclass from instances of O_OBJ where (selected.Obj_ID == GD::NULL_UNIQUE_ID());
 if(not_empty cip)
   select one cipclass related by cip->O_OBJ[R934];
-else
-  select one cip related by message->SQ_P[R1007]->SQ_CIP[R930];
-  if(not_empty cip)
-    select one communication related by cip->SQ_P[R930]->COMM_PIC[R1126]->COMM_COMM[R1126];
-    if(not_empty communication)
-      select one cipclass related by cip->O_OBJ[R934];
-    end if;
-  end if;
 end if;
 if(not_empty cipclass)
   select one evt related by asyncMessage->MSG_E[R1019]->SM_EVT[R1009];
@@ -2287,10 +1815,6 @@ if(not_empty cipclass)
   select many machines related by cipclass->PE_PE[R8001]->EP_PKG[R8000]
                                      ->S_SYS[R1405]->EP_PKG[R1405]->PE_PE[R8000]
                                       ->O_OBJ[R8001]->SM_ISM[R518]->SM_SM[R517];
-  if(empty machines)
-    select many machines related by cipclass->S_SS[R2]->S_DOM[R1]->S_SS[R1]
-                             	  	     ->O_OBJ[R2]->SM_ISM[R518]->SM_SM[R517];
-  end if;
   select any Message related by machines->SM_EVT[R502] where
         USER::selectOne(id:selected.SMevt_ID) and ((stateMachine.canAssignEvent(
                   eventId:selected.SMevt_ID, eventStateMachineId:selected.SM_ID,
@@ -2754,14 +2278,11 @@ INSERT INTO S_SYNC
 	"00000000-0000-0000-0000-000000000000",
 	'MSG_AM_InstanceClassEventFormalize',
 	'ContextMenuFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select any asyncMessage from instances of MSG_AM where USER::selectOne(id:selected.Msg_ID);
+	'select any asyncMessage from instances of MSG_AM where USER::selectOne(id:selected.Msg_ID);
 select one message related by asyncMessage->MSG_M[R1018];
 select one participant related by message->SQ_P[R1007];
 select one cip related by participant->SQ_CIP[R930];
 select one mclass related by cip->O_OBJ[R934];
-select one communication related by cip->SQ_P[R930]->COMM_PIC[R1126]->COMM_COMM[R1126];
-if(empty communication)
   if(not_empty mclass)
     select one stateMachine related by mclass->SM_ASM[R519]->SM_SM[R517];
     select one asm related by mclass->SM_ASM[R519];
@@ -2790,61 +2311,12 @@ if(empty communication)
       asyncMessage.formalizeWithEvent(eventId:Message.SMevt_ID);
     end if;
   end if;
-end if;',
+',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'');
 INSERT INTO PE_PE
 	VALUES ("bc0e8528-bf35-4565-94fb-feb8b553e93d",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("1fcb4e7c-f9b4-42bc-a9cb-884265427dbc",
-	"00000000-0000-0000-0000-000000000000",
-	'COMM_COMM_Delete',
-	'ContextMenuFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select many comms from instances of COMM_COMM where USER::selectOne(id:selected.Package_ID);
-for each comm in comms
-  comm.dispose();
-end for;
-',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("1fcb4e7c-f9b4-42bc-a9cb-884265427dbc",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("f94707a3-9693-4cd1-ad5f-4d6185f9c744",
-	"00000000-0000-0000-0000-000000000000",
-	'COMM_COMM_Rename',
-	'ContextMenuFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select any comm from instances of COMM_COMM where USER::selectOne(id:selected.Package_ID);
-if(not_empty comm)
-  comm.Name = param.new_name;
-end if;
-',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO S_SPARM
-	VALUES ("9ad49918-e61a-4e02-b857-92ba7d0bd7a0",
-	"f94707a3-9693-4cd1-ad5f-4d6185f9c744",
-	'new_name',
-	"ba5eda7a-def5-0000-0000-000000000004",
-	0,
-	'',
-	"00000000-0000-0000-0000-000000000000",
-	'');
-INSERT INTO PE_PE
-	VALUES ("f94707a3-9693-4cd1-ad5f-4d6185f9c744",
 	1,
 	"42d5848f-dabe-43e1-9ac4-b840f2789360",
 	"00000000-0000-0000-0000-000000000000",
@@ -3046,15 +2518,6 @@ if(not_empty syncMessage)
     select one message related by syncMessage->MSG_M[R1018];
     select one participant related by fpp->SQ_P[R930];
     relate message to participant across R1007;
-    select one fpk related by fpp->S_FPK[R932];
-    if(not_empty fpk)
-      select any Message related by fpk->S_FIP[R31]->S_SYNC[R31]
-            where USER::selectOne(id:selected.Sync_ID) and selected.Sync_ID != existingId;
-      syncMessage.formalizeWithFunction(functionId:Message.Sync_ID);
-      // clear the selection so that following moves will not
-      // move the destination shape as well
-      Sel::clearSelection();
-    end if;
   end if;
 end if;
 ',
@@ -3129,8 +2592,7 @@ INSERT INTO S_SYNC
 	"00000000-0000-0000-0000-000000000000",
 	'MSG_AM_CommunicationInstanceEventFormalize',
 	'ContextMenuFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select any asyncMessage from instances of MSG_AM where USER::selectOne(id:selected.Msg_ID);
+	'select any asyncMessage from instances of MSG_AM where USER::selectOne(id:selected.Msg_ID);
 if(not_empty asyncMessage)
   select any cip from instances of SQ_CIP where USER::selectOne(id:selected.Part_ID);
   if(not_empty cip)
@@ -3149,10 +2611,6 @@ if(not_empty asyncMessage)
       select many machines related by mclass->PE_PE[R8001]->EP_PKG[R8000]
                                      ->S_SYS[R1405]->EP_PKG[R1405]->PE_PE[R8000]
                                       ->O_OBJ[R8001]->SM_ISM[R518]->SM_SM[R517];
-      if(empty machines)
-        select many machines related by mclass->S_SS[R2]->S_DOM[R1]->S_SS[R1]
-                             	  	     ->O_OBJ[R2]->SM_ISM[R518]->SM_SM[R517];
-      end if;
       select any Message related by machines->SM_EVT[R502] where
         USER::selectOne(id:selected.SMevt_ID) and ((stateMachine.canAssignEvent(
                   eventId:selected.SMevt_ID, eventStateMachineId:selected.SM_ID,
@@ -3248,55 +2706,6 @@ end if;
 	'');
 INSERT INTO PE_PE
 	VALUES ("1d343841-0cd3-4861-99a0-c4dbfe2f2e41",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("5d10f83f-a8f7-4a22-aca4-c3b480554167",
-	"00000000-0000-0000-0000-000000000000",
-	'A_A_NewActivityDiagram',
-	'ContextMenuFunction: TRUE
-',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select any act from instances of A_A where USER::selectOne(id:selected.Package_ID);
-if(not empty act)
-act.newActivity();
-end if;',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO S_SPARM
-	VALUES ("36c753f9-66f9-4cb8-ba9b-411051e7b32c",
-	"5d10f83f-a8f7-4a22-aca4-c3b480554167",
-	'new_name',
-	"ba5eda7a-def5-0000-0000-000000000004",
-	0,
-	'',
-	"00000000-0000-0000-0000-000000000000",
-	'');
-INSERT INTO PE_PE
-	VALUES ("5d10f83f-a8f7-4a22-aca4-c3b480554167",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("efad8e60-e299-4ffc-944d-17fe6213855d",
-	"00000000-0000-0000-0000-000000000000",
-	'UC_UCC_Delete',
-	'ContextMenuFunction: TRUE
-',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select many uccs from instances of UC_UCC where USER::selectOne(id:selected.Package_ID);
-for each ucc in uccs
-  ucc.dispose();
-end for;',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("efad8e60-e299-4ffc-944d-17fe6213855d",
 	1,
 	"42d5848f-dabe-43e1-9ac4-b840f2789360",
 	"00000000-0000-0000-0000-000000000000",
@@ -3477,36 +2886,6 @@ INSERT INTO PE_PE
 	"00000000-0000-0000-0000-000000000000",
 	1);
 INSERT INTO S_SYNC
-	VALUES ("03c995e4-d3d7-4da1-b6b0-899c89a861fb",
-	"00000000-0000-0000-0000-000000000000",
-	'O_IOBJ_SpecializedPackageAssignClass',
-	'ContextMenuFunction: TRUE
-',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select any iobj from instances of O_IOBJ
-    where USER::selectOne(id:selected.IObj_ID);
-
-// exclude the subsystem containing the iobj
-select any Subsystem related by iobj->S_SS[R3]->S_DOM[R1]->S_SS[R1]
-    where USER::selectOne(id:selected.SS_ID) and selected.SS_ID != iobj.SS_ID;
-if ( not_empty Subsystem )
-  select any Class related by Subsystem->O_OBJ[R2]
-      where USER::selectOne(id:selected.Obj_ID);
-  if ( not_empty Class )
-    relate iobj to Class across R101;
-  end if;
-end if;
-',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("03c995e4-d3d7-4da1-b6b0-899c89a861fb",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
 	VALUES ("1324973f-7a6b-477c-a295-cb6942813380",
 	"00000000-0000-0000-0000-000000000000",
 	'O_ATTR_SetAsDerivedAttribute',
@@ -3562,59 +2941,6 @@ rel.unformalize();
 	'');
 INSERT INTO PE_PE
 	VALUES ("21c11e44-1120-498d-8b69-a8602e0d0ee3",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("9ea32000-14a2-42fa-a7f3-aeb5bf85f1be",
-	"00000000-0000-0000-0000-000000000000",
-	'SM_TXN_SpecializedPackageAssignEvent',
-	'ContextMenuFunction: TRUE
-',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-// UI: event exists to assign
-select any txn from instances of SM_TXN
-   where USER::selectOne(id:selected.Trans_ID);
-select one dest_state related by txn->SM_STATE[R506];
-select one legal_evt_defining_state related by txn->
-                                                 SM_NETXN[R507]->SM_STATE[R508];
-if ( empty legal_evt_defining_state )
-  select one legal_evt_defining_state related by txn->
-                                  SM_NSTXN[R507]->SM_SEME[R504]->SM_STATE[R503];
-end if;
-// select all events in the domain that meet our criteria for assignment
-// ("select ... from instances of" not being possible here since generating
-// code from it in this context will produce errors);
-// note that we have to take into account in both the upwards and downwards
-// traversals whether we are dealing with a class or instance state machine
-select one stateMachine related by txn->SM_SM[R505];
-select one classStateMachine related by stateMachine->SM_ASM[R517];
-isClassStateMachine = not_empty classStateMachine;
-select one modelClass related by stateMachine->SM_ISM[R517]->O_OBJ[R518];
-if (isClassStateMachine)
-	select one modelClass related by stateMachine->SM_ASM[R517]->O_OBJ[R519];
-end if;
-select many machines related by modelClass->S_SS[R2]->S_DOM[R1]->S_SS[R1]
-	->O_OBJ[R2]->SM_ISM[R518]->SM_SM[R517];
-if (isClassStateMachine)
-	select many machines related by modelClass->S_SS[R2]->S_DOM[R1]->S_SS[R1]
-		->O_OBJ[R2]->SM_ASM[R519]->SM_SM[R517];
-end if;
-select any event related by machines->SM_EVT[R502]
-	where USER::selectOne(id:selected.SMevt_ID)
-    	and stateMachine.canAssignEvent(
-    		eventId:selected.SMevt_ID, eventStateMachineId:selected.SM_ID,
-    		isCreationTransition:false)
-	    and legal_evt_defining_state.notAlreadyAssigned(
-                             eventId:selected.SMevt_ID,
-                             eventStateMachineId: selected.SM_ID, crtxn: false);
-txn.addEvent(eventId:event.SMevt_ID, eventStateMachineId:event.SM_ID);',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("9ea32000-14a2-42fa-a7f3-aeb5bf85f1be",
 	1,
 	"42d5848f-dabe-43e1-9ac4-b840f2789360",
 	"00000000-0000-0000-0000-000000000000",
@@ -3731,198 +3057,6 @@ end if;
 	'');
 INSERT INTO PE_PE
 	VALUES ("d49e0190-3c80-46b1-a2d3-b7ec77dcb9be",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("a70081c0-45db-4ea9-b022-63bbba9c3dfd",
-	"00000000-0000-0000-0000-000000000000",
-	'SM_EVT_SpecializedPackageIgnoreInState',
-	'ContextMenuFunction: TRUE
-',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-// UI: cant happen entry exists for this event
-	select any event from instances of SM_EVT
-         where USER::selectOne(id:selected.SMevt_ID);
-
-// select all states in the domain that may currently be selected to ignore
-// the event ("select ... from instances of" not being possible here since
-// generating code from it in this context will produce errors);
-// note that we have to take into account in both the upwards and downwards
-// traversals whether we are dealing with a class or instance state machine
-select one stateMachine related by event->SM_SM[R502];
-select one classStateMachine related by stateMachine->SM_ASM[R517];
-isClassStateMachine = not_empty classStateMachine;
-select one modelClass related by stateMachine->SM_ISM[R517]->O_OBJ[R518];
-if (isClassStateMachine)
-	select one modelClass related by stateMachine->SM_ASM[R517]->O_OBJ[R519];
-end if;
-select many machines related by modelClass->S_SS[R2]->S_DOM[R1]->S_SS[R1]
-	->O_OBJ[R2]->SM_ISM[R518]->SM_SM[R517];
-if (isClassStateMachine)
-	select many machines related by modelClass->S_SS[R2]->S_DOM[R1]->S_SS[R1]
-		->O_OBJ[R2]->SM_ASM[R519]->SM_SM[R517];
-end if;
-select any state related by machines->SM_STATE[R501]
-	where USER::selectOne(id:selected.SMstt_ID)
-    	and event.canStateIgnoreOrSayCantHappen(
-    		stateId:selected.SMstt_ID, stateStateMachineId:selected.SM_ID,
-    		considerCantHappen:false);
-
-if (not_empty state)
-  event.ignoreOnState(stateId:state.SMstt_ID, stateStateMachineId:state.SM_ID);
-end if;
-',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("a70081c0-45db-4ea9-b022-63bbba9c3dfd",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("11b41ac5-cada-46bf-aa85-44367d02ae03",
-	"00000000-0000-0000-0000-000000000000",
-	'SM_EVT_SpecializedPackageCantHappenInState',
-	'ContextMenuFunction: TRUE
-',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-// UI: event ignored entry exists for this event
-select any event from instances of SM_EVT
-         where USER::selectOne(id:selected.SMevt_ID);
-
-// select all states in the domain that may currently be selected to say
-// the event cannot happen on them ("select ... from instances of" not being
-// possible here since  generating code from it in this context will produce
-// errors); note that we have to take into account in both the upwards and
-// downwards traversals whether we are dealing with a class or instance
-// state machine
-select one stateMachine related by event->SM_SM[R502];
-select one classStateMachine related by stateMachine->SM_ASM[R517];
-isClassStateMachine = not_empty classStateMachine;
-select one modelClass related by stateMachine->SM_ISM[R517]->O_OBJ[R518];
-if (isClassStateMachine)
-	select one modelClass related by stateMachine->SM_ASM[R517]->O_OBJ[R519];
-end if;
-select many machines related by modelClass->S_SS[R2]->S_DOM[R1]->S_SS[R1]
-	->O_OBJ[R2]->SM_ISM[R518]->SM_SM[R517];
-if (isClassStateMachine)
-	select many machines related by modelClass->S_SS[R2]->S_DOM[R1]->S_SS[R1]
-		->O_OBJ[R2]->SM_ASM[R519]->SM_SM[R517];
-end if;
-select any state related by machines->SM_STATE[R501]
-	where USER::selectOne(id:selected.SMstt_ID)
-    	and event.canStateIgnoreOrSayCantHappen(
-    		stateId:selected.SMstt_ID, stateStateMachineId:selected.SM_ID,
-    		considerCantHappen:true);
-if (not_empty event)
-  event.sayCantHappenOnState(stateId:state.SMstt_ID, stateStateMachineId:state.SM_ID);
-end if;
-',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("11b41ac5-cada-46bf-aa85-44367d02ae03",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("c9b72600-fda5-4d2a-b535-64c9d62f6297",
-	"00000000-0000-0000-0000-000000000000",
-	'SM_STATE_SpecializedPackageIgnoreEvent',
-	'ContextMenuFunction: TRUE
-',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-// UI: cant happen entry exists for this state
-select any state from instances of SM_STATE
-         where USER::selectOne(id:selected.SMstt_ID);
-
-// select all events in the domain that may currently be selected to be
-// ignored on the given state ("select ... from instances of" not being
-// possible here since  generating code from it in this context will produce
-// errors); note that we have to take into account in both the upwards and
-// downwards traversals whether we are dealing with a class or instance
-// state machine
-select one stateMachine related by state->SM_SM[R501];
-select one classStateMachine related by stateMachine->SM_ASM[R517];
-isClassStateMachine = not_empty classStateMachine;
-select one modelClass related by stateMachine->SM_ISM[R517]->O_OBJ[R518];
-if (isClassStateMachine)
-	select one modelClass related by stateMachine->SM_ASM[R517]->O_OBJ[R519];
-end if;
-select many machines related by modelClass->S_SS[R2]->S_DOM[R1]->S_SS[R1]
-	->O_OBJ[R2]->SM_ISM[R518]->SM_SM[R517];
-if (isClassStateMachine)
-	select many machines related by modelClass->S_SS[R2]->S_DOM[R1]->S_SS[R1]
-		->O_OBJ[R2]->SM_ASM[R519]->SM_SM[R517];
-end if;
-select any event related by machines->SM_EVT[R502]
-	where USER::selectOne(id:selected.SMevt_ID)
-    	and state.canIgnoreOrSayEventCantHappen(
-    		eventId:selected.SMevt_ID, eventStateMachineId: selected.SM_ID,
-    		considerCantHappen:false);
-if (not_empty event)
-  event.ignoreOnState(stateId:state.SMstt_ID, stateStateMachineId:state.SM_ID);
-end if;
-',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("c9b72600-fda5-4d2a-b535-64c9d62f6297",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("9349e8ac-b050-47d3-9fe2-ff3bc6334afb",
-	"00000000-0000-0000-0000-000000000000",
-	'SM_STATE_SpecializedPackageCantHappenEvent',
-	'ContextMenuFunction: TRUE
-',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-// UI: event ignored entry exists for this state
-select any state from instances of SM_STATE
-         where USER::selectOne(id:selected.SMstt_ID);
-
-// select all events in the domain that may currently be selected to cannot
-// happen on the given state ("select ... from instances of" not being
-// possible here since  generating code from it in this context will produce
-// errors); note that we have to take into account in both the upwards and
-// downwards traversals whether we are dealing with a class or instance
-// state machine
-select one stateMachine related by state->SM_SM[R501];
-select one classStateMachine related by stateMachine->SM_ASM[R517];
-isClassStateMachine = not_empty classStateMachine;
-select one modelClass related by stateMachine->SM_ISM[R517]->O_OBJ[R518];
-if (isClassStateMachine)
-	select one modelClass related by stateMachine->SM_ASM[R517]->O_OBJ[R519];
-end if;
-select many machines related by modelClass->S_SS[R2]->S_DOM[R1]->S_SS[R1]
-	->O_OBJ[R2]->SM_ISM[R518]->SM_SM[R517];
-if (isClassStateMachine)
-	select many machines related by modelClass->S_SS[R2]->S_DOM[R1]->S_SS[R1]
-		->O_OBJ[R2]->SM_ASM[R519]->SM_SM[R517];
-end if;
-select any event related by machines->SM_EVT[R502]
-	where USER::selectOne(id:selected.SMevt_ID)
-    	and state.canIgnoreOrSayEventCantHappen(
-    		eventId:selected.SMevt_ID, eventStateMachineId: selected.SM_ID,
-    		considerCantHappen:true);
-if (not_empty event)
-  event.sayCantHappenOnState(stateId:state.SMstt_ID, stateStateMachineId:state.SM_ID);
-end if;
-',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("9349e8ac-b050-47d3-9fe2-ff3bc6334afb",
 	1,
 	"42d5848f-dabe-43e1-9ac4-b840f2789360",
 	"00000000-0000-0000-0000-000000000000",
@@ -4119,52 +3253,6 @@ rattr.split_refs( other_id: Split_from.ARef_ID );
 	'');
 INSERT INTO PE_PE
 	VALUES ("efb4801a-2681-476b-97cb-e0c3de3d8cd5",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("8eaa3fe6-64a9-479f-a269-4fe4db47d77a",
-	"00000000-0000-0000-0000-000000000000",
-	'A_A_Delete',
-	'ContextMenuFunction: TRUE
-',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select many acts from instances of A_A where USER::selectOne(id:selected.Package_ID);
-for each act in acts
-  act.dispose();
-end for;',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("8eaa3fe6-64a9-479f-a269-4fe4db47d77a",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("50501b02-ba3e-4e5b-b70e-dd0a93da5d15",
-	"00000000-0000-0000-0000-000000000000",
-	'A_A_Rename',
-	'ContextMenuFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select any act from instances of A_A where USER::selectOne(id:selected.Package_ID);
-act.Name = param.new_name;',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO S_SPARM
-	VALUES ("28ca85de-36ca-403e-a6a2-263a53007738",
-	"50501b02-ba3e-4e5b-b70e-dd0a93da5d15",
-	'new_name',
-	"ba5eda7a-def5-0000-0000-000000000004",
-	0,
-	'',
-	"00000000-0000-0000-0000-000000000000",
-	'');
-INSERT INTO PE_PE
-	VALUES ("50501b02-ba3e-4e5b-b70e-dd0a93da5d15",
 	1,
 	"42d5848f-dabe-43e1-9ac4-b840f2789360",
 	"00000000-0000-0000-0000-000000000000",
@@ -4647,53 +3735,6 @@ INSERT INTO PE_PE
 	"00000000-0000-0000-0000-000000000000",
 	1);
 INSERT INTO S_SYNC
-	VALUES ("cb0bb292-636e-4ef2-bc1c-6aafa7212dba",
-	"00000000-0000-0000-0000-000000000000",
-	'IP_IP_Delete',
-	'ContextMenuFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select many diagrams from instances of IP_IP where USER::selectOne(id:selected.Package_ID);
-for each diagram in diagrams
-  diagram.dispose();
-end for;',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("cb0bb292-636e-4ef2-bc1c-6aafa7212dba",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("d411e51f-0e43-4bda-942c-c924d651912f",
-	"00000000-0000-0000-0000-000000000000",
-	'IP_IP_Rename',
-	'ContextMenuFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select any diagram from instances of IP_IP where USER::selectOne(id:selected.Package_ID);
-if(not_empty diagram)
-  diagram.Name = param.new_name;
-end if;',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO S_SPARM
-	VALUES ("41bdd394-5355-415d-9698-86cca8c86c92",
-	"d411e51f-0e43-4bda-942c-c924d651912f",
-	'new_name',
-	"ba5eda7a-def5-0000-0000-000000000004",
-	0,
-	'',
-	"00000000-0000-0000-0000-000000000000",
-	'');
-INSERT INTO PE_PE
-	VALUES ("d411e51f-0e43-4bda-942c-c924d651912f",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
 	VALUES ("5b57b3ed-2f71-41c1-b581-0011b9ca3061",
 	"00000000-0000-0000-0000-000000000000",
 	'C_C_Delete',
@@ -4716,17 +3757,9 @@ INSERT INTO S_SYNC
 	"00000000-0000-0000-0000-000000000000",
 	'C_C_Rename',
 	'ContextMenuFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select any comp from instances of C_C where USER::selectOne(id:selected.Id);
+	'select any comp from instances of C_C where USER::selectOne(id:selected.Id);
 if(not_empty comp)
-  select one domain related by comp->CN_DC[R4204]->S_DOM[R4204];
-  if(not_empty domain)
-    domain.Name = param.new_name;
     comp.Name = param.new_name;
-    
-  else
-    comp.Name = param.new_name;
-  end if;
 end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
@@ -4995,29 +4028,7 @@ INSERT INTO S_SYNC
 	"00000000-0000-0000-0000-000000000000",
 	'C_C_ComponentFormalize',
 	'ContextMenuFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-//       Note that the C_C action filter prevents this routine from being called
-//       when the component is under a generic package, so no OAL change is 
-//       required here.  When specialized packages are removed this function can
-//       be removed.
-select any component from instances of C_C where USER::selectOne(id:selected.Id);
-
-if(not_empty component)
-  select one componentPackage related by component->CP_CP[R4604];
-  if(empty componentPackage)
-    select one componentParent related by component->CN_CIC[R4203]->C_C[R4202];
-    while(empty componentPackage)
-      select one componentPackage related by componentParent->CP_CP[R4604];
-      select one componentParent related by componentParent->CN_CIC[R4203]->C_C[R4202];
-    end while;
-  end if;
-  if (not empty componentPackage)
-    select one system related by componentPackage->S_SYS[R4606];
-    select any Domain related by system->S_DOM[R28] where USER::selectOne(id:selected.Dom_ID);
-    component.formalize(domId:Domain.Dom_ID);
-  end if;
-end if;   
-',
+	'// TODO: BOB This and the CME Pei entry associated can be removed now that SPs are gone',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'');
@@ -5032,61 +4043,12 @@ INSERT INTO S_SYNC
 	"00000000-0000-0000-0000-000000000000",
 	'C_C_Unformalize',
 	'ContextMenuFunction: TRUE',
-	'select any component from instances of C_C where USER::selectOne(id:selected.Id);
-if(not_empty component)
-  component.unformalize();
-end if;',
+	'// TODO: BOB This and the CME Pei entry associated can be removed now that SPs are gone',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'');
 INSERT INTO PE_PE
 	VALUES ("87e922be-8bea-4f3c-b129-23d3589127fc",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("7d3f32d2-2dc8-460e-878a-3cf4cb237d54",
-	"00000000-0000-0000-0000-000000000000",
-	'C_P_SpecializedPackageProvidedInterfaceFormalize',
-	'ContextMenuFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select any provision from instances of C_P where USER::selectOne(id:selected.Provision_Id);
-if(not_empty provision)
-  select one component related by provision->C_IR[R4009]->C_PO[R4016]->C_C[R4010];
-  if (not_empty component)
-    select one componentPackage related by component->CP_CP[R4604];
-    // if the package is empty, search up the component tree
-    // until we find one
-    if(empty componentPackage)
-      select one parentComponent related by component->CN_CIC[R4203]->C_C[R4202];
-      if(not_empty parentComponent)
-        while(empty componentPackage)
-          select one componentPackage related by parentComponent->CP_CP[R4604];
-          select one parentComponent related by parentComponent->CN_CIC[R4203]->C_C[R4202];
-        end while;
-      end if;
-    end if;
-    if (not empty componentPackage)
-      select one system related by componentPackage->S_SYS[R4606];
-      select one existingI related by provision->C_IR[R4009]->C_I[R4012];
-      id = GD::NULL_UNIQUE_ID();
-      if(not_empty existingI)
-        id = existingI.Id;
-      end if;
-      select any Diagram related by system->IP_IP[R4304] where USER::selectOne(id:selected.Package_ID) and provision.canUseInterfacesInPackage(Id:selected.Package_ID);
-      if(not_empty Diagram)
-        select any Interface related by Diagram->C_I[R4303] where USER::selectOne(id:selected.Id) and (selected.Id != id);
-        provision.formalize(Id:Interface.Id, formalizeReq:true);
-      end if;
-    end if;
-  end if;
-end if;',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("7d3f32d2-2dc8-460e-878a-3cf4cb237d54",
 	1,
 	"42d5848f-dabe-43e1-9ac4-b840f2789360",
 	"00000000-0000-0000-0000-000000000000",
@@ -5110,52 +4072,6 @@ INSERT INTO PE_PE
 	"00000000-0000-0000-0000-000000000000",
 	1);
 INSERT INTO S_SYNC
-	VALUES ("5b453054-ea84-45e6-9457-2e8bc93fba78",
-	"00000000-0000-0000-0000-000000000000",
-	'C_R_SpecializedPackageRequiredInterfaceFormalize',
-	'ContextMenuFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select any requirement from instances of C_R where USER::selectOne(id:selected.Requirement_Id);
-if(not_empty requirement)
-  select one component related by requirement->C_IR[R4009]->C_PO[R4016]->C_C[R4010];
-  if (not_empty component)
-    select one componentPackage related by component->CP_CP[R4604];
-    // if the package is empty, search up the component tree
-    // until we find one
-    if(empty componentPackage)
-      select one parentComponent related by component->CN_CIC[R4203]->C_C[R4202];
-      if(not_empty parentComponent)
-        while(empty componentPackage)
-          select one componentPackage related by parentComponent->CP_CP[R4604];
-          select one parentComponent related by parentComponent->CN_CIC[R4203]->C_C[R4202];
-        end while;
-      end if;
-    end if;
-    if (not empty componentPackage)
-      select one system related by componentPackage->S_SYS[R4606];
-      select one existingI related by requirement->C_IR[R4009]->C_I[R4012];
-      id = GD::NULL_UNIQUE_ID();
-      if (not_empty existingI)
-        id = existingI.Id;
-      end if;
-      select any Diagram related by system->IP_IP[R4304] where USER::selectOne(id:selected.Package_ID) and requirement.canUseInterfacesInPackage(Id:selected.Package_ID);
-      if(not_empty Diagram)
-        select any Interface related by Diagram->C_I[R4303] where USER::selectOne(id:selected.Id) and (selected.Id != id);
-        requirement.formalize(Id:Interface.Id, formalizePro:true);
-      end if;
-    end if;
-  end if;
-end if;',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("5b453054-ea84-45e6-9457-2e8bc93fba78",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
 	VALUES ("0059ad85-90e6-46ac-8aef-a9297ecc2df9",
 	"00000000-0000-0000-0000-000000000000",
 	'C_R_RequiredInterfaceUnformalize',
@@ -5169,50 +4085,6 @@ end if;',
 	'');
 INSERT INTO PE_PE
 	VALUES ("0059ad85-90e6-46ac-8aef-a9297ecc2df9",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("eeb63323-fdd3-447e-bb81-87059f217f79",
-	"00000000-0000-0000-0000-000000000000",
-	'CL_IC_SpecializedPackageAssignComponent',
-	'ContextMenuFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-// ::CN_IC_AssignComponent()
-select any icomp from instances of CL_IC where USER::selectOne(id:selected.Id);
-select one compPackage related by icomp->CP_CP[R4605];
-if(empty compPackage)
-  select one container related by icomp->C_C[R4205];
-  if(not_empty container)
-    while(empty compPackage)
-      select one compPackage related by container->CP_CP[R4604];
-      select one container related by container->CN_CIC[R4203]->C_C[R4202];
-    end while;
-  end if;
-end if;
-select one component related by icomp->C_C[R4201];
-existingId = GD::NULL_UNIQUE_ID();
-if not_empty component
-  existingId = component.Id;
-end if;
-if not_empty compPackage
-  select one system related by compPackage->S_SYS[R4606];
-  select any Package related by system->CP_CP[R4606] where
-              USER::selectOne(id:selected.Package_ID) and icomp.canAssignToCompInPackage(Id:selected.Package_ID);
-  if not_empty Package
-    select any Component related by Package->C_C[R4604] where
-                USER::selectOne(id:selected.Id) and selected.Id != existingId and icomp.canAssignToComp(Id:selected.Id, checkExistingType:true);
-    if not_empty Component
-      icomp.assignToComp(Id:Component.Id);
-    end if;
-  end if;
-end if;',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("eeb63323-fdd3-447e-bb81-87059f217f79",
 	1,
 	"42d5848f-dabe-43e1-9ac4-b840f2789360",
 	"00000000-0000-0000-0000-000000000000",
@@ -5484,43 +4356,6 @@ INSERT INTO PE_PE
 	"00000000-0000-0000-0000-000000000000",
 	1);
 INSERT INTO S_SYNC
-	VALUES ("1ee100ca-227c-481a-b283-620bec9e7f26",
-	"00000000-0000-0000-0000-000000000000",
-	'SM_CRTXN_SpecializedPackageAssignEvent',
-	'ContextMenuFunction: TRUE
-',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-// UI: event exists to assign
-select any ctxn from instances of SM_CRTXN
-   where USER::selectOne(id:selected.Trans_ID);
-select one txn related by ctxn->SM_TXN[R507];
-select one dest_state related by txn->SM_STATE[R506];
-// select all events in the domain that meet our criteria for assignment
-// ("select ... from instances of" not being possible here since generating
-// code from it in this context will produce errors);
-// note that we have to take into account in both the upwards and downwards
-// traversals whether we are dealing with a class or instance state machine
-select one stateMachine related by txn->SM_SM[R505];
-select one modelClass related by stateMachine->SM_ISM[R517]->O_OBJ[R518];
-select many machines related by modelClass->S_SS[R2]->S_DOM[R1]->S_SS[R1]
-	->O_OBJ[R2]->SM_ISM[R518]->SM_SM[R517];
-select any event related by machines->SM_EVT[R502]
-	where USER::selectOne(id:selected.SMevt_ID)
-    	and stateMachine.canAssignEvent(eventId:selected.SMevt_ID,
-                 eventStateMachineId:selected.SM_ID, isCreationTransition:true)
-	    and dest_state.notAlreadyAssigned(eventId:selected.SMevt_ID,
-                              eventStateMachineId: selected.SM_ID, crtxn: true);
-txn.addEvent(eventId:event.SMevt_ID, eventStateMachineId:event.SM_ID);',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("1ee100ca-227c-481a-b283-620bec9e7f26",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
 	VALUES ("b14bab53-5d97-43f6-b2bd-6d002fa5ed2e",
 	"00000000-0000-0000-0000-000000000000",
 	'SM_CRTXN_RemoveEvent',
@@ -5561,53 +4396,6 @@ INSERT INTO PE_PE
 	"00000000-0000-0000-0000-000000000000",
 	1);
 INSERT INTO S_SYNC
-	VALUES ("91cde25a-cfa7-47b3-b32a-d8ca677ae44d",
-	"00000000-0000-0000-0000-000000000000",
-	'CP_CP_Rename',
-	'ContextMenuFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select any package from instances of CP_CP where USER::selectOne(id:selected.Package_ID);
-if(not_empty package)
-  package.Name = param.new_name;
-end if;',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO S_SPARM
-	VALUES ("e6226279-881d-4831-863f-35cd65c583d3",
-	"91cde25a-cfa7-47b3-b32a-d8ca677ae44d",
-	'new_name',
-	"ba5eda7a-def5-0000-0000-000000000004",
-	0,
-	'',
-	"00000000-0000-0000-0000-000000000000",
-	'');
-INSERT INTO PE_PE
-	VALUES ("91cde25a-cfa7-47b3-b32a-d8ca677ae44d",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("c7ca18c5-3b6d-4d03-b7db-f12154729e9f",
-	"00000000-0000-0000-0000-000000000000",
-	'CP_CP_Delete',
-	'ContextMenuFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select many packages from instances of CP_CP where USER::selectOne(id:selected.Package_ID);
-for each package in packages
-  package.dispose();
-end for;',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("c7ca18c5-3b6d-4d03-b7db-f12154729e9f",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
 	VALUES ("9146aec7-a119-4e42-81c3-03853edff72c",
 	"00000000-0000-0000-0000-000000000000",
 	'C_DG_Unformalize',
@@ -5636,60 +4424,6 @@ INSERT INTO PE_PE
 	"00000000-0000-0000-0000-000000000000",
 	1);
 INSERT INTO S_SYNC
-	VALUES ("c0221edd-a35e-4b18-819c-285bf791d712",
-	"00000000-0000-0000-0000-000000000000",
-	'C_DG_SpecializedPackageFormalize',
-	'ContextMenuFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select any delegation from instances of C_DG where USER::selectOne(id:selected.Id);
-if(not_empty delegation)
-  select any ir related by delegation->C_RID[R4013]->C_IR[R4013];
-  select one component related by ir->C_PO[R4016]->C_C[R4010];
-  if (not_empty component)
-    select one componentPackage related by component->CP_CP[R4604];
-    // if the package is empty, search up the component tree
-    // until we find one
-    if(empty componentPackage)
-      select one parentComponent related by component->CN_CIC[R4203]->C_C[R4202];
-      if(not_empty parentComponent)
-        while(empty componentPackage)
-          select one componentPackage related by parentComponent->CP_CP[R4604];
-          select one parentComponent related by parentComponent->CN_CIC[R4203]->C_C[R4202];
-        end while;
-      end if;
-    end if;
-    if (not empty componentPackage)
-      select one system related by componentPackage->S_SYS[R4606];
-      select one existingI related by ir->C_I[R4012];
-      id = GD::NULL_UNIQUE_ID();
-      if(not_empty existingI)
-        id = existingI.Id;
-      end if;
-      select any Diagram related by system->IP_IP[R4304] where USER::selectOne(id:selected.Package_ID) and ir.canUseInterfacesInPackage(Id:selected.Package_ID);
-      if(not_empty Diagram)
-        select any Interface related by Diagram->C_I[R4303] where USER::selectOne(id:selected.Id) and (selected.Id != id);
-        select one provision related by ir->C_P[R4009];
-        if(not_empty provision)
-          provision.formalize(Id:Interface.Id, formalizeReq:true);
-        end if;
-        select one requirement related by ir->C_R[R4009];
-        if(not_empty requirement)
-          requirement.formalize(Id:Interface.Id, formalizePro:true);
-        end if;
-      end if;
-    end if;
-  end if;
-end if;',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("c0221edd-a35e-4b18-819c-285bf791d712",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
 	VALUES ("e9f577c3-f1a2-488b-921b-29cb61bdd5ae",
 	"00000000-0000-0000-0000-000000000000",
 	'C_DG_Delete',
@@ -5703,42 +4437,6 @@ end for;',
 	'');
 INSERT INTO PE_PE
 	VALUES ("e9f577c3-f1a2-488b-921b-29cb61bdd5ae",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("d294df41-cd12-49d5-aeda-b0b8ad24b0ee",
-	"00000000-0000-0000-0000-000000000000",
-	'SM_TXN_SpecializedPackageAssignSignal',
-	'ContextMenuFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-// UI: signal exists to assign
-select any txn from instances of SM_TXN where
-                                          USER::selectOne(id:selected.Trans_ID);
-Trans_ID = txn.Trans_ID;
-select one stateMachine related by txn->SM_SM[R505];
-select one classStateMachine related by stateMachine->SM_ASM[R517];
-select any interface related by classStateMachine->O_OBJ[R519]->
-                    S_SS[R2]->S_DOM[R1]->CN_DC[R4204]->C_C[R4204]->
-                                         C_PO[R4010]->C_IR[R4016] where
-                                       USER::selectOne(id:selected.Id) and
-                                                stateMachine.hasValidSignals(
-                              interface_id:selected.Id, transition_id:Trans_ID);
-if not_empty interface
-  select any signal related by interface->
-                     C_I[R4012]->C_EP[R4003]->C_AS[R4004] where
-                              USER::selectOne(id:selected.Id) and
-                                        stateMachine.canAssignSignal(
-                                signal_id:selected.Id, transition_id:Trans_ID,
-                                                     interface_id:interface.Id);
-  txn.addSignal(interface_id:interface.Id, signal_id:signal.Id);
-end if;',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("d294df41-cd12-49d5-aeda-b0b8ad24b0ee",
 	1,
 	"42d5848f-dabe-43e1-9ac4-b840f2789360",
 	"00000000-0000-0000-0000-000000000000",
@@ -6817,43 +5515,6 @@ INSERT INTO PE_PE
 	"00000000-0000-0000-0000-000000000000",
 	1);
 INSERT INTO S_SYNC
-	VALUES ("e85e77ae-2816-4d15-8c08-1abf9de09652",
-	"00000000-0000-0000-0000-000000000000",
-	'CP_CP_NewComponent',
-	'ContextMenuFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select any package from instances of CP_CP where USER::selectOne(id:selected.Package_ID);
-if(not empty package)
-package.newComponent();
-end if;',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("e85e77ae-2816-4d15-8c08-1abf9de09652",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("9d0d6d43-3870-463c-a8ae-d61425539a2a",
-	"00000000-0000-0000-0000-000000000000",
-	'S_SYS_NewComponentPackage',
-	'ContextMenuFunction: TRUE',
-	'select any sys from instances of S_SYS where USER::selectOne(id:selected.Sys_ID);
-if(not empty sys)
-sys.newComponentPackage();
-end if;',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("9d0d6d43-3870-463c-a8ae-d61425539a2a",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
 	VALUES ("f22bf527-439f-4b94-b4b9-5ad2115ef0f7",
 	"00000000-0000-0000-0000-000000000000",
 	'S_SYS_NewPackage',
@@ -6867,247 +5528,6 @@ end if;',
 	'');
 INSERT INTO PE_PE
 	VALUES ("f22bf527-439f-4b94-b4b9-5ad2115ef0f7",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("f6eb6cf6-73de-4481-abab-f76b58d403c1",
-	"00000000-0000-0000-0000-000000000000",
-	'S_SYS_NewSystemLevelDatatypePackage',
-	'ContextMenuFunction: TRUE',
-	'select any sys from instances of S_SYS where USER::selectOne(id:selected.Sys_ID);
-if(not empty sys)
-sys.newSystemDTPkg();
-end if;',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("f6eb6cf6-73de-4481-abab-f76b58d403c1",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("080152e8-d0c8-4a37-8a1e-fc2c4413823a",
-	"00000000-0000-0000-0000-000000000000",
-	'S_SYS_NewInterfacePackage',
-	'ContextMenuFunction: TRUE',
-	'select any sys from instances of S_SYS where USER::selectOne(id:selected.Sys_ID);
-if(not empty sys)
-sys.newInterfacePackage();
-end if;',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("080152e8-d0c8-4a37-8a1e-fc2c4413823a",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("cb29650d-0699-44d3-8378-a7df1c4bca07",
-	"00000000-0000-0000-0000-000000000000",
-	'S_SYS_NewSequenceDiagram',
-	'ContextMenuFunction: TRUE',
-	'select any sys from instances of S_SYS where USER::selectOne(id:selected.Sys_ID);
-if(not empty sys)
-sys.newSequence();
-end if;',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("cb29650d-0699-44d3-8378-a7df1c4bca07",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("88ddff43-ecf0-49fc-8b6a-4aba366a6c15",
-	"00000000-0000-0000-0000-000000000000",
-	'S_SYS_NewCommunicationDiagram',
-	'ContextMenuFunction: TRUE',
-	'select any sys from instances of S_SYS where USER::selectOne(id:selected.Sys_ID);
-if(not empty sys)
-sys.newCommunication();
-end if;',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("88ddff43-ecf0-49fc-8b6a-4aba366a6c15",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("4d7d4914-b48f-43bf-8425-35b5dda61aac",
-	"00000000-0000-0000-0000-000000000000",
-	'S_SYS_NewUsecaseDiagram',
-	'ContextMenuFunction: TRUE',
-	'select any sys from instances of S_SYS where USER::selectOne(id:selected.Sys_ID);
-if(not empty sys)
-sys.newUseCasePackage();
-end if;',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("4d7d4914-b48f-43bf-8425-35b5dda61aac",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("e418515c-62dd-44cd-b29b-a8067b037121",
-	"00000000-0000-0000-0000-000000000000",
-	'S_SYS_NewActivityDiagram',
-	'ContextMenuFunction: TRUE',
-	'select any sys from instances of S_SYS where USER::selectOne(id:selected.Sys_ID);
-if(not empty sys)
-sys.newActivity();
-end if;',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("e418515c-62dd-44cd-b29b-a8067b037121",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("1e2c4240-ef49-4777-8b39-224fcc726bdf",
-	"00000000-0000-0000-0000-000000000000",
-	'CP_CP_NewInterfacePackage',
-	'ContextMenuFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select any package from instances of CP_CP where USER::selectOne(id:selected.Package_ID);
-if(not empty package)
-package.newInterfacePackage();
-end if;',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("1e2c4240-ef49-4777-8b39-224fcc726bdf",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("8adac411-31f9-4139-8fbc-9c2b3ff805ac",
-	"00000000-0000-0000-0000-000000000000",
-	'CP_CP_NewComponentPackage',
-	'ContextMenuFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select any package from instances of CP_CP where USER::selectOne(id:selected.Package_ID);
-if(not empty package)
-package.newComponentPackage();
-end if;',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("8adac411-31f9-4139-8fbc-9c2b3ff805ac",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("3a97226e-1171-494c-be43-a4fb182deab8",
-	"00000000-0000-0000-0000-000000000000",
-	'CP_CP_NewSequenceDiagram',
-	'ContextMenuFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select any package from instances of CP_CP where USER::selectOne(id:selected.Package_ID);
-if(not empty package)
-package.newSequence();
-end if;',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("3a97226e-1171-494c-be43-a4fb182deab8",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("360a812d-2407-4ef4-8fa3-4d4797ab1086",
-	"00000000-0000-0000-0000-000000000000",
-	'CP_CP_NewCommunicationDiagram',
-	'ContextMenuFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select any package from instances of CP_CP where USER::selectOne(id:selected.Package_ID);
-if(not empty package)
-package.newCommunication();
-end if;',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("360a812d-2407-4ef4-8fa3-4d4797ab1086",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("8523b719-3d0c-4842-b156-f60076867134",
-	"00000000-0000-0000-0000-000000000000",
-	'CP_CP_NewUsecaseDiagram',
-	'ContextMenuFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select any package from instances of CP_CP where USER::selectOne(id:selected.Package_ID);
-if(not empty package)
-package.newUseCasePackage();
-end if;',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("8523b719-3d0c-4842-b156-f60076867134",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("7a37acd4-a7a6-4973-ab55-57a51a158605",
-	"00000000-0000-0000-0000-000000000000",
-	'CP_CP_NewActivityDiagram',
-	'ContextMenuFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select any package from instances of CP_CP where USER::selectOne(id:selected.Package_ID);
-if(not empty package)
-package.newActivity();
-end if;',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("7a37acd4-a7a6-4973-ab55-57a51a158605",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("c475a4ed-27f3-4a1d-ae4c-77e001e6b9bd",
-	"00000000-0000-0000-0000-000000000000",
-	'CP_CP_NewComponentReference',
-	'ContextMenuFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select any package from instances of CP_CP where USER::selectOne(id:selected.Package_ID);
-if(not empty package)
-package.newImportedComponent();
-end if;',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("c475a4ed-27f3-4a1d-ae4c-77e001e6b9bd",
 	1,
 	"42d5848f-dabe-43e1-9ac4-b840f2789360",
 	"00000000-0000-0000-0000-000000000000",
@@ -7131,920 +5551,11 @@ INSERT INTO PE_PE
 	"00000000-0000-0000-0000-000000000000",
 	1);
 INSERT INTO S_SYNC
-	VALUES ("f5cc032b-6439-408f-a1d6-a4840eb7db42",
-	"00000000-0000-0000-0000-000000000000",
-	'S_DPK_NewUserDatatype',
-	'ContextMenuFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select any dPkg from instances of S_DPK where USER::selectOne(id:selected.Package_ID);
-if(not empty dPkg)
-dPkg.newDatatype();
-end if;',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("f5cc032b-6439-408f-a1d6-a4840eb7db42",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("de3194d4-cfd9-42f3-8a2b-3701968b35e1",
-	"00000000-0000-0000-0000-000000000000",
-	'S_DPK_NewStructuredDatatype',
-	'ContextMenuFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select any dPkg from instances of S_DPK where USER::selectOne(id:selected.Package_ID);
-if(not empty dPkg)
-dPkg.newStructuredDatatype();
-end if;',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("de3194d4-cfd9-42f3-8a2b-3701968b35e1",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("f9220e21-ee94-4f49-994a-44d1cddbbc55",
-	"00000000-0000-0000-0000-000000000000",
-	'S_DPK_NewEnumerationDatatype',
-	'ContextMenuFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select any dPkg from instances of S_DPK where USER::selectOne(id:selected.Package_ID);
-if(not empty dPkg)
-dPkg.newEnumeration();
-end if;',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("f9220e21-ee94-4f49-994a-44d1cddbbc55",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("5506261f-620e-47b3-bcfd-854c0440061f",
-	"00000000-0000-0000-0000-000000000000",
-	'S_DPK_NewConstantSpecification',
-	'ContextMenuFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select any dPkg from instances of S_DPK where USER::selectOne(id:selected.Package_ID);
-if(not empty dPkg)
-dPkg.newConstantSpecification();
-end if;',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("5506261f-620e-47b3-bcfd-854c0440061f",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("0be28c70-23cc-40f6-8de9-dd9383c8a312",
-	"00000000-0000-0000-0000-000000000000",
-	'S_DPK_NewDatatypePackage',
-	'ContextMenuFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select any dPkg from instances of S_DPK where USER::selectOne(id:selected.Package_ID);
-if(not empty dPkg)
-dPkg.newDatatypePackage();
-end if;',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("0be28c70-23cc-40f6-8de9-dd9383c8a312",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("aab63978-495a-482d-bdd2-20a3e8acc69f",
-	"00000000-0000-0000-0000-000000000000",
-	'IP_IP_NewInterface',
-	'ContextMenuFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select any diagram from instances of IP_IP where USER::selectOne(id:selected.Package_ID);
-if(not_empty diagram)
-  diagram.newInterface();
-end if;',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("aab63978-495a-482d-bdd2-20a3e8acc69f",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("bdf29ab7-7d1f-4a48-aa38-2a28605688c3",
-	"00000000-0000-0000-0000-000000000000",
-	'IP_IP_NewInterfacePackage',
-	'ContextMenuFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select any diagram from instances of IP_IP where USER::selectOne(id:selected.Package_ID);
-if(not_empty diagram)
-  diagram.newInterfacePackage();
-end if;',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("bdf29ab7-7d1f-4a48-aa38-2a28605688c3",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("f8b34af8-2e07-4012-9b34-308fd8b252a9",
-	"00000000-0000-0000-0000-000000000000",
-	'SQ_S_NewSequenceDiagram',
-	'ContextMenuFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select any sequence from instances of SQ_S where USER::selectOne(id:selected.Package_ID);
-if(not_empty sequence)
-  sequence.newSequence();
-end if;',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("f8b34af8-2e07-4012-9b34-308fd8b252a9",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("2c5b7b0a-2af1-4b49-b8ed-d1579507aa61",
-	"00000000-0000-0000-0000-000000000000",
-	'SQ_S_NewComponentParticipant',
-	'ContextMenuFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select any sequence from instances of SQ_S where USER::selectOne(id:selected.Package_ID);
-if(not_empty sequence)
-  sequence.newComponentParticipant();
-end if;',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("2c5b7b0a-2af1-4b49-b8ed-d1579507aa61",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("e1c49fee-f4db-4277-a3ac-e8eb0e0cbb9a",
-	"00000000-0000-0000-0000-000000000000",
-	'SQ_S_NewInstance',
-	'ContextMenuFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select any sequence from instances of SQ_S where USER::selectOne(id:selected.Package_ID);
-if(not_empty sequence)
-  sequence.newClassInstance();
-end if;',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("e1c49fee-f4db-4277-a3ac-e8eb0e0cbb9a",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("71febb0f-276a-402b-8ebf-c9329b649a24",
-	"00000000-0000-0000-0000-000000000000",
-	'SQ_S_NewActorParticipant',
-	'ContextMenuFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select any sequence from instances of SQ_S where USER::selectOne(id:selected.Package_ID);
-if(not_empty sequence)
-  sequence.newActor();
-end if;',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("71febb0f-276a-402b-8ebf-c9329b649a24",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("8f00f123-f9b6-4ab8-a123-ebeaddb0986d",
-	"00000000-0000-0000-0000-000000000000",
-	'SQ_S_NewExternalEntity',
-	'ContextMenuFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select any sequence from instances of SQ_S where USER::selectOne(id:selected.Package_ID);
-if(not_empty sequence)
-  sequence.newExternalEntityParticipant();
-end if;',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("8f00f123-f9b6-4ab8-a123-ebeaddb0986d",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("d5282423-58c8-44c8-88c0-593da161784d",
-	"00000000-0000-0000-0000-000000000000",
-	'SQ_S_NewClassParticipant',
-	'ContextMenuFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select any sequence from instances of SQ_S where USER::selectOne(id:selected.Package_ID);
-if(not_empty sequence)
-  sequence.newClassParticipant();
-end if;',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("d5282423-58c8-44c8-88c0-593da161784d",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("5844cca3-e7c7-42fc-9095-2e73a08ceedf",
-	"00000000-0000-0000-0000-000000000000",
-	'SQ_S_NewFunctionPackageParticipant',
-	'ContextMenuFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select any sequence from instances of SQ_S where USER::selectOne(id:selected.Package_ID);
-if(not_empty sequence)
-  sequence.newFunctionPackageParticipant();
-end if;',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("5844cca3-e7c7-42fc-9095-2e73a08ceedf",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("6482fea2-f6af-4ea8-b9a4-04dca3833138",
-	"00000000-0000-0000-0000-000000000000",
-	'COMM_COMM_NewCommunicationDiagram',
-	'ContextMenuFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select any comm from instances of COMM_COMM where USER::selectOne(id:selected.Package_ID);
-if(not_empty comm)
-  comm.newCommunication();
-end if;
-',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("6482fea2-f6af-4ea8-b9a4-04dca3833138",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("7a790587-d1c5-4af4-b5e4-9939b58aec24",
-	"00000000-0000-0000-0000-000000000000",
-	'COMM_COMM_NewComponentParticipant',
-	'ContextMenuFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select any comm from instances of COMM_COMM where USER::selectOne(id:selected.Package_ID);
-if(not_empty comm)
-  comm.newComponentParticipant();
-  
-end if;
-',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("7a790587-d1c5-4af4-b5e4-9939b58aec24",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("cc465201-d389-47af-9641-d5bfd92a7967",
-	"00000000-0000-0000-0000-000000000000",
-	'COMM_COMM_NewInstance',
-	'ContextMenuFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select any comm from instances of COMM_COMM where USER::selectOne(id:selected.Package_ID);
-if(not_empty comm)
-  comm.newClassInstance();
-end if;
-',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("cc465201-d389-47af-9641-d5bfd92a7967",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("85f58d09-b9f9-4806-99c8-8beb7d4ed26a",
-	"00000000-0000-0000-0000-000000000000",
-	'COMM_COMM_NewActorParticipant',
-	'ContextMenuFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select any comm from instances of COMM_COMM where USER::selectOne(id:selected.Package_ID);
-if(not_empty comm)
-  comm.newActor();
-end if;
-',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("85f58d09-b9f9-4806-99c8-8beb7d4ed26a",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("8e1749e4-ca00-4f31-98c0-01f581a49379",
-	"00000000-0000-0000-0000-000000000000",
-	'COMM_COMM_NewExternalEntity',
-	'ContextMenuFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select any comm from instances of COMM_COMM where USER::selectOne(id:selected.Package_ID);
-if(not_empty comm)
-  comm.newExternalEntityParticipant();
-end if;
-',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("8e1749e4-ca00-4f31-98c0-01f581a49379",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("41bf6980-41c3-49ee-8523-cb489d865a84",
-	"00000000-0000-0000-0000-000000000000",
-	'COMM_COMM_NewClassParticipant',
-	'ContextMenuFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select any comm from instances of COMM_COMM where USER::selectOne(id:selected.Package_ID);
-if(not_empty comm)
-  comm.newClassParticipant();
-end if;
-',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("41bf6980-41c3-49ee-8523-cb489d865a84",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("d0c7f463-55e0-4640-8939-8dc23d1c5fbb",
-	"00000000-0000-0000-0000-000000000000",
-	'COMM_COMM_NewFunctionPackageParticipant',
-	'ContextMenuFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select any comm from instances of COMM_COMM where USER::selectOne(id:selected.Package_ID);
-if(not_empty comm)
-  comm.newFunctionPackageParticipant();
-end if;
-',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("d0c7f463-55e0-4640-8939-8dc23d1c5fbb",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("1987c208-a000-4346-a3a5-e1f0f967b5a5",
-	"00000000-0000-0000-0000-000000000000",
-	'UC_UCC_NewUseCaseDiagram',
-	'ContextMenuFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select any ucc from instances of UC_UCC where USER::selectOne(id:selected.Package_ID);
-if(not_empty ucc)
-  ucc.newUseCasePackage();
-end if;',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("1987c208-a000-4346-a3a5-e1f0f967b5a5",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("3f10fece-86c4-4c44-af76-bd6d9e6da3b6",
-	"00000000-0000-0000-0000-000000000000",
-	'UC_UCC_NewUsecase',
-	'ContextMenuFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select any ucc from instances of UC_UCC where USER::selectOne(id:selected.Package_ID);
-if(not_empty ucc)
-  ucc.newUseCase();
-end if;',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("3f10fece-86c4-4c44-af76-bd6d9e6da3b6",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("a085a9b6-3a12-4f9e-80a4-18f8c9e90b9d",
-	"00000000-0000-0000-0000-000000000000",
-	'UC_UCC_NewActor',
-	'ContextMenuFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select any ucc from instances of UC_UCC where USER::selectOne(id:selected.Package_ID);
-if(not_empty ucc)
-  ucc.newActor();
-end if;',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("a085a9b6-3a12-4f9e-80a4-18f8c9e90b9d",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("b24f77f8-259e-4012-b4d4-67cdaacd1c9f",
-	"00000000-0000-0000-0000-000000000000",
-	'A_A_NewAction',
-	'ContextMenuFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select any act from instances of A_A where USER::selectOne(id:selected.Package_ID);
-if(not empty act)
-act.newGenericAction();
-end if;',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("b24f77f8-259e-4012-b4d4-67cdaacd1c9f",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("bf48e89b-41d9-4c59-a55c-cb8499a1cfa0",
-	"00000000-0000-0000-0000-000000000000",
-	'A_A_NewObjectNode',
-	'ContextMenuFunction: TRUE
-',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select any act from instances of A_A where USER::selectOne(id:selected.Package_ID);
-if(not empty act)
-act.newObjectNode();
-end if;',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("bf48e89b-41d9-4c59-a55c-cb8499a1cfa0",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("9c14b192-1f1b-4534-933b-d0a0b271754a",
-	"00000000-0000-0000-0000-000000000000",
-	'A_A_NewAcceptEventAction',
-	'ContextMenuFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select any act from instances of A_A where USER::selectOne(id:selected.Package_ID);
-if(not empty act)
-act.newAcceptEventAction();
-end if;',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("9c14b192-1f1b-4534-933b-d0a0b271754a",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("15324652-aafd-44a5-a322-10dc0c6124e6",
-	"00000000-0000-0000-0000-000000000000",
-	'A_A_NewSendSignalAction',
-	'ContextMenuFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select any act from instances of A_A where USER::selectOne(id:selected.Package_ID);
-if(not empty act)
-act.newSendSignalAction();
-end if;',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("15324652-aafd-44a5-a322-10dc0c6124e6",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("0360e3c3-af85-41cc-9ff8-c2058aa0dd3f",
-	"00000000-0000-0000-0000-000000000000",
-	'A_A_NewAcceptTimeEventAction',
-	'ContextMenuFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select any act from instances of A_A where USER::selectOne(id:selected.Package_ID);
-if(not empty act)
-act.newAcceptTimeEventAction();
-end if;',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("0360e3c3-af85-41cc-9ff8-c2058aa0dd3f",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("934b7dac-f335-4675-89d5-efd31e58316c",
-	"00000000-0000-0000-0000-000000000000",
-	'S_DOM_NewSubsystem',
-	'ContextMenuFunction: TRUE
-',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select any dom from instances of S_DOM where USER::selectOne(id:selected.Dom_ID);
-if(not empty dom)
-dom.newSubsystem();
-end if;',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("934b7dac-f335-4675-89d5-efd31e58316c",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("4720c99b-7c9e-4398-8656-89d0d8cdd4dc",
-	"00000000-0000-0000-0000-000000000000",
-	'S_DOM_NewExternalEntityPackage',
-	'ContextMenuFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select any dom from instances of S_DOM where USER::selectOne(id:selected.Dom_ID);
-if(not empty dom)
-dom.newExternalEntityPackage();
-end if;',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("4720c99b-7c9e-4398-8656-89d0d8cdd4dc",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("0b0e9ef5-63e8-472a-aac8-87c1f36e43b6",
-	"00000000-0000-0000-0000-000000000000",
-	'S_DOM_NewFunctionPackage',
-	'ContextMenuFunction: TRUE
-',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select any dom from instances of S_DOM where USER::selectOne(id:selected.Dom_ID);
-if(not empty dom)
-dom.newFunctionPackage();
-end if;',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("0b0e9ef5-63e8-472a-aac8-87c1f36e43b6",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("3084acfb-a793-4b2b-9788-e019f2310a6b",
-	"00000000-0000-0000-0000-000000000000",
-	'S_DOM_NewDatatypePackage',
-	'ContextMenuFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select any dom from instances of S_DOM where USER::selectOne(id:selected.Dom_ID);
-if(not empty dom)
-dom.newDatatypePackage();
-end if;',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("3084acfb-a793-4b2b-9788-e019f2310a6b",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("2b50d630-9e8a-49cd-a7e4-1234ce64f22c",
-	"00000000-0000-0000-0000-000000000000",
-	'S_DOM_NewSequenceDiagram',
-	'ContextMenuFunction: TRUE
-',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select any dom from instances of S_DOM where USER::selectOne(id:selected.Dom_ID);
-if(not empty dom)
-dom.newSequence();
-end if;',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("2b50d630-9e8a-49cd-a7e4-1234ce64f22c",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("432d767a-6781-428b-b742-665086f2fbd0",
-	"00000000-0000-0000-0000-000000000000",
-	'S_DOM_NewCommunicationDiagram',
-	'ContextMenuFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select any dom from instances of S_DOM where USER::selectOne(id:selected.Dom_ID);
-if(not empty dom)
-dom.newCommunication();
-end if;',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("432d767a-6781-428b-b742-665086f2fbd0",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("eeee1a78-9752-44d2-9067-b05628438849",
-	"00000000-0000-0000-0000-000000000000",
-	'S_DOM_NewUsecaseDiagram',
-	'ContextMenuFunction: TRUE
-',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select any dom from instances of S_DOM where USER::selectOne(id:selected.Dom_ID);
-if(not empty dom)
-dom.newUseCasePackage();
-end if;',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("eeee1a78-9752-44d2-9067-b05628438849",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("b90ca00e-bc38-4f27-b3aa-e428ff2efd47",
-	"00000000-0000-0000-0000-000000000000",
-	'S_DOM_NewActivityDiagram',
-	'ContextMenuFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select any dom from instances of S_DOM where USER::selectOne(id:selected.Dom_ID);
-if(not empty dom)
-dom.newActivity();
-end if;',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("b90ca00e-bc38-4f27-b3aa-e428ff2efd47",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("a0be6032-94e1-4c9a-914f-1f8073fac3f3",
-	"00000000-0000-0000-0000-000000000000",
-	'S_SS_NewClass',
-	'ContextMenuFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select any ss from instances of S_SS where USER::selectOne(id:selected.SS_ID);
-if(not empty ss)
-ss.newClass();
-end if;',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("a0be6032-94e1-4c9a-914f-1f8073fac3f3",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("66ddc0fe-73fb-427e-a581-ee375f490522",
-	"00000000-0000-0000-0000-000000000000",
-	'S_SS_NewImportedClass',
-	'ContextMenuFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select any ss from instances of S_SS where USER::selectOne(id:selected.SS_ID);
-if(not empty ss)
-ss.newIClass();
-end if;',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("66ddc0fe-73fb-427e-a581-ee375f490522",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("01b1fcfe-f4e6-4349-a455-fbf510252cff",
-	"00000000-0000-0000-0000-000000000000",
-	'S_SS_NewSubsystem',
-	'ContextMenuFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select any ss from instances of S_SS where USER::selectOne(id:selected.SS_ID);
-if(not empty ss)
-ss.newSubsystem();
-end if;',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("01b1fcfe-f4e6-4349-a455-fbf510252cff",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("4b56909d-f0a3-4205-b296-2b405b358056",
-	"00000000-0000-0000-0000-000000000000",
-	'S_SS_NewSequenceDiagram',
-	'ContextMenuFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select any ss from instances of S_SS where USER::selectOne(id:selected.SS_ID);
-if(not empty ss)
-ss.newSequence();
-end if;',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("4b56909d-f0a3-4205-b296-2b405b358056",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("36362594-c239-47c3-9c0d-6c644ef601ab",
-	"00000000-0000-0000-0000-000000000000",
-	'S_SS_NewCommunicationDiagram',
-	'ContextMenuFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select any ss from instances of S_SS where USER::selectOne(id:selected.SS_ID);
-if(not empty ss)
-ss.newCommunication();
-end if;',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("36362594-c239-47c3-9c0d-6c644ef601ab",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("7b8407a7-5801-46b0-a21a-fe1bbbc8ccd6",
-	"00000000-0000-0000-0000-000000000000",
-	'S_SS_NewUsecaseDiagram',
-	'ContextMenuFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select any ss from instances of S_SS where USER::selectOne(id:selected.SS_ID);
-if(not empty ss)
-ss.newUseCasePackage();
-end if;',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("7b8407a7-5801-46b0-a21a-fe1bbbc8ccd6",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("0d543ebe-fde1-42c9-80ce-c91737a8bacc",
-	"00000000-0000-0000-0000-000000000000",
-	'S_SS_NewActivityDiagram',
-	'ContextMenuFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select any ss from instances of S_SS where USER::selectOne(id:selected.SS_ID);
-if(not empty ss)
-ss.newActivity();
-end if;',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("0d543ebe-fde1-42c9-80ce-c91737a8bacc",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("4b57278a-f52a-4d9d-99b8-07cc074bef09",
-	"00000000-0000-0000-0000-000000000000",
-	'S_EEPK_NewExternalEntity',
-	'ContextMenuFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select any ePkg from instances of S_EEPK where USER::selectOne(id:selected.EEPack_ID);
-if(not empty ePkg)
-ePkg.newExternalEntity();
-end if;',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("4b57278a-f52a-4d9d-99b8-07cc074bef09",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("ccb88260-8c49-4e0b-8739-82e973cf0dd3",
-	"00000000-0000-0000-0000-000000000000",
-	'S_EEPK_NewExternalEntityPackage',
-	'ContextMenuFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select any ePkg from instances of S_EEPK where USER::selectOne(id:selected.EEPack_ID);
-if(not empty ePkg)
-ePkg.newExternalEntityPackage();
-end if;',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("ccb88260-8c49-4e0b-8739-82e973cf0dd3",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("0d80df3b-97ab-4c6f-8145-3d8db23e996a",
-	"00000000-0000-0000-0000-000000000000",
-	'S_FPK_NewFunctionPackage',
-	'ContextMenuFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select any fPkg from instances of S_FPK where USER::selectOne(id:selected.FunPack_ID);
-if(not empty fPkg)
-fPkg.newFunctionPackage();
-end if;',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("0d80df3b-97ab-4c6f-8145-3d8db23e996a",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
 	VALUES ("789923d7-531d-4d30-9484-232ac4975b76",
 	"00000000-0000-0000-0000-000000000000",
 	'C_C_NewInterfacePackage',
 	'ContextMenuFunction: TRUE',
-	'select any component from instances of C_C where USER::selectOne(id:selected.Package_ID);
-if(not_empty component)
-  component.newInterfacePackage();
-end if;',
+	'// TODO: BOB This and the CME Pei entry associated can be removed now that SPs are gone',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'');
@@ -8059,10 +5570,7 @@ INSERT INTO S_SYNC
 	"00000000-0000-0000-0000-000000000000",
 	'C_C_NewSequenceDiagram',
 	'ContextMenuFunction: TRUE',
-	'select any component from instances of C_C where USER::selectOne(id:selected.Package_ID);
-if(not empty component)
-component.newSequence();
-end if;',
+	'// TODO: BOB This and the CME Pei entry associated can be removed now that SPs are gone',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'');
@@ -8077,10 +5585,7 @@ INSERT INTO S_SYNC
 	"00000000-0000-0000-0000-000000000000",
 	'C_C_NewCommunicationDiagram',
 	'ContextMenuFunction: TRUE',
-	'select any component from instances of C_C where USER::selectOne(id:selected.Package_ID);
-if(not empty component)
-component.newCommunication();
-end if;',
+	'// TODO: BOB This and the CME Pei entry associated can be removed now that SPs are gone',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'');
@@ -8095,10 +5600,7 @@ INSERT INTO S_SYNC
 	"00000000-0000-0000-0000-000000000000",
 	'C_C_NewUsecaseDiagram',
 	'ContextMenuFunction: TRUE',
-	'select any component from instances of C_C where USER::selectOne(id:selected.Package_ID);
-if(not empty component)
-component.newUseCasePackage();
-end if;',
+	'// TODO: BOB This and the CME Pei entry associated can be removed now that SPs are gone',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'');
@@ -8113,10 +5615,9 @@ INSERT INTO S_SYNC
 	"00000000-0000-0000-0000-000000000000",
 	'C_C_NewActivityDiagram',
 	'ContextMenuFunction: TRUE',
-	'select any component from instances of C_C where USER::selectOne(id:selected.Package_ID);
-if(not empty component)
-component.newActivity();
-end if;',
+	'// TODO: BOB This is obsolete with the removal of generic packages remove this and it''s associated PEI entry
+
+',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'');
@@ -8131,10 +5632,7 @@ INSERT INTO S_SYNC
 	"00000000-0000-0000-0000-000000000000",
 	'C_C_NewComponent',
 	'ContextMenuFunction: TRUE',
-	'select any component from instances of C_C where USER::selectOne(id:selected.Package_ID);
-if(not empty component)
-  assign discardUuid = component.newComponent();
-end if;',
+	'// TODO: BOB This and the CME Pei entry associated can be removed now that SPs are gone',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'');
@@ -8149,10 +5647,7 @@ INSERT INTO S_SYNC
 	"00000000-0000-0000-0000-000000000000",
 	'C_C_NewComponentReference',
 	'ContextMenuFunction: TRUE',
-	'select any component from instances of C_C where USER::selectOne(id:selected.Package_ID);
-if(not empty component)
-component.newImportedComponent();
-end if;',
+	'// TODO: BOB This and the CME Pei entry associated can be removed now that SPs are gone',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'');
@@ -8196,34 +5691,6 @@ end if;',
 	'');
 INSERT INTO PE_PE
 	VALUES ("e5e62ee8-2dfd-4fe0-9d57-39e8c6684f82",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("d119c172-5a7b-4514-a83d-7200513421bb",
-	"00000000-0000-0000-0000-000000000000",
-	'UC_UCC_Rename',
-	'ContextMenuFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select any ucc from instances of UC_UCC where USER::selectOne(id:selected.Package_ID);
-if(not_empty ucc)
-  ucc.Name = param.new_name;
-end if;',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO S_SPARM
-	VALUES ("fecc4341-3e04-41f1-b100-a2093606bccf",
-	"d119c172-5a7b-4514-a83d-7200513421bb",
-	'new_name',
-	"ba5eda7a-def5-0000-0000-000000000004",
-	0,
-	'',
-	"00000000-0000-0000-0000-000000000000",
-	'');
-INSERT INTO PE_PE
-	VALUES ("d119c172-5a7b-4514-a83d-7200513421bb",
 	1,
 	"42d5848f-dabe-43e1-9ac4-b840f2789360",
 	"00000000-0000-0000-0000-000000000000",
@@ -8330,18 +5797,7 @@ INSERT INTO S_SYNC
 	"00000000-0000-0000-0000-000000000000",
 	'SQ_CIP_GenericPackageFormalize',
 	'ContextMenuFunction: TRUE',
-	'select any element from instances of SQ_CIP
-                                     where USER::selectOne(id:selected.Part_ID);
-select one existingElement related by element->O_OBJ[R934]
-                                 where USER::selectExisting(id:selected.Obj_ID);
-if(not_empty element)
-  select any selectedElement from instances of O_OBJ
-                                       where USER::selectOne(id:selected.Obj_ID)
-                                     and selected.SS_ID == GD::NULL_UNIQUE_ID();
-  if(not_empty selectedElement)
-    element.formalize(classId:selectedElement.Obj_ID);
-  end if;
-end if;',
+	'// TODO: BOB This and the CME Pei entry associated can be removed now that SPs are gone',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'');
@@ -8356,18 +5812,7 @@ INSERT INTO S_SYNC
 	"00000000-0000-0000-0000-000000000000",
 	'SQ_EEP_GenericPackageFormalize',
 	'ContextMenuFunction: TRUE',
-	'select any element from instances of SQ_EEP
-                                     where USER::selectOne(id:selected.Part_ID);
-select one existingElement related by element->S_EE[R933]
-                                  where USER::selectExisting(id:selected.EE_ID);
-if(not_empty element)
-  select any selectedElement from instances of S_EE
-                                        where USER::selectOne(id:selected.EE_ID)
-                                     and selected.Dom_ID == GD::NULL_UNIQUE_ID();
-  if(not_empty selectedElement)
-    element.formalize(eeId:selectedElement.EE_ID);
-  end if;
-end if;',
+	'// TODO: BOB This and the CME Pei entry associated can be removed now that SPs are gone',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'');
@@ -8382,18 +5827,7 @@ INSERT INTO S_SYNC
 	"00000000-0000-0000-0000-000000000000",
 	'SQ_CP_GenericPackageFormalize',
 	'ContextMenuFunction: TRUE',
-	'select any element from instances of SQ_CP
-                                     where USER::selectOne(id:selected.Part_ID);
-select one existingElement related by element->O_OBJ[R939]
-                                 where USER::selectExisting(id:selected.Obj_ID);
-if(not_empty element)
-  select any selectedElement from instances of O_OBJ
-                                       where USER::selectOne(id:selected.Obj_ID)
-                                     and selected.SS_ID == GD::NULL_UNIQUE_ID();
-  if(not_empty selectedElement)
-    element.formalize(classId:selectedElement.Obj_ID);
-  end if;
-end if;',
+	'// TODO: BOB This and the CME Pei entry associated can be removed now that SPs are gone',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'');
@@ -8840,11 +6274,7 @@ INSERT INTO S_SYNC
 	"00000000-0000-0000-0000-000000000000",
 	'C_C_NewSubsystem',
 	'ContextMenuFunction: TRUE',
-	'select any component from instances of C_C where USER::selectOne(id:selected.Package_ID);
-select one dom related by component->CN_DC[R4204]->S_DOM[R4204];
-if(not empty dom)
-dom.newSubsystem();
-end if;',
+	'// TODO: BOB This and the CME Pei entry associated can be removed now that SPs are gone',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'');
@@ -8859,11 +6289,7 @@ INSERT INTO S_SYNC
 	"00000000-0000-0000-0000-000000000000",
 	'C_C_NewExternalEntityPackage',
 	'ContextMenuFunction: TRUE',
-	'select any component from instances of C_C where USER::selectOne(id:selected.Package_ID);
-select one dom related by component->CN_DC[R4204]->S_DOM[R4204];
-if(not empty dom)
-dom.newExternalEntityPackage();
-end if;',
+	'// TODO: BOB This and the CME Pei entry associated can be removed now that SPs are gone',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'');
@@ -8878,11 +6304,7 @@ INSERT INTO S_SYNC
 	"00000000-0000-0000-0000-000000000000",
 	'C_C_NewFunctionPackage',
 	'ContextMenuFunction: TRUE',
-	'select any component from instances of C_C where USER::selectOne(id:selected.Package_ID);
-select one dom related by component->CN_DC[R4204]->S_DOM[R4204];
-if(not empty dom)
-dom.newFunctionPackage();
-end if;',
+	'// TODO: BOB This and the CME Pei entry associated can be removed now that SPs are gone',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'');
@@ -8897,11 +6319,7 @@ INSERT INTO S_SYNC
 	"00000000-0000-0000-0000-000000000000",
 	'C_C_NewDatatypePackage',
 	'ContextMenuFunction: TRUE',
-	'select any component from instances of C_C where USER::selectOne(id:selected.Package_ID);
-select one dom related by component->CN_DC[R4204]->S_DOM[R4204];
-if(not empty dom)
-dom.newDatatypePackage();
-end if;',
+	'// TODO: BOB This and the CME Pei entry associated can be removed now that SPs are gone',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'');
@@ -9020,10 +6438,7 @@ INSERT INTO S_SYNC
 	"00000000-0000-0000-0000-000000000000",
 	'C_C_NewPackage',
 	'ContextMenuFunction: TRUE',
-	'select any component from instances of C_C where USER::selectOne(id:selected.Package_ID);
-if(not empty component)
-component.newPackage();
-end if;',
+	'// TODO: BOB This and the CME Pei entry associated can be removed now that SPs are gone',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'');
@@ -9117,39 +6532,6 @@ INSERT INTO S_SPARM
 	'');
 INSERT INTO PE_PE
 	VALUES ("f0210d11-74c3-4076-86d8-198eaaf37f80",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("147b77b4-458c-4dc2-9ee9-eab7eec9c46a",
-	"00000000-0000-0000-0000-000000000000",
-	'SQ_COP_SpecializedPackageFormalize',
-	'ContextMenuFunction: TRUE',
-	'// ::SQ_COP_SpecializedPackageComponentFormalize()
-select any cop from instances of SQ_COP where
-                                           USER::selectOne(id:selected.Part_ID);
-select one participant related by cop->SQ_P[R930];
-select one system related by participant->SQ_S[R929]->CP_CP[R951]->S_SYS[R4606];
-if empty system
-  if not_empty participant
-    id = participant.getSystemId();
-    select any system from instances of S_SYS where selected.Sys_ID == id;
-  end if;
-end if;
-if not_empty system
-  select any Component related by system->CP_CP[R4606]->C_C[R4604] where
-                                                USER::selectOne(id:selected.Id)
-                                and cop.canFormalizeToComponent(id:selected.Id);
-  if not_empty Component
-    cop.formalize(compId:Component.Id);
-  end if;
-end if;',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("147b77b4-458c-4dc2-9ee9-eab7eec9c46a",
 	1,
 	"42d5848f-dabe-43e1-9ac4-b840f2789360",
 	"00000000-0000-0000-0000-000000000000",

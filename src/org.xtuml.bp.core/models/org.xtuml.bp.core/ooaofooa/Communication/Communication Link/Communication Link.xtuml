@@ -314,14 +314,9 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-if(param.name == "can" )
+	'if(param.name == "can" )
   if(param.value == "formalize" )
 	select one pkg related by self->SQ_P[R1133]->PE_PE[R8001]->EP_PKG[R8000];
-	if (not_empty pkg)
-	  isInGenericPkg = true;
-	end if;
-
      select many assocs related by pkg->S_SYS[R1405]->EP_PKG[R1405]->PE_PE[R8000]->R_REL[R8001];
       for each assoc in assocs
         if(self.participatesWithFormalParticipants(assocId:assoc.Rel_ID))

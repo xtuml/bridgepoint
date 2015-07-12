@@ -98,14 +98,9 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-isInGenericPkg = false;
-select one system related by self->C_EP[R4004]->C_I[R4003]->IP_IP[R4303]->S_SYS[R4304];
-// Get S_SYS when in isInGenericPackage
-if (empty system)
-  select one system related by self->C_EP[R4004]->C_I[R4003]->PE_PE[R8001]->
+	'  select one system related by self->C_EP[R4004]->C_I[R4003]->PE_PE[R8001]->
                                    EP_PKG[R8000]->S_SYS[R1405];
-end if;
+
 type_dt_id = GD::NULL_UNIQUE_ID();
 if not_empty system
   type_dt_id = system.getCoreTypeId(name:param.typeName);
@@ -478,8 +473,7 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select one packageableElem related by self->
+	'select one packageableElem related by self->
                                           C_EP[R4004]->C_I[R4003]->PE_PE[R8001];
 select one package related by packageableElem->EP_PKG[R8000];
 select one component related by packageableElem->C_C[R8003];

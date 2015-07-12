@@ -14,19 +14,11 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select one system related by self->S_SYS[R1401];
+	'select one system related by self->S_SYS[R1401];
 if(not_empty system)
   unrelate self from system across R1401;
 end if;
-select many specPkgs related by self->EP_SPKG[R1400];
-for each specPkg in specPkgs
-  // A Specification Package can contain a datatype package.  When datatypes
-  // are disposed, they may need to use R1400.  Therefore, we have to call
-  // dispose() before unrelating across R1400.
-  specPkg.dispose();
-  unrelate self from specPkg across R1400;
-end for;
+
 select many pps related by self->SQ_PP[R956];
 for each pp in pps
   pp.unformalize();
@@ -444,8 +436,7 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select one system related by self->S_SYS[R1405];
+	'select one system related by self->S_SYS[R1405];
 if(not_empty system and system.Sys_ID != param.sysID)
   // different system
   unrelate self from system across R1405;
@@ -456,15 +447,7 @@ if(not_empty system and system.Sys_ID != param.sysID)
 end if;
 // first associate all component packages and their
 // children with the system pasted into
-select many componentPackages related by self->EP_SPKG[R1400]->CP_CP[R1402];
-for each componentPackage in componentPackages
-  componentPackage.associatePackageWithSystem(sysID:param.sysID);
-end for;
-// now do the same for every interface package
-select many interfacePackages related by self->EP_SPKG[R1400]->IP_IP[R1402];
-for each interfacePackage in interfacePackages
-  interfacePackage.associatePackageWithSystem(sysID:param.sysID);
-end for;
+
 // the same for nested packages
 select many pips related by self->EP_PIP[R1403]->EP_PKG[R1404];
 for each pip in pips
@@ -484,17 +467,7 @@ if(not_empty system)
   end for;
 end if;//
 
-// and the same for data type packages
-select many dtPackages related by self->EP_SPKG[R1400]->S_DPK[R1402];
-for each dtPackage in dtPackages
-  // must associate all dts with the system
-  dtPackage.associateDTSWithSystem(sys_id:param.sysID);
-  // must associate all constant specs with the system
-  dtPackage.associateCSPsWithSystem(sys_id:param.sysID);
-  // before removing any core dts from this package
-  // we must resolve any user dts to new core types
-  dtPackage.handleUserDataTypeResolution();
-end for;',
+',
 	1,
 	'',
 	"2a73cabc-5797-4455-9c8b-e4dc3ec3617f");
@@ -1149,7 +1122,6 @@ INSERT INTO O_TFR
 	1,
 	'// Data Type Package::newEnumeration()
 create object instance dt of S_DT;
-create object instance dip of S_DIP;
 // create Packageable Element supertype and hook up to this package.
 create object instance pe of PE_PE;
 relate dt to pe across R8001;
@@ -1178,7 +1150,6 @@ create object instance pe of PE_PE;
 relate dt to pe across R8001;
 create object instance sdt of S_SDT;
 relate dt to sdt across R17;
-create object instance dip of S_DIP;
 relate pe to self across R8000;
 pe.type = ElementTypeConstants::DATATYPE;
 pe.initialize();
@@ -1992,7 +1963,6 @@ else
     pe.type = ElementTypeConstants::MESSAGE;
     pe.initialize();
     create object instance sm of MSG_SM;
-    create object instance mic of COMM_MIC;
     relate message to sm across R1018;
     sm.initialize();
     // set a flag indicating that this participates in
@@ -2092,7 +2062,6 @@ else
     pe.type = ElementTypeConstants::MESSAGE;
     pe.initialize();
     create object instance am of MSG_AM;
-    create object instance mic of COMM_MIC;
     relate message to am across R1018;
     am.initialize();
     // set a flag indicating that this participates in
@@ -2191,7 +2160,6 @@ else
     pe.type = ElementTypeConstants::MESSAGE;
     pe.initialize();
     create object instance rm of MSG_R;
-    create object instance mic of COMM_MIC;
     relate message to rm across R1018;
     rm.initialize();
     return true;
@@ -2570,7 +2538,7 @@ relate fn to pe across R8001;
 relate pe to self across R8000;
 pe.type = ElementTypeConstants::FUNCTION;
 pe.initialize();
-create object instance fip of S_FIP;
+
 fn.initialize();',
 	1,
 	'',
@@ -2622,282 +2590,6 @@ INSERT INTO O_TPARM
 	"00000000-0000-0000-0000-000000000000",
 	'');
 INSERT INTO O_TFR
-	VALUES ("8d3ea35d-9e8f-485d-bbfd-575052e8df36",
-	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
-	'getActivityCount',
-	'',
-	"ba5eda7a-def5-0000-0000-000000000002",
-	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select many activities related by self->EP_SPKG[R1400]->A_A[R1402];
-return cardinality activities;',
-	1,
-	'',
-	"6a3fb6c6-02f0-4522-adfe-ae2e3e8e952f");
-INSERT INTO O_TFR
-	VALUES ("01166d05-79ef-4fcf-a453-843309688387",
-	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
-	'getActivityId',
-	'',
-	"ba5eda7a-def5-0000-0000-000000000005",
-	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-id = GD::NULL_UNIQUE_ID();
-select many activities related by self->EP_SPKG[R1400]->A_A[R1402];
-// We''re preincrementing the index
-count = -1;
-for each activity in activities
-  if (not_empty activity)
-      count = count+1;
-  end if;
-  if (count == param.index)
-      return activity.get_ooa_id();  
-  end if;
-end for;
-return id;',
-	1,
-	'',
-	"8d3ea35d-9e8f-485d-bbfd-575052e8df36");
-INSERT INTO O_TPARM
-	VALUES ("02e237a7-01d0-472c-8333-b84171a7f9b6",
-	"01166d05-79ef-4fcf-a453-843309688387",
-	'index',
-	"ba5eda7a-def5-0000-0000-000000000002",
-	0,
-	'',
-	"00000000-0000-0000-0000-000000000000",
-	'');
-INSERT INTO O_TFR
-	VALUES ("d26c41b4-670b-4b58-be36-597f997a2000",
-	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
-	'getCommunicationCount',
-	'',
-	"ba5eda7a-def5-0000-0000-000000000002",
-	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select many communications related by self->EP_SPKG[R1400]->COMM_COMM[R1402];
-return cardinality communications;',
-	1,
-	'',
-	"01166d05-79ef-4fcf-a453-843309688387");
-INSERT INTO O_TFR
-	VALUES ("dfa7ec0f-efe0-425b-a2fd-150898339077",
-	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
-	'getCommunicationId',
-	'',
-	"ba5eda7a-def5-0000-0000-000000000005",
-	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-id = GD::NULL_UNIQUE_ID();
-select many communications related by self->EP_SPKG[R1400]->COMM_COMM[R1402];
-// We''re preincrementing the index
-count = -1;
-for each communication in communications
-  if (not_empty communication)
-      count = count+1;
-  end if;
-  if (count == param.index)
-      return communication.get_ooa_id();  
-  end if;
-end for;
-return id;',
-	1,
-	'',
-	"d26c41b4-670b-4b58-be36-597f997a2000");
-INSERT INTO O_TPARM
-	VALUES ("6cbf94d6-7df7-4fb3-887f-53ee3c79e281",
-	"dfa7ec0f-efe0-425b-a2fd-150898339077",
-	'index',
-	"ba5eda7a-def5-0000-0000-000000000002",
-	0,
-	'',
-	"00000000-0000-0000-0000-000000000000",
-	'');
-INSERT INTO O_TFR
-	VALUES ("df5ff907-c8e0-4467-ace9-1a621c9d57d1",
-	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
-	'getCompPckgCount',
-	'',
-	"ba5eda7a-def5-0000-0000-000000000002",
-	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select many compPckgs related by self->EP_SPKG[R1400]->CP_CP[R1402];
-return cardinality compPckgs;',
-	1,
-	'',
-	"dfa7ec0f-efe0-425b-a2fd-150898339077");
-INSERT INTO O_TFR
-	VALUES ("3648c40f-24f3-4d52-a8ad-4c7f8712af56",
-	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
-	'getCompPckgId',
-	'',
-	"ba5eda7a-def5-0000-0000-000000000005",
-	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-id = GD::NULL_UNIQUE_ID();
-select many compPckgs related by self->EP_SPKG[R1400]->CP_CP[R1402];
-// We''re preincrementing the index
-count = -1;
-for each compPckg in compPckgs
-  if (not_empty compPckg)
-      count = count+1;
-  end if;
-  if (count == param.index)
-      return compPckg.get_ooa_id();  
-  end if;
-end for;
-return id;',
-	1,
-	'',
-	"df5ff907-c8e0-4467-ace9-1a621c9d57d1");
-INSERT INTO O_TPARM
-	VALUES ("731e1b5c-230d-428e-b1e7-ef73f666e7c3",
-	"3648c40f-24f3-4d52-a8ad-4c7f8712af56",
-	'index',
-	"ba5eda7a-def5-0000-0000-000000000002",
-	0,
-	'',
-	"00000000-0000-0000-0000-000000000000",
-	'');
-INSERT INTO O_TFR
-	VALUES ("eb1e3ac0-2267-47fc-a747-18b647ed5816",
-	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
-	'getDatatypePckgCount',
-	'',
-	"ba5eda7a-def5-0000-0000-000000000002",
-	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select many datatypePckgs related by self->EP_SPKG[R1400]->S_DPK[R1402];
-return cardinality datatypePckgs;',
-	1,
-	'',
-	"3648c40f-24f3-4d52-a8ad-4c7f8712af56");
-INSERT INTO O_TFR
-	VALUES ("c333c6c1-c200-4cbc-a238-e26c76a7b4e4",
-	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
-	'getDatatypePckgId',
-	'',
-	"ba5eda7a-def5-0000-0000-000000000005",
-	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-id = GD::NULL_UNIQUE_ID();
-select many datatypePckgs related by self->EP_SPKG[R1400]->S_DPK[R1402];
-// We''re preincrementing the index
-count = -1;
-for each datatypePckg in datatypePckgs
-  if (not_empty datatypePckg)
-      count = count+1;
-  end if;
-  if (count == param.index)
-      return datatypePckg.get_ooa_id();  
-  end if;
-end for;
-return id;',
-	1,
-	'',
-	"eb1e3ac0-2267-47fc-a747-18b647ed5816");
-INSERT INTO O_TPARM
-	VALUES ("acaae4c3-baaa-4e9e-9adb-78256badf504",
-	"c333c6c1-c200-4cbc-a238-e26c76a7b4e4",
-	'index',
-	"ba5eda7a-def5-0000-0000-000000000002",
-	0,
-	'',
-	"00000000-0000-0000-0000-000000000000",
-	'');
-INSERT INTO O_TFR
-	VALUES ("4fd636f2-8673-447d-8dae-4a1b24946864",
-	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
-	'getInterfacePckgCount',
-	'',
-	"ba5eda7a-def5-0000-0000-000000000002",
-	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select many interfacePckgs related by self->EP_SPKG[R1400]->IP_IP[R1402];
-return cardinality interfacePckgs;',
-	1,
-	'',
-	"c333c6c1-c200-4cbc-a238-e26c76a7b4e4");
-INSERT INTO O_TFR
-	VALUES ("04f72e59-9f28-44a7-bcad-5331943beee7",
-	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
-	'getInterfacePckgId',
-	'',
-	"ba5eda7a-def5-0000-0000-000000000005",
-	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-id = GD::NULL_UNIQUE_ID();
-select many interfacePckgs related by self->EP_SPKG[R1400]->IP_IP[R1402];
-// We''re preincrementing the index
-count = -1;
-for each interfacePckg in interfacePckgs
-  if (not_empty interfacePckg)
-      count = count+1;
-  end if;
-  if (count == param.index)
-      return interfacePckg.get_ooa_id();  
-  end if;
-end for;
-return id;',
-	1,
-	'',
-	"4fd636f2-8673-447d-8dae-4a1b24946864");
-INSERT INTO O_TPARM
-	VALUES ("066047da-e8e0-416e-b3dd-e3a4b9da7b86",
-	"04f72e59-9f28-44a7-bcad-5331943beee7",
-	'index',
-	"ba5eda7a-def5-0000-0000-000000000002",
-	0,
-	'',
-	"00000000-0000-0000-0000-000000000000",
-	'');
-INSERT INTO O_TFR
-	VALUES ("a9d0878b-173c-454c-bf5b-b6de0ccee09f",
-	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
-	'getSequenceId',
-	'',
-	"ba5eda7a-def5-0000-0000-000000000005",
-	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-id = GD::NULL_UNIQUE_ID();
-select many sequences related by self->EP_SPKG[R1400]->SQ_S[R1402];
-// We''re preincrementing the index
-count = -1;
-for each sequence in sequences
-  if (not_empty sequence)
-      count = count+1;
-  end if;
-  if (count == param.index)
-      return sequence.get_ooa_id();  
-  end if;
-end for;
-return id;',
-	1,
-	'',
-	"04f72e59-9f28-44a7-bcad-5331943beee7");
-INSERT INTO O_TPARM
-	VALUES ("88372241-e717-48b0-88d5-69263301f711",
-	"a9d0878b-173c-454c-bf5b-b6de0ccee09f",
-	'index',
-	"ba5eda7a-def5-0000-0000-000000000002",
-	0,
-	'',
-	"00000000-0000-0000-0000-000000000000",
-	'');
-INSERT INTO O_TFR
-	VALUES ("3eb6a4d1-dfec-4943-8a08-c23e7ee459dc",
-	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
-	'getSequenceCount',
-	'',
-	"ba5eda7a-def5-0000-0000-000000000002",
-	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select many sequences related by self->EP_SPKG[R1400]->SQ_S[R1402];
-return cardinality sequences;',
-	1,
-	'',
-	"a9d0878b-173c-454c-bf5b-b6de0ccee09f");
-INSERT INTO O_TFR
 	VALUES ("d1a13ded-f65e-4102-9ead-c24bf81ccb1e",
 	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
 	'getUseCaseCount',
@@ -2908,7 +2600,7 @@ INSERT INTO O_TFR
 return cardinality usecases;',
 	1,
 	'',
-	"3eb6a4d1-dfec-4943-8a08-c23e7ee459dc");
+	"6a3fb6c6-02f0-4522-adfe-ae2e3e8e952f");
 INSERT INTO O_TFR
 	VALUES ("53dbf4d3-e13b-4c0a-a492-375e69217ea6",
 	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
@@ -4558,117 +4250,6 @@ INSERT INTO O_TPARM
 	"00000000-0000-0000-0000-000000000000",
 	'');
 INSERT INTO O_TFR
-	VALUES ("3c34752f-d365-490c-9102-324cd0c5aff0",
-	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
-	'newComponentPackage',
-	'',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'create object instance package of CP_CP;
-create object instance sp of EP_SPKG;
-relate self to sp across R1400;
-relate package to sp across R1402;
-select any system from instances of S_SYS
-                                  where (selected.Sys_ID == self.getSystemId());
-relate package to system across R4606;
-package.initialize();',
-	1,
-	'',
-	"2a31e4e4-5796-412e-9b55-966c67a9f95a");
-INSERT INTO O_TFR
-	VALUES ("8967f467-0348-414c-91a1-9e1d098cada7",
-	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
-	'newInterfacePackage',
-	'',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'create object instance interfacePackage of IP_IP;
-create object instance sp of EP_SPKG;
-relate sp to interfacePackage across R1402;
-relate sp to self across R1400;
-select any system from instances of S_SYS
-                                  where (selected.Sys_ID == self.getSystemId());
-relate system to interfacePackage across R4304;
-interfacePackage.initialize();',
-	1,
-	'',
-	"3c34752f-d365-490c-9102-324cd0c5aff0");
-INSERT INTO O_TFR
-	VALUES ("5d94703c-42a8-4dab-8519-b50dfaa7da02",
-	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
-	'newActivity',
-	'',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'create object instance a of A_A;
-create object instance sp of EP_SPKG;
-relate self to sp across R1400;
-relate a to sp across R1402;
-a.initialize();',
-	1,
-	'',
-	"8967f467-0348-414c-91a1-9e1d098cada7");
-INSERT INTO O_TFR
-	VALUES ("ea833d88-eb9d-462e-a2b3-c20d06804d04",
-	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
-	'newUseCasePackage',
-	'',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'create object instance ucc of UC_UCC;
-create object instance sp of EP_SPKG;
-relate self to sp across R1400;
-relate sp to ucc across R1402;
-ucc.initialize();',
-	1,
-	'',
-	"5d94703c-42a8-4dab-8519-b50dfaa7da02");
-INSERT INTO O_TFR
-	VALUES ("10f658a6-9f52-40ab-9033-15b888241037",
-	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
-	'newSequence',
-	'',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'create object instance sequence of SQ_S;
-create object instance sp of EP_SPKG;
-relate self to sp across R1400;
-relate sp to sequence across R1402;
-sequence.initialize();',
-	1,
-	'',
-	"ea833d88-eb9d-462e-a2b3-c20d06804d04");
-INSERT INTO O_TFR
-	VALUES ("070effe2-51f1-4327-99ab-a4d1c643d1f1",
-	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
-	'newCommunication',
-	'',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'create object instance comm of COMM_COMM;
-create object instance sp of EP_SPKG;
-relate sp to self across R1400;
-relate comm to sp across R1402;
-comm.initialize();',
-	1,
-	'',
-	"10f658a6-9f52-40ab-9033-15b888241037");
-INSERT INTO O_TFR
-	VALUES ("f46acf11-3f1d-4973-b2db-35a987df4ca0",
-	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
-	'newDatatypePackage',
-	'',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'create object instance dPkg of S_DPK;
-create object instance sp of EP_SPKG;
-relate self to sp across R1400;
-relate sp to dPkg across R1402;
-dPkg.initialize();',
-	1,
-	'',
-	"070effe2-51f1-4327-99ab-a4d1c643d1f1");
-INSERT INTO O_TFR
 	VALUES ("d5850e6b-2ddf-46dd-a225-6c66f7d44570",
 	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
 	'newPackageParticipant',
@@ -4687,7 +4268,7 @@ relate participant to pp across R930;
 pp.initialize();',
 	1,
 	'',
-	"f46acf11-3f1d-4973-b2db-35a987df4ca0");
+	"2a31e4e4-5796-412e-9b55-966c67a9f95a");
 INSERT INTO O_TFR
 	VALUES ("f65434db-05ad-4bff-bfdb-54cf0071e190",
 	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
@@ -5948,16 +5529,7 @@ for each package in packages
   package.collectReferencesForSynchronization(referenceList:param.referenceList,
                                                        syncType:param.syncType);
 end for;
-select many componentPkgs related by self->EP_SPKG[R1400]->CP_CP[R1402];
-for each componentPkg in componentPkgs
-  componentPkg.collectReferencesForSynchronization(
-                    referenceList:param.referenceList, syncType:param.syncType);
-end for;
-select many interfacePkgs related by self->EP_SPKG[R1400]->IP_IP[R1402];
-for each interfacePkg in interfacePkgs
-  interfacePkg.collectReferencesForSynchronization(
-                    referenceList:param.referenceList, syncType:param.syncType);
-end for;',
+',
 	1,
 	'',
 	"ad4d17db-9e74-4950-b4d7-fc5ce8e4ed75");

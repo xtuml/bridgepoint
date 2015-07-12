@@ -135,8 +135,7 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-// create the class as link
+	'// create the class as link
 create object instance assr of R_ASSR;
 
 // Unformalize self if it is formalized

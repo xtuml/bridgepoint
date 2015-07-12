@@ -35,10 +35,8 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
-	'select one domain related by self->S_EE[R12]->S_DOM[R8];
-return S_DT::isAllowedParameterType( typeName: param.typeName,
-                             			dom_id: domain.get_ooa_id());
-',
+	'// TODO: BOB remove this function and all places that invoke it
+return false;',
 	1,
 	'',
 	"20bd279f-1760-4fe2-a60f-ea0025641180");

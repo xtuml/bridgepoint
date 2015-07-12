@@ -21,16 +21,7 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select one domainAsComponent related by self->CN_DC[R4204];
-if(not_empty domainAsComponent)
-  select one domain related by domainAsComponent->S_DOM[R4204];
-  unrelate domain from self across R4204 using domainAsComponent;
-  delete object instance domainAsComponent;
-  domain.dispose();
-end if;
-
-select many importedComponents related by self->CL_IC[R4205];
+	'select many importedComponents related by self->CL_IC[R4205];
 for each importedComponent in importedComponents
   importedComponent.dispose();
 end for;
@@ -56,27 +47,11 @@ if (not_empty cic)
   delete object instance cic;
 end if;
 
-select one componentPackage related by self->CP_CP[R4604];
-if(not_empty componentPackage)
-  unrelate self from componentPackage across R4604;
-end if;
-
 select many ports related by self->C_PO[R4010];
 for each port in ports
   unrelate self from port across R4010;
   port.dispose();
 end for;
-
-select many interfacePackages related by self->IP_IP[R4206];
-for each interfacePackage in interfacePackages
-  unrelate self from interfacePackage across R4206;
-  interfacePackage.dispose();
-end for;
-
-select one rootPkg related by self->CP_CP[R4608];
-if not_empty rootPkg
-  unrelate self from rootPkg across R4608;
-end if;
 
 select many bodyInComponents related by self->ACT_BIC[R694];
 for each bic in bodyInComponents
@@ -107,31 +82,6 @@ select many executionEngines related by self->I_EXE[R2955];
 for each engine in executionEngines
   unrelate engine from self across R2955;
   engine.dispose();
-end for;
-
-// dispose informal diagrams
-select many sequences related by self->SQ_S[R952];
-for each sequence in sequences
-  unrelate self from sequence across R952;
-  sequence.dispose();
-end for;
-
-select many activities related by self->A_A[R1115];
-for each activity in activities
-  unrelate self from activity across R1115;
-  activity.dispose();
-end for;
-
-select many comms related by self->COMM_COMM[R1138];
-for each comm in comms
-  unrelate self from comm across R1138;
-  comm.dispose();
-end for;
-
-select many uccs related by self->UC_UCC[R1213];
-for each ucc in uccs
-  unrelate self from ucc across R1213;
-  ucc.dispose();
 end for;
 
 select many compParts related by self->SQ_COP[R955];
@@ -419,8 +369,7 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-path = "";
+	'path = "";
 if param.includeSelf == true
   path = self.Name;
 end if;
@@ -435,15 +384,10 @@ select one comp related by self->PE_PE[R8001]->C_C[R8003];
 if (not_empty comp)
   return comp.getPath(path:path, includeSelf:true);
 end if;
-select one package related by self->CP_CP[R4604];
-if (not_empty package)
-  return package.getPath(path:path);
-else
   select one cic related by self->CN_CIC[R4203]->C_C[R4202];
   if(not_empty cic)
     return cic.getPath(path:path, includeSelf:true);
   end if;
-end if;
 return "";',
 	1,
 	'',
@@ -891,47 +835,13 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-/*
+	'/*
 *  Check that the interface package given exists either at the
 *  system level or along the parent path of this component.
 *
 */
-isInGenericPkg = self.isInGenericPackage();
-
-if (isInGenericPkg)
   return false;
-else
-  select one componentPackage related by self->CP_CP[R4604];
-  if(empty componentPackage)
-    // walk the component nesting tree until we find a package
-    // checking for the interface package at each level
-    select one parentComponent related by self->CN_CIC[R4203]->C_C[R4202];
-    if(not_empty parentComponent)
-      while(empty componentPackage)
-        select any interfacePackage related by parentComponent->IP_IP[R4206] where (selected.Package_ID == param.id);
-        if(not_empty interfacePackage)
-          return true;
-        else
-          select many interfacePkgs related by parentComponent->IP_IP[R4206];
-          for each interfacePkg in interfacePkgs
-            if(interfacePkg.isChildPackageOf(Id:param.id))
-              return true;
-            end if;
-          end for;
-        end if;
-        select one componentPackage related by parentComponent->CP_CP[R4604];
-        select one parentComponent related by parentComponent->CN_CIC[R4203]->C_C[R4202];
-      end while;
-    end if;
-  end if;
-  if(not_empty componentPackage)
-    return componentPackage.interfacePackageIsAlongParentPath(id:param.id);
-  end if;
-end if;   
-
-
-return false;',
+',
 	1,
 	'',
 	"b40aa9e6-30af-4a77-b46e-1bcf7ffd6da1");
@@ -951,9 +861,7 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this
-// comment.
-/*
+	'/*
  *  The rules for creating provided interfaces are:
  *
  *   * Common rules
@@ -972,9 +880,6 @@ INSERT INTO O_TFR
  * a existing provision is being connected to a requirement.  In the case where
  * a new provision is being created the param.provision_id will be empty.
  */
-select one system related by self->CP_CP[R4608]->S_SYS[R4606];
-isInGenericPkg = self.isInGenericPackage();
-if (isInGenericPkg)
   select one system related by self->PE_PE[R8001]->EP_PKG[R8000]->S_SYS[R1405];
   if (empty system)
     rootCompIdInPkg = self.getRootComponentId();
@@ -984,7 +889,6 @@ if (isInGenericPkg)
     select one system related by rootComponent->PE_PE[R8001]->EP_PKG[R8000]
                                                                  ->S_SYS[R1405];
   end if;
-end if;
 
 select any requirement from instances of C_R
                         where (selected.Requirement_Id == param.requirement_id);
@@ -1064,7 +968,7 @@ if(not_empty requirement)
   
   if(param.proceed)
     create object instance satisfaction of C_SF;
-    if isInGenericPkg
+
      // create Packageable Element supertype and hook it up . . . 
       create object instance pe of PE_PE;
       relate satisfaction to pe across R8001;
@@ -1088,42 +992,6 @@ if(not_empty requirement)
       end if;
       pe.type = ElementTypeConstants::SATISFACTION;
       pe.initialize();
-    else
-      if(not_empty importedRef)
-        // relate this satisfaction to the diagram for which
-        // the imported ref is on
-       select one parentComp related by importedRef->CL_POR[R4708]->CL_IC[R4707]->C_C[R4205];
-        if(not_empty parentComp)
-          create object instance sic of PA_SIC;
-          relate parentComp to satisfaction across R9000 using sic;
-        else
-          // Note that although we do go through CP_CP here we do not have to 
-          // refactor this for removal of specialized packes because with
-          // removal of specifialized packages the need for R9001 shall go away
-          select one parentPkg related by importedRef->CL_POR[R4708]->CL_IC[R4707]
-                                                                 ->CP_CP[R4605];
-          if(not_empty parentPkg)
-            create object instance sicp of PA_SICP;
-            relate parentPkg to satisfaction across R9001 using sicp;
-          end if;
-        end if;
-      else
-        select one parentComp related by self->CN_CIC[R4203]->C_C[R4202];
-        if(not_empty parentComp)
-          create object instance sic of PA_SIC;
-          relate parentComp to satisfaction across R9000 using sic;
-        else
-          // Note that although we do go through CP_CP here we do not have to 
-          // refactor this for removal of specialized packes because with
-          // removal of specifialized packages the need for R9001 shall go away
-          select one parentPkg related by self->CP_CP[R4604];
-          if(not_empty parentPkg)
-            create object instance sicp of PA_SICP;
-            relate parentPkg to satisfaction across R9001 using sicp;
-          end if;
-        end if;  
-      end if;
-    end if;
     relate provision to requirement across R4002 using satisfaction;
     if(not_empty importedRef)
       select one importedReq related by importedRef->CL_IR[R4703];
@@ -1184,9 +1052,7 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this
-// comment.
-/*
+	'/*
  *  The rules for creating required interfaces are:
  *
  *   * Common rules
@@ -1206,9 +1072,6 @@ INSERT INTO O_TFR
  * a existing requirement is being connected to a provision.  In the case where
  * a new requirement is being created the param.requirement_id will be empty.
  */
-select one system related by self->CP_CP[R4608]->S_SYS[R4606];
-isInGenericPkg = self.isInGenericPackage();
-if (isInGenericPkg)
   select one system related by self->PE_PE[R8001]->EP_PKG[R8000]->S_SYS[R1405];
   if (empty system)
     rootCompIdInPkg = self.getRootComponentId();
@@ -1218,7 +1081,6 @@ if (isInGenericPkg)
     select one system related by rootComponent->PE_PE[R8001]->EP_PKG[R8000]
                                                                  ->S_SYS[R1405];
   end if;
-end if;
 
 select any provision from instances of C_P
                             where (selected.Provision_Id == param.provision_id);
@@ -1309,7 +1171,7 @@ if(not_empty provision)
   
   if(param.proceed)
     create object instance satisfaction of C_SF;
-    if isInGenericPkg
+
       // create Packageable Element supertype and hook it up . . . 
       create object instance pe of PE_PE;
       relate satisfaction to pe across R8001;
@@ -1333,42 +1195,7 @@ if(not_empty provision)
       end if;
       pe.type = ElementTypeConstants::SATISFACTION;
       pe.initialize();
-    else
-      if(not_empty importedRef)
-        // relate this satisfaction to the diagram for which
-        // the imported ref is on
-       select one parentComp related by importedRef->CL_POR[R4708]->CL_IC[R4707]->C_C[R4205];
-        if(not_empty parentComp)
-          create object instance sic of PA_SIC;
-          relate parentComp to satisfaction across R9000 using sic;
-        else
-          // Note that although we do go through CP_CP here we do not have to 
-          // refactor this for removal of specialized packes because with
-          // removal of specifialized packages the need for R9001 shall go away
-         select one parentPkg related by importedRef->CL_POR[R4708]->CL_IC[R4707]
-                                                                 ->CP_CP[R4605];
-          if(not_empty parentPkg)
-            create object instance sicp of PA_SICP;
-            relate parentPkg to satisfaction across R9001 using sicp;
-          end if;
-        end if;
-      else
-        select one parentComp related by self->CN_CIC[R4203]->C_C[R4202];
-        if(not_empty parentComp)
-          create object instance sic of PA_SIC;    
-          relate satisfaction to parentComp across R9000 using sic;
-        else
-          // Note that although we do go through CP_CP here we do not have to 
-          // refactor this for removal of specialized packes because with
-          // removal of specifialized packages the need for R9001 shall go away
-          select one parentPkg related by self->CP_CP[R4604];
-          if(not_empty parentPkg)
-            create object instance sicp of PA_SICP;
-            relate satisfaction to parentPkg across R9001 using sicp;
-          end if;
-        end if;
-      end if;
-    end if;
+
     relate provision to requirement across R4002 using satisfaction;
     if(not_empty importedRef)
       select any importedRef related by provision->C_IR[R4009]->CL_IIR[R4701]
@@ -2367,8 +2194,7 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
-	'isInGenericPackage = self.isInGenericPackage();
-return isInGenericPackage;
+	'return true;
 ',
 	1,
 	'',
@@ -2447,10 +2273,8 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'select one cp related by self->CP_CP[R4608];
-select many components related by self->CN_CIC[R4202]->C_C[R4203];
+	'select many components related by self->CN_CIC[R4202]->C_C[R4203];
 for each component in components
-  relate component to cp across R4608;
   component.associateChildrenWithRootComponentPackage();
 end for;',
 	1,
@@ -2491,8 +2315,7 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select any iface from instances of C_I where (selected.Id == param.id);
+	'select any iface from instances of C_I where (selected.Id == param.id);
 if(not_empty iface)
   // guarantee a unique name for the pasted dt package
   iface.Name = ::getUniqueInitialNameInParent(instance:iface.convertToInstance(),
@@ -2700,15 +2523,6 @@ select many components related by self->CN_CIC[R4202]->C_C[R4203];
 for each component in components
   component.removeIncompleteSignalEvents();
 end for;
-// if this component is assigned to a domain, do the
-// same
-select one domain related by self->CN_DC[R4204]->S_DOM[R4204];
-if(not_empty domain)
-  select many subsystems related by domain->S_SS[R1];
-  for each subsystem in subsystems
-    subsystem.removeIncompleteSignalEvents();
-  end for;
-end if;
 ',
 	1,
 	'',
@@ -3021,12 +2835,6 @@ end for;
 select many ports related by self->C_PO[R4010];
 for each port in ports
   port.collectReferencesForSynchronization(
-                    referenceList:param.referenceList, syncType:param.syncType);
-end for;
-// now for specialized packages
-select many interfacePackages related by self->IP_IP[R4206];
-for each interfacePackage in interfacePackages
-  interfacePackage.collectReferencesForSynchronization(
                     referenceList:param.referenceList, syncType:param.syncType);
 end for;
 select many components related by self->CN_CIC[R4202]->C_C[R4203];

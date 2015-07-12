@@ -14,12 +14,7 @@ INSERT INTO O_TFR
 	'The dispose operation for this class.',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select one ss related by self->S_SS[R7];
-if (not_empty ss)
-  unrelate self from ss across R7;
-end if;
-select one ee related by self->S_EE[R9];
+	'select one ee related by self->S_EE[R9];
 unrelate self from ee across R9;
 select many eesmcs related by self->CA_EESMC[R402];
 for each eesmc in eesmcs

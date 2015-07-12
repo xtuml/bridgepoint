@@ -266,8 +266,7 @@ INSERT INTO O_TFR
 	'The dispose operation for this class.',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select one pe related by self->PE_PE[R8001];
+	'select one pe related by self->PE_PE[R8001];
 if(not_empty pe)
   // PE_PE.dispose() will call back into this function at which time the
   // rest of the activity will execute.
@@ -282,20 +281,6 @@ select many brgs related by self->S_BRG[R19];
 for each brg in brgs
   brg.dispose();
 end for;
-select one dom related by self->S_DOM[R8];
-if ( not_empty dom )
-  unrelate self from dom across R8;
-end if;
-select one eeip related by self->S_EEIP[R33];
-if (not_empty eeip)
-  select one eepk related by eeip->S_EEPK[R33];
-  unrelate self from eepk across R33 using eeip;
-  delete object instance eeip;
-  select many eems related by self->S_EEM[R9];
-  for each eem in eems
-    eem.dispose();
-  end for;
-end if;   
 
 select many eeevts related by self->S_EEEVT[R10];
 for each eeevt in eeevts

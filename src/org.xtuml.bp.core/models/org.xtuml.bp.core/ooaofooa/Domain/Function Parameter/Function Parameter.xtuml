@@ -70,16 +70,11 @@ INSERT INTO O_TFR
 	'The initialization operation for this class.  Set the name and return value to defaults.',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select one function related by self->S_SYNC[R24];
+	'select one function related by self->S_SYNC[R24];
 function.addParameterToOrder(id:self.SParm_ID);
 isInGenericPkg = false;
 select one pkg related by self->S_SYNC[R24]->PE_PE[R8001]->EP_PKG[R8000];
-if (not_empty pkg)
-  isInGenericPkg = true;
-end if;
 
-if (isInGenericPkg)
     select one system related by pkg->S_SYS[R1405];
     def_dt_id = GD::NULL_UNIQUE_ID();
     if not_empty system
@@ -90,31 +85,7 @@ if (isInGenericPkg)
     if(not_empty def_dt)
       relate self to def_dt across R26;
     end if;
-else
-  select any dom from instances of S_DOM;
-  select one component related by dom->CN_DC[R4204]->C_C[R4204];
-  if(not_empty component)
-    // this bridge is part of a formal component
-    // get the default data type from the system
-    select one system related by component->CP_CP[R4608]->S_SYS[R4606];
-    def_dt_id = GD::NULL_UNIQUE_ID();
-    if not_empty system
-      def_dt_id = system.getCoreTypeId(name:"integer");
-    end if;
-    select any pe from instances of PE_PE where selected.Element_ID == def_dt_id;
-    select one def_dt related by pe->S_DT[R8001]; 
-    if(not_empty def_dt)
-      relate self to def_dt across R26;
-    end if;
-  else
-    // this bridge is part of a stand alone domain
-    // get the default data type from the domain
-    select any def_dt related by dom->S_DT[R14] where selected.Name == "integer";
-    if(not_empty def_dt)
-      relate self to def_dt across R26;
-    end if;
-  end if;
-end if;  
+
 name = ::getUniqueInitialName( 
 	instance: self.convertToInstance(), 
     candidateName: "Unnamed Parameter");

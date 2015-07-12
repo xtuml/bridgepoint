@@ -14,16 +14,12 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select many signals related by self->C_EP[R4003];
+	'select many signals related by self->C_EP[R4003];
 for each signal in signals
   unrelate self from signal across R4003;
   signal.dispose();
 end for;
-select one id related by self->IP_IP[R4303];
-if(not_empty id)
-  unrelate self from id across R4303;
-end if;
+
 select one pe related by self->PE_PE[R8001];
 if (not_empty pe)
   unrelate self from pe across R8001;
