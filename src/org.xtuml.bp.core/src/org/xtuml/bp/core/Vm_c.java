@@ -80,6 +80,10 @@ public class Vm_c {
     public static void resetClassLoader(SystemModel_c key) {
         vmclMap.remove(key);
     }
+    
+    public static void resetAllClassLoader() {
+        vmclMap.clear();
+    }
 
     private static Stack<targetInfo> getStack() {
         synchronized (stackMap) {
