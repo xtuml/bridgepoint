@@ -25,18 +25,8 @@
 INSERT INTO CME VALUES ('Delete', '',                         'S_SYS',    '',              true );
 INSERT INTO CME VALUES ('Rename', '',                         'S_SYS',    '',              true );
 INSERT INTO CME VALUES ('New','Package',                      'S_SYS', 'EP_PKG',           false, '', '', false, '', false, false, '' ,'->EP_PKG[R1401]');
-INSERT INTO CME VALUES ('Delete', '',                         'S_DOM', '',                 true );
-INSERT INTO CME VALUES ('Rename', '',                         'S_DOM', '',                 true );
 INSERT INTO CME VALUES ('Delete', '',                         'CL_IC', '',                 true );
-INSERT INTO CME VALUES ('Specialized Package',   'Assign Component',         'CL_IC', '',                 false, 'Choose the component to reference' );
 INSERT INTO CME VALUES ('',       'Unassign',                 'CL_IC', '',                 false, '', '*');
-INSERT INTO CME VALUES ('Delete', '',                         'CP_CP', '',                 true );
-INSERT INTO CME VALUES ('Rename', '',                         'CP_CP', '',                 true );
-INSERT INTO CME VALUES ('New', 'Component',                   'CP_CP', 'C_C',              false);
-INSERT INTO CME VALUES ('New', 'Component Reference'    ,      'CP_CP', 'CL_IC',           false);
-INSERT INTO CME VALUES ('Delete', '',                         'IP_IP', '',                 true );
-INSERT INTO CME VALUES ('Rename', '',                         'IP_IP', '',                 true );
-INSERT INTO CME VALUES ('New', 'Interface'    ,               'IP_IP', 'C_I',              false);
 INSERT INTO CME VALUES ('Delete', '',                         'C_C',   '',                 true );
 INSERT INTO CME VALUES ('Rename', '',                         'C_C',   '',                 true );
 INSERT INTO CME VALUES ('New',    'Package',                  'C_C',   'EP_PKG',           false , '', '', false, '', false, false, '' ,'->PE_PE[R8003]->EP_PKG[R8001]');
@@ -61,20 +51,11 @@ INSERT INTO CME VALUES ('New', 'Parameter',                   'C_AS',  'C_PP',  
 INSERT INTO CME VALUES ('Delete', '',                         'C_PP',  '',                 true );
 INSERT INTO CME VALUES ('Rename', '',                         'C_PP',  '',                 true );
 INSERT INTO CME VALUES ('Component',          'Formalize',    'C_C',   '', false, 'Choose the domain that should describe the structure of this component' );
-INSERT INTO CME VALUES ('Specialized Package Provided Interface', 'Formalize',  'C_P',   '', false, 'Choose the defined interface that this interface reference shall represent' );
 INSERT INTO CME VALUES ('Generic Package',     'Formalize',  'C_P',   'C_I', false, 'Choose the defined interface that this interface reference shall represent', '*', false, '', true, false, 'interface' );
 INSERT INTO CME VALUES ('Provided Interface',                     'Unformalize','C_P',   '', false, '', '*' );
-INSERT INTO CME VALUES ('Specialized Package Required Interface', 'Formalize',  'C_R',   '', false, 'Choose the defined interface that this interface reference shall represent' );
 INSERT INTO CME VALUES ('Generic Package',     'Formalize',  'C_R',   'C_I', false, 'Choose the defined interface that this interface reference shall represent', '*', false, '', true, false, 'interface' );
 INSERT INTO CME VALUES ('Required Interface',                     'Unformalize','C_R',   '', false, '', '*' );
 INSERT INTO CME VALUES ('Delete', '',                         'C_DG',  '',                 true );
-INSERT INTO CME VALUES ('Delete', '',                         'SQ_S',  '',                 true );
-INSERT INTO CME VALUES ('Rename', '',                         'SQ_S',  '',                 true );
-INSERT INTO CME VALUES ('New', 'Component Participant',       'SQ_S',  'SQ_COP',           false );
-INSERT INTO CME VALUES ('New', 'Instance',                    'SQ_S',  'SQ_CIP',           false );
-INSERT INTO CME VALUES ('New', 'Actor Participant',           'SQ_S',  'SQ_AP',            false );
-INSERT INTO CME VALUES ('New', 'External Entity',             'SQ_S',  'SQ_EEP',           false );
-INSERT INTO CME VALUES ('New', 'Class Participant',           'SQ_S',  'SQ_CP',            false );
 INSERT INTO CME VALUES ('Delete', '',                         'SQ_CP', '',                 true );
 INSERT INTO CME VALUES ('Rename', '',                         'SQ_CP', '',                 true );
 INSERT INTO CME VALUES ('Delete', '',                         'MSG_A', '',                 true );
@@ -106,12 +87,6 @@ INSERT INTO CME VALUES ('Delete', '',                         'SQ_AP', '',      
 INSERT INTO CME VALUES ('Rename', '',                         'SQ_AP', '',                 true );
 INSERT INTO CME VALUES ('Delete', '',                         'SQ_PP', '',                 true );
 INSERT INTO CME VALUES ('Rename', '',                         'SQ_PP', '',                 true );
-INSERT INTO CME VALUES ('Delete', '',                         'S_DPK', '',                 true );
-INSERT INTO CME VALUES ('Rename', '',                         'S_DPK', '',                 true );
-INSERT INTO CME VALUES ('New', 'User DataType',               'S_DPK', 'S_UDT',            false);
-INSERT INTO CME VALUES ('New', 'Structured DataType',         'S_DPK', 'S_SDT',            false);
-INSERT INTO CME VALUES ('New', 'Enumeration DataType',        'S_DPK', 'S_EDT',            false);
-INSERT INTO CME VALUES ('New', 'Constant Specification',      'S_DPK', 'CNST_CSP',         false);
 INSERT INTO CME VALUES ('Delete', '',                         'S_UDT', '',                 true );
 INSERT INTO CME VALUES ('Rename', '',                         'S_UDT', '',                 true );
 INSERT INTO CME VALUES ('Delete', '',                         'S_EDT', '',                 true );
@@ -132,9 +107,6 @@ INSERT INTO CME VALUES ('Rename', '',                   'S_SYNC',   '',         
 INSERT INTO CME VALUES ('New',    'Parameter',          'S_SYNC',   'S_SPARM',               false, '', '', false, '', false, false, '' ,'->S_SPARM[R24]');
 INSERT INTO CME VALUES ('Delete', '',                   'S_SPARM',  '',                      true );
 INSERT INTO CME VALUES ('Rename', '',                   'S_SPARM',  '',                      true );
-INSERT INTO CME VALUES ('Delete', '',                   'S_EEPK',    '',                     true );
-INSERT INTO CME VALUES ('Rename', '',                   'S_EEPK',    '',                     true );
-INSERT INTO CME VALUES ('New',    'External Entity',    'S_EEPK',    'S_EE',                 false );
 INSERT INTO CME VALUES ('Delete', '',                   'S_EE',      '',                     true );
 INSERT INTO CME VALUES ('Rename', '',                   'S_EE',      '',                     true );
 INSERT INTO CME VALUES ('New',    'Bridge Operation',   'S_EE',      'S_BRG',                false, '', '', false, '', false, false, '' ,'->S_BRG[R19]');
@@ -143,10 +115,6 @@ INSERT INTO CME VALUES ('Rename', '',                   'S_BRG',     '',        
 INSERT INTO CME VALUES ('New',    'Parameter',          'S_BRG',    'S_BPARM',               false, '', '', false, '', false, false, '' ,'->S_BPARM[R21]');
 INSERT INTO CME VALUES ('Delete', '',                   'S_BPARM',  '',                      true );
 INSERT INTO CME VALUES ('Rename', '',                   'S_BPARM',  '',                      true );
-INSERT INTO CME VALUES ('Delete', '',                   'S_SS',     '',                      true );
-INSERT INTO CME VALUES ('Rename', '',                   'S_SS',     '',                      true );
-INSERT INTO CME VALUES ('New', 'Class',                 'S_SS',     'O_OBJ',                 false );
-INSERT INTO CME VALUES ('New', 'Imported Class',        'S_SS',     'O_IOBJ',                false );
 INSERT INTO CME VALUES ('Delete', '',                   'O_OBJ',    '',                      true );
 INSERT INTO CME VALUES ('Rename', '',                   'O_OBJ',    '',                      true );
 INSERT INTO CME VALUES ('New',    'Attribute',          'O_OBJ',    'O_ATTR',                false, '', '', false, '', false, false, '' ,'->O_ATTR[R102]');
@@ -187,7 +155,6 @@ INSERT INTO CME VALUES ('',       'Move Up',            'O_ATTR',   '',         
 INSERT INTO CME VALUES ('',       'Move Down',          'O_ATTR',   '',                      false, '' );
 INSERT INTO CME VALUES ('',       'Combine With',       'O_ATTR',   '',                      false, 'Select attribute to combine with this one' );
 INSERT INTO CME VALUES ('',       'Split',              'O_ATTR',   '',                      false, 'Select reference to split from this one' );
-INSERT INTO CME VALUES ('Specialized Package',       'Assign Class',       'O_IOBJ',   '',        false, 'Select class this imported class represents' );
 INSERT INTO CME VALUES ('Binary',     'Formalize',      'R_REL',    '',                      false, 'Select the class whose identifier will be used to formalize the association' );
 INSERT INTO CME VALUES ('Linked',     'Formalize',      'R_REL',    '',                      false, 'Select the identifier to use from each class' );
 INSERT INTO CME VALUES ('Linked',     'Formalize',      'R_ASSR',   '',                      false, 'Select the identifier to use from each class' );
@@ -196,50 +163,24 @@ INSERT INTO CME VALUES ('Inheritance','Formalize',      'R_SUB',    '',         
 INSERT INTO CME VALUES ('',       'Unformalize',        'R_REL',    '',                      false, '' );
 INSERT INTO CME VALUES ('',       'Unformalize',        'R_ASSR',   '',                      false, '' );
 INSERT INTO CME VALUES ('',       'Unformalize',        'R_SUB',    '',                      false, '' );
-INSERT INTO CME VALUES ('Specialized Package',   'Assign Event',       'SM_TXN',   '',                      false, 'Select event to assign to transition' );
 INSERT INTO CME VALUES ('Generic Package',       'Assign Event',       'SM_TXN',   '',                      false, 'Select event to assign to transition' );
-INSERT INTO CME VALUES ('Specialized Package',   'Assign Signal',      'SM_TXN',   '',                      false, 'Select signal to assign to transition' );
 INSERT INTO CME VALUES ('Generic Package',       'Assign Signal',      'SM_TXN',   '',                      false, 'Select signal to assign to transition' );
 INSERT INTO CME VALUES ('',       'Remove Event',       'SM_TXN',   '',                      false, '' );
 INSERT INTO CME VALUES ('',       'Remove Signal',      'SM_TXN',   '',                      false, '' );
-INSERT INTO CME VALUES ('Specialized Package',   'Assign Event',       'SM_CRTXN', '',                      false, 'Select event to assign to transition' );
 INSERT INTO CME VALUES ('Generic Package',       'Assign Event',       'SM_CRTXN', '',                      false, 'Select event to assign to transition' );
 INSERT INTO CME VALUES ('',       'Remove Event',       'SM_CRTXN', '',                      false, '' );
-INSERT INTO CME VALUES ('Specialized Package',   'Ignore in State',      'SM_EVT',   '',     false, 'Select state where this event is ignored' );
 INSERT INTO CME VALUES ('Generic Package',       'Ignore in State',      'SM_EVT',   '',     false, 'Select state where this event is ignored' );
-INSERT INTO CME VALUES ('Specialized Package',   'Cant Happen in State', 'SM_EVT',   '',     false, 'Select state where this event can''t happen' );
 INSERT INTO CME VALUES ('Generic Package',       'Cant Happen in State', 'SM_EVT',   '',     false, 'Select state where this event can''t happen' );
-INSERT INTO CME VALUES ('Specialized Package',   'Ignore Event',       'SM_STATE', '',                      false, 'Select event to ignore in this state' );
 INSERT INTO CME VALUES ('Generic Package',       'Ignore Event',       'SM_STATE', '',                      false, 'Select event to ignore in this state' );
-INSERT INTO CME VALUES ('Specialized Package',   'Cant Happen Event',  'SM_STATE', '',                      false, 'Select event that can''t happen in this state' );
 INSERT INTO CME VALUES ('Generic Package',       'Cant Happen Event',  'SM_STATE', '',                      false, 'Select event that can''t happen in this state' );
 INSERT INTO CME VALUES ('New',    'Parameter',          'SM_EVT',   'SM_EVTDI',              false, '', '', false, '', false, false, '' ,'->SM_EVTDI[R532]');
-INSERT INTO CME VALUES ('Delete', '',                   'COMM_COMM','',                      true );
-INSERT INTO CME VALUES ('Rename', '',                   'COMM_COMM','',                      true );
-INSERT INTO CME VALUES ('New', 'Component Participant', 'COMM_COMM','SQ_COP',                false );
-INSERT INTO CME VALUES ('New', 'Instance',              'COMM_COMM','SQ_CIP',                false );
-INSERT INTO CME VALUES ('New', 'Actor Participant',     'COMM_COMM','SQ_AP',                 false );
-INSERT INTO CME VALUES ('New', 'External Entity',       'COMM_COMM','SQ_EEP',                false );
-INSERT INTO CME VALUES ('New', 'Class Participant',     'COMM_COMM','SQ_CP',                 false );
 INSERT INTO CME VALUES ('Delete', '',                   'COMM_LNK', '',                      true );
-INSERT INTO CME VALUES ('Delete', '',                   'UC_UCC',   '',                      true );
-INSERT INTO CME VALUES ('Rename', '',                   'UC_UCC',   '',                      true );
-INSERT INTO CME VALUES ('New',    'Use Case diagram',   'UC_UCC',   'UC_UCC',                false );
-INSERT INTO CME VALUES ('New',    'Usecase',            'UC_UCC',   'IA_UCP',                false );
-INSERT INTO CME VALUES ('New',    'Actor',              'UC_UCC',   'SQ_AP',                 false );
 INSERT INTO CME VALUES ('Delete', '',                   'IA_UCP',   '',                      true );
 INSERT INTO CME VALUES ('Rename', '',                   'IA_UCP',   '',                      true );
 INSERT INTO CME VALUES ('Delete', '',                   'UC_BA',    '',                      true );
 INSERT INTO CME VALUES ('Delete', '',                   'UC_G',     '',                      true );
 INSERT INTO CME VALUES ('Delete', '',                   'UC_I',     '',                      true );
 INSERT INTO CME VALUES ('Delete', '',                   'UC_E',     '',                      true );
-INSERT INTO CME VALUES ('Delete', '',                   'A_A',      '',                      true );
-INSERT INTO CME VALUES ('Rename', '',                   'A_A',      '',                      true );
-INSERT INTO CME VALUES ('New', 'Action',                'A_A',      'A_ACT',                 false );
-INSERT INTO CME VALUES ('New', 'Object Node',           'A_A',      'A_OBJ',                 false );
-INSERT INTO CME VALUES ('New', 'Accept Event Action',   'A_A',      'A_AEA',                 false );
-INSERT INTO CME VALUES ('New', 'Send Signal Action',    'A_A',      'A_SS',                  false );
-INSERT INTO CME VALUES ('New','Accept Time Event Action','A_A',     'A_ATE',                 false );
 INSERT INTO CME VALUES ('Delete', '',                   'A_FJ',     '',                      true );
 INSERT INTO CME VALUES ('Rename', '',                   'A_FJ',     '',                      true );
 INSERT INTO CME VALUES ('Delete', '',                   'A_INI',    '',                      true );
@@ -401,12 +342,7 @@ INSERT INTO CME VALUES ('New', 'Attribute',                   'SQ_CIP','SQ_AV', 
 INSERT INTO CME VALUES ('New', 'Attribute',                   'SQ_CP', 'SQ_CPA',           false , '', '', false, '', false, false, '' ,'->SQ_CPA[R935]');
 INSERT INTO CME VALUES ('',                                   'Unformalize',   'SQ_COP', '', false );
 
--- Specialized package formalization CME definitions
-INSERT INTO CME VALUES ('Specialized Package Instance',  'Formalize',    'SQ_CIP','',  false, 'Choose the class that this instance should represent' );
-INSERT INTO CME VALUES ('Specialized Package Class',  'Formalize',    'SQ_CP', '',  false, 'Choose the class to import' );
-INSERT INTO CME VALUES ('Specialized Package External Entity',    'Formalize',    'SQ_EEP','',                 false, 'Choose the External Entity that this instance should represent' );
 INSERT INTO CME VALUES ('',   'Formalize',    'SQ_FPP','',                 false, 'Choose the Function Package that this instance should represent' );
-INSERT INTO CME VALUES ('Specialized Package',                'Formalize',     'SQ_COP', '', false, 'Choose the Component that this symbol shall represent' );
 INSERT INTO CME VALUES ('Communication Function', 'Formalize',             'MSG_SM',     '', false, 'Choose the message to send', '2', true);
 INSERT INTO CME VALUES ('Function',       'Formalize',    'MSG_SM','',                 false, 'Choose the message to send' );
 INSERT INTO CME VALUES ('Delete', '',                         'SPR_RO', '',                 true );
@@ -435,7 +371,6 @@ INSERT INTO MEF VALUES ('',       'Move Up',       'O_ATTR',    'can', 'move up'
 INSERT INTO MEF VALUES ('',       'Move Down',     'O_ATTR',    'can', 'move down' );
 INSERT INTO MEF VALUES ('',       'Combine With',  'O_ATTR',    'can', 'combine' );
 INSERT INTO MEF VALUES ('',       'Split',         'O_ATTR',    'can', 'split' );
-INSERT INTO MEF VALUES ('Specialized Package',   'Assign Class',  'O_IOBJ', 'unassigned', 'spec pkg' );
 
 INSERT INTO MEF VALUES ('Generic Package',       'Assign Class',  'O_IOBJ', 'unassigned', 'generic pkg' );
 
@@ -447,22 +382,15 @@ INSERT INTO MEF VALUES ('Inheritance','Formalize',          'R_SUB', 'type', 'un
 INSERT INTO MEF VALUES ('',       'Unformalize',          'R_REL', 'formalized', 'true' );
 INSERT INTO MEF VALUES ('',       'Unformalize',          'R_ASSR','formalized', 'true' );
 INSERT INTO MEF VALUES ('',       'Unformalize',          'R_SUB', 'formalized', 'true' );
-INSERT INTO MEF VALUES ('Specialized Package',   'Assign Event',  'SM_TXN',    'event', 'exists spec pkg' );
 INSERT INTO MEF VALUES ('Generic Package',       'Assign Event',  'SM_TXN',    'event', 'exists generic pkg' );
-INSERT INTO MEF VALUES ('Specialized Package',   'Assign Signal', 'SM_TXN',    'signal', 'exists spec pkg' );
 INSERT INTO MEF VALUES ('Generic Package',       'Assign Signal', 'SM_TXN',    'signal', 'exists generic pkg' );
 INSERT INTO MEF VALUES ('',       'Remove Event',  'SM_TXN',    'event', 'assigned' );
 INSERT INTO MEF VALUES ('',       'Remove Signal',  'SM_TXN',    'signal', 'assigned' );
-INSERT INTO MEF VALUES ('Specialized Package',       'Assign Event',  'SM_CRTXN',    'event', 'exists spec pkg' );
 INSERT INTO MEF VALUES ('Generic Package',           'Assign Event',  'SM_CRTXN',    'event', 'exists generic pkg' );
 INSERT INTO MEF VALUES ('',       'Remove Event',  'SM_CRTXN',    'event', 'assigned' );
-INSERT INTO MEF VALUES ('Specialized Package',   'Ignore in State',  'SM_EVT',    'can', 'ignore spec pkg' );
 INSERT INTO MEF VALUES ('Generic Package',       'Ignore in State',  'SM_EVT',    'can', 'ignore generic pkg' );
-INSERT INTO MEF VALUES ('Specialized Package',       'Cant Happen in State',  'SM_EVT',    'can', 'ch spec pkg' );
 INSERT INTO MEF VALUES ('Generic Package',       'Cant Happen in State',  'SM_EVT',    'can', 'ch generic pkg' );
-INSERT INTO MEF VALUES ('Specialized Package',       'Ignore Event',  'SM_STATE',    'can', 'ignore spec pkg' );
 INSERT INTO MEF VALUES ('Generic Package',       'Ignore Event',  'SM_STATE',    'can', 'ignore generic pkg' );
-INSERT INTO MEF VALUES ('Specialized Package',       'Cant Happen Event',  'SM_STATE',    'can', 'ch spec pkg' );
 INSERT INTO MEF VALUES ('Generic Package',       'Cant Happen Event',  'SM_STATE',    'can', 'ch generic pkg' );
 INSERT INTO MEF VALUES ('New',       'Instance State Machine',  'O_OBJ',    'can', 'instanceStateChart' );
 INSERT INTO MEF VALUES ('New',       'Class State Machine',  'O_OBJ',    'can', 'classStateChart' );
@@ -471,16 +399,12 @@ INSERT INTO MEF VALUES ('New',       'Argument',  'MSG_AM',    'can', 'addArg' )
 INSERT INTO MEF VALUES ('New',       'Attribute',  'SQ_CIP',    'can', 'addAttr' );
 INSERT INTO MEF VALUES ('New',       'Attribute',  'SQ_CP',    'can', 'addAttr' );
 INSERT INTO MEF VALUES ('Component',    'Formalize',  'C_C',    'can', 'formalize' );
-INSERT INTO MEF VALUES ('Specialized Package Provided Interface',    'Formalize',  'C_P',    'can', 'formalize spec pkg' );
 INSERT INTO MEF VALUES ('Generic Package',        'Formalize',  'C_P',    'can', 'formalize generic pkg' );
 INSERT INTO MEF VALUES ('Provided Interface',    'Unformalize',  'C_P',    'can', 'unformalize' );
-INSERT INTO MEF VALUES ('Specialized Package Required Interface', 'Formalize',  'C_R',    'can', 'formalize spec pkg' );
 INSERT INTO MEF VALUES ('Generic Package',     'Formalize',  'C_R',    'can', 'formalize generic pkg' );
 INSERT INTO MEF VALUES ('Required Interface',    'Unformalize',  'C_R',    'can', 'unformalize' );
-INSERT INTO MEF VALUES ('Specialized Package',    'Formalize',  'C_DG',    'can', 'formalize spec pkg' );
 INSERT INTO MEF VALUES ('Generic Package',        'Formalize',  'C_DG',    'can', 'formalize generic pkg' );
 INSERT INTO MEF VALUES ('',    'Unformalize',  'C_DG',    'can', 'unformalize' );
-INSERT INTO MEF VALUES ('Specialized Package',    'Assign Component',  'CL_IC',    'can', 'assign spec pkg' );
 INSERT INTO MEF VALUES ('Generic Package',        'Assign Component',  'CL_IC',    'can', 'assign generic pkg' );
 INSERT INTO MEF VALUES ('',    'Unassign',  'CL_IC',    'can', 'unassign' );
 INSERT INTO MEF VALUES ('',       'Move Up',       'S_MBR',    'can', 'move up' );
@@ -529,15 +453,10 @@ INSERT INTO MEF VALUES ('',       'Make Private',  'CNST_CSP',     'can', 'make 
 -- Interaction element filtering
 
 -- Formalize interaction participants
-INSERT INTO MEF VALUES ('Specialized Package Instance',  'Formalize',  'SQ_CIP',    'can', 'formClass spec pkg' );
 INSERT INTO MEF VALUES ('Generic Package',      'Formalize',  'SQ_CIP',    'can', 'formClass generic pkg' );
-INSERT INTO MEF VALUES ('Specialized Package Class',  'Formalize',  'SQ_CP',    'can', 'formClass spec pkg' );
 INSERT INTO MEF VALUES ('Generic Package',      'Formalize',  'SQ_CP',    'can', 'formClass generic pkg' );
-INSERT INTO MEF VALUES ('Specialized Package External Entity',     'Formalize',  'SQ_EEP',    'can', 'formEE spec pkg' );
 INSERT INTO MEF VALUES ('Generic Package',         'Formalize',  'SQ_EEP',    'can', 'formEE generic pkg' );
-INSERT INTO MEF VALUES ('Specialized Package Function Package',    'Formalize',  'SQ_FPP',    'can', 'formFP spec pkg' );
 INSERT INTO MEF VALUES ('',    'Formalize',  'SQ_PP',    'can', 'formPkg' );
-INSERT INTO MEF VALUES ('Specialized Package',    'Formalize',  'SQ_COP',    'can', 'formComp spec pkg' );
 INSERT INTO MEF VALUES ('Generic Package',    'Formalize',  'SQ_COP',    'can', 'formComp generic pkg' );
 -- Formalize messages
 -- Formalize non-communication
