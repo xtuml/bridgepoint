@@ -1588,7 +1588,9 @@ public class BPDebugTarget extends BPDebugElement implements IDebugTarget {
 						TIM.terminate(thr.getEngine());
 					}
 					prev_modelRoot = modelRoot;
-					thr.resetClassLoader();
+					/* This code is commented with 7744 works. By resolving issue ####
+					 this code should be un-commented */ 
+					//thr.resetClassLoader();
 					Vm_c.removeStack(thr.getRunner());
 				}
 				if (thr.canTerminate()) {
@@ -1603,11 +1605,16 @@ public class BPDebugTarget extends BPDebugElement implements IDebugTarget {
 		DebugPlugin.getDefault().getBreakpointManager()
 				.removeBreakpointListener(this);
 		Notify();
+		ArrayList<BPDebugTarget> targets = BPDebugTarget.getTargets();
+		if ( targets.size() <= 1){
+			Vm_c.resetAllClassLoader();
+			BPClassLoader.resetTheDefinitionsCache();
+		}
+		
 		targets.remove(this);
 		if (targets.isEmpty()) {
 			TIM.stopTimers();
 		}
-		BPClassLoader.resetTheDefinitionsCache();
 		// Cancel the timer. 
 		if (executionTimer != null) {
 			executionTimer.cancel();
