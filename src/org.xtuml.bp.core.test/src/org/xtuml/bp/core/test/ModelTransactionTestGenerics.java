@@ -27,6 +27,7 @@ import java.io.File;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.gef.tools.AbstractTool;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.text.BadLocationException;
@@ -95,7 +96,11 @@ public class ModelTransactionTestGenerics extends BaseTest {
 
 		thisModelRoot = modelRoot;
 		result_folder = new String(m_workspace_path
-				+ "/expected_results/TransactionTest/"); //$NON-NLS-1$
+				+ "/expected_results/linux/TransactionTest/"); //$NON-NLS-1$
+		if(Platform.getOS() != "linux") {
+			result_folder = new String(m_workspace_path
+					+ "/expected_results/TransactionTest/"); //$NON-NLS-1$			
+		}
 
 		CanvasTransactionListener.disableReconciler();
 	}
@@ -176,6 +181,8 @@ public class ModelTransactionTestGenerics extends BaseTest {
 				dom = pkg;
 		}
 		CanvasTestUtils.openCanvasEditor(dom);
+		
+		SequenceTestsGenerics.resizeMainWindow();
 
 		// Create Subsystem in domain, as this forces 
 		// execution of ModelSpecification_c.Elementcreated() (the one native operation that

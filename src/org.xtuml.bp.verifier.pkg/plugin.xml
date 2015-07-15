@@ -1,15 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.0"?>
-<plugin
-   id="org.xtuml.bp.verifier.pkg"
-   name="BridgePoint Verifier"
-   version="5.1.0"
-   provider-name="xtUML.org"
-   class="org.xtuml.bp.verfier.pkg.Unreferenced">
+<plugin>
 
-   <runtime>
-      <library name="pkg.jar"/>
-   </runtime>
-   <requires>
-   </requires>
+    
 </plugin>

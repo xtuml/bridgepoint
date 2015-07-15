@@ -128,7 +128,6 @@ public class VerifierInvocationAuditor {
               }
             }
         }
-        BPClassLoader.resetTheDefinitionsCache();
     }
 
     private static Set<NonRootModelElement> collectElements(

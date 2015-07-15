@@ -1,24 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.0"?>
-<plugin
-   id="org.xtuml.bp.mc.xmiexport"
-   name="XMI 2.1 Export"
-   version="5.1.0"
-   provider-name="xtUML.org"
-   class="org.xtuml.bp.mc.xmiexport.XMIExport">
-   <runtime>
-      <library name="xmi.jar">
-         <export name="*"/>
-      </library>
-   </runtime>
-   <requires>
-      <import plugin="org.eclipse.core.runtime"/>
-      <import plugin="org.eclipse.core.resources"/>
-      <import plugin="org.eclipse.ui"/>
-      <import plugin="org.eclipse.debug.core"/>
-      <import plugin="org.xtuml.bp.core"/>
-   </requires>
-   <extension point="org.eclipse.ui.startup">
+<plugin>
+     <extension point="org.eclipse.ui.startup">
    </extension>
 
 <!-- ======================================================= -->
@@ -28,11 +11,7 @@
          id="XMIExportNature"
          name="XMI 2.1 Export Nature"
          point="org.eclipse.core.resources.natures">
-      <runtime>
-         <run class="org.xtuml.bp.mc.xmiexport.XMIExportNature">
-         </run>
-      </runtime>
-      <builder
+       <builder
             id="org.xtuml.bp.mc.xmiexport.XMIExportBuilder">
       </builder>
       <builder

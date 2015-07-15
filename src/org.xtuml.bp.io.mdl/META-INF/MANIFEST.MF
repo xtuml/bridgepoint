@@ -1,0 +1,24 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: BridgePoint Model Plug-in
+Bundle-SymbolicName: org.xtuml.bp.io.mdl; singleton:=true
+Bundle-Version: 5.1.0
+Bundle-ClassPath: mdl.jar
+Bundle-Activator: org.xtuml.bp.io.mdl.MdlPlugin
+Bundle-Vendor: xtUML.org
+Export-Package: org.xtuml.bp.io.mdl,
+ org.xtuml.bp.io.mdl.tree,
+ org.xtuml.bp.io.mdl.upgrade,
+ org.xtuml.bp.io.mdl.wizards
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.ui,
+ org.eclipse.ui.ide,
+ org.eclipse.core.resources,
+ org.xtuml.bp.core,
+ org.xtuml.bp.io.core,
+ org.xtuml.bp.ui.canvas,
+ org.xtuml.bp.ui.text,
+ org.xtuml.bp.ui.explorer,
+ org.xtuml.bp.als.oal
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
