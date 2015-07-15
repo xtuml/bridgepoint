@@ -1,0 +1,35 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: BridgePoint UML Welcome Plug-in
+Bundle-SymbolicName: org.xtuml.bp.welcome; singleton:=true
+Bundle-Version: 5.1.0
+Bundle-ClassPath: welcome.jar
+Bundle-Activator: org.xtuml.bp.welcome.WelcomePlugin
+Bundle-Vendor: xtUML.org
+Export-Package: org.xtuml.bp.welcome,
+ org.xtuml.bp.welcome.cheatsheets.actions,
+ org.xtuml.bp.welcome.cheatsheets.library,
+ org.xtuml.bp.welcome.cheatsheets.utilities,
+ org.xtuml.bp.welcome.gettingstarted
+Require-Bundle: org.eclipse.core.resources,
+ org.eclipse.core.runtime,
+ org.eclipse.debug.core,
+ org.eclipse.gef,
+ org.eclipse.help,
+ org.eclipse.ui,
+ org.eclipse.ui.cheatsheets,
+ org.eclipse.ui.editors,
+ org.eclipse.ui.ide,
+ org.eclipse.ui.intro,
+ org.xtuml.bp.cdt,
+ org.xtuml.bp.core,
+ org.xtuml.bp.debug.ui,
+ org.xtuml.bp.io.core,
+ org.xtuml.bp.ui.canvas,
+ org.xtuml.bp.ui.explorer,
+ org.xtuml.bp.ui.graphics,
+ org.xtuml.bp.ui.session,
+ org.xtuml.bp.ui.text,
+ org.xtuml.bp.utilities
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6

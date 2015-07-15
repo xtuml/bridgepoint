@@ -36,6 +36,7 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
     public static final String ALLOW_INT_TO_REAL_PROMOTION = PREFIX + "allow_int_to_real_promotion"; //$NON-NLS-1$
     public static final String ALLOW_REAL_TO_INT_COERCION = PREFIX + "allow_real_to_int_coercion"; //$NON-NLS-1$
     public static final String ALLOW_OPERATIONS_IN_WHERE = PREFIX + "allow_operations_in_where"; //$NON-NLS-1$
+    public static final String ALLOW_INTERFACE_NAME_IN_IC_MESSAGE = PREFIX + "allow_interface_name_in_ic_message"; //$NON-NLS-1$
     public static final String ALLOW_IMPLICIT_COMPONENT_ADDRESSING = PREFIX + "allow_implicit_component_addressing"; //$NON-NLS-1$
     public static final String ENABLE_ERROR_FOR_EMPTY_SYNCHRONOUS_MESSAGE = PREFIX + "enable_error_for_empty_synchronous_message"; //$NON-NLS-1$
     public static final String ENABLE_ERROR_FOR_EMPTY_SYNCHRONOUS_MESSAGE_REALIZED = PREFIX + "enable_error_for_empty_synchronous_message_realized"; //$NON-NLS-1$
@@ -89,6 +90,7 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
         store.setValue(ALLOW_REAL_TO_INT_COERCION, prefs.allowRealToIntCoercion);
         store.setValue(ALLOW_IMPLICIT_COMPONENT_ADDRESSING, prefs.allowImplicitComponentAddressing);
         store.setValue(ALLOW_OPERATIONS_IN_WHERE, prefs.allowOperationsInWhere);
+        store.setValue(ALLOW_INTERFACE_NAME_IN_IC_MESSAGE, prefs.allowInterfaceNameInICMessage);
         store.setValue(ENABLE_ERROR_FOR_EMPTY_SYNCHRONOUS_MESSAGE, prefs.enableErrorForEmptySynchronousMessage);
         store.setValue(ENABLE_ERROR_FOR_EMPTY_SYNCHRONOUS_MESSAGE_REALIZED, prefs.enableErrorForEmptySynchronousMessageRealized);
         store.setValue(DISABLE_GRADIENTS, prefs.disableGradients);
@@ -143,6 +145,8 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
             store.getBoolean(BridgePointPreferencesStore.ALLOW_IMPLICIT_COMPONENT_ADDRESSING);
         prefs.allowOperationsInWhere =
             store.getBoolean(BridgePointPreferencesStore.ALLOW_OPERATIONS_IN_WHERE);
+        prefs.allowInterfaceNameInICMessage = 
+        	store.getBoolean(BridgePointPreferencesStore.ALLOW_INTERFACE_NAME_IN_IC_MESSAGE);
 		prefs.enableErrorForEmptySynchronousMessage = store
 				.getBoolean(BridgePointPreferencesStore.ENABLE_ERROR_FOR_EMPTY_SYNCHRONOUS_MESSAGE);
 		prefs.enableErrorForEmptySynchronousMessageRealized = store
@@ -220,6 +224,7 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
         prefs.allowRealToIntCoercion = MessageDialogWithToggle.ALWAYS;
         prefs.allowImplicitComponentAddressing = false;
         prefs.allowOperationsInWhere = false;
+        prefs.allowInterfaceNameInICMessage = false;
         prefs.enableErrorForEmptySynchronousMessage = true;
         prefs.enableErrorForEmptySynchronousMessageRealized = false;
         prefs.disableGradients = true;

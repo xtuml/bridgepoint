@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("8d4b82cf-ec16-4fd9-925b-0e51eb64a2f7",
@@ -24,8 +24,8 @@ INSERT INTO O_TFR
 	'create event instance evt of WorkoutTimer3:tick() to self;
 self.timer = TIM::timer_start_recurring(event_inst: evt, microseconds: 1000000);
 
-send LocationProvider::registerListener();
-send HeartRateProvider::registerListener();',
+send LOC::registerListener();
+send HR::registerListener();',
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000");
@@ -37,8 +37,8 @@ INSERT INTO O_TFR
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'res = TIM::timer_cancel(timer_inst_ref: self.timer);
-send LocationProvider::unregisterListener();
-send HeartRateProvider::unregisterListener();',
+send LOC::unregisterListener();
+send HR::unregisterListener();',
 	1,
 	'',
 	"1363f0df-e630-4deb-a831-ed6cbcc9a974");
