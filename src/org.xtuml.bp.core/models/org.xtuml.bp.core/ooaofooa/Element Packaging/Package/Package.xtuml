@@ -23,21 +23,6 @@ select many pps related by self->SQ_PP[R956];
 for each pp in pps
   pp.unformalize();
 end for;
-select many pips related by self->EP_PIP[R1403];
-for each pip in pips
-  select one childPackage related by pip->EP_PKG[R1404];
-  unrelate self from pip across R1403;
-  childPackage.dispose();
-end for;
-select one pip related by self->EP_PIP[R1404];
-if(not_empty pip)
-  unrelate self from pip across R1404;
-  select one parent related by pip->EP_PKG[R1403];
-  if(not_empty parent)
-    unrelate pip from parent across R1403;
-  end if;
-  delete object instance pip;
-end if;
 self.clearScope();
 // dispose Packagable Elements
 select many pes related by self ->PE_PE[R8000];
@@ -106,10 +91,6 @@ select one system related by self->S_SYS[R1401];
 if(not_empty system)
   return system.Name + "::" + path;
 else
-  select one parentPkg related by self->EP_PIP[R1404]->EP_PKG[R1403];
-  if(not_empty parentPkg)
-    return parentPkg.getPath(path:path);
-  else
     select one parentPkg related by self->PE_PE[R8001]->EP_PKG[R8000];
     if(not_empty parentPkg)
       return parentPkg.getPath(path:path);
@@ -120,7 +101,6 @@ else
         return component.getPath(path:path, includeSelf:true);
       end if;
     end if;
-  end if;
 end if;
 return "";',
 	1,
@@ -385,8 +365,7 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select one system related by self->S_SYS[R1401];
+	'select one system related by self->S_SYS[R1401];
 if(not_empty system)
   return system.Sys_ID;
 else
@@ -395,15 +374,8 @@ else
     return system.Sys_ID;
   end if;
 end if;
-select one parent related by self->EP_PIP[R1404]->EP_PKG[R1403];
-while(not_empty parent)
-  select one system related by parent->S_SYS[R1401];
-  select one parent related by parent->EP_PIP[R1404]->EP_PKG[R1403];
-end while;
-if(not_empty system)
-  return system.Sys_ID;
-end if;
-return GD::NULL_UNIQUE_ID();',
+
+',
 	1,
 	'',
 	"b18247f6-6e14-4662-899a-9fb3cc9832d8");
@@ -448,12 +420,6 @@ end if;
 // first associate all component packages and their
 // children with the system pasted into
 
-// the same for nested packages
-select many pips related by self->EP_PIP[R1403]->EP_PKG[R1404];
-for each pip in pips
-  pip.associateWithSystem(sysID:param.sysID);
-end for;
-//
 select any system from instances of S_SYS where (selected.Sys_ID == param.sysID);
 if(not_empty system)
   select many packages related by self->PE_PE[R8000]->EP_PKG[R8001];
@@ -5522,12 +5488,6 @@ select many components related by self->PE_PE[R8000]->C_C[R8001];
 for each component in components
   component.collectReferencesForSynchronization(
                     referenceList:param.referenceList, syncType:param.syncType);
-end for;
-// now for specialized packages
-select many packages related by self->EP_PIP[R1403]->EP_PKG[R1404];
-for each package in packages
-  package.collectReferencesForSynchronization(referenceList:param.referenceList,
-                                                       syncType:param.syncType);
 end for;
 ',
 	1,
