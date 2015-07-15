@@ -203,7 +203,29 @@ public class DebugUITestUtilities {
 			}
 		}
 	}
+	
+	public static boolean terminateProcessByName(String ProcessName){
+		boolean terminated = false;
+		TestingUtilities.processDisplayEvents();
+		IProcess[] processes = DebugPlugin.getDefault().getLaunchManager()
+				.getProcesses();
+		for (int i = 0; i < processes.length; i++) {
+			try {
+				if (processes[i].getLabel().equals(ProcessName)){
+				processes[i].terminate();
+				TestingUtilities.processDisplayEvents();
+				terminated= true;
+				}
+			} catch (DebugException e) {
+			}
+		}
+		
+		
+		return terminated;
+	}
 
+	
+	
 	public static void clearDebugView() {
 		IProcess[] processes = DebugPlugin.getDefault().getLaunchManager()
 		                                                       .getProcesses();
@@ -309,6 +331,35 @@ public class DebugUITestUtilities {
 		return null;
 	}
 
+	public static boolean terminateDebugTargetByProjectName(String ProjectName) {
+		boolean terminated_successfully = false;
+		TestingUtilities.processDisplayEvents();
+		IProcess[] processes = DebugPlugin.getDefault().getLaunchManager()
+				.getProcesses();
+		OUTER:for (int i = 0; i < processes.length; i++) {
+			IDebugTarget[] targets = processes[i].getLaunch().getDebugTargets();
+			for (IDebugTarget target : targets) {
+				if (target instanceof BPDebugTarget) {
+					BPDebugTarget bpTarget = (BPDebugTarget) target;
+					try {
+						if (bpTarget.getProjectName().equals(ProjectName)){
+							IThread[] threads = bpTarget.getThreads();
+							for (IThread bpthread : threads) {
+								bpthread.terminate();
+								waitForBPThreads(bpTarget.getSystem());
+							}
+							terminated_successfully = true;
+							break OUTER;
+						}
+					} catch (DebugException e) {
+					}
+				}
+			}
+		}
+		return terminated_successfully;
+	}
+	
+	
 	public static void launchElement(NonRootModelElement element, Menu menu) {
 		launchElement(element, menu, false);
 	}
