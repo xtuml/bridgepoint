@@ -352,6 +352,10 @@ public class BPDebugTarget extends BPDebugElement implements IDebugTarget {
 			}
 		}
 	}
+	
+	public SystemModel_c getSystem(){
+		return system;
+	}
 
 	private void setupSelectedModels(ILaunchConfiguration configuration)
 			throws CoreException {
@@ -1605,8 +1609,8 @@ public class BPDebugTarget extends BPDebugElement implements IDebugTarget {
 		DebugPlugin.getDefault().getBreakpointManager()
 				.removeBreakpointListener(this);
 		Notify();
-		ArrayList<BPDebugTarget> targets = BPDebugTarget.getTargets();
-		if ( targets.size() <= 1){
+		//ArrayList<BPDebugTarget> BPtargets = BPDebugTarget.getTargets();
+		if (targets.contains(this) && targets.size() <= 1){
 			Vm_c.resetAllClassLoader();
 			BPClassLoader.resetTheDefinitionsCache();
 		}
@@ -1684,6 +1688,13 @@ public class BPDebugTarget extends BPDebugElement implements IDebugTarget {
 			return "";
 		  }
 		}
+	}
+	
+	public String getProjectName(){
+		if ( projectName != null){
+			return projectName;
+		}
+		return "";
 	}
 
 	public void remove(BPThread thr) {
