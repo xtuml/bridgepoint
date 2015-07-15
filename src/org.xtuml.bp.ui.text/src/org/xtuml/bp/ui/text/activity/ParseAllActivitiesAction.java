@@ -38,6 +38,7 @@ import org.eclipse.ui.IActionDelegate;
 import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.Domain_c;
 import org.xtuml.bp.core.Package_c;
+import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.common.ModelRoot;
 import org.xtuml.bp.core.ui.Selection;
 import org.xtuml.bp.ui.text.TextPlugin;
@@ -80,6 +81,16 @@ public class ParseAllActivitiesAction implements IActionDelegate
                         ModelRoot.disableChangeNotification();
                         try {
                         AllActivityModifier aam = new AllActivityModifier((Package_c)context, monitor);
+                        aam.processAllActivities(AllActivityModifier.PARSE);
+                        }
+                        finally {
+                        	ModelRoot.enableChangeNotification();
+                        }
+                    }
+                    else if(context instanceof SystemModel_c) {
+                        ModelRoot.disableChangeNotification();
+                        try {
+                        AllActivityModifier aam = new AllActivityModifier((SystemModel_c)context, monitor);
                         aam.processAllActivities(AllActivityModifier.PARSE);
                         }
                         finally {
