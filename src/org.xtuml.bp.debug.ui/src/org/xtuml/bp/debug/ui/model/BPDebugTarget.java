@@ -1610,9 +1610,14 @@ public class BPDebugTarget extends BPDebugElement implements IDebugTarget {
 				.removeBreakpointListener(this);
 		Notify();
 		//ArrayList<BPDebugTarget> BPtargets = BPDebugTarget.getTargets();
-		if (targets.contains(this) && targets.size() <= 1){
-			Vm_c.resetAllClassLoader();
-			BPClassLoader.resetTheDefinitionsCache();
+		if (targets.contains(this)){
+			if (targets.size() <= 1){
+				Vm_c.resetAllClassLoader();
+				BPClassLoader.resetTheDefinitionsCache();
+			}
+			else{
+				Vm_c.printWarningMessageForUnloadedClassesIfNeeded(system);
+			}
 		}
 		
 		targets.remove(this);
