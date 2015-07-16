@@ -65,7 +65,7 @@ choose "Parse all activities".
 6.2 Add New Constructor for AllActivityModifier class that takes as the first 
     parameter an instance of SystemModel_c.
         
-6.3 Add new Constructor for ParserAllActivityModifier that takes as xthe first 
+6.3 Add new Constructor for ParserAllActivityModifier that takes as the first 
     parameter an instance of SystemModel_c that sets the parseAll attribute 
     to true.
     
@@ -114,7 +114,7 @@ choose "Parse all activities".
 8.1 The existing parse all tests should pass.  
 8.2 The existing UI text test should pass.
 
-8.3 Modify UI Test test suite and add the following tests :  
+8.3 Modify UI Text test suite and add the following tests :  
 8.3.1 Add test case for parse all to test for single project.  
    _- Add xtuml project with three levels of packages root, nested , leaf  
    _- Add oal action home at each level  
