@@ -56,6 +56,13 @@ public class ComponentSyntaxTest_Generics extends BaseTest {
 	 * @see junit.framework.TestCase#setUp()
 	 */
 	protected void setUp() throws Exception {
+        IPreferenceStore store = CorePlugin.getDefault().getPreferenceStore();
+        store.setValue(
+          BridgePointPreferencesStore.ALLOW_IMPLICIT_COMPONENT_ADDRESSING, true);
+        // This test was written before the Interface Name preference was introduced.
+    	// The expected error messages depend on the preference being disabled.
+        store.setValue(BridgePointPreferencesStore.ALLOW_INTERFACE_NAME_IN_IC_MESSAGE, true);
+
 		if (configured) {
 			return;
 		}
@@ -78,13 +85,25 @@ public class ComponentSyntaxTest_Generics extends BaseTest {
         m_sys = getSystemModel(m_comp_pkg_name);
         
 		modelRoot = Ooaofooa.getInstance(Ooaofooa.createModelRootId(
-				m_comp_pkg_name, m_comp_pkg_name, true));
-        
-        IPreferenceStore store = CorePlugin.getDefault().getPreferenceStore();
-        store.setValue(
-          BridgePointPreferencesStore.ALLOW_IMPLICIT_COMPONENT_ADDRESSING, true);
+				m_comp_pkg_name, m_comp_pkg_name, true));        
 	}
-	
+
+	/* (non-Javadoc)
+	 * @see junit.framework.TestCase#tearDown()
+	 */
+	protected void tearDown() throws Exception {
+        try {
+            super.tearDown();
+
+            IPreferenceStore store = CorePlugin.getDefault().getPreferenceStore();
+            store.setValue(BridgePointPreferencesStore.ALLOW_INTERFACE_NAME_IN_IC_MESSAGE, false);
+        } catch (RecognitionException re) {
+            // do nothing
+        } catch (TokenStreamException te) {
+            // do nothing
+        }
+	}
+
 	public void testGoodSyntax() {
 		// Most good syntax is checked in ParseAllInDomain,
 		// This is here to give early heads up if something
