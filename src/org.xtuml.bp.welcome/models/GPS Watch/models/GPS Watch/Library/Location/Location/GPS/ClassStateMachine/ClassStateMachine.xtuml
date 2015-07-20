@@ -215,7 +215,7 @@ gps.currentLocation.speed     = (gps.currentLocation.latitude -
                                  gps.currentLocation.longitude) / 5.0;
 
 // pass the new location to client component
-send LocationProvider::locationUpdate(location: gps.currentLocation);
+send LOC::locationUpdate(location: gps.currentLocation);
 ',
 	'');
 INSERT INTO SM_TAH

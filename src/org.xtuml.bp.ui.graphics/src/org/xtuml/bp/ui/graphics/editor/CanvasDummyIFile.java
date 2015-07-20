@@ -684,5 +684,9 @@ class CanvasDummyIFile implements IFile
 	public void setDerived(boolean isDerived, IProgressMonitor monitor)
 			throws CoreException {
 	}
+
+	public void accept(IResourceProxyVisitor visitor, int depth, int memberFlags)
+			throws CoreException {
+	}
   	
   }

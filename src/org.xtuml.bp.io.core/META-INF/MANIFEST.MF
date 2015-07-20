@@ -1,0 +1,27 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: BridgePoint IO Core Plug-in
+Bundle-SymbolicName: org.xtuml.bp.io.core; singleton:=true
+Bundle-Version: 5.1.0
+Bundle-ClassPath: core.jar
+Bundle-Activator: org.xtuml.bp.io.core.CorePlugin
+Bundle-Vendor: xtUML.org
+Export-Package: org.xtuml.bp.io.core
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.ui,
+ org.eclipse.ui.ide,
+ org.eclipse.ui.views,
+ org.eclipse.jface.text,
+ org.eclipse.ui.workbench.texteditor,
+ org.eclipse.ui.editors,
+ org.eclipse.core.resources,
+ org.eclipse.gef,
+ org.xtuml.bp.core,
+ org.xtuml.bp.ui.canvas,
+ org.xtuml.bp.ui.text,
+ org.antlr,
+ org.xtuml.bp.ui.explorer,
+ org.xtuml.bp.ui.graphics,
+ org.xtuml.bp.als.oal
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
