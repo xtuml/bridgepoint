@@ -7,7 +7,7 @@ OS Name:  	Ubuntu 14
 Test Suite                              				Status			TestRuns	
 ----------------------------------------------------------------------------------------------------------------------------------
 Core Generic Upgrade Test			                    pass            39
-UI Canvas CCP Test			                            FAIL - LOTS Model Recreation Tests
+UI Canvas CCP Test			                            pass
 Core Test                                               pass            1002		
 UI Explorer Test	                                    pass            18		
 Core Test - Workspace Setup		                        pass            14	
@@ -20,7 +20,7 @@ Core Test 2 - Consistency			                    pass            17
 IO MDL Tests			                                pass            89
 UI Properties Test			                            pass            163
 Core Test - Existing Projects	                        pass            15		
-Model Compare Test	                                    13 FAIL         257		
+Model Compare Test	                                    1e/5f           257 - 5 failures are "unable to locate project sandbox"		
 Welcome Test			                                pass            13
 UI Canvas Suite 1			                            pass            84
 Core Test - RTO Move                                    pass            144			
