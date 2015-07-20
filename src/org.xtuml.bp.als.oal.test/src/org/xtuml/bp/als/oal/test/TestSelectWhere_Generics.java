@@ -93,6 +93,11 @@ public class TestSelectWhere_Generics extends BaseTest {
 
         firstSetup = true;
         
+        // This test was written before the Interface Name preference was introduced.
+    	// The expected error messages depend on the preference being disabled.
+        IPreferenceStore store = CorePlugin.getDefault().getPreferenceStore();
+        store.setValue(BridgePointPreferencesStore.ALLOW_INTERFACE_NAME_IN_IC_MESSAGE, true);
+
         // NOTE - for this test class, unlike OalParserTest_Generics, we don't care
         // about testing the OAL inside various homes like bridges, class operations, or MDAs.
         // Thus, we don't need to populate that instance data like that class does.  However,
@@ -109,6 +114,8 @@ public class TestSelectWhere_Generics extends BaseTest {
         try {
             super.tearDown();
             TestSelectWhere_Generics.tearDownActionData();
+            IPreferenceStore store = CorePlugin.getDefault().getPreferenceStore();
+            store.setValue(BridgePointPreferencesStore.ALLOW_INTERFACE_NAME_IN_IC_MESSAGE, false);
         } catch (RecognitionException re) {
             // do nothing
         } catch (TokenStreamException te) {

@@ -1,0 +1,25 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: BridgePoint Session UI Plug-in
+Bundle-SymbolicName: org.xtuml.bp.ui.session; singleton:=true
+Bundle-Version: 5.1.0
+Bundle-ClassPath: session.jar
+Bundle-Activator: org.xtuml.bp.ui.session.SessionExplorerPlugin
+Bundle-Vendor: xtUML.org
+Export-Package: org.xtuml.bp.ui.session,
+ org.xtuml.bp.ui.session.actions,
+ org.xtuml.bp.ui.session.adapters,
+ org.xtuml.bp.ui.session.views
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.ui,
+ org.eclipse.ui.ide,
+ org.eclipse.ui.views,
+ org.eclipse.jface.text,
+ org.eclipse.ui.workbench.texteditor,
+ org.eclipse.ui.editors,
+ org.eclipse.core.resources,
+ org.xtuml.bp.core,
+ org.xtuml.bp.ui.properties,
+ org.eclipse.jface
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6

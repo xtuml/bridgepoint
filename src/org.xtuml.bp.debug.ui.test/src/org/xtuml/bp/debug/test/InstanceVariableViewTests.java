@@ -137,6 +137,8 @@ public class InstanceVariableViewTests extends BaseTest {
 	}
 
 	public void testPrepareTest(){
+		DebugUITestUtilities.waitForBPThreads(m_sys);
+		BaseTest.dispatchEvents(0);
 		initTest();
 	}
 	
@@ -246,6 +248,8 @@ public class InstanceVariableViewTests extends BaseTest {
 		assertNotNull(process);
 		
 		IDebugTarget target = process.getLaunch().getDebugTarget();
+		DebugUITestUtilities.waitForExecution();
+		DebugUITestUtilities.waitForBPThreads(m_sys);
 		assertTrue("Process was not suspended by breakpoint in provided operation.", target
 				.isSuspended());
 	}
