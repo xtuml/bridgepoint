@@ -689,6 +689,10 @@ public class DebugUITestUtilities {
 						"org.eclipse.debug.ui.ProcessConsoleType")) {
 					waitForConsoleUpdate(console, "");
 					console.getDocument().set("");
+					BaseTest.waitForDecorator();
+					BaseTest.waitForPlaceHolderThread();
+					BaseTest.waitForTransaction();
+					while(PlatformUI.getWorkbench().getDisplay().readAndDispatch());
 				}
 			}
 		}
