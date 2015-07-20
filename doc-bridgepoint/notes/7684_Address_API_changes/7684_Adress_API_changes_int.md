@@ -31,6 +31,32 @@ See [1].
 
 6. Implementation Comments
 --------------------------
+6.1  During promotion of this work, the upgrade of plug-ins from old eclipse 2.x
+style to eclipse 3.x style for the plug-in metadata caused an issue.  After this
+process was completed, the BridgePoint build started showing a number of errors like this:  
+
+```Access restriction: The constructor BufferedReader(Reader) is not accessible due to restriction on required library Z:\bp\BP5win\jre\lib\rt.jar```
+
+It turns out that moving the JRE_CONTAINER line up one spot in the project ```.classpath``` 
+file solves the issue.  So the ```.classpath``` changed from this:
+
+```<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+ <classpathentry kind="src" path="src"/>
+ <classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+ <classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
+ <classpathentry kind="output" path="bin"/>
+</classpath>```
+
+to this:
+
+```<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+ <classpathentry kind="src" path="src"/>
+ <classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
+ <classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+ <classpathentry kind="output" path="bin"/>
+</classpath>```
 
 7. Unit Test
 ------------
