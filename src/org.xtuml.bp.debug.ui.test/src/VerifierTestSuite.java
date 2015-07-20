@@ -85,6 +85,7 @@ public class VerifierTestSuite extends TestSuite {
   		              USE_DEFAULT_NAME_FOR_CREATION, true);
 
 		addTest(new TestSuite(VerifierTestSuiteI.class));
+		addTest(new TestSuite(VerifierSessionExplorerTests.class));
 		addTest(new TestSuite(VerifierStaticVariablesInRealizedClassesTest.class));
 		addTest(VerifierLaunchTestSuite.suite());
 		addTest(new TestSuite(VerifierExecuteFragmentTest.class));		
@@ -94,7 +95,6 @@ public class VerifierTestSuite extends TestSuite {
 		addTest(new TestSuite(SignalParameterPassingTest.class));
 		addTest(new TestSuite(VerifierInterfaceExecutionTests.class));
 		addTest(new TestSuite(VerifierTransitionActionTests.class));
-		addTest(new TestSuite(VerifierSessionExplorerTests.class));
 		addTest(new TestSuite(ExternalEntityTest.class));
 		addTest(new TestSuite(CreateAndGenerateEventTest.class));
 		addTest(new TestSuite(TimerTest.class));
