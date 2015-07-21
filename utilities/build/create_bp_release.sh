@@ -245,7 +245,8 @@ if [ ! -x ${build_dir}/features ]; then
   mkdir -p ${build_dir}/features
 fi
 
-release_version=`awk -F"\"" '{if (/ersion.*\=.*[0-9]\.[0-9]\.[0-9]/) {print $2; exit;}}' ${git_bp}/src/org.xtuml.bp.pkg/plugin.xml`
+release_version=$(awk -F": " '{if (/[0-9]\.[0-9]\.[0-9]/) {print $2; exit;}}' ${git_bp}/src/org.xtuml.bp.pkg/META-INF/MANIFEST.MF)
+release_version="$(echo ${release_version} | tr -d '\r')"
 
 # Set up the lists of features and plug-ins
 configure_module_lists
