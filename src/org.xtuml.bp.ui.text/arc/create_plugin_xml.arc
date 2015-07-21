@@ -247,6 +247,18 @@ This file is the plugin manifest for the BridgePoint core plugin.
                id="org.xtuml.bp.ui.text.ParseAllAction">
          </action>
       </objectContribution>
+            <objectContribution
+            adaptable="true"
+            objectClass="org.xtuml.bp.core.SystemModel_c"
+            id="org.xtuml.bp.ui.text.ParseAllActionPackage">
+         <action
+               label="Parse All Activities"
+               class="org.xtuml.bp.ui.text.activity.ParseAllActivitiesAction"
+               menubarPath="org.xtuml.bp.ui.context-internal"
+               enablesFor="*"
+               id="org.xtuml.bp.ui.text.ParseAllAction">
+         </action>
+      </objectContribution>
    </extension>
    <extension
       point="org.eclipse.help.contexts">

@@ -42,6 +42,7 @@ import org.xtuml.bp.core.ProvidedOperation_c;
 import org.xtuml.bp.core.ProvidedSignal_c;
 import org.xtuml.bp.core.RequiredOperation_c;
 import org.xtuml.bp.core.RequiredSignal_c;
+import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.Subsystem_c;
 import org.xtuml.bp.core.common.ModelRoot;
 import org.xtuml.bp.core.common.NonRootModelElement;
@@ -76,6 +77,13 @@ public class AllActivityModifier extends ParserAllActivityModifier
     }
     
     public AllActivityModifier(Package_c parent, IProgressMonitor monitor){
+    	super(parent, monitor);
+        if(activityInputFactory == null){
+        	activityInputFactory = ActivityEditorInputFactory.getDefaultInstance();
+        }
+    }
+    
+    public AllActivityModifier(SystemModel_c parent, IProgressMonitor monitor){
     	super(parent, monitor);
         if(activityInputFactory == null){
         	activityInputFactory = ActivityEditorInputFactory.getDefaultInstance();
