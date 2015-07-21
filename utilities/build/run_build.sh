@@ -269,7 +269,9 @@ fi
 cd  "${BUILD_DIR}"
 bash create_bp_release.sh "${BUILD_DIR}" "${BRANCH}" "${GIT_BP}" "${LOG_DIR}" "${TIMESTAMP}" "${RESULT_FOLDER_EXTENSION}" >> ${BUILD_LOG}
 
-bp_release_version=`awk -F"\"" '{if (/ersion.*\=.*[0-9]\.[0-9]\.[0-9]/) {print $2; exit;}}' ${GIT_BP}/src/org.xtuml.bp.pkg/plugin.xml`
+bp_release_version=$(awk -F": " '{if (/[0-9]\.[0-9]\.[0-9]/) {print $2; exit;}}' ${git_bp}/src/org.xtuml.bp.pkg/META-INF/MANIFEST.MF)
+bp_release_version="$(echo ${bp_release_version} | tr -d '\r')"
+
 bash build_installer_bp.sh ${BRANCH} ${STAGING_AREA} ${RESULT_FOLDER} windows ${bp_release_version} "${UPLOAD_SPEC}" >> ${BUILD_LOG}
 cd  "${BUILD_DIR}"
   
