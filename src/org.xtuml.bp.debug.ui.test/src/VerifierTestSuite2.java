@@ -32,6 +32,7 @@ import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 import org.xtuml.bp.core.util.WorkspaceUtil;
 import org.xtuml.bp.debug.engine.VerifierMessageTestGlobals;
 import org.xtuml.bp.debug.test.InstanceVariableViewTests;
+import org.xtuml.bp.debug.test.RealizedClassRelaunchTest;
 import org.xtuml.bp.debug.test.VariableViewTests;
 import org.xtuml.bp.debug.ui.launch.DLLRelaunchTest;
 import org.xtuml.bp.debug.ui.test.execute.BlockedComponentExecutionTest;
@@ -63,7 +64,9 @@ public class VerifierTestSuite2 extends TestSuite {
         setValue(BridgePointPreferencesStore.
   		              USE_DEFAULT_NAME_FOR_CREATION, true);
 
+		
 		addTest(new TestSuite(VerifierMessageTestGlobals.class));
+		addTest(new TestSuite(RealizedClassRelaunchTest.class));
 		addTest(new TestSuite(DLLRelaunchTest.class));
 		addTest(new TestSuite(RecursionExecutionTest.class));
 		addTest(new TestSuite(BlockedComponentExecutionTest.class));
