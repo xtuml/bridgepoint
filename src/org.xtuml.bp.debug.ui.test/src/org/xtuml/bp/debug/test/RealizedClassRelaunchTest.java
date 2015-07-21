@@ -189,7 +189,7 @@ public class RealizedClassRelaunchTest extends BaseTest {
 		DebugUITestUtilities.waitForExecution();
 
 		
-		String expectedConsoleText1 = "User invoked function: InterProjectTestFunction\r\nLogInfo:  Counter value\r\nLogInteger:  1\r\nUser invoked function: InterProjectTestFunction\r\nLogInfo:  Counter value\r\nLogInteger:  2\r\n";
+		String expectedConsoleText1 = "User invoked function: InterProjectTestFunction\r\nLogInfo:  Counter value\r\nLogInteger:  1\r\n\nWARNING:  The terminated project contains a realized class/classes that are not unloaded because there are one or more projects running in verifier\n\r\nUser invoked function: InterProjectTestFunction\r\nLogInfo:  Counter value\r\nLogInteger:  2\r\n";
     	String actualConsoleText1 = DebugUITestUtilities.getConsoleText("");
     	assertEquals(expectedConsoleText1, actualConsoleText1);
 
