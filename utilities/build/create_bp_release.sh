@@ -224,6 +224,8 @@ log_dir="$4"
 timestamp="$5"
 site_result_dir="$6"
 
+echo "Create BP Release invocation: ./create_bp_release.sh ${build_dir} ${branch} ${git_bp} ${log_dir} ${timestamp} ${site_result_dir}"
+
 pkg_log_dir="${log_dir}/pkg_logs"
 
 feature_modules=""
