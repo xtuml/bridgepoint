@@ -582,7 +582,7 @@ INSERT INTO O_BATTR
 INSERT INTO O_ATTR
 	VALUES ("33d2117a-53d4-43f5-aee2-c79846f800cc",
 	"fcc05ac4-6434-449e-9045-c76c52ee8c78",
-	"a94ea28b-2350-4269-9287-788cea2336c6",
+	"ee1e67f3-6ddb-40bd-9765-4ac676225829",
 	'Obj_Name',
 	'Full Name: Class Name
 Description:  This attribute provides identifying information for the Class related to this Imported Class.  This is used to associate the Imported Class to its related Class when importing a subsystem containing the Imported Class into a new/different domain.
@@ -721,6 +721,24 @@ Description: Uniquely identifies an instance of imported class',
 	'IObj_ID',
 	0,
 	"ba5eda7a-def5-0000-0000-000000000007",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("ee1e67f3-6ddb-40bd-9765-4ac676225829",
+	"fcc05ac4-6434-449e-9045-c76c52ee8c78");
+INSERT INTO O_BATTR
+	VALUES ("ee1e67f3-6ddb-40bd-9765-4ac676225829",
+	"fcc05ac4-6434-449e-9045-c76c52ee8c78");
+INSERT INTO O_ATTR
+	VALUES ("ee1e67f3-6ddb-40bd-9765-4ac676225829",
+	"fcc05ac4-6434-449e-9045-c76c52ee8c78",
+	"a94ea28b-2350-4269-9287-788cea2336c6",
+	'SS_ID',
+	'',
+	'',
+	'SS_ID',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000005",
 	'',
 	'');
 INSERT INTO O_ID
