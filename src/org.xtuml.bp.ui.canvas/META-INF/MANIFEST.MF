@@ -1,0 +1,25 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: BridgePoint Canvas Plug-in
+Bundle-SymbolicName: org.xtuml.bp.ui.canvas;singleton:=true
+Bundle-Version: 5.1.0
+Bundle-ClassPath: canvas.jar
+Bundle-Activator: org.xtuml.bp.ui.canvas.CanvasPlugin
+Bundle-Vendor: xtUML.org
+Export-Package: org.xtuml.bp.ui.canvas,
+ org.xtuml.bp.ui.canvas.cells,
+ org.xtuml.bp.ui.canvas.cells.providers,
+ org.xtuml.bp.ui.canvas.inspector,
+ org.xtuml.bp.ui.canvas.util
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.ui,
+ org.eclipse.ui.ide,
+ org.eclipse.ui.workbench.texteditor,
+ org.eclipse.ui.views,
+ org.eclipse.core.resources,
+ org.xtuml.bp.core,
+ org.xtuml.bp.ui.explorer,
+ org.xtuml.bp.ui.properties,
+ org.eclipse.core.expressions
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6

@@ -1,0 +1,36 @@
+This document captures the state of the BridgePoint unit tests:
+===============================================================
+Branch: 7745_port_oal
+Hostname: 	XPS-L322X (Keith)
+OS Name:  	Ubuntu 14
+
+Test Suite                              				Status			TestRuns	
+----------------------------------------------------------------------------------------------------------------------------------
+Core Generic Upgrade Test			                    pass            39
+UI Canvas CCP Test			                            pass
+Core Test                                               pass            1002		
+UI Explorer Test	                                    pass            18		
+Core Test - Workspace Setup		                        pass            14	
+Parse All Test		                                    pass            4604
+IO MDL PkgCM Tests			                            pass            108
+Core Test 2			                                    pass
+Debug - Verifier Test			                        11 FAIL
+Core Test - System Level Tests	                        pass            24		
+Core Test 2 - Consistency			                    pass            17
+IO MDL Tests			                                pass            89
+UI Properties Test			                            pass            163
+Core Test - Existing Projects	                        pass            15		
+Model Compare Test	                                    1e/5f           257 - 5 failures are "unable to locate project sandbox"		
+Welcome Test			                                pass            13
+UI Canvas Suite 1			                            pass            84
+Core Test - RTO Move                                    pass            144			
+Search Test			                                    pass            10
+UI Canvas Suite 2                                       pass            270			
+IO MDL Tests 2                                          pass            77			
+IO SQL Test		                                        pass            8
+Debug - Verifier Test 2			                        FAIL - Hangs on 3rd test 
+UI Text Test	                                        pass           163	
+
+Reference 1: These are test failures that come and go on retest.
+Reference 2: There are only two failures that are resolution related only offset in the pixels and it might be on my machine only 
+                       but no other errors

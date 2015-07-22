@@ -37,6 +37,7 @@ public class BridgePointPreferencesModel implements IPreferenceModel {
     public String allowRealToIntCoercion;
     public boolean allowImplicitComponentAddressing;
     public boolean allowOperationsInWhere;
+    public boolean allowInterfaceNameInICMessage;
     public boolean enableErrorForEmptySynchronousMessage;
     public boolean enableErrorForEmptySynchronousMessageRealized;
     public boolean disableGradients;
@@ -87,6 +88,7 @@ public class BridgePointPreferencesModel implements IPreferenceModel {
         allowImplicitComponentAddressing =
                                         syncTo.allowImplicitComponentAddressing;
         allowOperationsInWhere = syncTo.allowOperationsInWhere;
+        allowInterfaceNameInICMessage = syncTo.allowInterfaceNameInICMessage;
         enableErrorForEmptySynchronousMessage = syncTo.enableErrorForEmptySynchronousMessage;
         enableErrorForEmptySynchronousMessageRealized = syncTo.enableErrorForEmptySynchronousMessageRealized;
         disableGradients = syncTo.disableGradients;
@@ -127,6 +129,7 @@ public class BridgePointPreferencesModel implements IPreferenceModel {
         prefs.allowRealToIntCoercion = allowRealToIntCoercion;
         prefs.allowImplicitComponentAddressing = allowImplicitComponentAddressing;
         prefs.allowOperationsInWhere = allowOperationsInWhere;
+        prefs.allowInterfaceNameInICMessage = allowInterfaceNameInICMessage;
         prefs.enableErrorForEmptySynchronousMessage = enableErrorForEmptySynchronousMessage;
         prefs.enableErrorForEmptySynchronousMessageRealized = enableErrorForEmptySynchronousMessageRealized;
         prefs.disableGradients = disableGradients;

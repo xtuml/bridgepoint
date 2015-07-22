@@ -57,6 +57,7 @@ public class ActionLanguagePreferences
     private Button allowCoercionNoRadio;
     private Button allowImplicitComponentAddressing;
     private Button allowOperationsInWhere;
+    private Button allowInterfaceNameInICMessage;
     private Button enableErrorForEmptySynchronousMessage;
 	private Button enableErrorForEmptySynchronousMessageRealized;
     
@@ -158,7 +159,15 @@ public class ActionLanguagePreferences
             "messages or bridges inside the where clause of a select statement. Enabling\n" + 
             "this option silences the parser error that is raised when this syntax is\n" + 
             "encountered.");
-	
+
+    allowInterfaceNameInICMessage = new Button(composite, SWT.CHECK | SWT.LEFT);
+    allowInterfaceNameInICMessage.setText("Allow interface names for sending inter-component messages");
+    allowInterfaceNameInICMessage.setToolTipText(
+    		"Inter-component messages defined by interfaces are best sent via uniquely\n" +
+            "named ports. Enabling this option will allow a modeler to write OAL send\n" + 
+            "statements that use (potentially non-unique) interface names.  This feature\n" +
+            "is provided for backwards compatability and is not recommended.");
+
     model = new BridgePointPreferencesModel();
     model.getStore().loadModel(getPreferenceStore(), null, model);
 
@@ -233,6 +242,12 @@ public class ActionLanguagePreferences
       else {
           bpPrefs.allowOperationsInWhere = false;
       }
+      if (allowInterfaceNameInICMessage.getSelection()) {
+          bpPrefs.allowInterfaceNameInICMessage = true;
+      }
+      else {
+          bpPrefs.allowInterfaceNameInICMessage = false;
+      }
 	  bpPrefs.enableErrorForEmptySynchronousMessage = enableErrorForEmptySynchronousMessage
 			.getSelection();
 	  bpPrefs.enableErrorForEmptySynchronousMessageRealized = enableErrorForEmptySynchronousMessageRealized
@@ -287,6 +302,7 @@ public class ActionLanguagePreferences
       }
       allowImplicitComponentAddressing.setSelection(bpPrefs.allowImplicitComponentAddressing);
       allowOperationsInWhere.setSelection(bpPrefs.allowOperationsInWhere);
+      allowInterfaceNameInICMessage.setSelection(bpPrefs.allowInterfaceNameInICMessage);
 	  enableErrorForEmptySynchronousMessage
 			.setSelection(bpPrefs.enableErrorForEmptySynchronousMessage);
 	  enableErrorForEmptySynchronousMessageRealized

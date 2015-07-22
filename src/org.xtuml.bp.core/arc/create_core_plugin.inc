@@ -58,28 +58,7 @@ This file is the plugin manifest for the BridgePoint core plugin.
 
 ===================================================================
 -->
-<plugin
-   id="org.xtuml.bp.core"
-   name="BridgePoint Core Plug-in"
-   version="5.1.0"
-   provider-name="xtUML.org"
-   class="org.xtuml.bp.core.CorePlugin">
-
-   <runtime>
-      <library name="core.jar">
-        <export name="*"/>
-      </library>
-   </runtime>
-   <requires>
-      <import plugin="org.eclipse.core.runtime"/>
-      <import plugin="org.eclipse.ui"/>
-      <import plugin="org.eclipse.core.resources"/>
-      <import plugin="org.eclipse.ui.views"/>
-      <import plugin="org.eclipse.jface.text"/>
-      <import plugin="org.eclipse.ui.ide"/>
-      <import plugin="org.eclipse.core.variables"/>
-   </requires>
-
+<plugin>
    <extension-point
          id="editors"
          name="BridgePoint Editors"
