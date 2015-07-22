@@ -99,9 +99,6 @@ INSERT INTO CME VALUES ('Rename', '',                   'CNST_CSP', '',         
 INSERT INTO CME VALUES ('New',    'Constant',           'CNST_CSP', 'CNST_LSC',              false , '', '', false, '', false, false, '' ,'->CNST_SYC[R1504]->CNST_LFSC[R1502]->CNST_LSC[R1503]');
 INSERT INTO CME VALUES ('Delete', '',                   'CNST_LSC',   '',                    true );
 INSERT INTO CME VALUES ('Rename', '',                   'CNST_LSC',   '',                    true );
-INSERT INTO CME VALUES ('Delete', '',                   'S_FPK',    '',                      true );
-INSERT INTO CME VALUES ('Rename', '',                   'S_FPK',    '',                      true );
-INSERT INTO CME VALUES ('New',    'Function',           'S_FPK',    'S_SYNC',                false);
 INSERT INTO CME VALUES ('Delete', '',                   'S_SYNC',   '',                      true );
 INSERT INTO CME VALUES ('Rename', '',                   'S_SYNC',   '',                      true );
 INSERT INTO CME VALUES ('New',    'Parameter',          'S_SYNC',   'S_SPARM',               false, '', '', false, '', false, false, '' ,'->S_SPARM[R24]');

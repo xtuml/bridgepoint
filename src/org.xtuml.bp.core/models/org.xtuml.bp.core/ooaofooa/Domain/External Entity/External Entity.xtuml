@@ -566,7 +566,7 @@ INSERT INTO O_BATTR
 INSERT INTO O_ATTR
 	VALUES ("e9a91c54-22ea-4a4c-9b52-4cf27c191ec7",
 	"a361b553-b2e3-46ea-a8f4-8b8633921011",
-	"5272e8f6-410b-43f3-97cd-5d33c915a2fc",
+	"91ff0c2d-e5b3-4da0-a245-56cbfed9e24c",
 	'Realized_Class_Path',
 	'Full Name: Realized External Entity Path',
 	'',
@@ -619,6 +619,24 @@ Description: If true, Verifier will bind to an externally supplied implementatio
 	'isRealized',
 	0,
 	"ba5eda7a-def5-0000-0000-000000000001",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("91ff0c2d-e5b3-4da0-a245-56cbfed9e24c",
+	"a361b553-b2e3-46ea-a8f4-8b8633921011");
+INSERT INTO O_BATTR
+	VALUES ("91ff0c2d-e5b3-4da0-a245-56cbfed9e24c",
+	"a361b553-b2e3-46ea-a8f4-8b8633921011");
+INSERT INTO O_ATTR
+	VALUES ("91ff0c2d-e5b3-4da0-a245-56cbfed9e24c",
+	"a361b553-b2e3-46ea-a8f4-8b8633921011",
+	"5272e8f6-410b-43f3-97cd-5d33c915a2fc",
+	'Dom_ID',
+	'',
+	'',
+	'Dom_ID',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000005",
 	'',
 	'');
 INSERT INTO O_ID

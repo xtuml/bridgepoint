@@ -596,7 +596,7 @@ INSERT INTO O_BATTR
 INSERT INTO O_ATTR
 	VALUES ("cbfb448a-f0dc-4961-8e66-276b89eed6d4",
 	"ead52fac-9782-434b-a35c-c07452c3b26d",
-	"0e78201f-a7cd-497b-a6b4-e224ab7915c2",
+	"65bcef23-94d3-42b5-a90b-8468fcabe115",
 	'Name',
 	'Full Name: Data Type Name',
 	'',
@@ -692,6 +692,24 @@ INSERT INTO O_ATTR
 	'DT_ID',
 	0,
 	"ba5eda7a-def5-0000-0000-000000000007",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("65bcef23-94d3-42b5-a90b-8468fcabe115",
+	"ead52fac-9782-434b-a35c-c07452c3b26d");
+INSERT INTO O_BATTR
+	VALUES ("65bcef23-94d3-42b5-a90b-8468fcabe115",
+	"ead52fac-9782-434b-a35c-c07452c3b26d");
+INSERT INTO O_ATTR
+	VALUES ("65bcef23-94d3-42b5-a90b-8468fcabe115",
+	"ead52fac-9782-434b-a35c-c07452c3b26d",
+	"0e78201f-a7cd-497b-a6b4-e224ab7915c2",
+	'Dom_ID',
+	'',
+	'',
+	'Dom_ID',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000005",
 	'',
 	'');
 INSERT INTO O_ID
