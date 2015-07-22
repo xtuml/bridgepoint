@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: XMI 2.1 Export
+Bundle-SymbolicName: org.xtuml.bp.mc.xmiexport; singleton:=true
+Bundle-Version: 5.1.0
+Bundle-ClassPath: xmi.jar
+Bundle-Activator: org.xtuml.bp.mc.xmiexport.XMIExport
+Bundle-Vendor: xtUML.org
+Bundle-Localization: plugin
+Export-Package: org.xtuml.bp.mc.xmiexport
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.core.resources,
+ org.eclipse.ui,
+ org.eclipse.debug.core,
+ org.xtuml.bp.core
+Bundle-ActivationPolicy: lazy

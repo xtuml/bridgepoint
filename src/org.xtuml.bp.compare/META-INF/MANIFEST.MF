@@ -1,0 +1,22 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: BridgePoint Compare Plug-in
+Bundle-SymbolicName: org.xtuml.bp.compare; singleton:=true
+Bundle-Version: 5.1.0
+Bundle-ClassPath: compare.jar
+Bundle-Activator: org.xtuml.bp.compare.ComparePlugin
+Bundle-Vendor: xtUML.org
+Export-Package: org.xtuml.bp.compare,
+ org.xtuml.bp.compare.contentmergeviewer,
+ org.xtuml.bp.compare.structuremergeviewer,
+ org.xtuml.bp.compare.text
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.ui,
+ org.eclipse.jface.text,
+ org.eclipse.core.resources,
+ org.eclipse.compare,
+ org.xtuml.bp.core,
+ org.xtuml.bp.io.core,
+ org.xtuml.bp.io.mdl
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6

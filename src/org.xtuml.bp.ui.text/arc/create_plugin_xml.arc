@@ -69,33 +69,7 @@ This file is the plugin manifest for the BridgePoint core plugin.
 
 ===================================================================
 -->
-<plugin
-   id="org.xtuml.bp.ui.text"
-   name="BridgePoint Text Plug-in"
-   version="5.1.0"
-   provider-name="Mentor Graphics"
-   class="org.xtuml.bp.ui.text.TextPlugin">
-
-   <runtime>
-      <library name="text.jar">
-         <export name="*"/>
-      </library>
-   </runtime>
-   <requires>
-      <import plugin="org.eclipse.core.runtime"/>
-      <import plugin="org.eclipse.ui"/>
-      <import plugin="org.eclipse.core.resources"/>
-      <import plugin="org.xtuml.bp.core"/>
-      <import plugin="org.xtuml.bp.als.oal"/>
-      <import plugin="org.eclipse.ui.workbench.texteditor"/>
-      <import plugin="org.antlr"/>
-      <import plugin="org.eclipse.jface.text"/>
-      <import plugin="org.eclipse.core.boot"/>
-      <import plugin="org.eclipse.ui.views"/>
-      <import plugin="org.eclipse.ui.editors"/>
-      <import plugin="org.eclipse.ui.ide"/>
-   </requires>
-
+<plugin>
    <extension point = "org.eclipse.ui.elementFactories">
        <factory id ="org.xtuml.bp.ui.text.activity.factory" class="org.xtuml.bp.ui.text.activity.ActivityEditorInputFactory"/>
        <factory id ="org.xtuml.bp.ui.text.description.factory" class="org.xtuml.bp.ui.text.description.DescriptionEditorInputFactory"/>
@@ -264,6 +238,18 @@ This file is the plugin manifest for the BridgePoint core plugin.
       <objectContribution
             adaptable="true"
             objectClass="org.xtuml.bp.core.Package_c"
+            id="org.xtuml.bp.ui.text.ParseAllActionPackage">
+         <action
+               label="Parse All Activities"
+               class="org.xtuml.bp.ui.text.activity.ParseAllActivitiesAction"
+               menubarPath="org.xtuml.bp.ui.context-internal"
+               enablesFor="*"
+               id="org.xtuml.bp.ui.text.ParseAllAction">
+         </action>
+      </objectContribution>
+            <objectContribution
+            adaptable="true"
+            objectClass="org.xtuml.bp.core.SystemModel_c"
             id="org.xtuml.bp.ui.text.ParseAllActionPackage">
          <action
                label="Parse All Activities"

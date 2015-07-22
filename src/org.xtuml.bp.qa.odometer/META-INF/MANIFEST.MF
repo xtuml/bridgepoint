@@ -4,7 +4,7 @@ Bundle-Name: Odometer
 Bundle-SymbolicName: org.xtuml.bp.qa.odometer;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: org.xtuml.qa.odometer.Activator
-Bundle-Vendor: MENTOR
+Bundle-Vendor: xtUML.org
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.jface.text;bundle-version="3.5.2",
