@@ -173,7 +173,7 @@
     <property name="param2" value="Ooaofooa" />
     <property name="param3" value="${mcj_path}" />
     <property name="param4" value="" />
-    <property name="param5" value="Search" />
+    <property name="param5" value="Constants" />
     <property name="param6" value = "1"/>
     <property name="verify_selects" value="false" />
     <property name="mcjava.project.root" value="${basedir}"/>
@@ -182,9 +182,29 @@
       <property name="param1" value="ooaofooa" />
       <property name="param2" value="Ooaofooa" />
       <property name="param3" value="${mcj_path}" />
-      <property name="param4" value="Search" />
-      <property name="param5" value="" />
+      <property name="param4" value="Constants" />
+      <property name="param5" value="Invocation" />
       <property name="param6" value = "2"/>
+      <property name="verify_selects" value="false" />
+      <property name="mcjava.project.root" value="${basedir}"/>
+    </ant>
+    <ant antfile="${mcj_path}/build.xml" target="generate-with-file_io.java" >
+      <property name="param1" value="ooaofooa" />
+      <property name="param2" value="Ooaofooa" />
+      <property name="param3" value="${mcj_path}" />
+      <property name="param4" value="Invocation" />
+      <property name="param5" value="Use Case" />
+      <property name="param6" value = "3"/>
+      <property name="verify_selects" value="false" />
+      <property name="mcjava.project.root" value="${basedir}"/>
+    </ant>
+    <ant antfile="${mcj_path}/build.xml" target="generate-with-file_io.java" >
+      <property name="param1" value="ooaofooa" />
+      <property name="param2" value="Ooaofooa" />
+      <property name="param3" value="${mcj_path}" />
+      <property name="param4" value="Use Case" />
+      <property name="param5" value="" />
+      <property name="param6" value = "4"/>
       <property name="verify_selects" value="false" />
       <property name="mcjava.project.root" value="${basedir}"/>
     </ant>
