@@ -28,11 +28,6 @@ import org.xtuml.bp.core.Bridge_c;
 import org.xtuml.bp.core.ClassStateMachine_c;
 import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.DerivedBaseAttribute_c;
-import org.xtuml.bp.core.DomainAsComponent_c;
-import org.xtuml.bp.core.Domain_c;
-import org.xtuml.bp.core.ExternalEntityInPackage_c;
-import org.xtuml.bp.core.ExternalEntityPackageInDomain_c;
-import org.xtuml.bp.core.ExternalEntityPackage_c;
 import org.xtuml.bp.core.ExternalEntity_c;
 import org.xtuml.bp.core.Function_c;
 import org.xtuml.bp.core.InstanceStateMachine_c;
@@ -51,7 +46,6 @@ import org.xtuml.bp.core.RequiredOperation_c;
 import org.xtuml.bp.core.RequiredSignal_c;
 import org.xtuml.bp.core.Requirement_c;
 import org.xtuml.bp.core.StateMachine_c;
-import org.xtuml.bp.core.Subsystem_c;
 import org.xtuml.bp.core.common.NonRootModelElement;
 
 /**
@@ -93,21 +87,11 @@ public class ContainerUtil {
 	}
 	
 	public static NonRootModelElement getContainer(Action_c me) {
-		Domain_c dom = null;
 		InstanceStateMachine_c ism = InstanceStateMachine_c
 				.getOneSM_ISMOnR517(StateMachine_c.getOneSM_SMOnR515(me));
 		ClassStateMachine_c csm = ClassStateMachine_c
 		              .getOneSM_ASMOnR517(StateMachine_c.getOneSM_SMOnR515(me));
-		if (ism != null) {
-			dom = Domain_c.getOneS_DOMOnR1(Subsystem_c
-					.getManyS_SSsOnR2(ModelClass_c.getOneO_OBJOnR518(ism)));
-		} else {
-			dom = Domain_c.getOneS_DOMOnR1(Subsystem_c
-					.getManyS_SSsOnR2(ModelClass_c.getOneO_OBJOnR519(csm)));
-		}
-		if (dom != null) {
-		  return dom;
-		}
+
 		Package_c pkg;
 		ism = InstanceStateMachine_c
 		              .getOneSM_ISMOnR517(StateMachine_c.getOneSM_SMOnR515(me));
@@ -140,11 +124,7 @@ public class ContainerUtil {
 	}
 
 	public static NonRootModelElement getContainer(Attribute_c me) {
-		Domain_c dom = Domain_c.getOneS_DOMOnR1(Subsystem_c
-				.getManyS_SSsOnR2(ModelClass_c.getManyO_OBJsOnR102(me)));
-		if (dom != null) {
-			return dom;
-		}
+
 		Package_c pkg = Package_c.getOneEP_PKGOnR8000(
 	    		   PackageableElement_c.getOnePE_PEOnR8001(
 	    				                 ModelClass_c.getManyO_OBJsOnR102(me)));
@@ -161,15 +141,6 @@ public class ContainerUtil {
 	}
 
 	public static NonRootModelElement getContainer(Bridge_c me) {
-		Domain_c dom = Domain_c.getOneS_DOMOnR300(ExternalEntityPackageInDomain_c
-				.getOnePL_EEPIDOnR300(ExternalEntityPackage_c
-						.getOneS_EEPKOnR33(ExternalEntityInPackage_c
-								.getOneS_EEIPOnR33(ExternalEntity_c
-										.getOneS_EEOnR19(me)))));
-
-		if (dom != null) {
-			return dom;
-		}
 		Package_c pkg = Package_c.getOneEP_PKGOnR8000(
 	    		   PackageableElement_c.getOnePE_PEOnR8001(
 	    				                 ExternalEntity_c.getOneS_EEOnR19(me)));
@@ -186,14 +157,6 @@ public class ContainerUtil {
 	}
 
 	public static NonRootModelElement getContainer(DerivedBaseAttribute_c me) {
-		Domain_c dom = Domain_c.getOneS_DOMOnR1(Subsystem_c
-				.getManyS_SSsOnR2(ModelClass_c.getManyO_OBJsOnR102(Attribute_c
-						.getManyO_ATTRsOnR106(BaseAttribute_c
-								.getOneO_BATTROnR107(me)))));
-
-		if (dom != null) {
-			return dom;
-		}
 		Package_c pkg = Package_c.getOneEP_PKGOnR8000(
 	    		   PackageableElement_c.getOnePE_PEOnR8001(
 	    				   ModelClass_c.getManyO_OBJsOnR102(Attribute_c
@@ -214,11 +177,6 @@ public class ContainerUtil {
 	}
 
 	public static NonRootModelElement getContainer(Function_c me) {
-		Domain_c dom = Domain_c.getOneS_DOMOnR23(me);
-
-		if (dom != null) {
-			return dom;
-		}
 		Package_c pkg = Package_c.getOneEP_PKGOnR8000(
 	    		   PackageableElement_c.getOnePE_PEOnR8001(me));
         if (pkg != null) {
@@ -233,12 +191,6 @@ public class ContainerUtil {
 	}
 
 	public static NonRootModelElement getContainer(Operation_c me) {
-		Domain_c dom = Domain_c.getOneS_DOMOnR1(Subsystem_c
-				         .getManyS_SSsOnR2(ModelClass_c.getOneO_OBJOnR115(me)));
-
-		if (dom != null) {
-			return dom;
-		}
 		Package_c pkg = Package_c.getOneEP_PKGOnR8000(
 	    		   PackageableElement_c.getOnePE_PEOnR8001(
 	    				                   ModelClass_c.getOneO_OBJOnR115(me)));
@@ -255,18 +207,6 @@ public class ContainerUtil {
 	}
 
 	public static NonRootModelElement getContainer(RequiredOperation_c me) {
-		Domain_c dom = Domain_c
-		.getOneS_DOMOnR4204(DomainAsComponent_c
-				.getOneCN_DCOnR4204(Component_c
-						.getOneC_COnR4010(Port_c
-								.getOneC_POOnR4016(InterfaceReference_c
-										.getOneC_IROnR4009(Requirement_c
-												.getOneC_ROnR4500(RequiredExecutableProperty_c
-														.getOneSPR_REPOnR4502(me)))))));
-
-		if (dom != null) {
-			return dom;
-		}
 		Component_c comp = Component_c
 		.getOneC_COnR4010(Port_c
 				.getOneC_POOnR4016(InterfaceReference_c
@@ -280,18 +220,6 @@ public class ContainerUtil {
 	}
 
 	public static NonRootModelElement getContainer(RequiredSignal_c me) {
-		Domain_c dom = Domain_c
-		.getOneS_DOMOnR4204(DomainAsComponent_c
-				.getOneCN_DCOnR4204(Component_c
-						.getOneC_COnR4010(Port_c
-								.getOneC_POOnR4016(InterfaceReference_c
-										.getOneC_IROnR4009(Requirement_c
-												.getOneC_ROnR4500(RequiredExecutableProperty_c
-														.getOneSPR_REPOnR4502(me)))))));
-
-		if (dom != null) {
-			return dom;
-		}
 		Component_c comp = Component_c
 		.getOneC_COnR4010(Port_c
 				.getOneC_POOnR4016(InterfaceReference_c
@@ -305,18 +233,6 @@ public class ContainerUtil {
 	}
 
 	public static NonRootModelElement getContainer(ProvidedOperation_c me) {
-		Domain_c dom = Domain_c
-		.getOneS_DOMOnR4204(DomainAsComponent_c
-				.getOneCN_DCOnR4204(Component_c
-						.getOneC_COnR4010(Port_c
-								.getOneC_POOnR4016(InterfaceReference_c
-										.getOneC_IROnR4009(Provision_c
-												.getOneC_POnR4501(ProvidedExecutableProperty_c
-														.getOneSPR_PEPOnR4503(me)))))));
-
-		if (dom != null) {
-			return dom;
-		}
 		Component_c comp = Component_c
 		.getOneC_COnR4010(Port_c
 				.getOneC_POOnR4016(InterfaceReference_c
@@ -330,18 +246,6 @@ public class ContainerUtil {
 	}
 
 	public static NonRootModelElement getContainer(ProvidedSignal_c me) {
-		Domain_c dom = Domain_c
-		.getOneS_DOMOnR4204(DomainAsComponent_c
-				.getOneCN_DCOnR4204(Component_c
-						.getOneC_COnR4010(Port_c
-								.getOneC_POOnR4016(InterfaceReference_c
-										.getOneC_IROnR4009(Provision_c
-												.getOneC_POnR4501(ProvidedExecutableProperty_c
-														.getOneSPR_PEPOnR4503(me)))))));
-
-		if (dom != null) {
-			return dom;
-		}
 		Component_c comp = Component_c
 		.getOneC_COnR4010(Port_c
 				.getOneC_POOnR4016(InterfaceReference_c

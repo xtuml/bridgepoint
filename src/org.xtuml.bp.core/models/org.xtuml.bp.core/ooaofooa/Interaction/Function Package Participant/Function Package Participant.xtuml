@@ -297,7 +297,8 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'if(self.isFormal)
+	'//TODO: BOB - This is meaningless.  formalize and unformalize need to go away
+if(self.isFormal)
   self.unformalize();
 end if;
 ',

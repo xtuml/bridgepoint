@@ -31,7 +31,6 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.internal.EditorReference;
-
 import org.xtuml.bp.core.ActorParticipant_c;
 import org.xtuml.bp.core.ClassInstanceParticipant_c;
 import org.xtuml.bp.core.ClassParticipant_c;
@@ -40,26 +39,19 @@ import org.xtuml.bp.core.ComponentParticipant_c;
 import org.xtuml.bp.core.ComponentReference_c;
 import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.CorePlugin;
-import org.xtuml.bp.core.DomainAsComponent_c;
-import org.xtuml.bp.core.Domain_c;
 import org.xtuml.bp.core.ExternalEntityParticipant_c;
 import org.xtuml.bp.core.ExternalEntity_c;
 import org.xtuml.bp.core.FunctionPackageParticipant_c;
-import org.xtuml.bp.core.FunctionPackage_c;
 import org.xtuml.bp.core.InstanceStateMachine_c;
 import org.xtuml.bp.core.InteractionParticipant_c;
 import org.xtuml.bp.core.Lifespan_c;
 import org.xtuml.bp.core.ModelClass_c;
-import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.PackageParticipant_c;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.common.InstanceList;
 import org.xtuml.bp.core.common.ModelElement;
 import org.xtuml.bp.core.common.ModelRoot;
 import org.xtuml.bp.core.common.NonRootModelElement;
-import org.xtuml.bp.core.common.Transaction;
-import org.xtuml.bp.core.common.TransactionException;
-import org.xtuml.bp.core.common.TransactionManager;
 
 /**
  * Holds utility methods that apply in some way to all editors
@@ -192,20 +184,6 @@ public class EditorUtil
             }
             if(editee != null)
             return editee;
-        } else if(forElement instanceof Component_c) {
-        	Component_c component = (Component_c) forElement;
-        	Domain_c domain = Domain_c.getOneS_DOMOnR4204(DomainAsComponent_c
-					.getOneCN_DCOnR4204(component));
-        	if(domain != null) {
-        		return domain;
-        	}
-        } else if(forElement instanceof Domain_c) {
-        	Component_c component = Component_c
-					.getOneC_COnR4204(DomainAsComponent_c
-							.getOneCN_DCOnR4204((Domain_c) forElement));
-        	if(component != null) {
-        		return component;
-        	}
         } else if(forElement instanceof Lifespan_c) {
         	// if a lifespan was double clicked, open
         	// the element that it is attached to
@@ -255,12 +233,6 @@ public class EditorUtil
 					.getOneS_EEOnR933((ExternalEntityParticipant_c) forElement);
         	if(ee != null) {
         		return getElementToEdit(ee);
-        	}
-        } else if(forElement instanceof FunctionPackageParticipant_c) {
-        	FunctionPackage_c fp = FunctionPackage_c
-					.getOneS_FPKOnR932((FunctionPackageParticipant_c) forElement);
-        	if(fp != null) {
-        		return getElementToEdit(fp);
         	}
         } else if(forElement instanceof ClassParticipant_c) {
         	ModelClass_c clazz = ModelClass_c
