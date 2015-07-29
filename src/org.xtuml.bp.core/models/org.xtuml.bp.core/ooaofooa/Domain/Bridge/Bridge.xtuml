@@ -151,7 +151,6 @@ select one packageableElem related by self->S_EE[R19]->PE_PE[R8001];
                                                        typeName:param.typeName);
   end if;
 
-  return false;
 ',
 	1,
 	'',
