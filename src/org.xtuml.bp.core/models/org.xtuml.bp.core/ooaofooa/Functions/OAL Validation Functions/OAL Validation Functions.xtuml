@@ -16065,7 +16065,7 @@ select one body related by block->ACT_ACT[R612];
   end if;
   return GD::NULL_UNIQUE_ID();
 
-return param.a6_current_rule_id;',
+',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'');

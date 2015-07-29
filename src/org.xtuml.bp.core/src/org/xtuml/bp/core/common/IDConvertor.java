@@ -31,43 +31,11 @@ import org.eclipse.core.runtime.Platform;
 import org.osgi.framework.Bundle;
 
 import org.xtuml.bp.core.CorePlugin;
-import org.xtuml.bp.core.Domain_c;
 
 public abstract class IDConvertor {
 
 	protected List<NonRootModelElement> mesWithRelocatables = new Vector<NonRootModelElement>();
 	
-	public UUIDMap convertToUUID(Domain_c domain) {
-		return convertToUUID(domain, new UUIDMap(null));
-	}
-
-	/*
-	 * If inputMap == null then just create the ids even if it is dummy id.
-	 */
-	public UUIDMap convertToUUID(Domain_c domain, UUIDMap inputMap){
-		UUIDMap newMap = null;
-		if (inputMap != null) {
-			newMap = new UUIDMap(domain);
-		}
-		
-		ModelRoot.disableChangeNotification();
-		try {
-		  removeAndCacheRelocatables(domain);
-		  newMap = _convertToUUID(domain, inputMap, newMap);
-		  updateOoa_ids(domain);
-		  updateRelocatables(domain);
-		}
-		finally {
-		  ModelRoot.enableChangeNotification();
-		}
-
-		return newMap;
-		
-	}
-	
-	protected abstract UUIDMap _convertToUUID(Domain_c domain, UUIDMap inputMap, UUIDMap newMap);
-	protected abstract void removeAndCacheRelocatables(Domain_c domain);
-	protected abstract void updateRelocatables(Domain_c domain);
 	
 	protected void convertToUUID(InstanceList instanceList, UUIDMap newMap,
 			UUIDMap inputMap) {
@@ -107,16 +75,10 @@ public abstract class IDConvertor {
 		}
 	}
 
-	public void recreateUUID(Domain_c domain){
-		convertToUUID(domain, null);
-	}
-
 	protected abstract String createKey(NonRootModelElement modelElement);
 	
 	public abstract UUID getId(NonRootModelElement modelElement);
 	public abstract void setId(NonRootModelElement modelElement, UUID id);
-
-	protected abstract void updateOoa_ids(Domain_c domain);
 
 	/*
 	 * Following method is just to expose UUIDMap.createUUIDEntry method to 

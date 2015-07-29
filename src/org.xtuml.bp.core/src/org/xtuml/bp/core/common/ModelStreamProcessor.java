@@ -48,7 +48,6 @@ import org.xtuml.bp.core.CreationTransition_c;
 import org.xtuml.bp.core.DataType_c;
 import org.xtuml.bp.core.DerivedAttributeBody_c;
 import org.xtuml.bp.core.DerivedBaseAttribute_c;
-import org.xtuml.bp.core.Domain_c;
 import org.xtuml.bp.core.EnumerationDataType_c;
 import org.xtuml.bp.core.Function_c;
 import org.xtuml.bp.core.ImportedProvision_c;
@@ -76,11 +75,8 @@ import org.xtuml.bp.core.StateActionBody_c;
 import org.xtuml.bp.core.StateMachineState_c;
 import org.xtuml.bp.core.StateMachine_c;
 import org.xtuml.bp.core.StructuredDataType_c;
-import org.xtuml.bp.core.SubsystemInDomain_c;
-import org.xtuml.bp.core.Subsystem_c;
 import org.xtuml.bp.core.SubtypeSupertypeAssociation_c;
 import org.xtuml.bp.core.SynchronousMessage_c;
-import org.xtuml.bp.core.SystemDatatypePackage_c;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.TimeSpan_c;
 import org.xtuml.bp.core.TimingMark_c;
@@ -343,17 +339,6 @@ public class ModelStreamProcessor {
 			while (modelClass != null
 					&& (!modelClass.getClass().getSimpleName()
 							.equals("Model_c") || modelClass.getThisRoot() == null)) { //$NON-NLS-1$
-				// generated getParent() method returns the child
-				// DataTypePackage for
-				// persistence reasons, we are only concerned in true
-				// parent/child hierarchy
-				// so return SystemModel in case of SystemDatatypePackage
-				if (modelClass instanceof SystemDatatypePackage_c) {
-					modelClass = SystemModel_c
-							.getOneS_SYSOnR4400((SystemDatatypePackage_c) modelClass);
-				} else if(modelClass instanceof SubsystemInDomain_c) {
-					modelClass = Domain_c.getOneS_DOMOnR43((SubsystemInDomain_c) modelClass);
-				}
 				modelClass = PersistenceManager.getHierarchyMetaData()
 						.getParent(modelClass);
 				if(modelClass == lastClass) {
@@ -451,17 +436,9 @@ public class ModelStreamProcessor {
 
 	private boolean elementToBeImported(NonRootModelElement element) {
 		if (element instanceof ClassAsSubtype_c) {
-			Association_c association = Association_c
-					.getOneR_RELOnR206(SubtypeSupertypeAssociation_c
-							.getOneR_SUBSUPOnR213((ClassAsSubtype_c) element));
-			Subsystem_c subsystem = Subsystem_c.getOneS_SSOnR4(association);
-			return subsystem == null || subsystem.isProxy();
+			return true;
 		} else if (element instanceof ClassAsLink_c) {
-			Association_c association = Association_c
-					.getOneR_RELOnR206(LinkedAssociation_c
-							.getOneR_ASSOCOnR211((ClassAsLink_c) element));
-			Subsystem_c subsystem = Subsystem_c.getOneS_SSOnR4(association);
-			return subsystem == null || subsystem.isProxy();
+			return true;
 		} else if (element instanceof CreationTransition_c) {
 			Transition_c transition = Transition_c
 					.getOneSM_TXNOnR507((CreationTransition_c) element);

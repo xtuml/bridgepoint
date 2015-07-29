@@ -333,35 +333,6 @@ INSERT INTO DIM_ED
 	"02f6d1d5-efe6-4d82-b25a-75c526c37ebf",
 	"77f04565-4bdd-414c-b7e1-892bf65a5e90");
 INSERT INTO GD_GE
-	VALUES ("b9faa6b7-02ee-4c6a-bb13-4adbf0c31d86",
-	"0b91827a-a27d-493d-b516-024750d663f9",
-	"3f9a694a-f499-449a-a48d-7baca2480ceb",
-	21,
-	0,
-	'org.xtuml.bp.core::ooaofooa::Component::Component Nesting::Domain As Component');
-INSERT INTO GD_SHP
-	VALUES ("b9faa6b7-02ee-4c6a-bb13-4adbf0c31d86");
-INSERT INTO GD_NCS
-	VALUES ("b9faa6b7-02ee-4c6a-bb13-4adbf0c31d86");
-INSERT INTO DIM_ND
-	VALUES (228.000000,
-	108.000000,
-	"b9faa6b7-02ee-4c6a-bb13-4adbf0c31d86");
-INSERT INTO DIM_GE
-	VALUES (4668.000000,
-	4908.000000,
-	"b9faa6b7-02ee-4c6a-bb13-4adbf0c31d86",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO DIM_ELE
-	VALUES ("b9faa6b7-02ee-4c6a-bb13-4adbf0c31d86",
-	0,
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO DIM_CON
-	VALUES ("54ca4ab7-c18a-406e-bc90-ea066d3cff81",
-	4668.000000,
-	4956.000000,
-	"b9faa6b7-02ee-4c6a-bb13-4adbf0c31d86");
-INSERT INTO GD_GE
 	VALUES ("e85c9d19-682b-47f1-b0ed-ec18a41dd830",
 	"0b91827a-a27d-493d-b516-024750d663f9",
 	"a5db612e-c6ad-47ab-8acb-cf75ad3f7d60",

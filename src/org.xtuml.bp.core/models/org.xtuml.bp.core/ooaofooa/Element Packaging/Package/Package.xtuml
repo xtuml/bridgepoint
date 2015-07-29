@@ -366,16 +366,17 @@ INSERT INTO O_TFR
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'select one system related by self->S_SYS[R1401];
+sysid = GD::NULL_UNIQUE_ID();
 if(not_empty system)
-  return system.Sys_ID;
+  sysid = system.Sys_ID;
 else
   select one system related by self->S_SYS[R1405];
   if not_empty system
-    return system.Sys_ID;
+    sysid = system.Sys_ID;
   end if;
 end if;
 
-',
+return sysid;',
 	1,
 	'',
 	"b18247f6-6e14-4662-899a-9fb3cc9832d8");
@@ -1067,7 +1068,6 @@ INSERT INTO O_TFR
 	1,
 	'// Data Type Package::newConstantSpecification()
 create object instance csp of CNST_CSP;
-create object instance cip of CNST_CIP;
 // create Packageable Element supertype and hook up to this package.
 create object instance pe of PE_PE;
 relate csp to pe across R8001;
