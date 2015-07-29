@@ -34,7 +34,6 @@ import java.util.UUID;
 import java.util.Map.Entry;
 
 import org.xtuml.bp.core.CorePlugin;
-import org.xtuml.bp.core.Domain_c;
 
 public class UUIDMap {
 
@@ -44,13 +43,6 @@ public class UUIDMap {
 	String revision;
 	Map<String, UUID> map = new HashMap<String, UUID>();
 	IDConvertor convertor = IDConvertor.getInstance();
-
-	public UUIDMap(Domain_c domain) {
-		if(domain != null){
-			revision = extractRevision(domain);
-			domainName = domain.getName();
-		}
-	}
 
 	public UUID getUUID(NonRootModelElement modelElement) {
 		String key = convertor.createKey(modelElement);
@@ -126,16 +118,4 @@ public class UUIDMap {
 		}
 	}
 	
-	private String extractRevision(Domain_c domain){
-		if(revisionStartRule != null){
-			String desc = domain.getDescrip();
-			int index = desc.indexOf(revisionStartRule);
-			if(index >= 0){
-				String revision = desc.substring(desc.indexOf(revisionStartRule) + revisionStartRule.length());
-				revision = revision.substring(0, revision.indexOf(revisionEndRule));
-				return revision.trim();
-			}
-		}
-		return "";  //$NON-NLS-1$
-	}
 }

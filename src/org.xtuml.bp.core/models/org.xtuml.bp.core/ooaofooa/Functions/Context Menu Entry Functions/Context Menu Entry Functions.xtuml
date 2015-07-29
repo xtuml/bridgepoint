@@ -1568,7 +1568,12 @@ INSERT INTO S_SYNC
 	"00000000-0000-0000-0000-000000000000",
 	'SQ_FPP_Formalize',
 	'ContextMenuFunction: TRUE',
-	'// TODO: BOB This and the CME Pei entry associated can be removed now that SPs are gone',
+	'select any fpp from instances of SQ_FPP where USER::selectOne(id:selected.Part_ID);
+select one existingElement related by fpp->SQ_P[R930]
+                                 where USER::selectExisting(id:selected.Part_ID);
+if (not_empty existingElement)                                 
+  fpp.formalize(fpId:existingElement.Part_ID);
+end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'');
@@ -4024,21 +4029,6 @@ INSERT INTO PE_PE
 	"00000000-0000-0000-0000-000000000000",
 	1);
 INSERT INTO S_SYNC
-	VALUES ("36ccb50f-12c1-4035-822f-678980c5db07",
-	"00000000-0000-0000-0000-000000000000",
-	'C_C_ComponentFormalize',
-	'ContextMenuFunction: TRUE',
-	'// TODO: BOB This and the CME Pei entry associated can be removed now that SPs are gone',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("36ccb50f-12c1-4035-822f-678980c5db07",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
 	VALUES ("87e922be-8bea-4f3c-b129-23d3589127fc",
 	"00000000-0000-0000-0000-000000000000",
 	'C_C_Unformalize',
@@ -5551,88 +5541,14 @@ INSERT INTO PE_PE
 	"00000000-0000-0000-0000-000000000000",
 	1);
 INSERT INTO S_SYNC
-	VALUES ("789923d7-531d-4d30-9484-232ac4975b76",
-	"00000000-0000-0000-0000-000000000000",
-	'C_C_NewInterfacePackage',
-	'ContextMenuFunction: TRUE',
-	'// TODO: BOB This and the CME Pei entry associated can be removed now that SPs are gone',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("789923d7-531d-4d30-9484-232ac4975b76",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("7a6d36c2-215b-4659-bf6a-bfdc0a57c8e2",
-	"00000000-0000-0000-0000-000000000000",
-	'C_C_NewSequenceDiagram',
-	'ContextMenuFunction: TRUE',
-	'// TODO: BOB This and the CME Pei entry associated can be removed now that SPs are gone',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("7a6d36c2-215b-4659-bf6a-bfdc0a57c8e2",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("52b1438c-02ed-4658-8468-672d19691f03",
-	"00000000-0000-0000-0000-000000000000",
-	'C_C_NewCommunicationDiagram',
-	'ContextMenuFunction: TRUE',
-	'// TODO: BOB This and the CME Pei entry associated can be removed now that SPs are gone',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("52b1438c-02ed-4658-8468-672d19691f03",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("e69bd09e-eb49-4684-8e8e-749b91088514",
-	"00000000-0000-0000-0000-000000000000",
-	'C_C_NewUsecaseDiagram',
-	'ContextMenuFunction: TRUE',
-	'// TODO: BOB This and the CME Pei entry associated can be removed now that SPs are gone',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("e69bd09e-eb49-4684-8e8e-749b91088514",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("916a8700-2cc8-43f7-9028-1b561503605b",
-	"00000000-0000-0000-0000-000000000000",
-	'C_C_NewActivityDiagram',
-	'ContextMenuFunction: TRUE',
-	'// TODO: BOB This is obsolete with the removal of generic packages remove this and it''s associated PEI entry
-
-',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("916a8700-2cc8-43f7-9028-1b561503605b",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
 	VALUES ("7b77e504-c082-4cfc-b46f-9d0c43f2b8e5",
 	"00000000-0000-0000-0000-000000000000",
 	'C_C_NewComponent',
 	'ContextMenuFunction: TRUE',
-	'// TODO: BOB This and the CME Pei entry associated can be removed now that SPs are gone',
+	'select any component from instances of C_C where USER::selectOne(id:selected.Id);
+if(not empty component)
+  assign discardUuid = component.newComponent();
+end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'');
@@ -5647,7 +5563,10 @@ INSERT INTO S_SYNC
 	"00000000-0000-0000-0000-000000000000",
 	'C_C_NewComponentReference',
 	'ContextMenuFunction: TRUE',
-	'// TODO: BOB This and the CME Pei entry associated can be removed now that SPs are gone',
+	'select any component from instances of C_C where USER::selectOne(id:selected.Id);
+if(not empty component)
+component.newImportedComponent();
+end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'');
@@ -5797,7 +5716,17 @@ INSERT INTO S_SYNC
 	"00000000-0000-0000-0000-000000000000",
 	'SQ_CIP_GenericPackageFormalize',
 	'ContextMenuFunction: TRUE',
-	'// TODO: BOB This and the CME Pei entry associated can be removed now that SPs are gone',
+	'select any element from instances of SQ_CIP
+                                     where USER::selectOne(id:selected.Part_ID);
+select one existingElement related by element->O_OBJ[R934]
+                                 where USER::selectExisting(id:selected.Obj_ID);
+if(not_empty element)
+  select any selectedElement from instances of O_OBJ
+                                       where USER::selectOne(id:selected.Obj_ID);
+  if(not_empty selectedElement)
+    element.formalize(classId:selectedElement.Obj_ID);
+  end if;
+end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'');
@@ -5812,7 +5741,17 @@ INSERT INTO S_SYNC
 	"00000000-0000-0000-0000-000000000000",
 	'SQ_EEP_GenericPackageFormalize',
 	'ContextMenuFunction: TRUE',
-	'// TODO: BOB This and the CME Pei entry associated can be removed now that SPs are gone',
+	'select any element from instances of SQ_EEP
+                                     where USER::selectOne(id:selected.Part_ID);
+select one existingElement related by element->S_EE[R933]
+                                  where USER::selectExisting(id:selected.EE_ID);
+if(not_empty element)
+  select any selectedElement from instances of S_EE
+                                        where USER::selectOne(id:selected.EE_ID);
+  if(not_empty selectedElement)
+    element.formalize(eeId:selectedElement.EE_ID);
+  end if;
+end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'');
@@ -5827,7 +5766,17 @@ INSERT INTO S_SYNC
 	"00000000-0000-0000-0000-000000000000",
 	'SQ_CP_GenericPackageFormalize',
 	'ContextMenuFunction: TRUE',
-	'// TODO: BOB This and the CME Pei entry associated can be removed now that SPs are gone',
+	'select any element from instances of SQ_CP
+                                     where USER::selectOne(id:selected.Part_ID);
+select one existingElement related by element->O_OBJ[R939]
+                                 where USER::selectExisting(id:selected.Obj_ID);
+if(not_empty element)
+  select any selectedElement from instances of O_OBJ
+                                       where USER::selectOne(id:selected.Obj_ID);
+  if(not_empty selectedElement)
+    element.formalize(classId:selectedElement.Obj_ID);
+  end if;
+end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'');
@@ -6270,66 +6219,6 @@ INSERT INTO PE_PE
 	"00000000-0000-0000-0000-000000000000",
 	1);
 INSERT INTO S_SYNC
-	VALUES ("50228f94-f34a-4dd2-9417-fc8b2ad3a5d5",
-	"00000000-0000-0000-0000-000000000000",
-	'C_C_NewSubsystem',
-	'ContextMenuFunction: TRUE',
-	'// TODO: BOB This and the CME Pei entry associated can be removed now that SPs are gone',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("50228f94-f34a-4dd2-9417-fc8b2ad3a5d5",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("945c1553-909e-4346-9701-7e1f17d26281",
-	"00000000-0000-0000-0000-000000000000",
-	'C_C_NewExternalEntityPackage',
-	'ContextMenuFunction: TRUE',
-	'// TODO: BOB This and the CME Pei entry associated can be removed now that SPs are gone',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("945c1553-909e-4346-9701-7e1f17d26281",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("5cfe0c54-3725-4142-bbcf-5ba75f8acc69",
-	"00000000-0000-0000-0000-000000000000",
-	'C_C_NewFunctionPackage',
-	'ContextMenuFunction: TRUE',
-	'// TODO: BOB This and the CME Pei entry associated can be removed now that SPs are gone',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("5cfe0c54-3725-4142-bbcf-5ba75f8acc69",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("8e8e1063-aa08-43cb-af04-7ae404d1d4c7",
-	"00000000-0000-0000-0000-000000000000",
-	'C_C_NewDatatypePackage',
-	'ContextMenuFunction: TRUE',
-	'// TODO: BOB This and the CME Pei entry associated can be removed now that SPs are gone',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("8e8e1063-aa08-43cb-af04-7ae404d1d4c7",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
 	VALUES ("a8732059-5a83-4d33-86ce-b8c754830852",
 	"00000000-0000-0000-0000-000000000000",
 	'S_EDT_MakePrivate',
@@ -6438,7 +6327,10 @@ INSERT INTO S_SYNC
 	"00000000-0000-0000-0000-000000000000",
 	'C_C_NewPackage',
 	'ContextMenuFunction: TRUE',
-	'// TODO: BOB This and the CME Pei entry associated can be removed now that SPs are gone',
+	'select any component from instances of C_C where USER::selectOne(id:selected.Id);
+if(not empty component)
+component.newPackage();
+end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'');

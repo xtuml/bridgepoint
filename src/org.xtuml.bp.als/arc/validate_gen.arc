@@ -90,10 +90,6 @@ public class ${java_class} {
   private ${java_class} Self = null;
   private NonRootModelElement m_nrme = null;
   
-  public ${java_class}(Domain_c dom) {
-    Self = this;
-  }
-
   public ${java_class}(NonRootModelElement nrme) {
     Self = this;
     m_nrme = nrme;

@@ -24,7 +24,6 @@
 --
 INSERT INTO T_TNS VALUES (1,  'System.gif',                     'S_SYS',   '', 'Name', '',                 'System',						-1, '');
 INSERT INTO T_TNS VALUES (6,  'Class.gif',                      'O_OBJ',   '', 'Name', '',                 'Class', 						-1, '');
-INSERT INTO T_TNS VALUES (71, 'FunctionPackage.gif',            'S_FPK',   '', 'Name', '',                 'Function Package', 			-1, '');
 INSERT INTO T_TNS VALUES (3,  'Function.gif',                   'S_SYNC',  '', 'Name', '',                 'Function', 					-1, '');
 INSERT INTO T_TNS VALUES (4,  'FunctionParameter.gif',          'S_SPARM', '', 'Name', '',                 'Function Parameter',        54, 'succeeds');
 INSERT INTO T_TNS VALUES (7,  'Operation.gif',                  'O_TFR',   '', 'Name', '',                 'Operation',                 125, 'succeeds');
@@ -216,7 +215,6 @@ INSERT INTO T_TPS VALUES (366, 294, 12, '->SM_CRTXN[R507]->SM_LEVT[R509]->SM_SEV
 INSERT INTO T_TPS VALUES (83, 294, 11, '->SM_STATE[R506]', 'To', false);
 INSERT INTO T_TPS VALUES (90, 70, 48, '->SM_EIGN[R504]', '', false);
 INSERT INTO T_TPS VALUES (91, 70, 49, '->SM_CH[R504]', '', false);
-INSERT INTO T_TPS VALUES (92, 71, 3,  '->S_FIP[R31]->S_SYNC[R31]', '', false);
 INSERT INTO T_TPS VALUES (97, 77, 19, '->S_ENUM[R27]', '', false);
 INSERT INTO T_TPS VALUES (99, 79, 44, '->R_CONE[R214]', '', false);
 INSERT INTO T_TPS VALUES (100, 79, 45, '->R_COTH[R215]', '', false);
@@ -279,7 +277,6 @@ INSERT INTO T_TPS VALUES (175, 110,  106,  '->UC_UCA[R1210]->SQ_P[R1206]->IA_UCP
 INSERT INTO T_TPS VALUES (176, 110,  106,  '->UC_UCA[R1210]->SQ_P[R1207]->IA_UCP[R930]', 'Association Other Side', false);
  
 INSERT INTO T_TPS VALUES (190, 88, 27, '->S_EE[R933]', 'Formal External Entity', false);
-INSERT INTO T_TPS VALUES (191, 89, 71, '->S_FPK[R932]', 'Formal Function Package', false);
 INSERT INTO T_TPS VALUES (192, 90, 6,  '->O_OBJ[R939]', 'Formal Class', false);
 INSERT INTO T_TPS VALUES (193, 86, 6,  '->O_OBJ[R934]', 'Formal Instance', false);
 INSERT INTO T_TPS VALUES (194, 87, 16, '->O_ATTR[R938]', 'Formal Attribute', false);
@@ -341,7 +338,6 @@ INSERT INTO T_TPS VALUES (247, 292,136, '->CL_IIR[R4703]->C_IR[R4701]->C_P[R4009
 INSERT INTO T_TPS VALUES (248, 292,137, '->CL_IIR[R4703]->C_IR[R4701]->C_P[R4009]->SPR_PEP[R4501]->SPR_PS[R4503]', '', false);
 INSERT INTO T_TPS VALUES (249, 293,134, '->CL_IIR[R4703]->C_IR[R4701]->C_R[R4009]->SPR_REP[R4500]->SPR_RO[R4502]', '', false);
 INSERT INTO T_TPS VALUES (250, 293,135, '->CL_IIR[R4703]->C_IR[R4701]->C_R[R4009]->SPR_REP[R4500]->SPR_RS[R4502]', '', false);
-INSERT INTO T_TPS VALUES (253, 71,  71, '->S_FPIP[R30]->S_FPK[R32]', '', false);
 
 INSERT INTO T_TPS VALUES (262, 294, 46, '->SM_TAH[R530]->SM_AH[R513]->SM_ACT[R514]', '', false);
 

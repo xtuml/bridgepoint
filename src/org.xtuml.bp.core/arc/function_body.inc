@@ -248,7 +248,10 @@ for(Iterator<?> iterator = selection.iterator(); iterator.hasNext();) {
 }
 		.end if
 .if ((cme.Key_Lett =="C_C")and ((cme.Specialism == "New") or(cme.Specialism == "Components")))
- if (v_${context_item.Name}.isInGenericPackage()) 
+ // TODO: BOB FIXME.  This is a place where I want to see the generated
+ // code before updating the function_body.inc archetype.  This condition was:
+ // if (v_${context_item.Name}.isInGenericPackage())
+ if (true) 
      {
 .end if 		
  .if (((((cme.Specialism == "Classes") or(cme.Specialism == "Components"))or ((cme.Specialism == "External")or(cme.Specialism == "Interaction")))or(((cme.Specialism == "New")or(cme.Specialism == "Activity"))or((cme.Specialism == "Types")or(cme.Specialism == "Usecase"))))and (cme.Resultant_Class_RelChain!=""))
@@ -447,28 +450,6 @@ for(Iterator<?> iterator = selection.iterator(); iterator.hasNext();) {
       .assign attr_preamble = "          if (v_element.Canassigntocomp(elem.getId(), false)) {"
 	  .assign attr_postamble = "         }"
     .end if
-  .else
-    .if(selectedKl == "SQ_CIP")
-	  .// do not allow if the model root contains
-	  .// any domain instance
-      .assign attr_preamble = "			if(instancesUnderSystem[i].getInstanceList(Domain_c.class).isEmpty()) {"
-	  .assign attr_postamble = "		}"
-	.elif(selectedKl == "SQ_CP")
-	  .// do not allow if the model root contains
-	  .// any domain instance
-      .assign attr_preamble = "			if(instancesUnderSystem[i].getInstanceList(Domain_c.class).isEmpty()) {"
-	  .assign attr_postamble = "		}"
-	.elif(selectedKl == "SQ_COP")
-	  .// do not allow if the model root contains
-	  .// any ComponentPackage instance
-      .assign attr_preamble = "			if(instancesUnderSystem[i].getInstanceList(ComponentPackage_c.class).isEmpty()) {"
-	  .assign attr_postamble = "		}"
-	.elif(selectedKl == "SQ_EEP")
-	  .// do not allow if the model root contains
-	  .// any domain instance
-      .assign attr_preamble = "			if(instancesUnderSystem[i].getInstanceList(Domain_c.class).isEmpty()) {"
-	  .assign attr_postamble = "		}"
-	.end if
   .end if
 .end function
 .function get_ooa_type_name

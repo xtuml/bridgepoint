@@ -49,16 +49,8 @@ import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.CreationTransition_c;
 import org.xtuml.bp.core.DerivedBaseAttribute_c;
-import org.xtuml.bp.core.DomainAsComponent_c;
-import org.xtuml.bp.core.Domain_c;
-import org.xtuml.bp.core.EePackageInPackage_c;
-import org.xtuml.bp.core.ExternalEntityInPackage_c;
-import org.xtuml.bp.core.ExternalEntityPackage_c;
 import org.xtuml.bp.core.ExternalEntity_c;
 import org.xtuml.bp.core.FunctionBody_c;
-import org.xtuml.bp.core.FunctionInPackage_c;
-import org.xtuml.bp.core.FunctionPackageInPackage_c;
-import org.xtuml.bp.core.FunctionPackage_c;
 import org.xtuml.bp.core.Function_c;
 import org.xtuml.bp.core.InstanceStateMachine_c;
 import org.xtuml.bp.core.InterfaceReference_c;
@@ -80,8 +72,6 @@ import org.xtuml.bp.core.RequiredSignal_c;
 import org.xtuml.bp.core.Requirement_c;
 import org.xtuml.bp.core.StateMachineState_c;
 import org.xtuml.bp.core.StateMachine_c;
-import org.xtuml.bp.core.SubsystemInSubsystem_c;
-import org.xtuml.bp.core.Subsystem_c;
 import org.xtuml.bp.core.TransitionActionHome_c;
 import org.xtuml.bp.core.Transition_c;
 import org.xtuml.bp.core.common.IAllActivityModifier;
@@ -94,7 +84,6 @@ public class ParserAllActivityModifier implements IAllActivityModifier
 {
     private Function_c[] m_func_set;
     private Bridge_c[] m_bridge_set;
-    private Subsystem_c [] m_ss_set;
     private Operation_c[] m_op_set;
     private Attribute_c[] m_mda_set;
     private StateMachineState_c[] m_ism_state_set;
@@ -119,32 +108,12 @@ public class ParserAllActivityModifier implements IAllActivityModifier
     
     private ParseRunnable parseRunner;
     
-    public ParserAllActivityModifier(Domain_c parent, IProgressMonitor monitor){
-    	this((NonRootModelElement)parent, monitor);
-    	parseAll = true;
-    }
-    
     public ParserAllActivityModifier(Component_c parent, IProgressMonitor monitor){
     	this((NonRootModelElement)parent, monitor);
     	parseAll = true;
     }
     
     public ParserAllActivityModifier(Package_c parent, IProgressMonitor monitor){
-    	this((NonRootModelElement)parent, monitor);
-    	parseAll = true;
-    }
-    
-    public ParserAllActivityModifier(Subsystem_c parent, IProgressMonitor monitor){
-    	this((NonRootModelElement)parent, monitor);
-    	parseAll = true;
-    }
-    
-    public ParserAllActivityModifier(FunctionPackage_c parent, IProgressMonitor monitor){
-    	this((NonRootModelElement)parent, monitor);
-    	parseAll = true;
-    }
-    
-    public ParserAllActivityModifier(ExternalEntityPackage_c parent, IProgressMonitor monitor){
     	this((NonRootModelElement)parent, monitor);
     	parseAll = true;
     }
@@ -212,7 +181,7 @@ public class ParserAllActivityModifier implements IAllActivityModifier
             	disposeAllBodies(mr);
             }
         }
-        getAllSubsystems();
+
         if(activitiesToParse != null) {
         	if ( m_pm != null ) m_pm.beginTask(pmMessages[op], countAllActivities());
         	doForAll(activitiesToParse, op);
@@ -1119,16 +1088,6 @@ public class ParserAllActivityModifier implements IAllActivityModifier
           addActivitiesToList(act_set, null, ActivityKind.FUNCTION, m_pkg, onlySharedFragments);
           m_func_set = act_set.toArray(new Function_c[act_set.size()]);
             assert(m_func_set == function_set.toArray(new Function_c[function_set.size()]));
-        }
-        else if(m_parent instanceof FunctionPackage_c) {
-            FunctionPackage_c[] top = {(FunctionPackage_c)m_parent};
-            ArrayList<Function_c> function_set = new ArrayList<Function_c>();
-            FunctionPackage_c[] fpk_set = FunctionPackage_c.getManyS_FPKsOnR30(FunctionPackageInPackage_c.getManyS_FPIPsOnR30(top));
-            addFunctionsToList(function_set, top);
-            for ( int i = 0; i < fpk_set.length; ++i ) {
-                loadChildFPKs(function_set, fpk_set[i]);
-            }
-        	m_func_set = function_set.toArray(new Function_c[function_set.size()]);
         }else{
           m_func_set = (Function_c[])PersistenceManager.getHierarchyMetaData().getActivityModelElements(m_parent, Function_c.class);
         }
@@ -1140,20 +1099,6 @@ public class ParserAllActivityModifier implements IAllActivityModifier
         }
     }
 
-    private void addFunctionsToList(ArrayList function_set, FunctionPackage_c[] fpk_set) {
-        Function_c [] f_set = Function_c.getManyS_SYNCsOnR31(FunctionInPackage_c.getManyS_FIPsOnR31(fpk_set));
-        for ( int i = 0; i < f_set.length; ++i ) {
-            function_set.add(f_set[i]);
-        }
-    }
-    private void loadChildFPKs(ArrayList function_set, FunctionPackage_c fpk) {
-        FunctionPackage_c[] child_fpk_set = FunctionPackage_c.getManyS_FPKsOnR32(FunctionPackageInPackage_c
-                .getManyS_FPIPsOnR30(fpk));
-        addFunctionsToList(function_set, child_fpk_set);
-        for ( int i = 0; i < child_fpk_set.length; ++i ) {
-            loadChildFPKs(function_set, child_fpk_set[i]);
-        }
-    }
     private void addFunctionsToList(ArrayList<Function_c> function_set, PackageableElement_c pkgElem) {
     	Function_c [] f_set = null;
     	Package_c [] pkg_set = null;
@@ -1239,17 +1184,7 @@ public class ParserAllActivityModifier implements IAllActivityModifier
           
 		  m_bridge_set = act_set.toArray(new Bridge_c[act_set.size()]);
             assert(m_bridge_set == bridge_set.toArray(new Bridge_c[bridge_set.size()]));
-        }
-        else if(m_parent instanceof ExternalEntityPackage_c) {
-            ExternalEntityPackage_c[] top = {(ExternalEntityPackage_c)m_parent};
-            ArrayList<Bridge_c> bridge_set = new ArrayList<Bridge_c>();
-            ExternalEntityPackage_c[] eepk_set = ExternalEntityPackage_c.getManyS_EEPKsOnR33(ExternalEntityInPackage_c.getManyS_EEIPsOnR33(top));
-            addBridgesToList(bridge_set, top);
-            for ( int i = 0; i < eepk_set.length; ++i ) {
-                loadChildEEPKs(bridge_set, eepk_set[i]);
-            }
-        	m_bridge_set = bridge_set.toArray(new Bridge_c[bridge_set.size()]);
-        }else{
+        } else {
         	m_bridge_set = (Bridge_c[])PersistenceManager.getHierarchyMetaData().getActivityModelElements(m_parent, Bridge_c.class);
         }
         
@@ -1259,21 +1194,7 @@ public class ParserAllActivityModifier implements IAllActivityModifier
         	m_bridge_set = result.toArray(new Bridge_c[result.size()]);
         }
     }
-   private void addBridgesToList(ArrayList bridge_set, ExternalEntityPackage_c[] eepk_set) {
-       Bridge_c [] b_set = Bridge_c.getManyS_BRGsOnR19(
-               ExternalEntity_c.getManyS_EEsOnR33(ExternalEntityInPackage_c.getManyS_EEIPsOnR33(eepk_set)));
-       for ( int i = 0; i < b_set.length; ++i ) {
-           bridge_set.add(b_set[i]);
-       }
-   }
-    private void loadChildEEPKs(ArrayList bridge_set,ExternalEntityPackage_c eepk) {
-        ExternalEntityPackage_c[] child_eepk_set = ExternalEntityPackage_c.getManyS_EEPKsOnR35(EePackageInPackage_c
-                .getManyS_EEPIPsOnR34(eepk));
-        addBridgesToList(bridge_set, child_eepk_set);
-        for ( int i = 0; i < child_eepk_set.length; ++i ) {
-            loadChildEEPKs(bridge_set, child_eepk_set[i]);
-        }
-    }
+
     private void addBridgesToList(ArrayList<Bridge_c> bridge_set, PackageableElement_c pkgElem) {
     	Bridge_c [] b_set = null;
     	Package_c [] pkg_set = null;
@@ -1335,40 +1256,11 @@ public class ParserAllActivityModifier implements IAllActivityModifier
 	        }
         }
     }
-    private void getAllSubsystems()
-    {
-        if ( m_ss_set != null )  m_ss_set = null;  // clear any existing entries
-
-          if (m_parent instanceof Subsystem_c) {
-              ArrayList<Subsystem_c> ss_result_set = new ArrayList<Subsystem_c>();
-              ss_result_set.add((Subsystem_c)m_parent);
-              Subsystem_c[] ss_set = Subsystem_c.getManyS_SSsOnR41(SubsystemInSubsystem_c.getManyS_SISsOnR41((Subsystem_c)m_parent));
-              for ( int i = 0; i < ss_set.length; ++i ) {
-                  ss_result_set.add(ss_set[i]);
-                  loadChildSSs(ss_result_set, ss_set[i]);
-              }
-              m_ss_set = ss_result_set.toArray(new Subsystem_c[ss_result_set.size()]);
-          }
-
-    }
-    private void loadChildSSs(ArrayList ss_result_set, Subsystem_c ss) {
-        Subsystem_c[] child_ss_set = Subsystem_c.getManyS_SSsOnR42(
-                SubsystemInSubsystem_c.getManyS_SISsOnR41((Subsystem_c) ss));
-        for ( int i = 0; i < child_ss_set.length; ++i ) {
-            ss_result_set.add(child_ss_set[i]);
-            loadChildSSs(ss_result_set, child_ss_set[i]);
-        }
-    }
 
     private void getAllOperations()
     {
         if ( m_op_set != null )  m_op_set = null;  // clear any existing entries
-        if(parseAll && m_ss_set != null){
-            m_op_set = Operation_c.getManyO_TFRsOnR115(
-                    ModelClass_c.getManyO_OBJsOnR2(
-                            m_ss_set));
-        }
-        else if (parseAll && m_pkgElem != null) {
+        if (parseAll && m_pkgElem != null) {
 
             ArrayList<Operation_c> op_set = new ArrayList<Operation_c>();
             addOperationsToList(op_set, m_pkgElem);
@@ -1451,16 +1343,7 @@ public class ParserAllActivityModifier implements IAllActivityModifier
     private void getAllMDAttrs()
     {
         if ( m_mda_set != null )  m_mda_set = null;  // clear any existing entries
-        if(parseAll && m_ss_set != null){
-            m_mda_set = Attribute_c.getManyO_ATTRsOnR106(
-                    BaseAttribute_c.getManyO_BATTRsOnR107(
-                        DerivedBaseAttribute_c.getManyO_DBATTRsOnR107(
-                            BaseAttribute_c.getManyO_BATTRsOnR106(
-                                Attribute_c.getManyO_ATTRsOnR102(
-                                    ModelClass_c.getManyO_OBJsOnR2(
-                                            m_ss_set))))));
-        }
-        else if (parseAll && m_pkgElem != null) {
+        if (parseAll && m_pkgElem != null) {
 
             ArrayList<Attribute_c> attr_set = new ArrayList<Attribute_c>();
             addMDAsToList(attr_set, m_pkgElem);
@@ -1559,14 +1442,7 @@ public class ParserAllActivityModifier implements IAllActivityModifier
     private void getAllStateActivities()
     {
         if ( m_ism_state_set != null )  m_ism_state_set = null;  // clear any existing entries
-        if(parseAll && m_ss_set != null){
-            m_ism_state_set = StateMachineState_c.getManySM_STATEsOnR501(
-                    StateMachine_c.getManySM_SMsOnR517(
-                        InstanceStateMachine_c.getManySM_ISMsOnR518(
-                            ModelClass_c.getManyO_OBJsOnR2(
-                                    m_ss_set))));
-        }
-        else if (parseAll && m_pkgElem != null) {
+        if (parseAll && m_pkgElem != null) {
 
             ArrayList<StateMachineState_c> state_set = new ArrayList<StateMachineState_c>();
             addStatesToList(state_set, m_pkgElem, SMKind.instanceBased);
@@ -1591,14 +1467,7 @@ public class ParserAllActivityModifier implements IAllActivityModifier
         }
 
         if ( m_csm_state_set != null )  m_csm_state_set = null;  // clear any existing entries
-        if(parseAll && m_ss_set != null){
-            m_csm_state_set = StateMachineState_c.getManySM_STATEsOnR501(
-                    StateMachine_c.getManySM_SMsOnR517(
-                        ClassStateMachine_c.getManySM_ASMsOnR519(
-                            ModelClass_c.getManyO_OBJsOnR2(
-                                    m_ss_set))));
-        }
-        else if (parseAll && m_pkgElem != null) {
+        if (parseAll && m_pkgElem != null) {
 
             ArrayList<StateMachineState_c> state_set = new ArrayList<StateMachineState_c>();
             addStatesToList(state_set, m_pkgElem, SMKind.classBased);
@@ -1719,14 +1588,7 @@ public class ParserAllActivityModifier implements IAllActivityModifier
     private void getAllTransitionActivities()
     {
     	if (m_ism_transitions != null) m_ism_transitions = null;
-    	if (parseAll && m_ss_set != null) {
-            m_ism_transitions = Transition_c.getManySM_TXNsOnR505(
-                    StateMachine_c.getManySM_SMsOnR517(
-                        InstanceStateMachine_c.getManySM_ISMsOnR518(
-                            ModelClass_c.getManyO_OBJsOnR2(
-                                    m_ss_set))));
-        }
-        else if (parseAll && m_pkgElem != null) {
+    	if (parseAll && m_pkgElem != null) {
 
             ArrayList<Transition_c> tran_set = new ArrayList<Transition_c>();
             addTransitionsToList(tran_set, m_pkgElem, SMKind.instanceBased);
@@ -1749,14 +1611,7 @@ public class ParserAllActivityModifier implements IAllActivityModifier
             m_ism_transitions = (Transition_c[]) PersistenceManager.getHierarchyMetaData().getActivityModelElements(m_parent, Transition_c.class); 
     	}
     	if (m_csm_transitions != null) m_csm_transitions = null;
-    	if (parseAll && m_ss_set != null) {
-            m_csm_transitions = Transition_c.getManySM_TXNsOnR505(
-                    StateMachine_c.getManySM_SMsOnR517(
-                        ClassStateMachine_c.getManySM_ASMsOnR519(
-                            ModelClass_c.getManyO_OBJsOnR2(
-                                    m_ss_set))));
-        }
-        else if (parseAll && m_pkgElem != null) {
+    	if (parseAll && m_pkgElem != null) {
 
             ArrayList<Transition_c> tran_set = new ArrayList<Transition_c>();
             addTransitionsToList(tran_set, m_pkgElem, SMKind.classBased);

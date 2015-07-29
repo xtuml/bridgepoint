@@ -50,7 +50,6 @@ INSERT INTO CME VALUES ('New', 'Parameter',                   'C_IO',  'C_PP',  
 INSERT INTO CME VALUES ('New', 'Parameter',                   'C_AS',  'C_PP',             false, '', '', false, '', false, false, '' ,'->C_EP[R4004]->C_PP[R4006]');
 INSERT INTO CME VALUES ('Delete', '',                         'C_PP',  '',                 true );
 INSERT INTO CME VALUES ('Rename', '',                         'C_PP',  '',                 true );
-INSERT INTO CME VALUES ('Component',          'Formalize',    'C_C',   '', false, 'Choose the domain that should describe the structure of this component' );
 INSERT INTO CME VALUES ('Generic Package',     'Formalize',  'C_P',   'C_I', false, 'Choose the defined interface that this interface reference shall represent', '*', false, '', true, false, 'interface' );
 INSERT INTO CME VALUES ('Provided Interface',                     'Unformalize','C_P',   '', false, '', '*' );
 INSERT INTO CME VALUES ('Generic Package',     'Formalize',  'C_R',   'C_I', false, 'Choose the defined interface that this interface reference shall represent', '*', false, '', true, false, 'interface' );
@@ -395,7 +394,6 @@ INSERT INTO MEF VALUES ('New',       'Argument',  'MSG_SM',    'can', 'addArg' )
 INSERT INTO MEF VALUES ('New',       'Argument',  'MSG_AM',    'can', 'addArg' );
 INSERT INTO MEF VALUES ('New',       'Attribute',  'SQ_CIP',    'can', 'addAttr' );
 INSERT INTO MEF VALUES ('New',       'Attribute',  'SQ_CP',    'can', 'addAttr' );
-INSERT INTO MEF VALUES ('Component',    'Formalize',  'C_C',    'can', 'formalize' );
 INSERT INTO MEF VALUES ('Generic Package',        'Formalize',  'C_P',    'can', 'formalize generic pkg' );
 INSERT INTO MEF VALUES ('Provided Interface',    'Unformalize',  'C_P',    'can', 'unformalize' );
 INSERT INTO MEF VALUES ('Generic Package',     'Formalize',  'C_R',    'can', 'formalize generic pkg' );
