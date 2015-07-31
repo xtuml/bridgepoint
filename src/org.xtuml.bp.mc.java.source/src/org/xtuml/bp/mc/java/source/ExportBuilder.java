@@ -22,19 +22,14 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 
 import org.xtuml.bp.core.CorePlugin;
-import org.xtuml.bp.core.Domain_c;
-import org.xtuml.bp.core.ExternalEntityPackage_c;
-import org.xtuml.bp.core.FunctionPackage_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.PackageableElement_c;
-import org.xtuml.bp.core.Subsystem_c;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.ui.preferences.BridgePointProjectReferencesPreferences;
 import org.xtuml.bp.io.core.CoreExport;
-import org.xtuml.bp.io.mdl.ExportModelStream;
 import org.xtuml.bp.mc.AbstractActivator;
 import org.xtuml.bp.mc.AbstractExportBuilder;
 import org.xtuml.bp.mc.AbstractNature;
@@ -391,48 +386,4 @@ public class ExportBuilder extends AbstractExportBuilder {
 		}
 	}
 
-	private void organizePasses(List<NonRootModelElement> etpsPass1,
-			List<ArrayList<NonRootModelElement>> etpsSubsequentPasses,
-			Domain_c etp) {
-			int splitPointsFound = 0;
-			Subsystem_c[] subsystems = Subsystem_c
-					.getManyS_SSsOnR1((Domain_c) etp);
-			for (Subsystem_c subsystem : subsystems) {
-				// Split point is effective even if packages are excluded
-				for (String splitPoint: m_splitPoints) {
-				  if (subsystem.getName().equals(splitPoint)) {
-					splitPointsFound++;
-					etpsSubsequentPasses.add(new ArrayList<NonRootModelElement>());
-				  }
-				}
-				if (m_parseOnly.isEmpty() || m_parseOnly.contains(subsystem.getName())) {
-				  if (!m_dontParse.contains(subsystem.getName())) {
-				    if (splitPointsFound == 0) {
-					  etpsPass1.add(subsystem);
-				    } else {
-					  etpsSubsequentPasses.get(splitPointsFound-1).add(subsystem);
-				    }
-				  }
-				}
-			}
-			List<NonRootModelElement> funcDest = etpsPass1;
-			if (splitPointsFound != 0) {
-				// Functions are always found in the last pass
-				funcDest = etpsSubsequentPasses.get(splitPointsFound-1);
-			}
-			FunctionPackage_c[] fpks = FunctionPackage_c
-					.getManyS_FPKsOnR29((Domain_c) etp);
-			for (FunctionPackage_c fpk : fpks) {
-				if (m_parseOnly.isEmpty() || m_parseOnly.contains(fpk.getName())) {
-					  if (!m_dontParse.contains(fpk.getName())) {
-				        funcDest.add(fpk);
-					  }
-				}
-			}
-			ExternalEntityPackage_c[] eepks = ExternalEntityPackage_c
-					.getManyS_EEPKsOnR36((Domain_c) etp);
-			for (ExternalEntityPackage_c eepk : eepks) {
-				etpsPass1.add(eepk);
-			}
-		}
 	}

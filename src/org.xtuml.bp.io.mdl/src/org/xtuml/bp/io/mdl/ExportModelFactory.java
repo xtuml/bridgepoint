@@ -29,7 +29,6 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 
-import org.xtuml.bp.core.Domain_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.common.NonRootModelElement;
@@ -55,16 +54,7 @@ public class ExportModelFactory extends AbstractModelExportFactory {
 			Ooaofooa aModelRoot,
 			SystemModel_c sys,
 			boolean exportGraphics) throws FileNotFoundException {
-		IProject project = (IProject) sys.getAdapter(IProject.class);
-		Domain_c dom = Domain_c.DomainInstance(aModelRoot);
-		if (dom == null)
-		{
-			throw new FileNotFoundException("Domain data not found");
-		}
-		String newPath = project.getLocation().toString() + "/" + 
-			Ooaofooa.MODELS_DIRNAME + "/" + 
-			dom.getName() + "." + Ooaofooa.MODELS_EXT; 
-			return new ExportModel(aModelRoot, newPath, exportGraphics);
+			// TODO: Bob remove this
 		}
 
 	public IRunnableWithProgress create(String file, NonRootModelElement element)

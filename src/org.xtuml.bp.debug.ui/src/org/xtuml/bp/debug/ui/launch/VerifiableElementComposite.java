@@ -61,12 +61,9 @@ import org.eclipse.swt.widgets.TreeColumn;
 import org.eclipse.swt.widgets.TreeItem;
 
 import org.xtuml.bp.core.ComponentInComponent_c;
-import org.xtuml.bp.core.ComponentPackageInPackage_c;
-import org.xtuml.bp.core.ComponentPackage_c;
 import org.xtuml.bp.core.ComponentReference_c;
 import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.CorePlugin;
-import org.xtuml.bp.core.Domain_c;
 import org.xtuml.bp.core.Function_c;
 import org.xtuml.bp.core.ModelClass_c;
 import org.xtuml.bp.core.Ooaofooa;
@@ -212,8 +209,6 @@ public class VerifiableElementComposite extends Composite implements Listener,
 		if (object instanceof Component_c) {
 			return true;
 		} else if (object instanceof ComponentReference_c) {
-			return true;
-		} else if (object instanceof Domain_c) {
 			return true;
 		} else if (object instanceof Package_c) {
 			Function_c anyFunc = Function_c
@@ -940,26 +935,6 @@ public class VerifiableElementComposite extends Composite implements Listener,
 		// add all elements that match the ids from the given
 		// array
 		for (int i = 0; i < objects.length; i++) {
-			Domain_c[] domains = Domain_c.getManyS_DOMsOnR28(system);
-			for (int j = 0; j < domains.length; j++) {
-				if (objects[i].startsWith(domains[j].getDom_id().toString())) {
-					if (VerifierLaunchConfiguration.elementIsEnabled(objects[i])) {
-						map.put(domains[j], VerifierLaunchConfiguration
-								.getInternalElement(objects[i], VerifierLaunchConfiguration.ConfigurationAttribute.State));
-					}
-				}
-			}
-			Component_c[] components = Component_c
-					.getManyC_CsOnR4608(ComponentPackage_c
-							.getManyCP_CPsOnR4606(system));
-			for (int j = 0; j < components.length; j++) {
-				getEnabledElementsFromEntries(components[j], objects[i], map);
-			}
-			ComponentReference_c[] icomponents = ComponentReference_c
-					.getManyCL_ICsOnR4201(components);
-			for (int j = 0; j < icomponents.length; j++) {
-				getEnabledElementsFromEntries(icomponents[j], objects[i], map);
-			}
 			Package_c[] packages = Package_c.getManyEP_PKGsOnR1401(system);
 			for (int j = 0; j < packages.length; j++) {
 				getEnabledElementsFromEntries(packages[j], objects[i], map);
@@ -1054,44 +1029,6 @@ public class VerifiableElementComposite extends Composite implements Listener,
 				}
 			}
 
-			if (found)
-				continue;
-
-			Domain_c[] domains = Domain_c.getManyS_DOMsOnR28(system);
-			for (int j = 0; j < domains.length; j++) {
-				if (ids[i].startsWith(domains[j].getDom_id().toString())) {
-					VerifierLaunchConfiguration.updateEntryInVector(ids[i], vector);
-					found = true;
-					// refresh columns for element
-					tableTreeViewer.refresh(domains[j]);
-					break;
-				}
-			}
-
-			if (found)
-				continue;
-
-			Component_c[] components = Component_c
-					.getManyC_CsOnR4608(ComponentPackage_c
-							.getManyCP_CPsOnR4606(system));
-			for (int j = 0; j < components.length; j++) {
-				found = updateEntries(components[j], ids[i], vector);
-				if (found) {
-					break;
-				}
-			}
-
-			if (found)
-				continue;
-
-			ComponentReference_c[] icomponents = ComponentReference_c
-					.getManyCL_ICsOnR4201(components);
-			for (int j = 0; j < icomponents.length; j++) {
-				found = updateEntries(icomponents[j], ids[i], vector);
-				if (found) {
-					break;
-				}
-			}
 			// remove the entry if not found
 			if (!found) {
 				vector.remove(ids[i]);

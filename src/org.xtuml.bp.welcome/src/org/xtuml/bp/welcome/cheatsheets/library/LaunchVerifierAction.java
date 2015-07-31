@@ -49,9 +49,7 @@ import org.eclipse.ui.cheatsheets.ICheatSheetAction;
 import org.eclipse.ui.cheatsheets.ICheatSheetManager;
 
 import org.xtuml.bp.core.ComponentInstance_c;
-import org.xtuml.bp.core.ComponentPackage_c;
 import org.xtuml.bp.core.Component_c;
-import org.xtuml.bp.core.Domain_c;
 import org.xtuml.bp.core.Function_c;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.PackageableElement_c;
@@ -66,7 +64,6 @@ import org.xtuml.bp.debug.ui.actions.ExecuteAction;
 import org.xtuml.bp.debug.ui.launch.BPDebugUtils;
 import org.xtuml.bp.debug.ui.launch.VerifierLaunchConfiguration;
 import org.xtuml.bp.ui.explorer.ExplorerView;
-import org.xtuml.bp.ui.session.views.SessionExplorerView;
 import org.xtuml.bp.utilities.ui.ProjectUtilities;
 import org.xtuml.bp.utilities.ui.CanvasUtilities;
 

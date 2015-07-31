@@ -22,13 +22,9 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 
 import org.xtuml.bp.core.CorePlugin;
-import org.xtuml.bp.core.Domain_c;
-import org.xtuml.bp.core.ExternalEntityPackage_c;
-import org.xtuml.bp.core.FunctionPackage_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.PackageableElement_c;
-import org.xtuml.bp.core.Subsystem_c;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.NonRootModelElement;
@@ -336,50 +332,4 @@ public class JavaExportBuilder extends AbstractExportBuilder {
             }
 		}
 
-	private void organizePasses(String[] splitPoints,
-			List<String> exclude, List<String> includeOnly,
-			List<NonRootModelElement> etpsPass1,
-			List<ArrayList<NonRootModelElement>> etpsSubsequentPasses,
-			Domain_c etp) {
-			int splitPointsFound = 0;
-			Subsystem_c[] subsystems = Subsystem_c
-					.getManyS_SSsOnR1((Domain_c) etp);
-			for (Subsystem_c subsystem : subsystems) {
-				// Split point is effective even if packages are excluded
-				for (String splitPoint: splitPoints) {
-				  if (subsystem.getName().equals(splitPoint)) {
-					splitPointsFound++;
-					etpsSubsequentPasses.add(new ArrayList<NonRootModelElement>());
-				  }
-				}
-				if (includeOnly.isEmpty() || includeOnly.contains(subsystem.getName())) {
-				  if (!exclude.contains(subsystem.getName())) {
-				    if (splitPointsFound == 0) {
-					  etpsPass1.add(subsystem);
-				    } else {
-					  etpsSubsequentPasses.get(splitPointsFound-1).add(subsystem);
-				    }
-				  }
-				}
-			}
-			List<NonRootModelElement> funcDest = etpsPass1;
-			if (splitPointsFound != 0) {
-				// Functions are always found in the last pass
-				funcDest = etpsSubsequentPasses.get(splitPointsFound-1);
-			}
-			FunctionPackage_c[] fpks = FunctionPackage_c
-					.getManyS_FPKsOnR29((Domain_c) etp);
-			for (FunctionPackage_c fpk : fpks) {
-				if (includeOnly.isEmpty() || includeOnly.contains(fpk.getName())) {
-					  if (!exclude.contains(fpk.getName())) {
-				        funcDest.add(fpk);
-					  }
-				}
-			}
-			ExternalEntityPackage_c[] eepks = ExternalEntityPackage_c
-					.getManyS_EEPKsOnR36((Domain_c) etp);
-			for (ExternalEntityPackage_c eepk : eepks) {
-				etpsPass1.add(eepk);
-			}
-		}
 	}

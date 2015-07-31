@@ -36,7 +36,6 @@ import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 
 import org.xtuml.bp.core.ComponentInstance_c;
-import org.xtuml.bp.core.Domain_c;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.SystemModel_c;
 
@@ -96,12 +95,6 @@ public class SessionExplorerTreeViewer extends TreeViewer {
 				while (index >= 0 && index < tp.getSegmentCount()) {
 					if (tp.getSegment(index) instanceof ComponentInstance_c) {
 						result = (ComponentInstance_c) tp.getSegment(index);
-						break;
-					}
-					if (tp.getSegment(index) instanceof Domain_c) {
-						result = ComponentInstance_c
-								.getOneI_EXEOnR2948((Domain_c) tp
-										.getSegment(index));
 						break;
 					}
 					if (tp.getSegment(index) instanceof Package_c) {

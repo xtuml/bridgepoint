@@ -26,7 +26,6 @@ import org.eclipse.ui.IExportWizard;
 import org.eclipse.ui.IWorkbench;
 
 import org.xtuml.bp.core.CorePlugin;
-import org.xtuml.bp.core.Domain_c;
 import org.xtuml.bp.core.common.IPersistenceHierarchyMetaData;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.common.PersistenceManager;
@@ -59,9 +58,8 @@ public abstract class CoreExportWizard extends Wizard implements IExportWizard {
 	}
 	
 	protected void prepare(){
-		Domain_c dom = (Domain_c)getDomain();
 		IPersistenceHierarchyMetaData metaData = PersistenceManager.getHierarchyMetaData();
-		iterateToLoad(metaData, dom);
+		iterateToLoad(metaData, null);
 	}
 	
 	private void iterateToLoad(IPersistenceHierarchyMetaData metaData, NonRootModelElement me){
