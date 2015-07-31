@@ -30,11 +30,7 @@ import org.xtuml.bp.core.ClassAsSubtype_c;
 import org.xtuml.bp.core.ClassInAssociation_c;
 import org.xtuml.bp.core.CoreDataType_c;
 import org.xtuml.bp.core.CreationTransition_c;
-import org.xtuml.bp.core.DataTypePackage_c;
-import org.xtuml.bp.core.Domain_c;
 import org.xtuml.bp.core.EnumerationDataType_c;
-import org.xtuml.bp.core.ExternalEntityPackage_c;
-import org.xtuml.bp.core.FunctionPackage_c;
 import org.xtuml.bp.core.ImportedClass_c;
 import org.xtuml.bp.core.LinkedAssociation_c;
 import org.xtuml.bp.core.ModelClass_c;
@@ -224,24 +220,6 @@ public class ImportBPSqlHelper extends ImportHelper
                 }
             }
         }
-        //
-        // Create graphics for data types
-        //
-        final Domain_c dom = Domain_c.DomainInstance(getModelRoot());
-        Model_c dpdCanvas = Model_c.ModelInstance(getGraphicsModelRoot(), new ClassQueryInterface_c() {
-            public boolean evaluate(Object candidate)
-            {
-                Model_c selected = (Model_c) candidate;
-                return selected.getModel_type() == Modeltype_c.DomainPackageDiagram
-                    && selected.getOoa_id().equals(dom.getDom_id());
-            }
-        });
-        if (dpdCanvas != null) {
-            createDataTypePkgModel(dpdCanvas.getDiagramid());
-            createFunctionPkgModel(dpdCanvas.getDiagramid());
-            createEEPkgModel(dpdCanvas.getDiagramid());
-            Ooaofgraphics.Fixbpgraphics(getGraphicsModelRoot());
-        }
     } // end fixUpGraphicalData - BP 6.1
 
     private void reRelateElementSpec(ElementSpecification_c elemSpec, final GraphicalElement_c assocGe,
@@ -255,118 +233,4 @@ public class ImportBPSqlHelper extends ImportHelper
         assocGe.setRepresents(assoc);
     }
 
-    private void createDataTypePkgModel(UUID dpdCanvasId)
-    {
-        DataTypePackage_c dPk = DataTypePackage_c.DataTypePackageInstance(getModelRoot());
-        if (dPk != null) {
-            Ooaofgraphics root = getGraphicsModelRoot();
-            GraphicalElement_c pkgElem = new GraphicalElement_c(root);
-            UUID newGEid = pkgElem.getElementid();
-            pkgElem.delete();
-            pkgElem = new GraphicalElement_c(root, newGEid, dpdCanvasId, dPk.Get_ooa_id(), Ooatype_c.DataTypePackage,
-                dPk, "");
-            pkgElem.batchRelate(root, false, true);
-            Model_c pkgMdl = new Model_c(root);
-            Diagram_c diagram = new Diagram_c(root);
-            pkgMdl.relateAcrossR18To(diagram);
-            pkgMdl.Initialize(dPk);
-            ModelSpecification_c dt_ms = ModelSpecification_c.ModelSpecificationInstance(Ooaofgraphics
-                .getDefaultInstance(), new ClassQueryInterface_c() {
-                public boolean evaluate(Object candidate)
-                {
-                    return (((ModelSpecification_c) candidate).getModel_type() == Modeltype_c.DataTypePackageDiagram);
-                }
-            });
-            pkgMdl.relateAcrossR9To(dt_ms);
-            pkgMdl.batchRelate(root, false, true);
-            CoreDataType_c[] cdts = CoreDataType_c.CoreDataTypeInstances(getModelRoot());
-            for (int i = 0; i < cdts.length; i++) {
-                GraphicalElement_c dtElem = new GraphicalElement_c(root);
-                newGEid = dtElem.getElementid();
-                dtElem.delete();
-                dtElem = new GraphicalElement_c(root, newGEid, pkgMdl.getDiagramid(), cdts[i].Get_ooa_id(),
-                    Ooatype_c.CoreDataType, cdts[i], "");
-                dtElem.batchRelate(root, false, true);
-            }
-            UserDataType_c[] udts = UserDataType_c.UserDataTypeInstances(getModelRoot());
-            for (int i = 0; i < udts.length; i++) {
-                GraphicalElement_c dtElem = new GraphicalElement_c(root);
-                newGEid = dtElem.getElementid();
-                dtElem.delete();
-                dtElem = new GraphicalElement_c(root, newGEid, pkgMdl.getDiagramid(), udts[i].Get_ooa_id(),
-                    Ooatype_c.UserDataType, udts[i], "");
-                dtElem.batchRelate(root, false, true);
-            }
-            EnumerationDataType_c[] edts = EnumerationDataType_c.EnumerationDataTypeInstances(getModelRoot());
-            for (int i = 0; i < edts.length; i++) {
-                GraphicalElement_c dtElem = new GraphicalElement_c(root);
-                newGEid = dtElem.getElementid();
-                dtElem.delete();
-                dtElem = new GraphicalElement_c(root, newGEid, pkgMdl.getDiagramid(), edts[i].Get_ooa_id(),
-                    Ooatype_c.EnumerationDataType, edts[i], "");
-                dtElem.batchRelate(root, false, true);
-            }
-        }
-    }
-
-    private void createFunctionPkgModel(UUID dpdCanvasId)
-    {
-        FunctionPackage_c fPk = FunctionPackage_c.FunctionPackageInstance(getModelRoot());
-        if (fPk != null) {
-            Ooaofgraphics root = getGraphicsModelRoot();
-            GraphicalElement_c pkgElem = new GraphicalElement_c(root);
-            UUID newGEid = pkgElem.getElementid();
-            pkgElem.delete();
-            pkgElem = new GraphicalElement_c(root, newGEid, dpdCanvasId, fPk.Get_ooa_id(), Ooatype_c.FunctionPackage,
-                fPk, "");
-            pkgElem.batchRelate(root, false, true);
-            Model_c pkgMdl = new Model_c(root);
-            Diagram_c diagram = new Diagram_c(root);
-            pkgMdl.relateAcrossR18To(diagram);
-            pkgMdl.Initialize(fPk);
-            ModelSpecification_c func_ms = ModelSpecification_c.ModelSpecificationInstance(Ooaofgraphics
-                .getDefaultInstance(), new ClassQueryInterface_c() {
-                public boolean evaluate(Object candidate)
-                {
-                    return (((ModelSpecification_c) candidate).getModel_type() == Modeltype_c.FunctionPackageDiagram);
-                }
-            });
-            pkgMdl.relateAcrossR9To(func_ms);
-            pkgMdl.batchRelate(root, false, true);
-        }
-    }
-
-    private void createEEPkgModel(UUID dpdCanvasId)
-    {
-        ExternalEntityPackage_c ePk = ExternalEntityPackage_c.ExternalEntityPackageInstance(getModelRoot());
-        if (ePk != null) {
-            Ooaofgraphics root = getGraphicsModelRoot();
-            Diagramelement_c pkgDiagramElem = new Diagramelement_c(root);
-            Graphelement_c pkgGraphElem = new Graphelement_c(root);
-            pkgGraphElem.relateAcrossR302To(pkgDiagramElem);
-            Graphnode_c pkgGraphNode = new Graphnode_c(root);
-            pkgGraphNode.relateAcrossR301To(pkgGraphElem);
-            GraphicalElement_c pkgElem = new GraphicalElement_c(
-                root, pkgDiagramElem.getElementid(), dpdCanvasId, ePk.Get_ooa_id(),
-                Ooatype_c.ExternalEntityPackage, ePk, "");
-            pkgGraphElem.relateAcrossR23To(pkgElem);
-            Shape_c pkgShape = new Shape_c(root);
-            pkgShape.relateAcrossR2To(pkgElem);
-            pkgShape.relateAcrossR19To(pkgGraphNode);
-            pkgElem.batchRelate(root, false, true);
-            Model_c pkgMdl = new Model_c(root);
-            Diagram_c diagram = new Diagram_c(root);
-            pkgMdl.relateAcrossR18To(diagram);
-            pkgMdl.Initialize(ePk);
-            ModelSpecification_c ee_ms = ModelSpecification_c.ModelSpecificationInstance(Ooaofgraphics
-                .getDefaultInstance(), new ClassQueryInterface_c() {
-                public boolean evaluate(Object candidate)
-                {
-                    return (((ModelSpecification_c) candidate).getModel_type() == Modeltype_c.ExternalEntityPackageDiagram);
-                }
-            });
-            pkgMdl.relateAcrossR9To(ee_ms);
-            pkgMdl.batchRelate(root, false, true);
-        }
-    }
 }

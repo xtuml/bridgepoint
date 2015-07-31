@@ -49,7 +49,6 @@ import org.xtuml.bp.core.BlockInStackFrame_c;
 import org.xtuml.bp.core.ComponentInstance_c;
 import org.xtuml.bp.core.ComponentReference_c;
 import org.xtuml.bp.core.Component_c;
-import org.xtuml.bp.core.Domain_c;
 import org.xtuml.bp.core.EventQueueEntry_c;
 import org.xtuml.bp.core.Gd_c;
 import org.xtuml.bp.core.Modeleventnotification_c;
@@ -97,15 +96,12 @@ public class BPThread extends BPDebugElement implements IThread {
 	public void startModel() {
 		if (!engine.getRunning()) {
 			final ComponentInstance_c fee = engine;
-			final Domain_c domain = Domain_c.getOneS_DOMOnR2948(engine);
 			Component_c tgtComponent = Component_c.getOneC_COnR2955(engine);
 			if (tgtComponent == null) {
 				tgtComponent = Component_c.getOneC_COnR4201(ComponentReference_c
 						.getOneCL_ICOnR2963(engine));
 			}
 			String name = "";
-			if (domain != null)
-				name = domain.getName();
 			if (tgtComponent != null)
 				name = tgtComponent.getName();
 			runner = new Thread(new Runnable() {
@@ -750,12 +746,8 @@ public class BPThread extends BPDebugElement implements IThread {
 			}
 		}
 		Package_c pkg = Package_c.getOneEP_PKGOnR2970(engine);
-		Domain_c domain = Domain_c.getOneS_DOMOnR2948(engine);
 		if (pkg != null) {
 			return pkg.getName() + stateLabel;
-		}
-		else if (domain != null) {
-			return domain.getName() + stateLabel;
 		} else {
 			Component_c component = Component_c.getOneC_COnR2955(engine);
 			if (component != null) {

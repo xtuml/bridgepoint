@@ -29,19 +29,10 @@ import org.xtuml.bp.core.Bridge_c;
 import org.xtuml.bp.core.ClassStateMachine_c;
 import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.CreationTransition_c;
-import org.xtuml.bp.core.DataTypeInPackage_c;
-import org.xtuml.bp.core.DataTypePackageInPackage_c;
-import org.xtuml.bp.core.DataTypePackage_c;
 import org.xtuml.bp.core.DataType_c;
-import org.xtuml.bp.core.DomainAsComponent_c;
-import org.xtuml.bp.core.Domain_c;
-import org.xtuml.bp.core.EePackageInPackage_c;
 import org.xtuml.bp.core.EnumerationDataType_c;
 import org.xtuml.bp.core.Enumerator_c;
-import org.xtuml.bp.core.ExternalEntityPackage_c;
 import org.xtuml.bp.core.ExternalEntity_c;
-import org.xtuml.bp.core.FunctionPackageInPackage_c;
-import org.xtuml.bp.core.FunctionPackage_c;
 import org.xtuml.bp.core.FunctionParameter_c;
 import org.xtuml.bp.core.Function_c;
 import org.xtuml.bp.core.InstanceStateMachine_c;
@@ -64,9 +55,6 @@ import org.xtuml.bp.core.Requirement_c;
 import org.xtuml.bp.core.StateMachineEvent_c;
 import org.xtuml.bp.core.StateMachineState_c;
 import org.xtuml.bp.core.StateMachine_c;
-import org.xtuml.bp.core.SubsystemInDomain_c;
-import org.xtuml.bp.core.SubsystemInSubsystem_c;
-import org.xtuml.bp.core.Subsystem_c;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.Transition_c;
 import org.xtuml.bp.core.common.NonRootModelElement;
@@ -144,30 +132,13 @@ public class ModelElementLocation {
 			text = ((ModelClass_c) nrme).getName();
 			Package_c parent = Package_c.getOneEP_PKGOnR8000(
 					PackageableElement_c.getOnePE_PEOnR8001((ModelClass_c)nrme));
-			if (parent != null)
+			if (parent != null) {
 				text = getModelElementLocation(parent) + "::" + text;
-			else {
-			  Subsystem_c ss = Subsystem_c.getOneS_SSOnR2((ModelClass_c)nrme);
-			  if (ss != null)
-			    text = getModelElementLocation(ss) + "::" + text;
-			}
+			} 
 		}
 		else if (nrme instanceof Association_c) {
 			text = "R" + ((Association_c) nrme).getNumb();
-			Subsystem_c ss = Subsystem_c.getOneS_SSOnR4((Association_c)nrme);
-			text = getModelElementLocation(ss) + "::" + text;
-		}
-		else if (nrme instanceof Subsystem_c) {
-			text = ((Subsystem_c) nrme).getName();
-			SubsystemInSubsystem_c sis = SubsystemInSubsystem_c.getOneS_SISOnR42((Subsystem_c)nrme);
-			if ( sis != null ) {
-				Subsystem_c parent_ss = Subsystem_c.getOneS_SSOnR41(sis);
-				text = getModelElementLocation(parent_ss) + "::" + text;
-			}
-			else {
-				Domain_c dom = Domain_c.getOneS_DOMOnR43(SubsystemInDomain_c.getOneS_SIDOnR43((Subsystem_c)nrme));
-				text = getModelElementLocation(dom) + "::" + text;
-			}
+			text = "::" + text;
 		}
 		else if (nrme instanceof FunctionParameter_c) {
 			text = ((FunctionParameter_c) nrme).getName();
@@ -176,20 +147,7 @@ public class ModelElementLocation {
 		}
 		else if (nrme instanceof Function_c) {
 			text = ((Function_c) nrme).getName();
-			FunctionPackage_c fp = FunctionPackage_c.getOneS_FPKOnR31((Function_c)nrme);
-			text = getModelElementLocation(fp) + "::" + text;
-		}
-		else if (nrme instanceof FunctionPackage_c) {
-			text = ((FunctionPackage_c) nrme).getName();
-			FunctionPackageInPackage_c fpip = FunctionPackageInPackage_c.getOneS_FPIPOnR32((FunctionPackage_c) nrme);
-			if ( fpip != null ) {
-				FunctionPackage_c parent_fp = FunctionPackage_c.getOneS_FPKOnR30(fpip);
-				text = getModelElementLocation(parent_fp) + "::" + text;
-			}
-			else {
-				Domain_c dom = Domain_c.getOneS_DOMOnR29((FunctionPackage_c) nrme);
-				text = getModelElementLocation(dom) + "::" + text;
-			}
+			text = "::" + text;
 		}
 		else if (nrme instanceof BridgeParameter_c) {
 			text = ((BridgeParameter_c) nrme).getName();
@@ -203,20 +161,7 @@ public class ModelElementLocation {
 		}
 		else if (nrme instanceof ExternalEntity_c) {
 			text = ((ExternalEntity_c) nrme).getName();
-			ExternalEntityPackage_c fp = ExternalEntityPackage_c.getOneS_EEPKOnR33((ExternalEntity_c)nrme);
-			text = getModelElementLocation(fp) + "::" + text;
-		}
-		else if (nrme instanceof ExternalEntityPackage_c) {
-			text = ((ExternalEntityPackage_c) nrme).getName();
-			EePackageInPackage_c eepip = EePackageInPackage_c.getOneS_EEPIPOnR35((ExternalEntityPackage_c) nrme);
-			if ( eepip != null ) {
-				ExternalEntityPackage_c parent_eep = ExternalEntityPackage_c.getOneS_EEPKOnR34(eepip);
-				text = getModelElementLocation(parent_eep) + "::" + text;
-			}
-			else {
-				Domain_c dom = Domain_c.getOneS_DOMOnR36((ExternalEntityPackage_c) nrme);
-				text = getModelElementLocation(dom) + "::" + text;
-			}
+			text = "::" + text;
 		}
 		else if (nrme instanceof Enumerator_c) {
 			text = ((Enumerator_c) nrme).getName();
@@ -226,33 +171,7 @@ public class ModelElementLocation {
 		}
 		else if (nrme instanceof DataType_c) {
 			text = ((DataType_c) nrme).getName();
-			DataTypeInPackage_c dtip = DataTypeInPackage_c.getOneS_DIPOnR39((DataType_c) nrme);
-			DataTypePackage_c dtp = DataTypePackage_c.getOneS_DPKOnR39(dtip);
-			text = getModelElementLocation(dtp) + "::" + text;
-		}
-		else if (nrme instanceof DataTypePackage_c) {
-			text = ((DataTypePackage_c) nrme).getName();
-			DataTypePackageInPackage_c dtpip = DataTypePackageInPackage_c.getOneS_DPIPOnR38((DataTypePackage_c) nrme);
-			if ( dtpip != null ) {
-				DataTypePackage_c parent_dtp = DataTypePackage_c.getOneS_DPKOnR37(dtpip);
-				text = getModelElementLocation(parent_dtp) + "::" + text;
-			}
-			else {
-				Domain_c dom = Domain_c.getOneS_DOMOnR40((DataTypePackage_c) nrme);
-				text = getModelElementLocation(dom) + "::" + text;
-			}
-		}
-		else if (nrme instanceof Domain_c) {
-			text = ((Domain_c) nrme).getName();
-			SystemModel_c sysMod = SystemModel_c.getOneS_SYSOnR28((Domain_c)nrme);
-			if(sysMod != null) {
-				text = getModelElementLocation(sysMod) + "::" + text;
-			} else {
-				Component_c component = Component_c
-						.getOneC_COnR4204(DomainAsComponent_c
-								.getOneCN_DCOnR4204((Domain_c) nrme));
-				text = getModelElementLocation(component) + "::" + text;
-			}
+			text = "::" + text;
 		}
 		else if (nrme instanceof SystemModel_c) {
 			text = ((SystemModel_c) nrme).getName();

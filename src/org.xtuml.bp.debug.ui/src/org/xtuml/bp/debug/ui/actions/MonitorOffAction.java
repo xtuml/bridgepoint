@@ -132,15 +132,9 @@ public class MonitorOffAction implements IObjectActionDelegate {
 			  if (exe == null) {
 				// If the selected tree element is a Class In Engine instance,'
 				// we already have the correct Component Instance, else . . .
-			    exe = ComponentInstance_c
-				             .getOneI_EXEOnR2948(Domain_c
-						              .getOneS_DOMOnR1(Subsystem_c
-								                       .getOneS_SSOnR2(clazz)));
-		        if (exe == null) {
 			      // see if this class is under a component
 			      // that is being verified
 			      exe = getExecutionEngine();
-		        }
 		      }
 		      if (exe != null) {
 			    final ComponentInstance_c finalEng = exe;

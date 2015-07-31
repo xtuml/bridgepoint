@@ -161,7 +161,6 @@ super.toString\
                 }
 
             }
-    }
 .end function
 .//
 .//
@@ -566,13 +565,9 @@ super.toString\
                 ${child_class_name.body}[] children = ${child_class_name.body}.$Cr{child_class.Name}Instances((ModelRoot) roots[i]);
                 for(int j = 0; j < children.length; j++) {
                   .// special case for suppressed data types
-                  .if(child.Key_Lett == "S_DT")
-                    DatatypeInSuppression_c dis = DatatypeInSuppression_c.getOneS_DISOnR47(children[j]);
-                    SystemDatatypeInPackage_c sdip = SystemDatatypeInPackage_c.getOneSLD_SDINPOnR4401(children[j]);
+                  .if(child.Key_Lett == "S_DT")                    
                   PackageableElement_c pe = PackageableElement_c.getOnePE_PEOnR8001(children[j]);
-                  if(dis == null && sdip != null) {
-                       list.add(children[j]);
-                  } else if(dis == null && pe != null) {
+                  if(pe != null) {
                         list.add(children[j]);
                   }
                   .else
@@ -867,6 +862,7 @@ ${rel_nav.body}\
                           .assign queryName = set_var_name + "_2"       
                           .invoke generic_package = generic_package_query( queryName )
                           ${generic_package.body}
+
           // copy the system level data types into the
           // domain level data types array
 					DataType_c[] ${set_var_name}_3 = new DataType_c[0];

@@ -20,11 +20,9 @@ import org.eclipse.debug.ui.DebugUITools;
 import org.eclipse.debug.ui.IDebugUIConstants;
 import org.eclipse.ui.IPageLayout;
 
-import org.xtuml.bp.core.ComponentPackage_c;
 import org.xtuml.bp.core.ComponentReference_c;
 import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.CorePlugin;
-import org.xtuml.bp.core.Domain_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.PackageableElement_c;
@@ -461,10 +459,6 @@ public class VerifierLaunchConfiguration {
 			if (x[j].getName().equals(projectname)) {
 				Vector<String> temp = new Vector<String>();
 
-				addToLaunchVector(Domain_c.getManyS_DOMsOnR28(x[j]), temp);
-				addToLaunchVector(Component_c
-						.getManyC_CsOnR4608(ComponentPackage_c
-								.getManyCP_CPsOnR4606(x[j])), temp);
 				Component_c[] components = Component_c
 						.getManyC_CsOnR8001(PackageableElement_c
 								.getManyPE_PEsOnR8000(Package_c
@@ -476,13 +470,6 @@ public class VerifierLaunchConfiguration {
 				addToLaunchVector(ComponentReference_c
 						.getManyCL_ICsOnR8001(PackageableElement_c
 								.getManyPE_PEsOnR8003(components)), temp);
-				addToLaunchVector(ComponentReference_c
-						.getManyCL_ICsOnR4605(ComponentPackage_c
-								.getManyCP_CPsOnR4606(x[j])), temp);
-				addToLaunchVector(ComponentReference_c
-						.getManyCL_ICsOnR4205(Component_c
-								.getManyC_CsOnR4608(ComponentPackage_c
-										.getManyCP_CPsOnR4606(x[j]))), temp);
 				addToLaunchVector(ComponentReference_c
 						.getManyCL_ICsOnR8001(PackageableElement_c
 								.getManyPE_PEsOnR8000(Package_c
@@ -634,15 +621,6 @@ public class VerifierLaunchConfiguration {
 								.Get_ooa_id()));
 				buffer.append(VerifierLaunchConfiguration.SEPARATOR);
 			}
-		} else if (element instanceof ComponentPackage_c) {
-			NonRootModelElement[] children = BPDebugUtils
-					.getComponentPackageChildren((ComponentPackage_c) element);
-			for (int i = 0; i < children.length; i++) {
-				buffer
-						.append(getComponentSelectionString(children[i]
-								.Get_ooa_id()));
-				buffer.append(VerifierLaunchConfiguration.SEPARATOR);
-			}
 		} else if (element instanceof Component_c) {
 			NonRootModelElement[] children = BPDebugUtils
 					.getComponentChildren((Component_c) element);
@@ -658,10 +636,6 @@ public class VerifierLaunchConfiguration {
 				buffer.append(getComponentSelectionString(element.Get_ooa_id()));
 				buffer.append(VerifierLaunchConfiguration.SEPARATOR);
 			}
-		} else if (element instanceof Domain_c
-				|| element instanceof ComponentReference_c) {
-			buffer.append(getComponentSelectionString(element.Get_ooa_id()));
-			buffer.append(VerifierLaunchConfiguration.SEPARATOR);
 		}
 		return buffer;
 	}
