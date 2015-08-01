@@ -1,26 +1,5 @@
 package org.xtuml.bp.debug.ui.model;
 
-//====================================================================
-//
-// File:      $RCSfile: BPDebugTarget.java,v $
-// Version:   $Revision: 1.37 $
-// Modified:  $Date: 2013/05/12 00:16:37 $
-//
-// (c) Copyright 2007-2014 by Mentor Graphics Corp.  All rights reserved.
-//
-//====================================================================
-// Licensed under the Apache License, Version 2.0 (the "License"); you may not 
-// use this file except in compliance with the License.  You may obtain a copy 
-// of the License at
-//
-//       http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software 
-// distributed under the License is distributed on an "AS IS" BASIS, WITHOUT 
-// WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the 
-// License for the specific language governing permissions and limitations under
-// the License.
-//======================================================================== 
 import java.lang.Thread.State;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -64,7 +43,6 @@ import org.xtuml.bp.core.ComponentReference_c;
 import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Delegation_c;
-import org.xtuml.bp.core.Domain_c;
 import org.xtuml.bp.core.EventQueueEntry_c;
 import org.xtuml.bp.core.ImportedProvisionInSatisfaction_c;
 import org.xtuml.bp.core.ImportedProvision_c;
@@ -377,26 +355,10 @@ public class BPDebugTarget extends BPDebugElement implements IDebugTarget {
 					int multiplicity = VerifierLaunchConfiguration
 							.getElementMultiplicityFromConfiguration(
 									configuration, elements[k]);
-					if (elements[k] instanceof Domain_c) {
-						Domain_c dom = (Domain_c) elements[k];
-						ComponentInstance_c[] exEngs = ComponentInstance_c
-								.ComponentInstanceInstances(dom.getModelRoot());
-						for (int i = 0; i < exEngs.length; i++) {
-							exEngs[i].Dispose();
-						}
-						exEng = ComponentInstance_c.getOneI_EXEOnR2948(dom);
-						if (exEng == null) {
-							exEng = new ComponentInstance_c(dom.getModelRoot());
-							// No need to handle realized here, domains not supported
-							exEng.relateAcrossR2948To(dom);
-						}
-						aam = new AllActivityModifier(dom, null);
-						modelRoot = dom.getModelRoot();
-						element = dom;
-					} else if (elements[k] instanceof Component_c) {
-            Object parent = VerifierLaunchContentProvider.instance().
+						if (elements[k] instanceof Component_c) {
+							Object parent = VerifierLaunchContentProvider.instance().
                                                          getParent(elements[k]);
-            if (! (parent instanceof Component_c) &&
+							if (! (parent instanceof Component_c) &&
                                   ! (parent instanceof ComponentReference_c) ) {
 						  for (int i = 0; i < multiplicity; i++) {
 							  Component_c comp = (Component_c) elements[k];
