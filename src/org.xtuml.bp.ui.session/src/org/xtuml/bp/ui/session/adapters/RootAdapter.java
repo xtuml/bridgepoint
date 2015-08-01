@@ -28,10 +28,7 @@ import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
 
-import org.xtuml.bp.core.ComponentPackage_c;
 import org.xtuml.bp.core.Component_c;
-import org.xtuml.bp.core.DomainAsComponent_c;
-import org.xtuml.bp.core.Domain_c;
 import org.xtuml.bp.core.ComponentInstance_c;
 import org.xtuml.bp.core.ComponentReference_c;
 import org.xtuml.bp.core.Ooaofooa;
@@ -87,36 +84,6 @@ public class RootAdapter implements ITreeContentProvider {
           SystemModel_c[] systems = SystemModel_c.SystemModelInstances(Ooaofooa
                 .getDefaultInstance());
           for (int i =0; i < systems.length; i++) {
-            Domain_c [] doms = Domain_c.getManyS_DOMsOnR28(systems[i]);
-            for (int j =0; j < doms.length; j++) {
-              ComponentInstance_c exe = ComponentInstance_c.getOneI_EXEOnR2948(doms[j]);
-              if (exe != null) {
-            	  if(!result.contains(systems[i]))
-            		  result.add(systems[i]);
-            	  break;
-              }
-            }
-            Component_c[] components = Component_c
-					.getManyC_CsOnR4608(ComponentPackage_c
-							.getManyCP_CPsOnR4606(systems[i]));
-            for (int j =0; j < components.length; j++) {
-              if (!components[j].Isparentexecuting() && components[j].Isexecutingorischildexecuting()) {
-               	if(!result.contains(systems[i]))
-               		result.add(systems[i]);
-                break;
-               }
-            }
-            ComponentReference_c icomponents[] = ComponentReference_c
-					.getManyCL_ICsOnR4201(Component_c
-							.getManyC_CsOnR4608(ComponentPackage_c
-									.getManyCP_CPsOnR4606(systems[i])));
-            for(int j = 0; j < icomponents.length; j++) {
-            	if(icomponents[j].Isexecuting()) {
-            		if(!result.contains(systems[i]))
-            			result.add(systems[i]);
-            		break;
-            	}
-            }
             Package_c [] packages = Package_c.getManyEP_PKGsOnR1401(systems[i]);
             for (int j=0; j < packages.length; j++) {
             	if (packages[j].Isexecutingorischildexecuting()) {

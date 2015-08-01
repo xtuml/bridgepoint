@@ -1,31 +1,7 @@
---======================================================================
---
--- File:      $RCSfile: stream.pei.sql,v $
--- Version:   $Revision: 1.61 $
--- Modified:  $Date: 2013/01/17 03:34:36 $
---
--- (c) Copyright 2007-2014 by Mentor Graphics Corp. All rights reserved.
---
---======================================================================
--- Licensed under the Apache License, Version 2.0 (the "License"); you may not
--- use this file except in compliance with the License.  You may obtain a copy
--- of the License at
---
---      http://www.apache.org/licenses/LICENSE-2.0
---
--- Unless required by applicable law or agreed to in writing, software
--- distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
--- WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the
--- License for the specific language governing permissions and limitations under
--- the License.
---======================================================================
 
 INSERT INTO EO VALUES ( '6',	'24',	  '',     'System Model',0 , '', 'first', true );
-INSERT INTO EO VALUES ( '24', '24.1', '', 'Package', 1401, 'many', 'first', true );
+INSERT INTO EO VALUES ( '24', '24.10', '', 'Package', 1401, 'many', 'first', true );
 
-INSERT INTO EO VALUES ( '24.1',       '',          '24.2', 'PackageDiagram', 0, '', 'first', false );
-INSERT INTO EO VALUES ( '24.2',       '24.2.1',    '24.10', 'Package In Package', 1403, 'many', 'first', false );
-INSERT INTO EO VALUES ( '24.2.1',     '24.1',      '',     'Package', 1404, 'one', 'none', true );
 INSERT INTO EO VALUES ( '24.10',    '24.10.1', '', 'Packageable Element', 8000, 'many', 'first', false );
 INSERT INTO EO VALUES ( '24.10.1',  '1.5.3.1.1', '24.10.2', 'Data Type', 8001, 'one', 'first', false );
 INSERT INTO EO VALUES ( '24.10.2',  '6.2.1', '24.10.3',     'Interaction Participant', 8001, 'one', 'first', false );
@@ -34,7 +10,7 @@ INSERT INTO EO VALUES ( '24.10.4',  '2.1.1', '24.10.5',          'Model Class', 
 INSERT INTO EO VALUES ( '24.10.5',  '12.4.1', '24.10.6',       'Component', 8001, 'one', 'first', true );
 INSERT INTO EO VALUES ( '24.10.6',  '12.4.8.1', '24.10.7',       'Component Reference', 8001, 'one', 'first', false );
 INSERT INTO EO VALUES ( '24.10.7',  '14.1.3.1', '24.10.8',       'Interface', 8001, 'one', 'first', false );
-INSERT INTO EO VALUES ( '24.10.8',  '24.1', '24.10.9',                  'Package', 8001, 'one', 'none', true );
+INSERT INTO EO VALUES ( '24.10.8',  '24.10.9', '',                  'Package', 8001, 'one', 'none', true );
 INSERT INTO EO VALUES ( '24.10.9',  '1.5.6.1.1', '24.10.10',  'Constant Specification', 8001, 'one', 'first', false );
 INSERT INTO EO VALUES ( '24.10.10',  '', '24.10.11',  'Activity Partition', 8001, 'one', 'first', false );
 INSERT INTO EO VALUES ( '24.10.11',  '', '24.10.12',  'Activity Edge', 8001, 'one', 'first', false );
@@ -373,9 +349,3 @@ INSERT INTO EI VALUES ( 'ISM' );
 INSERT INTO GD VALUES ( 'ISM', 'InstanceStateChartDiagram', 'State Machine', 'SM_ID' );
 INSERT INTO EI VALUES ( 'ASM' );
 INSERT INTO GD VALUES ( 'ASM', 'ClassStateChartDiagram', 'State Machine', 'SM_ID' );
-INSERT INTO EI VALUES ( 'SystemModelPackage' );
-INSERT INTO GD VALUES ( 'SystemModelPackage', 'SystemModelPackage', 'System Model', 'Sys_ID' );
-INSERT INTO EI VALUES ( 'ComponentDiagram' );
-INSERT INTO GD VALUES ( 'ComponentDiagram', 'ComponentDiagram', 'Component', 'Id' );
-INSERT INTO EI VALUES ( 'PackageDiagram' );
-INSERT INTO GD VALUES ( 'PackageDiagram', 'Package', 'Package', 'Package_ID' );

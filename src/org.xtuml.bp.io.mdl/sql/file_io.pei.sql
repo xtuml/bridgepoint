@@ -1,31 +1,7 @@
---======================================================================
---
--- File:      $RCSfile: file_io.pei.sql,v $
--- Version:   $Revision: 1.66 $
--- Modified:  $Date: 2013/01/17 03:34:36 $
---
--- (c) Copyright 2004-2014 by Mentor Graphics Corp. All rights reserved.
---
---======================================================================
--- Licensed under the Apache License, Version 2.0 (the "License"); you may not 
--- use this file except in compliance with the License.  You may obtain a copy 
--- of the License at
---
---       http://www.apache.org/licenses/LICENSE-2.0
---
--- Unless required by applicable law or agreed to in writing, software 
--- distributed under the License is distributed on an "AS IS" BASIS, WITHOUT 
--- WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the 
--- License for the specific language governing permissions and limitations under
--- the License.
---======================================================================
 
 INSERT INTO EO VALUES ( '6',	'23',	  '',     'System Model',0 , '', 'first', true );
-INSERT INTO EO VALUES ( '23', '23.1', '', 'Package', 1401, 'many', 'first', true );
+INSERT INTO EO VALUES ( '23', '23.10', '', 'Package', 1401, 'many', 'first', true );
 
-INSERT INTO EO VALUES ( '23.1',       '',          '23.2', 'PackageDiagram', 0, '', 'first', false );
-INSERT INTO EO VALUES ( '23.2',       '23.2.1',    '23.10', 'Package In Package', 1403, 'many', 'first', false );
-INSERT INTO EO VALUES ( '23.2.1',     '23.1',      '',     'Package', 1404, 'one', 'none', true );
 INSERT INTO EO VALUES ( '23.10',  '1.5.3.1.1', '23.11', 'Data Type', -1, 'many', 'first', false, false, '', false, false, '->PE_PE[R8000]->S_DT[R8001]'  );
 INSERT INTO EO VALUES ( '23.11',  '6.2.1', '23.12',   'Interaction Participant', -1, 'many', 'first', false, false, '', false, false, '->PE_PE[R8000]->SQ_P[R8001]'  );
 INSERT INTO EO VALUES ( '23.12',  '1.14.2.1', '23.13',       'Activity Node', -1, 'many', 'first', false, false, '', false, false, '->PE_PE[R8000]->A_N[R8001]'  );
@@ -228,9 +204,3 @@ INSERT INTO EI VALUES ( 'ISM' );
 INSERT INTO GD VALUES ( 'ISM', 'InstanceStateChartDiagram', 'State Machine', 'SM_ID' );
 INSERT INTO EI VALUES ( 'ASM' );
 INSERT INTO GD VALUES ( 'ASM', 'ClassStateChartDiagram', 'State Machine', 'SM_ID' );
-INSERT INTO EI VALUES ( 'SystemModelPackage' );
-INSERT INTO GD VALUES ( 'SystemModelPackage', 'SystemModelPackage', 'System Model', 'Sys_ID' );
-INSERT INTO EI VALUES ( 'ComponentDiagram' );
-INSERT INTO GD VALUES ( 'ComponentDiagram', 'ComponentDiagram', 'Component', 'Id' );
-INSERT INTO EI VALUES ( 'PackageDiagram' );
-INSERT INTO GD VALUES ( 'PackageDiagram', 'Package', 'Package', 'Package_ID' );
