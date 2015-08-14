@@ -202,7 +202,7 @@ This project contained a model that was not used. Furthermore, this model was st
 
 8. Unit Test
 ------------
-8.1 All existing unit tests shall pass.
+8.1 All existing unit tests shall pass.  
 8.2 Assure that the data upgrade mechanism is properly test in existing unit tests.  If it is not create new test(s) as needed to exercise this.
 
 End
