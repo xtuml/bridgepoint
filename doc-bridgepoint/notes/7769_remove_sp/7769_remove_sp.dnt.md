@@ -38,12 +38,12 @@ This issue is now raised to perform the clean up and remove specialized package 
 
 4. Requirements
 ---------------
-4.1 All specialized package model classes shall be removed from the ooaofooa.
-4.1.1 The elements to be removed shall be identified by using the script that was created for the work that introduced generic packages [].
-4.2 All generic package model migration code shall be removed from BridgePoint
-4.3 All global data type migration code shall be removed
-4.4 When this work is complete, all existing unit tests must pass.  
-4.5 This work shall note include removal of specialized package testing artifacts. A separate issue shall be raised for this task.
+4.1 All specialized package model classes shall be removed from the ooaofooa.  
+4.1.1 The elements to be removed shall be identified by using the [script that was created for the work that introduced generic packages](#cmtSpecPkgOAL.pl).  
+4.2 All generic package model migration code shall be removed from BridgePoint  
+4.3 All global data type migration code shall be removed  
+4.4 When this work is complete, all existing unit tests must pass  
+4.5 This work shall note include removal of specialized package testing artifacts. A separate issue shall be raised for this task  
 
 5. Analysis
 -----------
