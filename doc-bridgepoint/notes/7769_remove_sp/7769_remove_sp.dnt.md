@@ -77,13 +77,12 @@ end for
 6.3.2 Remove the Packaging Linking package and everything in it (PL_*). After the SP removal this is left with no functionality in it.  
 
 6.4 Parse all and clean up the remaining SP references  
-- parse all  
 6.4.1 Remove the OAL SP Functionality <a id="removal"></a>  
-for each error in the errors view:  
-- Deal with the fall out from the previous changes, by removing all OAL to
+- for each error in the errors view:  
+-- Deal with the fall out from the previous changes, by removing all OAL to
   relate, unrelate and traverse the old associations as well as OAL that may create or remove instances of the model elements removed.  
-- While making these changes, remove the [PE_PE comment](#PE_PE-comment) that was left as as a "breadcrumb" by [cmtSpecPkgOAL.pl](#cmtSpecPkgOAL.pl), if present.  
-end for  
+-- While making these changes, remove the [PE_PE comment](#PE_PE-comment) that was left as as a "breadcrumb" by [cmtSpecPkgOAL.pl](#cmtSpecPkgOAL.pl), if present.  
+- end for  
 - The result at this point is that no errors are present in the problems view after parse all.  
 
 6.5 Update remaining places where specialized packages are referenced in OAL and java code. This includes hand-craft code and RSL, where the introduction of generic packages resulted in modifications to BridgePoint.  
