@@ -15,7 +15,7 @@ This issue is raised to remove specialize package support from BridgePoint.
 2. Document References
 ----------------------
 In this section, list all the documents that the reader may need to refer to.
-Give the full path to reference a file.
+Give the full path to reference a file.  
 [1] [BridgePoint DEI #7769](https://support.onefact.net/redmine/issues/7769)  
 [2] <a id="Redmine-1227"></a> [BridgePoint Historical DEI #1227  dts0100631941](https://support.onefact.net/redmine/issues/1227) Migrate away from specialized packages (to generic package support.  
 [3] <a id="dts0100631941-folder"></a> [Documenation for dts0100631941] (https://github.com/xtuml/internal/tree/71c842bdcd937f946f977d529dc90e0f9a5f2486/Documentation_archive/20110614/technical/notes/dts0100631941) This is a link to a folder that contains all the documentation associated with original project that introduced generic packages into BridgePoint. This includes the analysis note.  
