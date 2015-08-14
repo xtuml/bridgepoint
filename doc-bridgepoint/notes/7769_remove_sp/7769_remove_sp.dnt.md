@@ -93,12 +93,15 @@ end for
 6.6.1 Update ooaofooa_hierarchy.pei.sql
 6.6.2 Update context_menu.pei.sql
 
-6.6 Build bp.core  
-Work through any remaining problems that prevent bp.core from building successfully.  
+6.6 Build bp.core
+- Close all projects except bp.core, and bp.als.*
+- build bp.core  
+- Work through any remaining problems that prevent bp.core from building successfully.  
+- The result at this point is a clean bp.core build.  
 
-6.6.1
+6.7 Update and build bp.io.core and bp.io.mdl  
 
-6.7 Update bp.io.core pei files, file_io.pei.sql and stream_io.pei.sql  
+6.7.1 Update the pei files, file_io.pei.sql and stream_io.pei.sql  
 
 Note that while these files are similar, they are not close enough that we can compare and "merge" changes from one to another. There are several reasons they are differnt, but one big one is that the stream persistence includes parsed instance data and the file persistence does not. Because of these differences, Go through each file separately and make the updates.  
 - for each specialized package  
