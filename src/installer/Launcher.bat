@@ -4,7 +4,7 @@ set ORIGINAL_DIR=%CD%
 
 :: BPHOMEDIR is used at runtime to determine the base installation folder.
 :: It is the BridgePoint folder.
-cd "%~dp0%/.."
+cd "%~dp0/.."
 set BPHOMEDIR=%CD%
 
 :: The JVM tested with BridgePoint
