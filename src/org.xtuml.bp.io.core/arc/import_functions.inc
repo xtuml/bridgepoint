@@ -38,8 +38,6 @@
   .param String callingProject
   .//
   .if (callingProject == "NBP")
-        createCP_CPFromCD_CD(modelRoot, table, parms, rawParms, numParms, pm);
-        createIP_IPFromID_ID(modelRoot, table, parms, rawParms, numParms, pm);
         storeC_C(modelRoot, table, parms, rawParms, numParms, pm);
         storeC_P(modelRoot, table, parms, rawParms, numParms, pm);
         storeC_R(modelRoot, table, parms, rawParms, numParms, pm);
@@ -314,132 +312,6 @@ ${setSize.body}
   .param boolean setComponent
   .param String main_class_name
   .if (callingProject == "NBP")
-  private void createCP_CPFromCD_CD(Ooaofooa modelRoot, String table, Vector parms,
-                                    Vector rawParms, int numParms, IProgressMonitor pm) {
-    .assign local_var = ""
-    .if(multilevel)
-    NonRootModelElement newInst = null;
-    .assign local_var = "newInst ="
-    .end if
-    if (table.equalsIgnoreCase("CD_CD")) { //$$NON-NLS-1$$
-    .if(multilevel)
-      ${local_var} ComponentPackage_c.resolveInstance(modelRoot,
-    .else
-      ${local_var} new ComponentPackage_c(modelRoot,
-    .end if
-          IdAssigner.createUUIDFromString((String) parms.elementAt(0)),
-          IdAssigner.createUUIDFromString((String) parms.elementAt(3)),
-          IdAssigner.createUUIDFromString((String) parms.elementAt(1)),
-          IdAssigner.createUUIDFromString((String) parms.elementAt(2)),
-          removeTics((String) parms.elementAt(4)).trim(),
-          removeTics((String) parms.elementAt(5)));
-    .if((not setComponent) and (multilevel))
-    .// we want to fire creation events for the stream
-    .// imports
-    Ooaofooa.getDefaultInstance().fireModelElementCreated(new BaseModelDelta(Modeleventnotification_c.DELTA_NEW, newInst));
-    .end if
-    .if(multilevel)
-      .select any table from instances of T where (selected.Key_Lett == "CP_CP")
-      .invoke element = is_configurable_element(table)
-      .assign result = element.result
-      .if(result)
-      if (rootModelElement == null) {
-         rootModelElement = newInst;
-       .if(setComponent)
-         m_component.setRootModelElement(newInst, false, false);
-       .end if
-      }
-      .end if
-    loadedInstances.add(newInst);
-        .if(setComponent)
-    metadata.setComponentOfME(newInst, m_component);
-        .end if
-      .end if
-    }
-      .assign else_str = "else "
-      .if (multilevel)
-    ${else_str}if ( table.equalsIgnoreCase("CD_CD_PROXY") ) //$$NON-NLS-1$$
-    {
-        ${local_var} ComponentPackage_c.createProxy(modelRoot,
-            IdAssigner.createUUIDFromString((String) parms.elementAt(0)),
-            IdAssigner.createUUIDFromString((String) parms.elementAt(3)),
-            IdAssigner.createUUIDFromString((String) parms.elementAt(1)),
-            IdAssigner.createUUIDFromString((String) parms.elementAt(2)),
-            removeTics((String) parms.elementAt(4)).trim(),
-            removeTics((String) parms.elementAt(5)),
-            removeTics((String)parms.lastElement()), projRelPath);
-        if (newInst.isProxy()) {
-          loadedInstances.add(newInst);
-        }
-        // newInst component is set during createProxy()
-      }
-      .end if
-  }
-  private void createIP_IPFromID_ID(Ooaofooa modelRoot, String table, Vector parms,
-                                Vector rawParms, int numParms, IProgressMonitor pm) {
-    .assign local_var = ""
-    .if(multilevel)
-    NonRootModelElement newInst = null;
-    .assign local_var = "newInst ="
-    .end if
-    if (table.equalsIgnoreCase("ID_ID")) { //$$NON-NLS-1$$
-    .if(multilevel)
-      ${local_var} InterfacePackage_c.resolveInstance(modelRoot,
-    .else
-      ${local_var} new InterfacePackage_c(modelRoot,
-    .end if
-                IdAssigner.createUUIDFromString((String) parms.elementAt(0)),
-                IdAssigner.createUUIDFromString((String) parms.elementAt(1)),
-                IdAssigner.createUUIDFromString((String) parms.elementAt(2)),
-                IdAssigner.createUUIDFromString((String) parms.elementAt(3)),
-                Gd_c.Null_unique_id(),
-                Gd_c.Null_unique_id(),
-                removeTics((String) parms.elementAt(4)).trim(),
-                removeTics((String) parms.elementAt(5)));
-    .if((not setComponent) and (multilevel))
-    .// we want to fire creation events for the stream
-    .// imports
-    Ooaofooa.getDefaultInstance().fireModelElementCreated(new BaseModelDelta(Modeleventnotification_c.DELTA_NEW, newInst));
-    .end if
-    .if(multilevel)
-      .select any table from instances of T where (selected.Key_Lett == "IP_IP")
-      .invoke element = is_configurable_element(table)
-      .assign result = element.result
-      .if(result)
-      if (rootModelElement == null) {
-         rootModelElement = newInst;
-        .if(setComponent)
-         m_component.setRootModelElement(newInst, false, false);
-        .end if
-      }
-      .end if
-      loadedInstances.add(newInst);
-      .if(setComponent)
-        metadata.setComponentOfME(newInst, m_component);
-      .end if
-    .end if
-      }
-    .assign else_str = "else "
-    .if (multilevel)
-      ${else_str}if ( table.equalsIgnoreCase("ID_ID_PROXY") ) //$$NON-NLS-1$$
-      {
-        ${local_var} InterfacePackage_c.createProxy(modelRoot,
-            IdAssigner.createUUIDFromString((String) parms.elementAt(0)),
-            IdAssigner.createUUIDFromString((String) parms.elementAt(1)),
-            IdAssigner.createUUIDFromString((String) parms.elementAt(2)),
-            IdAssigner.createUUIDFromString((String) parms.elementAt(3)),
-            Gd_c.Null_unique_id(),
-            Gd_c.Null_unique_id(),
-            removeTics((String) parms.elementAt(4)).trim(),
-            removeTics((String) parms.elementAt(5)),
-            removeTics((String)parms.lastElement()), projRelPath);
-        if (newInst.isProxy()) {
-          loadedInstances.add(newInst);
-        }
-        // newInst component is set during createProxy()
-      }
-    .end if
-  }
   private void storeC_C(Ooaofooa modelRoot, String table, Vector parms,
                           Vector rawParms, int numParms, IProgressMonitor pm) {
     if (table.equalsIgnoreCase("C_C") && !actualVersion.equals(persistenceVersion) && (!actualVersion.equals(bp7_1_5VersionNumber)) && !actualVersion.equals(bp7_1_4VersionNumber)) { //$$NON-NLS-1$$
@@ -746,11 +618,6 @@ ${setSize.body}
       .if ( not multilevel )
         modelRoot.setFullModelIsLoaded();
       .end if
-      .select any domain_inst from instances of T where ( selected.Name == "Domain" )
-      .invoke dcn = get_class_name( domain_inst )
-      .invoke dia = get_instance_accessor( domain_inst )
-        ${dcn.body} d2 = null;
-                ModelRoot.disableChangeNotification();
         try {
       .select many table_set from instances of T
       .// add one for the SM_SUPDT fixup
@@ -934,7 +801,6 @@ ${setSize.body}
             helper.createAnchorsOnSegmentsForPre7_1_2Connectors();
         .end if
     .if(setComponent or (not multilevel and not setComponent))
-        d2 = ${dcn.body}.${dia.body}(modelRoot);
       .if ( multilevel )
         PersistableModelComponent parentComp = m_component.getParent();
         SystemModel_c parent = null;
@@ -947,13 +813,9 @@ ${setSize.body}
       .else
         if ( m_parent != null )
         {
-            d2.relateAcrossR28To((SystemModel_c)m_parent);
             modelRoot.setRoot((SystemModel_c)m_parent);
         }
        .end if
-
-        //Setting the root model element
-        rootModelElement = d2;
 
         pm.worked(1);
         // see if the domains id is unique
@@ -1018,12 +880,6 @@ ${setSize.body}
         aam.processAllActivities(AllActivityModifier.PARSE);
       }
 
-        //check if they are long based UUIDs or
-        //even in case of UUID based model, it could be copy of same file with different name.
-        //there is also unit test for this
-    if (d2 != null && !isDomainIdUnique(d2)) {
-       IDConvertor.getInstance().recreateUUID(d2);
-    }
     .end if
         Ooaofooa mr = Ooaofooa.getDefaultInstance();
         Ooaofgraphics gmr = Ooaofgraphics.getDefaultInstance();
@@ -1061,11 +917,6 @@ ${setSize.body}
     }   finally {
                     ModelRoot.enableChangeNotification();
     }
-        .if((not multilevel) and (not setComponent))
-	  if (d2 != null) {
-        Ooaofooa.getDefaultInstance().fireModelElementLoaded(d2);
-	  }
-        .end if
     }
   }
 .end function
