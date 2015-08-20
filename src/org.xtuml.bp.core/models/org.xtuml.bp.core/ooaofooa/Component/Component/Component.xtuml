@@ -2930,7 +2930,7 @@ INSERT INTO O_BATTR
 INSERT INTO O_ATTR
 	VALUES ("44ad7e17-9251-42cf-aa73-ac271023c8a3",
 	"2786d973-1537-44a1-81d6-3ddbd2377865",
-	"6dae0868-75e9-4e28-b4b5-a004ba9ab608",
+	"7b9804b1-294c-4909-b563-aae43167f8d6",
 	'Name',
 	'Full Name: Component Name',
 	'',
@@ -2978,57 +2978,6 @@ enum1: Many',
 	'Mult',
 	0,
 	"ba5eda7a-def5-0000-0000-000000000002",
-	'',
-	'');
-INSERT INTO O_REF
-	VALUES ("2786d973-1537-44a1-81d6-3ddbd2377865",
-	"dd452d8f-b9fd-4f21-b92c-798151de1879",
-	0,
-	"c21d7fd1-da0a-495f-a949-cbaba8343a1e",
-	"6d035f63-8b3e-487a-a158-f6c33ea55dc8",
-	"4bba9525-1ea3-4e57-b1c0-410d087d4e21",
-	"ca6e8994-253d-4275-94f8-7d3cbb0c4892",
-	"6dae0868-75e9-4e28-b4b5-a004ba9ab608",
-	"e205265b-bb21-4659-a2dd-6770276abadb",
-	"00000000-0000-0000-0000-000000000000",
-	0,
-	'',
-	'Component in Component',
-	'Id',
-	'R4203.''is nested through''');
-INSERT INTO R_RGO_PROXY
-	VALUES ("2786d973-1537-44a1-81d6-3ddbd2377865",
-	"6d035f63-8b3e-487a-a158-f6c33ea55dc8",
-	"4bba9525-1ea3-4e57-b1c0-410d087d4e21",
-	'../Component Nesting/Component Nesting.xtuml');
-INSERT INTO O_RTIDA_PROXY
-	VALUES ("c21d7fd1-da0a-495f-a949-cbaba8343a1e",
-	"dd452d8f-b9fd-4f21-b92c-798151de1879",
-	0,
-	"6d035f63-8b3e-487a-a158-f6c33ea55dc8",
-	"ca6e8994-253d-4275-94f8-7d3cbb0c4892",
-	'../Component Nesting/Component Nesting.xtuml');
-INSERT INTO O_RATTR
-	VALUES ("6dae0868-75e9-4e28-b4b5-a004ba9ab608",
-	"2786d973-1537-44a1-81d6-3ddbd2377865",
-	"c21d7fd1-da0a-495f-a949-cbaba8343a1e",
-	"dd452d8f-b9fd-4f21-b92c-798151de1879",
-	1,
-	'Id');
-INSERT INTO O_BATTR_PROXY
-	VALUES ("c21d7fd1-da0a-495f-a949-cbaba8343a1e",
-	"dd452d8f-b9fd-4f21-b92c-798151de1879",
-	'../Component Nesting/Component in Component/Component in Component.xtuml');
-INSERT INTO O_ATTR
-	VALUES ("6dae0868-75e9-4e28-b4b5-a004ba9ab608",
-	"2786d973-1537-44a1-81d6-3ddbd2377865",
-	"7b9804b1-294c-4909-b563-aae43167f8d6",
-	'NestedComponent_Id',
-	'',
-	'NestedComponent_',
-	'Id',
-	1,
-	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_DBATTR

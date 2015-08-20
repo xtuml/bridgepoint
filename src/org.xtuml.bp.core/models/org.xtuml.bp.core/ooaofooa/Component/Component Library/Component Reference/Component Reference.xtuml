@@ -1497,7 +1497,7 @@ INSERT INTO O_BATTR
 INSERT INTO O_ATTR
 	VALUES ("b819ae30-4d2e-458a-9ff4-77c81e4cbccf",
 	"14d6c781-a341-481a-b67d-09ec4e8b9ed3",
-	"fcd64395-ca6c-42ce-8bb8-c27b851523c1",
+	"bb116e28-b106-49aa-b480-95c153ff8155",
 	'Mult',
 	'Full Name: Multiplicity
 Description: Multiplicity of the component.  Indicates how many instances of the component may exist.
@@ -1582,104 +1582,6 @@ Description: A textual description of this imported component.',
 	'');
 INSERT INTO O_REF
 	VALUES ("14d6c781-a341-481a-b67d-09ec4e8b9ed3",
-	"2786d973-1537-44a1-81d6-3ddbd2377865",
-	0,
-	"7b9804b1-294c-4909-b563-aae43167f8d6",
-	"03806c19-6f9e-46d0-aefe-b6e821552986",
-	"9373f837-14e0-41e8-a9f9-f7dbe590465a",
-	"a4ea3b54-deb6-4443-bb07-6c57c68c939f",
-	"96644e57-4a94-4960-8b30-8e41d33532a0",
-	"e7d453ab-4f24-4fc8-9d8a-6a6680c51d8b",
-	"00000000-0000-0000-0000-000000000000",
-	0,
-	'',
-	'Component',
-	'Id',
-	'R4201.''represents''');
-INSERT INTO R_RGO_PROXY
-	VALUES ("14d6c781-a341-481a-b67d-09ec4e8b9ed3",
-	"03806c19-6f9e-46d0-aefe-b6e821552986",
-	"9373f837-14e0-41e8-a9f9-f7dbe590465a",
-	'../../Component Nesting/Component Nesting.xtuml');
-INSERT INTO O_RTIDA_PROXY
-	VALUES ("7b9804b1-294c-4909-b563-aae43167f8d6",
-	"2786d973-1537-44a1-81d6-3ddbd2377865",
-	0,
-	"03806c19-6f9e-46d0-aefe-b6e821552986",
-	"a4ea3b54-deb6-4443-bb07-6c57c68c939f",
-	'../../Component Nesting/Component Nesting.xtuml');
-INSERT INTO O_RATTR
-	VALUES ("96644e57-4a94-4960-8b30-8e41d33532a0",
-	"14d6c781-a341-481a-b67d-09ec4e8b9ed3",
-	"5776264f-c7e9-4abe-839f-24d0750e007c",
-	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
-	1,
-	'Element_ID');
-INSERT INTO O_BATTR_PROXY
-	VALUES ("5776264f-c7e9-4abe-839f-24d0750e007c",
-	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
-	'../../../Packageable Element/Packageable Element/Packageable Element.xtuml');
-INSERT INTO O_ATTR
-	VALUES ("96644e57-4a94-4960-8b30-8e41d33532a0",
-	"14d6c781-a341-481a-b67d-09ec4e8b9ed3",
-	"bb116e28-b106-49aa-b480-95c153ff8155",
-	'AssignedComp_Id',
-	'',
-	'AssignedComp_',
-	'Id',
-	1,
-	"ba5eda7a-def5-0000-0000-000000000007",
-	'',
-	'');
-INSERT INTO O_REF
-	VALUES ("14d6c781-a341-481a-b67d-09ec4e8b9ed3",
-	"2786d973-1537-44a1-81d6-3ddbd2377865",
-	0,
-	"7b9804b1-294c-4909-b563-aae43167f8d6",
-	"310fb389-ddd0-4b14-bc9f-7a065a967a7f",
-	"7f119e94-439d-4449-9897-d68bffb00e29",
-	"d33e0a4f-ee50-4c18-92e0-ad388edda6eb",
-	"fcd64395-ca6c-42ce-8bb8-c27b851523c1",
-	"918f83a9-10e4-4647-b7d2-398ffd6cf890",
-	"00000000-0000-0000-0000-000000000000",
-	0,
-	'',
-	'Component',
-	'Id',
-	'R4205.''nested in''');
-INSERT INTO R_RGO_PROXY
-	VALUES ("14d6c781-a341-481a-b67d-09ec4e8b9ed3",
-	"310fb389-ddd0-4b14-bc9f-7a065a967a7f",
-	"7f119e94-439d-4449-9897-d68bffb00e29",
-	'../../Component Nesting/Component Nesting.xtuml');
-INSERT INTO O_RTIDA_PROXY
-	VALUES ("7b9804b1-294c-4909-b563-aae43167f8d6",
-	"2786d973-1537-44a1-81d6-3ddbd2377865",
-	0,
-	"310fb389-ddd0-4b14-bc9f-7a065a967a7f",
-	"d33e0a4f-ee50-4c18-92e0-ad388edda6eb",
-	'../../Component Nesting/Component Nesting.xtuml');
-INSERT INTO O_RATTR
-	VALUES ("fcd64395-ca6c-42ce-8bb8-c27b851523c1",
-	"14d6c781-a341-481a-b67d-09ec4e8b9ed3",
-	"5776264f-c7e9-4abe-839f-24d0750e007c",
-	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
-	1,
-	'Element_ID');
-INSERT INTO O_ATTR
-	VALUES ("fcd64395-ca6c-42ce-8bb8-c27b851523c1",
-	"14d6c781-a341-481a-b67d-09ec4e8b9ed3",
-	"96644e57-4a94-4960-8b30-8e41d33532a0",
-	'ParentComp_Id',
-	'',
-	'ParentComp_',
-	'Id',
-	1,
-	"ba5eda7a-def5-0000-0000-000000000007",
-	'',
-	'');
-INSERT INTO O_REF
-	VALUES ("14d6c781-a341-481a-b67d-09ec4e8b9ed3",
 	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
 	0,
 	"5776264f-c7e9-4abe-839f-24d0750e007c",
@@ -1713,6 +1615,10 @@ INSERT INTO O_RATTR
 	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
 	0,
 	'Element_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	'../../../Packageable Element/Packageable Element/Packageable Element.xtuml');
 INSERT INTO O_ATTR
 	VALUES ("bb116e28-b106-49aa-b480-95c153ff8155",
 	"14d6c781-a341-481a-b67d-09ec4e8b9ed3",
