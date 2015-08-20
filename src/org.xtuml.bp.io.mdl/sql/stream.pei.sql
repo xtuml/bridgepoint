@@ -1,3 +1,17 @@
+--======================================================================
+--
+-- Licensed under the Apache License, Version 2.0 (the "License"); you may not
+-- use this file except in compliance with the License.  You may obtain a copy
+-- of the License at
+--
+--      http://www.apache.org/licenses/LICENSE-2.0
+--
+-- Unless required by applicable law or agreed to in writing, software
+-- distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+-- WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the
+-- License for the specific language governing permissions and limitations under
+-- the License.
+--======================================================================
 
 INSERT INTO EO VALUES ( '6',	'24',	  '',     'System Model',0 , '', 'first', true );
 INSERT INTO EO VALUES ( '24', '24.10', '', 'Package', 1401, 'many', 'first', true );
@@ -7,10 +21,10 @@ INSERT INTO EO VALUES ( '24.10.1',  '1.5.3.1.1', '24.10.2', 'Data Type', 8001, '
 INSERT INTO EO VALUES ( '24.10.2',  '6.2.1', '24.10.3',     'Interaction Participant', 8001, 'one', 'first', false );
 INSERT INTO EO VALUES ( '24.10.3',  '1.14.2.1', '24.10.4',       'Activity Node', 8001, 'one', 'first', false );
 INSERT INTO EO VALUES ( '24.10.4',  '2.1.1', '24.10.5',          'Model Class', 8001, 'one', 'first', true );
-INSERT INTO EO VALUES ( '24.10.5',  '12.4.1', '24.10.6',       'Component', 8001, 'one', 'first', true );
+INSERT INTO EO VALUES ( '24.10.5',  '12.4.2', '24.10.6',       'Component', 8001, 'one', 'first', true );
 INSERT INTO EO VALUES ( '24.10.6',  '12.4.8.1', '24.10.7',       'Component Reference', 8001, 'one', 'first', false );
 INSERT INTO EO VALUES ( '24.10.7',  '14.1.3.1', '24.10.8',       'Interface', 8001, 'one', 'first', false );
-INSERT INTO EO VALUES ( '24.10.8',  '24.10.9', '',                  'Package', 8001, 'one', 'none', true );
+INSERT INTO EO VALUES ( '24.10.8',  '', '24.10.9',                  'Package', 8001, 'one', 'none', true );
 INSERT INTO EO VALUES ( '24.10.9',  '1.5.6.1.1', '24.10.10',  'Constant Specification', 8001, 'one', 'first', false );
 INSERT INTO EO VALUES ( '24.10.10',  '', '24.10.11',  'Activity Partition', 8001, 'one', 'first', false );
 INSERT INTO EO VALUES ( '24.10.11',  '', '24.10.12',  'Activity Edge', 8001, 'one', 'first', false );
@@ -23,6 +37,8 @@ INSERT INTO EO VALUES ( '24.10.17',  '6.2.8.1', '24.10.18',  'Use Case Associati
 INSERT INTO EO VALUES ( '24.10.18',  '',        '24.10.19',  'Satisfaction', 8001, 'one', 'first', false );
 INSERT INTO EO VALUES ( '24.10.19',  '12.4.9.1.1', '',       'Delegation', 8001, 'one', 'first', false );
 
+INSERT INTO EO VALUES ( '12.4.3',     '12.4.3.1',  '12.4.8',      'Port', 4010, 'many', 'first', false );             
+INSERT INTO EO VALUES ( '12.4.5',     '12.4.3.1',          '',            'Port', 4015, 'many', 'first', false );             
 INSERT INTO EO VALUES ( '12.4.3.1',     '12.4.3.1.1',  '',      'Interface Reference', 4016, 'many', 'first', false );             
 INSERT INTO EO VALUES ( '12.4.3.1.1',   '12.4.3.1.1.1',          '12.4.3.1.2', 'Requirement', 4009, 'one', 'first', false );
 INSERT INTO EO VALUES ( '12.4.3.1.1.1', '12.4.3.1.1.1.1', '',     'Required Executable Property', 4500, 'many', 'first', false );
@@ -36,16 +52,13 @@ INSERT INTO EO VALUES ( '12.4.3.1.2.1.1', '12.4.3.1.2.1.1.1', '12.4.3.1.2.1.2', 
 INSERT INTO EO VALUES ( '12.4.3.1.2.1.1.1', '15',          '',          'Provided Signal Body', 686, 'one', 'first', false, false, '', false, true );
 INSERT INTO EO VALUES ( '12.4.3.1.2.1.2', '12.4.3.1.2.1.2.1', '',     'Provided Operation', 4503, 'one', 'first', false );
 INSERT INTO EO VALUES ( '12.4.3.1.2.1.2.1', '15',          '',          'Provided Operation Body', 687, 'one', 'first', false, false, '', false, true );
-INSERT INTO EO VALUES ( '12.4.6',   '12.4.6.1', '12.4.7',     'Domain As Component', 4204, 'one', 'first', false );
-INSERT INTO EO VALUES ( '12.4.6.1', '1.1',      '',           'Domain',              4204, 'one', 'none', false );
-INSERT INTO EO VALUES ( '12.4.7',	'14.1.1', '12.4.8',     'Interface Package', 4206, 'many', 'none', true );
 INSERT INTO EO VALUES ( '12.4.8',       '12.4.8.1',    '12.4.9', 'Component Reference', 4205, 'many', 'first', false );
 INSERT INTO EO VALUES ( '12.4.8.1',       '12.4.8.1.1',    '', 'Port Reference', 4707, 'many', 'first', false );
 INSERT INTO EO VALUES ( '12.4.8.1.1',       '12.4.8.1.1.1',    '', 'Imported Reference', 4708, 'many', 'first', false );
 INSERT INTO EO VALUES ( '12.4.8.1.1.1',       '12.4.8.1.1.1.1',    '12.4.8.1.1.2', 'Imported Provision', 4703, 'one', 'first', false );
 INSERT INTO EO VALUES ( '12.4.8.1.1.1.1',       '',    '', 'Imported Provision In Satisfaction', 4705, 'many', 'first', false );
 INSERT INTO EO VALUES ( '12.4.8.1.1.2',       '',    '', 'Imported Requirement', 4703, 'one', 'first', false );
-INSERT INTO EO VALUES ( '12.4.9',   '12.4.9.1', '',     'Delegation In Component', 9002, 'many', 'first', false );
+INSERT INTO EO VALUES ( '12.4.9',   '12.4.9.1', '12.4.10',     'Delegation In Component', 9002, 'many', 'first', false );
 INSERT INTO EO VALUES ( '12.4.9.1',   '12.4.9.1.1', '',     'Delegation', 9002, 'many', 'first', false );
 INSERT INTO EO VALUES ( '12.4.9.1.1',   '', '',     'Interface Reference In Delegation', 4013, 'many', 'first', false );
 INSERT INTO EO VALUES ( '12.4.10', '12.4.10.1',          '',  'Satisfaction In Component', 9000, 'many', 'first', false );
@@ -70,14 +83,36 @@ INSERT INTO EO VALUES ( '1.5.6.1.1',    '1.5.6.1.1.1',  '',          'Symbolic C
 INSERT INTO EO VALUES ( '1.5.6.1.1.1',  '1.5.6.1.1.1.1','',          'Leaf Symbolic Constant', 1502, 'one', 'first' );
 INSERT INTO EO VALUES ( '1.5.6.1.1.1.1','',             '',          'Literal Symbolic Constant', 1503, 'one', 'first' );
 
+INSERT INTO EO VALUES ( '1.6.4.1.1',   '1.6.4.1.1.1', '', 'Bridge', 19, 'many', 'first' );
+INSERT INTO EO VALUES ( '1.6.4.1.1.1', '1.6.4.1.1.1.1', '1.6.4.1.1.2', 'Bridge Parameter', 21, 'many', 'first' );
+INSERT INTO EO VALUES ( '1.6.4.1.1.1.1', '',          '',          'Dimensions', 49, 'many', 'first' );
+INSERT INTO EO VALUES ( '1.6.4.1.1.2', '15',          '1.6.4.1.1.3', 'Bridge Body', 697, 'one', 'first', false, false, '', false, true );
+INSERT INTO EO VALUES ( '1.6.4.1.1.3', '',            '',          'Dimensions', 50, 'many', 'first' );
+
+INSERT INTO EO VALUES ( '1.7.4.1',   '1.7.4.1.1',  '',	      'Function', 31, 'one', 'first' );
+INSERT INTO EO VALUES ( '1.7.4.1.1', '1.7.4.1.1.1','1.7.4.1.2', 'Function Parameter', 24, 'many', 'first' );
+INSERT INTO EO VALUES ( '1.7.4.1.1.1', '',            '',        'Dimensions', 52, 'many', 'first' );
+INSERT INTO EO VALUES ( '1.7.4.1.2', '15',         '1.7.4.1.3', 'Function Body', 695, 'one', 'first', false, false, '', false, true );
+INSERT INTO EO VALUES ( '1.7.4.1.3', '',            '',        'Dimensions', 51, 'many', 'first' );
+
+INSERT INTO EO VALUES ( '1.14.2.1',     '1.14.2.1.1',   '1.14.2.2',	    'Action Node', 1105, 'one', 'first' );
+INSERT INTO EO VALUES ( '1.14.2.1.1',   '',             '1.14.2.1.2',	'Activity Diagram Action', 1107, 'one', 'first' );
+INSERT INTO EO VALUES ( '1.14.2.1.2',   '1.14.2.1.2.1',	'1.14.2.1.3',	'Accept Event', 1107, 'one', 'first' );
+INSERT INTO EO VALUES ( '1.14.2.1.2.1', '',             '1.14.2.1.2.2', 'Accept Event Action', 1112, 'one', 'first' );
+INSERT INTO EO VALUES ( '1.14.2.1.2.2', '',             '',             'Accept Time Event Action', 1112, 'one', 'first' );
+INSERT INTO EO VALUES ( '1.14.2.1.3',   '',             '',             'Send Signal', 1107, 'one', 'first' );
+INSERT INTO EO VALUES ( '1.14.2.2',     '',             '1.14.2.3',     'Object Node', 1105, 'one', 'first' );
+INSERT INTO EO VALUES ( '1.14.2.3',     '1.14.2.3.1',	'',             'Control Node', 1105, 'one', 'first' );
+INSERT INTO EO VALUES ( '1.14.2.3.1',   '',             '1.14.2.3.2',   'Initial Node', 1106, 'one', 'first' );
+INSERT INTO EO VALUES ( '1.14.2.3.2',   '',             '1.14.2.3.3',   'Activity Final Node', 1106, 'one', 'first' );
+INSERT INTO EO VALUES ( '1.14.2.3.3',   '',             '1.14.2.3.4',   'Flow Final Node', 1106, 'one', 'first' );
+INSERT INTO EO VALUES ( '1.14.2.3.4',   '',             '1.14.2.3.5',   'Decision Merge Node', 1106, 'one', 'first' );
+INSERT INTO EO VALUES ( '1.14.2.3.5',   '',             '',             'Fork Join Node', 1106, 'one', 'first' );
+
 INSERT INTO EO VALUES ( '2.1',	  '2.1.1',  '2.2',	  'Model Class', 2, 'many', 'first', false );
 INSERT INTO EO VALUES ( '2.2',	  '',		'2.3',	  'Imported Class', 3, 'many', 'first' );
 INSERT INTO EO VALUES ( '2.3',	  '',		'2.4',	  'External Entity in Model', 7, 'many', 'first' );
-INSERT INTO EO VALUES ( '2.4',	  '2.4.1',  '2.5',	  'Association', 4, 'many', 'Derived Association' );
-INSERT INTO EO VALUES ( '2.5',	  '',		'2.6',	  'OIM', 0, '', 'first' );
-INSERT INTO EO VALUES ( '2.6',	  '',		'2.7',	  'OCM', 0, '', 'first' );
-INSERT INTO EO VALUES ( '2.7',	  '',		'',   'OAM', 0, '', 'first' );
-
+INSERT INTO EO VALUES ( '2.4',	  '2.4.1',  '',	  'Association', 4, 'many', 'Derived Association' );
 
 INSERT INTO EO VALUES ( '2.1.1',	'2.1.1.1',	'2.1.2',	'Operation', 115, 'many', 'first' );
 INSERT INTO EO VALUES ( '2.1.1.1',	'2.1.1.1.1','2.1.1.2', 	'Operation Parameter', 117, 'many', 'first' );
@@ -135,6 +170,7 @@ INSERT INTO EO VALUES ( '3.3.1',''     ,   '',  'Dimensions', 531, 'many', 'firs
 INSERT INTO EO VALUES ( '3.5',	'3.5.1','3.6', 'State Machine Event', 502, 'many', 'last' );
 INSERT INTO EO VALUES ( '3.6',	'3.6.1','3.7', 'State Machine State', 501, 'many', 'first' );
 INSERT INTO EO VALUES ( '3.7',	'3.7.1','', 'Transition', 505, 'many', 'last' );
+
 
 INSERT INTO EO VALUES ( '3.5.1','',		'3.5.2',	'Polymorphic Event', 525, 'one', 'last' );
 INSERT INTO EO VALUES ( '3.5.2','3.5.2.1','',		'SEM Event', 525, 'one', 'last' );
@@ -321,8 +357,8 @@ INSERT INTO EO VALUES ( '15.1.3.4',    '',           '',            'Dimensions'
 
 -- export the proxy for the imported references interface
 INSERT INTO AEP VALUES ( '12.4.8.1.1', '12.4.3.1',		'->C_IR[R4701]', 'one', true, true, true);
-INSERT INTO AEP VALUES ( '12.4.8.1.1', '14.1.3',		'->C_IR[R4701]->C_I[R4012]', 'one', true, true, true);
-INSERT INTO AEP VALUES ( '12.4.8.1.1', '12.4',		'->C_IR[R4701]->C_PO[R4016]->C_C[R4010]', 'one', false, true);
+INSERT INTO AEP VALUES ( '12.4.8.1.1', '24.10.7',		'->C_IR[R4701]->C_I[R4012]', 'one', true, true, true);
+INSERT INTO AEP VALUES ( '12.4.8.1.1', '24.10.5',		'->C_IR[R4701]->C_PO[R4016]->C_C[R4010]', 'one', false, true);
 INSERT INTO AEP VALUES ( '12.4.8.1.1', '24.10',		'->C_IR[R4701]->C_PO[R4016]->C_C[R4010]->PE_PE[R8001]', 'one', false, true);
 
 -- export parameters for interface operations and signals
@@ -358,7 +394,6 @@ INSERT INTO AEP VALUES ( '3.7', '3.3',		'->SM_NSTXN[R507]->SM_SEME[R504]->SM_SEV
 INSERT INTO AEP VALUES ( '3.7', '2.1',		'->SM_NSTXN[R507]->SM_SEME[R504]->SM_SEVT[R503]->SM_NLEVT[R526]->SM_PEVT[R527]->SM_EVT[R525]->SM_SM[R502]->SM_ISM[R517]->O_OBJ[R518]', 'one', true, true, false);
 INSERT INTO AEP VALUES ( '2.2', '2.1',		'->O_OBJ[R101]', 'one', true, true, false);
 INSERT INTO AEP VALUES ( '2.1', '2.1',    '->SM_ISM[R518]->SM_SM[R517]->SM_EVT[R502]->SM_SEVT[R525]->SM_NLEVT[R526]->SM_PEVT[R527]->SM_EVT[R525]->SM_SM[R502]->SM_ISM[R517]->O_OBJ[R518]', 'many', true, true, false);
-INSERT INTO AEP VALUES ( '2.8.1', '2.1',		'->O_IOBJ[R3]->O_OBJ[R101]', 'many', true, true, false);
 
 -- export data items with event
 INSERT INTO AEP VALUES ( '3.5', '3.3',		'->SM_EVTDI[R532]', 'many', true, false, false);

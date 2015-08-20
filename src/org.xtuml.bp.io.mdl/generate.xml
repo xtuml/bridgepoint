@@ -329,7 +329,7 @@
 	      -import ${core_path}/sql/${sql.output}
 	      -import ${canvas_path}/sql/ooaofgraphics.sql
 	      -import sql/${class2table.output}
-	      -import sql/stream.io.pei.sql
+	      -import sql/stream.pei.sql
 	      -arch /home/robertmulvey/xtuml/BridgePoint/eclipse/check_instances.arc" />
 	  </exec>
 	</target>	
