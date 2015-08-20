@@ -35,15 +35,9 @@ INSERT INTO EO VALUES ( '1.5.3.1.4', 	'1.5.3.1.4.1',  '1.5.3.1.5', 'Structured D
 INSERT INTO EO VALUES ( '1.5.3.1.4.1', 	'1.5.3.1.4.1.1','',          'Structure Member', 44, 'many', 'first' );
 INSERT INTO EO VALUES ( '1.5.3.1.4.1.1','',             '',          'Dimensions', 53, 'many', 'first' );
 INSERT INTO EO VALUES ( '1.5.3.1.5', 	'',             '1.5.3.1.6',          'Instance Reference Data Type', 17, 'one', 'first' );
-INSERT INTO EO VALUES ( '1.5.4', 	    '',             '1.5.5',     'System Datatype in Package', 4401, 'many', 'first' );
-INSERT INTO EO VALUES ( '1.5.5',        '',             '1.5.6',     'System Datatype Package', 4400, 'many', 'first', false );
-INSERT INTO EO VALUES ( '1.5.6',        '',             '1.5.7',     'Specification Package', 1402, 'one', 'first', false );
-INSERT INTO EO VALUES ( '1.5.7',        '1.5.7.1',      '1.5.8',     'Constant in Package', 1506, 'many', 'first' );
-INSERT INTO EO VALUES ( '1.5.7.1',      '1.5.7.1.1',    '',          'Constant Specification', 1506, 'one', 'first' );
 INSERT INTO EO VALUES ( '1.5.7.1.1',    '1.5.7.1.1.1',  '1.5.7.1.2',          'Symbolic Constant', 1504, 'many', 'first' );
 INSERT INTO EO VALUES ( '1.5.7.1.1.1',  '1.5.7.1.1.1.1','',          'Leaf Symbolic Constant', 1502, 'one', 'first' );
 INSERT INTO EO VALUES ( '1.5.7.1.1.1.1','',             '',          'Literal Symbolic Constant', 1503, 'one', 'first' );
-INSERT INTO EO VALUES ( '1.5.8', 	    '',             '',          'System Constant in Package', 4403, 'many', 'first' );
 INSERT INTO EO VALUES ( '1.5.3.1.6',    '', '', 'Packageable Element', 8001, 'one', 'first', false );
 INSERT INTO EO VALUES ( '1.5.7.1.2',    '', '', 'Packageable Element', 8001, 'one', 'first', false );
 
@@ -105,9 +99,7 @@ INSERT INTO EO VALUES ( '3.3.1',''     ,   '',  'Dimensions', 531, 'many', 'firs
 INSERT INTO EO VALUES ( '3.5',	'3.5.1','3.6', 'State Machine Event', 502, 'many', 'last' );
 INSERT INTO EO VALUES ( '3.6',	'3.6.1','3.7', 'State Machine State', 501, 'many', 'first' );
 INSERT INTO EO VALUES ( '3.7',	'3.7.1','3.8', 'Transition', 505, 'many', 'last' );
-INSERT INTO EO VALUES ( '3.8',	'3.8.1','3.9', 'Action', 515, 'many', 'last' );
-INSERT INTO EO VALUES ( '3.9',	'',		'3.10', 'ISM', 0, '', 'first' );
-INSERT INTO EO VALUES ( '3.10',	'',		'', 	'ASM', 0, '', 'first' );
+INSERT INTO EO VALUES ( '3.8',	'3.8.1','', 'Action', 515, 'many', 'last' );
 
 INSERT INTO EO VALUES ( '3.5.1','',		'3.5.2',	'Polymorphic Event', 525, 'one', 'last' );
 INSERT INTO EO VALUES ( '3.5.2','3.5.2.1','',	'SEM Event', 525, 'one', 'last' );
@@ -200,7 +192,3 @@ INSERT INTO EO VALUES ( '7.4.5', 	'',			'7.4.6',			'Informal Argument', 1013, 'o
 INSERT INTO EO VALUES ( '7.4.6', 	'',			'', 				'Executable Property Argument', 1013, 'one', 'first' );
 INSERT INTO EO VALUES ( '7.6',    '', '', 'Packageable Element', 8001, 'one', 'first', false );
 
-INSERT INTO EI VALUES ( 'ISM' );
-INSERT INTO GD VALUES ( 'ISM', 'InstanceStateChartDiagram', 'State Machine', 'SM_ID' );
-INSERT INTO EI VALUES ( 'ASM' );
-INSERT INTO GD VALUES ( 'ASM', 'ClassStateChartDiagram', 'State Machine', 'SM_ID' );
