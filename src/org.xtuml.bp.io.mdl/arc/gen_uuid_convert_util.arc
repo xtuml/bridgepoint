@@ -147,61 +147,7 @@ import java.util.*;
 
 public class ${class_name} extends IDConvertor{
 
-	public UUIDMap _convertToUUID(Domain_c domain, UUIDMap inputMap, UUIDMap newMap) {
-		ModelRoot modelRoot = domain.getModelRoot();
-.select many table_set from instances of T where (selected.DomainName == "ooaofooa")
-.for each table in table_set
-   .invoke result = get_non_ref_id_col_from_table(table)
-   .if(not_empty result.col)
-       .invoke cn = get_class_name ( table )
-         .if(cn.body != "PackageableElement_c")
-        convertToUUID(modelRoot.getInstanceList(${cn.body}.class), newMap, inputMap);
-         .end if
-   .end if
-.end for
-	    .// add in packageable element it must be last
-	    convertToUUID(modelRoot.getInstanceList(PackageableElement_c.class), newMap, inputMap); 
-
-		Ooaofgraphics graphicsModelRoot = Ooaofgraphics.getInstance(modelRoot.getId());
-.select many table_set from instances of T where (selected.DomainName == "ooaofgraphics")
-.for each table in table_set
-   .invoke result = get_non_ref_id_col_from_table(table)
-   .if(not_empty result.col)
-       .invoke cn = get_class_name ( table )
-        convertToUUID(graphicsModelRoot.getInstanceList(${cn.body}.class), newMap, inputMap);
-   .end if
-.end for
-		return newMap;
-	}
-
-	protected void removeAndCacheRelocatables(Domain_c domain){
-		mesWithRelocatables.clear();
-		ModelRoot modelRoot = domain.getModelRoot();
-		
-		InstanceList instanceList = null;
-
-.select many table_set from instances of T where (selected.DomainName == "ooaofooa")
-.for each table in table_set
-   .select any col related by table->C[R5] where (selected.Name == "Action_Semantics_internal")
-   .if(not_empty col)
-       .invoke cn = get_class_name ( table )
-		instanceList = modelRoot.getInstanceList(${cn.body}.class);
-		for (Iterator i = instanceList.iterator(); i.hasNext();) {
-			${cn.body} me = (${cn.body}) i.next();
-			if(me.getAction_semantics_internal() != null){
-				String as = RelocatableTagConversionUtil.convertRelocatableTags(modelRoot, me.getAction_semantics_internal());
-				if(!as.equals(me.getAction_semantics_internal())){
-					me.setAction_semantics_internal(as);
-					mesWithRelocatables.add(me);
-				}
-			}
-		}
-		
-   .end if 
-.end for		
-	}	
-	
-	protected void updateRelocatables(Domain_c domain){
+	protected void updateRelocatables(){
 		for (NonRootModelElement me : mesWithRelocatables) {
 .select many table_set from instances of T where (selected.DomainName == "ooaofooa")
 .assign elseString = ""
@@ -278,31 +224,7 @@ public class ${class_name} extends IDConvertor{
     private static ModelRoot getGraphicsModelRoot(NonRootModelElement element){
         return Ooaofgraphics.getInstance(element.getModelRoot().getId());
     }
-    
-    
-    protected final void updateOoa_ids(Domain_c domain){
-    	ModelRoot graphicsModelRoot = getGraphicsModelRoot(domain); 
-        Model_c[] mdls = Model_c.ModelInstances(graphicsModelRoot);
-        for (int j = 0; j < mdls.length; j++)
-        {
-        	UUID newId = Cl_c.Getooaid(mdls[j].getRepresents());
-        	if(!mdls[j].getOoa_id().equals(newId)){
-        		mdls[j].setOoa_id(newId);
-        	}
-        }
-    	
-        GraphicalElement_c[] ges =
-            GraphicalElement_c.GraphicalElementInstances(graphicsModelRoot);
         
-        for (int j = 0; j < ges.length; j++)
-        {
-        	UUID newId = Cl_c.Getooaid(ges[j].getRepresents());
-        	if(!ges[j].getOoa_id().equals(newId)){
-        		ges[j].setOoa_id(newId);
-        	}
-        }
-    }    
-    
 }
 .//
 .emit to file "src/org/xtuml/bp/io/mdl/${class_name}.java"

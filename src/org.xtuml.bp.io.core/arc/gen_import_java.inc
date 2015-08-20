@@ -604,15 +604,6 @@ public class ${class_name} extends CoreImport
                 m_component.clearDatabase();
             }
         .end if
-      .else
-                .// if it is not a generation of multilevel file import.
-               Domain_c domain = Domain_c.DomainInstance(getModelRoot());
-               if (domain != null) {
-                // clear out all elements held by the model-root
-                AllActivityModifier aam = new AllActivityModifier(domain, pm);
-                aam.processAllActivities(AllActivityModifier.CLEAR);
-                getModelRoot().clearDatabase(pm);
-                }
       .end if
         }
     }
@@ -626,6 +617,10 @@ public class ${class_name} extends CoreImport
             .for each ce in configurableElements
                 .// each ce is an eo
                 .select one table related by ce->EI[R3]->T[R4]
+.// TODO: BOB debug
+.if (empty table)
+.print "ERROR! T is null on ce->EI[R3]->R[R4]. ce.Name: ${ce.Name}"
+.end if                
                 .assign className  = "$Cr{table.Name}"
                 if(actualContent.equals("${className}"))
                 {
