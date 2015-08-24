@@ -3028,7 +3028,7 @@ INSERT INTO O_BATTR
 INSERT INTO O_ATTR
 	VALUES ("759ed624-58ea-4eac-a5fb-e1144a55f799",
 	"2786d973-1537-44a1-81d6-3ddbd2377865",
-	"edbf70d8-05ec-4227-b08e-a765634cc5c3",
+	"1e9a10f8-a9d5-421b-92a1-bef27d03519d",
 	'isRealized',
 	'Full Name: Realized Component
 Description: If true, Verifier will bind to an externally supplied implementation.',
@@ -3093,6 +3093,27 @@ INSERT INTO O_ATTR
 	"ba5eda7a-def5-0000-0000-000000000005",
 	'',
 	'');
+<<<<<<< HEAD
+INSERT INTO O_NBATTR
+	VALUES ("1e9a10f8-a9d5-421b-92a1-bef27d03519d",
+	"2786d973-1537-44a1-81d6-3ddbd2377865");
+INSERT INTO O_BATTR
+	VALUES ("1e9a10f8-a9d5-421b-92a1-bef27d03519d",
+	"2786d973-1537-44a1-81d6-3ddbd2377865");
+INSERT INTO O_ATTR
+	VALUES ("1e9a10f8-a9d5-421b-92a1-bef27d03519d",
+	"2786d973-1537-44a1-81d6-3ddbd2377865",
+	"edbf70d8-05ec-4227-b08e-a765634cc5c3",
+	'Root_Package_ID',
+	'',
+	'',
+	'Root_Package_ID',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000005",
+	'',
+	'');
+=======
+>>>>>>> branch '7769_remove_sp' of https://github.com/rmulvey/bridgepoint.git
 INSERT INTO O_ID
 	VALUES (0,
 	"2786d973-1537-44a1-81d6-3ddbd2377865");

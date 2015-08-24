@@ -20,7 +20,7 @@ INSERT INTO EO VALUES ( '23.10',  '1.5.3.1.1', '23.11', 'Data Type', -1, 'many',
 INSERT INTO EO VALUES ( '23.11',  '6.2.1', '23.12',   'Interaction Participant', -1, 'many', 'first', false, false, '', false, false, '->PE_PE[R8000]->SQ_P[R8001]'  );
 INSERT INTO EO VALUES ( '23.12',  '1.14.2.1', '23.13',       'Activity Node', -1, 'many', 'first', false, false, '', false, false, '->PE_PE[R8000]->A_N[R8001]'  );
 INSERT INTO EO VALUES ( '23.13',  '2.1.1', '23.14',          'Model Class', -1, 'many', 'none', true, false, '', false, false, '->PE_PE[R8000]->O_OBJ[R8001]' );
-INSERT INTO EO VALUES ( '23.14',  '12.4.2.', '23.15',       'Component', -1, 'many', 'none', true, false, '', false, false, '->PE_PE[R8000]->C_C[R8001]'  );
+INSERT INTO EO VALUES ( '23.14',  '12.4.3', '23.15',       'Component', -1, 'many', 'none', true, false, '', false, false, '->PE_PE[R8000]->C_C[R8001]'  );
 INSERT INTO EO VALUES ( '23.15',  '12.4.8.1', '23.16',       'Component Reference', -1, 'many', 'first', false, false, '', false, false, '->PE_PE[R8000]->CL_IC[R8001]'  );
 INSERT INTO EO VALUES ( '23.16',  '14.1.3.1', '23.17',       'Interface', -1, 'many', 'none', true, false, '', false, false, '->PE_PE[R8000]->C_I[R8001]'  );
 INSERT INTO EO VALUES ( '23.17',  '', '23.18',                  'Package', -1, 'many', 'none', true, false, '', false, false, '->PE_PE[R8000]->EP_PKG[R8001]'  );
@@ -39,9 +39,9 @@ INSERT INTO EO VALUES ( '23.19.1',    '', '', 'Packageable Element', 8001, 'one'
 INSERT INTO EO VALUES ( '23.20.1',    '', '', 'Packageable Element', 8001, 'one', 'first', false );
 INSERT INTO EO VALUES ( '23.23.1',    '', '', 'Packageable Element', 8001, 'one', 'first', false );
 INSERT INTO EO VALUES ( '23.27.1',    '', '', 'Packageable Element', 8001, 'one', 'first', false );
-INSERT INTO EO VALUES ( '23.29',    '', '', 'Packageable Element', 8001, 'one', 'first', false );
+INSERT INTO EO VALUES ( '23.29',      '', '', 'Packageable Element', 8001, 'one', 'first', false );
 
-INSERT INTO EO VALUES ( '12.4.3',     '12.4.3.1',  '12.4.8',      'Port', 4010, 'many', 'first', false );             
+INSERT INTO EO VALUES ( '12.4.3',     '12.4.3.1',  '12.4.9',      'Port', 4010, 'many', 'first', false );             
 INSERT INTO EO VALUES ( '12.4.3.1',     '12.4.3.1.1',  '',      'Interface Reference', 4016, 'many', 'first', false );             
 INSERT INTO EO VALUES ( '12.4.3.1.1',   '12.4.3.1.1.1',          '12.4.3.1.2', 'Requirement', 4009, 'one', 'first', false );
 INSERT INTO EO VALUES ( '12.4.3.1.1.1', '12.4.3.1.1.1.1', '',     'Required Executable Property', 4500, 'many', 'first', false );
@@ -51,7 +51,6 @@ INSERT INTO EO VALUES ( '12.4.3.1.2',   '12.4.3.1.2.1','', 'Provision', 4009, 'o
 INSERT INTO EO VALUES ( '12.4.3.1.2.1', '12.4.3.1.2.1.1', '',     'Provided Executable Property', 4501, 'many', 'first', false );
 INSERT INTO EO VALUES ( '12.4.3.1.2.1.1', '', '12.4.3.1.2.1.2',     'Provided Signal', 4503, 'one', 'first', false );
 INSERT INTO EO VALUES ( '12.4.3.1.2.1.2', '', '',     'Provided Operation', 4503, 'one', 'first', false );
-INSERT INTO EO VALUES ( '12.4.8',       '12.4.8.1',    '12.4.9', 'Component Reference', 4205, 'many', 'first', false );
 INSERT INTO EO VALUES ( '12.4.8.1',       '12.4.8.1.1',    '12.4.8.2', 'Port Reference', 4707, 'many', 'first', false );
 INSERT INTO EO VALUES ( '12.4.8.1.1',      '12.4.8.1.1.1'  ,'', 'Imported Reference', 4708, 'many', 'first', false );
 INSERT INTO EO VALUES ( '12.4.8.1.1.1',     '12.4.8.1.1.1.1',    '12.4.8.1.1.2', 'Imported Provision', 4703, 'one', 'first', false );
@@ -60,7 +59,7 @@ INSERT INTO EO VALUES ( '12.4.8.1.1.2',       '',    '', 'Imported Requirement',
 INSERT INTO EO VALUES ( '12.4.9',   '12.4.9.1', '12.4.10',     'Delegation In Component', 9002, 'many', 'first', false );
 INSERT INTO EO VALUES ( '12.4.9.1',   '12.4.9.1.1', '',     'Delegation', 9002, 'many', 'first', false );
 INSERT INTO EO VALUES ( '12.4.9.1.1',   '', '12.4.9.1.2',     'Interface Reference In Delegation', 4013, 'many', 'first', false );
-INSERT INTO EO VALUES ( '12.4.10', '12.4.10.1',          '12.4.11',  'Satisfaction In Component', 9000, 'many', 'first', false );
+INSERT INTO EO VALUES ( '12.4.10', '12.4.10.1',          '12.4.15',  'Satisfaction In Component', 9000, 'many', 'first', false );
 INSERT INTO EO VALUES ( '12.4.10.1', '',          '',  'Satisfaction', 9000, 'many', 'first', false );
 
 INSERT INTO EO VALUES ( '12.4.8.2',    '', '', 'Packageable Element', 8001, 'one', 'first', false );
@@ -298,9 +297,12 @@ INSERT INTO EO VALUES ( '7.4.6', 	'',			'', 				'Executable Property Argument', 
 INSERT INTO EO VALUES ( '7.6',    '', '', 'Packageable Element', 8001, 'one', 'first', false );
 
 INSERT INTO EO VALUES ( '8.2', '6.2.1',  '',	  'Interaction Participant', 929, 'many', 'first' );
+-- TODO: BOB Fixme - Message in Sequence is not being persisted in GPs
 INSERT INTO EO VALUES ( '8.4', 	'8.4.1',			'',	      'Message In Sequence', 953, 'many', 'first' );
 INSERT INTO EO VALUES ( '8.4.1', 	'7.1',			'',	      'Message', 954, 'one', 'first' );
 
+--TODO: BOB Fixme - The following enrty was not persisted via GP
+--   INSERT INTO EO VALUES ( '10.4', 	'10.4.1',	   '',		'Association In Use Case', 1214, 'many', 'first' );
 INSERT INTO EO VALUES ( '10.4.1', 	'10.4.1.1',	   '',		'Use Case Association', 1215, 'one', 'first' );
 INSERT INTO EO VALUES ( '10.4.1.1', 	'',	   '10.4.1.2',		'Binary Association', 1210, 'one', 'first' );
 INSERT INTO EO VALUES ( '10.4.1.2', 	'',	   '10.4.1.3',		'Generalization', 1210, 'one', 'first' );

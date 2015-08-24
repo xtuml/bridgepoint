@@ -21,7 +21,7 @@ INSERT INTO EO VALUES ( '24.10.1',  '1.5.3.1.1', '24.10.2', 'Data Type', 8001, '
 INSERT INTO EO VALUES ( '24.10.2',  '6.2.1', '24.10.3',     'Interaction Participant', 8001, 'one', 'first', false );
 INSERT INTO EO VALUES ( '24.10.3',  '1.14.2.1', '24.10.4',       'Activity Node', 8001, 'one', 'first', false );
 INSERT INTO EO VALUES ( '24.10.4',  '2.1.1', '24.10.5',          'Model Class', 8001, 'one', 'first', true );
-INSERT INTO EO VALUES ( '24.10.5',  '12.4.2', '24.10.6',       'Component', 8001, 'one', 'first', true );
+INSERT INTO EO VALUES ( '24.10.5',  '12.4.3', '24.10.6',       'Component', 8001, 'one', 'first', true );
 INSERT INTO EO VALUES ( '24.10.6',  '12.4.8.1', '24.10.7',       'Component Reference', 8001, 'one', 'first', false );
 INSERT INTO EO VALUES ( '24.10.7',  '14.1.3.1', '24.10.8',       'Interface', 8001, 'one', 'first', false );
 INSERT INTO EO VALUES ( '24.10.8',  '', '24.10.9',                  'Package', 8001, 'one', 'none', true );
@@ -37,8 +37,7 @@ INSERT INTO EO VALUES ( '24.10.17',  '6.2.8.1', '24.10.18',  'Use Case Associati
 INSERT INTO EO VALUES ( '24.10.18',  '',        '24.10.19',  'Satisfaction', 8001, 'one', 'first', false );
 INSERT INTO EO VALUES ( '24.10.19',  '12.4.9.1.1', '',       'Delegation', 8001, 'one', 'first', false );
 
-INSERT INTO EO VALUES ( '12.4.3',     '12.4.3.1',  '12.4.8',      'Port', 4010, 'many', 'first', false );             
-INSERT INTO EO VALUES ( '12.4.5',     '12.4.3.1',          '',            'Port', 4015, 'many', 'first', false );             
+INSERT INTO EO VALUES ( '12.4.3',     '12.4.3.1',  '12.4.9',      'Port', 4010, 'many', 'first', false );             
 INSERT INTO EO VALUES ( '12.4.3.1',     '12.4.3.1.1',  '',      'Interface Reference', 4016, 'many', 'first', false );             
 INSERT INTO EO VALUES ( '12.4.3.1.1',   '12.4.3.1.1.1',          '12.4.3.1.2', 'Requirement', 4009, 'one', 'first', false );
 INSERT INTO EO VALUES ( '12.4.3.1.1.1', '12.4.3.1.1.1.1', '',     'Required Executable Property', 4500, 'many', 'first', false );
@@ -52,7 +51,6 @@ INSERT INTO EO VALUES ( '12.4.3.1.2.1.1', '12.4.3.1.2.1.1.1', '12.4.3.1.2.1.2', 
 INSERT INTO EO VALUES ( '12.4.3.1.2.1.1.1', '15',          '',          'Provided Signal Body', 686, 'one', 'first', false, false, '', false, true );
 INSERT INTO EO VALUES ( '12.4.3.1.2.1.2', '12.4.3.1.2.1.2.1', '',     'Provided Operation', 4503, 'one', 'first', false );
 INSERT INTO EO VALUES ( '12.4.3.1.2.1.2.1', '15',          '',          'Provided Operation Body', 687, 'one', 'first', false, false, '', false, true );
-INSERT INTO EO VALUES ( '12.4.8',       '12.4.8.1',    '12.4.9', 'Component Reference', 4205, 'many', 'first', false );
 INSERT INTO EO VALUES ( '12.4.8.1',       '12.4.8.1.1',    '', 'Port Reference', 4707, 'many', 'first', false );
 INSERT INTO EO VALUES ( '12.4.8.1.1',       '12.4.8.1.1.1',    '', 'Imported Reference', 4708, 'many', 'first', false );
 INSERT INTO EO VALUES ( '12.4.8.1.1.1',       '12.4.8.1.1.1.1',    '12.4.8.1.1.2', 'Imported Provision', 4703, 'one', 'first', false );
