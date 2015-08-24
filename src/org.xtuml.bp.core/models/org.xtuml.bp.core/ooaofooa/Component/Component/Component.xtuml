@@ -21,33 +21,7 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'select many importedComponents related by self->CL_IC[R4205];
-for each importedComponent in importedComponents
-  importedComponent.dispose();
-end for;
-
-select many cics related by self->CN_CIC[R4202];
-for each cic in cics
-  unrelate self from cic across R4202;
-  select one comp related by cic->C_C[R4202];
-  if not_empty comp
-    unrelate comp from cic across R4203;
-    comp.dispose();
-  end if;
-  delete object instance cic;
-end for;
-
-select one cic related by self->CN_CIC[R4203];
-if (not_empty cic) 
-  select one parent_comp related by cic->C_C[R4202];
-  if not_empty parent_comp
-    unrelate cic from parent_comp across R4202;
-  end if;
-  unrelate self from cic across R4203;
-  delete object instance cic;
-end if;
-
-select many ports related by self->C_PO[R4010];
+	'select many ports related by self->C_PO[R4010];
 for each port in ports
   unrelate self from port across R4010;
   port.dispose();
@@ -384,10 +358,6 @@ select one comp related by self->PE_PE[R8001]->C_C[R8003];
 if (not_empty comp)
   return comp.getPath(path:path, includeSelf:true);
 end if;
-  select one cic related by self->CN_CIC[R4203]->C_C[R4202];
-  if(not_empty cic)
-    return cic.getPath(path:path, includeSelf:true);
-  end if;
 return "";',
 	1,
 	'',
@@ -2273,10 +2243,7 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'select many components related by self->CN_CIC[R4202]->C_C[R4203];
-for each component in components
-  component.associateChildrenWithRootComponentPackage();
-end for;',
+	'// TODO: BOB This is an obsolete function, remove',
 	1,
 	'',
 	"5d0b245a-e779-44b7-9910-d84b198bd89d");
@@ -2515,11 +2482,6 @@ for each package in packages
 end for;
 // do the same for all children components
 select many components related by self->PE_PE[R8003]->C_C[R8001];
-for each component in components
-  component.removeIncompleteSignalEvents();
-end for;
-// and the same for old style nesting
-select many components related by self->CN_CIC[R4202]->C_C[R4203];
 for each component in components
   component.removeIncompleteSignalEvents();
 end for;
@@ -2801,14 +2763,6 @@ if(param.syncType == SynchronizationType::Pull)
     componentRef.collectReferencesForSynchronization(
                     referenceList:param.referenceList, syncType:param.syncType);
   end for;  
-  // find component references under this component specialized
-  select many componentRefs related by self->CL_IC[R4205];
-  for each componentRef in componentRefs
-    Util::addElementToList(element: componentRef.convertToInstance(),
-                                               elementList:param.referenceList);
-    componentRef.collectReferencesForSynchronization(
-                    referenceList:param.referenceList, syncType:param.syncType);
-  end for;
 else
   // find component references referring to this component
   select many componentRefs related by self->CL_IC[R4201];
@@ -2837,11 +2791,7 @@ for each port in ports
   port.collectReferencesForSynchronization(
                     referenceList:param.referenceList, syncType:param.syncType);
 end for;
-select many components related by self->CN_CIC[R4202]->C_C[R4203];
-for each component in components
-  component.collectReferencesForSynchronization(
-                    referenceList:param.referenceList, syncType:param.syncType);
-end for;',
+',
 	1,
 	'',
 	"56622f04-ae30-40fd-b857-fc6c0e983fcf");
@@ -2930,7 +2880,7 @@ INSERT INTO O_BATTR
 INSERT INTO O_ATTR
 	VALUES ("44ad7e17-9251-42cf-aa73-ac271023c8a3",
 	"2786d973-1537-44a1-81d6-3ddbd2377865",
-	"7b9804b1-294c-4909-b563-aae43167f8d6",
+	"4e7246f3-5ea6-47f5-9aa9-26083891b274",
 	'Name',
 	'Full Name: Component Name',
 	'',
@@ -3105,6 +3055,42 @@ Description: Specifies where Verifier will look for a realized executable resour
 	'Realized_Class_Path',
 	0,
 	"ba5eda7a-def5-0000-0000-000000000004",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("7bb70780-d32d-40b0-ba17-887d1d14a0fd",
+	"2786d973-1537-44a1-81d6-3ddbd2377865");
+INSERT INTO O_BATTR
+	VALUES ("7bb70780-d32d-40b0-ba17-887d1d14a0fd",
+	"2786d973-1537-44a1-81d6-3ddbd2377865");
+INSERT INTO O_ATTR
+	VALUES ("7bb70780-d32d-40b0-ba17-887d1d14a0fd",
+	"2786d973-1537-44a1-81d6-3ddbd2377865",
+	"7b9804b1-294c-4909-b563-aae43167f8d6",
+	'Package_ID',
+	'',
+	'',
+	'Package_ID',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000005",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("4e7246f3-5ea6-47f5-9aa9-26083891b274",
+	"2786d973-1537-44a1-81d6-3ddbd2377865");
+INSERT INTO O_BATTR
+	VALUES ("4e7246f3-5ea6-47f5-9aa9-26083891b274",
+	"2786d973-1537-44a1-81d6-3ddbd2377865");
+INSERT INTO O_ATTR
+	VALUES ("4e7246f3-5ea6-47f5-9aa9-26083891b274",
+	"2786d973-1537-44a1-81d6-3ddbd2377865",
+	"7bb70780-d32d-40b0-ba17-887d1d14a0fd",
+	'NestedComponent_Id',
+	'',
+	'',
+	'NestedComponent_Id',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000005",
 	'',
 	'');
 INSERT INTO O_ID
