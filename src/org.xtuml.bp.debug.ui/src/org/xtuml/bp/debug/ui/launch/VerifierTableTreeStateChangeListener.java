@@ -27,7 +27,6 @@ import java.util.Vector;
 import org.eclipse.jface.viewers.CheckStateChangedEvent;
 import org.eclipse.jface.viewers.ICheckStateListener;
 
-import org.xtuml.bp.core.ComponentInComponent_c;
 import org.xtuml.bp.core.ComponentReference_c;
 import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.Package_c;
@@ -134,23 +133,7 @@ public class VerifierTableTreeStateChangeListener implements
 
 	private NonRootModelElement[] getComponentChildren(Component_c component) {
 		ArrayList<NonRootModelElement> list = new ArrayList<NonRootModelElement>();
-		ComponentReference_c[] icomponents = ComponentReference_c
-				.getManyCL_ICsOnR4205(component);
-		for (int i = 0; i < icomponents.length; i++) {
-			if (icomponents[i].Isassigned())
-				list.add(icomponents[i]);
-		}
-		Component_c[] components = Component_c
-				.getManyC_CsOnR4203(ComponentInComponent_c
-						.getManyCN_CICsOnR4202(component));
-		for (int i = 0; i < components.length; i++) {
-			list.add(components[i]);
-			NonRootModelElement[] children = getComponentChildren(components[i]);
-			for (int j = 0; j < children.length; j++) {
-				list.add(children[j]);
-			}
-		}
-		components = Component_c.getManyC_CsOnR8001(PackageableElement_c
+		Component_c[] components = Component_c.getManyC_CsOnR8001(PackageableElement_c
 				.getManyPE_PEsOnR8003(component));
 		for (int i = 0; i < components.length; i++) {
 			list.add(components[i]);
