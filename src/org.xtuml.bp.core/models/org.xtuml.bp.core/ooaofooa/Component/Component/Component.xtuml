@@ -3093,6 +3093,7 @@ INSERT INTO O_ATTR
 	"ba5eda7a-def5-0000-0000-000000000005",
 	'',
 	'');
+<<<<<<< HEAD
 INSERT INTO O_NBATTR
 	VALUES ("1e9a10f8-a9d5-421b-92a1-bef27d03519d",
 	"2786d973-1537-44a1-81d6-3ddbd2377865");
@@ -3111,6 +3112,8 @@ INSERT INTO O_ATTR
 	"ba5eda7a-def5-0000-0000-000000000005",
 	'',
 	'');
+=======
+>>>>>>> branch '7769_remove_sp' of https://github.com/rmulvey/bridgepoint.git
 INSERT INTO O_ID
 	VALUES (0,
 	"2786d973-1537-44a1-81d6-3ddbd2377865");
