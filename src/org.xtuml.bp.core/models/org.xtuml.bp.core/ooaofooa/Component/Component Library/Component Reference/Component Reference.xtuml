@@ -130,10 +130,6 @@ INSERT INTO O_TFR
 if(not_empty comp)
   unrelate self from comp across R4201;
 end if;
-select one comp related by self->C_C[R4205];
-if (not_empty comp)
-  unrelate self from comp across R4205;
-end if;
 select many importedRefs related by self->CL_POR[R4707]->CL_IIR[R4708];
 for each importedRef in importedRefs
   importedRef.dispose();
@@ -1257,8 +1253,7 @@ if(Util::isProxy(element:component.convertToInstance()))
 end if;
 // see if the parent is missing or a proxy
 select one pe related by component->PE_PE[R8001];
-select one compParent related by component->CN_CIC[R4203];
-if(empty pe and empty compParent)
+if(empty pe)
   return false;
 end if;
 // now check to see if there are additional interface references added
@@ -1290,9 +1285,8 @@ INSERT INTO O_TFR
 // only unassign if the referenced component is a proxy
 select one component related by self->C_C[R4201];
 select one pe related by component->PE_PE[R8001];
-select one compParent related by component->CN_CIC[R4203];
 if(Util::isProxy(element:component.convertToInstance()) or
-                                   (empty pe and empty compParent))
+                                   (empty pe))
   self.unAssign();
 else
   // we need to add local imported references for any not
@@ -1339,9 +1333,8 @@ INSERT INTO O_TFR
 if(not self.isSynchronized())
   select one comp related by self->C_C[R4201]; 
   select one pe related by comp->PE_PE[R8001];
-  select one compParent related by comp->CN_CIC[R4203];
   if(Util::isProxy(element:comp.convertToInstance()) or
-                                   (empty pe and empty compParent))
+                                   (empty pe))
     // we only need to collect the unassign change
     Util::createElementChange(changeList: param.changeList,
                                         elementChanged:self.convertToInstance(),
@@ -1497,7 +1490,7 @@ INSERT INTO O_BATTR
 INSERT INTO O_ATTR
 	VALUES ("b819ae30-4d2e-458a-9ff4-77c81e4cbccf",
 	"14d6c781-a341-481a-b67d-09ec4e8b9ed3",
-	"bb116e28-b106-49aa-b480-95c153ff8155",
+	"93638175-fd20-4d81-aef4-2e7dfe154b34",
 	'Mult',
 	'Full Name: Multiplicity
 Description: Multiplicity of the component.  Indicates how many instances of the component may exist.
@@ -1629,6 +1622,89 @@ INSERT INTO O_ATTR
 	'Id',
 	0,
 	"ba5eda7a-def5-0000-0000-000000000007",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("14d6c781-a341-481a-b67d-09ec4e8b9ed3",
+	"2786d973-1537-44a1-81d6-3ddbd2377865",
+	0,
+	"7b9804b1-294c-4909-b563-aae43167f8d6",
+	"230c81c5-2647-4c33-a1ff-e0eaee2284bd",
+	"a67c3d79-3680-45a8-99d2-c595ab768947",
+	"81dbfeb3-3412-4ab1-8b67-d99d5a94fbaf",
+	"72c597ef-7745-4d5a-b3ce-7a558baf11dd",
+	"8ffc3459-7628-4879-a899-873a491d780c",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Component',
+	'Id',
+	'R4201.''represents''');
+INSERT INTO R_RGO_PROXY
+	VALUES ("14d6c781-a341-481a-b67d-09ec4e8b9ed3",
+	"230c81c5-2647-4c33-a1ff-e0eaee2284bd",
+	"a67c3d79-3680-45a8-99d2-c595ab768947",
+	'../Component Library.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("7b9804b1-294c-4909-b563-aae43167f8d6",
+	"2786d973-1537-44a1-81d6-3ddbd2377865",
+	0,
+	"230c81c5-2647-4c33-a1ff-e0eaee2284bd",
+	"81dbfeb3-3412-4ab1-8b67-d99d5a94fbaf",
+	'../Component Library.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("72c597ef-7745-4d5a-b3ce-7a558baf11dd",
+	"14d6c781-a341-481a-b67d-09ec4e8b9ed3",
+	"5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	1,
+	'Element_ID');
+INSERT INTO O_ATTR
+	VALUES ("72c597ef-7745-4d5a-b3ce-7a558baf11dd",
+	"14d6c781-a341-481a-b67d-09ec4e8b9ed3",
+	"bb116e28-b106-49aa-b480-95c153ff8155",
+	'AssignedComp_Id',
+	'',
+	'AssignedComp_',
+	'Id',
+	1,
+	"ba5eda7a-def5-0000-0000-000000000007",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("784f70f6-b1d8-4b3e-b977-d6e45af6a5c8",
+	"14d6c781-a341-481a-b67d-09ec4e8b9ed3");
+INSERT INTO O_BATTR
+	VALUES ("784f70f6-b1d8-4b3e-b977-d6e45af6a5c8",
+	"14d6c781-a341-481a-b67d-09ec4e8b9ed3");
+INSERT INTO O_ATTR
+	VALUES ("784f70f6-b1d8-4b3e-b977-d6e45af6a5c8",
+	"14d6c781-a341-481a-b67d-09ec4e8b9ed3",
+	"72c597ef-7745-4d5a-b3ce-7a558baf11dd",
+	'ParentComp_Id',
+	'',
+	'',
+	'ParentComp_Id',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000005",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("93638175-fd20-4d81-aef4-2e7dfe154b34",
+	"14d6c781-a341-481a-b67d-09ec4e8b9ed3");
+INSERT INTO O_BATTR
+	VALUES ("93638175-fd20-4d81-aef4-2e7dfe154b34",
+	"14d6c781-a341-481a-b67d-09ec4e8b9ed3");
+INSERT INTO O_ATTR
+	VALUES ("93638175-fd20-4d81-aef4-2e7dfe154b34",
+	"14d6c781-a341-481a-b67d-09ec4e8b9ed3",
+	"784f70f6-b1d8-4b3e-b977-d6e45af6a5c8",
+	'Component_Package_ID',
+	'',
+	'',
+	'Component_Package_ID',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000005",
 	'',
 	'');
 INSERT INTO O_ID

@@ -36,7 +36,6 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.WorkbenchException;
 
-import org.xtuml.bp.core.ComponentInComponent_c;
 import org.xtuml.bp.core.ComponentInstance_c;
 import org.xtuml.bp.core.ComponentReference_c;
 import org.xtuml.bp.core.Component_c;
@@ -163,22 +162,6 @@ public class BPDebugUtils {
 	public static NonRootModelElement[] getComponentChildren(
 			Component_c component) {
 		List<NonRootModelElement> children = new ArrayList<NonRootModelElement>();
-		Component_c[] componentChildren = Component_c
-				.getManyC_CsOnR4203(ComponentInComponent_c
-						.getManyCN_CICsOnR4202(component));
-		for (int i = 0; i < componentChildren.length; i++) {
-			children.add(componentChildren[i]);
-			NonRootModelElement[] nextChildren = getComponentChildren(componentChildren[i]);
-			for (int j = 0; j < nextChildren.length; j++) {
-				children.add(nextChildren[j]);
-			}
-		}
-		ComponentReference_c[] importedCompChildren = ComponentReference_c
-				.getManyCL_ICsOnR4205(component);
-		for (int i = 0; i < importedCompChildren.length; i++) {
-			if (importedCompChildren[i].Isassigned())
-				children.add(importedCompChildren[i]);
-		}
 		Component_c[] genericComponentChildren = Component_c
 				.getManyC_CsOnR8001(PackageableElement_c
 						.getManyPE_PEsOnR8003(component));
