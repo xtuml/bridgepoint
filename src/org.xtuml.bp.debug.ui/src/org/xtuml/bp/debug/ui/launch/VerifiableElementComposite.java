@@ -60,7 +60,6 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.TreeColumn;
 import org.eclipse.swt.widgets.TreeItem;
 
-import org.xtuml.bp.core.ComponentInComponent_c;
 import org.xtuml.bp.core.ComponentReference_c;
 import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.CorePlugin;

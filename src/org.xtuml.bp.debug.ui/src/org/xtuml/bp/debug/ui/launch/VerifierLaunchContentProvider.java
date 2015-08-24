@@ -7,7 +7,6 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
 
-import org.xtuml.bp.core.ComponentInComponent_c;
 import org.xtuml.bp.core.ComponentReference_c;
 import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.Ooaofooa;
@@ -147,11 +146,6 @@ public class VerifierLaunchContentProvider implements ITreeContentProvider {
     } else if (element instanceof SystemModel_c) {
       return Ooaofooa.getDefaultInstance();
     } else if (element instanceof Component_c) {
-      Component_c comp = Component_c.getOneC_COnR4202(ComponentInComponent_c
-          .getOneCN_CICOnR4203((Component_c) element));
-      if (comp != null) {
-        return comp;
-      }
       Package_c parentPkg = Package_c.getOneEP_PKGOnR8000(PackageableElement_c
           .getOnePE_PEOnR8001((Component_c) element));
       if (parentPkg != null) {
@@ -164,11 +158,6 @@ public class VerifierLaunchContentProvider implements ITreeContentProvider {
         return parentComp;
       }
     } else if (element instanceof ComponentReference_c) {
-      Component_c comp = Component_c
-          .getOneC_COnR4205((ComponentReference_c) element);
-      if (comp != null) {
-        return comp;
-      }
       Package_c parentPkg = Package_c.getOneEP_PKGOnR8000(PackageableElement_c
           .getOnePE_PEOnR8001((ComponentReference_c) element));
       if (parentPkg != null) {
