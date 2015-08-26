@@ -28,35 +28,6 @@ INSERT INTO GD_MD
 	'4.1.17',
 	'org.xtuml.bp.core::ooaofooa::Sequence');
 INSERT INTO GD_GE
-	VALUES ("cb11214d-4fee-4611-9af2-24213018f6bb",
-	"7708ee41-30ac-4372-8130-526249e012d1",
-	"4c174bec-da4a-48a7-a002-1a037035f6c2",
-	23,
-	0,
-	'org.xtuml.bp.core::ooaofooa::Sequence::Interaction Participant');
-INSERT INTO GD_SHP
-	VALUES ("cb11214d-4fee-4611-9af2-24213018f6bb");
-INSERT INTO GD_NCS
-	VALUES ("cb11214d-4fee-4611-9af2-24213018f6bb");
-INSERT INTO DIM_ND
-	VALUES (312.000000,
-	120.000000,
-	"cb11214d-4fee-4611-9af2-24213018f6bb");
-INSERT INTO DIM_GE
-	VALUES (4380.000000,
-	3204.000000,
-	"cb11214d-4fee-4611-9af2-24213018f6bb",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO DIM_ELE
-	VALUES ("cb11214d-4fee-4611-9af2-24213018f6bb",
-	0,
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO DIM_CON
-	VALUES ("f9ee2cb0-4cc1-488f-97e2-f85b56637f1a",
-	4548.000000,
-	3204.000000,
-	"cb11214d-4fee-4611-9af2-24213018f6bb");
-INSERT INTO GD_GE
 	VALUES ("3db1e562-cbfb-47c6-9765-6b109844418b",
 	"7708ee41-30ac-4372-8130-526249e012d1",
 	"89b76e43-1347-48ee-be64-538e83218d50",
@@ -311,28 +282,6 @@ INSERT INTO PE_PE
 	"879e1557-8556-43dd-8cfd-1e141091172d",
 	"00000000-0000-0000-0000-000000000000",
 	9);
-INSERT INTO O_IOBJ
-	VALUES ("4c174bec-da4a-48a7-a002-1a037035f6c2",
-	"0b1fad94-33b5-4bb3-8fb7-d1cc2d9b7b94",
-	0,
-	"00000000-0000-0000-0000-000000000000",
-	'Interaction Participant',
-	'SQ_P');
-INSERT INTO PE_PE
-	VALUES ("4c174bec-da4a-48a7-a002-1a037035f6c2",
-	1,
-	"879e1557-8556-43dd-8cfd-1e141091172d",
-	"00000000-0000-0000-0000-000000000000",
-	19);
-INSERT INTO O_OBJ_PROXY
-	VALUES ("0b1fad94-33b5-4bb3-8fb7-d1cc2d9b7b94",
-	'Interaction Participant',
-	914,
-	'SQ_P',
-	'The class represents a participant of a sequence.  The possible participants are
-Class Instance, Class, Function Package, External Entity, and Lifespan.',
-	"00000000-0000-0000-0000-000000000000",
-	'../Interaction/Interaction Participant/Interaction Participant.xtuml');
 INSERT INTO O_IOBJ
 	VALUES ("89b76e43-1347-48ee-be64-538e83218d50",
 	"77d1cb23-9b16-462c-99a7-0df500aade81",
