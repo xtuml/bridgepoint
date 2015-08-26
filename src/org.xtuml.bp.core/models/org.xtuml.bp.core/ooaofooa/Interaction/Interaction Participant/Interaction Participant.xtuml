@@ -16,7 +16,6 @@ INSERT INTO O_TFR
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select one eep related by self->SQ_EEP[R930];
-select one fpp related by self->SQ_FPP[R930];
 select one cp related by self->SQ_CP[R930];
 select one cip related by self->SQ_CIP[R930];
 select one ls related by self->SQ_LS[R930];
@@ -31,10 +30,6 @@ end if;
 if(not_empty eep)
   unrelate self from eep across R930;
   eep.dispose();
-end if;
-if(not_empty fpp)
-  unrelate self from fpp across R930;
-  fpp.dispose();
 end if;
 if(not_empty pp)
   unrelate self from pp across R930;
