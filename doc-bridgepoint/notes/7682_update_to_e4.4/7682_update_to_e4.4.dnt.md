@@ -19,16 +19,16 @@ moving BridgePoint onto eclipse 4.
 [2] [P2 Director Help](http://help.eclipse.org/juno/index.jsp?topic=%2Forg.eclipse.platform.doc.isv%2Fguide%2Fp2_director.html)  
 [3] [Java 8 Downloads](http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html  
 )  
-[4] [Bug #7758 - Invalid install dir in mingwgnu.bat](https://support.onefact.net/redmine/issues/7758)  
+[4] [DEI #7758 - Invalid install dir in mingwgnu.bat](https://support.onefact.net/redmine/issues/7758)  
 [5] [Stackoverflow - grammar files .g compatibility frome Antlr 2.7 to 4?](http://stackoverflow.com/questions/31115588/grammar-files-g-compatibility-frome-antlr-2-7-to-4)  
 [6] [HOWTO Update and Install Eclipse Base Components](https://github.com/xtuml/bridgepoint/blob/7682_update_to_e4.4/doc-bridgepoint/process/HOWTO-update-install-eclipse-base-components.md)  
-[7] [Move BridgePoint onto eclipse 4](https://support.onefact.net/redmine/issues/36)  
+[7] [DEI #36 - Move BridgePoint onto eclipse 4](https://support.onefact.net/redmine/issues/36)  
 
 3. Background
 -------------
 This work is a substep in a larger task to move to BridgePoint onto eclipse 4 [7]. 
 Prior steps in this larger task reconfigured the BridgePoint source code to 
-work in both eclipse 3.7 and eclipse 4.x.  Prior work also added ant Eclipse 
+work in both eclipse 3.7 and eclipse 4.x.  Prior work also added an Eclipse 
 Modeling Tools version of eclipse 4.4 (Luna) to the xtuml/packaging repository. 
 
 4. Requirements
@@ -101,11 +101,15 @@ $ /opt/xtuml/BridgePoint_e4.4/eclipse/eclipse -application org.eclipse.equinox.p
 7.1  Fixed [4], a typo in mingwgnu.bat and Launcher.bat  
 7.2  Updated the HOWTO Install Components document [6] into xtuml/bridgepoint repository.  We had
    an old and outdated version in the xtuml/internal repository.  
-  
+7.3  The move to JRE 8 could be done as a stand-alone step to assure that the update 
+  does not have any fallout.  We are choosing to perform the JRE 8 update and the Eclipse 4 
+  update together.  If we have problems in the next step, we can perform the JRE 8 update 
+  as a standalone step in the old Eclipse 3.7 base and re-run tests there.  
+    
 8. Unit Test
 ------------
 8.1  Successfully run a branch build on the build server of 7682_update_to_e4.4  
-8.2  Using the server build  
+8.2  Using the BridgePoint server built package (Windows & Linux)  
 8.2.1  Successfully run the BridgePoint Launcher with no dependency errors raised  
 8.2.2  Successfully open the xtUML Modeling perspective  
 8.2.3  Successfully create a new xtUML project  
