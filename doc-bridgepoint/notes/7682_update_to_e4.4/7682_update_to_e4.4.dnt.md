@@ -4,7 +4,7 @@ This work is licensed under the Creative Commons CC0 License
 
 ---
 
-# Title goes here
+# Package BridgePoint into an Eclipse 4.4 base
 ### xtUML Project Design Note
 
 
@@ -22,9 +22,11 @@ moving BridgePoint onto eclipse 4.
 [4] [Bug #7758 - Invalid install dir in mingwgnu.bat](https://support.onefact.net/redmine/issues/7758)  
 [5] [Stackoverflow - grammar files .g compatibility frome Antlr 2.7 to 4?](http://stackoverflow.com/questions/31115588/grammar-files-g-compatibility-frome-antlr-2-7-to-4)  
 [6] [HOWTO Update and Install Eclipse Base Components](https://github.com/xtuml/bridgepoint/blob/7682_update_to_e4.4/doc-bridgepoint/process/HOWTO-update-install-eclipse-base-components.md)  
+[7] [Move BridgePoint onto eclipse 4](https://support.onefact.net/redmine/issues/36)  
 
 3. Background
 -------------
+This work is a substep in a larger task to move to BridgePoint onto eclipse 4 [7]. 
 Prior steps in this larger task reconfigured the BridgePoint source code to 
 work in both eclipse 3.7 and eclipse 4.x.  Prior work also added ant Eclipse 
 Modeling Tools version of eclipse 4.4 (Luna) to the xtuml/packaging repository. 
@@ -57,17 +59,17 @@ Modeling Tools version of eclipse 4.4 (Luna) to the xtuml/packaging repository.
 6.3 Update ```eclipse.ini```  
   Clean out redundant settings and fix splash screen display.   
 
-6.4  Update build order in ``bridgepoint/utilities/build/preferences/org.eclipse.core.resources.prefs```  
-6.4.1  Move up ```bp.ui.text``` as other ```ui.*``` projects depend on it  
-6.4.2  Add ```bp.welcome``` ahead of ```bp.core.test``` to satisfy dependency  
+6.4  Update build order in ```bridgepoint/utilities/build/preferences/org.eclipse.core.resources.prefs```   
+6.4.1  Move up ```bp.ui.text``` as other ```ui.*``` projects depend on it    
+6.4.2  Add ```bp.welcome``` ahead of ```bp.core.test``` to satisfy dependency     
 6.4.3  Remove build order in ```bridgepoint/utilities/build/plugin_customization.ini```.  This order
   is not used and is confusing to have laying around.   
 
 6.5  Add needed packages to the eclipse base   
   The commands presented in the following subitems are what I used on my system.  Obviously, paths would
   need to change to run the same commands on a different system.  Also note that I specifically chose to 
-  run the eclipse directory from an installed eclipse while targeting the install into a completely different
-  eclipse that lived under the git repository.  This was done so that eclipse runtime configuration data (that is
+  run the p2.director from an installed eclipse while targeting the install into a completely different
+  eclipse that lives under the git repository.  This was done so that eclipse runtime configuration data (that is
   written when you run eclipse) was not written into our pristine install data.   
 6.5.1 Add CDT  
 ```
@@ -82,10 +84,9 @@ $ /opt/xtuml/BridgePoint_e4.4/eclipse/eclipse -application org.eclipse.equinox.p
 6.5.3.1  I considered moving to a newer version of antlr plugins.   However, after 
   doing some research I discovered that antlr 4 grammars are not compatible with 
   antlr 2 grammars. See [5].  
-6.5.3.2  Additionally, the author of the antlr 2 plugins for eclipse also created 
-  the antlr 3 (and 4) plugins.  I discovered that the antlr 3 plug-in set provided 
-  no tangible advantage over the plugins we use already.  The version 3 plugins also have
-  some extra dependencies to other eclipse packages that we would have to add.  
+6.5.3.2  The antlr 3 plug-in set seems to provide no tangible advantage for us
+  over the plugins we use already.  The version 3 plugins also have
+  some extra dependencies to other eclipse packages that we would have to add to our eclipse base.  
 6.5.3.3  In the end, I decided it made the most sense to install the very small and 
   simple eclipse 2.x compatibility feature rather than attempt to move to antlr4 or 
   the antlr3 plugins at this time.  
@@ -99,7 +100,7 @@ $ /opt/xtuml/BridgePoint_e4.4/eclipse/eclipse -application org.eclipse.equinox.p
 ------------------
 7.1  Fixed [4], a typo in mingwgnu.bat and Launcher.bat  
 7.2  Updated the HOWTO Install Components document [6] into xtuml/bridgepoint repository.  We had
-   and old and outdated version in the xtuml/internal repository.  
+   an old and outdated version in the xtuml/internal repository.  
   
 8. Unit Test
 ------------
