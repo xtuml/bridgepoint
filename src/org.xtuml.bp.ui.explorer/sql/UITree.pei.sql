@@ -53,7 +53,6 @@ INSERT INTO T_TNS VALUES (40, '', 'MSG_A', '', 'Label', '', 'Class Message Argum
 INSERT INTO T_TNS VALUES (41, '', 'MSG_A', '', 'Label', '', 'Bridge Message Arguments', false);
 INSERT INTO T_TNS VALUES (37, '', 'SQ_CP', '', 'Label', '', 'Imported Classes', false);
 INSERT INTO T_TNS VALUES (38, '', 'SQ_EEP', '', 'Label', '', 'Imported External Entities', false);
-INSERT INTO T_TNS VALUES (39, '', 'SQ_FPP', '', 'Label', '', 'Imported Function Packages', false);
 INSERT INTO T_TNS VALUES (84, '', 'SQ_PP', '', 'Label', '',  'Imported Packages', false);
 INSERT INTO T_TNS VALUES (46, '', 'SQ_CPA', '', 'Name', '', 'Informal Class Attributes', false);
 INSERT INTO T_TNS VALUES (47, '', 'SQ_AV', '', 'Label', '', 'Formal Instance Attributes', false);
@@ -161,11 +160,6 @@ INSERT INTO T_TPS VALUES (38, 33, '->SQ_P[R930]->SQ_LS[R940]->SQ_P[R930]->MSG_M[
 INSERT INTO T_TPS VALUES (38, 48, '->SQ_P[R930]->SQ_LS[R940]->SQ_P[R930]->MSG_M[R1007]->MSG_R[R1018]');
 INSERT INTO T_TPS VALUES (38, 33, '->SQ_P[R930]->MSG_M[R1007]->MSG_SM[R1018]');
 INSERT INTO T_TPS VALUES (38, 48, '->SQ_P[R930]->MSG_M[R1007]->MSG_R[R1018]');
-
-INSERT INTO T_TPS VALUES (39, 33, '->SQ_P[R930]->MSG_M[R1007]->MSG_SM[R1018]');
-INSERT INTO T_TPS VALUES (39, 48, '->SQ_P[R930]->MSG_M[R1007]->MSG_R[R1018]');
-INSERT INTO T_TPS VALUES (39, 33, '->SQ_P[R930]->SQ_LS[R940]->SQ_P[R930]->MSG_M[R1007]->MSG_SM[R1018]');
-INSERT INTO T_TPS VALUES (39, 48, '->SQ_P[R930]->SQ_LS[R940]->SQ_P[R930]->MSG_M[R1007]->MSG_R[R1018]');
 
 INSERT INTO T_TPS VALUES (84, 33, '->SQ_P[R930]->SQ_LS[R940]->SQ_P[R930]->MSG_M[R1007]->MSG_SM[R1018]');
 INSERT INTO T_TPS VALUES (84, 48, '->SQ_P[R930]->SQ_LS[R940]->SQ_P[R930]->MSG_M[R1007]->MSG_R[R1018]');

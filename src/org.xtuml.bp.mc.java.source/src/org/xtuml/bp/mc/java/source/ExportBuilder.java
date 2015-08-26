@@ -30,6 +30,7 @@ import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.ui.preferences.BridgePointProjectReferencesPreferences;
 import org.xtuml.bp.io.core.CoreExport;
+import org.xtuml.bp.io.mdl.ExportModelStream;
 import org.xtuml.bp.mc.AbstractActivator;
 import org.xtuml.bp.mc.AbstractExportBuilder;
 import org.xtuml.bp.mc.AbstractNature;

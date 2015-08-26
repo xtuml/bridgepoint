@@ -711,13 +711,6 @@ ${setSize.body}
                 pm.worked(1);
     .end if
         }
-      .// this call must be before the unique id check below
-      .// found within the if test below
-    .if(multilevel)  
-        loadedInstances.addAll( helper.upgradePackages(getRootModelElement(), getModelRoot()) );
-    .else
-        helper.upgradePackages(getRootModelElement(), getModelRoot());
-    .end if
     .if((multilevel) and (not setComponent))
             // upgrade 7.1.4 satisfactions
             if(actualVersion.equals(bp7_1_4VersionNumber))
@@ -819,42 +812,6 @@ ${setSize.body}
 
         pm.worked(1);
         // see if the domains id is unique
-    .if (callingProject == "BP")
-        // Move root domain items into Tiger-compatible packages
-        Function_c [] fns = Function_c.getManyS_SYNCsOnR23(d2);
-        if ( fns.length > 0 ){
-          FunctionPackage_c fpk = createDefaultFunctionPackage(modelRoot);
-          for (int i =0; i < fns.length; i++){
-            FunctionInPackage_c fip = new FunctionInPackage_c(modelRoot);
-            fpk.relateAcrossR31To(fip);
-            fip.relateAcrossR31To(fns[i]);
-          }
-        }
-        DataType_c[] dts = DataType_c.DataTypeInstances(modelRoot);
-        if ( dts.length > 0 ) {
-          DataTypePackage_c dpk = createDefaultDataTypePackage(modelRoot);
-          for (int i = 0; i < dts.length; i++) {
-            DataTypeInPackage_c dip = new DataTypeInPackage_c(modelRoot);
-            dpk.relateAcrossR39To(dip);
-            dip.relateAcrossR39To(dts[i]);
-          }
-        }
-        ExternalEntity_c[] ees = ExternalEntity_c.getManyS_EEsOnR8(d2);
-        if ( ees.length > 0 ) {
-          ExternalEntityPackage_c epk = createDefaultExternalEntityPackage(modelRoot);
-          for (int i = 0; i < ees.length; i++) {
-            ExternalEntityInPackage_c eip = new ExternalEntityInPackage_c(modelRoot);
-            epk.relateAcrossR33To(eip);
-            eip.relateAcrossR33To(ees[i]);
-          }
-        }
-        Subsystem_c[] sss = Subsystem_c.getManyS_SSsOnR1(d2);
-        for (int i = 0; i < sss.length; i++){
-            SubsystemInDomain_c sid = new SubsystemInDomain_c(modelRoot);
-            d2.relateAcrossR43To(sid);
-            sid.relateAcrossR43To(sss[i]);
-        }
-    .end if
         ModelClass_c [] mc_set = ModelClass_c.ModelClassInstances(modelRoot);
         for (int i = 0; i < mc_set.length; i++)
         {
@@ -875,11 +832,6 @@ ${setSize.body}
         .end if
         setGraphicalRepresents();
         pm.done();
-        if(m_parseAll){
-        AllActivityModifier aam = new AllActivityModifier(d2, pm);
-        aam.processAllActivities(AllActivityModifier.PARSE);
-      }
-
     .end if
         Ooaofooa mr = Ooaofooa.getDefaultInstance();
         Ooaofgraphics gmr = Ooaofgraphics.getDefaultInstance();
@@ -893,13 +845,11 @@ ${setSize.body}
         helper.createShapeSubtypes(getGraphicsModelRoot());
         loadedInstances.addAll(helper.upgradeTransitions(loadedInstances));
         helper.upgradeEventData(getModelRoot(), getRootModelElement());
-        helper.upgradeLifespans(getRootModelElement());
         helper.upgradeElementOrder(getModelRoot());
         helper.upgradeEEsForIsRealized();
 		.if(multilevel or setComponent)
 		loadedInstances.addAll(helper.upgradeDatatypes(loadedInstances));
 		loadedInstances.addAll(helper.upgradeSystemLevelPackages(loadedInstances));
-		loadedInstances.addAll(helper.upgradeNestedPackages(getRootModelElement()));
 	    loadedInstances.addAll(helper.addLinkClassesForContainment(loadedInstances));
 		helper.removeSupertypePackageableElement(loadedInstances);
 		helper.upgradeGraphicalAnchors(loadedGraphicsInstances);

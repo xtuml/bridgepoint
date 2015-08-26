@@ -67,7 +67,6 @@ INSERT INTO T_TNS VALUES (83, 'ExternalEntityEventData.gif',    'S_EEEDT',  '', 
 INSERT INTO T_TNS VALUES (86, 'Instance.gif', 'SQ_CIP',  '', 'Name', '', 'Instances', -1, '');
 INSERT INTO T_TNS VALUES (87, 'Attribute.gif', 'SQ_AV',  '', 'Label', '', 'Formal Instance Attribute Values', -1, '', 'InformalName');
 INSERT INTO T_TNS VALUES (88, 'ImportedExternalEntity.gif', 'SQ_EEP',  '', 'Label', '', 'Imported External Entities', -1, '', 'InformalName');
-INSERT INTO T_TNS VALUES (89, 'ImportedFunctionPackage.gif', 'SQ_FPP',  '', 'Label', '', 'Imported Function Packages', -1, '', 'InformalName');
 INSERT INTO T_TNS VALUES (304,'Package.gif', 'SQ_PP',  '', 'Label', '', 'Imported Packages', -1, '', 'InformalName');
 INSERT INTO T_TNS VALUES (90, 'ImportedClass.gif', 'SQ_CP',  '', 'Label', '', 'Imported Classes', -1, '', 'InformalName');
 INSERT INTO T_TNS VALUES (91, 'Lifespan.gif', 'SQ_LS',  '', '', '', 'Lifespans', -1, '');
@@ -261,8 +260,6 @@ INSERT INTO T_TPS VALUES (151, 104, 90, '->SQ_P[R1133]->SQ_CP[R930]', 'Link Star
 INSERT INTO T_TPS VALUES (152, 104, 90, '->SQ_P[R1134]->SQ_CP[R930]', 'Link End', false, false, '', '', false, 0, '(referential == null)');
 INSERT INTO T_TPS VALUES (153, 104, 88, '->SQ_P[R1133]->SQ_EEP[R930]', 'Link Start', false, false, '', '', false, 0, '(referential == null)');
 INSERT INTO T_TPS VALUES (154, 104, 88, '->SQ_P[R1134]->SQ_EEP[R930]', 'Link End', false, false, '', '', false, 0, '(referential == null)');
-INSERT INTO T_TPS VALUES (155, 104, 89, '->SQ_P[R1133]->SQ_FPP[R930]', 'Link Start', false, false, '', '', false, 0, '(referential == null)');
-INSERT INTO T_TPS VALUES (156, 104, 89, '->SQ_P[R1134]->SQ_FPP[R930]', 'Link End', false, false, '', '', false, 0, '(referential == null)');
 INSERT INTO T_TPS VALUES (157, 104, 101, '->SQ_P[R1133]->SQ_AP[R930]', 'Link Start', false, false, '', '', false, 0, '(referential == null)');
 INSERT INTO T_TPS VALUES (158, 104, 101, '->SQ_P[R1134]->SQ_AP[R930]', 'Link End', false, false, '', '', false, 0, '(referential == null)');
 INSERT INTO T_TPS VALUES (343, 104, 296, '->SQ_P[R1133]->SQ_COP[R930]', 'Link Start', false, false, '', '', false, 0, '(referential == null)');

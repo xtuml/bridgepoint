@@ -64,6 +64,7 @@ import org.xtuml.bp.debug.ui.actions.ExecuteAction;
 import org.xtuml.bp.debug.ui.launch.BPDebugUtils;
 import org.xtuml.bp.debug.ui.launch.VerifierLaunchConfiguration;
 import org.xtuml.bp.ui.explorer.ExplorerView;
+import org.xtuml.bp.ui.session.views.SessionExplorerView;
 import org.xtuml.bp.utilities.ui.ProjectUtilities;
 import org.xtuml.bp.utilities.ui.CanvasUtilities;
 

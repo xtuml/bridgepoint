@@ -41,7 +41,6 @@ import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.ExternalEntityParticipant_c;
 import org.xtuml.bp.core.ExternalEntity_c;
-import org.xtuml.bp.core.FunctionPackageParticipant_c;
 import org.xtuml.bp.core.InstanceStateMachine_c;
 import org.xtuml.bp.core.InteractionParticipant_c;
 import org.xtuml.bp.core.Lifespan_c;
@@ -202,11 +201,6 @@ public class EditorUtil
 					.getOneSQ_EEPOnR930(part);
         	if(eep != null) {
         		return getElementToEdit(eep);
-        	}
-        	FunctionPackageParticipant_c fpp = FunctionPackageParticipant_c
-					.getOneSQ_FPPOnR930(part);
-        	if(fpp != null) {
-        		return getElementToEdit(fpp);
         	}
         	PackageParticipant_c pp = PackageParticipant_c
 			.getOneSQ_PPOnR930(part);

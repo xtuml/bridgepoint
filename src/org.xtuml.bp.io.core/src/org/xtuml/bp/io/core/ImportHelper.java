@@ -1030,8 +1030,8 @@ public class ImportHelper
             // the new one which has all the correct values.
             component.delete_unchecked();
             component = new Component_c(modelRoot, pkg_id,
-                    Gd_c.Null_unique_id(), old_comp.Name, old_comp.Descrip, 0,
-                    false, "");
+                    Gd_c.Null_unique_id(), Gd_c.Null_unique_id(), old_comp.Name, old_comp.Descrip, 0,
+                    Gd_c.Null_unique_id(), false, "");
             component.batchRelate(modelRoot, false, true);
             final PersistableModelComponent persistableComponent = component.getPersistableComponent();
             persistableComponent.setRootModelElement(component);
@@ -1573,7 +1573,7 @@ public class ImportHelper
                 
                 final ComponentReference_c clic = new ComponentReference_c(cdic.ModelRoot,
                         cdic.Id, Gd_c.Null_unique_id(), 
-                        cde.Id, cdic.Mult, cdic.ClassifierName,
+                        cde.Id, Gd_c.Null_unique_id(), cdic.Mult, cdic.ClassifierName,
                         "", cdic.Descrip); 
                 clic.batchRelate(cdic.ModelRoot, false, true);
                 if(clic.Canassigntocomp(component.getId(), true))
