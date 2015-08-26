@@ -296,7 +296,7 @@ end if;
 return false;',
 	1,
 	'',
-	"c6ea855a-924f-4437-8266-772dc10faff5");
+	"b3bb0f76-820b-4040-a53b-141dcdc6e300");
 INSERT INTO O_TPARM
 	VALUES ("80c99cbe-2bc5-4ac0-8699-a9302056eb4b",
 	"ebeb9217-5098-4c6f-82e4-b7a4d33406c2",
@@ -314,36 +314,6 @@ INSERT INTO O_TPARM
 	0,
 	'',
 	"80c99cbe-2bc5-4ac0-8699-a9302056eb4b",
-	'');
-INSERT INTO O_TFR
-	VALUES ("c6ea855a-924f-4437-8266-772dc10faff5",
-	"ead52fac-9782-434b-a35c-c07452c3b26d",
-	'isAllowedParameterType',
-	'',
-	"ba5eda7a-def5-0000-0000-000000000001",
-	0,
-	'// TODO: BOB remove this function and all places that invoke it
-return false;',
-	1,
-	'',
-	"b3bb0f76-820b-4040-a53b-141dcdc6e300");
-INSERT INTO O_TPARM
-	VALUES ("bb00d6e9-a915-4844-a57f-e2d7ed5c5e28",
-	"c6ea855a-924f-4437-8266-772dc10faff5",
-	'typeName',
-	"ba5eda7a-def5-0000-0000-000000000004",
-	0,
-	'',
-	"00000000-0000-0000-0000-000000000000",
-	'');
-INSERT INTO O_TPARM
-	VALUES ("39d39857-57a3-49d5-9af0-03f2b1003fad",
-	"c6ea855a-924f-4437-8266-772dc10faff5",
-	'dom_id',
-	"ba5eda7a-def5-0000-0000-000000000005",
-	0,
-	'',
-	"bb00d6e9-a915-4844-a57f-e2d7ed5c5e28",
 	'');
 INSERT INTO O_TFR
 	VALUES ("223070b1-d040-4076-bcc0-cb4c2145e1b4",

@@ -24,7 +24,7 @@ INSERT INTO GD_MD
 	200,
 	150,
 	0,
-	'3.2.0',
+	'4.1.17',
 	'org.xtuml.bp.core::ooaofooa::Functions::Context Menu Entry Functions');
 INSERT INTO DIM_DIA
 	VALUES ("68fd52b9-4f29-4487-97eb-392d8adfb0aa",
@@ -1268,51 +1268,6 @@ INSERT INTO PE_PE
 	"00000000-0000-0000-0000-000000000000",
 	1);
 INSERT INTO S_SYNC
-	VALUES ("52c2d0c6-465a-4057-bf3f-ddb243938da3",
-	"00000000-0000-0000-0000-000000000000",
-	'SQ_FPP_Delete',
-	'ContextMenuFunction: TRUE',
-	'select many participants from instances of SQ_FPP where USER::selectOne(id:selected.Part_ID);
-for each participant in participants
-  participant.dispose();
-end for;',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("52c2d0c6-465a-4057-bf3f-ddb243938da3",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("250d56f6-23a2-4d11-97f2-65b633a7b345",
-	"00000000-0000-0000-0000-000000000000",
-	'SQ_FPP_Rename',
-	'ContextMenuFunction: TRUE',
-	'select any participant from instances of SQ_FPP where USER::selectOne(id:selected.Part_ID);
-if(not_empty participant)
-  participant.InformalName = param.new_name;
-end if;',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO S_SPARM
-	VALUES ("8718cf0a-8e59-4af2-b932-a7e94ef09f46",
-	"250d56f6-23a2-4d11-97f2-65b633a7b345",
-	'new_name',
-	"ba5eda7a-def5-0000-0000-000000000004",
-	0,
-	'',
-	"00000000-0000-0000-0000-000000000000",
-	'');
-INSERT INTO PE_PE
-	VALUES ("250d56f6-23a2-4d11-97f2-65b633a7b345",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
 	VALUES ("65488f7d-9e02-4b27-8c66-7b0b7a42c893",
 	"00000000-0000-0000-0000-000000000000",
 	'SQ_CIP_Delete',
@@ -1564,26 +1519,6 @@ INSERT INTO PE_PE
 	"00000000-0000-0000-0000-000000000000",
 	1);
 INSERT INTO S_SYNC
-	VALUES ("edb07e8e-9af2-4ed5-8752-e90a65d2288f",
-	"00000000-0000-0000-0000-000000000000",
-	'SQ_FPP_Formalize',
-	'ContextMenuFunction: TRUE',
-	'select any fpp from instances of SQ_FPP where USER::selectOne(id:selected.Part_ID);
-select one existingElement related by fpp->SQ_P[R930]
-                                 where USER::selectExisting(id:selected.Part_ID);
-if (not_empty existingElement)                                 
-  fpp.formalize(fpId:existingElement.Part_ID);
-end if;',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("edb07e8e-9af2-4ed5-8752-e90a65d2288f",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
 	VALUES ("17d4bb17-f82e-454f-adbd-3eb4e3e68770",
 	"00000000-0000-0000-0000-000000000000",
 	'SQ_CIP_NewAttribute',
@@ -1632,33 +1567,6 @@ end if;',
 	'');
 INSERT INTO PE_PE
 	VALUES ("9bc01b62-c35b-4605-af4e-0e9e8cd49a4b",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("c36558ff-5ebb-4d82-82fa-d0f8840ab6f4",
-	"00000000-0000-0000-0000-000000000000",
-	'MSG_SM_FunctionFormalize',
-	'ContextMenuFunction: TRUE',
-	'select any syncMessage from instances of MSG_SM where USER::selectOne(id:selected.Msg_ID);
-select one message related by syncMessage->MSG_M[R1018];
-select one participant related by message->SQ_P[R1007];
-select one function related by syncMessage->MSG_F[R1020]->S_SYNC[R1010];
-existingId = GD::NULL_UNIQUE_ID();
-if(not_empty function)
-  existingId = function.Sync_ID;
-end if;
-select one fpp related by participant->SQ_FPP[R930];
-if(empty fpp)
-  select one fpp related by participant->SQ_LS[R930]->SQ_P[R940]->SQ_FPP[R930];
-end if;
-',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("c36558ff-5ebb-4d82-82fa-d0f8840ab6f4",
 	1,
 	"42d5848f-dabe-43e1-9ac4-b840f2789360",
 	"00000000-0000-0000-0000-000000000000",
@@ -1731,24 +1639,6 @@ end if;',
 	'');
 INSERT INTO PE_PE
 	VALUES ("1cfd6fd7-1724-461f-ade1-363c5170fb2d",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("eaa41447-6a7b-43ab-9473-5d63bd334b25",
-	"00000000-0000-0000-0000-000000000000",
-	'SQ_FPP_FunctionPackageUnformalize',
-	'ContextMenuFunction: TRUE',
-	'select any fpp from instances of SQ_FPP where USER::selectOne(id:selected.Part_ID);
-if(not_empty fpp)
-  fpp.unformalize();
-end if;',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("eaa41447-6a7b-43ab-9473-5d63bd334b25",
 	1,
 	"42d5848f-dabe-43e1-9ac4-b840f2789360",
 	"00000000-0000-0000-0000-000000000000",
@@ -2501,36 +2391,6 @@ end if;
 	'');
 INSERT INTO PE_PE
 	VALUES ("cdff3a64-87c3-4c9a-a19c-bb9686f77ef9",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("42e4077e-e6a6-479a-92b1-a61c3a042314",
-	"00000000-0000-0000-0000-000000000000",
-	'MSG_SM_CommunicationFunctionFormalize',
-	'ContextMenuFunction: TRUE',
-	'select any syncMessage from instances of MSG_SM where USER::selectOne(id:selected.Msg_ID);
-if(not_empty syncMessage)
-  select one function related by syncMessage->MSG_F[R1020]->S_SYNC[R1010];
-  select any fpp from instances of SQ_FPP where USER::selectOne(id:selected.Part_ID);
-  if(not_empty fpp)
-    existingId = GD::NULL_UNIQUE_ID();
-    if(not_empty function)
-      existingId = function.Sync_ID;
-    end if;
-    // relate the message to the destination participant
-    select one message related by syncMessage->MSG_M[R1018];
-    select one participant related by fpp->SQ_P[R930];
-    relate message to participant across R1007;
-  end if;
-end if;
-',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("42e4077e-e6a6-479a-92b1-a61c3a042314",
 	1,
 	"42d5848f-dabe-43e1-9ac4-b840f2789360",
 	"00000000-0000-0000-0000-000000000000",
@@ -4024,21 +3884,6 @@ INSERT INTO S_SPARM
 	'');
 INSERT INTO PE_PE
 	VALUES ("0201a733-b7d3-4c21-a6c8-47f44fee1123",
-	1,
-	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("87e922be-8bea-4f3c-b129-23d3589127fc",
-	"00000000-0000-0000-0000-000000000000",
-	'C_C_Unformalize',
-	'ContextMenuFunction: TRUE',
-	'// TODO: BOB This and the CME Pei entry associated can be removed now that SPs are gone',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'');
-INSERT INTO PE_PE
-	VALUES ("87e922be-8bea-4f3c-b129-23d3589127fc",
 	1,
 	"42d5848f-dabe-43e1-9ac4-b840f2789360",
 	"00000000-0000-0000-0000-000000000000",

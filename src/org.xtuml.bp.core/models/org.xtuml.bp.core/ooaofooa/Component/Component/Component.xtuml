@@ -2237,17 +2237,6 @@ return GD::NULL_UNIQUE_ID();',
 	'',
 	"ac7ecf43-a2c1-4d2e-a4fb-e0e119226f27");
 INSERT INTO O_TFR
-	VALUES ("41432537-1c56-4aad-adbd-4968068da59f",
-	"2786d973-1537-44a1-81d6-3ddbd2377865",
-	'associateChildrenWithRootComponentPackage',
-	'',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'// TODO: BOB This is an obsolete function, remove',
-	1,
-	'',
-	"5d0b245a-e779-44b7-9910-d84b198bd89d");
-INSERT INTO O_TFR
 	VALUES ("0bf17d5b-bbba-4251-9725-e944264ff224",
 	"2786d973-1537-44a1-81d6-3ddbd2377865",
 	'pasteComponent',
@@ -2265,7 +2254,7 @@ if(not_empty component)
 end if;',
 	1,
 	'',
-	"41432537-1c56-4aad-adbd-4968068da59f");
+	"5d0b245a-e779-44b7-9910-d84b198bd89d");
 INSERT INTO O_TPARM
 	VALUES ("79444e27-00c9-4631-b578-64107f597ae4",
 	"0bf17d5b-bbba-4251-9725-e944264ff224",
@@ -3093,7 +3082,6 @@ INSERT INTO O_ATTR
 	"ba5eda7a-def5-0000-0000-000000000005",
 	'',
 	'');
-<<<<<<< HEAD
 INSERT INTO O_NBATTR
 	VALUES ("1e9a10f8-a9d5-421b-92a1-bef27d03519d",
 	"2786d973-1537-44a1-81d6-3ddbd2377865");
@@ -3112,8 +3100,6 @@ INSERT INTO O_ATTR
 	"ba5eda7a-def5-0000-0000-000000000005",
 	'',
 	'');
-=======
->>>>>>> branch '7769_remove_sp' of https://github.com/rmulvey/bridgepoint.git
 INSERT INTO O_ID
 	VALUES (0,
 	"2786d973-1537-44a1-81d6-3ddbd2377865");
