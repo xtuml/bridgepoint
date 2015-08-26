@@ -328,23 +328,6 @@ if(param.name == "can")
       end if;
       return eep.formalEEHasBridgeOperations();
     end if;
-  elif(param.value == "formFunc")
-    select one fpp related by self->MSG_M[R1018]->SQ_P[R1007]->SQ_FPP[R930];
-    if(empty fpp)
-      // try the communication line
-      select one fpp related by self->MSG_M[R1018]->SQ_P[R1007]->SQ_LS[R930]
-                                                     ->SQ_P[R940]->SQ_FPP[R930];
-    end if;
-    if(not_empty fpp)
-      // if there is only one possible function, and we are formal
-      // do not allow
-      if(self.isFormal)
-        if(fpp.getFunctionCount() == 1)
-          return false;
-        end if;
-      end if;
-      return fpp.formalFPKHasFunctions();
-    end if;
   elif(param.value == "formPkgFunc")
     if(message.participatesInCommunication)
       // another filter will handle
@@ -496,12 +479,6 @@ if(param.name == "can")
           end if;
         end if;
       elif(param.value == "formCommFunc")
-        select one fpp related by participant->SQ_FPP[R930];
-        if(not_empty fpp)
-          if(fpp.getFunctionCount() == 1)
-            return false;
-          end if;
-        else
           // will be a package participant
           select one pp related by participant->SQ_PP[R930];
           if(not_empty pp)
@@ -509,7 +486,6 @@ if(param.name == "can")
               return false;
             end if;
           end if;
-        end if;
       elif(param.value == "formCommBrg")
         select one eep related by participant->SQ_EEP[R930];
         if(not_empty eep)
