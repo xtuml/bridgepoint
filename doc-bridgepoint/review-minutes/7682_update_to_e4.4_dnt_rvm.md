@@ -13,10 +13,10 @@ Present: Bob, Cort, Keith
 <pre>
 
 -- Num Type  Who  Section  Comment
-_- 01  min   CDS  2. [7]   add the reference to the task this refers to   
-_- 02  min   RWM  3.       "ant" -> "an"
-_- 03  min   CDS  8.       Test both linux and Windows
-_- 04  min   RWM  general  Note that the move to JRE 8 could be done as a standalone 
+x- 01  min   CDS  2. [7]   add the reference to the task this refers to   
+x- 02  min   RWM  3.       "ant" -> "an"
+x- 03  min   CDS  8.       Test both linux and Windows
+x- 04  min   RWM  general  Note that the move to JRE 8 could be done as a standalone 
   step to assure that that update does not have any fallout.  We are choosing to perform 
   the JRE 8 update and the Eclipse 4 update together.  If we have problems in the next 
   step, we can perform the JRE 8 update as a standalone step.
@@ -24,7 +24,6 @@ _- 04  min   RWM  general  Note that the move to JRE 8 could be done as a standa
 </pre>
    
 No major observations, a re-review is not required.
-(or... Major observations were recorded, a re-review is required.)
 
 End
 ---
