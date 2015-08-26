@@ -65,7 +65,6 @@ import org.xtuml.bp.core.ExternalEntityParticipant_c;
 import org.xtuml.bp.core.ExternalEntity_c;
 import org.xtuml.bp.core.FlowFinalNode_c;
 import org.xtuml.bp.core.ForkJoinNode_c;
-import org.xtuml.bp.core.FunctionPackageParticipant_c;
 import org.xtuml.bp.core.Generalization_c;
 import org.xtuml.bp.core.ImportedClass_c;
 import org.xtuml.bp.core.ImportedProvision_c;
@@ -963,28 +962,6 @@ public class Cl_c {
 	
 	            result = ReturnMessage_c.ReturnMessageInstance(modelRoot,
 	                    new CommunicationReturnMessage_Query_c());
-            }
-
-            return result;
-        } else if (Ooa_type == Ooatype_c.FunctionPackageParticipant) {
-            Object result = modelRoot.getInstanceList(FunctionPackageParticipant_c.class).get(
-                    Ooa_id);
-            if (result == null) {
-	            class FunctionPackageParticipant_Query_c
-	                    implements ClassQueryInterface_c {
-	                public boolean evaluate(Object candidate) {
-	                    if (((FunctionPackageParticipant_c) candidate).getPart_id()
-	                            .equals(Ooa_id)) {
-	                        return true;
-	                    }
-	
-	                    return false;
-	                }
-	            }
-	
-	            result = FunctionPackageParticipant_c
-	                .FunctionPackageParticipantInstance(modelRoot,
-	                    new FunctionPackageParticipant_Query_c());
             }
 
             return result;

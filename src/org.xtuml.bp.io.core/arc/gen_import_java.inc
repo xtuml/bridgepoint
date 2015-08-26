@@ -775,8 +775,6 @@ public class ${class_name} extends CoreImport
             }
             loadedInstances.addAll(helper.upgradeTransitions(loadedInstances));
             helper.upgradeEventData(getModelRoot(), getRootModelElement());
-            loadedInstances.addAll( helper.upgradePackages(getRootModelElement(), getModelRoot()) );
-            helper.upgradeLifespans(getRootModelElement());
             if(actualVersion.equals(bp7_1_4VersionNumber)) {
             	  helper.associateSatisfactionsThroughIdentifier(getModelRoot());
             }
@@ -789,7 +787,6 @@ public class ${class_name} extends CoreImport
 			helper.fixSatisfactionAssociations(loadedInstances);
 			helper.loadDataTypesFromCoreTypeProxy(loadedInstances);
             loadedInstances.addAll(helper.upgradeSystemLevelPackages(loadedInstances));
-			loadedInstances.addAll(helper.upgradeNestedPackages(getRootModelElement()));
 			loadedInstances.addAll(helper.addLinkClassesForContainment(loadedInstances));
 			helper.removeSupertypePackageableElement(loadedInstances);
 			helper.addPortReferenceInstances(loadedInstances);

@@ -50,12 +50,6 @@ public class ExportModelFactory extends AbstractModelExportFactory {
 		return new ExportModel(aModelRoot, fileName, exportGraphics);
 	}
 	
-	public IRunnableWithProgress create(
-			Ooaofooa aModelRoot,
-			SystemModel_c sys,
-			boolean exportGraphics) throws FileNotFoundException {
-			// TODO: Bob remove this
-		}
 
 	public IRunnableWithProgress create(String file, NonRootModelElement element)
 			throws FileNotFoundException {
@@ -68,6 +62,13 @@ public class ExportModelFactory extends AbstractModelExportFactory {
 		ExportModelComponent emc = new ExportModelComponent(modelRoot, baos, element);
 		emc.outputCachedIDs = true;
 		return emc;
+	}
+
+	@Override
+	public IRunnableWithProgress create(Ooaofooa aModelRoot, SystemModel_c sys,
+			boolean exportGraphics) throws FileNotFoundException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

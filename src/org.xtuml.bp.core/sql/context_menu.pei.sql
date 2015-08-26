@@ -67,8 +67,6 @@ INSERT INTO CME VALUES ('Delete', '',                         'SQ_CPA','',      
 INSERT INTO CME VALUES ('Rename', '',                         'SQ_CPA','',                 true );
 INSERT INTO CME VALUES ('Delete', '',                         'SQ_EEP','',                 true );
 INSERT INTO CME VALUES ('Rename', '',                         'SQ_EEP','',                 true );
-INSERT INTO CME VALUES ('Delete', '',                         'SQ_FPP','',                 true );
-INSERT INTO CME VALUES ('Rename', '',                         'SQ_FPP','',                 true );
 INSERT INTO CME VALUES ('Delete', '',                         'SQ_CIP','',                 true );
 INSERT INTO CME VALUES ('Rename', '',                         'SQ_CIP','',                 true );
 INSERT INTO CME VALUES ('Delete', '',                         'SQ_LS', '',                 true );
@@ -312,7 +310,6 @@ INSERT INTO CME VALUES ('Signal',         'Formalize',    'MSG_AM','',          
 INSERT INTO CME VALUES ('Instance',         'Unformalize',    'SQ_CIP','',                 false );
 INSERT INTO CME VALUES ('Class',            'Unformalize',    'SQ_CP', '',                 false );
 INSERT INTO CME VALUES ('External Entity',  'Unformalize',    'SQ_EEP','',                 false );
-INSERT INTO CME VALUES ('Function Package', 'Unformalize',    'SQ_FPP','',                 false );
 INSERT INTO CME VALUES ('Package Participant', 'Unformalize',    'SQ_PP','',                 false );
 INSERT INTO CME VALUES ('Message',          'Unformalize',    'MSG_SM','',                 false );
 INSERT INTO CME VALUES ('Message',          'Unformalize',    'MSG_AM','',                 false );
@@ -338,8 +335,6 @@ INSERT INTO CME VALUES ('New', 'Attribute',                   'SQ_CIP','SQ_AV', 
 INSERT INTO CME VALUES ('New', 'Attribute',                   'SQ_CP', 'SQ_CPA',           false , '', '', false, '', false, false, '' ,'->SQ_CPA[R935]');
 INSERT INTO CME VALUES ('',                                   'Unformalize',   'SQ_COP', '', false );
 
-INSERT INTO CME VALUES ('',   'Formalize',    'SQ_FPP','',                 false, 'Choose the Function Package that this instance should represent' );
-INSERT INTO CME VALUES ('Communication Function', 'Formalize',             'MSG_SM',     '', false, 'Choose the message to send', '2', true);
 INSERT INTO CME VALUES ('Function',       'Formalize',    'MSG_SM','',                 false, 'Choose the message to send' );
 INSERT INTO CME VALUES ('Delete', '',                         'SPR_RO', '',                 true );
 INSERT INTO CME VALUES ('Delete', '',                         'SPR_RS', '',                 true );
@@ -482,7 +477,6 @@ INSERT INTO MEF VALUES ('No Target',    'Formalize',  'MSG_AM',    'show', 'noTa
 INSERT INTO MEF VALUES ('Instance', 'Unformalize',  'SQ_CIP',    'can', 'unform' );
 INSERT INTO MEF VALUES ('Class',               'Unformalize',  'SQ_CP',    'can', 'unform' );
 INSERT INTO MEF VALUES ('External Entity',     'Unformalize',  'SQ_EEP',    'can', 'unform' );
-INSERT INTO MEF VALUES ('Function Package',    'Unformalize',  'SQ_FPP',    'can', 'unform' );
 INSERT INTO MEF VALUES ('Package Participant',    'Unformalize',  'SQ_PP',    'can', 'unform' );
 INSERT INTO MEF VALUES ('Message',             'Unformalize',  'MSG_SM',    'can', 'unform' );
 INSERT INTO MEF VALUES ('Message',             'Unformalize',  'MSG_AM',    'can', 'unform' );

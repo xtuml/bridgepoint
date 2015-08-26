@@ -138,14 +138,6 @@ INSERT INTO EO VALUES ( '1.14.2.3.4',   '',             '1.14.2.3.5',   'Decisio
 INSERT INTO EO VALUES ( '1.14.2.3.5',   '',             '',             'Fork Join Node', 1106, 'one', 'first' );
 INSERT INTO EO VALUES ( '1.14.2.4',    '', '', 'Packageable Element', 8001, 'one', 'first', false );
 
-
-INSERT INTO EO VALUES ( '2.1',	  '2.1.1',  '2.2',	  'Model Class', 2, 'many', 'first', true );
-INSERT INTO EO VALUES ( '2.2',	  '',		'2.3',	  'Imported Class', 3, 'many', 'first' );
-INSERT INTO EO VALUES ( '2.3',	  '',		'2.4',	  'External Entity in Model', 7, 'many', 'first' );
-INSERT INTO EO VALUES ( '2.4',	  '2.4.1',  '2.5',	  'Association', 4, 'many', 'Derived Association' );
-INSERT INTO EO VALUES ( '2.5',	  '2.5.1',  '2.6',	  'Communication Path', 5, 'many', 'first' );
-INSERT INTO EO VALUES ( '2.6',	  '2.6.1',  '',	  'Access Path', 6, 'many', 'first' );
-
 INSERT INTO EO VALUES ( '2.1.1',	'2.1.1.1',	'2.1.2',	'Operation', 115, 'many', 'first' );
 INSERT INTO EO VALUES ( '2.1.1.1',	'2.1.1.1.1','2.1.1.2', 	'Operation Parameter', 117, 'many', 'first' );
 INSERT INTO EO VALUES ( '2.1.1.1.1','',         '',         'Dimensions', 121, 'many', 'first' );
@@ -181,19 +173,6 @@ INSERT INTO EO VALUES ( '2.4.5.2.3','',			'',         'Class As Subtype', 205, '
 INSERT INTO EO VALUES ( '2.4.5.3',	'',			'2.4.5.4',	'Class As Derived One Side', 203, 'one', 'first' );
 INSERT INTO EO VALUES ( '2.4.5.4',	'',			'',			'Class As Derived Other Side', 203, 'one', 'first' );
 INSERT INTO EO VALUES ( '2.4.6',    '', '', 'Packageable Element', 8001, 'one', 'first', false );
-
-INSERT INTO EO VALUES ( '2.5.1',	'2.5.1.1',	'2.5.2',	'EE to SM Comm Path', 401, 'one', 'first' );
-INSERT INTO EO VALUES ( '2.5.1.1',	'',			'',			'EE to SM Event Comm', 404, 'many', 'first' );
-INSERT INTO EO VALUES ( '2.5.2',	'2.5.2.1',	'2.5.3',	'SM to SM Comm Path', 401, 'one', 'first' );
-INSERT INTO EO VALUES ( '2.5.2.1',	'',			'',			'SM to SM Event Comm', 408, 'many', 'first' );
-INSERT INTO EO VALUES ( '2.5.3',	'2.5.3.1',	'',			'SM to EE Comm Path', 401, 'one', 'first' );
-INSERT INTO EO VALUES ( '2.5.3.1',	'',			'',			'SM to EE Event Comm', 412, 'many', 'first' );
-
-INSERT INTO EO VALUES ( '2.6.1',	'2.6.1.1',	'2.6.2',	'SM to OBJ Access Path', 415, 'one', 'first' );
-INSERT INTO EO VALUES ( '2.6.1.1',	'',			'',			'SM to OBJ Attribute Access', 418, 'many', 'first' );
-INSERT INTO EO VALUES ( '2.6.2',	'2.6.2.1',	'',			'SM to EE Access Path', 415, 'one', 'first' );
-INSERT INTO EO VALUES ( '2.6.2.1',	'',			'',			'SM to EE Data Item Access', 422, 'many', 'first' );
-
 
 INSERT INTO EO VALUES ( '3',	'3.1',	'', 'State Machine', 517, 'one', 'first' );
 INSERT INTO EO VALUES ( '3.1',	'',		'3.2', 'Moore State Machine', 510, 'one', 'first' );
@@ -254,8 +233,7 @@ INSERT INTO EO VALUES ( '5.3',	 	'',			'',		'GraphConnector', 311, 'many', 'firs
 INSERT INTO EO VALUES ( '5.4', 		'5.4.1',	'', 	'GraphEdge', 20, 'one', 'last', false, false, '', true, false );
 INSERT INTO EO VALUES ( '5.4.1', 	'',			'5.1',	'Waypoint', 319, 'many', 'first', false, false, '', true, false );
 
-INSERT INTO EO VALUES ( '6.2.1',	'',	   '6.2.2',	  'External Entity Participant', 930, 'one', 'first' );
-INSERT INTO EO VALUES ( '6.2.2',	'',	   '6.2.3',	  'Function Package Participant', 930, 'one', 'first' );
+INSERT INTO EO VALUES ( '6.2.1',	'',	   '6.2.3',	  'External Entity Participant', 930, 'one', 'first' );
 INSERT INTO EO VALUES ( '6.2.3', 	'6.2.3.1',			'6.2.4',	'Class Participant', 930, 'one', 'first' );
 INSERT INTO EO VALUES ( '6.2.3.1', 	'6.2.3.1.1',			'',	'Class Participant Attribute', 935, 'many', 'first' );
 INSERT INTO EO VALUES ( '6.2.3.1.1', 	'',			'6.2.3.1.2',	'Informal Attribute', 947, 'one', 'first' );
@@ -298,12 +276,12 @@ INSERT INTO EO VALUES ( '7.6',    '', '', 'Packageable Element', 8001, 'one', 'f
 
 INSERT INTO EO VALUES ( '8.2', '6.2.1',  '',	  'Interaction Participant', 929, 'many', 'first' );
 -- TODO: BOB Fixme - Message in Sequence is not being persisted in GPs
-INSERT INTO EO VALUES ( '8.4', 	'8.4.1',			'',	      'Message In Sequence', 953, 'many', 'first' );
-INSERT INTO EO VALUES ( '8.4.1', 	'7.1',			'',	      'Message', 954, 'one', 'first' );
+-- INSERT INTO EO VALUES ( '8.4', 	'8.4.1',			'',	      'Message In Sequence', 953, 'many', 'first' );
+-- INSERT INTO EO VALUES ( '8.4.1', 	'7.1',			'',	      'Message', 954, 'one', 'first' );
 
 --TODO: BOB Fixme - The following enrty was not persisted via GP
 --   INSERT INTO EO VALUES ( '10.4', 	'10.4.1',	   '',		'Association In Use Case', 1214, 'many', 'first' );
-INSERT INTO EO VALUES ( '10.4.1', 	'10.4.1.1',	   '',		'Use Case Association', 1215, 'one', 'first' );
+--INSERT INTO EO VALUES ( '10.4.1', 	'10.4.1.1',	   '',		'Use Case Association', 1215, 'one', 'first' );
 INSERT INTO EO VALUES ( '10.4.1.1', 	'',	   '10.4.1.2',		'Binary Association', 1210, 'one', 'first' );
 INSERT INTO EO VALUES ( '10.4.1.2', 	'',	   '10.4.1.3',		'Generalization', 1210, 'one', 'first' );
 INSERT INTO EO VALUES ( '10.4.1.3', 	'',	   '10.4.1.4',		'Include', 1210, 'one', 'first' );
