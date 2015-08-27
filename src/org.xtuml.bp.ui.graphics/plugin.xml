@@ -961,13 +961,6 @@
             </terminator>
             <terminator
                   end="start"
-                  name="Start Function Package"
-                  symbol="Function Package"
-                  symbolClass="org.xtuml.bp.core.FunctionPackageParticipant_c"
-                  type="shape">
-            </terminator>
-            <terminator
-                  end="start"
                   name="Start Package Participant"
                   symbol="Package Participant"
                   symbolClass="org.xtuml.bp.core.PackageParticipant_c"
@@ -1060,20 +1053,6 @@
                   name="End Class"
                   symbol="Class"
                   symbolClass="org.xtuml.bp.core.ClassParticipant_c"
-                  type="shape">
-            </terminator>
-            <terminator
-                  end="start"
-                  name="Start Function Package"
-                  symbol="Function Package"
-                  symbolClass="org.xtuml.bp.core.FunctionPackageParticipant_c"
-                  type="shape">
-            </terminator>
-            <terminator
-                  end="end"
-                  name="End Function Package"
-                  symbol="Function Package"
-                  symbolClass="org.xtuml.bp.core.FunctionPackageParticipant_c"
                   type="shape">
             </terminator>
             <terminator
@@ -1282,20 +1261,6 @@
                   name="End Class"
                   symbol="Class"
                   symbolClass="org.xtuml.bp.core.ClassParticipant_c"
-                  type="shape">
-            </terminator>
-            <terminator
-                  end="start"
-                  name="Start Function Package"
-                  symbol="Function Package"
-                  symbolClass="org.xtuml.bp.core.FunctionPackageParticipant_c"
-                  type="shape">
-            </terminator>
-            <terminator
-                  end="end"
-                  name="End Function Package"
-                  symbol="Function Package"
-                  symbolClass="org.xtuml.bp.core.FunctionPackageParticipant_c"
                   type="shape">
             </terminator>
             <terminator
