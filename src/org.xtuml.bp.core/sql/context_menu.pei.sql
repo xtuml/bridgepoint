@@ -335,7 +335,6 @@ INSERT INTO CME VALUES ('New', 'Attribute',                   'SQ_CIP','SQ_AV', 
 INSERT INTO CME VALUES ('New', 'Attribute',                   'SQ_CP', 'SQ_CPA',           false , '', '', false, '', false, false, '' ,'->SQ_CPA[R935]');
 INSERT INTO CME VALUES ('',                                   'Unformalize',   'SQ_COP', '', false );
 
-INSERT INTO CME VALUES ('Function',       'Formalize',    'MSG_SM','',                 false, 'Choose the message to send' );
 INSERT INTO CME VALUES ('Delete', '',                         'SPR_RO', '',                 true );
 INSERT INTO CME VALUES ('Delete', '',                         'SPR_RS', '',                 true );
 INSERT INTO CME VALUES ('Delete', '',                         'SPR_PO', '',                 true );

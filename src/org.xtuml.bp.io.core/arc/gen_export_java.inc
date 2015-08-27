@@ -73,9 +73,7 @@ import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.common.IdAssigner;
 public class ${class_name} extends CoreExport
 {
-	.if(multilevel)
-		NonRootModelElement m_inst;
-	.end if
+	NonRootModelElement m_inst;
 
 	protected PrintStream m_fh;
     protected boolean m_export_graphics;
@@ -250,16 +248,10 @@ public class ${class_name} extends CoreExport
     .end if
 			pm.done();
 		}
-		catch( IOException f )
+		catch( Throwable f )
 		{
             throw new InvocationTargetException(f);
 		}
-    .if (callingProject == "NBP")
-		catch (CoreException ce) 
-		{
-			throw new InvocationTargetException(ce);
-		}
-    .end if
     .if (multilevel)
         writtenProxies.clear();
     .end if
