@@ -618,6 +618,7 @@ ${setSize.body}
       .if ( not multilevel )
         modelRoot.setFullModelIsLoaded();
       .end if
+                ModelRoot.disableChangeNotification();
         try {
       .select many table_set from instances of T
       .// add one for the SM_SUPDT fixup

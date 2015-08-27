@@ -2250,11 +2250,6 @@
                countMethod="Getpckgcount"
                elementMethod="Getpckgid"
                elementExistsMethod="not used"/>
-            <autoReconcile
-               targetSymbol="System Level Datatype Package"
-               countMethod="Getsysdtpckgcount"
-               elementMethod="Getsysdtpckgid"
-               elementExistsMethod="not used"/>
          </defaultFor>
          <defaultFor
                class="org.xtuml.bp.core.Package_c"
