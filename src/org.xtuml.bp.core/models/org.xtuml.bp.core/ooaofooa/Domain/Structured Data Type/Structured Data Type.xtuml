@@ -14,43 +14,9 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-create object instance mbr of S_MBR;
+	'create object instance mbr of S_MBR;
 relate self to mbr across R44;
-select any dom from instances of S_DOM;
-select any int_dt related by dom->S_DT[R14] where
-                                                     selected.Name == "integer";
-if(not_empty dom and empty int_dt)
-  // if the int data type was not found
-  // and the domain is not empty this
-  // structured dt is at the domain level
-  // but within a formal component
-  // so we locate the int type at the system
-  // level
-  select one system related by dom->CN_DC[R4204]->C_C[R4204]->CP_CP[R4608]
-                                   ->S_SYS[R4606];
-  intdt_id = GD::NULL_UNIQUE_ID();
-  if not_empty system
-    intdt_id = system.getCoreTypeId(name:"integer");
-  end if;
-  select any pe from instances of PE_PE where selected.Element_ID == intdt_id;
-  select one int_dt related by pe->S_DT[R8001]; 
-end if;
-// If no integer data type was found, this structured dt is in a system
-// package other than the default one.  We need to search for the integer
-// data type through the associations with the determined system.
-if(empty int_dt)
-  select one dpkg related by self->S_DT[R17]->S_DIP[R39]->S_DPK[R39];
-  if (not_empty dpkg)
-    select any sys from instances of S_SYS where (selected.Sys_ID == dpkg.getSystemId());
-    intdt_id = GD::NULL_UNIQUE_ID();
-    if not_empty sys
-      intdt_id = sys.getCoreTypeId(name:"integer");
-    end if;
-    select any pe from instances of PE_PE where selected.Element_ID == intdt_id;
-    select one int_dt related by pe->S_DT[R8001]; 
-  else
-    // See if this is in the generic package
+
     select one sys related by self->S_DT[R17]->PE_PE[R8001]->EP_PKG[R8000]->S_SYS[R1405];
     intdt_id = GD::NULL_UNIQUE_ID();
     if not_empty sys
@@ -61,8 +27,8 @@ if(empty int_dt)
     if (empty int_dt)
       select any int_dt related by sys->EP_PKG[R1405]->PE_PE[R8000]->S_DT[R8001] where (selected.Name == "integer");
     end if;
-  end if;
-end if;
+
+
 relate mbr to int_dt across R45;
 mbr.initialize(newname:"Unnamed Structured Member");',
 	1,

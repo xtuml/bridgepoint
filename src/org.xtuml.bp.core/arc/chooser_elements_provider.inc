@@ -148,25 +148,7 @@ public static ${cn.body}[] getElements(${contextClName.body} v_${firstContextIte
         }
       }
 	  .else
-		if (Pref_c.Getsystemboolean(
-				"com.mentor.nucleus.bp.ui.project.references", sys.getName()) == true) {
-			SystemModel_c[] systems = SystemModel_c.SystemModelInstances(Ooaofooa.getDefaultInstance());
-			for (int i = 0; i < systems.length; i++) {
-				if (systems[i] != sys && systems[i].getUseglobals()) {
-					instancesUnderSystem = Ooaofooa.getInstancesUnderSystem(systems[i].getName());
-					for (int j = 0; j < instancesUnderSystem.length; j++) {
-						${cn.body}[] elementInstances = ${cn.body}.$r{class_name}Instances(instancesUnderSystem[j]);
-						for (int k = 0; k < elementInstances.length; k++) {
-							${cn.body} elem = elementInstances[k];
-							if (instancesUnderSystem[j].getInstanceList(
-									ComponentPackage_c.class).isEmpty()) {
-								elementList.add(elem);
-							}
-						}
-					}
-				}
-			}
-		}
+	     .// Nothing here after SP removal
 	  .end if
 	return elementList.toArray(new ${cn.body}[elementList.size()]);
   } // end getElements(${contextClName.body}) 

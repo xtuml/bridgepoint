@@ -66,8 +66,7 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select any rootIr from instances of C_IR where (selected.Id == self.getRootIR());
+	'select any rootIr from instances of C_IR where (selected.Id == self.getRootIR());
 select one interface related by rootIr->C_I[R4012];
 formalizedRoot = false;
 if not_empty interface
@@ -99,18 +98,7 @@ if(not (self.Id == self.getRootIR()) and not formalizedRoot)
 end if;
 select one provision related by self->C_P[R4009];
 select one requirement related by self->C_R[R4009];
-select one compPackage related by self->C_PO[R4016]->C_C[R4010]->CP_CP[R4604];
-if(empty compPackage)
-  // walk the nesting tree of the parent component
-  select one parentComponent related by self->C_PO[R4016]->C_C[R4010]->CN_CIC[R4203]->C_C[R4202];
-  if(not_empty parentComponent)
-    while(empty compPackage)
-      select one compPackage related by parentComponent->CP_CP[R4604];
-      select one parentComponent related by parentComponent->CN_CIC[R4203]->C_C[R4202];
-    end while;
-  end if;
-end if;
-isInGenericPkg = false;
+
 select one system related by self->C_PO[R4016]->C_C[R4010]->PE_PE[R8001]
                                                   ->EP_PKG[R8000]->S_SYS[R1405];
 if(empty system)
@@ -121,18 +109,11 @@ if(empty system)
   select one package related by rootComponent->PE_PE[R8001]->EP_PKG[R8000];
   select one system related by package->S_SYS[R1405];
 end if;
-if (not_empty system)
-  isInGenericPkg = true;
-end if;
-if (not_empty compPackage or isInGenericPkg)
-  if (isInGenericPkg)
+
     select any interfacePe from instances of PE_PE
                                         where (selected.Element_ID == param.id);
     select one interface related by interfacePe->C_I[R8001];
-  else
-    select one system related by compPackage->S_SYS[R4606];
-    select any interface related by system->IP_IP[R4304]->C_I[R4303] where (selected.Id == param.id);
-  end if;
+
   if (not_empty interface)
     doNotFormalize = false;
     if(not (self.Id == self.getRootIR() and formalizedRoot))
@@ -161,7 +142,7 @@ if (not_empty compPackage or isInGenericPkg)
       self.formalizeDelegatedReferences(id:interface.Id, formalizeOther:param.formalizeOther);
     end if;
   end if;
-end if;',
+',
 	1,
 	'',
 	"99fd8274-249d-4d90-bf6a-d799de782dbf");
@@ -350,106 +331,9 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-/*
- *  Check that the interface package given exists either at the
- *  system level or along the parent path of the containing
- *  component.
- *
- */
-result = false;
-select one component related by self->C_PO[R4016]->C_C[R4010];
-
-// check for isInGenericPackage.  If in a generic package the
+	'// When in a generic package the
 // interface will never be in an interface package
-select one pkg related by component->PE_PE[R8001]->EP_PKG[R8000];
-
-if(not_empty component and empty pkg)
-  // This scoping limitation is disabled until we provide package
-  // importing, at which time we may or may not use the below call
-  //result = component.interfacePackageIsAlongParentPath(id:param.Id);
-  // see if the interface package has any interfaces
-  select any ipkg related by self->C_PO[R4016]->C_C[R4010]->CP_CP[R4608]
-             									    ->S_SYS[R4606]->IP_IP[R4304]
-  							            where (selected.Package_ID == param.Id);
-  if(not_empty ipkg)
-    // Until the package import functionality is available all interfaces
-    // are allowed unless they are defined within a component, at which
-    // point they are only allowed if defined along the parent path
-    select one irParent related by component->CN_CIC[R4203]->C_C[R4202];
-    select one interfaceParentComponent related by ipkg->C_C[R4206];
-    if(empty interfaceParentComponent)
-      select one parentInterfacePackage related by ipkg->IP_IPINIP[R4301]
-                                                                 ->IP_IP[R4300];
-      while(not_empty parentInterfacePackage)
-        select one interfaceParentComponent related by parentInterfacePackage
-                                                                   ->C_C[R4206];
-        select one parentInterfacePackage related by parentInterfacePackage
-                                               ->IP_IPINIP[R4301]->IP_IP[R4300];
-      end while;
-    end if;
-    if(not_empty irParent and not_empty interfaceParentComponent)
-      if(not_empty interfaceParentComponent)
-        // check that the component which the interface
-        // package is defined in, is defined along the
-        // parent path
-        select one parentParentComponent related by irParent->CN_CIC[R4203]
-                                                                   ->C_C[R4202];
-        while(not_empty parentParentComponent)
-          if(interfaceParentComponent == parentParentComponent)
-            result = true;
-            break;
-          end if;
-          select one parentParentComponent related by parentParentComponent
-                                                    ->CN_CIC[R4203]->C_C[R4202];
-        end while;
-        // also check the component the interface package is
-        // defined in
-        if(not result)
-          if(interfaceParentComponent == irParent)
-            result = true;
-          end if;
-        end if;
-      end if;
-    elif(empty irParent and not_empty interfaceParentComponent)
-      // if the interface reference is defined in a component package
-      // yet the interace package is within a component it cannot be
-      // used
-      return false;
-    elif(not_empty irParent and empty interfaceParentComponent or
-                              empty irParent and empty interfaceParentComponent)
-      // allowed if interface package is not within a component
-      result = true;
-    end if;
-    if(result)
-      select any interface related by ipkg->C_I[R4303];
-      if(not_empty interface)
-        result = true;
-      else
-        result = false;
-      end if;
-      // if everything is good so far, check that
-      // this package does not only contain the
-      // interface which this reference is already
-      // assigned to
-      if(self.isFormal() and result)
-        select one existingInterface related by self->C_I[R4012];
-        select many interfaces related by ipkg->C_I[R4303];
-        for each interface in interfaces
-          if(existingInterface != interface)
-            return true;
-          end if;
-        end for;
-        // if we get passed the above
-        // then the package only contains
-        // the interface we are already
-        // formalized against
-        result = false;
-      end if;
-    end if;
-  end if;
-end if;
-return result;',
+return false;',
 	1,
 	'',
 	"518b1a8d-6f47-4a09-b98b-8a61034a1c1c");
@@ -469,9 +353,7 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-// locate the component package
-isInGenericPkg = false;
+	'// locate the component package
 select one system related by self->C_PO[R4016]->C_C[R4010]->PE_PE[R8001]
                                                   ->EP_PKG[R8000]->S_SYS[R1405];
 if(empty system)
@@ -485,10 +367,7 @@ if(empty system)
                                                                  ->S_SYS[R1405];
   end if;
 end if;
-if (not_empty system)
-  isInGenericPkg = true;
-end if;
-if (isInGenericPkg)
+
   // verify that there is at least one interface
   // which we can formalize against
   select one package related by self->C_PO[R4016]->C_C[R4010]->PE_PE[R8001]
@@ -528,28 +407,7 @@ if (isInGenericPkg)
       end if;
     end for;
   end if;
-else
-  select one componentPackage related by self->C_PO[R4016]->C_C[R4010]->CP_CP[R4608];
-  select one system related by componentPackage->S_SYS[R4606];
-  if (not_empty system)
-    // select all interface packages in the system
-    select many diagrams related by system->IP_IP[R4304];
-    for each diagram in diagrams
-      // if this package is within scope this reference
-      // can be formalized against an interface
-      if(self.canUseInterfacesInPackage(Id:diagram.Package_ID))
-        // verify that there is at least one interface
-        // which we can formalize against
-        select many interfaces related by diagram->C_I[R4303];
-        for each interface in interfaces
-          if(interface.Id != self.Formal_Interface_Id)
-            return true;
-          end if;
-        end for;
-      end if;
-    end for;
-  end if;
-end if;
+
 return false;',
 	1,
 	'',
@@ -647,8 +505,7 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select one proxyInterface related by self->C_I[R4012];
+	'select one proxyInterface related by self->C_I[R4012];
 if(not_empty proxyInterface and
                             not Util::isProxy(element:self.convertToInstance()))
   select one genericPkgSys related by self->C_PO[R4016]->C_C[R4010]
@@ -664,7 +521,7 @@ if(not_empty proxyInterface and
   		    									  ->EP_PKG[R8000]->S_SYS[R1405];
     end if;
   end if;
-  if(not_empty genericPkgSys)
+
     id = self.findMatchingInterface(system_id:genericPkgSys.Sys_ID, pe:GD::NULL_UNIQUE_ID());
 	// this interface could be in another system, just get the
 	// first one in the ElementVisibility lists
@@ -694,27 +551,6 @@ if(not_empty proxyInterface and
                          message:"Interfaces for the following references could"
                                                           + " not be located:");
 	end if;
-  else
-    select one componentPackage related by self->C_PO[R4016]
-  									                 ->C_C[R4010]->CP_CP[R4608];
-    if(not_empty componentPackage)
-      select one system related by componentPackage->S_SYS[R4606];
-      if(not_empty system)
-        id = self.findMatchingInterface(system_id:system.Sys_ID, pe:GD::NULL_UNIQUE_ID());
-        select any interface related by system->IP_IP[R4304]->C_I[R4303]
-      											  where (selected.Id == id);
-        if(not_empty interface)
-          unrelate self from proxyInterface across R4012;
-          relate self to interface across R4012;
-          self.migrateExecutableProperties();
-        else
-          Util::addPastedElementToProblemList(elementName:self.interfaceName(),
-                         message:"Interfaces for the following references could"
-                                                          + " not be located:");
-        end if;
-      end if;
-    end if;
-  end if;
 end if;',
 	1,
 	'',
@@ -726,15 +562,9 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select any interface related by self->C_PO[R4016]->C_C[R4010]->CP_CP[R4608]
-										->S_SYS[R4606]->IP_IP[R4304]->C_I[R4303]
-									  where (selected.Id == param.interface_id);
-if (empty interface)
-  select any interfacePe from instances of PE_PE
+	'select any interfacePe from instances of PE_PE
                               where (selected.Element_ID == param.interface_id);
-  select one interface related by interfacePe->C_I[R8001];
-end if;
+select one interface related by interfacePe->C_I[R8001];
 
 if(not_empty interface)
   select many operations related by interface->C_EP[R4003]->C_IO[R4004];
@@ -844,8 +674,7 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select one currentInterface related by self->C_I[R4012];
+	'select one currentInterface related by self->C_I[R4012];
 if(empty currentInterface)
   return GD::NULL_UNIQUE_ID();
 end if;
@@ -854,19 +683,10 @@ if(Util::isProxy(element:currentInterface.convertToInstance()))
   name = currentInterface.Name;
   select any system from instances of S_SYS where (selected.Sys_ID
   															== param.system_id);
-  isInGenericPkg = false;
   select one pkg related by self->C_PO[R4016]->C_C[R4010]->PE_PE[R8001]
                                                                 ->EP_PKG[R8000];
   select one comp related by self->C_PO[R4016]->C_C[R4010]->PE_PE[R8001]
                                                                    ->C_C[R8003];
-  if (not_empty pkg or not_empty comp)
-    isInGenericPkg = true;
-  else
-    if(param.pe != GD::NULL_UNIQUE_ID())
-      isInGenericPkg = true;
-    end if;
-  end if;
-  if (isInGenericPkg)
     select one packageableElement related by self->C_PO[R4016]->C_C[R4010]
                                                                  ->PE_PE[R8001];
     if(param.pe != GD::NULL_UNIQUE_ID())
@@ -901,13 +721,6 @@ if(Util::isProxy(element:currentInterface.convertToInstance()))
 	    return interface.Id;
 	  end for;	  
     end if;
-  else
-    select any interface related by system->IP_IP[R4304]->C_I[R4303]
-  												  where (selected.Name == name);
-    if(not_empty interface)
-      return interface.Id;
-    end if;
-  end if;   
   
 else
   id = currentInterface.Id;
@@ -967,9 +780,8 @@ if(Util::isProxy(element:interface.convertToInstance()))
 end if;
 // also check the parents in the case where the interface
 // was not converted to a proxy but is torn down
-select one pkg related by interface->IP_IP[R4303];
 select one pe related by interface->PE_PE[R8001];
-if(empty pkg and empty pe)
+if(empty pe)
   return false;
 end if;
 // next ask each current op/signal associated
@@ -1304,9 +1116,8 @@ if(not_empty interface)
   isTornDown = Util::isProxy(element:interface.convertToInstance());
   if(not isTornDown)
     // check for parents
-    select one pkg related by interface->IP_IP[R4303];
     select one pe related by interface->PE_PE[R8001];
-    if(empty pkg and empty pe)
+    if(empty pe)
       isTornDown = true;
     end if;
   end if;
@@ -1393,10 +1204,7 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-// locate the component package
-isInGenericPkg = false;
-select one system related by self->C_PO[R4016]->C_C[R4010]->PE_PE[R8001]
+	'select one system related by self->C_PO[R4016]->C_C[R4010]->PE_PE[R8001]
                                                   ->EP_PKG[R8000]->S_SYS[R1405];
 if(empty system)
   // check for component as parent
@@ -1409,10 +1217,6 @@ if(empty system)
                                                                  ->S_SYS[R1405];
   end if;
 end if;
-if (not_empty system)
-  isInGenericPkg = true;
-end if;
-if (isInGenericPkg)
   // verify that there is at least one interface
   // which we can formalize against
   select one package related by self->C_PO[R4016]->C_C[R4010]->PE_PE[R8001]
@@ -1452,28 +1256,7 @@ if (isInGenericPkg)
       end if;
     end for;
   end if;
-else
-  select one componentPackage related by self->C_PO[R4016]->C_C[R4010]->CP_CP[R4608];
-  select one system related by componentPackage->S_SYS[R4606];
-  if (not_empty system)
-    // select all interface packages in the system
-    select many diagrams related by system->IP_IP[R4304];
-    for each diagram in diagrams
-      // if this package is within scope this reference
-      // can be formalized against an interface
-      if(self.canUseInterfacesInPackage(Id:diagram.Package_ID))
-        // verify that there is at least one interface
-        // which we can formalize against
-        select many interfaces related by diagram->C_I[R4303];
-        for each interface in interfaces
-          if(interface.Id == self.Formal_Interface_Id)
-            return true;
-          end if;
-        end for;
-      end if;
-    end for;
-  end if;
-end if;
+
 return false;',
 	1,
 	'',

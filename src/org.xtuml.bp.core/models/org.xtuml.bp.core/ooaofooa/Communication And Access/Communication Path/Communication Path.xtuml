@@ -14,8 +14,7 @@ INSERT INTO O_TFR
 	'The dispose operation for the CA_COMM class.',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select one smeec related by self->CA_SMEEC[R401];
+	'select one smeec related by self->CA_SMEEC[R401];
 if (not_empty smeec)
   smeec.dispose();
 end if;
@@ -28,11 +27,6 @@ if not_empty eesmc
   eesmc.dispose();
 end if;
 //
-// Domain subsystem
-select one ss related by self->S_SS[R5];
-if ( not_empty ss )
-  unrelate self from ss across R5;
-end if;
 delete object instance self;',
 	1,
 	'',
@@ -66,51 +60,14 @@ INSERT INTO O_ATTR
 	"ba5eda7a-def5-0000-0000-000000000005",
 	'',
 	'');
-INSERT INTO O_REF
-	VALUES ("2ec510d1-5b04-4d69-a388-844bfa103cc6",
-	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
-	0,
-	"c7b05f2f-7685-4110-b916-e67cfa3caa1d",
-	"cd0503bf-912b-4e62-b31f-d1c50101e2f3",
-	"2a5c925f-f0b8-4d06-bd46-043e1554f989",
-	"81a54e49-7906-4c32-bf3d-080631a6fc81",
-	"1d954984-dda5-4f7f-b84a-aaf8c25ed4e3",
-	"4983a904-6d82-44e3-beb1-c6b96bf3f3d0",
-	"00000000-0000-0000-0000-000000000000",
-	0,
-	'
-
-Notes:
-
-',
-	'Subsystem',
-	'SS_ID',
-	'R5.''abstracts asynchronous communication between classes in''');
-INSERT INTO R_RGO_PROXY
-	VALUES ("2ec510d1-5b04-4d69-a388-844bfa103cc6",
-	"cd0503bf-912b-4e62-b31f-d1c50101e2f3",
-	"2a5c925f-f0b8-4d06-bd46-043e1554f989",
-	'../../Domain/Domain.xtuml');
-INSERT INTO O_RTIDA_PROXY
-	VALUES ("c7b05f2f-7685-4110-b916-e67cfa3caa1d",
-	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
-	0,
-	"cd0503bf-912b-4e62-b31f-d1c50101e2f3",
-	"81a54e49-7906-4c32-bf3d-080631a6fc81",
-	'../../Domain/Domain.xtuml');
-INSERT INTO O_RATTR
-	VALUES ("1d954984-dda5-4f7f-b84a-aaf8c25ed4e3",
-	"2ec510d1-5b04-4d69-a388-844bfa103cc6",
-	"c7b05f2f-7685-4110-b916-e67cfa3caa1d",
-	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
-	1,
-	'SS_ID');
-INSERT INTO O_BATTR_PROXY
-	VALUES ("c7b05f2f-7685-4110-b916-e67cfa3caa1d",
-	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
-	'../../Domain/Subsystem/Subsystem.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("87bcabe7-fba6-425b-b4a3-e1a6d7f2d6b7",
+	"2ec510d1-5b04-4d69-a388-844bfa103cc6");
+INSERT INTO O_BATTR
+	VALUES ("87bcabe7-fba6-425b-b4a3-e1a6d7f2d6b7",
+	"2ec510d1-5b04-4d69-a388-844bfa103cc6");
 INSERT INTO O_ATTR
-	VALUES ("1d954984-dda5-4f7f-b84a-aaf8c25ed4e3",
+	VALUES ("87bcabe7-fba6-425b-b4a3-e1a6d7f2d6b7",
 	"2ec510d1-5b04-4d69-a388-844bfa103cc6",
 	"79a3e71e-8059-418b-ac00-9ba592bf0ad6",
 	'SS_ID',
@@ -118,7 +75,7 @@ INSERT INTO O_ATTR
 	'',
 	'SS_ID',
 	0,
-	"ba5eda7a-def5-0000-0000-000000000007",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	'',
 	'');
 INSERT INTO O_ID

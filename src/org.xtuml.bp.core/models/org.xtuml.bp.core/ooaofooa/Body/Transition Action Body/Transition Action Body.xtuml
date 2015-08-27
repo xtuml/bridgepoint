@@ -71,15 +71,8 @@ if (not_empty action)
   
   modelClassName = modelClass.Name; 
    select one pe_pe related by modelClass->PE_PE[R8001];
-     if(not_empty pe_pe )
-     //Is In Generics
       select one pkg related by pe_pe->EP_PKG[R8000];
       actionPath= pkg.getPath(path:modelClassName+"::"+stateMachineType+"::"+transitionName);
-     else
-      //In specialized 
-      select one subSystem related by modelClass ->S_SS[R2];
-      actionPath = subSystem.getPath(path:modelClassName+"::"+stateMachineType+"::"+transitionName);    
-     end if;
 end if;
 return actionPath;',
 	1,

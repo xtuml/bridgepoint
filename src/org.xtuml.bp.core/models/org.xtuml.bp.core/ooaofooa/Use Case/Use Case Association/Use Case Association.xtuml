@@ -48,9 +48,7 @@ elif(not_empty ext)
 end if;
 select one aiuc related by self->UC_AIUC[R1215];
 if(not_empty aiuc)
-  select one uc related by aiuc->UC_UCC[R1214];
   unrelate self from aiuc across R1215;
-  unrelate aiuc from uc across R1214;
   delete object instance aiuc;
 end if;
 delete object instance self;',

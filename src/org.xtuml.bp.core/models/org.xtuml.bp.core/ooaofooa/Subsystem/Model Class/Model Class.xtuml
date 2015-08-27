@@ -341,8 +341,7 @@ INSERT INTO O_TFR
 	'Initialize a new Class instance.',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-name = ::getUniqueInitialName(
+	'name = ::getUniqueInitialName(
     instance: self.convertToInstance(),
     candidateName: "Unnamed Class");
 success = ::getNewElementName(name:name,instance: self.convertToInstance(),validateName:true);    
@@ -356,12 +355,10 @@ end if;
 select one packageableElem related by self->PE_PE[R8001];
 select one package related by packageableElem->EP_PKG[R8000];
 select one component related by packageableElem->C_C[R8003];
-isInGenericPackage = not_empty package or not_empty component;
 
 // Note that this is here just to get the variable classes into context.
 select many classes related by package->PE_PE[R8000]->O_OBJ[R8001];
 
-if (isInGenericPackage)
   if (not_empty package)
     // we''re in a package, get the classes in the package and set the class number
     select many classes related by package->PE_PE[R8000]->O_OBJ[R8001];
@@ -381,23 +378,6 @@ if (isInGenericPackage)
       self.Numb = package.Num_Rng;
     end if;
   end if;
-else
-  // this model-class''s default number is either one or
-  // the starting value in the number range of its owning subsystem
-  // if the range is not zero
-  select one ss related by self->S_SS[R2];
-  select many classes related by ss->O_OBJ[R2];
-  if not_empty ss
-    if ( ss.Num_Rng == 0 )
-      self.Numb = 1;
-    else
-      self.Numb = ss.Num_Rng;
-    end if;
-    if (ss.Prefix != "")
-      self.Key_Lett = ss.Prefix + "_";
-    end if;
-  end if;  
-end if;
 
 // for each model-class associated with this model-class''s
 // owning subsystem or package
@@ -427,8 +407,7 @@ INSERT INTO O_TFR
 	'The Model Class dispose function.',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-// Association Subsystem
+	'// Association Subsystem
 select many assocs related by self->R_REL[R201];
 for each assoc in assocs
    if ( self.isEssentialToAssoc( id: assoc.Rel_ID ) )
@@ -457,14 +436,7 @@ select many tfrs related by self->O_TFR[R115];
 for each tfr in tfrs
   tfr.dispose();
 end for;
-//
-// Domain Subsystem
-select one ss related by self->S_SS[R2];
-if (not_empty ss)
-  unrelate self from ss across R2;
-end if;
-//   In the Domain SS, datatype disposals are initiated through S_DT.dispose().
-//   So, for the inst_ref and inst_ref_set, call the supertype S_DT.dispose()
+//   for the inst_ref and inst_ref_set, call the supertype S_DT.dispose()
 //   and it will clean up all the associations and the S_IRDT subtypes.
 select many irdts related by self->S_IRDT[R123];
 for each irdt in irdts
@@ -572,8 +544,7 @@ Check if a sm of that type already exists.  If so, return false.
 If not, create the ism or asm and return true.',
 	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-if (param.sm_type == "ISM")
+	'if (param.sm_type == "ISM")
   select one ism related by self->SM_ISM[R518];
   if (not_empty ism)
     return FALSE;
@@ -592,26 +563,20 @@ if (param.sm_type == "ISM")
     select any attr related by self->O_ATTR[R102] where selected.Attr_ID == 
                                                                      newAttr_id;
     attr.Root_Nam = "current_state";
-    select any dom from instances of S_DOM;
-    select any dt related by dom->S_DT[R14] where
-                                          selected.Name == "state<State_Model>";
-    if(empty dt)
+
       // if the state model dt was not found check the system level
       // dts, traversing through a package or through the domain if it is the
       // formal content of a component.
       select one system related by self->PE_PE[R8001]->
                                                     EP_PKG[R8000]->S_SYS[R1405];
-      if(not_empty dom and dom.participatesInSystem())
-        select one system related by dom->CN_DC[R4204]->C_C[R4204]->CP_CP[R4608]
-                                                                 ->S_SYS[R4606];
-      end if;
+
       dt_id = GD::NULL_UNIQUE_ID();
       if not_empty system
         dt_id = system.getCoreTypeId(name:"state<State_Model>");
       end if;
       select any pe from instances of PE_PE where selected.Element_ID == dt_id;
       select one dt related by pe->S_DT[R8001];
-    end if;
+
     if (not_empty dt)
       select one oldDT related by attr->S_DT[R114];
       unrelate attr from oldDT across R114;
@@ -789,16 +754,9 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-
-select any ref_obj related by self->S_SS[R2]->S_DOM[R1]->S_SS[R1]->O_OBJ[R2]
+	'  select any ref_obj related by self->PE_PE[R8001]->EP_PKG[R8000]->S_SYS[R1405]->EP_PKG[R1405]->PE_PE[R8000]->O_OBJ[R8001]
       where selected.Obj_ID == param.ref_obj_id;
 
-// check for isInGenericPackage
-if (empty ref_obj)
-  select any ref_obj related by self->PE_PE[R8001]->EP_PKG[R8000]->S_SYS[R1405]->EP_PKG[R1405]->PE_PE[R8000]->O_OBJ[R8001]
-      where selected.Obj_ID == param.ref_obj_id;
-end if;
     
 select any ref_oid related by ref_obj->O_ID[R104] 
     where selected.Oid_ID == param.ref_oid_id;
@@ -983,8 +941,7 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-path = "";
+	'path = "";
 if(param.includeSelf)
   path = self.Name;
 end if;
@@ -992,22 +949,9 @@ if(param.path != "")
   path = path + "::" + param.path;
 end if;
 
-isInGenericPkg = false;
 select one pkg related by self->PE_PE[R8001]->EP_PKG[R8000];
-if (not_empty pkg)
-  isInGenericPkg = true;
-end if;
 
-if (isInGenericPkg)
   return pkg.getPath(path:path);
-else
-  select one ss related by self->S_SS[R2];
-  if(not_empty ss)
-    return ss.getPath(path:path);
-  else
-    return "";
-  end if;
-end if;   
 ',
 	1,
 	'',
@@ -1466,13 +1410,11 @@ datatypes that are associated with a model class.  One is inst_ref<classname>,
 the other is inst_ref_set<classname>.',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-// Model Class::newInstanceReferenceDataType()
+	'// Model Class::newInstanceReferenceDataType()
 select one packageableElem related by self->PE_PE[R8001];
 select one package related by packageableElem->EP_PKG[R8000];
 select one component related by packageableElem->C_C[R8003];
-isInGenericPackage = not_empty package or not_empty component;
-if (isInGenericPackage)
+
   // Make sure the IRDTs don''t already exist before creating new ones.  Check
   // the single and set version and create whatever does not exist.
   select any existing_irdt related by self->S_IRDT[R123] where selected.isSet == false;
@@ -1506,54 +1448,8 @@ if (isInGenericPackage)
     dt2.initialize(newname:"inst_ref_set<" + self.Name + ">");
     relate self to irsdt across R123;
   end if;  
-  return;
-end if;
 
-// Below this point is for the case where this O_OBJ is not in a generic package
-
-select one dom related by self->S_SS[R2]->S_DOM[R1];
-select any dtp related by dom->S_DPK[R40] where selected.Name == "Datatypes";
-
-if (empty dtp)
-  // Note: this code would ideally call Domain.newDatatypePackage(), but that
-  // does not return the UUID of the newly created package (or an inst_ref to
-  // the new package).  If possible, change the function and call it from here.
-  create object instance dtp of S_DPK;
-  dtp.Name = "Datatypes";
-  relate dtp to dom across R40;
-end if;
-
-// Make sure the IRDTs don''t already exist before creating new ones.  Check
-// the single and set version and create whatever does not exist.
-select any existing_irdt related by self->S_IRDT[R123] where selected.isSet == false;
-if (empty existing_irdt)
-  create object instance dt of S_DT;
-  create object instance irdt of S_IRDT;
-  irdt.isSet = false;
-  relate dt to irdt across R17;
-
-  create object instance dip of S_DIP;
-  relate dt to dtp across R39 using dip;
-
-  dt.initialize(newname:"inst_ref<" + self.Name + ">");
-  dtp.associateNewDTWithDomainOrSystem(dt_id:dt.DT_ID);
-  relate self to irdt across R123;
-end if;
-
-select any existing_irdt_set related by self->S_IRDT[R123] where selected.isSet == true;
-if (empty existing_irdt_set)
-  create object instance dt2 of S_DT;
-  create object instance irsdt of S_IRDT;
-  irsdt.isSet = true;
-  relate irsdt to dt2 across R17;
-
-  create object instance dip of S_DIP;
-  relate dt2 to dtp across R39 using dip;
-
-  dt2.initialize(newname:"inst_ref_set<" + self.Name + ">");
-  dtp.associateNewDTWithDomainOrSystem(dt_id:dt2.DT_ID);
-  relate self to irsdt across R123;
-end if;',
+',
 	1,
 	'',
 	"05bac3ab-7903-46ca-8b04-c13f65ed4de4");
@@ -1635,14 +1531,9 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-// Model Class.getContainingComponentId()
+	'// Model Class.getContainingComponentId()
 isInGenericPkg = false;
 select one pkg related by self->PE_PE[R8001]->EP_PKG[R8000];
-if (not_empty pkg)
-  isInGenericPkg = true;
-end if;
-if (isInGenericPkg)
   select one component related by self->PE_PE[R8001]->C_C[R8003];
   if(not_empty component)
     return component.Id;
@@ -1652,12 +1543,6 @@ if (isInGenericPkg)
   end if;
   USER::logError(msg:
                "Class has no parent in Model Class.getContainingComponentId()",path:self.getPath(path:self.Name,includeSelf:true));
-else
-  select one subsystem related by self->S_SS[R2];
-  if not_empty subsystem
-    return subsystem.getContainingComponentId();
-  end if;
-end if;   
 return GD::NULL_UNIQUE_ID();
 
 ',
@@ -1996,57 +1881,6 @@ Description: This is a description of the class as entered by the user.',
 	'');
 INSERT INTO O_REF
 	VALUES ("b7630071-9e2a-4183-9986-779dca14c275",
-	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
-	0,
-	"c7b05f2f-7685-4110-b916-e67cfa3caa1d",
-	"b546c771-d03a-49e8-ba24-c221183f06a8",
-	"0e48cfc5-89fd-407e-9dfc-98f8fb40eaca",
-	"1c5bbc07-5033-4bdf-80e4-acdfeead521f",
-	"2111b10e-7e13-454f-b568-10465e7eb2b6",
-	"69af67e3-1e93-415e-a167-aea424b9bd35",
-	"00000000-0000-0000-0000-000000000000",
-	0,
-	'',
-	'Subsystem',
-	'SS_ID',
-	'R2.''is contained in''');
-INSERT INTO R_RGO_PROXY
-	VALUES ("b7630071-9e2a-4183-9986-779dca14c275",
-	"b546c771-d03a-49e8-ba24-c221183f06a8",
-	"0e48cfc5-89fd-407e-9dfc-98f8fb40eaca",
-	'../../Domain/Domain.xtuml');
-INSERT INTO O_RTIDA_PROXY
-	VALUES ("c7b05f2f-7685-4110-b916-e67cfa3caa1d",
-	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
-	0,
-	"b546c771-d03a-49e8-ba24-c221183f06a8",
-	"1c5bbc07-5033-4bdf-80e4-acdfeead521f",
-	'../../Domain/Domain.xtuml');
-INSERT INTO O_RATTR
-	VALUES ("2111b10e-7e13-454f-b568-10465e7eb2b6",
-	"b7630071-9e2a-4183-9986-779dca14c275",
-	"c7b05f2f-7685-4110-b916-e67cfa3caa1d",
-	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
-	1,
-	'SS_ID');
-INSERT INTO O_BATTR_PROXY
-	VALUES ("c7b05f2f-7685-4110-b916-e67cfa3caa1d",
-	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
-	'../../Domain/Subsystem/Subsystem.xtuml');
-INSERT INTO O_ATTR
-	VALUES ("2111b10e-7e13-454f-b568-10465e7eb2b6",
-	"b7630071-9e2a-4183-9986-779dca14c275",
-	"26632e2d-f9a9-4c11-a25b-49a661851bb1",
-	'SS_ID',
-	'',
-	'',
-	'SS_ID',
-	0,
-	"ba5eda7a-def5-0000-0000-000000000007",
-	'',
-	'');
-INSERT INTO O_REF
-	VALUES ("b7630071-9e2a-4183-9986-779dca14c275",
 	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
 	0,
 	"5776264f-c7e9-4abe-839f-24d0750e007c",
@@ -2094,6 +1928,29 @@ INSERT INTO O_ATTR
 	'Obj_ID',
 	0,
 	"ba5eda7a-def5-0000-0000-000000000007",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("086d51ad-2f5d-4e82-8229-b93bb40f9700",
+	"b7630071-9e2a-4183-9986-779dca14c275");
+INSERT INTO O_BATTR
+	VALUES ("086d51ad-2f5d-4e82-8229-b93bb40f9700",
+	"b7630071-9e2a-4183-9986-779dca14c275");
+INSERT INTO O_ATTR
+	VALUES ("086d51ad-2f5d-4e82-8229-b93bb40f9700",
+	"b7630071-9e2a-4183-9986-779dca14c275",
+	"26632e2d-f9a9-4c11-a25b-49a661851bb1",
+	'SS_id',
+	'Class Subsystem, S_SS, and R2 were removed during removal of specialized packages.
+This was a a referential attribute in O_OBJ.  The current verison of BridgePoint
+used for BridgePoint development is 5.0.  Until we move to a version of BP that
+does not contain SPs, the build of BP schema used for the BP build (which is 
+generated during the build) needs this attribute.  Thefore, this attribute is
+being put back, as a placeholder during this bootstrapping.',
+	'',
+	'SS_id',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000005",
 	'',
 	'');
 INSERT INTO O_ID

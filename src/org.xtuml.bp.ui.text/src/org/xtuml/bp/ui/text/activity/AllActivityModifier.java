@@ -33,9 +33,6 @@ import org.eclipse.ui.texteditor.IElementStateListener;
 
 import org.xtuml.bp.als.oal.ParserAllActivityModifier;
 import org.xtuml.bp.core.Component_c;
-import org.xtuml.bp.core.Domain_c;
-import org.xtuml.bp.core.ExternalEntityPackage_c;
-import org.xtuml.bp.core.FunctionPackage_c;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.Parsestatus_c;
 import org.xtuml.bp.core.ProvidedOperation_c;
@@ -43,7 +40,6 @@ import org.xtuml.bp.core.ProvidedSignal_c;
 import org.xtuml.bp.core.RequiredOperation_c;
 import org.xtuml.bp.core.RequiredSignal_c;
 import org.xtuml.bp.core.SystemModel_c;
-import org.xtuml.bp.core.Subsystem_c;
 import org.xtuml.bp.core.common.ModelRoot;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.util.UIUtil;
@@ -62,13 +58,6 @@ public class AllActivityModifier extends ParserAllActivityModifier
     
     private ActivityEditor.ParseRunnable parseRunner = new ActivityEditor.ParseRunnable();
 
-    public AllActivityModifier(Domain_c parent, IProgressMonitor monitor){
-    	super(parent, monitor);
-        if(activityInputFactory == null){
-        	activityInputFactory = ActivityEditorInputFactory.getDefaultInstance();
-        }
-    }
-    
     public AllActivityModifier(Component_c parent, IProgressMonitor monitor){
     	super(parent, monitor);
         if(activityInputFactory == null){
@@ -84,27 +73,6 @@ public class AllActivityModifier extends ParserAllActivityModifier
     }
     
     public AllActivityModifier(SystemModel_c parent, IProgressMonitor monitor){
-    	super(parent, monitor);
-        if(activityInputFactory == null){
-        	activityInputFactory = ActivityEditorInputFactory.getDefaultInstance();
-        }
-    }
-    
-    public AllActivityModifier(Subsystem_c parent, IProgressMonitor monitor){
-    	super(parent, monitor);
-        if(activityInputFactory == null){
-        	activityInputFactory = ActivityEditorInputFactory.getDefaultInstance();
-        }
-    }
-    
-    public AllActivityModifier(FunctionPackage_c parent, IProgressMonitor monitor){
-    	super(parent, monitor);
-        if(activityInputFactory == null){
-        	activityInputFactory = ActivityEditorInputFactory.getDefaultInstance();
-        }
-    }
-    
-    public AllActivityModifier(ExternalEntityPackage_c parent, IProgressMonitor monitor){
     	super(parent, monitor);
         if(activityInputFactory == null){
         	activityInputFactory = ActivityEditorInputFactory.getDefaultInstance();

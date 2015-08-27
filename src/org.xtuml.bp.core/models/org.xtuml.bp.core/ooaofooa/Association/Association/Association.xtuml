@@ -249,8 +249,7 @@ INSERT INTO O_TFR
 	'The dispose operation for the R_REL class.',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-// Association Subsystem
+	'// Association Subsystem
 if self.isFormalized()
   self.unformalize();
 end if;
@@ -301,12 +300,6 @@ for each lnk in lnks
   unrelate self from lnk across R681;
 end for;
 //
-// Domain subsystem
-select one ss related by self->S_SS[R4];
-if ( not_empty ss )
-  unrelate self from ss across R4;
-end if;
-//
 // Instance Subsystem
 select many iils related by self->I_LIP[R2959];
 for each iil in iils
@@ -344,15 +337,13 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-// this association''s default number is either one or
+	'// this association''s default number is either one or
 // the starting value in the number range of its owning subsystem
 // if the range is not zero
 select one packageableElem related by self->PE_PE[R8001];  
 select one package related by packageableElem->EP_PKG[R8000];
 select one component related by packageableElem->C_C[R8003];
-isInGenericPackage = not_empty package or not_empty component;
-if (isInGenericPackage)
+
   if (empty package)
     rootCompIdInPkg = component.getRootComponentId();
     select any rootComponent from instances of C_C where (selected.Id == rootCompIdInPkg);
@@ -378,30 +369,7 @@ if (isInGenericPackage)
       self.Numb = assoc.Numb + 1;
     end if;
   end for;
-else
-  select one ss related by self->S_SS[R4];
-  if ( ss.Num_Rng == 0 )
-    self.Numb = 1;
-  else
-    self.Numb = ss.Num_Rng;
-  end if;
-  
-  // for each assocation associated with this association''s
-  // owning subsystem
-  select many assocs related by ss->R_REL[R4];
-  for each assoc in assocs
-    // if this association equals self, skip it
-    if (assoc.Rel_ID == self.Rel_ID) continue; end if;
-  
-    // if this other association''s number is 
-    // greater than this association''s number
-    if (assoc.Numb >= self.Numb)
-      // have this association''s number be just greater 
-      // than this other association''s number
-      self.Numb = assoc.Numb + 1;
-    end if;
-  end for;
-end if;',
+',
 	1,
 	'',
 	"4dda3954-20f5-4ead-a502-54311c7021cf");
@@ -653,57 +621,6 @@ INSERT INTO O_ATTR
 	'');
 INSERT INTO O_REF
 	VALUES ("fccf477f-dde6-4d1a-9020-5effbe338738",
-	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
-	0,
-	"c7b05f2f-7685-4110-b916-e67cfa3caa1d",
-	"514fb721-8dd5-4584-837f-c8b4b6668d3e",
-	"e25b494f-871b-4014-9cd2-b80704324934",
-	"eb1dbf2b-42f5-42ec-ac40-b0c409b8f2b8",
-	"228bbfac-1c18-4486-be97-ac40663f646a",
-	"3667f35e-ff9f-4985-956a-771893eb85cc",
-	"00000000-0000-0000-0000-000000000000",
-	0,
-	'',
-	'Subsystem',
-	'SS_ID',
-	'R4.''abstracts associations between classes in''');
-INSERT INTO R_RGO_PROXY
-	VALUES ("fccf477f-dde6-4d1a-9020-5effbe338738",
-	"514fb721-8dd5-4584-837f-c8b4b6668d3e",
-	"e25b494f-871b-4014-9cd2-b80704324934",
-	'../../Domain/Domain.xtuml');
-INSERT INTO O_RTIDA_PROXY
-	VALUES ("c7b05f2f-7685-4110-b916-e67cfa3caa1d",
-	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
-	0,
-	"514fb721-8dd5-4584-837f-c8b4b6668d3e",
-	"eb1dbf2b-42f5-42ec-ac40-b0c409b8f2b8",
-	'../../Domain/Domain.xtuml');
-INSERT INTO O_RATTR
-	VALUES ("228bbfac-1c18-4486-be97-ac40663f646a",
-	"fccf477f-dde6-4d1a-9020-5effbe338738",
-	"c7b05f2f-7685-4110-b916-e67cfa3caa1d",
-	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
-	1,
-	'SS_ID');
-INSERT INTO O_BATTR_PROXY
-	VALUES ("c7b05f2f-7685-4110-b916-e67cfa3caa1d",
-	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
-	'../../Domain/Subsystem/Subsystem.xtuml');
-INSERT INTO O_ATTR
-	VALUES ("228bbfac-1c18-4486-be97-ac40663f646a",
-	"fccf477f-dde6-4d1a-9020-5effbe338738",
-	"25cd7dfc-04fd-4f79-893f-f7ee4c1b9ab8",
-	'SS_ID',
-	'',
-	'',
-	'SS_ID',
-	0,
-	"ba5eda7a-def5-0000-0000-000000000007",
-	'',
-	'');
-INSERT INTO O_REF
-	VALUES ("fccf477f-dde6-4d1a-9020-5effbe338738",
 	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
 	0,
 	"5776264f-c7e9-4abe-839f-24d0750e007c",
@@ -751,6 +668,24 @@ INSERT INTO O_ATTR
 	'Rel_ID',
 	0,
 	"ba5eda7a-def5-0000-0000-000000000007",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("49f6714f-d8a3-4aaa-81fa-d4bfb4fc3ca1",
+	"fccf477f-dde6-4d1a-9020-5effbe338738");
+INSERT INTO O_BATTR
+	VALUES ("49f6714f-d8a3-4aaa-81fa-d4bfb4fc3ca1",
+	"fccf477f-dde6-4d1a-9020-5effbe338738");
+INSERT INTO O_ATTR
+	VALUES ("49f6714f-d8a3-4aaa-81fa-d4bfb4fc3ca1",
+	"fccf477f-dde6-4d1a-9020-5effbe338738",
+	"25cd7dfc-04fd-4f79-893f-f7ee4c1b9ab8",
+	'SS_ID',
+	'',
+	'',
+	'SS_ID',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000005",
 	'',
 	'');
 INSERT INTO O_ID

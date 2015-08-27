@@ -539,23 +539,16 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-/* State Machine.canAssignSignal
+	'/* State Machine.canAssignSignal
 This operation only exists because of a bug in generator where an operation may
 not be called on the selected item in the where clause of a select statement.
 There is a function in cme_functions.sql that needs to call
 [Required/Provided Signal].canAssignSignal in such a circumstance,
 so it instead calls this, which then makes the desired call.
 */
-select any interfaceSignal related by self->SM_ASM[R517]->O_OBJ[R519]->S_SS[R2]
-     ->S_DOM[R1]->CN_DC[R4204]->C_C[R4204]->C_PO[R4010]->C_IR[R4016]->C_I[R4012]
-                           ->C_EP[R4003] where (selected.Id == param.signal_id);
-
 select one packageableElem related by self->SM_ASM[R517]->O_OBJ[R519]->PE_PE[R8001];
 select one package related by packageableElem->EP_PKG[R8000];
-isInGenericPackage = not_empty package;
-if (isInGenericPackage)
-  // Check for isInGenericPackage
+
   select any containingComponent from instances of C_C where
                                             selected.Id == GD::NULL_UNIQUE_ID();
   if not_empty package
@@ -566,7 +559,6 @@ if (isInGenericPackage)
   select any interfaceSignal related by containingComponent->C_PO[R4010]->
                                         C_IR[R4016]->C_I[R4012]->C_EP[R4003] 
                                          where (selected.Id == param.signal_id);
-end if;
 
 select any reqEP related by interfaceSignal->SPR_REP[R4500] where
                                selected.ExecutableProperty_Id == param.signal_id
@@ -622,22 +614,15 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-// State Machine.hasValidSignals()
-select any ifRef related by self->SM_ASM[R517]->O_OBJ[R519]->
-           S_SS[R2]->S_DOM[R1]->CN_DC[R4204]->C_C[R4204]->C_PO[R4010]->
-                            C_IR[R4016] where selected.Id == param.interface_id;
-
+	'// State Machine.hasValidSignals()
 select one packageableElem related by self->SM_ASM[R517]->O_OBJ[R519]->PE_PE[R8001];
 select one package related by packageableElem->EP_PKG[R8000];
-isInGenericPackage = not_empty package;
-if (isInGenericPackage)
+
   containingComponentId = package.getContainingComponentId();
   select any containingComponent from instances of C_C where
                                            selected.Id == containingComponentId;
   select any ifRef related by containingComponent->C_PO[R4010]->C_IR[R4016] 
                                         where selected.Id == param.interface_id;
-end if;
 
 select many signals related by ifRef->C_I[R4012]->C_EP[R4003]->C_AS[R4004];
 for each sig in signals

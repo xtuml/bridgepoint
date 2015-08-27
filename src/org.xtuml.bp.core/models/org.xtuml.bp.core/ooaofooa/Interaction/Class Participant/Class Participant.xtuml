@@ -340,19 +340,7 @@ INSERT INTO O_TFR
     // only allow adding attributes if not formal
     return not self.isFormal;
   end if;
-  if(param.value == "formClass spec pkg") or (param.value == "formClass generic pkg")
-    select one packageableElem related by self->SQ_P[R930]->PE_PE[R8001];
-    select one package related by packageableElem->EP_PKG[R8000];
-    select one component related by packageableElem->C_C[R8003];
-    isInGenericPackage = not_empty package or not_empty component;
-  
-    if ((param.value == "formClass spec pkg")  and (isInGenericPackage))
-      return false;
-    end if;
-    if ((param.value == "formClass generic pkg") and (not isInGenericPackage))
-      return false;
-    end if;
-    
+  if(param.value == "formClass generic pkg")    
     // no formalization support yet at system level
     if(self.definedAtSystemLevel())
       return false;
@@ -361,11 +349,9 @@ INSERT INTO O_TFR
     // class exists
     select many objs from instances of O_OBJ;
     count = cardinality objs;
-    if(param.value == "formClass generic pkg")
       count = Util::getElementCountInSystem(
                                        elementType:ElementTypeConstants::CLASS,
                                         askingElement:self.convertToInstance());
-    end if;
     if(count == 1 and self.isFormal)
       return false;
     end if;
@@ -460,16 +446,11 @@ INSERT INTO O_TFR
 	1,
 	'select any mclass from instances of O_OBJ
                                 where (selected.Obj_ID == GD::NULL_UNIQUE_ID());
-select one package related by self->SQ_P[R930]->PE_PE[R8001]->EP_PKG[R8000];
-isInGenericPackage = not_empty package;
-if(not isInGenericPackage)
-  select any mclass from instances of O_OBJ
-                                       where (selected.Obj_ID == param.classId);
-else
+
   select any pe from instances of PE_PE
                                    where (selected.Element_ID == param.classId);
   select one mclass related by pe->O_OBJ[R8001];
-end if;
+
 if(self.isFormal)
   self.unformalize();
 end if;
@@ -711,15 +692,13 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select one proxyClass related by self->O_OBJ[R939];
+	'select one proxyClass related by self->O_OBJ[R939];
 if(not_empty proxyClass and not Util::isProxy(element:self.convertToInstance()))
   select one packageableElem related by self->SQ_P[R930]->PE_PE[R8001];
   select one package related by packageableElem->EP_PKG[R8000];
   select one component related by packageableElem->C_C[R8003];
   isInGenericPackage = not_empty package or not_empty component;
 
-  if (isInGenericPackage)
     if (empty package)
       rootCompIdInPkg = component.getRootComponentId();
       select any rootComponent from instances of C_C where (selected.Id == rootCompIdInPkg);
@@ -764,47 +743,7 @@ if(not_empty proxyClass and not Util::isProxy(element:self.convertToInstance()))
       self.unformalize();
     end if;
     return;
-  end if;  // end isInGenericPackage
   
-  //////////////////////////////////////////////////////////////////////
-  // Note: Everything below this point is for the case when we are using 
-  //       specialized packages.
-  //////////////////////////////////////////////////////////////////////
-  
-  // if a subsystem is resolved by the proxy class
-  // then this CP has already been
-  // resolved or does not need to be as the referred to
-  // class is contained in the copy
-  select one ss related by proxyClass->S_SS[R2];
-  if(empty ss or Util::isProxy(element:ss.convertToInstance()))
-    name = proxyClass.Name;
-    key_letters = proxyClass.Key_Lett;
-    unrelate self from proxyClass across R939;
-    // this is safe as there will only ever be one
-    // domain
-    select any domain from instances of S_DOM;
-    // first try to resolve to referred to class by key letters and name
-    select any clazz related by domain->S_SS[R1]->O_OBJ[R2]
-         where (selected.Key_Lett == key_letters and selected.Name == name);
-    if(empty clazz)
-      // if no class was found try to resolve it by key_letters alone
-      select any clazz related by domain->S_SS[R1]->O_OBJ[R2]
-           where (selected.Key_Lett == key_letters);
-      if(empty clazz)
-        // if still no class was found try to resolve on the name alone
-        select any clazz related by domain->S_SS[R1]->O_OBJ[R2]
-             where (selected.Name == name);
-      end if;
-    end if;
-    classResolved = not_empty clazz;
-    if(classResolved)
-      relate self to clazz across R939;
-      self.resolveMessageFormalizations();
-    else
-      // unformalize this CP
-      self.unformalize();
-    end if;
-  end if;
 end if;
 ',
 	1,

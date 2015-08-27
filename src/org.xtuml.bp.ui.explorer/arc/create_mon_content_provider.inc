@@ -97,36 +97,6 @@ public class ${provider_name} implements ITreeContentProvider {
 				parentElement);
 			for (int i = 0; i < systems.length; i++) {
 				if (systems[i] instanceof SystemModel_c) {
-					Object[] uDoms = ((SystemModel_c) systems[i]).getChildren();
-					Object[] fDoms = Domain_c
-						..getManyS_DOMsOnR4204(DomainAsComponent_c
-							..getManyCN_DCsOnR4204(Component_c
-								..getManyC_CsOnR4604(ComponentPackage_c
-									..getManyCP_CPsOnR4602(
-									             (SystemModel_c) systems[i]))));
-					Object[] doms = new Object[uDoms.length + fDoms.length];
-					for (int j = 0; j < uDoms.length; j++) {
-						doms[j] = uDoms[j];
-					}
-					for (int j = 0; j < fDoms.length; j++) {
-						doms[uDoms.length + j] = fDoms[j];
-					}
-					for (int j = 0; j < doms.length; j++) {
-						Domain_c dom = null;
-						if (doms[j] instanceof Domain_c) {
-							dom = (Domain_c) doms[j];
-						}
-						if (dom != null) {
-								ComponentInstance_c[] engines = ComponentInstance_c.getManyI_EXEsOnR2948(dom);
-							Component_c component = Component_c.getOneC_COnR4204(DomainAsComponent_c.getOneCN_DCOnR4204(dom));
-							if (component != null) {
-							  engines = getEnginesForComponent(component);
-							}
-							for (int k = 0; k < engines.length; k++) {
-								addTo(result, engines[k]);
-							}
-						}
-					}
 					Component_c[] gComps = Component_c
 							..getManyC_CsOnR8001(PackageableElement_c
 									..getManyPE_PEsOnR8000(Package_c

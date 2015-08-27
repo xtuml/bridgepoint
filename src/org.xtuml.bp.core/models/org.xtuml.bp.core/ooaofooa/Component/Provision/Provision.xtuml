@@ -182,15 +182,9 @@ INSERT INTO O_TFR
   end for;
   select one ir related by self->C_IR[R4009];
   select one packageableElem related by ir->C_PO[R4016]->C_C[R4010]->PE_PE[R8001];
-  select one package related by packageableElem->EP_PKG[R8000];
-  select one component related by packageableElem->C_C[R8003];
-  isInGenericPackage = not_empty package or not_empty component;
   
   if(param.value == "formalize spec pkg") or (param.value == "formalize generic pkg")
-    if (param.value == "formalize spec pkg") and (isInGenericPackage)
-      return false;
-    end if;
-    if (param.value == "formalize generic pkg") and (not isInGenericPackage)
+    if (param.value == "formalize spec pkg")
       return false;
     end if;
     
@@ -666,9 +660,8 @@ if(not self.isSynchronized())
   select one interface related by self->C_IR[R4009]->C_I[R4012];
   isTornDown = Util::isProxy(element:interface.convertToInstance());
   if(not isTornDown)
-    select one pkg related by interface->IP_IP[R4303];
     select one pe related by interface->PE_PE[R8001];
-    if(empty pkg and empty pe)
+    if(empty pe)
       isTornDown = true;
     end if;
   end if; 

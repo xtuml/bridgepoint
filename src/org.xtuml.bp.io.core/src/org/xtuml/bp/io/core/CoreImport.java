@@ -27,16 +27,7 @@ import java.util.regex.Pattern;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
-
-import antlr.RecognitionException;
-import antlr.TokenStreamException;
-
-import org.xtuml.bp.core.DataTypePackage_c;
-import org.xtuml.bp.core.Domain_c;
-import org.xtuml.bp.core.ExternalEntityPackage_c;
-import org.xtuml.bp.core.FunctionPackage_c;
 import org.xtuml.bp.core.Ooaofooa;
-import org.xtuml.bp.core.SpecificationPackage_c;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.IdAssigner;
@@ -48,6 +39,9 @@ import org.xtuml.bp.ui.canvas.Cl_c;
 import org.xtuml.bp.ui.canvas.GraphicalElement_c;
 import org.xtuml.bp.ui.canvas.Model_c;
 import org.xtuml.bp.ui.canvas.Ooaofgraphics;
+
+import antlr.RecognitionException;
+import antlr.TokenStreamException;
 
 public abstract class CoreImport implements IModelImport {
     public boolean m_success;
@@ -323,63 +317,6 @@ public abstract class CoreImport implements IModelImport {
 
     private static String defaultExternalEntityPackageName = "External Entities"; //$NON-NLS-1$
 
-    protected FunctionPackage_c createDefaultFunctionPackage(Ooaofooa modelRoot) {
-        FunctionPackage_c fpk = new FunctionPackage_c(modelRoot);
-        fpk.relateAcrossR29To(Domain_c.DomainInstance(modelRoot));
-        fpk.setName(defaultFunctionPackageName);
-        return fpk;
-    }
-
-    protected FunctionPackage_c getDefaultFunctionPackage(Ooaofooa modelRoot) {
-        FunctionPackage_c pkg = FunctionPackage_c.FunctionPackageInstance(modelRoot, new ClassQueryInterface_c() {
-            public boolean evaluate(Object x) {
-                FunctionPackage_c selected = (FunctionPackage_c) x;
-                return selected.getName().equals(defaultFunctionPackageName);
-            }
-        });
-        return pkg;
-    }
-
-    protected DataTypePackage_c createDefaultDataTypePackage(Ooaofooa modelRoot) {
-        DataTypePackage_c dpk = new DataTypePackage_c(modelRoot);
-		SpecificationPackage_c pkg = SpecificationPackage_c
-				.getOneEP_SPKGOnR1402(dpk, false);
-		if(pkg == null) {
-			pkg = new SpecificationPackage_c(modelRoot);
-			pkg.relateAcrossR1402To(dpk, false);
-		}
-        dpk.relateAcrossR40To(Domain_c.DomainInstance(modelRoot));
-        dpk.setName(defaultDataTypePackageName);
-        return dpk;
-    }
-
-    protected DataTypePackage_c getDefaultDataTypePackage(Ooaofooa modelRoot) {
-        DataTypePackage_c pkg = DataTypePackage_c.DataTypePackageInstance(modelRoot, new ClassQueryInterface_c() {
-            public boolean evaluate(Object x) {
-                DataTypePackage_c selected = (DataTypePackage_c) x;
-                return selected.getName().equals(defaultDataTypePackageName);
-            }
-        });
-        return pkg;
-    }
-
-    protected ExternalEntityPackage_c createDefaultExternalEntityPackage(Ooaofooa modelRoot) {
-        ExternalEntityPackage_c epk = new ExternalEntityPackage_c(modelRoot);
-        epk.relateAcrossR36To(Domain_c.DomainInstance(modelRoot));
-        epk.setName(defaultExternalEntityPackageName);
-        return epk;
-    }
-
-    protected ExternalEntityPackage_c getDefaultExternalEntityPackage(Ooaofooa modelRoot) {
-        ExternalEntityPackage_c pkg = ExternalEntityPackage_c.ExternalEntityPackageInstance(modelRoot,
-                new ClassQueryInterface_c() {
-                    public boolean evaluate(Object x) {
-                        ExternalEntityPackage_c selected = (ExternalEntityPackage_c) x;
-                        return selected.getName().equals(defaultExternalEntityPackageName);
-                    }
-                });
-        return pkg;
-    }
 
     public NonRootModelElement getRootModelElement() {
         return rootModelElement;
@@ -522,29 +459,6 @@ public abstract class CoreImport implements IModelImport {
 		}
     }
 
-	protected boolean isDomainIdUnique(Domain_c domain) {
-		SystemModel_c systemModel = SystemModel_c.getOneS_SYSOnR28(domain);
-		if (systemModel != null) {
-			Object[] doms = systemModel.getChildren();
-			for (int i = 0; i < doms.length; i++) {
-				if (doms[i] != domain) {
-					if(doms[i] instanceof Domain_c) {
-						Domain_c dom = (Domain_c) doms[i];
-						// if any domains exist with the same id
-						if (dom.getDom_id().equals(domain.getDom_id())) {
-							// this id is not unique
-							return false;
-						}
-					}
-				}
-			}
-			return true;
-		}
-		// if we couldn't find a system-model
-		// we increase the id value by default
-		return false;
-	}
-    
 	public boolean getSuccessful() {
 		return m_success;
 	}
