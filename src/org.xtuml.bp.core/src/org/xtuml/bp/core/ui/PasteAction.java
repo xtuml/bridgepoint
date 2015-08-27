@@ -272,13 +272,6 @@ public abstract class PasteAction extends Action {
 			if(destinations.isEmpty()) {
 				return true;
 			}
-			boolean destinationsInGenericPackaging = CopyCutAction.elementsInGenericPackaging(getDestinations());
-			if(destinationsInGenericPackaging && !isGenericPackagingCopy) {
-				return false;
-			}
-			if(!destinationsInGenericPackaging && isGenericPackagingCopy) {
-				return false;
-			}
 		} else {
 			return false;
 		}

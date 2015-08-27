@@ -32,8 +32,6 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.dialogs.WizardResourceImportPage;
-
-import org.xtuml.bp.core.Domain_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.ui.explorer.adapters.SystemAdapter;
@@ -121,13 +119,6 @@ public abstract class CoreImportPage extends WizardResourceImportPage
 	    if ( ! selection.isEmpty() )
 	    {
 		    Object context = selection.iterator().next();
-		    if (context instanceof Domain_c ) {
-				((CoreExportWizard)getWizard()).setDomain(context);
-				m_domainList = new Object[1];
-				m_domainList[0] = context;
-		    }
-		    else
-		    {
 			    if ( context instanceof SystemModel_c )
 			    {
 			    	systemList = new SystemModel_c[1];
@@ -139,7 +130,6 @@ public abstract class CoreImportPage extends WizardResourceImportPage
 							.getDefaultInstance());
 			    
 			    }
-		    }
 	    }
 		else
 		{
@@ -167,12 +157,6 @@ public abstract class CoreImportPage extends WizardResourceImportPage
 			}
 	    }
 		
-		for ( int i = 0; i < m_domainList.length; ++i)
-		{
-		    SystemModel_c sm = SystemModel_c.getOneS_SYSOnR28((Domain_c)m_domainList[i]);
-			domainNameField.add(sm.getName() + "/" + ((Domain_c)m_domainList[i]).getName());
-		}
-
 		// Set the initial value first before listener
 		// to avoid handling an event during the creation.
 		if ( domainNameField.getItemCount() == 1)

@@ -284,8 +284,7 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-// assure that the datatype is the correct one for
+	'// assure that the datatype is the correct one for
 // referential attributes
 select one attr related by self->O_ATTR[R106];
 select one dt related by attr->S_DT[R114];
@@ -298,13 +297,9 @@ if ( not_empty dt )
 end if;
 
 
-isInGenericPkg = false;
 select one pkg related by attr->O_OBJ[R102]->PE_PE[R8001]->EP_PKG[R8000];
-if (not_empty pkg)
-  isInGenericPkg = true;
-end if;
 
-if (isInGenericPkg)
+
   select one system related by pkg->S_SYS[R1405];
   dt_id = GD::NULL_UNIQUE_ID();
   if not_empty system
@@ -318,34 +313,6 @@ if (isInGenericPkg)
   else
     relate attr to ref_attr_dt across R114;
   end if;
-else
-  select any dom from instances of S_DOM;
-  select any ref_attr_dt related by dom->S_DT[R14] where
-                                     selected.Name == "same_as<Base_Attribute>";
-  if(empty ref_attr_dt)
-    // if the ref attr dt was not found check the system level
-    // dts, but only if the domain found is the formal content
-    // of a component
-    if(dom.participatesInSystem())
-      select one system related by dom->CN_DC[R4204]->C_C[R4204]->CP_CP[R4608]
-                                                                 ->S_SYS[R4606];
-      dt_id = GD::NULL_UNIQUE_ID();
-      if not_empty system
-        dt_id = system.getCoreTypeId(name:"same_as<Base_Attribute>");
-      end if;
-      select any pe from instances of PE_PE where selected.Element_ID == dt_id;
-      select one ref_attr_dt related by pe->S_DT[R8001]; 
-    else
-      // this is an error, if the domain is not
-      // participating at the system level and
-      // we cannot find the type at the domain
-      // level we have a problem
-      USER::logError(msg:
-                  "Unable to locate expected data type: same_as<Base_Attribute>",path:"PathNotProvided");
-    end if;
-  end if;
-  relate attr to ref_attr_dt across R114;
-end if;   
 
 ',
 	1,

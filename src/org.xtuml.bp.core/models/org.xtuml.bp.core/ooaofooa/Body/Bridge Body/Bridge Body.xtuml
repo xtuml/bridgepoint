@@ -61,16 +61,9 @@ brdgPath ="";
 brdgName="";
 if (not_empty brdg)
   brdgName = brdg.Name; 
-   select one pe_pe related by brdg ->S_EE[R19]->PE_PE[R8001];
-     if(not_empty pe_pe )
-     //Is In Generics
-      select one pkg related by pe_pe->EP_PKG[R8000];
-      brdgPath= pkg.getPath(path:brdgName);
-     else
-      //In specialized 
-      select one eePkg related by brdg->S_EE[R19]->S_EEPK[R33];
-      brdgPath = eePkg.getPath()+"::"+ brdgName;    
-     end if;
+  select one pe_pe related by brdg ->S_EE[R19]->PE_PE[R8001];
+  select one pkg related by pe_pe->EP_PKG[R8000];
+  brdgPath= pkg.getPath(path:brdgName);
 end if;
 return brdgPath;',
 	1,

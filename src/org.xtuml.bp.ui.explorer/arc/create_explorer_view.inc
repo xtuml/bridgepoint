@@ -111,7 +111,6 @@ public class ${viewer_name} extends ViewPart implements IModelViewerProvider {
   protected Action fileImport, fileExport;
   protected Action treeRefresh;
   protected Action hideStatics;
-  protected ConvertToMultifileAction convertToMFP;
   protected Action\
   .for each node in tree_nodes 
  hide$r{node.CategoryName}\
@@ -570,7 +569,6 @@ public class ${viewer_name} extends ViewPart implements IModelViewerProvider {
 
     hideStatics.setChecked(false);
     hideStatics.setToolTipText(HIDE_STATICS);
-    convertToMFP = new ConvertToMultifileAction();
   .for each node in tree_nodes
     hide$r{node.CategoryName} = new Action(HIDE_$U_{node.CategoryName}) {
       public void run() {
@@ -659,10 +657,6 @@ public class ${viewer_name} extends ViewPart implements IModelViewerProvider {
         mgr.add(fileExport);
 		mgr.add(new Separator());
 		mgr.add(treeRefresh);
-        if(convertToMFP.canShow()){
-           mgr.add(new Separator());
-           mgr.add(convertToMFP);
-        }
         // If this is omitted, the platform complains because
         // it can't allow third party plug-ins to extend the menu
         // This is important for those who wish to use change

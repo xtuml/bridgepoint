@@ -261,24 +261,7 @@ public class CoreUtil {
 		// Copy is allowed if there is a supporting paste for the
 		// current destination, and if a canCopy* operation exists and
 		// returns true
-		try {
-// NOTE: I am breaking our rules and leaving this commented-out code in place 
-//			for now.  This block turns-off cut/copy/paste support for 
-//			specialized packages.   When SPs were removed from the UI with 
-//			dts0100889208 this was 	considered, but testing fallout was too large.
-//			
-//			// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-//			//
-//			// Don't allow cut/copy/paste on any specialized packages
-//			// Note: This is being done as a part of SP removal.  During this
-//			//       change the ability to create new SPs was removed from the
-//			//       UI, and with this we can not allow copy/paste of these
-//			//       elements.  When SPs are removed from the meta-model this 
-//			//       check can be removed.
-//			if (!(child instanceof Package_c) && !((NonRootModelElement) child).isInGenericPackage()) {
-//				return false;
-//			}
-			
+		try {			
 			Method method = source.getClass().getMethod("Cancopy" + classPart, new Class[] {UUID.class}); //$NON-NLS-1$
 			Object object = method.invoke(source, new Object[] {((NonRootModelElement) child).Get_ooa_id()});
 			canCopy = ((Boolean) object).booleanValue();

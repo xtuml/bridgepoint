@@ -28,7 +28,6 @@ import org.xtuml.bp.core.Message_c;
 import org.xtuml.bp.core.Modeleventnotification_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.PropertyParameter_c;
-import org.xtuml.bp.core.Sequence_c;
 import org.xtuml.bp.core.StateMachineEventDataItem_c;
 import org.xtuml.bp.core.StateMachineEvent_c;
 import org.xtuml.bp.core.SynchronousMessage_c;
@@ -66,8 +65,6 @@ import org.xtuml.bp.ui.graphics.editor.GraphicalEditorInput;
 import org.xtuml.bp.ui.graphics.editor.ModelEditor;
 
 public class SequenceBuilder {
-  private static Sequence_c rootSequence = null;
-  private static Sequence_c currentSequence = null;
   private static ComponentParticipant_c currentComponentParticipant = null;
   private static int sequenceNumber = 1;
   private static IEditorPart f_edPart;
@@ -77,35 +74,6 @@ public class SequenceBuilder {
       Component_c comp) {
     ComponentParticipant_c compPart = null;
     if (SequenceCapture.isCapturing() && comp != null) {
-      if (getCurrentSequence() != null) {
-        ComponentParticipant_c[] compParts = ComponentParticipant_c
-            .getManySQ_COPsOnR930(InteractionParticipant_c
-                .getManySQ_PsOnR929(getCurrentSequence()));
-        for (int i = 0; i < compParts.length; i++) {
-          Component_c formalComp = Component_c.getOneC_COnR955(compParts[i]);
-          if (formalComp == comp) {
-            compPart = compParts[i];
-            break;
-          }
-        }
-        if (compPart == null) { // Doesn't exist yet
-          getCurrentSequence().Newcomponentparticipant(); // create it
-          compPart = getCurrentComponentParticipant(); // collect it
-          // compPart.Formalize(comp.getId()); // formalize it. This doesn't
-          // work due to local root instance population issue locating the
-          // component when the diagram being created is not in the same PMC
-          // as the component itself.
-          compPart.relateAcrossR955To(comp); // formalize this way instead
-          getCurrentSequence().Newlifespan(compPart.getPart_id(), false,
-              Gd_c.Null_unique_id(), false);
-          Lifespan_c ls = Lifespan_c.getOneSQ_LSOnR940(InteractionParticipant_c
-              .getOneSQ_POnR930(compPart));
-          newLifespanGraphic(ls, compPart);
-          if (f_edPart instanceof ModelEditor) {
-            ((ModelEditor) f_edPart).getGraphicalEditor().zoomAll();
-          }
-        }
-      }
     } else {
       // We did not successfully create a comp participant, don't allow
       // the old one to be used, or the output would be incorrect.
