@@ -331,6 +331,10 @@ public class BPDebugTarget extends BPDebugElement implements IDebugTarget {
 		}
 	}
 
+	public SystemModel_c getSystem(){
+		return system;
+	}
+
 	private void setupSelectedModels(ILaunchConfiguration configuration)
 			throws CoreException {
 		try {
@@ -1565,11 +1569,21 @@ public class BPDebugTarget extends BPDebugElement implements IDebugTarget {
 		DebugPlugin.getDefault().getBreakpointManager()
 				.removeBreakpointListener(this);
 		Notify();
+		//ArrayList<BPDebugTarget> BPtargets = BPDebugTarget.getTargets();
+		if (targets.contains(this)){
+			if (targets.size() <= 1){
+				Vm_c.resetAllClassLoader();
+				BPClassLoader.resetTheDefinitionsCache();
+			}
+			else{
+				Vm_c.printWarningMessageForUnloadedClassesIfNeeded(system);
+			}
+		}
+		
 		targets.remove(this);
 		if (targets.isEmpty()) {
 			TIM.stopTimers();
 		}
-		BPClassLoader.resetTheDefinitionsCache();
 		// Cancel the timer. 
 		if (executionTimer != null) {
 			executionTimer.cancel();
@@ -1639,6 +1653,13 @@ public class BPDebugTarget extends BPDebugElement implements IDebugTarget {
 			return "";
 		  }
 		}
+	}
+
+	public String getProjectName(){
+		if ( projectName != null){
+			return projectName;
+		}
+		return "";
 	}
 
 	public void remove(BPThread thr) {

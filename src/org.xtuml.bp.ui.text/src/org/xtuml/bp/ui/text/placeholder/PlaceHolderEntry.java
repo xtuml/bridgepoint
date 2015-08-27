@@ -25,6 +25,8 @@ package org.xtuml.bp.ui.text.placeholder;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.net.URI;
 import java.util.List;
 import java.util.Map;
@@ -878,6 +880,45 @@ public class PlaceHolderEntry {
 		@Override
 		public void setDerived(boolean isDerived, IProgressMonitor monitor)
 				throws CoreException {
+		}
+
+		public void accept(IResourceProxyVisitor visitor, int depth,
+				int memberFlags) throws CoreException {
+			Method method;
+			try {
+				method = originalFile.getClass().getMethod(
+						"accept",
+						new Class[] { IResourceProxyVisitor.class,
+								Integer.class, Integer.class });
+				if (method != null) {
+					method.invoke(originalFile, new Object[] { visitor, depth,
+							memberFlags });
+				}
+			} catch (SecurityException e) {
+				CorePlugin
+						.logError(
+								"Unable to execute IFile.accept(IResourceProxyVisitor, int, int)",
+								e);
+			} catch (NoSuchMethodException e) {
+				// do not log an error here as this is
+				// expected in eclipse versions older than
+				// 4.4
+			} catch (IllegalArgumentException e) {
+				CorePlugin
+						.logError(
+								"Unable to execute IFile.accept(IResourceProxyVisitor, int, int)",
+								e);
+			} catch (IllegalAccessException e) {
+				CorePlugin
+						.logError(
+								"Unable to execute IFile.accept(IResourceProxyVisitor, int, int)",
+								e);
+			} catch (InvocationTargetException e) {
+				CorePlugin
+						.logError(
+								"Unable to execute IFile.accept(IResourceProxyVisitor, int, int)",
+								e);
+			}
 		}
 	}
 	

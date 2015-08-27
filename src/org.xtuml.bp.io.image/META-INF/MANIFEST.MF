@@ -1,0 +1,25 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: BridgePoint Image Generator Plug-in
+Bundle-SymbolicName: org.xtuml.bp.io.image; singleton:=true
+Bundle-Version: 5.1.0
+Bundle-ClassPath: imggen.jar
+Bundle-Activator: org.xtuml.bp.io.image.Activator
+Bundle-Vendor: xtUML.org
+Export-Package: org.xtuml.bp.io.image,
+ org.xtuml.bp.io.image.actions,
+ org.xtuml.bp.io.image.ant.tasks,
+ org.xtuml.bp.io.image.generator
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.xtuml.bp.core,
+ org.xtuml.bp.ui.canvas,
+ org.eclipse.ui.ide,
+ org.eclipse.core.resources,
+ org.eclipse.core.variables,
+ org.apache.ant,
+ org.eclipse.ant.core,
+ org.xtuml.bp.ui.graphics,
+ org.eclipse.gef
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6

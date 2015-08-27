@@ -125,8 +125,11 @@ public abstract class CanvasTest extends BaseTest {
 		if(file.exists()){
 	        expectedResults = TestUtil.getTextFileContents(file);
 		}else{
+			// create the folder if necessary
 			file = new File(path + filename);
 			try {
+				File parentDir = file.getParentFile();
+				parentDir.mkdirs();
 				FileInputStream fis = new FileInputStream(file);
 				ObjectInputStream ois = new ObjectInputStream(fis);
 

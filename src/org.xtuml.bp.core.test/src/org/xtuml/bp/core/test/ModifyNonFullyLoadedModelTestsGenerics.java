@@ -195,10 +195,6 @@ public class ModifyNonFullyLoadedModelTestsGenerics extends CanvasTest
         listener.WaitForTransactionUnderReview();
         otherSS.getTransactionManager().removeTransactionListener(listener);
 
-    	String globalsFlag = "";
-    	if (testGlobals == true) {
-          globalsFlag = "Globals";
-    	}
         BaseTest.compareAndOutputResults(resultFolder + getResultName() + "/" + getResultName() +
           "-shape_deletion_transaction_generics.exp");
     }

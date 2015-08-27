@@ -28,6 +28,7 @@ import junit.framework.TestSuite;
 import org.xtuml.bp.ui.text.editor.oal.test.OALKeywordRuleTest;
 import org.xtuml.bp.ui.text.test.DomainDeleteTestI744;
 import org.xtuml.bp.ui.text.test.DuplicateRelationshipNumberParseAllTest;
+import org.xtuml.bp.ui.text.test.ParseAllActivitiesOnSystemModelTest;
 import org.xtuml.bp.ui.text.test.ParseAllOnModelReloadTest;
 import org.xtuml.bp.ui.text.test.PlaceHolderUpdateTest;
 import org.xtuml.bp.ui.text.test.TextEditorReloadContentsTest;
@@ -73,5 +74,6 @@ public class UITextGlobalsSuite extends TestSuite {
         addTest(new TestSuite(DomainDeleteTestI744.class));
         addTest(new TestSuite(DuplicateRelationshipNumberParseAllTest.class));
         addTest(new TestSuite(ParseAllOnModelReloadTest.class));
+        addTest(new TestSuite(ParseAllActivitiesOnSystemModelTest.class));
 	}
 }

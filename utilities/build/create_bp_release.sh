@@ -224,6 +224,8 @@ log_dir="$4"
 timestamp="$5"
 site_result_dir="$6"
 
+echo "Create BP Release invocation: ./create_bp_release.sh ${build_dir} ${branch} ${git_bp} ${log_dir} ${timestamp} ${site_result_dir}"
+
 pkg_log_dir="${log_dir}/pkg_logs"
 
 feature_modules=""
@@ -245,7 +247,8 @@ if [ ! -x ${build_dir}/features ]; then
   mkdir -p ${build_dir}/features
 fi
 
-release_version=`awk -F"\"" '{if (/ersion.*\=.*[0-9]\.[0-9]\.[0-9]/) {print $2; exit;}}' ${git_bp}/src/org.xtuml.bp.pkg/plugin.xml`
+release_version=$(awk -F": " '{if (/[0-9]\.[0-9]\.[0-9]/) {print $2; exit;}}' ${git_bp}/src/org.xtuml.bp.pkg/META-INF/MANIFEST.MF)
+release_version="$(echo ${release_version} | tr -d '\r')"
 
 # Set up the lists of features and plug-ins
 configure_module_lists

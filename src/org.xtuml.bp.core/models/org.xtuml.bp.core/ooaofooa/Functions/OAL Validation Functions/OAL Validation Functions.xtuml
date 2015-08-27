@@ -27824,8 +27824,15 @@ ownerName = block.TempBuffer;
                      msg: "Ambiguous message reference found ->" +
                              ownerName + "::%s<-", token: param.a1_rule_token );
                 else
-                  ifRef = candidateIfRef;
-                  ifRef_found = true;
+                  allowIFName = PREF::getBoolean( name:"bridgepoint_prefs_allow_interface_name_in_ic_message" );
+                  if ( allowIFName == true )
+                    ifRef = candidateIfRef;
+                    ifRef_found = true;
+                  else
+                    ERR::reportParseError( 
+                       msg: "Interface names are not allowed for sending messages.  Use the port name.",
+                       token: param.a1_rule_token );
+                  end if;
                 end if;
               else
                 ERR::reportParseError( 
