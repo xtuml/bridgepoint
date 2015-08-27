@@ -32,3 +32,6 @@ LogInfo:  Test multiple events to other instances
 LogSuccess:  Test multiple events to other instances: Pass
 LogInfo:  Tests complete.  Calling xit()
 LogInfo:  Test complete. Shutting down.
+
+WARNING:  The terminated project contains a realized class/classes that are not unloaded because there are one or more projects running in verifier
+

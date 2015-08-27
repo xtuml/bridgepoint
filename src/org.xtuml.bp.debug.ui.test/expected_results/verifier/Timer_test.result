@@ -26,3 +26,6 @@ LogSuccess:  Equal dates, Equal to comparison
 LogSuccess:  Equal dates, Smaller than or Equal to comparison
 LogSuccess:  Equal dates, Bigger than or Equal to comparison
 LogSuccess:  Test Complete.
+
+WARNING:  The terminated project contains a realized class/classes that are not unloaded because there are one or more projects running in verifier
+

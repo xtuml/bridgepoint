@@ -5,7 +5,6 @@ Bundle-SymbolicName: org.xtuml.bp.debug.ui.test;singleton:=true
 Bundle-Version: 1.0.0
 Bundle-Activator: org.xtuml.bp.debug.ui.test.TestPlugin
 Bundle-Vendor: xtUML.org
-Bundle-Localization: plugin
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.ui,
  org.eclipse.jface.text,
@@ -26,3 +25,5 @@ Require-Bundle: org.eclipse.core.runtime,
  org.xtuml.bp.ui.session,
  org.xtuml.bp.ui.explorer;bundle-version="3.4.9"
 Eclipse-AutoStart: true
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6

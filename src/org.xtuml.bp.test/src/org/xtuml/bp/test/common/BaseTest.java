@@ -371,7 +371,7 @@ public class BaseTest extends TestCase {
 		if(!result.equals("")) {
 			fail(result);
 		}		
-	}
+	} 
 	
 	public static String getLogViewResult(String prepend) {
 		// verify that the log file is empty

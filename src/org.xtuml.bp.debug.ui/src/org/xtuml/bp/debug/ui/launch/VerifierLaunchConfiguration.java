@@ -566,7 +566,7 @@ public class VerifierLaunchConfiguration {
 		try {
 			Map<?, ?> map = configuration.getAttribute(
 					VerifierLaunchConfiguration.ATTR_SELECTEDMODELS,
-					new Hashtable<Object, Object>());
+					new HashMap<String, String>());
 			Set<?> projectSet = map.keySet();
 			List<String> allIds = new ArrayList<String>();
 			Iterator<?> projectIterator = projectSet.iterator();

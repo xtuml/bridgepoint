@@ -80,6 +80,18 @@ public class Vm_c {
     public static void resetClassLoader(SystemModel_c key) {
         vmclMap.remove(key);
     }
+    
+    public static void resetAllClassLoader() {
+        vmclMap.clear();
+    }
+    
+    public static void printWarningMessageForUnloadedClassesIfNeeded(SystemModel_c key){
+    	if (vmclMap.containsKey(key)){
+    		CorePlugin.out.println("\nWARNING:  The terminated project " + key.Get_name() +
+    				"contains a realized class/classes that are not unloaded " +
+    				"because there are one or more projects running in verifier\n");
+    	}
+    }
 
     private static Stack<targetInfo> getStack() {
         synchronized (stackMap) {
