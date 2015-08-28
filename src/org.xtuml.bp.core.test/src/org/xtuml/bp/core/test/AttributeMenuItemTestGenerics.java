@@ -36,7 +36,6 @@ import org.xtuml.bp.core.ModelClass_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.ReferentialAttribute_c;
-import org.xtuml.bp.core.SystemDatatypePackage_c;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.ui.AddToIdentifierOnO_ATTRAction;
 import org.xtuml.bp.core.ui.AddToIdentifierOnO_ATTRWizardPage1;

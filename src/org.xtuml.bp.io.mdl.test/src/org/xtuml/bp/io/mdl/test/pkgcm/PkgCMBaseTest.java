@@ -54,8 +54,6 @@ import org.eclipse.ui.PlatformUI;
 
 import org.xtuml.bp.core.ClassStateMachine_c;
 import org.xtuml.bp.core.CorePlugin;
-import org.xtuml.bp.core.DataTypePackage_c;
-import org.xtuml.bp.core.Domain_c;
 import org.xtuml.bp.core.InstanceStateMachine_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
@@ -140,19 +138,11 @@ public class PkgCMBaseTest extends CanvasTest {
                 project = getProjectHandle(projectName);
             }
             Collection doms = getSystemModel(projectName).getPersistableComponent().getChildren();
-            Domain_c dom = null;
-            for (Iterator iter = doms.iterator(); iter.hasNext()&& dom == null; ) {
+            for (Iterator iter = doms.iterator(); iter.hasNext(); ) {
             	PersistableModelComponent pmc = (PersistableModelComponent)iter.next();
             	String type = "";
             	if (pmc != null) {
             		type = pmc.getComponentType();
-            	}
-            	if ( type.equalsIgnoreCase("Domain")  ) {
-	                dom=(Domain_c) pmc.getRootModelElement();
-	                if(dom!=null){
-	                    modelRoot = (Ooaofooa)dom.getModelRoot();
-	                    graphicsModelRoot = Ooaofgraphics.getInstance(modelRoot.getId());
-	                }
             	}
             }
         }
@@ -815,17 +805,6 @@ public class PkgCMBaseTest extends CanvasTest {
             pmc = PersistenceManager.findComponent(new Path(compName));
         } else if (compName == null) {
             pmc = getRandomComponent(getProject(), compType);
-        } else if (compType.equals("DataTypePackage") && (compName.equals("Datatypes"))) {
-        	Domain_c domain = Domain_c.DomainInstance(modelRoot);
-        	DataTypePackage_c dtPackage = DataTypePackage_c.getOneS_DPKOnR40(domain, new ClassQueryInterface_c() {
-			
-				public boolean evaluate(Object candidate) {
-					return ((DataTypePackage_c)candidate).getName().equals(compName);
-				}
-			
-			});
-        	assertNotNull(dtPackage);
-        	pmc = dtPackage.getPersistableComponent();
         }
         else
             pmc = getComponent(getProject(), compType, compName);

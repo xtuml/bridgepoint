@@ -1,13 +1,5 @@
 package org.xtuml.bp.ui.canvas.test;
 //=====================================================================
-//
-//File:      $RCSfile: ErrorPathsTest.java,v $
-//Version:   $Revision: 1.20 $
-//Modified:  $Date: 2013/01/10 22:43:50 $
-//
-//(c) Copyright 2004-2014 Mentor Graphics Corporation All rights reserved.
-//
-//=====================================================================
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not
 // use this file except in compliance with the License.  You may obtain a copy
 // of the License at
@@ -36,14 +28,12 @@ import org.eclipse.core.runtime.Path;
 import org.xtuml.bp.core.AccessPath_c;
 import org.xtuml.bp.core.Association_c;
 import org.xtuml.bp.core.CommunicationPath_c;
-import org.xtuml.bp.core.Domain_c;
 import org.xtuml.bp.core.ExternalEntity_c;
 import org.xtuml.bp.core.ImportedClass_c;
 import org.xtuml.bp.core.InstanceStateMachine_c;
 import org.xtuml.bp.core.ModelClass_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.StateMachineState_c;
-import org.xtuml.bp.core.Subsystem_c;
 import org.xtuml.bp.core.Transition_c;
 import org.xtuml.bp.core.common.IdAssigner;
 import org.xtuml.bp.test.common.BaseTest;
@@ -175,12 +165,6 @@ public class ErrorPathsTest extends TestCase {
     assertTrue("Log file is not present", logFilePresent());
   }
 	public void testGetOOA_IDfromInstance() throws Exception {
-    Domain_c dom = new Domain_c(modelRoot);
-    UUID dom_id = Cl_c.Getooa_idfrominstance(dom);
-	  assertTrue( !dom_id.equals(IdAssigner.MAX_UUID) );
-    Subsystem_c ssys = new Subsystem_c(modelRoot);
-    UUID ssys_id = Cl_c.Getooa_idfrominstance(ssys);
-   assertTrue( !ssys_id.equals(IdAssigner.MAX_UUID) );
     ExternalEntity_c ee = new ExternalEntity_c(modelRoot);
     UUID ee_id = Cl_c.Getooa_idfrominstance(ee);
 	  assertTrue( !ee_id.equals(IdAssigner.MAX_UUID) );
