@@ -1,13 +1,5 @@
 package org.xtuml.bp.als.oal.test;
 //=====================================================================
-//
-//File:      $RCSfile: TestParser_Generics.java,v $
-//Version:   $Revision: 1.4 $
-//Modified:  $Date: 2013/01/10 23:00:37 $
-//
-//(c) Copyright 2003-2014 Mentor Graphics Corporation All rights reserved.
-//
-//=====================================================================
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not
 // use this file except in compliance with the License.  You may obtain a copy
 // of the License at
@@ -61,19 +53,19 @@ public class TestParser_Generics {
 
 		Ooaofooa modelRoot = BaseTest.getDefaultTestInstance();
 
-		UUID boolId = BaseTest.getTypeID(modelRoot, "boolean");//$NON-NLS-1$
+		UUID boolId = BaseTest.getTypeID_Generic(modelRoot, "boolean");//$NON-NLS-1$
 		if (boolId == null) {
 			DataType_c boolDt = new DataType_c(modelRoot,
 				UUID.randomUUID(), IdAssigner.NULL_UUID , "boolean", "", "" );
 		}
 
-		UUID intId = BaseTest.getTypeID(modelRoot, "integer");//$NON-NLS-1$
+		UUID intId = BaseTest.getTypeID_Generic(modelRoot, "integer");//$NON-NLS-1$
 		if (intId == null) {
 			DataType_c intDt = new DataType_c(modelRoot,
                 UUID.randomUUID(), IdAssigner.NULL_UUID , "integer", "", "" );
 		}
 
-		UUID strId = BaseTest.getTypeID(modelRoot, "string");//$NON-NLS-1$
+		UUID strId = BaseTest.getTypeID_Generic(modelRoot, "string");//$NON-NLS-1$
 		if (strId == null) {
 			DataType_c strDt = new DataType_c(modelRoot,
 				UUID.randomUUID(), IdAssigner.NULL_UUID , "string", "", "" );

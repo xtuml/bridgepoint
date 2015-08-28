@@ -70,7 +70,6 @@ import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Operation_c;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.PackageableElement_c;
-import org.xtuml.bp.core.Subsystem_c;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.XtUMLNature;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
@@ -82,11 +81,9 @@ import org.xtuml.bp.core.common.TransactionException;
 import org.xtuml.bp.core.common.TransactionManager;
 import org.xtuml.bp.core.ui.AddToIdentifierOnO_ATTRAction;
 import org.xtuml.bp.core.ui.DeleteAction;
-import org.xtuml.bp.core.ui.NewDomainWizard;
 import org.xtuml.bp.core.ui.NewSystemWizard;
 import org.xtuml.bp.core.ui.RenameAction;
 import org.xtuml.bp.core.ui.Selection;
-import org.xtuml.bp.core.ui.WizardNewDomainCreationPage;
 import org.xtuml.bp.test.TestUtil;
 import org.xtuml.bp.test.common.BaseTest;
 import org.xtuml.bp.test.common.CVSUtils;
@@ -118,31 +115,6 @@ public class TigerNatureTestGenerics extends CanvasTest {
 
 	protected String getResultName() {
 		return "TigerNatureTest" + "_" + test_id;
-	}
-
-	public static PersistableModelComponent createNewDomain(String name, SystemModel_c systemModel) {
-		NewDomainWizard ndw = new NewDomainWizard();
-		ndw.init(PlatformUI.getWorkbench(),
-				new StructuredSelection(systemModel));
-		ndw.addPages();
-		WizardDialog dialog = new WizardDialog(PlatformUI.getWorkbench()
-				.getActiveWorkbenchWindow().getShell(), ndw);
-		dialog.create();
-		WizardNewDomainCreationPage wndcp = (WizardNewDomainCreationPage) ndw
-				.getStartingPage();
-		String fieldValue = wndcp.getSystemNameFieldValue();
-		assertTrue("Project field is not filled in", fieldValue
-				.equals(systemModel.getName()));
-		wndcp.setDomainNameFieldValue(name);
-        wndcp.setUseTemplate(false);
-		wndcp.setPageComplete(true);
-		ndw.performFinish();
-		
-		PersistableModelComponent sysComponent = PersistenceManager.getComponent(systemModel);
-		IPath path = sysComponent.getContainingDirectoryPath().append(name + "/" + name + "." + Ooaofooa.MODELS_EXT);
-
-		return PersistenceManager.findComponent(path);
-		
 	}
 
 	public static IProject createXtUMLProject(String name) {
@@ -241,15 +213,6 @@ public class TigerNatureTestGenerics extends CanvasTest {
 		return result;
 	}
 
-	public String getNewSubsystemString(Subsystem_c subsystem) {
-		String newSubsystem = "S_SS\n\tVALUES (" + '"' + subsystem.getSs_id()
-				+ '"' + ",\n\t'" + subsystem.getName() + "',\n\t'"
-				+ subsystem.getDescrip() + "',\n\t'" + subsystem.getPrefix()
-				+ "',\n\t" + Integer.toString(subsystem.getNum_rng()) + ",\n\t"
-				+ '"' + subsystem.getDom_id() + '"' + ",\n\t" + '"'
-				+ subsystem.getConfig_id() + '"' + ");";
-		return newSubsystem;
-	}
 	private String getNewPackageString(Package_c pkg) {
 		String newPackage = "EP_PKG\n\tVALUES (" + "\"" + pkg.getPackage_id()
 				+ "\"" + ",\n\t" + "\"" + pkg.getSys_id() + "\"" + ",\n\t"

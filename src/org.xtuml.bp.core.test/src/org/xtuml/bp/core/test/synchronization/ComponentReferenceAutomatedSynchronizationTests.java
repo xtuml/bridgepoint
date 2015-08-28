@@ -25,13 +25,11 @@ package org.xtuml.bp.core.test.synchronization;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 
-import org.xtuml.bp.core.ComponentPackage_c;
 import org.xtuml.bp.core.ComponentReference_c;
 import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.ImportedProvision_c;
 import org.xtuml.bp.core.ImportedReference_c;
 import org.xtuml.bp.core.ImportedRequirement_c;
-import org.xtuml.bp.core.InterfacePackage_c;
 import org.xtuml.bp.core.Interface_c;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.PortReference_c;
@@ -60,27 +58,6 @@ public class ComponentReferenceAutomatedSynchronizationTests extends BaseTest {
 				compPkg, "Component");
 		Package_c refPkg = SynchronizationTestUtils.createContainer(
 				"Component References", m_sys);
-		ComponentReference_c compRef = SynchronizationTestUtils
-				.createComponentReferenceAndAssignToComponent(refPkg, component);
-		SynchronizationTestUtils.deleteComponent(component);
-		assertFalse(
-				"Component reference was considered synchronized after component delete.",
-				compRef.Issynchronized());
-		assertTrue(
-				"Component reference was unassigned when component was deleted.",
-				compRef.Isassigned());
-		compPkg.Dispose();
-		refPkg.Dispose();
-	}
-
-	public void testComponentRemovedSpecialized() {
-		ComponentPackage_c compPkg = SynchronizationTestUtils
-				.createSpecializedComponentPackage("Components", m_sys);
-		Component_c component = SynchronizationTestUtils.createComponent(
-				compPkg, "Component");
-		ComponentPackage_c refPkg = SynchronizationTestUtils
-				.createSpecializedComponentPackage("Component References",
-						m_sys);
 		ComponentReference_c compRef = SynchronizationTestUtils
 				.createComponentReferenceAndAssignToComponent(refPkg, component);
 		SynchronizationTestUtils.deleteComponent(component);
@@ -156,72 +133,6 @@ public class ComponentReferenceAutomatedSynchronizationTests extends BaseTest {
 		ifacePkg.Dispose();
 	}
 
-	public void testInterfaceReferenceRemovedProvisionSpecialized() {
-		ComponentPackage_c compPkg = SynchronizationTestUtils
-				.createSpecializedComponentPackage("Components",
-						m_sys);
-		InterfacePackage_c ifacePkg = SynchronizationTestUtils
-				.createSpecializedInterfacePackage("Interfaces",
-						m_sys);
-		Interface_c iface = SynchronizationTestUtils.createInterface(ifacePkg,
-				"interface_one", new String[0], new String[0]);
-		Component_c component = SynchronizationTestUtils.createComponent(
-				compPkg, "Component");
-		Provision_c provision = SynchronizationTestUtils
-				.createAndFormalizeNewProvision(component, iface);
-		ComponentPackage_c refPkg = SynchronizationTestUtils
-				.createSpecializedComponentPackage("Component References",
-						m_sys);
-		ComponentReference_c compRef = SynchronizationTestUtils
-				.createComponentReferenceAndAssignToComponent(refPkg, component);
-		ImportedProvision_c importedPro = ImportedProvision_c
-				.getOneCL_IPOnR4703(ImportedReference_c
-						.getManyCL_IIRsOnR4708(PortReference_c.getManyCL_PORsOnR4707(compRef)));
-		provision.Dispose();
-		assertFalse(
-				"Imported provision was considered synchronized after reference delete.",
-				importedPro.Issynchronized());
-		assertNotNull(
-				"Imported provision was removed as a result of the provision being deleted.",
-				ImportedProvision_c.getOneCL_IPOnR4703(ImportedReference_c
-						.getOneCL_IIROnR4708(PortReference_c.getManyCL_PORsOnR4707(compRef))));
-		compPkg.Dispose();
-		refPkg.Dispose();
-		ifacePkg.Dispose();
-	}
-
-	public void testInterfaceReferenceRemovedRequirementSpecialized() {
-		ComponentPackage_c compPkg = SynchronizationTestUtils
-				.createSpecializedComponentPackage("Components", m_sys);
-		InterfacePackage_c ifacePkg = SynchronizationTestUtils
-				.createSpecializedInterfacePackage("Interfaces", m_sys);
-		Interface_c iface = SynchronizationTestUtils.createInterface(ifacePkg,
-				"interface_one", new String[0], new String[0]);
-		Component_c component = SynchronizationTestUtils.createComponent(
-				compPkg, "Component");
-		Requirement_c requirement = SynchronizationTestUtils
-				.createAndFormalizeNewRequirement(component, iface);
-		ComponentPackage_c refPkg = SynchronizationTestUtils
-				.createSpecializedComponentPackage("Component References",
-						m_sys);
-		ComponentReference_c compRef = SynchronizationTestUtils
-				.createComponentReferenceAndAssignToComponent(refPkg, component);
-		ImportedRequirement_c importedReq = ImportedRequirement_c
-				.getOneCL_IROnR4703(ImportedReference_c
-						.getManyCL_IIRsOnR4708(PortReference_c.getManyCL_PORsOnR4707(compRef)));
-		requirement.Dispose();
-		assertFalse(
-				"Imported Requirement was considered synchronized after reference delete.",
-				importedReq.Issynchronized());
-		assertNotNull(
-				"Imported requirement was removed as a result of the requirement being deleted.",
-				ImportedRequirement_c.getOneCL_IROnR4703(ImportedReference_c
-						.getManyCL_IIRsOnR4708(PortReference_c.getManyCL_PORsOnR4707(compRef))));
-		compPkg.Dispose();
-		refPkg.Dispose();
-		ifacePkg.Dispose();
-	}
-
 	public void testInterfaceReferenceFormalizedProvision() {
 		Package_c compPkg = SynchronizationTestUtils.createContainer(
 				"Components", componentSystem);
@@ -263,66 +174,6 @@ public class ComponentReferenceAutomatedSynchronizationTests extends BaseTest {
 				.createNewRequirement(component);
 		Package_c refPkg = SynchronizationTestUtils.createContainer(
 				"Component References", m_sys);
-		ComponentReference_c compRef = SynchronizationTestUtils
-				.createComponentReferenceAndAssignToComponent(refPkg, component);
-		requirement.Formalize(iface.getId(), false);
-		assertFalse(
-				"Component reference was considered synchronized after requirement formalization.",
-				compRef.Issynchronized());
-		assertNull(
-				"Imported requirement was created as a result of the requirement being formalized.",
-				ImportedRequirement_c.getOneCL_IROnR4703(ImportedReference_c
-						.getManyCL_IIRsOnR4708(PortReference_c.getManyCL_PORsOnR4707(compRef))));
-		compPkg.Dispose();
-		refPkg.Dispose();
-		ifacePkg.Dispose();
-	}
-
-	public void testInterfaceReferenceFormalizedProvisionSpecialized() {
-		ComponentPackage_c compPkg = SynchronizationTestUtils
-				.createSpecializedComponentPackage("Components",
-						m_sys);
-		InterfacePackage_c ifacePkg = SynchronizationTestUtils
-				.createSpecializedInterfacePackage("Interfaces",
-						m_sys);
-		Interface_c iface = SynchronizationTestUtils.createInterface(ifacePkg,
-				"interface_one", new String[0], new String[0]);
-		Component_c component = SynchronizationTestUtils.createComponent(
-				compPkg, "Component");
-		Provision_c provision = SynchronizationTestUtils
-				.createNewProvision(component);
-		ComponentPackage_c refPkg = SynchronizationTestUtils
-				.createSpecializedComponentPackage("Component References",
-						m_sys);
-		ComponentReference_c compRef = SynchronizationTestUtils
-				.createComponentReferenceAndAssignToComponent(refPkg, component);
-		provision.Formalize(iface.getId(), false);
-		assertFalse(
-				"Component reference was considered synchronized after provision formalization.",
-				compRef.Issynchronized());
-		assertNull(
-				"Imported provision was created as a result of the provision being formalized.",
-				ImportedProvision_c.getOneCL_IPOnR4703(ImportedReference_c
-						.getOneCL_IIROnR4708(PortReference_c.getManyCL_PORsOnR4707(compRef))));
-		compPkg.Dispose();
-		refPkg.Dispose();
-		ifacePkg.Dispose();
-	}
-
-	public void testInterfaceReferenceFormalizedRequirementSpecialized() {
-		ComponentPackage_c compPkg = SynchronizationTestUtils
-				.createSpecializedComponentPackage("Components", m_sys);
-		InterfacePackage_c ifacePkg = SynchronizationTestUtils
-				.createSpecializedInterfacePackage("Interfaces", m_sys);
-		Interface_c iface = SynchronizationTestUtils.createInterface(ifacePkg,
-				"interface_one", new String[0], new String[0]);
-		Component_c component = SynchronizationTestUtils.createComponent(
-				compPkg, "Component");
-		Requirement_c requirement = SynchronizationTestUtils
-				.createNewRequirement(component);
-		ComponentPackage_c refPkg = SynchronizationTestUtils
-				.createSpecializedComponentPackage("Component References",
-						m_sys);
 		ComponentReference_c compRef = SynchronizationTestUtils
 				.createComponentReferenceAndAssignToComponent(refPkg, component);
 		requirement.Formalize(iface.getId(), false);
@@ -390,72 +241,6 @@ public class ComponentReferenceAutomatedSynchronizationTests extends BaseTest {
 		requirement.Unformalize(false);
 		assertFalse(
 				"Imported Requirement was considered synchronized after requirement unformalization.",
-				importedReq.Issynchronized());
-		assertNotNull(
-				"Imported requirement was removed as a result of the requirement being unformalized.",
-				ImportedRequirement_c.getOneCL_IROnR4703(ImportedReference_c
-						.getManyCL_IIRsOnR4708(PortReference_c.getManyCL_PORsOnR4707(compRef))));
-		compPkg.Dispose();
-		refPkg.Dispose();
-		ifacePkg.Dispose();
-	}
-
-	public void testInterfaceReferenceUnformalizedProvisionSpecialized() {
-		ComponentPackage_c compPkg = SynchronizationTestUtils
-				.createSpecializedComponentPackage("Components",
-						m_sys);
-		InterfacePackage_c ifacePkg = SynchronizationTestUtils
-				.createSpecializedInterfacePackage("Interfaces",
-						m_sys);
-		Interface_c iface = SynchronizationTestUtils.createInterface(ifacePkg,
-				"interface_one", new String[0], new String[0]);
-		Component_c component = SynchronizationTestUtils.createComponent(
-				compPkg, "Component");
-		Provision_c provision = SynchronizationTestUtils
-				.createAndFormalizeNewProvision(component, iface);
-		ComponentPackage_c refPkg = SynchronizationTestUtils
-				.createSpecializedComponentPackage("Component References",
-						m_sys);
-		ComponentReference_c compRef = SynchronizationTestUtils
-				.createComponentReferenceAndAssignToComponent(refPkg, component);
-		ImportedProvision_c importedPro = ImportedProvision_c
-				.getOneCL_IPOnR4703(ImportedReference_c
-						.getManyCL_IIRsOnR4708(PortReference_c.getManyCL_PORsOnR4707(compRef)));
-		provision.Unformalize(false);
-		assertFalse(
-				"Imported provision was considered synchronized after reference unformalization.",
-				importedPro.Issynchronized());
-		assertNotNull(
-				"Imported provision was removed as a result of the provision being unformalized.",
-				ImportedProvision_c.getOneCL_IPOnR4703(ImportedReference_c
-						.getOneCL_IIROnR4708(PortReference_c.getManyCL_PORsOnR4707(compRef))));
-		compPkg.Dispose();
-		refPkg.Dispose();
-		ifacePkg.Dispose();
-	}
-
-	public void testInterfaceReferenceUnformalizedRequirementSpecialized() {
-		ComponentPackage_c compPkg = SynchronizationTestUtils
-				.createSpecializedComponentPackage("Components", m_sys);
-		InterfacePackage_c ifacePkg = SynchronizationTestUtils
-				.createSpecializedInterfacePackage("Interfaces", m_sys);
-		Interface_c iface = SynchronizationTestUtils.createInterface(ifacePkg,
-				"interface_one", new String[0], new String[0]);
-		Component_c component = SynchronizationTestUtils.createComponent(
-				compPkg, "Component");
-		Requirement_c requirement = SynchronizationTestUtils
-				.createAndFormalizeNewRequirement(component, iface);
-		ComponentPackage_c refPkg = SynchronizationTestUtils
-				.createSpecializedComponentPackage("Component References",
-						m_sys);
-		ComponentReference_c compRef = SynchronizationTestUtils
-				.createComponentReferenceAndAssignToComponent(refPkg, component);
-		ImportedRequirement_c importedReq = ImportedRequirement_c
-				.getOneCL_IROnR4703(ImportedReference_c
-						.getManyCL_IIRsOnR4708(PortReference_c.getManyCL_PORsOnR4707(compRef)));
-		requirement.Unformalize(false);
-		assertFalse(
-				"Imported Requirement was considered synchronized after reference unformalization.",
 				importedReq.Issynchronized());
 		assertNotNull(
 				"Imported requirement was removed as a result of the requirement being unformalized.",

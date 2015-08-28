@@ -58,11 +58,6 @@ public class CoreTestResultCreator extends TestCase {
 			csr.setUp();
 			csr.setGenerateResults();
 
-			SubtypeSupertypeFormalizeTest ssf = new SubtypeSupertypeFormalizeTest(
-					"Subtype Supertype Formalize Test Result Creator");
-			ssf.setUp();
-			ssf.setGenerateResults();
-
 			ModelTransactionTestGenerics mtt = new ModelTransactionTestGenerics("test");
 			mtt.setUp();
 

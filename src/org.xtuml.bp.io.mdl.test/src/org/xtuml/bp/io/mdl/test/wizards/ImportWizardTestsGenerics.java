@@ -31,9 +31,7 @@ import org.eclipse.gef.tools.AbstractTool;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.ui.PlatformUI;
 
-import org.xtuml.bp.core.DataTypePackage_c;
 import org.xtuml.bp.core.Package_c;
-import org.xtuml.bp.core.SystemDatatypePackage_c;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.ui.Selection;

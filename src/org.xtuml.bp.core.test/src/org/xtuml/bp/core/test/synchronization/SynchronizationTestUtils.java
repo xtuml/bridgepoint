@@ -38,13 +38,11 @@ import org.eclipse.ui.PlatformUI;
 import junit.framework.Assert;
 import junit.framework.TestCase;
 
-import org.xtuml.bp.core.ComponentPackage_c;
 import org.xtuml.bp.core.ComponentReference_c;
 import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.ExecutableProperty_c;
 import org.xtuml.bp.core.Gd_c;
 import org.xtuml.bp.core.InterfaceOperation_c;
-import org.xtuml.bp.core.InterfacePackage_c;
 import org.xtuml.bp.core.InterfaceReference_c;
 import org.xtuml.bp.core.InterfaceSignal_c;
 import org.xtuml.bp.core.Interface_c;
@@ -79,13 +77,6 @@ public class SynchronizationTestUtils {
 			Component_c[] comps = Component_c
 					.getManyC_CsOnR8001(PackageableElement_c
 							.getManyPE_PEsOnR8000(cPkg));
-			Component_c comp = comps[comps.length - 1];
-			comp.setName(name);
-			return comp;
-		} else if(pkg instanceof ComponentPackage_c) {
-			ComponentPackage_c cPkg = (ComponentPackage_c) pkg;
-			cPkg.Newcomponent();
-			Component_c[] comps = Component_c.getManyC_CsOnR4604(cPkg);
 			Component_c comp = comps[comps.length - 1];
 			comp.setName(name);
 			return comp;
@@ -278,19 +269,6 @@ public class SynchronizationTestUtils {
 			}
 			iface.setName(name);
 			return iface;
-		} else if(pkg instanceof InterfacePackage_c) {
-			InterfacePackage_c iPkg = (InterfacePackage_c) pkg;
-			iPkg.Newinterface();
-			Interface_c[] ifaces = Interface_c.getManyC_IsOnR4303(iPkg);
-			Interface_c iface = ifaces[ifaces.length - 1];
-			for(String operationName : operationNames) {
-				createInterfaceOperation(iface, operationName);
-			}
-			for(String signalName : signalNames) {
-				createInterfaceSignal(iface, signalName);
-			}
-			iface.setName(name);
-			return iface;			
 		}
 		return null;
 	}
@@ -313,25 +291,6 @@ public class SynchronizationTestUtils {
 		PullSynchronizationChanges action = new PullSynchronizationChanges();
 		action.selectionChanged(null, new StructuredSelection(systems));
 		action.run(null);
-	}
-
-	public static InterfacePackage_c createSpecializedInterfacePackage(String name,
-			SystemModel_c system) {
-		system.Newinterfacepackage();
-		InterfacePackage_c[] pkgs = InterfacePackage_c
-				.getManyIP_IPsOnR4302(system);
-		InterfacePackage_c pkg = pkgs[pkgs.length - 1];
-		pkg.setName(name);
-		return pkg;
-	}
-	
-	public static ComponentPackage_c createSpecializedComponentPackage(
-			String name, SystemModel_c system) {
-		system.Newcomponentpackage();
-		ComponentPackage_c[] pkgs = ComponentPackage_c.getManyCP_CPsOnR4602(system);
-		ComponentPackage_c pkg = pkgs[pkgs.length - 1];
-		pkg.setName(name);
-		return pkg;
 	}
 
 	protected static List<String> dialogContents = new ArrayList<String>();
@@ -545,15 +504,8 @@ public class SynchronizationTestUtils {
 			ComponentReference_c ref = references[references.length - 1];
 			ref.Assigntocomp(component.getId());
 			return ref;
-		} else {
-			ComponentPackage_c pkg = (ComponentPackage_c) container;
-			pkg.Newimportedcomponent();
-			ComponentReference_c[] references = ComponentReference_c
-					.getManyCL_ICsOnR4605(pkg);
-			ComponentReference_c ref = references[references.length - 1];
-			ref.Assigntocomp(component.getId());
-			return ref;
-		}
+		} 
+		return null;
 	}
 	
 	public static void deleteComponent(Component_c component) {

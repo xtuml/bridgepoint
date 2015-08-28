@@ -31,7 +31,6 @@ import org.xtuml.bp.core.AsynchronousMessage_c;
 import org.xtuml.bp.core.ClassInstanceParticipant_c;
 import org.xtuml.bp.core.ClassParticipant_c;
 import org.xtuml.bp.core.ExternalEntityParticipant_c;
-import org.xtuml.bp.core.FunctionPackageParticipant_c;
 import org.xtuml.bp.core.MessageArgument_c;
 import org.xtuml.bp.core.PackageParticipant_c;
 import org.xtuml.bp.core.Package_c;

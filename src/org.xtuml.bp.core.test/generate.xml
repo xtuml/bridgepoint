@@ -271,7 +271,7 @@
     CoreTestResultCreator.java, DeleteAttributesTest.java,
     DerivedAttributeTest.java, GetNameTest.java, NumberingTest.java,
     CanRenameCanDeleteTest.java, CombineSplitReferentialsTest.java,
-    SubtypeSupertypeFormalizeTest.java, TigerNatureExistingProjectsTest.java,
+    TigerNatureExistingProjectsTest.java,
     TigerNatureWorkspaceSetupTest.java, TigerNatureTest.java,
     OperationsTest.java, RenameInvolvingResourceTest.java,
     I810_SlowDeletionTest.java, TwoModelsSelectionTest.java,

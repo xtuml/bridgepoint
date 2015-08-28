@@ -30,13 +30,10 @@ import java.util.Iterator;
 import org.eclipse.core.runtime.Path;
 
 import org.xtuml.bp.core.ClassStateMachine_c;
-import org.xtuml.bp.core.Domain_c;
 import org.xtuml.bp.core.InstanceStateMachine_c;
 import org.xtuml.bp.core.ModelClass_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.StateMachineEvent_c;
-import org.xtuml.bp.core.SubsystemInSubsystem_c;
-import org.xtuml.bp.core.Subsystem_c;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.InstanceList;
@@ -208,23 +205,7 @@ public class CPSDTElementResolver {
 							// the generated inspector will always
 							// return the domain
 							Object parent = null;
-							if (child_class == Subsystem_c.class
-									&& parent_class == Subsystem_c.class) {
-								Subsystem_c subsystemParent = Subsystem_c
-										.getOneS_SSOnR41(SubsystemInSubsystem_c
-												.getOneS_SISOnR42((Subsystem_c) current));
-								if(subsystemParent == null) continue;
-								parent = subsystemParent;
-							} else {
-								if(child_class == Subsystem_c.class
-										&& parent_class == Domain_c.class) { 
-									Subsystem_c subsystemParent = Subsystem_c
-										.getOneS_SSOnR41(SubsystemInSubsystem_c
-											.getOneS_SISOnR42((Subsystem_c) current));
-									if(subsystemParent != null) {
-										continue;
-									}
-								}
+
 								ModelInspector inspector = new ModelInspector();
 								IModelClassInspector classInspector = inspector
 										.getInspector(child_class);
@@ -236,7 +217,6 @@ public class CPSDTElementResolver {
 									ModelContentProvider provider = new ModelContentProvider();
 									parent = provider.getParent(current);
 								}
-							}
 							if (parent != null && parent.getClass() == parent_class) {
 								NonRootModelElement parentModelElement = (NonRootModelElement) parent;
 								// we need a special case for ISM and ASM destinations

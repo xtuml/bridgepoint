@@ -85,13 +85,9 @@ import org.xtuml.bp.core.Attribute_c;
 import org.xtuml.bp.core.BridgeParameter_c;
 import org.xtuml.bp.core.Bridge_c;
 import org.xtuml.bp.core.ClassStateMachine_c;
-import org.xtuml.bp.core.ComponentPackage_c;
 import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.CorePlugin;
-import org.xtuml.bp.core.DataTypeInPackage_c;
-import org.xtuml.bp.core.DataTypePackage_c;
 import org.xtuml.bp.core.DataType_c;
-import org.xtuml.bp.core.Domain_c;
 import org.xtuml.bp.core.Elementtypeconstants_c;
 import org.xtuml.bp.core.EnumerationDataType_c;
 import org.xtuml.bp.core.FunctionParameter_c;
@@ -101,27 +97,21 @@ import org.xtuml.bp.core.GlobalElementInSystem_c;
 import org.xtuml.bp.core.ImportedClass_c;
 import org.xtuml.bp.core.InstanceStateMachine_c;
 import org.xtuml.bp.core.InterfaceOperation_c;
-import org.xtuml.bp.core.InterfacePackage_c;
 import org.xtuml.bp.core.LeafSymbolicConstant_c;
 import org.xtuml.bp.core.LiteralSymbolicConstant_c;
 import org.xtuml.bp.core.ModelClass_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.OperationParameter_c;
 import org.xtuml.bp.core.Operation_c;
-import org.xtuml.bp.core.PackageInPackage_c;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.PackageableElement_c;
 import org.xtuml.bp.core.PropertyParameter_c;
 import org.xtuml.bp.core.ReferentialAttribute_c;
-import org.xtuml.bp.core.SpecificationPackage_c;
 import org.xtuml.bp.core.StateMachineEventDataItem_c;
 import org.xtuml.bp.core.StateMachineState_c;
 import org.xtuml.bp.core.StructureMember_c;
 import org.xtuml.bp.core.StructuredDataType_c;
-import org.xtuml.bp.core.Subsystem_c;
 import org.xtuml.bp.core.SymbolicConstant_c;
-import org.xtuml.bp.core.SystemDatatypeInPackage_c;
-import org.xtuml.bp.core.SystemDatatypePackage_c;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.UserDataType_c;
 import org.xtuml.bp.core.Visibility_c;
@@ -141,7 +131,6 @@ import org.xtuml.bp.core.inspector.IModelClassInspector;
 import org.xtuml.bp.core.inspector.ModelInspector;
 import org.xtuml.bp.core.inspector.ObjectElement;
 import org.xtuml.bp.core.ui.perspective.BridgePointPerspective;
-import org.xtuml.bp.core.util.GlobalsUtil;
 import org.xtuml.bp.io.mdl.ImportModel;
 import org.xtuml.bp.test.GlobalsTestEnabler;
 import org.xtuml.bp.test.TestUtil;
@@ -717,41 +706,7 @@ public class BaseTest extends TestCase {
 		graphicsModelRoot = Ooaofgraphics.getInstance(modelRoot.getId());
 		SystemModel_c m_parent=(SystemModel_c) rootComponent.getRootModelElement();
 		NonRootModelElement rootElement = component.getRootModelElement();
-		if(rootElement instanceof Domain_c) {
-			
-			Domain_c d2 = (Domain_c)component.getRootModelElement();
-			SystemModel_c old_system = SystemModel_c.getOneS_SYSOnR28(d2);
-			if (old_system != null) {
-				d2.unrelateAcrossR28From(old_system);
-			}
-			if (m_parent != null) {
-				d2.relateAcrossR28To(m_parent);
-			}
-			Ooaofooa root = (Ooaofooa)d2.getModelRoot();
-			if (root.getRoot() != m_parent) {
-				root.setRoot(m_parent);
-			}
-		} else if(rootElement instanceof ComponentPackage_c) {
-			final ComponentPackage_c compPackage = (ComponentPackage_c) component.getRootModelElement();
-			associateComponentPackageWithSystem(compPackage, m_parent, true);
-			// associate all component packages with the system
-			ComponentPackage_c[] compPackInstances = ComponentPackage_c.ComponentPackageInstances(modelRoot, new ClassQueryInterface_c() {
-			
-				public boolean evaluate(Object candidate) {
-					return !((ComponentPackage_c)candidate).getPackage_id().equals(compPackage.getPackage_id());
-				}
-			
-			});
-			for(int i = 0; i < compPackInstances.length; i++) {
-				associateComponentPackageWithSystem(compPackInstances[i], m_parent, false);
-			}
-			// do the same for all Interface Packages
-			InterfacePackage_c[] ifacePackages = InterfacePackage_c.InterfacePackageInstances(modelRoot);
-			for(int i = 0; i < ifacePackages.length; i++) {
-				associateInterfacePackageWithSystem(ifacePackages[i], m_parent, false);
-			}
-			updateReferencesToCoreDataTypes(component.getRootModelElement(), componentFolder);
-		} else if(rootElement instanceof Package_c) {
+		if(rootElement instanceof Package_c) {
 			// note, currently only one level of package is supported
 			// and none of the direct associations with systems are set up
 			// like the above for component packages
@@ -772,29 +727,7 @@ public class BaseTest extends TestCase {
 			if (root.getRoot() != (SystemModel_c) rootComponent.getRootModelElement()) {
 				root.setRoot((SystemModel_c) rootComponent.getRootModelElement());
 			}
-			// do the same for nested children
-			Package_c[] pkgs = Package_c.getManyEP_PKGsOnR1403(PackageInPackage_c.getManyEP_PIPsOnR1404(pack));
-			for(int i = 0; i < pkgs.length; i++) {
-				pkgs[i].relateAcrossR1405To((SystemModel_c) rootComponent.getRootModelElement());
-			}
 			associatePackagesWithSystem(pack, (SystemModel_c) rootComponent.getRootModelElement());
-			ComponentPackage_c[] compPkgs = ComponentPackage_c
-					.getManyCP_CPsOnR1402(SpecificationPackage_c
-							.getManyEP_SPKGsOnR1400(pack));
-			for(int i = 0; i < compPkgs.length; i++) {
-				associateComponentPackageWithSystem(compPkgs[i],
-						(SystemModel_c) rootComponent.getRootModelElement(),
-						false);
-			}
-			InterfacePackage_c[] iPkgs = InterfacePackage_c
-					.getManyIP_IPsOnR1402(SpecificationPackage_c
-							.getManyEP_SPKGsOnR1400(pack));
-			for (int i = 0; i < iPkgs.length; i++) {
-				associateInterfacePackageWithSystem(iPkgs[i],
-						(SystemModel_c) rootComponent.getRootModelElement(),
-						false);
-			}
-			updateReferencesToCoreDataTypes(component.getRootModelElement(), componentFolder);
 		}
 		
 		// persist the above parent changes, otherwise a reload
@@ -837,79 +770,6 @@ public class BaseTest extends TestCase {
 				pkg.relateAcrossR1405To(sys);
 				associatePackagesWithSystem(pkg, sys);
 			}
-		}
-	}
-	private void updateReferencesToCoreDataTypes(
-			NonRootModelElement element, File componentFolder) {
-		if(!(element.getModelRoot() instanceof Ooaofooa)) {
-			return;
-		}
-		ModelInspector inspector = new ModelInspector();
-		IModelClassInspector classInspector = inspector.getInspector(element.getClass());
-		DataTypePackage_c dtp = DataTypePackage_c.getOneS_DPKOnR4400(
-				SystemDatatypePackage_c
-						.getManySLD_SDPsOnR4400((SystemModel_c) element
-								.getRoot()), new ClassQueryInterface_c() {
-
-					@Override
-					public boolean evaluate(Object candidate) {
-						return ((DataTypePackage_c) candidate)
-								.getName()
-								.equals(
-										Ooaofooa
-												.Getcoredatatypespackagename(Ooaofooa
-														.getDefaultInstance()));
-					}
-				});
-		if(classInspector != null) {
-			ObjectElement[] referentials = classInspector.getReferentials(element);
-			for (int i = 0; i < referentials.length; i++) {
-				Object val = referentials[i].getValue();
-				if (val instanceof DataType_c) {
-					final DataType_c dt = (DataType_c) val;
-					if (dt.isProxy()) {
-						// just locate in default system level package
-						// and by name only
-						DataType_c dtMatch = DataType_c.getOneS_DTOnR39(
-								DataTypeInPackage_c.getManyS_DIPsOnR39(dtp),
-								new ClassQueryInterface_c() {
-	
-									@Override
-									public boolean evaluate(Object candidate) {
-										return ((DataType_c) candidate).getName()
-												.equals(dt.getName());
-									}
-								});
-						relateDTToElement(element, dtMatch);
-					}
-				}
-			}
-		}
-		if(element instanceof UserDataType_c) {
-			UserDataType_c udt = (UserDataType_c) element;
-			DataType_c dt = DataType_c.getOneS_DTOnR18(udt);
-			if(dt != null && dt.isProxy()) {
-				final String name = locateElementNameById(dt.getDt_idCachedValue(), componentFolder);
-				if(!name.equals("")) {
-					DataType_c dtMatch = DataType_c.getOneS_DTOnR39(
-							DataTypeInPackage_c.getManyS_DIPsOnR39(dtp),
-							new ClassQueryInterface_c() {
-	
-								@Override
-								public boolean evaluate(Object candidate) {
-									return ((DataType_c) candidate).getName()
-											.equals(name);
-								}
-							});
-					udt.relateAcrossR18To(dtMatch);
-				}
-			}
-		}
-		IPersistenceHierarchyMetaData metaData = PersistenceManager
-				.getHierarchyMetaData();
-		List<?> children = metaData.getChildren(element, false);
-		for(Object child : children) {
-			updateReferencesToCoreDataTypes((NonRootModelElement) child, componentFolder);
 		}
 	}
 	
@@ -1054,30 +914,7 @@ public class BaseTest extends TestCase {
 		DataType_c[] globalDts = DataType_c.getManyS_DTsOnR8001(
 				           PackageableElement_c.getManyPE_PEsOnR9100(
 						  GlobalElementInSystem_c.getManyG_EISsOnR9100(getSystemModel())));
-		for (int i=0; i < globalDts.length; i++) {
-			boolean upgraded = false;
-			for (int j=0; j < instances.length; j++) {
-			  // Don't do anything with a dt that is already a global or is
-			  // part of a domain.
-			  GlobalElementInSystem_c geis =
-		                      GlobalElementInSystem_c.getOneG_EISOnR9100(
-		                    	 PackageableElement_c.getOnePE_PEOnR8001(instances[j]));
-			  Domain_c dom = Domain_c.getOneS_DOMOnR14(instances[j]);
-			  if (geis == null && dom == null) {
-				if (instances[j].getName().equals(globalDts[i].getName())) {
-				  System.out.print("Upgrading " + instances[j].getName());
-				  System.out.println(" to " + globalDts[i].getName());
-				  GlobalsUtil.upgradeDTToGlobal(instances[j], globalDts[i]);
-				  instances[j].Dispose();
-				  upgraded = true;
-				  //break;
-				}
-			  }
-			}
-			if (!upgraded) {
-				  System.out.println("No types to upgrade for " + globalDts[i].getName());					
-			}
-		}
+
 		if (!componentOnlyLoaded) {
 		  Collection<?> children = pmc.getChildren();
 		  Iterator<?> childIt = children.iterator();
@@ -1093,404 +930,6 @@ public class BaseTest extends TestCase {
 		Iterator iterator = children.iterator();
 		while(iterator.hasNext()) {
 			unloadComponentAndChildren((PersistableModelComponent)iterator.next());
-		}
-	}
-	
-	private void associateInterfacePackageWithSystem(InterfacePackage_c ifacePackage, SystemModel_c m_parent, boolean associateAcross4304) {
-		SystemModel_c old_system = SystemModel_c.getOneS_SYSOnR4302(ifacePackage);
-		if(old_system != null) {
-			ifacePackage.unrelateAcrossR4302From(old_system);
-		}
-		old_system = SystemModel_c.getOneS_SYSOnR4304(ifacePackage);
-		if(old_system != null) {
-			ifacePackage.unrelateAcrossR4304From(old_system);
-		}
-		if(m_parent != null) {
-			if(associateAcross4304)
-				ifacePackage.relateAcrossR4302To(m_parent);
-			ifacePackage.relateAcrossR4304To(m_parent);
-		}		
-		Ooaofooa root = (Ooaofooa)ifacePackage.getModelRoot();
-		if (root.getRoot() != m_parent) {
-			root.setRoot(m_parent);
-		}
-	}
-	
-	private void associateComponentPackageWithSystem(ComponentPackage_c compPackage, SystemModel_c m_parent, boolean associateAcross4602) {
-		SystemModel_c old_system = SystemModel_c.getOneS_SYSOnR4602(compPackage);
-		if(old_system != null) {
-			compPackage.unrelateAcrossR4602From(old_system);
-		}
-		old_system = SystemModel_c.getOneS_SYSOnR4606(compPackage);
-		if(old_system != null) {
-			compPackage.unrelateAcrossR4606From(old_system);
-		}
-		if(m_parent != null) {
-			if(associateAcross4602)
-				compPackage.relateAcrossR4602To(m_parent);
-			compPackage.relateAcrossR4606To(m_parent);
-		}
-		// the imported component package will be located
-		// in a new system, therefore we must update all
-		// element's which pointed at a previous system
-		// dt to matching ones in the new system, this code
-		// will not do anything to those pointing at UDTs, EDTs
-		// or SDTs that do not exist in the new system
-		InterfaceOperation_c[] interfaceOperations = InterfaceOperation_c.InterfaceOperationInstances(modelRoot);
-		for(int i = 0; i < interfaceOperations.length; i++) {
-			final DataType_c oldDt = DataType_c.getOneS_DTOnR4008(interfaceOperations[i]);
-			UserDataType_c udt = UserDataType_c.getOneS_UDTOnR17(oldDt);
-			StructuredDataType_c sdt = StructuredDataType_c.getOneS_SDTOnR17(oldDt);
-			EnumerationDataType_c edt = EnumerationDataType_c.getOneS_EDTOnR17(oldDt);
-			if((sdt != null) || (edt != null))
-				continue;
-			if(udt != null) {
-				// only update this if the UDT is built in
-				if(udt.getGen_type() == 0) {
-					continue;
-				}
-			}
-			DataType_c newDt = DataType_c.getOneS_DTOnR4401(SystemDatatypeInPackage_c.getManySLD_SDINPsOnR4402(m_parent), new ClassQueryInterface_c() {
-			
-				public boolean evaluate(Object candidate) {
-					return ((DataType_c)candidate).getName().equals(oldDt.getName());
-				}
-			
-			});
-			if(newDt != null) {
-				interfaceOperations[i].unrelateAcrossR4008From(oldDt);
-				interfaceOperations[i].relateAcrossR4008To(newDt);
-			}
-		}
-		PropertyParameter_c[] propertyParameters = PropertyParameter_c.PropertyParameterInstances(modelRoot);
-		for(int i = 0; i < propertyParameters.length; i++) {
-			final DataType_c oldDt = DataType_c.getOneS_DTOnR4007(propertyParameters[i]);
-			UserDataType_c udt = UserDataType_c.getOneS_UDTOnR17(oldDt);
-			StructuredDataType_c sdt = StructuredDataType_c.getOneS_SDTOnR17(oldDt);
-			EnumerationDataType_c edt = EnumerationDataType_c.getOneS_EDTOnR17(oldDt);
-			if((sdt != null) || (edt != null))
-				continue;
-			if(udt != null) {
-				// only update this if the UDT is built in
-				if(udt.getGen_type() == 0) {
-					continue;
-				}
-			}
-			DataType_c newDt = DataType_c.getOneS_DTOnR4401(SystemDatatypeInPackage_c.getManySLD_SDINPsOnR4402(m_parent), new ClassQueryInterface_c() {
-			
-				public boolean evaluate(Object candidate) {
-					return ((DataType_c)candidate).getName().equals(oldDt.getName());
-				}
-			
-			});
-			if(newDt != null) {
-				propertyParameters[i].unrelateAcrossR4007From(oldDt);
-				propertyParameters[i].relateAcrossR4007To(newDt);
-			}
-		}
-		Function_c[] functions = Function_c.FunctionInstances(modelRoot);
-		for(int i = 0; i < functions.length; i++) {
-			final DataType_c oldDt = DataType_c.getOneS_DTOnR25(functions[i]);
-			Domain_c domain = Domain_c.getOneS_DOMOnR14(oldDt);
-			if(domain != null)
-				// no need to process domain level dts
-				continue;
-			UserDataType_c udt = UserDataType_c.getOneS_UDTOnR17(oldDt);
-			StructuredDataType_c sdt = StructuredDataType_c.getOneS_SDTOnR17(oldDt);
-			EnumerationDataType_c edt = EnumerationDataType_c.getOneS_EDTOnR17(oldDt);
-			if((sdt != null) || (edt != null))
-				continue;
-			if(udt != null) {
-				// only update this if the UDT is built in
-				if(udt.getGen_type() == 0) {
-					continue;
-				}
-			}
-			DataType_c newDt = DataType_c.getOneS_DTOnR4401(SystemDatatypeInPackage_c.getManySLD_SDINPsOnR4402(m_parent), new ClassQueryInterface_c() {
-			
-				public boolean evaluate(Object candidate) {
-					return ((DataType_c)candidate).getName().equals(oldDt.getName());
-				}
-			
-			});
-			if(newDt != null) {
-				functions[i].unrelateAcrossR25From(oldDt);
-				functions[i].relateAcrossR25To(newDt);
-			}
-		}
-		FunctionParameter_c[] functionParameters = FunctionParameter_c.FunctionParameterInstances(modelRoot);
-		for(int i = 0; i < functionParameters.length; i++) {
-			final DataType_c oldDt = DataType_c.getOneS_DTOnR26(functionParameters[i]);
-			Domain_c domain = Domain_c.getOneS_DOMOnR14(oldDt);
-			if(domain != null)
-				// no need to process domain level dts
-				continue;
-			UserDataType_c udt = UserDataType_c.getOneS_UDTOnR17(oldDt);
-			StructuredDataType_c sdt = StructuredDataType_c.getOneS_SDTOnR17(oldDt);
-			EnumerationDataType_c edt = EnumerationDataType_c.getOneS_EDTOnR17(oldDt);
-			if((sdt != null) || (edt != null))
-				continue;
-			if(udt != null) {
-				// only update this if the UDT is built in
-				if(udt.getGen_type() == 0) {
-					continue;
-				}
-			}
-			DataType_c newDt = DataType_c.getOneS_DTOnR4401(SystemDatatypeInPackage_c.getManySLD_SDINPsOnR4402(m_parent), new ClassQueryInterface_c() {
-			
-				public boolean evaluate(Object candidate) {
-					return ((DataType_c)candidate).getName().equals(oldDt.getName());
-				}
-			
-			});
-			if(newDt != null) {
-				functionParameters[i].unrelateAcrossR26From(oldDt);
-				functionParameters[i].relateAcrossR26To(newDt);
-			}
-		}
-		Bridge_c[] bridges = Bridge_c.BridgeInstances(modelRoot);
-		for(int i = 0; i < bridges.length; i++) {
-			final DataType_c oldDt = DataType_c.getOneS_DTOnR20(bridges[i]);
-			Domain_c domain = Domain_c.getOneS_DOMOnR14(oldDt);
-			if(domain != null)
-				// no need to process domain level dts
-				continue;
-			UserDataType_c udt = UserDataType_c.getOneS_UDTOnR17(oldDt);
-			StructuredDataType_c sdt = StructuredDataType_c.getOneS_SDTOnR17(oldDt);
-			EnumerationDataType_c edt = EnumerationDataType_c.getOneS_EDTOnR17(oldDt);
-			if((sdt != null) || (edt != null))
-				continue;
-			if(udt != null) {
-				// only update this if the UDT is built in
-				if(udt.getGen_type() == 0) {
-					continue;
-				}
-			}
-			DataType_c newDt = DataType_c.getOneS_DTOnR4401(SystemDatatypeInPackage_c.getManySLD_SDINPsOnR4402(m_parent), new ClassQueryInterface_c() {
-			
-				public boolean evaluate(Object candidate) {
-					return ((DataType_c)candidate).getName().equals(oldDt.getName());
-				}
-			
-			});
-			if(newDt != null) {
-				bridges[i].unrelateAcrossR20From(oldDt);
-				bridges[i].relateAcrossR20To(newDt);
-			}
-		}	
-		BridgeParameter_c[] bridgeParameters = BridgeParameter_c.BridgeParameterInstances(modelRoot);
-		for(int i = 0; i < bridgeParameters.length; i++) {
-			final DataType_c oldDt = DataType_c.getOneS_DTOnR22(bridgeParameters[i]);
-			Domain_c domain = Domain_c.getOneS_DOMOnR14(oldDt);
-			if(domain != null)
-				// no need to process domain level dts
-				continue;
-			UserDataType_c udt = UserDataType_c.getOneS_UDTOnR17(oldDt);
-			StructuredDataType_c sdt = StructuredDataType_c.getOneS_SDTOnR17(oldDt);
-			EnumerationDataType_c edt = EnumerationDataType_c.getOneS_EDTOnR17(oldDt);
-			if((sdt != null) || (edt != null))
-				continue;
-			if(udt != null) {
-				// only update this if the UDT is built in
-				if(udt.getGen_type() == 0) {
-					continue;
-				}
-			}
-			DataType_c newDt = DataType_c.getOneS_DTOnR4401(SystemDatatypeInPackage_c.getManySLD_SDINPsOnR4402(m_parent), new ClassQueryInterface_c() {
-			
-				public boolean evaluate(Object candidate) {
-					return ((DataType_c)candidate).getName().equals(oldDt.getName());
-				}
-			
-			});
-			if(newDt != null) {
-				bridgeParameters[i].unrelateAcrossR22From(oldDt);
-				bridgeParameters[i].relateAcrossR22To(newDt);
-			}
-		}
-		Operation_c[] operations = Operation_c.OperationInstances(modelRoot);
-		for(int i = 0; i < operations.length; i++) {
-			final DataType_c oldDt = DataType_c.getOneS_DTOnR116(operations[i]);
-			Domain_c domain = Domain_c.getOneS_DOMOnR14(oldDt);
-			if(domain != null)
-				// no need to process domain level dts
-				continue;
-			UserDataType_c udt = UserDataType_c.getOneS_UDTOnR17(oldDt);
-			StructuredDataType_c sdt = StructuredDataType_c.getOneS_SDTOnR17(oldDt);
-			EnumerationDataType_c edt = EnumerationDataType_c.getOneS_EDTOnR17(oldDt);
-			if((sdt != null) || (edt != null))
-				continue;
-			if(udt != null) {
-				// only update this if the UDT is built in
-				if(udt.getGen_type() == 0) {
-					continue;
-				}
-			}
-			DataType_c newDt = DataType_c.getOneS_DTOnR4401(SystemDatatypeInPackage_c.getManySLD_SDINPsOnR4402(m_parent), new ClassQueryInterface_c() {
-			
-				public boolean evaluate(Object candidate) {
-					return ((DataType_c)candidate).getName().equals(oldDt.getName());
-				}
-			
-			});
-			if(newDt != null) {
-				operations[i].unrelateAcrossR116From(oldDt);
-				operations[i].relateAcrossR116To(newDt);
-			}
-		}
-		OperationParameter_c[] operationParameters = OperationParameter_c.OperationParameterInstances(modelRoot);
-		for(int i = 0; i < operationParameters.length; i++) {
-			final DataType_c oldDt = DataType_c.getOneS_DTOnR118(operationParameters[i]);
-			Domain_c domain = Domain_c.getOneS_DOMOnR14(oldDt);
-			if(domain != null)
-				// no need to process domain level dts
-				continue;
-			UserDataType_c udt = UserDataType_c.getOneS_UDTOnR17(oldDt);
-			StructuredDataType_c sdt = StructuredDataType_c.getOneS_SDTOnR17(oldDt);
-			EnumerationDataType_c edt = EnumerationDataType_c.getOneS_EDTOnR17(oldDt);
-			if((sdt != null) || (edt != null))
-				continue;
-			if(udt != null) {
-				// only update this if the UDT is built in
-				if(udt.getGen_type() == 0) {
-					continue;
-				}
-			}
-			DataType_c newDt = DataType_c.getOneS_DTOnR4401(SystemDatatypeInPackage_c.getManySLD_SDINPsOnR4402(m_parent), new ClassQueryInterface_c() {
-			
-				public boolean evaluate(Object candidate) {
-					return ((DataType_c)candidate).getName().equals(oldDt.getName());
-				}
-			
-			});
-			if(newDt != null) {
-				operationParameters[i].unrelateAcrossR118From(oldDt);
-				operationParameters[i].relateAcrossR118To(newDt);
-			}
-		}
-		StateMachineEventDataItem_c[] evtDataItems = StateMachineEventDataItem_c.StateMachineEventDataItemInstances(modelRoot);
-		for(int i = 0; i < evtDataItems.length; i++) {
-			final DataType_c oldDt = DataType_c.getOneS_DTOnR524(evtDataItems[i]);
-			Domain_c domain = Domain_c.getOneS_DOMOnR14(oldDt);
-			if(domain != null)
-				// no need to process domain level dts
-				continue;
-			UserDataType_c udt = UserDataType_c.getOneS_UDTOnR17(oldDt);
-			StructuredDataType_c sdt = StructuredDataType_c.getOneS_SDTOnR17(oldDt);
-			EnumerationDataType_c edt = EnumerationDataType_c.getOneS_EDTOnR17(oldDt);
-			if((sdt != null) || (edt != null))
-				continue;
-			if(udt != null) {
-				// only update this if the UDT is built in
-				if(udt.getGen_type() == 0) {
-					continue;
-				}
-			}
-			DataType_c newDt = DataType_c.getOneS_DTOnR4401(SystemDatatypeInPackage_c.getManySLD_SDINPsOnR4402(m_parent), new ClassQueryInterface_c() {
-			
-				public boolean evaluate(Object candidate) {
-					return ((DataType_c)candidate).getName().equals(oldDt.getName());
-				}
-			
-			});
-			if(newDt != null) {
-				evtDataItems[i].unrelateAcrossR524From(oldDt);
-				evtDataItems[i].relateAcrossR524To(newDt);
-			}
-		}
-		Attribute_c[] attributes = Attribute_c.AttributeInstances(modelRoot);
-		for(int i = 0; i < attributes.length; i++) {
-			final DataType_c oldDt = DataType_c.getOneS_DTOnR114(attributes[i]);
-			Domain_c domain = Domain_c.getOneS_DOMOnR14(oldDt);
-			if(domain != null)
-				// no need to process domain level dts
-				continue;
-			UserDataType_c udt = UserDataType_c.getOneS_UDTOnR17(oldDt);
-			StructuredDataType_c sdt = StructuredDataType_c.getOneS_SDTOnR17(oldDt);
-			EnumerationDataType_c edt = EnumerationDataType_c.getOneS_EDTOnR17(oldDt);
-			if((sdt != null) || (edt != null))
-				continue;
-			if(udt != null) {
-				// only update this if the UDT is built in
-				if(udt.getGen_type() == 0) {
-					continue;
-				}
-			}
-			DataType_c newDt = DataType_c.getOneS_DTOnR4401(SystemDatatypeInPackage_c.getManySLD_SDINPsOnR4402(m_parent), new ClassQueryInterface_c() {
-			
-				public boolean evaluate(Object candidate) {
-					return ((DataType_c)candidate).getName().equals(oldDt.getName());
-				}
-			
-			});
-			if(newDt != null) {
-				attributes[i].unrelateAcrossR114From(oldDt);
-				attributes[i].relateAcrossR114To(newDt);
-			}
-		}
-		UserDataType_c[] udts = UserDataType_c.UserDataTypeInstances(modelRoot);
-		for(int i = 0; i < udts.length; i++) {
-			final DataType_c oldDt = DataType_c.getOneS_DTOnR18(udts[i]);
-			Domain_c domain = Domain_c.getOneS_DOMOnR14(oldDt);
-			if(domain != null)
-				// no need to process domain level dts
-				continue;
-			UserDataType_c udt = UserDataType_c.getOneS_UDTOnR17(oldDt);
-			StructuredDataType_c sdt = StructuredDataType_c.getOneS_SDTOnR17(oldDt);
-			EnumerationDataType_c edt = EnumerationDataType_c.getOneS_EDTOnR17(oldDt);
-			if((sdt != null) || (edt != null))
-				continue;
-			if(udt != null) {
-				// only update this if the UDT is built in
-				if(udt.getGen_type() == 0) {
-					continue;
-				}
-			}
-			DataType_c newDt = DataType_c.getOneS_DTOnR4401(SystemDatatypeInPackage_c.getManySLD_SDINPsOnR4402(m_parent), new ClassQueryInterface_c() {
-			
-				public boolean evaluate(Object candidate) {
-					return ((DataType_c)candidate).getName().equals(oldDt.getName());
-				}
-			
-			});
-			if(newDt != null) {
-				udts[i].unrelateAcrossR18From(oldDt);
-				udts[i].relateAcrossR18To(newDt);
-			}
-		}
-		StructureMember_c[] members = StructureMember_c.StructureMemberInstances(modelRoot);
-		for(int i = 0; i < members.length; i++) {
-			final DataType_c oldDt = DataType_c.getOneS_DTOnR45(members[i]);
-			Domain_c domain = Domain_c.getOneS_DOMOnR14(oldDt);
-			if(domain != null)
-				// no need to process domain level dts
-				continue;
-			UserDataType_c udt = UserDataType_c.getOneS_UDTOnR17(oldDt);
-			StructuredDataType_c sdt = StructuredDataType_c.getOneS_SDTOnR17(oldDt);
-			EnumerationDataType_c edt = EnumerationDataType_c.getOneS_EDTOnR17(oldDt);
-			if((sdt != null) || (edt != null))
-				continue;
-			if(udt != null) {
-				// only update this if the UDT is built in
-				if(udt.getGen_type() == 0) {
-					continue;
-				}
-			}
-			DataType_c newDt = DataType_c.getOneS_DTOnR4401(SystemDatatypeInPackage_c.getManySLD_SDINPsOnR4402(m_parent), new ClassQueryInterface_c() {
-			
-				public boolean evaluate(Object candidate) {
-					return ((DataType_c)candidate).getName().equals(oldDt.getName());
-				}
-			
-			});
-			if(newDt != null) {
-				members[i].unrelateAcrossR45From(oldDt);
-				members[i].relateAcrossR45To(newDt);
-			}
-		}
-		Ooaofooa root = (Ooaofooa)compPackage.getModelRoot();
-		if (root.getRoot() != m_parent) {
-			root.setRoot(m_parent);
 		}
 	}
 	
@@ -1738,43 +1177,7 @@ public class BaseTest extends TestCase {
 		expected_wr.close();
 	}
 	
-	public static UUID getTypeID(ModelRoot modelRoot, final String typeName){
-		DataType_c[] datatypes = DataType_c.DataTypeInstances(modelRoot, new ClassQueryInterface_c(){
-			
-			public boolean evaluate(Object candidate) {
-				if (candidate instanceof DataType_c) {
-					DataType_c dt = (DataType_c) candidate;
-					if (dt.getName().equals(typeName))
-						return true;
-				}
-				return false;
-			}
-		}); 
-		assertEquals(datatypes.length, 1);
-		return datatypes[0].getDt_id();
-	}
-	
-
-	
-	public static UUID getTypeID_Generic(ModelRoot modelRoot, final String typeName){
-		
-		UUID dtp_Id = null;
-		DataTypePackage_c dataType_Package;
-		DataType_c[] datatypes;
-		for  (int j=0; j< m_sys.Getsysdtpckgcount(); j++)
-		{
-  		    dtp_Id = m_sys.Getsysdtpckgid(j);
-		
-			dataType_Package = (DataTypePackage_c)Cl_c.Getinstancefromooa_id(m_sys, dtp_Id, Ooatype_c.SystemLevelDatatypePackage );
-
-			datatypes =DataType_c.getManyS_DTsOnR39(dataType_Package);
-			for (int i =0; i< datatypes.length; i++)
-			{
-				if (datatypes[i].getName().equals(typeName) )
-					return datatypes[i].getDt_id();
-			}
-		}
-		
+	public static UUID getTypeID_Generic(ModelRoot modelRoot, final String typeName){		
 		Package_c pkgs_lst[] = Package_c.getManyEP_PKGsOnR1405(m_sys);
 		PackageableElement_c pkgElems_lst[] =PackageableElement_c.getManyPE_PEsOnR8000(pkgs_lst);
 				
@@ -1991,16 +1394,6 @@ public class BaseTest extends TestCase {
 			return (selected.getName().equals(m_name));
 		}
 		public Operation_by_name_c(String name) {
-			m_name = name;      
-		}
-		private String m_name;
-	} 
-	public class Subsystem_by_name_c implements ClassQueryInterface_c {
-		public boolean evaluate(Object candidate) {
-			Subsystem_c selected =  (Subsystem_c) candidate;
-			return (selected.getName().equals(m_name));
-		}
-		public Subsystem_by_name_c(String name) {
 			m_name = name;      
 		}
 		private String m_name;

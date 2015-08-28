@@ -69,7 +69,6 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.WorkbenchException;
 
 import org.xtuml.bp.core.CorePlugin;
-import org.xtuml.bp.core.Domain_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.common.IPersistenceHierarchyMetaData;
@@ -424,19 +423,6 @@ public class TestingUtilities {
 		} catch (IOException f) {
 			TestCase.fail(f.toString());
 		}
-	}
-
-	public static boolean compareModels(Ooaofooa domain1, Ooaofooa domain2) {
-		return compareModels(Domain_c.DomainInstance(domain1), Domain_c
-				.DomainInstance(domain2));
-	}
-
-	public static boolean compareModels(Domain_c domain1, Domain_c domain2) {
-		System.err.println("Comparing " + getAllChildrenCount(domain1)
-				+ " children of domain " + domain1.getName() + " with "
-				+ getAllChildrenCount(domain2) + " children of domain "
-				+ domain2.getName());
-		return compareModelElement(domain1, domain2);
 	}
 
 	private static int getAllChildrenCount(NonRootModelElement me) {

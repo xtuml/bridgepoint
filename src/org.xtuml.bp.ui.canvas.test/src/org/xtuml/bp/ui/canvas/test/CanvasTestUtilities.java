@@ -46,18 +46,13 @@ import org.eclipse.ui.PlatformUI;
 import org.xtuml.bp.core.Association_c;
 import org.xtuml.bp.core.ClassAsSubtype_c;
 import org.xtuml.bp.core.CorePlugin;
-import org.xtuml.bp.core.DataTypePackage_c;
-import org.xtuml.bp.core.Domain_c;
 import org.xtuml.bp.core.EnumerationDataType_c;
-import org.xtuml.bp.core.ExternalEntityPackage_c;
 import org.xtuml.bp.core.ExternalEntity_c;
-import org.xtuml.bp.core.FunctionPackage_c;
 import org.xtuml.bp.core.InstanceStateMachine_c;
 import org.xtuml.bp.core.ModelClass_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.StateMachineState_c;
-import org.xtuml.bp.core.Subsystem_c;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.ui.RenameAction;
@@ -128,26 +123,6 @@ static public GraphicalEditor getCanvasEditor(String title) {
 	}
 	return null;
 }
-public class findModelDTPByName implements ClassQueryInterface_c {
-	public findModelDTPByName(String name) {
-		m_name = name;
-	}
-	private String m_name;
-	public boolean evaluate(Object test_instance) {
-		DataTypePackage_c selected = (DataTypePackage_c) test_instance;
-		return selected.getName().equals(m_name);
-	}
-}
-public class findModelEEPByName implements ClassQueryInterface_c {
-	public findModelEEPByName(String name) {
-		m_name = name;
-	}
-	private String m_name;
-	public boolean evaluate(Object test_instance) {
-		ExternalEntityPackage_c selected = (ExternalEntityPackage_c) test_instance;
-		return selected.getName().equals(m_name);
-	}
-}
 
 public class findModelPKGByName implements ClassQueryInterface_c {
 	public findModelPKGByName(String name) {
@@ -156,16 +131,6 @@ public class findModelPKGByName implements ClassQueryInterface_c {
 	private String m_name;
 	public boolean evaluate(Object test_instance) {
 		Package_c selected = (Package_c) test_instance;
-		return selected.getName().equals(m_name);
-	}
-}
-public class findModelFPByName implements ClassQueryInterface_c {
-	public findModelFPByName(String name) {
-		m_name = name;
-	}
-	private String m_name;
-	public boolean evaluate(Object test_instance) {
-		FunctionPackage_c selected = (FunctionPackage_c) test_instance;
 		return selected.getName().equals(m_name);
 	}
 }
@@ -189,16 +154,6 @@ public class findModelEEByName implements ClassQueryInterface_c {
 		return selected.getName().equals(m_name);
 	}
 }
-public class findModelSSByName implements ClassQueryInterface_c {
-	public findModelSSByName(String name) {
-		m_name = name;
-	}
-	private String m_name;
-	public boolean evaluate(Object test_instance) {
-		Subsystem_c selected = (Subsystem_c) test_instance;
-		return selected.getName().equals(m_name);
-	}
-}
 
 public static void createKeyEvent(char key) {
 	GraphicalEditor ce = ((ModelEditor) PlatformUI.getWorkbench()
@@ -212,12 +167,7 @@ public static void createKeyEvent(char key) {
 public static void createMouseEvent(int x, int y, String eventType) {
 	UITestingUtilities.createMouseEvent(x, y, eventType);
 }
-public static GraphicalEditor openDomainCanvasEditor(Ooaofooa modelRoot) {
-	Domain_c uut = Domain_c.DomainInstance(modelRoot);
-	TestCase.assertNotNull(uut);
-	CanvasUtilities.openCanvasEditor(uut);
-	return getDomainCanvasEditor();
-}
+
 public static GraphicalEditor openClassDiagramEditor(Ooaofooa modelRoot) {
 	Package_c uut = Package_c.PackageInstance(modelRoot);
 	TestCase.assertNotNull(uut);
@@ -334,33 +284,6 @@ public static Shape_c getModelStateShape(Ooaofooa modelRoot, String name) {
 	return Shape_c.getOneGD_SHPOnR2(ge);
 }
 
-public static Shape_c getModelDTPShape(Ooaofooa modelRoot, String name) {
-	CanvasTestUtilities ctu = new CanvasTestUtilities();
-	DataTypePackage_c dtp =
-		DataTypePackage_c.DataTypePackageInstance(modelRoot, ctu.new findModelDTPByName(name));
-	GraphicalElement_c ge =
-		GraphicalElement_c.GraphicalElementInstance(Ooaofgraphics.getInstance(modelRoot.getId()), 
-			ctu.new findGraphicalElementByOOAID(dtp.Get_ooa_id(), 53));
-	return Shape_c.getOneGD_SHPOnR2(ge);
-}
-public static Shape_c getModelFPShape(Ooaofooa modelRoot, String name) {
-	CanvasTestUtilities ctu = new CanvasTestUtilities();
-	FunctionPackage_c fp =
-		FunctionPackage_c.FunctionPackageInstance(modelRoot, ctu.new findModelFPByName(name));
-	GraphicalElement_c ge =
-		GraphicalElement_c.GraphicalElementInstance(Ooaofgraphics.getInstance(modelRoot.getId()), 
-			ctu.new findGraphicalElementByOOAID(fp.Get_ooa_id(), 54));
-	return Shape_c.getOneGD_SHPOnR2(ge);
-}
-public static Shape_c getModelEEPShape(Ooaofooa modelRoot, String name) {
-	CanvasTestUtilities ctu = new CanvasTestUtilities();
-	ExternalEntityPackage_c eep =
-		ExternalEntityPackage_c.ExternalEntityPackageInstance(modelRoot, ctu.new findModelEEPByName(name));
-	GraphicalElement_c ge =
-		GraphicalElement_c.GraphicalElementInstance(Ooaofgraphics.getInstance(modelRoot.getId()), 
-			ctu.new findGraphicalElementByOOAID(eep.Get_ooa_id(), 55));
-	return Shape_c.getOneGD_SHPOnR2(ge);
-}
 
 public static Shape_c getModelPKGShape(Ooaofooa modelRoot, String name) {
 	CanvasTestUtilities ctu = new CanvasTestUtilities();
@@ -386,16 +309,6 @@ public static Shape_c getModelEDTShape(Ooaofooa modelRoot, String name) {
 	GraphicalElement_c ge =
 		GraphicalElement_c.GraphicalElementInstance(Ooaofgraphics.getInstance(modelRoot.getId()), 
 			ctu.new findGraphicalElementByOOAID(edt.Get_ooa_id(), 52));
-	return Shape_c.getOneGD_SHPOnR2(ge);
-}
-
-public static Shape_c getModelSSShape(Ooaofooa modelRoot, String name) {
-	CanvasTestUtilities ctu = new CanvasTestUtilities();
-	Subsystem_c ss =
-		Subsystem_c.SubsystemInstance(modelRoot, ctu.new findModelSSByName(name));
-	GraphicalElement_c ge =
-		GraphicalElement_c.GraphicalElementInstance(Ooaofgraphics.getInstance(modelRoot.getId()), 
-			ctu.new findGraphicalElementByOOAID(ss.Get_ooa_id(), 11));
 	return Shape_c.getOneGD_SHPOnR2(ge);
 }
 
