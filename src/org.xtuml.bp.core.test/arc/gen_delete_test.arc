@@ -304,14 +304,12 @@ import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.IdAssigner;
 import org.xtuml.bp.core.common.PersistableModelComponent;
 import org.xtuml.bp.core.CorePlugin;
-import org.xtuml.bp.core.DataTypePackage_c;
 
 import org.xtuml.bp.core.ImportedClass_c;
 import org.xtuml.bp.core.InstanceStateMachine_c;
 import org.xtuml.bp.core.ModelClass_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Package_c;
-import org.xtuml.bp.core.SystemDatatypePackage_c;
 
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.XtUMLNature;

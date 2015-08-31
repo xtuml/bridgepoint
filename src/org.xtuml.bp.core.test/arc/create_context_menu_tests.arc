@@ -19,152 +19,6 @@
 .end if
 .//
 .include "${mc_archetypes}/arch_utils.inc"
-.function needsQuery
-  .param String kl
-  .param String cmeLabel
-  .param String specialism
-  .assign attr_needsQuery = false
-  .assign attr_nameAccessor = "getName()"
-  .assign attr_query = ""
-  .if(kl == "S_UDT")
-    .assign attr_needsQuery = true
-    .assign attr_nameAccessor = "Get_name()"
-  .elif(kl == "S_DPK")
-    .assign attr_needsQuery = true
-    .assign attr_nameAccessor = "getName()"
-  .elif(kl == "O_ATTR")
-    .assign attr_needsQuery = true
-    .assign attr_nameAccessor = "getName()"
-  .elif(kl == "SM_EVT")
-    .assign attr_needsQuery = true
-    .assign attr_nameAccessor = "getMning()"
-  .elif(kl == "SM_STATE")
-    .assign attr_needsQuery = true
-    .assign attr_nameAccessor = "getName()"
-  .elif((kl == "S_MBR") and (cmeLabel == "Move Up"))
-    .assign attr_needsQuery = true
-    .assign attr_nameAccessor = "getName()"
-  .elif((kl == "O_TPARM") and (cmeLabel == "Move Up"))
-    .assign attr_needsQuery = true
-    .assign attr_nameAccessor = "getName()"
-  .elif((kl == "S_SPARM") and (cmeLabel == "Move Up"))
-    .assign attr_needsQuery = true
-    .assign attr_nameAccessor = "getName()"
-  .elif((kl == "SM_EVTDI") and (cmeLabel == "Move Up"))
-    .assign attr_needsQuery = true
-    .assign attr_nameAccessor = "getName()"
-  .elif((kl == "O_TFR") and (cmeLabel == "Move Up"))
-    .assign attr_needsQuery = true
-    .assign attr_nameAccessor = "getName()"
-  .elif((kl == "S_ENUM") and (cmeLabel == "Move Up"))
-    .assign attr_needsQuery = true
-    .assign attr_nameAccessor = "getName()"
-  .elif((kl == "S_MBR") and (cmeLabel == "Move Down"))
-    .assign attr_needsQuery = true
-    .assign attr_nameAccessor = "getName()"
-  .elif((kl == "O_TPARM") and (cmeLabel == "Move Down"))
-    .assign attr_needsQuery = true
-    .assign attr_nameAccessor = "getName()"
-  .elif((kl == "S_SPARM") and (cmeLabel == "Move Down"))
-    .assign attr_needsQuery = true
-    .assign attr_nameAccessor = "getName()"
-  .elif((kl == "SM_EVTDI") and (cmeLabel == "Move Down"))
-    .assign attr_needsQuery = true
-    .assign attr_nameAccessor = "getName()"
-  .elif((kl == "O_TFR") and (cmeLabel == "Move Down"))
-    .assign attr_needsQuery = true
-    .assign attr_nameAccessor = "getName()"
-  .elif((kl == "S_ENUM") and (cmeLabel == "Move Down"))
-    .assign attr_needsQuery = true
-    .assign attr_nameAccessor = "getName()"   
-  .end if
-  .select any mclass from instances of O_OBJ where (selected.Key_Lett == kl)
-  .if((cmeLabel == "Instance State Machine") or (cmeLabel == "Class State Machine"))
-    .assign attr_needsQuery = true
-       Subsystem_c subsystem = Subsystem_c.SubsystemInstance(modelRoot, new ClassQueryInterface_c() {
-
-			public boolean evaluate(Object candidate) {
-				if(((Subsystem_c)candidate).getName().equals("Formalize Menu Tests")) {
-					return true;
-				}
-				return false;
-			}
-
-		});
-
-	    $r{mclass.Name}_c obj = $r{mclass.Name}_c.getOneO_OBJOnR2(subsystem);
-  .elif((cmeLabel == "Publish References") or (cmeLabel == "Unpublish References"))
-     .assign attr_needsQuery = true
-        String v_prefEnableInstanceReferences = "bridgepoint_prefs_enable_instance_references";
-        if ((Pref_c.Getboolean(v_prefEnableInstanceReferences) == false)) {
-          return;
-        }
-
-        .select any obj from instances of O_OBJ where (selected.Key_Lett == kl)
-        $r{obj.Name}_c obj = $r{obj.Name}_c.$r{obj.Name}Instance(modelRoot);
-  .elif((cmeLabel == "Formalize") or (cmeLabel == "Unformalize"))
-    .if(((kl == "R_REL") or (kl == "R_ASSR")) or (kl == "R_SUB"))
-      .assign attr_needsQuery = true
-      .assign attr_nameAccessor = ""
-      .select any mclass from instances of O_OBJ where (selected.Key_Lett == kl)
-	  Subsystem_c subsystem = Subsystem_c.SubsystemInstance(modelRoot, new ClassQueryInterface_c() {
-
-			public boolean evaluate(Object candidate) {
-				if(((Subsystem_c)candidate).getName().equals(\
-				.if(cmeLabel == "Formalize")
-"Formalize Menu Tests"\
-				.else
-"Test Subsystem"\
-				.end if
-)) {
-					return true;
-				}
-				return false;
-			}
-
-		});
-    .end if
-    .if(kl == "R_ASSR")
-		$r{mclass.Name}_c obj = $r{mclass.Name}_c.getOneR_ASSROnR211(LinkedAssociation_c.getOneR_ASSOCOnR206(Association_c.getManyR_RELsOnR4(subsystem)));
-    .elif(kl == "R_SUB")
-	  	ClassAsSubtype_c obj = ClassAsSubtype_c.getOneR_SUBOnR213(SubtypeSupertypeAssociation_c.getOneR_SUBSUPOnR206(Association_c.getManyR_RELsOnR4(subsystem)));
-    .else
-		$r{mclass.Name}_c obj = $r{mclass.Name}_c.getOneR_RELOnR4(subsystem);
-    .end if
-  .elif((cmeLabel == "Assign Event") or (cmeLabel == "Remove Event"))
-    .assign attr_needsQuery = true
-Subsystem_c subsystem = Subsystem_c.SubsystemInstance(modelRoot, new ClassQueryInterface_c() {
-
-			public boolean evaluate(Object candidate) {
-				if(((Subsystem_c)candidate).getName().equals("Test Subsystem")) {
-					return true;
-				}
-				return false;
-			}
-
-		});
-		ModelClass_c mc = ModelClass_c.getOneO_OBJOnR2(subsystem, new ClassQueryInterface_c() {
-			public boolean evaluate(Object candidate) {
-				if(((ModelClass_c)candidate).getName().equals(\
-				.if(cmeLabel == "Remove Event")
-"Class A"\
-    .else
-"Class B"\
-    .end if
-)) {
-					return true;
-				}
-    			return false;
-			}
-
-		});
-    .if("$r{mclass.Name}" == "CreationTransition")
-    $r{mclass.Name}_c obj = $r{mclass.Name}_c.getOneSM_CRTXNOnR507(Transition_c.getOneSM_TXNOnR505(StateMachine_c.getOneSM_SMOnR517(InstanceStateMachine_c.getManySM_ISMsOnR518(mc))));
-    .else
-		$r{mclass.Name}_c obj = $r{mclass.Name}_c.getOneSM_TXNOnR505(StateMachine_c.getOneSM_SMOnR517(InstanceStateMachine_c.getManySM_ISMsOnR518(mc)));
-		.end if
- .end if
-.end function
 .function isExcluded
   .param String kl
   .param String label
@@ -393,65 +247,6 @@ Subsystem_c subsystem = Subsystem_c.SubsystemInstance(modelRoot, new ClassQueryI
   .end if
   // END: (consistent menu entries) dts0100573206 test removal 
 .end function
-.assign path = "org.xtuml.bp.core.test/src/org/xtuml/bp/core/test/ui/"
-????? This is where I am
-.assign subclass = 0
-.assign file = "org.xtuml.bp.core.test/src/org/xtuml/bp/core/test/ui/ContextMenuTest.java"
-.assign type = "Writable"
-.while(subclass < 2)
-  .assign subclass = subclass + 1;
-  .if(subclass == 2)
-    .assign type = "Readonly"
-  .end if
-  .assign file = "org.xtuml.bp.core.test/src/org/xtuml/bp/core/test/ui/${type}ContextMenuTest.java"
-//========================================================================
-//
-// WARNING:      Do not edit this generated file
-// Generated by: arc/create_context_menu_tests.arc
-//
-//========================================================================
-// Licensed under the Apache License, Version 2.0 (the "License"); you may not 
-// use this file except in compliance with the License.  You may obtain a copy 
-// of the License at
-//
-//       http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software 
-// distributed under the License is distributed on an "AS IS" BASIS, WITHOUT 
-// WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the 
-// License for the specific language governing permissions and limitations under
-// the License.
-//========================================================================
-
-package org.xtuml.bp.core.test.ui;
-
-/**
- * Extends the ContextMenuTests class
- * used to test context menu actions
- * in a ${type} environment
- */
-public class ${type}ContextMenuTest extends ContextMenuTests
-{
-
-    static boolean my_first_time = true;
-	public ${type}ContextMenuTest(String name) {
-		super(name);
-		.if(type == "Readonly")
-		super.m_readonly = true;
-		.end if
-	}
-    public void setUp() throws Exception
-    {
-        ContextMenuTests.first_time = my_first_time;
-        super.setUp();
-        my_first_time = false;
-    }
-
-}
-  .emit to file "../${file}"
-.end while
-.//========================================================================
-.//========================================================================
 .function needsQueryGenerics
   .param String kl
   .param String cmeLabel
@@ -598,8 +393,6 @@ Package_c subsystem = Package_c.PackageInstance(modelRoot, new ClassQueryInterfa
 		.end if
  .end if
 .end function
-.//========================================================================
-.//========================================================================
 .assign path = "org.xtuml.bp.core.test/src/org/xtuml/bp/core/test/ui/"
 .assign file = path + "ContextMenuTestsGenerics.java";
 //========================================================================
@@ -905,9 +698,7 @@ public class ContextMenuTestsGenerics extends BaseTest
     .if(result.needsQuery == true)
       .if(result.body == "")
         .if(( obj.Key_Lett  == "S_MBR")or(obj.Key_Lett  == "S_ENUM" ))
-        $r{obj.Name}_c obj = null;
-        if (BaseTest.testGlobals)
-        	obj  = $r{obj.Name}_c.$r{obj.Name}Instance(Package_c.getOneEP_PKGOnR1401(m_sys,new ClassQueryInterface_c() {
+        $r{obj.Name}_c obj = $r{obj.Name}_c.$r{obj.Name}Instance(Package_c.getOneEP_PKGOnR1401(m_sys,new ClassQueryInterface_c() {
 
                 public boolean evaluate(Object candidate) {
                     if(((Package_c)candidate).getName().equals("Datatypes")) {
@@ -925,17 +716,6 @@ public class ContextMenuTestsGenerics extends BaseTest
 				return false;
 			}
 		});
-        else 
-	        obj  = $r{obj.Name}_c.$r{obj.Name}Instance(DataTypePackage_c.getOneS_DPKOnR4400(m_sys).getModelRoot(), new ClassQueryInterface_c() {
-	
-				public boolean evaluate(Object candidate) {
-					if((($r{obj.Name}_c) candidate).${result.nameAccessor}.equals("${name}")) {
-						return true;
-					}
-					return false;
-				}
-	
-			});
 		.else
 		$r{obj.Name}_c obj  = $r{obj.Name}_c.$r{obj.Name}Instance(modelRoot, new ClassQueryInterface_c() {
 
@@ -953,9 +733,7 @@ ${result.body}
       .end if
     .else
          .if(( ((obj.Key_Lett  == "CNST_CSP") or (obj.Key_Lett  == "CNST_LSC"))or ((obj.Key_Lett  == "S_MBR") or (obj.Key_Lett  == "S_ENUM" )))  or (obj.Key_Lett  == "S_SDT"))
-         $r{obj.Name}_c obj = null;
-         if (BaseTest.testGlobals)
-         	obj = $r{obj.Name}_c.$r{obj.Name}Instance(Package_c.getOneEP_PKGOnR1401(m_sys,new ClassQueryInterface_c() {
+         $r{obj.Name}_c obj = $r{obj.Name}_c.$r{obj.Name}Instance(Package_c.getOneEP_PKGOnR1401(m_sys,new ClassQueryInterface_c() {
 
                 public boolean evaluate(Object candidate) {
                     if(((Package_c)candidate).getName().equals("Datatypes")) {
@@ -965,8 +743,6 @@ ${result.body}
                 }
 
             }).getModelRoot());
-         else	
-         	obj = $r{obj.Name}_c.$r{obj.Name}Instance(DataTypePackage_c.getOneS_DPKOnR4400(m_sys).getModelRoot());
          
          .else
 		 $r{obj.Name}_c obj = $r{obj.Name}_c.$r{obj.Name}Instance(modelRoot);
@@ -1103,13 +879,8 @@ ${result.body}
   .assign file = "org.xtuml.bp.core.test/src/org/xtuml/bp/core/test/ui/${type}ContextMenuTestGenerics.java"
 //========================================================================
 //
-// File: ${file}
-//
 // WARNING:      Do not edit this generated file
 // Generated by: arc/create_context_menu_tests.arc
-// Version:      $$Revision: 1.34 $$
-//
-// (c) Copyright 2005-2014 by Mentor Graphics Corp.  All rights reserved.
 //
 //========================================================================
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not 
