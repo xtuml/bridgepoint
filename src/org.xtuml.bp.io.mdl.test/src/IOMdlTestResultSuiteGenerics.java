@@ -40,7 +40,6 @@ public class IOMdlTestResultSuiteGenerics extends TestSuite {
         
         IOMdlTestGenerics.setGenerateResults(true);
         addTest(new TestSuite(IOMdlTestGenerics.class));
-        addTest(new PkgCmResultsTestSuite());
         
         StaleProxyExportTestGenerics.setGenerateResults(true);
         addTest(new TestSuite(StaleProxyExportTestGenerics.class));

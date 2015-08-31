@@ -99,9 +99,6 @@ public abstract class CreateTest extends PkgCMBaseTest {
             pmcBeingTested = PersistenceManager
                     .getRootComponent(TigerNatureTestGenerics
                             .createXtUMLProject(newCompName));
-        } else if (componentType.equals("Domain")) {
-            pmcBeingTested = TigerNatureTestGenerics.createNewDomain(newCompName,
-                    (SystemModel_c) parentPMC.getRootModelElement());
         } else if (componentType.equals("ISM")) {
             createISM(parentPMC.getRootModelElement());
         } else {

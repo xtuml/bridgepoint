@@ -1,12 +1,4 @@
 //========================================================================
-//
-//File:      $RCSfile: CoreTestResultCreator.java,v $
-//Version:   $Revision: 1.18 $
-//Modified:  $Date: 2013/05/10 04:30:27 $
-//
-//(c) Copyright 2004-2014 by Mentor Graphics Corp. All rights reserved.
-//
-//========================================================================
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not 
 // use this file except in compliance with the License.  You may obtain a copy 
 // of the License at
@@ -32,11 +24,6 @@ public class CoreTestResultCreator extends TestCase {
 			DeleteTestGenerics dt = new DeleteTestGenerics("Core Delete Test Result Creator");
 			dt.setUp();
 			dt.setGenerateResults();
-
-			FormalizeUnformalizeTest fut = new FormalizeUnformalizeTest(
-					"Core Formalize Unformalize Test Result Creator");
-			fut.setUp();
-			fut.setGenerateResults();
 
 			AssignClassTestGenerics act = new AssignClassTestGenerics(
 					"Core Assign Class Test Result Creator");
