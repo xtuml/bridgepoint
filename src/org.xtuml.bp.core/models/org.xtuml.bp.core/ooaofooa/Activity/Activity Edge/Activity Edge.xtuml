@@ -157,7 +157,7 @@ INSERT INTO O_BATTR
 INSERT INTO O_ATTR
 	VALUES ("3f717426-15ee-45ac-999b-4ef46bc707a8",
 	"958c0ffe-1bf4-4a7f-8815-35982d691aa1",
-	"caac3eb8-edb5-44d6-a64d-d07ce8d9bf6d",
+	"f3736d26-52d4-4c42-9b33-1ad9cd926821",
 	'Guard',
 	'Full Name: Guard Condition',
 	'',
@@ -327,6 +327,24 @@ INSERT INTO O_ATTR
 	'Id',
 	0,
 	"ba5eda7a-def5-0000-0000-000000000007",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("f3736d26-52d4-4c42-9b33-1ad9cd926821",
+	"958c0ffe-1bf4-4a7f-8815-35982d691aa1");
+INSERT INTO O_BATTR
+	VALUES ("f3736d26-52d4-4c42-9b33-1ad9cd926821",
+	"958c0ffe-1bf4-4a7f-8815-35982d691aa1");
+INSERT INTO O_ATTR
+	VALUES ("f3736d26-52d4-4c42-9b33-1ad9cd926821",
+	"958c0ffe-1bf4-4a7f-8815-35982d691aa1",
+	"caac3eb8-edb5-44d6-a64d-d07ce8d9bf6d",
+	'Package_ID',
+	'',
+	'',
+	'Package_ID',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000005",
 	'',
 	'');
 INSERT INTO O_ID
