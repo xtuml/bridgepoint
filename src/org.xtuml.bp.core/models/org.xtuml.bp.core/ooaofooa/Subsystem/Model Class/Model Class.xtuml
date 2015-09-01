@@ -1940,7 +1940,7 @@ INSERT INTO O_ATTR
 	VALUES ("086d51ad-2f5d-4e82-8229-b93bb40f9700",
 	"b7630071-9e2a-4183-9986-779dca14c275",
 	"26632e2d-f9a9-4c11-a25b-49a661851bb1",
-	'SS_id',
+	'SS_ID',
 	'Class Subsystem, S_SS, and R2 were removed during removal of specialized packages.
 This was a a referential attribute in O_OBJ.  The current verison of BridgePoint
 used for BridgePoint development is 5.0.  Until we move to a version of BP that
@@ -1948,7 +1948,7 @@ does not contain SPs, the build of BP schema used for the BP build (which is
 generated during the build) needs this attribute.  Thefore, this attribute is
 being put back, as a placeholder during this bootstrapping.',
 	'',
-	'SS_id',
+	'SS_ID',
 	0,
 	"ba5eda7a-def5-0000-0000-000000000005",
 	'',

@@ -132,7 +132,7 @@ INSERT INTO O_BATTR
 INSERT INTO O_ATTR
 	VALUES ("e2c26da1-2c99-4f3b-89c8-99582fe580fe",
 	"8bff2a7f-e4f0-49be-a507-fe690f3d51d7",
-	"8b645735-eaa0-46d0-b0d3-d047b65d4e51",
+	"9319aa10-2e50-4474-b62d-5b15740e02c9",
 	'Name',
 	'Full Name: Partition Name',
 	'',
@@ -208,6 +208,24 @@ INSERT INTO O_ATTR
 	'Id',
 	0,
 	"ba5eda7a-def5-0000-0000-000000000007",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("9319aa10-2e50-4474-b62d-5b15740e02c9",
+	"8bff2a7f-e4f0-49be-a507-fe690f3d51d7");
+INSERT INTO O_BATTR
+	VALUES ("9319aa10-2e50-4474-b62d-5b15740e02c9",
+	"8bff2a7f-e4f0-49be-a507-fe690f3d51d7");
+INSERT INTO O_ATTR
+	VALUES ("9319aa10-2e50-4474-b62d-5b15740e02c9",
+	"8bff2a7f-e4f0-49be-a507-fe690f3d51d7",
+	"8b645735-eaa0-46d0-b0d3-d047b65d4e51",
+	'Package_ID',
+	'',
+	'',
+	'Package_ID',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000005",
 	'',
 	'');
 INSERT INTO O_ID
