@@ -20,9 +20,9 @@ INSERT INTO EO VALUES ( '23.10',  '1.5.3.1.1', '23.11', 'Data Type', -1, 'many',
 INSERT INTO EO VALUES ( '23.11',  '6.2.1', '23.12',   'Interaction Participant', -1, 'many', 'first', false, false, '', false, false, '->PE_PE[R8000]->SQ_P[R8001]'  );
 INSERT INTO EO VALUES ( '23.12',  '1.14.2.1', '23.13',       'Activity Node', -1, 'many', 'first', false, false, '', false, false, '->PE_PE[R8000]->A_N[R8001]'  );
 INSERT INTO EO VALUES ( '23.13',  '2.1.1', '23.14',          'Model Class', -1, 'many', 'none', true, false, '', false, false, '->PE_PE[R8000]->O_OBJ[R8001]' );
-INSERT INTO EO VALUES ( '23.14',  '12.4.3', '23.15',       'Component', -1, 'many', 'none', true, false, '', false, false, '->PE_PE[R8000]->C_C[R8001]'  );
+INSERT INTO EO VALUES ( '23.14',  '12.4.3', '23.15',       'Component', -1, 'many', 'first', true, false, '', false, false, '->PE_PE[R8000]->C_C[R8001]'  );
 INSERT INTO EO VALUES ( '23.15',  '12.4.8.1', '23.16',       'Component Reference', -1, 'many', 'first', false, false, '', false, false, '->PE_PE[R8000]->CL_IC[R8001]'  );
-INSERT INTO EO VALUES ( '23.16',  '14.1.3.1', '23.17',       'Interface', -1, 'many', 'none', true, false, '', false, false, '->PE_PE[R8000]->C_I[R8001]'  );
+INSERT INTO EO VALUES ( '23.16',  '14.1.3.1', '23.17',       'Interface', -1, 'many', 'first', true, false, '', false, false, '->PE_PE[R8000]->C_I[R8001]'  );
 INSERT INTO EO VALUES ( '23.17',  '', '23.18',                  'Package', -1, 'many', 'none', true, false, '', false, false, '->PE_PE[R8000]->EP_PKG[R8001]'  );
 INSERT INTO EO VALUES ( '23.18',  '1.5.7.1.1', '23.19',  'Constant Specification', -1, 'many', 'first', false, false, '', false, false, '->PE_PE[R8000]->CNST_CSP[R8001]'  );
 INSERT INTO EO VALUES ( '23.19',  '23.19.1', '23.20',  'Activity Partition', -1, 'many', 'first', false, false, '', false, false, '->PE_PE[R8000]->A_AP[R8001]'  );
