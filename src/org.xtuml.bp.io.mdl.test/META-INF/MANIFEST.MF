@@ -6,9 +6,8 @@ Bundle-Version: 1.0.0
 Bundle-ClassPath: mdltest.jar
 Bundle-Activator: org.xtuml.bp.io.mdl.test.IOMdlTestPlugin
 Bundle-Vendor: xtUML.org
-Export-Package: org.xtuml.bp.io.mdl.test
+Export-Package: org.xtuml.bp.io.mdl.test,
  org.xtuml.bp.io.mdl.test.pkgcm,
- org.xtuml.bp.io.mdl.test.pkgcm.restore,
  org.xtuml.bp.io.mdl.test.wizards
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.ui,

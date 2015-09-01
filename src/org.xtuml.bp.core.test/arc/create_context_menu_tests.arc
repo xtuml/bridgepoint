@@ -698,9 +698,7 @@ public class ContextMenuTestsGenerics extends BaseTest
     .if(result.needsQuery == true)
       .if(result.body == "")
         .if(( obj.Key_Lett  == "S_MBR")or(obj.Key_Lett  == "S_ENUM" ))
-        $r{obj.Name}_c obj = null;
-        if (BaseTest.testGlobals)
-        	obj  = $r{obj.Name}_c.$r{obj.Name}Instance(Package_c.getOneEP_PKGOnR1401(m_sys,new ClassQueryInterface_c() {
+        $r{obj.Name}_c obj = $r{obj.Name}_c.$r{obj.Name}Instance(Package_c.getOneEP_PKGOnR1401(m_sys,new ClassQueryInterface_c() {
 
                 public boolean evaluate(Object candidate) {
                     if(((Package_c)candidate).getName().equals("Datatypes")) {
@@ -718,17 +716,6 @@ public class ContextMenuTestsGenerics extends BaseTest
 				return false;
 			}
 		});
-        else 
-	        obj  = $r{obj.Name}_c.$r{obj.Name}Instance(DataTypePackage_c.getOneS_DPKOnR4400(m_sys).getModelRoot(), new ClassQueryInterface_c() {
-	
-				public boolean evaluate(Object candidate) {
-					if((($r{obj.Name}_c) candidate).${result.nameAccessor}.equals("${name}")) {
-						return true;
-					}
-					return false;
-				}
-	
-			});
 		.else
 		$r{obj.Name}_c obj  = $r{obj.Name}_c.$r{obj.Name}Instance(modelRoot, new ClassQueryInterface_c() {
 
@@ -746,9 +733,7 @@ ${result.body}
       .end if
     .else
          .if(( ((obj.Key_Lett  == "CNST_CSP") or (obj.Key_Lett  == "CNST_LSC"))or ((obj.Key_Lett  == "S_MBR") or (obj.Key_Lett  == "S_ENUM" )))  or (obj.Key_Lett  == "S_SDT"))
-         $r{obj.Name}_c obj = null;
-         if (BaseTest.testGlobals)
-         	obj = $r{obj.Name}_c.$r{obj.Name}Instance(Package_c.getOneEP_PKGOnR1401(m_sys,new ClassQueryInterface_c() {
+         $r{obj.Name}_c obj = $r{obj.Name}_c.$r{obj.Name}Instance(Package_c.getOneEP_PKGOnR1401(m_sys,new ClassQueryInterface_c() {
 
                 public boolean evaluate(Object candidate) {
                     if(((Package_c)candidate).getName().equals("Datatypes")) {
@@ -758,8 +743,6 @@ ${result.body}
                 }
 
             }).getModelRoot());
-         else	
-         	obj = $r{obj.Name}_c.$r{obj.Name}Instance(DataTypePackage_c.getOneS_DPKOnR4400(m_sys).getModelRoot());
          
          .else
 		 $r{obj.Name}_c obj = $r{obj.Name}_c.$r{obj.Name}Instance(modelRoot);

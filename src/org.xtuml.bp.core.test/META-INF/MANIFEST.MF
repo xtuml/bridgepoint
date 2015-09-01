@@ -13,7 +13,6 @@ Export-Package: lib,
  org.xtuml.bp.core.test.cpts_full,
  org.xtuml.bp.core.test.globals,
  org.xtuml.bp.core.test.rtomove,
- org.xtuml.bp.core.test.synchronization,
  org.xtuml.bp.core.test.ui,
  org.xtuml.bp.core.test.util
 Require-Bundle: org.eclipse.core.runtime,
