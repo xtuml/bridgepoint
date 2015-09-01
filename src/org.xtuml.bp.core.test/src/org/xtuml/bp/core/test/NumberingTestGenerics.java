@@ -1,12 +1,4 @@
 //========================================================================
-//
-//File:      $RCSfile: NumberingTestGenerics.java,v $
-//Version:   $Revision: 1.5 $
-//Modified:  $Date: 2013/05/10 04:30:25 $
-//
-//(c) Copyright 2004-2014 by Mentor Graphics Corp. All rights reserved.
-//
-//========================================================================
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not 
 // use this file except in compliance with the License.  You may obtain a copy 
 // of the License at
@@ -79,7 +71,6 @@ public class NumberingTestGenerics extends CoreTest {
 		// test
 		// whether it will be taken into account
 		subsystem.setNum_rng(100);
-		TestUtil.createMockDefaultDataTypes(modelRoot, null);
 	}
 
 	/**

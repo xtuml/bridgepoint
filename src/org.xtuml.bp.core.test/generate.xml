@@ -48,7 +48,7 @@
   </target>
 
   <property name="action_test.input" value="context_menu.pei.sql" />
-  <property name="action_test.output" value="src/org/xtuml/bp/core/test/ActionTest.java" />
+  <property name="action_test.output" value="src/org/xtuml/bp/core/test/ActionTestGenerics.java" />
 
   <target name="action_test.depends">
     <uptodate property="action_test.buildNotNeeded" targetfile="${action_test.output}">
@@ -110,7 +110,7 @@
     <touch file="${delete_test.output}" />
   </target>
 
-  <property name="formalize_test.output" value="src/org/xtuml/bp/core/test/FormalizeUnformalizeTest.java" />
+  <property name="formalize_test.output" value="src/org/xtuml/bp/core/test/FormalizeUnformalizeTestGenerics.java" />
 
   <target name="formalize_test.depends">
     <uptodate property="formalize_test.buildNotNeeded" targetfile="${formalize_test.output}">
