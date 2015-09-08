@@ -51,8 +51,8 @@ extern const Escher_xtUMLEventConstant_t Tracking_Display_CBevent2c;
  * union of events targeted towards 'Display' state machine
  */
 typedef union {
-  Tracking_Display_CBevent1 display11;  
-  Tracking_Display_CBevent2 display22;  
+  Tracking_Display_CBevent1 display1_1;  
+  Tracking_Display_CBevent2 display2_2;  
 } Tracking_Display_CB_Events_u;
 
 /*

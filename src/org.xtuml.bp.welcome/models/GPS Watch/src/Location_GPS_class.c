@@ -40,7 +40,7 @@ static void Location_GPS_CB_act1( Location_GPS *, const Escher_xtUMLEvent_t * co
 static void
 Location_GPS_CB_act1( Location_GPS * self, const Escher_xtUMLEvent_t * const event )
 {
-  Location_GPS * gps=0; bool res; 
+  bool res;Location_GPS * gps=0;
   /* SELECT any gps FROM INSTANCES OF GPS */
   XTUML_OAL_STMT_TRACE( 1, "SELECT any gps FROM INSTANCES OF GPS" );
   gps = (Location_GPS *) Escher_SetGetAny( &pG_Location_GPS_extent.active );
@@ -59,7 +59,7 @@ static void Location_GPS_CB_act2( Location_GPS *, const Escher_xtUMLEvent_t * co
 static void
 Location_GPS_CB_act2( Location_GPS * self, const Escher_xtUMLEvent_t * const event )
 {
-  Location_GPS * gps=0; 
+  Location_GPS * gps=0;
   /* SELECT any gps FROM INSTANCES OF GPS */
   XTUML_OAL_STMT_TRACE( 1, "SELECT any gps FROM INSTANCES OF GPS" );
   gps = (Location_GPS *) Escher_SetGetAny( &pG_Location_GPS_extent.active );
@@ -72,8 +72,8 @@ Location_GPS_CB_act2( Location_GPS * self, const Escher_xtUMLEvent_t * const eve
   /* ASSIGN gps.currentLocation.speed = ( ( gps.currentLocation.latitude - gps.currentLocation.longitude ) / 5.0 ) */
   XTUML_OAL_STMT_TRACE( 1, "ASSIGN gps.currentLocation.speed = ( ( gps.currentLocation.latitude - gps.currentLocation.longitude ) / 5.0 )" );
   gps->currentLocation.speed = ( ( gps->currentLocation.latitude - gps->currentLocation.longitude ) / 5.0 );
-  /*  SEND LOC::locationUpdate(location:gps.currentLocation) */
-  XTUML_OAL_STMT_TRACE( 1, " SEND LOC::locationUpdate(location:gps.currentLocation)" );
+  /* SEND LOC::locationUpdate(location:gps.currentLocation) */
+  XTUML_OAL_STMT_TRACE( 1, "SEND LOC::locationUpdate(location:gps.currentLocation)" );
   Location_LOC_locationUpdate( gps->currentLocation );
 }
 
@@ -83,7 +83,7 @@ static void Location_GPS_CB_xact1( Location_GPS *, const Escher_xtUMLEvent_t * c
 static void
 Location_GPS_CB_xact1( Location_GPS * self, const Escher_xtUMLEvent_t * const event )
 {
-  Location_GPS * gps=0; Escher_xtUMLEvent_t * timeout;  /* timeout */ 
+  Escher_xtUMLEvent_t * timeout;Location_GPS * gps=0;
   /* SELECT any gps FROM INSTANCES OF GPS */
   XTUML_OAL_STMT_TRACE( 1, "SELECT any gps FROM INSTANCES OF GPS" );
   gps = (Location_GPS *) Escher_SetGetAny( &pG_Location_GPS_extent.active );
@@ -138,9 +138,9 @@ static const Escher_SEMcell_t Location_GPS_CB_StateEventMatrix[ 2 + 1 ][ 3 ] = {
   /* row 0:  uninitialized state (for creation events) */
   { EVENT_CANT_HAPPEN, EVENT_CANT_HAPPEN, EVENT_CANT_HAPPEN },
   /* row 1:  Location_GPS_CB_STATE_1 (idle) */
-  { EVENT_IS_IGNORED, (1<<8) + Location_GPS_CB_STATE_2, EVENT_CANT_HAPPEN },
+  { EVENT_IS_IGNORED, EVENT_CANT_HAPPEN, (1<<8) + Location_GPS_CB_STATE_2 },
   /* row 2:  Location_GPS_CB_STATE_2 (locating) */
-  { Location_GPS_CB_STATE_2, EVENT_CANT_HAPPEN, Location_GPS_CB_STATE_1 }
+  { Location_GPS_CB_STATE_2, Location_GPS_CB_STATE_1, EVENT_CANT_HAPPEN }
 };
 
   /*

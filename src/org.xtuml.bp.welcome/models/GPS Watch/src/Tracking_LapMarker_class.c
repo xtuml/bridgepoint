@@ -17,28 +17,28 @@
  * RELATE TrackLog TO LapMarker ACROSS R5
  */
 void
-Tracking_LapMarker_R5_Link( Tracking_TrackLog * part, Tracking_LapMarker * form )
+Tracking_LapMarker_R5_Link_has_laps_defined_by( Tracking_TrackLog * part, Tracking_LapMarker * form )
 {
   if ( (part == 0) || (form == 0) ) {
-    XTUML_EMPTY_HANDLE_TRACE( "LapMarker", "Tracking_LapMarker_R5_Link" );
+    XTUML_EMPTY_HANDLE_TRACE( "LapMarker", "Tracking_LapMarker_R5_Link_has_laps_defined_by" );
     return;
   }
   /* Note:  LapMarker->TrackLog[R5] not navigated */
-  Escher_SetInsertElement( &part->LapMarker_R5, (Escher_ObjectSet_s *) form );
+  Escher_SetInsertElement( &part->LapMarker_R5_has_laps_defined_by, (Escher_ObjectSet_s *) form );
 }
 
 /*
  * UNRELATE TrackLog FROM LapMarker ACROSS R5
  */
 void
-Tracking_LapMarker_R5_Unlink( Tracking_TrackLog * part, Tracking_LapMarker * form )
+Tracking_LapMarker_R5_Unlink_has_laps_defined_by( Tracking_TrackLog * part, Tracking_LapMarker * form )
 {
   if ( (part == 0) || (form == 0) ) {
-    XTUML_EMPTY_HANDLE_TRACE( "LapMarker", "Tracking_LapMarker_R5_Unlink" );
+    XTUML_EMPTY_HANDLE_TRACE( "LapMarker", "Tracking_LapMarker_R5_Unlink_has_laps_defined_by" );
     return;
   }
   /* Note:  LapMarker->TrackLog[R5] not navigated */
-  Escher_SetRemoveElement( &part->LapMarker_R5, (Escher_ObjectSet_s *) form );
+  Escher_SetRemoveElement( &part->LapMarker_R5_has_laps_defined_by, (Escher_ObjectSet_s *) form );
 }
 
 /*

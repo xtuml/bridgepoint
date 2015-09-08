@@ -12,8 +12,9 @@
 
 #include "GPSWatch_sys_types.h"
 #include "Location.h"
-#include "LOG_bridge.h"
 #include "TIM_bridge.h"
+#include "LOG_bridge.h"
+#include "Tracking.h"
 #include "Location_classes.h"
 
 /*
@@ -22,7 +23,7 @@
  * From Provider Message:  locationUpdate
  */
 void
-Location_LOC_locationUpdate( GPSWatch_sdt_Location p_location)
+Location_LOC_locationUpdate( GPSWatch_sdt_Location p_location )
 {
   Tracking_LOC_locationUpdate(  p_location );
 }
@@ -61,24 +62,23 @@ Location_LOC_unregisterListener()
  * To Provider Message:  getDistance
  */
 r_t
-Location_UTIL_getDistance( GPSWatch_sdt_Location p_fromLocation, GPSWatch_sdt_Location p_toLocation)
+Location_UTIL_getDistance( GPSWatch_sdt_Location p_fromLocation, GPSWatch_sdt_Location p_toLocation )
 {
   /* RETURN ( PARAM.fromLocation.longitude + PARAM.toLocation.latitude ) */
   XTUML_OAL_STMT_TRACE( 1, "RETURN ( PARAM.fromLocation.longitude + PARAM.toLocation.latitude )" );
-  return ( p_fromLocation.longitude + p_toLocation.latitude );
+  {r_t xtumlOALrv = ( p_fromLocation.longitude + p_toLocation.latitude );
+  return xtumlOALrv;}
 }
 
 /*
  * UML Domain Functions (Synchronous Services)
  */
 
-#if Location_MAX_CLASS_NUMBERS > 0
 /* xtUML class info (collections, sizes, etc.) */
 Escher_Extent_t * const Location_class_info[ Location_MAX_CLASS_NUMBERS ] = {
   &pG_Location_GPS_extent,
   0
 };
-#endif
 
 /*
  * Array of pointers to the class event dispatcher method.
