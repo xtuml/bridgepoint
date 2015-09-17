@@ -24,8 +24,8 @@ to connect interchangeably, meaning there is no need to restart the GUI between
 various sessions. When a new connection is detected the GUI will simply drop any 
 existing connection and only service the recently detected connection.
 
-You can now run either the already generated Windows executable, or run the 
-model in xtUML eXecute.
+You can now run either the already generated Windows executable, Linux executable, 
+or run the model in xtUML eXecute.
 
 To run the EXE:
 * Expand the Binaries item under the project
@@ -67,6 +67,8 @@ if it is wrong you must follow these steps to resolve the path to core.jar:
 If you want to rebuild the project after modifying the model or a marking file:
 
 * Switch to the C/C++ perspective
+* Right-click on the project and choose 'Build Configurations > Set Active > ...
+   and set the build configuration you want.
 * Right-click on the project and choose 'Build Project' in the context menu
 
 Have fun!
