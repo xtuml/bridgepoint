@@ -13,14 +13,16 @@
 -- the License.
 --======================================================================
 
-INSERT INTO EO VALUES ( '6',	'23',	  '',     'System Model',0 , '', 'first', true );
-INSERT INTO EO VALUES ( '23', '23.10', '', 'Package', 1401, 'many', 'first', true );
+INSERT INTO EO VALUES ( '6',	'13',	  '',     'System Model',0 , '', 'first', true );
+INSERT INTO EO VALUES ( '13',	'',	      '23',   'SystemModelPackage',0 , '', 'first', false );
+INSERT INTO EO VALUES ( '23', '23.1', '', 'Package', 1401, 'many', 'first', true );
 
+INSERT INTO EO VALUES ( '23.1',       '',          '23.10', 'PackageDiagram', 0, '', 'first', false );
 INSERT INTO EO VALUES ( '23.10',  '1.5.3.1.1', '23.11', 'Data Type', -1, 'many', 'first', false, false, '', false, false, '->PE_PE[R8000]->S_DT[R8001]'  );
 INSERT INTO EO VALUES ( '23.11',  '6.2.1', '23.12',   'Interaction Participant', -1, 'many', 'first', false, false, '', false, false, '->PE_PE[R8000]->SQ_P[R8001]'  );
 INSERT INTO EO VALUES ( '23.12',  '1.14.2.1', '23.13',       'Activity Node', -1, 'many', 'first', false, false, '', false, false, '->PE_PE[R8000]->A_N[R8001]'  );
 INSERT INTO EO VALUES ( '23.13',  '2.1.1', '23.14',          'Model Class', -1, 'many', 'none', true, false, '', false, false, '->PE_PE[R8000]->O_OBJ[R8001]' );
-INSERT INTO EO VALUES ( '23.14',  '12.4.3', '23.15',       'Component', -1, 'many', 'first', true, false, '', false, false, '->PE_PE[R8000]->C_C[R8001]'  );
+INSERT INTO EO VALUES ( '23.14',  '12.4.1', '23.15',       'Component', -1, 'many', 'first', true, false, '', false, false, '->PE_PE[R8000]->C_C[R8001]'  );
 INSERT INTO EO VALUES ( '23.15',  '12.4.8.1', '23.16',       'Component Reference', -1, 'many', 'first', false, false, '', false, false, '->PE_PE[R8000]->CL_IC[R8001]'  );
 INSERT INTO EO VALUES ( '23.16',  '14.1.3.1', '23.17',       'Interface', -1, 'many', 'first', true, false, '', false, false, '->PE_PE[R8000]->C_I[R8001]'  );
 INSERT INTO EO VALUES ( '23.17',  '', '23.18',                  'Package', -1, 'many', 'none', true, false, '', false, false, '->PE_PE[R8000]->EP_PKG[R8001]'  );
@@ -41,6 +43,7 @@ INSERT INTO EO VALUES ( '23.23.1',    '', '', 'Packageable Element', 8001, 'one'
 INSERT INTO EO VALUES ( '23.27.1',    '', '', 'Packageable Element', 8001, 'one', 'first', false );
 INSERT INTO EO VALUES ( '23.29',      '', '', 'Packageable Element', 8001, 'one', 'first', false );
 
+INSERT INTO EO VALUES ( '12.4.1',       '',    '12.4.3',     'ComponentDiagram', 0, '', 'first', false );
 INSERT INTO EO VALUES ( '12.4.3',     '12.4.3.1',  '12.4.9',      'Port', 4010, 'many', 'first', false );             
 INSERT INTO EO VALUES ( '12.4.3.1',     '12.4.3.1.1',  '',      'Interface Reference', 4016, 'many', 'first', false );             
 INSERT INTO EO VALUES ( '12.4.3.1.1',   '12.4.3.1.1.1',          '12.4.3.1.2', 'Requirement', 4009, 'one', 'first', false );
@@ -182,7 +185,9 @@ INSERT INTO EO VALUES ( '3.3.1',''     ,   '',  'Dimensions', 531, 'many', 'firs
 INSERT INTO EO VALUES ( '3.5',	'3.5.1','3.6', 'State Machine Event', 502, 'many', 'last' );
 INSERT INTO EO VALUES ( '3.6',	'3.6.1','3.7', 'State Machine State', 501, 'many', 'first' );
 INSERT INTO EO VALUES ( '3.7',	'3.7.1','3.8', 'Transition', 505, 'many', 'last' );
-INSERT INTO EO VALUES ( '3.8',	'3.8.1','', 'Action', 515, 'many', 'last' );
+INSERT INTO EO VALUES ( '3.8',	'3.8.1','3.9', 'Action', 515, 'many', 'last' );
+INSERT INTO EO VALUES ( '3.9',	'',		'3.10', 'ISM', 0, '', 'first' );
+INSERT INTO EO VALUES ( '3.10',	'',		'', 	'ASM', 0, '', 'first' );
 
 INSERT INTO EO VALUES ( '3.5.1','',		'3.5.2',	'Polymorphic Event', 525, 'one', 'last' );
 INSERT INTO EO VALUES ( '3.5.2','3.5.2.1','',	'SEM Event', 525, 'one', 'last' );
@@ -279,7 +284,7 @@ INSERT INTO EO VALUES ( '8.2', '6.2.1',  '',	  'Interaction Participant', 929, '
 -- INSERT INTO EO VALUES ( '8.4', 	'8.4.1',			'',	      'Message In Sequence', 953, 'many', 'first' );
 -- INSERT INTO EO VALUES ( '8.4.1', 	'7.1',			'',	      'Message', 954, 'one', 'first' );
 
---TODO: BOB Fixme - The following enrty was not persisted via GP
+--TODO: BOB Fixme - The following entry was not persisted via GP
 --   INSERT INTO EO VALUES ( '10.4', 	'10.4.1',	   '',		'Association In Use Case', 1214, 'many', 'first' );
 --INSERT INTO EO VALUES ( '10.4.1', 	'10.4.1.1',	   '',		'Use Case Association', 1215, 'one', 'first' );
 INSERT INTO EO VALUES ( '10.4.1.1', 	'',	   '10.4.1.2',		'Binary Association', 1210, 'one', 'first' );
@@ -288,3 +293,13 @@ INSERT INTO EO VALUES ( '10.4.1.3', 	'',	   '10.4.1.4',		'Include', 1210, 'one',
 INSERT INTO EO VALUES ( '10.4.1.4', 	'',	   '10.4.1.5',		'Extend', 1210, 'one', 'first' );
 INSERT INTO EO VALUES ( '10.4.1.5',    '', '', 'Packageable Element', 8001, 'one', 'first', false );
 
+INSERT INTO EI VALUES ( 'ISM' );
+INSERT INTO GD VALUES ( 'ISM', 'InstanceStateChartDiagram', 'State Machine', 'SM_ID' );
+INSERT INTO EI VALUES ( 'ASM' );
+INSERT INTO GD VALUES ( 'ASM', 'ClassStateChartDiagram', 'State Machine', 'SM_ID' );
+INSERT INTO EI VALUES ( 'SystemModelPackage' );
+INSERT INTO GD VALUES ( 'SystemModelPackage', 'SystemModelPackage', 'System Model', 'Sys_ID' );
+INSERT INTO EI VALUES ( 'ComponentDiagram' );
+INSERT INTO GD VALUES ( 'ComponentDiagram', 'ComponentDiagram', 'Component', 'Id' );
+INSERT INTO EI VALUES ( 'PackageDiagram' );
+INSERT INTO GD VALUES ( 'PackageDiagram', 'Package', 'Package', 'Package_ID' );
