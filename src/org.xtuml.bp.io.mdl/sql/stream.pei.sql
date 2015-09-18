@@ -13,15 +13,17 @@
 -- the License.
 --======================================================================
 
-INSERT INTO EO VALUES ( '6',	'24',	  '',     'System Model',0 , '', 'first', true );
-INSERT INTO EO VALUES ( '24', '24.10', '', 'Package', 1401, 'many', 'first', true );
+INSERT INTO EO VALUES ( '6',	'13',	  '',     'System Model',0 , '', 'first', true );
+INSERT INTO EO VALUES ( '13',	'',	  '24',     'SystemModelPackage',0 , '', 'first', false );
+INSERT INTO EO VALUES ( '24', '24.1', '', 'Package', 1401, 'many', 'first', true );
 
+INSERT INTO EO VALUES ( '24.1',       '',          '24.10', 'PackageDiagram', 0, '', 'first', false );
 INSERT INTO EO VALUES ( '24.10',    '24.10.1', '', 'Packageable Element', 8000, 'many', 'first', false );
 INSERT INTO EO VALUES ( '24.10.1',  '1.5.3.1.1', '24.10.2', 'Data Type', 8001, 'one', 'first', false );
 INSERT INTO EO VALUES ( '24.10.2',  '6.2.1', '24.10.3',     'Interaction Participant', 8001, 'one', 'first', false );
 INSERT INTO EO VALUES ( '24.10.3',  '1.14.2.1', '24.10.4',       'Activity Node', 8001, 'one', 'first', false );
 INSERT INTO EO VALUES ( '24.10.4',  '2.1.1', '24.10.5',          'Model Class', 8001, 'one', 'first', true );
-INSERT INTO EO VALUES ( '24.10.5',  '12.4.3', '24.10.6',       'Component', 8001, 'one', 'first', true );
+INSERT INTO EO VALUES ( '24.10.5',  '12.4.1', '24.10.6',       'Component', 8001, 'one', 'first', true );
 INSERT INTO EO VALUES ( '24.10.6',  '12.4.8.1', '24.10.7',       'Component Reference', 8001, 'one', 'first', false );
 INSERT INTO EO VALUES ( '24.10.7',  '14.1.3.1', '24.10.8',       'Interface', 8001, 'one', 'first', false );
 INSERT INTO EO VALUES ( '24.10.8',  '', '24.10.9',                  'Package', 8001, 'one', 'none', true );
@@ -37,6 +39,7 @@ INSERT INTO EO VALUES ( '24.10.17',  '6.2.8.1', '24.10.18',  'Use Case Associati
 INSERT INTO EO VALUES ( '24.10.18',  '',        '24.10.19',  'Satisfaction', 8001, 'one', 'first', false );
 INSERT INTO EO VALUES ( '24.10.19',  '12.4.9.1.1', '',       'Delegation', 8001, 'one', 'first', false );
 
+INSERT INTO EO VALUES ( '12.4.1',       '',    '12.4.3',     'ComponentDiagram', 0, '', 'first', false );
 INSERT INTO EO VALUES ( '12.4.3',     '12.4.3.1',  '12.4.9',      'Port', 4010, 'many', 'first', false );             
 INSERT INTO EO VALUES ( '12.4.3.1',     '12.4.3.1.1',  '',      'Interface Reference', 4016, 'many', 'first', false );             
 INSERT INTO EO VALUES ( '12.4.3.1.1',   '12.4.3.1.1.1',          '12.4.3.1.2', 'Requirement', 4009, 'one', 'first', false );
@@ -167,7 +170,9 @@ INSERT INTO EO VALUES ( '3.3',	'3.3.1',		'3.5', 'State Machine Event Data Item',
 INSERT INTO EO VALUES ( '3.3.1',''     ,   '',  'Dimensions', 531, 'many', 'first' );
 INSERT INTO EO VALUES ( '3.5',	'3.5.1','3.6', 'State Machine Event', 502, 'many', 'last' );
 INSERT INTO EO VALUES ( '3.6',	'3.6.1','3.7', 'State Machine State', 501, 'many', 'first' );
-INSERT INTO EO VALUES ( '3.7',	'3.7.1','', 'Transition', 505, 'many', 'last' );
+INSERT INTO EO VALUES ( '3.7',	'3.7.1','3.8', 'Transition', 505, 'many', 'last' );
+INSERT INTO EO VALUES ( '3.8',	'',     '3.9', 'ISM', 0, '', 'first' );
+INSERT INTO EO VALUES ( '3.9',	'',		'', 	'ASM', 0, '', 'first' );
 
 
 INSERT INTO EO VALUES ( '3.5.1','',		'3.5.2',	'Polymorphic Event', 525, 'one', 'last' );
@@ -414,3 +419,13 @@ INSERT INTO AEP VALUES ( '1.5.3.1.2', '24.10.1',        '->S_DT[R18]', 'one', fa
 
 -- End Define alternate children
 
+INSERT INTO EI VALUES ( 'ISM' );
+INSERT INTO GD VALUES ( 'ISM', 'InstanceStateChartDiagram', 'State Machine', 'SM_ID' );
+INSERT INTO EI VALUES ( 'ASM' );
+INSERT INTO GD VALUES ( 'ASM', 'ClassStateChartDiagram', 'State Machine', 'SM_ID' );
+INSERT INTO EI VALUES ( 'SystemModelPackage' );
+INSERT INTO GD VALUES ( 'SystemModelPackage', 'SystemModelPackage', 'System Model', 'Sys_ID' );
+INSERT INTO EI VALUES ( 'ComponentDiagram' );
+INSERT INTO GD VALUES ( 'ComponentDiagram', 'ComponentDiagram', 'Component', 'Id' );
+INSERT INTO EI VALUES ( 'PackageDiagram' );
+INSERT INTO GD VALUES ( 'PackageDiagram', 'Package', 'Package', 'Package_ID' );
