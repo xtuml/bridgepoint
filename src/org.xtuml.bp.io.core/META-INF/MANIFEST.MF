@@ -19,6 +19,7 @@ Require-Bundle: org.eclipse.core.runtime,
  org.xtuml.bp.core,
  org.xtuml.bp.ui.canvas,
  org.xtuml.bp.ui.text,
+ org.antlr,
  org.xtuml.bp.ui.explorer,
  org.xtuml.bp.ui.graphics,
  org.xtuml.bp.als.oal
