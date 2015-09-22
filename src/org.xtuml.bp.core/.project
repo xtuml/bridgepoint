@@ -6,12 +6,15 @@
 	</projects>
 	<buildSpec>
 		<buildCommand>
-			<name>org.eclipse.ui.externaltools.ExternalToolBuilder</name>
-			<triggers>full,incremental,</triggers>
+			<name>org.xtuml.bp.mc.java.source.export_builder</name>
 			<arguments>
 				<dictionary>
-					<key>LaunchConfigHandle</key>
-					<value>&lt;project&gt;/.externalToolBuilders/org.xtuml.bp.mc.java.source.export_builder (1).launch</value>
+					<key>RootPackageName</key>
+					<value>ooaofooa</value>
+				</dictionary>
+				<dictionary>
+					<key>SplitAtPackage</key>
+					<value>Constants,Invocation,Use Case</value>
 				</dictionary>
 			</arguments>
 		</buildCommand>
@@ -30,23 +33,13 @@
 			</arguments>
 		</buildCommand>
 		<buildCommand>
-			<name>org.eclipse.ui.externaltools.ExternalToolBuilder</name>
-			<triggers>full,incremental,</triggers>
+			<name>org.eclipse.pde.ManifestBuilder</name>
 			<arguments>
-				<dictionary>
-					<key>LaunchConfigHandle</key>
-					<value>&lt;project&gt;/.externalToolBuilders/org.eclipse.pde.ManifestBuilder (6).launch</value>
-				</dictionary>
 			</arguments>
 		</buildCommand>
 		<buildCommand>
-			<name>org.eclipse.ui.externaltools.ExternalToolBuilder</name>
-			<triggers>full,incremental,</triggers>
+			<name>org.eclipse.pde.SchemaBuilder</name>
 			<arguments>
-				<dictionary>
-					<key>LaunchConfigHandle</key>
-					<value>&lt;project&gt;/.externalToolBuilders/org.eclipse.pde.SchemaBuilder (6).launch</value>
-				</dictionary>
 			</arguments>
 		</buildCommand>
 	</buildSpec>

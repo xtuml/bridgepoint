@@ -16,7 +16,6 @@
 <stringAttribute key="org.eclipse.jdt.launching.CLASSPATH_PROVIDER" value="org.eclipse.ant.ui.AntClasspathProvider"/>
 <booleanAttribute key="org.eclipse.jdt.launching.DEFAULT_CLASSPATH" value="true"/>
 <stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-Xmx1024m -Xms1024m"/>
-<booleanAttribute key="org.eclipse.ui.externaltools.ATTR_BUILDER_ENABLED" value="false"/>
 <stringAttribute key="org.eclipse.ui.externaltools.ATTR_LOCATION" value="${workspace_loc:/org.xtuml.bp.ui.text/generate.xml}"/>
 <booleanAttribute key="org.eclipse.ui.externaltools.ATTR_REFRESH_RECURSIVE" value="false"/>
 <stringAttribute key="org.eclipse.ui.externaltools.ATTR_REFRESH_SCOPE" value="${project}"/>
