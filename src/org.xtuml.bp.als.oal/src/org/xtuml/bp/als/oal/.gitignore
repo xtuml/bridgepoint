@@ -7,3 +7,5 @@ OalLexerTokenTypes.txt
 OalParser.java
 OalTokenTypes.java
 OalTokenTypes.txt
+/OalLexer.smap
+/OalParser.smap
