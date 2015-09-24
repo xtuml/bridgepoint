@@ -1,12 +1,4 @@
 //=====================================================================
-//
-//File:      $RCSfile$
-//Version:   $Revision$
-//Modified:  $Date$
-//
-//(c) Copyright 2006-2014 by Mentor Graphics Corp. All rights reserved.
-//
-//=====================================================================
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not 
 // use this file except in compliance with the License.  You may obtain a copy 
 // of the License at
@@ -26,12 +18,10 @@ import org.eclipse.swt.widgets.Tree;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
-
 import org.xtuml.bp.core.AsynchronousMessage_c;
 import org.xtuml.bp.core.ClassInstanceParticipant_c;
 import org.xtuml.bp.core.ClassParticipant_c;
 import org.xtuml.bp.core.ExternalEntityParticipant_c;
-import org.xtuml.bp.core.FunctionPackageParticipant_c;
 import org.xtuml.bp.core.MessageArgument_c;
 import org.xtuml.bp.core.PackageParticipant_c;
 import org.xtuml.bp.core.Package_c;
