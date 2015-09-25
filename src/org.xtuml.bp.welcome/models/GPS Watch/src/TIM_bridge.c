@@ -57,7 +57,6 @@ struct ETimer_s {
   ETimer_time_t expiration;
   ETimer_time_t recurrence;
   Escher_xtUMLEvent_t * event;
-  u4_t accesskey;
 };
 
 #ifdef USED_TO_ALLOW_PAUSING
@@ -75,6 +74,7 @@ static void timer_fire( ETimer_t * const );
 static ETimer_t *timer_start( const ETimer_time_t, Escher_xtUMLEvent_t * const );
 static bool timer_cancel( ETimer_t * const );
 static bool timer_find_and_delete( ETimer_t * const );
+static bool timer_find_and_reinsert_sorted( ETimer_t * const );
 #endif   /* if ESCHER_SYS_MAX_XTUML_TIMERS > 0 */
 static ETimer_time_t ETimer_msec_time( void );
 
@@ -127,14 +127,14 @@ TIM_timer_remaining_time(
   const Escher_Timer_t * const ee_timer_inst_ref )
 {
   /* Insert implementation specific code here.  */
-  Escher_uSec_t t = 0UL;
-  if ( ee_timer_inst_ref != 0 ) {
-    t = ETimer_msec_time();
-    t = ( ((ETimer_t *) ee_timer_inst_ref)->expiration > t ) ?
-      USEC_CONVERT * ( ((ETimer_t *) ee_timer_inst_ref)->expiration - t ) :
-      0UL;
+  Escher_uSec_t rv = 0UL;
+  ETimer_t * t;
+  t = (ETimer_t *) ee_timer_inst_ref;
+  if ( 0 != t ) {
+    rv = ETimer_msec_time();
+    rv = ( t->expiration > rv ) ? USEC_CONVERT * ( t->expiration - rv ) : 0UL;
   }
-  return ( t );  
+  return ( rv );  
 }
 
 /*=====================================================================
@@ -151,11 +151,12 @@ TIM_timer_reset_time(
   Escher_Timer_t * const ee_timer_inst_ref )
 {
   /* Insert implementation specific code here.  */
-  ETimer_t * t = (ETimer_t *) ee_timer_inst_ref;
   bool rc = false;
-  if ( ( t != 0 ) && ( t->expiration > 0UL ) ) {
+  ETimer_t * t;
+  t = (ETimer_t *) ee_timer_inst_ref;
+  if ( ( 0 != t ) && ( t->expiration > 0UL ) ) {
     t->expiration = ETimer_msec_time() + ee_microseconds/USEC_CONVERT + 1UL;
-    rc = true;
+    rc = timer_find_and_reinsert_sorted( t );
   }
   return ( rc );
 }
@@ -174,11 +175,12 @@ TIM_timer_add_time(
   Escher_Timer_t * const ee_timer_inst_ref )
 {
   /* Insert implementation specific code here.  */
-  ETimer_t * t = (ETimer_t *) ee_timer_inst_ref;
   bool rc = false;
-  if ( ( t != 0 ) && ( t->expiration > 0UL ) ) {
+  ETimer_t * t;
+  t = (ETimer_t *) ee_timer_inst_ref;
+  if ( ( 0 != t ) && ( t->expiration > 0UL ) ) {
     t->expiration += ee_microseconds/USEC_CONVERT;
-    rc = true;
+    rc = timer_find_and_reinsert_sorted( t );
   }
   return ( rc );
 }
@@ -382,7 +384,7 @@ timer_start(
 {
   ETimer_t * t;
   t = inanimate;
-  if ( t != 0 ) {
+  if ( 0 != t ) {
     inanimate = inanimate->next;
     t->event = event;
     /*---------------------------------------------------------------*/
@@ -392,6 +394,8 @@ timer_start(
     /*---------------------------------------------------------------*/
     t->expiration = ETimer_msec_time() + duration + 1UL;
     timer_insert_sorted( t );
+  } else {
+    /* no timers left */
   }
   return ( t );
 }
@@ -405,7 +409,7 @@ timer_insert_sorted(
   ETimer_t * t
 )
 {
-  if ( animate == 0 ) {                              /* empty list   */
+  if ( 0 == animate ) {                              /* empty list   */
     t->next = 0;
     animate = t;
   } else {
@@ -435,7 +439,7 @@ static bool
 timer_find_and_delete( ETimer_t * const t )
 {
   bool rc = false;
-  if ( ( t != 0 ) && ( animate != 0 ) ) {
+  if ( ( 0 != t ) && ( 0 != animate ) ) {
     /*---------------------------------------------------------------*/
     /* Check to see if the timer has already been reset.  This       */
     /* check is probabilistic; it could have a hole if multitasked.  */
@@ -451,7 +455,7 @@ timer_find_and_delete( ETimer_t * const t )
       ETimer_t * prev = animate;
       ETimer_t * cursor;
       while ( ( cursor = prev->next ) != t ) {           /* find */
-        if ( cursor == 0 ) {
+        if ( 0 == cursor ) {
           return ( false );
         }
         prev = cursor;
@@ -461,6 +465,37 @@ timer_find_and_delete( ETimer_t * const t )
     t->expiration = 0; /* in case anyone tries to read the handle */
     t->next = inanimate;
     inanimate = t;
+    rc = true;
+  }
+  return rc;
+}
+
+/*---------------------------------------------------------------------
+ * Try to find a ticking timer and re-insert it in the ticking list.
+ *-------------------------------------------------------------------*/
+static bool
+timer_find_and_reinsert_sorted( ETimer_t * const t )
+{
+  bool rc = false;
+  if ( ( 0 != t ) && ( 0 != animate ) ) {
+    /*---------------------------------------------------------------*/
+    /* Try to find the timer in the list                             */
+    /* If found, remove it from the list, and insert it sorted       */
+    /*---------------------------------------------------------------*/
+    if ( t == animate ) {
+      animate = animate->next;
+    } else {
+      ETimer_t * prev = animate;
+      ETimer_t * cursor;
+      while ( ( cursor = prev->next ) != t ) {           /* find */
+        if ( 0 == cursor ) {
+          return ( false );
+        }
+        prev = cursor;
+      }
+      prev->next = t->next;                             /* unlink */
+    }
+    timer_insert_sorted( t );           /* re-insert item in list */
     rc = true;
   }
   return rc;
@@ -495,7 +530,7 @@ timer_fire(
   ETimer_t * const t
 )
 {
-  t->expiration = ( t->recurrence == 0 ) ? 0 : t->expiration + t->recurrence;
+  t->expiration = ( 0 == t->recurrence ) ? 0 : t->expiration + t->recurrence;
   Escher_SendEvent( t->event );
   if ( 0 != t->recurrence ) {
     Escher_xtUMLEvent_t * e = Escher_AllocatextUMLEvent();
@@ -563,7 +598,7 @@ TIM_tick( void )
   /*-----------------------------------------------------------------*/
   /* Check to see if there are timers in the ticking timers list.    */
   /*-----------------------------------------------------------------*/
-  if ( animate != 0 ) {
+  if ( 0 != animate ) {
     if ( animate->expiration <= ETimer_msec_time() ) {
       timer_fire( animate );
     }
@@ -597,7 +632,7 @@ TIM_resume( void )
   ETimer_t * cursor = animate;
   ETimer_time_t t;      /* difference between now and start of pause */
   t = ETimer_msec_time() - start_of_pause;
-  while ( cursor != 0 ) {
+  while ( 0 != cursor ) {
     cursor->expiration += t;
     cursor = cursor->next;
   }
