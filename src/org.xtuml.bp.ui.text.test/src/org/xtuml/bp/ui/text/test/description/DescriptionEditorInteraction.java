@@ -78,6 +78,21 @@ public class DescriptionEditorInteraction extends UITextTest {
 	private static long m_markerId[] = new long [4];
 	private static int numMarkers = 0;
 	
+	// enforce order in which these tests are run
+    public void testDescriptionEditorInteraction() {
+    	dotestDirtyFlag();
+    	dotestUndo();
+    	dotestRevert();
+    	dotestSave();
+    	dotestOpenChangedDescription();
+    	dotestAddBookmark();
+    	dotestBookmarkHoverText();
+    	dotestAddTaskMarker();
+    	dotestMultipleMarkerHoverText();
+    	dotestDeleteBookmark();
+    	dotestTaskHoverText();
+    	dotestDeleteTask();
+    }
     
 	protected void setUp() throws Exception {
     	super.setUp();
@@ -171,7 +186,7 @@ public class DescriptionEditorInteraction extends UITextTest {
 		}
 	}
 
-	public void testDirtyFlag()
+	public void dotestDirtyFlag()
 	{	
 		DescriptionEditor de = openPackageDescriptionEditor();
 		
@@ -185,7 +200,7 @@ public class DescriptionEditorInteraction extends UITextTest {
 		assertTrue( de.isDirty() );
 	}
 
-	public void testUndo()
+	public void dotestUndo()
 	{	
 		DescriptionEditor de = getPackageDescriptionEditor();
 		
@@ -200,7 +215,7 @@ public class DescriptionEditorInteraction extends UITextTest {
 
 	}
 	
-	public void testRevert()
+	public void dotestRevert()
 	{	
 		DescriptionEditor de = getPackageDescriptionEditor();
 		
@@ -213,7 +228,7 @@ public class DescriptionEditorInteraction extends UITextTest {
 		assertEquals( uut.getDescrip(), de.getDocumentProvider().getDocument(de.getEditorInput()).get());
 	}
 	
-	public void testSave()
+	public void dotestSave()
 	{	
 		DescriptionEditor de = getPackageDescriptionEditor();
 		Package_c uut = getTopPackage();
@@ -233,7 +248,7 @@ public class DescriptionEditorInteraction extends UITextTest {
 		de.getSite().getPage().closeEditor(de, false);
 	}
 	
-	public void testOpenChangedDescription()
+	public void dotestOpenChangedDescription()
 	{
 		DescriptionEditor de = openPackageDescriptionEditor();
 		assertFalse( de.isSaveOnCloseNeeded() );
@@ -243,7 +258,7 @@ public class DescriptionEditorInteraction extends UITextTest {
 	
 	private final int marker_line = 3;
 	
-	public void testAddBookmark()
+	public void dotestAddBookmark()
 	{
 		DescriptionEditor de = getPackageDescriptionEditor();
 		DescriptionEditorInput editorInput = (DescriptionEditorInput)de.getEditorInput();
@@ -266,7 +281,7 @@ public class DescriptionEditorInteraction extends UITextTest {
 		assertTrue(m2.getResource().isAccessible());
 	}
 
-	public void testBookmarkHoverText()
+	public void dotestBookmarkHoverText()
 	{
 		DescriptionEditor de = openPackageDescriptionEditor();
 
@@ -288,7 +303,7 @@ public class DescriptionEditorInteraction extends UITextTest {
 		String hoverText = eh.getHoverInfo((ISourceViewer)de.getTextViewer(), marker_line-1);
 		assertEquals( "test bookmark", hoverText);
 	}
-	public void testAddTaskMarker()
+	public void dotestAddTaskMarker()
 	{
 		DescriptionEditor de = getPackageDescriptionEditor();
 		DescriptionEditorInput editorInput = (DescriptionEditorInput)de.getEditorInput();
@@ -310,7 +325,7 @@ public class DescriptionEditorInteraction extends UITextTest {
 	  catch (CoreException e) {	fail("Core Exception in DescriptionEditorInteraction.testAddBookmark " + e.toString()); }
 		assertTrue(m2.getResource().isAccessible());
 	}
-	public void testMultipleMarkerHoverText()
+	public void dotestMultipleMarkerHoverText()
 	{
 		DescriptionEditor de = openPackageDescriptionEditor();
 
@@ -324,7 +339,7 @@ public class DescriptionEditorInteraction extends UITextTest {
         }        
 		assertFalse(true);
 	}
-	public void testDeleteBookmark()
+	public void dotestDeleteBookmark()
 	{
 		DescriptionEditor de = getPackageDescriptionEditor();
 		DescriptionEditorInput editorInput = (DescriptionEditorInput)de.getEditorInput();
@@ -339,7 +354,7 @@ public class DescriptionEditorInteraction extends UITextTest {
 		m2 = file.getMarker(m_markerId[0]);
 		assertFalse(m2.exists());
 	}
-	public void testTaskHoverText()
+	public void dotestTaskHoverText()
 	{
 		DescriptionEditor de = getPackageDescriptionEditor();
 
@@ -348,7 +363,7 @@ public class DescriptionEditorInteraction extends UITextTest {
 		String hoverText = eh.getHoverInfo((ISourceViewer)de.getTextViewer(), marker_line-1);
 		assertEquals( "test task", hoverText);
 	}
-	public void testDeleteTask()
+	public void dotestDeleteTask()
 	{
 		DescriptionEditor de = getPackageDescriptionEditor();
 		DescriptionEditorInput editorInput = (DescriptionEditorInput)de.getEditorInput();
