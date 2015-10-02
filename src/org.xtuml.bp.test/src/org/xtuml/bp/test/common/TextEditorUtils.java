@@ -160,7 +160,9 @@ public class TextEditorUtils
 				IEditorReference [] editors = pages[j].getEditorReferences();
 				for ( int k = 0; k < editors.length; ++k )
 				{
-					if ( editors[k].getTitle().equals(title) )
+					// As of Eclipse Mars, tab titles throw out leading and trailing spaces of the element being displayed.
+					// Thus, we added the trim() to the passed in title string in Oct 2015.
+					if ( editors[k].getTitle().equals(title.trim()) )
 					{
 						return (DescriptionEditor)editors[k].getEditor(false);
 					}
