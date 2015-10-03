@@ -37,7 +37,6 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.views.properties.IPropertyDescriptor;
-
 import org.xtuml.bp.core.ComponentReference_c;
 import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.DataType_c;
@@ -325,13 +324,13 @@ public class TigerNatureExistingProjectsTestGenerics extends CanvasTest {
 				});
 		assertNotNull(op);
 
-		Class clazz = TigerNatureWorkspaceSetupTestGenerics.loadClassFromPlugin(
+		Class clazz = SetupCreationTests.loadClassFromPlugin(
 				"org.xtuml.bp.ui.text.test", "UITextTest"); //$NON-NLS-2$ //$NON-NLS-1$
-		IFile objFile = TigerNatureWorkspaceSetupTestGenerics
+		IFile objFile = SetupCreationTests
 				.callGetExistingPlaceHolderFromManager(clazz, obj,
 						DescriptionEditorInputFactory.PLACEHOLDER_EXTENSION);
 		assertNotNull(objFile);
-		IFile opFile = TigerNatureWorkspaceSetupTestGenerics
+		IFile opFile = SetupCreationTests
 				.callGetExistingPlaceHolderFromManager(clazz, op,
 						ActivityEditorInputFactory.PLACEHOLDER_EXTENSION);
 		assertNotNull(opFile);

@@ -55,6 +55,7 @@ import org.xtuml.bp.ui.text.activity.ActivityEditor;
 import org.xtuml.bp.ui.text.activity.ShowActivityAction;
 import org.xtuml.bp.ui.text.description.DescriptionEditor;
 import org.xtuml.bp.ui.text.description.ShowDescriptionAction;
+import org.xtuml.bp.utilities.ui.CanvasUtilities;
 
 /**
  * Holds utility methods used by the text tests. 
@@ -116,6 +117,30 @@ public class TextEditorUtils
 		return null;
 	}
     
+	static public void openDescriptionEditor( final Object uut )
+	{
+		try
+		{
+		  IWorkspaceRunnable r = new IWorkspaceRunnable()
+		  {
+			public void run(IProgressMonitor monitor) throws CoreException
+			{
+				IStructuredSelection ss = new StructuredSelection(uut);
+				ShowDescriptionAction sda = new ShowDescriptionAction();
+				Action a = new Action(){};
+				sda.selectionChanged(a, ss);
+				sda.run( a );
+			}
+		  };
+		  CanvasUtilities.getWorkspace().run(r, null);
+		}
+		catch (CoreException x)
+		{
+		  TestCase.fail("open editor problem");
+		}
+
+	}
+
     /**
      * Opens (and returns) a description editor on the domain 
      * associated with the given model-root.
