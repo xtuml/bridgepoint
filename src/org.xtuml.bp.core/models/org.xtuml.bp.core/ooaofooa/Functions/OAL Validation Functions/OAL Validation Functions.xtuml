@@ -3145,7 +3145,8 @@ INSERT INTO S_SYNC
 select any block from instances of ACT_BLK where
                                              selected.Block_ID == current_scope;
 select one body related by block->ACT_ACT[R612];
-
+isInGenericPackage = body.associateWithContainer();
+if isInGenericPackage
   // store the textual position of the key letters
   block.currentKeyLettersLineNumber =
                                ::getLineNumber(rule_token: param.a1_rule_token);
@@ -3195,7 +3196,21 @@ select one body related by block->ACT_ACT[R612];
     return result;
   end if;
   return param.a6_current_rule_id;
-',
+else
+  // store the textual position of the key letters
+  block.currentKeyLettersLineNumber =
+                               ::getLineNumber(rule_token: param.a1_rule_token);
+  block.currentKeyLettersColumn = ::getColumn(rule_token: param.a1_rule_token);
+  select many classes from instances of O_OBJ where
+                                             selected.Key_Lett == param.a3_text;
+  body.associateWithOwningComponent();
+  select one component related by body->ACT_BIC[R694]->C_C[R694];
+    ERR::reportParseError( 
+        msg: "Cannot find specified class key letters ->%s<-.", 
+        token: param.a1_rule_token );
+
+  return param.a6_current_rule_id;
+end if;',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'');
@@ -6757,7 +6772,8 @@ INSERT INTO S_SYNC
 select any block from instances of ACT_BLK where
                                              selected.Block_ID == current_scope;
 select one body related by block->ACT_ACT[R612];
-
+isInGenericPackage = body.associateWithContainer();
+if isInGenericPackage
   // store the textual position of the association number
   block.currentAssociationNumberLineNumber =
                                ::getLineNumber(rule_token: param.a1_rule_token);
@@ -6807,7 +6823,20 @@ select one body related by block->ACT_ACT[R612];
     return result;
   end if;
   return param.a6_current_rule_id;
-',
+else
+  rel_num = OS::convert_relationship_string( rel: param.a3_text );
+  // store the textual position of the association number
+  block.currentAssociationNumberLineNumber =
+                               ::getLineNumber(rule_token: param.a1_rule_token);
+  block.currentAssociationNumberColumn =
+                                   ::getColumn(rule_token: param.a1_rule_token);
+  select many rel_set from instances of R_REL where ( selected.Numb == rel_num );
+  body.associateWithOwningComponent();
+  select one component related by body->ACT_BIC[R694]->C_C[R694];
+    ERR::reportParseError( msg: "Cannot find specified association ->%s<-",
+          token: param.a1_rule_token );
+  return param.a6_current_rule_id;
+end if;',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'');
@@ -9716,7 +9745,10 @@ INSERT INTO S_SYNC
 	'current_scope = ::get_current_scope();
 select any block from instances of ACT_BLK where (selected.Block_ID == current_scope);
 select one body related by block->ACT_ACT[R612];
-
+// most isInGenericPackage varibles have been removed by the SP removal work. 
+// This one stays.
+isInGenericPackage = body.associateWithContainer();
+if isInGenericPackage
   select one containingElem related by body->ACT_BIE[R640]->PE_PE[R640];
   select one component related by containingElem->C_C[R8001];
   select one package related by containingElem->EP_PKG[R8001];
@@ -9758,7 +9790,19 @@ select one body related by block->ACT_ACT[R612];
     return ee.EE_ID;
   end if;
   return GD::NULL_UNIQUE_ID();
-',
+else
+  select any ee from instances of S_EE where ( selected.Key_Lett == param.a3_text );
+  if ( empty ee )
+    ERR::reportParseError( 
+        msg: "Cannot find specified external entity key letters ->%s<-.", 
+        token: param.a1_rule_token );
+  end if;
+
+  // store the textual position of the key letters
+  block.currentKeyLettersLineNumber = ::getLineNumber(rule_token: param.a1_rule_token);
+  block.currentKeyLettersColumn = ::getColumn(rule_token: param.a1_rule_token);
+  return ee.EE_ID;
+end if;',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'');
@@ -10305,7 +10349,8 @@ select any block from instances of ACT_BLK where
                                              selected.Block_ID == current_scope;
 identifier_ok = false;
 select one body related by block->ACT_ACT[R612];
-
+isInGenericPackage = body.associateWithContainer();
+if isInGenericPackage
   select one containingElem related by body->ACT_BIE[R640]->PE_PE[R640];
   select one comp related by containingElem->C_C[R8001];
   select one pkg related by containingElem->EP_PKG[R8001];
@@ -10447,7 +10492,33 @@ select one body related by block->ACT_ACT[R612];
       end if;
     end if;
   end if;
-
+else
+  select any obj from instances of O_OBJ where selected.Key_Lett == param.a3_text;
+  if ( empty obj )
+    select any ee from instances of S_EE where selected.Key_Lett == param.a3_text;
+    if ( empty ee )
+      body.associateWithOwningComponent();
+      select one component related by body->ACT_BIC[R694]->C_C[R694];
+      if not_empty component
+        select many interfaces related by component->C_PO[R4010]->
+                   C_IR[R4016]->C_I[R4012] where selected.Name == param.a3_text;
+        if not_empty interfaces
+          identifier_ok = true;
+        else
+          select many ports related by component->C_PO[R4010] where
+                                                 selected.Name == param.a3_text;
+          if not_empty ports
+            identifier_ok = true;
+          end if;
+        end if;
+      end if;
+    else
+      identifier_ok = true;
+    end if;
+  else
+    identifier_ok = true;
+  end if;
+end if;
 if identifier_ok
   // save keyletters for later use
   block.TempBuffer = param.a3_text;
@@ -10526,7 +10597,8 @@ INSERT INTO S_SYNC
 select any block from instances of ACT_BLK where
                    selected.Block_ID == current_scope;
 select one body related by block->ACT_ACT[R612];
-
+isInGenericPackage = body.associateWithContainer();
+if isInGenericPackage
   nullID = GD::NULL_UNIQUE_ID();
   // This holds the token before the "::" (class keyletters, EE name, port or interface name)
   identifier = block.TempBuffer; 
@@ -10698,6 +10770,109 @@ select one body related by block->ACT_ACT[R612];
     elif ( bridge_found )
       resultInvocation =  ::is_valid_bridge( key_lett: identifier,
                        name: param.a3_text, rule_token: param.a1_rule_token );
+    elif ( tfr_found and ( not_empty obj ) )
+      resultInvocation =  ::is_valid_transform (a1_obj_id: obj.Obj_ID,
+                                        a2_name: param.a3_text, 
+                                     a3_rule_token: param.a1_rule_token,
+                                                           a4_classBased: true);
+    end if;
+  end if;
+  return resultInvocation;
+else
+  nullID = GD::NULL_UNIQUE_ID();
+  // This holds the token before the "::" (class keyletters, EE name, port or interface name)
+  identifier = block.TempBuffer; 
+  tfr_found = false;
+  bridge_found = false;
+  message_found = false;
+  numMatches = 0;
+  dupErrString = "";
+  body.associateWithOwningComponent();
+  select one component related by body->ACT_BIC[R694]->C_C[R694];
+
+  // If the following section we look to are looking to see if there are
+  // duplicates names between EE, Class-based operations, and messages.
+  // Note that we can NOT validate the parameters and other aspects of the
+  // invocation yet (we do that at the end when we know there are no duplicates)
+  //
+  select any obj from instances of O_OBJ where selected.Key_Lett == identifier;  
+  select any ee from instances of S_EE where selected.Key_Lett == identifier;
+  if not_empty ee
+    select any brg related by ee->S_BRG[R19] where
+                                                 selected.Name == param.a3_text;
+    if (not_empty brg)
+      bridge_found = true; 
+      if (numMatches > 0)
+        dupErrString = dupErrString + ", ";
+      end if;
+      dupErrString = dupErrString + "Bridge";    
+      numMatches = numMatches + 1;
+    end if;
+  end if; // empty ee
+  //    
+  if not_empty component
+    message_found = false;
+    select many interfaces related by component->C_PO[R4010]->
+                    C_IR[R4016]->C_I[R4012] where selected.Name == identifier;
+    for each interface in interfaces
+      select any io related by interface->C_EP[R4003]->C_IO[R4004] where
+                                               selected.Name == param.a3_text;
+      select any sig related by interface->C_EP[R4003]->C_AS[R4004] where
+                                               selected.Name == param.a3_text;
+      if not_empty io or not_empty sig
+        message_found = true;
+        break;
+      end if;
+    end for;
+    if not message_found
+      select many ports related by component->C_PO[R4010] where
+                                                  selected.Name == identifier;
+      for each port in ports
+        select many interfaces related by port->C_IR[R4016]->C_I[R4012];
+        for each interface in interfaces
+          select any io related by interface->
+                  C_EP[R4003]->C_IO[R4004] where selected.Name == param.a3_text;
+          select any sig related by interface->
+                  C_EP[R4003]->C_AS[R4004] where selected.Name == param.a3_text;
+          if not_empty io or not_empty sig
+            message_found = true;
+            break;
+          end if;
+        end for;
+      end for;
+    end if;
+    if message_found
+      if (numMatches > 0)
+        dupErrString = dupErrString + ", ";
+      end if;
+      dupErrString = dupErrString + "Message";
+      numMatches = numMatches + 1;
+    end if; // message found
+  end if; // empty component
+
+  resultInvocation = nullID;
+  if (numMatches == 0)
+    ERR::reportParseError( 
+          msg: "Cannot find bridge, operation or message ->" + identifier +
+                                         "::%s<-", token: param.a1_rule_token );
+  elif (numMatches > 1) 
+    ERR::reportParseError( 
+            msg: "Duplicate implicit function signature for " + dupErrString + ".  ->" + identifier +
+                                           "::%s<-" , token: param.a1_rule_token );
+  elif (numMatches == 1)
+    // We now know that there is a single matches across EE, Class-based operations,
+    // and messages, so we can now validate that match.
+  
+    if ( message_found )
+      resultInvocation =  ::Message_name_validate(
+                 a1_rule_token: param.a1_rule_token,
+                                   a2_text: param.a3_text,
+                         a3_this_rule: param.a6_current_rule_id,
+                                a4_upper_rule: param.a5_upper_rule_id,
+                                      a5_upper_rule:param.a5_upper_rule_id);
+    elif ( bridge_found )
+      resultInvocation =  ::is_valid_bridge( key_lett: identifier,
+                       name: param.a3_text, rule_token: param.a1_rule_token );
     elif ( tfr_found)
       resultInvocation =  ::is_valid_transform (a1_obj_id: obj.Obj_ID,
                                         a2_name: param.a3_text, 
@@ -10706,6 +10881,7 @@ select one body related by block->ACT_ACT[R612];
     end if;
   end if;
   return resultInvocation;
+end if;
 ',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
@@ -11106,7 +11282,8 @@ INSERT INTO S_SYNC
 	'current_scope = ::get_current_scope();
 select any block from instances of ACT_BLK where (selected.Block_ID == current_scope);
 select one body related by block->ACT_ACT[R612];
-
+isInGenericPackage = body.associateWithContainer();
+if isInGenericPackage
   select one containingElem related by body->ACT_BIE[R640]->PE_PE[R640];
   select one component related by containingElem->C_C[R8001];
   select one package related by containingElem->EP_PKG[R8001];
@@ -11177,7 +11354,29 @@ select one body related by block->ACT_ACT[R612];
                                            resultList, token: param.a1_rule_token);
   end if;
   return GD::NULL_UNIQUE_ID();
-',
+else
+    // see if any enumerations are located at the system level
+    cur_sys_name = ::getSystemName();
+    select any sys from instances of S_SYS where selected.Name == cur_sys_name;
+      select many dt related by sys->G_EIS[R9100]->PE_PE[R9100]->S_DT[R8001] where
+                                                 selected.Name == param.a3_text;
+  select many edt related by dt->S_EDT[R17];
+  if ( empty edt )
+    ERR::reportParseError( msg: "Cannot find enumeration data type ->%s<-",
+          token: param.a1_rule_token );
+  elif ( cardinality edt > 1 )
+    ERR::reportParseError( msg: "More than one enumeration data type named ->%s<-",
+          token: param.a1_rule_token );
+  else
+    // store the textual position of the data type name 
+    block.currentDataTypeNameLineNumber = ::getLineNumber(rule_token: param.a1_rule_token);
+    block.currentDataTypeNameColumn = ::getColumn(rule_token: param.a1_rule_token);
+
+    select any the_edt related by dt->S_EDT[R17];
+    return the_edt.DT_ID;
+  end if;
+  return param.a6_current_rule_id;
+end if;',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'');
@@ -11662,7 +11861,8 @@ current_scope = ::get_current_scope();
 select any block from instances of ACT_BLK where
                                             selected.Block_ID == current_scope;
 select one body related by block->ACT_ACT[R612];
-
+isInGenericPackage = body.associateWithContainer();
+if isInGenericPackage
   select one containingElem related by body->ACT_BIE[R640]->PE_PE[R640];
   select one component related by containingElem->C_C[R8001];
   select one package related by containingElem->EP_PKG[R8001];
@@ -11761,7 +11961,64 @@ select one body related by block->ACT_ACT[R612];
       
     return stmt.Statement_ID;
   end if;
-
+else // not in generic package
+  select many classes from instances of O_OBJ;
+  select many evt_set related by classes->
+                          SM_ISM[R518]->SM_SM[R517]->SM_EVT[R502] where
+                                              selected.Drv_Lbl == param.a3_text;
+  select many classEvt_set related by classes->
+                          SM_ASM[R519]->SM_SM[R517]->SM_EVT[R502] where
+                                              selected.Drv_Lbl == param.a3_text;
+  select many eeevt_set from instances of S_EEEVT where
+                                          ( selected.Drv_Lbl == param.a3_text );
+  body.associateWithOwningComponent();
+  select one component related by body->ACT_BIC[R694]->C_C[R694];
+  if not_empty component
+    if ( empty eeevt_set )
+      stmt.dispose();
+      ERR::reportParseError( msg: "Cannot find event for event label ->%s<-",
+            token: param.a1_rule_token );
+    elif ( cardinality eeevt_set > 1 )
+      stmt.dispose();
+      ERR::reportParseError( msg:
+"More than one event with label ->%s<- You will need to eventually run the audit and/or clear this up",
+          token: param.a1_rule_token );
+    else
+      select any eeevt from instances of S_EEEVT where
+                                          ( selected.Drv_Lbl == param.a3_text );
+      select one ges related by stmt->E_ESS[R603]->E_GES[R701];
+      create object instance gee of E_GEE;
+      relate gee to ges across R703;
+      relate gee to eeevt across R709;  
+      return stmt.Statement_ID;
+    end if;
+  elif ( (cardinality evt_set + cardinality classEvt_set) > 1 )
+    stmt.dispose();
+    ERR::reportParseError( msg:
+"More than one event with label ->%s<- You will need to eventually run the audit and/or clear this up",
+          token: param.a1_rule_token );
+  else
+    select any evt related by classes->
+                          SM_ISM[R518]->SM_SM[R517]->SM_EVT[R502] where
+                                              selected.Drv_Lbl == param.a3_text;
+    if empty evt
+      select any evt related by classes->
+                          SM_ASM[R519]->SM_SM[R517]->SM_EVT[R502] where
+                                              selected.Drv_Lbl == param.a3_text;
+    end if;
+    select one ges related by stmt->E_ESS[R603]->E_GES[R701];
+    create object instance gsme of E_GSME;
+    relate gsme to ges across R703;
+    relate gsme to evt across R707;  
+    // store the textual position of the event derived-label
+    select one eventSpec related by stmt->E_ESS[R603];
+    eventSpec.eventDerivedLabelLineNumber =
+                               ::getLineNumber(rule_token: param.a1_rule_token);
+    eventSpec.eventDerivedLabelColumn =
+                                   ::getColumn(rule_token: param.a1_rule_token);
+    return stmt.Statement_ID;
+  end if;
+end if;
 return GD::NULL_UNIQUE_ID();',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
@@ -16000,7 +16257,8 @@ INSERT INTO S_SYNC
 	'current_scope = ::get_current_scope();
 select any block from instances of ACT_BLK where (selected.Block_ID == current_scope);
 select one body related by block->ACT_ACT[R612];
-
+isInGenericPackage = body.associateWithContainer();
+if isInGenericPackage
   select one containingElem related by body->ACT_BIE[R640]->PE_PE[R640];
   select one component related by containingElem->C_C[R8001];
   select one package related by containingElem->EP_PKG[R8001];
@@ -16064,8 +16322,37 @@ select one body related by block->ACT_ACT[R612];
                                            resultList, token: param.a1_rule_token);
   end if;
   return GD::NULL_UNIQUE_ID();
+else
+  select many sync_set from instances of S_SYNC where ( selected.Name == param.a3_text );
+  if ( empty sync_set )
+    ERR::reportParseError( msg: "Cannot find specified function ->%s<-",
+          token: param.a1_rule_token );
+  elif ( cardinality sync_set > 1 )
+     ERR::reportParseError( msg:
+"More than one function with name ->%s<- You will need to eventually run the audit and/or clear this up",
+          token: param.a1_rule_token );
+  else
+    select any sync from instances of S_SYNC where ( selected.Name == param.a3_text );
+    create object instance fnc of V_FNV;
+    fnc.ParmListOK = true;
+    create object instance val of V_VAL;
+    current_scope = ::get_current_scope();
+    select any block from instances of ACT_BLK where (selected.Block_ID == current_scope);
+    relate val to block across R826;
+    relate val to fnc across R801;
 
-',
+    relate sync to fnc across R827;
+    select one sdt related by sync->S_DT[R25];
+    relate val to sdt across R820;
+
+    val.LineNumber = ::getLineNumber(rule_token: param.a1_rule_token);
+    val.StartPosition = ::getColumn(rule_token: param.a1_rule_token);
+    val.setEndPosition();
+	
+    return val.Value_ID;
+  end if;
+end if;
+return param.a6_current_rule_id;',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'');
@@ -27719,7 +28006,8 @@ select any block from instances of ACT_BLK where
                                              selected.Block_ID == current_scope;
 select one body related by block->ACT_ACT[R612];
 ownerName = block.TempBuffer;
-
+isInGenericPackage = body.associateWithContainer();
+if isInGenericPackage
   select one component related by body->ACT_BIE[R640]->PE_PE[R640]->C_C[R8001];
   select one package related by body->ACT_BIE[R640]->PE_PE[R640]->EP_PKG[R8001];
   if not_empty package
@@ -27907,7 +28195,184 @@ ownerName = block.TempBuffer;
     end if;  // not_empty interface
   end if;
   return GD::NULL_UNIQUE_ID();
-',
+else
+  body.associateWithOwningComponent();
+  select one component related by body->ACT_BIC[R694]->C_C[R694];
+  if empty component
+    ERR::reportParseError( 
+         msg: "Signalling syntax is valid only in the context of a component",
+                                                   token: param.a1_rule_token ); 
+  else
+    select any ifRef from instances of C_IR;
+    ifRef_found = false;
+    portFound = false;
+    select many ports related by component->C_PO[R4010];
+    for each port in ports
+      if port.Name == ownerName
+        if not portFound
+          portFound = true;
+        else
+          ERR::reportParseError( 
+                      msg: "Found port with duplicate name ->" +
+                                 ownerName + "<-", token: param.a1_rule_token ); 
+        end if;
+        select many ifRefs related by port->C_IR[R4016];
+        if cardinality ifRefs > 1
+          for each candidateIfRef in ifRefs
+            select many messages related by candidateIfRef->
+                                                        C_I[R4012]->C_EP[R4003];
+            for each message in messages
+              select one signal related by message->C_AS[R4004] where
+                                                 selected.Name == param.a2_text;
+              if not_empty signal
+                if ifRef_found
+                  ERR::reportParseError( 
+                      msg: "Found signal with duplicate name ->" + ownerName +
+                                         "::%s<-", token: param.a1_rule_token ); 
+                else
+                  ifRef = candidateIfRef;
+                  ifRef_found = true;
+                end if;
+              else
+                select one op related by message->C_IO[R4004] where
+                                                 selected.Name == param.a2_text;
+                if not_empty op
+                  if ifRef_found
+                    ERR::reportParseError( 
+                     msg: "Found interface operation with duplicate name ->" +
+                             ownerName + "::%s<-", token: param.a1_rule_token ); 
+                  else
+                    ifRef = candidateIfRef;
+                    ifRef_found = true;
+                  end if;
+                else
+                  ERR::reportParseError( 
+                     msg: "Internal error: subtype not found for message ->" +
+                             ownerName + "::%s<-", token: param.a1_rule_token ); 
+                end if;
+              end if;
+            end for;
+          end for;
+        else // ifRef cardinality 0 (internal error) or 1
+          if not ifRef_found
+            select any ifRef related by port->C_IR[R4016];
+            if not_empty ifRef
+              select many ios related by ifRef->C_I[R4012]->C_EP[R4003]->
+                               C_IO[R4004] where selected.Name == param.a2_text;
+              select many sigs related by ifRef->C_I[R4012]->C_EP[R4003]->
+                               C_AS[R4004] where selected.Name == param.a2_text;
+              if (cardinality ios + cardinality sigs) > 1
+                ERR::reportParseError( 
+                     msg: "Ambiguous message reference found ->" +
+                             ownerName + "::%s<-", token: param.a1_rule_token ); 
+              end if;
+              ifRef_found = true;
+            else
+              ERR::reportParseError( 
+               msg: "Internal error: interface reference not found on Port " +
+                                   port.Name + " for message ->" + ownerName +
+                                         "::%s<-", token: param.a1_rule_token ); 
+            end if;
+          else
+            ERR::reportParseError( 
+                     msg: "Ambiguous port or interface reference found ->" +
+                             ownerName + "::%s<-", token: param.a1_rule_token ); 
+          end if;
+        end if;
+      else // port name does not match the owner name . . .
+        //    see if the interface name matches
+        select many ifRefs related by port->C_IR[R4016];
+        for each candidateIfRef in ifRefs
+          select one interface related by candidateIfRef->C_I[R4012];
+          if not_empty interface
+            if interface.Name == ownerName
+              if not ifRef_found
+                select many ios related by candidateIfRef->C_I[R4012]->C_EP[R4003]->
+                               C_IO[R4004] where selected.Name == param.a2_text;
+                select many sigs related by candidateIfRef->C_I[R4012]->C_EP[R4003]->
+                               C_AS[R4004] where selected.Name == param.a2_text;
+                if (cardinality ios + cardinality sigs) > 1
+                  ERR::reportParseError( 
+                     msg: "Ambiguous message reference found ->" +
+                             ownerName + "::%s<-", token: param.a1_rule_token );
+                else
+                  ifRef = candidateIfRef;
+                  ifRef_found = true;
+                end if;
+              else
+                ERR::reportParseError( 
+                     msg: "Ambiguous interface or port reference found ->" +
+                             ownerName + "::%s<-", token: param.a1_rule_token );
+              end if;
+            end if;
+          end if;
+        end for;
+      end if;
+    end for;
+    if ifRef_found
+      select any iop related by ifRef->C_I[R4012]->C_EP[R4003]->C_IO[R4004] where
+                                                 selected.Name == param.a2_text;
+      if not_empty iop
+        direction = iop.Direction;
+        directionResult = ::is_message_direction_valid(direction:direction,
+                                                         interface_id:ifRef.Id);
+        if(directionResult)
+          return ::is_valid_message(a1_ifRef: ifRef.Id, a2_msgName: param.a2_text,
+                                           a3_rule_token: param.a1_rule_token );
+        else
+          if(direction == IFDirectionType::ServerClient)
+            ERR::reportParseError( 
+                        msg: "The message ->" + ownerName +
+                                         "::%s<- is specified as Server to " 
+                                     + "Client, yet the invocation is from the "
+                                 + "client.", token: param.a1_rule_token );
+          else
+            ERR::reportParseError( 
+                        msg: "The message ->" + ownerName +
+                                         "::%s<- is specified as Client to " 
+                                      + "Server, yet the invocation is from the"
+                                 + " server.", token: param.a1_rule_token );
+          end if;
+        end if;
+      else
+        select any sig related by ifRef->C_I[R4012]->C_EP[R4003]->
+                               C_AS[R4004] where selected.Name == param.a2_text;
+        if not_empty sig
+          direction = sig.Direction;
+          directionResult = ::is_message_direction_valid(direction:direction,
+                                                         interface_id:ifRef.Id);
+          if(directionResult)
+            return ::is_valid_message(a1_ifRef:ifRef.Id, a2_msgName: param.a2_text, 
+                                            a3_rule_token: param.a1_rule_token);
+          else
+            if(direction == IFDirectionType::ServerClient)
+              ERR::reportParseError( 
+                        msg: "The message ->" + ownerName +
+                                         "::%s<- is specified as Server to " 
+                                      + "Client, yet the invocation is from the"
+                                 + " client.", token: param.a1_rule_token );
+            else
+              ERR::reportParseError( 
+                        msg: "The message ->" + ownerName +
+                                         "::%s<- is specified as Client to " 
+                                      + "Server, yet the invocation is from the"
+                                 + " server.", token: param.a1_rule_token );
+            end if;
+          end if;
+        else
+          ERR::reportParseError( 
+            msg: "Cannot find message with name ->" + ownerName + "::%s<-",
+                                                   token: param.a1_rule_token ); 
+        end if;
+      end if; // not_empty iop
+    else
+      ERR::reportParseError( 
+          msg: "Internal error, cannot find interface or port with name ->" +
+                             ownerName + "::%s<-", token: param.a1_rule_token ); 
+    end if;  // not_empty interface
+  end if;
+  return GD::NULL_UNIQUE_ID();
+end if;',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'');
