@@ -127,14 +127,41 @@ INSERT INTO O_TFR
 	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'select one body related by self->V_VAR[R814]->ACT_BLK[R823]->ACT_ACT[R601];
-
+isInGenericPackage = body.associateWithContainer();
+if isInGenericPackage
   select one dt related by self->S_DT[R821];
   if (not_empty dt)
     select one containingElem related by body->ACT_BIE[R640]->PE_PE[R640];
     return containingElem.canReferToDataType(dtID:dt.DT_ID, dtName:dt.Name);
   end if;
   return false;
-',
+else
+  select one dt related by self->S_DT[R821];
+  if(not_empty dt)
+    body.associateWithOwningComponent();
+    select one component related by body->ACT_BIC[R694]->C_C[R694];
+    if(not_empty component)
+      select one reqSig related by body->ACT_RSB[R698];
+      select one reqOp related by body->ACT_ROB[R698];
+      select one proSig related by body->ACT_PSB[R698];
+      select one proOp related by body->ACT_POB[R698];
+      // if any of the following is not empty
+      // then the dt must live at the system level
+      if(not_empty reqSig)
+          return true;
+      elif(not_empty reqOp)
+          return true;
+      elif(not_empty proSig)
+          return true;
+      elif(not_empty proOp)
+          return true;
+      end if;
+    else
+        return true;
+    end if;
+  end if;
+  return false;
+end if;',
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000");
