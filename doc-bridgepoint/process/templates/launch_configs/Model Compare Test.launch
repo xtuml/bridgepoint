@@ -31,7 +31,7 @@
 <stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="-pluginCustomization ${resource_loc:/org.xtuml.bp.core}/../org.xtuml.bp.pkg/plugin_customization.ini"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="org.xtuml.bp.model.compare.test"/>
 <stringAttribute key="org.eclipse.jdt.launching.SOURCE_PATH_PROVIDER" value="org.eclipse.pde.ui.workbenchClasspathProvider"/>
-<stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-Xmx1024m -Xms512m -XX:MaxPermSize=512m -DWORKSPACE_PATH=${resource_loc:/org.xtuml.bp.core}/../org.xtuml.bp.compare.test/ -DLOGFILE_PATH=${eclipse_home}/bp_tests/compare/.metadata/.log -Dfile.encoding=UTF-8"/>
+<stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-Xmx1024m -Xms512m -Dorg.eclipse.epp.logging.aeri.ui.skipReports=true -DWORKSPACE_PATH=${resource_loc:/org.xtuml.bp.core}/../org.xtuml.bp.compare.test/ -DLOGFILE_PATH=${eclipse_home}/bp_tests/compare/.metadata/.log -Dfile.encoding=UTF-8"/>
 <stringAttribute key="pde.version" value="3.3"/>
 <stringAttribute key="product" value="org.eclipse.platform.ide"/>
 <booleanAttribute key="run_in_ui_thread" value="true"/>
