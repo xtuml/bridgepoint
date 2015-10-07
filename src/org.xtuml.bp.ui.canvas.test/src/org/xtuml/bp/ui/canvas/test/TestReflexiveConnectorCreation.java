@@ -69,7 +69,14 @@ public class TestReflexiveConnectorCreation extends BaseTest {
 		ConnectorEditPart.setToleranceForTests(-1);
 	}
 
-	public void testReflexiveConnectorCreationOnMouseUp()
+	// Enforce order of tests run in this class
+	public void testReflexiveConnectorCreation() throws TransactionException {
+		dotestReflexiveConnectorCreationOnMouseUp();
+		dotestReflexiveCornerNonIntersectionWithShape();
+		dotestReflexiveConnectorOnConnector();
+	}
+	
+	public void dotestReflexiveConnectorCreationOnMouseUp()
 			throws TransactionException {
 		// create a generic package on the default project
 		SystemModel_c system = getSystemModel();
@@ -132,7 +139,7 @@ public class TestReflexiveConnectorCreation extends BaseTest {
 				bounds.getBottom().y - 20 == points.getLastPoint().y);
 	}
 
-	public void testReflexiveCornerNonIntersectionWithShape() {
+	public void dotestReflexiveCornerNonIntersectionWithShape() {
 		// create a generic package on the default project
 		SystemModel_c system = getSystemModel();
 		Package_c testPackage = Package_c.getOneEP_PKGOnR1405(system,
@@ -178,7 +185,7 @@ public class TestReflexiveConnectorCreation extends BaseTest {
 		UITestingUtilities.deactivateTool(assocTool);
 	}
 	
-	public void testReflexiveConnectorOnConnector() {
+	public void dotestReflexiveConnectorOnConnector() {
 		// create a generic package on the default project
 		SystemModel_c system = getSystemModel();
 		system.Newpackage();
