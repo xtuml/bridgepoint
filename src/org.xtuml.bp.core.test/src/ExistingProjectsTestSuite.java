@@ -15,9 +15,9 @@
 
 import org.eclipse.core.runtime.CoreException;
 import org.xtuml.bp.core.CorePlugin;
-import org.xtuml.bp.core.test.IPRSetupTests;
-import org.xtuml.bp.core.test.SetupCreationTests;
-import org.xtuml.bp.core.test.TigerNatureWorkspaceSetupTestGenerics;
+import org.xtuml.bp.core.test.ExistingProjectsInitialChecks;
+import org.xtuml.bp.core.test.NewShapeAfterRestart;
+import org.xtuml.bp.core.test.TigerNatureExistingProjectsTestGenerics;
 import org.xtuml.bp.core.util.WorkspaceUtil;
 
 import junit.framework.Test;
@@ -26,7 +26,7 @@ import junit.framework.TestSuite;
 /**
 * Test the system level areas of core.
 */
-public class WorkspaceSetupTestSuite extends TestSuite {
+public class ExistingProjectsTestSuite extends TestSuite {
 
 	/**
 	 * Returns the suite.  This is required to
@@ -34,21 +34,21 @@ public class WorkspaceSetupTestSuite extends TestSuite {
 	 * @throws CoreException
 	 */
 	public static Test suite() throws CoreException {
-		return new WorkspaceSetupTestSuite();
+		return new ExistingProjectsTestSuite();
 	}
 
 	/**
 	 * Construct the test suite.
 	 */
-	public WorkspaceSetupTestSuite() throws CoreException {
+	public ExistingProjectsTestSuite() throws CoreException {
 
 		// turn off autobuild to stop MC-3020 builders from running
 		WorkspaceUtil.setAutobuilding(false);;   // throws CoreException
 
 		CorePlugin.disableParseAllOnResourceChange();
 
-        addTest(new TestSuite(IPRSetupTests.class));
-        addTest(new TestSuite(SetupCreationTests.class));
-        addTest(new TestSuite(TigerNatureWorkspaceSetupTestGenerics.class));
+        addTest(new TestSuite(ExistingProjectsInitialChecks.class));
+        addTest(new TestSuite(NewShapeAfterRestart.class));
+// TODO        addTest(new TestSuite(TigerNatureExistingProjectsTestGenerics.class));
 	}
 }

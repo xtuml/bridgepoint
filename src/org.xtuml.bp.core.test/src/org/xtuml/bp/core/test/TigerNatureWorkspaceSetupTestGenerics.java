@@ -33,6 +33,7 @@ import org.xtuml.bp.core.UserDataType_c;
 import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.Transaction;
+import org.xtuml.bp.test.common.BaseTest;
 import org.xtuml.bp.test.common.UITestingUtilities;
 import org.xtuml.bp.ui.canvas.Cl_c;
 import org.xtuml.bp.ui.canvas.Ooaofgraphics;
@@ -75,6 +76,7 @@ public class TigerNatureWorkspaceSetupTestGenerics extends CanvasTest {
 
 	protected void tearDown() throws Exception {
 		super.tearDown();
+		BaseTest.dispatchEvents(0);
 	}
 
 	public static void createNewPackage(String name, SystemModel_c systemModel) {
