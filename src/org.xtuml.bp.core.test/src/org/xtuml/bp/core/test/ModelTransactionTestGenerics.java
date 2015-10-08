@@ -441,8 +441,8 @@ public class ModelTransactionTestGenerics extends BaseTest {
 		// as it has been tested with the original
 		// run.
 		attrMenuItemTest.fSkipValidate = true;
-		attrMenuItemTest.testMoveWithTwoAttributes();
-		attrMenuItemTest.testMoveWithThreeAttributes();
+		attrMenuItemTest.doTestMoveWithTwoAttributes();
+		attrMenuItemTest.doTestMoveWithThreeAttributes();
 		attrMenuItemTest.fSkipValidate = false;
 
 		listener.WaitForTransactionUnderReview();

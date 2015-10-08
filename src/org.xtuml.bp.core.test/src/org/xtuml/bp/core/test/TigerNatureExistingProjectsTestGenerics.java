@@ -213,67 +213,6 @@ public class TigerNatureExistingProjectsTestGenerics extends CanvasTest {
 		}
 	}
 
-	// this test needs to be first in order to test that the
-	// tree is opened to the selected class
-
-	public void testLinkWithEditor() {
-		IEditorPart ss = checkForOpenEditors("TestSS");
-		assertNotNull(ss);
-
-		// bring the canvas editor to the front
-		ss.getEditorSite().getPage().activate(ss);
-		Package_c ss_obj = (Package_c) ((GraphicalEditorInput) ss
-				.getEditorInput()).getInput().getRepresents();
-		modelRoot = (Ooaofooa) ss_obj.getModelRoot();
-
-		IWorkbenchPage page = TestUtil.showBridgePointPerspective();
-		ExplorerUtil.showModelExplorer();
-		ExplorerUtil.setLinkWithEditor(true);
-
-		//Getting Class TestClass1
-		ModelClass_c obj = ModelClass_c.ModelClassInstance(modelRoot,
-				new ClassQueryInterface_c() {
-					public boolean evaluate(Object candidate) {
-						ModelClass_c uut = (ModelClass_c) candidate;
-						return uut.getName().equals("TestClass1");
-					}
-				});
-		assertNotNull(obj);
-		
-		// link with editor will only get processed when the
-		// explorer view is not the active part, so activate some
-		// other view
-		try {
-			PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
-					.showView("org.eclipse.ui.views.PropertySheet");
-		} catch (PartInitException e) {
-			fail(e.getMessage());
-		}
-		
-		// select the class on the diagram
-		UITestingUtilities.addElementToGraphicalSelection(obj);
-		
-		assertTrue(
-				"Did not find existing class, TestClass1, in the explorer view",
-				checkForTreeItemInTree("TestClass1"));
-
-	}
-
-	public void testXTUMLProjectsExist() {
-		assertTrue(
-				"Did not find existing project, Test Project 1, in the explorer view",
-				checkForTreeItem("Test Project 1"));
-		assertTrue(
-				"Did not find existing domain, testDomain1, in the  explorer view",
-				checkForTreeItem("testDomain1"));
-		assertTrue(
-				"Did not find existing project, Test Project 2, in the explorer view",
-				checkForTreeItem("Test Project 2"));
-		assertTrue(
-				"Did not find existing domain, testDomain2, in the  explorer view",
-				checkForTreeItem("testDomain2"));
-	}
-
 	public void testEditorsRemainOpenAfterClose() {
 		assertNotNull(
 				"Editor, TestSS: Class Diagram, did not correctly restore",
