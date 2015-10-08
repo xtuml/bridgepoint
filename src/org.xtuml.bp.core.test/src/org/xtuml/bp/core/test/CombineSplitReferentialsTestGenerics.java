@@ -103,7 +103,7 @@ public class CombineSplitReferentialsTestGenerics extends CanvasTest {
 		CanvasTestUtils.openCanvasEditor(uut);
 	}
 	
-	public void doTestCombineSplitReferentialsTest(){
+	public void testCombineSplitReferentialsTest(){
 		 doTestSelectNonReferentialAttribute();
 	      doTestClassWithOneReferentialAttribute();
 	      doTestReferentialAttributesWithDiffBaseTypes();
