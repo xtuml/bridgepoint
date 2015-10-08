@@ -214,87 +214,184 @@ public class FormalizeUnformalizeWithPrefixTestGenerics extends CanvasTest {
 		try {
 			generateResults = true;
 			this.setUp();
-			this.testFormalizeSimpleAssocOBJ_OBJ();
-			this.testFormalizeSimpleAssocOBJ_IOBJ();
-			this.testFormalizeSimpleAssocReflexiveOBJ();
-			this.testFormalizeSimpleAssocIOBJ_OBJ();
-			this.testFormalizeSimpleAssocIOBJ_IOBJ();
-			this.testFormalizeSimpleAssocReflexiveIOBJ();
-			this.testFormalizeASSROBJ_OBJOBJ();
-			this.testFormalizeASSROBJ_IOBJOBJ();
-			this.testFormalizeASSROBJ_IOBJIOBJ();
-			this.testFormalizeASSRReflexiveOBJ_OBJ();
-			this.testFormalizeASSRReflexiveOBJ_IOBJ();
-			this.testFormalizeASSRIOBJ_OBJOBJ();
-			this.testFormalizeASSRIOBJ_OBJIOBJ();
-			this.testFormalizeASSRIOBJ_IOBJIOBJ();
-			this.testFormalizeASSRReflexiveIOBJ_OBJ();
-			this.testFormalizeASSRReflexiveIOBJ_IOBJ();
-			this.testUnFormalizeSimpleAssocOBJ_OBJ();
-			this.testUnFormalizeSimpleAssocOBJ_IOBJ();
-			this.testUnFormalizeSimpleAssocReflexiveOBJ();
-			this.testUnFormalizeSimpleAssocIOBJ_OBJ();
-			this.testUnFormalizeSimpleAssocIOBJ_IOBJ();
-			this.testUnFormalizeSimpleAssocReflexiveIOBJ();
-			this.testUnFormalizeASSROBJ_OBJOBJ();
-			this.testUnFormalizeASSROBJ_IOBJOBJ();
-			this.testUnFormalizeASSROBJ_IOBJIOBJ();
-			this.testUnFormalizeASSRReflexiveOBJ_OBJ();
-			this.testUnFormalizeASSRReflexiveOBJ_IOBJ();
-			this.testUnFormalizeASSRIOBJ_OBJOBJ();
-			this.testUnFormalizeASSRIOBJ_OBJIOBJ();
-			this.testUnFormalizeASSRIOBJ_IOBJIOBJ();
-			this.testUnFormalizeASSRReflexiveIOBJ_OBJ();
-			this.testUnFormalizeASSRReflexiveIOBJ_IOBJ();
-			this.testFormalizeASSROBJ_OBJOBJSpecial();
-			this.testFormalizeASSROBJ_IOBJOBJSpecial();
-			this.testFormalizeASSROBJ_IOBJIOBJSpecial();
-			this.testFormalizeASSRReflexiveOBJ_OBJSpecial();
-			this.testFormalizeASSRReflexiveOBJ_IOBJSpecial();
-			this.testFormalizeASSRIOBJ_OBJOBJSpecial();
-			this.testFormalizeASSRIOBJ_OBJIOBJSpecial();
-			this.testFormalizeASSRIOBJ_IOBJIOBJSpecial();
-			this.testFormalizeASSRReflexiveIOBJ_OBJSpecial();
-			this.testFormalizeASSRReflexiveIOBJ_IOBJSpecial();
-			this.testUnFormalizeASSROBJ_OBJOBJSpecial();
-			this.testUnFormalizeASSROBJ_IOBJOBJSpecial();
-			this.testUnFormalizeASSROBJ_IOBJIOBJSpecial();
-			this.testUnFormalizeASSRReflexiveOBJ_OBJSpecial();
-			this.testUnFormalizeASSRReflexiveOBJ_IOBJSpecial();
-			this.testUnFormalizeASSRIOBJ_OBJOBJSpecial();
-			this.testUnFormalizeASSRIOBJ_OBJIOBJSpecial();
-			this.testUnFormalizeASSRIOBJ_IOBJIOBJSpecial();
-			this.testUnFormalizeASSRReflexiveIOBJ_OBJSpecial();
-			this.testUnFormalizeASSRReflexiveIOBJ_IOBJSpecial();
-			this.testUnformalizeSimpleAssocUsedRefOBJ_OBJ();
-			this.testUnformalizeSimpleAssocUsedRefOBJ_IOBJ();
-			this.testUnformalizeSimpleAssocReflexiveUsedRefOBJ_OBJ();
-			this.testUnformalizeSimpleAssocUsedRefIOBJ_OBJ();
-			this.testUnformalizeSimpleAssocUsedRefIOBJ_IOBJ();
-			this.testUnformalizeSimpleAssocReflexiveUsedRefIOBJ();
-			this.testUnformalizeASSROBJ_OBJOBJUsedRef();
-			this.testUnformalizeASSROBJ_OBJIOBJUsedRef();
-			this.testUnformalizeASSROBJ_IOBJIOBJUsedRef();
-			this.testUnformalizeASSRReflexiveOBJ_OBJUsedRef();
-			this.testUnformalizeASSRReflexiveOBJ_IOBJUsedRef();
-			this.testUnformalizeASSRIOBJ_OBJOBJUsedRef();
-			this.testUnformalizeASSRIOBJ_IOBJOBJUsedRef();
-			this.testUnformalizeASSRIOBJ_IOBJIOBJUsedRef();
-			this.testUnformalizeASSRReflexiveIOBJ_OBJUsedRef();
-			this.testUnformalizeASSRReflexiveIOBJ_IOBJUsedRef();
-			this.testUnformalizeSUBSUPUsedRefOBJ_OBJOBJ();
-			this.testUnformalizeSUBSUPUsedRefOBJ_IOBJOBJ();
-			this.testUnformalizeSUBSUPUsedRefOBJ_IOBJIOBJ();
-			this.testUnformalizeSUBSUPUsedRefIOBJ_OBJOBJ();
-			this.testUnformalizeSUBSUPUsedRefIOBJ_OBJIOBJ();
-			this.testUnformalizeSUBSUPUsedRefIOBJ_IOBJIOBJ();
+			this.doTestFormalizeSimpleAssocOBJ_OBJ();
+			this.doTestFormalizeSimpleAssocOBJ_IOBJ();
+			this.doTestFormalizeSimpleAssocReflexiveOBJ();
+			this.doTestFormalizeSimpleAssocIOBJ_OBJ();
+			this.doTestFormalizeSimpleAssocIOBJ_IOBJ();
+			this.doTestFormalizeSimpleAssocReflexiveIOBJ();
+			this.doTestFormalizeASSROBJ_OBJOBJ();
+			this.doTestFormalizeASSROBJ_IOBJOBJ();
+			this.doTestFormalizeASSROBJ_IOBJIOBJ();
+			this.doTestFormalizeASSRReflexiveOBJ_OBJ();
+			this.doTestFormalizeASSRReflexiveOBJ_IOBJ();
+			this.doTestFormalizeASSRIOBJ_OBJOBJ();
+			this.doTestFormalizeASSRIOBJ_OBJIOBJ();
+			this.doTestFormalizeASSRIOBJ_IOBJIOBJ();
+			this.doTestFormalizeASSRReflexiveIOBJ_OBJ();
+			this.doTestFormalizeASSRReflexiveIOBJ_IOBJ();
+			this.doTestUnFormalizeSimpleAssocOBJ_OBJ();
+			this.doTestUnFormalizeSimpleAssocOBJ_IOBJ();
+			this.doTestUnFormalizeSimpleAssocReflexiveOBJ();
+			this.doTestUnFormalizeSimpleAssocIOBJ_OBJ();
+			this.doTestUnFormalizeSimpleAssocIOBJ_IOBJ();
+			this.doTestUnFormalizeSimpleAssocReflexiveIOBJ();
+			this.doTestUnFormalizeASSROBJ_OBJOBJ();
+			this.doTestUnFormalizeASSROBJ_IOBJOBJ();
+			this.doTestUnFormalizeASSROBJ_IOBJIOBJ();
+			this.doTestUnFormalizeASSRReflexiveOBJ_OBJ();
+			this.doTestUnFormalizeASSRReflexiveOBJ_IOBJ();
+			this.doTestUnFormalizeASSRIOBJ_OBJOBJ();
+			this.doTestUnFormalizeASSRIOBJ_OBJIOBJ();
+			this.doTestUnFormalizeASSRIOBJ_IOBJIOBJ();
+			this.doTestUnFormalizeASSRReflexiveIOBJ_OBJ();
+			this.doTestUnFormalizeASSRReflexiveIOBJ_IOBJ();
+			this.doTestFormalizeASSROBJ_OBJOBJSpecial();
+			this.doTestFormalizeASSROBJ_IOBJOBJSpecial();
+			this.doTestFormalizeASSROBJ_IOBJIOBJSpecial();
+			this.doTestFormalizeASSRReflexiveOBJ_OBJSpecial();
+			this.doTestFormalizeASSRReflexiveOBJ_IOBJSpecial();
+			this.doTestFormalizeASSRIOBJ_OBJOBJSpecial();
+			this.doTestFormalizeASSRIOBJ_OBJIOBJSpecial();
+			this.doTestFormalizeASSRIOBJ_IOBJIOBJSpecial();
+			this.doTestFormalizeASSRReflexiveIOBJ_OBJSpecial();
+			this.doTestFormalizeASSRReflexiveIOBJ_IOBJSpecial();
+			this.doTestUnFormalizeASSROBJ_OBJOBJSpecial();
+			this.doTestUnFormalizeASSROBJ_IOBJOBJSpecial();
+			this.doTestUnFormalizeASSROBJ_IOBJIOBJSpecial();
+			this.doTestUnFormalizeASSRReflexiveOBJ_OBJSpecial();
+			this.doTestUnFormalizeASSRReflexiveOBJ_IOBJSpecial();
+			this.doTestUnFormalizeASSRIOBJ_OBJOBJSpecial();
+			this.doTestUnFormalizeASSRIOBJ_OBJIOBJSpecial();
+			this.doTestUnFormalizeASSRIOBJ_IOBJIOBJSpecial();
+			this.doTestUnFormalizeASSRReflexiveIOBJ_OBJSpecial();
+			this.doTestUnFormalizeASSRReflexiveIOBJ_IOBJSpecial();
+			this.doTestUnformalizeSimpleAssocUsedRefOBJ_OBJ();
+			this.doTestUnformalizeSimpleAssocUsedRefOBJ_IOBJ();
+			this.doTestUnformalizeSimpleAssocReflexiveUsedRefOBJ_OBJ();
+			this.doTestUnformalizeSimpleAssocUsedRefIOBJ_OBJ();
+			this.doTestUnformalizeSimpleAssocUsedRefIOBJ_IOBJ();
+			this.doTestUnformalizeSimpleAssocReflexiveUsedRefIOBJ();
+			this.doTestUnformalizeASSROBJ_OBJOBJUsedRef();
+			this.doTestUnformalizeASSROBJ_OBJIOBJUsedRef();
+			this.doTestUnformalizeASSROBJ_IOBJIOBJUsedRef();
+			this.doTestUnformalizeASSRReflexiveOBJ_OBJUsedRef();
+			this.doTestUnformalizeASSRReflexiveOBJ_IOBJUsedRef();
+			this.doTestUnformalizeASSRIOBJ_OBJOBJUsedRef();
+			this.doTestUnformalizeASSRIOBJ_IOBJOBJUsedRef();
+			this.doTestUnformalizeASSRIOBJ_IOBJIOBJUsedRef();
+			this.doTestUnformalizeASSRReflexiveIOBJ_OBJUsedRef();
+			this.doTestUnformalizeASSRReflexiveIOBJ_IOBJUsedRef();
+			this.doTestUnformalizeSUBSUPUsedRefOBJ_OBJOBJ();
+			this.doTestUnformalizeSUBSUPUsedRefOBJ_IOBJOBJ();
+			this.doTestUnformalizeSUBSUPUsedRefOBJ_IOBJIOBJ();
+			this.doTestUnformalizeSUBSUPUsedRefIOBJ_OBJOBJ();
+			this.doTestUnformalizeSUBSUPUsedRefIOBJ_OBJIOBJ();
+			this.doTestUnformalizeSUBSUPUsedRefIOBJ_IOBJIOBJ();
 		} catch (Exception e) {
 			System.out.println("Exception encountered by test result creator: "
 					+ e);
 		}
 
 	}
-	public void testFormalizeSimpleAssocOBJ_OBJ() {
+	public void testFormalizeUnformalizeWithPrefix(){
+	      doTestFormalizeSimpleAssocOBJ_OBJ();
+	      doTestFormalizeSimpleAssocOBJ_IOBJ();
+	      doTestFormalizeSimpleAssocReflexiveOBJ();
+	      doTestFormalizeSimpleAssocIOBJ_OBJ();
+	      doTestFormalizeSimpleAssocIOBJ_IOBJ();
+	      doTestFormalizeSimpleAssocReflexiveIOBJ();
+	      doTestFormalizeASSROBJ_OBJOBJ();
+	      doTestFormalizeASSROBJ_IOBJOBJ();
+	      doTestFormalizeASSROBJ_IOBJIOBJ();
+	      doTestFormalizeASSRReflexiveOBJ_OBJ();
+	      doTestFormalizeASSRReflexiveOBJ_IOBJ();
+	      doTestFormalizeASSRIOBJ_OBJOBJ();
+	      doTestFormalizeASSRIOBJ_OBJIOBJ();
+	      doTestFormalizeASSRIOBJ_IOBJIOBJ();
+	      doTestFormalizeASSRReflexiveIOBJ_OBJ();
+	      doTestFormalizeASSRReflexiveIOBJ_IOBJ();
+	      doTestUnFormalizeSimpleAssocOBJ_OBJ();
+	      doTestUnFormalizeSimpleAssocOBJ_IOBJ();
+	      doTestUnFormalizeSimpleAssocReflexiveOBJ();
+	      doTestUnFormalizeSimpleAssocIOBJ_OBJ();
+	      doTestUnFormalizeSimpleAssocIOBJ_IOBJ();
+	      doTestUnFormalizeSimpleAssocReflexiveIOBJ();
+	      doTestUnFormalizeASSROBJ_OBJOBJ();
+	      doTestUnFormalizeASSROBJ_IOBJOBJ();
+	      doTestUnFormalizeASSROBJ_IOBJIOBJ();
+	      doTestUnFormalizeASSRReflexiveOBJ_OBJ();
+	      doTestUnFormalizeASSRReflexiveOBJ_IOBJ();
+	      doTestUnFormalizeASSRIOBJ_OBJOBJ();
+	      doTestUnFormalizeASSRIOBJ_OBJIOBJ();
+	      doTestUnFormalizeASSRIOBJ_IOBJIOBJ();
+	      doTestUnFormalizeASSRReflexiveIOBJ_OBJ();
+	      doTestUnFormalizeASSRReflexiveIOBJ_IOBJ();
+	      doTestFormalizeASSROBJ_OBJOBJSpecial();
+	      doTestFormalizeASSROBJ_IOBJOBJSpecial();
+	      doTestFormalizeASSROBJ_IOBJIOBJSpecial();
+	      doTestFormalizeASSRReflexiveOBJ_OBJSpecial();
+	      doTestFormalizeASSRReflexiveOBJ_IOBJSpecial();
+	      doTestFormalizeASSRIOBJ_OBJOBJSpecial();
+	      doTestFormalizeASSRIOBJ_OBJIOBJSpecial();
+	      doTestFormalizeASSRIOBJ_IOBJIOBJSpecial();
+	      doTestFormalizeASSRReflexiveIOBJ_OBJSpecial();
+	      doTestFormalizeASSRReflexiveIOBJ_IOBJSpecial();
+	      doTestUnFormalizeASSROBJ_OBJOBJSpecial();
+	      doTestUnFormalizeASSROBJ_IOBJOBJSpecial();
+	      doTestUnFormalizeASSROBJ_IOBJIOBJSpecial();
+	      doTestUnFormalizeASSRReflexiveOBJ_OBJSpecial();
+	      doTestUnFormalizeASSRReflexiveOBJ_IOBJSpecial();
+	      doTestUnFormalizeASSRIOBJ_OBJOBJSpecial();
+	      doTestUnFormalizeASSRIOBJ_OBJIOBJSpecial();
+	      doTestUnFormalizeASSRIOBJ_IOBJIOBJSpecial();
+	      doTestUnFormalizeASSRReflexiveIOBJ_OBJSpecial();
+	      doTestUnFormalizeASSRReflexiveIOBJ_IOBJSpecial();
+	      doTestUnformalizeSimpleAssocUsedRefOBJ_OBJ();
+	      doTestUnformalizeSimpleAssocUsedRefOBJ_IOBJ();
+	      doTestUnformalizeSimpleAssocReflexiveUsedRefOBJ_OBJ();
+	      doTestUnformalizeSimpleAssocUsedRefIOBJ_OBJ();
+	      doTestUnformalizeSimpleAssocUsedRefIOBJ_IOBJ();
+	      doTestUnformalizeSimpleAssocReflexiveUsedRefIOBJ();
+	      doTestUnformalizeASSROBJ_OBJOBJUsedRef();
+	      doTestUnformalizeASSROBJ_OBJIOBJUsedRef();
+	      doTestUnformalizeASSROBJ_IOBJIOBJUsedRef();
+	      doTestUnformalizeASSRReflexiveOBJ_OBJUsedRef();
+	      doTestUnformalizeASSRReflexiveOBJ_IOBJUsedRef();
+	      doTestUnformalizeASSRIOBJ_OBJOBJUsedRef();
+	      doTestUnformalizeASSRIOBJ_IOBJOBJUsedRef();
+	      doTestUnformalizeASSRIOBJ_IOBJIOBJUsedRef();
+	      doTestUnformalizeASSRReflexiveIOBJ_OBJUsedRef();
+	      doTestUnformalizeASSRReflexiveIOBJ_IOBJUsedRef();
+	      doTestUnformalizeSUBSUPUsedRefOBJ_OBJOBJ();
+	      doTestUnformalizeSUBSUPUsedRefOBJ_IOBJOBJ();
+	      doTestUnformalizeSUBSUPUsedRefOBJ_IOBJIOBJ();
+	      doTestUnformalizeSUBSUPUsedRefIOBJ_OBJOBJ();
+	      doTestUnformalizeSUBSUPUsedRefIOBJ_OBJIOBJ();
+	      doTestUnformalizeSUBSUPUsedRefIOBJ_IOBJIOBJ();
+	      doTestFormalizeASSROBJ_OBJOBJ_OnePrefix();
+	      doTestFormalizeASSROBJ_IOBJOBJ_OnePrefix();
+	      doTestFormalizeASSROBJ_IOBJIOBJ_OnePrefix();
+	      doTestFormalizeASSRReflexiveOBJ_OBJ_OnePrefix();
+	      doTestFormalizeASSRReflexiveOBJ_IOBJ_OnePrefix();
+	      doTestFormalizeASSRIOBJ_OBJOBJ_OnePrefix();
+	      doTestFormalizeASSRIOBJ_OBJIOBJ_OnePrefix();
+	      doTestFormalizeASSRIOBJ_IOBJIOBJ_OnePrefix();
+	      doTestFormalizeASSRReflexiveIOBJ_OBJ_OnePrefix();
+	      doTestFormalizeASSRReflexiveIOBJ_IOBJ_OnePrefix();
+	      doTestFormalizeASSROBJ_OBJOBJSpecial_OnePrefix();
+	      doTestFormalizeASSROBJ_IOBJOBJSpecial_OnePrefix();
+	      doTestFormalizeASSROBJ_IOBJIOBJSpecial_OnePrefix();
+	      doTestFormalizeASSRReflexiveOBJ_OBJSpecial_OnePrefix();
+	      doTestFormalizeASSRReflexiveOBJ_IOBJSpecial_OnePrefix();
+	      doTestFormalizeASSRIOBJ_OBJOBJSpecial_OnePrefix();
+	      doTestFormalizeASSRIOBJ_OBJIOBJSpecial_OnePrefix();
+	      doTestFormalizeASSRIOBJ_IOBJIOBJSpecial_OnePrefix();
+	      doTestFormalizeASSRReflexiveIOBJ_OBJSpecial_OnePrefix();
+	      doTestFormalizeASSRReflexiveIOBJ_IOBJSpecial_OnePrefix();
+	      doTestFormalizeActionFilter();
+	}
+	public void doTestFormalizeSimpleAssocOBJ_OBJ() {
 		test_id = "test_1";
 		String prefix1 = "pre1";
 		openTestPKGDiagram("FSA Tests");
@@ -349,7 +446,7 @@ public class FormalizeUnformalizeWithPrefixTestGenerics extends CanvasTest {
 		validatePrefix(rel, "FSA Tests", prefix1, null);
 		validateOrGenerateResults(ce, generateResults);
 	}
-	public void testFormalizeSimpleAssocOBJ_IOBJ() {
+	public void doTestFormalizeSimpleAssocOBJ_IOBJ() {
 		test_id = "test_2";
 		String prefix1 = "pre1";
 		openTestPKGDiagram("FSA Tests");
@@ -404,7 +501,7 @@ public class FormalizeUnformalizeWithPrefixTestGenerics extends CanvasTest {
 		validatePrefix(rel, "FSA Tests", prefix1, null);
 		validateOrGenerateResults(ce, generateResults);
 	}
-	public void testFormalizeSimpleAssocReflexiveOBJ() {
+	public void doTestFormalizeSimpleAssocReflexiveOBJ() {
 		test_id = "test_3";
 		String prefix1 = "pre1";
 		openTestPKGDiagram("FSA Tests");
@@ -459,7 +556,7 @@ public class FormalizeUnformalizeWithPrefixTestGenerics extends CanvasTest {
 		validatePrefix(rel, "FSA Tests", prefix1, null);
 		validateOrGenerateResults(ce, generateResults);
 	}
-	public void testFormalizeSimpleAssocIOBJ_OBJ() {
+	public void doTestFormalizeSimpleAssocIOBJ_OBJ() {
 		test_id = "test_4";
 		String prefix1 = "pre1";
 		openTestPKGDiagram("FSA Tests");
@@ -513,7 +610,7 @@ public class FormalizeUnformalizeWithPrefixTestGenerics extends CanvasTest {
 		validatePrefix(rel, "FSA Tests", prefix1, null);
 		validateOrGenerateResults(ce, generateResults);
 	}
-	public void testFormalizeSimpleAssocIOBJ_IOBJ() {
+	public void doTestFormalizeSimpleAssocIOBJ_IOBJ() {
 		test_id = "test_5";
 		String prefix1 = "pre1";
 		openTestPKGDiagram("FSA Tests");
@@ -567,7 +664,7 @@ public class FormalizeUnformalizeWithPrefixTestGenerics extends CanvasTest {
 		validatePrefix(rel, "FSA Tests", prefix1, null);
 		validateOrGenerateResults(ce, generateResults);
 	}
-	public void testFormalizeSimpleAssocReflexiveIOBJ() {
+	public void doTestFormalizeSimpleAssocReflexiveIOBJ() {
 		test_id = "test_6";
 		String prefix1 = "pre1";
 		openTestPKGDiagram("FSA Tests");
@@ -621,7 +718,7 @@ public class FormalizeUnformalizeWithPrefixTestGenerics extends CanvasTest {
 		validatePrefix(rel, "FSA Tests", prefix1, null);
 		validateOrGenerateResults(ce, generateResults);
 	}
-	public void testFormalizeASSROBJ_OBJOBJ() {
+	public void doTestFormalizeASSROBJ_OBJOBJ() {
 		test_id = "test_7";
 		String prefix1 = "pre1";
 		String prefix2 = "pre2";
@@ -685,7 +782,7 @@ public class FormalizeUnformalizeWithPrefixTestGenerics extends CanvasTest {
 		validateOrGenerateResults(ce, generateResults);
 	}
 
-	public void testFormalizeASSROBJ_OBJOBJ_OnePrefix() {
+	public void doTestFormalizeASSROBJ_OBJOBJ_OnePrefix() {
 		test_id = "test_7_OnePrefix";
 		String prefix1 = "pre1";
 		String prefix2 = "";
@@ -749,7 +846,7 @@ public class FormalizeUnformalizeWithPrefixTestGenerics extends CanvasTest {
 		validateOrGenerateResults(ce, generateResults);
 	}
 
-	public void testFormalizeASSROBJ_IOBJOBJ() {
+	public void doTestFormalizeASSROBJ_IOBJOBJ() {
 		test_id = "test_8";
 		String prefix1 = "pre1";
 		String prefix2 = "pre2";
@@ -812,7 +909,7 @@ public class FormalizeUnformalizeWithPrefixTestGenerics extends CanvasTest {
 		validatePrefix(rel, "FAL Tests", prefix1, prefix2);
 		validateOrGenerateResults(ce, generateResults);
 	}
-	public void testFormalizeASSROBJ_IOBJOBJ_OnePrefix() {
+	public void doTestFormalizeASSROBJ_IOBJOBJ_OnePrefix() {
 		test_id = "test_8_OnePrefix";
 		String prefix1 = "pre1";
 		String prefix2 = "";
@@ -875,7 +972,7 @@ public class FormalizeUnformalizeWithPrefixTestGenerics extends CanvasTest {
 		validatePrefix(rel, "FAL Tests", prefix1, prefix2);
 		validateOrGenerateResults(ce, generateResults);
 	}
-	public void testFormalizeASSROBJ_IOBJIOBJ() {
+	public void doTestFormalizeASSROBJ_IOBJIOBJ() {
 		test_id = "test_9";
 		String prefix1 = "pre1";
 		String prefix2 = "pre2";
@@ -938,7 +1035,7 @@ public class FormalizeUnformalizeWithPrefixTestGenerics extends CanvasTest {
 		validatePrefix(rel, "FAL Tests", prefix1, prefix2);
 		validateOrGenerateResults(ce, generateResults);
 	}
-	public void testFormalizeASSROBJ_IOBJIOBJ_OnePrefix() {
+	public void doTestFormalizeASSROBJ_IOBJIOBJ_OnePrefix() {
 		test_id = "test_9_OnePrefix";
 		String prefix1 = "";
 		String prefix2 = "pre2";
@@ -1001,7 +1098,7 @@ public class FormalizeUnformalizeWithPrefixTestGenerics extends CanvasTest {
 		validatePrefix(rel, "FAL Tests", prefix1, prefix2);
 		validateOrGenerateResults(ce, generateResults);
 	}
-	public void testFormalizeASSRReflexiveOBJ_OBJ() {
+	public void doTestFormalizeASSRReflexiveOBJ_OBJ() {
 		test_id = "test_10";
 		String prefix1 = "pre1";
 		String prefix2 = "pre2";
@@ -1062,7 +1159,7 @@ public class FormalizeUnformalizeWithPrefixTestGenerics extends CanvasTest {
 		validatePrefix(rel, "FAL Tests", prefix1, prefix2);
 		validateOrGenerateResults(ce, generateResults);
 	}
-	public void testFormalizeASSRReflexiveOBJ_OBJ_OnePrefix() {
+	public void doTestFormalizeASSRReflexiveOBJ_OBJ_OnePrefix() {
 		test_id = "test_10_OnePrefix";
 		String prefix1 = "pre1";
 		String prefix2 = "";
@@ -1123,7 +1220,7 @@ public class FormalizeUnformalizeWithPrefixTestGenerics extends CanvasTest {
 		validatePrefix(rel, "FAL Tests", prefix1, prefix2);
 		validateOrGenerateResults(ce, generateResults);
 	}
-	public void testFormalizeASSRReflexiveOBJ_IOBJ() {
+	public void doTestFormalizeASSRReflexiveOBJ_IOBJ() {
 		test_id = "test_11";
 		String prefix1 = "pre1";
 		String prefix2 = "pre2";
@@ -1184,7 +1281,7 @@ public class FormalizeUnformalizeWithPrefixTestGenerics extends CanvasTest {
 		validatePrefix(rel, "FAL Tests", prefix1, prefix2);
 		validateOrGenerateResults(ce, generateResults);
 	}
-	public void testFormalizeASSRReflexiveOBJ_IOBJ_OnePrefix() {
+	public void doTestFormalizeASSRReflexiveOBJ_IOBJ_OnePrefix() {
 		test_id = "test_11_OnePrefix";
 		String prefix1 = "";
 		String prefix2 = "pre2";
@@ -1245,7 +1342,7 @@ public class FormalizeUnformalizeWithPrefixTestGenerics extends CanvasTest {
 		validatePrefix(rel, "FAL Tests", prefix1, prefix2);
 		validateOrGenerateResults(ce, generateResults);
 	}
-	public void testFormalizeASSRIOBJ_OBJOBJ() {
+	public void doTestFormalizeASSRIOBJ_OBJOBJ() {
 		test_id = "test_12";
 		String prefix1 = "pre1";
 		String prefix2 = "pre2";
@@ -1307,7 +1404,7 @@ public class FormalizeUnformalizeWithPrefixTestGenerics extends CanvasTest {
 		validatePrefix(rel, "FAL Tests", prefix1, prefix2);
 		validateOrGenerateResults(ce, generateResults);
 	}
-	public void testFormalizeASSRIOBJ_OBJOBJ_OnePrefix() {
+	public void doTestFormalizeASSRIOBJ_OBJOBJ_OnePrefix() {
 		test_id = "test_12_OnePrefix";
 		String prefix1 = "pre1";
 		String prefix2 = "";
@@ -1369,7 +1466,7 @@ public class FormalizeUnformalizeWithPrefixTestGenerics extends CanvasTest {
 		validatePrefix(rel, "FAL Tests", prefix1, prefix2);
 		validateOrGenerateResults(ce, generateResults);
 	}
-	public void testFormalizeASSRIOBJ_OBJIOBJ() {
+	public void doTestFormalizeASSRIOBJ_OBJIOBJ() {
 		test_id = "test_13";
 		String prefix1 = "pre1";
 		String prefix2 = "pre2";
@@ -1431,7 +1528,7 @@ public class FormalizeUnformalizeWithPrefixTestGenerics extends CanvasTest {
 		validatePrefix(rel, "FAL Tests", prefix1, prefix2);
 		validateOrGenerateResults(ce, generateResults);
 	}
-	public void testFormalizeASSRIOBJ_OBJIOBJ_OnePrefix() {
+	public void doTestFormalizeASSRIOBJ_OBJIOBJ_OnePrefix() {
 		test_id = "test_13_OnePrefix";
 		String prefix1 = "";
 		String prefix2 = "pre2";
@@ -1493,7 +1590,7 @@ public class FormalizeUnformalizeWithPrefixTestGenerics extends CanvasTest {
 		validatePrefix(rel, "FAL Tests", prefix1, prefix2);
 		validateOrGenerateResults(ce, generateResults);
 	}
-	public void testFormalizeASSRIOBJ_IOBJIOBJ() {
+	public void doTestFormalizeASSRIOBJ_IOBJIOBJ() {
 		test_id = "test_14";
 		String prefix1 = "pre1";
 		String prefix2 = "pre2";
@@ -1555,7 +1652,7 @@ public class FormalizeUnformalizeWithPrefixTestGenerics extends CanvasTest {
 		validatePrefix(rel, "FAL Tests", prefix1, prefix2);
 		validateOrGenerateResults(ce, generateResults);
 	}
-	public void testFormalizeASSRIOBJ_IOBJIOBJ_OnePrefix() {
+	public void doTestFormalizeASSRIOBJ_IOBJIOBJ_OnePrefix() {
 		test_id = "test_14_OnePrefix";
 		String prefix1 = "pre1";
 		String prefix2 = "";
@@ -1617,7 +1714,7 @@ public class FormalizeUnformalizeWithPrefixTestGenerics extends CanvasTest {
 		validatePrefix(rel, "FAL Tests", prefix1, prefix2);
 		validateOrGenerateResults(ce, generateResults);
 	}
-	public void testFormalizeASSRReflexiveIOBJ_OBJ() {
+	public void doTestFormalizeASSRReflexiveIOBJ_OBJ() {
 		test_id = "test_15";
 		String prefix1 = "pre1";
 		String prefix2 = "pre2";
@@ -1677,7 +1774,7 @@ public class FormalizeUnformalizeWithPrefixTestGenerics extends CanvasTest {
 		validatePrefix(rel, "FAL Tests", prefix1, prefix2);
 		validateOrGenerateResults(ce, generateResults);
 	}
-	public void testFormalizeASSRReflexiveIOBJ_OBJ_OnePrefix() {
+	public void doTestFormalizeASSRReflexiveIOBJ_OBJ_OnePrefix() {
 		test_id = "test_15_OnePrefix";
 		String prefix1 = "";
 		String prefix2 = "pre2";
@@ -1737,7 +1834,7 @@ public class FormalizeUnformalizeWithPrefixTestGenerics extends CanvasTest {
 		validatePrefix(rel, "FAL Tests", prefix1, prefix2);
 		validateOrGenerateResults(ce, generateResults);
 	}
-	public void testFormalizeASSRReflexiveIOBJ_IOBJ() {
+	public void doTestFormalizeASSRReflexiveIOBJ_IOBJ() {
 		test_id = "test_16";
 		String prefix1 = "pre1";
 		String prefix2 = "pre2";
@@ -1797,7 +1894,7 @@ public class FormalizeUnformalizeWithPrefixTestGenerics extends CanvasTest {
 		validatePrefix(rel, "FAL Tests", prefix1, prefix2);
 		validateOrGenerateResults(ce, generateResults);
 	}
-	public void testFormalizeASSRReflexiveIOBJ_IOBJ_OnePrefix() {
+	public void doTestFormalizeASSRReflexiveIOBJ_IOBJ_OnePrefix() {
 		test_id = "test_16_OnePrefix";
 		String prefix1 = "";
 		String prefix2 = "pre2";
@@ -1857,7 +1954,7 @@ public class FormalizeUnformalizeWithPrefixTestGenerics extends CanvasTest {
 		validatePrefix(rel, "FAL Tests", prefix1, prefix2);
 		validateOrGenerateResults(ce, generateResults);
 	}
-	public void testUnFormalizeSimpleAssocOBJ_OBJ() {
+	public void doTestUnFormalizeSimpleAssocOBJ_OBJ() {
 		test_id = "test_23";
 		openTestPKGDiagram("FSA Tests");
 		ModelClass_c mc = getModelClass("FormalizeSimpleAssoc OBJ_OBJ");
@@ -1876,7 +1973,7 @@ public class FormalizeUnformalizeWithPrefixTestGenerics extends CanvasTest {
 		ufa.run(a);
 		validateOrGenerateResults(ce, generateResults);
 	}
-	public void testUnFormalizeSimpleAssocOBJ_IOBJ() {
+	public void doTestUnFormalizeSimpleAssocOBJ_IOBJ() {
 		test_id = "test_24";
 		openTestPKGDiagram("FSA Tests");
 		ModelClass_c mc = getModelClass("FormalizeSimpleAssoc OBJ_IOBJ");
@@ -1895,7 +1992,7 @@ public class FormalizeUnformalizeWithPrefixTestGenerics extends CanvasTest {
 		ufa.run(a);
 		validateOrGenerateResults(ce, generateResults);
 	}
-	public void testUnFormalizeSimpleAssocReflexiveOBJ() {
+	public void doTestUnFormalizeSimpleAssocReflexiveOBJ() {
 		test_id = "test_25";
 		openTestPKGDiagram("FSA Tests");
 		ModelClass_c mc = getModelClass("FormalizeSimpleAssocReflexive OBJ");
@@ -1914,7 +2011,7 @@ public class FormalizeUnformalizeWithPrefixTestGenerics extends CanvasTest {
 		ufa.run(a);
 		validateOrGenerateResults(ce, generateResults);
 	}
-	public void testUnFormalizeSimpleAssocIOBJ_OBJ() {
+	public void doTestUnFormalizeSimpleAssocIOBJ_OBJ() {
 		test_id = "test_26";
 		openTestPKGDiagram("FSA Tests");
 		ModelClass_c mc = getModelClass("FormalizeSimpleAssoc IOBJ_OBJ");
@@ -1933,7 +2030,7 @@ public class FormalizeUnformalizeWithPrefixTestGenerics extends CanvasTest {
 		ufa.run(a);
 		validateOrGenerateResults(ce, generateResults);
 	}
-	public void testUnFormalizeSimpleAssocIOBJ_IOBJ() {
+	public void doTestUnFormalizeSimpleAssocIOBJ_IOBJ() {
 		test_id = "test_27";
 		openTestPKGDiagram("FSA Tests");
 		ModelClass_c mc = getModelClass("FormalizeSimpleAssoc IOBJ_IOBJ");
@@ -1952,7 +2049,7 @@ public class FormalizeUnformalizeWithPrefixTestGenerics extends CanvasTest {
 		ufa.run(a);
 		validateOrGenerateResults(ce, generateResults);
 	}
-	public void testUnFormalizeSimpleAssocReflexiveIOBJ() {
+	public void doTestUnFormalizeSimpleAssocReflexiveIOBJ() {
 		test_id = "test_28";
 		openTestPKGDiagram("FSA Tests");
 		ModelClass_c mc = getModelClass("FormalizeSimpleAssocReflexive IOBJ");
@@ -1971,7 +2068,7 @@ public class FormalizeUnformalizeWithPrefixTestGenerics extends CanvasTest {
 		ufa.run(a);
 		validateOrGenerateResults(ce, generateResults);
 	}
-	public void testUnFormalizeASSROBJ_OBJOBJ() {
+	public void doTestUnFormalizeASSROBJ_OBJOBJ() {
 		test_id = "test_29";
 		openTestPKGDiagram("FAL Tests");
 		ModelClass_c mc = getModelClass("FormalizeASSR OBJ_OBJ OBJ");
@@ -1990,7 +2087,7 @@ public class FormalizeUnformalizeWithPrefixTestGenerics extends CanvasTest {
 		ufa.run(a);
 		validateOrGenerateResults(ce, generateResults);
 	}
-	public void testUnFormalizeASSROBJ_IOBJOBJ() {
+	public void doTestUnFormalizeASSROBJ_IOBJOBJ() {
 		test_id = "test_30";
 		openTestPKGDiagram("FAL Tests");
 		ModelClass_c mc = getModelClass("FormalizeASSR OBJ_IOBJ OBJ");
@@ -2009,7 +2106,7 @@ public class FormalizeUnformalizeWithPrefixTestGenerics extends CanvasTest {
 		ufa.run(a);
 		validateOrGenerateResults(ce, generateResults);
 	}
-	public void testUnFormalizeASSROBJ_IOBJIOBJ() {
+	public void doTestUnFormalizeASSROBJ_IOBJIOBJ() {
 		test_id = "test_31";
 		openTestPKGDiagram("FAL Tests");
 		ModelClass_c mc = getModelClass("FormalizeASSR OBJ_IOBJ IOBJ");
@@ -2028,7 +2125,7 @@ public class FormalizeUnformalizeWithPrefixTestGenerics extends CanvasTest {
 		ufa.run(a);
 		validateOrGenerateResults(ce, generateResults);
 	}
-	public void testUnFormalizeASSRReflexiveOBJ_OBJ() {
+	public void doTestUnFormalizeASSRReflexiveOBJ_OBJ() {
 		test_id = "test_32";
 		openTestPKGDiagram("FAL Tests");
 		ModelClass_c mc = getModelClass("FormalizeASSRReflexive OBJ_OBJ");
@@ -2047,7 +2144,7 @@ public class FormalizeUnformalizeWithPrefixTestGenerics extends CanvasTest {
 		ufa.run(a);
 		validateOrGenerateResults(ce, generateResults);
 	}
-	public void testUnFormalizeASSRReflexiveOBJ_IOBJ() {
+	public void doTestUnFormalizeASSRReflexiveOBJ_IOBJ() {
 		test_id = "test_33";
 		openTestPKGDiagram("FAL Tests");
 		ModelClass_c mc = getModelClass("FormalizeASSRReflexive OBJ_IOBJ");
@@ -2066,7 +2163,7 @@ public class FormalizeUnformalizeWithPrefixTestGenerics extends CanvasTest {
 		ufa.run(a);
 		validateOrGenerateResults(ce, generateResults);
 	}
-	public void testUnFormalizeASSRIOBJ_OBJOBJ() {
+	public void doTestUnFormalizeASSRIOBJ_OBJOBJ() {
 		test_id = "test_34";
 		openTestPKGDiagram("FAL Tests");
 		ModelClass_c mc = getModelClass("FormalizeASSR IOBJ_OBJ OBJ");
@@ -2085,7 +2182,7 @@ public class FormalizeUnformalizeWithPrefixTestGenerics extends CanvasTest {
 		ufa.run(a);
 		validateOrGenerateResults(ce, generateResults);
 	}
-	public void testUnFormalizeASSRIOBJ_OBJIOBJ() {
+	public void doTestUnFormalizeASSRIOBJ_OBJIOBJ() {
 		test_id = "test_35";
 		openTestPKGDiagram("FAL Tests");
 		ModelClass_c mc = getModelClass("FormalizeASSR IOBJ_OBJ IOBJ");
@@ -2104,7 +2201,7 @@ public class FormalizeUnformalizeWithPrefixTestGenerics extends CanvasTest {
 		ufa.run(a);
 		validateOrGenerateResults(ce, generateResults);
 	}
-	public void testUnFormalizeASSRIOBJ_IOBJIOBJ() {
+	public void doTestUnFormalizeASSRIOBJ_IOBJIOBJ() {
 		test_id = "test_36";
 		openTestPKGDiagram("FAL Tests");
 		ModelClass_c mc = getModelClass("FormalizeASSR IOBJ_IOBJ IOBJ");
@@ -2123,7 +2220,7 @@ public class FormalizeUnformalizeWithPrefixTestGenerics extends CanvasTest {
 		ufa.run(a);
 		validateOrGenerateResults(ce, generateResults);
 	}
-	public void testUnFormalizeASSRReflexiveIOBJ_OBJ() {
+	public void doTestUnFormalizeASSRReflexiveIOBJ_OBJ() {
 		test_id = "test_37";
 		openTestPKGDiagram("FAL Tests");
 		ModelClass_c mc = getModelClass("FormalizeASSRReflexive IOBJ_OBJ");
@@ -2142,7 +2239,7 @@ public class FormalizeUnformalizeWithPrefixTestGenerics extends CanvasTest {
 		ufa.run(a);
 		validateOrGenerateResults(ce, generateResults);
 	}
-	public void testUnFormalizeASSRReflexiveIOBJ_IOBJ() {
+	public void doTestUnFormalizeASSRReflexiveIOBJ_IOBJ() {
 		test_id = "test_38";
 		openTestPKGDiagram("FAL Tests");
 		ModelClass_c mc = getModelClass("FormalizeASSRReflexive IOBJ_IOBJ");
@@ -2161,7 +2258,7 @@ public class FormalizeUnformalizeWithPrefixTestGenerics extends CanvasTest {
 		ufa.run(a);
 		validateOrGenerateResults(ce, generateResults);
 	}
-	public void testFormalizeASSROBJ_OBJOBJSpecial() {
+	public void doTestFormalizeASSROBJ_OBJOBJSpecial() {
 		test_id = "test_Special_7";
 		String prefix1 = "pre1";
 		String prefix2 = "pre2";
@@ -2223,7 +2320,7 @@ public class FormalizeUnformalizeWithPrefixTestGenerics extends CanvasTest {
 		validatePrefix(rel, "FAL Tests", prefix1, prefix2);
 		validateOrGenerateResults(ce, generateResults);
 	}
-	public void testFormalizeASSROBJ_OBJOBJSpecial_OnePrefix() {
+	public void doTestFormalizeASSROBJ_OBJOBJSpecial_OnePrefix() {
 		test_id = "test_Special_7_OnePrefix";
 		String prefix1 = "pre1";
 		String prefix2 = "";
@@ -2285,7 +2382,7 @@ public class FormalizeUnformalizeWithPrefixTestGenerics extends CanvasTest {
 		validatePrefix(rel, "FAL Tests", prefix1, prefix2);
 		validateOrGenerateResults(ce, generateResults);
 	}
-	public void testFormalizeASSROBJ_IOBJOBJSpecial() {
+	public void doTestFormalizeASSROBJ_IOBJOBJSpecial() {
 		test_id = "test_Special_8";
 		String prefix1 = "pre1";
 		String prefix2 = "pre2";
@@ -2347,7 +2444,7 @@ public class FormalizeUnformalizeWithPrefixTestGenerics extends CanvasTest {
 		validatePrefix(rel, "FAL Tests", prefix1, prefix2);
 		validateOrGenerateResults(ce, generateResults);
 	}
-	public void testFormalizeASSROBJ_IOBJOBJSpecial_OnePrefix() {
+	public void doTestFormalizeASSROBJ_IOBJOBJSpecial_OnePrefix() {
 		test_id = "test_Special_8_OnePrefix";
 		String prefix1 = "";
 		String prefix2 = "pre2";
@@ -2409,7 +2506,7 @@ public class FormalizeUnformalizeWithPrefixTestGenerics extends CanvasTest {
 		validatePrefix(rel, "FAL Tests", prefix1, prefix2);
 		validateOrGenerateResults(ce, generateResults);
 	}
-	public void testFormalizeASSROBJ_IOBJIOBJSpecial() {
+	public void doTestFormalizeASSROBJ_IOBJIOBJSpecial() {
 		test_id = "test_Special_9";
 		String prefix1 = "pre1";
 		String prefix2 = "pre2";
@@ -2471,7 +2568,7 @@ public class FormalizeUnformalizeWithPrefixTestGenerics extends CanvasTest {
 		validatePrefix(rel, "FAL Tests", prefix1, prefix2);
 		validateOrGenerateResults(ce, generateResults);
 	}
-	public void testFormalizeASSROBJ_IOBJIOBJSpecial_OnePrefix() {
+	public void doTestFormalizeASSROBJ_IOBJIOBJSpecial_OnePrefix() {
 		test_id = "test_Special_9_OnePrefix";
 		String prefix1 = "pre1";
 		String prefix2 = "";
@@ -2533,7 +2630,7 @@ public class FormalizeUnformalizeWithPrefixTestGenerics extends CanvasTest {
 		validatePrefix(rel, "FAL Tests", prefix1, prefix2);
 		validateOrGenerateResults(ce, generateResults);
 	}
-	public void testFormalizeASSRReflexiveOBJ_OBJSpecial() {
+	public void doTestFormalizeASSRReflexiveOBJ_OBJSpecial() {
 		test_id = "test_Special_10";
 		String prefix1 = "pre1";
 		String prefix2 = "pre2";
@@ -2593,7 +2690,7 @@ public class FormalizeUnformalizeWithPrefixTestGenerics extends CanvasTest {
 		validatePrefix(rel, "FAL Tests", prefix1, prefix2);
 		validateOrGenerateResults(ce, generateResults);
 	}
-	public void testFormalizeASSRReflexiveOBJ_OBJSpecial_OnePrefix() {
+	public void doTestFormalizeASSRReflexiveOBJ_OBJSpecial_OnePrefix() {
 		test_id = "test_Special_10_OnePrefix";
 		String prefix1 = "";
 		String prefix2 = "pre2";
@@ -2653,7 +2750,7 @@ public class FormalizeUnformalizeWithPrefixTestGenerics extends CanvasTest {
 		validatePrefix(rel, "FAL Tests", prefix1, prefix2);
 		validateOrGenerateResults(ce, generateResults);
 	}
-	public void testFormalizeASSRReflexiveOBJ_IOBJSpecial() {
+	public void doTestFormalizeASSRReflexiveOBJ_IOBJSpecial() {
 		test_id = "test_Special_11";
 		String prefix1 = "pre1";
 		String prefix2 = "pre2";
@@ -2713,7 +2810,7 @@ public class FormalizeUnformalizeWithPrefixTestGenerics extends CanvasTest {
 		validatePrefix(rel, "FAL Tests", prefix1, prefix2);
 		validateOrGenerateResults(ce, generateResults);
 	}
-	public void testFormalizeASSRReflexiveOBJ_IOBJSpecial_OnePrefix() {
+	public void doTestFormalizeASSRReflexiveOBJ_IOBJSpecial_OnePrefix() {
 		test_id = "test_Special_11_OnePrefix";
 		String prefix1 = "pre1";
 		String prefix2 = "";
@@ -2773,7 +2870,7 @@ public class FormalizeUnformalizeWithPrefixTestGenerics extends CanvasTest {
 		validatePrefix(rel, "FAL Tests", prefix1, prefix2);
 		validateOrGenerateResults(ce, generateResults);
 	}
-	public void testFormalizeASSRIOBJ_OBJOBJSpecial() {
+	public void doTestFormalizeASSRIOBJ_OBJOBJSpecial() {
 		test_id = "test_Special_12";
 		String prefix1 = "pre1";
 		String prefix2 = "pre2";
@@ -2834,7 +2931,7 @@ public class FormalizeUnformalizeWithPrefixTestGenerics extends CanvasTest {
 		validatePrefix(rel, "FAL Tests", prefix1, prefix2);
 		validateOrGenerateResults(ce, generateResults);
 	}
-	public void testFormalizeASSRIOBJ_OBJOBJSpecial_OnePrefix() {
+	public void doTestFormalizeASSRIOBJ_OBJOBJSpecial_OnePrefix() {
 		test_id = "test_Special_12_OnePrefix";
 		String prefix1 = "";
 		String prefix2 = "pre2";
@@ -2895,7 +2992,7 @@ public class FormalizeUnformalizeWithPrefixTestGenerics extends CanvasTest {
 		validatePrefix(rel, "FAL Tests", prefix1, prefix2);
 		validateOrGenerateResults(ce, generateResults);
 	}
-	public void testFormalizeASSRIOBJ_OBJIOBJSpecial() {
+	public void doTestFormalizeASSRIOBJ_OBJIOBJSpecial() {
 		test_id = "test_Special_13";
 		String prefix1 = "pre1";
 		String prefix2 = "pre2";
@@ -2956,7 +3053,7 @@ public class FormalizeUnformalizeWithPrefixTestGenerics extends CanvasTest {
 		validatePrefix(rel, "FAL Tests", prefix1, prefix2);
 		validateOrGenerateResults(ce, generateResults);
 	}
-	public void testFormalizeASSRIOBJ_OBJIOBJSpecial_OnePrefix() {
+	public void doTestFormalizeASSRIOBJ_OBJIOBJSpecial_OnePrefix() {
 		test_id = "test_Special_13_OnePrefix";
 		String prefix1 = "pre1";
 		String prefix2 = "";
@@ -3017,7 +3114,7 @@ public class FormalizeUnformalizeWithPrefixTestGenerics extends CanvasTest {
 		validatePrefix(rel, "FAL Tests", prefix1, prefix2);
 		validateOrGenerateResults(ce, generateResults);
 	}
-	public void testFormalizeASSRIOBJ_IOBJIOBJSpecial() {
+	public void doTestFormalizeASSRIOBJ_IOBJIOBJSpecial() {
 		test_id = "test_Special_14";
 		String prefix1 = "pre1";
 		String prefix2 = "pre2";
@@ -3078,7 +3175,7 @@ public class FormalizeUnformalizeWithPrefixTestGenerics extends CanvasTest {
 		validatePrefix(rel, "FAL Tests", prefix1, prefix2);
 		validateOrGenerateResults(ce, generateResults);
 	}
-	public void testFormalizeASSRIOBJ_IOBJIOBJSpecial_OnePrefix() {
+	public void doTestFormalizeASSRIOBJ_IOBJIOBJSpecial_OnePrefix() {
 		test_id = "test_Special_14_OnePrefix";
 		String prefix1 = "";
 		String prefix2 = "pre2";
@@ -3139,7 +3236,7 @@ public class FormalizeUnformalizeWithPrefixTestGenerics extends CanvasTest {
 		validatePrefix(rel, "FAL Tests", prefix1, prefix2);
 		validateOrGenerateResults(ce, generateResults);
 	}
-	public void testFormalizeASSRReflexiveIOBJ_OBJSpecial() {
+	public void doTestFormalizeASSRReflexiveIOBJ_OBJSpecial() {
 		test_id = "test_Special_15";
 		String prefix1 = "pre1";
 		String prefix2 = "pre2";
@@ -3198,7 +3295,7 @@ public class FormalizeUnformalizeWithPrefixTestGenerics extends CanvasTest {
 		validatePrefix(rel, "FAL Tests", prefix1, prefix2);
 		validateOrGenerateResults(ce, generateResults);
 	}
-	public void testFormalizeASSRReflexiveIOBJ_OBJSpecial_OnePrefix() {
+	public void doTestFormalizeASSRReflexiveIOBJ_OBJSpecial_OnePrefix() {
 		test_id = "test_Special_15_OnePrefix";
 		String prefix1 = "pre1";
 		String prefix2 = "";
@@ -3257,7 +3354,7 @@ public class FormalizeUnformalizeWithPrefixTestGenerics extends CanvasTest {
 		validatePrefix(rel, "FAL Tests", prefix1, prefix2);
 		validateOrGenerateResults(ce, generateResults);
 	}
-	public void testFormalizeASSRReflexiveIOBJ_IOBJSpecial() {
+	public void doTestFormalizeASSRReflexiveIOBJ_IOBJSpecial() {
 		test_id = "test_Special_16";
 		String prefix1 = "pre1";
 		String prefix2 = "pre2";
@@ -3316,7 +3413,7 @@ public class FormalizeUnformalizeWithPrefixTestGenerics extends CanvasTest {
 		validatePrefix(rel, "FAL Tests", prefix1, prefix2);
 		validateOrGenerateResults(ce, generateResults);
 	}
-	public void testFormalizeASSRReflexiveIOBJ_IOBJSpecial_OnePrefix() {
+	public void doTestFormalizeASSRReflexiveIOBJ_IOBJSpecial_OnePrefix() {
 		test_id = "test_Special_16_OnePrefix";
 		String prefix1 = "";
 		String prefix2 = "pre2";
@@ -3375,7 +3472,7 @@ public class FormalizeUnformalizeWithPrefixTestGenerics extends CanvasTest {
 		validatePrefix(rel, "FAL Tests", prefix1, prefix2);
 		validateOrGenerateResults(ce, generateResults);
 	}
-	public void testUnFormalizeASSROBJ_OBJOBJSpecial() {
+	public void doTestUnFormalizeASSROBJ_OBJOBJSpecial() {
 		// for special tests do not reuse the
 		// existing result
 		test_id = "test_Special_29";
@@ -3399,7 +3496,7 @@ public class FormalizeUnformalizeWithPrefixTestGenerics extends CanvasTest {
 		ufa.run(a);
 		validateOrGenerateResults(ce, generateResults);
 	}
-	public void testUnFormalizeASSROBJ_IOBJOBJSpecial() {
+	public void doTestUnFormalizeASSROBJ_IOBJOBJSpecial() {
 		// for special tests do not reuse the
 		// existing result
 		test_id = "test_Special_30";
@@ -3423,7 +3520,7 @@ public class FormalizeUnformalizeWithPrefixTestGenerics extends CanvasTest {
 		ufa.run(a);
 		validateOrGenerateResults(ce, generateResults);
 	}
-	public void testUnFormalizeASSROBJ_IOBJIOBJSpecial() {
+	public void doTestUnFormalizeASSROBJ_IOBJIOBJSpecial() {
 		// for special tests do not reuse the
 		// existing result
 		test_id = "test_Special_31";
@@ -3447,7 +3544,7 @@ public class FormalizeUnformalizeWithPrefixTestGenerics extends CanvasTest {
 		ufa.run(a);
 		validateOrGenerateResults(ce, generateResults);
 	}
-	public void testUnFormalizeASSRReflexiveOBJ_OBJSpecial() {
+	public void doTestUnFormalizeASSRReflexiveOBJ_OBJSpecial() {
 		// for special tests do not reuse the
 		// existing result
 		test_id = "test_Special_32";
@@ -3471,7 +3568,7 @@ public class FormalizeUnformalizeWithPrefixTestGenerics extends CanvasTest {
 		ufa.run(a);
 		validateOrGenerateResults(ce, generateResults);
 	}
-	public void testUnFormalizeASSRReflexiveOBJ_IOBJSpecial() {
+	public void doTestUnFormalizeASSRReflexiveOBJ_IOBJSpecial() {
 		// for special tests do not reuse the
 		// existing result
 		test_id = "test_Special_33";
@@ -3495,7 +3592,7 @@ public class FormalizeUnformalizeWithPrefixTestGenerics extends CanvasTest {
 		ufa.run(a);
 		validateOrGenerateResults(ce, generateResults);
 	}
-	public void testUnFormalizeASSRIOBJ_OBJOBJSpecial() {
+	public void doTestUnFormalizeASSRIOBJ_OBJOBJSpecial() {
 		// for special tests do not reuse the
 		// existing result
 		test_id = "test_Special_34";
@@ -3519,7 +3616,7 @@ public class FormalizeUnformalizeWithPrefixTestGenerics extends CanvasTest {
 		ufa.run(a);
 		validateOrGenerateResults(ce, generateResults);
 	}
-	public void testUnFormalizeASSRIOBJ_OBJIOBJSpecial() {
+	public void doTestUnFormalizeASSRIOBJ_OBJIOBJSpecial() {
 		// for special tests do not reuse the
 		// existing result
 		test_id = "test_Special_35";
@@ -3543,7 +3640,7 @@ public class FormalizeUnformalizeWithPrefixTestGenerics extends CanvasTest {
 		ufa.run(a);
 		validateOrGenerateResults(ce, generateResults);
 	}
-	public void testUnFormalizeASSRIOBJ_IOBJIOBJSpecial() {
+	public void doTestUnFormalizeASSRIOBJ_IOBJIOBJSpecial() {
 		// for special tests do not reuse the
 		// existing result
 		test_id = "test_Special_36";
@@ -3567,7 +3664,7 @@ public class FormalizeUnformalizeWithPrefixTestGenerics extends CanvasTest {
 		ufa.run(a);
 		validateOrGenerateResults(ce, generateResults);
 	}
-	public void testUnFormalizeASSRReflexiveIOBJ_OBJSpecial() {
+	public void doTestUnFormalizeASSRReflexiveIOBJ_OBJSpecial() {
 		// for special tests do not reuse the
 		// existing result
 		test_id = "test_Special_37";
@@ -3591,7 +3688,7 @@ public class FormalizeUnformalizeWithPrefixTestGenerics extends CanvasTest {
 		ufa.run(a);
 		validateOrGenerateResults(ce, generateResults);
 	}
-	public void testUnFormalizeASSRReflexiveIOBJ_IOBJSpecial() {
+	public void doTestUnFormalizeASSRReflexiveIOBJ_IOBJSpecial() {
 		// for special tests do not reuse the
 		// existing result
 		test_id = "test_Special_38";
@@ -3615,7 +3712,7 @@ public class FormalizeUnformalizeWithPrefixTestGenerics extends CanvasTest {
 		ufa.run(a);
 		validateOrGenerateResults(ce, generateResults);
 	}
-	public void testUnformalizeSimpleAssocUsedRefOBJ_OBJ() {
+	public void doTestUnformalizeSimpleAssocUsedRefOBJ_OBJ() {
 		test_id = "test_45";
 		openTestPKGDiagram("USA Tests");
 		ModelClass_c mc = getModelClass("UnformalizeSimpleAssocUsedRef OBJ_OBJ");
@@ -3634,7 +3731,7 @@ public class FormalizeUnformalizeWithPrefixTestGenerics extends CanvasTest {
 		ufa.run(a);
 		validateOrGenerateResults(ce, generateResults);
 	}
-	public void testUnformalizeSimpleAssocUsedRefOBJ_IOBJ() {
+	public void doTestUnformalizeSimpleAssocUsedRefOBJ_IOBJ() {
 		test_id = "test_46";
 		openTestPKGDiagram("USA Tests");
 		ModelClass_c mc = getModelClass("UnformalizeSimpleAssocUsedRef OBJ_IOBJ");
@@ -3653,7 +3750,7 @@ public class FormalizeUnformalizeWithPrefixTestGenerics extends CanvasTest {
 		ufa.run(a);
 		validateOrGenerateResults(ce, generateResults);
 	}
-	public void testUnformalizeSimpleAssocReflexiveUsedRefOBJ_OBJ() {
+	public void doTestUnformalizeSimpleAssocReflexiveUsedRefOBJ_OBJ() {
 		test_id = "test_47";
 		openTestPKGDiagram("USA Tests");
 		ModelClass_c mc = getModelClass("UnformalizeSimpleAssocReflexiveUsedRef OBJ_OBJ");
@@ -3672,7 +3769,7 @@ public class FormalizeUnformalizeWithPrefixTestGenerics extends CanvasTest {
 		ufa.run(a);
 		validateOrGenerateResults(ce, generateResults);
 	}
-	public void testUnformalizeSimpleAssocUsedRefIOBJ_OBJ() {
+	public void doTestUnformalizeSimpleAssocUsedRefIOBJ_OBJ() {
 		test_id = "test_48";
 		openTestPKGDiagram("USA Tests");
 		//		Shape_c shp = getModelIClassShape("UnformalizeSimpleAssocUsedRef IOBJ_OBJ");
@@ -3692,7 +3789,7 @@ public class FormalizeUnformalizeWithPrefixTestGenerics extends CanvasTest {
 		ufa.run(a);
 		validateOrGenerateResults(ce, generateResults);
 	}
-	public void testUnformalizeSimpleAssocUsedRefIOBJ_IOBJ() {
+	public void doTestUnformalizeSimpleAssocUsedRefIOBJ_IOBJ() {
 		test_id = "test_49";
 		openTestPKGDiagram("USA Tests");
 		//		Shape_c shp = getModelIClassShape("UnformalizeSimpleAssocUsedRef IOBJ_IOBJ");
@@ -3712,7 +3809,7 @@ public class FormalizeUnformalizeWithPrefixTestGenerics extends CanvasTest {
 		ufa.run(a);
 		validateOrGenerateResults(ce, generateResults);
 	}
-	public void testUnformalizeSimpleAssocReflexiveUsedRefIOBJ() {
+	public void doTestUnformalizeSimpleAssocReflexiveUsedRefIOBJ() {
 		test_id = "test_50";
 		openTestPKGDiagram("USA Tests");
 		//		Shape_c shp = getModelIClassShape("UnformalizeSimpleAssocReflexiveUsedRef IOBJ");
@@ -3732,7 +3829,7 @@ public class FormalizeUnformalizeWithPrefixTestGenerics extends CanvasTest {
 		ufa.run(a);
 		validateOrGenerateResults(ce, generateResults);
 	}
-	public void testUnformalizeASSROBJ_OBJOBJUsedRef() {
+	public void doTestUnformalizeASSROBJ_OBJOBJUsedRef() {
 		test_id = "test_51";
 		openTestPKGDiagram("UAL Tests");
 		ModelClass_c mc = getModelClass("UnformalizeASSR OBJ_OBJ OBJ UsedRef");
@@ -3751,7 +3848,7 @@ public class FormalizeUnformalizeWithPrefixTestGenerics extends CanvasTest {
 		ufa.run(a);
 		validateOrGenerateResults(ce, generateResults);
 	}
-	public void testUnformalizeASSROBJ_OBJIOBJUsedRef() {
+	public void doTestUnformalizeASSROBJ_OBJIOBJUsedRef() {
 		test_id = "test_52";
 		openTestPKGDiagram("UAL Tests");
 		ModelClass_c mc = getModelClass("UnformalizeASSR OBJ_OBJ IOBJ UsedRef");
@@ -3770,7 +3867,7 @@ public class FormalizeUnformalizeWithPrefixTestGenerics extends CanvasTest {
 		ufa.run(a);
 		validateOrGenerateResults(ce, generateResults);
 	}
-	public void testUnformalizeASSROBJ_IOBJIOBJUsedRef() {
+	public void doTestUnformalizeASSROBJ_IOBJIOBJUsedRef() {
 		test_id = "test_53";
 		openTestPKGDiagram("UAL Tests");
 		ModelClass_c mc = getModelClass("UnformalizeASSR OBJ_IOBJ IOBJ UsedRef");
@@ -3789,7 +3886,7 @@ public class FormalizeUnformalizeWithPrefixTestGenerics extends CanvasTest {
 		ufa.run(a);
 		validateOrGenerateResults(ce, generateResults);
 	}
-	public void testUnformalizeASSRReflexiveOBJ_OBJUsedRef() {
+	public void doTestUnformalizeASSRReflexiveOBJ_OBJUsedRef() {
 		test_id = "test_54";
 		openTestPKGDiagram("UAL Tests");
 		ModelClass_c mc = getModelClass("UnformalizeASSRReflexive OBJ_OBJ UsedRef");
@@ -3808,7 +3905,7 @@ public class FormalizeUnformalizeWithPrefixTestGenerics extends CanvasTest {
 		ufa.run(a);
 		validateOrGenerateResults(ce, generateResults);
 	}
-	public void testUnformalizeASSRReflexiveOBJ_IOBJUsedRef() {
+	public void doTestUnformalizeASSRReflexiveOBJ_IOBJUsedRef() {
 		test_id = "test_55";
 		openTestPKGDiagram("UAL Tests");
 		ModelClass_c mc = getModelClass("UnformalizeASSRReflexive OBJ_IOBJ UsedRef");
@@ -3827,7 +3924,7 @@ public class FormalizeUnformalizeWithPrefixTestGenerics extends CanvasTest {
 		ufa.run(a);
 		validateOrGenerateResults(ce, generateResults);
 	}
-	public void testUnformalizeASSRIOBJ_OBJOBJUsedRef() {
+	public void doTestUnformalizeASSRIOBJ_OBJOBJUsedRef() {
 		test_id = "test_56";
 		openTestPKGDiagram("UAL Tests");
 		//		Shape_c shp = getModelIClassShape("UnformalizeASSR IOBJ_OBJ OBJ UsedRef");
@@ -3847,7 +3944,7 @@ public class FormalizeUnformalizeWithPrefixTestGenerics extends CanvasTest {
 		ufa.run(a);
 		validateOrGenerateResults(ce, generateResults);
 	}
-	public void testUnformalizeASSRIOBJ_IOBJOBJUsedRef() {
+	public void doTestUnformalizeASSRIOBJ_IOBJOBJUsedRef() {
 		test_id = "test_57";
 		openTestPKGDiagram("UAL Tests");
 		//		Shape_c shp = getModelIClassShape("UnformalizeASSR IOBJ_IOBJ OBJ UsedRef");
@@ -3867,7 +3964,7 @@ public class FormalizeUnformalizeWithPrefixTestGenerics extends CanvasTest {
 		ufa.run(a);
 		validateOrGenerateResults(ce, generateResults);
 	}
-	public void testUnformalizeASSRIOBJ_IOBJIOBJUsedRef() {
+	public void doTestUnformalizeASSRIOBJ_IOBJIOBJUsedRef() {
 		test_id = "test_58";
 		openTestPKGDiagram("UAL Tests");
 		//		Shape_c shp = getModelIClassShape("UnformalizeASSR IOBJ_IOBJ IOBJ UsedRef");
@@ -3887,7 +3984,7 @@ public class FormalizeUnformalizeWithPrefixTestGenerics extends CanvasTest {
 		ufa.run(a);
 		validateOrGenerateResults(ce, generateResults);
 	}
-	public void testUnformalizeASSRReflexiveIOBJ_OBJUsedRef() {
+	public void doTestUnformalizeASSRReflexiveIOBJ_OBJUsedRef() {
 		test_id = "test_59";
 		openTestPKGDiagram("UAL Tests");
 		//		Shape_c shp = getModelIClassShape("UnformalizeASSRReflexive IOBJ_OBJ UsedRef");
@@ -3907,7 +4004,7 @@ public class FormalizeUnformalizeWithPrefixTestGenerics extends CanvasTest {
 		ufa.run(a);
 		validateOrGenerateResults(ce, generateResults);
 	}
-	public void testUnformalizeASSRReflexiveIOBJ_IOBJUsedRef() {
+	public void doTestUnformalizeASSRReflexiveIOBJ_IOBJUsedRef() {
 		test_id = "test_60";
 		openTestPKGDiagram("UAL Tests");
 		//		Shape_c shp = getModelIClassShape("UnformalizeASSRReflexive IOBJ_IOBJ UsedRef");
@@ -3927,7 +4024,7 @@ public class FormalizeUnformalizeWithPrefixTestGenerics extends CanvasTest {
 		ufa.run(a);
 		validateOrGenerateResults(ce, generateResults);
 	}
-	public void testUnformalizeSUBSUPUsedRefOBJ_OBJOBJ() {
+	public void doTestUnformalizeSUBSUPUsedRefOBJ_OBJOBJ() {
 		test_id = "test_61";
 		openTestPKGDiagram("USS Tests");
 		ModelClass_c mc = getModelClass("UnformalizeSUBSUPUsedRef OBJ_OBJ OBJ");
@@ -3946,7 +4043,7 @@ public class FormalizeUnformalizeWithPrefixTestGenerics extends CanvasTest {
 		ufa.run(a);
 		validateOrGenerateResults(ce, generateResults);
 	}
-	public void testUnformalizeSUBSUPUsedRefOBJ_IOBJOBJ() {
+	public void doTestUnformalizeSUBSUPUsedRefOBJ_IOBJOBJ() {
 		test_id = "test_62";
 		openTestPKGDiagram("USS Tests");
 		ModelClass_c mc = getModelClass("UnformalizeSUBSUPUsedRef OBJ_IOBJ OBJ");
@@ -3965,7 +4062,7 @@ public class FormalizeUnformalizeWithPrefixTestGenerics extends CanvasTest {
 		ufa.run(a);
 		validateOrGenerateResults(ce, generateResults);
 	}
-	public void testUnformalizeSUBSUPUsedRefOBJ_IOBJIOBJ() {
+	public void doTestUnformalizeSUBSUPUsedRefOBJ_IOBJIOBJ() {
 		test_id = "test_63";
 		openTestPKGDiagram("USS Tests");
 		ModelClass_c mc = getModelClass("UnformalizeSUBSUPUsedRef OBJ_IOBJ IOBJ");
@@ -3984,7 +4081,7 @@ public class FormalizeUnformalizeWithPrefixTestGenerics extends CanvasTest {
 		ufa.run(a);
 		validateOrGenerateResults(ce, generateResults);
 	}
-	public void testUnformalizeSUBSUPUsedRefIOBJ_OBJOBJ() {
+	public void doTestUnformalizeSUBSUPUsedRefIOBJ_OBJOBJ() {
 		test_id = "test_64";
 		openTestPKGDiagram("USS Tests");
 		//		Shape_c shp = getModelIClassShape("UnformalizeSUBSUPUsedRef IOBJ_OBJ OBJ");
@@ -4004,7 +4101,7 @@ public class FormalizeUnformalizeWithPrefixTestGenerics extends CanvasTest {
 		ufa.run(a);
 		validateOrGenerateResults(ce, generateResults);
 	}
-	public void testUnformalizeSUBSUPUsedRefIOBJ_OBJIOBJ() {
+	public void doTestUnformalizeSUBSUPUsedRefIOBJ_OBJIOBJ() {
 		test_id = "test_65";
 		openTestPKGDiagram("USS Tests");
 		//		Shape_c shp = getModelIClassShape("UnformalizeSUBSUPUsedRef IOBJ_OBJ IOBJ");
@@ -4024,7 +4121,7 @@ public class FormalizeUnformalizeWithPrefixTestGenerics extends CanvasTest {
 		ufa.run(a);
 		validateOrGenerateResults(ce, generateResults);
 	}
-	public void testUnformalizeSUBSUPUsedRefIOBJ_IOBJIOBJ() {
+	public void doTestUnformalizeSUBSUPUsedRefIOBJ_IOBJIOBJ() {
 		test_id = "test_66";
 		openTestPKGDiagram("USS Tests");
 		//		Shape_c shp = getModelIClassShape("UnformalizeSUBSUPUsedRef IOBJ_IOBJ IOBJ");
@@ -4054,7 +4151,7 @@ public class FormalizeUnformalizeWithPrefixTestGenerics extends CanvasTest {
 	boolean subsup_results[] = {false, false, false, false, false, false,
 			false, false, false, false, false, false, false, false, true};
 
-	public void testFormalizeActionFilter() {
+	public void doTestFormalizeActionFilter() {
 		Package_c uut = Package_c.PackageInstance(modelRoot,
 				new Package_by_name_c("actionFilter Tests"));
 		Association_c[] assoc_set = Association_c
