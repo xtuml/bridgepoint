@@ -29,8 +29,6 @@ package org.xtuml.bp.ui.canvas.test.anchors;
 
 import java.util.List;
 
-import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.draw2d.Connection;
 import org.eclipse.draw2d.IFigure;
@@ -49,18 +47,15 @@ import org.eclipse.gmf.runtime.draw2d.ui.geometry.PointListUtilities;
 import org.eclipse.gmf.runtime.draw2d.ui.geometry.PrecisionPointList;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.PlatformUI;
-
 import org.xtuml.bp.core.CorePlugin;
-import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Package_c;
-import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.common.PersistableModelComponent;
 import org.xtuml.bp.core.util.WorkspaceUtil;
+import org.xtuml.bp.test.common.BaseTest;
 import org.xtuml.bp.test.common.CanvasTestUtils;
-import org.xtuml.bp.test.common.TestingUtilities;
 import org.xtuml.bp.test.common.UITestingUtilities;
 import org.xtuml.bp.ui.canvas.Connector_c;
 import org.xtuml.bp.ui.canvas.GraphicalElement_c;
@@ -144,6 +139,7 @@ public class GraphicalAnchorTests extends CanvasTest {
 				m_sys.getTransactionManager().getUndoAction().run();
 			}
 		}
+		BaseTest.dispatchEvents(0);
 	}
 
 	protected void tearDown() throws Exception {
@@ -243,7 +239,7 @@ public class GraphicalAnchorTests extends CanvasTest {
 
 	/**
 	 * This routine performs the action associated with a matrix cell. The
-	 * parameters represent model instances aquired based on the specifed column
+	 * parameters represent model instances acquired based on the specified column
 	 * instance and row instance.
 	 * 
 	 * @param columnInstance
@@ -604,10 +600,10 @@ public class GraphicalAnchorTests extends CanvasTest {
 	 * This function verifies an expected result.
 	 * 
 	 * @param source
-	 *            A model element instance aquired through a action taken on a
+	 *            A model element instance acquired through a action taken on a
 	 *            column of the matrix.
 	 * @param destination
-	 *            A model element instance aquired through a action taken taken
+	 *            A model element instance acquired through a action taken taken
 	 *            on a row of the matrix.
 	 * @return true if the test succeeds, false if it fails
 	 */
@@ -636,10 +632,10 @@ public class GraphicalAnchorTests extends CanvasTest {
 	 * This function verifies an expected result.
 	 * 
 	 * @param source
-	 *            A model element instance aquired through a action taken on a
+	 *            A model element instance acquired through a action taken on a
 	 *            column of the matrix.
 	 * @param destination
-	 *            A model element instance aquired through a action taken taken
+	 *            A model element instance acquired through a action taken taken
 	 *            on a row of the matrix.
 	 * @return true if the test succeeds, false if it fails
 	 */
@@ -664,10 +660,10 @@ public class GraphicalAnchorTests extends CanvasTest {
 	 * This function verifies an expected result.
 	 * 
 	 * @param source
-	 *            A model element instance aquired through a action taken on a
+	 *            A model element instance acquired through a action taken on a
 	 *            column of the matrix.
 	 * @param destination
-	 *            A model element instance aquired through a action taken taken
+	 *            A model element instance acquired through a action taken taken
 	 *            on a row of the matrix.
 	 * @return true if the test succeeds, false if it fails
 	 */
@@ -701,10 +697,10 @@ public class GraphicalAnchorTests extends CanvasTest {
 	 * This function verifies an expected result.
 	 * 
 	 * @param source
-	 *            A model element instance aquired through a action taken on a
+	 *            A model element instance acquired through a action taken on a
 	 *            column of the matrix.
 	 * @param destination
-	 *            A model element instance aquired through a action taken taken
+	 *            A model element instance acquired through a action taken taken
 	 *            on a row of the matrix.
 	 * @return true if the test succeeds, false if it fails
 	 */
@@ -795,10 +791,10 @@ public class GraphicalAnchorTests extends CanvasTest {
 	 * This function verifies an expected result.
 	 * 
 	 * @param source
-	 *            A model element instance aquired through a action taken on a
+	 *            A model element instance acquired through a action taken on a
 	 *            column of the matrix.
 	 * @param destination
-	 *            A model element instance aquired through a action taken taken
+	 *            A model element instance acquired through a action taken taken
 	 *            on a row of the matrix.
 	 * @return true if the test succeeds, false if it fails
 	 */

@@ -89,12 +89,12 @@ public class AssignRemoveEventsGenerics extends CanvasTest {
 			this.setUp();
 			// all tests need to be here so that JUnit will
 			// execute them in this order
-			this.testContextMenuFilterNoEventAssigned();
-			this.testAssignEventToTransition();
-			this.testContextMenuFilterEventAssigned();
-			this.testRemoveEventFromTransition();
-			this.testIssue699Scenario();
-			this.testReplaceEventOnTransition();
+			this.doTestContextMenuFilterNoEventAssigned();
+			this.doTestAssignEventToTransition();
+			this.doTestContextMenuFilterEventAssigned();
+			this.doTestRemoveEventFromTransition();
+			this.doTestIssue699Scenario();
+			this.doTestReplaceEventOnTransition();
 		} catch (Exception e) {
 			System.out.println("Exception encountered by test result creator: "
 					+ e);
@@ -112,7 +112,27 @@ public class AssignRemoveEventsGenerics extends CanvasTest {
 		CanvasTestUtils.openCanvasEditor(ism);
 	}
 
-	public void testContextMenuFilterNoEventAssigned() {
+	public void testAssignRemoveEventGenerics(){
+	      doTestContextMenuFilterNoEventAssigned();
+	      doTestAssignEventToTransition(); 
+	      doTestContextMenuFilterEventAssigned(); 
+	      doTestRemoveEventFromTransition(); 
+	      doTestIssue699Scenario(); 
+	      doTestReplaceEventOnTransition(); 
+	      doTestContextMenuFilterNoEvents(); 
+	      doTestSelectNETOneEventOneTransition(); 
+	      doTestSelectNETOneEventTwoTransitions(); 
+	      doTestSelectNETTwoEventsTwoTransitions(); 
+	      doTestSelectCTUnassignedOneEventOneTransitions(); 
+	      doTestSelectCTAssignedOneEventOneTransitions(); 
+	      doTestSelectCTUnassignedOneEventTwoTransitions(); 
+	      doTestSelectCTAssignedTwoEventsTwoTransitions(); 
+	      doTestSelectNETOneEventTwoTransitionsDiffDirections(); 
+	      doTestSelectCTFourEventsFourTransitionsFourStates(); 
+	      doTestSelectCTThreeEventsFourTransitionsFourStates(); 
+	}
+	
+	public void doTestContextMenuFilterNoEventAssigned() {
 		CanvasTestUtils ctu = new CanvasTestUtils();
 		Shape_c shp = CanvasTestUtils.getModelStateShape(modelRoot,
 				"Test State 5");
@@ -132,7 +152,7 @@ public class AssignRemoveEventsGenerics extends CanvasTest {
 		assertFalse(tran.Actionfilter("event", "assigned"));
 	}
 
-	public void testAssignEventToTransition() {
+	public void doTestAssignEventToTransition() {
 		test_id = "1";
 		openISC();
 		GraphicalEditor ce = ((ModelEditor) PlatformUI.getWorkbench()
@@ -179,7 +199,7 @@ public class AssignRemoveEventsGenerics extends CanvasTest {
 		doDiagram(ce);
 		validateStateSEMEInstances("Test State 1");
 	}
-	public void testContextMenuFilterEventAssigned() {
+	public void doTestContextMenuFilterEventAssigned() {
 		CanvasTestUtils ctu = new CanvasTestUtils();
 		Shape_c shp = CanvasTestUtils.getModelStateShape(modelRoot,
 				"Test State 9");
@@ -198,7 +218,7 @@ public class AssignRemoveEventsGenerics extends CanvasTest {
 		assertTrue(tran.Actionfilter("event", "exists generic pkg"));
 		assertTrue(tran.Actionfilter("event", "assigned"));
 	}
-	public void testRemoveEventFromTransition() {
+	public void doTestRemoveEventFromTransition() {
 		test_id = "2";
 		openISC();
 		GraphicalEditor ce = ((ModelEditor) PlatformUI.getWorkbench()
@@ -222,7 +242,7 @@ public class AssignRemoveEventsGenerics extends CanvasTest {
 		rea.run(a);
 		doDiagram(ce);
 	}
-	public void testIssue699Scenario() {
+	public void doTestIssue699Scenario() {
 		//		_- Delete new state transition 
 		//		_R Transition is deleted
 		//		_- Remove event from another transition 
@@ -297,7 +317,7 @@ public class AssignRemoveEventsGenerics extends CanvasTest {
 		doDiagram(ce);
 
 	}
-	public void testReplaceEventOnTransition() {
+	public void doTestReplaceEventOnTransition() {
 		test_id = "6";
 		openISC();
 		GraphicalEditor ce = ((ModelEditor) PlatformUI.getWorkbench()
@@ -392,7 +412,7 @@ public class AssignRemoveEventsGenerics extends CanvasTest {
 	private void doDiagram(GraphicalEditor ce) {
 		validateOrGenerateResults(ce, generateResults);
 	}
-	public void testContextMenuFilterNoEvents() {
+	public void doTestContextMenuFilterNoEvents() {
 		CanvasTestUtils ctu = new CanvasTestUtils();
 		StateMachineState_c sms = StateMachineState_c
 				.StateMachineStateInstance(modelRoot,
@@ -412,7 +432,7 @@ public class AssignRemoveEventsGenerics extends CanvasTest {
 		assertFalse(tran.Actionfilter("event", "exists"));
 	}
 
-	public void testSelectNETOneEventOneTransition() {
+	public void doTestSelectNETOneEventOneTransition() {
 		CanvasTestUtils ctu = new CanvasTestUtils();
 		StateMachineState_c sms = StateMachineState_c
 				.StateMachineStateInstance(modelRoot,
@@ -421,7 +441,7 @@ public class AssignRemoveEventsGenerics extends CanvasTest {
 		assertTrue(tran.Actionfilter("event", "exists generic pkg"));
 
 	}
-	public void testSelectNETOneEventTwoTransitions() {
+	public void doTestSelectNETOneEventTwoTransitions() {
 		CanvasTestUtils ctu = new CanvasTestUtils();
 		StateMachineState_c sms = StateMachineState_c
 				.StateMachineStateInstance(modelRoot,
@@ -432,7 +452,7 @@ public class AssignRemoveEventsGenerics extends CanvasTest {
 
 	}
 
-	public void testSelectNETTwoEventsTwoTransitions() {
+	public void doTestSelectNETTwoEventsTwoTransitions() {
 		CanvasTestUtils ctu = new CanvasTestUtils();
 		StateMachineState_c sms = StateMachineState_c
 				.StateMachineStateInstance(modelRoot,
@@ -443,7 +463,7 @@ public class AssignRemoveEventsGenerics extends CanvasTest {
 
 	}
 
-	public void testSelectCTUnassignedOneEventOneTransitions() {
+	public void doTestSelectCTUnassignedOneEventOneTransitions() {
 		CanvasTestUtils ctu = new CanvasTestUtils();
 		StateMachineState_c sms = StateMachineState_c
 				.StateMachineStateInstance(modelRoot,
@@ -453,7 +473,7 @@ public class AssignRemoveEventsGenerics extends CanvasTest {
 
 	}
 
-	public void testSelectCTAssignedOneEventOneTransitions() {
+	public void doTestSelectCTAssignedOneEventOneTransitions() {
 		CanvasTestUtils ctu = new CanvasTestUtils();
 		StateMachineState_c sms = StateMachineState_c
 				.StateMachineStateInstance(modelRoot,
@@ -463,7 +483,7 @@ public class AssignRemoveEventsGenerics extends CanvasTest {
 
 	}
 
-	public void testSelectCTUnassignedOneEventTwoTransitions() {
+	public void doTestSelectCTUnassignedOneEventTwoTransitions() {
 		CanvasTestUtils ctu = new CanvasTestUtils();
 		StateMachineState_c sms = StateMachineState_c
 				.StateMachineStateInstance(modelRoot,
@@ -473,7 +493,7 @@ public class AssignRemoveEventsGenerics extends CanvasTest {
 
 	}
 
-	public void testSelectCTAssignedTwoEventsTwoTransitions() {
+	public void doTestSelectCTAssignedTwoEventsTwoTransitions() {
 		CanvasTestUtils ctu = new CanvasTestUtils();
 		StateMachineState_c sms = StateMachineState_c
 				.StateMachineStateInstance(modelRoot,
@@ -484,7 +504,7 @@ public class AssignRemoveEventsGenerics extends CanvasTest {
 
 	}
 
-	public void testSelectNETOneEventTwoTransitionsDiffDirections() {
+	public void doTestSelectNETOneEventTwoTransitionsDiffDirections() {
 		CanvasTestUtils ctu = new CanvasTestUtils();
 		StateMachineState_c sms = StateMachineState_c
 				.StateMachineStateInstance(modelRoot,
@@ -494,7 +514,7 @@ public class AssignRemoveEventsGenerics extends CanvasTest {
 
 	}
 
-	public void testSelectCTFourEventsFourTransitionsFourStates() {
+	public void doTestSelectCTFourEventsFourTransitionsFourStates() {
 		CanvasTestUtils ctu = new CanvasTestUtils();
 		StateMachineState_c sms = StateMachineState_c
 				.StateMachineStateInstance(modelRoot,
@@ -504,7 +524,7 @@ public class AssignRemoveEventsGenerics extends CanvasTest {
 
 	}
 
-	public void testSelectCTThreeEventsFourTransitionsFourStates() {
+	public void doTestSelectCTThreeEventsFourTransitionsFourStates() {
 		CanvasTestUtils ctu = new CanvasTestUtils();
 		StateMachineState_c sms = StateMachineState_c
 				.StateMachineStateInstance(modelRoot,

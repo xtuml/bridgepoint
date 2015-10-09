@@ -85,11 +85,21 @@ public class CommunicationLinkTestsGenerics extends CanvasTest {
 			workbench = PlatformUI.getWorkbench();
 		}
 	}
+	
+	public void testCommunicationLinkTest(){
+		doTestCommunicationInCommunication();
+	      doTestFormalizeLinkWithSupertypeSubtype();
+	      doTestFormalizeLinkWithSimpleAssociation();
+	      doTestFormalizeLinkWithLinkAssociation();
+	      doTestFormalizeLinkWithReflexiveAssociation();
+	      doTestFormalizeLinkWithReflexiveLinkedAssociation();
+	      doTestToggleLinkVisibility();
+	}
 
 	/**
 	 * Tests that communications can be drawn in communications
 	 */
-	public void testCommunicationInCommunication() {
+	public void doTestCommunicationInCommunication() {
 		test_id = "1";
 		String diagramName = "Communication in Communication";
 		Package_c communication = getPackage(diagramName);
@@ -103,7 +113,7 @@ public class CommunicationLinkTestsGenerics extends CanvasTest {
 	 * Tests that a link can be formalized against a supertype subtype
 	 * association
 	 */
-	public void testFormalizeLinkWithSupertypeSubtype() {
+	public void doTestFormalizeLinkWithSupertypeSubtype() {
 		test_id = "2";
 		String diagramName = "Communication in Communication";
 		GraphicalEditor ce = CanvasTestUtilities.getCanvasEditor(diagramName
@@ -149,7 +159,7 @@ public class CommunicationLinkTestsGenerics extends CanvasTest {
 	/**
 	 * Tests that a link can be formalized against a simple association
 	 */
-	public void testFormalizeLinkWithSimpleAssociation() {
+	public void doTestFormalizeLinkWithSimpleAssociation() {
 		test_id = "3";
 		String diagramName = "Communication in Communication";
 		GraphicalEditor ce = CanvasTestUtilities.getCanvasEditor(diagramName
@@ -195,7 +205,7 @@ public class CommunicationLinkTestsGenerics extends CanvasTest {
 	 * Tests that a link can be formalized against an associative link,
 	 * including the simple association
 	 */
-	public void testFormalizeLinkWithLinkAssociation() {
+	public void doTestFormalizeLinkWithLinkAssociation() {
 		test_id = "4";
 		String diagramName = "Communication in Communication";
 		GraphicalEditor ce = CanvasTestUtilities.getCanvasEditor(diagramName
@@ -272,7 +282,7 @@ public class CommunicationLinkTestsGenerics extends CanvasTest {
 	/**
 	 * Tests that a link can be formalized against a reflexive association
 	 */
-	public void testFormalizeLinkWithReflexiveAssociation() {
+	public void doTestFormalizeLinkWithReflexiveAssociation() {
 		test_id = "6";
 		String diagramName = "Communication in Communication";
 		GraphicalEditor ce = CanvasTestUtilities.getCanvasEditor(diagramName
@@ -318,7 +328,7 @@ public class CommunicationLinkTestsGenerics extends CanvasTest {
 	/**
 	 * Tests that a link can be formalized against a reflexive associative link
 	 */
-	public void testFormalizeLinkWithReflexiveLinkedAssociation() {
+	public void doTestFormalizeLinkWithReflexiveLinkedAssociation() {
 		test_id = "7";
 		String diagramName = "Communication in Communication";
 		GraphicalEditor ce = CanvasTestUtilities.getCanvasEditor(diagramName
@@ -397,7 +407,7 @@ public class CommunicationLinkTestsGenerics extends CanvasTest {
 	/**
 	 * Tests the toggle switch for visibility
 	 */
-	public void testToggleLinkVisibility() {
+	public void doTestToggleLinkVisibility() {
 		test_id = "9";
 		String diagramName = "Communication in Communication";
 		GraphicalEditor ce = CanvasTestUtilities.getCanvasEditor(diagramName

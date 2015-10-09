@@ -4,11 +4,11 @@ set ORIGINAL_DIR=%CD%
 
 :: BPHOMEDIR is used at runtime to determine the base installation folder.
 :: It is the BridgePoint folder.
-cd "%~dp0%/.."
+cd "%~dp0/.."
 set BPHOMEDIR=%CD%
 
 :: The JVM tested with BridgePoint
-set BP_JVM=%BPHOMEDIR%/jre/bin/javaw.exe
+set BP_JVM=%BPHOMEDIR%/jre1.8.0_51/bin/javaw.exe
 
 :: Check for fonts that trip up generator
 cd %BPHOMEDIR%/tools/fontchecker
