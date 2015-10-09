@@ -149,8 +149,10 @@ BridgePoint Developer Issues <a id="bpdevelopers"></a>
   
 * **Linux Distribution-Specific Instructions** <a id="linux"></a>
   * Package Requirements for Various Linux Distributions  
-    The BridgePoint [Developer's Getting Started Instructions](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/Developer%20Getting%20Started%20Guide.md) 
-    has instructions specifically for Linux Ubuntu. Here are package requirements for some other Linux distributions.  
+    BridgePoint on Linux relies on packages that may not yet be installed on your system.  Included here are commands to install the necessary packages:
+      * Ubuntu 14:   
+        ```$ sudo apt-get install libxtst6:i386 libgtk2.0-0:i386 gtk2-engines:i386 gtk2-engines-*:i386 --reinstall unity-gtk2-module:i386 libgtkmm-2.4-1c2:i386 libcanberra-gtk-module:i386 tofrodos wine libstdc++5 g++ ant git default-jdk```
+      
       * Fedora 19:  
         ```$ sudo yum install wine gcc-c++  dos2unix compat-libstdc++-33 gtk2.i686 ant git```
       

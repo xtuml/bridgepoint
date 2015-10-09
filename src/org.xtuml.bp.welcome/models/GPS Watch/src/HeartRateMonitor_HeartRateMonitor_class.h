@@ -62,9 +62,9 @@ extern const Escher_xtUMLEventConstant_t HeartRateMonitor_HeartRateMonitor_CBeve
  * union of events targeted towards 'HeartRateMonitor' state machine
  */
 typedef union {
-  HeartRateMonitor_HeartRateMonitor_CBevent1 heartratemonitor11;  
-  HeartRateMonitor_HeartRateMonitor_CBevent2 heartratemonitor22;  
-  HeartRateMonitor_HeartRateMonitor_CBevent3 heartratemonitor33;  
+  HeartRateMonitor_HeartRateMonitor_CBevent1 heartratemonitor1_1;  
+  HeartRateMonitor_HeartRateMonitor_CBevent2 heartratemonitor2_2;  
+  HeartRateMonitor_HeartRateMonitor_CBevent3 heartratemonitor3_3;  
 } HeartRateMonitor_HeartRateMonitor_CB_Events_u;
 
 /*
@@ -77,8 +77,8 @@ typedef union {
  * enumeration of state model event numbers
  */
 #define HEARTRATEMONITOR_HEARTRATEMONITOR_CBEVENT3NUM 0  /* HeartRateMonitor_A3:'timeout' */
-#define HEARTRATEMONITOR_HEARTRATEMONITOR_CBEVENT1NUM 1  /* HR::registerListener:'registerListener' */
-#define HEARTRATEMONITOR_HEARTRATEMONITOR_CBEVENT2NUM 2  /* HR::unregisterListener:'unregisterListener' */
+#define HEARTRATEMONITOR_HEARTRATEMONITOR_CBEVENT2NUM 1  /* HR::unregisterListener:'unregisterListener' */
+#define HEARTRATEMONITOR_HEARTRATEMONITOR_CBEVENT1NUM 2  /* HR::registerListener:'registerListener' */
 
 extern void HeartRateMonitor_HeartRateMonitor_CBDispatch( Escher_xtUMLEvent_t * );
 
