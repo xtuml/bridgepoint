@@ -459,8 +459,22 @@ public class TigerNatureTestGenerics extends CanvasTest {
 		}
 		return false;
 	}
+	
+	public void testTigerNatureTestGenerics() throws Exception{
+		   doTestNewProjectDefaultPath(); 
+		      doTestNewProjectNonDefaultPath(); 
+		      doTestPKGPersistence(); 
+		      doTestActivityPersistence(); 
+		      doTestDescriptionPersistence(); 
+		      doTestCancelAddToIdentifier(); 
+		      doTestDeletePersistence(); 
+		      doTestConnectorPersistence(); 
+		      doTestRenamePersistence(); 
+		      doTestSelectionToolPersistence(); 
+		      doTestPropertiesViewPersistence(); 
+	}
 
-	public void testNewProjectDefaultPath() throws Exception {
+	public void doTestNewProjectDefaultPath() throws Exception {
 		IProject testProject = createXtUMLProject("Test Project Defaults");
 		// wait on any previous events to process
 		BaseTest.dispatchEvents(0);
@@ -475,7 +489,7 @@ public class TigerNatureTestGenerics extends CanvasTest {
 				checkResourceNavForxtUMLProject("Test Project Defaults"));
 	}
 
-	public void testNewProjectNonDefaultPath() throws Exception {
+	public void doTestNewProjectNonDefaultPath() throws Exception {
 		String location = "c:\\tiger_test";
 		if(!Platform.getOS().contains("win")) {
 			location = Platform.getInstanceLocation().getURL().toString()
@@ -547,7 +561,7 @@ public class TigerNatureTestGenerics extends CanvasTest {
 		assertTrue("Project not created where specified", loc.exists());
 	}
 
-	//		public void testNewPackageWithProjectSelected() throws Exception {
+	//		public void doTestNewPackageWithProjectSelected() throws Exception {
 	//			NewDomainWizard ndw = new NewDomainWizard();
 	//	    	Ooaofooa mr = Ooaofooa.getDefaultInstance();
 	//			SystemModel_c sysMod = SystemModel_c.SystemModelInstance(mr);
@@ -566,7 +580,7 @@ public class TigerNatureTestGenerics extends CanvasTest {
 	//			ndw.dispose();
 	//		}
 	//
-	//	public void testNewPackageWithNothingSelected() throws Exception {
+	//	public void doTestNewPackageWithNothingSelected() throws Exception {
 	//		NewDomainWizard ndw = new NewDomainWizard();
 	//		ndw.init(PlatformUI.getWorkbench(), new StructuredSelection());
 	//		ndw.addPages();
@@ -590,7 +604,7 @@ public class TigerNatureTestGenerics extends CanvasTest {
 	//		ndw.dispose();
 	//	}
 	//
-	//	public void testNewDomainWithProjectSelectedDefaultTemplate()
+	//	public void doTestNewDomainWithProjectSelectedDefaultTemplate()
 	//			throws Exception {
 	//		NewDomainWizard ndw = new NewDomainWizard();
 	//		SystemModel_c sysMod = SystemModel_c.SystemModelInstance(Ooaofooa
@@ -648,7 +662,7 @@ public class TigerNatureTestGenerics extends CanvasTest {
 	//		}
 	//	}
 	//
-	//	public void testNewDomainWithProjectSelectedNonUniqueName() {
+	//	public void doTestNewDomainWithProjectSelectedNonUniqueName() {
 	//		NewDomainWizard ndw = new NewDomainWizard();
 	//		SystemModel_c sysMod = SystemModel_c.SystemModelInstance(Ooaofooa
 	//				.getDefaultInstance(), new ClassQueryInterface_c() {
@@ -671,7 +685,7 @@ public class TigerNatureTestGenerics extends CanvasTest {
 	//		ndw.dispose();
 	//	}
 	//
-	//	public void testNewDomainWithProjectSelectedModelTemplate()
+	//	public void doTestNewDomainWithProjectSelectedModelTemplate()
 	//			throws Exception {
 	//		String templateFileName = m_workspace_path + 
 	//	    	"../org.xtuml.bp.io.mdl.test/" + Ooaofooa.MODELS_DIRNAME + 
@@ -682,7 +696,7 @@ public class TigerNatureTestGenerics extends CanvasTest {
 	//				checkForTreeItem(ExplorerUtil.getTreeViewer(), "testModelTemplate"));
 	//	}
 	//
-	//	public void testNewDomainWithProjectSelectedSqlTemplate() throws Exception {
+	//	public void doTestNewDomainWithProjectSelectedSqlTemplate() throws Exception {
 	//		String templateFileName = m_workspace_path + 
 	//		    "../org.xtuml.bp.io.sql.test/" + Ooaofooa.MODELS_DIRNAME + "/odms.sql";
 	//		createModelWithTemplate("testSqlTemplate", templateFileName);
@@ -691,7 +705,7 @@ public class TigerNatureTestGenerics extends CanvasTest {
 	//				checkForTreeItem(ExplorerUtil.getTreeViewer(), "testSqlTemplate"));
 	//	}
 	//
-	//	public void testNewDomainWithDuplicatesInSubsystem() throws Exception {
+	//	public void doTestNewDomainWithDuplicatesInSubsystem() throws Exception {
 	//		String templateFileName = m_workspace_path + Ooaofooa.MODELS_DIRNAME + 
 	//			"/DuplicateNames." + Ooaofooa.MODELS_EXT;
 	//		TestUtil.dismissDialog(1000);
@@ -709,7 +723,7 @@ public class TigerNatureTestGenerics extends CanvasTest {
 	//        	m_workspace_path+"actual_results/DuplicatesTest/DuplicatesRenamed1.txt" ); 
 	//	}
 	//	
-	//	public void testNewDomainWithDuplicatesInMultipleSubsystems() throws Exception {
+	//	public void doTestNewDomainWithDuplicatesInMultipleSubsystems() throws Exception {
 	//		String templateFileName = m_workspace_path + Ooaofooa.MODELS_DIRNAME + 
 	//			"/DuplicateNames2." + Ooaofooa.MODELS_EXT;
 	//		TestUtil.dismissDialog(1000);
@@ -754,7 +768,7 @@ public class TigerNatureTestGenerics extends CanvasTest {
 	//		createModelWithTemplate(modelName, templateFileName, false);
 	//	}
 	//
-	//	public void testNewDomainWithProjectSelectedBadTemplate() throws Exception {
+	//	public void doTestNewDomainWithProjectSelectedBadTemplate() throws Exception {
 	//		NewDomainWizard ndw = new NewDomainWizard();
 	//		SystemModel_c sysMod = SystemModel_c.SystemModelInstance(Ooaofooa
 	//				.getDefaultInstance(), new ClassQueryInterface_c() {
@@ -789,7 +803,7 @@ public class TigerNatureTestGenerics extends CanvasTest {
 	//        in_fh.delete();
 	//	}
 	//
-	//	public void testNewDomainWithProjectSelectedModelMatchesTemplate() throws Exception {
+	//	public void doTestNewDomainWithProjectSelectedModelMatchesTemplate() throws Exception {
 	//		String mdlTemplateFileName = m_workspace_path + 
 	//    	"../org.xtuml.bp.io.mdl.test/" + Ooaofooa.MODELS_DIRNAME + 
 	//		"/odms." + Ooaofooa.MODELS_EXT;
@@ -825,7 +839,7 @@ public class TigerNatureTestGenerics extends CanvasTest {
 	//	}
 	//
 	//	
-	public void testPKGPersistence() throws Exception {
+	public void doTestPKGPersistence() throws Exception {
 		final IProject corePersistenceProject = createXtUMLProject("CorePersistenceTestProject");
 		SystemModel_c sysMod = SystemModel_c.SystemModelInstance(Ooaofooa
 				.getDefaultInstance(), new ClassQueryInterface_c() {
@@ -860,7 +874,7 @@ public class TigerNatureTestGenerics extends CanvasTest {
 		UITestingUtilities.deactivateTool(tool);
 	}
 
-	public void testActivityPersistence() throws Exception {
+	public void doTestActivityPersistence() throws Exception {
 		final IProject activityPersistenceProject = createXtUMLProject("ActivityPersistenceTestProject");
 		SystemModel_c sysMod = SystemModel_c.SystemModelInstance(Ooaofooa
 				.getDefaultInstance(), new ClassQueryInterface_c() {
@@ -931,7 +945,7 @@ public class TigerNatureTestGenerics extends CanvasTest {
 						getOperationString(activity)));
 	}
 
-	public void testDescriptionPersistence() throws Exception {
+	public void doTestDescriptionPersistence() throws Exception {
 		final IProject descriptionPersistenceProject = createXtUMLProject("DescriptionPersistenceTestProject");
 		SystemModel_c sysMod = SystemModel_c.SystemModelInstance(Ooaofooa
 				.getDefaultInstance(), new ClassQueryInterface_c() {
@@ -999,7 +1013,7 @@ public class TigerNatureTestGenerics extends CanvasTest {
 				checkIfPersisted(descriptionPersistenceProject, testclass,
 						getClassString(testclass)));
 	}
-	public void testCancelAddToIdentifier() throws Exception {
+	public void doTestCancelAddToIdentifier() throws Exception {
 
 		IProject descriptionPersistenceProject = ResourcesPlugin.getWorkspace()
 				.getRoot().getProject("DescriptionPersistenceTestProject");
@@ -1054,7 +1068,7 @@ public class TigerNatureTestGenerics extends CanvasTest {
 
 	}
 
-	public void testDeletePersistence() throws Exception {
+	public void doTestDeletePersistence() throws Exception {
 		Ooaofooa.setPersistEnabled(true);
 		final IProject deletePersistenceProject = createXtUMLProject("DeletePersistenceTestProject");
 		SystemModel_c sysMod = SystemModel_c.SystemModelInstance(Ooaofooa
@@ -1124,7 +1138,7 @@ public class TigerNatureTestGenerics extends CanvasTest {
 				.exists());
 	}
 
-	public void testConnectorPersistence() throws IOException,
+	public void doTestConnectorPersistence() throws IOException,
 			TransactionException {
 		Ooaofooa.setPersistEnabled(true);
 		final IProject connectorPersistenceProject = createXtUMLProject("ConnectorPersistenceTestProject");
@@ -1218,7 +1232,7 @@ public class TigerNatureTestGenerics extends CanvasTest {
 				connectorPersistenceProject, con, conStmt));
 	}
 
-	public void testRenamePersistence() throws IOException,
+	public void doTestRenamePersistence() throws IOException,
 			TransactionException {
 		Ooaofooa.setPersistEnabled(true);
 		final IProject renamePersistenceProject = createXtUMLProject("RenamePersistenceTestProject");
@@ -1286,7 +1300,7 @@ public class TigerNatureTestGenerics extends CanvasTest {
 				renamePersistenceProject, testclass, testclassStmt));
 	}
 
-	public void testSelectionToolPersistence() throws IOException,
+	public void doTestSelectionToolPersistence() throws IOException,
 			TransactionException {
 		Ooaofooa.setPersistEnabled(true);
 		final IProject selectiontoolPersistenceProject = createXtUMLProject("SelectionToolPersistenceTestProject");
@@ -1350,7 +1364,7 @@ public class TigerNatureTestGenerics extends CanvasTest {
 				selectiontoolPersistenceProject, ge, geStmt));
 	}
 
-	public void testPropertiesViewPersistence() throws IOException,
+	public void doTestPropertiesViewPersistence() throws IOException,
 			PartInitException, TransactionException {
 		Ooaofooa.setPersistEnabled(true);
 		final IProject propertiesPersistenceProject = createXtUMLProject("PropertiesPersistenceTestProject");

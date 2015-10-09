@@ -18,7 +18,8 @@ build()
       exit 1
     fi
   fi
-  
+
+  date  
   if [ "$perform_clean" == "yes" ]; then
     ###  Clean build
     echo "Performing a clean build."
@@ -27,7 +28,8 @@ build()
     echo "Performing a build (not clean)."
     ${bphomedir}/eclipse/eclipse ${eclipse_args} -build all -data "$workspace" 
   fi
-  
+  date
+ 
   exit $?
 }
 

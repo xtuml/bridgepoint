@@ -477,9 +477,10 @@ public class BPDebugTarget extends BPDebugElement implements IDebugTarget {
 							.getConstructor(ctorArgs);
 					Object[] ctorArgVals = new Object[ports.length];
 					for (int i = 0; i < ctorArgVals.length; i++) {
-						ctorArgVals[i] = Proxy.newProxyInstance(cl,
+				        /* TODO - SKB removed
+								ctorArgVals[i] = Proxy.newProxyInstance(cl,
 								new Class[] { ctorArgs[i] },
-								new VerifierInvocationHandler(exEng, ports[i]));
+								new VerifierInvocationHandler(exEng, ports[i]));*/
 					}
 					try {
 						exEng.setRealizedby(ctor.newInstance(ctorArgVals));

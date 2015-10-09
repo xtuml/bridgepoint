@@ -35,7 +35,14 @@ import org.xtuml.bp.test.common.BaseTest;
 import org.xtuml.bp.test.common.TestingUtilities;
 
 public class PreferencesTests extends BaseTest {
-	public void testWorkspaceDefaults() {
+	
+	public void testPreferencesTest() throws Exception{
+	      doTestWorkspaceDefaults(); 
+	      doTestProjectDefaults(); 
+	      doTestProjectDefaultsFromWorkspaceDefaults(); 
+	      doTestProjectDefaultsOverrideWorkspaceDefaults(); 
+	}
+	public void doTestWorkspaceDefaults() {
 		boolean enabledForNonRealized = CorePlugin
 				.getDefault()
 				.getPreferenceStore()
@@ -54,7 +61,7 @@ public class PreferencesTests extends BaseTest {
 				enabledForRealized);
 	}
 
-	public void testProjectDefaults() throws CoreException {
+	public void doTestProjectDefaults() throws CoreException {
 		IProject project = TestingUtilities
 				.createProject("test_project_preferences");
 		boolean enabledForNonRealized = Pref_c
@@ -73,7 +80,7 @@ public class PreferencesTests extends BaseTest {
 				enabledForRealized);
 	}
 
-	public void testProjectDefaultsFromWorkspaceDefaults() {
+	public void doTestProjectDefaultsFromWorkspaceDefaults() {
 		IProject project = getProjectHandle("test_project_preferences");
 		// set the values in the workspace to non-defaults
 		CorePlugin
@@ -136,7 +143,7 @@ public class PreferencesTests extends BaseTest {
 						false);
 	}
 
-	public void testProjectDefaultsOverrideWorkspaceDefaults()
+	public void doTestProjectDefaultsOverrideWorkspaceDefaults()
 			throws BackingStoreException {
 		IProject project = getProjectHandle("test_project_preferences");
 		IScopeContext projectScope = new ProjectScope(project);
