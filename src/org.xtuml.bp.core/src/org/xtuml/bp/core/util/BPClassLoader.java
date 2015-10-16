@@ -53,7 +53,9 @@ public class BPClassLoader extends ClassLoader {
 	private ArrayList<String> ClassPathEntries;
 	
 	public void addClassPathEntry(String path) {
-		ClassPathEntries.add(path);
+		synchronized(ClassPathEntries) {
+			ClassPathEntries.add(path);
+		}
 	}
 
 	public Class<?> loadClass(String name) throws ClassNotFoundException {
@@ -91,6 +93,7 @@ public class BPClassLoader extends ClassLoader {
 			Debug.println("BPClassLoader[" + "].findClass(" + name + ")"); //$NON-NLS-1$ //$NON-NLS-2$//$NON-NLS-3$
 		
 		String filename = name.replace('.', '/').concat(".class"); //$NON-NLS-1$
+		synchronized(ClassPathEntries) {
 		Iterator<String> cpIt = ClassPathEntries.iterator();
 		while (cpIt.hasNext()) {
 			File cpe = new File(cpIt.next());
@@ -128,12 +131,14 @@ public class BPClassLoader extends ClassLoader {
 						CorePlugin.logError("Exception in BP Class loader defining class " + name, e); //$NON-NLS-1$
 			      }
 		    }
+		}
 			
 		}
 		return null;
 	}
 
 	public InputStream getResourceAsStream(String name) {
+		synchronized (ClassPathEntries) {
 		Iterator<String> cpIt = ClassPathEntries.iterator();
 		while (cpIt.hasNext()) {
 			File cpe = new File(cpIt.next());
@@ -146,6 +151,7 @@ public class BPClassLoader extends ClassLoader {
 					CorePlugin.out.println("Exception loading required resource:" + ioe.toString());
 				}
 			}
+		}
 		}
 		return super.getResourceAsStream(name);
 	}
