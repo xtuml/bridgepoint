@@ -54,7 +54,9 @@ public class BPClassLoader extends ClassLoader {
 	
 	public void addClassPathEntry(String path) {
 		synchronized(ClassPathEntries) {
-			ClassPathEntries.add(path);
+			if (ClassPathEntries.indexOf(path) == -1) {
+				ClassPathEntries.add(path);
+			}
 		}
 	}
 
