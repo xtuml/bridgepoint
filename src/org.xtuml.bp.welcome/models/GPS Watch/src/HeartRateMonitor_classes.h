@@ -19,11 +19,9 @@ extern	"C"	{
  */
 extern Escher_Extent_t * const HeartRateMonitor_class_info[];
 extern const EventTaker_t HeartRateMonitor_EventDispatcher[];
-extern void HeartRateMonitor_execute_initialization( void );
+void HeartRateMonitor_execute_initialization( void );
 
 #define HeartRateMonitor_STATE_MODELS 2
-
-
 /* Define constants to map to class numbers.  */
 #define HeartRateMonitor_HeartRateMonitor_CLASS_NUMBER 0
 #define HeartRateMonitor_HeartRateMonitor_CLASS_NUMBER_CB 1
@@ -46,22 +44,19 @@ typedef struct HeartRateMonitor_HeartRateMonitor_CB HeartRateMonitor_HeartRateMo
   char HeartRateMonitor_dummy;\
 
 
-
-#include "LOG_bridge.h"
 #include "TIM_bridge.h"
+#include "LOG_bridge.h"
 #include "HeartRateMonitor.h"
 #include "HeartRateMonitor_HeartRateMonitor_class.h"
-
-
 /*
- * roll-up of all events (with their parameters) for domain HeartRateMonitor
+ * roll-up of all events (with their parameters) for component HeartRateMonitor
  */
 typedef union {
   HeartRateMonitor_HeartRateMonitor_CB_Events_u HeartRateMonitor_HeartRateMonitor_CB_Events_u_namespace;
 } HeartRateMonitor_DomainEvents_u;
+
 #ifdef	__cplusplus
 }
 #endif
-
 #endif  /* HEARTRATEMONITOR_CLASSES_H */
 

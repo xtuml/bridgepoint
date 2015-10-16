@@ -27,8 +27,8 @@ struct Tracking_HeartRateSample {
   /* Note:  No storage needed for HeartRateSample->TrackLog[R6] */
 };
 
-void Tracking_HeartRateSample_R6_Link( Tracking_TrackLog *, Tracking_HeartRateSample * );
-void Tracking_HeartRateSample_R6_Unlink( Tracking_TrackLog *, Tracking_HeartRateSample * );
+void Tracking_HeartRateSample_R6_Link_logs_heart_rate_changes_as( Tracking_TrackLog *, Tracking_HeartRateSample * );
+void Tracking_HeartRateSample_R6_Unlink_logs_heart_rate_changes_as( Tracking_TrackLog *, Tracking_HeartRateSample * );
 
 
 #define Tracking_HeartRateSample_MAX_EXTENT_SIZE 200
