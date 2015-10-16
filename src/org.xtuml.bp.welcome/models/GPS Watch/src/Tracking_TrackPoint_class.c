@@ -14,31 +14,31 @@
 
 
 /*
- * RELATE <left> TrackPoint TO <right> TrackPoint ACROSS R2.'follows'
+ * RELATE TrackLog TO TrackPoint ACROSS R1
  */
 void
-Tracking_TrackPoint_R2_Link_follows( Tracking_TrackPoint * left, Tracking_TrackPoint * right )
+Tracking_TrackPoint_R1_Link_has_first( Tracking_TrackLog * part, Tracking_TrackPoint * form )
 {
-  if ( (left == 0) || (right == 0) ) {
-    XTUML_EMPTY_HANDLE_TRACE( "TrackPoint", "Tracking_TrackPoint_R2_Link_follows" );
+  if ( (part == 0) || (form == 0) ) {
+    XTUML_EMPTY_HANDLE_TRACE( "TrackPoint", "Tracking_TrackPoint_R1_Link_has_first" );
     return;
   }
-  left->TrackPoint_R2_follows = right; /* SR L1 */
-  right->TrackPoint_R2_preceeds = left; /* SR L2 */
+  /* Note:  TrackPoint->TrackLog[R1] not navigated */
+  part->TrackPoint_R1_has_first = form;
 }
 
 /*
- * UNRELATE <left> TrackPoint FROM <right> TrackPoint ACROSS R2.'follows'
+ * UNRELATE TrackLog FROM TrackPoint ACROSS R1
  */
 void
-Tracking_TrackPoint_R2_Unlink_follows( Tracking_TrackPoint * left, Tracking_TrackPoint * right )
+Tracking_TrackPoint_R1_Unlink_has_first( Tracking_TrackLog * part, Tracking_TrackPoint * form )
 {
-  if ( (left == 0) || (right == 0) ) {
-    XTUML_EMPTY_HANDLE_TRACE( "TrackPoint", "Tracking_TrackPoint_R2_Unlink_follows" );
+  if ( (part == 0) || (form == 0) ) {
+    XTUML_EMPTY_HANDLE_TRACE( "TrackPoint", "Tracking_TrackPoint_R1_Unlink_has_first" );
     return;
   }
-  left->TrackPoint_R2_follows = 0; /* SR U1 */
-  right->TrackPoint_R2_preceeds = 0; /* SR U2 */
+  /* Note:  TrackPoint->TrackLog[R1] not navigated */
+  part->TrackPoint_R1_has_first = 0;
 }
 
 /*
@@ -51,8 +51,8 @@ Tracking_TrackPoint_R2_Link_preceeds( Tracking_TrackPoint * left, Tracking_Track
     XTUML_EMPTY_HANDLE_TRACE( "TrackPoint", "Tracking_TrackPoint_R2_Link_preceeds" );
     return;
   }
-  right->TrackPoint_R2_follows = left; /* SR L4 */
-  left->TrackPoint_R2_preceeds = right; /* SR L5 */
+  left->TrackPoint_R2_preceeds = right; /* SR L1 */
+  right->TrackPoint_R2_follows = left; /* SR L2 */
 }
 
 /*
@@ -65,36 +65,36 @@ Tracking_TrackPoint_R2_Unlink_preceeds( Tracking_TrackPoint * left, Tracking_Tra
     XTUML_EMPTY_HANDLE_TRACE( "TrackPoint", "Tracking_TrackPoint_R2_Unlink_preceeds" );
     return;
   }
-  right->TrackPoint_R2_follows = 0; /* SR U4 */
-  left->TrackPoint_R2_preceeds = 0; /* SR U5 */
+  left->TrackPoint_R2_preceeds = 0; /* SR U1 */
+  right->TrackPoint_R2_follows = 0; /* SR U2 */
 }
 
 /*
- * RELATE TrackLog TO TrackPoint ACROSS R3
+ * RELATE <left> TrackPoint TO <right> TrackPoint ACROSS R2.'follows'
  */
 void
-Tracking_TrackPoint_R3_Link( Tracking_TrackLog * part, Tracking_TrackPoint * form )
+Tracking_TrackPoint_R2_Link_follows( Tracking_TrackPoint * left, Tracking_TrackPoint * right )
 {
-  if ( (part == 0) || (form == 0) ) {
-    XTUML_EMPTY_HANDLE_TRACE( "TrackPoint", "Tracking_TrackPoint_R3_Link" );
+  if ( (left == 0) || (right == 0) ) {
+    XTUML_EMPTY_HANDLE_TRACE( "TrackPoint", "Tracking_TrackPoint_R2_Link_follows" );
     return;
   }
-  /* Note:  TrackPoint->TrackLog[R3] not navigated */
-  part->TrackPoint_R3 = form;
+  right->TrackPoint_R2_preceeds = left; /* SR L4 */
+  left->TrackPoint_R2_follows = right; /* SR L5 */
 }
 
 /*
- * UNRELATE TrackLog FROM TrackPoint ACROSS R3
+ * UNRELATE <left> TrackPoint FROM <right> TrackPoint ACROSS R2.'follows'
  */
 void
-Tracking_TrackPoint_R3_Unlink( Tracking_TrackLog * part, Tracking_TrackPoint * form )
+Tracking_TrackPoint_R2_Unlink_follows( Tracking_TrackPoint * left, Tracking_TrackPoint * right )
 {
-  if ( (part == 0) || (form == 0) ) {
-    XTUML_EMPTY_HANDLE_TRACE( "TrackPoint", "Tracking_TrackPoint_R3_Unlink" );
+  if ( (left == 0) || (right == 0) ) {
+    XTUML_EMPTY_HANDLE_TRACE( "TrackPoint", "Tracking_TrackPoint_R2_Unlink_follows" );
     return;
   }
-  /* Note:  TrackPoint->TrackLog[R3] not navigated */
-  part->TrackPoint_R3 = 0;
+  right->TrackPoint_R2_preceeds = 0; /* SR U4 */
+  left->TrackPoint_R2_follows = 0; /* SR U5 */
 }
 
 /*
