@@ -360,7 +360,7 @@ public class ${modelAdapterClass}
   .for each attr in id_attr_set
     .invoke result = get_core_datatype(attr)
     .assign cdt = result.cdt
-    .if (cdt.core_typ == 4)   // string
+    .if (cdt.core_typ == 4)   .// string
       id.add($cr{attr.name});
     .else
       id.add(String.valueOf($cr{attr.name}));
