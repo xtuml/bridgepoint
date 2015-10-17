@@ -228,7 +228,7 @@ public class GlobalsUtil {
 	}
 
  	public static void upgradeDTToGlobal(DataType_c oldDt, DataType_c newDt) {
- 	.select any dtElement from instances of O_OBJ where selected.Name == "Data Type"
+ 	.select any dtElement from instances of O_OBJ where (selected.Name == "Data Type")
  	.if (not_empty dtElement)
  	  .select many parts related by dtElement->R_OIR[R201]->R_RTO[R203]->R_PART[R204]
  	  .for each part in parts

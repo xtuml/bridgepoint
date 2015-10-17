@@ -32,7 +32,7 @@
   .if (not_empty wfl)
       .assign sel_decl = "IStructuredSelection"
       .assign iteration_req = false
-	  .select any class from instances of O_OBJ where selected.Obj_id == 0;
+	  .select any class from instances of O_OBJ where (selected.Obj_id == 0)
 	  .assign elemClass = class
       .select many context_items related by wfl->W_CTI[R2003]
 	  .assign firstContextItemName = ""

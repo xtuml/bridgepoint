@@ -17,8 +17,8 @@
 .assign class_name = "ImportBPSql"
 .//
 .// special case GD_MD.Model_ID is referential in 7.1 
-.select any table from instances of T where selected.Key_Lett ==  "GD_MD"
-.select one col related by table->C[R5] where selected.Name == "Model_ID"
+.select any table from instances of T where (selected.Key_Lett == "GD_MD")
+.select one col related by table->C[R5] where (selected.Name == "Model_ID")
 .assign col.isReferential = true
 .//
 .include "${io_core}/arc/gen_import_java.inc"

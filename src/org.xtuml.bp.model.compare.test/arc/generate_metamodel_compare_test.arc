@@ -536,7 +536,7 @@ ${gch.body}
       .select one rattr related by attr->O_RATTR[R106];
       .select one dbattr related by attr->O_BATTR[R106]->O_DBATTR[R107]
       .if(not_empty rattr)
-      .elif(not_empty dbattr and attr.Name != "Action_Semantics")
+      .elif((not_empty dbattr) and (attr.Name != "Action_Semantics"))
       .else
         .if(not non_mod)
           .select one dt related by attr->S_DT[R114]

@@ -2359,7 +2359,7 @@ IProgressMonitor pm\
   {
   .select many total_class_set from instances of O_OBJ
   .select many pei_classes from instances of O_OBJ where ("${selected.Descrip:PEI}" == "true")
-  .assign num_classes = cardinality total_class_set - cardinality pei_classes
+  .assign num_classes = ((cardinality total_class_set) - (cardinality pei_classes))
   .if (package.is_eclipse_plugin)
 	pm.beginTask("Clearing database...", ${num_classes});
   .end if	
