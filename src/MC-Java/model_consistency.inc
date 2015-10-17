@@ -191,7 +191,7 @@ ${on_class_body.body}
 ${on_test_select.body}
                   .if (one_assoc.Cond == 0 ) .// it is unconditional
           // The one side class is unconditional
-                    .if (one_assoc.Mult == 0) ) .// Is unconditional and multiplicity is 1 
+                    .if (one_assoc.Mult == 0) .// Is unconditional and multiplicity is 1 
           // The multiplicity of the one side class is one
 ${id_test_ne_one.body}
                     .else
