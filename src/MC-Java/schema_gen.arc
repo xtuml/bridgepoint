@@ -56,6 +56,7 @@
   .if(trans_obj and ((subsystem.Name != "Runtime Value") and (ih_obj.Key_Lett != "O_RAVR")))
 CREATE TABLE $_{ih_obj.Key_Lett} (
 	.// find the first attribute of the object
+    .select any ih_attr from instances of O_ATTR where (false)
 	.select many ih_attrs related by ih_obj->O_ATTR[R102]
 	.for each ih_attr in ih_attrs
 		.select one prevAttr related by ih_attr->O_ATTR[R103.'precedes'];

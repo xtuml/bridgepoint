@@ -218,6 +218,7 @@ public class ${modelAdapterClass}
 	.assign found = false
 	.assign is_oal = false;
 	.select many attr_set related by obj->O_ATTR[R102]
+    .select any attr from instances of O_ATTR where (false)
 	.for each attr in attr_set
 	  .if ("$l{attr.name}" == "name")
 	    .assign found = true
