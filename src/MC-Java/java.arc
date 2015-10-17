@@ -1546,7 +1546,7 @@ private static ${class_name} find$cr{object.Name}Instance(ModelRoot modelRoot, $
 		    .select one cone related by comp->R_CONE[R214]
 		    .select one coth related by comp->R_COTH[R215]
 		    .select one cone_obj related by cone->R_OIR[R203]->O_OBJ[R201]
-		    .select one coth_obj related by coth-.R_OIR[R203]->O_OBJ[R201]
+		    .select one coth_obj related by coth->R_OIR[R203]->O_OBJ[R201]
 		    .assign phrase = ""
 		    .assign class_type = ""
 		    .if(cone_obj == object)
