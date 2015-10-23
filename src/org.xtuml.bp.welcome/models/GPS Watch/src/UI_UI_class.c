@@ -8,9 +8,9 @@
  *--------------------------------------------------------------------------*/
 
 #include "GPSWatch_sys_types.h"
-#include "UI_GuiBridge_bridge.h"
 #include "LOG_bridge.h"
 #include "TIM_bridge.h"
+#include "UI_GuiBridge_bridge.h"
 #include "UI_classes.h"
 
 /*
@@ -19,7 +19,7 @@
 void
 UI_UI_op_connect()
 {
-  Escher_xtUMLEvent_t * evt;  /* evt */ 
+  Escher_xtUMLEvent_t * evt;
   /* GuiBridge::connect(  ) */
   XTUML_OAL_STMT_TRACE( 1, "GuiBridge::connect(  )" );
   UI_GuiBridge_connect();
@@ -99,16 +99,16 @@ static void UI_UI_CB_xact1( UI_UI *, const Escher_xtUMLEvent_t * const );
 static void
 UI_UI_CB_xact1( UI_UI * self, const Escher_xtUMLEvent_t * const event )
 {
-  Escher_xtUMLEvent_t * evt;  /* evt */ 
+  Escher_xtUMLEvent_t * evt;
   /* CREATE EVENT INSTANCE evt(  ) TO CLASS */
   XTUML_OAL_STMT_TRACE( 1, "CREATE EVENT INSTANCE evt(  ) TO CLASS" );
   evt = Escher_NewxtUMLEvent( (void *) 0, &UI_UI_CBevent3c );
   /* GuiBridge::feedSetTargetPressedEvent( evt:evt ) */
   XTUML_OAL_STMT_TRACE( 1, "GuiBridge::feedSetTargetPressedEvent( evt:evt )" );
   UI_GuiBridge_feedSetTargetPressedEvent( (Escher_xtUMLEvent_t *)evt );
-  /* GuiBridge::sendTargetPressed(  ) */
-  XTUML_OAL_STMT_TRACE( 1, "GuiBridge::sendTargetPressed(  )" );
-  UI_GuiBridge_sendTargetPressed();
+  /* ::sendTargetPressed(  ) */
+  XTUML_OAL_STMT_TRACE( 1, "::sendTargetPressed(  )" );
+  UI_sendTargetPressed();
 }
 
 /*
@@ -117,16 +117,16 @@ static void UI_UI_CB_xact2( UI_UI *, const Escher_xtUMLEvent_t * const );
 static void
 UI_UI_CB_xact2( UI_UI * self, const Escher_xtUMLEvent_t * const event )
 {
-  Escher_xtUMLEvent_t * evt;  /* evt */ 
+  Escher_xtUMLEvent_t * evt;
   /* CREATE EVENT INSTANCE evt(  ) TO CLASS */
   XTUML_OAL_STMT_TRACE( 1, "CREATE EVENT INSTANCE evt(  ) TO CLASS" );
   evt = Escher_NewxtUMLEvent( (void *) 0, &UI_UI_CBevent4c );
   /* GuiBridge::feedStartStopPressedEvent( evt:evt ) */
   XTUML_OAL_STMT_TRACE( 1, "GuiBridge::feedStartStopPressedEvent( evt:evt )" );
   UI_GuiBridge_feedStartStopPressedEvent( (Escher_xtUMLEvent_t *)evt );
-  /* GuiBridge::sendStartStopPressed(  ) */
-  XTUML_OAL_STMT_TRACE( 1, "GuiBridge::sendStartStopPressed(  )" );
-  UI_GuiBridge_sendStartStopPressed();
+  /* ::sendStartStopPressed(  ) */
+  XTUML_OAL_STMT_TRACE( 1, "::sendStartStopPressed(  )" );
+  UI_sendStartStopPressed();
 }
 
 /*
@@ -135,16 +135,16 @@ static void UI_UI_CB_xact3( UI_UI *, const Escher_xtUMLEvent_t * const );
 static void
 UI_UI_CB_xact3( UI_UI * self, const Escher_xtUMLEvent_t * const event )
 {
-  Escher_xtUMLEvent_t * evt;  /* evt */ 
+  Escher_xtUMLEvent_t * evt;
   /* CREATE EVENT INSTANCE evt(  ) TO CLASS */
   XTUML_OAL_STMT_TRACE( 1, "CREATE EVENT INSTANCE evt(  ) TO CLASS" );
   evt = Escher_NewxtUMLEvent( (void *) 0, &UI_UI_CBevent5c );
   /* GuiBridge::feedLapResetPressedEvent( evt:evt ) */
   XTUML_OAL_STMT_TRACE( 1, "GuiBridge::feedLapResetPressedEvent( evt:evt )" );
   UI_GuiBridge_feedLapResetPressedEvent( (Escher_xtUMLEvent_t *)evt );
-  /* GuiBridge::sendLapResetPressed(  ) */
-  XTUML_OAL_STMT_TRACE( 1, "GuiBridge::sendLapResetPressed(  )" );
-  UI_GuiBridge_sendLapResetPressed();
+  /* ::sendLapResetPressed(  ) */
+  XTUML_OAL_STMT_TRACE( 1, "::sendLapResetPressed(  )" );
+  UI_sendLapResetPressed();
 }
 
 /*
@@ -153,16 +153,16 @@ static void UI_UI_CB_xact4( UI_UI *, const Escher_xtUMLEvent_t * const );
 static void
 UI_UI_CB_xact4( UI_UI * self, const Escher_xtUMLEvent_t * const event )
 {
-  Escher_xtUMLEvent_t * evt;  /* evt */ 
+  Escher_xtUMLEvent_t * evt;
   /* CREATE EVENT INSTANCE evt(  ) TO CLASS */
   XTUML_OAL_STMT_TRACE( 1, "CREATE EVENT INSTANCE evt(  ) TO CLASS" );
   evt = Escher_NewxtUMLEvent( (void *) 0, &UI_UI_CBevent6c );
   /* GuiBridge::feedLightPressedEvent( evt:evt ) */
   XTUML_OAL_STMT_TRACE( 1, "GuiBridge::feedLightPressedEvent( evt:evt )" );
   UI_GuiBridge_feedLightPressedEvent( (Escher_xtUMLEvent_t *)evt );
-  /* GuiBridge::sendLightPressed(  ) */
-  XTUML_OAL_STMT_TRACE( 1, "GuiBridge::sendLightPressed(  )" );
-  UI_GuiBridge_sendLightPressed();
+  /* ::sendLightPressed(  ) */
+  XTUML_OAL_STMT_TRACE( 1, "::sendLightPressed(  )" );
+  UI_sendLightPressed();
 }
 
 /*
@@ -171,16 +171,16 @@ static void UI_UI_CB_xact5( UI_UI *, const Escher_xtUMLEvent_t * const );
 static void
 UI_UI_CB_xact5( UI_UI * self, const Escher_xtUMLEvent_t * const event )
 {
-  Escher_xtUMLEvent_t * evt;  /* evt */ 
+  Escher_xtUMLEvent_t * evt;
   /* CREATE EVENT INSTANCE evt(  ) TO CLASS */
   XTUML_OAL_STMT_TRACE( 1, "CREATE EVENT INSTANCE evt(  ) TO CLASS" );
   evt = Escher_NewxtUMLEvent( (void *) 0, &UI_UI_CBevent7c );
   /* GuiBridge::feedModePressedEvent( evt:evt ) */
   XTUML_OAL_STMT_TRACE( 1, "GuiBridge::feedModePressedEvent( evt:evt )" );
   UI_GuiBridge_feedModePressedEvent( (Escher_xtUMLEvent_t *)evt );
-  /* GuiBridge::sendModePressed(  ) */
-  XTUML_OAL_STMT_TRACE( 1, "GuiBridge::sendModePressed(  )" );
-  UI_GuiBridge_sendModePressed();
+  /* ::sendModePressed(  ) */
+  XTUML_OAL_STMT_TRACE( 1, "::sendModePressed(  )" );
+  UI_sendModePressed();
 }
 
 const Escher_xtUMLEventConstant_t UI_UI_CBevent3c = {

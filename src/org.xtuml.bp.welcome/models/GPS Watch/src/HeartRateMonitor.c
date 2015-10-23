@@ -12,8 +12,9 @@
 
 #include "GPSWatch_sys_types.h"
 #include "HeartRateMonitor.h"
-#include "LOG_bridge.h"
 #include "TIM_bridge.h"
+#include "LOG_bridge.h"
+#include "Tracking.h"
 #include "HeartRateMonitor_classes.h"
 
 /*
@@ -22,7 +23,7 @@
  * From Provider Message:  heartRateChanged
  */
 void
-HeartRateMonitor_HR_heartRateChanged( const r_t p_heartRate)
+HeartRateMonitor_HR_heartRateChanged( const r_t p_heartRate )
 {
   Tracking_HR_heartRateChanged(  p_heartRate );
 }
@@ -59,13 +60,11 @@ HeartRateMonitor_HR_unregisterListener()
  * UML Domain Functions (Synchronous Services)
  */
 
-#if HeartRateMonitor_MAX_CLASS_NUMBERS > 0
 /* xtUML class info (collections, sizes, etc.) */
 Escher_Extent_t * const HeartRateMonitor_class_info[ HeartRateMonitor_MAX_CLASS_NUMBERS ] = {
   &pG_HeartRateMonitor_HeartRateMonitor_extent,
   0
 };
-#endif
 
 /*
  * Array of pointers to the class event dispatcher method.
