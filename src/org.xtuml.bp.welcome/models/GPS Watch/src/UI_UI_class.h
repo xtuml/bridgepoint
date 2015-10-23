@@ -79,11 +79,11 @@ extern const Escher_xtUMLEventConstant_t UI_UI_CBevent7c;
  * union of events targeted towards 'UI' state machine
  */
 typedef union {
-  UI_UI_CBevent3 ui31;  
-  UI_UI_CBevent4 ui42;  
-  UI_UI_CBevent5 ui53;  
-  UI_UI_CBevent6 ui64;  
-  UI_UI_CBevent7 ui75;  
+  UI_UI_CBevent3 ui3_1;  
+  UI_UI_CBevent4 ui4_2;  
+  UI_UI_CBevent5 ui5_3;  
+  UI_UI_CBevent6 ui6_4;  
+  UI_UI_CBevent7 ui7_5;  
 } UI_UI_CB_Events_u;
 
 /*
