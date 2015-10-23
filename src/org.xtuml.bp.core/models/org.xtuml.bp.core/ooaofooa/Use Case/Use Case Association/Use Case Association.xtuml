@@ -46,11 +46,7 @@ elif(not_empty ext)
   unrelate self from ext across R1210;
   ext.dispose();
 end if;
-select one aiuc related by self->UC_AIUC[R1215];
-if(not_empty aiuc)
-  unrelate self from aiuc across R1215;
-  delete object instance aiuc;
-end if;
+
 delete object instance self;',
 	1,
 	'',

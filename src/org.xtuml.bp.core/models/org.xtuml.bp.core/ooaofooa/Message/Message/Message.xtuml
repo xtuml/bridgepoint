@@ -66,11 +66,7 @@ if(not_empty rm)
   rm.dispose();
 end if;
 
-select one mis related by self->SQ_MIS[R954];
-if(not_empty mis)
-  unrelate mis from self across R954;
-  delete object instance mis;
-end if;
+
 delete object instance self;',
 	1,
 	'',
