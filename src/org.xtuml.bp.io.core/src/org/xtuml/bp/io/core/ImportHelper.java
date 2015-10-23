@@ -38,7 +38,6 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.xtuml.bp.core.ActionHome_c;
 import org.xtuml.bp.core.Action_c;
 import org.xtuml.bp.core.ActorParticipant_c;
-import org.xtuml.bp.core.AssociationInUseCase_c;
 import org.xtuml.bp.core.AsynchronousMessage_c;
 import org.xtuml.bp.core.Attribute_c;
 import org.xtuml.bp.core.BridgeParameter_c;
@@ -2400,17 +2399,6 @@ public class ImportHelper
 					continue;
 				}
 				// see where the message is
-			} else if (element instanceof UseCaseAssociation_c) {
-				UseCaseAssociation_c assoc = (UseCaseAssociation_c) element;
-				// check for existing link class, or PE
-				AssociationInUseCase_c aiuc = AssociationInUseCase_c
-						.getOneUC_AIUCOnR1215(assoc);
-				PackageableElement_c pe = PackageableElement_c
-						.getOnePE_PEOnR8001(assoc);
-				if (aiuc != null || pe != null) {
-					continue;
-				}
-				// only need to create for non generic case
 			}
 		}
 		return newElements;
