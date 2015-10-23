@@ -72,7 +72,7 @@ work in both eclipse 3.7 and eclipse 4.x.
   eclipse that lives under the git repository.  This was done so that eclipse runtime configuration data (that is
   written when you run eclipse) was not written into our pristine install data.  Also note that these commands 
   must be run to update both the Windows and Linux versions.  That is the command is run twice with the destination
-  set to ```.../install_bases/BridgePoint_e4.5/...``` and ```.../install_bases/BridgePoint_for_Linux_e4.5/...```.
+  set to ```.../install_bases/BridgePoint_e4.5/...``` and ```.../install_bases/BridgePoint_for_Linux_e4.5/...```.   
 6.5.1  Add ANTLR  
 ```
 $ /opt/xtuml/BridgePoint_e44s/eclipse/eclipse -application org.eclipse.equinox.p2.director -repository http://antlreclipse.sourceforge.net/updates/ -installIU org.antlr.ui.feature.group -destination /home/kbrown/build/git/xtuml/packaging/install_bases/BridgePoint_for_Linux_e4.5/EclipseDeliverables/eclipse/ -profile epp.package.modeling
