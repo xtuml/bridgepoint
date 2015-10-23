@@ -87,7 +87,14 @@ public class FunctionKeyActivationTest extends BaseTest {
             fail( "Log file is not empty"); 
         }
     }
-    public void testF2Activation() throws CoreException,IOException {
+    
+    // Enforce ordering of the tests in this class
+    public void testFunctionKeys() throws CoreException,IOException {
+    	dotestF2Activation();
+    	dotestDeleteActivation();
+    }
+    
+    private void dotestF2Activation() throws CoreException,IOException {
     	// setup the test project and model
         PersistableModelComponent domainComponent = ensureAvailableAndLoaded(packageName, testModelName, false, false, "Package");
         modelRoot = (Ooaofooa)domainComponent.getRootModelElement().getModelRoot();
@@ -166,7 +173,7 @@ public class FunctionKeyActivationTest extends BaseTest {
 		assertNotNull(mc);
     }
     
-    public void testDeleteActivation() throws CoreException,IOException {
+    private void dotestDeleteActivation() throws CoreException,IOException {
     	
 	
 		 ModelClass_c mc = ModelClass_c.ModelClassInstance(modelRoot, new ClassQueryInterface_c() {

@@ -1,12 +1,3 @@
-
-//=====================================================================
-//
-//File:      $RCSfile: GlobalsCanvasSuite1.java,v $
-//Version:   $Revision: 1.3 $
-//Modified:  $Date: 2013/05/10 05:47:48 $
-//
-//(c) Copyright 2007-2014 by Mentor Graphics Corp. All rights reserved.
-//
 //=====================================================================
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not 
 // use this file except in compliance with the License.  You may obtain a copy 
@@ -22,16 +13,12 @@
 //=====================================================================
 
 
-import junit.framework.Assert;
-import junit.framework.Test;
-import junit.framework.TestSuite;
-
 import org.eclipse.core.runtime.CoreException;
-
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 import org.xtuml.bp.core.util.WorkspaceUtil;
 import org.xtuml.bp.ui.canvas.test.CanvasCreationTest;
+import org.xtuml.bp.ui.canvas.test.CanvasCreationTest2;
 import org.xtuml.bp.ui.canvas.test.CanvasEditorReloadContentsTest;
 import org.xtuml.bp.ui.canvas.test.CanvasEditorTestSuite;
 import org.xtuml.bp.ui.canvas.test.CanvasInitialNameTests;
@@ -41,7 +28,12 @@ import org.xtuml.bp.ui.canvas.test.GlobalsCanvasTestSuite1;
 import org.xtuml.bp.ui.canvas.test.ListenerTest;
 import org.xtuml.bp.ui.canvas.test.ODMSTest;
 import org.xtuml.bp.ui.canvas.test.ShapeResizeTest;
+import org.xtuml.bp.ui.canvas.test.ShapeResizeTest2;
+import org.xtuml.bp.ui.canvas.test.StateCreationTests;
 import org.xtuml.bp.ui.canvas.test.SymbolTest;
+
+import junit.framework.Test;
+import junit.framework.TestSuite;
 
 /**
  * Test all areas of the canvas
@@ -65,7 +57,7 @@ public class GlobalsCanvasSuite1 extends TestSuite {
 		try {
 			WorkspaceUtil.setAutobuilding(false);
 		} catch (CoreException e) {
-			Assert.fail(e.toString());
+			CorePlugin.logError(e.toString(), e);
 		}
 		CorePlugin.getDefault().getPreferenceStore().setValue(BridgePointPreferencesStore.USE_DEFAULT_NAME_FOR_CREATION,true);
 		
@@ -76,8 +68,11 @@ public class GlobalsCanvasSuite1 extends TestSuite {
 		addTest(new TestSuite(ODMSTest.class));
         addTest(new TestSuite(CanvasEditorReloadContentsTest.class));
 		addTest(new TestSuite(ListenerTest.class));
-		addTest(new TestSuite(CanvasCreationTest.class));	
+		addTest(new TestSuite(CanvasCreationTest.class));
+		addTest(new TestSuite(CanvasCreationTest2.class));
+		addTest(new TestSuite(StateCreationTests.class));
         addTest(new TestSuite(ShapeResizeTest.class));
+        addTest(new TestSuite(ShapeResizeTest2.class));
 		addTest(new CanvasEditorTestSuite());
 		addTest(new TestSuite(CreationTransitionTest.class));
 		//addTest(new TestSuite(I634OutlineViewEmptySelectionTest.class));
