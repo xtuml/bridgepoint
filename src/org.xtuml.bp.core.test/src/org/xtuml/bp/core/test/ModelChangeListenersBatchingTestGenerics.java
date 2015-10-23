@@ -46,8 +46,15 @@ public class ModelChangeListenersBatchingTestGenerics extends CoreTest {
 
 	TestModelChangeListener instantListener = new TestModelChangeListener(false);
 	TestModelChangeListener batchedListener = new TestModelChangeListener(true);
+	
+	public void testModelCHange() throws Exception{
+		doTestCreateModelElement();
+		doTestDeleteModelElement();
+		doTestRenameS_SS();
+		doTestRenameO_ATTR();
+	}
 
-	public void testCreateModelElement() throws Exception {
+	public void doTestCreateModelElement() throws Exception {
 		ActionTestGenerics test = new ActionTestGenerics();
 		test.setUp();
 		modelRoot = BaseTest.getDefaultTestInstance();
@@ -99,7 +106,7 @@ public class ModelChangeListenersBatchingTestGenerics extends CoreTest {
 				.removeModelChangeListener(batchedListener);
 	}
 
-	public void testDeleteModelElement() throws Exception {
+	public void doTestDeleteModelElement() throws Exception {
 		ActionTestGenerics delAction = new ActionTestGenerics();
 		delAction.setUp();
 		modelRoot = BaseTest.getDefaultTestInstance();
@@ -134,7 +141,7 @@ public class ModelChangeListenersBatchingTestGenerics extends CoreTest {
 				.removeModelChangeListener(batchedListener);
 	}
 
-	public void testRenameS_SS() throws Exception {
+	public void doTestRenameS_SS() throws Exception {
 //		if (m_sys!=null) {
 //			unloadComponentAndChildren(m_sys.getPersistableComponent());
 //			super.tearDown();
@@ -172,7 +179,7 @@ public class ModelChangeListenersBatchingTestGenerics extends CoreTest {
 				.removeModelChangeListener(batchedListener);
 	}
 
-	public void testRenameO_ATTR() throws Exception {
+	public void doTestRenameO_ATTR() throws Exception {
 		RenameTestGenerics renTest = new RenameTestGenerics();
 		renTest.setUp();
 		Display d = Display.getDefault();

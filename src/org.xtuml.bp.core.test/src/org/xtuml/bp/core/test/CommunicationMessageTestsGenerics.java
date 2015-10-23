@@ -116,7 +116,7 @@ public class CommunicationMessageTestsGenerics extends CanvasTest {
 	 * communication diagram c) an external entity can be unformalized and the
 	 * message formalized against its operations will be unformalized
 	 */
-	public void testFormalizeMessageWithBridgeOperation() {
+	public void doTestFormalizeMessageWithBridgeOperation() {
 		test_id = "1";
 		String diagramName = "Communication in Package";
 
@@ -211,6 +211,15 @@ public class CommunicationMessageTestsGenerics extends CanvasTest {
 		validateOrGenerateResults(ce, generateResults);
 
 	}
+	
+	public void testCommunicationMessageTest(){
+	      doTestFormalizeMessageWithBridgeOperation();
+	      doTestFormalizeMessageWithFunction();
+	      doTestFormalizeMessageWithInstanceBasedOperation();
+	      doTestFormalizeMessageWithClassBasedOperation();
+	      doTestFormalizeMessageWithClassBasedEvent();
+	      doTestFormalizeMessageWithInstanceBasedEvent();
+	}
 
 	/**
 	 * Tests the following: a) a function package participant can be formalized
@@ -219,7 +228,7 @@ public class CommunicationMessageTestsGenerics extends CanvasTest {
 	 * communication diagram c) a function package can be unformalized and the
 	 * message formalized against its functions will be unformalized
 	 */
-	public void testFormalizeMessageWithFunction() {
+	public void doTestFormalizeMessageWithFunction() {
 		test_id = "4";
 		final String diagramName = "Communication in Package";
 
@@ -320,7 +329,7 @@ public class CommunicationMessageTestsGenerics extends CanvasTest {
 	 * communication diagram c) a class instance participant can be unformalized
 	 * and the message formalized against its operation will be unformalized
 	 */
-	public void testFormalizeMessageWithInstanceBasedOperation() {
+	public void doTestFormalizeMessageWithInstanceBasedOperation() {
 		test_id = "7";
 		String diagramName = "Communication in Package";
 
@@ -411,7 +420,7 @@ public class CommunicationMessageTestsGenerics extends CanvasTest {
 	 * diagram c) a class participant can be unformalized and the message
 	 * formalized against its operation will be unformalized
 	 */
-	public void testFormalizeMessageWithClassBasedOperation() {
+	public void doTestFormalizeMessageWithClassBasedOperation() {
 		test_id = "10";
 		String diagramName = "Communication in Package";
 
@@ -501,7 +510,7 @@ public class CommunicationMessageTestsGenerics extends CanvasTest {
 	 * a class participant can be unformalized and the message formalized
 	 * against its operation will be unformalized
 	 */
-	public void testFormalizeMessageWithClassBasedEvent() {
+	public void doTestFormalizeMessageWithClassBasedEvent() {
 		test_id = "13";
 		String diagramName = "Communication in Package";
 
@@ -592,7 +601,7 @@ public class CommunicationMessageTestsGenerics extends CanvasTest {
 	 * communication diagram c) a class instance participant can be unformalized
 	 * and the message formalized against its operation will be unformalized
 	 */
-	public void testFormalizeMessageWithInstanceBasedEvent() {
+	public void doTestFormalizeMessageWithInstanceBasedEvent() {
 		test_id = "16";
 		String diagramName = "Communication in Package";
 

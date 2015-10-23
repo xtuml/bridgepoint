@@ -1,12 +1,4 @@
 //=====================================================================
-//
-//File:      $RCSfile: ImportedComponentIFTests.java,v $
-//Version:   $Revision: 1.13 $
-//Modified:  $Date: 2013/05/10 04:30:26 $
-//
-//(c) Copyright 2007-2014 by Mentor Graphics Corp. All rights reserved.
-//
-//=====================================================================
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not 
 // use this file except in compliance with the License.  You may obtain a copy 
 // of the License at
@@ -59,7 +51,13 @@ public class ImportedComponentIFTests extends BaseTest {
 		}
 	}
 
-	public void testSingleComponentInScopeInterface() {
+	// Enforce ordering of the tests in this class
+	public void testImportedComponentIFTests() {
+		dotestSingleComponentInScopeInterface();
+		dotestMultipleComponentAtLeastOneInScopeIF();
+		dotestRemovalOfImportedReferenceOnReFormalization();
+	}
+	public void dotestSingleComponentInScopeInterface() {
 		Interface_c iface = getInterface(true);
 		assertNotNull(iface);
 		Component_c compWithRef = Component_c.ComponentInstance(modelRoot,
@@ -80,7 +78,7 @@ public class ImportedComponentIFTests extends BaseTest {
 		runScopeMenuTest(true);
 	}
 
-	public void testMultipleComponentAtLeastOneInScopeIF() {
+	public void dotestMultipleComponentAtLeastOneInScopeIF() {
 		Package_c compPackage = Package_c
 				.PackageInstance(modelRoot,
 						new ClassQueryInterface_c() {
@@ -119,7 +117,7 @@ public class ImportedComponentIFTests extends BaseTest {
 	 * not result in duplicate imported reference instances
 	 * 
 	 */
-	public void testRemovalOfImportedReferenceOnReFormalization() {
+	public void dotestRemovalOfImportedReferenceOnReFormalization() {
 		ModelRoot.disableChangeNotification();
 		PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
 				.closeAllEditors(false);
@@ -194,6 +192,7 @@ public class ImportedComponentIFTests extends BaseTest {
 				.getOneCL_ICOnR8001(PackageableElement_c
 						.getManyPE_PEsOnR8003(comp));
 		assertNotNull(ic);
+		UITestingUtilities.clearGraphicalSelection();
 		UITestingUtilities.addElementToGraphicalSelection(ic);
 		if (expected) {
 			assertTrue(
