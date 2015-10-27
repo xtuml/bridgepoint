@@ -489,7 +489,7 @@ p_${an.body}\
 .//
 .select any root_pkg from instances of EP_PKG where (selected.Name == mc_root_pkg)
 .invoke rpn_result = get_root_pkg_name( root_pkg )
-.include "color/${rpn_result.body}_package_spec.clr"
+.include "color/$l{rpn_result.body}_package_spec.clr"
 .invoke package = get_package()
 .assign application_root_class = package.application_root_class
 .if(application_root_class == "Ooaofooa")
@@ -598,7 +598,7 @@ ${blck.body}
   .// End External Entities
   .//
 .end if 
-.include "${project_root}/color/${rpn_result.body}_import_spec.clr"
+.include "${project_root}/color/$l{rpn_result.body}_import_spec.clr"
 .// Generate a class for each object
 .//
 .select many packages from instances of EP_PKG
@@ -2489,7 +2489,7 @@ ${blck.body}
         m_myMasterTimer.start() ;
     }
 
-  .include "${project_root}/color/${rpn_result.body}_startspec.clr"
+  .include "${project_root}/color/$l{rpn_result.body}_startspec.clr"
   .invoke result = define_startspec()
   .if (result.init_class != "")
     .assign init_class_name = "${result.init_class}_c"
