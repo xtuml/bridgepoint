@@ -187,7 +187,7 @@
     .param inst_ref_set path
     .param string child_var
     .param string params
-    .param string cardinality
+    .param string cardinality_
     .//     
     .assign parent_picked = true
     .select any parent_element from instances of EO where ( selected.Id == "-1" )
@@ -240,7 +240,7 @@
     .if(params != "")
       .assign params = ", " + params
     .end if
-    .invoke nav = generate_backward_rel_chain_nav_from_kl(parent_table.Key_Lett, rel_chain, cardinality, "(${child_class_name.body})${child_var}${params}", "", false);
+    .invoke nav = generate_backward_rel_chain_nav_from_kl(parent_table.Key_Lett, rel_chain, cardinality_, "(${child_class_name.body})${child_var}${params}", "", false);
 ${nav.body}
 .end function
 .//
