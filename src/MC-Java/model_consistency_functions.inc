@@ -208,7 +208,7 @@
     .assign actual_value = "Integer.toString( objs${arraynum} ) "
   .end if
     {
-.invoke test_error = create_test_class_error(error_message.body, actual_value, identifier_string, package, object)
+.invoke test_error = create_test_class_error(error_message, actual_value, identifier_string, package, object)
 ${test_error.body}
     }
 .end function
