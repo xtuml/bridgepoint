@@ -150,6 +150,7 @@ static public void openCanvasEditor(final Object uut) {
 				sca.run(a);
 			}
 		};
+		BaseTest.dispatchEvents(0);
 		ResourcesPlugin.getWorkspace().run(r, null);
 		TestingUtilities.allowJobCompletion();
 	} catch (CoreException x) {

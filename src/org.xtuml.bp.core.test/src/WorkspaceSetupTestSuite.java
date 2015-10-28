@@ -14,11 +14,13 @@
 
 
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.ui.PlatformUI;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.test.IPRSetupTests;
 import org.xtuml.bp.core.test.SetupCreationTests;
 import org.xtuml.bp.core.test.TigerNatureWorkspaceSetupTestGenerics;
 import org.xtuml.bp.core.util.WorkspaceUtil;
+import org.xtuml.bp.test.common.BaseTest;
 
 import junit.framework.Test;
 import junit.framework.TestSuite;

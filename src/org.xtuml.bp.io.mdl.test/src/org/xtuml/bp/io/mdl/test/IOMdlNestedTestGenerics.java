@@ -119,10 +119,10 @@ public class IOMdlNestedTestGenerics extends CanvasTest {
 	public void setGenerateResults() {
 		try {
 			generateResults = true;
-			this.testCreateNestedDTP();
-			this.testCreateNestedFP();
-			this.testCreateNestedEEP();
-			this.testCreateNestedSS();			
+			this.doTestCreateNestedDTP();
+			this.doTestCreateNestedFP();
+			this.doTestCreateNestedEEP();
+			this.doTestCreateNestedSS();			
 		} catch (Exception e) {
 			System.out.println(
 				"Exception encountered by test result creator: " + e);
@@ -130,7 +130,22 @@ public class IOMdlNestedTestGenerics extends CanvasTest {
 
 	}
 	
-	public void testCreateNestedDTP()
+	public void testNestedGenerics() {
+		try {
+			generateResults = true;
+			this.doTestCreateNestedDTP();
+			this.doTestCreateNestedFP();
+			this.doTestCreateNestedEEP();
+			this.doTestCreateNestedSS();
+			this.doTestUpgradeModelWithPublishReference();
+		} catch (Exception e) {
+			System.out.println(
+				"Exception encountered by test result creator: " + e);
+		}
+
+	}
+		
+	public void doTestCreateNestedDTP()
 	{	
 		test_id = "test_1";
 		IOMdlUtilities mtu = new IOMdlUtilities();
@@ -148,7 +163,7 @@ public class IOMdlNestedTestGenerics extends CanvasTest {
 		UITestingUtilities.deactivateTool(tool);
 		
 	}
-	public void testCreateNestedFP()
+	public void doTestCreateNestedFP()
 	{	
 		test_id = "test_2";
 		IOMdlUtilities mtu = new IOMdlUtilities();
@@ -167,7 +182,7 @@ public class IOMdlNestedTestGenerics extends CanvasTest {
 		UITestingUtilities.deactivateTool(tool);
 		
 	}
-	public void testCreateNestedEEP()
+	public void doTestCreateNestedEEP()
 	{	
 		test_id = "test_3";
 		IOMdlUtilities mtu = new IOMdlUtilities();
@@ -186,7 +201,7 @@ public class IOMdlNestedTestGenerics extends CanvasTest {
 		UITestingUtilities.deactivateTool(tool);
 		
 	}
-	public void testCreateNestedSS()
+	public void doTestCreateNestedSS()
 	{	
 		test_id = "test_4";
 		IOMdlUtilities mtu = new IOMdlUtilities();
@@ -206,7 +221,7 @@ public class IOMdlNestedTestGenerics extends CanvasTest {
 		
 	}
 
-	public void testUpgradeModelWithPublishReference() throws Exception{
+	public void doTestUpgradeModelWithPublishReference() throws Exception{
 		// Load from git
 		this.loadProject("InstanceReferenceTestMatrixModel");
 			

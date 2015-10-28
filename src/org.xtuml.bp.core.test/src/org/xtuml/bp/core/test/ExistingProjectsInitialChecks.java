@@ -161,7 +161,10 @@ public class ExistingProjectsInitialChecks extends CanvasTest {
 	public void testLinkWithEditor() {
 		IEditorPart ss = checkForOpenEditors("TestSS");
 		assertNotNull(ss);
-
+		int x = 0;
+		while (x == 0) {
+			while (PlatformUI.getWorkbench().getDisplay().readAndDispatch());
+		}
 		// bring the canvas editor to the front
 		ss.getEditorSite().getPage().activate(ss);
 		Package_c ss_obj = (Package_c) ((GraphicalEditorInput) ss.getEditorInput()).getInput().getRepresents();

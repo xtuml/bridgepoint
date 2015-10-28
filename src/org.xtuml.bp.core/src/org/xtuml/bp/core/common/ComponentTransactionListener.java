@@ -286,32 +286,32 @@ public class ComponentTransactionListener implements ITransactionListener {
 		job.schedule();
 	}
     private void handleComponentFormalization(Domain_c dom, Component_c comp) {
-      final IWorkspaceRoot wsRoot = ResourcesPlugin.getWorkspace().getRoot();
-      PersistableModelComponent domPmc = dom.getPersistableComponent();
-      ModelRoot oldModelRoot = dom.getModelRoot();
-      IFolder oldFolder = wsRoot.getFolder(domPmc.
-    		                    getParentDirectoryPath().append(dom.getName()));
-      dom.updateRootForSelfAndChildren(oldModelRoot, comp.getModelRoot());
-      domPmc.resetComponentForChildren(
-    		  comp.getPersistableComponent().getContainingDirectoryPath(),
-    		          comp.getName(), PersistenceManager.getChildrenOf(domPmc));
-      dom.setParentModelRoot(comp.getModelRoot());
-      dom.setComponent(comp.getPersistableComponent(), false);
-      dom.updateComponentForSelfAndChildren(dom, dom.getPersistableComponent(), false);
-      try {
-        comp.getPersistableComponent().persistSelfAndChildren();
-      }
-      catch (CoreException ce) {
-        CorePlugin.logError(
-        		  "Failure persisting Component file during formalization", ce);
-      }
-      try {
-        oldFolder.delete(true, new NullProgressMonitor());
-      }
-      catch (CoreException ce) {
-        CorePlugin.logError(
-               "Failure removing old Component files during formalization", ce);
-      }
+//      final IWorkspaceRoot wsRoot = ResourcesPlugin.getWorkspace().getRoot();
+//      PersistableModelComponent domPmc = dom.getPersistableComponent();
+//      ModelRoot oldModelRoot = dom.getModelRoot();
+//      IFolder oldFolder = wsRoot.getFolder(domPmc.
+//    		                    getParentDirectoryPath().append(dom.getName()));
+//      dom.updateRootForSelfAndChildren(oldModelRoot, comp.getModelRoot());
+//      domPmc.resetComponentForChildren(
+//    		  comp.getPersistableComponent().getContainingDirectoryPath(),
+//    		          comp.getName(), PersistenceManager.getChildrenOf(domPmc));
+//      dom.setParentModelRoot(comp.getModelRoot());
+//      dom.setComponent(comp.getPersistableComponent(), false);
+//      dom.updateComponentForSelfAndChildren(dom, dom.getPersistableComponent(), false);
+//      try {
+//        comp.getPersistableComponent().persistSelfAndChildren();
+//      }
+//      catch (CoreException ce) {
+//        CorePlugin.logError(
+//        		  "Failure persisting Component file during formalization", ce);
+//      }
+//      try {
+//        oldFolder.delete(true, new NullProgressMonitor());
+//      }
+//      catch (CoreException ce) {
+//        CorePlugin.logError(
+//               "Failure removing old Component files during formalization", ce);
+//      }
     }
     private void handleComponentUnformalization(Domain_c dom,
                                           Component_c comp, SystemModel_c sys) {

@@ -756,6 +756,7 @@ public class PolymorphicEventAssignmentTestGenerics extends BaseTest {
 		});
 		assertNotNull(assoc);
 		assoc.Dispose();
+		BaseTest.dispatchEvents(0);
 		NonLocalEvent_c nlevt = NonLocalEvent_c.NonLocalEventInstance(
 				modelRoot, new ClassQueryInterface_c() {
 
