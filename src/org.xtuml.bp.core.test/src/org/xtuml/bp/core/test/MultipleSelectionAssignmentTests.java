@@ -185,6 +185,7 @@ public class MultipleSelectionAssignmentTests extends BaseTest {
 			}
 			// undo the change and compare the file version with its
 			// original state
+			BaseTest.dispatchEvents(0);
 			m_sys.getTransactionManager().getUndoAction().run();
 			compareFileHistoryForTestElements(testElements, testClasses[i]);
 		}

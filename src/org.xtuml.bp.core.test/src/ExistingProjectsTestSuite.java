@@ -49,6 +49,6 @@ public class ExistingProjectsTestSuite extends TestSuite {
 
         addTest(new TestSuite(ExistingProjectsInitialChecks.class));
         addTest(new TestSuite(NewShapeAfterRestart.class));
-// TODO        addTest(new TestSuite(TigerNatureExistingProjectsTestGenerics.class));
+        addTest(new TestSuite(TigerNatureExistingProjectsTestGenerics.class));
 	}
 }
