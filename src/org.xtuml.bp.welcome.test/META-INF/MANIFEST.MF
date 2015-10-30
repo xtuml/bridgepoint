@@ -14,5 +14,6 @@ Require-Bundle: org.eclipse.ui,
  org.xtuml.bp.core,
  org.xtuml.bp.test,
  org.xtuml.bp.ui.explorer,
- org.xtuml.bp.utilities
+ org.xtuml.bp.utilities,
+ org.eclipse.ui.intro
 Eclipse-AutoStart: true

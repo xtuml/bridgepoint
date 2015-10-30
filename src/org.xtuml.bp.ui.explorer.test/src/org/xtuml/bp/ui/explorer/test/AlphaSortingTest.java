@@ -82,10 +82,16 @@ public class AlphaSortingTest extends BaseTest
         }
     }
 
+    // enforces ordering of the tests in this class
+    public void testAlphaSorting() throws CoreException,IOException {
+    	dotestAlphaSortingOfSystems();
+    	dotestAlphaSortingOfDomains();
+    }
+    
     /**
      * Tests that alpha sorting works properly for the root node
      */
-    public void testAlphaSortingOfSystems() throws CoreException, IOException
+    public void dotestAlphaSortingOfSystems() throws CoreException, IOException
     {
         // clear all existing projects from previous tests
         IProject[] existingProjects = ResourcesPlugin.getWorkspace().getRoot().getProjects();
@@ -115,7 +121,7 @@ public class AlphaSortingTest extends BaseTest
     /**
      * Tests that alpha sorting works properly for the system node
      */
-    public void testAlphaSortingOfDomains()
+    public void dotestAlphaSortingOfDomains()
     {
         // contains a blank entry to cover System Model child entry
         String[] domains = new String[] { "-", "1", "a", "AA", "Datatypes" };

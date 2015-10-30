@@ -18,18 +18,18 @@
 void
 Tracking_WorkoutTimer_op_activate( Tracking_WorkoutTimer * self)
 {
-  Escher_xtUMLEvent_t * evt;  /* evt */ 
+  Escher_xtUMLEvent_t * evt;
   /* CREATE EVENT INSTANCE evt(  ) TO self */
   XTUML_OAL_STMT_TRACE( 1, "CREATE EVENT INSTANCE evt(  ) TO self" );
   evt = Escher_NewxtUMLEvent( (void *) self, &Tracking_WorkoutTimerevent3c );
   /* ASSIGN self.timer = TIM::timer_start_recurring(event_inst:evt, microseconds:1000000) */
   XTUML_OAL_STMT_TRACE( 1, "ASSIGN self.timer = TIM::timer_start_recurring(event_inst:evt, microseconds:1000000)" );
   self->timer = TIM_timer_start_recurring( (Escher_xtUMLEvent_t *)evt, 1000000 );
-  /*  SEND LOC::registerListener() */
-  XTUML_OAL_STMT_TRACE( 1, " SEND LOC::registerListener()" );
+  /* SEND LOC::registerListener() */
+  XTUML_OAL_STMT_TRACE( 1, "SEND LOC::registerListener()" );
   Tracking_LOC_registerListener();
-  /*  SEND HR::registerListener() */
-  XTUML_OAL_STMT_TRACE( 1, " SEND HR::registerListener()" );
+  /* SEND HR::registerListener() */
+  XTUML_OAL_STMT_TRACE( 1, "SEND HR::registerListener()" );
   Tracking_HR_registerListener();
 
 }
@@ -40,47 +40,19 @@ Tracking_WorkoutTimer_op_activate( Tracking_WorkoutTimer * self)
 void
 Tracking_WorkoutTimer_op_deactivate( Tracking_WorkoutTimer * self)
 {
-  bool res; 
+  bool res;
   /* ASSIGN res = TIM::timer_cancel(timer_inst_ref:self.timer) */
   XTUML_OAL_STMT_TRACE( 1, "ASSIGN res = TIM::timer_cancel(timer_inst_ref:self.timer)" );
   res = TIM_timer_cancel( self->timer );
-  /*  SEND LOC::unregisterListener() */
-  XTUML_OAL_STMT_TRACE( 1, " SEND LOC::unregisterListener()" );
+  /* SEND LOC::unregisterListener() */
+  XTUML_OAL_STMT_TRACE( 1, "SEND LOC::unregisterListener()" );
   Tracking_LOC_unregisterListener();
-  /*  SEND HR::unregisterListener() */
-  XTUML_OAL_STMT_TRACE( 1, " SEND HR::unregisterListener()" );
+  /* SEND HR::unregisterListener() */
+  XTUML_OAL_STMT_TRACE( 1, "SEND HR::unregisterListener()" );
   Tracking_HR_unregisterListener();
 
 }
 
-
-/*
- * RELATE TrackLog TO WorkoutTimer ACROSS R4
- */
-void
-Tracking_WorkoutTimer_R4_Link( Tracking_TrackLog * part, Tracking_WorkoutTimer * form )
-{
-  if ( (part == 0) || (form == 0) ) {
-    XTUML_EMPTY_HANDLE_TRACE( "WorkoutTimer", "Tracking_WorkoutTimer_R4_Link" );
-    return;
-  }
-  form->TrackLog_R4 = part;
-  part->WorkoutTimer_R4 = form;
-}
-
-/*
- * UNRELATE TrackLog FROM WorkoutTimer ACROSS R4
- */
-void
-Tracking_WorkoutTimer_R4_Unlink( Tracking_TrackLog * part, Tracking_WorkoutTimer * form )
-{
-  if ( (part == 0) || (form == 0) ) {
-    XTUML_EMPTY_HANDLE_TRACE( "WorkoutTimer", "Tracking_WorkoutTimer_R4_Unlink" );
-    return;
-  }
-  form->TrackLog_R4 = 0;
-  part->WorkoutTimer_R4 = 0;
-}
 
 
 /*----------------------------------------------------------------------------
@@ -116,8 +88,7 @@ static void Tracking_WorkoutTimer_act1( Tracking_WorkoutTimer *, const Escher_xt
 static void
 Tracking_WorkoutTimer_act1( Tracking_WorkoutTimer * self, const Escher_xtUMLEvent_t * const event )
 {
-  Tracking_TrackLog * trackLog = 0; /* trackLog (TrackLog) */
- 
+  Tracking_TrackLog * trackLog=0;
   /* ASSIGN self.time = 0 */
   XTUML_OAL_STMT_TRACE( 1, "ASSIGN self.time = 0" );
   self->time = 0;
@@ -126,7 +97,7 @@ Tracking_WorkoutTimer_act1( Tracking_WorkoutTimer * self, const Escher_xtUMLEven
   Tracking_UI_setTime( self->time );
   /* SELECT one trackLog RELATED BY self->TrackLog[R4] */
   XTUML_OAL_STMT_TRACE( 1, "SELECT one trackLog RELATED BY self->TrackLog[R4]" );
-  trackLog = ( 0 != self ) ? self->TrackLog_R4 : 0;
+  trackLog = ( 0 != self ) ? self->TrackLog_R4_provides_high_resolution_data_for : 0;
   /* trackLog.clearTrackPoints() */
   XTUML_OAL_STMT_TRACE( 1, "trackLog.clearTrackPoints()" );
   Tracking_TrackLog_op_clearTrackPoints( trackLog );
@@ -138,13 +109,12 @@ Tracking_WorkoutTimer_act1( Tracking_WorkoutTimer * self, const Escher_xtUMLEven
   Tracking_TrackLog_op_clearHeartRateSamples( trackLog );
   /* GENERATE Display_A2:refresh() TO Display CLASS */
   XTUML_OAL_STMT_TRACE( 1, "GENERATE Display_A2:refresh() TO Display CLASS" );
-  { Escher_xtUMLEvent_t * e = Escher_NewxtUMLEvent( (void *) 0, &Tracking_Display_CBevent2c );
+  { Escher_xtUMLEvent_t * e = Escher_NewxtUMLEvent( 0, &Tracking_Display_CBevent2c );
     Escher_SendEvent( e );
   }
-
   /* UNRELATE self FROM trackLog ACROSS R4 */
   XTUML_OAL_STMT_TRACE( 1, "UNRELATE self FROM trackLog ACROSS R4" );
-  Tracking_WorkoutTimer_R4_Unlink( trackLog, self );
+  Tracking_TrackLog_R4_Unlink_provides_high_resolution_data_for( self, trackLog );
   /* DELETE OBJECT INSTANCE trackLog */
   XTUML_OAL_STMT_TRACE( 1, "DELETE OBJECT INSTANCE trackLog" );
   if ( 0 == trackLog ) {
@@ -177,13 +147,13 @@ static void Tracking_WorkoutTimer_xact1( Tracking_WorkoutTimer *, const Escher_x
 static void
 Tracking_WorkoutTimer_xact1( Tracking_WorkoutTimer * self, const Escher_xtUMLEvent_t * const event )
 {
-  Tracking_TrackLog * trackLog; 
+  Tracking_TrackLog * trackLog;
   /* CREATE OBJECT INSTANCE trackLog OF TrackLog */
   XTUML_OAL_STMT_TRACE( 1, "CREATE OBJECT INSTANCE trackLog OF TrackLog" );
   trackLog = (Tracking_TrackLog *) Escher_CreateInstance( Tracking_DOMAIN_ID, Tracking_TrackLog_CLASS_NUMBER );
   /* RELATE self TO trackLog ACROSS R4 */
   XTUML_OAL_STMT_TRACE( 1, "RELATE self TO trackLog ACROSS R4" );
-  Tracking_WorkoutTimer_R4_Link( trackLog, self );
+  Tracking_TrackLog_R4_Link_provides_high_resolution_data_for( self, trackLog );
   /* trackLog.init() */
   XTUML_OAL_STMT_TRACE( 1, "trackLog.init()" );
   Tracking_TrackLog_op_init( trackLog );
@@ -198,7 +168,7 @@ static void Tracking_WorkoutTimer_xact2( Tracking_WorkoutTimer *, const Escher_x
 static void
 Tracking_WorkoutTimer_xact2( Tracking_WorkoutTimer * self, const Escher_xtUMLEvent_t * const event )
 {
-  Tracking_TrackLog * trackLog=0; 
+  Tracking_TrackLog * trackLog=0;
   /* SELECT any trackLog FROM INSTANCES OF TrackLog */
   XTUML_OAL_STMT_TRACE( 1, "SELECT any trackLog FROM INSTANCES OF TrackLog" );
   trackLog = (Tracking_TrackLog *) Escher_SetGetAny( &pG_Tracking_TrackLog_extent.active );

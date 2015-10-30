@@ -137,8 +137,8 @@ public class SetTypeTestGenerics extends CanvasTest {
 		try {
 			generateResults = true;
 			this.setUp();
-			this.testSetTypeAttribute();
-			this.testCheckTableItemForSetType();
+			this.doTestSetTypeAttribute();
+			this.doTestCheckTableItemForSetType();
 		} catch (Exception e) {
 			System.out.println("Exception encountered by test result creator: "
 					+ e);
@@ -165,8 +165,19 @@ public class SetTypeTestGenerics extends CanvasTest {
 		assertNotNull(uut);
 		CanvasTestUtils.openCanvasEditor(uut);
 	}
+	
+	
+	public void testSetTypeTestGenerrics(){
+		doTestSetTypeAttribute();
+		doTestCheckTableItemForSetType();
+		doTestUDTBaseTypeAssignmentToCoreType();
+		doTestUDTBaseTypeAssignmentToUDT();
+		doTestUDTBaseTypeAssignmentToEDT();
+		doTestUDTBaseTypeAssignmentToSDT();
+		doTestUDTBaseTypeAssignmentToIRDT();
+	}
 
-	public void testSetTypeAttribute() {
+	public void doTestSetTypeAttribute() {
 		test_id = "1";
 		Attribute_c attr = Attribute_c.AttributeInstance(modelRoot);
 		Cl_c.Clearselection();
@@ -183,7 +194,7 @@ public class SetTypeTestGenerics extends CanvasTest {
 
 	}
 
-	public void testCheckTableItemForSetType() {
+	public void doTestCheckTableItemForSetType() {
 		test_id = "2";
 		BaseTest.ensureFolderExists(m_workspace_path
 				+ "actual_results/SetTypeTestGenerics");
@@ -208,7 +219,7 @@ public class SetTypeTestGenerics extends CanvasTest {
 
 	}
 	
-	public void testUDTBaseTypeAssignmentToCoreType() {
+	public void doTestUDTBaseTypeAssignmentToCoreType() {
 		Selection.getInstance().clear(); Selection.getInstance().addToSelection(testUDT);
 		UUID coreId = m_sys.Getcoretypeid("boolean");
 		PackageableElement_c pe = (PackageableElement_c) m_sys.getModelRoot()
@@ -225,7 +236,7 @@ public class SetTypeTestGenerics extends CanvasTest {
 		assertTrue("Expected core type was not assigned to UDT.", assignedDt.getName().equals("boolean"));
 	}
 
-	public void testUDTBaseTypeAssignmentToUDT() {
+	public void doTestUDTBaseTypeAssignmentToUDT() {
 		Selection.getInstance().clear(); Selection.getInstance().addToSelection(testUDT);
 		DataType_c otherUDT = DataType_c.getOneS_DTOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(testPKG), new ClassQueryInterface_c() {
 			
@@ -248,7 +259,7 @@ public class SetTypeTestGenerics extends CanvasTest {
 		assertTrue("Expected UDT was not assigned to UDT.", pe == assignedPE);
 	}
 
-	public void testUDTBaseTypeAssignmentToEDT() {
+	public void doTestUDTBaseTypeAssignmentToEDT() {
 		Selection.getInstance().clear(); Selection.getInstance().addToSelection(testUDT);
 		DataType_c otherUDT = DataType_c.getOneS_DTOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(testPKG), new ClassQueryInterface_c() {
 			
@@ -271,7 +282,7 @@ public class SetTypeTestGenerics extends CanvasTest {
 		assertTrue("Expected EDT was not assigned to UDT.", pe == assignedPE);
 	}
 
-	public void testUDTBaseTypeAssignmentToSDT() {
+	public void doTestUDTBaseTypeAssignmentToSDT() {
 		Selection.getInstance().clear(); Selection.getInstance().addToSelection(testUDT);
 		DataType_c otherUDT = DataType_c.getOneS_DTOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(testPKG), new ClassQueryInterface_c() {
 			
@@ -294,7 +305,7 @@ public class SetTypeTestGenerics extends CanvasTest {
 		assertTrue("Expected SDT was not assigned to UDT.", pe == assignedPE);
 	}
 
-	public void testUDTBaseTypeAssignmentToIRDT() {
+	public void doTestUDTBaseTypeAssignmentToIRDT() {
 		Selection.getInstance().clear(); Selection.getInstance().addToSelection(testUDT);
 		DataType_c otherUDT = DataType_c.getOneS_DTOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(testPKG), new ClassQueryInterface_c() {
 			

@@ -61,10 +61,13 @@ public class GraphicalToolCreationTests extends BaseTest {
 		while(PlatformUI.getWorkbench().getDisplay().readAndDispatch());
 	}
 
-	/**
-	 * Note this test is disabled until the rework of the initial name dialog issue
-	 */
-	public void testShapeCreationStickyModeUseDefaultNamesDisabled() {
+	// Enforce ordering of the test runs in this class
+	public void testGraphicalToolCreation() {
+		dotestShapeCreationStickyModeUseDefaultNamesDisabled();
+		dotestShapeCreationStickyModeUseDefaultNamesEnabled();
+	}
+	
+	public void dotestShapeCreationStickyModeUseDefaultNamesDisabled() {
 		CorePlugin.getDefault().getPreferenceStore().setValue(
 				BridgePointPreferencesStore.USE_DEFAULT_NAME_FOR_CREATION, false);
 		AbstractTool tool = UITestingUtilities.getTool("Classes", "Class");
@@ -133,7 +136,7 @@ public class GraphicalToolCreationTests extends BaseTest {
 		checkDialogComplete = false;
 	}
 
-	public void testShapeCreationStickyModeUseDefaultNamesEnabled() {
+	public void dotestShapeCreationStickyModeUseDefaultNamesEnabled() {
 		testPackage.Dispose();
 		m_sys.Newpackage();
 		Package_c[] pkgs = Package_c.getManyEP_PKGsOnR1405(m_sys);
