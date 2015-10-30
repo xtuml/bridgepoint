@@ -19,7 +19,7 @@
  * Bridge:  LogSuccess
  */
 void
-LOG_LogSuccess( c_t p_message[ESCHER_SYS_MAX_STRING_LEN])
+LOG_LogSuccess( c_t p_message[ESCHER_SYS_MAX_STRING_LEN] )
 {
   /* Replace/Insert your implementation code here... */
 }
@@ -29,7 +29,7 @@ LOG_LogSuccess( c_t p_message[ESCHER_SYS_MAX_STRING_LEN])
  * Bridge:  LogFailure
  */
 void
-LOG_LogFailure( c_t p_message[ESCHER_SYS_MAX_STRING_LEN])
+LOG_LogFailure( c_t p_message[ESCHER_SYS_MAX_STRING_LEN] )
 {
   /* Replace/Insert your implementation code here... */
 }
@@ -39,7 +39,7 @@ LOG_LogFailure( c_t p_message[ESCHER_SYS_MAX_STRING_LEN])
  * Bridge:  LogInfo
  */
 void
-LOG_LogInfo( c_t p_message[ESCHER_SYS_MAX_STRING_LEN])
+LOG_LogInfo( c_t p_message[ESCHER_SYS_MAX_STRING_LEN] )
 {
   /* Replace/Insert your implementation code here... */
 }
@@ -49,7 +49,7 @@ LOG_LogInfo( c_t p_message[ESCHER_SYS_MAX_STRING_LEN])
  * Bridge:  LogDate
  */
 void
-LOG_LogDate( Escher_Date_t p_d, c_t p_message[ESCHER_SYS_MAX_STRING_LEN])
+LOG_LogDate( Escher_Date_t p_d, c_t p_message[ESCHER_SYS_MAX_STRING_LEN] )
 {
   /* Replace/Insert your implementation code here... */
 }
@@ -59,7 +59,7 @@ LOG_LogDate( Escher_Date_t p_d, c_t p_message[ESCHER_SYS_MAX_STRING_LEN])
  * Bridge:  LogTime
  */
 void
-LOG_LogTime( c_t p_message[ESCHER_SYS_MAX_STRING_LEN], Escher_TimeStamp_t p_t)
+LOG_LogTime( c_t p_message[ESCHER_SYS_MAX_STRING_LEN], Escher_TimeStamp_t p_t )
 {
   /* Replace/Insert your implementation code here... */
 }
@@ -69,7 +69,7 @@ LOG_LogTime( c_t p_message[ESCHER_SYS_MAX_STRING_LEN], Escher_TimeStamp_t p_t)
  * Bridge:  LogReal
  */
 void
-LOG_LogReal( c_t p_message[ESCHER_SYS_MAX_STRING_LEN], const r_t p_r)
+LOG_LogReal( c_t p_message[ESCHER_SYS_MAX_STRING_LEN], const r_t p_r )
 {
   /* Replace/Insert your implementation code here... */
 }
@@ -79,7 +79,7 @@ LOG_LogReal( c_t p_message[ESCHER_SYS_MAX_STRING_LEN], const r_t p_r)
  * Bridge:  LogInteger
  */
 void
-LOG_LogInteger( const i_t p_message)
+LOG_LogInteger( const i_t p_message )
 {
   /* Replace/Insert your implementation code here... */
 }
