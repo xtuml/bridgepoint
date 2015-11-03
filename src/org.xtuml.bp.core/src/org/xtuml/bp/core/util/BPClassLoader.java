@@ -34,7 +34,6 @@ import java.util.Map;
 import java.util.Iterator;
 
 
-import org.eclipse.osgi.framework.debug.Debug;
 
 import org.xtuml.bp.core.CorePlugin;
 
@@ -91,8 +90,6 @@ public class BPClassLoader extends ClassLoader {
 	
 	@SuppressWarnings("restriction")
 	private Class<?> findClassImpl(String name) {
-		if (Debug.DEBUG_ENABLED && Debug.DEBUG_LOADER)
-			Debug.println("BPClassLoader[" + "].findClass(" + name + ")"); //$NON-NLS-1$ //$NON-NLS-2$//$NON-NLS-3$
 		
 		String filename = name.replace('.', '/').concat(".class"); //$NON-NLS-1$
 		synchronized(ClassPathEntries) {
@@ -110,14 +107,7 @@ public class BPClassLoader extends ClassLoader {
 				  classbytes = new byte[(int) raf.length()];
 				  raf.read(classbytes);
 			    } catch (IOException e) {
-				  if (Debug.DEBUG_ENABLED && Debug.DEBUG_LOADER)
-					Debug.println("  IOException reading " + filename + " from "); //$NON-NLS-1$ //$NON-NLS-2$
 				  return null;
-			    }
-
-			    if (Debug.DEBUG_ENABLED && Debug.DEBUG_LOADER) {
-				  Debug.println("  read " + classbytes.length + " bytes from " + filename); //$NON-NLS-1$ //$NON-NLS-2$
-				  Debug.println("  defining class " + name); //$NON-NLS-1$
 			    }
 
 			    try {
@@ -125,8 +115,6 @@ public class BPClassLoader extends ClassLoader {
 			        definitions.put(file.toString(), result);
 					  return result;
 			    } catch (Error e) {
-				if (Debug.DEBUG_ENABLED && Debug.DEBUG_LOADER)
-					Debug.println("  error defining class " + name); //$NON-NLS-1$
 				throw e;
 			  }
 			      catch (Exception e) {
