@@ -1,13 +1,5 @@
 package org.xtuml.bp.ui.canvas.test;
 //=====================================================================
-//
-//File:      $RCSfile: CanvasInitialNameTests.java,v $
-//Version:   $Revision: 1.2 $
-//Modified:  $Date: 2013/01/17 03:30:54 $
-//
-//(c) Copyright 2012-2014 by Mentor Graphics Corp. All rights reserved.
-//
-//=====================================================================
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not 
 // use this file except in compliance with the License.  You may obtain a copy 
 // of the License at
@@ -575,7 +567,7 @@ public class CanvasInitialNameTests extends BaseTest {
 
 	private void validateErrorMessage(final String expectedResult,
 			final String value) {
-		PlatformUI.getWorkbench().getDisplay().timerExec(500, new Runnable() {
+		PlatformUI.getWorkbench().getDisplay().timerExec(1000, new Runnable() {
 
 			@Override
 			public void run() {

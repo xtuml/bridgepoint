@@ -62,7 +62,15 @@ public class SymbolTest extends CanvasTest {
 		return root + "_" + test_id;
 	}
 
-	public void testPackageDiagram() throws Exception {
+	public void testSymbolTest() throws Exception {
+		dotestPackageDiagram();
+		dotestComponentDiagram();
+		dotestInstanceStateMachineDiagram();
+		dotestClassStateMachineDiagram();
+		dotest_CanvasPlugin();
+	}
+	
+	public void dotestPackageDiagram() throws Exception {
 		test_id = "1";
 		// domain id's change each time someone creates a
 		// workspace from a .bak file in BP 6.1
@@ -76,19 +84,19 @@ public class SymbolTest extends CanvasTest {
 		validateOrGenerateResultsGenerics(UITestingUtilities.getGraphicalEditorFor(d2, true), generateResults);
 	}
 
-	public void testComponentDiagram() throws Exception {
+	public void dotestComponentDiagram() throws Exception {
 		test_id = "2";
 		Component_c comp = Component_c.ComponentInstance(modelRoot);
 		validateOrGenerateResultsGenerics(UITestingUtilities.getGraphicalEditorFor(comp, true), generateResults);
 	}
 
-	public void testInstanceStateMachineDiagram() throws Exception {
+	public void dotestInstanceStateMachineDiagram() throws Exception {
 		test_id = "3";
 		InstanceStateMachine_c ism = InstanceStateMachine_c.InstanceStateMachineInstance(modelRoot);
 		validateOrGenerateResultsGenerics(UITestingUtilities.getGraphicalEditorFor(ism, true), generateResults);
 	}
 	
-	public void testClassStateMachineDiagram() throws Exception {
+	public void dotestClassStateMachineDiagram() throws Exception {
 		test_id = "4";
 		ClassStateMachine_c csm = ClassStateMachine_c.ClassStateMachineInstance(modelRoot);
 		validateOrGenerateResultsGenerics(UITestingUtilities.getGraphicalEditorFor(csm, true), generateResults);
@@ -123,7 +131,7 @@ public class SymbolTest extends CanvasTest {
 		}
 	}
 
-	public void test_CanvasPlugin() {
+	public void dotest_CanvasPlugin() {
 		// *** symbol.elemType ***
 		specifyElementType("Package", 108);
 		specifyElementType("Component", 107);
