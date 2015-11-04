@@ -94,6 +94,16 @@ public class WelcomePageTestGPS extends TestCase {
 		super();
 	}
 
+	// enforce ordering of tests in this class
+	public void testWelcomePageGPSProject() throws CoreException, Exception {
+		dotestProjectCreation();
+		dotestNoProjectOverwrite();
+		dotestProjectOverwrite();
+		dotestImportLoadPersistAndBuild();
+		dotestSmartPreBuild();
+		dotestExternalEntityDefaults();
+	}
+
 	public void runGPSGettingStartedAction() {
 		// create and run new instances of GettingStarted for the GPS Watch model
 		SampleProjectGettingStartedAction action = new SampleProjectGettingStartedAction();
@@ -150,7 +160,7 @@ public class WelcomePageTestGPS extends TestCase {
 		s.forceFocus();
 	}
 	
-	public void testProjectCreation() {
+	public void dotestProjectCreation() {
 		runGPSGettingStartedAction();
 
 		// Give the import time to work
@@ -161,7 +171,7 @@ public class WelcomePageTestGPS extends TestCase {
 		raiseWorkbench();
 	}
 	
-	public void testNoProjectOverwrite() {
+	public void dotestNoProjectOverwrite() {
 	    IFile dummyFile = project.getFile("dummyFile");
 	    IFile readme = project.getFile("README");
 		try {
@@ -181,7 +191,7 @@ public class WelcomePageTestGPS extends TestCase {
 	}
 
 
-	public void testProjectOverwrite() throws Exception {
+	public void dotestProjectOverwrite() throws Exception {
 	    IFile dummyFile = project.getFile("dummyFile");
 	    
 	    // Make sure the marker file is there.
@@ -200,7 +210,7 @@ public class WelcomePageTestGPS extends TestCase {
 		verifyProjectCreated();
 	}
 	
-	public void testImportLoadPersistAndBuild()  throws Exception {
+	public void dotestImportLoadPersistAndBuild()  throws Exception {
 		int numImports = 3;
 		for (int i = 0; i < numImports; i++) {
 			System.out.println("Import number: " + String.valueOf(i+1));
@@ -230,7 +240,7 @@ public class WelcomePageTestGPS extends TestCase {
 		
 	}
 
-    public void testSmartPreBuild() throws Exception {
+    public void dotestSmartPreBuild() throws Exception {
         // This test builds the project several times, testing that the exported
         // <project>.sql file from pre-builder is updated when needed and left
         // unmodified by the build (re-export skipped) when an update is not needed.
@@ -388,7 +398,7 @@ public class WelcomePageTestGPS extends TestCase {
 		return g_view;
 	}
 
-	public void testExternalEntityDefaults() {
+	public void dotestExternalEntityDefaults() {
 		TestUtil.selectButtonInDialog(1000, "Yes");
 		runGPSGettingStartedAction();
 

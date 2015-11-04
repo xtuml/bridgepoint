@@ -65,6 +65,13 @@ public class WelcomePageTest extends TestCase {
 		super();
 	}
 
+	// enforce ordering of tests in this class
+	public void testWelcomePageMicrowaveProject() throws CoreException, Exception {
+		dotestProjectCreation();
+		dotestExternalEntityDefaults();
+		dotestExternalEntityDefaultsTemplateProject();
+	}
+
 	public void runGettingStartedAction() {
 		// create and run new instances of GettingStartedAction
 		GettingStartedLiveHelpAction gsAction = new GettingStartedLiveHelpAction();
@@ -113,12 +120,12 @@ public class WelcomePageTest extends TestCase {
 			containsProjectMembers();
 	}
 
-	public void testProjectCreation() {
+	public void dotestProjectCreation() {
 		runGettingStartedAction();
 		verifyProjectCreated();
 	}
 	
-	public void testExternalEntityDefaults() throws CoreException {
+	public void dotestExternalEntityDefaults() throws CoreException {
 		IProject existing = ResourcesPlugin.getWorkspace().getRoot().getProject("MicrowaveOven");
 		if(existing.exists()) {
 			existing.delete(true, new NullProgressMonitor());
@@ -158,7 +165,7 @@ public class WelcomePageTest extends TestCase {
 		}
 	}
 	
-	public void testExternalEntityDefaultsTemplateProject() {
+	public void dotestExternalEntityDefaultsTemplateProject() {
 		// get handle to help shell in order to display after completing below actions
 		SampleProjectGettingStartedAction action = new SampleProjectGettingStartedAction();
 		Properties props = new Properties();

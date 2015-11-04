@@ -77,8 +77,14 @@ public class RenameInvolvingResourceTestGenerics extends CoreTest {
 		}
 
 	}
+	
+	public void testRenameInvokving() throws Exception{
+		doTestDomainRenameCausesModelFileNameChange();
+		doTestSystemRenameCausesProjectNameChange();
+		doTestProjectRenameCausesSystemNameChange();
+	}
 
-	public void testDomainRenameCausesModelFileNameChange() throws Exception {
+	public void doTestDomainRenameCausesModelFileNameChange() throws Exception {
 		// setup the test project and model
 		// Ooaofooa.setPersistEnabled(true);
 		//	Ooaofooa.setConsistencyEnabled(true);
@@ -154,7 +160,7 @@ public class RenameInvolvingResourceTestGenerics extends CoreTest {
 	 * 
 	 * Relies on the final state of the previous test.
 	 */
-	public void testSystemRenameCausesProjectNameChange() throws Exception {
+	public void doTestSystemRenameCausesProjectNameChange() throws Exception {
 		// rename the system in the model explorer
 		Package_c domain = Package_c.PackageInstance(modelRoot,
 				new Package_by_name_c("odmsy"));
@@ -208,7 +214,7 @@ public class RenameInvolvingResourceTestGenerics extends CoreTest {
 	 * 
 	 * Relies on the final state of the previous test.
 	 */
-	public void testProjectRenameCausesSystemNameChange() throws Exception {
+	public void doTestProjectRenameCausesSystemNameChange() throws Exception {
 		Ooaofooa.setPersistEnabled(true);
 
 		// rename the system's project on disk
