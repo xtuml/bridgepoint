@@ -353,6 +353,21 @@ INSERT INTO O_TFR
   if(param.value == "unform")
     return self.isFormal;
   end if;
+  /// 
+   if(param.value == "formClass generic pkg")
+    // no formalization support yet at system level
+    if(self.definedAtSystemLevel())
+      return false;
+    end if;
+    count = Util::getElementCountInSystem(
+                                       elementType:ElementTypeConstants::CLASS,
+                                        askingElement:self.convertToInstance());
+    if(count == 1 and self.isFormal)
+      return false;
+    end if;
+    return count != 0;
+  end if;  
+  ///
 end if;
 return false;',
 	1,

@@ -27,12 +27,44 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'// Satisfaction.dispose()
-select one pe related by self->PE_PE[R8001];
+	' select one pe related by self->PE_PE[R8001];
 
-  // PackageableElement.dispose() will call back down into here, so just return
+if not_empty pe
   pe.dispose();
-',
+  return;
+else
+  select one pro related by self->C_P[R4002];
+  select one req related by self->C_R[R4002];
+  if(not_empty pro) and (not_empty req)
+    unrelate req from pro across R4002 using self;
+  end if;
+  select one importedPro related by self->CL_IPINS[R4705]->CL_IP[R4705];
+  if(not_empty importedPro)
+    select one ipins related by self->CL_IPINS[R4705];
+    unrelate self from importedPro across R4705 using ipins;
+    delete object instance ipins;
+  end if;
+  select one importedReq related by self->CL_IR[R4706];
+  if(not_empty importedReq)
+    unrelate self from importedReq across R4706;
+  end if;
+
+  select one sic related by self->PA_SIC[R9000];
+  if (not_empty sic)
+    select one comp related by sic->C_C[R9000];
+    unrelate self from comp across R9000 using sic;
+    // no need to dispose component, it will get
+    // disposed later
+    delete object instance sic;
+  end if;
+
+  select many channels related by self->I_RCH[R2969];
+  for each channel in channels
+    unrelate self from channel across R2969;
+    channel.dispose();
+  end for;
+end if;
+delete object instance self;',
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000");

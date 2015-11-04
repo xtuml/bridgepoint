@@ -7112,20 +7112,35 @@ else
   end if;
 
   elemId = ::getValidationDomain();
+  select any dt1_dt from instances of S_DT where false;
 
-    select any packageableElem from instances of PE_PE where
-                                                  selected.Element_ID == elemId;
-    select one package related by packageableElem->EP_PKG[R8000];
-    select one component related by packageableElem->C_C[R8003];
-
-      dtID = packageableElem.resolveDataTypeRelativeToSelf(
-                                   expected_name:dt_name, default_name:dt_name);
-      select any dt1_dt related by package->PE_VIS[R8002]->
-                         PE_PE[R8002]->S_DT[R8001] where selected.DT_ID == dtID;
-      if (empty dt1_dt)
-        select any dt1_dt related by component->PE_CVS[R8004]->
-                         PE_PE[R8004]->S_DT[R8001] where selected.DT_ID == dtID;
-      end if;
+select any packageableElem from instances of PE_PE where
+                                              selected.Element_ID == elemId;
+select one package related by packageableElem->EP_PKG[R8000];
+select one component related by packageableElem->C_C[R8003];
+hasParent = not_empty package or not_empty component;
+      if (hasParent)
+	      dtID = packageableElem.resolveDataTypeRelativeToSelf(
+	                                   expected_name:dt_name, default_name:dt_name);
+	      select any dt1_dt related by package->PE_VIS[R8002]->
+	                         PE_PE[R8002]->S_DT[R8001] where selected.DT_ID == dtID;
+	      if (empty dt1_dt)
+	        select any dt1_dt related by component->PE_CVS[R8004]->
+	                         PE_PE[R8004]->S_DT[R8001] where selected.DT_ID == dtID;
+	      end if;
+     end if;
+    if (empty dt1_dt)
+      dt_id = GD::NULL_UNIQUE_ID();
+      cur_sys_name = ::getSystemName();
+      select any sys from instances of S_SYS where
+                                            (selected.Name == cur_sys_name);
+  			  if not_empty sys   
+                dt_id = sys.getCoreTypeId(name:dt_name);
+		      select any pe related by sys->G_EIS[R9100]->PE_PE[R9100]
+		                                                where selected.Element_ID == dt_id;
+		      select one dt1_dt related by pe->S_DT[R8001];
+		      end if; 
+      end if; 
 
   if not_empty dt1_dt
     relate vvar to dt1_dt across R848;
