@@ -86,32 +86,32 @@ public class VerifierTestSuite extends TestSuite {
   		              USE_DEFAULT_NAME_FOR_CREATION, true);
 
 		addTest(new TestSuite(VerifierTestSuiteI.class));
-//		addTest(new TestSuite(VerifierSessionExplorerTests.class));
-//		addTest(new TestSuite(VerifierStaticVariablesInRealizedClassesTest.class));
-//		addTest(VerifierLaunchTestSuite.suite());
-//		addTest(new TestSuite(VerifierExecuteFragmentTest.class));		
-//		addTest(new TestSuite(VerifierExecuteActionTests.class));
+		addTest(new TestSuite(VerifierSessionExplorerTests.class));
+		addTest(new TestSuite(VerifierStaticVariablesInRealizedClassesTest.class));
+		addTest(VerifierLaunchTestSuite.suite());
+		addTest(new TestSuite(VerifierExecuteFragmentTest.class));		
+		addTest(new TestSuite(VerifierExecuteActionTests.class));
 		addTest(new TestSuite(RealizedComponentTest.class));
-//		addTest(new TestSuite(VIECTest.class));
-//		addTest(new TestSuite(VIECParameterTest.class));
-//		addTest(new TestSuite(SignalParameterPassingTest.class));
-//		addTest(new TestSuite(VerifierInterfaceExecutionTests.class));
-//		addTest(new TestSuite(VerifierTransitionActionTests.class));
-//		addTest(new TestSuite(ExternalEntityTest.class));
-//		addTest(new TestSuite(CreateAndGenerateEventTest.class));
-//		addTest(new TestSuite(TimerTest.class));
-//		addTest(new TestSuite(VerifierCreationTransitionDebugTest.class));
-//		addTest(new TestSuite(VerifierAuditTest.class));
-//		addTest(new TestSuite(BreakpointTest.class));
-//		addTest(new TestSuite(MDATest.class));
-//		addTest(new TestSuite(SendMessageOverDelegationTest.class));
-//		addTest(new TestSuite(TestVerifierRunTimeErrorMsgs_0.class));
-//		addTest(new TestSuite(TestVerifierRunTimeErrorMsgs_1.class));
-//		addTest(new TestSuite(RealizedClassTest.class));
-//		addTest(new TestSuite(VerifierBindingAuditTest.class));
-//		addTest(new TestSuite(VerifierRealizedUDTTest.class));
-//		addTest(new TestSuite(VerifierUDTAsUDTInitializationTests.class));
-//		addTest(new TestSuite(DateLoggingTests.class));
+		addTest(new TestSuite(VIECTest.class));
+		addTest(new TestSuite(VIECParameterTest.class));
+		addTest(new TestSuite(SignalParameterPassingTest.class));
+		addTest(new TestSuite(VerifierInterfaceExecutionTests.class));
+		addTest(new TestSuite(VerifierTransitionActionTests.class));
+		addTest(new TestSuite(ExternalEntityTest.class));
+		addTest(new TestSuite(CreateAndGenerateEventTest.class));
+		addTest(new TestSuite(TimerTest.class));
+		addTest(new TestSuite(VerifierCreationTransitionDebugTest.class));
+		addTest(new TestSuite(VerifierAuditTest.class));
+		addTest(new TestSuite(BreakpointTest.class));
+		addTest(new TestSuite(MDATest.class));
+		addTest(new TestSuite(SendMessageOverDelegationTest.class));
+		addTest(new TestSuite(TestVerifierRunTimeErrorMsgs_0.class));
+		addTest(new TestSuite(TestVerifierRunTimeErrorMsgs_1.class));
+		addTest(new TestSuite(RealizedClassTest.class));
+		addTest(new TestSuite(VerifierBindingAuditTest.class));
+		addTest(new TestSuite(VerifierRealizedUDTTest.class));
+		addTest(new TestSuite(VerifierUDTAsUDTInitializationTests.class));
+		addTest(new TestSuite(DateLoggingTests.class));
 	}
 
 }
