@@ -19,6 +19,17 @@ select one pe related by self->PE_PE[R8001];
 select one PKG related by pe->EP_PKG[R8000]; 
 select one systemModel related by PKG->S_SYS[R1405];
 
+select any intdt from instances of S_DT where false;
+select any voidDt from instances of S_DT where false;
+
+if (empty systemModel) and (not_empty pe)
+select any globalElemntInSys related by pe->G_EIS[R9100];
+  if (not_empty globalElemntInSys)
+    select one systemModel related by globalElemntInSys->S_SYS[R9100];
+  end if; 
+end if ;
+
+if (not_empty systemModel)
  // look for them from the system associated with the owning package
  intdt_id = systemModel.getCoreTypeId(name:"integer");
  select any pe from instances of PE_PE where selected.Element_ID == intdt_id;
@@ -26,7 +37,7 @@ select one systemModel related by PKG->S_SYS[R1405];
  voiddt_id = systemModel.getCoreTypeId(name:"void");
  select any pe from instances of PE_PE where selected.Element_ID == voiddt_id;
  select one voidDt related by pe->S_DT[R8001]; 
-
+end if ;
 //
 // Domain Subsystem
 select many brgs related by self->S_BRG[R20];

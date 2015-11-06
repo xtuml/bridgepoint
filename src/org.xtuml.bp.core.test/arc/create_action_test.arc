@@ -451,9 +451,13 @@
 		t1.Initialize();
   .elif   ((action.Key_Lett == "C_AS")  or (action.Key_Lett == "COMM_LNK")  )
     .if(action.Key_Lett == "C_AS")
+  SystemModel_c systemModel = new SystemModel_c(modelRoot);
+  Package_c ifacepkg = Package_c.PackageInstance(modelRoot);
+  ifacepkg.relateAcrossR1405To(systemModel);
   Interface_c iface = new Interface_c(modelRoot);
   PackageableElement_c pe = new PackageableElement_c(modelRoot);
   iface.relateAcrossR8001To(pe);
+  pe.relateAcrossR8000To(ifacepkg);
   iface.Newexecutableproperty(false);
   t1.relateAcrossR4004To(ExecutableProperty_c.getOneC_EPOnR4003(iface));
     .end if   
@@ -531,6 +535,13 @@
         ${msmcn.body} msm = new ${msmcn.body}(modelRoot);
         sm.relateAcrossR510To(msm);
     .end if
+  .elif (action.Key_Lett == "C_I")
+        SystemModel_c systemModel = new SystemModel_c(modelRoot);
+	    Package_c ifacepkg = Package_c.PackageInstance(modelRoot); 
+       	ifacepkg.relateAcrossR1405To(systemModel);
+		PackageableElement_c pe = new PackageableElement_c(modelRoot);
+		t1.relateAcrossR8001To(pe);
+		pe.relateAcrossR8000To(ifacepkg);
   .elif((action.Key_Lett == "C_IO") or (action.Key_Lett == "C_AS"))
         SystemModel_c systemModel = new SystemModel_c(modelRoot);
 	    Package_c ifacepkg = Package_c.PackageInstance(modelRoot); 
@@ -556,7 +567,13 @@
 		pe.relateAcrossR8000To(pkg);
 		pkg.relateAcrossR1405To(m_sys);
 		t1.Initialize();	
-		
+	.elif (action.Key_Lett == "S_EE")	
+	    PackageableElement_c pe = new PackageableElement_c(modelRoot);
+		pe.relateAcrossR8001To(t1);
+		Package_c pkg = new Package_c(modelRoot);
+		pe.relateAcrossR8000To(pkg);
+		pkg.relateAcrossR1405To(m_sys);
+	
 	.elif (action.Key_Lett == "S_BRG")	
 	    ExternalEntity_c ee = new ExternalEntity_c(modelRoot);
 		PackageableElement_c pe = new PackageableElement_c(modelRoot);
@@ -595,7 +612,15 @@
 		assertNotNull(t1);
 	
 		t1.Initialize();
-		
+  .elif (action.Key_Lett == "O_OBJ")	
+		Package_c pkg = new Package_c(modelRoot);
+		pkg.relateAcrossR1405To(m_sys);
+
+		PackageableElement_c pe = new PackageableElement_c(modelRoot);
+		pe.relateAcrossR8000To(pkg);
+ 
+		pe.relateAcrossR8001To(t1);
+  
   .elif (action.Key_Lett == "SM_EVT")
    		modelRoot.clearDatabase(new NullProgressMonitor());
 		Package_c pkg = new Package_c(modelRoot);
