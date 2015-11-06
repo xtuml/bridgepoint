@@ -290,6 +290,17 @@ select many eeedis related by self->S_EEEDI[R12];
 for each eeedi in eeedis
   eeedi.dispose();
 end for;
+
+select many eems related by self->S_EEM[R9];
+  for each eem in eems
+    eem.dispose();
+  end for;
+  
+select many eeps related by self->SQ_EEP[R933];
+for each eep in eeps
+  // unformalize the participant
+  eep.unformalize();
+end for;
 // for each sequence participant that is associated with
 // this External Entity
 select many eeps related by self->SQ_EEP[R933];
