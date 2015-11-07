@@ -42,7 +42,7 @@ public class ProxyTestsGenerics extends BaseTest {
         super.setUp();
         //ensureAvailableAndLoaded("Proxy", false);
         String loc = m_workspace_path +Ooaofooa.MODELS_DIRNAME+"/ProxyGenerics"+"." + Ooaofooa.MODELS_EXT;//$NON-NLS-1$
-        TestingUtilities.importModelUsingWizardConvertToGenerics(getSystemModel(projectName),loc, false);
+        TestingUtilities.importModelUsingWizard(getSystemModel(projectName),loc, false);
         modelRoot = Ooaofooa.getInstance(Ooaofooa.createModelRootId(getProjectHandle(projectName), "Proxy", true), true);
     }
 
