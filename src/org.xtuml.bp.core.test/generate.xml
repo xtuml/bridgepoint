@@ -350,7 +350,12 @@
   	SystemLevelTestsSuiteGenerics.java,
   	ModelIntegrityTests.java,
   	ClassKeyLetters.java,
-  	IntegrityIssueTests.java"
+  	IntegrityIssueTests.java,
+  	ComponentContextMenuTests2.java,
+  	ExistingProjectsInitialChecks.java,
+	IPRSetupTests.java,
+  	NewShapeAfterRestart.java,
+  	SetupCreationTests.java"
   	
     />
 	
