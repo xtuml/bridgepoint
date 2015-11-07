@@ -91,7 +91,7 @@ public class VerifierTestSuite extends TestSuite {
 		addTest(new TestSuite(VIECTest.class));
 		addTest(new TestSuite(VIECParameterTest.class));
 		addTest(new TestSuite(SignalParameterPassingTest.class));
-		addTest(new TestSuite(VerifierInterfaceExecutionTests.class));
+        addTest(new TestSuite(VerifierInterfaceExecutionTests.class));
 		addTest(new TestSuite(VerifierTransitionActionTests.class));
 		addTest(new TestSuite(ExternalEntityTest.class));
 		addTest(new TestSuite(CreateAndGenerateEventTest.class));
