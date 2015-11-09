@@ -13,14 +13,34 @@
 #include "UI_classes.h"
 #include "UI_GuiBridge_bridge.h"
 
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <time.h>
+
+#if defined(_WIN32) || defined(WIN32)
 #include <windows.h>
 #include <winsock.h>
 #include <process.h>
 
 #define WIN32_LEAN_AND_MEAN        /* define win 32 only */
+
+#else
+
+#define SOCKET int
+
+#ifdef __unix__
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
+#include <errno.h>
+#include <pthread.h>
+#endif
+
+#endif
+
 #define SIGNAL_NO_SET_DATA 0
 #define SIGNAL_NO_SET_TIME 1
 
@@ -28,7 +48,12 @@
 SOCKET sock;                       /* socket details */
 
 void WorkerThread( void *dummy );
+#if defined(_WIN32) || defined(WIN32)
 void handle_error(void);           /* Error handler routine */
+#elif defined(__unix__)
+void handle_error(char *msg);           /* Error handler routine */
+void handle_error_en(int en, char *msg);
+#endif
 
 /*
  * Bridge:  feedSetTargetPressedEvent
@@ -122,40 +147,57 @@ UI_GuiBridge_setTime( i_t p_time )
 void
 UI_GuiBridge_connect( void )
 {
+#if defined(_WIN32) || defined(WIN32)
   WORD wVersionRequested;          /* socket dll version info */
   WSADATA wsaData;                 /* data for socket lib initialisation */
-  struct sockaddr_in address;      /* socket address stuff */
   float socklib_ver;               /* socket dll version */
+#elif defined(__unix__)
+pthread_t   threadId;
+int en;
+#endif
+  struct sockaddr_in address;      /* socket address stuff */
   char cIP[50];
   
-  while (true) /* continue till a connection has been made */ 
+#if defined(_WIN32) || defined(WIN32)
+  wVersionRequested = MAKEWORD( 1, 1 );
+  if ( WSAStartup( wVersionRequested, &wsaData ) != 0 )
+      handle_error();
+  socklib_ver = HIBYTE( wsaData.wVersion ) / 10.0;
+  socklib_ver += LOBYTE( wsaData.wVersion );
+  if ( socklib_ver < 1.1 )
   {
-    wVersionRequested = MAKEWORD( 1, 1 );
-    if ( WSAStartup( wVersionRequested, &wsaData ) != 0 )
-      handle_error();
-    socklib_ver = HIBYTE( wsaData.wVersion ) / 10.0;
-    socklib_ver += LOBYTE( wsaData.wVersion );
-    if ( socklib_ver < 1.1 )
-    {
-      printf ("\nError: socket library must support 1.1 or greater.\n");
-      WSACleanup();
-    }
-
-    if ( (sock = socket(AF_INET, SOCK_STREAM, 0)) == INVALID_SOCKET )
-      handle_error();
-
-    address.sin_family=AF_INET;       /* internet */
-    address.sin_port = htons(2003);   /* port 2003 */
-
-    strcpy(cIP, "127.0.0.1");         /* local host */
-    address.sin_addr.s_addr = inet_addr(cIP);
-    if ((connect(sock,(struct sockaddr *) &address, sizeof(address))) == 0)
-      break;
-	else
-      handle_error();
+    printf ("\nError: socket library must support 1.1 or greater.\n");
+    WSACleanup();
   }
+#endif
+
+#if defined(_WIN32) || defined(WIN32)
+  if ( (sock = socket(AF_INET, SOCK_STREAM, 0)) == INVALID_SOCKET )
+    handle_error();
+#elif defined(__unix__)
+  if ( (sock = socket(AF_INET, SOCK_STREAM, 0)) < 0 )
+    handle_error_en(sock, "Socket creation error ");
+#endif
+
+  address.sin_family=AF_INET;       /* internet */
+  address.sin_port = htons(2003);   /* port 2003 */
+
+  strcpy(cIP, "127.0.0.1");         /* local host */
+  address.sin_addr.s_addr = inet_addr(cIP);
+#if defined(_WIN32) || defined(WIN32)
+  if ((connect(sock,(struct sockaddr *) &address, sizeof(address))) != 0)
+    handle_error();
+#elif defined(__unix__)
+  if ((en = connect(sock,(struct sockaddr *) &address, sizeof(address))) < 0)
+    handle_error_en(en, "Socket connect error ");
+#endif
   // start a new thread to handle messages from the GUI
+#if defined(_WIN32) || defined(WIN32)
   _beginthread( WorkerThread, 0, NULL );
+#elif defined(__unix__)
+  if ((en = pthread_create(&threadId, NULL, (void*(*)(void*))WorkerThread, NULL)) < 0)
+    handle_error_en(en, "Thread create error ");
+#endif
 }
  
 
@@ -263,10 +305,13 @@ void WorkerThread( void *dummy )
 	}
   } while (res > 0);
 
+#if defined(_WIN32) || defined(WIN32)
   WSACleanup();
+#endif
   exit(0);
 }
 
+#if defined(_WIN32) || defined(WIN32)
 void handle_error(void)
 {
   switch ( WSAGetLastError() )
@@ -349,5 +394,17 @@ void handle_error(void)
   }
   WSACleanup();
 }
+#elif defined(__unix__)
+void handle_error(char *msg)
+{
+  perror(msg);
+  exit(EXIT_FAILURE);
+}
 
+void handle_error_en(int en, char *msg)
+{
+   errno = en;
+   handle_error(msg);
+}
+#endif
 

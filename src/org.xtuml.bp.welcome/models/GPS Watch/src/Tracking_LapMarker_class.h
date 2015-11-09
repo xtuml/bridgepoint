@@ -27,8 +27,8 @@ struct Tracking_LapMarker {
   /* Note:  No storage needed for LapMarker->TrackLog[R5] */
 };
 
-void Tracking_LapMarker_R5_Link( Tracking_TrackLog *, Tracking_LapMarker * );
-void Tracking_LapMarker_R5_Unlink( Tracking_TrackLog *, Tracking_LapMarker * );
+void Tracking_LapMarker_R5_Link_has_laps_defined_by( Tracking_TrackLog *, Tracking_LapMarker * );
+void Tracking_LapMarker_R5_Unlink_has_laps_defined_by( Tracking_TrackLog *, Tracking_LapMarker * );
 
 
 #define Tracking_LapMarker_MAX_EXTENT_SIZE 200

@@ -60,8 +60,8 @@ void Escher_SetInsertElement( Escher_ObjectSet_s *,
 Escher_SetElement_s *
 Escher_SetInsertBlock( Escher_SetElement_s *,
                        const u1_t *,
-                       const u2_t,
-                       u2_t );
+                       const Escher_size_t,
+                       Escher_size_t );
 #define Escher_SetRemoveInstance( pextent, instance, slot, container, pool ) \
   slot = Escher_SetRemoveNode( pextent, instance )
 #define Escher_SetInsertInstance( pextent, node ) \
@@ -76,7 +76,7 @@ void Escher_SetRemoveElement( Escher_ObjectSet_s *,
                          const void * const );
 const void * Escher_SetContains( const Escher_ObjectSet_s * const,
                     const void * const );
-u2_t Escher_SetCardinality( const Escher_ObjectSet_s * const );
+Escher_size_t Escher_SetCardinality( const Escher_ObjectSet_s * const );
 bool Escher_SetEquality( Escher_ObjectSet_s * const,
                     Escher_ObjectSet_s * const );
 #define Escher_InitSet( S ) (S)->head = 0
@@ -97,15 +97,15 @@ void * Escher_IteratorNext( Escher_Iterator_s * const );
 
 /* We could easily replace this function declaration with a macro
    that invoked the compiler (C library) supplied strlen.  */
-u2_t Escher_strlen( const c_t * );
+Escher_size_t Escher_strlen( const c_t * );
 
 /* We could easily replace this function declaration with a macro
    that invoked the compiler (C library) supplied memset.  */
-void Escher_memset( void * const, const u1_t, u2_t );
+void Escher_memset( void * const, const u1_t, Escher_size_t );
 
 /* We could easily replace this function declaration with a macro
    that invoked the compiler (C library) supplied memmove.  */
-void Escher_memmove( void * const, const void * const, u2_t );
+void Escher_memmove( void * const, const void * const, Escher_size_t );
 c_t * Escher_strcpy( c_t *, const c_t * );
 c_t * Escher_stradd( const c_t *, const c_t * );
 /* We could easily replace this function declaration with a macro

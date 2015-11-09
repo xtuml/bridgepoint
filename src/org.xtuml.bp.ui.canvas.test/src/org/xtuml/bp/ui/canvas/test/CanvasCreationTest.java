@@ -23,21 +23,13 @@ package org.xtuml.bp.ui.canvas.test;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.gef.tools.AbstractTool;
 import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.PlatformUI;
-
-import org.xtuml.bp.core.ClassStateMachine_c;
-import org.xtuml.bp.core.EnumerationDataType_c;
-import org.xtuml.bp.core.ExternalEntity_c;
-import org.xtuml.bp.core.ImportedClass_c;
-import org.xtuml.bp.core.InstanceStateMachine_c;
 import org.xtuml.bp.core.ModelClass_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Package_c;
-import org.xtuml.bp.core.StateMachineState_c;
-import org.xtuml.bp.core.StateMachine_c;
 import org.xtuml.bp.core.SystemModel_c;
-import org.xtuml.bp.core.UserDataType_c;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.IdAssigner;
 import org.xtuml.bp.core.common.Transaction;
@@ -145,58 +137,6 @@ public class CanvasCreationTest extends CanvasTest {
 		// export the model to test ooa_type setup
 		exportModel();
 	}
-	public void testCreateModelClassInPackage() {
-		test_id = "test_8";
-		Package_c ss = Package_c.PackageInstance(modelRoot);
-		assertNotNull(ss);
-		CanvasTestUtils.openCanvasEditor(ss);
-		GraphicalEditor ce = ((ModelEditor) PlatformUI.getWorkbench()
-				.getActiveWorkbenchWindow().getActivePage().getActiveEditor())
-				.getGraphicalEditor();
-		CanvasTestUtils.matchCanvasSpaceToModelSpace(ce.getModel());
-		AbstractTool tool = UITestingUtilities.getTool("Class");
-		UITestingUtilities.activateTool(tool);
-		
-		ModelClass_c mcs[] = ModelClass_c.ModelClassInstances(modelRoot);
-		int mc_count = mcs.length;
-		
-		CanvasTestUtils.createMouseEvent(200, 200, "MouseDown");
-		CanvasTestUtils.createMouseEvent(400, 400, "MouseMove");
-		CanvasTestUtils.createMouseEvent(400, 400, "MouseUp");
-		
-		mcs = ModelClass_c.ModelClassInstances(modelRoot);
-		int mc_count_after = mcs.length;
-		assertTrue("Number of ModelClass instances found: " + Integer.toString(mc_count_after) + "Expected: " + Integer.toString(mc_count + 1), (mc_count + 1) == mc_count_after );
-		
-        validateOrGenerateResultsGenerics(ce, generateResults);
-        UITestingUtilities.deactivateTool(tool);
-	}
-	public void testCreateImportedModelClassInSubsystem() {
-		test_id = "test_9";
-		Package_c ss = Package_c.PackageInstance(modelRoot);
-		assertNotNull(ss);
-		CanvasTestUtils.openCanvasEditor(ss);
-		GraphicalEditor ce = ((ModelEditor) PlatformUI.getWorkbench()
-				.getActiveWorkbenchWindow().getActivePage().getActiveEditor())
-				.getGraphicalEditor();
-		CanvasTestUtils.matchCanvasSpaceToModelSpace(ce.getModel());
-		AbstractTool tool = UITestingUtilities.getTool("Imported Class");
-		UITestingUtilities.activateTool(tool);
-		
-		ImportedClass_c ics[] = ImportedClass_c.ImportedClassInstances(modelRoot);
-		int ic_count = ics.length;
-		
-		CanvasTestUtils.createMouseEvent(200, 200, "MouseDown");
-		CanvasTestUtils.createMouseEvent(400, 400, "MouseMove");
-		CanvasTestUtils.createMouseEvent(400, 400, "MouseUp");
-		
-		ics = ImportedClass_c.ImportedClassInstances(modelRoot);
-		int ic_count_after = ics.length;
-		assertTrue("Number of Imported Class instances found: " + Integer.toString(ic_count_after) + "Expected: " + Integer.toString(ic_count + 1), (ic_count + 1) == ic_count_after );
-		
-        validateOrGenerateResultsGenerics(ce, generateResults); 
-        UITestingUtilities.deactivateTool(tool);
-	}
 	public void testCreatePackageInFunctionPackage() {
 		test_id = "test_10";
 		Package_c fpk = Package_c.PackageInstance(modelRoot);
@@ -209,142 +149,7 @@ public class CanvasCreationTest extends CanvasTest {
 		AbstractTool tool = UITestingUtilities.getTool("Function Package");
 		assertNull(tool );
 	}
-	public void testCreateUserDatatypeInDataTypePackage() {
-		test_id = "test_12";
-		Package_c []dpks = Package_c.PackageInstances(modelRoot);
-		assertEquals(2, dpks.length);
-		// Take second package, first was created by default
-		Package_c dpk = dpks[1];
-		assertNotNull(dpk);
-		CanvasTestUtils.openCanvasEditor(dpk);
-		GraphicalEditor ce = ((ModelEditor) PlatformUI.getWorkbench()
-				.getActiveWorkbenchWindow().getActivePage().getActiveEditor())
-				.getGraphicalEditor();
-		CanvasTestUtils.matchCanvasSpaceToModelSpace(ce.getModel());
-		AbstractTool tool = UITestingUtilities.getTool("User Data Type");
-		UITestingUtilities.activateTool(tool);
-		
-		UserDataType_c udts[] = UserDataType_c.UserDataTypeInstances(modelRoot);
-		int udt_count = udts.length;
-		
-		CanvasTestUtils.createMouseEvent(800, 800, "MouseDown");
-		CanvasTestUtils.createMouseEvent(1200, 1200, "MouseMove");
-		CanvasTestUtils.createMouseEvent(1200, 1200, "MouseUp");
-		
-		udts = UserDataType_c.UserDataTypeInstances(modelRoot);
-		int udt_count_after = udts.length;
-		assertTrue("Number of Imported Class instances found: " + Integer.toString(udt_count_after) + "Expected: " + Integer.toString(udt_count + 1), (udt_count + 1) == udt_count_after );
-		
-        validateOrGenerateResultsGenerics(ce, generateResults); 
-        UITestingUtilities.deactivateTool(tool);
-	}
-	public void testCreateEnumDatatypeInDataTypePackage() {
-		test_id = "test_13";
-		Package_c []dpks = Package_c.PackageInstances(modelRoot);
-		assertEquals(2, dpks.length);
-		// Take second package, first was created by default
-		Package_c dpk = dpks[1];
-		assertNotNull(dpk);
-		CanvasTestUtils.openCanvasEditor(dpk);
-		GraphicalEditor ce = ((ModelEditor) PlatformUI.getWorkbench()
-				.getActiveWorkbenchWindow().getActivePage().getActiveEditor())
-				.getGraphicalEditor();
-		CanvasTestUtils.matchCanvasSpaceToModelSpace(ce.getModel());
-		AbstractTool tool = UITestingUtilities.getTool("Enumeration Data Type");
-		UITestingUtilities.activateTool(tool);
-		
-		EnumerationDataType_c edts[] = EnumerationDataType_c.EnumerationDataTypeInstances(modelRoot);
-		int edt_count = edts.length;
-		
-		CanvasTestUtils.createMouseEvent(1400, 1400, "MouseDown");
-		CanvasTestUtils.createMouseEvent(1800, 1800, "MouseMove");
-		CanvasTestUtils.createMouseEvent(1800, 1800, "MouseUp");
-		
-		edts = EnumerationDataType_c.EnumerationDataTypeInstances(modelRoot);
-		int edt_count_after = edts.length;
-		assertTrue("Number of Imported Class instances found: " + Integer.toString(edt_count_after) + "Expected: " + Integer.toString(edt_count + 1), (edt_count + 1) == edt_count_after );
-		
-        validateOrGenerateResultsGenerics(ce, generateResults);
-        UITestingUtilities.deactivateTool(tool);
-	}
-	public void testCreateEEInEEPackage() {
-		test_id = "test_14";
-		Package_c epk = Package_c.PackageInstance(modelRoot);
-		assertNotNull(epk);
-		CanvasTestUtils.openCanvasEditor(epk);
-		GraphicalEditor ce = ((ModelEditor) PlatformUI.getWorkbench()
-				.getActiveWorkbenchWindow().getActivePage().getActiveEditor())
-				.getGraphicalEditor();
-		CanvasTestUtils.matchCanvasSpaceToModelSpace(ce.getModel());
-		AbstractTool tool = UITestingUtilities.getTool("External Entity");
-		UITestingUtilities.activateTool(tool);
-		
-		ExternalEntity_c ees[] = ExternalEntity_c.ExternalEntityInstances(modelRoot);
-		int ee_count = ees.length;
-		
-		CanvasTestUtils.createMouseEvent(200, 200, "MouseDown");
-		CanvasTestUtils.createMouseEvent(400, 400, "MouseMove");
-		CanvasTestUtils.createMouseEvent(400, 400, "MouseUp");
-		
-		ees =  ExternalEntity_c.ExternalEntityInstances(modelRoot);
-		int ee_count_after = ees.length;
-		assertTrue("Number of Imported Class instances found: " + Integer.toString(ee_count_after) + "Expected: " + Integer.toString(ee_count + 1), (ee_count + 1) == ee_count_after );
-		
-        validateOrGenerateResultsGenerics(ce, generateResults);
-        UITestingUtilities.deactivateTool(tool);
-	}
 
-	public void testCreateStateInISM() {
-		test_id = "test_16";
-		InstanceStateMachine_c ism = InstanceStateMachine_c.InstanceStateMachineInstance(modelRoot);
-		assertNotNull(ism);
-		CanvasTestUtils.openCanvasEditor(ism);
-		GraphicalEditor ce = ((ModelEditor) PlatformUI.getWorkbench()
-				.getActiveWorkbenchWindow().getActivePage().getActiveEditor())
-				.getGraphicalEditor();
-		AbstractTool tool = UITestingUtilities.getTool("State");
-		UITestingUtilities.activateTool(tool);
-		
-		StateMachineState_c sts[] = StateMachineState_c.getManySM_STATEsOnR501(StateMachine_c.getOneSM_SMOnR517(ism));
-		int st_count = sts.length;
-		
-		CanvasTestUtils.createMouseEvent(200, 200, "MouseDown");
-		CanvasTestUtils.createMouseEvent(400, 400, "MouseMove");
-		CanvasTestUtils.createMouseEvent(400, 400, "MouseUp");
-		
-		sts =  StateMachineState_c.getManySM_STATEsOnR501(StateMachine_c.getOneSM_SMOnR517(ism));
-		int st_count_after = sts.length;
-		assertTrue("Number of Imported Class instances found: " + Integer.toString(st_count_after) + "Expected: " + Integer.toString(st_count + 1), (st_count + 1) == st_count_after );
-		
-        validateOrGenerateResultsGenerics(ce, generateResults);
-        UITestingUtilities.deactivateTool(tool);
-	}
-	public void testCreateStateInCSM() {
-		test_id = "test_17";
-		ClassStateMachine_c csm = ClassStateMachine_c.ClassStateMachineInstance(modelRoot);
-		assertNotNull(csm);
-		CanvasTestUtils.openCanvasEditor(csm);
-		GraphicalEditor ce = ((ModelEditor) PlatformUI.getWorkbench()
-				.getActiveWorkbenchWindow().getActivePage().getActiveEditor())
-				.getGraphicalEditor();
-		CanvasTestUtils.matchCanvasSpaceToModelSpace(ce.getModel());
-		AbstractTool tool = UITestingUtilities.getTool("State");
-		UITestingUtilities.activateTool(tool);
-		
-		StateMachineState_c sts[] = StateMachineState_c.getManySM_STATEsOnR501(StateMachine_c.getOneSM_SMOnR517(csm));
-		int st_count = sts.length;
-		
-		CanvasTestUtils.createMouseEvent(200, 200, "MouseDown");
-		CanvasTestUtils.createMouseEvent(400, 400, "MouseMove");
-		CanvasTestUtils.createMouseEvent(400, 400, "MouseUp");
-		
-		sts =  StateMachineState_c.getManySM_STATEsOnR501(StateMachine_c.getOneSM_SMOnR517(csm));
-		int st_count_after = sts.length;
-		assertTrue("Number of Imported Class instances found: " + Integer.toString(st_count_after) + "Expected: " + Integer.toString(st_count + 1), (st_count + 1) == st_count_after );
-		
-        validateOrGenerateResultsGenerics(ce, generateResults);
-        UITestingUtilities.deactivateTool(tool);
-	}
 	public void testCreateActivityInPackage() {
 		test_id = "test_20";
 		IdAssigner.setSeedOfAllInstances(test_id.hashCode());

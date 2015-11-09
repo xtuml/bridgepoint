@@ -19,11 +19,9 @@ extern	"C"	{
  */
 extern Escher_Extent_t * const Location_class_info[];
 extern const EventTaker_t Location_EventDispatcher[];
-extern void Location_execute_initialization( void );
+void Location_execute_initialization( void );
 
 #define Location_STATE_MODELS 2
-
-
 /* Define constants to map to class numbers.  */
 #define Location_GPS_CLASS_NUMBER 0
 #define Location_GPS_CLASS_NUMBER_CB 1
@@ -46,22 +44,19 @@ typedef struct Location_GPS_CB Location_GPS_CB;
   char Location_dummy;\
 
 
-
-#include "LOG_bridge.h"
 #include "TIM_bridge.h"
+#include "LOG_bridge.h"
 #include "Location.h"
 #include "Location_GPS_class.h"
-
-
 /*
- * roll-up of all events (with their parameters) for domain Location
+ * roll-up of all events (with their parameters) for component Location
  */
 typedef union {
   Location_GPS_CB_Events_u Location_GPS_CB_Events_u_namespace;
 } Location_DomainEvents_u;
+
 #ifdef	__cplusplus
 }
 #endif
-
 #endif  /* LOCATION_CLASSES_H */
 

@@ -23,8 +23,6 @@ package org.xtuml.bp.welcome.test;
 
 import java.util.Properties;
 
-import junit.framework.TestCase;
-
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
@@ -37,15 +35,16 @@ import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
-
 import org.xtuml.bp.core.XtUMLNature;
 import org.xtuml.bp.core.common.PersistableModelComponent;
 import org.xtuml.bp.core.common.PersistenceManager;
-import org.xtuml.bp.utilities.ui.TreeUtilities;
 import org.xtuml.bp.test.TestUtil;
 import org.xtuml.bp.test.common.TestingUtilities;
 import org.xtuml.bp.ui.explorer.ExplorerView;
+import org.xtuml.bp.utilities.ui.TreeUtilities;
 import org.xtuml.bp.welcome.gettingstarted.SampleProjectGettingStartedAction;
+
+import junit.framework.TestCase;
 
 public class WelcomePageTestMetamodel extends TestCase {
 
@@ -72,6 +71,14 @@ public class WelcomePageTestMetamodel extends TestCase {
 		super();
 	}
 
+	// enforce ordering of tests in this class
+	public void testWelcomePageMetamodelProject() throws CoreException, Exception {
+		dotestProjectCreation();
+		dotestNoProjectOverwrite();
+		dotestProjectOverwrite();
+		dotestImportLoadPersist();
+	}
+	
 	public void runSingleFileGettingStartedAction() {
 		SampleProjectGettingStartedAction action = new SampleProjectGettingStartedAction();
 		Properties props = new Properties();
@@ -122,7 +129,7 @@ public class WelcomePageTestMetamodel extends TestCase {
 		s.forceFocus();
 	}
 	
-	public void testProjectCreation() {
+	public void dotestProjectCreation() {
 		runSingleFileGettingStartedAction();
 
 		// Give the import time to work
@@ -133,7 +140,7 @@ public class WelcomePageTestMetamodel extends TestCase {
 		raiseWorkbench();
 	}
 	
-	public void testNoProjectOverwrite() {
+	public void dotestNoProjectOverwrite() {
 	    IFile dummyFile = project.getFile("dummyFile");
 	    IFile existingFile = project.getFile(expectedXtUMLFiles[0]);
 		try {
@@ -153,7 +160,7 @@ public class WelcomePageTestMetamodel extends TestCase {
 	}
 
 
-	public void testProjectOverwrite() throws Exception {
+	public void dotestProjectOverwrite() throws Exception {
 	    IFile dummyFile = project.getFile("dummyFile");
 	    
 	    // Make sure the marker file is there.
@@ -172,7 +179,7 @@ public class WelcomePageTestMetamodel extends TestCase {
 		 TestingUtilities.deleteProject(ProjectName);
 	}
 	
-	public void testImportLoadPersist()  throws Exception {
+	public void dotestImportLoadPersist()  throws Exception {
 		int numImports = 1;
 		for (int i = 0; i < numImports; i++) {
 			System.out.println("Import number: " + String.valueOf(i+1));

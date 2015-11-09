@@ -62,9 +62,9 @@ extern const Escher_xtUMLEventConstant_t Location_GPS_CBevent3c;
  * union of events targeted towards 'GPS' state machine
  */
 typedef union {
-  Location_GPS_CBevent1 gps11;  
-  Location_GPS_CBevent2 gps22;  
-  Location_GPS_CBevent3 gps33;  
+  Location_GPS_CBevent1 gps1_1;  
+  Location_GPS_CBevent2 gps2_2;  
+  Location_GPS_CBevent3 gps3_3;  
 } Location_GPS_CB_Events_u;
 
 /*
@@ -77,8 +77,8 @@ typedef union {
  * enumeration of state model event numbers
  */
 #define LOCATION_GPS_CBEVENT1NUM 0  /* GPS_A1:'timeout' */
-#define LOCATION_GPS_CBEVENT2NUM 1  /* LOC::registerListener:'registerListener' */
-#define LOCATION_GPS_CBEVENT3NUM 2  /* LOC::unregisterListener:'unregisterListener' */
+#define LOCATION_GPS_CBEVENT3NUM 1  /* LOC::unregisterListener:'unregisterListener' */
+#define LOCATION_GPS_CBEVENT2NUM 2  /* LOC::registerListener:'registerListener' */
 
 extern void Location_GPS_CBDispatch( Escher_xtUMLEvent_t * );
 

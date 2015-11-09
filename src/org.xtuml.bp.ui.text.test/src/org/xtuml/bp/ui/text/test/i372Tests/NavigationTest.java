@@ -61,6 +61,14 @@ public class NavigationTest extends BaseTest {
 		super(null, name);
 	}
 
+	// enforce order in which the tests in this class run
+	public void testNavigation() {
+		dotestForwardNavigationforDescriptionEditor();
+		dotestForwardNavigationforActivityEditor();
+		dotestBackwardNavigationWithOutMarkers();
+		dotestBackwardNavigationWithMarkers();
+	}
+	
 	protected void setUp() throws Exception {
 		super.setUp();
 		if ( firstSetup ) {
@@ -78,7 +86,7 @@ public class NavigationTest extends BaseTest {
 		page.closeAllEditors(false);
 	}
 	
-	public void testForwardNavigationforDescriptionEditor()
+	public void dotestForwardNavigationforDescriptionEditor()
 	{
 		InstanceList instList =  modelRoot.getInstanceList(Attribute_c.class);
 		// there should be at least two attributes
@@ -90,7 +98,7 @@ public class NavigationTest extends BaseTest {
 		checkForwardNavigation(attr1, attr2, DescriptionEditorInput.EDITOR_ID);
 	}
 	
-	public void testForwardNavigationforActivityEditor()
+	public void dotestForwardNavigationforActivityEditor()
 	{
 		InstanceList instList =  modelRoot.getInstanceList(Operation_c.class);
 		// there should be at least two attributes
@@ -165,13 +173,13 @@ public class NavigationTest extends BaseTest {
 		validateEditor(modelElement2, EDITOR_ID);
 	}
 		
-	public void testBackwardNavigationWithOutMarkers()
+	public void dotestBackwardNavigationWithOutMarkers()
 	{
 	// check the Navigation with out markers, pass parameter as false
 		checkBackwardNavigation(false);
 	}
 	
-	public void testBackwardNavigationWithMarkers()
+	public void dotestBackwardNavigationWithMarkers()
 	{
 	// test the Navigation with markers
 		checkBackwardNavigation(true);

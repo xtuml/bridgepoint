@@ -49,12 +49,12 @@ static void HeartRateMonitor_HeartRateMonitor_CB_act2( HeartRateMonitor_HeartRat
 static void
 HeartRateMonitor_HeartRateMonitor_CB_act2( HeartRateMonitor_HeartRateMonitor * self, const Escher_xtUMLEvent_t * const event )
 {
-  HeartRateMonitor_HeartRateMonitor * monitor=0; 
+  HeartRateMonitor_HeartRateMonitor * monitor=0;
   /* SELECT any monitor FROM INSTANCES OF HeartRateMonitor */
   XTUML_OAL_STMT_TRACE( 1, "SELECT any monitor FROM INSTANCES OF HeartRateMonitor" );
   monitor = (HeartRateMonitor_HeartRateMonitor *) Escher_SetGetAny( &pG_HeartRateMonitor_HeartRateMonitor_extent.active );
-  /*  SEND HR::heartRateChanged(heartRate:monitor.recentHeartRate) */
-  XTUML_OAL_STMT_TRACE( 1, " SEND HR::heartRateChanged(heartRate:monitor.recentHeartRate)" );
+  /* SEND HR::heartRateChanged(heartRate:monitor.recentHeartRate) */
+  XTUML_OAL_STMT_TRACE( 1, "SEND HR::heartRateChanged(heartRate:monitor.recentHeartRate)" );
   HeartRateMonitor_HR_heartRateChanged( monitor->recentHeartRate );
   /* ASSIGN monitor.recentHeartRate = ( monitor.recentHeartRate + 1.0 ) */
   XTUML_OAL_STMT_TRACE( 1, "ASSIGN monitor.recentHeartRate = ( monitor.recentHeartRate + 1.0 )" );
@@ -67,7 +67,7 @@ static void HeartRateMonitor_HeartRateMonitor_CB_xact1( HeartRateMonitor_HeartRa
 static void
 HeartRateMonitor_HeartRateMonitor_CB_xact1( HeartRateMonitor_HeartRateMonitor * self, const Escher_xtUMLEvent_t * const event )
 {
-  HeartRateMonitor_HeartRateMonitor * monitor=0; Escher_xtUMLEvent_t * timeout;  /* timeout */ 
+  Escher_xtUMLEvent_t * timeout;HeartRateMonitor_HeartRateMonitor * monitor=0;
   /* SELECT any monitor FROM INSTANCES OF HeartRateMonitor */
   XTUML_OAL_STMT_TRACE( 1, "SELECT any monitor FROM INSTANCES OF HeartRateMonitor" );
   monitor = (HeartRateMonitor_HeartRateMonitor *) Escher_SetGetAny( &pG_HeartRateMonitor_HeartRateMonitor_extent.active );
@@ -98,7 +98,7 @@ static void HeartRateMonitor_HeartRateMonitor_CB_xact2( HeartRateMonitor_HeartRa
 static void
 HeartRateMonitor_HeartRateMonitor_CB_xact2( HeartRateMonitor_HeartRateMonitor * self, const Escher_xtUMLEvent_t * const event )
 {
-  HeartRateMonitor_HeartRateMonitor * monitor=0; bool res; 
+  bool res;HeartRateMonitor_HeartRateMonitor * monitor=0;
   /* SELECT any monitor FROM INSTANCES OF HeartRateMonitor */
   XTUML_OAL_STMT_TRACE( 1, "SELECT any monitor FROM INSTANCES OF HeartRateMonitor" );
   monitor = (HeartRateMonitor_HeartRateMonitor *) Escher_SetGetAny( &pG_HeartRateMonitor_HeartRateMonitor_extent.active );
@@ -131,9 +131,9 @@ static const Escher_SEMcell_t HeartRateMonitor_HeartRateMonitor_CB_StateEventMat
   /* row 0:  uninitialized state (for creation events) */
   { EVENT_CANT_HAPPEN, EVENT_CANT_HAPPEN, EVENT_CANT_HAPPEN },
   /* row 1:  HeartRateMonitor_HeartRateMonitor_CB_STATE_1 (idle) */
-  { EVENT_IS_IGNORED, (1<<8) + HeartRateMonitor_HeartRateMonitor_CB_STATE_2, EVENT_CANT_HAPPEN },
+  { EVENT_IS_IGNORED, EVENT_CANT_HAPPEN, (1<<8) + HeartRateMonitor_HeartRateMonitor_CB_STATE_2 },
   /* row 2:  HeartRateMonitor_HeartRateMonitor_CB_STATE_2 (monitoring) */
-  { HeartRateMonitor_HeartRateMonitor_CB_STATE_2, EVENT_CANT_HAPPEN, (2<<8) + HeartRateMonitor_HeartRateMonitor_CB_STATE_1 }
+  { HeartRateMonitor_HeartRateMonitor_CB_STATE_2, (2<<8) + HeartRateMonitor_HeartRateMonitor_CB_STATE_1, EVENT_CANT_HAPPEN }
 };
 
   /*

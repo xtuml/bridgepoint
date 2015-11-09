@@ -80,10 +80,15 @@ public class AlphaSortingTest extends BaseTest
         }
     }
 
+    // enforces ordering of the tests in this class
+    public void testAlphaSorting() throws CoreException,IOException {
+    	dotestAlphaSortingOfSystems();
+    }
+    
     /**
      * Tests that alpha sorting works properly for the root node
      */
-    public void testAlphaSortingOfSystems() throws CoreException, IOException
+    public void dotestAlphaSortingOfSystems() throws CoreException, IOException
     {
         // clear all existing projects from previous tests
         IProject[] existingProjects = ResourcesPlugin.getWorkspace().getRoot().getProjects();
@@ -109,5 +114,6 @@ public class AlphaSortingTest extends BaseTest
                 .equals(children[i].getText()));
         }
     }
+
 
 }

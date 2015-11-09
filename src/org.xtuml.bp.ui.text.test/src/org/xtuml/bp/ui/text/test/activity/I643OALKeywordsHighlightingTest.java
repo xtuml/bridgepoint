@@ -108,6 +108,6 @@ public class I643OALKeywordsHighlightingTest extends BaseTest {
 			fail("Improper Highlighting, This is not highlighted as a single token");
 		}
 
-		assertEquals("StyleRange {32, 6, fontStyle=normal, foreground=Color {0, 0, 0}}",ranges[0].toString());
+		assertEquals("StyleRange {32, 6, fontStyle=normal, foreground=Color {0, 0, 0, 255}}",ranges[0].toString());
 	}
 }

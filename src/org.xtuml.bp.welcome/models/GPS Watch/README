@@ -24,8 +24,8 @@ to connect interchangeably, meaning there is no need to restart the GUI between
 various sessions. When a new connection is detected the GUI will simply drop any 
 existing connection and only service the recently detected connection.
 
-You can now run either the already generated Windows executable, or run the 
-model in xtUML eXecute.
+You can now run either the already generated Windows executable, Linux executable, 
+or run the model in xtUML eXecute.
 
 To run the EXE:
 * Expand the Binaries item under the project
@@ -50,11 +50,20 @@ case that does its own stimulus and response.
 
 BUILDING THE PROJECT
 ---------------------
-The project is pre-built so building the project is not necessary. But, there 
-might be warnings/errors in the project resulting from an unresolved build path.
+The project is pre-built for Windows, so building the project on Windows is not 
+necessary. To run on Linux you must rebuild.
+
+If you want to rebuild the project for Linux or after modifying the model or a marking file:
+
+* Switch to the C/C++ perspective
+* Right-click on the project and choose 'Build Configurations > Set Active > ...
+   and set the build configuration you want.
+* Right-click on the project and choose 'Build Project' in the context menu
+
+There might be warnings/errors in the project resulting from an unresolved build path.
 The Java code that is used to extend xtUML eXecute depends on a BridgePoint jar file 
-called core.jar. This path should have been set correctly by the installer, but
-if it is wrong you must follow these steps to resolve the path to core.jar:
+called core.jar. If the path to core.jar is wrong you must follow these steps to 
+resolve it:
 
 * Open the Java perspective: Window > Open Perspective > Java
 * Right-click the project and select Build Path > Configure Build Path...
@@ -64,9 +73,5 @@ if it is wrong you must follow these steps to resolve the path to core.jar:
     <BridgePoint installation folder>\eclipse_extensions\BridgePoint\eclipse\plugins\org.xtuml.bp.core_<version>\core.jar
 * OK all pop-ups
 
-If you want to rebuild the project after modifying the model or a marking file:
-
-* Switch to the C/C++ perspective
-* Right-click on the project and choose 'Build Project' in the context menu
 
 Have fun!
