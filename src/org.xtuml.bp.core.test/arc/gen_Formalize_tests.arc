@@ -356,10 +356,10 @@ public class FormalizeUnformalizeTestGenerics extends CanvasTest {
 			this.setUp();
 .select many classes from instances of O_OBJ where (selected.KEY_LETT == "T_FORM")
 .for each class in classes
-  			this.test$r{class.Name}();
+  			this.doTest$r{class.Name}();
 .end for
 .for each class in classes
-			this.testUn$r{class.Name}();
+			this.doTestUn$r{class.Name}();
 .end for
 .//
 .// test formalize and unformalize on ClassAsLink and ClassAsSubtype
@@ -372,7 +372,7 @@ public class FormalizeUnformalizeTestGenerics extends CanvasTest {
   	.select one ss related by ic->PE_PE[R8001]->EP_PKG[R8000]
   .end if
   .if ((ss.Name == "FSS Tests") or (ss.Name == "FAL Tests"))
-  	       this.test$r{class.Name}Special();
+  	       this.doTest$r{class.Name}Special();
   .end if
 .end for
 .for each class in classes
@@ -382,12 +382,12 @@ public class FormalizeUnformalizeTestGenerics extends CanvasTest {
   	.select one ss related by ic->PE_PE[R8001]->EP_PKG[R8000]
   .end if
   .if ((ss.Name == "FSS Tests") or (ss.Name == "FAL Tests"))
-  		   this.testUn$r{class.Name}Special();
+  		   this.doTestUn$r{class.Name}Special();
   .end if
 .end for
 .select many classes from instances of O_OBJ where (selected.KEY_LETT == "T_UNFORM")
 .for each class in classes
-			this.test$r{class.Name}();
+			this.doTest$r{class.Name}();
 .end for
 		} catch (Exception e) {
 			System.out.println(
@@ -395,11 +395,49 @@ public class FormalizeUnformalizeTestGenerics extends CanvasTest {
 		}
 
 	}
+	public void testFormalizeUnformalize() {
+.select many classes from instances of O_OBJ where (selected.KEY_LETT == "T_FORM")
+.for each class in classes
+  			this.doTest$r{class.Name}();
+.end for
+.for each class in classes
+			this.doTestUn$r{class.Name}();
+.end for
+.//
+.// test formalize and unformalize on ClassAsLink and ClassAsSubtype
+.// use new test result, as GEF auto-shifts scroll
+.//
+.for each class in classes
+  .select one ss related by class->PE_PE[R8001]->EP_PKG[R8000]
+  .if (class.Descrip == "Imported Class")
+    .select one ic related by class->O_IOBJ[R101]
+  	.select one ss related by ic->PE_PE[R8001]->EP_PKG[R8000]
+  .end if
+  .if ((ss.Name == "FSS Tests") or (ss.Name == "FAL Tests"))
+  	       this.doTest$r{class.Name}Special();
+  .end if
+.end for
+.for each class in classes
+  .select one ss related by class->PE_PE[R8001]->EP_PKG[R8000]
+  .if (class.Descrip == "Imported Class")
+    .select one ic related by class->O_IOBJ[R101]
+  	.select one ss related by ic->PE_PE[R8001]->EP_PKG[R8000]
+  .end if
+  .if ((ss.Name == "FSS Tests") or (ss.Name == "FAL Tests"))
+  		   this.doTestUn$r{class.Name}Special();
+  .end if
+.end for
+.select many classes from instances of O_OBJ where (selected.KEY_LETT == "T_UNFORM")
+.for each class in classes
+			this.doTest$r{class.Name}();
+.end for
+	}
+	
 .assign count = 0
 .select many classes from instances of O_OBJ where (selected.KEY_LETT == "T_FORM")
 .for each class in classes
   .assign count = count + 1
-  	public void test$r{class.Name}() {
+  	public void doTest$r{class.Name}() {
   		test_id = "test_${count}";
   .invoke ft = formalize_test_generics( class, false )
 ${ft.body}\
@@ -407,7 +445,7 @@ ${ft.body}\
 .end for
 .for each class in classes
   .assign count = count + 1
-  	public void testUn$r{class.Name}() {
+  	public void doTestUn$r{class.Name}() {
   		test_id = "test_${count}";
   .invoke ft = unformalize_test_generics( class, false )
 ${ft.body}\
@@ -426,7 +464,7 @@ ${ft.body}\
   	.select one ss related by ic->PE_PE[R8001]->EP_PKG[R8000]
   .end if
   .if ((ss.Name == "FSS Tests") or (ss.Name == "FAL Tests"))
-  	public void test$r{class.Name}Special() {
+  	public void doTest$r{class.Name}Special() {
   		test_id = "test_Special_${count}";
     .invoke ft = formalize_test_generics( class, true )
 ${ft.body}\
@@ -441,7 +479,7 @@ ${ft.body}\
   	.select one ss related by ic->PE_PE[R8001]->EP_PKG[R8000]
   .end if
   .if ((ss.Name == "FSS Tests") or (ss.Name == "FAL Tests"))
-  	public void testUn$r{class.Name}Special() {
+  	public void doTestUn$r{class.Name}Special() {
   	    // for special tests do not reuse the
   	    // existing result
   		test_id = "test_Special_${count}";
@@ -455,7 +493,7 @@ ${ft.body}\
 .for each class in classes
   .assign count = count + 1
   .select one ss related by class->PE_PE[R8001]->EP_PKG[R8000]
-  	public void test$r{class.Name}() {
+  	public void doTest$r{class.Name}() {
   		test_id = "test_${count}";
   .if (class.Descrip == "Imported Class")
     .select one ic related by class->O_IOBJ[R101]
@@ -496,7 +534,7 @@ ${ft.body}\
         false, false, false, 
         false, true };
 
-    public void testFormalizeActionFilter() {
+    public void doTestFormalizeActionFilter() {
 		Package_c uut = Package_c.PackageInstance(modelRoot,
 				new Package_by_name_c("actionFilter Tests"));
 		Association_c[] assoc_set = Association_c.getManyR_RELsOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(uut));
@@ -516,7 +554,7 @@ ${ft.body}\
      * dts0100909056
      * The test steps are descriped in dts0100909056.dnt section 10.1
      * */
-    public void testDeletingForwardedIdentifierAttr()
+    public void doTestDeletingForwardedIdentifierAttr()
     {
         String projectName = "orphaned_ref_attribute";
         try {

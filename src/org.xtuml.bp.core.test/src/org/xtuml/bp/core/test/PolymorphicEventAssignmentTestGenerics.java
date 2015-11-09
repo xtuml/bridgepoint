@@ -106,11 +106,24 @@ public class PolymorphicEventAssignmentTestGenerics extends BaseTest {
 		}
 
 	}
+	
+	public void testPolymorphicEvent() throws Exception{
+		 doTestPolymorphicEventAssignment();
+	      doTestPolymorphicEventAssignmentNotAllowedOnCreationTransition();
+	      doTestAssignPolyEventToTransition();
+	      doTestSubtypeLineRemovalRemovesNonLocalEvent();
+	      doTestSubtypeLineRemovalRemovesLowerLevelNonLocalEvent();
+	      doTestSubtypeLineRemovalOnlyRemovesNonLocalEventsDeliveredViaItself();
+	      doTestRenamingPolymorphicEventRenamesNonLocalEvent();
+	      doTestPolymorphicEventRemovalRemovesNonLocalEvents();
+	  
+		
+	}
 
 	/**
 	 * See parent class description.
 	 */
-	public void testPolymorphicEventAssignment() {
+	public void doTestPolymorphicEventAssignment() {
 
 		// E starts out assigned in A, so it shouldn't be assignable in B
 		StateMachine_c bMachine = getStateMachine("B");
@@ -650,7 +663,7 @@ public class PolymorphicEventAssignmentTestGenerics extends BaseTest {
 	 * assignment is possible on new-state transitions within the same 
 	 * state machine.
 	 */
-	public void testPolymorphicEventAssignmentNotAllowedOnCreationTransition() {
+	public void doTestPolymorphicEventAssignmentNotAllowedOnCreationTransition() {
 		// make sure that E is available for assignment on the no-event 
 		// transition in C, to help validate this test
 		StateMachine_c cMachine = getStateMachine("C");
@@ -668,7 +681,7 @@ public class PolymorphicEventAssignmentTestGenerics extends BaseTest {
 		checkForAbsenceOfEInAssignList(creationTransition);
 	}
 
-	public void testAssignPolyEventToTransition() {
+	public void doTestAssignPolyEventToTransition() {
 		Package_c ss = Package_c.PackageInstance(modelRoot,
 				new Package_by_name_c("Test 3"));
 		ModelClass_c clazz = ModelClass_c.ModelClassInstance(ss.getModelRoot(),
@@ -728,7 +741,7 @@ public class PolymorphicEventAssignmentTestGenerics extends BaseTest {
 	 * that are delivered through that subtype line
 	 * @throws CoreException 
 	 */
-	public void testSubtypeLineRemovalRemovesNonLocalEvent()
+	public void doTestSubtypeLineRemovalRemovesNonLocalEvent()
 			throws CoreException {
 		///		ensureAvailableAndLoaded("PolymorphicEventAssignmentTest", false, true);
 		Package_c ss = Package_c.PackageInstance(modelRoot,
@@ -763,7 +776,7 @@ public class PolymorphicEventAssignmentTestGenerics extends BaseTest {
 	 * at a third level
 	 * @throws CoreException 
 	 */
-	public void testSubtypeLineRemovalRemovesLowerLevelNonLocalEvent()
+	public void doTestSubtypeLineRemovalRemovesLowerLevelNonLocalEvent()
 			throws CoreException {
 		Package_c ss = Package_c.PackageInstance(modelRoot,
 				new Package_by_name_c("Test 2"));
@@ -799,7 +812,7 @@ public class PolymorphicEventAssignmentTestGenerics extends BaseTest {
 	 * delivered via the removed subtype line
 	 * @throws CoreException 
 	 */
-	public void testSubtypeLineRemovalOnlyRemovesNonLocalEventsDeliveredViaItself()
+	public void doTestSubtypeLineRemovalOnlyRemovesNonLocalEventsDeliveredViaItself()
 			throws CoreException {
 		Package_c ss = Package_c.PackageInstance(modelRoot,
 				new Package_by_name_c("Test 2"));
@@ -850,7 +863,7 @@ public class PolymorphicEventAssignmentTestGenerics extends BaseTest {
 	 * delivered via the removed subtype line
 	 * @throws CoreException 
 	 */
-	public void testRenamingPolymorphicEventRenamesNonLocalEvent()
+	public void doTestRenamingPolymorphicEventRenamesNonLocalEvent()
 			throws CoreException {
 		Package_c ss = Package_c.PackageInstance(modelRoot,
 				new Package_by_name_c("Test 2"));
@@ -893,7 +906,7 @@ public class PolymorphicEventAssignmentTestGenerics extends BaseTest {
 	 * referring to it
 	 * @throws CoreException 
 	 */
-	public void testPolymorphicEventRemovalRemovesNonLocalEvents()
+	public void doTestPolymorphicEventRemovalRemovesNonLocalEvents()
 			throws CoreException {
 		Package_c ss = Package_c.PackageInstance(modelRoot,
 				new Package_by_name_c("Test 2"));

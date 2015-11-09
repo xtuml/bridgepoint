@@ -148,10 +148,19 @@ public class NumberingTestGenerics extends CoreTest {
 		void createLastElement();
 	}
 
+	public void testNumberingTestGenerics() throws Exception{
+		dotTestModelClassNumbering();
+		dotTestAssociationNumbering();
+		dotTestInstanceStatesNumbering();
+		dotTestClassStatesNumbering();
+		dotTestInstanceEventsNumbering();
+		dotTestClassEventsNumbering();
+	}
+
 	/**
 	 * Tests the numbering of model-classes added to a subsystem.
 	 */
-	public void testModelClassNumbering() throws Exception {
+	public void dotTestModelClassNumbering() throws Exception {
 		// create some model-classes within the subsystem
 		final int numPredecessors = 3;
 		for (int i = 0; i < numPredecessors; i++)
@@ -188,7 +197,7 @@ public class NumberingTestGenerics extends CoreTest {
 	/**
 	 * Tests the numbering of associations added to a subsystem.
 	 */
-	public void testAssociationNumbering() throws Exception {
+	public void dotTestAssociationNumbering() throws Exception {
 		// resolve the first model-class created previously
 
 		PackageableElement_c[] pckElements = PackageableElement_c
@@ -236,7 +245,7 @@ public class NumberingTestGenerics extends CoreTest {
 	 * Tests the numbering of states added to a model-class instance state
 	 * machine.
 	 */
-	public void testInstanceStatesNumbering() throws Exception {
+	public void dotTestInstanceStatesNumbering() throws Exception {
 		// resolve the first model-class created previously
 		PackageableElement_c[] pckElements = PackageableElement_c
 				.getManyPE_PEsOnR8000(subsystem);
@@ -283,7 +292,7 @@ public class NumberingTestGenerics extends CoreTest {
 	/**
 	 * Tests the numbering of states added to a model-class class state machine.
 	 */
-	public void testClassStatesNumbering() throws Exception {
+	public void dotTestClassStatesNumbering() throws Exception {
 		// resolve the first model-class created previously
 		PackageableElement_c[] pckElements = PackageableElement_c
 				.getManyPE_PEsOnR8000(subsystem);
@@ -330,7 +339,7 @@ public class NumberingTestGenerics extends CoreTest {
 	 * Tests the numbering of events added to a model-class's instance
 	 * state-machine.
 	 */
-	public void testInstanceEventsNumbering() throws Exception {
+	public void dotTestInstanceEventsNumbering() throws Exception {
 		// resolve the first model-class created previously
 		PackageableElement_c[] pckElements = PackageableElement_c
 				.getManyPE_PEsOnR8000(subsystem);
@@ -377,7 +386,7 @@ public class NumberingTestGenerics extends CoreTest {
 	 * Tests the numbering of events added to a model-class's class
 	 * state-machine.
 	 */
-	public void testClassEventsNumbering() throws Exception {
+	public void dotTestClassEventsNumbering() throws Exception {
 		// resolve the first model-class created previously
 		PackageableElement_c[] pckElements = PackageableElement_c
 				.getManyPE_PEsOnR8000(subsystem);

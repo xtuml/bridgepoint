@@ -8,9 +8,9 @@
  *--------------------------------------------------------------------------*/
 
 #include "GPSWatch_sys_types.h"
-#include "UI_GuiBridge_bridge.h"
 #include "LOG_bridge.h"
 #include "TIM_bridge.h"
+#include "UI_GuiBridge_bridge.h"
 #include "UI_classes.h"
 
 /*
@@ -21,11 +21,10 @@ UI_TestCase_op_execute()
 {
   /* GENERATE TestCase2:start(iterations:2) TO TestCase CREATOR */
   XTUML_OAL_STMT_TRACE( 1, "GENERATE TestCase2:start(iterations:2) TO TestCase CREATOR" );
-  { UI_TestCaseevent2 * e = (UI_TestCaseevent2 *) Escher_NewxtUMLEvent( (void *) 0, &UI_TestCaseevent2c );
+  { UI_TestCaseevent2 * e = (UI_TestCaseevent2 *) Escher_NewxtUMLEvent( 0, &UI_TestCaseevent2c );
     e->p_iterations = 2;
     Escher_SendEvent( (Escher_xtUMLEvent_t *) e );
   }
-
 
 }
 
@@ -68,7 +67,7 @@ UI_TestCase_act2( UI_TestCase * self, const Escher_xtUMLEvent_t * const event )
   /* IF ( ( self.iterations > 0 ) ) */
   XTUML_OAL_STMT_TRACE( 1, "IF ( ( self.iterations > 0 ) )" );
   if ( ( self->iterations > 0 ) ) {
-    Escher_xtUMLEvent_t * evt;  /* evt */ Escher_Timer_t * handle; 
+    Escher_Timer_t * handle;Escher_xtUMLEvent_t * evt;
     /* ASSIGN self.iterations = ( self.iterations - 1 ) */
     XTUML_OAL_STMT_TRACE( 2, "ASSIGN self.iterations = ( self.iterations - 1 )" );
     self->iterations = ( self->iterations - 1 );
@@ -78,8 +77,8 @@ UI_TestCase_act2( UI_TestCase * self, const Escher_xtUMLEvent_t * const event )
     /* ASSIGN handle = TIM::timer_start(event_inst:evt, microseconds:4000000) */
     XTUML_OAL_STMT_TRACE( 2, "ASSIGN handle = TIM::timer_start(event_inst:evt, microseconds:4000000)" );
     handle = TIM_timer_start( (Escher_xtUMLEvent_t *)evt, 4000000 );
-    /*  SEND UI::startStopPressed() */
-    XTUML_OAL_STMT_TRACE( 2, " SEND UI::startStopPressed()" );
+    /* SEND UI::startStopPressed() */
+    XTUML_OAL_STMT_TRACE( 2, "SEND UI::startStopPressed()" );
     UI_UI_startStopPressed();
   }
   else {
@@ -88,8 +87,8 @@ UI_TestCase_act2( UI_TestCase * self, const Escher_xtUMLEvent_t * const event )
     { Escher_xtUMLEvent_t * e = Escher_NewxtUMLEvent( self, &UI_TestCaseevent3c );
       Escher_SendSelfEvent( e );
     }
-    /*  SEND UI::lapResetPressed() */
-    XTUML_OAL_STMT_TRACE( 2, " SEND UI::lapResetPressed()" );
+    /* SEND UI::lapResetPressed() */
+    XTUML_OAL_STMT_TRACE( 2, "SEND UI::lapResetPressed()" );
     UI_UI_lapResetPressed();
   }
 }

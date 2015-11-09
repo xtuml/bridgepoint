@@ -25,11 +25,6 @@ void UI_GuiBridge_feedStartStopPressedEvent( Escher_xtUMLEvent_t * );
 void UI_GuiBridge_setData( const i_t, const r_t );
 void UI_GuiBridge_setTime( const i_t );
 void UI_GuiBridge_connect( void );
-void UI_GuiBridge_sendModePressed( void );
-void UI_GuiBridge_sendLightPressed( void );
-void UI_GuiBridge_sendLapResetPressed( void );
-void UI_GuiBridge_sendStartStopPressed( void );
-void UI_GuiBridge_sendTargetPressed( void );
 
 #ifdef	__cplusplus
 }

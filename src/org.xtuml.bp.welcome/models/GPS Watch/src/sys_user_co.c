@@ -85,7 +85,7 @@ UserPostOoaInitializationCalloutf( void )
 void
 UserBackgroundProcessingCalloutf( void )
 {
-/* Activate this invocation to periodically tick the example simple TIM.  */
+  /* Activate this invocation to periodically tick the example simple TIM.  */
   #if ESCHER_SYS_MAX_XTUML_TIMERS > 0
   TIM_tick();
   #endif

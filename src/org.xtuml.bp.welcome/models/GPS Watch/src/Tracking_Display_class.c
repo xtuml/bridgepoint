@@ -40,7 +40,7 @@ static void Tracking_Display_CB_act1( Tracking_Display *, const Escher_xtUMLEven
 static void
 Tracking_Display_CB_act1( Tracking_Display * self, const Escher_xtUMLEvent_t * const event )
 {
-  r_t distance; Tracking_TrackLog * trackLog=0; 
+  r_t distance;Tracking_TrackLog * trackLog=0;
   /* ASSIGN distance = 0.0 */
   XTUML_OAL_STMT_TRACE( 1, "ASSIGN distance = 0.0" );
   distance = 0.0;
@@ -75,7 +75,7 @@ static void Tracking_Display_CB_act2( Tracking_Display *, const Escher_xtUMLEven
 static void
 Tracking_Display_CB_act2( Tracking_Display * self, const Escher_xtUMLEvent_t * const event )
 {
-  r_t speed; Tracking_TrackLog * trackLog=0; 
+  r_t speed;Tracking_TrackLog * trackLog=0;
   /* ASSIGN speed = 0.0 */
   XTUML_OAL_STMT_TRACE( 1, "ASSIGN speed = 0.0" );
   speed = 0.0;
@@ -101,7 +101,7 @@ static void Tracking_Display_CB_act3( Tracking_Display *, const Escher_xtUMLEven
 static void
 Tracking_Display_CB_act3( Tracking_Display * self, const Escher_xtUMLEvent_t * const event )
 {
-  r_t pace; Tracking_TrackLog * trackLog=0; 
+  r_t pace;Tracking_TrackLog * trackLog=0;
   /* ASSIGN pace = 0.0 */
   XTUML_OAL_STMT_TRACE( 1, "ASSIGN pace = 0.0" );
   pace = 0.0;
@@ -127,7 +127,7 @@ static void Tracking_Display_CB_act4( Tracking_Display *, const Escher_xtUMLEven
 static void
 Tracking_Display_CB_act4( Tracking_Display * self, const Escher_xtUMLEvent_t * const event )
 {
-  r_t heartRate; Tracking_TrackLog * trackLog=0; 
+  r_t heartRate;Tracking_TrackLog * trackLog=0;
   /* ASSIGN heartRate = 0.0 */
   XTUML_OAL_STMT_TRACE( 1, "ASSIGN heartRate = 0.0" );
   heartRate = 0.0;
@@ -153,7 +153,7 @@ static void Tracking_Display_CB_act5( Tracking_Display *, const Escher_xtUMLEven
 static void
 Tracking_Display_CB_act5( Tracking_Display * self, const Escher_xtUMLEvent_t * const event )
 {
-  Escher_ObjectSet_s lapMarkers_space={0}; Escher_ObjectSet_s * lapMarkers = &lapMarkers_space; /* lapMarkers (LapMarker) */ 
+  Escher_ObjectSet_s lapMarkers_space={0}; Escher_ObjectSet_s * lapMarkers = &lapMarkers_space;
   /* SELECT many lapMarkers FROM INSTANCES OF LapMarker */
   XTUML_OAL_STMT_TRACE( 1, "SELECT many lapMarkers FROM INSTANCES OF LapMarker" );
   Escher_CopySet( lapMarkers, &pG_Tracking_LapMarker_extent.active );

@@ -33,7 +33,7 @@ SCP_UPLOAD_FOLDER_SPEC="$6"
 echo "Installer invocation: ./build_installer_bp.sh ${PRODUCT_BRANCH} ${STAGING_PATH} ${OUTPUT_DIR} ${OS_ARG} ${BP_VERSION} ${SCP_UPLOAD_FOLDER_SPEC}"
 
 PRODUCT_NAME="BridgePoint"
-ECLIPSE_VER="3.7"
+ECLIPSE_VER="4.5"
 
 # Assume windows unless we case-insensitively match Linux on the argument
 OS="windows"

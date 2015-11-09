@@ -99,18 +99,18 @@ public class AttributeMenuItemTestGenerics extends CanvasTest {
 		try {
 			generateResults = true;
 			setUp();
-			testMoveUpOneAttribute();
-			testMoveWithTwoAttributes();
-			testMoveWithThreeAttributes();
-			testBaseAttributeToDerived();
-			testDerivedAttributeToBase();
-			testAddToIdentifier();
-			testRemoveFromIdentifier();
-			testAddToIdentifierReferencedSimple();
-			testAddToIdentifierReferencedAssoc();
-			testAddToIdentifierReferencedInher();
-			testFormalizeAfterMoveDown();
-			testFormalizeAfterMoveUp();
+			doTestMoveUpOneAttribute();
+			doTestMoveWithTwoAttributes();
+			doTestMoveWithThreeAttributes();
+			doTestBaseAttributeToDerived();
+			doTestDerivedAttributeToBase();
+			doTestAddToIdentifier();
+			doTestRemoveFromIdentifier();
+			doTestAddToIdentifierReferencedSimple();
+			doTestAddToIdentifierReferencedAssoc();
+			doTestAddToIdentifierReferencedInher();
+			doTestFormalizeAfterMoveDown();
+			doTestFormalizeAfterMoveUp();
 		} catch (Exception e) {
 			System.out.println("Exception encountered by test result creator: "
 					+ e);
@@ -157,7 +157,23 @@ public class AttributeMenuItemTestGenerics extends CanvasTest {
 		CanvasTestUtils.openCanvasEditor(uut);
 	}
 
-	public void testMoveUpOneAttribute() {
+	
+	public void testAttributeMenuItemTestGenerics(){
+		doTestMoveUpOneAttribute();
+		doTestMoveWithTwoAttributes();
+		doTestMoveWithThreeAttributes();
+		doTestBaseAttributeToDerived();
+		doTestDerivedAttributeToBase();
+		doTestAddToIdentifier();
+		doTestRemoveFromIdentifier();
+		doTestAddToIdentifierReferencedSimple();
+		doTestAddToIdentifierReferencedAssoc();
+		doTestAddToIdentifierReferencedInher();
+		doTestFormalizeAfterMoveDown();
+		doTestFormalizeAfterMoveUp();
+	}
+	
+	public void doTestMoveUpOneAttribute() {
 		test_id = "1";
 
 		ModelClass_c mc = ModelClass_c.ModelClassInstance(modelRoot,
@@ -166,7 +182,7 @@ public class AttributeMenuItemTestGenerics extends CanvasTest {
 		assertFalse(uut.Actionfilter("can", "move up"));
 	}
 
-	public void testMoveDownOneAttribute() {
+	public void doTestMoveDownOneAttribute() {
 		test_id = "2";
 
 		ModelClass_c mc = ModelClass_c.ModelClassInstance(modelRoot,
@@ -175,7 +191,7 @@ public class AttributeMenuItemTestGenerics extends CanvasTest {
 		assertFalse(uut.Actionfilter("can", "move down"));
 	}
 
-	public void testMoveWithTwoAttributes() {
+	public void doTestMoveWithTwoAttributes() {
 
 		openTestPKGDiagram("Attribute Tests");
 
@@ -206,7 +222,7 @@ public class AttributeMenuItemTestGenerics extends CanvasTest {
 		performTest("4");
 	}
 
-	public void testMoveWithThreeAttributes() {
+	public void doTestMoveWithThreeAttributes() {
 
 		openTestPKGDiagram("Attribute Tests");
 
@@ -239,7 +255,7 @@ public class AttributeMenuItemTestGenerics extends CanvasTest {
 		performTest("6");
 	}
 
-	public void testBaseAttributeToDerived() {
+	public void doTestBaseAttributeToDerived() {
 
 		openTestPKGDiagram("Attribute Tests");
 
@@ -260,7 +276,7 @@ public class AttributeMenuItemTestGenerics extends CanvasTest {
 		assertTrue(base.Actionfilter("subtype", "O_DBATTR"));
 	}
 
-	public void testDerivedAttributeToBase() {
+	public void doTestDerivedAttributeToBase() {
 
 		openTestPKGDiagram("Attribute Tests");
 
@@ -281,7 +297,7 @@ public class AttributeMenuItemTestGenerics extends CanvasTest {
 		assertFalse(derived.Actionfilter("subtype", "O_DBATTR"));
 	}
 
-	public void testAddToIdentifier() {
+	public void doTestAddToIdentifier() {
 
 		openTestPKGDiagram("Attribute Tests");
 
@@ -333,7 +349,7 @@ public class AttributeMenuItemTestGenerics extends CanvasTest {
 		return a;
 	}
 
-	public void testRemoveFromIdentifier() {
+	public void doTestRemoveFromIdentifier() {
 		openTestPKGDiagram("Attribute Tests");
 
 		ModelClass_c mc = ModelClass_c.ModelClassInstance(modelRoot,
@@ -400,7 +416,7 @@ public class AttributeMenuItemTestGenerics extends CanvasTest {
 		w.performFinish();
 	}
 
-	public void testAddToIdentifierReferencedSimple() {
+	public void doTestAddToIdentifierReferencedSimple() {
 
 		openTestPKGDiagram("Attribute Tests");
 
@@ -442,7 +458,7 @@ public class AttributeMenuItemTestGenerics extends CanvasTest {
 
 	}
 
-	public void testAddToIdentifierReferencedAssoc() {
+	public void doTestAddToIdentifierReferencedAssoc() {
 
 		openTestPKGDiagram("Attribute Tests");
 
@@ -518,7 +534,7 @@ public class AttributeMenuItemTestGenerics extends CanvasTest {
 
 	}
 
-	public void testAddToIdentifierReferencedInher() {
+	public void doTestAddToIdentifierReferencedInher() {
 
 		openTestPKGDiagram("Attribute Tests");
 
@@ -561,7 +577,7 @@ public class AttributeMenuItemTestGenerics extends CanvasTest {
 
 	}
 
-	public void testFormalizeAfterMoveDown() {
+	public void doTestFormalizeAfterMoveDown() {
 
 		openTestPKGDiagram("Attribute Tests");
 		ModelClass_c mc = ModelClass_c.ModelClassInstance(modelRoot,
@@ -615,7 +631,7 @@ public class AttributeMenuItemTestGenerics extends CanvasTest {
 		performTest("27");
 	}
 
-	public void testFormalizeAfterMoveUp() {
+	public void doTestFormalizeAfterMoveUp() {
 
 		openTestPKGDiagram("Attribute Tests");
 		ModelClass_c mc = ModelClass_c.ModelClassInstance(modelRoot,

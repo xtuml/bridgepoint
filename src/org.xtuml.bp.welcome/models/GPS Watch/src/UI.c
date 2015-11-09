@@ -16,8 +16,10 @@ allow generated code to connect to the exact same GUI.
 
 #include "GPSWatch_sys_types.h"
 #include "UI.h"
-#include "LOG_bridge.h"
+#include "UI_GuiBridge_bridge.h"
 #include "TIM_bridge.h"
+#include "LOG_bridge.h"
+#include "Tracking.h"
 #include "UI_classes.h"
 
 /*
@@ -59,7 +61,7 @@ UI_UI_modePressed()
  * To Provider Message:  setData
  */
 void
-UI_UI_setData( const GPSWatch_Unit_t p_unit, const r_t p_value)
+UI_UI_setData( const GPSWatch_Unit_t p_unit, const r_t p_value )
 {
   /* IF ( ( PARAM.unit == km ) ) */
   XTUML_OAL_STMT_TRACE( 1, "IF ( ( PARAM.unit == km ) )" );
@@ -137,7 +139,7 @@ UI_UI_setTargetPressed()
  * To Provider Message:  setTime
  */
 void
-UI_UI_setTime( const i_t p_time)
+UI_UI_setTime( const i_t p_time )
 {
   /* GuiBridge::setTime( time:PARAM.time ) */
   XTUML_OAL_STMT_TRACE( 1, "GuiBridge::setTime( time:PARAM.time )" );
@@ -165,17 +167,15 @@ UI_UI_startTest()
 {
   /* GENERATE TestCase2:start(iterations:2) TO TestCase CREATOR */
   XTUML_OAL_STMT_TRACE( 1, "GENERATE TestCase2:start(iterations:2) TO TestCase CREATOR" );
-  { UI_TestCaseevent2 * e = (UI_TestCaseevent2 *) Escher_NewxtUMLEvent( (void *) 0, &UI_TestCaseevent2c );
+  { UI_TestCaseevent2 * e = (UI_TestCaseevent2 *) Escher_NewxtUMLEvent( 0, &UI_TestCaseevent2c );
     e->p_iterations = 2;
     Escher_SendEvent( (Escher_xtUMLEvent_t *) e );
   }
-
 }
 
 /*
  * UML Domain Functions (Synchronous Services)
  */
-
 
 /*
  * Domain Function:  RunTestCase
@@ -189,7 +189,6 @@ UI_RunTestCase()
 
 }
 
-
 /*
  * Domain Function:  init
  */
@@ -202,14 +201,72 @@ UI_init()
 
 }
 
-#if UI_MAX_CLASS_NUMBERS > 0
+/*
+ * Domain Function:  sendLapResetPressed
+ */
+void
+UI_sendLapResetPressed()
+{
+  /* SEND UI::lapResetPressed() */
+  XTUML_OAL_STMT_TRACE( 1, "SEND UI::lapResetPressed()" );
+  UI_UI_lapResetPressed();
+
+}
+
+/*
+ * Domain Function:  sendLightPressed
+ */
+void
+UI_sendLightPressed()
+{
+  /* SEND UI::lightPressed() */
+  XTUML_OAL_STMT_TRACE( 1, "SEND UI::lightPressed()" );
+  UI_UI_lightPressed();
+
+}
+
+/*
+ * Domain Function:  sendModePressed
+ */
+void
+UI_sendModePressed()
+{
+  /* SEND UI::modePressed() */
+  XTUML_OAL_STMT_TRACE( 1, "SEND UI::modePressed()" );
+  UI_UI_modePressed();
+
+}
+
+/*
+ * Domain Function:  sendStartStopPressed
+ */
+void
+UI_sendStartStopPressed()
+{
+  /* SEND UI::startStopPressed() */
+  XTUML_OAL_STMT_TRACE( 1, "SEND UI::startStopPressed()" );
+  UI_UI_startStopPressed();
+
+}
+
+/*
+ * Domain Function:  sendTargetPressed
+ */
+void
+UI_sendTargetPressed()
+{
+  /* SEND UI::setTargetPressed() */
+  XTUML_OAL_STMT_TRACE( 1, "SEND UI::setTargetPressed()" );
+  UI_UI_setTargetPressed();
+
+}
+
 /* xtUML class info (collections, sizes, etc.) */
 Escher_Extent_t * const UI_class_info[ UI_MAX_CLASS_NUMBERS ] = {
-  &pG_UI_TestCase_extent,
   &pG_UI_UI_extent,
+  &pG_UI_TestCase_extent,
   0
 };
-#endif
 
 /*
  * Array of pointers to the class event dispatcher method.

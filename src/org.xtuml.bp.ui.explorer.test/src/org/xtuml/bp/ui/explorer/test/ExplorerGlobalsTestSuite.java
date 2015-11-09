@@ -41,6 +41,7 @@ public class ExplorerGlobalsTestSuite extends TestSuite {
     public ExplorerGlobalsTestSuite() {
         addTest(new TestSuite(ExplorerGlobalsTest.class));
         addTest(new TestSuite(ExplorerTest.class));
+        addTest(new TestSuite(ProjectManipulationTests.class));
         addTest(new TestSuite(I634ExplorerEmptySelectionTest.class));
         addTest(new TestSuite(FunctionKeyActivationTest.class));
         //this test should run at the end of all others as it removes
