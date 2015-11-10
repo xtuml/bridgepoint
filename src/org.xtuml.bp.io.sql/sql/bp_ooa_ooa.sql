@@ -29,7 +29,7 @@ This file was created by exporting the BridgePoint OOA of OOA
 (bp:/sql/bp5.0/sql_dir/ooa_ooa.bak, v1.11) as an sql file without
 graphics.  The following changes were then made to the file:
 
-- The '/' was changed to a ' ' in the Subtype/Supertype Relationship class name.
+- The ''/'' was changed to a '' '' in the Subtype/Supertype Relationship class name.
 - The order of the last two CA_SMSMC attributes was reversed.
 - The Version Management subsystem was removed
 

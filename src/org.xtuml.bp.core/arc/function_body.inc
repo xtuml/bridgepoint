@@ -47,6 +47,7 @@
       .assign sel_decl = "IStructuredSelection"
       .assign iteration_req = false
       .select many context_items related by wfl->W_CTI[R2003]
+      .select any context_item from instances of W_CTI where (false)
       .for each context_item in context_items
         .if (context_item.Type == "many")
           .assign iteration_req = true

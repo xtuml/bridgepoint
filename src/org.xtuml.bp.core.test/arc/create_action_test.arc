@@ -1359,17 +1359,17 @@ ${cnat.body}\
     // as part of bp.ui.explorer.test.ExplorerTest.
     // testDomainDeleteFromModelExplorer();
 
-.elif (new_action.Key_Lett ==  "CP_CP")
-.elif (new_action.Key_Lett ==  "S_DOM")
-.elif (new_action.Key_Lett ==  "IP_IP")
-.elif (new_action.Key_Lett ==  "S_FPK")
-.elif (new_action.Key_Lett ==  "S_EEPK")
-.elif (new_action.Key_Lett ==  "S_SS") 
-.elif (new_action.Key_Lett ==  "SQ_S")
-.elif (new_action.Key_Lett ==  "A_A") 
-.elif (new_action.Key_Lett ==  "COMM_COMM")
+.elif (delete_action.Key_Lett ==  "CP_CP")
+.elif (delete_action.Key_Lett ==  "S_DOM")
+.elif (delete_action.Key_Lett ==  "IP_IP")
+.elif (delete_action.Key_Lett ==  "S_FPK")
+.elif (delete_action.Key_Lett ==  "S_EEPK")
+.elif (delete_action.Key_Lett ==  "S_SS") 
+.elif (delete_action.Key_Lett ==  "SQ_S")
+.elif (delete_action.Key_Lett ==  "A_A") 
+.elif (delete_action.Key_Lett ==  "COMM_COMM")
 .elif ((((delete_action.Key_Lett == "SPR_PO") or (delete_action.Key_Lett == "SPR_PS")) or (delete_action.Key_Lett == "SPR_RO")) or (delete_action.Key_Lett == "SPR_RS"))
-.elif (new_action.Key_Lett ==  "UC_UCC")
+.elif (delete_action.Key_Lett ==  "UC_UCC")
   .else
   .invoke cdat = create_delete_action_test_generics( delete_action )
 ${cdat.body}\

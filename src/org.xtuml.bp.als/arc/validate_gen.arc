@@ -39,7 +39,7 @@
 .include "${mc_archetypes}/statement.inc"
 .include "${mc_archetypes}/block.inc"
 .include "${mc_archetypes}/translate_oal.inc"
-.include "..\org.xtuml.bp.core\color\ooaofooa_package_spec.clr"
+.include "../org.xtuml.bp.core/color/ooaofooa_package_spec.clr"
 .//
 .// The root package is renamed when generating the parser so that
 .// generated code can be run against a containing specialized

@@ -481,8 +481,8 @@ super.toString\
           .assign else_stmt = "else "
         .end if
         }
-      .end if   // empty dbattr
-    .end if  // asa.result
+      .end if   .// empty dbattr
+    .end if  .// asa.result
   .end for
 .end function
 .//
