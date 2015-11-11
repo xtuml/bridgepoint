@@ -31,7 +31,6 @@ import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.io.mdl.ExportModel;
 import org.xtuml.bp.io.mdl.ImportModel;
-import org.xtuml.bp.io.sql.ImportBPSql;
 import org.xtuml.bp.test.common.BaseTest;
 
 /**

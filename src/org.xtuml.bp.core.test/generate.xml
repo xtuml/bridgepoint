@@ -475,7 +475,6 @@
       <src path="src/org/xtuml/bp/core/test" />
       <classpath>
         <pathelement path="../org.xtuml.bp.core/bin" />
-        <pathelement path="../org.xtuml.bp.io.sql/bin" />
         <pathelement path="../org.xtuml.bp.ui.explorer/bin" />
       </classpath>
     </javac>
