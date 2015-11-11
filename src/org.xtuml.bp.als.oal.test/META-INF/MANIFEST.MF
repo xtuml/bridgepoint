@@ -22,7 +22,6 @@ Require-Bundle: org.eclipse.core.runtime,
  org.xtuml.bp.ui.canvas,
  org.xtuml.bp.io.core,
  org.xtuml.bp.io.mdl,
- org.xtuml.bp.io.sql,
  org.xtuml.bp.test,
  org.xtuml.bp.ui.graphics
 Bundle-ActivationPolicy: lazy

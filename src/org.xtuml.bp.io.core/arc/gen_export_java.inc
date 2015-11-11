@@ -30,7 +30,6 @@
     .assign tool = "6.1D"
  	.if (callingProject == "BP")
 	  .include "arc/class_rename.inc"  	
-package org.xtuml.bp.io.sql;      
     .elif (callingProject == "NBP")
       .assign suite = "BP"
       .assign tool = "7.1.6"

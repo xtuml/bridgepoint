@@ -379,7 +379,6 @@
     .assign tool = version
     .if (callingProject == "BP")
       .include "arc/class_rename.inc"
-package org.xtuml.bp.io.sql;
     .elif (callingProject == "NBP")
 package org.xtuml.bp.io.mdl;
     .end if

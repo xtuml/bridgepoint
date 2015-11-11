@@ -248,15 +248,6 @@ public class CorePlugin extends AbstractUIPlugin {
 	static private AbstractStreamExportFactory streamExportFactory = null;
 	static private AbstractStreamImportFactory streamImportFactory = null;
 
-	public static AbstractModelImportFactory getSqlImportFactory(){
-		if (sqlImportFactory == null) {
-			sqlImportFactory = AbstractModelImportFactory.getInstance(
-				"org.xtuml.bp.io.sql", //$$NON-NLS-1$$
-				"ImportModelFactory"); //$$NON-NLS-1$$
-      }
-		return sqlImportFactory;
-    }
-
 	public static AbstractModelImportFactory getModelImportFactory(){
 		if (modelImportFactory == null) {
 			modelImportFactory = AbstractModelImportFactory.getInstance(
