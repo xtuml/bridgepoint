@@ -22,12 +22,7 @@
 //=====================================================================
 
 
-import junit.framework.Assert;
-import junit.framework.Test;
-import junit.framework.TestSuite;
-
 import org.eclipse.core.runtime.CoreException;
-
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 import org.xtuml.bp.core.util.WorkspaceUtil;
@@ -44,10 +39,16 @@ import org.xtuml.bp.ui.canvas.test.I835OpenDiagramEditorWithSearchView;
 import org.xtuml.bp.ui.canvas.test.InterfaceDrawingTests;
 import org.xtuml.bp.ui.canvas.test.MultipleSupertypeTest;
 import org.xtuml.bp.ui.canvas.test.RectilinearRoutingTests;
+import org.xtuml.bp.ui.canvas.test.RectilinearRoutingTests2;
+import org.xtuml.bp.ui.canvas.test.RectilinearRoutingTests3;
+import org.xtuml.bp.ui.canvas.test.RectilinearRoutingTests4;
 import org.xtuml.bp.ui.canvas.test.TestReflexiveConnectorCreation;
 import org.xtuml.bp.ui.canvas.test.anchors.GraphicalAnchorTests_0;
 import org.xtuml.bp.ui.canvas.test.movement.ConnectorMoveTests_0;
 import org.xtuml.bp.ui.canvas.test.routing.RectilinearRoutingTests_0;
+
+import junit.framework.Test;
+import junit.framework.TestSuite;
 
 /**
  * Test all areas of the canvas
@@ -71,7 +72,7 @@ public class GlobalsCanvasSuite2 extends TestSuite {
 		try {
 			WorkspaceUtil.setAutobuilding(false);
 		} catch (CoreException e) {
-			Assert.fail(e.toString());
+			CorePlugin.logError(e.toString(), e);
 		}
 		CorePlugin.getDefault().getPreferenceStore().setValue(BridgePointPreferencesStore.USE_DEFAULT_NAME_FOR_CREATION,true);
 		
@@ -91,6 +92,9 @@ public class GlobalsCanvasSuite2 extends TestSuite {
         addTest(new TestSuite(RectilinearRoutingTests_0.class));
         addTest(new TestSuite(GraphicalToolCreationTests.class));
         addTest(new TestSuite(RectilinearRoutingTests.class));
+        addTest(new TestSuite(RectilinearRoutingTests2.class));
+        addTest(new TestSuite(RectilinearRoutingTests3.class));
+        addTest(new TestSuite(RectilinearRoutingTests4.class));
         addTest(new TestSuite(InterfaceDrawingTests.class));
 	}
 

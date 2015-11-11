@@ -62,9 +62,9 @@ extern const Escher_xtUMLEventConstant_t UI_TestCaseevent3c;
  * union of events targeted towards 'TestCase' state machine
  */
 typedef union {
-  UI_TestCaseevent1 testcase11;  
-  UI_TestCaseevent2 testcase22;  
-  UI_TestCaseevent3 testcase33;  
+  UI_TestCaseevent1 testcase1_1;  
+  UI_TestCaseevent2 testcase2_2;  
+  UI_TestCaseevent3 testcase3_3;  
 } UI_TestCase_Events_u;
 
 /*
