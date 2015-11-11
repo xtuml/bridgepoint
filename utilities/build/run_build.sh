@@ -14,6 +14,8 @@
 #  Optional:
 #     Branch_Name - This is an optional parameter that allows you to configure
 #                   the branch to build
+#     Fork_Name - This is an optional parameter that allows you to specify the
+#                 fork to clone for the build.
 #     upload location - This optional argument, if present, will upload the build to this given location.  example: user@myserver.com:/myfolder
 #     package_only - This optional argument, if present and set to "yes" cause the build script to only package and notify
 #     clean - This optional argument, it defaults to yes.  If yes, a clean build if performed.
@@ -115,7 +117,7 @@ function distribute_and_notify {
 if [ "$#" -lt 2 ]; then
   echo "This script requires two parameters.  The other parameters are optional.  See below for usage."
   echo
-  echo "run_build.sh BridgePoint_Home_Directory Build_Root <Branch_Name> <upload location> <package only> <clean>"
+  echo "run_build.sh BridgePoint_Home_Directory Build_Root <Branch_Name> <Fork_Name> <upload location> <package only> <clean>"
   echo
   echo "See the script header for more detail."
   exit 1
@@ -134,38 +136,52 @@ fi
 BUILD_ROOT="${BUILD_MOUNT}/work"
 GIT_REPO_ROOT="${BUILD_MOUNT}/git/xtuml"
 GIT_BP="${GIT_REPO_ROOT}/bridgepoint"
-# if no arguments are present default to master
-BRANCH="master"
+
+# if no arguments are present default to master on xtuml
 if [ "$3" != "" ]; then
   BRANCH="$3"
+else
+  BRANCH="master"
 fi
 if [ "$4" != "" ]; then
-  UPLOAD_SPEC="$4"
+  FORK="$4"
+else
+  FORK="xtuml"
+fi
+if [ "$5" != "" ]; then
+  UPLOAD_SPEC="$5"
 else
   UPLOAD_SPEC=""
 fi
-if [ "$5" != "" ]; then
-  package_only="$5"
+if [ "$6" != "" ]; then
+  package_only="$6"
 else
   package_only=""
 fi
-if [ "$6" != "" ]; then
-  clean="$6"
+if [ "$7" != "" ]; then
+  clean="$7"
 else
   clean="yes"
 fi
 
+#-------------------------------------------------------------------------------
 # Make sure github credentials are available in the environment
-if [ "${GITUSER}" = "" ] || [ "${GITPASS}" = "" ]; then
-  echo "The build requires the environment variables GITUSER and GITPASS to be set for checking files out of github."
-  echo "GITPASS may be a real password or, preferably, a github API token for the specified GITUSER."
-  exit 1
-fi
+#-------------------------------------------------------------------------------
+# Note:  No longer true since these are public repos, but leaving here since we
+#        may have to reinstate this if that is no long true.  JLR 9/18/2015
+#-------------------------------------------------------------------------------
+#if [ "${GITUSER}" = "" ] || [ "${GITPASS}" = "" ]; then
+#  echo "The build requires the environment variables GITUSER and GITPASS to be"
+#  echo "set for checking files out of github.  GITPASS may be a real password "
+#  echo "password or, preferably, a github API token for the specified GITUSER."
+#  exit 1
+#fi
 
 # echo out variables
 echo "BUILD_MOUNT=${BUILD_MOUNT}"
 echo "BUILD_ROOT=${BUILD_ROOT}"
 echo "BRANCH=${BRANCH}"
+echo "FORK=${FORK}"
 echo "GIT_REPO_ROOT=${GIT_REPO_ROOT}"
 echo "BPHOMEDIR=${BPHOMEDIR}"
 
@@ -228,7 +244,7 @@ fi
 RETVAL=0
 if [ "${package_only}" != "yes" ]; then
   echo -e "Getting files from github, this could take a while."
-  bash "${BUILD_ROOT}/init_git_repositories.sh" ${BRANCH} ${GIT_REPO_ROOT} ${ALLOW_FALLBACK} >> ${BUILD_LOG} 2>&1
+  bash "${BUILD_ROOT}/init_git_repositories.sh" ${BRANCH} ${GIT_REPO_ROOT} ${ALLOW_FALLBACK} ${FORK} >> ${BUILD_LOG} 2>&1
   echo -e "Done getting files from github."
 
   # Can do the copy and dos2unix translation in one step.
