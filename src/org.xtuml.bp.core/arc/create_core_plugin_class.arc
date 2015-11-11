@@ -275,11 +275,6 @@ public class CorePlugin extends AbstractUIPlugin {
 		return streamImportFactory;
 	}
 
-	public String doLoadSql(SystemModel_c system, String rootId, File model,
-		IProgressMonitor monitor, boolean parseAll, boolean isTemplate) {
-		return executeImportFactory(getSqlImportFactory(), system, rootId, model, monitor, parseAll, isTemplate);
-		}
-
 	public String doLoad(SystemModel_c system, String rootId, InputStream model,
 		IProgressMonitor monitor, boolean parseAll, boolean isTemplate) {
 		return executeImportFactory(getModelImportFactory(), system, rootId, model, monitor, parseAll, isTemplate);
