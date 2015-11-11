@@ -107,11 +107,13 @@ init_repository ()
   
   #-----------------------------------------------------------------------------
   # Just to be safe, discard any local changes before we try to switch branches.
-  # Note: I am removing this because while it may seem "safe" for the build we
-  #       have to consider developers using this script.  This will wipe up their
+  # Note: We've gone back and forth on whether or not this "descrutive" reset
+  #       should be part of this script.  See https://support.onefact.net/redmine/issues/7995 
+  #       If you are a developer who runs these build scripts locally, you may want
+  #       be "safe" and comment out this line to make sure you don't ever wipe out
   #       local changes.
   #-----------------------------------------------------------------------------
-  # git reset --hard HEAD
+  git reset --hard HEAD
 
   #-----------------------------------------------------------------------------
   # Switch to the desired branch.  First see if we've used it before.  If not,
@@ -143,6 +145,14 @@ init_repository ()
     git pull
   fi
 
+  #-----------------------------------------------------------------------------
+  # Switching branches can cause files deleted in the branch to now show up as
+  # untracked files locally.  The following command cleans these up.  Note that
+  # this is a "destructive" operation, so developers running the script locally
+  # not want this behavior.
+  #-----------------------------------------------------------------------------
+  git clean -fd
+  
   echo -e "Exiting init_git_repositories.sh::init_repository"
 }
 
