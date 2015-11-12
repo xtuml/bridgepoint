@@ -93,7 +93,7 @@ public class IOMdlNestedTestGenerics extends CanvasTest {
 	
 	
 
-	public void testUpgradeModelWithPublishReference() throws Exception{
+	public void doTestUpgradeModelWithPublishReference() throws Exception{
 		// Load from git
 		this.loadProject("InstanceReferenceTestMatrixModel");
 			

@@ -99,6 +99,7 @@ public class ModelChangeListenersBatchingTestGenerics extends CoreTest {
 	}
 
 	public void doTestDeleteModelElement() throws Exception {
+		BaseTest.dispatchEvents(0);
 		ActionTestGenerics delAction = new ActionTestGenerics();
 		delAction.setUp();
 		modelRoot = BaseTest.getDefaultTestInstance();
@@ -111,9 +112,7 @@ public class ModelChangeListenersBatchingTestGenerics extends CoreTest {
 		try {
 			delAction.testDeleteEP_PKG();
 
-			Display d = Display.getDefault();
-			while (d.readAndDispatch()) {
-			}
+			BaseTest.dispatchEvents(0);
 
 		} catch (Exception e) {
 			fail("Test deletion of model Element Failed: " + e.toString()); //$NON-NLS-1$
@@ -124,8 +123,18 @@ public class ModelChangeListenersBatchingTestGenerics extends CoreTest {
 				"No events heard by instant listener", instantListener.eventsList.size() > 0);//$NON-NLS-1$
 		assertTrue(
 				"No events heard by batched listener", batchedListener.eventsList.size() > 0);//$NON-NLS-1$
+		// the number of events will be different by one
+		// this is due to the fact that deltas that affect
+		// the same element's name are not collected only the
+		// first delta found is updated.  This test collects
+		// events that were fired, in the case of an instant
+		// listener the update needs to be fired, for a batched
+		// listener it does not.
 		assertEquals(
-				"Number of Events in the instant Listener: " + instantListener.eventsList.size() + " is not same as in batched listener: " + batchedListener.eventsList.size(), instantListener.eventsList.size(), batchedListener.eventsList.size()); //$NON-NLS-1$ //$NON-NLS-2$
+				"Number of Events in the instant Listener: " + instantListener.eventsList.size() //$NON-NLS-1$
+						+ " is not same as in batched listener: " + batchedListener.eventsList.size(), //$NON-NLS-1$
+				instantListener.eventsList.size(), batchedListener.eventsList.size() + 1);
+
 		Ooaofooa.getDefaultInstance()
 				.removeModelChangeListener(instantListener);
 		Ooaofooa.getDefaultInstance()
@@ -158,8 +167,16 @@ public class ModelChangeListenersBatchingTestGenerics extends CoreTest {
 				"No events heard by instant listener", instantListener.eventsList.size() > 0);//$NON-NLS-1$
 		assertTrue(
 				"No events heard by batched listener", batchedListener.eventsList.size() > 0);//$NON-NLS-1$
+		// the number of events will be different by two
+		// this is due to the fact that deltas that affect
+		// the same element's name are not collected only the
+		// first delta found is updated.  This test collects
+		// events that were fired, in the case of an instant
+		// listener the update needs to be fired, for a batched
+		// listener it does not.
 		assertEquals(
-				"Number of Events in the instant Listener: " + instantListener.eventsList.size() + " is not same as in batched listener: " + batchedListener.eventsList.size(), instantListener.eventsList.size(), batchedListener.eventsList.size()); //$NON-NLS-1$//$NON-NLS-2$
+				"Number of Events in the instant Listener: " + instantListener.eventsList.size() + " is not same as in batched listener: " + batchedListener.eventsList.size(), instantListener.eventsList.size() - 1, batchedListener.eventsList.size()); //$NON-NLS-1$//$NON-NLS-2$
+
 		Ooaofooa.getDefaultInstance()
 				.removeModelChangeListener(instantListener);
 		Ooaofooa.getDefaultInstance()
@@ -193,7 +210,7 @@ public class ModelChangeListenersBatchingTestGenerics extends CoreTest {
 		assertTrue(
 				"No events heard by batched listener", batchedListener.eventsList.size() > 0);//$NON-NLS-1$
 		assertEquals(
-				"Number of Events in the instant Listener: " + instantListener.eventsList.size() + " is not same as in batched listener: " + batchedListener.eventsList.size(), instantListener.eventsList.size(), batchedListener.eventsList.size()); //$NON-NLS-1$//$NON-NLS-2$
+				"Number of Events in the instant Listener: " + instantListener.eventsList.size() + " is not same as in batched listener: " + batchedListener.eventsList.size(), instantListener.eventsList.size(), batchedListener.eventsList.size() + 1); //$NON-NLS-1$//$NON-NLS-2$
 		Ooaofooa.getDefaultInstance()
 				.removeModelChangeListener(instantListener);
 		Ooaofooa.getDefaultInstance()

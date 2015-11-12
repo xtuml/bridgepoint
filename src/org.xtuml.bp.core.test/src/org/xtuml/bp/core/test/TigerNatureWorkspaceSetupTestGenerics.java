@@ -343,6 +343,8 @@ public class TigerNatureWorkspaceSetupTestGenerics extends CanvasTest {
 
 		graphicsModelRoot = Ooaofgraphics.getInstance(dtPkg.getModelRoot().getId());
 		validateOrGenerateResults(ce, generateResults, true);
+		PlatformUI.getWorkbench().close();
+		while(PlatformUI.getWorkbench().getDisplay().readAndDispatch());
 	}
 
 }

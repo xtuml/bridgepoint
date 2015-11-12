@@ -365,7 +365,14 @@ public class BaseTest extends TestCase {
 	public static String getLogViewResult(String prepend) {
 		// verify that the log file is empty
 		// if not fail the current test
-		LogView logView = (LogView) PlatformUI.getWorkbench()
+		// in a few cases with eclipse 4.x we must
+		// close the workbench, example being TigerNatureWorkspaceSetup
+		// in that case the log view is not available so skip
+		// checking for it if we get a null pointer due to
+		// the workbench being closed
+		LogView logView = null;
+		try {
+			logView = (LogView) PlatformUI.getWorkbench()
 				.getActiveWorkbenchWindow().getActivePage().findView(
 						"org.eclipse.pde.runtime.LogView");
 		if(logView == null) {
@@ -377,6 +384,9 @@ public class BaseTest extends TestCase {
 			} catch (PartInitException e) {
 				return e.getMessage();
 			}
+		}
+		} catch (NullPointerException npe) {
+			// no need to log this or fail the test
 		}
 		String msg = "";
 		File in_fh = Platform.getLogFileLocation().toFile();
@@ -407,8 +417,8 @@ public class BaseTest extends TestCase {
 						continue;
 					}
 					
-					// We don't care about warnings from egit
-					if (pluginID.equals("org.eclipse.egit.ui") && (entry.getSeverity() == IStatus.WARNING)) {
+					// ignore all warnings, we only care about errors
+					if (entry.getSeverity() == IStatus.WARNING) {
 					    continue;
 					}
 					
@@ -430,7 +440,14 @@ public class BaseTest extends TestCase {
 	}
 
 	public static void clearErrorLogView() {
-		LogView logView = (LogView) PlatformUI.getWorkbench()
+		// in a few cases with eclipse 4.x we must
+		// close the workbench, example being TigerNatureWorkspaceSetup
+		// in that case the log view is not available so skip
+		// checking for it if we get a null pointer due to
+		// the workbench being closed
+		LogView logView = null;
+		try {
+			logView = (LogView) PlatformUI.getWorkbench()
 				.getActiveWorkbenchWindow().getActivePage().findView("org.eclipse.pde.runtime.LogView");
 		if(logView == null) {
 			try {
@@ -441,6 +458,9 @@ public class BaseTest extends TestCase {
 			} catch (PartInitException e) {
 				System.err.println(e.getMessage());
 			}
+		}
+		} catch (NullPointerException npe) {
+			// no need to log this or fail the test
 		}
 		if (logView != null) {
 			IContributionItem[] items = logView.getViewSite().getActionBars().getToolBarManager().getItems();

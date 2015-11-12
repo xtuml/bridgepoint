@@ -565,7 +565,7 @@ public class DebugUITestUtilities {
 
 	public static String getConsoleText(String expected) {
 		// wait for all outstanding events to complete
-		TestingUtilities.processDisplayEvents();
+		BaseTest.dispatchEvents(0);
 		IConsole[] consoles = ConsolePlugin.getDefault().getConsoleManager()
 				.getConsoles();
 		for (int i = 0; i < consoles.length; i++) {
