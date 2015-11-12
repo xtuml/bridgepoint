@@ -46,8 +46,10 @@ way to launch this model from the BridgePoint Welcome Quick Start screen.
    IActionsAndDataFromProvider.java, IActionsAndDataToProvider.java
 8. new img files: blank.png, down.png, flat.png, up.png
 9. models model has Tracking GoalTest_1 marked as initialization function.
+
 ### models repository application GPS Watch compared to models repository test GPS Watch
 1. test model doesn't differe much from bridgepoint model, so comparisons in 5.1 apply.
+
 ### bridgepoint repository GPS Watch compared to models repository test GPS Watch
 1. test model doesn't have Linux support
 2. test model not using abbreviations for port names
