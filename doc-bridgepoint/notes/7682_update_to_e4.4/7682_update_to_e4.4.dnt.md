@@ -4,7 +4,7 @@ This work is licensed under the Creative Commons CC0 License
 
 ---
 
-# Package BridgePoint into an Eclipse 4.4 base
+# Package BridgePoint into an Eclipse 4.5 base
 ### xtUML Project Design Note
 
 
@@ -22,14 +22,14 @@ moving BridgePoint onto eclipse 4.
 [4] [DEI #7758 - Invalid install dir in mingwgnu.bat](https://support.onefact.net/redmine/issues/7758)  
 [5] [Stackoverflow - grammar files .g compatibility frome Antlr 2.7 to 4?](http://stackoverflow.com/questions/31115588/grammar-files-g-compatibility-frome-antlr-2-7-to-4)  
 [6] [HOWTO Update and Install Eclipse Base Components](https://github.com/xtuml/bridgepoint/blob/7682_update_to_e4.4/doc-bridgepoint/process/HOWTO-update-install-eclipse-base-components.md)  
-[7] [DEI #36 - Move BridgePoint onto eclipse 4](https://support.onefact.net/redmine/issues/36)  
+[7] [DEI #36 - Move BridgePoint onto eclipse 4](https://support.onefact.net/redmine/issues/36)   
+[8] [DEI #7954 - Upgrade to a newer ANTLR](https://support.onefact.net/redmine/issues/7954)  
 
 3. Background
 -------------
 This work is a substep in a larger task to move to BridgePoint onto eclipse 4 [7]. 
 Prior steps in this larger task reconfigured the BridgePoint source code to 
-work in both eclipse 3.7 and eclipse 4.x.  Prior work also added an Eclipse 
-Modeling Tools version of eclipse 4.4 (Luna) to the xtuml/packaging repository. 
+work in both eclipse 3.7 and eclipse 4.x.   
 
 4. Requirements
 ---------------
@@ -53,7 +53,7 @@ Modeling Tools version of eclipse 4.4 (Luna) to the xtuml/packaging repository.
 6.1  Branch xtuml/packaging to 7682_update_to_e4.4  
 
 6.2  Update build scripts  
-6.2.1  Update the eclipse version to 4.4 in ```utilities/build/configure_build_process.sh```and ```installer/build_installer_bp.sh```   
+6.2.1  Update the eclipse version to 4.5 in ```utilities/build/configure_build_process.sh```and ```installer/build_installer_bp.sh```   
 6.2.2  Add some more date-stamping in ```utilities/build/headless_build.sh``` to get better capture of build time   
 
 6.3 Update ```eclipse.ini```  
@@ -70,26 +70,25 @@ Modeling Tools version of eclipse 4.4 (Luna) to the xtuml/packaging repository.
   need to change to run the same commands on a different system.  Also note that I specifically chose to 
   run the p2.director from an installed eclipse while targeting the install into a completely different
   eclipse that lives under the git repository.  This was done so that eclipse runtime configuration data (that is
-  written when you run eclipse) was not written into our pristine install data.   
-6.5.1 Add CDT  
+  written when you run eclipse) was not written into our pristine install data.  Also note that these commands 
+  must be run to update both the Windows and Linux versions.  That is the command is run twice with the destination
+  set to ```.../install_bases/BridgePoint_e4.5/...``` and ```.../install_bases/BridgePoint_for_Linux_e4.5/...```.   
+6.5.1  Add ANTLR  
 ```
-$ /opt/xtuml/BridgePoint_e4.4/eclipse/eclipse -application org.eclipse.equinox.p2.director -repository http://download.eclipse.org/releases/luna/ -installIU org.eclipse.cdt.feature.group -destination /home/kbrown/build/git/xtuml/packaging/install_bases/BridgePoint_e4.4/EclipseDeliverables/eclipse/ -profile epp.package.modeling
+$ /opt/xtuml/BridgePoint_e44s/eclipse/eclipse -application org.eclipse.equinox.p2.director -repository http://antlreclipse.sourceforge.net/updates/ -installIU org.antlr.ui.feature.group -destination /home/kbrown/build/git/xtuml/packaging/install_bases/BridgePoint_for_Linux_e4.5/EclipseDeliverables/eclipse/ -profile epp.package.modeling
 ```   
-6.5.2  Add Compatibility Support for eclipse 2.x style plug-ins  
+6.5.2 Add CDT  
 ```
-$ /opt/xtuml/BridgePoint_e4.4/eclipse/eclipse -application org.eclipse.equinox.p2.director -repository http://download.eclipse.org/eclipse/updates/4.4/ -installIU org.eclipse.osgi.compatibility.plugins.feature.feature.group -destination /home/kbrown/build/git/xtuml/packaging/install_bases/BridgePoint_e4.4/EclipseDeliverables/eclipse/ -profile epp.package.modeling
+$ /opt/xtuml/BridgePoint_e44s/eclipse/eclipse -application org.eclipse.equinox.p2.director -repository http://download.eclipse.org/releases/mars/ -installIU org.eclipse.cdt.feature.group -destination /home/kbrown/build/git/xtuml/packaging/install_bases/BridgePoint_for_Linux_e4.5/EclipseDeliverables/eclipse/ -profile epp.package.modeling
 ```   
-6.5.3  Add antlr 2.7.2 plugins to ```plugins/``` folder in the eclipse 4 base just as we 
-  do in the eclipse 3.7 base  
-6.5.3.1  I considered moving to a newer version of antlr plugins.   However, after 
-  doing some research I discovered that antlr 4 grammars are not compatible with 
-  antlr 2 grammars. See [5].  
-6.5.3.2  The antlr 3 plug-in set seems to provide no tangible advantage for us
-  over the plugins we use already.  The version 3 plugins also have
-  some extra dependencies to other eclipse packages that we would have to add to our eclipse base.  
-6.5.3.3  In the end, I decided it made the most sense to install the very small and 
-  simple eclipse 2.x compatibility feature rather than attempt to move to antlr4 or 
-  the antlr3 plugins at this time.  
+6.5.3 Add Papyrus-RT  
+```
+$ /opt/xtuml/BridgePoint_e44s/eclipse/eclipse -application org.eclipse.equinox.p2.director -repository http://download.eclipse.org/modeling/mdt/papyrus/updates/releases/mars,http://download.eclipse.org/releases/mars/,http://download.eclipse.org/papyrus-rt/updates/releases/mars/0.7.0/ -installIU org.eclipse.papyrusrt.umlrt.core.feature.feature.group,org.eclipse.papyrusrt.umlrt.core.feature.source.feature.group,org.eclipse.papyrusrt.feature.feature.group,org.eclipse.papyrusrt.feature.source.feature.group,org.eclipse.papyrusrt.umlrt.profile.feature.feature.group,org.eclipse.papyrusrt.umlrt.tooling.feature.feature.group,org.eclipse.papyrusrt.umlrt.profile.feature.source.feature.group,org.eclipse.papyrusrt.umlrt.tooling.feature.source.feature.group,org.eclipse.papyrus.sdk.feature.feature.group,org.eclipse.papyrus.sdk.feature.source.feature.group,org.eclipse.papyrusrt.rts-feature.feature.group,org.eclipse.papyrusrt.codegen-feature.feature.group -destination /home/kbrown/build/git/xtuml/packaging/install_bases/BridgePoint_for_Linux_e4.5/EclipseDeliverables/eclipse/ -profile epp.package.modeling
+```   
+6.5.4 Add SDK Examples (for BridgePoint JUnit testing)  
+```
+$ /opt/xtuml/BridgePoint_e44s/eclipse/eclipse -application org.eclipse.equinox.p2.director -repository http://download.eclipse.org/eclipse/updates/4.5/ -installIU org.eclipse.sdk.examples.feature.group -destination /home/kbrown/build/git/xtuml/packaging/install_bases/BridgePoint_for_Linux_e4.5/EclipseDeliverables/eclipse/ -profile epp.package.modeling
+```   
 
 6.6 The latest eclipse CDT requires Java8. Put the JRE 8 files into the install 
   bases for Windows and Linux.  Update Launcher and CLI scripts to point at the new JRE.   
@@ -104,7 +103,24 @@ $ /opt/xtuml/BridgePoint_e4.4/eclipse/eclipse -application org.eclipse.equinox.p
 7.3  The move to JRE 8 could be done as a stand-alone step to assure that the update 
   does not have any fallout.  We are choosing to perform the JRE 8 update and the Eclipse 4 
   update together.  If we have problems in the next step, we can perform the JRE 8 update 
-  as a standalone step in the old Eclipse 3.7 base and re-run tests there.  
+  as a standalone step in the old Eclipse 3.7 base and re-run tests there.   
+7.4  During the development process we decided to move to eclipse 4.5 (the Mars.1 release).  This allows 
+  us to integrate much more cleanly with Papyrus-RT.  It should be noted that even though we are 
+  moved to eclipse 4.5, the branch name is unchanged and still says "e4.4".
+7.5  ANTLR.  The original Luna-based pass at this upgrade to eclipse 4 intended to use ANTLR 2.7.2 plugins as 
+  we have done for a very long time using the eclipse 2.x compatibility plugins.  However, the ANTLR 2.7.2 
+  plug-ins simply would not behave properly in Mars.1 due to new Java library integration rules.  I kept getting
+  "Access Restriction" dependency errors from eclipse on the projects that attempted to integrate with ANTLR.  In 
+  the end I decided to make a slight upgrade to ANTLR 2.7.6 plug-ins because they do not require the Eclipse 2.x 
+  compatibility support and they are properly configured to deal with the dependencies and avoid "Access Restriction"
+  problems.  Finally, during a call on 10/21/2015 with Mike Millinkovich of the Eclipse Foundation, he told us that
+  old ANTLR dependency would likely be an issue for making BridgePoint a proper project under the Eclipse Foundation.   I raised an issue [8] to investigate upgrading to a newer ANTLR as separate work.
+7.5.1  Simply as a matter of historical record, here is the command to add compatibility support for eclipse 2.x 
+  style plug-ins:  
+```
+$ /opt/xtuml/BridgePoint_e4.4/eclipse/eclipse -application org.eclipse.equinox.p2.director -repository http://download.eclipse.org/eclipse/updates/4.4/ -installIU org.eclipse.osgi.compatibility.plugins.feature.feature.group -destination /home/kbrown/build/git/xtuml/packaging/install_bases/BridgePoint_e4.4/EclipseDeliverables/eclipse/ -profile epp.package.modeling
+```   
+
     
 8. Unit Test
 ------------
