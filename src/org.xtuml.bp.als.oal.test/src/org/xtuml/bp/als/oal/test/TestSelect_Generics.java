@@ -42,6 +42,7 @@ import org.xtuml.bp.core.InstanceSet_c;
 import org.xtuml.bp.core.InstanceHandle_c;
 import org.xtuml.bp.core.LiteralInteger_c;
 import org.xtuml.bp.core.ModelClass_c;
+import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.SelectFromInstancesWhere_c;
 import org.xtuml.bp.core.SelectFromInstances_c;
 import org.xtuml.bp.core.Select_c;
@@ -1393,6 +1394,7 @@ public void testSelectedVarOutsideWhere() throws RecognitionException, TokenStre
 public void testSelectedAttrOutsideWhere() throws RecognitionException, TokenStreamException {
 	String act = "select any selected from instances of D_D;\nselected.Disk_ID = 1;"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
+	Value_c[] values = Value_c.ValueInstances(Ooaofooa.getInstance("/testOAL1/models/testOAL1/testOAL1/testOAL1.xtuml"));
 	String lines[] = x.split("\n");//$NON-NLS-1$
 	assertEquals(4, lines.length);
 	assertEquals(":1:12-19: Keyword ->Selected<- cannot be used outside a where expression", lines[0]); //$NON-NLS-1$

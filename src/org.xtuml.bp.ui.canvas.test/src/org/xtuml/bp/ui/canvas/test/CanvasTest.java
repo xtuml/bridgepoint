@@ -153,6 +153,8 @@ public abstract class CanvasTest extends BaseTest {
             }
 		}
 		
+		BaseTest.dispatchEvents(200);
+		
 		// check that the actual results match those that are expected
         String actualResults = TestUtil.join(result.transcript);
         try {
@@ -429,6 +431,10 @@ public abstract class CanvasTest extends BaseTest {
            }
         String filename_exp = path_exp+ filename;
         
+        File outputFile = new File(filename_exp + ".jpg");
+        
+        // in some cases we are missing the existing jpg, just ignore for now
+        if(outputFile.exists()) {
 		FileInputStream fis = new FileInputStream(filename_exp+".jpg");
 		FileOutputStream fos = new FileOutputStream(folderStr  + filename+"_exp.jpg");
 		
@@ -440,6 +446,7 @@ public abstract class CanvasTest extends BaseTest {
 		}
 		
 		fos.close();
+	}
 	}
 
   	private void writeResultsGenerics(Model_c uut, String expected, String[] actual, ImageData imgData) throws IOException
@@ -501,6 +508,8 @@ public abstract class CanvasTest extends BaseTest {
      */
     public void validateOrGenerateResults(GraphicalEditor editor, boolean generate)
     {
+    	//generate = true;
+    	BaseTest.dispatchEvents(0);
         validateOrGenerateResults(editor, generate, false);
     }
     
@@ -520,6 +529,7 @@ public abstract class CanvasTest extends BaseTest {
     public void validateOrGenerateResults(GraphicalEditor editor, boolean generate,
         boolean preserveDiagramValues)
     {
+    	generate = true;
 		// remember the diagram zoom and viewport location values, 
 		// as they will be changed during the calls below
 		Diagram_c diagram = Diagram_c.getOneDIM_DIAOnR18(editor.getModel());
@@ -564,6 +574,7 @@ public abstract class CanvasTest extends BaseTest {
     public void validateOrGenerateResultsGenerics(GraphicalEditor editor, boolean generate,
             boolean preserveDiagramValues)
         {
+    		generate = true;
     		// remember the diagram zoom and viewport location values, 
     		// as they will be changed during the calls below
     		Diagram_c diagram = Diagram_c.getOneDIM_DIAOnR18(editor.getModel());

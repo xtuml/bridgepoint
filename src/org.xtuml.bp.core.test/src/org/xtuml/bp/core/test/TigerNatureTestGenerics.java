@@ -72,6 +72,7 @@ import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.PackageableElement_c;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.XtUMLNature;
+import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.common.PersistableModelComponent;
@@ -90,6 +91,7 @@ import org.xtuml.bp.test.common.CVSUtils;
 import org.xtuml.bp.test.common.CanvasTestUtils;
 import org.xtuml.bp.test.common.ExplorerUtil;
 import org.xtuml.bp.test.common.UITestingUtilities;
+import org.xtuml.bp.ui.canvas.CanvasTransactionListener;
 import org.xtuml.bp.ui.canvas.Connector_c;
 import org.xtuml.bp.ui.canvas.GraphicalElement_c;
 import org.xtuml.bp.ui.canvas.Ooaofgraphics;
@@ -154,6 +156,11 @@ public class TigerNatureTestGenerics extends CanvasTest {
 
 	}
 
+	@Override
+	protected void initialSetup() throws Exception {
+		CorePlugin.getDefault().getPreferenceStore().setValue(BridgePointPreferencesStore.USE_DEFAULT_NAME_FOR_CREATION, true);
+	}
+
 	protected void setUp() throws Exception {
 		super.setUp();
 		Display d = Display.getCurrent();
@@ -162,9 +169,7 @@ public class TigerNatureTestGenerics extends CanvasTest {
 	}
 
 	protected void tearDown() throws Exception {
-		Display d = Display.getCurrent();
-		while (d.readAndDispatch());
-
+		BaseTest.dispatchEvents(0);
 		super.tearDown();
 	}
 
@@ -1019,6 +1024,7 @@ public class TigerNatureTestGenerics extends CanvasTest {
 		AddToIdentifierOnO_ATTRAction atia = new AddToIdentifierOnO_ATTRAction();
 		atia.setActivePart(a, PlatformUI.getWorkbench()
 				.getActiveWorkbenchWindow().getActivePage().getActivePart());
+		BaseTest.dispatchEvents(0);
 		Ooaofooa.setPersistEnabled(true);
 		TestUtil.cancelDialog(200);
 		atia.run(a);

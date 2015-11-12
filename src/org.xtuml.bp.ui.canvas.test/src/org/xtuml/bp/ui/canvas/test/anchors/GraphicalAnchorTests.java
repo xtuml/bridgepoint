@@ -249,6 +249,27 @@ public class GraphicalAnchorTests extends CanvasTest {
 	 */
 	void A_BC_Action(NonRootModelElement columnInstance,
 			NonRootModelElement rowInstance) {
+		// zoom the diagram before performing the test
+		GraphicalElement_c ge = null;
+		GraphicalEditor graphicalEditorFor = null;
+		if(columnInstance instanceof Shape_c) {
+			ge = GraphicalElement_c.getOneGD_GEOnR2((Shape_c) columnInstance);
+		}
+		if(columnInstance instanceof Connector_c) {
+			ge = GraphicalElement_c.getOneGD_GEOnR2((Connector_c) columnInstance);
+		}
+		if(ge != null) {
+			graphicalEditorFor = UITestingUtilities.getGraphicalEditorFor((NonRootModelElement) ge.getRepresents(),
+					false);
+		}
+		if(columnInstance instanceof Model_c) {
+			graphicalEditorFor = UITestingUtilities.getGraphicalEditorFor(
+					(NonRootModelElement) ((Model_c) columnInstance).getRepresents(), true, false);
+		}
+		if(graphicalEditorFor != null) {
+			graphicalEditorFor.zoomAll();
+			graphicalEditorFor.refresh();
+			BaseTest.dispatchEvents(0);
 		// check the test id for which action to run
 		if (test_id.contains("C1")) {
 			GraphicalEditPart sourcePart = getSourceForCreation(columnInstance);
@@ -259,6 +280,7 @@ public class GraphicalAnchorTests extends CanvasTest {
 		} else {
 			performMoveSegmentAction(columnInstance, rowInstance);
 		}
+	}
 	}
 
 	private void performMoveSegmentAction(NonRootModelElement columnInstance,
