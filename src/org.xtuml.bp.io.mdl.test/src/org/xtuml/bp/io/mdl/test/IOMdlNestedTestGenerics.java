@@ -132,7 +132,6 @@ public class IOMdlNestedTestGenerics extends CanvasTest {
 	
 	public void testNestedGenerics() {
 		try {
-			generateResults = true;
 			this.doTestCreateNestedDTP();
 			this.doTestCreateNestedFP();
 			this.doTestCreateNestedEEP();
