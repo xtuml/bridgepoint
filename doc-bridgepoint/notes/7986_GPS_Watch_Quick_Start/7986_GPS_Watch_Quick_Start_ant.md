@@ -54,6 +54,7 @@ way to launch this model from the BridgePoint Welcome Quick Start screen.
 1. test model doesn't have Linux support
 2. test model not using abbreviations for port names
 3. HeartRateMonitor/ClassStateMachine appears to have significant differences, but an inspection of the model shows this isn't true.
+
 ### Conclusion
 1. From the above comparisons, the models repository application model of GPS Watch can be used without needing any additional elements from the other two models.
 
