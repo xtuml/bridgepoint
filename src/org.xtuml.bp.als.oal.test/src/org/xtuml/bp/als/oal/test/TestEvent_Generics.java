@@ -55,6 +55,17 @@ import org.xtuml.bp.core.Variable_c;
 import org.xtuml.bp.core.common.IdAssigner;
 
 public class TestEvent_Generics extends TestCase {
+	
+		
+	@Override
+	protected void setUp() throws Exception {
+		super.setUp();
+		Value_c[] values = Value_c.ValueInstances(OalParserTest_Generics.modelRoot);
+		for(int i = 0; i < values.length; i++) {
+			values[i].Dispose();
+		}
+	}
+	
 	public void validateEvent(String act, int genType, int numStmts,
 			int numVal, String label, String[] parmList)
 			throws RecognitionException, TokenStreamException {
