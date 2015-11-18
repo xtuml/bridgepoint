@@ -25,24 +25,18 @@ package org.xtuml.bp.als.oal.test;
 import java.util.UUID;
 
 import org.eclipse.jface.preference.IPreferenceStore;
-
-import junit.framework.TestCase;
-import antlr.RecognitionException;
-import antlr.TokenStreamException;
-
 import org.xtuml.bp.core.Association_c;
 import org.xtuml.bp.core.AttributeValueReference_c;
 import org.xtuml.bp.core.BinaryOperation_c;
 import org.xtuml.bp.core.Block_c;
 import org.xtuml.bp.core.ChainLink_c;
 import org.xtuml.bp.core.CorePlugin;
+import org.xtuml.bp.core.InstanceHandle_c;
 import org.xtuml.bp.core.InstanceReference_c;
 import org.xtuml.bp.core.InstanceSetReference_c;
 import org.xtuml.bp.core.InstanceSet_c;
-import org.xtuml.bp.core.InstanceHandle_c;
 import org.xtuml.bp.core.LiteralInteger_c;
 import org.xtuml.bp.core.ModelClass_c;
-import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.SelectFromInstancesWhere_c;
 import org.xtuml.bp.core.SelectFromInstances_c;
 import org.xtuml.bp.core.Select_c;
@@ -53,6 +47,10 @@ import org.xtuml.bp.core.Variable_c;
 import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.IdAssigner;
+
+import antlr.RecognitionException;
+import antlr.TokenStreamException;
+import junit.framework.TestCase;
 
 public class TestSelect_Generics extends TestCase {
     public TestSelect_Generics() {
@@ -294,6 +292,7 @@ public void goodSelectValidate(
 		}
 	}
 }
+
 public void testSelectAnyFromImplicit() throws RecognitionException, TokenStreamException {
 	String act = "select any x from instances of D_D;"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
@@ -331,6 +330,8 @@ public void testSelectAnyFromWhereSelected() throws RecognitionException, TokenS
 	goodSelectValidate(false, "any", true, true, 2, 1, var_list, 3, "D_D", 4, "", 1, false);//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
 }
 public void testSelectAnyFromWhereSelectedIOp() throws RecognitionException, TokenStreamException {
+    IPreferenceStore store = CorePlugin.getDefault().getPreferenceStore();
+    store.setValue(BridgePointPreferencesStore.ALLOW_OPERATIONS_IN_WHERE, true);
 	String act = "create object instance x of D_D; select any x from instances of D_D where selected.testIBoolNoParm();"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	assertEquals("", x); //$NON-NLS-1$
@@ -1379,30 +1380,6 @@ public void testSelectManyFromWhereNotBool() throws RecognitionException, TokenS
 	assertEquals("line 2:60: expecting Semicolon, found 'null'", lines[1]); //$NON-NLS-1$
 	String[] var_list = { "x" };//$NON-NLS-1$
 	badSelectValidate(var_list, 1, 1, 1);
-}
-public void testSelectedVarOutsideWhere() throws RecognitionException, TokenStreamException {
-	String act = "selected = 1;"; //$NON-NLS-1$
-	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
-	String lines[] = x.split("\n");//$NON-NLS-1$
-	assertEquals(3, lines.length);
-	assertEquals(":1:1-8: Keyword ->Selected<- cannot be used outside a where expression", lines[0]); //$NON-NLS-1$
-    assertEquals("line 1:13: expecting TOK_EQUAL, found ';'", lines[1]); //$NON-NLS-1$
-    assertEquals("line 1:14: expecting Semicolon, found 'null'", lines[2]); //$NON-NLS-1$
-	String[] var_list = {};
-	badSelectValidate(var_list, 0, 0, 1);
-}
-public void testSelectedAttrOutsideWhere() throws RecognitionException, TokenStreamException {
-	String act = "select any selected from instances of D_D;\nselected.Disk_ID = 1;"; //$NON-NLS-1$
-	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
-	Value_c[] values = Value_c.ValueInstances(Ooaofooa.getInstance("/testOAL1/models/testOAL1/testOAL1/testOAL1.xtuml"));
-	String lines[] = x.split("\n");//$NON-NLS-1$
-	assertEquals(4, lines.length);
-	assertEquals(":1:12-19: Keyword ->Selected<- cannot be used outside a where expression", lines[0]); //$NON-NLS-1$
-	assertEquals(":2:10-16: Keyword ->Selected<- cannot be used outside a where expression", lines[1]); //$NON-NLS-1$
-	assertEquals("line 2:21: expecting TOK_EQUAL, found ';'", lines[2]); //$NON-NLS-1$
-    assertEquals("line 2:22: expecting Semicolon, found 'null'", lines[3]); //$NON-NLS-1$
-	String[] var_list = {};
-	badSelectValidate(var_list, 0, 0, 3);
 }
 public void testSelectFromWhereSelectedMisspelled() throws RecognitionException, TokenStreamException {
 	String act = "select any d from instances of D_D where selectd.Disk_ID = 1;"; //$NON-NLS-1$
