@@ -31,7 +31,6 @@
 -- display the same icon for the same class.
 --
 INSERT INTO T_TNS VALUES (1,  '',                      'S_SYS',   '', 'Name', '', 'System', false);
-INSERT INTO T_TNS VALUES (2,  '',                      'S_DOM',   '', 'Name', '', 'Domains', false);
 INSERT INTO T_TNS VALUES (3,  '',                      'S_SYNC',   '', 'Name', '', 'Functions', false);
 INSERT INTO T_TNS VALUES (4,  'field_default_obj.gif', 'CSME_CIE',   '', 'Label', '', 'Classes', false);
 INSERT INTO T_TNS VALUES (5,  'field_default_obj.gif', 'I_INS',   '', 'Label', '', 'Instances', false);
@@ -54,12 +53,9 @@ INSERT INTO T_TNS VALUES (21, '',                       'O_TFR',  '', 'Name', ''
 INSERT INTO T_TNS VALUES (22, '',                       'CL_IC',  '', 'Name', '', 'Component References', false);
 INSERT INTO T_TNS VALUES (23,  'field_default_obj.gif', 'I_EXE',   '', 'Label', '', 'Component Reference Instances', false);
 INSERT INTO T_TNS VALUES (24, '',                       'I_LIP',  '', 'Label', '', 'Associations', false);
-INSERT INTO T_TNS VALUES (25, '',        'S_FPK',   '', 'Name', '', 'Function Packages', false);
 INSERT INTO T_TNS VALUES (26,  '', 'S_SPARM', '', 'Name', '', 'Function Parameters', true);
 INSERT INTO T_TNS VALUES (27,  '', 'EP_PKG', '', 'Name', '', 'Packages', false);
 
-INSERT INTO T_TPS VALUES (1,  2,  '->S_DOM[R28]->I_EXE[R2948]->S_DOM[R2948]');
-INSERT INTO T_TPS VALUES (2,  4,  '->I_EXE[R2948]->CSME_CIE[R2960]');
 INSERT INTO T_TPS VALUES (4,  21, '->O_OBJ[R2961]->O_TFR[R115]', '', 'getInstance_based() == 0');
 INSERT INTO T_TPS VALUES (5,  9,  '->SM_STATE[R2915]');
 INSERT INTO T_TPS VALUES (4,  5,  '->I_INS[R2962]');
@@ -70,8 +66,6 @@ INSERT INTO T_TPS VALUES (6,  10, '->RV_RVL[R3304]->RV_SVL[R3300]->RV_VIS[R3301]
 INSERT INTO T_TPS VALUES (6,  10, '->RV_RVL[R3304]->RV_AVL[R3300]->RV_VIA[R3302]->RV_RVL[R3302]');
 INSERT INTO T_TPS VALUES (10, 10, '->RV_SVL[R3300]->RV_VIS[R3301]->RV_RVL[R3301]');
 INSERT INTO T_TPS VALUES (10, 10, '->RV_AVL[R3300]->RV_VIA[R3302]->RV_RVL[R3302]');
-INSERT INTO T_TPS VALUES (1,  11, '->CP_CP[R4606]->C_C[R4608]->I_EXE[R2955]->C_C[R2955]', '', 'Isparentexecuting() == false');
-INSERT INTO T_TPS VALUES (1,  22, '->CP_CP[R4606]->C_C[R4608]->CL_IC[R4201]->I_EXE[R2963]->CL_IC[R2963]', '', 'Isparentexecuting() == false');
 INSERT INTO T_TPS VALUES (22, 23, '->I_EXE[R2963]');
 INSERT INTO T_TPS VALUES (11, 12, '->I_EXE[R2955]');
 INSERT INTO T_TPS VALUES (12,  4, '->CSME_CIE[R2960]', '', 'Isingenericpackage() == false');
@@ -96,11 +90,6 @@ INSERT INTO T_TPS VALUES (5,   24, '->I_LIP[R2958]->I_LNK[R2903]->I_LIP[R2902]')
 INSERT INTO T_TPS VALUES (24,  5, '->I_LNK[R2901]->I_LIP[R2903]->I_INS[R2958]');
 INSERT INTO T_TPS VALUES (24,  5, '->I_LNK[R2902]->I_LIP[R2903]->I_INS[R2958]');
 INSERT INTO T_TPS VALUES (24,  5, '->I_INS[R2958]'); 
-INSERT INTO T_TPS VALUES (12,  25, '->C_C[R2955]->CN_DC[R4204]->S_DOM[R4204]->S_FPK[R29]');
-INSERT INTO T_TPS VALUES (12,  25, '->CL_IC[R2963]->C_C[R4201]->CN_DC[R4204]->S_DOM[R4204]->S_FPK[R29]');
-INSERT INTO T_TPS VALUES (2,   25, '->I_EXE[R2948]->S_DOM[R2948]->S_FPK[R29]');
-INSERT INTO T_TPS VALUES (25,  25, '->S_FPIP[R30]->S_FPK[R32]');
-INSERT INTO T_TPS VALUES (25,   3, '->S_SYNC[R31]');
 INSERT INTO T_TPS VALUES (3,   26, '->S_SPARM[R24]');
 INSERT INTO T_TPS VALUES (1, 27, '->EP_PKG[R1401]', '', 'Isexecutingorischildexecuting() == true');
 INSERT INTO T_TPS VALUES (27, 27, '->PE_PE[R8000]->EP_PKG[R8001]', '', 'Isexecutingorownsexecutableelements() == true');

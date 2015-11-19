@@ -155,7 +155,7 @@ cp ../installer_extras/bp.ico BridgePoint
 chmod -R a+x BridgePoint
 zip -r "${OUTPUT_DIR}/${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS}.zip" BridgePoint  
 cd "${OUTPUT_DIR}"
-chmod g+w "${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS}.zip"
+chmod -R g+w .
 echo "INFO: Done."
 
 # Make sure the output looks good

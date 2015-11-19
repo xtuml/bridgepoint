@@ -36,14 +36,10 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.WorkbenchException;
 
-import org.xtuml.bp.core.ComponentInComponent_c;
 import org.xtuml.bp.core.ComponentInstance_c;
-import org.xtuml.bp.core.ComponentPackageInPackage_c;
-import org.xtuml.bp.core.ComponentPackage_c;
 import org.xtuml.bp.core.ComponentReference_c;
 import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.CorePlugin;
-import org.xtuml.bp.core.Domain_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.PackageableElement_c;
@@ -76,9 +72,7 @@ public class BPDebugUtils {
 				}
 			}
 			NonRootModelElement rootElement = component.getRootModelElement();
-			if (rootElement instanceof Domain_c) {
-				return ((Domain_c) rootElement).getDom_id().toString();
-			} else if (rootElement instanceof Component_c) {
+			if (rootElement instanceof Component_c) {
 				return ((Component_c) rootElement).getId().toString();
 			} else if (rootElement instanceof Package_c) {
         return ((Package_c) rootElement).getPackage_id().toString();
@@ -114,15 +108,6 @@ public class BPDebugUtils {
 			}
 		}
 		
-		if (result == null) {
-			instances = Ooaofooa.getDefaultInstance().getInstanceList(Domain_c.class);
-			nrme = (NonRootModelElement) instances
-					.getGlobal(stringID.substring(0, 36));
-			if (nrme != null) {
-				result = nrme;
-			}
-		}
-
 		return result;
 	}
 	
@@ -141,35 +126,6 @@ public class BPDebugUtils {
 
 		}
 		return verifiableList;
-	}
-
-	public static NonRootModelElement[] getComponentPackageChildren(
-			ComponentPackage_c package_c) {
-		List<NonRootModelElement> models = new ArrayList<NonRootModelElement>();
-		ComponentPackage_c[] childPackages = ComponentPackage_c
-				.getManyCP_CPsOnR4601(ComponentPackageInPackage_c
-						.getManyCP_CPINPsOnR4600(package_c));
-		for (int i = 0; i < childPackages.length; i++) {
-			NonRootModelElement[] children = getComponentPackageChildren(childPackages[i]);
-			for (int j = 0; j < children.length; j++) {
-				models.add(children[j]);
-			}
-		}
-		Component_c[] components = Component_c.getManyC_CsOnR4604(package_c);
-		for (int i = 0; i < components.length; i++) {
-			NonRootModelElement[] children = getComponentChildren(components[i]);
-			for (int j = 0; j < children.length; j++) {
-				models.add(children[j]);
-			}
-			models.add(components[i]);
-		}
-		ComponentReference_c[] icomponents = ComponentReference_c
-				.getManyCL_ICsOnR4605(package_c);
-		for (int i = 0; i < icomponents.length; i++) {
-			if (icomponents[i].Isassigned())
-				models.add(icomponents[i]);
-		}
-		return models.toArray(new NonRootModelElement[models.size()]);
 	}
 
 	public static NonRootModelElement[] getPackageChildren(
@@ -206,22 +162,6 @@ public class BPDebugUtils {
 	public static NonRootModelElement[] getComponentChildren(
 			Component_c component) {
 		List<NonRootModelElement> children = new ArrayList<NonRootModelElement>();
-		Component_c[] componentChildren = Component_c
-				.getManyC_CsOnR4203(ComponentInComponent_c
-						.getManyCN_CICsOnR4202(component));
-		for (int i = 0; i < componentChildren.length; i++) {
-			children.add(componentChildren[i]);
-			NonRootModelElement[] nextChildren = getComponentChildren(componentChildren[i]);
-			for (int j = 0; j < nextChildren.length; j++) {
-				children.add(nextChildren[j]);
-			}
-		}
-		ComponentReference_c[] importedCompChildren = ComponentReference_c
-				.getManyCL_ICsOnR4205(component);
-		for (int i = 0; i < importedCompChildren.length; i++) {
-			if (importedCompChildren[i].Isassigned())
-				children.add(importedCompChildren[i]);
-		}
 		Component_c[] genericComponentChildren = Component_c
 				.getManyC_CsOnR8001(PackageableElement_c
 						.getManyPE_PEsOnR8003(component));
@@ -258,32 +198,11 @@ public class BPDebugUtils {
 			return (SystemModel_c) element;
 		}
 		SystemModel_c system = null;
-		if (element instanceof Domain_c) {
-			system = SystemModel_c.getOneS_SYSOnR28((Domain_c) element);
-		}
 		if (element instanceof Component_c) {
-			system = SystemModel_c.getOneS_SYSOnR4606(ComponentPackage_c
-					.getOneCP_CPOnR4608((Component_c) element));
-			if (system == null) {
 				return getCompOrPkgsSystem(element);
-			}
-		}
-		if (element instanceof ComponentPackage_c) {
-			system = SystemModel_c
-					.getOneS_SYSOnR4606((ComponentPackage_c) element);
 		}
 		if (element instanceof ComponentReference_c) {
-			system = SystemModel_c.getOneS_SYSOnR4606(ComponentPackage_c
-					.getOneCP_CPOnR4605((ComponentReference_c) element));
-			if (system == null) {
-				system = SystemModel_c
-						.getOneS_SYSOnR4606(ComponentPackage_c
-								.getOneCP_CPOnR4608(Component_c
-										.getOneC_COnR4205((ComponentReference_c) element)));
-			}
-			if (system == null) {
 				return getCompOrPkgsSystem(element);
-			}
 		}
 		if (element instanceof Package_c) {
 			system = getCompOrPkgsSystem(element);

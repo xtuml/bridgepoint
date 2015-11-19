@@ -37,13 +37,11 @@ import org.eclipse.ui.console.MessageConsoleStream;
 import org.xtuml.bp.core.Body_c;
 import org.xtuml.bp.core.DerivedBaseAttribute_c;
 import org.xtuml.bp.core.FunctionBody_c;
-import org.xtuml.bp.core.FunctionPackage_c;
 import org.xtuml.bp.core.Function_c;
 import org.xtuml.bp.core.ModelClass_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.OperationBody_c;
 import org.xtuml.bp.core.Operation_c;
-import org.xtuml.bp.core.Subsystem_c;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.common.ModelRoot;
 import org.xtuml.bp.core.common.NonRootModelElement;
@@ -215,8 +213,6 @@ public class CleanseForMCWorker extends ActionDelegate {
     	Operation_c[] v_operation = Operation_c.OperationInstances(root);
 
 		for (int i = 0; i < v_operation.length; ++i) {
-		    if ( skipSubsystem(v_operation[i], null) ) { continue; }
-		    
 			logMsg("Removing operation: " + v_operation[i].getName());
 			v_operation[i].Dispose();
 		}
@@ -224,8 +220,6 @@ public class CleanseForMCWorker extends ActionDelegate {
     	Function_c[] v_function = Function_c.FunctionInstances(root);
 
 		for (int i = 0; i < v_function.length; ++i) {
-		    if ( skipFunctionPackage(v_function[i], null) ) { continue; }
-		        
 		    logMsg("Removing function: " + v_function[i].getName());
 		    v_function[i].Dispose();
 		}
@@ -240,10 +234,6 @@ public class CleanseForMCWorker extends ActionDelegate {
     	Body_c[] v_body = Body_c.BodyInstances(root);
 
 		for (int i = 0; i < v_body.length; ++i) {
-		    // Don't remove bodies for any of our special MC/DocGen elements
-		    if ( skipSubsystem(null, v_body[i]) ) { continue; }
-		    if ( skipFunctionPackage(null, v_body[i]) ) { continue; }
-            
 			if (i == 0) {
 				logMsg("Removing OAL bodies.");				
 			}
@@ -252,49 +242,6 @@ public class CleanseForMCWorker extends ActionDelegate {
 
     }
 
-    private boolean skipSubsystem(Operation_c op, Body_c body) {
-        Subsystem_c v_ss;
-        
-        if ( body != null ) {
-            v_ss = Subsystem_c.getOneS_SSOnR2(
-                ModelClass_c.getOneO_OBJOnR115(Operation_c.getOneO_TFROnR696(
-                        OperationBody_c.getOneACT_OPBOnR698(body))));
-        } else {
-            v_ss = Subsystem_c.getOneS_SSOnR2(
-                    ModelClass_c.getOneO_OBJOnR115(op));            
-        }
-        
-        if ( v_ss != null ) {
-            String v_ss_name = v_ss.getName();
-            if ( v_ss_name.equals("Document") || 
-                 v_ss_name.equals("Translation Extensions") || 
-                 v_ss_name.equals("Translation Marking") || 
-                 v_ss_name.equals("Translation OAL") ) { return true; }
-        }
-
-        return false;
-    }
-    
-    private boolean skipFunctionPackage(Function_c func, Body_c body) {
-        FunctionPackage_c v_fp;
-        
-        if ( body != null ) {
-            v_fp = FunctionPackage_c.getOneS_FPKOnR31(
-                    Function_c.getOneS_SYNCOnR695(
-                            FunctionBody_c.getOneACT_FNBOnR698(body)));            
-        } else {
-            v_fp = FunctionPackage_c.getOneS_FPKOnR31(func);
-        }
-        
-        if ( v_fp != null ) {
-            String v_fp_name = v_fp.getName();
-            if ( v_fp_name.equals("DocGen") || 
-                 v_fp_name.equals("MCfunctions")) { return true; }
-        }
-
-        return false;
-    }
-    
     private MessageConsole findConsole(String name) {
         ConsolePlugin plugin = ConsolePlugin.getDefault();
         IConsoleManager conMan = plugin.getConsoleManager();

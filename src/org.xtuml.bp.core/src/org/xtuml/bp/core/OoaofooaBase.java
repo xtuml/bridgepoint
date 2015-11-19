@@ -185,8 +185,8 @@ abstract class OoaofooaBase extends ModelRoot
     
     public boolean isLoaded()
     {
-        Domain_c domain = Domain_c.DomainInstance(thisAsOoaofooa(),null,false);
-        return (domain != null);
+		// TODO: BOB remove this obsolete function
+        return false;
     }    
     
     public void delete() {
@@ -319,65 +319,13 @@ abstract class OoaofooaBase extends ModelRoot
         if(getId().equals(DEFAULT_WORKING_MODELSPACE)) return;
         
         // determine what the new ID should be
-        Domain_c domain = Domain_c.DomainInstance(thisAsOoaofooa());
-        SystemDatatypePackage_c sdp = SystemDatatypePackage_c.SystemDatatypePackageInstance(thisAsOoaofooa());
-        DataTypePackage_c dtpkg = null;
-        if(sdp != null) {
-            dtpkg = DataTypePackage_c.getOneS_DPKOnR4400(sdp);
-        }
-        ComponentPackage_c cp = ComponentPackage_c.ComponentPackageInstance(thisAsOoaofooa());
-        InterfacePackage_c ip = InterfacePackage_c.InterfacePackageInstance(thisAsOoaofooa());
-        Activity_c act = Activity_c.ActivityInstance(thisAsOoaofooa());
-        Communication_c comm = Communication_c.CommunicationInstance(thisAsOoaofooa());
         Package_c pkg = Package_c.PackageInstance(thisAsOoaofooa());
-        Sequence_c seq = Sequence_c.SequenceInstance(thisAsOoaofooa());
-        UseCaseDiagram_c ucd = UseCaseDiagram_c.UseCaseDiagramInstance(thisAsOoaofooa());
-        DomainAsComponent_c dac = null;
-        if(domain != null) {
-            dac = DomainAsComponent_c.getOneCN_DCOnR4204(domain);
-        }
+
         String newId = "";
-        if(domain != null && dac == null) {
-            SystemModel_c system = SystemModel_c.getOneS_SYSOnR28(domain);
-            // the system may be null during half setup unit tests
-            if(system != null)
-                newId = createModelRootId(system.getName(), domain.getName(), true);
-        } else if (dtpkg != null){
-            SystemModel_c system = SystemModel_c.getOneS_SYSOnR4400(sdp);
-            if(system != null)
-                newId = createModelRootId(system.getName(), dtpkg.getName(), true);
-        } else if (cp != null) {
-            SystemModel_c system = SystemModel_c.getOneS_SYSOnR4602(cp);
-            if(system != null)
-                newId = createModelRootId(system.getName(), cp.getName(), true);
-        } else if (ip != null) {
-            SystemModel_c system = SystemModel_c.getOneS_SYSOnR4302(ip);
-            if(system != null)
-                newId = createModelRootId(system.getName(), ip.getName(), true);
-        } else if (act != null) {
-            SystemModel_c system = SystemModel_c.getOneS_SYSOnR1113(act);
-            if(system != null) {
-                newId = createModelRootId(system.getName(), act.getName(), true);
-            }
-        } else if (comm != null) {
-            SystemModel_c system = SystemModel_c.getOneS_SYSOnR1136(comm);
-            if(system != null) {
-                newId = createModelRootId(system.getName(), comm.getName(), true);
-            }
-        } else if (pkg != null) {
+        if (pkg != null) {
             SystemModel_c system = SystemModel_c.getOneS_SYSOnR1401(pkg);
             if(system != null) {
                 newId = createModelRootId(system.getName(), pkg.getName(), true);
-            }
-        } else if (seq != null) {
-            SystemModel_c system = SystemModel_c.getOneS_SYSOnR950(seq);
-            if(system != null) {
-                newId = createModelRootId(system.getName(), seq.getName(), true);
-            }
-        } else if (ucd != null) {
-            SystemModel_c system = SystemModel_c.getOneS_SYSOnR1211(ucd);
-            if(system != null) {
-                newId = createModelRootId(system.getName(), ucd.getName(), true);
             }
         }
 
@@ -443,35 +391,13 @@ abstract class OoaofooaBase extends ModelRoot
      */
     public class SystemModelChangeListener extends ModelChangeAdapter 
     {
+    	//TODO: BOB This listener is doing nothing, remove it
         public void modelElementUnloaded(ModelChangedEvent event) {
-            Object modelElement = event.getModelElement();
-            removeModelElement(modelElement);
         }
 
         public void modelElementDeleted(ModelChangedEvent event, IModelDelta delta) {
-            Object modelElement = delta.getModelElement();
-            removeModelElement(modelElement);
         }
         
-        private void removeModelElement(Object modelElement)
-        {
-            //if this event doesn't concern this model-root's system-model, then
-            // we aren't interested in it
-            if (!(modelElement instanceof SystemModel_c)) return;
-            
-            SystemModel_c system = (SystemModel_c)modelElement;
-            Domain_c domain = Domain_c.DomainInstance(thisAsOoaofooa(),null,false);
-            if ( domain == null ) return;   // domain has already been deleted (unit tests) 
-            if (system != SystemModel_c.getOneS_SYSOnR28(domain,false)) return;
-            
-            PersistableModelComponent component = 
-                PersistenceManager.findComponent(domain.getFile().getFullPath());                PersistenceManager.findComponent(domain.getFile().getFullPath());
-            if (component == null || !component.isLoaded())
-            {
-                // there is a domain instance left without a component
-                domain.delete_unchecked();
-            }
-        }
     }
 
     /** 
@@ -489,28 +415,7 @@ abstract class OoaofooaBase extends ModelRoot
             NonRootModelElement modelElement = (NonRootModelElement) delta.getModelElement();
             Ooaofooa modelRoot = (Ooaofooa) modelElement.getModelRoot();
             String name = "";
-            if (modelElement instanceof Domain_c) {
-                Domain_c domain = (Domain_c) modelElement;
-                name = domain.getName();
-            } else if(modelElement instanceof DataTypePackage_c) {
-                DataTypePackage_c pkg = (DataTypePackage_c) modelElement;
-                SystemDatatypePackage_c sdp = SystemDatatypePackage_c.getOneSLD_SDPOnR4400(pkg);
-                if(sdp != null) {
-                    name = pkg.getName();
-                }
-            } else if(modelElement instanceof ComponentPackage_c) {
-                ComponentPackage_c cd = (ComponentPackage_c) modelElement;
-                name = cd.getName();
-            } else if(modelElement instanceof InterfacePackage_c) {
-                InterfacePackage_c ip = (InterfacePackage_c) modelElement;
-                name = ip.getName();
-            } else if(modelElement instanceof Activity_c) {
-                Activity_c act = (Activity_c) modelElement;
-                name = act.getName();
-            } else if(modelElement instanceof Communication_c) {
-                Communication_c comm = (Communication_c) modelElement;
-                name = comm.getName();              
-            } else if(modelElement instanceof Package_c) {
+            if(modelElement instanceof Package_c) {
                 Package_c pkg = (Package_c) modelElement;
                 name = pkg.getName();
                 if(SystemModel_c.getOneS_SYSOnR1401(pkg) == null) {
@@ -519,12 +424,6 @@ abstract class OoaofooaBase extends ModelRoot
                 if(!attrDelta.getOldValue().equals("") && !attrDelta.getOldValue().equals(name)) {
                 	modelRoot.updateId(name);
                 }
-            } else if(modelElement instanceof Sequence_c) {
-                Sequence_c seq = (Sequence_c) modelElement;
-                name = seq.getName();
-            } else if(modelElement instanceof UseCaseDiagram_c) {
-                UseCaseDiagram_c ucd = (UseCaseDiagram_c) modelElement;
-                name = ucd.getName();
             }
             if(!name.equals("")) {
                 // if the change was actually different
@@ -565,15 +464,7 @@ abstract class OoaofooaBase extends ModelRoot
                     // if we were to leave it around, its contents
                     // would not be reloaded from disk the next time
                     // it is retrieved from this class
-                    if ((modelElement instanceof Domain_c)
-                            || (modelElement instanceof DataTypePackage_c)
-                            || (modelElement instanceof ComponentPackage_c)
-                            || (modelElement instanceof InterfacePackage_c)
-                            || (modelElement instanceof Activity_c)
-                            || (modelElement instanceof Communication_c)
-                            || (modelElement instanceof Package_c)
-                            || (modelElement instanceof Sequence_c)
-                            || (modelElement instanceof UseCaseDiagram_c)) {
+                    if (modelElement instanceof Package_c) {
                         final NonRootModelElement element = (NonRootModelElement) modelElement;
                         // get the component passing false for locating the component
                         // otherwise the removal in progress will indicate there is
@@ -616,28 +507,4 @@ abstract class OoaofooaBase extends ModelRoot
      * which it is required to also be.
      */
     protected Ooaofooa thisAsOoaofooa() {return (Ooaofooa)this;}
-
-    /**
-     * Temporary method for getting children domains of a given system
-     * model. Please note that we may encounter a situation where a 
-     * given domain is not yet saved and hence iteration using file 
-     * system struture is not posssible. 
-     */
-    public static Domain_c[] getDomains(final SystemModel_c systemModel){
-        Vector<Domain_c> domains = new Vector<Domain_c>();
-        for (Iterator<OoaofooaBase> iter = rootInstanceMap.values().iterator(); iter.hasNext();) {
-            Ooaofooa modelRoot = (Ooaofooa) iter.next();
-            if(modelRoot.getId().startsWith(systemModel.getName())){
-                Domain_c domain = Domain_c.DomainInstance(modelRoot, new ClassQueryInterface_c(){
-                    public boolean evaluate(Object candidate){
-                        return (((Domain_c)candidate).SystemModel == systemModel); 
-                    }
-                });
-                if(domain != null){
-                    domains.add(domain);
-                }
-            }
-        }
-        return (Domain_c[])domains.toArray(new Domain_c[0]);
-    }
 }

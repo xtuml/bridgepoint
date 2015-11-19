@@ -202,15 +202,8 @@ elif (param.name == "can" )
     if (empty cls)
       select one cls related by self->SM_SM[R502]->SM_ISM[R517]->O_OBJ[R518];
     end if;
-    select one packageableElem related by cls->PE_PE[R8001];
-    select one package related by packageableElem->EP_PKG[R8000];
-    select one cc related by packageableElem->C_C[R8003];
-    isInGenericPackage = not_empty package or not_empty cc;
     
-    if (((param.value == "ch spec pkg") or (param.value == "ignore spec pkg")) and (isInGenericPackage))
-      return false;
-    end if;
-    if (((param.value == "ch generic pkg") or (param.value == "ignore generic pkg")) and (not isInGenericPackage))
+    if (((param.value == "ch spec pkg") or (param.value == "ignore spec pkg")))
       return false;
     end if;
     

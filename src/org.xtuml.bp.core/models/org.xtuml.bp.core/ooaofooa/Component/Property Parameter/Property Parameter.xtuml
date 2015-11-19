@@ -14,25 +14,18 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select one system related by self->C_EP[R4006]->C_I[R4003]->IP_IP[R4303]->S_SYS[R4304];
-
-select one packageableElem related by self->C_EP[R4006]->C_I[R4003]->PE_PE[R8001];
+	'select one packageableElem related by self->C_EP[R4006]->C_I[R4003]->PE_PE[R8001];
 select one package related by packageableElem->EP_PKG[R8000];
 select one component related by packageableElem->C_C[R8003];
-isInGenericPackage = not_empty package or not_empty component;
 
 select one ep related by self->C_EP[R4006];
 ep.addPropertyParameterToOrder(id:self.PP_Id);
-if (isInGenericPackage)
-  if (empty package)
+    select one system related by package->S_SYS[R1405];  
+  if (empty system)
     rootCompIdInPkg = component.getRootComponentId();
     select any rootComponent from instances of C_C where (selected.Id == rootCompIdInPkg);
     select one system related by rootComponent->PE_PE[R8001]->EP_PKG[R8000]->S_SYS[R1405];
-  else
-    select one system related by package->S_SYS[R1405];  
   end if;
-end if;
 def_dt_id = GD::NULL_UNIQUE_ID();
 if not_empty system
   def_dt_id = system.getCoreTypeId(name:"integer");
@@ -135,20 +128,14 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-// Property Parameter.isAllowedType()
+	'// Property Parameter.isAllowedType()
 select one packageableElem related by self->
                                           C_EP[R4006]->C_I[R4003]->PE_PE[R8001];
 select one package related by packageableElem->EP_PKG[R8000];
 select one component related by packageableElem->C_C[R8003];
-isInGenericPackage = not_empty package or not_empty component;
-if isInGenericPackage
   return packageableElem.isAllowedType(isReturnType:false,
                                                        typeName:param.typeName);
-else
-  select one system related by self->C_EP[R4006]->C_I[R4003]->IP_IP[R4303]->S_SYS[R4304];
-  return Util::isAllowedParameterType( typeName: param.typeName, system:system.convertToInstance() );
-end if;',
+',
 	1,
 	'',
 	"8425089d-ab52-4652-8308-4b769c953337");
@@ -168,8 +155,7 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select one dtProxy related by self->S_DT[R4007];
+	'select one dtProxy related by self->S_DT[R4007];
 if(not_empty dtProxy and not Util::isProxy(element:self.convertToInstance()))
   name = dtProxy.Name;
   unrelate dtProxy from self across R4007;
@@ -177,8 +163,7 @@ if(not_empty dtProxy and not Util::isProxy(element:self.convertToInstance()))
                                                                  ->PE_PE[R8001];
   select one package related by packageableElem->EP_PKG[R8000];
   select one component related by packageableElem->C_C[R8003];
-  isInGenericPackage = not_empty package or not_empty component;
-  if isInGenericPackage
+
     id = packageableElem.resolveDataTypeRelativeToSelf(default_name:"integer",
                                                             expected_name:name);
     select any resolvedDt related by package->PE_VIS[R8002]->
@@ -190,29 +175,6 @@ if(not_empty dtProxy and not Util::isProxy(element:self.convertToInstance()))
     if not_empty resolvedDt
       relate resolvedDt to self across R4007;
     end if;
-  else
-    select one system related by self->C_EP[R4006]->C_I[R4003]->IP_IP[R4303]
-                                                                 ->S_SYS[R4304];       
-    r_dt_id = GD::NULL_UNIQUE_ID();
-    if not_empty system
-      r_dt_id = system.getCoreTypeId(name:name);
-    end if;
-    select any pe from instances of PE_PE where selected.Element_ID == r_dt_id;
-    select one resolvedDT related by pe->S_DT[R8001];
-    // if one was not resolved
-    if(empty resolvedDT)
-      // default back to integer type
-      r_dt_id = GD::NULL_UNIQUE_ID();
-      if not_empty system
-        r_dt_id = system.getCoreTypeId(name:"integer");
-      end if;
-      select any pe from instances of PE_PE where selected.Element_ID == r_dt_id;
-      select one resolvedDT related by pe->S_DT[R8001];
-    end if;
-    if(not_empty resolvedDT)
-      relate resolvedDT to self across R4007;
-    end if;
-  end if;
 end if;',
 	1,
 	'',
@@ -517,27 +479,12 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-// select the dt
+	'// select the dt
 select one dt related by self->S_DT[R4007];
 if(not_empty dt)
   select one packageableElem related by self->C_EP[R4006]->C_I[R4003]->PE_PE[R8001];
-  select one package related by packageableElem->EP_PKG[R8000];
-  select one component related by packageableElem->C_C[R8003];
-  isInGenericPackage = not_empty package or not_empty component;
 
-  if (isInGenericPackage)
-    return packageableElem.canReferToDataType(dtID:dt.DT_ID, dtName: dt.Name);
-  else
-    // as long as the data type package
-    // is not defined within a domain
-    // then the dt is allowed
-    select one dtPkg related by dt->S_DIP[R39]->S_DPK[R39];
-    if(dtPkg.isDomainLevel())
-      return false;
-    end if;
-    return true;
-  end if;
+  return packageableElem.canReferToDataType(dtID:dt.DT_ID, dtName: dt.Name);
 end if;
 return false;
 ',
@@ -568,14 +515,12 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-// Property Parameter.canUseDataType()
+	'// Property Parameter.canUseDataType()
 select one packageableElem related by self->
                                           C_EP[R4006]->C_I[R4003]->PE_PE[R8001];
 select one package related by packageableElem->EP_PKG[R8000];
 select one component related by packageableElem->C_C[R8003];
-isInGenericPackage = not_empty package or not_empty component;
-if isInGenericPackage
+
   // Find the previously created visibility list
   select any resultSet related by package->PE_SRS[R8005] where
         selected.Name == "" and selected.Type == ElementTypeConstants::DATATYPE;
@@ -594,25 +539,7 @@ if isInGenericPackage
     end if;
   end if;
   return false;
-else
-  select one interface related by self->C_EP[R4006]->C_I[R4003];
-  select one system related by interface->IP_IP[R4303]->S_SYS[R4304];
-  select any dt related by system->SLD_SDINP[R4402]->S_DT[R4401]
-                                             where (selected.DT_ID == param.id);
-  if empty dt and not_empty system and system.useGlobals
-    select any pe related by system->G_EIS[R9100]->PE_PE[R9100]
-                                          where selected.Element_ID == param.id;
-    select one dt related by pe->S_DT[R8001]; 
-  end if;
-  if(not_empty dt)
-    // if the dt is at the system level and
-    // is an allowed type it is usable 
-    if(self.isAllowedType(typeName:dt.Name))
-      return true;
-    end if;
-  end if;
-  return false;
-end if;',
+',
 	1,
 	'',
 	"b8914865-8b67-4fe8-8aed-3989f27c8a0d");

@@ -1,6 +1,5 @@
 package org.xtuml.bp.debug.engine;
 
-import org.xtuml.bp.core.Domain_c;
 import org.xtuml.bp.core.ComponentInstance_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.SystemModel_c;
@@ -38,8 +37,6 @@ public class AutomaticWiringTest extends VerifierTest {
 
 	public void testWiringVerifyingDomains()throws InterruptedException {
 	    redirectOutput("Wiring1");
-	    setIsVerifyingAttribute(true);
-	    setupWirings();
 		executeModel();
 		endRedirection();
 		compareOutput("Wiring1");
@@ -47,8 +44,6 @@ public class AutomaticWiringTest extends VerifierTest {
 	
 	public void testWiringNotVerifyingDomains()throws InterruptedException {
 	    redirectOutput("Wiring2");
-	    setIsVerifyingAttribute(false);
-	    setupWirings();
 		executeModel();
 		endRedirection();
 		compareOutput("Wiring2");
@@ -57,33 +52,6 @@ public class AutomaticWiringTest extends VerifierTest {
 	
 	public void tearDown() throws InterruptedException {
 		super.tearDown();
-	}
-	
-	private void setIsVerifyingAttribute(boolean verifying)
-	{
-		SystemModel_c[] sysmodels = SystemModel_c
-		.SystemModelInstances(Ooaofooa.getDefaultInstance());
-
-		Domain_c[] domains = Domain_c.getManyS_DOMsOnR28(sysmodels);
-		for (int i = 0; i < domains.length; i++)
-		{
-			ComponentInstance_c exEng = new ComponentInstance_c(domains[i].getModelRoot());
-			exEng.Initializearchitecture();
-		}
-	}
-	
-	private void setupWirings()
-	{
-		
-		SystemModel_c[] sysmodels = SystemModel_c
-		.SystemModelInstances(Ooaofooa.getDefaultInstance());
-
-		Domain_c[] domains = Domain_c.getManyS_DOMsOnR28(sysmodels);		
-		for (int i = 0; i < domains.length; i++)
-		{
-			domains[i].Removewirings();
-			domains[i].Setupwirings();
-		}	
 	}
 	
 }

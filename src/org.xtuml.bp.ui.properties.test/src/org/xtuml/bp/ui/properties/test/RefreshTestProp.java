@@ -18,6 +18,7 @@ import org.eclipse.swt.widgets.Tree;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
+
 import org.xtuml.bp.core.AsynchronousMessage_c;
 import org.xtuml.bp.core.ClassInstanceParticipant_c;
 import org.xtuml.bp.core.ClassParticipant_c;

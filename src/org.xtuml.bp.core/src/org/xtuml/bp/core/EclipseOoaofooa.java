@@ -390,19 +390,6 @@ public class EclipseOoaofooa extends OoaofooaBase {
 
         // make sure the domain and file name are in sync
         Ooaofooa modelRoot = getInstance(id, false);
-        if (modelRoot.loadedOk()) {
-            Domain_c dom = Domain_c.DomainInstance(modelRoot);
-            String fn = file.getName();
-            String domName = fn.substring(0, fn.length() - MODELS_EXT.length() - 1);
-            
-            ModelRoot.disableChangeNotification();
-            try {
-            dom.setName(domName);
-            }
-            finally {
-            ModelRoot.enableChangeNotification();
-        }
-        }
 
         // return the loaded instance 
         return modelRoot;

@@ -26,25 +26,16 @@ import java.util.ArrayList;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
 
-import org.xtuml.bp.core.ComponentPackage_c;
-import org.xtuml.bp.core.DataTypePackage_c;
 import org.xtuml.bp.core.DataType_c;
-import org.xtuml.bp.core.Domain_c;
 import org.xtuml.bp.core.EnumerationDataType_c;
-import org.xtuml.bp.core.InterfacePackage_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.StructuredDataType_c;
-import org.xtuml.bp.core.SystemDatatypeInPackage_c;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.UserDataType_c;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.sorter.AlphaSorter;
 import org.xtuml.bp.core.sorter.MetadataSortingManager;
-import org.xtuml.bp.ui.explorer.adapters.ComponentPackagesAdapter;
-import org.xtuml.bp.ui.explorer.adapters.DataTypePackagesAdapter;
-import org.xtuml.bp.ui.explorer.adapters.DomainsAdapter;
-import org.xtuml.bp.ui.explorer.adapters.InterfacePackagesAdapter;
 import org.xtuml.bp.ui.explorer.adapters.PackagesAdapter;
 import org.xtuml.bp.ui.explorer.adapters.RootAdapter;
 import org.xtuml.bp.ui.explorer.adapters.SystemAdapter;
@@ -67,20 +58,7 @@ public Object[] getChildren(Object parentElement) {
 			Object[] children = SystemAdapter.getInstance().getChildren(parentElement);
 			ArrayList<Object> list = new ArrayList<Object>();
 			for(int i = 0; i < children.length; i++) {
-					if(children[i] instanceof DataTypePackage_c) {
-						DataTypePackage_c dtPkg = (DataTypePackage_c) children[i];
-						if (dtPkg.getName().equals(
-								Ooaofooa.Getcoredatatypespackagename(Ooaofooa
-										.getDefaultInstance()))) {
-							if(datatypePackageContainsUDT(dtPkg)) {
-								list.add(children[i]);
-							}
-						} else  {
-							list.add(children[i]);
-						}
-					} else {
 						list.add(children[i]);
-					}
 				}
 			return list.toArray(new Object[list.size()]);
 		}
@@ -93,18 +71,6 @@ public Object[] getChildren(Object parentElement) {
 		}
 		if (element instanceof SystemModel_c) {
 			return SystemAdapter.getInstance().getParent(element);
-		}
-		if (element instanceof Domain_c) {
-			return DomainsAdapter.getInstance().getParent(element);
-		}
-		if (element instanceof DataTypePackage_c) {
-			return DataTypePackagesAdapter.getInstance().getParent(element);
-		}
-		if (element instanceof ComponentPackage_c) {
-			return ComponentPackagesAdapter.getInstance().getParent(element);
-		}
-		if (element instanceof InterfacePackage_c) {
-			return InterfacePackagesAdapter.getInstance().getParent(element);
 		}
 		if (element instanceof Package_c) {
 			return PackagesAdapter.getInstance().getParent(element);
@@ -138,38 +104,4 @@ public Object[] getChildren(Object parentElement) {
 		// No resources allocated, nothing to dispose.
 	}
 	
-	public static boolean datatypePackageContainsUDT(DataTypePackage_c dtPackage) {
-		DataType_c edts[] = DataType_c.getManyS_DTsOnR17(EnumerationDataType_c
-				.getManyS_EDTsOnR17(DataType_c
-						.getManyS_DTsOnR4401(SystemDatatypeInPackage_c
-								.getManySLD_SDINPsOnR4401(dtPackage))));
-		if(edts.length != 0) {
-			// return true if at least one enumeration data type
-			return true;
-		}
-		DataType_c sdts[] = DataType_c.getManyS_DTsOnR17(StructuredDataType_c
-				.getManyS_SDTsOnR17(DataType_c
-						.getManyS_DTsOnR4401(SystemDatatypeInPackage_c
-								.getManySLD_SDINPsOnR4401(dtPackage))));
-		if(sdts.length != 0) {
-			// return true if at least one structured data type
-			return true;
-		}
-		DataType_c udts[] = DataType_c.getManyS_DTsOnR17(UserDataType_c
-				.getManyS_UDTsOnR17(DataType_c
-						.getManyS_DTsOnR4401(SystemDatatypeInPackage_c
-								.getManySLD_SDINPsOnR4401(dtPackage)), new ClassQueryInterface_c() {
-								
-									public boolean evaluate(Object candidate) {
-										return ((UserDataType_c)candidate).getGen_type() == 0;
-									}
-								
-								}));
-		if(udts.length != 0) {
-			// return true if at least one user defined data type
-			// that is not built in
-			return true;
-		}
-		return false;
-	}
 }

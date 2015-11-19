@@ -64,16 +64,9 @@ attrName="";
 if (not_empty attribute	)
   select one attr related by attribute->O_BATTR[R107]->O_ATTR[R106];
   attrName = attr.Name; 
-   select one pe_pe related by attr-> O_OBJ[R102]->PE_PE[R8001];
-     if(not_empty pe_pe )
-     //Is In Generics
-      select one pkg related by pe_pe->EP_PKG[R8000];
-      attrPath= pkg.getPath(path:attrName);
-     else
-      //In specialized 
-      select one subSystem related by attr-> O_OBJ[R102]->S_SS[R2];
-      attrPath = subSystem.getPath(path:attrName);    
-     end if;
+  select one pe_pe related by attr-> O_OBJ[R102]->PE_PE[R8001];
+  select one pkg related by pe_pe->EP_PKG[R8000];
+  attrPath= pkg.getPath(path:attrName);
 end if;
 return attrPath;',
 	1,

@@ -38,8 +38,6 @@ import org.xtuml.bp.debug.engine.SignalParameterPassingTest;
 import org.xtuml.bp.debug.engine.TimerTest;
 import org.xtuml.bp.debug.engine.VerifierAuditTest;
 import org.xtuml.bp.debug.engine.VerifierCreationTransitionDebugTest;
-import org.xtuml.bp.debug.engine.VerifierMessageTest;
-import org.xtuml.bp.debug.engine.VerifierMessageTestGlobals;
 import org.xtuml.bp.debug.engine.VerifierTransitionActionTests;
 import org.xtuml.bp.debug.test.DateLoggingTests;
 import org.xtuml.bp.debug.test.RealizedClassTest;
@@ -95,7 +93,7 @@ public class VerifierTestSuite extends TestSuite {
 		addTest(new TestSuite(VIECTest.class));
 		addTest(new TestSuite(VIECParameterTest.class));
 		addTest(new TestSuite(SignalParameterPassingTest.class));
-		addTest(new TestSuite(VerifierInterfaceExecutionTests.class));
+        addTest(new TestSuite(VerifierInterfaceExecutionTests.class));
 		addTest(new TestSuite(VerifierTransitionActionTests.class));
 		addTest(new TestSuite(ExternalEntityTest.class));
 		addTest(new TestSuite(CreateAndGenerateEventTest.class));

@@ -310,15 +310,6 @@ public class ProjectUtilities {
         return importModelUsingWizard(systemModel, fqName, parseOnImport);
     }
 
-    public static boolean importModelUsingWizardConvertToGenerics(SystemModel_c systemModel,
-            String fullyQualifiedSingleFileModel, boolean convertToGenericsOnImport) {
-    	// 3/27/13 - The "Convert to generics" option in the import dialog is removed.  So
-    	// this function is now redundant.  Rather than delete it and have lots of
-    	// code change fallout, it lives on and simply directs to another version
-    	// to remove the redundancy.
-    	return importModelUsingWizard(systemModel, fullyQualifiedSingleFileModel, false);
-    }
-    
 
     // Export the model elements that are part of the Selection singleton
     public static boolean exportModelUsingWizard(String destination,

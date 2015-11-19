@@ -467,16 +467,7 @@ public class ${class_name} extends AbstractPersistenceHierarchyMetaData{
 .for each component_eo in filtered_component_eos
 	.invoke cn = get_class_name(component_eo)
 		if (rootElement instanceof ${cn.body}){
-	.if (component_eo.Name == "Domain")
-			Component_c parent = Component_c
-					                 ..getOneC_COnR4204((Domain_c) rootElement);
-			if (parent == null) {
-				return true;
-			}
-			return false;
-	.else
 			return true;
-	.end if	
 		}
 .end for
 		return false;	
@@ -545,7 +536,8 @@ public class ${class_name} extends AbstractPersistenceHierarchyMetaData{
     	.assign unique_parents = unique_parents | eo1
     	.end if
     .end for
-    
+
+// TODO: BOB FIXME - We have to deal with this now that SPs are gone.    
     .// TODO: FIXME: This is a special-case hack that allows specialized
     .//       functionality to operate as it did prior to generic packages.
     .//       As long as this special-case hack is in place, generic 
@@ -998,14 +990,6 @@ return null;
 						childList.add(children[i]);
 					}
 				}
-	        .end if
-	        .if(parent_class_name.body == "SystemModel_c")
-  			if(!componentOnly) {
-	  			children = DataTypePackage_c.getManyS_DPKsOnR4400(SystemDatatypePackage_c.getManySLD_SDPsOnR4400((SystemModel_c) element));
-		  		for(int i = 0; i < children.length; i++) {
-			  		childList.add(children[i]);
-				  }
-  			}
 	        .end if
 	        .if(parent_class_name.body == "Component_c")
   			children = PackageableElement_c.getManyPE_PEsOnR8003((Component_c) element);
