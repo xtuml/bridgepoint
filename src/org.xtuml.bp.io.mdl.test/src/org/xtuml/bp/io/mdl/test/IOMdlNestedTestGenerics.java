@@ -74,7 +74,43 @@ public class IOMdlNestedTestGenerics extends CanvasTest {
 			workspace_path = System.getProperty("WORKSPACE_PATH");
 		}
 		assertNotNull( workspace_path );
+		if ( m_wp == null )			
+		{
+			try
+			{
+			  IWorkspaceRunnable r = new IWorkspaceRunnable()
+			  {
+				public void run(IProgressMonitor monitor) throws CoreException
+				{
+					m_wp = PlatformUI.getWorkbench().showPerspective("org.xtuml.bp.core.perspective", PlatformUI.getWorkbench().getActiveWorkbenchWindow());
+					m_bp_view = (ExplorerView)m_wp.findView(BridgePointPerspective.ID_MGC_BP_EXPLORER);
+					m_bp_tree = m_bp_view.getTreeViewer();
+					m_wp.activate(m_bp_view);
+				}
+			  };
+			  IOMdlTestPlugin.getWorkspace().run(r, null);
+			}
+			catch (CoreException x)
+			{
+			  CanvasPlugin.logError("create perspective problem", x);
+			}
+		}
+		if (m_bp_view == null) {
+			PlatformUI.getWorkbench().showPerspective("org.xtuml.bp.core.perspective", PlatformUI.getWorkbench().getActiveWorkbenchWindow());
+			m_bp_view = (ExplorerView)m_wp.findView(BridgePointPerspective.ID_MGC_BP_EXPLORER);
+			m_bp_tree = m_bp_view.getTreeViewer();
+			m_wp.activate(m_bp_view);
+		}
  
+		if (!initialized)
+		{
+		IProject projectHandle = TestingUtilities.createProject("test");
+		String modelPath = workspace_path + Ooaofooa.MODELS_DIRNAME + "/nested_test." + Ooaofooa.MODELS_EXT;
+		initialized = TestingUtilities.importModelUsingWizard( getSystemModel(projectHandle.getName()), modelPath , true);
+	    modelRoot = Ooaofooa.getInstance(Ooaofooa.createModelRootId(projectHandle, "nested_test", true), true);
+		}
+		graphicsModelRoot = Ooaofgraphics.getInstance(modelRoot.getId());
+	 
 	}
 
 	protected void tearDown() throws Exception {
@@ -83,7 +119,6 @@ public class IOMdlNestedTestGenerics extends CanvasTest {
 	public void setGenerateResults() {
 		try {
 			generateResults = true;
- 	
 		} catch (Exception e) {
 			System.out.println(
 				"Exception encountered by test result creator: " + e);
@@ -93,7 +128,7 @@ public class IOMdlNestedTestGenerics extends CanvasTest {
 	
 	
 
-	public void doTestUpgradeModelWithPublishReference() throws Exception{
+	public void testUpgradeModelWithPublishReference() throws Exception{
 		// Load from git
 		this.loadProject("InstanceReferenceTestMatrixModel");
 			
