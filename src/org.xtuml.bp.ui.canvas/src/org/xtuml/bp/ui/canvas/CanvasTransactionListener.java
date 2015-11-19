@@ -28,10 +28,7 @@ import java.util.List;
 import org.eclipse.ui.PlatformUI;
 
 import org.xtuml.bp.core.CoreDataType_c;
-import org.xtuml.bp.core.DataTypePackage_c;
 import org.xtuml.bp.core.DataType_c;
-import org.xtuml.bp.core.DatatypeInSuppression_c;
-import org.xtuml.bp.core.Domain_c;
 import org.xtuml.bp.core.Modeleventnotification_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.SystemModel_c;
@@ -123,32 +120,6 @@ public class CanvasTransactionListener implements ITransactionListener {
 					if (rcmd.getRelationName().equals("47")) {
 						Object src = rcmd.getSourceModelElement();
 						Object dest = rcmd.getDestinationModelElement();
-						if (src instanceof DatatypeInSuppression_c
-								&& dest instanceof DataType_c) {
-							DatatypeInSuppression_c dtis = (DatatypeInSuppression_c) src;
-							CoreDataType_c cdt = CoreDataType_c
-									.getOneS_CDTOnR17((DataType_c) dest);
-							UserDataType_c udt = UserDataType_c
-									.getOneS_UDTOnR17((DataType_c) dest);
-							DataTypePackage_c dtp = DataTypePackage_c
-									.getOneS_DPKOnR40(Domain_c
-											.getOneS_DOMOnR47(dtis));
-							Ooaofgraphics graphicsRoot = Ooaofgraphics
-									.getInstance(dtp.getModelRoot().getId());
-							Model_c[] mdls = Model_c
-									.ModelInstances(graphicsRoot);
-							for (int k = 0; k < mdls.length; k++) {
-								if (mdls[k].getRepresents() == dtp) {
-									CanvasModelListener
-											.setGraphicalRepresents(mdls[k]);
-									if (cdt != null) {
-										mdls[k].Elementsuppressed(cdt);
-									} else {
-										mdls[k].Elementsuppressed(udt);
-									}
-								}
-							}
-						}
 					}
 				}
 
@@ -158,30 +129,6 @@ public class CanvasTransactionListener implements ITransactionListener {
 						Object dest = rcmd.getDestinationModelElement();
 						if (dest instanceof DataType_c) {
 							dt = (DataType_c) dest;
-						}
-						if (dest instanceof Domain_c && dt != null) {
-							CoreDataType_c cdt = CoreDataType_c
-									.getOneS_CDTOnR17(dt);
-							UserDataType_c udt = UserDataType_c
-									.getOneS_UDTOnR17(dt);
-							DataTypePackage_c dtp = DataTypePackage_c
-									.getOneS_DPKOnR40((Domain_c) dest);
-							Ooaofgraphics graphicsRoot = Ooaofgraphics
-									.getInstance(((Domain_c) dest)
-											.getModelRoot().getId());
-							Model_c[] mdls = Model_c
-									.ModelInstances(graphicsRoot);
-							for (int k = 0; k < mdls.length; k++) {
-								if (mdls[k].getRepresents() == dtp) {
-									CanvasModelListener
-											.setGraphicalRepresents(mdls[k]);
-									if (cdt != null) {
-										mdls[k].Elementrestored(cdt);
-									} else {
-										mdls[k].Elementrestored(udt);
-									}
-								}
-							}
 						}
 					}
 				}

@@ -1733,6 +1733,22 @@ public class VerifierInterfaceExecutionTests extends BaseTest {
 		
 		// verify the return
 		String result = DebugUITestUtilities.getValueForVariable("result");
+		if(result == "")
+		{
+			int x =  5000;
+			while (--x>0)
+			{
+			org.eclipse.ui.PlatformUI.getWorkbench().getDisplay().readAndDispatch();
+			}
+			DebugUITestUtilities.waitForBPThreads(m_sys);
+			  x =  5000;
+			while (--x>0)
+			{
+			org.eclipse.ui.PlatformUI.getWorkbench().getDisplay().readAndDispatch();
+			}
+			result = DebugUITestUtilities.getValueForVariable("result");
+
+		}
 		assertEquals(
 				"Default parameter value was not as expected for variable result.",
 				"false", result);

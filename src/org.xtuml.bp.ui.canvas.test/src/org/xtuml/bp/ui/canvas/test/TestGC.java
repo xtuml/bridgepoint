@@ -26,12 +26,9 @@ public class TestGC extends ScaledGraphics {
 	 */
 	public TestGC(SWTGraphics graphics) {
 		super(graphics);
-		// Linux has too many variants that produce varying coordinate values
+		// Eclipse has too many variants that produce varying coordinate values
 		// on diagrams, so we cannot rely on a golden master containing them.
-		String os = Platform.getOS();
-		if (os.contains("linux")) {
-			f_omitCoodinates = true;
-		}
+		f_omitCoodinates = true;
 	}
 
 	public void drawLine(int i, int j, int k, int l) {

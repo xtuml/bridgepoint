@@ -56,7 +56,6 @@ import org.eclipse.ui.WorkbenchException;
 import org.osgi.framework.Bundle;
 
 import org.xtuml.bp.core.CorePlugin;
-import org.xtuml.bp.core.Domain_c;
 import org.xtuml.bp.core.InteractionParticipant_c;
 import org.xtuml.bp.core.Message_c;
 import org.xtuml.bp.core.Ooaofooa;
@@ -328,48 +327,7 @@ public class PersistenceManager {
             }
         }
         return true;
-    }
-    
-    public PersistableModelComponent registerModel(Domain_c domain,
-            IProject project) throws CoreException {
-    	PersistableModelComponent component = getComponent(domain);
-    	if(component != null){
-            throw new IllegalArgumentException(
-                    "Given component already registered");
-    	}
-    	
-    	SystemModel_c systemModel = SystemModel_c.getOneS_SYSOnR28(domain);
-    	if(systemModel == null){
-            throw new IllegalArgumentException(
-                    "Given domain is not associated with any System model");
-    	}
-
-        PersistableModelComponent systemModelComponent = findComponent(project
-                .getFullPath());
-    	if(systemModelComponent != null){
-    		if(systemModelComponent.getRootModelElement() == null){
-                throw new WorkbenchException("System model not loaded : "
-                        + systemModelComponent.getFullPath());
-    		}
-    		
-    		
-    		if(systemModelComponent.getRootModelElement() != systemModel){
-                throw new WorkbenchException(
-                        "Given domain not related to the system model that is associated with given project");
-    		}
-    	}else{
-    		if(!systemModel.getName().equals(project.getName())){
-    			systemModel.setName(project.getName());
-    		}
-    		systemModelComponent = createRootComponent(project, systemModel);
-    	}
-    	
-        component = new PersistableModelComponent(domain, systemModelComponent
-                .getFile());
-    	component.refresh();
-    	
-    	return component;
-    }
+    }    
 
     public static PersistableModelComponent createComponent(
             NonRootModelElement instance) {

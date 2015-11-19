@@ -5,7 +5,7 @@
 export BPHOMEDIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )
 
 # The JVM tested with BridgePoint
-export BP_JVM=$BPHOMEDIR/jre1.8.0_51/lib/i386/client/libjvm.so
+export BP_JVM=$BPHOMEDIR/jre/lib/i386/client/libjvm.so
 
 # GDK_NATIVE_WINDOWS=1 simply makes sure that every GDK window gets its native 
 # X window, making problematic applications work better.

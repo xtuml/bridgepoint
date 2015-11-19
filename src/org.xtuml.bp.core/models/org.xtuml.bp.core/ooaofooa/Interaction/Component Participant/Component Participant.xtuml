@@ -227,36 +227,11 @@ INSERT INTO O_TFR
 	'// Component Participant.actionFilter()
 //
 if(param.name == "can")
-  select one packageableElem related by self->SQ_P[R930]->PE_PE[R8001];
-  select one package related by packageableElem->EP_PKG[R8000];
-  select one component related by packageableElem->C_C[R8003];
-  isInGenericPackage = not_empty package or not_empty component;
   if(param.value == "unform")
     // only allow unformalizing if formal
     return self.isFormal;
   end if;
-  if(param.value == "formComp spec pkg")
-    if ((param.value == "formComp spec pkg")  and (isInGenericPackage))
-      return false;
-    end if;
-    select one participant related by self->SQ_P[R930];
-    if not_empty participant
-      id = participant.getSystemId();
-      select any system from instances of S_SYS where selected.Sys_ID == id;
-      if not_empty system
-        select many components related by system->CP_CP[R4606]->C_C[R4608];
-        if(cardinality components == 1 and self.isFormal)
-          // do not allow as the only available component
-          // is already used to formalize this
-          return false;
-        end if;
-        return not_empty components;
-      end if;
-    end if;
-  elif(param.value == "formComp generic pkg")
-    if(not isInGenericPackage)
-      return false;
-    end if;
+  if(param.value == "formComp generic pkg")
     count = Util::getElementCountInSystem(
                                    elementType:ElementTypeConstants::COMPONENT,
                                         askingElement:self.convertToInstance());
@@ -308,17 +283,7 @@ INSERT INTO O_TFR
 	1,
 	'// Component Participant.formalize()
 select any mcomp from instances of C_C where (selected.Id == param.compId);
-if empty mcomp
-  select one participant related by self->SQ_P[R930];
-  if not_empty participant
-    id = participant.getSystemId();
-    select any system from instances of S_SYS where selected.Sys_ID == id;
-    if not_empty system
-      select any mcomp related by system->CP_CP[R4606]->C_C[R4608]
-                                            where (selected.Id == param.compId);
-    end if;
-  end if;
-end if;
+
 if(self.isFormal)
   self.unformalize();
 end if;
@@ -534,8 +499,7 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select one componentProxy related by self->C_C[R955];
+	'select one componentProxy related by self->C_C[R955];
 // if the component is not actually a proxy this imported
 // component has already been handled
 if(not_empty componentProxy) and
@@ -547,16 +511,11 @@ if(not_empty componentProxy) and
   select any system from instances of S_SYS where (selected.Sys_ID == sysId);
   select any resolvedComp from instances of C_C
                           where (selected.Id == GD::NULL_UNIQUE_ID());
-  select many resolvedComps related by system->CP_CP[R4606]->C_C[R4604]
-                            where (selected.Name == name);
                             
   select one packageableElem related by part->PE_PE[R8001];
   select one package related by packageableElem->EP_PKG[R8000];
-  select one component related by packageableElem->C_C[R8003];
-  isInGenericPackage = not_empty package or not_empty component;
+  select one component related by packageableElem->C_C[R8003];  
   
-  
-  if (isInGenericPackage)
 	select one packageableElement related by self->SQ_P[R930]->PE_PE[R8001];
 	packageableElement.resolveComponentRelativeToSelf(expected_name:name);
 	select many resolvedComps related by package->PE_VIS[R8002]->
@@ -565,10 +524,7 @@ if(not_empty componentProxy) and
       select many resolvedComps related by component->PE_CVS[R8004]->
                        			                      PE_PE[R8004]->C_C[R8001];
     end if;	
-  else
-    select many resolvedComps related by system->CP_CP[R4606]->C_C[R4604]
-                               	                where (selected.Name == name);
-  end if;
+
   
   for each comp in resolvedComps
     // for now the first matched comp is the one we are using

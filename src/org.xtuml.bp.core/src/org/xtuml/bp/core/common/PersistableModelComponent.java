@@ -50,15 +50,11 @@ import org.xtuml.bp.core.Body_c;
 import org.xtuml.bp.core.BridgeBody_c;
 import org.xtuml.bp.core.Bridge_c;
 import org.xtuml.bp.core.ClassStateMachine_c;
-import org.xtuml.bp.core.ComponentPackage_c;
 import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.CorePlugin;
-import org.xtuml.bp.core.DataTypePackage_c;
 import org.xtuml.bp.core.DataType_c;
 import org.xtuml.bp.core.DerivedAttributeBody_c;
 import org.xtuml.bp.core.DerivedBaseAttribute_c;
-import org.xtuml.bp.core.DomainAsComponent_c;
-import org.xtuml.bp.core.Domain_c;
 import org.xtuml.bp.core.FunctionBody_c;
 import org.xtuml.bp.core.Function_c;
 import org.xtuml.bp.core.GlobalElementInSystem_c;
@@ -71,8 +67,6 @@ import org.xtuml.bp.core.Operation_c;
 import org.xtuml.bp.core.PackageableElement_c;
 import org.xtuml.bp.core.StateActionBody_c;
 import org.xtuml.bp.core.StateMachineState_c;
-import org.xtuml.bp.core.SystemDatatypeInPackage_c;
-import org.xtuml.bp.core.SystemDatatypePackage_c;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.XtUMLNature;
 import org.xtuml.bp.core.ui.AbstractModelExportFactory;
@@ -773,7 +767,7 @@ public class PersistableModelComponent implements Comparable {
                         "Component's Root Model Element does not exist:"
                         + getFullPath());
             }
-            if( ! (rootME instanceof SystemModel_c || rootME instanceof Domain_c || rootME instanceof DataTypePackage_c)){
+            if( ! (rootME instanceof SystemModel_c )) {
                 NonRootModelElement myParentRootME = PersistenceManager.getHierarchyMetaData().getParentComponentRootModelElement(rootME,false);
                 if (myParentRootME != null){// in case of component is being created and not yet relate with others.
                     PersistableModelComponent myParentPMC = myParentRootME.getPersistableComponent();
@@ -995,13 +989,6 @@ public class PersistableModelComponent implements Comparable {
 					gis[i].unrelateAcrossR9100From((SystemModel_c) componentRootME);
 					gis[i].delete();
 				}
-				SystemDatatypePackage_c[] pkgs = SystemDatatypePackage_c.getManySLD_SDPsOnR4400((SystemModel_c) componentRootME);
-				for(int i = 0; i < pkgs.length; i++) {
-					DataTypePackage_c pkg = DataTypePackage_c.getOneS_DPKOnR4400(pkgs[i]);
-					pkg.unrelateAcrossR4400From(pkgs[i]);
-					pkgs[i]
-							.unrelateAcrossR4400From((SystemModel_c) componentRootME);
-				}
         }
         deleteME(componentRootME);
         componentRootME = null;
@@ -1090,74 +1077,15 @@ public class PersistableModelComponent implements Comparable {
     }
 
     public static void ensureCoreDataTypesAvailable(ModelRoot modelRoot) {
-        if (!modelRoot.isFullModelLoaded()) {
-            // we'll go into an infinite loop in the isFullModelLoaded() case
-            // during single file loads (conversion and import)
-            Domain_c dom = Domain_c.DomainInstance(modelRoot);
-            if (dom != null) {
-              // if the domain is the formal content of
-              // a component, ensure that the system
-              // level core types are loaded
-              Component_c formalComponent = Component_c
-            .getOneC_COnR4204(DomainAsComponent_c
-                .getOneCN_DCOnR4204(dom));
-              if(formalComponent != null) {
-                SystemModel_c system = SystemModel_c
-              .getOneS_SYSOnR4606(ComponentPackage_c
-                  .getOneCP_CPOnR4608(formalComponent));
-                ensureSystemCoreDataTypesAvailable(system);
-              } else {
-                  PersistableModelComponent component = dom
-                          .getPersistableComponent();
-                  if (component != null) {
-                      IPath newChildPath = getChildPath(component.getFullPath(), 
-                              Ooaofooa.Getcoredatatypespackagename(modelRoot));
-                      PersistableModelComponent dt_comp = findOrCreateInstance(newChildPath);
-                      if (dt_comp != null && !dt_comp.isLoaded()) {
-                          try {
-                              IProgressMonitor monitor = new NullProgressMonitor();
-                              dt_comp.load(monitor);
-                          } catch (CoreException e) {
-                              CorePlugin.logError(
-                                      "Unable to load core data types", e);
-                          }
-                      }
-                  }
-              }
-            }
-        }
+    	//TODO: BOB REmove this obsolete function
     }    
 
     public static void ensureSystemCoreDataTypesAvailable(final SystemModel_c system) {
-      DataTypePackage_c dtPkg = DataTypePackage_c.getOneS_DPKOnR4401(SystemDatatypeInPackage_c.getManySLD_SDINPsOnR4402(system), new ClassQueryInterface_c() {
-      public boolean evaluate(Object candidate) {
-        return ((DataTypePackage_c)candidate).getName().equals(Ooaofooa.Getcoredatatypespackagename(system.getModelRoot()));
-      }
-    });
-      if(dtPkg != null) {
-        PersistableModelComponent component = dtPkg.getPersistableComponent();
-        if(component != null && !component.isLoaded()) {
-          try {
-            IProgressMonitor monitor = new NullProgressMonitor();
-            component.load(monitor);
-          } catch (CoreException e) {
-            CorePlugin.logError(
-                "Unable to load core data types", e);
-          }
-        }
-      }
-    }
-    
-    public static void ensureComponentPackageCoreDataTypesAvailable(ComponentPackage_c compPackage) {
-      SystemModel_c system = SystemModel_c.getOneS_SYSOnR4606(compPackage);
-      ensureSystemCoreDataTypesAvailable(system);
+    	//TODO: BOB REmove this obsolete function
     }
     
     public static void ensureComponentCoreDataTypesAvailable(Component_c component) {
-      SystemModel_c system = SystemModel_c
-        .getOneS_SYSOnR4606(ComponentPackage_c
-            .getOneCP_CPOnR4608(component));
-      ensureSystemCoreDataTypesAvailable(system);
+    	//TODO: BOB REmove this obsolete function
     }
     
     public static void ensureDataTypesAvailable(ModelRoot modelRoot) {

@@ -74,7 +74,7 @@ public class ImportPasteElementsWithIPRTest extends BaseTest {
 
 		TestUtil.yesToDialog(5000);
 		
-		TestingUtilities.importModelUsingWizardConvertToGenerics(m_sys, m_workspace_path + "models/"
+		TestingUtilities.importModelUsingWizard(m_sys, m_workspace_path + "models/"
 				+ projectName+".xtuml", false);
 
 		CorePlugin.enableParseAllOnResourceChange();

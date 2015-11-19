@@ -28,15 +28,12 @@ import org.xtuml.bp.core.ClassMonitor_c;
 import org.xtuml.bp.core.ClassStateMachine_c;
 import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.CorePlugin;
-import org.xtuml.bp.core.DomainAsComponent_c;
-import org.xtuml.bp.core.Domain_c;
 import org.xtuml.bp.core.ComponentInstance_c;
 import org.xtuml.bp.core.Instance_c;
 import org.xtuml.bp.core.ModelClass_c;
 import org.xtuml.bp.core.Modeleventnotification_c;
 import org.xtuml.bp.core.Monitor_c;
 import org.xtuml.bp.core.Ooaofooa;
-import org.xtuml.bp.core.Subsystem_c;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.ModelChangedEvent;
 import org.xtuml.bp.core.common.ModelRoot;
@@ -90,7 +87,6 @@ public class MonitorAction implements IObjectActionDelegate {
 						ModelClass_c clazz = (ModelClass_c) obj;
 						modelRoot = clazz.getModelRoot();
 						ClassMonitor_c mon = new ClassMonitor_c(modelRoot);
-						Domain_c domain = Domain_c.getOneS_DOMOnR1(Subsystem_c.getOneS_SSOnR2(clazz));
 						if (engine != null) {
 						  final ComponentInstance_c exe = engine;
 						  ClassInEngine_c cie = ClassInEngine_c.getOneCSME_CIEOnR2961(clazz, new ClassQueryInterface_c() {
@@ -143,15 +139,9 @@ public class MonitorAction implements IObjectActionDelegate {
 			}
 			if (obj instanceof ModelClass_c) {
 				ModelClass_c clazz = (ModelClass_c) obj;
-				ComponentInstance_c exe = ComponentInstance_c
-						.getOneI_EXEOnR2948(Domain_c
-								.getOneS_DOMOnR1(Subsystem_c
-										.getOneS_SSOnR2(clazz)));
-				if (exe == null) {
-					// see if this class is under a component
-					// that is being verified
-					exe = getExecutionEngine();
-				}
+				// see if this class is under a component
+				// that is being verified
+				ComponentInstance_c exe = getExecutionEngine();
 				enabled = false;
 				if (exe != null) {
 				  final ComponentInstance_c finalEng = exe;

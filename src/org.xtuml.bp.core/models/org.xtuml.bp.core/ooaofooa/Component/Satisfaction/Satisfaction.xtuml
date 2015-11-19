@@ -27,12 +27,9 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-// Satisfaction.dispose()
-select one pe related by self->PE_PE[R8001];
-isInGenericPackage = not_empty pe;
-if isInGenericPackage
-  // PackageableElement.dispose() will call back down into here, so just return
+	' select one pe related by self->PE_PE[R8001];
+
+if not_empty pe
   pe.dispose();
   return;
 else
@@ -50,14 +47,6 @@ else
   select one importedReq related by self->CL_IR[R4706];
   if(not_empty importedReq)
     unrelate self from importedReq across R4706;
-  end if;
-  select one sicp related by self->PA_SICP[R9001];
-  select one comppkg related by sicp->CP_CP[R9001];
-  if (not_empty sicp)
-    unrelate self from comppkg across R9001 using sicp;
-    // no need to dispose comppkg, it will get
-    // disposed later
-    delete object instance sicp;
   end if;
 
   select one sic related by self->PA_SIC[R9000];

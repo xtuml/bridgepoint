@@ -106,7 +106,7 @@ public class IOMdlNestedTestGenerics extends CanvasTest {
 		{
 		IProject projectHandle = TestingUtilities.createProject("test");
 		String modelPath = workspace_path + Ooaofooa.MODELS_DIRNAME + "/nested_test." + Ooaofooa.MODELS_EXT;
-		initialized = TestingUtilities.importModelUsingWizardConvertToGenerics( getSystemModel(projectHandle.getName()), modelPath , true);
+		initialized = TestingUtilities.importModelUsingWizard( getSystemModel(projectHandle.getName()), modelPath , true);
 	    modelRoot = Ooaofooa.getInstance(Ooaofooa.createModelRootId(projectHandle, "nested_test", true), true);
 		}
 		graphicsModelRoot = Ooaofgraphics.getInstance(modelRoot.getId());
@@ -119,10 +119,6 @@ public class IOMdlNestedTestGenerics extends CanvasTest {
 	public void setGenerateResults() {
 		try {
 			generateResults = true;
-			this.testCreateNestedDTP();
-			this.testCreateNestedFP();
-			this.testCreateNestedEEP();
-			this.testCreateNestedSS();			
 		} catch (Exception e) {
 			System.out.println(
 				"Exception encountered by test result creator: " + e);
@@ -130,81 +126,8 @@ public class IOMdlNestedTestGenerics extends CanvasTest {
 
 	}
 	
-	public void testCreateNestedDTP()
-	{	
-		test_id = "test_1";
-		IOMdlUtilities mtu = new IOMdlUtilities();
-		Package_c uut = Package_c.PackageInstance(modelRoot, (mtu.new Package_by_name_c("Test DPK")));
-		CanvasTestUtils.openCanvasEditor(uut);
-		GraphicalEditor ce = CanvasTestUtils.getCanvasEditor("Test DPK");
-		AbstractTool tool = UITestingUtilities.getTool("Package");		
-		UITestingUtilities.activateTool(tool);
-		
-		CanvasTestUtils.createMouseEvent(500, 500, "MouseDown");
-		CanvasTestUtils.createMouseEvent(700, 700, "MouseMove");
-		CanvasTestUtils.createMouseEvent(700, 700, "MouseUp");
-		
-        validateOrGenerateResultsGenerics(ce, generateResults);
-		UITestingUtilities.deactivateTool(tool);
-		
-	}
-	public void testCreateNestedFP()
-	{	
-		test_id = "test_2";
-		IOMdlUtilities mtu = new IOMdlUtilities();
-		Package_c uut = Package_c.PackageInstance(modelRoot, (mtu.new Package_by_name_c("Test Nested FPK")));
-		
-		CanvasTestUtils.openCanvasEditor(uut);
-		GraphicalEditor ce = CanvasTestUtils.getCanvasEditor("Test Nested FPK");
-		AbstractTool tool = UITestingUtilities.getTool("Package");		
-		UITestingUtilities.activateTool(tool);
-		
-		CanvasTestUtils.createMouseEvent(500, 500, "MouseDown");
-		CanvasTestUtils.createMouseEvent(700, 700, "MouseMove");
-		CanvasTestUtils.createMouseEvent(700, 700, "MouseUp");
-		
-        validateOrGenerateResultsGenerics(ce, generateResults);
-		UITestingUtilities.deactivateTool(tool);
-		
-	}
-	public void testCreateNestedEEP()
-	{	
-		test_id = "test_3";
-		IOMdlUtilities mtu = new IOMdlUtilities();
-		Package_c uut = Package_c.PackageInstance(modelRoot, (mtu.new Package_by_name_c("Test Nested EEPK")));
-		
-		CanvasTestUtils.openCanvasEditor(uut);
-		GraphicalEditor ce = CanvasTestUtils.getCanvasEditor("Test Nested EEPK");
-		AbstractTool tool = UITestingUtilities.getTool("Package");		
-		UITestingUtilities.activateTool(tool);
-		
-		CanvasTestUtils.createMouseEvent(500, 500, "MouseDown");
-		CanvasTestUtils.createMouseEvent(700, 700, "MouseMove");
-		CanvasTestUtils.createMouseEvent(700, 700, "MouseUp");
-		
-        validateOrGenerateResultsGenerics(ce, generateResults);
-		UITestingUtilities.deactivateTool(tool);
-		
-	}
-	public void testCreateNestedSS()
-	{	
-		test_id = "test_4";
-		IOMdlUtilities mtu = new IOMdlUtilities();
-		Package_c uut = Package_c.PackageInstance(modelRoot, (mtu.new Package_by_name_c("Test Nested SS")));
-		
-		CanvasTestUtils.openCanvasEditor(uut);
-		GraphicalEditor ce = CanvasTestUtils.getCanvasEditor("Test Nested SS");
-		AbstractTool tool = UITestingUtilities.getTool("Package");		
-		UITestingUtilities.activateTool(tool);
-		
-		CanvasTestUtils.createMouseEvent(500, 500, "MouseDown");
-		CanvasTestUtils.createMouseEvent(700, 700, "MouseMove");
-		CanvasTestUtils.createMouseEvent(700, 700, "MouseUp");
-		
-        validateOrGenerateResultsGenerics(ce, generateResults);
-		UITestingUtilities.deactivateTool(tool);
-		
-	}
+
+	
 
 	public void testUpgradeModelWithPublishReference() throws Exception{
 		// Load from git

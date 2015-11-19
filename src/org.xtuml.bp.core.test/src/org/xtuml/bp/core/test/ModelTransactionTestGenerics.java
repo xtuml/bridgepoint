@@ -180,6 +180,9 @@ public class ModelTransactionTestGenerics extends BaseTest {
 		assertNull(
 				"Transaction was not cancelled after an early exit due to an exception.",
 				getSystemModel().getTransactionManager().getActiveTransaction());
+		
+		// clear the log view as we expect a NPE 
+		BaseTest.clearErrorLogView();
 	}
 
 	// Testing action/transaction that will result in both ooaofooa and ooaofgraphics changes

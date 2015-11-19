@@ -35,10 +35,8 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IActionDelegate;
 
-import org.xtuml.bp.core.ComponentPackage_c;
 import org.xtuml.bp.core.ComponentReference_c;
 import org.xtuml.bp.core.Component_c;
-import org.xtuml.bp.core.Domain_c;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.common.NonRootModelElement;
@@ -67,7 +65,7 @@ public class LaunchVerifierAction extends LaunchShortcut implements IActionDeleg
             	launchProject(prj);
             }
             else {
-	            if (context instanceof Domain_c || context instanceof ComponentReference_c) {
+	            if (context instanceof ComponentReference_c) {
 	                launchMultipleModel(new NonRootModelElement[] {(NonRootModelElement) context});
 	            }
 
@@ -82,10 +80,6 @@ public class LaunchVerifierAction extends LaunchShortcut implements IActionDeleg
 	            	launchMultipleModel(list.toArray(new NonRootModelElement[list.size()]));
 	            }
 	            
-	            if(context instanceof ComponentPackage_c) {
-	            	NonRootModelElement[] componentPackageChildren = BPDebugUtils.getComponentPackageChildren((ComponentPackage_c) context);
-	            	launchMultipleModel(componentPackageChildren);
-	            }
 	            if (context instanceof Package_c) {
 	            	NonRootModelElement[] packageChildren = BPDebugUtils.getPackageChildren((Package_c) context);
 	            	launchMultipleModel(packageChildren);
@@ -98,12 +92,7 @@ public class LaunchVerifierAction extends LaunchShortcut implements IActionDeleg
             while (ite.hasNext()) {
                 Object o = ite.next();
 
-                if (o instanceof Domain_c) {
-                    if (model == null) {
-                        model = new Vector<NonRootModelElement>();
-                    }
-                    model.add((NonRootModelElement) o);
-                } else if (o instanceof Component_c) {
+                if (o instanceof Component_c) {
                 	if(model == null) {
                 		model = new Vector<NonRootModelElement>();
                 	}
@@ -122,15 +111,6 @@ public class LaunchVerifierAction extends LaunchShortcut implements IActionDeleg
                 	for(int i = 0; i < children.length; i++) {
                 		model.add(children[i]);
                 	}                	
-                } else if (o instanceof ComponentPackage_c) {
-                	if(model == null) {
-                		model = new Vector<NonRootModelElement>();
-                	}
-	            	ComponentPackage_c compPackage = (ComponentPackage_c) o;
-	            	NonRootModelElement[] children = BPDebugUtils.getComponentPackageChildren(compPackage);
-	            	for(int i = 0; i < children.length; i++) {
-	            		model.add(children[i]);
-	            	}
                 } else if (o instanceof Package_c) {
                 	if(model == null) {
                 		model = new Vector<NonRootModelElement>();

@@ -38,8 +38,7 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-// Invocation:Bridge Invocation.execute()
+	'// Invocation:Bridge Invocation.execute()
 select one body related by self ->ACT_SMT[R603]->ACT_BLK[R602]->ACT_ACT[R601];   
 
 select one brg related by self->S_BRG[R674];
@@ -147,21 +146,13 @@ else
   // Set up the bridge arguments 
   
   VM::resetValues();
-  select one sys related by ee->S_DOM[R8]->S_SYS[R28];
-  if(empty sys)
-    // if a system was not found the domain must be
-    // under a component
-    select one sys related by ee->S_DOM[R8]->CN_DC[R4204]->C_C[R4204]
-                                                   ->CP_CP[R4608]->S_SYS[R4606];
-  end if;
-  if(empty sys)
+
     // if a system was not found via the component,
     //  must be in a generic package 
     select one sys related by ee->PE_PE[R8001]->EP_PKG[R8000]->S_SYS[R1405];
     if (empty sys)
       select one sys related by ee->PE_PE[R8001]->C_C[R8003]->PE_PE[R8001]->EP_PKG[R8000]->S_SYS[R1405];
     end if;
-  end if;
   // Find the first parameter in the ordered relationship.  Use the ordered
   // relationship so the user can can the parameter order in the model to macth
   // the order in the realized code.

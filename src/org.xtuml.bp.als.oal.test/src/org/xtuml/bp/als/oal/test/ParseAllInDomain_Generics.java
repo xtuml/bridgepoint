@@ -1,12 +1,5 @@
 //========================================================================
 //
-//File:      $RCSfile: ParseAllInDomain_Generics.java,v $
-//Version:   $Revision: 1.8 $
-//Modified:  $Date: 2013/05/10 04:52:48 $
-//
-//(c) Copyright 2005-2014 by Mentor Graphics Corp. All rights reserved.
-//
-//========================================================================
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not 
 // use this file except in compliance with the License.  You may obtain a copy 
 // of the License at
@@ -63,7 +56,6 @@ import org.xtuml.bp.core.StateMachine_c;
 import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.NonRootModelElement;
-import org.xtuml.bp.core.util.DomainUtil;
 import org.xtuml.bp.test.common.BaseTest;
 import org.xtuml.bp.test.common.TestingUtilities;
 
@@ -427,7 +419,7 @@ public class ParseAllInDomain_Generics extends BaseTest {
 		if(foundPackage) {
 			parser.m_oal_context = new Oal_validate(nrme);
 		} else {
-			parser.m_oal_context = new Oal_validate(DomainUtil.getDomainFromUknownME(nrme));
+			fail("Unable to determine model context to parse");
 		}
 		try
 		{

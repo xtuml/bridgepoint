@@ -248,15 +248,6 @@ public class CorePlugin extends AbstractUIPlugin {
 	static private AbstractStreamExportFactory streamExportFactory = null;
 	static private AbstractStreamImportFactory streamImportFactory = null;
 
-	public static AbstractModelImportFactory getSqlImportFactory(){
-		if (sqlImportFactory == null) {
-			sqlImportFactory = AbstractModelImportFactory.getInstance(
-				"org.xtuml.bp.io.sql", //$$NON-NLS-1$$
-				"ImportModelFactory"); //$$NON-NLS-1$$
-      }
-		return sqlImportFactory;
-    }
-
 	public static AbstractModelImportFactory getModelImportFactory(){
 		if (modelImportFactory == null) {
 			modelImportFactory = AbstractModelImportFactory.getInstance(
@@ -283,11 +274,6 @@ public class CorePlugin extends AbstractUIPlugin {
 		}
 		return streamImportFactory;
 	}
-
-	public String doLoadSql(SystemModel_c system, String rootId, File model,
-		IProgressMonitor monitor, boolean parseAll, boolean isTemplate) {
-		return executeImportFactory(getSqlImportFactory(), system, rootId, model, monitor, parseAll, isTemplate);
-		}
 
 	public String doLoad(SystemModel_c system, String rootId, InputStream model,
 		IProgressMonitor monitor, boolean parseAll, boolean isTemplate) {
@@ -951,21 +937,21 @@ public class CorePlugin extends AbstractUIPlugin {
     }
 
     /**
-     * Parses all activities in domain using monitor
+     * Parses all activities in the given element
      * The method uses reflection to prevent an explicit circular dependency
      * on the org.xtuml.bp.ui.text package.
      */
-    public static void parseAll(Domain_c domain, IProgressMonitor monitor) {
+    public static void parseAll(NonRootModelElement nrme, IProgressMonitor monitor) {
         try {
             Bundle ui_text = Platform.getBundle("org.xtuml.bp.ui.text");//$$NON-NLS-1$$
             Class factoryClass = ui_text.loadClass("org.xtuml.bp.ui.text.activity.AllActivityModifier"); //$$NON-NLS-1$$
 
             // find the constructor that takes domain and monitor as parameters
-            Class [] arg_types = new Class[] { Domain_c.class, IProgressMonitor.class };
+            Class [] arg_types = new Class[] { NonRootModelElement.class, IProgressMonitor.class };
             Constructor ctor = factoryClass.getDeclaredConstructor(arg_types);
 
             // invoke the constructor to create an instance
-            Object [] args = new Object[] { domain, monitor };
+            Object [] args = new Object[] { nrme, monitor };
             IAllActivityModifier aam = (IAllActivityModifier)ctor.newInstance(args);
 
             aam.processAllActivities(IAllActivityModifier.PARSE);
@@ -983,7 +969,7 @@ public class CorePlugin extends AbstractUIPlugin {
             CorePlugin.logError("Problem running activity parser ", e);
         }
     }
-
+    
     	/**
 		 * Parses all given activities using monitor
 		 * The method uses reflection to prevent an explicit circular dependency

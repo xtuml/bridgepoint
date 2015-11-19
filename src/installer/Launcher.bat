@@ -8,7 +8,7 @@ cd "%~dp0/.."
 set BPHOMEDIR=%CD%
 
 :: The JVM tested with BridgePoint
-set BP_JVM=%BPHOMEDIR%/jre1.8.0_51/bin/javaw.exe
+set BP_JVM=%BPHOMEDIR%/jre/bin/javaw.exe
 
 :: Check for fonts that trip up generator
 cd %BPHOMEDIR%/tools/fontchecker
