@@ -48,14 +48,8 @@ public class NewShapeAfterRestart extends CanvasTest {
 
 	public NewShapeAfterRestart(String name) {
 		super("org.xtuml.bp.core.test", name);
-		if (Platform.getOS().contains("win")) {
-			expected_string = new String[]{"drawRectangle(16416, 12384, 384, 432)",
-					"drawText(" + String.valueOf('"') + "Unnamed ..." + String.valueOf('"') + ", 16432, 12397, true)",
-					"drawline(16416, 12492, 16800, 12492)"};
-		} else {
-			expected_string = new String[]{"drawRectangle(...)",
-					"drawText(" + String.valueOf('"') + "Unname..." + String.valueOf('"') + ", ...)", "drawline(...)"};
-		}
+		expected_string = new String[] { "drawRectangle(...)",
+				"drawText(" + String.valueOf('"') + "Unnamed ..." + String.valueOf('"') + ", ...)", "drawline(...)" };
 	}
 
 	protected String getResultName() {

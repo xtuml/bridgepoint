@@ -58,7 +58,16 @@ public class ParseErrorForEmptySynchronousMessagesTests extends BaseTest {
 		loadProject(projectName);
 	}
 
-	public void testParseErrorPreferencesPackage() throws BackingStoreException, CoreException {
+	/**
+	 * These tests must be ordered, do not change the order
+	 * 
+	 */
+	public void testParseErrorForEmptySynchronousMessagesTest()  throws Exception {
+		doTestParseErrorPreferencesPackage();
+		doTestParseErrorPreferencesComponent();
+	}
+	
+	public void doTestParseErrorPreferencesPackage() throws BackingStoreException, CoreException {
 		Package_c testPkg = Package_c.getOneEP_PKGOnR1401(m_sys,
 				new ClassQueryInterface_c() {
 
@@ -95,7 +104,7 @@ public class ParseErrorForEmptySynchronousMessagesTests extends BaseTest {
 				errors.length);
 	}
 
-	public void testParseErrorPreferencesComponent() throws BackingStoreException, CoreException {
+	public void doTestParseErrorPreferencesComponent() throws BackingStoreException, CoreException {
 		project = getProjectHandle(projectName);
 		Package_c testPkg = Package_c.getOneEP_PKGOnR1401(m_sys,
 				new ClassQueryInterface_c() {
@@ -144,6 +153,7 @@ public class ParseErrorForEmptySynchronousMessagesTests extends BaseTest {
 	
 	private void setProjectPreference(String key, boolean value)
 			throws BackingStoreException {
+		BaseTest.dispatchEvents(0);
 		IScopeContext projectScope = new ProjectScope(project);
 		Preferences projectNode = projectScope
 				.getNode(BridgePointProjectPreferences.BP_PROJECT_PREFERENCES_ID);
@@ -151,6 +161,7 @@ public class ParseErrorForEmptySynchronousMessagesTests extends BaseTest {
 	}
 
 	private IMarker[] parseModel(NonRootModelElement testElement) throws CoreException {
+		BaseTest.dispatchEvents(0);
         try {
             Bundle ui_text = Platform.getBundle("org.xtuml.bp.ui.text");//$NON-NLS-1$
             Class<?> factoryClass = ui_text.loadClass("org.xtuml.bp.ui.text.activity.AllActivityModifier"); //$NON-NLS-1$

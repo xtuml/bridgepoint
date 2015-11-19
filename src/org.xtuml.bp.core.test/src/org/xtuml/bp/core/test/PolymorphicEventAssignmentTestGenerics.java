@@ -29,7 +29,6 @@ import org.eclipse.jface.wizard.IWizard;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.ui.PlatformUI;
-
 import org.xtuml.bp.core.Association_c;
 import org.xtuml.bp.core.CreationTransition_c;
 import org.xtuml.bp.core.InstanceStateMachine_c;
@@ -70,7 +69,6 @@ import org.xtuml.bp.ui.canvas.Graphedge_c;
 import org.xtuml.bp.ui.canvas.Graphelement_c;
 import org.xtuml.bp.ui.canvas.GraphicalElement_c;
 import org.xtuml.bp.ui.canvas.Shape_c;
-import org.xtuml.bp.ui.canvas.test.OpenCanvasEditor;
 import org.xtuml.bp.ui.graphics.editor.GraphicalEditor;
 import org.xtuml.bp.ui.graphics.editor.ModelEditor;
 import org.xtuml.bp.utilities.ui.CanvasUtilities;
@@ -107,17 +105,15 @@ public class PolymorphicEventAssignmentTestGenerics extends BaseTest {
 
 	}
 	
-	public void testPolymorphicEvent() throws Exception{
-		 doTestPolymorphicEventAssignment();
-	      doTestPolymorphicEventAssignmentNotAllowedOnCreationTransition();
-	      doTestAssignPolyEventToTransition();
-	      doTestSubtypeLineRemovalRemovesNonLocalEvent();
-	      doTestSubtypeLineRemovalRemovesLowerLevelNonLocalEvent();
-	      doTestSubtypeLineRemovalOnlyRemovesNonLocalEventsDeliveredViaItself();
-	      doTestRenamingPolymorphicEventRenamesNonLocalEvent();
-	      doTestPolymorphicEventRemovalRemovesNonLocalEvents();
-	  
-		
+	public void testPolymorphicEvent() throws Exception {
+		doTestPolymorphicEventAssignment();
+		doTestPolymorphicEventAssignmentNotAllowedOnCreationTransition();
+		doTestAssignPolyEventToTransition();
+		doTestSubtypeLineRemovalRemovesNonLocalEvent();
+		doTestSubtypeLineRemovalRemovesLowerLevelNonLocalEvent();
+		doTestSubtypeLineRemovalOnlyRemovesNonLocalEventsDeliveredViaItself();
+		doTestRenamingPolymorphicEventRenamesNonLocalEvent();
+		doTestPolymorphicEventRemovalRemovesNonLocalEvents();
 	}
 
 	/**
@@ -756,12 +752,14 @@ public class PolymorphicEventAssignmentTestGenerics extends BaseTest {
 		});
 		assertNotNull(assoc);
 		assoc.Dispose();
-		BaseTest.dispatchEvents(0);
 		NonLocalEvent_c nlevt = NonLocalEvent_c.NonLocalEventInstance(
 				modelRoot, new ClassQueryInterface_c() {
 
 					public boolean evaluate(Object candidate) {
-						return ((NonLocalEvent_c) candidate).Get_name().equals(
+				ModelClass_c testClass = ModelClass_c.getOneO_OBJOnR518(
+						InstanceStateMachine_c.getOneSM_ISMOnR517(StateMachine_c.getOneSM_SMOnR502(StateMachineEvent_c
+								.getOneSM_EVTOnR525(SemEvent_c.getOneSM_SEVTOnR526((NonLocalEvent_c) candidate)))));
+						return testClass.getName().equals("Subtype 1 Level 2") && ((NonLocalEvent_c) candidate).Get_name().equals(
 								"poly::Supertype 2");
 					}
 
@@ -769,7 +767,7 @@ public class PolymorphicEventAssignmentTestGenerics extends BaseTest {
 		assertTrue("Non local event was not removed when subtype line was.",
 				nlevt == null);
 		// restore the model
-		//ensureAvailableAndLoaded("PolymorphicEventAssignmentTest", false, true);
+		loadProject("PolymorphicEventAssignmentTest");
 	}
 
 	/**
@@ -804,7 +802,7 @@ public class PolymorphicEventAssignmentTestGenerics extends BaseTest {
 				"Non local event was not removed when first level subtype line was.",
 				nlevt == null);
 		// restore the model
-		//ensureAvailableAndLoaded("PolymorphicEventAssignmentTest", false, true);
+		loadProject("PolymorphicEventAssignmentTest");
 		initialized = false;
 	}
 
@@ -855,7 +853,7 @@ public class PolymorphicEventAssignmentTestGenerics extends BaseTest {
 				"Non local event delivered via non-deleted subtype line was removed.",
 				otherNlevt != null);
 		// restore the model
-		//ensureAvailableAndLoaded("PolymorphicEventAssignmentTest", false, true);
+		loadProject("PolymorphicEventAssignmentTest");
 		initialized = false;
 	}
 
@@ -898,7 +896,7 @@ public class PolymorphicEventAssignmentTestGenerics extends BaseTest {
 		assertTrue("Non local event was not renamed with declared event.",
 				nlevt != null);
 		// restore the model
-		//	ensureAvailableAndLoaded("PolymorphicEventAssignmentTest", false, true);
+		loadProject("PolymorphicEventAssignmentTest");
 		initialized = false;
 	}
 
@@ -938,7 +936,7 @@ public class PolymorphicEventAssignmentTestGenerics extends BaseTest {
 		assertTrue("Non local event was not removed with declared event.",
 				nlevt == null);
 		// restore the model
-		//ensureAvailableAndLoaded("PolymorphicEventAssignmentTest", false, true);
+		loadProject("PolymorphicEventAssignmentTest");
 		initialized = false;
 	}
 
