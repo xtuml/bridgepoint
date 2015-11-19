@@ -121,27 +121,12 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select one packageableElem related by self->SQ_P[R930]->PE_PE[R8001];
-select one package related by packageableElem->EP_PKG[R8000];
-select one component related by packageableElem->C_C[R8003];
-isInGenericPackage = not_empty package or not_empty component;
-
-if (isInGenericPackage)
-  select one pkg related by self->EP_PKG[R956];
+	'  select one pkg related by self->EP_PKG[R956];
   if(not_empty pkg)
     select many funcs related by pkg->PE_PE[R8000]->S_SYNC[R8001];
     return not_empty funcs;
   end if;
   return false;
-else
-// select one fpk related by self->S_FPK[R932];
-// if(not_empty fpk)
-//   select many funcs related by fpk->S_FIP[R31]->S_SYNC[R31];
-//  return not_empty funcs;
-// end if;
-  return false;
-end if;
 ',
 	1,
 	'',
@@ -180,14 +165,8 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-result = "";
-select one packageableElem related by self->SQ_P[R930]->PE_PE[R8001];
-select one package related by packageableElem->EP_PKG[R8000];
-select one component related by packageableElem->C_C[R8003];
-isInGenericPackage = not_empty package or not_empty component;
+	'result = "";
 
-if (isInGenericPackage)
   select one pkg related by self->EP_PKG[R956];
   result = "";
   if (param.at == Justification::Center_in_X)
@@ -202,9 +181,7 @@ if (isInGenericPackage)
       result = self.InformalName;
     end if;
   end if;
-else
-    result = "";
-end if;
+
 return result;',
 	1,
 	'',
@@ -363,20 +340,12 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select one part related by self->SQ_P[R930];
+	'select one part related by self->SQ_P[R930];
 
-select one packageableElem related by self->SQ_P[R930]->PE_PE[R8001];
-select one package related by packageableElem->EP_PKG[R8000];
-select one component related by packageableElem->C_C[R8003];
-isInGenericPackage = not_empty package or not_empty component;
-
-if (isInGenericPackage)
   select one pkg related by self ->EP_PKG[R956];
   if(not_empty pkg)
     unrelate self from pkg across R956;
   end if;
-end if;
 
 select many messages related by part->MSG_M[R1007];
 for each message in messages
@@ -644,22 +613,13 @@ INSERT INTO O_ATTR
 INSERT INTO O_DBATTR
 	VALUES ("9b8cf0f3-f92e-4950-b133-a36f198732b6",
 	"c9cdda3e-5e0b-468e-a0ba-5c41c30b54f5",
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select one packageableElem related by self->SQ_P[R930]->PE_PE[R8001];
-select one package related by packageableElem->EP_PKG[R8000];
-select one component related by packageableElem->C_C[R8003];
-isInGenericPackage = not_empty package or not_empty component;
-
-if (isInGenericPackage)
-  select one pkg related by self->EP_PKG[R956];
+	'  select one pkg related by self->EP_PKG[R956];
   if(not_empty pkg)
     self.Label = pkg.Name;
   else
     self.Label = self.InformalName;
   end if;
-else
-   self.Label = "";
-end if;',
+',
 	1);
 INSERT INTO O_BATTR
 	VALUES ("9b8cf0f3-f92e-4950-b133-a36f198732b6",
@@ -716,20 +676,8 @@ Description: A textual description of this package.',
 INSERT INTO O_DBATTR
 	VALUES ("d9ffdc26-c267-4b77-938e-09925c66304c",
 	"c9cdda3e-5e0b-468e-a0ba-5c41c30b54f5",
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select one packageableElem related by self->SQ_P[R930]->PE_PE[R8001];
-select one package related by packageableElem->EP_PKG[R8000];
-select one component related by packageableElem->C_C[R8003];
-isInGenericPackage = not_empty package or not_empty component;
-
-if (isInGenericPackage)
-  select one pkg related by self->EP_PKG[R956];
+	'  select one pkg related by self->EP_PKG[R956];
   self.isFormal = not empty pkg;
-else
-self.isFormal =false;
-//  select one fp related by self->EP_PKG[R956];
-//  self.isFormal = not empty fp;
-end if;
 ',
 	1);
 INSERT INTO O_BATTR

@@ -11,12 +11,12 @@
 <project name="bp.core" default="all" basedir=".">
   <target name="all"
           description="Generate all code for this project"
-          depends="sql,schema,java,cme,cme_schema,cme_menus,inspector.java, cell_modifiers,generate_supertype_subtype_util, action_language_description_util, generate_rto_util, generate_globals_util, format_java">
+          depends="sql,schema,java,cme,cme_schema,cme_menus,inspector.java, cell_modifiers,generate_supertype_subtype_util, action_language_description_util, generate_rto_util, format_java">
   </target>
 
   <target name="nb_all"
           description="Generate all code for this project"
-          depends="sql,schema,java,cme,cme_schema,cme_menus,inspector.java, cell_modifiers,generate_supertype_subtype_util, action_language_description_util, generate_globals_util, generate_rto_util">
+          depends="sql,schema,java,cme,cme_schema,cme_menus,inspector.java, cell_modifiers,generate_supertype_subtype_util, action_language_description_util, generate_rto_util">
   </target>
 
   <property name="eclipse-home" value="${basedir}/../.."/>
@@ -496,27 +496,6 @@
     <touch file="${ald.output}"/>
 	</target>
 	    	
-	<property name="gu.output" value="src/org/xtuml/bp/core/util/GlobalsUtil.java" />
-
-	<target name="generate_globals_util.depends" depends="sql" >
-	    <uptodate property="globals_util.buildNotNeeded" targetfile="${gu.output}">
-	       <srcfiles dir = "arc" includes = "generate_globals_util.arc" />
-	    </uptodate>
-	</target>
-
-	<target name="generate_globals_util" unless="globals_util.buildNotNeeded" depends="generate_globals_util.depends" >
-	    <echo >Generating ${gu.output} ...</echo>
-	    <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
-	        <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
-	    	<env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
-	    	<arg line="xtumlmc_gen_erate -nopersist
-	      	-import ${mcj_path}/ooa_schema.sql
-	      	-import sql/ooaofooa.sql
-	      	-arch arc/generate_globals_util.arc" />
-		</exec>	    	
-	    <delete file="____file.txt" />
-	</target>
-	
   <!-- ********************************************************************* -->
   <property name="cvs_java_files" value="DomainProxy.java,PropertyViewListener.java,
     ModelRoot.java, OoaofooaBase.java, EclipseOoaofooa.java, Err_c.java, Vm_c.java,

@@ -32,14 +32,12 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-// Literal Symbolic Constant.canUseDataType()
+	'// Literal Symbolic Constant.canUseDataType()
 select one packageableElem related by self->CNST_LFSC[R1503]->
                                  CNST_SYC[R1502]->CNST_CSP[R1504]->PE_PE[R8001];
 select one package related by packageableElem->EP_PKG[R8000];
 select one component related by packageableElem->C_C[R8003];
-isInGenericPackage = not_empty package or not_empty component;
-if isInGenericPackage
+
   // Find the previously created visibility list
   select any resultSet related by package->PE_SRS[R8005] where
         selected.Name == "" and selected.Type == ElementTypeConstants::DATATYPE;
@@ -58,35 +56,7 @@ if isInGenericPackage
     end if;
   end if;
   return false;
-else
-  select one symConst related by self->CNST_LFSC[R1503]->CNST_SYC[R1502];
-
-  // Check the system for the datatype
-  select any system related by symConst->CNST_CSP[R1504]->CNST_CIP[R1506]
-                                 ->S_DPK[R1506]->SLD_SCINP[R4403]->S_SYS[R4404];
-  select any dt related by system->SLD_SDINP[R4402]->S_DT[R4401]
-                                             where (selected.DT_ID == param.id);
-
-  if empty dt and not_empty system and system.useGlobals
-    select any pe related by system->G_EIS[R9100]->PE_PE[R9100]
-                                          where selected.Element_ID == param.id;
-    select one dt related by pe->S_DT[R8001]; 
-  end if;
-  if (empty dt)
-    // check the domain for the dt
-    select one dtPkg related by symConst->CNST_CSP[R1504]->CNST_CIP[R1506]->S_DPK[R1506];
-    select any domain from instances of S_DOM where (selected.Dom_ID == dtPkg.getDomainId());
-    select any dt related by domain->S_DT[R14] where (selected.DT_ID == param.id);
-  end if;
-
-  if(not_empty dt)
-    if(self.isAllowedType(typeName:dt.Name))
-      return true;
-    end if;
-  end if;
-
-  return false;
-end if;',
+',
 	1,
 	'',
 	"c46f3528-93d6-486f-89a5-f94aa270cd07");
@@ -106,39 +76,12 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-// Literal Symbolic Constant.canReferToDataType()
+	'// Literal Symbolic Constant.canReferToDataType()
 select one symConst related by self->CNST_LFSC[R1503]->CNST_SYC[R1502];
 select one dt related by symConst->S_DT[R1500];
 if(not_empty dt)
   select one packageableElem related by symConst->CNST_CSP[R1504]->PE_PE[R8001];
-  select one package related by packageableElem->EP_PKG[R8000];
-  select one component related by packageableElem->C_C[R8003];
-  isInGenericPackage = not_empty package or not_empty component;
-
-  if (isInGenericPackage)
-    return packageableElem.canReferToDataType(dtID:dt.DT_ID, dtName: dt.Name);
-  else
-    // if the data type package is at the system
-    // level we can use the data type as long as
-    // this element belongs to a formal component
-    select one myDtPkg related by symConst->CNST_CSP[R1504]->CNST_CIP[R1506]->S_DPK[R1506];
-    select any myDomain from instances of S_DOM where (selected.Dom_ID == myDtPkg.getDomainId());
-    select one dtPkg related by dt->S_DIP[R39]->S_DPK[R39];
-    if(not dtPkg.isDomainLevel())
-      if(myDomain.participatesInSystem())
-        return true;
-      else
-        return false;
-      end if;
-    else
-      // otherwise the DT must be in the same domain
-      select one dtDomain related by dt->S_DOM[R14];
-      if(dtDomain == myDomain)
-        return true;
-      end if;
-    end if;
-  end if;
+  return packageableElem.canReferToDataType(dtID:dt.DT_ID, dtName: dt.Name);
 end if;
 return false;
 ',

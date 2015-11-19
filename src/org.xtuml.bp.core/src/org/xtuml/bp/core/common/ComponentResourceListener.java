@@ -57,7 +57,6 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.PlatformUI;
 
 import org.xtuml.bp.core.CorePlugin;
-import org.xtuml.bp.core.Domain_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.XtUMLNature;
@@ -648,8 +647,7 @@ public class ComponentResourceListener implements IResourceChangeListener, IReso
             try {
                 monitorDialog.run(false, false, new IRunnableWithProgress() {
                     public void run(IProgressMonitor monitor) {
-                        Domain_c dom = Domain_c.DomainInstance(rootME.getModelRoot());
-                        CorePlugin.parseAll(dom, monitor);
+                        CorePlugin.parseAll(rootME, monitor);
                     }
                 });
             } catch (InvocationTargetException e) {

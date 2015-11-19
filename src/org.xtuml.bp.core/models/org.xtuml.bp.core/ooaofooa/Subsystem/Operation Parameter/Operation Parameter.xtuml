@@ -72,13 +72,10 @@ INSERT INTO O_TFR
 ',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select one system related by self->O_TFR[R117]->O_OBJ[R115]->PE_PE[R8001]->
+	'select one system related by self->O_TFR[R117]->O_OBJ[R115]->PE_PE[R8001]->
                                        EP_PKG[R8000]->S_SYS[R1405];
-isInGenericPackage = false;                                       
-if (not_empty system)
-  isInGenericPackage = true;
-else
+
+if (empty system)
   select one component related by self->O_TFR[R117]->O_OBJ[R115]->PE_PE[R8001]->
                                    C_C[R8003];
   if (not_empty component)
@@ -86,16 +83,10 @@ else
     select any rootComponent from instances of C_C where (selected.Id == rootCompIdInPkg);
     select one system related by rootComponent->PE_PE[R8001]->EP_PKG[R8000]->S_SYS[R1405];
   end if;
-  if (not_empty system)
-    isInGenericPackage = true;
-  end if;
 end if;                                       
 select one operation related by self->O_TFR[R117];
 operation.addParameterToOrdering(id:self.TParm_ID);
-select any dom from instances of S_DOM;
-select any def_dt related by dom->S_DT[R14] where selected.Name == "integer";
-if(empty def_dt)
-  if (isInGenericPackage)
+
     // if the integer dt was not found check the system level dts.
     dt_id = GD::NULL_UNIQUE_ID();
     if not_empty system
@@ -106,28 +97,7 @@ if(empty def_dt)
     if empty def_dt
       USER::logError(msg:"Unable to locate expected data type: integer",path:"");
     end if;
-  else
-    // if the integer dt was not found check the system level
-    // dts, but only if the domain found is the formal content
-    // of a component
-    if(dom.participatesInSystem())
-      select one system related by dom->CN_DC[R4204]->C_C[R4204]->CP_CP[R4608]
-                                    ->S_SYS[R4606];
-      dt_id = GD::NULL_UNIQUE_ID();
-      if not_empty system
-        dt_id = system.getCoreTypeId(name:"integer");
-      end if;
-      select any pe from instances of PE_PE where selected.Element_ID == dt_id;
-      select one def_dt related by pe->S_DT[R8001]; 
-    else
-      // this is an error, if the domain is not
-      // participating at the system level and
-      // we cannot find the type at the domain
-      // level we have a problem
-      USER::logError(msg:"Unable to locate expected data type: integer",path:"");
-    end if;
-  end if;
-end if;
+
 relate self to def_dt across R118;
 name = ::getUniqueInitialName( 
     instance: self.convertToInstance(), 
@@ -148,43 +118,15 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-// if this element is at the system level check the
-// system level data types, otherwise check the 
-// domain
-// Operation Parameter.isAllowedType()
+	'// Operation Parameter.isAllowedType()
 select one packageableElem related by self->O_TFR[R117]->
                                                       O_OBJ[R115]->PE_PE[R8001];
 select one package related by packageableElem->EP_PKG[R8000];
 select one component related by packageableElem->C_C[R8003];
-isInGenericPackage = not_empty package or not_empty component;
-if isInGenericPackage
+
   return packageableElem.isAllowedType(isReturnType:false,
                                                        typeName:param.typeName);
-else
-  select one domain related by self->O_TFR[R117]->O_OBJ[R115]->S_SS[R2]->S_DOM[R1];
-  if(not_empty domain)
-    select one system related by domain->S_SYS[R28];
-    if(not_empty system)
-      return S_DT::isAllowedParameterType( typeName: param.typeName,
-                                   			dom_id: domain.get_ooa_id() );
-    else
-      // first check the domain level
-      result = S_DT::isAllowedParameterType( typeName: param.typeName,
-                                   			dom_id: domain.get_ooa_id() );
-      if(not result)
-        // if nothing valid check the system level
-        select one system related by domain->CN_DC[R4204]->C_C[R4204]
-      											   ->CP_CP[R4608]->S_SYS[R4606];
-        return Util::isAllowedParameterType(system:system.convertToInstance(),
-                                                       typeName:param.typeName);
-      else
-        return result;
-      end if;
-    end if;
-  end if;
-  return false;
-end if;',
+',
 	1,
 	'',
 	"0e89a8be-7988-4558-afb0-dfa33355ad66");
@@ -336,8 +278,7 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select one dtProxy related by self->S_DT[R118];
+	'select one dtProxy related by self->S_DT[R118];
 if(not_empty dtProxy and not Util::isProxy(element:self.convertToInstance()))
   name = dtProxy.Name;
   unrelate dtProxy from self across R118;
@@ -346,12 +287,11 @@ if(not_empty dtProxy and not Util::isProxy(element:self.convertToInstance()))
                                                       O_OBJ[R115]->PE_PE[R8001];
   select one package related by packageableElem->EP_PKG[R8000];
   select one component related by packageableElem->C_C[R8003];
-  isInGenericPackage = not_empty package or not_empty component;
-  if isInGenericPackage
+
     id = packageableElem.resolveDataTypeRelativeToSelf(default_name:"integer",
                                                             expected_name:name);                                                          
     select any resolvedDt related by package->PE_VIS[R8002]->
-                         PE_PE[R8002]->S_DT[R8001] where selected.DT_ID == id;
+                         PE_PE[R8002]->S_DT[R8001] where selected.DT_ID == id;                         
     if (empty resolvedDt)
       select any resolvedDt related by component->PE_CVS[R8004]->
                        PE_PE[R8004]->S_DT[R8001] where selected.DT_ID == id;
@@ -359,30 +299,7 @@ if(not_empty dtProxy and not Util::isProxy(element:self.convertToInstance()))
     if not_empty resolvedDt
       relate resolvedDt to self across R118;
     end if;
-  else
-    select one domain related by self->O_TFR[R117]->O_OBJ[R115]->S_SS[R2]
-                                                                    ->S_DOM[R1];
-    id = domain.resolveDataTypeRelativeToSelf(default_name:"integer",
-                                                            expected_name:name);
-    // until we have instance reference passing, we search for
-    // the data type related to the domain first then to the
-    // system
-    select any resolvedDT related by domain->S_DT[R14]
-                                                   where (selected.DT_ID == id);
-    if(empty resolvedDT)
-      select one system related by domain->CN_DC[R4204]->C_C[R4204]
-                                                   ->CP_CP[R4608]->S_SYS[R4606];
-      select any resolvedDT related by system->SLD_SDINP[R4402]->S_DT[R4401]
-                                                   where (selected.DT_ID == id);
-      if empty resolvedDT and not_empty system and system.useGlobals
-        select any resolvedDT related by system->G_EIS[R9100]->PE_PE[R9100]->
-                                       S_DT[R8001] where (selected.DT_ID == id);
-      end if;
-    end if;
-    if(not_empty resolvedDT)
-      relate resolvedDT to self across R118;
-    end if;
-  end if;
+
 end if;',
 	1,
 	'',
@@ -580,39 +497,14 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-// select the dt
+	'// select the dt
 select one dt related by self->S_DT[R118];
 if(not_empty dt)
   select one packageableElem related by self->O_TFR[R117]->
                                               O_OBJ[R115]->PE_PE[R8001];
   select one package related by packageableElem->EP_PKG[R8000];
   select one component related by packageableElem->C_C[R8003];
-  isInGenericPackage = not_empty package or not_empty component;
-
-  if (isInGenericPackage)
     return packageableElem.canReferToDataType(dtID:dt.DT_ID, dtName: dt.Name);
-  else
-    // if the data type package is at the system
-    // level we can use the data type as long as
-    // this element belongs to a formal component
-    select one domain related by self->O_TFR[R117]->O_OBJ[R115]->S_SS[R2]
-            ->S_DOM[R1];
-    select one dtPkg related by dt->S_DIP[R39]->S_DPK[R39];
-    if(not dtPkg.isDomainLevel())
-      if( (not_empty domain) and domain.participatesInSystem())
-        return true;
-      else
-        return false;
-      end if;
-    else
-      // otherwise the DT must be in the same domain
-      select one dtDomain related by dt->S_DOM[R14];
-      if(dtDomain == domain)
-        return true;
-      end if;
-    end if;
-  end if;
 end if;
 return false;
 ',
@@ -643,14 +535,12 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-// Operation Parameter.canUseDataType()
+	'// Operation Parameter.canUseDataType()
 select one packageableElem related by self->O_TFR[R117]->
                                                       O_OBJ[R115]->PE_PE[R8001];
 select one package related by packageableElem->EP_PKG[R8000];
 select one component related by packageableElem->C_C[R8003];
-isInGenericPackage = not_empty package or not_empty component;
-if isInGenericPackage
+
   // Find the previously created visibility list
   select any resultSet related by package->PE_SRS[R8005] where
         selected.Name == "" and selected.Type == ElementTypeConstants::DATATYPE;
@@ -669,40 +559,7 @@ if isInGenericPackage
     end if;
   end if;
   return false;
-else
-  select one domain related by self->O_TFR[R117]->O_OBJ[R115]->S_SS[R2]
-                                                                    ->S_DOM[R1];
-  if(domain.participatesInSystem())
-    // system level check both the system
-    // and the domain for the dt
-    select one system related by domain->CN_DC[R4204]->C_C[R4204]->CP_CP[R4608]
-                                                                 ->S_SYS[R4606];
-    select any dt related by system->SLD_SDINP[R4402]->S_DT[R4401]
-                                             where (selected.DT_ID == param.id);
-    if empty dt and not_empty system and system.useGlobals
-      select any dt related by system->G_EIS[R9100]->PE_PE[R9100]->S_DT[R8001]
-                                             where (selected.DT_ID == param.id);
-    end if;
-    if(empty dt)
-      select any dt related by domain->S_DT[R14]
-                                             where (selected.DT_ID == param.id);
-    end if;
-    if(not_empty dt)
-      if(self.isAllowedType(typeName:dt.Name))
-        return true;
-      end if;
-    end if;
-  else
-    // only check the domain for the dt
-    select any dt related by domain->S_DT[R14] where (selected.DT_ID == param.id);
-    if(not_empty dt)
-      if(self.isAllowedType(typeName:dt.Name))
-        return true;
-      end if;
-    end if;
-  end if;
-  return false;
-end if;',
+',
 	1,
 	'',
 	"f419a7f3-8f8d-4ae1-9aca-6e4bfd60b346");

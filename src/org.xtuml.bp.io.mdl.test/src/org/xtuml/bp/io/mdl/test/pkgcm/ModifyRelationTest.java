@@ -219,9 +219,6 @@ abstract class ModifyRelationTest extends PkgCMBaseTest {
         if (baseEditor != null) {
             pmcBeingCreated = PersistenceManager.getDefaultInstance()
                     .getComponent(createShape(baseEditor, shapeToCreate));
-        } else if (shapeToCreate.equals("Domain")) {
-            pmcBeingCreated = TigerNatureTestGenerics.createNewDomain("New_Domain",
-                    (SystemModel_c) pmcBeingTested.getRootModelElement());
         }
 
         Display display = Display.getCurrent();
@@ -286,9 +283,6 @@ abstract class ModifyRelationTest extends PkgCMBaseTest {
         		pmcBeingCreated = PersistenceManager.getDefaultInstance()
       	      .getComponent(createShape(baseEditor,shapeToCreate));
         	}
-        } else if (shapeToCreate.equals("Domain")) {
-            pmcBeingCreated = TigerNatureTestGenerics.createNewDomain("New_Domain",
-                    (SystemModel_c) pmcBeingTested.getRootModelElement());
         }
 
         Display display = Display.getCurrent();

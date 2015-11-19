@@ -45,7 +45,6 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.editors.text.TextEditor;
 
-import org.xtuml.bp.core.Domain_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.StateMachineState_c;
@@ -141,38 +140,6 @@ public class TextEditorUtils
 
 	}
 
-    /**
-     * Opens (and returns) a description editor on the domain 
-     * associated with the given model-root.
-     */
-    public static DescriptionEditor openDomainDescriptionEditor(
-        Ooaofooa modelRoot)
-    {
-        final Domain_c domain = Domain_c.DomainInstance(modelRoot);
-        
-        try
-		{
-		  IWorkspaceRunnable r = new IWorkspaceRunnable()
-		  {
-			public void run(IProgressMonitor monitor) throws CoreException
-			{
-				IStructuredSelection ss = new StructuredSelection(domain);
-				ShowDescriptionAction sda = new ShowDescriptionAction();
-				Action a = new Action(){};
-				sda.selectionChanged(a, ss);
-				sda.run( a );
-			}
-		  };
-		  ResourcesPlugin.getWorkspace().run(r, null);
-		}
-		catch (CoreException x)
-		{
-		  TestCase.fail("open editor problem");
-		}
-        //DescriptionEditorInteraction.openDescriptionEditor(domain);
-        return getDomainDescriptionEditor(domain);
-    }
-    
     static public DescriptionEditor getDescriptionEditor( String title )
 	{
 	
@@ -197,17 +164,6 @@ public class TextEditorUtils
 		return null;
 	}
     
-    /**
-     * Returns the (presumed) already-open description editor on the 
-     * given domain. 
-     */
-    public static DescriptionEditor getDomainDescriptionEditor(
-        Domain_c domain)
-    {
-        String title = domain.getName();
-        return getDescriptionEditor(title);
-    }
-
     /**
      * Opens (and returns) a description editor on the package 
      * associated with the given model-root.

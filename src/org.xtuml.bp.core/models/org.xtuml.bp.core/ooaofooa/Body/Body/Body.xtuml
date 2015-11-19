@@ -415,8 +415,7 @@ INSERT INTO O_TFR
 	'Called to create an initial stack frame for execution of a funtion wired to a bridge in another model.',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-// Body:Body.createStackFrameForBridge 
+	'// Body:Body.createStackFrameForBridge 
 
 select any invocation_frame from instances of I_STF
                  where (selected.Stack_Frame_ID == param.stack_frame_id_caller);
@@ -424,20 +423,16 @@ select any invocation_frame from instances of I_STF
 select one source_ee related by invocation_frame->I_STACK[R2943]->I_EXE[R2930];
 
 select one function related by self->ACT_FNB[R698]->S_SYNC[R695];
-select one dest_ee related by function->S_DOM[R23]->I_EXE[R2948];
+select one packageableElem related by function->PE_PE[R8001];
+select one package related by packageableElem->EP_PKG[R8000];
+select one dest_ee related by package->I_EXE[R2970];
 if (empty dest_ee)
-  select one packageableElem related by function->PE_PE[R8001];
-  select one package related by packageableElem->EP_PKG[R8000];
   select one component related by packageableElem->C_C[R8003];
-  isInGenericPackage = not_empty package or not_empty component;
-  if (isInGenericPackage)
-    if (not_empty package)
-      select one dest_ee related by package->I_EXE[R2970];
-    else
-      select any dest_ee related by component->I_EXE[R2955] where (component.Id == selected.Component_Id);
-    end if;
+  if (not_empty component)
+    select any dest_ee related by component->I_EXE[R2955] where (component.Id == selected.Component_Id);
   end if;
 end if;
+
 
 if(empty dest_ee)
   // not supported, the destination function
