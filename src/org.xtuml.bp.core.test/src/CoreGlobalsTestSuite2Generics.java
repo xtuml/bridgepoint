@@ -22,11 +22,7 @@
 //=====================================================================
 
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
-
 import org.eclipse.core.runtime.CoreException;
-
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 import org.xtuml.bp.core.test.ActivityTestsGenerics;
@@ -52,7 +48,6 @@ import org.xtuml.bp.core.test.PolymorphicEventAssignmentTestGenerics;
 import org.xtuml.bp.core.test.RefreshTestCoreGenerics;
 import org.xtuml.bp.core.test.RenameInvolvingResourceTestGenerics;
 import org.xtuml.bp.core.test.SequenceTestsGenerics;
-import org.xtuml.bp.core.test.TestVisibilityInElementChooser;
 import org.xtuml.bp.core.test.TransitionActionTestGenerics;
 import org.xtuml.bp.core.test.TwoModelsSelectionTestGenerics;
 import org.xtuml.bp.core.test.UndoRedoTestGenerics;
@@ -60,6 +55,9 @@ import org.xtuml.bp.core.test.UniqueNameTestGenerics;
 import org.xtuml.bp.core.test.UseCaseTestsGenerics;
 import org.xtuml.bp.core.test.ui.WritableContextMenuTestGenerics;
 import org.xtuml.bp.core.util.WorkspaceUtil;
+
+import junit.framework.Test;
+import junit.framework.TestSuite;
 
 /**
 * Test all areas of the core
@@ -110,7 +108,6 @@ public class CoreGlobalsTestSuite2Generics extends TestSuite {
         addTest(new TestSuite(I810_SlowDeletionTestGenerics.class));
         addTest(new TestSuite(TransitionActionTestGenerics.class));
         addTest(new TestSuite(ActivityTestsGenerics.class));
-        addTest(new TestSuite(TestVisibilityInElementChooser.class));
         addTest(new TestSuite(ModelIntegrityTests.class));
         addTest(new TestSuite(ClassKeyLetters.class));
 	}
