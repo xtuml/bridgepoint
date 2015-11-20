@@ -379,7 +379,6 @@
     .assign tool = version
     .if (callingProject == "BP")
       .include "arc/class_rename.inc"
-package org.xtuml.bp.io.sql;
     .elif (callingProject == "NBP")
 package org.xtuml.bp.io.mdl;
     .end if
@@ -604,15 +603,6 @@ public class ${class_name} extends CoreImport
                 m_component.clearDatabase();
             }
         .end if
-      .else
-                .// if it is not a generation of multilevel file import.
-               Domain_c domain = Domain_c.DomainInstance(getModelRoot());
-               if (domain != null) {
-                // clear out all elements held by the model-root
-                AllActivityModifier aam = new AllActivityModifier(domain, pm);
-                aam.processAllActivities(AllActivityModifier.CLEAR);
-                getModelRoot().clearDatabase(pm);
-                }
       .end if
         }
     }
@@ -626,6 +616,10 @@ public class ${class_name} extends CoreImport
             .for each ce in configurableElements
                 .// each ce is an eo
                 .select one table related by ce->EI[R3]->T[R4]
+.// TODO: BOB debug
+.if (empty table)
+.print "ERROR! T is null on ce->EI[R3]->R[R4]. ce.Name: ${ce.Name}"
+.end if                
                 .assign className  = "$Cr{table.Name}"
                 if(actualContent.equals("${className}"))
                 {
@@ -780,8 +774,6 @@ public class ${class_name} extends CoreImport
             }
             loadedInstances.addAll(helper.upgradeTransitions(loadedInstances));
             helper.upgradeEventData(getModelRoot(), getRootModelElement());
-            loadedInstances.addAll( helper.upgradePackages(getRootModelElement(), getModelRoot()) );
-            helper.upgradeLifespans(getRootModelElement());
             if(actualVersion.equals(bp7_1_4VersionNumber)) {
             	  helper.associateSatisfactionsThroughIdentifier(getModelRoot());
             }
@@ -794,7 +786,6 @@ public class ${class_name} extends CoreImport
 			helper.fixSatisfactionAssociations(loadedInstances);
 			helper.loadDataTypesFromCoreTypeProxy(loadedInstances);
             loadedInstances.addAll(helper.upgradeSystemLevelPackages(loadedInstances));
-			loadedInstances.addAll(helper.upgradeNestedPackages(getRootModelElement()));
 			loadedInstances.addAll(helper.addLinkClassesForContainment(loadedInstances));
 			helper.removeSupertypePackageableElement(loadedInstances);
 			helper.addPortReferenceInstances(loadedInstances);

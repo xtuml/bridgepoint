@@ -214,8 +214,7 @@ INSERT INTO S_SYNC
 	'ParserValidateFunction: TRUE
 ParserUtilityFunction: TRUE
 ',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-// Try to locate the datatypes in the domain-level datatype package(s)
+	'// Try to locate the datatypes in the domain-level datatype package(s)
 current_scope = ::get_current_scope();
 select any block from instances of ACT_BLK where
                                              selected.Block_ID == current_scope;
@@ -519,42 +518,30 @@ if isInGenericPackage
     end if;
   end if;
 else
-  select any dom from instances of S_DOM where
-                                     selected.Dom_ID == ::getValidationDomain();
-  select any dt1_dt related by dom->S_DT[R14] where selected.DT_ID == param.dt1;
-  select any dt2_dt related by dom->S_DT[R14] where selected.DT_ID == param.dt2;
-  if empty dt1_dt
     // If we are not at the domain level, then we need to look for the datatypes
     // in the system-level datatype package(s)
     cur_sys_name = ::getSystemName();
     select any sys from instances of S_SYS where (selected.Name == cur_sys_name);
-    select any dt1_dt related by sys->SLD_SDINP[R4402]->S_DT[R4401] where
-                                                    selected.DT_ID == param.dt1;
-    if empty dt1_dt and not_empty sys and sys.useGlobals
+
         select any dt1_dt related by sys->G_EIS[R9100]->
                     PE_PE[R9100]->S_DT[R8001] where selected.DT_ID == param.dt1;
-    end if;
+
     if empty dt1_dt
       USER::logError(msg: "Internal Error in OAL Validation Utility Function " +
         "data_types_compatible().  Variable <dt1_dt> is empty.",path:"PathNotProvided");
     end if;
-  end if;
-  if empty dt2_dt
+
     // If we are not at the domain level, then we need to look for the datatypes
     // in the system-level datatype package(s)
     cur_sys_name = ::getSystemName();
     select any sys from instances of S_SYS where (selected.Name == cur_sys_name);
-    select any dt2_dt related by sys->SLD_SDINP[R4402]->S_DT[R4401] where
-                                                    selected.DT_ID == param.dt2;
-    if empty dt2_dt and not_empty sys and sys.useGlobals
         select any dt2_dt related by sys->G_EIS[R9100]->
                     PE_PE[R9100]->S_DT[R8001] where selected.DT_ID == param.dt2;
-    end if;
+
     if empty dt2_dt
       USER::logError(msg: "Internal Error in OAL Validation Utility Function " +
         "data_types_compatible().  Variable <dt2_dt> is empty.",path:"PathNotProvided");
     end if;
-  end if;
 
   // Set up some flags to be used in the type-equality checks
   foundCDTLHS = false;
@@ -741,7 +728,6 @@ else
     if ( param.op == "and" or param.op == "or" )
       return GD::NULL_UNIQUE_ID();
     end if;
-
     //
     // The follow truth table represents the logic this block implements.
     // Operator "=" means assignment, operator "+" means all other operators.
@@ -850,18 +836,14 @@ INSERT INTO S_SYNC
 	'ParserValidateFunction: TRUE
 ParserUtilityFunction: TRUE
 ',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-create object instance bin of V_BIN;
+	'create object instance bin of V_BIN;
 bin.Operator = param.a1_text;
 create object instance val of V_VAL;
 current_scope = ::get_current_scope();
 select any blk from instances of ACT_BLK where (selected.Block_ID == current_scope);
 relate val to blk across R826;
 if ( param.a2_dt_name != "" )
-  select any dom from instances of S_DOM where selected.Dom_ID == ::getValidationDomain();
-  select any dt related by dom->S_DT[R14] where
-                                              selected.Name == param.a2_dt_name;
-  if empty dt
+
     cur_sys_name = ::getSystemName();
     select any sys from instances of S_SYS where selected.Name == cur_sys_name;
     dt_id = GD::NULL_UNIQUE_ID();
@@ -870,7 +852,7 @@ if ( param.a2_dt_name != "" )
     end if;
     select any pe from instances of PE_PE where selected.Element_ID == dt_id;
     select one dt related by pe->S_DT[R8001];
-  end if;
+
   if ( not_empty dt )
     relate val to dt across R820;
   else
@@ -1017,8 +999,7 @@ INSERT INTO S_SYNC
 	'ParserValidateFunction: TRUE
 ParserUtilityFunction: TRUE
 ',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select any operand from instances of V_VAL
+	'select any operand from instances of V_VAL
       where ( selected.Value_ID == param.a5_val_id );
 if ( empty operand  )
     ERR::reportParseError( msg: "Operand not found for " + param.a2_op_type,
@@ -1050,10 +1031,6 @@ else
         current_scope = ::get_current_scope();
         select any blk from instances of ACT_BLK where (selected.Block_ID == current_scope);
         relate val to blk across R826;
-        select any dom from instances of S_DOM where selected.Dom_ID == ::getValidationDomain();
-        select any result_dt related by dom->S_DT[R14] where
-                                              selected.Name == param.a4_dt_name;
-        if empty result_dt
           cur_sys_name = ::getSystemName();
           select any sys from instances of S_SYS where selected.Name == cur_sys_name;
           dt_id = GD::NULL_UNIQUE_ID();
@@ -1062,7 +1039,6 @@ else
           end if;
           select any pe from instances of PE_PE where selected.Element_ID == dt_id;
           select one result_dt related by pe->S_DT[R8001]; 
-        end if;
         if ( not_empty result_dt )
           relate val to result_dt across R820;
         else
@@ -3559,8 +3535,7 @@ INSERT INTO S_SYNC
 	'ParserValidateFunction: TRUE
 ParserUtilityFunction: TRUE
 ',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-current_scope = ::get_current_scope();
+	'current_scope = ::get_current_scope();
 select any block from instances of ACT_BLK where
                                              selected.Block_ID == current_scope;
 select one body related by block->ACT_ACT[R612];
@@ -3641,42 +3616,10 @@ else  // non-generic package path
                                             selected.Key_Lett == param.key_lett;
   body.associateWithOwningComponent();
   select one component related by body->ACT_BIC[R694]->C_C[R694];
-  if not_empty component
-    // If we''re in a component, we just look for the external entity locally
-    select any ee related by component->CN_DC[R4204]->
-               S_DOM[R4204]->S_EE[R8] where selected.Key_Lett == param.key_lett;
-  end if;
-  select many brg_set related by ee->S_BRG[R19] where selected.Name == param.name;
-  if ( empty brg_set )
+
     ERR::reportParseError( 
         msg: "Cannot find specified bridge ->"+ee.Key_Lett+"::%s<-", 
         token: param.rule_token ); 
-  elif ( cardinality brg_set > 1 )
-    ERR::reportParseError( msg:
-"More than one bridge with name ->%s<- You will need to eventually clear this up",
-          token: param.rule_token );
-  else
-    select any brg related by ee->S_BRG[R19] where selected.Name == param.name;
-    create object instance brv of V_BRV;
-    brv.ParmListOK = true;
-    create object instance val of V_VAL;
-    relate val to block across R826;
-    relate val to brv across R801;
-
-    val.LineNumber = ::getLineNumber(rule_token: param.rule_token);
-    val.StartPosition = ::getColumn(rule_token: param.rule_token);
-    val.setEndPosition();
-
-	// store the textual position of the external entity key-letters
-	brv.externalEntityKeyLettersLineNumber = block.currentKeyLettersLineNumber;
-	brv.externalEntityKeyLettersColumn = block.currentKeyLettersColumn;
-
-    relate brg to brv across R828;
-    select one bdt related by brg->S_DT[R20];
-    relate val to bdt across R820;
-
-    return val.Value_ID;
-  end if;
   return GD::NULL_UNIQUE_ID();
 end if;',
 	"ba5eda7a-def5-0000-0000-000000000005",
@@ -6624,9 +6567,7 @@ if (param.a1_name == "length" or param.a1_name == "Length") and param.a2_isArray
     // to an array of simple data types.
     create object instance alVal of V_ALV;
     relate alVal to curVal across R801;
-    select any dom from instances of S_DOM where selected.Dom_ID == ::getValidationDomain();
-    select any intDt related by dom->S_DT[R14] where selected.Name == "integer";
-    if empty intDt
+
       cur_sys_name = ::getSystemName();
       select any sys from instances of S_SYS where selected.Name == cur_sys_name;
       dt_id = GD::NULL_UNIQUE_ID();
@@ -6635,7 +6576,7 @@ if (param.a1_name == "length" or param.a1_name == "Length") and param.a2_isArray
       end if;
       select any pe from instances of PE_PE where selected.Element_ID == dt_id;
       select one intDt related by pe->S_DT[R8001]; 
-    end if;
+
     if ( not_empty intDt )
       relate curVal to intDt across R820;
     else
@@ -6768,8 +6709,7 @@ INSERT INTO S_SYNC
 	'is_valid_message',
 	'ParserValidateFunction: TRUE
 ParserUtilityFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-// ::isValidMessage()
+	'// ::isValidMessage()
 select any requirement from instances of C_R where
                                       selected.Requirement_Id == param.a1_ifRef;
 select any provision from instances of C_P where
@@ -6823,9 +6763,7 @@ else
   if empty bdt
     if not_empty signal
       // it can''t return anything
-      select any dom from instances of S_DOM where selected.Dom_ID == ::getValidationDomain();
-      select any bdt related by dom->S_DT[R14] where selected.Name == "void";
-      if empty bdt
+
         cur_sys_name = ::getSystemName();
         select any sys from instances of S_SYS where selected.Name == cur_sys_name;
         dt_id = GD::NULL_UNIQUE_ID();
@@ -6834,7 +6772,7 @@ else
         end if;
         select any pe from instances of PE_PE where selected.Element_ID == dt_id;
         select one bdt related by pe->S_DT[R8001]; 
-      end if;
+
       if empty bdt
         USER::logError(msg: "Internal Error in OAL Validation Utility Function " +
                                "is_valid_message().  Variable <bdt> is empty.",path:"PathNotProvided");
@@ -6890,8 +6828,7 @@ INSERT INTO S_SYNC
 	'sender_validate',
 	'ParserValidateFunction: TRUE
 ParserUtilityFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-if param.a1_name == "Sender" or param.a1_name == "sender" or
+	'if param.a1_name == "Sender" or param.a1_name == "sender" or
                                                        param.a1_name == "SENDER"
   current_scope = ::get_current_scope();
   select any block from instances of ACT_BLK where
@@ -6921,10 +6858,7 @@ if param.a1_name == "Sender" or param.a1_name == "sender" or
           relate var_inst to sndr across R814;
           var_inst.Name = param.a1_name;
           relate var_inst to outer_blk across R823;
-          select any dom from instances of S_DOM where selected.Dom_ID == ::getValidationDomain();
-          select any dt related by dom->S_DT[R14] where
-                                               selected.Name == "component_ref";
-          if empty dt
+
             cur_sys_name = ::getSystemName();
             select any sys from instances of S_SYS where
                                                   selected.Name == cur_sys_name;
@@ -6934,7 +6868,7 @@ if param.a1_name == "Sender" or param.a1_name == "sender" or
             end if;
             select any pe from instances of PE_PE where selected.Element_ID == dt_id;
             select one dt related by pe->S_DT[R8001];
-          end if;
+
           if ( not_empty dt )
             relate var_inst to dt across R848;
           else
@@ -7131,9 +7065,7 @@ ParserUtilityFunction: TRUE
 Translate: native
 ',
 	'java.util.UUID result = org.xtuml.bp.core.common.IdAssigner.NULL_UUID;
-if (this.m_dom != null) {
-  result = this.m_dom.getDom_id();
-}
+
 if (this.m_nrme != null) {
   result = this.m_nrme.Get_ooa_id();
 }
@@ -7162,8 +7094,7 @@ datatype.
 Typically this is done after migrating a V_TRN to one of these instance
 reference types.
 ',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-// OAL Validation Utility Function::connect_inst_ref_var_to_datatype()
+	'// OAL Validation Utility Function::connect_inst_ref_var_to_datatype()
 
 select any obj from instances of O_OBJ where selected.Obj_ID == param.p3_obj_id;
 select any irdt related by obj->S_IRDT[R123] where selected.isSet == param.p1_is_set;
@@ -7181,38 +7112,35 @@ else
   end if;
 
   elemId = ::getValidationDomain();
-  select any dom from instances of S_DOM where selected.Dom_ID == elemId;
-  select any dt1_dt related by dom->S_DT[R14] where selected.Name == dt_name;
-  if empty dt1_dt
-    select any packageableElem from instances of PE_PE where
-                                                  selected.Element_ID == elemId;
-    select one package related by packageableElem->EP_PKG[R8000];
-    select one component related by packageableElem->C_C[R8003];
-    isInGenericPackage = not_empty package or not_empty component;
+  select any dt1_dt from instances of S_DT where false;
 
-    if (isInGenericPackage)
-      dtID = packageableElem.resolveDataTypeRelativeToSelf(
-                                   expected_name:dt_name, default_name:dt_name);
-      select any dt1_dt related by package->PE_VIS[R8002]->
-                         PE_PE[R8002]->S_DT[R8001] where selected.DT_ID == dtID;
-      if (empty dt1_dt)
-        select any dt1_dt related by component->PE_CVS[R8004]->
-                         PE_PE[R8004]->S_DT[R8001] where selected.DT_ID == dtID;
-      end if;
-    else
-    // If we are not at the domain level, then we need to look for the datatypes
-    // in the system-level datatype package(s)
-    cur_sys_name = ::getSystemName();
-      select any sys from instances of S_SYS where
-                                                (selected.Name == cur_sys_name);
+select any packageableElem from instances of PE_PE where
+                                              selected.Element_ID == elemId;
+select one package related by packageableElem->EP_PKG[R8000];
+select one component related by packageableElem->C_C[R8003];
+hasParent = not_empty package or not_empty component;
+      if (hasParent)
+	      dtID = packageableElem.resolveDataTypeRelativeToSelf(
+	                                   expected_name:dt_name, default_name:dt_name);
+	      select any dt1_dt related by package->PE_VIS[R8002]->
+	                         PE_PE[R8002]->S_DT[R8001] where selected.DT_ID == dtID;
+	      if (empty dt1_dt)
+	        select any dt1_dt related by component->PE_CVS[R8004]->
+	                         PE_PE[R8004]->S_DT[R8001] where selected.DT_ID == dtID;
+	      end if;
+     end if;
+    if (empty dt1_dt)
       dt_id = GD::NULL_UNIQUE_ID();
-      if not_empty sys
-        dt_id = sys.getCoreTypeId(name:dt_name);
-      end if;
-      select any pe from instances of PE_PE where selected.Element_ID == dt_id;
-      select one dt1_dt related by pe->S_DT[R8001];
-    end if;
-  end if;
+      cur_sys_name = ::getSystemName();
+      select any sys from instances of S_SYS where
+                                            (selected.Name == cur_sys_name);
+  			  if not_empty sys   
+                dt_id = sys.getCoreTypeId(name:dt_name);
+		      select any pe related by sys->G_EIS[R9100]->PE_PE[R9100]
+		                                                where selected.Element_ID == dt_id;
+		      select one dt1_dt related by pe->S_DT[R8001];
+		      end if; 
+      end if; 
 
   if not_empty dt1_dt
     relate vvar to dt1_dt across R848;
@@ -7443,10 +7371,10 @@ if (isInGenericPackage)
                                      selected.Name == param.a1_name and 
                                    selected.Type == ElementTypeConstants::CONSTANT; 
       select many results related by pkgResultSet->PE_VIS[R8006]->PE_PE[R8002];
-  end if;
+    end if;
 
 
-select many sycs related by results->CNST_CSP[R8001]->CNST_SYC[R1504] where (selected.Name == param.a1_name);
+  select many sycs related by results->CNST_CSP[R8001]->CNST_SYC[R1504] where (selected.Name == param.a1_name);
   if (cardinality sycs > 1)
 
       err_msg =  "There is more than one constant named ->" + param.a1_name + "<- in the system, cannot resolve.";
@@ -7462,36 +7390,35 @@ select many sycs related by results->CNST_CSP[R8001]->CNST_SYC[R1504] where (sel
     return GD::NULL_UNIQUE_ID();
   end if;
 
-create object instance scv of V_SCV;
-for each syc in sycs
-  // We only loop once due to cardinality checks earlier
-  relate scv to syc across R850;
-end for;
+  create object instance scv of V_SCV;
+  for each syc in sycs
+    // We only loop once due to cardinality checks earlier
+    relate scv to syc across R850;
+  end for;
 
-select any val from instances of V_VAL where selected.Value_ID == param.a4_valID;
-if (empty val)
-  create object instance newval of V_VAL;
-  val = newval;
-end if;
-relate val to scv across R801;
+  select any val from instances of V_VAL where selected.Value_ID == param.a4_valID;
+  if (empty val)
+    create object instance newval of V_VAL;
+    val = newval;
+  end if;
+  relate val to scv across R801;
 
-current_scope = ::get_current_scope();
-select any block from instances of ACT_BLK where
+  current_scope = ::get_current_scope();
+  select any block from instances of ACT_BLK where
                                            (selected.Block_ID == current_scope);
-relate val to block across R826;
+  relate val to block across R826;
 
-select one dt related by syc->S_DT[R1500];
-relate val to dt across R820;
+  select one dt related by syc->S_DT[R1500];
+  relate val to dt across R820;
 
-val.LineNumber = ::getLineNumber(rule_token: param.a2_ruleToken);
-val.StartPosition = ::getColumn(rule_token: param.a2_ruleToken);
-val.setEndPosition();
+  val.LineNumber = ::getLineNumber(rule_token: param.a2_ruleToken);
+  val.StartPosition = ::getColumn(rule_token: param.a2_ruleToken);
+  val.setEndPosition();
 
-return val.Value_ID;
+  return val.Value_ID;
 else
 //Specialized package behavior is kept as before 
 select many sycs from instances of CNST_SYC where (selected.Name == param.a1_name );
-
 if (cardinality sycs > 1)
   if (param.a3_reportError)
     err_msg =  "There is more than one constant named ->" + param.a1_name + "<- in this domain, cannot resolve.";
@@ -7505,23 +7432,12 @@ if(empty sycs)
   // if the symbolic constant was not found, check the system level
   sysName = ::getSystemName();
   select any system from instances of S_SYS where (selected.Name == sysName);
-  select many sycs related by system->SLD_SCINP[R4404]->CNST_CSP[R4403]
-                          ->CNST_SYC[R1504] where (selected.Name == param.a1_name);
-
-  if (cardinality sycs > 1)
-    if (param.a3_reportError)
-      err_msg =  "There is more than one constant named ->" + param.a1_name + "<- in the system, cannot resolve.";
-      ::clear_value_data();
-      ERR::reportParseError( msg: err_msg, token: param.a2_ruleToken);
-    end if;
-    return GD::NULL_UNIQUE_ID();
-  elif (cardinality sycs == 0)
     if (param.a3_reportError)
       ERR::reportParseError( msg: "Cannot find constant ->%s<-",
           token: param.a2_ruleToken);
     end if;
     return GD::NULL_UNIQUE_ID();
-  end if;
+
 end if;
 
 create object instance scv of V_SCV;

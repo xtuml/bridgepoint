@@ -92,20 +92,8 @@ public class TigerNatureExistingProjectsTestGenerics extends CanvasTest {
 
 	public TigerNatureExistingProjectsTestGenerics(String name) {
 		super("org.xtuml.bp.core.test", name);
-		if (Platform.getOS().contains("win")) {
-			  expected_string = new String[]{
-					"drawRectangle(16416, 12384, 384, 432)",
-					"drawText(" + String.valueOf('"') + "Unnamed ..."
-							+ String.valueOf('"') + ", 16432, 12397, true)",
-					"drawline(16416, 12492, 16800, 12492)"};
-			}
-			else {
-	          expected_string = new String[]{
-							"drawRectangle(...)",
-							"drawText(" + String.valueOf('"') + "Unname..."
-									+ String.valueOf('"') + ", ...)",
-							"drawline(...)"};
-			}
+		expected_string = new String[] { "drawRectangle(...)",
+				"drawText(" + String.valueOf('"') + "Unname..." + String.valueOf('"') + ", ...)", "drawline(...)" };
 	}
 
 	protected String getResultName() {
@@ -164,12 +152,29 @@ public class TigerNatureExistingProjectsTestGenerics extends CanvasTest {
 		return null;
 	}
 
+	public void testExistingProjects() throws Exception {
+		doTestNewShapeAfterRestartOnSequenceDiagram();
+		doTestEditorsRemainOpenAfterClose();
+		doTestPlacholderInstances();
+		doTestInterfaceAssignmentInterfaceContainedInDifferentPackageRoot();
+		doTestComponentAssignmentComponentContainedInDifferentPackageRoot();
+		doTestDataTypeAssignmentInterfaceOperationInDifferentPackageRoot();
+		doTestDataTypeAssignmentPropertyParameterInDifferentPackageRoot();
+		doTestUseCasePackageOnRestart();
+		doTestPackageParticipantFormalizedToIPREditorRestoration();
+		doTestComponentParticipantFormalizedToIPREditorRestoration();
+		doTestExternalEntityParticipantFormalizedToIPREditorRestoration();
+		doTestClassParticipantFormalizedToIPREditorRestoration();
+		doTestClassInstanceParticipantFormalizedToIPREditorRestoration();
+		
+	}
+	
 	/**
 	 * Create a new shape on an existing sequence diagram, testing
 	 * that it is drawn correctly.
 	 * @throws PartInitException 
 	 */
-	public void testNewShapeAfterRestartOnSequenceDiagram()
+	public void doTestNewShapeAfterRestartOnSequenceDiagram()
 			throws PartInitException {
 		IEditorReference[] editorReferences = PlatformUI.getWorkbench()
 				.getActiveWorkbenchWindow().getActivePage()
@@ -213,7 +218,7 @@ public class TigerNatureExistingProjectsTestGenerics extends CanvasTest {
 		}
 	}
 
-	public void testEditorsRemainOpenAfterClose() {
+	public void doTestEditorsRemainOpenAfterClose() {
 		assertNotNull(
 				"Editor, TestSS: Class Diagram, did not correctly restore",
 				checkForOpenEditors("TestSS"));
@@ -225,7 +230,7 @@ public class TigerNatureExistingProjectsTestGenerics extends CanvasTest {
 				checkForOpenEditors("TestClass1"));
 	}
 
-	public void testPlacholderInstances() {
+	public void doTestPlacholderInstances() {
 		IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(
 				"Test Project 1");
 
@@ -280,7 +285,7 @@ public class TigerNatureExistingProjectsTestGenerics extends CanvasTest {
 
 	}
 
-	public void testInterfaceAssignmentInterfaceContainedInDifferentPackageRoot() {
+	public void doTestInterfaceAssignmentInterfaceContainedInDifferentPackageRoot() {
 		test_id = "InterfaceAssignment";
 		// open the pre-created component package
 		final String projectName = "Package Test Project";
@@ -350,7 +355,7 @@ public class TigerNatureExistingProjectsTestGenerics extends CanvasTest {
 		validateOrGenerateResults(ce, generateResults, true);
 	}
 
-	public void testComponentAssignmentComponentContainedInDifferentPackageRoot() {
+	public void doTestComponentAssignmentComponentContainedInDifferentPackageRoot() {
 		test_id = "ComponentAssignment";
 		// open the pre-created component package
 		final String projectName = "Package Test Project";
@@ -422,7 +427,7 @@ public class TigerNatureExistingProjectsTestGenerics extends CanvasTest {
 		validateOrGenerateResults(ce, generateResults, true);
 	}
 
-	public void testDataTypeAssignmentInterfaceOperationInDifferentPackageRoot() {
+	public void doTestDataTypeAssignmentInterfaceOperationInDifferentPackageRoot() {
 		test_id = "DataTypeAssignmentInterfaceOperation";
 		// open the pre-created component package
 		final String projectName = "Package Test Project";
@@ -494,7 +499,7 @@ public class TigerNatureExistingProjectsTestGenerics extends CanvasTest {
 				dt.getName().equals("DataTypeAssignmentSetup"));
 	}
 
-	public void testDataTypeAssignmentPropertyParameterInDifferentPackageRoot() {
+	public void doTestDataTypeAssignmentPropertyParameterInDifferentPackageRoot() {
 		test_id = "DataTypeAssignmentPropertyParameter";
 		// open the pre-created component package
 		final String projectName = "Package Test Project";
@@ -836,7 +841,7 @@ public class TigerNatureExistingProjectsTestGenerics extends CanvasTest {
 //				result != -1);
 //	}
 	
-	public void testUseCasePackageOnRestart() {
+	public void doTestUseCasePackageOnRestart() {
 		test_id = "LoadUseCaseDiagramOnRestart";
 		final String projectName = "Package Test Project";
 		SystemModel_c system = SystemModel_c.SystemModelInstance(Ooaofooa
@@ -866,7 +871,7 @@ public class TigerNatureExistingProjectsTestGenerics extends CanvasTest {
 		validateOrGenerateResults(ce, generateResults, true);
 	}
 	
-	public void testPackageParticipantFormalizedToIPREditorRestoration() {
+	public void doTestPackageParticipantFormalizedToIPREditorRestoration() {
 		test_id = "PackageParticipantFormalizationIPR";
 		// locate the editors in question
 		IEditorReference[] editorReferences = PlatformUI.getWorkbench()
@@ -885,7 +890,7 @@ public class TigerNatureExistingProjectsTestGenerics extends CanvasTest {
 		validateOrGenerateResults(gEditor, generateResults);
 	}
 
-	public void testComponentParticipantFormalizedToIPREditorRestoration() {
+	public void doTestComponentParticipantFormalizedToIPREditorRestoration() {
 		test_id = "ComponentParticipantFormalizationIPR";
 		// locate the editors in question
 		IEditorReference[] editorReferences = PlatformUI.getWorkbench()
@@ -904,7 +909,7 @@ public class TigerNatureExistingProjectsTestGenerics extends CanvasTest {
 		validateOrGenerateResults(gEditor, generateResults);
 	}
 	
-	public void testExternalEntityParticipantFormalizedToIPREditorRestoration() {
+	public void doTestExternalEntityParticipantFormalizedToIPREditorRestoration() {
 		test_id = "EEParticipantFormalizationIPR";
 		// locate the editors in question
 		IEditorReference[] editorReferences = PlatformUI.getWorkbench()
@@ -923,7 +928,7 @@ public class TigerNatureExistingProjectsTestGenerics extends CanvasTest {
 		validateOrGenerateResults(gEditor, generateResults);
 	}
 	
-	public void testClassParticipantFormalizedToIPREditorRestoration() {
+	public void doTestClassParticipantFormalizedToIPREditorRestoration() {
 		test_id = "ClassParticipantFormalizationIPR";
 		// locate the editors in question
 		IEditorReference[] editorReferences = PlatformUI.getWorkbench()
@@ -942,7 +947,7 @@ public class TigerNatureExistingProjectsTestGenerics extends CanvasTest {
 		validateOrGenerateResults(gEditor, generateResults);
 	}
 	
-	public void testClassInstanceParticipantFormalizedToIPREditorRestoration() {
+	public void doTestClassInstanceParticipantFormalizedToIPREditorRestoration() {
 		test_id = "ClassInstParticipantFormalizationIPR";
 		// locate the editors in question
 		IEditorReference[] editorReferences = PlatformUI.getWorkbench()

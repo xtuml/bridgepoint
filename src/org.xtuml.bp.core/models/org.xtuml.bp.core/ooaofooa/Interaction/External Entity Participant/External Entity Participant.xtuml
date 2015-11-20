@@ -277,30 +277,15 @@ INSERT INTO O_TFR
     // one bridge operation
     return self.formalEEHasBridgeOperations();
   end if;
-  if(param.value == "formEE spec pkg") or (param.value == "formEE generic pkg")
-    select one packageableElem related by self->SQ_P[R930]->PE_PE[R8001];
-    select one package related by packageableElem->EP_PKG[R8000];
-    select one component related by packageableElem->C_C[R8003];
-    isInGenericPackage = not_empty package or not_empty component;
-  
-    if ((param.value == "formEE spec pkg")  and (isInGenericPackage))
-      return false;
-    end if;
-    if ((param.value == "formEE generic pkg") and (not isInGenericPackage))
-      return false;
-    end if;
-    
+  if(param.value == "formEE generic pkg")
     // no formalization support yet at system level
     if(self.definedAtSystemLevel())
       return false;
     end if;
-    select many ees from instances of S_EE;
-    count = cardinality ees;
-    if(param.value == "formEE generic pkg")
       count = Util::getElementCountInSystem(
                                           elementType:ElementTypeConstants::EE, 
                                         askingElement:self.convertToInstance());
-    end if;
+
     if(count == 1 and self.isFormal)
       // there is only one possibility and we
       // are already assigned to it
@@ -391,14 +376,11 @@ INSERT INTO O_TFR
 	'select any ee from instances of S_EE
                                 where (selected.EE_ID == GD::NULL_UNIQUE_ID());
 select one package related by self->SQ_P[R930]->PE_PE[R8001]->EP_PKG[R8000];
-isInGenericPackage = not_empty package;
-if(not isInGenericPackage)
-  select any ee from instances of S_EE where (selected.EE_ID == param.eeId);
-else
+
   select any pe from instances of PE_PE
                                    where (selected.Element_ID == param.eeId);
   select one ee related by pe->S_EE[R8001];
-end if;
+
 if(self.isFormal)
   self.unformalize();
 end if;
@@ -489,15 +471,12 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select one proxyEE related by self->S_EE[R933];
+	'select one proxyEE related by self->S_EE[R933];
 if(not_empty proxyEE and not Util::isProxy(element:self.convertToInstance()))
   select one packageableElem related by self->SQ_P[R930]->PE_PE[R8001];
   select one package related by packageableElem->EP_PKG[R8000];
   select one component related by packageableElem->C_C[R8003];
-  isInGenericPackage = not_empty package or not_empty component;
-
-  if (isInGenericPackage)
+  
     if (empty package)
       rootCompIdInPkg = component.getRootComponentId();
       select any rootComponent from instances of C_C where (selected.Id == rootCompIdInPkg);
@@ -542,48 +521,7 @@ if(not_empty proxyEE and not Util::isProxy(element:self.convertToInstance()))
       self.unformalize();
     end if;
     return;
-  end if;  // end isInGenericPackage
-  
-  //////////////////////////////////////////////////////////////////////
-  // Note: Everything below this point is for the case when we are using 
-  //       specialized packages.
-  //////////////////////////////////////////////////////////////////////
-  
-  // if a domain is resolved by the proxy ee
-  // then this EEP has already been
-  // resolved or does not need to be as the referred to
-  // EE is contained in the copy
-  select one dom related by proxyEE->S_DOM[R8];
-  if(empty dom or Util::isProxy(element:dom.convertToInstance()))
-    name = proxyEE.Name;
-    key_letters = proxyEE.Key_Lett;
-    unrelate self from proxyEE across R933;
-    // this is safe as there will only ever be one
-    // domain
-    select any domain from instances of S_DOM;
-    // first try to resolve the EE by key letters and name
-    select any ee related by domain->S_EE[R8]
-         where (selected.Key_Lett == key_letters and selected.Name == name);
-    if(empty ee)
-      // if no ee was found try to resolve it by key_letters alone
-      select any ee related by domain->S_EE[R8]
-           where (selected.Key_Lett == key_letters);
-      if(empty ee)
-        // if still no ee was found try to resolve on the name alone
-        select any ee related by domain->S_EE[R8]
-             where (selected.Name == name);
-      end if;
-    end if;
-    eeResolved = not_empty ee;
-    if(eeResolved)
-      relate self to ee across R933;
-      self.resolveMessageFormalizations();
-    else
-      // unformalize this EEP
-      self.unformalize();
-    end if;
-  end if;
-end if;
+  end if;  
 ',
 	1,
 	'',

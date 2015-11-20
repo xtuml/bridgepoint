@@ -62,15 +62,8 @@ fnName="";
 if (not_empty function)
   fnName = function.Name; 
    select one pe_pe related by function ->PE_PE[R8001];
-     if(not_empty pe_pe )
-     //Is In Generics
       select one pkg related by pe_pe->EP_PKG[R8000];
       fnPath= pkg.getPath(path:fnName);
-     else
-      //In specialized 
-      select one fnPkg related by function->S_FPK[R31];
-      fnPath = fnPkg.getPath()+"::"+ fnName;    
-     end if;
 end if;
 return fnPath;',
 	1,

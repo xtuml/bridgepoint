@@ -1,11 +1,5 @@
 //=====================================================================
 //
-//File:      $RCSfile: DebugUITestUtilities.java,v $
-//Version:   $Revision: 1.28 $
-//Modified:  $Date: 2013/05/10 04:28:45 $
-//
-//(c) Copyright 2008-2014 by Mentor Graphics Corp. All rights reserved.
-//
 //=====================================================================
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not 
 // use this file except in compliance with the License.  You may obtain a copy 
@@ -72,10 +66,8 @@ import org.eclipse.ui.console.TextConsole;
 import org.eclipse.ui.part.ViewPart;
 
 import org.xtuml.bp.core.ComponentInstance_c;
-import org.xtuml.bp.core.ComponentPackage_c;
 import org.xtuml.bp.core.ComponentReference_c;
 import org.xtuml.bp.core.Component_c;
-import org.xtuml.bp.core.Domain_c;
 import org.xtuml.bp.core.IntercomponentQueueEntry_c;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.PackageableElement_c;
@@ -91,6 +83,7 @@ import org.xtuml.bp.core.common.Transaction;
 import org.xtuml.bp.core.common.TransactionException;
 import org.xtuml.bp.core.common.TransactionManager;
 import org.xtuml.bp.core.ui.Selection;
+import org.xtuml.bp.core.util.OoaofooaUtil;
 import org.xtuml.bp.core.util.TransactionUtil;
 import org.xtuml.bp.core.util.UIUtil;
 import org.xtuml.bp.debug.ui.actions.ExecuteAction;
@@ -149,14 +142,7 @@ public class DebugUITestUtilities {
 								} else if (icomponent != null) {
 									type = icomponent.getClass()
 											.getSimpleName();
-								} else {
-									Domain_c domain = Domain_c
-											.getOneS_DOMOnR2948(engine);
-									if (domain != null) {
-										type = domain.getClass()
-												.getSimpleName();
-									}
-								}
+								} 
 								if (j == threads.length - 1) {
 									actual_results = actual_results
 											+ thread.getName() + " : " + type;
@@ -380,32 +366,7 @@ public class DebugUITestUtilities {
 	}
 
 	private static SystemModel_c getSystemForElement(NonRootModelElement element) {
-		if (element instanceof Component_c) {
-			return SystemModel_c.getOneS_SYSOnR4606(ComponentPackage_c
-					.getOneCP_CPOnR4608((Component_c) element));
-		} else if (element instanceof ComponentPackage_c) {
-			return SystemModel_c
-					.getOneS_SYSOnR4606((ComponentPackage_c) element);
-		} else if (element instanceof ComponentReference_c) {
-			return SystemModel_c.getOneS_SYSOnR4606(ComponentPackage_c
-					.getOneCP_CPOnR4608(Component_c
-							.getOneC_COnR4201((ComponentReference_c) element)));
-		} else if (element instanceof Domain_c) {
-			return SystemModel_c.getOneS_SYSOnR28((Domain_c) element);
-		} else if (element instanceof ComponentInstance_c) {
-			Component_c component = Component_c
-					.getOneC_COnR2955((ComponentInstance_c) element);
-			if (component != null) {
-				return getSystemForElement(component);
-			} else {
-				Domain_c domain = Domain_c
-						.getOneS_DOMOnR2948((ComponentInstance_c) element);
-				if (domain != null) {
-					return getSystemForElement(domain);
-				}
-			}
-		}
-		return null;
+		return OoaofooaUtil.getSystemForElement(element);
 	}
 
 	public static void setLogActivityAndLaunchForElement(
@@ -449,10 +410,7 @@ public class DebugUITestUtilities {
 			configurations = DebugPlugin.getDefault().getLaunchManager()
 					.getLaunchConfigurations();
 			NonRootModelElement[] elements = null;
-			if (element instanceof ComponentPackage_c) {
-				elements = BPDebugUtils.getComponentPackageChildren((ComponentPackage_c) element);
-			}
-			else if (element instanceof Package_c) {
+			if (element instanceof Package_c) {
 				elements = BPDebugUtils.getPackageChildren((Package_c) element);
 			}
 			else {
@@ -484,18 +442,7 @@ public class DebugUITestUtilities {
 
 	public static void waitForBPThreads(SystemModel_c system) {
 		ArrayList<ComponentInstance_c> list = new ArrayList<ComponentInstance_c>();
-		ComponentInstance_c[] engines = ComponentInstance_c
-				.getManyI_EXEsOnR2948(Domain_c.getManyS_DOMsOnR28(system));
-		for (int i = 0; i < engines.length; i++) {
-			list.add(engines[i]);
-		}
-		engines = ComponentInstance_c.getManyI_EXEsOnR2955(Component_c
-				.getManyC_CsOnR4608(ComponentPackage_c
-						.getManyCP_CPsOnR4606(system)));
-		for (int i = 0; i < engines.length; i++) {
-			list.add(engines[i]);
-		}
-		engines = ComponentInstance_c.getManyI_EXEsOnR2955(Component_c
+		ComponentInstance_c[] engines = ComponentInstance_c.getManyI_EXEsOnR2955(Component_c
 				.getManyC_CsOnR8001(PackageableElement_c.getManyPE_PEsOnR8000((Package_c
 						.getManyEP_PKGsOnR1405(system)))));
 		for (int i = 0; i < engines.length; i++) {
@@ -618,7 +565,7 @@ public class DebugUITestUtilities {
 
 	public static String getConsoleText(String expected) {
 		// wait for all outstanding events to complete
-		TestingUtilities.processDisplayEvents();
+		BaseTest.dispatchEvents(0);
 		IConsole[] consoles = ConsolePlugin.getDefault().getConsoleManager()
 				.getConsoles();
 		for (int i = 0; i < consoles.length; i++) {

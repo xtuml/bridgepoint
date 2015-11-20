@@ -225,6 +225,12 @@
 
   </target>
 
+  <!-- Important: you have to choose "Run in the same JRE as workspace" at the Ant run configuration.-->
+  <target name="refresh" description="Refresh project" >
+      <echo>Refreshing bp.als.oal project, which this build updated.</echo>
+      <eclipse.refreshLocal resource="../org.xtuml.bp.als.oal/src" depth="infinite" />
+  </target>
+
   <!-- This target is not used in the eclipse environment.  The eclipse Java
        builder handles the java compilation when building BridgePoint under
        eclipse.  This target is used only when building BridgePoint from the

@@ -70,9 +70,9 @@ import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Operation_c;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.PackageableElement_c;
-import org.xtuml.bp.core.Subsystem_c;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.XtUMLNature;
+import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.common.PersistableModelComponent;
@@ -82,17 +82,16 @@ import org.xtuml.bp.core.common.TransactionException;
 import org.xtuml.bp.core.common.TransactionManager;
 import org.xtuml.bp.core.ui.AddToIdentifierOnO_ATTRAction;
 import org.xtuml.bp.core.ui.DeleteAction;
-import org.xtuml.bp.core.ui.NewDomainWizard;
 import org.xtuml.bp.core.ui.NewSystemWizard;
 import org.xtuml.bp.core.ui.RenameAction;
 import org.xtuml.bp.core.ui.Selection;
-import org.xtuml.bp.core.ui.WizardNewDomainCreationPage;
 import org.xtuml.bp.test.TestUtil;
 import org.xtuml.bp.test.common.BaseTest;
 import org.xtuml.bp.test.common.CVSUtils;
 import org.xtuml.bp.test.common.CanvasTestUtils;
 import org.xtuml.bp.test.common.ExplorerUtil;
 import org.xtuml.bp.test.common.UITestingUtilities;
+import org.xtuml.bp.ui.canvas.CanvasTransactionListener;
 import org.xtuml.bp.ui.canvas.Connector_c;
 import org.xtuml.bp.ui.canvas.GraphicalElement_c;
 import org.xtuml.bp.ui.canvas.Ooaofgraphics;
@@ -118,31 +117,6 @@ public class TigerNatureTestGenerics extends CanvasTest {
 
 	protected String getResultName() {
 		return "TigerNatureTest" + "_" + test_id;
-	}
-
-	public static PersistableModelComponent createNewDomain(String name, SystemModel_c systemModel) {
-		NewDomainWizard ndw = new NewDomainWizard();
-		ndw.init(PlatformUI.getWorkbench(),
-				new StructuredSelection(systemModel));
-		ndw.addPages();
-		WizardDialog dialog = new WizardDialog(PlatformUI.getWorkbench()
-				.getActiveWorkbenchWindow().getShell(), ndw);
-		dialog.create();
-		WizardNewDomainCreationPage wndcp = (WizardNewDomainCreationPage) ndw
-				.getStartingPage();
-		String fieldValue = wndcp.getSystemNameFieldValue();
-		assertTrue("Project field is not filled in", fieldValue
-				.equals(systemModel.getName()));
-		wndcp.setDomainNameFieldValue(name);
-        wndcp.setUseTemplate(false);
-		wndcp.setPageComplete(true);
-		ndw.performFinish();
-		
-		PersistableModelComponent sysComponent = PersistenceManager.getComponent(systemModel);
-		IPath path = sysComponent.getContainingDirectoryPath().append(name + "/" + name + "." + Ooaofooa.MODELS_EXT);
-
-		return PersistenceManager.findComponent(path);
-		
 	}
 
 	public static IProject createXtUMLProject(String name) {
@@ -182,6 +156,11 @@ public class TigerNatureTestGenerics extends CanvasTest {
 
 	}
 
+	@Override
+	protected void initialSetup() throws Exception {
+		CorePlugin.getDefault().getPreferenceStore().setValue(BridgePointPreferencesStore.USE_DEFAULT_NAME_FOR_CREATION, true);
+	}
+
 	protected void setUp() throws Exception {
 		super.setUp();
 		Display d = Display.getCurrent();
@@ -190,9 +169,7 @@ public class TigerNatureTestGenerics extends CanvasTest {
 	}
 
 	protected void tearDown() throws Exception {
-		Display d = Display.getCurrent();
-		while (d.readAndDispatch());
-
+		BaseTest.dispatchEvents(0);
 		super.tearDown();
 	}
 
@@ -241,15 +218,6 @@ public class TigerNatureTestGenerics extends CanvasTest {
 		return result;
 	}
 
-	public String getNewSubsystemString(Subsystem_c subsystem) {
-		String newSubsystem = "S_SS\n\tVALUES (" + '"' + subsystem.getSs_id()
-				+ '"' + ",\n\t'" + subsystem.getName() + "',\n\t'"
-				+ subsystem.getDescrip() + "',\n\t'" + subsystem.getPrefix()
-				+ "',\n\t" + Integer.toString(subsystem.getNum_rng()) + ",\n\t"
-				+ '"' + subsystem.getDom_id() + '"' + ",\n\t" + '"'
-				+ subsystem.getConfig_id() + '"' + ");";
-		return newSubsystem;
-	}
 	private String getNewPackageString(Package_c pkg) {
 		String newPackage = "EP_PKG\n\tVALUES (" + "\"" + pkg.getPackage_id()
 				+ "\"" + ",\n\t" + "\"" + pkg.getSys_id() + "\"" + ",\n\t"
@@ -459,7 +427,7 @@ public class TigerNatureTestGenerics extends CanvasTest {
 		}
 		return false;
 	}
-	
+
 	public void testTigerNatureTestGenerics() throws Exception{
 		   doTestNewProjectDefaultPath(); 
 		      doTestNewProjectNonDefaultPath(); 
@@ -1056,6 +1024,7 @@ public class TigerNatureTestGenerics extends CanvasTest {
 		AddToIdentifierOnO_ATTRAction atia = new AddToIdentifierOnO_ATTRAction();
 		atia.setActivePart(a, PlatformUI.getWorkbench()
 				.getActiveWorkbenchWindow().getActivePage().getActivePart());
+		BaseTest.dispatchEvents(0);
 		Ooaofooa.setPersistEnabled(true);
 		TestUtil.cancelDialog(200);
 		atia.run(a);

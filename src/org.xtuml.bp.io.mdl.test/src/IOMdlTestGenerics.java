@@ -215,7 +215,7 @@ public class IOMdlTestGenerics extends TestCase {
         try {
             String loc = m_workspace_path + "models/odms.xxx";//$NON-NLS-1$
             importSuccess = TestingUtilities
-                    .importModelUsingWizardConvertToGenerics(m_system, loc,
+                    .importModelUsingWizard(m_system, loc,
                             false);
             ImportModel impMod = new ImportModel("odms.xxx", modelRoot, m_system, true, true, false);  //$NON-NLS-1$
             int i = impMod.countAndValidateInsertStatements();
@@ -354,7 +354,7 @@ public class IOMdlTestGenerics extends TestCase {
                });
            
        String loc = m_workspace_path + path+m_domain_name+"." + Ooaofooa.MODELS_EXT;//$NON-NLS-1$
-       TestingUtilities.importModelUsingWizardConvertToGenerics(m_system,loc, false);
+       TestingUtilities.importModelUsingWizard(m_system,loc, false);
        modelRoot.setLoadPathForTests(loc);
        BaseTest.dispatchEvents(0);
    }

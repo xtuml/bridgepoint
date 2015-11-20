@@ -46,7 +46,7 @@ import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.common.PersistableModelComponent;
-import org.xtuml.bp.core.util.DomainUtil;
+import org.xtuml.bp.core.util.ContainerUtil;
 import org.xtuml.bp.test.common.*;
 import org.xtuml.bp.ui.canvas.*;
 import org.xtuml.bp.ui.graphics.editor.*;
@@ -178,47 +178,41 @@ public class ArrayBaseTest_Generics extends CanvasTest {
 		OalLexer lexer = new OalLexer(new StringReader(stmts));
 		OalParser parser;
 		parser = new OalParser(arrayModelRoot, lexer);
-		try {
+		try {			
 			switch (funcType) {
 			case ACTIVITY_TYPE_FUNC:
-				parser.m_oal_context = new Oal_validate(DomainUtil
-						.getDomain(m_testFunc[funcNum]));
+				parser.m_oal_context = new Oal_validate(ContainerUtil.getContainer(m_testFunc[funcNum]));
 				m_testFunc[funcNum].setAction_semantics_internal(stmts);
 				parser.action(m_testFunc[funcNum].getSync_id(),
 						Oalconstants_c.FUNCTION_TYPE);
 				break;
 			case ACTIVITY_TYPE_BRG:
-				parser.m_oal_context = new Oal_validate(DomainUtil
-						.getDomain(m_testBrg[funcNum]));
+				parser.m_oal_context = new Oal_validate(ContainerUtil.getContainer(m_testBrg[funcNum]));
 				m_testBrg[funcNum].setAction_semantics_internal(stmts);
 				parser.action(m_testBrg[funcNum].getBrg_id(),
 						Oalconstants_c.BRIDGE_TYPE);
 				break;
 			case ACTIVITY_TYPE_CB_OP:
-				parser.m_oal_context = new Oal_validate(DomainUtil
-						.getDomain(m_testCBTfr[funcNum]));
+				parser.m_oal_context = new Oal_validate(ContainerUtil.getContainer(m_testCBTfr[funcNum]));
 				m_testCBTfr[funcNum].setAction_semantics_internal(stmts);
 				parser.action(m_testCBTfr[funcNum].getTfr_id(),
 						Oalconstants_c.OPERATION_TYPE);
 				break;
 			case ACTIVITY_TYPE_INT_RO:
-				parser.m_oal_context = new Oal_validate(DomainUtil
-						.getDomain(m_testReqOpr[funcNum]));
+				parser.m_oal_context = new Oal_validate(ContainerUtil.getContainer(m_testReqOpr[funcNum]));
 				m_testReqOpr[funcNum].setAction_semantics_internal(stmts);
 				parser.action(m_testReqOpr[funcNum].getId(),
 						Oalconstants_c.REQ_OPERATION_TYPE);
 				break;
 			case ACTIVITY_TYPE_INT_PO:
-				parser.m_oal_context = new Oal_validate(DomainUtil
-						.getDomain(m_testProvOpr[funcNum]));
+				parser.m_oal_context = new Oal_validate(ContainerUtil.getContainer(m_testProvOpr[funcNum]));
 				m_testProvOpr[funcNum].setAction_semantics_internal(stmts);
 				parser.action(m_testProvOpr[funcNum].getId(),
 						Oalconstants_c.PROV_OPERATION_TYPE);
 				break;
 
 			case ACTIVITY_TYPE_ArraySTATE:
-				parser.m_oal_context = new Oal_validate(DomainUtil
-						.getDomain(m_arrayStateAction[funcNum]));
+				parser.m_oal_context = new Oal_validate(ContainerUtil.getContainer(m_arrayStateAction[funcNum]));
 				TransitionActionBody_c tab2 = TransitionActionBody_c
 						.getOneACT_TABOnR688(m_arrayStateAction[funcNum]);
 				if (tab2 != null) {
