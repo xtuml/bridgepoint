@@ -49,6 +49,8 @@ CREATE TABLE A_E (
 CREATE TABLE A_AF (
 	     Id	UNIQUE_ID,
 	     Descrip	STRING );
+CREATE TABLE A_AIA (
+	     Package_ID	UNIQUE_ID );
 CREATE TABLE A_N (
 	     Id	UNIQUE_ID,
 	     Package_ID	UNIQUE_ID );
@@ -57,6 +59,16 @@ CREATE TABLE A_AP (
 	     Package_ID	UNIQUE_ID,
 	     Name	STRING,
 	     Descrip	STRING );
+CREATE TABLE A_A (
+	     Package_ID	UNIQUE_ID,
+	     Name	STRING,
+	     Descrip	STRING,
+	     Dom_ID	UNIQUE_ID,
+	     SS_ID	UNIQUE_ID,
+	     Parent_Package_ID	UNIQUE_ID,
+	     Sys_ID	UNIQUE_ID,
+	     Component_Package_ID	UNIQUE_ID,
+	     Component_Id	UNIQUE_ID );
 CREATE TABLE A_CTL (
 	     Id	UNIQUE_ID );
 CREATE TABLE A_DM (
@@ -368,6 +380,24 @@ CREATE TABLE COMM_LNK (
 	     EndVisibility	INTEGER,
 	     Start_Part_ID	UNIQUE_ID,
 	     Destination_Part_ID	UNIQUE_ID );
+CREATE TABLE COMM_CIC (
+	     Package_ID	UNIQUE_ID );
+CREATE TABLE COMM_COMM (
+	     Package_ID	UNIQUE_ID,
+	     Dom_ID	UNIQUE_ID,
+	     SS_ID	UNIQUE_ID,
+	     CIC_Package_ID	UNIQUE_ID,
+	     Name	STRING,
+	     Descrip	STRING,
+	     Sys_ID	UNIQUE_ID,
+	     Component_Package_ID	UNIQUE_ID,
+	     Component_Id	UNIQUE_ID );
+CREATE TABLE COMM_MIC (
+	     Package_ID	UNIQUE_ID,
+	     Msg_ID	UNIQUE_ID );
+CREATE TABLE COMM_PIC (
+	     Package_ID	UNIQUE_ID,
+	     Part_ID	UNIQUE_ID );
 CREATE TABLE CL_IC (
 	     Id	UNIQUE_ID,
 	     AssignedComp_Id	UNIQUE_ID,
@@ -401,6 +431,22 @@ CREATE TABLE CL_POR (
 	     C_PO_Id	UNIQUE_ID,
 	     Name	STRING,
 	     Id	UNIQUE_ID );
+CREATE TABLE CN_CIC (
+	     Id	UNIQUE_ID,
+	     Parent_Id	UNIQUE_ID );
+CREATE TABLE CN_DC (
+	     Id	UNIQUE_ID,
+	     Dom_ID	UNIQUE_ID );
+CREATE TABLE CP_CPINP (
+	     Id	UNIQUE_ID,
+	     Parent_Package_ID	UNIQUE_ID );
+CREATE TABLE CP_CP (
+	     Package_ID	UNIQUE_ID,
+	     ParentLink_Id	UNIQUE_ID,
+	     Sys_ID	UNIQUE_ID,
+	     Containing_Sys_ID	UNIQUE_ID,
+	     Name	STRING,
+	     Descrip	STRING );
 CREATE TABLE SPR_PEP (
 	     Id	UNIQUE_ID,
 	     ExecutableProperty_Id	UNIQUE_ID,
@@ -516,6 +562,9 @@ CREATE TABLE CNST_CSP (
 	     Constant_Spec_ID	UNIQUE_ID,
 	     InformalGroupName	STRING,
 	     Descrip	STRING );
+CREATE TABLE CNST_CIP (
+	     Constant_Spec_ID	UNIQUE_ID,
+	     Package_ID	UNIQUE_ID );
 CREATE TABLE CNST_LFSC (
 	     Const_ID	UNIQUE_ID,
 	     DT_ID	UNIQUE_ID );
@@ -531,6 +580,12 @@ CREATE TABLE CNST_SYC (
 	     Constant_Spec_ID	UNIQUE_ID,
 	     Previous_Const_ID	UNIQUE_ID,
 	     Previous_DT_DT_ID	UNIQUE_ID );
+CREATE TABLE PL_EEPID (
+	     Dom_ID	UNIQUE_ID,
+	     EEPack_ID	UNIQUE_ID );
+CREATE TABLE PL_FPID (
+	     FunPack_ID	UNIQUE_ID,
+	     Dom_ID	UNIQUE_ID );
 CREATE TABLE S_BPARM (
 	     BParm_ID	UNIQUE_ID,
 	     Brg_ID	UNIQUE_ID,
@@ -554,12 +609,25 @@ CREATE TABLE S_BRG (
 CREATE TABLE S_CDT (
 	     DT_ID	UNIQUE_ID,
 	     Core_Typ	INTEGER );
+CREATE TABLE S_DPIP (
+	     Package_ID	UNIQUE_ID );
+CREATE TABLE S_DPK (
+	     Package_ID	UNIQUE_ID,
+	     Name	STRING,
+	     Dom_ID	UNIQUE_ID,
+	     Parent_Package_ID	UNIQUE_ID );
+CREATE TABLE S_DIP (
+	     Package_ID	UNIQUE_ID,
+	     DT_ID	UNIQUE_ID );
 CREATE TABLE S_DT (
 	     DT_ID	UNIQUE_ID,
 	     Dom_ID	UNIQUE_ID,
 	     Name	STRING,
 	     Descrip	STRING,
 	     DefaultValue	STRING );
+CREATE TABLE S_DIS (
+	     Dom_ID	UNIQUE_ID,
+	     DT_ID	UNIQUE_ID );
 CREATE TABLE S_DIM (
 	     elementCount	INTEGER,
 	     dimensionCount	INTEGER,
@@ -579,6 +647,15 @@ CREATE TABLE S_DIM (
 	     SMedi_ID	UNIQUE_ID,
 	     DIM_ID	UNIQUE_ID,
 	     Var_ID	UNIQUE_ID );
+CREATE TABLE S_DOM (
+	     Dom_ID	UNIQUE_ID,
+	     Name	STRING,
+	     Descrip	STRING,
+	     Full_Der	INTEGER,
+	     Config_ID	UNIQUE_ID,
+	     Sys_ID	UNIQUE_ID );
+CREATE TABLE S_EEPIP (
+	     EEPack_ID	UNIQUE_ID );
 CREATE TABLE S_EDT (
 	     DT_ID	UNIQUE_ID );
 CREATE TABLE S_ENUM (
@@ -613,11 +690,19 @@ CREATE TABLE S_EEEVT (
 	     Unq_Lbl	STRING,
 	     Drv_Lbl	STRING,
 	     Descrip	STRING );
+CREATE TABLE S_EEPK (
+	     EEPack_ID	UNIQUE_ID,
+	     Name	STRING,
+	     Dom_ID	UNIQUE_ID,
+	     Parent_EEPack_ID	UNIQUE_ID );
 CREATE TABLE S_EEM (
 	     EEmod_ID	UNIQUE_ID,
 	     EE_ID	UNIQUE_ID,
 	     Modl_Typ	INTEGER,
 	     SS_ID	UNIQUE_ID );
+CREATE TABLE S_EEIP (
+	     EEPack_ID	UNIQUE_ID,
+	     EE_ID	UNIQUE_ID );
 CREATE TABLE S_EE (
 	     EE_ID	UNIQUE_ID,
 	     Name	STRING,
@@ -627,6 +712,13 @@ CREATE TABLE S_EE (
 	     Realized_Class_Path	STRING,
 	     Label	STRING,
 	     isRealized	INTEGER );
+CREATE TABLE S_FPIP (
+	     FunPack_ID	UNIQUE_ID );
+CREATE TABLE S_FPK (
+	     FunPack_ID	UNIQUE_ID,
+	     Name	STRING,
+	     Dom_ID	UNIQUE_ID,
+	     Parent_FunPack_ID	UNIQUE_ID );
 CREATE TABLE S_SPARM (
 	     SParm_ID	UNIQUE_ID,
 	     Sync_ID	UNIQUE_ID,
@@ -637,6 +729,9 @@ CREATE TABLE S_SPARM (
 	     Previous_SParm_ID	UNIQUE_ID,
 	     Descrip	STRING,
     Order   INTEGER );
+CREATE TABLE S_FIP (
+	     FunPack_ID	UNIQUE_ID,
+	     Sync_ID	UNIQUE_ID );
 CREATE TABLE S_SYNC (
 	     Sync_ID	UNIQUE_ID,
 	     Dom_ID	UNIQUE_ID,
@@ -660,6 +755,20 @@ CREATE TABLE S_MBR (
 	     Dimensions	STRING );
 CREATE TABLE S_SDT (
 	     DT_ID	UNIQUE_ID );
+CREATE TABLE S_SID (
+	     Dom_ID	UNIQUE_ID,
+	     SS_ID	UNIQUE_ID );
+CREATE TABLE S_SIS (
+	     Parent_SS_ID	UNIQUE_ID,
+	     Child_SS_ID	UNIQUE_ID );
+CREATE TABLE S_SS (
+	     SS_ID	UNIQUE_ID,
+	     Name	STRING,
+	     Descrip	STRING,
+	     Prefix	STRING,
+	     Num_Rng	INTEGER,
+	     Dom_ID	UNIQUE_ID,
+	     Config_ID	UNIQUE_ID );
 CREATE TABLE S_SYS (
 	     Sys_ID	UNIQUE_ID,
 	     Name	STRING,
@@ -668,6 +777,9 @@ CREATE TABLE S_UDT (
 	     DT_ID	UNIQUE_ID,
 	     CDT_DT_ID	UNIQUE_ID,
 	     Gen_Type	INTEGER );
+CREATE TABLE EP_PIP (
+	     Parent_Package_ID	UNIQUE_ID,
+	     Child_Package_ID	UNIQUE_ID );
 CREATE TABLE EP_PKG (
 	     Package_ID	UNIQUE_ID,
 	     Sys_ID	UNIQUE_ID,
@@ -675,6 +787,9 @@ CREATE TABLE EP_PKG (
 	     Name	STRING,
 	     Descrip	STRING,
 	     Num_Rng	INTEGER );
+CREATE TABLE EP_SPKG (
+	     Package_ID	UNIQUE_ID,
+	     Container_Package_ID	UNIQUE_ID );
 CREATE TABLE CSME_CIE (
 	     CIE_ID	UNIQUE_ID,
 	     Execution_Engine_ID	UNIQUE_ID,
@@ -932,6 +1047,13 @@ CREATE TABLE SQ_FAV (
 	     Av_ID	UNIQUE_ID );
 CREATE TABLE SQ_FA (
 	     Ia_ID	UNIQUE_ID );
+CREATE TABLE SQ_FPP (
+	     Part_ID	UNIQUE_ID,
+	     FunPack_ID	UNIQUE_ID,
+	     Label	STRING,
+	     InformalName	STRING,
+	     Descrip	STRING,
+	     isFormal	INTEGER );
 CREATE TABLE SQ_IAV (
 	     Av_ID	UNIQUE_ID );
 CREATE TABLE SQ_IA (
@@ -975,6 +1097,17 @@ CREATE TABLE SQ_TM (
 	     Descrip	STRING );
 CREATE TABLE IA_UCP (
 	     Part_ID	UNIQUE_ID,
+	     Name	STRING,
+	     Descrip	STRING );
+CREATE TABLE IP_IPINIP (
+	     Package_ID	UNIQUE_ID );
+CREATE TABLE IP_IP (
+	     Package_ID	UNIQUE_ID,
+	     Parent_Package_ID	UNIQUE_ID,
+	     Direct_Sys_ID	UNIQUE_ID,
+	     Sys_ID	UNIQUE_ID,
+	     Component_Id	UNIQUE_ID,
+	     Component_Package_ID	UNIQUE_ID,
 	     Name	STRING,
 	     Descrip	STRING );
 CREATE TABLE ACT_BRG (
@@ -1171,6 +1304,9 @@ CREATE TABLE PE_SRS (
 CREATE TABLE PA_DIC (
 	     Component_Id	UNIQUE_ID,
 	     Delegation_Id	UNIQUE_ID );
+CREATE TABLE PA_SICP (
+	     ComponentPackage_ID	UNIQUE_ID,
+	     Satisfaction_Id	UNIQUE_ID );
 CREATE TABLE PA_SIC (
 	     Component_Id	UNIQUE_ID,
 	     Satisfaction_Id	UNIQUE_ID );
@@ -1319,6 +1455,21 @@ CREATE TABLE ACT_SEL (
 	     is_implicit	INTEGER,
 	     cardinality	STRING,
 	     Value_ID	UNIQUE_ID );
+CREATE TABLE SQ_MIS (
+	     Msg_ID	UNIQUE_ID,
+	     Package_ID	UNIQUE_ID );
+CREATE TABLE SQ_SIS (
+	     Package_ID	UNIQUE_ID );
+CREATE TABLE SQ_S (
+	     Package_ID	UNIQUE_ID,
+	     Dom_ID	UNIQUE_ID,
+	     Name	STRING,
+	     SS_ID	UNIQUE_ID,
+	     Prev_Package_ID	UNIQUE_ID,
+	     Descrip	STRING,
+	     Sys_ID	UNIQUE_ID,
+	     Component_Package_ID	UNIQUE_ID,
+	     Component_Id	UNIQUE_ID );
 CREATE TABLE SM_AH (
 	     Act_ID	UNIQUE_ID,
 	     SM_ID	UNIQUE_ID );
@@ -1554,6 +1705,20 @@ CREATE TABLE O_RTIDA (
 	     Oid_ID	INTEGER,
 	     Rel_ID	UNIQUE_ID,
 	     OIR_ID	UNIQUE_ID );
+CREATE TABLE SLD_SCINP (
+	     Sys_ID	UNIQUE_ID,
+	     Package_ID	UNIQUE_ID,
+	     Constant_Spec_ID	UNIQUE_ID );
+CREATE TABLE SLD_SDP (
+	     Sys_ID	UNIQUE_ID,
+	     Package_ID	UNIQUE_ID );
+CREATE TABLE SLD_SDINP (
+	     Package_ID	UNIQUE_ID,
+	     DT_ID	UNIQUE_ID,
+	     Sys_ID	UNIQUE_ID );
+CREATE TABLE UC_AIUC (
+	     Assoc_ID	UNIQUE_ID,
+	     Package_ID	UNIQUE_ID );
 CREATE TABLE UC_BA (
 	     Assoc_ID	UNIQUE_ID,
 	     Descrip	STRING );
@@ -1566,10 +1731,25 @@ CREATE TABLE UC_G (
 CREATE TABLE UC_I (
 	     Assoc_ID	UNIQUE_ID,
 	     Descrip	STRING );
+CREATE TABLE UC_PIUC (
+	     Package_ID	UNIQUE_ID,
+	     Part_ID	UNIQUE_ID );
 CREATE TABLE UC_UCA (
 	     Assoc_ID	UNIQUE_ID,
 	     Source_Part_ID	UNIQUE_ID,
 	     Destination_Part_ID	UNIQUE_ID );
+CREATE TABLE UC_UCC (
+	     Package_ID	UNIQUE_ID,
+	     Dom_ID	UNIQUE_ID,
+	     SS_ID	UNIQUE_ID,
+	     Parent_Package_ID	UNIQUE_ID,
+	     Name	STRING,
+	     Descrip	STRING,
+	     Sys_ID	UNIQUE_ID,
+	     Component_Package_ID	UNIQUE_ID,
+	     Component_Id	UNIQUE_ID );
+CREATE TABLE UC_UIU (
+	     Package_ID	UNIQUE_ID );
 CREATE TABLE V_PAR (
 	     Value_ID	UNIQUE_ID,
 	     Statement_ID	UNIQUE_ID,
@@ -1719,6 +1899,20 @@ CREATE TABLE S_AW (
 	     Brg_ID	UNIQUE_ID,
 	     Sync_ID	UNIQUE_ID );
 
+CREATE ROP REF_ID R1100 FROM MC 	A_A 	( Dom_ID )
+		         TO 1C  S_DOM 	( Dom_ID );
+CREATE ROP REF_ID R1108 FROM MC 	A_A 	( SS_ID )
+		         TO 1C  S_SS 	( SS_ID );
+CREATE ROP REF_ID R1109 FROM 1C 	A_AIA 	( Package_ID )
+		         TO 1  	A_A 	( Package_ID );
+CREATE ROP REF_ID R1110 FROM MC 	A_A 	( Parent_Package_ID )
+		         TO 1C  A_AIA 	( Package_ID );
+CREATE ROP REF_ID R1111 FROM MC 	A_AP 	( Package_ID )
+		         TO 1  	A_A 	( Package_ID );
+CREATE ROP REF_ID R1102 FROM MC 	A_E 	( Package_ID )
+		         TO 1  	A_A 	( Package_ID );
+CREATE ROP REF_ID R1101 FROM MC 	A_N 	( Package_ID )
+		         TO 1C  A_A 	( Package_ID );
 CREATE ROP REF_ID R1103 FROM MC 	A_E 	( TargetId )
 		         TO 1  	A_N 	( Id );
 CREATE ROP REF_ID R1104 FROM MC 	A_E 	( SourceId )
@@ -1749,6 +1943,12 @@ CREATE ROP REF_ID R1112 FROM 1C 	A_ATE 	( Id )
 		     TO 1  	A_AE 	( Id );
 CREATE ROP REF_ID R1112 FROM 1C 	A_AEA 	( Id )
 		     TO 1  	A_AE 	( Id );
+CREATE ROP REF_ID R1113 FROM MC 	A_A 	( Sys_ID )
+		         TO 1C  S_SYS 	( Sys_ID );
+CREATE ROP REF_ID R1114 FROM MC 	A_A 	( Component_Package_ID )
+		         TO 1C  CP_CP 	( Package_ID );
+CREATE ROP REF_ID R1115 FROM MC 	A_A 	( Component_Id )
+		         TO 1C  C_C 	( Id );
 CREATE ROP REF_ID R201 FROM M 	R_OIR 	( Rel_ID )
 		         TO 1  	R_REL 	( Rel_ID );
 CREATE ROP REF_ID R201 FROM MC 	R_OIR 	( Obj_ID )
@@ -2019,12 +2219,34 @@ CREATE ROP REF_ID R407 FROM MC 	CA_SMSMC 	( DSM_ID )
 		         TO 1  	SM_SM 	( SM_ID );
 CREATE ROP REF_ID R416 FROM MC 	CA_ACC 	( SM_ID )
 		         TO 1  	SM_SM 	( SM_ID );
+CREATE ROP REF_ID R1129 FROM MC 	COMM_COMM 	( CIC_Package_ID )
+		         TO 1C  COMM_CIC 	( Package_ID );
+CREATE ROP REF_ID R1130 FROM 1C 	COMM_CIC 	( Package_ID )
+		         TO 1  	COMM_COMM 	( Package_ID );
+CREATE ROP REF_ID R1132 FROM MC 	COMM_COMM 	( Dom_ID )
+		         TO 1C  S_DOM 	( Dom_ID );
+CREATE ROP REF_ID R1126 FROM MC 	COMM_PIC 	( Package_ID )
+		         TO 1  	COMM_COMM 	( Package_ID );
+CREATE ROP REF_ID R1126 FROM 1C 	COMM_PIC 	( Part_ID )
+		         TO 1  	SQ_P 	( Part_ID );
+CREATE ROP REF_ID R1131 FROM MC 	COMM_COMM 	( SS_ID )
+		         TO 1C  S_SS 	( SS_ID );
 CREATE ROP REF_ID R1128 FROM MC 	COMM_LNK 	( Rel_ID )
 		         TO 1C  R_REL 	( Rel_ID );
 CREATE ROP REF_ID R1133 FROM MC 	COMM_LNK 	( Start_Part_ID )
 		         TO 1  	SQ_P 	( Part_ID );
 CREATE ROP REF_ID R1134 FROM MC 	COMM_LNK 	( Destination_Part_ID )
 		         TO 1  	SQ_P 	( Part_ID );
+CREATE ROP REF_ID R1135 FROM MC 	COMM_MIC 	( Package_ID )
+		         TO 1  	COMM_COMM 	( Package_ID );
+CREATE ROP REF_ID R1135 FROM 1C 	COMM_MIC 	( Msg_ID )
+		         TO 1  	MSG_M 	( Msg_ID );
+CREATE ROP REF_ID R1136 FROM MC 	COMM_COMM 	( Sys_ID )
+		         TO 1C  S_SYS 	( Sys_ID );
+CREATE ROP REF_ID R1137 FROM MC 	COMM_COMM 	( Component_Package_ID )
+		         TO 1C  CP_CP 	( Package_ID );
+CREATE ROP REF_ID R1138 FROM MC 	COMM_COMM 	( Component_Id )
+		         TO 1C  C_C 	( Id );
 CREATE ROP REF_ID R4701 FROM MC 	CL_IIR 	( Ref_Id )
 		         TO 1C  C_IR 	( Id );
 CREATE ROP REF_ID R4703 FROM 1C 	CL_IP 	( Id )
@@ -2045,8 +2267,6 @@ CREATE ROP REF_ID R4708 FROM MC 	CL_IIR 	( CL_POR_Id )
 		         TO 1  	CL_POR 	( Id );
 CREATE ROP REF_ID R4709 FROM MC 	CL_POR 	( C_PO_Id )
 		         TO 1C  C_PO 	( Id );
-CREATE ROP REF_ID R4201 FROM MC 	CL_IC 	( AssignedComp_Id )
-		         TO 1C  C_C 	( Id );
 CREATE ROP REF_ID R4002 FROM MC 	C_SF 	( Requirement_Id )
 		         TO 1  	C_R 	( Requirement_Id );
 CREATE ROP REF_ID R4002 FROM MC 	C_SF 	( Provision_Id )
@@ -2089,6 +2309,36 @@ CREATE ROP REF_ID R4020 FROM 1C 	C_AS 	( Previous_Id )  PHRASE 'succeeds'
 		         TO 1C  C_AS 	( Id )  PHRASE 'precedes';
 CREATE ROP REF_ID R4021 FROM 1C 	C_PP 	( Previous_PP_Id )  PHRASE 'succeeds'
 		         TO 1C  C_PP 	( PP_Id )  PHRASE 'precedes';
+CREATE ROP REF_ID R4202 FROM MC 	CN_CIC 	( Parent_Id )
+		         TO 1  	C_C 	( Id );
+CREATE ROP REF_ID R4203 FROM 1  	C_C	( NestedComponent_Id )
+		         TO 1C  CN_CIC 	( Id );
+CREATE ROP REF_ID R4204 FROM 1C 	CN_DC 	( Id )
+		         TO 1  	C_C 	( Id );
+CREATE ROP REF_ID R4204 FROM 1C 	CN_DC 	( Dom_ID )
+		         TO 1  	S_DOM 	( Dom_ID );
+CREATE ROP REF_ID R4206 FROM MC 	IP_IP 	( Component_Id )
+		         TO 1C  C_C 	( Id );
+CREATE ROP REF_ID R4201 FROM MC 	CL_IC 	( AssignedComp_Id )
+		         TO 1C  C_C 	( Id );
+CREATE ROP REF_ID R4205 FROM MC 	CL_IC 	( ParentComp_Id )
+		         TO 1C  C_C 	( Id );
+CREATE ROP REF_ID R4600 FROM MC 	CP_CPINP 	( Parent_Package_ID )
+		         TO 1  	CP_CP 	( Package_ID );
+CREATE ROP REF_ID R4601 FROM 1  	CP_CP	( ParentLink_Id )
+		         TO 1C  CP_CPINP 	( Id );
+CREATE ROP REF_ID R4602 FROM MC 	CP_CP 	( Sys_ID )
+		         TO 1C  S_SYS 	( Sys_ID );
+CREATE ROP REF_ID R4604 FROM MC 	C_C 	( Package_ID )
+		         TO 1C  CP_CP 	( Package_ID );
+CREATE ROP REF_ID R4606 FROM MC 	CP_CP 	( Containing_Sys_ID )
+		         TO 1  	S_SYS 	( Sys_ID );
+CREATE ROP REF_ID R4607 FROM MC 	IP_IP 	( Component_Package_ID )
+		         TO 1C  CP_CP 	( Package_ID );
+CREATE ROP REF_ID R4605 FROM MC 	CL_IC 	( Component_Package_ID )
+		         TO 1C  CP_CP 	( Package_ID );
+CREATE ROP REF_ID R4608 FROM MC 	C_C 	( Root_Package_ID )
+		         TO 1C  CP_CP 	( Package_ID );
 CREATE ROP REF_ID R4500 FROM MC 	SPR_REP 	( ExecutableProperty_Id )
 		         TO 1  	C_EP 	( Id );
 CREATE ROP REF_ID R4500 FROM MC 	SPR_REP 	( Requirement_Id )
@@ -2115,14 +2365,26 @@ CREATE ROP REF_ID R1504 FROM MC 	CNST_SYC 	( Constant_Spec_ID )
 		         TO 1  	CNST_CSP 	( Constant_Spec_ID );
 CREATE ROP REF_ID R1505 FROM 1C 	CNST_SYC 	( Previous_Const_ID , Previous_DT_DT_ID )  PHRASE 'succeeds'
 		         TO 1C  CNST_SYC 	( Const_ID , DT_ID )  PHRASE 'precedes';
+CREATE ROP REF_ID R1506 FROM 1  	CNST_CIP 	( Constant_Spec_ID )
+		         TO 1  	CNST_CSP 	( Constant_Spec_ID );
+CREATE ROP REF_ID R1506 FROM MC 	CNST_CIP 	( Package_ID )
+		         TO 1  	S_DPK 	( Package_ID );
+CREATE ROP REF_ID R1 FROM MC 	S_SS 	( Dom_ID )
+		         TO 1  	S_DOM 	( Dom_ID );
+CREATE ROP REF_ID R7 FROM MC 	S_EEM 	( SS_ID )
+		         TO 1  	S_SS 	( SS_ID );
 CREATE ROP REF_ID R9 FROM MC 	S_EEM 	( EE_ID )
 		         TO 1  	S_EE 	( EE_ID );
 CREATE ROP REF_ID R10 FROM MC 	S_EEEVT 	( EE_ID )
 		         TO 1  	S_EE 	( EE_ID );
 CREATE ROP REF_ID R12 FROM MC 	S_EEEDI 	( EE_ID )
 		         TO 1  	S_EE 	( EE_ID );
+CREATE ROP REF_ID R14 FROM MC 	S_DT 	( Dom_ID )
+		         TO 1C  S_DOM 	( Dom_ID );
 CREATE ROP REF_ID R16 FROM MC 	S_EEEDI 	( DT_ID )
 		         TO 1  	S_DT 	( DT_ID );
+CREATE ROP REF_ID R8 FROM MC 	S_EE 	( Dom_ID )
+		         TO 1  	S_DOM 	( Dom_ID );
 CREATE ROP REF_ID R17 FROM 1C 	S_CDT 	( DT_ID )
 		     TO 1  	S_DT 	( DT_ID );
 CREATE ROP REF_ID R17 FROM 1C 	S_UDT 	( DT_ID )
@@ -2149,20 +2411,76 @@ CREATE ROP REF_ID R13 FROM MC 	S_EEEDT 	( EEedi_ID , EE_ID )
 		         TO 1  	S_EEEDI 	( EEedi_ID , EE_ID );
 CREATE ROP REF_ID R13 FROM MC 	S_EEEDT 	( EEevt_ID , EE_ID )
 		         TO 1  	S_EEEVT 	( EEevt_ID , EE_ID );
+CREATE ROP REF_ID R2 FROM MC 	O_OBJ 	( SS_ID )
+		         TO 1C  S_SS 	( SS_ID );
+CREATE ROP REF_ID R4 FROM MC 	R_REL 	( SS_ID )
+		         TO 1C  S_SS 	( SS_ID );
+CREATE ROP REF_ID R5 FROM MC 	CA_COMM 	( SS_ID )
+		         TO 1  	S_SS 	( SS_ID );
+CREATE ROP REF_ID R6 FROM MC 	CA_ACC 	( SS_ID )
+		         TO 1  	S_SS 	( SS_ID );
+CREATE ROP REF_ID R3 FROM MC 	O_IOBJ 	( SS_ID )
+		         TO 1  	S_SS 	( SS_ID );
 CREATE ROP REF_ID R27 FROM MC 	S_ENUM 	( EDT_DT_ID )
 		         TO 1  	S_EDT 	( DT_ID );
+CREATE ROP REF_ID R23 FROM MC 	S_SYNC 	( Dom_ID )
+		         TO 1  	S_DOM 	( Dom_ID );
 CREATE ROP REF_ID R25 FROM MC 	S_SYNC 	( DT_ID )
 		         TO 1  	S_DT 	( DT_ID );
 CREATE ROP REF_ID R24 FROM MC 	S_SPARM 	( Sync_ID )
 		         TO 1  	S_SYNC 	( Sync_ID );
 CREATE ROP REF_ID R26 FROM MC 	S_SPARM 	( DT_ID )
 		         TO 1  	S_DT 	( DT_ID );
+CREATE ROP REF_ID R28 FROM MC 	S_DOM 	( Sys_ID )
+		         TO 1C  S_SYS 	( Sys_ID );
+CREATE ROP REF_ID R29 FROM MC 	S_FPK 	( Dom_ID )
+		         TO 1C  S_DOM 	( Dom_ID );
+CREATE ROP REF_ID R31 FROM MC 	S_FIP 	( FunPack_ID )
+		         TO 1  	S_FPK 	( FunPack_ID );
+CREATE ROP REF_ID R31 FROM 1  	S_FIP 	( Sync_ID )
+		         TO 1  	S_SYNC 	( Sync_ID );
+CREATE ROP REF_ID R30 FROM 1C 	S_FPIP 	( FunPack_ID )
+		         TO 1  	S_FPK 	( FunPack_ID );
+CREATE ROP REF_ID R32 FROM MC 	S_FPK 	( Parent_FunPack_ID )
+		         TO 1C  S_FPIP 	( FunPack_ID );
+CREATE ROP REF_ID R33 FROM MC 	S_EEIP 	( EEPack_ID )
+		         TO 1  	S_EEPK 	( EEPack_ID );
+CREATE ROP REF_ID R33 FROM 1  	S_EEIP 	( EE_ID )
+		         TO 1  	S_EE 	( EE_ID );
+CREATE ROP REF_ID R34 FROM 1C 	S_EEPIP 	( EEPack_ID )
+		         TO 1  	S_EEPK 	( EEPack_ID );
+CREATE ROP REF_ID R35 FROM MC 	S_EEPK 	( Parent_EEPack_ID )
+		         TO 1C  S_EEPIP 	( EEPack_ID );
+CREATE ROP REF_ID R36 FROM MC 	S_EEPK 	( Dom_ID )
+		         TO 1C  S_DOM 	( Dom_ID );
+CREATE ROP REF_ID R37 FROM 1C 	S_DPIP 	( Package_ID )
+		         TO 1  	S_DPK 	( Package_ID );
+CREATE ROP REF_ID R38 FROM MC 	S_DPK 	( Parent_Package_ID )
+		         TO 1C  S_DPIP 	( Package_ID );
+CREATE ROP REF_ID R39 FROM 1C 	S_DIP 	( DT_ID )
+		         TO 1  	S_DT 	( DT_ID );
+CREATE ROP REF_ID R39 FROM MC 	S_DIP 	( Package_ID )
+		         TO 1  	S_DPK 	( Package_ID );
+CREATE ROP REF_ID R40 FROM MC 	S_DPK 	( Dom_ID )
+		         TO 1C  S_DOM 	( Dom_ID );
+CREATE ROP REF_ID R42 FROM 1C 	S_SIS 	( Child_SS_ID )
+		         TO 1  	S_SS 	( SS_ID );
+CREATE ROP REF_ID R41 FROM MC 	S_SIS 	( Parent_SS_ID )
+		         TO 1  	S_SS 	( SS_ID );
+CREATE ROP REF_ID R43 FROM 1C 	S_SID 	( SS_ID )
+		         TO 1  	S_SS 	( SS_ID );
+CREATE ROP REF_ID R43 FROM MC 	S_SID 	( Dom_ID )
+		         TO 1  	S_DOM 	( Dom_ID );
 CREATE ROP REF_ID R44 FROM MC 	S_MBR 	( Parent_DT_DT_ID )
 		         TO 1  	S_SDT 	( DT_ID );
 CREATE ROP REF_ID R45 FROM MC 	S_MBR 	( DT_ID )
 		         TO 1  	S_DT 	( DT_ID );
 CREATE ROP REF_ID R46 FROM 1C 	S_MBR 	( Previous_Member_ID , Parent_DT_DT_ID )  PHRASE 'succeeds'
 		         TO 1C  S_MBR 	( Member_ID , Parent_DT_DT_ID )  PHRASE 'precedes';
+CREATE ROP REF_ID R47 FROM MC 	S_DIS 	( Dom_ID )
+		         TO 1  	S_DOM 	( Dom_ID );
+CREATE ROP REF_ID R47 FROM MC 	S_DIS 	( DT_ID )
+		         TO 1  	S_DT 	( DT_ID );
 CREATE ROP REF_ID R49 FROM MC 	S_DIM 	( BParm_ID )
 		         TO 1C  S_BPARM 	( BParm_ID );
 CREATE ROP REF_ID R50 FROM MC 	S_DIM 	( Brg_ID )
@@ -2181,8 +2499,36 @@ CREATE ROP REF_ID R56 FROM 1C 	S_ENUM 	( Previous_Enum_ID )  PHRASE 'succeeds'
 		         TO 1C  S_ENUM 	( Enum_ID )  PHRASE 'precedes';
 CREATE ROP REF_ID R18 FROM MC 	S_UDT 	( CDT_DT_ID )
 		         TO 1  	S_DT 	( DT_ID );
+CREATE ROP REF_ID R300 FROM MC 	PL_EEPID 	( Dom_ID )
+		         TO 1  	S_DOM 	( Dom_ID );
+CREATE ROP REF_ID R300 FROM 1  	PL_EEPID 	( EEPack_ID )
+		         TO 1  	S_EEPK 	( EEPack_ID );
+CREATE ROP REF_ID R301 FROM 1  	PL_FPID 	( FunPack_ID )
+		         TO 1  	S_FPK 	( FunPack_ID );
+CREATE ROP REF_ID R301 FROM MC 	PL_FPID 	( Dom_ID )
+		         TO 1  	S_DOM 	( Dom_ID );
+CREATE ROP REF_ID R1402 FROM 1C 	A_A 	( Package_ID )
+		     TO 1  	EP_SPKG 	( Package_ID );
+CREATE ROP REF_ID R1402 FROM 1C 	COMM_COMM 	( Package_ID )
+		     TO 1  	EP_SPKG 	( Package_ID );
+CREATE ROP REF_ID R1402 FROM 1C 	CP_CP 	( Package_ID )
+		     TO 1  	EP_SPKG 	( Package_ID );
+CREATE ROP REF_ID R1402 FROM 1C 	S_DPK 	( Package_ID )
+		     TO 1  	EP_SPKG 	( Package_ID );
+CREATE ROP REF_ID R1402 FROM 1C 	IP_IP 	( Package_ID )
+		     TO 1  	EP_SPKG 	( Package_ID );
+CREATE ROP REF_ID R1402 FROM 1C 	UC_UCC 	( Package_ID )
+		     TO 1  	EP_SPKG 	( Package_ID );
+CREATE ROP REF_ID R1402 FROM 1C 	SQ_S 	( Package_ID )
+		     TO 1  	EP_SPKG 	( Package_ID );
 CREATE ROP REF_ID R1401 FROM MC 	EP_PKG 	( Sys_ID )
 		         TO 1C  S_SYS 	( Sys_ID );
+CREATE ROP REF_ID R1400 FROM MC 	EP_SPKG 	( Container_Package_ID )
+		         TO 1C  EP_PKG 	( Package_ID );
+CREATE ROP REF_ID R1403 FROM MC 	EP_PIP 	( Parent_Package_ID )
+		         TO 1  	EP_PKG 	( Package_ID );
+CREATE ROP REF_ID R1404 FROM 1C 	EP_PIP 	( Child_Package_ID )
+		         TO 1  	EP_PKG 	( Package_ID );
 CREATE ROP REF_ID R1405 FROM MC 	EP_PKG 	( Direct_Sys_ID )
 		         TO 1  	S_SYS 	( Sys_ID );
 CREATE ROP REF_ID R2932 FROM 1C 	CSME_CIS 	( CIE_ID )
@@ -2347,6 +2693,8 @@ CREATE ROP REF_ID R2939 FROM 1C 	I_EVI 	( next_self_Event_ID )  PHRASE 'will_be_
 		         TO 1C  I_EVI 	( Event_ID )  PHRASE 'will_be_processed_after';
 CREATE ROP REF_ID R2940 FROM 1C 	I_TIM 	( Event_ID )
 		         TO 1C  I_EVI 	( Event_ID );
+CREATE ROP REF_ID R2948 FROM 1C 	I_EXE 	( Dom_ID )
+		         TO 1C  S_DOM 	( Dom_ID );
 CREATE ROP REF_ID R2953 FROM MC 	I_INS 	( Trans_ID , SM_ID )
 		         TO 1  	SM_TXN 	( Trans_ID , SM_ID );
 CREATE ROP REF_ID R2955 FROM MC 	I_EXE 	( Component_Id )
@@ -2387,6 +2735,8 @@ CREATE ROP REF_ID R930 FROM 1C 	SQ_CIP 	( Part_ID )
 		     TO 1  	SQ_P 	( Part_ID );
 CREATE ROP REF_ID R930 FROM 1C 	SQ_EEP 	( Part_ID )
 		     TO 1  	SQ_P 	( Part_ID );
+CREATE ROP REF_ID R930 FROM 1C 	SQ_FPP 	( Part_ID )
+		     TO 1  	SQ_P 	( Part_ID );
 CREATE ROP REF_ID R930 FROM 1C 	SQ_CP 	( Part_ID )
 		     TO 1  	SQ_P 	( Part_ID );
 CREATE ROP REF_ID R930 FROM 1C 	SQ_AP 	( Part_ID )
@@ -2399,6 +2749,8 @@ CREATE ROP REF_ID R930 FROM 1C 	SQ_COP 	( Part_ID )
 		     TO 1  	SQ_P 	( Part_ID );
 CREATE ROP REF_ID R930 FROM 1C 	SQ_PP 	( Part_ID )
 		     TO 1  	SQ_P 	( Part_ID );
+CREATE ROP REF_ID R932 FROM MC 	SQ_FPP 	( FunPack_ID )
+		         TO 1C  S_FPK 	( FunPack_ID );
 CREATE ROP REF_ID R933 FROM MC 	SQ_EEP 	( EE_ID )
 		         TO 1C  S_EE 	( EE_ID );
 CREATE ROP REF_ID R934 FROM MC 	SQ_CIP 	( Obj_ID )
@@ -2429,6 +2781,16 @@ CREATE ROP REF_ID R949 FROM 1C 	SQ_AP 	( LS_Part_ID )
 		         TO 1C  SQ_LS 	( Part_ID );
 CREATE ROP REF_ID R956 FROM MC 	SQ_PP 	( Package_ID )
 		         TO 1C  EP_PKG 	( Package_ID );
+CREATE ROP REF_ID R4300 FROM 1C 	IP_IPINIP 	( Package_ID )
+		         TO 1  	IP_IP 	( Package_ID );
+CREATE ROP REF_ID R4301 FROM MC 	IP_IP 	( Parent_Package_ID )
+		         TO 1C  IP_IPINIP 	( Package_ID );
+CREATE ROP REF_ID R4302 FROM MC 	IP_IP 	( Direct_Sys_ID )
+		         TO 1C  S_SYS 	( Sys_ID );
+CREATE ROP REF_ID R4303 FROM MC 	C_I 	( Package_ID )
+		         TO 1C  IP_IP 	( Package_ID );
+CREATE ROP REF_ID R4304 FROM MC 	IP_IP 	( Sys_ID )
+		         TO 1  	S_SYS 	( Sys_ID );
 CREATE ROP REF_ID R668 FROM 1C 	ACT_RET 	( Value_ID )
 		         TO 1C  V_VAL 	( Value_ID );
 CREATE ROP REF_ID R669 FROM MC 	V_PAR 	( Statement_ID )
@@ -2627,6 +2989,10 @@ CREATE ROP REF_ID R9002 FROM MC 	PA_DIC 	( Component_Id )
 		         TO 1  	C_C 	( Id );
 CREATE ROP REF_ID R9002 FROM 1  	PA_DIC 	( Delegation_Id )
 		         TO 1  	C_DG 	( Id );
+CREATE ROP REF_ID R9001 FROM 1C 	PA_SICP 	( Satisfaction_Id )
+		         TO 1  	C_SF 	( Id );
+CREATE ROP REF_ID R9001 FROM MC 	PA_SICP 	( ComponentPackage_ID )
+		         TO 1  	CP_CP 	( Package_ID );
 CREATE ROP REF_ID R9000 FROM MC 	PA_SIC 	( Component_Id )
 		         TO 1  	C_C 	( Id );
 CREATE ROP REF_ID R9000 FROM 1C 	PA_SIC 	( Satisfaction_Id )
@@ -2725,6 +3091,26 @@ CREATE ROP REF_ID R637 FROM 1  	ACT_LNK	( Statement_ID )
 		         TO 1C  ACT_SEL 	( Statement_ID );
 CREATE ROP REF_ID R613 FROM 1C 	ACT_SEL 	( Value_ID )
 		         TO 1  	V_VAL 	( Value_ID );
+CREATE ROP REF_ID R913 FROM MC 	SQ_S 	( Dom_ID )
+		         TO 1C  S_DOM 	( Dom_ID );
+CREATE ROP REF_ID R914 FROM MC 	SQ_S 	( SS_ID )
+		         TO 1C  S_SS 	( SS_ID );
+CREATE ROP REF_ID R928 FROM MC 	SQ_S 	( Prev_Package_ID )
+		         TO 1C  SQ_SIS 	( Package_ID );
+CREATE ROP REF_ID R911 FROM 1C 	SQ_SIS 	( Package_ID )
+		         TO 1  	SQ_S 	( Package_ID );
+CREATE ROP REF_ID R929 FROM MC 	SQ_P 	( Sequence_Package_ID )
+		         TO 1C  SQ_S 	( Package_ID );
+CREATE ROP REF_ID R950 FROM MC 	SQ_S 	( Sys_ID )
+		         TO 1C  S_SYS 	( Sys_ID );
+CREATE ROP REF_ID R951 FROM MC 	SQ_S 	( Component_Package_ID )
+		         TO 1C  CP_CP 	( Package_ID );
+CREATE ROP REF_ID R952 FROM MC 	SQ_S 	( Component_Id )
+		         TO 1C  C_C 	( Id );
+CREATE ROP REF_ID R953 FROM MC 	SQ_MIS 	( Package_ID )
+		         TO 1  	SQ_S 	( Package_ID );
+CREATE ROP REF_ID R954 FROM 1C 	SQ_MIS 	( Msg_ID )
+		         TO 1  	MSG_M 	( Msg_ID );
 CREATE ROP REF_ID R502 FROM MC 	SM_EVT 	( SM_ID )
 		         TO 1  	SM_SM 	( SM_ID );
 CREATE ROP REF_ID R501 FROM MC 	SM_STATE 	( SM_ID )
@@ -2879,6 +3265,30 @@ CREATE ROP REF_ID R124 FROM 1C 	O_TPARM 	( Previous_TParm_ID )  PHRASE 'succeeds
 		         TO 1C  O_TPARM 	( TParm_ID )  PHRASE 'precedes';
 CREATE ROP REF_ID R125 FROM 1C 	O_TFR 	( Previous_Tfr_ID )  PHRASE 'succeeds'
 		         TO 1C  O_TFR 	( Tfr_ID )  PHRASE 'precedes';
+CREATE ROP REF_ID R4400 FROM MC 	SLD_SDP 	( Sys_ID )
+		         TO 1  	S_SYS 	( Sys_ID );
+CREATE ROP REF_ID R4400 FROM 1C 	SLD_SDP 	( Package_ID )
+		         TO 1  	S_DPK 	( Package_ID );
+CREATE ROP REF_ID R4401 FROM MC 	SLD_SDINP 	( Package_ID )
+		         TO 1  	S_DPK 	( Package_ID );
+CREATE ROP REF_ID R4401 FROM MC 	SLD_SDINP 	( DT_ID )
+		         TO 1  	S_DT 	( DT_ID );
+CREATE ROP REF_ID R4402 FROM MC 	SLD_SDINP 	( Sys_ID )
+		         TO 1  	S_SYS 	( Sys_ID );
+CREATE ROP REF_ID R4404 FROM MC 	SLD_SCINP 	( Sys_ID )
+		         TO 1  	S_SYS 	( Sys_ID );
+CREATE ROP REF_ID R4403 FROM MC 	SLD_SCINP 	( Package_ID )
+		         TO 1  	S_DPK 	( Package_ID );
+CREATE ROP REF_ID R4403 FROM MC 	SLD_SCINP 	( Constant_Spec_ID )
+		         TO 1  	CNST_CSP 	( Constant_Spec_ID );
+CREATE ROP REF_ID R1201 FROM MC 	UC_UCC 	( Dom_ID )
+		         TO 1C  S_DOM 	( Dom_ID );
+CREATE ROP REF_ID R1202 FROM MC 	UC_UCC 	( SS_ID )
+		         TO 1C  S_SS 	( SS_ID );
+CREATE ROP REF_ID R1208 FROM 1C 	UC_UIU 	( Package_ID )
+		         TO 1  	UC_UCC 	( Package_ID );
+CREATE ROP REF_ID R1209 FROM MC 	UC_UCC 	( Parent_Package_ID )
+		         TO 1C  UC_UIU 	( Package_ID );
 CREATE ROP REF_ID R1210 FROM 1C 	UC_E 	( Assoc_ID )
 		     TO 1  	UC_UCA 	( Assoc_ID );
 CREATE ROP REF_ID R1210 FROM 1C 	UC_G 	( Assoc_ID )
@@ -2887,10 +3297,24 @@ CREATE ROP REF_ID R1210 FROM 1C 	UC_I 	( Assoc_ID )
 		     TO 1  	UC_UCA 	( Assoc_ID );
 CREATE ROP REF_ID R1210 FROM 1C 	UC_BA 	( Assoc_ID )
 		     TO 1  	UC_UCA 	( Assoc_ID );
+CREATE ROP REF_ID R1203 FROM MC 	UC_PIUC 	( Package_ID )
+		         TO 1  	UC_UCC 	( Package_ID );
+CREATE ROP REF_ID R1203 FROM 1C 	UC_PIUC 	( Part_ID )
+		         TO 1  	SQ_P 	( Part_ID );
 CREATE ROP REF_ID R1206 FROM MC 	UC_UCA 	( Source_Part_ID )
 		         TO 1  	SQ_P 	( Part_ID );
 CREATE ROP REF_ID R1207 FROM MC 	UC_UCA 	( Destination_Part_ID )
 		         TO 1  	SQ_P 	( Part_ID );
+CREATE ROP REF_ID R1211 FROM MC 	UC_UCC 	( Sys_ID )
+		         TO 1C  S_SYS 	( Sys_ID );
+CREATE ROP REF_ID R1212 FROM MC 	UC_UCC 	( Component_Package_ID )
+		         TO 1C  CP_CP 	( Package_ID );
+CREATE ROP REF_ID R1213 FROM MC 	UC_UCC 	( Component_Id )
+		         TO 1C  C_C 	( Id );
+CREATE ROP REF_ID R1214 FROM MC 	UC_AIUC 	( Package_ID )
+		         TO 1  	UC_UCC 	( Package_ID );
+CREATE ROP REF_ID R1215 FROM 1C 	UC_AIUC 	( Assoc_ID )
+		         TO 1  	UC_UCA 	( Assoc_ID );
 CREATE ROP REF_ID R800 FROM 1C 	V_PAR 	( Value_ID )
 		         TO 1  	V_VAL 	( Value_ID );
 CREATE ROP REF_ID R804 FROM 1C 	V_UNY 	( Operand_Value_ID )
