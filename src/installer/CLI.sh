@@ -61,6 +61,6 @@ fi
 LAUNCHER="$BPHOMEDIR/eclipse/plugins/org.eclipse.equinox.launcher_1.2.0.v20110502.jar"
 APPLICATION="org.xtuml.bp.cli.$1"
 
-$BPHOMEDIR/jre1.8.0_51/bin/java  -d32 -Xms256m -Xmx1g -XX:MaxPermSize=256m -jar $LAUNCHER -clean -noSplash -product org.xtuml.bp.pkg.BridgePoint -data $WORKSPACE -application $APPLICATION $2 "$3" $4 "$5" $6 "$7" $8 "$9"
+$BPHOMEDIR/jre/bin/java  -d32 -Xms256m -Xmx1g -XX:MaxPermSize=256m -jar $LAUNCHER -clean -noSplash -product org.xtuml.bp.pkg.BridgePoint -data $WORKSPACE -application $APPLICATION $2 "$3" $4 "$5" $6 "$7" $8 "$9"
 
 exit 0
