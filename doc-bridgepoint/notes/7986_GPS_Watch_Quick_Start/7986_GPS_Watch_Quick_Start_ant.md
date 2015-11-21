@@ -26,9 +26,9 @@ way to launch this model from the BridgePoint Welcome Quick Start screen.
 
 4. Requirements
 ---------------
-1. There will be one GPS Watch model and it will live in xtuml/models
-2. The GPS Watch model will include Goals.  
-3. Item 3  
+1. There will be one GPS Watch model and it will be managed in the xtuml/models repository.
+2. The GPS Watch model will include Goals by default, but a version without goals can be included with special releases of BridgePoint.  
+3. The GPS Watch model will be shipped with BridgePoint and importable from the Welcome Quick Start screen. 
 
 5. Analysis
 -----------
@@ -63,7 +63,7 @@ way to launch this model from the BridgePoint Welcome Quick Start screen.
 1. Ensure GPS Watch is ready to run without building. i.e, source, executables and library files are available. 
 2. Capture the models/applications/gps/GPS Watch for use within a stand-alone BridgePoint installation.
 3. Add a mechanism to launch the GPS Watch model from the Quick Start screen.
-4. Ensure the version of GPS Watch is aligned with the build version of BridgePoint.
+4. Ensure all dependencies on the existing GPS Watch model in the xtuml/bridgepoint repository are satisfied.
 
 7. Acceptance Test
 ------------------

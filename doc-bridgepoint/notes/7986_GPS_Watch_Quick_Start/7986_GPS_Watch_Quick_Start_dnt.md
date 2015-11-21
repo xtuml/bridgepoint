@@ -39,10 +39,9 @@ See [3].
 6. Design
 ---------
 1. Only the GPS Watch model in the models/application/gps repository will be retained. The other two models will be removed from the repositories.
-2. Unit test references will be updated to reference the one remaining model.
-3. The GPS Watch model, from the xtuml/models repository, will be placed as a zip file in the bridgepoint/src/org.xtuml.bp.welcome/models for distribution with BridgePoint.
-4. The file, src/org.xtuml.bp.utilities/src/org/xtuml/bp/utilities/ui/ProjectUtilities.java, in the xtuml/bridgepoint repository will be updated to allow for zip file selection when modifying the ExternalProjectImportWizard display screen.
-5. Affected unit tests must be updated. See Section 8.
+2. The GPS Watch model, from the xtuml/models repository, will be placed as a zip file in the bridgepoint/src/org.xtuml.bp.welcome/models for distribution with BridgePoint.
+3. The file, src/org.xtuml.bp.utilities/src/org/xtuml/bp/utilities/ui/ProjectUtilities.java, in the xtuml/bridgepoint repository will be updated to allow for zip file selection when modifying the ExternalProjectImportWizard display screen.
+4. Unit test references will be updated to reference the one remaining model. See Section 8.
 
 7. Design Comments
 ------------------

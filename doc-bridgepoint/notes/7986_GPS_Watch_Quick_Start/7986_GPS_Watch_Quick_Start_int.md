@@ -4,74 +4,69 @@ This work is licensed under the Creative Commons CC0 License
 
 ---
 
-# Title goes here
+# Ready GPS Watch for Quick Start
 ### xtUML Project Implementation Note
-
-Note: Each section has a description that states the purpose of that section.
-Delete these section descriptions before checking in your note.  Delete this
-note as well. __If you are using markdown formatting, don't forget to put 2 
-spaces at the end of lines where you want a hard break.__
 
 1. Abstract
 -----------
-In this section, give a summary of the design that this note aims to
-describe.
+An implementation of the GPS Watch model that allows for configuration management outside of the xtuml/bridgepoint repository has been implemented.
 
 2. Document References
 ----------------------
-In this section, list all the documents that the reader may need to refer to.
-Give the full path to reference a file.  
-[1] [BridgePoint DEI #1](https://support.onefact.net/redmine/issues/1)  
-[2] [BridgePoint DEI #2](https://support.onefact.net/redmine/issues/2)  
+[1] [BridgePoint DEI #1](https://support.onefact.net/redmine/issues/7986)  
+[2] [BridgePoint DEI #2](https://support.onefact.net/redmine/issues/7927) 
+[3] [BridgePoint DEI #3](https://github.com/xtuml/bridgepoint/doc-bridgepoint/notes/7986_GPS_Watch_Quick_Start/7986_GPS_Watch_Quick_Start_ant.md)  
+[4] [BridgePoint DEI #4](https://github.com/xtuml/bridgepoint/doc-bridgepoint/notes/7986_GPS_Watch_Quick_Start/7986_GPS_Watch_Quick_Start_dnt.md)  
 
 3. Background
 -------------
-In this section, outline the important points relating to this issue/bug that
-the reader would need to know in order to understand the rest of this
-document.
+[4] describes the design decisions that direct this implementation.
+
+Examination of the existing code showed that it was very much directed at only importing existing projects that were in a directory structure or contained in a single xtuml file, not in an archive file.
 
 4. Requirements
 ---------------
-This section is only required if there is no preceding design note. 
-If present it describes the requirements that need to be satisfied.  If there 
-is an SRS, this section may refer to it.  Each requirement should be as short 
-and simple as possible and must be clearly defined.
-
-4.1  Item 1  
-4.2  Item 2  
-4.3  Item 3  
+see [3]
 
 5. Work Required
 ----------------
-Elaborate on each point of the Work Required section of the design note and
-describe how you implemented each step.  
-If there is no design note, this section, breaks out the consequential work 
-(as a numbered list) needed to meet the requirements specified in the 
-Requirements section.
+1. Deleted the GPS Watch projects from xtuml/bridgepoint/src/org.xtuml.bp.welcome/models/ and xtuml/models/test/.
+2. Added GPS Watch.zip to xtuml/bridgepoint/src/org.xtuml.bp.welcome/models/.
+3. Modified xtuml/bridgepoint/src/org.xtuml.bp.welcome/introContent.xml to set SingleFileModel=zip for the GPS Watch model.
+4. Updated xtuml/bridgepoint/src/org.xtuml.bp.welcome/src/org/xtuml/bp/welcome/gettingstarted/SampleProjectGettingStartedAction.java method, setupProject, to use the value of SingleFileModel as a string instead of a boolean.
+  1. SingleFileModel = "true" path stays the same.
+  2. SingleFileModel <> "true" path checks for SingleFileModel <> "false" before calling resolvePath. If not "false", the value of "." + SingleFileModel is appended to modelName, which makes it a fully qualified path to a file instead of a directory.
+5. Updated xtuml/bridgepoint/src/org.xtuml.bp.utilities/src/org/xtuml/bp/utilities/ui/ProjectUtilities.java method, setRootFolderOptionsInternal.
+  1. Tests the model path for being a directory or file. The result of the decision is used to setup the import wizard for a project or an archive.
+  2. Copied the Combo logic from the "Select root directory" case into the "Select archive file" case.
+  3. Disable "Select root directory" if a file and enable "Select archive file".
+  4. Disable "Select archive file" if a directory and enable "Select root directory".
+6. Updated xtuml/bridgepoint/src/org.xtuml.bp.welcome.test/src/org/xtuml/bp/welcome/test/WelcomePageTestGPS.java use of SingleFileModel to reflect sourcce code update.
 
-5.1. Item 1  
-5.2. Item 2  
-5.3. Item 3  
 
 6. Implementation Comments
 --------------------------
-If the design cannot be implemented as written or if it needs some modification,
-enumerate the changes to the design in this section.  If there was no preceding
-design note, then this section documents any deviations from the implementation
-as presented at the pre-implementation engineering review.
+1. On 5.3, SingleFileModel was originally designed to be only "true" or "false". The value was then used to set a boolean variable. This was changed to use the value as a string, which allows any archive supported by the Eclipse import facility to be specified.
 
 7. Unit Test
 ------------
-Outline all the unit tests that need to pass and describe the method that you
-will use to design and perform the tests.
+Existing unit tests are sufficient to test new functionality.
 
 8. Code Changes
 ---------------
-Branch name: < enter your branch name here >
+Branch name: bridgepoint/7986_GPS_Watch_Quick_Start on fork lwriemen
+Branch name: models/7986_GPS_Watch_Quick_Start on fork lwriemen
 
 <pre>
 
-< Put the file list here >
+	modified:   bridgepoint/src/org.xtuml.bp.utilities/src/org/xtuml/bp/utilities/ui/ProjectUtilities.java
+	modified:   bridgepoint/src/org.xtuml.bp.welcome/introContent.xml
+	new file:   bridgepoint/src/org.xtuml.bp.welcome/models/GPS Watch.zip
+	deleted:    bridgepoint/src/org.xtuml.bp.welcome/models/GPS Watch
+   modified:   bridgepoint/src/org.xtuml.bp.welcome/src/org/xtuml/bp/welcome/gettingstarted/SampleProjectGettingStartedAction.java
+   modified:   bridgepoint/src/org.xtuml.bp.welcome.test/src/org/xtuml/bp/welcome/test/WelcomePageTestGPS.java
+
+   deleted:    models/test/GPS Watch
 
 </pre>
 
