@@ -158,10 +158,10 @@ public static ${cn.body}[] getElements(${contextClName.body} v_${firstContextIte
 						${cn.body}[] elementInstances = ${cn.body}.$r{class_name}Instances(instancesUnderSystem[j]);
 						for (int k = 0; k < elementInstances.length; k++) {
 							${cn.body} elem = elementInstances[k];
-							if (instancesUnderSystem[j].getInstanceList(
-									ComponentPackage_c.class).isEmpty()) {
+//							if (instancesUnderSystem[j].getInstanceList(
+//									ComponentPackage_c.class).isEmpty()) {
 								elementList.add(elem);
-							}
+//							}
 						}
 					}
 				}

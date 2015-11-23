@@ -33,7 +33,7 @@ SCP_UPLOAD_FOLDER_SPEC="$6"
 echo "Installer invocation: ./build_installer_bp.sh ${PRODUCT_BRANCH} ${STAGING_PATH} ${OUTPUT_DIR} ${OS_ARG} ${BP_VERSION} ${SCP_UPLOAD_FOLDER_SPEC}"
 
 PRODUCT_NAME="BridgePoint"
-ECLIPSE_VER="3.7"
+ECLIPSE_VER="4.5"
 
 # Assume windows unless we case-insensitively match Linux on the argument
 OS="windows"
@@ -155,7 +155,7 @@ cp ../installer_extras/bp.ico BridgePoint
 chmod -R a+x BridgePoint
 zip -r "${OUTPUT_DIR}/${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS}.zip" BridgePoint  
 cd "${OUTPUT_DIR}"
-chmod g+w "${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS}.zip"
+chmod -R g+w .
 echo "INFO: Done."
 
 # Make sure the output looks good

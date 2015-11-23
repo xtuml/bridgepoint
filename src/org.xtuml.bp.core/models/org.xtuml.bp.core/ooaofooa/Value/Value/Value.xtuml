@@ -1569,8 +1569,7 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select one body related by self->ACT_BLK[R826]->ACT_ACT[R601];
+	'select one body related by self->ACT_BLK[R826]->ACT_ACT[R601];
 isInGenericPackage = body.associateWithContainer();
 if isInGenericPackage
   select one dt related by self->S_DT[R820];
@@ -1582,7 +1581,6 @@ if isInGenericPackage
 else
   select one dt related by self->S_DT[R820];
   if(not_empty dt)
-    select one dtPkg related by dt->S_DIP[R39]->S_DPK[R39];
     body.associateWithOwningComponent();
     select one component related by body->ACT_BIC[R694]->C_C[R694];
     if(not_empty component)
@@ -1593,53 +1591,16 @@ else
       // if any of the following is not empty
       // then the dt must live at the system level
       if(not_empty reqSig)
-        if(dtPkg.isDomainLevel())
-          return false;
-        else
           return true;
-        end if;  
       elif(not_empty reqOp)
-        select one dtPkg related by dt->S_DIP[R39]->S_DPK[R39];
-        if(dtPkg.isDomainLevel())
-          return false;
-        else
           return true;
-        end if;    
       elif(not_empty proSig)
-        select one dtPkg related by dt->S_DIP[R39]->S_DPK[R39];
-        if(dtPkg.isDomainLevel())
-          return false;
-        else
           return true;
-        end if;  
       elif(not_empty proOp)
-        select one dtPkg related by dt->S_DIP[R39]->S_DPK[R39];
-        if(dtPkg.isDomainLevel())
-          return false;
-        else
           return true;
-        end if;
-      else
-        select any domain from instances of S_DOM;
-        if(not dtPkg.isDomainLevel())
-          return true;
-        else
-          select one dtDomain related by dt->S_DOM[R14];
-          if(dtDomain == domain)
-            return true;
-          end if;
-        end if;
       end if;
     else
-      select any domain from instances of S_DOM;
-      if(dtPkg.isDomainLevel())
-        select one dtDomain related by dt->S_DOM[R14];
-        if(domain == dtDomain)
-          return true;
-        end if;
-      else
         return true;
-      end if;
     end if;
   end if;
   return false;

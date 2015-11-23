@@ -95,6 +95,30 @@ public class ActivityEditorInteraction extends UITextTest {
 	private static long m_markerId[] = new long[4];
 	private static int m_numMarkers = 0;
 
+	// enforce ordering of the tests in this class
+	public void testActivityEditorInteraction() {
+		dotestDirtyFlag();
+		dotestUndo();
+		dotestRevert();
+		dotestSave();
+		dotestOpenChangedDescription();
+		dotestAddBookmark();
+		dotestBookmarkHoverText();
+		dotestAddTaskMarker();
+		dotestMultipleMarkerHoverText();
+		dotestDeleteBookmark();
+		dotestTaskHoverText();
+		dotestDeleteTask();
+		dotestSyntaxError();
+		dotestActivityProblemErrorHoverText();
+		dotestSaveWithError();
+		dotestGotoError();
+		dotestMarkerErrorHoverText();
+		dotestRemoveError();
+		dotestRevertAfterErrorRemoved();
+		dotestSaveAfterErrorRemoved();
+	}
+	
     protected void setUp() throws Exception {
     	super.setUp();
     	if ( firstSetup ) {
@@ -185,7 +209,7 @@ public class ActivityEditorInteraction extends UITextTest {
 		}
 	}
 	
-	public void testDirtyFlag() {
+	public void dotestDirtyFlag() {
 		ActivityEditor ae = openFunctionActivityEditor();
 
 		// change data in editor
@@ -201,7 +225,7 @@ public class ActivityEditorInteraction extends UITextTest {
 		assertTrue(ae.isDirty());
 	}
 
-	public void testUndo() {
+	public void dotestUndo() {
 		ActivityEditor ae = getFunctionActivityEditor();
 
 		// undo
@@ -215,7 +239,7 @@ public class ActivityEditorInteraction extends UITextTest {
 			ae.getDocumentProvider().getDocument(ae.getEditorInput()).get());
 	}
 
-	public void testRevert() {
+	public void dotestRevert() {
 		ActivityEditor ae = getFunctionActivityEditor();
 
 		// undo
@@ -229,7 +253,7 @@ public class ActivityEditorInteraction extends UITextTest {
 			ae.getDocumentProvider().getDocument(ae.getEditorInput()).get());
 	}
 
-	public void testSave() {
+	public void dotestSave() {
 		ActivityEditor ae = getFunctionActivityEditor();
 		Function_c uut = Function_c.FunctionInstance(modelRoot);
 		m_oldActionSemantics = uut.getAction_semantics();
@@ -253,7 +277,7 @@ public class ActivityEditorInteraction extends UITextTest {
 		ae.getSite().getPage().closeEditor(ae, false);
 	}
 
-	public void testOpenChangedDescription() {
+	public void dotestOpenChangedDescription() {
 		ActivityEditor ae = openFunctionActivityEditor();
 		assertFalse(ae.isSaveOnCloseNeeded());
 		assertFalse(ae.isDirty());
@@ -264,7 +288,7 @@ public class ActivityEditorInteraction extends UITextTest {
 
 	private final int marker_line = 1;
 
-	public void testAddBookmark() {
+	public void dotestAddBookmark() {
 		ActivityEditor ae = getFunctionActivityEditor();
 		ActivityEditorInput editorInput =
 			(ActivityEditorInput) ae.getEditorInput();
@@ -300,7 +324,7 @@ public class ActivityEditorInteraction extends UITextTest {
 		assertTrue(m2.getResource().isAccessible());
 	}
 
-	public void testBookmarkHoverText() {
+	public void dotestBookmarkHoverText() {
 		ActivityEditor ae = openFunctionActivityEditor();
 
 		EditorHover eh = new EditorHover();
@@ -311,7 +335,7 @@ public class ActivityEditorInteraction extends UITextTest {
 				marker_line - 1);
 		assertEquals("test activity bookmark", hoverText);
 	}
-	public void testAddTaskMarker() {
+	public void dotestAddTaskMarker() {
 		ActivityEditor ae = openFunctionActivityEditor();
 		ActivityEditorInput editorInput =
 			(ActivityEditorInput) ae.getEditorInput();
@@ -342,7 +366,7 @@ public class ActivityEditorInteraction extends UITextTest {
 		}
 		assertTrue(m2.getResource().isAccessible());
 	}
-	public void testMultipleMarkerHoverText() {
+	public void dotestMultipleMarkerHoverText() {
 		ActivityEditor ae = openFunctionActivityEditor();
 
 		EditorHover eh = new EditorHover();
@@ -358,7 +382,7 @@ public class ActivityEditorInteraction extends UITextTest {
 	}
         assertFalse(true);
 	}
-	public void testDeleteBookmark() {
+	public void dotestDeleteBookmark() {
 		ActivityEditor ae = getFunctionActivityEditor();
 		ActivityEditorInput editorInput =
 			(ActivityEditorInput) ae.getEditorInput();
@@ -376,7 +400,7 @@ public class ActivityEditorInteraction extends UITextTest {
 		m2 = file.getMarker(m_markerId[0]);
 		assertFalse(m2.exists());
 	}
-	public void testTaskHoverText() {
+	public void dotestTaskHoverText() {
 		ActivityEditor ae = getFunctionActivityEditor();
 
 		EditorHover eh = new EditorHover();
@@ -387,7 +411,7 @@ public class ActivityEditorInteraction extends UITextTest {
 				marker_line - 1);
 		assertEquals("test activity task", hoverText);
 	}
-	public void testDeleteTask() {
+	public void dotestDeleteTask() {
 		ActivityEditor ae = getFunctionActivityEditor();
 		ActivityEditorInput editorInput =
 			(ActivityEditorInput) ae.getEditorInput();
@@ -405,7 +429,7 @@ public class ActivityEditorInteraction extends UITextTest {
 		m2 = file.getMarker(m_markerId[1]);
 		assertFalse(m2.exists());
 	}
-	public void testSyntaxError() {
+	public void dotestSyntaxError() {
 		ActivityEditor ae = getFunctionActivityEditor();
 		assertNotNull(ae);
 
@@ -449,7 +473,7 @@ public class ActivityEditorInteraction extends UITextTest {
 			}
 		}
 	}
-	public void testActivityProblemErrorHoverText() {
+	public void dotestActivityProblemErrorHoverText() {
 		ActivityEditor ae = getFunctionActivityEditor();
 		assertNotNull(ae);
 
@@ -462,7 +486,7 @@ public class ActivityEditorInteraction extends UITextTest {
 		assertEquals("unexpected token: bad", hoverText);
 	}
 
-	public void testSaveWithError() {
+	public void dotestSaveWithError() {
 		ActivityEditor ae = getFunctionActivityEditor();
 		ae.doSave(new NullProgressMonitor());
 
@@ -470,7 +494,7 @@ public class ActivityEditorInteraction extends UITextTest {
 		ae.getSite().getPage().closeEditor(ae, false);
 	}
 
-	public void testGotoError() {
+	public void dotestGotoError() {
 		ActivityEditor ae = openFunctionActivityEditor();
 		assertNotNull(ae);
 		ActivityEditorInput editorInput =
@@ -491,7 +515,7 @@ public class ActivityEditorInteraction extends UITextTest {
 		ae = getFunctionActivityEditor();
 		assertEquals("bad",ae.getTextViewer().getTextWidget().getSelectionText());
 	}
-	public void testMarkerErrorHoverText() {
+	public void dotestMarkerErrorHoverText() {
 		ActivityEditor ae = getFunctionActivityEditor();
 		assertNotNull(ae);
 		
@@ -501,7 +525,7 @@ public class ActivityEditorInteraction extends UITextTest {
 		assertEquals("unexpected token: bad", hoverText);
 	}
 
-	public void testRemoveError() {
+	public void dotestRemoveError() {
 		ActivityEditor ae = getFunctionActivityEditor();
 		assertNotNull(ae);
 
@@ -523,7 +547,7 @@ public class ActivityEditorInteraction extends UITextTest {
 		validateErrorFree(ae, true);
 
 	}
-	public void testRevertAfterErrorRemoved() {
+	public void dotestRevertAfterErrorRemoved() {
 		ActivityEditor ae = getFunctionActivityEditor();
 		assertNotNull(ae);
 		ae.doRevertToSaved();
@@ -533,7 +557,7 @@ public class ActivityEditorInteraction extends UITextTest {
 
 		validateUnchangedWithError(ae);
 	}
-	public void testSaveAfterErrorRemoved() {
+	public void dotestSaveAfterErrorRemoved() {
 		ActivityEditor ae = getFunctionActivityEditor();
 		assertNotNull(ae);
 		// change data in editor
@@ -553,38 +577,6 @@ public class ActivityEditorInteraction extends UITextTest {
 		assertEquals(m_updateText + m_oldActionSemantics,uut.getAction_semantics());
 
 		validateErrorFree(ae, false);
-	}
-	public void testEditorOpenedWhenFileLocatedOutsideOfWS() {
-		IProject project = null;
-		String tmp_location = System.getenv("tmp");
-		IPath path = new Path(tmp_location);
-		try {
-			project = TestingUtilities.createProject("ProjectOutsideOfWS", path.toString());
-		} catch (CoreException e) {
-			fail("Unable to create project.");
-		};
-		try {
-			if(project != null) {
-				TestingUtilities.getSystemModel(project.getName());
-				IFile modelFile = TestUtil
-					.copyTestDomainIntoProject("default",
-												"org.xtuml.bp.core",
-												project);
-				Ooaofooa modelRoot = Ooaofooa.getInstance(modelFile, true);
-				Bridge_c bridge = Bridge_c.BridgeInstance(modelRoot);
-				openActivityEditor(bridge);
-				IEditorPart editor = PlatformUI.getWorkbench()
-					.getActiveWorkbenchWindow().getActivePage().getActiveEditor();
-				assertTrue("Activity editor was not opened.", editor.getTitle()
-						.equals("Time::"+ bridge.getName()));
-			}
-		} finally {
-			try {
-				project.delete(true, true, new NullProgressMonitor());
-			} catch (CoreException e) {
-				fail("Unable to delete project: " + project.getFullPath());
-			}
-		}
 	}
 	private void validateUnchangedWithError(ActivityEditor ae)
 	{

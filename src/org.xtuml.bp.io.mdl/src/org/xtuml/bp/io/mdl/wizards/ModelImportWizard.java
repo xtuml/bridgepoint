@@ -47,14 +47,10 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IImportWizard;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.PlatformUI;
-
 import org.xtuml.bp.core.CoreDataType_c;
 import org.xtuml.bp.core.CorePlugin;
-import org.xtuml.bp.core.DataTypeInPackage_c;
 import org.xtuml.bp.core.DataType_c;
-import org.xtuml.bp.core.DatatypeInSuppression_c;
 import org.xtuml.bp.core.Ooaofooa;
-import org.xtuml.bp.core.SystemDatatypeInPackage_c;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.UserDataType_c;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
@@ -67,7 +63,6 @@ import org.xtuml.bp.core.common.PersistableModelComponent;
 import org.xtuml.bp.core.common.PersistenceManager;
 import org.xtuml.bp.core.common.UpgradeJob;
 import org.xtuml.bp.core.ui.IModelImport;
-import org.xtuml.bp.core.ui.NewDomainWizard;
 import org.xtuml.bp.core.ui.Selection;
 import org.xtuml.bp.core.util.UIUtil;
 import org.xtuml.bp.ui.canvas.Diagram_c;
@@ -167,12 +162,6 @@ public class ModelImportWizard extends Wizard implements IImportWizard {
 							throws CoreException {
 						ComponentResourceListener
 								.setIgnoreResourceChanges(true);
-						NewDomainWizard newDomainWizard = new NewDomainWizard(
-								fSystem, domainName, fImportPage
-										.getSourceFilePath(), fImportPage
-										.parseOnImport());
-						result = newDomainWizard.createDomain(getContainer(),
-								dialog);
 						PersistenceManager.markSystemFileForUpgrade(fSystem.getPersistableComponent());
 						UpgradeJob job = new UpgradeJob("Disable system",
 								fSystem.getPersistableComponent());
@@ -360,53 +349,7 @@ public class ModelImportWizard extends Wizard implements IImportWizard {
 	}
 
 	public void convertCoreTypesToProxies() {
-		// we need to convert any core types that
-		// may have been exported to proxies so
-		// that the existing core types in the
-		// destination may be used, do not create
-		// those core types which are suppressed
-		DataType_c[] dts = DataType_c.DataTypeInstances(Ooaofooa
-				.getInstance(Ooaofooa.CLIPBOARD_MODEL_ROOT_NAME));
-		for(int i = 0; i < dts.length; i++) {
-			// we do not want to convert core types that are not defined
-			// at the system level
-			SystemDatatypeInPackage_c sdip = SystemDatatypeInPackage_c.getOneSLD_SDINPOnR4401(dts[i]);
-			if(sdip == null) continue;
-			// we do not want to convert core types that are suppressed
-			DatatypeInSuppression_c dis = DatatypeInSuppression_c.getOneS_DISOnR47(dts[i]);
-			if(dis != null) continue;
-			CoreDataType_c cdt = CoreDataType_c.getOneS_CDTOnR17(dts[i]);
-			if(cdt != null) {
-				sdip.setContentPath(Ooaofooa.CLIPBOARD_MODEL_ROOT_NAME);
-				sdip.unrelateAcrossR4402From(fSystem);
-				DataTypeInPackage_c dip = DataTypeInPackage_c.getOneS_DIPOnR39(dts[i]);
-				dip.unrelateAcrossR39From(dts[i], false);
-				if(dip != null)
-					dip.setContentPath(Ooaofooa.CLIPBOARD_MODEL_ROOT_NAME);
-				dts[i].setContentPath(Ooaofooa.CLIPBOARD_MODEL_ROOT_NAME);
-				cdt.setContentPath(Ooaofooa.CLIPBOARD_MODEL_ROOT_NAME);
-				// remove the graphics for the dt that
-				// will get removed
-				GraphicalElement_c dtGraph = getGraphicalElementFor(cdt);
-				dtGraph.Dispose();
-			}
-			UserDataType_c udt = UserDataType_c.getOneS_UDTOnR17(dts[i]);
-			if(udt != null && udt.getGen_type() != 0) {
-				sdip.setContentPath(Ooaofooa.CLIPBOARD_MODEL_ROOT_NAME);
-				sdip.unrelateAcrossR4402From(fSystem);
-				DataTypeInPackage_c dip = DataTypeInPackage_c.getOneS_DIPOnR39(dts[i]);
-				dip.unrelateAcrossR39From(dts[i], false);
-				if(dip != null)
-					dip.setContentPath(Ooaofooa.CLIPBOARD_MODEL_ROOT_NAME);
-				dts[i].setContentPath(Ooaofooa.CLIPBOARD_MODEL_ROOT_NAME);
-				udt.setContentPath(Ooaofooa.CLIPBOARD_MODEL_ROOT_NAME);
-				// remove the graphics for the dt that
-				// will get removed
-				GraphicalElement_c dtGraph = getGraphicalElementFor(udt);
-				dtGraph.Dispose();
-			}
-		}
-
+		// TODO: Bob Fixme
 	}
 
 	private GraphicalElement_c getGraphicalElementFor(NonRootModelElement element) {

@@ -79,13 +79,18 @@ public class AssignClassTestGenerics extends CanvasTest {
 		try {
 			generateResults = true;
 			this.setUp();
-			this.testAssignClassWithOneSubsystem();
-			this.testCheckTableItemForAssignClass();
+			this.doTestAssignClassWithOneSubsystem();
+			this.doTestCheckTableItemForAssignClass();
 		} catch (Exception e) {
 			System.out.println("Exception encountered by test result creator: "
 					+ e);
 		}
 
+	}
+	
+	public void testAssignClass() {
+			this.doTestAssignClassWithOneSubsystem();
+			this.doTestCheckTableItemForAssignClass();
 	}
 
 	public class Package_by_name_c implements ClassQueryInterface_c {
@@ -105,7 +110,7 @@ public class AssignClassTestGenerics extends CanvasTest {
 		CanvasTestUtils.openCanvasEditor(uut);
 	}
 
-	public void testAssignClassWithOneSubsystem() {
+	public void doTestAssignClassWithOneSubsystem() {
 		test_id = "1";
 		ImportedClass_c ic = ImportedClass_c.ImportedClassInstance(modelRoot);
 		Cl_c.Clearselection();
@@ -121,7 +126,7 @@ public class AssignClassTestGenerics extends CanvasTest {
 		aca .O_IOBJ_GenericPackageAssignClass(structuredSelection);
 
 	}
-	public void testCheckTableItemForAssignClass() {
+	public void doTestCheckTableItemForAssignClass() {
 		test_id = "2";
 		BaseTest.ensureFolderExists(m_workspace_path
 				+ "actual_results/AssignClassTestGenerics");

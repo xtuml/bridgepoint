@@ -36,8 +36,6 @@ import org.eclipse.ui.PlatformUI;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.SystemModel_c;
-import org.xtuml.bp.core.ui.NewDomainWizard;
-import org.xtuml.bp.core.ui.WizardNewDomainCreationPage;
 import org.xtuml.bp.test.common.BaseTest;
 import org.xtuml.bp.test.common.ExplorerUtil;
 import org.xtuml.bp.test.common.TestingUtilities;
@@ -82,10 +80,15 @@ public class AlphaSortingTest extends BaseTest
         }
     }
 
+    // enforces ordering of the tests in this class
+    public void testAlphaSorting() throws CoreException,IOException {
+    	dotestAlphaSortingOfSystems();
+    }
+    
     /**
      * Tests that alpha sorting works properly for the root node
      */
-    public void testAlphaSortingOfSystems() throws CoreException, IOException
+    public void dotestAlphaSortingOfSystems() throws CoreException, IOException
     {
         // clear all existing projects from previous tests
         IProject[] existingProjects = ResourcesPlugin.getWorkspace().getRoot().getProjects();
@@ -112,46 +115,5 @@ public class AlphaSortingTest extends BaseTest
         }
     }
 
-    /**
-     * Tests that alpha sorting works properly for the system node
-     */
-    public void testAlphaSortingOfDomains()
-    {
-        // contains a blank entry to cover System Model child entry
-        String[] domains = new String[] { "-", "1", "a", "AA", "Datatypes" };
 
-        createNewDomainUsingWizard("a");
-        createNewDomainUsingWizard("AA");
-        createNewDomainUsingWizard("-");
-        createNewDomainUsingWizard("1");
-
-        ExplorerUtil.getTreeViewer().refresh();
-        while (PlatformUI.getWorkbench().getDisplay().readAndDispatch())
-            ;
-
-        SystemModel_c system = SystemModel_c.SystemModelInstance(Ooaofooa
-            .getDefaultInstance());
-        TreeItem[] children = ExplorerUtil.getChildren(ExplorerUtil
-            .findItem(system));
-        for (int i = 0; i < children.length; i++) {
-            assertTrue("Item: " + domains[i]
-                + ", was not found in the correct order.", domains[i]
-                .equals(children[i].getText()));
-        }
-    }
-
-    private void createNewDomainUsingWizard(String domainName)
-    {
-        NewDomainWizard wizard = new NewDomainWizard();
-        SystemModel_c system = SystemModel_c.SystemModelInstance(Ooaofooa
-            .getDefaultInstance());
-        StructuredSelection ss = new StructuredSelection(system);
-        wizard.init(PlatformUI.getWorkbench(), ss);
-        WizardNewDomainCreationPage page = (WizardNewDomainCreationPage) wizard
-            .getStartingPage();
-        page.createControl(PlatformUI.getWorkbench().getActiveWorkbenchWindow()
-            .getShell());
-        page.setDomainNameFieldValue(domainName);
-        wizard.performFinish();
-    }
 }

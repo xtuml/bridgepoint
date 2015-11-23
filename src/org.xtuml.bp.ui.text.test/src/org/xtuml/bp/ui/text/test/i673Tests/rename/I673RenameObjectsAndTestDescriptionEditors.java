@@ -145,7 +145,10 @@ public class I673RenameObjectsAndTestDescriptionEditors extends UITextTest {
 		Bridge_c brg = Bridge_c.BridgeInstance(modelRoot);
 		assertNotNull(brg);
 		
-		IEditorPart ed = renameObjectAndCheckDescriptionEditor("Test External Entity New::", brg, UITextTest.STRING_TYPE_ATTR);
+		ExternalEntity_c ee = ExternalEntity_c.getOneS_EEOnR19(brg);
+		assertNotNull(ee);
+		
+		IEditorPart ed = renameObjectAndCheckDescriptionEditor(ee.getName() + "::", brg, UITextTest.STRING_TYPE_ATTR);
 		PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().closeEditor(ed, false);
 	}
 	
@@ -196,7 +199,10 @@ public class I673RenameObjectsAndTestDescriptionEditors extends UITextTest {
 		Operation_c op = Operation_c.OperationInstance(modelRoot);
 		assertNotNull(op);
 		
-		IEditorPart ed = renameObjectAndCheckDescriptionEditor("Test Class::", op, UITextTest.STRING_TYPE_ATTR);
+		ModelClass_c obj = ModelClass_c.getOneO_OBJOnR115(op);
+		assertNotNull(obj);
+		
+		IEditorPart ed = renameObjectAndCheckDescriptionEditor(obj.getName() + "::", op, UITextTest.STRING_TYPE_ATTR);
 		PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().closeEditor(ed, false);
 		
 	}
@@ -209,7 +215,10 @@ public class I673RenameObjectsAndTestDescriptionEditors extends UITextTest {
         
 		DescriptionEditorInteraction.openDescriptionEditor(ref);
 				
-		IEditorPart ed = renameObjectAndCheckDescriptionEditor("Test Class::", attr, UITextTest.STRING_TYPE_ATTR);
+		ModelClass_c obj = ModelClass_c.getOneO_OBJOnR102(attr);
+		assertNotNull(obj);
+		
+		IEditorPart ed = renameObjectAndCheckDescriptionEditor(obj.getName() + "::", attr, UITextTest.STRING_TYPE_ATTR);
 		
 		String refName = getName(ref);
 		DescriptionEditor refEditor = TextEditorUtils.getDescriptionEditor( refName);
@@ -308,7 +317,12 @@ public class I673RenameObjectsAndTestDescriptionEditors extends UITextTest {
 		assertNotNull(ch);
 		DescriptionEditorInteraction.openDescriptionEditor(ch);
 		
-		IEditorPart ed = renameObjectAndCheckDescriptionEditor("Test Class New::", state, UITextTest.STRING_TYPE_ATTR);
+		// Get the parent class for this state & state machine
+		ModelClass_c obj = ModelClass_c.getOneO_OBJOnR518(
+				InstanceStateMachine_c.getOneSM_ISMOnR517(StateMachine_c.getManySM_SMsOnR501(state)));
+		assertNotNull(obj);
+		
+		IEditorPart ed = renameObjectAndCheckDescriptionEditor(obj.getName() + "::", state, UITextTest.STRING_TYPE_ATTR);
 		
 		String evignName = getName(evign);
 		DescriptionEditor evignEditor = TextEditorUtils.getDescriptionEditor( evignName );
@@ -448,13 +462,6 @@ public class I673RenameObjectsAndTestDescriptionEditors extends UITextTest {
 		};
 		StateMachineState_c sms = StateMachineState_c.StateMachineStateInstance(modelRoot, stateQuery);
 		assertNotNull(sms);
-		
-		// TODO SKB - what I've found when running by hand is that the Can't happen and event ignored
-		// selection dialogs do not list any of the events in the droplist.  This causes the wizard to
-		// run incorrectly, and thus, the test fails.  Clearly something is buggy. 
-		// Were they lost in the upgrade to GP?  The project in the dev workspace seems to be able to 
-		// show the events properly in the dialog.
-		// Perhaps use TestingUtilities.importDevelopmentProjectIntoWorkspace()
 		
 		//_- Open description editor for Event Ignored named 'T_T_New1/ISM State New'
 		EventIgnored_c evign = EventIgnored_c.getOneSM_EIGNOnR504(StateEventMatrixEntry_c.getOneSM_SEMEOnR503(sms));

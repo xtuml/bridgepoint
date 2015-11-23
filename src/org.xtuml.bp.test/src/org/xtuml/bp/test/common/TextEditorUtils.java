@@ -45,7 +45,6 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.editors.text.TextEditor;
 
-import org.xtuml.bp.core.Domain_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.StateMachineState_c;
@@ -55,6 +54,7 @@ import org.xtuml.bp.ui.text.activity.ActivityEditor;
 import org.xtuml.bp.ui.text.activity.ShowActivityAction;
 import org.xtuml.bp.ui.text.description.DescriptionEditor;
 import org.xtuml.bp.ui.text.description.ShowDescriptionAction;
+import org.xtuml.bp.utilities.ui.CanvasUtilities;
 
 /**
  * Holds utility methods used by the text tests. 
@@ -116,38 +116,30 @@ public class TextEditorUtils
 		return null;
 	}
     
-    /**
-     * Opens (and returns) a description editor on the domain 
-     * associated with the given model-root.
-     */
-    public static DescriptionEditor openDomainDescriptionEditor(
-        Ooaofooa modelRoot)
-    {
-        final Domain_c domain = Domain_c.DomainInstance(modelRoot);
-        
-        try
+	static public void openDescriptionEditor( final Object uut )
+	{
+		try
 		{
 		  IWorkspaceRunnable r = new IWorkspaceRunnable()
 		  {
 			public void run(IProgressMonitor monitor) throws CoreException
 			{
-				IStructuredSelection ss = new StructuredSelection(domain);
+				IStructuredSelection ss = new StructuredSelection(uut);
 				ShowDescriptionAction sda = new ShowDescriptionAction();
 				Action a = new Action(){};
 				sda.selectionChanged(a, ss);
 				sda.run( a );
 			}
 		  };
-		  ResourcesPlugin.getWorkspace().run(r, null);
+		  CanvasUtilities.getWorkspace().run(r, null);
 		}
 		catch (CoreException x)
 		{
 		  TestCase.fail("open editor problem");
 		}
-        //DescriptionEditorInteraction.openDescriptionEditor(domain);
-        return getDomainDescriptionEditor(domain);
-    }
-    
+
+	}
+
     static public DescriptionEditor getDescriptionEditor( String title )
 	{
 	
@@ -160,7 +152,9 @@ public class TextEditorUtils
 				IEditorReference [] editors = pages[j].getEditorReferences();
 				for ( int k = 0; k < editors.length; ++k )
 				{
-					if ( editors[k].getTitle().equals(title) )
+					// As of Eclipse Mars, tab titles throw out leading and trailing spaces of the element being displayed.
+					// Thus, we added the trim() to the passed in title string in Oct 2015.
+					if ( editors[k].getTitle().equals(title.trim()) )
 					{
 						return (DescriptionEditor)editors[k].getEditor(false);
 					}
@@ -170,17 +164,6 @@ public class TextEditorUtils
 		return null;
 	}
     
-    /**
-     * Returns the (presumed) already-open description editor on the 
-     * given domain. 
-     */
-    public static DescriptionEditor getDomainDescriptionEditor(
-        Domain_c domain)
-    {
-        String title = domain.getName();
-        return getDescriptionEditor(title);
-    }
-
     /**
      * Opens (and returns) a description editor on the package 
      * associated with the given model-root.

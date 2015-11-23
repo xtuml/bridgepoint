@@ -207,7 +207,7 @@
       NumberRangeTest.java,PropertiesTest.java, PropertiesGlobalTest.java,
       PropertiesTestPlugin.java,DeleteUDTWithPropertyShowing.java,
       PropertiesViewTest2.java, PropertiesUtil.java, RefreshTestProp.java,
-  	  PropertiesGlobalsTest.java, PropertiesRenameTests.java" />
+  	  PropertiesGlobalsTest.java, PropertiesRenameTests.java,ElementOrderingTest.java" />
 
   <target name="format_java"
         description="Format the generated java source" >

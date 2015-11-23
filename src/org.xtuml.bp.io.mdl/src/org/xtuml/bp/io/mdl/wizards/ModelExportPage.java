@@ -11,7 +11,6 @@
 package org.xtuml.bp.io.mdl.wizards;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.runtime.IPath;
@@ -36,31 +35,20 @@ import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.ui.dialogs.WizardExportResourcesPage;
-
-import org.xtuml.bp.core.ComponentPackageInPackage_c;
-import org.xtuml.bp.core.ComponentPackage_c;
 import org.xtuml.bp.core.Component_c;
-import org.xtuml.bp.core.DataTypePackageInPackage_c;
-import org.xtuml.bp.core.DataTypePackage_c;
 import org.xtuml.bp.core.DataType_c;
-import org.xtuml.bp.core.Domain_c;
-import org.xtuml.bp.core.InterfacePackageInInterfacePackage_c;
-import org.xtuml.bp.core.InterfacePackage_c;
 import org.xtuml.bp.core.Interface_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Package_c;
-import org.xtuml.bp.core.SpecificationPackage_c;
-import org.xtuml.bp.core.SystemDatatypeInPackage_c;
-import org.xtuml.bp.core.SystemDatatypePackage_c;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.common.IPersistenceHierarchyMetaData;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.common.PersistableModelComponent;
 import org.xtuml.bp.core.common.PersistenceManager;
 import org.xtuml.bp.core.ui.Selection;
+import org.xtuml.bp.core.ui.tree.ModelCheckedTreeViewer;
 import org.xtuml.bp.io.mdl.tree.ModelCheckedTreeContentProvider;
 import org.xtuml.bp.ui.explorer.ModelLabelProvider;
-import org.xtuml.bp.core.ui.tree.ModelCheckedTreeViewer;
 
 public class ModelExportPage extends WizardExportResourcesPage {
 
@@ -438,8 +426,7 @@ public class ModelExportPage extends WizardExportResourcesPage {
 	 * 
 	 */
 	protected void selectReferredToElements(Object checkedElement) {
-		if (checkedElement instanceof Domain_c
-				|| checkedElement instanceof SystemModel_c
+		if (checkedElement instanceof SystemModel_c
 				|| checkedElement instanceof Ooaofooa) {
 			// domains are self contained when not
 			// the formalized content of a component;
@@ -453,106 +440,6 @@ public class ModelExportPage extends WizardExportResourcesPage {
 		if (parent != null) {
 			if (parent instanceof SystemModel_c) {
 				SystemModel_c system = (SystemModel_c) parent;
-				PersistenceManager.ensureAllChildInstancesLoaded(system
-						.getPersistableComponent(), Ooaofooa
-						.getDefaultInstance(), ComponentPackage_c.class, true);
-				PersistenceManager.ensureAllChildInstancesLoaded(system
-						.getPersistableComponent(), Ooaofooa
-						.getDefaultInstance(), InterfacePackage_c.class, true);
-				PersistenceManager.ensureAllChildInstancesLoaded(system
-						.getPersistableComponent(), Ooaofooa
-						.getDefaultInstance(), DataTypePackage_c.class, true);
-				// first check all data type packages that are
-				// selected and contain at least one user created
-				// data type
-				DataTypePackage_c[] dtPkgs = DataTypePackage_c
-						.getManyS_DPKsOnR4400(SystemDatatypePackage_c
-								.getManySLD_SDPsOnR4400(system));
-				for (int i = 0; i < dtPkgs.length; i++) {
-					if (fTreeviewer.getChecked(dtPkgs[i])) {
-						// already checked
-						continue;
-					}
-					if (dtPkgs[i].getName().equals(
-							Ooaofooa.Getcoredatatypespackagename(Ooaofooa
-									.getDefaultInstance()))) {
-						if (!ModelCheckedTreeContentProvider
-								.datatypePackageContainsUDT(dtPkgs[i])) {
-							continue;
-						}
-					}
-					DataType_c[] dts = DataType_c
-							.getManyS_DTsOnR4401(SystemDatatypeInPackage_c
-									.getManySLD_SDINPsOnR4401(dtPkgs[i]));
-					for (int j = 0; j < dts.length; j++) {
-						if(fTreeviewer.getChecked(dtPkgs)) break;
-						List list = metaData.findExternalRGOs(dts[j], true);
-						// if any of the referring elements are checked
-						// check this data type package as well
-						Object[] referringElements = list.toArray();
-						for (int k = 0; k < referringElements.length; k++) {
-							if (referringElements[k] instanceof NonRootModelElement) {
-								NonRootModelElement referringElement = (NonRootModelElement) referringElements[k];
-								PersistableModelComponent component = PersistenceManager
-										.findComponent(referringElement
-												.getModelRoot().getId());
-								NonRootModelElement rootElement = component
-										.getRootModelElement();
-								if (rootElement == checkedElement && rootElement != dtPkgs[i]) {
-									// prevent checking referred to element
-									// when referred to root is the current
-									// checked element
-									NonRootModelElement referredToRoot = getRootOfReferredToElement(dtPkgs[i].getModelRoot().getId());
-									if(referredToRoot != checkedElement) {
-										fTreeviewer.setChecked(referredToRoot, true);
-										selectReferredToElements(dtPkgs[i]);
-										break;
-									}
-								}
-							}
-						}
-					}
-				}
-				// now check all interface packages
-				InterfacePackage_c[] ifacePkgs = InterfacePackage_c.getManyIP_IPsOnR4304(system);
-				for (int i = 0; i < ifacePkgs.length; i++) {
-					if (fTreeviewer.getChecked(ifacePkgs[i])) {
-						// already checked
-						continue;
-					} else {
-						Interface_c[] ifaces = Interface_c
-								.getManyC_IsOnR4303(ifacePkgs[i]);
-						for (int j = 0; j < ifaces.length; j++) {
-							if(fTreeviewer.getChecked(ifacePkgs[i])) break;
-							List list = metaData.findExternalRGOs(ifaces[j], true);
-							// if any of the referring elements are checked
-							// check this interface package as well
-							Object[] referringElements = list.toArray();
-							for (int k = 0; k < referringElements.length; k++) {
-								if (referringElements[k] instanceof NonRootModelElement) {
-									NonRootModelElement referringElement = (NonRootModelElement) referringElements[k];
-									PersistableModelComponent component = PersistenceManager
-											.findComponent(referringElement
-													.getModelRoot().getId());
-									NonRootModelElement rootElement = component
-											.getRootModelElement();
-									if (rootElement == checkedElement && rootElement != ifacePkgs[i]) {
-										NonRootModelElement referredToRoot = getRootOfReferredToElement(ifacePkgs[i].getModelRoot().getId());
-										// prevent checking referred to element
-										// when referred to root is the current
-										// checked element
-										if(referredToRoot != checkedElement) {
-											fTreeviewer.setChecked(referredToRoot,
-												true);
-											selectReferredToElements(ifacePkgs[i]);
-											break;
-										}
-									}
-								}
-							}
-						}
-					}
-				}
 				
 				// check container package (Package_c)
 				Package_c[] pkgs = Package_c.getManyEP_PKGsOnR1401(system);
@@ -564,48 +451,7 @@ public class ModelExportPage extends WizardExportResourcesPage {
 						checkIfReferredTo(pkgs[i]);
 					}
 					
-				}
-				
-				// and finally check components
-				ComponentPackage_c[] compPkgs = ComponentPackage_c
-						.getManyCP_CPsOnR4606(system);
-				for (int i = 0; i < compPkgs.length; i++) {
-					if (fTreeviewer.getChecked(compPkgs[i])) {
-						// already checked, or not the currently checked element
-						continue;
-					} else {
-						Component_c[] components = Component_c
-								.getManyC_CsOnR4604(compPkgs[i]);
-						for (int j = 0; j < components.length; j++) {
-							if(fTreeviewer.getChecked(compPkgs[i])) break;
-							List list = metaData
-									.findExternalRGOs(components[j], true);
-							Object[] referringElements = list.toArray();
-							for (int k = 0; k < referringElements.length; k++) {
-								if (referringElements[k] instanceof NonRootModelElement) {
-									NonRootModelElement referringElement = (NonRootModelElement) referringElements[k];
-									PersistableModelComponent component = PersistenceManager
-											.findComponent(referringElement
-													.getModelRoot().getId());
-									NonRootModelElement rootElement = component
-											.getRootModelElement();
-									if (rootElement == checkedElement && rootElement != compPkgs[i]) {
-										NonRootModelElement referredToRoot = getRootOfReferredToElement(compPkgs[i].getModelRoot().getId());
-										// prevent checking referred to element
-										// when referred to root is the current
-										// checked element
-										if(referredToRoot != checkedElement) {
-											fTreeviewer.setChecked(referredToRoot,
-													true);
-											selectReferredToElements(compPkgs[i]);
-											break;
-										}
-									}
-								}
-							}
-						}
-					}
-				}
+				}				
 			}
 		}
 	}
@@ -621,104 +467,13 @@ public class ModelExportPage extends WizardExportResourcesPage {
 	protected void checkIfReferredTo(Object element) {
 		if (element instanceof NonRootModelElement) {
 			SystemModel_c system = null;
-			if (element instanceof ComponentPackage_c) {
-				system = SystemModel_c.getOneS_SYSOnR4606((ComponentPackage_c)element);
-				// ensure all component packages in this
-				// system are loaded
-				PersistenceManager.ensureAllChildInstancesLoaded(system
-						.getPersistableComponent(), Ooaofooa
-						.getDefaultInstance(), ComponentPackage_c.class, true);
-				checkNestedComponentPackagesForReferences(
-						(ComponentPackage_c) element,
-						(NonRootModelElement) element);
-			}
-
-			if (element instanceof DataTypePackage_c) {
-				system = SystemModel_c
-						.getOneS_SYSOnR4400(SystemDatatypePackage_c
-								.getOneSLD_SDPOnR4400((DataTypePackage_c) element));
-				PersistenceManager.ensureAllChildInstancesLoaded(system
-						.getPersistableComponent(), Ooaofooa
-						.getDefaultInstance(), DataTypePackage_c.class, true);
-				// check this package and all nested interface packages
-				checkNestedDataTypePackagesForReferences(
-						(DataTypePackage_c) element,
-						(NonRootModelElement) element);
-			}
-			if (element instanceof InterfacePackage_c) {
-				system = SystemModel_c.getOneS_SYSOnR4304((InterfacePackage_c) element);
-				PersistenceManager.ensureAllChildInstancesLoaded(system
-						.getPersistableComponent(), Ooaofooa
-						.getDefaultInstance(), InterfacePackage_c.class, true);
-				// check this package and all nested interface packages
-				checkNestedInterfacePackagesForReferences(
-						(InterfacePackage_c) element,
-						(NonRootModelElement) element);
-			}
 			if (element instanceof Package_c) {
 				system = SystemModel_c.getOneS_SYSOnR1405((Package_c) element);
 				PersistenceManager.ensureAllChildInstancesLoaded(system
 						.getPersistableComponent(), Ooaofooa
 						.getDefaultInstance(), Package_c.class, true);
-				PersistenceManager.ensureAllChildInstancesLoaded(system
-						.getPersistableComponent(), Ooaofooa
-						.getDefaultInstance(), ComponentPackage_c.class, true);
-				PersistenceManager.ensureAllChildInstancesLoaded(system
-						.getPersistableComponent(), Ooaofooa
-						.getDefaultInstance(), DataTypePackage_c.class, true);
-				PersistenceManager.ensureAllChildInstancesLoaded(system
-						.getPersistableComponent(), Ooaofooa
-						.getDefaultInstance(), InterfacePackage_c.class, true);
-				ComponentPackage_c[] compPkgs = ComponentPackage_c
-						.getManyCP_CPsOnR1402(SpecificationPackage_c
-								.getManyEP_SPKGsOnR1400((Package_c) element));
-				for(int i = 0; i < compPkgs.length; i++) {
-					checkNestedComponentPackagesForReferences(
-							compPkgs[i],
-							(NonRootModelElement) element);					
-				}
-				DataTypePackage_c[] dtPkgs = DataTypePackage_c
-						.getManyS_DPKsOnR1402(SpecificationPackage_c
-								.getManyEP_SPKGsOnR1400((Package_c) element));
-				for(int i = 0; i < dtPkgs.length; i++) {
-					checkNestedDataTypePackagesForReferences(
-							dtPkgs[i],
-							(NonRootModelElement) element);
-				}
-				InterfacePackage_c[] ifacePkgs = InterfacePackage_c
-						.getManyIP_IPsOnR1402(SpecificationPackage_c
-								.getManyEP_SPKGsOnR1400((Package_c) element));
-				for(int i = 0; i < ifacePkgs.length; i++) {
-					checkNestedInterfacePackagesForReferences(
-							ifacePkgs[i],
-							(NonRootModelElement) element);					
-				}
 			}
 		}
-	}
-
-	protected boolean checkNestedComponentPackagesForReferences(
-			ComponentPackage_c pkg, NonRootModelElement element) {
-		Interface_c[] ifaces = Interface_c
-				.getManyC_IsOnR4303(InterfacePackage_c
-						.getManyIP_IPsOnR4607(pkg));
-		boolean result = checkComponentPackageForReferences(ifaces, element);
-		Component_c[] components = Component_c.getManyC_CsOnR4608(pkg);
-		if(!result) {
-			result = checkComponentPackageForReferences(components, element);
-		}
-		if (!result) {
-			ComponentPackage_c[] pkgs = ComponentPackage_c
-					.getManyCP_CPsOnR4601(ComponentPackageInPackage_c
-							.getManyCP_CPINPsOnR4600(pkg));
-			for (int i = 0; i < pkgs.length; i++) {
-				result = checkNestedComponentPackagesForReferences(pkgs[i],
-						element);
-				if (result)
-					return result;
-			}
-		}
-		return result;
 	}
 
 	protected boolean checkComponentPackageForReferences(
@@ -769,36 +524,6 @@ public class ModelExportPage extends WizardExportResourcesPage {
 		return false;
 	}
 	
-	protected boolean checkNestedDataTypePackagesForReferences(
-			DataTypePackage_c pkg, NonRootModelElement element) {
-		
-		DataType_c[] dts = null;
-		if (element instanceof DataTypePackage_c) {
-			dts = DataType_c
-				.getManyS_DTsOnR4401(SystemDatatypeInPackage_c
-						.getManySLD_SDINPsOnR4401((DataTypePackage_c) element));
-		} else if (element instanceof Package_c) {
-			dts = DataType_c
-					.getManyS_DTsOnR4401(SystemDatatypeInPackage_c
-							.getManySLD_SDINPsOnR4401(DataTypePackage_c
-									.getManyS_DPKsOnR1402(SpecificationPackage_c
-											.getManyEP_SPKGsOnR1400((Package_c) element))));
-		}
-		boolean result = checkDataTypePackageForReferences(dts, element);
-		if (!result) {
-			DataTypePackage_c[] pkgs = DataTypePackage_c
-					.getManyS_DPKsOnR37(DataTypePackageInPackage_c
-							.getManyS_DPIPsOnR38(pkg));
-			for (int i = 0; i < pkgs.length; i++) {
-				result = checkNestedDataTypePackagesForReferences(pkgs[i],
-						element);
-				if (result)
-					return result;
-			}
-		}
-		return result;
-	}
-
 	protected boolean checkDataTypePackageForReferences(DataType_c[] dts,
 			NonRootModelElement element) {
 		for (int i = 0; i < dts.length; i++) {
@@ -822,25 +547,6 @@ public class ModelExportPage extends WizardExportResourcesPage {
 			}
 		}
 		return false;
-	}
-
-	protected boolean checkNestedInterfacePackagesForReferences(
-			InterfacePackage_c pkg, NonRootModelElement element) {
-		Interface_c[] ifaces = Interface_c.getManyC_IsOnR4303(pkg);
-		boolean result = checkInterfacePackageForReferences(ifaces, element);
-		if (!result) {
-			InterfacePackage_c[] nestedPkgs = InterfacePackage_c
-					.getManyIP_IPsOnR4301(InterfacePackageInInterfacePackage_c
-							.getManyIP_IPINIPsOnR4300(pkg));
-			for (int i = 0; i < nestedPkgs.length; i++) {
-				result = checkNestedInterfacePackagesForReferences(
-						nestedPkgs[i], element);
-				if (result)
-					return result;
-			}
-		}
-		
-		return result;
 	}
 
 	protected boolean checkInterfacePackageForReferences(Interface_c[] ifaces,

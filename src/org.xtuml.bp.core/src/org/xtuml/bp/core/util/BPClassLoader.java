@@ -23,62 +23,40 @@
 package org.xtuml.bp.core.util;
 
 import java.io.File;
+import java.io.RandomAccessFile;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
+import java.util.Iterator;
 
-import org.eclipse.core.runtime.adaptor.EclipseStarter;
-import org.eclipse.osgi.baseadaptor.bundlefile.BundleEntry;
-import org.eclipse.osgi.baseadaptor.loader.ClasspathEntry;
-import org.eclipse.osgi.baseadaptor.loader.ClasspathManager;
-import org.eclipse.osgi.framework.debug.Debug;
-import org.eclipse.osgi.internal.baseadaptor.DefaultClassLoader;
+
 
 import org.xtuml.bp.core.CorePlugin;
 
 
-public class BPClassLoader extends DefaultClassLoader {
+public class BPClassLoader extends ClassLoader {
 	
-	public BPClassLoader(String[] classpath, DefaultClassLoader parent)
+	public BPClassLoader(String[] classpath, ClassLoader parent)
 	{
-      super( parent, 
-             parent.getDelegate(), 
-             EclipseStarter.class.getProtectionDomain(), 
-             parent.getClasspathManager().getBaseData(), 
-             classpath);
-      path = classpath;
+      super( parent);
+      ClassPathEntries = new ArrayList<String>();
+      for (int i = 0; i < classpath.length; i++) {
+    	  addClassPathEntry(classpath[i]);
+	}
 	}
 
-	private String [] path;
-	private ArrayList<ClasspathEntry> cpeList = new ArrayList<ClasspathEntry>();
+	private ArrayList<String> ClassPathEntries;
 	
-	public void initialize() {
-		super.initialize();
-        for (int i = 0; i < path.length; i++) {
-          if (path[i].startsWith("external:")) {
-            String filePath = path[i].replaceFirst("external:", "");
-            addClassPathEntry(filePath);
-          }
-	    }
-	}
 	public void addClassPathEntry(String path) {
-		ClasspathManager cpm = getClasspathManager();
-        ClasspathEntry cpe = cpm.getExternalClassPath(path,
-                cpm.getBaseData(), EclipseStarter.class.getProtectionDomain());
-        if (cpe != null) {   
-           File newCandidate = cpe.getBundleFile().getBaseFile();
-       	   for (ClasspathEntry existing: cpeList) {
-       		   File existingFile = existing.getBundleFile().getBaseFile();
-       		   if (existingFile.equals(newCandidate)) {
-       			   return;
-       		   }
-           }
-           cpeList.add(cpe);
-        }
+		synchronized(ClassPathEntries) {
+			if (ClassPathEntries.indexOf(path) == -1) {
+				ClassPathEntries.add(path);
+			}
+	}
 	}
 
 	public Class<?> loadClass(String name) throws ClassNotFoundException {
@@ -99,75 +77,71 @@ public class BPClassLoader extends DefaultClassLoader {
       if (clazz != null) {
         return clazz;
       }
-
-      clazz = findLocalClass(name);
-	  return clazz;
+      
+      throw new ClassNotFoundException();
 	}
 	
 	private static Map<String, Class<?>> definitions = Collections.synchronizedMap(new HashMap<String, Class<?>>());
 
 	public static void resetTheDefinitionsCache()
 	{
-		definitions.clear();
+ 		definitions.clear();
 	}
 	
+	@SuppressWarnings("restriction")
 	private Class<?> findClassImpl(String name) {
-		if (Debug.DEBUG_ENABLED && Debug.DEBUG_LOADER)
-			Debug.println("BPClassLoader[" + "].findClass(" + name + ")"); //$NON-NLS-1$ //$NON-NLS-2$//$NON-NLS-3$
 		
 		String filename = name.replace('.', '/').concat(".class"); //$NON-NLS-1$
-		Iterator<ClasspathEntry> cpIt = cpeList.iterator();
+		synchronized(ClassPathEntries) {
+		Iterator<String> cpIt = ClassPathEntries.iterator();
 		while (cpIt.hasNext()) {
-		  ClasspathEntry cp = cpIt.next();
-		  BundleEntry entry = cp.getBundleFile().getEntry(filename);
-		  if (entry != null) {
-			if (definitions.containsKey(entry.getFileURL().toString())) {
-			    return definitions.get(entry.getFileURL().toString());
-			}
-		    byte[] classbytes;
-		    try {
-			  classbytes = entry.getBytes();
-		    } catch (IOException e) {
-			  if (Debug.DEBUG_ENABLED && Debug.DEBUG_LOADER)
-				Debug.println("  IOException reading " + filename + " from "); //$NON-NLS-1$ //$NON-NLS-2$
-			  return null;
-		    }
+			File cpe = new File(cpIt.next());
+			File file = new File(cpe, filename);
+			if (file.isFile() && file.exists()) {
+				if (definitions.containsKey(file.toString())) {
+				    return definitions.get(file.toString());
+				}
+			    byte[] classbytes;
+			    try {
+				  RandomAccessFile raf = new RandomAccessFile(file, "r");
+				  classbytes = new byte[(int) raf.length()];
+				  raf.read(classbytes);
+			    } catch (IOException e) {
+				  return null;
+			    }
 
-		    if (Debug.DEBUG_ENABLED && Debug.DEBUG_LOADER) {
-			  Debug.println("  read " + classbytes.length + " bytes from " + filename); //$NON-NLS-1$ //$NON-NLS-2$
-			  Debug.println("  defining class " + name); //$NON-NLS-1$
+			    try {
+			      Class<?> result = defineClass(name, classbytes, 0, classbytes.length);
+			        definitions.put(file.toString(), result);
+					  return result;
+			    } catch (Error e) {
+				throw e;
+			  }
+			      catch (Exception e) {
+						CorePlugin.logError("Exception in BP Class loader defining class " + name, e); //$NON-NLS-1$
+			      }
 		    }
-
-		    try {
-		      Class<?> result = defineClass(name, classbytes, cp, entry);
-		        definitions.put(entry.getFileURL().toString(), result);
-				  return result;
-		    } catch (Error e) {
-			if (Debug.DEBUG_ENABLED && Debug.DEBUG_LOADER)
-				Debug.println("  error defining class " + name); //$NON-NLS-1$
-			throw e;
-		  }
-		      catch (Exception e) {
-					CorePlugin.logError("Exception in BP Class loader defining class " + name, e); //$NON-NLS-1$
-		      }
-	    }
-	  }
+		}
+			
+		}
 	  return null;
 	}
 	
 	public InputStream getResourceAsStream(String name) {
-		Iterator<ClasspathEntry> cpIt = cpeList.iterator();
+		synchronized (ClassPathEntries) {
+		Iterator<String> cpIt = ClassPathEntries.iterator();
 		while (cpIt.hasNext()) {
-		  ClasspathEntry cp = cpIt.next();
-		  BundleEntry entry = cp.getBundleFile().getEntry(name);
-		  if (entry != null) {
-			  try {
-			    return entry.getInputStream();
-			  }
-			  catch (IOException ioe) {
+			File cpe = new File(cpIt.next());
+			File file = new File(cpe, name);
+			if (file.isFile() && file.exists()) {
+				try {
+					return new FileInputStream(file);
+				}
+				catch (IOException ioe) {
 					CorePlugin.out.println("Exception loading required resource:" + ioe.toString());
-			  }
-		  }
+				}
+			}
+		}
 		}
 		return super.getResourceAsStream(name);
 	}

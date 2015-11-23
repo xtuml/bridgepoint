@@ -27,12 +27,8 @@ import java.util.Vector;
 import org.eclipse.jface.viewers.CheckStateChangedEvent;
 import org.eclipse.jface.viewers.ICheckStateListener;
 
-import org.xtuml.bp.core.ComponentInComponent_c;
-import org.xtuml.bp.core.ComponentPackageInPackage_c;
-import org.xtuml.bp.core.ComponentPackage_c;
 import org.xtuml.bp.core.ComponentReference_c;
 import org.xtuml.bp.core.Component_c;
-import org.xtuml.bp.core.Domain_c;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.PackageableElement_c;
 import org.xtuml.bp.core.SystemModel_c;
@@ -88,19 +84,6 @@ public class VerifierTableTreeStateChangeListener implements
 
 					}
 				}
-			} else if (elementInvolved instanceof ComponentPackage_c) {
-				// if the checked element was a component
-				// package we need to update all children
-				Object[] children = getComponentPackageChildren((ComponentPackage_c) elementInvolved);
-				for (int i = 0; i < children.length; i++) {
-					if (wasAdded) {
-						parent.enableExecutionOfElement(vector,
-								(NonRootModelElement) children[i]);
-					} else {
-						parent.disableExecutionOfElement(vector,
-								(NonRootModelElement) children[i]);
-					}
-				}
 			} else if (elementInvolved instanceof Package_c) {
 				// if the checked element was a
 				// package we need to update all children
@@ -150,23 +133,7 @@ public class VerifierTableTreeStateChangeListener implements
 
 	private NonRootModelElement[] getComponentChildren(Component_c component) {
 		ArrayList<NonRootModelElement> list = new ArrayList<NonRootModelElement>();
-		ComponentReference_c[] icomponents = ComponentReference_c
-				.getManyCL_ICsOnR4205(component);
-		for (int i = 0; i < icomponents.length; i++) {
-			if (icomponents[i].Isassigned())
-				list.add(icomponents[i]);
-		}
-		Component_c[] components = Component_c
-				.getManyC_CsOnR4203(ComponentInComponent_c
-						.getManyCN_CICsOnR4202(component));
-		for (int i = 0; i < components.length; i++) {
-			list.add(components[i]);
-			NonRootModelElement[] children = getComponentChildren(components[i]);
-			for (int j = 0; j < children.length; j++) {
-				list.add(children[j]);
-			}
-		}
-		components = Component_c.getManyC_CsOnR8001(PackageableElement_c
+		Component_c[] components = Component_c.getManyC_CsOnR8001(PackageableElement_c
 				.getManyPE_PEsOnR8003(component));
 		for (int i = 0; i < components.length; i++) {
 			list.add(components[i]);
@@ -182,33 +149,6 @@ public class VerifierTableTreeStateChangeListener implements
 			list.add(compRefs[i]);
 		}
 		return list.toArray(new NonRootModelElement[list.size()]);
-	}
-
-	private Object[] getComponentPackageChildren(ComponentPackage_c compPkg) {
-		// get all formal components
-		Component_c[] components = Component_c.getManyC_CsOnR4608(compPkg);
-		ArrayList<NonRootModelElement> list = new ArrayList<NonRootModelElement>();
-		for (int i = 0; i < components.length; i++) {
-			list.add(components[i]);
-		}
-		ComponentReference_c[] icomponents = ComponentReference_c
-				.getManyCL_ICsOnR4205(components);
-		for (int i = 0; i < icomponents.length; i++) {
-			if (icomponents[i].Isassigned())
-				list.add(icomponents[i]);
-		}
-		icomponents = getComponentPackageImportedComponentChildren(compPkg);
-		for (int i = 0; i < icomponents.length; i++) {
-			if (icomponents[i].Isassigned())
-				list.add(icomponents[i]);
-		}
-		ComponentPackage_c[] pkgs = ComponentPackage_c
-				.getManyCP_CPsOnR4601(ComponentPackageInPackage_c
-						.getManyCP_CPINPsOnR4600(compPkg));
-		for (int i = 0; i < pkgs.length; i++) {
-			list.add(pkgs[i]);
-		}
-		return list.toArray();
 	}
 
 	private NonRootModelElement[] getPackageChildren(Package_c pkg) {
@@ -242,54 +182,9 @@ public class VerifierTableTreeStateChangeListener implements
 		return list.toArray(new NonRootModelElement[list.size()]);
 	}
 
-	private ComponentReference_c[] getComponentPackageImportedComponentChildren(
-			ComponentPackage_c compPkg) {
-		ArrayList<NonRootModelElement> list = new ArrayList<NonRootModelElement>();
-		ComponentReference_c[] icomponents = ComponentReference_c
-				.getManyCL_ICsOnR4605(compPkg);
-		for (int i = 0; i < icomponents.length; i++) {
-			list.add(icomponents[i]);
-		}
-		ComponentPackage_c[] childPkgs = ComponentPackage_c
-				.getManyCP_CPsOnR4601(ComponentPackageInPackage_c
-						.getManyCP_CPINPsOnR4600(compPkg));
-		for (int i = 0; i < childPkgs.length; i++) {
-			icomponents = getComponentPackageImportedComponentChildren(childPkgs[i]);
-			for (int j = 0; j < icomponents.length; j++) {
-				list.add(icomponents[j]);
-			}
-		}
-		return list.toArray(new ComponentReference_c[list.size()]);
-	}
-
 	private Object[] getSystemChildren(SystemModel_c system) {
 		Vector<NonRootModelElement> vector = new Vector<NonRootModelElement>();
-		// get all domains
-		Domain_c[] domains = Domain_c.getManyS_DOMsOnR28(system);
-		for (int i = 0; i < domains.length; i++) {
-			vector.add(domains[i]);
-		}
-		// and all components
-		Component_c[] components = Component_c
-				.getManyC_CsOnR4608(ComponentPackage_c
-						.getManyCP_CPsOnR4606(system));
-		for (int i = 0; i < components.length; i++) {
-			vector.add(components[i]);
-		}
-		// and all imported components
-		ComponentReference_c[] icomponents = ComponentReference_c
-				.getManyCL_ICsOnR4205(Component_c
-						.getManyC_CsOnR4608(ComponentPackage_c
-								.getManyCP_CPsOnR4606(system)));
-		for (int i = 0; i < icomponents.length; i++) {
-			vector.add(icomponents[i]);
-		}
-		icomponents = ComponentReference_c
-				.getManyCL_ICsOnR4605(ComponentPackage_c
-						.getManyCP_CPsOnR4606(system));
-		for (int i = 0; i < icomponents.length; i++) {
-			vector.add(icomponents[i]);
-		}
+		// get all components
 		Package_c[] packages = Package_c.getManyEP_PKGsOnR1405(system);
 		for (int i = 0; i < packages.length; i++) {
 			if (packages[i].Isexecutingorownsexecutableelements()) {
@@ -304,27 +199,6 @@ public class VerifierTableTreeStateChangeListener implements
 			return (SystemModel_c) element;
 		}
 		SystemModel_c system = null;
-		if (element instanceof Domain_c) {
-			system = SystemModel_c.getOneS_SYSOnR28((Domain_c) element);
-		}
-		if (element instanceof Component_c) {
-			system = SystemModel_c.getOneS_SYSOnR4606(ComponentPackage_c
-					.getOneCP_CPOnR4608((Component_c) element));
-		}
-		if (element instanceof ComponentPackage_c) {
-			system = SystemModel_c
-					.getOneS_SYSOnR4606((ComponentPackage_c) element);
-		}
-		if (element instanceof ComponentReference_c) {
-			system = SystemModel_c.getOneS_SYSOnR4606(ComponentPackage_c
-					.getOneCP_CPOnR4605((ComponentReference_c) element));
-			if (system == null) {
-				system = SystemModel_c
-						.getOneS_SYSOnR4606(ComponentPackage_c
-								.getOneCP_CPOnR4608(Component_c
-										.getOneC_COnR4205((ComponentReference_c) element)));
-			}
-		}
 		return system;
 	}
 

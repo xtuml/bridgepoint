@@ -22,7 +22,6 @@
 
 package org.xtuml.bp.ui.properties.test;
 
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ICellEditorValidator;
 import org.eclipse.jface.viewers.StructuredSelection;
@@ -38,14 +37,11 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.views.properties.IPropertyDescriptor;
 import org.eclipse.ui.views.properties.IPropertySource;
-
 import org.xtuml.bp.core.Association_c;
 import org.xtuml.bp.core.Attribute_c;
-import org.xtuml.bp.core.Bridge_c;
 import org.xtuml.bp.core.ClassInstanceParticipant_c;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.DataType_c;
-import org.xtuml.bp.core.ExternalEntity_c;
 import org.xtuml.bp.core.FormalAttributeValue_c;
 import org.xtuml.bp.core.Function_c;
 import org.xtuml.bp.core.InformalAttributeValue_c;
@@ -53,7 +49,6 @@ import org.xtuml.bp.core.InstanceAttributeValue_c;
 import org.xtuml.bp.core.Message_c;
 import org.xtuml.bp.core.ModelClass_c;
 import org.xtuml.bp.core.Package_c;
-import org.xtuml.bp.core.PackageableElement_c;
 import org.xtuml.bp.core.SynchronousMessage_c;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.ui.Selection;
@@ -66,8 +61,6 @@ import org.xtuml.bp.test.common.FailableRunnable;
 import org.xtuml.bp.ui.canvas.test.CanvasTestUtilities;
 import org.xtuml.bp.ui.explorer.ExplorerView;
 import org.xtuml.bp.ui.properties.AttributeO_ATTRPropertySource;
-import org.xtuml.bp.ui.properties.BridgeParameterS_BPARMPropertySource;
-import org.xtuml.bp.ui.properties.BridgeS_BRGPropertySource;
 import org.xtuml.bp.ui.properties.ChooserPropertyDescriptor;
 import org.xtuml.bp.ui.properties.ClassO_OBJPropertySource;
 import org.xtuml.bp.ui.properties.FormalInstanceAttributeValuesSQ_AVPropertySource;
@@ -141,22 +134,10 @@ public class PropertiesViewTest2 extends BaseTest
         Tree tree = UIUtil.getPropertyTree();
 		assertTrue("Previously advanced property still not shown", tree
 				.getItems()[1].getText().equals("Association Formalizer End"));
-    }
-
-    /**
-     * Tests that the "Basic" property category is the first one listed for 
-     * a model element in the properties view.
-     */
-	public void testBasicCategoryListedFirst() {
-		// select the R9 association
-        Association_c r9 = OoaofooaUtil.getAssociation(modelRoot, 9);
-		selection.clear();
-		selection.addToSelection(r9);
 
         // check that the "Basic" properties category is the first one shown
         // in the properties view, even though there are other categories for 
         // the selected relationship that would precede it, alphabetically
-        Tree tree = UIUtil.getPropertyTree();
 		assertTrue("Basic property category is not the first one shown", tree
 				.getItems()[0].getText().equals("Basic"));
     }
@@ -335,45 +316,6 @@ public class PropertiesViewTest2 extends BaseTest
 		while(PlatformUI.getWorkbench().getDisplay().readAndDispatch());
 		DataType_c dt = DataType_c.getOneS_DTOnR114(attr);
 		assertTrue("boolean data type was not set as type for attribute.", dt.getName().equals("boolean"));
-    }
-    
-    public void testElementOrderingInView() throws CoreException {
-    	loadProject("BridgeParameterOrderingTest");
-    	Package_c eePkg = Package_c.getOneEP_PKGOnR1405(m_sys, new ClassQueryInterface_c() {
-			
-			@Override
-			public boolean evaluate(Object candidate) {
-				return ((Package_c) candidate).getName().equals("External Entities");
-			}
-		});
-    	assertNotNull(eePkg);
-    	Bridge_c bridge = Bridge_c.getOneS_BRGOnR19(ExternalEntity_c.getManyS_EEsOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(eePkg)), new ClassQueryInterface_c() {
-			
-			@Override
-			public boolean evaluate(Object candidate) {
-				return ((Bridge_c) candidate).getName().equals("concat_string");
-			}
-		});
-    	BridgeS_BRGPropertySource source = new BridgeS_BRGPropertySource(bridge);
-    	IPropertyDescriptor[] propertyDescriptors = source.getPropertyDescriptors();
-    	boolean foundCorrectOrder = false;
-    	boolean foundOne = false;
-    	for(IPropertyDescriptor descriptor : propertyDescriptors) {
-    		Object propertyValue = source.getPropertyValue(descriptor.getId());
-    		if(propertyValue instanceof BridgeParameterS_BPARMPropertySource) {
-    			BridgeParameterS_BPARMPropertySource paramSource = (BridgeParameterS_BPARMPropertySource) propertyValue;
-    			if(paramSource.toString().equals("s1")) {
-    				foundOne = true;
-    			}
-    			if(paramSource.toString().equals("s2")) {
-    				if(foundOne) {
-    					foundCorrectOrder = true;
-    				}
-    				break;
-    			}
-    		}
-    	}
-    	assertTrue("User-defined ordering is not honored in the properties view.", foundCorrectOrder);
     }
     
 	private void checkIsFormalPropertyForAttributeValue(IPropertySource ps, String value) {

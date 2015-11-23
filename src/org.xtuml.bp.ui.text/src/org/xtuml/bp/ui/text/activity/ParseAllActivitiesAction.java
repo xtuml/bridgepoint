@@ -36,7 +36,6 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IActionDelegate;
 
 import org.xtuml.bp.core.Component_c;
-import org.xtuml.bp.core.Domain_c;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.common.ModelRoot;
@@ -58,17 +57,7 @@ public class ParseAllActivitiesAction implements IActionDelegate
                 for (Iterator iterator = selection.iterator(); iterator.hasNext();)
                 {
                     Object context = iterator.next();
-                    if (context instanceof Domain_c)
-                    {
-                        ModelRoot.disableChangeNotification();
-                        try {
-                        AllActivityModifier aam = new AllActivityModifier((Domain_c)context, monitor);
-                        aam.processAllActivities(AllActivityModifier.PARSE);
-                        }
-                        finally {
-                        ModelRoot.enableChangeNotification();
-                        }
-                    } else if(context instanceof Component_c) {
+                    if(context instanceof Component_c) {
                         ModelRoot.disableChangeNotification();
                         try {
                         AllActivityModifier aam = new AllActivityModifier((Component_c)context, monitor);
