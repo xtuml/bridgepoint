@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: MCMC Function Generator
+Bundle-SymbolicName: org.xtuml.bp.function.gen;singleton:=true
+Bundle-Version: 5.1.0
+Bundle-Activator: org.xtuml.bp.function.gen.Activator
+Bundle-Vendor: xtUML Org
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.xtuml.bp.core,
+ org.eclipse.core.resources
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-ActivationPolicy: lazy
