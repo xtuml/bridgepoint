@@ -74,7 +74,15 @@ public class OALPersistenceTestsGenerics extends BaseTest {
 		super.tearDown();
 	}
 
-	public void testPersistOAL() throws FileNotFoundException, CoreException {
+	// As of Java7 and JUnit 4, the ordering of test functions is not guaranteed to be the order
+	// in the file.  Thus, we add this public test to enforce ordering
+	public void testOALPersistence() throws FileNotFoundException, CoreException {
+		dotestPersistOAL();
+		dotestOALInstancesCreatedWhileBuild();
+		dotestOALInstancesExportedProperly();
+	}
+	
+	private void dotestPersistOAL() throws FileNotFoundException, CoreException {
 		try {
 			IdAssigner.setSeedOfAllInstances(1, true);
 			final String domainName = "testOAL1";
@@ -128,7 +136,7 @@ public class OALPersistenceTestsGenerics extends BaseTest {
         }
         }
    
-	public void testOALInstancesCreatedWhileBuild() throws FileNotFoundException, CoreException {
+	private void dotestOALInstancesCreatedWhileBuild() throws FileNotFoundException, CoreException {
 		try {
 			IdAssigner.setSeedOfAllInstances(2, true);
 			String domainName = "testOAL1";
@@ -154,7 +162,7 @@ public class OALPersistenceTestsGenerics extends BaseTest {
 		}
     }
 
-	public void testOALInstancesExportedProperly()
+	private void dotestOALInstancesExportedProperly()
 			throws FileNotFoundException, CoreException {
 		try {
 			String testProjectName = "Integration";

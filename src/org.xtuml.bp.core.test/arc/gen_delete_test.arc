@@ -80,7 +80,7 @@
       .assign isSecond = result.Second
       .assign ooa_type = 5
     .end if
-  	public void test$r{test_name}() {
+  	public void doTest$r{test_name}() {
   		test_id = "test_${count}";
     .if (test_count == 1)
       .if (objtype == "State")
@@ -203,7 +203,7 @@
       .assign isSecond = result.Second
       .assign ooa_type = 5
     .end if
-  	public void test$r{test_name}() {
+  	public void doTest$r{test_name}() {
   		test_id = "test_${count}";
     .if (test_count == 1)
       .if (objtype == "State")
@@ -304,14 +304,12 @@ import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.IdAssigner;
 import org.xtuml.bp.core.common.PersistableModelComponent;
 import org.xtuml.bp.core.CorePlugin;
-import org.xtuml.bp.core.DataTypePackage_c;
 
 import org.xtuml.bp.core.ImportedClass_c;
 import org.xtuml.bp.core.InstanceStateMachine_c;
 import org.xtuml.bp.core.ModelClass_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Package_c;
-import org.xtuml.bp.core.SystemDatatypePackage_c;
 
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.XtUMLNature;
@@ -414,61 +412,119 @@ public class DeleteTestGenerics extends CanvasTest {
 .select many ics related by ss->PE_PE[R8000]->O_IOBJ[R8001] where (selected.Obj_KL != "T_IMPOTH")
 .for each ic in ics
   .invoke result = processClass(ic, "IOBJ", "${ss.Name}")
-  			this.test$r{result.name}();
+  			this.doTest$r{result.name}();
 .end for
 .select any ss from instances of EP_PKG where (selected.Name == "R_REL_Delete")
 .select many ics related by ss->PE_PE[R8000]->O_IOBJ[R8001] where (selected.Obj_KL == "T_IMPREL")
 .for each ic in ics
-			this.test$r{ic.Obj_Name}();
+			this.doTest$r{ic.Obj_Name}();
 .end for
 .select many classes from instances of O_OBJ where (selected.KEY_LETT == "T_CLSRELCON")
 .for each class in classes
-  			this.test$r{class.Name}();
+  			this.doTest$r{class.Name}();
 .end for
 .select any ss from instances of EP_PKG where (selected.Name == "R_SUPER_Delete")
 .select many ics related by ss->PE_PE[R8000]->O_IOBJ[R8001] where (selected.Obj_KL == "T_IMPSUPER")
 .for each ic in ics
-			this.test$r{ic.Obj_Name}();
+			this.doTest$r{ic.Obj_Name}();
 .end for
 .select many classes from instances of O_OBJ where (selected.KEY_LETT == "T_CLSSUPERCON")
 .for each class in classes
-  			this.test$r{class.Name}();
+  			this.doTest$r{class.Name}();
 .end for
 .select any ss from instances of EP_PKG where (selected.Name == "R_SUB_Delete")
 .select many ics related by ss->PE_PE[R8000]->O_IOBJ[R8001] where (selected.Obj_KL == "T_IMPSUB")
 .for each ic in ics
-			this.test$r{ic.Obj_Name}();
+			this.doTest$r{ic.Obj_Name}();
 .end for
 .select many classes from instances of O_OBJ where (selected.KEY_LETT == "T_CLSSUBCON")
 .for each class in classes
-  			this.test$r{class.Name}();
+  			this.doTest$r{class.Name}();
 .end for
 .select any ss from instances of EP_PKG where (selected.Name == "R_ASSR_Delete")
 .select many ics related by ss->PE_PE[R8000]->O_IOBJ[R8001] where (selected.Obj_KL == "T_IMPASSR")
 .for each ic in ics
-			this.test$r{ic.Obj_Name}();
+			this.doTest$r{ic.Obj_Name}();
 .end for
 .select many classes from instances of O_OBJ where (selected.KEY_LETT == "T_CLSASSRCON")
 .for each class in classes
-  			this.test$r{class.Name}();
+  			this.doTest$r{class.Name}();
 .end for
 .select any ss from instances of EP_PKG where (selected.Name == "Import Subsystem")
 .select one class related by ss->PE_PE[R8000]->O_OBJ[R8001] where (selected.Name == "Test Import Class")
 .select one isc related by class->SM_ISM[R518]->SM_SM[R517]
 .select many states related by isc->SM_STATE[R501] where (selected.Name != "Test State OtherSide")
 .for each state in states
-			this.test$r{state.Name}();
+			this.doTest$r{state.Name}();
 .end for
 .select any ss from instances of EP_PKG where (selected.Name == "O_OBJ_Delete")
 .select many mc_set related by ss->PE_PE[R8000]->O_OBJ[R8001] where (selected.Key_Lett != "T_OTH")
 .for each mc in mc_set
-  			this.test$r{mc.Name}();
+  			this.doTest$r{mc.Name}();
 .end for
 		} catch (Exception e) {
 			System.out.println(
 				"Exception encountered by test result creator: " + e);
 		}
 
+	}
+	
+		public void testDeleteTestGenerics() {
+		
+.select any ss from instances of EP_PKG where (selected.Name == "O_IOBJ_Delete")
+.select many ics related by ss->PE_PE[R8000]->O_IOBJ[R8001] where (selected.Obj_KL != "T_IMPOTH")
+.for each ic in ics
+  .invoke result = processClass(ic, "IOBJ", "${ss.Name}")
+  			this.doTest$r{result.name}();
+.end for
+.select any ss from instances of EP_PKG where (selected.Name == "R_REL_Delete")
+.select many ics related by ss->PE_PE[R8000]->O_IOBJ[R8001] where (selected.Obj_KL == "T_IMPREL")
+.for each ic in ics
+			this.doTest$r{ic.Obj_Name}();
+.end for
+.select many classes from instances of O_OBJ where (selected.KEY_LETT == "T_CLSRELCON")
+.for each class in classes
+  			this.doTest$r{class.Name}();
+.end for
+.select any ss from instances of EP_PKG where (selected.Name == "R_SUPER_Delete")
+.select many ics related by ss->PE_PE[R8000]->O_IOBJ[R8001] where (selected.Obj_KL == "T_IMPSUPER")
+.for each ic in ics
+			this.doTest$r{ic.Obj_Name}();
+.end for
+.select many classes from instances of O_OBJ where (selected.KEY_LETT == "T_CLSSUPERCON")
+.for each class in classes
+  			this.doTest$r{class.Name}();
+.end for
+.select any ss from instances of EP_PKG where (selected.Name == "R_SUB_Delete")
+.select many ics related by ss->PE_PE[R8000]->O_IOBJ[R8001] where (selected.Obj_KL == "T_IMPSUB")
+.for each ic in ics
+			this.doTest$r{ic.Obj_Name}();
+.end for
+.select many classes from instances of O_OBJ where (selected.KEY_LETT == "T_CLSSUBCON")
+.for each class in classes
+  			this.doTest$r{class.Name}();
+.end for
+.select any ss from instances of EP_PKG where (selected.Name == "R_ASSR_Delete")
+.select many ics related by ss->PE_PE[R8000]->O_IOBJ[R8001] where (selected.Obj_KL == "T_IMPASSR")
+.for each ic in ics
+			this.doTest$r{ic.Obj_Name}();
+.end for
+.select many classes from instances of O_OBJ where (selected.KEY_LETT == "T_CLSASSRCON")
+.for each class in classes
+  			this.doTest$r{class.Name}();
+.end for
+.select any ss from instances of EP_PKG where (selected.Name == "Import Subsystem")
+.select one class related by ss->PE_PE[R8000]->O_OBJ[R8001] where (selected.Name == "Test Import Class")
+.select one isc related by class->SM_ISM[R518]->SM_SM[R517]
+.select many states related by isc->SM_STATE[R501] where (selected.Name != "Test State OtherSide")
+.for each state in states
+			this.doTest$r{state.Name}();
+.end for
+.select any ss from instances of EP_PKG where (selected.Name == "O_OBJ_Delete")
+.select many mc_set related by ss->PE_PE[R8000]->O_OBJ[R8001] where (selected.Key_Lett != "T_OTH")
+.for each mc in mc_set
+  			this.doTest$r{mc.Name}();
+.end for
 	}
 .//
 .// Create O_IOBJ delete tests

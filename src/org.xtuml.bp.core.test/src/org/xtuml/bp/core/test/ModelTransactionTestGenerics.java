@@ -109,8 +109,22 @@ public class ModelTransactionTestGenerics extends BaseTest {
 		super.tearDown();
 		CanvasTransactionListener.enableReconciler();
 	}
+	
+	public void testModelTransactionTest() throws Exception{
+	      doTestEarlyReturnExitTransactionWizard();
+	      doTestEarlyReturnExitTransaction();
+	      doTestEarlyExceptionExitTransactionInProperties();
+	      doTestShapeCreationTransactionThruCanvas();
+	      doTestPropertyChangeTransaction();
+	      doTestDescriptorEditorChangeTransaction();
+	      doTestActivityEditorChangeTransaction();
+	      doTestRenamingTransactionOnExplorer();
+	      doTestDeleteClassTransactionFromExplorer();
+	      doTestFormalizeSimpleAssociationTransaction();
+	      doTestMenuItemUserAction();
+	}
 
-	public void testEarlyReturnExitTransactionWizard() {
+	public void doTestEarlyReturnExitTransactionWizard() {
 		ModelClass_c mclass = getModelClassByName("EarlyExitA");
 
 		assertNotNull(mclass);
@@ -133,7 +147,7 @@ public class ModelTransactionTestGenerics extends BaseTest {
 				getSystemModel().getTransactionManager().getActiveTransaction());
 	}
 
-	public void testEarlyReturnExitTransaction() {
+	public void doTestEarlyReturnExitTransaction() {
 		DeleteAction action = new DeleteAction(null);
 
 		ModelClass_c mclass = getModelClassByName("EarlyExitA");
@@ -155,7 +169,7 @@ public class ModelTransactionTestGenerics extends BaseTest {
 
 	}
 
-	public void testEarlyExceptionExitTransactionInProperties() {
+	public void doTestEarlyExceptionExitTransactionInProperties() {
 		// pass a null property value so that an exception will occur
 		EventIgnoredSM_EIGNPropertySource source = new EventIgnoredSM_EIGNPropertySource(
 				new EventIgnored_c(modelRoot));
@@ -166,10 +180,13 @@ public class ModelTransactionTestGenerics extends BaseTest {
 		assertNull(
 				"Transaction was not cancelled after an early exit due to an exception.",
 				getSystemModel().getTransactionManager().getActiveTransaction());
+		
+		// clear the log view as we expect a NPE 
+		BaseTest.clearErrorLogView();
 	}
 
 	// Testing action/transaction that will result in both ooaofooa and ooaofgraphics changes
-	public void testShapeCreationTransactionThruCanvas() throws Exception {
+	public void doTestShapeCreationTransactionThruCanvas() throws Exception {
 		TransactionListener listener = new TransactionListener();
 		getSystemModel().getTransactionManager().addTransactionListener(
 				listener);
@@ -203,7 +220,7 @@ public class ModelTransactionTestGenerics extends BaseTest {
 				+ "shape_creation_transaction_generics.exp"); //$NON-NLS-1$
 	}
 
-	public void testPropertyChangeTransaction() throws Exception {
+	public void doTestPropertyChangeTransaction() throws Exception {
 		TransactionListener listener = new TransactionListener();
 		getSystemModel().getTransactionManager().addTransactionListener(
 				listener);
@@ -235,7 +252,7 @@ public class ModelTransactionTestGenerics extends BaseTest {
 		testclass.Rename(oldName);
 	}
 
-	public void testDescriptorEditorChangeTransaction() throws Exception {
+	public void doTestDescriptorEditorChangeTransaction() throws Exception {
 		TransactionListener listener = new TransactionListener();
 		getSystemModel().getTransactionManager().addTransactionListener(
 				listener);
@@ -263,7 +280,7 @@ public class ModelTransactionTestGenerics extends BaseTest {
 				+ "editor_transaction.exp"); //$NON-NLS-1$
 	}
 
-	public void testActivityEditorChangeTransaction() throws Exception {
+	public void doTestActivityEditorChangeTransaction() throws Exception {
 		TransactionListener listener = new TransactionListener();
 		getSystemModel().getTransactionManager().addTransactionListener(
 				listener);
@@ -292,7 +309,7 @@ public class ModelTransactionTestGenerics extends BaseTest {
 				+ "activity_editor_transaction.exp"); //$NON-NLS-1$
 	}
 
-	public void testRenamingTransactionOnExplorer() throws Exception {
+	public void doTestRenamingTransactionOnExplorer() throws Exception {
 		/**
 		 * Load Rename test model
 		 */
@@ -319,7 +336,7 @@ public class ModelTransactionTestGenerics extends BaseTest {
 				+ "rename_transaction.exp"); //$NON-NLS-1$
 	}
 
-	public void testDeleteClassTransactionFromExplorer() throws Exception {
+	public void doTestDeleteClassTransactionFromExplorer() throws Exception {
 		// disable the problem marker thread
 		DelayedMarkerJob.disableProblemMarkerJob();
 		TransactionListener listener = new TransactionListener();
@@ -357,7 +374,7 @@ public class ModelTransactionTestGenerics extends BaseTest {
 		DelayedMarkerJob.enableProblemMarkerJob();
 	}
 
-	public void testFormalizeSimpleAssociationTransaction() throws Exception {
+	public void doTestFormalizeSimpleAssociationTransaction() throws Exception {
 		modelRoot = thisModelRoot;
 		graphicsModelRoot = Ooaofgraphics.getInstance(modelRoot.getId());
 		TransactionListener listener = new TransactionListener();
@@ -424,7 +441,7 @@ public class ModelTransactionTestGenerics extends BaseTest {
 
 	}
 
-	public void testMenuItemUserAction() throws Exception {
+	public void doTestMenuItemUserAction() throws Exception {
 		AttributeMenuItemTestGenerics attrMenuItemTest = new AttributeMenuItemTestGenerics(
 				"Menu Item user action"); //$NON-NLS-1$
 		attrMenuItemTest.setReloadModel(true);
@@ -441,8 +458,8 @@ public class ModelTransactionTestGenerics extends BaseTest {
 		// as it has been tested with the original
 		// run.
 		attrMenuItemTest.fSkipValidate = true;
-		attrMenuItemTest.testMoveWithTwoAttributes();
-		attrMenuItemTest.testMoveWithThreeAttributes();
+		attrMenuItemTest.doTestMoveWithTwoAttributes();
+		attrMenuItemTest.doTestMoveWithThreeAttributes();
 		attrMenuItemTest.fSkipValidate = false;
 
 		listener.WaitForTransactionUnderReview();
@@ -457,22 +474,22 @@ public class ModelTransactionTestGenerics extends BaseTest {
 	public void setGenerateResults() throws Exception {
 		BaseTest.doCreateResults = true;
 
-		testShapeCreationTransactionThruCanvas();
+		doTestShapeCreationTransactionThruCanvas();
 
 		setUp();
 
-		testShapeCreationTransactionThruCanvas();
+		doTestShapeCreationTransactionThruCanvas();
 
-		testPropertyChangeTransaction();
+		doTestPropertyChangeTransaction();
 
-		testDescriptorEditorChangeTransaction();
-		testActivityEditorChangeTransaction();
+		doTestDescriptorEditorChangeTransaction();
+		doTestActivityEditorChangeTransaction();
 
-		testRenamingTransactionOnExplorer();
-		testDeleteClassTransactionFromExplorer();
+		doTestRenamingTransactionOnExplorer();
+		doTestDeleteClassTransactionFromExplorer();
 
-		testFormalizeSimpleAssociationTransaction();
-		testMenuItemUserAction();
+		doTestFormalizeSimpleAssociationTransaction();
+		doTestMenuItemUserAction();
 
 		BaseTest.doCreateResults = false;
 	}

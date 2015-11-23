@@ -14,73 +14,30 @@ INSERT INTO O_TFR
 	'The dispose operation for this class.  Return values get set to a default of void.  Parameters to integer.',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-// Get some default core data types
+	'// Get some default core data types
 select one pe related by self->PE_PE[R8001];
 select one PKG related by pe->EP_PKG[R8000]; 
 select one systemModel related by PKG->S_SYS[R1405];
 
-select any dom from instances of S_DOM;
-select any intdt related by dom->S_DT[R14] where selected.Name == "integer";
-select any voidDt related by dom->S_DT[R14] where selected.Name == "void";
+select any intdt from instances of S_DT where false;
+select any voidDt from instances of S_DT where false;
 
-select one rootPkg related by self->S_DIP[R39]->S_DPK[R39];
-actualRootPkg = rootPkg;
-select one sys related by rootPkg->SLD_SDP[R4400]->S_SYS[R4400];
-if(empty sys)
-  while(not_empty rootPkg)
-    select one sys related by rootPkg->SLD_SDP[R4400]->S_SYS[R4400];
-    select one rootPkg related by rootPkg->S_DPIP[R38]->S_DPK[R37];
-    if(not_empty rootPkg)
-      actualRootPkg = rootPkg;
-    end if;
-  end while;
-end if;
-if(empty sys)
-  select one sys related by actualRootPkg->EP_SPKG[R1402]->
-                                                  EP_PKG[R1400]->S_SYS[R1405];
-  if empty sys
-    select one sys related by dom->S_SYS[R28];
-  end if;
-end if;
-if((empty intdt) and (not_empty sys))
-  intdt_id = sys.getCoreTypeId(name:"integer");
-  select any pe from instances of PE_PE where selected.Element_ID == intdt_id;
-  select one intdt related by pe->S_DT[R8001]; 
-end if;
-if(empty voidDt and not_empty sys)
-  voiddt_id = sys.getCoreTypeId(name:"void");
-  select any pe from instances of PE_PE where selected.Element_ID == voiddt_id;
-  select one voidDt related by pe->S_DT[R8001]; 
-end if;
+if (empty systemModel) and (not_empty pe)
+select any globalElemntInSys related by pe->G_EIS[R9100];
+  if (not_empty globalElemntInSys)
+    select one systemModel related by globalElemntInSys->S_SYS[R9100];
+  end if; 
+end if ;
 
-if(empty intdt and empty voidDt)
-  // if the void and int data types are still
-  // empty then this domain may be the formal
-  // content of a component
-  select one compSys related by self->S_DOM[R14]->CN_DC[R4204]->C_C[R4204]
-                                                   ->CP_CP[R4608]->S_SYS[R4606];
-  if not_empty compSys
-    intdt_id = compSys.getCoreTypeId(name:"integer");
-    select any pe from instances of PE_PE where selected.Element_ID == intdt_id;
-    select one intdt related by pe->S_DT[R8001]; 
-    voiddt_id = compSys.getCoreTypeId(name:"void");
-    select any pe from instances of PE_PE where selected.Element_ID == voiddt_id;
-    select one voidDt related by pe->S_DT[R8001];
-  end if;
-end if;
-if(empty intdt and empty voidDt)
-  // if the void and int data types are still empty
-  if (not_empty systemModel) 
-    // look for them from the system associated with the owning package
-    intdt_id = systemModel.getCoreTypeId(name:"integer");
-    select any pe from instances of PE_PE where selected.Element_ID == intdt_id;
-    select one intdt related by pe->S_DT[R8001]; 
-    voiddt_id = systemModel.getCoreTypeId(name:"void");
-    select any pe from instances of PE_PE where selected.Element_ID == voiddt_id;
-    select one voidDt related by pe->S_DT[R8001]; 
-  end if;                                               
-end if;
+if (not_empty systemModel)
+ // look for them from the system associated with the owning package
+ intdt_id = systemModel.getCoreTypeId(name:"integer");
+ select any pe from instances of PE_PE where selected.Element_ID == intdt_id;
+ select one intdt related by pe->S_DT[R8001]; 
+ voiddt_id = systemModel.getCoreTypeId(name:"void");
+ select any pe from instances of PE_PE where selected.Element_ID == voiddt_id;
+ select one voidDt related by pe->S_DT[R8001]; 
+end if ;
 //
 // Domain Subsystem
 select many brgs related by self->S_BRG[R20];
@@ -190,35 +147,6 @@ for each vvar in vvars
   Util::collectModelElementsNames(elementType:"- Variable : ",elementName:vvar.Name);
 end for;
 //
-// Finally, unrelate self from DIP and DPK, delete the DIP, and thendelete self
-select one dip related by self->S_DIP[R39];
-if (not_empty dip)
-  select one dpk related by self->S_DPK[R39];
-  unrelate self from dpk across R39 using dip;
-  delete object instance dip;
-end if;
-// unrelate from all domains if a system level datatype
-select many sdips related by self->SLD_SDINP[R4401];
-for each sdip in sdips
-  select one dtp related by sdip->S_DPK[R4401];
-  unrelate self from dtp across R4401 using sdip;
-  select one system related by sdip->S_SYS[R4402];
-  unrelate sdip from system across R4402;
-  delete object instance sdip;
-end for;
-//
-select one dom related by self->S_DOM[R14];
-if(not_empty dom)
-  unrelate self from dom across R14;
-end if;
-
-select many diss related by self->S_DIS[R47];
-for each dis in diss
-  select one domain related by dis->S_DOM[R47];
-  unrelate self from domain across R47 using dis;
-  delete object instance dis;
-end for;
-
 select many ios related by self->C_IO[R4008];
 for each io in ios
   unrelate self from io across R4008;
@@ -363,15 +291,11 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000001",
 	0,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-// this operation assumes that the caller is
+	'// this operation assumes that the caller is
 // within a domain context
-select any dom from instances of S_DOM where (selected.Dom_ID == param.dom_id);
-select any dt related by dom->S_DT[R14] where
-                                                selected.Name == param.typeName;
-if (empty dt)
+// TODO: BOB Check to see if this is needed anymore since GP removal.
   select any dt from instances of S_DT where (selected.Name == param.typeName);
-end if;                                                
+
 if not_empty dt 
   if ( dt.isCommonAllowedType() )
     return true;
@@ -383,7 +307,7 @@ end if;
 return false;',
 	1,
 	'',
-	"c6ea855a-924f-4437-8266-772dc10faff5");
+	"b3bb0f76-820b-4040-a53b-141dcdc6e300");
 INSERT INTO O_TPARM
 	VALUES ("80c99cbe-2bc5-4ac0-8699-a9302056eb4b",
 	"ebeb9217-5098-4c6f-82e4-b7a4d33406c2",
@@ -403,51 +327,6 @@ INSERT INTO O_TPARM
 	"80c99cbe-2bc5-4ac0-8699-a9302056eb4b",
 	'');
 INSERT INTO O_TFR
-	VALUES ("c6ea855a-924f-4437-8266-772dc10faff5",
-	"ead52fac-9782-434b-a35c-c07452c3b26d",
-	'isAllowedParameterType',
-	'',
-	"ba5eda7a-def5-0000-0000-000000000001",
-	0,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-// this operation assumes that the caller is
-// within a domain context
-select any dom from instances of S_DOM where (selected.Dom_ID == param.dom_id);
-if(not_empty dom)
-  select any dt related by dom->S_DT[R14] where
-                                                selected.Name == param.typeName;
-  if not_empty dt 
-    return dt.isCommonAllowedType();
-  end if;
-else
-  select any dt from instances of S_DT where (selected.Name == param.typeName);  
-  if not_empty dt 
-    return dt.isCommonAllowedType();
-  end if;
-end if;
-return false;',
-	1,
-	'',
-	"b3bb0f76-820b-4040-a53b-141dcdc6e300");
-INSERT INTO O_TPARM
-	VALUES ("bb00d6e9-a915-4844-a57f-e2d7ed5c5e28",
-	"c6ea855a-924f-4437-8266-772dc10faff5",
-	'typeName',
-	"ba5eda7a-def5-0000-0000-000000000004",
-	0,
-	'',
-	"00000000-0000-0000-0000-000000000000",
-	'');
-INSERT INTO O_TPARM
-	VALUES ("39d39857-57a3-49d5-9af0-03f2b1003fad",
-	"c6ea855a-924f-4437-8266-772dc10faff5",
-	'dom_id',
-	"ba5eda7a-def5-0000-0000-000000000005",
-	0,
-	'',
-	"bb00d6e9-a915-4844-a57f-e2d7ed5c5e28",
-	'');
-INSERT INTO O_TFR
 	VALUES ("223070b1-d040-4076-bcc0-cb4c2145e1b4",
 	"ead52fac-9782-434b-a35c-c07452c3b26d",
 	'convertToInstance',
@@ -461,7 +340,7 @@ Translate: native',
 return this;',
 	0,
 	'',
-	"366490eb-af67-4215-9be3-e736a0d839c2");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
 	"00000000-0000-0000-0000-000000000000",
@@ -584,118 +463,6 @@ end if;',
 	'',
 	"fed4c822-5710-4d4f-a1f9-11d58e0cdbe9");
 INSERT INTO O_TFR
-	VALUES ("dbeb1a7b-a6c6-48db-af24-4eba00709a95",
-	"ead52fac-9782-434b-a35c-c07452c3b26d",
-	'associateDTWithDomain',
-	'',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select any domain from instances of S_DOM where (selected.Dom_ID == param.dom_id);
-select any systemDt related by self->SLD_SDINP[R4401];
-if(not_empty systemDt and not_empty domain)
-  // this dt is a system level dt
-  // unrelate from system
-  select one system related by systemDt->S_SYS[R4402];
-  unrelate systemDt from system across R4402;
-  select one pkg related by systemDt->S_DPK[R4401];
-  unrelate self from pkg across R4401 using systemDt;
-  delete object instance systemDt;
-  // associate to domain
-  relate domain to self across R14;
-elif(not_empty domain and empty systemDt)
-  // this dt was previously a domain level dt
-  // just update to point at the new
-  // domain
-  select one prevDomain related by self->S_DOM[R14];
-  if(not_empty prevDomain)
-    unrelate self from prevDomain across R14;
-    relate self to domain across R14;
-  end if;
-end if;',
-	1,
-	'',
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_TPARM
-	VALUES ("5e54293e-a896-425c-b6bf-630674c8a2d2",
-	"dbeb1a7b-a6c6-48db-af24-4eba00709a95",
-	'dom_id',
-	"ba5eda7a-def5-0000-0000-000000000005",
-	0,
-	'',
-	"00000000-0000-0000-0000-000000000000",
-	'');
-INSERT INTO O_TFR
-	VALUES ("366490eb-af67-4215-9be3-e736a0d839c2",
-	"ead52fac-9782-434b-a35c-c07452c3b26d",
-	'associateDTWithSystem',
-	'',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select any system from instances of S_SYS
-                                        where (selected.Sys_ID == param.sys_id);
-select one prevDomain related by self->S_DOM[R14];
-if(not_empty prevDomain and not_empty system)
-  // this instance was previously a domain level dt
-  // first unrelate from domain
-  unrelate self from prevDomain across R14;
-  // now associate the datatype with the system
-  create object instance sdinp of SLD_SDINP;
-  relate sdinp to system across R4402;
-  select one pkg related by self->S_DIP[R39]->S_DPK[R39];
-  relate pkg to self across R4401 using sdinp;
-elif(empty prevDomain and not_empty system)
-  // this instance was previously a system level dt
-  // associate it with the new system
-  select any sdip related by self->SLD_SDINP[R4401];
-  if(not_empty sdip)
-    select one prevSystem related by sdip->S_SYS[R4402];
-    unrelate sdip from prevSystem across R4402;
-    relate sdip to system across R4402;
-    select one prevPkg related by sdip->S_DPK[R4401];
-    unrelate self from prevPkg across R4401 using sdip;
-    select one pkg related by self->S_DIP[R39]->S_DPK[R39];
-    relate pkg to self across R4401 using sdip;
-  end if;
-end if;',
-	1,
-	'',
-	"dbeb1a7b-a6c6-48db-af24-4eba00709a95");
-INSERT INTO O_TPARM
-	VALUES ("67c38201-7435-4940-866b-46c1c30047f7",
-	"366490eb-af67-4215-9be3-e736a0d839c2",
-	'sys_id',
-	"ba5eda7a-def5-0000-0000-000000000005",
-	0,
-	'',
-	"00000000-0000-0000-0000-000000000000",
-	'');
-INSERT INTO O_TFR
-	VALUES ("93679332-e1d2-4dbd-a2ae-ba6e345eaf2d",
-	"ead52fac-9782-434b-a35c-c07452c3b26d",
-	'resolveDomain',
-	'',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select one packageableElem related by self->PE_PE[R8001];
-select one package related by packageableElem->EP_PKG[R8000];
-select one component related by packageableElem->C_C[R8003];
-isInGenericPackage = not_empty package or not_empty component;
-select one irdt related by self->S_IRDT[R17];
-if ((not isInGenericPackage) and (not_empty irdt))
-  select one target_dom related by irdt->O_OBJ[R123]->S_SS[R2]->S_DOM[R1];
-  select one existing_dom related by self->S_DOM[R14];
-  if (target_dom != existing_dom)
-    unrelate self from existing_dom across R14;
-    relate self to target_dom across R14;
-  end if;
-end if;',
-	1,
-	'',
-	"0852d31a-5351-452a-bd25-93944aba561d");
-INSERT INTO O_TFR
 	VALUES ("3b698a92-8d02-4596-80e7-08b88c26c702",
 	"ead52fac-9782-434b-a35c-c07452c3b26d",
 	'getDefaultDataTypeName',
@@ -755,8 +522,7 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-// Data Type::getPath()
+	'// Data Type::getPath()
 path = "";
 if(param.includeSelf)
   path = self.Name;
@@ -764,11 +530,9 @@ end if;
 if(param.path != "")
   path = path + "::" + param.path;
 end if;
-select one dtPackage related by self->S_DIP[R39]->S_DPK[R39];
 select one package related by self->PE_PE[R8001]->EP_PKG[R8000];
 select one component related by self->PE_PE[R8001]->C_C[R8003];
-isInGenericPackage = not_empty package or not_empty component;
-if isInGenericPackage
+
   if not_empty package
     if(path != "")
       path = package.getQualifiedName() + "::" + path;
@@ -782,16 +546,10 @@ if isInGenericPackage
       path = component.getQualifiedName();
     end if;
   end if;
-else
-  // It has to be in here or else we have a corrupted model
-  if not_empty dtPackage
-    path = dtPackage.getPath(path:path);
-  end if;
-end if;
 return path;',
 	1,
 	'',
-	"93679332-e1d2-4dbd-a2ae-ba6e345eaf2d");
+	"0852d31a-5351-452a-bd25-93944aba561d");
 INSERT INTO O_TPARM
 	VALUES ("79908e4c-773d-436b-b634-fc00358e63b8",
 	"2bf571a5-4f94-404e-899f-1b2ed2dafc5a",
@@ -819,7 +577,7 @@ INSERT INTO O_BATTR
 INSERT INTO O_ATTR
 	VALUES ("cbfb448a-f0dc-4961-8e66-276b89eed6d4",
 	"ead52fac-9782-434b-a35c-c07452c3b26d",
-	"fd8dd533-2f25-456e-95f1-e65aa1c769e9",
+	"65bcef23-94d3-42b5-a90b-8468fcabe115",
 	'Name',
 	'Full Name: Data Type Name',
 	'',
@@ -844,57 +602,6 @@ INSERT INTO O_ATTR
 	'Descrip',
 	0,
 	"ba5eda7a-def5-0000-0000-000000000004",
-	'',
-	'');
-INSERT INTO O_REF
-	VALUES ("ead52fac-9782-434b-a35c-c07452c3b26d",
-	"07cf2195-f012-4bf5-83c7-f89dd30a8839",
-	0,
-	"4c399c05-3fb3-4c71-9ce8-04c9ec0b59f5",
-	"b8ee1db7-309d-4b21-a102-402f408b4aaa",
-	"143f1cda-9f19-4b1b-b0e7-9d4ec5d7f7be",
-	"e72a8b2a-620f-4edc-81de-ae4da6514845",
-	"fd8dd533-2f25-456e-95f1-e65aa1c769e9",
-	"32b71411-544c-4c0a-9f9e-58090267d9c2",
-	"00000000-0000-0000-0000-000000000000",
-	0,
-	'',
-	'Domain',
-	'Dom_ID',
-	'R14.''defines types available within''');
-INSERT INTO R_RGO_PROXY
-	VALUES ("ead52fac-9782-434b-a35c-c07452c3b26d",
-	"b8ee1db7-309d-4b21-a102-402f408b4aaa",
-	"143f1cda-9f19-4b1b-b0e7-9d4ec5d7f7be",
-	'../Domain.xtuml');
-INSERT INTO O_RTIDA_PROXY
-	VALUES ("4c399c05-3fb3-4c71-9ce8-04c9ec0b59f5",
-	"07cf2195-f012-4bf5-83c7-f89dd30a8839",
-	0,
-	"b8ee1db7-309d-4b21-a102-402f408b4aaa",
-	"e72a8b2a-620f-4edc-81de-ae4da6514845",
-	'../Domain.xtuml');
-INSERT INTO O_RATTR
-	VALUES ("fd8dd533-2f25-456e-95f1-e65aa1c769e9",
-	"ead52fac-9782-434b-a35c-c07452c3b26d",
-	"4c399c05-3fb3-4c71-9ce8-04c9ec0b59f5",
-	"07cf2195-f012-4bf5-83c7-f89dd30a8839",
-	1,
-	'Dom_ID');
-INSERT INTO O_BATTR_PROXY
-	VALUES ("4c399c05-3fb3-4c71-9ce8-04c9ec0b59f5",
-	"07cf2195-f012-4bf5-83c7-f89dd30a8839",
-	'../Domain/Domain.xtuml');
-INSERT INTO O_ATTR
-	VALUES ("fd8dd533-2f25-456e-95f1-e65aa1c769e9",
-	"ead52fac-9782-434b-a35c-c07452c3b26d",
-	"0e78201f-a7cd-497b-a6b4-e224ab7915c2",
-	'Dom_ID',
-	'',
-	'',
-	'Dom_ID',
-	0,
-	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -966,6 +673,24 @@ INSERT INTO O_ATTR
 	'DT_ID',
 	0,
 	"ba5eda7a-def5-0000-0000-000000000007",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("65bcef23-94d3-42b5-a90b-8468fcabe115",
+	"ead52fac-9782-434b-a35c-c07452c3b26d");
+INSERT INTO O_BATTR
+	VALUES ("65bcef23-94d3-42b5-a90b-8468fcabe115",
+	"ead52fac-9782-434b-a35c-c07452c3b26d");
+INSERT INTO O_ATTR
+	VALUES ("65bcef23-94d3-42b5-a90b-8468fcabe115",
+	"ead52fac-9782-434b-a35c-c07452c3b26d",
+	"0e78201f-a7cd-497b-a6b4-e224ab7915c2",
+	'Dom_ID',
+	'',
+	'',
+	'Dom_ID',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000005",
 	'',
 	'');
 INSERT INTO O_ID

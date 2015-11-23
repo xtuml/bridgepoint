@@ -32,14 +32,12 @@ import org.eclipse.jface.action.IContributionItem;
 import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.PlatformUI;
-
 import org.xtuml.bp.core.AcceptEventAction_c;
 import org.xtuml.bp.core.AcceptTimeEventAction_c;
 import org.xtuml.bp.core.ActivityDiagramAction_c;
 import org.xtuml.bp.core.ActivityEdge_c;
 import org.xtuml.bp.core.ActivityFinalNode_c;
 import org.xtuml.bp.core.ActivityPartition_c;
-import org.xtuml.bp.core.Activity_c;
 import org.xtuml.bp.core.ActorParticipant_c;
 import org.xtuml.bp.core.Association_c;
 import org.xtuml.bp.core.AsynchronousMessage_c;
@@ -53,45 +51,33 @@ import org.xtuml.bp.core.ClassMonitor_c;
 import org.xtuml.bp.core.ClassParticipant_c;
 import org.xtuml.bp.core.ClassStateMachine_c;
 import org.xtuml.bp.core.CommunicationLink_c;
-import org.xtuml.bp.core.Communication_c;
-import org.xtuml.bp.core.ComponentPackage_c;
 import org.xtuml.bp.core.ComponentParticipant_c;
 import org.xtuml.bp.core.ComponentReference_c;
 import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.ConstantSpecification_c;
 import org.xtuml.bp.core.CoreDataType_c;
 import org.xtuml.bp.core.CreationTransition_c;
-import org.xtuml.bp.core.DataTypePackage_c;
-import org.xtuml.bp.core.DataType_c;
 import org.xtuml.bp.core.DecisionMergeNode_c;
 import org.xtuml.bp.core.Delegation_c;
-import org.xtuml.bp.core.Domain_c;
 import org.xtuml.bp.core.EnumerationDataType_c;
 import org.xtuml.bp.core.Extend_c;
-import org.xtuml.bp.core.ExternalEntityPackage_c;
 import org.xtuml.bp.core.ExternalEntityParticipant_c;
 import org.xtuml.bp.core.ExternalEntity_c;
 import org.xtuml.bp.core.FlowFinalNode_c;
 import org.xtuml.bp.core.ForkJoinNode_c;
-import org.xtuml.bp.core.FunctionPackageParticipant_c;
-import org.xtuml.bp.core.FunctionPackage_c;
 import org.xtuml.bp.core.Generalization_c;
 import org.xtuml.bp.core.ImportedClass_c;
 import org.xtuml.bp.core.ImportedProvision_c;
 import org.xtuml.bp.core.ImportedRequirement_c;
 import org.xtuml.bp.core.Include_c;
 import org.xtuml.bp.core.InitialNode_c;
-import org.xtuml.bp.core.InstanceReferenceDataType_c;
 import org.xtuml.bp.core.InstanceStateMachine_c;
 import org.xtuml.bp.core.Instance_c;
-import org.xtuml.bp.core.InterfacePackage_c;
 import org.xtuml.bp.core.Interface_c;
 import org.xtuml.bp.core.Lifespan_c;
 import org.xtuml.bp.core.LinkedAssociation_c;
 import org.xtuml.bp.core.ModelClass_c;
 import org.xtuml.bp.core.Monitor_c;
-import org.xtuml.bp.core.NewStateTransition_c;
-import org.xtuml.bp.core.NoEventTransition_c;
 import org.xtuml.bp.core.ObjectNode_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.PackageParticipant_c;
@@ -100,18 +86,14 @@ import org.xtuml.bp.core.Provision_c;
 import org.xtuml.bp.core.Requirement_c;
 import org.xtuml.bp.core.ReturnMessage_c;
 import org.xtuml.bp.core.SendSignal_c;
-import org.xtuml.bp.core.Sequence_c;
 import org.xtuml.bp.core.StateMachineState_c;
 import org.xtuml.bp.core.StateMachine_c;
 import org.xtuml.bp.core.StructuredDataType_c;
-import org.xtuml.bp.core.Subsystem_c;
 import org.xtuml.bp.core.SynchronousMessage_c;
-import org.xtuml.bp.core.SystemDatatypePackage_c;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.TimeSpan_c;
 import org.xtuml.bp.core.TimingMark_c;
 import org.xtuml.bp.core.Transition_c;
-import org.xtuml.bp.core.UseCaseDiagram_c;
 import org.xtuml.bp.core.UseCaseParticipant_c;
 import org.xtuml.bp.core.UserDataType_c;
 import org.xtuml.bp.core.User_c;
@@ -124,8 +106,6 @@ import org.xtuml.bp.core.common.PersistenceManager;
 import org.xtuml.bp.core.common.Transaction;
 import org.xtuml.bp.core.common.TransactionException;
 import org.xtuml.bp.core.common.TransactionManager;
-import org.xtuml.bp.core.inspector.IModelClassInspector;
-import org.xtuml.bp.core.inspector.ModelInspector;
 import org.xtuml.bp.core.ui.Selection;
 import org.xtuml.bp.core.util.CoreUtil;
 import org.xtuml.bp.core.util.HierarchyUtil;
@@ -335,72 +315,13 @@ public class Cl_c {
             SystemModel_c system,
             final UUID Ooa_id,
             final int Ooa_type) {
-    		if (Ooa_type == Ooatype_c.ComponentPackage) {
-    			return ComponentPackage_c.getOneCP_CPOnR4602(system, new ClassQueryInterface_c() {
-				
-					public boolean evaluate(Object candidate) {
-						ComponentPackage_c diagram = (ComponentPackage_c) candidate;
-						return diagram.Get_ooa_id().equals(Ooa_id); 
-					}
-				
-				});
-  			} else if (Ooa_type == Ooatype_c.Package) {
+    		if (Ooa_type == Ooatype_c.Package) {
   				return Package_c.getOneEP_PKGOnR1401(system, new ClassQueryInterface_c() {
   					public boolean evaluate(Object candidate) {
   						Package_c pkg = (Package_c) candidate;
   						return pkg.Get_ooa_id().equals(Ooa_id);
   					}
   				});
-  			} else if (Ooa_type == Ooatype_c.InterfacePackage) {
-  				return InterfacePackage_c.getOneIP_IPOnR4304(system, new ClassQueryInterface_c() {
-  					
-					public boolean evaluate(Object candidate) {
-						InterfacePackage_c diagram = (InterfacePackage_c) candidate;
-						return diagram.Get_ooa_id().equals(Ooa_id); 
-					}
-				
-				});
-  			} else if (Ooa_type == Ooatype_c.SystemLevelDatatypePackage || Ooa_type == Ooatype_c.DataTypePackage) {
-  				return DataTypePackage_c.getOneS_DPKOnR4400(SystemDatatypePackage_c.getOneSLD_SDPOnR4400(system, new ClassQueryInterface_c() {
-  					
-					public boolean evaluate(Object candidate) {
-						SystemDatatypePackage_c pkg = (SystemDatatypePackage_c) candidate;
-						return pkg.getPackage_id().equals(Ooa_id); 
-					}
-				
-				}));
-  			} else if (Ooa_type == Ooatype_c.Sequence) {
-  				return Sequence_c.getOneSQ_SOnR950(system, new ClassQueryInterface_c() {
-				
-					public boolean evaluate(Object candidate) {
-						return ((Sequence_c) candidate).getPackage_id().equals(Ooa_id);
-					}
-				
-				});
-  			} else if (Ooa_type == Ooatype_c.Communication) {
-  				return Communication_c.getOneCOMM_COMMOnR1136(system, new ClassQueryInterface_c() {
-  					
-					public boolean evaluate(Object candidate) {
-						return ((Communication_c) candidate).getPackage_id().equals(Ooa_id);
-					}
-				
-				});
-  			} else if (Ooa_type == Ooatype_c.UseCaseDiagram) {
-  				return UseCaseDiagram_c.getOneUC_UCCOnR1211(system, new ClassQueryInterface_c() {
-  					
-					public boolean evaluate(Object candidate) {
-						return ((UseCaseDiagram_c) candidate).getPackage_id().equals(Ooa_id);
-					}
-				
-				});
-  			} else if (Ooa_type == Ooatype_c.Activity) {
-  				return Activity_c.getOneA_AOnR1113(system, new ClassQueryInterface_c() {
-  					
-					public boolean evaluate(Object candidate) {
-						return ((Activity_c) candidate).getPackage_id().equals(Ooa_id);
-					}
-				
-				});
   			} else {
   				return null;
   			}
@@ -451,20 +372,6 @@ public class Cl_c {
             }
     		return result;
 	  	}    	
-		else if (Ooa_type == Ooatype_c.SystemLevelDatatypePackage) {
-			Object result = modelRoot.getInstanceList(DataTypePackage_c.class).get(Ooa_id);
-            if (result == null) {
-                class DataTypePackage_query_c implements ClassQueryInterface_c {
-                    public boolean evaluate(Object selected) {
-                        return ((DataTypePackage_c) selected).getPackage_id().equals(
-                            Ooa_id);
-                    }
-                }
-                result = DataTypePackage_c.DataTypePackageInstance(modelRoot,
-                        new DataTypePackage_query_c());
-            }
-    		return result;
-	  	}
 		else if(Ooa_type == Ooatype_c.ComponentParticipant) {
 	    	Object result = modelRoot.getInstanceList(ComponentParticipant_c.class).get(Ooa_id);
 	    	if(result == null) {
@@ -562,20 +469,6 @@ public class Cl_c {
             }
     		return result;
 	  	}
-    	else if (Ooa_type == Ooatype_c.InterfacePackage) {
-    		Object result = modelRoot.getInstanceList(InterfacePackage_c.class).get(Ooa_id);
-            if (result == null) {
-                class InterfacePackage_query_c implements ClassQueryInterface_c {
-                    public boolean evaluate(Object selected) {
-                        return ((InterfacePackage_c) selected).getPackage_id().equals(
-                            Ooa_id);
-                    }
-                }
-                result = InterfacePackage_c.InterfacePackageInstance(modelRoot,
-                        new InterfacePackage_query_c());
-            }
-    		return result;
-	  	}
     	else if (Ooa_type == Ooatype_c.Interface) {
     		Object result = modelRoot.getInstanceList(Interface_c.class).get(Ooa_id);
             if (result == null) {
@@ -587,20 +480,6 @@ public class Cl_c {
                 }
                 result = Interface_c.InterfaceInstance(modelRoot,
                         new Interface_query_c());
-            }
-    		return result;
-	  	}
-		else if (Ooa_type == Ooatype_c.ComponentPackage) {
-			Object result = modelRoot.getInstanceList(ComponentPackage_c.class).get(Ooa_id);
-            if (result == null) {
-                class ComponentDiagram_query_c implements ClassQueryInterface_c {
-                    public boolean evaluate(Object selected) {
-                        return ((ComponentPackage_c) selected).getPackage_id().equals(
-                            Ooa_id);
-                    }
-                }
-                result = ComponentPackage_c.ComponentPackageInstance(modelRoot,
-                        new ComponentDiagram_query_c());
             }
     		return result;
 	  	}
@@ -632,39 +511,7 @@ public class Cl_c {
             }
     		return result;
   		}
-    	else if (Ooa_type == Ooatype_c.Domain) {
-            Object result = modelRoot.getInstanceList(Domain_c.class).get(
-                                Ooa_id);
-            if (result == null) {
-                // select any represents from instances of S_DOM where (selected.Dom_ID == self.OOA_ID)
-                class Domain_test20_c implements ClassQueryInterface_c {
-                    public boolean evaluate(Object selected) {
-                        return ((Domain_c) selected).getDom_id().equals(
-                            Ooa_id);
-                    }
-                }
-                result = Domain_c.DomainInstance(modelRoot,
-                                                 new Domain_test20_c());
-            }
-            
-            return result;
-        } else if (Ooa_type == Ooatype_c.Subsystem) {
-            Object result = modelRoot.getInstanceList(Subsystem_c.class).get(
-                                Ooa_id);
-            if (result == null) {
-                // select any represents from instances of S_SS where (selected.SS_ID == self.OOA_ID)
-                class Subsystem_test21_c implements ClassQueryInterface_c {
-                    public boolean evaluate(Object selected) {
-                        return ((Subsystem_c) selected).getSs_id().equals(
-                            Ooa_id);
-                    }
-                }
-                result = Subsystem_c.SubsystemInstance(modelRoot,
-                        new Subsystem_test21_c());
-            }
-            
-            return result;
-        } else if (Ooa_type == Ooatype_c.EE) {
+    	else if (Ooa_type == Ooatype_c.EE) {
             Object result = modelRoot.getInstanceList(ExternalEntity_c.class).get(
                     Ooa_id);
             if (result == null) {
@@ -841,55 +688,6 @@ public class Cl_c {
 	
 	            result = StructuredDataType_c.StructuredDataTypeInstance(
 	                modelRoot, new StructuredDataType_test31_c());
-            }
-
-            return result;
-        } else if (Ooa_type == Ooatype_c.DataTypePackage) {
-            Object result = modelRoot.getInstanceList(DataTypePackage_c.class).get(
-                    Ooa_id);
-            if (result == null) {
-	            class DataTypePackage_test23_c implements ClassQueryInterface_c {
-	                public boolean evaluate(Object selected) {
-	                    return ((DataTypePackage_c) selected).getPackage_id()
-	                        .equals(Ooa_id);
-	                }
-	            }
-	
-	            result = DataTypePackage_c.DataTypePackageInstance(modelRoot,
-	                    new DataTypePackage_test23_c());
-            }
-
-            return result;
-        } else if (Ooa_type == Ooatype_c.FunctionPackage) {
-            Object result = modelRoot.getInstanceList(FunctionPackage_c.class).get(
-                    Ooa_id);
-            if (result == null) {
-	            class FunctionPackage_test24_c implements ClassQueryInterface_c {
-	                public boolean evaluate(Object selected) {
-	                    return ((FunctionPackage_c) selected).getFunpack_id()
-	                        .equals(Ooa_id);
-	                }
-	            }
-	
-	            result = FunctionPackage_c.FunctionPackageInstance(modelRoot,
-	                    new FunctionPackage_test24_c());
-            }
-
-            return result;
-        } else if (Ooa_type == Ooatype_c.ExternalEntityPackage) {
-            Object result = modelRoot.getInstanceList(ExternalEntityPackage_c.class).get(
-                    Ooa_id);
-            if (result == null) {
-	            class ExternalEntityPackage_test25_c
-	                    implements ClassQueryInterface_c {
-	                public boolean evaluate(Object selected) {
-	                    return ((ExternalEntityPackage_c) selected).getEepack_id()
-	                        .equals(Ooa_id);
-	                }
-	            }
-	
-	            result = ExternalEntityPackage_c.ExternalEntityPackageInstance(
-	                modelRoot, new ExternalEntityPackage_test25_c());
             }
 
             return result;
@@ -1167,28 +965,6 @@ public class Cl_c {
             }
 
             return result;
-        } else if (Ooa_type == Ooatype_c.FunctionPackageParticipant) {
-            Object result = modelRoot.getInstanceList(FunctionPackageParticipant_c.class).get(
-                    Ooa_id);
-            if (result == null) {
-	            class FunctionPackageParticipant_Query_c
-	                    implements ClassQueryInterface_c {
-	                public boolean evaluate(Object candidate) {
-	                    if (((FunctionPackageParticipant_c) candidate).getPart_id()
-	                            .equals(Ooa_id)) {
-	                        return true;
-	                    }
-	
-	                    return false;
-	                }
-	            }
-	
-	            result = FunctionPackageParticipant_c
-	                .FunctionPackageParticipantInstance(modelRoot,
-	                    new FunctionPackageParticipant_Query_c());
-            }
-
-            return result;
         } else if (Ooa_type == Ooatype_c.ClassParticipant) {
             Object result = modelRoot.getInstanceList(ClassParticipant_c.class).get(
                     Ooa_id);
@@ -1206,25 +982,6 @@ public class Cl_c {
 	
 	            result = ClassParticipant_c.ClassParticipantInstance(modelRoot,
 	                    new ClassParticipant_Query_c());
-            }
-
-            return result;
-        } else if (Ooa_type == Ooatype_c.Sequence) {
-            Object result = modelRoot.getInstanceList(Sequence_c.class).get(
-                    Ooa_id);
-            if (result == null) {
-	            class Sequence_Query_c implements ClassQueryInterface_c {
-	                public boolean evaluate(Object candidate) {
-	                    if (((Sequence_c) candidate).getPackage_id().equals(Ooa_id)) {
-	                        return true;
-	                    }
-	
-	                    return false;
-	                }
-	            }
-	
-	            result = Sequence_c.SequenceInstance(modelRoot,
-	                                               new Sequence_Query_c());
             }
 
             return result;
@@ -1270,26 +1027,6 @@ public class Cl_c {
             }
 
             return result;
-        } else if (Ooa_type == Ooatype_c.Communication) {
-            Object result = modelRoot.getInstanceList(Communication_c.class).get(
-                    Ooa_id);
-            if (result == null) {
-	            class Communication_Query_c implements ClassQueryInterface_c {
-	                public boolean evaluate(Object candidate) {
-	                    if (((Communication_c) candidate).getPackage_id().equals(
-	                            Ooa_id)) {
-	                        return true;
-	                    }
-	
-	                    return false;
-	                }
-	            }
-	
-	            result = Communication_c.CommunicationInstance(modelRoot,
-	                    new Communication_Query_c());
-            }
-
-            return result;
         } else if (Ooa_type == Ooatype_c.CommunicationLink) {
             Object result = modelRoot.getInstanceList(CommunicationLink_c.class).get(
                     Ooa_id);
@@ -1327,26 +1064,6 @@ public class Cl_c {
 	
 	            result = UseCaseParticipant_c.UseCaseParticipantInstance(modelRoot,
 	                    new UseCase_Query_c());
-            }
-
-            return result;
-        } else if (Ooa_type == Ooatype_c.UseCaseDiagram) {
-            Object result = modelRoot.getInstanceList(UseCaseDiagram_c.class).get(
-                    Ooa_id);
-            if (result == null) {
-	            class UseCaseDiagram_Query_c implements ClassQueryInterface_c {
-	                public boolean evaluate(Object candidate) {
-	                    if (((UseCaseDiagram_c) candidate).getPackage_id().equals(
-	                            Ooa_id)) {
-	                        return true;
-	                    }
-	
-	                    return false;
-	                }
-	            }
-	
-	            result = UseCaseDiagram_c.UseCaseDiagramInstance(modelRoot,
-	                    new UseCaseDiagram_Query_c());
             }
 
             return result;
@@ -1424,25 +1141,6 @@ public class Cl_c {
 	
 	            result = Generalization_c.GeneralizationInstance(modelRoot,
 	                    new Generalization_Query_c());
-            }
-
-            return result;
-        } else if (Ooa_type == Ooatype_c.Activity) {
-            Object result = modelRoot.getInstanceList(Activity_c.class).get(
-                    Ooa_id);
-            if (result == null) {
-	            class Activity_Query_c implements ClassQueryInterface_c {
-	                public boolean evaluate(Object candidate) {
-	                    if (((Activity_c) candidate).Get_ooa_id().equals(Ooa_id)) {
-	                        return true;
-	                    }
-	
-	                    return false;
-	                }
-	            }
-	
-	            result = Activity_c.ActivityInstance(modelRoot,
-	                                               new Activity_Query_c());
             }
 
             return result;

@@ -43,7 +43,6 @@ import org.eclipse.core.runtime.jobs.Job;
 
 import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.CorePlugin;
-import org.xtuml.bp.core.Domain_c;
 import org.xtuml.bp.core.Modeleventnotification_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.SystemModel_c;
@@ -201,57 +200,8 @@ public class ComponentTransactionListener implements ITransactionListener {
 				}
 			}
 		}
-		Domain_c dom = null;
 		Component_c comp = null;
 		SystemModel_c sys = null;
-		for (int i = 0; i < modelRoots.length; i++) {
-		  IModelDelta[] modelDeltas = transaction.getDeltas(modelRoots[i]);
-		  for (int j = 0; j < modelDeltas.length; j++) {
-			IModelDelta delta = modelDeltas[j];
-		    if (delta.getKind() ==
-		    	               Modeleventnotification_c.DELTA_ELEMENT_RELATED) {
-			  RelationshipChangeModelDelta rcmd = (RelationshipChangeModelDelta)delta;
-			  // If this delta describes a new relate established
-			  // between Domain and Component across R4204 . . .
-			  if (rcmd.getRelationName().equals("4204")) {
-			    if (rcmd.getDestinationModelElement() instanceof
-			    		                                     Domain_c) {
-                dom = (Domain_c)rcmd.getDestinationModelElement();
-              }
-              if (rcmd.getDestinationModelElement() instanceof
-              		                                  Component_c) {
-                comp = (Component_c)rcmd.getDestinationModelElement();
-              }
-              if (dom != null && comp != null && !transaction.getDisplayName().equals("Paste")) { //$NON-NLS-1$
-                handleComponentFormalization(dom, comp);
-				}
-			  }
-			  if (rcmd.getRelationName().equals("28")) {
-			    if (rcmd.getModelElement() instanceof Domain_c) {
-                  dom = (Domain_c)rcmd.getModelElement();
-                  sys = (SystemModel_c)rcmd.getDestinationModelElement();
-			    }
-			    if (dom != null && sys != null && comp != null) {
-                  handleComponentUnformalization(dom, comp, sys);
-				}
-			  }
-			}
-			if (delta.getKind() == Modeleventnotification_c.DELTA_ELEMENT_UNRELATED) {
-			  RelationshipChangeModelDelta rcmd = (RelationshipChangeModelDelta)delta;
-			  // If this delta describes a new relate established
-			  // between Domain and Component across R4204 . . .
-			  if (rcmd.getRelationName().equals("4204")) {
-                if (rcmd.getDestinationModelElement() instanceof
-              		                                  Component_c) {
-                  comp = (Component_c)rcmd.getDestinationModelElement();
-                }
-			    if (dom != null && sys != null && comp != null) {
-                  handleComponentUnformalization(dom, comp, sys);
-				}
-			  }
-			}
-		  }
-		}
 		Ooaofooa[] instances = Ooaofooa.getInstances();
 		for(int i = 0; i < instances.length; i++) {
 			instances[i].clearUnreferencedProxies();
@@ -285,69 +235,6 @@ public class ComponentTransactionListener implements ITransactionListener {
 		job.setRule(ResourcesPlugin.getWorkspace().getRoot());
 		job.schedule();
 	}
-    private void handleComponentFormalization(Domain_c dom, Component_c comp) {
-      final IWorkspaceRoot wsRoot = ResourcesPlugin.getWorkspace().getRoot();
-      PersistableModelComponent domPmc = dom.getPersistableComponent();
-      ModelRoot oldModelRoot = dom.getModelRoot();
-      IFolder oldFolder = wsRoot.getFolder(domPmc.
-    		                    getParentDirectoryPath().append(dom.getName()));
-      dom.updateRootForSelfAndChildren(oldModelRoot, comp.getModelRoot());
-      domPmc.resetComponentForChildren(
-    		  comp.getPersistableComponent().getContainingDirectoryPath(),
-    		          comp.getName(), PersistenceManager.getChildrenOf(domPmc));
-      dom.setParentModelRoot(comp.getModelRoot());
-      dom.setComponent(comp.getPersistableComponent(), false);
-      dom.updateComponentForSelfAndChildren(dom, dom.getPersistableComponent(), false);
-      try {
-        comp.getPersistableComponent().persistSelfAndChildren();
-      }
-      catch (CoreException ce) {
-        CorePlugin.logError(
-        		  "Failure persisting Component file during formalization", ce);
-      }
-      try {
-        oldFolder.delete(true, new NullProgressMonitor());
-      }
-      catch (CoreException ce) {
-        CorePlugin.logError(
-               "Failure removing old Component files during formalization", ce);
-      }
-    }
-    private void handleComponentUnformalization(Domain_c dom,
-                                          Component_c comp, SystemModel_c sys) {
-      final IWorkspaceRoot wsRoot = ResourcesPlugin.getWorkspace().getRoot();
-      PersistableModelComponent sysPmc = sys.getPersistableComponent();
-      PersistableModelComponent oldDomPmc = dom.getPersistableComponent();
-      IPath[] oldFolders = getFoldersToBeRemoved(oldDomPmc);
-      IPath newPath = sysPmc.getContainingDirectoryPath().append(dom.getName());
-      String Id = newPath.append(dom.getName()).
-                               addFileExtension(Ooaofooa.MODELS_EXT).toString();
-      dom.updateRootForSelfAndChildren(comp.getModelRoot(),
-                                                      Ooaofooa.getInstance(Id));
-      oldDomPmc.resetComponentForChildren(newPath, dom.getName(),
-                                             getChildrenOfDomainPMC(oldDomPmc));
-      dom.setParentModelRoot(sys.getModelRoot());
-      dom.setComponent(null, false);
-      dom.setComponent(dom.getPersistableComponent(), false);
-      dom.updateComponentForSelfAndChildren(dom, dom.getPersistableComponent(), false);
-      try {
-        dom.getPersistableComponent().persistSelfAndChildren();
-      }
-      catch (CoreException ce) {
-        CorePlugin.logError(
-        		"Failure persisting Component file during unformalization", ce);
-      }
-      for (int m = 0; m < oldFolders.length; m++) {
-        IFolder oldFolder = wsRoot.getFolder(oldFolders[m]);
-        try {
-          oldFolder.delete(true, new NullProgressMonitor());
-        }
-        catch (CoreException ce) {
-          CorePlugin.logError("Failure removing old Component folder " +
-	                       oldFolder.toString() + "during unformalization", ce);
-        }
-      }
-    }
     private IPath[] getFoldersToBeRemoved(PersistableModelComponent pmc) {
     	Collection children = getChildrenOfDomainPMC(pmc);
         IPath[] oldFolders = new IPath[children.size()];
@@ -361,18 +248,7 @@ public class ComponentTransactionListener implements ITransactionListener {
     }
     private Collection getChildrenOfDomainPMC(PersistableModelComponent pmc) {
         Collection children = PersistenceManager.getChildrenOf(pmc);
-        PersistableModelComponent domainPmc = null;
-        for (Iterator k = children.iterator(); k.hasNext();) {
-          PersistableModelComponent childPmc =
-                                              (PersistableModelComponent)k.next();
-          if (childPmc.getRootModelElement() instanceof Domain_c) {
-            domainPmc = childPmc;
-            break;
-          }
-        }
-        if (domainPmc != null) {
-          children.remove(domainPmc);
-        }
+
         return children;
     }
     private void modelElementDeleted(PersistableModelComponent topComponent) {

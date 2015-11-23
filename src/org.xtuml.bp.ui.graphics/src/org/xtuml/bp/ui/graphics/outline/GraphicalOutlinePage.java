@@ -76,8 +76,6 @@ import org.osgi.framework.Bundle;
 
 import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.CorePlugin;
-import org.xtuml.bp.core.DomainAsComponent_c;
-import org.xtuml.bp.core.Domain_c;
 import org.xtuml.bp.core.Function_c;
 import org.xtuml.bp.core.Operation_c;
 import org.xtuml.bp.core.Scope_c;
@@ -161,13 +159,6 @@ public class GraphicalOutlinePage extends ContentOutlinePage {
 			if (editor.getModel().getRepresents() != null
 					&& editor.getModel().getRepresents() instanceof NonRootModelElement) {
 				Object selected = editor.getModel().getRepresents();
-				if (selected instanceof Domain_c) {
-					Component_c comp = Component_c
-							.getOneC_COnR4204(DomainAsComponent_c
-									.getOneCN_DCOnR4204((Domain_c) selected));
-					if (comp != null)
-						selected = comp;
-				}
 				treeViewer = new TreeViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
 				treeViewer.setContentProvider(new ModelContentProvider());
 				treeViewer.setLabelProvider(new ModelLabelProvider());

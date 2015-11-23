@@ -14,12 +14,7 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select one parent related by self->A_A[R1111];
-if not empty parent
-  unrelate self from parent across R1111;
-end if;
-select one pe related by self->PE_PE[R8001];
+	'select one pe related by self->PE_PE[R8001];
 if (not_empty pe)
   unrelate self from pe across R8001;
   pe.dispose();
@@ -137,7 +132,7 @@ INSERT INTO O_BATTR
 INSERT INTO O_ATTR
 	VALUES ("e2c26da1-2c99-4f3b-89c8-99582fe580fe",
 	"8bff2a7f-e4f0-49be-a507-fe690f3d51d7",
-	"2d9e4d35-6427-4f8b-a1a5-68dcc2a12098",
+	"9319aa10-2e50-4474-b62d-5b15740e02c9",
 	'Name',
 	'Full Name: Partition Name',
 	'',
@@ -162,57 +157,6 @@ INSERT INTO O_ATTR
 	'Descrip',
 	0,
 	"ba5eda7a-def5-0000-0000-000000000004",
-	'',
-	'');
-INSERT INTO O_REF
-	VALUES ("8bff2a7f-e4f0-49be-a507-fe690f3d51d7",
-	"ba948593-88c4-4b1c-bee7-6a108e45306b",
-	0,
-	"4363377a-5678-4a69-abc2-e0fb3039636f",
-	"31ca7113-3918-46c3-a8b9-28ccb3f75436",
-	"48771ac1-659d-4b95-9f05-51f1f8bee442",
-	"3991e1e8-07e3-40b6-b030-1a13b68787b1",
-	"2d9e4d35-6427-4f8b-a1a5-68dcc2a12098",
-	"956411d9-f01e-41d5-b11f-8dae4fd9999b",
-	"00000000-0000-0000-0000-000000000000",
-	0,
-	'',
-	'Activity',
-	'Package_ID',
-	'R1111');
-INSERT INTO R_RGO_PROXY
-	VALUES ("8bff2a7f-e4f0-49be-a507-fe690f3d51d7",
-	"31ca7113-3918-46c3-a8b9-28ccb3f75436",
-	"48771ac1-659d-4b95-9f05-51f1f8bee442",
-	'../Activity.xtuml');
-INSERT INTO O_RTIDA_PROXY
-	VALUES ("4363377a-5678-4a69-abc2-e0fb3039636f",
-	"ba948593-88c4-4b1c-bee7-6a108e45306b",
-	0,
-	"31ca7113-3918-46c3-a8b9-28ccb3f75436",
-	"3991e1e8-07e3-40b6-b030-1a13b68787b1",
-	'../Activity.xtuml');
-INSERT INTO O_RATTR
-	VALUES ("2d9e4d35-6427-4f8b-a1a5-68dcc2a12098",
-	"8bff2a7f-e4f0-49be-a507-fe690f3d51d7",
-	"a5a1b94e-be2f-4750-bd58-cf1c2713558a",
-	"cf4966b0-706a-4373-a2ee-7e706918813c",
-	1,
-	'Package_ID');
-INSERT INTO O_BATTR_PROXY
-	VALUES ("a5a1b94e-be2f-4750-bd58-cf1c2713558a",
-	"cf4966b0-706a-4373-a2ee-7e706918813c",
-	'../../Element Packaging/Specification Package/Specification Package.xtuml');
-INSERT INTO O_ATTR
-	VALUES ("2d9e4d35-6427-4f8b-a1a5-68dcc2a12098",
-	"8bff2a7f-e4f0-49be-a507-fe690f3d51d7",
-	"8b645735-eaa0-46d0-b0d3-d047b65d4e51",
-	'Package_ID',
-	'',
-	'',
-	'Package_ID',
-	0,
-	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -264,6 +208,24 @@ INSERT INTO O_ATTR
 	'Id',
 	0,
 	"ba5eda7a-def5-0000-0000-000000000007",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("9319aa10-2e50-4474-b62d-5b15740e02c9",
+	"8bff2a7f-e4f0-49be-a507-fe690f3d51d7");
+INSERT INTO O_BATTR
+	VALUES ("9319aa10-2e50-4474-b62d-5b15740e02c9",
+	"8bff2a7f-e4f0-49be-a507-fe690f3d51d7");
+INSERT INTO O_ATTR
+	VALUES ("9319aa10-2e50-4474-b62d-5b15740e02c9",
+	"8bff2a7f-e4f0-49be-a507-fe690f3d51d7",
+	"8b645735-eaa0-46d0-b0d3-d047b65d4e51",
+	'Package_ID',
+	'',
+	'',
+	'Package_ID',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000005",
 	'',
 	'');
 INSERT INTO O_ID

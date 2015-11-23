@@ -1,12 +1,4 @@
 //=====================================================================
-//
-//File:      $RCSfile: PkgCMBaseTest.java,v $
-//Version:   $Revision: 1.19 $
-//Modified:  $Date: 2013/01/10 23:12:56 $
-//
-//(c) Copyright 2004-2014 by Mentor Graphics Corp. All rights reserved.
-//
-//=====================================================================
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not 
 // use this file except in compliance with the License.  You may obtain a copy 
 // of the License at
@@ -54,8 +46,6 @@ import org.eclipse.ui.PlatformUI;
 
 import org.xtuml.bp.core.ClassStateMachine_c;
 import org.xtuml.bp.core.CorePlugin;
-import org.xtuml.bp.core.DataTypePackage_c;
-import org.xtuml.bp.core.Domain_c;
 import org.xtuml.bp.core.InstanceStateMachine_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
@@ -140,19 +130,11 @@ public class PkgCMBaseTest extends CanvasTest {
                 project = getProjectHandle(projectName);
             }
             Collection doms = getSystemModel(projectName).getPersistableComponent().getChildren();
-            Domain_c dom = null;
-            for (Iterator iter = doms.iterator(); iter.hasNext()&& dom == null; ) {
+            for (Iterator iter = doms.iterator(); iter.hasNext(); ) {
             	PersistableModelComponent pmc = (PersistableModelComponent)iter.next();
             	String type = "";
             	if (pmc != null) {
             		type = pmc.getComponentType();
-            	}
-            	if ( type.equalsIgnoreCase("Domain")  ) {
-	                dom=(Domain_c) pmc.getRootModelElement();
-	                if(dom!=null){
-	                    modelRoot = (Ooaofooa)dom.getModelRoot();
-	                    graphicsModelRoot = Ooaofgraphics.getInstance(modelRoot.getId());
-	                }
             	}
             }
         }
@@ -651,13 +633,13 @@ public class PkgCMBaseTest extends CanvasTest {
         assertTrue("File not renamed: " + pmcBeingTested.getFullPath(),
                 pmcBeingTested.getFullPath().removeFileExtension()
                         .lastSegment().equals(newName));
-        PkgCMRenameTest.assertTrue("Renamed file does not exist: "
+        PkgCMRenameTestGenerics.assertTrue("Renamed file does not exist: "
                 + pmcBeingTested.getFullPath(), pmcBeingTested.getFile()
                 .exists());
         assertTrue("Parent Folder of File not renamed: "
                 + pmcBeingTested.getFile().getParent().getName(),
                 pmcBeingTested.getFile().getParent().getName().equals(newName));
-        PkgCMRenameTest.assertTrue(
+        PkgCMRenameTestGenerics.assertTrue(
                 "Parent Folder of Renamed file does not exist: "
                         + pmcBeingTested.getFullPath(), pmcBeingTested
                         .getFile().getParent().exists());
@@ -815,17 +797,6 @@ public class PkgCMBaseTest extends CanvasTest {
             pmc = PersistenceManager.findComponent(new Path(compName));
         } else if (compName == null) {
             pmc = getRandomComponent(getProject(), compType);
-        } else if (compType.equals("DataTypePackage") && (compName.equals("Datatypes"))) {
-        	Domain_c domain = Domain_c.DomainInstance(modelRoot);
-        	DataTypePackage_c dtPackage = DataTypePackage_c.getOneS_DPKOnR40(domain, new ClassQueryInterface_c() {
-			
-				public boolean evaluate(Object candidate) {
-					return ((DataTypePackage_c)candidate).getName().equals(compName);
-				}
-			
-			});
-        	assertNotNull(dtPackage);
-        	pmc = dtPackage.getPersistableComponent();
         }
         else
             pmc = getComponent(getProject(), compType, compName);

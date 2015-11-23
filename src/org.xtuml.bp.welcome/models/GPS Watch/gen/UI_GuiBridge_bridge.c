@@ -159,34 +159,34 @@ int en;
   char cIP[50];
   
 #if defined(_WIN32) || defined(WIN32)
-  wVersionRequested = MAKEWORD( 1, 1 );
-  if ( WSAStartup( wVersionRequested, &wsaData ) != 0 )
+    wVersionRequested = MAKEWORD( 1, 1 );
+    if ( WSAStartup( wVersionRequested, &wsaData ) != 0 )
       handle_error();
-  socklib_ver = HIBYTE( wsaData.wVersion ) / 10.0;
-  socklib_ver += LOBYTE( wsaData.wVersion );
-  if ( socklib_ver < 1.1 )
-  {
-    printf ("\nError: socket library must support 1.1 or greater.\n");
-    WSACleanup();
-  }
+    socklib_ver = HIBYTE( wsaData.wVersion ) / 10.0;
+    socklib_ver += LOBYTE( wsaData.wVersion );
+    if ( socklib_ver < 1.1 )
+    {
+      printf ("\nError: socket library must support 1.1 or greater.\n");
+      WSACleanup();
+    }
 #endif
 
 #if defined(_WIN32) || defined(WIN32)
-  if ( (sock = socket(AF_INET, SOCK_STREAM, 0)) == INVALID_SOCKET )
-    handle_error();
+    if ( (sock = socket(AF_INET, SOCK_STREAM, 0)) == INVALID_SOCKET )
+      handle_error();
 #elif defined(__unix__)
   if ( (sock = socket(AF_INET, SOCK_STREAM, 0)) < 0 )
     handle_error_en(sock, "Socket creation error ");
 #endif
 
-  address.sin_family=AF_INET;       /* internet */
-  address.sin_port = htons(2003);   /* port 2003 */
+    address.sin_family=AF_INET;       /* internet */
+    address.sin_port = htons(2003);   /* port 2003 */
 
-  strcpy(cIP, "127.0.0.1");         /* local host */
-  address.sin_addr.s_addr = inet_addr(cIP);
+    strcpy(cIP, "127.0.0.1");         /* local host */
+    address.sin_addr.s_addr = inet_addr(cIP);
 #if defined(_WIN32) || defined(WIN32)
   if ((connect(sock,(struct sockaddr *) &address, sizeof(address))) != 0)
-    handle_error();
+      handle_error();
 #elif defined(__unix__)
   if ((en = connect(sock,(struct sockaddr *) &address, sizeof(address))) < 0)
     handle_error_en(en, "Socket connect error ");

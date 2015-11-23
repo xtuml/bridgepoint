@@ -12,7 +12,6 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 
-import org.xtuml.bp.core.Domain_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
@@ -39,33 +38,6 @@ public class MultilevelIntermTest extends BaseTest {
 				+ "/graphics4MLPersistence." + Ooaofooa.MODELS_EXT);//$NON-NLS-1$
 			setupDone = true;
 		}
-	}
-
-	public void testComponentCreation() throws Exception {
-		
-		modelRoot = Ooaofooa.getInstance("graphics4MLPersistence-forexport");
-		SystemModel_c sysModel = getSystemModel(file.getProject());
-		if(sysModel == null){
-			sysModel = new SystemModel_c(Ooaofooa.getDefaultInstance());
-			sysModel.setName(file.getProject().getName());
-		}
-		
-		importModel(new NullProgressMonitor(), sysModel, file, modelRoot, false, false, true);
-
-		
-		
-		PersistenceManager manager = PersistenceManager.getDefaultInstance();
-		PersistableModelComponent rootComponent = manager.registerModel(
-			getDomain(modelRoot),
-			file.getProject());
-		
-		PersistableModelComponent parent = rootComponent.getParent();
-		if(!parent.isPersisted()){
-			rootComponent = parent;
-		}
-		
-		writeComponentAndChildren(rootComponent);
-		putSharedResult("loaded-domain", getDomain(modelRoot));
 	}
 
 	private void writeComponentAndChildren(PersistableModelComponent component)
@@ -115,14 +87,6 @@ public class MultilevelIntermTest extends BaseTest {
 							project.getName());
 					}
 				});
-	}
-	
-	private Domain_c getDomain(Ooaofooa modelRoot){
-		return Domain_c.DomainInstance(modelRoot);
-	}
-	
-	private boolean compareModels(Domain_c domain1, Domain_c domain2){
-		return compareModelElement(domain1, domain2);
 	}
 	
 	private boolean compareModelElement(NonRootModelElement me1, NonRootModelElement me2){

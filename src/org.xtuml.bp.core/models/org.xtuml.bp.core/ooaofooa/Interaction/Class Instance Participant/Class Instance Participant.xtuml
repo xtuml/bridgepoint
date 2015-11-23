@@ -353,28 +353,8 @@ INSERT INTO O_TFR
   if(param.value == "unform")
     return self.isFormal;
   end if;
-  select one packageableElem related by self->SQ_P[R930]->PE_PE[R8001];
-  select one package related by packageableElem->EP_PKG[R8000];
-  select one component related by packageableElem->C_C[R8003];
-  isInGenericPackage = (not_empty package or not_empty component);
-  if(param.value == "formClass spec pkg")
-    if (isInGenericPackage)
-      return false;
-    end if;
-    // no formalization support yet at system level
-    if(self.definedAtSystemLevel())
-      return false;
-    end if;
-    select many objs from instances of O_OBJ;
-    if(cardinality objs == 1 and self.isFormal)
-      return false;
-    end if;    
-    return not_empty objs;
-  end if;
-  if(param.value == "formClass generic pkg")
-    if (not isInGenericPackage)
-      return false;
-    end if;
+  /// 
+   if(param.value == "formClass generic pkg")
     // no formalization support yet at system level
     if(self.definedAtSystemLevel())
       return false;
@@ -387,6 +367,7 @@ INSERT INTO O_TFR
     end if;
     return count != 0;
   end if;  
+  ///
 end if;
 return false;',
 	1,
@@ -423,15 +404,11 @@ if(self.isFormal)
 end if;
 select any mclass from instances of O_OBJ
                                 where (selected.Obj_ID == GD::NULL_UNIQUE_ID());
-select one package related by self->SQ_P[R930]->PE_PE[R8001]->EP_PKG[R8000];
-isInGenericPackage = not_empty package;
-if(not isInGenericPackage)
-  select any mclass from instances of O_OBJ where (selected.Obj_ID == param.classId);
-else
+
   select any pe from instances of PE_PE
                                    where (selected.Element_ID == param.classId);
   select one mclass related by pe->O_OBJ[R8001];
-end if;
+
 if ( not_empty mclass )
   relate self to mclass across R934;
   // create attribute value instances for all
@@ -563,30 +540,24 @@ INSERT INTO O_TFR
 an instance based state machine with at least one event.',
 	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select one mclass related by self->O_OBJ[R934];
+	'select one mclass related by self->O_OBJ[R934];
 if(not_empty mclass)
   select one stateMachine related by mclass->SM_ISM[R518]->SM_SM[R517];
   if (not_empty stateMachine)
     select many events related by stateMachine->SM_EVT[R502];
     if(cardinality events < 1)
-      select many inheritedEvents related by mclass->S_SS[R2]->O_OBJ[R2]->SM_ISM[R518]->SM_SM[R517]->SM_EVT[R502];
-    
       select one packageableElem related by mclass->PE_PE[R8001];
       select one package related by packageableElem->EP_PKG[R8000];
       select one component related by packageableElem->C_C[R8003];
-      isInGenericPackage = not_empty package or not_empty component;
-      if (isInGenericPackage)
-        if (not_empty package)
-          select many inheritedEvents related by package->S_SYS[R1405]->EP_PKG[R1405]->PE_PE[R8000]->O_OBJ[R8001]
+        select many inheritedEvents related by package->S_SYS[R1405]->EP_PKG[R1405]->PE_PE[R8000]->O_OBJ[R8001]
                  ->SM_ISM[R518]->SM_SM[R517]->SM_EVT[R502];
-        else
+        if (empty inheritedEvents and not_empty component)
           rootCompIdInPkg = component.getRootComponentId();
           select any rootComponent from instances of C_C where (selected.Id == rootCompIdInPkg);
           select one system related by rootComponent->PE_PE[R8001]->EP_PKG[R8000]->S_SYS[R1405];
-          select many machines related by system->EP_PKG[R1405]->PE_PE[R8000]->O_OBJ[R8001]->SM_ISM[R518]->SM_SM[R517]->SM_EVT[R502];
+          select many inheritedEvents related by system->EP_PKG[R1405]->PE_PE[R8000]->O_OBJ[R8001]->SM_ISM[R518]->SM_SM[R517]->SM_EVT[R502];
         end if;
-      end if;
+
       foundSuperEvent = false;
       for each event in inheritedEvents
         if(stateMachine.canAssignEvent(eventId:event.SMevt_ID, eventStateMachineId:stateMachine.SM_ID, isCreationTransition:false))
@@ -651,25 +622,21 @@ INSERT INTO O_TFR
     if (not_empty stateMachine)
       select many events related by stateMachine->SM_EVT[R502];
       if(cardinality events < 1)
-        select many inheritedEvents related by mclass->S_SS[R2]->O_OBJ[R2]
-                                      ->SM_ISM[R518]->SM_SM[R517]->SM_EVT[R502];
         select one packageableElem related by mclass->PE_PE[R8001];
         select one package related by packageableElem->EP_PKG[R8000];
         select one component related by packageableElem->C_C[R8003];
-        isInGenericPackage = not_empty package or not_empty component;
-        if (isInGenericPackage)
-          if (not_empty package)
+
             select many inheritedEvents related by package->S_SYS[R1405]
                                      ->EP_PKG[R1405]->PE_PE[R8000]->O_OBJ[R8001]
                                       ->SM_ISM[R518]->SM_SM[R517]->SM_EVT[R502];
-          else
+          if (empty inheritedEvents and not_empty component)
             rootCompIdInPkg = component.getRootComponentId();
             select any rootComponent from instances of C_C where (selected.Id == rootCompIdInPkg);
             select one system related by rootComponent->PE_PE[R8001]->EP_PKG[R8000]->S_SYS[R1405];
-            select many machines related by system->EP_PKG[R1405]->PE_PE[R8000]
+            select many inheritedEvents related by system->EP_PKG[R1405]->PE_PE[R8000]
                         ->O_OBJ[R8001]->SM_ISM[R518]->SM_SM[R517]->SM_EVT[R502];
           end if;
-        end if;
+
         count = 0;
         for each event in inheritedEvents
           if(stateMachine.canAssignEvent(eventId:event.SMevt_ID,
@@ -830,15 +797,12 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select one proxyClass related by self->O_OBJ[R934];
+	'select one proxyClass related by self->O_OBJ[R934];
 if(not_empty proxyClass and not Util::isProxy(element:self.convertToInstance()))
   select one packageableElem related by self->SQ_P[R930]->PE_PE[R8001];
   select one package related by packageableElem->EP_PKG[R8000];
   select one component related by packageableElem->C_C[R8003];
-  isInGenericPackage = not_empty package or not_empty component;
 
-  if (isInGenericPackage)
     if (empty package)
       rootCompIdInPkg = component.getRootComponentId();
       select any rootComponent from instances of C_C where (selected.Id == rootCompIdInPkg);
@@ -906,69 +870,7 @@ if(not_empty proxyClass and not Util::isProxy(element:self.convertToInstance()))
       self.unformalize();
     end if;
     return;
-  end if;  // end isInGenericPackage
-  
-  //////////////////////////////////////////////////////////////////////
-  // Note: Everything below this point is for the case when we are using 
-  //       specialized packages.
-  //////////////////////////////////////////////////////////////////////
-  
-  // if a subsystem is resolved by the proxy class
-  // then this CIP has already been
-  // resolved or does not need to be as the referred to
-  // class is contained in the copy
-  select one ss related by proxyClass->S_SS[R2];
-  if(empty ss or Util::isProxy(element:ss.convertToInstance()))
-    name = proxyClass.Name;
-    key_letters = proxyClass.Key_Lett;
-    unrelate self from proxyClass across R934;
-    // this is safe as there will only ever be one
-    // domain
-    select any domain from instances of S_DOM;
-    // first try to resolve to referred to class by key letters and name
-    select any clazz related by domain->S_SS[R1]->O_OBJ[R2]
-         where (selected.Key_Lett == key_letters and selected.Name == name);
-    if(empty clazz)
-      // if no class was found try to resolve it by key_letters alone
-      select any clazz related by domain->S_SS[R1]->O_OBJ[R2]
-           where (selected.Key_Lett == key_letters);
-      if(empty clazz)
-        // if still no class was found try to resolve on the name alone
-        select any clazz related by domain->S_SS[R1]->O_OBJ[R2]
-             where (selected.Name == name);
-      end if;
-    end if;
-    classResolved = not_empty clazz;
-    if(classResolved)
-      relate self to clazz across R934;
-      // resolve attributes here, as we cannot
-      // guarantee the order under normal paste
-      // resolutions
-      select many iavs related by self->SQ_AV[R937];
-      for each iav in iavs
-        iav.resolveAttributeLocal();
-      end for;
-      // create any additional attribute value instances
-      select many attrs related by clazz->O_ATTR[R102]->O_BATTR[R106]
-                                                                 ->O_ATTR[R106];
-      for each attr in attrs
-        select any existing related by self->SQ_AV[R937]->O_ATTR[R938] 
-                                       where (selected.Attr_ID == attr.Attr_ID);
-        if(empty existing)
-          create object instance av of SQ_AV;
-          create object instance fav of SQ_FAV;
-          relate av to self across R937;
-          relate attr to av across R938;
-          relate av to fav across R948;
-        end if;
-      end for;
-      self.resolveMessageFormalizations();
-    else
-      // unformalize this CIP
-      self.unformalize();
-    end if;
   end if;
-end if;
 ',
 	1,
 	'',

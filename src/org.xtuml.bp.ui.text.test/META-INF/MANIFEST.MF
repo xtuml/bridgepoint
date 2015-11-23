@@ -13,8 +13,7 @@ Export-Package: org.xtuml.bp.ui.text.editor.oal.test,
  org.xtuml.bp.ui.text.test.i372Tests,
  org.xtuml.bp.ui.text.test.i589Test,
  org.xtuml.bp.ui.text.test.i673Tests.placeholder,
- org.xtuml.bp.ui.text.test.i673Tests.rename,
- org.xtuml.bp.ui.text.test.utils
+ org.xtuml.bp.ui.text.test.i673Tests.rename
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.ui,
  org.eclipse.ui.ide,

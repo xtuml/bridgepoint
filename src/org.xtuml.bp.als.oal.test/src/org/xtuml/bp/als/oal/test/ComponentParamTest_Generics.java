@@ -29,7 +29,6 @@ import org.xtuml.bp.core.Transition_c;
 import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.util.ContainerUtil;
-import org.xtuml.bp.core.util.DomainUtil;
 import org.xtuml.bp.test.common.BaseTest;
 import org.xtuml.bp.test.common.TestingUtilities;
 

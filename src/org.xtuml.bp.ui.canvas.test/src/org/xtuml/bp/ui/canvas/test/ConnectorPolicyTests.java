@@ -82,7 +82,7 @@ public class ConnectorPolicyTests extends BaseTest {
 		  editPart.getFigure().revalidate();
 		  ((Connection) editPart.getFigure()).getConnectionRouter()
 		    .route((Connection) editPart.getFigure());
-		  while(PlatformUI.getWorkbench().getDisplay().readAndDispatch());
+		  BaseTest.dispatchEvents(0);
 		  Point firstPoint = ((Connection) editPart.getFigure()).getPoints()
 				.getFirstPoint();
 		// result should be allowed

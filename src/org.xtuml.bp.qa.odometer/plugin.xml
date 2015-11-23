@@ -36,7 +36,7 @@
    </extension>
    <extension
          point="org.eclipse.ui.startup">
-      <startup></startup>
+      <startup class="org.xtuml.qa.odometer.Activator"></startup>
    </extension>
 
 </plugin>

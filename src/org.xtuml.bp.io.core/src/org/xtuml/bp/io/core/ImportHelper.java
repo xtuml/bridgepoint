@@ -35,28 +35,19 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
-
 import org.xtuml.bp.core.ActionHome_c;
 import org.xtuml.bp.core.Action_c;
-import org.xtuml.bp.core.Activity_c;
 import org.xtuml.bp.core.ActorParticipant_c;
-import org.xtuml.bp.core.AssociationInUseCase_c;
 import org.xtuml.bp.core.AsynchronousMessage_c;
 import org.xtuml.bp.core.Attribute_c;
 import org.xtuml.bp.core.BridgeParameter_c;
 import org.xtuml.bp.core.Bridge_c;
-import org.xtuml.bp.core.Communication_c;
-import org.xtuml.bp.core.ComponentPackage_c;
 import org.xtuml.bp.core.ComponentReference_c;
 import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.CoreDataType_c;
 import org.xtuml.bp.core.CorePlugin;
-import org.xtuml.bp.core.DataTypeInPackage_c;
-import org.xtuml.bp.core.DataTypePackageInPackage_c;
-import org.xtuml.bp.core.DataTypePackage_c;
 import org.xtuml.bp.core.DataType_c;
 import org.xtuml.bp.core.Dimensions_c;
-import org.xtuml.bp.core.Domain_c;
 import org.xtuml.bp.core.EclipseOoaofooa;
 import org.xtuml.bp.core.Elementtypeconstants_c;
 import org.xtuml.bp.core.End_c;
@@ -64,11 +55,7 @@ import org.xtuml.bp.core.EnumerationDataType_c;
 import org.xtuml.bp.core.EventArgument_c;
 import org.xtuml.bp.core.EventSupplementalData_c;
 import org.xtuml.bp.core.ExecutableProperty_c;
-import org.xtuml.bp.core.ExternalEntityPackageInDomain_c;
-import org.xtuml.bp.core.ExternalEntityPackage_c;
 import org.xtuml.bp.core.ExternalEntity_c;
-import org.xtuml.bp.core.FunctionPackageInDomain_c;
-import org.xtuml.bp.core.FunctionPackage_c;
 import org.xtuml.bp.core.FunctionParameter_c;
 import org.xtuml.bp.core.Function_c;
 import org.xtuml.bp.core.Gd_c;
@@ -79,53 +66,42 @@ import org.xtuml.bp.core.ImportedReference_c;
 import org.xtuml.bp.core.ImportedRequirement_c;
 import org.xtuml.bp.core.InteractionParticipant_c;
 import org.xtuml.bp.core.InterfaceOperation_c;
-import org.xtuml.bp.core.InterfacePackage_c;
 import org.xtuml.bp.core.InterfaceReference_c;
 import org.xtuml.bp.core.Interface_c;
 import org.xtuml.bp.core.Lifespan_c;
-import org.xtuml.bp.core.MessageInCommunication_c;
-import org.xtuml.bp.core.MessageInSequence_c;
 import org.xtuml.bp.core.Message_c;
 import org.xtuml.bp.core.ModelClass_c;
 import org.xtuml.bp.core.Modeleventnotification_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.OperationParameter_c;
 import org.xtuml.bp.core.Operation_c;
-import org.xtuml.bp.core.PackageInPackage_c;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.PackageableElement_c;
 import org.xtuml.bp.core.Parsestatus_c;
-import org.xtuml.bp.core.ParticipantInUseCase_c;
 import org.xtuml.bp.core.PortReference_c;
 import org.xtuml.bp.core.Port_c;
 import org.xtuml.bp.core.PropertyParameter_c;
 import org.xtuml.bp.core.Provision_c;
 import org.xtuml.bp.core.Requirement_c;
-import org.xtuml.bp.core.SatisfactionInComponentPackage_c;
 import org.xtuml.bp.core.SatisfactionInComponent_c;
 import org.xtuml.bp.core.Satisfaction_c;
-import org.xtuml.bp.core.Sequence_c;
-import org.xtuml.bp.core.SpecificationPackage_c;
 import org.xtuml.bp.core.StateMachineEventDataItem_c;
 import org.xtuml.bp.core.StateMachineEvent_c;
 import org.xtuml.bp.core.StateMachine_c;
 import org.xtuml.bp.core.StructureMember_c;
 import org.xtuml.bp.core.SupplementalDataItems_c;
 import org.xtuml.bp.core.SynchronousMessage_c;
-import org.xtuml.bp.core.SystemDatatypeInPackage_c;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.TimeSpan_c;
 import org.xtuml.bp.core.TimingMark_c;
 import org.xtuml.bp.core.TransitionActionHome_c;
 import org.xtuml.bp.core.Transition_c;
 import org.xtuml.bp.core.UseCaseAssociation_c;
-import org.xtuml.bp.core.UseCaseDiagram_c;
 import org.xtuml.bp.core.UserDataType_c;
 import org.xtuml.bp.core.Visibility_c;
 import org.xtuml.bp.core.common.BaseModelDelta;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.ComponentResourceListener;
-import org.xtuml.bp.core.common.IModelDelta;
 import org.xtuml.bp.core.common.IdAssigner;
 import org.xtuml.bp.core.common.InstanceList;
 import org.xtuml.bp.core.common.ModelRoot;
@@ -971,19 +947,7 @@ public class ImportHelper
      */
     public void formalizeExternalEntityPackageLinkingAssociations(Ooaofooa modelRoot)
     {
-        ExternalEntityPackage_c[] eep_set = ExternalEntityPackage_c.
-                ExternalEntityPackageInstances(modelRoot);
-        for(int i = 0; i < eep_set.length; i++) {
-            ExternalEntityPackageInDomain_c eEepInDomain =
-                ExternalEntityPackageInDomain_c.getOnePL_EEPIDOnR300(eep_set[i]);
-            if(eEepInDomain == null) {
-                ExternalEntityPackageInDomain_c eepInDomain =
-                    new ExternalEntityPackageInDomain_c(modelRoot);
-                Domain_c domain = Domain_c.DomainInstance(modelRoot);
-                domain.relateAcrossR300To(eepInDomain);
-                eep_set[i].relateAcrossR300To(eepInDomain);
-            }
-        }
+    	//TODO: BOB remove this
     }
     /**
      * Relates all function packages across the
@@ -991,18 +955,7 @@ public class ImportHelper
      */
     public void formalizeFunctionPackageLinkingAssociations(Ooaofooa modelRoot)
     {
-        FunctionPackage_c[] fp_set = FunctionPackage_c.
-        FunctionPackageInstances(modelRoot);
-        for(int i = 0; i < fp_set.length; i++) {
-            FunctionPackageInDomain_c efpInDomain = FunctionPackageInDomain_c.getOnePL_FPIDOnR301(fp_set[i]);
-            if(efpInDomain == null) {
-                FunctionPackageInDomain_c fpInDomain =
-                    new FunctionPackageInDomain_c(modelRoot);
-                Domain_c domain = Domain_c.DomainInstance(modelRoot);
-                domain.relateAcrossR301To(fpInDomain);
-                fp_set[i].relateAcrossR301To(fpInDomain);
-            }
-        }
+    	//TODO: BOB remove this
     }
     /**
      * This function is used to migrate 1.4.2-based components to 1.5.x.
@@ -1026,9 +979,6 @@ public class ImportHelper
             });
             modelRoot.setRoot(system);
         }
-        PersistenceManager.ensureAllChildInstancesLoaded(modelRoot.getRoot().getPersistableComponent(),
-                modelRoot,
-                ComponentPackage_c.class, true);
 
         // also need to assure all components are loaded
         // this will guarantee that imported components
@@ -1077,32 +1027,15 @@ public class ImportHelper
             // to satisfy the importer and replace it with
             // the new one which has all the correct values.
             component.delete_unchecked();
-            component = new Component_c(modelRoot, old_comp.Id, pkg_id,
-                    Gd_c.Null_unique_id(), old_comp.Name, old_comp.Descrip, 0,
+            component = new Component_c(modelRoot, pkg_id,
+                    Gd_c.Null_unique_id(), Gd_c.Null_unique_id(), old_comp.Name, old_comp.Descrip, 0,
                     Gd_c.Null_unique_id(), false, "");
             component.batchRelate(modelRoot, false, true);
             final PersistableModelComponent persistableComponent = component.getPersistableComponent();
             persistableComponent.setRootModelElement(component);
-            final ComponentPackage_c compPkg = ComponentPackage_c.getOneCP_CPOnR4604(component);
-            compPkg.batchRelate(modelRoot, false, true);
-            compPkg.relateAcrossR4608To(component);
             migrateInterfaceChanges(modelRoot, component, cid);
             migrateImportedComponents(modelRoot, component);
-            final UUID compId = component.getId();
-            GraphicalElement_c element = GraphicalElement_c
-                    .GraphicalElementInstance(Ooaofgraphics.getInstance(compPkg
-                            .getModelRoot().getId()),
-                            new ClassQueryInterface_c() {
 
-                                public boolean evaluate(Object candidate) {
-                                    return ((GraphicalElement_c) candidate)
-                                            .getOoa_id().equals(compId);
-                                }
-
-                            });
-            if(element != null) {
-                element.setRepresents(component);
-            }
             // trigger the code to create a nested
             // package as well as the required outer
             // interfaces
@@ -1123,7 +1056,6 @@ public class ImportHelper
                     public void run(IProgressMonitor monitor) throws CoreException {
                         ComponentResourceListener.setIgnoreResourceChanges(true);
                         persistableComponent.persist();
-                        compPkg.getPersistableComponent().persist();
                     }
                 
                 }, new NullProgressMonitor());
@@ -1328,13 +1260,6 @@ public class ImportHelper
                             }
                             if(satisfiesWithImportedComponent) continue;
                             // create the persistence instances and relate
-                            ComponentPackage_c compPkg = ComponentPackage_c.getOneCP_CPOnR4604(component);
-                            SatisfactionInComponentPackage_c sicp = new SatisfactionInComponentPackage_c(
-                                    modelRoot, compPkg.getPackage_id(),
-                                    sats[k].fInst.getId());
-                            sicp.batchRelate(modelRoot, false, false);
-                            compPkg.relateAcrossR9001To(sicp);
-                            sats[k].fInst.relateAcrossR9001To(sicp);
                             sats[k].fInst.batchRelate(modelRoot, false, false);
                             cp.relateAcrossR4002To(sats[k].fInst);
                         }
@@ -1413,13 +1338,6 @@ public class ImportHelper
                             }
                             if(satisfiesWithImportedComponent) continue;
                             // create the persistence instances and relate
-                            ComponentPackage_c compPkg = ComponentPackage_c.getOneCP_CPOnR4604(component);
-                            SatisfactionInComponentPackage_c sicp = new SatisfactionInComponentPackage_c(
-                                    modelRoot, compPkg.getPackage_id(),
-                                    sats[k].fInst.getId());
-                            sicp.batchRelate(modelRoot, false, false);
-                            compPkg.relateAcrossR9001To(sicp);
-                            sats[k].fInst.relateAcrossR9001To(sicp);
                             sats[k].fInst.batchRelate(modelRoot, false, false);
                             cr.relateAcrossR4002To(sats[k].fInst);
                         }
@@ -1652,9 +1570,9 @@ public class ImportHelper
                 }
                 
                 final ComponentReference_c clic = new ComponentReference_c(cdic.ModelRoot,
-                        cdic.Id, Gd_c.Null_unique_id(), Gd_c.Null_unique_id(),
-                        cde.Id, cdic.Mult, cdic.ClassifierName,
-                        "", cdic.Descrip);
+                        cdic.Id, Gd_c.Null_unique_id(), 
+                        cde.Id, Gd_c.Null_unique_id(), cdic.Mult, cdic.ClassifierName,
+                        "", cdic.Descrip); 
                 clic.batchRelate(cdic.ModelRoot, false, true);
                 if(clic.Canassigntocomp(component.getId(), true))
                     clic.Assigntocomp(component.getId());
@@ -1702,32 +1620,7 @@ public class ImportHelper
      */
     public void migrateSLDTs(SystemModel_c system)
     {
-        SystemDatatypeInPackage_c[] sdip = SystemDatatypeInPackage_c.getManySLD_SDINPsOnR4402(system);
-        DataType_c[] dt = DataType_c.getManyS_DTsOnR4401(sdip);
-        UserDataType_c[] udt = UserDataType_c.getManyS_UDTsOnR17(dt);
-        CoreDataType_c cdt;
-        int genType;
-        
-        for(int i = 0; i < udt.length; i++)
-         {
-            genType = udt[i].getGen_type();
-            cdt = CoreDataType_c.getOneS_CDTOnR17(DataType_c.getOneS_DTOnR18(udt[i]));
-            if(genType == 1 || genType == 2)
-            {
-                if(cdt.Get_name().equals("inst_ref<Mapping>"))
-                 {
-                    udt[i].Changecoretype("inst<Mapping>");
-                 }
-            }
-            else if (genType == 3)
-            {
-                if(cdt.Get_name().equals("inst<Mapping>"))
-                 {
-                    udt[i].Changecoretype("inst_ref<Mapping>");
-                 }                          
-            }
-                
-         }  
+    	// TODO: BOB remove this
     }    
         
     /**
@@ -2070,13 +1963,7 @@ public class ImportHelper
     }
 
     private void setupSatisfactionInComponentPackage(ModelRoot modelRoot, SICP sicp) {
-        SatisfactionInComponentPackage_c sicpInst = new SatisfactionInComponentPackage_c(
-                modelRoot, sicp.fSicp.fComponentPackage_ID,
-                sicp.fSat.fInst.getId());
-        Satisfaction_c sat = sicp.fSat.fInst;
-        sat.relateAcrossR9001To(sicpInst);
-        sat.batchRelate(modelRoot, false, false);
-        sicpInst.batchRelate(modelRoot, false, false);
+    	// TODO: Bob Remove this
     }
 
     private C_SF createSatisfaction(ModelRoot modelRoot, UUID requirement_id, UUID provision_id) {
@@ -2132,18 +2019,6 @@ public class ImportHelper
                             requirement_id,
                             provision_id);
                 return new SIC(sics[i], sat);
-            }
-        }
-        return null;
-    }
-
-    private ComponentPackage_c getComponentPackageFrom(PA_SICP sicp) {
-        NonRootModelElement[] elements = importer.getLoadedInstances();
-        for(int i = 0; i < elements.length; i++) {
-            if(elements[i] instanceof ComponentPackage_c) {
-                if(((ComponentPackage_c)elements[i]).getPackage_id().equals(sicp.fComponentPackage_ID)) {
-                    return (ComponentPackage_c) elements[i];
-                }
             }
         }
         return null;
@@ -2216,52 +2091,9 @@ public class ImportHelper
      * with the correct domain, if at the domain level
      */
     public void associateDTsWithDomain(Ooaofooa modelRoot) {
-        DataType_c[] dataTypes = DataType_c.DataTypeInstances(modelRoot);
-        for(int i = 0; i < dataTypes.length; i++) {
-            // skip this data type if at the system level
-            Domain_c domain = Domain_c.getOneS_DOMOnR14(dataTypes[i]);
-            SystemDatatypeInPackage_c sdip = SystemDatatypeInPackage_c
-                    .getOneSLD_SDINPOnR4401(dataTypes[i]);
-            if(sdip == null) {
-                // otherwise find the domain through
-                // the data type package
-                DataTypePackage_c dtPackage = DataTypePackage_c
-                        .getOneS_DPKOnR39(DataTypeInPackage_c
-                                .getOneS_DIPOnR39(dataTypes[i]));
-                Domain_c pkgDomain = Domain_c.getOneS_DOMOnR40(dtPackage);
-                if(pkgDomain == null) {
-                    // if the dt package is not at the root
-                    // of the domain, walk the nesting tree
-                    // to find the domain
-                    DataTypePackage_c rootPackage = DataTypePackage_c
-                            .getOneS_DPKOnR37(DataTypePackageInPackage_c
-                                    .getOneS_DPIPOnR38(dtPackage));
-                    DataTypePackage_c nextPackage = rootPackage;
-                    while(nextPackage != null) {
-                        nextPackage = DataTypePackage_c
-                            .getOneS_DPKOnR37(DataTypePackageInPackage_c
-                                .getOneS_DPIPOnR38(nextPackage));
-                        if(nextPackage != null) {
-                            rootPackage = nextPackage;
-                        }
-                    }
-                    pkgDomain = Domain_c.getOneS_DOMOnR40(rootPackage);
-                }
-                // if the domain related to the data type
-                // is null, or does not match the domain
-                // of the package reassociate the data
-                // type
-                if(pkgDomain != null && domain == null) {
-                    dataTypes[i].relateAcrossR14To(pkgDomain);
-                } else if(pkgDomain != null && domain != null) {
-                    if(domain != pkgDomain) {
-                        dataTypes[i].unrelateAcrossR14From(domain);
-                        dataTypes[i].relateAcrossR14To(pkgDomain);
-                    }
-                }
-            }
-        }
+    	// TODO: BOB REmove this
     }
+    
     public void upgradeEventData(Ooaofooa modelRoot,
                                                 NonRootModelElement modelElem) {
         StateMachine_c [] sms = StateMachine_c.
@@ -2353,214 +2185,6 @@ public class ImportHelper
         } // end for each state machine
     }
     
-    public void upgradeLifespans(NonRootModelElement loadedElement) {
-        if(loadedElement instanceof Sequence_c) {
-            // find all lifespans associated with an ActorParticipant_c
-            ActorParticipant_c[] actors = ActorParticipant_c
-                    .getManySQ_APsOnR930(InteractionParticipant_c
-                            .getManySQ_PsOnR929((Sequence_c) loadedElement));
-            for(int i = 0; i < actors.length; i++) {
-                // Association the lifespans with the actors across
-                // the new asssociation
-                InteractionParticipant_c part = InteractionParticipant_c
-                        .getOneSQ_POnR930(actors[i]);
-                Lifespan_c ls = Lifespan_c.getOneSQ_LSOnR949(actors[i]);
-                if(ls != null) {
-                    part.relateAcrossR940To(ls);
-                    ls.unrelateAcrossR949From(actors[i]);
-                }
-            }
-            
-        }
-    }
-    /**
-     * This method upgrades old specification packages to use the new
-     * subtype class
-     */
-    public List<NonRootModelElement> upgradePackages(NonRootModelElement loadedElement, Ooaofooa modelRoot) {       
-        List<NonRootModelElement> newSpecPkgs = new Vector<NonRootModelElement>();
-        
-        // if the model root is the clipboard root then upgrade as a
-        // single file
-        if(modelRoot.getId().equals(Ooaofooa.CLIPBOARD_MODEL_ROOT_NAME)) {
-         loadedElement = null;
-        }
-        
-        NonRootModelElement newSpecPkg = null; 
-        // if the loaded element is null, then the import is single file
-        // check the root for all instances
-        if(loadedElement == null) {
-            DataTypePackage_c[] pkgs = DataTypePackage_c.DataTypePackageInstances(modelRoot);
-            for(int i = 0; i < pkgs.length; i++) {
-                newSpecPkg = upgradePackages(pkgs[i]);
-                if (newSpecPkg != null) {
-                    newSpecPkgs.add(newSpecPkg);
-                }
-            }
-            ComponentPackage_c[] compPkgs = ComponentPackage_c.ComponentPackageInstances(modelRoot);
-            for(int i = 0; i < compPkgs.length; i++) {
-                newSpecPkg = upgradePackages(compPkgs[i]);
-                if (newSpecPkg != null) {
-                    newSpecPkgs.add(newSpecPkg);
-                }
-            }
-            InterfacePackage_c[] ifacePkgs = InterfacePackage_c.InterfacePackageInstances(modelRoot);
-            for(int i = 0; i < ifacePkgs.length; i++) {
-                newSpecPkg = upgradePackages(ifacePkgs[i]);
-                if (newSpecPkg != null) {
-                    newSpecPkgs.add(newSpecPkg);
-                }
-            }
-            Activity_c[] acts = Activity_c.ActivityInstances(modelRoot);
-            for(int i = 0; i < acts.length; i++) {
-                newSpecPkg = upgradePackages(acts[i]);
-                if (newSpecPkg != null) {
-                    newSpecPkgs.add(newSpecPkg);
-                }
-            }
-            Communication_c[] comms = Communication_c.CommunicationInstances(modelRoot);
-            for(int i = 0; i < comms.length; i++) {
-                newSpecPkg = upgradePackages(comms[i]);
-                if (newSpecPkg != null) {
-                    newSpecPkgs.add(newSpecPkg);
-                }
-            }
-            Sequence_c[] seqs = Sequence_c.SequenceInstances(modelRoot);
-            for(int i = 0; i < seqs.length; i++) {
-                newSpecPkg = upgradePackages(seqs[i]);
-                if (newSpecPkg != null) {
-                    newSpecPkgs.add(newSpecPkg);
-                }
-            }
-            UseCaseDiagram_c[] ucds = UseCaseDiagram_c.UseCaseDiagramInstances(modelRoot);
-            for(int i = 0; i < ucds.length; i++) {
-                newSpecPkg = upgradePackages(ucds[i]);
-                if (newSpecPkg != null) {
-                    newSpecPkgs.add(newSpecPkg);
-                }
-            }
-        } else {
-            // if the loaded element is a domain
-            // check for instances of those elements
-            // which can live under a domain
-            if(loadedElement instanceof Domain_c) {
-                DataTypePackage_c[] pkgs = DataTypePackage_c.DataTypePackageInstances(modelRoot);
-                for(int i = 0; i < pkgs.length; i++) {
-                    newSpecPkg = upgradePackages(pkgs[i]);
-                    if (newSpecPkg != null) {
-                        newSpecPkgs.add(newSpecPkg);
-                    }
-                }
-                Activity_c[] acts = Activity_c.ActivityInstances(modelRoot);
-                for(int i = 0; i < acts.length; i++) {
-                    newSpecPkg = upgradePackages(acts[i]);
-                    if (newSpecPkg != null) {
-                        newSpecPkgs.add(newSpecPkg);
-                    }
-                }
-                Communication_c[] comms = Communication_c.CommunicationInstances(modelRoot);
-                for(int i = 0; i < comms.length; i++) {
-                    newSpecPkg = upgradePackages(comms[i]);
-                    if (newSpecPkg != null) {
-                        newSpecPkgs.add(newSpecPkg);
-                    }
-                }
-                Sequence_c[] seqs = Sequence_c.SequenceInstances(modelRoot);
-                for(int i = 0; i < seqs.length; i++) {
-                    newSpecPkg = upgradePackages(seqs[i]);
-                    if (newSpecPkg != null) {
-                        newSpecPkgs.add(newSpecPkg);
-                    }
-                }
-                UseCaseDiagram_c[] ucds = UseCaseDiagram_c.UseCaseDiagramInstances(modelRoot);
-                for(int i = 0; i < ucds.length; i++) {
-                    newSpecPkg = upgradePackages(ucds[i]);
-                    if (newSpecPkg != null) {
-                        newSpecPkgs.add(newSpecPkg);
-                    }
-                }
-            } else {
-                newSpecPkg = upgradePackages(loadedElement);
-                if (newSpecPkg != null) {
-                    newSpecPkgs.add(newSpecPkg);
-                }
-            }
-        }
-        return newSpecPkgs;
-    }
-    
-    public SpecificationPackage_c upgradePackages(NonRootModelElement loadedElement) {
-        // If we have to create a new SpecificationPackage_c instance then we 
-        // will return that new instance
-        SpecificationPackage_c newSPKG = null;
-        
-        if(loadedElement instanceof DataTypePackage_c) {
-            DataTypePackage_c dtPkg = (DataTypePackage_c) loadedElement;
-            SpecificationPackage_c pkg = SpecificationPackage_c
-                    .getOneEP_SPKGOnR1402(dtPkg, false);
-            if(pkg == null) {
-                newSPKG = new SpecificationPackage_c(loadedElement.getModelRoot(),
-                        dtPkg.getPackage_idCachedValue(), Gd_c.Null_unique_id());
-                newSPKG.relateAcrossR1402To(dtPkg, false);
-            }
-        } else if(loadedElement instanceof ComponentPackage_c) {
-            ComponentPackage_c compPkg = (ComponentPackage_c) loadedElement;
-            SpecificationPackage_c pkg = SpecificationPackage_c
-                    .getOneEP_SPKGOnR1402(compPkg, false);
-            if(pkg == null) {
-                newSPKG = new SpecificationPackage_c(loadedElement.getModelRoot(),
-                        compPkg.getPackage_idCachedValue(), Gd_c.Null_unique_id());
-                newSPKG.relateAcrossR1402To(compPkg, false);
-            }           
-        } else if(loadedElement instanceof InterfacePackage_c) {
-            InterfacePackage_c ifacePkg = (InterfacePackage_c) loadedElement;
-            SpecificationPackage_c pkg = SpecificationPackage_c
-                    .getOneEP_SPKGOnR1402(ifacePkg, false);
-            if(pkg == null) {
-                newSPKG = new SpecificationPackage_c(loadedElement.getModelRoot(),
-                        ifacePkg.getPackage_idCachedValue(), Gd_c.Null_unique_id());
-                newSPKG.relateAcrossR1402To(ifacePkg, false);
-            }
-        } else if(loadedElement instanceof Activity_c) {
-            Activity_c act = (Activity_c) loadedElement;
-            SpecificationPackage_c pkg = SpecificationPackage_c
-                    .getOneEP_SPKGOnR1402(act, false);
-            if(pkg == null) {
-                newSPKG = new SpecificationPackage_c(loadedElement.getModelRoot(),
-                        act.getPackage_idCachedValue(), Gd_c.Null_unique_id());
-                newSPKG.relateAcrossR1402To(act, false);
-            }
-        } else if(loadedElement instanceof Communication_c) {
-            Communication_c comm = (Communication_c) loadedElement;
-            SpecificationPackage_c pkg = SpecificationPackage_c
-                    .getOneEP_SPKGOnR1402(comm, false);
-            if(pkg == null) {
-                newSPKG = new SpecificationPackage_c(loadedElement.getModelRoot(),
-                        comm.getPackage_idCachedValue(), Gd_c.Null_unique_id());
-                newSPKG.relateAcrossR1402To(comm, false);
-            }
-        } else if(loadedElement instanceof Sequence_c) {
-            Sequence_c seq = (Sequence_c) loadedElement;
-            SpecificationPackage_c pkg = SpecificationPackage_c
-                    .getOneEP_SPKGOnR1402(seq, false);
-            if(pkg == null) {
-                newSPKG = new SpecificationPackage_c(loadedElement.getModelRoot(),
-                        seq.getPackage_idCachedValue(), Gd_c.Null_unique_id());
-                newSPKG.relateAcrossR1402To(seq, false);
-            }
-        } else if(loadedElement instanceof UseCaseDiagram_c) {
-            UseCaseDiagram_c ucd = (UseCaseDiagram_c) loadedElement;
-            SpecificationPackage_c pkg = SpecificationPackage_c
-                    .getOneEP_SPKGOnR1402(ucd, false);
-            if(pkg == null) {
-                newSPKG = new SpecificationPackage_c(loadedElement.getModelRoot(),
-                        ucd.getPackage_idCachedValue(), Gd_c.Null_unique_id());
-                newSPKG.relateAcrossR1402To(ucd, false);
-            }
-        }
-        return newSPKG;
-    }
-    
     public void upgradeElementOrder(Ooaofooa modelRoot) {
         // Owns C_AS and C_IO
       InstanceList il = modelRoot.getInstanceList(Interface_c.class);
@@ -2637,51 +2261,6 @@ public class ImportHelper
 			}
 		}
 		return createdPes;
-    }
-    
-    public List<NonRootModelElement> upgradeNestedPackages(
-            NonRootModelElement loadedElement) {
-        List<NonRootModelElement> createdPes = new ArrayList<NonRootModelElement>();
-            if (loadedElement instanceof Package_c) {
-                // Update from R1403/R1404 to R8000/R8001
-                Package_c thisPkg = (Package_c) loadedElement;
-    
-                // See if this package has a parent.
-                Package_c parentPkg = Package_c
-                        .getOneEP_PKGOnR1403(PackageInPackage_c
-                                .getOneEP_PIPOnR1404(thisPkg, false));
-    
-                // only process the highest root package
-                if (parentPkg == null) {
-                    createdPes = upgradeChildPackages(thisPkg);
-                }
-    
-            }
-        return createdPes;
-    }
-
-    private List<NonRootModelElement> upgradeChildPackages(
-            Package_c thisPkg) {
-        List<NonRootModelElement> createdPes = new ArrayList<NonRootModelElement>();
-        // see if this package contains packages
-        Package_c[] childPkgs = Package_c
-                .getManyEP_PKGsOnR1404(PackageInPackage_c
-                        .getManyEP_PIPsOnR1403(thisPkg, false));
-        PackageableElement_c randomPe = PackageableElement_c
-                .getOnePE_PEOnR8000(thisPkg, false);
-        if (randomPe == null) {
-            for (int i = 0; i < childPkgs.length; i++) {
-                PackageableElement_c childPE = new PackageableElement_c(
-                        childPkgs[i].getModelRoot());
-                createdPes.add(childPE);
-
-                // Setup R8000/R8001
-                thisPkg.relateAcrossR8000To(childPE, false);
-                childPkgs[i].relateAcrossR8000To(childPE, false);
-                createdPes.addAll(upgradeChildPackages(childPkgs[i]));
-            }
-        }
-        return createdPes;
     }
     
     public void upgradeGraphicalAnchors(List<NonRootModelElement> loadedGraphicalInstances) {
@@ -2811,62 +2390,12 @@ public class ImportHelper
 		for (NonRootModelElement element : loadedInstances) {
 			if (element instanceof Message_c) {
 				Message_c message = (Message_c) element;
-				MessageInCommunication_c mic = MessageInCommunication_c
-						.getOneCOMM_MICOnR1135(message);
-				MessageInSequence_c mis = MessageInSequence_c
-						.getOneSQ_MISOnR954(message);
 				PackageableElement_c pe = PackageableElement_c
 						.getOnePE_PEOnR8001(message);
-				if (mic != null || mis != null || pe != null) {
+				if (pe != null) {
 					continue;
 				}
 				// see where the message is
-				Sequence_c sequence = Sequence_c
-						.getOneSQ_SOnR929(InteractionParticipant_c
-								.getOneSQ_POnR1007(message));
-				if (sequence != null) {
-					// create a message in sequence instance
-					MessageInSequence_c newMis = new MessageInSequence_c(
-							message.getModelRoot());
-					newElements.add(newMis);
-					newMis.relateAcrossR953To(sequence);
-					newMis.relateAcrossR954To(message);
-					continue;
-				}
-				Communication_c comm = Communication_c
-						.getOneCOMM_COMMOnR1126(InteractionParticipant_c
-								.getOneSQ_POnR1007(message));
-				if (comm != null) {
-					// create a message in communication
-					MessageInCommunication_c newMic = new MessageInCommunication_c(
-							message.getModelRoot());
-					newElements.add(newMic);
-					newMic.relateAcrossR1135To(comm);
-					newMic.relateAcrossR1135To(message);
-					continue;
-				}
-			} else if (element instanceof UseCaseAssociation_c) {
-				UseCaseAssociation_c assoc = (UseCaseAssociation_c) element;
-				// check for existing link class, or PE
-				AssociationInUseCase_c aiuc = AssociationInUseCase_c
-						.getOneUC_AIUCOnR1215(assoc);
-				PackageableElement_c pe = PackageableElement_c
-						.getOnePE_PEOnR8001(assoc);
-				if (aiuc != null || pe != null) {
-					continue;
-				}
-				// only need to create for non generic case
-				UseCaseDiagram_c ucd = UseCaseDiagram_c
-						.getOneUC_UCCOnR1203(ParticipantInUseCase_c
-								.getOneUC_PIUCOnR1203(InteractionParticipant_c
-										.getOneSQ_POnR1206(assoc)));
-				if (ucd != null) {
-					AssociationInUseCase_c newAiuc = new AssociationInUseCase_c(
-							assoc.getModelRoot());
-					newElements.add(newAiuc);
-					newAiuc.relateAcrossR1214To(ucd);
-					newAiuc.relateAcrossR1215To(assoc);
-				}
 			}
 		}
 		return newElements;

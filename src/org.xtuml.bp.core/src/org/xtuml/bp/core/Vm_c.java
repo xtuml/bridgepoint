@@ -21,7 +21,6 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.variables.VariablesPlugin;
-import org.eclipse.osgi.internal.baseadaptor.DefaultClassLoader;
 
 import org.xtuml.bp.core.common.ILogger;
 import org.xtuml.bp.core.common.IdAssigner;
@@ -153,17 +152,9 @@ public class Vm_c {
     } // End loadClass
 
     private static BPClassLoader createClassLoader(IPath path) {
-        BPClassLoader result = null;
-        ClassLoader cll = Vm_c.class.getClassLoader();
-        if (cll instanceof DefaultClassLoader) {
-            DefaultClassLoader dcl = (DefaultClassLoader) cll;
             String[] appendedClasspath = new String[1];
-            appendedClasspath[0] = "external:" + path.toString(); //$NON-NLS-1$
-            result = new BPClassLoader(appendedClasspath, dcl);
-            result.initialize();
-        }
-        return result;
-
+        appendedClasspath[0] = path.toString();
+        return new BPClassLoader(appendedClasspath, Vm_c.class.getClassLoader());
     } // End createClassLoader
 
     /**

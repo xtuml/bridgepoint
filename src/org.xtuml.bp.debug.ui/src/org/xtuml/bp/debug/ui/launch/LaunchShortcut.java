@@ -55,11 +55,9 @@ import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 
-import org.xtuml.bp.core.ComponentPackage_c;
 import org.xtuml.bp.core.ComponentReference_c;
 import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.CorePlugin;
-import org.xtuml.bp.core.Domain_c;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.PackageableElement_c;
 import org.xtuml.bp.core.SystemModel_c;
@@ -346,13 +344,6 @@ public class LaunchShortcut implements ILaunchShortcut {
     		return SystemModel_c.getOneS_SYSOnR1405((Package_c)element);
     	}
     	else if (element instanceof Component_c) {
-			SystemModel_c system = SystemModel_c.getOneS_SYSOnR4606(
-					               ComponentPackage_c.getOneCP_CPOnR4608(
-							                            (Component_c) element));
-			if (system != null) {
-				return system;
-			}
-			else {
 				Package_c pkg = Package_c.getOneEP_PKGOnR8000(
 						PackageableElement_c.getManyPE_PEsOnR8001(
 								                         (Component_c)element));
@@ -365,10 +356,6 @@ public class LaunchShortcut implements ILaunchShortcut {
 			    if (comp != null) {
 				  return getSystemForSelectedElement(comp);
 			    }
-			}
-		} else if (element instanceof ComponentPackage_c) {
-			return SystemModel_c
-					.getOneS_SYSOnR4606((ComponentPackage_c) element);
 		} else if (element instanceof ComponentReference_c) {
 			Package_c pkg = Package_c.getOneEP_PKGOnR8000(
 					PackageableElement_c.getManyPE_PEsOnR8001(
@@ -384,8 +371,6 @@ public class LaunchShortcut implements ILaunchShortcut {
 			}
 			return getSystemForSelectedElement(Component_c
 							 .getOneC_COnR4201((ComponentReference_c) element));
-		} else if (element instanceof Domain_c) {
-			return SystemModel_c.getOneS_SYSOnR28((Domain_c) element);
 		} else if (element instanceof SystemModel_c) {
 			return (SystemModel_c)element;
 		}
