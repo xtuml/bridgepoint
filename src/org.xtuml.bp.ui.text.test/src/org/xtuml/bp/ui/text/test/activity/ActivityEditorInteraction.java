@@ -117,7 +117,6 @@ public class ActivityEditorInteraction extends UITextTest {
 		dotestRemoveError();
 		dotestRevertAfterErrorRemoved();
 		dotestSaveAfterErrorRemoved();
-		dotestEditorOpenedWhenFileLocatedOutsideOfWS();
 	}
 	
     protected void setUp() throws Exception {
@@ -578,38 +577,6 @@ public class ActivityEditorInteraction extends UITextTest {
 		assertEquals(m_updateText + m_oldActionSemantics,uut.getAction_semantics());
 
 		validateErrorFree(ae, false);
-	}
-	public void dotestEditorOpenedWhenFileLocatedOutsideOfWS() {
-		IProject project = null;
-		String tmp_location = System.getenv("tmp");
-		IPath path = new Path(tmp_location);
-		try {
-			project = TestingUtilities.createProject("ProjectOutsideOfWS", path.toString());
-		} catch (CoreException e) {
-			fail("Unable to create project.");
-		};
-		try {
-			if(project != null) {
-				TestingUtilities.getSystemModel(project.getName());
-				IFile modelFile = TestUtil
-					.copyTestDomainIntoProject("default",
-												"org.xtuml.bp.core",
-												project);
-				Ooaofooa modelRoot = Ooaofooa.getInstance(modelFile, true);
-				Bridge_c bridge = Bridge_c.BridgeInstance(modelRoot);
-				openActivityEditor(bridge);
-				IEditorPart editor = PlatformUI.getWorkbench()
-					.getActiveWorkbenchWindow().getActivePage().getActiveEditor();
-				assertTrue("Activity editor was not opened.", editor.getTitle()
-						.equals("Time::"+ bridge.getName()));
-			}
-		} finally {
-			try {
-				project.delete(true, true, new NullProgressMonitor());
-			} catch (CoreException e) {
-				fail("Unable to delete project: " + project.getFullPath());
-			}
-		}
 	}
 	private void validateUnchangedWithError(ActivityEditor ae)
 	{

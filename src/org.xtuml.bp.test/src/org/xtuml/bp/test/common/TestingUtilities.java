@@ -69,7 +69,6 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.WorkbenchException;
 
 import org.xtuml.bp.core.CorePlugin;
-import org.xtuml.bp.core.Domain_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.common.IPersistenceHierarchyMetaData;
@@ -426,19 +425,6 @@ public class TestingUtilities {
 		}
 	}
 
-	public static boolean compareModels(Ooaofooa domain1, Ooaofooa domain2) {
-		return compareModels(Domain_c.DomainInstance(domain1), Domain_c
-				.DomainInstance(domain2));
-	}
-
-	public static boolean compareModels(Domain_c domain1, Domain_c domain2) {
-		System.err.println("Comparing " + getAllChildrenCount(domain1)
-				+ " children of domain " + domain1.getName() + " with "
-				+ getAllChildrenCount(domain2) + " children of domain "
-				+ domain2.getName());
-		return compareModelElement(domain1, domain2);
-	}
-
 	private static int getAllChildrenCount(NonRootModelElement me) {
 		IPersistenceHierarchyMetaData metaData = PersistenceManager
 				.getHierarchyMetaData();
@@ -772,19 +758,6 @@ public class TestingUtilities {
 		return importModelUsingWizard(systemModel, fqName, parseOnImport);
 	}
 
-	public static boolean importModelUsingWizardConvertToGenerics(SystemModel_c systemModel,
-			String fullyQualifiedSingleFileModel, boolean convertToGenericsOnImport) {
-    	// 3/27/13 - The "Convert to generics" option in the import dialog is removed.  So
-    	// this function is now redundant.  Rather than delete it and have lots of
-    	// code change fallout, it lives on and simply directs to another version
-    	// to remove the redundancy.		
-	    boolean wasSuccessful = ProjectUtilities.importModelUsingWizardConvertToGenerics(systemModel, fullyQualifiedSingleFileModel, convertToGenericsOnImport);
-    	if (wasSuccessful) {
-    		BaseTest.dispatchEvents(0);
-    	}
-	    return wasSuccessful;
-	}
-	
 
 	// Export the model elements that are part of the Selection singleton
 	public static boolean exportModelUsingWizard(String destination,

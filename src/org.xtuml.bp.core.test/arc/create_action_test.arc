@@ -1,12 +1,4 @@
 .//=====================================================================
-.//
-.// File:      $RCSfile: create_action_test.arc,v $
-.// Version:   $Revision: 1.73 $
-.// Modified:  $Date: 2013/05/10 04:34:14 $
-.//
-.// (c) Copyright 2004-2014 by Mentor Graphics Corp. All rights reserved.
-.//
-.//=====================================================================
 .// Licensed under the Apache License, Version 2.0 (the "License"); you may not
 .// use this file except in compliance with the License.  You may obtain a copy
 .// of the License at
@@ -33,99 +25,6 @@
 .//
 .//=====================================================================
 .//
-.function create_new_action_test
-  .param inst_ref action   .// CME
-    public void test${action.Specialism}${action.Key_Lett}$r{action.Label}() throws Exception
-    {
-  .select any owner from instances of O_OBJ where (selected.Key_Lett == action.Key_Lett)
-  .invoke ocn = get_class_name(owner)
-  .if ( ((owner.Key_Lett == "S_DOM") or (owner.Key_Lett == "S_DPK")) or ((owner.Key_Lett == "S_FPK") or (owner.Key_Lett == "S_EEPK")) )
-    .invoke oca = get_instance_accessor(owner)
-        ${ocn.body} t1 = ${ocn.body}.${oca.body}(modelRoot);
-  .else
-        ${ocn.body} t1 = new ${ocn.body}(modelRoot);
-  .end if
-  .if ( (action.Key_Lett == "S_SS") and (action.Label == "Subsystem") )
-        Domain_c dom = Domain_c.DomainInstance(modelRoot);
-        dom.relateAcrossR1To(t1);
-  .elif(((action.Key_Lett == "MSG_R") or (action.Key_Lett == "MSG_SM")) or (action.Key_Lett == "MSG_AM"))
-        Message_c message = new Message_c(modelRoot);
-        t1.relateAcrossR1018To(message);
-  .elif ( (action.Label == "Event") or (action.Label == "State") )
-    .select any sm from instances of O_OBJ where (selected.Key_Lett == "SM_SM")
-    .invoke smcn = get_class_name(sm)
-        ${smcn.body} sm = new ${smcn.body}(modelRoot);
-        t1.relateAcrossR517To(sm);
-    .if ( action.Label == "State" )
-      .select any msm from instances of O_OBJ where (selected.Key_Lett == "SM_MOORE")
-      .invoke msmcn = get_class_name(msm)
-        ${msmcn.body} msm = new ${msmcn.body}(modelRoot);
-        sm.relateAcrossR510To(msm);
-    .end if
-  .elif((action.Key_Lett == "C_IO") or (action.Key_Lett == "C_AS"))
-        SystemModel_c systemModel = new SystemModel_c(modelRoot);
-        Interface_c iface = new Interface_c(modelRoot);
-		iface.Newexecutableproperty(false);
-		 .if (action.Key_Lett == "C_IO")
-		 t1.relateAcrossR4008To(DataType_c.DataTypeInstances(modelRoot)[0]);
-	     .end if		
-	 	t1.relateAcrossR4004To(ExecutableProperty_c.getOneC_EPOnR4003(iface));
-	 	t1.Initialize();
-   .elif(action.Key_Lett == "O_TFR")
-        ModelClass_c clazz = new ModelClass_c(modelRoot);
-        t1.relateAcrossR115To(clazz);
-        DataType_c type = new DataType_c(modelRoot);
-        t1.relateAcrossR116To(type);
-   .elif ( ( (action.Key_Lett == "S_SYNC") or (action.Key_Lett == "S_BRG") ) or  (action.Key_Lett == "O_TFR") )      
-		 t1.Initialize();       
-  .end if
-.//checking filter
-   .invoke filter_res = call_filter_func(action, "True")
-   .if (filter_res.body != "")
-        ${filter_res.body}
-   .end if
-        StructuredSelection sel = new StructuredSelection(t1);
-        Selection.getInstance().setSelection(sel, true);
-  .invoke result = get_action_class_name(action)
-        ${result.body} t2 = new ${result.body}();
-        Action a = new Action() {};
-        t2.run(a);
-
-  .select any new_thing from instances of O_OBJ where (selected.Key_Lett == action.Resultant_Class)
-  .invoke ntcn = get_class_name(new_thing)
-  .invoke nta = get_instance_accessor(new_thing)
-  .invoke filter_res = call_filter_func(action, "False")
-
-  .if ( (action.Label == "Datatype Package") or ((action.Label == "Function Package") or (action.Label == "External Entity Package")) )
-        ${ntcn.body} [] t3 = ${ntcn.body}.$cr{new_thing.Name}Instances(modelRoot);
-        assertEquals(2, t3.length);
-        t3[1].checkConsistency();
-        .if (filter_res.body != "")
-        ${filter_res.body}
-        .end if
-        t3[1].delete_unchecked();
-  .elif ( action.Label == "Datatype" )
-        ${ntcn.body} [] t3 = ${ntcn.body}.$cr{new_thing.Name}Instances(modelRoot);
-        assertEquals(3, t3.length);
-        t3[2].checkConsistency();
-        .if (filter_res.body != "")
-        ${filter_res.body}
-        .end if
-        t3[2].delete_unchecked();
-  .else
-        ${ntcn.body} t3 = ${ntcn.body}.${nta.body}(modelRoot);
-        assertNotNull(t3);
-        t3.checkConsistency();
-        .if (filter_res.body != "")
-        ${filter_res.body}
-        .end if
-        t3.delete_unchecked();
-  .end if
-  .if ( ((owner.Key_Lett != "S_DOM") and (owner.Key_Lett != "S_DPK")) and ((owner.Key_Lett != "S_FPK") and (owner.Key_Lett != "S_EEPK")) )
-        t1.delete_unchecked();
-  .end if
-    }
-.end function
 .//
 .//====================================================================
 .//
@@ -429,343 +328,7 @@
   .end if
     }
 .end function
-.//
-.//=====================================================================
-.//
-.function create_delete_action_test
-  .param inst_ref action   .// CME
-  .//
-    public void testDelete${action.Key_Lett}() throws Exception
-    {
-  .select any owner from instances of O_OBJ where (selected.Key_Lett == action.Key_Lett)
-  .invoke ocn = get_class_name(owner)
-  .if ( action.Key_Lett == "S_SYS" )
-        Ooaofooa mr = Ooaofooa.getDefaultInstance();
-        ${ocn.body} [] before = ${ocn.body}.$cr{owner.Name}Instances(mr);
-        ${ocn.body} t1 = new ${ocn.body}(mr);
-        final String nameOfSystemToDelete = "toDelete";
-        t1.setName(nameOfSystemToDelete);
-        TestingUtilities.createProject(nameOfSystemToDelete);
-  .elif(action.Key_Lett == "R_SUB")
-        ${ocn.body} [] before = ${ocn.body}.$cr{owner.Name}Instances(modelRoot);
-        DisposeTestGenerics dt = new DisposeTestGenerics();
-        ${ocn.body} t1 = dt.createClassAsSubtype_c(null);
-  .else
-        ${ocn.body} [] before = ${ocn.body}.$cr{owner.Name}Instances(modelRoot);
-        ${ocn.body} t1 = new ${ocn.body}(modelRoot);
-  .end if
-  .if ( (action.Key_Lett == "SM_ISM") or (action.Key_Lett == "SM_ASM" ) )
-    .select any sm from instances of O_OBJ where ( selected.Key_Lett == "SM_SM" )
-    .invoke smcn = get_class_name(sm)
-        ${smcn.body} sm = new ${smcn.body}(modelRoot);
-        sm.relateAcrossR517To(t1);
-  .elif (( (action.Key_Lett == "S_EDT") or (action.Key_Lett == "S_UDT" ) ) or (action.Key_Lett == "S_SDT"))
-    .select any dt from instances of O_OBJ where ( selected.Key_Lett == "S_DT" )
-    .invoke dtcn = get_class_name(dt)
-        ${dtcn.body} [] before_dt = ${dtcn.body}.$cr{dt.Name}Instances(modelRoot);
-        ${dtcn.body} dt = new ${dtcn.body}(modelRoot);
-        dt.relateAcrossR17To(t1);
-  .elif ( action.Key_Lett == "S_SYNC" )
-        t1.Initialize();
-    .select any fp from instances of O_OBJ where ( selected.Key_Lett == "S_FPK" )
-    .if ( not_empty fp )
-      .invoke fpcn = get_class_name(fp)
-        ${fpcn.body} fp = new ${fpcn.body}(modelRoot);
-      .select any fip from instances of O_OBJ where ( selected.Key_Lett == "S_FIP" )
-      .invoke fipcn = get_class_name(fip)
-        ${fipcn.body} fip = new ${fipcn.body}(modelRoot);
-        fip.relateAcrossR31To(t1);
-        fip.relateAcrossR31To(fp);
-    .end if
-  .elif(action.Key_Lett == "SM_CRTXN")
-        Transition_c transition = new Transition_c(modelRoot);
-        transition.relateAcrossR507To(t1);
-  .elif(action.Key_Lett == "SM_NLEVT")
-    .select any evt from instances of O_OBJ where (selected.Key_Lett == "SM_EVT")
-    .select any sevt from instances of O_OBJ where (selected.Key_Lett == "SM_SEVT")
-    .invoke evtcn = get_class_name(evt)
-    .invoke sevtcn = get_class_name(sevt)
-    ${evtcn.body} evt = new ${evtcn.body}(modelRoot);
-    ${sevtcn.body} sevt = new ${sevtcn.body}(modelRoot);
-    evt.relateAcrossR525To(sevt);
-    sevt.relateAcrossR526To(t1);
-  .elif(action.Key_Lett == "CNST_LSC")
-    SymbolicConstant_c syc = new SymbolicConstant_c(modelRoot);
-    LeafSymbolicConstant_c lfsc = new LeafSymbolicConstant_c(modelRoot);
-    syc.relateAcrossR1502To(lfsc);
-    lfsc.relateAcrossR1503To(t1);
-  .elif ( action.Key_Lett == "S_EE" )
-    .select any eep from instances of O_OBJ where ( selected.Key_Lett == "S_EEPK" )
-    .invoke eepcn = get_class_name(eep)
-        ${eepcn.body} eep = new ${eepcn.body}(modelRoot);
-    .select any eeip from instances of O_OBJ where ( selected.Key_Lett == "S_EEIP" )
-    .invoke eeipcn = get_class_name(eeip)
-        ${eeipcn.body} eeip = new ${eeipcn.body}(modelRoot);
-        eeip.relateAcrossR33To(t1);
-        eeip.relateAcrossR33To(eep);
-  .elif ( action.Key_Lett == "SM_STATE" )
-    .select any sm from instances of O_OBJ where (selected.Key_Lett == "SM_SM")
-    .invoke smcn = get_class_name(sm)
-        ${smcn.body} sm = new ${smcn.body}(modelRoot);
-        t1.relateAcrossR501To(sm);
-  .elif ( action.Key_Lett == "O_ATTR" )
-     t1.Initialize();
-    .select any battr from instances of O_OBJ where (selected.Key_Lett == "O_BATTR")
-    .invoke bacn = get_class_name(battr)
-        ${bacn.body} battr = new ${bacn.body}(modelRoot);
-        t1.relateAcrossR106To(battr);
-    .select any nbattr from instances of O_OBJ where (selected.Key_Lett == "O_NBATTR")
-    .invoke nbacn = get_class_name(nbattr)
-        ${nbacn.body} nbattr = new ${nbacn.body}(modelRoot);
-        battr.relateAcrossR107To(nbattr);
-  .elif (action.Key_Lett == "R_ASSR")
-    .select any rgo from instances of O_OBJ where (selected.Key_Lett == "R_RGO")
-    .invoke rgocn = get_class_name(rgo)
-        ${rgocn.body} rgo = new ${rgocn.body}(modelRoot);
-        t1.relateAcrossR205To(rgo);
-    .select any oir from instances of O_OBJ where (selected.Key_Lett == "R_OIR")
-    .invoke oircn = get_class_name(oir)
-        ${oircn.body} oir = new ${oircn.body}(modelRoot);
-        rgo.relateAcrossR203To(oir);
-  .elif   (((action.Key_Lett == "C_AS")  or (action.Key_Lett == "S_BRG") )or((action.Key_Lett == "O_TFR")   or(action.Key_Lett == "COMM_LNK")  ))
-    .if(action.Key_Lett == "C_AS")
-        Interface_c iface = new Interface_c(modelRoot);
-        iface.Newexecutableproperty(false);
-        t1.relateAcrossR4004To(ExecutableProperty_c.getOneC_EPOnR4003(iface));
-    .end if
-    .if(action.Key_Lett == "O_TFR")
-        ModelClass_c clazz = new ModelClass_c(modelRoot);
-        clazz.relateAcrossR115To(t1);
-    .end if
-  t1.Initialize();
-  .elif ( (action.Key_Lett == "C_IO")or(action.Key_Lett == "C_PP"))  
-  		SystemModel_c systemModel = new SystemModel_c(modelRoot);
-		Interface_c iface = new Interface_c(modelRoot);
-		iface.Newexecutableproperty(true);
-		    .if(action.Key_Lett == "C_IO")
-		    t1.relateAcrossR4008To(DataType_c.DataTypeInstances(modelRoot)[0]);
-		    t1.relateAcrossR4004To(ExecutableProperty_c.getOneC_EPOnR4003(iface));
-		    t1.Initialize();
-           .elif (action.Key_Lett == "C_PP")     
-       		t1.relateAcrossR4006To(ExecutableProperty_c.getOneC_EPOnR4003(iface));
-       	    .end if          
-  .end if
-        StructuredSelection sel = new StructuredSelection(t1);
-        Selection.getInstance().setSelection(sel, true);
-        DeleteAction t2 = new DeleteAction(null);
-  .if ( action.Key_Lett == "S_SYS" )
-        TestUtil.dismissDialog(2000);
-  .end if
-        t2.run();
 
-  .if ( action.Key_Lett == "S_SYS" )
-        while (PlatformUI.getWorkbench().getDisplay().readAndDispatch());
-        TestUtil.sleep(500);
-        ${ocn.body} [] after = ${ocn.body}.$cr{owner.Name}Instances(mr);
-  .else
-        ${ocn.body} [] after = ${ocn.body}.$cr{owner.Name}Instances(modelRoot);
-  .end if
-        assertEquals(before.length, after.length);
-  .if (( (action.Key_Lett == "S_EDT") or (action.Key_Lett == "S_UDT" ) ) or (action.Key_Lett == "S_SDT"))
-    .select any dt from instances of O_OBJ where ( selected.Key_Lett == "S_DT" )
-    .invoke dtcn = get_class_name(dt)
-        ${dtcn.body} [] after_dt = ${dtcn.body}.$cr{dt.Name}Instances(modelRoot);
-        assertEquals(before_dt.length, after_dt.length);
-  .end if
-    }
-.end function
-.//
-.//=====================================================================
-.// Main code
-.//
-.assign path = "org/xtuml/bp/core/test"
-.assign classname = "ActionTest"
-.assign filename = "${path}/${classname}.java"
-.//
-package org.xtuml.bp.core.test;
-//======================================================================
-//
-// File: ${filename}
-//
-// WARNING:      Do not edit this generated file
-// Generated by: ${info.arch_file_name}
-// Version:      $$Revision: 1.73 $$
-//
-// (c) Copyright 2004-2014 by Mentor Graphics Corp.  All rights reserved.
-//
-//======================================================================
-//
-
-import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.jface.action.Action;
-import org.eclipse.jface.viewers.StructuredSelection;
-import org.eclipse.ui.PlatformUI;
-
-import org.xtuml.bp.core.test.CoreTest;
-
-import org.xtuml.bp.core.*;
-import org.xtuml.bp.core.ui.*;
-import org.xtuml.bp.test.TestUtil;
-import org.xtuml.bp.test.common.BaseTest;
-import org.xtuml.bp.test.common.TestingUtilities;
-import org.xtuml.bp.test.common.UITestingUtilities;
-import org.xtuml.bp.core.util.OoaofgraphicsUtil;
-
-public class ${classname} extends CoreTest
-{
-    private static boolean initialized = false;
-    private Ooaofooa modelRoot = BaseTest.getDefaultTestInstance();
-    protected void setUp() throws Exception
-    {
-        super.setUp();
-        Ooaofooa.setPersistEnabled(false);
-        Ooaofooa.setConsistencyEnabled(false);
-        if ( !initialized )
-        {
-            modelRoot.clearDatabase(new NullProgressMonitor());
-            Domain_c d2 = new Domain_c(modelRoot);
-            DataType_c dt1 = new DataType_c(modelRoot);
-            dt1.setName("void");
-            dt1.relateAcrossR14To(d2);
-            CoreDataType_c cdt1 = new CoreDataType_c(modelRoot);
-            dt1.relateAcrossR17To(cdt1);
-
-            DataType_c dt2 = new DataType_c(modelRoot);
-            dt2.setName("integer");
-            dt2.relateAcrossR14To(d2);
-            CoreDataType_c cdt2 = new CoreDataType_c(modelRoot);
-            dt2.relateAcrossR17To(cdt2);
-
-.select any dpkg from instances of O_OBJ where (selected.Key_Lett == "S_DPK" )
-.if ( not_empty dpkg )
-            DataTypePackage_c dpk = new DataTypePackage_c(modelRoot);
-            dpk.relateAcrossR40To(d2);
-            dpk.setName(Ooaofooa.Getcoredatatypespackagename(modelRoot));
-            DataTypeInPackage_c dip1 = new DataTypeInPackage_c(modelRoot);
-            dpk.relateAcrossR39To(dip1);
-            dip1.relateAcrossR39To(dt1);
-            DataTypeInPackage_c dip2 = new DataTypeInPackage_c(modelRoot);
-            dpk.relateAcrossR39To(dip2);
-            dip2.relateAcrossR39To(dt2);
-
-.end if
-.select any eepkg from instances of O_OBJ where (selected.Key_Lett == "S_EEPK" )
-.if ( not_empty eepkg )
-            ExternalEntityPackage_c epk = new ExternalEntityPackage_c(modelRoot);
-            epk.relateAcrossR36To(d2);
-            epk.setName("External Entities");
-
-.end if
-.select any fpkg from instances of O_OBJ where (selected.Key_Lett == "S_FPK" )
-.if ( not_empty fpkg )
-            FunctionPackage_c fpk = new FunctionPackage_c(modelRoot);
-            fpk.relateAcrossR29To(d2);
-            fpk.setName("Functions");
-.end if
-            initialized = true;
-        }
-		UITestingUtilities.hidePropertyView();
-    }
-
-.select many new_action_set from instances of CME where ( selected.Specialism == "New" )
-.for each new_action in new_action_set
-.// TODO: FIXME dts0100656073
-.if ((new_action.Key_Lett != "CP_CP") and (new_action.Key_Lett != "C_C"))
-  .invoke cnat = create_new_action_test( new_action )
-${cnat.body}\
-.end if
-.end for
-
-.select many new_action_set from instances of CME where ( selected.Specialism == "Classes" )
-.for each new_action in new_action_set
-.// TODO: FIXME dts0100656073
-.if ((new_action.Key_Lett != "CP_CP") and (new_action.Key_Lett != "C_C"))
-  .invoke cnat = create_new_action_test( new_action )
-${cnat.body}\
-.end if
-.end for
-
-.select many new_action_set from instances of CME where ( selected.Specialism == "Components" )
-.for each new_action in new_action_set
-.// TODO: FIXME dts0100656073
-.if ((new_action.Key_Lett != "CP_CP") and (new_action.Key_Lett != "C_C"))
-  .invoke cnat = create_new_action_test( new_action )
-${cnat.body}\
-.end if
-.end for
-
-.select many new_action_set from instances of CME where ( selected.Specialism == "External" )
-.for each new_action in new_action_set
-.// TODO: FIXME dts0100656073
-.if ((new_action.Key_Lett != "CP_CP") and (new_action.Key_Lett != "C_C"))
-  .invoke cnat = create_new_action_test( new_action )
-${cnat.body}\
-.end if
-.end for
-
-.select many new_action_set from instances of CME where ( selected.Specialism == "Interaction" )
-.for each new_action in new_action_set
-.// TODO: FIXME dts0100656073
-.if ((new_action.Key_Lett != "CP_CP") and (new_action.Key_Lett != "C_C"))
-  .invoke cnat = create_new_action_test( new_action )
-${cnat.body}\
-.end if
-.end for
-
-.select many new_action_set from instances of CME where ( selected.Specialism == "Activity" )
-.for each new_action in new_action_set
-.// TODO: FIXME dts0100656073
-.if ((new_action.Key_Lett != "CP_CP") and (new_action.Key_Lett != "C_C"))
-  .invoke cnat = create_new_action_test( new_action )
-${cnat.body}\
-.end if
-.end for
-
-.select many new_action_set from instances of CME where ( selected.Specialism == "Types" )
-.for each new_action in new_action_set
-.// TODO: FIXME dts0100656073
-.if ((new_action.Key_Lett != "CP_CP") and (new_action.Key_Lett != "C_C"))
-  .invoke cnat = create_new_action_test( new_action )
-${cnat.body}\
-.end if
-.end for
-
-.select many new_action_set from instances of CME where ( selected.Specialism == "Usecase" )
-.for each new_action in new_action_set
-.// TODO: FIXME dts0100656073
-.if ((new_action.Key_Lett != "CP_CP") and (new_action.Key_Lett != "C_C"))
-  .invoke cnat = create_new_action_test( new_action )
-${cnat.body}\
-.end if
-.end for
-
-
-.//
-.select many delete_action_set from instances of CME where ( selected.Specialism == "Delete" )
-.for each delete_action in delete_action_set
-  .if (delete_action.Key_Lett == "S_SYS")
-
-    // testDeleteS_SYS was removed, as it was redundant;
-    // the functionality tested by it is also tested
-    // as part of bp.ui.explorer.test.ExplorerTest.
-    // testProjectDeleteFromModelExplorer();
-
-  .elif (delete_action.Key_Lett == "S_DOM")
-
-    // testDeleteS_DOM was removed, as it was redundant;
-    // the functionality tested by it is also tested
-    // as part of bp.ui.explorer.test.ExplorerTest.
-    // testDomainDeleteFromModelExplorer();
-  .elif ((((delete_action.Key_Lett == "SPR_PO") or (delete_action.Key_Lett == "SPR_PS")) or (delete_action.Key_Lett == "SPR_RO")) or (delete_action.Key_Lett == "SPR_RS"))
-    // handle in /org.xtuml.bp.core.test/src/org/xtuml/bp/core/test/DeleteProvidedAndRequiredSignalsAndOperations.java
-  .else
-  .invoke cdat = create_delete_action_test( delete_action )
-${cdat.body}\
-  .end if
-.end for
-.//
-}
-.emit to file "src/${filename}"
 .//
 .//====================================================================
 .//
@@ -832,15 +395,6 @@ ${cdat.body}\
     LeafSymbolicConstant_c lfsc = new LeafSymbolicConstant_c(modelRoot);
     syc.relateAcrossR1502To(lfsc);
     lfsc.relateAcrossR1503To(t1);
-  .elif ( action.Key_Lett == "S_EE" )
-    .select any eep from instances of O_OBJ where ( selected.Key_Lett == "S_EEPK" )
-    .invoke eepcn = get_class_name(eep)
-        ${eepcn.body} eep = new ${eepcn.body}(modelRoot);
-    .select any eeip from instances of O_OBJ where ( selected.Key_Lett == "S_EEIP" )
-    .invoke eeipcn = get_class_name(eeip)
-        ${eeipcn.body} eeip = new ${eeipcn.body}(modelRoot);
-        eeip.relateAcrossR33To(t1);
-        eeip.relateAcrossR33To(eep);
   .elif ( action.Key_Lett == "SM_STATE" )
     .select any sm from instances of O_OBJ where (selected.Key_Lett == "SM_SM")
     .invoke smcn = get_class_name(sm)
@@ -897,9 +451,13 @@ ${cdat.body}\
 		t1.Initialize();
   .elif   ((action.Key_Lett == "C_AS")  or (action.Key_Lett == "COMM_LNK")  )
     .if(action.Key_Lett == "C_AS")
+  SystemModel_c systemModel = new SystemModel_c(modelRoot);
+  Package_c ifacepkg = Package_c.PackageInstance(modelRoot);
+  ifacepkg.relateAcrossR1405To(systemModel);
   Interface_c iface = new Interface_c(modelRoot);
   PackageableElement_c pe = new PackageableElement_c(modelRoot);
   iface.relateAcrossR8001To(pe);
+  pe.relateAcrossR8000To(ifacepkg);
   iface.Newexecutableproperty(false);
   t1.relateAcrossR4004To(ExecutableProperty_c.getOneC_EPOnR4003(iface));
     .end if   
@@ -914,7 +472,6 @@ ${cdat.body}\
 		pe.relateAcrossR8000To(ifacepkg);
 		iface.Newexecutableproperty(true);
 		    .if(action.Key_Lett == "C_IO")
-		      t1.relateAcrossR4008To(DataType_c.DataTypeInstances(SystemDatatypePackage_c.getOneSLD_SDPOnR4400(m_sys).getModelRoot())[0]);
 	          t1.relateAcrossR4004To(ExecutableProperty_c.getOneC_EPOnR4003(iface));
 	          t1.Initialize();
            .elif (action.Key_Lett == "C_PP")     
@@ -978,6 +535,13 @@ ${cdat.body}\
         ${msmcn.body} msm = new ${msmcn.body}(modelRoot);
         sm.relateAcrossR510To(msm);
     .end if
+  .elif (action.Key_Lett == "C_I")
+        SystemModel_c systemModel = new SystemModel_c(modelRoot);
+	    Package_c ifacepkg = Package_c.PackageInstance(modelRoot); 
+       	ifacepkg.relateAcrossR1405To(systemModel);
+		PackageableElement_c pe = new PackageableElement_c(modelRoot);
+		t1.relateAcrossR8001To(pe);
+		pe.relateAcrossR8000To(ifacepkg);
   .elif((action.Key_Lett == "C_IO") or (action.Key_Lett == "C_AS"))
         SystemModel_c systemModel = new SystemModel_c(modelRoot);
 	    Package_c ifacepkg = Package_c.PackageInstance(modelRoot); 
@@ -987,9 +551,6 @@ ${cdat.body}\
 		iface.relateAcrossR8001To(pe);
 		pe.relateAcrossR8000To(ifacepkg);
 		iface.Newexecutableproperty(false);
-		 .if (action.Key_Lett == "C_IO")
-		 t1.relateAcrossR4008To(DataType_c.DataTypeInstances(SystemDatatypePackage_c.getOneSLD_SDPOnR4400(m_sys).getModelRoot())[0]);
-	     .end if		
 	 	t1.relateAcrossR4004To(ExecutableProperty_c.getOneC_EPOnR4003(iface));
 	 	t1.Initialize();
 	.elif (action.Key_Lett == "CNST_CSP")
@@ -1006,7 +567,13 @@ ${cdat.body}\
 		pe.relateAcrossR8000To(pkg);
 		pkg.relateAcrossR1405To(m_sys);
 		t1.Initialize();	
-		
+	.elif (action.Key_Lett == "S_EE")	
+	    PackageableElement_c pe = new PackageableElement_c(modelRoot);
+		pe.relateAcrossR8001To(t1);
+		Package_c pkg = new Package_c(modelRoot);
+		pe.relateAcrossR8000To(pkg);
+		pkg.relateAcrossR1405To(m_sys);
+	
 	.elif (action.Key_Lett == "S_BRG")	
 	    ExternalEntity_c ee = new ExternalEntity_c(modelRoot);
 		PackageableElement_c pe = new PackageableElement_c(modelRoot);
@@ -1045,7 +612,15 @@ ${cdat.body}\
 		assertNotNull(t1);
 	
 		t1.Initialize();
-		
+  .elif (action.Key_Lett == "O_OBJ")	
+		Package_c pkg = new Package_c(modelRoot);
+		pkg.relateAcrossR1405To(m_sys);
+
+		PackageableElement_c pe = new PackageableElement_c(modelRoot);
+		pe.relateAcrossR8000To(pkg);
+ 
+		pe.relateAcrossR8001To(t1);
+  
   .elif (action.Key_Lett == "SM_EVT")
    		modelRoot.clearDatabase(new NullProgressMonitor());
 		Package_c pkg = new Package_c(modelRoot);
@@ -1166,7 +741,6 @@ public class ${classname} extends CoreTest
         Ooaofooa.setConsistencyEnabled(false);
 		if (!initialized) {
 			modelRoot.clearDatabase(new NullProgressMonitor());
-			m_sys.Newsystemdtpkg();
 			Package_c epk = new Package_c(modelRoot);
 			initialized = true;
 		}
@@ -1376,282 +950,6 @@ ${cdat.body}\
   .end if
 .end for
 .//
-}
-.emit to file "src/${filename}"
-.//======================================================================
-.//======================================================================
-.assign classname = "RenameTest"
-.assign filename = "${path}/${classname}.java"
-.//
-package org.xtuml.bp.core.test;
-//======================================================================
-//
-// File: ${filename}
-//
-// WARNING:      Do not edit this generated file
-// Generated by: ${info.arch_file_name}
-// Version:      $$Revision: 1.73 $$
-//
-// (c) Copyright 2004-2014 by Mentor Graphics Corp.  All rights reserved.
-//
-//======================================================================
-//
-
-import java.io.FileInputStream;
-
-import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IProjectDescription;
-import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.IResourceStatus;
-import org.eclipse.core.resources.IWorkspaceRunnable;
-import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.jface.action.Action;
-import org.eclipse.jface.viewers.AbstractTreeViewer;
-import org.eclipse.jface.viewers.StructuredSelection;
-import org.eclipse.jface.viewers.TreeViewer;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Event;
-import org.eclipse.swt.widgets.Text;
-import org.eclipse.swt.widgets.TreeItem;
-import org.eclipse.ui.IWorkbenchPage;
-import org.eclipse.ui.PlatformUI;
-import org.xtuml.bp.test.TestUtil;
-import org.xtuml.bp.test.common.TestingUtilities;
-import org.xtuml.bp.core.common.PersistableModelComponent;
-import org.xtuml.bp.core.common.ClassQueryInterface_c;
-import org.xtuml.bp.core.test.CoreTest;
-
-import org.xtuml.bp.core.*;
-import org.xtuml.bp.core.ui.*;
-import org.xtuml.bp.core.ui.perspective.BridgePointPerspective;
-import org.xtuml.bp.io.mdl.ImportModel;
-import org.xtuml.bp.ui.explorer.ExplorerTreeViewer;
-import org.xtuml.bp.ui.explorer.ExplorerView;
-
-public class ${classname} extends CoreTest
-{
-    private static boolean firstTime = true;
-    private static PersistableModelComponent m_pmc = null;
-
-    /**
-     * The name of the main system and project manipulated during these tests.
-     */
-    private static final String mainSystemName = "testRename1";
-
-    /**
-     * Used by the ModelChangeListenersBatchingTest to reset the
-     * project and modelRoot variables
-     *
-     * @throws CoreException
-     */
-    public void specialSetUp() throws CoreException {
-        setupProject(mainSystemName);
-        PersistableModelComponent pmc = ensureAvailableAndLoaded(
-            mainSystemName, false, true);
-        m_bp_tree.refresh();
-        m_bp_tree.expandToLevel(pmc.getRootModelElement(),
-            AbstractTreeViewer.ALL_LEVELS);
-    }
-
-    protected void setUp() throws Exception {
-        super.setUp();
-        Ooaofooa.setPersistEnabled(false);
-        Ooaofooa.setConsistencyEnabled(true);
-        if (firstTime) {
-            initialized = false;
-            m_pmc = initialize(mainSystemName, false);
-            firstTime = false;
-            Display d = Display.getDefault();
-            while (d.readAndDispatch());
-        }
-        m_bp_tree.refresh();
-        m_bp_tree.expandToLevel(m_pmc.getRootModelElement(),
-                AbstractTreeViewer.ALL_LEVELS);
-    }
-
-    private void updateTreeItem( Object t1, String newValue ) throws Exception
-    {
-      updateTreeItem(t1, newValue, false);
-    }
-    private void updateTreeItem( Object t1, String newValue, boolean useFocusChange ) throws Exception
-    {
-        StructuredSelection sel = new StructuredSelection(t1);
-        Selection.getInstance().setSelection(sel, false);
-        m_bp_tree.getTree().selectAll();
-        TreeItem x [] = m_bp_tree.getTree().getSelection();
-        assertNotNull( "Tree is empty", x );
-        for ( int i = 0; i < x.length; ++i )
-        {
-            if ( x[i].getData() == t1 )
-            {
-                TreeItem [] x_set = { x[i] };
-                m_bp_tree.getTree().setSelection(x_set);
-                RenameAction t2 = (RenameAction)CorePlugin.getRenameAction(m_bp_tree);
-                t2.run();
-                t2.getTextEditor().setText(newValue);
-                Event e = new Event();
-                Display d = Display.getDefault();
-                if (useFocusChange) {
-                    if (i > 0) {
-                      String oldName = x[i-1].getText();
-                      TreeItem [] y_set = { x[i-1] };
-                      m_bp_tree.getTree().setSelection(y_set);
-                      e.type = SWT.FocusOut;
-                      e.widget = t2.getTextEditor();
-                      t2.getTextEditor().notifyListeners(e.type, e);
-                      assertTrue( "Focus target name was corrupted", oldName.equals(x[i-1].getText()));
-                    }
-                  }
-                  else {
-                    e.type = SWT.Traverse;
-                    e.detail = SWT.TRAVERSE_RETURN;
-                    e.widget = t2.getTextEditor();
-                    t2.getTextEditor().notifyListeners(e.type, e);
-                  }
-                while ( d.readAndDispatch() ) ;
-                return;
-            }
-        }
-        fail( "Tree item not found" );
-    }
-
-    public void testDatatypesPackageReadonly() throws Exception {
-        DataTypePackage_c t1 = DataTypePackage_c.DataTypePackageInstance(modelRoot);
-        assertNotNull(t1);
-        assertEquals(t1.getName(), Ooaofooa.Getcoredatatypespackagename(modelRoot));
-        StructuredSelection sel = new StructuredSelection(t1);
-        Selection.getInstance().setSelection(sel, false);
-        assertFalse(RenameAction.canRenameAction());
-    }
-
-
-.//
-.select many rename_action_set from instances of CME where ( selected.Specialism == "Rename" )
-.for each rename_action in rename_action_set
-  .invoke isExcluded = isExcluded(rename_action.Key_Lett)
-  .if(isExcluded.result == false)
-    .invoke crat = create_rename_action_test( rename_action, "false" )
-${crat.body}\
-  .end if
-  .// SYS rename by lost focus fails with a race condition,
-  .// special casing this test out until we find the problem.
-  .if (rename_action.Key_Lett != "S_SYS")
-    .if(isExcluded.result == false)
-      .invoke crat = create_rename_action_test( rename_action, "true" )
-${crat.body}\
-    .end if
-  .end if
-.end for
-
-.for each rename_action in rename_action_set
-  .invoke isIncluded = isIncludedForSpace(rename_action.Key_Lett)
-  .if(isIncluded.result == true)
-    .invoke crat = create_rename_with_space_action_test( rename_action, "false" )
-${crat.body}\
-  .end if
-  .// SYS rename by lost focus fails with a race condition,
-  .// special casing this test out until we find the problem.
-  .if (rename_action.Key_Lett != "S_SYS")
-    .if(isIncluded.result == true)
-      .invoke crat = create_rename_with_space_action_test( rename_action, "true" )
-${crat.body}\
-    .end if
-  .end if
-.end for
-
-    /**
-     * Is created by testRenameS_SYSWithConflict() below and then also used later
-     * by testRenameS_DOMWithInterProjectConflict().
-     */
-    private static final String nameOfExtraSystem = "extra";
-
-    public void testRenameS_SYSWithConflict() throws Exception
-    {
-        // create an extra system besides the one created in setUp()
-        // to ensure we have two present
-        TestingUtilities.createProject(nameOfExtraSystem);
-
-        SystemModel_c[] t1 = SystemModel_c.SystemModelInstances(Ooaofooa.getDefaultInstance());
-        assertNotNull(t1);
-        assertTrue(t1.length >= 2);
-        String oldName = t1[0].getName();
-        String newName = t1[1].getName();
-        TestUtil.dismissDialog(2000);
-        updateTreeItem( t1[0], newName );
-        assertEquals(oldName, t1[0].getName() );
-    }
-    public void testRenameS_DOMWithConflict() throws Exception
-    {
-        // copy a second model into the main system, to ensure we have two
-        // present; also, get it noticed by Eclipse
-        Object[] dom_set = getMainSystem().getChildren();
-
-        if (dom_set.length < 2) {
-            IProject mainProject = CorePlugin.getWorkspace().getRoot().getProject(mainSystemName);
-            ensureAvailableAndLoaded("Models", "small", mainProject, false, true);
-            mainProject.refreshLocal(IResource.DEPTH_INFINITE, new NullProgressMonitor());
-        }
-
-        dom_set = getDomainSet();
-        Domain_c dom1 = (Domain_c)dom_set[0];
-        Domain_c dom2 = (Domain_c)dom_set[1];
-        String oldName = dom1.getName();
-        String newName = dom2.getName();
-        TestUtil.dismissDialog(2000);
-        updateTreeItem( dom1, newName );
-        assertEquals(oldName, dom1.getName() );
-    }
-    public void testRenameS_DOMWithInterProjectConflict() throws Exception
-    {
-        // copy a model into the extra system created previously so that
-        // we can detm whether renaming a model in the main system to this copied
-        // model's name is allowed; also, get the new model noticed by Eclipse
-        String extraSystemModelName = "odms1";
-        //recreate if not present.
-        IProject extraProject = TestingUtilities.createProject(nameOfExtraSystem);
-        ensureAvailableAndLoaded("Models", extraSystemModelName, extraProject, false, true);
-        extraProject.refreshLocal(IResource.DEPTH_INFINITE, new NullProgressMonitor());
-
-        Object[] dom_set = getMainSystem().getChildren();
-        Domain_c dom1 = (Domain_c)dom_set[0];
-        String newName = extraSystemModelName;
-        updateTreeItem( dom1, newName );
-        assertEquals(newName, dom1.getName() );
-    }
-
-    private Object[] getDomainSet() {
-        SystemModel_c sysMod = getMainSystem();
-        assertNotNull(sysMod);
-        Object [] dom_set = sysMod.getChildren();
-        assertTrue(dom_set.length >= 2);
-
-        // refresh the explorer tree in case any domains were loaded
-        // from their proxies, above
-        m_bp_tree.refresh();
-
-        return dom_set;
-    }
-
-    /**
-     * Returns the main system manipulated during these tests.
-     */
-    private SystemModel_c getMainSystem()
-    {
-        return SystemModel_c.SystemModelInstance(
-            Ooaofooa.getDefaultInstance(),
-            new ClassQueryInterface_c() {
-                public boolean evaluate(Object candidate) {
-                    SystemModel_c selected = (SystemModel_c) candidate;
-                    return selected.getName().equals(mainSystemName);
-}
-            });
-    }
 }
 .emit to file "src/${filename}"
 .//=====================================================================

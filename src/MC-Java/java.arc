@@ -1894,50 +1894,12 @@ ${blck.body}
         // for each model-root in existence
         ${application_root_class}[] modelRoots = ${application_root_class}.getInstances();
         for (int i = 0; i < modelRoots.length; i++) {
-            // if this is the model-root for a domain of this system
-            Domain_c domain = Domain_c.DomainInstance(modelRoots[i],null,false);
-            if (SystemModel_c.getOneS_SYSOnR28(domain) == this) {
-                // update the model-root's ID to reflect the
-                // new system name; note that we don't do this 
-                // in a model-listener because we can't guarantee
-                // the order of the listeners, and any of them 
-                // might require this to have occurred already
-                ((${application_root_class})(domain.getModelRoot())).updateId();
-            }
-					SystemDatatypePackage_c sdp = SystemDatatypePackage_c.SystemDatatypePackageInstance(modelRoots[i], null, false);
-					if(SystemModel_c.getOneS_SYSOnR4400(sdp) == this) {
-						((Ooaofooa) (sdp.getModelRoot())).updateId();				
-					}
-			ComponentPackage_c cd = ComponentPackage_c.ComponentPackageInstance(modelRoots[i], null, false);
-					if (SystemModel_c.getOneS_SYSOnR4602(cd) == this) {
-						((Ooaofooa) (cd.getModelRoot())).updateId();
-					}
-					InterfacePackage_c id = InterfacePackage_c.InterfacePackageInstance(modelRoots[i], null, false);
-					if(SystemModel_c.getOneS_SYSOnR4304(id) == this) {
-						((Ooaofooa) (id.getModelRoot())).updateId();
-					}
-					Activity_c act = Activity_c.ActivityInstance(modelRoots[i], null, false);
-					if(SystemModel_c.getOneS_SYSOnR1113(act) == this) {
-						((Ooaofooa) (act.getModelRoot())).updateId();
-					}
-					Communication_c comm = Communication_c.CommunicationInstance(modelRoots[i], null, false);
-					if(SystemModel_c.getOneS_SYSOnR1136(comm) == this) {
-						((Ooaofooa) (comm.getModelRoot())).updateId();
-					}
 					Package_c[] pkgs = Package_c.PackageInstances(modelRoots[i], null, false);
 					for(int j = 0; j < pkgs.length; j++) {
 						Package_c pkg = pkgs[j];
 						if(SystemModel_c.getOneS_SYSOnR1401(pkg) == this) {
 							((Ooaofooa) (pkg.getModelRoot())).updateId(pkg.getName());
 						}
-					}
-					Sequence_c seq = Sequence_c.SequenceInstance(modelRoots[i], null, false);
-					if(SystemModel_c.getOneS_SYSOnR950(seq) == this) {
-						((Ooaofooa) (seq.getModelRoot())).updateId();
-					}
-					UseCaseDiagram_c ucd = UseCaseDiagram_c.UseCaseDiagramInstance(modelRoots[i], null, false);
-					if(SystemModel_c.getOneS_SYSOnR1211(ucd) == this) {
-						((Ooaofooa) (ucd.getModelRoot())).updateId();
 					}
         }
 	
@@ -2070,20 +2032,8 @@ ${gsm.body}\
 		return getChildren(true);
    	}
 	public Object[] getChildren(boolean load) {
-        // special case -- must search all model roots for 
-        // matching domain instances
-       
-        Ooaofooa[] mr_set = Ooaofooa.getInstances();
+		// TODO: BOB remove this obsolete function
         List dom_set = new ArrayList();
-        for (int i = 0; i < mr_set.length; ++i) {
-            Domain_c dom = Domain_c.DomainInstance(mr_set[i],null,load);
-			if (dom != null) {
-                SystemModel_c parent = SystemModel_c.getOneS_SYSOnR28(dom);
-                if (parent == this) {
-                    dom_set.add(dom);
-				}
-			}
-		}
         Object[] obj_set = dom_set.toArray();
         return obj_set;
 	}
@@ -2091,46 +2041,9 @@ ${gsm.body}\
 		return 	hasChildren(true);
 	}
 	public boolean hasChildren(boolean load) {
-        // special case -- must search all model roots for 
-        // matching domain instances
-
-        Ooaofooa[] mr_set = Ooaofooa.getInstances();
-        for (int i = 0; i < mr_set.length; ++i) {
-            Domain_c dom = Domain_c.DomainInstance(mr_set[i],null,load);
-            if (dom != null) {
-                SystemModel_c parent = SystemModel_c.getOneS_SYSOnR28(dom);
-                if (parent == this) {
-					return true;
-				}
-			}
-		}
+		// TODO: BOB remove this obsolete function
 		return false;
 	}
-          .end if
-          .if (object.Key_Lett == "S_DOM" )
-            .// special case for Domain to find parent 
-            .// even if there is not formalized link between them
-            .//  (useful when domain is in the process of being deleted)
-            .//
-    public SystemModel_c getDomainParent() {
-		if(SystemModel != null){
-			return SystemModel;
-		}
-		
-        final UUID sys_id = getSys_idCachedValue();
-        SystemModel_c sysMod = SystemModel_c.SystemModelInstance(
-            Ooaofooa.getDefaultInstance(),
-            new ClassQueryInterface_c() {
-
-                public boolean evaluate(Object candidate) {
-                    SystemModel_c selected = (SystemModel_c) candidate;
-                    return selected.getSys_id().equals(sys_id);
-                }
-
-        },false);
-        return sysMod;
-    }
-
           .end if
         .end if   .// eclipse plugin
 } // end ${object.Name}

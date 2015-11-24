@@ -270,17 +270,17 @@ public class GraphicalAnchorTests extends CanvasTest {
 			graphicalEditorFor.zoomAll();
 			graphicalEditorFor.refresh();
 			BaseTest.dispatchEvents(0);
-			// check the test id for which action to run
-			if (test_id.contains("C1")) {
-				GraphicalEditPart sourcePart = getSourceForCreation(columnInstance);
-				GraphicalEditPart targetPart = getTargetForCreation(columnInstance);
-				performCreationAction(sourcePart, targetPart);
-			} else if (test_id.contains("C2")) {
-				performUpdateEndAction(columnInstance, rowInstance);
-			} else {
-				performMoveSegmentAction(columnInstance, rowInstance);
-			}
+		// check the test id for which action to run
+		if (test_id.contains("C1")) {
+			GraphicalEditPart sourcePart = getSourceForCreation(columnInstance);
+			GraphicalEditPart targetPart = getTargetForCreation(columnInstance);
+			performCreationAction(sourcePart, targetPart);
+		} else if (test_id.contains("C2")) {
+			performUpdateEndAction(columnInstance, rowInstance);
+		} else {
+			performMoveSegmentAction(columnInstance, rowInstance);
 		}
+	}
 	}
 
 	private void performMoveSegmentAction(NonRootModelElement columnInstance,

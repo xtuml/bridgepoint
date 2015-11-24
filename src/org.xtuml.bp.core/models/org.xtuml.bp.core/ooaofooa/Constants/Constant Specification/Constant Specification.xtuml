@@ -15,27 +15,10 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-// Constant Specification::associateWithSystem()
+	'// Constant Specification::associateWithSystem()
 select any system from instances of S_SYS
                                         where (selected.Sys_ID == param.sys_id);
-if(not_empty system)
-  select any scip related by self->SLD_SCINP[R4403];
-  if(not_empty scip)
-    // This instance was previously a system level csp.  Associate it with the
-    // new system.
-    select one prevSystem related by scip->S_SYS[R4404];
-    unrelate scip from prevSystem across R4404;
-    select one prevPkg related by scip->S_DPK[R4403];
-    unrelate self from prevPkg across R4403 using scip;
-  else
-    // create the symbolic constant in package
-    create object instance scip of SLD_SCINP;
-  end if;
-  relate scip to system across R4404;
-  select one pkg related by self->CNST_CIP[R1506]->S_DPK[R1506];
-  relate pkg to self across R4403 using scip;
-end if;',
+',
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000");
@@ -55,8 +38,7 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-// Constant Specification (CNST_CSP) dispose operation
+	'// Constant Specification (CNST_CSP) dispose operation
 
 select one pe related by self->PE_PE[R8001];
 if(not_empty pe)
@@ -66,30 +48,10 @@ if(not_empty pe)
   return;
 end if;
 
-// Clean up the relationship to the containing Data Type Package
-select one cip related by self->CNST_CIP[R1506];
-if (not_empty cip)
-  select one dpk related by self->S_DPK[R1506];
-  unrelate self from dpk across R1506 using cip;
-  delete object instance cip;
-end if;
-
 // Iterate over all of the contained Symbolic Constants, disposing each in turn
 select many sycs related by self->CNST_SYC[R1504];
 for each syc in sycs
   syc.dispose();
-end for;
-
-// Clean up system constant ties
-select many scips related by self->SLD_SCINP[R4403];
-for each scip in scips
-  select one dtp related by scip->S_DPK[R4403];
-  if (not_empty dtp)
-  unrelate self from dtp across R4403 using scip;
-  end if;
-  select one system related by scip->S_SYS[R4404];
-  unrelate scip from system across R4404;
-  delete object instance scip;
 end for;
 
 delete object instance self;',

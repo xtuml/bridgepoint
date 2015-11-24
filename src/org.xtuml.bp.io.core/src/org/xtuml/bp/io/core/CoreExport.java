@@ -25,20 +25,12 @@ import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
-
 import org.xtuml.bp.als.oal.ParserAllActivityModifier;
-import org.xtuml.bp.core.ComponentPackage_c;
 import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.CorePlugin;
-import org.xtuml.bp.core.DomainAsComponent_c;
-import org.xtuml.bp.core.Domain_c;
-import org.xtuml.bp.core.ExternalEntityPackage_c;
-import org.xtuml.bp.core.FunctionPackage_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.PackageableElement_c;
-import org.xtuml.bp.core.SpecificationPackage_c;
-import org.xtuml.bp.core.Subsystem_c;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 import org.xtuml.bp.core.common.ModelRoot;
@@ -269,12 +261,8 @@ public abstract class CoreExport implements IRunnableWithProgress {
 		
 		// This does mean that if the element passed-in is not one we know
 		// how to parse this routine returns success
-		if ((selectedElement instanceof Domain_c)
-				|| (selectedElement instanceof Component_c) 
-				|| (selectedElement instanceof Package_c)
-				|| (selectedElement instanceof Subsystem_c)
-				|| (selectedElement instanceof FunctionPackage_c)
-				|| (selectedElement instanceof ExternalEntityPackage_c)) 
+		if ((selectedElement instanceof Component_c) 
+				|| (selectedElement instanceof Package_c)) 
 				{
 			final NonRootModelElement nrme = selectedElement;
 			IRunnableWithProgress rwp = new IRunnableWithProgress() {
@@ -285,15 +273,7 @@ public abstract class CoreExport implements IRunnableWithProgress {
 					
 					ParserAllActivityModifier aam = null;
 					boolean workBenchIsRunning= PlatformUI.isWorkbenchRunning(); 
-					if (nrme instanceof Domain_c) {
-						if (workBenchIsRunning) {
-							aam = new AllActivityModifier(
-									(Domain_c) nrme, monitor);	
-						} else {
-							aam = new ParserAllActivityModifier(
-									(Domain_c) nrme, monitor);
-						}
-					} else if (nrme instanceof Component_c) {
+					if (nrme instanceof Component_c) {
 						if (workBenchIsRunning) {
 							aam = new AllActivityModifier(
 									(Component_c) nrme, monitor);
@@ -308,30 +288,6 @@ public abstract class CoreExport implements IRunnableWithProgress {
 						} else {
 							aam = new ParserAllActivityModifier(
 									(Package_c) nrme, monitor);
-						}
-					} else if (nrme instanceof Subsystem_c) {
-						if (workBenchIsRunning) {
-							aam = new AllActivityModifier(
-									(Subsystem_c) nrme, monitor);
-						} else {
-							aam = new ParserAllActivityModifier(
-									(Subsystem_c) nrme, monitor);
-						}
-					} else if (nrme instanceof FunctionPackage_c) {
-						if (workBenchIsRunning) {
-							aam = new AllActivityModifier(
-									(FunctionPackage_c) nrme, monitor);
-						} else {
-							aam = new ParserAllActivityModifier(
-									(FunctionPackage_c) nrme, monitor);
-						}
-					} else if (nrme instanceof ExternalEntityPackage_c) {
-						if (workBenchIsRunning) {
-							aam = new AllActivityModifier(
-									(ExternalEntityPackage_c) nrme, monitor);
-						} else {
-							aam = new ParserAllActivityModifier(
-									(ExternalEntityPackage_c) nrme, monitor);
 						}
 					}
 						
@@ -420,13 +376,6 @@ public abstract class CoreExport implements IRunnableWithProgress {
 		// been given a SystemModel_c
 		if (pSelectedElement instanceof SystemModel_c) {
 			SystemModel_c sys = (SystemModel_c) pSelectedElement;
-			Component_c[] components = Component_c
-					.getManyC_CsOnR4608(ComponentPackage_c
-							.getManyCP_CPsOnR4606(sys));
-			Domain_c[] formalDoms = Domain_c
-					.getManyS_DOMsOnR4204(DomainAsComponent_c
-							.getManyCN_DCsOnR4204(components));
-			Domain_c allDoms[] = Domain_c.getManyS_DOMsOnR28(sys);
 			Package_c allPkgs[] = Package_c.getManyEP_PKGsOnR1405(sys);
 			Component_c[] componentsUnderPackages = Component_c
 			.getManyC_CsOnR8001(PackageableElement_c
@@ -436,26 +385,7 @@ public abstract class CoreExport implements IRunnableWithProgress {
 				allPkgs = Package_c.getManyEP_PKGsOnR1401(sys);
 				componentsUnderPackages = new Component_c[0];
 			}
-			// Remove the formalized doms. these will be parsed with the
-			// component
-			// that is formalized to them and we don't want to parse them
-			// multiple
-			// times.
-			for (int i = 0; i < allDoms.length; i++) {
-				boolean isFormal = false;
-				for (int j = 0; j < formalDoms.length; j++) {
-					if (allDoms[i].getDom_id() == formalDoms[j].getDom_id()) {
-						isFormal = true;
-						break;
-					}
-				}
-				if (!isFormal) {
-					resultList.add(allDoms[i]);
-				}
-			}
 
-			List<Component_c> compList = Arrays.asList(components);
-			resultList.addAll(compList);
 			List<Component_c> compListUnderPackages = Arrays
 					.asList(componentsUnderPackages);
 			resultList.addAll(compListUnderPackages);
@@ -468,41 +398,15 @@ public abstract class CoreExport implements IRunnableWithProgress {
 			
 		// Determine what to parse
 	
-			if (pSelectedElement instanceof Domain_c) {
-				resultList.add((Domain_c)pSelectedElement);
-			} else if (pSelectedElement instanceof Component_c) {
+			if (pSelectedElement instanceof Component_c) {
 				resultList.add((Component_c) pSelectedElement);
-			} else if (pSelectedElement instanceof ComponentPackage_c) {
-				Component_c[] comps = Component_c
-				.getManyC_CsOnR4608((ComponentPackage_c) pSelectedElement);
-				for (int j = 0; j < comps.length; j++) {
-					resultList.add(comps[j]);
-				}
-				
 			} else if (pSelectedElement instanceof Package_c) {
 				Package_c pkg = (Package_c) pSelectedElement;
-				boolean isInGenericPackage = pkg.verifyPackageAsGeneric(pkg);
-				if (isInGenericPackage) {
 					resultList.add(pkg);
 					if (!filterForRecursion) {
 					  resultList.addAll(getNestedElements(pkg));
 					}
-				} else {
-					Component_c[] comps = Component_c
-							.getManyC_CsOnR4608(ComponentPackage_c
-									.getManyCP_CPsOnR1402(SpecificationPackage_c
-											.getManyEP_SPKGsOnR1400(pkg)));
-					for (int j = 0; j < comps.length; j++) {
-						resultList.add(comps[j]);
-					}
-				}
 
-			} else if (pSelectedElement instanceof Subsystem_c) {
-				resultList.add(pSelectedElement);
-			} else if (pSelectedElement instanceof FunctionPackage_c) {
-				resultList.add(pSelectedElement);
-			} else if (pSelectedElement instanceof ExternalEntityPackage_c) {
-				resultList.add(pSelectedElement);
 			}
 		}
 

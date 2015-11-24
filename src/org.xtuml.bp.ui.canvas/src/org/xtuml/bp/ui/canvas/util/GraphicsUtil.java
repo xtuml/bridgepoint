@@ -21,24 +21,12 @@
 //=====================================================================
 package org.xtuml.bp.ui.canvas.util;
 
-import org.xtuml.bp.core.Activity_c;
 import org.xtuml.bp.core.ClassStateMachine_c;
-import org.xtuml.bp.core.Communication_c;
-import org.xtuml.bp.core.ComponentPackage_c;
 import org.xtuml.bp.core.Component_c;
-import org.xtuml.bp.core.DataTypePackage_c;
-import org.xtuml.bp.core.Domain_c;
-import org.xtuml.bp.core.ExternalEntityPackage_c;
-import org.xtuml.bp.core.FunctionPackage_c;
 import org.xtuml.bp.core.InstanceStateMachine_c;
-import org.xtuml.bp.core.InterfacePackage_c;
 import org.xtuml.bp.core.ModelClass_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Package_c;
-import org.xtuml.bp.core.Sequence_c;
-import org.xtuml.bp.core.SubsystemInSubsystem_c;
-import org.xtuml.bp.core.Subsystem_c;
-import org.xtuml.bp.core.UseCaseDiagram_c;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.common.PersistableModelComponent;
@@ -140,37 +128,7 @@ public class GraphicsUtil {
         ModelInspector inspector = new ModelInspector();
         IModelClassInspector classInspector = null;
         
-        if(ooaType == Ooatype_c.DataTypePackage) {
-            classInspector = inspector.getInspector(DataTypePackage_c.class);
-            parent = classInspector.getParent(elem);
-        } else if(ooaType == Ooatype_c.ExternalEntityPackage) {
-            classInspector = inspector.getInspector(ExternalEntityPackage_c.class);
-            parent = classInspector.getParent(elem);
-        } else if(ooaType == Ooatype_c.FunctionPackage) {
-            classInspector = inspector.getInspector(FunctionPackage_c.class);
-            parent = classInspector.getParent(elem);
-        } else if(ooaType == Ooatype_c.Subsystem) {
-            Subsystem_c subsystemParent = Subsystem_c.getOneS_SSOnR41(SubsystemInSubsystem_c
-                    .getOneS_SISOnR42((Subsystem_c) elem));
-            if (subsystemParent != null) {
-                parent = subsystemParent;
-            } else {
-                classInspector = inspector.getInspector(Subsystem_c.class);
-                parent = classInspector.getParent(elem);
-            }
-        } else if(ooaType == Ooatype_c.Sequence) {
-            classInspector = inspector.getInspector(Sequence_c.class);
-            parent = classInspector.getParent(elem);
-        } else if(ooaType == Ooatype_c.Communication) {
-            classInspector = inspector.getInspector(Communication_c.class);
-            parent = classInspector.getParent(elem);
-        } else if(ooaType == Ooatype_c.UseCaseDiagram) {
-            classInspector = inspector.getInspector(UseCaseDiagram_c.class);
-            parent = classInspector.getParent(elem);
-        } else if(ooaType == Ooatype_c.Activity) {
-            classInspector = inspector.getInspector(Activity_c.class);
-            parent = classInspector.getParent(elem);
-        } else if(ooaType == Ooatype_c.StateMachine) {
+        if(ooaType == Ooatype_c.StateMachine) {
             ModelClass_c obj = null;
             Class eClass = elem.getClass();
             if (eClass == ClassStateMachine_c.class) {
@@ -183,17 +141,8 @@ public class GraphicsUtil {
                 classInspector = inspector.getInspector(ModelClass_c.class);
                 parent = classInspector.getParent(obj);
             }
-        } else if(ooaType == Ooatype_c.Domain) {
-            classInspector = inspector.getInspector(Domain_c.class);
-            parent = classInspector.getParent(elem);
         } else if(ooaType == Ooatype_c.Component) {
             classInspector = inspector.getInspector(Component_c.class);
-            parent = classInspector.getParent(elem);
-        } else if(ooaType == Ooatype_c.ComponentPackage) {
-            classInspector = inspector.getInspector(ComponentPackage_c.class);
-            parent = classInspector.getParent(elem);
-        } else if(ooaType == Ooatype_c.InterfacePackage) {
-            classInspector = inspector.getInspector(InterfacePackage_c.class);
             parent = classInspector.getParent(elem);
         } else if(ooaType == Ooatype_c.Package) {
             classInspector = inspector.getInspector(Package_c.class);
@@ -203,30 +152,8 @@ public class GraphicsUtil {
         if ( parent != null ) {
             NonRootModelElement parentElem = (NonRootModelElement) parent;
             Class parentClass = parent.getClass();
-            if(parentClass == DataTypePackage_c.class) {
-                rVal = getContainerList(parentElem, Ooatype_c.DataTypePackage) + parentElem.getName() + "-"; //$NON-NLS-1$
-            } else if(parentClass == ExternalEntityPackage_c.class) {
-                rVal = getContainerList(parentElem, Ooatype_c.ExternalEntityPackage) + parentElem.getName() + "-"; //$NON-NLS-1$
-            } else if(parentClass == FunctionPackage_c.class) {
-                rVal = getContainerList(parentElem, Ooatype_c.FunctionPackage) + parentElem.getName() + "-"; //$NON-NLS-1$
-            } else if(parentClass == Subsystem_c.class) {
-                rVal = getContainerList(parentElem, Ooatype_c.Subsystem) + parentElem.getName() + "-"; //$NON-NLS-1$
-            } else if(parentClass == Sequence_c.class) {
-                rVal = getContainerList(parentElem, Ooatype_c.Sequence) + parentElem.getName() + "-"; //$NON-NLS-1$
-            } else if(parentClass == Communication_c.class) {
-                rVal = getContainerList(parentElem, Ooatype_c.Communication) + parentElem.getName() + "-"; //$NON-NLS-1$
-            } else if(parentClass == UseCaseDiagram_c.class) {
-                rVal = getContainerList(parentElem, Ooatype_c.UseCaseDiagram) + parentElem.getName() + "-"; //$NON-NLS-1$
-            } else if(parentClass == Activity_c.class) {
-                rVal = getContainerList(parentElem, Ooatype_c.Activity) + parentElem.getName() + "-"; //$NON-NLS-1$
-            } else if(parentClass == Domain_c.class) {
-                rVal = getContainerList(parentElem, Ooatype_c.Domain) + parentElem.getName() + "-"; //$NON-NLS-1$
-            } else if(parentClass == Component_c.class) {
+            if(parentClass == Component_c.class) {
                 rVal = getContainerList(parentElem, Ooatype_c.Component) + parentElem.getName() + "-"; //$NON-NLS-1$
-            } else if(parentClass == ComponentPackage_c.class) {
-                rVal = getContainerList(parentElem, Ooatype_c.ComponentPackage) + parentElem.getName() + "-"; //$NON-NLS-1$
-            } else if(parentClass == InterfacePackage_c.class) {
-                rVal = getContainerList(parentElem, Ooatype_c.InterfacePackage) + parentElem.getName() + "-"; //$NON-NLS-1$
             } else if(parentClass == Package_c.class) {
                 rVal = getContainerList(parentElem, Ooatype_c.Package) + parentElem.getName() + "-"; //$NON-NLS-1$
             } else {

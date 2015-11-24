@@ -27,7 +27,6 @@ import org.xtuml.bp.core.ModelClass_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.PackageableElement_c;
-import org.xtuml.bp.core.Subsystem_c;
 import org.xtuml.bp.test.common.BaseTest;
 import org.xtuml.bp.test.common.TestingUtilities;
 
@@ -43,7 +42,7 @@ public class ProxyTestsGenerics extends BaseTest {
         super.setUp();
         //ensureAvailableAndLoaded("Proxy", false);
         String loc = m_workspace_path +Ooaofooa.MODELS_DIRNAME+"/ProxyGenerics"+"." + Ooaofooa.MODELS_EXT;//$NON-NLS-1$
-        TestingUtilities.importModelUsingWizardConvertToGenerics(getSystemModel(projectName),loc, false);
+        TestingUtilities.importModelUsingWizard(getSystemModel(projectName),loc, false);
         modelRoot = Ooaofooa.getInstance(Ooaofooa.createModelRootId(getProjectHandle(projectName), "Proxy", true), true);
     }
 

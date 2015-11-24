@@ -435,18 +435,18 @@ public abstract class CanvasTest extends BaseTest {
         
         // in some cases we are missing the existing jpg, just ignore for now
         if(outputFile.exists()) {
-			FileInputStream fis = new FileInputStream(filename_exp+".jpg");
-			FileOutputStream fos = new FileOutputStream(folderStr  + filename+"_exp.jpg");
-			
-			int b=fis.read();
-			
-			while (b!=-1) {
-				fos.write(b);
-				b= fis.read();
-			}
-			
-			fos.close();
-        }
+		FileInputStream fis = new FileInputStream(filename_exp+".jpg");
+		FileOutputStream fos = new FileOutputStream(folderStr  + filename+"_exp.jpg");
+		
+		int b=fis.read();
+		
+		while (b!=-1) {
+			fos.write(b);
+			b= fis.read();
+		}
+		
+		fos.close();
+	}
 	}
 
   	private void writeResultsGenerics(Model_c uut, String expected, String[] actual, ImageData imgData) throws IOException

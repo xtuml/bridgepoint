@@ -7,7 +7,6 @@
 		<project>org.xtuml.bp.core</project>
 		<project>org.xtuml.bp.io.core</project>
 		<project>org.xtuml.bp.io.mdl</project>
-		<project>org.xtuml.bp.io.sql</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

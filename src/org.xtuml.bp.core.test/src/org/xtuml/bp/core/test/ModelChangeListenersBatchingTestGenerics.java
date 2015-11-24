@@ -1,12 +1,4 @@
 //========================================================================
-//
-//File:      $RCSfile: ModelChangeListenersBatchingTestGenerics.java,v $
-//Version:   $Revision: 1.5 $
-//Modified:  $Date: 2013/01/10 22:49:04 $
-//
-//(c) Copyright 2005-2014 by Mentor Graphics Corp. All rights reserved.
-//
-//========================================================================
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not 
 // use this file except in compliance with the License.  You may obtain a copy 
 // of the License at
@@ -46,11 +38,11 @@ public class ModelChangeListenersBatchingTestGenerics extends CoreTest {
 
 	TestModelChangeListener instantListener = new TestModelChangeListener(false);
 	TestModelChangeListener batchedListener = new TestModelChangeListener(true);
-	
-	public void testModelChange() throws Exception{
+
+	public void testModelCHange() throws Exception{
 		doTestCreateModelElement();
 		doTestDeleteModelElement();
-		doTestRenameS_SS();
+		doTestRenameSQ_CP();
 		doTestRenameO_ATTR();
 	}
 
@@ -118,8 +110,7 @@ public class ModelChangeListenersBatchingTestGenerics extends CoreTest {
 		c.addModelChangeListener(instantListener);
 		c.addModelChangeListener(batchedListener);
 		try {
-			//delete Subsystem
-			delAction.testDeleteS_SS();
+			delAction.testDeleteEP_PKG();
 
 			BaseTest.dispatchEvents(0);
 
@@ -150,11 +141,7 @@ public class ModelChangeListenersBatchingTestGenerics extends CoreTest {
 				.removeModelChangeListener(batchedListener);
 	}
 
-	public void doTestRenameS_SS() throws Exception {
-//		if (m_sys!=null) {
-//			unloadComponentAndChildren(m_sys.getPersistableComponent());
-//			super.tearDown();
-//		}
+	public void doTestRenameSQ_CP() throws Exception {
 		RenameTestGenerics renTest = new RenameTestGenerics();
 		renTest.setUp();
 		Display d = Display.getDefault();

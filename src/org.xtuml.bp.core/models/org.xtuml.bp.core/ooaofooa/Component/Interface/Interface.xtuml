@@ -14,16 +14,12 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select many signals related by self->C_EP[R4003];
+	'select many signals related by self->C_EP[R4003];
 for each signal in signals
   unrelate self from signal across R4003;
   signal.dispose();
 end for;
-select one id related by self->IP_IP[R4303];
-if(not_empty id)
-  unrelate self from id across R4303;
-end if;
+
 select one pe related by self->PE_PE[R8001];
 if (not_empty pe)
   unrelate self from pe across R8001;
@@ -724,8 +720,7 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-// Data Type::getPath()
+	'// Data Type::getPath()
 path = "";
 if(param.includeSelf)
   path = self.Name;
@@ -735,17 +730,11 @@ if(param.path != "")
 end if;
 select one package related by self->PE_PE[R8001]->EP_PKG[R8000];
 select one component related by self->PE_PE[R8001]->C_C[R8003];
-isInGenericPackage = not_empty package or not_empty component;
-if isInGenericPackage
   if not_empty package
     path = package.getQualifiedName();
   else
     path = component.getQualifiedName();
   end if;
-else
-  // not necessary or supported
-  return "";
-end if;
 return path;',
 	1,
 	'',
@@ -823,7 +812,7 @@ INSERT INTO O_BATTR
 INSERT INTO O_ATTR
 	VALUES ("7f16eece-6595-4e3d-be9a-4f17d2b638a3",
 	"f021c5c6-f37d-4215-afe4-a3e777964197",
-	"44635175-f67f-45ac-b770-e504a0994153",
+	"11831096-d3ce-48df-af24-8ec898a80c63",
 	'Name',
 	'Full Name: Interface Name',
 	'',
@@ -849,57 +838,6 @@ Description: A textual description of this provided interface.',
 	'Descrip',
 	0,
 	"ba5eda7a-def5-0000-0000-000000000004",
-	'',
-	'');
-INSERT INTO O_REF
-	VALUES ("f021c5c6-f37d-4215-afe4-a3e777964197",
-	"870ee36f-38fe-4fee-8572-806d3c15e993",
-	0,
-	"18d4ab27-a56f-448d-8ccb-03bb49d7f122",
-	"6d81c85f-4835-46ba-b11c-b452baf23d2b",
-	"e37cd613-2bf6-46d7-86a4-17378a0a4b4b",
-	"169c800f-8221-4cef-afe7-9e0ff72573ab",
-	"44635175-f67f-45ac-b770-e504a0994153",
-	"e593a8db-d002-4637-ade6-be59050b0305",
-	"00000000-0000-0000-0000-000000000000",
-	0,
-	'',
-	'Interface Package',
-	'Package_ID',
-	'R4303');
-INSERT INTO R_RGO_PROXY
-	VALUES ("f021c5c6-f37d-4215-afe4-a3e777964197",
-	"6d81c85f-4835-46ba-b11c-b452baf23d2b",
-	"e37cd613-2bf6-46d7-86a4-17378a0a4b4b",
-	'../../Interface Package/Interface Package.xtuml');
-INSERT INTO O_RTIDA_PROXY
-	VALUES ("18d4ab27-a56f-448d-8ccb-03bb49d7f122",
-	"870ee36f-38fe-4fee-8572-806d3c15e993",
-	0,
-	"6d81c85f-4835-46ba-b11c-b452baf23d2b",
-	"169c800f-8221-4cef-afe7-9e0ff72573ab",
-	'../../Interface Package/Interface Package.xtuml');
-INSERT INTO O_RATTR
-	VALUES ("44635175-f67f-45ac-b770-e504a0994153",
-	"f021c5c6-f37d-4215-afe4-a3e777964197",
-	"a5a1b94e-be2f-4750-bd58-cf1c2713558a",
-	"cf4966b0-706a-4373-a2ee-7e706918813c",
-	1,
-	'Package_ID');
-INSERT INTO O_BATTR_PROXY
-	VALUES ("a5a1b94e-be2f-4750-bd58-cf1c2713558a",
-	"cf4966b0-706a-4373-a2ee-7e706918813c",
-	'../../Element Packaging/Specification Package/Specification Package.xtuml');
-INSERT INTO O_ATTR
-	VALUES ("44635175-f67f-45ac-b770-e504a0994153",
-	"f021c5c6-f37d-4215-afe4-a3e777964197",
-	"15525823-13f2-4af0-8153-73e882dc2100",
-	'Package_ID',
-	'',
-	'',
-	'SpecificationPackage_ID',
-	0,
-	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -951,6 +889,24 @@ INSERT INTO O_ATTR
 	'Id',
 	0,
 	"ba5eda7a-def5-0000-0000-000000000007",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("11831096-d3ce-48df-af24-8ec898a80c63",
+	"f021c5c6-f37d-4215-afe4-a3e777964197");
+INSERT INTO O_BATTR
+	VALUES ("11831096-d3ce-48df-af24-8ec898a80c63",
+	"f021c5c6-f37d-4215-afe4-a3e777964197");
+INSERT INTO O_ATTR
+	VALUES ("11831096-d3ce-48df-af24-8ec898a80c63",
+	"f021c5c6-f37d-4215-afe4-a3e777964197",
+	"15525823-13f2-4af0-8153-73e882dc2100",
+	'Package_ID',
+	'',
+	'',
+	'Package_ID',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000005",
 	'',
 	'');
 INSERT INTO O_ID

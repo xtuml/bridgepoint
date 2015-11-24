@@ -1,12 +1,4 @@
 //========================================================================
-//
-//File:      $RCSfile: GetNameTestGenerics.java,v $
-//Version:   $Revision: 1.6 $
-//Modified:  $Date: 2013/05/10 04:30:27 $
-//
-//(c) Copyright 2005-2014 by Mentor Graphics Corp. All rights reserved.
-//
-//========================================================================
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not 
 // use this file except in compliance with the License.  You may obtain a copy 
 // of the License at
@@ -40,7 +32,6 @@ import org.xtuml.bp.core.ClassAsSupertype_c;
 import org.xtuml.bp.core.ClassIdentifier_c;
 import org.xtuml.bp.core.ClassInAssociation_c;
 import org.xtuml.bp.core.CoreDataType_c;
-import org.xtuml.bp.core.DataTypePackage_c;
 import org.xtuml.bp.core.DataType_c;
 import org.xtuml.bp.core.DerivedAssociation_c;
 import org.xtuml.bp.core.ImportedClass_c;
@@ -85,7 +76,7 @@ public class GetNameTestGenerics extends CoreTest {
 
 		}
 	}
-	
+
 	public void testGetNameTestGenerics() throws Exception{
 		 doTestActionGetName(); 
 	       doTestClassAsAssociatedOneSideGetName(); 
