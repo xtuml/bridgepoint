@@ -29,6 +29,7 @@ import org.eclipse.jface.wizard.IWizard;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.ui.PlatformUI;
+
 import org.xtuml.bp.core.Association_c;
 import org.xtuml.bp.core.CreationTransition_c;
 import org.xtuml.bp.core.InstanceStateMachine_c;
@@ -105,15 +106,17 @@ public class PolymorphicEventAssignmentTestGenerics extends BaseTest {
 
 	}
 	
-	public void testPolymorphicEvent() throws Exception {
-		doTestPolymorphicEventAssignment();
-		doTestPolymorphicEventAssignmentNotAllowedOnCreationTransition();
-		doTestAssignPolyEventToTransition();
-		doTestSubtypeLineRemovalRemovesNonLocalEvent();
-		doTestSubtypeLineRemovalRemovesLowerLevelNonLocalEvent();
-		doTestSubtypeLineRemovalOnlyRemovesNonLocalEventsDeliveredViaItself();
-		doTestRenamingPolymorphicEventRenamesNonLocalEvent();
-		doTestPolymorphicEventRemovalRemovesNonLocalEvents();
+	public void testPolymorphicEvent() throws Exception{
+		 doTestPolymorphicEventAssignment();
+	      doTestPolymorphicEventAssignmentNotAllowedOnCreationTransition();
+	      doTestAssignPolyEventToTransition();
+	      doTestSubtypeLineRemovalRemovesNonLocalEvent();
+	      doTestSubtypeLineRemovalRemovesLowerLevelNonLocalEvent();
+	      doTestSubtypeLineRemovalOnlyRemovesNonLocalEventsDeliveredViaItself();
+	      doTestRenamingPolymorphicEventRenamesNonLocalEvent();
+	      doTestPolymorphicEventRemovalRemovesNonLocalEvents();
+	  
+		
 	}
 
 	/**

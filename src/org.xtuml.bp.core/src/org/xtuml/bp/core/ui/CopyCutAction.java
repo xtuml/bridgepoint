@@ -49,8 +49,6 @@ public abstract class CopyCutAction extends Action {
 
 	public static final String GENERIC_PACKAGE_HEADER = "-- generics"; //$NON-NLS-1$
 
-	private static final String SPECIALIZED_PACKAGE_HEADER = "-- specialized"; //$NON-NLS-1$
-
 	protected int COPY_TYPE = 0;
 
 	protected int CUT_TYPE = 1;
@@ -151,11 +149,7 @@ public abstract class CopyCutAction extends Action {
 	protected abstract boolean onlyIncludeSecondaryData();
 
 	private String getPackagingHeaderFromElements(List<NonRootModelElement> elements) {
-		if(elementsInGenericPackaging(elements)) {
-			return GENERIC_PACKAGE_HEADER;
-		} else {
-			return SPECIALIZED_PACKAGE_HEADER;
-		}
+		return GENERIC_PACKAGE_HEADER;
 	}
 
 	protected abstract TransactionManager getTransactionManager();
@@ -166,28 +160,4 @@ public abstract class CopyCutAction extends Action {
 
 	protected abstract void postRun();
 
-	public static boolean elementsInGenericPackaging(
-			List<NonRootModelElement> elements) {
-		// walk the persistence hierarchy until there is no more
-		// parents, if we find an EP_PKG along tkhe path then we
-		// no this element is generically packaged otherwise it
-		// is specially packaged
-		for(NonRootModelElement element : elements) {
-			if(element != null && element.getModelRoot() instanceof Ooaofooa) {
-				if(element instanceof SystemModel_c) {
-					// system model is special, in that
-					// it will exist for generics and for
-					// specialized packages
-					continue;
-				}
-				boolean inGenerics = element.isInGenericPackage();
-				if(!inGenerics) {
-					// the first specialized package we 
-					// hit return false
-					return false;
-				}
-			}
-		}
-		return true;
-	}
 }

@@ -135,8 +135,7 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-// create the class as link
+	'// create the class as link
 create object instance assr of R_ASSR;
 
 // Unformalize self if it is formalized
@@ -144,11 +143,7 @@ if (self.isFormalized())
   self.unformalize();
 end if;
 select one toAssoc related by self->R_REL[R206];
-select any fromClass related by self->R_REL[R206]->S_SS[R4]->S_DOM[R1]->S_SS[R1]->O_OBJ[R2] where (selected.Obj_ID == param.using);
-if (empty fromClass)
-   // see if this is in a package (isInGenericPackage)
-   select any fromClass related by self->R_REL[R206]->PE_PE[R8001]->EP_PKG[R8000]->S_SYS[R1405]->EP_PKG[R1405]->PE_PE[R8000]->O_OBJ[R8001]  where (selected.Obj_ID == param.using);
-end if;
+select any fromClass related by self->R_REL[R206]->PE_PE[R8001]->EP_PKG[R8000]->S_SYS[R1405]->EP_PKG[R1405]->PE_PE[R8000]->O_OBJ[R8001]  where (selected.Obj_ID == param.using);
 // migrate the simple association to a linked association
 create object instance assoc of R_ASSOC;
 unrelate self from toAssoc across R206;

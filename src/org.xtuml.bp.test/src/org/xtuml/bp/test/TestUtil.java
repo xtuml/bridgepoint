@@ -62,16 +62,13 @@ import org.eclipse.ui.internal.progress.BlockedJobsDialog;
 import org.xtuml.bp.core.CoreDataType_c;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.DataType_c;
-import org.xtuml.bp.core.Domain_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.common.ModelElement;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.common.Transaction;
 import org.xtuml.bp.core.common.TransactionManager;
-import org.xtuml.bp.core.ui.NewDomainWizard;
 import org.xtuml.bp.core.ui.Selection;
-import org.xtuml.bp.core.ui.WizardNewDomainCreationPage;
 import org.xtuml.bp.core.ui.dialogs.ElementSelectionDialog;
 import org.xtuml.bp.core.ui.dialogs.ElementSelectionFlatView;
 import org.xtuml.bp.test.common.BaseTest;
@@ -527,26 +524,6 @@ public class TestUtil
             CorePlugin.logError("Could not copy file", e);
         }
     }
-    /**
-     * Creates a new domain with the given name, for the
-     * given system.
-     */
-    public static void createNewModel(String domainName, SystemModel_c sys) {
-        NewDomainWizard ndw = new NewDomainWizard();
-        Selection.getInstance().clear();
-        Selection.getInstance().addToSelection(sys);
-        ndw.init(null, Selection.getInstance().getStructuredSelection());
-        ndw.addPages();
-        WizardDialog dialog = new WizardDialog(PlatformUI.getWorkbench()
-                .getActiveWorkbenchWindow().getShell(), ndw);
-        dialog.create();
-        WizardNewDomainCreationPage wndcp = (WizardNewDomainCreationPage) ndw
-                .getStartingPage();
-        wndcp.setDomainNameFieldValue(domainName);
-        wndcp.setUseTemplate(false);
-        ndw.setContainer(null);
-        ndw.performFinish();
-    }
     
     /**
      * Dispatches outstanding events when progress is complete. 
@@ -568,64 +545,6 @@ public class TestUtil
             done = true;
         }
     }
-    
-    /**
-     * Copies the domain file of the given name from the development
-     * workspace project of the given name into the given test 
-     * workspace project.  
-     */
-    public static IFile copyTestDomainIntoProject(String domainName,
-        String copyFromProjectName, IProject toProject)
-    {
-        // locate the test domain's file in the development workspace
-        File workspaceSource = TestingUtilities.getSourceDirectory().toFile().getParentFile();
-        File file = new File(workspaceSource, copyFromProjectName + "/" 
-            + Ooaofooa.MODELS_DIRNAME + "/" + domainName 
-            + "." + Ooaofooa.MODELS_EXT);
-        
-        // if a file of the same name already exists in the given project
-        IFile resource = toProject.getFile(Ooaofooa.MODELS_DIRNAME + "/" 
-                + file.getName());
-        File copyFile = resource.getLocation().toFile();
-        if (resource.exists()) {
-            // copy the test domain's file over the existing file at the 
-            // Java-file level, as Eclipse won't let us overwrite 
-            // it at the IFile level (due to a bug in IFile.create())
-            copyFile(file, copyFile.getAbsolutePath());
-            
-            // get Eclipse to notice the changed file (and wait
-            // until the resulting model-events have been dispatched, 
-            // before proceeding)
-            try {
-                DispatchOnDoneProgressMonitor monitor = 
-                    new DispatchOnDoneProgressMonitor();
-                resource.refreshLocal(0, monitor);
-                while (!monitor.done) TestUtil.sleep(10);
-            } catch (CoreException e) {
-                CorePlugin.logError("Could not get Eclipse to recognize new copy of test domain in project", e);
-            }
-        }
-
-        // otherwise
-        else {
-            // copy the test domain's file into the given project (and wait
-            // until the resulting model-events have been dispatched, 
-            // before proceeding)
-            copyFile(file, copyFile.getAbsolutePath());
-            try {
-                FileInputStream stream = new FileInputStream(file);
-                DispatchOnDoneProgressMonitor monitor = 
-                    new DispatchOnDoneProgressMonitor();
-                resource.create(stream, true, monitor);
-                while (!monitor.done) TestUtil.sleep(10);
-                stream.close();
-            } catch (Exception e) {
-                CorePlugin.logError("Could not copy test domain into project", e);
-            }
-        }
-        
-        return resource;
-    }    
     
     /**
      * Copies a class file of the given name from the development
@@ -723,31 +642,31 @@ public class TestUtil
      * given name, and (also) returns the root of the model imported from
      * that copy. 
      */
-    public static Result1 createTestProjectAndImportModel(
-        Class testClass, String testModelName, String testModelProjectName) 
-    {
-        Result1 result = new Result1();
-        
-        // create the test project
-        String className = testClass.getName();
-        IProject project = null;
-        try {
-            project = result.project = TestingUtilities.createProject(
-            className.substring(className.lastIndexOf(".") + 1));
-        } catch (CoreException e) {
-            CorePlugin.logError("Core Exception", e);
-        }
-
-        // copy the test domain into our test project
-        IFile file = copyTestDomainIntoProject(testModelName, 
-            testModelProjectName, project);
-        result.file = file;
-        
-        // import the test domain from the copy in the test project
-        result.modelRoot = Ooaofooa.getInstance(
-            Ooaofooa.createModelRootId(project, testModelName, true), true);
-        return result;
-    }
+//    public static Result1 createTestProjectAndImportModel(
+//        Class testClass, String testModelName, String testModelProjectName) 
+//    {
+//        Result1 result = new Result1();
+//        
+//        // create the test project
+//        String className = testClass.getName();
+//        IProject project = null;
+//        try {
+//            project = result.project = TestingUtilities.createProject(
+//            className.substring(className.lastIndexOf(".") + 1));
+//        } catch (CoreException e) {
+//            CorePlugin.logError("Core Exception", e);
+//        }
+//
+//        // copy the test domain into our test project
+//        IFile file = copyTestDomainIntoProject(testModelName, 
+//            testModelProjectName, project);
+//        result.file = file;
+//        
+//        // import the test domain from the copy in the test project
+//        result.modelRoot = Ooaofooa.getInstance(
+//            Ooaofooa.createModelRootId(project, testModelName, true), true);
+//        return result;
+//    }
     
     /**
      * Changes the given file's readonly status
@@ -767,31 +686,6 @@ public class TestUtil
                 CorePlugin.logError("Core Exception", e);
             }
         }
-    }
-    
-    /**
-     * Creates void and integer data types for the given model-root
-     * (which is presumed to not already possess them), which are to 
-     * be used with the given domain (which may be null).
-     * 
-     * This is useful for tests that don't load a model, but instead
-     * directly create all the model elements they manipulate. 
-     */
-    public static void createMockDefaultDataTypes(Ooaofooa modelRoot, 
-        Domain_c forDomain)
-    {
-        // create a void data type
-        DataType_c dataType = new DataType_c(modelRoot);
-        dataType.setName("void"); 
-        dataType.relateAcrossR14To(forDomain);
-        dataType.relateAcrossR17To(new CoreDataType_c(modelRoot));
-
-        // create an integer data type
-        dataType = new DataType_c(modelRoot);
-        dataType.setName("integer"); 
-        dataType.relateAcrossR14To(forDomain);
-        
-        dataType.relateAcrossR17To(new CoreDataType_c(modelRoot));
     }
     
     /**

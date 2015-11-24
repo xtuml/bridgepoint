@@ -86,36 +86,36 @@
       .if (objtype == "State")
         openTestISCDiagram("${ss}");
       .else
-        openTestSSDiagram("${ss}");
-      .end if
+  		openTestSSDiagram("${ss}");
+  	  .end if
     .end if
-        GraphicalEditor ce = ((ModelEditor) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor()).getGraphicalEditor();
+  		GraphicalEditor ce = ((ModelEditor) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor()).getGraphicalEditor();
       .if (objtype == "IOBJ")
-        Shape_c shp = getModelIClassShape("${test_name}");
-      .elif (objtype == "OBJ")
-        Shape_c shp = CanvasTestUtils.getModelClassShape(modelRoot, "${test_name}");
-      .elif (objtype == "State")
-        Shape_c shp = CanvasTestUtils.getModelStateShape(modelRoot, "${test_name}");
-      .end if
-        GraphicalElement_c ge = GraphicalElement_c.getOneGD_GEOnR2(shp);
-        Cl_c.Clearselection();
+  		Shape_c shp = getModelIClassShape("${test_name}");
+  	  .elif (objtype == "OBJ")
+  		Shape_c shp = CanvasTestUtils.getModelClassShape(modelRoot, "${test_name}");
+  	  .elif (objtype == "State")
+  		Shape_c shp = CanvasTestUtils.getModelStateShape(modelRoot, "${test_name}");
+  	  .end if
+  		GraphicalElement_c ge = GraphicalElement_c.getOneGD_GEOnR2(shp);
+  		Cl_c.Clearselection();
     .if (groupTest)
         Connector_c con = Connector_c.getOneGD_CONOnR20(
             Graphedge_c.getOneDIM_EDOnR320(
                 Graphconnector_c.getManyDIM_CONsOnR311(
                     Graphelement_c.getOneDIM_GEOnR23(ge))));
-        if(con == null)
+  		if(con == null)
             con = Connector_c.getOneGD_CONOnR20(
                 Graphedge_c.getOneDIM_EDOnR321(
                     Graphconnector_c.getManyDIM_CONsOnR311(
                         Graphelement_c.getOneDIM_GEOnR23(ge))));
-        GraphicalElement_c ge2 = GraphicalElement_c.getOneGD_GEOnR2(con);
+  		GraphicalElement_c ge2 = GraphicalElement_c.getOneGD_GEOnR2(con);
       .if (isFirst)
-        Selection.getInstance().addToSelection(ge.getRepresents());
-        Selection.getInstance().addToSelection(ge2.getRepresents());
+      	Selection.getInstance().addToSelection(ge.getRepresents());
+      	Selection.getInstance().addToSelection(ge2.getRepresents());
       .elif (isSecond)
-        Selection.getInstance().addToSelection(ge2.getRepresents());
-        Selection.getInstance().addToSelection(ge.getRepresents());
+    	Selection.getInstance().addToSelection(ge2.getRepresents());
+    	Selection.getInstance().addToSelection(ge.getRepresents());
       .else
         Selection.getInstance().addToSelection(ge2.getRepresents());
       .end if
@@ -125,22 +125,22 @@
             Graphedge_c.getOneDIM_EDOnR320(
                 Graphconnector_c.getManyDIM_CONsOnR311(
                     Graphelement_c.getOneDIM_GEOnR23(ge))));
-        if(con == null)
+  		if(con == null)
             con = Connector_c.getOneGD_CONOnR20(
                 Graphedge_c.getOneDIM_EDOnR321(
                     Graphconnector_c.getManyDIM_CONsOnR311(
                         Graphelement_c.getOneDIM_GEOnR23(ge))));
-        GraphicalElement_c ge2 = GraphicalElement_c.getOneGD_GEOnR2(con);
-        Selection.getInstance().addToSelection(ge2.getRepresents());
+  		GraphicalElement_c ge2 = GraphicalElement_c.getOneGD_GEOnR2(con);
+     	Selection.getInstance().addToSelection(ge2.getRepresents());
       .else
-        Selection.getInstance().addToSelection(ge.getRepresents());
+      	Selection.getInstance().addToSelection(ge.getRepresents());
       .end if
     .end if
-        DeleteAction da = new DeleteAction(CorePlugin.getImageDescriptor("delete_edit.gif"));
-        da.run();
+		DeleteAction da = new DeleteAction(CorePlugin.getImageDescriptor("delete_edit.gif"));
+  		da.run();
 
-        validateOrGenerateResults(ce, generateResults);
-    }
+		validateOrGenerateResults(ce, generateResults);
+  	}
 .end function
 .//======================================================================
 .//======================================================================
@@ -209,36 +209,36 @@
       .if (objtype == "State")
         openTestISCDiagram("${ss}");
       .else
-        openTestPKGDiagram("${ss}");
-      .end if
+  		openTestPKGDiagram("${ss}");
+  	  .end if
     .end if
-        GraphicalEditor ce = ((ModelEditor) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor()).getGraphicalEditor();
+  		GraphicalEditor ce = ((ModelEditor) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor()).getGraphicalEditor();
       .if (objtype == "IOBJ")
-        Shape_c shp = getModelIClassShape("${test_name}");
-      .elif (objtype == "OBJ")
-        Shape_c shp = CanvasTestUtils.getModelClassShape(modelRoot, "${test_name}");
-      .elif (objtype == "State")
-        Shape_c shp = CanvasTestUtils.getModelStateShape(modelRoot, "${test_name}");
-      .end if
-        GraphicalElement_c ge = GraphicalElement_c.getOneGD_GEOnR2(shp);
-        Cl_c.Clearselection();
+  		Shape_c shp = getModelIClassShape("${test_name}");
+  	  .elif (objtype == "OBJ")
+  		Shape_c shp = CanvasTestUtils.getModelClassShape(modelRoot, "${test_name}");
+  	  .elif (objtype == "State")
+  		Shape_c shp = CanvasTestUtils.getModelStateShape(modelRoot, "${test_name}");
+  	  .end if
+  		GraphicalElement_c ge = GraphicalElement_c.getOneGD_GEOnR2(shp);
+  		Cl_c.Clearselection();
     .if (groupTest)
         Connector_c con = Connector_c.getOneGD_CONOnR20(
             Graphedge_c.getOneDIM_EDOnR320(
                 Graphconnector_c.getManyDIM_CONsOnR311(
                     Graphelement_c.getOneDIM_GEOnR23(ge))));
-        if(con == null)
+  		if(con == null)
             con = Connector_c.getOneGD_CONOnR20(
                 Graphedge_c.getOneDIM_EDOnR321(
                     Graphconnector_c.getManyDIM_CONsOnR311(
                         Graphelement_c.getOneDIM_GEOnR23(ge))));
-        GraphicalElement_c ge2 = GraphicalElement_c.getOneGD_GEOnR2(con);
+  		GraphicalElement_c ge2 = GraphicalElement_c.getOneGD_GEOnR2(con);
       .if (isFirst)
-        Selection.getInstance().addToSelection(ge.getRepresents());
-        Selection.getInstance().addToSelection(ge2.getRepresents());
+      	Selection.getInstance().addToSelection(ge.getRepresents());
+      	Selection.getInstance().addToSelection(ge2.getRepresents());
       .elif (isSecond)
-        Selection.getInstance().addToSelection(ge2.getRepresents());
-        Selection.getInstance().addToSelection(ge.getRepresents());
+    	Selection.getInstance().addToSelection(ge2.getRepresents());
+    	Selection.getInstance().addToSelection(ge.getRepresents());
       .else
         Selection.getInstance().addToSelection(ge2.getRepresents());
       .end if
@@ -248,22 +248,22 @@
             Graphedge_c.getOneDIM_EDOnR320(
                 Graphconnector_c.getManyDIM_CONsOnR311(
                     Graphelement_c.getOneDIM_GEOnR23(ge))));
-        if(con == null)
+  		if(con == null)
             con = Connector_c.getOneGD_CONOnR20(
                 Graphedge_c.getOneDIM_EDOnR321(
                     Graphconnector_c.getManyDIM_CONsOnR311(
                         Graphelement_c.getOneDIM_GEOnR23(ge))));
-        GraphicalElement_c ge2 = GraphicalElement_c.getOneGD_GEOnR2(con);
-        Selection.getInstance().addToSelection(ge2.getRepresents());
+  		GraphicalElement_c ge2 = GraphicalElement_c.getOneGD_GEOnR2(con);
+     	Selection.getInstance().addToSelection(ge2.getRepresents());
       .else
-        Selection.getInstance().addToSelection(ge.getRepresents());
+      	Selection.getInstance().addToSelection(ge.getRepresents());
       .end if
     .end if
-        DeleteAction da = new DeleteAction(CorePlugin.getImageDescriptor("delete_edit.gif"));
-        da.run();
+		DeleteAction da = new DeleteAction(CorePlugin.getImageDescriptor("delete_edit.gif"));
+  		da.run();
 
-        validateOrGenerateResults(ce, generateResults);
-    }
+		validateOrGenerateResults(ce, generateResults);
+  	}
 .end function
 //======================================================================
 //
@@ -304,14 +304,12 @@ import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.IdAssigner;
 import org.xtuml.bp.core.common.PersistableModelComponent;
 import org.xtuml.bp.core.CorePlugin;
-import org.xtuml.bp.core.DataTypePackage_c;
 
 import org.xtuml.bp.core.ImportedClass_c;
 import org.xtuml.bp.core.InstanceStateMachine_c;
 import org.xtuml.bp.core.ModelClass_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Package_c;
-import org.xtuml.bp.core.SystemDatatypePackage_c;
 
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.XtUMLNature;
@@ -334,82 +332,82 @@ import org.xtuml.bp.test.common.CanvasTestUtils;
 
 public class DeleteTestGenerics extends CanvasTest {
 
-    String test_id = null;
-    private static boolean generateResults = false;
+	String test_id = null;
+	private static boolean generateResults = false;
     private static boolean initialized = false;
-    static String workspace_path = "";
+	static String workspace_path = "";
 
-    public DeleteTestGenerics(String name) {
-        super("Delete Test", name);
-    }
+	public DeleteTestGenerics(String name) {
+		super("Delete Test", name);
+	}
 
-    protected String getResultName() {
-        return "DeleteTest" + "_" + test_id;
-    } 
+	protected String getResultName() {
+		return "DeleteTest" + "_" + test_id;
+	} 
 
-    protected void setUp() throws Exception {
-        super.setUp();
+	protected void setUp() throws Exception {
+		super.setUp();
 
-        IPreferenceStore store = CorePlugin.getDefault().getPreferenceStore();
-        store.setValue(BridgePointPreferencesStore.DISABLE_GRADIENTS, true);
+		IPreferenceStore store = CorePlugin.getDefault().getPreferenceStore();
+		store.setValue(BridgePointPreferencesStore.DISABLE_GRADIENTS, true);
 
       if (!initialized) {
-            ensureAvailableAndLoaded("org.xtuml.bp.core.test",
-                    "DeleteTestModel", false, false, "Package");
-            initialized = true;
-        }
+			ensureAvailableAndLoaded("org.xtuml.bp.core.test",
+					"DeleteTestModel", false, false, "Package");
+			initialized = true;
+		}
 
-        Display d = Display.getCurrent();
-        while ( d.readAndDispatch() ) ;
-    }
+		Display d = Display.getCurrent();
+		while ( d.readAndDispatch() ) ;
+	}
 
-    protected void tearDown() throws Exception {
-        super.tearDown();
-    }
-    public class Package_by_name_c implements ClassQueryInterface_c {
-        public boolean evaluate(Object candidate) {
-            Package_c selected = (Package_c) candidate;
-            return (selected.getName().equals(m_name));
-        }
-        public Package_by_name_c(String name) {
-            m_name = name;
-        }
-        private String m_name;
-    }
-    public class ImportedClass_by_name_c implements ClassQueryInterface_c {
-    public boolean evaluate(Object candidate) {
-        ImportedClass_c selected = (ImportedClass_c) candidate;
-        return (selected.Get_name().equals(m_name));
-    }
-    public ImportedClass_by_name_c(String name) {
-        m_name = name;
-    }
-    private String m_name;
-    }
-    public Shape_c getModelIClassShape(String name) {
-    CanvasTestUtils ctu = new CanvasTestUtils();
-    ImportedClass_c ic =
-        ImportedClass_c.ImportedClassInstance(modelRoot, new ImportedClass_by_name_c(name));
-    GraphicalElement_c ge =
-        GraphicalElement_c.GraphicalElementInstance(graphicsModelRoot,
-            ctu.new findGraphicalElementByOOAID(ic.getIobj_id(), 23));
-    return Shape_c.getOneGD_SHPOnR2(ge);
-    }
-    public void openTestPKGDiagram(String title) {
-        Package_c uut = Package_c.PackageInstance(modelRoot,
-                new Package_by_name_c(title));
-        assertNotNull(uut);
-        CanvasTestUtils.openCanvasEditor(uut);
-    }
-    public void openTestISCDiagram(String title) {
-        CanvasTestUtils ctu = new CanvasTestUtils();
-        InstanceStateMachine_c uut = InstanceStateMachine_c.getOneSM_ISMOnR518(ModelClass_c.ModelClassInstance(modelRoot, ctu.new Class_by_name_c("Test Import Class")));
-        CanvasTestUtils.openCanvasEditor(uut);
-    }
-    public void setGenerateResults() {
-        try {
-            generateResults = true;
-            this.setUp();
+	protected void tearDown() throws Exception {
+		super.tearDown();
+	}
+	public class Package_by_name_c implements ClassQueryInterface_c {
+		public boolean evaluate(Object candidate) {
+			Package_c selected = (Package_c) candidate;
+			return (selected.getName().equals(m_name));
+		}
+		public Package_by_name_c(String name) {
+			m_name = name;
+		}
+		private String m_name;
+	}
+	public class ImportedClass_by_name_c implements ClassQueryInterface_c {
+	public boolean evaluate(Object candidate) {
+		ImportedClass_c selected = (ImportedClass_c) candidate;
+		return (selected.Get_name().equals(m_name));
+	}
+	public ImportedClass_by_name_c(String name) {
+		m_name = name;
+	}
+	private String m_name;
+	}
+	public Shape_c getModelIClassShape(String name) {
+	CanvasTestUtils ctu = new CanvasTestUtils();
+	ImportedClass_c ic =
+		ImportedClass_c.ImportedClassInstance(modelRoot, new ImportedClass_by_name_c(name));
+	GraphicalElement_c ge =
+		GraphicalElement_c.GraphicalElementInstance(graphicsModelRoot,
+			ctu.new findGraphicalElementByOOAID(ic.getIobj_id(), 23));
+	return Shape_c.getOneGD_SHPOnR2(ge);
+	}
+	public void openTestPKGDiagram(String title) {
+		Package_c uut = Package_c.PackageInstance(modelRoot,
+				new Package_by_name_c(title));
+		assertNotNull(uut);
+		CanvasTestUtils.openCanvasEditor(uut);
+	}
+	public void openTestISCDiagram(String title) {
+		CanvasTestUtils ctu = new CanvasTestUtils();
+		InstanceStateMachine_c uut = InstanceStateMachine_c.getOneSM_ISMOnR518(ModelClass_c.ModelClassInstance(modelRoot, ctu.new Class_by_name_c("Test Import Class")));
+		CanvasTestUtils.openCanvasEditor(uut);
+	}
+	public void setGenerateResults() {
+		try {
+			generateResults = true;
+			this.setUp();
 .select any ss from instances of EP_PKG where (selected.Name == "O_IOBJ_Delete")
 .select many ics related by ss->PE_PE[R8000]->O_IOBJ[R8001] where (selected.Obj_KL != "T_IMPOTH")
 .for each ic in ics
@@ -464,10 +462,10 @@ public class DeleteTestGenerics extends CanvasTest {
 .for each mc in mc_set
   			this.doTest$r{mc.Name}();
 .end for
-        } catch (Exception e) {
-            System.out.println(
-                "Exception encountered by test result creator: " + e);
-        }
+		} catch (Exception e) {
+			System.out.println(
+				"Exception encountered by test result creator: " + e);
+		}
 
 	}
 	

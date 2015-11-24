@@ -16,9 +16,7 @@ INSERT INTO O_TFR
 	1,
 	'// Delegation.dispose()
 select one pe related by self->PE_PE[R8001];
-isInGenericPackage = not_empty pe;
-if isInGenericPackage
-  // PackageableElement.dispose() will call back down into here, so just return
+if not_empty pe
   pe.dispose();
   return;
 else
@@ -52,7 +50,7 @@ else
     unrelate self from channel across R2972;
     channel.dispose();
   end for;
-end if;
+end if; 
 delete object instance self;',
 	1,
 	'',
@@ -68,19 +66,13 @@ INSERT INTO O_TFR
 // the action is allowed
 select any ir related by self->C_RID[R4013]->C_IR[R4013];
 select one packageableElem related by ir->C_PO[R4016]->C_C[R4010]->PE_PE[R8001];
-select one package related by packageableElem->EP_PKG[R8000];
-select one component related by packageableElem->C_C[R8003];
-isInGenericPackage = not_empty package or not_empty component;
+
 if(param.name == "can")
   if(param.value == "formalize spec pkg")
-    if (isInGenericPackage)
       return false;
-    end if;
   end if;
   if(param.value == "formalize generic pkg")
-    if (not isInGenericPackage)
       return false;
-    end if;
   end if;
 end if;
 select one provision related by ir->C_P[R4009];

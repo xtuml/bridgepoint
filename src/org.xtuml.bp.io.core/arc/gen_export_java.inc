@@ -26,14 +26,10 @@
   .param string class_name
   .param boolean multilevel
   	.invoke var = sourceVariables()
-    .select any domain_table from instances of T where ( selected.Name == "Domain" )
-    .invoke domain_class_name = get_class_name( domain_table )
-	.invoke domain_instance_name = get_instance_accessor( domain_table )
     .assign suite = "BP"
     .assign tool = "6.1D"
  	.if (callingProject == "BP")
 	  .include "arc/class_rename.inc"  	
-package org.xtuml.bp.io.sql;      
     .elif (callingProject == "NBP")
       .assign suite = "BP"
       .assign tool = "7.1.6"
@@ -76,12 +72,8 @@ import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.common.IdAssigner;
 public class ${class_name} extends CoreExport
 {
-	.if(multilevel)
-		NonRootModelElement \
-	.else
-		${domain_class_name.body} \
-	.end if
- m_inst;
+	NonRootModelElement m_inst;
+
 	protected PrintStream m_fh;
     protected boolean m_export_graphics;
     boolean m_is_fully_derived = false;
@@ -103,7 +95,6 @@ public class ${class_name} extends CoreExport
 		FileOutputStream fs = new FileOutputStream(fh);
 		m_fh = new PrintStream(fs);
 	.end if
-		m_inst = ${domain_class_name.body}.${domain_instance_name.body}(modelRoot);
         m_export_graphics = export_graphics;
     }
 	.if(multilevel)
@@ -229,8 +220,6 @@ public class ${class_name} extends CoreExport
         				.end if
         				}
         			.end for
-				.else
-                export_${domain_class_name.body} ( m_inst, pm, false, true );
 				.end if
                 .if(disableChangeListeners)
             		ModelRoot.disableChangeNotification();
@@ -258,22 +247,16 @@ public class ${class_name} extends CoreExport
     .end if
 			pm.done();
 		}
-		catch( IOException f )
+		catch( Throwable f )
 		{
             throw new InvocationTargetException(f);
 		}
-    .if (callingProject == "NBP")
-		catch (CoreException ce) 
-		{
-			throw new InvocationTargetException(ce);
-		}
-    .end if
     .if (multilevel)
         writtenProxies.clear();
     .end if
 	}
 
-    .invoke export_methods = gen_export_methods(multilevel, domain_class_name.body, tool, false);
+    .invoke export_methods = gen_export_methods(multilevel, "", tool, false);
 ${export_methods.body}\
 
     .invoke sql_statements = gen_sql_write_statements(callingProject, multilevel, false);

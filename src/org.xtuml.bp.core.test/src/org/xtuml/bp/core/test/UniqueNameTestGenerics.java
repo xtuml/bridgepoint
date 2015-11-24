@@ -24,7 +24,6 @@ package org.xtuml.bp.core.test;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.swt.widgets.Display;
 
-import org.xtuml.bp.core.DataTypePackage_c;
 import org.xtuml.bp.core.ModelClass_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Package_c;
@@ -35,8 +34,6 @@ import org.xtuml.bp.core.common.TransactionManager;
 import org.xtuml.bp.test.common.BaseTest;
 
 public class UniqueNameTestGenerics extends BaseTest {
-
-	static DataTypePackage_c rootDpk = null;
 
 	static boolean isDone = false;
 

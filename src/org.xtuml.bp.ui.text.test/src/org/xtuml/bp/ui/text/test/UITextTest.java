@@ -46,7 +46,6 @@ import org.xtuml.bp.core.Association_c;
 import org.xtuml.bp.core.Attribute_c;
 import org.xtuml.bp.core.Bridge_c;
 import org.xtuml.bp.core.DataType_c;
-import org.xtuml.bp.core.Domain_c;
 import org.xtuml.bp.core.EnumerationDataType_c;
 import org.xtuml.bp.core.Enumerator_c;
 import org.xtuml.bp.core.ExternalEntityEventDataItem_c;
@@ -60,7 +59,6 @@ import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.StateMachineEventDataItem_c;
 import org.xtuml.bp.core.StateMachineEvent_c;
 import org.xtuml.bp.core.StateMachineState_c;
-import org.xtuml.bp.core.Subsystem_c;
 import org.xtuml.bp.core.UserDataType_c;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.common.Transaction;
@@ -194,15 +192,7 @@ public class UITextTest extends BaseTest
 			e.printStackTrace();
 		}
 		
-		if (uut instanceof Domain_c){
-			Domain_c dom = (Domain_c)uut;
-			dom.setName(newName);		
-		}
-		else if (uut instanceof Subsystem_c){
-			Subsystem_c sub = (Subsystem_c)uut;
-			sub.setName(newName);
-		}
-		else if (uut instanceof ExternalEntity_c){
+		if (uut instanceof ExternalEntity_c){
 			ExternalEntity_c ee = (ExternalEntity_c) uut;
 			ee.setName(newName);
 		}

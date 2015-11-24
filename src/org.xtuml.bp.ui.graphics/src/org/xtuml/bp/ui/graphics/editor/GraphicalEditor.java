@@ -341,7 +341,6 @@ public class GraphicalEditor extends GraphicalEditorWithFlyoutPalette implements
 						int toolType = tool.getOoa_type();
 						if (isInGenericPackage) {
 							switch (toolType) {
-							case Ooatype_c.InterfacePackage:
 							case Ooatype_c.Sequence:
 							case Ooatype_c.Communication:
 							case Ooatype_c.UseCaseDiagram:

@@ -62,15 +62,8 @@ opName="";
 if (not_empty operation	)
   opName = operation.Name; 
    select one pe_pe related by operation-> O_OBJ[R115]->PE_PE[R8001];
-     if(not_empty pe_pe )
-     //Is In Generics
       select one pkg related by pe_pe->EP_PKG[R8000];
       opPath= pkg.getPath(path:opName);
-     else
-      //In specialized 
-      select one subSystem related by operation-> O_OBJ[R115]->S_SS[R2];
-      opPath = subSystem.getPath(path:opName);    
-     end if;
 end if;
 return opPath;',
 	1,

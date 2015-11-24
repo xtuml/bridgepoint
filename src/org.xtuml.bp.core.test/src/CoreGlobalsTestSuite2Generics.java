@@ -23,6 +23,7 @@
 
 
 import org.eclipse.core.runtime.CoreException;
+
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 import org.xtuml.bp.core.test.ActivityTestsGenerics;
@@ -81,10 +82,10 @@ public class CoreGlobalsTestSuite2Generics extends TestSuite {
 		// turn off autobuild to stop MC-3020 builders from running
 		WorkspaceUtil.setAutobuilding(false);   // throws CoreException
 		CorePlugin.getDefault().getPreferenceStore().setValue(BridgePointPreferencesStore.USE_DEFAULT_NAME_FOR_CREATION, true);
-		addTest(new TestSuite(FormalizeUnformalizeWithPrefixTestGenerics.class));
-        addTest(new TestSuite(IntegrityIssueTests.class));
 		addTest(new TestSuite(CoreGlobalsTestSuiteIIGenerics.class));
 		addTest(new TestSuite(MultipleSelectionAssignmentTests.class));
+		addTest(new TestSuite(FormalizeUnformalizeWithPrefixTestGenerics.class));
+        addTest(new TestSuite(IntegrityIssueTests.class));
         addTest(new TestSuite(SequenceTestsGenerics.class));
 	    addTest(new TestSuite(CommunicationMessageTestsGenerics.class));/*3*/
 	    addTest(new TestSuite(CommunicationTestsGenerics.class));

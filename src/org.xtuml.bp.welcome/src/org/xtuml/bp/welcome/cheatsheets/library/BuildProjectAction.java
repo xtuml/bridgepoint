@@ -35,9 +35,7 @@ import org.eclipse.ui.cheatsheets.ICheatSheetAction;
 import org.eclipse.ui.cheatsheets.ICheatSheetManager;
 
 import org.xtuml.bp.core.ComponentInstance_c;
-import org.xtuml.bp.core.ComponentPackage_c;
 import org.xtuml.bp.core.Component_c;
-import org.xtuml.bp.core.Domain_c;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.ui.Selection;
 import org.xtuml.bp.core.ui.perspective.BridgePointPerspective;

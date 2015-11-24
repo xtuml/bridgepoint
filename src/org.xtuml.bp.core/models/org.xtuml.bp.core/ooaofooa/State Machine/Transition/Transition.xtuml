@@ -210,8 +210,7 @@ INSERT INTO O_TFR
 ',
 	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-if (param.name == "event" )
+	'if (param.name == "event" )
   
   if (param.value == "exists spec pkg" ) or (param.value == "exists generic pkg" )
   
@@ -219,14 +218,8 @@ if (param.name == "event" )
     if (empty cls)
       select one cls related by self->SM_SM[R505]->SM_ISM[R517]->O_OBJ[R518];
     end if;
-    select one packageableElem related by cls->PE_PE[R8001];
-    select one package related by packageableElem->EP_PKG[R8000];
-    select one cc related by packageableElem->C_C[R8003];
-    isInGenericPackage = not_empty package or not_empty cc;
-    if ((param.value == "exists spec pkg") and (isInGenericPackage))
-      return false;
-    end if;
-    if ((param.value == "exists generic pkg") and (not isInGenericPackage))
+
+    if (param.value == "exists spec pkg")
       return false;
     end if;
       
@@ -337,19 +330,11 @@ elif param.name == "signal"
     isInGenericPackage = not_empty package or not_empty component;
     // if there is no containing component, then this action should be
     // filtered
-    if(isInGenericPackage and empty component)
+    if(empty component)
       return false;
     end if;
-    if ((param.value == "exists spec pkg") and (isInGenericPackage))
+    if ((param.value == "exists spec pkg"))
       return false;
-    end if;
-    if ((param.value == "exists generic pkg") and (not isInGenericPackage))
-      return false;
-    end if;
-      
-    if (not isInGenericPackage)   
-      select one component related by self->SM_SM[R505]->SM_ASM[R517]->
-                     O_OBJ[R519]->S_SS[R2]->S_DOM[R1]->CN_DC[R4204]->C_C[R4204];
     end if;
       
     select many provisions related by component->
@@ -687,8 +672,7 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-/*
+	'/*
 Recursively checks the hierarchy tree, to find a polymorpic event that
 matches the copied polymorphic event.
 */
@@ -699,28 +683,20 @@ select one mclass related by asm->O_OBJ[R519];
 if(empty mclass)
   select one mclass related by self->SM_SM[R505]->SM_ISM[R517]->O_OBJ[R518];
 end if;
-select many machines related by mclass->S_SS[R2]->S_DOM[R1]->S_SS[R1]
-     ->O_OBJ[R2]->SM_ISM[R518]->SM_SM[R517];
-if(isClassBased)
-  select many machines related by mclass->S_SS[R2]->S_DOM[R1]->S_SS[R1]
-     ->O_OBJ[R2]->SM_ASM[R519]->SM_SM[R517];  
-end if;
 
 select one packageableElem related by mclass->PE_PE[R8001];
 select one package related by packageableElem->EP_PKG[R8000];
 select one component related by packageableElem->C_C[R8003];
-isInGenericPackage = not_empty package or not_empty component;
-if (isInGenericPackage)
-  if (not_empty package)
+
     select many machines related by package->S_SYS[R1405]->EP_PKG[R1405]->PE_PE[R8000]->O_OBJ[R8001]
            ->SM_ASM[R519]->SM_SM[R517];
-  else
+  if (not_empty machines)
     rootCompIdInPkg = component.getRootComponentId();
     select any rootComponent from instances of C_C where (selected.Id == rootCompIdInPkg);
     select many machines related by rootComponent->PE_PE[R8001]->EP_PKG[R8000]
            ->S_SYS[R1405]->EP_PKG[R1405]->PE_PE[R8000]->O_OBJ[R8001]->SM_ASM[R519]->SM_SM[R517];
   end if;
-end if;
+
 select many events related by machines->SM_EVT[R502];
 select one copiedEvt related by self->SM_NSTXN[R507]->SM_SEME[R504]->SM_SEVT[R503]->SM_EVT[R525];
 // for all of the possible events see if any match
@@ -766,29 +742,21 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-// find the signal for the passed id
-select any signal related by self->SM_SM[R505]->SM_ASM[R517]->O_OBJ[R519]->
-                 S_SS[R2]->S_DOM[R1]->CN_DC[R4204]->C_C[R4204]->C_PO[R4010]->
-                                           C_IR[R4016]->C_I[R4012]->C_EP[R4003]
-                                          where(selected.Id == param.signal_id);
-// check for isInGenericPackage
-if (empty signal)
+	'// find the signal for the passed id
+
   select one pe related by self->SM_SM[R505]->SM_ASM[R517]->O_OBJ[R519]
                                                                  ->PE_PE[R8001];
-  if(not_empty pe)
     select one package related by pe->EP_PKG[R8000];
     // the next call can return a null id, however
     // the UI code will prevent us from ever getting
     // here unless a container component exists
     compId = package.getContainingComponentId();
     select any component from instances of C_C where (selected.Id == compId);
-    if(not_empty component)
+
       select any signal related by component->C_PO[R4010]->C_IR[R4016]
                ->C_I[R4012]->C_EP[R4003] where (selected.Id == param.signal_id);
-    end if;
-  end if;
-end if;                                          
+
+
 select any reqEP related by signal->SPR_REP[R4500]
                      where (selected.ExecutableProperty_Id == param.signal_id
                              and selected.Requirement_Id == param.interface_id);

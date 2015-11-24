@@ -1926,8 +1926,7 @@ INSERT INTO S_SYNC
 	"00000000-0000-0000-0000-000000000000",
 	'Local_variable_validate',
 	'ParserValidateFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-// ::Local_variable_validate()
+	'// ::Local_variable_validate()
 ::self_validate( a1_text: param.a3_text, a2_isLval: param.a2_isLval,
                                                 a3_token: param.a1_rule_token );
 ::sender_validate( a1_name: param.a3_text, a2_isLval: param.a2_isLval,
@@ -1941,11 +1940,7 @@ if (::selected_validate( name:param.a3_text, rule_token: param.a1_rule_token ))
   create object instance val_inst of V_VAL;
   create object instance slr of V_SLR;
   relate slr to val_inst across R801;
-  select any dom from instances of S_DOM where
-                                     selected.Dom_ID == ::getValidationDomain();
-  select any val_dt related by dom->S_DT[R14] where
-                                            selected.Name == "inst_ref<Object>";
-  if empty val_dt
+
     cur_sys_name = ::getSystemName();
     select any sys from instances of S_SYS where selected.Name == cur_sys_name;
     dt_id = GD::NULL_UNIQUE_ID();
@@ -1954,7 +1949,7 @@ if (::selected_validate( name:param.a3_text, rule_token: param.a1_rule_token ))
     end if;
     select any pe from instances of PE_PE where selected.Element_ID == dt_id;
     select one val_dt related by pe->S_DT[R8001]; 
-  end if;
+
   if ( not_empty val_dt )
     relate val_inst to val_dt across R820;
   else
@@ -2003,12 +1998,9 @@ else // r-value
   select one var_dt related by var_inst->S_DT[R848];
   if ( empty var_dt )
     select one inst related by var_inst->V_INT[R814];
-    select any dom from instances of S_DOM where
-                                     selected.Dom_ID == ::getValidationDomain();
+
     if ( not_empty inst )
-      select any var_dt related by dom->S_DT[R14] where
-                                            selected.Name == "inst_ref<Object>";
-      if empty var_dt
+
         cur_sys_name = ::getSystemName();
         select any sys from instances of S_SYS where
                                                   selected.Name == cur_sys_name;
@@ -2022,13 +2014,11 @@ else // r-value
           USER::logError(msg: "Internal Error in OAL Validation Function " +
             "Local_variable_validate().  Variable <var_dt> is empty.",path:"PathNotProvided");
         end if;
-      end if;
+
     else
       select one inst_set related by var_inst->V_INS[R814];
       if ( not_empty inst_set )
-        select any var_dt related by dom->S_DT[R14] where
-                                        selected.Name == "inst_ref_set<Object>";
-        if empty var_dt
+
           cur_sys_name = ::getSystemName();
           select any sys from instances of S_SYS where
                                                   selected.Name == cur_sys_name;
@@ -2042,7 +2032,7 @@ else // r-value
             USER::logError(msg: "Internal Error in OAL Validation Function " +
                "Local_variable_validate().  Variable <var_dt> (set) is empty.",path:"PathNotProvided");
           end if;
-        end if;
+
       else
         ERR::reportParseError( msg:
                 "Variable ->%s<- has not been data typed yet.  ",
@@ -2944,8 +2934,7 @@ INSERT INTO S_SYNC
 	"00000000-0000-0000-0000-000000000000",
 	'Create_event_statement_end',
 	'ParserValidateFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select any gen_stmt from instances of ACT_SMT
+	'select any gen_stmt from instances of ACT_SMT
       where ( selected.Statement_ID == param.b2_event_spec2_id );
 select any var from instances of V_VAR where ( selected.Var_ID == param.b1_local_variable1_id );
 if ( empty gen_stmt )
@@ -2995,10 +2984,7 @@ else
   relate ces to var across R710;
   if ( not var.Declared )
     ces.is_implicit = true;
-    select any dom from instances of S_DOM where selected.Dom_ID == ::getValidationDomain();
-    select any dt related by dom->S_DT[R14] where
-                                                 selected.Name == "inst<Event>";
-    if empty dt
+
       cur_sys_name = ::getSystemName();
       select any sys from instances of S_SYS where selected.Name == cur_sys_name;
       dt_id = GD::NULL_UNIQUE_ID();
@@ -3007,7 +2993,7 @@ else
       end if;
       select any pe from instances of PE_PE where selected.Element_ID == dt_id;
       select one dt related by pe->S_DT[R8001]; 
-    end if;
+
     select one trn related by var->V_TRN[R814];
     if ( not_empty dt )
       relate var to dt across R848;
@@ -3155,8 +3141,7 @@ INSERT INTO S_SYNC
 	"00000000-0000-0000-0000-000000000000",
 	'Object_keyletters_validate',
 	'ParserValidateFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-current_scope = ::get_current_scope();
+	'current_scope = ::get_current_scope();
 select any block from instances of ACT_BLK where
                                              selected.Block_ID == current_scope;
 select one body related by block->ACT_ACT[R612];
@@ -3220,27 +3205,10 @@ else
                                              selected.Key_Lett == param.a3_text;
   body.associateWithOwningComponent();
   select one component related by body->ACT_BIC[R694]->C_C[R694];
-  if not_empty component
-    // If we''re in a component, we just look for the class locally
-    select many classes related by component->CN_DC[R4204]->S_DOM[R4204]->
-                   S_SS[R1]->O_OBJ[R2] where selected.Key_Lett == param.a3_text;
-  end if;
-  if empty classes
     ERR::reportParseError( 
         msg: "Cannot find specified class key letters ->%s<-.", 
         token: param.a1_rule_token );
-  elif cardinality classes > 1
-    ERR::reportParseError( msg:
-    "More than one class with key letters ->%s<- You will need to eventually clear this up",
-          token: param.a1_rule_token );
-  else
-    result = GD::NULL_UNIQUE_ID();
-    for each clazz in classes
-      // will iterate only once
-      result = clazz.Obj_ID;
-    end for;
-    return result;
-  end if;
+
   return param.a6_current_rule_id;
 end if;',
 	"ba5eda7a-def5-0000-0000-000000000005",
@@ -6800,8 +6768,7 @@ INSERT INTO S_SYNC
 	"00000000-0000-0000-0000-000000000000",
 	'Relationship_validate',
 	'ParserValidateFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-current_scope = ::get_current_scope();
+	'current_scope = ::get_current_scope();
 select any block from instances of ACT_BLK where
                                              selected.Block_ID == current_scope;
 select one body related by block->ACT_ACT[R612];
@@ -6866,26 +6833,8 @@ else
   select many rel_set from instances of R_REL where ( selected.Numb == rel_num );
   body.associateWithOwningComponent();
   select one component related by body->ACT_BIC[R694]->C_C[R694];
-  if not_empty component
-    // If we''re in a component, we just look for the association locally
-    select many rel_set related by component->CN_DC[R4204]->S_DOM[R4204]->
-                             S_SS[R1]->R_REL[R4] where selected.Numb == rel_num;
-  end if;
-  if empty rel_set
     ERR::reportParseError( msg: "Cannot find specified association ->%s<-",
           token: param.a1_rule_token );
-  elif cardinality rel_set > 1
-    ERR::reportParseError( msg:
-      "More than one association with number ->%s<- You will need to eventually clear this up",
-          token: param.a1_rule_token );
-  else
-    result = GD::NULL_UNIQUE_ID();
-    for each rel in rel_set
-      // will iterate only once
-      result = rel.Rel_ID;
-    end for;
-    return result;
-  end if;
   return param.a6_current_rule_id;
 end if;',
 	"ba5eda7a-def5-0000-0000-000000000005",
@@ -7592,8 +7541,7 @@ INSERT INTO S_SYNC
 	"00000000-0000-0000-0000-000000000000",
 	'Return_statement_end',
 	'ParserValidateFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-// ::Return_statement_end()
+	'// ::Return_statement_end()
 current_scope = ::get_current_scope();
 select any blk from instances of ACT_BLK where
                                              selected.Block_ID == current_scope;
@@ -7633,11 +7581,7 @@ if ( not_empty blk )
                                          C_EP[R4501]->C_IO[R4004]->S_DIM[R4018];
           else
             // MDA returns are always void
-            select any dom from instances of S_DOM where
-                                     selected.Dom_ID == ::getValidationDomain();
-            select any ret_dt related by dom->S_DT[R14] where
-                                                        selected.Name == "void";
-            if empty ret_dt
+
               // if the return dt was not found, check the
               // system level
               sysName = ::getSystemName();
@@ -7650,7 +7594,7 @@ if ( not_empty blk )
               select any pe from instances of PE_PE where
                                                    selected.Element_ID == dt_id;
               select one ret_dt related by pe->S_DT[R8001]; 
-            end if;
+
           end if;
         end if;
       end if;
@@ -9801,6 +9745,8 @@ INSERT INTO S_SYNC
 	'current_scope = ::get_current_scope();
 select any block from instances of ACT_BLK where (selected.Block_ID == current_scope);
 select one body related by block->ACT_ACT[R612];
+// most isInGenericPackage varibles have been removed by the SP removal work. 
+// This one stays.
 isInGenericPackage = body.associateWithContainer();
 if isInGenericPackage
   select one containingElem related by body->ACT_BIE[R640]->PE_PE[R640];
@@ -9855,7 +9801,6 @@ else
   // store the textual position of the key letters
   block.currentKeyLettersLineNumber = ::getLineNumber(rule_token: param.a1_rule_token);
   block.currentKeyLettersColumn = ::getColumn(rule_token: param.a1_rule_token);
-
   return ee.EE_ID;
 end if;',
 	"ba5eda7a-def5-0000-0000-000000000005",
@@ -10648,8 +10593,7 @@ INSERT INTO S_SYNC
 	"00000000-0000-0000-0000-000000000000",
 	'Invocation_function_validate',
 	'ParserValidateFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-current_scope = ::get_current_scope();
+	'current_scope = ::get_current_scope();
 select any block from instances of ACT_BLK where
                    selected.Block_ID == current_scope;
 select one body related by block->ACT_ACT[R612];
@@ -10826,7 +10770,7 @@ if isInGenericPackage
     elif ( bridge_found )
       resultInvocation =  ::is_valid_bridge( key_lett: identifier,
                        name: param.a3_text, rule_token: param.a1_rule_token );
-    elif ( tfr_found)
+    elif ( tfr_found and ( not_empty obj ) )
       resultInvocation =  ::is_valid_transform (a1_obj_id: obj.Obj_ID,
                                         a2_name: param.a3_text, 
                                      a3_rule_token: param.a1_rule_token,
@@ -10851,28 +10795,8 @@ else
   // Note that we can NOT validate the parameters and other aspects of the
   // invocation yet (we do that at the end when we know there are no duplicates)
   //
-  select any obj from instances of O_OBJ where selected.Key_Lett == identifier;
-  if not_empty component
-    // If we''re in a component, we just look for the class locally
-    select any obj related by component->CN_DC[R4204]->S_DOM[R4204]->
-                      S_SS[R1]->O_OBJ[R2] where selected.Key_Lett == identifier;
-  end if;
-  if not_empty obj
-    select any tfr related by obj->O_TFR[R115] where
-                                                 selected.Name == param.a3_text; 
-    if (not_empty tfr)
-      tfr_found = true;
-      dupErrString = dupErrString + "Class Based Operation";    
-      numMatches = numMatches + 1;
-    end if;
-  end if; // obj  
-  //
+  select any obj from instances of O_OBJ where selected.Key_Lett == identifier;  
   select any ee from instances of S_EE where selected.Key_Lett == identifier;
-  if not_empty component
-    // If we''re in a component, we just look for the external entity locally
-    select any ee related by component->CN_DC[R4204]->
-                   S_DOM[R4204]->S_EE[R8] where selected.Key_Lett == identifier;
-  end if;
   if not_empty ee
     select any brg related by ee->S_BRG[R19] where
                                                  selected.Name == param.a3_text;
@@ -11355,8 +11279,7 @@ INSERT INTO S_SYNC
 	"00000000-0000-0000-0000-000000000000",
 	'Enum_data_type_validate',
 	'ParserValidateFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-current_scope = ::get_current_scope();
+	'current_scope = ::get_current_scope();
 select any block from instances of ACT_BLK where (selected.Block_ID == current_scope);
 select one body related by block->ACT_ACT[R612];
 isInGenericPackage = body.associateWithContainer();
@@ -11432,19 +11355,11 @@ if isInGenericPackage
   end if;
   return GD::NULL_UNIQUE_ID();
 else
-  select any dom from instances of S_DOM where selected.Dom_ID == ::getValidationDomain();
-  select many dt related by dom->S_DT[R14] where selected.Name == param.a3_text;
-  if empty dt
     // see if any enumerations are located at the system level
     cur_sys_name = ::getSystemName();
     select any sys from instances of S_SYS where selected.Name == cur_sys_name;
-    select many dt related by sys->SLD_SDINP[R4402]->S_DT[R4401] where
-                                                 selected.Name == param.a3_text;
-    if empty dt and not_empty sys and sys.useGlobals
       select many dt related by sys->G_EIS[R9100]->PE_PE[R9100]->S_DT[R8001] where
                                                  selected.Name == param.a3_text;
-  end if;
-  end if;
   select many edt related by dt->S_EDT[R17];
   if ( empty edt )
     ERR::reportParseError( msg: "Cannot find enumeration data type ->%s<-",
@@ -11460,7 +11375,6 @@ else
     select any the_edt related by dt->S_EDT[R17];
     return the_edt.DT_ID;
   end if;
-
   return param.a6_current_rule_id;
 end if;',
 	"ba5eda7a-def5-0000-0000-000000000005",
@@ -11536,8 +11450,7 @@ if(empty edt)
     end if;
   end if;
 end if;
-isInGenericPackage = not_empty edt;
-if isInGenericPackage
+
   select any enum related by edt->S_ENUM[R27] 
                                        where ( selected.Name == param.a3_text );
   if ( empty enum )
@@ -11555,44 +11468,7 @@ if isInGenericPackage
   else
     return enum.Enum_ID;
   end if;
-else
-  select any edt from instances of S_EDT 
-                            where ( selected.DT_ID == param.a6_current_rule_id);
-  if(empty edt)
-    // if the enumeration dt was not found, it is
-    // probably in a different root at the system
-    // level
-    sysName = ::getSystemName();
-    select any system from instances of S_SYS where (selected.Name == sysName);
-    if(not_empty system)
-      select any edt related by system->SLD_SDINP[R4402]->
-                                            S_DT[R4401]->S_EDT[R17] where
-                                   (selected.DT_ID == param.a6_current_rule_id);
-      if empty edt and not_empty system and system.useGlobals
-        select any edt related by system->G_EIS[R9100]->PE_PE[R9100]->
-                                            S_DT[R8001]->S_EDT[R17] where
-                                   (selected.DT_ID == param.a6_current_rule_id);
-      end if;
-    end if;
-  end if;
-  select any enum related by edt->S_ENUM[R27] 
-                                       where ( selected.Name == param.a3_text );
-  if ( empty enum )
-    if(empty edt)
-      // here we just log an error, as there is
-      // something wrong in the system.  Not
-      // necessarily having to do with the OAL
-      USER::logError(msg:"Unable to locate enumeration data type.",path:"");
-    else
-      select one dt related by edt->S_DT[R17];
-      ERR::reportParseError( msg: 
-      "Cannot find enumerator ->%s<- for enumeration data type ->"+dt.Name+"<-",
-            token: param.a1_rule_token );  
-    end if;
-  else
-    return enum.Enum_ID;
-  end if;
-end if;
+
 return param.a6_current_rule_id;',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
@@ -11660,12 +11536,10 @@ if(empty enum)
   // check the system level
   sysName = ::getSystemName();
   select any system from instances of S_SYS where (selected.Name == sysName);
-  select any enum related by system->SLD_SDINP[R4402]->S_DT[R4401]->S_EDT[R17]
-              ->S_ENUM[R27] where (selected.Enum_ID == param.b2_enumerator2_id);
-  if empty enum and not_empty system and system.useGlobals
+
     select any enum related by system->G_EIS[R9100]->PE_PE[R9100]->S_DT[R8001]->
     S_EDT[R17]->S_ENUM[R27] where (selected.Enum_ID == param.b2_enumerator2_id);
-end if;
+
 end if;
 
 create object instance len of V_LEN;
@@ -12100,17 +11974,6 @@ else // not in generic package
   body.associateWithOwningComponent();
   select one component related by body->ACT_BIC[R694]->C_C[R694];
   if not_empty component
-    // If we''re in a component, we just look for the class locally
-    select many classes related by component->CN_DC[R4204]->S_DOM[R4204]->
-                                                            S_SS[R1]->O_OBJ[R2];
-    select many evt_set related by classes->
-                          SM_ISM[R518]->SM_SM[R517]->SM_EVT[R502] where
-                                              selected.Drv_Lbl == param.a3_text;
-    select many classEvt_set related by classes->
-                          SM_ASM[R519]->SM_SM[R517]->SM_EVT[R502] where
-                                              selected.Drv_Lbl == param.a3_text;
-  end if;
-  if ( empty evt_set and empty classEvt_set)
     if ( empty eeevt_set )
       stmt.dispose();
       ERR::reportParseError( msg: "Cannot find event for event label ->%s<-",
@@ -15464,8 +15327,7 @@ INSERT INTO S_SYNC
 	"00000000-0000-0000-0000-000000000000",
 	'Object_spec_end',
 	'ParserValidateFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-// ::Object_spec_end()
+	'// ::Object_spec_end()
 current_scope = ::get_current_scope();
 select any blk from instances of ACT_BLK where (selected.Block_ID == current_scope);
 
@@ -15526,12 +15388,11 @@ elif ( param.b4_object_keyletters4_id != GD::NULL_UNIQUE_ID() )
   select any objPe from instances of PE_PE  where
                           selected.Element_ID == param.b4_object_keyletters4_id;
   select one obj related by objPe->O_OBJ[R8001];
-  isInGenericPackage = not_empty obj;
-  if not isInGenericPackage
+
     // Specialized package class
     select any obj from instances of O_OBJ where
                               selected.Obj_ID == param.b4_object_keyletters4_id;
-  end if;
+
   if ( param.b5_where_spec5_id != GD::NULL_UNIQUE_ID() )
     select any val from instances of V_VAL where ( selected.Value_ID == param.b5_where_spec5_id );
     stmt_id =  ::statement_create();
@@ -24975,16 +24836,13 @@ INSERT INTO S_SYNC
 	"00000000-0000-0000-0000-000000000000",
 	'Terminal_tok_fraction_validate',
 	'ParserValidateFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-create object instance lrl of V_LRL;
+	'create object instance lrl of V_LRL;
 lrl.Value = param.a2_text;
 create object instance val of V_VAL;
 current_scope = ::get_current_scope();
 select any blk from instances of ACT_BLK where (selected.Block_ID == current_scope);
 relate val to blk across R826;
-select any dom from instances of S_DOM where selected.Dom_ID == ::getValidationDomain();
-select any dt related by dom->S_DT[R14] where selected.Name == "real";
-if empty dt
+
   cur_sys_name = ::getSystemName();
   select any sys from instances of S_SYS where (selected.Name == cur_sys_name);
   dt_id = GD::NULL_UNIQUE_ID();
@@ -24993,7 +24851,7 @@ if empty dt
   end if;
   select any pe from instances of PE_PE where selected.Element_ID == dt_id;
   select one dt related by pe->S_DT[R8001]; 
-end if;
+
 if ( not_empty dt )
   relate val to dt across R820;
 else
@@ -25165,16 +25023,13 @@ INSERT INTO S_SYNC
 	"00000000-0000-0000-0000-000000000000",
 	'Terminal_tok_number_validate',
 	'ParserValidateFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-create object instance lin of V_LIN;
+	'create object instance lin of V_LIN;
 lin.Value = param.a2_text;
 create object instance val of V_VAL;
 current_scope = ::get_current_scope();
 select any blk from instances of ACT_BLK where (selected.Block_ID == current_scope);
 relate val to blk across R826;
-select any dom from instances of S_DOM where selected.Dom_ID == ::getValidationDomain();
-select any dt related by dom->S_DT[R14] where selected.Name == "integer";
-if empty dt
+
   cur_sys_name = ::getSystemName();
   select any sys from instances of S_SYS where selected.Name == cur_sys_name;
   dt_id = GD::NULL_UNIQUE_ID();
@@ -25183,7 +25038,7 @@ if empty dt
   end if;
   select any pe from instances of PE_PE where selected.Element_ID == dt_id;
   select one dt related by pe->S_DT[R8001]; 
-end if;
+
 if ( not_empty dt )
   relate val to dt across R820;
 else
@@ -25246,16 +25101,13 @@ INSERT INTO S_SYNC
 	"00000000-0000-0000-0000-000000000000",
 	'Terminal_tok_string_validate',
 	'ParserValidateFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-create object instance lst of V_LST;
+	'create object instance lst of V_LST;
 lst.Value = lst.removeQuotes(s: param.a2_text);
 create object instance val of V_VAL;
 current_scope = ::get_current_scope();
 select any blk from instances of ACT_BLK where (selected.Block_ID == current_scope);
 relate val to blk across R826;
-select any dom from instances of S_DOM where selected.Dom_ID == ::getValidationDomain();
-select any dt related by dom->S_DT[R14] where selected.Name == "string";
-if empty dt
+
   cur_sys_name = ::getSystemName();
   select any sys from instances of S_SYS where selected.Name == cur_sys_name;
   dt_id = GD::NULL_UNIQUE_ID();
@@ -25264,7 +25116,7 @@ if empty dt
   end if;
   select any pe from instances of PE_PE where selected.Element_ID == dt_id;
   select one dt related by pe->S_DT[R8001]; 
-end if;
+
 if ( not_empty dt )
   relate val to dt across R820;
 else
@@ -25327,17 +25179,14 @@ INSERT INTO S_SYNC
 	"00000000-0000-0000-0000-000000000000",
 	'String_literal_true_validate',
 	'ParserValidateFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-create object instance lbo of V_LBO;
+	'create object instance lbo of V_LBO;
 lbo.Value = "TRUE";
 
 create object instance val of V_VAL;
 current_scope = ::get_current_scope();
 select any blk from instances of ACT_BLK where (selected.Block_ID == current_scope);
 relate val to blk across R826;
-select any dom from instances of S_DOM where selected.Dom_ID == ::getValidationDomain();
-select any dt related by dom->S_DT[R14] where selected.Name == "boolean";
-if empty dt
+
   cur_sys_name = ::getSystemName();
   select any sys from instances of S_SYS where selected.Name == cur_sys_name;
   dt_id = GD::NULL_UNIQUE_ID();
@@ -25346,7 +25195,7 @@ if empty dt
   end if;
   select any pe from instances of PE_PE where selected.Element_ID == dt_id;
   select one dt related by pe->S_DT[R8001]; 
-end if;
+
 if ( not_empty dt )
   relate val to dt across R820;
 else
@@ -25407,9 +25256,7 @@ create object instance val of V_VAL;
 current_scope = ::get_current_scope();
 select any blk from instances of ACT_BLK where (selected.Block_ID == current_scope);
 relate val to blk across R826;
-select any dom from instances of S_DOM where selected.Dom_ID == ::getValidationDomain();
-select any dt related by dom->S_DT[R14] where selected.Name == "boolean";
-if empty dt
+
   cur_sys_name = ::getSystemName();
   select any sys from instances of S_SYS where selected.Name == cur_sys_name;
   dt_id = GD::NULL_UNIQUE_ID();
@@ -25418,7 +25265,7 @@ if empty dt
   end if;
   select any pe from instances of PE_PE where selected.Element_ID == dt_id;
   select one dt related by pe->S_DT[R8001]; 
-end if;
+
 if ( not_empty dt )
   relate val to dt across R820;
 else
@@ -25665,10 +25512,6 @@ else
                                              selected.Block_ID == current_scope;
     // This code is a close copy of what is in Member_access_loop11_end.
     // Need to look and see if this can be refactored.
-    select any dom from instances of S_DOM where selected.Dom_ID == ::getValidationDomain();
-    select any instRefDt related by dom->S_DT[R14] where
-                                            selected.Name == "inst_ref<Object>";
-    if empty instRefDt
       cur_sys_name = ::getSystemName();
       select any sys from instances of S_SYS where selected.Name == cur_sys_name;
       dt_id = GD::NULL_UNIQUE_ID();
@@ -25677,7 +25520,7 @@ else
       end if;
       select any pe from instances of PE_PE where selected.Element_ID == dt_id;
       select one instRefDt related by pe->S_DT[R8001];
-    end if;
+
     if empty instRefDt
       USER::logError(msg: "Internal Error in OAL Validation " +
         "Member_access_end().  Variable <instRefDt> is empty.",path:"PathNotProvided");
@@ -25791,11 +25634,8 @@ else
                   create object instance instSetRef of V_ISR;
                   relate instSetRef to varInst across R809;
                   relate instSetRef to rootVal across R801;
-                  select any instSetDt related by dom->S_DT[R14]
-                                  where selected.Name == "inst_ref_set<Object>";
                   select one instSetDt2 related by varInst->S_DT[R848]->S_IRDT[R17];
                   if empty instSetDt2
-                    if empty instSetDt
                       cur_sys_name = ::getSystemName();
                       select any sys from instances of S_SYS where
                                                   selected.Name == cur_sys_name;
@@ -25806,15 +25646,14 @@ else
                       select any pe from instances of PE_PE where
                                                    selected.Element_ID == dt_id;
                       select one instSetDt related by pe->S_DT[R8001];
-                    end if;
                     if empty instSetDt
                       USER::logError(msg: "Internal Error in OAL Validation " +
                         "Member_access_end().  Variable <instSetDt> is empty.",path:"PathNotProvided");
+                    else
+                     relate instSetDt to rootVal across R820;
                     end if;
                   end if;
-                  if empty instSetDt2
-                    relate instSetDt to rootVal across R820;
-                  else
+                  if not_empty instSetDt2
                     select one instSetDt2super related by instSetDt2->S_DT[R17];
                     relate instSetDt2super to rootVal across R820;
                   end if;
@@ -26063,18 +25902,14 @@ INSERT INTO S_SYNC
 	"00000000-0000-0000-0000-000000000000",
 	'Member_access_loop11_end',
 	'ParserValidateFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-// Member_access_loop_11_end()
+	'// Member_access_loop_11_end()
 select any rootVal from instances of V_VAL where
                               selected.Value_ID == param.b1_root_inst_access_id;
 if (empty rootVal)
   // There was a problem with parsing the value . ..
   ::clear_value_data();
 else
-  select any dom from instances of S_DOM where selected.Dom_ID == ::getValidationDomain();
-  select any instRefDt related by dom->S_DT[R14] where
-                                            selected.Name == "inst_ref<Object>";
-  if empty instRefDt
+
     cur_sys_name = ::getSystemName();
     select any sys from instances of S_SYS where selected.Name == cur_sys_name;
     dt_id = GD::NULL_UNIQUE_ID();
@@ -26083,7 +25918,7 @@ else
     end if;
     select any pe from instances of PE_PE where selected.Element_ID == dt_id;
     select one instRefDt related by pe->S_DT[R8001];
-  end if;
+
   if empty instRefDt
     USER::logError(msg: "Internal Error in OAL Validation Function " +
                  "Member_access_loop11_end().  Variable <instRefDt> is empty.",path:"PathNotProvided");

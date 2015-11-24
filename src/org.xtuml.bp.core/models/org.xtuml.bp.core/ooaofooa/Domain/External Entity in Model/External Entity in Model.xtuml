@@ -14,12 +14,7 @@ INSERT INTO O_TFR
 	'The dispose operation for this class.',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select one ss related by self->S_SS[R7];
-if (not_empty ss)
-  unrelate self from ss across R7;
-end if;
-select one ee related by self->S_EE[R9];
+	'select one ee related by self->S_EE[R9];
 unrelate self from ee across R9;
 select many eesmcs related by self->CA_EESMC[R402];
 for each eesmc in eesmcs
@@ -78,57 +73,6 @@ Data Domain: 6 = Communication Diagram, 7 = Synchronous Communication Diagram',
 	'');
 INSERT INTO O_REF
 	VALUES ("370cf248-82e0-4e2f-ab33-dd7c04ece691",
-	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
-	0,
-	"c7b05f2f-7685-4110-b916-e67cfa3caa1d",
-	"50d25580-7597-4b37-8494-23d2c8216f56",
-	"6ca4e05d-d01d-4c78-9004-59fea94be250",
-	"32b688c6-7e5c-45e5-adee-79045ade2a74",
-	"cf3b0b4c-3b65-40c2-8213-0a14df53b27c",
-	"804bc12f-c898-4918-b8a9-e85c53e90ec9",
-	"00000000-0000-0000-0000-000000000000",
-	0,
-	'',
-	'Subsystem',
-	'SS_ID',
-	'R7.''is a presence of an an external entity in''');
-INSERT INTO R_RGO_PROXY
-	VALUES ("370cf248-82e0-4e2f-ab33-dd7c04ece691",
-	"50d25580-7597-4b37-8494-23d2c8216f56",
-	"6ca4e05d-d01d-4c78-9004-59fea94be250",
-	'../Domain.xtuml');
-INSERT INTO O_RTIDA_PROXY
-	VALUES ("c7b05f2f-7685-4110-b916-e67cfa3caa1d",
-	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
-	0,
-	"50d25580-7597-4b37-8494-23d2c8216f56",
-	"32b688c6-7e5c-45e5-adee-79045ade2a74",
-	'../Domain.xtuml');
-INSERT INTO O_RATTR
-	VALUES ("cf3b0b4c-3b65-40c2-8213-0a14df53b27c",
-	"370cf248-82e0-4e2f-ab33-dd7c04ece691",
-	"c7b05f2f-7685-4110-b916-e67cfa3caa1d",
-	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
-	1,
-	'SS_ID');
-INSERT INTO O_BATTR_PROXY
-	VALUES ("c7b05f2f-7685-4110-b916-e67cfa3caa1d",
-	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
-	'../Subsystem/Subsystem.xtuml');
-INSERT INTO O_ATTR
-	VALUES ("cf3b0b4c-3b65-40c2-8213-0a14df53b27c",
-	"370cf248-82e0-4e2f-ab33-dd7c04ece691",
-	"befc6483-e2c4-4a01-8319-8b1af1061357",
-	'SS_ID',
-	'',
-	'',
-	'SS_ID',
-	0,
-	"ba5eda7a-def5-0000-0000-000000000007",
-	'',
-	'');
-INSERT INTO O_REF
-	VALUES ("370cf248-82e0-4e2f-ab33-dd7c04ece691",
 	"a361b553-b2e3-46ea-a8f4-8b8633921011",
 	0,
 	"4de1fe24-5765-4921-81ea-ef51f4203fcb",
@@ -176,6 +120,24 @@ INSERT INTO O_ATTR
 	'EE_ID',
 	0,
 	"ba5eda7a-def5-0000-0000-000000000007",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("b89fe56d-c61e-4cd8-9af2-0641c6275d18",
+	"370cf248-82e0-4e2f-ab33-dd7c04ece691");
+INSERT INTO O_BATTR
+	VALUES ("b89fe56d-c61e-4cd8-9af2-0641c6275d18",
+	"370cf248-82e0-4e2f-ab33-dd7c04ece691");
+INSERT INTO O_ATTR
+	VALUES ("b89fe56d-c61e-4cd8-9af2-0641c6275d18",
+	"370cf248-82e0-4e2f-ab33-dd7c04ece691",
+	"befc6483-e2c4-4a01-8319-8b1af1061357",
+	'SS_ID',
+	'',
+	'',
+	'SS_ID',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000005",
 	'',
 	'');
 INSERT INTO O_ID
