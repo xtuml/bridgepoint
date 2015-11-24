@@ -80,6 +80,7 @@ public class OALGlobalsTestSuite_Generics extends TestSuite {
 		return new OALGlobalsTestSuite_Generics();
 	}
 	public OALGlobalsTestSuite_Generics() {
+	    addTest(new TestSuite(ParseErrorForEmptySynchronousMessagesTests.class));
 		addTest(new TestSuite(OalParserGlobalsTest_Generics.class));
 		addTest(new TestSuite(OalParserTest_Generics.class));
 		addTest(new TestSuite(TestArray_Generics.class));
@@ -94,7 +95,6 @@ public class OALGlobalsTestSuite_Generics extends TestSuite {
 		addTest(new TestSuite(TestEvent_Generics.class));
 	    addTest(new TestSuite(TestSelectWhere_Generics.class));
 	    addTest(new TestSuite(TestSelectWhere_OpNotAllowed.class));
-	    addTest(new TestSuite(ParseErrorForEmptySynchronousMessagesTests.class));
 		addTest(new TestSuite(TestSelect_Generics.class));
 	    addTest(new TestSuite(TestSelect_Generics_Ordered.class));
 		addTest(new TestSuite(TestLineNumbers_Generics.class));

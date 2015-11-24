@@ -158,6 +158,7 @@ public class ParseErrorForEmptySynchronousMessagesTests extends BaseTest {
 		Preferences projectNode = projectScope
 				.getNode(BridgePointProjectPreferences.BP_PROJECT_PREFERENCES_ID);
 		projectNode.putBoolean(key, value);
+		BaseTest.dispatchEvents(0);
 	}
 
 	private IMarker[] parseModel(NonRootModelElement testElement) throws CoreException {
