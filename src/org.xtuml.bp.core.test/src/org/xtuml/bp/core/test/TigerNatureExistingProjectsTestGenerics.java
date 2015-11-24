@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 // ========================================================================
 //
 //File: $RCSfile: TigerNatureExistingProjectsTestGenerics.java,v $
@@ -90,104 +89,7 @@ public class TigerNatureExistingProjectsTestGenerics extends CanvasTest {
 
 	public TigerNatureExistingProjectsTestGenerics(String name) {
 		super("org.xtuml.bp.core.test", name);
-=======
-// ========================================================================
-//
-//File: $RCSfile: TigerNatureExistingProjectsTestGenerics.java,v $
-//Version: $Revision: 1.12 $
-//Modified: $Date: 2013/05/10 04:30:26 $
-//
-//(c) Copyright 2005-2014 by Mentor Graphics Corp. All rights reserved.
-//
-//========================================================================
-// Licensed under the Apache License, Version 2.0 (the "License"); you may not 
-// use this file except in compliance with the License.  You may obtain a copy 
-// of the License at
-//
-//       http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software 
-// distributed under the License is distributed on an "AS IS" BASIS, WITHOUT 
-// WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the 
-// License for the specific language governing permissions and limitations under
-// the License.
-//========================================================================
-package org.xtuml.bp.core.test;
-
-import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.core.runtime.Platform;
-import org.eclipse.gef.tools.AbstractTool;
-import org.eclipse.swt.graphics.Rectangle;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.TreeItem;
-import org.eclipse.ui.IEditorInput;
-import org.eclipse.ui.IEditorPart;
-import org.eclipse.ui.IEditorReference;
-import org.eclipse.ui.IWorkbenchPage;
-import org.eclipse.ui.PartInitException;
-import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.views.properties.IPropertyDescriptor;
-import org.xtuml.bp.core.ComponentReference_c;
-import org.xtuml.bp.core.Component_c;
-import org.xtuml.bp.core.DataType_c;
-import org.xtuml.bp.core.ExecutableProperty_c;
-import org.xtuml.bp.core.InterfaceOperation_c;
-import org.xtuml.bp.core.InterfaceReference_c;
-import org.xtuml.bp.core.Interface_c;
-import org.xtuml.bp.core.ModelClass_c;
-import org.xtuml.bp.core.Ooaofooa;
-import org.xtuml.bp.core.Operation_c;
-import org.xtuml.bp.core.Package_c;
-import org.xtuml.bp.core.PackageableElement_c;
-import org.xtuml.bp.core.Port_c;
-import org.xtuml.bp.core.PropertyParameter_c;
-import org.xtuml.bp.core.Provision_c;
-import org.xtuml.bp.core.SystemModel_c;
-import org.xtuml.bp.core.common.ClassQueryInterface_c;
-import org.xtuml.bp.core.common.Transaction;
-import org.xtuml.bp.core.ui.Selection;
-import org.xtuml.bp.test.TestUtil;
-import org.xtuml.bp.test.common.ExplorerUtil;
-import org.xtuml.bp.test.common.UITestingUtilities;
-import org.xtuml.bp.ui.canvas.Cl_c;
-import org.xtuml.bp.ui.canvas.Ooaofgraphics;
-import org.xtuml.bp.ui.canvas.test.CanvasTest;
-import org.xtuml.bp.ui.canvas.test.CanvasTestResult;
-import org.xtuml.bp.ui.canvas.test.CanvasTestUtilities;
-import org.xtuml.bp.ui.graphics.editor.GraphicalEditor;
-import org.xtuml.bp.ui.graphics.editor.GraphicalEditorInput;
-import org.xtuml.bp.ui.graphics.editor.ModelEditor;
-import org.xtuml.bp.ui.properties.ChooserPropertyDescriptor;
-import org.xtuml.bp.ui.properties.OperationsC_IOPropertySource;
-import org.xtuml.bp.ui.properties.ParametersC_PPPropertySource;
-import org.xtuml.bp.ui.text.activity.ActivityEditorInputFactory;
-import org.xtuml.bp.ui.text.description.DescriptionEditorInputFactory;
-import org.xtuml.bp.utilities.ui.CanvasUtilities;
-
-public class TigerNatureExistingProjectsTestGenerics extends CanvasTest {
-
-	String test_id = null;
-	boolean generateResults = getGenerateResults();
-	String[] expected_string;
-
-	private static boolean getGenerateResults() {
-		String env = System.getenv("generateResults");
-		if (env == null) {
-			return false;
-		} else {
-			boolean result = Boolean.parseBoolean(env);
-			return result;
-		}
-	}
-
-	public TigerNatureExistingProjectsTestGenerics(String name) {
-		super("org.xtuml.bp.core.test", name);
->>>>>>> refs/remotes/origin/master
 		expected_string = new String[] { "drawRectangle(...)",
-<<<<<<< HEAD
 				"drawText(" + String.valueOf('"') + "Unnamed ..." + String.valueOf('"') + ", ...)",
 				"drawline(...)", "drawRectangle(...)",
 				"drawText(" + String.valueOf('"') + "U..." + String.valueOf('"') + ", ...)", "drawline(...)" };
@@ -247,67 +149,6 @@ public class TigerNatureExistingProjectsTestGenerics extends CanvasTest {
 		return null;
 	}
 
-=======
-				"drawText(" + String.valueOf('"') + "Unname..." + String.valueOf('"') + ", ...)", "drawline(...)" };
-	}
-
-	protected String getResultName() {
-		return "TigerNatureTest" + "_" + test_id;
-	}
-
-	protected void setUp() throws Exception {
-		super.setUp();
-		Display d = Display.getCurrent();
-		while (d.readAndDispatch());
-	}
-
-	protected void tearDown() throws Exception {
-		IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(
-				"Test Project 3");
-		if (project != null) {
-			project.delete(true, true, new NullProgressMonitor());
-		}
-		super.tearDown();
-	}
-
-	private boolean checkForTreeItem(String itemName) {
-		ExplorerUtil.expandAll();
-		return checkForTreeItemInTree(itemName);
-	}
-
-	private boolean checkForTreeItemInTree(String itemName) {
-		ExplorerUtil.getTreeViewer().getTree().selectAll();
-		TreeItem x[] = ExplorerUtil.getTreeViewer().getTree().getSelection();
-		assertNotNull("Tree is empty", x);
-		for (int i = 0; i < x.length; ++i) {
-			
-			String item = x[i].getText();
-
-			if (item.equals(itemName)) {
-				Display d = Display.getCurrent();
-				while (d.readAndDispatch());
-				return true;
-			}
-		}
-		return false;
-	}
-
-	private IEditorPart checkForOpenEditors(String editorName) {
-		IEditorReference x[] = PlatformUI.getWorkbench()
-				.getActiveWorkbenchWindow().getActivePage()
-				.getEditorReferences();
-		for (int i = 0; i < x.length; ++i) {
-
-			String editor = x[i].getName();
-
-			if (editor.equals(editorName)) {
-				return x[i].getEditor(true);
-			}
-		}
-		return null;
-	}
-
->>>>>>> refs/remotes/origin/master
 	public void testExistingProjects() throws Exception {
 		doTestNewShapeAfterRestartOnSequenceDiagram();
 		doTestEditorsRemainOpenAfterClose();
@@ -331,7 +172,6 @@ public class TigerNatureExistingProjectsTestGenerics extends CanvasTest {
 	 * @throws PartInitException 
 	 */
 	public void doTestNewShapeAfterRestartOnSequenceDiagram()
-<<<<<<< HEAD
 			throws PartInitException {
 		IEditorReference[] editorReferences = PlatformUI.getWorkbench()
 				.getActiveWorkbenchWindow().getActivePage()
@@ -375,51 +215,6 @@ public class TigerNatureExistingProjectsTestGenerics extends CanvasTest {
 		}
 	}
 
-=======
-			throws PartInitException {
-		IEditorReference[] editorReferences = PlatformUI.getWorkbench()
-				.getActiveWorkbenchWindow().getActivePage()
-				.getEditorReferences();
-		IEditorInput editorInput = null;
-		String id = "";
-		for (int i = 0; i < editorReferences.length; i++) {
-			if (editorReferences[i].getName().equals(
-					"Sequence Diagram")) {
-				editorInput = editorReferences[i].getEditorInput();
-				id = editorReferences[i].getId();
-			}
-		}
-		assertNotNull(editorInput);
-
-		Object editor = PlatformUI.getWorkbench().getActiveWorkbenchWindow()
-				.getActivePage().openEditor(editorInput, id);
-		GraphicalEditor ce = ((ModelEditor) editor).getGraphicalEditor();
-
-		graphicsModelRoot = Ooaofgraphics.getInstance(ce.getModel()
-				.getModelRoot().getId());
-
-		AbstractTool tool = UITestingUtilities.getTool("Instance");
-		UITestingUtilities.activateTool(tool);
-
-		CanvasTestUtilities.doMouseMove(100, 100);
-		CanvasTestUtilities.doMousePress(100, 100);
-		CanvasTestUtilities.doMouseMove(200, 200);
-		CanvasTestUtilities.doMouseRelease(200, 200);
-
-		UITestingUtilities.deactivateTool(tool);
-
-		CanvasTestResult result = drawDiagram(ce, true, false, false,
-				new Rectangle(0, 0, 1231, 861));
-
-		for (int i = 0; i < expected_string.length; i++) {
-			assertTrue("Diagram draw did not generate correct results:\n"
-					+ "expected: " + expected_string[i] + "\n" + "actual: "
-					+ result.transcript[i], expected_string[i]
-					.equals(result.transcript[i]));
-		}
-	}
-
->>>>>>> refs/remotes/origin/master
 	public void doTestEditorsRemainOpenAfterClose() {
 		assertNotNull(
 				"Editor, TestSS: Class Diagram, did not correctly restore",
@@ -433,62 +228,6 @@ public class TigerNatureExistingProjectsTestGenerics extends CanvasTest {
 	}
 
 	public void doTestPlacholderInstances() {
-<<<<<<< HEAD
-		IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(
-				"Test Project 1");
-
-		String modelRootId = Ooaofooa.createModelRootId(project, "testDomain1",
-				true);
-		modelRoot = Ooaofooa.getInstance(modelRootId, true);
-		//Getting subsystem
-		Package_c ss = Package_c.PackageInstance(modelRoot,
-				new ClassQueryInterface_c() {
-					public boolean evaluate(Object candidate) {
-						Package_c ss = (Package_c) candidate;
-						return ss.getName().equals("TestSS");
-					}
-				});
-
-		assertNotNull(ss);
-
-		//Getting Class TestClass1
-		ModelClass_c obj = ModelClass_c.ModelClassInstance(modelRoot,
-				new ClassQueryInterface_c() {
-					public boolean evaluate(Object candidate) {
-						ModelClass_c uut = (ModelClass_c) candidate;
-						return uut.getName().equals("TestClass1");
-					}
-				});
-		assertNotNull(obj);
-
-		//Getting operation
-		Operation_c op = Operation_c.OperationInstance(modelRoot,
-				new ClassQueryInterface_c() {
-					public boolean evaluate(Object candidate) {
-						Operation_c uut = (Operation_c) candidate;
-						return uut.getName().equals("testOp");
-					}
-				});
-		assertNotNull(op);
-
-		Class<?> clazz = SetupCreationTests.loadClassFromPlugin(
-				"org.xtuml.bp.ui.text.test", "UITextTest"); //$NON-NLS-2$ //$NON-NLS-1$
-		IFile objFile = SetupCreationTests
-				.callGetExistingPlaceHolderFromManager(clazz, obj,
-						DescriptionEditorInputFactory.PLACEHOLDER_EXTENSION);
-		assertNotNull(objFile);
-		IFile opFile = SetupCreationTests
-				.callGetExistingPlaceHolderFromManager(clazz, op,
-						ActivityEditorInputFactory.PLACEHOLDER_EXTENSION);
-		assertNotNull(opFile);
-
-		//The underlying files should exist
-		assertTrue(objFile.exists());
-		assertTrue(opFile.exists());
-
-	}
-
-=======
 		IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(
 				"Test Project 1");
 
@@ -543,7 +282,6 @@ public class TigerNatureExistingProjectsTestGenerics extends CanvasTest {
 
 	}
 
->>>>>>> refs/remotes/origin/master
 	public void doTestInterfaceAssignmentInterfaceContainedInDifferentPackageRoot() {
 		test_id = "InterfaceAssignment";
 		// open the pre-created component package
