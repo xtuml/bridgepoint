@@ -198,12 +198,12 @@ public class GitUtil {
 			// reset the current branch before switching
 			item = UITestingUtilities.findItemInTree(gitRepositoryTree,
 					repositoryName);
-			if(UITestingUtilities.getMenuItem(gitRepositoryTree.getMenu(), "&Reset...") != null) {
+			if(UITestingUtilities.getMenuItem(gitRepositoryTree.getMenu(), "&Reset") != null) {
 				TestUtil.selectButtonInDialog(500, "&Hard (index and working directory updated)");
 				TestUtil.finishToDialog(700);
 				// say Yes to overwriting the local contents
 				TestUtil.yesToDialog(900);
-				UITestingUtilities.activateMenuItem(gitRepositoryTree.getMenu(), "&Reset...");
+				UITestingUtilities.activateMenuItem(gitRepositoryTree.getMenu(), "&Reset");
 			}
 			BaseTest.dispatchEvents(0);
 			// switch to the expected branch
@@ -211,12 +211,12 @@ public class GitUtil {
 			return;
 		}
 		view.getCommonViewer().setSelection(new StructuredSelection(item.getData()));
-		if(UITestingUtilities.getMenuItem(gitRepositoryTree.getMenu(), "&Reset...") != null) {
+		if(UITestingUtilities.getMenuItem(gitRepositoryTree.getMenu(), "&Reset") != null) {
 			TestUtil.selectButtonInDialog(500, "&Hard (index and working directory updated)");
 			TestUtil.finishToDialog(700);
 			// say Yes to overwriting the local contents
 			TestUtil.yesToDialog(900);
-			UITestingUtilities.activateMenuItem(gitRepositoryTree.getMenu(), "&Reset...");
+			UITestingUtilities.activateMenuItem(gitRepositoryTree.getMenu(), "&Reset");
 		}
 	}
 
