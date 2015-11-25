@@ -1,4 +1,4 @@
-package org.xtuml.bp.function.gen.action;
+package org.xtuml.bp.utilities.actions;
 
 import java.io.File;
 import java.io.FileNotFoundException;
