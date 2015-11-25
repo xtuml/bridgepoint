@@ -56,10 +56,12 @@ BridgePoint 5.x.
   
 8. Code Changes
 ---------------
-Branch name: 8006_update_function_gen 
+Branch name: 8006_update_function_gen on keithbrown/bridgepoint repository
 
 <pre>
-
+ doc-bridgepoint/notes/8006_update_function_gen_int.md 
+ src/org.xtuml.bp.utilities/plugin.xml
+ src/org.xtuml.bp.utilities/src/org/xtuml/bp/utilities/actions/GenerateFunctionsFromList.java
 </pre>
 
 End
