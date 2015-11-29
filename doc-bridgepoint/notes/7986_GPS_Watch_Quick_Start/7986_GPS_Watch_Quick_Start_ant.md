@@ -17,8 +17,8 @@ way to launch this model from the BridgePoint Welcome Quick Start screen.
 
 2. Document References
 ----------------------
-[1] [BridgePoint DEI #1](https://support.onefact.net/redmine/issues/7986)  
-[2] [BridgePoint DEI #2](https://support.onefact.net/redmine/issues/7927) 
+[1] [BridgePoint DEI #7986](https://support.onefact.net/redmine/issues/7986)  
+[2] [BridgePoint DEI #7927](https://support.onefact.net/redmine/issues/7927) 
 
 3. Background
 -------------

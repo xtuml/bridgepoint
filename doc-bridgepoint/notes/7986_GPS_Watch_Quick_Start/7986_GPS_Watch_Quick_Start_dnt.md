@@ -14,9 +14,9 @@ The GPS Watch model as managed in the models repository is to be launched from t
 
 2. Document References
 ----------------------
-[1] [BridgePoint DEI #1](https://support.onefact.net/redmine/issues/7986)  
-[2] [BridgePoint DEI #2](https://support.onefact.net/redmine/issues/7927) 
-[3] [BridgePoint DEI #3](https://github.com/xtuml/bridgepoint/doc-bridgepoint/notes/7986_GPS_Watch_Quick_Start/7986_GPS_Watch_Quick_Start_ant.md)  
+[1] [BridgePoint DEI #7986](https://support.onefact.net/redmine/issues/7986)  
+[2] [BridgePoint DEI #7927](https://support.onefact.net/redmine/issues/7927)  
+[3] [Analysis Note](https://github.com/xtuml/bridgepoint/doc-bridgepoint/notes/7986_GPS_Watch_Quick_Start/7986_GPS_Watch_Quick_Start_ant.md)  
 
 3. Background
 -------------
