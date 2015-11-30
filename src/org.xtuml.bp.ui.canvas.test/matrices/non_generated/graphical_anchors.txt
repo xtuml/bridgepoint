@@ -45,7 +45,7 @@ B2C1     R2    R2    R4    R5    X
 B3C1     X     X     X     X     R1
 B1C2     R2    R2    R4    R5    X
 B2C2     R2    R2    R4    R5    X
-B3C2     X     X     X     X     R1
+B3C2     X     X     X     X     R2
 B1C3     R1    R1    R4    R5    X
 B2C3     R2    R2    R4    R5    X
 B3C3     R3    R3    R4    R5    R1
