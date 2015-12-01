@@ -3,6 +3,18 @@
 <plugin>
    <extension
          point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            id="org.xtuml.bp.utilities.MCMCFunctionGenerator"
+            objectClass="org.xtuml.bp.core.Package_c">
+         <action
+               class="org.xtuml.bp.utilities.actions.GenerateFunctionsFromList"
+               enablesFor="1"
+               id="org.xtuml.bp.utilities.actions.MCMCFunctionGeneratorAction"
+               label="Generate Functions From List..."
+               menubarPath="org.xtuml.bp.utilities/org.xtuml.bp.utilities.separator">
+         </action>
+      </objectContribution>
+
 <!--  
       This was introduced to fix a bug in some customer models.   It is
       believed that all customers who needed it have now used it, therefore it 
