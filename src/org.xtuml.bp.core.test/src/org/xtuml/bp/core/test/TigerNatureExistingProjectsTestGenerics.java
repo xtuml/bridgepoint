@@ -25,7 +25,6 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.core.runtime.Platform;
 import org.eclipse.gef.tools.AbstractTool;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Display;
@@ -33,7 +32,6 @@ import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorReference;
-import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.views.properties.IPropertyDescriptor;
@@ -65,7 +63,6 @@ import org.xtuml.bp.ui.canvas.test.CanvasTest;
 import org.xtuml.bp.ui.canvas.test.CanvasTestResult;
 import org.xtuml.bp.ui.canvas.test.CanvasTestUtilities;
 import org.xtuml.bp.ui.graphics.editor.GraphicalEditor;
-import org.xtuml.bp.ui.graphics.editor.GraphicalEditorInput;
 import org.xtuml.bp.ui.graphics.editor.ModelEditor;
 import org.xtuml.bp.ui.properties.ChooserPropertyDescriptor;
 import org.xtuml.bp.ui.properties.OperationsC_IOPropertySource;
@@ -93,7 +90,9 @@ public class TigerNatureExistingProjectsTestGenerics extends CanvasTest {
 	public TigerNatureExistingProjectsTestGenerics(String name) {
 		super("org.xtuml.bp.core.test", name);
 		expected_string = new String[] { "drawRectangle(...)",
-				"drawText(" + String.valueOf('"') + "Unname..." + String.valueOf('"') + ", ...)", "drawline(...)" };
+				"drawText(" + String.valueOf('"') + "Unnamed ..." + String.valueOf('"') + ", ...)",
+				"drawline(...)", "drawRectangle(...)",
+				"drawText(" + String.valueOf('"') + "U..." + String.valueOf('"') + ", ...)", "drawline(...)" };
 	}
 
 	protected String getResultName() {
@@ -102,8 +101,6 @@ public class TigerNatureExistingProjectsTestGenerics extends CanvasTest {
 
 	protected void setUp() throws Exception {
 		super.setUp();
-		Display d = Display.getCurrent();
-		while (d.readAndDispatch());
 	}
 
 	protected void tearDown() throws Exception {
@@ -206,7 +203,7 @@ public class TigerNatureExistingProjectsTestGenerics extends CanvasTest {
 		CanvasTestUtilities.doMouseRelease(200, 200);
 
 		UITestingUtilities.deactivateTool(tool);
-
+		
 		CanvasTestResult result = drawDiagram(ce, true, false, false,
 				new Rectangle(0, 0, 1231, 861));
 
