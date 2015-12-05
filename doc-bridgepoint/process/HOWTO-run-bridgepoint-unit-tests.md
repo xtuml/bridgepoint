@@ -7,7 +7,7 @@ Preparation
 
 Instructions
 ------------
-NOTE: In the following sections, **Run** is used, but **Debug** works the same.
+In normal testing, **Run** is used to best simulate a runtime environment, while **Debug** is used to set breakpoints and debug the runtime environment.
 - Select **Run > Run Configurations...**, and note the following:
   - Section **Eclipse Application** contains the launchers for the BridgePoint builds
     - The **BP Application** launchers are for Windows.
@@ -21,10 +21,13 @@ NOTE: In the following sections, **Run** is used, but **Debug** works the same.
   - Select the **Run** button to launch the tests.
     - This will cause each selected test in the **Launches** tab to be executed.
     - The builder will build BridgePoint, if necessary, and launch the build as the test target. Since all tests are being run, the execution will take a while.
-    - A summary of the results of the tests can be found in the TODO called unit_test_summary.txt.
+    - A summary of the results of the tests can be found in <BridgePoint installation>/eclipse/test_results/unit_test_summary.txt. The creation of this document is implemented in the org.xtuml.bp.test plugin.
 
-Troubleshooting
+### If a test fails or you need to debug a test failure
+1. Try running the test individually by selecting **Run > Run Configurations... > JUnit Plug-in Test** and selecting the test.
+2. To debug the test, select **Debug > Debug Configurations... > JUnit Plug-in Test** and select the test to debug.
+
+
+FAQ/Troubleshooting
 ---------------
-- If the **Launch Group > BridgePoint Unit Tests** selection doesn't have the **Run** button activated, examine the list of tests for any test with a red X icon. Deselect these tests, as there is a configuration problem.
-  - An issue should be generated, if one doesn't already exist, for this problem. Note the test name, BridgePoint version, and repository revision(s).
-- Sometimes tests freeze due to race conditions in the automated button presses. No CPU activity after a reasonable wait period is a good indicator. A manual button press will resolve the freeze, but often requires a guess as to which button to press. Run the test over again individually from the **JUnit Plug-in Test** section.
+- Check the BridgePoint [FAQ](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/FAQ.md) 
