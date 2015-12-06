@@ -35,7 +35,7 @@ In normal testing, **Run** is used to best simulate a runtime environment, while
   - Select the **Run** button to launch the tests.
     - This will cause each selected test in the **Launches** tab to be executed.
     - The builder will build BridgePoint, if necessary, and launch the build as the test target. Since all tests are being run, the execution will take a while.
-    - A summary of the results of the tests can be found in <BridgePoint installation>/eclipse/test_results/unit_test_summary.txt. The creation of this document is implemented in the org.xtuml.bp.test plugin.
+    - A summary of the results of the tests can be found in < BridgePoint installation >/eclipse/test_results/unit_test_summary.txt. The creation of this document is implemented in the org.xtuml.bp.test plugin.
 
 ### If a test fails or you need to debug the test failure
 1. Try running the test individually by selecting **Run > Run Configurations... > JUnit Plug-in Test** and selecting the test.
