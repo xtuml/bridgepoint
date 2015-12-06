@@ -40,7 +40,7 @@ In normal testing, **Run** is used to best simulate a runtime environment, while
 ### If a test fails or you need to debug the test failure
 1. Try running the test individually by selecting **Run > Run Configurations... > JUnit Plug-in Test** and selecting the test.
 2. To debug the test, select **Debug > Debug Configurations... > JUnit Plug-in Test** and select the test to debug.
-3. Set breakboints in the generated or realised BridgePoint java source code in your host environment as needed.
+3. Set breakboints in the generated or realized BridgePoint java source code in your host environment as needed.
 
 FAQ/Troubleshooting
 ---------------
