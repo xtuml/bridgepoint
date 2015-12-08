@@ -8,29 +8,29 @@ This work is licensed under the Creative Commons CC0 License
 ### xtUML Project Analysis Note
 
 
-1. Abstract
+### 1. Abstract
 -----------
 Currently three GPS Watch models reside in the xtuml repositories. One is in the
 xtuml/bridgepoint repository and two are in the xtuml/models repository. The
 goal is to reduce this to one model in the xtuml/models repository and provide a
 way to launch this model from the BridgePoint Welcome Quick Start screen.
 
-2. Document References
+## 2. Document References
 ----------------------
 [1] [BridgePoint DEI #7986](https://support.onefact.net/redmine/issues/7986)  
 [2] [BridgePoint DEI #7927](https://support.onefact.net/redmine/issues/7927) 
 
-3. Background
+### 3. Background
 -------------
 1. BridgePoint is often run in secure environments that are cut off from the internet, so we have long had a policy that we include all the necessary bits instead of requiring them to be retrieved from the net.
 
-4. Requirements
+### 4. Requirements
 ---------------
 1. There will be one GPS Watch model and it will be managed in the xtuml/models repository.
 2. The GPS Watch model will include Goals by default, but a version without goals can be included with special releases of BridgePoint.  
 3. The GPS Watch model will be shipped with BridgePoint and importable from the Welcome Quick Start screen. 
 
-5. Analysis
+### 5. Analysis
 -----------
 ### bridgepoint repository GPS Watch compared to models repository applications GPS Watch model
 1. models model has additions for Goals
@@ -58,14 +58,14 @@ way to launch this model from the BridgePoint Welcome Quick Start screen.
 ### Conclusion
 1. From the above comparisons, the models repository application model of GPS Watch can be used without needing any additional elements from the other two models.
 
-6. Work Required
+### 6. Work Required
 ----------------
 1. Ensure GPS Watch is ready to run without building. i.e, source, executables and library files are available. 
 2. Capture the models/applications/gps/GPS Watch for use within a stand-alone BridgePoint installation.
 3. Add a mechanism to launch the GPS Watch model from the Quick Start screen.
 4. Ensure all dependencies on the existing GPS Watch model in the xtuml/bridgepoint repository are satisfied.
 
-7. Acceptance Test
+### 7. Acceptance Test
 ------------------
 1. GPS Watch project gets loaded from Quick Start.
 2. GPS Watch is launched according to README without building.
