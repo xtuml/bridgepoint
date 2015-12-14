@@ -79,14 +79,7 @@ Instructions
 
 ### Congratulations!  Your environment is now built and ready for BridgePoint development.
 
-  - [If you had any build problems get help here.](#help)
-  - If you want to run BridgePoint unit tests you will need to perform this additional step:
-    - Edit ```~/xtuml/BridgePoint/eclipse/Launcher.sh``` in a text editor (in Windows Launcher.bat)
-      - Directly after "export BP_JVM=..." add the following (on Windows substitute "set" for "export"):
-      ```      
-        export XTUML_DEVELOPMENT_REPOSITORY=~/git/bridgepoint
-        export XTUML_TEST_MODEL_REPOSITORY=~/git/models/test/
-        export XTUML_PRIVATE_MODEL_REPOSITORY=~/git/modelsmg/test/
-      ```
-  - Additionally, if you want to run BridgePoint unit tests on MS Windows you must perform some additional steps [described here.](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/FAQ.md#windowstesting) 
+  - If you have had any problems building, or have questions, check the [FAQ](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/FAQ.md#bpdevelopers) or post to the [xtUML.org Forums] (https://xtuml.org/community/forum/xtuml-forum/) for help.
+  - If you want to run BridgePoint unit tests, instructions are available in [HOWTO Run the BridgePoint Unit Tests](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/HOWTO-run-bridgepoint-unit-tests.md)
+   
 

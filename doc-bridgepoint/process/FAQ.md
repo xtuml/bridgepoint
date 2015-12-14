@@ -20,6 +20,8 @@
     * [ANTLR Build Error](#antlrbuilderror)
     * [Linux Distribution-Specific Instructions](#linux)
     * [Windows Unit Test Configuration](#windowstesting)
+    * [How do I run BridgePoint Unit Tests?](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/HOWTO-run-bridgepoint-unit-tests.md)
+    * [Common BridgePoint Unit Test Problems](#unittesting)
   * [Verifier](#verifier)
     * [What does "Nothing to verify." mean?](#nothingtoverify) 
   * [Model Translation / Model Compilers](#mcs)
@@ -184,6 +186,10 @@ BridgePoint Developer Issues <a id="bpdevelopers"></a>
         - Tooltip                      Font: Tahoma 8
     - If you have a smaller screen or resolution potential you may need to configure the start menu to not always be on top, or set it to auto-hide.
     - Note: Do NOT use the Windows setting that scales text to make it easier to see. This setting, in Windows 7, is found here: ```Personalize > Display > "Make it easier to read what is on your machine"```.  This setting must be set to ```"smaller" 100%```.  If it is adjusted your graphical compare results will not match.
+* **Common BridgePoint Unit Test Problems** <a id="unittesting"></a>
+  - If a Launch Group selection doesn't have the **Run** button activated, examine the list of tests for any test with a red X icon. Deselect these tests, as there is a configuration problem.
+    - An issue should be generated, if one doesn't already exist, for this problem. Note the test name, BridgePoint version, and repository revision(s).
+  - Sometimes tests freeze due to race conditions in the automated button presses. No CPU activity after a reasonable wait period is a good indicator. A manual button press will resolve the freeze, but often requires a guess as to which button to press. Run the test over again individually from the **JUnit Plug-in Test** section.
   
 Verifer <a id="verifier"></a>
 ------------
