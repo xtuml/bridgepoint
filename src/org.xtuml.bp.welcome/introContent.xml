@@ -89,7 +89,8 @@
           <link id="basics" label="Cheat Sheet Walkthroughs" style-id="left"   url="http://org.eclipse.ui.intro/runAction?pluginId=org.xtuml.bp.welcome&amp;class=org.xtuml.bp.welcome.gettingstarted.ShowCheatSheetWindowAction">
              <text>BridgePoint includes instructional guides to help you get started.  Select Help > Cheat Sheets... > BridgePoint .</text>
         </link>
-        <link id="folder" label="Example Application - GPS Watch" style-id="left" url="http://org.eclipse.ui.intro/runAction?pluginId=org.xtuml.bp.welcome&amp;class=org.xtuml.bp.welcome.gettingstarted.SampleProjectGettingStartedAction&amp;model=GPS Watch&amp;SingleFileModel=false">
+        <link id="folder" label="Example Application - GPS Watch" style-id="left"
+              url="http://org.eclipse.ui.intro/runAction?pluginId=org.xtuml.bp.welcome&amp;class=org.xtuml.bp.welcome.gettingstarted.SampleProjectGettingStartedAction&amp;model=GPS Watch&amp;SingleFileModel=zip">
           <text>Click here to create a project that includes a sample application model of a GPS watch.</text>
         </link>
         <link  id="basics" label="Workbench Basics" url="http://org.eclipse.ui.intro/showHelpTopic?id=/org.eclipse.platform.doc.user/concepts/concepts-2.htm">
