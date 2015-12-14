@@ -60,7 +60,7 @@ public class GlobalsCanvasSuite1 extends TestSuite {
 			CorePlugin.logError(e.toString(), e);
 		}
 		CorePlugin.getDefault().getPreferenceStore().setValue(BridgePointPreferencesStore.USE_DEFAULT_NAME_FOR_CREATION,true);
-		
+        addTest(new TestSuite(ShapeResizeTest.class));
 		addTest(new TestSuite(GlobalsCanvasTestSuite1.class));
 		addTest(new TestSuite(ErrorPathsTest.class));
         addTest(new TestSuite(CanvasInitialNameTests.class));
@@ -71,7 +71,6 @@ public class GlobalsCanvasSuite1 extends TestSuite {
 		addTest(new TestSuite(CanvasCreationTest.class));
 		addTest(new TestSuite(CanvasCreationTest2.class));
 		addTest(new TestSuite(StateCreationTests.class));
-        addTest(new TestSuite(ShapeResizeTest.class));
         addTest(new TestSuite(ShapeResizeTest2.class));
 		addTest(new CanvasEditorTestSuite());
 		addTest(new TestSuite(CreationTransitionTest.class));

@@ -77,7 +77,6 @@ public class TigerNatureWorkspaceSetupTestGenerics extends CanvasTest {
 
 	protected void tearDown() throws Exception {
 		super.tearDown();
-		BaseTest.dispatchEvents(0);
 	}
 
 	public static void createNewPackage(String name, SystemModel_c systemModel) {
