@@ -93,6 +93,8 @@ public class CanvasStateMachineCopyPasteTests extends CanvasTest {
 		super.tearDown();
 		PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().closeAllEditors(false);
 		BaseTest.dispatchEvents(0);
+		TestUtil.dialogText = "";
+		initialized = false;
 	}
 
 	/**
@@ -100,29 +102,75 @@ public class CanvasStateMachineCopyPasteTests extends CanvasTest {
 	 */
 	
 	public void testStateMachineCopyPaste() throws Exception {
+		setUp();
 		doTestCopyPasteState();
+		tearDown();
+		setUp();
 		doTestPasteCreationTransitionNotAllowedInClassBasedMachine();
+		tearDown();
+		setUp();
 		doTestPasteCreationTransitionCreatesNewEventWhenExistingAlreadyAssignedToCRTXN();
+		tearDown();
+		setUp();
 		doTestPasteTransitionIntoInstanceMachineWithMatchingEvent();
+		tearDown();
+		setUp();
 		doTestPasteTransitionIntoClassBasedMachineWithMatchingEvent();
+		tearDown();
+		setUp();
 		doTestPasteTransitionIntoClassBasedMachineWithMatchingEventAndDataItem();
+		tearDown();
+		setUp();
 		doTestPasteTransitionIntoMachineWithMatchingEventAndDataItemWithoutTypeMatch();
+		tearDown();
+		setUp();
 		doTestPasteTransitionIntoMachineWithNoMatchingPoly();
+		tearDown();
+		setUp();
 		doTestPasteTransitionIntoMachineWithMatchingNonLocalEvent();
+		tearDown();
+		setUp();
 		doTestPasteTransitionIntoMachineWithDeclaredPoly();
+		tearDown();
+		setUp();
 		doTestPasteSubtypeWithoutSupertype();
+		tearDown();
+		setUp();
 		doTestPasteSubtypeAndSupertypeWithoutAssociation();
+		tearDown();
+		setUp();
 		doTestPasteSubtypeAndSupertypeWithAssociation();
+		tearDown();
+		setUp();
 		doTestPasteSubsystemWithImportedSupertypeWhereSupertypeCanBeResolved();
+		tearDown();
+		setUp();
 		doTestPasteSubsystemWithImportedSupertypeWhereSupertypeCanNotBeResolved();
+		tearDown();
+		setUp();
 		doTestPasteTransitionWhereSignalCanBeResolved();
+		tearDown();
+		setUp();
 		doTestPasteTransitionWhereSignalUnresolvableByName();
+		tearDown();
+		setUp();
 		doTestPasteTransitionWhereSignalUnresolvableByArgumentName();
+		tearDown();
+		setUp();
 		doTestPasteTransitionWhereSignalUnresolvableByArgumentType();
+		tearDown();
+		setUp();
 		doTestPasteTransitionWhereSignalUnresolvableTargetLessArguments();
+		tearDown();
+		setUp();
 		doTestPasteTransitionWhereSignalResolvableProvisionToRequirement();
+		tearDown();
+		setUp();
 		doTestPasteTransitionWhereSignalResolvableRequirementToProvision();
+		tearDown();
+		setUp();
 		doTestPasteTransitionWhereSignalResolvableTargetMoreArguments();
+		tearDown();
 	}
 	
 	/**
@@ -655,8 +703,8 @@ public class CanvasStateMachineCopyPasteTests extends CanvasTest {
 				.getActiveWorkbenchWindow().getActivePage().getActiveEditor())
 				.getGraphicalEditor();
 		TestUtil.selectButtonInDialog(500, "Proceed");
-		UITestingUtilities.pasteClipboardContents(UITestingUtilities
-				.getClearPoint(ce), ce);
+		Point clearPoint = UITestingUtilities.getClearPoint(ce);
+		UITestingUtilities.pasteClipboardContents(clearPoint, ce);
 		assertTrue(
 				"The event name was not listed in the warning dialog.",
 				TestUtil.dialogText.indexOf("Polymorphic Event 1::Supertype") != -1);
