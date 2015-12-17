@@ -20,7 +20,7 @@ https://github.com/xtuml/internal/blob/71c842bdcd937f946f977d529dc90e0f9a5f2486/
 
 3. Background
 -------------   
-The original work to provide cut copy and paste was done such that all actions
+The original work to provide cut copy and paste was done such that all actions   
 used as much as the same code as possible.  The idea at the time was that a cut   
 was simply a copy with the addition of a delete.  Later a move operation was    
 required.  At the time the easiest approach was to use the existing    
