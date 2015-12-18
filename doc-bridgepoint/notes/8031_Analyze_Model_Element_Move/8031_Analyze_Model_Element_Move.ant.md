@@ -22,6 +22,9 @@ It considers the current approach and offers other potential approaches.
 
 3. Background   
 -------------     
+
+3.1 Analysis   
+
 The original work to provide cut copy and paste [3] was done such that all   
 actions used as much as the same code as possible.  The idea at the time was   
 that a cut was simply a copy with the addition of a delete.  Later a move   
@@ -39,14 +42,16 @@ cut and is not a true move.
 
 Proxies are complete replicas of the original element.  We use them to allow   
 resolution during load of referring elements.  They are also used to access   
-data during compare and merge.  Proxies are mantained at all times and   
-represent the exact model element data at the last save.  In the case of   
-referring proxy data we only use this during the cut and paste functionality.   
+data during compare and merge.  Compare and merge currently has availability to   
+a single file.  We use the proxies to compare data as that is all we get.  An   
+example of this would be a change in typing for an element.  To compare we must   
+use the proxy data.  Proxies are maintained at all times and represent the exact   
+model element data at the last save.  In the case of referring proxy data we   
+only use this during the cut and paste functionality.   
 
 The tools file structure completely matches the model structure.   
 
-BridgePoint was designed to search for an element first by name during   
-resolution, then check for an element by ID.   
+BridgePoint was designed to search for an element by name during resolution.      
 
 The following lists the current approach of copy cut and paste:   
 
@@ -55,12 +60,45 @@ The following lists the current approach of copy cut and paste:
   deleted in the model)
 - paste (data is inspected and connected if possible)   
 
+Paste recreates data currently.  If an element exists with the same name a new    
+name is created.  This behavior occurs in both cut and copy.    
+
+3.2 Questions answered   
+
+Q. Do we always treat them as "hints" and not trust them completely?   
+A. We do not always treat them as hints, we rely on them.  This involves keep    
+   them up to date on modification of a referred to element.  We rely on them   
+   for lazy loading as well as compare and merge.   
+
+Q. Are proxies always a precise architectural representation of the referential attribute?   
+A. Proxies match exactly with the referred to element with one exception, they   
+   include a file path.   
+
+Q. Does our file/container architecture match our model hierarchy?   
+A. Yes.  We use the persistence infrastructure which stores the Persistable   
+   Model Components in a tree.  This tree matches the same structure as the   
+   file system.   
+
+Q. When do we use Name to resolve a (scoped) search?   
+A. Name is always used.      
+   
+Q. When do we use ID to resolve a search?    
+A. We do not.      
+
+Q. What is the general strategy for connecting pasted elements (in copy/cut and paste)?   
+A. Upon paste we search the model for any in-scope elements that match by name   
+   or use the default in the case of not finding an element.  This may result   
+   in unformalized data, like a component reference.   
+   
+Q. I wonder if the simplest arrangement would be to change cut/paste to keep the IDs (and fix any bugs)?   
+A. This is mentioned in section 5.3, and would be the easiest approach.   
+
 4. Requirements   
 ---------------   
 4.1 Element move shall be supported as an atomic operation.  
 4.2 A single undo shall replace changes from an element move.    
-4.3 Moving any visible referred to element shall result in reconnection with any   
-    referring elements.  
+4.3 Moving a referred to element shall result in reconnection of any referring   
+    elements as long as visible.     
 4.4 Moving any referring elements shall result in reconnection to the referred   
     to element if visible.  
 4.5 The elements to be supported shall be:   
