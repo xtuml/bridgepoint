@@ -128,7 +128,9 @@ This approach would address the undo issue.
 
 In this case we shall modify the export code to only update the IDs when   
 performing a copy.  A flag that shall be set during cut shall indicate the cut
-operation and prevent updating of the IDs.   
+operation and prevent updating of the IDs.  Additionally we would need to    
+adjust the existing resolution operations to search by ID first, then search by  
+name as it does currently.   
 
 5.2 Using eclipse file infrastructure   
 
@@ -146,7 +148,7 @@ element data in memory and persist.
 
 Another approach is to remain simply with cut and paste.  In this case the tool   
 shall be updated to prevent updating IDs in the same manner as described above    
-in 5.1.   
+in 5.1.  It shall also update the resolution methods as described in 5.1.   
 
 In this case the operation would be a move but would not be atomic.   
 
@@ -160,6 +162,7 @@ In this case the operation would be a move but would not be atomic.
 6.1.1.3.2 Have the menu item call an operation that performs a cut and paste in   
           a single transaction    
 6.1.1.3.3 Modify export and paste code to only modify IDs on copy   
+6.1.1.3.4 Modify all resolution operations to first search by ID   
 6.2 Using eclipse file infrastructure   
 6.2.1 Create new move operation which locates the element's file or folder and   
       call into the eclipse file API to move.    
