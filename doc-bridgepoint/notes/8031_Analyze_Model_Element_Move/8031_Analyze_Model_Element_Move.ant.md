@@ -176,6 +176,17 @@ In this case the operation would be a move but would not be atomic.
 ------------------   
 7.1 Supporting move as an atomic action   
 
+Requirements supported:   
+
+ - 4.1   
+ - 4.2   
+ - 4.3   
+ - 4.4   
+ - 4.5   
+ - 4.6   
+ - 4.7   
+ - 4.8   
+ 
 - Perform a move operation   
 - A dialog is available for destination selection   
 - Only elements that are valid are shown      
@@ -188,9 +199,26 @@ In this case the operation would be a move but would not be atomic.
 
 7.2 Using eclipse file infrastructure   
 
+Requirements supported:   
+
+ - 4.1   
+ - 4.2   
+ - 4.3   
+ - 4.4   
+ - 4.5   
+ - 4.7   
+ - 4.8   
+ 
 - Repeat steps from 7.1   
 
 7.3 Existing infrastructure   
+
+Requirements supported:   
+   
+ - 4.3   
+ - 4.4   
+ - 4.5   
+ - 4.8   
 
 - Cut a model element    
 - Paste the model element   

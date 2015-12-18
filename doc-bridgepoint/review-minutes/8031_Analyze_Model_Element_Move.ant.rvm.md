@@ -30,7 +30,7 @@ x- 12  min   KB   6        numbering issue at 6.1.1.2.1 and 6.1.1.3 again
 x- 13  min   RM   6.2      formatting issue
 x- 14  min   KB   6.3      Is reference to 6.1.1.3 right, or now 6.1.1.4?
 x- 15  min   KB   7.3      No specification of Undo
-_- 16  min   RM   7        Update section to be more focused on the requirements than the proposed analysis
+x- 16  min   RM   7        Update section to be more focused on the requirements than the proposed analysis
 
 </pre>
    
