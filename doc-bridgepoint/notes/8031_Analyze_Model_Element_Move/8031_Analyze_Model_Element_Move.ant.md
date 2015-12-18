@@ -170,6 +170,7 @@ In this case the operation would be a move but would not be atomic.
       a change event.    
 6.3 Existing infrastructure   
 6.3.1 Perform step 6.1.1.3.3   
+6.3.2 Perform step 6.1.1.3.4   
 
 7. Acceptance Test   
 ------------------   
