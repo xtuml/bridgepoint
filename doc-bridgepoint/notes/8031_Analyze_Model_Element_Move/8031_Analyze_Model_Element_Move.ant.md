@@ -7,31 +7,34 @@ This work is licensed under the Creative Commons CC0 License
 # Model element move
 ### xtUML Project Analysis Note
 
-1. Abstract
------------
+1. Abstract   
+-----------   
 This note analyzes the different approaches to providing a model element move.   
 It considers the current approach and offers other potential approaches.
 
-2. Document References
-----------------------
+2. Document References     
+----------------------   
 [1] [BridgePoint DEI #8031](https://support.onefact.net/redmine/issues/8031) - Analyze Model Element Move    
-[2] https://github.com/xtuml/internal/blob/71c842bdcd937f946f977d529dc90e0f9a5f2486/Documentation_archive/20070830/notes/i2803.dnt   
-https://github.com/xtuml/internal/blob/71c842bdcd937f946f977d529dc90e0f9a5f2486/Documentation_archive/20080606/i3532.dnt   
+[2] https://github.com/xtuml/internal/blob/71c842bdcd937f946f977d529dc90e0f9a5f2486/Documentation_archive/20070830/notes/i2803.dnt - Initial copy/cut/paste support   
+[3] https://github.com/xtuml/internal/blob/71c842bdcd937f946f977d529dc90e0f9a5f2486/Documentation_archive/20080606/i3532.dnt - Support data type move capabilities through cut, copy, paste   
+[4] https://docs.google.com/document/d/1_T4H7StO-VM8zfIFjr-V7VwUQMXML1c7nFJJofU0vGs/edit - Statement of work   
 
-3. Background
--------------   
-The original work to provide cut copy and paste was done such that all actions   
-used as much as the same code as possible.  The idea at the time was that a cut   
-was simply a copy with the addition of a delete.  Later a move operation was    
-required.  At the time the easiest approach was to use the existing    
-infrastructure while adding referring element proxies to the copied data.   
+
+3. Background   
+-------------     
+The original work to provide cut copy and paste [3] was done such that all   
+actions used as much as the same code as possible.  The idea at the time was   
+that a cut was simply a copy with the addition of a delete.  Later a move   
+operation was required.  At the time the easiest approach was to use the   
+existing infrastructure while adding referring element proxies to the copied   
+data.      
 
 This approach does not provide an atomic operation for a move.  This leads to   
 requiring a user to undo a paste as well as the cut to return the model from a   
 move.   
 
 Another issue with this approach is that when a cut is performed the pasted   
-result has element IDs updated.  This is due to sharing code between copy and   
+result has element IDs recreated.  This is due to sharing code between copy and   
 cut and is not a true move.   
 
 Proxies are complete replicas of the original element.  We use them to allow   
@@ -52,8 +55,8 @@ The following lists the current approach of copy cut and paste:
   deleted in the model)
 - paste (data is inspected and connected if possible)   
 
-4. Requirements
----------------
+4. Requirements   
+---------------   
 4.1 Element move shall be supported as an atomic operation.  
 4.2 A single undo shall replace changes from an element move.    
 4.3 Moving any visible referred to element shall result in reconnection with any   
@@ -74,8 +77,8 @@ The following lists the current approach of copy cut and paste:
 4.8 The work shall be done in a configuration management friendly system manner,   
     but must not violate the eclipse team interface rules.   
 
-5. Analysis
------------
+5. Analysis   
+-----------   
 5.1 Supporting move as an atomic action  
 
 One approach to supporting move as an atomic action is to introduce a context   
@@ -109,26 +112,26 @@ in 5.1.
 
 In this case the operation would be a move but would not be atomic.   
 
-6. Work Required
-----------------
+6. Work Required   
+----------------   
 6.1 Supporting move as an atomic action   
 6.1.1 New move operation using existing infrastructure   
 6.1.1.2 Introduce a new menu item   
 6.1.1.3 Create a dialog that allows destination selection    
 6.1.1.3.1 Allow the dialog to filter locations by type   
-6.1.1.2.1 Have the menu item call an operation that performs a cut and paste in   
+6.1.1.3.2 Have the menu item call an operation that performs a cut and paste in   
           a single transaction    
-6.1.1.3 Modify export and paste code to only modify IDs on copy   
-6.2 Using eclipse file infrastructure
+6.1.1.3.3 Modify export and paste code to only modify IDs on copy   
+6.2 Using eclipse file infrastructure   
 6.2.1 Create new move operation which locates the element's file or folder and   
       call into the eclipse file API to move.    
 6.2.2 Create or adjust the file listener to update model data and persist on   
       a change event.    
 6.3 Existing infrastructure   
-6.3.1 Perform step 6.1.1.3   
+6.3.1 Perform step 6.1.1.3.3   
 
-7. Acceptance Test
-------------------
+7. Acceptance Test   
+------------------   
 7.1 Supporting move as an atomic action   
 
 - Perform a move operation   
@@ -154,6 +157,7 @@ In this case the operation would be a move but would not be atomic.
 - Upon move all referred to elements are reconnected with their referring    
   elements within scope   
 - No IDs have changed   
+- Undoing the move resets the model in the original state   
 
 End
 ---
