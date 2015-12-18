@@ -1,0 +1,38 @@
+---
+
+This work is licensed under the Creative Commons CC0 License
+
+---
+
+# Model element move
+### xtUML Project Review Minutes
+
+Reviewed:  https://github.com/travislondon/bridgepoint/blob/8031_Analyze_Model_Element_Move/doc-bridgepoint/notes/8031_Analyze_Model_Element_Move/8031_Analyze_Model_Element_Move.ant.md  2c13e26    
+Present:  Bob, Keith, John, Travis   
+
+<pre>
+
+-- Num Type  Who  Section  Comment
+_- 01  min   KB   2        missing [3]
+_- 02  min   KB   2        add headlines for the issues
+_- 03  min   RM   2        add a link to the SOW
+_- 04  min   RM   3para1   add reference to [3]
+_- 05  min   RM   3para3   change "updated" to "recreated"
+_- 06  min   RM   3para4   add more info about why proxies are used during compare & merge
+_- 07  min   RM   3        list each question from 8031 with the answer next to it
+_- 08  min   RM   3        clarify the scenario when name resolution is used
+_- 09  min   RM   3        on "paste" description, add more detail about data being created
+_- 10  min   TL   4.3      reword to clarify that paste will stitch back up when pasted to a visible target location
+_- 11  min   JW   3        add descriptions of scenario when name or ID is used to fix up the moved element
+_- 12  min   KB   6        numbering issue at 6.1.1.2.1 and 6.1.1.3 again
+_- 13  min   RM   6.2      formatting issue
+_- 14  min   KB   6.3      Is reference to 6.1.1.3 right, or now 6.1.1.4?
+_- 15  min   KB   7.3      No specification of Undo
+_- 16  min   RM   7        Update section to be more focused on the requirements than the proposed analysis
+
+</pre>
+   
+No major observations, a re-review is not required.
+
+End
+---
