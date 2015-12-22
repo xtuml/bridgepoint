@@ -47,29 +47,25 @@ public class SampleProjectGettingStartedAction implements IIntroAction {
     public void run(IIntroSite site, Properties params) {
         String modelName = params.getProperty("model", "load_error");
         String singleFile = params.getProperty("SingleFileModel", "false");
-        boolean isSingleFileModel = false;
-        if (singleFile.compareToIgnoreCase("true") == 0) {
-        	isSingleFileModel = true;
-        }
         if (modelName.equals("load_error")) {
        		CorePlugin.logError(
                     "The SampleProjectGettingStartedAction could not determine the model requested.", null);
        		return;
         } else {
-        	setup(modelName, isSingleFileModel);
+        	setup(modelName, singleFile);
         }
     }
-    
-	private void setup(String modelName, boolean isSingleFileModel) {
+
+	private void setup(String modelName, String singleFile) {
 		// create project and all necessary parts
-		if ( setupProject(modelName, isSingleFileModel) ) {
+		if ( setupProject(modelName, singleFile) ) {
 		    // show the xtUML Modeling perspective if not shown
 		    ProjectUtilities.openxtUMLPerspective();
 		    // close welcome page for the xtUML perspective
-		    
+
 		    closeWelcomePage();
-		    
-		    if (!isSingleFileModel)  {
+
+		    if (singleFile.compareToIgnoreCase("true") != 0)  {
 		    	// See if there is a readme file and if so open it
 		    	openReadme(modelName);
 		    }
@@ -79,7 +75,7 @@ public class SampleProjectGettingStartedAction implements IIntroAction {
 		}
 	}
 
-	private boolean setupProject(String modelName, boolean isSingleFileModel) {
+	private boolean setupProject(String modelName, String singleFile) {
         IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(modelName);
         boolean setupSucceeded = false;
         try {
@@ -102,7 +98,7 @@ public class SampleProjectGettingStartedAction implements IIntroAction {
                     return false;
                 }
             }
-            
+
             try {
     			WorkspaceUtil.setAutobuilding(false);
     		} catch (CoreException e1) {
@@ -110,9 +106,9 @@ public class SampleProjectGettingStartedAction implements IIntroAction {
     			CorePlugin.logError(
     					"Could not disable Auto Building", e1);
     		}
-            
+ 
             String modelPath; 
-            if (isSingleFileModel) {
+            if (singleFile.compareToIgnoreCase("true") == 0) {
 	            project = ProjectUtilities.createProject(modelName);
 	            SystemModel_c systemModel = ProjectUtilities.getSystemModel(project);
 	            project.open(new NullProgressMonitor());
@@ -124,21 +120,24 @@ public class SampleProjectGettingStartedAction implements IIntroAction {
 	            	setupSucceeded = ProjectUtilities.importModelUsingWizard(systemModel, modelPath, false);
 	            }
             } else {
+            	if (singleFile.compareToIgnoreCase("false") != 0) {
+            		modelName += "." + singleFile;
+            	}
 	            modelPath = resolvePath(IGettingStartedConstants.modelFolder
 	                    + "/" + modelName); //$NON-NLS-1$
-	            
+
 	            if (modelPath != "") {
-	            	setupSucceeded = ProjectUtilities.importExistingProject(modelPath);		            
-	            }	            
+	            	setupSucceeded = ProjectUtilities.importExistingProject(modelPath);
+	            }
            	}
-            
+
         } catch (CoreException e) {
         	setupSucceeded = false;
         } catch (OperationCanceledException oce) {
         	// The user canceled the operation
             return false;
         }
- 
+
         if (!setupSucceeded) {
             IStatus status = new Status(IStatus.ERROR, SampleProjectGettingStartedAction.class
                     .getPackage().getName(), IStatus.ERROR, 
@@ -147,7 +146,7 @@ public class SampleProjectGettingStartedAction implements IIntroAction {
             CorePlugin.logError(
 					"Could not create requested project " + modelName, ce);
         }
-        
+
         return setupSucceeded;
 	}
 

@@ -116,6 +116,7 @@ public class GraphicalAnchorTests extends CanvasTest {
 
 	protected void setUp() throws Exception {
 		super.setUp();
+		testPart = null;
 		// import the test model for the first
 		// setUp
 		if (!initialized) {
