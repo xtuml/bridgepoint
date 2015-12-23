@@ -1,7 +1,7 @@
 drawRectangle(...)
 drawRectangle(...)
 drawText("«package»", ...)
-drawText("+memleak", ...)
+drawText("+No Such Instance", ...)
 drawRectangle(...)
 drawRectangle(...)
 drawText("«package»", ...)
