@@ -114,15 +114,20 @@ public class VerifierRealizedUDTTest extends BaseTest {
 
 	static String actualResults = null;
 
+	public void testVerifierRealizedUDTTests(){
+		this.doTestVerifyReadyToRun();
+		this.doTestRealizedUDTsInInterfaceOperations();
+		this.doTestRealizedUDTsInSignals();
+	}
 
-	public void testVerifyReadyToRun() {
+	public void doTestVerifyReadyToRun() {
         File checkFile = new File(getProject().getLocation().toString() + "/bin/library/RealizedUDTTest.class");
         assertTrue("This test requires that you build " + projectName + " in your workspace before it will succeed.",
         		checkFile.exists());
 
 	}
 	
-	public void testRealizedUDTsInInterfaceOperations() {
+	public void doTestRealizedUDTsInInterfaceOperations() {
 		String actual_results = performRealizedUDTTest("OperationTest");
 		File expectedResults = new File(m_workspace_path
 			       + "expected_results/binding/OperationTest.result");
@@ -131,7 +136,7 @@ public class VerifierRealizedUDTTest extends BaseTest {
 	    assertEquals(expected_results, actual_results);
 	}
 	
-	public void testRealizedUDTsInSignals() {
+	public void doTestRealizedUDTsInSignals() {
 		String actual_results = performRealizedUDTTest("SignalTest");
 		// Can't use comparison file with signals in not deterministic mode.
 		// There is a reference result file in expected_results/binding for this
