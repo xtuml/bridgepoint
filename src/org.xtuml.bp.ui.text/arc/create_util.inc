@@ -138,6 +138,11 @@ query$cr{obj.name}_c\
   .// There are no objects which have both canvas editors and action semantics editors
   .select many canvas_dsc_obj_set from instances of O_OBJ where ( selected.key_lett == "SM_ISM")
   .select any another_obj from instances of O_OBJ where ( selected.key_lett == "SM_ASM")
+  .assign canvas_dsc_obj_set = canvas_dsc_obj_set | another_obj
+  .select any another_obj from instances of O_OBJ where ( selected.key_lett == "C_C")
+  .assign canvas_dsc_obj_set = canvas_dsc_obj_set | another_obj
+  .select any another_obj from instances of O_OBJ where ( selected.key_lett == "S_SYS")
+  .assign canvas_dsc_obj_set = canvas_dsc_obj_set | another_obj
   .select any another_obj from instances of O_OBJ where ( selected.key_lett == "EP_PKG")
   .assign canvas_dsc_obj_set = canvas_dsc_obj_set | another_obj
   .assign canvas_oal_obj_set = canvas_dsc_obj_set - canvas_dsc_obj_set

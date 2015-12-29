@@ -126,6 +126,13 @@ public class ConnectorMoveTests extends CanvasTest {
 
 	protected void tearDown() throws Exception {
 		super.tearDown();
+		testPart = null;
+		diagramZoomed = false;
+		originalPointList = null;
+		originalOtherPointList = null;
+		originalSourcePoint = null;
+		originalTargetPoint = null;
+		fActiveEditor = null;
 		ConnectorEditPart.setToleranceForTests(-1);
 		PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
 				.closeAllEditors(false);
@@ -390,17 +397,17 @@ public class ConnectorMoveTests extends CanvasTest {
 									.getActiveWorkbenchWindow()
 									.getActivePage()
 									.getActivePartReference());
+		}
+		if(!diagramZoomed) { 
 			// disable grid snapping to allow exact
-			// positions (only need this once)
+			// positions
 			CorePlugin.getDefault().getPreferenceStore().setValue(
 					BridgePointPreferencesStore.SNAP_TO_GRID, false);
 			getActiveEditor().configureGridOptions();
-		}
-		if(!diagramZoomed) { 
 			ZoomManager zoomManager = (ZoomManager) getActiveEditor()
 					.getAdapter(ZoomManager.class);
 			getActiveEditor().zoomAll();
-			zoomManager.setZoom(1);
+			//zoomManager.setZoom(1);
 			while (PlatformUI.getWorkbench().getDisplay().readAndDispatch())
 				;
 			diagramZoomed = true;
@@ -450,7 +457,10 @@ public class ConnectorMoveTests extends CanvasTest {
 		ConnectorEditPart testPart = getTestPart(source);
 		Point point = testPart.getConnectionFigure().getPoints().getPoint(1);
 		Point point2 = originalPointList.getPoint(1);
-		return point.getDifference(point2).height == -24;
+		testPart.getConnectionFigure().translateToAbsolute(point);
+		testPart.getConnectionFigure().translateToAbsolute(point2);
+		int difference = point.getDifference(point2).height;
+		return  Math.abs(difference) - 24 < 5;
 	}
 
 	/**
@@ -516,7 +526,9 @@ public class ConnectorMoveTests extends CanvasTest {
 		ConnectorEditPart testPart = getTestPart(source);
 		Point point = testPart.getConnectionFigure().getPoints().getLastPoint();
 		Point point2 = originalPointList.getLastPoint();
-		return point.getDifference(point2).height == -24;
+		testPart.getConnectionFigure().translateToAbsolute(point);
+		testPart.getConnectionFigure().translateToAbsolute(point2);
+		return (point.getDifference(point2).height) - 24 < 5;
 	}
 
 	/**
@@ -573,7 +585,9 @@ public class ConnectorMoveTests extends CanvasTest {
 		Point point = testPart.getConnectionFigure().getPoints()
 				.getFirstPoint();
 		Point point2 = originalPointList.getFirstPoint();
-		return point.getDifference(point2).height == -24;
+		testPart.getConnectionFigure().translateToAbsolute(point);
+		testPart.getConnectionFigure().translateToAbsolute(point2);
+		return (point.getDifference(point2).height) - 24 < 5;
 	}
 
 	/**
@@ -592,7 +606,9 @@ public class ConnectorMoveTests extends CanvasTest {
 		ConnectorEditPart testPart = getTestPart(source);
 		Point point = testPart.getConnectionFigure().getPoints().getPoint(2);
 		Point point2 = originalPointList.getPoint(2);
-		return point.getDifference(point2).height == -24;
+		testPart.getConnectionFigure().translateToAbsolute(point);
+		testPart.getConnectionFigure().translateToAbsolute(point2);
+		return (point.getDifference(point2).height) - 24 < 5;
 	}
 
 	/**
@@ -618,7 +634,12 @@ public class ConnectorMoveTests extends CanvasTest {
 		for (int i = 0; i < points.size(); i++) {
 			Point point = points.getPoint(i);
 			Point point2 = otherPoints.getPoint(i);
-			if (point.getDifference(point2).height != -24) {
+			int difference = ((point.getDifference(point2).height) - 24);
+			// try the other direction as well
+			if(difference < 0) {
+				Math.abs(difference);
+			}
+			if (difference > 5) {
 				return false;
 			}
 		}
@@ -640,8 +661,10 @@ public class ConnectorMoveTests extends CanvasTest {
 			NonRootModelElement destination) {
 		// all points in the other connection should have moved -24
 		AbstractConnectionEditPart otherPart = getOtherPartForTest();
-		return allPointsMoved(otherPart.getConnectionFigure().getPoints(),
-				originalOtherPointList);
+		PointList otherPoints = otherPart.getConnectionFigure().getPoints();
+		testPart.getConnectionFigure().translateToAbsolute(otherPoints);
+		testPart.getConnectionFigure().translateToAbsolute(originalOtherPointList);
+		return allPointsMoved(originalOtherPointList, otherPoints);
 	}
 
 }
