@@ -99,15 +99,21 @@ public class VerifierBindingAuditTest extends BaseTest {
 		// wait for display events to complete
 		TestingUtilities.processDisplayEvents();
 	}
+	
+	public void testVerifierBindingAuditTests(){
+		this.doTestVerifyReadyToRun();
+		this.doTestMenuEntryAbsent();
+		this.doTestRealizedCodeAudit();
+	}
 
-	public void testVerifyReadyToRun() {
+	public void doTestVerifyReadyToRun() {
         File checkFile = new File(getProject().getLocation().toString() + "/bin/externalcodebindingtest/library/Realized.class");
         assertTrue("This test requires that you build " + projectName + " in your workspace before it will succeed.",
         		checkFile.exists());
 
 	}
 
-	public void testMenuEntryAbsent() {
+	public void doTestMenuEntryAbsent() {
 		final String nonrealizedPackageName = "NonRealized";
 		Package_c nonRealizedcomponentPkg = Package_c.getOneEP_PKGOnR1405(m_sys,
 				new ClassQueryInterface_c() {
@@ -138,7 +144,7 @@ public class VerifierBindingAuditTest extends BaseTest {
 
 	static String actualResults = null;
 
-	public void testRealizedCodeAudit() {
+	public void doTestRealizedCodeAudit() {
 		final String realizedPackageName = "External Code Binding Test";
 		Package_c realizedComponentPkg = Package_c.getOneEP_PKGOnR1405(m_sys,
 				new ClassQueryInterface_c() {
