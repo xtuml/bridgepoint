@@ -536,35 +536,39 @@ select one component related by packageableElem->C_C[R8003];
     select one parentComp related by parentPE->C_C[R8003];
   end while;
 
-  select one system related by package->S_SYS[R1405];
-  if (empty system)
-    rootCompIdInPkg = component.getRootComponentId();
-    select any rootComponent from instances of C_C where (selected.Id == rootCompIdInPkg);
-    select one system related by rootComponent->PE_PE[R8001]->EP_PKG[R8000]->S_SYS[R1405];
-  end if;
-  select any component related by system->EP_PKG[R1405]->PE_PE[R8000]
-  								   ->C_C[R8001] where (selected.Id == param.Id);
-  if(not_empty component)
-    existingCompId = GD::NULL_UNIQUE_ID();
-    if(self.isAssigned())
+// This code is commented out for now.  See this issue for more information:
+// https://support.onefact.net/redmine/issues/8052
+// The above issue must uncomment the below code.
+
+//  select one system related by package->S_SYS[R1405];
+//  if (empty system)
+//    rootCompIdInPkg = component.getRootComponentId();
+//    select any rootComponent from instances of C_C where (selected.Id == rootCompIdInPkg);
+//    select one system related by rootComponent->PE_PE[R8001]->EP_PKG[R8000]->S_SYS[R1405];
+//  end if;
+//  select any component related by system->EP_PKG[R1405]->PE_PE[R8000]
+//  								   ->C_C[R8001] where (selected.Id == param.Id);
+//  if(not_empty component)
+//    existingCompId = GD::NULL_UNIQUE_ID();
+//    if(self.isAssigned())
       // if assigned get the component id
       // so that we prevent packages which
       // only contain the component we are
       // assigned to
-      select one existingComp related by self->C_C[R4201];
-      existingCompId = existingComp.Id;
-    end if;
-    if(self.componentHasMatchingInterfaces(id:component.Id))
-      if(param.checkExistingType)
-        if(component.Id == existingCompId)
-          return false;
-        end if;
-      end if;
-      return true;
-    else
-      return false;
-    end if;
-  end if;
+//      select one existingComp related by self->C_C[R4201];
+//      existingCompId = existingComp.Id;
+//    end if;
+//    if(self.componentHasMatchingInterfaces(id:component.Id))
+//      if(param.checkExistingType)
+//        if(component.Id == existingCompId)
+//          return false;
+//        end if;
+//      end if;
+//      return true;
+//    else
+//      return false;
+//    end if;
+//  end if;
   return true;
 
 ',

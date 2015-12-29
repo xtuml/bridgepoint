@@ -144,15 +144,21 @@ public class RTOMoveTests extends CanvasTest {
 	protected void tearDown() throws Exception {
 		// undo paste
 		if(pasteSuccessful) {
-			TransactionManager.getSingleton().getUndoAction().run();
+			if(!TransactionManager.getSingleton().getUndoStack().isEmpty()) {
+				TransactionManager.getSingleton().getUndoAction().run();
+			}
 		}
 		// undo RGO update
 		if(rgoUpdateSuccessful) {
-			TransactionManager.getSingleton().getUndoAction().run();
+			if(!TransactionManager.getSingleton().getUndoStack().isEmpty()) {
+				TransactionManager.getSingleton().getUndoAction().run();
+			}
 		}
 		// undo cut
 		if(cutSuccessful) {
-			TransactionManager.getSingleton().getUndoAction().run();
+			if(!TransactionManager.getSingleton().getUndoStack().isEmpty()) {
+				TransactionManager.getSingleton().getUndoAction().run();
+			}
 		}
 		rgoUpdateSuccessful = false;
 		super.tearDown();
