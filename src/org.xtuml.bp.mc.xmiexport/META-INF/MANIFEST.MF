@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: XMI 2.1 Export
 Bundle-SymbolicName: org.xtuml.bp.mc.xmiexport; singleton:=true
-Bundle-Version: 5.1.0
+Bundle-Version: 5.2.0
 Bundle-ClassPath: xmi.jar
 Bundle-Activator: org.xtuml.bp.mc.xmiexport.XMIExport
 Bundle-Vendor: xtUML.org

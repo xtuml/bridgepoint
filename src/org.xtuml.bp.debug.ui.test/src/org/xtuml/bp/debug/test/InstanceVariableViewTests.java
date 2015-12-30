@@ -118,6 +118,7 @@ public class InstanceVariableViewTests extends BaseTest {
 
 			Ooaofooa.setPersistEnabled(true);
             delayGlobalUpgrade = false;
+            PrepareTest();
 	}
 
 	public void tearDown() throws Exception {
@@ -136,7 +137,7 @@ public class InstanceVariableViewTests extends BaseTest {
 		TestingUtilities.waitForThread("Verifier (" + projectName + ")");	
 	}
 
-	public void testPrepareTest(){
+	public void PrepareTest(){
 		DebugUITestUtilities.waitForBPThreads(m_sys);
 		BaseTest.dispatchEvents(0);
 		initTest();
@@ -146,7 +147,7 @@ public class InstanceVariableViewTests extends BaseTest {
 		TreeItem[] children = DebugUITestUtilities.expandValueinVariablesView("student1");
 		
 		String value = DebugUITestUtilities.getValueForVariable(children, "Pending Events");
-		assertEquals(value, "Student1: success");
+		assertEquals("Student1: success", value);
 		
 	}
 	
@@ -154,7 +155,7 @@ public class InstanceVariableViewTests extends BaseTest {
 		TreeItem[] children = DebugUITestUtilities.expandValueinVariablesView("student1");
 		
 		String value = DebugUITestUtilities.getValueForVariable(children, "Current State");
-		assertEquals(value, "First Year");
+		assertEquals("First Year", value);
 		
 	}
 	
@@ -162,7 +163,7 @@ public class InstanceVariableViewTests extends BaseTest {
 		TreeItem[] children = DebugUITestUtilities.expandValueinVariablesView("student1");
 		
 		String value = DebugUITestUtilities.getValueForVariable(children, "R5.'Contains'");
-		assertEquals(value, "1:Classes");
+		assertEquals("1:Classes", value);
 		
 	}
 	
@@ -171,7 +172,7 @@ public class InstanceVariableViewTests extends BaseTest {
 		TreeItem[] children = DebugUITestUtilities.expandValueinVariablesView("student1");
 		
 		String value= DebugUITestUtilities.getValueForVariable(children, "R1.'Teaches'");
-		assertEquals(value, "[3]  3:Subject, 4:Subject, 5:Subject" );
+		assertEquals("[3]  3:Subject, 4:Subject, 5:Subject", value );
 		
 	}
 

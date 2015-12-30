@@ -466,6 +466,7 @@ sub createTestSuiteClass() {
     &createCopyrightAndPackageSpec( 1 );
 	print $outputFH "import java.io.File;\n";
 	print $outputFH "\n";
+	print $outputFH "import java.lang.Exception;\n";
 	print $outputFH "import junit.framework.Test;\n";
 	print $outputFH "import junit.framework.TestSuite;\n";
 	print $outputFH "import $packageName.*;\n";
@@ -821,7 +822,9 @@ sub createTests();
 sub createTests() {
 	my $startCount = shift(@_);
 	my $testCnt = 0;
+	my $testCntSuite = 0;
 	my $cellsCounted = 0;
+	my $cellsCountedSuite = 0;
 	print $outputFH "    public void test$className () throws Exception {\n";
 	for (my $col = 0; $col <= $#MatrixColNames; $col++) {
 		for (my $row = 0; $row <= $#MatrixRowNames; $row++) {
@@ -833,17 +836,17 @@ sub createTests() {
 			my $expectedResult = $currentRow[$col];
 			# If the table has an "X" for the expected result it means don't 
 			# generate a test for it.
-			if ($expectedResult ne "X") {
+			if ($expectedResult ne "X") { 
 				# startCnt and maxTests are used for the case where the suite 
 				# improve JDK performance.
-				if ($startCount > $cellsCounted++) {
+				if ($startCount > $cellsCountedSuite++) { 
 					next;
 				}
 				# note that testCnt is 1-based (a requirement of the test harness)
 				# each seperate file created starts with test id 1.
-				if ($testCnt++ >= $maxTestsPerClass) {
+				if ($testCntSuite++ >= $maxTestsPerClass) {
 					last;
-				}				
+				}
 				print $outputFH "    doTest$MatrixColNames[$col]_$MatrixRowNames[$row]();\n";
 			}
 		}
@@ -869,11 +872,15 @@ sub createTests() {
 				}
 				# note that testCnt is 1-based (a requirement of the test harness)
 				# each seperate file created starts with test id 1.
+				if ($testCnt++ >= $maxTestsPerClass) {
+					last;
+				}
 				print $outputFH "    /**\n";
 				print $outputFH "     * Perform the test for the given matrix column ($MatrixColNames[$col]) and row ($MatrixRowNames[$row]).\n";
 				print $outputFH "     * \n";
 				print $outputFH "     */\n";
-				print $outputFH "    public void doTest$MatrixColNames[$col]_$MatrixRowNames[$row]() {\n";
+				print $outputFH "    public void doTest$MatrixColNames[$col]_$MatrixRowNames[$row]() throws Exception {\n";
+				print $outputFH "        setUp();\n";
 				print $outputFH "        test_id = getTestId(\"$MatrixColNames[$col]\", \"$MatrixRowNames[$row]\", \"$testCnt\");\n";
 				print $outputFH "\n";
 				print $outputFH "        NonRootModelElement src = select$colType(\"$MatrixColNames[$col]\");\n";
@@ -893,6 +900,7 @@ sub createTests() {
 				print $outputFH "        if(editor != null && useDrawResults) {\n";
 				print $outputFH "           validateOrGenerateResults(editor, generateResults);\n";
 				print $outputFH "        }\n";
+				print $outputFH "        tearDown();\n";				
 				print $outputFH "    }\n";
 				print $outputFH "\n";
 			}

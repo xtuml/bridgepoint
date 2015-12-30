@@ -27,7 +27,6 @@
 
 package org.xtuml.bp.core.test.rtomove;
 
-import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -38,9 +37,7 @@ import org.eclipse.core.resources.ProjectScope;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.preferences.IScopeContext;
 import org.osgi.service.prefs.Preferences;
-
 import org.xtuml.bp.core.ComponentReference_c;
-import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.DataType_c;
 import org.xtuml.bp.core.ExecutableProperty_c;
 import org.xtuml.bp.core.ImportedReference_c;
@@ -147,15 +144,21 @@ public class RTOMoveTests extends CanvasTest {
 	protected void tearDown() throws Exception {
 		// undo paste
 		if(pasteSuccessful) {
-			TransactionManager.getSingleton().getUndoAction().run();
+			if(!TransactionManager.getSingleton().getUndoStack().isEmpty()) {
+				TransactionManager.getSingleton().getUndoAction().run();
+			}
 		}
 		// undo RGO update
 		if(rgoUpdateSuccessful) {
-			TransactionManager.getSingleton().getUndoAction().run();
+			if(!TransactionManager.getSingleton().getUndoStack().isEmpty()) {
+				TransactionManager.getSingleton().getUndoAction().run();
+			}
 		}
 		// undo cut
 		if(cutSuccessful) {
-			TransactionManager.getSingleton().getUndoAction().run();
+			if(!TransactionManager.getSingleton().getUndoStack().isEmpty()) {
+				TransactionManager.getSingleton().getUndoAction().run();
+			}
 		}
 		rgoUpdateSuccessful = false;
 		super.tearDown();
@@ -289,7 +292,7 @@ public class RTOMoveTests extends CanvasTest {
 	void AC_BD_Action(NonRootModelElement source, NonRootModelElement target) {
 		cutSuccessful = false;
 		pasteSuccessful = false;
-		if(getName().contains("C4")) {
+		if(getMethodName().contains("C4")) {
 			// do not allow inter-project referencing
 			IScopeContext projectScope = new ProjectScope(getProjectHandle(m_sys.getName()));
 			Preferences projectNode = projectScope
@@ -306,7 +309,7 @@ public class RTOMoveTests extends CanvasTest {
 		}
 		NonRootModelElement destination = getDestination(getSelectableElement(rto));
 		// cut the source
-		if(getName().contains("A6")) {
+		if(getMethodName().contains("A6")) {
 			TestUtil.okToDialog(500, false);
 		}
 		UITestingUtilities.cutElementsInExplorer(getCuttableElements(rto), getExplorerView());
@@ -316,14 +319,24 @@ public class RTOMoveTests extends CanvasTest {
 			// set the RTO of this element to something other than default
 			configureRGOReference(rgo, rto);
 		}
-		if(getName().contains("C3") || getName().contains("C4")) {
+		if(getMethodName().contains("C3") || getMethodName().contains("C4")) {
 			// need to click Proceed on dialog that is display
 			TestUtil.selectButtonInDialog(500, "Proceed", false);
 		}
 		UITestingUtilities.pasteClipboardContentsInExplorer(destination);
 		pasteSuccessful = true;
-		rto = getElement(getName().replaceAll("test", ""), rto.getClass(),
+		rto = getElement(getMethodName().replaceAll("doTest", ""), rto.getClass(),
 				false);
+	}
+
+	private String getMethodName() {
+		StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
+		for(int i = 0; i < stackTrace.length; i++) {
+			if(stackTrace[i].getMethodName().contains("doTest")) {
+				return stackTrace[i].getMethodName();
+			}
+		}
+		return "";
 	}
 
 	private Object[] getCuttableElements(NonRootModelElement rto) {
@@ -373,19 +386,19 @@ public class RTOMoveTests extends CanvasTest {
 	}
 
 	private NonRootModelElement getDestination(NonRootModelElement rto) {
-		if(rto instanceof InterfaceReference_c && getName().contains("C1")) {
+		if(rto instanceof InterfaceReference_c && getMethodName().contains("C1")) {
 			// need the package for the parent component
 			return rto.getFirstParentComponent().getFirstParentPackage();
 		}
-		if(rto instanceof Port_c && getName().contains("C1")) {
+		if(rto instanceof Port_c && getMethodName().contains("C1")) {
 			// need the package for the parent component
 			return rto.getFirstParentComponent().getFirstParentPackage();
 		}
-		if (getName().contains("C1")) {
+		if (getMethodName().contains("C1")) {
 			return rto.getFirstParentPackage();
-		} else if (getName().contains("C2")) {
+		} else if (getMethodName().contains("C2")) {
 			return Package_c.getOneEP_PKGOnR1401(inscopeOtherProject);
-		} else if (getName().contains("C3")) {
+		} else if (getMethodName().contains("C3")) {
 			return Package_c.getOneEP_PKGOnR1401(m_sys,
 					new ClassQueryInterface_c() {
 
@@ -409,9 +422,9 @@ public class RTOMoveTests extends CanvasTest {
 			NonRootModelElement rto) {
 		TransactionManager manager = TransactionManager.getSingleton();
 		Transaction transaction = null;
-		String association = ElementMap.getAssociationFor(getName().replaceAll(
-				"test", ""));
-		NonRootModelElement newRto = getElement(getName().replaceAll("test",
+		String association = ElementMap.getAssociationFor(getMethodName().replaceAll(
+				"doTest", ""));
+		NonRootModelElement newRto = getElement(getMethodName().replaceAll("doTest",
 				""), rto.getClass(), true);
 		try {
 			transaction = manager.startTransaction("Adjust RGO", new Ooaofooa[] {Ooaofooa.getDefaultInstance()});
@@ -469,7 +482,7 @@ public class RTOMoveTests extends CanvasTest {
 	}
 
 	private boolean rgoShouldReferToNonDefault() {
-		return getName().contains("D2");
+		return getMethodName().contains("D2");
 	}
 
 	private void assertRGOReference(NonRootModelElement rgo,
@@ -540,8 +553,8 @@ public class RTOMoveTests extends CanvasTest {
 
 	private Method getAccessorMethod(NonRootModelElement rgo,
 			NonRootModelElement rto) {
-		String association = ElementMap.getAssociationFor(getName().replaceAll(
-				"test", ""));
+		String association = ElementMap.getAssociationFor(getMethodName().replaceAll(
+				"doTest", ""));
 		Method[] methods = rto.getClass().getMethods();
 		for (Method method : methods) {
 			if (method.getName().matches("getOne.*OnR" + association)) {
