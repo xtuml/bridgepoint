@@ -1,28 +1,9 @@
 HOWTO Update the Metamodel model
 --------------------------------
-- Update local xtuml/mc git repository with latest from master
+- Update local xtuml/bridgepoint git repository with latest from master
 - Start BridgePoint
-- Import existing project org.xtuml.bp.core from xtuml/mc/model/
-- Export bp.core ooaofooa package to single file model mm_first.xtuml 
-    with "Export OAL" preference turned off, and "Export Graphics" preference 
-    turned on
-- Import mm_first.xtuml into a new project named org.xtuml.bp.core in a sandbox workspace
-- Right-click on the project and select "Cleanse for Model Compiler"
-- From the xtUML Modeling Perspective, edit the model to remove the following packages
-  - afun
-  - afunmark
-  - afunsmt
-  - afunval
-  - Breakpoint
-  - DocGen
-  - Document
-  - Document Data Types
-  - External Entities
-  - Functions
-  - Instance Reference Data Types
-  - MC
-  - MCfunctions
-- Export the (now modified) ooaofooa package to single file model xtUML_Metamodel.xtuml
+- Import existing project org.xtuml.bp.core from the repository into the workspace
+- Export org.xtuml.bp.core project to single file model xtUML_Metamodel.xtuml 
     with "Export OAL" preference turned off, and "Export Graphics" preference 
     turned on
 - Copy xtUML_Metamodel.xtuml to org.xtuml.bp.welcome/models/xtUML_Metamodel.xtuml
