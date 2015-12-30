@@ -773,16 +773,19 @@ public class DebugUITestUtilities {
 									variablesView.doubleClick(new DoubleClickEvent(viewer, new TreeSelection()));
 									clicked = true;
 								}
-								for (; trial < 2500; trial++) {
+								outer:for (; trial < 2500; trial++) {
 									while ( org.eclipse.ui.PlatformUI.getWorkbench().getDisplay().readAndDispatch());
 									TreeItem[] treeItems = items[j].getItems();
 									int len = treeItems.length;
 									if ( len  != 0){
-										String text = treeItems[len-1].getText();
-										if ( text != "" ){
+										for (int k = 0; k < treeItems.length; k++) {
+											String text = treeItems[k].getText();
+											if ( text == "" ){
+												continue outer;
+											}
+										}
 											System.out.println("Trails are "+ trial);
 											return treeItems;
-										}
 									}
 								}
 

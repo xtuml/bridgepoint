@@ -109,7 +109,7 @@ public class WelcomePageTestGPS extends TestCase {
 		SampleProjectGettingStartedAction action = new SampleProjectGettingStartedAction();
 		Properties props = new Properties();
 		props.put("model", "GPS Watch");
-		props.put("SingleFileModel", "false");
+		props.put("SingleFileModel", "zip");
 		action.run(null, props);
 	}
 
