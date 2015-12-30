@@ -83,15 +83,15 @@ public class CoreGlobalsTestSuite2Generics extends TestSuite {
 		WorkspaceUtil.setAutobuilding(false);   // throws CoreException
 		CorePlugin.getDefault().getPreferenceStore().setValue(BridgePointPreferencesStore.USE_DEFAULT_NAME_FOR_CREATION, true);
 		addTest(new TestSuite(CoreGlobalsTestSuiteIIGenerics.class));
+        addTest(new TestSuite(DeleteDatatypesTestGenerics.class));
+        addTest(new TestSuite(TransitionActionTestGenerics.class));
+        addTest(new TestSuite(ModelTransactionTestGenerics.class));
 		addTest(new TestSuite(MultipleSelectionAssignmentTests.class));
 		addTest(new TestSuite(FormalizeUnformalizeWithPrefixTestGenerics.class));
         addTest(new TestSuite(IntegrityIssueTests.class));
-        addTest(new TestSuite(SequenceTestsGenerics.class));
 	    addTest(new TestSuite(CommunicationMessageTestsGenerics.class));/*3*/
 	    addTest(new TestSuite(CommunicationTestsGenerics.class));
 	    addTest(new TestSuite(CommunicationLinkTestsGenerics.class));
-        addTest(new TestSuite(ModelTransactionTestGenerics.class));/*2*/
-        addTest(new TestSuite(DeleteDatatypesTestGenerics.class));
 		addTest(new TestSuite(CanRenameCanDeleteTestGenerics.class));
   		addTest(new TestSuite(CombineSplitReferentialsTestGenerics.class));
      	addTest(new TestSuite(RenameInvolvingResourceTestGenerics.class));
@@ -107,9 +107,9 @@ public class CoreGlobalsTestSuite2Generics extends TestSuite {
         addTest(new TestSuite(UniqueNameTestGenerics.class));
         addTest(new TestSuite(ModifyNonFullyLoadedModelTestsGenerics.class));
         addTest(new TestSuite(I810_SlowDeletionTestGenerics.class));
-        addTest(new TestSuite(TransitionActionTestGenerics.class));
         addTest(new TestSuite(ActivityTestsGenerics.class));
         addTest(new TestSuite(ModelIntegrityTests.class));
         addTest(new TestSuite(ClassKeyLetters.class));
+        addTest(new TestSuite(SequenceTestsGenerics.class));
 	}
 }

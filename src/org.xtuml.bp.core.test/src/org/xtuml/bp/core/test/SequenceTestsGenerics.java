@@ -46,6 +46,7 @@ import org.xtuml.bp.core.ClassInstanceParticipant_c;
 import org.xtuml.bp.core.ClassParticipant_c;
 import org.xtuml.bp.core.ComponentParticipant_c;
 import org.xtuml.bp.core.Component_c;
+import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.ExternalEntityParticipant_c;
 import org.xtuml.bp.core.FunctionParameter_c;
 import org.xtuml.bp.core.Function_c;
@@ -62,6 +63,7 @@ import org.xtuml.bp.core.StateMachineEventDataItem_c;
 import org.xtuml.bp.core.StateMachineEvent_c;
 import org.xtuml.bp.core.StateMachine_c;
 import org.xtuml.bp.core.SynchronousMessage_c;
+import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.ui.BridgeOperationFormalizeOnMSG_SMWizard;
 import org.xtuml.bp.core.ui.BridgeOperationFormalizeOnMSG_SMWizardPage2;
@@ -70,6 +72,8 @@ import org.xtuml.bp.core.ui.ClassEventFormalizeOnMSG_AMWizardPage2;
 import org.xtuml.bp.core.ui.ClassOperationFormalizeOnMSG_SMWizard;
 import org.xtuml.bp.core.ui.ClassOperationFormalizeOnMSG_SMWizardPage2;
 import org.xtuml.bp.core.ui.InstanceClassEventFormalizeOnMSG_AMWizard;
+import org.xtuml.bp.core.ui.InstanceClassEventFormalizeOnMSG_AMWizardPage1;
+import org.xtuml.bp.core.ui.InstanceClassEventFormalizeOnMSG_AMWizardPage2;
 import org.xtuml.bp.core.ui.InstanceEventFormalizeOnMSG_AMWizard;
 import org.xtuml.bp.core.ui.InstanceEventFormalizeOnMSG_AMWizardPage2;
 import org.xtuml.bp.core.ui.InstanceOperationFormalizeOnMSG_SMWizard;
@@ -124,7 +128,8 @@ public class SequenceTestsGenerics extends CanvasTest {
 	 */
 	protected void setUp() throws Exception {
 		super.setUp();
-
+		 CorePlugin.getDefault().getPluginPreferences().setValue(
+		  	      BridgePointPreferencesStore.USE_DEFAULT_NAME_FOR_CREATION, true);
 		//m_sys = getSystemModel("Default Project");
 
 		// if it's the first test of this class that's being setup
@@ -139,46 +144,123 @@ public class SequenceTestsGenerics extends CanvasTest {
 		}
 	}
 
-	public void testSequenceTest(){
+	public void testSequenceTest() throws Exception{
 		  doTestFormalSequenceModeling();
+		  tearDown();
+		  setUp();
 	      doTestInformalSequenceModeling();
+		  tearDown();
+		  setUp();
 	      doTestSequenceInSequenceModeling();
+		  tearDown();
+		  setUp();
 	      doTestFormalizeInstanceWithNestedClass();
+		  tearDown();
+		  setUp();
 	      doTestFormalizeFormalizedInstance();
+		  tearDown();
+		  setUp();
 	      doTestUnformalizeInstanceRestoresInformalAVs();
+		  tearDown();
+		  setUp();
 	      doTestFormalizeImportedClassWithNestedClass();
+		  tearDown();
+		  setUp();
 	      doTestFormalizeFormalizedImportedClassWithClass();
+		  tearDown();
+		  setUp();
 	      doTestUnformalizeImportedClassRestoresInformalAttributes();
+		  tearDown();
+		  setUp();
 	      doTestFormalizeFunctionPackage();
+		  tearDown();
+		  setUp();
 	      doTestFormalizeFormalizedFunctionPackage();
+		  tearDown();
+		  setUp();
 	      doTestFormalizeEE();
+		  tearDown();
+		  setUp();
 	      doTestFormalizeFormalizedEE();
+		  tearDown();
+		  setUp();
 	      doTestFormalizeSynchronousMessageCB();
+	      tearDown();
+		  setUp();
 	      doTestFormalizeFormalizedSynchronousMessageCB();
+	      tearDown();
+		  setUp();
 	      doTestFormalizeSynchronousMessageIB();
+	      tearDown();
+		  setUp();
 	      doTestFormalizeSynchronousMessageWithFunction();
+	      tearDown();
+		  setUp();
 	      doTestFormalizeSynchronousMessageWithBridgeOperation();
+	      tearDown();
+		  setUp();
 	      doTestFormalizeAsynchronousMessageWithCBEvent();
+	      tearDown();
+		  setUp();
 	      doTestFormalizeAsynchronousMessageWithCreationEvent();
+	      tearDown();
+		  setUp();
 	      doTestFormalizeFormalizedAsynchronousMessageWithCBEvent();
+	      tearDown();
+		  setUp();
 	      doTestFormalizeAsynchronousMessageWithIBEvent();
+	      tearDown();
+		  setUp();
 	      doTestUnformalizeFunctionPackage();
+	      tearDown();
+		  setUp();
 	      doTestUnformalizeEE();
+	      tearDown();
+		  setUp();
 	      doTestUnformalizeSynchronousMessage();
+	      tearDown();
+		  setUp();
 	      doTestUnformalizeAsynchronousMessage();
+	      tearDown();
+		  setUp();
 	      doTestFormalizedInstanceElementChangesAreReflected();
+	      tearDown();
+		  setUp();
 	      doTestFormalizedEEElementChangesAreReflected();
+	      tearDown();
+		  setUp();
 	      doTestFormalizedFPElementChangesAreReflected();
+	      tearDown();
+		  setUp();
 	      doTestFormalMessageArgumentCannotDeleteRename();
+	      tearDown();
+		  setUp();
 	      doTestFormalAttributeValueCannotDeleteRename();
+	      tearDown();
+		  setUp();
 	      doTestUnformalizeDisabled();
+	      tearDown();
+		  setUp();
 	      doTestRenamingAttributeValueRepresentedByLabel();
+	      tearDown();
+		  setUp();
 	      doTestSequenceInSubsystemModeling();
+	      tearDown();
+		  setUp();
 	      doTestSequenceInDomainModeling();
+	      tearDown();
+		  setUp();
 	      doTestFormalizationOfNestedSequenceElement();
+	      tearDown();
+		  setUp();
 	      doTestCreateInformalSequenceUnderSystem();
+	      tearDown();
+		  setUp();
 	      doTestCreateInformalSequenceUnderComponent();
+	      tearDown();
+		  setUp();
 	      doTestDeleteReferredToComponent();
+	      tearDown();
 	}
 
 	/**
@@ -921,17 +1003,15 @@ public class SequenceTestsGenerics extends CanvasTest {
 				.getActiveWorkbenchWindow().getShell(), wizard);
 		dialog.create();
 		// initialize the pages
-//TODO: BOB FIXME - This needs to be updated to account for a change that was made in this area. It may be a bug
-//      this wizard page was not generated for some reason.		
-//		InstanceClassEventFormalizeOnMSG_AMWizardPage3 page1 = (InstanceClassEventFormalizeOnMSG_AMWizardPage3) wizard
-//				.getStartingPage();
-//		page1.createControl(workbench.getActiveWorkbenchWindow().getShell());
-//		Combo combo = page1.MessageCombo;
-//		selectItemInList("N_SC1: Nested Creation Event", combo);
-//		assertTrue("Event: " + "N_SC1: Nested Creation Event, "
-//				+ "was not selected in the wizard.", wizard.canFinish());
-//		assertTrue("Could not formalize message with creation event.", wizard
-//				.performFinish());
+		InstanceClassEventFormalizeOnMSG_AMWizardPage2 page1 = (InstanceClassEventFormalizeOnMSG_AMWizardPage2) wizard
+				.getStartingPage();
+		page1.createControl(workbench.getActiveWorkbenchWindow().getShell());
+		Combo combo = page1.MessageCombo;
+		selectItemInList("N_SC1: Nested Creation Event", combo);
+		assertTrue("Event: " + "N_SC1: Nested Creation Event, "
+				+ "was not selected in the wizard.", wizard.canFinish());
+		assertTrue("Could not formalize message with creation event.", wizard
+				.performFinish());
 
 		validateOrGenerateResults(ce, generateResults);
 	}

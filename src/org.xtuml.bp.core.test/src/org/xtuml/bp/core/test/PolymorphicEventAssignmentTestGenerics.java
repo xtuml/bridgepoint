@@ -107,16 +107,30 @@ public class PolymorphicEventAssignmentTestGenerics extends BaseTest {
 	}
 	
 	public void testPolymorphicEvent() throws Exception{
-		 doTestPolymorphicEventAssignment();
-	      doTestPolymorphicEventAssignmentNotAllowedOnCreationTransition();
-	      doTestAssignPolyEventToTransition();
-	      doTestSubtypeLineRemovalRemovesNonLocalEvent();
-	      doTestSubtypeLineRemovalRemovesLowerLevelNonLocalEvent();
-	      doTestSubtypeLineRemovalOnlyRemovesNonLocalEventsDeliveredViaItself();
-	      doTestRenamingPolymorphicEventRenamesNonLocalEvent();
-	      doTestPolymorphicEventRemovalRemovesNonLocalEvents();
-	  
-		
+		BaseTest.dispatchEvents(0);
+		doTestPolymorphicEventAssignment();
+		tearDown();
+		setUp();
+	    doTestPolymorphicEventAssignmentNotAllowedOnCreationTransition();
+	    tearDown();
+	    setUp();
+	    doTestAssignPolyEventToTransition();
+	    tearDown();
+	    setUp();
+	    doTestSubtypeLineRemovalRemovesNonLocalEvent();
+	    tearDown();
+	    setUp();
+	    doTestSubtypeLineRemovalRemovesLowerLevelNonLocalEvent();
+	    tearDown();
+	    setUp();
+	    doTestSubtypeLineRemovalOnlyRemovesNonLocalEventsDeliveredViaItself();
+	    tearDown();
+	    setUp();
+	    doTestRenamingPolymorphicEventRenamesNonLocalEvent();
+	    tearDown();
+	    setUp();
+	    doTestPolymorphicEventRemovalRemovesNonLocalEvents();
+	    tearDown();
 	}
 
 	/**
@@ -334,6 +348,7 @@ public class PolymorphicEventAssignmentTestGenerics extends BaseTest {
 	 */
 	private void selectEFromAssignList(Transition_c transition) {
 		checkForPresenceOfEInAssignList(transition).performFinish();
+		BaseTest.dispatchEvents(0);
 	}
 
 	/**
@@ -427,6 +442,7 @@ public class PolymorphicEventAssignmentTestGenerics extends BaseTest {
 	 */
 	private void selectEFromIgnoreList(StateMachineState_c state) {
 		checkForPresenceOfEInIgnoreList(state).performFinish();
+		BaseTest.dispatchEvents(0);
 	}
 
 	/**
@@ -511,6 +527,7 @@ public class PolymorphicEventAssignmentTestGenerics extends BaseTest {
 	 */
 	private void selectEFromCantHappenList(StateMachineState_c state) {
 		checkForPresenceOfEInCantHappenList(state).performFinish();
+		BaseTest.dispatchEvents(0);
 	}
 
 	/**
@@ -580,6 +597,7 @@ public class PolymorphicEventAssignmentTestGenerics extends BaseTest {
 		// the wizard, and return that state's name
 		GenericPackageIgnoreInStateOnSM_EVTWizardPage1 page = displayIgnoreInStateWizard(event);
 		page.getWizard().performFinish();
+		dispatchEvents(0);
 		return page.StateCombo.getItems()[0];
 	}
 
@@ -628,6 +646,7 @@ public class PolymorphicEventAssignmentTestGenerics extends BaseTest {
 		// the wizard, and return that state's name
 		GenericPackageCantHappenInStateOnSM_EVTWizardPage1 page = displayCantHappenInStateWizard(event);
 		page.getWizard().performFinish();
+		BaseTest.dispatchEvents(0);
 		return page.StateCombo.getItems()[0];
 	}
 
@@ -720,6 +739,7 @@ public class PolymorphicEventAssignmentTestGenerics extends BaseTest {
 		IWizard w = aep.getWizard();
 		w.performFinish();
 		wd.close();
+		BaseTest.dispatchEvents(0);
 		// test to see that event just assigned does not exist in combo list
 		aea = new GenericPackageAssignEventOnSM_TXNAction();
 		a = new Action() {
@@ -886,6 +906,7 @@ public class PolymorphicEventAssignmentTestGenerics extends BaseTest {
 		selection.clear();
 		selection.addToSelection(poly);
 		RenameAction.getRenameQuery(poly, "poly_new_name", "poly1", false).run();
+		BaseTest.dispatchEvents(0);
 
 		NonLocalEvent_c nlevt = NonLocalEvent_c.NonLocalEventInstance(
 				modelRoot, new ClassQueryInterface_c() {
