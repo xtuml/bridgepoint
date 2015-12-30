@@ -76,6 +76,7 @@ public class GlobalsCanvasSuite2 extends TestSuite {
 		}
 		CorePlugin.getDefault().getPreferenceStore().setValue(BridgePointPreferencesStore.USE_DEFAULT_NAME_FOR_CREATION,true);
 		
+        addTest(new TestSuite(GraphicalToolCreationTests.class));
 		addTest(new TestSuite(GlobalsCanvasTestSuite2.class));
         addTest(new TestSuite(ConnectorPolicyTests.class));
         addTest(new TestSuite(I686ClearDatabaseTest.class));
@@ -90,7 +91,6 @@ public class GlobalsCanvasSuite2 extends TestSuite {
         addTest(new TestSuite(ConnectorMoveTests_0.class));
         addTest(new TestSuite(TestReflexiveConnectorCreation.class));
         addTest(new TestSuite(RectilinearRoutingTests_0.class));
-        addTest(new TestSuite(GraphicalToolCreationTests.class));
         addTest(new TestSuite(RectilinearRoutingTests.class));
         addTest(new TestSuite(RectilinearRoutingTests2.class));
         addTest(new TestSuite(RectilinearRoutingTests3.class));

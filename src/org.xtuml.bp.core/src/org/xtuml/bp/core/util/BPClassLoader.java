@@ -46,7 +46,7 @@ public class BPClassLoader extends ClassLoader {
       ClassPathEntries = new ArrayList<String>();
       for (int i = 0; i < classpath.length; i++) {
     	  addClassPathEntry(classpath[i]);
-      }
+	}
 	}
 
 	private ArrayList<String> ClassPathEntries;
@@ -56,7 +56,7 @@ public class BPClassLoader extends ClassLoader {
 			if (ClassPathEntries.indexOf(path) == -1) {
 				ClassPathEntries.add(path);
 			}
-		}
+	}
 	}
 
 	public Class<?> loadClass(String name) throws ClassNotFoundException {
@@ -124,9 +124,9 @@ public class BPClassLoader extends ClassLoader {
 		}
 			
 		}
-		return null;
+	  return null;
 	}
-
+	
 	public InputStream getResourceAsStream(String name) {
 		synchronized (ClassPathEntries) {
 		Iterator<String> cpIt = ClassPathEntries.iterator();

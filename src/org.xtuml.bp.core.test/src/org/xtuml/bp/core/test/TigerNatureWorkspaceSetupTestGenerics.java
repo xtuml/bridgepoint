@@ -20,6 +20,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.ui.PlatformUI;
 import org.xtuml.bp.core.ComponentReference_c;
 import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.CorePlugin;
@@ -76,7 +77,6 @@ public class TigerNatureWorkspaceSetupTestGenerics extends CanvasTest {
 
 	protected void tearDown() throws Exception {
 		super.tearDown();
-		BaseTest.dispatchEvents(0);
 	}
 
 	public static void createNewPackage(String name, SystemModel_c systemModel) {
@@ -343,6 +343,8 @@ public class TigerNatureWorkspaceSetupTestGenerics extends CanvasTest {
 
 		graphicsModelRoot = Ooaofgraphics.getInstance(dtPkg.getModelRoot().getId());
 		validateOrGenerateResults(ce, generateResults, true);
+		PlatformUI.getWorkbench().close();
+		while(PlatformUI.getWorkbench().getDisplay().readAndDispatch());
 	}
 
 }

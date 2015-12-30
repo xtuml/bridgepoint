@@ -48,9 +48,9 @@ echo Using WORKSPACE=%WORKSPACE%
 ::
 :: DO NOT MODIFY ANY OF THE FOLLOWING LINES.
 ::
-set LAUNCHER=%BPHOMEDIR%\eclipse\plugins\org.eclipse.equinox.launcher_1.2.0.v20110502.jar
+set LAUNCHER=%BPHOMEDIR%\eclipse\plugins\org.eclipse.equinox.launcher_1.3.100.v20150511-1540.jar
 set APPLICATION=org.xtuml.bp.cli.%1
-set BP_JVM=%BPHOMEDIR%\jre1.8.0_51\bin\java.exe
+set BP_JVM=%BPHOMEDIR%\jre\bin\java.exe
 
 :: Save the user current working directory
 pushd .

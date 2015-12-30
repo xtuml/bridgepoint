@@ -20,9 +20,6 @@
 // the License.
 //========================================================================
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
-
 import org.xtuml.bp.als.oal.test.ComponentParamTest_Generics;
 import org.xtuml.bp.als.oal.test.ComponentScopeTest_Generics;
 import org.xtuml.bp.als.oal.test.ComponentSyntaxTest_Generics;
@@ -68,9 +65,14 @@ import org.xtuml.bp.als.oal.test.TestExpr_Generics;
 import org.xtuml.bp.als.oal.test.TestInvocation_Generics;
 import org.xtuml.bp.als.oal.test.TestLineNumbers_Generics;
 import org.xtuml.bp.als.oal.test.TestSelectWhere_Generics;
+import org.xtuml.bp.als.oal.test.TestSelectWhere_OpNotAllowed;
 import org.xtuml.bp.als.oal.test.TestSelect_Generics;
+import org.xtuml.bp.als.oal.test.TestSelect_Generics_Ordered;
 import org.xtuml.bp.als.oal.test.TestStructuredDataType_Generics;
 import org.xtuml.bp.als.oal.test.VisibilityParserTest;
+
+import junit.framework.Test;
+import junit.framework.TestSuite;
 
 public class OALGlobalsTestSuite_Generics extends TestSuite {
 
@@ -78,6 +80,7 @@ public class OALGlobalsTestSuite_Generics extends TestSuite {
 		return new OALGlobalsTestSuite_Generics();
 	}
 	public OALGlobalsTestSuite_Generics() {
+	    addTest(new TestSuite(ParseErrorForEmptySynchronousMessagesTests.class));
 		addTest(new TestSuite(OalParserGlobalsTest_Generics.class));
 		addTest(new TestSuite(OalParserTest_Generics.class));
 		addTest(new TestSuite(TestArray_Generics.class));
@@ -89,8 +92,11 @@ public class OALGlobalsTestSuite_Generics extends TestSuite {
 		addTest(new TestSuite(TestAttribute_Generics.class));
 		addTest(new TestSuite(TestControl_Generics.class));
 		addTest(new TestSuite(TestCRUD_Generics.class));
-		addTest(new TestSuite(TestSelect_Generics.class));
 		addTest(new TestSuite(TestEvent_Generics.class));
+	    addTest(new TestSuite(TestSelectWhere_Generics.class));
+	    addTest(new TestSuite(TestSelectWhere_OpNotAllowed.class));
+		addTest(new TestSuite(TestSelect_Generics.class));
+	    addTest(new TestSuite(TestSelect_Generics_Ordered.class));
 		addTest(new TestSuite(TestLineNumbers_Generics.class));
 		addTest(new TestSuite(TestStructuredDataType_Generics.class));
 		addTest(new TestSuite(SingleDimensionFixedArrayAssigmentTest_0_Generics.class));
@@ -121,10 +127,8 @@ public class OALGlobalsTestSuite_Generics extends TestSuite {
 		addTest(new TestSuite(ComponentParamTest_Generics.class));
 		addTest(new TestSuite(ComponentScopeTest_Generics.class));
 		addTest(new TestSuite(TestConstant_Generics.class));
-	    addTest(new TestSuite(TestSelectWhere_Generics.class));
 		addTest(new TestSuite(TestAllowInterfaceNameInICMsg_Generics.class));
 	    addTest(new TestSuite(PolyEventTest.class));
-	    addTest(new TestSuite(ParseErrorForEmptySynchronousMessagesTests.class));
 	    addTest(new TestSuite(SupportConstantsViaIPRTests.class));
 	}
 }

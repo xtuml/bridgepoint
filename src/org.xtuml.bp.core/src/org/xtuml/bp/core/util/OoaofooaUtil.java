@@ -32,32 +32,6 @@ import org.xtuml.bp.core.common.NonRootModelElement;
  */
 public class OoaofooaUtil
 {
-    /**
-     * Returns the subsystem of the given name from the given model-root.
-     */
-    public static Subsystem_c getSubsystem(Ooaofooa modelRoot, final String name)
-    {
-        return Subsystem_c.SubsystemInstance(modelRoot, 
-            new ClassQueryInterface_c() {
-                public boolean evaluate(Object candidate) {
-                    return ((Subsystem_c)candidate).getName().equals(name);
-                }
-            });
-    }
-    
-    /**
-     * Returns the class of the given name from the given subsystem.
-     */
-    public static ModelClass_c getClass(Subsystem_c subsystem, final String name)
-    {
-        return ModelClass_c.getOneO_OBJOnR2(subsystem, 
-            new ClassQueryInterface_c() {
-                public boolean evaluate(Object candidate) {
-                    return ((ModelClass_c)candidate).getName().equals(name);
-                }
-            });
-    }
-     
     public static ModelClass_c getClass(Package_c pkg, final String name)
     {
         
@@ -366,29 +340,11 @@ public class OoaofooaUtil
 		if (element instanceof Package_c) {
 			  return SystemModel_c.getOneS_SYSOnR1405((Package_c)element);
 		}
-		if (element instanceof Component_c) {
-			return SystemModel_c.getOneS_SYSOnR4606(ComponentPackage_c
-					.getOneCP_CPOnR4608((Component_c) element));
-		} else if (element instanceof ComponentPackage_c) {
-			return SystemModel_c
-					.getOneS_SYSOnR4606((ComponentPackage_c) element);
-		} else if (element instanceof ComponentReference_c) {
-			return SystemModel_c.getOneS_SYSOnR4606(ComponentPackage_c
-					.getOneCP_CPOnR4608(Component_c
-							.getOneC_COnR4201((ComponentReference_c) element)));
-		} else if (element instanceof Domain_c) {
-			return SystemModel_c.getOneS_SYSOnR28((Domain_c) element);
-		} else if (element instanceof ComponentInstance_c) {
+		if (element instanceof ComponentInstance_c) {
 			Component_c component = Component_c
 					.getOneC_COnR2955((ComponentInstance_c) element);
 			if (component != null) {
 				return getSystemForElement(component);
-			} else {
-				Domain_c domain = Domain_c
-						.getOneS_DOMOnR2948((ComponentInstance_c) element);
-				if (domain != null) {
-					return getSystemForElement(domain);
-				}
 			}
 		}
 		return null;

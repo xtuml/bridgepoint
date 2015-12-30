@@ -21,61 +21,17 @@
 //=====================================================================
 package org.xtuml.bp.io.mdl.test;
 
-import org.xtuml.bp.core.DataTypePackage_c;
-import org.xtuml.bp.core.ExternalEntityPackage_c;
-import org.xtuml.bp.core.FunctionPackage_c;
 import org.xtuml.bp.core.Package_c;
-import org.xtuml.bp.core.Subsystem_c;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 
 public class IOMdlUtilities {
 
-public class DataTypePackage_by_name_c implements ClassQueryInterface_c {
-	public boolean evaluate(Object candidate) {
-		DataTypePackage_c selected = (DataTypePackage_c) candidate;
-		return (selected.getName().equals(m_name));
-	}
-  DataTypePackage_by_name_c(String name) {
-	  m_name = name;
-  }
-  private String m_name;
-}
-public class FunctionPackage_by_name_c implements ClassQueryInterface_c {
-	public boolean evaluate(Object candidate) {
-		FunctionPackage_c selected = (FunctionPackage_c) candidate;
-		return (selected.getName().equals(m_name));
-	}
-  FunctionPackage_by_name_c(String name) {
-	  m_name = name;
-  }
-  private String m_name;
-}
 public class Package_by_name_c implements ClassQueryInterface_c {
 	public boolean evaluate(Object candidate) {
 		Package_c selected = (Package_c) candidate;
 		return (selected.getName().equals(m_name));
 	}
   Package_by_name_c(String name) {
-	  m_name = name;
-  }
-  private String m_name;
-}
-public class ExternalEntityPackage_by_name_c implements ClassQueryInterface_c {
-	public boolean evaluate(Object candidate) {
-		ExternalEntityPackage_c selected = (ExternalEntityPackage_c) candidate;
-		return (selected.getName().equals(m_name));
-	}
-  ExternalEntityPackage_by_name_c(String name) {
-	  m_name = name;
-  }
-  private String m_name;
-}
-public class Subsystem_by_name_c implements ClassQueryInterface_c {
-	public boolean evaluate(Object candidate) {
-		Subsystem_c selected = (Subsystem_c) candidate;
-		return (selected.getName().equals(m_name));
-	}
-  Subsystem_by_name_c(String name) {
 	  m_name = name;
   }
   private String m_name;

@@ -45,6 +45,8 @@ Steps
   - Right-click update_BP_version.xml, select "Run As > Ant Build"
 
   - Select all projects in the workspace, refresh them to pick up the changes
+  
+  - Update the version inside the ```.classpath``` file inside ```org.xtuml.bp.welcome/models/GPS Watch.zip```
 
   R Version update is now complete, all files that must be modified are now
    "dirty" in your workspace.   

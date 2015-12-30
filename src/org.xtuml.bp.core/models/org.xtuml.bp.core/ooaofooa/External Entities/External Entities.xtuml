@@ -1583,7 +1583,6 @@ Translate:native',
 			if ((currentSelection instanceof ClassParticipant_c)
 				|| (currentSelection instanceof ClassInstanceParticipant_c)
 				|| (currentSelection instanceof ExternalEntityParticipant_c)
-				|| (currentSelection instanceof FunctionPackageParticipant_c)
 				|| (currentSelection instanceof ComponentParticipant_c)
 				|| (currentSelection instanceof PackageParticipant_c)) {
 				foundElement = currentSelection;
@@ -1633,26 +1632,17 @@ Translate:native',
 			}
 		}
 		ModelRoot modelRoot = null;
-		if (synchronousMessage != null)
+		if (synchronousMessage != null) {
 			modelRoot = synchronousMessage.getModelRoot();
-		if (asynchronousMessage != null)
-			modelRoot = asynchronousMessage.getModelRoot();
-		Communication_c communication = Communication_c.CommunicationInstance(
-				modelRoot, new ClassQueryInterface_c() {
-
-					public boolean evaluate(Object candidate) {
-						Communication_c selected = (Communication_c) candidate;
-						return selected.getPackage_id().equals(finalId);
-					}
-
-				});
-		if(communication == null) {
-			// should be in a package
-			Package_c pkg = (Package_c) modelRoot.getInstanceList(
-					Package_c.class).get(finalId);
-			return pkg;
 		}
-		return communication;',
+		if (asynchronousMessage != null) {
+			modelRoot = asynchronousMessage.getModelRoot();
+		}
+		// should be in a package
+		Package_c pkg = (Package_c) modelRoot.getInstanceList(
+				Package_c.class).get(finalId);
+		return pkg;
+',
 	0,
 	'');
 INSERT INTO S_BPARM
@@ -1675,12 +1665,8 @@ Translate:native',
 	0,
 	"ba5eda7a-def5-0000-0000-000000000001",
 	'SystemModel_c system = (SystemModel_c) p_System;
-DataType_c dt = DataType_c.getOneS_DTOnR4401(SystemDatatypeInPackage_c.getManySLD_SDINPsOnR4402(system), new ClassQueryInterface_c() {
-		public boolean evaluate(Object candidate) {
-		return ((DataType_c) candidate).getName().equals(p_Typename);
-    }
-});
-if (system != null && system.getUseglobals()) {
+DataType_c dt = null;
+if (system != null) {
 	dt = DataType_c.getOneS_DTOnR8001(PackageableElement_c
 					.getManyPE_PEsOnR9100(GlobalElementInSystem_c
 							.getManyG_EISsOnR9100(system)),
@@ -1731,12 +1717,8 @@ Translate:native',
 	0,
 	"ba5eda7a-def5-0000-0000-000000000001",
 	'SystemModel_c system = (SystemModel_c) p_System;
-DataType_c dt = DataType_c.getOneS_DTOnR4401(SystemDatatypeInPackage_c.getManySLD_SDINPsOnR4402(system), new ClassQueryInterface_c() {
-	public boolean evaluate(Object candidate) {
-		return ((DataType_c) candidate).getName().equals(p_Typename);
-	}
-});
-if (system != null && system.getUseglobals()) {
+DataType_c dt = null;
+if (system != null) {
 	dt = DataType_c.getOneS_DTOnR8001(PackageableElement_c
 					.getManyPE_PEsOnR9100(GlobalElementInSystem_c
 							.getManyG_EISsOnR9100(system)),
@@ -2978,7 +2960,7 @@ INSERT INTO S_BRG
 	0,
 	"ba5eda7a-def5-0000-0000-000000000000",
 	'',
-	3,
+	1,
 	'');
 INSERT INTO S_BPARM
 	VALUES ("49e01699-3cf7-4885-b6d5-f6444f4ae4c5",

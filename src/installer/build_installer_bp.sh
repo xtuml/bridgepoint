@@ -16,7 +16,7 @@ if [ $# -lt 5 ]; then
     echo "      staging_path -- path to the location of the Eclipse bases and BridgePoint deliverables"
     echo "      output_dir -- path to the location to output the installers"
     echo "      os - windows, linux or osx"
-    echo "      release_version -- e.g. 5.1.0"
+    echo "      release_version -- e.g. 5.2.0"
     echo "   optional:"
     echo "      SCP_UPLOAD_FOLDER_SPEC -- folder specification for scp upload: user@myserver.com:/myfolder"
     echo
@@ -155,7 +155,7 @@ cp ../installer_extras/bp.ico BridgePoint
 chmod -R a+x BridgePoint
 zip -r "${OUTPUT_DIR}/${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS}.zip" BridgePoint  
 cd "${OUTPUT_DIR}"
-chmod g+w "${PRODUCT_NAME}_${PRODUCT_BRANCH}_${OS}.zip"
+chmod -R g+w .
 echo "INFO: Done."
 
 # Make sure the output looks good

@@ -52,7 +52,6 @@ import org.xtuml.bp.core.common.ModelRoot;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.common.PersistableModelComponent;
 import org.xtuml.bp.core.common.PersistenceManager;
-import org.xtuml.bp.core.util.GlobalsUtil;
 import org.xtuml.bp.core.util.SupertypeSubtypeUtil;
 import org.xtuml.bp.core.util.TransactionUtil;
 import org.xtuml.bp.core.util.UIUtil;
@@ -146,8 +145,6 @@ public class UpgradeUtil {
 	                                                            .loadComponentAndChildren(monitor);
 	                                                    roots.add(pmc);
 	                                                    SystemModel_c system = (SystemModel_c) pmc.getRootModelElement();
-	                                                    // upgrade to globals
-	                                                    GlobalsUtil.upgradeToGlobals(system, monitor);
 	                                                    Ooaofooa[] subRoots = Ooaofooa.getInstancesUnderSystem(system
 	                                                            .getName());
 	                                                    Ooaofooa[] roots = new Ooaofooa[subRoots.length + 1];
@@ -174,18 +171,7 @@ public class UpgradeUtil {
 	                                                        }
 	                                                      }
 	                                                    }
-	                                                    try {
-	                                                        // disable change notification
-	                                                        ModelRoot.disableChangeNotification();
-	                                                        // perform an upgrade to generics if necessary
-	                                                        GenericPackageUpgradeHelper
-	                                                                        .upgradeToGenerics(system,
-	                                                                                null,
-	                                                                                new HashMap<NonRootModelElement, NonRootModelElement>(),
-	                                                                                monitor);
-	                                                    } finally {
-	                                                        ModelRoot.enableChangeNotification();
-	                                                    }
+
 	                                                    Collection<?> children = PersistenceManager
 	                                                            .getDeepChildrenOf(pmc);
 	                                                    for (Object child : children) {

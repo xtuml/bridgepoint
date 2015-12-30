@@ -26,24 +26,9 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.UUID;
 
-import org.xtuml.bp.core.Activity_c;
-import org.xtuml.bp.core.Communication_c;
-import org.xtuml.bp.core.ComponentPackage_c;
-import org.xtuml.bp.core.Component_c;
-import org.xtuml.bp.core.DataTypePackage_c;
-import org.xtuml.bp.core.Domain_c;
-import org.xtuml.bp.core.ExternalEntityPackage_c;
-import org.xtuml.bp.core.FunctionPackageParticipant_c;
-import org.xtuml.bp.core.FunctionPackage_c;
 import org.xtuml.bp.core.InstanceStateMachine_c;
-import org.xtuml.bp.core.InterfacePackage_c;
-import org.xtuml.bp.core.ModelClass_c;
 import org.xtuml.bp.core.Ooaofooa;
-import org.xtuml.bp.core.Package_c;
-import org.xtuml.bp.core.Sequence_c;
-import org.xtuml.bp.core.Subsystem_c;
 import org.xtuml.bp.core.SystemModel_c;
-import org.xtuml.bp.core.UseCaseDiagram_c;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.IModelDelta;
 import org.xtuml.bp.core.common.ModelChangeAdapter;
@@ -250,81 +235,6 @@ public class CanvasModelListener extends ModelChangeAdapter  {
 					return true;
 				}
 			}
-			// Special casing to bridge the transition away from specialized packages.
-			// Remove this code when SPs are gone.  The following comment is our search hook
-			// that should land the SP remover here.  After removing this special case, don't
-			// forget to "Organize imports" (Ctrl-Shift-O) to remove unnecessary imports.
-			// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-			if (canvas.getRepresents() instanceof Domain_c ) {
-			    if (depClass == Subsystem_c.class) { return true; }
-                if (depClass == ExternalEntityPackage_c.class) { return true; }
-                if (depClass == FunctionPackage_c.class) { return true; }
-                if (depClass == DataTypePackage_c.class) { return true; }    
-                if (depClass == Sequence_c.class) { return true; }
-                if (depClass == Communication_c.class) { return true; }
-                if (depClass == UseCaseDiagram_c.class) { return true; }
-                if (depClass == Activity_c.class) { return true; }
-                if (depClass == ModelClass_c.class) { return true; }
-            }
-			if (canvas.getRepresents() instanceof SystemModel_c ) {
-                if (depClass == Package_c.class) { return true; }
-                if (depClass == DataTypePackage_c.class) { return true; }    
-                if (depClass == InterfacePackage_c.class) { return true; }
-                if (depClass == ComponentPackage_c.class) { return true; }
-                if (depClass == Sequence_c.class) { return true; }
-                if (depClass == Communication_c.class) { return true; }
-                if (depClass == UseCaseDiagram_c.class) { return true; }
-                if (depClass == Activity_c.class) { return true; }
-            }
-            if (canvas.getRepresents() instanceof ComponentPackage_c ) {
-                if (depClass == ComponentPackage_c.class) { return true; }
-                if (depClass == InterfacePackage_c.class) { return true; }
-                if (depClass == Sequence_c.class) { return true; }
-                if (depClass == Communication_c.class) { return true; }
-                if (depClass == UseCaseDiagram_c.class) { return true; }
-                if (depClass == Activity_c.class) { return true; }
-            }
-            if (canvas.getRepresents() instanceof Component_c ) {
-                if (depClass == InterfacePackage_c.class) { return true; }
-                if (depClass == Sequence_c.class) { return true; }
-                if (depClass == Communication_c.class) { return true; }
-                if (depClass == UseCaseDiagram_c.class) { return true; }
-                if (depClass == Activity_c.class) { return true; }
-            }
-            if (canvas.getRepresents() instanceof InterfacePackage_c ) {
-                if (depClass == InterfacePackage_c.class) { return true; }
-            }
-            if (canvas.getRepresents() instanceof Activity_c ) {
-                if (depClass == Activity_c.class) { return true; }
-            }
-            if (canvas.getRepresents() instanceof Subsystem_c ) {
-                if (depClass == Subsystem_c.class) { return true; }
-                if (depClass == Sequence_c.class) { return true; }
-                if (depClass == Communication_c.class) { return true; }
-                if (depClass == UseCaseDiagram_c.class) { return true; }
-                if (depClass == Activity_c.class) { return true; }
-            }
-            if (canvas.getRepresents() instanceof Sequence_c ) {
-                if (depClass == Sequence_c.class) { return true; }
-                if (depClass == FunctionPackageParticipant_c.class) { return true; }
-            }
-            if (canvas.getRepresents() instanceof Communication_c ) {
-                if (depClass == Communication_c.class) { return true; }
-                if (depClass == FunctionPackageParticipant_c.class) { return true; }
-            }
-            if (canvas.getRepresents() instanceof UseCaseDiagram_c ) {
-                if (depClass == UseCaseDiagram_c.class) { return true; }
-            }
-            if (canvas.getRepresents() instanceof DataTypePackage_c ) {
-                if (depClass == DataTypePackage_c.class) { return true; }
-            }
-            if (canvas.getRepresents() instanceof FunctionPackage_c ) {
-                if (depClass == FunctionPackage_c.class) { return true; }
-            }
-            if (canvas.getRepresents() instanceof ExternalEntityPackage_c ) {
-                if (depClass == ExternalEntityPackage_c.class) { return true; }
-            }
-			// end special casing
 		}
 		return false;
 	}

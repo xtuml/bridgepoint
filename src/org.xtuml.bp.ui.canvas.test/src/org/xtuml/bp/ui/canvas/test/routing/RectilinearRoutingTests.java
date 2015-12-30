@@ -93,23 +93,9 @@ public class RectilinearRoutingTests extends CanvasTest {
 	protected void setUp() throws Exception {
 		super.setUp();
 		Ooaofooa.disableChangeNotification();
-	}
-
-	protected void tearDown() throws Exception {
-		Model_c model = fActiveEditor.getModel();
-		GraphicalElement_c[] elements = GraphicalElement_c
-				.getManyGD_GEsOnR1(model);
-		for (int i = 0; i < elements.length; i++) {
-			elements[i].Dispose();
-		}
-		fActiveEditor.refresh();
-		Ooaofooa.enableChangeNotification();
-		super.tearDown();
-	}
-
-	@Override
-	protected void initialSetup() throws Exception {
 		Ooaofooa.setPersistEnabled(false);
+		CorePlugin.getDefault().getPreferenceStore().setValue(BridgePointPreferencesStore.USE_DEFAULT_NAME_FOR_CREATION,
+				true);
 		// enable rectilinear routing
 		CorePlugin.getDefault().getPreferenceStore().setValue(
 				BridgePointPreferencesStore.DEFAULT_ROUTING_STYLE,
@@ -132,6 +118,37 @@ public class RectilinearRoutingTests extends CanvasTest {
 		fActiveEditor.getSite().getShell().setSize(1280, 1024);
 		while (PlatformUI.getWorkbench().getDisplay().readAndDispatch())
 			;
+	}
+
+	protected void tearDown() throws Exception {
+		if(fActiveEditor != null) {
+			Model_c model = fActiveEditor.getModel();
+			GraphicalElement_c[] elements = GraphicalElement_c
+					.getManyGD_GEsOnR1(model);
+			for (int i = 0; i < elements.length; i++) {
+				elements[i].Dispose();
+			}
+			fActiveEditor.refresh();
+			Ooaofooa.enableChangeNotification();
+			fActiveEditor = null;
+		}
+		super.tearDown();
+	}
+
+	@Override
+	protected void initialSetup() throws Exception {
+
+	}
+
+	@Override
+	public String getName() {
+		StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
+		for(StackTraceElement trace : stackTrace) {
+			if(trace.getMethodName().contains("doTest")) {
+				return trace.getMethodName();
+			}
+		}
+		return super.getName();
 	}
 
 	/**
@@ -503,10 +520,6 @@ public class RectilinearRoutingTests extends CanvasTest {
 	 */
 	void CD_AB_Action(NonRootModelElement columnInstance,
 			NonRootModelElement rowInstance) {
-		int x = 0;
-		while(x != 0) {
-			PlatformUI.getWorkbench().getDisplay().readAndDispatch();
-		}
 		previousPoints = testElement.getConnectionFigure().getPoints()
 				.getCopy();
 		if (otherElement != null) {

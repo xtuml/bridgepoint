@@ -152,7 +152,7 @@ public class Vm_c {
     } // End loadClass
 
     private static BPClassLoader createClassLoader(IPath path) {
-        String[] appendedClasspath = new String[1];
+            String[] appendedClasspath = new String[1];
         appendedClasspath[0] = path.toString();
         return new BPClassLoader(appendedClasspath, Vm_c.class.getClassLoader());
     } // End createClassLoader

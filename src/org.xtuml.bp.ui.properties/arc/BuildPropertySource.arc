@@ -106,7 +106,6 @@ super.toString\
 .//
 .function generic_package_query
 .param string result_set_name
-    if (m_inst.isInGenericPackage()) {
     	Package_c pkg = m_inst.getFirstParentPackage();
     	Component_c component = m_inst.getFirstParentComponent();
         if ((pkg != null)) {
@@ -162,7 +161,6 @@ super.toString\
                 }
 
             }
-    }
 .end function
 .//
 .//
@@ -567,13 +565,9 @@ super.toString\
                 ${child_class_name.body}[] children = ${child_class_name.body}.$Cr{child_class.Name}Instances((ModelRoot) roots[i]);
                 for(int j = 0; j < children.length; j++) {
                   .// special case for suppressed data types
-                  .if(child.Key_Lett == "S_DT")
-                    DatatypeInSuppression_c dis = DatatypeInSuppression_c.getOneS_DISOnR47(children[j]);
-                    SystemDatatypeInPackage_c sdip = SystemDatatypeInPackage_c.getOneSLD_SDINPOnR4401(children[j]);
+                  .if(child.Key_Lett == "S_DT")                    
                   PackageableElement_c pe = PackageableElement_c.getOnePE_PEOnR8001(children[j]);
-                  if(dis == null && sdip != null) {
-                       list.add(children[j]);
-                  } else if(dis == null && pe != null) {
+                  if(pe != null) {
                         list.add(children[j]);
                   }
                   .else
@@ -868,86 +862,7 @@ ${rel_nav.body}\
                           .assign queryName = set_var_name + "_2"       
                           .invoke generic_package = generic_package_query( queryName )
                           ${generic_package.body}
-                          else {
-                          .if(class.Key_Lett == "S_SYNC")   .//Function
-        Domain_c domain = Domain_c.getOneS_DOMOnR23((${parent_class_name}) m_inst);
-                          .elif(class.Key_Lett == "S_SPARM")    .//Function Parameter
-        Domain_c domain = Domain_c.getOneS_DOMOnR23(Function_c
-                ..getOneS_SYNCOnR24((${parent_class_name}) m_inst));
-                          .elif(class.Key_Lett == "O_TFR")  .//Operation
-        Domain_c domain = Domain_c.getOneS_DOMOnR1(Subsystem_c
-                ..getOneS_SSOnR2(ModelClass_c.getOneO_OBJOnR115((${parent_class_name}) m_inst)));
-                          .elif(class.Key_Lett == "O_TPARM")    .//Operation Parameter
-        Domain_c domain = Domain_c.getOneS_DOMOnR1(Subsystem_c
-                ..getOneS_SSOnR2(ModelClass_c.getOneO_OBJOnR115(Operation_c
-                        ..getOneO_TFROnR117((${parent_class_name}) m_inst))));
-                          .elif(class.Key_Lett == "SM_EVTDI")       .//StateMachineEventDataItem
-        StateMachine_c v_sm = StateMachine_c.getOneSM_SMOnR516((${parent_class_name}) m_inst);
-        
-        ModelClass_c v_clazz = ModelClass_c
-                ..getOneO_OBJOnR519(ClassStateMachine_c.getOneSM_ASMOnR517(v_sm));
 
-        if (((v_clazz == null))) {
-            v_clazz = ModelClass_c.getOneO_OBJOnR518(InstanceStateMachine_c
-                ..getOneSM_ISMOnR517(v_sm));
-        }
-
-        Domain_c domain = Domain_c.getOneS_DOMOnR1(Subsystem_c
-                ..getOneS_SSOnR2(v_clazz));
-                          .elif(class.Key_Lett == "O_ATTR") .//Attribute
-        Domain_c domain = Domain_c.getOneS_DOMOnR1(Subsystem_c
-                ..getOneS_SSOnR2(ModelClass_c.getOneO_OBJOnR102((${parent_class_name}) m_inst)));
-                          .elif(class.Key_Lett == "S_BRG")  .//Bridge
-        Domain_c domain = Domain_c.getOneS_DOMOnR8(ExternalEntity_c
-                ..getOneS_EEOnR19((${parent_class_name}) m_inst));
-                          .elif(class.Key_Lett == "S_BPARM")    .//Bridge Parameter
-        Domain_c domain = Domain_c.getOneS_DOMOnR8(ExternalEntity_c
-                ..getOneS_EEOnR19(Bridge_c.getOneS_BRGOnR21((${parent_class_name}) m_inst)));
-                          .elif(class.Key_Lett == "S_EEEDI")    .//ExternalEntityEventDataItem
-        Domain_c domain = Domain_c.getOneS_DOMOnR8(ExternalEntity_c
-                ..getOneS_EEOnR12((${parent_class_name}) m_inst));
-                          .elif(class.Key_Lett == "S_EEDI") .//ExternalEntityDataItem
-        Domain_c domain = Domain_c.getOneS_DOMOnR8(ExternalEntity_c
-                ..getOneS_EEOnR11((${parent_class_name}) m_inst));
-                          .elif(class.Key_Lett == "S_MBR")  .//StructureMember
-        Domain_c domain = Domain_c.getOneS_DOMOnR14(DataType_c
-                ..getOneS_DTOnR45((${parent_class_name}) m_inst));          
-                          .else
-        Domain_c domain = Domain_c.DomainInstance((Ooaofooa)(m_inst.getModelRoot()));           
-                          .end if
-        ${set_var_name}_1 = ${child_class_name.body}.getManyS_DTsOnR14(domain);
-        ${set_var_name}_2 = ${child_class_name.body}.getManyS_DTsOnR4401(SystemDatatypeInPackage_c
-                            ..getManySLD_SDINPsOnR4402(SystemModel_c
-                                    ..getManyS_SYSsOnR4606(ComponentPackage_c
-                                            ..getManyCP_CPsOnR4608(Component_c
-                                                    ..getManyC_CsOnR4204(DomainAsComponent_c
-                                                            ..getManyCN_DCsOnR4204(domain))))));
-              .// special case for udts and mbrs
-              .// if not defined at the domain
-              .// level they need to access the
-              .// system level dts through a different
-              .// traversal
-                          .if(parent_node.Key_Lett == "S_UDT")
-        if(domain == null) {
-                    ${set_var_name}_2 = DataType_c
-                            ..getManyS_DTsOnR4401(SystemDatatypeInPackage_c
-                                    ..getManySLD_SDINPsOnR4402(SystemModel_c
-                                            ..getManyS_SYSsOnR4402(SystemDatatypeInPackage_c
-                                                    ..getManySLD_SDINPsOnR4401(DataType_c
-                                                            ..getManyS_DTsOnR17(m_inst)))));
-        }
-            .elif(parent_node.Key_Lett == "S_MBR")
-        if(domain == null) {
-                    ${set_var_name}_2 = DataType_c
-                        ..getManyS_DTsOnR4401(SystemDatatypeInPackage_c
-                                ..getManySLD_SDINPsOnR4402(SystemModel_c
-                                        ..getManyS_SYSsOnR4402(SystemDatatypeInPackage_c
-                                                ..getManySLD_SDINPsOnR4401(DataType_c
-                                                        ..getManyS_DTsOnR17(StructuredDataType_c
-                                                                ..getManyS_SDTsOnR44(m_inst))))));
-        }
-                        .end if
-                          } // end isInGenericPackage
           // copy the system level data types into the
           // domain level data types array
 					DataType_c[] ${set_var_name}_3 = new DataType_c[0];

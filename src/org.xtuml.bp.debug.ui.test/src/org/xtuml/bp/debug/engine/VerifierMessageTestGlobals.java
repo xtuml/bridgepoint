@@ -126,18 +126,27 @@ public class VerifierMessageTestGlobals extends BaseTest {
 		TestingUtilities.processDisplayEvents();
 	}
 
-	public void testDeclaredToDeclaredRootToRoot() throws InterruptedException {
+	public void testVerifierMessageGlobals() throws Exception {
+		doTestDeclaredToDeclaredRootToRoot();
+		doTestDeclaredToReferencedRootToRoot();
+		doTestReferencedToDeclaredRootToRoot();
+		doTestReferencedToReferencedRootToRoot();
+		doTestReferencedToReferencedJarredRootToRoot();
+		
+	}
+	
+	public void doTestDeclaredToDeclaredRootToRoot() throws InterruptedException {
 		performMessageTestFromComponent("Declared to Declared", "Root to Root",
 				"Test Requirer");
 	}
 
-	public void testDeclaredToReferencedRootToRoot()
+	public void doTestDeclaredToReferencedRootToRoot()
 			throws InterruptedException {
 		performMessageTestFromComponent("Declared to Referenced",
 				"Root to Root", "Test Requirer");
 	}
 
-	public void testReferencedToDeclaredRootToRoot()
+	public void doTestReferencedToDeclaredRootToRoot()
 			throws InterruptedException {
 		performMessageTestFromReference(
 				"Referenced to Declared",
@@ -145,7 +154,7 @@ public class VerifierMessageTestGlobals extends BaseTest {
 				"VerifierMessageTestGlobals::MessageTest::Test Library::Component Execution Test Requirer");
 	}
 
-	public void testReferencedToReferencedRootToRoot()
+	public void doTestReferencedToReferencedRootToRoot()
 			throws InterruptedException {
 		performMessageTestFromReference(
 				"Referenced to Referenced",
@@ -153,7 +162,7 @@ public class VerifierMessageTestGlobals extends BaseTest {
 				"VerifierMessageTestGlobals::MessageTest::Test Library::Component Execution Test Requirer");
 	}
 
-	public void testReferencedToReferencedJarredRootToRoot()
+	public void doTestReferencedToReferencedJarredRootToRoot()
 	throws InterruptedException {
         performMessageTestFromReference(
 		"Referenced to Referenced",

@@ -28,29 +28,6 @@ delete object instance self;',
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_TFR
-	VALUES ("15382407-d1a2-4ff6-8ed5-e540c757757a",
-	"52851cb7-3b3b-43f8-a631-e850ba13a4b8",
-	'isAllowedType',
-	'',
-	"ba5eda7a-def5-0000-0000-000000000001",
-	1,
-	'select one domain related by self->S_EE[R12]->S_DOM[R8];
-return S_DT::isAllowedParameterType( typeName: param.typeName,
-                             			dom_id: domain.get_ooa_id());
-',
-	1,
-	'',
-	"20bd279f-1760-4fe2-a60f-ea0025641180");
-INSERT INTO O_TPARM
-	VALUES ("7f395993-7984-43c7-a646-a83c15db59da",
-	"15382407-d1a2-4ff6-8ed5-e540c757757a",
-	'typeName',
-	"ba5eda7a-def5-0000-0000-000000000004",
-	0,
-	'',
-	"00000000-0000-0000-0000-000000000000",
-	'');
 INSERT INTO O_NBATTR
 	VALUES ("49b657ac-2a2e-4dd0-a706-55f0f7c3beca",
 	"52851cb7-3b3b-43f8-a631-e850ba13a4b8");

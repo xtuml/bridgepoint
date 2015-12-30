@@ -21,6 +21,8 @@
 //========================================================================
 package org.xtuml.bp.utilities.ui;
 
+import java.io.File;
+
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -65,7 +67,7 @@ import org.xtuml.bp.io.mdl.wizards.ModelImportWizard;
 public class ProjectUtilities {
 
     private static String perspective = "org.xtuml.bp.core.perspective"; //$NON-NLS-1$
-    
+
     public static IProject createProject(String name) throws CoreException {
         return createProject(name, null);
     }
@@ -168,7 +170,7 @@ public class ProjectUtilities {
     		} catch (InterruptedException e) {
     			// log error to allow test failure
     			CorePlugin.logError("Unable to delete project: " + projectHandle.getName(), e);
-    		}    
+    		} 
     		
             return true;
         }
@@ -200,7 +202,7 @@ public class ProjectUtilities {
                     ;
             } else {
                 while (!disp.isDisposed() && disp.readAndDispatch())
-                    ;               
+                    ;
             }
         }
     }
@@ -285,7 +287,7 @@ public class ProjectUtilities {
         ModelImportWizard importWizard = new ModelImportWizard();
         importWizard.init(PlatformUI.getWorkbench(), Selection.getInstance()
                 .getStructuredSelection());
-        
+
         WizardDialog dialog = new WizardDialog(PlatformUI.getWorkbench()
                 .getActiveWorkbenchWindow().getShell(), importWizard);
         dialog.create();
@@ -293,7 +295,7 @@ public class ProjectUtilities {
                 .getStartingPage();
         importPage.setSourceField(fullyQualifiedSingleFileModel);
         importPage.setParseOnImport(parseOnImport);
-        
+
         boolean result = importWizard.performFinish();
         importPage.dispose();
         dialog.getShell().dispose();   // If we do not explicitly dispose the shell here it
@@ -302,7 +304,7 @@ public class ProjectUtilities {
                                        // shell to be selected (dts0100806930).
         return result;
     }
-    
+
     public static boolean importModelUsingWizard(SystemModel_c systemModel,
             IPath srcDir, String modelName, boolean parseOnImport) 
     {
@@ -310,15 +312,6 @@ public class ProjectUtilities {
         return importModelUsingWizard(systemModel, fqName, parseOnImport);
     }
 
-    public static boolean importModelUsingWizardConvertToGenerics(SystemModel_c systemModel,
-            String fullyQualifiedSingleFileModel, boolean convertToGenericsOnImport) {
-    	// 3/27/13 - The "Convert to generics" option in the import dialog is removed.  So
-    	// this function is now redundant.  Rather than delete it and have lots of
-    	// code change fallout, it lives on and simply directs to another version
-    	// to remove the redundancy.
-    	return importModelUsingWizard(systemModel, fullyQualifiedSingleFileModel, false);
-    }
-    
 
     // Export the model elements that are part of the Selection singleton
     public static boolean exportModelUsingWizard(String destination,
@@ -345,15 +338,16 @@ public class ProjectUtilities {
      * Import an existing project into the workspace.
      * If there are multiple projects in the given folder this will import all
      * of them.
-     *  
+     * If the project is in an archive, this will extract it.
+     *
      * @param rootProjectFolder The folder that contains the existing project.
-     * 
+     *
      * @return true if the import was successful, false if not
      */
     public static boolean importExistingProject(final String rootProjectFolder) {
     	return importExistingProject(rootProjectFolder, true);
     }
-    
+
     public static boolean importExistingProject(final String rootProjectFolder, final boolean copyIntoWorkspace) {
 		final ExternalProjectImportWizard importWizard = new ExternalProjectImportWizard();
 		
@@ -404,7 +398,7 @@ public class ProjectUtilities {
 
 		return rootFolderOptionSet;
 	}
-    
+
     /**
      * Set the option in the Import dialog
      * @param allChildren
@@ -417,12 +411,15 @@ public class ProjectUtilities {
 	}
 	
 	/**
-	 * Recursively examine the given children to find the  text box
-	 * associated with added an archive file.
+	 * Recursively examine the given children to find the options required
+	 * for adding an existing project located at the directory or in an archive 
+	 * file.
 	 * @param allChildren
 	 * @return
 	 */
 	private static int setRootFolderOptionsInternal(Control[] allChildren, String fqFilePath, int optionsSet, boolean copyIntoWorkspace) {
+		File testPath = new File(fqFilePath);
+		final boolean isArchive = testPath.isFile();
 		for (int i = 0; optionsSet < 4 && i < allChildren.length; i++) {
 			if (allChildren[i] instanceof Composite) {	
 				optionsSet = setRootFolderOptionsInternal(((Composite)allChildren[i]).getChildren(), fqFilePath, optionsSet, copyIntoWorkspace);
@@ -434,25 +431,48 @@ public class ProjectUtilities {
 					// fully qualified folder name.  We then have to select 
 					// the browse button
 					if(allChildren[i+1] instanceof Combo) {
-						((Combo)allChildren[i+1]).setEnabled(true);
-						((Combo)allChildren[i+1]).setText(fqFilePath);					
-						((Combo)allChildren[i+1]).notifyListeners(SWT.FocusOut, new Event());
-						// set focus elsewhere
-						((Combo)allChildren[i+1]).setEnabled(false);
+						((Combo)allChildren[i+1]).setEnabled(!isArchive);
+						if (!isArchive) {
+							((Combo)allChildren[i+1]).setText(fqFilePath);					
+							((Combo)allChildren[i+1]).notifyListeners(SWT.FocusOut, new Event());
+							// set focus elsewhere
+							((Combo)allChildren[i+1]).setEnabled(false);
+						}
 					} else {
 						// for pre eclipse 4.4 use Text widget
-						((Text)allChildren[i+1]).setEnabled(true);
-						((Text)allChildren[i+1]).setText(fqFilePath);					
-						((Text)allChildren[i+1]).notifyListeners(SWT.FocusOut, new Event());
-						// set focus elsewhere
-						((Text)allChildren[i+1]).setEnabled(false);							
+						((Text)allChildren[i+1]).setEnabled(!isArchive);
+						if (!isArchive) {
+							((Text)allChildren[i+1]).setText(fqFilePath);					
+							((Text)allChildren[i+1]).notifyListeners(SWT.FocusOut, new Event());
+							// set focus elsewhere
+							((Text)allChildren[i+1]).setEnabled(false);							
+						}
 					}
-					((Button)allChildren[i]).setSelection(true);
+					((Button)allChildren[i]).setSelection(!isArchive);
 					optionsSet++;
 				} else if (btnText.equalsIgnoreCase("Select &archive file:")) {
-					((Button)allChildren[i]).setSelection(false);
-					((Button)allChildren[i+2]).setEnabled(false);
-					((Button)allChildren[i]).notifyListeners(SWT.Selection,  new Event());
+					// Set the text associated with this button to the 
+					// fully qualified folder name.  We then have to select 
+					// the browse button
+					if(allChildren[i+1] instanceof Combo) {
+						((Combo)allChildren[i+1]).setEnabled(isArchive);
+						if (isArchive) {
+							((Combo)allChildren[i+1]).setText(fqFilePath);					
+							((Combo)allChildren[i+1]).notifyListeners(SWT.FocusOut, new Event());
+							// set focus elsewhere
+							((Combo)allChildren[i+1]).setEnabled(false);
+						}
+					} else {
+						// for pre eclipse 4.4 use Text widget
+						((Text)allChildren[i+1]).setEnabled(isArchive);
+						if (isArchive) {
+							((Text)allChildren[i+1]).setText(fqFilePath);					
+							((Text)allChildren[i+1]).notifyListeners(SWT.FocusOut, new Event());
+							// set focus elsewhere
+							((Text)allChildren[i+1]).setEnabled(false);							
+						}
+					}
+					((Button)allChildren[i]).setSelection(isArchive);
 					optionsSet++;
 				} else if (btnText.equalsIgnoreCase("&Copy projects into workspace")) {
 					((Button)allChildren[i]).setSelection(copyIntoWorkspace);
