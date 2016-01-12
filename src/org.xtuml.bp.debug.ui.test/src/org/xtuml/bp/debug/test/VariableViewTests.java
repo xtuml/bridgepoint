@@ -235,7 +235,7 @@ public class VariableViewTests extends BaseTest {
 		String value = DebugUITestUtilities.getValueForVariable(children, "Student_ID");
 		BaseTest.waitForPlaceHolderThread();
 		BaseTest.waitForTransaction();		
-		assertEquals(value, "1");
+		assertEquals("1", value);
 		
 	}
 
@@ -318,7 +318,7 @@ public class VariableViewTests extends BaseTest {
 		TreeItem[] children = DebugUITestUtilities.expandValueinVariablesView("class1");
 		
 		String value = DebugUITestUtilities.getValueForVariable(children, "Student_ID");
-		assertEquals(value, "not participating");
+		assertEquals("not participating", value);
 		
 	}
 	

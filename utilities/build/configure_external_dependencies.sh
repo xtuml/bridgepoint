@@ -83,25 +83,28 @@ configure_dap()
     mkdir win32/client/bin
     mkdir win32/client/lib
 
-    cp -r ${git_repo_root}/mc/etc/generator/bin ./bin
+    cp -rp ${git_repo_root}/mc/etc/generator/bin ./bin
 
     cd $dap/bridgepoint/samples
-    cp -f ${git_repo_root}/mc/libTRANS/libTRANS.def ./translate/libTRANS.def
-    cp -f ${git_repo_root}/mc/libTRANS/libTRANS.mk  ./translate/libTRANS.mk
-    cp -f ${git_repo_root}/mc/libTRANS/pt_trans.c   ./translate/pt_trans.c
-    cp -f ${git_repo_root}/mc/libTRANS/pt_trans.h   ./translate/pt_trans.h
+    cp -fp ${git_repo_root}/mc/libTRANS/libTRANS.def ./translate/libTRANS.def
+    cp -fp ${git_repo_root}/mc/libTRANS/libTRANS.mk  ./translate/libTRANS.mk
+    cp -fp ${git_repo_root}/mc/libTRANS/pt_trans.c   ./translate/pt_trans.c
+    cp -fp ${git_repo_root}/mc/libTRANS/pt_trans.h   ./translate/pt_trans.h
 
     cd $dap/bridgepoint
-    cp -f $user_supplied_files/gen_erate.exe   ./win32/client/bin/gen_erate.exe
-    cp -f $user_supplied_files/gen_erate.exe   ./win32/client/bin/gen_import.exe
-    cp -f $user_supplied_files/gen_erate.exe   ./win32/client/bin/gen_file.exe
-    cp -f $user_supplied_files/vgalaxy8.vr     ./win32/client/bin
-    cp -f $user_supplied_files/msvcrt.dll      ./win32/client/bin
-    cp -f $user_supplied_files/vgal8c.dll      ./win32/client/lib
-    cp -f ${git_repo_root}/mc/schema/sql/xtumlmc_schema.sql ./xtumlmc_schema.sql
+    cp -fp $user_supplied_files/gen_erate.exe   ./win32/client/bin/gen_erate.exe
+    cp -fp $user_supplied_files/gen_erate.exe   ./win32/client/bin/gen_import.exe
+    cp -fp $user_supplied_files/gen_erate.exe   ./win32/client/bin/gen_file.exe
+    cp -fp $user_supplied_files/vgalaxy8.vr     ./win32/client/bin
+    cp -fp $user_supplied_files/msvcrt.dll      ./win32/client/bin
+    cp -fp $user_supplied_files/vgal8c.dll      ./win32/client/lib
+    cp -fp ${git_repo_root}/mc/schema/sql/xtumlmc_schema.sql ./xtumlmc_schema.sql
     
     cd $dap/bridgepoint/win32/client
-    cp -f ${git_repo_root}/mc/libTRANS/libTRANS.dll ./lib/libTRANS.dll
+    cp -fp ${git_repo_root}/mc/libTRANS/libTRANS.dll ./lib/libTRANS.dll
+    
+    cd $dap/bridgepoint
+    chmod -R g+w .
 }
 
 configure_mcc_src()
@@ -114,26 +117,26 @@ configure_mcc_src()
     rm -rf mc3020/schema
     cd mc3020
     rm -rf ./arc
-    cp -r ${git_repo_root}/mc/arc ./arc
+    cp -rp ${git_repo_root}/mc/arc ./arc
     rm -rf ./arc/sysc
     mv ./arc/c ./arc/specialized
-    cp -r ${git_repo_root}/mc/bin ./bin
-    cp -r ${git_repo_root}/mc/schema ./schema
+    cp -rp ${git_repo_root}/mc/bin ./bin
+    cp -rp ${git_repo_root}/mc/schema ./schema
     mv ./schema/default-manifest.xml ./
 
     cd $mcc_src/mc3020
-    cp -f ${git_repo_root}/mc/libTRANS/libTRANS.dll ./bin
+    cp -fp ${git_repo_root}/mc/libTRANS/libTRANS.dll ./bin
     
-    cp -f $user_supplied_files/xtumlmc_build.exe ./bin
-    cp -f $user_supplied_files/gen_erate.exe     ./bin
-    cp -f $user_supplied_files/mcmc              ./bin
-    cp -f $user_supplied_files/mcmc64            ./bin
-    cp -f $user_supplied_files/mcmc.exe          ./bin
-    cp -f $user_supplied_files/msvcrt.dll        ./bin
-    cp -f $user_supplied_files/msvcirt.dll       ./bin
-    cp -f $user_supplied_files/msvcp60.dll       ./bin
-    cp -f $user_supplied_files/vgal8c.dll        ./bin
-    cp -f $user_supplied_files/vgalaxy8.vr       ./bin
+    cp -fp $user_supplied_files/xtumlmc_build.exe ./bin
+    cp -fp $user_supplied_files/gen_erate.exe     ./bin
+    cp -fp $user_supplied_files/mcmc              ./bin
+    cp -fp $user_supplied_files/mcmc64            ./bin
+    cp -fp $user_supplied_files/mcmc.exe          ./bin
+    cp -fp $user_supplied_files/msvcrt.dll        ./bin
+    cp -fp $user_supplied_files/msvcirt.dll       ./bin
+    cp -fp $user_supplied_files/msvcp60.dll       ./bin
+    cp -fp $user_supplied_files/vgal8c.dll        ./bin
+    cp -fp $user_supplied_files/vgalaxy8.vr       ./bin
     
     # Since we're using the plug-in files themselves to build BridgePoint, make sure
     # they are executable and the xtumlmc_build.exe is in the right state (Windows vs. Linux)
@@ -142,18 +145,21 @@ configure_mcc_src()
     if [ "${build_os}" = "Linux" ];  then
       mv -f ./bin/xtumlmc_build.exe ./bin/xtumlmc_build.exe.win
       tr -d '\r' < ./bin/xtumlmc_build > ./bin/xtumlmc_build.exe
-      cp -f ./bin/xtumlmc_build.exe ./bin/xtumlmc_build
+      cp -fp ./bin/xtumlmc_build.exe ./bin/xtumlmc_build
 	fi
     chmod a+x ./bin/xtumlmc_build*
 	chmod a+x ./bin/gen_erate*
 	chmod a+x ./bin/mcmc*
     
     cd ${bp_src_dir}
-    cp -f $user_supplied_files/mc3020_doc.zip $mc3020_help/doc.zip
+    cp -fp $user_supplied_files/mc3020_doc.zip $mc3020_help/doc.zip
     rm -f $mc3020_help/techpub.css
     rm -f $mc3020_help/toc.xml    
-    cp -r ${git_repo_root}/mc/doc/ug/xml/techpub.css $mc3020_help
-    cp -r ${git_repo_root}/mc/doc/ug/xml/toc.xml $mc3020_help
+    cp -rp ${git_repo_root}/mc/doc/ug/xml/techpub.css $mc3020_help
+    cp -rp ${git_repo_root}/mc/doc/ug/xml/toc.xml $mc3020_help
+    
+    cd $mcc_src/mc3020
+    chmod -R g+w .
 }
 
 configure_mcc_bin()
@@ -163,11 +169,14 @@ configure_mcc_bin()
 
     # Copy in the "bp.mc.c.source/mc3020/" dir
     cd $mcc_bin
-    cp -rf $mcc_src/mc3020 .
+    cp -rfp $mcc_src/mc3020 .
     
     # We brought across the C source arcs when we did this.  Remove.
     cd mc3020
     rm -rf ./arc
+
+    cd $mcc_bin/mc3020
+    chmod -R g+w .
 }
 
 configure_mcsystemc_src()
@@ -177,12 +186,12 @@ configure_mcsystemc_src()
 
     # Copy in the "bp.mc.c.source/mc3020/" dir
     cd $mcsystemc_src
-    cp -rf $mcc_src/mc3020 .
+    cp -rfp $mcc_src/mc3020 .
 
     # We brought across the C source arcs when we did this.  Remove and bring in SystemC.
     cd mc3020
     rm -rf ./arc
-    cp -r ${git_repo_root}/mc/arc ./arc
+    cp -rp ${git_repo_root}/mc/arc ./arc
     rm -rf ./arc/c
     mv ./arc/sysc ./arc/specialized
     mv ./schema/colors/system.mark ./schema/colors/system.mark.orig
@@ -192,6 +201,9 @@ configure_mcsystemc_src()
     rm -f ./bin/mcmc
     rm -f ./bin/mcmc64
     rm -f ./bin/mcmc.exe
+
+    cd $mcsystemc_src/mc3020
+    chmod -R g+w .
 }
 
 configure_mccpp_src()
@@ -201,12 +213,12 @@ configure_mccpp_src()
 
     # Copy in the "bp.mc.c.source/mc3020/" dir
     cd $mccpp_src
-    cp -rf $mcc_src/mc3020 .
+    cp -rfp $mcc_src/mc3020 .
 
     # We brought across the C source arcs when we did this.  Remove and bring in SystemC/C++.
     cd mc3020
     rm -rf ./arc
-    cp -r ${git_repo_root}/mc/arc ./arc
+    cp -rp ${git_repo_root}/mc/arc ./arc
     rm -rf ./arc/c
     mv ./arc/sysc ./arc/specialized
 
@@ -214,6 +226,9 @@ configure_mccpp_src()
     rm -f ./bin/mcmc
     rm -f ./bin/mcmc64
     rm -f ./bin/mcmc.exe
+
+    cd $mccpp_src/mc3020
+    chmod -R g+w .
 }
 
 configure_vhdl_src()
@@ -223,12 +238,15 @@ configure_vhdl_src()
 
     # Copy in the "bp.mc.c.binary/mc3020/" dir
     cd $mcvhdl_src
-    cp -rf $mcc_bin/mc3020 .
+    cp -rfp $mcc_bin/mc3020 .
     
     # We don't want the model-based MC for this version, so remove it
     rm -f ./mc3020/bin/mcmc
     rm -f ./mc3020/bin/mcmc64
     rm -f ./mc3020/bin/mcmc.exe
+
+    cd $mcvhdl_src/mc3020
+    chmod -R g+w .
 }
 
 
@@ -239,12 +257,15 @@ configure_java_src()
 
     # Copy in the "bp.mc.c.binary/mc3020/" dir
     cd $mcjava_src
-    cp -rf $mcc_bin/mc3020 .
+    cp -rfp $mcc_bin/mc3020 .
     
     # We don't want the model-based MC for this version, so remove it
     rm -f ./mc3020/bin/mcmc
     rm -f ./mc3020/bin/mcmc64
     rm -f ./mc3020/bin/mcmc.exe
+
+    cd $mcjava_src/mc3020
+    chmod -R g+w .
 }
 
 
