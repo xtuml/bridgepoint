@@ -14,22 +14,21 @@ It considers the current approach and offers other potential approaches.
 
 2. Document References     
 ----------------------   
-<a id="1"></a>1 [BridgePoint DEI #7990](https://support.onefact.net/redmine/issues/7990) - Model Element Move    
-<a id="2"></a>2 [BridgePoint DEI #8031](https://support.onefact.net/redmine/issues/8031) - Analyze Model Element Move - This issue was raised to answer high-level question to allow us to define requirements for the project. The document produced by this work allowed the SOW to be completed and review with the customer. The SOW defines the
+<a id="2.1"></a>2.1 [BridgePoint DEI #7990](https://support.onefact.net/redmine/issues/7990) - Model Element Move    
+<a id="2.2"></a>2.2 [BridgePoint DEI #8031](https://support.onefact.net/redmine/issues/8031) - Analyze Model Element Move - This issue was raised to answer high-level question to allow us to define requirements for the project. The document produced by this work allowed the SOW to be completed and review with the customer. The SOW defines the
 requirements for this project.
-<a id="3"></a>3 https://github.com/xtuml/internal/blob/71c842bdcd937f946f977d529dc90e0f9a5f2486/Documentation_archive/20070830/notes/i2803.dnt - Initial copy/cut/paste support   
-<a id="4"></a>4 https://github.com/xtuml/internal/blob/71c842bdcd937f946f977d529dc90e0f9a5f2486/Documentation_archive/20080606/i3532.dnt - Support data type move capabilities through cut, copy, paste   
-<a id="5"></a>5 https://docs.google.com/document/d/1_T4H7StO-VM8zfIFjr-V7VwUQMXML1c7nFJJofU0vGs/edit - Statement of work   
-
+<a id="2.3"></a>2.3 https://github.com/xtuml/internal/blob/71c842bdcd937f946f977d529dc90e0f9a5f2486/Documentation_archive/20070830/notes/i2803.dnt - Initial copy/cut/paste support   
+<a id="2.4"></a>2.4 https://github.com/xtuml/internal/blob/71c842bdcd937f946f977d529dc90e0f9a5f2486/Documentation_archive/20080606/i3532.dnt - Support data type move capabilities through cut, copy, paste   
+<a id="2.5"></a>2.5 https://docs.google.com/document/d/1_T4H7StO-VM8zfIFjr-V7VwUQMXML1c7nFJJofU0vGs/edit - Statement of work   
 
 3. Background   
 -------------     
 
-See [5](#5)
+See [[2.5]](#2.5)
 
 4. Requirements   
 ---------------   
-The requirements are defined in this issues SOW [5](#5). 
+The requirements are defined in this issues SOW [[2.5]](#2.5). 
 
 
 5. Analysis   
