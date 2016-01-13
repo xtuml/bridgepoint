@@ -9,30 +9,47 @@ This work is licensed under the Creative Commons CC0 License
 
 1. Abstract   
 -----------   
-This note analyzes the different approaches to providing a model element move.   
+This note picksanalyzes the different approaches to providing a model element move.   
 It considers the current approach and offers other potential approaches.
 
 2. Document References     
 ----------------------   
-<a id="2.1"></a>2.1 [BridgePoint DEI #7990](https://support.onefact.net/redmine/issues/7990) - Model Element Move    
-<a id="2.2"></a>2.2 [BridgePoint DEI #8031](https://support.onefact.net/redmine/issues/8031) - Analyze Model Element Move - This issue was raised to answer high-level question to allow us to define requirements for the project. The document produced by this work allowed the SOW to be completed and review with the customer. The SOW defines the
-requirements for this project.  
-<a id="2.3"></a>2.3 https://github.com/xtuml/internal/blob/71c842bdcd937f946f977d529dc90e0f9a5f2486/Documentation_archive/20070830/notes/i2803.dnt - Initial copy/cut/paste support   
-<a id="2.4"></a>2.4 https://github.com/xtuml/internal/blob/71c842bdcd937f946f977d529dc90e0f9a5f2486/Documentation_archive/20080606/i3532.dnt - Support data type move capabilities through cut, copy, paste   
-<a id="2.5"></a>2.5 https://docs.google.com/document/d/1_T4H7StO-VM8zfIFjr-V7VwUQMXML1c7nFJJofU0vGs/edit - Statement of work     
+<a id="2.1"></a>2.1 [BridgePoint DEI #7990](https://support.onefact.net/redmine/issues/7990) This is a link to this issue in the issue tracking system.  
+<a id="2.2"></a>2.2 [BridgePoint DEI #8031](https://support.onefact.net/redmine/issues/8031) Analyze Model Element Move - This issue was raised in the issue tracking system to answer high-level questions about this Model Element Move task in order to allow us to define requirements for the project. The [document produced by this work allowed](https://github.com/rmulvey/bridgepoint/blob/7990_Model_Element_Move/doc-bridgepoint/notes/8031_Analyze_Model_Element_Move/8031_Analyze_Model_Element_Move.ant.md) was used during the SOW creation to help define the requirements for this project.  
+<a id="2.3"></a>2.3 [Statement of Work](https://docs.google.com/document/d/1_T4H7StO-VM8zfIFjr-V7VwUQMXML1c7nFJJofU0vGs/edit)  This is a link to this issue's Statement of Work document.
+<a id="2.4"></a>2.4 [UnitTestGenerator.pl](https://github.com/xtuml/bridgepoint/blob/master/src/org.xtuml.bp.test/UnitTestGenerator.pl)  This is a link to the BridgePoint utility that is used to generate test suites from a defined test matrix.
 
 3. Background   
 -------------     
 
-See [[2.5]](#2.5)
+See the background in [[2.2]](#2.2) as well as the background in the SOW [[2.3]](#2.3).
 
 4. Requirements   
 ---------------   
-The requirements are defined in this issues SOW [[2.5]](#2.5). 
+The requirements are defined in this issue's SOW [[2.3]](#2.3). For convience, the SOW requirements are being copied, in order here. This analysis shall create some additional requirements based on the selected implementation. These additional requirements shall be placed after the last requirement copied here from the SOW.  
+4.1 Atomic Move Operation  
+Selected model elements are moved in a single operation that can be undone with a single undo operation.  
+4.2 Configuration-management Friendly  
+Within the limitations of the Eclipse Team interface, move operations are performed in a way that maximizes the probability of the underlying configuration-management system detecting that a move operation (as opposed to a sequence of delete and create operations) occurred.  
+4.3 Supported Model Element Types  
+The model-element move capability is supported for the following model element types (see Limitations [[2.3]](#2.3)):  
+* Data type definition
+* Component definition 
+* Interface definition
+* Class definition 
+* Component reference 
+* Imported class 
+* Package (when package contains supported model elements)
+
+4.4 Connections Maintained Whenever Possible  
+Whenever visibility permits, the connection between a moved model element and other model elements is maintained.  For example, a data type can be moved without affecting the attributes and parameters typed by it so long as the data type remains visible to those elements typed by it.  
+4.5 Enabled Only When Valid Elements Selected  
+The model-element move capability is enabled only when all model elements within the current selection are supported model element types for the move capability.  
 
 
 5. Analysis   
 -----------   
+The initial investigation into this task called out 3 approaches they were:  
 5.1 Supporting move as an atomic action  
 
 One approach to supporting move as an atomic action is to introduce a context   
@@ -70,6 +87,28 @@ In this case the operation would be a move but would not be atomic.
 
 6. Work Required   
 ----------------   
+6.1 Introduce a new CME named Move...
+6.1.1 Introduce the Move... CME in Model Explorer
+6.1.2 Introduce the Move... CME in the canvas
+6.1.3 Assure the Move... CME is only enabled when there is a valid selection  
+6.1.4 The BridgePoint Move... CME shall be similiar to the Java > Refactor >Move... wizard, but where the Java Move CME contains a project tree to select the destiation, the BridgePoint > Move... doalog shall contain a Model explorer tree.
+6.1.5 The BridgePoint Move... shall be implemented as a wizard.
+6.1.5 Move... Wizard Page 1
+6.1.5.1 Select Destination
+6.1.5.1.1 This item shall contain a Model Explorer tree and the user shall be allowed to select a single location
+6.1.5.1.2 Only valid destination shall be enabled, invalid destinations shall be disabled
+6.1.6 Move... Wizard Page 2
+6.1.6.1 Referring Model Elements
+6.1.6.2 A tree view showing the Model Elements that will be affected by the move with a description of how they will be affected
+6.2 The user may cancel the Move... at any time before selecting Finish, and no action shall be taken.
+6.3 Only when and if the user selects the Move... wizard's Finsh button shall the atomic move take place.
+
+6.4 Avoid using the current infrastructre's use of the clipboard if possible. 
+6.4.1 The copy/paste infrastructre shall be used for it's ablity to perform selection and target validation. However, if this move can be done with the in-memory instances and still take advatage of this validation infrastructure it shall do so.
+
+6. Enhance the current infrasture to not change element IDs during move.
+7. 
+
 6.1 Supporting move as an atomic action   
 6.1.1 New move operation using existing infrastructure   
 6.1.1.2 Introduce a new menu item   
@@ -90,60 +129,16 @@ In this case the operation would be a move but would not be atomic.
 
 7. Acceptance Test   
 ------------------   
-7.1 Supporting move as an atomic action   
-
-Requirements supported:   
-
- - 4.1   
- - 4.2   
- - 4.3   
- - 4.4   
- - 4.5   
- - 4.6   
- - 4.7   
- - 4.8   
- 
-- Perform a move operation   
-- A dialog is available for destination selection   
-- Only elements that are valid are shown      
-- Upon move all referring elements are connected with their referred to elements   
-  within scope   
-- Upon move all referred to elements are reconnected with their referring    
-  elements within scope   
-- No IDs have changed
-- Undoing the move resets the model in the original state   
-
-7.2 Using eclipse file infrastructure   
-
-Requirements supported:   
-
- - 4.1   
- - 4.2   
- - 4.3   
- - 4.4   
- - 4.5   
- - 4.7   
- - 4.8   
- 
-- Repeat steps from 7.1   
-
-7.3 Existing infrastructure   
-
-Requirements supported:   
-   
- - 4.3   
- - 4.4   
- - 4.5   
- - 4.8   
-
-- Cut a model element    
-- Paste the model element   
-- Upon move all referring elements are connected with their referred to elements   
-  within scope   
-- Upon move all referred to elements are reconnected with their referring    
-  elements within scope   
-- No IDs have changed   
-- Undoing the move resets the model in the original state   
+7.1 Use the [[test generation utility]](#2.2) to generate tests for all source and target permutations. Note that documentation for this utility is found in the header of this perl script.  
+7.1.1 Create a test matrix that defines all possible "degrees of freedom" for source and target selection.  
+7.1.2 Add this matrix to bp.core.test plugin as a new test suite  
+7.1.2 Modify the bp.core.test build to generate the test suite from the test matrix  
+7.1.3 Implement the pieces of the suite that the test generation utilitie's results require adddtional work for  
+7.1.3.1 Each generated tests shall assure that element IDs are not modified during move  
+7.1.3.2 Each generated tests shall assure that move is performed as an atomic operation  
+7.1.3.2.1 After the move a single "undo" restore the model to the state it was in prior to the move operation  
+7.1.3.2.2 If the move operararion is canceled no changes shall be made.  
+7.1.4 Run the suite and assure it passes  
 
 End
 ---
