@@ -5,12 +5,11 @@ This work is licensed under the Creative Commons CC0 License
 ---
 
 # Model element move
-### xtUML Project Analysis Note
+### xtUML Project Design Note
 
 1. Abstract   
 -----------   
-This note picksanalyzes the different approaches to providing a model element move.   
-It considers the current approach and offers other potential approaches.
+This note describes the approach we shall take to implement the Model Element Move functionality in BridgePoint.  
 
 2. Document References     
 ----------------------   
@@ -51,7 +50,7 @@ The model-element move capability is enabled only when all model elements within
 -----------   
 See [[2.2]](#2.2)
 
-6. Work Required   
+6. Design   
 ----------------   
 6.1 Introduce a new CME named Move...
 6.1.1 Introduce the Move... CME in Model Explorer
@@ -74,6 +73,10 @@ See [[2.2]](#2.2)
 6.5 Enhance the current infrasture to not change element IDs during move.  
 6.6 While doing this work, consider modifying the current cut/paste operation to no longer change IDs during paste  
 6.7 Modify all resolution operations to first search by ID  instead of name
+
+7. Design Comments   
+------------------   
+none  
 
 7. Acceptance Test   
 ------------------   
