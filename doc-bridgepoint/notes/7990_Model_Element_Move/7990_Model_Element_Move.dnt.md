@@ -81,16 +81,17 @@ none
 
 7. Acceptance Test   
 ------------------   
-7.1 Use the [[test generation utility]](#2.2) to generate tests for all source and target permutations. Note that documentation for this utility is found in the header of this perl script.  
-7.1.1 Create a test matrix that defines all possible "degrees of freedom" for source and target selection.  
-7.1.2 Add this matrix to bp.core.test plugin as a new test suite  
-7.1.2 Modify the bp.core.test build to generate the test suite from the test matrix  
-7.1.3 Implement the pieces of the suite that the test generation utilitie's results require adddtional work for  
-7.1.3.1 Each generated tests shall assure that element IDs are not modified during move  
-7.1.3.2 Each generated tests shall assure that move is performed as an atomic operation  
-7.1.3.2.1 After the move a single "undo" restore the model to the state it was in prior to the move operation  
-7.1.3.2.2 If the move operararion is canceled no changes shall be made.  
-7.1.4 Run the suite and assure it passes  
+7.1 Use the [[test generation utility]](#2.2) to generate tests for all source and target permutations. Note that documentation for this utility is found in the header of this perl script.  The goal of these generated tests is to assure all requirements are satisfied for each generated test. This assure that requirements are satisfied for each test permutation.  
+7.1.1 Create a test matrix that defines all possible "degrees of freedom" for source and target selection.   
+7.1.2 Add this matrix to bp.core.test plugin as a new test suite.  
+7.1.3 Modify bp.core.test/generate.xml to generate the test suite from the test matrix using the test generation utility.  
+7.1.4 Implement the pieces of the suite that the test generation utilitie's results require adddtional work for.  
+7.1.4.1 Each generated tests shall assure that element IDs are not modified during move.  
+7.1.4.2 Each generated tests shall assure that move is performed as an atomic operation.  
+7.1.4.2.1 After the move a single "undo" restore the model to the state it was in prior to the move operation  
+7.1.4.2.2 If the move operararion is canceled no changes shall be made.  
+7.1.4.3 Each generated test shall assure that its result modifies the minimum number of files necessary.  
+7.1.5 Run the suite and assure it passes  
 
 End
 ---
