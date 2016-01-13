@@ -53,9 +53,9 @@ See [[2.2]](#2.2)
 6. Design   
 ----------------   
 6.1 Enhance the current infrasture to not change element IDs during move.  
-6.1.2 The copy/paste infrastructre shall be used for it's ablity to perform selection and target validation. However, if this move can be done with the in-memory instances and still take advatage of this validation infrastructure it shall do so.
-6.1.3 Avoid using the current infrastructure's use of the clipboard if possible. 
-6.1.4 While doing this work, consider modifying the current cut/paste operation to no longer change IDs during paste  
+6.1.2 The copy/paste infrastructre shall be used for it's ablity to perform selection and target validation. However, if this move can be done with the in-memory instances and still take advatage of this validation infrastructure it shall do so.  
+6.1.3 Avoid using the current infrastructure's use of the clipboard if possible.  
+6.1.4 While doing this work, consider modifying the current cut/paste operation to no longer change IDs during paste.   
 6.2 Modify all resolution operations to first search by ID  instead of name  
 6.3 Introduce a new CME named Move...  
 6.3.1 Introduce the Move... CME in Model Explorer  
