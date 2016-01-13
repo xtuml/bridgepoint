@@ -61,12 +61,12 @@ See [[2.2]](#2.2)
 6.3.1 Introduce the Move... CME in Model Explorer  
 6.3.2 Introduce the Move... CME in the canvas  
 6.3.3 Assure the Move... CME is only enabled when there is a valid selection  
-6.3.4 The BridgePoint Move... CME shall be similiar to the Java > Refactor >Move... wizard, but where the Java Move CME contains a project tree to select the destiation, the BridgePoint > Move... doalog shall contain a Model explorer tree.  
+6.3.4 The BridgePoint Move... CME shall be similiar to the Java > Refactor >Move... wizard, but where the Java Move CME contains a project tree to select the destination, the BridgePoint > Move... dialog shall contain a Model explorer tree.  
 6.3.5 The BridgePoint Move... shall be implemented as a wizard.  
 6.3.5 Move... Wizard Page 1  
 6.3.5.1 Select Destination  
 6.3.5.1.1 This item shall contain a Model Explorer tree and the user shall be allowed to select a single location  
-6.3.5.1.2 Only valid destination shall be enabled, invalid destinations shall be disabled  
+6.3.5.1.2 Only valid destinations shall be enabled, invalid destinations shall be disabled  
 6.3.6 Move... Wizard Page 2  
 6.3.6.1 Referring Model Elements affected by the move operation  
 6.3.6.2 A tree view showing the Model Elements that will be affected by the move with a description of how they will be affected  
