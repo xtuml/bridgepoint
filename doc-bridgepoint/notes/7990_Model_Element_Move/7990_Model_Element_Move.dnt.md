@@ -4,7 +4,7 @@ This work is licensed under the Creative Commons CC0 License
 
 ---
 
-# Model element move
+# Model Element Move
 ### xtUML Project Design Note
 
 1. Abstract   
@@ -15,8 +15,8 @@ This note describes the approach we shall take to implement the Model Element Mo
 ----------------------   
 <a id="2.1"></a>2.1 [BridgePoint DEI #7990](https://support.onefact.net/redmine/issues/7990) This is a link to this issue in the issue tracking system.  
 <a id="2.2"></a>2.2 [BridgePoint DEI #8031](https://support.onefact.net/redmine/issues/8031) Analyze Model Element Move - This issue was raised in the issue tracking system to answer high-level questions about this Model Element Move task in order to allow us to define requirements for the project. The [document produced by this work allowed](https://github.com/rmulvey/bridgepoint/blob/7990_Model_Element_Move/doc-bridgepoint/notes/8031_Analyze_Model_Element_Move/8031_Analyze_Model_Element_Move.ant.md) was used during the SOW creation to help define the requirements for this project.  
-<a id="2.3"></a>2.3 [Statement of Work](https://docs.google.com/document/d/1_T4H7StO-VM8zfIFjr-V7VwUQMXML1c7nFJJofU0vGs/edit)  This is a link to this issue's Statement of Work document.
-<a id="2.4"></a>2.4 [UnitTestGenerator.pl](https://github.com/xtuml/bridgepoint/blob/master/src/org.xtuml.bp.test/UnitTestGenerator.pl)  This is a link to the BridgePoint utility that is used to generate test suites from a defined test matrix.
+<a id="2.3"></a>2.3 [Statement of Work](https://docs.google.com/document/d/1_T4H7StO-VM8zfIFjr-V7VwUQMXML1c7nFJJofU0vGs/edit)  This is a link to this issue's Statement of Work document.  
+<a id="2.4"></a>2.4 [UnitTestGenerator.pl](https://github.com/xtuml/bridgepoint/blob/master/src/org.xtuml.bp.test/UnitTestGenerator.pl)  This is a link to the BridgePoint utility that is used to generate test suites from a defined test matrix.  
 
 3. Background   
 -------------     
@@ -52,27 +52,26 @@ See [[2.2]](#2.2)
 
 6. Design   
 ----------------   
-6.1 Introduce a new CME named Move...
-6.1.1 Introduce the Move... CME in Model Explorer
-6.1.2 Introduce the Move... CME in the canvas
+6.1 Introduce a new CME named Move...  
+6.1.1 Introduce the Move... CME in Model Explorer  
+6.1.2 Introduce the Move... CME in the canvas  
 6.1.3 Assure the Move... CME is only enabled when there is a valid selection  
-6.1.4 The BridgePoint Move... CME shall be similiar to the Java > Refactor >Move... wizard, but where the Java Move CME contains a project tree to select the destiation, the BridgePoint > Move... doalog shall contain a Model explorer tree.
-6.1.5 The BridgePoint Move... shall be implemented as a wizard.
-6.1.5 Move... Wizard Page 1
-6.1.5.1 Select Destination
-6.1.5.1.1 This item shall contain a Model Explorer tree and the user shall be allowed to select a single location
-6.1.5.1.2 Only valid destination shall be enabled, invalid destinations shall be disabled
-6.1.6 Move... Wizard Page 2
-6.1.6.1 Referring Model Elements
-6.1.6.2 A tree view showing the Model Elements that will be affected by the move with a description of how they will be affected
-6.2 The user may cancel the Move... at any time before selecting Finish, and no action shall be taken.
-6.3 Only when and if the user selects the Move... wizard's Finsh button shall the atomic move take place.
-
+6.1.4 The BridgePoint Move... CME shall be similiar to the Java > Refactor >Move... wizard, but where the Java Move CME contains a project tree to select the destiation, the BridgePoint > Move... doalog shall contain a Model explorer tree.  
+6.1.5 The BridgePoint Move... shall be implemented as a wizard.  
+6.1.5 Move... Wizard Page 1  
+6.1.5.1 Select Destination  
+6.1.5.1.1 This item shall contain a Model Explorer tree and the user shall be allowed to select a single location  
+6.1.5.1.2 Only valid destination shall be enabled, invalid destinations shall be disabled  
+6.1.6 Move... Wizard Page 2  
+6.1.6.1 Referring Model Elements  
+6.1.6.2 A tree view showing the Model Elements that will be affected by the move with a description of how they will be affected  
+6.2 The user may cancel the Move... at any time before selecting Finish, and no action shall be taken.  
+6.3 Only when and if the user selects the Move... wizard's Finsh button shall the atomic move take place.  
 6.4 Avoid using the current infrastructure's use of the clipboard if possible. 
 6.4.1 The copy/paste infrastructre shall be used for it's ablity to perform selection and target validation. However, if this move can be done with the in-memory instances and still take advatage of this validation infrastructure it shall do so.
 6.5 Enhance the current infrasture to not change element IDs during move.  
 6.6 While doing this work, consider modifying the current cut/paste operation to no longer change IDs during paste  
-6.7 Modify all resolution operations to first search by ID  instead of name
+6.7 Modify all resolution operations to first search by ID  instead of name  
 
 7. Design Comments   
 ------------------   
