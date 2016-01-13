@@ -49,41 +49,7 @@ The model-element move capability is enabled only when all model elements within
 
 5. Analysis   
 -----------   
-The initial investigation into this task called out 3 approaches they were:  
-5.1 Supporting move as an atomic action  
-
-One approach to supporting move as an atomic action is to introduce a context   
-menu item for move.  This action shall use the existing infrastructure in a   
-similar manner to the existing cut and paste approach.  It shall capture the   
-changes in a single transaction.   
-
-This approach would address the undo issue.   
-
-In this case we shall modify the export code to only update the IDs when   
-performing a copy.  A flag that shall be set during cut shall indicate the cut
-operation and prevent updating of the IDs.  Additionally we would need to    
-adjust the existing resolution operations to search by ID first, then search by  
-name as it does currently.   
-
-5.2 Using eclipse file infrastructure   
-
-Another approach which may address configuration management issues is to move   
-folders or files directly.  This can be done with the eclipse API but would   
-require quite a bit more work.   
-
-This approach would require a move operation as 5.1 does.  The operation though   
-would simply locate the file or folder of the element and move it.  This would   
-then require additional file change listeners or require updating the existing   
-ones that we have.  The changes would require us to hear the change then fix the   
-element data in memory and persist.   
-
-5.3 Existing infrastructure  
-
-Another approach is to remain simply with cut and paste.  In this case the tool   
-shall be updated to prevent updating IDs in the same manner as described above    
-in 5.1.  It shall also update the resolution methods as described in 5.1.   
-
-In this case the operation would be a move but would not be atomic.   
+See [[2.2]](#2.2)
 
 6. Work Required   
 ----------------   
@@ -103,29 +69,11 @@ In this case the operation would be a move but would not be atomic.
 6.2 The user may cancel the Move... at any time before selecting Finish, and no action shall be taken.
 6.3 Only when and if the user selects the Move... wizard's Finsh button shall the atomic move take place.
 
-6.4 Avoid using the current infrastructre's use of the clipboard if possible. 
+6.4 Avoid using the current infrastructure's use of the clipboard if possible. 
 6.4.1 The copy/paste infrastructre shall be used for it's ablity to perform selection and target validation. However, if this move can be done with the in-memory instances and still take advatage of this validation infrastructure it shall do so.
-
-6. Enhance the current infrasture to not change element IDs during move.
-7. 
-
-6.1 Supporting move as an atomic action   
-6.1.1 New move operation using existing infrastructure   
-6.1.1.2 Introduce a new menu item   
-6.1.1.3 Create a dialog that allows destination selection    
-6.1.1.3.1 Allow the dialog to filter locations by type   
-6.1.1.3.2 Have the menu item call an operation that performs a cut and paste in   
-          a single transaction    
-6.1.1.3.3 Modify export and paste code to only modify IDs on copy   
-6.1.1.3.4 Modify all resolution operations to first search by ID   
-6.2 Using eclipse file infrastructure   
-6.2.1 Create new move operation which locates the element's file or folder and   
-      call into the eclipse file API to move.    
-6.2.2 Create or adjust the file listener to update model data and persist on   
-      a change event.    
-6.3 Existing infrastructure   
-6.3.1 Perform step 6.1.1.3.3   
-6.3.2 Perform step 6.1.1.3.4   
+6.5 Enhance the current infrasture to not change element IDs during move.  
+6.6 While doing this work, consider modifying the current cut/paste operation to no longer change IDs during paste  
+6.7 Modify all resolution operations to first search by ID  instead of name
 
 7. Acceptance Test   
 ------------------   
