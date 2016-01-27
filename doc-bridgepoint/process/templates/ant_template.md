@@ -40,7 +40,7 @@ short and simple as possible and must be clearly defined. Here is an example ref
 4.1 Item 1  
 4.1.1 Example sub-item
 * Example List Element
-* Example List Element
+  * Example Sub list item
 
 4.2 Item 2  
 4.2.1 Example sub-item
@@ -54,7 +54,6 @@ it sets out a brief analysis of the problem to be resolved by this design note. 
 5.1 Item 1  
 5.1.1 Example sub-item
 * Example List Element
-  * Example Sub list item
 
 5.2 Item 2  
 5.2.1 Example sub-item
