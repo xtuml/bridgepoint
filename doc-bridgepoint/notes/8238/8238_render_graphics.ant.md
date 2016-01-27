@@ -58,7 +58,7 @@ issues' design note shall call out the links between the requirements below and 
 4.2 Created shapes shall be grid into a matrix with reasonable spacing.  
 4.2.1 The grid shall be greater than 1 dimension (not just 1 row).  
 4.3 Create connnectors in the correct packages.  
-4.3.1 Connectors shall be drawn between all participatin widgets.  
+4.3.1 Connectors shall be drawn between all participating widgets.  
 4.3.2 Connectors with just one participating widget shall also be drawn.  
 
 
