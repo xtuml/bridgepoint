@@ -20,7 +20,7 @@ describe.
 2. Document References
 ----------------------
 In this section, list all the documents that the reader may need to refer to.
-Give the full path to reference a file.
+Give the full path to reference a file.  
 <a id="2.1"></a>2.1 [BridgePoint DEI #xxx1](https://support.onefact.net/redmine/issues/xxx1) TODO: Add description here.  
 <a id="2.2"></a>2.3 [BridgePoint DEI #xxx2](https://support.onefact.net/redmine/issues/xxx2) TODO: Add description here.  
 <a id="2.3"></a>2.3 [BridgePoint DEI #xxx3](https://support.onefact.net/redmine/issues/xxx3) TODO: Add description here.  
@@ -38,7 +38,7 @@ is an SRS, this section may simply refer to it.  Each requirement should be as
 short and simple as possible and must be clearly defined. Here is an example reference to the Document References section [[2.1]](#2.1)
 
 4.1 Item 1  
-4.1.1 Example sub-item  
+4.1.1 Example sub-item
 * Example List Element
 * Example List Element
 
@@ -71,6 +71,7 @@ to meet the requirements specified in the Requirements section. Here is an examp
 6.1.1 Example sub-item
 * Example List Element
 * Example List Element
+
 6.2 Item 2  
 6.2.1 Example sub-item
 * Example List Element
@@ -85,6 +86,7 @@ verify that all the requirements are satisfied. Here is an example reference to 
 7.1.1 Example sub-item
 * Example List Element
 * Example List Element
+
 7.2 Item 2  
 7.2.1 Example sub-item
 * Example List Element
