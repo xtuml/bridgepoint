@@ -43,7 +43,7 @@ short and simple as possible and must be clearly defined. Here is an example ref
 * Example List Element
 
 4.2 Item 2  
-4.2.1 Example sub-item  
+4.2.1 Example sub-item
 * Example List Element
 * Example List Element
 
