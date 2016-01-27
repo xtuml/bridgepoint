@@ -45,7 +45,6 @@ short and simple as possible and must be clearly defined. Here is an example ref
 4.2 Item 2  
 4.2.1 Example sub-item
 * Example List Element
-* Example List Element
 
 5. Analysis
 -----------
@@ -55,11 +54,10 @@ it sets out a brief analysis of the problem to be resolved by this design note. 
 5.1 Item 1  
 5.1.1 Example sub-item
 * Example List Element
-* Example List Element
+  * Example Sub list item
 
 5.2 Item 2  
 5.2.1 Example sub-item
-* Example List Element
 * Example List Element
 
 6. Work Required
@@ -70,11 +68,9 @@ to meet the requirements specified in the Requirements section. Here is an examp
 6.1 Item 1  
 6.1.1 Example sub-item
 * Example List Element
-* Example List Element
 
 6.2 Item 2  
 6.2.1 Example sub-item
-* Example List Element
 * Example List Element
 
 7. Acceptance Test
@@ -85,11 +81,9 @@ verify that all the requirements are satisfied. Here is an example reference to 
 7.1 Item 1  
 7.1.1 Example sub-item
 * Example List Element
-* Example List Element
 
 7.2 Item 2  
 7.2.1 Example sub-item
-* Example List Element
 * Example List Element
 
 End
