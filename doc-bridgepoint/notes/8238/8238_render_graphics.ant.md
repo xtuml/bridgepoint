@@ -17,28 +17,27 @@ In this section, list all the documents that the reader may need to refer to.
 Give the full path to reference a file.  
 <a id="2.1"></a>2.1 [BridgePoint DEI #8238](https://support.onefact.net/redmine/issues/8238) This issue.  
 <a id="2.2"></a>2.3 [BridgePoint DEI #8086](https://support.onefact.net/redmine/issues/8086) Graphics Auto-creation Not Working.  
-<a id="2.3"></a>2.3 [BridgePoint DEI #TODO](https://support.onefact.net/redmine/issues/TODO) TODO-add description.  
+<a id="2.3"></a>2.3 [BridgePoint DEI #8239](https://support.onefact.net/redmine/issues/TODO) Connector layout of auto-created connectors must be layed out in a way that allows manual reconfiguration.  
+<a id="2.4"></a>2.4 [BridgePoint Development notes for  dts0100573206](https://github.com/xtuml/internal/tree/71c842bdcd937f946f977d529dc90e0f9a5f2486/Documentation_archive/20100712/technical/notes/dts0100573206) Consistent context menu for creating model elements.  
+<a id="2.5"></a>2.5 [BridgePoint Design Note for #1432 / dts0100655903](TODO:find this) Support drawing of missed xtUML Connectors on Canvas.  
+<a id="2.6"></a>2.6 [BridgePoint Review observations for dts0100655903](https://support.onefact.net/redmine/issues/8238) Design note review observations for [[2.5]](#2.5).  
 
 3. Background
 -------------
 Reconciliation was initially introduced just after the introduction of components in BridgePoint. 
 It was needed for the case of formalization of components. This was needed because, when formalized, 
-the interfaces needed to be drawn on the component references to allow wiring of the component diagrams. 
-Additionally, it is worth noting that the reconcile also had to consider the case where the component was 
-unformalized, the reason being that when unformalized, the interfaces, if any, had to be removed from the 
+the interfaces needed to be auto-created on the component references to allow wiring of the component diagrams. 
+Additionally, it is worth noting that this initial "graphics reconciliation" also had to consider the case where the component was unformalized because when unformalized, the interfaces, if any, had to be removed from the 
 graphics.
 
 As time went by, it become desirable to make the tool easier to use, and it was determined that to 
 facilitate this users should not have to "select, drag, and drop" in order to create shapes. The tool was 
-thus enhanced so that shapes could be created by simply selecting an option in the configuration menu entry (CME). 
-When that was done it was further determined that the CME options should be consistent regardless of which CME was 
-used (canvas or model explorer). Furthermore, it was determined that the "new" CME options should remain consistent 
-with the palette creation options (which remained to allow creation via drag/drop). The introduction of this ability to 
-draw shapes from the CME caused the reconciler's behavior to grow.
+then enhanced so shapes could be created by simply selecting an option in the configuration menu entry (CME) [[2.4]](#2.4). 
+When that work was analysed, it was further determined that the CME options should be consistent regardless of which 
+CME was used (canvas or model explorer). Furthermore, it was determined that the "new" CME options introdcued should 
+remain consistent with the palette creation options (which remained to allow creation via drag/drop). The introduction of this ability to draw shapes from the CME caused the reconciler's behavior to grow.
 
-Once the CME project was complete the tool was primed to be able to create all graphics from an imported model that 
-had no graphics. There was a project that pushed this further, autosar model import, but that project was never 
-completed and its work was not done by the mainstream team, and thus it was never fully put into the tool. The memory 
+Since the completion of the CME project [[2.4]](#2.4) BridgePoint is primed to be able to create all graphics from an imported model that has no graphics. There was a project that pushed this further, autosar model import, but that project was never completed and its work was not done by the mainstream team, and thus it was never fully put into the tool. The memory 
 of this autosar project led me to think that more had been done with reconciliation than has. The tool can reconcile, 
 as designed for the cases described above, but it does not reconcile for cases it was not designed for. This issue 
 reads that reconciliation is broken because graphics are not created for elements for existing model elements when a 
