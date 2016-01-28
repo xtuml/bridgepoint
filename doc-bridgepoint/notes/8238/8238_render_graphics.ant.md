@@ -16,7 +16,7 @@ Upon import of xtUML, render graphics for the input model elements including, co
 In this section, list all the documents that the reader may need to refer to.
 Give the full path to reference a file.  
 <a id="2.1"></a>2.1 [BridgePoint DEI #8238](https://support.onefact.net/redmine/issues/8238) This issue.  
-<a id="2.2"></a>2.3 [BridgePoint DEI #8086](https://support.onefact.net/redmine/issues/8086) Graphics Auto-creation Not Working.  
+<a id="2.2"></a>2.2 [BridgePoint DEI #8086](https://support.onefact.net/redmine/issues/8086) Graphics Auto-creation Not Working.  
 <a id="2.3"></a>2.3 [BridgePoint DEI #8239](https://support.onefact.net/redmine/issues/TODO) Connector layout of auto-created connectors must be layed out in a way that allows manual reconfiguration.  
 <a id="2.4"></a>2.4 [BridgePoint Development notes for  dts0100573206](https://github.com/xtuml/internal/tree/71c842bdcd937f946f977d529dc90e0f9a5f2486/Documentation_archive/20100712/technical/notes/dts0100573206) Consistent context menu for creating model elements.  
 <a id="2.5"></a>2.5 [BridgePoint Design Note for #1432 / dts0100655903](TODO:find this) Support drawing of missed xtUML Connectors on Canvas.  
@@ -37,21 +37,16 @@ When that work was analysed, it was further determined that the CME options shou
 CME was used (canvas or model explorer). Furthermore, it was determined that the "new" CME options introdcued should 
 remain consistent with the palette creation options (which remained to allow creation via drag/drop). The introduction of this ability to draw shapes from the CME caused the reconciler's behavior to grow.
 
-Since the completion of the CME project [[2.4]](#2.4) BridgePoint is primed to be able to create all graphics from an imported model that has no graphics. There was a project that pushed this further, autosar model import, but that project was never completed and its work was not done by the mainstream team, and thus it was never fully put into the tool. The memory 
-of this autosar project led me to think that more had been done with reconciliation than has. The tool can reconcile, 
-as designed for the cases described above, but it does not reconcile for cases it was not designed for. This issue 
-reads that reconciliation is broken because graphics are not created for elements for existing model elements when a 
-reconciliation transaction is started (for example when a new element is added to a package that has existing elements 
-that do NOT have graphics). The tool was not designed to create graphics for all the OTHER elements in the package. While 
-this functionality should not be difficult to perform, and in fact has been done as part of the work of investigating this 
-issue, it does not mean reconciliation is broken. It is not broken.
+Since the completion of the CME project [[2.4]](#2.4) BridgePoint is primed to be able to create all graphics from an imported model that has no graphics. There was a project that pushed this further, autosar model import, but that project was never completed and its work was not done by the mainstream team, and thus it was never fully put into the tool. The memory of this autosar project initallt led me to think that more had been done with reconciliation than has. The tool can reconcile, as designed for the cases described above, but it does not reconcile for cases it was not designed for. 
+
+An issue investigated as part of the initial analysis for this work [[2.3]](#2.3) read that reconciliation is broken because graphics are not created for elements where there are existing model elements that contain no graphics. Investigation shows that the tool was not designed to create graphics for all the OTHER elements in the package. While 
+this functionality should not be difficult to add given the current infrastructure, and in fact has been done as part of 
+the work of investigating this issue, it does not mean reconciliation is broken. Reconciliation is not broken.
 
 4. Requirements
 ---------------
-The SRS assocaited with this project defines requirements for this task. The following requirements are in 
-addition to those requirements. Note that when this analysis was written the SRS had not yet been completed. Therefore, this
-issue's design note shall call out the links between the requirements below and the SRS, and shall account for descrepencies
-(for example, addtional requirements needed).
+The SRS assocaited with this project shall define requirements for this task. The following requirements are in 
+addition to those requirements. Note that when this analysis was written the SRS had not yet been completed. Therefore, when written, this issue's design note shall call out the links between the requirements below and the SRS, and shall account for descrepencies (for example, addtional requirements needed).  
 
 4.1 Create shapes in correct packages for all xtUML elements in a project.  
 4.2 Created shapes shall be grid into a matrix with reasonable spacing.  
@@ -67,12 +62,12 @@ This section enumerates different approaches considered, and at the end defines 
 approach with the reasons why the selected approach was selected.  
 
 5.1 Create a new model compiler to create graphics.  
-Since the project at hand requires graphics creation starting from a model that contains no graphics. It is possible to create a model compiler that would read the xtUML model file being imported and create graphics instances. It is observed that the grpahics instances in an model file that contains graphics follow a pattern. One can carefully add model elements to one at a time and observe the graphics elements created as a result. Repeat this for shapes, and for each type of connector, and one could create a model complier to create the graphics instances without ever even looking int the implemenation of graphics in BridgePoint. This would be a very mechanical process.
+The project at hand requires graphics creation starting from a model that contains no graphics. It is possible to create a model compiler that would read the xtUML model file being imported and create graphics instances. It is observed that the graphics instances in an model file that contains graphics follow a pattern. One can carefully add model elements to one at a time and observe the graphics elements created as a result of each creation. By repeating this process for shapes, and for each type of connector, and one could create a model complier to create the graphics instances without ever even looking into the implemenation of graphics in BridgePoint. This would be a very mechanical process.
 
 5.2 Use the existing BridgePoint graphics reconciliation infrastructure to create graphics.  
-As described in the background BridgePoint has infrastructure in place that allows for graphics reconciliation. This was not designed to create graphics from a model that contains no graphics at all. However, the infrastructure has been enhnaced a few times, and it could be enhanced again now to proved the reconcilation needed for this project.
+As described in the background BridgePoint has infrastructure in place that allows for graphics reconciliation. This was not designed to create graphics from a model that contains no graphics at all. However, the infrastructure has been enhnaced a few times, and it could be enhanced again now to proved the reconcilation needed for this project.  
 5.2.1 Shape creation  
-Shape reconciliation is already complete and works with one exception, described in the following section. 
+Shape reconciliation is already complete and works with one exception, described in the following section.  
 5.2.1.1 Current graphics shape reconciliation assumes a graphics model root is present.  
 The current reconciliation infrastructure was designed to reconcile from an existing model that contains graphics, there is an assumption present that the graphics model root contains a GD_MD instance. The GD_MD instance represents the graphics model root. An xtUML model with no graphics contains no GD_MD elements. The graphics model root is associated with the container that a model element is being added to. Every xtuml file that has graphics contains a single GD_MD element. To reconcile all graphics, a reconciliation pass is required to create these GD_MD elements before elements under the GD_MD will be created.  
 5.2.2 Connector creation  
