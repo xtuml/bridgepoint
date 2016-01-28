@@ -49,8 +49,8 @@ issue, it does not mean reconciliation is broken. It is not broken.
 4. Requirements
 ---------------
 The SRS assocaited with this project defines requirements for this task. The following requirements are in 
-addition to those requirements. Note that when this analysis was written the SRS had not yet been completed. Therefore, this 
-issues' design note shall call out the links between the requirements below and the SRS, and shall account for descrepencies 
+addition to those requirements. Note that when this analysis was written the SRS had not yet been completed. Therefore, this
+issue's design note shall call out the links between the requirements below and the SRS, and shall account for descrepencies
 (for example, addtional requirements needed).
 
 4.1 Create shapes in correct packages for all xtUML elements in a project.  
@@ -67,38 +67,48 @@ This section enumerates different approaches considered, and at the end defines 
 approach with the reasons why the selected approach was selected.  
 
 5.1 Create a new model compiler to create graphics.  
-5.1.1 Example sub-item
-* Example List Element
+Since the project at hand requires graphics creation starting from a model that contains no graphics. It is possible to create a model compiler that would read the xtUML model file being imported and create graphics instances. It is observed that the grpahics instances in an model file that contains graphics follow a pattern. One can carefully add model elements to one at a time and observe the graphics elements created as a result. Repeat this for shapes, and for each type of connector, and one could create a model complier to create the graphics instances without ever even looking int the implemenation of graphics in BridgePoint. This would be a very mechanical process.
 
 5.2 Use the existing BridgePoint graphics reconciliation infrastructure to create graphics.  
-5.2.1 Example sub-item
-* Example List Element
+As described in the background BridgePoint has infrastructure in place that allows for graphics reconciliation. This was not designed to create graphics from a model that contains no graphics at all. However, the infrastructure has been enhnaced a few times, and it could be enhanced again now to proved the reconcilation needed for this project.
+5.2.1 Shape creation  
+Shape reconciliation is already complete and works with one exception, described in the following section. 
+5.2.1.1 Current graphics shape reconciliation assumes a graphics model root is present.  
+The current reconciliation infrastructure was designed to reconcile from an existing model that contains graphics, there is an assumption present that the graphics model root contains a GD_MD instance. The GD_MD instance represents the graphics model root. An xtUML model with no graphics contains no GD_MD elements. The graphics model root is associated with the container that a model element is being added to. Every xtuml file that has graphics contains a single GD_MD element. To reconcile all graphics, a reconciliation pass is required to create these GD_MD elements before elements under the GD_MD will be created.  
+5.2.2 Connector creation  
+BridgePoint contains support for some connector creation already. Addtionally, work has been completed, but not promoted, for addtional connector creation. The section below describes what is done already and what needs to be added.  
+5.2.2.1 Interfaces  
+Initial work for interface reconciliation was done as the reason graphics reconcilaition was initially added to the tool, as described in the background section. However, that work did not have to account for satisfactions. The work done for [[2.5]](#2.5) did complete this though. The good news is, the design note for that work calls out what was done, we can use it as a guide, and the change set is only 10 files. The bad news is, the work was never promoted [[2.6]](#2.6), and it is now over 5 years old.  
+5.2.2.2 Associations  
+There is no support for associations. This would be completed by following the lead of the work done for reconciliation of interfaces [[2.5]](#2.5). The Relationship subsystem is complex, but this work should not be affected by that complexity. The graphics reconciliation interface is the same for all types of connectors.  
+5.2.2.3 Transitions  
+There is no support for transitions. This would be completed by following the lead of the work done for reconciliation of interfaces [[2.5]](#2.5). The graphics reconciliation interface is the same for all types of connectors.  
+5.3 Selection  
+There is a lot of work to either approach. However, the approach form section 5.2 has been followed successfully in the past. Section 5.1 will hit unknowns that we have not encountered before this SHOULD note be true of 5.2. Section 5.2, using  the existing infrastructure is selected.  
 
 6. Work Required
 ----------------
-In this section, break out the consequential work (as a numbered list) needed
-to meet the requirements specified in the Requirements section. Here is an example reference to the Document References section [[2.1]](#2.1)
+6.1 Shape reconciliation    
+6.1.1 Refactor the auto-reconciliation front-end interface out of the CanvasTransactonListener.  
+Current the graphics reconsiliation runs only from the end-transaction processing of the CanvasTransactionListener. This makes is hard to reuse reconciliation in multiple places. Addtionally, the reconciliation front-end interface is not insignificanat. From a design stand point it deserves to be a first-class objject. The work shall make it so.  
+6.1.1.1 Remove artifacts in the reconciliation interface that are only present to prevent unit testing problems.  
+The CanvasTransactonListener contains statis opertions enableReconciler()/disableReconciler() that are only used by unit testing. When 6.1.1 is complete, the unit tests can simply override the abstract interface with a testing interface.   
+6.1.2 Modify model import to allow graphics to be created on import   
+6.1.2.1 A preference shall be introduced, under the new xtUML preferences section named Model Import. The new preference in this new section shall be named: Create Graphics. This new preference shall be disbaled by default.  
+6.1.2.2 Modify model import and the reconciler to run during import to create GD_MD elements for all model roots.  
+6.1.2.2 When the Create Graphics prefernece is enabled, automatically run the graphics reconciler again after import to force reconciliation of all graphics under the GD_MD instances that were created on intial import.  
+6.2 Connector reconciliation    
+6.2.1 Interfaces  
+Complete the work described in [[2.5]](#2.5).
+6.2.2 Associations  
+Follow the pattern of the work done to complete graphics creation for interfaces [6.2.1] to complete association reconciliation.  
+6.2.3 Transitions  
+Follow the pattern of the work done to complete graphics creation for interfaces [6.2.1] to complete association reconciliation.  
 
-6.1 Item 1  
-6.1.1 Example sub-item
-* Example List Element
-
-6.2 Item 2  
-6.2.1 Example sub-item
-* Example List Element
 
 7. Acceptance Test
 ------------------
-In this section, list the tests that need to be performed in order to
-verify that all the requirements are satisfied. Here is an example reference to the Document References section [[2.1]](#2.1)
-
-7.1 Item 1  
-7.1.1 Example sub-item
-* Example List Element
-
-7.2 Item 2  
-7.2.1 Example sub-item
-* Example List Element
+A test matrix was created for [[2.5]](#2.5). This matrix shall be extended to include the new reconciliation introdiced by this issue. The unit test generation utility shall be used to generate the tests for this work.   
 
 End
 ---
