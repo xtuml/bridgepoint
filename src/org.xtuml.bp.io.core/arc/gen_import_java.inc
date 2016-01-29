@@ -833,6 +833,7 @@ public class ${class_name} extends CoreImport
                         ModelRoot.enableChangeNotification();
         }
     }
+    helper.createGraphicsOnImport(loadedInstances);
     }
     .end if
   .invoke result = genFinishLoadMethod(multilevel, setComponent, callingProject)

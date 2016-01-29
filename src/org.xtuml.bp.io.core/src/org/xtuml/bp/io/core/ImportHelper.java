@@ -35,6 +35,7 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.xtuml.bp.core.ActionHome_c;
 import org.xtuml.bp.core.Action_c;
 import org.xtuml.bp.core.ActorParticipant_c;
@@ -100,6 +101,7 @@ import org.xtuml.bp.core.UseCaseAssociation_c;
 import org.xtuml.bp.core.UserDataType_c;
 import org.xtuml.bp.core.Visibility_c;
 import org.xtuml.bp.core.common.BaseModelDelta;
+import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.ComponentResourceListener;
 import org.xtuml.bp.core.common.IdAssigner;
@@ -2317,5 +2319,16 @@ public class ImportHelper
 
 		}
 
+	}
+	
+	public void createGraphicsOnImport(List<NonRootModelElement> loadedInstances) {
+		IPreferenceStore store = CorePlugin.getDefault().getPreferenceStore();
+		boolean createGraphics = store.getBoolean(BridgePointPreferencesStore.CREATE_GRAPHICS_DURING_IMPORT);
+		if (createGraphics) {
+			for (Iterator<NonRootModelElement> iterator = loadedInstances.iterator(); iterator.hasNext();) {
+				Object next = iterator.next();
+				//TODO: BOB - Add this implementation
+			}
+		}
 	}
 }
