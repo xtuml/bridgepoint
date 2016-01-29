@@ -15,6 +15,7 @@ Upon import of xtUML, render graphics for the input model elements including, co
 ----------------------
 In this section, list all the documents that the reader may need to refer to.
 Give the full path to reference a file.  
+<<<<<<< HEAD
 <a id="2.1"></a>2.1 [BridgePoint DEI #8238](https://support.onefact.net/issues/8238) This issue.  
 <a id="2.2"></a>2.2 [BridgePoint DEI #8086](https://support.onefact.net/issues/8086) Graphics Auto-creation Not Working.  
 <a id="2.3"></a>2.3 [BridgePoint DEI #8239](https://support.onefact.net/issues/8239) Connector layout of auto-created connectors must be laid out in a way that allows manual reconfiguration.  
@@ -23,6 +24,14 @@ Give the full path to reference a file.
 <a id="2.6"></a>2.6 [BridgePoint Review observations for dts0100655903](https://github.com/xtuml/internal/blob/71c842bdcd937f946f977d529dc90e0f9a5f2486/Documentation_archive/20100712/review_minutes/R3_1_1/dts0100655903-01.rvm) Design note review observations for [[2.5]](#2.5).  
 <a id="2.7"></a>2.7 [Link to the reason dts0100655903 was not promoted](https://support.onefact.net/issues/1432#note-58) This is a comment from the old CQ issue tracking system where the decision not to promote was made. This was AFTER a successful final review of the work [[2.6]](#2.6).  
 <a id="2.8"></a>2.8 [dts0100711482.dnt](https://github.com/xtuml/internal/blob/71c842bdcd937f946f977d529dc90e0f9a5f2486/Documentation_archive/20110614/technical/notes/dts0100711482.dnt) Design note for supporting hover text at connector ends. This is just another issue whose work may be useful for the task at hand. 
+=======
+<a id="2.1"></a>2.1 [BridgePoint DEI #8238](https://support.onefact.net/redmine/issues/8238) This issue.  
+<a id="2.2"></a>2.2 [BridgePoint DEI #8086](https://support.onefact.net/redmine/issues/8086) Graphics Auto-creation Not Working.  
+<a id="2.3"></a>2.3 [BridgePoint DEI #8239](https://support.onefact.net/redmine/issues/TODO) Connector layout of auto-created connectors must be laid out in a way that allows manual reconfiguration.  
+<a id="2.4"></a>2.4 [BridgePoint Development notes for  dts0100573206](https://github.com/xtuml/internal/tree/71c842bdcd937f946f977d529dc90e0f9a5f2486/Documentation_archive/20100712/technical/notes/dts0100573206) Consistent context menu for creating model elements.  
+<a id="2.5"></a>2.5 [BridgePoint Design Note for #1432 / dts0100655903](TODO:find this) Support drawing of missed xtUML Connectors on Canvas.  
+<a id="2.6"></a>2.6 [BridgePoint Review observations for dts0100655903](https://support.onefact.net/redmine/issues/8238) Design note review observations for [[2.5]](#2.5).  
+>>>>>>> branch '8238_render_graphics_including_connectors' of https://github.com/rmulvey/bridgepoint.git
 
 3. Background
 -------------
