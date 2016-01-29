@@ -941,22 +941,7 @@ public class ImportHelper
             }
         }
     }
-    /**
-     * Relates all external entity packages across the
-     * associations found in the package linking subsystem
-     */
-    public void formalizeExternalEntityPackageLinkingAssociations(Ooaofooa modelRoot)
-    {
-    	//TODO: BOB remove this
-    }
-    /**
-     * Relates all function packages across the
-     * associations found in the package linking subsystem
-     */
-    public void formalizeFunctionPackageLinkingAssociations(Ooaofooa modelRoot)
-    {
-    	//TODO: BOB remove this
-    }
+
     /**
      * This function is used to migrate 1.4.2-based components to 1.5.x.
      */
@@ -1611,17 +1596,7 @@ public class ImportHelper
         }
 
     }
-
-    /**
-     * Migrate the date (genType 1), timestamp (genType 2), and inst_ref<Timer> (genType 3)
-     * system level datatypes if their core types are not correct.
-     * 
-     * @parameter system An instance of the system model class
-     */
-    public void migrateSLDTs(SystemModel_c system)
-    {
-    	// TODO: BOB remove this
-    }    
+  
         
     /**
      * Migrate the 1.5.1 dynamic arrays to 1.5.2 where both dynamic and fixed-
@@ -1867,7 +1842,6 @@ public class ImportHelper
             SICP sicp = getOldSatisfactionInComponentPackage(modelRoot,
                     ipinss[i].fProvision_ID, ipinss[i].fRequirement_ID);
             if (sicp != null) {
-                setupSatisfactionInComponentPackage(modelRoot, sicp);
                 ImportedProvisionInSatisfaction_c importProSat = new ImportedProvisionInSatisfaction_c(
                         modelRoot, sicp.fSat.fInst.getId(), ipinss[i].fImportedProvision_ID);
                 importProSat.batchRelate(modelRoot, false, false);
@@ -1892,7 +1866,6 @@ public class ImportHelper
         for(int i = 0; i < irs.length; i++) {
             SICP sicp = getOldSatisfactionInComponentPackage(modelRoot, irs[i].fProvision_ID, irs[i].fRequirement_ID);
             if(sicp != null) {
-                setupSatisfactionInComponentPackage(modelRoot, sicp);
                 ImportedRequirement_c importReqInst = new ImportedRequirement_c(
                             modelRoot, irs[i].fImportedReference_ID, sicp.fSat.fInst
                                     .getId(), irs[i].fName, irs[i].fDescrip);
@@ -1922,7 +1895,6 @@ public class ImportHelper
                     sicps[i].fProvision_ID,
                     sicps[i].fRequirement_ID);
             if(sicp != null) {
-                setupSatisfactionInComponentPackage(modelRoot, sicp);
                 localSatisfactionInstances.remove(sicp.fSat);
             } 
         }
@@ -1960,10 +1932,6 @@ public class ImportHelper
                 old_imported_requirements.remove(irs[j]);
             }
         }       
-    }
-
-    private void setupSatisfactionInComponentPackage(ModelRoot modelRoot, SICP sicp) {
-    	// TODO: Bob Remove this
     }
 
     private C_SF createSatisfaction(ModelRoot modelRoot, UUID requirement_id, UUID provision_id) {
@@ -2085,15 +2053,7 @@ public class ImportHelper
     	}
     	return createdElements;
     }
-    
-    /**
-     * This method will find data types and associate them
-     * with the correct domain, if at the domain level
-     */
-    public void associateDTsWithDomain(Ooaofooa modelRoot) {
-    	// TODO: BOB REmove this
-    }
-    
+
     public void upgradeEventData(Ooaofooa modelRoot,
                                                 NonRootModelElement modelElem) {
         StateMachine_c [] sms = StateMachine_c.

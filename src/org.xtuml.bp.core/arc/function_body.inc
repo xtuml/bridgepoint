@@ -240,13 +240,7 @@ for(Iterator<?> iterator = selection.iterator(); iterator.hasNext();) {
 		  .// close the for loop
 }
 		.end if
-.if ((cme.Key_Lett =="C_C")and ((cme.Specialism == "New") or(cme.Specialism == "Components")))
- // TODO: BOB FIXME.  This is a place where I want to see the generated
- // code before updating the function_body.inc archetype.  This condition was:
- // if (v_${context_item.Name}.isInGenericPackage())
- if (true) 
-     {
-.end if 		
+
  .if (((((cme.Specialism == "Classes") or(cme.Specialism == "Components"))or ((cme.Specialism == "External")or(cme.Specialism == "Interaction")))or(((cme.Specialism == "New")or(cme.Specialism == "Activity"))or((cme.Specialism == "Types")or(cme.Specialism == "Usecase"))))and (cme.Resultant_Class_RelChain!=""))
 	      .assign temp = "v_"+"${context_item.Name}" 
 		  .invoke rel_nav = backward_rel_chain_nav(cn.body,temp, cme.Resultant_Class_RelChain, "many", false);
@@ -265,11 +259,7 @@ for(Iterator<?> iterator = selection.iterator(); iterator.hasNext();) {
 					abortTransaction = true;
 				}
 			}	
-	 .end if 
-	.if ((cme.Key_Lett =="C_C")and ((cme.Specialism == "New") or(cme.Specialism == "Components")))
-  
-     }
-     .end if 			
+	 .end if
          // end critical section
         Ooaofooa.endSaveOperation();
           .else
