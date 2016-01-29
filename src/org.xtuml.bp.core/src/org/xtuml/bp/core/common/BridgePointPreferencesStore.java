@@ -66,6 +66,7 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
     public static final String SHOW_SYNC_DELETION_DIALOG = PREFIX + "show_reference_delete_warning"; //$NON-NLS-1$
     public static final String SHOW_SYNC_REPORT = PREFIX + "show_reference_sync_report"; //$NON-NLS-1$
     public static final String USE_DEFAULT_NAME_FOR_CREATION = PREFIX + "use_default_name_for_new_element_creation"; //$NON-NLS-1$
+    public static final String CREATE_GRAPHICS_DURING_IMPORT = PREFIX + "create_graphics_during_import"; //$NON-NLS-1$
 
 	public static final String RECTILINEAR_ROUTING = "RECTILINEAR_ROUTING"; //$NON-NLS-1$
 
@@ -121,6 +122,7 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
         store.setValue(SHOW_SYNC_DELETION_DIALOG, prefs.showReferenceRemovalDialog);
         store.setValue(SHOW_SYNC_REPORT, prefs.showReferenceSyncReport);
         store.setValue(USE_DEFAULT_NAME_FOR_CREATION, prefs.useDefaultNamesForNewModelElements);        
+        store.setValue(CREATE_GRAPHICS_DURING_IMPORT, prefs.createGraphicsDuringImport);
     }
 
     public IPreferenceModel loadModel(IPreferenceStore store, BasePlugin plugin, IPreferenceModel model) {
@@ -205,6 +207,8 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
         
         prefs.useDefaultNamesForNewModelElements =
             store.getBoolean(BridgePointPreferencesStore.USE_DEFAULT_NAME_FOR_CREATION);
+        prefs.createGraphicsDuringImport =
+            store.getBoolean(BridgePointPreferencesStore.CREATE_GRAPHICS_DURING_IMPORT);
                 
         return prefs;
     }
@@ -256,5 +260,6 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
         prefs.showReferenceRemovalDialog = true;
         prefs.showReferenceSyncReport = true;
         prefs.useDefaultNamesForNewModelElements = false;
+        prefs.createGraphicsDuringImport = false;
     }
 }

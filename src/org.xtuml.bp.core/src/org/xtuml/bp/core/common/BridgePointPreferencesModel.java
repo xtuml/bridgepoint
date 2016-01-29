@@ -66,6 +66,7 @@ public class BridgePointPreferencesModel implements IPreferenceModel {
 	public boolean showReferenceRemovalDialog;
 	public boolean showReferenceSyncReport;
 	public boolean useDefaultNamesForNewModelElements;
+    public boolean createGraphicsDuringImport;
 	
     
 	public Class getStoreClass() {
@@ -97,6 +98,7 @@ public class BridgePointPreferencesModel implements IPreferenceModel {
 
         emitRTOData = syncTo.emitRTOData;
         exportOAL = syncTo.exportOAL;
+        createGraphicsDuringImport = syncTo.createGraphicsDuringImport;
         exportGraphics = syncTo.exportGraphics;
         messageDirection = syncTo.messageDirection; 
         showTransitionActions = syncTo.showTransitionActions;
@@ -105,7 +107,8 @@ public class BridgePointPreferencesModel implements IPreferenceModel {
         enableDSAs = syncTo.enableDSAs;
         enableDeterministicVerifier = syncTo.enableDeterministicVerifier;
         enableInstanceReferences = syncTo.enableInstanceReferences;
-
+        createGraphicsDuringImport = syncTo.createGraphicsDuringImport;
+        
         enableVerifierAudit = syncTo.enableVerifierAudit;
         enableSelectAudit = syncTo.enableSelectAudit;
         enableRelateAudit = syncTo.enableRelateAudit;
@@ -120,6 +123,7 @@ public class BridgePointPreferencesModel implements IPreferenceModel {
         showReferenceRemovalDialog = syncTo.showReferenceRemovalDialog;
         showReferenceSyncReport = syncTo.showReferenceSyncReport;
         useDefaultNamesForNewModelElements = syncTo.useDefaultNamesForNewModelElements;
+        createGraphicsDuringImport = syncTo.createGraphicsDuringImport;
 	}
 
     public Object deepClone() {
@@ -146,7 +150,7 @@ public class BridgePointPreferencesModel implements IPreferenceModel {
         prefs.enableDSAs = enableDSAs;
         prefs.enableDeterministicVerifier = enableDeterministicVerifier;
         prefs.enableInstanceReferences = enableInstanceReferences;
-
+        
         prefs.enableVerifierAudit = enableVerifierAudit;
         prefs.enableSelectAudit = enableSelectAudit;
         prefs.enableRelateAudit = enableRelateAudit;
@@ -162,6 +166,7 @@ public class BridgePointPreferencesModel implements IPreferenceModel {
         prefs.showReferenceRemovalDialog = showReferenceRemovalDialog;
         prefs.showReferenceSyncReport = showReferenceSyncReport;
         prefs.useDefaultNamesForNewModelElements = useDefaultNamesForNewModelElements;
+        prefs.createGraphicsDuringImport = createGraphicsDuringImport;
 
         return prefs;
     }
