@@ -777,10 +777,7 @@ public class ${class_name} extends CoreImport
             if(actualVersion.equals(bp7_1_4VersionNumber)) {
             	  helper.associateSatisfactionsThroughIdentifier(getModelRoot());
             }
-            if (m_component.getComponentType().equals("Component") && actualVersion.equals(bp7_1_3VersionNumber))
-	            helper.migrateComponents(getModelRoot());
             helper.upgradeDSAs(getModelRoot());
-            helper.associateDTsWithDomain(getModelRoot());
             helper.upgradeElementOrder(getModelRoot());
 			loadedInstances.addAll(helper.upgradeDatatypes(loadedInstances));
 			helper.fixSatisfactionAssociations(loadedInstances);
