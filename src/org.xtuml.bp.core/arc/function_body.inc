@@ -179,13 +179,6 @@
           .invoke cn = get_class_name(class)
           .assign class_name = "${class.Name}"
       ${cn.body} v_${context_item.Name} = (${cn.body})context;
-      PersistableModelComponent.ensureCoreDataTypesAvailable(v_${context_item.Name}.getModelRoot());
-          .if(class.Key_Lett == "S_SYS")
-      PersistableModelComponent.ensureSystemCoreDataTypesAvailable(v_${context_item.Name});
-          .else
-            .invoke loadCode = gen_code_for_loading_core_types(class.Key_Lett, "v_${context_item.Name}");
-        ${loadCode.result}
-          .end if
         .end for
       .end if
 	.else
@@ -354,16 +347,6 @@ for(Iterator<?> iterator = selection.iterator(); iterator.hasNext();) {
         .assign attr_name = attr_name + "${class_name}"
       .end if
     .end if
-  .end if
-.end function
-.function gen_code_for_loading_core_types
-  .param String kl
-  .param String var
-  .assign attr_result = ""
-  .if(kl == "C_C")
-    .assign attr_result = "		PersistableModelComponent.ensureComponentCoreDataTypesAvailable(${var});\n"
-  .elif(kl == "CP_CP")
-    .assign attr_result = "		PersistableModelComponent.ensureComponentPackageCoreDataTypesAvailable(${var});\n"
   .end if
 .end function
 .function get_pe_traversal

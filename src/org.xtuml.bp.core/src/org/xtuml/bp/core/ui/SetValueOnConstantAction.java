@@ -149,8 +149,6 @@ public class SetValueOnConstantAction implements IObjectActionDelegate {
 		// Assign the context selection variables with the action context 
 		Object context = currentSelection.iterator().next();
 		LiteralSymbolicConstant_c v_lsc = (LiteralSymbolicConstant_c) context;
-		PersistableModelComponent.ensureCoreDataTypesAvailable(v_lsc
-				.getModelRoot());
 
 		TransactionUtil.TransactionGroup transactionGroup = TransactionUtil
 				.startTransactionsOnSelectedModelRoots("Set Value");
