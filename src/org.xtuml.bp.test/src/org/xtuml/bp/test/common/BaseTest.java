@@ -1076,7 +1076,8 @@ public class BaseTest extends TestCase {
 		delay(delay);
 		waitForTransaction();
 		waitForPlaceHolderThread();
-		waitForJobs();
+		//waitForJobs(); 		// TODO : some junit tests hang here specially in getConsoleText invocation. 
+								// I could not figure out the unfinished job, and need to be investigated more.
 
 		waitForDecorator();
 		
