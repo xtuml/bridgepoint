@@ -23,6 +23,7 @@ Give the full path to reference a file.
 <a id="2.6"></a>2.6 [BridgePoint Review observations for dts0100655903](https://github.com/xtuml/internal/blob/71c842bdcd937f946f977d529dc90e0f9a5f2486/Documentation_archive/20100712/review_minutes/R3_1_1/dts0100655903-01.rvm) Design note review observations for [[2.5]](#2.5).  
 <a id="2.7"></a>2.7 [Link to the reason dts0100655903 was not promoted](https://support.onefact.net/issues/1432#note-58) This is a comment from the old CQ issue tracking system where the decision not to promote was made. This was AFTER a successful final review of the work [[2.6]](#2.6).  
 <a id="2.8"></a>2.8 [dts0100711482.dnt](https://github.com/xtuml/internal/blob/71c842bdcd937f946f977d529dc90e0f9a5f2486/Documentation_archive/20110614/technical/notes/dts0100711482.dnt) Design note for supporting hover text at connector ends. This is just another issue whose work may be useful for the task at hand. 
+vey/bridgepoint.git
 
 3. Background
 -------------
