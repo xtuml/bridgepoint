@@ -524,7 +524,7 @@ public class ${class_name} extends CoreImport
         }
     }
     public ${class_name}(InputStream inStream, ${var.main_class_name} aModelRoot, PersistableModelComponent component, boolean parseAll, boolean clearDatabase, boolean parseGraphics, boolean isTemplate) throws IOException {
-        super(aModelRoot, inStream, clearDatabase, isTemplate);
+        super(aModelRoot, inStream, clearDatabase, isTemplate, true);
         m_parseAll = parseAll;
         m_inFile = streamFileName;
         m_parseGraphics = parseGraphics;
@@ -534,15 +534,15 @@ public class ${class_name} extends CoreImport
         .if (callingProject == "NBP")
           .if(not multilevel)
     public ${class_name}(InputStream inStream, ${var.main_class_name} aModelRoot, ${parentC} parent, boolean parseAll, boolean clearDatabase, boolean parseGraphics, boolean isTemplate) throws IOException {
-        super(aModelRoot, inStream, clearDatabase, isTemplate);
+        super(aModelRoot, inStream, clearDatabase, isTemplate, true);
         m_parseAll = parseAll;
         m_inFile = streamFileName;
         m_parseGraphics = parseGraphics;
         m_parent = parent;
     }
             .else
-    public ${class_name}(InputStream inStream, ${var.main_class_name} aModelRoot, boolean clearDatabase, IPath projectRelativePath) throws IOException {
-        super(aModelRoot, inStream, clearDatabase, false);
+    public ${class_name}(InputStream inStream, ${var.main_class_name} aModelRoot, boolean clearDatabase, IPath projectRelativePath, boolean canDisableChangeNotification) throws IOException {
+        super(aModelRoot, inStream, clearDatabase, false, canDisableChangeNotification);
         m_inFile = streamFileName;
         projRelPath = projectRelativePath;
     }
@@ -833,7 +833,6 @@ public class ${class_name} extends CoreImport
                         ModelRoot.enableChangeNotification();
         }
     }
-    helper.createGraphicsOnImport(loadedInstances);
     }
     .end if
   .invoke result = genFinishLoadMethod(multilevel, setComponent, callingProject)
@@ -870,7 +869,9 @@ ${result.body}\
     public void processStatement(${var.main_class_name} modelRoot, String table, Vector parms, Vector rawParms, int numParms, IProgressMonitor pm ) {
       .// Note that this code only creates the instances in memory
       .// The relationship pointers are not initialized until later.
-        ModelRoot.disableChangeNotification();
+        if (canDisableChangeNotification()) {
+          ModelRoot.disableChangeNotification();
+        }
       try {
     	.if (class_name == "ImportModelStream")
     	if (!modelRoot.isCompareRoot() && !initialCheck && table.contains("_PROXY" )){
@@ -893,7 +894,9 @@ ${result.body}\
 ${result.body}\
         pm.worked(1);
         } finally {
-                    ModelRoot.enableChangeNotification();
+                    if (canDisableChangeNotification()) {
+                      ModelRoot.enableChangeNotification();
+                    }
         }
     }
 

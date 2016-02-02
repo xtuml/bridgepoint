@@ -34,8 +34,8 @@ import org.xtuml.bp.core.Ooaofooa;
 
 public abstract class AbstractStreamImportFactory {
 
-	public abstract IModelImport create(InputStream inStream,
-			Ooaofooa modelRoot, boolean clearDatabase, IPath projectRelativePath) throws IOException;
+	public abstract IModelImport create(InputStream inStream, Ooaofooa modelRoot, boolean clearDatabase,
+			IPath projectRelativePath, boolean canDisableChangeNotification) throws IOException;
 
 	public static AbstractStreamImportFactory getInstance(String bundle,
 			String className) {

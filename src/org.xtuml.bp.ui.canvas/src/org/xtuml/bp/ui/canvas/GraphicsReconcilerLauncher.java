@@ -33,17 +33,19 @@ import org.xtuml.bp.core.common.TransactionManager;
  * but over time the behavior has grown to a point where it deserves to be a first-class object.
  */
 public class GraphicsReconcilerLauncher {
-	Transaction transaction;
+	List<SystemModel_c> systems;
 
-	public GraphicsReconcilerLauncher(Transaction transaction) {
-		this.transaction = transaction;
+	public GraphicsReconcilerLauncher(List<SystemModel_c> systems) {
+		this.systems = systems;
 	}
 
-	public boolean isReadyToRun() {
+	public static boolean reconcileThisTransaction(Transaction transaction) {
 		boolean isReady = false;
 		if (!transaction.getType().equals(Transaction.AUTORECONCILE_TYPE)) {
-			if (containsCreateOrDeleteDelta()) {
-				isReady = true;
+			if (containsCreateOrDeleteDelta(transaction)) {
+				if (transaction.getTransactionManager().getActiveTransaction() == null) {
+					isReady = true;
+				}
 			}
 		}
 		return isReady;
@@ -51,16 +53,11 @@ public class GraphicsReconcilerLauncher {
 
 	public void runReconciler(boolean removeElements) {
 		TransactionManager manager = TransactionManager.getSingleton();
-		if (transaction != null) {
-			if (transaction.getTransactionManager().getActiveTransaction() != null)
-				return;
-		}
 		Transaction newTrans = null;
 		try {
 			newTrans = manager.startTransaction("Auto-reconcilation", Ooaofgraphics.getDefaultInstance(), false,
 					Transaction.AUTORECONCILE_TYPE);
 			Ooaofgraphics ooag = Ooaofgraphics.getDefaultInstance();
-			List<SystemModel_c> systems = getAffectedSystems(transaction);
 			for (SystemModel_c system : systems) {
 				AutoReconciliationSpecification_c.Reconcile(ooag, removeElements, system.getSys_id());
 			}
@@ -81,27 +78,29 @@ public class GraphicsReconcilerLauncher {
 		}
 	}
 
-	private List<SystemModel_c> getAffectedSystems(Transaction transaction) {
+	public static List<SystemModel_c> getAffectedSystems(Transaction transaction) {
 		List<SystemModel_c> systems = new ArrayList<SystemModel_c>();
-		IModelDelta[] deltas = transaction.getDeltas(Ooaofooa.getDefaultInstance());
-		IModelDelta[] graphicsDeltas = transaction.getDeltas(Ooaofgraphics.getDefaultInstance());
-		List<IModelDelta> deltaList = new ArrayList<IModelDelta>();
-		if (deltas != null) {
-			for (int i = 0; i < deltas.length; i++) {
-				deltaList.add(deltas[i]);
+		if (transaction != null) {
+			IModelDelta[] deltas = transaction.getDeltas(Ooaofooa.getDefaultInstance());
+			IModelDelta[] graphicsDeltas = transaction.getDeltas(Ooaofgraphics.getDefaultInstance());
+			List<IModelDelta> deltaList = new ArrayList<IModelDelta>();
+			if (deltas != null) {
+				for (int i = 0; i < deltas.length; i++) {
+					deltaList.add(deltas[i]);
+				}
 			}
-		}
-		if (graphicsDeltas != null) {
-			for (int i = 0; i < graphicsDeltas.length; i++) {
-				deltaList.add(graphicsDeltas[i]);
+			if (graphicsDeltas != null) {
+				for (int i = 0; i < graphicsDeltas.length; i++) {
+					deltaList.add(graphicsDeltas[i]);
+				}
 			}
-		}
-		for (IModelDelta delta : deltaList) {
-			NonRootModelElement modelElement = (NonRootModelElement) delta.getModelElement();
-			String systemName = Ooaofooa.getProjectNameFromModelRootId(modelElement.getModelRoot().getId());
-			SystemModel_c system = getSystemByName(systemName);
-			if (!systems.contains(system) && system != null) {
-				systems.add(system);
+			for (IModelDelta delta : deltaList) {
+				NonRootModelElement modelElement = (NonRootModelElement) delta.getModelElement();
+				String systemName = Ooaofooa.getProjectNameFromModelRootId(modelElement.getModelRoot().getId());
+				SystemModel_c system = getSystemByName(systemName);
+				if (!systems.contains(system) && system != null) {
+					systems.add(system);
+				}
 			}
 		}
 		return systems;
@@ -117,7 +116,7 @@ public class GraphicsReconcilerLauncher {
 		});
 	}
 
-	private boolean containsCreateOrDeleteDelta() {
+	private static boolean containsCreateOrDeleteDelta(Transaction transaction) {
 		IModelDelta[] deltas = transaction.getDeltas(Ooaofooa.getDefaultInstance());
 		if (deltas != null) {
 			for (int i = 0; i < deltas.length; i++) {

@@ -41,6 +41,7 @@ public interface IModelImport extends IRunnableWithProgress {
 	public int countAndValidateInsertStatements();
 	public String  getErrorMessage();
 	public boolean getSuccessful();
+	public boolean canDisableChangeNotification();
 	
 	public NonRootModelElement getRootModelElement();
 	public void finishLoad(IProgressMonitor pm);

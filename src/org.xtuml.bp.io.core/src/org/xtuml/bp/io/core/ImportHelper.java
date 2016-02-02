@@ -124,6 +124,7 @@ import org.xtuml.bp.ui.canvas.Graphconnector_c;
 import org.xtuml.bp.ui.canvas.Graphedge_c;
 import org.xtuml.bp.ui.canvas.Graphelement_c;
 import org.xtuml.bp.ui.canvas.GraphicalElement_c;
+import org.xtuml.bp.ui.canvas.GraphicsReconcilerLauncher;
 import org.xtuml.bp.ui.canvas.Graphnode_c;
 import org.xtuml.bp.ui.canvas.LineSegment_c;
 import org.xtuml.bp.ui.canvas.ModelSpecification_c;
@@ -2319,16 +2320,5 @@ public class ImportHelper
 
 		}
 
-	}
-	
-	public void createGraphicsOnImport(List<NonRootModelElement> loadedInstances) {
-		IPreferenceStore store = CorePlugin.getDefault().getPreferenceStore();
-		boolean createGraphics = store.getBoolean(BridgePointPreferencesStore.CREATE_GRAPHICS_DURING_IMPORT);
-		if (createGraphics) {
-			for (Iterator<NonRootModelElement> iterator = loadedInstances.iterator(); iterator.hasNext();) {
-				Object next = iterator.next();
-				//TODO: BOB - Add this implementation
-			}
-		}
-	}
+	}	
 }

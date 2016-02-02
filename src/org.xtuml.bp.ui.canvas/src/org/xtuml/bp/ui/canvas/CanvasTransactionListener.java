@@ -40,7 +40,7 @@ import org.xtuml.bp.core.common.TransactionManager;
 public class CanvasTransactionListener implements ITransactionListener {
 	// This is a flag used to enable/disable running of the Graphics
 	// reconciler from within transactions.
-	static boolean graphicsReconcilerInTransactionIsEnabled = false;
+	static boolean graphicsReconcilerInTransactionIsEnabled = true;
 	
 	public void transactionStarted(Transaction transaction) {
 		// do nothing
@@ -53,8 +53,9 @@ public class CanvasTransactionListener implements ITransactionListener {
 	public void transactionEnded(final Transaction transaction) {
 		if (graphicsReconcilerInTransactionIsEnabled) {
 			
-			GraphicsReconcilerLauncher reconciler = new GraphicsReconcilerLauncher(transaction);
-			if (reconciler.isReadyToRun()) {
+			if (GraphicsReconcilerLauncher.reconcileThisTransaction(transaction)) {
+				GraphicsReconcilerLauncher reconciler = new GraphicsReconcilerLauncher(
+						GraphicsReconcilerLauncher.getAffectedSystems(transaction));
 				reconciler.startReconciler(false, true);
 			}
 		}
