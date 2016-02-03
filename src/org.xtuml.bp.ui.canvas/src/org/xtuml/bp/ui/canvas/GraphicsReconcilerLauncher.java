@@ -97,23 +97,13 @@ public class GraphicsReconcilerLauncher {
 			for (IModelDelta delta : deltaList) {
 				NonRootModelElement modelElement = (NonRootModelElement) delta.getModelElement();
 				String systemName = Ooaofooa.getProjectNameFromModelRootId(modelElement.getModelRoot().getId());
-				SystemModel_c system = getSystemByName(systemName);
+				SystemModel_c system = (SystemModel_c) modelElement.getSystemModelFromName(systemName);
 				if (!systems.contains(system) && system != null) {
 					systems.add(system);
 				}
 			}
 		}
 		return systems;
-	}
-
-	private static SystemModel_c getSystemByName(final String systemName) {
-		return SystemModel_c.SystemModelInstance(Ooaofooa.getDefaultInstance(), new ClassQueryInterface_c() {
-
-			@Override
-			public boolean evaluate(Object candidate) {
-				return ((SystemModel_c) candidate).getName().equals(systemName);
-			}
-		});
 	}
 
 	private static boolean containsCreateOrDeleteDelta(Transaction transaction) {
