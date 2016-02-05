@@ -41,6 +41,8 @@ should be
 
 as it is in the ```assignToComp``` operation in the same class.
 
+5.1.1  The fix was first applied in a branch v5.2.2 based off the previous release branch v5.2.0.  For this work, the 
+  author branched off the latest master and then cherry picked in the change (8071b10) from the v5.2.2 branch.
 
 6. Implementation Comments
 --------------------------
@@ -73,9 +75,9 @@ as it is in the ```assignToComp``` operation in the same class.
 Branch name: 8295_port_ref_fix
 
 <pre>
-
-
-
+doc-bridgepoint/notes/8295_port_ref_fix_int.md
+doc-bridgepoint/process/templates/int_template.md
+org.xtuml.bp.core/ooaofooa/Component/Component Library/Component Reference/Component Reference.xtuml 
 </pre>
 
 End
