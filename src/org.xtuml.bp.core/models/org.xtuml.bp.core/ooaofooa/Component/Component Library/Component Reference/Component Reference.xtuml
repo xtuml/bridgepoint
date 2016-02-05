@@ -1312,7 +1312,7 @@ else
         relate importedReq to importedRef across R4703;        
       end if;
       create object instance portRef of CL_POR;
-      select one existingPort related by localRef->C_PO[R4016];
+      select one existingPort related by interfaceRef->C_PO[R4016];
       relate existingPort to portRef across R4709;
       relate portRef to self across R4707;
       relate importedRef to portRef across R4708;
