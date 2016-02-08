@@ -72,7 +72,7 @@
             id="org.xtuml.bp.utilities.reconcileGraphics"
             objectClass="org.xtuml.bp.core.common.NonRootModelElement">
          <action
-               class="org.xtuml.bp.utilities.actions.ReconcileGraphicsAction"
+               class="org.xtuml.bp.utilities.load.ReconcileGraphicsAction"
                enablesFor="+"
                id="org.xtuml.bp.utilities.reconcilegraphics"
                label="Reconcile Graphics"
