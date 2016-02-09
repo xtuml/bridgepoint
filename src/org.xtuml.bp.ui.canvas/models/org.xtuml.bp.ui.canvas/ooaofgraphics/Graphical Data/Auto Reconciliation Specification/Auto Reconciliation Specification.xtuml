@@ -10,308 +10,6 @@ Persistent:false
 TRANSLATE_FOR_EXTERNAL_USE:FALSE',
 	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
-	VALUES ("01642b1d-fb51-4095-a62b-5b504c16dafc",
-	"0849862c-76a0-4d0f-bb84-cf5aef617874",
-	'updateAllElements',
-	'',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'select one modelSpec related by self->GD_MS[R33];
-select one spec related by self->GD_ES[R29];
-select one sourceSpec related by self->GD_ES[R30];
-select one targetSpec related by self->GD_ES[R31];
-// For sure its shape
-if(not empty modelSpec)
-    select many models related by modelSpec->GD_MD[R9];
-    select many elemSpecs related by modelSpec->GD_ES[R11];
-    for each model in models
-      if(not CL::isContainedInSystem(element:model.represents,
-                                                     system_id:param.system_id))
-        // only check elements under the passed system
-        continue;
-      end if;
-           //Get the count of shapes in the model (i.e the number of classes in the class Diagram)
-  	  count = CL::numElements( from:model.represents,using:self.countMethod);
-      select many graphicalElements related by model->GD_GE[R1];
-  	  i=0;
-  	 
-  	  while (i<count)
-  		 elementID = CL::getElementID(from:model.represents,index:i, using:self.elementMethod);
-         found = false;
-         for each graphicalElement in graphicalElements
-          if(graphicalElement.OOA_ID == elementID)
-             found =true;
-             break;
-          end if;         
-         end for;
-         if(found == false)
-           //create the shape
-           model.newShape(arsId:self.Id,shape:elementID);
-           select one newElement related by sourceSpec->GD_GE[R16];
-           if (empty newElement)
-             i = i + 1;
-             continue;
-           end if;
-           //set the OOA_ID of the new GE created
-           newElement.OOA_ID=elementID; 
-           newElement.represents=CL::getInstanceFromOOA_ID(
-                                      rootInst: model.represents,
-                                      OOA_ID: newElement.OOA_ID, 
-                                      OOA_Type: newElement.OOA_Type );
-          unrelate sourceSpec from newElement across R16;
-          //i=count;
-         end if;
-         i=i+1;
-  	  end while;
-    end for;	   
-end if;
-  		
-if(not empty spec)
-   select many autoCreateShapes related by spec->GD_GE[R10];
-  for each autoCreateShape in autoCreateShapes
-  //If this autoCreateShape is Null instance
-  if (autoCreateShape.represents == OS::NULL_INSTANCE())
-  	autoCreateShape.represents = CL::getInstanceFromOOA_ID(
-  	                                   rootInst:autoCreateShape.convertToInstance(),
-  	                                   OOA_ID:autoCreateShape.OOA_ID, 
-  	                                   OOA_Type:autoCreateShape.OOA_Type );
-  end if;
-  
-  if(not CL::isContainedInSystem(element:autoCreateShape.represents,
-                                                     system_id:param.system_id))
-    // only check elements under the passed system
-    continue;
-  end if;
-  
-  
-  select many startCons related by autoCreateShape->DIM_GE[R23]->
-                            DIM_CON[R311]->DIM_ED[R320]->GD_CON[R20]->GD_GE[R2];
-  select many endCons related by autoCreateShape->DIM_GE[R23]->
-                            DIM_CON[R311]->DIM_ED[R321]->GD_CON[R20]->GD_GE[R2];
-  
-  //select one shp related by autoCreateShape->DIM_GE[R23]->DIM_ND[R301]->GD_SHP[R19]->GD_GE[R2];
-  //select one shp related by autoCreateShape->GD_SHP[R2]->GD_GE[R2];//same as autocreate element !!!!!!! :(
-  
-  // do not try to determine if connectors exist when the existsMethod == not used
-  if(self.elementExistsMethod != "not used")
-   for each startCon in startCons
-      select one startConSpec related by startCon->GD_ES[R10];
-      if(startConSpec == targetSpec)
-        if (startCon.represents == OS::NULL_INSTANCE())
-          startCon.represents = CL::getInstanceFromOOA_ID(
-  	                                   rootInst:startCon.convertToInstance(),
-  	                                   OOA_ID:startCon.OOA_ID, 
-  	                                   OOA_Type:startCon.OOA_Type );
-  	         
-        end if;
-       
-        //Removing Connectors
-        if not CL::hasConnector(
-                             element_id:CL::getOOAId(from:startCon.represents),
-                             instance:autoCreateShape.represents,
-                             methodName:self.elementExistsMethod,
-                             elementTypesMatch:sourceSpec == targetSpec) and param.removeElements
-          // if the connector is going to be disposed
-          // and there are other connectors anchored
-          // to it then re-anchor them connector to
-          // the shape that this connector is anchored to
-          select one anchor related by startCon->DIM_GE[R23]->DIM_ED[R301]
-        								                        ->DIM_CON[R320];
-          select many anchoredStartConnectors related by startCon->DIM_GE[R23]
-						                          ->DIM_CON[R311]->DIM_ED[R320];
-          select many anchoredEndConnectors related by startCon->DIM_GE[R23]
-						                          ->DIM_CON[R311]->DIM_ED[R321];
-          for each anchoredStartConnector in anchoredStartConnectors
-            // only do this if it is supported
-            select one autoCreateShapeSpec related by autoCreateShape->GD_ES[R10];
-            select one conSpec related by anchoredStartConnector->GD_CON[R20]
-                                                        ->GD_GE[R2]->GD_ES[R10];
-            select many startTerminals related by  conSpec->TS_CSP[R200]
-                        ->TS_TSP[R202]->TS_SHT[R201]->TS_SSP[R204]->GD_ES[R200];
-            allow = false;
-            for each startTerm in startTerminals
-              if(startTerm == autoCreateShapeSpec)
-                allow = true;
-              end if;
-            end for;
-            if(allow)
-              select one oldAnchor related by anchoredStartConnector->DIM_CON[R320];
-              unrelate anchoredStartConnector from oldAnchor across R320;
-              relate anchoredStartConnector to anchor across R320;
-            end if;
-          end for;
-          for each anchoredEndConnector in anchoredEndConnectors
-            select one autoCreateShapeSpec related by autoCreateShape->GD_ES[R10];
-            select one conSpec related by anchoredStartConnector->GD_CON[R20]
-                                                        ->GD_GE[R2]->GD_ES[R10];
-            select many endTerminals related by  conSpec->TS_CSP[R200]
-                        ->TS_TSP[R203]->TS_SHT[R201]->TS_SSP[R204]->GD_ES[R200];
-            allow = false;
-            for each endTerm in endTerminals
-              if(endTerm == autoCreateShapeSpec)
-                allow = true;
-              end if;
-            end for;
-            if(allow)
-              select one oldAnchor related by anchoredEndConnector->DIM_CON[R321];
-              unrelate anchoredEndConnector from oldAnchor across R321;
-              relate anchoredEndConnector to anchor across R321;
-            end if;
-          end for;
-          startCon.dispose();
-        end if;
-      end if;
-    end for;
-    
-    
-    for each endCon in endCons
-      select one endConSpec related by endCon->GD_ES[R10];
-      if(endConSpec == targetSpec)
-        if (endCon.represents == OS::NULL_INSTANCE())
-          endCon.represents = CL::getInstanceFromOOA_ID(
-  	                                   rootInst:endCon.convertToInstance(),
-  	                                   OOA_ID:endCon.OOA_ID, 
-  	                                   OOA_Type:endCon.OOA_Type );
-        end if;
-        if not CL::hasConnector(
-                             element_id:CL::getOOAId(from:endCon.represents),
-      	                     instance:autoCreateShape.represents,
-                             methodName:self.elementExistsMethod,
-                             elementTypesMatch:sourceSpec == targetSpec) and param.removeElements
-          // if the connector is going to be disposed
-          // and there are other connectors anchored
-          // to it then re-anchor them connector to
-          // the shape that this connector is anchored to
-          select one anchor related by startCon->DIM_GE[R23]->DIM_ED[R301]
-        								                        ->DIM_CON[R321];
-          select many anchoredStartConnectors related by endCon->DIM_GE[R23]
-						                          ->DIM_CON[R311]->DIM_ED[R320];
-          select many anchoredEndConnectors related by endCon->DIM_GE[R23]
-						                          ->DIM_CON[R311]->DIM_ED[R321];
-          for each anchoredStartConnector in anchoredStartConnectors
-            select one oldAnchor related by anchoredStartConnector->DIM_CON[R320];
-            unrelate anchoredStartConnector from oldAnchor across R320;
-            relate anchoredStartConnector to anchor across R320;
-          end for;
-          for each anchoredEndConnector in anchoredEndConnectors
-            select one oldAnchor related by anchoredEndConnector->DIM_CON[R321];
-            unrelate anchoredEndConnector from oldAnchor across R321;
-            relate anchoredEndConnector to anchor across R321;
-          end for;
-          endCon.dispose();
-        end if;
-      end if;
-    end for;
-   end if;
-    
-    // reselect the connectors in case any were removed above
-    select many startCons related by autoCreateShape->DIM_GE[R23]->
-                            DIM_CON[R311]->DIM_ED[R320]->GD_CON[R20]->GD_GE[R2];
-    select many endCons related by autoCreateShape->DIM_GE[R23]->
-                            DIM_CON[R311]->DIM_ED[R321]->GD_CON[R20]->GD_GE[R2];
-    count = CL::numConnectors( from:autoCreateShape.represents,
-                             elementTypesMatch:sourceSpec == targetSpec,
-                             using:self.countMethod);
-    // do not process if the element method == not used
-    if (count > 0 and self.elementMethod != "not used")
-      i = 0;
-      while (i < count)
-        connectorId = CL::getConnectorID(from:autoCreateShape.represents,
-                          elementTypesMatch:sourceSpec == targetSpec,
-                          index:i, using:self.elementMethod);
-        foundMatchingStart = false;
-        for each startCon in startCons
-          if (startCon.represents == OS::NULL_INSTANCE())
-            startCon.represents = CL::getInstanceFromOOA_ID(
-  	                                   rootInst:startCon.convertToInstance(),
-  	                                   OOA_ID:startCon.OOA_ID, 
-  	                                   OOA_Type:startCon.OOA_Type );
-          end if;
-  	      if(CL::getOOAId(from:startCon.represents) == connectorId)
-  	        foundMatchingStart = true;
-            break;
-    	  end if;
-        end for;
-  	    foundMatchingEnd = false;
-  	    
-  	    
-        for each endCon in endCons
-          if (endCon.represents == OS::NULL_INSTANCE())
-            endCon.represents = CL::getInstanceFromOOA_ID(
-  	                                   rootInst:endCon.convertToInstance(),
-  	                                   OOA_ID:endCon.OOA_ID, 
-  	                                   OOA_Type:endCon.OOA_Type );
-          end if;
-          if(CL::getOOAId(from:endCon.represents) == connectorId)
-  	        foundMatchingEnd = true;
-            break;
-  	      end if;  	    
-        end for;
-        
-        
-  	    if(foundMatchingStart or foundMatchingEnd)
-  	      // we do not need to worry as this element
-          // already has a connector matching the given
-  	      // id
-  	      i = i + 1;
-  	      continue;
-  	    end if;
-  	    
-  	    templateConId = OS::NULL_UNIQUE_ID();
-  	    if self.templateElementMethod != ""
-  	      templateConId = CL::getConnectorID(from:autoCreateShape.represents,
-                   index:i, elementTypesMatch:sourceSpec == targetSpec,
-                                              using:self.templateElementMethod);
-  	    end if;
-  	    if templateConId == OS::NULL_UNIQUE_ID()
-  	      templateConId = connectorId;
-  	    end if;
-  	    conID = self.findConnector(connectorID:templateConId);
-  	    if conID != OS::NULL_UNIQUE_ID()
-  	      select one model related by autoCreateShape->GD_MD[R1];
-  	      model.newConnector(connector:conID,
-                           elementId:autoCreateShape.elementId, arsId:self.Id,
-  	                                                  representsId:connectorId);
-  	    end if;
-        i = i + 1;
-      end while;
-    //end if;
-  else // handle connector reconcile
-    count = CL::numConnectors(from:autoCreateShape.represents,
-            elementTypesMatch:sourceSpec == targetSpec, using:self.countMethod);
-    if count == 0
-      select one con related by autoCreateShape->DIM_GE[R23]->
-                                                    DIM_ED[R301]->DIM_CON[R321];
-      if not_empty con
-        con.dispose();
-      end if;
-    end if;
-  end if;
- 
-end for;
-end if;',
-	1,
-	'',
-	"01e90c90-3e42-4325-9395-f04aa3dcdeec");
-INSERT INTO O_TPARM
-	VALUES ("3916e6b3-f050-4322-91fd-81ec3e84fe27",
-	"01642b1d-fb51-4095-a62b-5b504c16dafc",
-	'system_id',
-	"ba5eda7a-def5-0000-0000-000000000005",
-	0,
-	'',
-	"fd2558e3-5877-4d39-8219-18b8f47ec7ed",
-	'');
-INSERT INTO O_TPARM
-	VALUES ("fd2558e3-5877-4d39-8219-18b8f47ec7ed",
-	"01642b1d-fb51-4095-a62b-5b504c16dafc",
-	'removeElements',
-	"ba5eda7a-def5-0000-0000-000000000001",
-	0,
-	'',
-	"00000000-0000-0000-0000-000000000000",
-	'');
-INSERT INTO O_TFR
 	VALUES ("01e90c90-3e42-4325-9395-f04aa3dcdeec",
 	"0849862c-76a0-4d0f-bb84-cf5aef617874",
 	'findConnector',
@@ -355,26 +53,26 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	0,
-	'// we must run the shape creation specs first
+	'// Get all the auto reconcile specifications. This PEI data is found in 
+// bp.ui.graphics/plugin.xml
+select many autoReconcileSpecs from instances of GD_ARS;
+
+// we must run the shape creation specs first
 // so that any newly created shapes can be processed
 // next and have connectors created
-select many recSpecs from instances of GD_ARS;
-for each ars in recSpecs
-  select one modelSpec related by ars->GD_MS[R33];
-  if(not_empty modelSpec)
-    ars.updateAllElements(system_id:param.system_id, removeElements:param.removeElements);
-  end if;
+for each autoReconcileSpec in autoReconcileSpecs
+  select many models related by autoReconcileSpec->GD_MS[R33]->GD_MD[R9];  // GD_MD represents shapes
+  for each model in models
+    autoReconcileSpec.reconcileShapes( system_id:param.system_id, diagram_id:model.diagramId);
+  end for;
 end for;
+
 // now process all other specs
-for each ars in recSpecs
-  select one modelSpec related by ars->GD_MS[R33];
-  if(empty modelSpec)
-    ars.updateAllElements(system_id:param.system_id, removeElements:param.removeElements);
-    if(ars.reprocess)
-      ars.reprocess = false;
-      ars.updateAllElements(system_id: param.system_id, removeElements:param.removeElements);
-    end if;
-  end if;
+for each autoReconcileSpec in autoReconcileSpecs
+  select many graphicalElements related by autoReconcileSpec->GD_ES[R29]->GD_GE[R10];  // GD_GE represents lines and connectors
+  for each graphicalElement in graphicalElements
+    autoReconcileSpec.reconcileConnectors( graphical_element_id:graphicalElement.elementId, system_id:param.system_id);
+  end for;  
 end for;
 ',
 	1,
@@ -425,7 +123,7 @@ end for;
 return OS::NULL_UNIQUE_ID();',
 	1,
 	'',
-	"01642b1d-fb51-4095-a62b-5b504c16dafc");
+	"01e90c90-3e42-4325-9395-f04aa3dcdeec");
 INSERT INTO O_TPARM
 	VALUES ("4d74bdcf-fec2-4fe9-be56-75e7e582a41f",
 	"bb127757-3046-42f0-8eaa-58bc50d7f658",
@@ -434,6 +132,274 @@ INSERT INTO O_TPARM
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("7c49d5b8-f700-44f4-8348-1fdcf662c1a5",
+	"0849862c-76a0-4d0f-bb84-cf5aef617874",
+	'adjustPositionToConnect',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'select one modelSpec related by self->GD_MS[R33];
+select one spec related by self->GD_ES[R29];
+select one sourceSpec related by self->GD_ES[R30];
+select one targetSpec related by self->GD_ES[R31];
+select many elemSpecs related by modelSpec->GD_ES[R11];
+select many models related by modelSpec->GD_MD[R9];
+
+//create object instance otherGraphicalConnector of GD_GE;
+for each model in models
+   select any graphicalConnector related by model->GD_GE[R1] where selected.OOA_ID == param.connectorId;
+   select any otherGraphicalConnector related by model->GD_GE[R1] where (selected.OOA_ID == param.otherConnectorId);
+
+   if(not empty otherGraphicalConnector and not empty graphicalConnector) 
+
+    select one connector related by graphicalConnector->GD_CON[R2];
+    select one edge related by connector->DIM_ED[R20];
+    select one otherConnector related by otherGraphicalConnector->GD_CON[R2];
+    select one otherEdge related by otherConnector->DIM_ED[R20];
+    select any segment related by connector->GD_LS[R6];
+    select any otherSegment related by otherConnector->GD_LS[R6];
+    select one segmentEnd related by segment->DIM_WAY[R22];
+    select one segmentStart related by segment->DIM_WAY[R21];
+    select one otherSegmentEnd related by otherSegment->DIM_WAY[R22];
+    select one otherSegmentStart related by otherSegment->DIM_WAY[R21];
+    select one otherGraphElem related by otherGraphicalConnector->DIM_GE[R23];
+    select any existingAnchor related by otherGraphElem->DIM_CON[R311];
+
+    if(empty existingAnchor and graphicalConnector.OOA_Type == OOAType::ImportedRequiredInterface )
+        segmentEnd.positionX = otherSegmentEnd.positionX;
+        segmentEnd.positionY = otherSegmentEnd.positionY;
+        create object instance anchor of DIM_CON;
+        // initialize the anchor''''s location
+        anchor.positionX = otherSegmentEnd.positionX;
+        anchor.positionY = otherSegmentEnd.positionY;
+        // make the anchor the one at which the connector ends
+        select one otherGraphElem related by otherGraphicalConnector->DIM_GE[R23];
+        if(not empty otherGraphElem )
+          relate anchor to  otherGraphElem across R311;
+        end if;
+        select one edge related by connector->DIM_ED[R20];
+        relate edge to anchor across R321;
+  
+    else if(empty existingAnchor and graphicalConnector.OOA_Type == OOAType::Delegation )
+        segmentEnd.positionX = otherSegmentStart.positionX;
+        segmentEnd.positionY = otherSegmentStart.positionY;
+        create object instance anchor of DIM_CON;
+        // initialize the anchor''''s location
+        anchor.positionX = otherSegmentEnd.positionX;
+        anchor.positionY = otherSegmentEnd.positionY;
+        // make the anchor the one at which the connector ends
+        select one otherGraphElem related by otherGraphicalConnector->DIM_GE[R23];
+        if(not empty otherGraphElem )
+         relate anchor to  otherGraphElem across R311;
+       end if;
+       select one edge related by connector->DIM_ED[R20];
+       relate edge to anchor across R321;
+    end if;
+    end if;
+end if;
+end for;',
+	1,
+	'',
+	"bb127757-3046-42f0-8eaa-58bc50d7f658");
+INSERT INTO O_TPARM
+	VALUES ("f245eb89-4c4e-47a6-9a78-6ec44ade0c95",
+	"7c49d5b8-f700-44f4-8348-1fdcf662c1a5",
+	'connectorId',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("002bf30f-1aae-4246-9dfd-a543f7ad82bd",
+	"7c49d5b8-f700-44f4-8348-1fdcf662c1a5",
+	'otherConnectorId',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"f245eb89-4c4e-47a6-9a78-6ec44ade0c95",
+	'');
+INSERT INTO O_TFR
+	VALUES ("35593d44-4cf2-4d7a-ac20-1f39b82f20db",
+	"0849862c-76a0-4d0f-bb84-cf5aef617874",
+	'reconcileShapes',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'select any model related by self->GD_MS[R33]->GD_MD[R9] where selected.diagramId==param.diagram_id;
+// only check elements under the passed system
+if (CL::isContainedInSystem(element:model.represents,
+                                                     system_id:param.system_id))
+  //Get the count of shapes in the model (i.e the number of classes in the class Diagram)
+  count = CL::numElements( from:model.represents,using:self.countMethod);
+  select many graphicalElements related by model->GD_GE[R1];
+  i=0;	 
+  while (i<count)
+  	elementID = CL::getElementID(from:model.represents,index:i, using:self.elementMethod);
+    found = false;
+    for each graphicalElement in graphicalElements
+      if(graphicalElement.OOA_ID == elementID)
+        found =true;
+        break;
+      end if;         
+    end for;
+    if(found == false)
+      //create the shape
+      model.newShape(arsId:self.Id,shape:elementID);
+      select one sourceSpec related by self->GD_ES[R30];
+      select one newElement related by sourceSpec->GD_GE[R16];
+      if (empty newElement)
+        i = i + 1;
+        continue;
+      end if;
+      //set the OOA_ID of the new GE created
+      newElement.OOA_ID=elementID; 
+      newElement.represents=CL::getInstanceFromOOA_ID(
+                                      rootInst: model.represents,
+                                      OOA_ID: newElement.OOA_ID, 
+                                      OOA_Type: newElement.OOA_Type );
+      unrelate sourceSpec from newElement across R16;
+      //i=count;
+    end if;
+    i=i+1;
+  end while;
+end if;
+  	  ',
+	1,
+	'',
+	"7c49d5b8-f700-44f4-8348-1fdcf662c1a5");
+INSERT INTO O_TPARM
+	VALUES ("f2156974-c155-4272-9b85-288b824e669f",
+	"35593d44-4cf2-4d7a-ac20-1f39b82f20db",
+	'system_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("f834fae9-343e-41d7-97f9-b24d1a813561",
+	"35593d44-4cf2-4d7a-ac20-1f39b82f20db",
+	'diagram_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"f2156974-c155-4272-9b85-288b824e669f",
+	'');
+INSERT INTO O_TFR
+	VALUES ("8ffad301-a127-4be7-a504-064da8b3f9dc",
+	"0849862c-76a0-4d0f-bb84-cf5aef617874",
+	'reconcileConnectors',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'select any graphicalElement related by self->GD_ES[R29]->GD_GE[R10] where selected.elementId==param.graphical_element_id;
+if (graphicalElement.represents == OS::NULL_INSTANCE())
+  graphicalElement.represents = CL::getInstanceFromOOA_ID(
+                                       rootInst:graphicalElement.convertToInstance(),
+                                       OOA_ID:graphicalElement.OOA_ID,
+                                       OOA_Type:graphicalElement.OOA_Type );
+  if (graphicalElement.represents == OS::NULL_INSTANCE())
+    // There is not model element to reconcile against.
+    return;
+  end if;
+end if;
+
+// only check elements under the passed system
+if(CL::isContainedInSystem(element:graphicalElement.represents,
+                                                     system_id:param.system_id))
+  select many startCons related by graphicalElement->DIM_GE[R23]->
+                            DIM_CON[R311]->DIM_ED[R320]->GD_CON[R20]->GD_GE[R2];
+  select many endCons related by graphicalElement->DIM_GE[R23]->
+                            DIM_CON[R311]->DIM_ED[R321]->GD_CON[R20]->GD_GE[R2];
+  select one sourceSpec related by self->GD_ES[R30];
+  select one targetSpec related by self->GD_ES[R31];
+                            
+  connectorCount = CL::numConnectors( from:graphicalElement.represents,
+                             elementTypesMatch:sourceSpec == targetSpec,
+                             using:self.countMethod);
+
+  j = 0;
+  while (j < connectorCount)
+    connectorId = CL::getConnectorID(from:graphicalElement.represents,
+                          elementTypesMatch:sourceSpec == targetSpec,
+                          index:j, using:self.elementMethod);
+    templateConId = OS::NULL_UNIQUE_ID();
+    if self.templateElementMethod != ""
+      templateConId = CL::getConnectorID(from:graphicalElement.represents,
+                   index:j, elementTypesMatch:sourceSpec == targetSpec,
+                   using:self.templateElementMethod);
+    end if;
+    if templateConId == OS::NULL_UNIQUE_ID()
+      templateConId = connectorId;
+    end if;
+    foundMatchingStart = false;
+    for each startCon in startCons
+      if(startCon.OOA_ID == connectorId)
+        foundMatchingStart = true;
+        break;
+      end if;
+    end for;
+    foundMatchingEnd = false;
+
+    for each endCon in endCons
+      if(endCon.OOA_ID == connectorId)
+        foundMatchingEnd = true;
+        break;
+      end if;
+    end for;
+
+    if (foundMatchingStart or foundMatchingEnd)
+      // we do not need to worry as this element
+      // already has a connector matching the given
+      // id
+      j = j + 1;
+      continue;
+    end if;
+
+    if(not foundMatchingStart and not foundMatchingEnd )//and model.represents != graphicalElement.represents)
+      select one model related by graphicalElement->GD_MD[R1];
+      model.newArxmlConnector(connector:templateConId,
+                           elementId:graphicalElement.elementId, arsId:self.Id,
+                           representsId:connectorId);
+
+
+      select one newConnector related by sourceSpec->GD_GE[R16];
+      //set the OOA_ID of the new GE created
+      newConnector.OOA_ID=connectorId;
+      newConnector.represents=CL::getInstanceFromOOA_ID(
+                                      rootInst: model.represents,
+                                      OOA_ID: newConnector.OOA_ID,
+                                      OOA_Type: newConnector.OOA_Type );
+      unrelate sourceSpec from newConnector across R16;
+    end if;
+    j = j + 1;
+  end while;
+
+end if;
+',
+	1,
+	'',
+	"35593d44-4cf2-4d7a-ac20-1f39b82f20db");
+INSERT INTO O_TPARM
+	VALUES ("cd5179d3-74a4-498f-9076-7ef3c9076490",
+	"8ffad301-a127-4be7-a504-064da8b3f9dc",
+	'graphical_element_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("f2a2187f-d76f-4abf-836d-f623af6a8938",
+	"8ffad301-a127-4be7-a504-064da8b3f9dc",
+	'system_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"cd5179d3-74a4-498f-9076-7ef3c9076490",
 	'');
 INSERT INTO O_NBATTR
 	VALUES ("649d4944-fc3a-4f9c-99d2-4b2b390dd691",

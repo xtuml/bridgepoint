@@ -275,6 +275,15 @@ public class Cl_c {
     	
     	return uuid_invoke(From, Using, argTypes, args);
     }
+    
+	public static UUID Getthetargetconnectorid(final UUID Ooa_id, final int Ooa_type, final Object system) {
+		UUID id = null;
+		Object connector = Getinstancefromooa_id(Ooa_id, Ooa_type, system);
+		Class[] argTypes = new Class[0];
+		Object[] args = new Object[0];
+		return uuid_invoke(connector, "Getconnectedid", argTypes, args);
+	}
+
     public static UUID Getelementid(final Object From, int index, final String Using) {
         Class[] argTypes = new Class[1];
         argTypes[0] = int.class;
@@ -283,6 +292,7 @@ public class Cl_c {
     	
     	return uuid_invoke(From, Using, argTypes, args);
 }
+    
     public static int Numconnectors(boolean elementTypesMatch,
     		                            final Object From, final String Using) {
         Class[] argTypes = new Class[1];

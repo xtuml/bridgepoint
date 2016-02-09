@@ -1200,7 +1200,7 @@ INSERT INTO S_BRG
 	0,
 	"ba5eda7a-def5-0000-0000-000000000001",
 	'',
-	3,
+	0,
 	'');
 INSERT INTO S_BPARM
 	VALUES ("ed77c3a3-ac01-45c8-ad74-d49fc47cf197",
@@ -1411,7 +1411,7 @@ INSERT INTO S_BRG
 	0,
 	"ba5eda7a-def5-0000-0000-000000000000",
 	'',
-	3,
+	0,
 	'');
 INSERT INTO S_BPARM
 	VALUES ("93344b2d-ff31-4d7e-9824-8d78885640e6",
@@ -1421,6 +1421,45 @@ INSERT INTO S_BPARM
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BRG
+	VALUES ("6636cf62-0ac9-4cc6-89d0-2e560672c1ea",
+	"f168c92b-6d64-4ecb-a677-5a1d7cce8352",
+	'getTheTargetConnectorId',
+	'Will be supplied by realized code.
+   
+--------------------------------------------------------------------------------',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000005",
+	'// implementation will supplied by native code',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("84b744ba-40cc-46cd-b124-cb33cd91bc3b",
+	"6636cf62-0ac9-4cc6-89d0-2e560672c1ea",
+	'OOA_ID',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("ca5f9224-6bd4-4a9a-8ac9-7cc0ef08d0dd",
+	"6636cf62-0ac9-4cc6-89d0-2e560672c1ea",
+	'OOA_Type',
+	"89cd32c4-a73f-44f5-ac4f-6468ce4ae2bb",
+	0,
+	'',
+	"84b744ba-40cc-46cd-b124-cb33cd91bc3b",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("e7b54d56-42a4-4976-9cbd-4ecfc81e7fe4",
+	"6636cf62-0ac9-4cc6-89d0-2e560672c1ea",
+	'rootInst',
+	"68dedb08-fd5a-420e-9ec7-e7985ad0c856",
+	0,
+	'',
+	"ca5f9224-6bd4-4a9a-8ac9-7cc0ef08d0dd",
 	'');
 INSERT INTO PE_PE
 	VALUES ("f168c92b-6d64-4ecb-a677-5a1d7cce8352",
