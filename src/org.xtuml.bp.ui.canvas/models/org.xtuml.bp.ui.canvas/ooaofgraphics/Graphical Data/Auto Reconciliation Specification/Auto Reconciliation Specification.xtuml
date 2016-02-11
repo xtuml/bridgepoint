@@ -361,19 +361,24 @@ if(CL::isContainedInSystem(element:graphicalElement.represents,
 
     if(not foundMatchingStart and not foundMatchingEnd )//and model.represents != graphicalElement.represents)
       select one model related by graphicalElement->GD_MD[R1];
-      model.newArxmlConnector(connector:templateConId,
+      if (not empty model)
+        model.newArxmlConnector(connector:templateConId,
                            elementId:graphicalElement.elementId, arsId:self.Id,
                            representsId:connectorId);
 
 
-      select one newConnector related by sourceSpec->GD_GE[R16];
-      //set the OOA_ID of the new GE created
-      newConnector.OOA_ID=connectorId;
-      newConnector.represents=CL::getInstanceFromOOA_ID(
+        select one newConnector related by sourceSpec->GD_GE[R16];
+        //set the OOA_ID of the new GE created
+        newConnector.OOA_ID=connectorId;
+        newConnector.represents=CL::getInstanceFromOOA_ID(
                                       rootInst: model.represents,
                                       OOA_ID: newConnector.OOA_ID,
                                       OOA_Type: newConnector.OOA_Type );
-      unrelate sourceSpec from newConnector across R16;
+        unrelate sourceSpec from newConnector across R16;
+      else
+        msg = "There is no GD_GE->GD_MD[R1] is empty for GD_GE.elementId==" + OS::uniqueIdToString(id:graphicalElement.elementId);
+        CL::logError(message:msg);
+      end if;
     end if;
     j = j + 1;
   end while;

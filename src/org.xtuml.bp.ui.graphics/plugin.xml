@@ -14,6 +14,110 @@
             name="xtUML Graphical Editor">
       </editor>
    </extension>
+   <!--
+                                      **** README ****
+	This section defines the graphics pei data. It populates the bp.ui.canvas/ooaofrgaphics model. The
+	code that parses this data and loads the model is CanvasPlugin.java::initialize() (hand written). That
+	function gets called as part of  loading the Canvas plugin. After loading this data into the model the 
+	Model and Canvas Transaction listener hooks are called to cause the graphics code to get invoked
+	when the actions occur.
+     
+    tag descriptions:
+    -----------------
+	<symbol>:	Each symbol corresponds to a model element in the ooaofooa. 
+         	class:	The fully qualified name of the generated model element. In 
+         			this case "fully qualified" refers to the fact that the package 
+         			name is included. (example: org.xtuml.bp.core.ModelClass_c)
+         	createMethod: 	The operation called to create a new instance of this 
+         					ooaofooa element
+         	elemType:	The ooaofooa type, as specified by the enum defined in 
+         				both the ooaofooa and in the 
+         	icon: the name of the icon associated with this element			
+         	name: The name associated with this model element
+         	symbolType:	This is currently set to one of 3 values
+         				shape - This is used when the model element is a shape
+         				connector - This is used when the model element is a 
+         				container - A container may hold other model elements. Additionally,
+         							a container may also be listed in the pei data as a 
+         							shape. For example, a Component_c is both a shape and a
+         							container.  
+         				
+			<color>: This section defines the defaults color for the symbol (255,255,255 is black)
+            	b: Default blue
+            	g: Default greeen
+            	r: Default red
+            </color>         				
+            
+            <terminator>: These sections are present for connectors
+                  end="start"
+                  name="Start Class"
+                  symbol="Class"
+                  symbolClass="org.xtuml.bp.core.ModelClass_c"
+                  type="shape">
+            </terminator>
+            
+           <dependsOn>: This section defines model elements that must be loaded 
+           				before the "symbol" can be used.
+                  class:	The fully qualified name of the generated model element. In 
+         					this case "fully qualified" refers to the fact that the package 
+         					name is included. (example: org.xtuml.bp.core.ModelClass_c)
+
+            </dependsOn>
+            
+       		<autoReconcile>: This section defines the information needed to reconcile 
+       					graphics that exist inside this model element (defaultfor: class)
+       					where reconciling refers to both creation and 
+       					deletion of graphical shapes and/or connectors to assure
+       					the graphical data properly represents the actual
+       					ooaofooa model elements.
+				
+               	targetSymbol:	This is the name is the "name" of the target model 
+               					element type to reconcile
+               	countMethod:	This is the name of the operation, found in the ooaofooa 
+               					container we are reconciling , that is used to find out home
+               					many of this type of targetSymbol exist in the container.
+               					These operations are of the form: Get<symbol>count
+               	elementMethod:	This is the name of the operation, found in the ooaofooa 
+               					container we are reconciling , that is used to return an 
+               					identifier for the model element at the provided index (the 
+               					index is sent as a parameter and we know how many elements exist
+               					based on use of the count operation)
+               					These operations are of the form: Get<symbol>id
+               	elementExistsMethod: 	If not used then this has a value of 
+               							"not used". Otherwise, this is the name 
+               							of an operation that test for the existence of 
+               							any of the model elements of type targetSymbol in 
+               							the container. This is currently only used when 
+               							reconciling connectors.
+               							These operations are of the form: Has<symbol>id
+               	templateElementMethod: If not used then this has a value of 
+               							"not used". Otherwise, this is the name 
+               							of an operation that test for the existence of 
+               							any of the delegated model elements of type targetSymbol in 
+               							the container. This is currently only used when 
+               							reconciling connectors.
+               							These operations are of the form: Has<symbol>id
+    		</autoreconcile>
+	</symbol>         				
+
+	<defaultFor>: 
+		class:	The fully qualified name of the generated model element. In 
+         		this case "fully qualified" refers to the fact that the package 
+         		name is included. (example: org.xtuml.bp.core.ModelClass_c)
+        modelType: 
+        	"org.xtuml.bp.ui.canvas.Modeltype_c.SystemModelPackage"
+        name: The name associated with this model element
+               name="System Model Package Diagram"
+               ooaType="org.xtuml.bp.ui.canvas.Ooatype_c.SystemModel">
+               
+		<color>: See the color section above for "symbol", it is the same
+        </color>	
+        		
+		<autoreconcile>: See the autoreconcile section above for "symbol", it is the same
+        </autoreconcile>	
+
+	</defaultFor>
+   -->
    <extension
          id="org.xtuml.bp.ui.graphics.editor"
          name="Diagram Editor"
@@ -2616,7 +2720,18 @@
                elementExistsMethod="not used"/>   
          </defaultFor>
       </editor>
+      
+   <-- ****** This is the end of the diagram editor extension ***** -->      
    </extension>
+   
+   <--
+                        ************ READ ME ************
+                        
+	Below This point you find extensions used to manipulate the graphic preferences.
+	You will find that the extensions below point into the org.xtuml.bp.graphics
+	plugin which is where rendering currently happens in BP.
+                        
+   -->
    <extension
          id="org.xtuml.bp.ui.graphics.CanvasEditorAction"
          name="Diagram Editor"
