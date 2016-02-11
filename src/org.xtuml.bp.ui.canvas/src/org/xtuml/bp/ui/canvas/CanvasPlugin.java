@@ -243,6 +243,8 @@ public class CanvasPlugin extends AbstractUIPlugin {
               }
             } // end if element name is Symbol
           }
+          // Note that this section is loading only "defaultfor" definitions.
+          // "symbol" definitions follow this
           for (int k = 0; k < defs.length; k++) {
           	int value = 0;
             if (defs[k].getName().equals("defaultFor")) {
@@ -329,6 +331,8 @@ public class CanvasPlugin extends AbstractUIPlugin {
               }
             }
           }
+          //Note that this section is only loading "symbol" definitions.
+          // "defaultfor" definitions preceeded this
           for (int k = 0; k < defs.length; k++) {
         	  if (defs[k].getName().equals("symbol")) {
         		  final String finalName = defs[k].getAttribute("name");
