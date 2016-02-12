@@ -22,8 +22,7 @@
 	Model and Canvas Transaction listener hooks are called to cause the graphics code to get invoked
 	when the actions occur.
      
-    tag descriptions:
-    -----------------
+    *** tag descriptions ***:
 	<symbol>:	Each symbol corresponds to a model element in the ooaofooa. 
          	class:	The fully qualified name of the generated model element. In 
          			this case "fully qualified" refers to the fact that the package 
@@ -2721,10 +2720,10 @@
          </defaultFor>
       </editor>
       
-   <-- ****** This is the end of the diagram editor extension ***** -->      
+   <!-- ****** This is the end of the diagram editor extension ***** -->      
    </extension>
    
-   <--
+   <!--
                         ************ READ ME ************
                         
 	Below This point you find extensions used to manipulate the graphic preferences.
