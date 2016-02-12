@@ -68,12 +68,12 @@ for each autoReconcileSpec in autoReconcileSpecs
 end for;
 
 // now process all other specs
-for each autoReconcileSpec in autoReconcileSpecs
-  select many graphicalElements related by autoReconcileSpec->GD_ES[R29]->GD_GE[R10];  // GD_GE represents lines and connectors
-  for each graphicalElement in graphicalElements
-    autoReconcileSpec.reconcileConnectors( graphical_element_id:graphicalElement.elementId, system_id:param.system_id);
-  end for;  
-end for;
+//for each autoReconcileSpec in autoReconcileSpecs
+//  select many graphicalElements related by autoReconcileSpec->GD_ES[R29]->GD_GE[R10];  // GD_GE represents lines and connectors
+//  for each graphicalElement in graphicalElements
+//    autoReconcileSpec.reconcileConnectors( graphical_element_id:graphicalElement.elementId, system_id:param.system_id);
+//  end for;  
+//end for;
 ',
 	1,
 	'',
@@ -232,20 +232,25 @@ INSERT INTO O_TFR
 // only check elements under the passed system
 if (CL::isContainedInSystem(element:model.represents,
                                                      system_id:param.system_id))
+  count = 0;
   //Get the count of shapes in the model (i.e the number of classes in the class Diagram)
-  count = CL::numElements( from:model.represents,using:self.countMethod);
-  select many graphicalElements related by model->GD_GE[R1];
+  // This conditional expression of here to assure we are only calling this for 
+  // shapes. The connectorExistsMethod is not used for shapes.
+  if ((self.connectorExistsMethod == "") or (self.connectorExistsMethod == "not used"))
+    count = CL::numElements( from:model.represents,using:self.countMethod);
+  end if;
   i=0;	 
   while (i<count)
+    select many graphicalElements related by model->GD_GE[R1];
   	elementID = CL::getElementID(from:model.represents,index:i, using:self.elementMethod);
-    found = false;
+    graphicalElementExists = false;
     for each graphicalElement in graphicalElements
       if(graphicalElement.OOA_ID == elementID)
-        found =true;
+        graphicalElementExists =true;
         break;
       end if;         
     end for;
-    if(found == false)
+    if(graphicalElementExists == false)
       //create the shape
       model.newShape(arsId:self.Id,shape:elementID);
       select one sourceSpec related by self->GD_ES[R30];
@@ -539,10 +544,10 @@ INSERT INTO O_ATTR
 	VALUES ("b573c171-3dcd-41ed-ae67-a9ac0543c13e",
 	"0849862c-76a0-4d0f-bb84-cf5aef617874",
 	"68ea2f93-55cb-4a7c-a507-cb897697c920",
-	'elementExistsMethod',
+	'connectorExistsMethod',
 	'',
 	'',
-	'elementExistsMethod',
+	'connectorExistsMethod',
 	0,
 	"ba5eda7a-def5-0000-0000-000000000004",
 	'',

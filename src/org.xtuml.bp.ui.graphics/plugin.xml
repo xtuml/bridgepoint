@@ -82,7 +82,7 @@
                					index is sent as a parameter and we know how many elements exist
                					based on use of the count operation)
                					These operations are of the form: Get<symbol>id
-               	elementExistsMethod: 	If not used then this has a value of 
+               	connectorExistsMethod: 	If not used then this has a value of 
                							"not used". Otherwise, this is the name 
                							of an operation that test for the existence of 
                							any of the model elements of type targetSymbol in 
@@ -1860,19 +1860,19 @@
             </color>
             <autoReconcile
                   countMethod="Getprovisioncount"
-                  elementExistsMethod="Parenthasprovision"
+                  connectorExistsMethod="Parenthasprovision"
                   elementMethod="Getprovisionid"
                   targetSymbol="Provided Interface">
             </autoReconcile>
             <autoReconcile
                   countMethod="Getrequirementcount"
-                  elementExistsMethod="Parenthasrequirement"
+                  connectorExistsMethod="Parenthasrequirement"
                   elementMethod="Getrequirementid"
                   targetSymbol="Required Interface">
             </autoReconcile>
             <autoReconcile
                   countMethod="Getprovisioncount"
-                  elementExistsMethod="Parenthasprovision"
+                  connectorExistsMethod="Parenthasprovision"
                   elementMethod="Getprovisionid"
                   sourceSymbol="Delegation"
                   targetSymbol="Provided Interface"
@@ -1880,7 +1880,7 @@
             </autoReconcile>
             <autoReconcile
                   countMethod="Getrequirementcount"
-                  elementExistsMethod="Parenthasrequirement"
+                  connectorExistsMethod="Parenthasrequirement"
                   elementMethod="Getrequirementid"
                   sourceSymbol="Delegation"
                   targetSymbol="Required Interface"
@@ -1901,13 +1901,13 @@
             </color>
             <autoReconcile
                   countMethod="Getprovisioncount"
-                  elementExistsMethod="Hasprovision"
+                  connectorExistsMethod="Hasprovision"
                   elementMethod="Getprovisionid"
                   targetSymbol="Provided Interface">
             </autoReconcile>
             <autoReconcile
                   countMethod="Getrequirementcount"
-                  elementExistsMethod="Hasrequirement"
+                  connectorExistsMethod="Hasrequirement"
                   elementMethod="Getrequirementid"
                   targetSymbol="Required Interface">
             </autoReconcile>
@@ -1929,7 +1929,7 @@
             </dependsOn>
             <autoReconcile
                   countMethod="Getimportedprovisioncount"
-                  elementExistsMethod="Hasimportedprovision"
+                  connectorExistsMethod="Hasimportedprovision"
                   elementMethod="Getimportedprovisionid"
                   sourceSymbol="Provided Interface"
                   targetSymbol="Imported Provided Interface"
@@ -1937,7 +1937,7 @@
             </autoReconcile>
             <autoReconcile
                   countMethod="Getimportedrequirementcount"
-                  elementExistsMethod="Hasimportedrequirement"
+                  connectorExistsMethod="Hasimportedrequirement"
                   elementMethod="Getimportedrequirementid"
                   sourceSymbol="Required Interface"
                   targetSymbol="Imported Required Interface"
@@ -1945,14 +1945,14 @@
             </autoReconcile>
             <autoReconcile
                   countMethod="Getimportedprovisioncount"
-                  elementExistsMethod="Hasimportedprovision"
+                  connectorExistsMethod="Hasimportedprovision"
                   elementMethod="Getimportedprovisionid"
                   targetSymbol="Imported Provided Interface"
                   templateElementMethod="Getimportedprovisionprovisionid">
             </autoReconcile>
             <autoReconcile
                   countMethod="Getimportedrequirementcount"
-                  elementExistsMethod="Hasimportedrequirement"
+                  connectorExistsMethod="Hasimportedrequirement"
                   elementMethod="Getimportedrequirementid"
                   targetSymbol="Imported Required Interface"
                   templateElementMethod="Getimportedrequirementrequirementid">
@@ -2182,13 +2182,13 @@
             </dependsOn>
             <autoReconcile
                   countMethod="Getsatisfactioncount"
-                  elementExistsMethod="not used"
+                  connectorExistsMethod="not used"
                   elementMethod="not used"
                   targetSymbol="Provided Interface">
             </autoReconcile>
             <autoReconcile
                   countMethod="Getsatisfactioncount"
-                  elementExistsMethod="not used"
+                  connectorExistsMethod="not used"
                   elementMethod="not used"
                   targetSymbol="Imported Provided Interface">
             </autoReconcile>
@@ -2292,13 +2292,13 @@
             </dependsOn>
             <autoReconcile
                   countMethod="Getsatisfactioncount"
-                  elementExistsMethod="not used"
+                  connectorExistsMethod="not used"
                   elementMethod="not used"
                   targetSymbol="Provided Interface">
             </autoReconcile>
             <autoReconcile
                   countMethod="Getsatisfactioncount"
-                  elementExistsMethod="not used"
+                  connectorExistsMethod="not used"
                   elementMethod="not used"
                   targetSymbol="Imported Provided Interface">
             </autoReconcile>
@@ -2352,7 +2352,7 @@
                targetSymbol="Package"
                countMethod="Getpckgcount"
                elementMethod="Getpckgid"
-               elementExistsMethod="not used"/>
+               connectorExistsMethod="not used"/>
          </defaultFor>
          <defaultFor
                class="org.xtuml.bp.core.Package_c"
@@ -2417,166 +2417,166 @@
                targetSymbol="User Data Type"
                countMethod="Getudtcount"
                elementMethod="Getudtid"
-               elementExistsMethod="not used"/> 
+               connectorExistsMethod="not used"/> 
             <autoReconcile
                targetSymbol="Actor"
                countMethod="Getactorcount"
                elementMethod="Getactorid"
-               elementExistsMethod="not used"/> 
+               connectorExistsMethod="not used"/> 
             <autoReconcile
                targetSymbol="Use Case"
                countMethod="Getusecasecount"
                elementMethod="Getusecaseid"
-               elementExistsMethod="not used"/> 
+               connectorExistsMethod="not used"/> 
             <autoReconcile
                targetSymbol="Send Signal Action"
                countMethod="Getsendsigactioncount"
                elementMethod="Getsendsigactionid"
-               elementExistsMethod="not used"/>
+               connectorExistsMethod="not used"/>
             <autoReconcile
                targetSymbol="Accept Event Action"
                countMethod="Getacceptevtactioncount"
                elementMethod="Getacceptevtactionid"
-               elementExistsMethod="not used"/>  
+               connectorExistsMethod="not used"/>  
             <autoReconcile
                targetSymbol="Accept Time Event Action"
                countMethod="Getaccepttimeevtactioncount"
                elementMethod="Getaccepttimeevtactionid"
-               elementExistsMethod="not used"/>
+               connectorExistsMethod="not used"/>
             <autoReconcile
                targetSymbol="Action"
                countMethod="Getactioncount"
                elementMethod="Getactionid"
-               elementExistsMethod="not used"/>
+               connectorExistsMethod="not used"/>
             <autoReconcile
                targetSymbol="Class"
                countMethod="Getclasscount"
                elementMethod="Getclassid"
-               elementExistsMethod="not used"
+               connectorExistsMethod="not used"
                class="org.xtuml.bp.core.ModelClass_c" />     
             <autoReconcile
                targetSymbol="Component"
                countMethod="Getcomponentcount"
                elementMethod="Getcomponentid"
-               elementExistsMethod="not used"
+               connectorExistsMethod="not used"
                class="org.xtuml.bp.core.Component_c"/>     
             <autoReconcile
                targetSymbol="Component Reference"
                countMethod="Getcomprefcount"
                elementMethod="Getcomprefid"
-               elementExistsMethod="not used"/>     
+               connectorExistsMethod="not used"/>     
             <autoReconcile
                targetSymbol="Interface"
                countMethod="Getifacecount"
                elementMethod="Getifaceid"
-               elementExistsMethod="not used"/>     
+               connectorExistsMethod="not used"/>     
             <autoReconcile
                targetSymbol="Constant Specification"
                countMethod="Getconstspeccount"
                elementMethod="Getconstspecid"
-               elementExistsMethod="not used"/>     
+               connectorExistsMethod="not used"/>     
             <autoReconcile
                targetSymbol="Structured Data Type"
                countMethod="Getsdtcount"
                elementMethod="Getsdtid"
-               elementExistsMethod="not used"/>     
+               connectorExistsMethod="not used"/>     
             <autoReconcile
                targetSymbol="Enumeration Data Type"
                countMethod="Getedtcount"
                elementMethod="Getedtid"
-               elementExistsMethod="not used"/>     
+               connectorExistsMethod="not used"/>     
             <autoReconcile
                targetSymbol="Component"
                countMethod="Getcomppartcount"
                elementMethod="Getcomppartid"
-               elementExistsMethod="not used"
+               connectorExistsMethod="not used"
                class="org.xtuml.bp.core.ComponentParticipant_c"/>     
             <autoReconcile
                targetSymbol="Instance"
                countMethod="Getinstancecount"
                elementMethod="Getinstanceid"
-               elementExistsMethod="not used"/>     
+               connectorExistsMethod="not used"/>     
             <autoReconcile
                targetSymbol="External Entity"
                countMethod="Geteecount"
                elementMethod="Geteeid"
-               elementExistsMethod="not used"
+               connectorExistsMethod="not used"
                class="org.xtuml.bp.core.ExternalEntity_c" />   
             <autoReconcile
                targetSymbol="Package Participant"
                countMethod="Getpkgpartcount"
                elementMethod="Getpkgpartid"
-               elementExistsMethod="not used"/>   
+               connectorExistsMethod="not used"/>   
             <autoReconcile
                targetSymbol="Class"
                countMethod="Getclasspartcount"
                elementMethod="Getclasspartid"
-               elementExistsMethod="not used"
+               connectorExistsMethod="not used"
                class="org.xtuml.bp.core.ClassParticipant_c" />   
             <autoReconcile
                targetSymbol="Object Node"
                countMethod="Getobjectnodecount"
                elementMethod="Getobjectnodeid"
-               elementExistsMethod="not used"/>   
+               connectorExistsMethod="not used"/>   
             <autoReconcile
                targetSymbol="Decision/Merge Node"
                countMethod="Getdecmergenodecount"
                elementMethod="Getdecmergenodeid"
-               elementExistsMethod="not used"/>   
+               connectorExistsMethod="not used"/>   
             <autoReconcile
                targetSymbol="Initial Node"
                countMethod="Getinitnodecount"
                elementMethod="Getinitnodeid"
-               elementExistsMethod="not used"/>   
+               connectorExistsMethod="not used"/>   
             <autoReconcile
                targetSymbol="Activity Final Node"
                countMethod="Getactfinalnodecount"
                elementMethod="Getactfinalnodeid"
-               elementExistsMethod="not used"/>   
+               connectorExistsMethod="not used"/>   
             <autoReconcile
                targetSymbol="Flow Final Node"
                countMethod="Getflowfinalnodecount"
                elementMethod="Getflowfinalnodeid"
-               elementExistsMethod="not used"/>   
+               connectorExistsMethod="not used"/>   
             <autoReconcile
                targetSymbol="Imported Class"
                countMethod="Geticlasscount"
                elementMethod="Geticlassid"
-               elementExistsMethod="not used"/>              
+               connectorExistsMethod="not used"/>              
             <autoReconcile
                targetSymbol="External Entity"
                countMethod="Geteepartcount"
                elementMethod="Geteepartid"
-               elementExistsMethod="not used"
+               connectorExistsMethod="not used"
                class="org.xtuml.bp.core.ExternalEntityParticipant_c" />              
             <autoReconcile
                targetSymbol="Package"
                countMethod="Getpckgcount"
                elementMethod="Getpckgid"
-               elementExistsMethod="not used"
+               connectorExistsMethod="not used"
                class="org.xtuml.bp.core.Package_c" />              
            <autoReconcile
                targetSymbol="Provided Interface"
                countMethod="Getprovisioncount"
                elementMethod="Getprovisionid"
-               elementExistsMethod="Hasprovision"/>
+               connectorExistsMethod="Hasprovision"/>
           <autoReconcile
                targetSymbol="Required Interface"
                countMethod="Getrequirementcount"
                elementMethod="Getrequirementid"
-               elementExistsMethod="Hasrequirement"/>
+               connectorExistsMethod="Hasrequirement"/>
      
          <autoReconcile
                targetSymbol="Imported Provided Interface"
                countMethod="Getimportedprovisioncount"
                elementMethod="Getimportedprovisionid"
-               elementExistsMethod="Hasimportedprovision"
+               connectorExistsMethod="Hasimportedprovision"
                templateElementMethod="Getimportedprovisionprovisionid"/>
          <autoReconcile
                targetSymbol="Imported Required Interface"
                countMethod="Getimportedrequirementcount"
                elementMethod="Getimportedrequirementid"
-               elementExistsMethod="Hasimportedrequirement"
+               connectorExistsMethod="Hasimportedrequirement"
                templateElementMethod="Getimportedrequirementrequirementid"/>
                
          </defaultFor>
@@ -2629,49 +2629,49 @@
                class="org.xtuml.bp.core.Component_c"
                countMethod="Getcomponentcount"
                elementMethod="Getcomponentid"
-               elementExistsMethod="not used"/>  
+               connectorExistsMethod="not used"/>  
             <autoReconcile
                targetSymbol="Component Reference"
                countMethod="Getcomponentrefcount"
                elementMethod="Getcomponentrefid"
-               elementExistsMethod="not used"/>       
+               connectorExistsMethod="not used"/>       
             <autoReconcile
                targetSymbol="Package"
                countMethod="Getpkgcount"
                elementMethod="Getpkgid"
-               elementExistsMethod="not used"/>       
+               connectorExistsMethod="not used"/>       
             <autoReconcile
                targetSymbol="Interface"
                countMethod="Getifacecount"
                elementMethod="Getifaceid"
-               elementExistsMethod="not used"/>       
+               connectorExistsMethod="not used"/>       
             <autoReconcile
                targetSymbol="User Data Type"
                countMethod="Getudtcount"
                elementMethod="Getudtid"
-               elementExistsMethod="not used"/>       
+               connectorExistsMethod="not used"/>       
             <autoReconcile
                targetSymbol="Provided Interface"
                countMethod="Getprovisioncount"
                elementMethod="Getprovisionid"
-               elementExistsMethod="not used"/>
+               connectorExistsMethod="Hasimportedprovision"/>
             <autoReconcile
                targetSymbol="Required Interface"
                countMethod="Getrequirementcount"
                elementMethod="Getrequirementid"
-               elementExistsMethod="not used"/>
+               connectorExistsMethod="Hasimportedrequirement"/>
 
           <autoReconcile
                targetSymbol="Imported Provided Interface"
                countMethod="Getimportedprovisioncount"
                elementMethod="Getimportedprovisionid"
-               elementExistsMethod="not used"
+               connectorExistsMethod="Hasimportedprovision"
               />
           <autoReconcile
                targetSymbol="Imported Required Interface"
                countMethod="Getimportedrequirementcount"
                elementMethod="Getimportedrequirementid"
-               elementExistsMethod="not used"
+               connectorExistsMethod="Hasimportedrequirement"
                />               
          </defaultFor>
          <defaultFor
@@ -2697,7 +2697,7 @@
                targetSymbol="State"
                countMethod="Getstatecount"
                elementMethod="Getstateid"
-               elementExistsMethod="not used"/>  
+               connectorExistsMethod="not used"/>  
          </defaultFor>
          <defaultFor
                class="org.xtuml.bp.core.ClassStateMachine_c"
@@ -2719,7 +2719,7 @@
                targetSymbol="State"
                countMethod="Getstatecount"
                elementMethod="Getstateid"
-               elementExistsMethod="not used"/>   
+               connectorExistsMethod="not used"/>   
          </defaultFor>
       </editor>
       

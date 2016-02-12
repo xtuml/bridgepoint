@@ -1654,29 +1654,47 @@ private static String s_invoke(
 		      
 }
 
-private static String[] errorReportingIgnoredFor = new String[] { "Getdescription", "getDescrip", "not used", "Get_connector_tooltip"};
-public static Method findMethod (Object target, String methodName, Class[] argTypes)
-  {
-    try {
-        return
-            target.getClass().getMethod(methodName, argTypes);
-    } catch (NoSuchMethodException e) {
-    	 boolean shouldIgnore = false;
-    	 for(int i = 0; i < errorReportingIgnoredFor.length; i++)
-    		 if(errorReportingIgnoredFor[i].equals(methodName)) {
-    			 shouldIgnore = true;
-    	 		 break;
-    		 }
-    	if(shouldIgnore)
-    		return null;
-        CanvasPlugin.logError(
-            "Client method, " + methodName + " not found: ", e);
-    }  	
-    return null;
-  }
-private static boolean hasMethod (Object target, String methodName, Class[] argTypes)
+	private static final String NOT_USED="not used";
+	private static String[] errorReportingIgnoredFor = new String[] { "Getdescription", "getDescrip", NOT_USED, "Get_connector_tooltip"};
+
+	public static Method findMethod(Object target, String methodName, Class[] argTypes) {
+		Method result = null;
+		try {
+
+			if (!NOT_USED.equalsIgnoreCase(methodName)) {
+				result = target.getClass().getMethod(methodName, argTypes);
+			}
+		} catch (NoSuchMethodException e) {
+			boolean shouldIgnore = false;
+			for (int i = 0; i < errorReportingIgnoredFor.length; i++) {
+				if (errorReportingIgnoredFor[i].equals(methodName)) {
+					shouldIgnore = true;
+					break;
+				}
+			}
+			
+			if (!shouldIgnore) {
+				String targetname = target.getClass().getName();
+				String argumentTypes = "";
+				for (int i = 0; (argTypes != null) && (i < argTypes.length); i++) {
+					if (i > 0) {
+						argumentTypes += ", ";
+					}
+					argumentTypes += argTypes[i].getSimpleName();
+				}
+				CanvasPlugin.logError("Client method not found. Target: " + targetname + "  OperationName: " + methodName + "  Argument(s): \"" + argumentTypes + "\"", e);
+			}
+		}
+		return result;
+	}
+
+	private static boolean hasMethod (Object target, String methodName, Class[] argTypes)
 {
-	return CoreUtil.hasMethod(target, methodName, argTypes);
+	boolean result = false;
+	if (!NOT_USED.equalsIgnoreCase(methodName)) {
+		result = CoreUtil.hasMethod(target, methodName, argTypes);
+	}
+	return result;
 }
 public static Object doMethod (Method m, Object target, Object[] args)
   {
