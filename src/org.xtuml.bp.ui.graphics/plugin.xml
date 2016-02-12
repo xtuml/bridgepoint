@@ -2466,28 +2466,6 @@
                elementMethod="Getcomprefid"
                elementExistsMethod="not used"/>     
             <autoReconcile
-               targetSymbol="Provided Interface"
-               countMethod="Getprovisioncount"
-               elementMethod="Getprovisionid"
-               elementExistsMethod="Hasprovision"/>
-            <autoReconcile
-               targetSymbol="Required Interface"
-               countMethod="Getrequirementcount"
-               elementMethod="Getrequirementid"
-               elementExistsMethod="Hasrequirement"/>
-            <autoReconcile
-               targetSymbol="Imported Provided Interface"
-               countMethod="Getimportedprovisioncount"
-               elementMethod="Getimportedprovisionid"
-               elementExistsMethod="Hasimportedprovision"
-               templateElementMethod="Getimportedprovisionprovisionid"/>
-           <autoReconcile
-               targetSymbol="Imported Required Interface"
-               countMethod="Getimportedrequirementcount"
-               elementMethod="Getimportedrequirementid"
-               elementExistsMethod="Hasimportedrequirement"
-               templateElementMethod="Getimportedrequirementrequirementid"/>               
-            <autoReconcile
                targetSymbol="Interface"
                countMethod="Getifacecount"
                elementMethod="Getifaceid"
@@ -2577,6 +2555,30 @@
                elementMethod="Getpckgid"
                elementExistsMethod="not used"
                class="org.xtuml.bp.core.Package_c" />              
+           <autoReconcile
+               targetSymbol="Provided Interface"
+               countMethod="Getprovisioncount"
+               elementMethod="Getprovisionid"
+               elementExistsMethod="Hasprovision"/>
+          <autoReconcile
+               targetSymbol="Required Interface"
+               countMethod="Getrequirementcount"
+               elementMethod="Getrequirementid"
+               elementExistsMethod="Hasrequirement"/>
+     
+         <autoReconcile
+               targetSymbol="Imported Provided Interface"
+               countMethod="Getimportedprovisioncount"
+               elementMethod="Getimportedprovisionid"
+               elementExistsMethod="Hasimportedprovision"
+               templateElementMethod="Getimportedprovisionprovisionid"/>
+         <autoReconcile
+               targetSymbol="Imported Required Interface"
+               countMethod="Getimportedrequirementcount"
+               elementMethod="Getimportedrequirementid"
+               elementExistsMethod="Hasimportedrequirement"
+               templateElementMethod="Getimportedrequirementrequirementid"/>
+               
          </defaultFor>
          <defaultFor
                class="org.xtuml.bp.core.Component_c"
@@ -2648,28 +2650,29 @@
                countMethod="Getudtcount"
                elementMethod="Getudtid"
                elementExistsMethod="not used"/>       
-           <autoReconcile
+            <autoReconcile
                targetSymbol="Provided Interface"
                countMethod="Getprovisioncount"
                elementMethod="Getprovisionid"
-               elementExistsMethod="Hasprovision"/>
-           <autoReconcile
+               elementExistsMethod="not used"/>
+            <autoReconcile
                targetSymbol="Required Interface"
                countMethod="Getrequirementcount"
                elementMethod="Getrequirementid"
-               elementExistsMethod="Hasrequirement"/>         
-           <autoReconcile
+               elementExistsMethod="not used"/>
+
+          <autoReconcile
                targetSymbol="Imported Provided Interface"
                countMethod="Getimportedprovisioncount"
                elementMethod="Getimportedprovisionid"
-               elementExistsMethod="Hasimportedprovision"
-               templateElementMethod="Getimportedprovisionprovisionid"/>
-           <autoReconcile
+               elementExistsMethod="not used"
+              />
+          <autoReconcile
                targetSymbol="Imported Required Interface"
                countMethod="Getimportedrequirementcount"
                elementMethod="Getimportedrequirementid"
-               elementExistsMethod="Hasimportedrequirement"
-               templateElementMethod="Getimportedrequirementrequirementid"/>
+               elementExistsMethod="not used"
+               />               
          </defaultFor>
          <defaultFor
                class="org.xtuml.bp.core.InstanceStateMachine_c"
