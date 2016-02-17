@@ -18,9 +18,10 @@ avoid these failures.
 
 2. Document References
 ----------------------
-<a id="2.1"></a>2.1 (http://testng.org/doc/index.html) TODO: TestNG.  
-<a id="2.2"></a>2.3 [BridgePoint DEI #xxx2](https://support.onefact.net/issues/xxx2) TODO: Add description here.  
-<a id="2.3"></a>2.3 [BridgePoint DEI #xxx3](https://support.onefact.net/issues/xxx3) TODO: Add description here.  
+<a id="2.1"></a>2.1 [TestNG](http://testng.org/doc/index.html):  Testing Framework.    
+<a id="2.2"></a>2.2 [How to Extend Runner Class](http://intellijava.blogspot.com.eg/2012/05/junit-and-java-7.html): A developer blog describe how to extend runner class to introduce new test method inocations order  
+<a id="2.3"></a>2.3 [Add new annotation to JUnit 4](http://blog.jiffle.net/post/41125006846/extending-junit-functionality-with-additional): An article that describe how to add new annotation to JUnit 4  
+<a id="2.4"></a>2.4  [JUnit 4 Test execution order](https://github.com/junit-team/junit/wiki/Test-execution-order): The available test method invocations order option in JUnit 4  
 
 3. Background
 -------------
@@ -58,7 +59,7 @@ and JUnit Plug-in Test, which is used in BrdigePoint testing.
 
 
 5.2 Since JUnit 4.11, JUnit starts to offer a limited number of options for tests
-invocation order. These options are:
+invocation order. These options are [[2.4]](#2.4):
 		Name Ascending:  Sorts the test methods by method name, in lexicographic order.  
 		JVM:  Leaves the test methods in the order returned by the JVM. This order may vary from run to run.  
 		Default:  a deterministic, but not predictable order, and it basically uses hashing to define the test invocation order.  
@@ -67,11 +68,11 @@ invocation order. These options are:
 	- Name Ascending order will execute test_A11_ before test_A2_ and it make it more uglier, and harder to rename the test methods
 	to achieve the required order.  
 
-<a id="5.3"></a>5.3 Using JUnit 4, and by extending the runner class (BlockJUnit4ClassRunner), and override computeTestMethods()
+<a id="5.3"></a>5.3 Using JUnit 4, and by extending the runner class (BlockJUnit4ClassRunner) [[2.2]](#2.2), and override computeTestMethods()
 	method, it is possible to define any test methods invocation order. Test Classes needs to be annotated with RunWith
 	to used the extended runner class.
 
-<a id="5.4"></a>5.4 Similar to [[5.3]](#5.3) , it is possible to add a new custom annotation (e.g. Order), and use it to determined the test 
+<a id="5.4"></a>5.4 Similar to [[5.3]](#5.3) , it is possible to add a new custom annotation (e.g. Order) [[2.3]](#2.3), and use it to determined the test 
 	invocation order, which increase the flexibility to change the order more easily.
 	Adding incremental value for Order annotation would be easy in the generated test classes,
 	but for non-generated test classes, a script is need to add incremental value for
@@ -80,7 +81,7 @@ invocation order. These options are:
 
 6. Work Required
 ----------------
-5.3 is selected to implement, as work needed is most minimized, and there
+[[5.3]](#5.3) is selected to implement, as work needed is most minimized, and there
 is no need to switch the testing technology. Also is fairly easy to move
 to Order annotation [[5.4]](#5.4) in future if needed.
 The required work:
