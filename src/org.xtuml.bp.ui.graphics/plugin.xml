@@ -2364,55 +2364,56 @@
                   g="209"
                   r="191">
             </color>
-            <validSymbol
-                  name="Package">
-            </validSymbol>
-            <validSymbol name="Accept Event Action" tool_category="Activity"/>
+            <validSymbol name="Package" />
+            <validSymbol name="User Data Type" 			tool_category="Types"/>
+            <validSymbol name="Constant Specification" 	tool_category="Types"/>
+            <validSymbol name="Structured Data Type" 	tool_category="Types"/>
+            <validSymbol name="Enumeration Data Type" 	tool_category="Types"/>            
+            <validSymbol name="External Entity" 		tool_category="External" class="org.xtuml.bp.core.ExternalEntity_c"/>
+            <validSymbol name="Class" 					tool_category="Classes"/>
+            <validSymbol name="Imported Class" 			tool_category="Classes"/>
+            <validSymbol name="Association" 			tool_category="Classes"/>
+            <validSymbol name="Associative Link" 		tool_category="Classes"/>
+            <validSymbol name="Supertype" 				tool_category="Classes"/>
+            <validSymbol name="Subtype" 				tool_category="Classes"/>
+            <validSymbol name="Component" 				tool_category="Components" 
+            											elemType="org.xtuml.bp.ui.canvas.Ooatype_c.Component" 
+            											class="org.xtuml.bp.core.Component_c"
+            </validSymbol/>
+            <validSymbol name="Component Reference" 	tool_category="Components"/>
+            <validSymbol name="Provided Interface" 		tool_category="Components"/>
+            <validSymbol name="Required Interface" 		tool_category="Components"/>
+            <validSymbol name="Interface" 				tool_category="Components"/>
+            <validSymbol name="Accept Event Action" 	tool_category="Activity"/>
             <validSymbol name="Accept Time Event Action" tool_category="Activity"/>
-            <validSymbol name="Action" tool_category="Activity"/>
-            <validSymbol name="Send Signal Action" tool_category="Activity"/>
-            <validSymbol name="Object Node" tool_category="Activity"/>
-            <validSymbol name="Decision/Merge Node" tool_category="Activity"/>
-            <validSymbol name="Initial Node" tool_category="Activity"/>
-            <validSymbol name="Activity Final Node" tool_category="Activity"/>
-            <validSymbol name="Flow Final Node" tool_category="Activity"/>
-            <validSymbol name="Activity Partition" tool_category="Activity"/>
-            <validSymbol name="Activity Edge" tool_category="Activity"/>
-            <validSymbol name="Fork/Join Node" tool_category="Activity"/>
-            <validSymbol name="Class" tool_category="Classes"/>
-            <validSymbol name="Imported Class" tool_category="Classes"/>
-            <validSymbol name="Association" tool_category="Classes"/>
-            <validSymbol name="Associative Link" tool_category="Classes"/>
-            <validSymbol name="Supertype" tool_category="Classes"/>
-            <validSymbol name="Subtype" tool_category="Classes"/>
-            <validSymbol name="Link" tool_category="Communication"/>
-            <validSymbol name="Component" elemType="org.xtuml.bp.ui.canvas.Ooatype_c.Component" class="org.xtuml.bp.core.Component_c" tool_category="Components"/>
-            <validSymbol name="Component Reference" tool_category="Components"/>
-            <validSymbol name="Provided Interface" tool_category="Components"/>
-            <validSymbol name="Required Interface" tool_category="Components"/>
-            <validSymbol name="Interface" tool_category="Components"/>
-            <validSymbol name="External Entity" class="org.xtuml.bp.core.ExternalEntity_c" tool_category="External"/>
-            <validSymbol name="Actor" tool_category="Interaction"/>
-            <validSymbol name="Component" class="org.xtuml.bp.core.ComponentParticipant_c" tool_category="Interaction"/>
-            <validSymbol name="Instance" tool_category="Interaction"/>
-            <validSymbol name="External Entity" class="org.xtuml.bp.core.ExternalEntityParticipant_c" tool_category="Interaction"/>
-            <validSymbol name="Package Participant" class="org.xtuml.bp.core.PackageParticipant_c" tool_category="Interaction"/>
-            <validSymbol name="Class" class="org.xtuml.bp.core.ClassParticipant_c" tool_category="Interaction"/>
-            <validSymbol name="Synchronous Message"  tool_category="Interaction" elemType="org.xtuml.bp.ui.canvas.Ooatype_c.SynchronousMessage"/>
-            <validSymbol name="Asynchronous Message" tool_category="Interaction" elemType="org.xtuml.bp.ui.canvas.Ooatype_c.AsynchronousMessage"/>
-            <validSymbol name="Return Message"       tool_category="Interaction" elemType="org.xtuml.bp.ui.canvas.Ooatype_c.ReturnMessage"/>
-            <validSymbol name="Communication Line" tool_category="Sequence"/>
-            <validSymbol name="Timing Mark" tool_category="Sequence"/>
-            <validSymbol name="Time Span" tool_category="Sequence"/>
-            <validSymbol name="User Data Type" tool_category="Types"/>
-            <validSymbol name="Constant Specification" tool_category="Types"/>
-            <validSymbol name="Structured Data Type" tool_category="Types"/>
-            <validSymbol name="Enumeration Data Type" tool_category="Types"/>            
-            <validSymbol name="Use Case" tool_category="Use Case"/>
-            <validSymbol name="Association" class="org.xtuml.bp.core.BinaryAssociation_c" tool_category="Use Case"/>
-            <validSymbol name="Generalization" tool_category="Use Case"/>
-            <validSymbol name="Include" tool_category="Use Case"/>
-            <validSymbol name="Extend" tool_category="Use Case"/>
+            <validSymbol name="Action" 					tool_category="Activity"/>
+            <validSymbol name="Send Signal Action" 		tool_category="Activity"/>
+            <validSymbol name="Object Node" 			tool_category="Activity"/>
+            <validSymbol name="Decision/Merge Node" 	tool_category="Activity"/>
+            <validSymbol name="Initial Node" 			tool_category="Activity"/>
+            <validSymbol name="Activity Final Node" 	tool_category="Activity"/>
+            <validSymbol name="Flow Final Node" 		tool_category="Activity"/>
+            <validSymbol name="Activity Partition" 		tool_category="Activity"/>
+            <validSymbol name="Activity Edge" 			tool_category="Activity"/>
+            <validSymbol name="Fork/Join Node" 			tool_category="Activity"/>
+            <validSymbol name="Link" 					tool_category="Communication"/>
+            <validSymbol name="Actor" 					tool_category="Interaction"/>
+            <validSymbol name="Component" 				tool_category="Interaction" class="org.xtuml.bp.core.ComponentParticipant_c"/>
+            <validSymbol name="Instance" 				tool_category="Interaction"/>
+            <validSymbol name="External Entity" 		tool_category="Interaction" class="org.xtuml.bp.core.ExternalEntityParticipant_c"/>
+            <validSymbol name="Package Participant" 	tool_category="Interaction" class="org.xtuml.bp.core.PackageParticipant_c"/>
+            <validSymbol name="Class" 					tool_category="Interaction" class="org.xtuml.bp.core.ClassParticipant_c"/>
+            <validSymbol name="Synchronous Message"  	tool_category="Interaction" elemType="org.xtuml.bp.ui.canvas.Ooatype_c.SynchronousMessage"/>
+            <validSymbol name="Asynchronous Message" 	tool_category="Interaction" elemType="org.xtuml.bp.ui.canvas.Ooatype_c.AsynchronousMessage"/>
+            <validSymbol name="Return Message"      	tool_category="Interaction" elemType="org.xtuml.bp.ui.canvas.Ooatype_c.ReturnMessage"/>
+            <validSymbol name="Communication Line" 		tool_category="Sequence"/>
+            <validSymbol name="Timing Mark" 			tool_category="Sequence"/>
+            <validSymbol name="Time Span" 				tool_category="Sequence"/>
+            <validSymbol name="Use Case" 				tool_category="Use Case"/>
+            <validSymbol name="Association" 			tool_category="Use Case" class="org.xtuml.bp.core.BinaryAssociation_c"/>
+            <validSymbol name="Generalization" 			tool_category="Use Case"/>
+            <validSymbol name="Include" 				tool_category="Use Case"/>
+            <validSymbol name="Extend" 					tool_category="Use Case"/>
             <autoReconcile
                targetSymbol="User Data Type"
                countMethod="Getudtcount"
