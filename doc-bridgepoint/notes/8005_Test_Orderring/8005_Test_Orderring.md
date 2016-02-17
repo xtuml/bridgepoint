@@ -19,9 +19,9 @@ avoid these failures.
 2. Document References
 ----------------------
 <a id="2.1"></a>2.1 [TestNG](http://testng.org/doc/index.html):  Testing Framework.    
-<a id="2.2"></a>2.2 [How to Extend Runner Class](http://intellijava.blogspot.com.eg/2012/05/junit-and-java-7.html): A developer blog describe how to extend runner class to introduce new test method inocations order  
-<a id="2.3"></a>2.3 [Add new annotation to JUnit 4](http://blog.jiffle.net/post/41125006846/extending-junit-functionality-with-additional): An article that describe how to add new annotation to JUnit 4  
-<a id="2.4"></a>2.4  [JUnit 4 Test execution order](https://github.com/junit-team/junit/wiki/Test-execution-order): The available test method invocations order option in JUnit 4  
+<a id="2.2"></a>2.2 [How to Extend Runner Class](http://intellijava.blogspot.com.eg/2012/05/junit-and-java-7.html): A developer blog describe how to extend runner class to introduce new test method invocations order  
+<a id="2.3"></a>2.3 [Add new annotation to JUnit 4](http://blog.jiffle.net/post/41125006846/extending-junit-functionality-with-additional): An article that describes how to add new annotation to JUnit 4  
+<a id="2.4"></a>2.4  [JUnit 4 Test execution order](https://github.com/junit-team/junit/wiki/Test-execution-order): The available test method invocations order options in JUnit 4  
 
 3. Background
 -------------
@@ -35,7 +35,7 @@ failure, since our tests are not always independent on each others, so
 changing the invocation order causes failures.
 
 JUnit states that will-written test code would not assume any order, but it is 
-very hard to refactor our test to resolve their dependencies.
+very hard to refactor our tests to resolve their dependencies.
 
 4. Requirements
 ---------------
@@ -48,7 +48,7 @@ Investigation is made to find way to force JUnit to execute the test methods as
 required, or finding JUnit alternatives that address the requirement.
 The following are the available approaches:
 
-5.1 Using TestNG technology [[2.1]](#2.1):  TestNG is a very similar JUnit, specially JUnit 4,
+5.1 Using TestNG technology [[2.1]](#2.1):  TestNG is a very similar to JUnit, specially JUnit 4,
 as it uses annotation to define the test , setup tear down functions and 
 other execution options, one of them is Priority annotation, which can be used
 to define test methods invocation order. TestNG offers also conversion action to 
@@ -75,7 +75,7 @@ invocation order. These options are [[2.4]](#2.4):
 <a id="5.4"></a>5.4 Similar to [[5.3]](#5.3) , it is possible to add a new custom annotation (e.g. Order) [[2.3]](#2.3), and use it to determined the test 
 	invocation order, which increase the flexibility to change the order more easily.
 	Adding incremental value for Order annotation would be easy in the generated test classes,
-	but for non-generated test classes, a script is need to add incremental value for
+	but for non-generated test classes, a script is needed to add incremental value for
 	Order annotation.
 	
 
