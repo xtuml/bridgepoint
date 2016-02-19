@@ -98,6 +98,7 @@ import org.xtuml.bp.core.UseCaseParticipant_c;
 import org.xtuml.bp.core.UserDataType_c;
 import org.xtuml.bp.core.User_c;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
+import org.xtuml.bp.core.common.ILogger;
 import org.xtuml.bp.core.common.IdAssigner;
 import org.xtuml.bp.core.common.ModelRoot;
 import org.xtuml.bp.core.common.NonRootModelElement;
@@ -1948,6 +1949,14 @@ public static void Settoolbarstate(boolean readonly) {
 		CanvasPlugin.logError(message, null);
 	}
 		
+	public static void Logtracemsg(int Filteryype, String Filtervalue, String Message) {
+		CanvasPlugin.logTraceMsg(Filteryype, Filtervalue, Message);
+	}
+		
+	public static void Traceoperation(String msg) {
+		Cl_c.Logtracemsg(ILogger.OPERATION, "", msg);		
+	}
+	
 	public static boolean Connectorsupportslinking(Object connector) {
 		return hasMethod(connector, "Linkconnector", new Class[] {UUID.class}); //$NON-NLS-1$
 	}
@@ -1959,4 +1968,5 @@ public static void Settoolbarstate(boolean readonly) {
         args[0] = new Integer(end);
         return s_invoke(represents, "Get_connector_tooltip", argTypes, args);
 	}
+
 }// End Cl_c
