@@ -36,6 +36,7 @@ public class BridgePointPreferencesModel implements IPreferenceModel {
     public String allowIntToRealPromotion;
     public String allowRealToIntCoercion;
     public boolean allowImplicitComponentAddressing;
+    public boolean enableParseOnActivtyEdits;
     public boolean allowOperationsInWhere;
     public boolean allowInterfaceNameInICMessage;
     public boolean enableErrorForEmptySynchronousMessage;
@@ -86,8 +87,8 @@ public class BridgePointPreferencesModel implements IPreferenceModel {
         parseAllOnResourceChange = syncTo.parseAllOnResourceChange;
         allowIntToRealPromotion = syncTo.allowIntToRealPromotion;
         allowRealToIntCoercion = syncTo.allowRealToIntCoercion;
-        allowImplicitComponentAddressing =
-                                        syncTo.allowImplicitComponentAddressing;
+        allowImplicitComponentAddressing = syncTo.allowImplicitComponentAddressing;
+        enableParseOnActivtyEdits = syncTo.enableParseOnActivtyEdits;        
         allowOperationsInWhere = syncTo.allowOperationsInWhere;
         allowInterfaceNameInICMessage = syncTo.allowInterfaceNameInICMessage;
         enableErrorForEmptySynchronousMessage = syncTo.enableErrorForEmptySynchronousMessage;
@@ -132,6 +133,7 @@ public class BridgePointPreferencesModel implements IPreferenceModel {
         prefs.allowIntToRealPromotion = allowIntToRealPromotion;
         prefs.allowRealToIntCoercion = allowRealToIntCoercion;
         prefs.allowImplicitComponentAddressing = allowImplicitComponentAddressing;
+        prefs.enableParseOnActivtyEdits = enableParseOnActivtyEdits;       
         prefs.allowOperationsInWhere = allowOperationsInWhere;
         prefs.allowInterfaceNameInICMessage = allowInterfaceNameInICMessage;
         prefs.enableErrorForEmptySynchronousMessage = enableErrorForEmptySynchronousMessage;

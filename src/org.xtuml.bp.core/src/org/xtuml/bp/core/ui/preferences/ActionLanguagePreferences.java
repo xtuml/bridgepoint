@@ -60,6 +60,7 @@ public class ActionLanguagePreferences
     private Button allowInterfaceNameInICMessage;
     private Button enableErrorForEmptySynchronousMessage;
 	private Button enableErrorForEmptySynchronousMessageRealized;
+	private Button enableParseOnActivtyEdits;
     
     protected IPreferenceModel model;
 
@@ -152,6 +153,9 @@ public class ActionLanguagePreferences
     allowImplicitComponentAddressing.setText(
     		                             "Allow implicit component addressing");
 
+    enableParseOnActivtyEdits = new Button(composite, SWT.CHECK | SWT.LEFT);
+    enableParseOnActivtyEdits.setText("Parse while editing OAL activities");
+    
     allowOperationsInWhere = new Button(composite, SWT.CHECK | SWT.LEFT);
     allowOperationsInWhere.setText("Allow operations inside where clauses of select statements");
     allowOperationsInWhere.setToolTipText(
@@ -236,6 +240,12 @@ public class ActionLanguagePreferences
       else {
     	  bpPrefs.allowImplicitComponentAddressing = false;
       }
+      if (enableParseOnActivtyEdits.getSelection()) {
+    	  bpPrefs.enableParseOnActivtyEdits = true;
+      }
+      else {
+    	  bpPrefs.enableParseOnActivtyEdits = false;
+      }      
       if (allowOperationsInWhere.getSelection()) {
           bpPrefs.allowOperationsInWhere = true;
       }
@@ -301,6 +311,7 @@ public class ActionLanguagePreferences
           allowCoercionNoRadio.setEnabled(true);
       }
       allowImplicitComponentAddressing.setSelection(bpPrefs.allowImplicitComponentAddressing);
+      enableParseOnActivtyEdits.setSelection(bpPrefs.enableParseOnActivtyEdits);      
       allowOperationsInWhere.setSelection(bpPrefs.allowOperationsInWhere);
       allowInterfaceNameInICMessage.setSelection(bpPrefs.allowInterfaceNameInICMessage);
 	  enableErrorForEmptySynchronousMessage

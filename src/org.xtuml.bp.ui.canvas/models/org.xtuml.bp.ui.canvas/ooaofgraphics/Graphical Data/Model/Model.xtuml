@@ -1072,7 +1072,8 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'select any ars related by self->GD_MS[R9]->GD_EMS[R11]->
+	'if (param.existingGraphicsArePresent)
+select any ars related by self->GD_MS[R9]->GD_EMS[R11]->
                        GD_ES[R11]->GD_ARS[R29] where selected.Id == param.arsId;
 select one elemSpec related by ars->GD_ES[R29];
 select any shapeEle related by elemSpec->GD_GE[R10]
@@ -1194,7 +1195,142 @@ else
          shapeEdge:shapeEdge, shapeId:shapeEle.elementId, start:start,
                                      startingWaypointId:startPoint.Way_ID,
                                        percentOfEdgeLength:percentOfEdgeLength);
-end if;',
+end if;
+
+else // if (param.exitingGraphicsArePresent)
+
+select any ars related by self->GD_MS[R9]->GD_ARS[R33] where selected.Id == param.arsId;
+if (empty ars)
+  return;
+end if;
+select one modelSpec related by ars->GD_MS[R33];
+select many specs related by modelSpec->GD_ES[R11];
+select one sourceSpec related by ars->GD_ES[R30];
+select one targetSpec related by ars->GD_ES[R31];
+select any startElementGE related by self->GD_GE[R1] where (selected.elementId == param.elementId);
+select one startElementShp related by startElementGE->GD_SHP[R2];
+// the graphical element the connector will be related to
+select one startElementNode related by startElementShp->DIM_ND[R19];
+select one startElement related by startElementNode->DIM_GE[R301];
+//
+// Create the new graphical connector
+//
+select any endElementGE related by sourceSpec->GD_GE[R10];
+select one endElementShp related by endElementGE->GD_SHP[R2];
+select one endElementNode related by endElementShp->DIM_ND[R19];
+select one endElement related by endElementNode->DIM_GE[R301];
+
+select many otherAnchors related by startElement->DIM_CON[R311];
+select any lowerAnchor related by startElement->DIM_CON[R311];
+
+
+for each otherAnchor in otherAnchors
+  
+   if (otherAnchor.positionY > lowerAnchor.positionY)
+       lowerAnchor=otherAnchor;
+  end if;
+end for;
+
+//if(startElementGE.represents != self.represents)
+
+create object instance newConElem of GD_GE;
+relate newConElem to sourceSpec across R10;
+relate newConElem to self across R1;
+create object instance connector of GD_CON;
+relate newConElem to connector across R2;
+create object instance graphEdge of DIM_ED;
+relate graphEdge to connector across R20;
+create object instance graphEle of DIM_GE;
+relate graphEle to graphEdge across R301;
+relate graphEle to newConElem across R23;
+create object instance diaEle of DIM_ELE;
+relate diaEle to graphEle across R302;
+create object instance segment of GD_LS;
+create object instance startPoint of DIM_WAY;
+relate startPoint to segment across R21;
+relate startPoint to graphEdge across R319;
+create object instance endPoint of DIM_WAY;
+relate endPoint to segment across R22;
+relate endPoint to graphEdge across R319;
+relate endPoint to startPoint across R324.''follows'';
+relate connector to segment across R6;
+relate sourceSpec to newConElem across R16; // to be urelated in the updateAllElements
+// create the start text
+create object instance text of GD_CTXT;
+text.end = End::Start;
+relate connector to text across R8;
+text.createSupertypeInstances(); 
+
+// create the middle text
+create object instance text of GD_CTXT;
+text.end = End::Middle;
+relate connector to text across R8;
+text.createSupertypeInstances();
+
+// create the end text
+create object instance text of GD_CTXT;
+text.end = End::End;
+relate connector to text across R8;
+text.createSupertypeInstances();
+
+// Prepare self for drawing segment
+select one diagram related by self->DIM_DIA[R18];
+                          
+startPoint.positionX = startElement.positionX + startElementNode.width ;
+if(empty lowerAnchor)
+  startPoint.positionY = startElement.positionY ;
+else if(not empty lowerAnchor)
+  startPoint.positionY = lowerAnchor.positionY + 20 ;
+
+  if(startPoint.positionY >= (startElement.positionY+startElementNode.height))
+   startPoint.positionY = lowerAnchor.positionY;
+  end if;
+end if;
+end if;
+
+
+if(not empty endElement)
+       endPoint.positionX = endElement.positionX;
+       endPoint.positionY = endElement.positionY +(endElementNode.height/2);
+else
+   endPoint.positionX = startPoint.positionX+100;
+   endPoint.positionY = startPoint.positionY ;
+end if;
+
+if(not_empty startElement)
+    // create an anchor on the starting element
+    create object instance anchor of DIM_CON;
+    // initialize the anchors position
+    select one segmentStart related by segment->DIM_WAY[R21];
+    select one segmentEnd related by segment->DIM_WAY[R22];
+    anchor.positionX = segmentStart.positionX;
+    anchor.positionY = segmentStart.positionY;
+    //select one graphElement related by startElement->DIM_GE[R23];
+    relate anchor to startElement across R311;
+
+    // make the anchor the one at which the connector starts
+    select one edge related by connector->DIM_ED[R20];
+    relate edge to anchor across R320;
+  end if;
+  
+  if(not_empty endElement)
+    // create an anchor on the ending element
+    create object instance anchor of DIM_CON;
+    // initialize the anchors location
+    select one segmentEnd related by segment->DIM_WAY[R22];
+    anchor.positionX = segmentEnd.positionX;
+    anchor.positionY = segmentEnd.positionY;
+    //select one graphElement related by endElement->DIM_GE[R23];
+    relate anchor to endElement across R311;
+
+    // make the anchor the one at which the connector ends
+    select one edge related by connector->DIM_ED[R20];
+    relate edge to anchor across R321;
+  end if;
+
+ 
+
+end if; ',
 	1,
 	'',
 	"f74c397c-b239-4f99-bb82-f47ec2c01025");
@@ -1233,6 +1369,15 @@ INSERT INTO O_TPARM
 	0,
 	'',
 	"f8989ef0-afab-4b3f-b5ee-a4137c7f7dcb",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("77158963-1f78-4711-b050-d1a27ff5b28c",
+	"160b4ec5-2ccc-4a1f-ad27-9eea360878f2",
+	'existingGraphicsArePresent',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	0,
+	'',
+	"1a45c3cb-9715-44d4-9873-a6ea916df586",
 	'');
 INSERT INTO O_TFR
 	VALUES ("73bc8657-6063-4980-b3b8-a559b0113693",
@@ -1874,183 +2019,6 @@ INSERT INTO O_TFR
 	0,
 	'',
 	"65c08e66-6e75-4a15-8918-a83328c75b76");
-INSERT INTO O_TFR
-	VALUES ("fa44de12-6fd3-40e6-b843-0e50839b5f3c",
-	"09423687-e999-4aba-876d-35e0d3331311",
-	'newArxmlConnector',
-	'',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'select any ars related by self->GD_MS[R9]->GD_ARS[R33] where selected.Id == param.arsId;
-if (empty ars)
-  return;
-end if;
-select one modelSpec related by ars->GD_MS[R33];
-select many specs related by modelSpec->GD_ES[R11];
-select one sourceSpec related by ars->GD_ES[R30];
-select one targetSpec related by ars->GD_ES[R31];
-select any startElementGE related by self->GD_GE[R1] where (selected.elementId == param.elementId);
-select one startElementShp related by startElementGE->GD_SHP[R2];
-// the graphical element the connector will be related to
-select one startElementNode related by startElementShp->DIM_ND[R19];
-select one startElement related by startElementNode->DIM_GE[R301];
-//
-// Create the new graphical connector
-//
-select any endElementGE related by sourceSpec->GD_GE[R10];
-select one endElementShp related by endElementGE->GD_SHP[R2];
-select one endElementNode related by endElementShp->DIM_ND[R19];
-select one endElement related by endElementNode->DIM_GE[R301];
-
-select many otherAnchors related by startElement->DIM_CON[R311];
-select any lowerAnchor related by startElement->DIM_CON[R311];
-
-
-for each otherAnchor in otherAnchors
-  
-   if (otherAnchor.positionY > lowerAnchor.positionY)
-       lowerAnchor=otherAnchor;
-  end if;
-end for;
-
-//if(startElementGE.represents != self.represents)
-
-create object instance newConElem of GD_GE;
-relate newConElem to sourceSpec across R10;
-relate newConElem to self across R1;
-create object instance connector of GD_CON;
-relate newConElem to connector across R2;
-create object instance graphEdge of DIM_ED;
-relate graphEdge to connector across R20;
-create object instance graphEle of DIM_GE;
-relate graphEle to graphEdge across R301;
-relate graphEle to newConElem across R23;
-create object instance diaEle of DIM_ELE;
-relate diaEle to graphEle across R302;
-create object instance segment of GD_LS;
-create object instance startPoint of DIM_WAY;
-relate startPoint to segment across R21;
-relate startPoint to graphEdge across R319;
-create object instance endPoint of DIM_WAY;
-relate endPoint to segment across R22;
-relate endPoint to graphEdge across R319;
-relate endPoint to startPoint across R324.''follows'';
-relate connector to segment across R6;
-relate sourceSpec to newConElem across R16; // to be urelated in the updateAllElements
-// create the start text
-create object instance text of GD_CTXT;
-text.end = End::Start;
-relate connector to text across R8;
-text.createSupertypeInstances(); 
-
-// create the middle text
-create object instance text of GD_CTXT;
-text.end = End::Middle;
-relate connector to text across R8;
-text.createSupertypeInstances();
-
-// create the end text
-create object instance text of GD_CTXT;
-text.end = End::End;
-relate connector to text across R8;
-text.createSupertypeInstances();
-
-// Prepare self for drawing segment
-select one diagram related by self->DIM_DIA[R18];
-                          
-startPoint.positionX = startElement.positionX + startElementNode.width ;
-if(empty lowerAnchor)
-  startPoint.positionY = startElement.positionY ;
-else if(not empty lowerAnchor)
-  startPoint.positionY = lowerAnchor.positionY + 20 ;
-
-  if(startPoint.positionY >= (startElement.positionY+startElementNode.height))
-   startPoint.positionY = lowerAnchor.positionY;
-  end if;
-end if;
-end if;
-
-
-if(not empty endElement)
-       endPoint.positionX = endElement.positionX;
-       endPoint.positionY = endElement.positionY +(endElementNode.height/2);
-else
-   endPoint.positionX = startPoint.positionX+100;
-   endPoint.positionY = startPoint.positionY ;
-end if;
-
-if(not_empty startElement)
-    // create an anchor on the starting element
-    create object instance anchor of DIM_CON;
-    // initialize the anchors position
-    select one segmentStart related by segment->DIM_WAY[R21];
-    select one segmentEnd related by segment->DIM_WAY[R22];
-    anchor.positionX = segmentStart.positionX;
-    anchor.positionY = segmentStart.positionY;
-    //select one graphElement related by startElement->DIM_GE[R23];
-    relate anchor to startElement across R311;
-
-    // make the anchor the one at which the connector starts
-    select one edge related by connector->DIM_ED[R20];
-    relate edge to anchor across R320;
-  end if;
-  
-  if(not_empty endElement)
-    // create an anchor on the ending element
-    create object instance anchor of DIM_CON;
-    // initialize the anchors location
-    select one segmentEnd related by segment->DIM_WAY[R22];
-    anchor.positionX = segmentEnd.positionX;
-    anchor.positionY = segmentEnd.positionY;
-    //select one graphElement related by endElement->DIM_GE[R23];
-    relate anchor to endElement across R311;
-
-    // make the anchor the one at which the connector ends
-    select one edge related by connector->DIM_ED[R20];
-    relate edge to anchor across R321;
-  end if;
- //end if;
- 
-',
-	1,
-	'',
-	"f88f3906-1401-4759-9d43-dd2cfa4eea64");
-INSERT INTO O_TPARM
-	VALUES ("80b8606e-a2a3-4119-bebd-89b78cd8c8a5",
-	"fa44de12-6fd3-40e6-b843-0e50839b5f3c",
-	'arsId',
-	"ba5eda7a-def5-0000-0000-000000000005",
-	0,
-	'',
-	"00000000-0000-0000-0000-000000000000",
-	'');
-INSERT INTO O_TPARM
-	VALUES ("6e675f55-d076-4168-8353-b73f4420690b",
-	"fa44de12-6fd3-40e6-b843-0e50839b5f3c",
-	'connector',
-	"ba5eda7a-def5-0000-0000-000000000005",
-	0,
-	'',
-	"80b8606e-a2a3-4119-bebd-89b78cd8c8a5",
-	'');
-INSERT INTO O_TPARM
-	VALUES ("9799f5a4-c0fa-4333-bdbc-46d4902669b7",
-	"fa44de12-6fd3-40e6-b843-0e50839b5f3c",
-	'elementId',
-	"ba5eda7a-def5-0000-0000-000000000005",
-	0,
-	'',
-	"6e675f55-d076-4168-8353-b73f4420690b",
-	'');
-INSERT INTO O_TPARM
-	VALUES ("cd98a2f8-37e2-4bca-ba1b-82aeb5456e95",
-	"fa44de12-6fd3-40e6-b843-0e50839b5f3c",
-	'representsId',
-	"ba5eda7a-def5-0000-0000-000000000005",
-	0,
-	'',
-	"9799f5a4-c0fa-4333-bdbc-46d4902669b7",
-	'');
 INSERT INTO O_REF
 	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
 	"0cd14c97-c661-47b7-a063-cf7c345d1bdc",

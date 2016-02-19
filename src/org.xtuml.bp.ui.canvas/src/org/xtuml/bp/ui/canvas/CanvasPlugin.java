@@ -51,6 +51,7 @@ import org.osgi.framework.Constants;
 import org.xtuml.bp.core.End_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
+import org.xtuml.bp.core.common.ILogger;
 import org.xtuml.bp.core.common.ModelRoot;
 import org.xtuml.bp.core.common.TransactionManager;
 import org.xtuml.bp.core.util.CoreUtil;
@@ -698,6 +699,14 @@ private ElementSpecification_c locateEsByNameAndClassType(ModelRoot modelRoot,
         }
     }
   }
+  public static void logTraceMsg(int filterType, String filterValue, String message )
+  {
+	  if (Ooaofgraphics.log != null) {
+		  Ooaofgraphics.log.println(filterType,
+				filterValue,
+				message);
+	  }
+  }  
   /* (non-Javadoc)
    * @see org.osgi.framework.BundleActivator#start(org.osgi.framework.BundleContext)
    */
