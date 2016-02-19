@@ -5,7 +5,7 @@
 <booleanAttribute key="automaticAdd" value="true"/>
 <booleanAttribute key="automaticValidate" value="false"/>
 <stringAttribute key="bootstrap" value=""/>
-<stringAttribute key="checked" value="org.xtuml.bp.core"/>
+<stringAttribute key="checked" value="org.xtuml.bp.core,org.xtuml.bp.ui.canvas"/>
 <booleanAttribute key="clearConfig" value="false"/>
 <booleanAttribute key="clearws" value="false"/>
 <booleanAttribute key="clearwslog" value="false"/>
@@ -792,7 +792,7 @@
 <mapEntry key="org.xtuml.bp.core/debug/operations/filter" value="*"/>
 <mapEntry key="org.xtuml.bp.core/debug/states" value="false"/>
 <mapEntry key="org.xtuml.bp.core/debug/states/filter" value="*"/>
-<mapEntry key="org.xtuml.bp.ui.canvas/debug" value="false"/>
+<mapEntry key="org.xtuml.bp.ui.canvas/debug" value="true"/>
 <mapEntry key="org.xtuml.bp.ui.canvas/debug/bridges" value="false"/>
 <mapEntry key="org.xtuml.bp.ui.canvas/debug/bridges/filter" value="*"/>
 <mapEntry key="org.xtuml.bp.ui.canvas/debug/consistency" value="false"/>
@@ -801,7 +801,7 @@
 <mapEntry key="org.xtuml.bp.ui.canvas/debug/delete/filter" value="*"/>
 <mapEntry key="org.xtuml.bp.ui.canvas/debug/functions" value="false"/>
 <mapEntry key="org.xtuml.bp.ui.canvas/debug/functions/filter" value="*"/>
-<mapEntry key="org.xtuml.bp.ui.canvas/debug/operations" value="false"/>
+<mapEntry key="org.xtuml.bp.ui.canvas/debug/operations" value="true"/>
 <mapEntry key="org.xtuml.bp.ui.canvas/debug/operations/filter" value="*"/>
 <mapEntry key="org.xtuml.bp.ui.canvas/debug/states" value="false"/>
 <mapEntry key="org.xtuml.bp.ui.canvas/debug/states/filter" value="*"/>

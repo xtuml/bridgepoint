@@ -2376,10 +2376,12 @@
             <validSymbol name="Associative Link" 		tool_category="Classes"/>
             <validSymbol name="Supertype" 				tool_category="Classes"/>
             <validSymbol name="Subtype" 				tool_category="Classes"/>
-            <validSymbol name="Component" 				tool_category="Components" 
+            <validSymbol 
+            											name="Component" 				
+            											tool_category="Components" 
             											elemType="org.xtuml.bp.ui.canvas.Ooatype_c.Component" 
-            											class="org.xtuml.bp.core.Component_c"
-            </validSymbol/>
+            											class="org.xtuml.bp.core.Component_c">
+            </validSymbol>
             <validSymbol name="Component Reference" 	tool_category="Components"/>
             <validSymbol name="Provided Interface" 		tool_category="Components"/>
             <validSymbol name="Required Interface" 		tool_category="Components"/>
