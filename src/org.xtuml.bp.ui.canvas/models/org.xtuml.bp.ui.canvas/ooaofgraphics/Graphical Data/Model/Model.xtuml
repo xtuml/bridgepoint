@@ -1197,7 +1197,7 @@ else
                                        percentOfEdgeLength:percentOfEdgeLength);
 end if;
 
-else // if (param.exitingGraphicsArePresent)
+else // if (param.existingGraphicsArePresent)
 
 select any ars related by self->GD_MS[R9]->GD_ARS[R33] where selected.Id == param.arsId;
 if (empty ars)
