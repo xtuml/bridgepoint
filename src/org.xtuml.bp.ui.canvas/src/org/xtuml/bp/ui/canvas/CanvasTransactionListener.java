@@ -51,13 +51,8 @@ public class CanvasTransactionListener implements ITransactionListener {
 	}
 
 	public void transactionEnded(final Transaction transaction) {
-		if (graphicsReconcilerInTransactionIsEnabled) {
-			
-			if (GraphicsReconcilerLauncher.reconcileThisTransaction(transaction)) {
-				GraphicsReconcilerLauncher reconciler = new GraphicsReconcilerLauncher(
-						GraphicsReconcilerLauncher.getAffectedSystems(transaction));
-				reconciler.startReconciler(false, true);
-			}
+		if (graphicsReconcilerInTransactionIsEnabled) {		
+			GraphicsReconcilerLauncher.reconcileThisTransaction(transaction, false, true);
 		}
 		ModelRoot[] modelRoots = transaction.getParticipatingModelRoots();
 		DataType_c dt = null;

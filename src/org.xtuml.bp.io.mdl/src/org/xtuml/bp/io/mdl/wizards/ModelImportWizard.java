@@ -289,7 +289,7 @@ public class ModelImportWizard extends Wizard implements IImportWizard {
 	}
 
 	private void createGraphicsOnImport() {
-		List<SystemModel_c> systems = new ArrayList<SystemModel_c>();
+		List<NonRootModelElement> systems = new ArrayList<NonRootModelElement>();
 		systems.add(fSystem);
 		GraphicsReconcilerLauncher reconciler = new GraphicsReconcilerLauncher(systems);
 		reconciler.startReconciler(false, false);
