@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: BridgePoint Documentation Plug-in
 Bundle-SymbolicName: org.xtuml.bp.doc; singleton:=true
-Bundle-Version: 5.2.0
+Bundle-Version: 5.3.0
 Bundle-Vendor: xtUML.org
 Bundle-Localization: plugin
 Bundle-ActivationPolicy: lazy
