@@ -273,13 +273,13 @@ if (CL::isContainedInSystem(element:model.represents,
   count = 0;
   //Get the count of shapes in the model (i.e the number of classes in the class Diagram)
   // This conditional expression is  here to assure we are only calling this for 
-  // shapes. The connectorExistsMethod is not used for shapes.
-  if ((self.connectorExistsMethod == "") or (self.connectorExistsMethod == "not used"))
-    count = CL::numElements( from:model.represents,using:self.countMethod);
+  // shapes. The operationReturn_Boolean_Param_Boolean_Uniqueid is not used for shapes.
+  if ((self.operationReturn_Boolean_Param_Boolean_Uniqueid == ""))
+    count = CL::numElements( from:model.represents,using:self.operationReturn_Int_Param_Void);
   end if;
   i=0;	 
   while (i<count)
-  	elementID = CL::getElementID(from:model.represents,index:i, using:self.elementMethod);
+  	elementID = CL::getElementID(from:model.represents,index:i, using:self.operationReturn_Uniqueid_Param_Int);
     graphicalElementExists = false;
     select many graphicalElements related by model->GD_GE[R1];
     for each graphicalElement in graphicalElements
@@ -353,16 +353,16 @@ end if;
 // only check elements under the passed system
 if(CL::isContainedInSystem(element:graphicalElement.represents,
                                                      system_id:param.system_id))
-  // do not try to determine if connectors exist when the existsMethod == "not used"
-  if(self.connectorExistsMethod != "not used")
+  select one sourceSpec related by self->GD_ES[R30];
+  select one targetSpec related by self->GD_ES[R31];
+
+  // do not try to determine if connectors exist when the existsMethod is empty
+  if(self.operationReturn_Boolean_Param_Boolean_Uniqueid != "")
     select many startCons related by graphicalElement->DIM_GE[R23]->
                             DIM_CON[R311]->DIM_ED[R320]->GD_CON[R20]->GD_GE[R2];
     select many endCons related by graphicalElement->DIM_GE[R23]->
                             DIM_CON[R311]->DIM_ED[R321]->GD_CON[R20]->GD_GE[R2];
-  
-    select one sourceSpec related by self->GD_ES[R30];
-    select one targetSpec related by self->GD_ES[R31];
-  
+    
     for each startCon in startCons
       select one startConSpec related by startCon->GD_ES[R10];
       if(startConSpec == targetSpec)
@@ -378,7 +378,7 @@ if(CL::isContainedInSystem(element:graphicalElement.represents,
         if not CL::hasConnector(
                              element_id:CL::getOOAId(from:startCon.represents),
                              instance:graphicalElement.represents,
-                             methodName:self.connectorExistsMethod,
+                             methodName:self.operationReturn_Boolean_Param_Boolean_Uniqueid,
                              elementTypesMatch:sourceSpec == targetSpec) and param.removeElements
           // if the connector is going to be disposed
           // and there are other connectors anchored
@@ -445,7 +445,7 @@ if(CL::isContainedInSystem(element:graphicalElement.represents,
         if not CL::hasConnector(
                              element_id:CL::getOOAId(from:endCon.represents),
       	                     instance:graphicalElement.represents,
-                             methodName:self.connectorExistsMethod,
+                             methodName:self.operationReturn_Boolean_Param_Boolean_Uniqueid,
                              elementTypesMatch:sourceSpec == targetSpec) and param.removeElements
           // if the connector is going to be disposed
           // and there are other connectors anchored
@@ -471,7 +471,10 @@ if(CL::isContainedInSystem(element:graphicalElement.represents,
         end if;
       end if; // if(endConSpec == targetSpec)
     end for; // for each endCon in endCons
-    
+  end if; //  if(self.operationReturn_Boolean_Param_Boolean_Uniqueid != "")
+
+  // This will create connectors if missing  
+  if(self.operationReturn_Uniqueid_Param_Boolean_Int != "")
     // reselect the connectors in case any were removed above
     select many startCons related by graphicalElement->DIM_GE[R23]->
                             DIM_CON[R311]->DIM_ED[R320]->GD_CON[R20]->GD_GE[R2];
@@ -479,14 +482,17 @@ if(CL::isContainedInSystem(element:graphicalElement.represents,
                             DIM_CON[R311]->DIM_ED[R321]->GD_CON[R20]->GD_GE[R2];
     count = CL::numConnectors( from:graphicalElement.represents,
                              elementTypesMatch:sourceSpec == targetSpec,
-                             using:self.countMethod);
+                             using:self.operationReturn_Int_Param_Void);
     // do not process if the element method == not used
     if (count > 0)
       i = 0;
       while (i < count)
         connectorId = CL::getConnectorID(from:graphicalElement.represents,
                           elementTypesMatch:sourceSpec == targetSpec,
-                          index:i, using:self.elementMethod);
+                          index:i, using:self.operationReturn_Uniqueid_Param_Int);  	// TODO: This should not be operationReturn_Uniqueid_Param_Int, it should be operationReturn_Uniqueid_Param_Boolean_Int?
+                          										// 		and if that is true, then this section can be wrapped to assure
+                          										// it is only called when connectorMEthod is used.  The issue here is that
+                          										// connectorMethid takes a boolean and operationReturn_Uniqueid_Param_Int does not
         foundMatchingStart = false;
         for each startCon in startCons
           if (startCon.represents == OS::NULL_INSTANCE())
@@ -526,10 +532,10 @@ if(CL::isContainedInSystem(element:graphicalElement.represents,
         end if;
   	    
   	    templateConId = OS::NULL_UNIQUE_ID();
-  	    if self.templateElementMethod != ""
+  	    if self.operationReturn_Uniqueid_Param_Boolean_Int != ""
   	      templateConId = CL::getConnectorID(from:graphicalElement.represents,
                    index:i, elementTypesMatch:sourceSpec == targetSpec,
-                                              using:self.templateElementMethod);
+                                              using:self.operationReturn_Uniqueid_Param_Boolean_Int);
   	    end if;
   	    if templateConId == OS::NULL_UNIQUE_ID()
   	      templateConId = connectorId;
@@ -546,7 +552,7 @@ if(CL::isContainedInSystem(element:graphicalElement.represents,
         
     else // handle connector reconcile
       count = CL::numConnectors(from:graphicalElement.represents,
-            elementTypesMatch:sourceSpec == targetSpec, using:self.countMethod);
+            elementTypesMatch:sourceSpec == targetSpec, using:self.operationReturn_Int_Param_Void);
       if count == 0
         select one con related by graphicalElement->DIM_GE[R23]->
                                                     DIM_ED[R301]->DIM_CON[R321];
@@ -555,9 +561,9 @@ if(CL::isContainedInSystem(element:graphicalElement.represents,
         end if;
       end if;
     end if;
-
-  end if; // if (CL::isContainedInSystem(...
-end if; //  if(self.connectorExistsMethod != "not used")',
+  end if; // if(self.operationReturn_Uniqueid_Param_Boolean_Int != "")
+end if; // if (CL::isContainedInSystem(...
+',
 	1,
 	'',
 	"35593d44-4cf2-4d7a-ac20-1f39b82f20db");
@@ -617,14 +623,14 @@ if(not empty modelSpec)
   for each model in models
     //Get the count of shapes in the model (i.e the number of classes in the class Diagram)
     count = 0;
-    if ((self.connectorExistsMethod == "") or (self.connectorExistsMethod == "not used"))
-      count = CL::numElements( from:model.represents,using:self.countMethod);
+    if ((self.operationReturn_Boolean_Param_Boolean_Uniqueid == ""))
+      count = CL::numElements( from:model.represents,using:self.operationReturn_Int_Param_Void);
     end if;
     //select many graphicalConnectors related by model -> GD_GE[R1]->GD_CON[R2]->GD_GE[R2];
     i=0;
     while (i<count)
       select many graphicalElements related by model->GD_GE[R1];
-      elementID = CL::getElementID(from:model.represents,index:i, using:self.elementMethod);
+      elementID = CL::getElementID(from:model.represents,index:i, using:self.operationReturn_Uniqueid_Param_Int);
       found = false;
       for each graphicalElement in graphicalElements
         if(graphicalElement.OOA_ID == elementID)
@@ -671,17 +677,17 @@ if(not empty modelSpec)
                             DIM_CON[R311]->DIM_ED[R321]->GD_CON[R20]->GD_GE[R2];
       connectorCount = CL::numConnectors( from:autoCreateShape.represents,
                              elementTypesMatch:sourceSpec == targetSpec,
-                             using:self.countMethod);
+                             using:self.operationReturn_Int_Param_Void);
       j = 0;
       while (j < connectorCount)
         connectorId = CL::getConnectorID(from:autoCreateShape.represents,
                           elementTypesMatch:sourceSpec == targetSpec,
-                          index:j, using:self.elementMethod);
+                          index:j, using:self.operationReturn_Uniqueid_Param_Int);
         templateConId = OS::NULL_UNIQUE_ID();
-        if self.templateElementMethod != ""
+        if self.operationReturn_Uniqueid_Param_Boolean_Int != ""
           templateConId = CL::getConnectorID(from:autoCreateShape.represents,
                    index:j, elementTypesMatch:sourceSpec == targetSpec,
-                                              using:self.templateElementMethod);
+                                              using:self.operationReturn_Uniqueid_Param_Boolean_Int);
         end if;
         if templateConId == OS::NULL_UNIQUE_ID()
           templateConId = connectorId;
@@ -743,17 +749,17 @@ if(not empty modelSpec)
       end if;
 
       connectorCount = CL::numConnectors(from:autoCreateShape.represents,
-                    elementTypesMatch:sourceSpec == targetSpec, using:self.countMethod);
+                    elementTypesMatch:sourceSpec == targetSpec, using:self.operationReturn_Int_Param_Void);
       x=0;
       while(x<connectorCount)
         connectorId = CL::getConnectorID(from:autoCreateShape.represents,
                           elementTypesMatch:sourceSpec == targetSpec,
-                          index:x, using:self.elementMethod);
+                          index:x, using:self.operationReturn_Uniqueid_Param_Int);
         templateConId = OS::NULL_UNIQUE_ID();
-        if self.templateElementMethod != ""
+        if self.operationReturn_Uniqueid_Param_Boolean_Int != ""
           templateConId = CL::getConnectorID(from:autoCreateShape.represents,
                    index:x, elementTypesMatch:sourceSpec == targetSpec,
-                                                using:self.templateElementMethod);
+                                                using:self.operationReturn_Uniqueid_Param_Boolean_Int);
         end if;
         if templateConId == OS::NULL_UNIQUE_ID()
           templateConId = connectorId;
@@ -809,7 +815,7 @@ if(not empty spec or not empty modelSpec)
         if not CL::hasConnector(
                              element_id:CL::getOOAId(from:startCon.represents),
                              instance:autoCreateShape.represents,
-                             methodName:self.connectorExistsMethod,
+                             methodName:self.operationReturn_Boolean_Param_Boolean_Uniqueid,
                              elementTypesMatch:sourceSpec == targetSpec) and param.removeElements 
           // if the connector is going to be disposed
           // and there are other connectors anchored
@@ -847,7 +853,7 @@ if(not empty spec or not empty modelSpec)
         if not CL::hasConnector(
                              element_id:CL::getOOAId(from:endCon.represents),
                              instance:autoCreateShape.represents,
-                             methodName:self.connectorExistsMethod,
+                             methodName:self.operationReturn_Boolean_Param_Boolean_Uniqueid,
                              elementTypesMatch:sourceSpec == targetSpec) and param.removeElements
           // if the connector is going to be disposed
           // and there are other connectors anchored
@@ -881,13 +887,13 @@ if(not empty spec or not empty modelSpec)
                             DIM_CON[R311]->DIM_ED[R321]->GD_CON[R20]->GD_GE[R2];
     count = CL::numConnectors( from:autoCreateShape.represents,
                              elementTypesMatch:sourceSpec == targetSpec,
-                             using:self.countMethod);
+                             using:self.operationReturn_Int_Param_Void);
     if (count > 0)
       i = 0;
       while (i < count)
         connectorId = CL::getConnectorID(from:autoCreateShape.represents,
                           elementTypesMatch:sourceSpec == targetSpec,
-                          index:i, using:self.elementMethod);
+                          index:i, using:self.operationReturn_Uniqueid_Param_Int);
         foundMatchingStart = false;
         for each startCon in startCons
           if (startCon.represents == OS::NULL_INSTANCE())
@@ -925,10 +931,10 @@ if(not empty spec or not empty modelSpec)
         end if;
 
         templateConId = OS::NULL_UNIQUE_ID();
-        if self.templateElementMethod != ""
+        if self.operationReturn_Uniqueid_Param_Boolean_Int != ""
           templateConId = CL::getConnectorID(from:autoCreateShape.represents,
                    index:i, elementTypesMatch:sourceSpec == targetSpec,
-                   using:self.templateElementMethod);
+                   using:self.operationReturn_Uniqueid_Param_Boolean_Int);
         end if;
         if templateConId == OS::NULL_UNIQUE_ID()
           templateConId = connectorId;
@@ -944,7 +950,7 @@ if(not empty spec or not empty modelSpec)
       end while;  // i < count
     else // handle connector reconcile
       count = CL::numConnectors(from:autoCreateShape.represents,
-            elementTypesMatch:sourceSpec == targetSpec, using:self.countMethod);
+            elementTypesMatch:sourceSpec == targetSpec, using:self.operationReturn_Int_Param_Void);
       if count == 0
         // we only need worry about end connectors
         if not_empty endCons
@@ -997,16 +1003,11 @@ INSERT INTO O_TFR
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select any model related by self->GD_MS[R33]->GD_MD[R9] where selected.diagramId==param.diagram_id;
-CL::traceOperation(message:"system_id: " + OS::uniqueIdToString(id:param.system_id) +
-				"\ndiagram_id: " + OS::uniqueIdToString(id:param.diagram_id) + 
-				"\nmodel.Model_Type: " + OS::modelTypeToString(id:model.Model_Type) +
-				"\nmodel.OOA_Type: " + OS::ooaTypeToString(id:model.OOA_Type)); 
 // only check elements under the passed system
-if (CL::isContainedInSystem(element:model.represents, system_id:param.system_id))
+if (self.operationReturn_Uniqueid_Param_Boolean_Int != "" and CL::isContainedInSystem(element:model.represents, system_id:param.system_id))
   select one sourceSpec related by self->GD_ES[R30];
   select one targetSpec related by self->GD_ES[R31];
   select many graphicalElements related by model->GD_GE[R1];
-  CL::traceOperation(message:"Cardinality of GD_MD->GD_GE[R1]: " + OS::intToString(value:(cardinality graphicalElements)));
   for each graphicalElement in graphicalElements
     if (graphicalElement.represents == OS::NULL_INSTANCE())
       graphicalElement.represents = CL::getInstanceFromOOA_ID(
@@ -1017,10 +1018,6 @@ if (CL::isContainedInSystem(element:model.represents, system_id:param.system_id)
 
     // only check elements under the passed system
     if( CL::isContainedInSystem(element:graphicalElement.represents, system_id:param.system_id))
-      CL::traceOperation(message:"Processing GD_GE.diagramId: " + OS::uniqueIdToString(id:graphicalElement.diagramId) + 
-     					"\nGD_GE.OOA_TYPE: " + OS::ooaTypeToString(id:graphicalElement.OOA_Type) +
-     					"\n" +
-     					"\nGD_GE.representsPath: " + graphicalElement.represents_path);
       select many startCons related by graphicalElement->DIM_GE[R23]->
                             DIM_CON[R311]->DIM_ED[R320]->GD_CON[R20]->GD_GE[R2];
       select many endCons related by graphicalElement->DIM_GE[R23]->
@@ -1028,32 +1025,29 @@ if (CL::isContainedInSystem(element:model.represents, system_id:param.system_id)
       connectorCount = 0;
       select one elementSpec related by graphicalElement->GD_ES[R10];
     
-      CL::traceOperation(message:"GD_GE->GD_ES[R1] values. " +
-      						"\nGD_ES.toolCategory: " + elementSpec.toolCategory +
-      						"\nGD_ARS.connectorExistsMethod: " + self.connectorExistsMethod 
-      						);
-      // Only Classes or Components have connectors that we reconcile
-      if ((elementSpec.toolCategory=="Classes" or elementSpec.toolCategory=="Components") ) 
-        // The connectorExistsMethod is only used for connectors.
-        if ((self.connectorExistsMethod != "") and (self.connectorExistsMethod != "not used"))
-          connectorCount = CL::numConnectors( from:graphicalElement.represents,
+      connectorCount = CL::numConnectors( from:graphicalElement.represents,
                              elementTypesMatch:sourceSpec == targetSpec,
-                             using:self.countMethod);
-          CL::traceOperation(message:"ARS.countMethod: " + self.countMethod + " was called on GD_GE.represents.getOOAId()=" + OS::uniqueIdToString(id:CL::getOOAId(from:graphicalElement.represents)) +
-          						"\nNumberConnectors: " + OS::intToString(value:connectorCount));
-        end if;
-      end if;
-      
+                             using:self.operationReturn_Int_Param_Void);
+      CL::traceOperation(message:"Processing GD_GE.diagramId: " + OS::uniqueIdToString(id:graphicalElement.diagramId) + 
+     					"\nGD_GE.OOA_TYPE: " + OS::ooaTypeToString(id:graphicalElement.OOA_Type) +
+     					"\nGD_GE.representsPath: " + graphicalElement.represents_path +
+     					"\nARS.operationReturn_Int_Param_Void: " + self.operationReturn_Int_Param_Void + " was called on GD_GE.represents.getOOAId()=" + OS::uniqueIdToString(id:CL::getOOAId(from:graphicalElement.represents)) +
+      					"\nGD_ES.toolCategory: " + elementSpec.toolCategory +
+      					"\nGD_ARS.operationReturn_Uniqueid_Param_Int: " + self.operationReturn_Uniqueid_Param_Int +
+      					"\nGD_ARS.operationReturn_Uniqueid_Param_Boolean_Int: " + self.operationReturn_Uniqueid_Param_Boolean_Int  +
+      					"\nGD_ARS.operationReturn_Boolean_Param_Boolean_Uniqueid: " + self.operationReturn_Boolean_Param_Boolean_Uniqueid +
+      					"\nNumberConnectors: " + OS::intToString(value:connectorCount)
+      					);
       j = 0;
       while (j < connectorCount)
         connectorId = CL::getConnectorID(from:graphicalElement.represents,
                           elementTypesMatch:sourceSpec == targetSpec,
-                          index:j, using:self.elementMethod);
+                          index:j, using:self.operationReturn_Uniqueid_Param_Int);
         templateConId = OS::NULL_UNIQUE_ID();
-        if self.templateElementMethod != ""
+        if self.operationReturn_Uniqueid_Param_Boolean_Int != ""
           templateConId = CL::getConnectorID(from:graphicalElement.represents,
                    index:j, elementTypesMatch:sourceSpec == targetSpec,
-                                              using:self.templateElementMethod);
+                                              using:self.operationReturn_Uniqueid_Param_Boolean_Int);
         end if;
         if templateConId == OS::NULL_UNIQUE_ID()
           templateConId = connectorId;
@@ -1136,37 +1130,19 @@ INSERT INTO O_TPARM
 	"98161fbd-31ec-484b-aa5f-8e2cac6a9462",
 	'');
 INSERT INTO O_NBATTR
-	VALUES ("649d4944-fc3a-4f9c-99d2-4b2b390dd691",
+	VALUES ("e10da735-ac66-4d53-9464-ac3d84572c93",
 	"0849862c-76a0-4d0f-bb84-cf5aef617874");
 INSERT INTO O_BATTR
-	VALUES ("649d4944-fc3a-4f9c-99d2-4b2b390dd691",
+	VALUES ("e10da735-ac66-4d53-9464-ac3d84572c93",
 	"0849862c-76a0-4d0f-bb84-cf5aef617874");
 INSERT INTO O_ATTR
-	VALUES ("649d4944-fc3a-4f9c-99d2-4b2b390dd691",
+	VALUES ("e10da735-ac66-4d53-9464-ac3d84572c93",
 	"0849862c-76a0-4d0f-bb84-cf5aef617874",
 	"1fe3629d-a75d-452f-be0e-d5025254f3c4",
-	'Name',
+	'operationReturn_Int_Param_Void',
 	'',
 	'',
-	'Name',
-	0,
-	"ba5eda7a-def5-0000-0000-000000000004",
-	'',
-	'');
-INSERT INTO O_NBATTR
-	VALUES ("e10da735-ac66-4d53-9464-ac3d84572c93",
-	"0849862c-76a0-4d0f-bb84-cf5aef617874");
-INSERT INTO O_BATTR
-	VALUES ("e10da735-ac66-4d53-9464-ac3d84572c93",
-	"0849862c-76a0-4d0f-bb84-cf5aef617874");
-INSERT INTO O_ATTR
-	VALUES ("e10da735-ac66-4d53-9464-ac3d84572c93",
-	"0849862c-76a0-4d0f-bb84-cf5aef617874",
-	"649d4944-fc3a-4f9c-99d2-4b2b390dd691",
-	'countMethod',
-	'',
-	'',
-	'countMethod',
+	'operationReturn_Int_Param_Void',
 	0,
 	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
@@ -1181,10 +1157,10 @@ INSERT INTO O_ATTR
 	VALUES ("68ea2f93-55cb-4a7c-a507-cb897697c920",
 	"0849862c-76a0-4d0f-bb84-cf5aef617874",
 	"e10da735-ac66-4d53-9464-ac3d84572c93",
-	'elementMethod',
+	'operationReturn_Uniqueid_Param_Int',
 	'',
 	'',
-	'elementMethod',
+	'operationReturn_Uniqueid_Param_Int',
 	0,
 	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
@@ -1268,10 +1244,10 @@ INSERT INTO O_ATTR
 	VALUES ("b573c171-3dcd-41ed-ae67-a9ac0543c13e",
 	"0849862c-76a0-4d0f-bb84-cf5aef617874",
 	"68ea2f93-55cb-4a7c-a507-cb897697c920",
-	'connectorExistsMethod',
+	'operationReturn_Boolean_Param_Boolean_Uniqueid',
 	'',
 	'',
-	'connectorExistsMethod',
+	'operationReturn_Boolean_Param_Boolean_Uniqueid',
 	0,
 	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
@@ -1286,10 +1262,10 @@ INSERT INTO O_ATTR
 	VALUES ("89037c25-7f61-48ca-9f18-935e9fbd4416",
 	"0849862c-76a0-4d0f-bb84-cf5aef617874",
 	"b573c171-3dcd-41ed-ae67-a9ac0543c13e",
-	'templateElementMethod',
+	'operationReturn_Uniqueid_Param_Boolean_Int',
 	'',
 	'',
-	'templateElementMethod',
+	'operationReturn_Uniqueid_Param_Boolean_Int',
 	0,
 	"ba5eda7a-def5-0000-0000-000000000004",
 	'',

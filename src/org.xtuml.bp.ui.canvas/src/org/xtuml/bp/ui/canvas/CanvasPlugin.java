@@ -529,17 +529,16 @@ public class CanvasPlugin extends AbstractUIPlugin {
               {
      			AutoReconciliationSpecification_c ars =
      				   new AutoReconciliationSpecification_c(graphicsModelRoot);
-                ars.setName(autoReconcile[e].getAttribute("name"));
-                ars.setCountmethod(autoReconcile[e].
-                		                           getAttribute("countMethod"));
-                ars.setElementmethod(autoReconcile[e].
-                		                         getAttribute("elementMethod"));
-                ars.setConnectorexistsmethod(autoReconcile[e].
-                		                   getAttribute("connectorExistsMethod"));
-                ars.setTemplateelementmethod(autoReconcile[e].
-                		                 getAttribute("templateElementMethod"));
-                if (ars.getTemplateelementmethod() == null) {
-                  ars.setTemplateelementmethod("");
+                ars.setOperationreturn_int_param_void(autoReconcile[e].
+                		                           getAttribute("operationReturn_Int_Param_Void"));
+                ars.setOperationreturn_uniqueid_param_int(autoReconcile[e].
+                		                         getAttribute("operationReturn_Uniqueid_Param_Int"));
+                ars.setOperationreturn_boolean_param_boolean_uniqueid(autoReconcile[e].
+                		                   getAttribute("operationReturn_Boolean_Param_Boolean_Uniqueid"));
+                ars.setOperationreturn_uniqueid_param_boolean_int(autoReconcile[e].
+                		                 getAttribute("operationReturn_Uniqueid_Param_Boolean_Int"));
+                if (ars.getOperationreturn_uniqueid_param_boolean_int() == null) {
+                  ars.setOperationreturn_uniqueid_param_boolean_int("");
                 }
                 ElementSpecification_c scanTarget = locateEsByNameAndClassType(
                 		       graphicsModelRoot, modelEditorExtension.getAttribute("name"), modelEditorExtension.getAttribute("class")); 
@@ -570,17 +569,16 @@ public class CanvasPlugin extends AbstractUIPlugin {
                 {
        			AutoReconciliationSpecification_c ars =
        				   new AutoReconciliationSpecification_c(graphicsModelRoot);
-                  ars.setName(autoReconcile[e].getAttribute("name"));
-                  ars.setCountmethod(autoReconcile[e].
-                  		                           getAttribute("countMethod"));
-                  ars.setElementmethod(autoReconcile[e].
-                  		                         getAttribute("elementMethod"));
-                  ars.setConnectorexistsmethod(autoReconcile[e].
-                  		                   getAttribute("connectorExistsMethod"));
-                  ars.setTemplateelementmethod(autoReconcile[e].
-                  		                 getAttribute("templateElementMethod"));
-                  if (ars.getTemplateelementmethod() == null) {
-                    ars.setTemplateelementmethod("");
+                  ars.setOperationreturn_int_param_void(autoReconcile[e].
+                  		                           getAttribute("operationReturn_Int_Param_Void"));
+                  ars.setOperationreturn_uniqueid_param_int(autoReconcile[e].
+                  		                         getAttribute("operationReturn_Uniqueid_Param_Int"));
+                  ars.setOperationreturn_boolean_param_boolean_uniqueid(autoReconcile[e].
+                  		                   getAttribute("operationReturn_Boolean_Param_Boolean_Uniqueid"));
+                  ars.setOperationreturn_uniqueid_param_boolean_int(autoReconcile[e].
+                  		                 getAttribute("operationReturn_Uniqueid_Param_Boolean_Int"));
+                  if (ars.getOperationreturn_uniqueid_param_boolean_int() == null) {
+                    ars.setOperationreturn_uniqueid_param_boolean_int("");
                   }
                  // ElementSpecification_c scanTarget = locateEsByNameAndClassType(
            		       //graphicsModelRoot, modelEditorExtension.getAttribute("name"), modelEditorExtension.getAttribute("class")); 

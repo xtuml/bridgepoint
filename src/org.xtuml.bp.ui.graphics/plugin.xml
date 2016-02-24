@@ -72,25 +72,25 @@
 				
                	targetSymbol:	This is the name is the "name" of the target model 
                					element type to reconcile
-               	countMethod:	This is the name of the operation, found in the ooaofooa 
+               	operationReturn_Int_Param_Void:	This is the name of the operation, found in the ooaofooa 
                					container we are reconciling , that is used to find out home
                					many of this type of targetSymbol exist in the container.
                					These operations are of the form: Get<symbol>count
-               	elementMethod:	This is the name of the operation, found in the ooaofooa 
+               	operationReturn_Uniqueid_Param_Int:	This is the name of the operation, found in the ooaofooa 
                					container we are reconciling , that is used to return an 
                					identifier for the model element at the provided index (the 
                					index is sent as a parameter and we know how many elements exist
                					based on use of the count operation)
                					These operations are of the form: Get<symbol>id
-               	connectorExistsMethod: 	If not used then this has a value of 
-               							"not used". Otherwise, this is the name 
+               	operationReturn_Boolean_Param_Boolean_Uniqueid: 	If not used then this has a value of 
+               							"". Otherwise, this is the name 
                							of an operation that test for the existence of 
                							any of the model elements of type targetSymbol in 
                							the container. This is currently only used when 
                							reconciling connectors.
                							These operations are of the form: Has<symbol>id
-               	templateElementMethod: If not used then this has a value of 
-               							"not used". Otherwise, this is the name 
+               	operationReturn_Uniqueid_Param_Boolean_Int: If not used then this has a value of 
+               							"". Otherwise, this is the name 
                							of an operation that test for the existence of 
                							any of the delegated model elements of type targetSymbol in 
                							the container. This is currently only used when 
@@ -209,6 +209,34 @@
             <dependsOn
                   class="org.xtuml.bp.core.ReferredToIdentifierAttribute_c">
             </dependsOn>
+			<autoReconcile
+			 operationReturn_Int_Param_Void="Getsimpleassociationcount"
+			 operationReturn_Boolean_Param_Boolean_Uniqueid=""
+			 operationReturn_Uniqueid_Param_Int="Getsimpleassociationid"
+			 targetSymbol="Association">
+			</autoReconcile>    
+			
+			<autoReconcile
+			 operationReturn_Int_Param_Void="Getsupertypecount"
+			 operationReturn_Boolean_Param_Boolean_Uniqueid=""
+			 operationReturn_Uniqueid_Param_Int="Getsupertypeid"
+			 targetSymbol="Supertype">
+			</autoReconcile>    
+			
+			<autoReconcile
+			 operationReturn_Int_Param_Void="Getsubtypecount"
+			 operationReturn_Boolean_Param_Boolean_Uniqueid=""
+			 operationReturn_Uniqueid_Param_Int="Getsubtypeid"
+			 targetSymbol="Subtype">
+			</autoReconcile>    
+			
+			<autoReconcile
+			 operationReturn_Int_Param_Void="Getassociativelinkcount"
+			 operationReturn_Boolean_Param_Boolean_Uniqueid=""
+			 operationReturn_Uniqueid_Param_Int="Getassociativelinkid"
+			 targetSymbol="Associative Link"
+			 sourceSymbol="Association">
+			</autoReconcile>   
          </symbol>
          <symbol
                class="org.xtuml.bp.core.ImportedClass_c"
@@ -267,6 +295,34 @@
             <dependsOn
                   class="org.xtuml.bp.core.ReferredToIdentifierAttribute_c">
             </dependsOn>
+			<autoReconcile
+			 operationReturn_Int_Param_Void="Getsimpleassociationcount"
+			 operationReturn_Boolean_Param_Boolean_Uniqueid=""
+			 operationReturn_Uniqueid_Param_Int="Getsimpleassociationid"
+			 targetSymbol="Association">
+			</autoReconcile>    
+			
+			<autoReconcile
+			 operationReturn_Int_Param_Void="Getsupertypecount"
+			 operationReturn_Boolean_Param_Boolean_Uniqueid=""
+			 operationReturn_Uniqueid_Param_Int="Getsupertypeid"
+			 targetSymbol="Supertype">
+			</autoReconcile>    
+			
+			<autoReconcile
+			 operationReturn_Int_Param_Void="Getsubtypecount"
+			 operationReturn_Boolean_Param_Boolean_Uniqueid=""
+			 operationReturn_Uniqueid_Param_Int="Getsubtypeid"
+			 targetSymbol="Subtype">
+			</autoReconcile>    
+			
+			<autoReconcile
+			 operationReturn_Int_Param_Void="Getassociativelinkcount"
+			 operationReturn_Boolean_Param_Boolean_Uniqueid=""
+			 operationReturn_Uniqueid_Param_Int="Getassociativelinkid"
+			 targetSymbol="Associative Link"
+			 sourceSymbol="Association">
+			</autoReconcile>    
          </symbol>
          <symbol
                class="org.xtuml.bp.core.Association_c"
@@ -437,6 +493,12 @@
             <dependsOn
                   class="org.xtuml.bp.core.Action_c">
             </dependsOn>
+			<autoReconcile
+			 operationReturn_Int_Param_Void="Gettransitioncount"
+			 operationReturn_Boolean_Param_Boolean_Uniqueid=""
+			 operationReturn_Uniqueid_Param_Int="Gettransitionid"
+			 targetSymbol="Transition">
+			</autoReconcile>    
          </symbol>
          <symbol
                class="org.xtuml.bp.core.Transition_c"
@@ -1859,32 +1921,32 @@
                   r="255">
             </color>
             <autoReconcile
-                  countMethod="Getprovisioncount"
-                  connectorExistsMethod="Parenthasprovision"
-                  elementMethod="Getprovisionid"
+                  operationReturn_Int_Param_Void="Getprovisioncount"
+                  operationReturn_Boolean_Param_Boolean_Uniqueid="Parenthasprovision"
+                  operationReturn_Uniqueid_Param_Int="Getprovisionid"
                   targetSymbol="Provided Interface">
             </autoReconcile>
             <autoReconcile
-                  countMethod="Getrequirementcount"
-                  connectorExistsMethod="Parenthasrequirement"
-                  elementMethod="Getrequirementid"
+                  operationReturn_Int_Param_Void="Getrequirementcount"
+                  operationReturn_Boolean_Param_Boolean_Uniqueid="Parenthasrequirement"
+                  operationReturn_Uniqueid_Param_Int="Getrequirementid"
                   targetSymbol="Required Interface">
             </autoReconcile>
             <autoReconcile
-                  countMethod="Getprovisioncount"
-                  connectorExistsMethod="Parenthasprovision"
-                  elementMethod="Getprovisionid"
+                  operationReturn_Int_Param_Void="Getprovisioncount"
+                  operationReturn_Boolean_Param_Boolean_Uniqueid="Parenthasprovision"
+                  operationReturn_Uniqueid_Param_Int="Getprovisionid"
                   sourceSymbol="Delegation"
                   targetSymbol="Provided Interface"
-                  templateElementMethod="Getprovisiondelegationid">
+                  operationReturn_Uniqueid_Param_Boolean_Int="Getprovisiondelegationid">
             </autoReconcile>
             <autoReconcile
-                  countMethod="Getrequirementcount"
-                  connectorExistsMethod="Parenthasrequirement"
-                  elementMethod="Getrequirementid"
+                  operationReturn_Int_Param_Void="Getrequirementcount"
+                  operationReturn_Boolean_Param_Boolean_Uniqueid="Parenthasrequirement"
+                  operationReturn_Uniqueid_Param_Int="Getrequirementid"
                   sourceSymbol="Delegation"
                   targetSymbol="Required Interface"
-                  templateElementMethod="Getrequirementdelegationid">
+                  operationReturn_Uniqueid_Param_Boolean_Int="Getrequirementdelegationid">
             </autoReconcile>
          </symbol>
          <symbol
@@ -1900,15 +1962,15 @@
                   r="255">
             </color>
             <autoReconcile
-                  countMethod="Getprovisioncount"
-                  connectorExistsMethod="Hasprovision"
-                  elementMethod="Getprovisionid"
+                  operationReturn_Int_Param_Void="Getprovisioncount"
+                  operationReturn_Boolean_Param_Boolean_Uniqueid="Hasprovision"
+                  operationReturn_Uniqueid_Param_Int="Getprovisionid"
                   targetSymbol="Provided Interface">
             </autoReconcile>
             <autoReconcile
-                  countMethod="Getrequirementcount"
-                  connectorExistsMethod="Hasrequirement"
-                  elementMethod="Getrequirementid"
+                  operationReturn_Int_Param_Void="Getrequirementcount"
+                  operationReturn_Boolean_Param_Boolean_Uniqueid="Hasrequirement"
+                  operationReturn_Uniqueid_Param_Int="Getrequirementid"
                   targetSymbol="Required Interface">
             </autoReconcile>
          </symbol>
@@ -1928,34 +1990,34 @@
                   class="org.xtuml.bp.core.Component_c">
             </dependsOn>
             <autoReconcile
-                  countMethod="Getimportedprovisioncount"
-                  connectorExistsMethod="Hasimportedprovision"
-                  elementMethod="Getimportedprovisionid"
+                  operationReturn_Int_Param_Void="Getimportedprovisioncount"
+                  operationReturn_Boolean_Param_Boolean_Uniqueid="Hasimportedprovision"
+                  operationReturn_Uniqueid_Param_Int="Getimportedprovisionid"
                   sourceSymbol="Provided Interface"
                   targetSymbol="Imported Provided Interface"
-                  templateElementMethod="Getimportedprovisionprovisionid">
+                  operationReturn_Uniqueid_Param_Boolean_Int="Getimportedprovisionprovisionid">
             </autoReconcile>
             <autoReconcile
-                  countMethod="Getimportedrequirementcount"
-                  connectorExistsMethod="Hasimportedrequirement"
-                  elementMethod="Getimportedrequirementid"
+                  operationReturn_Int_Param_Void="Getimportedrequirementcount"
+                  operationReturn_Boolean_Param_Boolean_Uniqueid="Hasimportedrequirement"
+                  operationReturn_Uniqueid_Param_Int="Getimportedrequirementid"
                   sourceSymbol="Required Interface"
                   targetSymbol="Imported Required Interface"
-                  templateElementMethod="Getimportedrequirementrequirementid">
+                  operationReturn_Uniqueid_Param_Boolean_Int="Getimportedrequirementrequirementid">
             </autoReconcile>
             <autoReconcile
-                  countMethod="Getimportedprovisioncount"
-                  connectorExistsMethod="Hasimportedprovision"
-                  elementMethod="Getimportedprovisionid"
+                  operationReturn_Int_Param_Void="Getimportedprovisioncount"
+                  operationReturn_Boolean_Param_Boolean_Uniqueid="Hasimportedprovision"
+                  operationReturn_Uniqueid_Param_Int="Getimportedprovisionid"
                   targetSymbol="Imported Provided Interface"
-                  templateElementMethod="Getimportedprovisionprovisionid">
+                  operationReturn_Uniqueid_Param_Boolean_Int="Getimportedprovisionprovisionid">
             </autoReconcile>
             <autoReconcile
-                  countMethod="Getimportedrequirementcount"
-                  connectorExistsMethod="Hasimportedrequirement"
-                  elementMethod="Getimportedrequirementid"
+                  operationReturn_Int_Param_Void="Getimportedrequirementcount"
+                  operationReturn_Boolean_Param_Boolean_Uniqueid="Hasimportedrequirement"
+                  operationReturn_Uniqueid_Param_Int="Getimportedrequirementid"
                   targetSymbol="Imported Required Interface"
-                  templateElementMethod="Getimportedrequirementrequirementid">
+                  operationReturn_Uniqueid_Param_Boolean_Int="Getimportedrequirementrequirementid">
             </autoReconcile>
          </symbol>
          <symbol
@@ -2181,15 +2243,15 @@
                   class="org.xtuml.bp.core.Port_c">
             </dependsOn>
             <autoReconcile
-                  countMethod="Getsatisfactioncount"
-                  connectorExistsMethod="not used"
-                  elementMethod="not used"
+                  operationReturn_Int_Param_Void="Getsatisfactioncount"
+                  operationReturn_Boolean_Param_Boolean_Uniqueid=""
+                  operationReturn_Uniqueid_Param_Int=""
                   targetSymbol="Provided Interface">
             </autoReconcile>
             <autoReconcile
-                  countMethod="Getsatisfactioncount"
-                  connectorExistsMethod="not used"
-                  elementMethod="not used"
+                  operationReturn_Int_Param_Void="Getsatisfactioncount"
+                  operationReturn_Boolean_Param_Boolean_Uniqueid=""
+                  operationReturn_Uniqueid_Param_Int=""
                   targetSymbol="Imported Provided Interface">
             </autoReconcile>
          </symbol>
@@ -2291,15 +2353,15 @@
                   class="org.xtuml.bp.core.Requirement_c">
             </dependsOn>
             <autoReconcile
-                  countMethod="Getsatisfactioncount"
-                  connectorExistsMethod="not used"
-                  elementMethod="not used"
+                  operationReturn_Int_Param_Void="Getsatisfactioncount"
+                  operationReturn_Boolean_Param_Boolean_Uniqueid=""
+                  operationReturn_Uniqueid_Param_Int=""
                   targetSymbol="Provided Interface">
             </autoReconcile>
             <autoReconcile
-                  countMethod="Getsatisfactioncount"
-                  connectorExistsMethod="not used"
-                  elementMethod="not used"
+                  operationReturn_Int_Param_Void="Getsatisfactioncount"
+                  operationReturn_Boolean_Param_Boolean_Uniqueid=""
+                  operationReturn_Uniqueid_Param_Int=""
                   targetSymbol="Imported Provided Interface">
             </autoReconcile>
          </symbol>
@@ -2348,11 +2410,11 @@
             <validSymbol
                   name="Package">
             </validSymbol>
-       <autoReconcile
+            <autoReconcile
                targetSymbol="Package"
-               countMethod="Getpckgcount"
-               elementMethod="Getpckgid"
-               connectorExistsMethod="not used"/>
+               operationReturn_Int_Param_Void="Getpckgcount"
+               operationReturn_Uniqueid_Param_Int="Getpckgid"
+               operationReturn_Boolean_Param_Boolean_Uniqueid=""/>
          </defaultFor>
          <defaultFor
                class="org.xtuml.bp.core.Package_c"
@@ -2418,169 +2480,169 @@
             <validSymbol name="Extend" 					tool_category="Use Case"/>
             <autoReconcile
                targetSymbol="User Data Type"
-               countMethod="Getudtcount"
-               elementMethod="Getudtid"
-               connectorExistsMethod="not used"/> 
+               operationReturn_Int_Param_Void="Getudtcount"
+               operationReturn_Uniqueid_Param_Int="Getudtid"
+               operationReturn_Boolean_Param_Boolean_Uniqueid=""/> 
             <autoReconcile
                targetSymbol="Actor"
-               countMethod="Getactorcount"
-               elementMethod="Getactorid"
-               connectorExistsMethod="not used"/> 
+               operationReturn_Int_Param_Void="Getactorcount"
+               operationReturn_Uniqueid_Param_Int="Getactorid"
+               operationReturn_Boolean_Param_Boolean_Uniqueid=""/> 
             <autoReconcile
                targetSymbol="Use Case"
-               countMethod="Getusecasecount"
-               elementMethod="Getusecaseid"
-               connectorExistsMethod="not used"/> 
+               operationReturn_Int_Param_Void="Getusecasecount"
+               operationReturn_Uniqueid_Param_Int="Getusecaseid"
+               operationReturn_Boolean_Param_Boolean_Uniqueid=""/> 
             <autoReconcile
                targetSymbol="Send Signal Action"
-               countMethod="Getsendsigactioncount"
-               elementMethod="Getsendsigactionid"
-               connectorExistsMethod="not used"/>
+               operationReturn_Int_Param_Void="Getsendsigactioncount"
+               operationReturn_Uniqueid_Param_Int="Getsendsigactionid"
+               operationReturn_Boolean_Param_Boolean_Uniqueid=""/>
             <autoReconcile
                targetSymbol="Accept Event Action"
-               countMethod="Getacceptevtactioncount"
-               elementMethod="Getacceptevtactionid"
-               connectorExistsMethod="not used"/>  
+               operationReturn_Int_Param_Void="Getacceptevtactioncount"
+               operationReturn_Uniqueid_Param_Int="Getacceptevtactionid"
+               operationReturn_Boolean_Param_Boolean_Uniqueid=""/>  
             <autoReconcile
                targetSymbol="Accept Time Event Action"
-               countMethod="Getaccepttimeevtactioncount"
-               elementMethod="Getaccepttimeevtactionid"
-               connectorExistsMethod="not used"/>
+               operationReturn_Int_Param_Void="Getaccepttimeevtactioncount"
+               operationReturn_Uniqueid_Param_Int="Getaccepttimeevtactionid"
+               operationReturn_Boolean_Param_Boolean_Uniqueid=""/>
             <autoReconcile
                targetSymbol="Action"
-               countMethod="Getactioncount"
-               elementMethod="Getactionid"
-               connectorExistsMethod="not used"/>
+               operationReturn_Int_Param_Void="Getactioncount"
+               operationReturn_Uniqueid_Param_Int="Getactionid"
+               operationReturn_Boolean_Param_Boolean_Uniqueid=""/>
             <autoReconcile
                targetSymbol="Class"
-               countMethod="Getclasscount"
-               elementMethod="Getclassid"
-               connectorExistsMethod="not used"
+               operationReturn_Int_Param_Void="Getclasscount"
+               operationReturn_Uniqueid_Param_Int="Getclassid"
+               operationReturn_Boolean_Param_Boolean_Uniqueid=""
                class="org.xtuml.bp.core.ModelClass_c" />     
             <autoReconcile
                targetSymbol="Component"
-               countMethod="Getcomponentcount"
-               elementMethod="Getcomponentid"
-               connectorExistsMethod="not used"
+               operationReturn_Int_Param_Void="Getcomponentcount"
+               operationReturn_Uniqueid_Param_Int="Getcomponentid"
+               operationReturn_Boolean_Param_Boolean_Uniqueid=""
                class="org.xtuml.bp.core.Component_c"/>     
             <autoReconcile
                targetSymbol="Component Reference"
-               countMethod="Getcomprefcount"
-               elementMethod="Getcomprefid"
-               connectorExistsMethod="not used"/>     
+               operationReturn_Int_Param_Void="Getcomprefcount"
+               operationReturn_Uniqueid_Param_Int="Getcomprefid"
+               operationReturn_Boolean_Param_Boolean_Uniqueid=""/>     
             <autoReconcile
                targetSymbol="Interface"
-               countMethod="Getifacecount"
-               elementMethod="Getifaceid"
-               connectorExistsMethod="not used"/>     
+               operationReturn_Int_Param_Void="Getifacecount"
+               operationReturn_Uniqueid_Param_Int="Getifaceid"
+               operationReturn_Boolean_Param_Boolean_Uniqueid=""/>     
             <autoReconcile
                targetSymbol="Constant Specification"
-               countMethod="Getconstspeccount"
-               elementMethod="Getconstspecid"
-               connectorExistsMethod="not used"/>     
+               operationReturn_Int_Param_Void="Getconstspeccount"
+               operationReturn_Uniqueid_Param_Int="Getconstspecid"
+               operationReturn_Boolean_Param_Boolean_Uniqueid=""/>     
             <autoReconcile
                targetSymbol="Structured Data Type"
-               countMethod="Getsdtcount"
-               elementMethod="Getsdtid"
-               connectorExistsMethod="not used"/>     
+               operationReturn_Int_Param_Void="Getsdtcount"
+               operationReturn_Uniqueid_Param_Int="Getsdtid"
+               operationReturn_Boolean_Param_Boolean_Uniqueid=""/>     
             <autoReconcile
                targetSymbol="Enumeration Data Type"
-               countMethod="Getedtcount"
-               elementMethod="Getedtid"
-               connectorExistsMethod="not used"/>     
+               operationReturn_Int_Param_Void="Getedtcount"
+               operationReturn_Uniqueid_Param_Int="Getedtid"
+               operationReturn_Boolean_Param_Boolean_Uniqueid=""/>     
             <autoReconcile
                targetSymbol="Component"
-               countMethod="Getcomppartcount"
-               elementMethod="Getcomppartid"
-               connectorExistsMethod="not used"
+               operationReturn_Int_Param_Void="Getcomppartcount"
+               operationReturn_Uniqueid_Param_Int="Getcomppartid"
+               operationReturn_Boolean_Param_Boolean_Uniqueid=""
                class="org.xtuml.bp.core.ComponentParticipant_c"/>     
             <autoReconcile
                targetSymbol="Instance"
-               countMethod="Getinstancecount"
-               elementMethod="Getinstanceid"
-               connectorExistsMethod="not used"/>     
+               operationReturn_Int_Param_Void="Getinstancecount"
+               operationReturn_Uniqueid_Param_Int="Getinstanceid"
+               operationReturn_Boolean_Param_Boolean_Uniqueid=""/>     
             <autoReconcile
                targetSymbol="External Entity"
-               countMethod="Geteecount"
-               elementMethod="Geteeid"
-               connectorExistsMethod="not used"
+               operationReturn_Int_Param_Void="Geteecount"
+               operationReturn_Uniqueid_Param_Int="Geteeid"
+               operationReturn_Boolean_Param_Boolean_Uniqueid=""
                class="org.xtuml.bp.core.ExternalEntity_c" />   
             <autoReconcile
                targetSymbol="Package Participant"
-               countMethod="Getpkgpartcount"
-               elementMethod="Getpkgpartid"
-               connectorExistsMethod="not used"/>   
+               operationReturn_Int_Param_Void="Getpkgpartcount"
+               operationReturn_Uniqueid_Param_Int="Getpkgpartid"
+               operationReturn_Boolean_Param_Boolean_Uniqueid=""/>   
             <autoReconcile
                targetSymbol="Class"
-               countMethod="Getclasspartcount"
-               elementMethod="Getclasspartid"
-               connectorExistsMethod="not used"
+               operationReturn_Int_Param_Void="Getclasspartcount"
+               operationReturn_Uniqueid_Param_Int="Getclasspartid"
+               operationReturn_Boolean_Param_Boolean_Uniqueid=""
                class="org.xtuml.bp.core.ClassParticipant_c" />   
             <autoReconcile
                targetSymbol="Object Node"
-               countMethod="Getobjectnodecount"
-               elementMethod="Getobjectnodeid"
-               connectorExistsMethod="not used"/>   
+               operationReturn_Int_Param_Void="Getobjectnodecount"
+               operationReturn_Uniqueid_Param_Int="Getobjectnodeid"
+               operationReturn_Boolean_Param_Boolean_Uniqueid=""/>   
             <autoReconcile
                targetSymbol="Decision/Merge Node"
-               countMethod="Getdecmergenodecount"
-               elementMethod="Getdecmergenodeid"
-               connectorExistsMethod="not used"/>   
+               operationReturn_Int_Param_Void="Getdecmergenodecount"
+               operationReturn_Uniqueid_Param_Int="Getdecmergenodeid"
+               operationReturn_Boolean_Param_Boolean_Uniqueid=""/>   
             <autoReconcile
                targetSymbol="Initial Node"
-               countMethod="Getinitnodecount"
-               elementMethod="Getinitnodeid"
-               connectorExistsMethod="not used"/>   
+               operationReturn_Int_Param_Void="Getinitnodecount"
+               operationReturn_Uniqueid_Param_Int="Getinitnodeid"
+               operationReturn_Boolean_Param_Boolean_Uniqueid=""/>   
             <autoReconcile
                targetSymbol="Activity Final Node"
-               countMethod="Getactfinalnodecount"
-               elementMethod="Getactfinalnodeid"
-               connectorExistsMethod="not used"/>   
+               operationReturn_Int_Param_Void="Getactfinalnodecount"
+               operationReturn_Uniqueid_Param_Int="Getactfinalnodeid"
+               operationReturn_Boolean_Param_Boolean_Uniqueid=""/>   
             <autoReconcile
                targetSymbol="Flow Final Node"
-               countMethod="Getflowfinalnodecount"
-               elementMethod="Getflowfinalnodeid"
-               connectorExistsMethod="not used"/>   
+               operationReturn_Int_Param_Void="Getflowfinalnodecount"
+               operationReturn_Uniqueid_Param_Int="Getflowfinalnodeid"
+               operationReturn_Boolean_Param_Boolean_Uniqueid=""/>   
             <autoReconcile
                targetSymbol="Imported Class"
-               countMethod="Geticlasscount"
-               elementMethod="Geticlassid"
-               connectorExistsMethod="not used"/>              
+               operationReturn_Int_Param_Void="Geticlasscount"
+               operationReturn_Uniqueid_Param_Int="Geticlassid"
+               operationReturn_Boolean_Param_Boolean_Uniqueid=""/>              
             <autoReconcile
                targetSymbol="External Entity"
-               countMethod="Geteepartcount"
-               elementMethod="Geteepartid"
-               connectorExistsMethod="not used"
+               operationReturn_Int_Param_Void="Geteepartcount"
+               operationReturn_Uniqueid_Param_Int="Geteepartid"
+               operationReturn_Boolean_Param_Boolean_Uniqueid=""
                class="org.xtuml.bp.core.ExternalEntityParticipant_c" />              
             <autoReconcile
                targetSymbol="Package"
-               countMethod="Getpckgcount"
-               elementMethod="Getpckgid"
-               connectorExistsMethod="not used"
+               operationReturn_Int_Param_Void="Getpckgcount"
+               operationReturn_Uniqueid_Param_Int="Getpckgid"
+               operationReturn_Boolean_Param_Boolean_Uniqueid=""
                class="org.xtuml.bp.core.Package_c" />              
            <autoReconcile
                targetSymbol="Provided Interface"
-               countMethod="Getprovisioncount"
-               elementMethod="Getprovisionid"
-               connectorExistsMethod="Hasprovision"/>
+               operationReturn_Int_Param_Void="Getprovisioncount"
+               operationReturn_Uniqueid_Param_Int="Getprovisionid"
+               operationReturn_Boolean_Param_Boolean_Uniqueid="Hasprovision"/>
           <autoReconcile
                targetSymbol="Required Interface"
-               countMethod="Getrequirementcount"
-               elementMethod="Getrequirementid"
-               connectorExistsMethod="Hasrequirement"/>
+               operationReturn_Int_Param_Void="Getrequirementcount"
+               operationReturn_Uniqueid_Param_Int="Getrequirementid"
+               operationReturn_Boolean_Param_Boolean_Uniqueid="Hasrequirement"/>
      
          <autoReconcile
                targetSymbol="Imported Provided Interface"
-               countMethod="Getimportedprovisioncount"
-               elementMethod="Getimportedprovisionid"
-               connectorExistsMethod="Hasimportedprovision"
-               templateElementMethod="Getimportedprovisionprovisionid"/>
+               operationReturn_Int_Param_Void="Getimportedprovisioncount"
+               operationReturn_Uniqueid_Param_Int="Getimportedprovisionid"
+               operationReturn_Boolean_Param_Boolean_Uniqueid="Hasimportedprovision"
+               operationReturn_Uniqueid_Param_Boolean_Int="Getimportedprovisionprovisionid"/>
          <autoReconcile
                targetSymbol="Imported Required Interface"
-               countMethod="Getimportedrequirementcount"
-               elementMethod="Getimportedrequirementid"
-               connectorExistsMethod="Hasimportedrequirement"
-               templateElementMethod="Getimportedrequirementrequirementid"/>
+               operationReturn_Int_Param_Void="Getimportedrequirementcount"
+               operationReturn_Uniqueid_Param_Int="Getimportedrequirementid"
+               operationReturn_Boolean_Param_Boolean_Uniqueid="Hasimportedrequirement"
+               operationReturn_Uniqueid_Param_Boolean_Int="Getimportedrequirementrequirementid"/>
                
          </defaultFor>
          <defaultFor
@@ -2630,51 +2692,51 @@
             <autoReconcile
                targetSymbol="Component"
                class="org.xtuml.bp.core.Component_c"
-               countMethod="Getcomponentcount"
-               elementMethod="Getcomponentid"
-               connectorExistsMethod="not used"/>  
+               operationReturn_Int_Param_Void="Getcomponentcount"
+               operationReturn_Uniqueid_Param_Int="Getcomponentid"
+               operationReturn_Boolean_Param_Boolean_Uniqueid=""/>  
             <autoReconcile
                targetSymbol="Component Reference"
-               countMethod="Getcomponentrefcount"
-               elementMethod="Getcomponentrefid"
-               connectorExistsMethod="not used"/>       
+               operationReturn_Int_Param_Void="Getcomponentrefcount"
+               operationReturn_Uniqueid_Param_Int="Getcomponentrefid"
+               operationReturn_Boolean_Param_Boolean_Uniqueid=""/>       
             <autoReconcile
                targetSymbol="Package"
-               countMethod="Getpkgcount"
-               elementMethod="Getpkgid"
-               connectorExistsMethod="not used"/>       
+               operationReturn_Int_Param_Void="Getpkgcount"
+               operationReturn_Uniqueid_Param_Int="Getpkgid"
+               operationReturn_Boolean_Param_Boolean_Uniqueid=""/>       
             <autoReconcile
                targetSymbol="Interface"
-               countMethod="Getifacecount"
-               elementMethod="Getifaceid"
-               connectorExistsMethod="not used"/>       
+               operationReturn_Int_Param_Void="Getifacecount"
+               operationReturn_Uniqueid_Param_Int="Getifaceid"
+               operationReturn_Boolean_Param_Boolean_Uniqueid=""/>       
             <autoReconcile
                targetSymbol="User Data Type"
-               countMethod="Getudtcount"
-               elementMethod="Getudtid"
-               connectorExistsMethod="not used"/>       
+               operationReturn_Int_Param_Void="Getudtcount"
+               operationReturn_Uniqueid_Param_Int="Getudtid"
+               operationReturn_Boolean_Param_Boolean_Uniqueid=""/>       
             <autoReconcile
                targetSymbol="Provided Interface"
-               countMethod="Getprovisioncount"
-               elementMethod="Getprovisionid"
-               connectorExistsMethod="Hasimportedprovision"/>
+               operationReturn_Int_Param_Void="Getprovisioncount"
+               operationReturn_Uniqueid_Param_Int="Getprovisionid"
+               operationReturn_Boolean_Param_Boolean_Uniqueid="Hasimportedprovision"/>
             <autoReconcile
                targetSymbol="Required Interface"
-               countMethod="Getrequirementcount"
-               elementMethod="Getrequirementid"
-               connectorExistsMethod="Hasimportedrequirement"/>
+               operationReturn_Int_Param_Void="Getrequirementcount"
+               operationReturn_Uniqueid_Param_Int="Getrequirementid"
+               operationReturn_Boolean_Param_Boolean_Uniqueid="Hasimportedrequirement"/>
 
           <autoReconcile
                targetSymbol="Imported Provided Interface"
-               countMethod="Getimportedprovisioncount"
-               elementMethod="Getimportedprovisionid"
-               connectorExistsMethod="Hasimportedprovision"
+               operationReturn_Int_Param_Void="Getimportedprovisioncount"
+               operationReturn_Uniqueid_Param_Int="Getimportedprovisionid"
+               operationReturn_Boolean_Param_Boolean_Uniqueid="Hasimportedprovision"
               />
           <autoReconcile
                targetSymbol="Imported Required Interface"
-               countMethod="Getimportedrequirementcount"
-               elementMethod="Getimportedrequirementid"
-               connectorExistsMethod="Hasimportedrequirement"
+               operationReturn_Int_Param_Void="Getimportedrequirementcount"
+               operationReturn_Uniqueid_Param_Int="Getimportedrequirementid"
+               operationReturn_Boolean_Param_Boolean_Uniqueid="Hasimportedrequirement"
                />               
          </defaultFor>
          <defaultFor
@@ -2698,9 +2760,9 @@
             </validSymbol>
             <autoReconcile
                targetSymbol="State"
-               countMethod="Getstatecount"
-               elementMethod="Getstateid"
-               connectorExistsMethod="not used"/>  
+               operationReturn_Int_Param_Void="Getstatecount"
+               operationReturn_Uniqueid_Param_Int="Getstateid"
+               operationReturn_Boolean_Param_Boolean_Uniqueid=""/>  
          </defaultFor>
          <defaultFor
                class="org.xtuml.bp.core.ClassStateMachine_c"
@@ -2720,9 +2782,9 @@
             </validSymbol>
             <autoReconcile
                targetSymbol="State"
-               countMethod="Getstatecount"
-               elementMethod="Getstateid"
-               connectorExistsMethod="not used"/>   
+               operationReturn_Int_Param_Void="Getstatecount"
+               operationReturn_Uniqueid_Param_Int="Getstateid"
+               operationReturn_Boolean_Param_Boolean_Uniqueid=""/>   
          </defaultFor>
       </editor>
       

@@ -702,6 +702,48 @@ return action.Descrip;',
 	1,
 	'',
 	"d0c5877b-18e9-4c93-8b50-0a7a5e918a23");
+INSERT INTO O_TFR
+	VALUES ("e47fc7bc-dcd1-478c-88ff-36a6962b9430",
+	"aee0c0bf-2bc2-41e5-b9ad-01341d2944be",
+	'getTransitionCount',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	1,
+	'select many transitions related by self->SM_TXN[R506];
+return cardinality transitions; ',
+	1,
+	'',
+	"eb01618a-4f49-43d3-aa61-c89c8d8f408e");
+INSERT INTO O_TFR
+	VALUES ("23487868-8147-4e93-afa5-98c131eb8b1a",
+	"aee0c0bf-2bc2-41e5-b9ad-01341d2944be",
+	'getTransitionId',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	1,
+	'id = GD::NULL_UNIQUE_ID();
+select many transitions related by self->SM_TXN[R506];
+// We''re preincrementing the index
+count = -1;
+for each transition in transitions
+  if (count == param.index)
+    id = transition.Trans_ID;
+    break;
+  end if;
+end for; 
+return id;',
+	1,
+	'',
+	"e47fc7bc-dcd1-478c-88ff-36a6962b9430");
+INSERT INTO O_TPARM
+	VALUES ("ae563757-0cce-4b7c-8658-4a65e69d035b",
+	"23487868-8147-4e93-afa5-98c131eb8b1a",
+	'index',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
 INSERT INTO O_NBATTR
 	VALUES ("c1895e17-60ab-46d5-b6a1-e61e34c67638",
 	"aee0c0bf-2bc2-41e5-b9ad-01341d2944be");

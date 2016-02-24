@@ -1655,7 +1655,7 @@ private static String s_invoke(
 		      
 }
 
-	private static final String NOT_USED="not used";
+	private static final String NOT_USED="";
 	private static String[] errorReportingIgnoredFor = new String[] { "Getdescription", "getDescrip", NOT_USED, "Get_connector_tooltip"};
 
 	public static Method findMethod(Object target, String methodName, Class[] argTypes) {
