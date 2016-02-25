@@ -1,0 +1,157 @@
+-- BP 7.1 content: Interface syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO C_I
+	VALUES ("06e358bd-8488-4092-af9c-7c359b158f4d",
+	"00000000-0000-0000-0000-000000000000",
+	'UI',
+	'');
+INSERT INTO C_EP
+	VALUES ("2374067a-3540-45be-8426-c322f15228e0",
+	"06e358bd-8488-4092-af9c-7c359b158f4d",
+	-1,
+	'lapResetPressed',
+	'');
+INSERT INTO C_AS
+	VALUES ("2374067a-3540-45be-8426-c322f15228e0",
+	'lapResetPressed',
+	'',
+	1,
+	"03b905af-36a8-41bc-a9f5-499c5e49c6ca");
+INSERT INTO C_EP
+	VALUES ("03b905af-36a8-41bc-a9f5-499c5e49c6ca",
+	"06e358bd-8488-4092-af9c-7c359b158f4d",
+	-1,
+	'startStopPressed',
+	'');
+INSERT INTO C_AS
+	VALUES ("03b905af-36a8-41bc-a9f5-499c5e49c6ca",
+	'startStopPressed',
+	'',
+	1,
+	"3e2d7574-ba3f-4a52-90c2-6787610b555a");
+INSERT INTO C_EP
+	VALUES ("7000a5a2-93fb-4e37-9d8e-d0744492e0f1",
+	"06e358bd-8488-4092-af9c-7c359b158f4d",
+	-1,
+	'lightPressed',
+	'');
+INSERT INTO C_AS
+	VALUES ("7000a5a2-93fb-4e37-9d8e-d0744492e0f1",
+	'lightPressed',
+	'',
+	1,
+	"2374067a-3540-45be-8426-c322f15228e0");
+INSERT INTO C_EP
+	VALUES ("ee5ab291-e2a1-4940-9017-d4eb26f24014",
+	"06e358bd-8488-4092-af9c-7c359b158f4d",
+	-1,
+	'modePressed',
+	'');
+INSERT INTO C_AS
+	VALUES ("ee5ab291-e2a1-4940-9017-d4eb26f24014",
+	'modePressed',
+	'',
+	1,
+	"7000a5a2-93fb-4e37-9d8e-d0744492e0f1");
+INSERT INTO C_EP
+	VALUES ("3e2d7574-ba3f-4a52-90c2-6787610b555a",
+	"06e358bd-8488-4092-af9c-7c359b158f4d",
+	-1,
+	'setTargetPressed',
+	'');
+INSERT INTO C_AS
+	VALUES ("3e2d7574-ba3f-4a52-90c2-6787610b555a",
+	'setTargetPressed',
+	'',
+	1,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO C_EP
+	VALUES ("b73227de-490d-4b51-a2f2-0487bde474af",
+	"06e358bd-8488-4092-af9c-7c359b158f4d",
+	-1,
+	'setTime',
+	'');
+INSERT INTO C_IO
+	VALUES ("b73227de-490d-4b51-a2f2-0487bde474af",
+	"ba5eda7a-def5-0000-0000-000000000000",
+	'setTime',
+	'',
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO C_PP
+	VALUES ("4f40b2b7-1a31-4078-99e3-079f44e9c19f",
+	"b73227de-490d-4b51-a2f2-0487bde474af",
+	"ba5eda7a-def5-0000-0000-000000000002",
+	'time',
+	'',
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO C_EP
+	VALUES ("f9a5672f-67fa-48da-8c7e-2a4cc64bf0fd",
+	"06e358bd-8488-4092-af9c-7c359b158f4d",
+	-1,
+	'setData',
+	'');
+INSERT INTO C_IO
+	VALUES ("f9a5672f-67fa-48da-8c7e-2a4cc64bf0fd",
+	"ba5eda7a-def5-0000-0000-000000000000",
+	'setData',
+	'',
+	0,
+	'',
+	"b73227de-490d-4b51-a2f2-0487bde474af");
+INSERT INTO C_PP
+	VALUES ("a9a8974a-63b1-4e43-b958-5a30d563281a",
+	"f9a5672f-67fa-48da-8c7e-2a4cc64bf0fd",
+	"ba5eda7a-def5-0000-0000-000000000003",
+	'value',
+	'',
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO C_PP
+	VALUES ("709cb98d-8cd8-416c-8061-f18b9bbc40a0",
+	"f9a5672f-67fa-48da-8c7e-2a4cc64bf0fd",
+	"5e193b53-54b5-4416-a4f1-a5c98d595c05",
+	'unit',
+	'',
+	0,
+	'',
+	"a9a8974a-63b1-4e43-b958-5a30d563281a");
+INSERT INTO S_DT_PROXY
+	VALUES ("5e193b53-54b5-4416-a4f1-a5c98d595c05",
+	"00000000-0000-0000-0000-000000000000",
+	'Unit',
+	'',
+	'',
+	'../../UIDataTypes/UIDataTypes.xtuml');
+INSERT INTO C_EP
+	VALUES ("a6656767-0e84-4db2-9507-eba9a99c58f4",
+	"06e358bd-8488-4092-af9c-7c359b158f4d",
+	-1,
+	'startTest',
+	'');
+INSERT INTO C_IO
+	VALUES ("a6656767-0e84-4db2-9507-eba9a99c58f4",
+	"ba5eda7a-def5-0000-0000-000000000000",
+	'startTest',
+	'',
+	0,
+	'',
+	"f9a5672f-67fa-48da-8c7e-2a4cc64bf0fd");
+INSERT INTO PE_PE
+	VALUES ("06e358bd-8488-4092-af9c-7c359b158f4d",
+	1,
+	"9b961245-c46b-4875-ad99-15876a73b681",
+	"00000000-0000-0000-0000-000000000000",
+	6);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("9b961245-c46b-4875-ad99-15876a73b681",
+	"36a41cf7-d411-488d-99fc-74866d4fea39",
+	"36a41cf7-d411-488d-99fc-74866d4fea39",
+	'UIInterfaces',
+	'',
+	0,
+	'../UIInterfaces.xtuml');

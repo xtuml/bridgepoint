@@ -1,0 +1,349 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("d2828038-110a-4559-8452-91651af0adcb",
+	'TrackLog',
+	2,
+	'TrackLog',
+	'A TrackLog is a record of events that take place during a workout.
+An event can be a location updates from the GPS, a heart rate sample
+from the pulse monitor or a lap marker.
+
+During workout the TrackLog keeps track of certain measurements derived
+from the sequence of events that has occurred.',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_TFR
+	VALUES ("0f45bbc6-da36-4b5b-a2dd-f739a6f0cbdd",
+	"d2828038-110a-4559-8452-91651af0adcb",
+	'addTrackPoint',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'select one workoutTimer related by self->WorkoutTimer[R4];
+
+// create the new trackPoint
+create object instance trackPoint of TrackPoint;
+trackPoint.time      = workoutTimer.time;
+trackPoint.longitude = param.location.longitude;
+trackPoint.latitude  = param.location.latitude;
+trackPoint.speed     = param.location.speed;
+
+select one firstPoint related by self->TrackPoint[R1];
+select one lastPoint related by self->TrackPoint[R3];
+
+if (empty firstPoint)
+  // this is the first trackPoint in the log
+  relate self to trackPoint across R1.''has first'';
+  relate self to trackPoint across R3.''has last'';
+else 
+  unrelate self from lastPoint across R3.''has last'';
+  relate self to trackPoint across R3.''has last'';
+  relate lastPoint to trackPoint across R2.''follows'';
+end if;
+
+// calculate distance etc
+distance = 0.0;
+if (self.hasLocation)
+  send distance = UTIL::getDistance(fromLocation: self.lastKnownLocation, toLocation: param.location);
+end if;
+// TODO: move these to the caller
+self.hasLocation = true;
+self.lastKnownLocation = param.location;
+
+self.distance = self.distance + distance;
+self.currentSpeed = param.location.speed;
+
+// notify UI of the new value
+generate Display_A2:refresh() to Display class;',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_TPARM
+	VALUES ("64c18302-2a55-4277-b153-a3823748dfcb",
+	"0f45bbc6-da36-4b5b-a2dd-f739a6f0cbdd",
+	'location',
+	"cb835491-fba0-4f96-9ad3-ef020d954fa4",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("cb835491-fba0-4f96-9ad3-ef020d954fa4",
+	"00000000-0000-0000-0000-000000000000",
+	'Location',
+	'',
+	'',
+	'../../../../LocationDataTypes/LocationDataTypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("7dbac40f-6e89-4ad2-a576-0f1fcfbe2dc5",
+	"d2828038-110a-4559-8452-91651af0adcb",
+	'clearTrackPoints',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'select one nextPoint related by self->TrackPoint[R1];
+select one lastPoint related by self->TrackPoint[R3];
+
+if (not empty lastPoint)
+  unrelate self from lastPoint across R3;
+end if;
+
+if (not empty nextPoint)
+  unrelate self from nextPoint across R1;
+end if;
+
+while (not empty nextPoint)
+  prevPoint = nextPoint;
+  select one nextPoint related by nextPoint->TrackPoint[R2.''follows''];
+  if ( not_empty nextPoint )
+    unrelate prevPoint from nextPoint across R2.''follows'';
+  end if;
+  delete object instance prevPoint;
+end while;
+',
+	1,
+	'',
+	"0f45bbc6-da36-4b5b-a2dd-f739a6f0cbdd");
+INSERT INTO O_TFR
+	VALUES ("83ad7ae5-197c-4e8a-b9f5-b7d1c03db0b7",
+	"d2828038-110a-4559-8452-91651af0adcb",
+	'addLapMarker',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'select one timer related by self->WorkoutTimer[R4];
+create object instance lapMarker of LapMarker;
+lapMarker.lapTime = timer.time; 
+relate self to lapMarker across R5;
+
+// notify UI of the new value
+generate Display_A2:refresh() to Display class;',
+	1,
+	'',
+	"7dbac40f-6e89-4ad2-a576-0f1fcfbe2dc5");
+INSERT INTO O_TFR
+	VALUES ("9d05da67-cf3d-4220-b15a-0f2e28652584",
+	"d2828038-110a-4559-8452-91651af0adcb",
+	'clearLapMarkers',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'select many lapMarkers related by self->LapMarker[R5];
+for each lapMarker in lapMarkers
+  unrelate self from lapMarker across R5;
+  delete object instance lapMarker;
+end for;',
+	1,
+	'',
+	"83ad7ae5-197c-4e8a-b9f5-b7d1c03db0b7");
+INSERT INTO O_TFR
+	VALUES ("a2c3e91d-5d2a-4579-a1f8-44ffcc78058a",
+	"d2828038-110a-4559-8452-91651af0adcb",
+	'addHeartRateSample',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'create object instance sample of HeartRateSample;
+sample.heartRate = param.heartRate; 
+relate self to sample across R6;
+
+// notify UI of the new value
+self.currentHeartRate = param.heartRate;
+generate Display_A2:refresh() to Display class;',
+	1,
+	'',
+	"9d05da67-cf3d-4220-b15a-0f2e28652584");
+INSERT INTO O_TPARM
+	VALUES ("bb008dbf-4dec-43a0-ada8-e55ee708d657",
+	"a2c3e91d-5d2a-4579-a1f8-44ffcc78058a",
+	'heartRate',
+	"ba5eda7a-def5-0000-0000-000000000003",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("781f31ef-d608-4cb1-8598-2f0513420ab6",
+	"d2828038-110a-4559-8452-91651af0adcb",
+	'clearHeartRateSamples',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'select many samples related by self->HeartRateSample[R6];
+for each sample in samples
+  unrelate self from sample across R6;
+  delete object instance sample;
+end for;',
+	1,
+	'',
+	"a2c3e91d-5d2a-4579-a1f8-44ffcc78058a");
+INSERT INTO O_TFR
+	VALUES ("b6a25f57-327b-469f-80b9-8de45fedff94",
+	"d2828038-110a-4559-8452-91651af0adcb",
+	'init',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'self.startTime        = TIM::current_clock();
+self.distance         = 0.0;
+self.currentHeartRate = 0.0;
+self.currentSpeed     = 0.0;
+self.hasLocation      = false;',
+	1,
+	'',
+	"781f31ef-d608-4cb1-8598-2f0513420ab6");
+INSERT INTO O_NBATTR
+	VALUES ("b585a128-d256-405f-8776-ffab1e3c5c05",
+	"d2828038-110a-4559-8452-91651af0adcb");
+INSERT INTO O_BATTR
+	VALUES ("b585a128-d256-405f-8776-ffab1e3c5c05",
+	"d2828038-110a-4559-8452-91651af0adcb");
+INSERT INTO O_ATTR
+	VALUES ("b585a128-d256-405f-8776-ffab1e3c5c05",
+	"d2828038-110a-4559-8452-91651af0adcb",
+	"00000000-0000-0000-0000-000000000000",
+	'distance',
+	'Total distance covered during a workout.',
+	'',
+	'distance',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000003",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("d09695e9-6d86-42a1-8e94-ce705cd02709",
+	"d2828038-110a-4559-8452-91651af0adcb");
+INSERT INTO O_BATTR
+	VALUES ("d09695e9-6d86-42a1-8e94-ce705cd02709",
+	"d2828038-110a-4559-8452-91651af0adcb");
+INSERT INTO O_ATTR
+	VALUES ("d09695e9-6d86-42a1-8e94-ce705cd02709",
+	"d2828038-110a-4559-8452-91651af0adcb",
+	"b585a128-d256-405f-8776-ffab1e3c5c05",
+	'currentSpeed',
+	'The most recently reported speed. ',
+	'',
+	'currentSpeed',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000003",
+	'',
+	'');
+INSERT INTO O_DBATTR
+	VALUES ("3e9efd19-633d-4b2b-8e0c-ff1f21e46a1b",
+	"d2828038-110a-4559-8452-91651af0adcb",
+	'if (self.currentSpeed != 0)
+  self.currentPace = 60.0 / self.currentSpeed;
+else
+  self.currentPace = 0.0;
+end if;',
+	1);
+INSERT INTO O_BATTR
+	VALUES ("3e9efd19-633d-4b2b-8e0c-ff1f21e46a1b",
+	"d2828038-110a-4559-8452-91651af0adcb");
+INSERT INTO O_ATTR
+	VALUES ("3e9efd19-633d-4b2b-8e0c-ff1f21e46a1b",
+	"d2828038-110a-4559-8452-91651af0adcb",
+	"d09695e9-6d86-42a1-8e94-ce705cd02709",
+	'currentPace',
+	'The pace is essentially the inverse of the current speed. It is expressed in minutes/meter.',
+	'',
+	'currentPace',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000003",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("6ea0053d-a8c4-4fb5-a92d-ca94909eff4e",
+	"d2828038-110a-4559-8452-91651af0adcb");
+INSERT INTO O_BATTR
+	VALUES ("6ea0053d-a8c4-4fb5-a92d-ca94909eff4e",
+	"d2828038-110a-4559-8452-91651af0adcb");
+INSERT INTO O_ATTR
+	VALUES ("6ea0053d-a8c4-4fb5-a92d-ca94909eff4e",
+	"d2828038-110a-4559-8452-91651af0adcb",
+	"3e9efd19-633d-4b2b-8e0c-ff1f21e46a1b",
+	'currentHeartRate',
+	'The most recently reported hear rate sample.',
+	'',
+	'currentHeartRate',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000003",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("6a782ac9-ac99-429f-a3c6-bed8bcd2de5f",
+	"d2828038-110a-4559-8452-91651af0adcb");
+INSERT INTO O_BATTR
+	VALUES ("6a782ac9-ac99-429f-a3c6-bed8bcd2de5f",
+	"d2828038-110a-4559-8452-91651af0adcb");
+INSERT INTO O_ATTR
+	VALUES ("6a782ac9-ac99-429f-a3c6-bed8bcd2de5f",
+	"d2828038-110a-4559-8452-91651af0adcb",
+	"6ea0053d-a8c4-4fb5-a92d-ca94909eff4e",
+	'startTime',
+	'The timestamp taken when the workout was started according to system clock.',
+	'',
+	'startTime',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000010",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("67298965-4a8d-4a30-a7e0-82d1186498ca",
+	"d2828038-110a-4559-8452-91651af0adcb");
+INSERT INTO O_BATTR
+	VALUES ("67298965-4a8d-4a30-a7e0-82d1186498ca",
+	"d2828038-110a-4559-8452-91651af0adcb");
+INSERT INTO O_ATTR
+	VALUES ("67298965-4a8d-4a30-a7e0-82d1186498ca",
+	"d2828038-110a-4559-8452-91651af0adcb",
+	"6a782ac9-ac99-429f-a3c6-bed8bcd2de5f",
+	'lastKnownLocation',
+	'Most recently reported location.',
+	'',
+	'lastKnownLocation',
+	0,
+	"cb835491-fba0-4f96-9ad3-ef020d954fa4",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("916536de-e260-42a3-ba18-6de8522709a9",
+	"d2828038-110a-4559-8452-91651af0adcb");
+INSERT INTO O_BATTR
+	VALUES ("916536de-e260-42a3-ba18-6de8522709a9",
+	"d2828038-110a-4559-8452-91651af0adcb");
+INSERT INTO O_ATTR
+	VALUES ("916536de-e260-42a3-ba18-6de8522709a9",
+	"d2828038-110a-4559-8452-91651af0adcb",
+	"67298965-4a8d-4a30-a7e0-82d1186498ca",
+	'hasLocation',
+	'Indicates whether the first location update has arrived. ',
+	'',
+	'hasLocation',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000001",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"d2828038-110a-4559-8452-91651af0adcb");
+INSERT INTO O_ID
+	VALUES (1,
+	"d2828038-110a-4559-8452-91651af0adcb");
+INSERT INTO O_ID
+	VALUES (2,
+	"d2828038-110a-4559-8452-91651af0adcb");
+INSERT INTO PE_PE
+	VALUES ("d2828038-110a-4559-8452-91651af0adcb",
+	1,
+	"a09220a4-d685-4338-83fd-0d42f7c7e308",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("a09220a4-d685-4338-83fd-0d42f7c7e308",
+	"00000000-0000-0000-0000-000000000000",
+	"36a41cf7-d411-488d-99fc-74866d4fea39",
+	'Tracking',
+	'',
+	0,
+	'../Tracking.xtuml');

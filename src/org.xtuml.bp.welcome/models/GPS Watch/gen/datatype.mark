@@ -1,0 +1,168 @@
+.//============================================================================
+.// File:  datatype.mark
+.//
+.// Description:
+.// This marking file is used to specify the marking of User Defined
+.// Data Types in the application analysis.
+.//
+.// Notice:
+.// (C) Copyright 1999-2014 Mentor Graphics Corporation
+.//     All rights reserved.
+.//============================================================================
+.// Notes:
+.// (1) Marking is specified via archetype function invocation(s) in this file.
+.//     A function invocation statement MUST be specified on a single line.
+.//     All indicated function input parameters must be supplied.
+.// (2) All quoted string parameters are case sensitive.
+.// (3) Comments in this file start with ".//".
+.// (4) Do not leave any blank lines in this file.
+.//============================================================================
+.//
+.//============================================================================
+.// Specify User Data Type Precision:
+.//
+.// To indicate to the software architecture the 'precision' of a user defined
+.// data type (defined in the BridgePoint 'Subsystem Partitioning Model'
+.// (SPM) domain data editor), use the following invocation:
+.//
+.// TagDataTypePrecision( "domain", "dt_name", "tagged_name", "initial_value" )
+.//
+.// Where the input parameters are:
+.//   domain - Registered domain name. Use "*" to indictate a System Wide data
+.//     type (to be applied to all domains containing the user data type).
+.//   dt_name - Name of the data type as known in the application analysis.
+.//   tagged_name - Name of the data type as known in generated implementation
+.//     code (e.g., the 'precision' of the data type).  Note (2).
+.//   initial_value - An optional specification of the default value for the
+.//     data type. Use "" for the architectural default (e.g., 0 for integer,
+.//     0.0 for real).  Note (3).
+.//
+.// Examples:
+.//  Domain specific precsion:
+.//   .invoke TagDataTypePrecision( "MyDom", "Octet", "uchar_t", "" )
+.//   .invoke TagDataTypePrecision( "MyDom", "FunkyReal", "double", "666.999" )
+.//   .invoke TagDataTypePrecision( "AS", "position", "char", "-1" )
+.//  System Wide Precision:
+.//   .invoke TagDataTypePrecision( "*", "SysWideLong", "long int", "-1" )
+.//
+.// Notes:
+.// (1) Mark 'TagDataTypePrecision' may only be used for application analysis
+.//     data types which are derived from either BridgePoint core data types of
+.//     'integer' or 'real'.  Also, user defined types that are enumerations
+.//     can be marked.  Such data will have core data type 'string', but
+.//     will serve as integers.  Attempting to use this mark with other core
+.//     data types will result in a fatal marking error (translation aborted).
+.//     This restriction applies equally to both domain specific and system
+.//     wide use of this mark.
+.// (2) Precision tag 'tagged_name' may be any standard C/C++ integral/real
+.//     programatic type. For example, "unsigned char", "long long", "double",
+.//     etc. POSIX types are also accepted, such as "uchar_t", ulong_t", etc.
+.// (3) When an analysis object is instantiated, the default is to initialize
+.//     attributes of core type 'integer' to 0, and attributes of core type
+.//     'real' to 0.0 (declared as code type 'float').  Tag 'initial_value'
+.//     may be used to re-define the default initialization value.
+.//   (3.a) Casting may be used in the tag, such as "(unsigned)EACCESS", but
+.//         should be used only with careful system level discression.
+.//   (3.b) No translation time error checking is performed on 'initial_value'.
+.//         So bogus tags such as "&*#$" will only be caught during compilation.
+.//============================================================================
+.//
+.//
+.//============================================================================
+.// Mapping User Data Type to an Implementation Pointer:
+.//
+.// To indicate to the model compiler that a user defined data type 
+.// (defined in the BridgePoint 'Subsystem Partitioning Model' (SPM) 
+.// domain data editor) shall be implemented as a pointer,
+.// use the following invocation:
+.//
+.// MapDataTypeAsPointer( "domain", "dt_name", "pointer_type", "include_file" )
+.//
+.// Where the input parameters are:
+.//   domain - Registered domain name.  Use "*" to indictate a system wide data
+.//     type (to be applied to all domains containing the user data type).
+.//   dt_name - Name of the data type as known in the application analysis.
+.//   pointer_type - Name of the pointer data type as it will known be know
+.//     in the generated code.
+.//   include_file - An optional include file which declares the
+.//     implementation type of 'pointer_type'. 
+.//
+.// Examples:
+.//  Domain specific:
+.//   .invoke MapDataTypeAsPointer( "MyDom", "DataPacket", "char", "" )
+.//   .invoke MapDataTypeAsPointer( "MyDom", "AcmeType", "SomeStruct_t", "legacy.h" )
+.//  System Wide:
+.//   .invoke MapDataTypeAsPointer( "*", "OpaquePtr", "void", "" )
+.//
+.// Notes:
+.// (1) In general, '*' should not be included in the 'dt_name'. This will
+.//     result in the model compiler treating the User Data Type as a pointer
+.//     to a pointer.
+.// 
+.//============================================================================
+.//
+.//
+.//============================================================================
+.// Specifying Values for Enumerators
+.//
+.// To indicate to the model compiler that a user defined enumeration
+.// data type enumerator (defined in the BridgePoint Subsystem Partitioning
+.// Model (SPM) domain data editor) shall have a value other than the default,
+.// use the following invocation:
+.//
+.// TagEnumeratorDiscreteValue( "domain", "enumeration", "enumerator", "value" )
+.//
+.// Where the input parameters are:
+.//   domain - Registered domain name.  Use "*" to indicate a system wide
+.//     enumeration data type (to be applied to all domains containing
+.//     the user defined enumeration data type).
+.//   enumeration - Name of the enumeration data type as known in the
+.//     application analysis.
+.//   enumerator - Name of the enumerator as known in the application analysis.
+.//   value - A string containing the value to be assigned to the enumerator.
+.//
+.// Examples:
+.//  Domain specific:
+.//   .invoke TagEnumeratorDiscreteValue( "MO", "wattage", "low", "4" )
+.//   .invoke TagEnumeratorDiscreteValue( "MO", "wattage", "med", "0x20" )
+.//  System Wide:
+.//   .invoke TagEnumeratorDiscreteValue( "*", "wattage", "high", "0x40" )
+.//
+.//============================================================================
+.//
+.//
+.//============================================================================
+.// Specifying Value for the Default Un-Initialized Enumerator
+.//
+.// To indicate to the software architecture that the un-initialized enumerator
+.// of an enumeration (defined in the BridgePoint Subsystem Partitioning Model
+.// (SPM) domain data editor) shall have a value other than the default,
+.// use the following invocation:
+.//
+.// TagUninitializedEnumerationValue( "domain", "enumeration", "value" )
+.//
+.// Where the input parameters are:
+.//   domain - Registered domain name.  Use "*" to indicate a system wide
+.//     enumeration data type (to be applied to all domains containing
+.//     the user defined enumeration data type).
+.//   enumeration - Name of the enumeration data type as known in the
+.//     application analysis. Use "*" to indicate ALL enumerations.
+.//   value - A string containing the value to be assigned to the uninitialized
+.//     enumerator.
+.//
+.// Examples:
+.//  Domain specific:
+.//   .invoke TagUninitializedEnumerationValue( "MO", "wattage", "4" )
+.//  All Enumerations in Domain:
+.//   .invoke TagUninitializedEnumerationValue( "MO", "*", "0x40" )
+.//  System Wide:
+.//   .invoke TagUninitializedEnumerationValue( "*", "wattage", "0x20" )
+.//  All Enumerations in All Domains:
+.//   .invoke TagUninitializedEnumerationValue( "*", "*", "100" )
+.//
+.//============================================================================
+.//
+.//
+.//============================================================================
+.// Do not add anything at the end of this file!
+.//============================================================================

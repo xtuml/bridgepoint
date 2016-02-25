@@ -1,0 +1,68 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("43ffa2f7-7cc5-400e-b5f5-59b26ed3c7b5",
+	'HeartRateMonitor',
+	1,
+	'HeartRateMonitor',
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_NBATTR
+	VALUES ("04edc35d-2a8b-4c50-aa27-258484e04a05",
+	"43ffa2f7-7cc5-400e-b5f5-59b26ed3c7b5");
+INSERT INTO O_BATTR
+	VALUES ("04edc35d-2a8b-4c50-aa27-258484e04a05",
+	"43ffa2f7-7cc5-400e-b5f5-59b26ed3c7b5");
+INSERT INTO O_ATTR
+	VALUES ("04edc35d-2a8b-4c50-aa27-258484e04a05",
+	"43ffa2f7-7cc5-400e-b5f5-59b26ed3c7b5",
+	"00000000-0000-0000-0000-000000000000",
+	'recentHeartRate',
+	'',
+	'',
+	'recentHeartRate',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000003",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("8fbc6a58-73e4-4ba8-b109-f455ff6d4934",
+	"43ffa2f7-7cc5-400e-b5f5-59b26ed3c7b5");
+INSERT INTO O_BATTR
+	VALUES ("8fbc6a58-73e4-4ba8-b109-f455ff6d4934",
+	"43ffa2f7-7cc5-400e-b5f5-59b26ed3c7b5");
+INSERT INTO O_ATTR
+	VALUES ("8fbc6a58-73e4-4ba8-b109-f455ff6d4934",
+	"43ffa2f7-7cc5-400e-b5f5-59b26ed3c7b5",
+	"04edc35d-2a8b-4c50-aa27-258484e04a05",
+	'timer',
+	'',
+	'',
+	'timer',
+	0,
+	"ba5eda7a-def5-0000-0000-00000000000f",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"43ffa2f7-7cc5-400e-b5f5-59b26ed3c7b5");
+INSERT INTO O_ID
+	VALUES (1,
+	"43ffa2f7-7cc5-400e-b5f5-59b26ed3c7b5");
+INSERT INTO O_ID
+	VALUES (2,
+	"43ffa2f7-7cc5-400e-b5f5-59b26ed3c7b5");
+INSERT INTO PE_PE
+	VALUES ("43ffa2f7-7cc5-400e-b5f5-59b26ed3c7b5",
+	1,
+	"c38d4bd2-2db9-4e6d-b481-f3366af37794",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("c38d4bd2-2db9-4e6d-b481-f3366af37794",
+	"00000000-0000-0000-0000-000000000000",
+	"36a41cf7-d411-488d-99fc-74866d4fea39",
+	'HeartRateMonitor',
+	'',
+	0,
+	'../HeartRateMonitor.xtuml');

@@ -1,0 +1,1039 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	<title>BridgePoint UML Suite Release Notes</title>
+	<meta name="generator" content="LibreOffice 4.2.8.2 (Linux)">
+	<meta name="created" content="0;0">
+	<meta name="changed" content="20150430;152946265212718">
+	<style type="text/css">
+	<!--
+		p { color: #000000 }
+		td p { color: #000000 }
+		h1 { color: #000000 }
+		h2 { color: #000000 }
+		h2.cjk { font-family: "Droid Sans Fallback" }
+		h2.ctl { font-family: "FreeSans" }
+		th p { color: #000000 }
+		a:visited { color: #0176b9 }
+	-->
+	</style>
+</head>
+<body lang="en-US" text="#000000" vlink="#0176b9" bgcolor="#ffffff" dir="ltr" style="background: #ffffff">
+<h1>BridgePoint xtUML Release Notes</h1>
+<p>Release 5.0</p>
+<h2 class="western">1. License</h2>
+<p>BridgePoint is licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache
+2.0 License Agreement</a>.</p>
+<h2 class="western">2. System Requirements</h2>
+<table cellpadding="0" cellspacing="0">
+	<tr valign="top">
+		<td width="192" height="30" style="border: 1.00pt solid #000000; padding: 0.02in 0.08in">
+			<p>Operating System</p>
+		</td>
+		<td width="446" style="border-top: 1.00pt solid #000000; border-bottom: 1.00pt solid #000000; border-left: none; border-right: 1.00pt solid #000000; padding-top: 0.02in; padding-bottom: 0.02in; padding-left: 0in; padding-right: 0.08in">
+			<p>Windows 7, Windows 8, Linux variants</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="192" style="border-top: none; border-bottom: 1.00pt solid #000000; border-left: 1.00pt solid #000000; border-right: 1.00pt solid #000000; padding-top: 0in; padding-bottom: 0.02in; padding-left: 0.08in; padding-right: 0.08in">
+			<p>*Eclipse</p>
+		</td>
+		<td width="446" style="border-top: none; border-bottom: 1.00pt solid #000000; border-left: none; border-right: 1.00pt solid #000000; padding-top: 0in; padding-bottom: 0.02in; padding-left: 0in; padding-right: 0.08in">
+			<p>Version 3.7.2</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="192" style="border-top: none; border-bottom: 1.00pt solid #000000; border-left: 1.00pt solid #000000; border-right: 1.00pt solid #000000; padding-top: 0in; padding-bottom: 0.02in; padding-left: 0.08in; padding-right: 0.08in">
+			<p>*Java Virtual Machine</p>
+		</td>
+		<td width="446" style="border-top: none; border-bottom: 1.00pt solid #000000; border-left: none; border-right: 1.00pt solid #000000; padding-top: 0in; padding-bottom: 0.02in; padding-left: 0in; padding-right: 0.08in">
+			<p>Version 1.6 or later</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="192" style="border-top: none; border-bottom: 1.00pt solid #000000; border-left: 1.00pt solid #000000; border-right: 1.00pt solid #000000; padding-top: 0in; padding-bottom: 0.02in; padding-left: 0.08in; padding-right: 0.08in">
+			<p><br>
+			</p>
+		</td>
+		<td width="446" style="border-top: none; border-bottom: 1.00pt solid #000000; border-left: none; border-right: 1.00pt solid #000000; padding-top: 0in; padding-bottom: 0.02in; padding-left: 0in; padding-right: 0.08in">
+			<p><br>
+			</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="192" style="border-top: none; border-bottom: 1.00pt solid #000000; border-left: 1.00pt solid #000000; border-right: 1.00pt solid #000000; padding-top: 0in; padding-bottom: 0.02in; padding-left: 0.08in; padding-right: 0.08in">
+			<p>*(supplied by installer)</p>
+		</td>
+		<td width="446" style="border-top: none; border-bottom: 1.00pt solid #000000; border-left: none; border-right: 1.00pt solid #000000; padding-top: 0in; padding-bottom: 0.02in; padding-left: 0in; padding-right: 0.08in">
+			<p><br>
+			</p>
+		</td>
+	</tr>
+</table>
+<p><br><br>
+</p>
+<h2 class="western">3. General Notes</h2>
+<ul>
+	<li><p style="margin-bottom: 0in">A summary of the release
+	highlights and new functionality is available on the <a href="../../WhatsNew/HTML/WhatsNew.htm">Whats
+	New</a> page. 
+	</p>
+	<li><p style="margin-bottom: 0in"><font color="#ff0000"><b>IMPORTANT:</b></font>
+	BridgePoint 5.0 is a completely open source version of the software.
+	Please see <a href="http://xtuml.org/">xtUML.org</a> and <a href="http://onefact.net/">onefact.net</a>
+	for ongoing development and support of BridgePoint.</p>
+	<li><p style="margin-bottom: 0in"><span style="font-variant: normal"><font color="#000000"><font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt"><span style="font-style: normal"><span style="font-weight: normal">BridgePoint
+	is simplified to ship </span></span></font></font></font></span><span style="font-variant: normal"><font color="#000000"><font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt"><span style="font-style: normal"><span style="font-weight: normal">a</span></span></font></font></font></span><span style="font-variant: normal"><font color="#000000"><font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt"><span style="font-style: normal"><span style="font-weight: normal">s
+	a zip file, similar to standard eclipse packages. Users who w</span></span></font></font></font></span><span style="font-variant: normal"><font color="#000000"><font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt"><span style="font-style: normal"><span style="font-weight: normal">is</span></span></font></font></font></span><span style="font-variant: normal"><font color="#000000"><font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt"><span style="font-style: normal"><span style="font-weight: normal">h
+	to create desktop shortcuts to start BridgePoint should set the
+	shortcut to start </span></span></font></font></font></span><span style="font-variant: normal"><font color="#000000"><font face="Andale Mono"><font size="3" style="font-size: 12pt"><span style="font-style: normal"><span style="font-weight: normal"><span style="background: #dddddd">&lt;install
+	dir&gt;/eclipse/Launcher.[sh|bat]</span></span></span></font></font></font></span></p>
+</ul>
+<h2 class="western">4. Interoperability with Previous Releases</h2>
+<ul>
+	<li><p style="margin-bottom: 0in">BridgePoint 5.0 is compatible with
+	workspaces and projects created with BridgePoint 4.2. 
+	</p>
+	<li><p style="margin-bottom: 0in">When opening workspaces created
+	with previous versions, the xtUML Modeling perspective will not show
+	properly the first time. Close and re-open this perspective.</p>
+	<li><p style="margin-bottom: 0in"><span style="font-variant: normal"><font color="#000000"><font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt"><span style="font-style: normal"><span style="font-weight: normal">Any
+	existing projects that reference </span></span></font></font></font></span><span style="font-variant: normal"><font color="#000000"><font face="Andale Mono"><font size="3" style="font-size: 12pt"><span style="font-style: normal"><span style="font-weight: normal"><span style="background: #dddddd">core.jar</span></span></span></font></font></font></span><span style="font-variant: normal"><font color="#000000">
+	</font></span><span style="font-variant: normal"><font color="#000000"><font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt"><span style="font-style: normal"><span style="font-weight: normal">must
+	be modified to point at the file in its new home under </span></span></font></font></font></span><span style="font-variant: normal"><font color="#000000"><font face="Andale Mono"><font size="3" style="font-size: 12pt"><span style="font-style: normal"><span style="font-weight: normal"><span style="background: #dddddd">&lt;install
+	dir&gt;/eclipse/plugins/org.xtuml.bp.core_5.0.</span></span></span></font></font></font></span><span style="font-variant: normal"><font color="#000000"><font face="Andale Mono"><font size="3" style="font-size: 12pt"><span style="font-style: normal"><span style="font-weight: normal"><span style="background: #dddddd">x</span></span></span></font></font></font></span><span style="font-variant: normal"><font color="#000000"><font face="Andale Mono"><font size="3" style="font-size: 12pt"><span style="font-style: normal"><span style="font-weight: normal"><span style="background: #dddddd">/core.jar</span></span></span></font></font></font></span></p>
+</ul>
+<h2 class="western">5. Issues and Feature Requests</h2>
+<p style="line-height: 0.25in; widows: 1"><span style="font-variant: normal"><font color="#000000"><font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt"><span style="font-style: normal"><span style="font-weight: normal">The
+BridgePoint support system is hosted at</span></span></font></font></font></span><span style="font-variant: normal"><font color="#333333">
+</font></span><a href="http://support.onefact.net/"><span style="font-variant: normal"><font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt"><span style="font-style: normal"><span style="font-weight: normal">http://support.onefact.net</span></span></font></font></span></a><span style="font-variant: normal"><font color="#333333"><font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt"><span style="font-style: normal"><span style="font-weight: normal">.
+</span></span></font></font></font></span><span style="font-variant: normal"><font color="#000000"><font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt"><span style="font-style: normal"><span style="font-weight: normal">Please
+check here for known issues and to submit bug reports and requests
+for new features.</span></span></font></font></font></span></p>
+<h2 class="western" style="margin-top: 0.17in; margin-bottom: 0.04in"><a name="_Closed_Issues"></a>
+6. Closed Issues</h2>
+<p><span style="font-variant: normal"><font color="#000000"><font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt"><span style="font-style: normal"><span style="font-weight: normal">The
+full</span></span></font></font></font></span><span style="font-variant: normal"><font color="#000000"><font face="Arial, sans-serif"><font size="2" style="font-size: 10pt">
+</font></font></font></span><a href="https://support.onefact.net/redmine/issues?query_id=15"><span style="font-variant: normal"><font color="#333333"><font face="Arial, sans-serif"><font size="2" style="font-size: 10pt">“</font></font></font></span><span style="font-variant: normal"><font color="#333333"><font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt"><span style="font-style: normal"><span style="font-weight: normal">v5.0
+– Closed Issues”</span></span></font></font></font></span></a><span style="font-variant: normal"><font color="#333333"><font face="Arial, sans-serif"><font size="2" style="font-size: 10pt">
+</font></font></font></span><span style="font-variant: normal"><font color="#000000"><font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt"><span style="font-style: normal"><span style="font-weight: normal">list
+is available in the One Fact Support system. The highlights are
+included here:</span></span></font></font></font></span></p>
+<table width="703" cellpadding="0" cellspacing="0">
+	<col width="124">
+	<col width="151">
+	<col width="429">
+	<thead>
+		<tr>
+			<th width="124" bgcolor="#eeeeee" style="border: none; padding: 0in">
+				<p style="text-decoration: none"><font color="#116699">#</font></p>
+			</th>
+			<th width="151" bgcolor="#eeeeee" style="border: none; padding: 0in">
+				<p style="text-decoration: none"><span style="display: inline-block; border: none; padding: 0in"><font color="#116699">Project</span></font></p>
+			</th>
+			<th width="429" bgcolor="#eeeeee" style="border: none; padding: 0in">
+				<p style="text-decoration: none"><font color="#116699">Subject</font></p>
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr bgcolor="#f6f7f8">
+			<td width="124" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/issues/517"><font color="#116699"><span style="text-decoration: none">517</span></font></a></p>
+			</td>
+			<td width="151" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/projects/autosar-model-compiler"><font color="#116699"><span style="text-decoration: none">AUTOSAR
+				Model Compiler</span></font></a></p>
+			</td>
+			<td width="429" style="border: none; padding: 0in">
+				<p align="left"><a name="issue-5152"></a><a href="https://support.onefact.net/redmine/issues/517"><font color="#116699"><span style="text-decoration: none">Create
+				proper RTE bindings</span></font></a></p>
+			</td>
+		</tr>
+		<tr bgcolor="#ffffff">
+			<td width="124" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/issues/515"><font color="#116699"><span style="text-decoration: none">515</span></font></a></p>
+			</td>
+			<td width="151" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/projects/autosar-model-compiler"><font color="#116699"><span style="text-decoration: none">AUTOSAR
+				Model Compiler</span></font></a></p>
+			</td>
+			<td width="429" style="border: none; padding: 0in">
+				<p align="left"><a name="issue-76282"></a><a href="https://support.onefact.net/redmine/issues/515"><font color="#116699"><span style="text-decoration: none">Output
+				ARXML</span></font></a></p>
+			</td>
+		</tr>
+		<tr bgcolor="#f6f7f8">
+			<td width="124" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/issues/7628"><font color="#116699"><span style="text-decoration: none">7628</span></font></a></p>
+			</td>
+			<td width="151" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/projects/bridgepoint"><font color="#116699"><span style="text-decoration: none">BridgePoint</span></font></a></p>
+			</td>
+			<td width="429" style="border: none; padding: 0in">
+				<p align="left"><a name="issue-76232"></a><a href="https://support.onefact.net/redmine/issues/7628"><font color="#116699"><span style="text-decoration: none">Complete
+				build script updates</span></font></a></p>
+			</td>
+		</tr>
+		<tr bgcolor="#ffffff">
+			<td width="124" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/issues/7623"><font color="#116699"><span style="text-decoration: none">7623</span></font></a></p>
+			</td>
+			<td width="151" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/projects/bridgepoint"><font color="#116699"><span style="text-decoration: none">BridgePoint</span></font></a></p>
+			</td>
+			<td width="429" style="border: none; padding: 0in">
+				<p align="left"><a name="issue-76092"></a><a href="https://support.onefact.net/redmine/issues/7623"><font color="#116699"><span style="text-decoration: none">Why
+				is pt_antlr required by the BridgePoint build?</span></font></a></p>
+			</td>
+		</tr>
+		<tr bgcolor="#f6f7f8">
+			<td width="124" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/issues/7609"><font color="#116699"><span style="text-decoration: none">7609</span></font></a></p>
+			</td>
+			<td width="151" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/projects/bridgepoint"><font color="#116699"><span style="text-decoration: none">BridgePoint</span></font></a></p>
+			</td>
+			<td width="429" style="border: none; padding: 0in">
+				<p align="left"><a name="issue-76082"></a><a href="https://support.onefact.net/redmine/issues/7609"><font color="#116699"><span style="text-decoration: none">Clean
+				up the windows installer</span></font></a></p>
+			</td>
+		</tr>
+		<tr bgcolor="#ffffff">
+			<td width="124" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/issues/7608"><font color="#116699"><span style="text-decoration: none">7608</span></font></a></p>
+			</td>
+			<td width="151" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/projects/bridgepoint"><font color="#116699"><span style="text-decoration: none">BridgePoint</span></font></a></p>
+			</td>
+			<td width="429" style="border: none; padding: 0in">
+				<p align="left"><a name="issue-76052"></a><a href="https://support.onefact.net/redmine/issues/7608"><font color="#116699"><span style="text-decoration: none">Cleanup
+				the linux installer</span></font></a></p>
+			</td>
+		</tr>
+		<tr bgcolor="#f6f7f8">
+			<td width="124" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/issues/7605"><font color="#116699"><span style="text-decoration: none">7605</span></font></a></p>
+			</td>
+			<td width="151" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/projects/bridgepoint"><font color="#116699"><span style="text-decoration: none">BridgePoint</span></font></a></p>
+			</td>
+			<td width="429" style="border: none; padding: 0in">
+				<p align="left"><a name="issue-76042"></a><a href="https://support.onefact.net/redmine/issues/7605"><font color="#116699"><span style="text-decoration: none">Redmine
+				is used for issue tracking, turn off Git Issues</span></font></a></p>
+			</td>
+		</tr>
+		<tr bgcolor="#ffffff">
+			<td width="124" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/issues/7604"><font color="#116699"><span style="text-decoration: none">7604</span></font></a></p>
+			</td>
+			<td width="151" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/projects/bridgepoint"><font color="#116699"><span style="text-decoration: none">BridgePoint</span></font></a></p>
+			</td>
+			<td width="429" style="border: none; padding: 0in">
+				<p align="left"><a name="issue-75992"></a><a href="https://support.onefact.net/redmine/issues/7604"><font color="#116699"><span style="text-decoration: none">Make
+				deprecated git repositories private</span></font></a></p>
+			</td>
+		</tr>
+		<tr bgcolor="#f6f7f8">
+			<td width="124" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/issues/7599"><font color="#116699"><span style="text-decoration: none">7599</span></font></a></p>
+			</td>
+			<td width="151" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/projects/bridgepoint"><font color="#116699"><span style="text-decoration: none">BridgePoint</span></font></a></p>
+			</td>
+			<td width="429" style="border: none; padding: 0in">
+				<p align="left"><a name="issue-75812"></a><a href="https://support.onefact.net/redmine/issues/7599"><font color="#116699"><span style="text-decoration: none">Repository
+				master branch contains unnecessary files</span></font></a></p>
+			</td>
+		</tr>
+		<tr bgcolor="#ffffff">
+			<td width="124" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/issues/7581"><font color="#116699"><span style="text-decoration: none">7581</span></font></a></p>
+			</td>
+			<td width="151" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/projects/bridgepoint"><font color="#116699"><span style="text-decoration: none">BridgePoint</span></font></a></p>
+			</td>
+			<td width="429" style="border: none; padding: 0in">
+				<p align="left"><a name="issue-75692"></a><a href="https://support.onefact.net/redmine/issues/7581"><font color="#116699"><span style="text-decoration: none">Bump
+				the version number to 5.0.0</span></font></a></p>
+			</td>
+		</tr>
+		<tr bgcolor="#f6f7f8">
+			<td width="124" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/issues/7569"><font color="#116699"><span style="text-decoration: none">7569</span></font></a></p>
+			</td>
+			<td width="151" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/projects/bridgepoint"><font color="#116699"><span style="text-decoration: none">BridgePoint</span></font></a></p>
+			</td>
+			<td width="429" style="border: none; padding: 0in">
+				<p align="left"><a name="issue-75402"></a><a href="https://support.onefact.net/redmine/issues/7569"><font color="#116699"><span style="text-decoration: none">Update
+				the developer's getting started guide</span></font></a></p>
+			</td>
+		</tr>
+		<tr bgcolor="#ffffff">
+			<td width="124" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/issues/7540"><font color="#116699"><span style="text-decoration: none">7540</span></font></a></p>
+			</td>
+			<td width="151" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/projects/bridgepoint"><font color="#116699"><span style="text-decoration: none">BridgePoint</span></font></a></p>
+			</td>
+			<td width="429" style="border: none; padding: 0in">
+				<p align="left"><a name="issue-75372"></a><a href="https://support.onefact.net/redmine/issues/7540"><font color="#116699"><span style="text-decoration: none">Add
+				more information for Instance variables in Variable view such as
+				related instances</span></font></a></p>
+			</td>
+		</tr>
+		<tr bgcolor="#f6f7f8">
+			<td width="124" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/issues/7537"><font color="#116699"><span style="text-decoration: none">7537</span></font></a></p>
+			</td>
+			<td width="151" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/projects/bridgepoint"><font color="#116699"><span style="text-decoration: none">BridgePoint</span></font></a></p>
+			</td>
+			<td width="429" style="border: none; padding: 0in">
+				<p align="left"><a name="issue-75302"></a><a href="https://support.onefact.net/redmine/issues/7537"><font color="#116699"><span style="text-decoration: none">Enhance
+				the MC-Java export builder so it can run on a build server</span></font></a></p>
+			</td>
+		</tr>
+		<tr bgcolor="#ffffff">
+			<td width="124" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/issues/7530"><font color="#116699"><span style="text-decoration: none">7530</span></font></a></p>
+			</td>
+			<td width="151" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/projects/bridgepoint"><font color="#116699"><span style="text-decoration: none">BridgePoint</span></font></a></p>
+			</td>
+			<td width="429" style="border: none; padding: 0in">
+				<p align="left"><a name="issue-75202"></a><a href="https://support.onefact.net/redmine/issues/7530"><font color="#116699"><span style="text-decoration: none">Print
+				out a simpler date format when using TIM::LogDate</span></font></a></p>
+			</td>
+		</tr>
+		<tr bgcolor="#f6f7f8">
+			<td width="124" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/issues/7520"><font color="#116699"><span style="text-decoration: none">7520</span></font></a></p>
+			</td>
+			<td width="151" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/projects/bridgepoint"><font color="#116699"><span style="text-decoration: none">BridgePoint</span></font></a></p>
+			</td>
+			<td width="429" style="border: none; padding: 0in">
+				<p align="left"><a name="issue-75192"></a><a href="https://support.onefact.net/redmine/issues/7520"><font color="#116699"><span style="text-decoration: none">Move
+				BridgePoint build away from special configuration and tools</span></font></a></p>
+			</td>
+		</tr>
+		<tr bgcolor="#ffffff">
+			<td width="124" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/issues/7519"><font color="#116699"><span style="text-decoration: none">7519</span></font></a></p>
+			</td>
+			<td width="151" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/projects/bridgepoint"><font color="#116699"><span style="text-decoration: none">BridgePoint</span></font></a></p>
+			</td>
+			<td width="429" style="border: none; padding: 0in">
+				<p align="left"><a name="issue-7112"></a><a href="https://support.onefact.net/redmine/issues/7519"><font color="#116699"><span style="text-decoration: none">Get
+				build server up and running</span></font></a></p>
+			</td>
+		</tr>
+		<tr bgcolor="#f6f7f8">
+			<td width="124" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/issues/711"><font color="#116699"><span style="text-decoration: none">711</span></font></a></p>
+			</td>
+			<td width="151" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/projects/bridgepoint"><font color="#116699"><span style="text-decoration: none">BridgePoint</span></font></a></p>
+			</td>
+			<td width="429" style="border: none; padding: 0in">
+				<p align="left"><a name="issue-6632"></a><a href="https://support.onefact.net/redmine/issues/711"><font color="#116699"><span style="text-decoration: none">Stale
+				.oal files cause the bridgepoint build to fail in unexpected ways</span></font></a></p>
+			</td>
+		</tr>
+		<tr bgcolor="#ffffff">
+			<td width="124" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/issues/663"><font color="#116699"><span style="text-decoration: none">663</span></font></a></p>
+			</td>
+			<td width="151" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/projects/bridgepoint"><font color="#116699"><span style="text-decoration: none">BridgePoint</span></font></a></p>
+			</td>
+			<td width="429" style="border: none; padding: 0in">
+				<p align="left"><a name="issue-5992"></a><a href="https://support.onefact.net/redmine/issues/663"><font color="#116699"><span style="text-decoration: none">Rename
+				the BridgePoint plug-ins</span></font></a></p>
+			</td>
+		</tr>
+		<tr bgcolor="#f6f7f8">
+			<td width="124" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/issues/599"><font color="#116699"><span style="text-decoration: none">599</span></font></a></p>
+			</td>
+			<td width="151" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/projects/bridgepoint"><font color="#116699"><span style="text-decoration: none">BridgePoint</span></font></a></p>
+			</td>
+			<td width="429" style="border: none; padding: 0in">
+				<p align="left"><a name="issue-5922"></a><a href="https://support.onefact.net/redmine/issues/599"><font color="#116699"><span style="text-decoration: none">Define
+				a simple procedure for running the manual release tests</span></font></a></p>
+			</td>
+		</tr>
+		<tr bgcolor="#ffffff">
+			<td width="124" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/issues/592"><font color="#116699"><span style="text-decoration: none">592</span></font></a></p>
+			</td>
+			<td width="151" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/projects/bridgepoint"><font color="#116699"><span style="text-decoration: none">BridgePoint</span></font></a></p>
+			</td>
+			<td width="429" style="border: none; padding: 0in">
+				<p align="left"><a name="issue-402"></a><a href="https://support.onefact.net/redmine/issues/592"><font color="#116699"><span style="text-decoration: none">Add
+				process doc templates</span></font></a></p>
+			</td>
+		</tr>
+		<tr bgcolor="#f6f7f8">
+			<td width="124" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/issues/40"><font color="#116699"><span style="text-decoration: none">40</span></font></a></p>
+			</td>
+			<td width="151" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/projects/bridgepoint"><font color="#116699"><span style="text-decoration: none">BridgePoint</span></font></a></p>
+			</td>
+			<td width="429" style="border: none; padding: 0in">
+				<p align="left"><a name="issue-392"></a><a href="https://support.onefact.net/redmine/issues/40"><font color="#116699"><span style="text-decoration: none">Migrate
+				ooaofoaa to generic packages</span></font></a></p>
+			</td>
+		</tr>
+		<tr bgcolor="#ffffff">
+			<td width="124" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/issues/39"><font color="#116699"><span style="text-decoration: none">39</span></font></a></p>
+			</td>
+			<td width="151" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/projects/bridgepoint"><font color="#116699"><span style="text-decoration: none">BridgePoint</span></font></a></p>
+			</td>
+			<td width="429" style="border: none; padding: 0in">
+				<p align="left"><a name="issue-382"></a><a href="https://support.onefact.net/redmine/issues/39"><font color="#116699"><span style="text-decoration: none">enable
+				https in redmine</span></font></a></p>
+			</td>
+		</tr>
+		<tr bgcolor="#f6f7f8">
+			<td width="124" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/issues/38"><font color="#116699"><span style="text-decoration: none">38</span></font></a></p>
+			</td>
+			<td width="151" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/projects/bridgepoint"><font color="#116699"><span style="text-decoration: none">BridgePoint</span></font></a></p>
+			</td>
+			<td width="429" style="border: none; padding: 0in">
+				<p align="left"><a name="issue-372"></a><a href="https://support.onefact.net/redmine/issues/38"><font color="#116699"><span style="text-decoration: none">Merge
+				v4.2.0 branch into master</span></font></a></p>
+			</td>
+		</tr>
+		<tr bgcolor="#ffffff">
+			<td width="124" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/issues/37"><font color="#116699"><span style="text-decoration: none">37</span></font></a></p>
+			</td>
+			<td width="151" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/projects/bridgepoint"><font color="#116699"><span style="text-decoration: none">BridgePoint</span></font></a></p>
+			</td>
+			<td width="429" style="border: none; padding: 0in">
+				<p align="left"><a name="issue-112"></a><a href="https://support.onefact.net/redmine/issues/37"><font color="#116699"><span style="text-decoration: none">Get
+				build server up and running</span></font></a></p>
+			</td>
+		</tr>
+		<tr bgcolor="#f6f7f8">
+			<td width="124" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/issues/11"><font color="#116699"><span style="text-decoration: none">11</span></font></a></p>
+			</td>
+			<td width="151" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/projects/bridgepoint"><font color="#116699"><span style="text-decoration: none">BridgePoint</span></font></a></p>
+			</td>
+			<td width="429" style="border: none; padding: 0in">
+				<p align="left"><a name="issue-53"></a><a href="https://support.onefact.net/redmine/issues/11"><font color="#116699"><span style="text-decoration: none">SR
+				#: 2654407563 for product: BridgePoint - Usage is UNASSIGNED
+				(Japan) Class: KEY Open Method: P</span></font></a></p>
+			</td>
+		</tr>
+		<tr bgcolor="#ffffff">
+			<td width="124" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/issues/5"><font color="#116699"><span style="text-decoration: none">5</span></font></a></p>
+			</td>
+			<td width="151" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/projects/bridgepoint"><font color="#116699"><span style="text-decoration: none">BridgePoint</span></font></a></p>
+			</td>
+			<td width="429" style="border: none; padding: 0in">
+				<p align="left"><a name="issue-76222"></a><a href="https://support.onefact.net/redmine/issues/5"><font color="#116699"><span style="text-decoration: none">Rename
+				the BridgePoint plug-ins</span></font></a></p>
+			</td>
+		</tr>
+		<tr bgcolor="#f6f7f8">
+			<td width="124" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/issues/7629"><font color="#116699"><span style="text-decoration: none">7629</span></font></a></p>
+			</td>
+			<td width="151" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/projects/bridgepoint"><font color="#116699"><span style="text-decoration: none">BridgePoint</span></font></a></p>
+			</td>
+			<td width="429" style="border: none; padding: 0in">
+				<p align="left"><a href="https://support.onefact.net/redmine/issues/7629"><font color="#116699"><span style="text-decoration: none">Splash
+				screen does not show due to relative path in eclipse.ini</span></font></a></p>
+			</td>
+		</tr>
+		<tr bgcolor="#ffffff">
+			<td width="124" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/issues/7626"><font color="#116699"><span style="text-decoration: none">7626</span></font></a></p>
+			</td>
+			<td width="151" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/projects/bridgepoint"><font color="#116699"><span style="text-decoration: none">BridgePoint</span></font></a></p>
+			</td>
+			<td width="429" style="border: none; padding: 0in">
+				<p align="left"><a href="https://support.onefact.net/redmine/issues/7626"><font color="#116699"><span style="text-decoration: none">Update
+				xtuml.org/downloads</span></font></a></p>
+			</td>
+		</tr>
+		<tr bgcolor="#f6f7f8">
+			<td width="124" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/issues/7610"><font color="#116699"><span style="text-decoration: none">7610</span></font></a></p>
+			</td>
+			<td width="151" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/projects/bridgepoint"><font color="#116699"><span style="text-decoration: none">BridgePoint</span></font></a></p>
+			</td>
+			<td width="429" style="border: none; padding: 0in">
+				<p align="left"><a href="https://support.onefact.net/redmine/issues/7610"><font color="#116699"><span style="text-decoration: none">Work
+				through problems reported by the unit tests in the 5.0 beta</span></font></a></p>
+			</td>
+		</tr>
+		<tr bgcolor="#ffffff">
+			<td width="124" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/issues/7622"><font color="#116699"><span style="text-decoration: none">7622</span></font></a></p>
+			</td>
+			<td width="151" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/projects/c"><font color="#116699"><span style="text-decoration: none">C</span></font></a></p>
+			</td>
+			<td width="429" style="border: none; padding: 0in">
+				<p align="left"><a name="issue-7620211"></a><a href="https://support.onefact.net/redmine/issues/7622"><font color="#116699"><span style="text-decoration: none">string
+				return affected by recursion in binary expressions</span></font></a></p>
+			</td>
+		</tr>
+		<tr bgcolor="#f6f7f8">
+			<td width="124" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/issues/7620"><font color="#116699"><span style="text-decoration: none">7620</span></font></a></p>
+			</td>
+			<td width="151" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/projects/c"><font color="#116699"><span style="text-decoration: none">C</span></font></a></p>
+			</td>
+			<td width="429" style="border: none; padding: 0in">
+				<p align="left"><a name="issue-756221"></a><a href="https://support.onefact.net/redmine/issues/7620"><font color="#116699"><span style="text-decoration: none">byref
+				string return parm duplicated on inter-component messages</span></font></a></p>
+			</td>
+		</tr>
+		<tr bgcolor="#ffffff">
+			<td width="124" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/issues/7602"><font color="#116699"><span style="text-decoration: none">7602</span></font></a></p>
+			</td>
+			<td width="151" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/projects/c"><font color="#116699"><span style="text-decoration: none">C</span></font></a></p>
+			</td>
+			<td width="429" style="border: none; padding: 0in">
+				<p align="left"><a href="https://support.onefact.net/redmine/issues/7602"><font color="#116699"><span style="text-decoration: none">mcmc
+				smt_return segfaults</span></font></a></p>
+			</td>
+		</tr>
+		<tr bgcolor="#f6f7f8">
+			<td width="124" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/issues/7562"><font color="#116699"><span style="text-decoration: none">7562</span></font></a></p>
+			</td>
+			<td width="151" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/projects/c"><font color="#116699"><span style="text-decoration: none">C</span></font></a></p>
+			</td>
+			<td width="429" style="border: none; padding: 0in">
+				<p align="left"><a name="issue-75592"></a><a href="https://support.onefact.net/redmine/issues/7562"><font color="#116699"><span style="text-decoration: none">update
+				mcmc for 5.0</span></font></a></p>
+			</td>
+		</tr>
+		<tr bgcolor="#ffffff">
+			<td width="124" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/issues/7559"><font color="#116699"><span style="text-decoration: none">7559</span></font></a></p>
+			</td>
+			<td width="151" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/projects/c"><font color="#116699"><span style="text-decoration: none">C</span></font></a></p>
+			</td>
+			<td width="429" style="border: none; padding: 0in">
+				<p align="left"><a name="issue-6352"></a><a href="https://support.onefact.net/redmine/issues/7559"><font color="#116699"><span style="text-decoration: none">strget
+				is not thread safe</span></font></a></p>
+			</td>
+		</tr>
+		<tr bgcolor="#f6f7f8">
+			<td width="124" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/issues/635"><font color="#116699"><span style="text-decoration: none">635</span></font></a></p>
+			</td>
+			<td width="151" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/projects/c"><font color="#116699"><span style="text-decoration: none">C</span></font></a></p>
+			</td>
+			<td width="429" style="border: none; padding: 0in">
+				<p align="left"><a name="issue-6192"></a><a href="https://support.onefact.net/redmine/issues/635"><font color="#116699"><span style="text-decoration: none">type
+				in PEI traversal</span></font></a></p>
+			</td>
+		</tr>
+		<tr bgcolor="#ffffff">
+			<td width="124" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/issues/619"><font color="#116699"><span style="text-decoration: none">619</span></font></a></p>
+			</td>
+			<td width="151" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/projects/c"><font color="#116699"><span style="text-decoration: none">C</span></font></a></p>
+			</td>
+			<td width="429" style="border: none; padding: 0in">
+				<p align="left"><a name="issue-5902"></a><a href="https://support.onefact.net/redmine/issues/619"><font color="#116699"><span style="text-decoration: none">Redundant
+				assignments in the generated sys_threads.c</span></font></a></p>
+			</td>
+		</tr>
+		<tr bgcolor="#f6f7f8">
+			<td width="124" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/issues/590"><font color="#116699"><span style="text-decoration: none">590</span></font></a></p>
+			</td>
+			<td width="151" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/projects/c"><font color="#116699"><span style="text-decoration: none">C</span></font></a></p>
+			</td>
+			<td width="429" style="border: none; padding: 0in">
+				<p align="left"><a name="issue-342"></a><a href="https://support.onefact.net/redmine/issues/590"><font color="#116699"><span style="text-decoration: none">S_SS
+				is still being used in class/task marking</span></font></a></p>
+			</td>
+		</tr>
+		<tr bgcolor="#ffffff">
+			<td width="124" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/issues/34"><font color="#116699"><span style="text-decoration: none">34</span></font></a></p>
+			</td>
+			<td width="151" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/projects/c"><font color="#116699"><span style="text-decoration: none">C</span></font></a></p>
+			</td>
+			<td width="429" style="border: none; padding: 0in">
+				<p align="left"><a name="issue-7152"></a><a href="https://support.onefact.net/redmine/issues/34"><font color="#116699"><span style="text-decoration: none">Return
+				casting is not quite right.</span></font></a></p>
+			</td>
+		</tr>
+		<tr bgcolor="#f6f7f8">
+			<td width="124" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/issues/715"><font color="#116699"><span style="text-decoration: none">715</span></font></a></p>
+			</td>
+			<td width="151" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/projects/documentation"><font color="#116699"><span style="text-decoration: none">Documentation</span></font></a></p>
+			</td>
+			<td width="429" style="border: none; padding: 0in">
+				<p align="left"><a name="issue-75282"></a><a href="https://support.onefact.net/redmine/issues/715"><font color="#116699"><span style="text-decoration: none">xtuml.org
+				link updates</span></font></a></p>
+			</td>
+		</tr>
+		<tr bgcolor="#ffffff">
+			<td width="124" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/issues/7633"><font color="#116699"><span style="text-decoration: none">76</span></font><font color="#116699"><span style="text-decoration: none">33</span></font></a></p>
+			</td>
+			<td width="151" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/projects/editor"><font color="#116699"><span style="text-decoration: none">Editor</span></font></a></p>
+			</td>
+			<td width="429" style="border: none; padding: 0in">
+				<p align="left"><a href="https://support.onefact.net/redmine/issues/7633"><font color="#116699"><span style="text-decoration: none">Display
+				the port name instead of the interface name in the explorer view
+				for a referenced component</span></font></a></p>
+			</td>
+		</tr>
+		<tr bgcolor="#f6f7f8">
+			<td width="124" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/issues/7600"><font color="#116699"><span style="text-decoration: none">7600</span></font></a></p>
+			</td>
+			<td width="151" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/projects/editor"><font color="#116699"><span style="text-decoration: none">Editor</span></font></a></p>
+			</td>
+			<td width="429" style="border: none; padding: 0in">
+				<p align="left"><a href="https://support.onefact.net/redmine/issues/7600"><font color="#116699"><span style="text-decoration: none">Failed
+				to create MicrowaveOven Project</span></font></a></p>
+			</td>
+		</tr>
+		<tr bgcolor="#ffffff">
+			<td width="124" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/issues/7528"><font color="#116699"><span style="text-decoration: none">7528</span></font></a></p>
+			</td>
+			<td width="151" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/projects/editor"><font color="#116699"><span style="text-decoration: none">Editor</span></font></a></p>
+			</td>
+			<td width="429" style="border: none; padding: 0in">
+				<p align="left"><a name="issue-75262"></a><a href="https://support.onefact.net/redmine/issues/7528"><font color="#116699"><span style="text-decoration: none">Merge
+				development generic package work</span></font></a></p>
+			</td>
+		</tr>
+		<tr bgcolor="#f6f7f8">
+			<td width="124" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/issues/7526"><font color="#116699"><span style="text-decoration: none">7526</span></font></a></p>
+			</td>
+			<td width="151" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/projects/editor"><font color="#116699"><span style="text-decoration: none">Editor</span></font></a></p>
+			</td>
+			<td width="429" style="border: none; padding: 0in">
+				<p align="left"><a name="issue-75242"></a><a href="https://support.onefact.net/redmine/issues/7526"><font color="#116699"><span style="text-decoration: none">Breakpoint
+				still around after removal</span></font></a></p>
+			</td>
+		</tr>
+		<tr bgcolor="#ffffff">
+			<td width="124" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/issues/7524"><font color="#116699"><span style="text-decoration: none">7524</span></font></a></p>
+			</td>
+			<td width="151" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/projects/editor"><font color="#116699"><span style="text-decoration: none">Editor</span></font></a></p>
+			</td>
+			<td width="429" style="border: none; padding: 0in">
+				<p align="left"><a name="issue-6282"></a><a href="https://support.onefact.net/redmine/issues/7524"><font color="#116699"><span style="text-decoration: none">Existing
+				IPR preference settings cannot be used unless upgraded</span></font></a></p>
+			</td>
+		</tr>
+		<tr bgcolor="#f6f7f8">
+			<td width="124" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/issues/628"><font color="#116699"><span style="text-decoration: none">628</span></font></a></p>
+			</td>
+			<td width="151" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/projects/editor"><font color="#116699"><span style="text-decoration: none">Editor</span></font></a></p>
+			</td>
+			<td width="429" style="border: none; padding: 0in">
+				<p align="left"><a name="issue-5062"></a><a href="https://support.onefact.net/redmine/issues/628"><font color="#116699"><span style="text-decoration: none">Referential
+				attributes become orphaned after a merge</span></font></a></p>
+			</td>
+		</tr>
+		<tr bgcolor="#ffffff">
+			<td width="124" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/issues/506"><font color="#116699"><span style="text-decoration: none">506</span></font></a></p>
+			</td>
+			<td width="151" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/projects/editor"><font color="#116699"><span style="text-decoration: none">Editor</span></font></a></p>
+			</td>
+			<td width="429" style="border: none; padding: 0in">
+				<p align="left"><a name="issue-582"></a><a href="https://support.onefact.net/redmine/issues/506"><font color="#116699"><span style="text-decoration: none">Stage
+				1 - OAL editor with syntax aware auto-completion</span></font></a></p>
+			</td>
+		</tr>
+		<tr bgcolor="#f6f7f8">
+			<td width="124" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/issues/58"><font color="#116699"><span style="text-decoration: none">58</span></font></a></p>
+			</td>
+			<td width="151" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/projects/editor"><font color="#116699"><span style="text-decoration: none">Editor</span></font></a></p>
+			</td>
+			<td width="429" style="border: none; padding: 0in">
+				<p align="left"><a name="issue-332"></a><a href="https://support.onefact.net/redmine/issues/58"><font color="#116699"><span style="text-decoration: none">Interproject
+				reference not updated correctly which leads into a not consistent
+				model</span></font></a></p>
+			</td>
+		</tr>
+		<tr bgcolor="#ffffff">
+			<td width="124" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/issues/33"><font color="#116699"><span style="text-decoration: none">33</span></font></a></p>
+			</td>
+			<td width="151" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/projects/editor"><font color="#116699"><span style="text-decoration: none">Editor</span></font></a></p>
+			</td>
+			<td width="429" style="border: none; padding: 0in">
+				<p align="left"><a name="issue-75752"></a><a href="https://support.onefact.net/redmine/issues/33"><font color="#116699"><span style="text-decoration: none">Poor
+				performance for graphics persistence</span></font></a></p>
+			</td>
+		</tr>
+		<tr bgcolor="#f6f7f8">
+			<td width="124" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/issues/7575"><font color="#116699"><span style="text-decoration: none">7575</span></font></a></p>
+			</td>
+			<td width="151" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/projects/generator"><font color="#116699"><span style="text-decoration: none">Generator</span></font></a></p>
+			</td>
+			<td width="429" style="border: none; padding: 0in">
+				<p align="left"><a name="issue-6342"></a><a href="https://support.onefact.net/redmine/issues/7575"><font color="#116699"><span style="text-decoration: none">Ship
+				all the extra DLLs on Windows and Linux</span></font></a></p>
+			</td>
+		</tr>
+		<tr bgcolor="#ffffff">
+			<td width="124" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/issues/634"><font color="#116699"><span style="text-decoration: none">634</span></font></a></p>
+			</td>
+			<td width="151" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/projects/generator"><font color="#116699"><span style="text-decoration: none">Generator</span></font></a></p>
+			</td>
+			<td width="429" style="border: none; padding: 0in">
+				<p align="left"><a name="issue-49772"></a><a href="https://support.onefact.net/redmine/issues/634"><font color="#116699"><span style="text-decoration: none">Rebuild
+				generator with the latest MC</span></font></a></p>
+			</td>
+		</tr>
+		<tr bgcolor="#ffffff">
+			<td width="124" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/issues/7613"><font color="#116699"><span style="text-decoration: none">7613</span></font></a></p>
+			</td>
+			<td width="151" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/projects/installer"><font color="#116699"><span style="text-decoration: none">Installer</span></font></a></p>
+			</td>
+			<td width="429" style="border: none; padding: 0in">
+				<p align="left"><a name="issue-75972"></a><a href="https://support.onefact.net/redmine/issues/7613"><font color="#116699"><span style="text-decoration: none">Simplify
+				the BridgePoint installation by packaging the product as a zip
+				file</span></font></a></p>
+			</td>
+		</tr>
+		<tr bgcolor="#f6f7f8">
+			<td width="124" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/issues/7597"><font color="#116699"><span style="text-decoration: none">7597</span></font></a></p>
+			</td>
+			<td width="151" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/projects/installer"><font color="#116699"><span style="text-decoration: none">Installer</span></font></a></p>
+			</td>
+			<td width="429" style="border: none; padding: 0in">
+				<p align="left"><a name="issue-75362"></a><a href="https://support.onefact.net/redmine/issues/7597"><font color="#116699"><span style="text-decoration: none">Simplify
+				post-install script</span></font></a></p>
+			</td>
+		</tr>
+		<tr bgcolor="#ffffff">
+			<td width="124" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/issues/7536"><font color="#116699"><span style="text-decoration: none">7536</span></font></a></p>
+			</td>
+			<td width="151" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/projects/installer"><font color="#116699"><span style="text-decoration: none">Installer</span></font></a></p>
+			</td>
+			<td width="429" style="border: none; padding: 0in">
+				<p align="left"><a name="issue-5312"></a><a href="https://support.onefact.net/redmine/issues/7536"><font color="#116699"><span style="text-decoration: none">BP
+				4.2.0 JRE breaks with Windows 7 update</span></font></a></p>
+			</td>
+		</tr>
+		<tr bgcolor="#f6f7f8">
+			<td width="124" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/issues/531"><font color="#116699"><span style="text-decoration: none">531</span></font></a></p>
+			</td>
+			<td width="151" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/projects/installer"><font color="#116699"><span style="text-decoration: none">Installer</span></font></a></p>
+			</td>
+			<td width="429" style="border: none; padding: 0in">
+				<p align="left"><a name="issue-62"></a><a href="https://support.onefact.net/redmine/issues/531"><font color="#116699"><span style="text-decoration: none">Create
+				new installer for BridgePoint Pro</span></font></a></p>
+			</td>
+		</tr>
+		<tr bgcolor="#ffffff">
+			<td width="124" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/issues/6"><font color="#116699"><span style="text-decoration: none">6</span></font></a></p>
+			</td>
+			<td width="151" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/projects/installer"><font color="#116699"><span style="text-decoration: none">Installer</span></font></a></p>
+			</td>
+			<td width="429" style="border: none; padding: 0in">
+				<p align="left"><a name="issue-6582"></a><a href="https://support.onefact.net/redmine/issues/6"><font color="#116699"><span style="text-decoration: none">Move
+				the install backend off of MIP</span></font></a></p>
+			</td>
+		</tr>
+		<tr bgcolor="#f6f7f8">
+			<td width="124" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/issues/658"><font color="#116699"><span style="text-decoration: none">658</span></font></a></p>
+			</td>
+			<td width="151" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/projects/internal"><font color="#116699"><span style="text-decoration: none">Internal</span></font></a></p>
+			</td>
+			<td width="429" style="border: none; padding: 0in">
+				<p align="left"><a name="issue-5032"></a><a href="https://support.onefact.net/redmine/issues/658"><font color="#116699"><span style="text-decoration: none">Clean
+				up JUnit issues</span></font></a></p>
+			</td>
+		</tr>
+		<tr bgcolor="#ffffff">
+			<td width="124" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/issues/503"><font color="#116699"><span style="text-decoration: none">503</span></font></a></p>
+			</td>
+			<td width="151" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/projects/internal"><font color="#116699"><span style="text-decoration: none">Internal</span></font></a></p>
+			</td>
+			<td width="429" style="border: none; padding: 0in">
+				<p align="left"><a name="issue-75722"></a><a href="https://support.onefact.net/redmine/issues/503"><font color="#116699"><span style="text-decoration: none">Migrate
+				test suites to Linux</span></font></a></p>
+			</td>
+		</tr>
+		<tr bgcolor="#f6f7f8">
+			<td width="124" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/issues/7572"><font color="#116699"><span style="text-decoration: none">7572</span></font></a></p>
+			</td>
+			<td width="151" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/projects/it"><font color="#116699"><span style="text-decoration: none">IT</span></font></a></p>
+			</td>
+			<td width="429" style="border: none; padding: 0in">
+				<p align="left"><a name="issue-75712"></a><a href="https://support.onefact.net/redmine/issues/7572"><font color="#116699"><span style="text-decoration: none">Create
+				image of Windows build server</span></font></a></p>
+			</td>
+		</tr>
+		<tr bgcolor="#ffffff">
+			<td width="124" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/issues/7571"><font color="#116699"><span style="text-decoration: none">7571</span></font></a></p>
+			</td>
+			<td width="151" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/projects/model-compiler"><font color="#116699"><span style="text-decoration: none">Model
+				Compiler</span></font></a></p>
+			</td>
+			<td width="429" style="border: none; padding: 0in">
+				<p align="left"><a name="issue-75672"></a><a href="https://support.onefact.net/redmine/issues/7571"><font color="#116699"><span style="text-decoration: none">Update
+				mcmc executables</span></font></a></p>
+			</td>
+		</tr>
+		<tr bgcolor="#f6f7f8">
+			<td width="124" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/issues/7567"><font color="#116699"><span style="text-decoration: none">7567</span></font></a></p>
+			</td>
+			<td width="151" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/projects/model-compiler"><font color="#116699"><span style="text-decoration: none">Model
+				Compiler</span></font></a></p>
+			</td>
+			<td width="429" style="border: none; padding: 0in">
+				<p align="left"><a name="issue-7082"></a><a href="https://support.onefact.net/redmine/issues/7567"><font color="#116699"><span style="text-decoration: none">Enforce
+				element sorting when cleansing using xtumlmc_build</span></font></a></p>
+			</td>
+		</tr>
+		<tr bgcolor="#ffffff">
+			<td width="124" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/issues/708"><font color="#116699"><span style="text-decoration: none">708</span></font></a></p>
+			</td>
+			<td width="151" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/projects/model-compiler"><font color="#116699"><span style="text-decoration: none">Model
+				Compiler</span></font></a></p>
+			</td>
+			<td width="429" style="border: none; padding: 0in">
+				<p align="left"><a name="issue-6382"></a><a href="https://support.onefact.net/redmine/issues/708"><font color="#116699"><span style="text-decoration: none">xtumlmc_build
+				fails to cleanse inserts</span></font></a></p>
+			</td>
+		</tr>
+		<tr bgcolor="#f6f7f8">
+			<td width="124" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/issues/638"><font color="#116699"><span style="text-decoration: none">638</span></font></a></p>
+			</td>
+			<td width="151" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/projects/model-compiler"><font color="#116699"><span style="text-decoration: none">Model
+				Compiler</span></font></a></p>
+			</td>
+			<td width="429" style="border: none; padding: 0in">
+				<p align="left"><a name="issue-5042"></a><a href="https://support.onefact.net/redmine/issues/638"><font color="#116699"><span style="text-decoration: none">variables
+				defined in loops are used after leaving the loop block</span></font></a></p>
+			</td>
+		</tr>
+		<tr bgcolor="#ffffff">
+			<td width="124" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/issues/595"><font color="#116699"><span style="text-decoration: none">595</span></font></a></p>
+			</td>
+			<td width="151" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/projects/model-compiler"><font color="#116699"><span style="text-decoration: none">Model
+				Compiler</span></font></a></p>
+			</td>
+			<td width="429" style="border: none; padding: 0in">
+				<p align="left"><a href="https://support.onefact.net/redmine/issues/595"><font color="#116699"><span style="text-decoration: none">Deliver
+				the source archetypes</span></font></a></p>
+			</td>
+		</tr>
+		<tr bgcolor="#ffffff">
+			<td width="124" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/issues/504"><font color="#116699"><span style="text-decoration: none">504</span></font></a></p>
+			</td>
+			<td width="151" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/projects/model-compiler"><font color="#116699"><span style="text-decoration: none">Model
+				Compiler</span></font></a></p>
+			</td>
+			<td width="429" style="border: none; padding: 0in">
+				<p align="left"><a name="issue-212"></a><a href="https://support.onefact.net/redmine/issues/504"><font color="#116699"><span style="text-decoration: none">Make
+				the xtuml/mc repository public</span></font></a></p>
+			</td>
+		</tr>
+		<tr bgcolor="#f6f7f8">
+			<td width="124" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/issues/21"><font color="#116699"><span style="text-decoration: none">21</span></font></a></p>
+			</td>
+			<td width="151" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/projects/model-compiler"><font color="#116699"><span style="text-decoration: none">Model
+				Compiler</span></font></a></p>
+			</td>
+			<td width="429" style="border: none; padding: 0in">
+				<p align="left"><a name="issue-6902"></a><a href="https://support.onefact.net/redmine/issues/21"><font color="#116699"><span style="text-decoration: none">&quot;select
+				many ... related by ...&quot; cardinality issue - FXAT - SR
+				2660940616 [EXT]</span></font></a></p>
+			</td>
+		</tr>
+		<tr bgcolor="#ffffff">
+			<td width="124" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/issues/690"><font color="#116699"><span style="text-decoration: none">690</span></font></a></p>
+			</td>
+			<td width="151" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/projects/models"><font color="#116699"><span style="text-decoration: none">Models</span></font></a></p>
+			</td>
+			<td width="429" style="border: none; padding: 0in">
+				<p align="left"><a name="issue-5982"></a><a href="https://support.onefact.net/redmine/issues/690"><font color="#116699"><span style="text-decoration: none">Add
+				Qt GUI with same functionality.</span></font></a></p>
+			</td>
+		</tr>
+		<tr bgcolor="#f6f7f8">
+			<td width="124" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/issues/598"><font color="#116699"><span style="text-decoration: none">598</span></font></a></p>
+			</td>
+			<td width="151" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/projects/onefact"><font color="#116699"><span style="text-decoration: none">OneFact</span></font></a></p>
+			</td>
+			<td width="429" style="border: none; padding: 0in">
+				<p align="left"><a name="issue-442"></a><a href="https://support.onefact.net/redmine/issues/598"><font color="#116699"><span style="text-decoration: none">Change
+				billing for admin@xtuml.org account</span></font></a></p>
+			</td>
+		</tr>
+		<tr bgcolor="#ffffff">
+			<td width="124" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/issues/44"><font color="#116699"><span style="text-decoration: none">44</span></font></a></p>
+			</td>
+			<td width="151" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/projects/onefact"><font color="#116699"><span style="text-decoration: none">OneFact</span></font></a></p>
+			</td>
+			<td width="429" style="border: none; padding: 0in">
+				<p align="left"><a name="issue-5962"></a><a href="https://support.onefact.net/redmine/issues/44"><font color="#116699"><span style="text-decoration: none">Prepare
+				the v5.0 release</span></font></a></p>
+			</td>
+		</tr>
+		<tr bgcolor="#ffffff">
+			<td width="124" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/issues/611"><font color="#116699"><span style="text-decoration: none">611</span></font></a></p>
+			</td>
+			<td width="151" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/projects/support"><font color="#116699"><span style="text-decoration: none">Support</span></font></a></p>
+			</td>
+			<td width="429" style="border: none; padding: 0in">
+				<p align="left"><a name="issue-512"></a><a href="https://support.onefact.net/redmine/issues/611"><font color="#116699"><span style="text-decoration: none">Migrate
+				xtuml.org from server to service.</span></font></a></p>
+			</td>
+		</tr>
+		<tr bgcolor="#f6f7f8">
+			<td width="124" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/issues/51"><font color="#116699"><span style="text-decoration: none">51</span></font></a></p>
+			</td>
+			<td width="151" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/projects/support"><font color="#116699"><span style="text-decoration: none">Support</span></font></a></p>
+			</td>
+			<td width="429" style="border: none; padding: 0in">
+				<p align="left"><a name="issue-412"></a><a href="https://support.onefact.net/redmine/issues/51"><font color="#116699"><span style="text-decoration: none">xtuml
+				forum notifier not working</span></font></a></p>
+			</td>
+		</tr>
+		<tr bgcolor="#ffffff">
+			<td width="124" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/issues/41"><font color="#116699"><span style="text-decoration: none">41</span></font></a></p>
+			</td>
+			<td width="151" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/projects/support"><font color="#116699"><span style="text-decoration: none">Support</span></font></a></p>
+			</td>
+			<td width="429" style="border: none; padding: 0in">
+				<p align="left"><a name="issue-262"></a><a href="https://support.onefact.net/redmine/issues/41"><font color="#116699"><span style="text-decoration: none">Import
+				ClearQuest data</span></font></a></p>
+			</td>
+		</tr>
+		<tr bgcolor="#f6f7f8">
+			<td width="124" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/issues/26"><font color="#116699"><span style="text-decoration: none">26</span></font></a></p>
+			</td>
+			<td width="151" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/projects/support"><font color="#116699"><span style="text-decoration: none">Support</span></font></a></p>
+			</td>
+			<td width="429" style="border: none; padding: 0in">
+				<p align="left"><a name="issue-5972"></a><a href="https://support.onefact.net/redmine/issues/26"><font color="#116699"><span style="text-decoration: none">Set
+				up service request system</span></font></a></p>
+			</td>
+		</tr>
+		<tr bgcolor="#ffffff">
+			<td width="124" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/issues/597"><font color="#116699"><span style="text-decoration: none">597</span></font></a></p>
+			</td>
+			<td width="151" style="border: none; padding: 0in">
+				<p align="center"><a href="https://support.onefact.net/redmine/projects/training"><font color="#116699"><span style="text-decoration: none">Training</span></font></a></p>
+			</td>
+			<td width="429" style="border: none; padding: 0in">
+				<p align="left"><a href="https://support.onefact.net/redmine/issues/597"><font color="#116699"><span style="text-decoration: none">Stop
+				spam registrations on xtuml.org</span></font></a></p>
+			</td>
+		</tr>
+	</tbody>
+</table>
+<p><br><br><br>
+</p>
+<p><br><br><br>
+</p>
+</body>
+</html>

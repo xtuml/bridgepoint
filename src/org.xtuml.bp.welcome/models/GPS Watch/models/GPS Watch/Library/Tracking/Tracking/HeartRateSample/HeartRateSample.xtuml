@@ -1,0 +1,50 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("33894e85-2ad5-4d7d-a0be-aa0cf2025ab7",
+	'HeartRateSample',
+	5,
+	'HeartRateSample',
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_NBATTR
+	VALUES ("12f72ec0-2d92-4710-b09d-01bcbf365008",
+	"33894e85-2ad5-4d7d-a0be-aa0cf2025ab7");
+INSERT INTO O_BATTR
+	VALUES ("12f72ec0-2d92-4710-b09d-01bcbf365008",
+	"33894e85-2ad5-4d7d-a0be-aa0cf2025ab7");
+INSERT INTO O_ATTR
+	VALUES ("12f72ec0-2d92-4710-b09d-01bcbf365008",
+	"33894e85-2ad5-4d7d-a0be-aa0cf2025ab7",
+	"00000000-0000-0000-0000-000000000000",
+	'heartRate',
+	'',
+	'',
+	'heartRate',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000003",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"33894e85-2ad5-4d7d-a0be-aa0cf2025ab7");
+INSERT INTO O_ID
+	VALUES (1,
+	"33894e85-2ad5-4d7d-a0be-aa0cf2025ab7");
+INSERT INTO O_ID
+	VALUES (2,
+	"33894e85-2ad5-4d7d-a0be-aa0cf2025ab7");
+INSERT INTO PE_PE
+	VALUES ("33894e85-2ad5-4d7d-a0be-aa0cf2025ab7",
+	1,
+	"a09220a4-d685-4338-83fd-0d42f7c7e308",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("a09220a4-d685-4338-83fd-0d42f7c7e308",
+	"00000000-0000-0000-0000-000000000000",
+	"36a41cf7-d411-488d-99fc-74866d4fea39",
+	'Tracking',
+	'',
+	0,
+	'../Tracking.xtuml');

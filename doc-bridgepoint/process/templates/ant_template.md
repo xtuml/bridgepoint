@@ -20,70 +20,44 @@ describe.
 2. Document References
 ----------------------
 In this section, list all the documents that the reader may need to refer to.
-Give the full path to reference a file.  
-<a id="2.1"></a>2.1 [BridgePoint DEI #xxx1](https://support.onefact.net/issues/xxx1) TODO: Add description here.  
-<a id="2.2"></a>2.3 [BridgePoint DEI #xxx2](https://support.onefact.net/issues/xxx2) TODO: Add description here.  
-<a id="2.3"></a>2.3 [BridgePoint DEI #xxx3](https://support.onefact.net/issues/xxx3) TODO: Add description here.  
+Give the full path to reference a file.
+[1] [BridgePoint DEI #1](https://support.onefact.net/redmine/issues/1)  
+[2] [BridgePoint DEI #2](https://support.onefact.net/redmine/issues/2) 
 
 3. Background
 -------------
 In this section, outline the important points relating to this issue/bug that
 the reader would need to know in order to understand the rest of this
-document. Here is an example reference to the Document References section [[2.1]](#2.1)
+document.
 
 4. Requirements
 ---------------
 This section describes the requirements that need to be satisfied.  If there 
 is an SRS, this section may simply refer to it.  Each requirement should be as 
-short and simple as possible and must be clearly defined. Here is an example reference to the Document References section [[2.1]](#2.1)
+short and simple as possible and must be clearly defined.
 
 4.1 Item 1  
-4.1.1 Example sub-item
-* Example List Element
-  * Example Sub list item
-
 4.2 Item 2  
-4.2.1 Example sub-item
-* Example List Element
+4.3 Item 3  
 
 5. Analysis
 -----------
 This section is only required if there is no preceding analysis note. If present
-it sets out a brief analysis of the problem to be resolved by this design note. Here is an example reference to the Document References section [[2.1]](#2.1)
+it sets out a brief analysis of the problem to be resolved by this design note.
 
 5.1 Item 1  
-5.1.1 Example sub-item
-* Example List Element
-
 5.2 Item 2  
-5.2.1 Example sub-item
-* Example List Element
+5.3 Item 3  
 
 6. Work Required
 ----------------
 In this section, break out the consequential work (as a numbered list) needed
-to meet the requirements specified in the Requirements section. Here is an example reference to the Document References section [[2.1]](#2.1)
-
-6.1 Item 1  
-6.1.1 Example sub-item
-* Example List Element
-
-6.2 Item 2  
-6.2.1 Example sub-item
-* Example List Element
+to meet the requirements specified in the Requirements section.
 
 7. Acceptance Test
 ------------------
 In this section, list the tests that need to be performed in order to
-verify that all the requirements are satisfied. Here is an example reference to the Document References section [[2.1]](#2.1)
-
-7.1 Item 1  
-7.1.1 Example sub-item
-* Example List Element
-
-7.2 Item 2  
-7.2.1 Example sub-item
-* Example List Element
+verify that all the requirements are satisfied.
 
 End
 ---

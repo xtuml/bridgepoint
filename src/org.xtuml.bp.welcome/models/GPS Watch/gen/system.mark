@@ -1,0 +1,256 @@
+.//============================================================================
+.// File:  system.mark
+.//
+.// Description:
+.// This marking file is used to indicate system wide tuning parameters 
+.// to the software architecture's translation engine.
+.//
+.// Notice:
+.// (C) Copyright 1999-2014 Mentor Graphics Corporation
+.//     All rights reserved.
+.//============================================================================
+.// Notes:
+.// (1) Marking is specified via archetype function invocation(s) in this file.
+.//     A function invocation statement MUST be specified on a single line.
+.//     All indicated function input parameters must be supplied.
+.// (2) All quoted string parameters are case sensitive.
+.// (3) Comments in this file start with ".//".
+.// (4) Do not leave any blank lines in this file.
+.//============================================================================
+.//
+.//
+.//
+.//============================================================================
+.// Identify System Configuration (collection of components wired into system)
+.//   Mark a package as containing the system configuration.  Code will be
+.//   generated for components contained in this package and referred to
+.//   from this package.  Components _not_ contained in this package and _not_
+.//   referred to from this package will be excluded from code generation.
+.//
+.// MarkSystemConfigurationPackage( system_package )
+.//
+.// Where the input parameter(s) are:
+.//   system_package = name of package containing the components interfaced
+.//                    (wired) together into a system
+.//
+.// Example:
+.//   .invoke MarkSystemConfigurationPackage( "system1" )
+.//============================================================================
+.invoke MarkSystemConfigurationPackage( "System" )
+.//
+.//============================================================================
+.// Enable Multi-tasking/threading Capability
+.//   To cause MC-3020 to generate multi-tasking/threading code invoke
+.//   the EnableTasking marking function.  Pass it arguments to specify
+.//   the type of multi-tasking environment and whether or not to 
+.//   serialize all action processing (across all tasks).
+.//
+.// EnableTasking( "type", "serialize_processing", tasks )
+.//
+.// Where the input parameter(s) are:
+.//   type = The flavor of RTOS or threading being integrated.
+.//   serialize_processing = When set to serialize, all actions across
+.//     all tasks are forced to be serialized.  Note that serializing
+.//     the action processing reduces data access contention, but 
+.//     can severely reduce the multi-tasking performance of the 
+.//     generated system.
+.//   tasks = number of threads/tasks in the xtUML generated system
+.//
+.// Example:
+.//   .invoke EnableTasking( "Nucleus", "", 4 )
+.//   .invoke EnableTasking( "POSIX", "serialize", 2 )
+.//invoke EnableTasking( "Windows", "", 1 )
+.//============================================================================
+.//
+.//
+.//============================================================================
+.// Establish Task Priority
+.//   In systems that support explicit prioritization of tasks,
+.//   each task (of the number specified in EnableTasking) can have
+.//   a priority assigned.  Use the SetTaskPriority marking function
+.//   to set the priority for each task.
+.//
+.// SetTaskPriority( task number, "priority" )
+.//
+.// Where the input parameter(s) are:
+.//   task_number = the number of the task (starting with 0)
+.//   priority = priority of the designated task
+.//
+.// Example:
+.//   .invoke SetTaskPriority( 0, "100" )
+.//   .invoke SetTaskPriority( 3, "high" )
+.//============================================================================
+.//
+.//
+.//============================================================================
+.// TagMaximumStringLength( max_len )
+.//
+.// Where the input parameter(s) are:
+.//   max_len = The maximum string length, in bytes, supported.
+.//
+.// Example:
+.//   .invoke TagMaximumStringLength( 64 )
+.//============================================================================
+.//
+.//
+.//============================================================================
+.// TagMaximumRelationshipExtentSize( value )
+.//
+.// Where the input parameter(s) are:
+.//   value = The number of containers that will be pre-allocated for 
+.//     relationships that will be instantiated involving a MANY on the OIM.
+.//
+.// Example:
+.//   .invoke TagMaximumRelationshipExtentSize( 100 )
+.//============================================================================
+.//
+.//
+.//============================================================================
+.// TagMaximumSelectionExtentSize( value )
+.//
+.// Where the input parameter(s) are:
+.//   value = The number of containers that will be pre-allocated for
+.//     BPAL 'SELECT' statements.
+.//
+.// Example:
+.//   .invoke TagMaximumSelectionExtentSize( 50 )
+.//============================================================================
+.//
+.//
+.//============================================================================
+.// TagMaximumSelfDirectedEvents( value )
+.//
+.// Where the input parameter(s) are:
+.//   value = maximum number of self directed xtUML events which are expected
+.//     to be pending in the system at any given time
+.//
+.// Example:
+.//   .invoke TagMaximumSelfDirectedEvents( 5 )
+.//============================================================================
+.//
+.//
+.//============================================================================
+.// TagMaximumNonSelfDirectedEvents( value )
+.//
+.// Where the input parameter(s) are:
+.//   value = The maximum number of non self directed xtUML events which are 
+.//     expected to be pending in the system at any given time. 
+.//
+.// Example:
+.//   .invoke TagMaximumNonSelfDirectedEvents( 20 )
+.//============================================================================
+.//
+.//
+.//============================================================================
+.// TagMaximumPendingOoaTimers( value )
+.//
+.// Where the input parameter(s) are:
+.//   value = The maximum number of xtUML timers (e.g., delayed xtUML events) 
+.//     expected to be pending in the system at any given time.
+.//
+.// Example:
+.//   .invoke TagMaximumPendingOoaTimers( 10 )
+.//============================================================================
+.//
+.//
+.//============================================================================
+.// TagMaximumInterleavedBridges( value )
+.//
+.// Where the input parameter(s) are:
+.//   value = The maximum queue depth for safe bridge operations that
+.//     are interleaved between state actions (to maintain data access
+.//     set consistency).
+.//
+.// Use this mark to expand or reduce the depth of the queue used
+.// to interleave "asynchronous" bridge operations between state
+.// actions.  The default will be a system divined value that should
+.// be relatively safe in most cases.
+.//
+.// Example:
+.//   .invoke TagMaximumInterleavedBridges( 4 )
+.//============================================================================
+.//
+.//
+.//============================================================================
+.// TagInterleavedBridgeDataSize( value )
+.//
+.// Where the input parameter(s) are:
+.//   value = The greatest number of bytes required to pass argument
+.//     data through an interleaved bridge (synchronous service tagged
+.//     "SafeForInterrupts").
+.//
+.// Use this mark to define how many bytes of argument data comes
+.// in across an interleaved bridge operation.
+.// The default is 8.
+.//
+.// Example:
+.//   .invoke TagInterleavedBridgeDataSize( 2 )
+.//============================================================================
+.//
+.//
+.//============================================================================
+.// TagCollectionsFlavor( value )
+.//
+.// Where the input parameter(s) are:
+.//   value = The greatest number representing the type of collection
+.//     mechanism to use.  The default (not marked) value is 0 and
+.//     represents a singly linked (slist) flavor of container.
+.//     20 represents a doubly linked (dlist) flavor of container.
+.//     (Dlists make deleting instances faster.)
+.//
+.// Use this mark to define the flavor of collection container desired.
+.// The default is 0.
+.//
+.// Example:
+.//   .invoke TagCollectionsFlavor( 20 )
+.//============================================================================
+.//
+.//
+.//============================================================================
+.// TagModelDebuggingOn()
+.//
+.// TagModelDebuggingOn is used to indicate that model debugging code will be
+.// output in the generated files.
+.//
+.// The generated debugging code can be compiled out by:
+.//     1) Remove the "-DROX_TM_ENABLED" compiler flag in the workspace
+.//        Makefile.user file.
+.//     2) Run 'make all_no_gen' to re-compile and link the workspace.
+.//
+.// Additional flags are required to be given to the compiler and linker in 
+.// order to complete the process of making the compiled executable Model 
+.// Debugger-aware.  See section 10 in the MC-3020 User's Guide for more
+.// information.
+.//
+.// The compiler requires these flags: -DROX_TM_ENABLED -DROX_TM_MVC
+.// The linker requires these flags: -DROX_TM_ENABLED -DROX_TM_MVC -lws2_32
+.//
+.// Example:
+.//   .invoke TagModelDebuggingOn()
+.//============================================================================
+.//
+.//
+.//============================================================================
+.// Mark Depth of Persistence Cache Queue
+.//
+.// This mark is used to specify the maximum number of instances and
+.// links that can be queued waiting to be flushed to non-volatile
+.// storage (NVS).  As instances and links become "dirty" they get
+.// queued to NVS.  When Persist::Commit is called this queue is flushed.
+.//
+.// MarkPersistenceCacheDepth( instance_depth, link_depth )
+.//
+.// Where the input parameter(s) are:
+.//   instance_depth = the integer depth of the linked list of instances
+.//   link_depth = the integer depth of the linked list of persistent links
+.//
+.// Note:  The default depth of both cache queues is 128.
+.//
+.// Example:
+.//   .invoke MarkPersistenceCacheDepth( 300, 220 )
+.//============================================================================
+.//
+.//
+.//============================================================================
+.// Do not add anything at the end of this file!
+.//============================================================================

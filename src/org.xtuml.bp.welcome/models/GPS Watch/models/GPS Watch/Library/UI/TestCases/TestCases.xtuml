@@ -1,0 +1,91 @@
+-- BP 7.1 content: Package syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO EP_PKG
+	VALUES ("eef0f981-a7f5-4c6a-93e5-76e1ba61cb80",
+	"00000000-0000-0000-0000-000000000000",
+	"36a41cf7-d411-488d-99fc-74866d4fea39",
+	'TestCases',
+	'',
+	0);
+INSERT INTO GD_MD
+	VALUES ("295ccf9c-0564-491f-bdaf-6010ec925644",
+	112,
+	"eef0f981-a7f5-4c6a-93e5-76e1ba61cb80",
+	108,
+	0,
+	0,
+	1,
+	1,
+	1,
+	12,
+	1,
+	0,
+	0,
+	0,
+	0,
+	0,
+	'',
+	'GPS Watch::Library::UI::TestCases');
+INSERT INTO DIM_DIA
+	VALUES ("295ccf9c-0564-491f-bdaf-6010ec925644",
+	'',
+	1.000000,
+	4000.000000,
+	3000.000000,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_SYNC
+	VALUES ("c45b2b94-4477-4c0d-927d-24d317d96ac1",
+	"00000000-0000-0000-0000-000000000000",
+	'RunTestCase',
+	'',
+	'TestCase::execute();',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'');
+INSERT INTO PE_PE
+	VALUES ("c45b2b94-4477-4c0d-927d-24d317d96ac1",
+	1,
+	"eef0f981-a7f5-4c6a-93e5-76e1ba61cb80",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("3cb99a5e-40f4-4d36-a32b-5fba7514e38a",
+	"00000000-0000-0000-0000-000000000000",
+	'init',
+	'',
+	'GuiBridge::connect();',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'');
+INSERT INTO PE_PE
+	VALUES ("3cb99a5e-40f4-4d36-a32b-5fba7514e38a",
+	1,
+	"eef0f981-a7f5-4c6a-93e5-76e1ba61cb80",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO PE_PE
+	VALUES ("eef0f981-a7f5-4c6a-93e5-76e1ba61cb80",
+	1,
+	"00000000-0000-0000-0000-000000000000",
+	"f24e8f1c-a3b3-4005-986d-28b8ed39ea3c",
+	7);
+INSERT INTO C_C_PROXY
+	VALUES ("f24e8f1c-a3b3-4005-986d-28b8ed39ea3c",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000",
+	'UI',
+	'Simulates the user interface and has the ability to connect an external GUI.
+
+It is using the BridgePoint Java API to connect to the GUI in Verifier mode.
+There are also handwritten C code that implments parts of this component to 
+allow generated code to connect to the exact same GUI.',
+	0,
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'../UI.xtuml');
+INSERT INTO S_SYS_PROXY
+	VALUES ("36a41cf7-d411-488d-99fc-74866d4fea39",
+	'GPS Watch',
+	1,
+	'../../../GPS Watch.xtuml');
