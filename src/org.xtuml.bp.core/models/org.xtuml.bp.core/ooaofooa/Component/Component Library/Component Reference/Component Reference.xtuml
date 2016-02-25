@@ -917,34 +917,39 @@ end if;
                                                                 ->EP_PKG[R8000];
         select one system related by rootComponent->PE_PE[R8001]
                                                   ->EP_PKG[R8000]->S_SYS[R1405];
+// This code is commented out for now.  See this issue for more information:
+// https://support.onefact.net/redmine/issues/8052
+// The above issue must uncomment the below code.
 
-    select many importedRefs related by self->CL_POR[R4707]->CL_IIR[R4708]->C_IR[R4701];
-    for each importedRef in importedRefs
-      select one importedInterface related by importedRef->C_I[R4012];
-      select many compInterfaces related by component->C_PO[R4010]->C_IR[R4016]
+    select any system from instances of S_SYS where (selected.Sys_ID == GD::NULL_UNIQUE_ID());
+    if(not_empty system)
+      select many importedRefs related by self->CL_POR[R4707]->CL_IIR[R4708]->C_IR[R4701];
+      for each importedRef in importedRefs
+        select one importedInterface related by importedRef->C_I[R4012];
+        select many compInterfaces related by component->C_PO[R4010]->C_IR[R4016]
 						                  ->C_P[R4009]->C_IR[R4009]->C_I[R4012];
-      select one provision related by importedRef->C_P[R4009];
-      if(empty provision)
-        select many compInterfaces related by component->C_PO[R4010]
+        select one provision related by importedRef->C_P[R4009];
+        if(empty provision)
+          select many compInterfaces related by component->C_PO[R4010]
                              ->C_IR[R4016]->C_R[R4009]->C_IR[R4009]->C_I[R4012];
-      end if;
-      if(cardinality compInterfaces == 0)
-        return false;
-      end if;
-      foundMatch = false;
-      for each compInterface in compInterfaces
-        id = importedRef.findMatchingInterface(system_id:system.Sys_ID,
+        end if;
+        if(cardinality compInterfaces == 0)
+          return false;
+        end if;
+        foundMatch = false;
+        for each compInterface in compInterfaces
+          id = importedRef.findMatchingInterface(system_id:system.Sys_ID,
                                                                    pe:param.id);
-        if(id == compInterface.Id)
-          foundMatch = true;
+          if(id == compInterface.Id)
+            foundMatch = true;
+          end if;
+        end for;
+        if(not foundMatch)
+          return false;
         end if;
       end for;
-      if(not foundMatch)
-        return false;
-      end if;
-    end for;
+    end if;
   end if;
-
 return true;',
 	1,
 	'',
@@ -1307,7 +1312,7 @@ else
         relate importedReq to importedRef across R4703;        
       end if;
       create object instance portRef of CL_POR;
-      select one existingPort related by localRef->C_PO[R4016];
+      select one existingPort related by interfaceRef->C_PO[R4016];
       relate existingPort to portRef across R4709;
       relate portRef to self across R4707;
       relate importedRef to portRef across R4708;

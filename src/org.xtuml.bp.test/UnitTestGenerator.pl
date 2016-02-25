@@ -466,6 +466,7 @@ sub createTestSuiteClass() {
     &createCopyrightAndPackageSpec( 1 );
 	print $outputFH "import java.io.File;\n";
 	print $outputFH "\n";
+	print $outputFH "import java.lang.Exception;\n";
 	print $outputFH "import junit.framework.Test;\n";
 	print $outputFH "import junit.framework.TestSuite;\n";
 	print $outputFH "import $packageName.*;\n";
@@ -878,7 +879,8 @@ sub createTests() {
 				print $outputFH "     * Perform the test for the given matrix column ($MatrixColNames[$col]) and row ($MatrixRowNames[$row]).\n";
 				print $outputFH "     * \n";
 				print $outputFH "     */\n";
-				print $outputFH "    public void doTest$MatrixColNames[$col]_$MatrixRowNames[$row]() {\n";
+				print $outputFH "    public void doTest$MatrixColNames[$col]_$MatrixRowNames[$row]() throws Exception {\n";
+				print $outputFH "        setUp();\n";
 				print $outputFH "        test_id = getTestId(\"$MatrixColNames[$col]\", \"$MatrixRowNames[$row]\", \"$testCnt\");\n";
 				print $outputFH "\n";
 				print $outputFH "        NonRootModelElement src = select$colType(\"$MatrixColNames[$col]\");\n";
@@ -898,6 +900,7 @@ sub createTests() {
 				print $outputFH "        if(editor != null && useDrawResults) {\n";
 				print $outputFH "           validateOrGenerateResults(editor, generateResults);\n";
 				print $outputFH "        }\n";
+				print $outputFH "        tearDown();\n";				
 				print $outputFH "    }\n";
 				print $outputFH "\n";
 			}

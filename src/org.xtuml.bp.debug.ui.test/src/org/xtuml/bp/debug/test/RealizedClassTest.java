@@ -69,6 +69,7 @@ import org.xtuml.bp.test.TestUtil;
 import org.xtuml.bp.test.common.BaseTest;
 import org.xtuml.bp.test.common.TestingUtilities;
 import org.xtuml.bp.test.common.UITestingUtilities;
+import org.xtuml.bp.test.common.BaseTest.Function_by_name_c;
 import org.xtuml.bp.ui.text.activity.ActivityEditor;
 
 public class RealizedClassTest extends BaseTest {
@@ -115,8 +116,17 @@ public class RealizedClassTest extends BaseTest {
 	
 	public void testExectureTest() {
 		ModelRoot [] roots = Ooaofooa.getInstancesUnderSystem(projectName);
-		Function_c testFunc = Function_c.FunctionInstance(roots[0],
-                                           new Function_by_name_c("test"));
+		
+		ModelRoot root = null;
+		for(int i = 0; i < roots.length; i++) {
+			if(roots[i].getId().contains("System")) {
+				root = roots[i];
+				break;
+			}
+		}
+		
+		Function_c testFunc = Function_c.FunctionInstance(root,
+				new Function_by_name_c("test"));
 		assertNotNull(testFunc);
 		
 		Selection.getInstance().setSelection(new StructuredSelection(m_sys));
