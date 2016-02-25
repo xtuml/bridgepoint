@@ -35,6 +35,7 @@
     * [Is the xtUML.org ID connected to Redmine in any way?](#connectedids)  
     * [What are xtUML.org accounts for?](#xorgacct)    
     * [What are support.onefact.net accounts for?](#redmineacct)  
+    * [How do I use Github with two-factor authentication](#github2fa)  
 
 
 
@@ -259,3 +260,6 @@ Miscellaneous <a id="misc"></a>
 
 * **What are support.onefact.net accounts for?**  <a id="redmineacct"></a>  
   Your support.onefact.net account allows you to open and track features requests and issues against BridgePoint.  This includes the public issue tracking for xtUML community members as well as private areas for One Fact customers to track service requests.  To get started in this system, [see the instructions here](https://support.onefact.net/redmine).  New account requests in this system are approved manually.   
+
+* **How do I use Github with two-factor authentication?**  <a id="github2fa"></a>  
+  You can set up 2FA on your Github account and use git from the command line or EGit. [See the instructions here](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/HOWTO-setup-github-2-factor-auth.md)
