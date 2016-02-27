@@ -22,9 +22,12 @@
 //=====================================================================
 
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
+/**
+ * Test all areas of the UI.
+ */
 
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 import org.xtuml.bp.ui.text.editor.oal.test.OALKeywordRuleTest;
 import org.xtuml.bp.ui.text.test.DomainDeleteTestI744;
 import org.xtuml.bp.ui.text.test.DuplicateRelationshipNumberParseAllTest;
@@ -33,7 +36,7 @@ import org.xtuml.bp.ui.text.test.ParseAllOnModelReloadTest;
 import org.xtuml.bp.ui.text.test.PlaceHolderUpdateTest;
 import org.xtuml.bp.ui.text.test.TextEditorReloadContentsTest;
 import org.xtuml.bp.ui.text.test.UITextGlobalsTest;
-import org.xtuml.bp.ui.text.test.activity.ActivityEditorTestSuite;
+import org.xtuml.bp.ui.text.test.activity.ActivityEditorTestSuite2;
 import org.xtuml.bp.ui.text.test.activity.I2046IncorrectPlaceHolderMappingTest;
 import org.xtuml.bp.ui.text.test.activity.I643OALKeywordsHighlightingTest;
 import org.xtuml.bp.ui.text.test.description.DescriptionEditorTestSuite;
@@ -42,9 +45,29 @@ import org.xtuml.bp.ui.text.test.i589Test.I589TestSuite;
 import org.xtuml.bp.ui.text.test.i673Tests.placeholder.PlaceHolderLifecycleTestSuite;
 import org.xtuml.bp.ui.text.test.i673Tests.rename.RenameEditorsTestSuite;
 
-/**
- * Test all areas of the UI.
- */
+import junit.framework.Test;
+import junit.framework.TestSuite;
+
+@RunWith(Suite.class)
+@Suite.SuiteClasses({
+	UITextGlobalsTest.class,
+    I2046IncorrectPlaceHolderMappingTest.class,
+	I589TestSuite.class,
+	DescriptionEditorTestSuite.class,
+    ActivityEditorTestSuite2.class,
+    OALKeywordRuleTest.class,
+    I643OALKeywordsHighlightingTest.class,
+    i372TestSuite.class,
+    RenameEditorsTestSuite.class,
+    PlaceHolderUpdateTest.class,
+    TextEditorReloadContentsTest.class,
+    PlaceHolderLifecycleTestSuite.class,
+    DomainDeleteTestI744.class,
+    DuplicateRelationshipNumberParseAllTest.class,
+    ParseAllOnModelReloadTest.class,
+    ParseAllActivitiesOnSystemModelTest.class
+})
+
 public class UITextGlobalsSuite extends TestSuite {
 
 	/**
@@ -59,21 +82,6 @@ public class UITextGlobalsSuite extends TestSuite {
 	 * Construct the test suite.
 	 */
 	public UITextGlobalsSuite() {
-        addTest(new TestSuite(UITextGlobalsTest.class));
-        addTest(new TestSuite(I2046IncorrectPlaceHolderMappingTest.class));
-		addTest(new I589TestSuite());
-		addTest(new DescriptionEditorTestSuite());
-        addTest(new ActivityEditorTestSuite());
-        addTest(new TestSuite(OALKeywordRuleTest.class));
-        addTest(new TestSuite(I643OALKeywordsHighlightingTest.class));
-        addTest(new i372TestSuite());
-        addTest(new RenameEditorsTestSuite());
-        addTest(new TestSuite(PlaceHolderUpdateTest.class));
-        addTest(new TestSuite(TextEditorReloadContentsTest.class));
-        addTest(new PlaceHolderLifecycleTestSuite());
-        addTest(new TestSuite(DomainDeleteTestI744.class));
-        addTest(new TestSuite(DuplicateRelationshipNumberParseAllTest.class));
-        addTest(new TestSuite(ParseAllOnModelReloadTest.class));
-        addTest(new TestSuite(ParseAllActivitiesOnSystemModelTest.class));
+        
 	}
 }

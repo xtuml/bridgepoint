@@ -1,10 +1,11 @@
+
 //=====================================================================
 //
-//File:      $RCSfile: RenameEditorsTestSuite.java,v $
-//Version:   $Revision: 1.8 $
-//Modified:  $Date: 2013/01/10 22:46:33 $
+//File:      $RCSfile: ActivityEditorTestSuite.java,v $
+//Version:   $Revision: 1.10 $
+//Modified:  $Date: 2013/01/10 22:46:35 $
 //
-//(c) Copyright 2005-2014 by Mentor Graphics Corp. All rights reserved.
+//(c) Copyright 2004-2014 by Mentor Graphics Corp. All rights reserved.
 //
 //=====================================================================
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not 
@@ -19,18 +20,22 @@
 // License for the specific language governing permissions and limitations under
 // the License.
 //=====================================================================
-package org.xtuml.bp.ui.text.test.i673Tests.rename;
+
+package org.xtuml.bp.ui.text.test.activity;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
-import junit.framework.TestSuite;
-
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-	I673RenameObjectsAndTestDescriptionEditors.class,
-	I673RenameObjectsAndTestActivityEditors.class
+	OpenActivityEditor.class,	
+	CloseActivityEditor.class,
+	ActivityEditorInteraction2.class,
+	ParseActivity.class,
+	I697OpenActivityEditorFromMarker.class,
+	ProcessAllActivitiesTest.class
 })
-public class RenameEditorsTestSuite {
-
+public class ActivityEditorTestSuite2 {
+	  // the class remains empty,
+	  // used only as a holder for the above annotations
 }

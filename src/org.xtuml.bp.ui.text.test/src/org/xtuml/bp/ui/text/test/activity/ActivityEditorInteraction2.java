@@ -53,9 +53,12 @@ import org.eclipse.ui.ide.IDE;
 import org.eclipse.ui.texteditor.MarkerUtilities;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Function_c;
 import org.xtuml.bp.core.Package_c;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TextEditorUtils;
 import org.xtuml.bp.ui.text.EditorAnnotationIterator;
 import org.xtuml.bp.ui.text.EditorHover;
@@ -70,50 +73,58 @@ import org.xtuml.bp.ui.text.annotation.ActivityProblemAnnotation;
 import org.xtuml.bp.ui.text.test.TextTestPlugin;
 import org.xtuml.bp.ui.text.test.UITextTest;
 
-public class ActivityEditorInteraction extends UITextTest {
+@RunWith(OrderedRunner.class)
+public class ActivityEditorInteraction2 extends UITextTest {
   
+//	public ActivityEditorInteraction(String projectName, String name) throws CoreException {
+//		super(projectName, name);
+//	}
+
+	public ActivityEditorInteraction2() throws CoreException {
+		super();
+	}
+
 	private static boolean firstSetup = true;
 	private static String testModelName = "testDescrip1";
 	
-	public ActivityEditorInteraction(String projectName, String name) throws CoreException {
-		super(null, name);
-	}
+//	public ActivityEditorInteraction(String projectName, String name) throws CoreException {
+//		super(null, name);
+//	}
 	
-	public ActivityEditorInteraction(String name) throws CoreException {
-		super(null, name); //$NON-NLS-1$
-	}
+//	public ActivityEditorInteraction(String name) throws CoreException {
+//		super(null, name); //$NON-NLS-1$
+//	}
 
 	private static String m_oldActionSemantics;
 	private final static String m_updateText = "// test text \n";
 	private static long m_markerId[] = new long[4];
 	private static int m_numMarkers = 0;
 
-	// enforce ordering of the tests in this class
-	public void testActivityEditorInteraction() {
-		dotestDirtyFlag();
-		dotestUndo();
-		dotestRevert();
-		dotestSave();
-		dotestOpenChangedDescription();
-		dotestAddBookmark();
-		dotestBookmarkHoverText();
-		dotestAddTaskMarker();
-		dotestMultipleMarkerHoverText();
-		dotestDeleteBookmark();
-		dotestTaskHoverText();
-		dotestDeleteTask();
-		dotestSyntaxError();
-		dotestActivityProblemErrorHoverText();
-		dotestSaveWithError();
-		dotestGotoError();
-		dotestMarkerErrorHoverText();
-		dotestRemoveError();
-		dotestRevertAfterErrorRemoved();
-		dotestSaveAfterErrorRemoved();
-	}
-	
-    @Before
-	public void setUp() throws Exception {
+//	// enforce ordering of the tests in this class
+//	public void testActivityEditorInteraction() {
+//		testDirtyFlag();
+//		testUndo();
+//		testRevert();
+//		testSave();
+//		testOpenChangedDescription();
+//		testAddBookmark();
+//		testBookmarkHoverText();
+//		testAddTaskMarker();
+//		testMultipleMarkerHoverText();
+//		testDeleteBookmark();
+//		testTaskHoverText();
+//		testDeleteTask();
+//		testSyntaxError();
+//		testActivityProblemErrorHoverText();
+//		testSaveWithError();
+//		testGotoError();
+//		testMarkerErrorHoverText();
+//		testRemoveError();
+//		testRevertAfterErrorRemoved();
+//		testSaveAfterErrorRemoved();
+//	}
+	@Before
+    public void setUp() throws Exception {
     	super.setUp();
     	if ( firstSetup ) {
         	loadProject(testModelName);
@@ -125,8 +136,8 @@ public class ActivityEditorInteraction extends UITextTest {
         }
     }	
 
-    @After
-	public void tearDown() throws Exception {
+	@After
+    public void tearDown() throws Exception {
     	
     	// parse all activities after performing test
     	// to verify it doesn't affect editor/problem list state
@@ -204,7 +215,8 @@ public class ActivityEditorInteraction extends UITextTest {
 		}
 	}
 	
-	public void dotestDirtyFlag() {
+	@Test
+	public void testDirtyFlag() {
 		ActivityEditor ae = openFunctionActivityEditor();
 
 		// change data in editor
@@ -220,7 +232,8 @@ public class ActivityEditorInteraction extends UITextTest {
 		assertTrue(ae.isDirty());
 	}
 
-	public void dotestUndo() {
+	@Test
+	public void testUndo() {
 		ActivityEditor ae = getFunctionActivityEditor();
 
 		// undo
@@ -234,7 +247,8 @@ public class ActivityEditorInteraction extends UITextTest {
 			ae.getDocumentProvider().getDocument(ae.getEditorInput()).get());
 	}
 
-	public void dotestRevert() {
+	@Test
+	public void testRevert() {
 		ActivityEditor ae = getFunctionActivityEditor();
 
 		// undo
@@ -248,7 +262,8 @@ public class ActivityEditorInteraction extends UITextTest {
 			ae.getDocumentProvider().getDocument(ae.getEditorInput()).get());
 	}
 
-	public void dotestSave() {
+	@Test
+	public void testSave() {
 		ActivityEditor ae = getFunctionActivityEditor();
 		Function_c uut = Function_c.FunctionInstance(modelRoot);
 		m_oldActionSemantics = uut.getAction_semantics();
@@ -272,7 +287,8 @@ public class ActivityEditorInteraction extends UITextTest {
 		ae.getSite().getPage().closeEditor(ae, false);
 	}
 
-	public void dotestOpenChangedDescription() {
+	@Test
+	public void testOpenChangedDescription() {
 		ActivityEditor ae = openFunctionActivityEditor();
 		assertFalse(ae.isSaveOnCloseNeeded());
 		assertFalse(ae.isDirty());
@@ -283,7 +299,8 @@ public class ActivityEditorInteraction extends UITextTest {
 
 	private final int marker_line = 1;
 
-	public void dotestAddBookmark() {
+	@Test
+	public void testAddBookmark() {
 		ActivityEditor ae = getFunctionActivityEditor();
 		ActivityEditorInput editorInput =
 			(ActivityEditorInput) ae.getEditorInput();
@@ -319,7 +336,8 @@ public class ActivityEditorInteraction extends UITextTest {
 		assertTrue(m2.getResource().isAccessible());
 	}
 
-	public void dotestBookmarkHoverText() {
+	@Test
+	public void testBookmarkHoverText() {
 		ActivityEditor ae = openFunctionActivityEditor();
 
 		EditorHover eh = new EditorHover();
@@ -330,7 +348,8 @@ public class ActivityEditorInteraction extends UITextTest {
 				marker_line - 1);
 		assertEquals("test activity bookmark", hoverText);
 	}
-	public void dotestAddTaskMarker() {
+	@Test
+	public void testAddTaskMarker() {
 		ActivityEditor ae = openFunctionActivityEditor();
 		ActivityEditorInput editorInput =
 			(ActivityEditorInput) ae.getEditorInput();
@@ -361,7 +380,8 @@ public class ActivityEditorInteraction extends UITextTest {
 		}
 		assertTrue(m2.getResource().isAccessible());
 	}
-	public void dotestMultipleMarkerHoverText() {
+	@Test
+	public void testMultipleMarkerHoverText() {
 		ActivityEditor ae = openFunctionActivityEditor();
 
 		EditorHover eh = new EditorHover();
@@ -377,7 +397,8 @@ public class ActivityEditorInteraction extends UITextTest {
 	}
         assertFalse(true);
 	}
-	public void dotestDeleteBookmark() {
+	@Test
+	public void testDeleteBookmark() {
 		ActivityEditor ae = getFunctionActivityEditor();
 		ActivityEditorInput editorInput =
 			(ActivityEditorInput) ae.getEditorInput();
@@ -395,7 +416,8 @@ public class ActivityEditorInteraction extends UITextTest {
 		m2 = file.getMarker(m_markerId[0]);
 		assertFalse(m2.exists());
 	}
-	public void dotestTaskHoverText() {
+	@Test
+	public void testTaskHoverText() {
 		ActivityEditor ae = getFunctionActivityEditor();
 
 		EditorHover eh = new EditorHover();
@@ -406,7 +428,8 @@ public class ActivityEditorInteraction extends UITextTest {
 				marker_line - 1);
 		assertEquals("test activity task", hoverText);
 	}
-	public void dotestDeleteTask() {
+	@Test
+	public void testDeleteTask() {
 		ActivityEditor ae = getFunctionActivityEditor();
 		ActivityEditorInput editorInput =
 			(ActivityEditorInput) ae.getEditorInput();
@@ -424,7 +447,8 @@ public class ActivityEditorInteraction extends UITextTest {
 		m2 = file.getMarker(m_markerId[1]);
 		assertFalse(m2.exists());
 	}
-	public void dotestSyntaxError() {
+	@Test
+	public void testSyntaxError() {
 		ActivityEditor ae = getFunctionActivityEditor();
 		assertNotNull(ae);
 
@@ -468,7 +492,8 @@ public class ActivityEditorInteraction extends UITextTest {
 			}
 		}
 	}
-	public void dotestActivityProblemErrorHoverText() {
+	@Test
+	public void testActivityProblemErrorHoverText() {
 		ActivityEditor ae = getFunctionActivityEditor();
 		assertNotNull(ae);
 
@@ -481,7 +506,8 @@ public class ActivityEditorInteraction extends UITextTest {
 		assertEquals("unexpected token: bad", hoverText);
 	}
 
-	public void dotestSaveWithError() {
+	@Test
+	public void testSaveWithError() {
 		ActivityEditor ae = getFunctionActivityEditor();
 		ae.doSave(new NullProgressMonitor());
 
@@ -489,7 +515,8 @@ public class ActivityEditorInteraction extends UITextTest {
 		ae.getSite().getPage().closeEditor(ae, false);
 	}
 
-	public void dotestGotoError() {
+	@Test
+	public void testGotoError() {
 		ActivityEditor ae = openFunctionActivityEditor();
 		assertNotNull(ae);
 		ActivityEditorInput editorInput =
@@ -510,7 +537,8 @@ public class ActivityEditorInteraction extends UITextTest {
 		ae = getFunctionActivityEditor();
 		assertEquals("bad",ae.getTextViewer().getTextWidget().getSelectionText());
 	}
-	public void dotestMarkerErrorHoverText() {
+	@Test
+	public void testMarkerErrorHoverText() {
 		ActivityEditor ae = getFunctionActivityEditor();
 		assertNotNull(ae);
 		
@@ -520,7 +548,8 @@ public class ActivityEditorInteraction extends UITextTest {
 		assertEquals("unexpected token: bad", hoverText);
 	}
 
-	public void dotestRemoveError() {
+	@Test
+	public void testRemoveError() {
 		ActivityEditor ae = getFunctionActivityEditor();
 		assertNotNull(ae);
 
@@ -542,7 +571,8 @@ public class ActivityEditorInteraction extends UITextTest {
 		validateErrorFree(ae, true);
 
 	}
-	public void dotestRevertAfterErrorRemoved() {
+	@Test
+	public void testRevertAfterErrorRemoved() {
 		ActivityEditor ae = getFunctionActivityEditor();
 		assertNotNull(ae);
 		ae.doRevertToSaved();
@@ -552,7 +582,8 @@ public class ActivityEditorInteraction extends UITextTest {
 
 		validateUnchangedWithError(ae);
 	}
-	public void dotestSaveAfterErrorRemoved() {
+	@Test
+	public void testSaveAfterErrorRemoved() {
 		ActivityEditor ae = getFunctionActivityEditor();
 		assertNotNull(ae);
 		// change data in editor
