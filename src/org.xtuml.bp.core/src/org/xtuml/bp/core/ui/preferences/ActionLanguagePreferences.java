@@ -159,7 +159,7 @@ public class ActionLanguagePreferences
     										"When enabled, syntax errors are shown as you type. The\n" +
     										"disadvantage is that large action bodies may take a long time to parse.\n" +
     										"When disabled, you must manually parse the OAL using the \n" +
-    										" Parse All Activites option found in the context menu.");
+    										" Parse All Activities option found in the context menu.");
 
     allowOperationsInWhere = new Button(composite, SWT.CHECK | SWT.LEFT);
     allowOperationsInWhere.setText("Allow operations inside where clauses of select statements");
