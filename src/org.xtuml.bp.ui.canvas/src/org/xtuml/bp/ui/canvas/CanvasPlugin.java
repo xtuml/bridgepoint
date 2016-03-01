@@ -27,6 +27,9 @@ package org.xtuml.bp.ui.canvas;
 import java.lang.reflect.Field;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
@@ -50,11 +53,16 @@ import org.osgi.framework.Constants;
 
 import org.xtuml.bp.core.End_c;
 import org.xtuml.bp.core.Ooaofooa;
+import org.xtuml.bp.core.Pref_c;
+import org.xtuml.bp.core.SystemModel_c;
+import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.ILogger;
 import org.xtuml.bp.core.common.ModelRoot;
+import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.common.TransactionManager;
 import org.xtuml.bp.core.util.CoreUtil;
+import org.xtuml.bp.ui.canvas.util.GraphicsUtil;
 public class CanvasPlugin extends AbstractUIPlugin {
   private static CanvasPlugin plugin;
   private ResourceBundle resourceBundle;
@@ -773,4 +781,128 @@ private ElementSpecification_c locateEsByNameAndClassType(ModelRoot modelRoot,
 	}
 	return 0;
   }
+
+  	
+  	/**
+  	 * This is used to associate a Graphical instance type with an ooaofooa 
+  	 * instance. This routine was originally created in CanvasModelListener.java, 
+  	 * but it has been reused in other places and therefore it was moved to 
+  	 * this location to make it easier to find and reuse because it is NOT 
+  	 * specific to the CanvasModelListener.
+  	 * 
+  	 * @param model
+  	 */
+	public static void setGraphicalRepresents(final Model_c model) {
+		Ooaofooa modelRoot = Ooaofooa.getInstance(model.getModelRoot().getId());
+		if (model.getRepresents() == null) {
+			ModelSpecification_c ms = ModelSpecification_c.getOneGD_MSOnR9(model);
+			if (ms == null) {
+				ms = ModelSpecification_c.ModelSpecificationInstance(Ooaofgraphics.getDefaultInstance(),
+						new ClassQueryInterface_c() {
+
+							@Override
+							public boolean evaluate(Object candidate) {
+								return ((ModelSpecification_c) candidate).getModel_type() == model
+										.getModel_typeCachedValue()
+										&& ((ModelSpecification_c) candidate).getOoa_type() == model
+												.getOoa_typeCachedValue();
+							}
+						});
+
+				if (ms != null) {
+					ms.relateAcrossR9To(model);
+				}
+			}
+			model.setRepresents(Cl_c.Getinstancefromooa_id(modelRoot, model.getOoa_id(), model.getOoa_type()));
+		}
+		ArrayList<GraphicalElement_c> ges = new ArrayList<GraphicalElement_c>(
+				Arrays.asList(GraphicalElement_c.getManyGD_GEsOnR1(model)));
+		ges.addAll(Arrays
+				.asList(GraphicalElement_c.getManyGD_GEsOnR32(ElementInSuppression_c.getManyGD_EISsOnR32(model))));
+		for (Iterator<GraphicalElement_c> it = ges.iterator(); it.hasNext();) {
+			final GraphicalElement_c ge = it.next();
+			ElementSpecification_c es = ElementSpecification_c.getOneGD_ESOnR10(ge);
+			if (es == null) {
+				ElementSpecification_c spec = ElementSpecification_c
+						.ElementSpecificationInstance(Ooaofgraphics.getDefaultInstance(), new ClassQueryInterface_c() {
+
+							@Override
+							public boolean evaluate(Object candidate) {
+								return ((ElementSpecification_c) candidate).getOoa_type() == ge
+										.getOoa_typeCachedValue();
+							}
+						});
+				if (spec != null) {
+					spec.relateAcrossR10To(ge);
+				}
+			}
+			Object instanceFromId = null;
+			if (model.getRepresents() instanceof SystemModel_c) {
+				instanceFromId = Cl_c.Getinstancefromooa_id((SystemModel_c) model.getRepresents(), ge.getOoa_id(),
+						ge.getOoa_type());
+			} else {
+				instanceFromId = Cl_c.Getinstancefromooa_id(modelRoot, ge.getOoa_id(), ge.getOoa_type());
+			}
+			if (instanceFromId != null && (ge.getRepresents() == null || ge.getRepresents() != instanceFromId)) {
+				ge.setRepresents(instanceFromId);
+			}
+		}
+	}
+
+	/**
+	 * This routine was originally created in CanvasModelListener.java, but it has been 
+	 * reused in other places and therefore it was moved to this location to make it 
+	 * easier to find and reuse because it is NOT specific to the CanvasModelListener.
+  	 * 
+	 * @param canvas
+	 * @param o
+	 * @return True if the given Object is a part of the specified canvas (GD_MD) and false if it is not.
+	 */
+	public static boolean classInView(Model_c canvas, Object o) {
+		if (canvas != null) {
+			if (canvas.getRepresents() == null) {
+				if (Cl_c.Getooa_idfrominstance(o).equals(canvas.getOoa_id())
+						&& GraphicsUtil.getOoaType(o) == canvas.getOoa_type())
+					return true;
+			} else {
+				if (canvas.getRepresents() == o)
+					return true;
+			}
+			ModelSpecification_c ms = ModelSpecification_c.getOneGD_MSOnR9(canvas);
+			ElementInModelSpecification_c[] ems_set = ElementInModelSpecification_c.getManyGD_EMSsOnR11(ms);
+			ElementSpecification_c[] es_set = ElementSpecification_c.getManyGD_ESsOnR11(ems_set);
+			ClientClassDependency_c[] ccd_set = ClientClassDependency_c.getManyGD_CCDsOnR17(es_set);
+			final Class<?> depClass = o.getClass();
+			for (int i = 0; i < ccd_set.length; ++i) {
+				if (ccd_set[i].getRepresents() == depClass) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * Find and return the GD_GE instance that graphically represents the specified Object instance
+	 * within the given modelRoot
+	 * 
+	 * @param modelRoot The model root to search 
+	 * @param o The ooaofooa instance we are looking for
+	 * @return 
+	 */
+	static public GraphicalElement_c getGraphicalElement(Ooaofgraphics modelRoot, Object o) {
+		GraphicalElement_c result = null;
+		GraphicalElement_c[] ges = GraphicalElement_c.GraphicalElementInstances(modelRoot);
+		int type = GraphicsUtil.getElementOoaType(o, modelRoot);
+		for (int j = 0; j < ges.length; j++) {
+			if ((ges[j].getRepresents() != null && ges[j].getRepresents() == o)
+					|| (ges[j].getOoa_id().equals(((NonRootModelElement) o).Get_ooa_id())
+							&& ges[j].getOoa_type() == type)) {
+				result = ges[j];
+				break;
+			}
+		}
+		return result;
+	}
+
 }

@@ -42,6 +42,7 @@ import org.xtuml.bp.core.common.PersistableModelComponent;
 import org.xtuml.bp.core.util.UIUtil;
 import org.xtuml.bp.io.image.Activator;
 import org.xtuml.bp.ui.canvas.CanvasModelListener;
+import org.xtuml.bp.ui.canvas.CanvasPlugin;
 import org.xtuml.bp.ui.canvas.GraphicalElement_c;
 import org.xtuml.bp.ui.canvas.Model_c;
 import org.xtuml.bp.ui.canvas.Ooaofgraphics;
@@ -122,7 +123,7 @@ public class Generator extends Task {
 			@Override
 			public void run() {
 				// make sure that all graphical represents are setup
-				CanvasModelListener.setGraphicalRepresents(ptCanvas);
+				CanvasPlugin.setGraphicalRepresents(ptCanvas);
 				
 				String prefFont = PlatformUI.getWorkbench()
 						.getPreferenceStore().getString(
