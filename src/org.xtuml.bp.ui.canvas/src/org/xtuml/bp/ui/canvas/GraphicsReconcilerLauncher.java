@@ -84,9 +84,12 @@ public class GraphicsReconcilerLauncher {
 			
 			for (Map.Entry<SystemModel_c, Set<NonRootModelElement>> entry : elements.entrySet()) {
 				SystemModel_c key = entry.getKey();
-				Set<NonRootModelElement> value = entry.getValue();
+				Set<NonRootModelElement> nrmes = entry.getValue();
 
-				AutoReconciliationSpecification_c.Reconcile(ooag, removeElements, value.toArray(), key.getSys_id());
+				// Now reconcile
+				for (NonRootModelElement nrme : nrmes) {
+					AutoReconciliationSpecification_c.Reconcile(ooag, removeElements, nrme, key.getSys_id());
+				}
 			}
 		} catch (TransactionException e) {
 			if (newTrans != null)
@@ -124,12 +127,11 @@ public class GraphicsReconcilerLauncher {
 
 			for (IModelDelta delta : deltaList) {
 				NonRootModelElement candidate = (NonRootModelElement) delta.getModelElement();
-				NonRootModelElement root = candidate;
 				if(!(candidate instanceof SystemModel_c) && candidate.getThisRoot() == null) {
-					root = candidate.getRoot();
+					candidate = candidate.getRoot();
 				}
-				if (!elements.contains(root) && root != null) {
-					elements.add(root);
+				if (!elements.contains(candidate) && candidate != null) {
+					elements.add(candidate);
 				}
 			}
 		}

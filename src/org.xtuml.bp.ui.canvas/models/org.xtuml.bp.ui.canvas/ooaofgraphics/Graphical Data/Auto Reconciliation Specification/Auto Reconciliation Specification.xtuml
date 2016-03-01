@@ -53,7 +53,12 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	0,
-	'// Get all the auto reconcile specifications. This PEI data is found in 
+	'// rootElement is a NonRootModelElement that represents a  
+// canvas (GD_MD) instance. If the canvas does not yet exist, we need to
+// create it now.
+GD_ARS::reconcileCanvas(rootElement:param.rootElement); 
+
+// Get all the auto reconcile specifications. This PEI data is found in 
 // bp.ui.graphics/plugin.xml
 select many autoReconcileSpecs from instances of GD_ARS;
 
@@ -102,31 +107,12 @@ INSERT INTO O_TPARM
 INSERT INTO O_TPARM
 	VALUES ("4c729f91-6772-4b29-b161-87a3a2b0430f",
 	"c02376d4-138e-44c1-8e19-e42d4e5bdff4",
-	'rootElements',
+	'rootElement',
 	"68dedb08-fd5a-420e-9ec7-e7985ad0c856",
 	0,
-	'[]',
+	'',
 	"965be58d-e2e1-4b02-a7a2-f2fddb250d11",
-	'This is an array of all the NonRootModelElement root elements that need to be reconciled');
-INSERT INTO S_DIM
-	VALUES (0,
-	0,
-	"00000000-0000-0000-0000-000000000000",
-	"00000000-0000-0000-0000-000000000000",
-	"00000000-0000-0000-0000-000000000000",
-	"00000000-0000-0000-0000-000000000000",
-	"00000000-0000-0000-0000-000000000000",
-	"00000000-0000-0000-0000-000000000000",
-	"00000000-0000-0000-0000-000000000000",
-	"4c729f91-6772-4b29-b161-87a3a2b0430f",
-	"00000000-0000-0000-0000-000000000000",
-	"00000000-0000-0000-0000-000000000000",
-	"00000000-0000-0000-0000-000000000000",
-	"00000000-0000-0000-0000-000000000000",
-	"00000000-0000-0000-0000-000000000000",
-	"00000000-0000-0000-0000-000000000000",
-	"77fedfa3-630d-4587-9649-956f04c39f1d",
-	"00000000-0000-0000-0000-000000000000");
+	'This is a NonRootModelElement model root element that need to be reconciled.');
 INSERT INTO S_DT_PROXY
 	VALUES ("68dedb08-fd5a-420e-9ec7-e7985ad0c856",
 	"00000000-0000-0000-0000-000000000000",
@@ -1101,7 +1087,7 @@ CL::logTraceMsg(filterType:LoggerType::OPERATION, filterValue:"", message:"GD_AR
 ',
 	1,
 	'',
-	"8ffad301-a127-4be7-a504-064da8b3f9dc");
+	"4032d3b2-ec5d-454c-918d-af33300cfed8");
 INSERT INTO O_TPARM
 	VALUES ("1a45fe35-90f8-4600-a05b-b32b762cdc9f",
 	"d4306342-68fd-418b-9c81-c7573bdd3a9b",
@@ -1128,6 +1114,48 @@ INSERT INTO O_TPARM
 	0,
 	'',
 	"98161fbd-31ec-484b-aa5f-8e2cac6a9462",
+	'');
+INSERT INTO O_TFR
+	VALUES ("4032d3b2-ec5d-454c-918d-af33300cfed8",
+	"0849862c-76a0-4d0f-bb84-cf5aef617874",
+	'reconcileCanvas',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	0,
+	'graphicalModelInstanceExists = false;
+// See if the canvas already exists for this model element
+select many models from instances of GD_MD;
+for each model in models
+  if (model.represents == param.rootElement)
+    graphicalModelInstanceExists = true;
+    break;
+  end if;
+end for;
+
+if (not graphicalModelInstanceExists)
+  // find the type of canvas (GD_MS) associated with this root model element
+  select any modelSpec from instances of GD_MS where (selected.represents == OS::getClass(instance:param.rootElement));
+  if (not empty modelSpec)
+    modelSpec.elementCreated(elem:param.rootElement);
+  else
+    // This should really never happen
+    CL::logError(message:"The GD_MS type was not found for the given model element.  type: " + 
+    		OS::getClassType(instance:param.rootElement) + 
+    		" elementID: " + OS::uniqueIdToString(id:CL::getOOAId(from:param.rootElement)));
+  end if;
+end if;
+',
+	1,
+	'',
+	"8ffad301-a127-4be7-a504-064da8b3f9dc");
+INSERT INTO O_TPARM
+	VALUES ("e17ccbdd-9a6d-45e1-a290-0160e3c0b9dd",
+	"4032d3b2-ec5d-454c-918d-af33300cfed8",
+	'rootElement',
+	"68dedb08-fd5a-420e-9ec7-e7985ad0c856",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
 	'');
 INSERT INTO O_NBATTR
 	VALUES ("e10da735-ac66-4d53-9464-ac3d84572c93",

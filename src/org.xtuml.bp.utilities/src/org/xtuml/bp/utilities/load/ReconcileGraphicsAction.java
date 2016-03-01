@@ -52,38 +52,24 @@ import org.xtuml.bp.io.mdl.wizards.ModelImportWizard;
 import org.xtuml.bp.ui.canvas.GraphicsReconcilerLauncher;
 
 public class ReconcileGraphicsAction implements IActionDelegate {
-	List<NonRootModelElement> modelRootsToReconcile = new ArrayList<NonRootModelElement>();
+	List<NonRootModelElement> modelElementsToReconcile = new ArrayList<NonRootModelElement>();
 	
 	@Override
 	public void run(IAction action) {
-		GraphicsReconcilerLauncher reconciler = new GraphicsReconcilerLauncher(modelRootsToReconcile);
+		GraphicsReconcilerLauncher reconciler = new GraphicsReconcilerLauncher(modelElementsToReconcile);
 		reconciler.runReconciler(true);
 	}	
 
 	@Override
 	public void selectionChanged(IAction action, ISelection selection) {
-		modelRootsToReconcile.clear();
+		modelElementsToReconcile.clear();
 		if (selection instanceof StructuredSelection) {
 			IStructuredSelection ss = ((IStructuredSelection) selection);
 			// cache selection of model elements
 			Iterator<?> iter = ss.iterator();
 			while (iter.hasNext()) {
 				Object obj = iter.next();
-				boolean rootIsPresent = false;
-				NonRootModelElement candidate = (NonRootModelElement)obj;
-				NonRootModelElement root = candidate;
-				if(!(candidate instanceof SystemModel_c) && candidate.getThisRoot() == null) {
-					root = candidate.getRoot();
-				}
-				for (int i = 0; root != null && i < modelRootsToReconcile.size(); i++) {
-					if (modelRootsToReconcile.get(i) == root) {
-						rootIsPresent = true;
-						break;
-					}
-				}
-				if (root != null && !rootIsPresent) {
-					modelRootsToReconcile.add(root);
-				}
+				modelElementsToReconcile.add((NonRootModelElement)obj);
 			}
 		}
 	}
