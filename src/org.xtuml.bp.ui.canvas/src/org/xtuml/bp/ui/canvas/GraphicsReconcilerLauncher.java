@@ -38,8 +38,8 @@ import org.xtuml.bp.core.common.TransactionManager;
  * but over time the behavior has grown to a point where it deserves to be a first-class object.
  */
 public class GraphicsReconcilerLauncher {
-	// A map of each SystemModel to reconcile and each of the roots that need to be reconciled
-	Map<SystemModel_c, Set<NonRootModelElement> > elements = new HashMap<SystemModel_c, Set<NonRootModelElement> >();
+	// A map of each SystemModel to reconcile to the set of elements in that SystemModel to reconcile
+	private Map<SystemModel_c, Set<NonRootModelElement> > elementsToReconcile = new HashMap<SystemModel_c, Set<NonRootModelElement> >();
 	
 	public GraphicsReconcilerLauncher(List<NonRootModelElement> roots) {
 		for (NonRootModelElement root : roots) {
@@ -50,14 +50,15 @@ public class GraphicsReconcilerLauncher {
 				String systemName = Ooaofooa.getProjectNameFromModelRootId(root.getModelRoot().getId());
 				system = (SystemModel_c) root.getSystemModelFromName(systemName);
 			}
-			if ( system != null) {
-				Set<NonRootModelElement> valueSet = elements.get(system);
+			// Only look at elements that have graphics associated with them
+			if (( system != null)){
+				Set<NonRootModelElement> valueSet = elementsToReconcile.get(system);
 				if (valueSet == null) {
 					valueSet = new HashSet<NonRootModelElement>();
 				}
 				// Note that we explicitly use a Set to assure we have a unique set of roots
 				valueSet.add(root);
-				elements.put(system, valueSet);
+				elementsToReconcile.put(system, valueSet);
 			}
 		}		
 	}
@@ -66,7 +67,7 @@ public class GraphicsReconcilerLauncher {
 		if (!transaction.getType().equals(Transaction.AUTORECONCILE_TYPE)) {
 			if (containsCreateOrDeleteDelta(transaction)) {
 				if (transaction.getTransactionManager().getActiveTransaction() == null) {
-					List<NonRootModelElement> rootElements =  getAffectedRoots(transaction);	
+					List<NonRootModelElement> rootElements =  getAffectedElements(transaction);	
 					GraphicsReconcilerLauncher reconciler = new GraphicsReconcilerLauncher(rootElements);
 					reconciler.startReconciler(syncExec, removeElements);
 				}
@@ -82,7 +83,7 @@ public class GraphicsReconcilerLauncher {
 					Transaction.AUTORECONCILE_TYPE);
 			Ooaofgraphics ooag = Ooaofgraphics.getDefaultInstance();
 			
-			for (Map.Entry<SystemModel_c, Set<NonRootModelElement>> entry : elements.entrySet()) {
+			for (Map.Entry<SystemModel_c, Set<NonRootModelElement>> entry : elementsToReconcile.entrySet()) {
 				SystemModel_c key = entry.getKey();
 				Set<NonRootModelElement> nrmes = entry.getValue();
 
@@ -108,8 +109,8 @@ public class GraphicsReconcilerLauncher {
 		}
 	}
 
-	private static List<NonRootModelElement> getAffectedRoots(Transaction transaction) {
-		List<NonRootModelElement> elements = new ArrayList<NonRootModelElement>();
+	private static List<NonRootModelElement> getAffectedElements(Transaction transaction) {
+		List<NonRootModelElement> elementsInTransaction = new ArrayList<NonRootModelElement>();
 		if (transaction != null) {
 			IModelDelta[] deltas = transaction.getDeltas(Ooaofooa.getDefaultInstance());
 			IModelDelta[] graphicsDeltas = transaction.getDeltas(Ooaofgraphics.getDefaultInstance());
@@ -130,12 +131,12 @@ public class GraphicsReconcilerLauncher {
 				if(!(candidate instanceof SystemModel_c) && candidate.getThisRoot() == null) {
 					candidate = candidate.getRoot();
 				}
-				if (!elements.contains(candidate) && candidate != null) {
-					elements.add(candidate);
+				if (!elementsInTransaction.contains(candidate) && candidate != null) {
+					elementsInTransaction.add(candidate);
 				}
 			}
 		}
-		return elements;
+		return elementsInTransaction;
 	}
 
 	private static boolean containsCreateOrDeleteDelta(Transaction transaction) {
