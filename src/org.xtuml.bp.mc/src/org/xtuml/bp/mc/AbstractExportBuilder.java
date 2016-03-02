@@ -277,6 +277,12 @@ public abstract class AbstractExportBuilder extends IncrementalProjectBuilder {
     
 	public List<SystemModel_c> exportSystem(SystemModel_c system, String destDir,
 			final IProgressMonitor monitor, boolean append, String originalSystem) throws CoreException {
+            exportSystem(system, destDir, monitor, append, originalSystem, false);
+            return m_exportedSystems;
+        }
+
+	public List<SystemModel_c> exportSystem(SystemModel_c system, String destDir, final IProgressMonitor monitor,
+                        boolean append, String originalSystem, boolean forceNoEmitRTOs) throws CoreException {
 
 		String errorMsg = "Unable to export to destination file.";
 		boolean exportSucceeded = false;
@@ -325,13 +331,18 @@ public abstract class AbstractExportBuilder extends IncrementalProjectBuilder {
                 fos.close();
                 exportSucceeded = true;
 
-                // Check to see if the user has set the preferences to export RTO data for this project.
-                // Their project setting overrides the workspace setting.  If they've never set the value
-                // for the project, the workspace setting is used as the default.
-				boolean doEmitRTOs = BridgePointProjectReferencesPreferences
-						.getProjectBoolean(
+                boolean doEmitRTOs;
+                if ( forceNoEmitRTOs ) {
+                    doEmitRTOs = false;
+                }
+                else {
+                    // Check to see if the user has set the preferences to export RTO data for this project.
+                    // Their project setting overrides the workspace setting.  If they've never set the value
+                    // for the project, the workspace setting is used as the default.
+		    doEmitRTOs = BridgePointProjectReferencesPreferences.getProjectBoolean(
 								BridgePointProjectReferencesPreferences.BP_PROJECT_EMITRTODATA_ID,
 								originalSystem);
+                }
                 if ( doEmitRTOs ) {
                     Set<String> rtoSystems = ((ExportModelStream) m_exporter).getSavedRTOSystems();
                     m_elements.clear();
