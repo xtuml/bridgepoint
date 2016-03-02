@@ -19,13 +19,14 @@ import java.io.InputStreamReader;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.Map;
+
 import org.apache.tools.ant.Task;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
@@ -42,19 +43,19 @@ import org.eclipse.ui.console.MessageConsoleStream;
 import org.eclipse.ui.ide.IDE;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.SystemModel_c;
-import org.xtuml.bp.core.common.PersistableModelComponent;
 import org.xtuml.bp.mc.AbstractActivator;
 import org.xtuml.bp.mc.AbstractNature;
-import org.xtuml.bp.mc.c.binary.ExportBuilder;
 
 public class Generator extends Task {
     
-    public static final String X2M_DIR = "/tools/masl/"; //$NON-NLS-1$
-    public static final String X2M_EXE = "xtuml2masl"; //$NON-NLS-1$
-    public static final String MASL_DIR = "masl/"; //$NON-NLS-1$
-    public static final String X2M_INPUT = "a.xtuml"; //$NON-NLS-1$
-    public static final String LOGFILE = "export.log"; //$NON-NLS-1$
-    public static final String CONSOLE_NAME = "Console"; //$NON-NLS-1$
+    public static final String X2M_DIR = "/tools/masl/";
+    public static final String X2M_CMD = "xtuml2masl";
+    public static final String BIN_DIR = "/mc3020/bin/";
+    public static final String X2M_EXE = "xtumlmc_build.exe";
+    public static final String MODELS_DIR = "models/";
+    public static final String MASL_DIR = "masl/";
+    public static final String LOGFILE = "export.log";
+    public static final String CONSOLE_NAME = "Console";
     private static final int SLEEPTIME = 500;
     private static final int KILLTIMEOUT = 20000;
 
@@ -88,21 +89,18 @@ public class Generator extends Task {
  
     /*
      * The flow of this function is: 
-     * - Run the Model Compiler pre-builder 
-     * - Call xtumlmc_build.exe xtumlmc_cleanse_model <model file> 
-     * - Pass the stripped down model file to the xtuml2masl
+     * - Run the xtuml2masl utility
      */
     private static void exportMASL(final SystemModel_c sys, int type) {
 
-        final IProject project = org.xtuml.bp.io.image.generator.Generator
-                .getProject(sys);
-        boolean failed = false;
+        final IProject project = org.xtuml.bp.io.image.generator.Generator.getProject(sys);
         final int export_type = type;
         
-        if ( (project != null) && !failed ) {
-            String projPath = project.getLocation().toOSString();
-            final IPath path = new Path(projPath + File.separator
-                    + MASL_DIR);
+        boolean failed = false;
+        
+        if ( project != null ) {
+            final String projPath = project.getLocation().toOSString();
+            final IPath path = new Path(projPath + File.separator + MASL_DIR);
             final String destPath = path.toOSString();
 
             ProgressMonitorDialog pmd = new ProgressMonitorDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell());
@@ -111,37 +109,8 @@ public class Generator extends Task {
             IProgressMonitor monitor = pmd.getProgressMonitor();
             
             try {
-                // Make sure the settings in the launch file are up to date so
-                // we can invoke xtumlmc_build properly.
-                AbstractNature nature = null;
-                AbstractActivator activator = null;
-                if ( project.hasNature(org.xtuml.bp.mc.c.binary.MCNature.MC_NATURE_ID) || project.hasNature(org.xtuml.bp.mc.c.binary.MCNature.MC_NATURE_ID_OLD) ) {
-                    nature = org.xtuml.bp.mc.c.binary.MCNature.getDefault();
-                    activator = org.xtuml.bp.mc.c.binary.Activator.getDefault();
-                }
-                else if ( project.hasNature(org.xtuml.bp.mc.c.source.MCNature.MC_NATURE_ID) || project.hasNature(org.xtuml.bp.mc.c.source.MCNature.MC_NATURE_ID_OLD) ) {
-                    nature = org.xtuml.bp.mc.c.source.MCNature.getDefault();
-                    activator = org.xtuml.bp.mc.c.source.Activator.getDefault();
-                }
-                else if ( project.hasNature(org.xtuml.bp.mc.cpp.source.MCNature.MC_NATURE_ID) || project.hasNature(org.xtuml.bp.mc.cpp.source.MCNature.MC_NATURE_ID_OLD) ) {
-                    nature = org.xtuml.bp.mc.cpp.source.MCNature.getDefault();
-                    activator = org.xtuml.bp.mc.cpp.source.Activator.getDefault();
-                }
-                else if ( project.hasNature(org.xtuml.bp.mc.systemc.source.MCNature.MC_NATURE_ID) || project.hasNature(org.xtuml.bp.mc.systemc.source.MCNature.MC_NATURE_ID_OLD) ) {
-                    nature = org.xtuml.bp.mc.systemc.source.MCNature.getDefault();
-                    activator = org.xtuml.bp.mc.systemc.source.Activator.getDefault();
-                }
-                else if ( project.hasNature(org.xtuml.bp.mc.vhdl.source.MCNature.MC_NATURE_ID) || project.hasNature(org.xtuml.bp.mc.vhdl.source.MCNature.MC_NATURE_ID_OLD) ) {
-                    nature = org.xtuml.bp.mc.vhdl.source.MCNature.getDefault();
-                    activator = org.xtuml.bp.mc.vhdl.source.Activator.getDefault();
-                }
-                org.xtuml.bp.mc.MCBuilderArgumentHandler argHandlerAbstract = new org.xtuml.bp.mc.MCBuilderArgumentHandler(
-                        project, activator, nature);
-                argHandlerAbstract.setArguments(nature.getBuilderID());                
-
                 // Next proceed with actually running xtuml2masl on the model
-                IWorkbenchPage page = PlatformUI.getWorkbench()
-                        .getActiveWorkbenchWindow().getActivePage();
+                IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
                 String id = IConsoleConstants.ID_CONSOLE_VIEW;
                 IConsoleView view = (IConsoleView) page.showView(id);
                 view.display(myConsole);
@@ -152,7 +121,7 @@ public class Generator extends Task {
                             throws InvocationTargetException,
                             InterruptedException {
 
-                        int steps = 6;
+                        int steps = 3;
                         int curStep = 1;
 
                         if ( MASL_PROJECT == export_type ) monitor.beginTask("Exporting MASL project...", steps);
@@ -177,29 +146,11 @@ public class Generator extends Task {
                                     monitor.worked(1);
                                     break;
                                 case 2:
-                                    monitor.subTask("Loading model");
-                                    PersistableModelComponent pmc = sys.getPersistableComponent();
-                                    pmc.loadComponentAndChildren(new NullProgressMonitor());
+                                    monitor.subTask("Processing model");
+                                    runExport(project, projPath, destPath, export_type);
                                     monitor.worked(1);
                                     break;
                                 case 3:
-                                    monitor.subTask("Gathering model information");
-                                    ExportBuilder eb = new ExportBuilder();
-                                    // force to omit RTOs when invoking pre builder
-                                    eb.exportSystem(sys, destPath, new NullProgressMonitor(), false, "", true);
-                                    monitor.worked(1);
-                                    break;
-                                case 4:
-                                    monitor.subTask("Prepping model for MASL export");
-                                    runXbuild(project, destPath);
-                                    monitor.worked(1);
-                                    break;
-                                case 5:
-                                    monitor.subTask("Processing model");
-                                    runExport(project, destPath, export_type);
-                                    monitor.worked(1);
-                                    break;
-                                case 6:
                                     monitor.subTask("Refreshing");
                                     project.refreshLocal(IResource.DEPTH_INFINITE, null);
                                     monitor.worked(1);
@@ -270,84 +221,43 @@ public class Generator extends Task {
         }*/
     }
 
-    private static void runXbuild(IProject project, String workingDir) 
-        throws IOException, RuntimeException, CoreException, InterruptedException
-    {
-        // Call xtumlmc_build.exe xtumlmc_cleanse_model <infile> <outfile>
-        String app = AbstractNature.getLaunchAttribute(project, 
-                    org.xtuml.bp.mc.AbstractNature.LAUNCH_ATTR_TOOL_LOCATION);
-        String args = "xtumlmc_cleanse_model";  //$NON-NLS-1$
-        String inputfile = project.getName() + ".sql"; //$NON-NLS-1$
-        String middlefile = "z.xtuml";  //$NON-NLS-1$
-        String outputfile = X2M_INPUT;
-        File output = new File(workingDir + outputfile);
-        File middle = new File(workingDir + middlefile);
-        File sqlfile = new File(workingDir + inputfile);
-
-        if ( middle.exists() ) {
-            middle.delete();
-        }
-        if ( output.exists() ) {
-            output.delete();
-        }
-        
-        ProcessBuilder pb = new ProcessBuilder(app, args, inputfile, middlefile);
-        pb.directory(new File(workingDir));
-        Process process = pb.start();
-        process.waitFor();
-        
-        project.refreshLocal(IResource.DEPTH_INFINITE, null);
-        if ( !middle.exists() ) {
-            RuntimeException re = new RuntimeException("Expected output file doesn't exist: " +
-                    middle.toString());
-            throw re;
-        }
-
-        // Call xtumlmc_build.exe ReplaceUUIDWithLong <infile> <outfile>
-        args = "ReplaceUUIDWithLong";  //$NON-NLS-1$
-
-        pb = new ProcessBuilder(app, args, middlefile, outputfile);
-        pb.directory(new File(workingDir));
-        process = pb.start();
-        process.waitFor();
-        
-        sqlfile.delete();
-        middle.delete();
-        project.refreshLocal(IResource.DEPTH_INFINITE, null);
-        if ( !output.exists() ) {
-            RuntimeException re = new RuntimeException("Expected output file doesn't exist: " +
-                    output.toString());
-            throw re;
-        }
-    }
-    
-    private static void runExport(IProject project, String workingDir, int type) 
+    private static void runExport(IProject project, String projPath, String workingDir, int type) 
         throws IOException, RuntimeException, CoreException, InterruptedException 
     {
         // Call xtuml2masl
-        String homedir = System.getenv("BPHOMEDIR"); //$NON-NLS-1$
-        String app = homedir + X2M_DIR + X2M_EXE;
-        //String app = "/media/psf/Home/git/xtuml/mc/masl/util/xtuml2masl";
-        File input = new File(workingDir + X2M_INPUT);
+        String homedir = System.getenv("BPHOMEDIR");
+        String masl_dir = homedir + X2M_DIR;
+
+        AbstractActivator activator = org.xtuml.bp.mc.c.source.Activator.getDefault();
+        String plugin_dir = activator.getPluginPathAbsolute();
+        String app = plugin_dir + BIN_DIR + X2M_EXE;
+
         File err = new File(workingDir + LOGFILE);
 
+        // build the process
         ArrayList<String> cmd = new ArrayList<String>();
         cmd.add(app);
+        cmd.add(X2M_CMD);
         if ( MASL_PROJECT == type ) cmd.add("-p");
         else if ( MASL_DOMAIN == type ) cmd.add("-d");
         else return;
-        cmd.add(workingDir + X2M_INPUT);
+        cmd.add(projPath + MODELS_DIR);
         cmd.add("-o");
         cmd.add(workingDir);
         ProcessBuilder pb = new ProcessBuilder( cmd );
 
+        // set up the environment
+        Map<String, String> env = pb.environment();
+        env.put( "MASL_BIN_DIR", masl_dir );
+
+        // set error redirect and change working dir
         pb.redirectError(err);
         pb.directory(new File(workingDir));
+
+        // start the process
         Process process = pb.start();
         int exitVal = doWaitFor(process, null);
         
-        input.delete();
-        project.refreshLocal(IResource.DEPTH_INFINITE, null);
         if ( exitVal == -1 ) {
             RuntimeException re = new RuntimeException("xtuml2masl subprocess failed:" );
             throw re;            
