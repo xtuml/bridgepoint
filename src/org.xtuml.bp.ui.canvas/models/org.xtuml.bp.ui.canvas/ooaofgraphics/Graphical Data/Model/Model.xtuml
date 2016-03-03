@@ -1070,9 +1070,10 @@ INSERT INTO O_TFR
 	"09423687-e999-4aba-876d-35e0d3331311",
 	'newConnector',
 	'',
-	"ba5eda7a-def5-0000-0000-000000000000",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
-	'if (param.existingGraphicsArePresent)
+	'reprocess = false;
+if (param.existingGraphicsArePresent)
 select any ars related by self->GD_MS[R9]->GD_EMS[R11]->
                        GD_ES[R11]->GD_ARS[R29] where selected.Id == param.arsId;
 select one elemSpec related by ars->GD_ES[R29];
@@ -1097,8 +1098,7 @@ if(empty startEle and empty endEle)
                                                   + existingGE.represents_path +
                             OS::newLine() + "The connector has been recreated");
   existingConnector.dispose();
-  ars.reprocess = true;
-  return;
+  reprocess = true; 
 end if;
 create object instance newConElem of GD_GE;
 relate newConElem to canvas across R1;
@@ -1200,9 +1200,7 @@ end if;
 else // if (param.existingGraphicsArePresent)
 
 select any ars related by self->GD_MS[R9]->GD_ARS[R33] where selected.Id == param.arsId;
-if (empty ars)
-  return;
-end if;
+if (not empty ars)
 select one modelSpec related by ars->GD_MS[R33];
 select many specs related by modelSpec->GD_ES[R11];
 select one sourceSpec related by ars->GD_ES[R30];
@@ -1329,8 +1327,9 @@ if(not_empty startElement)
   end if;
 
  
-
-end if; ',
+end if;
+end if; 
+return reprocess;',
 	1,
 	'',
 	"f74c397c-b239-4f99-bb82-f47ec2c01025");

@@ -36,7 +36,7 @@ end for;
 return OS::NULL_UNIQUE_ID();',
 	1,
 	'',
-	"c02376d4-138e-44c1-8e19-e42d4e5bdff4");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TPARM
 	VALUES ("42d98f22-42d8-42d9-bcdb-0c595e38daa3",
 	"01e90c90-3e42-4325-9395-f04aa3dcdeec",
@@ -53,39 +53,43 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	0,
-	'// rootElement is a NonRootModelElement that represents a  
-// canvas (GD_MD) instance. If the canvas does not yet exist, we need to
-// create it now.
-GD_ARS::reconcileCanvas(rootElement:param.rootElement); 
+	'GD_ARS::reconcileCanvas(rootElement:param.rootElement);
 
-// Get all the auto reconcile specifications. This PEI data is found in 
-// bp.ui.graphics/plugin.xml
-select many autoReconcileSpecs from instances of GD_ARS;
+select many allAutoRecSpecs from instances of GD_ARS;
 
-// we must run the shape creation specs first
-// so that any newly created shapes can be processed
-// next and have connectors created
-for each autoReconcileSpec in autoReconcileSpecs
-  select many models related by autoReconcileSpec->GD_MS[R33]->GD_MD[R9];  // GD_MD represents shapes
+// Now we reconcile shapes in this canvas (if this is a canvas)
+for each autoReconcileSpec in allAutoRecSpecs  
+  select many models related by autoReconcileSpec->GD_MS[R33]->GD_MD[R9];  
   for each model in models
-    autoReconcileSpec.reconcileShapes( system_id:param.system_id, diagram_id:model.diagramId);
-    autoReconcileSpec.createMissingConnectors( diagram_id:model.diagramId, system_id:param.system_id, removeElements:param.removeElements);    
+    if (CL::isContainedInSystem( element:model.represents,
+                                 system_id:param.system_id))
+      autoReconcileSpec.reconcileShapes( system_id:param.system_id, 
+                                         diagram_id:model.diagramId);
+    end if;
   end for;
 end for;
 
-// now process all other specs
-for each autoReconcileSpec in autoReconcileSpecs
-  select many graphicalElements related by autoReconcileSpec->GD_ES[R29]->GD_GE[R10];  // GD_GE represents lines and connectors
-  for each graphicalElement in graphicalElements
-    autoReconcileSpec.reconcileConnectors( graphical_element_id:graphicalElement.elementId, system_id:param.system_id, removeElements:param.removeElements);
+for each autoReconcileSpec in allAutoRecSpecs
+  select one recSpec related by autoReconcileSpec->GD_ES[R29];
+  select many graphicalElements related by recSpec->GD_GE[R10]; 
+  for each graphicalElement in graphicalElements 
+    reprocess = true;
+    while (reprocess)
+      reprocess = autoReconcileSpec.reconcileConnectorsStep1( system_id:param.system_id,
+                                                 removeElements:param.removeElements,
+                                                 element_id:graphicalElement.elementId);   
+    end while;
+    reprocess = true;
+    while (reprocess)
+      reprocess = autoReconcileSpec.reconcileConnectorsStep2( graphical_element_id:graphicalElement.elementId, 
+                                               system_id:param.system_id, 
+                                               removeElements:param.removeElements);
+    end while; 
   end for;  
-end for;
-
-
-',
+end for;                                                 ',
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000");
+	"7c49d5b8-f700-44f4-8348-1fdcf662c1a5");
 INSERT INTO O_TPARM
 	VALUES ("965be58d-e2e1-4b02-a7a2-f2fddb250d11",
 	"c02376d4-138e-44c1-8e19-e42d4e5bdff4",
@@ -253,36 +257,30 @@ INSERT INTO O_TFR
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select any model related by self->GD_MS[R33]->GD_MD[R9] where selected.diagramId==param.diagram_id;
-// only check elements under the passed system
-if (CL::isContainedInSystem(element:model.represents,
-                                                     system_id:param.system_id))                                                     
-  count = 0;
-  //Get the count of shapes in the model (i.e the number of classes in the class Diagram)
-  // This conditional expression is  here to assure we are only calling this for 
-  // shapes. The operationReturn_Boolean_Param_Boolean_Uniqueid is not used for shapes.
-  if ((self.operationReturn_Boolean_Param_Boolean_Uniqueid == ""))
-    count = CL::numElements( from:model.represents,using:self.operationReturn_Int_Param_Void);
-  end if;
-  i=0;	 
-  while (i<count)
-  	elementID = CL::getElementID(from:model.represents,index:i, using:self.operationReturn_Uniqueid_Param_Int);
-    graphicalElementExists = false;
-    select many graphicalElements related by model->GD_GE[R1];
-    for each graphicalElement in graphicalElements
-      if(graphicalElement.OOA_ID == elementID)
-        graphicalElementExists =true;
-        break;
-      end if;         
-    end for;
-    if(graphicalElementExists == false)
-      //create the shape
-      model.newShape(arsId:self.Id,shape:elementID);
-      select one sourceSpec related by self->GD_ES[R30];
-      select one newElement related by sourceSpec->GD_GE[R16];
-      if (empty newElement)
-        i = i + 1;
-        continue;
-      end if;
+count = 0;
+// Get the count of shapes in the model (i.e the number of classes in the class Diagram)
+// This conditional expression is  here to assure we are only calling this for 
+// shapes. The operationReturn_Boolean_Param_Boolean_Uniqueid is not used for shapes.
+if (self.operationReturn_Boolean_Param_Boolean_Uniqueid == "")
+  count = CL::numElements( from:model.represents,using:self.operationReturn_Int_Param_Void);
+end if;
+i=0;	 
+while (i<count)
+  elementID = CL::getElementID(from:model.represents,index:i, using:self.operationReturn_Uniqueid_Param_Int);
+  graphicalElementExists = false;
+  select many graphicalElements related by model->GD_GE[R1];
+  for each graphicalElement in graphicalElements
+    if(graphicalElement.OOA_ID == elementID)
+      graphicalElementExists =true;
+      break;
+    end if;         
+  end for;
+  if(graphicalElementExists == false)
+    //create the shape
+    model.newShape(arsId:self.Id,shape:elementID);
+    select one sourceSpec related by self->GD_ES[R30];
+    select one newElement related by sourceSpec->GD_GE[R16];
+    if (not empty newElement)
       //set the OOA_ID of the new GE created
       newElement.OOA_ID=elementID; 
       newElement.represents=CL::getInstanceFromOOA_ID(
@@ -290,15 +288,14 @@ if (CL::isContainedInSystem(element:model.represents,
                                       OOA_ID: newElement.OOA_ID, 
                                       OOA_Type: newElement.OOA_Type );
       unrelate sourceSpec from newElement across R16;
-      //i=count;
     end if;
-    i=i+1;
-  end while;  
-   
-end if; ',
+  end if;
+  i=i+1;
+end while;     
+',
 	1,
 	'',
-	"7c49d5b8-f700-44f4-8348-1fdcf662c1a5");
+	"4032d3b2-ec5d-454c-918d-af33300cfed8");
 INSERT INTO O_TPARM
 	VALUES ("f2156974-c155-4272-9b85-288b824e669f",
 	"35593d44-4cf2-4d7a-ac20-1f39b82f20db",
@@ -320,24 +317,20 @@ INSERT INTO O_TPARM
 INSERT INTO O_TFR
 	VALUES ("8ffad301-a127-4be7-a504-064da8b3f9dc",
 	"0849862c-76a0-4d0f-bb84-cf5aef617874",
-	'reconcileConnectors',
+	'reconcileConnectorsStep2',
 	'',
-	"ba5eda7a-def5-0000-0000-000000000000",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'select any graphicalElement related by self->GD_ES[R29]->GD_GE[R10] where selected.elementId==param.graphical_element_id;
+reprocess = false;
 if (graphicalElement.represents == OS::NULL_INSTANCE())
   graphicalElement.represents = CL::getInstanceFromOOA_ID(
                                        rootInst:graphicalElement.convertToInstance(),
                                        OOA_ID:graphicalElement.OOA_ID,
                                        OOA_Type:graphicalElement.OOA_Type );
-  if (graphicalElement.represents == OS::NULL_INSTANCE())
-    // There is not model element to reconcile against.
-    return;
-  end if;
 end if;
 
-// only check elements under the passed system
-if(CL::isContainedInSystem(element:graphicalElement.represents,
+if(graphicalElement.represents != OS::NULL_INSTANCE() and CL::isContainedInSystem(element:graphicalElement.represents,
                                                      system_id:param.system_id))
   select one sourceSpec related by self->GD_ES[R30];
   select one targetSpec related by self->GD_ES[R31];
@@ -460,7 +453,8 @@ if(CL::isContainedInSystem(element:graphicalElement.represents,
   end if; //  if(self.operationReturn_Boolean_Param_Boolean_Uniqueid != "")
 
   // This will create connectors if missing  
-  if(self.operationReturn_Uniqueid_Param_Boolean_Int != "")
+  // this is the operation used to get the ooaofooaid of a missing connector for this type of element
+  if(self.operationReturn_Uniqueid_Param_Boolean_Int != "") 
     // reselect the connectors in case any were removed above
     select many startCons related by graphicalElement->DIM_GE[R23]->
                             DIM_CON[R311]->DIM_ED[R320]->GD_CON[R20]->GD_GE[R2];
@@ -473,12 +467,14 @@ if(CL::isContainedInSystem(element:graphicalElement.represents,
     if (count > 0)
       i = 0;
       while (i < count)
+        // TODO: This should not be operationReturn_Uniqueid_Param_Int, it should be 
+        // operationReturn_Uniqueid_Param_Boolean_Int?
+        // and if that is true, then this section can be wrapped to assure
+        // it is only called when connectorMethod is used.  The issue here is that
+        // connectorMethid takes a boolean and operationReturn_Uniqueid_Param_Int does not
         connectorId = CL::getConnectorID(from:graphicalElement.represents,
                           elementTypesMatch:sourceSpec == targetSpec,
-                          index:i, using:self.operationReturn_Uniqueid_Param_Int);  	// TODO: This should not be operationReturn_Uniqueid_Param_Int, it should be operationReturn_Uniqueid_Param_Boolean_Int?
-                          										// 		and if that is true, then this section can be wrapped to assure
-                          										// it is only called when connectorMEthod is used.  The issue here is that
-                          										// connectorMethid takes a boolean and operationReturn_Uniqueid_Param_Int does not
+                          index:i, using:self.operationReturn_Uniqueid_Param_Int);  	
         foundMatchingStart = false;
         for each startCon in startCons
           if (startCon.represents == OS::NULL_INSTANCE())
@@ -529,9 +525,9 @@ if(CL::isContainedInSystem(element:graphicalElement.represents,
   	    conID = self.findConnector(connectorID:templateConId);
   	    if conID != OS::NULL_UNIQUE_ID()
     	  select one model related by graphicalElement->GD_MD[R1];
-  	      model.newConnector(connector:conID,
+  	      reprocess = model.newConnector(connector:conID,
                            elementId:graphicalElement.elementId, arsId:self.Id,
-  	                                                  representsId:connectorId, existingGraphicsArePresent:true);
+  	                                                  representsId:connectorId, existingGraphicsArePresent:false);
   	    end if;
         i = i + 1;
       end while; // (i < count)
@@ -549,10 +545,10 @@ if(CL::isContainedInSystem(element:graphicalElement.represents,
     end if;
   end if; // if(self.operationReturn_Uniqueid_Param_Boolean_Int != "")
 end if; // if (CL::isContainedInSystem(...
-',
+return reprocess;',
 	1,
 	'',
-	"35593d44-4cf2-4d7a-ac20-1f39b82f20db");
+	"d4306342-68fd-418b-9c81-c7573bdd3a9b");
 INSERT INTO O_TPARM
 	VALUES ("cd5179d3-74a4-498f-9076-7ef3c9076490",
 	"8ffad301-a127-4be7-a504-064da8b3f9dc",
@@ -703,7 +699,7 @@ if(not empty modelSpec)
         end if;
 
         if(not foundMatchingStart and not foundMatchingEnd )//and model.represents != autoCreateShape.represents)
-          model.newConnector(connector:templateConId,
+          reprocess = model.newConnector(connector:templateConId,
                            elementId:autoCreateShape.elementId, arsId:self.Id,
                                                           representsId:connectorId,
                                                           existingGraphicsArePresent:false);
@@ -928,7 +924,7 @@ if(not empty spec or not empty modelSpec)
         conID = self.findConnector(connectorID:templateConId);
         if conID != OS::NULL_UNIQUE_ID()
           select one model related by autoCreateShape->GD_MD[R1];
-          model.newConnector(connector:conID,
+          reprocess = model.newConnector(connector:conID,
                            elementId:autoCreateShape.elementId, arsId:self.Id,
                                                           representsId:connectorId, existingGraphicsArePresent:true);
         end if;
@@ -962,7 +958,7 @@ if(not empty modelSpec)
 end if;',
 	1,
 	'',
-	"d4306342-68fd-418b-9c81-c7573bdd3a9b");
+	"8ffad301-a127-4be7-a504-064da8b3f9dc");
 INSERT INTO O_TPARM
 	VALUES ("89d34fd4-0163-4308-aebb-a63459e46be6",
 	"2978d4fb-2c01-4a45-b1a3-76b3cea72ecb",
@@ -984,30 +980,41 @@ INSERT INTO O_TPARM
 INSERT INTO O_TFR
 	VALUES ("d4306342-68fd-418b-9c81-c7573bdd3a9b",
 	"0849862c-76a0-4d0f-bb84-cf5aef617874",
-	'createMissingConnectors',
-	'',
-	"ba5eda7a-def5-0000-0000-000000000000",
+	'reconcileConnectorsStep1',
+	'This is called from GD_ARS.Reconcile which iterates or all GD_GE instances and calls this
+operation for each one. Given a GD_GE instance this operation makes calls to the ooaofooa 
+to see what actual instances of this type exist. If it finds 0 instances it means that 
+this graphical instance is no longer associated with a ooaofooa element, and so this 
+instance is removed. If it finds that there are more actual ooaofooa instances than
+graphical instances then it creates new graphical instances and associates them with
+associate ooaofooa instances.
+',
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
-	'select any model related by self->GD_MS[R33]->GD_MD[R9] where selected.diagramId==param.diagram_id;
-// only check elements under the passed system
-if (self.operationReturn_Uniqueid_Param_Boolean_Int != "" and CL::isContainedInSystem(element:model.represents, system_id:param.system_id))
-  select one sourceSpec related by self->GD_ES[R30];
-  select one targetSpec related by self->GD_ES[R31];
-  select many graphicalElements related by model->GD_GE[R1];
-  for each graphicalElement in graphicalElements
-    if (graphicalElement.represents == OS::NULL_INSTANCE())
-      graphicalElement.represents = CL::getInstanceFromOOA_ID(
+	'
+select any graphicalElement related by self->GD_ES[R29]->GD_GE[R10] where selected.elementId==param.element_id;
+select one sourceSpec related by self->GD_ES[R30];
+select one targetSpec related by self->GD_ES[R31];
+reprocess = false;
+if (graphicalElement.represents == OS::NULL_INSTANCE())
+  graphicalElement.represents = CL::getInstanceFromOOA_ID(
                                            rootInst:graphicalElement.convertToInstance(),
                                            OOA_ID:graphicalElement.OOA_ID,
                                            OOA_Type:graphicalElement.OOA_Type );
-    end if;
-
-    // only check elements under the passed system
-    if( CL::isContainedInSystem(element:graphicalElement.represents, system_id:param.system_id))
-      select many startCons related by graphicalElement->DIM_GE[R23]->
+end if;
+// only check elements under the passed system
+if( CL::isContainedInSystem(element:graphicalElement.represents, system_id:param.system_id))
+  // Note that while we could simply not call this operation when "removeElements" is false,
+  // we call it always because it does have side effect of setting the GD_GE.represents 
+  // on the connector even where connectors aer not removed.
+  self.removeConnectors(element_id:param.element_id, removeElements:param.removeElements);
+  
+  select many startCons related by graphicalElement->DIM_GE[R23]->
                             DIM_CON[R311]->DIM_ED[R320]->GD_CON[R20]->GD_GE[R2];
-      select many endCons related by graphicalElement->DIM_GE[R23]->
+  select many endCons related by graphicalElement->DIM_GE[R23]->
                             DIM_CON[R311]->DIM_ED[R321]->GD_CON[R20]->GD_GE[R2];
+
+  if (self.operationReturn_Int_Param_Void != "" )
       connectorCount = 0;
       select one elementSpec related by graphicalElement->GD_ES[R10];
     
@@ -1024,34 +1031,38 @@ if (self.operationReturn_Uniqueid_Param_Boolean_Int != "" and CL::isContainedInS
       					"\nGD_ARS.operationReturn_Boolean_Param_Boolean_Uniqueid: " + self.operationReturn_Boolean_Param_Boolean_Uniqueid +
       					"\nNumberConnectors: " + OS::intToString(value:connectorCount)
       					);
+    if (connectorCount > 0 and self.operationReturn_Uniqueid_Param_Int != "")  
       j = 0;
       while (j < connectorCount)
         connectorId = CL::getConnectorID(from:graphicalElement.represents,
                           elementTypesMatch:sourceSpec == targetSpec,
                           index:j, using:self.operationReturn_Uniqueid_Param_Int);
-        templateConId = OS::NULL_UNIQUE_ID();
-        if self.operationReturn_Uniqueid_Param_Boolean_Int != ""
-          templateConId = CL::getConnectorID(from:graphicalElement.represents,
-                   index:j, elementTypesMatch:sourceSpec == targetSpec,
-                                              using:self.operationReturn_Uniqueid_Param_Boolean_Int);
-        end if;
-        if templateConId == OS::NULL_UNIQUE_ID()
-          templateConId = connectorId;
-        end if;
         foundMatchingStart = false;
         for each startCon in startCons
-          if(startCon.OOA_ID == connectorId)
-            foundMatchingStart = true;
-            break;
+          if (startCon.represents == OS::NULL_INSTANCE())
+            startCon.represents = CL::getInstanceFromOOA_ID(
+  	                                   rootInst:startCon.convertToInstance(),
+  	                                   OOA_ID:startCon.OOA_ID, 
+  	                                   OOA_Type:startCon.OOA_Type );
           end if;
+          if(CL::getOOAId(from:startCon.represents) == connectorId)
+  	        foundMatchingStart = true;
+            break;
+    	  end if;
         end for;
         foundMatchingEnd = false;
 
         for each endCon in endCons
-          if(endCon.OOA_ID == connectorId)
-            foundMatchingEnd = true;
-            break;
+          if (endCon.represents == OS::NULL_INSTANCE())
+            endCon.represents = CL::getInstanceFromOOA_ID(
+  	                                   rootInst:endCon.convertToInstance(),
+  	                                   OOA_ID:endCon.OOA_ID, 
+  	                                   OOA_Type:endCon.OOA_Type );
           end if;
+          if(CL::getOOAId(from:endCon.represents) == connectorId)
+  	        foundMatchingEnd = true;
+            break;
+  	      end if;  	 
         end for;
 
         if(foundMatchingStart or foundMatchingEnd)
@@ -1062,32 +1073,37 @@ if (self.operationReturn_Uniqueid_Param_Boolean_Int != "" and CL::isContainedInS
           continue;
         end if;
 
-        if(not foundMatchingStart and not foundMatchingEnd )//and model.represents != graphicalElement.represents)
-          model.newConnector(connector:templateConId,
+  	    templateConId = CL::getConnectorID(from:graphicalElement.represents,
+                   index:j, elementTypesMatch:sourceSpec == targetSpec,
+                                              using:self.operationReturn_Uniqueid_Param_Boolean_Int);
+  	    if templateConId == OS::NULL_UNIQUE_ID()
+  	      templateConId = connectorId;
+  	    end if;
+  	    conID = self.findConnector(connectorID:templateConId);
+  	    if conID != OS::NULL_UNIQUE_ID()
+  	      select one model related by graphicalElement->GD_MD[R1];
+  	      reprocess = model.newConnector(connector:conID,
                            elementId:graphicalElement.elementId, arsId:self.Id,
-                                                          representsId:connectorId,
-                                                          existingGraphicsArePresent:false);
-
-          select one newConnector related by sourceSpec->GD_GE[R16];
-          //set the OOA_ID of the new GE created
-          newConnector.OOA_ID=connectorId;
-          newConnector.represents=CL::getInstanceFromOOA_ID(
-                                      rootInst: model.represents,
-                                      OOA_ID: newConnector.OOA_ID,
-                                      OOA_Type: newConnector.OOA_Type );
-
-          unrelate sourceSpec from newConnector across R16;
-        end if;
+  	                                                  representsId:connectorId, existingGraphicsArePresent:true);
+  	    end if;
         j = j + 1;
       end while; // (j < connectorCount)
-    end if; // only check elements under the passed system   
-  end for;  // for each graphicalElement in graphicalElements
-end if;
-CL::logTraceMsg(filterType:LoggerType::OPERATION, filterValue:"", message:"GD_ARS::createMissingConnectors() - returning");
-',
+    else  // (connectorCount > 0 and self.operationReturn_Uniqueid_Param_Int != "")
+      if connectorCount == 0
+        select one con related by graphicalElement->DIM_GE[R23]->
+                                                    DIM_ED[R301]->DIM_CON[R321];
+        if not_empty con
+          con.dispose();
+        end if;
+      end if;
+    end if;
+    CL::logTraceMsg(filterType:LoggerType::OPERATION, filterValue:"", message:"GD_ARS::createMissingConnectors() - returning");    
+  end if; // (self.operationReturn_Int_Param_Void != "" )
+end if; // if( CL::isContainedInSystem(element:graphicalElement.represents, system_id:param.system_id))
+return reprocess;',
 	1,
 	'',
-	"4032d3b2-ec5d-454c-918d-af33300cfed8");
+	"998fe17d-8e1a-4ed6-9b5b-cca166288747");
 INSERT INTO O_TPARM
 	VALUES ("1a45fe35-90f8-4600-a05b-b32b762cdc9f",
 	"d4306342-68fd-418b-9c81-c7573bdd3a9b",
@@ -1098,22 +1114,22 @@ INSERT INTO O_TPARM
 	"00000000-0000-0000-0000-000000000000",
 	'');
 INSERT INTO O_TPARM
-	VALUES ("98161fbd-31ec-484b-aa5f-8e2cac6a9462",
+	VALUES ("2aa8c06a-bfa6-4220-a916-61b5458c996a",
 	"d4306342-68fd-418b-9c81-c7573bdd3a9b",
-	'removeElements',
-	"ba5eda7a-def5-0000-0000-000000000001",
+	'element_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"1a45fe35-90f8-4600-a05b-b32b762cdc9f",
 	'');
 INSERT INTO O_TPARM
-	VALUES ("2aa8c06a-bfa6-4220-a916-61b5458c996a",
+	VALUES ("bfe03fc7-1135-43d2-8e5b-10ff1210d83c",
 	"d4306342-68fd-418b-9c81-c7573bdd3a9b",
-	'diagram_id',
-	"ba5eda7a-def5-0000-0000-000000000005",
+	'removeElements',
+	"ba5eda7a-def5-0000-0000-000000000001",
 	0,
 	'',
-	"98161fbd-31ec-484b-aa5f-8e2cac6a9462",
+	"2aa8c06a-bfa6-4220-a916-61b5458c996a",
 	'');
 INSERT INTO O_TFR
 	VALUES ("4032d3b2-ec5d-454c-918d-af33300cfed8",
@@ -1122,32 +1138,28 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	0,
-	'graphicalModelInstanceExists = false;
+	'select any modelSpec from instances of GD_MS 
+                     where 
+                     (selected.represents == OS::getClass(instance:param.rootElement));
+
+canvasExists = false;
+
 // See if the canvas already exists for this model element
-select many models from instances of GD_MD;
+select many models related by modelSpec->GD_MD[R9];
 for each model in models
   if (model.represents == param.rootElement)
-    graphicalModelInstanceExists = true;
+    canvasExists = true;
     break;
   end if;
 end for;
 
-if (not graphicalModelInstanceExists)
-  // find the type of canvas (GD_MS) associated with this root model element
-  select any modelSpec from instances of GD_MS where (selected.represents == OS::getClass(instance:param.rootElement));
-  if (not empty modelSpec)
-    modelSpec.elementCreated(elem:param.rootElement);
-  else
-    // This should really never happen
-    CL::logError(message:"The GD_MS type was not found for the given model element.  type: " + 
-    		OS::getClassType(instance:param.rootElement) + 
-    		" elementID: " + OS::uniqueIdToString(id:CL::getOOAId(from:param.rootElement)));
-  end if;
+if (not canvasExists)
+  modelSpec.elementCreated(elem:param.rootElement);
 end if;
 ',
 	1,
 	'',
-	"8ffad301-a127-4be7-a504-064da8b3f9dc");
+	"c02376d4-138e-44c1-8e19-e42d4e5bdff4");
 INSERT INTO O_TPARM
 	VALUES ("e17ccbdd-9a6d-45e1-a290-0160e3c0b9dd",
 	"4032d3b2-ec5d-454c-918d-af33300cfed8",
@@ -1156,6 +1168,153 @@ INSERT INTO O_TPARM
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("998fe17d-8e1a-4ed6-9b5b-cca166288747",
+	"0849862c-76a0-4d0f-bb84-cf5aef617874",
+	'removeConnectors',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'select any graphicalElement related by self->GD_ES[R29]->GD_GE[R10] where selected.elementId==param.element_id;
+  if(self.operationReturn_Boolean_Param_Boolean_Uniqueid != "")
+    select many startCons related by graphicalElement->DIM_GE[R23]->
+                            DIM_CON[R311]->DIM_ED[R320]->GD_CON[R20]->GD_GE[R2];
+    select many endCons related by graphicalElement->DIM_GE[R23]->
+                            DIM_CON[R311]->DIM_ED[R321]->GD_CON[R20]->GD_GE[R2];
+
+  select one sourceSpec related by self->GD_ES[R30];
+  select one targetSpec related by self->GD_ES[R31];
+   for each startCon in startCons
+      select one startConSpec related by startCon->GD_ES[R10];
+      if(startConSpec == targetSpec)
+        if (startCon.represents == OS::NULL_INSTANCE())
+          startCon.represents = CL::getInstanceFromOOA_ID(
+  	                                   rootInst:startCon.convertToInstance(),
+  	                                   OOA_ID:startCon.OOA_ID, 
+  	                                   OOA_Type:startCon.OOA_Type );
+  	         
+        end if;
+       
+        //Removing Connectors
+        if not CL::hasConnector(
+                             element_id:CL::getOOAId(from:startCon.represents),
+                             instance:graphicalElement.represents,
+                             methodName:self.operationReturn_Boolean_Param_Boolean_Uniqueid,
+                             elementTypesMatch:sourceSpec == targetSpec) and param.removeElements
+          // if the connector is going to be disposed
+          // and there are other connectors anchored
+          // to it then re-anchor them connector to
+          // the shape that this connector is anchored to
+          select one anchor related by startCon->DIM_GE[R23]->DIM_ED[R301]
+        								                        ->DIM_CON[R320];
+          select many anchoredStartConnectors related by startCon->DIM_GE[R23]
+						                          ->DIM_CON[R311]->DIM_ED[R320];
+          select many anchoredEndConnectors related by startCon->DIM_GE[R23]
+						                          ->DIM_CON[R311]->DIM_ED[R321];
+          for each anchoredStartConnector in anchoredStartConnectors
+            // only do this if it is supported
+            select one graphicalElementSpec related by graphicalElement->GD_ES[R10];
+            select one conSpec related by anchoredStartConnector->GD_CON[R20]
+                                                        ->GD_GE[R2]->GD_ES[R10];
+            select many startTerminals related by  conSpec->TS_CSP[R200]
+                        ->TS_TSP[R202]->TS_SHT[R201]->TS_SSP[R204]->GD_ES[R200];
+            allow = false;
+            for each startTerm in startTerminals
+              if(startTerm == graphicalElementSpec)
+                allow = true;
+              end if;
+            end for;
+            if(allow)
+              select one oldAnchor related by anchoredStartConnector->DIM_CON[R320];
+              unrelate anchoredStartConnector from oldAnchor across R320;
+              relate anchoredStartConnector to anchor across R320;
+            end if;
+          end for;
+          for each anchoredEndConnector in anchoredEndConnectors
+            select one graphicalElementSpec related by graphicalElement->GD_ES[R10];
+            select one conSpec related by anchoredStartConnector->GD_CON[R20]
+                                                        ->GD_GE[R2]->GD_ES[R10];
+            select many endTerminals related by  conSpec->TS_CSP[R200]
+                        ->TS_TSP[R203]->TS_SHT[R201]->TS_SSP[R204]->GD_ES[R200];
+            allow = false;
+            for each endTerm in endTerminals
+              if(endTerm == graphicalElementSpec)
+                allow = true;
+              end if;
+            end for;
+            if(allow)
+              select one oldAnchor related by anchoredEndConnector->DIM_CON[R321];
+              unrelate anchoredEndConnector from oldAnchor across R321;
+              relate anchoredEndConnector to anchor across R321;
+            end if;
+          end for;
+          startCon.dispose();
+        end if;
+      end if;
+    end for;
+    
+    
+    for each endCon in endCons
+      select one endConSpec related by endCon->GD_ES[R10];
+      if(endConSpec == targetSpec)
+        if (endCon.represents == OS::NULL_INSTANCE())
+          endCon.represents = CL::getInstanceFromOOA_ID(
+  	                                   rootInst:endCon.convertToInstance(),
+  	                                   OOA_ID:endCon.OOA_ID, 
+  	                                   OOA_Type:endCon.OOA_Type );
+        end if;
+        if not CL::hasConnector(
+                             element_id:CL::getOOAId(from:endCon.represents),
+      	                     instance:graphicalElement.represents,
+                             methodName:self.operationReturn_Boolean_Param_Boolean_Uniqueid,
+                             elementTypesMatch:sourceSpec == targetSpec) and param.removeElements
+          // if the connector is going to be disposed
+          // and there are other connectors anchored
+          // to it then re-anchor them connector to
+          // the shape that this connector is anchored to
+          select one anchor related by startCon->DIM_GE[R23]->DIM_ED[R301]
+        								                        ->DIM_CON[R321];
+          select many anchoredStartConnectors related by endCon->DIM_GE[R23]
+						                          ->DIM_CON[R311]->DIM_ED[R320];
+          select many anchoredEndConnectors related by endCon->DIM_GE[R23]
+						                          ->DIM_CON[R311]->DIM_ED[R321];
+          for each anchoredStartConnector in anchoredStartConnectors
+            select one oldAnchor related by anchoredStartConnector->DIM_CON[R320];
+            unrelate anchoredStartConnector from oldAnchor across R320;
+            relate anchoredStartConnector to anchor across R320;
+          end for;
+          for each anchoredEndConnector in anchoredEndConnectors
+            select one oldAnchor related by anchoredEndConnector->DIM_CON[R321];
+            unrelate anchoredEndConnector from oldAnchor across R321;
+            relate anchoredEndConnector to anchor across R321;
+          end for;
+          endCon.dispose();
+        end if;
+      end if;
+    end for;
+   end if;
+',
+	1,
+	'',
+	"35593d44-4cf2-4d7a-ac20-1f39b82f20db");
+INSERT INTO O_TPARM
+	VALUES ("59e275c9-55e2-46b6-aadc-6488129b4721",
+	"998fe17d-8e1a-4ed6-9b5b-cca166288747",
+	'element_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("c11ab6cc-dec4-4c65-be08-d98c9734241f",
+	"998fe17d-8e1a-4ed6-9b5b-cca166288747",
+	'removeElements',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	0,
+	'',
+	"59e275c9-55e2-46b6-aadc-6488129b4721",
 	'');
 INSERT INTO O_NBATTR
 	VALUES ("e10da735-ac66-4d53-9464-ac3d84572c93",
@@ -1487,24 +1646,6 @@ INSERT INTO O_ATTR
 	'Model_Type',
 	0,
 	"ba5eda7a-def5-0000-0000-000000000007",
-	'',
-	'');
-INSERT INTO O_NBATTR
-	VALUES ("b9c00edc-e0d7-49e3-9991-40ab23edae49",
-	"0849862c-76a0-4d0f-bb84-cf5aef617874");
-INSERT INTO O_BATTR
-	VALUES ("b9c00edc-e0d7-49e3-9991-40ab23edae49",
-	"0849862c-76a0-4d0f-bb84-cf5aef617874");
-INSERT INTO O_ATTR
-	VALUES ("b9c00edc-e0d7-49e3-9991-40ab23edae49",
-	"0849862c-76a0-4d0f-bb84-cf5aef617874",
-	"45f1b8ac-2115-4a50-9b6a-eacd460b724e",
-	'reprocess',
-	'',
-	'',
-	'reprocess',
-	0,
-	"ba5eda7a-def5-0000-0000-000000000001",
 	'',
 	'');
 INSERT INTO O_ID
