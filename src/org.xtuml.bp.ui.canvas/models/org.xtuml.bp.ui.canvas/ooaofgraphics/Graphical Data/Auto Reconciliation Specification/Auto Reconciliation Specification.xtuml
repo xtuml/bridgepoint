@@ -260,13 +260,13 @@ INSERT INTO O_TFR
 count = 0;
 // Get the count of shapes in the model (i.e the number of classes in the class Diagram)
 // This conditional expression is  here to assure we are only calling this for 
-// shapes. The operationReturn_Boolean_Param_Boolean_Uniqueid is not used for shapes.
-if (self.operationReturn_Boolean_Param_Boolean_Uniqueid == "")
-  count = CL::numElements( from:model.represents,using:self.operationReturn_Int_Param_Void);
+// shapes. The Bridge_GetConnectorID is not used for shapes.
+if (self.Bridge_GetConnectorID == "")
+  count = CL::numElements( from:model.represents,using:self.Bridge_NumElements);
 end if;
 i=0;	 
 while (i<count)
-  elementID = CL::getElementID(from:model.represents,index:i, using:self.operationReturn_Uniqueid_Param_Int);
+  elementID = CL::getElementID(from:model.represents,index:i, using:self.Bridge_GetElementID);
   graphicalElementExists = false;
   select many graphicalElements related by model->GD_GE[R1];
   for each graphicalElement in graphicalElements
@@ -336,7 +336,7 @@ if(graphicalElement.represents != OS::NULL_INSTANCE() and CL::isContainedInSyste
   select one targetSpec related by self->GD_ES[R31];
 
   // do not try to determine if connectors exist when the existsMethod is empty
-  if(self.operationReturn_Boolean_Param_Boolean_Uniqueid != "")
+  if(self.Bridge_GetConnectorID != "")
     select many startCons related by graphicalElement->DIM_GE[R23]->
                             DIM_CON[R311]->DIM_ED[R320]->GD_CON[R20]->GD_GE[R2];
     select many endCons related by graphicalElement->DIM_GE[R23]->
@@ -357,7 +357,7 @@ if(graphicalElement.represents != OS::NULL_INSTANCE() and CL::isContainedInSyste
         if not CL::hasConnector(
                              element_id:CL::getOOAId(from:startCon.represents),
                              instance:graphicalElement.represents,
-                             methodName:self.operationReturn_Boolean_Param_Boolean_Uniqueid,
+                             methodName:self.Bridge_GetConnectorID,
                              elementTypesMatch:sourceSpec == targetSpec) and param.removeElements
           // if the connector is going to be disposed
           // and there are other connectors anchored
@@ -424,7 +424,7 @@ if(graphicalElement.represents != OS::NULL_INSTANCE() and CL::isContainedInSyste
         if not CL::hasConnector(
                              element_id:CL::getOOAId(from:endCon.represents),
       	                     instance:graphicalElement.represents,
-                             methodName:self.operationReturn_Boolean_Param_Boolean_Uniqueid,
+                             methodName:self.Bridge_GetConnectorID,
                              elementTypesMatch:sourceSpec == targetSpec) and param.removeElements
           // if the connector is going to be disposed
           // and there are other connectors anchored
@@ -450,11 +450,11 @@ if(graphicalElement.represents != OS::NULL_INSTANCE() and CL::isContainedInSyste
         end if;
       end if; // if(endConSpec == targetSpec)
     end for; // for each endCon in endCons
-  end if; //  if(self.operationReturn_Boolean_Param_Boolean_Uniqueid != "")
+  end if; //  if(self.Bridge_GetConnectorID != "")
 
   // This will create connectors if missing  
   // this is the operation used to get the ooaofooaid of a missing connector for this type of element
-  if(self.operationReturn_Uniqueid_Param_Boolean_Int != "") 
+  if(self.Bridge_NumConnectors != "") 
     // reselect the connectors in case any were removed above
     select many startCons related by graphicalElement->DIM_GE[R23]->
                             DIM_CON[R311]->DIM_ED[R320]->GD_CON[R20]->GD_GE[R2];
@@ -462,19 +462,19 @@ if(graphicalElement.represents != OS::NULL_INSTANCE() and CL::isContainedInSyste
                             DIM_CON[R311]->DIM_ED[R321]->GD_CON[R20]->GD_GE[R2];
     count = CL::numConnectors( from:graphicalElement.represents,
                              elementTypesMatch:sourceSpec == targetSpec,
-                             using:self.operationReturn_Int_Param_Void);
+                             using:self.Bridge_NumElements);
     // do not process if the element method == not used
     if (count > 0)
       i = 0;
       while (i < count)
-        // TODO: This should not be operationReturn_Uniqueid_Param_Int, it should be 
-        // operationReturn_Uniqueid_Param_Boolean_Int?
+        // TODO: This should not be Bridge_GetElementID, it should be 
+        // Bridge_NumConnectors?
         // and if that is true, then this section can be wrapped to assure
         // it is only called when connectorMethod is used.  The issue here is that
-        // connectorMethid takes a boolean and operationReturn_Uniqueid_Param_Int does not
+        // connectorMethid takes a boolean and Bridge_GetElementID does not
         connectorId = CL::getConnectorID(from:graphicalElement.represents,
                           elementTypesMatch:sourceSpec == targetSpec,
-                          index:i, using:self.operationReturn_Uniqueid_Param_Int);  	
+                          index:i, using:self.Bridge_GetElementID);  	
         foundMatchingStart = false;
         for each startCon in startCons
           if (startCon.represents == OS::NULL_INSTANCE())
@@ -514,10 +514,10 @@ if(graphicalElement.represents != OS::NULL_INSTANCE() and CL::isContainedInSyste
         end if;
   	    
   	    templateConId = OS::NULL_UNIQUE_ID();
-  	    if self.operationReturn_Uniqueid_Param_Boolean_Int != ""
+  	    if self.Bridge_NumConnectors != ""
   	      templateConId = CL::getConnectorID(from:graphicalElement.represents,
                    index:i, elementTypesMatch:sourceSpec == targetSpec,
-                                              using:self.operationReturn_Uniqueid_Param_Boolean_Int);
+                                              using:self.Bridge_NumConnectors);
   	    end if;
   	    if templateConId == OS::NULL_UNIQUE_ID()
   	      templateConId = connectorId;
@@ -534,7 +534,7 @@ if(graphicalElement.represents != OS::NULL_INSTANCE() and CL::isContainedInSyste
         
     else // handle connector reconcile
       count = CL::numConnectors(from:graphicalElement.represents,
-            elementTypesMatch:sourceSpec == targetSpec, using:self.operationReturn_Int_Param_Void);
+            elementTypesMatch:sourceSpec == targetSpec, using:self.Bridge_NumElements);
       if count == 0
         select one con related by graphicalElement->DIM_GE[R23]->
                                                     DIM_ED[R301]->DIM_CON[R321];
@@ -543,7 +543,7 @@ if(graphicalElement.represents != OS::NULL_INSTANCE() and CL::isContainedInSyste
         end if;
       end if;
     end if;
-  end if; // if(self.operationReturn_Uniqueid_Param_Boolean_Int != "")
+  end if; // if(self.Bridge_NumConnectors != "")
 end if; // if (CL::isContainedInSystem(...
 return reprocess;',
 	1,
@@ -605,14 +605,14 @@ if(not empty modelSpec)
   for each model in models
     //Get the count of shapes in the model (i.e the number of classes in the class Diagram)
     count = 0;
-    if ((self.operationReturn_Boolean_Param_Boolean_Uniqueid == ""))
-      count = CL::numElements( from:model.represents,using:self.operationReturn_Int_Param_Void);
+    if ((self.Bridge_GetConnectorID == ""))
+      count = CL::numElements( from:model.represents,using:self.Bridge_NumElements);
     end if;
     //select many graphicalConnectors related by model -> GD_GE[R1]->GD_CON[R2]->GD_GE[R2];
     i=0;
     while (i<count)
       select many graphicalElements related by model->GD_GE[R1];
-      elementID = CL::getElementID(from:model.represents,index:i, using:self.operationReturn_Uniqueid_Param_Int);
+      elementID = CL::getElementID(from:model.represents,index:i, using:self.Bridge_GetElementID);
       found = false;
       for each graphicalElement in graphicalElements
         if(graphicalElement.OOA_ID == elementID)
@@ -659,17 +659,17 @@ if(not empty modelSpec)
                             DIM_CON[R311]->DIM_ED[R321]->GD_CON[R20]->GD_GE[R2];
       connectorCount = CL::numConnectors( from:autoCreateShape.represents,
                              elementTypesMatch:sourceSpec == targetSpec,
-                             using:self.operationReturn_Int_Param_Void);
+                             using:self.Bridge_NumElements);
       j = 0;
       while (j < connectorCount)
         connectorId = CL::getConnectorID(from:autoCreateShape.represents,
                           elementTypesMatch:sourceSpec == targetSpec,
-                          index:j, using:self.operationReturn_Uniqueid_Param_Int);
+                          index:j, using:self.Bridge_GetElementID);
         templateConId = OS::NULL_UNIQUE_ID();
-        if self.operationReturn_Uniqueid_Param_Boolean_Int != ""
+        if self.Bridge_NumConnectors != ""
           templateConId = CL::getConnectorID(from:autoCreateShape.represents,
                    index:j, elementTypesMatch:sourceSpec == targetSpec,
-                                              using:self.operationReturn_Uniqueid_Param_Boolean_Int);
+                                              using:self.Bridge_NumConnectors);
         end if;
         if templateConId == OS::NULL_UNIQUE_ID()
           templateConId = connectorId;
@@ -731,17 +731,17 @@ if(not empty modelSpec)
       end if;
 
       connectorCount = CL::numConnectors(from:autoCreateShape.represents,
-                    elementTypesMatch:sourceSpec == targetSpec, using:self.operationReturn_Int_Param_Void);
+                    elementTypesMatch:sourceSpec == targetSpec, using:self.Bridge_NumElements);
       x=0;
       while(x<connectorCount)
         connectorId = CL::getConnectorID(from:autoCreateShape.represents,
                           elementTypesMatch:sourceSpec == targetSpec,
-                          index:x, using:self.operationReturn_Uniqueid_Param_Int);
+                          index:x, using:self.Bridge_GetElementID);
         templateConId = OS::NULL_UNIQUE_ID();
-        if self.operationReturn_Uniqueid_Param_Boolean_Int != ""
+        if self.Bridge_NumConnectors != ""
           templateConId = CL::getConnectorID(from:autoCreateShape.represents,
                    index:x, elementTypesMatch:sourceSpec == targetSpec,
-                                                using:self.operationReturn_Uniqueid_Param_Boolean_Int);
+                                                using:self.Bridge_NumConnectors);
         end if;
         if templateConId == OS::NULL_UNIQUE_ID()
           templateConId = connectorId;
@@ -797,7 +797,7 @@ if(not empty spec or not empty modelSpec)
         if not CL::hasConnector(
                              element_id:CL::getOOAId(from:startCon.represents),
                              instance:autoCreateShape.represents,
-                             methodName:self.operationReturn_Boolean_Param_Boolean_Uniqueid,
+                             methodName:self.Bridge_GetConnectorID,
                              elementTypesMatch:sourceSpec == targetSpec) and param.removeElements 
           // if the connector is going to be disposed
           // and there are other connectors anchored
@@ -835,7 +835,7 @@ if(not empty spec or not empty modelSpec)
         if not CL::hasConnector(
                              element_id:CL::getOOAId(from:endCon.represents),
                              instance:autoCreateShape.represents,
-                             methodName:self.operationReturn_Boolean_Param_Boolean_Uniqueid,
+                             methodName:self.Bridge_GetConnectorID,
                              elementTypesMatch:sourceSpec == targetSpec) and param.removeElements
           // if the connector is going to be disposed
           // and there are other connectors anchored
@@ -869,13 +869,13 @@ if(not empty spec or not empty modelSpec)
                             DIM_CON[R311]->DIM_ED[R321]->GD_CON[R20]->GD_GE[R2];
     count = CL::numConnectors( from:autoCreateShape.represents,
                              elementTypesMatch:sourceSpec == targetSpec,
-                             using:self.operationReturn_Int_Param_Void);
+                             using:self.Bridge_NumElements);
     if (count > 0)
       i = 0;
       while (i < count)
         connectorId = CL::getConnectorID(from:autoCreateShape.represents,
                           elementTypesMatch:sourceSpec == targetSpec,
-                          index:i, using:self.operationReturn_Uniqueid_Param_Int);
+                          index:i, using:self.Bridge_GetElementID);
         foundMatchingStart = false;
         for each startCon in startCons
           if (startCon.represents == OS::NULL_INSTANCE())
@@ -913,10 +913,10 @@ if(not empty spec or not empty modelSpec)
         end if;
 
         templateConId = OS::NULL_UNIQUE_ID();
-        if self.operationReturn_Uniqueid_Param_Boolean_Int != ""
+        if self.Bridge_NumConnectors != ""
           templateConId = CL::getConnectorID(from:autoCreateShape.represents,
                    index:i, elementTypesMatch:sourceSpec == targetSpec,
-                   using:self.operationReturn_Uniqueid_Param_Boolean_Int);
+                   using:self.Bridge_NumConnectors);
         end if;
         if templateConId == OS::NULL_UNIQUE_ID()
           templateConId = connectorId;
@@ -932,7 +932,7 @@ if(not empty spec or not empty modelSpec)
       end while;  // i < count
     else // handle connector reconcile
       count = CL::numConnectors(from:autoCreateShape.represents,
-            elementTypesMatch:sourceSpec == targetSpec, using:self.operationReturn_Int_Param_Void);
+            elementTypesMatch:sourceSpec == targetSpec, using:self.Bridge_NumElements);
       if count == 0
         // we only need worry about end connectors
         if not_empty endCons
@@ -1014,29 +1014,29 @@ if( CL::isContainedInSystem(element:graphicalElement.represents, system_id:param
   select many endCons related by graphicalElement->DIM_GE[R23]->
                             DIM_CON[R311]->DIM_ED[R321]->GD_CON[R20]->GD_GE[R2];
 
-  if (self.operationReturn_Int_Param_Void != "" )
+  if (self.Bridge_NumElements != "" )
       connectorCount = 0;
       select one elementSpec related by graphicalElement->GD_ES[R10];
     
       connectorCount = CL::numConnectors( from:graphicalElement.represents,
                              elementTypesMatch:sourceSpec == targetSpec,
-                             using:self.operationReturn_Int_Param_Void);
+                             using:self.Bridge_NumElements);
       CL::traceOperation(message:"Processing GD_GE.diagramId: " + OS::uniqueIdToString(id:graphicalElement.diagramId) + 
      					"\nGD_GE.OOA_TYPE: " + OS::ooaTypeToString(id:graphicalElement.OOA_Type) +
      					"\nGD_GE.representsPath: " + graphicalElement.represents_path +
-     					"\nARS.operationReturn_Int_Param_Void: " + self.operationReturn_Int_Param_Void + " was called on GD_GE.represents.getOOAId()=" + OS::uniqueIdToString(id:CL::getOOAId(from:graphicalElement.represents)) +
+     					"\nARS.Bridge_NumElements: " + self.Bridge_NumElements + " was called on GD_GE.represents.getOOAId()=" + OS::uniqueIdToString(id:CL::getOOAId(from:graphicalElement.represents)) +
       					"\nGD_ES.toolCategory: " + elementSpec.toolCategory +
-      					"\nGD_ARS.operationReturn_Uniqueid_Param_Int: " + self.operationReturn_Uniqueid_Param_Int +
-      					"\nGD_ARS.operationReturn_Uniqueid_Param_Boolean_Int: " + self.operationReturn_Uniqueid_Param_Boolean_Int  +
-      					"\nGD_ARS.operationReturn_Boolean_Param_Boolean_Uniqueid: " + self.operationReturn_Boolean_Param_Boolean_Uniqueid +
+      					"\nGD_ARS.Bridge_GetElementID: " + self.Bridge_GetElementID +
+      					"\nGD_ARS.Bridge_NumConnectors: " + self.Bridge_NumConnectors  +
+      					"\nGD_ARS.Bridge_GetConnectorID: " + self.Bridge_GetConnectorID +
       					"\nNumberConnectors: " + OS::intToString(value:connectorCount)
       					);
-    if (connectorCount > 0 and self.operationReturn_Uniqueid_Param_Int != "")  
+    if (connectorCount > 0 and self.Bridge_GetElementID != "")  
       j = 0;
       while (j < connectorCount)
         connectorId = CL::getConnectorID(from:graphicalElement.represents,
                           elementTypesMatch:sourceSpec == targetSpec,
-                          index:j, using:self.operationReturn_Uniqueid_Param_Int);
+                          index:j, using:self.Bridge_GetElementID);
         foundMatchingStart = false;
         for each startCon in startCons
           if (startCon.represents == OS::NULL_INSTANCE())
@@ -1075,7 +1075,7 @@ if( CL::isContainedInSystem(element:graphicalElement.represents, system_id:param
 
   	    templateConId = CL::getConnectorID(from:graphicalElement.represents,
                    index:j, elementTypesMatch:sourceSpec == targetSpec,
-                                              using:self.operationReturn_Uniqueid_Param_Boolean_Int);
+                                              using:self.Bridge_NumConnectors);
   	    if templateConId == OS::NULL_UNIQUE_ID()
   	      templateConId = connectorId;
   	    end if;
@@ -1088,7 +1088,7 @@ if( CL::isContainedInSystem(element:graphicalElement.represents, system_id:param
   	    end if;
         j = j + 1;
       end while; // (j < connectorCount)
-    else  // (connectorCount > 0 and self.operationReturn_Uniqueid_Param_Int != "")
+    else  // (connectorCount > 0 and self.Bridge_GetElementID != "")
       if connectorCount == 0
         select one con related by graphicalElement->DIM_GE[R23]->
                                                     DIM_ED[R301]->DIM_CON[R321];
@@ -1098,7 +1098,7 @@ if( CL::isContainedInSystem(element:graphicalElement.represents, system_id:param
       end if;
     end if;
     CL::logTraceMsg(filterType:LoggerType::OPERATION, filterValue:"", message:"GD_ARS::createMissingConnectors() - returning");    
-  end if; // (self.operationReturn_Int_Param_Void != "" )
+  end if; // (self.Bridge_NumElements != "" )
 end if; // if( CL::isContainedInSystem(element:graphicalElement.represents, system_id:param.system_id))
 return reprocess;',
 	1,
@@ -1177,7 +1177,7 @@ INSERT INTO O_TFR
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select any graphicalElement related by self->GD_ES[R29]->GD_GE[R10] where selected.elementId==param.element_id;
-  if(self.operationReturn_Boolean_Param_Boolean_Uniqueid != "")
+  if(self.Bridge_GetConnectorID != "")
     select many startCons related by graphicalElement->DIM_GE[R23]->
                             DIM_CON[R311]->DIM_ED[R320]->GD_CON[R20]->GD_GE[R2];
     select many endCons related by graphicalElement->DIM_GE[R23]->
@@ -1200,7 +1200,7 @@ INSERT INTO O_TFR
         if not CL::hasConnector(
                              element_id:CL::getOOAId(from:startCon.represents),
                              instance:graphicalElement.represents,
-                             methodName:self.operationReturn_Boolean_Param_Boolean_Uniqueid,
+                             methodName:self.Bridge_GetConnectorID,
                              elementTypesMatch:sourceSpec == targetSpec) and param.removeElements
           // if the connector is going to be disposed
           // and there are other connectors anchored
@@ -1267,7 +1267,7 @@ INSERT INTO O_TFR
         if not CL::hasConnector(
                              element_id:CL::getOOAId(from:endCon.represents),
       	                     instance:graphicalElement.represents,
-                             methodName:self.operationReturn_Boolean_Param_Boolean_Uniqueid,
+                             methodName:self.Bridge_GetConnectorID,
                              elementTypesMatch:sourceSpec == targetSpec) and param.removeElements
           // if the connector is going to be disposed
           // and there are other connectors anchored
@@ -1326,10 +1326,10 @@ INSERT INTO O_ATTR
 	VALUES ("e10da735-ac66-4d53-9464-ac3d84572c93",
 	"0849862c-76a0-4d0f-bb84-cf5aef617874",
 	"1fe3629d-a75d-452f-be0e-d5025254f3c4",
-	'operationReturn_Int_Param_Void',
+	'Bridge_NumElements',
 	'',
 	'',
-	'operationReturn_Int_Param_Void',
+	'Bridge_NumElements',
 	0,
 	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
@@ -1344,10 +1344,10 @@ INSERT INTO O_ATTR
 	VALUES ("68ea2f93-55cb-4a7c-a507-cb897697c920",
 	"0849862c-76a0-4d0f-bb84-cf5aef617874",
 	"e10da735-ac66-4d53-9464-ac3d84572c93",
-	'operationReturn_Uniqueid_Param_Int',
+	'Bridge_GetElementID',
 	'',
 	'',
-	'operationReturn_Uniqueid_Param_Int',
+	'Bridge_GetElementID',
 	0,
 	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
@@ -1431,10 +1431,10 @@ INSERT INTO O_ATTR
 	VALUES ("b573c171-3dcd-41ed-ae67-a9ac0543c13e",
 	"0849862c-76a0-4d0f-bb84-cf5aef617874",
 	"68ea2f93-55cb-4a7c-a507-cb897697c920",
-	'operationReturn_Boolean_Param_Boolean_Uniqueid',
+	'Bridge_GetConnectorID',
 	'',
 	'',
-	'operationReturn_Boolean_Param_Boolean_Uniqueid',
+	'Bridge_GetConnectorID',
 	0,
 	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
@@ -1449,10 +1449,10 @@ INSERT INTO O_ATTR
 	VALUES ("89037c25-7f61-48ca-9f18-935e9fbd4416",
 	"0849862c-76a0-4d0f-bb84-cf5aef617874",
 	"b573c171-3dcd-41ed-ae67-a9ac0543c13e",
-	'operationReturn_Uniqueid_Param_Boolean_Int',
+	'Bridge_NumConnectors',
 	'',
 	'',
-	'operationReturn_Uniqueid_Param_Boolean_Int',
+	'Bridge_NumConnectors',
 	0,
 	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
