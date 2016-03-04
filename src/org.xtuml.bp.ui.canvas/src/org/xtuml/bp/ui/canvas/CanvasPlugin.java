@@ -541,13 +541,20 @@ public class CanvasPlugin extends AbstractUIPlugin {
                 		                           getAttribute("Bridge_NumElements"));
                 ars.setBridge_getelementid(autoReconcile[e].
                 		                         getAttribute("Bridge_GetElementID"));
-                ars.setBridge_getconnectorid(autoReconcile[e].
-                		                   getAttribute("Bridge_GetConnectorID"));
-                ars.setBridge_numconnectors(autoReconcile[e].
-                		                 getAttribute("Bridge_NumConnectors"));
-                if (ars.getBridge_numconnectors() == null) {
-                  ars.setBridge_numconnectors("");
-                }
+                ars.setBridge_connectorexists(autoReconcile[e].
+                		                   getAttribute("Bridge_ConnectorExists"));
+				if (ars.getBridge_connectorexists() == null) {
+					ars.setBridge_connectorexists("");
+				}
+				ars.setBridge_numconnectors(autoReconcile[e].getAttribute("Bridge_NumConnectors"));
+				if (ars.getBridge_numconnectors() == null) {
+					ars.setBridge_numconnectors("");
+				}
+                ars.setBridge_getconnectoridconditional(autoReconcile[e].
+  		                 getAttribute("Bridge_GetConnectorIDConditional"));
+                 if (ars.getBridge_getconnectoridconditional() == null) {
+               	  ars.setBridge_getconnectoridconditional("");
+                 }                
                 ElementSpecification_c scanTarget = locateEsByNameAndClassType(
                 		       graphicsModelRoot, modelEditorExtension.getAttribute("name"), modelEditorExtension.getAttribute("class")); 
                 ars.relateAcrossR29To(scanTarget);
@@ -581,14 +588,22 @@ public class CanvasPlugin extends AbstractUIPlugin {
                   		                           getAttribute("Bridge_NumElements"));
                   ars.setBridge_getelementid(autoReconcile[e].
                   		                         getAttribute("Bridge_GetElementID"));
-                  ars.setBridge_getconnectorid(autoReconcile[e].
-                  		                   getAttribute("Bridge_GetConnectorID"));
+                  ars.setBridge_connectorexists(autoReconcile[e].
+                  		                   getAttribute("Bridge_ConnectorExists"));
+  				  if (ars.getBridge_connectorexists() == null) {
+					ars.setBridge_connectorexists("");
+  				  }
                   ars.setBridge_numconnectors(autoReconcile[e].
                   		                 getAttribute("Bridge_NumConnectors"));
                   if (ars.getBridge_numconnectors() == null) {
                     ars.setBridge_numconnectors("");
                   }
-                 // ElementSpecification_c scanTarget = locateEsByNameAndClassType(
+                  ars.setBridge_getconnectoridconditional(autoReconcile[e].
+   		                 getAttribute("Bridge_GetConnectorIDConditional"));
+                  if (ars.getBridge_getconnectoridconditional() == null) {
+                	  ars.setBridge_getconnectoridconditional("");
+                  }
+                // ElementSpecification_c scanTarget = locateEsByNameAndClassType(
            		       //graphicsModelRoot, modelEditorExtension.getAttribute("name"), modelEditorExtension.getAttribute("class")); 
                   ModelSpecification_c modelSpec = locateMesByNameAndClassType(graphicsModelRoot, modelEditorExtension.getAttribute("name"), modelEditorExtension.getAttribute("class")); 
                   ars.relateAcrossR33To(modelSpec);

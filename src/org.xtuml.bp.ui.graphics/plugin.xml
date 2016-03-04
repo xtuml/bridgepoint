@@ -22,12 +22,9 @@
 	Model and Canvas Transaction listener hooks are called to cause the graphics code to get invoked
 	when the model elements are changed.
 
-    GD_ARS has 4 attributes that hold names of ooaofooa operations to call in order to reconcile the 
+    GD_ARS has 5 attributes that hold names of ooaofooa operations to call in order to reconcile the 
     type of graphic called out in the ARS instance. These "interface operations" get called via 
-    ooaofgraphics::Client bridges. These bridges specify the parameters expected by these calls. 
-    These GD_ARS attributes are named to match the ooaofgraphics Client bridge that they get 
-    called with. For example: GD_ARS.Bridge_NumElements, represents the CL::numElments bridge 
-    and GD_ARS.Bridge_NumConnectors represents the method used to call the NumConnectors bridge.     
+    ooaofgraphics::Client bridges. These bridges specify the parameters expected by these calls.      
     The data in this plugin assigns the actual ooaofooa operation names to these attributes.
     
     *** tag descriptions ***:
@@ -90,20 +87,15 @@
                					index is sent as a parameter and we know how many elements exist
                					based on use of the count operation)
                					These operations are of the form: Get<symbol>id
-               	Bridge_GetConnectorID: 	If not used then this has a value of 
+               	Bridge_ConnectorExists: 	If not used then this has a value of 
                							"". Otherwise, this is the name 
                							of an operation that test for the existence of 
                							any of the model elements of type targetSymbol in 
                							the container. This is currently only used when 
                							reconciling connectors.
                							These operations are of the form: Has<symbol>id
-               	Bridge_NumConnectors: If not used then this has a value of 
-               							"". Otherwise, this is the name 
-               							of an operation that test for the existence of 
-               							any of the delegated model elements of type targetSymbol in 
-               							the container. This is currently only used when 
-               							reconciling connectors.
-               							These operations are of the form: Has<symbol>id
+               	Bridge_GetConnectorIDConditional: This is the same as Bridge_GetElementID, but this operation
+               	                        uses an additional paramater of type boolean
     		</autoreconcile>
 	</symbol>         				
 
@@ -219,28 +211,28 @@
             </dependsOn>
 			<autoReconcile
 			 Bridge_NumElements="Getsimpleassociationcount"
-			 Bridge_GetConnectorID=""
+			 
 			 Bridge_GetElementID="Getsimpleassociationid"
 			 targetSymbol="Association">
 			</autoReconcile>    
 			
 			<autoReconcile
 			 Bridge_NumElements="Getsupertypecount"
-			 Bridge_GetConnectorID=""
+			 
 			 Bridge_GetElementID="Getsupertypeid"
 			 targetSymbol="Supertype">
 			</autoReconcile>    
 			
 			<autoReconcile
 			 Bridge_NumElements="Getsubtypecount"
-			 Bridge_GetConnectorID=""
+			 
 			 Bridge_GetElementID="Getsubtypeid"
 			 targetSymbol="Subtype">
 			</autoReconcile>    
 			
 			<autoReconcile
 			 Bridge_NumElements="Getassociativelinkcount"
-			 Bridge_GetConnectorID=""
+			 
 			 Bridge_GetElementID="Getassociativelinkid"
 			 targetSymbol="Associative Link"
 			 sourceSymbol="Association">
@@ -305,28 +297,28 @@
             </dependsOn>
 			<autoReconcile
 			 Bridge_NumElements="Getsimpleassociationcount"
-			 Bridge_GetConnectorID=""
+			 
 			 Bridge_GetElementID="Getsimpleassociationid"
 			 targetSymbol="Association">
 			</autoReconcile>    
 			
 			<autoReconcile
 			 Bridge_NumElements="Getsupertypecount"
-			 Bridge_GetConnectorID=""
+			 
 			 Bridge_GetElementID="Getsupertypeid"
 			 targetSymbol="Supertype">
 			</autoReconcile>    
 			
 			<autoReconcile
 			 Bridge_NumElements="Getsubtypecount"
-			 Bridge_GetConnectorID=""
+			 
 			 Bridge_GetElementID="Getsubtypeid"
 			 targetSymbol="Subtype">
 			</autoReconcile>    
 			
 			<autoReconcile
 			 Bridge_NumElements="Getassociativelinkcount"
-			 Bridge_GetConnectorID=""
+			 
 			 Bridge_GetElementID="Getassociativelinkid"
 			 targetSymbol="Associative Link"
 			 sourceSymbol="Association">
@@ -503,7 +495,7 @@
             </dependsOn>
 			<autoReconcile
 			 Bridge_NumElements="Gettransitioncount"
-			 Bridge_GetConnectorID=""
+			 
 			 Bridge_GetElementID="Gettransitionid"
 			 targetSymbol="Transition">
 			</autoReconcile>    
@@ -1930,31 +1922,31 @@
             </color>
             <autoReconcile
                   Bridge_NumElements="Getprovisioncount"
-                  Bridge_GetConnectorID="Parenthasprovision"
+                  Bridge_ConnectorExists="Parenthasprovision"
                   Bridge_GetElementID="Getprovisionid"
                   targetSymbol="Provided Interface">
             </autoReconcile>
             <autoReconcile
                   Bridge_NumElements="Getrequirementcount"
-                  Bridge_GetConnectorID="Parenthasrequirement"
+                  Bridge_ConnectorExists="Parenthasrequirement"
                   Bridge_GetElementID="Getrequirementid"
                   targetSymbol="Required Interface">
             </autoReconcile>
             <autoReconcile
                   Bridge_NumElements="Getprovisioncount"
-                  Bridge_GetConnectorID="Parenthasprovision"
+                  Bridge_ConnectorExists="Parenthasprovision"
                   Bridge_GetElementID="Getprovisionid"
                   sourceSymbol="Delegation"
                   targetSymbol="Provided Interface"
-                  Bridge_NumConnectors="Getprovisiondelegationid">
+                  Bridge_GetConnectorIDConditional="Getprovisiondelegationid">
             </autoReconcile>
             <autoReconcile
                   Bridge_NumElements="Getrequirementcount"
-                  Bridge_GetConnectorID="Parenthasrequirement"
+                  Bridge_ConnectorExists="Parenthasrequirement"
                   Bridge_GetElementID="Getrequirementid"
                   sourceSymbol="Delegation"
                   targetSymbol="Required Interface"
-                  Bridge_NumConnectors="Getrequirementdelegationid">
+                  Bridge_GetConnectorIDConditional="Getrequirementdelegationid">
             </autoReconcile>
          </symbol>
          <symbol
@@ -1971,13 +1963,13 @@
             </color>
             <autoReconcile
                   Bridge_NumElements="Getprovisioncount"
-                  Bridge_GetConnectorID="Hasprovision"
+                  Bridge_ConnectorExists="Hasprovision"
                   Bridge_GetElementID="Getprovisionid"
                   targetSymbol="Provided Interface">
             </autoReconcile>
             <autoReconcile
                   Bridge_NumElements="Getrequirementcount"
-                  Bridge_GetConnectorID="Hasrequirement"
+                  Bridge_ConnectorExists="Hasrequirement"
                   Bridge_GetElementID="Getrequirementid"
                   targetSymbol="Required Interface">
             </autoReconcile>
@@ -1999,33 +1991,33 @@
             </dependsOn>
             <autoReconcile
                   Bridge_NumElements="Getimportedprovisioncount"
-                  Bridge_GetConnectorID="Hasimportedprovision"
+                  Bridge_ConnectorExists="Hasimportedprovision"
                   Bridge_GetElementID="Getimportedprovisionid"
                   sourceSymbol="Provided Interface"
                   targetSymbol="Imported Provided Interface"
-                  Bridge_NumConnectors="Getimportedprovisionprovisionid">
+                  Bridge_GetConnectorIDConditional="Getimportedprovisionprovisionid">
             </autoReconcile>
             <autoReconcile
                   Bridge_NumElements="Getimportedrequirementcount"
-                  Bridge_GetConnectorID="Hasimportedrequirement"
+                  Bridge_ConnectorExists="Hasimportedrequirement"
                   Bridge_GetElementID="Getimportedrequirementid"
                   sourceSymbol="Required Interface"
                   targetSymbol="Imported Required Interface"
-                  Bridge_NumConnectors="Getimportedrequirementrequirementid">
+                  Bridge_GetConnectorIDConditional="Getimportedrequirementrequirementid">
             </autoReconcile>
             <autoReconcile
                   Bridge_NumElements="Getimportedprovisioncount"
-                  Bridge_GetConnectorID="Hasimportedprovision"
+                  Bridge_ConnectorExists="Hasimportedprovision"
                   Bridge_GetElementID="Getimportedprovisionid"
                   targetSymbol="Imported Provided Interface"
-                  Bridge_NumConnectors="Getimportedprovisionprovisionid">
+                  Bridge_GetConnectorIDConditional="Getimportedprovisionprovisionid">
             </autoReconcile>
             <autoReconcile
                   Bridge_NumElements="Getimportedrequirementcount"
-                  Bridge_GetConnectorID="Hasimportedrequirement"
+                  Bridge_ConnectorExists="Hasimportedrequirement"
                   Bridge_GetElementID="Getimportedrequirementid"
                   targetSymbol="Imported Required Interface"
-                  Bridge_NumConnectors="Getimportedrequirementrequirementid">
+                  Bridge_GetConnectorIDConditional="Getimportedrequirementrequirementid">
             </autoReconcile>
          </symbol>
          <symbol
@@ -2252,13 +2244,13 @@
             </dependsOn>
             <autoReconcile
                   Bridge_NumElements="Getsatisfactioncount"
-                  Bridge_GetConnectorID=""
+                  Bridge_ConnectorExists="marker for boolean paramater"
                   Bridge_GetElementID=""
                   targetSymbol="Provided Interface">
             </autoReconcile>
             <autoReconcile
                   Bridge_NumElements="Getsatisfactioncount"
-                  Bridge_GetConnectorID=""
+                  Bridge_ConnectorExists="marker for boolean paramater"
                   Bridge_GetElementID=""
                   targetSymbol="Imported Provided Interface">
             </autoReconcile>
@@ -2362,13 +2354,13 @@
             </dependsOn>
             <autoReconcile
                   Bridge_NumElements="Getsatisfactioncount"
-                  Bridge_GetConnectorID=""
+                  Bridge_ConnectorExists="marker for boolean paramater"
                   Bridge_GetElementID=""
                   targetSymbol="Provided Interface">
             </autoReconcile>
             <autoReconcile
                   Bridge_NumElements="Getsatisfactioncount"
-                  Bridge_GetConnectorID=""
+                  Bridge_ConnectorExists="marker for boolean paramater"
                   Bridge_GetElementID=""
                   targetSymbol="Imported Provided Interface">
             </autoReconcile>
@@ -2422,7 +2414,7 @@
                targetSymbol="Package"
                Bridge_NumElements="Getpckgcount"
                Bridge_GetElementID="Getpckgid"
-               Bridge_GetConnectorID=""/>
+               />
          </defaultFor>
          <defaultFor
                class="org.xtuml.bp.core.Package_c"
@@ -2490,167 +2482,167 @@
                targetSymbol="User Data Type"
                Bridge_NumElements="Getudtcount"
                Bridge_GetElementID="Getudtid"
-               Bridge_GetConnectorID=""/> 
+               /> 
             <autoReconcile
                targetSymbol="Actor"
                Bridge_NumElements="Getactorcount"
                Bridge_GetElementID="Getactorid"
-               Bridge_GetConnectorID=""/> 
+               /> 
             <autoReconcile
                targetSymbol="Use Case"
                Bridge_NumElements="Getusecasecount"
                Bridge_GetElementID="Getusecaseid"
-               Bridge_GetConnectorID=""/> 
+               /> 
             <autoReconcile
                targetSymbol="Send Signal Action"
                Bridge_NumElements="Getsendsigactioncount"
                Bridge_GetElementID="Getsendsigactionid"
-               Bridge_GetConnectorID=""/>
+               />
             <autoReconcile
                targetSymbol="Accept Event Action"
                Bridge_NumElements="Getacceptevtactioncount"
                Bridge_GetElementID="Getacceptevtactionid"
-               Bridge_GetConnectorID=""/>  
+               />  
             <autoReconcile
                targetSymbol="Accept Time Event Action"
                Bridge_NumElements="Getaccepttimeevtactioncount"
                Bridge_GetElementID="Getaccepttimeevtactionid"
-               Bridge_GetConnectorID=""/>
+               />
             <autoReconcile
                targetSymbol="Action"
                Bridge_NumElements="Getactioncount"
                Bridge_GetElementID="Getactionid"
-               Bridge_GetConnectorID=""/>
+               />
             <autoReconcile
                targetSymbol="Class"
                Bridge_NumElements="Getclasscount"
                Bridge_GetElementID="Getclassid"
-               Bridge_GetConnectorID=""
+               
                class="org.xtuml.bp.core.ModelClass_c" />     
             <autoReconcile
                targetSymbol="Component"
                Bridge_NumElements="Getcomponentcount"
                Bridge_GetElementID="Getcomponentid"
-               Bridge_GetConnectorID=""
+               
                class="org.xtuml.bp.core.Component_c"/>     
             <autoReconcile
                targetSymbol="Component Reference"
                Bridge_NumElements="Getcomprefcount"
                Bridge_GetElementID="Getcomprefid"
-               Bridge_GetConnectorID=""/>     
+               />     
             <autoReconcile
                targetSymbol="Interface"
                Bridge_NumElements="Getifacecount"
                Bridge_GetElementID="Getifaceid"
-               Bridge_GetConnectorID=""/>     
+               />     
             <autoReconcile
                targetSymbol="Constant Specification"
                Bridge_NumElements="Getconstspeccount"
                Bridge_GetElementID="Getconstspecid"
-               Bridge_GetConnectorID=""/>     
+               />     
             <autoReconcile
                targetSymbol="Structured Data Type"
                Bridge_NumElements="Getsdtcount"
                Bridge_GetElementID="Getsdtid"
-               Bridge_GetConnectorID=""/>     
+               />     
             <autoReconcile
                targetSymbol="Enumeration Data Type"
                Bridge_NumElements="Getedtcount"
                Bridge_GetElementID="Getedtid"
-               Bridge_GetConnectorID=""/>     
+               />     
             <autoReconcile
                targetSymbol="Component"
                Bridge_NumElements="Getcomppartcount"
                Bridge_GetElementID="Getcomppartid"
-               Bridge_GetConnectorID=""
+               
                class="org.xtuml.bp.core.ComponentParticipant_c"/>     
             <autoReconcile
                targetSymbol="Instance"
                Bridge_NumElements="Getinstancecount"
                Bridge_GetElementID="Getinstanceid"
-               Bridge_GetConnectorID=""/>     
+               />     
             <autoReconcile
                targetSymbol="External Entity"
                Bridge_NumElements="Geteecount"
                Bridge_GetElementID="Geteeid"
-               Bridge_GetConnectorID=""
+               
                class="org.xtuml.bp.core.ExternalEntity_c" />   
             <autoReconcile
                targetSymbol="Package Participant"
                Bridge_NumElements="Getpkgpartcount"
                Bridge_GetElementID="Getpkgpartid"
-               Bridge_GetConnectorID=""/>   
+               />   
             <autoReconcile
                targetSymbol="Class"
                Bridge_NumElements="Getclasspartcount"
                Bridge_GetElementID="Getclasspartid"
-               Bridge_GetConnectorID=""
+               
                class="org.xtuml.bp.core.ClassParticipant_c" />   
             <autoReconcile
                targetSymbol="Object Node"
                Bridge_NumElements="Getobjectnodecount"
                Bridge_GetElementID="Getobjectnodeid"
-               Bridge_GetConnectorID=""/>   
+               />   
             <autoReconcile
                targetSymbol="Decision/Merge Node"
                Bridge_NumElements="Getdecmergenodecount"
                Bridge_GetElementID="Getdecmergenodeid"
-               Bridge_GetConnectorID=""/>   
+               />   
             <autoReconcile
                targetSymbol="Initial Node"
                Bridge_NumElements="Getinitnodecount"
                Bridge_GetElementID="Getinitnodeid"
-               Bridge_GetConnectorID=""/>   
+               />   
             <autoReconcile
                targetSymbol="Activity Final Node"
                Bridge_NumElements="Getactfinalnodecount"
                Bridge_GetElementID="Getactfinalnodeid"
-               Bridge_GetConnectorID=""/>   
+               />   
             <autoReconcile
                targetSymbol="Flow Final Node"
                Bridge_NumElements="Getflowfinalnodecount"
                Bridge_GetElementID="Getflowfinalnodeid"
-               Bridge_GetConnectorID=""/>   
+               />   
             <autoReconcile
                targetSymbol="Imported Class"
                Bridge_NumElements="Geticlasscount"
                Bridge_GetElementID="Geticlassid"
-               Bridge_GetConnectorID=""/>              
+               />              
             <autoReconcile
                targetSymbol="External Entity"
                Bridge_NumElements="Geteepartcount"
                Bridge_GetElementID="Geteepartid"
-               Bridge_GetConnectorID=""
+               
                class="org.xtuml.bp.core.ExternalEntityParticipant_c" />              
             <autoReconcile
                targetSymbol="Package"
                Bridge_NumElements="Getpckgcount"
                Bridge_GetElementID="Getpckgid"
-               Bridge_GetConnectorID=""
+               
                class="org.xtuml.bp.core.Package_c" />              
            <autoReconcile
                targetSymbol="Provided Interface"
                Bridge_NumElements="Getprovisioncount"
                Bridge_GetElementID="Getprovisionid"
-               Bridge_GetConnectorID="Hasprovision"/>
+               Bridge_ConnectorExists="Hasprovision"/>
           <autoReconcile
                targetSymbol="Required Interface"
                Bridge_NumElements="Getrequirementcount"
                Bridge_GetElementID="Getrequirementid"
-               Bridge_GetConnectorID="Hasrequirement"/>
+               Bridge_ConnectorExists="Hasrequirement"/>
      
          <autoReconcile
                targetSymbol="Imported Provided Interface"
                Bridge_NumElements="Getimportedprovisioncount"
                Bridge_GetElementID="Getimportedprovisionid"
-               Bridge_GetConnectorID="Hasimportedprovision"
-               Bridge_NumConnectors="Getimportedprovisionprovisionid"/>
+               Bridge_ConnectorExists="Hasimportedprovision"
+               Bridge_GetConnectorIDConditional="Getimportedprovisionprovisionid"/>
          <autoReconcile
                targetSymbol="Imported Required Interface"
                Bridge_NumElements="Getimportedrequirementcount"
                Bridge_GetElementID="Getimportedrequirementid"
-               Bridge_GetConnectorID="Hasimportedrequirement"
-               Bridge_NumConnectors="Getimportedrequirementrequirementid"/>
+               Bridge_ConnectorExists="Hasimportedrequirement"
+               Bridge_GetConnectorIDConditional="Getimportedrequirementrequirementid"/>
                
          </defaultFor>
          <defaultFor
@@ -2702,49 +2694,49 @@
                class="org.xtuml.bp.core.Component_c"
                Bridge_NumElements="Getcomponentcount"
                Bridge_GetElementID="Getcomponentid"
-               Bridge_GetConnectorID=""/>  
+               />  
             <autoReconcile
                targetSymbol="Component Reference"
                Bridge_NumElements="Getcomponentrefcount"
                Bridge_GetElementID="Getcomponentrefid"
-               Bridge_GetConnectorID=""/>       
+               />       
             <autoReconcile
                targetSymbol="Package"
                Bridge_NumElements="Getpkgcount"
                Bridge_GetElementID="Getpkgid"
-               Bridge_GetConnectorID=""/>       
+               />       
             <autoReconcile
                targetSymbol="Interface"
                Bridge_NumElements="Getifacecount"
                Bridge_GetElementID="Getifaceid"
-               Bridge_GetConnectorID=""/>       
+               />       
             <autoReconcile
                targetSymbol="User Data Type"
                Bridge_NumElements="Getudtcount"
                Bridge_GetElementID="Getudtid"
-               Bridge_GetConnectorID=""/>       
+               />       
             <autoReconcile
                targetSymbol="Provided Interface"
                Bridge_NumElements="Getprovisioncount"
                Bridge_GetElementID="Getprovisionid"
-               Bridge_GetConnectorID="Hasimportedprovision"/>
+               Bridge_ConnectorExists="Hasimportedprovision"/>
             <autoReconcile
                targetSymbol="Required Interface"
                Bridge_NumElements="Getrequirementcount"
                Bridge_GetElementID="Getrequirementid"
-               Bridge_GetConnectorID="Hasimportedrequirement"/>
+               Bridge_ConnectorExists="Hasimportedrequirement"/>
 
           <autoReconcile
                targetSymbol="Imported Provided Interface"
                Bridge_NumElements="Getimportedprovisioncount"
                Bridge_GetElementID="Getimportedprovisionid"
-               Bridge_GetConnectorID="Hasimportedprovision"
+               Bridge_ConnectorExists="Hasimportedprovision"
               />
           <autoReconcile
                targetSymbol="Imported Required Interface"
                Bridge_NumElements="Getimportedrequirementcount"
                Bridge_GetElementID="Getimportedrequirementid"
-               Bridge_GetConnectorID="Hasimportedrequirement"
+               Bridge_ConnectorExists="Hasimportedrequirement"
                />               
          </defaultFor>
          <defaultFor
@@ -2770,7 +2762,7 @@
                targetSymbol="State"
                Bridge_NumElements="Getstatecount"
                Bridge_GetElementID="Getstateid"
-               Bridge_GetConnectorID=""/>  
+               />  
          </defaultFor>
          <defaultFor
                class="org.xtuml.bp.core.ClassStateMachine_c"
@@ -2792,7 +2784,7 @@
                targetSymbol="State"
                Bridge_NumElements="Getstatecount"
                Bridge_GetElementID="Getstateid"
-               Bridge_GetConnectorID=""/>   
+               />   
          </defaultFor>
       </editor>
       
