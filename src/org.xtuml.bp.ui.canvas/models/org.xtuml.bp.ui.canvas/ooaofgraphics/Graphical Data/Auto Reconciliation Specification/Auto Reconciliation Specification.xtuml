@@ -260,8 +260,8 @@ INSERT INTO O_TFR
 count = 0;
 // Get the count of shapes in the model (i.e the number of classes in the class Diagram)
 // This conditional expression is  here to assure we are only calling this for 
-// shapes. The Bridge_GetConnectorID is not used for shapes.
-if (self.Bridge_GetConnectorID == "")
+// shapes. The Bridge_ConnectorExists is not used for shapes.
+if (self.Bridge_ConnectorExists == "")
   count = CL::numElements( from:model.represents,using:self.Bridge_NumElements);
 end if;
 i=0;	 
@@ -336,7 +336,7 @@ if(graphicalElement.represents != OS::NULL_INSTANCE() and CL::isContainedInSyste
   select one targetSpec related by self->GD_ES[R31];
 
   // do not try to determine if connectors exist when the existsMethod is empty
-  if(self.Bridge_GetConnectorID != "")
+  if(self.Bridge_ConnectorExists != "")
     select many startCons related by graphicalElement->DIM_GE[R23]->
                             DIM_CON[R311]->DIM_ED[R320]->GD_CON[R20]->GD_GE[R2];
     select many endCons related by graphicalElement->DIM_GE[R23]->
@@ -357,7 +357,7 @@ if(graphicalElement.represents != OS::NULL_INSTANCE() and CL::isContainedInSyste
         if not CL::hasConnector(
                              element_id:CL::getOOAId(from:startCon.represents),
                              instance:graphicalElement.represents,
-                             methodName:self.Bridge_GetConnectorID,
+                             methodName:self.Bridge_ConnectorExists,
                              elementTypesMatch:sourceSpec == targetSpec) and param.removeElements
           // if the connector is going to be disposed
           // and there are other connectors anchored
@@ -424,7 +424,7 @@ if(graphicalElement.represents != OS::NULL_INSTANCE() and CL::isContainedInSyste
         if not CL::hasConnector(
                              element_id:CL::getOOAId(from:endCon.represents),
       	                     instance:graphicalElement.represents,
-                             methodName:self.Bridge_GetConnectorID,
+                             methodName:self.Bridge_ConnectorExists,
                              elementTypesMatch:sourceSpec == targetSpec) and param.removeElements
           // if the connector is going to be disposed
           // and there are other connectors anchored
@@ -450,31 +450,45 @@ if(graphicalElement.represents != OS::NULL_INSTANCE() and CL::isContainedInSyste
         end if;
       end if; // if(endConSpec == targetSpec)
     end for; // for each endCon in endCons
-  end if; //  if(self.Bridge_GetConnectorID != "")
+  end if; //  if(self.Bridge_ConnectorExists != "")
 
   // This will create connectors if missing  
   // this is the operation used to get the ooaofooaid of a missing connector for this type of element
-  if(self.Bridge_NumConnectors != "") 
+  if(self.Bridge_NumElements != "") 
     // reselect the connectors in case any were removed above
     select many startCons related by graphicalElement->DIM_GE[R23]->
                             DIM_CON[R311]->DIM_ED[R320]->GD_CON[R20]->GD_GE[R2];
     select many endCons related by graphicalElement->DIM_GE[R23]->
                             DIM_CON[R311]->DIM_ED[R321]->GD_CON[R20]->GD_GE[R2];
-    count = CL::numConnectors( from:graphicalElement.represents,
+    // The pei data uses Bridge_NumElements to hold the ooaofooa operation name
+    // to call to get the count of these elements. However, sometimes this call
+    // uses a boolean paramater and sometimes it does not. The boolean
+    // is required for connector elements associated with delegations
+    // (where source spec and targetspec may not match).
+    useNumConnectorsBridge = true;
+    count=0;
+    if (self.Bridge_ConnectorExists != "")
+      count = CL::numConnectors( from:graphicalElement.represents,
                              elementTypesMatch:sourceSpec == targetSpec,
                              using:self.Bridge_NumElements);
+    else
+      useNumConnectorsBridge = false;
+      count = CL::numElements( from:graphicalElement.represents,
+                             using:self.Bridge_NumElements);
+    end if;
     // do not process if the element method == not used
     if (count > 0)
       i = 0;
       while (i < count)
-        // TODO: This should not be Bridge_GetElementID, it should be 
-        // Bridge_NumConnectors?
-        // and if that is true, then this section can be wrapped to assure
-        // it is only called when connectorMethod is used.  The issue here is that
-        // connectorMethid takes a boolean and Bridge_GetElementID does not
-        connectorId = CL::getConnectorID(from:graphicalElement.represents,
+        connectorId = OS::NULL_UNIQUE_ID();
+        if (useNumConnectorsBridge)
+          connectorId = CL::getConnectorID(from:graphicalElement.represents,
                           elementTypesMatch:sourceSpec == targetSpec,
                           index:i, using:self.Bridge_GetElementID);  	
+        else
+          connectorId = CL::getElementID(from:graphicalElement.represents,
+                          index:i, using:self.Bridge_GetElementID);  	
+        end if;
         foundMatchingStart = false;
         for each startCon in startCons
           if (startCon.represents == OS::NULL_INSTANCE())
@@ -512,13 +526,16 @@ if(graphicalElement.represents != OS::NULL_INSTANCE() and CL::isContainedInSyste
           i = i + 1;
           continue;
         end if;
-  	    
-  	    templateConId = OS::NULL_UNIQUE_ID();
-  	    if self.Bridge_NumConnectors != ""
+
+        templateConId = OS::NULL_UNIQUE_ID();
+        if (useNumConnectorsBridge)  
   	      templateConId = CL::getConnectorID(from:graphicalElement.represents,
                    index:i, elementTypesMatch:sourceSpec == targetSpec,
                                               using:self.Bridge_NumConnectors);
-  	    end if;
+        else
+  	      templateConId = CL::getElementID(from:graphicalElement.represents, index:i, 
+                                              using:self.Bridge_NumConnectors);
+        end if;
   	    if templateConId == OS::NULL_UNIQUE_ID()
   	      templateConId = connectorId;
   	    end if;
@@ -533,8 +550,13 @@ if(graphicalElement.represents != OS::NULL_INSTANCE() and CL::isContainedInSyste
       end while; // (i < count)
         
     else // handle connector reconcile
-      count = CL::numConnectors(from:graphicalElement.represents,
+      if (useNumConnectorsBridge)
+        count = CL::numConnectors(from:graphicalElement.represents,
             elementTypesMatch:sourceSpec == targetSpec, using:self.Bridge_NumElements);
+      else
+        count = CL::numElements(from:graphicalElement.represents,
+            using:self.Bridge_NumElements);
+      end if;
       if count == 0
         select one con related by graphicalElement->DIM_GE[R23]->
                                                     DIM_ED[R301]->DIM_CON[R321];
@@ -605,7 +627,7 @@ if(not empty modelSpec)
   for each model in models
     //Get the count of shapes in the model (i.e the number of classes in the class Diagram)
     count = 0;
-    if ((self.Bridge_GetConnectorID == ""))
+    if ((self.Bridge_ConnectorExists == ""))
       count = CL::numElements( from:model.represents,using:self.Bridge_NumElements);
     end if;
     //select many graphicalConnectors related by model -> GD_GE[R1]->GD_CON[R2]->GD_GE[R2];
@@ -657,6 +679,11 @@ if(not empty modelSpec)
                             DIM_CON[R311]->DIM_ED[R320]->GD_CON[R20]->GD_GE[R2];
       select many endCons related by autoCreateShape->DIM_GE[R23]->
                             DIM_CON[R311]->DIM_ED[R321]->GD_CON[R20]->GD_GE[R2];
+      // BOB WARNNIG***
+      // places where calls to numconnectors are used in combination with the
+      // Bridge_NumElements attribute, in the OAL that is not obsolete I
+      // added a conditional expression to check for use of the Bridge_ConnectorExists
+      // If for some reason you (BOB) use this code, you must do this.
       connectorCount = CL::numConnectors( from:autoCreateShape.represents,
                              elementTypesMatch:sourceSpec == targetSpec,
                              using:self.Bridge_NumElements);
@@ -730,6 +757,11 @@ if(not empty modelSpec)
                                            OOA_Type:autoCreateShape.OOA_Type );
       end if;
 
+      // BOB WARNNIG***
+      // places where calls to numconnectors are used in combination with the
+      // Bridge_NumElements attribute, in the OAL that is not obsolete I
+      // added a conditional expression to check for use of the Bridge_ConnectorExists
+      // If for some reason you (BOB) use this code, you must do this.
       connectorCount = CL::numConnectors(from:autoCreateShape.represents,
                     elementTypesMatch:sourceSpec == targetSpec, using:self.Bridge_NumElements);
       x=0;
@@ -797,7 +829,7 @@ if(not empty spec or not empty modelSpec)
         if not CL::hasConnector(
                              element_id:CL::getOOAId(from:startCon.represents),
                              instance:autoCreateShape.represents,
-                             methodName:self.Bridge_GetConnectorID,
+                             methodName:self.Bridge_ConnectorExists,
                              elementTypesMatch:sourceSpec == targetSpec) and param.removeElements 
           // if the connector is going to be disposed
           // and there are other connectors anchored
@@ -835,7 +867,7 @@ if(not empty spec or not empty modelSpec)
         if not CL::hasConnector(
                              element_id:CL::getOOAId(from:endCon.represents),
                              instance:autoCreateShape.represents,
-                             methodName:self.Bridge_GetConnectorID,
+                             methodName:self.Bridge_ConnectorExists,
                              elementTypesMatch:sourceSpec == targetSpec) and param.removeElements
           // if the connector is going to be disposed
           // and there are other connectors anchored
@@ -873,6 +905,11 @@ if(not empty spec or not empty modelSpec)
     if (count > 0)
       i = 0;
       while (i < count)
+      // BOB WARNNIG***
+      // places where calls to numconnectors are used in combination with the
+      // Bridge_NumElements attribute, in the OAL that is not obsolete I
+      // added a conditional expression to check for use of the Bridge_ConnectorExists
+      // If for some reason you (BOB) use this code, you must do this.
         connectorId = CL::getConnectorID(from:autoCreateShape.represents,
                           elementTypesMatch:sourceSpec == targetSpec,
                           index:i, using:self.Bridge_GetElementID);
@@ -931,6 +968,11 @@ if(not empty spec or not empty modelSpec)
         i = i + 1;
       end while;  // i < count
     else // handle connector reconcile
+      // BOB WARNNIG***
+      // places where calls to numconnectors are used in combination with the
+      // Bridge_NumElements attribute, in the OAL that is not obsolete I
+      // added a conditional expression to check for use of the Bridge_ConnectorExists
+      // If for some reason you (BOB) use this code, you must do this.
       count = CL::numConnectors(from:autoCreateShape.represents,
             elementTypesMatch:sourceSpec == targetSpec, using:self.Bridge_NumElements);
       if count == 0
@@ -1017,10 +1059,21 @@ if( CL::isContainedInSystem(element:graphicalElement.represents, system_id:param
   if (self.Bridge_NumElements != "" )
       connectorCount = 0;
       select one elementSpec related by graphicalElement->GD_ES[R10];
-    
-      connectorCount = CL::numConnectors( from:graphicalElement.represents,
+      // The pei data uses Bridge_NumElements to hold the ooaofooa operation name
+      // to call to get the count of these elements. However, sometimes this call
+      // uses a boolean paramater and sometimes it does not. The boolean
+      // is required for connector elements associated with delegations
+      // (where source spec and targetspec may not match).
+      useNumConnectorsBridge = true;
+      if (self.Bridge_ConnectorExists != "")
+        connectorCount = CL::numConnectors( from:graphicalElement.represents,
                              elementTypesMatch:sourceSpec == targetSpec,
                              using:self.Bridge_NumElements);
+      else
+        useNumConnectorsBridge = false;
+        connectorCount = CL::numElements( from:graphicalElement.represents,
+                             using:self.Bridge_NumElements);
+      end if;
       CL::traceOperation(message:"Processing GD_GE.diagramId: " + OS::uniqueIdToString(id:graphicalElement.diagramId) + 
      					"\nGD_GE.OOA_TYPE: " + OS::ooaTypeToString(id:graphicalElement.OOA_Type) +
      					"\nGD_GE.representsPath: " + graphicalElement.represents_path +
@@ -1028,15 +1081,21 @@ if( CL::isContainedInSystem(element:graphicalElement.represents, system_id:param
       					"\nGD_ES.toolCategory: " + elementSpec.toolCategory +
       					"\nGD_ARS.Bridge_GetElementID: " + self.Bridge_GetElementID +
       					"\nGD_ARS.Bridge_NumConnectors: " + self.Bridge_NumConnectors  +
-      					"\nGD_ARS.Bridge_GetConnectorID: " + self.Bridge_GetConnectorID +
+      					"\nGD_ARS.Bridge_ConnectorExists: " + self.Bridge_ConnectorExists +
       					"\nNumberConnectors: " + OS::intToString(value:connectorCount)
       					);
     if (connectorCount > 0 and self.Bridge_GetElementID != "")  
       j = 0;
       while (j < connectorCount)
-        connectorId = CL::getConnectorID(from:graphicalElement.represents,
+        connectorId = OS::NULL_UNIQUE_ID();
+        if (useNumConnectorsBridge)
+          connectorId = CL::getConnectorID(from:graphicalElement.represents,
                           elementTypesMatch:sourceSpec == targetSpec,
                           index:j, using:self.Bridge_GetElementID);
+        else
+          connectorId = CL::getElementID(from:graphicalElement.represents,
+                          index:j, using:self.Bridge_GetElementID);
+        end if;
         foundMatchingStart = false;
         for each startCon in startCons
           if (startCon.represents == OS::NULL_INSTANCE())
@@ -1075,7 +1134,7 @@ if( CL::isContainedInSystem(element:graphicalElement.represents, system_id:param
 
   	    templateConId = CL::getConnectorID(from:graphicalElement.represents,
                    index:j, elementTypesMatch:sourceSpec == targetSpec,
-                                              using:self.Bridge_NumConnectors);
+                                              using:self.Bridge_GetConnectorIDConditional);
   	    if templateConId == OS::NULL_UNIQUE_ID()
   	      templateConId = connectorId;
   	    end if;
@@ -1177,7 +1236,7 @@ INSERT INTO O_TFR
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select any graphicalElement related by self->GD_ES[R29]->GD_GE[R10] where selected.elementId==param.element_id;
-  if(self.Bridge_GetConnectorID != "")
+  if(self.Bridge_ConnectorExists != "")
     select many startCons related by graphicalElement->DIM_GE[R23]->
                             DIM_CON[R311]->DIM_ED[R320]->GD_CON[R20]->GD_GE[R2];
     select many endCons related by graphicalElement->DIM_GE[R23]->
@@ -1200,7 +1259,7 @@ INSERT INTO O_TFR
         if not CL::hasConnector(
                              element_id:CL::getOOAId(from:startCon.represents),
                              instance:graphicalElement.represents,
-                             methodName:self.Bridge_GetConnectorID,
+                             methodName:self.Bridge_ConnectorExists,
                              elementTypesMatch:sourceSpec == targetSpec) and param.removeElements
           // if the connector is going to be disposed
           // and there are other connectors anchored
@@ -1267,7 +1326,7 @@ INSERT INTO O_TFR
         if not CL::hasConnector(
                              element_id:CL::getOOAId(from:endCon.represents),
       	                     instance:graphicalElement.represents,
-                             methodName:self.Bridge_GetConnectorID,
+                             methodName:self.Bridge_ConnectorExists,
                              elementTypesMatch:sourceSpec == targetSpec) and param.removeElements
           // if the connector is going to be disposed
           // and there are other connectors anchored
@@ -1431,10 +1490,10 @@ INSERT INTO O_ATTR
 	VALUES ("b573c171-3dcd-41ed-ae67-a9ac0543c13e",
 	"0849862c-76a0-4d0f-bb84-cf5aef617874",
 	"68ea2f93-55cb-4a7c-a507-cb897697c920",
-	'Bridge_GetConnectorID',
+	'Bridge_ConnectorExists',
 	'',
 	'',
-	'Bridge_GetConnectorID',
+	'Bridge_ConnectorExists',
 	0,
 	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
@@ -1646,6 +1705,24 @@ INSERT INTO O_ATTR
 	'Model_Type',
 	0,
 	"ba5eda7a-def5-0000-0000-000000000007",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("1b7b6a4b-0748-486f-a3fd-e4ca6db72ce0",
+	"0849862c-76a0-4d0f-bb84-cf5aef617874");
+INSERT INTO O_BATTR
+	VALUES ("1b7b6a4b-0748-486f-a3fd-e4ca6db72ce0",
+	"0849862c-76a0-4d0f-bb84-cf5aef617874");
+INSERT INTO O_ATTR
+	VALUES ("1b7b6a4b-0748-486f-a3fd-e4ca6db72ce0",
+	"0849862c-76a0-4d0f-bb84-cf5aef617874",
+	"45f1b8ac-2115-4a50-9b6a-eacd460b724e",
+	'Bridge_GetConnectorIDConditional',
+	'',
+	'',
+	'Bridge_GetConnectorIDConditional',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_ID
