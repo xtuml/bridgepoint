@@ -73,6 +73,7 @@ This file is the plugin manifest for the BridgePoint core plugin.
    <extension point = "org.eclipse.ui.elementFactories">
        <factory id ="org.xtuml.bp.ui.text.activity.factory" class="org.xtuml.bp.ui.text.activity.ActivityEditorInputFactory"/>
        <factory id ="org.xtuml.bp.ui.text.description.factory" class="org.xtuml.bp.ui.text.description.DescriptionEditorInputFactory"/>
+       <factory id ="org.xtuml.bp.ui.text.masl.factory" class="org.xtuml.bp.ui.text.masl.MASLEditorInputFactory"/>
    </extension>
 
    <extension
@@ -96,6 +97,18 @@ This file is the plugin manifest for the BridgePoint core plugin.
             contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor"
             class="org.xtuml.bp.ui.text.activity.ActivityEditor"
             id="org.xtuml.bp.ui.text.activity.ActivityEditor">
+      </editor>
+   </extension>
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            name="MASL Editor"
+            default="true"
+            icon="platform:/plugin/org.xtuml.bp.core/icons/edit_oal.gif"
+            extensions="masl"
+            contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor"
+            class="org.xtuml.bp.ui.text.masl.MASLEditor"
+            id="org.xtuml.bp.ui.text.masl.MASLEditor">
       </editor>
    </extension>
 
@@ -157,6 +170,36 @@ This file is the plugin manifest for the BridgePoint core plugin.
                menubarPath="org.xtuml.bp.ui.openroot/org.xtuml.bp.ui.openmenu"
                enablesFor="1"
                id="org.xtuml.bp.ui.text.activity.ShowActivityEditorAction${index}">
+         </action>
+  .if ( obj.Key_Lett == "O_ATTR" )
+    .// only show this contribution if it is a derived attribute
+         <filter name="subtype" value="O_DBATTR" />
+  .end if
+      </objectContribution>
+.end for
+   </extension>
+   <extension
+         id="org.xtuml.bp.ui.text.MASLEditorAction"
+         name="MASL Editor"
+         point="org.eclipse.ui.popupMenus">
+.assign index = 0
+.for each obj in oal_obj_set
+  .select any clr_obj from instances of NAV_OBJ where (selected.src_key_lett == obj.key_lett)
+  .if (not_empty clr_obj)
+    .select any obj from instances of O_OBJ where (selected.key_lett == clr_obj.tgt_key_lett)
+  .end if
+  .assign index = index + 1
+      <objectContribution
+            objectClass="org.xtuml.bp.core.$cr{obj.name}_c"
+            adaptable="true"
+            id="org.xtuml.bp.ui.text.contribution${index}">
+         <action
+               label="MASL Editor"
+               icon="platform:/plugin/org.xtuml.bp.core/icons/edit_oal.gif"
+               class="org.xtuml.bp.ui.text.masl.ShowMASLAction"
+               menubarPath="org.xtuml.bp.ui.openroot/org.xtuml.bp.ui.openmenu"
+               enablesFor="1"
+               id="org.xtuml.bp.ui.text.masl.ShowMASLEditorAction${index}">
          </action>
   .if ( obj.Key_Lett == "O_ATTR" )
     .// only show this contribution if it is a derived attribute
