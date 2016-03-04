@@ -19,9 +19,15 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.part.FileEditorInputFactory;
+import org.xtuml.bp.core.Port_c;
+import org.xtuml.bp.core.RequiredOperation_c;
+import org.xtuml.bp.core.RequiredSignal_c;
 import org.xtuml.bp.core.common.NonRootModelElement;
+import org.xtuml.bp.core.inspector.IModelClassInspector;
+import org.xtuml.bp.core.inspector.ModelInspector;
 import org.xtuml.bp.ui.text.ModelElementID;
 
 /**
@@ -52,36 +58,57 @@ public class MASLEditorInputFactory extends FileEditorInputFactory {
 		}
                 */
 
-                String name = null;
+		NonRootModelElement modelElement = null;
                 IFile file = null;
 		
 		// If editor input is created from model element
 		if(inputObject instanceof NonRootModelElement){
-			NonRootModelElement modelElement = (NonRootModelElement)inputObject;
-                        name = modelElement.getName();
+		    modelElement = (NonRootModelElement)inputObject;
 		}
                 else if(inputObject instanceof IFile) {
-			file = (IFile)inputObject;
+		    file = (IFile)inputObject;
 		}else if(inputObject instanceof ModelElementID){
-			ModelElementID modelElementID = (ModelElementID)inputObject;
-			name = modelElementID.resolve().getName();
+		    ModelElementID modelElementID = (ModelElementID)inputObject;
+		    modelElement = modelElementID.resolve();
 		}
 
-		if ( file == null && name != null ) {
-			IWorkspaceRoot workspace = ResourcesPlugin.getWorkspace().getRoot();
-			IProject project = workspace.getProject( "Tracking" );
-			IFolder folder = project.getFolder( "models" );
-			file = folder.getFile( name + ".masl" );
-			if ( !file.exists() ) {
-				byte[] bytes = "".getBytes();
-				InputStream source = new ByteArrayInputStream(bytes);
-				file.create(source, IResource.NONE, null);
-			}
+		if ( file == null && modelElement != null ) {
+                    //System.out.println(modelElement.getClass().getName());
+                    //System.out.println(getParent(modelElement).getClass().getName());
+                    //System.out.println(getParent(getParent(modelElement)).getClass().getName());
+
+                    // get name
+                    String name;
+                    if ( ( modelElement instanceof RequiredOperation_c || modelElement instanceof RequiredSignal_c ) &&
+                            getParent(getParent(modelElement)) instanceof Port_c ) {
+                        name = getParent(getParent(modelElement)).getName() + "_" + modelElement.getName();
+                    }
+                    else {
+                        name = modelElement.getName();
+                    }
+
+                    IPath path = modelElement.getFile().getFullPath();
+                    IWorkspaceRoot workspace = ResourcesPlugin.getWorkspace().getRoot();
+                    IProject project = workspace.getProject( path.segment(0) );
+                    IFolder folder = project.getFolder( path.removeFirstSegments(1).removeLastSegments(1).toOSString() );
+                    file = folder.getFile( name + ".masl" );
+                    if ( !file.exists() ) {
+                        byte[] bytes = "".getBytes();
+                        InputStream source = new ByteArrayInputStream(bytes);
+                        file.create(source, IResource.NONE, null);
+                    }
 		}
 	
 		IEditorInput input = new MASLEditorInput(file);
 		
 		return input;
 	}
+
+        private NonRootModelElement getParent( NonRootModelElement element ) {
+            if ( element == null ) return null;
+            ModelInspector inspector = new ModelInspector();
+            IModelClassInspector elementInspector = inspector.getInspector(element.getClass());
+            return (NonRootModelElement)elementInspector.getParent(element);
+        }
 
 }
