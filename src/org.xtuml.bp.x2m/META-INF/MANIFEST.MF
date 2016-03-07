@@ -8,7 +8,6 @@ Bundle-Activator: org.xtuml.bp.x2m.X2MPlugin
 Bundle-Vendor: xtUML.org
 Export-Package: org.xtuml.bp.x2m,
  org.xtuml.bp.x2m.actions,
- org.xtuml.bp.x2m.ant.tasks,
  org.xtuml.bp.x2m.generator
 Require-Bundle: org.xtuml.bp.core,
  org.xtuml.bp.ui.explorer,

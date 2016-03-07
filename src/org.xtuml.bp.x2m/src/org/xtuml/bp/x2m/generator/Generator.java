@@ -27,6 +27,7 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
@@ -41,10 +42,16 @@ import org.eclipse.ui.console.IConsoleView;
 import org.eclipse.ui.console.MessageConsole;
 import org.eclipse.ui.console.MessageConsoleStream;
 import org.eclipse.ui.ide.IDE;
+import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.CorePlugin;
+import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.SystemModel_c;
+import org.xtuml.bp.core.common.PersistableModelComponent;
+import org.xtuml.bp.core.inspector.IModelClassInspector;
+import org.xtuml.bp.core.inspector.ModelInspector;
+import org.xtuml.bp.core.inspector.ObjectElement;
 import org.xtuml.bp.mc.AbstractActivator;
-import org.xtuml.bp.mc.AbstractNature;
+import org.xtuml.bp.mc.c.source.ExportBuilder;
 
 public class Generator extends Task {
     
@@ -52,8 +59,8 @@ public class Generator extends Task {
     public static final String X2M_CMD = "xtuml2masl";
     public static final String BIN_DIR = "/mc3020/bin/";
     public static final String X2M_EXE = "xtumlmc_build.exe";
-    public static final String MODELS_DIR = "models/";
-    public static final String MASL_DIR = "masl/";
+    public static final String MASL_DIR = "/masl/";
+    public static final String CODE_GEN_DIR = "/gen/code_generation/";
     public static final String LOGFILE = "export.log";
     public static final String CONSOLE_NAME = "Console";
     private static final int SLEEPTIME = 500;
@@ -71,37 +78,83 @@ public class Generator extends Task {
         msgbuf = myConsole.newMessageStream();
     }
     
-    public static void exportProject(SystemModel_c sys) {
+    public static void exportProject(Package_c pack) {
         if (self == null) {
             self = new Generator();
         }
+
+        // get the package name
+        String[] names = new String[1];
+        names[0] = pack.getName();
+
+        // get the system
+        SystemModel_c sys = (SystemModel_c)pack.getRoot();
         
-        exportMASL(sys, MASL_PROJECT);
+        // export the project
+        exportMASL(sys, MASL_PROJECT, names);
     }
 
-    public static void exportDomain(SystemModel_c sys) {
+    public static void exportDomain(Package_c pack) {
         if (self == null) {
             self = new Generator();
         }
         
-        exportMASL(sys, MASL_DOMAIN);
+        // get the component names
+        ArrayList<String> names = new ArrayList<String>();
+        if ( pack != null ) {
+            ModelInspector inspector = new ModelInspector();
+            IModelClassInspector elementInspector = inspector.getInspector(pack.getClass());
+            ObjectElement[] elements = elementInspector.getChildRelations(pack);
+            for ( ObjectElement el : elements ) {
+                Object val = el.getValue();
+                if ( val instanceof Component_c ) {
+                    names.add( ((Component_c)val).getName() );
+                }
+            }
+        }
+
+        String[] names_array = new String[names.size()];
+        names_array = names.toArray(names_array);
+
+        // get the system
+        SystemModel_c sys = (SystemModel_c)pack.getRoot();
+
+        // export the domain
+        exportMASL(sys, MASL_DOMAIN, names_array);
+    }
+
+    public static void exportDomain(Component_c comp) {
+        if (self == null) {
+            self = new Generator();
+        }
+
+        // get the component name
+        String[] names = new String[1];
+        names[0] = comp.getName();
+
+        // get the system
+        SystemModel_c sys = (SystemModel_c)comp.getRoot();
+        
+        // export the domain
+        exportMASL(sys, MASL_DOMAIN, names);
     }
  
     /*
      * The flow of this function is: 
      * - Run the xtuml2masl utility
      */
-    private static void exportMASL(final SystemModel_c sys, int type) {
+    private static void exportMASL(final SystemModel_c sys, final int export_type, final String[] names) {
 
         final IProject project = org.xtuml.bp.io.image.generator.Generator.getProject(sys);
-        final int export_type = type;
         
         boolean failed = false;
         
         if ( project != null ) {
             final String projPath = project.getLocation().toOSString();
             final IPath path = new Path(projPath + File.separator + MASL_DIR);
+            final IPath path2 = new Path(projPath + File.separator + CODE_GEN_DIR);
             final String destPath = path.toOSString();
+            final String codeGenPath = path2.toOSString();
 
             ProgressMonitorDialog pmd = new ProgressMonitorDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell());
             pmd.setCancelable(true);
@@ -121,7 +174,7 @@ public class Generator extends Task {
                             throws InvocationTargetException,
                             InterruptedException {
 
-                        int steps = 3;
+                        int steps = 5;
                         int curStep = 1;
 
                         if ( MASL_PROJECT == export_type ) monitor.beginTask("Exporting MASL project...", steps);
@@ -146,11 +199,24 @@ public class Generator extends Task {
                                     monitor.worked(1);
                                     break;
                                 case 2:
-                                    monitor.subTask("Processing model");
-                                    runExport(project, projPath, destPath, export_type);
+                                    monitor.subTask("Loading model");
+                                    PersistableModelComponent pmc = sys.getPersistableComponent();
+                                    pmc.loadComponentAndChildren(new NullProgressMonitor());
                                     monitor.worked(1);
                                     break;
                                 case 3:
+                                    monitor.subTask("Gathering model information");
+                                    ExportBuilder eb = new ExportBuilder();
+                                    new File(codeGenPath).mkdirs();
+                                    eb.exportSystem(sys, codeGenPath, new NullProgressMonitor());
+                                    monitor.worked(1);
+                                    break;
+                                case 4:
+                                    monitor.subTask("Processing model");
+                                    runExport(project, projPath, destPath, export_type, names);
+                                    monitor.worked(1);
+                                    break;
+                                case 5:
                                     monitor.subTask("Refreshing");
                                     project.refreshLocal(IResource.DEPTH_INFINITE, null);
                                     monitor.worked(1);
@@ -221,7 +287,7 @@ public class Generator extends Task {
         }*/
     }
 
-    private static void runExport(IProject project, String projPath, String workingDir, int type) 
+    private static void runExport(IProject project, String projPath, String workingDir, int type, String[] names) 
         throws IOException, RuntimeException, CoreException, InterruptedException 
     {
         // Call xtuml2masl
@@ -234,17 +300,27 @@ public class Generator extends Task {
 
         File err = new File(workingDir + LOGFILE);
 
+        String directive;
+        if ( MASL_PROJECT == type ) directive = "-p";
+        else if ( MASL_DOMAIN == type ) directive = "-d";
+        else return;
+
         // build the process
         ArrayList<String> cmd = new ArrayList<String>();
         cmd.add(app);
         cmd.add(X2M_CMD);
-        if ( MASL_PROJECT == type ) cmd.add("-p");
-        else if ( MASL_DOMAIN == type ) cmd.add("-d");
-        else return;
-        cmd.add(projPath + MODELS_DIR);
+        cmd.add("-i");
+        cmd.add(projPath);
+        for ( String name : names ) {
+            cmd.add(directive);
+            cmd.add(name);
+        }
         cmd.add("-o");
         cmd.add(workingDir);
+        cmd.add("-e");      // running within eclipse
         ProcessBuilder pb = new ProcessBuilder( cmd );
+
+        System.out.println( cmd );
 
         // set up the environment
         Map<String, String> env = pb.environment();
