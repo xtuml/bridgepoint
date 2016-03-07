@@ -53,7 +53,7 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	0,
-	'//GD_ARS::reconcileCanvas(rootElement:param.rootElement);
+	'GD_ARS::reconcileCanvas(rootElement:param.rootElement);
 
 select many allAutoRecSpecs from instances of GD_ARS;
 
@@ -78,6 +78,12 @@ for each autoReconcileSpec in allAutoRecSpecs
       reprocess = autoReconcileSpec.reconcileConnectorsStep1( system_id:param.system_id,
                                                  removeElements:param.removeElements,
                                                  element_id:graphicalElement.elementId);   
+    end while;
+    reprocess = true;
+    while (reprocess)
+      reprocess = autoReconcileSpec.reconcileConnectorsStep2( system_id:param.system_id,
+                                                 removeElements:param.removeElements,
+                                                 graphical_element_id:graphicalElement.elementId);   
     end while;
   end for;  
 end for;                                                 
