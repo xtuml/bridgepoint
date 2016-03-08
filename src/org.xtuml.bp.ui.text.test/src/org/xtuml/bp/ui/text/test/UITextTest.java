@@ -45,6 +45,7 @@ import org.eclipse.ui.texteditor.MarkerUtilities;
 import org.xtuml.bp.core.Association_c;
 import org.xtuml.bp.core.Attribute_c;
 import org.xtuml.bp.core.Bridge_c;
+import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.DataType_c;
 import org.xtuml.bp.core.EnumerationDataType_c;
 import org.xtuml.bp.core.Enumerator_c;
@@ -60,6 +61,7 @@ import org.xtuml.bp.core.StateMachineEventDataItem_c;
 import org.xtuml.bp.core.StateMachineEvent_c;
 import org.xtuml.bp.core.StateMachineState_c;
 import org.xtuml.bp.core.UserDataType_c;
+import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.common.Transaction;
 import org.xtuml.bp.core.common.TransactionException;
@@ -74,6 +76,10 @@ public class UITextTest extends BaseTest
 {
     public UITextTest(String projectName, String name) throws CoreException {
 		super(projectName, name);	
+		
+		// Historically, these tests were written in a way that expected parse on editing.  So turn on parser pref on
+		CorePlugin.getDefault().getPreferenceStore().setValue(BridgePointPreferencesStore.ENABLE_PARSE_WHILE_EDITING,
+				true);
 	}
 
     protected void setUp() throws Exception {
