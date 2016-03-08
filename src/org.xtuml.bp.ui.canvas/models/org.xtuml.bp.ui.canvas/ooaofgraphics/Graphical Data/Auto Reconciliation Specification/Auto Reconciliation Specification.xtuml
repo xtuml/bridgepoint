@@ -82,23 +82,11 @@ for each autoReconcileSpec in allAutoRecSpecs
                                                  removeElements:param.removeElements,
                                                  element_id:graphicalElement.elementId);   
     end while;
+    reprocess = autoReconcileSpec.reconcileConnectorsStep2( system_id:param.system_id,
+                                                 removeElements:param.removeElements,
+                                                 element_id:graphicalElement.elementId);    
   end for;  
 end for;                                                 
-
-for each autoReconcileSpec in allAutoRecSpecs  
-  select many models related by autoReconcileSpec->GD_MS[R33]->GD_MD[R9];  
-  for each model in models
-    if (CL::isContainedInSystem( element:model.represents,
-                                 system_id:param.system_id))
-      reprocess = true;
-      while (reprocess)
-        reprocess = autoReconcileSpec.reconcileConnectorsStep2( system_id:param.system_id,
-                                                 removeElements:param.removeElements,
-                                                 diagram_id:model.diagramId);    
-      end while;
-    end if;
-  end for;
-end for;
 ',
 	1,
 	'',
@@ -335,13 +323,9 @@ INSERT INTO O_TFR
 	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'reprocess = false;
-select any model related by self->GD_MS[R33]->GD_MD[R9] where selected.diagramId==param.diagram_id;
-// only check elements under the passed system
-if (CL::isContainedInSystem(element:model.represents, system_id:param.system_id))
+select any graphicalElement related by self->GD_ES[R29]->GD_GE[R10] where selected.elementId==param.element_id;
   select one sourceSpec related by self->GD_ES[R30];
   select one targetSpec related by self->GD_ES[R31];
-  select many graphicalElements related by model->GD_GE[R1];
-  for each graphicalElement in graphicalElements
     if (graphicalElement.represents == OS::NULL_INSTANCE())
       graphicalElement.represents = CL::getInstanceFromOOA_ID(
                                            rootInst:graphicalElement.convertToInstance(),
@@ -351,13 +335,17 @@ if (CL::isContainedInSystem(element:model.represents, system_id:param.system_id)
 
     // only check elements under the passed system
     if( CL::isContainedInSystem(element:graphicalElement.represents, system_id:param.system_id))
+    
+    
+    
+    
+    
       select many startCons related by graphicalElement->DIM_GE[R23]->
                             DIM_CON[R311]->DIM_ED[R320]->GD_CON[R20]->GD_GE[R2];
       select many endCons related by graphicalElement->DIM_GE[R23]->
                             DIM_CON[R311]->DIM_ED[R321]->GD_CON[R20]->GD_GE[R2];
+                            
       connectorCount = 0;
-      select one elementSpec related by graphicalElement->GD_ES[R10];
-    
       // The pei data uses Bridge_NumElements to hold the ooaofooa operation name
       // to call to get the count of these elements. However, sometimes this call
       // uses a boolean paramater and sometimes it does not. The boolean
@@ -369,6 +357,7 @@ if (CL::isContainedInSystem(element:model.represents, system_id:param.system_id)
                              elementTypesMatch:sourceSpec == targetSpec,
                              using:self.Bridge_NumElements);
       else
+            useNumConnectorsBridge = false;
             connectorCount = CL::numElements( from:graphicalElement.represents,
                              using:self.Bridge_NumElements);
       end if;
@@ -376,12 +365,12 @@ if (CL::isContainedInSystem(element:model.represents, system_id:param.system_id)
      					"\nGD_GE.OOA_TYPE: " + OS::ooaTypeToString(id:graphicalElement.OOA_Type) +
      					"\nGD_GE.representsPath: " + graphicalElement.represents_path +
      					"\nARS.Bridge_NumElements: " + self.Bridge_NumElements + " was called on GD_GE.represents.getOOAId()=" + OS::uniqueIdToString(id:CL::getOOAId(from:graphicalElement.represents)) +
-      					"\nGD_ES.toolCategory: " + elementSpec.toolCategory +
       					"\nGD_ARS.Bridge_GetElementID: " + self.Bridge_GetElementID +
       					"\nGD_ARS.Bridge_GetConnectorIDConditional: " + self.Bridge_GetConnectorIDConditional  +
       					"\nGD_ARS.Bridge_ConnectorExists: " + self.Bridge_ConnectorExists +
       					"\nNumberConnectors: " + OS::intToString(value:connectorCount)
       					);
+      					
       j = 0;
       while (j < connectorCount)
         connectorId = OS::NULL_UNIQUE_ID();
@@ -404,6 +393,12 @@ if (CL::isContainedInSystem(element:model.represents, system_id:param.system_id)
         end if;
         foundMatchingStart = false;
         for each startCon in startCons
+        
+        
+        
+        
+        
+        
           if(startCon.OOA_ID == connectorId)
             foundMatchingStart = true;
             break;
@@ -412,6 +407,12 @@ if (CL::isContainedInSystem(element:model.represents, system_id:param.system_id)
         foundMatchingEnd = false;
 
         for each endCon in endCons
+
+
+
+
+
+
           if(endCon.OOA_ID == connectorId)
             foundMatchingEnd = true;
             break;
@@ -426,7 +427,29 @@ if (CL::isContainedInSystem(element:model.represents, system_id:param.system_id)
           continue;
         end if;
 
+
+
+
+
+
+
+
+
         if(not foundMatchingStart and not foundMatchingEnd )//and model.represents != graphicalElement.represents)
+          select one model related by graphicalElement->GD_MD[R1];
+          if (empty model)
+            msg = " GD_GE.diagramId: " + OS::uniqueIdToString(id:graphicalElement.diagramId) + 
+     					"\nGD_GE.OOA_TYPE: " + OS::ooaTypeToString(id:graphicalElement.OOA_Type) +
+     					"\nGD_GE.representsPath: " + graphicalElement.represents_path +
+     					"\nARS.Bridge_NumElements: " + self.Bridge_NumElements + " was called on GD_GE.represents.getOOAId()=" + OS::uniqueIdToString(id:CL::getOOAId(from:graphicalElement.represents)) +
+      					"\nGD_ARS.Bridge_GetElementID: " + self.Bridge_GetElementID +
+      					"\nGD_ARS.Bridge_GetConnectorIDConditional: " + self.Bridge_GetConnectorIDConditional  +
+      					"\nGD_ARS.Bridge_ConnectorExists: " + self.Bridge_ConnectorExists +
+      					"\nNumberConnectors: " + OS::intToString(value:connectorCount)
+      					;
+          
+            CL::logError(message:"GD_ARS:reconcileConnectorsStep2 GD_GE->GD_MD[R1] is empty for " + msg);
+          end if;
           reprocess = model.newConnector(connector:templateConId,
                            elementId:graphicalElement.elementId, arsId:self.Id,
                                                           representsId:connectorId,
@@ -444,11 +467,30 @@ if (CL::isContainedInSystem(element:model.represents, system_id:param.system_id)
         end if;
         j = j + 1;
       end while; // (j < connectorCount)
-    end if; // only check elements under the passed system   
-  end for;  // for each graphicalElement in graphicalElements
-end if;
-CL::logTraceMsg(filterType:LoggerType::OPERATION, filterValue:"", message:"GD_ARS::createMissingConnectors() - returning");
+      
+      
+      
+      
+      
+      
+      
+      
+         
+    end if; // if( CL::isContainedInSystem(element:graphicalElement.represents, system_id:param.system_id))   
 return reprocess;
+
+
+
+
+
+
+
+
+
+
+
+
+
 ',
 	1,
 	'',
@@ -456,7 +498,7 @@ return reprocess;
 INSERT INTO O_TPARM
 	VALUES ("cd5179d3-74a4-498f-9076-7ef3c9076490",
 	"8ffad301-a127-4be7-a504-064da8b3f9dc",
-	'diagram_id',
+	'element_id',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
@@ -915,17 +957,17 @@ associate ooaofooa instances.
 ',
 	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
-	'
+	'reprocess = false;
 select any graphicalElement related by self->GD_ES[R29]->GD_GE[R10] where selected.elementId==param.element_id;
 select one sourceSpec related by self->GD_ES[R30];
 select one targetSpec related by self->GD_ES[R31];
-reprocess = false;
 if (graphicalElement.represents == OS::NULL_INSTANCE())
   graphicalElement.represents = CL::getInstanceFromOOA_ID(
                                            rootInst:graphicalElement.convertToInstance(),
                                            OOA_ID:graphicalElement.OOA_ID,
                                            OOA_Type:graphicalElement.OOA_Type );
 end if;
+
 // only check elements under the passed system
 if( CL::isContainedInSystem(element:graphicalElement.represents, system_id:param.system_id))
   // Note that while we could simply not call this operation when "removeElements" is false,
@@ -938,9 +980,7 @@ if( CL::isContainedInSystem(element:graphicalElement.represents, system_id:param
   select many endCons related by graphicalElement->DIM_GE[R23]->
                             DIM_CON[R311]->DIM_ED[R321]->GD_CON[R20]->GD_GE[R2];
 
-  if (self.Bridge_NumElements != "" )
       connectorCount = 0;
-      select one elementSpec related by graphicalElement->GD_ES[R10];
       // The pei data uses Bridge_NumElements to hold the ooaofooa operation name
       // to call to get the count of these elements. However, sometimes this call
       // uses a boolean paramater and sometimes it does not. The boolean
@@ -960,7 +1000,6 @@ if( CL::isContainedInSystem(element:graphicalElement.represents, system_id:param
      					"\nGD_GE.OOA_TYPE: " + OS::ooaTypeToString(id:graphicalElement.OOA_Type) +
      					"\nGD_GE.representsPath: " + graphicalElement.represents_path +
      					"\nARS.Bridge_NumElements: " + self.Bridge_NumElements + " was called on GD_GE.represents.getOOAId()=" + OS::uniqueIdToString(id:CL::getOOAId(from:graphicalElement.represents)) +
-      					"\nGD_ES.toolCategory: " + elementSpec.toolCategory +
       					"\nGD_ARS.Bridge_GetElementID: " + self.Bridge_GetElementID +
       					"\nGD_ARS.Bridge_NumConnectors: " + self.Bridge_NumConnectors  +
       					"\nGD_ARS.Bridge_ConnectorExists: " + self.Bridge_ConnectorExists +
@@ -978,6 +1017,15 @@ if( CL::isContainedInSystem(element:graphicalElement.represents, system_id:param
           connectorId = CL::getElementID(from:graphicalElement.represents,
                           index:j, using:self.Bridge_GetElementID);
         end if;
+
+
+
+
+
+
+
+
+
         foundMatchingStart = false;
         for each startCon in startCons
           if (startCon.represents == OS::NULL_INSTANCE())
@@ -1020,13 +1068,38 @@ if( CL::isContainedInSystem(element:graphicalElement.represents, system_id:param
   	    if templateConId == OS::NULL_UNIQUE_ID()
   	      templateConId = connectorId;
   	    end if;
+  	    
   	    conID = self.findConnector(connectorID:templateConId);
   	    if conID != OS::NULL_UNIQUE_ID()
   	      select one model related by graphicalElement->GD_MD[R1];
+          if (empty model)
+            msg = " GD_GE.diagramId: " + OS::uniqueIdToString(id:graphicalElement.diagramId) + 
+     					"\nGD_GE.OOA_TYPE: " + OS::ooaTypeToString(id:graphicalElement.OOA_Type) +
+     					"\nGD_GE.representsPath: " + graphicalElement.represents_path +
+     					"\nARS.Bridge_NumElements: " + self.Bridge_NumElements + " was called on GD_GE.represents.getOOAId()=" + OS::uniqueIdToString(id:CL::getOOAId(from:graphicalElement.represents)) +
+      					"\nGD_ARS.Bridge_GetElementID: " + self.Bridge_GetElementID +
+      					"\nGD_ARS.Bridge_GetConnectorIDConditional: " + self.Bridge_GetConnectorIDConditional  +
+      					"\nGD_ARS.Bridge_ConnectorExists: " + self.Bridge_ConnectorExists +
+      					"\nNumberConnectors: " + OS::intToString(value:connectorCount)
+      					;
+          
+            CL::logError(message:"GD_ARS:reconcileConnectorsStep2 GD_GE->GD_MD[R1] is empty for " + msg);
+          end if;
   	      reprocess = model.newConnector(connector:conID,
                            elementId:graphicalElement.elementId, arsId:self.Id,
-  	                                                  representsId:connectorId, existingGraphicsArePresent:false);
-  	    end if;
+  	                                                  representsId:connectorId, 
+  	                                                  existingGraphicsArePresent:true);
+  	    end if;  	    
+
+
+
+
+
+
+
+
+
+  	    
         j = j + 1;
       end while; // (j < connectorCount)
     else  // (connectorCount > 0 and self.Bridge_GetElementID != "")
@@ -1038,10 +1111,38 @@ if( CL::isContainedInSystem(element:graphicalElement.represents, system_id:param
         end if;
       end if;
     end if;
-    CL::logTraceMsg(filterType:LoggerType::OPERATION, filterValue:"", message:"GD_ARS::createMissingConnectors() - returning");    
-  end if; // (self.Bridge_NumElements != "" )
 end if; // if( CL::isContainedInSystem(element:graphicalElement.represents, system_id:param.system_id))
-return reprocess;',
+return reprocess;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+',
 	1,
 	'',
 	"998fe17d-8e1a-4ed6-9b5b-cca166288747");
