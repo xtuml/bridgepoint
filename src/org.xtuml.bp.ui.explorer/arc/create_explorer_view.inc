@@ -867,13 +867,10 @@ public class ${viewer_name} extends ViewPart implements IModelViewerProvider {
                                        elems[j].getAttribute("input"));//$$NON-NLS-1$$
 
                 String editorId = elems[j].getAttribute("class");
-                System.out.println(editorId);
-                System.out.println(ActivityEditorInput.EDITOR_ID);
                 if (editorId.equals(ActivityEditorInput.EDITOR_ID)) {
                         // check to see if MASL is the default
                         IPreferenceStore store = CorePlugin.getDefault().getPreferenceStore();
                         String option = store.getString(BridgePointPreferencesStore.DEFAULT_ACTIVITY_EDITOR);
-                        System.out.println(option);
                         if (option.equals("MASL")) {
                                 inputClass = bundle.loadClass("org.xtuml.bp.ui.text.masl.MASLEditorInput");
                                 try {
