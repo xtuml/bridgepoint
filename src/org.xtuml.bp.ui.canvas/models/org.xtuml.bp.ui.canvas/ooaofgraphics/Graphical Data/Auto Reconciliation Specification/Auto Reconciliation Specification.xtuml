@@ -82,11 +82,23 @@ for each autoReconcileSpec in allAutoRecSpecs
                                                  removeElements:param.removeElements,
                                                  element_id:graphicalElement.elementId);   
     end while;
-    reprocess = autoReconcileSpec.reconcileConnectorsStep2( system_id:param.system_id,
-                                                 removeElements:param.removeElements,
-                                                 element_id:graphicalElement.elementId);    
   end for;  
 end for;                                                 
+
+for each autoReconcileSpec in allAutoRecSpecs  
+  select many models related by autoReconcileSpec->GD_MS[R33]->GD_MD[R9];  
+  for each model in models
+    if (CL::isContainedInSystem( element:model.represents,
+                                 system_id:param.system_id))
+      reprocess = true;
+      while (reprocess)
+        reprocess = autoReconcileSpec.reconcileConnectorsStep2( system_id:param.system_id,
+                                                 removeElements:param.removeElements,
+                                                 diagram_id:model.diagramId);    
+      end while;
+    end if;
+  end for;
+end for;
 ',
 	1,
 	'',
@@ -323,9 +335,13 @@ INSERT INTO O_TFR
 	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'reprocess = false;
-select any graphicalElement related by self->GD_ES[R29]->GD_GE[R10] where selected.elementId==param.element_id;
+select any model related by self->GD_MS[R33]->GD_MD[R9] where selected.diagramId==param.diagram_id;
+// only check elements under the passed system
+if (CL::isContainedInSystem(element:model.represents, system_id:param.system_id))
   select one sourceSpec related by self->GD_ES[R30];
   select one targetSpec related by self->GD_ES[R31];
+  select many graphicalElements related by model->GD_GE[R1];
+  for each graphicalElement in graphicalElements
     if (graphicalElement.represents == OS::NULL_INSTANCE())
       graphicalElement.represents = CL::getInstanceFromOOA_ID(
                                            rootInst:graphicalElement.convertToInstance(),
@@ -477,6 +493,8 @@ select any graphicalElement related by self->GD_ES[R29]->GD_GE[R10] where select
       
          
     end if; // if( CL::isContainedInSystem(element:graphicalElement.represents, system_id:param.system_id))   
+  end for;
+end if;
 return reprocess;
 
 
@@ -498,7 +516,7 @@ return reprocess;
 INSERT INTO O_TPARM
 	VALUES ("cd5179d3-74a4-498f-9076-7ef3c9076490",
 	"8ffad301-a127-4be7-a504-064da8b3f9dc",
-	'element_id',
+	'diagram_id',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
@@ -979,7 +997,7 @@ if( CL::isContainedInSystem(element:graphicalElement.represents, system_id:param
                             DIM_CON[R311]->DIM_ED[R320]->GD_CON[R20]->GD_GE[R2];
   select many endCons related by graphicalElement->DIM_GE[R23]->
                             DIM_CON[R311]->DIM_ED[R321]->GD_CON[R20]->GD_GE[R2];
-
+  if (self.Bridge_NumElements != "" )
       connectorCount = 0;
       // The pei data uses Bridge_NumElements to hold the ooaofooa operation name
       // to call to get the count of these elements. However, sometimes this call
@@ -1088,7 +1106,7 @@ if( CL::isContainedInSystem(element:graphicalElement.represents, system_id:param
   	      reprocess = model.newConnector(connector:conID,
                            elementId:graphicalElement.elementId, arsId:self.Id,
   	                                                  representsId:connectorId, 
-  	                                                  existingGraphicsArePresent:true);
+  	                                                  existingGraphicsArePresent:false);
   	    end if;  	    
 
 
@@ -1111,6 +1129,7 @@ if( CL::isContainedInSystem(element:graphicalElement.represents, system_id:param
         end if;
       end if;
     end if;
+  end if;
 end if; // if( CL::isContainedInSystem(element:graphicalElement.represents, system_id:param.system_id))
 return reprocess;
 
