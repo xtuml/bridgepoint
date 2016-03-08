@@ -1087,6 +1087,7 @@ if( CL::isContainedInSystem(element:graphicalElement.represents, system_id:param
           end if;
   	      reprocess = model.newConnector(connector:conID,
                            elementId:graphicalElement.elementId, arsId:self.Id,
+<<<<<<< HEAD
   	                                                  representsId:connectorId, 
   	                                                  existingGraphicsArePresent:true);
   	    end if;  	    
@@ -1099,6 +1100,10 @@ if( CL::isContainedInSystem(element:graphicalElement.represents, system_id:param
 
 
 
+=======
+  	                                                  representsId:connectorId, existingGraphicsArePresent:false);
+  	    end if;  	    
+>>>>>>> branch '8238_render_graphics_including_connectors' of git@github.com:rmulvey/bridgepoint.git
   	    
         j = j + 1;
       end while; // (j < connectorCount)
