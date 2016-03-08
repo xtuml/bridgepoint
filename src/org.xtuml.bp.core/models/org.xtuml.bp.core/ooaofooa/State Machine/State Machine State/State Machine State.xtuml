@@ -726,6 +726,7 @@ select many transitions related by self->SM_TXN[R506];
 // We''re preincrementing the index
 count = -1;
 for each transition in transitions
+  count = count + 1;
   if (count == param.index)
     id = transition.Trans_ID;
     break;
