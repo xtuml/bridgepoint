@@ -840,9 +840,6 @@ ${setSize.body}
 		  mr.disableDeltaCollection();
 		  gmr.disableDeltaCollection();
           helper.upgradeDSAs(getModelRoot());
-        helper.associateDTsWithDomain(getModelRoot());
-        helper.formalizeExternalEntityPackageLinkingAssociations(getModelRoot());
-        helper.formalizeFunctionPackageLinkingAssociations(getModelRoot());
         helper.createShapeSubtypes(getGraphicsModelRoot());
         loadedInstances.addAll(helper.upgradeTransitions(loadedInstances));
         helper.upgradeEventData(getModelRoot(), getRootModelElement());
