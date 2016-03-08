@@ -369,6 +369,7 @@ if (CL::isContainedInSystem(element:model.represents, system_id:param.system_id)
                              elementTypesMatch:sourceSpec == targetSpec,
                              using:self.Bridge_NumElements);
       else
+            useNumConnectorsBridge = false;
             connectorCount = CL::numElements( from:graphicalElement.represents,
                              using:self.Bridge_NumElements);
       end if;
@@ -940,7 +941,6 @@ if( CL::isContainedInSystem(element:graphicalElement.represents, system_id:param
 
   if (self.Bridge_NumElements != "" )
       connectorCount = 0;
-      select one elementSpec related by graphicalElement->GD_ES[R10];
       // The pei data uses Bridge_NumElements to hold the ooaofooa operation name
       // to call to get the count of these elements. However, sometimes this call
       // uses a boolean paramater and sometimes it does not. The boolean
@@ -960,7 +960,6 @@ if( CL::isContainedInSystem(element:graphicalElement.represents, system_id:param
      					"\nGD_GE.OOA_TYPE: " + OS::ooaTypeToString(id:graphicalElement.OOA_Type) +
      					"\nGD_GE.representsPath: " + graphicalElement.represents_path +
      					"\nARS.Bridge_NumElements: " + self.Bridge_NumElements + " was called on GD_GE.represents.getOOAId()=" + OS::uniqueIdToString(id:CL::getOOAId(from:graphicalElement.represents)) +
-      					"\nGD_ES.toolCategory: " + elementSpec.toolCategory +
       					"\nGD_ARS.Bridge_GetElementID: " + self.Bridge_GetElementID +
       					"\nGD_ARS.Bridge_NumConnectors: " + self.Bridge_NumConnectors  +
       					"\nGD_ARS.Bridge_ConnectorExists: " + self.Bridge_ConnectorExists +
@@ -1020,13 +1019,15 @@ if( CL::isContainedInSystem(element:graphicalElement.represents, system_id:param
   	    if templateConId == OS::NULL_UNIQUE_ID()
   	      templateConId = connectorId;
   	    end if;
+  	    
   	    conID = self.findConnector(connectorID:templateConId);
   	    if conID != OS::NULL_UNIQUE_ID()
   	      select one model related by graphicalElement->GD_MD[R1];
   	      reprocess = model.newConnector(connector:conID,
                            elementId:graphicalElement.elementId, arsId:self.Id,
   	                                                  representsId:connectorId, existingGraphicsArePresent:false);
-  	    end if;
+  	    end if;  	    
+  	    
         j = j + 1;
       end while; // (j < connectorCount)
     else  // (connectorCount > 0 and self.Bridge_GetElementID != "")
