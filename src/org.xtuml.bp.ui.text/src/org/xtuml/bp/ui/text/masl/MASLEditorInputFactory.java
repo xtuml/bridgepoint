@@ -215,7 +215,7 @@ public class MASLEditorInputFactory extends FileEditorInputFactory{
     public IEditorInput createInstance(Object inputObject) throws CoreException {
 
         if ( inputObject == null ) {
-
+            return null;
         }
 
         if (!isSupported(inputObject)) {

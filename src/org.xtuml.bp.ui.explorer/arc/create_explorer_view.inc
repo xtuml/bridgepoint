@@ -84,6 +84,11 @@ import org.xtuml.bp.ui.explorer.ui.actions.ExplorerPasteAction;
 import org.xtuml.bp.ui.properties.BridgepointPropertySheetPage;
 import org.xtuml.bp.ui.properties.ModelPropertySourceProvider;
 
+import org.xtuml.bp.ui.text.activity.ActivityEditorInput;
+import org.xtuml.bp.ui.text.masl.MASLEditorInput;
+import org.xtuml.bp.ui.text.masl.MASLPartListener;
+import org.eclipse.jface.preference.IPreferenceStore;
+
 /**
  * ExplorerView allows the user to navigate the BridgePoint
  * metamodel. It provides a tree view analogous to that provided
@@ -860,6 +865,25 @@ public class ${viewer_name} extends ViewPart implements IModelViewerProvider {
                                       ..getDeclaringExtension().getNamespace());
                 Class inputClass = bundle.loadClass(
                                        elems[j].getAttribute("input"));//$$NON-NLS-1$$
+
+                String editorId = elems[j].getAttribute("class");
+                System.out.println(editorId);
+                System.out.println(ActivityEditorInput.EDITOR_ID);
+                if (editorId.equals(ActivityEditorInput.EDITOR_ID)) {
+                        // check to see if MASL is the default
+                        IPreferenceStore store = CorePlugin.getDefault().getPreferenceStore();
+                        String option = store.getString(BridgePointPreferencesStore.DEFAULT_ACTIVITY_EDITOR);
+                        System.out.println(option);
+                        if (option.equals("MASL")) {
+                                inputClass = bundle.loadClass("org.xtuml.bp.ui.text.masl.MASLEditorInput");
+                                try {
+                                        editorId = (String) inputClass.getField("EDITOR_ID").get(null);
+                                } catch (NoSuchFieldException e) {
+                                        System.out.println(e);
+                                }
+                        }
+                }
+
                 Class[] type = new Class[1];
                 type[0] = Object.class;
                 //
@@ -878,9 +902,11 @@ public class ${viewer_name} extends ViewPart implements IModelViewerProvider {
                 // the extending plugin.
                 //
                 if (input != null) {
-                  return PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().openEditor(
-                    input,
-                    elems[j].getAttribute("class"));                                 //$$NON-NLS-1$$
+                    IWorkbenchPage page = (IWorkbenchPage) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+		    if (MASLEditorInput.EDITOR_ID == editorId) {
+			page.addPartListener((IPartListener2) new MASLPartListener());
+		    }
+		    return page.openEditor(input, editorId);
                 }
                 return null;
               }
