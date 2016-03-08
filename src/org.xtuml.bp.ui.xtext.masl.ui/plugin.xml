@@ -9,6 +9,7 @@
 			default="true"
 			extensions="tr,fn,svc,scn,al,ext,masl"
 			id="org.xtuml.bp.ui.xtext.MASL"
+                        icon="platform:/plugin/org.xtuml.bp.core/icons/edit_masl.png"
 			name="MASL Editor">
 		</editor>
 	</extension>
