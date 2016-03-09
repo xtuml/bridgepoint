@@ -14,8 +14,8 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IObjectActionDelegate;
 import org.eclipse.ui.IWorkbenchPart;
-
-import org.xtuml.bp.core.SystemModel_c;
+import org.xtuml.bp.core.Component_c;
+import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.x2m.generator.Generator;
 
 public class ExportDomainAction implements IObjectActionDelegate {
@@ -28,9 +28,12 @@ public class ExportDomainAction implements IObjectActionDelegate {
 
 	@Override
 	public void run(IAction action) {
-	    if (curSel instanceof SystemModel_c) {
-	        Generator.exportDomain((SystemModel_c)curSel);
+	    if (curSel instanceof Package_c) {
+	        Generator.exportDomain((Package_c)curSel);
 	    }
+            else if (curSel instanceof Component_c) {
+	        Generator.exportDomain((Component_c)curSel);
+            }
 	}
 
 	@Override
@@ -38,9 +41,7 @@ public class ExportDomainAction implements IObjectActionDelegate {
 		if (selection instanceof IStructuredSelection) {
 			IStructuredSelection sSel = (IStructuredSelection)selection;
 			Object selected = sSel.getFirstElement();
-			if (selected instanceof SystemModel_c) {
-				curSel = selected;
-			}
+			curSel = selected;
 		}
 
 	}

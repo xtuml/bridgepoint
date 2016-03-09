@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: org.xtuml.bp.ui.xtext.masl.ide
+Bundle-Vendor: My Company
+Bundle-Version: 1.0.0.qualifier
+Bundle-SymbolicName: org.xtuml.bp.ui.xtext.masl.ide; singleton:=true
+Bundle-ActivationPolicy: lazy
+Require-Bundle: org.xtuml.bp.ui.xtext.masl,
+ org.eclipse.xtext.ide,
+ org.eclipse.xtext.xbase.ide
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Export-Package: org.xtuml.bp.ui.xtext.ide.contentassist.antlr.internal,
+ org.xtuml.bp.ui.xtext.ide.contentassist.antlr
+

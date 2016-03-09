@@ -99,18 +99,6 @@ This file is the plugin manifest for the BridgePoint core plugin.
             id="org.xtuml.bp.ui.text.activity.ActivityEditor">
       </editor>
    </extension>
-   <extension
-         point="org.eclipse.ui.editors">
-      <editor
-            name="MASL Editor"
-            default="true"
-            icon="platform:/plugin/org.xtuml.bp.core/icons/edit_oal.gif"
-            extensions="masl"
-            contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor"
-            class="org.xtuml.bp.ui.text.masl.MASLEditor"
-            id="org.xtuml.bp.ui.text.masl.MASLEditor">
-      </editor>
-   </extension>
 
    <extension
          point="org.eclipse.ui.preferencePages">
@@ -119,6 +107,12 @@ This file is the plugin manifest for the BridgePoint core plugin.
            id="org.xtuml.bp.ui.text.editor.oal.preference.OALEditorPreferencesPage"
            class="org.xtuml.bp.ui.text.editor.oal.preference.OALEditorPreferencesPage"
             name="Activity Editor">
+       </page>
+       <page
+           category="org.xtuml.bp.core.root"
+           id="org.xtuml.bp.ui.text.editor.preference.DefaultActivityEditorPreferencesPage"
+           class="org.xtuml.bp.ui.text.editor.preference.DefaultActivityEditorPreferencesPage"
+            name="Default Activity Editor">
        </page>
    </extension>
 
