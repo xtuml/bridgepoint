@@ -1,4 +1,7 @@
 package org.xtuml.bp.ui.text.masl;
+import java.io.File;
+import java.io.IOException;
+
 //====================================================================
 //
 // File:      $RCSfile: MASLEditorInput.java,v $
@@ -11,7 +14,10 @@ package org.xtuml.bp.ui.text.masl;
 //
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
+import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.ide.ResourceUtil;
 import org.eclipse.ui.part.FileEditorInput;
 
 public class MASLEditorInput extends FileEditorInput {
@@ -35,5 +41,29 @@ public class MASLEditorInput extends FileEditorInput {
 		MASLEditorInputFactory factory = (MASLEditorInputFactory)PlatformUI.getWorkbench().getElementFactory(FACTORY_ID);
 		return (MASLEditorInput)factory.createInstance(modelElementObject);
 	}
+
+        /**
+         * checks if the MASL activity for the model element is empty or not
+         */
+        public static boolean activityEmpty(Object modelElementObject) throws CoreException {
+            IEditorInput input = createInstance(modelElementObject);
+            IFile file = ResourceUtil.getFile( input );
+            
+            boolean empty = false;
+            
+            try {
+            	if ( file.getContents().read() == -1 ) {	// file is empty
+            		empty = true;
+            	}
+            }
+            catch ( IOException e ) {
+            	System.out.println(e);
+            	empty = true;
+            }
+            
+            if ( empty ) file.delete(true, false, null);
+            
+            return empty;
+        }
 
 }

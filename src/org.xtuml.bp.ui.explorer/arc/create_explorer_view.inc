@@ -868,16 +868,40 @@ public class ${viewer_name} extends ViewPart implements IModelViewerProvider {
 
                 String editorId = elems[j].getAttribute("class");
                 if (editorId.equals(ActivityEditorInput.EDITOR_ID)) {
-                        // check to see if MASL is the default
-                        IPreferenceStore store = CorePlugin.getDefault().getPreferenceStore();
-                        String option = store.getString(BridgePointPreferencesStore.DEFAULT_ACTIVITY_EDITOR);
-                        if (option.equals("MASL")) {
-                                inputClass = bundle.loadClass("org.xtuml.bp.ui.text.masl.MASLEditorInput");
-                                try {
-                                        editorId = (String) inputClass.getField("EDITOR_ID").get(null);
-                                } catch (NoSuchFieldException e) {
-                                        System.out.println(e);
-                                }
+                        // check empty
+                        boolean OALempty = false;
+                        boolean MASLempty = false;
+                        try {
+                            OALempty = ActivityEditorInput.activityEmpty(current);
+                            MASLempty = MASLEditorInput.activityEmpty(current);
+                        }
+                        catch ( CoreException e ) {
+                            System.out.println(e);
+                        }
+
+                        // There are exactly two situations in which we open up the MASL editor on a double click:
+                        // 1. The OAL activity is empty and the MASL activity is not.
+                        // 2. Either both are empty or both are populated and the default is the MASL editor
+                        if ( OALempty && !MASLempty ) {
+                            inputClass = bundle.loadClass("org.xtuml.bp.ui.text.masl.MASLEditorInput");
+                            try {
+                                    editorId = (String) inputClass.getField("EDITOR_ID").get(null);
+                            } catch (NoSuchFieldException e) {
+                                    System.out.println(e);
+                            }
+                        }
+                        else if ( ( OALempty && MASLempty ) || ( !OALempty && !MASLempty ) ) {
+                            // check to see if MASL is the default
+                            IPreferenceStore store = CorePlugin.getDefault().getPreferenceStore();
+                            String option = store.getString(BridgePointPreferencesStore.DEFAULT_ACTIVITY_EDITOR);
+                            if (option.equals("MASL")) {
+                                    inputClass = bundle.loadClass("org.xtuml.bp.ui.text.masl.MASLEditorInput");
+                                    try {
+                                            editorId = (String) inputClass.getField("EDITOR_ID").get(null);
+                                    } catch (NoSuchFieldException e) {
+                                            System.out.println(e);
+                                    }
+                            }
                         }
                 }
 
