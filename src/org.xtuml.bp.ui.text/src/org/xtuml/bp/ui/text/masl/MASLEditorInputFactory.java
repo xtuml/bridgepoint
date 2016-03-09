@@ -39,8 +39,6 @@ public class MASLEditorInputFactory extends FileEditorInputFactory{
     protected List getSupportedModelElementList() {
         if(supportedList == null){
             supportedList = new Vector();
-            supportedList.add("org.xtuml.bp.core.ProvidedOperation_c"); //$NON-NLS-1$
-            supportedList.add("org.xtuml.bp.core.ProvidedSignal_c"); //$NON-NLS-1$
             supportedList.add("org.xtuml.bp.core.RequiredOperation_c"); //$NON-NLS-1$
             supportedList.add("org.xtuml.bp.core.RequiredSignal_c"); //$NON-NLS-1$
             supportedList.add("org.xtuml.bp.core.Bridge_c"); //$NON-NLS-1$

@@ -43,6 +43,23 @@ public class MASLEditorInput extends FileEditorInput {
 	}
 
         /**
+         * @return true if 
+         * - Argument is a model element whose type or type of its related model 
+         *   element is present in supported list.
+         * - Argument is instance of IFile representing an existing place holder 
+         *   file
+         * - Argument is model element id which can used to resolve a model element.
+         * 
+         * present in the list returned by getSupportedModelElementList()
+         * @see getSupportedModelElementRelatedTo(NonRootModelElement)
+         * @see org.xtuml.bp.core.ui.IModelElementEditorInputFactory#isSupported(java.lang.Object)
+         */
+        public static boolean isSupported(Object inputObject){
+		MASLEditorInputFactory factory = (MASLEditorInputFactory)PlatformUI.getWorkbench().getElementFactory(FACTORY_ID);
+		return factory.isSupported(inputObject);
+        }
+
+        /**
          * checks if the MASL activity for the model element is empty or not
          */
         public static boolean activityEmpty(Object modelElementObject) throws CoreException {

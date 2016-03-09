@@ -867,7 +867,8 @@ public class ${viewer_name} extends ViewPart implements IModelViewerProvider {
                                        elems[j].getAttribute("input"));//$$NON-NLS-1$$
 
                 String editorId = elems[j].getAttribute("class");
-                if (editorId.equals(ActivityEditorInput.EDITOR_ID)) {
+                // check to see if we need to open the MASL editor
+                if (editorId.equals(ActivityEditorInput.EDITOR_ID) && MASLEditorInput.isSupported(current) ) {
                         // check empty
                         boolean OALempty = false;
                         boolean MASLempty = false;
