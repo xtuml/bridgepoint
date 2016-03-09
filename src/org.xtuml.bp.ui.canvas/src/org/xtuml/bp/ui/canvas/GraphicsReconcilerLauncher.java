@@ -89,8 +89,9 @@ public class GraphicsReconcilerLauncher {
 
 				// Now reconcile
 				for (NonRootModelElement nrme : nrmes) {
-					AutoReconciliationSpecification_c.Reconcile(ooag, removeElements, nrme, key.getSys_id());
+					AutoReconciliationSpecification_c.Reconcilecanvas(ooag,nrme);
 				}
+				AutoReconciliationSpecification_c.Reconcile(ooag, removeElements, key.getSys_id());
 			}
 		} catch (TransactionException e) {
 			if (newTrans != null)

@@ -1200,23 +1200,39 @@ end if;
 else // if (param.existingGraphicsArePresent)
 
 select any ars related by self->GD_MS[R9]->GD_ARS[R33] where selected.Id == param.arsId;
+if (empty ars)
+  select any ars related by self->GD_MS[R9]->GD_EMS[R11]->
+                       GD_ES[R11]->GD_ARS[R29] where selected.Id == param.arsId;
+end if;
 if (not empty ars)
-select one modelSpec related by ars->GD_MS[R33];
-select many specs related by modelSpec->GD_ES[R11];
 select one sourceSpec related by ars->GD_ES[R30];
 select one targetSpec related by ars->GD_ES[R31];
 select any startElementGE related by self->GD_GE[R1] where (selected.elementId == param.elementId);
-select one startElementShp related by startElementGE->GD_SHP[R2];
 // the graphical element the connector will be related to
-select one startElementNode related by startElementShp->DIM_ND[R19];
-select one startElement related by startElementNode->DIM_GE[R301];
+select one startElement related by startElementGE->GD_SHP[R2]->DIM_ND[R19]->DIM_GE[R301];
+startWidth = 2;
+startHeight = 2;
+if (not empty startElement)
+  select one startElementNode related by startElementGE->GD_SHP[R2]->DIM_ND[R19];
+  defaultWidth = startElementNode.width;
+  defaultHeight = startElementNode.height;
+else
+  select one startElement related by startElementGE->GD_CON[R2]->DIM_ED[R20]->DIM_GE[R301];
+end if;
 //
 // Create the new graphical connector
 //
+endWidth = 2;
+endHeight = 2;
 select any endElementGE related by sourceSpec->GD_GE[R10];
-select one endElementShp related by endElementGE->GD_SHP[R2];
-select one endElementNode related by endElementShp->DIM_ND[R19];
-select one endElement related by endElementNode->DIM_GE[R301];
+select one endElement related by endElementGE->GD_SHP[R2]->DIM_ND[R19]->DIM_GE[R301];
+if (not empty endElement)
+  select one endElementNode related by endElementGE->GD_SHP[R2]->DIM_ND[R19];
+  endWidth = endElementNode.width;
+  endHeight = endElementNode.height;
+else
+  select one endElement related by endElementGE->GD_CON[R2]->DIM_ED[R20]->DIM_GE[R301];
+end if;
 
 select many otherAnchors related by startElement->DIM_CON[R311];
 select any lowerAnchor related by startElement->DIM_CON[R311];
@@ -1274,13 +1290,13 @@ text.createSupertypeInstances();
 // Prepare self for drawing segment
 select one diagram related by self->DIM_DIA[R18];
                           
-startPoint.positionX = startElement.positionX + startElementNode.width ;
+startPoint.positionX = startElement.positionX + startWidth ;
 if(empty lowerAnchor)
   startPoint.positionY = startElement.positionY ;
 else if(not empty lowerAnchor)
   startPoint.positionY = lowerAnchor.positionY + 20 ;
 
-  if(startPoint.positionY >= (startElement.positionY+startElementNode.height))
+  if(startPoint.positionY >= (startElement.positionY+startHeight))
    startPoint.positionY = lowerAnchor.positionY;
   end if;
 end if;
@@ -1289,8 +1305,8 @@ end if;
 
 if(not empty endElement)
        endPoint.positionX = endElement.positionX;
-       endPoint.positionY = endElement.positionY +(endElementNode.height/2);
-else
+       endPoint.positionY = endElement.positionY +(endHeight/2);
+else 
    endPoint.positionX = startPoint.positionX+100;
    endPoint.positionY = startPoint.positionY ;
 end if;

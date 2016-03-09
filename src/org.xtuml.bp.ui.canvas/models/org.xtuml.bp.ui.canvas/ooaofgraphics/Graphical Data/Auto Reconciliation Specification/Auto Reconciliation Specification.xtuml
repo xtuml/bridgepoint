@@ -53,37 +53,36 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	0,
-	'GD_ARS::reconcileCanvas(rootElement:param.rootElement);
-
-select many allAutoRecSpecs from instances of GD_ARS;
+	'select many allAutoRecSpecs from instances of GD_ARS;
 
 // Now we reconcile shapes in this canvas (if this is a canvas)
 for each autoReconcileSpec in allAutoRecSpecs  
-  select many models related by autoReconcileSpec->GD_MS[R33]->GD_MD[R9];  
-  for each model in models
-    if (CL::isContainedInSystem( element:model.represents,
+  select one modelSpec related by autoReconcileSpec->GD_MS[R33];
+  if (not empty modelSpec)
+    select many models related by modelSpec->GD_MD[R9];  
+    for each model in models
+      if (CL::isContainedInSystem( element:model.represents,
                                  system_id:param.system_id))
-      autoReconcileSpec.reconcileShapes( system_id:param.system_id, 
+         autoReconcileSpec.reconcileShapes( system_id:param.system_id, 
                                          diagram_id:model.diagramId);
-    end if; 
-  end for;
-end for;
-
-for each autoReconcileSpec in allAutoRecSpecs
-  select one recSpec related by autoReconcileSpec->GD_ES[R29];
-  select many graphicalElements related by recSpec->GD_GE[R10]; 
-  for each graphicalElement in graphicalElements 
-    reprocess = true;
-    while (reprocess)
-      // This stage handles compnent reference assignment (connectors must be created), and 
-      // unassignment (connectors must be removed). This is what the tool was doing BEFORE
-      // reconciliation of all connectors was added. 
-      reprocess = autoReconcileSpec.reconcileConnectorsStep1( system_id:param.system_id,
+      end if; 
+    end for;
+  else
+    select one recSpec related by autoReconcileSpec->GD_ES[R29];
+    select many graphicalElements related by recSpec->GD_GE[R10];
+    for each graphicalElement in graphicalElements 
+      reprocess = true;
+      while (reprocess)
+        // This stage handles component reference assignment (connectors must be created), and 
+        // unassignment (connectors must be removed). This is what the tool was doing BEFORE
+        // reconciliation of all connectors was added. 
+        reprocess = autoReconcileSpec.reconcileConnectorsStep1( system_id:param.system_id,
                                                  removeElements:param.removeElements,
                                                  element_id:graphicalElement.elementId);   
-    end while;
-  end for;  
-end for;                                                 
+      end while;
+    end for;      
+  end if;
+end for;
 
 for each autoReconcileSpec in allAutoRecSpecs  
   select many models related by autoReconcileSpec->GD_MS[R33]->GD_MD[R9];  
@@ -99,6 +98,7 @@ for each autoReconcileSpec in allAutoRecSpecs
     end if;
   end for;
 end for;
+
 ',
 	1,
 	'',
@@ -121,22 +121,6 @@ INSERT INTO O_TPARM
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
-INSERT INTO O_TPARM
-	VALUES ("4c729f91-6772-4b29-b161-87a3a2b0430f",
-	"c02376d4-138e-44c1-8e19-e42d4e5bdff4",
-	'rootElement',
-	"68dedb08-fd5a-420e-9ec7-e7985ad0c856",
-	0,
-	'',
-	"965be58d-e2e1-4b02-a7a2-f2fddb250d11",
-	'This is a NonRootModelElement model root element that need to be reconciled.');
-INSERT INTO S_DT_PROXY
-	VALUES ("68dedb08-fd5a-420e-9ec7-e7985ad0c856",
-	"00000000-0000-0000-0000-000000000000",
-	'instance',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("bb127757-3046-42f0-8eaa-58bc50d7f658",
 	"0849862c-76a0-4d0f-bb84-cf5aef617874",
@@ -336,11 +320,9 @@ INSERT INTO O_TFR
 	1,
 	'reprocess = false;
 select any model related by self->GD_MS[R33]->GD_MD[R9] where selected.diagramId==param.diagram_id;
-// only check elements under the passed system
-if (CL::isContainedInSystem(element:model.represents, system_id:param.system_id))
   select one sourceSpec related by self->GD_ES[R30];
   select one targetSpec related by self->GD_ES[R31];
-  select many graphicalElements related by model->GD_GE[R1];
+  select many graphicalElements related by model->GD_MS[R9]->GD_EMS[R11]->GD_ES[R11]->GD_GE[R10] where selected.diagramId == model.diagramId; //model->GD_GE[R1];
   for each graphicalElement in graphicalElements
     if (graphicalElement.represents == OS::NULL_INSTANCE())
       graphicalElement.represents = CL::getInstanceFromOOA_ID(
@@ -494,7 +476,6 @@ if (CL::isContainedInSystem(element:model.represents, system_id:param.system_id)
          
     end if; // if( CL::isContainedInSystem(element:graphicalElement.represents, system_id:param.system_id))   
   end for;
-end if;
 return reprocess;
 
 
@@ -1088,10 +1069,9 @@ if( CL::isContainedInSystem(element:graphicalElement.represents, system_id:param
   	    end if;
   	    
   	    conID = self.findConnector(connectorID:templateConId);
-  	    if conID != OS::NULL_UNIQUE_ID()
-  	      select one model related by graphicalElement->GD_MD[R1];
-          if (empty model)
-            msg = " GD_GE.diagramId: " + OS::uniqueIdToString(id:graphicalElement.diagramId) + 
+  	    select one model related by graphicalElement->GD_MD[R1];
+        if (empty model)
+          msg = " GD_GE.diagramId: " + OS::uniqueIdToString(id:graphicalElement.diagramId) + 
      					"\nGD_GE.OOA_TYPE: " + OS::ooaTypeToString(id:graphicalElement.OOA_Type) +
      					"\nGD_GE.representsPath: " + graphicalElement.represents_path +
      					"\nARS.Bridge_NumElements: " + self.Bridge_NumElements + " was called on GD_GE.represents.getOOAId()=" + OS::uniqueIdToString(id:CL::getOOAId(from:graphicalElement.represents)) +
@@ -1101,12 +1081,27 @@ if( CL::isContainedInSystem(element:graphicalElement.represents, system_id:param
       					"\nNumberConnectors: " + OS::intToString(value:connectorCount)
       					;
           
-            CL::logError(message:"GD_ARS:reconcileConnectorsStep2 GD_GE->GD_MD[R1] is empty for " + msg);
-          end if;
+          CL::logError(message:"GD_ARS:reconcileConnectorsStep2 GD_GE->GD_MD[R1] is empty for " + msg);
+        end if;
+  	    if conID != OS::NULL_UNIQUE_ID()
   	      reprocess = model.newConnector(connector:conID,
                            elementId:graphicalElement.elementId, arsId:self.Id,
   	                                                  representsId:connectorId, 
+  	                                                  existingGraphicsArePresent:true);
+        else
+  	      reprocess = model.newConnector(connector:connectorId,
+                           elementId:graphicalElement.elementId, arsId:self.Id,
+  	                                                  representsId:connectorId, 
   	                                                  existingGraphicsArePresent:false);
+          select one newConnector related by sourceSpec->GD_GE[R16];
+          //set the OOA_ID of the new GE created
+          newConnector.OOA_ID=connectorId;
+          newConnector.represents=CL::getInstanceFromOOA_ID(
+                                      rootInst: model.represents,
+                                      OOA_ID: newConnector.OOA_ID,
+                                      OOA_Type: newConnector.OOA_Type );
+
+          unrelate sourceSpec from newConnector across R16;  	                                                  
   	    end if;  	    
 
 
@@ -1230,6 +1225,13 @@ INSERT INTO O_TPARM
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("68dedb08-fd5a-420e-9ec7-e7985ad0c856",
+	"00000000-0000-0000-0000-000000000000",
+	'instance',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("998fe17d-8e1a-4ed6-9b5b-cca166288747",
 	"0849862c-76a0-4d0f-bb84-cf5aef617874",
@@ -1238,7 +1240,6 @@ INSERT INTO O_TFR
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select any graphicalElement related by self->GD_ES[R29]->GD_GE[R10] where selected.elementId==param.element_id;
-  if(self.Bridge_ConnectorExists != "")
     select many startCons related by graphicalElement->DIM_GE[R23]->
                             DIM_CON[R311]->DIM_ED[R320]->GD_CON[R20]->GD_GE[R2];
     select many endCons related by graphicalElement->DIM_GE[R23]->
@@ -1258,11 +1259,11 @@ INSERT INTO O_TFR
         end if;
        
         //Removing Connectors
-        if not CL::hasConnector(
+        if (self.Bridge_ConnectorExists != "") and param.removeElements and not CL::hasConnector(
                              element_id:CL::getOOAId(from:startCon.represents),
                              instance:graphicalElement.represents,
                              methodName:self.Bridge_ConnectorExists,
-                             elementTypesMatch:sourceSpec == targetSpec) and param.removeElements
+                             elementTypesMatch:sourceSpec == targetSpec) 
           // if the connector is going to be disposed
           // and there are other connectors anchored
           // to it then re-anchor them connector to
@@ -1325,7 +1326,7 @@ INSERT INTO O_TFR
   	                                   OOA_ID:endCon.OOA_ID, 
   	                                   OOA_Type:endCon.OOA_Type );
         end if;
-        if not CL::hasConnector(
+        if (self.Bridge_ConnectorExists != "") and param.removeElements and not CL::hasConnector(
                              element_id:CL::getOOAId(from:endCon.represents),
       	                     instance:graphicalElement.represents,
                              methodName:self.Bridge_ConnectorExists,
@@ -1354,7 +1355,6 @@ INSERT INTO O_TFR
         end if;
       end if;
     end for;
-   end if;
 ',
 	1,
 	'',
