@@ -63,6 +63,9 @@ public class ComponentSyntaxTest_Generics extends BaseTest {
     	// The expected error messages depend on the preference being disabled.
         store.setValue(BridgePointPreferencesStore.ALLOW_INTERFACE_NAME_IN_IC_MESSAGE, true);
 
+		// Make sure the preference that flags this error is turned on
+		store.setValue(BridgePointPreferencesStore.ENABLE_ERROR_FOR_EMPTY_SYNCHRONOUS_MESSAGE, true);
+
 		if (configured) {
 			return;
 		}
@@ -97,6 +100,7 @@ public class ComponentSyntaxTest_Generics extends BaseTest {
 
             IPreferenceStore store = CorePlugin.getDefault().getPreferenceStore();
             store.setValue(BridgePointPreferencesStore.ALLOW_INTERFACE_NAME_IN_IC_MESSAGE, false);
+    		store.setValue(BridgePointPreferencesStore.ENABLE_ERROR_FOR_EMPTY_SYNCHRONOUS_MESSAGE, false);
         } catch (RecognitionException re) {
             // do nothing
         } catch (TokenStreamException te) {

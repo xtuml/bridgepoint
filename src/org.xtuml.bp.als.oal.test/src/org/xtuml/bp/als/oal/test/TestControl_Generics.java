@@ -34,6 +34,7 @@ import org.xtuml.bp.core.Body_c;
 import org.xtuml.bp.core.Break_c;
 import org.xtuml.bp.core.Continue_c;
 import org.xtuml.bp.core.Control_c;
+import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.ElseStmt_c;
 import org.xtuml.bp.core.ElseifStmt_c;
 import org.xtuml.bp.core.ForStmt_c;
@@ -51,6 +52,7 @@ import org.xtuml.bp.core.TransientValueReference_c;
 import org.xtuml.bp.core.Value_c;
 import org.xtuml.bp.core.Variable_c;
 import org.xtuml.bp.core.WhileStmt_c;
+import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 
 public class TestControl_Generics extends TestCase {
@@ -1433,6 +1435,9 @@ public class TestControl_Generics extends TestCase {
 				"",//$NON-NLS-1$
 				":1:1-1: Return value required by class operation",//$NON-NLS-1$
 				":1:1-1: Return value required by operation" };//$NON-NLS-1$
+		// Make sure the preference that flags this error is turned on
+		CorePlugin.getDefault().getPreferenceStore().setValue(BridgePointPreferencesStore.ENABLE_ERROR_FOR_EMPTY_SYNCHRONOUS_MESSAGE, true);
+		
 		for (int i = OalParserTest_Generics.ACTIVITY_TYPE_FUNC; i <= OalParserTest_Generics.ACTIVITY_TYPE_IB_OP; ++i) {
 			String x = OalParserTest_Generics.parseAction("", i, OalParserTest_Generics.TEST_STRING_NO_PARM); //$NON-NLS-1$
 			String lines[] = x.split("\n");//$NON-NLS-1$
@@ -1446,6 +1451,9 @@ public class TestControl_Generics extends TestCase {
 			assertEquals(0, ret.length);
 			OalParserTest_Generics.clearActionData(i, OalParserTest_Generics.TEST_STRING_NO_PARM);
 		}
+		
+		// Turn the preference we set back off
+		CorePlugin.getDefault().getPreferenceStore().setValue(BridgePointPreferencesStore.ENABLE_ERROR_FOR_EMPTY_SYNCHRONOUS_MESSAGE, false);
 	}
 	public void testReturnIFromI() throws RecognitionException, TokenStreamException {
 		for (int i = OalParserTest_Generics.ACTIVITY_TYPE_FUNC; i <= OalParserTest_Generics.ACTIVITY_TYPE_IB_OP; ++i) {

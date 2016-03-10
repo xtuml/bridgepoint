@@ -70,6 +70,8 @@ import org.xtuml.bp.als.oal.test.TestSelect_Generics;
 import org.xtuml.bp.als.oal.test.TestSelect_Generics_Ordered;
 import org.xtuml.bp.als.oal.test.TestStructuredDataType_Generics;
 import org.xtuml.bp.als.oal.test.VisibilityParserTest;
+import org.xtuml.bp.core.CorePlugin;
+import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 
 import junit.framework.Test;
 import junit.framework.TestSuite;
@@ -80,6 +82,10 @@ public class OALGlobalsTestSuite_Generics extends TestSuite {
 		return new OALGlobalsTestSuite_Generics();
 	}
 	public OALGlobalsTestSuite_Generics() {
+		// Historically, these tests were written in a way that expected parse on editing.  So turn on parser pref on
+		CorePlugin.getDefault().getPreferenceStore().setValue(BridgePointPreferencesStore.ENABLE_PARSE_WHILE_EDITING,
+				true);
+
 	    addTest(new TestSuite(ParseErrorForEmptySynchronousMessagesTests.class));
 		addTest(new TestSuite(OalParserGlobalsTest_Generics.class));
 		addTest(new TestSuite(OalParserTest_Generics.class));
