@@ -55,7 +55,7 @@ import org.xtuml.bp.mc.c.source.ExportBuilder;
 
 public class Generator extends Task {
     
-    public static final String X2M_DIR = "/tools/masl/";
+    public static final String X2M_DIR = "/tools/masl/lib/";
     public static final String X2M_CMD = "xtuml2masl";
     public static final String BIN_DIR = "/mc3020/bin/";
     public static final String X2M_EXE = "xtumlmc_build.exe";
