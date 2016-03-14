@@ -841,6 +841,10 @@ public class ${class_name} extends CoreImport
   .invoke result = genFinishLoadMethod(multilevel, setComponent, callingProject)
 ${result.body}\
 
+    public void loadMASLActivities(IPath srcFileDir) {
+        helper.loadMASLActivities( getModelRoot(), srcFileDir );
+    }
+
 	.if (class_name == "ImportModelStream")
      public boolean setIPRPreference(String projectName) {
     	boolean preferenceIPR = false;

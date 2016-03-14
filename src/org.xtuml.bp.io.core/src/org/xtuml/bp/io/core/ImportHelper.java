@@ -22,6 +22,12 @@
 
 package org.xtuml.bp.io.core;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -30,9 +36,15 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.Vector;
 
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IFolder;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.IWorkspaceRunnable;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.xtuml.bp.core.ActionHome_c;
@@ -82,6 +94,8 @@ import org.xtuml.bp.core.PortReference_c;
 import org.xtuml.bp.core.Port_c;
 import org.xtuml.bp.core.PropertyParameter_c;
 import org.xtuml.bp.core.Provision_c;
+import org.xtuml.bp.core.RequiredOperation_c;
+import org.xtuml.bp.core.RequiredSignal_c;
 import org.xtuml.bp.core.Requirement_c;
 import org.xtuml.bp.core.SatisfactionInComponent_c;
 import org.xtuml.bp.core.Satisfaction_c;
@@ -108,6 +122,8 @@ import org.xtuml.bp.core.common.ModelRoot;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.common.PersistableModelComponent;
 import org.xtuml.bp.core.common.PersistenceManager;
+import org.xtuml.bp.core.inspector.IModelClassInspector;
+import org.xtuml.bp.core.inspector.ModelInspector;
 import org.xtuml.bp.ui.canvas.AnchorOnSegment_c;
 import org.xtuml.bp.ui.canvas.CanvasTransactionListener;
 import org.xtuml.bp.ui.canvas.Cl_c;
@@ -132,6 +148,7 @@ import org.xtuml.bp.ui.canvas.Ooaofgraphics;
 import org.xtuml.bp.ui.canvas.Shape_c;
 import org.xtuml.bp.ui.canvas.Waypoint_c;
 import org.xtuml.bp.ui.graphics.commands.CreateConnectionCommand;
+import org.xtuml.bp.ui.text.masl.MASLEditorInput;
 
 /**
  * Holds Java-only methods that were previously specified as part of
@@ -300,6 +317,92 @@ public class ImportHelper
     protected Ooaofgraphics getGraphicsModelRoot()
     {
         return importer.getGraphicsModelRoot();
+    }
+
+    /**
+     * Load the MASL activities into the BridgePoint model
+     */
+    public void loadMASLActivities( Ooaofooa modelRoot, IPath srcFileDir ) {
+
+        NonRootModelElement[] elements = importer.getLoadedInstances();
+        if ( elements == null ) return;
+
+        for ( NonRootModelElement el : elements ) {
+            //System.out.println( el.getClass().getName() );
+            //System.out.println( el.getRoot() );
+            //System.out.println( el.getPersistableComponent() );
+
+            // for each MASL activity object
+            if ( MASLEditorInput.isSupported( el ) ) {
+
+                // get description field
+            	String description = "";
+            	try {
+					Method method = el.getClass().getMethod("getDescrip", null);
+					description = (String)method.invoke((Object)el, null);
+            	} catch ( SecurityException e ) {
+            		System.out.println(e);
+            	} catch ( NoSuchMethodException e ) {
+            		System.out.println(e);
+            	} catch ( InvocationTargetException e ) {
+            		System.out.println(e);
+            	} catch (IllegalAccessException e) {
+            		System.out.println(e);
+            	}
+
+                // try to get MASL activity file
+                File mf = new File(srcFileDir.toOSString() + "/" + description);
+                if ( !description.isEmpty() && mf.exists() && mf.isFile() ) {
+
+                    // create file at right location
+                    IFile file;
+
+                    // get name
+                    String name;
+                    if ( ( el instanceof RequiredOperation_c || el instanceof RequiredSignal_c ) &&
+                            getParent(getParent(el)) instanceof Port_c ) {
+                        name = getParent(getParent(el)).getName() + "_" + el.getName();
+                    }
+                    else if ( el instanceof Bridge_c && getParent(el) instanceof ExternalEntity_c ) {
+                        name = getParent(el).getName() + "_" + el.getName();
+                    }
+                    else {
+                        name = el.getName();
+                    }
+
+                    // find the xtuml file path
+                    PersistableModelComponent pmc = el.getPersistableComponent();
+                    if ( pmc == null ) {
+                        pmc = PersistenceManager.findElementComponent(el, true);
+                    }
+                    IPath path = pmc.getFullPath();
+                    IWorkspaceRoot workspace = ResourcesPlugin.getWorkspace().getRoot();
+                    IProject project = workspace.getProject( path.segment(0) );
+                    IFolder folder = project.getFolder( path.removeFirstSegments(1).removeLastSegments(1).toOSString() );
+                    file = folder.getFile( name + ".masl" );
+                    if ( !file.exists() ) {
+                        try {
+                                InputStream source = new FileInputStream(mf);
+                                file.create(source, IResource.NONE, null);
+                        } catch ( CoreException e ) {
+                                System.out.println(e);
+                        } catch ( FileNotFoundException e ) {
+                                System.out.println(e);
+                        }
+                    }
+
+                }
+
+            }
+        }
+    }
+
+    /** helper function to get parent element of a model element */
+    private NonRootModelElement getParent( NonRootModelElement element ) {
+        if ( element == null ) return null;
+        ModelInspector inspector = new ModelInspector();
+        IModelClassInspector elementInspector = inspector.getInspector(element.getClass());
+        return (NonRootModelElement)elementInspector.getParent(element);
     }
 
     /**
