@@ -65,6 +65,8 @@ import org.xtuml.bp.core.common.UpgradeJob;
 import org.xtuml.bp.core.ui.IModelImport;
 import org.xtuml.bp.core.ui.Selection;
 import org.xtuml.bp.core.util.UIUtil;
+import org.xtuml.bp.io.core.ImportHelper;
+import org.xtuml.bp.io.core.CoreImport;
 import org.xtuml.bp.ui.canvas.Diagram_c;
 import org.xtuml.bp.ui.canvas.Gr_c;
 import org.xtuml.bp.ui.canvas.Graphelement_c;
@@ -216,6 +218,7 @@ public class ModelImportWizard extends Wizard implements IImportWizard {
 				String rootId = Ooaofooa.createModelRootId((IProject) fSystem
 						.getAdapter(IProject.class), domainName, true);
 				Ooaofooa domainRoot = Ooaofooa.getInstance(rootId);
+                                IPath sourceFileDirectory = templatePath.removeLastSegments(1);
 				fImporter = CorePlugin.getModelImportFactory().create(inStream,
 						domainRoot, fSystem, false, true, true, false);
 				if (fImporter.getHeader().getModelComponentType()
@@ -238,6 +241,7 @@ public class ModelImportWizard extends Wizard implements IImportWizard {
 					iss.run(new NullProgressMonitor());
 				} else {
 					dialog.run(true, false, iss);
+                    fImporter.loadMASLActivities(sourceFileDirectory);
 				}
 			} catch (InterruptedException e) {
 				org.xtuml.bp.io.core.CorePlugin.logError(
