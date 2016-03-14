@@ -84,6 +84,11 @@ import org.xtuml.bp.ui.explorer.ui.actions.ExplorerPasteAction;
 import org.xtuml.bp.ui.properties.BridgepointPropertySheetPage;
 import org.xtuml.bp.ui.properties.ModelPropertySourceProvider;
 
+import org.xtuml.bp.ui.text.activity.ActivityEditorInput;
+import org.xtuml.bp.ui.text.masl.MASLEditorInput;
+import org.xtuml.bp.ui.text.masl.MASLPartListener;
+import org.eclipse.jface.preference.IPreferenceStore;
+
 /**
  * ExplorerView allows the user to navigate the BridgePoint
  * metamodel. It provides a tree view analogous to that provided
@@ -860,6 +865,47 @@ public class ${viewer_name} extends ViewPart implements IModelViewerProvider {
                                       ..getDeclaringExtension().getNamespace());
                 Class inputClass = bundle.loadClass(
                                        elems[j].getAttribute("input"));//$$NON-NLS-1$$
+
+                String editorId = elems[j].getAttribute("class");
+                // check to see if we need to open the MASL editor
+                if (editorId.equals(ActivityEditorInput.EDITOR_ID) && MASLEditorInput.isSupported(current) ) {
+                        // check empty
+                        boolean OALempty = false;
+                        boolean MASLempty = false;
+                        try {
+                            OALempty = ActivityEditorInput.activityEmpty(current);
+                            MASLempty = MASLEditorInput.activityEmpty(current);
+                        }
+                        catch ( CoreException e ) {
+                            System.out.println(e);
+                        }
+
+                        // There are exactly two situations in which we open up the MASL editor on a double click:
+                        // 1. The OAL activity is empty and the MASL activity is not.
+                        // 2. Either both are empty or both are populated and the default is the MASL editor
+                        if ( OALempty && !MASLempty ) {
+                            inputClass = bundle.loadClass("org.xtuml.bp.ui.text.masl.MASLEditorInput");
+                            try {
+                                    editorId = (String) inputClass.getField("EDITOR_ID").get(null);
+                            } catch (NoSuchFieldException e) {
+                                    System.out.println(e);
+                            }
+                        }
+                        else if ( ( OALempty && MASLempty ) || ( !OALempty && !MASLempty ) ) {
+                            // check to see if MASL is the default
+                            IPreferenceStore store = CorePlugin.getDefault().getPreferenceStore();
+                            String option = store.getString(BridgePointPreferencesStore.DEFAULT_ACTIVITY_EDITOR);
+                            if (option.equals("MASL")) {
+                                    inputClass = bundle.loadClass("org.xtuml.bp.ui.text.masl.MASLEditorInput");
+                                    try {
+                                            editorId = (String) inputClass.getField("EDITOR_ID").get(null);
+                                    } catch (NoSuchFieldException e) {
+                                            System.out.println(e);
+                                    }
+                            }
+                        }
+                }
+
                 Class[] type = new Class[1];
                 type[0] = Object.class;
                 //
@@ -878,9 +924,11 @@ public class ${viewer_name} extends ViewPart implements IModelViewerProvider {
                 // the extending plugin.
                 //
                 if (input != null) {
-                  return PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().openEditor(
-                    input,
-                    elems[j].getAttribute("class"));                                 //$$NON-NLS-1$$
+                    IWorkbenchPage page = (IWorkbenchPage) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+		    if (MASLEditorInput.EDITOR_ID == editorId) {
+			page.addPartListener((IPartListener2) new MASLPartListener());
+		    }
+		    return page.openEditor(input, editorId);
                 }
                 return null;
               }
