@@ -36,7 +36,7 @@ Steps
   - Update your development workspace with the latest version from github master
    of all plug-in and support projects (e.g. installer, utilities)
    
-  - Create an issue in github for the version bump.
+  - Create an issue in the issue tracker for the version bump.
   
   - Branch the xtuml/bridgepoint repository.
 
@@ -46,13 +46,17 @@ Steps
 
   - Select all projects in the workspace, refresh them to pick up the changes
   
-  - Update the version inside the ```.classpath``` file inside ```org.xtuml.bp.welcome/models/GPS Watch.zip```
-
+  - Update the version inside the `.classpath` file inside `org.xtuml.bp.welcome/models/GPS Watch.zip`
+    - We have found that graphical zipfile editors (like the built-in Archive Manager tool on Ubuntu) allow
+      you to open the zipfile, then edit the `.classpath` file in place.
+    
   R Version update is now complete, all files that must be modified are now
    "dirty" in your workspace.   
 
   - Use "Team > Synchronize Workspace" to compare the locally changed projects 
-   with the root of the branch.  Use the code change scraper to get the list of 
+   with the root of the branch.  Look at the changed files and verify they all 
+   make sense.  Watch out for unwanted changes in the `org.xtuml.bp.doc` project.
+   Use the code change scraper to get the list of 
    changed files.  
 
   - Commit and push the files changed with this work.  Record the changed files
