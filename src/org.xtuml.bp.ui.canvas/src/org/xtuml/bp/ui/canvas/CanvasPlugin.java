@@ -27,6 +27,9 @@ package org.xtuml.bp.ui.canvas;
 import java.lang.reflect.Field;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
@@ -50,10 +53,16 @@ import org.osgi.framework.Constants;
 
 import org.xtuml.bp.core.End_c;
 import org.xtuml.bp.core.Ooaofooa;
+import org.xtuml.bp.core.Pref_c;
+import org.xtuml.bp.core.SystemModel_c;
+import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
+import org.xtuml.bp.core.common.ILogger;
 import org.xtuml.bp.core.common.ModelRoot;
+import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.common.TransactionManager;
 import org.xtuml.bp.core.util.CoreUtil;
+import org.xtuml.bp.ui.canvas.util.GraphicsUtil;
 public class CanvasPlugin extends AbstractUIPlugin {
   private static CanvasPlugin plugin;
   private ResourceBundle resourceBundle;
@@ -107,20 +116,21 @@ public class CanvasPlugin extends AbstractUIPlugin {
       IConfigurationElement[] elems = exts[i].getConfigurationElements();
       for (int j = 0; j < elems.length; j++) {
         if (elems[j].getName().equals("editor")) { //$NON-NLS-1$
-          IConfigurationElement[] defs = elems[j].getChildren();
-          for (int k = 0; k < defs.length; k++) {
+          IConfigurationElement[] modelEditorExtensions = elems[j].getChildren();
+          for (int k = 0; k < modelEditorExtensions.length; k++) {
+        	IConfigurationElement modelEditorExtension = modelEditorExtensions[k];
 			int value = 0;
-            if (defs[k].getName().equals("symbol")) {
-              String className = defs[k].getAttribute("class");
+            if (modelEditorExtension.getName().equals("symbol")) {
+              String className = modelEditorExtension.getAttribute("class");
               if (!className.equals("")) {
-                String symTypDef = defs[k].getAttribute("elemType");
+                String symTypDef = modelEditorExtension.getAttribute("elemType");
                 if (symTypDef != null) {
                   int elemType = getValueFor(symTypDef); 
-                  String elemName = defs[k].getAttribute("name");
+                  String elemName = modelEditorExtension.getAttribute("name");
                   ElementSpecification_c es = new ElementSpecification_c(graphicsModelRoot);
                   es.setName(elemName);
                   es.setOoa_type(elemType);
-                  IConfigurationElement[] col = defs[k].getChildren("color");
+                  IConfigurationElement[] col = modelEditorExtension.getChildren("color");
                   if ( col != null && col.length > 0 ) 
                   {
                   int r = Integer.parseInt(col[0].getAttribute("r"));
@@ -147,10 +157,10 @@ public class CanvasPlugin extends AbstractUIPlugin {
                   } catch (ClassNotFoundException e) {
                     logError("Specified metamodel class not found: ", e);
                   }
-                  es.setCreator(defs[k].getAttribute("createMethod"));
-                  es.setIconname(defs[k].getAttribute("icon"));
-                  String defHStr = defs[k].getAttribute("defaultHeight");
-                  String defWStr = defs[k].getAttribute("defaultWidth");
+                  es.setCreator(modelEditorExtension.getAttribute("createMethod"));
+                  es.setIconname(modelEditorExtension.getAttribute("icon"));
+                  String defHStr = modelEditorExtension.getAttribute("defaultHeight");
+                  String defWStr = modelEditorExtension.getAttribute("defaultWidth");
                   if(defHStr != null) {
                     int defH = Integer.parseInt(defHStr);
                     es.setDefaultheight(defH);
@@ -159,23 +169,23 @@ public class CanvasPlugin extends AbstractUIPlugin {
                     int defW = Integer.parseInt(defWStr);
                     es.setDefaultwidth(defW);
                   }
-                  String isFixedAspectStr = defs[k].getAttribute("fixedAspect");
+                  String isFixedAspectStr = modelEditorExtension.getAttribute("fixedAspect");
                   if(isFixedAspectStr != null && isFixedAspectStr.equals("true")) {
                 		  es.setIsfixedaspectratio(true);
                     }
-                  String isFixedSizeStr = defs[k].getAttribute("fixedSize");
+                  String isFixedSizeStr = modelEditorExtension.getAttribute("fixedSize");
                   if(isFixedSizeStr != null && isFixedSizeStr.equals("true")) {
                       es.setIsfixedsize(true);
                     }
-                  String isAnchorHost = defs[k].getAttribute("isAnchorHost");
+                  String isAnchorHost = modelEditorExtension.getAttribute("isAnchorHost");
                   if(isAnchorHost != null && isAnchorHost.equals("true")) {
                 	  es.setIsanchorhost(true);
                   }
-                  String hasFloatingStr = defs[k].getAttribute("floatingText");
+                  String hasFloatingStr = modelEditorExtension.getAttribute("floatingText");
                   if(hasFloatingStr != null && hasFloatingStr.equals("true")) {
                       es.setHasfloatingtext(true);
                     }
-                  String layer = defs[k].getAttribute("layer");
+                  String layer = modelEditorExtension.getAttribute("layer");
                   if(layer != null ) {
                 	  try {
                         es.setLayer(Integer.parseInt(layer));
@@ -184,7 +194,7 @@ public class CanvasPlugin extends AbstractUIPlugin {
                           logError("Could not parse symbol '"+ elemName +"' layer: ", e);
                       }
                   }
-                  String antiAliased = defs[k].getAttribute("antiAliased");
+                  String antiAliased = modelEditorExtension.getAttribute("antiAliased");
                   if(antiAliased != null) {
                 	  if(antiAliased.equalsIgnoreCase("true")) {
                 		  es.setAntialiased(true);
@@ -195,19 +205,19 @@ public class CanvasPlugin extends AbstractUIPlugin {
                 	  // default to false until drawing performance is enhanced
                 	  es.setAntialiased(false);
                   }
-                  String isTransparent =  defs[k].getAttribute("isTransparent");
+                  String isTransparent =  modelEditorExtension.getAttribute("isTransparent");
                   if (isTransparent != null && isTransparent.equalsIgnoreCase("true")) {
                 	  es.setIstransparent(true);
                   } else {
                 	  es.setIstransparent(false);
                   }
-                  String creationRule =  defs[k].getAttribute("creationRule");
+                  String creationRule =  modelEditorExtension.getAttribute("creationRule");
                   if (creationRule != null) {
                 	  es.setCreationrule(creationRule);
                   } else {
                 	  es.setCreationrule("manual");
                   }
-                  String hasNameCompartment = defs[k].getAttribute("hasNameCompartment");
+                  String hasNameCompartment = modelEditorExtension.getAttribute("hasNameCompartment");
                   if(hasNameCompartment != null) { 
                 	  if(hasNameCompartment.equalsIgnoreCase("true")) {
                 		  es.setHasnamecompartment(true);
@@ -216,7 +226,7 @@ public class CanvasPlugin extends AbstractUIPlugin {
                   }
                   
                   // setup element spec subtypes
-                  String symbolType = defs[k].getAttribute("symbolType");
+                  String symbolType = modelEditorExtension.getAttribute("symbolType");
                   es.setSymboltype(symbolType);
         		  if (symbolType.equalsIgnoreCase("connector")) {
         			  ConnectorSpecification_c cs = new ConnectorSpecification_c(
@@ -225,13 +235,13 @@ public class CanvasPlugin extends AbstractUIPlugin {
         		  }
                   // setup dependencies
                   addClientClassDependency(es, className);
-                  IConfigurationElement[] depends = defs[k].getChildren("dependsOn");
+                  IConfigurationElement[] depends = modelEditorExtension.getChildren("dependsOn");
                   for ( int d = 0; d < depends.length; ++d )
                   {
                     addClientClassDependency(es, depends[d].getAttribute("class"));
                   }
                   // setup auto resize
-                  String causeAutoResize = defs[k].getAttribute("causeAutoResize");
+                  String causeAutoResize = modelEditorExtension.getAttribute("causeAutoResize");
                   if(causeAutoResize != null) {
                 	  if(causeAutoResize.equalsIgnoreCase("false")) {
                 		  es.setCauseautoresize(false);
@@ -243,21 +253,24 @@ public class CanvasPlugin extends AbstractUIPlugin {
               }
             } // end if element name is Symbol
           }
-          for (int k = 0; k < defs.length; k++) {
+          // Note that this section is loading only "defaultfor" definitions.
+          // "symbol" definitions follow this
+          for (int k = 0; k < modelEditorExtensions.length; k++) {
           	int value = 0;
-            if (defs[k].getName().equals("defaultFor")) {
-              String className = defs[k].getAttribute("class");
+          	IConfigurationElement modelEditorExtension = modelEditorExtensions[k];
+            if (modelEditorExtension.getName().equals("defaultFor")) {
+              String className = modelEditorExtension.getAttribute("class");
               if (!className.equals("")) {
-                String mdlTypDef = defs[k].getAttribute("modelType");
-                String ooaTypDef = defs[k].getAttribute("ooaType");
+                String mdlTypDef = modelEditorExtension.getAttribute("modelType");
+                String ooaTypDef = modelEditorExtension.getAttribute("ooaType");
                 if (mdlTypDef != null && !mdlTypDef.equals("")) {
 				  int modelType = getValueFor(mdlTypDef);         	
                   int ooaType = getValueFor(ooaTypDef);                	
-                  IConfigurationElement[] col = defs[k].getChildren("color");
+                  IConfigurationElement[] col = modelEditorExtension.getChildren("color");
                   int r = Integer.parseInt(col[0].getAttribute("r"));
                   int g = Integer.parseInt(col[0].getAttribute("g"));
                   int b = Integer.parseInt(col[0].getAttribute("b"));
-                  String diagName = defs[k].getAttribute("name");
+                  String diagName = modelEditorExtension.getAttribute("name");
                   ModelSpecification_c ms = new ModelSpecification_c(graphicsModelRoot);
                   ms.setName(diagName);
                   ms.setModel_type(modelType);
@@ -277,7 +290,7 @@ public class CanvasPlugin extends AbstractUIPlugin {
                   } catch (ClassNotFoundException e) {
                     logError("Specified metamodel class not found: ", e);
                   }
-                  IConfigurationElement[] symbols = defs[k].getChildren("validSymbol");
+                  IConfigurationElement[] symbols = modelEditorExtension.getChildren("validSymbol");
                   for (int m = 0; m < symbols.length; m++) {
                     final String name = symbols[m].getAttribute("name");
                     final String symbolClassName = symbols[m].getAttribute("class");
@@ -329,10 +342,13 @@ public class CanvasPlugin extends AbstractUIPlugin {
               }
             }
           }
-          for (int k = 0; k < defs.length; k++) {
-        	  if (defs[k].getName().equals("symbol")) {
-        		  final String finalName = defs[k].getAttribute("name");
-        		  String symTypDef = defs[k].getAttribute("elemType");
+          //Note that this section is only loading "symbol" definitions.
+          // "defaultfor" definitions preceeded this
+          for (int k = 0; k < modelEditorExtensions.length; k++) {
+        	  IConfigurationElement modelEditorExtension = modelEditorExtensions[k];
+        	  if (modelEditorExtension.getName().equals("symbol")) {
+        		  final String finalName = modelEditorExtension.getAttribute("name");
+        		  String symTypDef = modelEditorExtension.getAttribute("elemType");
                   if (symTypDef != null) {
                     final int elemType = getValueFor(symTypDef);
 	        		  ElementSpecification_c es = ElementSpecification_c.
@@ -345,10 +361,10 @@ public class CanvasPlugin extends AbstractUIPlugin {
 	        			  
 	        		  });
 	        		  // setup element spec subtypes
-	        		  String symbolType = defs[k].getAttribute("symbolType");
+	        		  String symbolType = modelEditorExtension.getAttribute("symbolType");
 	        		  if (symbolType.equalsIgnoreCase("connector")) {
 	        			  ConnectorSpecification_c cs = ConnectorSpecification_c.getOneTS_CSPOnR200(es);
-	        			  IConfigurationElement[] terms = defs[k]
+	        			  IConfigurationElement[] terms = modelEditorExtension
 	        			                                       .getChildren("terminator");
 	        			  for (int l = 0; l < terms.length; l++) {
 	        				  TerminalSpecification_c tms = new TerminalSpecification_c(
@@ -510,30 +526,37 @@ public class CanvasPlugin extends AbstractUIPlugin {
       IConfigurationElement[] elems = exts[i].getConfigurationElements();
       for (int j = 0; j < elems.length; j++) {
         if (elems[j].getName().equals("editor")) { //$NON-NLS-1$
-          IConfigurationElement[] defs = elems[j].getChildren();
-          for (int k = 0; k < defs.length; k++) {
-            if (defs[k].getName().equals("symbol")) {
+          IConfigurationElement[] modelEditorExtensions = elems[j].getChildren();
+          for (int k = 0; k < modelEditorExtensions.length; k++) {
+        	IConfigurationElement  modelEditorExtension = modelEditorExtensions[k];
+            if (modelEditorExtension.getName().equals("symbol")) {
               // setup autoReconcile
-              IConfigurationElement[] autoReconcile = defs[k].
+              IConfigurationElement[] autoReconcile = modelEditorExtension.
                                                    getChildren("autoReconcile");
               for ( int e = 0; e < autoReconcile.length; ++e )
               {
      			AutoReconciliationSpecification_c ars =
      				   new AutoReconciliationSpecification_c(graphicsModelRoot);
-                ars.setName(autoReconcile[e].getAttribute("name"));
-                ars.setCountmethod(autoReconcile[e].
-                		                           getAttribute("countMethod"));
-                ars.setElementmethod(autoReconcile[e].
-                		                         getAttribute("elementMethod"));
-                ars.setElementexistsmethod(autoReconcile[e].
-                		                   getAttribute("elementExistsMethod"));
-                ars.setTemplateelementmethod(autoReconcile[e].
-                		                 getAttribute("templateElementMethod"));
-                if (ars.getTemplateelementmethod() == null) {
-                  ars.setTemplateelementmethod("");
-                }
+                ars.setBridge_numelements(autoReconcile[e].
+                		                           getAttribute("Bridge_NumElements"));
+                ars.setBridge_getelementid(autoReconcile[e].
+                		                         getAttribute("Bridge_GetElementID"));
+                ars.setBridge_connectorexists(autoReconcile[e].
+                		                   getAttribute("Bridge_ConnectorExists"));
+				if (ars.getBridge_connectorexists() == null) {
+					ars.setBridge_connectorexists("");
+				}
+				ars.setBridge_numconnectors(autoReconcile[e].getAttribute("Bridge_NumConnectors"));
+				if (ars.getBridge_numconnectors() == null) {
+					ars.setBridge_numconnectors("");
+				}
+                ars.setBridge_getconnectoridconditional(autoReconcile[e].
+  		                 getAttribute("Bridge_GetConnectorIDConditional"));
+                 if (ars.getBridge_getconnectoridconditional() == null) {
+               	  ars.setBridge_getconnectoridconditional("");
+                 }                
                 ElementSpecification_c scanTarget = locateEsByNameAndClassType(
-                		       graphicsModelRoot, defs[k].getAttribute("name"), defs[k].getAttribute("class")); 
+                		       graphicsModelRoot, modelEditorExtension.getAttribute("name"), modelEditorExtension.getAttribute("class")); 
                 ars.relateAcrossR29To(scanTarget);
                 ElementSpecification_c targetSymbol = locateEsByNameAndClassType(
                 		                                graphicsModelRoot,
@@ -553,29 +576,36 @@ public class CanvasPlugin extends AbstractUIPlugin {
               
             }
             
-            else if (defs[k].getName().equals("defaultFor")) {
+            else if (modelEditorExtension.getName().equals("defaultFor")) {
                 // setup autoReconcile
-                IConfigurationElement[] autoReconcile = defs[k].
+                IConfigurationElement[] autoReconcile = modelEditorExtension.
                                                      getChildren("autoReconcile");
                 for ( int e = 0; e < autoReconcile.length; ++e )
                 {
        			AutoReconciliationSpecification_c ars =
        				   new AutoReconciliationSpecification_c(graphicsModelRoot);
-                  ars.setName(autoReconcile[e].getAttribute("name"));
-                  ars.setCountmethod(autoReconcile[e].
-                  		                           getAttribute("countMethod"));
-                  ars.setElementmethod(autoReconcile[e].
-                  		                         getAttribute("elementMethod"));
-                  ars.setElementexistsmethod(autoReconcile[e].
-                  		                   getAttribute("elementExistsMethod"));
-                  ars.setTemplateelementmethod(autoReconcile[e].
-                  		                 getAttribute("templateElementMethod"));
-                  if (ars.getTemplateelementmethod() == null) {
-                    ars.setTemplateelementmethod("");
+                  ars.setBridge_numelements(autoReconcile[e].
+                  		                           getAttribute("Bridge_NumElements"));
+                  ars.setBridge_getelementid(autoReconcile[e].
+                  		                         getAttribute("Bridge_GetElementID"));
+                  ars.setBridge_connectorexists(autoReconcile[e].
+                  		                   getAttribute("Bridge_ConnectorExists"));
+  				  if (ars.getBridge_connectorexists() == null) {
+					ars.setBridge_connectorexists("");
+  				  }
+                  ars.setBridge_numconnectors(autoReconcile[e].
+                  		                 getAttribute("Bridge_NumConnectors"));
+                  if (ars.getBridge_numconnectors() == null) {
+                    ars.setBridge_numconnectors("");
                   }
-                 // ElementSpecification_c scanTarget = locateEsByNameAndClassType(
-           		       //graphicsModelRoot, defs[k].getAttribute("name"), defs[k].getAttribute("class")); 
-                  ModelSpecification_c modelSpec = locateMesByNameAndClassType(graphicsModelRoot, defs[k].getAttribute("name"), defs[k].getAttribute("class")); 
+                  ars.setBridge_getconnectoridconditional(autoReconcile[e].
+   		                 getAttribute("Bridge_GetConnectorIDConditional"));
+                  if (ars.getBridge_getconnectoridconditional() == null) {
+                	  ars.setBridge_getconnectoridconditional("");
+                  }
+                // ElementSpecification_c scanTarget = locateEsByNameAndClassType(
+           		       //graphicsModelRoot, modelEditorExtension.getAttribute("name"), modelEditorExtension.getAttribute("class")); 
+                  ModelSpecification_c modelSpec = locateMesByNameAndClassType(graphicsModelRoot, modelEditorExtension.getAttribute("name"), modelEditorExtension.getAttribute("class")); 
                   ars.relateAcrossR33To(modelSpec);
                   ElementSpecification_c targetSymbol = locateEsByNameAndClassType(
                   		                                graphicsModelRoot,
@@ -690,6 +720,14 @@ private ElementSpecification_c locateEsByNameAndClassType(ModelRoot modelRoot,
         }
     }
   }
+  public static void logTraceMsg(int filterType, String filterValue, String message )
+  {
+	  if (Ooaofgraphics.log != null) {
+		  Ooaofgraphics.log.println(filterType,
+				filterValue,
+				message);
+	  }
+  }  
   /* (non-Javadoc)
    * @see org.osgi.framework.BundleActivator#start(org.osgi.framework.BundleContext)
    */
@@ -758,4 +796,128 @@ private ElementSpecification_c locateEsByNameAndClassType(ModelRoot modelRoot,
 	}
 	return 0;
   }
+
+  	
+  	/**
+  	 * This is used to associate a Graphical instance type with an ooaofooa 
+  	 * instance. This routine was originally created in CanvasModelListener.java, 
+  	 * but it has been reused in other places and therefore it was moved to 
+  	 * this location to make it easier to find and reuse because it is NOT 
+  	 * specific to the CanvasModelListener.
+  	 * 
+  	 * @param model
+  	 */
+	public static void setGraphicalRepresents(final Model_c model) {
+		Ooaofooa modelRoot = Ooaofooa.getInstance(model.getModelRoot().getId());
+		if (model.getRepresents() == null) {
+			ModelSpecification_c ms = ModelSpecification_c.getOneGD_MSOnR9(model);
+			if (ms == null) {
+				ms = ModelSpecification_c.ModelSpecificationInstance(Ooaofgraphics.getDefaultInstance(),
+						new ClassQueryInterface_c() {
+
+							@Override
+							public boolean evaluate(Object candidate) {
+								return ((ModelSpecification_c) candidate).getModel_type() == model
+										.getModel_typeCachedValue()
+										&& ((ModelSpecification_c) candidate).getOoa_type() == model
+												.getOoa_typeCachedValue();
+							}
+						});
+
+				if (ms != null) {
+					ms.relateAcrossR9To(model);
+				}
+			}
+			model.setRepresents(Cl_c.Getinstancefromooa_id(modelRoot, model.getOoa_id(), model.getOoa_type()));
+		}
+		ArrayList<GraphicalElement_c> ges = new ArrayList<GraphicalElement_c>(
+				Arrays.asList(GraphicalElement_c.getManyGD_GEsOnR1(model)));
+		ges.addAll(Arrays
+				.asList(GraphicalElement_c.getManyGD_GEsOnR32(ElementInSuppression_c.getManyGD_EISsOnR32(model))));
+		for (Iterator<GraphicalElement_c> it = ges.iterator(); it.hasNext();) {
+			final GraphicalElement_c ge = it.next();
+			ElementSpecification_c es = ElementSpecification_c.getOneGD_ESOnR10(ge);
+			if (es == null) {
+				ElementSpecification_c spec = ElementSpecification_c
+						.ElementSpecificationInstance(Ooaofgraphics.getDefaultInstance(), new ClassQueryInterface_c() {
+
+							@Override
+							public boolean evaluate(Object candidate) {
+								return ((ElementSpecification_c) candidate).getOoa_type() == ge
+										.getOoa_typeCachedValue();
+							}
+						});
+				if (spec != null) {
+					spec.relateAcrossR10To(ge);
+				}
+			}
+			Object instanceFromId = null;
+			if (model.getRepresents() instanceof SystemModel_c) {
+				instanceFromId = Cl_c.Getinstancefromooa_id((SystemModel_c) model.getRepresents(), ge.getOoa_id(),
+						ge.getOoa_type());
+			} else {
+				instanceFromId = Cl_c.Getinstancefromooa_id(modelRoot, ge.getOoa_id(), ge.getOoa_type());
+			}
+			if (instanceFromId != null && (ge.getRepresents() == null || ge.getRepresents() != instanceFromId)) {
+				ge.setRepresents(instanceFromId);
+			}
+		}
+	}
+
+	/**
+	 * This routine was originally created in CanvasModelListener.java, but it has been 
+	 * reused in other places and therefore it was moved to this location to make it 
+	 * easier to find and reuse because it is NOT specific to the CanvasModelListener.
+  	 * 
+	 * @param canvas
+	 * @param o
+	 * @return True if the given Object is a part of the specified canvas (GD_MD) and false if it is not.
+	 */
+	public static boolean classInView(Model_c canvas, Object o) {
+		if (canvas != null) {
+			if (canvas.getRepresents() == null) {
+				if (Cl_c.Getooa_idfrominstance(o).equals(canvas.getOoa_id())
+						&& GraphicsUtil.getOoaType(o) == canvas.getOoa_type())
+					return true;
+			} else {
+				if (canvas.getRepresents() == o)
+					return true;
+			}
+			ModelSpecification_c ms = ModelSpecification_c.getOneGD_MSOnR9(canvas);
+			ElementInModelSpecification_c[] ems_set = ElementInModelSpecification_c.getManyGD_EMSsOnR11(ms);
+			ElementSpecification_c[] es_set = ElementSpecification_c.getManyGD_ESsOnR11(ems_set);
+			ClientClassDependency_c[] ccd_set = ClientClassDependency_c.getManyGD_CCDsOnR17(es_set);
+			final Class<?> depClass = o.getClass();
+			for (int i = 0; i < ccd_set.length; ++i) {
+				if (ccd_set[i].getRepresents() == depClass) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * Find and return the GD_GE instance that graphically represents the specified Object instance
+	 * within the given modelRoot
+	 * 
+	 * @param modelRoot The model root to search 
+	 * @param o The ooaofooa instance we are looking for
+	 * @return 
+	 */
+	static public GraphicalElement_c getGraphicalElement(Ooaofgraphics modelRoot, Object o) {
+		GraphicalElement_c result = null;
+		GraphicalElement_c[] ges = GraphicalElement_c.GraphicalElementInstances(modelRoot);
+		int type = GraphicsUtil.getElementOoaType(o, modelRoot);
+		for (int j = 0; j < ges.length; j++) {
+			if ((ges[j].getRepresents() != null && ges[j].getRepresents() == o)
+					|| (ges[j].getOoa_id().equals(((NonRootModelElement) o).Get_ooa_id())
+							&& ges[j].getOoa_type() == type)) {
+				result = ges[j];
+				break;
+			}
+		}
+		return result;
+	}
+
 }

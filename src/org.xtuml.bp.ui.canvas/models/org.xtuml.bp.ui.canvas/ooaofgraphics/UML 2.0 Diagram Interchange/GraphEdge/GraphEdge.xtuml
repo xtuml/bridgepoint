@@ -61,6 +61,10 @@ select any endWaypoint related by self->DIM_WAY[R319] where
            (selected.Way_ID == param.endingWaypointId);
 select any diaEle from instances of DIM_ELE
                                     where (selected.elementId == param.shapeId);
+if (empty diaEle) 
+  CL::logError(message:"DIM_ED.setConnectorPosition() did not locate a DIM_ELE instance for param.shapeID=" + OS::uniqueIdToString(id:param.shapeId));
+  return;
+end if;                                    
 select one shapeGraphEle related by diaEle->DIM_GE[R302];
 select one shapeNode related by shapeGraphEle->DIM_ND[R301];
 startPointX = 0;

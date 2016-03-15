@@ -38,6 +38,7 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
     public static final String ALLOW_OPERATIONS_IN_WHERE = PREFIX + "allow_operations_in_where"; //$NON-NLS-1$
     public static final String ALLOW_INTERFACE_NAME_IN_IC_MESSAGE = PREFIX + "allow_interface_name_in_ic_message"; //$NON-NLS-1$
     public static final String ALLOW_IMPLICIT_COMPONENT_ADDRESSING = PREFIX + "allow_implicit_component_addressing"; //$NON-NLS-1$
+    public static final String ENABLE_PARSE_ON_ACTIVITY_EDITS = PREFIX + "enable_parse_on_activity_edits"; //$NON-NLS-1$
     public static final String ENABLE_ERROR_FOR_EMPTY_SYNCHRONOUS_MESSAGE = PREFIX + "enable_error_for_empty_synchronous_message"; //$NON-NLS-1$
     public static final String ENABLE_ERROR_FOR_EMPTY_SYNCHRONOUS_MESSAGE_REALIZED = PREFIX + "enable_error_for_empty_synchronous_message_realized"; //$NON-NLS-1$
     public static final String DISABLE_GRADIENTS = PREFIX + "disable_gradients"; //$NON-NLS-1$
@@ -67,6 +68,7 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
     public static final String SHOW_SYNC_DELETION_DIALOG = PREFIX + "show_reference_delete_warning"; //$NON-NLS-1$
     public static final String SHOW_SYNC_REPORT = PREFIX + "show_reference_sync_report"; //$NON-NLS-1$
     public static final String USE_DEFAULT_NAME_FOR_CREATION = PREFIX + "use_default_name_for_new_element_creation"; //$NON-NLS-1$
+    public static final String CREATE_GRAPHICS_DURING_IMPORT = PREFIX + "create_graphics_during_import"; //$NON-NLS-1$
 
 	public static final String RECTILINEAR_ROUTING = "RECTILINEAR_ROUTING"; //$NON-NLS-1$
 
@@ -92,6 +94,7 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
         store.setValue(ALLOW_INT_TO_REAL_PROMOTION, prefs.allowIntToRealPromotion);
         store.setValue(ALLOW_REAL_TO_INT_COERCION, prefs.allowRealToIntCoercion);
         store.setValue(ALLOW_IMPLICIT_COMPONENT_ADDRESSING, prefs.allowImplicitComponentAddressing);
+        store.setValue(ENABLE_PARSE_ON_ACTIVITY_EDITS, prefs.enableParseOnActivtyEdits);
         store.setValue(ALLOW_OPERATIONS_IN_WHERE, prefs.allowOperationsInWhere);
         store.setValue(ALLOW_INTERFACE_NAME_IN_IC_MESSAGE, prefs.allowInterfaceNameInICMessage);
         store.setValue(ENABLE_ERROR_FOR_EMPTY_SYNCHRONOUS_MESSAGE, prefs.enableErrorForEmptySynchronousMessage);
@@ -125,6 +128,7 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
         store.setValue(SHOW_SYNC_DELETION_DIALOG, prefs.showReferenceRemovalDialog);
         store.setValue(SHOW_SYNC_REPORT, prefs.showReferenceSyncReport);
         store.setValue(USE_DEFAULT_NAME_FOR_CREATION, prefs.useDefaultNamesForNewModelElements);        
+        store.setValue(CREATE_GRAPHICS_DURING_IMPORT, prefs.createGraphicsDuringImport);
     }
 
     public IPreferenceModel loadModel(IPreferenceStore store, BasePlugin plugin, IPreferenceModel model) {
@@ -147,6 +151,8 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
             store.getString(BridgePointPreferencesStore.ALLOW_REAL_TO_INT_COERCION);
         prefs.allowImplicitComponentAddressing =
             store.getBoolean(BridgePointPreferencesStore.ALLOW_IMPLICIT_COMPONENT_ADDRESSING);
+        prefs.enableParseOnActivtyEdits =
+                store.getBoolean(BridgePointPreferencesStore.ENABLE_PARSE_ON_ACTIVITY_EDITS);
         prefs.allowOperationsInWhere =
             store.getBoolean(BridgePointPreferencesStore.ALLOW_OPERATIONS_IN_WHERE);
         prefs.allowInterfaceNameInICMessage = 
@@ -211,6 +217,8 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
         
         prefs.useDefaultNamesForNewModelElements =
             store.getBoolean(BridgePointPreferencesStore.USE_DEFAULT_NAME_FOR_CREATION);
+        prefs.createGraphicsDuringImport =
+            store.getBoolean(BridgePointPreferencesStore.CREATE_GRAPHICS_DURING_IMPORT);
                 
         return prefs;
     }
@@ -229,6 +237,7 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
         prefs.allowIntToRealPromotion = MessageDialogWithToggle.ALWAYS;
         prefs.allowRealToIntCoercion = MessageDialogWithToggle.ALWAYS;
         prefs.allowImplicitComponentAddressing = false;
+        prefs.enableParseOnActivtyEdits = false;
         prefs.allowOperationsInWhere = false;
         prefs.allowInterfaceNameInICMessage = false;
         prefs.enableErrorForEmptySynchronousMessage = true;
@@ -263,5 +272,6 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
         prefs.showReferenceRemovalDialog = true;
         prefs.showReferenceSyncReport = true;
         prefs.useDefaultNamesForNewModelElements = false;
+        prefs.createGraphicsDuringImport = false;
     }
 }
