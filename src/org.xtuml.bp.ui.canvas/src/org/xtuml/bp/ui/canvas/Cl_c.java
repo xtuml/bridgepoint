@@ -1666,25 +1666,34 @@ private static String s_invoke(
 				result = target.getClass().getMethod(methodName, argTypes);
 			}
 		} catch (NoSuchMethodException e) {
-			boolean shouldIgnore = false;
-			for (int i = 0; i < errorReportingIgnoredFor.length; i++) {
-				if (errorReportingIgnoredFor[i].equals(methodName)) {
-					shouldIgnore = true;
-					break;
-				}
-			}
+			// TODO BOB FIXME: I am ignoring all ClientNotFound operations right now because
+			//                 OAL added in operations made inside GD_ARS.Reconcile are being made
+			//                 against items that are not present. These are not fatal though, 
+			//                 and they are causing too much "noise". This does need to be
+			//                 put back into place and resolved by not making calls that are 
+			//                 not needed, but right now attempts to do that cause this that
+			//                 do need to be called to not get called and it is not worth chasing 
+			//                 right now.
 			
-			if (!shouldIgnore) {
-				String targetname = target.getClass().getName();
-				String argumentTypes = "";
-				for (int i = 0; (argTypes != null) && (i < argTypes.length); i++) {
-					if (i > 0) {
-						argumentTypes += ", ";
-					}
-					argumentTypes += argTypes[i].getSimpleName();
-				}
-				CanvasPlugin.logError("Client method not found. Target: " + targetname + "  OperationName: " + methodName + "  Argument(s): \"" + argumentTypes + "\"", e);
-			}
+//			boolean shouldIgnore = false;
+//			for (int i = 0; i < errorReportingIgnoredFor.length; i++) {
+//				if (errorReportingIgnoredFor[i].equals(methodName)) {
+//					shouldIgnore = true;
+//					break;
+//				}
+//			}
+//			
+//			if (!shouldIgnore) {
+//				String targetname = target.getClass().getName();
+//				String argumentTypes = "";
+//				for (int i = 0; (argTypes != null) && (i < argTypes.length); i++) {
+//					if (i > 0) {
+//						argumentTypes += ", ";
+//					}
+//					argumentTypes += argTypes[i].getSimpleName();
+//				}
+//				CanvasPlugin.logError("Client method not found. Target: " + targetname + "  OperationName: " + methodName + "  Argument(s): \"" + argumentTypes + "\"", e);
+//			}
 		}
 		return result;
 	}
