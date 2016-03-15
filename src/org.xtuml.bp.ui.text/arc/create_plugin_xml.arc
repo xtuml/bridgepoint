@@ -73,6 +73,7 @@ This file is the plugin manifest for the BridgePoint core plugin.
    <extension point = "org.eclipse.ui.elementFactories">
        <factory id ="org.xtuml.bp.ui.text.activity.factory" class="org.xtuml.bp.ui.text.activity.ActivityEditorInputFactory"/>
        <factory id ="org.xtuml.bp.ui.text.description.factory" class="org.xtuml.bp.ui.text.description.DescriptionEditorInputFactory"/>
+       <factory id ="org.xtuml.bp.ui.text.masl.factory" class="org.xtuml.bp.ui.text.masl.MASLEditorInputFactory"/>
    </extension>
 
    <extension
@@ -106,6 +107,12 @@ This file is the plugin manifest for the BridgePoint core plugin.
            id="org.xtuml.bp.ui.text.editor.oal.preference.OALEditorPreferencesPage"
            class="org.xtuml.bp.ui.text.editor.oal.preference.OALEditorPreferencesPage"
             name="Activity Editor">
+       </page>
+       <page
+           category="org.xtuml.bp.core.root"
+           id="org.xtuml.bp.ui.text.editor.preference.DefaultActivityEditorPreferencesPage"
+           class="org.xtuml.bp.ui.text.editor.preference.DefaultActivityEditorPreferencesPage"
+            name="Default Activity Editor">
        </page>
    </extension>
 
@@ -164,6 +171,89 @@ This file is the plugin manifest for the BridgePoint core plugin.
   .end if
       </objectContribution>
 .end for
+   </extension>
+   <extension
+         id="org.xtuml.bp.ui.text.MASLEditorAction"
+         name="MASL Editor"
+         point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            objectClass="org.xtuml.bp.core.RequiredOperation_c"
+            adaptable="true"
+            id="org.xtuml.bp.ui.text.contribution3">
+         <action
+               label="MASL Editor"
+               icon="platform:/plugin/org.xtuml.bp.core/icons/edit_oal.gif"
+               class="org.xtuml.bp.ui.text.masl.ShowMASLAction"
+               menubarPath="org.xtuml.bp.ui.openroot/org.xtuml.bp.ui.openmenu"
+               enablesFor="1"
+               id="org.xtuml.bp.ui.text.masl.ShowMASLEditorAction3">
+         </action>
+      </objectContribution>
+      <objectContribution
+            objectClass="org.xtuml.bp.core.RequiredSignal_c"
+            adaptable="true"
+            id="org.xtuml.bp.ui.text.contribution4">
+         <action
+               label="MASL Editor"
+               icon="platform:/plugin/org.xtuml.bp.core/icons/edit_oal.gif"
+               class="org.xtuml.bp.ui.text.masl.ShowMASLAction"
+               menubarPath="org.xtuml.bp.ui.openroot/org.xtuml.bp.ui.openmenu"
+               enablesFor="1"
+               id="org.xtuml.bp.ui.text.masl.ShowMASLEditorAction4">
+         </action>
+      </objectContribution>
+      <objectContribution
+            objectClass="org.xtuml.bp.core.Bridge_c"
+            adaptable="true"
+            id="org.xtuml.bp.ui.text.contribution5">
+         <action
+               label="MASL Editor"
+               icon="platform:/plugin/org.xtuml.bp.core/icons/edit_oal.gif"
+               class="org.xtuml.bp.ui.text.masl.ShowMASLAction"
+               menubarPath="org.xtuml.bp.ui.openroot/org.xtuml.bp.ui.openmenu"
+               enablesFor="1"
+               id="org.xtuml.bp.ui.text.masl.ShowMASLEditorAction5">
+         </action>
+      </objectContribution>
+      <objectContribution
+            objectClass="org.xtuml.bp.core.Function_c"
+            adaptable="true"
+            id="org.xtuml.bp.ui.text.contribution6">
+         <action
+               label="MASL Editor"
+               icon="platform:/plugin/org.xtuml.bp.core/icons/edit_oal.gif"
+               class="org.xtuml.bp.ui.text.masl.ShowMASLAction"
+               menubarPath="org.xtuml.bp.ui.openroot/org.xtuml.bp.ui.openmenu"
+               enablesFor="1"
+               id="org.xtuml.bp.ui.text.masl.ShowMASLEditorAction6">
+         </action>
+      </objectContribution>
+      <objectContribution
+            objectClass="org.xtuml.bp.core.Operation_c"
+            adaptable="true"
+            id="org.xtuml.bp.ui.text.contribution7">
+         <action
+               label="MASL Editor"
+               icon="platform:/plugin/org.xtuml.bp.core/icons/edit_oal.gif"
+               class="org.xtuml.bp.ui.text.masl.ShowMASLAction"
+               menubarPath="org.xtuml.bp.ui.openroot/org.xtuml.bp.ui.openmenu"
+               enablesFor="1"
+               id="org.xtuml.bp.ui.text.masl.ShowMASLEditorAction7">
+         </action>
+      </objectContribution>
+      <objectContribution
+            objectClass="org.xtuml.bp.core.StateMachineState_c"
+            adaptable="true"
+            id="org.xtuml.bp.ui.text.contribution8">
+         <action
+               label="MASL Editor"
+               icon="platform:/plugin/org.xtuml.bp.core/icons/edit_oal.gif"
+               class="org.xtuml.bp.ui.text.masl.ShowMASLAction"
+               menubarPath="org.xtuml.bp.ui.openroot/org.xtuml.bp.ui.openmenu"
+               enablesFor="1"
+               id="org.xtuml.bp.ui.text.masl.ShowMASLEditorAction8">
+         </action>
+      </objectContribution>
    </extension>
    <extension
          id="org.xtuml.bp.ui.text.editors"
