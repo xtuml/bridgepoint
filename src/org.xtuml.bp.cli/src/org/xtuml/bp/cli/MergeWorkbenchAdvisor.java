@@ -39,6 +39,7 @@ import org.xtuml.bp.model.compare.contentmergeviewer.ModelContentMergeViewer;
 import org.xtuml.bp.model.compare.providers.ModelCompareContentProvider;
 import org.xtuml.bp.model.compare.providers.ModelCompareLabelProvider;
 import org.xtuml.bp.ui.canvas.CanvasModelListener;
+import org.xtuml.bp.ui.canvas.CanvasPlugin;
 import org.xtuml.bp.ui.canvas.Model_c;
 import org.xtuml.bp.ui.canvas.Ooaofgraphics;
 
@@ -104,21 +105,21 @@ public class MergeWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
 			CoreImport.createUniqueIds = false;
 			IModelImport leftImporter = streamImportFactory.create(
 					new ByteArrayInputStream(leftBytes), leftCompareRoot, true,
-					new Path(""));
+					new Path(""), true);
 			RandomAccessFile right = new RandomAccessFile(new File(rightFile),
 					"r");
 			byte[] rightBytes = new byte[(int) right.length()];
 			right.read(rightBytes);
 			IModelImport rightImporter = streamImportFactory.create(
 					new ByteArrayInputStream(rightBytes), rightCompareRoot,
-					true, new Path(""));
+					true, new Path(""), true);
 			RandomAccessFile ancestor = new RandomAccessFile(new File(
 					ancestorFile), "r");
 			byte[] ancestorBytes = new byte[(int) ancestor.length()];
 			ancestor.read(ancestorBytes);
 			IModelImport ancestorImporter = streamImportFactory.create(
 					new ByteArrayInputStream(ancestorBytes),
-					ancestorCompareRoot, true, new Path(""));
+					ancestorCompareRoot, true, new Path(""), true);
 			SystemModel_c sys = new SystemModel_c(Ooaofooa.getDefaultInstance());
 			ImportHelper helper = new ImportHelper(null);
 			helper.setUpGlobals(sys);
@@ -131,15 +132,15 @@ public class MergeWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
 			}
 			Model_c[] models = Model_c.ModelInstances(Ooaofgraphics.getInstance(leftCompareRoot.getId()));
 			for(Model_c model : models) {
-				CanvasModelListener.setGraphicalRepresents(model);
+				CanvasPlugin.setGraphicalRepresents(model);
 			}
 			models = Model_c.ModelInstances(Ooaofgraphics.getInstance(rightCompareRoot.getId()));
 			for(Model_c model : models) {
-				CanvasModelListener.setGraphicalRepresents(model);
+				CanvasPlugin.setGraphicalRepresents(model);
 			}
 			models = Model_c.ModelInstances(Ooaofgraphics.getInstance(ancestorCompareRoot.getId()));
 			for(Model_c model : models) {
-				CanvasModelListener.setGraphicalRepresents(model);
+				CanvasPlugin.setGraphicalRepresents(model);
 			}
 			final NonRootModelElement leftRoot = leftImporter
 					.getRootModelElement();

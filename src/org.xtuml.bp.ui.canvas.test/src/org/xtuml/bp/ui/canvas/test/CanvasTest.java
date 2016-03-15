@@ -360,7 +360,7 @@ public abstract class CanvasTest extends BaseTest {
 	  store.setValue("org.eclipse.jface.dialogfont", "1|Tahoma|8|0|WINDOWS|1|-11|0|0|0|400|0|0|0|1|0|0|0|0|Tahoma");
 	  store.setValue("org.eclipse.ui.workbench.TAB_TEXT_FONT", "1|Tahoma|8|0|WINDOWS|1|-11|0|0|0|400|0|0|0|1|0|0|0|0|Tahoma");
 	  store.setValue("org.eclipse.ui.workbench.VIEW_MESSAGE_TEXT_FONT", "1|Tahoma|8|0|WINDOWS|1|-11|0|0|0|400|0|0|0|1|0|0|0|0|Tahoma");
-	  CanvasModelListener.setGraphicalRepresents(editor.getModel());
+	  CanvasPlugin.setGraphicalRepresents(editor.getModel());
 	  Image img = new Image(Display.getDefault(), size);
 	  final TestGC tester = new TestGC(new SWTGraphics(new GC(img)));
 	  tester.setFont(displayFont);

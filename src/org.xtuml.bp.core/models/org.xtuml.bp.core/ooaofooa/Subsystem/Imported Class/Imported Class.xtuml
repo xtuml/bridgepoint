@@ -538,6 +538,178 @@ return self.convertToInstance();',
 	1,
 	'',
 	"4d1f1e3b-fef4-41b9-9ab1-82f165f5ad34");
+INSERT INTO O_TFR
+	VALUES ("d1ac9c83-e367-4382-88b5-ca52993642d9",
+	"fcc05ac4-6434-449e-9045-c76c52ee8c78",
+	'getSimpleAssociationCount',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	1,
+	'select many rsimps related by self->R_OIR[R202]->R_REL[R201]->R_SIMP[R206];
+return cardinality rsimps; ',
+	1,
+	'',
+	"3191a426-dbbb-4691-b0f9-10628b7051b6");
+INSERT INTO O_TFR
+	VALUES ("5e2f9322-e8d4-4028-b2bb-46c1a33311d6",
+	"fcc05ac4-6434-449e-9045-c76c52ee8c78",
+	'getSimpleAssociationId',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	1,
+	'id = GD::NULL_UNIQUE_ID();
+select many rsimps related by self->R_OIR[R202]->R_REL[R201]->R_SIMP[R206];
+// We''re preincrementing the index
+count = -1;
+for each rsimp in rsimps
+  count = count + 1;
+  if (count == param.index)
+    id = rsimp.Rel_ID;
+    break;
+  end if;
+end for; 
+return id;',
+	1,
+	'',
+	"d1ac9c83-e367-4382-88b5-ca52993642d9");
+INSERT INTO O_TPARM
+	VALUES ("d3661173-9bba-4fd3-b38b-f84d10781760",
+	"5e2f9322-e8d4-4028-b2bb-46c1a33311d6",
+	'index',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("a0f00c91-d5e9-4083-8bbd-c1561ac1f77c",
+	"fcc05ac4-6434-449e-9045-c76c52ee8c78",
+	'getSupertypeCount',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	1,
+	'select many rsupers related by self->R_OIR[R202]->R_REL[R201]->R_SUBSUP[R206]->R_SUPER[R212];
+return cardinality rsupers; ',
+	1,
+	'',
+	"5e2f9322-e8d4-4028-b2bb-46c1a33311d6");
+INSERT INTO O_TFR
+	VALUES ("3ed5288d-c74e-4766-9f3a-72bfedd41913",
+	"fcc05ac4-6434-449e-9045-c76c52ee8c78",
+	'getSupertypeId',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	1,
+	'id = GD::NULL_UNIQUE_ID();
+select many rsupers related by self->R_OIR[R202]->R_REL[R201]->R_SUBSUP[R206]->R_SUPER[R212];
+// We''re preincrementing the index
+count = -1;
+for each rsuper in rsupers
+  count = count + 1;
+  if (count == param.index)
+    id = rsuper.Rel_ID;
+    break;
+  end if;
+end for; 
+return id;',
+	1,
+	'',
+	"a0f00c91-d5e9-4083-8bbd-c1561ac1f77c");
+INSERT INTO O_TPARM
+	VALUES ("d0a30133-26ea-470c-a1db-dedabe8c7090",
+	"3ed5288d-c74e-4766-9f3a-72bfedd41913",
+	'index',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("2c77a23f-dfe8-4f29-b23f-f44a3d75dbfc",
+	"fcc05ac4-6434-449e-9045-c76c52ee8c78",
+	'getSubtypeCount',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	1,
+	'select many rsubs related by self->R_OIR[R202]->R_REL[R201]->R_SUBSUP[R206]->R_SUB[R213];
+return cardinality rsubs; ',
+	1,
+	'',
+	"3ed5288d-c74e-4766-9f3a-72bfedd41913");
+INSERT INTO O_TFR
+	VALUES ("f25f8a39-6407-4e33-b1c1-a05e6b9562ab",
+	"fcc05ac4-6434-449e-9045-c76c52ee8c78",
+	'getSubtypeId',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	1,
+	'id = GD::NULL_UNIQUE_ID();
+select many rsubs related by self->R_OIR[R202]->R_REL[R201]->R_SUBSUP[R206]->R_SUB[R213];
+// We''re preincrementing the index
+count = -1;
+for each rsub in rsubs
+  count = count + 1;
+  if (count == param.index)
+    id = rsub.Rel_ID;
+    break;
+  end if;
+end for; 
+return id;',
+	1,
+	'',
+	"2c77a23f-dfe8-4f29-b23f-f44a3d75dbfc");
+INSERT INTO O_TPARM
+	VALUES ("d677baf6-d39d-418f-9504-4d616603de4e",
+	"f25f8a39-6407-4e33-b1c1-a05e6b9562ab",
+	'index',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("4532fa76-e9c3-4991-9820-d54f80417bdf",
+	"fcc05ac4-6434-449e-9045-c76c52ee8c78",
+	'getAssociativeLinkCount',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	1,
+	'select many linedassocs related by self->R_OIR[R202]->R_REL[R201]->R_ASSOC[R206];
+return cardinality linedassocs; ',
+	1,
+	'',
+	"f25f8a39-6407-4e33-b1c1-a05e6b9562ab");
+INSERT INTO O_TFR
+	VALUES ("22648358-a9eb-4b7c-9dea-e8f69a80ef18",
+	"fcc05ac4-6434-449e-9045-c76c52ee8c78",
+	'getAssociativeLinkId',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	1,
+	'id = GD::NULL_UNIQUE_ID();
+select many linedassocs related by self->R_OIR[R202]->R_REL[R201]->R_ASSOC[R206];
+// We''re preincrementing the index
+count = -1;
+for each linedassoc in linedassocs
+  count = count + 1;
+  if (count == param.index)
+    id = linedassoc.Rel_ID;
+    break;
+  end if;
+end for; 
+return id;',
+	1,
+	'',
+	"4532fa76-e9c3-4991-9820-d54f80417bdf");
+INSERT INTO O_TPARM
+	VALUES ("edd0db46-0cca-44de-a495-edd4b9c76048",
+	"22648358-a9eb-4b7c-9dea-e8f69a80ef18",
+	'index',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
 INSERT INTO O_NBATTR
 	VALUES ("a94ea28b-2350-4269-9287-788cea2336c6",
 	"fcc05ac4-6434-449e-9045-c76c52ee8c78");

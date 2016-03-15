@@ -47,6 +47,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.xtuml.bp.core.ActionHome_c;
 import org.xtuml.bp.core.Action_c;
 import org.xtuml.bp.core.ActorParticipant_c;
@@ -114,6 +115,7 @@ import org.xtuml.bp.core.UseCaseAssociation_c;
 import org.xtuml.bp.core.UserDataType_c;
 import org.xtuml.bp.core.Visibility_c;
 import org.xtuml.bp.core.common.BaseModelDelta;
+import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.ComponentResourceListener;
 import org.xtuml.bp.core.common.IdAssigner;
@@ -138,6 +140,7 @@ import org.xtuml.bp.ui.canvas.Graphconnector_c;
 import org.xtuml.bp.ui.canvas.Graphedge_c;
 import org.xtuml.bp.ui.canvas.Graphelement_c;
 import org.xtuml.bp.ui.canvas.GraphicalElement_c;
+import org.xtuml.bp.ui.canvas.GraphicsReconcilerLauncher;
 import org.xtuml.bp.ui.canvas.Graphnode_c;
 import org.xtuml.bp.ui.canvas.LineSegment_c;
 import org.xtuml.bp.ui.canvas.ModelSpecification_c;
@@ -1044,129 +1047,6 @@ public class ImportHelper
             }
         }
     }
-    /**
-     * Relates all external entity packages across the
-     * associations found in the package linking subsystem
-     */
-    public void formalizeExternalEntityPackageLinkingAssociations(Ooaofooa modelRoot)
-    {
-    	//TODO: BOB remove this
-    }
-    /**
-     * Relates all function packages across the
-     * associations found in the package linking subsystem
-     */
-    public void formalizeFunctionPackageLinkingAssociations(Ooaofooa modelRoot)
-    {
-    	//TODO: BOB remove this
-    }
-    /**
-     * This function is used to migrate 1.4.2-based components to 1.5.x.
-     */
-    public void migrateComponents(final Ooaofooa modelRoot)
-    {
-        
-        // ensure that all component diagrams have been
-        // loaded
-        if (modelRoot.getRoot() == null) {
-            SystemModel_c system = SystemModel_c.SystemModelInstance(Ooaofooa
-                    .getDefaultInstance(), new ClassQueryInterface_c() {
-
-                public boolean evaluate(Object candidate) {
-                    return ((SystemModel_c) candidate).getName().equals(
-                            EclipseOoaofooa
-                                    .getProjectNameFromModelRootId(modelRoot
-                                            .getId()));
-                }
-
-            });
-            modelRoot.setRoot(system);
-        }
-
-        // also need to assure all components are loaded
-        // this will guarantee that imported components
-        // are also setup correctly
-        PersistenceManager.ensureAllChildInstancesLoaded(modelRoot.getRoot().getPersistableComponent(),
-                modelRoot,
-                Component_c.class, true);
-        
-        // upgrade satisfactions to have new unique identifier
-        addIdentifierForPre715Satisfactions(modelRoot);
-        
-        boolean found = false;
-
-        Iterator c_iter = old_components.iterator();
-        UUID pkg_id = Gd_c.Null_unique_id();
-
-        while ( c_iter.hasNext() ) {
-            C_C old_comp = (C_C) c_iter.next();
-
-            // Use old_comp.Diagram_Id to find the new component's
-            // Package_Id.  The path has changed from
-            // C_C->CD_CID->CD_CDE->CD_CD to C_C->CP_CP.
-            Iterator cid_iter = component_in_diagrams.iterator();
-            CD_CID cid = null;
-            while ( cid_iter.hasNext() && !found ) {
-                cid = (CD_CID) cid_iter.next();
-
-                CD_CDE[] cdes = component_diagram_elements.toArray(new CD_CDE[component_diagram_elements.size()]);
-                for(int i = 0; i < cdes.length; i++) {
-                    CD_CDE cde = cdes[i];
-
-                    if ( cid.Element_Id.equals(cde.Element_Id ) && cid.Id.equals(old_comp.Diagram_Id)) {
-                        found = true;
-                        pkg_id = cde.Id;
-                        component_diagram_elements.removeElement(cde);
-                        break;
-                    }
-                }
-            }
-            found = false;
-            component_in_diagrams.removeElement(cid);
-            removedCIDList.add(cid);
-            
-            Component_c component = old_comp.Inst;
-            // we need to remove the temporary component created
-            // to satisfy the importer and replace it with
-            // the new one which has all the correct values.
-            component.delete_unchecked();
-            component = new Component_c(modelRoot, pkg_id,
-                    Gd_c.Null_unique_id(), Gd_c.Null_unique_id(), old_comp.Name, old_comp.Descrip, 0,
-                    Gd_c.Null_unique_id(), false, "");
-            component.batchRelate(modelRoot, false, true);
-            final PersistableModelComponent persistableComponent = component.getPersistableComponent();
-            persistableComponent.setRootModelElement(component);
-            migrateInterfaceChanges(modelRoot, component, cid);
-            migrateImportedComponents(modelRoot, component);
-
-            // trigger the code to create a nested
-            // package as well as the required outer
-            // interfaces
-            ModelSpecification_c modelSpec = ModelSpecification_c
-                    .ModelSpecificationInstance(Ooaofgraphics
-                            .getDefaultInstance(), new ClassQueryInterface_c() {
-
-                        public boolean evaluate(Object candidate) {
-                            return ((ModelSpecification_c)candidate).getModel_type() == Modeltype_c.ComponentDiagram;
-                        }
-
-                    });
-            modelSpec.Elementcreated(component);
-            CanvasTransactionListener.startReconciler(null, true, false);
-            try {
-                ResourcesPlugin.getWorkspace().run(new IWorkspaceRunnable() {
-                    
-                    public void run(IProgressMonitor monitor) throws CoreException {
-                        ComponentResourceListener.setIgnoreResourceChanges(true);
-                        persistableComponent.persist();
-                    }
-                
-                }, new NullProgressMonitor());
-            } catch (CoreException e) {
-                CorePlugin.logError("Unable to persist upgrade component.", e);
-            }
-        }
-    }
     static List<Interface_c> interfaceInstances = new ArrayList<Interface_c>();
     
     public static void addInterfaceToInstances(NonRootModelElement iface) {
@@ -1563,156 +1443,6 @@ public class ImportHelper
             }
         }
         return null;
-    }
-
-    /**
-     * This function is used to migrate 1.4.2-based used components
-     * (CD_IC) to 1.5.x imported components (CL_IC).
-     */
-    public void migrateImportedComponents(final Ooaofooa modelRoot, Component_c component) {
-        // ensure that all interfaces have been
-        // loaded
-        if (modelRoot.getRoot() == null) {
-            SystemModel_c system = SystemModel_c.SystemModelInstance(Ooaofooa
-                    .getDefaultInstance(), new ClassQueryInterface_c() {
-
-                public boolean evaluate(Object candidate) {
-                    return ((SystemModel_c) candidate).getName().equals(
-                            EclipseOoaofooa
-                                    .getProjectNameFromModelRootId(modelRoot
-                                            .getId()));
-                }
-
-            });
-            modelRoot.setRoot(system);
-        }
-
-        CD_IC[] comps = used_components.toArray(new CD_IC[used_components.size()]);
-        for(int l = 0; l < comps.length; l++) {
-            CD_IC cdic = comps[l];
-            CD_CID cid = null;
-            if(cdic.Component_Id.equals(component.getId())) {
-                CD_CID[] cids = component_in_diagrams.toArray(new CD_CID[component_in_diagrams.size()]);
-                for(int i = 0; i < cids.length; i++) {
-                    if(cids[i].Id.equals(cdic.Diagram_Id)) {
-                        cid = cids[i];
-                        CD_IID[] iids = interface_in_diagrams.toArray(new CD_IID[interface_in_diagrams.size()]);
-                        for(int j = 0; j < iids.length; j++) {
-                            if(iids[j].Component_Id.equals(cids[i].Id)) {
-                                final C_P[] cps = old_provisions.toArray(new C_P[old_provisions.size()]);
-                                for(int k = 0; k < cps.length; k++) {
-                                    if(cps[k].Diagram_Id.equals(iids[j].Id)) {
-                                        final int finalK = k;
-                                        // we ignore these, and find the graphical
-                                        // element and remove them
-                                        GraphicalElement_c element = GraphicalElement_c
-                                                .GraphicalElementInstance(
-                                                        Ooaofgraphics
-                                                                .getInstance(cdic.ModelRoot
-                                                                        .getId()),
-                                                        new ClassQueryInterface_c() {
-    
-                                                            public boolean evaluate(
-                                                                    Object candidate) {
-                                                                return ((GraphicalElement_c) candidate)
-                                                                        .getOoa_id()
-                                                                        .equals(
-                                                                                cps[finalK].Provision_Id);
-                                                            }
-    
-                                                        });
-                                        element.Dispose();
-                                        old_provisions.removeElement(cps[k]);
-                                        removedCPList.add(cps[k]);
-                                        interface_in_diagrams.removeElement(iids[j]);
-                                        removedIIDList.add(iids[j]);
-                                    }
-                                }
-                                final C_R[] crs = old_requirements.toArray(new C_R[old_requirements.size()]);
-                                for(int k = 0; k < crs.length; k++) {
-                                    final int finalK = k;
-                                    if(crs[k].Diagram_Id.equals(iids[j].Id)) {
-                                        GraphicalElement_c element = GraphicalElement_c
-                                        .GraphicalElementInstance(
-                                                Ooaofgraphics
-                                                        .getInstance(cdic.ModelRoot
-                                                                .getId()),
-                                                new ClassQueryInterface_c() {
-    
-                                                    public boolean evaluate(
-                                                            Object candidate) {
-                                                        return ((GraphicalElement_c) candidate)
-                                                                .getOoa_id()
-                                                                .equals(
-                                                                        crs[finalK].Requirement_Id);
-                                                    }
-    
-                                                });
-                                        element.Dispose();
-                                        old_requirements.removeElement(crs[k]);
-                                        removedCRList.add(crs[k]);
-                                        interface_in_diagrams.removeElement(iids[j]);
-                                        removedIIDList.add(iids[j]);
-                                    }
-                                }
-                                component_in_diagrams.removeElement(cids[i]);
-                                removedCIDList.add(cid);
-                            }
-                        }
-                    }
-                }
-    
-                CD_CDE cde = null;
-                
-                CD_CDE[] cdes = component_diagram_elements.toArray(new CD_CDE[component_diagram_elements.size()]);
-                for(int i = 0; i < cdes.length; i++) {
-                    if(cdes[i].Element_Id.equals(cid.Element_Id)) {
-                        cde = cdes[i];
-                        break;
-                    }
-                }
-                
-                final ComponentReference_c clic = new ComponentReference_c(cdic.ModelRoot,
-                        cdic.Id, Gd_c.Null_unique_id(), 
-                        cde.Id, Gd_c.Null_unique_id(), cdic.Mult, cdic.ClassifierName,
-                        "", cdic.Descrip); 
-                clic.batchRelate(cdic.ModelRoot, false, true);
-                if(clic.Canassigntocomp(component.getId(), true))
-                    clic.Assigntocomp(component.getId());
-                GraphicalElement_c[] graphElements = GraphicalElement_c
-                        .GraphicalElementInstances(Ooaofgraphics
-                                .getInstance(cdic.ModelRoot.getId())); 
-                for(int i = 0; i < graphElements.length; i++) {
-                    if(graphElements[i].getOoa_id().equals(cdic.Id)) {
-                        graphElements[i].setRepresents(clic);
-                    }
-                }
-                graphElements = GraphicalElement_c
-                        .GraphicalElementInstances(Ooaofgraphics
-                                .getInstance(component.getModelRoot().getId())); 
-                for(int i = 0; i < graphElements.length; i++) {
-                    if(graphElements[i].getOoa_id().equals(component.getId())) {
-                        graphElements[i].setRepresents(component);
-                    }
-                }
-                CanvasTransactionListener.startReconciler(null, true, false);
-                used_components.removeElement(cdic);
-                removedUsedComponents.add(cdic);
-                try {
-                    ResourcesPlugin.getWorkspace().run(new IWorkspaceRunnable() {
-                        
-                        public void run(IProgressMonitor monitor) throws CoreException {
-                            ComponentResourceListener.setIgnoreResourceChanges(true);
-                            clic.getPersistableComponent().persist();
-                        }
-                    
-                    }, new NullProgressMonitor());
-                } catch (CoreException e) {
-                    CorePlugin.logError("Unable to persist upgrade component.", e);
-                }            
-            }
-        }
-
     }
 
     /**
@@ -2187,14 +1917,6 @@ public class ImportHelper
     		}
     	}
     	return createdElements;
-    }
-    
-    /**
-     * This method will find data types and associate them
-     * with the correct domain, if at the domain level
-     */
-    public void associateDTsWithDomain(Ooaofooa modelRoot) {
-    	// TODO: BOB REmove this
     }
     
     public void upgradeEventData(Ooaofooa modelRoot,
@@ -2701,5 +2423,5 @@ public class ImportHelper
 
 		}
 
-	}
+	}	
 }

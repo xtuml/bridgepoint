@@ -29,6 +29,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspaceRunnable;
@@ -41,6 +43,7 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.swt.widgets.Display;
@@ -53,6 +56,7 @@ import org.xtuml.bp.core.DataType_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.UserDataType_c;
+import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.ComponentResourceListener;
 import org.xtuml.bp.core.common.InstanceList;
@@ -71,6 +75,7 @@ import org.xtuml.bp.ui.canvas.Diagram_c;
 import org.xtuml.bp.ui.canvas.Gr_c;
 import org.xtuml.bp.ui.canvas.Graphelement_c;
 import org.xtuml.bp.ui.canvas.GraphicalElement_c;
+import org.xtuml.bp.ui.canvas.GraphicsReconcilerLauncher;
 import org.xtuml.bp.ui.canvas.Graphnode_c;
 import org.xtuml.bp.ui.canvas.Model_c;
 import org.xtuml.bp.ui.canvas.Ooaofgraphics;
@@ -81,7 +86,15 @@ import org.xtuml.bp.ui.canvas.Shape_c;
  * older BridgePoint single file model
  */
 public class ModelImportWizard extends Wizard implements IImportWizard {
+	boolean createGraphicsOnImport;
 
+	public ModelImportWizard() {
+		super();
+		IPreferenceStore store = CorePlugin.getDefault().getPreferenceStore();
+		createGraphicsOnImport = store.getBoolean(BridgePointPreferencesStore.CREATE_GRAPHICS_DURING_IMPORT);
+	}
+
+	
 	@Override
 	public boolean performFinish() {
 		if (fImportPage.getSourceFilePath() != null) {
@@ -143,42 +156,6 @@ public class ModelImportWizard extends Wizard implements IImportWizard {
 		addPage(fImportPage);
 	}
 
-	class DomainCreationRunnable implements IRunnableWithProgress {
-		boolean result = true;
-
-		private String domainName;
-
-		private ProgressMonitorDialog dialog;
-
-		public DomainCreationRunnable(String pDomainName,
-				ProgressMonitorDialog pDialog) {
-			super();
-			domainName = pDomainName;
-			dialog = pDialog;
-		}
-
-		public void run(IProgressMonitor monitor) {
-			try {
-				ResourcesPlugin.getWorkspace().run(new IWorkspaceRunnable() {
-					public void run(IProgressMonitor monitor)
-							throws CoreException {
-						ComponentResourceListener
-								.setIgnoreResourceChanges(true);
-						PersistenceManager.markSystemFileForUpgrade(fSystem.getPersistableComponent());
-						UpgradeJob job = new UpgradeJob("Disable system",
-								fSystem.getPersistableComponent());
-						job.setRule(ResourcesPlugin.getWorkspace().getRoot());
-						job.schedule();
-					    while(Display.getDefault().readAndDispatch()) {};
-					}
-				}, monitor);
-			} catch (CoreException e) {
-				CorePlugin.logError("Unable to create domain.", e);
-			}
-		}
-
-	}
-
 	/*
 	 * (non-Javadoc)
 	 *
@@ -205,36 +182,9 @@ public class ModelImportWizard extends Wizard implements IImportWizard {
 						+ templateFileName, e);
 				return false;
 			}
+
 			try {
-				// turn off model change listeners
-				ModelRoot.disableChangeNotification();
-				// below we create an importer simply to
-				// discover if we are importing an old BP
-				// domain file, if so we call NewDomainWizard
-				// to handle the import. Otherwise we need
-				// to create an import stream.
-				String domainName = new Path(fImportPage.getSourceFilePath())
-						.removeFileExtension().lastSegment();
-				String rootId = Ooaofooa.createModelRootId((IProject) fSystem
-						.getAdapter(IProject.class), domainName, true);
-				Ooaofooa domainRoot = Ooaofooa.getInstance(rootId);
-                                IPath sourceFileDirectory = templatePath.removeLastSegments(1);
-				fImporter = CorePlugin.getModelImportFactory().create(inStream,
-						domainRoot, fSystem, false, true, true, false);
-				if (fImporter.getHeader().getModelComponentType()
-						.equalsIgnoreCase("Domain")) { //$NON-NLS-1$
-					// close the above input stream as it was only used
-					// to determine if we are importing an old domain
-					inStream.close();
-					DomainCreationRunnable runnable = new DomainCreationRunnable(
-							domainName, dialog);
-					if (getContainer() != null) {
-						dialog.run(false, false, runnable);
-					} else {
-						runnable.run(new NullProgressMonitor());
-					}
-					return runnable.result;
-				}
+				IPath sourceFileDirectory = templatePath.removeLastSegments(1);
 				ImportStreamStatus iss = new ImportStreamStatus(inStream);
 				if (getContainer() == null) {
 					// for unit tests to prevent displaying progress dialogs
@@ -251,12 +201,6 @@ public class ModelImportWizard extends Wizard implements IImportWizard {
 				org.xtuml.bp.io.core.CorePlugin.logError(
 						"Internal error: plugin.doLoad not found", e); //$NON-NLS-1$
 				return false;
-			} catch (IOException e) {
-				org.xtuml.bp.io.core.CorePlugin.logError(
-						"Unable to import chosen model file.", e); //$NON-NLS-1$
-			}
-			finally {
-				ModelRoot.enableChangeNotification();
 			}
 		}
 		return true;
@@ -291,18 +235,14 @@ public class ModelImportWizard extends Wizard implements IImportWizard {
 						is,
 						Ooaofooa.getInstance(
 								Ooaofooa.CLIPBOARD_MODEL_ROOT_NAME, false),
-						true, fSystem.getPersistableComponent().getFile().getFullPath());
-				try {
-				  ModelRoot.disableChangeNotification();
-				  fProcessor.runImporter(fImporter, monitor);
-				}
-				finally {
-				  ModelRoot.enableChangeNotification();
-				}
-				convertCoreTypesToProxies();
+						true, fSystem.getPersistableComponent().getFile().getFullPath(), !createGraphicsOnImport);
+			    fProcessor.runImporter(fImporter, monitor);
 				fProcessor.processFirstStep(monitor);
 				handleImportedGraphicalElements();
 				fProcessor.processSecondStep(monitor);
+				if (createGraphicsOnImport) {
+					createGraphicsOnImport();
+				}
 				if (fImportPage.parseOnImport()) {
 					// this must be run on the display thread
 					PlatformUI.getWorkbench().getDisplay().syncExec(
@@ -352,10 +292,13 @@ public class ModelImportWizard extends Wizard implements IImportWizard {
 		}
 	}
 
-	public void convertCoreTypesToProxies() {
-		// TODO: Bob Fixme
+	private void createGraphicsOnImport() {
+		List<NonRootModelElement> systems = new ArrayList<NonRootModelElement>();
+		systems.add(fSystem);
+		GraphicsReconcilerLauncher reconciler = new GraphicsReconcilerLauncher(systems);
+		reconciler.startReconciler(false, false);
 	}
-
+	
 	private GraphicalElement_c getGraphicalElementFor(NonRootModelElement element) {
 		GraphicalElement_c[] elements = GraphicalElement_c
 				.GraphicalElementInstances(Ooaofgraphics

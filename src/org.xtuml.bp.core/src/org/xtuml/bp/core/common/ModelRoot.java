@@ -26,8 +26,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Hashtable;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
@@ -178,25 +180,55 @@ public abstract class ModelRoot extends ModelElement implements IModelChangeProv
      * This method will add a count to the number of threads which
      * are currently disabling the change notification.
      * 
+     * @return The count of threads that have disabled change notification. A value of 1 indicates
+     * that only this thread has disabled thread notification.
      */
-    public static void disableChangeNotification() {
+    public static int disableChangeNotification() {
 		synchronized (threadsDisablingNotification) {
+			int count = 1; // Set to 1 as default, at a minimum this thread will disable notification
 			Thread current = Thread.currentThread();
 			if (threadsDisablingNotification.containsKey(current)) {
-				int count = threadsDisablingNotification.get(current);
+				count = threadsDisablingNotification.get(current);
 				threadsDisablingNotification.put(current, ++count);
 			}
 			else {
-				threadsDisablingNotification.put(current, 1);
+				threadsDisablingNotification.put(current, count);
 			}
+			return count;
         }
     }
     
-    public static void enableChangeNotification() {
+    /**
+     * 
+     * @return The count of threads that have disabled change notification. A value of greater than 0 
+     * indicates that change notification is enabled, and by how many places.
+     */
+    public static int changeNotificationIsEnabled() {
+		synchronized (threadsDisablingNotification) {
+			int count = 0;
+			Iterator<Entry<Thread, Integer>> it = threadsDisablingNotification.entrySet().iterator();
+		    while (it.hasNext()) {
+		        Map.Entry<Thread, Integer> pair = (Map.Entry<Thread, Integer>)it.next();
+		        count +=  pair.getValue();
+		    }
+			return count;
+		}
+    }
+    
+
+    /**
+     * 
+     * @return The count of remaining threads that have disabled change notification. If the result is less 
+     *         than 0 it indicates an error. The error is that enableCjhangeNotification was called 
+     *         without a prior disableChangeNotification call. If 0 is returned it indicates that change notification
+     *         is enabled. 
+     */
+    public static int enableChangeNotification() {
 		synchronized (threadsDisablingNotification) {
 			Thread current = Thread.currentThread();
+			int count = -1; // a negative value indicates an error
 			if (threadsDisablingNotification.containsKey(current)) {
-				int count = threadsDisablingNotification.get(current);
+				count = threadsDisablingNotification.get(current);
 				if (--count > 0) {
 					threadsDisablingNotification.put(current, count);
 				}
@@ -209,6 +241,7 @@ public abstract class ModelRoot extends ModelElement implements IModelChangeProv
 			  err.fillInStackTrace();
 			  CorePlugin.logError("Thread attempted to enable change notification without prior disable", err);	
 			}
+			return count;
         }
     }
     

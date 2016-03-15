@@ -46,6 +46,7 @@ public class BridgePointPreferences
     private Button showReferenceDeletionWarning;
     private Button showReferenceSynchronizationReport;
     private Button useDefaultNamesForNewModelElements;
+    private Button createGraphicsDuringImport;
     
     protected IPreferenceModel model;
 
@@ -129,6 +130,11 @@ public class BridgePointPreferences
     useDefaultNamesForNewModelElements.setLayoutData(new GridData());
     useDefaultNamesForNewModelElements.setToolTipText("Shows the rename dialog automatically during new model element creation when not enabled.");
 
+    createGraphicsDuringImport = new Button(composite, SWT.CHECK | SWT.LEFT);
+    createGraphicsDuringImport.setText("Greate graphics during import");
+    createGraphicsDuringImport.setLayoutData(new GridData());
+    createGraphicsDuringImport.setToolTipText("This option will reconcile model elements with their corresponding graphical elements during model import and will create and any missing graphical elements.");
+        
     model = new BridgePointPreferencesModel();
     model.getStore().loadModel(getPreferenceStore(), null, model);
     
@@ -173,6 +179,7 @@ public class BridgePointPreferences
         bpPrefs.showReferenceRemovalDialog = showReferenceDeletionWarning.getSelection();
         bpPrefs.showReferenceSyncReport = showReferenceSynchronizationReport.getSelection();
         bpPrefs.useDefaultNamesForNewModelElements = useDefaultNamesForNewModelElements.getSelection();
+        bpPrefs.createGraphicsDuringImport = createGraphicsDuringImport.getSelection();
         model.getStore().saveModel(getPreferenceStore(), model);
         return true;
 	}
@@ -213,6 +220,7 @@ public class BridgePointPreferences
         showReferenceDeletionWarning.setSelection(bpPrefs.showReferenceRemovalDialog);
         showReferenceSynchronizationReport.setSelection(bpPrefs.showReferenceSyncReport);
         useDefaultNamesForNewModelElements.setSelection(bpPrefs.useDefaultNamesForNewModelElements);          
+        createGraphicsDuringImport.setSelection(bpPrefs.createGraphicsDuringImport);          
     }
 
     public IPreferenceStore getPreferenceStore() {

@@ -45,6 +45,7 @@ import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.common.PersistableModelComponent;
 import org.xtuml.bp.core.common.Transaction;
 import org.xtuml.bp.ui.canvas.CanvasModelListener;
+import org.xtuml.bp.ui.canvas.CanvasPlugin;
 import org.xtuml.bp.ui.canvas.Cl_c;
 import org.xtuml.bp.ui.canvas.ElementSpecification_c;
 import org.xtuml.bp.ui.canvas.GraphicalElement_c;
@@ -104,7 +105,7 @@ public class GraphicsEditorListener extends ModelChangeAdapter implements ITrans
 				});
 				if(model != m_editor.getModel()) {
 					m_editor.setModel(model);
-					CanvasModelListener.setGraphicalRepresents(model);
+					CanvasPlugin.setGraphicalRepresents(model);
 					((GraphicalViewer) m_editor.getAdapter(GraphicalViewer.class)).setContents(model);
 					m_editor.refresh();
 				}
@@ -188,7 +189,7 @@ public class GraphicsEditorListener extends ModelChangeAdapter implements ITrans
 				// and point our editor to it
 				Model_c newModel = getModelFor((NonRootModelElement) event.getNewModelElement());
 				if(newModel != null) {
-					CanvasModelListener.setGraphicalRepresents(newModel);
+					CanvasPlugin.setGraphicalRepresents(newModel);
 					m_editor.updateModel(newModel);
 					IEditorInput editorInput = m_editor.getEditorInput();
 					if(editorInput instanceof GraphicalEditorInput) {
@@ -209,7 +210,7 @@ public class GraphicsEditorListener extends ModelChangeAdapter implements ITrans
 			if(tools.length == 0) {
 				m_editor.refreshPalette();
 			}
-			CanvasModelListener.setGraphicalRepresents(m_editor.getModel());
+			CanvasPlugin.setGraphicalRepresents(m_editor.getModel());
 		}
 		m_editor.refresh();
 	}
@@ -313,7 +314,7 @@ public class GraphicsEditorListener extends ModelChangeAdapter implements ITrans
 
 	// public and static for unit test visibility
 	static public boolean classInView(Model_c canvas, Object o) {
-		return CanvasModelListener.classInView(canvas, o);
+		return CanvasPlugin.classInView(canvas, o);
 	}
 
 	@Override
