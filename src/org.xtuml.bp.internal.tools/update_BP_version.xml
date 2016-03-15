@@ -10,8 +10,8 @@
 -->
 <project name="bp.internal.tools" default="updateVersion" basedir="./..">
 
-    <property name="currentVersion" value="5.1.0" />
-    <property name="newVersion" value="5.2.0" />
+    <property name="currentVersion" value="5.2.0" />
+    <property name="newVersion" value="5.3.0" />
 
     <target name="updateVersion" description="Update the version of BridgePoint">
         <echo>Starting version update from ${currentVersion} to ${newVersion}</echo>
@@ -34,7 +34,6 @@
             <exclude name="**/*.png"/>
         	<exclude name="**/*.bmp"/>
             <exclude name="/.metadata/**"/>
-            <exclude name="/*.test/**"/>
             <exclude name="**/org.xtuml.bp.internal.tools/update_BP_version.xml"/>
             <exclude name="**/org.xtuml.bp.io.mdl/sql/file_io.pei.sql"/>
             <exclude name="**/org.xtuml.bp.io.mdl/sql/stream.pei.sql"/>
