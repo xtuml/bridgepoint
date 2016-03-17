@@ -20,6 +20,10 @@ import org.eclipse.core.resources.ProjectScope;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.preferences.IScopeContext;
 import org.eclipse.swt.widgets.Display;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.osgi.service.prefs.Preferences;
 import org.xtuml.bp.core.ClassInstanceParticipant_c;
 import org.xtuml.bp.core.ClassParticipant_c;
@@ -42,6 +46,7 @@ import org.xtuml.bp.core.ui.Selection;
 import org.xtuml.bp.core.ui.preferences.BridgePointProjectPreferences;
 import org.xtuml.bp.core.ui.preferences.BridgePointProjectReferencesPreferences;
 import org.xtuml.bp.test.TestUtil;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TestingUtilities;
 import org.xtuml.bp.test.common.UITestingUtilities;
 import org.xtuml.bp.ui.canvas.Cl_c;
@@ -49,6 +54,7 @@ import org.xtuml.bp.ui.canvas.test.CanvasTest;
 import org.xtuml.bp.ui.canvas.test.CanvasTestUtilities;
 import org.xtuml.bp.ui.graphics.editor.GraphicalEditor;
 
+@RunWith(OrderedRunner.class)
 public class IPRSetupTests extends CanvasTest {
 
 	String test_id = null;
@@ -84,14 +90,16 @@ public class IPRSetupTests extends CanvasTest {
 		return "TigerNatureTestSetup" + "_" + test_id;
 	}
 
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		Display d = Display.getCurrent();
 		while (d.readAndDispatch());
 		Ooaofooa.setPersistEnabled(true);
 	}
 
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		super.tearDown();
 	}
 
@@ -132,6 +140,7 @@ public class IPRSetupTests extends CanvasTest {
 	/**
 	 * Test formalization to an element that is in a different system
 	 */
+	@Test
 	public void testPackageParticipantFormalizeWithIPRs() {
 		SystemModel_c referencingSystem = getSystemModel(projectOne.getName());
 		SystemModel_c referencedSystem = getSystemModel(projectTwo.getName());
@@ -177,6 +186,7 @@ public class IPRSetupTests extends CanvasTest {
 	/**
 	 * Test formalization to an element that is in a different system
 	 */
+	@Test
 	public void testComponentParticipantFormalizeWithIPRs() {
 		IScopeContext projectScope = new ProjectScope(projectOne);
 		Preferences projectNode = projectScope.getNode(BridgePointProjectPreferences.BP_PROJECT_PREFERENCES_ID);
@@ -235,6 +245,7 @@ public class IPRSetupTests extends CanvasTest {
 	/**
 	 * Test formalization to an element that is in a different system
 	 */
+	@Test
 	public void testExternalEntityParticipantFormalizeWithIPRs() {
 		IScopeContext projectScope = new ProjectScope(projectOne);
 		Preferences projectNode = projectScope.getNode(BridgePointProjectPreferences.BP_PROJECT_PREFERENCES_ID);
@@ -293,6 +304,7 @@ public class IPRSetupTests extends CanvasTest {
 	/**
 	 * Test formalization to an element that is in a different system
 	 */
+	@Test
 	public void testClassParticipantFormalizeWithIPRs() {
 		IScopeContext projectScope = new ProjectScope(projectOne);
 		Preferences projectNode = projectScope.getNode(BridgePointProjectPreferences.BP_PROJECT_PREFERENCES_ID);
@@ -350,6 +362,7 @@ public class IPRSetupTests extends CanvasTest {
 	/**
 	 * Test formalization to an element that is in a different system
 	 */
+	@Test
 	public void testClassInstanceParticipantFormalizeWithIPRs() {
 		IScopeContext projectScope = new ProjectScope(projectOne);
 		Preferences projectNode = projectScope.getNode(BridgePointProjectPreferences.BP_PROJECT_PREFERENCES_ID);

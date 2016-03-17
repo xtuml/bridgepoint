@@ -43,7 +43,7 @@ public class ComponentParamTest_Generics extends BaseTest {
   /* (non-Javadoc)
    * @see junit.framework.TestCase#setUp()
    */
-  protected void setUp() throws Exception {
+  public void setUp() throws Exception {
 	  super.setUp();
 
 	  if (m_workspace_path.equals(""))//$NON-NLS-1$

@@ -2,7 +2,8 @@ package org.xtuml.bp.core.test;
 
 import org.eclipse.jface.action.IAction;
 import org.eclipse.ui.actions.ActionFactory;
-
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.Attribute_c;
 import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.ModelClass_c;
@@ -12,10 +13,12 @@ import org.xtuml.bp.core.common.TransactionManager;
 import org.xtuml.bp.core.ui.Selection;
 import org.xtuml.bp.core.util.WorkspaceUtil;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.UITestingUtilities;
 import org.xtuml.bp.ui.graphics.editor.GraphicalEditor;
 import org.xtuml.bp.utilities.ui.CanvasUtilities;
 
+@RunWith(OrderedRunner.class)
 public class MultipleTargetPasteTests extends BaseTest {
 
 	@Override
@@ -24,6 +27,7 @@ public class MultipleTargetPasteTests extends BaseTest {
 		WorkspaceUtil.setAutobuilding(false);
 	}
 
+	@Test
 	public void testPasteIntoMultipleSelection() {
 		// create test instances
 		m_sys.Newpackage();

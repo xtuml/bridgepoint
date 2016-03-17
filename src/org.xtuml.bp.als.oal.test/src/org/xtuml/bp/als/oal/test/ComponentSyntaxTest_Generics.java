@@ -55,7 +55,7 @@ public class ComponentSyntaxTest_Generics extends BaseTest {
 	/* (non-Javadoc)
 	 * @see junit.framework.TestCase#setUp()
 	 */
-	protected void setUp() throws Exception {
+	public void setUp() throws Exception {
         IPreferenceStore store = CorePlugin.getDefault().getPreferenceStore();
         store.setValue(
           BridgePointPreferencesStore.ALLOW_IMPLICIT_COMPONENT_ADDRESSING, true);
@@ -91,7 +91,7 @@ public class ComponentSyntaxTest_Generics extends BaseTest {
 	/* (non-Javadoc)
 	 * @see junit.framework.TestCase#tearDown()
 	 */
-	protected void tearDown() throws Exception {
+	public void tearDown() throws Exception {
         try {
             super.tearDown();
 

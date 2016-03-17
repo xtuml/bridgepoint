@@ -22,9 +22,12 @@
 //=====================================================================
 
 
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 import org.xtuml.bp.ui.properties.test.DeleteUDTWithPropertyShowing;
 import org.xtuml.bp.ui.properties.test.ElementOrderingTest;
 import org.xtuml.bp.ui.properties.test.EnumRangeTest;
+import org.xtuml.bp.ui.properties.test.FibonacciTest;
 import org.xtuml.bp.ui.properties.test.IsAllowedTypeTest;
 import org.xtuml.bp.ui.properties.test.NumberRangeTest;
 import org.xtuml.bp.ui.properties.test.PropertiesGlobalsTest;
@@ -39,6 +42,21 @@ import junit.framework.TestSuite;
 /**
  * Test all areas of the core
  */
+
+@RunWith(Suite.class)
+@Suite.SuiteClasses({
+	 FibonacciTest.class,
+	 PropertiesGlobalsTest.class,
+     IsAllowedTypeTest.class,
+     NumberRangeTest.class,
+     EnumRangeTest.class,
+     PropertiesViewTest.class,
+     DeleteUDTWithPropertyShowing.class,
+     PropertiesViewTest2.class,
+     ElementOrderingTest.class,
+     RefreshTestProp.class,
+     PropertiesRenameTests.class,
+})
 public class PropertiesGlobalsTestSuite extends TestSuite {
 
 	/**
@@ -48,21 +66,4 @@ public class PropertiesGlobalsTestSuite extends TestSuite {
 	public static Test suite() {
 		return new PropertiesGlobalsTestSuite();
 	}
-	
-	/**
-	 * Construct the test suite.
-	 */
-	public PropertiesGlobalsTestSuite() {
-        addTest(new TestSuite(PropertiesGlobalsTest.class));
-        addTest(new TestSuite(IsAllowedTypeTest.class));
-        addTest(new TestSuite(NumberRangeTest.class));
-        addTest(new TestSuite(EnumRangeTest.class));
-        addTest(new TestSuite(PropertiesViewTest.class));
-        addTest(new TestSuite(DeleteUDTWithPropertyShowing.class));
-        addTest(new TestSuite(PropertiesViewTest2.class));
-        addTest(new TestSuite(ElementOrderingTest.class));
-        addTest(new TestSuite(RefreshTestProp.class));
-        addTest(new TestSuite(PropertiesRenameTests.class));
-	}
-
 }

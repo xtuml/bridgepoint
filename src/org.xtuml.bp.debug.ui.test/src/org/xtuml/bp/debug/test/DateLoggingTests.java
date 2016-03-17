@@ -51,7 +51,7 @@ public class DateLoggingTests extends BaseTest {
 
 	private static IProject project;
 	
-	protected void setUp() throws Exception {
+	public void setUp() throws Exception {
 		super.setUp();
 		loadProject("LogDateFormat");
 	

@@ -13,15 +13,18 @@
 //========================================================================
 package org.xtuml.bp.core.test;
 
-import org.eclipse.core.runtime.Platform;
 import org.eclipse.gef.tools.AbstractTool;
 import org.eclipse.swt.graphics.Rectangle;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.UITestingUtilities;
 import org.xtuml.bp.ui.canvas.Ooaofgraphics;
 import org.xtuml.bp.ui.canvas.test.CanvasTest;
@@ -30,6 +33,7 @@ import org.xtuml.bp.ui.canvas.test.CanvasTestUtilities;
 import org.xtuml.bp.ui.graphics.editor.GraphicalEditor;
 import org.xtuml.bp.ui.graphics.editor.ModelEditor;
 
+@RunWith(OrderedRunner.class)
 public class NewShapeAfterRestart extends CanvasTest {
 
 	String test_id = null;
@@ -46,8 +50,8 @@ public class NewShapeAfterRestart extends CanvasTest {
 		}
 	}
 
-	public NewShapeAfterRestart(String name) {
-		super("org.xtuml.bp.core.test", name);
+	public NewShapeAfterRestart() {
+		super("org.xtuml.bp.core.test", null);
 		expected_string = new String[] { "drawRectangle(...)",
 				"drawText(" + String.valueOf('"') + "Unnamed ..." + String.valueOf('"') + ", ...)", "drawline(...)" };
 	}
@@ -56,12 +60,14 @@ public class NewShapeAfterRestart extends CanvasTest {
 		return "TigerNatureTest" + "_" + test_id;
 	}
 
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		BaseTest.dispatchEvents(0);
 	}
 
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		super.tearDown();
 	}
 
@@ -70,6 +76,7 @@ public class NewShapeAfterRestart extends CanvasTest {
 	 * that it is drawn correctly.
 	 * @throws PartInitException 
 	 */
+	@Test
 	public void testNewShapeAfterRestartOnSequenceDiagram() throws PartInitException {
 		IEditorReference[] editorReferences = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
 				.getEditorReferences();

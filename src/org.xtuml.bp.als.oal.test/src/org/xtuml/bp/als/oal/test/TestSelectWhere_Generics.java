@@ -73,7 +73,7 @@ public class TestSelectWhere_Generics extends BaseTest {
      * 
      * @see junit.framework.TestCase#setUp()
      */
-    protected void setUp() throws Exception {
+    public void setUp() throws Exception {
         super.setUp();
 
         if (!firstSetup) {
@@ -113,7 +113,7 @@ public class TestSelectWhere_Generics extends BaseTest {
      * 
      * @see junit.framework.TestCase#tearDown()
      */
-    protected void tearDown() throws Exception {
+    public void tearDown() throws Exception {
         try {
             super.tearDown();
             TestSelectWhere_Generics.tearDownActionData();

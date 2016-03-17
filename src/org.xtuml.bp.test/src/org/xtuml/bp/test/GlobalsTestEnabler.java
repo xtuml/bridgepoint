@@ -1,5 +1,6 @@
 package org.xtuml.bp.test;
 
+import org.junit.Test;
 import org.xtuml.bp.test.common.BaseTest;
 
 public class GlobalsTestEnabler extends BaseTest {
@@ -8,6 +9,7 @@ public class GlobalsTestEnabler extends BaseTest {
 		super(packagename, name);
   }
 
+  @Test
   public void testGlobally() {
 		testGlobals = true;
 	  if(getName().contains("FormalizeUnformalizeTestGenerics")) {

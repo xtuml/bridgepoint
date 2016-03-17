@@ -58,7 +58,7 @@ public class TestEvent_Generics extends TestCase {
 	
 		
 	@Override
-	protected void setUp() throws Exception {
+	public void setUp() throws Exception {
 		super.setUp();
 		Value_c[] values = Value_c.ValueInstances(OalParserTest_Generics.modelRoot);
 		for(int i = 0; i < values.length; i++) {

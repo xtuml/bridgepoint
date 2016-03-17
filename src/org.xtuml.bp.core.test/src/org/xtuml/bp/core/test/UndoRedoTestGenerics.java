@@ -30,7 +30,10 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.gef.tools.AbstractTool;
 import org.eclipse.jface.action.Action;
 import org.eclipse.swt.widgets.Display;
-
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.Association_c;
 import org.xtuml.bp.core.Attribute_c;
 import org.xtuml.bp.core.CorePlugin;
@@ -44,6 +47,7 @@ import org.xtuml.bp.core.ui.Selection;
 import org.xtuml.bp.core.util.OoaofooaUtil;
 import org.xtuml.bp.test.common.CanvasEditorUtils;
 import org.xtuml.bp.test.common.CanvasTestUtils;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.UITestingUtilities;
 import org.xtuml.bp.ui.canvas.FloatingText_c;
 import org.xtuml.bp.ui.canvas.Graphnode_c;
@@ -60,6 +64,7 @@ import org.xtuml.bp.ui.graphics.editor.GraphicalEditor;
  * Contains tests that exercise the functionality for the undo/redo of 
  * model changes.
  */
+@RunWith(OrderedRunner.class)
 public class UndoRedoTestGenerics extends CanvasTest {
 	/**
 	 * Whether the first test of this class is the one that's currently 
@@ -98,7 +103,8 @@ public class UndoRedoTestGenerics extends CanvasTest {
 	/* (non-Javadoc)
 	 * @see junit.framework.TestCase#setUp()
 	 */
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 
 		// if it's the first test of this class that's being setup
@@ -123,7 +129,8 @@ public class UndoRedoTestGenerics extends CanvasTest {
 		}
 	}
 
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		super.tearDown();
 
 		// turn model persistence off for these tests
@@ -133,13 +140,14 @@ public class UndoRedoTestGenerics extends CanvasTest {
 
 	}
 	
-	public void testUnfoRedoTest() throws Exception{
-		doTestUndoRedoOfDeletionOfMultipleModelElementTypes();
-		doTestUndoRedoOfClassMovement();
-		doTestClearingOfUndoRedoStacksOnFileChange();
-		doTestRevertPersisted();
-		doTestUndoDeletionOfSubSystem();
-	}
+//	@Test
+//	public void testUnfoRedoTest() throws Exception{
+//		doTestUndoRedoOfDeletionOfMultipleModelElementTypes();
+//		doTestUndoRedoOfClassMovement();
+//		doTestClearingOfUndoRedoStacksOnFileChange();
+//		doTestRevertPersisted();
+//		doTestUndoDeletionOfSubSystem();
+//	}
 
 	/**
 	 * Deletes in one action a pair of classes connected by an association, 
@@ -151,7 +159,8 @@ public class UndoRedoTestGenerics extends CanvasTest {
 	 * element creations and deletions (including deletions of multiple
 	 * model element types), as well as for reverting relates/unrelates.
 	 */
-	public void doTestUndoRedoOfDeletionOfMultipleModelElementTypes() {
+	@Test
+	public void testUndoRedoOfDeletionOfMultipleModelElementTypes() {
 		// select the classes we are going to delete in the odms subsystem
 		final String className1 = "Robot";
 		ModelClass_c clazz1 = OoaofooaUtil.getClass(subsystem, className1);
@@ -247,7 +256,8 @@ public class UndoRedoTestGenerics extends CanvasTest {
 	 * steps test the code for reverting attribute-value changes 
 	 * that occur to graphics instances.
 	 */
-	public void doTestUndoRedoOfClassMovement() {
+	@Test
+	public void testUndoRedoOfClassMovement() {
 		// record where the class we are going to move currently is 
 		// on the canvas
 		final String className = "Online Location";
@@ -294,7 +304,8 @@ public class UndoRedoTestGenerics extends CanvasTest {
 	 * Tests that the undo and redo stacks are cleared for a model-root
 	 * whose persistence file has been changed outside of normal tool use.
 	 */
-	public void doTestClearingOfUndoRedoStacksOnFileChange() throws CoreException {
+	@Test
+	public void testClearingOfUndoRedoStacksOnFileChange() throws CoreException {
 		// undo the movement of the class done during the last test,
 		// to get both the undo and redo actions enabled
 		transactionManager.getUndoAction().run();
@@ -318,7 +329,8 @@ public class UndoRedoTestGenerics extends CanvasTest {
 	/**
 	 * Test that reverts are persisted
 	 */
-	public void doTestRevertPersisted() throws CoreException {
+	@Test
+	public void testRevertPersisted() throws CoreException {
 		// persistence is needed for this test
 		Ooaofooa.setPersistEnabled(true);
 
@@ -337,7 +349,7 @@ public class UndoRedoTestGenerics extends CanvasTest {
 
 		IFile classFile = modelClass.getFile();
 		// make sure the class was persisted
-		TigerNatureTestGenerics tnt = new TigerNatureTestGenerics("tmp");
+		TigerNatureTestGenerics tnt = new TigerNatureTestGenerics();
 		try {
 			assertTrue("create was not persisted.", tnt.checkIfPersisted(
 					project, modelClass, tnt.getClassString(modelClass)));
@@ -382,7 +394,8 @@ public class UndoRedoTestGenerics extends CanvasTest {
 	 * are once again gone.  These steps test the code for reverting model 
 	 * element creation and deletion (including deletion of graphical elements)
 	 */
-	public void doTestUndoDeletionOfSubSystem() {
+	@Test
+	public void testUndoDeletionOfSubSystem() {
 		test_id = "1";
 		// select the Subsystem we are going to delete in the odms1 Domain
 		Package_c dom = Package_c.PackageInstance(modelRoot,

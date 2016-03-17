@@ -41,7 +41,7 @@ import org.xtuml.bp.core.Variable_c;
 
 public class TestLineNumbers_Generics extends TestCase {
 
-    protected void tearDown() throws Exception {
+    public void tearDown() throws Exception {
         try {
             super.tearDown();
             OalParserTest_Generics.tearDownActionData();

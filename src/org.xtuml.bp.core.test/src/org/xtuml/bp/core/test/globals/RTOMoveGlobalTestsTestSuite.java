@@ -22,11 +22,10 @@
 
 package org.xtuml.bp.core.test.globals;
 
-import java.io.File;
+import org.xtuml.bp.core.test.rtomove.RTOMoveTests_0;
 
 import junit.framework.Test;
 import junit.framework.TestSuite;
-import org.xtuml.bp.core.test.rtomove.*;
 
 public class RTOMoveGlobalTestsTestSuite extends TestSuite {
 

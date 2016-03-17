@@ -22,7 +22,9 @@ package org.xtuml.bp.ui.properties.test;
 //=====================================================================
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.viewers.ICellEditorValidator;
-
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.BridgeParameter_c;
 import org.xtuml.bp.core.Bridge_c;
 import org.xtuml.bp.core.Component_c;
@@ -47,16 +49,23 @@ import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.ui.Selection;
 import org.xtuml.bp.core.ui.cells.editors.ModelElementNameValidator;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TestingUtilities;
 import org.xtuml.bp.ui.properties.ComponentNameValidator;
 import org.xtuml.bp.ui.properties.InterfaceNameValidator;
 import org.xtuml.bp.ui.properties.ModelClassNameValidator;
 import org.xtuml.bp.ui.properties.PackageNameValidator;
 
+@RunWith(OrderedRunner.class)
 public class PropertiesRenameTests extends BaseTest {
 
+	boolean firstRun = true;
 	@Override
+	@Before
 	public void initialSetup() {
+		if (!firstRun)
+			return;
+		firstRun = false;
 		// load test model
 		TestingUtilities
 				.importTestingProjectIntoWorkspace("PropertiesRenameTests");
@@ -73,6 +82,7 @@ public class PropertiesRenameTests extends BaseTest {
 				}).getModelRoot();
 	}
 
+	@Test
 	public void testRenameFunctionParameter() {
 		FunctionParameter_c uut = FunctionParameter_c
 				.FunctionParameterInstance(modelRoot);
@@ -80,6 +90,7 @@ public class PropertiesRenameTests extends BaseTest {
 				CorePlugin.INVALID_NAME_SPACES);
 	}
 
+	@Test
 	public void testRenameOperationParameter() {
 		OperationParameter_c uut = OperationParameter_c
 				.OperationParameterInstance(modelRoot);
@@ -87,6 +98,7 @@ public class PropertiesRenameTests extends BaseTest {
 				CorePlugin.INVALID_NAME_SPACES);
 	}
 
+	@Test
 	public void testRenameBridgeParameter() {
 		BridgeParameter_c uut = BridgeParameter_c
 				.BridgeParameterInstance(modelRoot);
@@ -94,24 +106,28 @@ public class PropertiesRenameTests extends BaseTest {
 				CorePlugin.INVALID_NAME_SPACES);
 	}
 
+	@Test
 	public void testRenameFunction() {
 		Function_c uut = Function_c.FunctionInstance(modelRoot);
 		doRenameTestSpaces(uut, new ModelElementNameValidator(uut),
 				CorePlugin.INVALID_NAME_SPACES);
 	}
 
+	@Test
 	public void testRenameOperation() {
 		Operation_c uut = Operation_c.OperationInstance(modelRoot);
 		doRenameTestSpaces(uut, new ModelElementNameValidator(uut),
 				CorePlugin.INVALID_NAME_SPACES);
 	}
 
+	@Test
 	public void testRenameBridge() {
 		Bridge_c uut = Bridge_c.BridgeInstance(modelRoot);
 		doRenameTestSpaces(uut, new ModelElementNameValidator(uut),
 				CorePlugin.INVALID_NAME_SPACES);
 	}
 
+	@Test
 	public void testRenameStateMachineEventDataItem() {
 		StateMachineEventDataItem_c uut = StateMachineEventDataItem_c
 				.StateMachineEventDataItemInstance(modelRoot);
@@ -119,12 +135,14 @@ public class PropertiesRenameTests extends BaseTest {
 				CorePlugin.INVALID_NAME_SPACES);
 	}
 
+	@Test
 	public void testRenameEnumerator() {
 		Enumerator_c uut = Enumerator_c.EnumeratorInstance(modelRoot);
 		doRenameTestSpaces(uut, new ModelElementNameValidator(uut),
 				CorePlugin.INVALID_NAME_SPACES);
 	}
 
+	@Test
 	public void testRenameLiteralSymbolicConstant() {
 		LiteralSymbolicConstant_c uut = LiteralSymbolicConstant_c
 				.LiteralSymbolicConstantInstance(modelRoot);
@@ -132,6 +150,7 @@ public class PropertiesRenameTests extends BaseTest {
 				CorePlugin.INVALID_NAME_SPACES);
 	}
 
+	@Test
 	public void testRenameStructureMember() {
 		StructureMember_c uut = StructureMember_c
 				.StructureMemberInstance(modelRoot);
@@ -139,6 +158,7 @@ public class PropertiesRenameTests extends BaseTest {
 				CorePlugin.INVALID_NAME_SPACES);
 	}
 
+	@Test
 	public void testRenameInterfaceOperation() {
 		InterfaceOperation_c uut = InterfaceOperation_c
 				.InterfaceOperationInstance(modelRoot);
@@ -146,6 +166,7 @@ public class PropertiesRenameTests extends BaseTest {
 				CorePlugin.INVALID_NAME_SPACES);
 	}
 
+	@Test
 	public void testRenameInterfaceSignal() {
 		InterfaceSignal_c uut = InterfaceSignal_c
 				.InterfaceSignalInstance(modelRoot);
@@ -153,6 +174,7 @@ public class PropertiesRenameTests extends BaseTest {
 				CorePlugin.INVALID_NAME_SPACES);
 	}
 
+	@Test
 	public void testRenameMessageArgument() {
 		MessageArgument_c uut = MessageArgument_c
 				.MessageArgumentInstance(modelRoot);
@@ -160,6 +182,7 @@ public class PropertiesRenameTests extends BaseTest {
 				CorePlugin.INVALID_NAME_SPACES);
 	}
 
+	@Test
 	public void testRenamePackageInvalidOSChar() {
 		Package_c uut = Package_c.PackageInstance(modelRoot);
 		if (Platform.getOS().contains("win")) {
@@ -170,6 +193,7 @@ public class PropertiesRenameTests extends BaseTest {
 		}
 	}
 
+	@Test
 	public void testRenameClassInvalidOSChar() {
 		ModelClass_c uut = ModelClass_c.ModelClassInstance(modelRoot);
 		if (Platform.getOS().contains("win")) {
@@ -180,6 +204,7 @@ public class PropertiesRenameTests extends BaseTest {
 		}
 	}
 
+	@Test
 	public void testRenameComponentInvalidOSChar() {
 		Component_c uut = Component_c.ComponentInstance(modelRoot);
 		if (Platform.getOS().contains("win")) {
@@ -190,6 +215,7 @@ public class PropertiesRenameTests extends BaseTest {
 		}
 	}
 
+	@Test
 	public void testRenameInterfaceInvalidOSChar() {
 		Interface_c uut = Interface_c.InterfaceInstance(modelRoot);
 		if (Platform.getOS().contains("win")) {

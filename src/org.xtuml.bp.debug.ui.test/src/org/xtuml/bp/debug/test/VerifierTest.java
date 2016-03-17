@@ -104,7 +104,7 @@ public class VerifierTest extends BaseTest {
 		
 	}
 		
-	protected void setUp() throws Exception {
+	public void setUp() throws Exception {
 		super.setUp();
 		// if we haven't yet imported the model used for these tests
 		if (!result) {
@@ -263,7 +263,7 @@ public class VerifierTest extends BaseTest {
   	    Ooaofooa.endVerifierExecution(ee.getExecution_engine_id());
 	}
 
-	protected void tearDown() throws InterruptedException {
+	public void tearDown() throws InterruptedException {
 		DebugUITestUtilities.clearDebugView();
 	}
 

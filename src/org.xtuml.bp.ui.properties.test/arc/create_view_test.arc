@@ -298,7 +298,7 @@
 package org.xtuml.bp.ui.properties.test;
 
 import org.eclipse.ui.views.properties.IPropertyDescriptor;
-
+import org.junit.Test;
 import org.xtuml.bp.core.*;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.test.common.BaseTest;
@@ -306,8 +306,8 @@ import org.xtuml.bp.ui.properties.*;
 
 public class ${class_name} extends BaseTest
 {
-    public ${class_name}(String name) {
-        super(null, name);
+    public ${class_name}() {
+        super(null, null);
     }
 .select many node_set from instances of T_TNS
 .for each node in node_set
@@ -316,7 +316,8 @@ public class ${class_name} extends BaseTest
     .select any meta_model_obj from instances of O_OBJ where (selected.Key_Lett == node.Key_Lett)
     .invoke formatted_name = get_class_name(meta_model_obj)
     .invoke gia = get_instance_accessor(meta_model_obj)
-    public void test$r{meta_model_obj.Name}_$r{node.CategoryName}Properties() throws Exception
+    @Test
+	public void test$r{meta_model_obj.Name}_$r{node.CategoryName}Properties() throws Exception
     {
     .if ( node.Key_Lett == "S_SYS" )
        .// the SystemModel instances are in the default model root

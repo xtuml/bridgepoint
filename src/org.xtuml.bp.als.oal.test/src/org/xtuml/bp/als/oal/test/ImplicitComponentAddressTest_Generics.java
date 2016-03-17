@@ -63,7 +63,7 @@ public class ImplicitComponentAddressTest_Generics extends BaseTest {
 	/* (non-Javadoc)
 	 * @see junit.framework.TestCase#setUp()
 	 */
-	protected void setUp() throws Exception {
+	public void setUp() throws Exception {
 	  if (configured) {
 		return;
 	  }

@@ -57,7 +57,7 @@ public class TestBPPrefStrictTyping_Generics extends TestCase {
     private TestExpr_Generics exprTest = new TestExpr_Generics();
     private TestAttribute_Generics attrTest = new TestAttribute_Generics();
 
-    protected void setUp() throws Exception {
+    public void setUp() throws Exception {
         super.setUp();
 
         IPreferenceStore store = CorePlugin.getDefault().getPreferenceStore();
@@ -67,7 +67,7 @@ public class TestBPPrefStrictTyping_Generics extends TestCase {
                 MessageDialogWithToggle.NEVER);
     }
 
-    protected void tearDown() throws Exception {
+    public void tearDown() throws Exception {
         try {
             super.tearDown();
             OalParserTest_Generics.tearDownActionData();

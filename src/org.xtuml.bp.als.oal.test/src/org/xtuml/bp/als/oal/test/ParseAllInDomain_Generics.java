@@ -162,7 +162,7 @@ public class ParseAllInDomain_Generics extends BaseTest {
 	/* (non-Javadoc)
 	 * @see junit.framework.TestCase#setUp()
 	 */
-	protected void setUp() throws Exception {
+	public void setUp() throws Exception {
 		super.setUp();
 
         if (workspace_path == null || workspace_path.equals(""))//$NON-NLS-1$
@@ -193,7 +193,7 @@ public class ParseAllInDomain_Generics extends BaseTest {
 	/* (non-Javadoc)
 	 * @see junit.framework.TestCase#tearDown()
 	 */
-	protected void tearDown() throws Exception {
+	public void tearDown() throws Exception {
         try {
             super.tearDown();
 

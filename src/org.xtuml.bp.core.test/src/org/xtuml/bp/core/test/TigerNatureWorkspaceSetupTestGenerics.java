@@ -21,6 +21,10 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.PlatformUI;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.ComponentReference_c;
 import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.CorePlugin;
@@ -34,7 +38,7 @@ import org.xtuml.bp.core.UserDataType_c;
 import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.Transaction;
-import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.UITestingUtilities;
 import org.xtuml.bp.ui.canvas.Cl_c;
 import org.xtuml.bp.ui.canvas.Ooaofgraphics;
@@ -42,6 +46,7 @@ import org.xtuml.bp.ui.canvas.test.CanvasTest;
 import org.xtuml.bp.ui.graphics.editor.GraphicalEditor;
 import org.xtuml.bp.utilities.ui.CanvasUtilities;
 
+@RunWith(OrderedRunner.class)
 public class TigerNatureWorkspaceSetupTestGenerics extends CanvasTest {
 
 	String test_id = null;
@@ -67,7 +72,8 @@ public class TigerNatureWorkspaceSetupTestGenerics extends CanvasTest {
 		return "TigerNatureTestSetup" + "_" + test_id;
 	}
 
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		Display d = Display.getCurrent();
 		while (d.readAndDispatch())
@@ -75,7 +81,8 @@ public class TigerNatureWorkspaceSetupTestGenerics extends CanvasTest {
 		Ooaofooa.setPersistEnabled(true);
 	}
 
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		super.tearDown();
 	}
 
@@ -116,13 +123,15 @@ public class TigerNatureWorkspaceSetupTestGenerics extends CanvasTest {
 	}
 	
 	// Enforce ordering of the test functions
-	public void testWorkspaceSetup() throws CoreException {
-		dotestSetupForInterfaceAssignment();
-		dotestSetupForComponentAssignment();
-		dotestSetupForDataTypeAssignment();
-	}
+//	@Test
+//	public void testWorkspaceSetup() throws CoreException {
+//		dotestSetupForInterfaceAssignment();
+//		dotestSetupForComponentAssignment();
+//		dotestSetupForDataTypeAssignment();
+//	}
 
-	public void dotestSetupForInterfaceAssignment() {
+	@Test
+	public void testSetupForInterfaceAssignment() {
 		// create an interface in one package
 		test_id = "InterfaceAssignmentSetup-1";
 		final String projectName = "Package Test Project";
@@ -209,7 +218,8 @@ public class TigerNatureWorkspaceSetupTestGenerics extends CanvasTest {
 		validateOrGenerateResults(ce, generateResults, true);
 	}
 
-	public void dotestSetupForComponentAssignment() {
+	@Test
+	public void testSetupForComponentAssignment() {
 		// create a component in one package
 		test_id = "ComponentAssignmentSetup-1";
 		final String projectName = "Package Test Project";
@@ -307,7 +317,8 @@ public class TigerNatureWorkspaceSetupTestGenerics extends CanvasTest {
 		validateOrGenerateResults(ce, generateResults, true);
 	}
 
-	public void dotestSetupForDataTypeAssignment() {
+	@Test
+	public void testSetupForDataTypeAssignment() {
 		test_id = "DataTypeAssignmentSetup";
 		// create a user data type under a package
 		final String projectName = "Package Test Project";

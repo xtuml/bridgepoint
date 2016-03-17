@@ -22,11 +22,7 @@
 //=====================================================================
 
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
-
 import org.eclipse.core.runtime.CoreException;
-
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 import org.xtuml.bp.core.test.ActionTestGenerics;
@@ -42,7 +38,6 @@ import org.xtuml.bp.core.test.DeleteTestGenerics;
 import org.xtuml.bp.core.test.DerivedAttributeTestGenerics;
 import org.xtuml.bp.core.test.DisposeTestGenerics;
 import org.xtuml.bp.core.test.FormalizeUnformalizeTestGenerics;
-import org.xtuml.bp.core.test.FormalizeUnformalizeWithPrefixTestGenerics;
 import org.xtuml.bp.core.test.GetNameTestGenerics;
 import org.xtuml.bp.core.test.MultipleReloadGenerics;
 import org.xtuml.bp.core.test.NumberingTestGenerics;
@@ -53,6 +48,9 @@ import org.xtuml.bp.core.test.RenameTestGenerics;
 import org.xtuml.bp.core.test.SetTypeTestGenerics;
 import org.xtuml.bp.core.test.TigerNatureTestGenerics;
 import org.xtuml.bp.core.util.WorkspaceUtil;
+
+import junit.framework.Test;
+import junit.framework.TestSuite;
 
 /**
 * Test all areas of the core

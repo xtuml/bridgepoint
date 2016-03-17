@@ -83,11 +83,11 @@ public class TestVerifierRunTimeErrorMsgs extends BaseTest {
         return "test_" + count;
     }
 
-    protected void setUp() throws Exception {
+    public void setUp() throws Exception {
         super.setUp();
     }
 
-    protected void tearDown() throws Exception {
+    public void tearDown() throws Exception {
         super.tearDown();
     }
 

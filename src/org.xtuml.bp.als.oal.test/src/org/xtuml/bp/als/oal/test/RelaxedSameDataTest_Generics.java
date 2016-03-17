@@ -53,7 +53,7 @@ public class RelaxedSameDataTest_Generics extends BaseTest {
   final int ONE_NO_EVENT_TRANSITION = 5;
   final int ALL_NO_EVENT_TRANSITION = 6;
   
-  protected void setUp() throws Exception {
+  public void setUp() throws Exception {
 	  if (configured) {
 		  return;
 	  }
@@ -243,7 +243,7 @@ public class RelaxedSameDataTest_Generics extends BaseTest {
   /* (non-Javadoc)
    * @see junit.framework.TestCase#tearDown()
    */
-  protected void tearDown() throws Exception {
+  public void tearDown() throws Exception {
     try {
       super.tearDown();
       OalParserTest_Generics.tearDownActionData();

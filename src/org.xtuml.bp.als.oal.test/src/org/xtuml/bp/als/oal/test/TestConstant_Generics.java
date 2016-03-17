@@ -62,7 +62,7 @@ public class TestConstant_Generics extends BaseTest {
 		public static final String NOT_FOUND ="Variable Not Found";
 		 HashMap<String, String> expectedResults = new HashMap<String, String>();
 		 
-    protected void setUp() throws Exception {
+    public void setUp() throws Exception {
         super.setUp();
 		if (!initialized)
 		{
@@ -150,7 +150,7 @@ public class TestConstant_Generics extends BaseTest {
 		
     }
 
-    protected void tearDown() throws Exception {
+    public void tearDown() throws Exception {
         try {
             super.tearDown();
             OalParserTest_Generics.tearDownActionData();

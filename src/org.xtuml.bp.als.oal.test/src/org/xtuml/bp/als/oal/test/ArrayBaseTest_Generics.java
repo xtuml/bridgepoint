@@ -81,7 +81,7 @@ public class ArrayBaseTest_Generics extends CanvasTest {
 		return "test_" + count;
 	}
 
-	protected void setUp() throws Exception {
+	public void setUp() throws Exception {
 		super.setUp();
 		String componentPackageName = "Arrays";
 		PersistableModelComponent domainComponentPackage = ensureAvailableAndLoaded(
@@ -129,7 +129,7 @@ public class ArrayBaseTest_Generics extends CanvasTest {
 		populateArrayStateActionInstances();
 	}
 
-	protected void tearDown() throws Exception {
+	public void tearDown() throws Exception {
 		try {
 			super.tearDown();
 			ArrayBaseTest_Generics.tearDownActionData();

@@ -70,7 +70,7 @@ public class TestSelect_Generics extends TestCase {
         assertEquals(0, cl.length);
     }
 
-    protected void tearDown() throws Exception {
+    public void tearDown() throws Exception {
         try {
             super.tearDown();
             OalParserTest_Generics.tearDownActionData();

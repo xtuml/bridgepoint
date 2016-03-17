@@ -55,7 +55,7 @@ import org.xtuml.bp.core.common.ClassQueryInterface_c;
 
 public class TestControl_Generics extends TestCase {
 
-    protected void tearDown() throws Exception {
+    public void tearDown() throws Exception {
         try {
             super.tearDown();
             OalParserTest_Generics.tearDownActionData();

@@ -53,7 +53,7 @@ import org.xtuml.bp.test.common.BaseTest;
 
 public class TestExpr_Generics extends TestCase {
 
-    protected void setUp() throws Exception {
+    public void setUp() throws Exception {
         super.setUp();
 
         IPreferenceStore store = CorePlugin.getDefault().getPreferenceStore();
@@ -63,7 +63,7 @@ public class TestExpr_Generics extends TestCase {
                 MessageDialogWithToggle.ALWAYS);
     }
 
-    protected void tearDown() throws Exception {
+    public void tearDown() throws Exception {
         try {
             super.tearDown();
             OalParserTest_Generics.tearDownActionData();

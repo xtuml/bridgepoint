@@ -46,11 +46,11 @@ public class TestStructuredDataType_Generics extends TestCase {
     // uses of SDTs in BP.  It is ran as part of the "Parse All" unit tests
     // defined in ParseAllInDomain.java.
 
-    protected void setUp() throws Exception {
+    public void setUp() throws Exception {
         super.setUp();
     }
 
-    protected void tearDown() throws Exception {
+    public void tearDown() throws Exception {
         try {
             super.tearDown();
             OalParserTest_Generics.tearDownActionData();

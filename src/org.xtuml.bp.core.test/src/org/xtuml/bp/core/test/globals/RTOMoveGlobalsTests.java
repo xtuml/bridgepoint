@@ -4,8 +4,8 @@ import org.xtuml.bp.test.GlobalsTestEnabler;
 
 public class RTOMoveGlobalsTests extends GlobalsTestEnabler {
 
-	public RTOMoveGlobalsTests(String name) {
-        super("RTOMoveTests_0", name);
+	public RTOMoveGlobalsTests(){
+		super("RTOMoveTests_0", null);
 	}
 
 }
