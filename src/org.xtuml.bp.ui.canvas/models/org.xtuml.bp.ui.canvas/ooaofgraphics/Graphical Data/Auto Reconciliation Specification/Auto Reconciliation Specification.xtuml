@@ -59,11 +59,11 @@ INSERT INTO O_TFR
 for each autoReconcileSpec in allAutoRecSpecs  
   select one modelSpec related by autoReconcileSpec->GD_MS[R33];
   if (not empty modelSpec)
-    select many models related by modelSpec->GD_MD[R9];  
+    select many models related by modelSpec->GD_MD[R9];
     for each model in models
       if (CL::isContainedInSystem( element:model.represents,
                                  system_id:param.system_id))
-         autoReconcileSpec.reconcileShapes( system_id:param.system_id, 
+        autoReconcileSpec.reconcileShapes( system_id:param.system_id, 
                                          diagram_id:model.diagramId);
       end if; 
     end for;
@@ -272,6 +272,7 @@ while (i<count)
       break;
     end if;         
   end for;
+  
   if(graphicalElementExists == false)
     //create the shape
     model.newShape(arsId:self.Id,shape:elementID);
@@ -1093,6 +1094,7 @@ if( CL::isContainedInSystem(element:graphicalElement.represents, system_id:param
                            elementId:graphicalElement.elementId, arsId:self.Id,
   	                                                  representsId:connectorId, 
   	                                                  existingGraphicsArePresent:false);
+  	      
           select one newConnector related by sourceSpec->GD_GE[R16];
           //set the OOA_ID of the new GE created
           newConnector.OOA_ID=connectorId;
@@ -1102,7 +1104,7 @@ if( CL::isContainedInSystem(element:graphicalElement.represents, system_id:param
                                       OOA_Type: newConnector.OOA_Type );
 
           unrelate sourceSpec from newConnector across R16;  	                                                  
-  	    end if;  	    
+  	  end if;  	    
 
 
 
@@ -1198,19 +1200,19 @@ INSERT INTO O_TFR
                      where 
                      (selected.represents == OS::getClass(instance:param.rootElement));
 
-canvasExists = false;
-
-// See if the canvas already exists for this model element
-select many models related by modelSpec->GD_MD[R9];
-for each model in models
-  if (model.represents == param.rootElement)
-    canvasExists = true;
-    break;
+if (not empty modelSpec)
+  canvasExists = false;
+  rootName = CL::getModelRootName(from:param.rootElement);
+  if (rootName != "")
+    ooaid = CL::getOOAId(from:param.rootElement);
+    modelType = modelSpec.Model_Type;
+    // See if the canvas already exists for this model element
+    select any model from instances of GD_MD where 
+    			(selected.OOA_ID == ooaid and selected.Model_Type==modelType) and (selected.represents == param.rootElement);
+    if (empty model)
+      modelSpec.elementCreated(elem:param.rootElement);
+    end if;
   end if;
-end for;
-
-if (not canvasExists)
-  modelSpec.elementCreated(elem:param.rootElement);
 end if;
 ',
 	1,

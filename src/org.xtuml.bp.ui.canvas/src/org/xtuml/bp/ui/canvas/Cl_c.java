@@ -1581,6 +1581,9 @@ public class Cl_c {
     }
     return null;
   }
+  public static String Getmodelrootname(Object from) {
+	  return Cl_c.getModelRootname(from);
+  }
   //
   // invoke - invoke a method
   // result of invocation is used by caller
