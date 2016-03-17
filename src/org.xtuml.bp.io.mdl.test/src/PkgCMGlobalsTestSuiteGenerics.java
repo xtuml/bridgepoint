@@ -19,11 +19,7 @@
 // License for the specific language governing permissions and limitations under
 // the License.
 //=====================================================================
-import junit.framework.Test;
-import junit.framework.TestSuite;
-
 import org.eclipse.core.runtime.CoreException;
-
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 import org.xtuml.bp.core.util.WorkspaceUtil;
@@ -33,6 +29,9 @@ import org.xtuml.bp.io.mdl.test.pkgcm.PkgCMDeleteTestGenerics;
 import org.xtuml.bp.io.mdl.test.pkgcm.PkgCMModifyContentsTestGenerics;
 import org.xtuml.bp.io.mdl.test.pkgcm.PkgCMModifyRelationTestGenerics;
 import org.xtuml.bp.io.mdl.test.pkgcm.PkgCMRenameTestGenerics;
+
+import junit.framework.Test;
+import junit.framework.TestSuite;
 
 public class PkgCMGlobalsTestSuiteGenerics extends TestSuite {
 

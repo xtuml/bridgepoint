@@ -43,7 +43,7 @@ public class VerifierUDTAsUDTInitializationTests extends BaseTest {
     }
 
     @Override
-	protected void tearDown() throws Exception {
+	public void tearDown() throws Exception {
     	DebugUITestUtilities.stopSession(m_sys, "VerifierUDTAsSDTTests");
 	}
 

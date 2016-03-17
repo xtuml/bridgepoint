@@ -71,7 +71,7 @@ public class VerifierStaticVariablesInRealizedClassesTest extends BaseTest {
     private static SystemModel_c NoEE_sys;
 	
 	
- protected void setUp() throws Exception {
+ public void setUp() throws Exception {
         
 		if (!initialized) {
 		super.setUp();
@@ -162,7 +162,7 @@ public class VerifierStaticVariablesInRealizedClassesTest extends BaseTest {
     }
 
   
-    protected void tearDown() throws Exception {
+    public void tearDown() throws Exception {
     	DebugUITestUtilities.stopSession(DuplicateEE_sys, "EERealizedStaticDataTestLibraryDuplicateRealizedEE");
     	DebugUITestUtilities.stopSession(LocalEE_sys, "EERealizedStaticDataTestLocalRealizedEE");
     	DebugUITestUtilities.stopSession(NoEE_sys, "EERealizedStaticDataTestNoLocalRealizedEE");

@@ -52,7 +52,7 @@ public class TestVerifierRunTimeErrorMsgs_0 extends TestVerifierRunTimeErrorMsgs
         super(null, arg0);
     }
 
-    protected void setUp() throws Exception {
+    public void setUp() throws Exception {
         super.setUp();
 		if (!initialized) {
 		CorePlugin.disableParseAllOnResourceChange();
@@ -93,7 +93,7 @@ public class TestVerifierRunTimeErrorMsgs_0 extends TestVerifierRunTimeErrorMsgs
 	}
 }
 
-    protected void tearDown() throws Exception {
+    public void tearDown() throws Exception {
     	DebugUITestUtilities.stopSession(m_sys, projectName);
         
     }

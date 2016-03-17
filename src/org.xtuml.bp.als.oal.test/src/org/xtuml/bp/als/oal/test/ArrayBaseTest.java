@@ -109,7 +109,7 @@ public class ArrayBaseTest extends CanvasTest {
 		return "test_" + count;
 	}
 
-	protected void setUp() throws Exception {
+	public void setUp() throws Exception {
 		super.setUp();
 	}
 
@@ -160,7 +160,7 @@ public class ArrayBaseTest extends CanvasTest {
 		populateArrayStateActionInstances();
 	}
 	
-	protected void tearDown() throws Exception {
+	public void tearDown() throws Exception {
 		try {
 			super.tearDown();
 			ArrayBaseTest.tearDownActionData();

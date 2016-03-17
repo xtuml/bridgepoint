@@ -29,21 +29,22 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.PlatformUI;
-
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.CorePlugin;
-import org.xtuml.bp.core.Ooaofooa;
-import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.test.common.BaseTest;
 import org.xtuml.bp.test.common.ExplorerUtil;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TestingUtilities;
 
 /**
  * Performs tests of model-explorer functionality.
  */
-public class AlphaSortingTest extends BaseTest
+@RunWith(OrderedRunner.class)
+	public class AlphaSortingTest extends BaseTest
 {
     /**
      * The path within the test workspace to which a log file will be written if
@@ -51,8 +52,11 @@ public class AlphaSortingTest extends BaseTest
      */
     private static final String logPath = System.getProperty("LOGFILE_PATH");
 
-    public AlphaSortingTest(String name) {
-    	super("org.xtuml.bp.ui.explorer.test", name);
+//    public AlphaSortingTest(String name) {
+//    	super("org.xtuml.bp.ui.explorer.test", name);
+//    }
+    public AlphaSortingTest() {
+    	super("org.xtuml.bp.ui.explorer.test", null);
     }
     
     /*
@@ -60,7 +64,8 @@ public class AlphaSortingTest extends BaseTest
      * 
      * @see junit.framework.TestCase#setUp()
      */
-    protected void setUp() throws Exception
+    @Before
+	public void setUp() throws Exception
     {
     	setupProject("org.xtuml.bp.ui.explorer.test");
         super.setUp();
@@ -72,7 +77,8 @@ public class AlphaSortingTest extends BaseTest
         ExplorerUtil.showModelExplorer();
     }
 
-    protected void tearDown() throws Exception
+    @Before
+	public void tearDown() throws Exception
     {
         // fail if any errors were written to the log file
         if (new Path(logPath).toFile().exists()) {
@@ -81,14 +87,16 @@ public class AlphaSortingTest extends BaseTest
     }
 
     // enforces ordering of the tests in this class
-    public void testAlphaSorting() throws CoreException,IOException {
-    	dotestAlphaSortingOfSystems();
-    }
-    
+//    @Test
+//	public void testAlphaSorting() throws CoreException,IOException {
+//    	dotestAlphaSortingOfSystems();
+//    }
+//    
     /**
      * Tests that alpha sorting works properly for the root node
      */
-    public void dotestAlphaSortingOfSystems() throws CoreException, IOException
+    @Test
+	public void testAlphaSortingOfSystems() throws CoreException, IOException
     {
         // clear all existing projects from previous tests
         IProject[] existingProjects = ResourcesPlugin.getWorkspace().getRoot().getProjects();

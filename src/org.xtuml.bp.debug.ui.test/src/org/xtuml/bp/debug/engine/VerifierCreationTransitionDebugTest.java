@@ -60,7 +60,7 @@ public class VerifierCreationTransitionDebugTest extends BaseTest {
 		super(null, testName);
 	}
 	@Override
-	protected void setUp() throws Exception {
+	public void setUp() throws Exception {
 		super.setUp();
 		if (!initialized){
 			CorePlugin.disableParseAllOnResourceChange();
@@ -115,7 +115,7 @@ public class VerifierCreationTransitionDebugTest extends BaseTest {
 	}
 	
 	@Override
-	protected void tearDown() throws Exception {
+	public void tearDown() throws Exception {
 		DebugUITestUtilities.stopSession(m_sys, projectName);
 	}
 	

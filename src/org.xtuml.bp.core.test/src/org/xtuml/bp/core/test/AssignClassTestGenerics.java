@@ -27,7 +27,10 @@ import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
-
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.ImportedClass_c;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
@@ -36,11 +39,13 @@ import org.xtuml.bp.core.ui.actions.GenericPackageAssignClassOnO_IOBJAction;
 import org.xtuml.bp.test.TestUtil;
 import org.xtuml.bp.test.common.BaseTest;
 import org.xtuml.bp.test.common.CanvasTestUtils;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TestingUtilities;
 import org.xtuml.bp.ui.canvas.Cl_c;
 import org.xtuml.bp.ui.canvas.test.CanvasTest;
 import org.xtuml.bp.ui.explorer.ExplorerView;
 
+@RunWith(OrderedRunner.class)
 public class AssignClassTestGenerics extends CanvasTest {
 
 	IWorkbenchPage m_wp = PlatformUI.getWorkbench().getActiveWorkbenchWindow()
@@ -54,15 +59,16 @@ public class AssignClassTestGenerics extends CanvasTest {
 
 	private static Selection selection = Selection.getInstance();
 
-	public AssignClassTestGenerics(String name) {
-		super("Default Project", name);
+	public AssignClassTestGenerics() {
+		super("Default Project", null);
 	}
 
 	protected String getResultName() {
 		return "AssignClass" + "_" + test_id;
 	}
 
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		Display d = Display.getCurrent();
 		while (d.readAndDispatch());
@@ -72,15 +78,16 @@ public class AssignClassTestGenerics extends CanvasTest {
 		}
 	}
 
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		super.tearDown();
 	}
 	public void setGenerateResults() {
 		try {
 			generateResults = true;
 			this.setUp();
-			this.doTestAssignClassWithOneSubsystem();
-			this.doTestCheckTableItemForAssignClass();
+			this.testAssignClassWithOneSubsystem();
+			this.testCheckTableItemForAssignClass();
 		} catch (Exception e) {
 			System.out.println("Exception encountered by test result creator: "
 					+ e);
@@ -88,10 +95,11 @@ public class AssignClassTestGenerics extends CanvasTest {
 
 	}
 	
-	public void testAssignClass() {
-			this.doTestAssignClassWithOneSubsystem();
-			this.doTestCheckTableItemForAssignClass();
-	}
+//	@Test
+//	public void testAssignClass() {
+//			this.doTestAssignClassWithOneSubsystem();
+//			this.doTestCheckTableItemForAssignClass();
+//	}
 
 	public class Package_by_name_c implements ClassQueryInterface_c {
 		public boolean evaluate(Object candidate) {
@@ -110,7 +118,8 @@ public class AssignClassTestGenerics extends CanvasTest {
 		CanvasTestUtils.openCanvasEditor(uut);
 	}
 
-	public void doTestAssignClassWithOneSubsystem() {
+	@Test
+	public void testAssignClassWithOneSubsystem() {
 		test_id = "1";
 		ImportedClass_c ic = ImportedClass_c.ImportedClassInstance(modelRoot);
 		Cl_c.Clearselection();
@@ -126,7 +135,8 @@ public class AssignClassTestGenerics extends CanvasTest {
 		aca .O_IOBJ_GenericPackageAssignClass(structuredSelection);
 
 	}
-	public void doTestCheckTableItemForAssignClass() {
+	@Test
+	public void testCheckTableItemForAssignClass() {
 		test_id = "2";
 		BaseTest.ensureFolderExists(m_workspace_path
 				+ "actual_results/AssignClassTestGenerics");

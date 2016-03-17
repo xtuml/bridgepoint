@@ -57,11 +57,11 @@ import org.xtuml.bp.test.common.BaseTest;
  */
 public class TestArray_Generics extends TestCase {
 
-    protected void setUp() throws Exception {
+    public void setUp() throws Exception {
         super.setUp();
     }
 
-    protected void tearDown() throws Exception {
+    public void tearDown() throws Exception {
         try {
             super.tearDown();
             OalParserTest_Generics.tearDownActionData();

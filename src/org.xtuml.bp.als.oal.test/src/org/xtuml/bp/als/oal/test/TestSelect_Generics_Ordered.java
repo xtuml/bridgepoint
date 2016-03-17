@@ -37,7 +37,7 @@ public class TestSelect_Generics_Ordered extends TestCase {
 		store.setValue(BridgePointPreferencesStore.ALLOW_OPERATIONS_IN_WHERE, true);
 	}
 
-	protected void tearDown() throws Exception {
+	public void tearDown() throws Exception {
 		try {
 			super.tearDown();
 			OalParserTest_Generics.tearDownActionData();

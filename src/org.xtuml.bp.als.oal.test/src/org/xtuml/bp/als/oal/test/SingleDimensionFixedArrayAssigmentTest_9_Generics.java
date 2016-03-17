@@ -50,14 +50,14 @@ public class SingleDimensionFixedArrayAssigmentTest_9_Generics extends ArrayBase
 		super("APVT", arg0);
 	}
 
-    protected void setUp() throws Exception {
+    public void setUp() throws Exception {
         if (!configured) {
             super.setUp();
             configured = true;
         }
     }
 
-	protected void tearDown() throws Exception {
+	public void tearDown() throws Exception {
 		super.tearDown();
 	}
 

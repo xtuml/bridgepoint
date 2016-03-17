@@ -30,19 +30,21 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
-
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 //import org.xtuml.bp.core.Domain_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
-import org.xtuml.bp.core.common.PersistableModelComponent;
-import org.xtuml.bp.core.common.PersistenceManager;
 import org.xtuml.bp.core.common.TransactionManager;
 import org.xtuml.bp.core.util.UIUtil;
 import org.xtuml.bp.test.TestUtil;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TestingUtilities;
 import org.xtuml.bp.ui.explorer.ExplorerView;
+@RunWith(OrderedRunner.class)
 public class I810_SlowDeletionTestGenerics extends BaseTest {
 	static IFile testModel = null;
 	private static boolean initialized = false;
@@ -59,7 +61,8 @@ public class I810_SlowDeletionTestGenerics extends BaseTest {
 
 	}
 
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		if (!initialized) {
 			/* NOTE (2013/05) - when we switched the way test models are used, we wanted
@@ -92,6 +95,7 @@ public class I810_SlowDeletionTestGenerics extends BaseTest {
 		}
 	}
 
+	@Test
 	public void testSlowDeletion() {
 		IWorkbenchPage page = TestUtil.showBridgePointPerspective();
 		ExplorerView explorer = null;

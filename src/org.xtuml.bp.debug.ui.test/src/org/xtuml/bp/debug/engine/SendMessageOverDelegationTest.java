@@ -82,7 +82,7 @@ public class SendMessageOverDelegationTest extends BaseTest {
 	}
 
 	@Override
-	protected void setUp() throws Exception {
+	public void setUp() throws Exception {
 		if (!initialized){
 			super.setUp();
 			final IProject project = ResourcesPlugin.getWorkspace().getRoot()

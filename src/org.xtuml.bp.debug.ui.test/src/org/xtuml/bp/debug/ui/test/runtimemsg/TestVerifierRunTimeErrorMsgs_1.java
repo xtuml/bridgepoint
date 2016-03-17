@@ -49,7 +49,7 @@ public class TestVerifierRunTimeErrorMsgs_1 extends TestVerifierRunTimeErrorMsgs
         super("TestVerifierRunTimeErrorMsgsGP", arg0);
     }
 
-    protected void setUp() throws Exception {
+    public void setUp() throws Exception {
         super.setUp();
 		if (!initialized) {
 		CorePlugin.disableParseAllOnResourceChange();
@@ -90,7 +90,7 @@ public class TestVerifierRunTimeErrorMsgs_1 extends TestVerifierRunTimeErrorMsgs
 	}
 }
 
-    protected void tearDown() throws Exception {
+    public void tearDown() throws Exception {
     	DebugUITestUtilities.stopSession(m_sys, projectName);
         
     }

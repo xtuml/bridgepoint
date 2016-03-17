@@ -23,7 +23,6 @@
 
 
 import org.eclipse.core.runtime.CoreException;
-
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 import org.xtuml.bp.core.test.ActivityTestsGenerics;

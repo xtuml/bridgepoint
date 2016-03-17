@@ -22,17 +22,22 @@
 
 package org.xtuml.bp.core.test;
 
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.AsynchronousMessage_c;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.SynchronousMessage_c;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.ui.Selection;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.ui.canvas.test.CanvasTestUtilities;
 import org.xtuml.bp.ui.properties.AsynchronousMessagesMSG_AMPropertySource;
 import org.xtuml.bp.ui.properties.SynchronousMessagesMSG_SMPropertySource;
 import org.xtuml.bp.utilities.ui.CanvasUtilities;
 
+@RunWith(OrderedRunner.class)
 public class RefreshTestCoreGenerics extends BaseTest {
 
 	/**
@@ -41,8 +46,8 @@ public class RefreshTestCoreGenerics extends BaseTest {
 	 */
 	private static boolean initialized = false;
 
-	public RefreshTestCoreGenerics(String arg0) {
-		super(null, arg0);
+	public RefreshTestCoreGenerics(){
+		super(null, null);
 	}
 
 	/*
@@ -51,7 +56,8 @@ public class RefreshTestCoreGenerics extends BaseTest {
 	 * @see junit.framework.TestCase#setUp()
 	 */
 
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 
 		// if it's the first test of this class that's being setup
@@ -61,6 +67,7 @@ public class RefreshTestCoreGenerics extends BaseTest {
 		}
 	}
 
+	@Test
 	public void testRefreshBOperationSynchronousMessage() {
 
 		// open the canvas editor to test on
@@ -95,6 +102,7 @@ public class RefreshTestCoreGenerics extends BaseTest {
 				Boolean.valueOf("false"), ps.getPropertyValue("isFormal"));
 	}
 
+	@Test
 	public void testRefreshFunctionSynchronousMessage() {
 
 		// open the canvas editor to test on
@@ -129,6 +137,7 @@ public class RefreshTestCoreGenerics extends BaseTest {
 				Boolean.valueOf("false"), ps.getPropertyValue("isFormal"));
 	}
 
+	@Test
 	public void testRefreshClassSynchronousMessage() {
 
 		// open the canvas editor to test on
@@ -163,6 +172,7 @@ public class RefreshTestCoreGenerics extends BaseTest {
 				Boolean.valueOf("false"), ps.getPropertyValue("isFormal"));
 	}
 
+	@Test
 	public void testRefreshClassAsynchronousMessage() {
 
 		// open the canvas editor to test on

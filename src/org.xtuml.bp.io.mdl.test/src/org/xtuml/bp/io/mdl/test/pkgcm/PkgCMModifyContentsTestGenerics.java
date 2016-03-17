@@ -23,16 +23,21 @@
 package org.xtuml.bp.io.mdl.test.pkgcm;
 
 import java.io.File;
+
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.ui.internal.Workbench;
-
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Ooaofooa;
-import org.xtuml.bp.test.common.TestingUtilities;
+import org.xtuml.bp.test.common.OrderedRunner;
 
+@RunWith(OrderedRunner.class)
 public class PkgCMModifyContentsTestGenerics extends ModifyContentsTest {
 
     protected static String mdlClassUnderTest = "X";
@@ -45,19 +50,20 @@ public class PkgCMModifyContentsTestGenerics extends ModifyContentsTest {
 
     protected static String projectName = "MultiLevelModelSystem";
 
-    public PkgCMModifyContentsTestGenerics(String name) {
-        this(null, name);
-    }
-
-    public PkgCMModifyContentsTestGenerics(String projectName, String name) {
-        super(null, name);
+    public PkgCMModifyContentsTestGenerics() {
+        super(null, null);
         CorePlugin.disableParseAllOnResourceChange();
         showModelExplorer();
     }
 
+//    public PkgCMModifyContentsTestGenerics(String projectName, String name) {
+//        super(null, name);
+//    }
+
     protected static boolean firstTime_modCont = true;
 
-    protected void setUp() throws Exception {
+    @Before
+	public void setUp() throws Exception {
         super.setUp();
         IPath in_path = new Path(m_logfile_path);
         File in_fh = in_path.toFile();
@@ -68,7 +74,8 @@ public class PkgCMModifyContentsTestGenerics extends ModifyContentsTest {
         }
         setupProjectAndTestModel();
     }
-    protected void tearDown()throws Exception{
+    @After
+	public void tearDown()throws Exception{
         super.tearDown();
         if (toRunTests()) // close editors after test run
         {
@@ -105,7 +112,8 @@ public class PkgCMModifyContentsTestGenerics extends ModifyContentsTest {
     /**
      * Focused : Canvas Editor Not Focused : Description Editor
      */
-    public void testModifyContentPackage_Desc() throws Exception {
+    @Test
+	public void testModifyContentPackage_Desc() throws Exception {
         performModifyComponentContentsGenerics("Package", null,
                 EditorTestUtilities.EDITOR_TYPE_DESC, 2);
     }
@@ -113,7 +121,8 @@ public class PkgCMModifyContentsTestGenerics extends ModifyContentsTest {
     /**
      * Focused : Canvas Editor Not Focused : Description Editor
      */
-    public void testModifyContentPackage_Canvas() throws Exception {
+    @Test
+	public void testModifyContentPackage_Canvas() throws Exception {
         performModifyComponentContentsGenerics("Package", null,
                 EditorTestUtilities.EDITOR_TYPE_CANVAS, 2);
     }
@@ -122,7 +131,8 @@ public class PkgCMModifyContentsTestGenerics extends ModifyContentsTest {
     /**
      * Focused : Activity Editor Not Focused : Canvas Editor, Description Editor
      */
-    public void testModifyContentEEPkgInPkg_Activity() throws Exception {
+    @Test
+	public void testModifyContentEEPkgInPkg_Activity() throws Exception {
         performModifyComponentContentsGenerics("Package", eepUnderTest,
                 EditorTestUtilities.EDITOR_TYPE_ACTIVITY, 3);
     }
@@ -130,7 +140,8 @@ public class PkgCMModifyContentsTestGenerics extends ModifyContentsTest {
     /**
      * Focused : Description Editor Not Focused : Canvas Editor, Activity Editor
      */
-    public void testModifyContentEEPkgInPkg_Desc() throws Exception {
+    @Test
+	public void testModifyContentEEPkgInPkg_Desc() throws Exception {
         performModifyComponentContentsGenerics("Package", eepUnderTest,
                 EditorTestUtilities.EDITOR_TYPE_DESC, 3);
     }
@@ -138,7 +149,8 @@ public class PkgCMModifyContentsTestGenerics extends ModifyContentsTest {
     /**
      * Focused : Canvas Editor Not Focused : Description Editor, Activity Editor
      */
-    public void testModifyContentEEPkgInPkg_Canvas() throws Exception {
+    @Test
+	public void testModifyContentEEPkgInPkg_Canvas() throws Exception {
         performModifyComponentContentsGenerics("Package", eepUnderTest,
                 EditorTestUtilities.EDITOR_TYPE_CANVAS, 3);
     }
@@ -147,7 +159,8 @@ public class PkgCMModifyContentsTestGenerics extends ModifyContentsTest {
     /**
      * Focused : Canvas Editor Not Focused : Description Editor
      */
-    public void testModifyContentSubSystem_Canvas() throws Exception {
+    @Test
+	public void testModifyContentSubSystem_Canvas() throws Exception {
         performModifyComponentContentsGenerics("Package", null,
                 EditorTestUtilities.EDITOR_TYPE_CANVAS, 2);
     }
@@ -155,7 +168,8 @@ public class PkgCMModifyContentsTestGenerics extends ModifyContentsTest {
     /**
      * Focused : Description Editor Not Focused : Canvas Editor
      */
-    public void testModifyContentSubSystem_Desc() throws Exception {
+    @Test
+	public void testModifyContentSubSystem_Desc() throws Exception {
         performModifyComponentContentsGenerics("Package", null,
                 EditorTestUtilities.EDITOR_TYPE_DESC, 2);
     }
@@ -164,7 +178,8 @@ public class PkgCMModifyContentsTestGenerics extends ModifyContentsTest {
     /**
      * Focused : Canvas Editor Not Focused : Description Editor
      */
-    public void testModifyContentSubSystemInSub_Canvas() throws Exception {
+    @Test
+	public void testModifyContentSubSystemInSub_Canvas() throws Exception {
         performModifyComponentContentsGenerics("Package", subsysInSubsysUnderTest,
                 EditorTestUtilities.EDITOR_TYPE_CANVAS, 2);
     }
@@ -172,7 +187,8 @@ public class PkgCMModifyContentsTestGenerics extends ModifyContentsTest {
     /**
      * Focused : Description Editor Not Focused : Canvas Editor
      */
-    public void testModifyContentSubSystemInSub_Desc() throws Exception {
+    @Test
+	public void testModifyContentSubSystemInSub_Desc() throws Exception {
         performModifyComponentContentsGenerics("Package", subsysInSubsysUnderTest,
                 EditorTestUtilities.EDITOR_TYPE_DESC, 2);
     }
@@ -181,7 +197,8 @@ public class PkgCMModifyContentsTestGenerics extends ModifyContentsTest {
     /**
      * Focused : Canvas Editor Not Focused : Description Editor
      */
-    public void testModifyContentDatatypePkgInPkg_Canvas() throws Exception {
+    @Test
+	public void testModifyContentDatatypePkgInPkg_Canvas() throws Exception {
         performModifyComponentContentsGenerics("Package", dtpUnderTest,
                 EditorTestUtilities.EDITOR_TYPE_CANVAS, 2);
     }
@@ -189,7 +206,8 @@ public class PkgCMModifyContentsTestGenerics extends ModifyContentsTest {
     /**
      * Focused : Description Editor Not Focused : Canvas Editor
      */
-    public void testModifyContentDatatypePkgInPkg_Desc() throws Exception {
+    @Test
+	public void testModifyContentDatatypePkgInPkg_Desc() throws Exception {
         performModifyComponentContentsGenerics("Package", dtpUnderTest,
                 EditorTestUtilities.EDITOR_TYPE_DESC, 2);
     }
@@ -198,7 +216,8 @@ public class PkgCMModifyContentsTestGenerics extends ModifyContentsTest {
     /**
      * Focused : Description Editor Not Focused : Activity Editor
      */
-    public void testModifyContentModelClass_Desc() throws Exception {
+    @Test
+	public void testModifyContentModelClass_Desc() throws Exception {
     	performModifyComponentContentsGenerics("ModelClass", mdlClassUnderTest,
                 EditorTestUtilities.EDITOR_TYPE_DESC, 2);
     }
@@ -206,7 +225,8 @@ public class PkgCMModifyContentsTestGenerics extends ModifyContentsTest {
     /**
      * Focused : Activity Editor Not Focused : Description Editor
      */
-    public void testModifyContentModelClass_Activity() throws Exception {
+    @Test
+	public void testModifyContentModelClass_Activity() throws Exception {
     	performModifyComponentContentsGenerics("ModelClass", mdlClassUnderTest,
                 EditorTestUtilities.EDITOR_TYPE_ACTIVITY, 2);
     }
@@ -215,7 +235,8 @@ public class PkgCMModifyContentsTestGenerics extends ModifyContentsTest {
     /**
      * Focused : Canvas Editor Not Focused : Description Editor, Activity Editor
      */
-    public void testModifyContentISM_Canvas() throws Exception {
+    @Test
+	public void testModifyContentISM_Canvas() throws Exception {
         performModifyComponentContentsGenerics("InstanceStateMachine",
                 mdlClassUnderTest, EditorTestUtilities.EDITOR_TYPE_CANVAS, 3);
     }
@@ -223,7 +244,8 @@ public class PkgCMModifyContentsTestGenerics extends ModifyContentsTest {
     /**
      * Focused : Description Editor Not Focused : Canvas Editor, Activity Editor
      */
-    public void testModifyContentISM_Desc() throws Exception {
+    @Test
+	public void testModifyContentISM_Desc() throws Exception {
         performModifyComponentContentsGenerics("InstanceStateMachine",
                 mdlClassUnderTest, EditorTestUtilities.EDITOR_TYPE_DESC, 3);
     }
@@ -231,7 +253,8 @@ public class PkgCMModifyContentsTestGenerics extends ModifyContentsTest {
     /**
      * Focused : Activity Editor Not Focused : Canvas Editor, Description Editor
      */
-    public void testModifyContentISM_Activity() throws Exception {
+    @Test
+	public void testModifyContentISM_Activity() throws Exception {
         performModifyComponentContentsGenerics("InstanceStateMachine",
                 mdlClassUnderTest, EditorTestUtilities.EDITOR_TYPE_ACTIVITY, 3);
     }

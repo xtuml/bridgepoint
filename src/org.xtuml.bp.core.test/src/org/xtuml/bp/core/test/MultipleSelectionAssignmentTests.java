@@ -33,7 +33,8 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.ui.IObjectActionDelegate;
 import org.eclipse.ui.PlatformUI;
-
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.Attribute_c;
 import org.xtuml.bp.core.BridgeParameter_c;
 import org.xtuml.bp.core.Bridge_c;
@@ -84,8 +85,10 @@ import org.xtuml.bp.core.util.WorkspaceUtil;
 import org.xtuml.bp.test.TestUtil;
 import org.xtuml.bp.test.common.BaseTest;
 import org.xtuml.bp.test.common.FailableRunnable;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.UITestingUtilities;
 
+@RunWith(OrderedRunner.class)
 public class MultipleSelectionAssignmentTests extends BaseTest {
 
 	private static final String TEST_PROJECT_NAME = "MultipleSelectionAssignmentTests";
@@ -134,6 +137,7 @@ public class MultipleSelectionAssignmentTests extends BaseTest {
 	 * @throws CoreException
 	 * @throws IOException
 	 */
+	@Test
 	public void testMultipleSelectionAssignment() throws CoreException,
 			IOException {
 		for (int i = 0; i < testClasses.length; i++) {

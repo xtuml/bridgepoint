@@ -36,6 +36,9 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ProjectScope;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.preferences.IScopeContext;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.runner.RunWith;
 import org.osgi.service.prefs.Preferences;
 import org.xtuml.bp.core.ComponentReference_c;
 import org.xtuml.bp.core.DataType_c;
@@ -67,11 +70,13 @@ import org.xtuml.bp.core.ui.preferences.BridgePointProjectReferencesPreferences;
 import org.xtuml.bp.core.util.WorkspaceUtil;
 import org.xtuml.bp.test.TestUtil;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TestingUtilities;
 import org.xtuml.bp.test.common.UITestingUtilities;
 import org.xtuml.bp.ui.canvas.test.CanvasTest;
 import org.xtuml.bp.ui.graphics.editor.GraphicalEditor;
 
+@RunWith(OrderedRunner.class)
 public class RTOMoveTests extends CanvasTest {
 	public static boolean generateResults = false;
 	public static boolean useDrawResults = true;
@@ -136,12 +141,14 @@ public class RTOMoveTests extends CanvasTest {
 		outOfScopeOtherProject.Newpackage();
 	}
 
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		Ooaofooa.setPersistEnabled(true);
 		super.setUp();
 	}
 
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		// undo paste
 		if(pasteSuccessful) {
 			if(!TransactionManager.getSingleton().getUndoStack().isEmpty()) {

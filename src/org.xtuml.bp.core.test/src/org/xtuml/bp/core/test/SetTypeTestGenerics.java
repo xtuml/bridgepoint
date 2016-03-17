@@ -29,7 +29,10 @@ import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
-
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.Attribute_c;
 import org.xtuml.bp.core.DataType_c;
 import org.xtuml.bp.core.EnumerationDataType_c;
@@ -46,11 +49,13 @@ import org.xtuml.bp.test.TestUtil;
 import org.xtuml.bp.test.common.BaseTest;
 import org.xtuml.bp.test.common.CanvasTestUtils;
 import org.xtuml.bp.test.common.FailableRunnable;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TestingUtilities;
 import org.xtuml.bp.ui.canvas.Cl_c;
 import org.xtuml.bp.ui.canvas.test.CanvasTest;
 import org.xtuml.bp.ui.explorer.ExplorerView;
 
+@RunWith(OrderedRunner.class)
 public class SetTypeTestGenerics extends CanvasTest {
 
 	IWorkbenchPage m_wp = PlatformUI.getWorkbench().getActiveWorkbenchWindow()
@@ -67,8 +72,8 @@ public class SetTypeTestGenerics extends CanvasTest {
 	static String[] actualSecondColumn = null;
 
 
-	public SetTypeTestGenerics(String name) {
-		super("Default Project", name);
+	public SetTypeTestGenerics() {
+		super("Default Project", null);
 	}
 
 	protected String getResultName() {
@@ -119,7 +124,8 @@ public class SetTypeTestGenerics extends CanvasTest {
 		clazz.Newinstancereferencedatatype();
 	}
 
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		Display d = Display.getCurrent();
 		while (d.readAndDispatch());
@@ -129,7 +135,8 @@ public class SetTypeTestGenerics extends CanvasTest {
 		}
 	}
 
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		super.tearDown();
 	}
 
@@ -137,8 +144,8 @@ public class SetTypeTestGenerics extends CanvasTest {
 		try {
 			generateResults = true;
 			this.setUp();
-			this.doTestSetTypeAttribute();
-			this.doTestCheckTableItemForSetType();
+			this.testSetTypeAttribute();
+			this.testCheckTableItemForSetType();
 		} catch (Exception e) {
 			System.out.println("Exception encountered by test result creator: "
 					+ e);
@@ -167,17 +174,19 @@ public class SetTypeTestGenerics extends CanvasTest {
 	}
 	
 	
-	public void testSetTypeTestGenerrics(){
-		doTestSetTypeAttribute();
-		doTestCheckTableItemForSetType();
-		doTestUDTBaseTypeAssignmentToCoreType();
-		doTestUDTBaseTypeAssignmentToUDT();
-		doTestUDTBaseTypeAssignmentToEDT();
-		doTestUDTBaseTypeAssignmentToSDT();
-		doTestUDTBaseTypeAssignmentToIRDT();
-	}
+//	@Test
+//	public void testSetTypeTestGenerrics(){
+//		doTestSetTypeAttribute();
+//		doTestCheckTableItemForSetType();
+//		doTestUDTBaseTypeAssignmentToCoreType();
+//		doTestUDTBaseTypeAssignmentToUDT();
+//		doTestUDTBaseTypeAssignmentToEDT();
+//		doTestUDTBaseTypeAssignmentToSDT();
+//		doTestUDTBaseTypeAssignmentToIRDT();
+//	}
 
-	public void doTestSetTypeAttribute() {
+	@Test
+	public void testSetTypeAttribute() {
 		test_id = "1";
 		Attribute_c attr = Attribute_c.AttributeInstance(modelRoot);
 		Cl_c.Clearselection();
@@ -194,7 +203,8 @@ public class SetTypeTestGenerics extends CanvasTest {
 
 	}
 
-	public void doTestCheckTableItemForSetType() {
+	@Test
+	public void testCheckTableItemForSetType() {
 		test_id = "2";
 		BaseTest.ensureFolderExists(m_workspace_path
 				+ "actual_results/SetTypeTestGenerics");
@@ -219,7 +229,8 @@ public class SetTypeTestGenerics extends CanvasTest {
 
 	}
 	
-	public void doTestUDTBaseTypeAssignmentToCoreType() {
+	@Test
+	public void testUDTBaseTypeAssignmentToCoreType() {
 		Selection.getInstance().clear(); Selection.getInstance().addToSelection(testUDT);
 		UUID coreId = m_sys.Getcoretypeid("boolean");
 		PackageableElement_c pe = (PackageableElement_c) m_sys.getModelRoot()
@@ -236,7 +247,8 @@ public class SetTypeTestGenerics extends CanvasTest {
 		assertTrue("Expected core type was not assigned to UDT.", assignedDt.getName().equals("boolean"));
 	}
 
-	public void doTestUDTBaseTypeAssignmentToUDT() {
+	@Test
+	public void testUDTBaseTypeAssignmentToUDT() {
 		Selection.getInstance().clear(); Selection.getInstance().addToSelection(testUDT);
 		DataType_c otherUDT = DataType_c.getOneS_DTOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(testPKG), new ClassQueryInterface_c() {
 			
@@ -259,7 +271,8 @@ public class SetTypeTestGenerics extends CanvasTest {
 		assertTrue("Expected UDT was not assigned to UDT.", pe == assignedPE);
 	}
 
-	public void doTestUDTBaseTypeAssignmentToEDT() {
+	@Test
+	public void testUDTBaseTypeAssignmentToEDT() {
 		Selection.getInstance().clear(); Selection.getInstance().addToSelection(testUDT);
 		DataType_c otherUDT = DataType_c.getOneS_DTOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(testPKG), new ClassQueryInterface_c() {
 			
@@ -282,7 +295,8 @@ public class SetTypeTestGenerics extends CanvasTest {
 		assertTrue("Expected EDT was not assigned to UDT.", pe == assignedPE);
 	}
 
-	public void doTestUDTBaseTypeAssignmentToSDT() {
+	@Test
+	public void testUDTBaseTypeAssignmentToSDT() {
 		Selection.getInstance().clear(); Selection.getInstance().addToSelection(testUDT);
 		DataType_c otherUDT = DataType_c.getOneS_DTOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(testPKG), new ClassQueryInterface_c() {
 			
@@ -305,7 +319,8 @@ public class SetTypeTestGenerics extends CanvasTest {
 		assertTrue("Expected SDT was not assigned to UDT.", pe == assignedPE);
 	}
 
-	public void doTestUDTBaseTypeAssignmentToIRDT() {
+	@Test
+	public void testUDTBaseTypeAssignmentToIRDT() {
 		Selection.getInstance().clear(); Selection.getInstance().addToSelection(testUDT);
 		DataType_c otherUDT = DataType_c.getOneS_DTOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(testPKG), new ClassQueryInterface_c() {
 			
