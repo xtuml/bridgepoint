@@ -1,4 +1,4 @@
-package org.xtuml.bp.test.common;
+package org.xtuml.bp.core.common;
 
 //=====================================================================
 //
@@ -29,8 +29,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Iterator;
-
-import org.xtuml.bp.core.common.ILogger;
 
 public class GeneralPurposeLogger implements ILogger {
 

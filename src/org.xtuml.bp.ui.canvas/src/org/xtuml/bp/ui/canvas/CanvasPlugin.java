@@ -69,6 +69,7 @@ public class CanvasPlugin extends AbstractUIPlugin {
   private CanvasModelListener modelChangeListener;
   private CanvasTransactionListener transactionListener;
   private static boolean isActivated;
+  
   public CanvasPlugin() {
     super();
     plugin = this;
@@ -106,6 +107,11 @@ public class CanvasPlugin extends AbstractUIPlugin {
   public ResourceBundle getResourceBundle() {
     return resourceBundle;
   }
+  
+  public static class DebugGraphicsCreation {
+	  public DebugGraphicsCreation() {}
+  }
+  
   private void initializeCanvases() {
 	Ooaofgraphics graphicsModelRoot = Ooaofgraphics.getDefaultInstance();
     IExtensionRegistry reg = Platform.getExtensionRegistry();
