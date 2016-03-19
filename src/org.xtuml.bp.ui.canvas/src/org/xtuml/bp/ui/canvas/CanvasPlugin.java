@@ -1,4 +1,5 @@
 package org.xtuml.bp.ui.canvas;
+import java.io.IOException;
 //=====================================================================
 //
 // File:      $RCSfile: CanvasPlugin.java,v $
@@ -60,6 +61,7 @@ import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.ILogger;
 import org.xtuml.bp.core.common.ModelRoot;
 import org.xtuml.bp.core.common.NonRootModelElement;
+import org.xtuml.bp.core.common.TraceLogger;
 import org.xtuml.bp.core.common.TransactionManager;
 import org.xtuml.bp.core.util.CoreUtil;
 import org.xtuml.bp.ui.canvas.util.GraphicsUtil;
@@ -734,6 +736,30 @@ private ElementSpecification_c locateEsByNameAndClassType(ModelRoot modelRoot,
 				message);
 	  }
   }  
+  public static boolean stringBufferLoggingIsEnabled() {
+	  boolean isEnabled = false;
+	  if (Ooaofgraphics.log != null && Ooaofgraphics.log instanceof TraceLogger) {
+		  TraceLogger traceLog = (TraceLogger)Ooaofgraphics.log;
+		  isEnabled = traceLog.isUsingTheStringBuffer();
+	  }
+	  return isEnabled;
+  }
+  /**
+   * 
+   * @param filename A name for the file to write to. This is just a name NOT 
+   *                 a fully qualified. The file is put in the workspace.
+   */
+  public static void writeTraceLog(String filename) {
+	  if(Ooaofgraphics.log != null && Ooaofgraphics.log instanceof TraceLogger) {
+		  TraceLogger traceLog = (TraceLogger)Ooaofgraphics.log;
+		  try {
+			String workspaceFolder = ResourcesPlugin.getWorkspace().getRoot().getLocation().toString();
+		    traceLog.stringLogger.write(workspaceFolder + "/" + filename);
+		  } catch (IOException ioexp) {
+			  CanvasPlugin.logError("", ioexp);
+		  }
+	  }
+  }
   /* (non-Javadoc)
    * @see org.osgi.framework.BundleActivator#start(org.osgi.framework.BundleContext)
    */

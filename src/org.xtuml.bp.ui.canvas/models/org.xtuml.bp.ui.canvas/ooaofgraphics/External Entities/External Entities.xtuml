@@ -1549,6 +1549,39 @@ INSERT INTO S_BPARM
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
+INSERT INTO S_BRG
+	VALUES ("659ea060-f934-438c-94b0-46907a761119",
+	"f168c92b-6d64-4ecb-a677-5a1d7cce8352",
+	'traceGraphicsCreationIsEnabled',
+	'This is only turned on via the BridegePoint debug tracing facility. 
+What this means is it is enabled via a debug launch configuration or other
+similar means. To learn more see BridgePoint''s bp/core/common/TraceLogger.java 
+and/or the FAQ item on this subject: 
+https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/FAQ.md#tracing',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000001",
+	'',
+	0,
+	'');
+INSERT INTO S_BRG
+	VALUES ("1bd141bc-0e4a-4522-b588-f41a917bcaca",
+	"f168c92b-6d64-4ecb-a677-5a1d7cce8352",
+	'writeTraceLog',
+	'',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000000",
+	'',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("25dbd062-e30a-4700-998a-15797d4b47a6",
+	"1bd141bc-0e4a-4522-b588-f41a917bcaca",
+	'filename',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
 INSERT INTO PE_PE
 	VALUES ("f168c92b-6d64-4ecb-a677-5a1d7cce8352",
 	1,

@@ -53,7 +53,12 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	0,
-	'select many allAutoRecSpecs from instances of GD_ARS;
+	'if (CL::traceGraphicsCreationIsEnabled()) 
+  msg = "GD_ARS.Reconcile() started.";
+  CL::logTraceMsg(filterType:LoggerType::OPERATION, filterValue:"use_string_buffer", message:msg);
+end if;    
+
+select many allAutoRecSpecs from instances of GD_ARS;
 
 // Now we reconcile shapes in this canvas (if this is a canvas)
 for each autoReconcileSpec in allAutoRecSpecs  
@@ -99,6 +104,9 @@ for each autoReconcileSpec in allAutoRecSpecs
   end for;
 end for;
 
+if (CL::traceGraphicsCreationIsEnabled()) 
+  CL::writeTraceLog(filename:"GraphicsCreationLog.txt"); 
+end if;    
 ',
 	1,
 	'',
@@ -286,6 +294,10 @@ while (i<count)
                                       OOA_ID: newElement.OOA_ID, 
                                       OOA_Type: newElement.OOA_Type );
       unrelate sourceSpec from newElement across R16;
+      if (CL::traceGraphicsCreationIsEnabled()) 
+        msg = "Shape created. " + CL::getPath(element:newElement.represents);
+        CL::logTraceMsg(filterType:LoggerType::OPERATION, filterValue:"use_string_buffer", message:msg);
+      end if;    
     end if;
   end if;
   i=i+1;
@@ -1211,6 +1223,10 @@ if (not empty modelSpec)
     			(selected.OOA_ID == ooaid and selected.Model_Type==modelType) and (selected.represents == param.rootElement);
     if (empty model)
       modelSpec.elementCreated(elem:param.rootElement);
+      if (CL::traceGraphicsCreationIsEnabled()) 
+        msg = "Canvas created. " + CL::getPath(element:model.represents);
+        CL::logTraceMsg(filterType:LoggerType::OPERATION, filterValue:"use_string_buffer", message:msg);
+      end if;    
     end if;
   end if;
 end if;

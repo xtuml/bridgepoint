@@ -1981,4 +1981,13 @@ public static void Settoolbarstate(boolean readonly) {
         return s_invoke(represents, "Get_connector_tooltip", argTypes, args);
 	}
 
+	public static boolean Tracegraphicscreationisenabled() {
+		return CanvasPlugin.stringBufferLoggingIsEnabled();
+	}
+	
+	public static void Writetracelog(String filename) {
+		if (Tracegraphicscreationisenabled()) {
+			CanvasPlugin.writeTraceLog(filename);
+		}
+	}
 }// End Cl_c

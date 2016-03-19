@@ -70,11 +70,35 @@ public class GeneralPurposeLogger implements ILogger {
         return buffer.toString();
     }
     
+    /**
+     * Dump the string buffer to a file.
+     * 
+     * @param fileName This should be a fully qualified file name
+     * @throws IOException
+     */
+    public void write(String fileName) throws IOException {
+    	File f = new File(fileName);
+    	write(f);
+    }
+    
+    /**
+     * Dump the string buffer to a file.
+     * 
+     * @param fileName
+     * @throws IOException
+     */
     public void write(File file) throws IOException{
         PrintWriter writer = new PrintWriter(new FileWriter(file));
         write(writer);
+        writer.close();
     }
     
+    /**
+     * Dump the string buffer to a file.
+     * 
+     * @param fileName
+     * @throws IOException
+     */
     public void write(PrintWriter writer){
         for (Iterator iterator = log.iterator(); iterator.hasNext();) {
             writer.println(iterator.next());
