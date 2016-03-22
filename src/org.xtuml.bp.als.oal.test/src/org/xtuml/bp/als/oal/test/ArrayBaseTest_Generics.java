@@ -28,31 +28,60 @@
 package org.xtuml.bp.als.oal.test;
 
 import java.io.StringReader;
-import java.util.regex.*;
+import java.util.regex.Pattern;
 
 import org.eclipse.jface.preference.IPreferenceStore;
-import org.eclipse.ui.IEditorPart;
-import org.eclipse.ui.IEditorPart;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.runner.RunWith;
+import org.xtuml.bp.als.oal.OalLexer;
+import org.xtuml.bp.als.oal.OalParser;
+import org.xtuml.bp.als.oal.Oal_validate;
+import org.xtuml.bp.core.ActionHome_c;
+import org.xtuml.bp.core.Action_c;
+import org.xtuml.bp.core.Block_c;
+import org.xtuml.bp.core.Body_c;
+import org.xtuml.bp.core.BridgeBody_c;
+import org.xtuml.bp.core.Bridge_c;
+import org.xtuml.bp.core.Component_c;
+import org.xtuml.bp.core.CorePlugin;
+import org.xtuml.bp.core.ExternalEntity_c;
+import org.xtuml.bp.core.FunctionBody_c;
+import org.xtuml.bp.core.Function_c;
+import org.xtuml.bp.core.InstanceStateMachine_c;
+import org.xtuml.bp.core.InterfaceReference_c;
+import org.xtuml.bp.core.ModelClass_c;
+import org.xtuml.bp.core.MooreActionHome_c;
+import org.xtuml.bp.core.Oalconstants_c;
+import org.xtuml.bp.core.Ooaofooa;
+import org.xtuml.bp.core.OperationBody_c;
+import org.xtuml.bp.core.Operation_c;
+import org.xtuml.bp.core.Port_c;
+import org.xtuml.bp.core.ProvidedExecutableProperty_c;
+import org.xtuml.bp.core.ProvidedOperationBody_c;
+import org.xtuml.bp.core.ProvidedOperation_c;
+import org.xtuml.bp.core.Provision_c;
+import org.xtuml.bp.core.RequiredExecutableProperty_c;
+import org.xtuml.bp.core.RequiredOperationBody_c;
+import org.xtuml.bp.core.RequiredOperation_c;
+import org.xtuml.bp.core.Requirement_c;
+import org.xtuml.bp.core.StateActionBody_c;
+import org.xtuml.bp.core.StateMachineState_c;
+import org.xtuml.bp.core.StateMachine_c;
+import org.xtuml.bp.core.TransitionActionBody_c;
+import org.xtuml.bp.core.common.BridgePointPreferencesStore;
+import org.xtuml.bp.core.common.ClassQueryInterface_c;
+import org.xtuml.bp.core.common.PersistableModelComponent;
+import org.xtuml.bp.core.util.ContainerUtil;
+import org.xtuml.bp.test.common.OrderedRunner;
+import org.xtuml.bp.ui.canvas.test.CanvasTest;
+import org.xtuml.bp.ui.graphics.editor.GraphicalEditor;
 
 import antlr.RecognitionException;
 import antlr.TokenStreamException;
 import antlr.TokenStreamRecognitionException;
 
-import org.xtuml.bp.als.oal.OalLexer;
-import org.xtuml.bp.als.oal.OalParser;
-import org.xtuml.bp.als.oal.Oal_validate;
-import org.xtuml.bp.core.*;
-import org.xtuml.bp.core.common.BridgePointPreferencesStore;
-import org.xtuml.bp.core.common.ClassQueryInterface_c;
-import org.xtuml.bp.core.common.NonRootModelElement;
-import org.xtuml.bp.core.common.PersistableModelComponent;
-import org.xtuml.bp.core.util.ContainerUtil;
-import org.xtuml.bp.test.common.*;
-import org.xtuml.bp.ui.canvas.*;
-import org.xtuml.bp.ui.graphics.editor.*;
-import org.xtuml.bp.ui.canvas.test.*;
-import org.xtuml.bp.ui.graphics.editor.GraphicalEditor;
-
+@RunWith(OrderedRunner.class)
 public class ArrayBaseTest_Generics extends CanvasTest {
 	public static boolean generateResults = false;
 	private static boolean m_requiresClear = false;
@@ -81,6 +110,7 @@ public class ArrayBaseTest_Generics extends CanvasTest {
 		return "test_" + count;
 	}
 
+	@Before
 	public void setUp() throws Exception {
 		super.setUp();
 		String componentPackageName = "Arrays";
@@ -129,6 +159,7 @@ public class ArrayBaseTest_Generics extends CanvasTest {
 		populateArrayStateActionInstances();
 	}
 
+	@After
 	public void tearDown() throws Exception {
 		try {
 			super.tearDown();

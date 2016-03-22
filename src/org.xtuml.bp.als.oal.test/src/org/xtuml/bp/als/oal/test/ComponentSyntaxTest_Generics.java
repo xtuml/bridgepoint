@@ -4,11 +4,10 @@ import java.io.StringReader;
 import java.util.UUID;
 
 import org.eclipse.jface.preference.IPreferenceStore;
-
-import antlr.RecognitionException;
-import antlr.TokenStreamException;
-import antlr.TokenStreamRecognitionException;
-
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.als.oal.OalLexer;
 import org.xtuml.bp.als.oal.OalParser;
 import org.xtuml.bp.als.oal.Oal_validate;
@@ -41,8 +40,14 @@ import org.xtuml.bp.core.StateMachine_c;
 import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TestingUtilities;
 
+import antlr.RecognitionException;
+import antlr.TokenStreamException;
+import antlr.TokenStreamRecognitionException;
+
+@RunWith(OrderedRunner.class)
 public class ComponentSyntaxTest_Generics extends BaseTest {
 
 	public static boolean configured = false;
@@ -55,6 +60,7 @@ public class ComponentSyntaxTest_Generics extends BaseTest {
 	/* (non-Javadoc)
 	 * @see junit.framework.TestCase#setUp()
 	 */
+	@Before
 	public void setUp() throws Exception {
         IPreferenceStore store = CorePlugin.getDefault().getPreferenceStore();
         store.setValue(
@@ -91,6 +97,7 @@ public class ComponentSyntaxTest_Generics extends BaseTest {
 	/* (non-Javadoc)
 	 * @see junit.framework.TestCase#tearDown()
 	 */
+	@After
 	public void tearDown() throws Exception {
         try {
             super.tearDown();
@@ -104,6 +111,7 @@ public class ComponentSyntaxTest_Generics extends BaseTest {
         }
 	}
 
+	@Test
 	public void testGoodSyntax() {
 		// Most good syntax is checked in ParseAllInDomain,
 		// This is here to give early heads up if something
@@ -111,141 +119,174 @@ public class ComponentSyntaxTest_Generics extends BaseTest {
 		String x = parseAction("self.CRA = sender;", Oalconstants_c.OPERATION_TYPE, null, null, "Good Syntax");
 		assertEquals("Unexpected error:", "", x);
 	}
+	@Test
 	public void testexplicitSendSyntaxInterfaceNameNoInterface() {
 		String x = parseAction("send NoInterface::testSig() to sender;", Oalconstants_c.OPERATION_TYPE, null, null, "Good Syntax");
 		assertEquals("Unexpected error:", ":1:19-25: Internal error, cannot find interface or port with name ->NoInterface::testSig<-\n", x);
 	}
+	@Test
 	public void testexplicitSendSyntaxMultipleInterfaces() {
 		String x = parseAction("send ComponentTestMultipleRefsInterface::testSig() to sender;", Oalconstants_c.OPERATION_TYPE, null, null, "Good Syntax");
 		assertEquals("Unexpected error:", ":1:42-48: Ambiguous interface or port reference found ->ComponentTestMultipleRefsInterface::testSig<-\n", x);
 	}
+	@Test
 	public void testexplicitSendSyntaxPortNameNoPort() {
 		String x = parseAction("send NoPort::testSig() to sender;", Oalconstants_c.OPERATION_TYPE, null, null, "Good Syntax");
 		assertEquals("Unexpected error:", ":1:14-20: Internal error, cannot find interface or port with name ->NoPort::testSig<-\n", x);
 	}
+	@Test
 	public void testexplicitSendSyntaxMultiplePorts() {
 		String x = parseAction("send BadTestPort::testSig() to sender;", Oalconstants_c.OPERATION_TYPE, null, null, "Good Syntax");
 		assertEquals("Unexpected error:", ":1:19-25: Found port with duplicate name ->BadTestPort<-\n", x);
 	}
+	@Test
 	public void testimplicitSendSyntaxInterfaceNameNoInterface() {
 		String x = parseAction("NoInterface::testSig();", Oalconstants_c.OPERATION_TYPE, null, null, "Good Syntax");
 		assertEquals("Unexpected error:", ":1:1-11: Cannot find specified class,  external entity or interface ->NoInterface<-.\nline 1:14: expecting Semicolon, found 'testSig'\n", x);
 	}
+	@Test
 	public void testimplicitSendSyntaxMultipleInterfaces() {
 		String x = parseAction("ComponentTestMultipleRefsInterface::testSig();", Oalconstants_c.OPERATION_TYPE, null, null, "Good Syntax");
 		assertEquals("Unexpected error:", ":1:37-43: Ambiguous interface or port reference found ->ComponentTestMultipleRefsInterface::testSig<-\nline 1:45: expecting Semicolon, found ')'\n", x);
 	}
+	@Test
 	public void testimplicitSendSyntaxPortNameNoPort() {
 		String x = parseAction("NoPort::testSig();", Oalconstants_c.OPERATION_TYPE, null, null, "Good Syntax");
 		assertEquals("Unexpected error:", ":1:1-6: Cannot find specified class,  external entity or interface ->NoPort<-.\nline 1:9: expecting Semicolon, found 'testSig'\n", x);
 	}
+	@Test
 	public void testimplicitSendSyntaxMultiplePorts() {
 		String x = parseAction("BadTestPort::testSig();", Oalconstants_c.OPERATION_TYPE, null, null, "Good Syntax");
 		assertEquals("Unexpected error:", ":1:1-11: Multiple ports found for ->BadTestPort<-\nline 1:14: expecting Semicolon, found 'testSig'\n", x);
 	}
+	@Test
 	public void testexplicitGoodInterfaceNoSignal() {
 		String x = parseAction("send ComponentTestInterface::NoSuchSig();", Oalconstants_c.OPERATION_TYPE, null, null, "Good Syntax");
 		assertEquals("Unexpected error:", ":1:30-38: Cannot find message with name ->ComponentTestInterface::NoSuchSig<-\n", x);
 	}
+	@Test
 	public void testexplicitGoodInterfaceNoOperation() {
 		String x = parseAction("send ComponentTestInterface::NoSuchOp();", Oalconstants_c.OPERATION_TYPE, null, null, "Good Syntax");
 		assertEquals("Unexpected error:", ":1:30-37: Cannot find message with name ->ComponentTestInterface::NoSuchOp<-\n", x);
 	}
+	@Test
 	public void testexplicitGoodInterfaceMultipleSignals() {
 		String x = parseAction("send ComponentTestInterface::SigMultipleDecl();", Oalconstants_c.OPERATION_TYPE, null, null, "Good Syntax");
 		assertEquals("Unexpected error:", ":1:30-44: Ambiguous message reference found ->ComponentTestInterface::SigMultipleDecl<-\n", x);
 	}
+	@Test
 	public void testexplicitGoodInterfaceMultipleOperations() {
 		String x = parseAction("send ComponentTestInterface::OpMultipleDecl();", Oalconstants_c.OPERATION_TYPE, null, null, "Good Syntax");
 		assertEquals("Unexpected error:", ":1:30-43: Ambiguous message reference found ->ComponentTestInterface::OpMultipleDecl<-\n", x);
 	}
+	@Test
 	public void testimplicitGoodInterfaceNoSignal() {
 		String x = parseAction("ComponentTestInterface::NoSuchSig();", Oalconstants_c.OPERATION_TYPE, null, null, "Good Syntax");
 		assertEquals("Unexpected error:", ":1:25-33: Cannot find bridge, operation or message ->ComponentTestInterface::NoSuchSig<-\nline 1:35: expecting Semicolon, found ')'\n", x);
 	}
+	@Test
 	public void testimplicitGoodInterfaceNoOperation() {
 		String x = parseAction("ComponentTestInterface::NoSuchOp();", Oalconstants_c.OPERATION_TYPE, null, null, "Good Syntax");
 		assertEquals("Unexpected error:", ":1:25-32: Cannot find bridge, operation or message ->ComponentTestInterface::NoSuchOp<-\nline 1:34: expecting Semicolon, found ')'\n", x);
 	}
+	@Test
 	public void testimplicitGoodInterfaceMultipleSignals() {
 		String x = parseAction("ComponentTestInterface::SigMultipleDecl();", Oalconstants_c.OPERATION_TYPE, null, null, "Good Syntax");
 		assertEquals("Unexpected error:", ":1:25-39: Ambiguous message reference found ->ComponentTestInterface::SigMultipleDecl<-\nline 1:41: expecting Semicolon, found ')'\n", x);
 	}
+	@Test
 	public void testimplicitGoodInterfaceMultipleOperations() {
 		String x = parseAction("ComponentTestInterface::OpMultipleDecl();", Oalconstants_c.OPERATION_TYPE, null, null, "Good Syntax");
 		assertEquals("Unexpected error:", ":1:25-38: Ambiguous message reference found ->ComponentTestInterface::OpMultipleDecl<-\nline 1:40: expecting Semicolon, found ')'\n", x);
 	}
+	@Test
 	public void testexplicitBadComponentRefAttributeValue() {
 		String x = parseAction("send ComponentTestInterface::OpNoParmsNoReturn() to self.testReal;", Oalconstants_c.OPERATION_TYPE, null, null, "Good Syntax");
 		assertEquals("Unexpected error:", ":1:58-65: ->to<- variable must be of type component_ref\nline 1:67: expecting Semicolon, found 'null'\n", x);
 	}
+	@Test
 	public void testexplicitBadComponentRefParameterValue() {
 		String x = parseAction("send ComponentTestInterface::OpNoParmsNoReturn() to param.testParam;", Oalconstants_c.OPERATION_TYPE, null, null, "Good Syntax");
 		assertEquals("Unexpected error:", ":1:59-67: ->to<- variable must be of type component_ref\nline 1:69: expecting Semicolon, found 'null'\n", x);
 	}
+	@Test
 	public void testexplicitBadComponentRefEventDataValue() {
 		String x = parseAction("send ComponentTestInterface::OpNoParmsNoReturn() to rcvd_evt.TimestampDI;", Oalconstants_c.STATE_TYPE, null, null, "Good Syntax");
 		assertEquals("Unexpected error:", ":1:62-72: ->to<- variable must be of type component_ref\nline 1:74: expecting Semicolon, found 'null'\n", x);
 	}
+	@Test
 	public void testexplicitBadComponentRefBridgeValue() {
 		String x = parseAction("send ComponentTestInterface::OpNoParmsNoReturn() to CT::BrWithBoolReturn();", Oalconstants_c.OPERATION_TYPE, null, null, "Good Syntax");
 		assertEquals("Unexpected error:", ":1:74-74: ->to<- variable must be of type component_ref\nline 1:76: expecting Semicolon, found 'null'\n", x);
 	}
+	@Test
 	public void testexplicitBadComponentRefFunctionValue() {
 		String x = parseAction("send ComponentTestInterface::OpNoParmsNoReturn() to ::FnWithUIDReturn();", Oalconstants_c.OPERATION_TYPE, null, null, "Good Syntax");
 		assertEquals("Unexpected error:", ":1:71-71: ->to<- variable must be of type component_ref\nline 1:73: expecting Semicolon, found 'null'\n", x);
 	}
+	@Test
 	public void testexplicitBadComponentRefOperationValue() {
 		String x = parseAction("send ComponentTestInterface::OpNoParmsNoReturn() to self;", Oalconstants_c.OPERATION_TYPE, null, null, "Good Syntax");
 		assertEquals("Unexpected error:", ":1:53-56: ->to<- variable must be of type component_ref\nline 1:58: expecting Semicolon, found 'null'\n", x);
 	}
+	@Test
 	public void testexplicitBadComponentRefStructuredDataValue() {
 		String x = parseAction("send ComponentTestInterface::OpNoParmsNoReturn() to self.CRA_SDT.Name;", Oalconstants_c.OPERATION_TYPE, null, null, "Good Syntax");
 		assertEquals("Unexpected error:", ":1:66-69: ->to<- variable must be of type component_ref\nline 1:71: expecting Semicolon, found 'null'\n", x);
 	}
+	@Test
 	public void testexplicitBadComponentRefArrayValue() {
 		String x = parseAction("send ComponentTestInterface::OpNoParmsNoReturn() to self.testDateArray[1];", Oalconstants_c.OPERATION_TYPE, null, null, "Good Syntax");
 		assertEquals("Unexpected error:", ":1:73-73: ->to<- variable must be of type component_ref\nline 1:75: expecting Semicolon, found 'null'\n", x);
 	}
+	@Test
 	public void testexplicitBadComponentRefLocalVariableValue() {
 		String x = parseAction("y = 9; send ComponentTestInterface::OpNoParmsNoReturn() to y;", Oalconstants_c.OPERATION_TYPE, null, null, "Good Syntax");
 		assertEquals("Unexpected error:", ":1:60-60: ->to<- variable must be of type component_ref\nline 1:62: expecting Semicolon, found 'null'\n", x);
 	}
+	@Test
 	public void testBadRequiredInterfaceOperationParameterName(){
 		String x = parseAction("number = param.DATA;", Oalconstants_c.REQ_OPERATION_TYPE, "testOp", "Port3", "Good Syntax");
 		String errMsg = ":1:16-19: Parameter ->DATA<- is not associated with required operation ->testOp<-\nline 1:21: unexpected token: null\nline 1:21: expecting Semicolon, found 'null'\n";
 		assertEquals(errMsg, x);
 	}
+	@Test
 	public void testBadProvidedInterfaceOperationParameterName(){
 		String x = parseAction("number = param.DATA;", Oalconstants_c.PROV_OPERATION_TYPE, "testOp", "Port2", "Good Syntax");
 		String errMsg = ":1:16-19: Parameter ->DATA<- is not associated with provided operation ->testOp<-\nline 1:21: unexpected token: null\nline 1:21: expecting Semicolon, found 'null'\n:1:21-21: Return value required by interface operation\n";
 		assertEquals(errMsg, x);
 	}
+	@Test
 	public void testBadRequiredInterfaceSignalParameterName(){
 		String x = parseAction("number = param.DATA;", Oalconstants_c.REQ_SIGNAL_TYPE, "testSig", "Port3", "Good Syntax");
 		String errMsg = ":1:16-19: Parameter ->DATA<- is not associated with required signal ->testSig<-\nline 1:21: unexpected token: null\nline 1:21: expecting Semicolon, found 'null'\n";
 		assertEquals(errMsg, x);
 	}
+	@Test
 	public void testBadProvidedInterfaceSignalParameterName(){
 		String x = parseAction("number = param.DATA;", Oalconstants_c.PROV_SIGNAL_TYPE, "testSig", "Port2", "Good Syntax");
 		String errMsg = ":1:16-19: Parameter ->DATA<- is not associated with provided signal ->testSig<-\nline 1:21: unexpected token: null\nline 1:21: expecting Semicolon, found 'null'\n";
 		assertEquals(errMsg, x);
 	}
+	@Test
 	public void testCorrectRequiredInterfaceOperationParameterName(){
 		String x = parseAction("number = param.data;", Oalconstants_c.REQ_OPERATION_TYPE, "testOp", "Port3", "Good Syntax");
 		String errMsg = "";
 		assertEquals(errMsg, x);
 	}
+	@Test
 	public void testCorrectProvidedInterfaceOperationParameterName(){
 		String x = parseAction("number = param.data;", Oalconstants_c.PROV_OPERATION_TYPE, "testOp", "Port2", "Good Syntax");
 		String errMsg = ":1:21-21: Return value required by interface operation\n";
 		assertEquals(errMsg, x);
 	}
+	@Test
 	public void testCorrectRequiredInterfaceSignalParameterName(){
 		String x = parseAction("number = param.data;", Oalconstants_c.REQ_SIGNAL_TYPE, "testSig", "Port3", "Good Syntax");
 		String errMsg = "";
 		assertEquals(errMsg, x);
 	}
+	@Test
 	public void testCorrectProvidedInterfaceSignalParameterName(){
 		String x = parseAction("number = param.data;", Oalconstants_c.PROV_SIGNAL_TYPE, "testSig", "Port2", "Good Syntax");
 		String errMsg = "";
@@ -254,48 +295,56 @@ public class ComponentSyntaxTest_Generics extends BaseTest {
 	
 	
 	
+	@Test
 	public void testOutboundMessageProvidedPortToProvider(){
 		String x = parseAction("a  = 1;", Oalconstants_c.PROV_OPERATION_TYPE, "toProvider", "providedOutboundMessages", "Good Syntax");
 		String errMsg = ":1:8-8: Return value required by interface operation\n";
 		assertEquals(errMsg, x);
 		
 	}
+	@Test
 	public void testOutboundMessageProvidedPortToProviderEmpty(){
 		String x = parseAction("", Oalconstants_c.PROV_OPERATION_TYPE, "toProvider_empty", "providedOutboundMessages", "Good Syntax");
 		String errMsg = ":1:1-1: Return value required by interface operation\n";
 		assertEquals(errMsg, x);
 	
 	}
+	@Test
 	public void testOutboundMessageProvidedPortFromProvider(){
 		String x = parseAction("a = 1;", Oalconstants_c.PROV_OPERATION_TYPE, "fromProvider", "providedOutboundMessages", "Good Syntax");
 		String errMsg = "";
 		assertEquals(errMsg, x);
 		
 	}
+	@Test
 	public void testOutboundMessageProvidedPortFromProviderEmpty(){
 		String x = parseAction("", Oalconstants_c.PROV_OPERATION_TYPE, "fromProvider_empty", "providedOutboundMessages", "Good Syntax");
 		String errMsg = "";
 		assertEquals(errMsg, x);
 		
 	}
+	@Test
 	public void testOutboundMessageRequiredPortToProvider(){
 		String x = parseAction("b = 1;", Oalconstants_c.REQ_OPERATION_TYPE, "toProvider", "requiredOutboundMessages", "Good Syntax");
 		String errMsg = "";
 		assertEquals(errMsg, x);
 		
 	}
+	@Test
 	public void testOutboundMessageRequiredPortToProviderEmpty(){
 		String x = parseAction("", Oalconstants_c.REQ_OPERATION_TYPE, "toProvider_empty", "requiredOutboundMessages", "Good Syntax");
 		String errMsg = "";
 		assertEquals(errMsg, x);
 		
 	}
+	@Test
 	public void testOutboundMessageRequiredPortFromProvider(){
 		String x = parseAction("b = 1;", Oalconstants_c.REQ_OPERATION_TYPE, "fromProvider", "requiredOutboundMessages", "Good Syntax");
 		String errMsg = ":1:7-7: Return value required by interface operation\n";
 		assertEquals(errMsg, x);
 	
 	}
+	@Test
 	public void testOutboundMessageRequiredPortFromProviderEmpty(){
 		String x = parseAction("", Oalconstants_c.REQ_OPERATION_TYPE, "fromProvider_empty", "requiredOutboundMessages", "Good Syntax");
 		String errMsg = ":1:1-1: Return value required by interface operation\n";
@@ -305,31 +354,37 @@ public class ComponentSyntaxTest_Generics extends BaseTest {
 	/* 
 	 * These tests added while working on dts0100855347
 	*/
+	@Test
 	public void testOutboundMessageProvidedPortToProviderEmpty_DelegatedPort(){
 		String x = parseAction("", Oalconstants_c.PROV_OPERATION_TYPE, "toProvider_empty", "Provided", "OuterComponent");
 		String errMsg = "";
 		assertEquals(errMsg, x);
 	}
+	@Test
 	public void testOutboundMessageProvidedPortToProviderEmpty_NestedPort(){
 		String x = parseAction("", Oalconstants_c.PROV_OPERATION_TYPE, "toProvider_empty", "Provided", "NestedComponent");
 		String errMsg = "";
 		assertEquals(errMsg, x);
 	}
+	@Test
 	public void testOutboundMessageProvidedPortToProviderEmpty_Port(){
 		String x = parseAction("", Oalconstants_c.PROV_OPERATION_TYPE, "toProvider_empty", "Provided", "MostNestedComponent");
 		String errMsg = ":1:1-1: Return value required by interface operation\n";
 		assertEquals(errMsg, x);
 	}
+	@Test
 	public void testOutboundMessageRequiredPortFromProviderEmpty_DelegatedPort(){
 		String x = parseAction("", Oalconstants_c.REQ_OPERATION_TYPE, "fromProvider_empty", "Required", "OuterComponent");
 		String errMsg = "";
 		assertEquals(errMsg, x);
 	}
+	@Test
 	public void testOutboundMessageRequiredPortFromProviderEmpty_NestedPort(){
 		String x = parseAction("", Oalconstants_c.REQ_OPERATION_TYPE, "fromProvider_empty", "Required", "NestedComponent");
 		String errMsg = "";
 		assertEquals(errMsg, x);
 	}
+	@Test
 	public void testOutboundMessageRequiredPortFromProviderEmpty_Port(){
 		String x = parseAction("", Oalconstants_c.REQ_OPERATION_TYPE, "fromProvider_empty", "Required", "MostNestedComponent");
 		String errMsg = ":1:1-1: Return value required by interface operation\n";

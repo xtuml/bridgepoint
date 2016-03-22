@@ -22,29 +22,15 @@
 //
 package org.xtuml.bp.als.oal.test;
 
-import java.util.UUID;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.xtuml.bp.test.common.OrderedRunner;
 
-import junit.framework.TestCase;
 import antlr.RecognitionException;
 import antlr.TokenStreamException;
-
-import org.xtuml.bp.core.ActualParameter_c;
-import org.xtuml.bp.core.Block_c;
-import org.xtuml.bp.core.EventSpecificationStatement_c;
-import org.xtuml.bp.core.GenerateEventStatement_c;
-import org.xtuml.bp.core.GenerateSmEventStatement_c;
-import org.xtuml.bp.core.GenerateToClass_c;
-import org.xtuml.bp.core.GenerateToCreator_c;
-import org.xtuml.bp.core.GenerateToExternalEntity_c;
-import org.xtuml.bp.core.Generate_c;
-import org.xtuml.bp.core.InstanceHandle_c;
-import org.xtuml.bp.core.InstanceSet_c;
-import org.xtuml.bp.core.LiteralEnumerator_c;
-import org.xtuml.bp.core.Statement_c;
-import org.xtuml.bp.core.TransientVar_c;
-import org.xtuml.bp.core.Value_c;
-import org.xtuml.bp.core.Variable_c;
-import org.xtuml.bp.test.common.BaseTest;
+import junit.framework.TestCase;
 
 /**
  * 
@@ -55,13 +41,16 @@ import org.xtuml.bp.test.common.BaseTest;
  * defined in ParseAllInDomain.java.
  *
  */
+@RunWith(OrderedRunner.class)
 public class TestArray_Generics extends TestCase {
 
-    public void setUp() throws Exception {
+    @Before
+	public void setUp() throws Exception {
         super.setUp();
     }
 
-    public void tearDown() throws Exception {
+    @After
+	public void tearDown() throws Exception {
         try {
             super.tearDown();
             OalParserTest_Generics.tearDownActionData();
@@ -72,6 +61,7 @@ public class TestArray_Generics extends TestCase {
         }
     }
 
+	@Test
 	public void testBadArrayDepth_BridgeParam() throws RecognitionException, TokenStreamException {
 		String act = "t_str_Dim1[1] = \"\"; t_str_Dim2[1] = \"\";  t_int_Dim1[1] = 1; t_int_Dim2[1][1] = 1;  T::arrayTest(str_Dim1:t_str_Dim1, str_Dim2:t_str_Dim2, int_Dim1:t_int_Dim1, int_Dim2:t_int_Dim2);"; //$NON-NLS-1$
 		String[] err = { ":1:179-179: Parameter ->str_Dim2<- has incompatible array depth.","line 1:181: expecting Semicolon, found 'null'" };//$NON-NLS-1$
@@ -83,6 +73,7 @@ public class TestArray_Generics extends TestCase {
 		validateBadStatement(act, err);
 	}
 
+	@Test
 	public void testBadArrayDepth_FunctionParam() throws RecognitionException, TokenStreamException {
 		String act = "t_str_Dim1 = \"\"; t_str_Dim2[1][1] = \"\";  t_int_Dim1[1] = 1; t_int_Dim2[1][1] = 1;  ::arrayTest(str_Dim1:t_str_Dim1, str_Dim2:t_str_Dim2, int_Dim1:t_int_Dim1, int_Dim2:t_int_Dim2);"; //$NON-NLS-1$
 		String[] err = { ":1:178-178: Parameter ->str_Dim1<- has incompatible array depth.","line 1:180: expecting Semicolon, found 'null'" };//$NON-NLS-1$
@@ -94,6 +85,7 @@ public class TestArray_Generics extends TestCase {
 		validateBadStatement(act, err);
 	}
 
+	@Test
 	public void testBadArrayDepth_MessageParam() throws RecognitionException, TokenStreamException {
 		String act = "select any t from instances of D_TST;  t_str_Dim1 = \"\"; t_str_Dim2[1][1] = \"\"; t_int_Dim1[1] = 1; t_int_Dim2[1][1] = 1;   generate D_TST9(str_Dim1:t_str_Dim1, str_Dim2:t_str_Dim2, int_Dim1:t_int_Dim1, int_Dim2:t_int_Dim2) to t;"; //$NON-NLS-1$
 		String[] err = { ":1:226-226: Parameter ->str_Dim1<- has incompatible array depth.","line 1:228: expecting Semicolon, found 'null'" };//$NON-NLS-1$
@@ -105,6 +97,7 @@ public class TestArray_Generics extends TestCase {
 		validateBadStatement(act, err);
 	}
 
+	@Test
 	public void testBadArrayDepth_OperationParam() throws RecognitionException, TokenStreamException {
 		String act = "select any t from instances of D_TST;  t_str_Dim1[1][1] = \"\"; t_str_Dim2[1][1] = \"\"; t_int_Dim1[1] = 1; t_int_Dim2[1][1] = 1;    t.testArray(str_Dim1:t_str_Dim1, str_Dim2:t_str_Dim2, int_Dim1:t_int_Dim1, int_Dim2:t_int_Dim2);"; //$NON-NLS-1$
 		String[] err = { ":1:224-224: Parameter ->str_Dim1<- has incompatible array depth.","line 1:226: expecting Semicolon, found 'null'" };//$NON-NLS-1$
@@ -116,6 +109,7 @@ public class TestArray_Generics extends TestCase {
 		validateBadStatement(act, err);
 	}
 
+	@Test
 	public void testBadArrayDepth_ReturnValue() throws RecognitionException, TokenStreamException {
 		//arrayTest_return_int_Dim1
 		String act = "t_str_Dim1[1] = \"\"; t_str_Dim2[1][1] = \"\";  t_int_Dim1[1] = 1; t_int_Dim2[1][1][1] = 1;  foo = T::arrayTest_return_int_Dim1(); foo = t_int_Dim2;"; //$NON-NLS-1$
@@ -139,6 +133,7 @@ public class TestArray_Generics extends TestCase {
 		validateBadStatement(act, err);
 	}
 	
+	@Test
 	public void testAOOB_Assignment() throws RecognitionException, TokenStreamException {
 		String act = "t_str_Dim0[1][1] = \"\"; t_str_Dim5[5][5] = \"\";  t_str_Dim0[0] = t_str_Dim5[0];"; //$NON-NLS-1$
 		String[] err = { ":1:76-76: Variable ->t_str_Dim0<- has incompatible dimension size with the rvalue.", "line 1:78: expecting Semicolon, found 'null'" };//$NON-NLS-1$

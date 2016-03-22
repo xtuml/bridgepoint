@@ -332,14 +332,14 @@ public class RTOMoveTests extends CanvasTest {
 		}
 		UITestingUtilities.pasteClipboardContentsInExplorer(destination);
 		pasteSuccessful = true;
-		rto = getElement(getMethodName().replaceAll("doTest", ""), rto.getClass(),
+		rto = getElement(getMethodName().replaceAll("test", ""), rto.getClass(),
 				false);
 	}
 
 	private String getMethodName() {
 		StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
 		for(int i = 0; i < stackTrace.length; i++) {
-			if(stackTrace[i].getMethodName().contains("doTest")) {
+			if(stackTrace[i].getMethodName().contains("test")) {
 				return stackTrace[i].getMethodName();
 			}
 		}
@@ -430,8 +430,8 @@ public class RTOMoveTests extends CanvasTest {
 		TransactionManager manager = TransactionManager.getSingleton();
 		Transaction transaction = null;
 		String association = ElementMap.getAssociationFor(getMethodName().replaceAll(
-				"doTest", ""));
-		NonRootModelElement newRto = getElement(getMethodName().replaceAll("doTest",
+				"test", ""));
+		NonRootModelElement newRto = getElement(getMethodName().replaceAll("test",
 				""), rto.getClass(), true);
 		try {
 			transaction = manager.startTransaction("Adjust RGO", new Ooaofooa[] {Ooaofooa.getDefaultInstance()});
@@ -561,7 +561,7 @@ public class RTOMoveTests extends CanvasTest {
 	private Method getAccessorMethod(NonRootModelElement rgo,
 			NonRootModelElement rto) {
 		String association = ElementMap.getAssociationFor(getMethodName().replaceAll(
-				"doTest", ""));
+				"test", ""));
 		Method[] methods = rto.getClass().getMethods();
 		for (Method method : methods) {
 			if (method.getName().matches("getOne.*OnR" + association)) {

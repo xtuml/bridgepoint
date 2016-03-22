@@ -4,11 +4,9 @@ import java.io.StringReader;
 import java.util.UUID;
 
 import org.eclipse.jface.preference.IPreferenceStore;
-
-import antlr.RecognitionException;
-import antlr.TokenStreamException;
-import antlr.TokenStreamRecognitionException;
-
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.als.oal.OalLexer;
 import org.xtuml.bp.als.oal.OalParser;
 import org.xtuml.bp.als.oal.Oal_validate;
@@ -49,8 +47,14 @@ import org.xtuml.bp.core.Transition_c;
 import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TestingUtilities;
 
+import antlr.RecognitionException;
+import antlr.TokenStreamException;
+import antlr.TokenStreamRecognitionException;
+
+@RunWith(OrderedRunner.class)
 public class ImplicitComponentAddressTest_Generics extends BaseTest {
 
 	public static boolean configured = false;
@@ -63,6 +67,7 @@ public class ImplicitComponentAddressTest_Generics extends BaseTest {
 	/* (non-Javadoc)
 	 * @see junit.framework.TestCase#setUp()
 	 */
+	@Before
 	public void setUp() throws Exception {
 	  if (configured) {
 		return;
@@ -93,75 +98,89 @@ public class ImplicitComponentAddressTest_Generics extends BaseTest {
         BridgePointPreferencesStore.ALLOW_IMPLICIT_COMPONENT_ADDRESSING, false);
 	}
 	
+	@Test
 	public void testProvidedOperation() {
       String x = parseAction("::FnWithCRParm(CRParm:sender);",
            Oalconstants_c.PROV_OPERATION_TYPE, "ProvidedTestInterface::ProvOp");
       assertEquals("Unexpected error:", "", x);
 	}
+	@Test
 	public void testProvidedSignal() {
 	  String x = parseAction("::FnWithCRParm(CRParm:sender);",
 	         Oalconstants_c.PROV_SIGNAL_TYPE, "ProvidedTestInterface::ProvSig");
 	  assertEquals("Unexpected error:", "", x);
 	}
+	@Test
 	public void testClassStateMachineAllSignals() {
       String x = parseAction("::FnWithCRParm(CRParm:sender);",
           Oalconstants_c.STATE_TYPE, "Class State Machine::Signals Only");
       assertEquals("Unexpected error:", "", x);
     }
+	@Test
 	public void testRequiredOperation() {
 	  String x = parseAction("::FnWithCRParm(CRParm:sender);",
 	                          Oalconstants_c.REQ_OPERATION_TYPE,
 	                                          "PreferenceTestInterface::ReqOp");
 	  assertEquals("Unexpected error:", ":1:23-28: Sender keyword can only be used in an incoming Interface Operation.\nline 1:30: expecting TOK_RPAREN, found ';'\nline 1:31: expecting Semicolon, found 'null'\n", x);
 	}
+	@Test
 	public void testRequiredSignal() {
 	  String x = parseAction("::FnWithCRParm(CRParm:sender);",
 		                          Oalconstants_c.REQ_SIGNAL_TYPE,
 		                                     "PreferenceTestInterface::ReqSig");
 	  assertEquals("Unexpected error:", ":1:23-28: Sender keyword can only be used in an incoming Signal.\nline 1:30: expecting TOK_RPAREN, found ';'\nline 1:31: expecting Semicolon, found 'null'\n", x);
 	}
+	@Test
 	public void testClassStateMachineMixed() {
       String x = parseAction("::FnWithCRParm(CRParm:sender);",
 	            Oalconstants_c.STATE_TYPE, "Class State Machine::Hybrid");
 	  assertEquals("Unexpected error:", ":1:23-28: Sender keyword can only be used where there are signals assigned to all incoming transitions\nline 1:30: expecting TOK_RPAREN, found ';'\nline 1:31: expecting Semicolon, found 'null'\n", x);
 	}
+	@Test
 	public void testInstanceStateMachine() {
       String x = parseAction("self.CRA = sender;",
 	                      Oalconstants_c.STATE_TYPE,
 	                           "Instance State Machine::Preference Test State");
 	  assertEquals("Unexpected error:", ":1:12-17: Sender keyword is valid only where a message is serviced directly\nline 1:19: unexpected token: null\nline 1:19: expecting Semicolon, found 'null'\n", x);
 	}
+	@Test
 	public void testClassStateMachineTransitionWithNoEvent() {
 	      String x = parseAction("::FnWithCRParm(CRParm:sender);",
 		            Oalconstants_c.TRANSITION_TYPE, "Class State Machine::No Event");
 		  assertEquals("Unexpected error:", ":1:23-28: Sender keyword can only be used when a signal is assigned to this transition\nline 1:30: expecting TOK_RPAREN, found ';'\nline 1:31: expecting Semicolon, found 'null'\n", x);
 	}
+	@Test
 	public void testClassStateMachineTransitionWithNonSignal() {
 	      String x = parseAction("::FnWithCRParm(CRParm:sender);",
 		            Oalconstants_c.TRANSITION_TYPE, "Class State Machine::Ev");
 		  assertEquals("Unexpected error:", ":1:23-28: Sender keyword can only be used when a signal is assigned to this transition\nline 1:30: expecting TOK_RPAREN, found ';'\nline 1:31: expecting Semicolon, found 'null'\n", x);
 	}
+	@Test
 	public void testClassStateMachineTransitionWithSignal() {
 	      String x = parseAction("::FnWithCRParm(CRParm:sender);",
 		            Oalconstants_c.TRANSITION_TYPE, "Class State Machine::Sig");
 		  assertEquals("Unexpected error:", "", x);
 	}
+	@Test
 	public void testBridge() {
       String x = parseAction("::FnWithCRParm(CRParm:sender);",
 		                      Oalconstants_c.BRIDGE_TYPE,
 		                                    "ComponentTest::BrNoParmsNoReturn");
 	  assertEquals("Unexpected error:", ":1:23-28: Sender keyword is valid only where a message is serviced directly\nline 1:30: expecting TOK_RPAREN, found ';'\nline 1:31: expecting Semicolon, found 'null'\n", x);
 	}
+	@Test
 	public void testFunction() {
       String x = parseAction("::FnWithCRParm(CRParm:sender);",
 		                     Oalconstants_c.FUNCTION_TYPE, "FnNoParmsNoReturn");
       assertEquals("Unexpected error:", ":1:23-28: Sender keyword is valid only where a message is serviced directly\nline 1:30: expecting TOK_RPAREN, found ';'\nline 1:31: expecting Semicolon, found 'null'\n", x);
     }
+	@Test
 	public void testClassBasedOperation() {
       String x = parseAction("::FnWithCRParm(CRParm:sender);",
                    Oalconstants_c.OPERATION_TYPE, "opClassBasedPreferenceTest");
 	  assertEquals("Unexpected error:", ":1:23-28: Sender keyword is valid only where a message is serviced directly\nline 1:30: expecting TOK_RPAREN, found ';'\nline 1:31: expecting Semicolon, found 'null'\n", x);
 	}
+	@Test
 	public void testOperation() {
 	  String x = parseAction("self.CRA = sender;",
 	                   Oalconstants_c.OPERATION_TYPE, "opPreferenceTest");

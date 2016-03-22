@@ -24,10 +24,9 @@ package org.xtuml.bp.als.oal.test;
 
 import java.util.UUID;
 
-import junit.framework.TestCase;
-import antlr.RecognitionException;
-import antlr.TokenStreamException;
-
+import org.junit.After;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.BinaryOperation_c;
 import org.xtuml.bp.core.Block_c;
 import org.xtuml.bp.core.Body_c;
@@ -39,8 +38,8 @@ import org.xtuml.bp.core.ElseifStmt_c;
 import org.xtuml.bp.core.ForStmt_c;
 import org.xtuml.bp.core.FunctionBody_c;
 import org.xtuml.bp.core.IfStmt_c;
-import org.xtuml.bp.core.InstanceSet_c;
 import org.xtuml.bp.core.InstanceHandle_c;
+import org.xtuml.bp.core.InstanceSet_c;
 import org.xtuml.bp.core.LiteralBoolean_c;
 import org.xtuml.bp.core.LiteralInteger_c;
 import org.xtuml.bp.core.LiteralReal_c;
@@ -52,10 +51,17 @@ import org.xtuml.bp.core.Value_c;
 import org.xtuml.bp.core.Variable_c;
 import org.xtuml.bp.core.WhileStmt_c;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
+import org.xtuml.bp.test.common.OrderedRunner;
 
+import antlr.RecognitionException;
+import antlr.TokenStreamException;
+import junit.framework.TestCase;
+
+@RunWith(OrderedRunner.class)
 public class TestControl_Generics extends TestCase {
 
-    public void tearDown() throws Exception {
+    @After
+	public void tearDown() throws Exception {
         try {
             super.tearDown();
             OalParserTest_Generics.tearDownActionData();
@@ -66,6 +72,7 @@ public class TestControl_Generics extends TestCase {
         }
     }
 
+	@Test
 	public void testEmptyWhile() throws RecognitionException, TokenStreamException {
 		String x = OalParserTest_Generics.parseAction("while (false)\n end while;", OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM); //$NON-NLS-1$
 		assertEquals("", x); //$NON-NLS-1$
@@ -88,6 +95,7 @@ public class TestControl_Generics extends TestCase {
 		assertEquals("FALSE", lbool[0].getValue());//$NON-NLS-1$
 		assertEquals(whl[0].getValue_id(), lbool[0].getValue_id());
 	}
+	@Test
 	public void testWhileBreak() throws RecognitionException, TokenStreamException {
 		String x = OalParserTest_Generics.parseAction("while ( true )\n a = 1;\n break;\nend while;", OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM); //$NON-NLS-1$
 		assertEquals("", x); //$NON-NLS-1$
@@ -115,6 +123,7 @@ public class TestControl_Generics extends TestCase {
 		assertEquals(1, break_stmt.length);
 		assertEquals(st[2].getStatement_id(), break_stmt[0].getStatement_id());
 	}
+	@Test
 	public void testWhileContinue() throws RecognitionException, TokenStreamException {
 		String x = OalParserTest_Generics.parseAction("while ( true )\n a = 1;\n continue;\nend while;", OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM); //$NON-NLS-1$
 		assertEquals("", x); //$NON-NLS-1$
@@ -142,6 +151,7 @@ public class TestControl_Generics extends TestCase {
 		assertEquals(1, continue_stmt.length);
 		assertEquals(st[2].getStatement_id(), continue_stmt[0].getStatement_id());
 	}
+	@Test
 	public void testSimpleWhile1() throws RecognitionException, TokenStreamException {
 		String x = OalParserTest_Generics.parseAction("i = 2;\n while (i < 10)\n i = 13;\n end while;", OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM); //$NON-NLS-1$
 		assertEquals("", x); //$NON-NLS-1$
@@ -180,6 +190,7 @@ public class TestControl_Generics extends TestCase {
 		assertEquals(whl[0].getBlock_id(), blk[1].getBlock_id());
 		assertEquals(whl[0].getValue_id(), bin[0].getValue_id());
 	}
+	@Test
 	public void testSimpleWhile2() throws RecognitionException, TokenStreamException {
 		String x = OalParserTest_Generics.parseAction("i = true;\n while (i)\n z = \"test\"; \n i = false;\n end while;z = 2.2;", OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM); //$NON-NLS-1$
 		assertEquals("", x); //$NON-NLS-1$
@@ -222,6 +233,7 @@ public class TestControl_Generics extends TestCase {
 		assertEquals(whl[0].getBlock_id(), blk[1].getBlock_id());
 		assertEquals(whl[0].getValue_id(), tv[1].getValue_id());
 	}
+	@Test
 	public void testSimpleWhile3() throws RecognitionException, TokenStreamException {
 		class Object_test1_c implements ClassQueryInterface_c {
 			public boolean evaluate(Object inst) {
@@ -291,6 +303,7 @@ public class TestControl_Generics extends TestCase {
 		assertEquals(irs_val[0].getVar_id(), set_id);
 	}
 
+	@Test
 	public void testForSimpleImplicit() throws RecognitionException, TokenStreamException {
 		String x = OalParserTest_Generics.parseAction("select many d_set from instances of D_D;  for each d in d_set a = 1; end for;", OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM); //$NON-NLS-1$
 		assertEquals("", x); //$NON-NLS-1$
@@ -319,6 +332,7 @@ public class TestControl_Generics extends TestCase {
 		validateForStmt( for_stmt[0],st[1].getStatement_id(), true, blk[1].getBlock_id(),
 			"D_D",var[0].getVar_id(),var[1].getVar_id() );//$NON-NLS-1$
 	}
+	@Test
 	public void testForSimpleImplicitWithReference() throws RecognitionException, TokenStreamException {
 		String x = OalParserTest_Generics.parseAction("select many d_set from instances of D_D;  for each d in d_set x = empty d; end for;", OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM); //$NON-NLS-1$
 		assertEquals("", x); //$NON-NLS-1$
@@ -347,6 +361,7 @@ public class TestControl_Generics extends TestCase {
 		validateForStmt( for_stmt[0],st[1].getStatement_id(), true, blk[1].getBlock_id(),
 			"D_D",var[0].getVar_id(),var[1].getVar_id() );//$NON-NLS-1$
 	}
+	@Test
 	public void testForSimple() throws RecognitionException, TokenStreamException {
 		String x = OalParserTest_Generics.parseAction("select any d from instances of D_D; select many d_set from instances of D_D;  for each d in d_set a = 1; end for;", OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM); //$NON-NLS-1$
 		assertEquals("", x); //$NON-NLS-1$
@@ -376,6 +391,7 @@ public class TestControl_Generics extends TestCase {
 		validateForStmt( for_stmt[0],st[2].getStatement_id(), false, blk[1].getBlock_id(),
 			"D_D",var[1].getVar_id(),var[0].getVar_id() );//$NON-NLS-1$
 	}
+	@Test
 	public void testForSimpleWithReference() throws RecognitionException, TokenStreamException {
 		String x = OalParserTest_Generics.parseAction("select any d from instances of D_D; select many d_set from instances of D_D;  for each d in d_set x = empty d; end for;", OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM); //$NON-NLS-1$
 		assertEquals("", x); //$NON-NLS-1$
@@ -405,6 +421,7 @@ public class TestControl_Generics extends TestCase {
 		validateForStmt( for_stmt[0],st[2].getStatement_id(), false, blk[1].getBlock_id(),
 			"D_D",var[1].getVar_id(),var[0].getVar_id() );//$NON-NLS-1$
 	}
+	@Test
 	public void test2ForSimpleWithReference() throws RecognitionException, TokenStreamException {
 		String x = OalParserTest_Generics.parseAction("select any d from instances of D_D; select many d_set from instances of D_D;  for each d in d_set x = empty d; end for; for each d in d_set x = empty d; end for;", OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM); //$NON-NLS-1$
 		assertEquals("", x); //$NON-NLS-1$
@@ -441,6 +458,7 @@ public class TestControl_Generics extends TestCase {
 		validateForStmt( for_stmt[1],st[4].getStatement_id(), false, blk[2].getBlock_id(),
 			"D_D",var[1].getVar_id(),var[0].getVar_id() );//$NON-NLS-1$
 	}
+	@Test
 	public void test2ForSimpleImplicitWithReference() throws RecognitionException, TokenStreamException {
 		String x = OalParserTest_Generics.parseAction("select many d_set from instances of D_D;  for each d in d_set x = empty d; end for; for each d in d_set x = empty d; end for;", OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM); //$NON-NLS-1$
 		assertEquals("", x); //$NON-NLS-1$
@@ -476,6 +494,7 @@ public class TestControl_Generics extends TestCase {
 		validateForStmt( for_stmt[1],st[3].getStatement_id(), false, blk[2].getBlock_id(),
 			"D_D",var[0].getVar_id(),var[1].getVar_id() );//$NON-NLS-1$
 	}
+	@Test
 	public void testForBreak() throws RecognitionException, TokenStreamException {
 		String x = OalParserTest_Generics.parseAction("select many d_set from instances of D_D;  for each d in d_set a = 1; break; end for;", OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM); //$NON-NLS-1$
 		assertEquals("", x); //$NON-NLS-1$
@@ -508,6 +527,7 @@ public class TestControl_Generics extends TestCase {
 		assertEquals(1, break_stmt.length);
 		assertEquals(st[3].getStatement_id(), break_stmt[0].getStatement_id());
 	}
+	@Test
 	public void testForContinue() throws RecognitionException, TokenStreamException {
 		String x = OalParserTest_Generics.parseAction("select many d_set from instances of D_D;  for each d in d_set continue; a = 1; end for;", OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM); //$NON-NLS-1$
 		assertEquals("", x); //$NON-NLS-1$
@@ -577,6 +597,7 @@ public class TestControl_Generics extends TestCase {
 		assertEquals(whl[0].getStatement_id(), st[2].getStatement_id());
 		assertEquals(whl[0].getBlock_id(), blk[2].getBlock_id());
 	}
+	@Test
 	public void testNestedBreak() throws RecognitionException, TokenStreamException {
 		String x = OalParserTest_Generics.parseAction("select many d_set from instances of D_D;\nfor each d in d_set\n  while ( true )\n   a = 1;\n   break;\n  end while;\n  b = 2;\n  break;\n end for;", OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM); //$NON-NLS-1$
 		assertEquals("", x); //$NON-NLS-1$
@@ -587,6 +608,7 @@ public class TestControl_Generics extends TestCase {
 		assertEquals(st[4].getStatement_id(), break_stmt[0].getStatement_id());
 		assertEquals(st[6].getStatement_id(), break_stmt[1].getStatement_id());
 	}
+	@Test
 	public void testNestedContinue() throws RecognitionException, TokenStreamException {
 		String x = OalParserTest_Generics.parseAction("select many d_set from instances of D_D;\nfor each d in d_set\n  while ( true )\n   a = 1;\n   continue;\n  end while;\n  b = 2;\n  continue;\n end for;", OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM); //$NON-NLS-1$
 		assertEquals("", x); //$NON-NLS-1$
@@ -597,6 +619,7 @@ public class TestControl_Generics extends TestCase {
 		assertEquals(st[4].getStatement_id(), continue_stmt[0].getStatement_id());
 		assertEquals(st[6].getStatement_id(), continue_stmt[1].getStatement_id());
 	}
+	@Test
 	public void testIfOnly() throws RecognitionException, TokenStreamException {
 		String x = OalParserTest_Generics.parseAction("if ( false ) a = 1; end if;", OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM); //$NON-NLS-1$
 		assertEquals("", x); //$NON-NLS-1$
@@ -623,6 +646,7 @@ public class TestControl_Generics extends TestCase {
 		assertEquals(if_stmt[0].getBlock_id(), blk[1].getBlock_id());
 		assertEquals(if_stmt[0].getValue_id(), val[0].getValue_id());
 	}
+	@Test
 	public void testIfOnlyEmpty() throws RecognitionException, TokenStreamException {
 		String x = OalParserTest_Generics.parseAction("if ( false ) end if;", OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM); //$NON-NLS-1$
 		assertEquals("", x); //$NON-NLS-1$
@@ -646,6 +670,7 @@ public class TestControl_Generics extends TestCase {
 		assertEquals(if_stmt[0].getBlock_id(), blk[1].getBlock_id());
 		assertEquals(if_stmt[0].getValue_id(), val[0].getValue_id());
 	}
+	@Test
 	public void testIfElse() throws RecognitionException, TokenStreamException {
 		String x = OalParserTest_Generics.parseAction("if ( false ) a = 1; else b = 2; end if;", OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM); //$NON-NLS-1$
 		assertEquals("", x); //$NON-NLS-1$
@@ -687,6 +712,7 @@ public class TestControl_Generics extends TestCase {
 		assertEquals(else_stmt[0].getBlock_id(), blk[2].getBlock_id());
 		assertEquals(else_stmt[0].getIf_statement_id(), st[0].getStatement_id());
 	}
+	@Test
 	public void testIfEmptyElse() throws RecognitionException, TokenStreamException {
 		String x = OalParserTest_Generics.parseAction("if ( false ) else b = 2; end if;", OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM); //$NON-NLS-1$
 		assertEquals("", x); //$NON-NLS-1$
@@ -723,6 +749,7 @@ public class TestControl_Generics extends TestCase {
 		assertEquals(else_stmt[0].getBlock_id(), blk[2].getBlock_id());
 		assertEquals(else_stmt[0].getIf_statement_id(), st[0].getStatement_id());
 	}
+	@Test
 	public void testIfElseEmpty() throws RecognitionException, TokenStreamException {
 		String x = OalParserTest_Generics.parseAction("if ( false ) a = 1; else end if;", OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM); //$NON-NLS-1$
 		assertEquals("", x); //$NON-NLS-1$
@@ -759,6 +786,7 @@ public class TestControl_Generics extends TestCase {
 		assertEquals(else_stmt[0].getBlock_id(), blk[2].getBlock_id());
 		assertEquals(else_stmt[0].getIf_statement_id(), st[0].getStatement_id());
 	}
+	@Test
 	public void testIfElif() throws RecognitionException, TokenStreamException {
 		String x = OalParserTest_Generics.parseAction("if ( true ) a = 1; elif ( false ) b = 2; end if;", OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM); //$NON-NLS-1$
 		assertEquals("", x); //$NON-NLS-1$
@@ -801,6 +829,7 @@ public class TestControl_Generics extends TestCase {
 		assertEquals(elif_stmt[0].getBlock_id(), blk[2].getBlock_id());
 		assertEquals(st[0].getStatement_id(), elif_stmt[0].getIf_statement_id());
 	}
+	@Test
 	public void testIfEmptyElif() throws RecognitionException, TokenStreamException {
 		String x = OalParserTest_Generics.parseAction("if ( true ) elif ( false ) b = 2; end if;", OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM); //$NON-NLS-1$
 		assertEquals("", x); //$NON-NLS-1$
@@ -838,6 +867,7 @@ public class TestControl_Generics extends TestCase {
 		assertEquals(elif_stmt[0].getBlock_id(), blk[2].getBlock_id());
 		assertEquals(st[0].getStatement_id(), elif_stmt[0].getIf_statement_id());
 	}
+	@Test
 	public void testIfElifEmpty() throws RecognitionException, TokenStreamException {
 		String x = OalParserTest_Generics.parseAction("if ( true ) a = 1; elif ( false ) end if;", OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM); //$NON-NLS-1$
 		assertEquals("", x); //$NON-NLS-1$
@@ -875,6 +905,7 @@ public class TestControl_Generics extends TestCase {
 		assertEquals(elif_stmt[0].getBlock_id(), blk[2].getBlock_id());
 		assertEquals(st[0].getStatement_id(), elif_stmt[0].getIf_statement_id());
 	}
+	@Test
 	public void testIf2Elif() throws RecognitionException, TokenStreamException {
 		String x = OalParserTest_Generics.parseAction("if ( true ) a = 1; elif ( false ) b = 2; elif ( false ) c = 3; end if;", OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM); //$NON-NLS-1$
 		assertEquals("", x); //$NON-NLS-1$
@@ -928,6 +959,7 @@ public class TestControl_Generics extends TestCase {
 		assertEquals(blk[3].getBlock_id(), elif_stmt[1].getBlock_id());
 		assertEquals(st[0].getStatement_id(), elif_stmt[1].getIf_statement_id());
 	}
+	@Test
 	public void testIfElifElse() throws RecognitionException, TokenStreamException {
 		String x = OalParserTest_Generics.parseAction("if ( true ) a = 1; elif ( false ) b = 2; else c = 3; end if;", OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM); //$NON-NLS-1$
 		assertEquals("", x); //$NON-NLS-1$
@@ -982,6 +1014,7 @@ public class TestControl_Generics extends TestCase {
 		assertEquals(blk[3].getBlock_id(), else_stmt[0].getBlock_id());
 		assertEquals(st[0].getStatement_id(), else_stmt[0].getIf_statement_id());
 	}
+	@Test
 	public void testIf2ElifElse() throws RecognitionException, TokenStreamException {
 		String x = OalParserTest_Generics.parseAction("if ( true ) a = 1; elif ( false ) b = 2; elif ( false ) c = 3; else  d = 4; end if;", OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM); //$NON-NLS-1$
 		assertEquals("", x); //$NON-NLS-1$
@@ -1047,6 +1080,7 @@ public class TestControl_Generics extends TestCase {
 		assertEquals(blk[4].getBlock_id(), else_stmt[0].getBlock_id());
 		assertEquals(st[0].getStatement_id(), else_stmt[0].getIf_statement_id());
 	}
+	@Test
 	public void testForBadVarType() throws RecognitionException, TokenStreamException {
 		String x = OalParserTest_Generics.parseAction("select many d_set from instances of D_D;  x = 1; for each x in d_set end for;", OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM); //$NON-NLS-1$
 		String lines[] = x.split("\n");//$NON-NLS-1$
@@ -1054,6 +1088,7 @@ public class TestControl_Generics extends TestCase {
 		assertEquals("line 1:78: expecting Semicolon, found 'null'", lines[1]); //$NON-NLS-1$
 		OalParserTest_Generics.validateBlkStmtVal(1, 2, 2);
 	}
+	@Test
 	public void testForWrongVarType() throws RecognitionException, TokenStreamException {
 		String x = OalParserTest_Generics.parseAction("select any h from instances of D_H; select many d_set from instances of D_D;  for each h in d_set end for;", OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM); //$NON-NLS-1$
 		String lines[] = x.split("\n");//$NON-NLS-1$
@@ -1061,6 +1096,7 @@ public class TestControl_Generics extends TestCase {
 		assertEquals("line 1:107: expecting Semicolon, found 'null'", lines[1]); //$NON-NLS-1$
 		OalParserTest_Generics.validateBlkStmtVal(1, 2, 0);
 	}
+	@Test
 	public void testForNotSetVar() throws RecognitionException, TokenStreamException {
 		String x = OalParserTest_Generics.parseAction("x = 1; for each y in x end for;", OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM); //$NON-NLS-1$
 		String lines[] = x.split("\n");//$NON-NLS-1$
@@ -1069,6 +1105,7 @@ public class TestControl_Generics extends TestCase {
 		assertEquals("line 1:32: expecting Semicolon, found 'null'", lines[1]); //$NON-NLS-1$
 		OalParserTest_Generics.validateBlkStmtVal(1, 1, 2);
 	}
+	@Test
 	public void testForNoSetVar() throws RecognitionException, TokenStreamException {
 		String x = OalParserTest_Generics.parseAction("for each y in x end for;", OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM); //$NON-NLS-1$
 		String lines[] = x.split("\n");//$NON-NLS-1$
@@ -1076,6 +1113,7 @@ public class TestControl_Generics extends TestCase {
 		assertEquals(":1:15-15: Variable ->x<- used in context where it must already exist", lines[0]); //$NON-NLS-1$
 		OalParserTest_Generics.validateBlkStmtVal(1, 1, 0);
 	}
+	@Test
 	public void testForWithEndWhile() throws RecognitionException, TokenStreamException {
 		String x = OalParserTest_Generics.parseAction("select many d_set from instances of D_D; for each d in d_set end while;", OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM); //$NON-NLS-1$
 		String lines[] = x.split("\n");//$NON-NLS-1$
@@ -1083,6 +1121,7 @@ public class TestControl_Generics extends TestCase {
 		assertEquals("line 1:66: expecting \"for\", found 'while'", lines[0]); //$NON-NLS-1$
 		OalParserTest_Generics.validateBlkStmtVal(2, 2, 0);
 	}
+	@Test
 	public void testForWithEndIf() throws RecognitionException, TokenStreamException {
 		String x = OalParserTest_Generics.parseAction("select many d_set from instances of D_D; for each d in d_set end if;", OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM); //$NON-NLS-1$
 		String lines[] = x.split("\n");//$NON-NLS-1$
@@ -1090,6 +1129,7 @@ public class TestControl_Generics extends TestCase {
 		assertEquals("line 1:66: expecting \"for\", found 'if'", lines[0]); //$NON-NLS-1$
 		OalParserTest_Generics.validateBlkStmtVal(2, 2, 0);
 	}
+	@Test
 	public void testForNoEnd() throws RecognitionException, TokenStreamException {
 		String x = OalParserTest_Generics.parseAction("select many d_set from instances of D_D; for each d in d_set x = 1;", OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM); //$NON-NLS-1$
 		String lines[] = x.split("\n");//$NON-NLS-1$
@@ -1098,6 +1138,7 @@ public class TestControl_Generics extends TestCase {
 		assertEquals("line 1:68: expecting Semicolon, found 'null'", lines[1]); //$NON-NLS-1$
 		OalParserTest_Generics.validateBlkStmtVal(2, 3, 2);
 	}
+	@Test
 	public void testBreakBeforeWhileLoop() throws RecognitionException, TokenStreamException {
 		String x = OalParserTest_Generics.parseAction("break; while (true) end while;", OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM); //$NON-NLS-1$
 		String lines[] = x.split("\n");//$NON-NLS-1$
@@ -1105,6 +1146,7 @@ public class TestControl_Generics extends TestCase {
 		assertEquals(":1:1-5: Break statement can only be used in WHILE and FOR EACH block", lines[0]); //$NON-NLS-1$
 		OalParserTest_Generics.validateBlkStmtVal(1, 0, 0);
 	}
+	@Test
 	public void testBreakAfterWhileLoop() throws RecognitionException, TokenStreamException {
 		String x = OalParserTest_Generics.parseAction("while (true) end while; break;", OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM); //$NON-NLS-1$
 		String lines[] = x.split("\n");//$NON-NLS-1$
@@ -1113,6 +1155,7 @@ public class TestControl_Generics extends TestCase {
 		assertEquals("line 1:31: expecting Semicolon, found 'null'", lines[1]);//$NON-NLS-1$
 		OalParserTest_Generics.validateBlkStmtVal(2, 1, 1);
 	}
+	@Test
 	public void testBreakBeforeForLoop() throws RecognitionException, TokenStreamException {
 		String x = OalParserTest_Generics.parseAction("select many d_set from instances of D_D;  break; for each d in d_set end for;", OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM); //$NON-NLS-1$
 		String lines[] = x.split("\n");//$NON-NLS-1$
@@ -1120,6 +1163,7 @@ public class TestControl_Generics extends TestCase {
 		assertEquals(":1:43-47: Break statement can only be used in WHILE and FOR EACH block", lines[0]); //$NON-NLS-1$
 		OalParserTest_Generics.validateBlkStmtVal(1, 1, 0);
 	}
+	@Test
 	public void testBreakAfterForLoop() throws RecognitionException, TokenStreamException {
 		String x = OalParserTest_Generics.parseAction("select many d_set from instances of D_D;  for each d in d_set end for; break;", OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM); //$NON-NLS-1$
 		String lines[] = x.split("\n");//$NON-NLS-1$
@@ -1128,6 +1172,7 @@ public class TestControl_Generics extends TestCase {
 		assertEquals("line 1:78: expecting Semicolon, found 'null'", lines[1]);//$NON-NLS-1$
 		OalParserTest_Generics.validateBlkStmtVal(2, 2, 0);
 	}
+	@Test
 	public void testBreakWithNoLoop() throws RecognitionException, TokenStreamException {
 		String x = OalParserTest_Generics.parseAction("break;", OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM); //$NON-NLS-1$
 		String lines[] = x.split("\n");//$NON-NLS-1$
@@ -1136,6 +1181,7 @@ public class TestControl_Generics extends TestCase {
 		assertEquals("line 1:7: expecting Semicolon, found 'null'", lines[1]);//$NON-NLS-1$
 		OalParserTest_Generics.validateBlkStmtVal(1, 0, 0);
 	}
+	@Test
 	public void testContinueBeforeWhileLoop() throws RecognitionException, TokenStreamException {
 		String x = OalParserTest_Generics.parseAction("continue; while (true) end while;", OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM); //$NON-NLS-1$
 		String lines[] = x.split("\n");//$NON-NLS-1$
@@ -1143,6 +1189,7 @@ public class TestControl_Generics extends TestCase {
 		assertEquals(":1:1-8: Continue statement can only be used in WHILE and FOR EACH block", lines[0]); //$NON-NLS-1$
 		OalParserTest_Generics.validateBlkStmtVal(1, 0, 0);
 	}
+	@Test
 	public void testContinueAfterWhileLoop() throws RecognitionException, TokenStreamException {
 		String x = OalParserTest_Generics.parseAction("while (true) end while; continue;", OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM); //$NON-NLS-1$
 		String lines[] = x.split("\n");//$NON-NLS-1$
@@ -1151,6 +1198,7 @@ public class TestControl_Generics extends TestCase {
 		assertEquals("line 1:34: expecting Semicolon, found 'null'", lines[1]);//$NON-NLS-1$
 		OalParserTest_Generics.validateBlkStmtVal(2, 1, 1);
 	}
+	@Test
 	public void testContinueBeforeForLoop() throws RecognitionException, TokenStreamException {
 		String x = OalParserTest_Generics.parseAction("select many d_set from instances of D_D;  continue; for each d in d_set end for;", OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM); //$NON-NLS-1$
 		String lines[] = x.split("\n");//$NON-NLS-1$
@@ -1158,6 +1206,7 @@ public class TestControl_Generics extends TestCase {
 		assertEquals(":1:43-50: Continue statement can only be used in WHILE and FOR EACH block", lines[0]); //$NON-NLS-1$
 		OalParserTest_Generics.validateBlkStmtVal(1, 1, 0);
 	}
+	@Test
 	public void testContinueAfterForLoop() throws RecognitionException, TokenStreamException {
 		String x = OalParserTest_Generics.parseAction("select many d_set from instances of D_D;  for each d in d_set end for; continue;", OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM); //$NON-NLS-1$
 		String lines[] = x.split("\n");//$NON-NLS-1$
@@ -1166,6 +1215,7 @@ public class TestControl_Generics extends TestCase {
 		assertEquals("line 1:81: expecting Semicolon, found 'null'", lines[1]);//$NON-NLS-1$
 		OalParserTest_Generics.validateBlkStmtVal(2, 2, 0);
 	}
+	@Test
 	public void testContinueWithNoLoop() throws RecognitionException, TokenStreamException {
 		String x = OalParserTest_Generics.parseAction("continue;", OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM); //$NON-NLS-1$
 		String lines[] = x.split("\n");//$NON-NLS-1$
@@ -1174,6 +1224,7 @@ public class TestControl_Generics extends TestCase {
 		assertEquals("line 1:10: expecting Semicolon, found 'null'", lines[1]);//$NON-NLS-1$
 		OalParserTest_Generics.validateBlkStmtVal(1, 0, 0);
 	}
+	@Test
 	public void testIfNotBoolean() throws RecognitionException, TokenStreamException {
 		String x = OalParserTest_Generics.parseAction("if ( 1 ) a = 1; end if;", OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM); //$NON-NLS-1$
 		String lines[] = x.split("\n");//$NON-NLS-1$
@@ -1182,6 +1233,7 @@ public class TestControl_Generics extends TestCase {
 		assertEquals("line 1:24: expecting Semicolon, found 'null'", lines[1]);//$NON-NLS-1$
 		OalParserTest_Generics.validateBlkStmtVal(1, 0, 0);
 	}
+	@Test
 	public void testIfWithEndFor() throws RecognitionException, TokenStreamException {
 		String x = OalParserTest_Generics.parseAction("if ( true ) a = 1; end for;", OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM); //$NON-NLS-1$
 		String lines[] = x.split("\n");//$NON-NLS-1$
@@ -1189,6 +1241,7 @@ public class TestControl_Generics extends TestCase {
 		assertEquals("line 1:24: expecting \"if\", found 'for'", lines[0]); //$NON-NLS-1$
 		OalParserTest_Generics.validateBlkStmtVal(2, 2, 3);
 	}
+	@Test
 	public void testIfWithEndWhile() throws RecognitionException, TokenStreamException {
 		String x = OalParserTest_Generics.parseAction("if ( true ) a = 1; end while;", OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM); //$NON-NLS-1$
 		String lines[] = x.split("\n");//$NON-NLS-1$
@@ -1196,6 +1249,7 @@ public class TestControl_Generics extends TestCase {
 		assertEquals("line 1:24: expecting \"if\", found 'while'", lines[0]); //$NON-NLS-1$
 		OalParserTest_Generics.validateBlkStmtVal(2, 2, 3);
 	}
+	@Test
 	public void testIfWithNoEnd() throws RecognitionException, TokenStreamException {
 		String x = OalParserTest_Generics.parseAction("if ( true ) a = 1;", OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM); //$NON-NLS-1$
 		String lines[] = x.split("\n");//$NON-NLS-1$
@@ -1204,6 +1258,7 @@ public class TestControl_Generics extends TestCase {
 		assertEquals("line 1:19: expecting Semicolon, found 'null'", lines[1]); //$NON-NLS-1$
 		OalParserTest_Generics.validateBlkStmtVal(2, 2, 3);
 	}
+	@Test
 	public void testIfElseWithEndFor() throws RecognitionException, TokenStreamException {
 		String x = OalParserTest_Generics.parseAction("if ( true ) a = 1; else b = 2; end for;", OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM); //$NON-NLS-1$
 		String lines[] = x.split("\n");//$NON-NLS-1$
@@ -1211,6 +1266,7 @@ public class TestControl_Generics extends TestCase {
 		assertEquals("line 1:36: expecting \"if\", found 'for'", lines[0]); //$NON-NLS-1$
 		OalParserTest_Generics.validateBlkStmtVal(3, 3, 5);
 	}
+	@Test
 	public void testIfElseWithEndWhile() throws RecognitionException, TokenStreamException {
 		String x = OalParserTest_Generics.parseAction("if ( true ) a = 1; else b = 2; end while;", OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM); //$NON-NLS-1$
 		String lines[] = x.split("\n");//$NON-NLS-1$
@@ -1218,6 +1274,7 @@ public class TestControl_Generics extends TestCase {
 		assertEquals("line 1:36: expecting \"if\", found 'while'", lines[0]); //$NON-NLS-1$
 		OalParserTest_Generics.validateBlkStmtVal(3, 3, 5);
 	}
+	@Test
 	public void testIfElseWithNoEnd() throws RecognitionException, TokenStreamException {
 		String x = OalParserTest_Generics.parseAction("if ( true ) a = 1; else b = 2;", OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM); //$NON-NLS-1$
 		String lines[] = x.split("\n");//$NON-NLS-1$
@@ -1226,6 +1283,7 @@ public class TestControl_Generics extends TestCase {
 		assertEquals("line 1:31: expecting Semicolon, found 'null'", lines[1]); //$NON-NLS-1$
 		OalParserTest_Generics.validateBlkStmtVal(3, 3, 5);
 	}
+	@Test
 	public void testElifNotBoolean() throws RecognitionException, TokenStreamException {
 		String x = OalParserTest_Generics.parseAction("if ( true ) a = 1; elif ( \"true\" ) b = 2; end if;", OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM); //$NON-NLS-1$
 		String lines[] = x.split("\n");//$NON-NLS-1$
@@ -1233,6 +1291,7 @@ public class TestControl_Generics extends TestCase {
 		assertEquals(":1:47-48: Elif expression data type is not boolean", lines[0]); //$NON-NLS-1$
 		OalParserTest_Generics.validateBlkStmtVal(3, 3, 5);
 	}
+	@Test
 	public void testElifOutsideIf() throws RecognitionException, TokenStreamException {
 		String x = OalParserTest_Generics.parseAction("if ( true ) a = 1; end if; elif ( true ) b = 2; end if;", OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM); //$NON-NLS-1$
 		String lines[] = x.split("\n");//$NON-NLS-1$
@@ -1240,6 +1299,7 @@ public class TestControl_Generics extends TestCase {
 		assertEquals("line 1:28: expecting EOF, found 'elif'", lines[0]); //$NON-NLS-1$
 		OalParserTest_Generics.validateBlkStmtVal(2, 2, 3);
 	}
+	@Test
 	public void testElseOutsideIf() throws RecognitionException, TokenStreamException {
 		String x = OalParserTest_Generics.parseAction("if ( true ) a = 1; end if; else b = 2; end if;", OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM); //$NON-NLS-1$
 		String lines[] = x.split("\n");//$NON-NLS-1$
@@ -1247,6 +1307,7 @@ public class TestControl_Generics extends TestCase {
 		assertEquals("line 1:28: expecting EOF, found 'else'", lines[0]); //$NON-NLS-1$
 		OalParserTest_Generics.validateBlkStmtVal(2, 2, 3);
 	}
+	@Test
 	public void testIfElifWithNoEnd() throws RecognitionException, TokenStreamException {
 		String x = OalParserTest_Generics.parseAction("if ( true ) a = 1; elif (false) b = 2;", OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM); //$NON-NLS-1$
 		String lines[] = x.split("\n");//$NON-NLS-1$
@@ -1255,6 +1316,7 @@ public class TestControl_Generics extends TestCase {
 		assertEquals("line 1:39: expecting Semicolon, found 'null'", lines[1]); //$NON-NLS-1$
 		OalParserTest_Generics.validateBlkStmtVal(3, 4, 6);
 	}
+	@Test
 	public void testIfElifElseWithNoEnd() throws RecognitionException, TokenStreamException {
 		String x = OalParserTest_Generics.parseAction("if ( true ) a = 1; elif ( false ) b = 2; else c = 3;", OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM); //$NON-NLS-1$
 		String lines[] = x.split("\n");//$NON-NLS-1$
@@ -1263,6 +1325,7 @@ public class TestControl_Generics extends TestCase {
 		assertEquals("line 1:53: expecting Semicolon, found 'null'", lines[1]); //$NON-NLS-1$
 		OalParserTest_Generics.validateBlkStmtVal(4, 5, 8);
 	}
+	@Test
 	public void testIf2ElifWithNoEnd() throws RecognitionException, TokenStreamException {
 		String x = OalParserTest_Generics.parseAction("if ( true ) a = 1; elif ( false ) b = 2; elif ( false ) c = 3;", OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM); //$NON-NLS-1$
 		String lines[] = x.split("\n");//$NON-NLS-1$
@@ -1271,6 +1334,7 @@ public class TestControl_Generics extends TestCase {
 		assertEquals("line 1:63: expecting Semicolon, found 'null'", lines[1]); //$NON-NLS-1$
 		OalParserTest_Generics.validateBlkStmtVal(4, 6, 9);
 	}
+	@Test
 	public void testIf2ElifElseWithNoEnd() throws RecognitionException, TokenStreamException {
 		String x = OalParserTest_Generics.parseAction("if ( true ) a = 1; elif ( false ) b = 2; elif ( false ) c = 3; else  d = 4;", OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM); //$NON-NLS-1$
 		String lines[] = x.split("\n");//$NON-NLS-1$
@@ -1279,6 +1343,7 @@ public class TestControl_Generics extends TestCase {
 		assertEquals("line 1:76: expecting Semicolon, found 'null'", lines[1]); //$NON-NLS-1$
 		OalParserTest_Generics.validateBlkStmtVal(5, 7, 11);
 	}
+	@Test
 	public void testWhileNonBooleanVar() throws RecognitionException, TokenStreamException {
 		String x = OalParserTest_Generics.parseAction("x = 1; while (x)\n end while;", OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM); //$NON-NLS-1$
 		String lines[] = x.split("\n");//$NON-NLS-1$
@@ -1286,6 +1351,7 @@ public class TestControl_Generics extends TestCase {
 		assertEquals("line 2:12: expecting Semicolon, found 'null'", lines[1]); //$NON-NLS-1$
 		OalParserTest_Generics.validateBlkStmtVal(1, 1, 2);
 	}
+	@Test
 	public void testWhileNonBooleanVar2() throws RecognitionException, TokenStreamException {
 		String x = OalParserTest_Generics.parseAction("x = 1; while (x)\n x = 0; end while;", OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM); //$NON-NLS-1$
 		String lines[] = x.split("\n");//$NON-NLS-1$
@@ -1293,6 +1359,7 @@ public class TestControl_Generics extends TestCase {
 		assertEquals("line 2:19: expecting Semicolon, found 'null'", lines[1]); //$NON-NLS-1$
 		OalParserTest_Generics.validateBlkStmtVal(1, 1, 2);
 	}
+	@Test
 	public void testControlStop() throws RecognitionException, TokenStreamException {
 		String x = OalParserTest_Generics.parseAction("control stop;", OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM); //$NON-NLS-1$
 		assertEquals("", x); //$NON-NLS-1$
@@ -1305,7 +1372,8 @@ public class TestControl_Generics extends TestCase {
 		assertEquals(1, ctl.length);
 		assertEquals(st[0].getStatement_id(), ctl[0].getStatement_id());
 	}
-    public void testCleanupBeforeContinuing() throws RecognitionException,
+    @Test
+	public void testCleanupBeforeContinuing() throws RecognitionException,
             TokenStreamException {
         // This is not really a test. It is just a container for some cleanup
         // functions that need to run before continuing.
@@ -1318,7 +1386,8 @@ public class TestControl_Generics extends TestCase {
                     OalParserTest_Generics.TEST_REAL_NO_PARM);
         }
     }
-    public void testReturn() throws RecognitionException, TokenStreamException {
+    @Test
+	public void testReturn() throws RecognitionException, TokenStreamException {
 		for (int i = OalParserTest_Generics.ACTIVITY_TYPE_FUNC; i <= OalParserTest_Generics.ACTIVITY_TYPE_IB_OP; ++i) {
 			String x = OalParserTest_Generics.parseAction("return;", i, OalParserTest_Generics.TEST_VOID_NO_PARM);//$NON-NLS-1$
 			assertEquals("", x); //$NON-NLS-1$
@@ -1359,6 +1428,7 @@ public class TestControl_Generics extends TestCase {
 			OalParserTest_Generics.clearActionData(OalParserTest_Generics.ACTIVITY_TYPE_TRANSITION, i);
 		}
 	}
+	@Test
 	public void testReturnSFromV() throws RecognitionException, TokenStreamException {
 		String err_msgs[] =
 			{
@@ -1382,6 +1452,7 @@ public class TestControl_Generics extends TestCase {
 			OalParserTest_Generics.clearActionData(i, OalParserTest_Generics.TEST_VOID_NO_PARM);
 		}
 	}
+	@Test
 	public void testReturnIFromS() throws RecognitionException, TokenStreamException {
 		String err_msgs[] =
 			{
@@ -1405,6 +1476,7 @@ public class TestControl_Generics extends TestCase {
 			OalParserTest_Generics.clearActionData(i, OalParserTest_Generics.TEST_STRING_NO_PARM);
 		}
 	}
+	@Test
 	public void testReturnVFromS() throws RecognitionException, TokenStreamException {
 		String err_msgs[] =
 			{
@@ -1426,6 +1498,7 @@ public class TestControl_Generics extends TestCase {
 			OalParserTest_Generics.clearActionData(i, OalParserTest_Generics.TEST_STRING_NO_PARM);
 		}
 	}
+	@Test
 	public void testNoReturnFromS() throws RecognitionException, TokenStreamException {
 		String err_msgs[] =
 			{
@@ -1447,6 +1520,7 @@ public class TestControl_Generics extends TestCase {
 			OalParserTest_Generics.clearActionData(i, OalParserTest_Generics.TEST_STRING_NO_PARM);
 		}
 	}
+	@Test
 	public void testReturnIFromI() throws RecognitionException, TokenStreamException {
 		for (int i = OalParserTest_Generics.ACTIVITY_TYPE_FUNC; i <= OalParserTest_Generics.ACTIVITY_TYPE_IB_OP; ++i) {
 			String x = OalParserTest_Generics.parseAction("return 1;", i, OalParserTest_Generics.TEST_INT_NO_PARM); //$NON-NLS-1$
@@ -1466,6 +1540,7 @@ public class TestControl_Generics extends TestCase {
 			OalParserTest_Generics.clearActionData(i, OalParserTest_Generics.TEST_INT_NO_PARM);
 		}
 	}
+	@Test
 	public void testReturnRFromR() throws RecognitionException, TokenStreamException {
 		for (int i = OalParserTest_Generics.ACTIVITY_TYPE_FUNC; i <= OalParserTest_Generics.ACTIVITY_TYPE_IB_OP; ++i) {
 			String x = OalParserTest_Generics.parseAction("return 1.1;", i, OalParserTest_Generics.TEST_REAL_NO_PARM); //$NON-NLS-1$
@@ -1487,6 +1562,7 @@ public class TestControl_Generics extends TestCase {
 			OalParserTest_Generics.clearActionData(i, OalParserTest_Generics.TEST_REAL_NO_PARM);
 		}
 	}
+	@Test
 	public void testReturnIFromR() throws RecognitionException, TokenStreamException {
 		for (int i = OalParserTest_Generics.ACTIVITY_TYPE_FUNC; i <= OalParserTest_Generics.ACTIVITY_TYPE_IB_OP; ++i) {
 			String x = OalParserTest_Generics.parseAction("return 1;", i, OalParserTest_Generics.TEST_REAL_NO_PARM); //$NON-NLS-1$
@@ -1508,7 +1584,8 @@ public class TestControl_Generics extends TestCase {
 			OalParserTest_Generics.clearActionData(i, OalParserTest_Generics.TEST_REAL_NO_PARM);
 		}
 	}
-    public void testReturnRFromI() throws RecognitionException, TokenStreamException {
+    @Test
+	public void testReturnRFromI() throws RecognitionException, TokenStreamException {
         for (int i = OalParserTest_Generics.ACTIVITY_TYPE_FUNC; i <= OalParserTest_Generics.ACTIVITY_TYPE_IB_OP; ++i) {
             String x = OalParserTest_Generics.parseAction("return 1.1;", i, OalParserTest_Generics.TEST_INT_NO_PARM); //$NON-NLS-1$
             assertEquals("", x); //$NON-NLS-1$
