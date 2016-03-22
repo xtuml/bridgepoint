@@ -249,6 +249,7 @@ INSERT INTO O_TFR
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select any model related by self->GD_MS[R33]->GD_MD[R9] where selected.diagramId==param.diagram_id;
+
 count = 0;
 // Get the count of shapes in the model (i.e the number of classes in the class Diagram)
 // This conditional expression is  here to assure we are only calling this for 
@@ -301,7 +302,7 @@ end while;
 ',
 	1,
 	'',
-	"4032d3b2-ec5d-454c-918d-af33300cfed8");
+	"c02376d4-138e-44c1-8e19-e42d4e5bdff4");
 INSERT INTO O_TPARM
 	VALUES ("f2156974-c155-4272-9b85-288b824e669f",
 	"35593d44-4cf2-4d7a-ac20-1f39b82f20db",
@@ -777,60 +778,6 @@ INSERT INTO O_TPARM
 	"2aa8c06a-bfa6-4220-a916-61b5458c996a",
 	'');
 INSERT INTO O_TFR
-	VALUES ("4032d3b2-ec5d-454c-918d-af33300cfed8",
-	"0849862c-76a0-4d0f-bb84-cf5aef617874",
-	'reconcileCanvas',
-	'',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	0,
-	'select any modelSpec from instances of GD_MS 
-                     where 
-                     (selected.represents == OS::getClass(instance:param.rootElement));
-
-if (not empty modelSpec)
-  canvasExists = false;
-  rootName = CL::getModelRootName(from:param.rootElement);
-  if (rootName != "")
-    ooaid = CL::getOOAId(from:param.rootElement);
-    modelType = modelSpec.Model_Type;
-    // See if the canvas already exists for this model element
-    select any model from instances of GD_MD where 
-    			(selected.OOA_ID == ooaid and selected.Model_Type==modelType) and (selected.represents == param.rootElement);
-    if (empty model)
-      if (CL::traceGraphicsCreationIsEnabled()) 
-        msg = "Container needed: " + CL::getPath(element:param.rootElement);
-        CL::logTraceMsg(filterType:LoggerType::OPERATION, filterValue:"use_string_buffer", message:msg);
-        return;
-      end if;    
-      modelSpec.elementCreated(elem:param.rootElement);
-      if (CL::traceGraphicsCreationIsEnabled()) 
-        msg = "Container created. " + CL::getPath(element:model.represents);
-        CL::logTraceMsg(filterType:LoggerType::OPERATION, filterValue:"use_string_buffer", message:msg);
-      end if;    
-    end if;
-  end if;
-end if;
-',
-	1,
-	'',
-	"c02376d4-138e-44c1-8e19-e42d4e5bdff4");
-INSERT INTO O_TPARM
-	VALUES ("e17ccbdd-9a6d-45e1-a290-0160e3c0b9dd",
-	"4032d3b2-ec5d-454c-918d-af33300cfed8",
-	'rootElement',
-	"68dedb08-fd5a-420e-9ec7-e7985ad0c856",
-	0,
-	'',
-	"00000000-0000-0000-0000-000000000000",
-	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("68dedb08-fd5a-420e-9ec7-e7985ad0c856",
-	"00000000-0000-0000-0000-000000000000",
-	'instance',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
-INSERT INTO O_TFR
 	VALUES ("998fe17d-8e1a-4ed6-9b5b-cca166288747",
 	"0849862c-76a0-4d0f-bb84-cf5aef617874",
 	'removeConnectors',
@@ -987,64 +934,44 @@ INSERT INTO O_TFR
   CL::logTraceMsg(filterType:LoggerType::OPERATION, filterValue:"use_string_buffer", message:msg);
 end if;    
 
-count = CL::numElements( from:param.s_sys,using:"Getgraphicalrootcount");
+numRoots = CL::numElements( from:param.s_sys,using:"Getgraphicalrootcount");
 i = 0;
 container = param.s_sys; 
-while (i<count)
-  nrme = CL::getElementInstance( from:param.s_sys,index:i,using:"Getgraphicalroot");
-  if (nrme!=OS::NULL_INSTANCE())
-    GD_ARS::reconcileCanvas(rootElement:nrme);
+while (i < numRoots)
+  graphicalRoot = CL::getElementInstance( from:param.s_sys,index:i,using:"Getgraphicalroot");
+
+  if (graphicalRoot!=OS::NULL_INSTANCE())
+    select any modelSpec from instances of GD_MS where  
+            (selected.represents == OS::getClass(instance:graphicalRoot));
+    if (not empty modelSpec)
+      canvasExists = false;
+      rootName = CL::getModelRootName(from:graphicalRoot);
+      if (rootName != "")
+        ooaid = CL::getOOAId(from:graphicalRoot);
+        modelType = modelSpec.Model_Type;
+        // See if the canvas already exists for this model element
+        select any model related by modelSpec->GD_MD[R9] where 
+    			(selected.OOA_ID == ooaid and selected.Model_Type==modelType) and (selected.represents == graphicalRoot);
+        if (empty model)
+          modelSpec.elementCreated(elem:graphicalRoot);
+          select any model related by modelSpec->GD_MD[R9] where 
+    		(selected.OOA_ID == ooaid and selected.Model_Type==modelType) and (selected.represents == graphicalRoot);
+          if (CL::traceGraphicsCreationIsEnabled()) 
+            msg = "Container created. " + CL::getPath(element:model.represents);
+            CL::logTraceMsg(filterType:LoggerType::OPERATION, filterValue:"use_string_buffer", message:msg);
+          end if;    
+        end if;
+        select any containerARS related by modelSpec->GD_ARS[R33] where 
+      			(selected.OOA_Type==modelSpec.OOA_Type and selected.Model_Type==modelSpec.Model_Type);
+        containerARS.reconcileShapes( system_id:param.system_id, 
+                                         diagram_id:model.diagramId);
+      end if;
+    end if;
   else
     CL::logError(message:"Failed to find graphical root for index: " + OS::intToString(value:i));
   end if;
   i = i + 1;
 end while;
-
-select many allAutoRecSpecs from instances of GD_ARS;
-
-// Now we reconcile shapes in this canvas (if this is a canvas) 
-for each autoReconcileSpec in allAutoRecSpecs  
-  select one modelSpec related by autoReconcileSpec->GD_MS[R33];
-  if (not empty modelSpec)
-    select many models related by modelSpec->GD_MD[R9];
-    for each model in models
-      if (CL::isContainedInSystem( element:model.represents,
-                                 system_id:param.system_id))                                  
-        autoReconcileSpec.reconcileShapes( system_id:param.system_id, 
-                                         diagram_id:model.diagramId);
-      end if; 
-    end for;
-  else
-    select one recSpec related by autoReconcileSpec->GD_ES[R29];
-    select many graphicalElements related by recSpec->GD_GE[R10];
-    for each graphicalElement in graphicalElements 
-      reprocess = true;
-      while (reprocess)
-        // This stage handles component reference assignment (connectors must be created), and 
-        // unassignment (connectors must be removed). This is what the tool was doing BEFORE
-        // reconciliation of all connectors was added. 
-        reprocess = autoReconcileSpec.reconcileConnectorsStep1( system_id:param.system_id,
-                                                 removeElements:false,
-                                                 element_id:graphicalElement.elementId);   
-      end while;
-    end for;      
-  end if;
-end for;
-
-for each autoReconcileSpec in allAutoRecSpecs  
-  select many models related by autoReconcileSpec->GD_MS[R33]->GD_MD[R9];  
-  for each model in models
-    if (CL::isContainedInSystem( element:model.represents,
-                                 system_id:param.system_id))
-      reprocess = true;
-      while (reprocess)
-        reprocess = autoReconcileSpec.reconcileConnectorsStep2( system_id:param.system_id,
-                                                 removeElements:false,
-                                                 diagram_id:model.diagramId);    
-      end while;
-    end if;
-  end for;
-end for;
 
 if (CL::traceGraphicsCreationIsEnabled()) 
   msg = "GD_ARS.ReconcileAllGraphics() ended.";
@@ -1073,6 +1000,13 @@ INSERT INTO O_TPARM
 	'',
 	"359667d7-e97c-4387-b488-8efdb1cbffdc",
 	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("68dedb08-fd5a-420e-9ec7-e7985ad0c856",
+	"00000000-0000-0000-0000-000000000000",
+	'instance',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("e10da735-ac66-4d53-9464-ac3d84572c93",
 	"0849862c-76a0-4d0f-bb84-cf5aef617874");
