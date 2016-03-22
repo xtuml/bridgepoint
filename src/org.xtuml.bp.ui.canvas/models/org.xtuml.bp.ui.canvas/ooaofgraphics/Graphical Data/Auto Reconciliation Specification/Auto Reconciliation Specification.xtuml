@@ -89,22 +89,9 @@ for each autoReconcileSpec in allAutoRecSpecs
   end if;
 end for;
 
-for each autoReconcileSpec in allAutoRecSpecs  
-  select many models related by autoReconcileSpec->GD_MS[R33]->GD_MD[R9];  
-  for each model in models
-    if (CL::isContainedInSystem( element:model.represents,
-                                 system_id:param.system_id))
-      reprocess = true;
-      while (reprocess)
-        reprocess = autoReconcileSpec.reconcileConnectorsStep2( system_id:param.system_id,
-                                                 removeElements:param.removeElements,
-                                                 diagram_id:model.diagramId);    
-      end while;
-    end if;
-  end for;
-end for;
-
 if (CL::traceGraphicsCreationIsEnabled()) 
+  msg = "GD_ARS.Reconcile() ended.";
+  CL::logTraceMsg(filterType:LoggerType::OPERATION, filterValue:"use_string_buffer", message:msg);
   CL::writeTraceLog(filename:"GraphicsCreationLog.txt"); 
 end if;    
 ',
@@ -275,6 +262,11 @@ while (i<count)
   graphicalElementExists = false;
   select many graphicalElements related by model->GD_GE[R1];
   for each graphicalElement in graphicalElements
+    if (CL::traceGraphicsCreationIsEnabled()) 
+      msg = "Shape: " + CL::getPath(element:graphicalElement.represents);
+      CL::logTraceMsg(filterType:LoggerType::OPERATION, filterValue:"use_string_buffer", message:msg);
+      break;
+    end if;    
     if(graphicalElement.OOA_ID == elementID)
       graphicalElementExists =true;
       break;
@@ -1213,6 +1205,11 @@ INSERT INTO O_TFR
                      (selected.represents == OS::getClass(instance:param.rootElement));
 
 if (not empty modelSpec)
+  if (CL::traceGraphicsCreationIsEnabled()) 
+    msg = "Container: " + CL::getPath(element:param.rootElement);
+    CL::logTraceMsg(filterType:LoggerType::OPERATION, filterValue:"use_string_buffer", message:msg);
+    return;
+  end if;    
   canvasExists = false;
   rootName = CL::getModelRootName(from:param.rootElement);
   if (rootName != "")
@@ -1813,6 +1810,98 @@ INSERT INTO O_TPARM
 	0,
 	'',
 	"a5b362ff-7122-408e-8970-9bd203c89f53",
+	'');
+INSERT INTO O_TFR
+	VALUES ("7e13f464-e15d-46f9-b10e-404018a1da48",
+	"0849862c-76a0-4d0f-bb84-cf5aef617874",
+	'ReconcileAllGraphics',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	0,
+	'if (CL::traceGraphicsCreationIsEnabled()) 
+  msg = "GD_ARS.ReconcileAllGraphics() started.";
+  CL::logTraceMsg(filterType:LoggerType::OPERATION, filterValue:"use_string_buffer", message:msg);
+end if;    
+
+count = CL::numElements( from:param.s_sys,using:"Getgraphicalrootcount");
+i = 0;
+while (i<count)
+  GD_ARS::reconcileCanvas(rootElement:param.s_sys);
+  i = i + 1;
+end while;
+
+select many allAutoRecSpecs from instances of GD_ARS;
+
+// Now we reconcile shapes in this canvas (if this is a canvas) 
+for each autoReconcileSpec in allAutoRecSpecs  
+  select one modelSpec related by autoReconcileSpec->GD_MS[R33];
+  if (not empty modelSpec)
+    select many models related by modelSpec->GD_MD[R9];
+    for each model in models
+      if (CL::isContainedInSystem( element:model.represents,
+                                 system_id:param.system_id))                                  
+        autoReconcileSpec.reconcileShapes( system_id:param.system_id, 
+                                         diagram_id:model.diagramId);
+      end if; 
+    end for;
+  else
+    select one recSpec related by autoReconcileSpec->GD_ES[R29];
+    select many graphicalElements related by recSpec->GD_GE[R10];
+    for each graphicalElement in graphicalElements 
+      reprocess = true;
+      while (reprocess)
+        // This stage handles component reference assignment (connectors must be created), and 
+        // unassignment (connectors must be removed). This is what the tool was doing BEFORE
+        // reconciliation of all connectors was added. 
+        reprocess = autoReconcileSpec.reconcileConnectorsStep1( system_id:param.system_id,
+                                                 removeElements:false,
+                                                 element_id:graphicalElement.elementId);   
+      end while;
+    end for;      
+  end if;
+end for;
+
+for each autoReconcileSpec in allAutoRecSpecs  
+  select many models related by autoReconcileSpec->GD_MS[R33]->GD_MD[R9];  
+  for each model in models
+    if (CL::isContainedInSystem( element:model.represents,
+                                 system_id:param.system_id))
+      reprocess = true;
+      while (reprocess)
+        reprocess = autoReconcileSpec.reconcileConnectorsStep2( system_id:param.system_id,
+                                                 removeElements:false,
+                                                 diagram_id:model.diagramId);    
+      end while;
+    end if;
+  end for;
+end for;
+
+if (CL::traceGraphicsCreationIsEnabled()) 
+  msg = "GD_ARS.ReconcileAllGraphics() ended.";
+  CL::logTraceMsg(filterType:LoggerType::OPERATION, filterValue:"use_string_buffer", message:msg);
+  CL::writeTraceLog(filename:"GraphicsCreationLog.txt"); 
+end if;    
+',
+	1,
+	'',
+	"e42ed020-0fac-4dda-be1f-b1297045ff18");
+INSERT INTO O_TPARM
+	VALUES ("359667d7-e97c-4387-b488-8efdb1cbffdc",
+	"7e13f464-e15d-46f9-b10e-404018a1da48",
+	'system_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("88d45d08-fa1c-41ee-bc31-fbb485ad1b45",
+	"7e13f464-e15d-46f9-b10e-404018a1da48",
+	's_sys',
+	"68dedb08-fd5a-420e-9ec7-e7985ad0c856",
+	0,
+	'',
+	"359667d7-e97c-4387-b488-8efdb1cbffdc",
 	'');
 INSERT INTO O_NBATTR
 	VALUES ("e10da735-ac66-4d53-9464-ac3d84572c93",

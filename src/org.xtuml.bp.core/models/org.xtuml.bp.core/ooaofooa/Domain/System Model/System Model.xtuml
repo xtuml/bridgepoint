@@ -452,20 +452,20 @@ return count;
 INSERT INTO O_TFR
 	VALUES ("db03a722-9abe-43e5-ad13-bb2796cf75a9",
 	"5735d0f8-e286-4832-975e-04887e18a036",
-	'getGraphicalRoot',
+	'getGraphicalRootId',
 	'',
-	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'count = 0;
 select many pkgs related by self->EP_PKG[R1401];
 for each pkg in pkgs
-  id = pkg.getGraphicalRoot(indexToFind:param.index, currentPosition:count);
-  if (id != GD::NULL_INSTANCE()) 
+  id = pkg.getGraphicalRootId(indexToFind:param.index, currentPosition:count);
+  if (id != GD::NULL_UNIQUE_ID()) 
     return id;
   end if; 
   count = count + pkg.getGraphicalRootCount();
 end for;
-return GD::NULL_INSTANCE();
+return GD::NULL_UNIQUE_ID();
 ',
 	1,
 	'',

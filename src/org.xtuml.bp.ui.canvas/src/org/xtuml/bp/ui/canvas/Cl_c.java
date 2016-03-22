@@ -292,7 +292,7 @@ public class Cl_c {
         args[0] = new Integer(index);
     	
     	return uuid_invoke(From, Using, argTypes, args);
-}
+    }
     
     public static int Numconnectors(boolean elementTypesMatch,
     		                            final Object From, final String Using) {
@@ -1989,5 +1989,5 @@ public static void Settoolbarstate(boolean readonly) {
 		if (Tracegraphicscreationisenabled()) {
 			CanvasPlugin.writeTraceLog(filename);
 		}
-	}
+	}	
 }// End Cl_c
