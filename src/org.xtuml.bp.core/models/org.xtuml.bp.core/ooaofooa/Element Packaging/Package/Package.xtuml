@@ -6304,14 +6304,14 @@ return count;
 INSERT INTO O_TFR
 	VALUES ("dfa9714c-ef5e-4e85-86f2-8f62a4fb12d7",
 	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
-	'getGraphicalRootId',
+	'getGraphicalRoot',
 	'',
-	"ba5eda7a-def5-0000-0000-000000000005",
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
 	1,
 	'// The count starts with 1 because we count this package
 count = param.currentPosition + 1; 
 if count == param.indexToFind
-  return self.Package_ID;
+  return self.convertToInstance();
 end if;
 select many o_objs related by self->PE_PE[R8000]->O_OBJ[R8001];
 for each o_obj in o_objs
@@ -6319,21 +6319,21 @@ for each o_obj in o_objs
   if (not_empty ism)
     count = count + 1;
     if count == param.indexToFind
-      return ism.SM_ID;
+      return ism.convertToInstance();
     end if;
   end if;
   select one csm related by o_obj->SM_ASM[R519];
   if (not_empty csm)
     count = count + 1;
     if count == param.indexToFind
-      return csm.SM_ID;
+      return csm.convertToInstance();
     end if;
   end if;
 end for;
 select many components related by self->PE_PE[R8000]->C_C[R8001];
 for each component in components
-  id = component.getGraphicalRootId(indexToFind:param.indexToFind, currentPosition:count);
-  if (id != GD::NULL_UNIQUE_ID())
+  id = component.getGraphicalRoot(indexToFind:param.indexToFind, currentPosition:count);
+  if (id != GD::NULL_INSTANCE())
     return id; 
   end if;
   count = count + component.getGraphicalRootCount(); 
@@ -6341,13 +6341,13 @@ end for;
 // now get nested packages
 select many pkgs related by self->PE_PE[R8000]->EP_PKG[R8001];
 for each pkg in pkgs
-  id = pkg.getGraphicalRootId(indexToFind:param.indexToFind, currentPosition:count);
-  if (id != GD::NULL_UNIQUE_ID())
+  id = pkg.getGraphicalRoot(indexToFind:param.indexToFind, currentPosition:count);
+  if (id != GD::NULL_INSTANCE())
     return id;
   end if;
   count = count + pkg.getGraphicalRootCount();
 end for;
-return GD::NULL_UNIQUE_ID();
+return GD::NULL_INSTANCE();
 ',
 	1,
 	'',

@@ -3183,21 +3183,21 @@ return count;
 INSERT INTO O_TFR
 	VALUES ("eb42ec03-f0d3-49b9-9ef6-784b43bbeb81",
 	"2786d973-1537-44a1-81d6-3ddbd2377865",
-	'getGraphicalRootId',
+	'getGraphicalRoot',
 	'',
-	"ba5eda7a-def5-0000-0000-000000000005",
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
 	1,
 	'// The count starts with 1 because we count this component
 count = param.currentPosition + 1;
 if count == param.indexToFind
-  return self.Id;
+  return self.convertToInstance();
 end if;
 // find nested components
 select many comps related by self->PE_PE[R8003]->C_C[R8001];
 if (not_empty comps)
   for each comp in comps
-    id = comp.getGraphicalRootId(indexToFind:param.indexToFind, currentPosition:count);
-    if (id != GD::NULL_UNIQUE_ID()) 
+    id = comp.getGraphicalRoot(indexToFind:param.indexToFind, currentPosition:count);
+    if (id != GD::NULL_INSTANCE()) 
       return id;
     end if;
     count = count + comp.getGraphicalRootCount();
@@ -3206,13 +3206,13 @@ end if;
 // find packages
 select many pkgs related by self->PE_PE[R8003]->EP_PKG[R8001];
 for each pkg in pkgs
-  id = pkg.getGraphicalRootId(indexToFind:param.indexToFind, currentPosition:count);
-  if (id != GD::NULL_UNIQUE_ID())
+  id = pkg.getGraphicalRoot(indexToFind:param.indexToFind, currentPosition:count);
+  if (id != GD::NULL_INSTANCE())
     return id;
   end if;
   count = count + pkg.getGraphicalRootCount();
 end for;
-return GD::NULL_UNIQUE_ID();
+return GD::NULL_INSTANCE();
 ',
 	1,
 	'',

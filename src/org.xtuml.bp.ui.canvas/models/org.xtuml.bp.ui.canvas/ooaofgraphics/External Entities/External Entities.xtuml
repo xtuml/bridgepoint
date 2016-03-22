@@ -1582,6 +1582,43 @@ INSERT INTO S_BPARM
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
+INSERT INTO S_BRG
+	VALUES ("8f466ea3-a45e-4ad1-b64f-b4299ef5a554",
+	"f168c92b-6d64-4ecb-a677-5a1d7cce8352",
+	'getElementInstance',
+	'',
+	0,
+	"68dedb08-fd5a-420e-9ec7-e7985ad0c856",
+	'',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("e1994d8e-12c6-4339-93f0-d21d3ca6c8a5",
+	"8f466ea3-a45e-4ad1-b64f-b4299ef5a554",
+	'from',
+	"68dedb08-fd5a-420e-9ec7-e7985ad0c856",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("44d53d63-bbdb-4b1d-a28a-43704a4e6e2d",
+	"8f466ea3-a45e-4ad1-b64f-b4299ef5a554",
+	'index',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"e1994d8e-12c6-4339-93f0-d21d3ca6c8a5",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("4f830a25-279f-4898-b706-4aaf447af416",
+	"8f466ea3-a45e-4ad1-b64f-b4299ef5a554",
+	'using',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"44d53d63-bbdb-4b1d-a28a-43704a4e6e2d",
+	'');
 INSERT INTO PE_PE
 	VALUES ("f168c92b-6d64-4ecb-a677-5a1d7cce8352",
 	1,
