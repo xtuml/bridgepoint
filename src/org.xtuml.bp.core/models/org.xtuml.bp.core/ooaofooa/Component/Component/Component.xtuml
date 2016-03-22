@@ -3154,6 +3154,87 @@ INSERT INTO O_TPARM
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
+INSERT INTO O_TFR
+	VALUES ("55360f67-8a93-4c82-8101-f0235cd3573b",
+	"2786d973-1537-44a1-81d6-3ddbd2377865",
+	'getGraphicalRootCount',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	1,
+	'// The count starts with 1 because we count this component
+count = 1;
+// find nested components
+select many comps related by self->PE_PE[R8003]->C_C[R8001];
+if (not_empty comps)
+  for each comp in comps
+    count = count + comp.getGraphicalRootCount();
+  end for;
+end if;
+// find packages
+select many pkgs related by self->PE_PE[R8003]->EP_PKG[R8001];
+for each pkg in pkgs
+  count = count + pkg.getGraphicalRootCount();
+end for;
+return count;
+',
+	1,
+	'',
+	"bba4eee2-21de-4dc4-a855-05320f880747");
+INSERT INTO O_TFR
+	VALUES ("eb42ec03-f0d3-49b9-9ef6-784b43bbeb81",
+	"2786d973-1537-44a1-81d6-3ddbd2377865",
+	'getGraphicalRoot',
+	'',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	1,
+	'// The count starts with 1 because we count this component
+count = param.currentPosition + 1;
+if count == param.indexToFind
+  return self.convertToInstance();
+end if;
+// find nested components
+select many comps related by self->PE_PE[R8003]->C_C[R8001];
+if (not_empty comps)
+  for each comp in comps
+    id = comp.getGraphicalRoot(indexToFind:param.indexToFind, currentPosition:count);
+    if (id != GD::NULL_INSTANCE()) 
+      return id;
+    end if;
+    count = count + comp.getGraphicalRootCount();
+  end for;
+end if;
+// find packages
+select many pkgs related by self->PE_PE[R8003]->EP_PKG[R8001];
+for each pkg in pkgs
+  id = pkg.getGraphicalRoot(indexToFind:param.indexToFind, currentPosition:count);
+  if (id != GD::NULL_INSTANCE())
+    return id;
+  end if;
+  count = count + pkg.getGraphicalRootCount();
+end for;
+return GD::NULL_INSTANCE();
+',
+	1,
+	'',
+	"55360f67-8a93-4c82-8101-f0235cd3573b");
+INSERT INTO O_TPARM
+	VALUES ("8c055273-1f60-4597-bc1f-979ddc7814b9",
+	"eb42ec03-f0d3-49b9-9ef6-784b43bbeb81",
+	'indexToFind',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("6e334fae-c5b7-4398-8e72-f84ac07c64df",
+	"eb42ec03-f0d3-49b9-9ef6-784b43bbeb81",
+	'currentPosition',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"8c055273-1f60-4597-bc1f-979ddc7814b9",
+	'');
 INSERT INTO O_NBATTR
 	VALUES ("44ad7e17-9251-42cf-aa73-ac271023c8a3",
 	"2786d973-1537-44a1-81d6-3ddbd2377865");
