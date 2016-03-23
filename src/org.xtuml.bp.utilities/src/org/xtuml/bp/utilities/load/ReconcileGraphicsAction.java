@@ -57,7 +57,7 @@ public class ReconcileGraphicsAction implements IActionDelegate {
 	@Override
 	public void run(IAction action) {
 		GraphicsReconcilerLauncher reconciler = new GraphicsReconcilerLauncher(modelElementsToReconcile);
-		reconciler.runReconciler(true);
+		reconciler.runReconciler(false, true);
 	}	
 
 	@Override

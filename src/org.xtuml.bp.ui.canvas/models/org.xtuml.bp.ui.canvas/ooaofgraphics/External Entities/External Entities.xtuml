@@ -1530,6 +1530,95 @@ INSERT INTO S_BPARM
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
+INSERT INTO S_BRG
+	VALUES ("bd9f8b2d-7cc4-444a-89e2-d4c2335b8808",
+	"f168c92b-6d64-4ecb-a677-5a1d7cce8352",
+	'getModelRootName',
+	'',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000004",
+	'',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("1e834810-0c9b-47e0-ba8f-0376533ebb5c",
+	"bd9f8b2d-7cc4-444a-89e2-d4c2335b8808",
+	'from',
+	"68dedb08-fd5a-420e-9ec7-e7985ad0c856",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BRG
+	VALUES ("659ea060-f934-438c-94b0-46907a761119",
+	"f168c92b-6d64-4ecb-a677-5a1d7cce8352",
+	'traceGraphicsCreationIsEnabled',
+	'This is only turned on via the BridegePoint debug tracing facility. 
+What this means is it is enabled via a debug launch configuration or other
+similar means. To learn more see BridgePoint''s bp/core/common/TraceLogger.java 
+and/or the FAQ item on this subject: 
+https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/FAQ.md#tracing',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000001",
+	'',
+	0,
+	'');
+INSERT INTO S_BRG
+	VALUES ("1bd141bc-0e4a-4522-b588-f41a917bcaca",
+	"f168c92b-6d64-4ecb-a677-5a1d7cce8352",
+	'writeTraceLog',
+	'',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000000",
+	'',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("25dbd062-e30a-4700-998a-15797d4b47a6",
+	"1bd141bc-0e4a-4522-b588-f41a917bcaca",
+	'filename',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BRG
+	VALUES ("8f466ea3-a45e-4ad1-b64f-b4299ef5a554",
+	"f168c92b-6d64-4ecb-a677-5a1d7cce8352",
+	'getElementInstance',
+	'',
+	0,
+	"68dedb08-fd5a-420e-9ec7-e7985ad0c856",
+	'',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("e1994d8e-12c6-4339-93f0-d21d3ca6c8a5",
+	"8f466ea3-a45e-4ad1-b64f-b4299ef5a554",
+	'from',
+	"68dedb08-fd5a-420e-9ec7-e7985ad0c856",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("44d53d63-bbdb-4b1d-a28a-43704a4e6e2d",
+	"8f466ea3-a45e-4ad1-b64f-b4299ef5a554",
+	'index',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"e1994d8e-12c6-4339-93f0-d21d3ca6c8a5",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("4f830a25-279f-4898-b706-4aaf447af416",
+	"8f466ea3-a45e-4ad1-b64f-b4299ef5a554",
+	'using',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"44d53d63-bbdb-4b1d-a28a-43704a4e6e2d",
+	'');
 INSERT INTO PE_PE
 	VALUES ("f168c92b-6d64-4ecb-a677-5a1d7cce8352",
 	1,

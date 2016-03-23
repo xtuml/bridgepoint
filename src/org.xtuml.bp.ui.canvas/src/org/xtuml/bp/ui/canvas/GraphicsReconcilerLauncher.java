@@ -19,10 +19,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.UUID;
 
 import org.eclipse.ui.PlatformUI;
 import org.xtuml.bp.core.Modeleventnotification_c;
 import org.xtuml.bp.core.Ooaofooa;
+import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.IModelDelta;
@@ -39,7 +41,7 @@ import org.xtuml.bp.core.common.TransactionManager;
  */
 public class GraphicsReconcilerLauncher {
 	// A map of each SystemModel to reconcile to the set of elements in that SystemModel to reconcile
-	private Map<SystemModel_c, Set<NonRootModelElement> > elementsToReconcile = new HashMap<SystemModel_c, Set<NonRootModelElement> >();
+	private Set<SystemModel_c> systemsToReconcile = new HashSet<SystemModel_c>();
 	
 	public GraphicsReconcilerLauncher(List<NonRootModelElement> roots) {
 		for (NonRootModelElement root : roots) {
@@ -52,13 +54,8 @@ public class GraphicsReconcilerLauncher {
 			}
 			// Only look at elements that have graphics associated with them
 			if (( system != null)){
-				Set<NonRootModelElement> valueSet = elementsToReconcile.get(system);
-				if (valueSet == null) {
-					valueSet = new HashSet<NonRootModelElement>();
-				}
 				// Note that we explicitly use a Set to assure we have a unique set of roots
-				valueSet.add(root);
-				elementsToReconcile.put(system, valueSet);
+				systemsToReconcile.add(system);
 			}
 		}		
 	}
@@ -76,6 +73,10 @@ public class GraphicsReconcilerLauncher {
 	}
 
 	public void runReconciler(boolean removeElements) {
+		runReconciler(removeElements, false);
+	}
+	
+	public void runReconciler(boolean removeElements, boolean createAllGraphics) {
 		TransactionManager manager = TransactionManager.getSingleton();
 		Transaction newTrans = null;
 		try {
@@ -83,15 +84,14 @@ public class GraphicsReconcilerLauncher {
 					Transaction.AUTORECONCILE_TYPE);
 			Ooaofgraphics ooag = Ooaofgraphics.getDefaultInstance();
 			
-			for (Map.Entry<SystemModel_c, Set<NonRootModelElement>> entry : elementsToReconcile.entrySet()) {
-				SystemModel_c key = entry.getKey();
-				Set<NonRootModelElement> nrmes = entry.getValue();
-
+			for (SystemModel_c system : systemsToReconcile) {
 				// Now reconcile
-				for (NonRootModelElement nrme : nrmes) {
-					AutoReconciliationSpecification_c.Reconcilecanvas(ooag,nrme);
+				if (createAllGraphics) {
+					int passnumber = 1;
+					AutoReconciliationSpecification_c.Reconcileallgraphics(ooag, passnumber, system, system.getSys_id());
+				} else {
+					AutoReconciliationSpecification_c.Reconcile(ooag, removeElements, system.getSys_id());
 				}
-				AutoReconciliationSpecification_c.Reconcile(ooag, removeElements, key.getSys_id());
 			}
 		} catch (TransactionException e) {
 			if (newTrans != null)

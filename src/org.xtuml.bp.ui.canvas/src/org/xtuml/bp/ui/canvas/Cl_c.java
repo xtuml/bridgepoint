@@ -292,7 +292,16 @@ public class Cl_c {
         args[0] = new Integer(index);
     	
     	return uuid_invoke(From, Using, argTypes, args);
-}
+    }
+    
+    public static Object Getelementinstance(final Object From, int index, final String Using) {
+        Class[] argTypes = new Class[1];
+        argTypes[0] = int.class;
+        Object[] args = new Object[1];
+        args[0] = new Integer(index);
+    	
+    	return invoke(From, Using, argTypes, args);
+    }
     
     public static int Numconnectors(boolean elementTypesMatch,
     		                            final Object From, final String Using) {
@@ -1581,6 +1590,9 @@ public class Cl_c {
     }
     return null;
   }
+  public static String Getmodelrootname(Object from) {
+	  return Cl_c.getModelRootname(from);
+  }
   //
   // invoke - invoke a method
   // result of invocation is used by caller
@@ -1978,4 +1990,13 @@ public static void Settoolbarstate(boolean readonly) {
         return s_invoke(represents, "Get_connector_tooltip", argTypes, args);
 	}
 
+	public static boolean Tracegraphicscreationisenabled() {
+		return CanvasPlugin.stringBufferLoggingIsEnabled();
+	}
+	
+	public static void Writetracelog(String filename) {
+		if (Tracegraphicscreationisenabled()) {
+			CanvasPlugin.writeTraceLog(filename);
+		}
+	}	
 }// End Cl_c
