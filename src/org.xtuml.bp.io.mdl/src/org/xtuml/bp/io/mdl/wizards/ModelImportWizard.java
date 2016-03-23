@@ -29,10 +29,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
-import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspaceRunnable;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
@@ -46,16 +44,12 @@ import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.Wizard;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IImportWizard;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.PlatformUI;
-import org.xtuml.bp.core.CoreDataType_c;
 import org.xtuml.bp.core.CorePlugin;
-import org.xtuml.bp.core.DataType_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.SystemModel_c;
-import org.xtuml.bp.core.UserDataType_c;
 import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.ComponentResourceListener;
@@ -69,8 +63,8 @@ import org.xtuml.bp.core.common.UpgradeJob;
 import org.xtuml.bp.core.ui.IModelImport;
 import org.xtuml.bp.core.ui.Selection;
 import org.xtuml.bp.core.util.UIUtil;
-import org.xtuml.bp.io.core.ImportHelper;
 import org.xtuml.bp.io.core.CoreImport;
+import org.xtuml.bp.io.core.ImportHelper;
 import org.xtuml.bp.ui.canvas.Diagram_c;
 import org.xtuml.bp.ui.canvas.Gr_c;
 import org.xtuml.bp.ui.canvas.Graphelement_c;
@@ -191,7 +185,6 @@ public class ModelImportWizard extends Wizard implements IImportWizard {
 					iss.run(new NullProgressMonitor());
 				} else {
 					dialog.run(true, false, iss);
-                    fImporter.loadMASLActivities(sourceFileDirectory);
 				}
 			} catch (InterruptedException e) {
 				org.xtuml.bp.io.core.CorePlugin.logError(
@@ -202,6 +195,14 @@ public class ModelImportWizard extends Wizard implements IImportWizard {
 						"Internal error: plugin.doLoad not found", e); //$NON-NLS-1$
 				return false;
 			}
+
+                        // load the MASL activities
+                        IPath sourceFileDirectory = templatePath.removeLastSegments(1);
+                        ImportHelper helper = new ImportHelper((CoreImport)fImporter);
+                        helper.loadMASLActivities((Ooaofooa)fImporter.getRootModelElement().getModelRoot(), sourceFileDirectory);
+
+                        // resolve component references in MASL projects
+                        helper.resolveMASLproject();
 		}
 		return true;
 	}

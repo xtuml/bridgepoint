@@ -25,7 +25,6 @@ package org.xtuml.bp.core.ui;
 import java.io.IOException;
 import java.io.InputStream;
 
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 
@@ -47,7 +46,6 @@ public interface IModelImport extends IRunnableWithProgress {
 	public NonRootModelElement getRootModelElement();
 	public void finishLoad(IProgressMonitor pm);
     public void finishComponentLoad(IProgressMonitor pm, boolean searchAllRootsForBatchRelate);
-    public void loadMASLActivities(IPath srcFileDir);
     public NonRootModelElement[] getLoadedInstances();
     public NonRootModelElement[] getLoadedGraphicalInstances();
 

@@ -28,6 +28,8 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -126,6 +128,9 @@ import org.xtuml.bp.core.common.PersistableModelComponent;
 import org.xtuml.bp.core.common.PersistenceManager;
 import org.xtuml.bp.core.inspector.IModelClassInspector;
 import org.xtuml.bp.core.inspector.ModelInspector;
+import org.xtuml.bp.core.ui.actions.GenericPackageAssignComponentOnCL_ICAction;
+import org.xtuml.bp.core.ui.actions.GenericPackageFormalizeOnC_PAction;
+import org.xtuml.bp.core.ui.actions.GenericPackageFormalizeOnC_RAction;
 import org.xtuml.bp.ui.canvas.AnchorOnSegment_c;
 import org.xtuml.bp.ui.canvas.CanvasTransactionListener;
 import org.xtuml.bp.ui.canvas.Cl_c;
@@ -323,6 +328,88 @@ public class ImportHelper
     }
 
     /**
+     * Resolve the MASL project by searching the workspace for components
+     * of the same name as the unassigned component references and assigning
+     * them.
+     */
+    public void resolveMASLproject() {
+
+        NonRootModelElement[] elements = importer.getLoadedInstances();
+        if ( elements == null ) return;
+
+        for ( NonRootModelElement el : elements ) {
+            // process the unassigned component references
+            if ( el instanceof ComponentReference_c ) {
+                ComponentReference_c cl_ic = (ComponentReference_c)el;
+
+                // get the name of the component we're looking for from the Descrip field
+            	String description = cl_ic.getDescrip();
+
+                // parse name
+                String cl_ic_name = "";
+                if ( !description.isEmpty() ) {
+                    Matcher m = Pattern.compile( "name:.*" ).matcher( description );
+                    if ( m.find() ) {
+                        cl_ic_name = m.group().substring(5);
+            	        cl_ic.setDescrip( m.replaceAll("") );
+                    }
+                }
+
+                // get reachable components
+		Component_c[] components = GenericPackageAssignComponentOnCL_ICAction.getElements( cl_ic );
+
+                // match the ComponentReference with the Component
+                for ( Component_c c_c : components ) {
+                    if ( c_c.getName().equals( cl_ic_name ) ) {
+                        // assign the component reference to the component
+                        cl_ic.Assigntocomp( c_c.getId() );
+                        break;
+                    }
+                }
+
+            }
+            else if ( el instanceof Requirement_c ) {
+                // process the unformalized required interfaces
+                Requirement_c c_r = (Requirement_c)el;
+
+                // get the name of the interface we're looking for from the InformalName field
+                String c_r_name = c_r.getInformalname();
+
+                // get reachable interfaces
+                Interface_c[] interfaces = GenericPackageFormalizeOnC_RAction.getElements( c_r );
+
+                // match the ComponentReference with the Component
+                for ( Interface_c c_i : interfaces ) {
+                    if ( c_i.getName().equals( c_r_name ) ) {
+                        // formalize the requirement
+                        c_r.Formalize(c_i.getId(), true);
+                        break;
+                    }
+                }
+            }
+            else if ( el instanceof Provision_c ) {
+                // process the unformalized provided interfaces
+                Provision_c c_p =  (Provision_c)el;
+
+                // get the name of the interface we're looking for from the InformalName field
+                String c_p_name = c_p.getInformalname();
+
+                // get reachable interfaces
+                Interface_c[] interfaces = GenericPackageFormalizeOnC_PAction.getElements( c_p );
+
+                // match the ComponentReference with the Component
+                for ( Interface_c c_i : interfaces ) {
+                    if ( c_i.getName().equals( c_p_name ) ) {
+                        // formalize the requirement
+                        c_p.Formalize(c_i.getId(), true);
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    /**
      * Load the MASL activities into the BridgePoint model
      */
     public void loadMASLActivities( Ooaofooa modelRoot, IPath srcFileDir ) {
@@ -338,11 +425,11 @@ public class ImportHelper
             // for each MASL activity object
             if ( MASLEditorInput.isSupported( el ) ) {
 
-                // get description field
-            	String description = "";
+                // get Action_Semantics_internal field
+            	String action_semantics = "";
             	try {
-					Method method = el.getClass().getMethod("getDescrip", null);
-					description = (String)method.invoke((Object)el, null);
+					Method method = el.getClass().getMethod("getAction_semantics_internal", null);
+					action_semantics = (String)method.invoke((Object)el, null);
             	} catch ( SecurityException e ) {
             		System.out.println(e);
             	} catch ( NoSuchMethodException e ) {
@@ -353,9 +440,30 @@ public class ImportHelper
             		System.out.println(e);
             	}
 
+                // parse codeblock
+                String filename = "";
+                if ( !action_semantics.isEmpty() ) {
+                    Matcher m = Pattern.compile( "codeblock:.*" ).matcher( action_semantics );
+                    if ( m.find() ) {
+                        filename = m.group().substring(10);
+            	        try {
+                            Method method = el.getClass().getMethod( "setAction_semantics_internal", String.class );
+                            method.invoke((Object)el, m.replaceAll("") );
+                        } catch ( SecurityException e ) {
+                                System.out.println(e);
+                        } catch ( NoSuchMethodException e ) {
+                                System.out.println(e);
+                        } catch ( InvocationTargetException e ) {
+                                System.out.println(e);
+                        } catch (IllegalAccessException e) {
+                                System.out.println(e);
+                        }
+                    }
+                }
+
                 // try to get MASL activity file
-                File mf = new File(srcFileDir.toOSString() + "/" + description);
-                if ( !description.isEmpty() && mf.exists() && mf.isFile() ) {
+                File mf = new File(srcFileDir.toOSString() + "/" + filename);
+                if ( !filename.isEmpty() && mf.exists() && mf.isFile() ) {
 
                     // create file at right location
                     IFile file;
@@ -394,6 +502,9 @@ public class ImportHelper
                         }
                     }
 
+                }
+                else {
+                    System.out.println( "Could not find MASL activity file." );
                 }
 
             }
