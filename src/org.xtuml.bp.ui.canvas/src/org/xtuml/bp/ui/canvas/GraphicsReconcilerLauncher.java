@@ -87,7 +87,8 @@ public class GraphicsReconcilerLauncher {
 			for (SystemModel_c system : systemsToReconcile) {
 				// Now reconcile
 				if (createAllGraphics) {
-					AutoReconciliationSpecification_c.Reconcileallgraphics(ooag, system, system.getSys_id());
+					int passnumber = 1;
+					AutoReconciliationSpecification_c.Reconcileallgraphics(ooag, passnumber, system, system.getSys_id());
 				} else {
 					AutoReconciliationSpecification_c.Reconcile(ooag, removeElements, system.getSys_id());
 				}
