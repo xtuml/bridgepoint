@@ -64,7 +64,7 @@ function configure_installer_files {
 function configure_masl_files {
     echo -e "Entering configure_build_process.sh::configure_masl_files"
     
-    mkdir -p ${bp_deliverables}/tools/masl/lib
+    mkdir -p ${bp_deliverables_linux}/tools/masl/lib
     
     cd ${git_mc}/bin
     
@@ -74,7 +74,7 @@ function configure_masl_files {
     chmod a+x ${bp_deliverables_linux}/tools/masl/masl2xtuml 2>>${error_file}
     chmod a+x ${bp_deliverables_linux}/tools/masl/xtuml2masl 2>>${error_file}
     
-    cd ${bp_deliverables}/tools/masl
+    cd ${bp_deliverables_linux}/tools/masl
     cp -fp ${user_supplied_files}/m2x  ./lib
     cp -fp ${user_supplied_files}/masl ./lib
     cp -fp ${user_supplied_files}/x2m  ./lib
@@ -88,7 +88,7 @@ function configure_masl_files {
     cd ${git_mc}/masl/parser
     ant dist
     
-    cd ${bp_deliverables}/tools/masl
+    cd ${bp_deliverables_linux}/tools/masl
     cp -fp ${git_mc}/masl/parser/dist/lib/MASLParser.jar ./lib
     
     chmod -R g+w ${bp_deliverables_linux}/tools/masl
