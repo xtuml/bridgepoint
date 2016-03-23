@@ -439,7 +439,7 @@ INSERT INTO O_TFR
 // instances. This works together with S_SYS.getGraphicalRoot() to 
 // recursively get all roots.
 //
-count = 0;
+count = 1; // This SystemModel is a graphical root
 select many pkgs related by self->EP_PKG[R1401];
 for each pkg in pkgs
   count = count + pkg.getGraphicalRootCount();
@@ -456,15 +456,19 @@ INSERT INTO O_TFR
 	'',
 	"bc3722c8-5188-4529-8519-cf9eb9816b17",
 	1,
-	'// We''re preincrementing the index
-count = -1;
+	'// This Systemodel is a graphical root. 
+// It is index 0
+i = 0; 
+if (i==param.index)
+  return self.convertToInstance();
+end if;
 select many pkgs related by self->EP_PKG[R1401];
 for each pkg in pkgs
-  id = pkg.getGraphicalRoot(indexToFind:param.index, currentPosition:count);
+  id = pkg.getGraphicalRoot(indexToFind:param.index, currentPosition:i);
   if (id != GD::NULL_INSTANCE()) 
     return id;
   end if; 
-  count = count + pkg.getGraphicalRootCount();
+  i = i + pkg.getGraphicalRootCount();
 end for;
 return GD::NULL_INSTANCE();
 ',
