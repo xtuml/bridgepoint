@@ -129,7 +129,7 @@ configure_mcc_src()
     
     cp -fp $user_supplied_files/xtumlmc_build.exe ./bin
     cp -fp $user_supplied_files/gen_erate.exe     ./bin
-    cp -fp $user_supplied_files/gen_erate         ./bin
+    cp -fp $user_supplied_files/gen_erate         ./bin/gen_erate.py
     cp -fp $user_supplied_files/mcmc              ./bin
     cp -fp $user_supplied_files/mcmc64            ./bin
     cp -fp $user_supplied_files/mcmc.exe          ./bin
@@ -145,11 +145,8 @@ configure_mcc_src()
 	build_os=$(uname)
     if [ "${build_os}" = "Linux" ];  then
       mv -f ./bin/xtumlmc_build.exe ./bin/xtumlmc_build.exe.win
-      mv -f ./bin/gen_erate.exe ./bin/gen_erate.exe.win
       tr -d '\r' < ./bin/xtumlmc_build > ./bin/xtumlmc_build.exe
       cp -fp ./bin/xtumlmc_build.exe ./bin/xtumlmc_build
-    else
-      mv -f ./bin/gen_erate ./bin/gen_erate.py
 	fi
     chmod a+x ./bin/xtumlmc_build*
 	chmod a+x ./bin/gen_erate*
