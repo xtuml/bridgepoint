@@ -149,7 +149,7 @@ configure_mcc_src()
       tr -d '\r' < ./bin/xtumlmc_build > ./bin/xtumlmc_build.exe
       cp -fp ./bin/xtumlmc_build.exe ./bin/xtumlmc_build
     else
-      mv -f ./bin/gen_erate ./bin/gen_erate.linux
+      mv -f ./bin/gen_erate ./bin/gen_erate.py
 	fi
     chmod a+x ./bin/xtumlmc_build*
 	chmod a+x ./bin/gen_erate*
