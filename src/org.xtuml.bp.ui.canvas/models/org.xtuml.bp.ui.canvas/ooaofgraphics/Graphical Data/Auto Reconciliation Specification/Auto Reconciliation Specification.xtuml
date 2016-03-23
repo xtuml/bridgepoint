@@ -932,9 +932,19 @@ while (i < numRoots)
     if (rootName != "")
       ooaid = CL::getOOAId(from:graphicalRoot);
       modelType = modelSpec.Model_Type;
+      
+      // Find all the GD_ARSs associated with this container. This is what we will use to 
+      // assure all shapes are present in this container.
+      select many containerARSs related by modelSpec->GD_ARS[R33] where 
+      			(selected.OOA_Type==modelSpec.OOA_Type and selected.Model_Type==modelSpec.Model_Type);
+      			
       // See if the canvas already exists for this model element
       select any model related by modelSpec->GD_MD[R9] where 
     			(selected.OOA_ID == ooaid and selected.Model_Type==modelType) and (selected.represents == graphicalRoot);
+      // First pass creates containers and shapes, second pass is connectors
+      // On second pass all shapes are already created, sand we now with the GD_MD inhand, so do bother
+      // called shape creation again (it will not have anything to do)
+      if (param.passNumber==1)
         if (empty model)
           modelSpec.elementCreated(elem:graphicalRoot);
           select any model related by modelSpec->GD_MD[R9] where 
@@ -943,20 +953,27 @@ while (i < numRoots)
             msg = "Container created. " + CL::getPath(element:model.represents);
             CL::logTraceMsg(filterType:LoggerType::OPERATION, filterValue:"use_string_buffer", message:msg);
           end if;    
-        end if;
-         
-        select any containerARS related by modelSpec->GD_ARS[R33] where 
-      			(selected.OOA_Type==modelSpec.OOA_Type and selected.Model_Type==modelSpec.Model_Type);
-        containerARS.reconcileShapes( system_id:param.system_id, 
-                                         diagram_id:model.diagramId);
-                                         
-      // First pass is shapes, second pass is connectors
-      // On second pass all shapes are already created 
-      if (param.passNumber==2)
-        select any containerARS related by modelSpec->GD_ARS[R33] where 
-      			(selected.OOA_Type==modelSpec.OOA_Type and selected.Model_Type==modelSpec.Model_Type);
+        end if;      	
         
-        containerARS.reconcileConnectorsNoExistingGraphics(diagram_id:model.diagramId, system_id:param.system_id);
+        // This is where we reconcile all shapes in this container
+        for each containerARS in containerARSs
+          select one elementSpec related by containerARS->GD_ES[R31]; 
+          if (not empty elementSpec and (elementSpec.symbolType=="shape" or elementSpec.symbolType=="container") )
+            containerARS.reconcileShapes( system_id:param.system_id, 
+                                         diagram_id:model.diagramId);
+          end if;
+        end for;
+      else  
+        // pass 2 (connectors)                   
+        // This is where we reconcile all connectors in this container
+        for each containerARS in containerARSs
+          select one elementSpec related by containerARS->GD_ES[R31]; 
+          // note that this condition cound be set to symbolType=="container", but by doing the inverse
+          // of the pass 1 select we are sure to get all the items not covered in pass 1
+          if (not empty elementSpec and (elementSpec.symbolType != "shape" and elementSpec.symbolType != "container") )
+            containerARS.reconcileConnectorsNoExistingGraphics(diagram_id:model.diagramId, system_id:param.system_id);
+          end if;
+        end for;
       end if;          
     end if;
   end if;
