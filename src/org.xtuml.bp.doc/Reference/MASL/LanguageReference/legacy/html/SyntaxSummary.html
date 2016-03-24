@@ -1,0 +1,3538 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Appendix B. Syntax Summary</title>
+<link rel="stylesheet" type="text/css" href="docbook.css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<meta name="keywords" content="MASL, Action Language, Action Semantics, UML, Unified Modelling Language, Shlaer Mellor">
+<link rel="home" href="index.html" title="MASL Reference Manual">
+<link rel="up" href="index.html" title="MASL Reference Manual">
+<link rel="prev" href="LanguageDefinedCharacteristics.html" title="Appendix A. Language Defined Characteristics">
+<link rel="next" href="ix01.html" title="Index">
+<link rel="preface" href="preface.html" title="Preface">
+<link rel="chapter" href="Grammars.html" title="Chapter 1. Grammars">
+<link rel="chapter" href="LexicalStructure.html" title="Chapter 2. Lexical Structure">
+<link rel="chapter" href="Types.html" title="Chapter 3. Types">
+<link rel="chapter" href="TypeConversion.html" title="Chapter 4. Type Conversion">
+<link rel="chapter" href="Domains.html" title="Chapter 5. Domains">
+<link rel="chapter" href="Objects.html" title="Chapter 6. Objects">
+<link rel="chapter" href="Relationships.html" title="Chapter 7. Relationships">
+<link rel="chapter" href="Lifecycles.html" title="Chapter 8. Lifecycles">
+<link rel="chapter" href="Functions.html" title="Chapter 9. Functions">
+<link rel="chapter" href="Services.html" title="Chapter 10. Services">
+<link rel="chapter" href="Exceptions.html" title="Chapter 11. Exceptions">
+<link rel="chapter" href="Statements.html" title="Chapter 12. Statements">
+<link rel="chapter" href="Names.html" title="Chapter 13. Names">
+<link rel="chapter" href="Expressions.html" title="Chapter 14. Expressions">
+<link rel="appendix" href="LanguageDefinedCharacteristics.html" title="Appendix A. Language Defined Characteristics">
+<link rel="appendix" href="SyntaxSummary.html" title="Appendix B. Syntax Summary">
+<link rel="index" href="ix01.html" title="Index">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div align="center">OFFICIAL</div>
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">Appendix B. Syntax Summary</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="LanguageDefinedCharacteristics.html">Prev</a> </td>
+<th width="60%" align="center"> </th>
+<td width="20%" align="right"> <a accesskey="n" href="ix01.html">Next</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="appendix">
+<div class="titlepage"><div><div><h1 class="title">
+<a name="SyntaxSummary"></a>Syntax Summary</h1></div></div></div>
+<p>
+This appendix gives a summary of grammatical syntax of <abbr class="abbrev">MASL</abbr> in
+EBNF <a class="xref" href="Bibliography.html#EBNF96">[EBNF96]</a>. The control codes are defined in ISO/IEC 6429:1992
+<a class="xref" href="Bibliography.html#CCS92">[CCS92]</a> as set C0.
+</p>
+<table width="100%" cellpadding="5" bgcolor="#F5DCB3" border="1" class="productionset" summary="EBNF"><tr><td><table border="0" width="99%" cellpadding="0" bgcolor="#F5DCB3" class="productionset" summary="EBNF productions">
+<tr>
+<td align="left" valign="top" width="3%">[1]</td>
+<td align="right" valign="top" width="10%"><a href="GrammarsSyntacticGrammar.html#ebnf.goal">goal</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="GrammarsSyntacticGrammar.html#ebnf.goal">compilation unit</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[2]</td>
+<td align="right" valign="top" width="10%"><a href="LexicalStructureLineTerminators.html#ebnf.lineterminator">line terminator</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+       ? ISO 6429 Line Feed ? | 
+       ? ISO 6429 Carriage Return ? |
+       ? ISO 6429 Carriage Return ?,
+       ? ISO 6429 Line Feed ?
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[3]</td>
+<td align="right" valign="top" width="10%"><a href="LexicalStructureWhiteSpace.html#ebnf.whitespace">white space</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        ' ? ISO 646 Space character ?' | ? ISO 6429 Horizontal Tabulation ? |
+        ? ISO 6429 Form Feed ? |
+        <a href="LexicalStructureLineTerminators.html#ebnf.lineterminator">line terminator</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[4]</td>
+<td align="right" valign="top" width="10%"><a href="LexicalStructuresComments.html#ebnf.singlelinecomment">single line comment</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        '//',
+        {<a href="LexicalStructuresComments.html#ebnf.commentcharacter">comment character</a>}, 
+        <a href="LexicalStructureLineTerminators.html#ebnf.lineterminator">line terminator</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[5]</td>
+<td align="right" valign="top" width="10%"><a href="LexicalStructuresComments.html#ebnf.letter">letter</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+         'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g' | 'h' | 'i' | 'j' | 'k' | 'l' |
+         'm' | 'n' | 'o' | 'p' | 'q' | 'r' | 's' | 't' | 'u' | 'v' | 'w' | 'x' |
+         'y' | 'z' |
+         'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G' | 'H' | 'I' | 'J' | 'K' | 'L' |
+         'M' | 'N' | 'O' | 'P' | 'Q' | 'R' | 'S' | 'T' | 'U' | 'V' | 'W' | 'X' |
+         'Y' | 'Z'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[6]</td>
+<td align="right" valign="top" width="10%"><a href="LexicalStructuresComments.html#ebnf.digit">digit</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[7]</td>
+<td align="right" valign="top" width="10%"><a href="LexicalStructuresComments.html#ebnf.othercharacter">other character</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+         '!' | '"' | '#' | '$' | '%' | '&amp;' | ''' | '(' | ')' | '*' | '+' | ',' |
+         '-' | '.' | '/' | ':' | ';' | '&lt;' | '=' | '&gt;' | '?' | '@' | '[' | '\' |
+         ']' | '^' | '_' | '`' | '{' | '|' | '}' | '~'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[8]</td>
+<td align="right" valign="top" width="10%"><a href="LexicalStructuresComments.html#ebnf.commentcharacter">comment character</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="LexicalStructuresComments.html#ebnf.letter">letter</a> |
+        <a href="LexicalStructuresComments.html#ebnf.digit">digit</a> |
+        <a href="LexicalStructuresComments.html#ebnf.othercharacter">other character</a> |
+        <a href="LexicalStructureWhiteSpace.html#ebnf.whitespace">white space</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[9]</td>
+<td align="right" valign="top" width="10%"><a href="LexicalStructureIdentifiers.html#ebnf.identifier">identifier</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="LexicalStructuresComments.html#ebnf.letter">letter</a>
+        {(<a href="LexicalStructuresComments.html#ebnf.letter">letter</a> |
+        <a href="LexicalStructuresComments.html#ebnf.digit">digit</a> |
+        <a href="LexicalStructureIdentifiers.html#ebnf.underscore">underscore</a>)}
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[10]</td>
+<td align="right" valign="top" width="10%"><a href="LexicalStructureIdentifiers.html#ebnf.underscore">underscore</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        '_'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[11]</td>
+<td align="right" valign="top" width="10%"><a href="LexicalStructureIdentifiers.html#ebnf.relationshipnumber">relationship number</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        'R', <a href="LexicalStructureIdentifiers.html#ebnf.nonzerodigit">non zero digit</a>,
+        {<a href="LexicalStructuresComments.html#ebnf.digit">digit</a>}
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[12]</td>
+<td align="right" valign="top" width="10%"><a href="LexicalStructureIdentifiers.html#ebnf.nonzerodigit">non zero digit</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="LexicalStructuresComments.html#ebnf.digit">digit</a> - '0'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[13]</td>
+<td align="right" valign="top" width="10%"><a href="LexicalStructureReservedWords.html#ebnf.reservedwords">reserved words</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        'abs' |
+        'and' |
+        'any' |
+        'array' |
+        'assigner' |
+        'associate' |
+        'bag' |
+        'begin' |
+        'boolean' |
+        'byte' |
+        'Cannot_Happen' |
+        'case' |
+        'character' |
+        'conditionally' |
+        'console' |
+        'create' |
+        'creation' |
+        'Current_State' |
+        'declare' |
+        'deferred' |
+        'delay' |
+        'delete' |
+        'delta' |
+        'device' |
+        'digits' |
+        'disunion' |
+        'domain' |
+        'elements' |
+        'else' |
+        'elsif' |
+        'end' |
+        'enum' |
+        'event' |
+        'exception' |
+        'exit' |
+        'false' |
+        'find_all' |
+        'find_one' |
+        'find_only' |
+        'find' |
+        'for' |
+        'from' |
+        'functions' |
+        'generate' |
+        'identifier' |
+        'if' |
+        'Ignore' |
+        'in' |
+        'instance' |
+        'intersection' |
+        'is' |
+        'is_a' |
+        'link' |
+        'loop' |
+        'many' |
+        'mod' |
+        'native' |
+        'Non_Existent' |
+        'not' |
+        'not_in' |
+        'null' |
+        'numeric' |
+        'object' |
+        'of' |
+        'one' |
+        'ordered_by' |
+        'or' |
+        'others' |
+        'out' |
+        'pragma' |
+        'preferred' |
+        'private' |
+        'project' |
+        'public' |
+        'raises' |
+        'raise' |
+        'range' |
+        'readonly' |
+        'referential' |
+        'relationship' |
+        'rem' |
+        'return' |
+        'reverse_ordered_by' |
+        'reverse' |
+        'sequence' |
+        'service' |
+        'set' |
+        'start' |
+        'state' |
+        'string' |
+        'structure' |
+        'subtype' |
+        'terminal' |
+        'then' |
+        'this' |
+        'to' |
+        'transition' |
+        'true' |
+        'type' |
+        'unassociate' |
+        'unconditionally' |
+        'union' |
+        'unique' |
+        'unlink' |
+        'using' |
+        'wcharacter' |
+        'when' |
+        'while' |
+        'with' |
+        'wstring' |
+        'xor'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[14]</td>
+<td align="right" valign="top" width="10%"><a href="LexicalStructureLiterals.html#ebnf.literal">literal</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="LexicalStructureLiterals.html#ebnf.numericliteral">numeric literal</a> |
+        <a href="LexicalStructureLiterals.html#ebnf.characterliteral">character literal</a> |
+        <a href="LexicalStructureLiterals.html#ebnf.stringliteral">string literal</a> |
+        <a href="LexicalStructureLiterals.html#ebnf.booleanliteral">boolean literal</a> |
+        <a href="TypesFullDeclarations.html#ebnf.enumeratorliteral">enumerator literal</a> |
+        <a href="LexicalStructureLiterals.html#ebnf.nullliteral">null literal</a> |
+        <a href="LexicalStructureLiterals.html#ebnf.deviceliteral">device literal</a> |
+        <a href="LexicalStructureLiterals.html#ebnf.streamliteral">stream literal</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[15]</td>
+<td align="right" valign="top" width="10%"><a href="LexicalStructureLiterals.html#ebnf.numericliteral">numeric literal</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="LexicalStructureLiterals.html#ebnf.decimalliteral">decimal literal</a> |
+        <a href="LexicalStructureLiterals.html#ebnf.basedliteral">based literal</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[16]</td>
+<td align="right" valign="top" width="10%"><a href="LexicalStructureLiterals.html#ebnf.decimalliteral">decimal literal</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="LexicalStructureLiterals.html#ebnf.numeral">numeral</a>,
+        ('' | '.',
+        <a href="LexicalStructureLiterals.html#ebnf.numeral">numeral</a> |
+        <a href="LexicalStructureLiterals.html#ebnf.exponent">exponent</a>)
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[17]</td>
+<td align="right" valign="top" width="10%"><a href="LexicalStructureLiterals.html#ebnf.numeral">numeral</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="LexicalStructuresComments.html#ebnf.digit">digit</a>,
+        {<a href="LexicalStructuresComments.html#ebnf.digit">digit</a>}
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[18]</td>
+<td align="right" valign="top" width="10%"><a href="LexicalStructureLiterals.html#ebnf.exponent">exponent</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        ('e'|'E'), [('+'|'-')],
+        <a href="LexicalStructureLiterals.html#ebnf.numeral">numeral</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[19]</td>
+<td align="right" valign="top" width="10%"><a href="LexicalStructureLiterals.html#ebnf.basedliteral">based literal</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="LexicalStructureLiterals.html#ebnf.base">base</a>, '#',
+        <a href="LexicalStructureLiterals.html#ebnf.basednumeral">based numeral</a>,
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[20]</td>
+<td align="right" valign="top" width="10%"><a href="LexicalStructureLiterals.html#ebnf.base">base</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="LexicalStructureLiterals.html#ebnf.numeral">numeral</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[21]</td>
+<td align="right" valign="top" width="10%"><a href="LexicalStructureLiterals.html#ebnf.basednumeral">based numeral</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="LexicalStructureLiterals.html#ebnf.extendeddigit">extended digit</a>,
+        {<a href="LexicalStructureLiterals.html#ebnf.extendeddigit">extended digit</a>}
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[22]</td>
+<td align="right" valign="top" width="10%"><a href="LexicalStructureLiterals.html#ebnf.extendeddigit">extended digit</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="LexicalStructuresComments.html#ebnf.digit">digit</a> |
+        <a href="LexicalStructuresComments.html#ebnf.letter">letter</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[23]</td>
+<td align="right" valign="top" width="10%"><a href="LexicalStructureLiterals.html#ebnf.characterliteral">character literal</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        ''',
+        <a href="LexicalStructureLiterals.html#ebnf.singlecharacter">single character</a>,
+        ''' |
+        ''',
+        <a href="LexicalStructureLiterals.html#ebnf.escapesequence">escape sequence</a>,
+        '''
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[24]</td>
+<td align="right" valign="top" width="10%"><a href="LexicalStructureLiterals.html#ebnf.singlecharacter">single character</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        [(<a href="LexicalStructuresComments.html#ebnf.letter">letter</a> |
+        ((<a href="LexicalStructuresComments.html#ebnf.othercharacter">other character</a>
+        - ''') - '\')]
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[25]</td>
+<td align="right" valign="top" width="10%"><a href="LexicalStructureLiterals.html#ebnf.stringliteral">string literal</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        '"',
+        {<a href="LexicalStructureLiterals.html#ebnf.stringcharacter">string character</a>},
+        '"'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[26]</td>
+<td align="right" valign="top" width="10%"><a href="LexicalStructureLiterals.html#ebnf.stringcharacter">string character</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        [(<a href="LexicalStructuresComments.html#ebnf.letter">letter</a> |
+        <a href="LexicalStructureLiterals.html#ebnf.escapesequence">escape sequence</a>,
+        ((<a href="LexicalStructuresComments.html#ebnf.othercharacter">other character</a>
+        - '"') - '\')]
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[27]</td>
+<td align="right" valign="top" width="10%"><a href="LexicalStructureLiterals.html#ebnf.escapesequence">escape sequence</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        '\n' | '\r' | '\t' | '\b' | '\f' | '\"' | '\'' | '\\' |
+        <a href="LexicalStructureLiterals.html#ebnf.octalescape">octal escape</a> |
+        <a href="LexicalStructureLiterals.html#ebnf.unicodeescape">unicode escape</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[28]</td>
+<td align="right" valign="top" width="10%"><a href="LexicalStructureLiterals.html#ebnf.octalescape">octal escape</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        '\',
+        <a href="ebnf.octalleaddigit">octal lead digit</a>,
+        2 * {<a href="ebnf.octaldigit">octal digit</a>}
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[29]</td>
+<td align="right" valign="top" width="10%"><a href="LexicalStructureLiterals.html#ebnf.octalleaddigit">octal lead digit</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        '0' | '1' | '2' | '3'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[30]</td>
+<td align="right" valign="top" width="10%"><a href="LexicalStructureLiterals.html#ebnf.octaldigit">octal digit</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[31]</td>
+<td align="right" valign="top" width="10%"><a href="LexicalStructureLiterals.html#ebnf.unicodeescape">unicode escape</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        '\u', <a href="LexicalStructureLiterals.html#ebnf.extendeddigit">extended digit</a>,
+        <a href="LexicalStructureLiterals.html#ebnf.extendeddigit">extended digit</a>,
+        <a href="LexicalStructureLiterals.html#ebnf.extendeddigit">extended digit</a>,
+        <a href="LexicalStructureLiterals.html#ebnf.extendeddigit">extended digit</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[32]</td>
+<td align="right" valign="top" width="10%"><a href="LexicalStructureLiterals.html#ebnf.booleanliteral">boolean literal</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        'false' | 'true'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[33]</td>
+<td align="right" valign="top" width="10%"><a href="LexicalStructureLiterals.html#ebnf.nullliteral">null literal</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        'null'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[34]</td>
+<td align="right" valign="top" width="10%"><a href="LexicalStructureLiterals.html#ebnf.deviceliteral">device literal</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        'console'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[35]</td>
+<td align="right" valign="top" width="10%"><a href="LexicalStructureLiterals.html#ebnf.streamliteral">stream literal</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        'endl' | 'flush'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[36]</td>
+<td align="right" valign="top" width="10%"><a href="LexicalStructureSeparators.html#ebnf.separator">separator</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        ''' | '(' | ')' | '|' | ',' | '.' |'..' | ':' | '::' | ':=' | ';' |
+        '=&gt;' | '[' | ']'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[37]</td>
+<td align="right" valign="top" width="10%"><a href="LexicalStructureOperators.html#ebnf.operator">operator</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        '*' | '**' | '+' | '-' | '&amp;' | '-&gt;' | '/' | '/=' | '&lt;' |
+        '&lt;=' | '=' | '&gt;' | '&gt;=' | '&gt;&gt;' | '&lt;&lt;'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[38]</td>
+<td align="right" valign="top" width="10%"><a href="LexicalStructurePragmas.html#ebnf.pragmalist">pragma list</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        {<a href="LexicalStructurePragmas.html#ebnf.pragma">pragma</a>, ';'}
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[39]</td>
+<td align="right" valign="top" width="10%"><a href="LexicalStructurePragmas.html#ebnf.pragma">pragma</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        'pragma',
+        <a href="LexicalStructurePragmas.html#ebnf.pragmaname">pragma name</a>,
+        '(',
+        <a href="LexicalStructurePragmas.html#ebnf.pragmavaluelist">pragma value list</a>,
+        ')'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[40]</td>
+<td align="right" valign="top" width="10%"><a href="LexicalStructurePragmas.html#ebnf.pragmaname">pragma name</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="LexicalStructureIdentifiers.html#ebnf.identifier">identifier</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[41]</td>
+<td align="right" valign="top" width="10%"><a href="LexicalStructurePragmas.html#ebnf.pragmavaluelist">pragma value list</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="LexicalStructurePragmas.html#ebnf.pragmavalue">pragma value</a>,
+        {(',',
+        <a href="LexicalStructurePragmas.html#ebnf.pragmavalue">pragma value</a>
+        )}
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[42]</td>
+<td align="right" valign="top" width="10%"><a href="LexicalStructurePragmas.html#ebnf.pragmavalue">pragma value</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="LexicalStructureIdentifiers.html#ebnf.identifier">identifier</a> |
+        <a href="LexicalStructureLiterals.html#ebnf.literal">literal</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[43]</td>
+<td align="right" valign="top" width="10%"><a href="TypesTypeSpecification.html#ebnf.type">type</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="TypesBuiltinTypes.html#ebnf.builtintype">built-in type</a> |
+        <a href="TypesCollectionTypes.html#ebnf.collectiontype">collection type</a> |
+        <a href="TypesInstanceTypes.html#ebnf.instancetype">instance type</a> |
+        <a href="TypesUserDefinedTypes.html#ebnf.userdefinedtype">user defined type</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[44]</td>
+<td align="right" valign="top" width="10%"><a href="TypesBuiltinTypes.html#ebnf.builtintype">built-in type</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        'character' |
+        'wcharacter' |
+        'boolean' |
+        'byte' |
+        'string' |
+        'wstring' |
+        'device' |
+        'enum' |
+        'event' |
+        'instance'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[45]</td>
+<td align="right" valign="top" width="10%"><a href="TypesCollectionTypes.html#ebnf.collectiontype">collection type</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">    
+        <a href="TypesCollectionTypes.html#ebnf.settype">set type</a> |
+        <a href="TypesCollectionTypes.html#ebnf.bagtype">bag type</a> |
+        <a href="TypesCollectionTypes.html#ebnf.sequencetype">sequence type</a> |
+        <a href="TypesCollectionTypes.html#ebnf.arraytype">array type</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[46]</td>
+<td align="right" valign="top" width="10%"><a href="TypesCollectionTypes.html#ebnf.settype">set type</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        'set of',
+        <a href="TypesTypeSpecification.html#ebnf.type">type</a>        
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[47]</td>
+<td align="right" valign="top" width="10%"><a href="TypesCollectionTypes.html#ebnf.bagtype">bag type</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        'bag of',
+        <a href="TypesTypeSpecification.html#ebnf.type">type</a>        
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[48]</td>
+<td align="right" valign="top" width="10%"><a href="TypesCollectionTypes.html#ebnf.sequencetype">sequence type</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        'sequence', ['(',
+        <a href="ExpressionsExpression.html#ebnf.expression">expression</a>,
+        ')'], 'of',
+        <a href="TypesTypeSpecification.html#ebnf.type">type</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[49]</td>
+<td align="right" valign="top" width="10%"><a href="TypesCollectionTypes.html#ebnf.arraytype">array type</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        'array', '(',
+        <a href="TypesFullDeclarations.html#ebnf.range">range</a>,
+        ')', 'of',
+        <a href="TypesTypeSpecification.html#ebnf.type">type</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[50]</td>
+<td align="right" valign="top" width="10%"><a href="TypesInstanceTypes.html#ebnf.instancetype">instance type</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        'instance', 'of',
+        <a href="DomainsNamesandScoping.html#ebnf.scopedname">scoped name</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[51]</td>
+<td align="right" valign="top" width="10%"><a href="TypesUserDefinedTypes.html#ebnf.userdefinedtype">user defined type</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="DomainsNamesandScoping.html#ebnf.scopedname">scoped name</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[52]</td>
+<td align="right" valign="top" width="10%"><a href="TypesTypeDeclarations.html#ebnf.typedeclaration">type declaration</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="TypesTypeDeclarations.html#ebnf.typemodifier">type modifier</a>,
+        'type',
+        <a href="TypesTypeDeclarations.html#ebnf.typename">type name</a>,
+        'is'
+        <a href="TypesFullDeclarations.html#ebnf.typedefinition">type definition</a>,
+        ';' |
+        <a href="TypesTypeDeclarations.html#ebnf.typemodifier">type modifier</a>,
+        'subtype',
+        <a href="TypesTypeDeclarations.html#ebnf.typename">type name</a>,
+        'is'
+        <a href="TypesSubtypeDeclarations.html#ebnf.subtypedefinition">subtype definition</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[53]</td>
+<td align="right" valign="top" width="10%"><a href="TypesTypeDeclarations.html#ebnf.typename">type name</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="LexicalStructureIdentifiers.html#ebnf.identifier">identifier</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[54]</td>
+<td align="right" valign="top" width="10%"><a href="TypesTypeDeclarations.html#ebnf.typemodifier">type modifier</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        [ ( 'public' | 'private' ) ]
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[55]</td>
+<td align="right" valign="top" width="10%"><a href="TypesFullDeclarations.html#ebnf.typedefinition">type definition</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="TypesTypeSpecification.html#ebnf.type">type</a>,
+        [<a href="TypesFullDeclarations.html#ebnf.constraint">constraint</a>] |
+        <a href="TypesFullDeclarations.html#ebnf.numerictypedefinition">numeric type definition</a> |
+        <a href="TypesFullDeclarations.html#ebnf.structuretypedefinition">structure type definition</a> |
+        <a href="TypesFullDeclarations.html#ebnf.enumerationtypedefinition">enumeration type definition</a> |
+        <a href="TypesFullDeclarations.html#ebnf.unconstrainedarraytypedefinition">unconstrained array type definition</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[56]</td>
+<td align="right" valign="top" width="10%"><a href="TypesFullDeclarations.html#ebnf.numerictypedefinition">numeric type definition</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        'numeric',
+        <a href="TypesFullDeclarations.html#ebnf.constraint">constraint</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[57]</td>
+<td align="right" valign="top" width="10%"><a href="TypesFullDeclarations.html#ebnf.constraint">constraint</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="TypesFullDeclarations.html#ebnf.rangeconstraint">range constraint</a> |
+        <a href="TypesFullDeclarations.html#ebnf.digitsconstraint">digits constraint</a> |
+        <a href="TypesFullDeclarations.html#ebnf.deltaconstraint">delta constraint</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[58]</td>
+<td align="right" valign="top" width="10%"><a href="TypesFullDeclarations.html#ebnf.rangeconstraint">range constraint</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        'range',
+        <a href="TypesFullDeclarations.html#ebnf.range">range</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[59]</td>
+<td align="right" valign="top" width="10%"><a href="TypesFullDeclarations.html#ebnf.range">range</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="ExpressionsExpression.html#ebnf.expression">expression</a>,
+        '..',
+        <a href="ExpressionsExpression.html#ebnf.expression">expression</a> |
+        <a href="Names.html#ebnf.name">name</a>,
+        ''', 'range', [('(', ')')] |
+        <a href="Names.html#ebnf.name">name</a>,
+        ''', 'elements', [('(', ')')] |
+        <a href="TypesTypeSpecification.html#ebnf.type">type</a>,
+        ''', 'elements', [('(', ')')] |
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[60]</td>
+<td align="right" valign="top" width="10%"><a href="TypesFullDeclarations.html#ebnf.digitsconstraint">digits constraint</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        'digits',
+        <a href="ExpressionsConstantExpressions.html#ebnf.constantexpression">constant expression</a>,
+        <a href="TypesFullDeclarations.html#ebnf.rangeconstraint">range constraint</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[61]</td>
+<td align="right" valign="top" width="10%"><a href="TypesFullDeclarations.html#ebnf.deltaconstraint">delta constraint</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        'delta',
+        <a href="ExpressionsConstantExpressions.html#ebnf.constantexpression">constant expression</a>,
+        <a href="TypesFullDeclarations.html#ebnf.rangeconstraint">range constraint</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[62]</td>
+<td align="right" valign="top" width="10%"><a href="TypesFullDeclarations.html#ebnf.structuretypedefinition">structure type definition</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        'structure',
+        <a href="TypesFullDeclarations.html#ebnf.component">component</a>,
+        {<a href="TypesFullDeclarations.html#ebnf.component">component</a>}
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[63]</td>
+<td align="right" valign="top" width="10%"><a href="TypesFullDeclarations.html#ebnf.component">component</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="TypesFullDeclarations.html#ebnf.componentname">component name</a>,
+        ':'
+        <a href="TypesTypeSpecification.html#ebnf.type">type</a>,
+        [(':=',
+        <a href="ExpressionsConstantExpressions.html#ebnf.constantexpression">constant expression</a>],
+        ';'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[64]</td>
+<td align="right" valign="top" width="10%"><a href="TypesFullDeclarations.html#ebnf.componentname">component name</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="LexicalStructureIdentifiers.html#ebnf.identifier">identifier</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[65]</td>
+<td align="right" valign="top" width="10%"><a href="TypesFullDeclarations.html#ebnf.enumerationtypedefinition">enumeration type definition</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        'enum', '(',
+        <a href="TypesFullDeclarations.html#ebnf.enumerator">enumerator</a>,
+        [(',',
+        <a href="TypesFullDeclarations.html#ebnf.enumerator">enumerator</a>)],
+        ')'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[66]</td>
+<td align="right" valign="top" width="10%"><a href="TypesFullDeclarations.html#ebnf.enumerator">enumerator</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="TypesFullDeclarations.html#ebnf.enumeratorname">enumerator name</a>,
+        [ '=',
+        <a href="ExpressionsConstantExpressions.html#ebnf.constantexpression">constant expression</a> ]
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[67]</td>
+<td align="right" valign="top" width="10%"><a href="TypesFullDeclarations.html#ebnf.enumeratorname">enumerator name</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="LexicalStructureIdentifiers.html#ebnf.identifier">identifier</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[68]</td>
+<td align="right" valign="top" width="10%"><a href="TypesFullDeclarations.html#ebnf.enumeratorliteral">enumerator literal</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="TypesFullDeclarations.html#ebnf.enumeratorname">enumerator name</a> |
+        <a href="TypesTypeDeclarations.html#ebnf.typename">type name</a>,
+        '.',
+        <a href="TypesFullDeclarations.html#ebnf.enumeratorname">enumerator name</a> |
+        <a href="DomainsDomainDeclaration.html#ebnf.domainname">domain name</a>,
+        '::',
+        <a href="TypesFullDeclarations.html#ebnf.enumeratorname">enumerator name</a> |
+        <a href="DomainsDomainDeclaration.html#ebnf.domainname">domain name</a>,
+        '::',
+        <a href="TypesTypeDeclarations.html#ebnf.typename">type name</a>,
+        '.',
+        <a href="TypesFullDeclarations.html#ebnf.enumeratorname">enumerator name</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[69]</td>
+<td align="right" valign="top" width="10%"><a href="TypesFullDeclarations.html#ebnf.unconstrainedarraytypedefinition">unconstrained array type definition</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        'array', '(',
+        <a href="TypesTypeSpecification.html#ebnf.type">type</a>,
+        'range', '&lt;&gt;', ')', 'of',
+        <a href="TypesTypeSpecification.html#ebnf.type">type</a>,
+        ';'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[70]</td>
+<td align="right" valign="top" width="10%"><a href="TypesSubtypeDeclarations.html#ebnf.subtypedefinition">
+        subtype definition
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="TypesUserDefinedTypes.html#ebnf.userdefinedtype">user defined type</a>,
+        '(',
+        <a href="TypesFullDeclarations.html#ebnf.range">range</a>,
+        ')', ';' |
+        <a href="TypesTypeSpecification.html#ebnf.type">type</a>,
+        [<a href="TypesFullDeclarations.html#ebnf.constraint">constraint</a>],
+        ';'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[71]</td>
+<td align="right" valign="top" width="10%"><a href="TypesVariableDeclarations.html#ebnf.variabledeclaration">
+        variable declaration
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="TypesVariableDeclarations.html#ebnf.variablename">variable name</a>,
+        ':',
+        [<a href="TypesVariableDeclarations.html#ebnf.modifier">modifier</a>],
+        <a href="TypesTypeSpecification.html#ebnf.type">type</a>,
+        [('(',
+        <a href="TypesFullDeclarations.html#ebnf.range">range</a>,
+        ')')], [(':=',
+        [<a href="ExpressionsExecutableUMLExpressions.html#ebnf.extendedexpression">extended expression</a>],
+        ';'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[72]</td>
+<td align="right" valign="top" width="10%"><a href="TypesVariableDeclarations.html#ebnf.variablename">
+        variable name
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="LexicalStructureIdentifiers.html#ebnf.identifier">identifier</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[73]</td>
+<td align="right" valign="top" width="10%"><a href="TypesVariableDeclarations.html#ebnf.modifier">
+        modifier
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        'readonly'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[74]</td>
+<td align="right" valign="top" width="10%"><a href="DomainsCompilationUnits.html#ebnf.compilationunit">
+        compilation unit
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="DomainsProjectDeclaration.html#ebnf.projectdeclaration">project declaration</a> |
+        <a href="DomainsDomainDeclaration.html#ebnf.domaindeclaration">domain declaration</a> |
+        <a href="DomainsDomainDefintions.html#ebnf.domaindefinition">domain definition</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[75]</td>
+<td align="right" valign="top" width="10%"><a href="DomainsProjectDeclaration.html#ebnf.projectdeclaration">
+        project declaration
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        'project',
+        <a href="DomainsProjectDeclaration.html#ebnf.projectname">project name</a>,
+        'is',
+        {<a href="DomainsProjectDeclaration.html#ebnf.projectdeclarativeitem">project declarative item</a>},
+        'end', ['project'], ';'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[76]</td>
+<td align="right" valign="top" width="10%"><a href="DomainsProjectDeclaration.html#ebnf.projectname">
+        project name
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="LexicalStructureIdentifiers.html#ebnf.identifier">identifier</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[77]</td>
+<td align="right" valign="top" width="10%"><a href="DomainsProjectDeclaration.html#ebnf.projectdeclarativeitem">
+        project declaration item
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        'domain',
+        <a href="DomainsDomainDeclaration.html#ebnf.domainname">domain name</a>,
+        ';'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[78]</td>
+<td align="right" valign="top" width="10%"><a href="DomainsDomainDeclaration.html#ebnf.domaindeclaration">
+        domain declaration
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        'domain',
+        <a href="DomainsDomainDeclaration.html#ebnf.domainname">domain name</a>,
+        'is',
+        {<a href="DomainsDomainMembers.html#ebnf.domaindeclarativeitem">domain declarative item</a>},
+        'end', ['domain'], ';'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[79]</td>
+<td align="right" valign="top" width="10%"><a href="DomainsDomainDeclaration.html#ebnf.domainname">
+        domain name
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="LexicalStructureIdentifiers.html#ebnf.identifier">identifier</a>,
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[80]</td>
+<td align="right" valign="top" width="10%"><a href="DomainsDomainMembers.html#ebnf.domaindeclarativeitem">
+        domain declarative item
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="TypesTypeDeclarations.html#ebnf.typedeclaration">type declaration</a> |
+        <a href="ExceptionsExceptionDeclarations.html#ebnf.exceptiondeclaration">exception declaration</a> |
+        <a href="ObjectsObjectDeclaration.html#ebnf.objectdeclaration">object declaration</a> |
+        <a href="ServicesDomainServices.html#ebnf.domainservicedeclaration">domain service declaration</a> |
+        <a href="FunctionsDomainFunctions.html#ebnf.domainfunctiondeclaration">domain function declaration</a> |
+        <a href="ObjectsObjectPredeclaration.html#ebnf.objectpredeclaration">object predeclaration</a> |
+        <a href="RelationshipsRelationshipDeclarations.html#ebnf.relationshipdeclaration">relationship declaration</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[81]</td>
+<td align="right" valign="top" width="10%"><a href="DomainsDomainDefintions.html#ebnf.domaindefinition">
+        domain definition
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="LifecyclesStates.html#ebnf.statedefinition">state definition</a> |
+        <a href="ServicesObjectServices.html#ebnf.objectservicedefinition">object service definition</a> |
+        <a href="ServicesDomainServices.html#ebnf.domainservicedefinition">domain service definition</a> |
+        <a href="FunctionsDomainFunctions.html#ebnf.domainfunctiondefinition">domain function definition</a> |
+        <a href="FunctionsObjectFunctions.html#ebnf.objectfunctiondefinition">object function definition</a> 
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[82]</td>
+<td align="right" valign="top" width="10%"><a href="DomainsNamesandScoping.html#ebnf.scopedname">scoped name</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="LexicalStructureIdentifiers.html#ebnf.identifier">identifier</a> |
+        ('::',
+        <a href="LexicalStructureIdentifiers.html#ebnf.identifier">identifier</a>) |
+        (<a href="DomainsNamesandScoping.html#ebnf.scopedname">scoped name</a>,
+        '::',
+        <a href="LexicalStructureIdentifiers.html#ebnf.identifier">identifier</a>)
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[83]</td>
+<td align="right" valign="top" width="10%"><a href="ObjectsObjectDeclaration.html#ebnf.objectdeclaration">
+        object declaration
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        'object',
+        <a href="ObjectsObjectDeclaration.html#ebnf.objectname">object name</a>,
+        'is',
+        {<a href="ObjectsObjectMembers.html#ebnf.objectdeclarativeitem">object declarative item</a>},
+        'end', ['object'], ';'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[84]</td>
+<td align="right" valign="top" width="10%"><a href="ObjectsObjectDeclaration.html#ebnf.objectname">
+        object name
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="LexicalStructureIdentifiers.html#ebnf.identifier">identifier</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[86]</td>
+<td align="right" valign="top" width="10%"><a href="ObjectsObjectMembers.html#ebnf.objectdeclarativeitem">
+        object declarative item
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="ObjectsAttributes.html#ebnf.attributedeclaration">attribute declaration</a> |
+        <a href="ServicesObjectServices.html#ebnf.objectservicedeclaration">object service declaration</a> |
+        <a href="FunctionsObjectFunctions.html#ebnf.objectfunctiondeclaration">object function declaration</a> |
+        <a href="LifecyclesEvents.html#ebnf.eventdeclaration">event declaration</a> |
+        <a href="ObjectsAttributes.html#ebnf.identifierdeclaration">identifier declaration</a> |
+        <a href="LifecyclesStates.html#ebnf.statedeclaration">state declaration</a> |
+        <a href="LifecyclesTransitions.html#ebnf.transitiontabledeclaration">transition table declaration</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[85]</td>
+<td align="right" valign="top" width="10%"><a href="ObjectsObjectPredeclaration.html#ebnf.objectpredeclaration">
+        object predeclaration
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        'object',
+        <a href="ObjectsObjectDeclaration.html#ebnf.objectname">object name</a>,
+        ';'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[87]</td>
+<td align="right" valign="top" width="10%"><a href="ObjectsAttributes.html#ebnf.attributedeclaration">
+        attribute declaration
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="ObjectsAttributes.html#ebnf.attributename">attribute name</a>,
+        ':',
+        <a href="ObjectsAttributes.html#ebnf.attributemodifier">attribute modifier</a>,
+        <a href="TypesTypeSpecification.html#ebnf.type">type</a>,
+        [('(',
+        <a href="TypesFullDeclarations.html#ebnf.range">range</a>
+        , ')'], [(':=',
+        <a href="ExpressionsConstantExpressions.html#ebnf.constantexpression">constant expression</a>)],
+        ';'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[88]</td>
+<td align="right" valign="top" width="10%"><a href="ObjectsAttributes.html#ebnf.attributename">
+        attribute name
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="LexicalStructureIdentifiers.html#ebnf.identifier">identifier</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[89]</td>
+<td align="right" valign="top" width="10%"><a href="ObjectsAttributes.html#ebnf.attributemodifier">
+        attribute modifier
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        ['preferred'], [('referential',
+        <a href="LexicalStructureIdentifiers.html#ebnf.identifier">relationship formalization</a>)]
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[90]</td>
+<td align="right" valign="top" width="10%"><a href="ObjectsAttributes.html#ebnf.identifierdeclaration">
+        identifier declaration
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="LexicalStructureIdentifiers.html#ebnf.identifier">identifier</a>,
+        'is', '(',
+        <a href="ObjectsAttributes.html#ebnf.attributename">attribute name</a>,
+        {(',',
+        <a href="ObjectsAttributes.html#ebnf.attributename">attribute name</a>)},
+        ')', ';'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[91]</td>
+<td align="right" valign="top" width="10%"><a href="ObjectsAttributes.html#ebnf.relationshipformalization">
+        relationship formalization
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        '(',
+        <a href="RelationshipsRelationshipSpecifications.html#ebnf.relationshipspecification">relationship specification</a>,
+        '.',
+        <a href="ObjectsAttributes.html#ebnf.attributename">attribute name</a>,
+        {(',',
+        <a href="RelationshipsRelationshipSpecifications.html#ebnf.relationshipspecification">relationship specification</a>,
+        '.',
+        <a href="ObjectsAttributes.html#ebnf.attributename">attribute name</a>)},
+        ')'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[92]</td>
+<td align="right" valign="top" width="10%"><a href="RelationshipsRelationshipDeclarations.html#ebnf.relationshipdeclaration">
+        relationship declaration
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        'relationship',
+        <a href="LexicalStructureIdentifiers.html#ebnf.relationshipnumber">relationship number</a>,
+        'is',
+        <a href="RelationshipsRelationshipDeclarations.html#ebnf.relationshipdefinition">relationship definition</a>,
+        ';'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[93]</td>
+<td align="right" valign="top" width="10%"><a href="RelationshipsRelationshipDeclarations.html#ebnf.relationshipdefinition">
+        relationship definition
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="RelationshipsSubtypeRelationships.html#ebnf.subtyperelationshipdefinition">subtype relationship definition</a> |
+        <a href="RegularRelationships.html#ebnf.regularrelationshipdefinition">regular relationship definition</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[94]</td>
+<td align="right" valign="top" width="10%"><a href="RegularRelationships.html#ebnf.regularrelationshipdefinition">
+        regular relationship definition
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="RegularRelationships.html#ebnf.relationshipdescription">relationship description</a>,
+        ',',
+        <a href="RegularRelationships.html#ebnf.relationshipdescription">relationship description</a>,
+        [<a href="RegularRelationships.html#ebnf.associativerelationship">associative relationship</a>]
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[95]</td>
+<td align="right" valign="top" width="10%"><a href="RegularRelationships.html#ebnf.relationshipdescription">
+        relationship description
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="ObjectsObjectDeclaration.html#ebnf.objectname">object name</a>,
+        <a href="RegularRelationships.html#ebnf.relationshipconditionality">relationship conditionality</a>,
+        <a href="RegularRelationships.html#ebnf.rolename">role name</a>,
+        <a href="RegularRelationships.html#ebnf.relationshipmultiplicity">relationship multiplicity</a>,
+        <a href="ObjectsObjectDeclaration.html#ebnf.objectname">object name</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[96]</td>
+<td align="right" valign="top" width="10%"><a href="RegularRelationships.html#ebnf.rolename">
+        role name
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="LexicalStructureIdentifiers.html#ebnf.identifier">identifier</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[97]</td>
+<td align="right" valign="top" width="10%"><a href="RegularRelationships.html#ebnf.relationshipconditionality">
+        relationship conditionality
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        'unconditionally' | 'conditionally'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[98]</td>
+<td align="right" valign="top" width="10%"><a href="RegularRelationships.html#ebnf.relationshipmultiplicity">
+        relationship multiplicity
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        'one' | 'many'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[99]</td>
+<td align="right" valign="top" width="10%"><a href="RegularRelationships.html#ebnf.associativerelationship">
+        associative relationship
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        'using',
+        <a href="RegularRelationships.html#ebnf.relationshipmultiplicity">relationship multiplicity</a>,
+        <a href="ObjectsObjectDeclaration.html#ebnf.objectname">object name</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[100]</td>
+<td align="right" valign="top" width="10%"><a href="RelationshipsSubtypeRelationships.html#ebnf.subtyperelationshipdefinition">
+        subtype relationship definition
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="ObjectsObjectDeclaration.html#ebnf.objectname">object name</a>,
+        'is_a', '(',
+        <a href="ObjectsObjectDeclaration.html#ebnf.objectname">object name</a>,
+        {(',',
+        <a href="ObjectsObjectDeclaration.html#ebnf.objectname">object name</a>},
+        ')'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[101]</td>
+<td align="right" valign="top" width="10%"><a href="RelationshipsRelationshipSpecifications.html#ebnf.relationshipspecification">
+        relationship specification
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="LexicalStructureIdentifiers.html#ebnf.relationshipnumber">relationship number</a>,
+        '.',
+        <a href="RelationshipsRelationshipSpecifications.html#ebnf.role">role</a>,
+        '.',
+        <a href="ObjectsObjectDeclaration.html#ebnf.objectname">object name</a> |
+        <a href="LexicalStructureIdentifiers.html#ebnf.relationshipnumber">relationship number</a>,
+        '.',
+        <a href="RelationshipsRelationshipSpecifications.html#ebnf.role">role</a> |
+        <a href="LexicalStructureIdentifiers.html#ebnf.relationshipnumber">relationship number</a>,
+        '.',
+        <a href="ObjectsObjectDeclaration.html#ebnf.objectname">object name</a> |
+        <a href="LexicalStructureIdentifiers.html#ebnf.relationshipnumber">relationship number</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[102]</td>
+<td align="right" valign="top" width="10%"><a href="RelationshipsRelationshipSpecifications.html#ebnf.role">
+        role
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="RegularRelationships.html#ebnf.rolename">role name</a> |
+        'is_a'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[103]</td>
+<td align="right" valign="top" width="10%"><a href="RelationshipsCorrelatedRelationshipSpecification.html#ebnf.correlatedrelationshipspecification">
+        correlated relationship specification
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="LexicalStructureIdentifiers.html#ebnf.relationshipnumber">relationship number</a>,
+        '.',
+        <a href="RegularRelationships.html#ebnf.rolename">role name</a>,
+        '.',
+        <a href="ObjectsObjectDeclaration.html#ebnf.objectname">object name</a> |
+        <a href="LexicalStructureIdentifiers.html#ebnf.relationshipnumber">relationship number</a>,
+        '.',
+        <a href="RegularRelationships.html#ebnf.rolename">role name</a> |
+        <a href="LexicalStructureIdentifiers.html#ebnf.relationshipnumber">relationship number</a>,
+        '.',
+        <a href="ObjectsObjectDeclaration.html#ebnf.objectname">object name</a> |
+        <a href="LexicalStructureIdentifiers.html#ebnf.relationshipnumber">relationship number</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[104]</td>
+<td align="right" valign="top" width="10%"><a href="LifecyclesStates.html#ebnf.statedeclaration">
+        state declaration
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="LifecyclesStates.html#ebnf.statemodifier">state modifier</a>,
+        'state',
+        <a href="LifecyclesStates.html#ebnf.statename">state name</a>,
+        '(',
+        <a href="ServicesDomainServices.html#ebnf.parameterdeclarationlist">parameter declaration list</a>,
+        ')', ';'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[105]</td>
+<td align="right" valign="top" width="10%"><a href="LifecyclesStates.html#ebnf.statename">
+        state name
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="LexicalStructureIdentifiers.html#ebnf.identifier">identifier</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[106]</td>
+<td align="right" valign="top" width="10%"><a href="LifecyclesStates.html#ebnf.statemodifier">
+        state modifier
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        'assigner', ['start'] |
+        'creation' |
+        'terminal'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[107]</td>
+<td align="right" valign="top" width="10%"><a href="LifecyclesStates.html#ebnf.statedefinition">
+        state definition
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="LifecyclesStates.html#ebnf.statemodifier">state modifier</a>,
+        'state',
+        <a href="DomainsDomainDeclaration.html#ebnf.domainname">domain name</a>,
+        '::',
+        <a href="ObjectsObjectDeclaration.html#ebnf.objectname">object name</a>,
+        '.',
+        <a href="LifecyclesStates.html#ebnf.statename">state name</a>,
+        '(',
+        <a href="ServicesDomainServices.html#ebnf.parameterdeclarationlist">parameter declaration list</a>,
+        ')', 'is',
+        {<a href="TypesVariableDeclarations.html#ebnf.variabledeclaration">variable declaration</a>,
+        'begin',
+        <a href="ExceptionsHandlingofanException.html#ebnf.handledsequenceofstatements">handled sequence of statements</a>,
+        'end', ['state'], ';'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[108]</td>
+<td align="right" valign="top" width="10%"><a href="LifecyclesEvents.html#ebnf.eventdeclaration">
+        event declaration
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="LifecyclesEvents.html#ebnf.eventmodifier">event modifier</a>,
+        'event',
+        <a href="LifecyclesEvents.html#ebnf.eventname">event name</a>,
+        '(',
+        <a href="ServicesDomainServices.html#ebnf.parameterdeclarationlist">parameter declaration list</a>,
+        ')', ';'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[109]</td>
+<td align="right" valign="top" width="10%"><a href="LifecyclesEvents.html#ebnf.eventname">
+        event name
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="LexicalStructureIdentifiers.html#ebnf.identifier">identifier</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[110]</td>
+<td align="right" valign="top" width="10%"><a href="LifecyclesEvents.html#ebnf.eventmodifier">
+        event modifier
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        'assigner' | 'creation'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[111]</td>
+<td align="right" valign="top" width="10%"><a href="LifecyclesTransitions.html#ebnf.transitiontabledeclaration">
+        transition table declaration
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="LifecyclesTransitions.html#ebnf.transitionmodifier">transition modifier</a>,
+        'transition', 'is',
+        <a href="LifecyclesTransitions.html#ebnf.transitionrow">transition row</a>,
+        {<a href="LifecyclesTransitions.html#ebnf.transitionrow">transition row</a>},
+        'end', ['transition'], ';'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[112]</td>
+<td align="right" valign="top" width="10%"><a href="LifecyclesTransitions.html#ebnf.transitionmodifier">
+        transition modifier
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        'assigner'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[113]</td>
+<td align="right" valign="top" width="10%"><a href="LifecyclesTransitions.html#ebnf.transitionrow">
+        transition row
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="LifecyclesTransitions.html#ebnf.initialstate">initial state</a>,
+        '(',
+        <a href="LifecyclesTransitions.html#ebnf.transition">transition</a>,
+        {(',',
+        <a href="LifecyclesTransitions.html#ebnf.transition">transition</a>)},
+        ';'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[114]</td>
+<td align="right" valign="top" width="10%"><a href="LifecyclesTransitions.html#ebnf.initialstate">
+        initial state
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        'Non_Existent' |
+        <a href="LifecyclesStates.html#ebnf.statename">state name</a>)  
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[115]</td>
+<td align="right" valign="top" width="10%"><a href="LifecyclesTransitions.html#ebnf.transition">
+        transition
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="LifecyclesTransitions.html#ebnf.incomingevent">incoming event</a>,
+        '=&gt;',
+        <a href="LifecyclesTransitions.html#ebnf.resultantstate">resultant state</a>                
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[116]</td>
+<td align="right" valign="top" width="10%"><a href="LifecyclesTransitions.html#ebnf.incomingevent">
+        incoming event
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="ObjectsObjectDeclaration.html#ebnf.objectname">object name</a>,
+        '.',
+        <a href="LifecyclesEvents.html#ebnf.eventname">event name</a> |
+        <a href="LifecyclesEvents.html#ebnf.eventname">event name</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[117]</td>
+<td align="right" valign="top" width="10%"><a href="LifecyclesTransitions.html#ebnf.resultantstate">
+        resultant state
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        'Ignore' | 'Cannot_Happen' |
+        <a href="LifecyclesStates.html#ebnf.statename">state name</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[118]</td>
+<td align="right" valign="top" width="10%"><a href="FunctionsDomainFunctions.html#ebnf.domainfunctiondeclaration">
+        domain function declaration
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="FunctionsDomainFunctions.html#ebnf.domainfunctionmodifier">domain function modifier</a>,
+        'function',
+        <a href="FunctionsDomainFunctions.html#ebnf.functionname">function name</a>,
+        '(',
+        <a href="FunctionsDomainFunctions.html#ebnf.functionparameterdeclarationlist">function parameter declaration list</a>,
+        ')', 'return',
+        <a href="TypesTypeSpecification.html#ebnf.type">type</a>,
+        [<a href="ServicesDomainServices.html#ebnf.raisesexpression">raises expression</a>],
+        ';'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[119]</td>
+<td align="right" valign="top" width="10%"><a href="FunctionsDomainFunctions.html#ebnf.functionname">
+        function name
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="LexicalStructureIdentifiers.html#ebnf.identifier">identifier</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[120]</td>
+<td align="right" valign="top" width="10%"><a href="FunctionsDomainFunctions.html#ebnf.domainfunctionmodifier">
+        domain function modifier
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        'public' | 'private'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[121]</td>
+<td align="right" valign="top" width="10%"><a href="FunctionsDomainFunctions.html#ebnf.functionparameterdeclarationlist">
+        function parameter declaration list
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="FunctionsDomainFunctions.html#ebnf.functionparameterdeclaration">function parameter declaration</a>,
+        {(',',
+        <a href="FunctionsDomainFunctions.html#ebnf.functionparameterdeclaration">function parameter declaration</a>)}
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[122]</td>
+<td align="right" valign="top" width="10%"><a href="FunctionsDomainFunctions.html#ebnf.functionparameterdeclaration">
+        function parameter declaration
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="FunctionsDomainFunctions.html#ebnf.functionparametername">function parameter name</a>,
+        ':', 'in',
+        <a href="TypesTypeSpecification.html#ebnf.type">type</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[123]</td>
+<td align="right" valign="top" width="10%"><a href="FunctionsDomainFunctions.html#ebnf.functionparametername">
+        function parameter name
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="LexicalStructureIdentifiers.html#ebnf.identifier">identifier</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[124]</td>
+<td align="right" valign="top" width="10%"><a href="FunctionsDomainFunctions.html#ebnf.domainfunctiondefinition">
+        domain function definition
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        'function',
+        <a href="DomainsDomainDeclaration.html#ebnf.domainname">domain name</a>,
+        '::',
+        <a href="FunctionsDomainFunctions.html#ebnf.functionname">function name</a>,
+        '(',
+        <a href="FunctionsDomainFunctions.html#ebnf.functionparameterdeclarationlist">function parameter declaration list</a>,
+        ')', 'return',
+        <a href="TypesTypeSpecification.html#ebnf.type">type</a>,
+        [<a href="ServicesDomainServices.html#ebnf.raisesexpression">raises expression</a>],
+        'is',
+        {<a href="TypesVariableDeclarations.html#ebnf.variabledeclaration">variable declaration</a>},
+        'begin'
+        <a href="ExceptionsHandlingofanException.html#ebnf.handledsequenceofstatements">handled sequence of statements</a>,
+        'end', ['function'], ';'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[125]</td>
+<td align="right" valign="top" width="10%"><a href="FunctionsObjectFunctions.html#ebnf.objectfunctiondeclaration">
+        object function declaration
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="FunctionsObjectFunctions.html#ebnf.objectfunctionmodifier">object function modifier</a>,
+        'function',
+        <a href="FunctionsDomainFunctions.html#ebnf.functionname">function name</a>,
+        '(',
+        <a href="FunctionsDomainFunctions.html#ebnf.functionparameterdeclarationlist">function parameter declaration list</a>,
+        ')', 'return',
+        <a href="TypesTypeSpecification.html#ebnf.type">type</a>,
+        [<a href="ServicesDomainServices.html#ebnf.raisesexpression">raises expression</a>],
+        ';'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[126]</td>
+<td align="right" valign="top" width="10%"><a href="FunctionsObjectFunctions.html#ebnf.objectfunctionmodifier">
+        object function modifier
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        ('public' | 'private'),
+        ['instance', ['deferred', '(',
+        <a href="LexicalStructureIdentifiers.html#ebnf.relationshipnumber">relationship number</a>,
+        ')']]
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[127]</td>
+<td align="right" valign="top" width="10%"><a href="FunctionsObjectFunctions.html#ebnf.objectfunctiondefinition">
+        object function definition
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="FunctionsObjectFunctions.html#ebnf.objectfunctionmodifier">object function modifier</a>,
+        'function',
+        <a href="DomainsDomainDeclaration.html#ebnf.domainname">domain name</a>,
+        '::',
+        <a href="ObjectsObjectDeclaration.html#ebnf.objectname">object name</a>,
+        '.'
+        <a href="FunctionsDomainFunctions.html#ebnf.functionname">function name</a>,
+        '(',
+        <a href="FunctionsDomainFunctions.html#ebnf.functionparameterdeclarationlist">function parameter declaration list</a>,
+        ')', 'return',
+        <a href="TypesTypeSpecification.html#ebnf.type">type</a>,
+        [<a href="ServicesDomainServices.html#ebnf.raisesexpression">raise expression</a>],
+        'is',
+        {<a href="TypesVariableDeclarations.html#ebnf.variabledeclaration">variable declaration</a>},
+        'begin',
+        <a href="ExceptionsHandlingofanException.html#ebnf.handledsequenceofstatements">handled sequence of statements</a>,
+        'end', ['function'], ';'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[128]</td>
+<td align="right" valign="top" width="10%"><a href="ServicesDomainServices.html#ebnf.domainservicedeclaration">
+        domain service declaration
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="ServicesDomainServices.html#ebnf.domainservicemodifier">domain service modifier</a>,
+        'service',
+        <a href="ServicesDomainServices.html#ebnf.servicename">service name</a>,
+        '(',
+        <a href="FunctionsDomainFunctions.html#ebnf.functionparameterdeclarationlist">parameter declaration list</a>,
+        ')',
+        [<a href="ServicesDomainServices.html#ebnf.raisesexpression">raises expression</a>],
+        ';'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[129]</td>
+<td align="right" valign="top" width="10%"><a href="ServicesDomainServices.html#ebnf.servicename">
+        service name
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="LexicalStructureIdentifiers.html#ebnf.identifier">identifier</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[130]</td>
+<td align="right" valign="top" width="10%"><a href="ServicesDomainServices.html#ebnf.domainservicemodifier">
+        domain service modifier
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        'public' | 'private' | 'native'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[131]</td>
+<td align="right" valign="top" width="10%"><a href="ServicesDomainServices.html#ebnf.parameterdeclarationlist">
+        parameter declaration list
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="FunctionsDomainFunctions.html#ebnf.functionparameterdeclaration">parameter declaration</a>,
+        {(',',
+        <a href="FunctionsDomainFunctions.html#ebnf.functionparameterdeclaration">parameter declaration</a>)}
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[132]</td>
+<td align="right" valign="top" width="10%"><a href="ServicesDomainServices.html#ebnf.parameterdeclaration">
+        parameter declaration
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="ServicesDomainServices.html#ebnf.parametername">parameter name</a>,
+        ':'
+        <a href="ServicesDomainServices.html#ebnf.parametermodetype">parameter mode type</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[133]</td>
+<td align="right" valign="top" width="10%"><a href="ServicesDomainServices.html#ebnf.parametername">
+        parameter name
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="LexicalStructureIdentifiers.html#ebnf.identifier">identifier</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[134]</td>
+<td align="right" valign="top" width="10%"><a href="ServicesDomainServices.html#ebnf.parametermodetype">
+        parameter mode type
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        'in' | 'out'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[135]</td>
+<td align="right" valign="top" width="10%"><a href="ServicesDomainServices.html#ebnf.raisesexpression">
+        raises expression
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        'raises', '(',
+        <a href="ExceptionsHandlingofanException.html#ebnf.exceptionspecification">exception specification</a>,
+        {<a href="ExceptionsHandlingofanException.html#ebnf.exceptionspecification">exception specification</a>},
+        ')'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[136]</td>
+<td align="right" valign="top" width="10%"><a href="ServicesDomainServices.html#ebnf.domainservicedefinition">
+       domain service definition
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        ('native', 'service',
+        <a href="DomainsDomainDeclaration.html#ebnf.domainname">domain name</a>,
+        '::',
+        <a href="ServicesDomainServices.html#ebnf.servicename">service name</a>,
+        '(',
+        <a href="ServicesDomainServices.html#ebnf.parameterdeclarationlist">parameter declaration list</a>,
+        ')',
+        [<a href="ServicesDomainServices.html#ebnf.raisesexpression">raises expression</a>],
+        'is',
+        <a href="ServicesDomainServices.html#ebnf.nativecode">native code</a>) |
+        (<a href="ServicesDomainServices.html#ebnf.domainservicemodifier">domain service modifier</a>,
+        'service',
+        <a href="DomainsDomainDeclaration.html#ebnf.domainname">domain name</a>,
+        '::',
+        <a href="ServicesDomainServices.html#ebnf.servicename">service name</a>,
+        '(',
+        <a href="ServicesDomainServices.html#ebnf.parameterdeclarationlist">parameter declaration list</a>,
+        ')',
+        [<a href="ServicesDomainServices.html#ebnf.raisesexpression">raise expression</a>],
+        'is',        
+        {<a href="TypesVariableDeclarations.html#ebnf.variabledeclaration">variable declaration</a>},
+        'begin',
+        <a href="ExceptionsHandlingofanException.html#ebnf.handledsequenceofstatements">handled sequence of statements</a>,
+        'end', ['service'], ';'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[137]</td>
+<td align="right" valign="top" width="10%"><a href="ServicesDomainServices.html#ebnf.nativecode">
+       native code
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        '$NATIVE',
+        <a href="LexicalStructureLineTerminators.html#ebnf.lineterminator">line terminator</a>,
+        {<a href="ServicesDomainServices.html#ebnf.nativecodeline">native code line</a>},
+        '$ENDNATIVE',
+        <a href="LexicalStructureLineTerminators.html#ebnf.lineterminator">line terminator</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[138]</td>
+<td align="right" valign="top" width="10%"><a href="ServicesDomainServices.html#ebnf.nativecodeline">
+       native code line
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        {(<a href="LexicalStructuresComments.html#ebnf.letter">letter</a> |
+        <a href="LexicalStructuresComments.html#ebnf.digit">digit</a> |
+        <a href="LexicalStructuresComments.html#ebnf.othercharacter">other character</a> |
+        <a href="LexicalStructureIdentifiers.html#ebnf.underscore">underscore</a> |
+        <a href="LexicalStructureWhiteSpace.html#ebnf.whitespace">white space</a>)},
+        <a href="LexicalStructureLineTerminators.html#ebnf.lineterminator">line terminator</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[139]</td>
+<td align="right" valign="top" width="10%"><a href="ServicesObjectServices.html#ebnf.objectservicedeclaration">
+        object service declaration
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="ServicesObjectServices.html#ebnf.objectservicemodifier">object service modifier</a>,
+        'service',
+        <a href="ServicesDomainServices.html#ebnf.servicename">service name</a>,
+        '(',
+        <a href="ServicesDomainServices.html#ebnf.parameterdeclarationlist">parameter declaration list</a>,
+        ')',
+        [<a href="ServicesDomainServices.html#ebnf.raisesexpression">raise expression</a>],
+        ';'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[140]</td>
+<td align="right" valign="top" width="10%"><a href="ServicesObjectServices.html#ebnf.objectservicemodifier">
+        object service modifier
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        ('public' | 'private' | 'native'),
+        ['instance', [('deferred', '(',
+        <a href="LexicalStructureIdentifiers.html#ebnf.relationshipnumber">relationship number</a>,
+        ')')]]
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[141]</td>
+<td align="right" valign="top" width="10%"><a href="ServicesObjectServices.html#ebnf.objectservicedefinition">
+       object service definition
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        ('native', 'service',
+        <a href="DomainsDomainDeclaration.html#ebnf.domainname">domain name</a>,
+        '::',
+        <a href="ObjectsObjectDeclaration.html#ebnf.objectname">object name</a>,
+        '.'
+        <a href="ServicesDomainServices.html#ebnf.servicename">service name</a>,
+        '(',
+        <a href="ServicesDomainServices.html#ebnf.parameterdeclarationlist">parameter declaration list</a>,
+        ')',
+        [<a href="ServicesDomainServices.html#ebnf.raisesexpression">raise expression</a>],
+        'is',
+        <a href="ServicesDomainServices.html#ebnf.nativecode">native code</a>) |
+        (<a href="ServicesObjectServices.html#ebnf.objectservicemodifier">object service modifier</a>,
+        'service',
+        <a href="DomainsDomainDeclaration.html#ebnf.domainname">domain name</a>,
+        '::',
+        <a href="ObjectsObjectDeclaration.html#ebnf.objectname">object name</a>,
+        '.'
+        <a href="ServicesDomainServices.html#ebnf.servicename">service name</a>,
+        '(',
+        <a href="ServicesDomainServices.html#ebnf.parameterdeclarationlist">parameter declaration list</a>,
+        ')',
+        [<a href="ServicesDomainServices.html#ebnf.raisesexpression">raises expression</a>],
+        'is',        
+        {<a href="TypesVariableDeclarations.html#ebnf.variabledeclaration">variable declaration</a>},
+        'begin',
+        <a href="ExceptionsHandlingofanException.html#ebnf.handledsequenceofstatements">handled sequence of statements</a>,
+        'end', ['service'], ';'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[142]</td>
+<td align="right" valign="top" width="10%"><a href="ExceptionsExceptionDeclarations.html#ebnf.exceptiondeclaration">
+        exception declaration
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="ExceptionsExceptionDeclarations.html#ebnf.exceptionmodifier">exception modifier</a>,
+        'exception',
+        <a href="ExceptionsExceptionDeclarations.html#ebnf.exceptionname">exception name</a>,
+        ';'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[143]</td>
+<td align="right" valign="top" width="10%"><a href="ExceptionsExceptionDeclarations.html#ebnf.exceptionname">
+        exception name
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="LexicalStructureIdentifiers.html#ebnf.identifier">identifier</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[144]</td>
+<td align="right" valign="top" width="10%"><a href="ExceptionsExceptionDeclarations.html#ebnf.exceptionmodifier">
+        exception modifier
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        'public' | 'private'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[145]</td>
+<td align="right" valign="top" width="10%"><a href="ExceptionsHandlingofanException.html#ebnf.handledsequenceofstatements">
+        handled sequence of statements
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="StatementsSequenceofStatements.html#ebnf.sequenceofstatements">sequence of statements</a>,
+        [('exception',
+        {<a href="ExceptionsHandlingofanException.html#ebnf.exceptionhandler">exception handler</a>},
+        [<a href="ExceptionsHandlingofanException.html#ebnf.exceptionothershandler">exception others handler</a>]]
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[146]</td>
+<td align="right" valign="top" width="10%"><a href="ExceptionsHandlingofanException.html#ebnf.exceptionhandler">
+        exception handler
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        'when',
+        <a href="ExceptionsHandlingofanException.html#ebnf.exceptionchoice">exception choice</a>,
+        '=&gt;',
+        <a href="StatementsSequenceofStatements.html#ebnf.sequenceofstatements">sequence of statements</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[147]</td>
+<td align="right" valign="top" width="10%"><a href="ExceptionsHandlingofanException.html#ebnf.exceptionothershandler">
+        exception others handler
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        'when', 'others', '=&gt;',
+        <a href="StatementsSequenceofStatements.html#ebnf.sequenceofstatements">sequence of statements</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[148]</td>
+<td align="right" valign="top" width="10%"><a href="ExceptionsHandlingofanException.html#ebnf.exceptionchoice">
+        exception choice
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="ExceptionsHandlingofanException.html#ebnf.exceptionspecification">exception specification</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[149]</td>
+<td align="right" valign="top" width="10%"><a href="ExceptionsHandlingofanException.html#ebnf.exceptionspecification">
+        exception specification
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="DomainsDomainDeclaration.html#ebnf.domainname">domain name</a>,
+        '::',
+        <a href="ExceptionsExceptionDeclarations.html#ebnf.exceptionname">exception name</a> |
+        <a href="ExceptionsExceptionDeclarations.html#ebnf.exceptionname">exception name</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[150]</td>
+<td align="right" valign="top" width="10%"><a href="StatementsSequenceofStatements.html#ebnf.sequenceofstatements">
+        sequence of statements
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="StatementsStatements.html#ebnf.statement">statement</a>,
+        {<a href="StatementsStatements.html#ebnf.statement">statement</a>}
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[151]</td>
+<td align="right" valign="top" width="10%"><a href="StatementsStatements.html#ebnf.statement">
+        statement
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="StatementsStatements.html#ebnf.simplestatement">simple statement</a> |
+        <a href="StatementsStatements.html#ebnf.compoundstatement">compound statement</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[152]</td>
+<td align="right" valign="top" width="10%"><a href="StatementsStatements.html#ebnf.simplestatement">
+        simple statement
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="StatementsTheNullStatement.html#ebnf.nullstatement">null statement</a> |
+        <a href="StatementsAssignment.html#ebnf.assignmentstatement">assignment statement</a> |
+        <a href="StatementsOutputStream.html#ebnf.outputstream">output stream</a> |
+        <a href="StatementsInputStream.html#ebnf.inputstream">input stream</a> |
+        <a href="StatementsInputLineStream.html#ebnf.inputlinestream">input line stream</a> |
+        <a href="StatementsInvocationStatement.html#ebnf.invocationstatement">invocation statement</a> |
+        <a href="StatementsTheExitStatement.html#ebnf.exitstatement">exit statement</a> |
+        <a href="StatementsTheRaiseStatement.html#ebnf.raisestatement">raise statement</a> |
+        <a href="StatementsTheDelayStatement.html#ebnf.delaystatement">delay statement</a> |
+        <a href="StatementsTheLinkStatement.html#ebnf.linkstatement">link statement</a> |
+        <a href="StatementsTheUnlinkStatement.html#ebnf.unlinkstatement">unlink statement</a> |
+        <a href="StatementsTheAssociateStatement.html#ebnf.associatestatement">associate statement</a> |
+        <a href="StatementsTheUnassociateStatement.html#ebnf.unassociatestatement">unassociate statement</a> |
+        <a href="StatementsTheGenerateStatement.html#ebnf.generatestatement">generate statement</a> |
+        <a href="StatementsThePragmaStatement.html#ebnf.pragmastatement">pragma statement</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[153]</td>
+<td align="right" valign="top" width="10%"><a href="StatementsStatements.html#ebnf.compoundstatement">
+        compound statement
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="StatementsBlocks.html#ebnf.blockstatement">block statement</a> |
+        <a href="StatementsTheIfStatement.html#ebnf.ifstatement">if statement</a> |
+        <a href="StatementsTheCaseStatement.html#ebnf.casestatement">case statement</a> |
+        <a href="StatementsTheForStatement.html#ebnf.forstatement">for statement</a> |
+        <a href="StatementsTheWhileStatement.html#ebnf.whilestatement">while statement</a>
+        ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[154]</td>
+<td align="right" valign="top" width="10%"><a href="StatementsTheNullStatement.html#ebnf.nullstatement">
+        null statement
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        'null', ';'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[155]</td>
+<td align="right" valign="top" width="10%"><a href="StatementsAssignment.html#ebnf.assignmentstatement">
+        assignment statement
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        {<a href="Names.html#ebnf.name">name</a>},
+        ':=',
+        <a href="ExpressionsExecutableUMLExpressions.html#ebnf.extendedexpression">extended expression</a>,
+        ';'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[156]</td>
+<td align="right" valign="top" width="10%"><a href="StatementsOutputStream.html#ebnf.outputstream">
+        output statement
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        (<a href="Names.html#ebnf.name">name</a>,
+        '&lt;&lt;',
+        <a href="ExpressionsExpression.html#ebnf.expression">expression</a>,
+        {('&lt;&lt;',
+        <a href="ExpressionsExpression.html#ebnf.expression">expression</a>},
+        ';') |
+        <a href="LexicalStructureLiterals.html#ebnf.deviceliteral">device literal</a>,
+        '&lt;&lt;',
+        <a href="ExpressionsExpression.html#ebnf.expression">expression</a>,
+        {('&lt;&lt;',
+        <a href="ExpressionsExpression.html#ebnf.expression">expression</a>},
+        ';')
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[157]</td>
+<td align="right" valign="top" width="10%"><a href="StatementsInputStream.html#ebnf.inputstream">
+        input stream
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        (<a href="Names.html#ebnf.name">name</a>,
+        '&gt;&gt;',
+        <a href="Names.html#ebnf.name">name</a>,
+        {('&gt;&gt;',
+        <a href="Names.html#ebnf.name">name</a>},
+        ';') |
+        <a href="LexicalStructureLiterals.html#ebnf.deviceliteral">device literal</a>,
+        '&gt;&gt;',
+        <a href="Names.html#ebnf.name">name</a>,
+        {('&gt;&gt;',
+        <a href="Names.html#ebnf.name">name</a>},
+        ';')
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[158]</td>
+<td align="right" valign="top" width="10%"><a href="StatementsInputLineStream.html#ebnf.inputlinestream">
+        input line stream
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        (<a href="Names.html#ebnf.name">name</a>,
+        '&gt;&gt;&gt;',
+        <a href="Names.html#ebnf.name">name</a>,
+        {('&gt;&gt;&gt;',
+        <a href="Names.html#ebnf.name">name</a>},
+        ';') |
+        <a href="LexicalStructureLiterals.html#ebnf.deviceliteral">device literal</a>,
+        '&gt;&gt;&gt;',
+        <a href="Names.html#ebnf.name">name</a>,
+        {('&gt;&gt;&gt;',
+        <a href="Names.html#ebnf.name">name</a>},
+        ';')
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[159]</td>
+<td align="right" valign="top" width="10%"><a href="StatementsInvocationStatement.html#ebnf.invocationstatement">
+        invocation statement
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="StatementsInvocationStatement.html#ebnf.domainserviceinvocation">domain service invocation</a> |
+        <a href="StatementsInvocationStatement.html#ebnf.objectserviceinvocation">object service invocation</a> |
+        <a href="StatementsInvocationStatement.html#ebnf.instanceserviceinvocation">instance service invocation</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[160]</td>
+<td align="right" valign="top" width="10%"><a href="StatementsInvocationStatement.html#ebnf.domainserviceinvocation">
+        domain service invocation
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        (<a href="DomainsDomainDeclaration.html#ebnf.domainname">domain name</a>,
+        '::',
+        <a href="ServicesDomainServices.html#ebnf.servicename">service name</a>,
+        '(',
+        <a href="StatementsInvocationStatement.html#ebnf.argumentlist">argument list</a>,
+        ')', ';') |
+        (<a href="ServicesDomainServices.html#ebnf.servicename">service name</a>,
+        '(',
+        <a href="StatementsInvocationStatement.html#ebnf.argumentlist">argument list</a>,
+        ')', ';')
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[161]</td>
+<td align="right" valign="top" width="10%"><a href="StatementsInvocationStatement.html#ebnf.objectserviceinvocation">
+        object service invocation
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        (<a href="DomainsDomainDeclaration.html#ebnf.domainname">object name</a>,
+        '.',
+        <a href="ServicesDomainServices.html#ebnf.servicename">service name</a>,
+        '(',
+        <a href="StatementsInvocationStatement.html#ebnf.argumentlist">argument list</a>,
+        ')', ';') |
+        (<a href="ExpressionsInstanceandInstanceCollectionExpressions.html#ebnf.instanceexpression">instance expression</a>,
+        '.',
+        <a href="ServicesDomainServices.html#ebnf.servicename">service name</a>,
+        '(',
+        <a href="StatementsInvocationStatement.html#ebnf.argumentlist">argument list</a>,
+        ')', ';') |
+        (<a href="ServicesDomainServices.html#ebnf.servicename">service name</a>,
+        '(',
+        <a href="StatementsInvocationStatement.html#ebnf.argumentlist">argument list</a>,
+        ')', ';')
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[162]</td>
+<td align="right" valign="top" width="10%"><a href="StatementsInvocationStatement.html#ebnf.instanceserviceinvocation">
+        instance service invocation
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        (<a href="ExpressionsInstanceandInstanceCollectionExpressions.html#ebnf.instanceexpression">instance expression</a>,
+        '.',
+        <a href="ServicesDomainServices.html#ebnf.servicename">service name</a>,
+        '(',
+        <a href="StatementsInvocationStatement.html#ebnf.argumentlist">argument list</a>,
+        ')', ';') |
+        (<a href="ServicesDomainServices.html#ebnf.servicename">service name</a>,
+        '(',
+        <a href="StatementsInvocationStatement.html#ebnf.argumentlist">argument list</a>,
+        ')', ';')
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[163]</td>
+<td align="right" valign="top" width="10%"><a href="StatementsInvocationStatement.html#ebnf.argumentlist">
+        argument list
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        (<a href="StatementsInvocationStatement.html#ebnf.argument">argument</a>,
+        {(',',
+        <a href="StatementsInvocationStatement.html#ebnf.argument">argument</a>}
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[164]</td>
+<td align="right" valign="top" width="10%"><a href="StatementsInvocationStatement.html#ebnf.argument">
+        argument
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="ExpressionsExpression.html#ebnf.expression">expression</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[165]</td>
+<td align="right" valign="top" width="10%"><a href="StatementsBlocks.html#ebnf.blockstatement">
+        block statement
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        ['declare',
+        <a href="TypesVariableDeclarations.html#ebnf.variabledeclaration">variable declaration</a>,
+        {<a href="TypesVariableDeclarations.html#ebnf.variabledeclaration">variable declaration</a>}],
+        'begin',
+        <a href="ExceptionsHandlingofanException.html#ebnf.handledsequenceofstatements">handled sequence of statements</a>,
+        'end', ';'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[166]</td>
+<td align="right" valign="top" width="10%"><a href="StatementsTheIfStatement.html#ebnf.ifstatement">
+        if statement
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        'if',
+        <a href="ExpressionsConditions.html#ebnf.condition">condition</a>,
+        'then',
+        <a href="StatementsSequenceofStatements.html#ebnf.sequenceofstatements">sequence of statements</a>,
+        {('elsif',
+        <a href="ExpressionsConditions.html#ebnf.condition">condition</a>,
+        'then',
+        <a href="StatementsSequenceofStatements.html#ebnf.sequenceofstatements">sequence of statements</a>)},
+        [('else',
+        <a href="StatementsSequenceofStatements.html#ebnf.sequenceofstatements">sequence of statements</a>)],
+        'end', ['if'], ';'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[167]</td>
+<td align="right" valign="top" width="10%"><a href="StatementsTheCaseStatement.html#ebnf.casestatement">
+        case statement
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        'case',
+        <a href="ExpressionsExpression.html#ebnf.expression">expression</a>,
+        'is',
+        {<a href="StatementsTheCaseStatement.html#ebnf.casestatementalternative">case statement alternative</a>},
+        'end', ['case'], ';'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[168]</td>
+<td align="right" valign="top" width="10%"><a href="StatementsTheCaseStatement.html#ebnf.casestatementalternative">
+        case statement alternative
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        'when',
+        <a href="StatementsTheCaseStatement.html#ebnf.discretechoicelist">discrete choice list</a>,
+        '=&gt;',
+        <a href="StatementsSequenceofStatements.html#ebnf.sequenceofstatements">sequence of statements</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[169]</td>
+<td align="right" valign="top" width="10%"><a href="StatementsTheCaseStatement.html#ebnf.discretechoicelist">
+        discrete choice list
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="StatementsTheCaseStatement.html#ebnf.discretechoice">discrete choice</a>,
+        {'|',
+        <a href="StatementsTheCaseStatement.html#ebnf.discretechoicelist">discrete choice list</a>}
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[170]</td>
+<td align="right" valign="top" width="10%"><a href="StatementsTheCaseStatement.html#ebnf.discretechoice">
+        discrete choice
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="ExpressionsConstantExpressions.html#ebnf.constantexpression">constant expression</a> |
+        'others'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[171]</td>
+<td align="right" valign="top" width="10%"><a href="StatementsTheWhileStatement.html#ebnf.whilestatement">
+        while statement
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        'while',
+        <a href="ExpressionsConditions.html#ebnf.condition">condition</a>,
+        'loop',
+        <a href="StatementsSequenceofStatements.html#ebnf.sequenceofstatements">sequence of statements</a>,
+        'end', ['loop'], ';'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[172]</td>
+<td align="right" valign="top" width="10%"><a href="StatementsTheForStatement.html#ebnf.forstatement">
+        for statement
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        'for',
+        <a href="StatementsTheForStatement.html#ebnf.loopparameterspecification">loop parameter specification</a>,
+        'loop',
+        <a href="StatementsSequenceofStatements.html#ebnf.sequenceofstatements">sequence of statements</a>,
+        'end', ['loop'], ';'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[173]</td>
+<td align="right" valign="top" width="10%"><a href="StatementsTheForStatement.html#ebnf.loopparameterspecification">
+        loop parameter specification
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+         <a href="TypesVariableDeclarations.html#ebnf.variablename">variable name</a>,
+         'in',
+         ['reverse'],
+         <a href="TypesFullDeclarations.html#ebnf.range">range</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[174]</td>
+<td align="right" valign="top" width="10%"><a href="StatementsTheExitStatement.html#ebnf.exitstatement">
+        exit statement
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        'exit',
+        [('when',
+        <a href="ExpressionsConditions.html#ebnf.condition">condition</a>)],
+        ';'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[175]</td>
+<td align="right" valign="top" width="10%"><a href="StatementsTheRaiseStatement.html#ebnf.raisestatement">
+        raise statement
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        'raise',
+        [<a href="ExceptionsHandlingofanException.html#ebnf.exceptionspecification">exception specification</a>],
+        ';'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[176]</td>
+<td align="right" valign="top" width="10%"><a href="StatementsTheDeleteStatement.html#ebnf.deletestatement">
+        delete statement
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        ('delete',
+        <a href="Names.html#ebnf.name">name</a>,
+        ';') |
+        ('delete', 'this', ';')
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[177]</td>
+<td align="right" valign="top" width="10%"><a href="StatementsTheDelayStatement.html#ebnf.delaystatement">
+        delay statement
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        'delay',
+        <a href="ExpressionsExpression.html#ebnf.expression">expression</a>
+        ';'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[178]</td>
+<td align="right" valign="top" width="10%"><a href="StatementsTheLinkStatement.html#ebnf.linkstatement">
+        link statement
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        'link',
+        <a href="ExpressionsInstanceandInstanceCollectionExpressions.html#ebnf.instanceexpression">instance expression</a>,
+        <a href="RelationshipsRelationshipSpecifications.html#ebnf.relationshipspecification">relationship specification</a>,
+        <a href="ExpressionsInstanceandInstanceCollectionExpressions.html#ebnf.instanceexpression">instance expression</a>,
+        [('using',
+        <a href="ExpressionsInstanceandInstanceCollectionExpressions.html#ebnf.instanceexpression">instance expression</a>)],
+        ';'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[179]</td>
+<td align="right" valign="top" width="10%"><a href="StatementsTheUnlinkStatement.html#ebnf.unlinkstatement">
+        unlink statement
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        'unlink',
+        <a href="ExpressionsInstanceandInstanceCollectionExpressions.html#ebnf.instanceexpression">instance expression</a>,
+        <a href="RelationshipsRelationshipSpecifications.html#ebnf.relationshipspecification">relationship specification</a>,
+        <a href="ExpressionsInstanceandInstanceCollectionExpressions.html#ebnf.instanceexpression">instance expression</a>,
+        [('using',
+        <a href="ExpressionsInstanceandInstanceCollectionExpressions.html#ebnf.instanceexpression">instance expression</a>)],
+        ';'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[180]</td>
+<td align="right" valign="top" width="10%"><a href="StatementsTheAssociateStatement.html#ebnf.associatestatement">associate statement</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        'associate',
+        <a href="ExpressionsInstanceandInstanceCollectionExpressions.html#ebnf.instanceexpression">instance expression</a>,
+        <a href="RelationshipsRelationshipSpecifications.html#ebnf.relationshipspecification">relationship specification</a>,
+        <a href="ExpressionsInstanceandInstanceCollectionExpressions.html#ebnf.instanceexpression">instance expression</a>,
+        'to',
+        <a href="ExpressionsInstanceandInstanceCollectionExpressions.html#ebnf.instanceexpression">instance expression</a>,
+        ';'        
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[181]</td>
+<td align="right" valign="top" width="10%"><a href="StatementsTheUnassociateStatement.html#ebnf.unassociatestatement">unassociate statement</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        'unassociate',
+        <a href="ExpressionsInstanceandInstanceCollectionExpressions.html#ebnf.instanceexpression">instance expression</a>,
+        <a href="RelationshipsRelationshipSpecifications.html#ebnf.relationshipspecification">relationship specification</a>,
+        <a href="ExpressionsInstanceandInstanceCollectionExpressions.html#ebnf.instanceexpression">instance expression</a>,
+        'from',
+        <a href="ExpressionsInstanceandInstanceCollectionExpressions.html#ebnf.instanceexpression">instance expression</a>,
+        ';'        
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[182]</td>
+<td align="right" valign="top" width="10%"><a href="StatementsTheGenerateStatement.html#ebnf.generatestatement">
+        generate statement
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        'generate',
+        <a href="StatementsTheGenerateStatement.html#ebnf.eventspecification">event specification</a>,
+        '(',
+        <a href="StatementsInvocationStatement.html#ebnf.argumentlist">argument list</a>,
+        ')',
+        [('to',
+        <a href="ExpressionsInstanceandInstanceCollectionExpressions.html#ebnf.instanceexpression">instance expression</a>)],
+        ';'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[183]</td>
+<td align="right" valign="top" width="10%"><a href="StatementsTheGenerateStatement.html#ebnf.eventspecification">
+        event specification
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        (<a href="ObjectsObjectDeclaration.html#ebnf.objectname">object name</a>,
+        '.',
+        <a href="LifecyclesEvents.html#ebnf.eventname">event name</a>) |
+        <a href="LifecyclesEvents.html#ebnf.eventname">event name</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[184]</td>
+<td align="right" valign="top" width="10%"><a href="StatementsThePragmaStatement.html#ebnf.pragmastatement">
+        pragma statement
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="LexicalStructurePragmas.html#ebnf.pragma">pragma</a>,
+        ';'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[185]</td>
+<td align="right" valign="top" width="10%"><a href="Names.html#ebnf.name">
+        name
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="ObjectsAttributes.html#ebnf.attributename">attribute name</a> |
+        <a href="ServicesDomainServices.html#ebnf.parametername">parameter name</a> |
+        <a href="TypesVariableDeclarations.html#ebnf.variablename">variable name</a> |
+        <a href="NamesIndexedComponents.html#ebnf.indexedcomponent">indexed component</a> |
+        <a href="NamesSelectedComponents.html#ebnf.selectedcomponent">selected component</a> |
+        <a href="NamesSelectedAttributes.html#ebnf.selectedattribute">selected attribute</a> |
+        <a href="NamesSlices.html#ebnf.slice">slice</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[186]</td>
+<td align="right" valign="top" width="10%"><a href="NamesIndexedComponents.html#ebnf.indexedcomponent">
+        indexed component
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="NamesIndexedComponents.html#ebnf.prefix">prefix</a>,
+        '[',
+        <a href="ExpressionsExpression.html#ebnf.expression">expression</a>,
+        ']'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[187]</td>
+<td align="right" valign="top" width="10%"><a href="NamesIndexedComponents.html#ebnf.prefix">
+        prefix
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="Names.html#ebnf.name">name</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[188]</td>
+<td align="right" valign="top" width="10%"><a href="NamesSelectedComponents.html#ebnf.selectedcomponent">
+        selected component
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="NamesIndexedComponents.html#ebnf.prefix">prefix</a>,
+        '.',
+        <a href="TypesFullDeclarations.html#ebnf.componentname">component name</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[189]</td>
+<td align="right" valign="top" width="10%"><a href="NamesSelectedAttributes.html#ebnf.selectedattribute">
+        selected attribute
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="NamesIndexedComponents.html#ebnf.prefix">prefix</a>,
+        '.',
+        <a href="ObjectsAttributes.html#ebnf.attributename">attribute name</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[190]</td>
+<td align="right" valign="top" width="10%"><a href="NamesSlices.html#ebnf.slice">
+        slice
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="NamesIndexedComponents.html#ebnf.prefix">prefix</a>,
+        '[',
+        <a href="TypesFullDeclarations.html#ebnf.range">range</a>,
+        ']'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[191]</td>
+<td align="right" valign="top" width="10%"><a href="ExpressionsPrimaryExpression.html#ebnf.primaryexpression">
+        primary expression
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="LexicalStructureLiterals.html#ebnf.literal">literal</a> |
+        'this' |
+        <a href="ExpressionsPrimaryExpression.html#ebnf.nameasexpression">name as expression</a> |
+        <a href="ExpressionsPrimaryExpression.html#ebnf.characteristicreference">characteristic reference</a> |
+        <a href="ExpressionsPrimaryExpression.html#ebnf.aggregate">aggregate</a> |
+        <a href="ExpressionsPrimaryExpression.html#ebnf.serviceasexpression">service as expression</a> |
+        <a href="ExpressionsPrimaryExpression.html#ebnf.functioninvocation">function invocation</a> |
+        <a href="ExpressionsPrimaryExpression.html#ebnf.eventasexpression">event as expression</a> |
+        '(',
+        <a href="ExpressionsExpression.html#ebnf.expression">expression</a>,
+        ')'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[196]</td>
+<td align="right" valign="top" width="10%"><a href="ExpressionsPrimaryExpression.html#ebnf.structureaggregate">
+        structure aggregate
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        '(',
+        <a href="ExpressionsExpression.html#ebnf.expression">expression</a>,
+        ',',
+        <a href="ExpressionsExpression.html#ebnf.expression">expression</a>,
+        {(',',
+        <a href="ExpressionsExpression.html#ebnf.expression">expression</a>)},
+        ')'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[193]</td>
+<td align="right" valign="top" width="10%"><a href="ExpressionsPrimaryExpression.html#ebnf.nameasexpression">
+        name as expression
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="Names.html#ebnf.name">name</a>,
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[194]</td>
+<td align="right" valign="top" width="10%"><a href="ExpressionsPrimaryExpression.html#ebnf.characteristicreference">
+        characteristic reference
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="Names.html#ebnf.name">name</a>,
+        ''',
+        <a href="ExpressionsPrimaryExpression.html#ebnf.characteristicreference">characteristic reference</a>,
+        [('(',
+        <a href="StatementsInvocationStatement.html#ebnf.argumentlist">argument list</a>,
+        ')'] |
+        <a href="TypesTypeSpecification.html#ebnf.type">type</a>,
+        ''',
+        <a href="ExpressionsPrimaryExpression.html#ebnf.characteristicreference">characteristic reference</a>,
+        [('(',
+        <a href="StatementsInvocationStatement.html#ebnf.argumentlist">argument list</a>        
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[195]</td>
+<td align="right" valign="top" width="10%"><a href="ExpressionsPrimaryExpression.html#ebnf.characteristicname">
+        characteristic name
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="LexicalStructureIdentifiers.html#ebnf.identifier">identifier</a>  
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[192]</td>
+<td align="right" valign="top" width="10%"><a href="ExpressionsPrimaryExpression.html#ebnf.aggregate">
+        aggregate
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="ExpressionsPrimaryExpression.html#ebnf.structureaggregate">structure aggregate</a> |
+        <a href="ExpressionsExecutableUMLExpressions.html#ebnf.objectaggregate">object aggregate</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[197]</td>
+<td align="right" valign="top" width="10%"><a href="ExpressionsPrimaryExpression.html#ebnf.serviceasexpression">
+        service as expression
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="DomainsDomainDeclaration.html#ebnf.domainname">domain name</a>,
+        '::',
+        <a href="ObjectsObjectDeclaration.html#ebnf.objectname">object name</a>,
+        '.',
+        <a href="ServicesDomainServices.html#ebnf.servicename">service name</a> |
+        <a href="DomainsDomainDeclaration.html#ebnf.domainname">domain name</a>,
+        '::',
+        <a href="ServicesDomainServices.html#ebnf.servicename">service name</a> |
+        <a href="ObjectsObjectDeclaration.html#ebnf.objectname">object name</a>,
+        '.',
+        <a href="ServicesDomainServices.html#ebnf.servicename">service name</a> |
+        <a href="ServicesDomainServices.html#ebnf.servicename">service name</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[198]</td>
+<td align="right" valign="top" width="10%"><a href="ExpressionsPrimaryExpression.html#ebnf.eventasexpression">
+        event as expression
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="ObjectsObjectDeclaration.html#ebnf.objectname">object name</a>,
+        '.',
+        <a href="LifecyclesEvents.html#ebnf.eventname">event name</a> |
+        <a href="LifecyclesEvents.html#ebnf.eventname">event name</a>,
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[199]</td>
+<td align="right" valign="top" width="10%"><a href="ExpressionsPrimaryExpression.html#ebnf.functioninvocation">
+        function invocation
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="ExpressionsPrimaryExpression.html#ebnf.domainfunctioninvocation">domain function invocation</a> |
+        <a href="ExpressionsPrimaryExpression.html#ebnf.objectfunctioninvocation">object function invocation</a> |
+        <a href="ExpressionsPrimaryExpression.html#ebnf.instancefunctioninvocation">instance function invocation</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[200]</td>
+<td align="right" valign="top" width="10%"><a href="ExpressionsPrimaryExpression.html#ebnf.domainfunctioninvocation">
+        domain function invocation
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="DomainsDomainDeclaration.html#ebnf.domainname">domain name</a>,
+        '::',
+        <a href="FunctionsDomainFunctions.html#ebnf.functionname">function name</a>,
+        '(',
+        <a href="StatementsInvocationStatement.html#ebnf.argumentlist">argument list</a>,
+        ')',';' |
+        <a href="FunctionsDomainFunctions.html#ebnf.functionname">function name</a>,
+        '(',
+        <a href="StatementsInvocationStatement.html#ebnf.argumentlist">argument list</a>,
+        ')',';' 
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[201]</td>
+<td align="right" valign="top" width="10%"><a href="ExpressionsPrimaryExpression.html#ebnf.objectfunctioninvocation">
+        object function invocation
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="ObjectsObjectDeclaration.html#ebnf.objectname">object name</a>,
+        '.',
+        <a href="FunctionsDomainFunctions.html#ebnf.functionname">function name</a>,
+        '(',
+        <a href="StatementsInvocationStatement.html#ebnf.argumentlist">argument list</a>,
+        ')',';' |
+        <a href="ExpressionsInstanceandInstanceCollectionExpressions.html#ebnf.instanceexpression">instance expression</a>,
+        '.',
+        <a href="FunctionsDomainFunctions.html#ebnf.functionname">function name</a>,
+        '(',
+        <a href="StatementsInvocationStatement.html#ebnf.argumentlist">argument list</a>,
+        ')',';' |
+        <a href="FunctionsDomainFunctions.html#ebnf.functionname">function name</a>,
+        '(',
+        <a href="StatementsInvocationStatement.html#ebnf.argumentlist">argument list</a>,
+        ')',';'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[202]</td>
+<td align="right" valign="top" width="10%"><a href="ExpressionsPrimaryExpression.html#ebnf.instancefunctioninvocation">
+        instance function invocation
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="ExpressionsInstanceandInstanceCollectionExpressions.html#ebnf.instanceexpression">instance expression</a>,
+        '.',
+        <a href="FunctionsDomainFunctions.html#ebnf.functionname">function name</a>,
+        '(',
+        <a href="StatementsInvocationStatement.html#ebnf.argumentlist">argument list</a>,
+        ')',';' |
+        <a href="FunctionsDomainFunctions.html#ebnf.functionname">function name</a>,
+        '(',
+        <a href="StatementsInvocationStatement.html#ebnf.argumentlist">argument list</a>,
+        ')',';'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[203]</td>
+<td align="right" valign="top" width="10%"><a href="ExpressionsUnaryOperators.html#ebnf.unaryexpression">
+        unary expression
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="ExpressionsTypeConversion.html#ebnf.typeconversion">type conversion</a> |
+        '-', <a href="ExpressionsUnaryOperators.html#ebnf.unaryexpression">unary expression</a> |
+        '+', <a href="ExpressionsUnaryOperators.html#ebnf.unaryexpression">unary expression</a> |
+        'not', <a href="ExpressionsUnaryOperators.html#ebnf.unaryexpression">unary expression</a> |
+        'abs', <a href="ExpressionsUnaryOperators.html#ebnf.unaryexpression">unary expression</a> |
+        <a href="ExpressionsPrimaryExpression.html#ebnf.primaryexpression">primary expression</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[204]</td>
+<td align="right" valign="top" width="10%"><a href="ExpressionsTypeConversion.html#ebnf.typeconversion">
+        type conversion
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="TypesTypeSpecification.html#ebnf.type">type</a>, '(',
+        <a href="ExpressionsExpression.html#ebnf.expression">expression</a>,
+        ')'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[205]</td>
+<td align="right" valign="top" width="10%"><a href="ExpressionsMulitplicativeOperators.html#ebnf.multiplicativeexpression">
+        multiplicative expression
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="ExpressionsUnaryOperators.html#ebnf.unaryexpression">unary expression</a> |
+        <a href="ExpressionsMulitplicativeOperators.html#ebnf.multiplicativeexpression">multiplicative expression</a>,
+        '*',
+        <a href="ExpressionsUnaryOperators.html#ebnf.unaryexpression">unary expression</a> |
+        <a href="ExpressionsMulitplicativeOperators.html#ebnf.multiplicativeexpression">multiplicative expression</a>,
+        '/',
+        <a href="ExpressionsUnaryOperators.html#ebnf.unaryexpression">unary expression</a> |
+        <a href="ExpressionsMulitplicativeOperators.html#ebnf.multiplicativeexpression">multiplicative expression</a>,
+        'mod',
+        <a href="ExpressionsUnaryOperators.html#ebnf.unaryexpression">unary expression</a> |
+        <a href="ExpressionsMulitplicativeOperators.html#ebnf.multiplicativeexpression">multiplicative expression</a>,
+        '**',
+        <a href="ExpressionsUnaryOperators.html#ebnf.unaryexpression">unary expression</a> |
+        <a href="ExpressionsMulitplicativeOperators.html#ebnf.multiplicativeexpression">multiplicative expression</a>,
+        'rem',
+        <a href="ExpressionsUnaryOperators.html#ebnf.unaryexpression">unary expression</a> |
+        <a href="ExpressionsMulitplicativeOperators.html#ebnf.multiplicativeexpression">multiplicative expression</a>,
+        'intersection',
+        <a href="ExpressionsUnaryOperators.html#ebnf.unaryexpression">unary expression</a> |
+        <a href="ExpressionsMulitplicativeOperators.html#ebnf.multiplicativeexpression">multiplicative expression</a>,
+        'disunion',
+        <a href="ExpressionsUnaryOperators.html#ebnf.unaryexpression">unary expression</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[206]</td>
+<td align="right" valign="top" width="10%"><a href="ExpressionsAdditiveOperators.html#ebnf.additiveexpression">
+        additive expression
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="ExpressionsMulitplicativeOperators.html#ebnf.multiplicativeexpression">multiplicative expression</a> |
+        <a href="ExpressionsAdditiveOperators.html#ebnf.additiveexpression">additive expression</a>,
+        '+',
+        <a href="ExpressionsMulitplicativeOperators.html#ebnf.multiplicativeexpression">multiplicative expression</a> |
+        <a href="ExpressionsAdditiveOperators.html#ebnf.additiveexpression">additive expression</a>,
+        '-',
+        <a href="ExpressionsMulitplicativeOperators.html#ebnf.multiplicativeexpression">multiplicative expression</a> |
+        <a href="ExpressionsAdditiveOperators.html#ebnf.additiveexpression">additive expression</a>,
+        '&amp;',
+        <a href="ExpressionsMulitplicativeOperators.html#ebnf.multiplicativeexpression">multiplicative expression</a> |
+        <a href="ExpressionsAdditiveOperators.html#ebnf.additiveexpression">additive expression</a>,
+        'union',
+        <a href="ExpressionsMulitplicativeOperators.html#ebnf.multiplicativeexpression">multiplicative expression</a> |
+        <a href="ExpressionsAdditiveOperators.html#ebnf.additiveexpression">additive expression</a>,
+        'not_in',
+        <a href="ExpressionsMulitplicativeOperators.html#ebnf.multiplicativeexpression">multiplicative expression</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[207]</td>
+<td align="right" valign="top" width="10%"><a href="ExpressionsRelationalOperators.html#ebnf.relationalexpression">
+        relational expression
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="ExpressionsAdditiveOperators.html#ebnf.additiveexpression">additive expression</a> |
+        <a href="ExpressionsAdditiveOperators.html#ebnf.additiveexpression">additive expression</a>,
+        '&lt;',
+        <a href="ExpressionsAdditiveOperators.html#ebnf.additiveexpression">additive expression</a> |
+        <a href="ExpressionsAdditiveOperators.html#ebnf.additiveexpression">additive expression</a>,
+        '&gt;',
+        <a href="ExpressionsAdditiveOperators.html#ebnf.additiveexpression">additive expression</a> |
+        <a href="ExpressionsAdditiveOperators.html#ebnf.additiveexpression">additive expression</a>,
+        '&lt;=',
+        <a href="ExpressionsAdditiveOperators.html#ebnf.additiveexpression">additive expression</a> |
+        <a href="ExpressionsAdditiveOperators.html#ebnf.additiveexpression">additive expression</a>,
+        '&gt;=',
+        <a href="ExpressionsAdditiveOperators.html#ebnf.additiveexpression">additive expression</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[208]</td>
+<td align="right" valign="top" width="10%"><a href="ExpressionsEqualityOperators.html#ebnf.equalityexpression">
+        equality expression
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="ExpressionsRelationalOperators.html#ebnf.relationalexpression">relational expression</a> |
+        <a href="ExpressionsRelationalOperators.html#ebnf.relationalexpression">relational expression</a>,
+        '/=',
+        <a href="ExpressionsRelationalOperators.html#ebnf.relationalexpression">relational expression</a> |
+        <a href="ExpressionsRelationalOperators.html#ebnf.relationalexpression">relational expression</a>,
+        '=',
+        <a href="ExpressionsRelationalOperators.html#ebnf.relationalexpression">relational expression</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[209]</td>
+<td align="right" valign="top" width="10%"><a href="ExpressionsLogicalOperators.html#ebnf.logicalandexpression">
+        logical and expression
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="ExpressionsEqualityOperators.html#ebnf.equalityexpression">equality expression</a> |
+        <a href="ExpressionsLogicalOperators.html#ebnf.logicalandexpression">logical and expression</a>,
+        'and',
+        <a href="ExpressionsEqualityOperators.html#ebnf.equalityexpression">equality expression</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[210]</td>
+<td align="right" valign="top" width="10%"><a href="ExpressionsLogicalOperators.html#ebnf.logicalxorexpression">
+        logical xor expression
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="ExpressionsLogicalOperators.html#ebnf.logicalandexpression">logical and expression</a> |
+        <a href="ExpressionsLogicalOperators.html#ebnf.logicalxorexpression">logical xor expression</a>,
+        'xor',
+        <a href="ExpressionsLogicalOperators.html#ebnf.logicalandexpression">logical and expression</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[211]</td>
+<td align="right" valign="top" width="10%"><a href="ExpressionsLogicalOperators.html#ebnf.logicalorexpression">
+        logical or expression
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="ExpressionsLogicalOperators.html#ebnf.logicalxorexpression">logical xor expression</a> |
+        <a href="ExpressionsLogicalOperators.html#ebnf.logicalorexpression">logical or expression</a>,
+        'or',
+        <a href="ExpressionsLogicalOperators.html#ebnf.logicalxorexpression">logical xor expression</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[212]</td>
+<td align="right" valign="top" width="10%"><a href="ExpressionsExpression.html#ebnf.expression">
+        expression
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="ExpressionsLogicalOperators.html#ebnf.logicalorexpression">logical or expression</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[213]</td>
+<td align="right" valign="top" width="10%"><a href="ExpressionsConditions.html#ebnf.condition">
+        condition
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="ExpressionsExpression.html#ebnf.expression">expression</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[214]</td>
+<td align="right" valign="top" width="10%"><a href="ExpressionsInstanceandInstanceCollectionExpressions.html#ebnf.instanceexpression">
+        instance expression
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="Names.html#ebnf.name">name</a> |
+        'this'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[215]</td>
+<td align="right" valign="top" width="10%"><a href="ExpressionsInstanceandInstanceCollectionExpressions.html#ebnf.instancecollectionexpression">
+        instance collection expression
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="Names.html#ebnf.name">name</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[216]</td>
+<td align="right" valign="top" width="10%"><a href="ExpressionsConstantExpressions.html#ebnf.constantexpression">
+        constant expression
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="ExpressionsExpression.html#ebnf.expression">expression</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[217]</td>
+<td align="right" valign="top" width="10%"><a href="ExpressionsExecutableUMLExpressions.html#ebnf.extendedexpression">
+        extended expression
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="ExpressionsExecutableUMLExpressions.html#ebnf.createexpression">create expression</a> |
+        <a href="ExpressionsExecutableUMLExpressions.html#ebnf.findexpression">find expression</a> |
+        <a href="ExpressionsExecutableUMLExpressions.html#ebnf.relationshipnavigation">relationship navigation</a> |
+        <a href="ExpressionsExecutableUMLExpressions.html#ebnf.correlatedrelationshipnavigation">correlated relationship navigation</a> |
+        <a href="ExpressionsExecutableUMLExpressions.html#ebnf.orderingexpression">ordering expression</a> |
+        <a href="ExpressionsExpression.html#ebnf.expression">expression</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[218]</td>
+<td align="right" valign="top" width="10%"><a href="ExpressionsExecutableUMLExpressions.html#ebnf.createexpression">
+        create expression
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        'create',
+        '.',
+        [ 'unique' ],
+        <a href="ObjectsObjectDeclaration.html#ebnf.objectname">object name</a>,
+        '(',
+        <a href="ExpressionsExecutableUMLExpressions.html#ebnf.objectaggregate">object aggregate</a>,
+        ')'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[219]</td>
+<td align="right" valign="top" width="10%"><a href="ExpressionsExecutableUMLExpressions.html#ebnf.objectaggregate">
+        object aggregate
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="ExpressionsExecutableUMLExpressions.html#ebnf.attributeassociation">attribute association</a>,
+        {(',',
+        <a href="ExpressionsExecutableUMLExpressions.html#ebnf.attributeassociation">attribute association</a>)}
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[220]</td>
+<td align="right" valign="top" width="10%"><a href="ExpressionsExecutableUMLExpressions.html#ebnf.attributeassociation">
+        attribute association
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="ObjectsAttributes.html#ebnf.attributename">attribute name</a>,
+        '=&gt;',
+        <a href="ExpressionsExpression.html#ebnf.expression">expression</a> |
+        'Current_State', '=&gt;',
+        <a href="LifecyclesStates.html#ebnf.statename">state name</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[221]</td>
+<td align="right" valign="top" width="10%"><a href="ExpressionsExecutableUMLExpressions.html#ebnf.findexpression">
+        find expression
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        'find',
+        <a href="ExpressionsExecutableUMLExpressions.html#ebnf.findspecification">find specification</a>,
+        '(',
+        <a href="ExpressionsExecutableUMLExpressions.html#ebnf.findcondition">find condition</a>,
+        ')' |
+        'find_all',
+        <a href="ExpressionsExecutableUMLExpressions.html#ebnf.findspecification">find specification</a>,
+        '(', ')' |
+        'find_one',
+        <a href="ExpressionsExecutableUMLExpressions.html#ebnf.findspecification">find specification</a>,
+        '(',
+        [<a href="ExpressionsExecutableUMLExpressions.html#ebnf.findcondition">find condition</a>],
+        ')' |
+        'find_only',
+        <a href="ExpressionsExecutableUMLExpressions.html#ebnf.findspecification">find specification</a>,
+        '(',
+        [<a href="ExpressionsExecutableUMLExpressions.html#ebnf.findcondition">find condition</a>],
+        ')'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[222]</td>
+<td align="right" valign="top" width="10%"><a href="ExpressionsExecutableUMLExpressions.html#ebnf.findspecification">
+        find specification
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="ExpressionsExecutableUMLExpressions.html#ebnf.scopedobjectname">scoped object name</a> |
+        <a href="ExpressionsInstanceandInstanceCollectionExpressions.html#ebnf.instancecollectionexpression">instance collection expression</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[223]</td>
+<td align="right" valign="top" width="10%"><a href="ExpressionsExecutableUMLExpressions.html#ebnf.scopedobjectname">
+        scoped object name
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="DomainsNamesandScoping.html#ebnf.scopedname">scoped name</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[224]</td>
+<td align="right" valign="top" width="10%"><a href="ExpressionsExecutableUMLExpressions.html#ebnf.findcondition">
+        find condition
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="ExpressionsExecutableUMLExpressions.html#ebnf.findxorcondition">find xor condition</a> |
+        <a href="ExpressionsExecutableUMLExpressions.html#ebnf.findcondition">find condition</a>,
+        'or',
+        <a href="ExpressionsExecutableUMLExpressions.html#ebnf.findxorcondition">find xor condition</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[225]</td>
+<td align="right" valign="top" width="10%"><a href="ExpressionsExecutableUMLExpressions.html#ebnf.findxorcondition">
+        find xor condition
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="ExpressionsExecutableUMLExpressions.html#ebnf.findandcondition">find and condition</a> |
+        <a href="ExpressionsExecutableUMLExpressions.html#ebnf.findxorcondition">find xor condition</a>,
+        'xor',
+        <a href="ExpressionsExecutableUMLExpressions.html#ebnf.findandcondition">find and condition</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[226]</td>
+<td align="right" valign="top" width="10%"><a href="ExpressionsExecutableUMLExpressions.html#ebnf.findandcondition">
+        find and condition
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="ExpressionsExecutableUMLExpressions.html#ebnf.findequalitycondition">find equality condition</a> |
+        <a href="ExpressionsExecutableUMLExpressions.html#ebnf.findandcondition">find and condition</a>,
+        'and',
+        <a href="ExpressionsExecutableUMLExpressions.html#ebnf.findequalitycondition">find equality condition</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[227]</td>
+<td align="right" valign="top" width="10%"><a href="ExpressionsExecutableUMLExpressions.html#ebnf.findequalitycondition">
+        find equality condition
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="ExpressionsExecutableUMLExpressions.html#ebnf.findrelationalcondition">find relational condition</a> |
+        <a href="Names.html#ebnf.name">name</a>,
+        '/=',
+        <a href="ExpressionsRelationalOperators.html#ebnf.relationalexpression">relational expression</a> |
+        <a href="Names.html#ebnf.name">name</a>,
+        '=',
+        <a href="ExpressionsRelationalOperators.html#ebnf.relationalexpression">relational expression</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[228]</td>
+<td align="right" valign="top" width="10%"><a href="ExpressionsExecutableUMLExpressions.html#ebnf.findrelationalcondition">
+        find relational condition
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="ExpressionsExecutableUMLExpressions.html#ebnf.findunarycondition">find unary condition</a> |
+        <a href="Names.html#ebnf.name">name</a>,
+        '&lt;',
+        <a href="ExpressionsAdditiveOperators.html#ebnf.additiveexpression">additive expression</a> |
+        <a href="Names.html#ebnf.name">name</a>,
+        '&gt;',
+        <a href="ExpressionsAdditiveOperators.html#ebnf.additiveexpression">additive expression</a> |
+        <a href="Names.html#ebnf.name">name</a>,
+        '&lt;=',
+        <a href="ExpressionsAdditiveOperators.html#ebnf.additiveexpression">additive expression</a> |
+        <a href="Names.html#ebnf.name">name</a>,
+        '&gt;=',
+        <a href="ExpressionsAdditiveOperators.html#ebnf.additiveexpression">additive expression</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[229]</td>
+<td align="right" valign="top" width="10%"><a href="ExpressionsExecutableUMLExpressions.html#ebnf.findunarycondition">
+        find unary condition
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        'not',
+        <a href="ExpressionsExecutableUMLExpressions.html#ebnf.findunarycondition">find unary condition</a> |
+        '(',
+        <a href="ExpressionsExecutableUMLExpressions.html#ebnf.findcondition">find condition</a>,
+        ')'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[230]</td>
+<td align="right" valign="top" width="10%"><a href="ExpressionsExecutableUMLExpressions.html#ebnf.relationshipnavigation">
+        relationship navigation
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="ExpressionsInstanceandInstanceCollectionExpressions.html#ebnf.instanceexpression">instance expression</a>,
+        '-&gt;',
+        <a href="RelationshipsRelationshipSpecifications.html#ebnf.relationshipspecification">relationship specification</a>,
+        {('-&gt;',
+        <a href="RelationshipsRelationshipSpecifications.html#ebnf.relationshipspecification">relationship specification</a>)} |
+        <a href="ExpressionsInstanceandInstanceCollectionExpressions.html#ebnf.instancecollectionexpression">instance collection expression</a>,
+        '-&gt;',
+        <a href="RelationshipsRelationshipSpecifications.html#ebnf.relationshipspecification">relationship specification</a>,
+        {('-&gt;',
+        <a href="RelationshipsRelationshipSpecifications.html#ebnf.relationshipspecification">relationship specification</a>)}
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[231]</td>
+<td align="right" valign="top" width="10%"><a href="ExpressionsExecutableUMLExpressions.html#ebnf.correlatedrelationshipnavigation">
+        correlated relationship navigation
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="ExpressionsInstanceandInstanceCollectionExpressions.html#ebnf.instanceexpression">instance expression</a>,
+        'with',
+        <a href="ExpressionsInstanceandInstanceCollectionExpressions.html#ebnf.instanceexpression">instance expression</a>,
+        '-&gt;',
+        <a href="RelationshipsRelationshipSpecifications.html#ebnf.relationshipspecification">relationship specification</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[232]</td>
+<td align="right" valign="top" width="10%"><a href="ExpressionsExecutableUMLExpressions.html#ebnf.orderingexpression">
+        ordering expression
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="ExpressionsExecutableUMLExpressions.html#ebnf.instanceorderingexpression">instance ordering expression</a> |
+        <a href="ExpressionsExecutableUMLExpressions.html#ebnf.structureorderingexpression">structure ordering expression</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[233]</td>
+<td align="right" valign="top" width="10%"><a href="ExpressionsExecutableUMLExpressions.html#ebnf.instanceorderingexpression">
+        instance ordering expression
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="ExpressionsInstanceandInstanceCollectionExpressions.html#ebnf.instancecollectionexpression">instance collection expression</a>,
+        'ordered_by', '(',
+        <a href="ExpressionsExecutableUMLExpressions.html#ebnf.instanceordering">instance ordering</a>,
+        ')' |
+        <a href="ExpressionsInstanceandInstanceCollectionExpressions.html#ebnf.instancecollectionexpression">instance collection expression</a>,
+        'reverse ordered_by', '(',
+        <a href="ExpressionsExecutableUMLExpressions.html#ebnf.instanceordering">instance ordering</a>,
+        ')' |
+        <a href="ExpressionsExecutableUMLExpressions.html#ebnf.findexpression">find expression</a>,
+        'ordered_by', '(',
+        <a href="ExpressionsExecutableUMLExpressions.html#ebnf.instanceordering">instance ordering</a>,
+        ')' |
+        <a href="ExpressionsExecutableUMLExpressions.html#ebnf.findexpression">find expression</a>,
+        'reverse_ordered_by', '(',
+        <a href="ExpressionsExecutableUMLExpressions.html#ebnf.instanceordering">instance ordering</a>,
+        ')'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[234]</td>
+<td align="right" valign="top" width="10%"><a href="ExpressionsExecutableUMLExpressions.html#ebnf.instanceordering">
+        instance ordering
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="ObjectsAttributes.html#ebnf.attributename">attribute name</a>,
+        {(''',
+        <a href="ObjectsAttributes.html#ebnf.attributename">attribute name</a>)}
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[235]</td>
+<td align="right" valign="top" width="10%"><a href="ExpressionsExecutableUMLExpressions.html#ebnf.structureorderingexpression">
+        structure ordering expression
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="NamesIndexedComponents.html#ebnf.prefix">prefix</a>,
+        'ordered_by','(',
+        <a href="ExpressionsExecutableUMLExpressions.html#ebnf.structureordering">structure ordering</a>,
+        ')' |
+        <a href="NamesIndexedComponents.html#ebnf.prefix">prefix</a>,
+        'reverse_ordered_by','(',
+        <a href="ExpressionsExecutableUMLExpressions.html#ebnf.structureordering">structure ordering</a>,
+        ')'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[236]</td>
+<td align="right" valign="top" width="10%"><a href="ExpressionsExecutableUMLExpressions.html#ebnf.structureordering">
+        structure ordering
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="TypesFullDeclarations.html#ebnf.componentname">component name</a>,
+        {(',',
+        <a href="TypesFullDeclarations.html#ebnf.componentname">component name</a>)}
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+</table></td></tr></table>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="LanguageDefinedCharacteristics.html">Prev</a> </td>
+<td width="20%" align="center"> </td>
+<td width="40%" align="right"> <a accesskey="n" href="ix01.html">Next</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">Appendix A. Language Defined Characteristics </td>
+<td width="20%" align="center">
+<a accesskey="h" href="index.html">Home</a> | <a accesskey="t" href="bk01-toc.html">ToC</a>
+</td>
+<td width="40%" align="right" valign="top"> Index</td>
+</tr>
+</table>
+</div>
+<div align="center">OFFICIAL</div>
+</body>
+</html>
