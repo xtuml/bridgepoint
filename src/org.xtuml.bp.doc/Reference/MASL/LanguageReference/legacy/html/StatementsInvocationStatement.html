@@ -1,0 +1,575 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>12.9. Invocation Statements</title>
+<link rel="stylesheet" type="text/css" href="docbook.css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<meta name="keywords" content="MASL, Action Language, Action Semantics, UML, Unified Modelling Language, Shlaer Mellor">
+<link rel="home" href="index.html" title="MASL Reference Manual">
+<link rel="up" href="Statements.html" title="Chapter 12. Statements">
+<link rel="prev" href="StatementsInputLineStream.html" title="12.8. Input Line Stream">
+<link rel="next" href="StatementsBlocks.html" title="12.10. Blocks">
+<link rel="preface" href="preface.html" title="Preface">
+<link rel="chapter" href="Grammars.html" title="Chapter 1. Grammars">
+<link rel="chapter" href="LexicalStructure.html" title="Chapter 2. Lexical Structure">
+<link rel="chapter" href="Types.html" title="Chapter 3. Types">
+<link rel="chapter" href="TypeConversion.html" title="Chapter 4. Type Conversion">
+<link rel="chapter" href="Domains.html" title="Chapter 5. Domains">
+<link rel="chapter" href="Objects.html" title="Chapter 6. Objects">
+<link rel="chapter" href="Relationships.html" title="Chapter 7. Relationships">
+<link rel="chapter" href="Lifecycles.html" title="Chapter 8. Lifecycles">
+<link rel="chapter" href="Functions.html" title="Chapter 9. Functions">
+<link rel="chapter" href="Services.html" title="Chapter 10. Services">
+<link rel="chapter" href="Exceptions.html" title="Chapter 11. Exceptions">
+<link rel="chapter" href="Statements.html" title="Chapter 12. Statements">
+<link rel="chapter" href="Names.html" title="Chapter 13. Names">
+<link rel="chapter" href="Expressions.html" title="Chapter 14. Expressions">
+<link rel="appendix" href="LanguageDefinedCharacteristics.html" title="Appendix A. Language Defined Characteristics">
+<link rel="appendix" href="SyntaxSummary.html" title="Appendix B. Syntax Summary">
+<link rel="index" href="ix01.html" title="Index">
+<link rel="subsection" href="StatementsInvocationStatement.html#StatementsDomainServiceInvocation" title="12.9.1. Domain Service Invocation">
+<link rel="subsection" href="StatementsInvocationStatement.html#StatementsObjectServiceInvocation" title="12.9.2. Object Service Invocation">
+<link rel="subsection" href="StatementsInvocationStatement.html#StatementsInstanceServiceInvocation" title="12.9.3. Instance Service Invocation">
+<link rel="subsection" href="StatementsInvocationStatement.html#StatementsCompileTimeProcessingofServiceInvocations" title="12.9.4. Compile-Time Processing of Service Invocations">
+<link rel="subsection" href="StatementsInvocationStatement.html#StatementsArgumentLists" title="12.9.5. Argument Lists">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div align="center">OFFICIAL</div>
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">12.9. Invocation Statements</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="StatementsInputLineStream.html">Prev</a> </td>
+<th width="60%" align="center">Chapter 12. Statements</th>
+<td width="20%" align="right"> <a accesskey="n" href="StatementsBlocks.html">Next</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title">
+<a name="StatementsInvocationStatement"></a>12.9. Invocation Statements</h2></div></div></div>
+<div class="toc"><dl class="toc">
+<dt><span class="section"><a href="StatementsInvocationStatement.html#StatementsDomainServiceInvocation">12.9.1. Domain Service Invocation</a></span></dt>
+<dt><span class="section"><a href="StatementsInvocationStatement.html#StatementsObjectServiceInvocation">12.9.2. Object Service Invocation</a></span></dt>
+<dt><span class="section"><a href="StatementsInvocationStatement.html#StatementsInstanceServiceInvocation">12.9.3. Instance Service Invocation</a></span></dt>
+<dt><span class="section"><a href="StatementsInvocationStatement.html#StatementsCompileTimeProcessingofServiceInvocations">12.9.4. Compile-Time Processing of Service Invocations</a></span></dt>
+<dt><span class="section"><a href="StatementsInvocationStatement.html#StatementsArgumentLists">12.9.5. Argument Lists</a></span></dt>
+</dl></div>
+<p>
+An <a class="link" href="StatementsInvocationStatement.html#ebnf.invocationstatement"><span class="emphasis"><em>invocation statement</em></span></a>
+<a class="indexterm" name="idp69122768"></a>
+<a class="indexterm" name="idp69124384"></a>
+is used to invoke a domain,
+<a class="indexterm" name="idp69125568"></a>
+object
+<a class="indexterm" name="idp69126912"></a>
+or instance service.
+<a class="indexterm" name="idp69128256"></a>
+</p>
+<a class="indexterm" name="idp69129760"></a><a class="indexterm" name="idp69130944"></a><a class="indexterm" name="idp69132144"></a><a class="indexterm" name="idp69133344"></a><table width="100%" cellpadding="5" bgcolor="#F5DCB3" border="1" class="productionset" summary="EBNF"><tr><td><table border="0" width="99%" cellpadding="0" bgcolor="#F5DCB3" class="productionset" summary="EBNF productions"><tr>
+<td align="left" valign="top" width="3%">[159]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.invocationstatement"></a>
+        invocation statement
+    </td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="StatementsInvocationStatement.html#ebnf.domainserviceinvocation">domain service invocation</a> |
+        <a href="StatementsInvocationStatement.html#ebnf.objectserviceinvocation">object service invocation</a> |
+        <a href="StatementsInvocationStatement.html#ebnf.instanceserviceinvocation">instance service invocation</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr></table></td></tr></table>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="StatementsDomainServiceInvocation"></a>12.9.1. Domain Service Invocation</h3></div></div></div>
+<p>
+A <a class="link" href="StatementsInvocationStatement.html#ebnf.domainserviceinvocation"><span class="emphasis"><em>domain service invocation</em></span></a>
+<a class="indexterm" name="idp69141360"></a>
+is used to invoke a domain service.
+</p>
+<a class="indexterm" name="idp69143168"></a><a class="indexterm" name="idp69144368"></a><a class="indexterm" name="idp69145552"></a><a class="indexterm" name="idp69146864"></a><a class="indexterm" name="idp69148048"></a><table width="100%" cellpadding="5" bgcolor="#F5DCB3" border="1" class="productionset" summary="EBNF"><tr><td><table border="0" width="99%" cellpadding="0" bgcolor="#F5DCB3" class="productionset" summary="EBNF productions"><tr>
+<td align="left" valign="top" width="3%">[160]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.domainserviceinvocation"></a>
+        domain service invocation
+    </td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        (<a href="DomainsDomainDeclaration.html#ebnf.domainname">domain name</a>,
+        '::',
+        <a href="ServicesDomainServices.html#ebnf.servicename">service name</a>,
+        '(',
+        <a href="StatementsInvocationStatement.html#ebnf.argumentlist">argument list</a>,
+        ')', ';') |
+        (<a href="ServicesDomainServices.html#ebnf.servicename">service name</a>,
+        '(',
+        <a href="StatementsInvocationStatement.html#ebnf.argumentlist">argument list</a>,
+        ')', ';')
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr></table></td></tr></table>
+<p>
+A compile-time error occurs if either of the following are true:
+</p>
+<div class="itemizedlist"><ul class="itemizedlist">
+<li class="listitem">
+<p>
+The <a class="link" href="ServicesDomainServices.html#ServicesDomainServiceSignature" title="10.1.3. Service Signature">signature</a>
+<a class="indexterm" name="idp69157360"></a>
+of the domain service to be invoked, named by the
+<a class="link" href="ServicesDomainServices.html#ebnf.servicename"><span class="emphasis"><em>service name</em></span></a>
+<a class="indexterm" name="idp69160032"></a>
+together with the
+<a class="link" href="StatementsInvocationStatement.html#ebnf.argumentlist"><span class="emphasis"><em>argument list</em></span></a>
+<a class="indexterm" name="idp69162672"></a>
+has not been declared, by a
+<a class="link" href="ServicesDomainServices.html#ebnf.domainservicedeclaration"><span class="emphasis"><em>domain service declaration</em></span></a>,
+<a class="indexterm" name="idp69165360"></a>
+as a service of either:
+</p>
+<div class="itemizedlist"><ul class="itemizedlist">
+<li class="listitem"><p>
+The domain named by the
+<a class="link" href="DomainsDomainDeclaration.html" title="5.3. Domain Declaration"><span class="emphasis"><em>domain name</em></span></a>,
+in the form
+<span class="package">domain_name</span><code class="literal">::</code><code class="methodname">service_name</code>.
+</p></li>
+<li class="listitem"><p>
+The enclosing domain, in the form consisting of just a
+<code class="methodname">service name</code>.
+<a class="indexterm" name="idp69171600"></a>
+</p></li>
+</ul></div>
+<p>
+</p>
+</li>
+<li class="listitem"><p>
+The <a class="link" href="ServicesDomainServices.html#ebnf.domainservicedeclaration"><span class="emphasis"><em>domain service declaration</em></span></a>
+<a class="indexterm" name="idp69175648"></a>
+is not accessible
+(see <a class="xref" href="StatementsInvocationStatement.html#StatementsCompileTimeProcessingofServiceInvocations" title="12.9.4. Compile-Time Processing of Service Invocations">Section 12.9.4, “Compile-Time Processing of Service Invocations”</a>) to
+the invocation statement.
+</p></li>
+</ul></div>
+<p>
+</p>
+<p>
+A <a class="link" href="StatementsInvocationStatement.html#ebnf.domainserviceinvocation"><span class="emphasis"><em>domain service invocation</em></span></a>
+<a class="indexterm" name="idp69179872"></a>
+is executed by evaluating the argument expressions.
+If the evaluation of any argument expression completes abruptly,
+<a class="indexterm" name="idp69181760"></a>
+then the
+invocation statement completes abruptly
+<a class="indexterm" name="idp69182688"></a>
+for the same reason.
+The domain service definition is then executed. If this completes normally
+<a class="indexterm" name="idp69183664"></a>
+any necessary assigning back of formal to actual parameters occurs.
+</p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="StatementsObjectServiceInvocation"></a>12.9.2. Object Service Invocation</h3></div></div></div>
+<p>
+An <a class="link" href="StatementsInvocationStatement.html#ebnf.objectserviceinvocation"><span class="emphasis"><em>object service invocation</em></span></a>
+<a class="indexterm" name="idp69187280"></a>
+is used to invoke an object based service.
+</p>
+<a class="indexterm" name="idp69189264"></a><a class="indexterm" name="idp69190464"></a><a class="indexterm" name="idp69191648"></a><a class="indexterm" name="idp69192832"></a><a class="indexterm" name="idp69194016"></a><table width="100%" cellpadding="5" bgcolor="#F5DCB3" border="1" class="productionset" summary="EBNF"><tr><td><table border="0" width="99%" cellpadding="0" bgcolor="#F5DCB3" class="productionset" summary="EBNF productions"><tr>
+<td align="left" valign="top" width="3%">[161]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.objectserviceinvocation"></a>
+        object service invocation
+    </td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        (<a href="DomainsDomainDeclaration.html#ebnf.domainname">object name</a>,
+        '.',
+        <a href="ServicesDomainServices.html#ebnf.servicename">service name</a>,
+        '(',
+        <a href="StatementsInvocationStatement.html#ebnf.argumentlist">argument list</a>,
+        ')', ';') |
+        (<a href="ExpressionsInstanceandInstanceCollectionExpressions.html#ebnf.instanceexpression">instance expression</a>,
+        '.',
+        <a href="ServicesDomainServices.html#ebnf.servicename">service name</a>,
+        '(',
+        <a href="StatementsInvocationStatement.html#ebnf.argumentlist">argument list</a>,
+        ')', ';') |
+        (<a href="ServicesDomainServices.html#ebnf.servicename">service name</a>,
+        '(',
+        <a href="StatementsInvocationStatement.html#ebnf.argumentlist">argument list</a>,
+        ')', ';')
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr></table></td></tr></table>
+<p>
+A compile-time error will occur if:
+</p>
+<div class="itemizedlist"><ul class="itemizedlist">
+<li class="listitem">
+<p>
+The signature of the object base service to be invoked, named by the service
+name
+<a class="indexterm" name="idp69204800"></a>
+together with the argument list
+<a class="indexterm" name="idp69206608"></a>
+has not been declared, by an object service
+declaration, as a non-instance service of either:
+</p>
+<div class="itemizedlist"><ul class="itemizedlist">
+<li class="listitem"><p>
+The object, in the enclosing domain, named by the object name, in the form
+<code class="classname">object_name</code><code class="literal">.</code><code class="methodname">service_name</code>.
+</p></li>
+<li class="listitem"><p>
+The object, given by the object of the
+<a class="link" href="TypesInstanceTypes.html" title="3.4. Instance Types">instance type</a>
+<a class="indexterm" name="idp69212352"></a>
+of the
+<a class="link" href="ExpressionsInstanceandInstanceCollectionExpressions.html" title="14.14. Instance and Instance Collection Expressions">instance expression</a>,
+<a class="indexterm" name="idp69214448"></a>
+in the form
+<span class="emphasis"><em>instance_expression</em></span><code class="literal">.</code><code class="methodname">service_name</code>.
+</p></li>
+<li class="listitem"><p>
+The enclosing object, in the form consisting of just a
+<code class="methodname">service name</code>.
+<a class="indexterm" name="idp69218208"></a>
+</p></li>
+</ul></div>
+<p>
+</p>
+</li>
+<li class="listitem"><p>
+The object service declaration
+<a class="indexterm" name="idp69221392"></a>
+is not accessible
+(see <a class="xref" href="StatementsInvocationStatement.html#StatementsCompileTimeProcessingofServiceInvocations" title="12.9.4. Compile-Time Processing of Service Invocations">Section 12.9.4, “Compile-Time Processing of Service Invocations”</a>) to
+the invocation statement.
+</p></li>
+</ul></div>
+<p>
+</p>
+<p>
+An <a class="link" href="StatementsInvocationStatement.html#ebnf.objectserviceinvocation"><span class="emphasis"><em>object service invocation</em></span></a>
+<a class="indexterm" name="idp69225616"></a>
+is executed by evaluating the
+argument expressions. If the evaluation of any argument expression completes
+abruptly,
+<a class="indexterm" name="idp69227504"></a>
+then the object service invocation completes abruptly
+<a class="indexterm" name="idp69228432"></a>
+for the same
+reason. Note, that for an object service invocation of the form
+<code class="classname">instance_expression</code><code class="literal">.</code><code class="methodname">service_name</code>,
+the
+<a class="link" href="ExpressionsInstanceandInstanceCollectionExpressions.html" title="14.14. Instance and Instance Collection Expressions">instance expression</a>
+<a class="indexterm" name="idp69231168"></a>
+is not evaluated.
+The object service definition is then executed. If this completes normally,
+<a class="indexterm" name="idp69232592"></a>
+any necessary assigning back of formal to actual parameters occurs.
+</p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="StatementsInstanceServiceInvocation"></a>12.9.3. Instance Service Invocation</h3></div></div></div>
+<p>
+An <a class="link" href="StatementsInvocationStatement.html#ebnf.instanceserviceinvocation"><span class="emphasis"><em>instance service invocation</em></span></a>
+<a class="indexterm" name="idp69236208"></a>
+is used to invoke an object instance service.
+</p>
+<a class="indexterm" name="idp69238464"></a><a class="indexterm" name="idp69239664"></a><a class="indexterm" name="idp69240848"></a><a class="indexterm" name="idp69242032"></a><table width="100%" cellpadding="5" bgcolor="#F5DCB3" border="1" class="productionset" summary="EBNF"><tr><td><table border="0" width="99%" cellpadding="0" bgcolor="#F5DCB3" class="productionset" summary="EBNF productions"><tr>
+<td align="left" valign="top" width="3%">[162]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.instanceserviceinvocation"></a>
+        instance service invocation
+    </td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        (<a href="ExpressionsInstanceandInstanceCollectionExpressions.html#ebnf.instanceexpression">instance expression</a>,
+        '.',
+        <a href="ServicesDomainServices.html#ebnf.servicename">service name</a>,
+        '(',
+        <a href="StatementsInvocationStatement.html#ebnf.argumentlist">argument list</a>,
+        ')', ';') |
+        (<a href="ServicesDomainServices.html#ebnf.servicename">service name</a>,
+        '(',
+        <a href="StatementsInvocationStatement.html#ebnf.argumentlist">argument list</a>,
+        ')', ';')
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr></table></td></tr></table>
+<p>
+A compile-time error occurs if:
+</p>
+<div class="itemizedlist"><ul class="itemizedlist">
+<li class="listitem">
+<p>
+The signature of the object instance service to be invoked, named by the service
+name together with the argument list has not been declared, by an object service
+declaration, as a non-instance service of either:
+</p>
+<div class="itemizedlist"><ul class="itemizedlist">
+<li class="listitem"><p>
+The object, given by the object of the
+<a class="link" href="TypesInstanceTypes.html" title="3.4. Instance Types">instance type</a>
+<a class="indexterm" name="idp69252672"></a>
+of the
+<a class="link" href="ExpressionsInstanceandInstanceCollectionExpressions.html" title="14.14. Instance and Instance Collection Expressions">instance expression</a>,
+<a class="indexterm" name="idp69254768"></a>
+in the form
+<code class="classname">instance_expression</code><code class="literal">.</code><code class="methodname">service_name</code>.
+</p></li>
+<li class="listitem"><p>
+The enclosing object, in the form consisting of just a
+<code class="methodname">service name</code>.
+<a class="indexterm" name="idp69258528"></a>
+</p></li>
+</ul></div>
+<p>
+</p>
+</li>
+<li class="listitem"><p>
+The instance service declaration
+<a class="indexterm" name="idp69261712"></a>
+is not accessible
+(see <a class="xref" href="StatementsInvocationStatement.html#StatementsCompileTimeProcessingofServiceInvocations" title="12.9.4. Compile-Time Processing of Service Invocations">Section 12.9.4, “Compile-Time Processing of Service Invocations”</a>) to
+the invocation statement.
+</p></li>
+</ul></div>
+<p>
+</p>
+<p>
+An <a class="link" href="StatementsInvocationStatement.html#ebnf.instanceserviceinvocation"><span class="emphasis"><em>instance service invocation</em></span></a>
+<a class="indexterm" name="idp69265936"></a>
+is executed by first evaluating either:
+</p>
+<div class="itemizedlist"><ul class="itemizedlist">
+<li class="listitem"><p>
+The <a class="link" href="ExpressionsInstanceandInstanceCollectionExpressions.html" title="14.14. Instance and Instance Collection Expressions">instance expression</a>
+<a class="indexterm" name="idp69269648"></a>
+in the form
+<code class="classname">instance_expression</code><code class="literal">.</code><code class="methodname">service_name</code>
+<a class="indexterm" name="idp69272016"></a>
+</p></li>
+<li class="listitem"><p>
+The reserved word <code class="literal">this</code>
+<a class="indexterm" name="idp69275152"></a>
+in the form consisting of just a service name.
+<a class="indexterm" name="idp69276208"></a>
+</p></li>
+</ul></div>
+<p>
+</p>
+<p>
+The result of this evaluation is known as the target reference.
+If evaluation of either the
+<a class="link" href="ExpressionsInstanceandInstanceCollectionExpressions.html" title="14.14. Instance and Instance Collection Expressions">instance expression</a>
+<a class="indexterm" name="idp69279760"></a>
+or the reserved word
+<a class="link" href="Names.html" title="Chapter 13. Names"><code class="literal">this</code></a>
+<a class="indexterm" name="idp69281952"></a>
+completes abruptly
+<a class="indexterm" name="idp69282976"></a>
+or the
+evaluation results in a null instance, then the invocation statement completes
+abruptly
+<a class="indexterm" name="idp69283952"></a>
+for the same reason.
+</p>
+<p>
+The argument expressions are the evaluated. If the evaluation of any argument 
+expression completes abruptly,
+<a class="indexterm" name="idp69285392"></a>
+then the invocation statement completes abruptly
+<a class="indexterm" name="idp69286320"></a>
+for the same reason. The instance service definition for the target reference
+is then executed. Finally, if this completes normally.
+<a class="indexterm" name="idp69287328"></a>
+then after it is left,
+any necessary assigning back of formal to actual parameters occurs.
+</p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="StatementsCompileTimeProcessingofServiceInvocations"></a>12.9.4. Compile-Time Processing of Service Invocations</h3></div></div></div>
+<p>
+Although the invocation of domain, object and instance service are split in
+the grammar, the three types of invocation are in many ways inseparable. This
+is because of the ambiguity between the three that is only resolved by using
+the current scope of the invocation statement.
+<a class="indexterm" name="idp69290336"></a>
+Determining the service that
+will be invoked in an invocation statement involves the following steps:
+</p>
+<div class="orderedlist"><ol class="orderedlist" type="1">
+<li class="listitem"><p>
+If the form is
+<code class="classname">domain_name</code><code class="literal">::</code><code class="methodname">service_name</code>,
+then the invocation statement is a
+domain service invocation.
+</p></li>
+<li class="listitem"><p>
+If the form is
+<code class="classname">object_name</code><code class="literal">::</code><code class="methodname">service_name</code>,
+then the invocation statement is a
+object service invocation.
+</p></li>
+<li class="listitem">
+<p>
+If the form is <code class="classname">instance_expression</code><code class="literal">::</code><code class="methodname">service_name</code>,
+then:
+</p>
+<div class="orderedlist"><ol class="orderedlist" type="i">
+<li class="listitem"><p>
+If there is an instance service declared by the object, given by the object of
+the <a class="link" href="TypesInstanceTypes.html" title="3.4. Instance Types">instance type</a> of the
+<a class="indexterm" name="idp69300224"></a>
+<a class="link" href="ExpressionsInstanceandInstanceCollectionExpressions.html" title="14.14. Instance and Instance Collection Expressions">instance expression</a>,
+<a class="indexterm" name="idp69302320"></a>
+that is applicable and accessible, the the invocation statement is an instance
+service invocation.
+<a class="indexterm" name="idp69303744"></a>
+</p></li>
+<li class="listitem"><p>
+Otherwise the invocation statement is an object service invocation.
+<a class="indexterm" name="idp69306480"></a>
+</p></li>
+</ol></div>
+<p>
+</p>
+</li>
+<li class="listitem">
+<p>
+If the form consists of just
+<a class="link" href="ServicesDomainServices.html#ebnf.servicename"><span class="emphasis"><em>service name</em></span></a>
+then:
+</p>
+<div class="orderedlist"><ol class="orderedlist" type="i">
+<li class="listitem"><p>
+If the invocation statement is in an instance state or an instance service and
+there is an instance service declared by the enclosing object that is
+applicable and accessible, then the invocation statement is an instance
+service invocation.
+<a class="indexterm" name="idp69311872"></a>
+</p></li>
+<li class="listitem"><p>
+Otherwise, if the invocation statement is in a state or an object service and
+there is a non-instance service declared by the enclosing object that is
+applicable and accessible, then the invocation statement is an object service
+invocation.
+<a class="indexterm" name="idp69314784"></a>
+</p></li>
+<li class="listitem"><p>
+Otherwise, the invocation statement is a domain service invocation.
+<a class="indexterm" name="idp69317520"></a>
+</p></li>
+</ol></div>
+<p>
+</p>
+</li>
+</ol></div>
+<p>
+</p>
+<p>
+A service declaration is applicable to a service invocation if and only if both
+the following are true:
+</p>
+<div class="itemizedlist"><ul class="itemizedlist">
+<li class="listitem"><p>
+The number of parameters in the service declaration is the same as the number of
+argument expressions in the service invocation.
+</p></li>
+<li class="listitem"><p>
+The type of each actual argument is assignable to the type of the corresponding
+parameter.
+</p></li>
+</ul></div>
+<p>
+</p>
+<p>
+Whether a service declaration is accessible to a service
+invocation depends upon the access modifier (<code class="literal">public</code>,
+<a class="indexterm" name="idp69324496"></a>
+<code class="literal">private</code>
+<a class="indexterm" name="idp69325968"></a>
+or none) in the service declaration in relation to
+the service invocation.
+</p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="StatementsArgumentLists"></a>12.9.5. Argument Lists</h3></div></div></div>
+<p>
+The arguments of a service invocation are given in an
+<a class="link" href="StatementsInvocationStatement.html#ebnf.argumentlist"><span class="emphasis"><em>argument list</em></span></a>.
+<a class="indexterm" name="idp69329680"></a>
+<a class="indexterm" name="idp69331296"></a>
+</p>
+<a class="indexterm" name="idp69332624"></a><a class="indexterm" name="idp69333792"></a><a class="indexterm" name="idp69334960"></a><a class="indexterm" name="idp69336128"></a><table width="100%" cellpadding="5" bgcolor="#F5DCB3" border="1" class="productionset" summary="EBNF"><tr><td><table border="0" width="99%" cellpadding="0" bgcolor="#F5DCB3" class="productionset" summary="EBNF productions">
+<tr>
+<td align="left" valign="top" width="3%">[163]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.argumentlist"></a>
+        argument list
+    </td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        (<a href="StatementsInvocationStatement.html#ebnf.argument">argument</a>,
+        {(',',
+        <a href="StatementsInvocationStatement.html#ebnf.argument">argument</a>}
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[164]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.argument"></a>
+        argument
+    </td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="ExpressionsExpression.html#ebnf.expression">expression</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+</table></td></tr></table>
+<p>
+The number of arguments in an invocation must equal the number of parameters in
+the services declaration. In addition, the type of each argument must be
+assignable to the type of the corresponding parameter. If a service is
+overloaded, the number of arguments and the compile-time types of the
+arguments are used, at compile-time, to determine the service that will be
+invoked (see
+<a class="xref" href="StatementsInvocationStatement.html#StatementsCompileTimeProcessingofServiceInvocations" title="12.9.4. Compile-Time Processing of Service Invocations">Section 12.9.4, “Compile-Time Processing of Service Invocations”</a>).
+</p>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="StatementsInputLineStream.html">Prev</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="Statements.html">Up</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="StatementsBlocks.html">Next</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">12.8. Input Line Stream </td>
+<td width="20%" align="center">
+<a accesskey="h" href="index.html">Home</a> | <a accesskey="t" href="bk01-toc.html">ToC</a>
+</td>
+<td width="40%" align="right" valign="top"> 12.10. Blocks</td>
+</tr>
+</table>
+</div>
+<div align="center">OFFICIAL</div>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<section version="5.0"
+      xmlns="http://docbook.org/ns/docbook"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+      xmlns:xi="http://www.w3.org/2001/XInclude"
+      xmlns:svg="http://www.w3.org/2000/svg"
+      xmlns:mml="http://www.w3.org/1998/Math/MathML"
+      xmlns:html="http://www.w3.org/1999/xhtml"
+      xmlns:db="http://docbook.org/ns/docbook">
+  <info xml:id="info">
+    <title>MASL Reference Manual</title>
+
+
+    <copyright>
+      <year>2000-2016</year>
+      <holder>UK Crown Copyright</holder>
+    </copyright>
+
+    <releaseinfo>Version 2.0 (Draft)</releaseinfo>
+    <pubdate>2016-03-22</pubdate>
+
+    <subjectset scheme="IEEE">
+      <subject>
+        <subjectterm>Computer language</subjectterm>
+      </subject>
+
+      <subject>
+        <subjectterm>Computer aided software engineering</subjectterm>
+      </subject>
+
+      <subject>
+        <subjectterm>Programming</subjectterm>
+      </subject>
+
+      <subject>
+        <subjectterm>Modelling</subjectterm>
+      </subject>
+    </subjectset>
+
+    <keywordset>
+      <keyword>MASL</keyword>
+
+      <keyword>Action Language</keyword>
+
+      <keyword>Action Semantics</keyword>
+
+      <keyword>UML</keyword>
+
+      <keyword>Unified Modelling Language</keyword>
+
+      <keyword>Shlaer Mellor</keyword>
+    </keywordset>
+
+    <abstract>
+      <para>This document is the definitive language specification and
+      reference for MASL.</para>
+    </abstract>
+  </info>
+</section>

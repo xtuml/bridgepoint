@@ -1,0 +1,45 @@
+<!-- 
+  UK Crown Copyright (c) 2016. All Rights Reserved
+-->
+<bibliography version="5.0"
+      xmlns="http://docbook.org/ns/docbook"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+      xmlns:xi="http://www.w3.org/2001/XInclude"
+      xmlns:svg="http://www.w3.org/2000/svg"
+      xmlns:mml="http://www.w3.org/1998/Math/MathML"
+      xmlns:html="http://www.w3.org/1999/xhtml"
+      xmlns:db="http://docbook.org/ns/docbook" xml:id="bilbliography">
+  <bibliodiv xml:id="bilbliography.standards">
+    <title>Standards</title>
+    <biblioentry xreflabel="ISO646" xml:id="bibliography.iso646">
+        <titleabbrev>ISO 646</titleabbrev>
+        <title>Information technology &#x2014; ISO 7-bit coded character set for information interchange</title>
+        <pubdate>1991</pubdate>
+        <copyright>
+            <year>1991</year>
+            <holder>ISO</holder>
+        </copyright>
+        <biblioid class="pubsnumber">ISO/IEC 646:1991</biblioid>
+        <publisher>
+            <publishername>International Organization for Standardization</publishername>
+        </publisher>
+    </biblioentry>
+
+
+    <biblioentry xreflabel="ISO8601" xml:id="bibliography.iso8601">
+        <titleabbrev>ISO 8601</titleabbrev>
+        <title>Data elements and interchange formats &#x2014; Information interchange &#x2014; Representations of dates and times</title>
+        <pubdate>2004</pubdate>
+        <copyright>
+            <year>2004</year>
+            <holder>ISO</holder>
+        </copyright>
+        <biblioid class="pubsnumber">ISO 8601:2004(E)</biblioid>
+        <publisher>
+            <publishername>International Organization for Standardization</publishername>
+        </publisher>
+    </biblioentry>
+
+  </bibliodiv>
+
+</bibliography>

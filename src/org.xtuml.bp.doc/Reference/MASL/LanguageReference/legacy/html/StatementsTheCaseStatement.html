@@ -1,0 +1,239 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>12.12. The Case Statement</title>
+<link rel="stylesheet" type="text/css" href="docbook.css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<meta name="keywords" content="MASL, Action Language, Action Semantics, UML, Unified Modelling Language, Shlaer Mellor">
+<link rel="home" href="index.html" title="MASL Reference Manual">
+<link rel="up" href="Statements.html" title="Chapter 12. Statements">
+<link rel="prev" href="StatementsTheIfStatement.html" title="12.11. The If Statement">
+<link rel="next" href="StatementsTheWhileStatement.html" title="12.13. The While Statement">
+<link rel="preface" href="preface.html" title="Preface">
+<link rel="chapter" href="Grammars.html" title="Chapter 1. Grammars">
+<link rel="chapter" href="LexicalStructure.html" title="Chapter 2. Lexical Structure">
+<link rel="chapter" href="Types.html" title="Chapter 3. Types">
+<link rel="chapter" href="TypeConversion.html" title="Chapter 4. Type Conversion">
+<link rel="chapter" href="Domains.html" title="Chapter 5. Domains">
+<link rel="chapter" href="Objects.html" title="Chapter 6. Objects">
+<link rel="chapter" href="Relationships.html" title="Chapter 7. Relationships">
+<link rel="chapter" href="Lifecycles.html" title="Chapter 8. Lifecycles">
+<link rel="chapter" href="Functions.html" title="Chapter 9. Functions">
+<link rel="chapter" href="Services.html" title="Chapter 10. Services">
+<link rel="chapter" href="Exceptions.html" title="Chapter 11. Exceptions">
+<link rel="chapter" href="Statements.html" title="Chapter 12. Statements">
+<link rel="chapter" href="Names.html" title="Chapter 13. Names">
+<link rel="chapter" href="Expressions.html" title="Chapter 14. Expressions">
+<link rel="appendix" href="LanguageDefinedCharacteristics.html" title="Appendix A. Language Defined Characteristics">
+<link rel="appendix" href="SyntaxSummary.html" title="Appendix B. Syntax Summary">
+<link rel="index" href="ix01.html" title="Index">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div align="center">OFFICIAL</div>
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">12.12. The Case Statement</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="StatementsTheIfStatement.html">Prev</a> </td>
+<th width="60%" align="center">Chapter 12. Statements</th>
+<td width="20%" align="right"> <a accesskey="n" href="StatementsTheWhileStatement.html">Next</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title">
+<a name="StatementsTheCaseStatement"></a>12.12. The Case Statement</h2></div></div></div>
+<p>
+The <a class="link" href="StatementsTheCaseStatement.html#ebnf.casestatement"><code class="literal">case</code></a> statement
+<a class="indexterm" name="idp69415264"></a>
+<a class="indexterm" name="idp69417008"></a>
+transfers control to one of several
+sequences of statements depending on the value of an expression.
+</p>
+<a class="indexterm" name="idp69418544"></a><a class="indexterm" name="idp69419712"></a><a class="indexterm" name="idp69421008"></a><a class="indexterm" name="idp69422176"></a><a class="indexterm" name="idp69423472"></a><a class="indexterm" name="idp69424608"></a><a class="indexterm" name="idp69425904"></a><a class="indexterm" name="idp69427104"></a><a class="indexterm" name="idp69428416"></a><a class="indexterm" name="idp69429600"></a><a class="indexterm" name="idp69430912"></a><a class="indexterm" name="idp69432096"></a><a class="indexterm" name="idp69433264"></a><a class="indexterm" name="idp69434432"></a><table width="100%" cellpadding="5" bgcolor="#F5DCB3" border="1" class="productionset" summary="EBNF"><tr><td><table border="0" width="99%" cellpadding="0" bgcolor="#F5DCB3" class="productionset" summary="EBNF productions">
+<tr>
+<td align="left" valign="top" width="3%">[167]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.casestatement"></a>
+        case statement
+    </td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        'case',
+        <a href="ExpressionsExpression.html#ebnf.expression">expression</a>,
+        'is',
+        {<a href="StatementsTheCaseStatement.html#ebnf.casestatementalternative">case statement alternative</a>},
+        'end', ['case'], ';'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[168]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.casestatementalternative"></a>
+        case statement alternative
+    </td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        'when',
+        <a href="StatementsTheCaseStatement.html#ebnf.discretechoicelist">discrete choice list</a>,
+        '=&gt;',
+        <a href="StatementsSequenceofStatements.html#ebnf.sequenceofstatements">sequence of statements</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[169]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.discretechoicelist"></a>
+        discrete choice list
+    </td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="StatementsTheCaseStatement.html#ebnf.discretechoice">discrete choice</a>,
+        {'|',
+        <a href="StatementsTheCaseStatement.html#ebnf.discretechoicelist">discrete choice list</a>}
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[170]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.discretechoice"></a>
+        discrete choice
+    </td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="ExpressionsConstantExpressions.html#ebnf.constantexpression">constant expression</a> |
+        'others'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+</table></td></tr></table>
+<p>
+All of the following must be true or a compile-time error will result:
+</p>
+<div class="itemizedlist"><ul class="itemizedlist">
+<li class="listitem"><p>
+The type of the expression must have an equality operator
+<a class="indexterm" name="idp69450112"></a>
+defined.
+</p></li>
+<li class="listitem"><p>
+The type of every constant expression
+<a class="indexterm" name="idp69452400"></a>
+associated with a <span class="emphasis"><em>case statement</em></span>
+<a class="indexterm" name="idp69454192"></a>
+must be assignable to the type of the expression.
+</p></li>
+<li class="listitem"><p>
+No two of the constant expressions
+<a class="indexterm" name="idp69456160"></a>
+associated with a case statement may have the same value.
+</p></li>
+<li class="listitem"><p>
+At most one <code class="literal">others</code>
+<a class="indexterm" name="idp69458896"></a>
+discrete choice may be associated with the
+same case statement and it must appear as the last case statement alternative
+<a class="indexterm" name="idp69460608"></a>
+on its own.
+</p></li>
+</ul></div>
+<p>
+</p>
+<p>
+When the
+<a class="link" href="StatementsTheCaseStatement.html#ebnf.casestatement"><span class="emphasis"><em>case statement</em></span></a>,
+<a class="indexterm" name="idp69463856"></a>
+is executed, first the expression is evaluated. If
+evaluation of the expression completes abruptly
+<a class="indexterm" name="idp69464960"></a>
+for some reason, the case statement completes abruptly
+for the same reason.
+Otherwise execution continues by comparing the value of the expression with each
+case statement alternative. Then there is a choice:
+</p>
+<div class="itemizedlist"><ul class="itemizedlist">
+<li class="listitem"><p>
+If one of the
+<a class="link" href="ExpressionsConstantExpressions.html#ebnf.constantexpression"><span class="emphasis"><em>constant expressions</em></span></a>
+<a class="indexterm" name="idp69468032"></a>
+is equal to the value of the expression, then we say it matches and the
+<a class="link" href="StatementsSequenceofStatements.html#ebnf.sequenceofstatements"><span class="emphasis"><em>sequence of statements</em></span></a>
+<a class="indexterm" name="idp69470304"></a>
+after the matching <code class="literal">=&gt;</code> is executed. If the
+<a class="link" href="StatementsSequenceofStatements.html#ebnf.sequenceofstatements"><span class="emphasis"><em>sequence of statements</em></span></a>
+<a class="indexterm" name="idp69472960"></a>
+completed normally,
+<a class="indexterm" name="idp69474304"></a>
+then the entire
+<a class="link" href="StatementsTheCaseStatement.html#ebnf.casestatement"><span class="emphasis"><em>case statement</em></span></a>
+<a class="indexterm" name="idp69476048"></a>
+completes normally.
+<a class="indexterm" name="idp69477072"></a>
+</p></li>
+<li class="listitem"><p>
+If no
+<a class="link" href="StatementsTheCaseStatement.html#ebnf.casestatement"><span class="emphasis"><em>case statement</em></span></a>
+<a class="indexterm" name="idp69479712"></a>
+alternative matches but there is a
+<a class="link" href="StatementsTheCaseStatement.html#ebnf.casestatement"><span class="emphasis"><em>case statement</em></span></a>
+<a class="indexterm" name="idp69481600"></a>
+alternative with the reserved word <code class="literal">others</code>, then the
+sequence of statements after the matching <code class="literal">=&gt;</code> is executed.
+If the
+<a class="link" href="StatementsSequenceofStatements.html#ebnf.sequenceofstatements"><span class="emphasis"><em>sequence of statements</em></span></a>
+completed normally,
+<a class="indexterm" name="idp69484432"></a>
+then the entire
+<a class="link" href="StatementsTheCaseStatement.html#ebnf.casestatement"><span class="emphasis"><em>case statement</em></span></a>
+completes normally.
+<a class="indexterm" name="idp69486176"></a>
+</p></li>
+<li class="listitem"><p>
+If no
+<a class="link" href="StatementsTheCaseStatement.html#ebnf.casestatement"><span class="emphasis"><em>case statement</em></span></a>
+alternative matches and there is no case statement alternative with the reserved
+word <code class="literal">other</code>,
+<a class="indexterm" name="idp69489328"></a>
+then an exception is raised.
+</p></li>
+</ul></div>
+<p>
+If any statement immediately contained by the
+<a class="link" href="StatementsSequenceofStatements.html#ebnf.sequenceofstatements"><span class="emphasis"><em>sequence of statements</em></span></a>
+complete abruptly,
+<a class="indexterm" name="idp69492320"></a>
+the
+<a class="link" href="StatementsTheCaseStatement.html#ebnf.casestatement"><span class="emphasis"><em>case statement</em></span></a>
+completes abruptly
+<a class="indexterm" name="idp69494064"></a>
+for the same reason.
+</p>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="StatementsTheIfStatement.html">Prev</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="Statements.html">Up</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="StatementsTheWhileStatement.html">Next</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">12.11. The If Statement </td>
+<td width="20%" align="center">
+<a accesskey="h" href="index.html">Home</a> | <a accesskey="t" href="bk01-toc.html">ToC</a>
+</td>
+<td width="40%" align="right" valign="top"> 12.13. The While Statement</td>
+</tr>
+</table>
+</div>
+<div align="center">OFFICIAL</div>
+</body>
+</html>

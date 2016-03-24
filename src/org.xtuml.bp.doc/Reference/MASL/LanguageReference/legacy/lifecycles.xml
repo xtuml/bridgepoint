@@ -1,0 +1,1436 @@
+<!-- 
+  UK Crown Copyright (c) 2016. All Rights Reserved
+-->
+<!-- Converted by db4-upgrade version 1.0 -->
+<chapter xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="Lifecycles"><info><title>Lifecycles</title></info>
+
+<para>
+Objects can be either passive or active. Active objects
+<indexterm>
+    <primary>object</primary>
+    <secondary>active</secondary>
+</indexterm>
+can have a lifecycle.
+<indexterm significance="preferred">
+    <primary>lifecycle</primary>
+</indexterm>
+States represents a stage in that lifecycle. Events cause an instance to change
+from one state
+<indexterm>
+    <primary>state</primary>
+</indexterm>
+to another. What new state is achieved when an instance of an
+object in a given state receives a particular event is defined within a state
+transition table.
+<indexterm>
+    <primary>state</primary>
+    <secondary>transition table</secondary>
+</indexterm>
+</para>
+<para>
+Each associative object
+<indexterm>
+    <primary>object</primary>
+    <secondary>associative</secondary>
+</indexterm>
+in a domain can also have an assigner lifecycle.
+<indexterm>
+    <primary>assigner</primary>
+    <secondary>lifecycle</secondary>
+</indexterm>
+Assigner
+<indexterm>
+    <primary>assigner</primary>
+    <secondary>lifecycle</secondary>
+</indexterm>
+lifecycles provide a single point of control through which competing requests
+are serialized. Because of this, there is only one copy of an assigner lifecycle
+<indexterm>
+    <primary>assigner</primary>
+    <secondary>lifecycle</secondary>
+</indexterm>
+for all instances of the associative object.
+<indexterm>
+    <primary>object</primary>
+    <secondary>associative</secondary>
+</indexterm>
+</para>
+<para>
+Assigner state
+<indexterm>
+    <primary>assigner</primary>
+    <secondary>state</secondary>
+</indexterm>
+represent a stage in that lifecycle. Assigner events
+<indexterm>
+    <primary>assigner</primary>
+    <secondary>event</secondary>
+</indexterm>
+cause an
+assigner to change from one state in its lifecycle to another. What new state
+is achieved when an assigner in a given state receives a particular event is
+defined within an assigner transition table.
+<indexterm>
+    <primary>assigner</primary>
+    <secondary>transition table</secondary>
+</indexterm>
+
+</para>
+<section xml:id="LifecyclesStates"><info><title>States</title></info>
+
+<para>
+A state
+<indexterm significance="preferred">
+    <primary>state</primary>
+</indexterm>
+declaration
+<indexterm significance="preferred">
+    <primary>state</primary>
+    <secondary>declaration</secondary>
+</indexterm>
+defines a state in the lifecycle of an object instance
+or an assigner object.
+</para>
+<indexterm zone="ebnf.statedeclaration">
+    <primary>state declaration</primary>
+</indexterm>
+<indexterm zone="ebnf.statedeclaration">
+    <primary>state modifier</primary>
+</indexterm>
+<indexterm zone="ebnf.statedeclaration">
+    <primary><literal>state</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.statedeclaration">
+    <primary>state name</primary>
+</indexterm>
+<indexterm zone="ebnf.statedeclaration">
+    <primary>parameter list declaration</primary>
+</indexterm>
+<indexterm zone="ebnf.statename">
+    <primary>state name</primary>
+</indexterm>
+<indexterm zone="ebnf.statename">
+    <primary>identifier</primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.statedeclaration">
+    <lhs>
+        state declaration
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.statemodifier">state modifier</nonterminal>,
+        'state',
+        <nonterminal def="#ebnf.statename">state name</nonterminal>,
+        '(',
+        <nonterminal def="#ebnf.parameterdeclarationlist">parameter declaration list</nonterminal>,
+        ')', ';'
+    </rhs>
+</production>
+<production xml:id="ebnf.statename">
+    <lhs>
+        state name
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.identifier">identifier</nonterminal>
+    </rhs>
+</production>
+</productionset>
+<para>
+The state name
+<indexterm>
+    <primary>state</primary>
+    <secondary>name</secondary>
+</indexterm>
+in a state declaration may be used to refer to the state.
+</para>
+<section xml:id="LifecyclesStateModifiers"><info><title>State Modifiers</title></info>
+
+<indexterm zone="ebnf.statemodifier">
+    <primary>state modifier</primary>
+</indexterm>
+<indexterm zone="ebnf.statemodifier">
+    <primary><literal>assigner</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.statemodifier">
+    <primary><literal>start</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.statemodifier">
+    <primary><literal>creation</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.statemodifier">
+    <primary><literal>terminal</literal></primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.statemodifier">
+    <lhs>
+        state modifier
+    </lhs>
+    <rhs>
+        'assigner', ['start'] |
+        'creation' |
+        'terminal'
+    </rhs>
+</production>
+</productionset>
+<section xml:id="LifecyclesAssignerStates"><info><title>Assigner States</title></info>
+
+<para>
+A state that is declared with the modifier <literal>assigner</literal>
+<indexterm>
+    <primary><literal>assigner</literal></primary>
+</indexterm>
+is called
+an assigner state.
+<indexterm significance="preferred">
+    <primary>state</primary>
+    <secondary>assigner</secondary>
+</indexterm>
+<indexterm>
+    <primary>assigner</primary>
+    <secondary>state</secondary>
+</indexterm>
+An assigner state
+<indexterm>
+    <primary>state</primary>
+    <secondary>assigner</secondary>
+</indexterm>
+<indexterm>
+    <primary>assigner</primary>
+    <secondary>state</secondary>
+</indexterm>
+is always entered without reference to a particular instance.
+</para>
+<para>
+A compile-time error occurs if an attempt is made to
+reference the current instance using the reserved word <literal>this</literal>
+<indexterm>
+    <primary><literal>this</literal></primary>
+</indexterm>
+in the body of the state. A compile-time error also occurs if the enclosing
+object is not an associative object.
+<indexterm>
+    <primary>object</primary>
+    <secondary>associative</secondary>
+</indexterm>
+</para>
+</section>
+<section xml:id="LifecyclesStartStates"><info><title>Start States</title></info>
+
+<para>
+A state that is declared with the modifier <literal>start</literal>
+<indexterm>
+    <primary><literal>start</literal></primary>
+</indexterm>
+is called
+a start state.
+<indexterm significance="preferred">
+    <primary>state</primary>
+    <secondary>start</secondary>
+</indexterm>
+One and only one state for an assigner object
+<indexterm>
+    <primary>object</primary>
+    <secondary>assigner</secondary>
+</indexterm>
+must be declared
+as the start state.
+<indexterm>
+    <primary>state</primary>
+    <secondary>start</secondary>
+</indexterm>
+The start state
+<indexterm>
+    <primary>state</primary>
+    <secondary>start</secondary>
+</indexterm>
+is the state in which the assigner object
+<indexterm>
+    <primary>object</primary>
+    <secondary>assigner</secondary>
+</indexterm>
+<indexterm>
+    <primary>assigner</primary>
+    <secondary>object</secondary>
+</indexterm>
+starts its lifecycle.
+</para>
+<para>
+A compile-time error occurs if an associative object
+<indexterm>
+    <primary>object</primary>
+    <secondary>associative</secondary>
+</indexterm>
+has more than one assigner start state.
+<indexterm>
+    <primary>state</primary>
+    <secondary>start</secondary>
+</indexterm>
+</para>
+</section>
+<section xml:id="LifecyclesCreationStates"><info><title>Creation States</title></info>
+
+<para>
+A state that is declared with the modifier <literal>creation</literal>
+<indexterm>
+    <primary><literal>creation</literal></primary>
+</indexterm>
+is called
+the <emphasis>creation state</emphasis>.
+<indexterm>
+    <primary>state</primary>
+    <secondary>creation</secondary>
+</indexterm>
+A <emphasis>creation state</emphasis>
+<indexterm>
+    <primary>state</primary>
+    <secondary>creation</secondary>
+</indexterm>
+is always entered without reference to a particular instance.
+</para>
+<para>
+A compile-time error occurs if an attempt is made to reference the current
+instance using the reserved word <literal>this</literal>
+<indexterm>
+    <primary><literal>this</literal></primary>
+</indexterm>
+in the body of the state.
+</para>
+</section>
+<section xml:id="LifecyclesInstanceStates"><info><title>Instance States</title></info>
+
+<para>
+A state that is declared without any modifiers is called an
+<emphasis>instance state</emphasis>.
+<indexterm>
+    <primary>state</primary>
+    <secondary>instance</secondary>
+</indexterm>
+An <emphasis>instance state</emphasis>
+<indexterm>
+    <primary>state</primary>
+    <secondary>instance</secondary>
+</indexterm>
+is always entered with respect to a
+particular instance, which becomes the instance to which the reserved word
+<literal>this</literal>
+<indexterm>
+    <primary><literal>this</literal></primary>
+</indexterm>
+refers during execution of the state body.
+</para>
+</section>
+<section xml:id="LifecyclesTerminalStates"><info><title>Terminal States</title></info>
+
+<para>
+A state that is declared with the modifier <literal>terminal</literal>
+<indexterm>
+    <primary><literal>terminal</literal></primary>
+</indexterm>
+is called
+a terminal state.
+<indexterm>
+    <primary>state</primary>
+    <secondary>terminal</secondary>
+</indexterm>
+A <emphasis>terminal state</emphasis>
+<indexterm>
+    <primary>state</primary>
+    <secondary>terminal</secondary>
+</indexterm>
+does not necessarily
+imply that an instance in this state must cease to exist, it could simply stay
+in this state for historic purposes.
+</para>
+<para>
+A compile-time error occurs if an attempt is made to delete the current instance
+using the reserved word <literal>this</literal>
+<indexterm>
+    <primary><literal>this</literal></primary>
+</indexterm>
+in the body of a non-terminal state.
+</para>
+</section>
+</section>
+<section xml:id="LifecyclesFormalStateParameters"><info><title>Formal State Parameters</title></info>
+
+<para>
+The optional formal parameters of a state, are specified
+by a list of comma-separated
+<link linkend="ebnf.parameterdeclaration"><emphasis>parameter declarations</emphasis></link>.
+<indexterm>
+    <primary>parameter</primary>
+    <secondary>declaration</secondary>
+</indexterm>
+Each
+<link linkend="ebnf.parametername"><emphasis>parameter declaration</emphasis></link>
+<indexterm>
+    <primary>parameter</primary>
+    <secondary>declaration</secondary>
+</indexterm>
+consists of a name that specifies
+the name of the parameter, a parameter mode and a type.
+The following productions are repeated from
+<xref linkend="ServicesDomainServiceSignature"/> to make the presentation clearer.
+</para>
+<productionset>
+<productionrecap linkend="ebnf.parameterdeclarationlist"/>
+<productionrecap linkend="ebnf.parameterdeclaration"/>
+<productionrecap linkend="ebnf.parametername"/>
+</productionset>
+<para>
+If a state has no parameters, only an empty pair of parentheses appears in the
+state's declaration.
+</para>
+<para>
+A compile-time error occurs if two parameters are declared to have the same
+name.
+</para>
+<para>
+When the state is entered, the values of the actual argument expressions
+<indexterm>
+    <primary>expression</primary>
+    <secondary>argument</secondary>
+</indexterm>
+initialize newly created parameter variables, each of the declared type, before
+execution of the body of the state. The parameter name that appears in the
+parameter declaration may be used as a simple name in the body of the state
+to refer to the parameter.
+</para>
+<para>
+The scope of parameter names is the entire body of the state.
+</para>
+<section xml:id="LifecyclesFormalStateParameterModes"><info><title>Formal State Parameter Modes</title></info>
+
+<para>
+The mode of a formal parameter conveys the direction of information transfer
+with the actual parameter. The following production is repeated from
+<xref linkend="ServicesDomainServiceSignature"/> to make the presentation clearer.
+</para>
+<productionset>
+<productionrecap linkend="ebnf.parametermodetype"/>
+</productionset>
+<para>
+Formal parameters of mode <literal>in</literal>
+<indexterm>
+    <primary><literal>in</literal></primary>
+</indexterm>
+are passed from the event
+generation to the state. The state is not allowed to change the value of a
+formal parameter of mode <literal>in</literal>.
+<indexterm>
+    <primary><literal>in</literal></primary>
+</indexterm>
+</para>
+<para>
+A compile-time error occurs if a formal parameter for a state is declared as
+mode <literal>out</literal>.
+<indexterm>
+    <primary><literal>out</literal></primary>
+</indexterm>
+</para>
+</section>
+</section>
+<section xml:id="LifecyclesStateSignature"><info><title>State Signature</title></info>
+
+<para>
+The signature of a state
+<indexterm>
+    <primary>state</primary>
+    <secondary>signature</secondary>
+</indexterm>
+consists of the name of the state
+and the number and types of parameters to the state.
+</para>
+<para>
+A compile-time error occurs if an object declares two states with the same
+signature.
+</para>
+</section>
+<section xml:id="LifecyclesStateDefinition"><info><title>State Definition</title></info>
+
+<para>
+A <emphasis>state definition</emphasis>
+<indexterm significance="preferred">
+    <primary>state</primary>
+    <secondary>definition</secondary>
+</indexterm>
+provides the specification of the behaviour of the a state.
+</para>
+<indexterm zone="ebnf.statedefinition">
+    <primary>state definition</primary>
+</indexterm>
+<indexterm zone="ebnf.statedefinition">
+    <primary>state modifier</primary>
+</indexterm>
+<indexterm zone="ebnf.statedefinition">
+    <primary><literal>state</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.statedefinition">
+    <primary>domain name</primary>
+</indexterm>
+<indexterm zone="ebnf.statedefinition">
+    <primary>object name</primary>
+</indexterm>
+<indexterm zone="ebnf.statedefinition">
+    <primary>state name</primary>
+</indexterm>
+<indexterm zone="ebnf.statedefinition">
+    <primary>parameter declaration list</primary>
+</indexterm>
+<indexterm zone="ebnf.statedefinition">
+    <primary>variable declaration</primary>
+</indexterm>
+<indexterm zone="ebnf.statedefinition">
+    <primary>handled sequence of statements</primary>
+</indexterm>
+<indexterm zone="ebnf.statedefinition">
+    <primary><literal>end</literal></primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.statedefinition">
+    <lhs>
+        state definition
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.statemodifier">state modifier</nonterminal>,
+        'state',
+        <nonterminal def="#ebnf.domainname">domain name</nonterminal>,
+        '::',
+        <nonterminal def="#ebnf.objectname">object name</nonterminal>,
+        '.',
+        <nonterminal def="#ebnf.statename">state name</nonterminal>,
+        '(',
+        <nonterminal def="#ebnf.parameterdeclarationlist">parameter declaration list</nonterminal>,
+        ')', 'is',
+        {<nonterminal def="#ebnf.variabledeclaration">variable declaration</nonterminal>,
+        'begin',
+        <nonterminal def="#ebnf.handledsequenceofstatements">handled sequence of statements</nonterminal>,
+        'end', ['state'], ';'
+    </rhs>
+</production>
+</productionset>
+<para>
+A compile-time error occurs of the signature of the state, defined by the
+state name together with the parameter declaration list
+<indexterm>
+    <primary>parameter</primary>
+    <secondary>declaration list</secondary>
+</indexterm>
+has not already
+been declared by a state declaration within the object named, by the object
+name. In addition, a compile-time error occurs if the state modifiers do not
+match the state modifiers of the corresponding state declaration.
+<indexterm>
+    <primary>state</primary>
+    <secondary>declaration</secondary>
+</indexterm>
+</para>
+</section>
+</section>
+<section xml:id="LifecyclesEvents"><info><title>Events</title></info>
+
+<para>
+An event
+<indexterm significance="preferred">
+    <primary>event</primary>
+</indexterm>
+is the abstraction of an incident or signal in the real world, that
+signals that an object instance is moving to a new state.
+</para>
+<indexterm zone="ebnf.eventdeclaration">
+    <primary>event declaration</primary>
+</indexterm>
+<indexterm zone="ebnf.statedefinition">
+    <primary>event modifier</primary>
+</indexterm>
+<indexterm zone="ebnf.statedefinition">
+    <primary>event name</primary>
+</indexterm>
+<indexterm zone="ebnf.statedefinition">
+    <primary>parameter declaration list</primary>
+</indexterm>
+<indexterm zone="ebnf.eventname">
+    <primary>event name</primary>
+</indexterm>
+<indexterm zone="ebnf.eventname">
+    <primary>identifier</primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.eventdeclaration">
+    <lhs>
+        event declaration
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.eventmodifier">event modifier</nonterminal>,
+        'event',
+        <nonterminal def="#ebnf.eventname">event name</nonterminal>,
+        '(',
+        <nonterminal def="#ebnf.parameterdeclarationlist">parameter declaration list</nonterminal>,
+        ')', ';'
+    </rhs>
+</production>
+<production xml:id="ebnf.eventname">
+    <lhs>
+        event name
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.identifier">identifier</nonterminal>
+    </rhs>
+</production>
+</productionset>
+<para>
+The event name in an <emphasis>event declaration</emphasis>
+<indexterm>
+    <primary>event</primary>
+    <secondary>declaration</secondary>
+</indexterm>
+may be used to refer to the event.
+</para>
+<section xml:id="LifecyclesEventModifiers"><info><title>Event Modifiers</title></info>
+
+<indexterm zone="ebnf.eventmodifier">
+    <primary>event modifier</primary>
+</indexterm>
+<indexterm zone="ebnf.eventmodifier">
+    <primary><literal>assigner</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.eventmodifier">
+    <primary><literal>creation</literal></primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.eventmodifier">
+    <lhs>
+        event modifier
+    </lhs>
+    <rhs>
+        'assigner' | 'creation'
+    </rhs>
+</production>
+</productionset>
+<section xml:id="LifecyclesAssignerEvents"><info><title>Assigner Events</title></info>
+
+<para>
+An event that is declared with the modifier <literal>assigner</literal>
+<indexterm>
+    <primary><literal>assigner</literal></primary>
+</indexterm>
+is
+called an assigner event.
+<indexterm significance="preferred">
+    <primary>event</primary>
+    <secondary>assigner</secondary>
+</indexterm>
+An assigner event
+<indexterm>
+    <primary>event</primary>
+    <secondary>assigner</secondary>
+</indexterm>
+is always generated without reference to a particular instance.
+A compile-time error occurs if the enclosing object
+is not an associative object.
+<indexterm>
+    <primary>object</primary>
+    <secondary>associative</secondary>
+</indexterm>
+</para>
+</section>
+<section xml:id="LifecyclesCreationEvents"><info><title>Creation Events</title></info>
+
+<para>
+An event that is declared with the modifier <literal>creation</literal>
+<indexterm>
+    <primary><literal>creation</literal></primary>
+</indexterm>
+is called a creation event. A <emphasis>creation event</emphasis>
+<indexterm significance="preferred">
+    <primary>event</primary>
+    <secondary>creation</secondary>
+</indexterm>
+is always generated without reference to a particular instance.
+</para>
+</section>
+<section xml:id="LifecyclesInstanceEvents"><info><title>Instance Events</title></info>
+
+<para>
+An event that is declared without any modifiers is called an
+<emphasis>instance event</emphasis>.
+<indexterm significance="preferred">
+    <primary>event</primary>
+    <secondary>instance</secondary>
+</indexterm>
+An
+<emphasis>instance event</emphasis>
+<indexterm>
+    <primary>event</primary>
+    <secondary>instance</secondary>
+</indexterm>
+is always generated to a particular instance.
+</para>
+</section>
+<section xml:id="LifecyclesPolymorphicEvents"><info><title>Polymorphic Events</title></info>
+
+<para>
+All the <link linkend="LifecyclesInstanceEvents">instance events</link>
+<indexterm>
+    <primary>event</primary>
+    <secondary>instance</secondary>
+</indexterm>
+declared by a super-type object are
+<indexterm>
+    <primary>object</primary>
+    <secondary>super-type</secondary>
+</indexterm>
+<emphasis>polymorphic events</emphasis>.
+<indexterm>
+    <primary>event</primary>
+    <secondary>polymorphic</secondary>
+</indexterm>
+<emphasis>Polymorphic events</emphasis>
+<indexterm significance="preferred">
+    <primary>event</primary>
+    <secondary>polymorphic</secondary>
+</indexterm>
+can be used in the non-assigner transition
+tables of all the subtype objects
+<indexterm>
+    <primary>object</primary>
+    <secondary>sub-type</secondary>
+</indexterm>
+of a super-type object.
+<indexterm>
+    <primary>object</primary>
+    <secondary>super-type</secondary>
+</indexterm>
+</para>
+</section>
+</section>
+<section xml:id="FormalEventParameters"><info><title>Formal Event Parameters</title></info>
+
+<para>
+The optional <emphasis>formal parameters</emphasis>
+<indexterm significance="preferred">
+    <primary>event</primary>
+    <secondary>formal parameters</secondary>
+</indexterm>
+of an event are specified
+by a list of comma-separated parameter declarations. Each parameter declaration
+consists of a name that specifies the name of the parameter, a parameter mode
+and a type. The following productions are repeated from
+<xref linkend="ServicesDomainServiceSignature"/> to make the presentation
+clearer.
+</para>
+<productionset>
+<productionrecap linkend="ebnf.parameterdeclarationlist"/>
+<productionrecap linkend="ebnf.parameterdeclaration"/>
+<productionrecap linkend="ebnf.parametername"/>
+</productionset>
+<para>
+If an event has no parameters, only an empty pair of parentheses appears in the
+event declaration.
+</para>
+<para>
+A compile-time error occurs if two parameters are declared to have the same
+name. When an event is generated (see
+<xref linkend="StatementsTheGenerateStatement"/>), the values of the actual
+argument expressions
+<indexterm>
+    <primary>expression</primary>
+    <secondary>argument</secondary>
+</indexterm>
+initialize newly created parameter variables, each of the
+declared type.
+</para>
+<section xml:id="LifecyclesFormalEventParameterModes"><info><title>Formal Event Parameter Modes</title></info>
+
+<para>
+The mode of a formal parameter
+<indexterm significance="preferred">
+    <primary>event</primary>
+    <secondary>formal parameters</secondary>
+    <tertiary>mode</tertiary>
+</indexterm>
+conveys the direction of information transfer
+with the actual parameter. The following productions is repeated from
+<xref linkend="ServicesDomainServiceSignature"/> to make the presentation
+clearer.
+</para>
+<productionset>
+<productionrecap linkend="ebnf.parametermodetype"/>
+</productionset>
+<para>
+Formal parameters of mode <literal>in</literal>
+<indexterm significance="preferred">
+    <primary><literal>in</literal></primary>
+</indexterm>
+are passed from the event
+generation to the state. The state is not allow to change the value of a
+formal parameter of mode <literal>in</literal>.
+<indexterm significance="preferred">
+    <primary><literal>in</literal></primary>
+</indexterm>
+</para>
+<para>
+A compile-time error occurs if a formal parameter for an event is declared as
+mode <literal>out</literal>.
+<indexterm significance="preferred">
+    <primary><literal>in</literal></primary>
+</indexterm>
+</para>
+</section>
+</section>
+<section xml:id="LifecyclesEventSignature"><info><title>Event Signature</title></info>
+
+<para>
+The <emphasis>signature</emphasis>
+<indexterm significance="preferred">
+    <primary>event</primary>
+    <secondary>signature</secondary>
+</indexterm>
+of an event consists of the name of the
+event and the name and types of parameters to the event.
+</para>
+<para>
+A compile-time error occurs of an object declares two events with the same
+signature.
+</para>
+</section>
+</section>
+<section xml:id="LifecyclesTransitions"><info><title>Transitions</title></info>
+
+<para>
+A transition table declaration
+<indexterm significance="preferred">
+    <primary>state</primary>
+    <secondary>transition table</secondary>
+</indexterm>
+defines the transitions
+<indexterm significance="preferred">
+    <primary>state</primary>
+    <secondary>transition</secondary>
+</indexterm>
+in the lifecycle of an
+object instance or an assigner object.
+</para>
+<indexterm zone="ebnf.transitiontabledeclaration">
+    <primary>transition table declaration</primary>
+</indexterm>
+<indexterm zone="ebnf.transitiontabledeclaration">
+    <primary>transition modifier</primary>
+</indexterm>
+<indexterm zone="ebnf.transitiontabledeclaration">
+    <primary><literal>transition</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.transitiontabledeclaration">
+    <primary><literal>is</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.transitiontabledeclaration">
+    <primary>transition row</primary>
+</indexterm>
+<indexterm zone="ebnf.transitiontabledeclaration">
+    <primary><literal>end</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.transitiontabledeclaration">
+    <primary><literal>transition</literal></primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.transitiontabledeclaration">
+    <lhs>
+        transition table declaration
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.transitionmodifier">transition modifier</nonterminal>,
+        'transition', 'is',
+        <nonterminal def="#ebnf.transitionrow">transition row</nonterminal>,
+        {<nonterminal def="#ebnf.transitionrow">transition row</nonterminal>},
+        'end', ['transition'], ';'
+    </rhs>
+</production>
+</productionset>
+<section xml:id="LifecyclesTransitionModifiers"><info><title>Transition Modifiers</title></info>
+
+<indexterm significance="preferred">
+    <primary>state</primary>
+    <secondary>transition</secondary>
+    <tertiary>modifier</tertiary>
+</indexterm>
+<indexterm zone="ebnf.transitionmodifier">
+    <primary>transition modifier</primary>
+</indexterm>
+<indexterm zone="ebnf.transitionmodifier">
+    <primary><literal>assigner</literal></primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.transitionmodifier">
+    <lhs>
+        transition modifier
+    </lhs>
+    <rhs>
+        'assigner'
+    </rhs>
+</production>
+</productionset>
+<section xml:id="LifecyclesAssignerTransitions"><info><title>Assigner Transitions</title></info>
+
+<para>
+A transition table
+<indexterm significance="preferred">
+    <primary>state</primary>
+    <secondary>assigner</secondary>
+    <tertiary>transition</tertiary>
+</indexterm>
+that is declared with the modifier
+<literal>assigner</literal> specifies the assigner lifecycle for an object.
+</para>
+<para>
+A compile-time error occurs if the enclosing object is not an associative
+object. In addition, a compile-time error occurs if an associative object
+declares more than one assigner transition table.
+</para>
+</section>
+<section xml:id="LifecyclesInstanceTransitions"><info><title>Instance Transitions</title></info>
+
+<para>
+A transition table
+<indexterm significance="preferred">
+    <primary>state</primary>
+    <secondary>Instance</secondary>
+    <tertiary>transition</tertiary>
+</indexterm>
+that is not declared with the modifier
+<literal>assigner</literal> specifies the instance lifecycle for an object.
+</para>
+<para>
+A compile-time error occurs if the object declares more than one instance
+transition table.
+</para>
+</section>
+</section>
+<section xml:id="LifecyclesTransitionRows"><info><title>Transition Rows</title></info>
+
+<para>
+Each <emphasis>transition row</emphasis>
+<indexterm significance="preferred">
+    <primary>state</primary>
+    <secondary>transition row</secondary>
+</indexterm>
+in a transition table declaration
+<indexterm significance="preferred">
+    <primary>state</primary>
+    <secondary>transition table</secondary>
+</indexterm>
+specifies the resultant state achieved when an event is received by either:
+<itemizedlist mark="bullet">
+<listitem>
+<para>
+An instance in a given state.
+</para>
+</listitem>
+<listitem>
+<para>
+An assigner object in a given state.
+</para>
+</listitem>
+<listitem>
+<para>
+An object, for a <link linkend="LifecyclesCreationEvents">creation events</link>.
+</para>
+</listitem>
+</itemizedlist>
+</para>
+<indexterm zone="ebnf.transitionrow">
+    <primary>transition row</primary>
+</indexterm>
+<indexterm zone="ebnf.transitionrow">
+    <primary>initial state</primary>
+</indexterm>
+<indexterm zone="ebnf.transitionrow">
+    <primary>transition</primary>
+</indexterm>
+<indexterm zone="ebnf.initialstate">
+    <primary>initial state</primary>
+</indexterm>
+<indexterm zone="ebnf.initialstate">
+    <primary><literal>Non_Existent</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.initialstate">
+    <primary>state name</primary>
+</indexterm>
+<indexterm zone="ebnf.transition">
+    <primary>transition</primary>
+</indexterm>
+<indexterm zone="ebnf.transition">
+    <primary>transition</primary>
+</indexterm>
+<indexterm zone="ebnf.transition">
+    <primary>event</primary>
+    <secondary>incoming</secondary>
+</indexterm>
+<indexterm zone="ebnf.transition">
+    <primary><literal>=&gt;</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.transition">
+    <primary>resultant state</primary>
+</indexterm>
+<indexterm zone="ebnf.incomingevent">
+    <primary>incoming event</primary>
+</indexterm>
+<indexterm zone="ebnf.incomingevent">
+    <primary>object name</primary>
+</indexterm>
+<indexterm zone="ebnf.incomingevent">
+    <primary>event name</primary>
+</indexterm>
+<indexterm zone="ebnf.resultantstate">
+    <primary>resultant state</primary>
+</indexterm>
+<indexterm zone="ebnf.resultantstate">
+    <primary><literal>Ignore</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.resultantstate">
+    <primary><literal>Cannot_Happen</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.resultantstate">
+    <primary>state name</primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.transitionrow">
+    <lhs>
+        transition row
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.initialstate">initial state</nonterminal>,
+        '(',
+        <nonterminal def="#ebnf.transition">transition</nonterminal>,
+        {(',',
+        <nonterminal def="#ebnf.transition">transition</nonterminal>)},
+        ';'
+    </rhs>
+</production>
+<production xml:id="ebnf.initialstate">
+    <lhs>
+        initial state
+    </lhs>
+    <rhs>
+        'Non_Existent' |
+        <nonterminal def="#ebnf.statename">state name</nonterminal>)  
+    </rhs>
+</production>
+<production xml:id="ebnf.transition">
+    <lhs>
+        transition
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.incomingevent">incoming event</nonterminal>,
+        '=&gt;',
+        <nonterminal def="#ebnf.resultantstate">resultant state</nonterminal>                
+    </rhs>
+</production>
+<production xml:id="ebnf.incomingevent">
+    <lhs>
+        incoming event
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.objectname">object name</nonterminal>,
+        '.',
+        <nonterminal def="#ebnf.eventname">event name</nonterminal> |
+        <nonterminal def="#ebnf.eventname">event name</nonterminal>
+    </rhs>
+</production>
+<production xml:id="ebnf.resultantstate">
+    <lhs>
+        resultant state
+    </lhs>
+    <rhs>
+        'Ignore' | 'Cannot_Happen' |
+        <nonterminal def="#ebnf.statename">state name</nonterminal>
+    </rhs>
+</production>
+</productionset>
+<para>
+For a non-assigner state transition table, a compile-time error occurs if the
+following is not true for each transition row:
+<itemizedlist mark="bullet">
+<listitem>
+<para>
+The initial state must name either an
+<link linkend="LifecyclesInstanceStates">instance</link>,
+<indexterm>
+    <primary>state</primary>
+    <secondary>instance</secondary>
+</indexterm>
+<link linkend="LifecyclesCreationStates">creation</link>
+<indexterm>
+    <primary>state</primary>
+    <secondary>creation</secondary>
+</indexterm>
+or <link linkend="LifecyclesTerminalStates">terminal state</link>
+<indexterm>
+    <primary>state</primary>
+    <secondary>terminal</secondary>
+</indexterm>
+of the enclosing object or be the reserved word <literal>Non_Existent</literal>.
+<indexterm>
+    <primary><literal>Non_Existent</literal></primary>
+</indexterm>
+</para>
+</listitem>
+<listitem>
+<para>
+For each transition within a transition row,
+<indexterm>
+    <primary>transition row</primary>
+</indexterm>
+<itemizedlist mark="opencircle">
+<listitem>
+<para>
+The incoming event must name either an
+<link linkend="LifecyclesInstanceEvents">instance</link> or
+<indexterm>
+    <primary>event</primary>
+    <secondary>instance</secondary>
+</indexterm>
+<link linkend="LifecyclesCreationEvents">creation event</link> of the
+<indexterm>
+    <primary>event</primary>
+    <secondary>creation</secondary>
+</indexterm>
+enclosing object or a
+<link linkend="LifecyclesPolymorphicEvents">polymorphic event</link>
+<indexterm>
+    <primary>event</primary>
+    <secondary>polymorphic</secondary>
+</indexterm>
+from a super-type of the enclosing object.
+</para>
+</listitem>
+<listitem>
+<para>
+The resultant state must name either an
+<link linkend="LifecyclesInstanceStates">instance</link> or
+<indexterm>
+    <primary>state</primary>
+    <secondary>instance</secondary>
+</indexterm>
+<link linkend="LifecyclesTerminalStates">terminal state</link> of the
+<indexterm>
+    <primary>state</primary>
+    <secondary>terminal</secondary>
+</indexterm>
+enclosing object or be one of the reserved words <literal>Ignore</literal>
+<indexterm>
+    <primary><literal>Ignore</literal></primary>
+</indexterm>
+or <literal>Cannot_Happen</literal>.
+<indexterm>
+    <primary><literal>Cannot_Happen</literal></primary>
+</indexterm>
+</para>
+</listitem>
+<listitem>
+<para>
+If the resultant state is either an
+<link linkend="LifecyclesInstanceStates">instance</link> or
+<link linkend="LifecyclesTerminalStates">terminal state</link>, then the
+parameter declaration list of the incoming event must match the parameter
+declaration list of the resultant state.
+</para>
+</listitem>
+</itemizedlist>
+</para>
+</listitem>
+<listitem>
+<para>
+There must be one and only one, transition for every instance or
+<link linkend="LifecyclesCreationEvents">creation events</link>
+<indexterm>
+    <primary>event</primary>
+    <secondary>creation</secondary>
+</indexterm>
+of the enclosing object.
+</para>
+</listitem>
+<listitem>
+<para>
+There must be one and only one, transition for every
+<link linkend="LifecyclesPolymorphicEvents">polymorphic event</link>
+<indexterm>
+    <primary>event</primary>
+    <secondary>polymorphic</secondary>
+</indexterm>
+of every super-type of the enclosing object.
+</para>
+</listitem>
+<listitem>
+<para>
+If the initial state of a transition row is the reserved word
+<literal>Non_Existent</literal>, then all of the transitions with
+<link linkend="LifecyclesCreationEvents">creation events</link>
+<indexterm>
+    <primary>event</primary>
+    <secondary>creation</secondary>
+</indexterm>
+must result in a <link linkend="LifecyclesCreationStates">creation state</link>.
+<indexterm>
+    <primary>state</primary>
+    <secondary>creation</secondary>
+</indexterm>
+In addition, all of the the transitions with
+<link linkend="LifecyclesInstanceEvents">instance</link> or
+<indexterm>
+    <primary>event</primary>
+    <secondary>instance</secondary>
+</indexterm>
+<link linkend="LifecyclesPolymorphicEvents">polymorphic event</link>
+<indexterm>
+    <primary>event</primary>
+    <secondary>polymorphic</secondary>
+</indexterm>
+must result in the reserved word
+<literal>Cannot_Happen</literal>.
+<indexterm>
+    <primary><literal>Cannot_Happen</literal></primary>
+</indexterm>
+</para>
+</listitem>
+<listitem>
+<para>
+If the initial state of a transition row
+<indexterm>
+    <primary>state</primary>
+    <secondary> transition row</secondary>
+</indexterm>
+is the reserved word <literal>Non_Existent</literal>,
+<indexterm>
+    <primary><literal>Non_Existent</literal></primary>
+</indexterm>
+then all of the transitions with
+<link linkend="LifecyclesInstanceEvents">instance</link>
+<indexterm>
+    <primary>instance</primary>
+</indexterm>
+or <link linkend="LifecyclesPolymorphicEvents">polymorphic events</link>
+<indexterm>
+    <primary>event</primary>
+    <secondary>polymorphic</secondary>
+</indexterm>
+must result in the reserved word
+<literal>Cannot_Happen</literal>.
+<indexterm>
+    <primary><literal>Cannot_Happen</literal></primary>
+</indexterm>
+</para>
+</listitem>
+<listitem>
+<para>
+If the initial state of a transition row is either an
+<link linkend="LifecyclesInstanceStates">instance</link>
+<indexterm>
+    <primary>instance</primary>
+</indexterm>
+or <link linkend="LifecyclesCreationStates">creation state</link>,
+<indexterm>
+    <primary>state</primary>
+    <secondary>creation</secondary>
+</indexterm>
+then all of the transitions with 
+<link linkend="LifecyclesCreationEvents">creation events</link>
+<indexterm>
+    <primary>event</primary>
+    <secondary>creation</secondary>
+</indexterm>
+must result in the reserved word <literal>Cannot_Happen</literal>.
+<indexterm>
+    <primary><literal>Cannot_Happen</literal></primary>
+</indexterm>
+</para>
+</listitem>
+<listitem>
+<para>
+If the initial state of a transition row
+<indexterm>
+    <primary>state</primary>
+    <secondary>transition row</secondary>
+</indexterm>
+is a <link linkend="LifecyclesTerminalStates">terminal state</link>,
+<indexterm>
+    <primary>state</primary>
+    <secondary>terminal</secondary>
+</indexterm>
+then all of the transitions must result in either of the reserved words
+<literal>Ignore</literal>
+<indexterm>
+    <primary><literal>Ignore</literal></primary>
+</indexterm>
+or
+<literal>Cannot_Happen</literal>.
+<indexterm>
+    <primary><literal>Cannot_Happen</literal></primary>
+</indexterm>
+</para>
+</listitem>
+</itemizedlist>
+In addition a compiler error also occurs if the following is not true:
+<itemizedlist>
+<listitem>
+<para>
+There must be one and only one, transition row for every
+<link linkend="LifecyclesInstanceStates">instance</link>,
+<indexterm>
+    <primary>state</primary>
+    <secondary>instance</secondary>
+</indexterm>
+<link linkend="LifecyclesCreationStates">creation</link>
+<indexterm>
+    <primary>state</primary>
+    <secondary>creation</secondary>
+</indexterm>
+and <link linkend="LifecyclesTerminalStates">terminal state</link>
+<indexterm>
+    <primary>state</primary>
+    <secondary>terminal</secondary>
+</indexterm>
+of the enclosing object.
+</para>
+</listitem>
+<listitem>
+<para>
+There must be one and only one, transition row for the reserved word
+<literal>Non_Existent</literal>.
+<indexterm>
+    <primary><literal>Non_Existent</literal></primary>
+</indexterm>
+</para>
+</listitem>
+</itemizedlist>
+</para>
+<para>
+Similarly, for an assigner transition table, a compile-time error occurs if the
+following is not true for each transition row:
+<itemizedlist mark="bullet">
+<listitem>
+<para>
+The initial state must name an assigner state of the enclosing object.
+</para>
+</listitem>
+<listitem>
+<para>
+For each transition with a transition row:
+<itemizedlist mark="opencircle">
+<listitem>
+<para>
+The incoming event must name an assigner event of the enclosing object.
+</para>
+</listitem>
+<listitem>
+<para>
+The resultant state must name either an assigner state of the enclosing object
+or be one of the reserved words <literal>Ignore</literal>
+<indexterm>
+    <primary><literal>Ignore</literal></primary>
+</indexterm>
+or <literal>Cannot_Happen</literal>.
+<indexterm>
+    <primary><literal>Cannot_Happen</literal></primary>
+</indexterm>
+</para>
+</listitem>
+<listitem>
+<para>
+If the resultant state is an assigner state, then the parameter declaration list
+of the incoming event must match the parameter declaration list of the
+resultant state.
+</para>
+</listitem>
+</itemizedlist>
+</para>
+</listitem>
+<listitem>
+<para>
+There must be one and only one transition for every assigner state
+<indexterm>
+    <primary>state</primary>
+    <secondary>assigner</secondary>
+</indexterm>
+of the enclosing object.
+</para>
+</listitem>
+</itemizedlist>
+Additionally, for an assigner state transition table, 
+<indexterm>
+    <primary>state</primary>
+    <secondary>assigner</secondary>
+    <tertiary>transition table</tertiary>
+</indexterm>
+a compile-time error occurs if there is not one and only one transition row
+for every assigner state of the enclosing object.
+</para>
+<para>
+The meaning of the reserved words <literal>Cannot_Happen</literal>,
+<indexterm>
+    <primary><literal>Cannot_Happen</literal></primary>
+</indexterm>
+<literal>Ignore</literal>
+<indexterm>
+    <primary><literal>Ignore</literal></primary>
+</indexterm>
+and <literal>Non_Existent</literal>
+<indexterm>
+    <primary><literal>Non_Existent</literal></primary>
+</indexterm>
+is described in
+<xref linkend="ReservedStates"/>.
+<table xml:id="ReservedStates" frame="all"><info><title>Reserved States</title></info>
+
+<tgroup cols="2" align="left" colsep="1" rowsep="1">
+<colspec colname="Name" colwidth="1*"/>
+<colspec colname="Description" colwidth="2*"/>
+<thead>
+<row>
+    <entry>Name</entry>
+    <entry>Description</entry>
+</row>
+</thead>
+<tbody>
+<row>
+    <entry>
+        <literal>Cannot_Happen</literal>
+        <indexterm>
+            <primary><literal>Cannot_Happen</literal></primary>
+        </indexterm>
+    </entry>
+    <entry>
+    Specifies that an exception is raised to indicate that an illegal event
+    has happened.
+    </entry>
+</row>
+<row>
+    <entry>
+        <literal>Ignore</literal>
+        <indexterm>
+            <primary><literal>Ignore</literal></primary>
+        </indexterm>
+    </entry>
+
+    <entry>
+    Specifies the event is ignored.
+    </entry>
+</row>
+<row>
+    <entry>
+        <literal>Non_Existent</literal>
+        <indexterm>
+            <primary><literal>Non_Existent</literal></primary>
+        </indexterm>
+    </entry>
+    <entry>
+    Specifies for a non-assigner state transition table that the instance
+    does not yet exist.
+    </entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</para>
+</section>
+</section>
+</chapter>

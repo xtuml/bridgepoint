@@ -1,0 +1,172 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>MASL Tutorial</title>
+<link rel="stylesheet" type="text/css" href="docbook.css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<meta name="keywords" content="MASL, Action Language, Action Semantics, UML, Unified Modelling Language, Shlaer Mellor">
+<link rel="home" href="index.html" title="MASL Tutorial">
+<link rel="preface" href="preface.html" title="Preface">
+<link rel="chapter" href="Types.html" title="Chapter 1. Types">
+<link rel="chapter" href="ExecutionControl.html" title="Chapter 2. Execution Control">
+<link rel="chapter" href="CompositeTypes.html" title="Chapter 3. Composite Types">
+<link rel="chapter" href="Exceptions.html" title="Chapter 4. Exceptions">
+<link rel="chapter" href="ObjectsandRelationships.html" title="Chapter 5. Objects and Relationships">
+<link rel="chapter" href="Actions.html" title="Chapter 6. Actions">
+<link rel="chapter" href="DeviceIO.html" title="Chapter 7. Device Input/Output">
+<link rel="chapter" href="MASLExamples.html" title="Chapter 8. MASL Examples">
+<link rel="index" href="ix01.html" title="Index">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div align="center">UNCLASSIFIED</div>
+<div class="navheader">
+<table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">MASL Tutorial</th></tr></table>
+<hr>
+</div>
+<h1>MASL Tutorial</h1>
+<div class="toc">
+<div class="toc-title">Table of Contents</div>
+<dl class="toc">
+<dt><span class="preface"><a href="preface.html">Preface</a></span></dt>
+<dt><span class="bibliography"><a href="Bibliography.html">Bibliography</a></span></dt>
+<dt><span class="chapter"><a href="Types.html">1. Types</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="TypesDeclarationsandAssignments.html">1.1. Declarations and Assignments</a></span></dt>
+<dt><span class="section"><a href="TypesBlocksandScope.html">1.2. Blocks and Scopes</a></span></dt>
+<dt><span class="section"><a href="TypesTypes.html">1.3. Types</a></span></dt>
+<dt><span class="section"><a href="TypesSubtypes.html">1.4. Subtypes</a></span></dt>
+<dt><span class="section"><a href="TypesSimpleNumericTypes.html">1.5. Simple Numeric Types</a></span></dt>
+<dt><span class="section"><a href="TypesEnumerationTypes.html">1.6. Enumeration Types</a></span></dt>
+<dt><span class="section"><a href="TypesTheBooleanType.html">1.7. The Boolean Type</a></span></dt>
+<dt><span class="section"><a href="TypesCharactersandStrings.html">1.8. Characters and Strings</a></span></dt>
+<dt><span class="section"><a href="TypesBytes.html">1.9. Bytes</a></span></dt>
+<dt><span class="section"><a href="TypesDateandTime.html">1.10. Date and Time</a></span></dt>
+<dt><span class="section"><a href="TypesExpressionSummary.html">1.11. Expression Summary</a></span></dt>
+</dl></dd>
+<dt><span class="chapter"><a href="ExecutionControl.html">2. Execution Control</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="ExecutionControlIfStatement.html">2.1. <code class="literal">if</code> Statement</a></span></dt>
+<dt><span class="section"><a href="ExecutionControlCaseStatement.html">2.2. <code class="literal">case</code> Statement</a></span></dt>
+<dt><span class="section"><a href="ExecutionControlLoopStatements.html">2.3.  Loop Statements</a></span></dt>
+</dl></dd>
+<dt><span class="chapter"><a href="CompositeTypes.html">3. Composite Types</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="CompositeTypesStructures.html">3.1. Structures</a></span></dt>
+<dt><span class="section"><a href="CompositeTypesCollections.html">3.2. Collections</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="CompositeTypesCollections.html#CompositeTypesSets">3.2.1. Sets</a></span></dt>
+<dt><span class="section"><a href="CompositeTypesCollections.html#CompositeTypesBags">3.2.2. Bags</a></span></dt>
+<dt><span class="section"><a href="CompositeTypesCollections.html#CompositeTypesSequences">3.2.3. Sequences</a></span></dt>
+<dt><span class="section"><a href="CompositeTypesCollections.html#CompositeTypesArrays">3.2.4. Arrays</a></span></dt>
+</dl></dd>
+<dt><span class="section"><a href="CompositeTypesCollectionTypes.html">3.3. Collection Types</a></span></dt>
+<dt><span class="section"><a href="CompositeTypesAssigningCollectionstootherCollections.html">3.4. Assigning Collections to other Collections</a></span></dt>
+<dt><span class="section"><a href="CompositeTypesSummary.html">3.5. Summary</a></span></dt>
+</dl></dd>
+<dt><span class="chapter"><a href="Exceptions.html">4. Exceptions</a></span></dt>
+<dt><span class="chapter"><a href="ObjectsandRelationships.html">5. Objects and Relationships</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="ObjectsandRelationshipsCreatingInstances.html">5.1. Creating Instances</a></span></dt>
+<dt><span class="section"><a href="ObjectsandRelationshipsObtainingInstances.html">5.2. Obtaining instances</a></span></dt>
+<dt><span class="section"><a href="ObjectsandRelationshipsDeletingInstances.html">5.3. Deleting Instances</a></span></dt>
+<dt><span class="section"><a href="ObjectsandRelationshipsCreatingRelationships.html">5.4. Creating Relationships</a></span></dt>
+<dt><span class="section"><a href="ObjectsandRelationshipsNavigatingRelationships.html">5.5. Navigating Relationships</a></span></dt>
+<dt><span class="section"><a href="ObjectsandRelationshipsDeletingRelationships.html">5.6. Deleting Relationships</a></span></dt>
+</dl></dd>
+<dt><span class="chapter"><a href="Actions.html">6. Actions</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="ActionsObjectServices.html">6.1. Object Services</a></span></dt>
+<dt><span class="section"><a href="ActionsInstanceServices.html">6.2. Instance Services</a></span></dt>
+<dt><span class="section"><a href="ActionsPolymorphicServices.html">6.3. Polymorphic Services</a></span></dt>
+<dt><span class="section"><a href="ActionsStatesandEvents.html">6.4. States and Events</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="ActionsStatesandEvents.html#ActionsPolymorphicEvents">6.4.1. Polymorphic Events</a></span></dt>
+<dt><span class="section"><a href="ActionsStatesandEvents.html#ActionsCreationEvents">6.4.2. Creation Events</a></span></dt>
+<dt><span class="section"><a href="ActionsStatesandEvents.html#ActionsAssignerEvents">6.4.3. Assigner Events</a></span></dt>
+<dt><span class="section"><a href="ActionsStatesandEvents.html#ActionsTerminalStates">6.4.4. Terminal States</a></span></dt>
+</dl></dd>
+</dl></dd>
+<dt><span class="chapter"><a href="DeviceIO.html">7. Device Input/Output</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="DeviceIOConsoleDevice.html">7.1. Console Device</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="DeviceIOConsoleDevice.html#DeviceIOConsoleOutput">7.1.1. Console Output</a></span></dt>
+<dt><span class="section"><a href="DeviceIOConsoleDevice.html#DeviceIOConsoleInput">7.1.2. Console Input</a></span></dt>
+</dl></dd>
+</dl></dd>
+<dt><span class="chapter"><a href="MASLExamples.html">8. MASL Examples</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="MASLExamplesCharacteristics.html">8.1. Characteristics</a></span></dt>
+<dt><span class="section"><a href="MASLExamplesCreationandNavigation.html">8.2. Creation and Navigation</a></span></dt>
+<dt><span class="section"><a href="MASLExamplesDataSets.html">8.3. Data Sets</a></span></dt>
+<dt><span class="section"><a href="MASLExamplesStringManipulation.html">8.4. String Manipulation</a></span></dt>
+<dt><span class="section"><a href="MASLExamplesStringLiterals.html">8.5. String Literals</a></span></dt>
+<dt><span class="section"><a href="MASLExamplesFindStatements.html">8.6. Find Statements</a></span></dt>
+<dt><span class="section"><a href="MASLExamplesControlStatements.html">8.7. Control Statements</a></span></dt>
+<dt><span class="section"><a href="MASLExamplesArrays.html">8.8. Arrays</a></span></dt>
+<dt><span class="section"><a href="MASLExamplesExceptions.html">8.9. Exceptions</a></span></dt>
+<dt><span class="section"><a href="MASLExamplesDeviceOutput.html">8.10. Device Output</a></span></dt>
+<dt><span class="section"><a href="MASLExamplesDeviceInput.html">8.11. Device Input</a></span></dt>
+</dl></dd>
+<dt><span class="index"><a href="ix01.html">Index</a></span></dt>
+</dl>
+</div>
+<div class="list-of-figures">
+<div class="toc-title">List of Figures</div>
+<dl>
+<dt>3.1. <a href="CompositeTypesCollections.html#CompositeTypeDecisionTreeforCollectionTypes">Decision Tree for Collection Types</a>
+</dt>
+<dt>5.1. <a href="ObjectsandRelationshipsCreatingInstances.html#ObjectsandRelationshipsAircraftObject">Aircraft Object</a>
+</dt>
+<dt>5.2. <a href="ObjectsandRelationshipsCreatingInstances.html#ObjectsandRelationshipsRelationshipbetweenPilotandAircraft">Relationship between Pilot and Aircraft</a>
+</dt>
+<dt>5.3. <a href="ObjectsandRelationshipsCreatingRelationships.html#ObjectsandRelationshipsAssociativeRelationship">Associative Relationship</a>
+</dt>
+<dt>5.4. <a href="ObjectsandRelationshipsNavigatingRelationships.html#ObjectsandRelationshipsRelationshipbetweenAirlineandPilot">Relationship between Airline and Pilot</a>
+</dt>
+<dt>6.1. <a href="ActionsStatesandEvents.html#ActionsLifecycleofanAircraft">Life cycle of an Aircraft</a>
+</dt>
+<dt>6.2. <a href="ActionsStatesandEvents.html#ActionsAssignerClass">Assigner Object</a>
+</dt>
+<dt>6.3. <a href="ActionsStatesandEvents.html#ActionsLifecycleofaRunwayAllocationAssigner">Life cycle of a Runway Allocation Assigner</a>
+</dt>
+</dl>
+</div>
+<div class="list-of-tables">
+<div class="toc-title">List of Tables</div>
+<dl>
+<dt>1.1. <a href="TypesSimpleNumericTypes.html#TypesFloatingPointOperators">Floating-Point Operators</a>
+</dt>
+<dt>1.2. <a href="TypesTheBooleanType.html#TypesBooleanTypeOperators"><span class="type">boolean</span> Type Operators</a>
+</dt>
+<dt>1.3. <a href="TypesExpressionSummary.html#TypesOperatorsTable">Operators</a>
+</dt>
+<dt>3.1. <a href="CompositeTypesSummary.html#CompositeTypesMoreOperators">More Operators</a>
+</dt>
+<dt>4.1. <a href="Exceptions.html#ExceptionsExceptionTypes">Exception Types</a>
+</dt>
+<dt>5.1. <a href="ObjectsandRelationshipsNavigatingRelationships.html#ObjectsandRelationshipsMultiplicityofRelationshipNavigation">Multiplicity of Relationship Navigation</a>
+</dt>
+</dl>
+</div>
+<div class="list-of-examples">
+<div class="toc-title">List of Examples</div>
+<dl>
+<dt>1.1. <a href="TypesCharactersandStrings.html#TypesExampleStringLiterals">Example String Literals</a>
+</dt>
+<dt>4.1. <a href="Exceptions.html#ExceptionsDeclarationRaisingandHandlingofaUserDefinedException">Declaration, raising and handling of a user defined
+      exception.</a>
+</dt>
+</dl>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer"><tr>
+<td width="40%" align="left" valign="top"> </td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+<td width="40%" align="right" valign="top"> </td>
+</tr></table>
+</div>
+<div align="center">UNCLASSIFIED</div>
+</body>
+</html>

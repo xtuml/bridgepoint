@@ -1,0 +1,134 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>1.10. Date and Time</title>
+<link rel="stylesheet" type="text/css" href="docbook.css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<meta name="keywords" content="MASL, Action Language, Action Semantics, UML, Unified Modelling Language, Shlaer Mellor">
+<link rel="home" href="index.html" title="MASL Tutorial">
+<link rel="up" href="Types.html" title="Chapter 1. Types">
+<link rel="prev" href="TypesBytes.html" title="1.9. Bytes">
+<link rel="next" href="TypesExpressionSummary.html" title="1.11. Expression Summary">
+<link rel="preface" href="preface.html" title="Preface">
+<link rel="chapter" href="Types.html" title="Chapter 1. Types">
+<link rel="chapter" href="ExecutionControl.html" title="Chapter 2. Execution Control">
+<link rel="chapter" href="CompositeTypes.html" title="Chapter 3. Composite Types">
+<link rel="chapter" href="Exceptions.html" title="Chapter 4. Exceptions">
+<link rel="chapter" href="ObjectsandRelationships.html" title="Chapter 5. Objects and Relationships">
+<link rel="chapter" href="Actions.html" title="Chapter 6. Actions">
+<link rel="chapter" href="DeviceIO.html" title="Chapter 7. Device Input/Output">
+<link rel="chapter" href="MASLExamples.html" title="Chapter 8. MASL Examples">
+<link rel="index" href="ix01.html" title="Index">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div align="center">UNCLASSIFIED</div>
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">1.10. Date and Time</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="TypesBytes.html">Prev</a> </td>
+<th width="60%" align="center">Chapter 1. Types</th>
+<td width="20%" align="right"> <a accesskey="n" href="TypesExpressionSummary.html">Next</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title">
+<a name="TypesDateandTime"></a>1.10. Date and Time</h2></div></div></div>
+<p><abbr class="abbrev">MASL</abbr> incorporates a type call
+    <span class="type">time_type</span>, which is used to store a current point in time,
+    the implementation of this type is defined by the specific architecture in
+    use. As this type represents a current point in time it represents not
+    just a time (hours, minutes and seconds) but also a date (day, month and
+    year). The date and time elements that can be extracted from this type are
+    represented by two structures. The date is defined as a structure type
+    called <span class="type">date_type</span> and is shown below:</p>
+<div class="informalexample"><pre class="programlisting">  type day_type is numeric range 1..31;
+  type month_type is enum (JANUARY=1, FEBRUARY, MARCH, APRIL, MAY, JUNE, JULY, AUGUST, SEPTEMBER, OCTOBER, NOVEMBER, DECEMBER);
+
+  type year_type is numeric range 1970..2036;
+
+  type date_type is structure
+    day : day_type;
+    month : month_type;
+    year : year_type
+  end structure;</pre></div>
+<p>The time is defined as a structure type called
+    <span class="type">time_of_day_type</span> and is shown below:</p>
+<div class="informalexample"><pre class="programlisting">  type hour_type    is numeric range 0..23;
+  type minute_type  is numeric range 0..59;
+  type second_type  is numeric delta 0.1 range 0..59;
+
+  type time_of_day_type is structure
+    hour   : hour_type;
+    minute : minute_type;
+    second : second_type;
+  end structure;</pre></div>
+<p>A series of architecture-defined services are provided to manipulate
+    and convert the date and time types described, from one form to another
+    (see <a class="xref" href="Bibliography.html#MASL06">[MASL06]</a>). For example:</p>
+<div class="informalexample"><pre class="programlisting">  declare
+    previous_date : Calendar::date_type := (12,Calendar::JANUARY,2000);
+    previous_time : Calendar::time_of_day_type;
+    current_date  : Calendar::date_type;
+    current_time  : Calendar::time_of_day_type;
+    current_time_point : Calendar::time_type;
+ 
+  begin
+    previous_time := (12,30,00);
+    Calendar::get_clock(current_time_point);
+    Calendar::split(current_time_point,current_date,current_time);
+  end;</pre></div>
+<p>The usual relational operators <code class="literal">=</code>,
+    <code class="literal">!=</code>, <code class="literal">&lt;</code>,<code class="literal">&gt;</code>
+    etc. are available for operations on variables of type
+    <span class="type">time_type</span>, but as the <span class="type">date_type</span> and
+    <span class="type">time_of_day_type</span> are structures these relational operators
+    are not allowed. Therefore:</p>
+<div class="informalexample"><pre class="programlisting">  declare
+    previous_date : Calendar::date_type := (12,Calendar::JANUARY,2000); 
+    current_date  : Calendar::date_type := (14,Calendar::JANUARY,2000); 
+  begin
+    if previous_date = current_date then        // illegal := not available on structure type.
+      // …
+    end if;
+  end;</pre></div>
+<p>is illegal. To achieve the desired operation the
+    example <abbr class="abbrev">MASL</abbr> code below would be
+    required:</p>
+<div class="informalexample"><pre class="programlisting">  declare
+    previous_date : Calendar::date_type := (12,Calendar::JANUARY,2000); 
+    current_date  : Calendar::date_type := (14,Calendar::JANUARY,2000); 
+  begin
+    if previous_date.day = current_date.day and
+      previous_date.month = current_date.month and
+      previous_date.year = current_date.year then
+      // …
+    end if;
+  end;</pre></div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="TypesBytes.html">Prev</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="Types.html">Up</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="TypesExpressionSummary.html">Next</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">1.9. Bytes </td>
+<td width="20%" align="center">
+<a accesskey="h" href="index.html">Home</a> | <a accesskey="t" href="bk01-toc.html">ToC</a>
+</td>
+<td width="40%" align="right" valign="top"> 1.11. Expression Summary</td>
+</tr>
+</table>
+</div>
+<div align="center">UNCLASSIFIED</div>
+</body>
+</html>

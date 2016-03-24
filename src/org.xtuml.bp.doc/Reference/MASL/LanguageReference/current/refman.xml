@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+  UK Crown Copyright (c) 2016. All Rights Reserved
+-->
+<book
+  security="OFFICIAL" status="draft" version="5.0"
+  xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+  xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg"
+  xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:html="http://www.w3.org/1999/xhtml"
+  xmlns:db="http://docbook.org/ns/docbook">
+
+  <xi:include href="info.xml" xpointer="info"/>
+
+  <xi:include href="lexical.xml"/>
+
+  <xi:include href="types.xml"/>
+
+  <xi:include href="domains.xml"/>
+
+  <xi:include href="services.xml"/>
+
+  <xi:include href="relationships.xml"/>
+
+  <xi:include href="exceptions.xml"/>
+
+  <xi:include href="terminators.xml"/>
+
+  <xi:include href="objects.xml"/>
+
+  <xi:include href="statements.xml"/>
+  <xi:include href="expressions.xml"/>
+
+  <xi:include href="projects.xml"/>
+  <xi:include href="pragmas.xml"/>
+
+  <xi:include href="generated/alphasyntax.xml"/>
+
+  <xi:include href="bibliography.xml"/>
+
+  <index/>
+
+  </book>

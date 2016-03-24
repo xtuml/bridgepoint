@@ -1,0 +1,652 @@
+<!-- 
+  UK Crown Copyright (c) 2016. All Rights Reserved
+-->
+<!-- Converted by db4-upgrade version 1.0 -->
+<chapter xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="Objects"><info><title>Objects</title></info>
+
+<para>
+Objects
+<indexterm significance="preferred">
+    <primary>object</primary>
+</indexterm>
+are entities such that all the instances
+<indexterm significance="preferred">
+    <primary>instance</primary>
+</indexterm>
+of the entities have the same
+characteristics and are subject to and conform to the same set of rules and
+policies.
+</para>
+<para>
+Typically, an object
+<indexterm>
+    <primary>object</primary>
+</indexterm>
+contains declarations of the attributes
+<indexterm>
+    <primary>attribute</primary>
+</indexterm>
+that instances of
+the object contain, the declarations of services
+<indexterm>
+    <primary>service</primary>
+</indexterm>
+provided by the object and a 
+description of the lifecycle
+<indexterm>
+    <primary>lifecycle</primary>
+</indexterm>
+of an instance
+<indexterm>
+    <primary>instance</primary>
+</indexterm>
+of the object, if any.
+</para>
+<section xml:id="ObjectsObjectDeclaration"><info><title>Object Declaration</title></info>
+
+<para>
+An <link linkend="ebnf.objectdeclaration"><emphasis>object declaration</emphasis></link>
+<indexterm>
+    <primary>object</primary>
+    <secondary>declaration</secondary>
+</indexterm>
+declares a new object. The declaration
+<indexterm>
+    <primary>object</primary>
+    <secondary>declaration</secondary>
+</indexterm>
+specifies the name of the object together with the declarations
+<indexterm>
+    <primary>object</primary>
+    <secondary>declaration</secondary>
+</indexterm>
+of its members, that is, its attributes,
+<indexterm>
+    <primary>object</primary>
+    <secondary>attribute</secondary>
+</indexterm>
+services,
+<indexterm>
+    <primary>object</primary>
+    <secondary>service</secondary>
+</indexterm>
+events,
+<indexterm>
+    <primary>object</primary>
+    <secondary>event</secondary>
+</indexterm>
+states,
+<indexterm>
+    <primary>object</primary>
+    <secondary>state</secondary>
+</indexterm>
+and lifecycles.
+<indexterm>
+    <primary>object</primary>
+    <secondary>lifecycle</secondary>
+</indexterm>
+</para>
+<indexterm zone="ebnf.objectdeclaration">
+    <primary>object declaration</primary>
+</indexterm>
+<indexterm zone="ebnf.objectdeclaration">
+    <primary><literal>object</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.objectdeclaration">
+    <primary>object name</primary>
+</indexterm>
+<indexterm zone="ebnf.objectdeclaration">
+    <primary><literal>is</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.objectdeclaration">
+    <primary>object declarative item</primary>
+</indexterm>
+<indexterm zone="ebnf.objectdeclaration">
+    <primary><literal>end</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.objectname">
+    <primary>object name</primary>
+</indexterm>
+<indexterm zone="ebnf.objectname">
+    <primary>identifier</primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.objectdeclaration">
+    <lhs>
+        object declaration
+    </lhs>
+    <rhs>
+        'object',
+        <nonterminal def="#ebnf.objectname">object name</nonterminal>,
+        'is',
+        {<nonterminal def="#ebnf.objectdeclarativeitem">object declarative item</nonterminal>},
+        'end', ['object'], ';'
+    </rhs>
+</production>
+<production xml:id="ebnf.objectname">
+    <lhs>
+        object name
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.identifier">identifier</nonterminal>
+    </rhs>
+</production>
+</productionset>
+<para>
+Object declarative items are described in
+<xref linkend="ObjectsObjectMembers"/>.
+</para>
+<para>
+A compile-time error occurs if the the object name naming the object has already
+declared an object in the enclosing domain.
+</para>
+</section>
+<section xml:id="ObjectsObjectPredeclaration"><info><title>Object Pre-declaration</title></info>
+
+<para>
+An <link linkend="ebnf.objectpredeclaration"><emphasis>object pre-declaration</emphasis></link>
+<indexterm significance="preferred">
+    <primary>object</primary>
+    <secondary>pre-declaration</secondary>
+</indexterm>
+pre-declares a new object. The pre-declaration specifies the name of the object
+only.
+</para>
+<indexterm zone="ebnf.objectpredeclaration">
+    <primary>object predeclaration</primary>
+</indexterm>
+<indexterm zone="ebnf.objectpredeclaration">
+    <primary>object name</primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.objectpredeclaration">
+    <lhs>
+        object predeclaration
+    </lhs>
+    <rhs>
+        'object',
+        <nonterminal def="#ebnf.objectname">object name</nonterminal>,
+        ';'
+    </rhs>
+</production>
+</productionset>
+<para>
+An <link linkend="ebnf.objectpredeclaration"><emphasis>object pre-declaration</emphasis></link>
+<indexterm>
+    <primary>object</primary>
+    <secondary>pre-declaration</secondary>
+</indexterm>
+is used to pre-declare an object that has a relationship
+<indexterm>
+    <primary>relationship</primary>
+</indexterm>
+with other objects in the domain,
+<indexterm>
+    <primary>domain</primary>
+</indexterm>
+without declaring its members.
+</para>
+<para>
+A compile-time errors occurs if the object name naming the object is already
+pre-declared as an object within the enclosing scope.
+</para>
+</section>
+<section xml:id="ObjectsObjectMembers"><info><title>Object Members</title></info>
+
+<para>
+The members of an object
+<indexterm significance="preferred">
+    <primary>object</primary>
+    <secondary>members</secondary>
+</indexterm>
+are introduced by object declarative items.
+</para>
+<indexterm zone="ebnf.objectdeclarativeitem">
+    <primary>object declarative item</primary>
+</indexterm>
+<indexterm zone="ebnf.objectdeclarativeitem">
+    <primary>attribute declaration</primary>
+</indexterm>
+<indexterm zone="ebnf.objectdeclarativeitem">
+    <primary>object service declaration</primary>
+</indexterm>
+<indexterm zone="ebnf.objectdeclarativeitem">
+    <primary>object function declaration</primary>
+</indexterm>
+<indexterm zone="ebnf.objectdeclarativeitem">
+    <primary>event declaration</primary>
+</indexterm>
+<indexterm zone="ebnf.objectdeclarativeitem">
+    <primary>identifier declaration</primary>
+</indexterm>
+<indexterm zone="ebnf.objectdeclarativeitem">
+    <primary>state declaration</primary>
+</indexterm>
+<indexterm zone="ebnf.objectdeclarativeitem">
+    <primary>transition table declaration</primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.objectdeclarativeitem">
+    <lhs>
+        object declarative item
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.attributedeclaration">attribute declaration</nonterminal> |
+        <nonterminal def="#ebnf.objectservicedeclaration">object service declaration</nonterminal> |
+        <nonterminal def="#ebnf.objectfunctiondeclaration">object function declaration</nonterminal> |
+        <nonterminal def="#ebnf.eventdeclaration">event declaration</nonterminal> |
+        <nonterminal def="#ebnf.identifierdeclaration">identifier declaration</nonterminal> |
+        <nonterminal def="#ebnf.statedeclaration">state declaration</nonterminal> |
+        <nonterminal def="#ebnf.transitiontabledeclaration">transition table declaration</nonterminal>
+    </rhs>
+</production>
+</productionset>
+<para>
+Attribute declarations are described in
+<xref linkend="ObjectsAttributes"/>.
+</para>
+</section>
+<section xml:id="ObjectsAttributes"><info><title>Attributes</title></info>
+
+<para>
+The attributes of an object
+<indexterm significance="preferred">
+    <primary>object</primary>
+    <secondary>attribute</secondary>
+</indexterm>
+are introduced by
+<link linkend="ebnf.attributedeclaration"><emphasis>attribute declarations</emphasis></link>.
+<indexterm significance="preferred">
+    <primary>attribute</primary>
+    <secondary>declaration</secondary>
+</indexterm>
+</para>
+<indexterm significance="preferred">
+    <primary>object</primary>
+    <secondary>attribute</secondary>
+    <tertiary>initialization</tertiary>
+</indexterm>
+<indexterm zone="ebnf.attributedeclaration">
+    <primary>attribute declaration</primary>
+</indexterm>
+<indexterm zone="ebnf.attributedeclaration">
+    <primary>attribute name</primary>
+</indexterm>
+<indexterm zone="ebnf.attributedeclaration">
+    <primary>attribute modifier</primary>
+</indexterm>
+<indexterm zone="ebnf.attributedeclaration">
+    <primary>type</primary>
+</indexterm>
+<indexterm zone="ebnf.attributedeclaration">
+    <primary>range</primary>
+</indexterm>
+<indexterm zone="ebnf.attributedeclaration">
+    <primary>constant expression</primary>
+</indexterm>
+<indexterm zone="ebnf.attributename">
+    <primary>attribute name</primary>
+</indexterm>
+<indexterm zone="ebnf.attributename">
+    <primary>identifier</primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.attributedeclaration">
+    <lhs>
+        attribute declaration
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.attributename">attribute name</nonterminal>,
+        ':',
+        <nonterminal def="#ebnf.attributemodifier">attribute modifier</nonterminal>,
+        <nonterminal def="#ebnf.type">type</nonterminal>,
+        [('(',
+        <nonterminal def="#ebnf.range">range</nonterminal>
+        , ')'], [(':=',
+        <nonterminal def="#ebnf.constantexpression">constant expression</nonterminal>)],
+        ';'
+    </rhs>
+</production>
+<production xml:id="ebnf.attributename">
+    <lhs>
+        attribute name
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.identifier">identifier</nonterminal>
+    </rhs>
+</production>
+</productionset>
+<para>
+The attribute name in an
+<link linkend="ebnf.attributedeclaration"><emphasis>attribute declaration</emphasis></link>
+<indexterm>
+    <primary>attribute</primary>
+    <secondary>declaration</secondary>
+</indexterm>
+may be used to refer to the attribute. A compile-time error occurs if:
+<itemizedlist mark="bullet">
+<listitem>
+<para>
+The type of an attribute is in terms of some
+<link linkend="TypesInstanceTypes">instance type</link>.
+<indexterm>
+    <primary>instance</primary>
+    <secondary>type</secondary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary>instance</secondary>
+</indexterm>
+</para>
+</listitem>
+<listitem>
+<para>
+An object declaration contains two attributes with the same name.
+</para>
+</listitem>
+<listitem>
+<para>
+The type of the optional constant expression
+<indexterm>
+    <primary>attribute</primary>
+    <secondary>constant expression</secondary>
+</indexterm>
+in the declaration of an attribute is not assignable to the type of the
+attribute.
+</para>
+</listitem>
+<listitem>
+<para>
+The optional range
+<indexterm>
+    <primary><type>range</type></primary>
+</indexterm>
+constraint is imposed on a type which is not a constrained array type.
+<indexterm>
+    <primary>array</primary>
+    <secondary>constrained</secondary>
+</indexterm>
+</para>
+</listitem>
+</itemizedlist>
+</para>
+<para>
+The individual attributes of a variable with an
+<link linkend="TypesInstanceTypes">instance type</link>
+<indexterm>
+    <primary>instance</primary>
+    <secondary>type</secondary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary>instance</secondary>
+</indexterm>
+as its type can be denoted by following the variable name
+<indexterm>
+    <primary>variable</primary>
+    <secondary>name</secondary>
+</indexterm>
+with a dot and the attribute name.
+</para>
+<section xml:id="ObjectsInitializationofAttributes"><info><title>Initialization of Attributes</title></info>
+
+<para>
+It is possible to give defaults for some or all of the attributes.
+<indexterm significance="preferred">
+    <primary>attribute</primary>
+    <secondary>initialization</secondary>
+</indexterm>
+</para>
+<para>
+If an
+<link linkend="ebnf.attributedeclaration"><emphasis>attribute declaration</emphasis></link>
+<indexterm>
+    <primary>attribute</primary>
+    <secondary>declaration</secondary>
+</indexterm>
+contains a constant expression,
+<indexterm>
+    <primary>expression</primary>
+    <secondary>constant</secondary>
+</indexterm>
+then it has the semantics of an assignment to the declared attribute and the
+expression is evaluated and the assignment performed each time an instance of
+the object is created.
+</para>
+</section>
+<section xml:id="ObjectsAttributeModifiers"><info><title>Attribute Modifiers</title></info>
+
+<indexterm significance="preferred">
+    <primary>attribute</primary>
+    <secondary>modifier</secondary>
+</indexterm>
+<indexterm zone="ebnf.attributemodifier">
+    <primary>attribute modifier</primary>
+</indexterm>
+<indexterm zone="ebnf.attributemodifier">
+    <primary><literal>preferred</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.attributemodifier">
+    <primary><literal>referential</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.attributemodifier">
+    <primary><literal>relationship formalization</literal></primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.attributemodifier">
+    <lhs>
+        attribute modifier
+    </lhs>
+    <rhs>
+        ['preferred'], [('referential',
+        <nonterminal def="#ebnf.identifier">relationship formalization</nonterminal>)]
+    </rhs>
+</production>
+</productionset>
+<section xml:id="ObjectsPreferredAttributes"><info><title>Preferred Attributes</title></info>
+
+<para>
+<link linkend="ebnf.identifierdeclaration"><emphasis>Preferred attributes</emphasis></link>
+<indexterm significance="preferred">
+    <primary>attribute</primary>
+    <secondary>preferred</secondary>
+</indexterm>
+are part of an objects preferred
+identifier. The preferred identifier
+<indexterm significance="preferred">
+    <primary>preferred identifier</primary>
+</indexterm>
+of an object, is the set of one or more
+of its attributes whose values uniquely distinguish each instance of the object.
+</para>
+<indexterm zone="ebnf.identifierdeclaration">
+    <primary>identifier declaration</primary>
+</indexterm>
+<indexterm zone="ebnf.identifierdeclaration">
+    <primary>identifier</primary>
+</indexterm>
+<indexterm zone="ebnf.identifierdeclaration">
+    <primary>attribute name</primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.identifierdeclaration">
+    <lhs>
+        identifier declaration
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.identifier">identifier</nonterminal>,
+        'is', '(',
+        <nonterminal def="#ebnf.attributename">attribute name</nonterminal>,
+        {(',',
+        <nonterminal def="#ebnf.attributename">attribute name</nonterminal>)},
+        ')', ';'
+    </rhs>
+</production>
+</productionset>
+</section>
+<section xml:id="ObjectsReferentialAttributes"><info><title>Referential Attributes</title></info>
+
+<para>
+A <link linkend="ebnf.relationshipformalization"><emphasis>referential attribute</emphasis></link>
+<indexterm significance="preferred">
+    <primary>attribute</primary>
+    <secondary>referential</secondary>
+</indexterm>
+is the formalization of a relationship.
+<indexterm significance="preferred">
+    <primary>relationship</primary>
+    <secondary>formalization</secondary>
+</indexterm>
+</para>
+<indexterm zone="ebnf.relationshipformalization">
+    <primary>relationship formalization</primary>
+</indexterm>
+<indexterm zone="ebnf.relationshipformalization">
+    <primary>relationship specification</primary>
+</indexterm>
+<indexterm zone="ebnf.relationshipformalization">
+    <primary>attribute name</primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.relationshipformalization">
+    <lhs>
+        relationship formalization
+    </lhs>
+    <rhs>
+        '(',
+        <nonterminal def="#ebnf.relationshipspecification">relationship specification</nonterminal>,
+        '.',
+        <nonterminal def="#ebnf.attributename">attribute name</nonterminal>,
+        {(',',
+        <nonterminal def="#ebnf.relationshipspecification">relationship specification</nonterminal>,
+        '.',
+        <nonterminal def="#ebnf.attributename">attribute name</nonterminal>)},
+        ')'
+    </rhs>
+</production>
+</productionset>
+<para>
+A compile-time error occurs if any of the following are not true:
+<itemizedlist>
+<listitem>
+<para>
+Each <link linkend="ebnf.relationshipspecification"><emphasis>relationship specification</emphasis></link>
+<indexterm>
+    <primary>relationship</primary>
+    <secondary>specification</secondary>
+</indexterm>
+in the
+<link linkend="ebnf.relationshipformalization"><emphasis>relationship formalization</emphasis></link>
+<indexterm>
+    <primary>relationship</primary>
+    <secondary>formalization</secondary>
+</indexterm>
+must specify a valid navigation form the object being declared to a single
+instance of another object.
+</para>
+</listitem>
+<listitem>
+<para>
+Each <link linkend="ebnf.attributename"><emphasis>attribute name</emphasis></link>
+<indexterm>
+    <primary>attribute</primary>
+    <secondary>name</secondary>
+</indexterm>
+must name an attribute of the object navigated to by the preceding
+<link linkend="ebnf.relationshipspecification"><emphasis>relationship specification</emphasis></link>.
+<indexterm>
+    <primary>relationship</primary>
+    <secondary>specification</secondary>
+</indexterm>
+</para>
+</listitem>
+<listitem>
+<para>
+Each attribute named by the
+<link linkend="ebnf.attributename"><emphasis>attribute name</emphasis></link>,
+<indexterm>
+    <primary>attribute</primary>
+    <secondary>name</secondary>
+</indexterm>
+of the object navigated to by the preceding
+<link linkend="ebnf.relationshipspecification"><emphasis>relationship specification</emphasis></link>,
+<indexterm>
+    <primary>relationship</primary>
+    <secondary>specification</secondary>
+</indexterm>
+must have the same type as the attribute being declared.
+</para>
+</listitem>
+</itemizedlist>
+In addition:
+<itemizedlist>
+<listitem>
+<para>
+All of the
+<link linkend="ebnf.relationshipformalization"><emphasis>referential attributes</emphasis></link>
+<indexterm>
+    <primary>attribute</primary>
+    <secondary>referential</secondary>
+</indexterm>
+of an object that formalize a specific
+relationship, i.e. the ones that have a
+<link linkend="ebnf.relationshipspecification"><emphasis>relationship specification</emphasis></link>
+<indexterm>
+    <primary>relationship</primary>
+    <secondary>specification</secondary>
+</indexterm>
+that navigates the same relationship, to the same object, must together form an
+identifier of the object being navigated to.
+</para>
+</listitem>
+<listitem>
+<para>
+A non-associative one-to-one relationship
+<indexterm>
+    <primary>relationship</primary>
+    <secondary>one-to-one</secondary>
+</indexterm>
+must be formalized in one and only one, of the participating objects.
+</para>
+</listitem>
+<listitem>
+<para>
+A non-associative one-to-many relationship
+<indexterm>
+    <primary>relationship</primary>
+    <secondary>one-to-many</secondary>
+</indexterm>
+must be formalized in the object on the many sided and nowhere else.
+</para>
+</listitem>
+<listitem>
+<para>
+A associative relationship
+<indexterm>
+    <primary>relationship</primary>
+    <secondary>associative</secondary>
+</indexterm>
+must be formalized in the associative object and nowhere else.
+</para>
+</listitem>
+<listitem>
+<para>
+A associative object
+<indexterm>
+    <primary>object</primary>
+    <secondary>associative</secondary>
+</indexterm>
+must be formalized in the associative relationship
+<indexterm>
+    <primary>relationship</primary>
+    <secondary>associative</secondary>
+</indexterm>
+in both directions.
+</para>
+</listitem>
+</itemizedlist>
+</para>
+</section>
+</section>
+</section>
+</chapter>

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+  UK Crown Copyright (c) 2016. All Rights Reserved
+-->
+<chapter version="5.0" xml:id="section.Domains" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml"
+         xmlns:ns4="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook">
+  <title>Domains</title>
+
+  <para>In building large software systems, the analyst has to deal with a number of distinctly different subject
+  matters or domains. A domain is a separate world inhabited by a distinct set of objects that behave according to the
+  rules and policies characteristic of the domain.</para>
+
+  <para>Domains allow the specification of groups of logically related entities. Typically, a domain contains the
+  declaration of a number of services, which can be called from outside the domain, whilst the inner workings of the
+  domain remain hidden from outside users.</para>
+
+  <section xml:id="section.Domains.Definition">
+    <title>Domain Definition</title>
+
+    <para>A <link linkend="ebnf.domainDefinition"> domain definition</link> defines a new domain. The definition
+    specifies the name of the domain together with declarations and definitions of its members,that is, <link
+    linkend="section.Types.Declaration">type declarations</link>, <link
+    linkend="section.Exceptions.Declaration">exception declarations</link>, <link
+    linkend="section.Objects.Declaration">object declarations</link>, and <link
+    linkend="section.Objects.Definition">definitions</link>, <link
+    linkend="section.Domains.Services.Declaration">service and function declarations</link>, <link
+    linkend="section.Terminators.Definition">terminator definitions</link>, and <link
+    linkend="section.Relationships.Definition">relationship definitions</link>.</para>
+
+    <productionset>
+      <xi:include href="syntax.xml" xpointer="ebnf.domainDefinition"/>
+
+      <xi:include href="syntax.xml" xpointer="ebnf.domainName"/>
+
+      <xi:include href="syntax.xml" xpointer="ebnf.domainMember"/>
+    </productionset>
+  </section>
+
+  <section xml:id="section.Domains.Services">
+    <title>Domain Services and Functions</title>
+
+    <para>A domain service provides an interface to the domain which may be invoked by means of a <link
+    linkend="section.Statements.ServiceCall">domain service call</link>. The domain service will typically cause the
+    domain to perform a sequence of actions.</para>
+
+    <para>A domain function provides an interface to retrieve information from the domain which may be invoked by means
+    of a <link linkend="section.Expressions.FunctionCalls">domain function call</link>. The domain function will
+    typically cause the domain to perform a sequence of actions to calculate a value, and return that value.</para>
+
+    <section xml:id="section.Domains.Services.Declaration">
+      <title>Domain Service and Function Declaration</title>
+
+      <para>A domain service declaration defines the <link linkend="ebnf.serviceName">name</link> and <link
+      linkend="ebnf.parameterList">parameters</link> of a domain service. A domain function declaration defines the
+      <link linkend="ebnf.serviceName">name</link>, <link linkend="ebnf.parameterList">parameters</link> and <link
+      linkend="ebnf.returnType">return type</link> of a domain function. If the <link
+      linkend="ebnf.serviceVisibility">visibility</link> of the declaration is <code language="masl">public</code>, then
+      the declaration is available to be used by actions which have visibility of the domain itself. If the visibility
+      is <code language="masl">private</code>, then the declaration may only be used by actions within the domain in
+      which it is declared.</para>
+
+      <para>The parameters on a declaration determine the arguments which must be passed to any call of a service or
+      function, and the names by which they are referenced in the <link
+      linkend="section.Domains.Services.Definition">action definition</link>. If a parameter has a mode of <link
+      linkend="ebnf.parameterMode"><code language="masl">in</code></link>, then its value will be passed into the action
+      and will not be changed by the action. If a parameter is marked as <code language="masl">out</code>, then its
+      value will be passed into the action and may be changed by the action. The <link linkend="ebnf.returnType">return
+      type</link> of a function declaration is the type of the value that is returned by the function.</para>
+
+      <productionset>
+        <xi:include href="syntax.xml" xpointer="ebnf.domainServiceDeclaration"/>
+
+        <xi:include href="syntax.xml" xpointer="ebnf.domainFunctionDeclaration"/>
+
+        <productionrecap linkend="ebnf.serviceVisibility"/>
+
+        <productionrecap linkend="ebnf.serviceName"/>
+
+        <productionrecap linkend="ebnf.parameterList"/>
+
+        <productionrecap linkend="ebnf.parameterDefinition"/>
+
+        <productionrecap linkend="ebnf.parameterName"/>
+
+        <productionrecap linkend="ebnf.parameterMode"/>
+
+        <productionrecap linkend="ebnf.parameterType"/>
+
+        <productionrecap linkend="ebnf.returnType"/>
+      </productionset>
+    </section>
+
+    <section xml:id="section.Domains.Services.Definition">
+      <title>Domain Service and Function Action Definition</title>
+
+      <para>A domain service or function action definition defines the action to be taken by the domain when the service
+      or function is invoked. The signature of the definition must match exactly the signature of the corresponding
+      declaration.</para>
+
+      <productionset>
+        <xi:include href="syntax.xml" xpointer="ebnf.domainServiceDefinition"/>
+
+        <xi:include href="syntax.xml" xpointer="ebnf.domainFunctionDefinition"/>
+
+        <productionrecap linkend="ebnf.domainName"/>
+
+        <productionrecap linkend="ebnf.serviceName"/>
+
+        <productionrecap linkend="ebnf.codeBlock"/>
+      </productionset>
+    </section>
+  </section>
+</chapter>
