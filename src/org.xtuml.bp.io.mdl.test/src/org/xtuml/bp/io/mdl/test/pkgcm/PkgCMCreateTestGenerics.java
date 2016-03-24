@@ -44,13 +44,9 @@ public class PkgCMCreateTestGenerics extends CreateTest {
 
     protected static IPath mdlClassPath = null;
 
-    public PkgCMCreateTestGenerics(String projName, String name) {
-        super(null, name);
+    public PkgCMCreateTestGenerics() {
+        super(projectName, null);
         showModelExplorer();
-    }
-
-    public PkgCMCreateTestGenerics(String name) {
-        this(projectName, name);
     }
 
     protected static boolean firstTime_create = true;
