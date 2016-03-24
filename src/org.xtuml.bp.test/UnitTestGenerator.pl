@@ -624,8 +624,8 @@ sub createGenericClassDefintion() {
 		print $outputFH "        return super.getResultName();\n";
 		print $outputFH "    }\n";
 		print $outputFH "\n";	
-		print $outputFH "    public $className(String arg0) {\n";
-		print $outputFH "        super(\"$className\", arg0);\n";
+		print $outputFH "    public $className() {\n";
+		print $outputFH "        super(\"$className\", null);\n";
 		print $outputFH "    }\n";
 		print $outputFH "\n";
 	} else {

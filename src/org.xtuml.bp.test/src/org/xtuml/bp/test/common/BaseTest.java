@@ -501,6 +501,7 @@ public class BaseTest extends TestCase {
 			TestingUtilities.importTestingProjectIntoWorkspace(projectName);
 			project = ResourcesPlugin.getWorkspace().getRoot().getProject(
 					projectName);
+			TestingUtilities.allowJobCompletion();
 			m_sys = getSystemModel(projectName);
 		}
 		String modelRootId = Ooaofooa.createModelRootId(project, projectName, true);
