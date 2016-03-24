@@ -74,16 +74,7 @@ public abstract class CoreImport implements IModelImport {
      */
     public static String bpSqlVersion = "6.1D";
     
-    /**
-     * Note that this flag was added to make it clear that on import we may
-     * NOT allow change listeners to be disabled. We prevent them from being disabled
-     * on import in the case where the user asks us to create graphics on import.
-     * The change listeners are needed in this situation because graphics reconciliation 
-     * uses them.
-     */
-    private boolean m_canDisableChangeNotification;
-
-    public CoreImport(Ooaofooa modelRoot, InputStream inStream, boolean clearDatabase, boolean templateFile, boolean disableChangeNotification)
+    public CoreImport(Ooaofooa modelRoot, InputStream inStream, boolean clearDatabase, boolean templateFile)
             throws IOException {
         m_success = false;
         m_errorMessage = ""; //$NON-NLS-1$
@@ -91,7 +82,6 @@ public abstract class CoreImport implements IModelImport {
         m_fileName = "";
         m_clear_database = clearDatabase;
         m_templateFile = templateFile;
-        m_canDisableChangeNotification = disableChangeNotification;
         read(inStream);
     }
 
@@ -104,7 +94,6 @@ public abstract class CoreImport implements IModelImport {
         m_inFile = new File(inFile);
         m_clear_database = clearDatabase;
         m_templateFile = templateFile;
-        m_canDisableChangeNotification = true;
         if (!m_inFile.exists() || !m_inFile.isFile())
             throw new FileNotFoundException(inFile + " not found");
     }
@@ -115,16 +104,11 @@ public abstract class CoreImport implements IModelImport {
         m_modelRoot = null;
         m_fileName = inFile.toString();
         m_inFile = inFile.toFile();
-        m_canDisableChangeNotification = true;
 
         if (!m_inFile.exists() || !m_inFile.isFile())
             throw new FileNotFoundException(inFile + " not found");
     }
 
-    public boolean canDisableChangeNotification() {
-    	return m_canDisableChangeNotification;
-    }
-    
     protected void readHeader() {
         if (m_header == null) {
             m_header = new FileHeader();

@@ -791,7 +791,7 @@ public class ModelMergeProcessor {
 		try {
 			CoreImport.createUniqueIds = false;
 			IModelImport importer = CorePlugin.getStreamImportFactory().create(
-					in, modelRoot, false, Path.EMPTY, true);
+					in, modelRoot, false, Path.EMPTY);
 			processor.runImporter(importer, new NullProgressMonitor());
 			// locate the new object from the loaded instances
 			NonRootModelElement[] loadedInstances = importer
@@ -1514,7 +1514,7 @@ public class ModelMergeProcessor {
 		try {
 			CoreImport.createUniqueIds = false;
 			IModelImport importer = CorePlugin.getStreamImportFactory().create(
-					in, Ooaofooa.getInstance(modelRoot.getId()), false, Path.EMPTY, true);
+					in, Ooaofooa.getInstance(modelRoot.getId()), false, Path.EMPTY);
 			processor.runImporter(importer, new NullProgressMonitor());
 			// locate the new object from the loaded instances
 			NonRootModelElement[] loadedInstances = importer

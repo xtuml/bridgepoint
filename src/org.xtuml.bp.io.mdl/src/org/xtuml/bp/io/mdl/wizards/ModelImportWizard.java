@@ -80,12 +80,9 @@ import org.xtuml.bp.ui.canvas.Shape_c;
  * older BridgePoint single file model
  */
 public class ModelImportWizard extends Wizard implements IImportWizard {
-	boolean createGraphicsOnImport;
 
 	public ModelImportWizard() {
 		super();
-		IPreferenceStore store = CorePlugin.getDefault().getPreferenceStore();
-		createGraphicsOnImport = store.getBoolean(BridgePointPreferencesStore.CREATE_GRAPHICS_DURING_IMPORT);
 	}
 
 	
@@ -236,14 +233,12 @@ public class ModelImportWizard extends Wizard implements IImportWizard {
 						is,
 						Ooaofooa.getInstance(
 								Ooaofooa.CLIPBOARD_MODEL_ROOT_NAME, false),
-						true, fSystem.getPersistableComponent().getFile().getFullPath(), !createGraphicsOnImport);
+						true, fSystem.getPersistableComponent().getFile().getFullPath());
 			    fProcessor.runImporter(fImporter, monitor);
 				fProcessor.processFirstStep(monitor);
 				handleImportedGraphicalElements();
 				fProcessor.processSecondStep(monitor);
-				if (createGraphicsOnImport) {
-					createGraphicsOnImport();
-				}
+				IPreferenceStore store = CorePlugin.getDefault().getPreferenceStore();
 				if (fImportPage.parseOnImport()) {
 					// this must be run on the display thread
 					PlatformUI.getWorkbench().getDisplay().syncExec(
@@ -281,6 +276,22 @@ public class ModelImportWizard extends Wizard implements IImportWizard {
 					job.setRule(ResourcesPlugin.getWorkspace().getRoot());
 					job.schedule();
 				}
+				
+				boolean createGraphicsOnImport = store.getBoolean(BridgePointPreferencesStore.CREATE_GRAPHICS_DURING_IMPORT);
+				if (createGraphicsOnImport) {
+					// this must be run on the display thread
+					PlatformUI.getWorkbench().getDisplay().syncExec(
+							new Runnable() {
+
+								public void run() {
+									List<NonRootModelElement> systems = new ArrayList<NonRootModelElement>();
+									systems.add(fSystem);
+									GraphicsReconcilerLauncher reconciler = new GraphicsReconcilerLauncher(systems);
+									reconciler.runReconciler(false, true);
+								}
+
+							});
+				}
 			} catch (IOException e) {
 				org.xtuml.bp.io.core.CorePlugin.logError(
 						"There was an exception loading the give source file.",
@@ -293,13 +304,6 @@ public class ModelImportWizard extends Wizard implements IImportWizard {
 		}
 	}
 
-	private void createGraphicsOnImport() {
-		List<NonRootModelElement> systems = new ArrayList<NonRootModelElement>();
-		systems.add(fSystem);
-		GraphicsReconcilerLauncher reconciler = new GraphicsReconcilerLauncher(systems);
-		reconciler.startReconciler(false, false);
-	}
-	
 	private GraphicalElement_c getGraphicalElementFor(NonRootModelElement element) {
 		GraphicalElement_c[] elements = GraphicalElement_c
 				.GraphicalElementInstances(Ooaofgraphics

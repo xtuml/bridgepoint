@@ -65,7 +65,7 @@ public class CreateBuiltInExternalEntitiesAction implements IActionDelegate {
 									true,
 									pkg
 											.getPersistableComponent()
-											.getFile().getFullPath(), false);
+											.getFile().getFullPath());
 				processor.runImporter(importer, new NullProgressMonitor());
 				processor.processFirstStep(new NullProgressMonitor());
 				processor.processSecondStep(new NullProgressMonitor());
