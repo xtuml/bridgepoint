@@ -1,10 +1,14 @@
 package org.xtuml.bp.test;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TestName;
 import org.xtuml.bp.test.common.BaseTest;
 
 public class GlobalsTestEnabler extends BaseTest {
 
+	@Rule public TestName name = new TestName();
+	
   public GlobalsTestEnabler(String packagename, String name) {
 		super(packagename, name);
   }
@@ -12,7 +16,7 @@ public class GlobalsTestEnabler extends BaseTest {
   @Test
   public void testGlobally() {
 		testGlobals = true;
-	  if(getName().contains("FormalizeUnformalizeTestGenerics")) {
+	  if(name.getMethodName().contains("FormalizeUnformalizeTestGenerics")) {
 		  testGlobals = false;
 	  }
   }
