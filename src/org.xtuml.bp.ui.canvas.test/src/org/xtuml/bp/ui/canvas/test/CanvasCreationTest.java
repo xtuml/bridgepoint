@@ -23,9 +23,12 @@ package org.xtuml.bp.ui.canvas.test;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.gef.tools.AbstractTool;
 import org.eclipse.swt.graphics.Point;
-import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.PlatformUI;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.ModelClass_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Package_c;
@@ -36,22 +39,25 @@ import org.xtuml.bp.core.common.Transaction;
 import org.xtuml.bp.io.mdl.ExportModel;
 import org.xtuml.bp.test.common.BaseTest;
 import org.xtuml.bp.test.common.CanvasTestUtils;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.UITestingUtilities;
 import org.xtuml.bp.ui.canvas.CanvasTransactionListener;
 import org.xtuml.bp.ui.graphics.editor.GraphicalEditor;
 import org.xtuml.bp.ui.graphics.editor.ModelEditor;
 import org.xtuml.bp.utilities.ui.CanvasUtilities;
 
+@RunWith(OrderedRunner.class)
 public class CanvasCreationTest extends CanvasTest {
 	public static boolean generateResults = false;
 	private static String test_id = "";
 	private static boolean initialized;
 	
-	public CanvasCreationTest(String arg0) {
-		super(null, arg0);
+	public CanvasCreationTest() {
+		super(null, null);
 	}
 
 	@Override
+	@Before
 	public void setUp() throws Exception {
 		super.setUp();
 	}
@@ -72,7 +78,8 @@ public class CanvasCreationTest extends CanvasTest {
         CanvasTransactionListener.disableReconciler();
 			}
 
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		Ooaofooa.setPersistEnabled(false);
 		super.tearDown();
 		CanvasTransactionListener.enableReconciler();
@@ -104,6 +111,7 @@ public class CanvasCreationTest extends CanvasTest {
 
 	}
 
+	@Test
 	public void testCreatePackageWithOneClass() throws Exception {
 		IdAssigner.setSeedOfAllInstances(getName().hashCode());
 		test_id = "test_1";
@@ -125,11 +133,13 @@ public class CanvasCreationTest extends CanvasTest {
  		mc.setKey_lett("T_CLS1");
         dom.getTransactionManager().endTransaction(t);
 	}
+	@Test
 	public void testCreateISM() {
 		test_id = "test_5";
 		ModelClass_c mc = ModelClass_c.ModelClassInstance(modelRoot);
 		mc.Create_sm("ISM");
 	}
+	@Test
 	public void testCreateCSM() throws Exception {
 		test_id = "test_6";
 		ModelClass_c mc = ModelClass_c.ModelClassInstance(modelRoot);
@@ -137,6 +147,7 @@ public class CanvasCreationTest extends CanvasTest {
 		// export the model to test ooa_type setup
 		exportModel();
 	}
+	@Test
 	public void testCreatePackageInFunctionPackage() {
 		test_id = "test_10";
 		Package_c fpk = Package_c.PackageInstance(modelRoot);
@@ -150,6 +161,7 @@ public class CanvasCreationTest extends CanvasTest {
 		assertNull(tool );
 	}
 
+	@Test
 	public void testCreateActivityInPackage() {
 		test_id = "test_20";
 		IdAssigner.setSeedOfAllInstances(test_id.hashCode());
@@ -164,6 +176,7 @@ public class CanvasCreationTest extends CanvasTest {
 		assertNull(tool );
 	}
 
+	@Test
 	public void testCreateActivityElements() {
 		test_id = "test_23";
 

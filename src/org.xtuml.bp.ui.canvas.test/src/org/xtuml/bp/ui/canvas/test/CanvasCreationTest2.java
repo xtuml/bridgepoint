@@ -15,6 +15,10 @@ package org.xtuml.bp.ui.canvas.test;
 import org.eclipse.gef.tools.AbstractTool;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.PlatformUI;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.EnumerationDataType_c;
 import org.xtuml.bp.core.ExternalEntity_c;
 import org.xtuml.bp.core.ImportedClass_c;
@@ -23,19 +27,22 @@ import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.UserDataType_c;
 import org.xtuml.bp.test.common.CanvasTestUtils;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.UITestingUtilities;
 import org.xtuml.bp.ui.graphics.editor.GraphicalEditor;
 import org.xtuml.bp.ui.graphics.editor.ModelEditor;
 
+@RunWith(OrderedRunner.class)
 public class CanvasCreationTest2 extends CanvasTest {
 	public static boolean generateResults = false;
 	private static String test_id = "";
 	
-	public CanvasCreationTest2(String arg0) {
-		super(null, arg0);
+	public CanvasCreationTest2() {
+		super(null, null);
 	}
 
 	@Override
+	@Before
 	public void setUp() throws Exception {
 		super.setUp();
 	}
@@ -48,7 +55,8 @@ public class CanvasCreationTest2 extends CanvasTest {
 		while ( d.readAndDispatch() ) ;
 	}
 
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		Ooaofooa.setPersistEnabled(false);
 		super.tearDown();
 	}
@@ -68,6 +76,7 @@ public class CanvasCreationTest2 extends CanvasTest {
 
 	// Because of the way the draw logs are created, these tests need to
 	// run in a consistent order
+	@Test
 	public void testCanvasCreationTests2() {
 		dotestCreateModelClassInPackage();
 		dotestCreateImportedModelClassInSubsystem();

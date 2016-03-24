@@ -27,7 +27,10 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.tools.AbstractTool;
 import org.eclipse.ui.PlatformUI;
-
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.SystemModel_c;
@@ -36,6 +39,7 @@ import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.TransactionException;
 import org.xtuml.bp.core.util.WorkspaceUtil;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.UITestingUtilities;
 import org.xtuml.bp.ui.canvas.Connector_c;
 import org.xtuml.bp.ui.canvas.GraphicalElement_c;
@@ -45,6 +49,7 @@ import org.xtuml.bp.ui.graphics.editor.GraphicalEditor;
 import org.xtuml.bp.ui.graphics.parts.ConnectorEditPart;
 import org.xtuml.bp.utilities.ui.CanvasUtilities;
 
+@RunWith(OrderedRunner.class)
 public class TestReflexiveConnectorCreation extends BaseTest {
 
 	@Override
@@ -58,18 +63,21 @@ public class TestReflexiveConnectorCreation extends BaseTest {
 	}
 
 	@Override
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		ConnectorEditPart.setToleranceForTests(15);
 	}
 	
 	@Override
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		super.tearDown();
 		ConnectorEditPart.setToleranceForTests(-1);
 	}
 
 	// Enforce order of tests run in this class
+	@Test
 	public void testReflexiveConnectorCreation() throws TransactionException {
 		dotestReflexiveConnectorCreationOnMouseUp();
 		dotestReflexiveCornerNonIntersectionWithShape();

@@ -29,7 +29,8 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
-
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.Association_c;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.ModelClass_c;
@@ -37,11 +38,13 @@ import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.PackageableElement_c;
 import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.UITestingUtilities;
 import org.xtuml.bp.ui.graphics.editor.GraphicalEditor;
 import org.xtuml.bp.ui.graphics.editor.ModelEditor;
 import org.xtuml.bp.ui.graphics.tools.GraphicalPanningSelectionTool;
 
+@RunWith(OrderedRunner.class)
 public class GraphicalToolCreationTests extends BaseTest {
 
 	private static Package_c testPackage;
@@ -62,6 +65,7 @@ public class GraphicalToolCreationTests extends BaseTest {
 	}
 
 	// Enforce ordering of the test runs in this class
+	@Test
 	public void testGraphicalToolCreation() {
 		dotestShapeCreationStickyModeUseDefaultNamesDisabled();
 		dotestShapeCreationStickyModeUseDefaultNamesEnabled();

@@ -27,7 +27,10 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.PlatformUI;
-
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.ConstantSpecification_c;
 import org.xtuml.bp.core.CorePlugin;
@@ -48,12 +51,14 @@ import org.xtuml.bp.core.common.Transaction;
 import org.xtuml.bp.core.common.TransactionException;
 import org.xtuml.bp.core.common.TransactionManager;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TestingUtilities;
 import org.xtuml.bp.test.common.UITestingUtilities;
 import org.xtuml.bp.ui.canvas.Cl_c;
 import org.xtuml.bp.ui.canvas.Ooaofgraphics;
 import org.xtuml.bp.ui.graphics.editor.GraphicalEditor;
 
+@RunWith(OrderedRunner.class)
 public class CanvasInitialNameTests extends BaseTest {
 
 	private static final String INVALID_CHAR_ERROR = "* is an invalid character in resource name '*'.";
@@ -79,6 +84,7 @@ public class CanvasInitialNameTests extends BaseTest {
 	}
 
 	@Override
+	@Before
 	public void setUp() throws Exception {
 		super.setUp();
 		CorePlugin.getDefault().getPreferenceStore().setValue(BridgePointPreferencesStore.USE_DEFAULT_NAME_FOR_CREATION, false);
@@ -86,6 +92,7 @@ public class CanvasInitialNameTests extends BaseTest {
 	}
 	
 	@Override
+	@After
 	public void tearDown() {
 		errorTxt = "";
 		while (PlatformUI.getWorkbench().getDisplay().readAndDispatch())
@@ -95,6 +102,7 @@ public class CanvasInitialNameTests extends BaseTest {
 		Ooaofooa.setPersistEnabled(false);
 	}
 
+	@Test
 	public void testOperationWithSpaces() {
 		createElement("Newclass", testPackage);
 		ModelClass_c[] classes = ModelClass_c
@@ -105,6 +113,7 @@ public class CanvasInitialNameTests extends BaseTest {
 		doNewCMETest("Operation", CorePlugin.INVALID_NAME_SPACES);
 	}
 
+	@Test
 	public void testBridgeWithSpaces() {
 		createElement("Newexternalentity", testPackage);
 		ExternalEntity_c[] ees = ExternalEntity_c
@@ -115,6 +124,7 @@ public class CanvasInitialNameTests extends BaseTest {
 		doNewCMETest("Bridge Operation", CorePlugin.INVALID_NAME_SPACES);
 	}
 
+	@Test
 	public void testEnumeratorWithSpaces() {
 		createElement("Newenumeration", testPackage);
 		EnumerationDataType_c[] edts = EnumerationDataType_c
@@ -126,6 +136,7 @@ public class CanvasInitialNameTests extends BaseTest {
 		doNewCMETest("Enumerator", CorePlugin.INVALID_NAME_SPACES);
 	}
 
+	@Test
 	public void testMemberWithSpaces() {
 		createElement("Newstructureddatatype", testPackage);
 		StructuredDataType_c[] sdts = StructuredDataType_c
@@ -137,6 +148,7 @@ public class CanvasInitialNameTests extends BaseTest {
 		doNewCMETest("Member", CorePlugin.INVALID_NAME_SPACES);
 	}
 
+	@Test
 	public void testLiteralSymbolicConstantWithSpaces() {
 		createElement("Newconstantspecification", testPackage);
 		ConstantSpecification_c[] cs = ConstantSpecification_c
@@ -147,6 +159,7 @@ public class CanvasInitialNameTests extends BaseTest {
 		doNewCMETest("Constant", CorePlugin.INVALID_NAME_SPACES);
 	}
 
+	@Test
 	public void testInterfaceOperationWithSpaces() {
 		createElement("Newinterface", testPackage);
 		Interface_c[] ifaces = Interface_c
@@ -157,6 +170,7 @@ public class CanvasInitialNameTests extends BaseTest {
 		doNewCMETest("Operation", CorePlugin.INVALID_NAME_SPACES);
 	}
 
+	@Test
 	public void testMessageArgumentWithSpaces() {
 		createElementInEditor("Interaction::Synchronous Message", editor);
 		Message_c[] msgs = Message_c.getManyMSG_MsOnR8001(PackageableElement_c
@@ -168,6 +182,7 @@ public class CanvasInitialNameTests extends BaseTest {
 		doNewCMETest("Argument", CorePlugin.INVALID_NAME_SPACES);
 	}
 
+	@Test
 	public void testInterfaceSignalWithSpaces() {
 		createElement("Newinterface", testPackage);
 		Interface_c[] ifaces = Interface_c
@@ -178,6 +193,7 @@ public class CanvasInitialNameTests extends BaseTest {
 		doNewCMETest("Signal", CorePlugin.INVALID_NAME_SPACES);
 	}
 
+	@Test
 	public void testPackageWithInvalidCharacter() {
 		if (Platform.getOS().contains("win")) {
 			doNewCMETest("Package", INVALID_CHAR_ERROR, "*");
@@ -187,6 +203,7 @@ public class CanvasInitialNameTests extends BaseTest {
 		}
 	}
 
+	@Test
 	public void testClassWithInvalidCharacter() {
 		if (Platform.getOS().contains("win")) {
 		    doNewCMETest("Classes::Class", INVALID_CHAR_ERROR, "*");
@@ -196,6 +213,7 @@ public class CanvasInitialNameTests extends BaseTest {
 		}
 	}
 
+	@Test
 	public void testComponentWithInvalidCharacter() {
 		if (Platform.getOS().contains("win")) {
 		    doNewCMETest("Components::Component", INVALID_CHAR_ERROR, "*");
@@ -205,6 +223,7 @@ public class CanvasInitialNameTests extends BaseTest {
 		}
 	}
 
+	@Test
 	public void testInterfaceWithInvalidCharacter() {
 		if (Platform.getOS().contains("win")) {
 		    doNewCMETest("Components::Interface", INVALID_CHAR_ERROR, "*");
@@ -214,24 +233,29 @@ public class CanvasInitialNameTests extends BaseTest {
 		}
 	}
 
+	@Test
 	public void testPackageGraphicalToolWithInvalidCharacter() {
 		doGraphicalCreationTest("Package", INVALID_CHAR_ERROR, "*");
 	}
 
+	@Test
 	public void testClassGraphicalToolWithInvalidCharacter() {
 		doGraphicalCreationTest("Classes::Class", INVALID_CHAR_ERROR, "*");
 	}
 
+	@Test
 	public void testComponentGraphicalToolWithInvalidCharacter() {
 		doGraphicalCreationTest("Components::Component", INVALID_CHAR_ERROR,
 				"*");
 	}
 
+	@Test
 	public void testInterfaceGraphicalToolWithInvalidCharacter() {
 		doGraphicalCreationTest("Components::Interface", INVALID_CHAR_ERROR,
 				"*");
 	}
 
+	@Test
 	public void testPackageRenameWithInvalidCharacter() {
 		createElement("Newpackage", testPackage);
 		Package_c[] pkgs = Package_c.getManyEP_PKGsOnR8001(PackageableElement_c
@@ -241,6 +265,7 @@ public class CanvasInitialNameTests extends BaseTest {
 		doRenameTest(INVALID_CHAR_ERROR, "*");
 	}
 
+	@Test
 	public void testClassRenameWithInvalidCharacter() {
 		createElement("Newclass", testPackage);
 		ModelClass_c[] objs = ModelClass_c
@@ -251,6 +276,7 @@ public class CanvasInitialNameTests extends BaseTest {
 		doRenameTest(INVALID_CHAR_ERROR, "*");
 	}
 
+	@Test
 	public void testComponentRenameWithInvalidCharacter() {
 		createElement("Newcomponent", testPackage);
 		Component_c[] cs = Component_c.getManyC_CsOnR8001(PackageableElement_c
@@ -260,6 +286,7 @@ public class CanvasInitialNameTests extends BaseTest {
 		doRenameTest(INVALID_CHAR_ERROR, "*");
 	}
 
+	@Test
 	public void testInterfaceRenameWithInvalidCharacter() {
 		createElement("Newinterface", testPackage);
 		Interface_c[] is = Interface_c.getManyC_IsOnR8001(PackageableElement_c
@@ -269,22 +296,27 @@ public class CanvasInitialNameTests extends BaseTest {
 		doRenameTest(INVALID_CHAR_ERROR, "*");
 	}
 
+	@Test
 	public void testNewPackageCMENoName() {
 		doNewCMETest("Package", Messages.resources_nameEmpty, "");
 	}
 
+	@Test
 	public void testNewClassCMENoName() {
 		doNewCMETest("Classes::Class", Messages.resources_nameEmpty, "");
 	}
 
+	@Test
 	public void testNewComponentCMENoName() {
 		doNewCMETest("Components::Component", Messages.resources_nameEmpty, "");
 	}
 
+	@Test
 	public void testNewInterfaceCMENoName() {
 		doNewCMETest("Components::Interface", Messages.resources_nameEmpty, "");
 	}
 
+	@Test
 	public void testRenamePackageNoName() {
 		createElement("Newpackage", testPackage);
 		Package_c[] pkgs = Package_c.getManyEP_PKGsOnR8001(PackageableElement_c
@@ -294,6 +326,7 @@ public class CanvasInitialNameTests extends BaseTest {
 		doRenameTest(Messages.resources_nameEmpty, "");
 	}
 
+	@Test
 	public void testRenameClassNoName() {
 		createElement("Newclass", testPackage);
 		ModelClass_c[] objs = ModelClass_c
@@ -304,6 +337,7 @@ public class CanvasInitialNameTests extends BaseTest {
 		doRenameTest(Messages.resources_nameEmpty, "");
 	}
 
+	@Test
 	public void testRenameComponentNoName() {
 		createElement("Newcomponent", testPackage);
 		Component_c[] cs = Component_c.getManyC_CsOnR8001(PackageableElement_c
@@ -313,6 +347,7 @@ public class CanvasInitialNameTests extends BaseTest {
 		doRenameTest(Messages.resources_nameEmpty, "");
 	}
 
+	@Test
 	public void testRenameInterfaceNoName() {
 		createElement("Newinterface", testPackage);
 		Interface_c[] is = Interface_c.getManyC_IsOnR8001(PackageableElement_c
@@ -322,25 +357,30 @@ public class CanvasInitialNameTests extends BaseTest {
 		doRenameTest(Messages.resources_nameEmpty, "");
 	}
 
+	@Test
 	public void testNewPackageEditorNoName() {
 		doGraphicalCreationTest("Package", Messages.resources_nameEmpty, "");
 	}
 
+	@Test
 	public void testNewClassEditorNoName() {
 		doGraphicalCreationTest("Classes::Class", Messages.resources_nameEmpty,
 				"");
 	}
 
+	@Test
 	public void testNewComponentEditorNoName() {
 		doGraphicalCreationTest("Components::Component",
 				Messages.resources_nameEmpty, "");
 	}
 
+	@Test
 	public void testNewInterfaceEditorNoName() {
 		doGraphicalCreationTest("Components::Interface",
 				Messages.resources_nameEmpty, "");
 	}
 
+	@Test
 	public void testNewPackageCMEExistingFolder() throws CoreException {
 		// create existing folder first
 		ResourcesPlugin.getWorkspace().getRoot().getFolder(
@@ -355,6 +395,7 @@ public class CanvasInitialNameTests extends BaseTest {
 		doNewCMETest("Package", expectedError, getName());
 	}
 
+	@Test
 	public void testNewClassCMEExistingFolder() throws CoreException {
 		// create existing folder first
 		ResourcesPlugin.getWorkspace().getRoot().getFolder(
@@ -369,6 +410,7 @@ public class CanvasInitialNameTests extends BaseTest {
 		doNewCMETest("Classes::Class", expectedError, getName());
 	}
 
+	@Test
 	public void testNewComponentCMEExistingFolder() throws CoreException {
 		// create existing folder first
 		ResourcesPlugin.getWorkspace().getRoot().getFolder(
@@ -383,6 +425,7 @@ public class CanvasInitialNameTests extends BaseTest {
 		doNewCMETest("Components::Component", expectedError, getName());
 	}
 
+	@Test
 	public void testNewInterfaceCMEExistingFolder() throws CoreException {
 		// create existing folder first
 		ResourcesPlugin.getWorkspace().getRoot().getFolder(
@@ -397,6 +440,7 @@ public class CanvasInitialNameTests extends BaseTest {
 		doNewCMETest("Components::Interface", expectedError, getName());
 	}
 
+	@Test
 	public void testRenamePackageExistingFolder() throws CoreException {
 		// create existing folder first
 		ResourcesPlugin.getWorkspace().getRoot().getFolder(
@@ -412,6 +456,7 @@ public class CanvasInitialNameTests extends BaseTest {
 		doRenameTest(EXISTING_FOLDER_ERROR, getName());
 	}
 
+	@Test
 	public void testRenameClassExistingFolder() throws CoreException {
 		// create existing folder first
 		ResourcesPlugin.getWorkspace().getRoot().getFolder(
@@ -428,6 +473,7 @@ public class CanvasInitialNameTests extends BaseTest {
 		doRenameTest(EXISTING_FOLDER_ERROR, getName());
 	}
 
+	@Test
 	public void testRenameComponentExistingFolder() throws CoreException {
 		// create existing folder first
 		ResourcesPlugin.getWorkspace().getRoot().getFolder(
@@ -443,6 +489,7 @@ public class CanvasInitialNameTests extends BaseTest {
 		doRenameTest(EXISTING_FOLDER_ERROR, getName());
 	}
 
+	@Test
 	public void testRenameInterfaceExistingFolder() throws CoreException {
 		// create existing folder first
 		ResourcesPlugin.getWorkspace().getRoot().getFolder(
@@ -458,6 +505,7 @@ public class CanvasInitialNameTests extends BaseTest {
 		doRenameTest(EXISTING_FOLDER_ERROR, getName());
 	}
 
+	@Test
 	public void testNewPackageEditorExistingFolder() throws CoreException {
 		// create existing folder first
 		ResourcesPlugin.getWorkspace().getRoot().getFolder(
@@ -468,6 +516,7 @@ public class CanvasInitialNameTests extends BaseTest {
 		doGraphicalCreationTest("Package", EXISTING_FOLDER_ERROR, getName());
 	}
 
+	@Test
 	public void testNewClassEditorExistingFolder() throws CoreException {
 		// create existing folder first
 		ResourcesPlugin.getWorkspace().getRoot().getFolder(
@@ -479,6 +528,7 @@ public class CanvasInitialNameTests extends BaseTest {
 				getName());
 	}
 
+	@Test
 	public void testNewComponentEditorExistingFolder() throws CoreException {
 		// create existing folder first
 		ResourcesPlugin.getWorkspace().getRoot().getFolder(
@@ -490,6 +540,7 @@ public class CanvasInitialNameTests extends BaseTest {
 				getName());
 	}
 
+	@Test
 	public void testNewInterfaceEditorExistingFolder() throws CoreException {
 		// create existing folder first
 		ResourcesPlugin.getWorkspace().getRoot().getFolder(

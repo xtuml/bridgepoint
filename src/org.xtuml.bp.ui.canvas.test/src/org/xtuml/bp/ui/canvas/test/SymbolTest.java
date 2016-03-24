@@ -32,25 +32,31 @@
 //
 package org.xtuml.bp.ui.canvas.test;
 
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.ClassStateMachine_c;
 import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.InstanceStateMachine_c;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.UITestingUtilities;
 import org.xtuml.bp.ui.canvas.ElementSpecification_c;
 import org.xtuml.bp.ui.canvas.ModelSpecification_c;
 import org.xtuml.bp.ui.canvas.Ooaofgraphics;
 
+@RunWith(OrderedRunner.class)
 public class SymbolTest extends CanvasTest {
-	public SymbolTest(String arg0) {
-		super(null, arg0);
+	public SymbolTest() {
+		super(null, null);
 	}
 
 	public static boolean generateResults = false;
 	private static String root = "canvastest";
 	private static String test_id = "";
 
+	@Before
 	public void setUp() throws Exception {
 		setModelName("canvastest");
 		super.setUp();
@@ -62,6 +68,7 @@ public class SymbolTest extends CanvasTest {
 		return root + "_" + test_id;
 	}
 
+	@Test
 	public void testSymbolTest() throws Exception {
 		dotestPackageDiagram();
 		dotestComponentDiagram();

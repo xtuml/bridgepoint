@@ -29,7 +29,10 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.ui.PlatformUI;
-
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.Action_c;
 import org.xtuml.bp.core.Association_c;
 import org.xtuml.bp.core.ClassAsSubtype_c;
@@ -59,6 +62,7 @@ import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.ui.Selection;
 import org.xtuml.bp.test.TestUtil;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TestingUtilities;
 import org.xtuml.bp.test.common.UITestingUtilities;
 import org.xtuml.bp.ui.canvas.Ooaofgraphics;
@@ -67,6 +71,7 @@ import org.xtuml.bp.ui.graphics.editor.ModelEditor;
 import org.xtuml.bp.utilities.ui.CanvasUtilities;
 import org.xtuml.bp.utilities.ui.ProjectUtilities;
 
+@RunWith(OrderedRunner.class)
 public class CanvasStateMachineCopyPasteTests extends CanvasTest {
 
 	private static boolean initialized;
@@ -77,11 +82,12 @@ public class CanvasStateMachineCopyPasteTests extends CanvasTest {
 
 	public static boolean generateResults = false;
 
-	public CanvasStateMachineCopyPasteTests(String name) {
-		super("CanvasStateMachineCopyPasteTests", name);
+	public CanvasStateMachineCopyPasteTests() {
+		super("CanvasStateMachineCopyPasteTests", null);
 	}
 
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		if (!initialized) {
 			loadProject("StateMachineCopyPasteTest");
@@ -89,7 +95,8 @@ public class CanvasStateMachineCopyPasteTests extends CanvasTest {
 		}
 	}
 
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		super.tearDown();
 		PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().closeAllEditors(false);
 		BaseTest.dispatchEvents(0);
@@ -101,6 +108,7 @@ public class CanvasStateMachineCopyPasteTests extends CanvasTest {
 	 * Specifically order tests
 	 */
 	
+	@Test
 	public void testStateMachineCopyPaste() throws Exception {
 		setUp();
 		doTestCopyPasteState();

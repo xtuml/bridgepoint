@@ -1,4 +1,6 @@
 package org.xtuml.bp.ui.canvas.test;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 //=====================================================================
 //
 //File:      InterfaceDrawingTests.java
@@ -8,13 +10,15 @@ package org.xtuml.bp.ui.canvas.test;
 //=====================================================================
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.UITestingUtilities;
 import org.xtuml.bp.ui.graphics.editor.GraphicalEditor;
 
+@RunWith(OrderedRunner.class)
 public class InterfaceDrawingTests extends CanvasTest {
 
-	public InterfaceDrawingTests(String name) {
-		super(null, name);
+	public InterfaceDrawingTests() {
+		super(null, null);
 	}
 
 	private Package_c testPackage;
@@ -34,6 +38,7 @@ public class InterfaceDrawingTests extends CanvasTest {
 		});
 	}
 	
+	@Test
 	public void testIntefaceDrawing() {
 		test_id = "1";
 		CanvasTestUtilities.openDiagramEditor(testPackage);

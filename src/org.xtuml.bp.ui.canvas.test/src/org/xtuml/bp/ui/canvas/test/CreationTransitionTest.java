@@ -4,15 +4,20 @@ import org.eclipse.gef.tools.AbstractTool;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.PlatformUI;
-
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.InstanceStateMachine_c;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.test.common.CanvasTestUtils;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.UITestingUtilities;
 import org.xtuml.bp.ui.canvas.Shape_c;
 import org.xtuml.bp.ui.graphics.editor.GraphicalEditor;
 import org.xtuml.bp.ui.graphics.editor.ModelEditor;
 
+@RunWith(OrderedRunner.class)
 public class CreationTransitionTest extends CanvasTest {
 
 	String test_id = null;
@@ -20,15 +25,16 @@ public class CreationTransitionTest extends CanvasTest {
 	
 	static String workspace_path = "";
     
-	public CreationTransitionTest(String arg0) {
-		super("org.xtuml.bp.ui.canvas.test", arg0);
+	public CreationTransitionTest() {
+		super("org.xtuml.bp.ui.canvas.test", null);
 	}
 
 	protected String getResultName() {
 		return "CreationTransitionTest" + "_" + test_id;
 	}	
 
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		setModelName("CreationTransitionTestModel");
 		super.setUp();
 		Display d = Display.getCurrent();
@@ -37,7 +43,8 @@ public class CreationTransitionTest extends CanvasTest {
 	}
 
 		
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		super.tearDown();
 	}
 	
@@ -72,6 +79,7 @@ public class CreationTransitionTest extends CanvasTest {
 
 	}
 	
+	@Test
 	public void testDrawCreationTransition() {
   		test_id = "test_1";
   		openTestSMDiagram("TestState1");

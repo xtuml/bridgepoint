@@ -23,11 +23,14 @@
 package org.xtuml.bp.ui.canvas.test;
 
 import org.eclipse.gef.tools.AbstractTool;
-
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.SynchronousMessage_c;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.test.common.CanvasTestUtils;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.UITestingUtilities;
 import org.xtuml.bp.ui.canvas.Connector_c;
 import org.xtuml.bp.ui.canvas.GraphicalElement_c;
@@ -38,13 +41,14 @@ import org.xtuml.bp.utilities.ui.CanvasUtilities;
 /**
  * Contains tests that exercise the functionality for sequence support.
  */
+@RunWith(OrderedRunner.class)
 public class FreeFloatingConnectorTest extends CanvasTest {
 	private String test_id;
 
 	public static boolean generateResults;
 
-	public FreeFloatingConnectorTest(String arg0) {
-		super(null, arg0);
+	public FreeFloatingConnectorTest() {
+		super(null, null);
 	}
 
 	/**
@@ -59,7 +63,8 @@ public class FreeFloatingConnectorTest extends CanvasTest {
 	 * 
 	 * @see junit.framework.TestCase#setUp()
 	 */
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 
 		// if it's the first test of this class that's being setup
@@ -70,6 +75,7 @@ public class FreeFloatingConnectorTest extends CanvasTest {
 	}
 
 	// Enforce order the tests in this class are run
+	@Test
 	public void testFreeFloatingConnectors() {
 		dotestCreatingAndMovingFreeFloatingConnectors();
 		dotestMovingFreeFloatingConnectorsAtHighZoom();

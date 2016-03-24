@@ -34,8 +34,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.UUID;
 
-import junit.framework.AssertionFailedError;
-
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.draw2d.FigureCanvas;
 import org.eclipse.draw2d.SWTGraphics;
@@ -50,7 +48,7 @@ import org.eclipse.swt.graphics.ImageLoader;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.PlatformUI;
-
+import org.junit.Before;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.DataType_c;
 import org.xtuml.bp.core.Ooaofooa;
@@ -71,6 +69,8 @@ import org.xtuml.bp.ui.canvas.Ooaofgraphics;
 import org.xtuml.bp.ui.graphics.editor.GraphicalEditor;
 import org.xtuml.bp.utilities.ui.CanvasUtilities;
 
+import junit.framework.AssertionFailedError;
+
 public abstract class CanvasTest extends BaseTest {
   private String modelName = "";
   private IPreferenceStore store=JFacePreferences.getPreferenceStore();
@@ -82,7 +82,7 @@ public abstract class CanvasTest extends BaseTest {
   }
   
   public CanvasTest(final String projectName, String arg0)  {
-    super(projectName, arg0);
+    super(projectName, null);
     store.setValue("org.xtuml.bp.canvas.font","1|Tahoma|12|0|WINDOWS|1|-11|0|0|0|400|0|0|0|1|0|0|0|0|Tahoma;");
   }
   
@@ -98,7 +98,8 @@ public abstract class CanvasTest extends BaseTest {
   }
   protected String resultNamePostFix="";
   
-  protected void setUp() throws Exception {
+  @Before
+  public void setUp() throws Exception {
 	  super.setUp();
 	  CorePlugin.getDefault().getPluginPreferences().setValue(
 	  	      BridgePointPreferencesStore.SHOW_EVENT_PARAMETERS, true);

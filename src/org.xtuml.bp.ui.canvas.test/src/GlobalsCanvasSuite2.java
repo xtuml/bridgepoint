@@ -23,6 +23,8 @@
 
 
 import org.eclipse.core.runtime.CoreException;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 import org.xtuml.bp.core.util.WorkspaceUtil;
@@ -31,6 +33,7 @@ import org.xtuml.bp.ui.canvas.test.ClassToStateDiagramNavigationTest;
 import org.xtuml.bp.ui.canvas.test.ConnectorPolicyTests;
 import org.xtuml.bp.ui.canvas.test.ConnectorsAsAnchorsTest;
 import org.xtuml.bp.ui.canvas.test.FreeFloatingConnectorTest;
+import org.xtuml.bp.ui.canvas.test.GlobalTestSetupClass;
 import org.xtuml.bp.ui.canvas.test.GlobalsCanvasTestSuite2;
 import org.xtuml.bp.ui.canvas.test.GraphicalToolCreationTests;
 import org.xtuml.bp.ui.canvas.test.I2053F2RenameTest;
@@ -53,49 +56,31 @@ import junit.framework.TestSuite;
 /**
  * Test all areas of the canvas
  */
+@RunWith(Suite.class)
+@Suite.SuiteClasses({
+	GlobalTestSetupClass.class,
+	GraphicalToolCreationTests.class,
+	GlobalsCanvasTestSuite2.class,
+	ConnectorPolicyTests.class,
+	I686ClearDatabaseTest.class,
+	I835OpenDiagramEditorWithSearchView.class,
+	MultipleSupertypeTest.class,
+	ClassToStateDiagramNavigationTest.class,
+	ConnectorsAsAnchorsTest.class,
+	FreeFloatingConnectorTest.class,
+	I2053F2RenameTest.class,
+	AutoReconciliationTests.class,
+	GraphicalAnchorTests_0.class,
+	ConnectorMoveTests_0.class,
+	TestReflexiveConnectorCreation.class,
+	RectilinearRoutingTests_0.class,
+	RectilinearRoutingTests.class,
+	RectilinearRoutingTests2.class,
+	RectilinearRoutingTests3.class,
+	RectilinearRoutingTests4.class,
+	InterfaceDrawingTests.class,
+})
 public class GlobalsCanvasSuite2 extends TestSuite {
 
-	/**
-	 * Returns the suite.  This is required to
-	 * use the JUnit Launcher.
-	 */
-	public static Test suite() {
-		return new GlobalsCanvasSuite2();
-	}
-	
-	/**
-	 * Construct the test suite.
-	 */
-	public GlobalsCanvasSuite2() {
-		
-		// turn off autobuild
-		try {
-			WorkspaceUtil.setAutobuilding(false);
-		} catch (CoreException e) {
-			CorePlugin.logError(e.toString(), e);
-		}
-		CorePlugin.getDefault().getPreferenceStore().setValue(BridgePointPreferencesStore.USE_DEFAULT_NAME_FOR_CREATION,true);
-		
-        addTest(new TestSuite(GraphicalToolCreationTests.class));
-		addTest(new TestSuite(GlobalsCanvasTestSuite2.class));
-        addTest(new TestSuite(ConnectorPolicyTests.class));
-        addTest(new TestSuite(I686ClearDatabaseTest.class));
-        addTest(new TestSuite(I835OpenDiagramEditorWithSearchView.class));
-        addTest(new TestSuite(MultipleSupertypeTest.class));
-        addTest(new TestSuite(ClassToStateDiagramNavigationTest.class));
-        addTest(new TestSuite(ConnectorsAsAnchorsTest.class));
-        addTest(new TestSuite(FreeFloatingConnectorTest.class));
-        addTest(new TestSuite(I2053F2RenameTest.class));
-        addTest(new TestSuite(AutoReconciliationTests.class));
-        addTest(new TestSuite(GraphicalAnchorTests_0.class));
-        addTest(new TestSuite(ConnectorMoveTests_0.class));
-        addTest(new TestSuite(TestReflexiveConnectorCreation.class));
-        addTest(new TestSuite(RectilinearRoutingTests_0.class));
-        addTest(new TestSuite(RectilinearRoutingTests.class));
-        addTest(new TestSuite(RectilinearRoutingTests2.class));
-        addTest(new TestSuite(RectilinearRoutingTests3.class));
-        addTest(new TestSuite(RectilinearRoutingTests4.class));
-        addTest(new TestSuite(InterfaceDrawingTests.class));
-	}
 
 }

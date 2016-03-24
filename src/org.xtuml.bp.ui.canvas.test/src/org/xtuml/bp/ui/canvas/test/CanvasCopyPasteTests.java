@@ -26,7 +26,9 @@ import org.eclipse.gef.editparts.ZoomManager;
 import org.eclipse.gef.tools.AbstractTool;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.ui.PlatformUI;
-
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.Association_c;
 import org.xtuml.bp.core.ModelClass_c;
 import org.xtuml.bp.core.Ooaofooa;
@@ -38,7 +40,7 @@ import org.xtuml.bp.core.common.Transaction;
 import org.xtuml.bp.core.common.TransactionException;
 import org.xtuml.bp.core.common.TransactionManager;
 import org.xtuml.bp.core.ui.Selection;
-import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.UITestingUtilities;
 import org.xtuml.bp.ui.canvas.GraphicalElement_c;
 import org.xtuml.bp.ui.canvas.Model_c;
@@ -49,6 +51,7 @@ import org.xtuml.bp.ui.graphics.editor.GraphicalEditor;
 import org.xtuml.bp.ui.graphics.editor.ModelEditor;
 import org.xtuml.bp.utilities.ui.CanvasUtilities;
 
+@RunWith(OrderedRunner.class)
 public class CanvasCopyPasteTests extends CanvasTest {
 	
 	private String testModelName = "CopyPasteTestModel";
@@ -56,10 +59,11 @@ public class CanvasCopyPasteTests extends CanvasTest {
 	private String test_id;
 	public static boolean generateResults = false;
 
-	public CanvasCopyPasteTests(String name) {
-		super(null, name);	
+	public CanvasCopyPasteTests() {
+		super(null, null);	
 	}
 
+	@Before
 	public void setUp() throws Exception {
 		super.setUp();
 		if(!initialized) {
@@ -69,6 +73,7 @@ public class CanvasCopyPasteTests extends CanvasTest {
 		}
 	}
 	
+	@Test
 	public void testCanvasCopyPasteTests() throws Exception {
 		doTestCopyPackageToSystem();
 		doTestCopySSWithNonSimpleAssociations();
