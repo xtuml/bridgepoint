@@ -597,7 +597,7 @@ public class ModelCacheManager {
 						sca = ((IStreamContentAccessor) input).getContents();
 						streamProcessor = new ModelStreamProcessor();
 						modelInputLoader = CorePlugin.getStreamImportFactory()
-								.create(sca, compareRoot, true, new Path(""), true);
+								.create(sca, compareRoot, true, new Path(""));
 						CoreImport.createUniqueIds = false;
 						streamProcessor.setContents(contents);
 						streamProcessor.setImporter(modelInputLoader);

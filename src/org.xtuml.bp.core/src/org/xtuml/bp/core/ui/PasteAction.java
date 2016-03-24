@@ -111,7 +111,7 @@ public abstract class PasteAction extends Action {
 											true,
 											destination
 													.getPersistableComponent()
-													.getFile().getFullPath(), true);
+													.getFile().getFullPath());
 							processor.runImporter(importer, monitor);
 							processor.processFirstStep(monitor);
 							runSubtypeProcessing(destination);
