@@ -41,10 +41,6 @@ public class PkgCMDeleteTestGenerics extends DeleteTest {
     protected static boolean firstTime = false;
     protected static IPath mdlClassPath = null;
     
-    public PkgCMDeleteTestGenerics(String projName, String name) {
-        super(null, name);
-        showModelExplorer();
-    }
     public PkgCMDeleteTestGenerics() {
 		super(projectName, null);
 	}

@@ -31,7 +31,9 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.ui.internal.Workbench;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TestName;
 import org.junit.runner.RunWith;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Ooaofooa;
@@ -40,6 +42,8 @@ import org.xtuml.bp.test.common.OrderedRunner;
 @RunWith(OrderedRunner.class)
 public class PkgCMModifyContentsTestGenerics extends ModifyContentsTest {
 
+	@Rule public TestName name = new TestName();
+	
     protected static String mdlClassUnderTest = "X";
 
     protected static String dtpUnderTest = "SubDataTypes";
@@ -69,7 +73,7 @@ public class PkgCMModifyContentsTestGenerics extends ModifyContentsTest {
         File in_fh = in_path.toFile();
         if ( in_fh.exists() )
         {
-            IPath newPath=in_path.removeLastSegments(1).append(getName()+".log");
+            IPath newPath=in_path.removeLastSegments(1).append(name.getMethodName()+".log");
             in_fh.renameTo(newPath.toFile()); //$NON-NLS-1$
         }
         setupProjectAndTestModel();
@@ -85,10 +89,10 @@ public class PkgCMModifyContentsTestGenerics extends ModifyContentsTest {
     }
 
     protected void setupProjectAndTestModel() throws CoreException {
-    	m_sys= getSystemModel(projectName);
     	if (firstTime_modCont) {
             //ensureAvailableAndLoaded(domainName, false);
             loadProject(projectName);
+            m_sys= getSystemModel(projectName);
             m_sys.getPersistableComponent().loadComponentAndChildren(new NullProgressMonitor());
             modelRoot = Ooaofooa.getInstance(Ooaofooa.createModelRootId(getProjectHandle(projectName), "MultiLevelModel", true));
             // IO_MDL tests set this false we need it true

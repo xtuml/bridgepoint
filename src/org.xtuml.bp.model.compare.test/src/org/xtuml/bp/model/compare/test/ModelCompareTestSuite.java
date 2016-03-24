@@ -21,42 +21,28 @@
 //=====================================================================
 package org.xtuml.bp.model.compare.test;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
-
 import org.eclipse.core.runtime.CoreException;
-
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 import org.xtuml.bp.core.util.WorkspaceUtil;
 
+import junit.framework.Test;
+import junit.framework.TestSuite;
+
 /**
 * Test all areas of compare and merge
 */
+@RunWith(Suite.class)
+@Suite.SuiteClasses({
+	GlobalTestSetupClass.class,
+	ModelMergeTests.class,
+	ModelMergeTests2.class,
+	ElementOrderingTests.class,
+	ModelComparisonTests.class,
+})
 public class ModelCompareTestSuite extends TestSuite {
 
-	/**
-	 * Returns the suite.  This is required to
-	 * use the JUnit Launcher.
-	 * @throws CoreException
-	 */
-	public static Test suite() throws CoreException {
-		return new ModelCompareTestSuite();
-	}
-	
-	/**
-	 * Construct the test suite.
-	 */
-	public ModelCompareTestSuite() throws CoreException {
-		// turn off autobuild to stop MC-3020 builders from running
-		WorkspaceUtil.setAutobuilding(false);   // throws CoreException
-		CorePlugin.getDefault().getPreferenceStore().
-        setValue(BridgePointPreferencesStore.
-  		              USE_DEFAULT_NAME_FOR_CREATION, true);
-		addTest(new TestSuite(ModelMergeTests.class));
-		addTest(new TestSuite(ModelMergeTests2.class));
-		addTest(new TestSuite(ElementOrderingTests.class));
-		addTest(new TestSuite(ModelComparisonTests.class));
-	}
 
 }
