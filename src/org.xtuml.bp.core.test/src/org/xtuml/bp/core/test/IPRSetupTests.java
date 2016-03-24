@@ -62,8 +62,8 @@ public class IPRSetupTests extends CanvasTest {
 	private static IProject projectOne;
 	private static IProject projectTwo;
 
-	public IPRSetupTests(String name) throws CoreException {
-		super("org.xtuml.bp.core.test", name);
+	public IPRSetupTests() throws CoreException {
+		super("org.xtuml.bp.core.test", null);
 
 		CorePlugin.getDefault().getPreferenceStore().setValue(BridgePointPreferencesStore.USE_DEFAULT_NAME_FOR_CREATION,
 				true);

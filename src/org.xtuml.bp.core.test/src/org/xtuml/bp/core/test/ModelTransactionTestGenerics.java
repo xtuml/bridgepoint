@@ -39,7 +39,9 @@ import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.ui.PlatformUI;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TestName;
 import org.junit.runner.RunWith;
 import org.xtuml.bp.core.Association_c;
 import org.xtuml.bp.core.Attribute_c;
@@ -78,6 +80,8 @@ import org.xtuml.bp.ui.text.description.DescriptionEditor;
 
 @RunWith(OrderedRunner.class)
 public class ModelTransactionTestGenerics extends BaseTest {
+	
+	@Rule public TestName name = new TestName();
 
 	private static String result_folder;
 	private Ooaofooa thisModelRoot;
@@ -95,7 +99,7 @@ public class ModelTransactionTestGenerics extends BaseTest {
 			loadProject("testTransaction");
 			initialized = true;
 		}
-		IdAssigner.setSeedOfAllInstances(getName().hashCode());
+		IdAssigner.setSeedOfAllInstances(name.getMethodName().hashCode());
 
 		thisModelRoot = modelRoot;
 		result_folder = new String(m_workspace_path
