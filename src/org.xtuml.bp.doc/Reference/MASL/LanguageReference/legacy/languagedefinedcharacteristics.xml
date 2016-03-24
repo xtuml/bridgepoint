@@ -1,0 +1,623 @@
+<!-- 
+  UK Crown Copyright (c) 2016. All Rights Reserved
+-->
+<!-- Converted by db4-upgrade version 1.0 -->
+<appendix xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="LanguageDefinedCharacteristics"><info><title>Language Defined Characteristics</title></info>
+
+<para>
+This appendix summarizes the definitions given elsewhere of the
+language-defined characteristics.
+<itemizedlist mark="opencircle">
+<listitem>
+<para>
+<varname>N</varname><literal>'get_unique</literal>
+<indexterm>
+    <primary><literal>get_unique</literal></primary>
+</indexterm>
+for a name whose type is a
+<type>bag</type>,
+<indexterm>
+    <primary><type>bag</type></primary>
+</indexterm>
+<type>sequence</type>
+<indexterm>
+    <primary><type>sequence</type></primary>
+</indexterm>
+or <type>array</type>
+<indexterm>
+    <primary><type>array</type></primary>
+</indexterm>
+types:
+</para>
+<para>
+<varname>N</varname><literal>'get_unique</literal>
+<indexterm>
+    <primary><literal>get_unique</literal></primary>
+</indexterm>
+returns a <type>set</type>
+<indexterm>
+    <primary><type>set</type></primary>
+</indexterm>
+containing all the elements of the collection; its type is the <type>set</type>
+<indexterm>
+    <primary><type>set</type></primary>
+</indexterm>
+type whose element type is the element of the collection.
+</para>
+</listitem>
+<listitem>
+<para>
+<varname>N</varname><literal>'elements</literal>
+<indexterm>
+    <primary><literal>elements</literal></primary>
+</indexterm>
+for a name
+<varname>N</varname>, whose type is a
+<type>string</type>,
+<indexterm>
+    <primary><type>string</type></primary>
+</indexterm>
+<type>wstring</type>,
+<indexterm>
+    <primary><type>wstring</type></primary>
+</indexterm>
+<type>sequence</type>
+<indexterm>
+    <primary><type>sequence</type></primary>
+</indexterm>
+or <type>array</type>
+<indexterm>
+    <primary><type>array</type></primary>
+</indexterm>
+type:
+</para>
+<para>
+<varname>N</varname><literal>'elements</literal>
+<indexterm>
+    <primary><literal>elements</literal></primary>
+</indexterm>
+returns a <type>sequence</type>
+<indexterm>
+    <primary><type>sequence</type></primary>
+</indexterm>
+containing all the elements of the value in the order defined by the value.
+</para>
+</listitem>
+<listitem>
+<para>
+<varname>N</varname><literal>'elements</literal>
+<indexterm>
+    <primary><literal>elements</literal></primary>
+</indexterm>
+for a name
+<varname>N</varname>, whose type is a <type>set</type>
+<indexterm>
+    <primary><type>set</type></primary>
+</indexterm>
+or <type>bag</type>
+<indexterm>
+    <primary><type>bag</type></primary>
+</indexterm>
+type:
+</para>
+<para>
+<varname>N</varname><literal>'elements</literal>
+<indexterm>
+    <primary><literal>elements</literal></primary>
+</indexterm>
+returns a <type>sequence</type>
+<indexterm>
+    <primary><type>sequence</type></primary>
+</indexterm>
+containing all the elements of the value in an arbitrary order.
+</para>
+</listitem>
+<listitem>
+<para>
+<varname>N</varname><literal>'first</literal>
+<indexterm>
+    <primary><literal>first</literal></primary>
+</indexterm>
+for a name <varname>N</varname>,
+whose type is a <type>string</type>,
+<indexterm>
+    <primary><type>string</type></primary>
+</indexterm>
+<type>wstring</type>,
+<indexterm>
+    <primary><type>wstring</type></primary>
+</indexterm>
+<type>sequence</type>
+<indexterm>
+    <primary><type>sequence</type></primary>
+</indexterm>
+or <type>array</type>
+<indexterm>
+    <primary><type>array</type></primary>
+</indexterm>
+type:
+</para>
+<para>
+<varname>N</varname><literal>'first</literal>
+<indexterm>
+    <primary><literal>first</literal></primary>
+</indexterm>
+returns the index value of the
+first element of the value; its type is the corresponding index type.
+<indexterm>
+    <primary>index type</primary>
+</indexterm>
+An exception
+<indexterm>
+    <primary>exception</primary>
+</indexterm>
+is raised if the value is empty.
+</para>
+</listitem>
+<listitem>
+<para>
+<type>T</type><literal>'first</literal>
+<indexterm>
+    <primary><literal>first</literal></primary>
+</indexterm>
+for a type <type>T</type>, that is an
+<type>array</type>
+<indexterm>
+    <primary><type>array</type></primary>
+</indexterm>
+type:
+</para>
+<para>
+<type>T</type><literal>'first</literal>
+<indexterm>
+    <primary><literal>first</literal></primary>
+</indexterm>
+returns the first index of the type; its
+type is the corresponding index type.
+<indexterm>
+    <primary>index type</primary>
+</indexterm>
+</para>
+</listitem>
+<listitem>
+<para>
+<type>T</type><literal>'first</literal>
+<indexterm>
+    <primary><literal>first</literal></primary>
+</indexterm>
+for a type <type>T</type>, that is a
+<type>numeric</type>
+<indexterm>
+    <primary><type>numeric</type></primary>
+</indexterm>
+or <type>enumeration</type>
+<indexterm>
+    <primary><type>enumeration</type></primary>
+</indexterm>
+type:
+</para>
+<para>
+<type>T</type><literal>'first</literal>
+<indexterm>
+    <primary><literal>first</literal></primary>
+</indexterm>
+returns the first value that an entity
+of that type can take; its type is the type <type>T</type>.
+</para>
+</listitem>
+<listitem>
+<para>
+<varname>N</varname><literal>'image</literal>
+<indexterm>
+    <primary><literal>image</literal></primary>
+</indexterm>
+for a name <varname>N</varname>
+whose type is a <type>character</type>,
+<indexterm>
+    <primary><type>character</type></primary>
+</indexterm>
+<type>wcharacter</type>,
+<indexterm>
+    <primary><type>wcharacter</type></primary>
+</indexterm>
+<type>boolean</type>,
+<indexterm>
+    <primary><type>boolean</type></primary>
+</indexterm>
+<type>byte</type>,
+<indexterm>
+    <primary><type>byte</type></primary>
+</indexterm>
+<type>numeric</type>,
+<indexterm>
+    <primary><type>numeric</type></primary>
+</indexterm>
+<type>structure</type>,
+<indexterm>
+    <primary><type>structure</type></primary>
+</indexterm>
+<type>enumeration</type>
+<indexterm>
+    <primary><type>enumeration</type></primary>
+</indexterm>
+or <type>collection</type>
+<indexterm>
+    <primary>collection</primary>
+</indexterm>
+type whose
+element type is one of the afore mentioned:
+</para>
+<para>
+<varname>N</varname><literal>'image</literal>
+<indexterm>
+    <primary><literal>image</literal></primary>
+</indexterm>
+returns the string representation
+of the value; its type is <type>string</type>.
+<indexterm>
+    <primary><type>string</type></primary>
+</indexterm>
+</para>
+</listitem>
+<listitem>
+<para>
+<varname>N</varname><literal>'last</literal>
+<indexterm>
+    <primary><literal>last</literal></primary>
+</indexterm>
+for a name <varname>N</varname>
+whose type is a <type>string</type>,
+<indexterm>
+    <primary><type>string</type></primary>
+</indexterm>
+<type>wstring</type>,
+<indexterm>
+    <primary><type>wstring</type></primary>
+</indexterm>
+<type>sequence</type>
+<indexterm>
+    <primary><type>sequence</type></primary>
+</indexterm>
+or <type>array</type> type:
+</para>
+<para>
+<varname>N</varname><literal>'last</literal>
+<indexterm>
+    <primary><literal>last</literal></primary>
+</indexterm>
+returns the index value of the last
+element of the value; its type is the corresponding index type. An exception is
+raised if the value is empty.
+</para>
+</listitem>
+<listitem>
+<para>
+<type>T</type><literal>'last</literal>
+<indexterm>
+    <primary><literal>last</literal></primary>
+</indexterm>
+for a type <type>T</type>, that is an
+<type>array</type>
+<indexterm>
+    <primary><type>array</type></primary>
+</indexterm>
+type:
+</para>
+<para>
+<type>T</type><literal>'last</literal>
+<indexterm>
+    <primary><literal>last</literal></primary>
+</indexterm>
+returns the last index of the type; its
+type is the corresponding index type.
+</para>
+</listitem>
+<listitem>
+<para>
+<type>T</type><literal>'last</literal>
+<indexterm>
+    <primary><literal>last</literal></primary>
+</indexterm>
+for a type <type>T</type>, that is a
+<type>numeric</type>
+<indexterm>
+    <primary><type>numeric</type></primary>
+</indexterm>
+or <type>enumeration</type> type:
+<indexterm>
+    <primary><type>enumeration</type></primary>
+</indexterm>
+</para>
+<para>
+<type>T</type><literal>'last</literal>
+<indexterm>
+    <primary><literal>last</literal></primary>
+</indexterm>
+returns the last value that an entity of
+that type can take; its type is the type <type>T</type>.
+</para>
+</listitem>
+<listitem>
+<para>
+<varname>N</varname><literal>'pred</literal>
+<indexterm>
+    <primary><literal>pred</literal></primary>
+</indexterm>
+for a name <varname>N</varname>,
+that is an <type>enumeration</type>
+<indexterm>
+    <primary><type>enumeration</type></primary>
+</indexterm>
+type:
+</para>
+<para>
+<varname>N</varname><literal>'pred</literal>
+<indexterm>
+    <primary><literal>pred</literal></primary>
+</indexterm>
+returns the value whose position
+number is one less than that of the value; its type is the same type as
+<varname>N</varname>.
+An exception
+<indexterm>
+    <primary>exception</primary>
+</indexterm>
+is raised if no such value exists.
+</para>
+</listitem>
+<listitem>
+<para>
+<varname>N</varname><literal>'range</literal>
+<indexterm>
+    <primary><literal>range</literal></primary>
+</indexterm>
+for a name <varname>N</varname>,
+whose type is a <type>string</type>,
+<indexterm>
+    <primary><type>string</type></primary>
+</indexterm>
+<type>wstring</type>,
+<indexterm>
+    <primary><type>wstring</type></primary>
+</indexterm>
+<type>sequence</type>
+<indexterm>
+    <primary><type>sequence</type></primary>
+</indexterm>
+or <type>array</type> type:
+<indexterm>
+    <primary><type>array</type></primary>
+</indexterm>
+</para>
+<para>
+<varname>N</varname><literal>'range</literal>
+<indexterm>
+    <primary><literal>range</literal></primary>
+</indexterm>
+returns the range of indices of
+the value; its type is the sequence type whose element type is the corresponding
+index type. The order of the elements in the range matches the order in the
+value.
+</para>
+</listitem>
+<listitem>
+<para>
+<type>T</type><literal>'range</literal>
+<indexterm>
+    <primary><literal>range</literal></primary>
+</indexterm>
+for a type <type>T</type> that is an
+array type:
+</para>
+<para>
+<type>T</type><literal>'range</literal>
+<indexterm>
+    <primary><literal>range</literal></primary>
+</indexterm>
+returns the range of indices of the
+type; its type is the sequence type whose element type is the corresponding
+index type. The order of the elements in the range matches the order given by
+the index type.
+</para>
+</listitem>
+<listitem>
+<para>
+<type>T</type><literal>'range</literal>
+<indexterm>
+    <primary><literal>range</literal></primary>
+</indexterm>
+for the type <type>T</type> that is a
+<type>numeric</type>
+<indexterm>
+    <primary><type>numeric</type></primary>
+</indexterm>
+or <type>enumeration</type>
+<indexterm>
+    <primary><type>enumeration</type></primary>
+</indexterm>
+type:
+</para>
+<para>
+<type>T</type><literal>'range</literal>
+<indexterm>
+    <primary><literal>range</literal></primary>
+</indexterm>
+returns the range values that an entity
+of that type can take; its type is the sequence type whose element type is the
+type. The order of the elements in the range matches the order given by the
+type.
+</para>
+</listitem>
+<listitem>
+<para>
+<varname>N</varname><literal>'succ</literal>
+<indexterm>
+    <primary><literal>succ</literal></primary>
+</indexterm>
+for a name <varname>N</varname>,
+whose type is an <type>enumeration</type>
+<indexterm>
+    <primary><type>enumeration</type></primary>
+</indexterm>
+type:
+</para>
+<para>
+<varname>N</varname><literal>'succ</literal>
+<indexterm>
+    <primary><literal>succ</literal></primary>
+</indexterm>
+returns the value whose position
+number is one more
+than that of the value; its type is the same type as <varname>N</varname>.
+An exception is raised if no such value exists.
+</para>
+</listitem>
+<listitem>
+<para>
+<varname>N</varname><literal>'length</literal>
+<indexterm>
+    <primary><literal>length</literal></primary>
+</indexterm>
+for a name <varname>N</varname>,
+whose type is a <type>string</type>,
+<type>wstring</type>,
+<indexterm>
+    <primary><type>wstring</type></primary>
+</indexterm>
+<type>set</type>,
+<indexterm>
+    <primary><type>set</type></primary>
+</indexterm>
+<type>bag</type>,
+<indexterm>
+    <primary><type>bag</type></primary>
+</indexterm>
+<type>sequence</type>
+<indexterm>
+    <primary><type>sequence</type></primary>
+</indexterm>
+or <type>array</type>
+<indexterm>
+    <primary><type>array</type></primary>
+</indexterm>
+type:
+</para>
+<para>
+<varname>N</varname><literal>'length</literal>
+<indexterm>
+    <primary><literal>length</literal></primary>
+</indexterm>
+returns the length of the value,
+its type is <type>integer</type>.
+<indexterm>
+    <primary><type>integer</type></primary>
+</indexterm>
+</para>
+</listitem>
+<listitem>
+<para>
+<varname>N</varname><literal>'upper</literal>
+<indexterm>
+    <primary><literal>upper</literal></primary>
+</indexterm>
+for a name <varname>N</varname>, whose type is a
+<type>string</type>
+<indexterm>
+    <primary><type>string</type></primary>
+</indexterm>
+or <type>wstring</type>
+<indexterm>
+    <primary><type>wstring</type></primary>
+</indexterm>
+type:
+</para>
+<para>
+<varname>N</varname><literal>'upper</literal>
+<indexterm>
+    <primary><literal>upper</literal></primary>
+</indexterm>
+returns an item of the same type with all the characters converted to upper
+case.
+</para>
+</listitem>
+<listitem>
+<para>
+<varname>N</varname><literal>'lower</literal>
+<indexterm>
+    <primary><literal>lower</literal></primary>
+</indexterm>
+for a name <varname>N</varname>, whose type is a
+<type>string</type>
+<indexterm>
+    <primary><type>string</type></primary>
+</indexterm>
+or <type>wstring</type>
+<indexterm>
+    <primary><type>wstring</type></primary>
+</indexterm>
+type:
+</para>
+<para>
+<varname>N</varname><literal>'lower</literal>
+<indexterm>
+    <primary><literal>lower</literal></primary>
+</indexterm>
+returns an item of the same type with all the characters converted to lower
+case.
+</para>
+</listitem>
+<listitem>
+<para>
+<varname>N</varname><literal>'firstcharpos</literal> for a name
+<indexterm>
+    <primary><literal>firstcharpos</literal></primary>
+</indexterm>
+<varname>N</varname>, whose type
+is a <type>string</type>
+<indexterm>
+    <primary><type>string</type></primary>
+</indexterm>
+or <type>wstring</type>
+<indexterm>
+    <primary><type>wstring</type></primary>
+</indexterm>
+type:
+</para>
+<para>
+<varname>N</varname><literal>'firstcharpos(c)</literal>
+<indexterm>
+    <primary><literal>firstcharpos</literal></primary>
+</indexterm>
+returns an index to the first instance of
+the given character
+<indexterm>
+    <primary><type>character</type></primary>
+</indexterm>
+<varname>c</varname> in the name <varname>N</varname>.
+</para>
+</listitem>
+<listitem>
+<para>
+<type>T</type><literal>'value(s)</literal>
+<indexterm>
+    <primary><literal>value</literal></primary>
+</indexterm>
+for a type
+<type>T</type> that is an <type>enumeration</type>
+<indexterm>
+    <primary><type>enumeration</type></primary>
+</indexterm>
+type:
+</para>
+<para>
+<type>T</type><literal>'value(s)</literal>
+<indexterm>
+    <primary><literal>value</literal></primary>
+</indexterm>
+returns the enumerate value
+corresponding to <varname>s</varname>.
+</para>
+</listitem>
+</itemizedlist>
+</para>
+</appendix>

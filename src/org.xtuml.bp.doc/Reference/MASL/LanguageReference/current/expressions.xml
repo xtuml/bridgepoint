@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+  UK Crown Copyright (c) 2016. All Rights Reserved
+-->
+<chapter version="5.0" xml:id="section.Expressions" xmlns="http://docbook.org/ns/docbook"
+  xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
+  xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML"
+  xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
+  <title>Expressions</title>
+  <para>todo</para>
+  <productionset>
+    <xi:include href="syntax.xml" xpointer="ebnf.expression"/>
+    <xi:include href="syntax.xml" xpointer="ebnf.condition"/>
+    <xi:include href="syntax.xml" xpointer="ebnf.constExpression"/>
+  </productionset>
+
+  <section xml:id="section.Expressions.Concepts"><title>Concepts</title>
+    <section xml:id="section.Expressions.Writeable"><title>Writeable</title><para>to do</para></section>
+  </section>
+
+  <section xml:id="section.Expressions.RangeExpression">
+    <title>Range</title>
+    <para>todo</para>
+    <productionset>
+      <xi:include href="syntax.xml" xpointer="ebnf.rangeExpression"/>
+    </productionset>
+  </section>
+
+  <section xml:id="section.Expressions.LogicalOperators">
+    <title>Logical Operators</title>
+    <para>todo</para>
+    <productionset>
+      <xi:include href="syntax.xml" xpointer="ebnf.logicalOr"/>
+      <xi:include href="syntax.xml" xpointer="ebnf.logicalXor"/>
+      <xi:include href="syntax.xml" xpointer="ebnf.logicalAnd"/>
+    </productionset>
+  </section>
+
+  <section xml:id="section.Expressions.ComparisonOperators">
+    <title>Comparison Operators</title>
+    <para>todo</para>
+    <productionset>
+      <xi:include href="syntax.xml" xpointer="ebnf.equalityExp"/>
+      <xi:include href="syntax.xml" xpointer="ebnf.relationalExp"/>
+    </productionset>
+  </section>
+
+  <section xml:id="section.Expressions.AdditiveOperators">
+    <title>Additive Operators</title>
+    <para>todo</para>
+    <productionset>
+      <xi:include href="syntax.xml" xpointer="ebnf.additiveExp"/>
+    </productionset>
+  </section>
+
+  <section xml:id="section.Expressions.MultiplicativeOperators">
+    <title>Multiplicative Operators</title>
+    <para>todo</para>
+    <productionset>
+      <xi:include href="syntax.xml" xpointer="ebnf.multiplicativeExp"/>
+    </productionset>
+  </section>
+
+  <section xml:id="section.Expressions.UnaryOperators">
+    <title>Unary Operators</title>
+    <para>todo</para>
+    <productionset>
+      <xi:include href="syntax.xml" xpointer="ebnf.unaryExp"/>
+    </productionset>
+  </section>
+
+
+  <section xml:id="section.Expressions.RelationshipLinking">
+    <title>Relationship Linking</title>
+    <para>todo</para>
+  <section xml:id="section.Expressions.LinkExpression">
+    <title>Link Expression</title>
+    <para>todo</para>
+    <productionset>
+      <xi:include href="syntax.xml" xpointer="ebnf.linkExpression"/>
+    </productionset>
+  </section>
+  <section xml:id="section.Expressions.UnlinkExpression">
+    <title>Unlink Expression</title>
+    <para>todo</para>
+    <productionset>
+      <xi:include href="syntax.xml" xpointer="ebnf.unlinkExpression"/>
+    </productionset>
+  </section>
+  </section>
+
+  <section xml:id="section.Expressions.RelationshipNavigation">
+    <title>Relationship Navigation</title>
+    <para>todo</para>
+    <productionset>
+      <xi:include href="syntax.xml" xpointer="ebnf.navigateExpression"/>
+      <xi:include href="syntax.xml" xpointer="ebnf.simpleNavExpression"/>
+      <xi:include href="syntax.xml" xpointer="ebnf.correlatedNavExpression"/>
+      <xi:include href="syntax.xml" xpointer="ebnf.relationshipSpec"/>
+      <xi:include href="syntax.xml" xpointer="ebnf.extendedExpression"/>
+      <productionrecap linkend="ebnf.whereClause"/>
+    </productionset>
+  </section>
+
+  <section xml:id="section.Expressions.OrderingExpression">
+    <title>Ordering</title>
+    <para>todo</para>
+    <productionset>
+      <xi:include href="syntax.xml" xpointer="ebnf.orderingExpression"/>
+      <xi:include href="syntax.xml" xpointer="ebnf.sortOrder"/>
+      <xi:include href="syntax.xml" xpointer="ebnf.sortOrderComponent"/>
+    </productionset>
+  </section>
+
+  <section xml:id="section.Expressions.InstanceCreation">
+    <title>Instance Creation</title>
+    <para>todo</para>
+    <productionset>
+      <xi:include href="syntax.xml" xpointer="ebnf.createExpression"/>
+      <xi:include href="syntax.xml" xpointer="ebnf.createArgumentList"/>
+      <xi:include href="syntax.xml" xpointer="ebnf.createArgument"/>
+      <productionrecap linkend="ebnf.objectName"/>
+    </productionset>
+  </section>
+
+  <section xml:id="section.Expressions.Finds">
+    <title>Finds</title>
+    <para>todo</para>
+    <productionset>
+      <xi:include href="syntax.xml" xpointer="ebnf.findExpression"/>
+      <xi:include href="syntax.xml" xpointer="ebnf.whereClause"/>
+      <xi:include href="syntax.xml" xpointer="ebnf.findCondition"/>
+      <xi:include href="syntax.xml" xpointer="ebnf.findLogicalOr"/>
+      <xi:include href="syntax.xml" xpointer="ebnf.findLogicalXor"/>
+      <xi:include href="syntax.xml" xpointer="ebnf.findLogicalAnd"/>
+      <xi:include href="syntax.xml" xpointer="ebnf.findPrimary"/>
+      <xi:include href="syntax.xml" xpointer="ebnf.findComparison"/>
+      <xi:include href="syntax.xml" xpointer="ebnf.findUnary"/>
+      <xi:include href="syntax.xml" xpointer="ebnf.findName"/>
+      <productionrecap linkend="ebnf.attributeName"/>
+      <productionrecap linkend="ebnf.componentName"/>
+      <xi:include href="syntax.xml" xpointer="ebnf.index"/>
+    </productionset>
+  </section>
+
+  <section xml:id="section.Expressions.SuffixExpressions">
+    <title>Suffix Expressions</title>
+    <para>todo</para>
+    <productionset>
+      <xi:include href="syntax.xml" xpointer="ebnf.suffixExpression"/>
+      <xi:include href="syntax.xml" xpointer="ebnf.suffixExpressionNC"/>
+    </productionset>
+
+
+    <section xml:id="section.Expressions.FunctionCalls">
+      <title>Function Calls</title>
+      <para>todo</para>
+      <productionset>
+        <xi:include href="syntax.xml" xpointer="ebnf.instanceFncallExpression"/>
+        <xi:include href="syntax.xml" xpointer="ebnf.objectFncallExpression"/>
+        <xi:include href="syntax.xml" xpointer="ebnf.domainFncallExpression"/>
+        <xi:include href="syntax.xml" xpointer="ebnf.terminatorFncallExpression"/>
+        <xi:include href="syntax.xml" xpointer="ebnf.argumentList"/>
+        <xi:include href="syntax.xml" xpointer="ebnf.argument"/>
+      </productionset>
+    </section>
+
+    <section xml:id="section.Expressions.AccessExpressions">
+      <title>Attribute, Component and Collection Accessors</title>
+      <para>todo</para>
+      <productionset>
+        <xi:include href="syntax.xml" xpointer="ebnf.sliceExpression"/>
+        <xi:include href="syntax.xml" xpointer="ebnf.sliceExpressionNC"/>
+        <xi:include href="syntax.xml" xpointer="ebnf.attributeAccessExpression"/>
+        <xi:include href="syntax.xml" xpointer="ebnf.attributeAccessExpressionNC"/>
+        <xi:include href="syntax.xml" xpointer="ebnf.componentAccessExpression"/>
+        <xi:include href="syntax.xml" xpointer="ebnf.componentAccessExpressionNC"/>
+      </productionset>
+    </section>
+
+    <section xml:id="section.Expressions.CharacteristicExpressions">
+      <title>Characteristics</title>
+      <para>todo</para>
+      <productionset>
+        <xi:include href="syntax.xml" xpointer="ebnf.characteristicExpression"/>
+        <xi:include href="syntax.xml" xpointer="ebnf.characteristicExpressionNC"/>
+        <xi:include href="syntax.xml" xpointer="ebnf.characteristic"/>
+      </productionset>
+    </section>
+
+    <section xml:id="section.Expressions.TypeCasts">
+      <title>Type Casts</title>
+      <para>todo</para>
+      <productionset>
+        <xi:include href="syntax.xml" xpointer="ebnf.castExpression"/>
+      </productionset>
+    </section>
+
+  </section>
+
+  <section xml:id="section.Expressions.PrimaryExpressions">
+    <title>Primary Expressions</title>
+    <para>todo</para>
+    <productionset>
+      <xi:include href="syntax.xml" xpointer="ebnf.primaryExpression"/>
+      <xi:include href="syntax.xml" xpointer="ebnf.parenthesisedExpression"/>
+      <xi:include href="syntax.xml" xpointer="ebnf.literal"/>
+      <xi:include href="syntax.xml" xpointer="ebnf.nameExpression"/>
+      <xi:include href="syntax.xml" xpointer="ebnf.variableName"/>
+      <productionrecap linkend="ebnf.parameterName"/>
+      <productionrecap linkend="ebnf.attributeName"/>
+      <xi:include href="syntax.xml" xpointer="ebnf.structureAggregateExpression"/>
+    </productionset>
+  </section>
+
+
+</chapter>
