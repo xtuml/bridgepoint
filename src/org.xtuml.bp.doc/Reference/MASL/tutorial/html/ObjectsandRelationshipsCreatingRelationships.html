@@ -1,0 +1,113 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>5.4. Creating Relationships</title>
+<link rel="stylesheet" type="text/css" href="docbook.css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<meta name="keywords" content="MASL, Action Language, Action Semantics, UML, Unified Modelling Language, Shlaer Mellor">
+<link rel="home" href="index.html" title="MASL Tutorial">
+<link rel="up" href="ObjectsandRelationships.html" title="Chapter 5. Objects and Relationships">
+<link rel="prev" href="ObjectsandRelationshipsDeletingInstances.html" title="5.3. Deleting Instances">
+<link rel="next" href="ObjectsandRelationshipsNavigatingRelationships.html" title="5.5. Navigating Relationships">
+<link rel="preface" href="preface.html" title="Preface">
+<link rel="chapter" href="Types.html" title="Chapter 1. Types">
+<link rel="chapter" href="ExecutionControl.html" title="Chapter 2. Execution Control">
+<link rel="chapter" href="CompositeTypes.html" title="Chapter 3. Composite Types">
+<link rel="chapter" href="Exceptions.html" title="Chapter 4. Exceptions">
+<link rel="chapter" href="ObjectsandRelationships.html" title="Chapter 5. Objects and Relationships">
+<link rel="chapter" href="Actions.html" title="Chapter 6. Actions">
+<link rel="chapter" href="DeviceIO.html" title="Chapter 7. Device Input/Output">
+<link rel="chapter" href="MASLExamples.html" title="Chapter 8. MASL Examples">
+<link rel="index" href="ix01.html" title="Index">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div align="center">UNCLASSIFIED</div>
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">5.4. Creating Relationships</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ObjectsandRelationshipsDeletingInstances.html">Prev</a> </td>
+<th width="60%" align="center">Chapter 5. Objects and Relationships</th>
+<td width="20%" align="right"> <a accesskey="n" href="ObjectsandRelationshipsNavigatingRelationships.html">Next</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title">
+<a name="ObjectsandRelationshipsCreatingRelationships"></a>5.4. Creating Relationships</h2></div></div></div>
+<p>Relationships between instances are created using a
+    <code class="literal">link</code> statement. The simplest form of
+    <code class="literal">link</code> statement starts with the reserved word link
+    followed by an expression that denotes an specific single instance, a
+    specification of a relationship and then another expression that denotes
+    another specific single instance. Given the relationship between the
+    <code class="classname">Pilot</code> and <code class="classname">Aircraft</code> objects
+    in <a class="xref" href="ObjectsandRelationshipsCreatingInstances.html#ObjectsandRelationshipsRelationshipbetweenPilotandAircraft" title="Figure 5.2. Relationship between Pilot and Aircraft">Figure 5.2, “Relationship between Pilot and Aircraft”</a> we
+    might write:</p>
+<div class="informalexample"><pre class="programlisting">  link aircraft_instance R3 pilot_instance;</pre></div>
+<p>This links the instance denoted by
+    <code class="varname">aircraft_instance</code> to the instance denoted by
+    <code class="varname">pilot_instance</code> via the relationship
+    <code class="literal">R3</code>.</p>
+<p>The specification of the relationship between the two instances must
+    be a valid navigation for the <code class="literal">link</code> statement to be
+    valid. This is discussed in <a class="xref" href="ObjectsandRelationshipsNavigatingRelationships.html" title="5.5. Navigating Relationships">Section 5.5, “Navigating Relationships”</a>. If by linking
+    the two instances together we “break” the model, then an exception is
+    raised. This would happen, for example, if an instance was related to more
+    than one instance in a one-to-one relationship.</p>
+<p>When a relationship is created between two instances, any
+    referential attributes that are determined by the relationship are set to
+    the correct values. In our example, if the name of the pilot was “Fred
+    Bloggs” then the pilot name attribute of the aircraft instance would have
+    this value set. Relationships are bi-directional, hence, we would have the
+    same result if we had written:</p>
+<div class="informalexample"><pre class="programlisting">  link pilot_instance R3 aircraft_instance;</pre></div>
+<p>To create associative relationships the using form of the
+    <code class="literal">link</code> statement is used. This looks exactly like the
+    simple form with the addition of the reserved word using followed by an
+    expression that denotes a specific single instance of the associative
+    object.</p>
+<div class="figure">
+<a name="ObjectsandRelationshipsAssociativeRelationship"></a><div class="figure-title">Figure 5.3. Associative Relationship</div>
+<div class="figure-contents"><div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;"><tr><td align="center" valign="middle"><img src="images/associativerelationship.svg" align="middle"></td></tr></table></div></div>
+</div>
+<p><br class="figure-break">Given the relationship shown in <a class="xref" href="ObjectsandRelationshipsCreatingRelationships.html#ObjectsandRelationshipsAssociativeRelationship" title="Figure 5.3. Associative Relationship">Figure 5.3, “Associative Relationship”</a> we might
+    write:</p>
+<div class="informalexample"><pre class="programlisting">  link aircraft_instance R11 pilot_instance using aircraft_pilot_instance;</pre></div>
+<p>This links the instance denoted by
+    <code class="varname">aircraft_instance</code> to the instance denoted by
+    <code class="varname">pilot_instance</code> via the relationship
+    <code class="literal">R3</code> using the instance denoted by
+    <code class="varname">aircraft_pilot_instance</code>. Again, the specification of
+    the relationship between the two instances must be a valid navigation for
+    the link statement to be valid. In addition, by linking the two instances
+    using the third we must not “break” the model, any referential attributes
+    that are determined by the relationship are set to the correct values. In
+    this example, all the attributes of the associative instance will have
+    their values set to the appropriate values.</p>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ObjectsandRelationshipsDeletingInstances.html">Prev</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="ObjectsandRelationships.html">Up</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ObjectsandRelationshipsNavigatingRelationships.html">Next</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">5.3. Deleting Instances </td>
+<td width="20%" align="center">
+<a accesskey="h" href="index.html">Home</a> | <a accesskey="t" href="bk01-toc.html">ToC</a>
+</td>
+<td width="40%" align="right" valign="top"> 5.5. Navigating Relationships</td>
+</tr>
+</table>
+</div>
+<div align="center">UNCLASSIFIED</div>
+</body>
+</html>

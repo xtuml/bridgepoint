@@ -1,0 +1,194 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>8.11. Device Input</title>
+<link rel="stylesheet" type="text/css" href="docbook.css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<meta name="keywords" content="MASL, Action Language, Action Semantics, UML, Unified Modelling Language, Shlaer Mellor">
+<link rel="home" href="index.html" title="MASL Tutorial">
+<link rel="up" href="MASLExamples.html" title="Chapter 8. MASL Examples">
+<link rel="prev" href="MASLExamplesDeviceOutput.html" title="8.10. Device Output">
+<link rel="next" href="ix01.html" title="Index">
+<link rel="preface" href="preface.html" title="Preface">
+<link rel="chapter" href="Types.html" title="Chapter 1. Types">
+<link rel="chapter" href="ExecutionControl.html" title="Chapter 2. Execution Control">
+<link rel="chapter" href="CompositeTypes.html" title="Chapter 3. Composite Types">
+<link rel="chapter" href="Exceptions.html" title="Chapter 4. Exceptions">
+<link rel="chapter" href="ObjectsandRelationships.html" title="Chapter 5. Objects and Relationships">
+<link rel="chapter" href="Actions.html" title="Chapter 6. Actions">
+<link rel="chapter" href="DeviceIO.html" title="Chapter 7. Device Input/Output">
+<link rel="chapter" href="MASLExamples.html" title="Chapter 8. MASL Examples">
+<link rel="index" href="ix01.html" title="Index">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div align="center">UNCLASSIFIED</div>
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">8.11. Device Input</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="MASLExamplesDeviceOutput.html">Prev</a> </td>
+<th width="60%" align="center">Chapter 8. MASL Examples</th>
+<td width="20%" align="right"> <a accesskey="n" href="ix01.html">Next</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title">
+<a name="MASLExamplesDeviceInput"></a>8.11. Device Input</h2></div></div></div>
+<p>
+</p>
+<pre class="programlisting">
+
+declare
+ s : string;
+  i : integer;
+  r : real;
+  b1 : boolean;
+  b2 : boolean;
+  e1 : Calendar::month_type;
+  e2 : Calendar::month_type;
+  test : device;
+  res : string;
+  p1 : positive;
+  p2 : positive;
+ passed : boolean;
+begin
+
+  // Test single element reads
+  Device_IO::create_file("input.tst", true);
+  Device_IO::open("input.tst", Device_IO::OUT, test );
+  test &lt;&lt;  "Hello 123   45.67   true false \n MARCH 2 -2 aaa";
+  Device_IO::close(test);
+
+  Device_IO::open("input.tst", Device_IO::IN, test );
+
+  test &gt;&gt; s;
+  if s /= "Hello" then 
+    raise Standard::constraint_error;
+  end if;
+
+  test &gt;&gt; i;
+  if i /= 123 then
+    raise Standard::constraint_error;
+  end if;
+
+  test &gt;&gt; r;
+  if r &lt; 45.66669 or r &gt; 45.67001 then
+    raise Standard::constraint_error;
+  end if;
+
+  test &gt;&gt; b1;
+  if not b1 then
+    raise Standard::constraint_error;
+  end if;
+
+  test &gt;&gt; b2;
+  if b2 then
+    raise Standard::constraint_error;
+  end if;
+
+  test &gt;&gt; e1;
+  if e1 /= Calendar::MARCH then
+    raise Standard::constraint_error;
+  end if;
+
+  test &gt;&gt; p1;
+  if p1 /= 2 then
+    raise Standard::constraint_error;
+  end if;
+
+  begin
+    passed := false;
+    test &gt;&gt; p2;
+  exception
+    when Standard::constraint_error =&gt;
+      passed := true;
+  end;
+  if passed = false then
+    raise Standard::constraint_error;
+  end if;
+ 
+  begin
+    passed := false;
+    test &gt;&gt; e2;
+  exception
+    when Standard::constraint_error =&gt;
+      passed := true;
+  end;
+  if passed = false then
+    raise Standard::constraint_error;
+  end if;
+
+  if Device_IO::eof(test) = false then
+    raise Standard::constraint_error;
+  end if;
+
+  Device_IO::close(test);
+
+  // Test concatenated reads
+  Device_IO::open("input.tst", Device_IO::IN, test );
+  test &gt;&gt; s &gt;&gt; i &gt;&gt; r &gt;&gt; b1 &gt;&gt; b2 &gt;&gt; e1 &gt;&gt; p1;
+
+  if s /= "Hello" then 
+    raise Standard::constraint_error;
+  end if;
+
+  if i /= 123 then
+    raise Standard::constraint_error;
+  end if;
+
+  if r &lt; 45.66669 or r &gt; 45.67001 then
+    raise Standard::constraint_error;
+  end if;
+
+  if not b1 then
+    raise Standard::constraint_error;
+  end if;
+
+  if b2 then
+    raise Standard::constraint_error;
+  end if;
+
+  if e1 /= Calendar::MARCH then
+    raise Standard::constraint_error;
+  end if;
+
+  if p1 /= 2 then
+    raise Standard::constraint_error;
+  end if;
+  Device_IO::close(test);
+  Device_IO::delete_file("input.tst");
+
+  console &lt;&lt; "TEST PASSED" &lt;&lt; endl;
+
+end;
+
+</pre>
+<p>
+</p>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="MASLExamplesDeviceOutput.html">Prev</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="MASLExamples.html">Up</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ix01.html">Next</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">8.10. Device Output </td>
+<td width="20%" align="center">
+<a accesskey="h" href="index.html">Home</a> | <a accesskey="t" href="bk01-toc.html">ToC</a>
+</td>
+<td width="40%" align="right" valign="top"> Index</td>
+</tr>
+</table>
+</div>
+<div align="center">UNCLASSIFIED</div>
+</body>
+</html>
