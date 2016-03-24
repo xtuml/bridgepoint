@@ -73,16 +73,21 @@ public class SetTypeTestGenerics extends CanvasTest {
 
 
 	public SetTypeTestGenerics() {
-		super("Default Project", null);
+		super("Delete Test", null);
 	}
 
 	protected String getResultName() {
 		return "SetTypeChooserWindow" + "_" + test_id;
 	}
 
+	static boolean isFirstTime = true; 
 	@Override
-	protected void initialSetup() throws Exception {
+	@Before 
+	public void initialSetup() throws Exception {
 		// create the necessary elements for UDT type assignment
+		if ( !isFirstTime)
+			return;
+		isFirstTime = false;
 		m_sys.Newpackage();
 		Package_c[] pkgs = Package_c.getManyEP_PKGsOnR1401(m_sys);
 		testPKG = pkgs[pkgs.length - 1];

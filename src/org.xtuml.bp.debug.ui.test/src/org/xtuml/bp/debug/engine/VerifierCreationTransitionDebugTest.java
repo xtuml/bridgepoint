@@ -30,7 +30,10 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.debug.internal.ui.DebugUIPlugin;
 import org.eclipse.debug.ui.IDebugUIConstants;
 import org.eclipse.ui.PlatformUI;
-
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.ComponentInstance_c;
 import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.CorePlugin;
@@ -49,17 +52,20 @@ import org.xtuml.bp.debug.ui.launch.BPDebugUtils;
 import org.xtuml.bp.debug.ui.test.DebugUITestUtilities;
 import org.xtuml.bp.test.TestUtil;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TestingUtilities;
 import org.xtuml.bp.ui.text.activity.ActivityEditor;
 
+@RunWith(OrderedRunner.class)
 public class VerifierCreationTransitionDebugTest extends BaseTest {
 	private static String projectName = "VerifierTransitionActionTest";
 
 	private boolean initialized = false;
-	public VerifierCreationTransitionDebugTest(String testName) throws Exception {
-		super(null, testName);
+	public VerifierCreationTransitionDebugTest() throws Exception {
+		super(null, null);
 	}
 	@Override
+	@Before
 	public void setUp() throws Exception {
 		super.setUp();
 		if (!initialized){
@@ -115,10 +121,12 @@ public class VerifierCreationTransitionDebugTest extends BaseTest {
 	}
 	
 	@Override
+	@After
 	public void tearDown() throws Exception {
 		DebugUITestUtilities.stopSession(m_sys, projectName);
 	}
 	
+	@Test
 	public void testVerifierCreationTransitionBP(){
 		final String transName="CreationEvent";
 		final String result_txt="Verifier_creation_Transition_BP.result";

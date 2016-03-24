@@ -60,7 +60,7 @@ public class AssignClassTestGenerics extends CanvasTest {
 	private static Selection selection = Selection.getInstance();
 
 	public AssignClassTestGenerics() {
-		super("Default Project", null);
+		super("Delete Test", null);
 	}
 
 	protected String getResultName() {

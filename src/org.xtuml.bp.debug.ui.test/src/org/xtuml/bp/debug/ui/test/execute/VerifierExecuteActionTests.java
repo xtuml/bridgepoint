@@ -31,7 +31,10 @@ import org.eclipse.debug.internal.ui.DebugUIPlugin;
 import org.eclipse.debug.ui.IDebugUIConstants;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.ui.PlatformUI;
-
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.ComponentInstance_c;
 import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.CorePlugin;
@@ -60,21 +63,24 @@ import org.xtuml.bp.core.util.UIUtil;
 import org.xtuml.bp.debug.ui.launch.BPDebugUtils;
 import org.xtuml.bp.debug.ui.test.DebugUITestUtilities;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TestingUtilities;
 import org.xtuml.bp.test.common.UITestingUtilities;
 import org.xtuml.bp.ui.text.activity.ActivityEditor;
 
+@RunWith(OrderedRunner.class)
 public class VerifierExecuteActionTests extends BaseTest {
 
 	private static String projectName = "VerifierLaunchConfigurationTests";
 
 	private boolean initialized = false;
 
-	public VerifierExecuteActionTests(String testName) throws Exception {
-		super(null, testName);
+	public VerifierExecuteActionTests() throws Exception {
+		super(null, null);
 	}
 
 	@Override
+	@Before
 	public void setUp() throws Exception {
 		if (!initialized)
 		  delayGlobalUpgrade = true;
@@ -128,10 +134,12 @@ public class VerifierExecuteActionTests extends BaseTest {
 		}
 	}
 
+	@After
 	public void tearDown() throws Exception {
 		DebugUITestUtilities.stopSession(m_sys, projectName);
 	}
 
+	@Test
 	public void testExecuteClassBasedOperationOAL() {
 		Package_c domain = Package_c.getOneEP_PKGOnR1405(m_sys, new ClassQueryInterface_c() {
 			
@@ -209,6 +217,7 @@ public class VerifierExecuteActionTests extends BaseTest {
 				stackTrace.equals("class::op line: 2"));		
 	}
 
+	@Test
 	public void testExecuteClassBasedOperationNoOAL() {
 		Package_c domain = Package_c.getOneEP_PKGOnR1405(m_sys, new ClassQueryInterface_c() {
 			
@@ -280,6 +289,7 @@ public class VerifierExecuteActionTests extends BaseTest {
 				textFound);
 	}
 	
+	@Test
 	public void testExecuteClassBasedOperationWithParameters() {
 		Package_c domain = Package_c.getOneEP_PKGOnR1405(m_sys, new ClassQueryInterface_c() {
 			
@@ -363,6 +373,7 @@ public class VerifierExecuteActionTests extends BaseTest {
 		assertEquals("Default parameter value was not as expected for variable y.", "0", yValue);
 */	}
 	
+	@Test
 	public void testExecuteSignalAssignedToTransition() {
 		Component_c component = Component_c.getOneC_COnR8001(PackageableElement_c.getManyPE_PEsOnR8000(Package_c.getManyEP_PKGsOnR1405(m_sys)), new ClassQueryInterface_c() {
 		
@@ -442,6 +453,7 @@ public class VerifierExecuteActionTests extends BaseTest {
 				stackTrace.equals("class::State 2 line: 2" + System.getProperty("line.separator") + "Port1::clientserversig"));
 	}
 	
+	@Test
 	public void testExecuteSignalAssignedToTransitionNoOAL() {
 		// same exact test as the last, just remove the OAL in
 		// the signal
@@ -486,6 +498,7 @@ public class VerifierExecuteActionTests extends BaseTest {
 		testExecuteSignalAssignedToTransition();
 	}
 	
+	@Test
 	public void testExecuteSignalAssignedToTransitionWithParameters() {
 		Component_c component = Component_c.getOneC_COnR8001(PackageableElement_c.getManyPE_PEsOnR8000(Package_c.getManyEP_PKGsOnR1405(m_sys)), new ClassQueryInterface_c() {
 			
@@ -575,6 +588,7 @@ public class VerifierExecuteActionTests extends BaseTest {
 		assertEquals("Default parameter value was not as expected for variable x.", "0", yValue);
 */	}
 	
+	@Test
 	public void testExecuteSignalNotAssignedToTransition() {
 		Component_c component = Component_c.getOneC_COnR8001(PackageableElement_c.getManyPE_PEsOnR8000(Package_c.getManyEP_PKGsOnR1405(m_sys)), new ClassQueryInterface_c() {
 			
@@ -645,6 +659,7 @@ public class VerifierExecuteActionTests extends BaseTest {
 				stackTrace.equals("Port2::Interface::clientserversig line: 2"));
 	}
 	
+	@Test
 	public void testExecuteSignalNotAssignedToTransitionNoOAL() {
 		Component_c component = Component_c.getOneC_COnR8001(PackageableElement_c.getManyPE_PEsOnR8000(Package_c.getManyEP_PKGsOnR1405(m_sys)), new ClassQueryInterface_c() {
 			
@@ -721,6 +736,7 @@ public class VerifierExecuteActionTests extends BaseTest {
 				textFound);		
 	}
 
+	@Test
 	public void testExecuteSignalNotAssignedToTransitionWithParameters() {
 		Component_c component = Component_c.getOneC_COnR8001(PackageableElement_c.getManyPE_PEsOnR8000(Package_c.getManyEP_PKGsOnR1405(m_sys)), new ClassQueryInterface_c() {
 			
@@ -797,7 +813,8 @@ public class VerifierExecuteActionTests extends BaseTest {
 		assertEquals("Default parameter value was not as expected for variable x.", "0", yValue);
 */	}
 	
-    public void testExecuteInterfaceOperation() {
+    @Test
+	public void testExecuteInterfaceOperation() {
 		Component_c component = Component_c.getOneC_COnR8001(PackageableElement_c.getManyPE_PEsOnR8000(Package_c.getManyEP_PKGsOnR1405(m_sys)), new ClassQueryInterface_c() {
 			
 			public boolean evaluate(Object candidate) {
@@ -867,7 +884,8 @@ public class VerifierExecuteActionTests extends BaseTest {
 				stackTrace.equals("Port2::Interface::clientserverop line: 2"));
     }
 
-    public void testExecuteInterfaceOperationNoOAL() {
+    @Test
+	public void testExecuteInterfaceOperationNoOAL() {
 		Component_c component = Component_c.getOneC_COnR8001(PackageableElement_c.getManyPE_PEsOnR8000(Package_c.getManyEP_PKGsOnR1405(m_sys)), new ClassQueryInterface_c() {
 			
 			public boolean evaluate(Object candidate) {
@@ -943,7 +961,8 @@ public class VerifierExecuteActionTests extends BaseTest {
 				textFound);		
     }
 
-    public void testExecuteInterfaceOperationWithParameters() {
+    @Test
+	public void testExecuteInterfaceOperationWithParameters() {
 		Component_c component = Component_c.getOneC_COnR8001(PackageableElement_c.getManyPE_PEsOnR8000(Package_c.getManyEP_PKGsOnR1405(m_sys)), new ClassQueryInterface_c() {
 			
 			public boolean evaluate(Object candidate) {
@@ -1020,7 +1039,8 @@ public class VerifierExecuteActionTests extends BaseTest {
 */
     }
     
-    public void testTerminateAndRelaunch() {
+    @Test
+	public void testTerminateAndRelaunch() {
     	Package_c dom = Package_c.getOneEP_PKGOnR1405(m_sys, new ClassQueryInterface_c() {
 			
 			@Override

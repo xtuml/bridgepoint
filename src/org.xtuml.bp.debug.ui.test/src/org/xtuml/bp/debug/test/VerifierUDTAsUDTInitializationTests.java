@@ -8,7 +8,10 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.ui.PlatformUI;
-
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.ComponentInstance_c;
 import org.xtuml.bp.core.Function_c;
 import org.xtuml.bp.core.Package_c;
@@ -24,16 +27,24 @@ import org.xtuml.bp.debug.ui.test.DebugUITestUtilities;
 import org.xtuml.bp.test.TestUtil;
 import org.xtuml.bp.test.common.BaseTest;
 import org.xtuml.bp.test.common.CanvasTestUtils;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TestingUtilities;
 import org.xtuml.bp.test.common.UITestingUtilities;
 import org.xtuml.bp.ui.text.activity.ActivityEditor;
 
+@RunWith(OrderedRunner.class)
 public class VerifierUDTAsUDTInitializationTests extends BaseTest {
 
-    @Override
-    protected void initialSetup() throws Exception {
+    private static boolean isFirstTime = true;
+
+	@Override
+    @Before
+    public void initialSetup() throws Exception {
         // disable auto build
-        WorkspaceUtil.setAutobuilding(false);
+    	if (!isFirstTime)
+			return;
+		isFirstTime   = false;
+    	WorkspaceUtil.setAutobuilding(false);
 
         loadProject("VerifierUDTAsSDTTests");
 
@@ -43,10 +54,12 @@ public class VerifierUDTAsUDTInitializationTests extends BaseTest {
     }
 
     @Override
+	@After
 	public void tearDown() throws Exception {
     	DebugUITestUtilities.stopSession(m_sys, "VerifierUDTAsSDTTests");
 	}
 
+	@Test
 	public void testUDTAsSDTIntialization() throws DebugException {
         Function_c function = Function_c
                 .getOneS_SYNCOnR8001(PackageableElement_c

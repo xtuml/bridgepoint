@@ -28,7 +28,10 @@ import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
-
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.ComponentInstance_c;
 import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.CorePlugin;
@@ -46,19 +49,22 @@ import org.xtuml.bp.debug.ui.launch.BPDebugUtils;
 import org.xtuml.bp.debug.ui.test.DebugUITestUtilities;
 import org.xtuml.bp.test.TestUtil;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TestingUtilities;
 import org.xtuml.bp.test.common.UITestingUtilities;
 
+@RunWith(OrderedRunner.class)
 public class VIECTest extends BaseTest {
 	private static String projectName = "VIEC";
 
 	static private boolean initialized = false;
 
-	public VIECTest(String testName) throws Exception {
-		super(null,testName);
+	public VIECTest() throws Exception {
+		super(null, null);
 	}
 
 	@Override
+	@Before
 	public void setUp() throws Exception {
 		super.setUp();
 		if (!initialized){
@@ -87,6 +93,7 @@ public class VIECTest extends BaseTest {
 		}
 	}
 	
+	@After
 	public void tearDown() throws Exception {
 		// terminate all launches
 		DebugUITestUtilities.terminateAllProcesses(m_sys);
@@ -102,6 +109,7 @@ public class VIECTest extends BaseTest {
 	}
 	
 	
+	@Test
 	public void testVIECTwoPort() {
 		ModelRoot[] roots = Ooaofooa.getInstancesUnderSystem(projectName);
 		
@@ -143,6 +151,7 @@ public class VIECTest extends BaseTest {
 		
 	}
 	
+	@Test
 	public void testVIECSinglePort() {
 	ModelRoot[] roots = Ooaofooa.getInstancesUnderSystem(projectName);
 	

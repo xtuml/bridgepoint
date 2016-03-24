@@ -21,22 +21,31 @@ package org.xtuml.bp.debug.test;
 // the License.
 //=====================================================================
 
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 
+@RunWith(OrderedRunner.class)
 public class VerifierTestSuiteI extends BaseTest {
 
-	public VerifierTestSuiteI(String arg0) {
-		super(null, arg0);
+	public VerifierTestSuiteI() {
+		super(null, null);
 	}
 
+	@Before
 	public void setUp() throws Exception {
 		super.setUp();
 	}
 
+	@After
 	public void tearDown() throws Exception {
 		super.tearDown();
 	}
 
+	@Test
 	public void testVerifierTestSuite1() {
 		assert(true);
 	}

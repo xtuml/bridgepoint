@@ -51,13 +51,13 @@ public class I810_SlowDeletionTestGenerics extends BaseTest {
     private String testProject = "ModifyNonFullyLoadedModelTest";
     private String testModelName = "ooaofgraphics";
 
-	public I810_SlowDeletionTestGenerics(String projectName, String name)
-			throws CoreException {
-		super(projectName, name);
-
-	}
-	public I810_SlowDeletionTestGenerics(String name) throws CoreException {
-		super(null, name); //$NON-NLS-1$
+//	public I810_SlowDeletionTestGenerics(String projectName, String name)
+//			throws CoreException {
+//		super(projectName, name);
+//
+//	}
+	public I810_SlowDeletionTestGenerics() throws CoreException {
+		super(null, null); //$NON-NLS-1$
 
 	}
 

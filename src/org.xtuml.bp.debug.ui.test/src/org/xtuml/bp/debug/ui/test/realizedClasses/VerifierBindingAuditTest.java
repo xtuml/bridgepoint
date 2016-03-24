@@ -15,7 +15,10 @@ import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.PlatformUI;
-
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Package_c;
@@ -29,20 +32,23 @@ import org.xtuml.bp.core.util.UIUtil;
 import org.xtuml.bp.debug.ui.test.DebugUITestUtilities;
 import org.xtuml.bp.test.TestUtil;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TestingUtilities;
 import org.xtuml.bp.test.common.UITestingUtilities;
 
+@RunWith(OrderedRunner.class)
 public class VerifierBindingAuditTest extends BaseTest {
 
 	private static String projectName = "VerifierBindingTest";
 
 	private boolean initialized = false;
 
-	public VerifierBindingAuditTest(String testName) throws Exception {
-		super(null, testName);
+	public VerifierBindingAuditTest() throws Exception {
+		super(null, null);
 	}
 
 	@Override
+	@Before
 	public void setUp() throws Exception {
 		super.setUp();
 
@@ -86,6 +92,7 @@ public class VerifierBindingAuditTest extends BaseTest {
 		}
 	}
 
+	@After
 	public void tearDown() throws Exception {
 		// terminate all launches
 		DebugUITestUtilities.terminateAllProcesses(m_sys);
@@ -100,20 +107,16 @@ public class VerifierBindingAuditTest extends BaseTest {
 		TestingUtilities.processDisplayEvents();
 	}
 	
-	public void testVerifierBindingAuditTests(){
-		this.doTestVerifyReadyToRun();
-		this.doTestMenuEntryAbsent();
-		this.doTestRealizedCodeAudit();
-	}
-
-	public void doTestVerifyReadyToRun() {
+	@Test
+	public void testVerifyReadyToRun() {
         File checkFile = new File(getProject().getLocation().toString() + "/bin/externalcodebindingtest/library/Realized.class");
         assertTrue("This test requires that you build " + projectName + " in your workspace before it will succeed.",
         		checkFile.exists());
 
 	}
 
-	public void doTestMenuEntryAbsent() {
+	@Test
+	public void testMenuEntryAbsent() {
 		final String nonrealizedPackageName = "NonRealized";
 		Package_c nonRealizedcomponentPkg = Package_c.getOneEP_PKGOnR1405(m_sys,
 				new ClassQueryInterface_c() {
@@ -144,7 +147,8 @@ public class VerifierBindingAuditTest extends BaseTest {
 
 	static String actualResults = null;
 
-	public void doTestRealizedCodeAudit() {
+	@Test
+	public void testRealizedCodeAudit() {
 		final String realizedPackageName = "External Code Binding Test";
 		Package_c realizedComponentPkg = Package_c.getOneEP_PKGOnR1405(m_sys,
 				new ClassQueryInterface_c() {

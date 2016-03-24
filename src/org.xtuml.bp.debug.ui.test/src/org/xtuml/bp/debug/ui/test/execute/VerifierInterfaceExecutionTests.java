@@ -40,7 +40,10 @@ import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.PlatformUI;
-
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.ClassStateMachine_c;
 import org.xtuml.bp.core.ComponentInstance_c;
 import org.xtuml.bp.core.Component_c;
@@ -69,28 +72,30 @@ import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.common.PersistableModelComponent;
 import org.xtuml.bp.core.ui.Selection;
 import org.xtuml.bp.core.ui.perspective.BridgePointPerspective;
-import org.xtuml.bp.debug.ui.actions.ExecuteAction;
 import org.xtuml.bp.debug.ui.launch.BPDebugUtils;
 import org.xtuml.bp.debug.ui.test.DebugUITestUtilities;
 import org.xtuml.bp.test.TestUtil;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TestingUtilities;
 import org.xtuml.bp.test.common.UITestingUtilities;
 import org.xtuml.bp.ui.session.SessionExplorerTreeViewer;
 import org.xtuml.bp.ui.session.views.SessionExplorerView;
 import org.xtuml.bp.ui.text.activity.ActivityEditor;
 
+@RunWith(OrderedRunner.class)
 public class VerifierInterfaceExecutionTests extends BaseTest {
 
 	private static String projectName = "VerifierInterfaceExecutionTests";
 
 	private boolean initialized = false;
 
-	public VerifierInterfaceExecutionTests(String testName) throws Exception {
-		super(projectName, testName);
+	public VerifierInterfaceExecutionTests() throws Exception {
+		super(projectName, null);
 	}
 
 	@Override
+	@Before
 	public void setUp() throws Exception {
 		if (!initialized)
 			  delayGlobalUpgrade = true;
@@ -149,11 +154,13 @@ public class VerifierInterfaceExecutionTests extends BaseTest {
 		}
 	}
 
+	@After
 	public void tearDown() throws Exception {
 		DebugUITestUtilities.stopSession(m_sys, projectName);
 	}
 
-    public void testComponentRefComparisonInMessageBodies() {
+    @Test
+	public void testComponentRefComparisonInMessageBodies() {
         final String testSystemName = "TestSystem1";
         Package_c testPkg = Package_c.getOneEP_PKGOnR1405(m_sys,
                 new ClassQueryInterface_c() {
@@ -216,6 +223,7 @@ public class VerifierInterfaceExecutionTests extends BaseTest {
         assertEquals(expected_results.trim(), actual_results.trim());
     }
 
+	@Test
 	public void testInterfaceExecutionSignalAssignedToTransition() {
 		Component_c component = Component_c.getOneC_COnR8001(PackageableElement_c.getManyPE_PEsOnR8000(Package_c.getManyEP_PKGsOnR1405(m_sys)), new ClassQueryInterface_c() {
 
@@ -285,6 +293,7 @@ public class VerifierInterfaceExecutionTests extends BaseTest {
 		assertEquals(expected_results, actual_results);
 	}
 
+	@Test
 	public void testInterfaceExecutionSignalNoOALAssignedToTransition() {
 		Component_c component = Component_c.getOneC_COnR8001(PackageableElement_c.getManyPE_PEsOnR8000(Package_c.getManyEP_PKGsOnR1405(m_sys)), new ClassQueryInterface_c() {
 
@@ -355,6 +364,7 @@ public class VerifierInterfaceExecutionTests extends BaseTest {
 		assertEquals(expected_results, actual_results);
 	}
 
+	@Test
 	public void testInterfaceExecutionSignalParametersAssignedToTransition() {
 		Component_c component = Component_c.getOneC_COnR8001(PackageableElement_c.getManyPE_PEsOnR8000(Package_c.getManyEP_PKGsOnR1405(m_sys)), new ClassQueryInterface_c() {
 
@@ -468,6 +478,7 @@ public class VerifierInterfaceExecutionTests extends BaseTest {
 		assertEquals(expected_results, actual_results);
 	}
 
+	@Test
 	public void testInterfaceExecutionSignalWithQueuedEventsBadState() {
 		Component_c component = Component_c.getOneC_COnR8001(PackageableElement_c.getManyPE_PEsOnR8000(Package_c.getManyEP_PKGsOnR1405(m_sys)), new ClassQueryInterface_c() {
 
@@ -613,6 +624,7 @@ public class VerifierInterfaceExecutionTests extends BaseTest {
 		assertEquals(expected_results, actual_results);
 	}
 	
+	@Test
 	public void testInterfaceExecutionSignalWithQueuedEventsGoodState() {
 		Component_c component = Component_c.getOneC_COnR8001(PackageableElement_c.getManyPE_PEsOnR8000(Package_c.getManyEP_PKGsOnR1405(m_sys)), new ClassQueryInterface_c() {
 
@@ -759,6 +771,7 @@ public class VerifierInterfaceExecutionTests extends BaseTest {
 		assertEquals(expected_results, actual_results);
 	}
 
+	@Test
 	public void testInterfaceExecutionSignalNotAssignedWithOAL() {
 		Component_c component = Component_c.getOneC_COnR8001(PackageableElement_c.getManyPE_PEsOnR8000(Package_c.getManyEP_PKGsOnR1405(m_sys)), new ClassQueryInterface_c() {
 
@@ -885,6 +898,7 @@ public class VerifierInterfaceExecutionTests extends BaseTest {
 		assertEquals(expected_results, actual_results);
 	}
 	
+	@Test
 	public void testInterfaceExecutionSignalNotAssignedWithNoOAL() {
 		Component_c component = Component_c.getOneC_COnR8001(PackageableElement_c.getManyPE_PEsOnR8000(Package_c.getManyEP_PKGsOnR1405(m_sys)), new ClassQueryInterface_c() {
 
@@ -973,6 +987,7 @@ public class VerifierInterfaceExecutionTests extends BaseTest {
 		assertEquals(expected_results, actual_results);
 	}
 
+	@Test
 	public void testInterfaceExecutionSignalNotAssignedCurrentExecutingAction() {
 		Component_c component = Component_c.getOneC_COnR8001(PackageableElement_c.getManyPE_PEsOnR8000(Package_c.getManyEP_PKGsOnR1405(m_sys)), new ClassQueryInterface_c() {
 
@@ -1116,6 +1131,7 @@ public class VerifierInterfaceExecutionTests extends BaseTest {
 		assertEquals(expected_results, actual_results);
 */	}
 	
+	@Test
 	public void testInterfaceExecutionSignalNotAssignedWithParameters() {
 		Component_c component = Component_c.getOneC_COnR8001(PackageableElement_c.getManyPE_PEsOnR8000(Package_c.getManyEP_PKGsOnR1405(m_sys)), new ClassQueryInterface_c() {
 
@@ -1254,6 +1270,7 @@ public class VerifierInterfaceExecutionTests extends BaseTest {
 	/**
 	 * Note this test is disabled until issue dts0100921178 is resolved.
 	 */
+//	@Test
 //	public void testInterfaceExecutionOperationOALVoidReturn() {
 //		Component_c component = Component_c.getOneC_COnR4608(ComponentPackage_c
 //				.getManyCP_CPsOnR4606(m_sys), new ClassQueryInterface_c() {
@@ -1379,6 +1396,7 @@ public class VerifierInterfaceExecutionTests extends BaseTest {
 //		assertEquals(expected_results, actual_results);
 //	}
 
+	@Test
 	public void testInterfaceExectuionOperationOALNonVoidReturn() {
 		Component_c component = Component_c.getOneC_COnR8001(PackageableElement_c.getManyPE_PEsOnR8000(Package_c.getManyEP_PKGsOnR1405(m_sys)), new ClassQueryInterface_c() {
 
@@ -1504,6 +1522,7 @@ public class VerifierInterfaceExecutionTests extends BaseTest {
 		assertEquals(expected_results, actual_results);
 	}
 
+	@Test
 	public void testInterfaceExecutionOperationNoOALVoidReturn() {
 		Component_c component = Component_c.getOneC_COnR8001(PackageableElement_c.getManyPE_PEsOnR8000(Package_c.getManyEP_PKGsOnR1405(m_sys)), new ClassQueryInterface_c() {
 
@@ -1619,10 +1638,11 @@ public class VerifierInterfaceExecutionTests extends BaseTest {
 		String expected_results = TestUtil.getTextFileContents(expectedResults);
 		// get the text representation of the debug tree
 		String actual_results = DebugUITestUtilities
-				.getConsoleText(expected_results);
+				.getConsoleText();
 		assertEquals(expected_results, actual_results);
 	}
 	
+	@Test
 	public void testInterfaceExecutionOperationNoOALNonVoidReturn() {
 		Component_c component = Component_c.getOneC_COnR8001(PackageableElement_c.getManyPE_PEsOnR8000(Package_c.getManyEP_PKGsOnR1405(m_sys)), new ClassQueryInterface_c() {
 
@@ -1764,6 +1784,7 @@ public class VerifierInterfaceExecutionTests extends BaseTest {
 		assertEquals(expected_results, actual_results);
 	}
 
+	@Test
 	public void testInterfaceExecutionOperationCurrentExecutingAction() {
 		Component_c component = Component_c.getOneC_COnR8001(PackageableElement_c.getManyPE_PEsOnR8000(Package_c.getManyEP_PKGsOnR1405(m_sys)), new ClassQueryInterface_c() {
 
@@ -1911,6 +1932,7 @@ public class VerifierInterfaceExecutionTests extends BaseTest {
 	/**
 	 * Note this test is disabled until issue dts0100921178 is resolved.
 	 */
+//	@Test
 //	public void testInterfaceExecutionOperationWithParametersVoidReturn() {
 //		Component_c component = Component_c.getOneC_COnR4608(ComponentPackage_c
 //				.getManyCP_CPsOnR4606(m_sys), new ClassQueryInterface_c() {
@@ -2044,6 +2066,7 @@ public class VerifierInterfaceExecutionTests extends BaseTest {
 //		assertEquals(expected_results, actual_results);
 //	}
 
+	@Test
 	public void testInterfaceExecutionOperationWithParamatersNonVoidReturn() {
 		Component_c component = Component_c.getOneC_COnR8001(PackageableElement_c.getManyPE_PEsOnR8000(Package_c.getManyEP_PKGsOnR1405(m_sys)), new ClassQueryInterface_c() {
 
@@ -2175,6 +2198,7 @@ public class VerifierInterfaceExecutionTests extends BaseTest {
 		assertEquals(expected_results, actual_results);
 	}
 	
+	@Test
 	public void testInterfaceExecutionWiredOperationAndSignalNoOALVoidReturn() {
 		Component_c component = Component_c.getOneC_COnR8001(PackageableElement_c.getManyPE_PEsOnR8000(Package_c.getManyEP_PKGsOnR1405(m_sys)), new ClassQueryInterface_c() {
 

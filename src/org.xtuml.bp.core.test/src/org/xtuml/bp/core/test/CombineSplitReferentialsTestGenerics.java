@@ -505,7 +505,6 @@ public class CombineSplitReferentialsTestGenerics extends CanvasTest {
 				"testSplitPrefixLoopBad.prefix_local(R36)"}, 0, "17");
 	}
 
-	@Test
 	public void testSplitLoop(String className, String[] itemValues,
 			int testItem, String testNum) {
 		openTestPKGDiagram("TestCombineSplitReferentials");

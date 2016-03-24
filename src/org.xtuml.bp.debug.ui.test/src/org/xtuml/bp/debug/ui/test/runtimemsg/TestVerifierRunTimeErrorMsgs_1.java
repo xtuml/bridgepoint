@@ -28,7 +28,9 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.debug.internal.ui.DebugUIPlugin;
 import org.eclipse.debug.ui.IDebugUIConstants;
-
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.SystemModel_c;
@@ -45,11 +47,12 @@ public class TestVerifierRunTimeErrorMsgs_1 extends TestVerifierRunTimeErrorMsgs
         return super.getResultName();
     }
 
-    public TestVerifierRunTimeErrorMsgs_1(String arg0) {
-        super("TestVerifierRunTimeErrorMsgsGP", arg0);
+    public TestVerifierRunTimeErrorMsgs_1() {
+        super("TestVerifierRunTimeErrorMsgsGP", null);
     }
 
-    public void setUp() throws Exception {
+    @Before
+	public void setUp() throws Exception {
         super.setUp();
 		if (!initialized) {
 		CorePlugin.disableParseAllOnResourceChange();
@@ -90,7 +93,8 @@ public class TestVerifierRunTimeErrorMsgs_1 extends TestVerifierRunTimeErrorMsgs
 	}
 }
 
-    public void tearDown() throws Exception {
+    @After
+	public void tearDown() throws Exception {
     	DebugUITestUtilities.stopSession(m_sys, projectName);
         
     }
@@ -99,7 +103,8 @@ public class TestVerifierRunTimeErrorMsgs_1 extends TestVerifierRunTimeErrorMsgs
      * Perform the test for the given matrix column (A1) and row (C1N1).
      * 
      */
-    public void testA1_C1N1() {
+    @Test
+	public void testA1_C1N1() {
         test_id = getTestId("A1", "C1N1", "1");
         launchComponentName ="WrapperComponent";
         List<NonRootModelElement> src =  selectA("A1");
@@ -115,7 +120,8 @@ public class TestVerifierRunTimeErrorMsgs_1 extends TestVerifierRunTimeErrorMsgs
      * Perform the test for the given matrix column (A2) and row (C1N1).
      * 
      */
-    public void testA2_C1N1() {
+    @Test
+	public void testA2_C1N1() {
         test_id = getTestId("A2", "C1N1", "10");
         launchComponentName ="WrapperComponent";
         List<NonRootModelElement> src =  selectA("A2");
@@ -133,7 +139,8 @@ public class TestVerifierRunTimeErrorMsgs_1 extends TestVerifierRunTimeErrorMsgs
      * Perform the test for the given matrix column (A4) and row (C1N1).
      * 
      */
-    public void testA4_C1N1() {
+    @Test
+	public void testA4_C1N1() {
         test_id = getTestId("A4", "C1N1", "28");
         launchComponentName ="WrapperComponent";
         List<NonRootModelElement> src =  selectA("A4");
@@ -155,7 +162,8 @@ public class TestVerifierRunTimeErrorMsgs_1 extends TestVerifierRunTimeErrorMsgs
      * Perform the test for the given matrix column (A5) and row (C1N1).
      * 
      */
-    public void testA5_C1N1() {
+    @Test
+	public void testA5_C1N1() {
         test_id = getTestId("A5", "C1N1", "37");
         launchComponentName ="WrapperComponent";
         List<NonRootModelElement> src =  selectA("A5");
@@ -173,7 +181,8 @@ public class TestVerifierRunTimeErrorMsgs_1 extends TestVerifierRunTimeErrorMsgs
      * Perform the test for the given matrix column (A6) and row (C1N1).
      * 
      */
-    public void testA6_C1N1() {
+    @Test
+	public void testA6_C1N1() {
         test_id = getTestId("A6", "C1N1", "46");
         launchComponentName ="WrapperComponent";
         List<NonRootModelElement> src =  selectA("A6");
@@ -191,7 +200,8 @@ public class TestVerifierRunTimeErrorMsgs_1 extends TestVerifierRunTimeErrorMsgs
      * Perform the test for the given matrix column (A7) and row (C1N1).
      * 
      */
-    public void testA7_C1N1() {
+    @Test
+	public void testA7_C1N1() {
         test_id = getTestId("A7", "C1N1", "55");
         launchComponentName ="WrapperComponent";
         List<NonRootModelElement> src =  selectA("A7");
@@ -209,7 +219,8 @@ public class TestVerifierRunTimeErrorMsgs_1 extends TestVerifierRunTimeErrorMsgs
      * Perform the test for the given matrix column (A8) and row (C1N1).
      * 
      */
-    public void testA8_C1N1() {
+    @Test
+	public void testA8_C1N1() {
         test_id = getTestId("A8", "C1N1", "64");
         launchComponentName ="WrapperComponent";
         List<NonRootModelElement> src =  selectA("A8");
@@ -227,7 +238,8 @@ public class TestVerifierRunTimeErrorMsgs_1 extends TestVerifierRunTimeErrorMsgs
      * Perform the test for the given matrix column (A9) and row (C1N1).
      * 
      */
-    public void testA9_C1N1() {
+    @Test
+	public void testA9_C1N1() {
         test_id = getTestId("A9", "C1N1", "73");
         launchComponentName ="WrapperComponent";
         List<NonRootModelElement> src =  selectA("A9");
@@ -245,7 +257,8 @@ public class TestVerifierRunTimeErrorMsgs_1 extends TestVerifierRunTimeErrorMsgs
      * Perform the test for the given matrix column (A10) and row (C1N1).
      * 
      */
-    public void testA10_C1N1() {
+    @Test
+	public void testA10_C1N1() {
         test_id = getTestId("A10", "C1N1", "82");
         launchComponentName ="WrapperComponent";
         List<NonRootModelElement> src =  selectA("A10");
@@ -256,7 +269,8 @@ public class TestVerifierRunTimeErrorMsgs_1 extends TestVerifierRunTimeErrorMsgs
         assertTrue(checkResult_Sys_Pkg_comp_ReqSig());
         
     }
-    public void testCantHappenEvent(){
+    @Test
+	public void testCantHappenEvent(){
     	test_id = "test_CantHappenEvent";
         launchComponentName ="WrapperComponent";  
     	List<NonRootModelElement> src =  selectA("A1");
@@ -267,7 +281,8 @@ public class TestVerifierRunTimeErrorMsgs_1 extends TestVerifierRunTimeErrorMsgs
     	
     }
     
-    public void testCantCreationTransition(){
+    @Test
+	public void testCantCreationTransition(){
     	test_id = "test_CantHappenEvent";
     	launchComponentName ="WrapperComponent";  
     	List<NonRootModelElement> src =  selectA("A1");

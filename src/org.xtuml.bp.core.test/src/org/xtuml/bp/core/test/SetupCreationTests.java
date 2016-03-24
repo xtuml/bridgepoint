@@ -66,8 +66,8 @@ public class SetupCreationTests extends CanvasTest {
 	String test_id = null;
 	private boolean generateResults = getGenerateResults();
 
-	public SetupCreationTests(String name) throws CoreException {
-		super("org.xtuml.bp.core.test", name);
+	public SetupCreationTests() throws CoreException {
+		super("org.xtuml.bp.core.test", null);
 
 		CorePlugin.getDefault().getPreferenceStore().setValue(BridgePointPreferencesStore.USE_DEFAULT_NAME_FOR_CREATION,
 				true);

@@ -96,8 +96,8 @@ public class UndoRedoTestGenerics extends CanvasTest {
 
 	String test_id = null;
 
-	public UndoRedoTestGenerics(String name) {
-		super(null, name);
+	public UndoRedoTestGenerics() {
+		super(null, null);
 	}
 
 	/* (non-Javadoc)

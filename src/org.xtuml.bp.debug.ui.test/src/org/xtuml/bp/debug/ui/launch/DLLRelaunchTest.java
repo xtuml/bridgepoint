@@ -25,7 +25,10 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.swt.widgets.Display;
-
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Function_c;
@@ -37,11 +40,12 @@ import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.PersistableModelComponent;
 import org.xtuml.bp.core.ui.perspective.BridgePointPerspective;
 import org.xtuml.bp.core.ui.tree.ModelCheckedTreeViewer;
-import org.xtuml.bp.debug.ui.launch.BPDebugUtils;
 import org.xtuml.bp.debug.ui.test.DebugUITestUtilities;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TestingUtilities;
 
+@RunWith(OrderedRunner.class)
 public class DLLRelaunchTest extends BaseTest {
 
 	private static String projectName = "SR2569403761";
@@ -50,11 +54,12 @@ public class DLLRelaunchTest extends BaseTest {
 	private ModelCheckedTreeViewer treeViewer = null;
 	private String failureMessage = "";
 
-	public DLLRelaunchTest(String testName) throws Exception {
-		super(null , testName);
+	public DLLRelaunchTest() throws Exception {
+		super(null , null);
 	}
 	
 	@Override
+	@Before
 	public void setUp() throws Exception {
         super.setUp();
         
@@ -92,6 +97,7 @@ public class DLLRelaunchTest extends BaseTest {
     	}
 	}
 
+	@Test
 	public void testDLLRelaunch() {
 		Function_c testFunction = startSimulation();
 		executeTestFunction(testFunction);
@@ -186,6 +192,7 @@ public class DLLRelaunchTest extends BaseTest {
 		}
 		result = "";
 	}
+	@After
 	public void tearDown() throws Exception {
 		DebugUITestUtilities.stopSession(m_sys, projectName);
 	}

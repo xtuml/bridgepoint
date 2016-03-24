@@ -22,7 +22,6 @@
 package org.xtuml.bp.debug.ui.session.tree;
 
 import java.io.File;
-import java.io.FileWriter;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -34,7 +33,10 @@ import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.ui.PlatformUI;
-
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Function_c;
@@ -52,21 +54,24 @@ import org.xtuml.bp.debug.ui.launch.BPDebugUtils;
 import org.xtuml.bp.debug.ui.test.DebugUITestUtilities;
 import org.xtuml.bp.test.TestUtil;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TestingUtilities;
 import org.xtuml.bp.test.common.UITestingUtilities;
 import org.xtuml.bp.ui.session.views.SessionExplorerView;
 
+@RunWith(OrderedRunner.class)
 public class VerifierSessionExplorerTests extends BaseTest {
 
 	private static String projectName = "VerifierInterfaceExecutionTests";
 
 	private boolean initialized = false;
 
-	public VerifierSessionExplorerTests(String testName) throws Exception {
-		super(projectName, testName);
+	public VerifierSessionExplorerTests() throws Exception {
+		super(projectName, null);
 	}
 
 	@Override
+	@Before
 	public void setUp() throws Exception {
 		super.setUp();
 
@@ -124,10 +129,12 @@ public class VerifierSessionExplorerTests extends BaseTest {
 		}
 	}
 
+	@After
 	public void tearDown() throws Exception {
 		DebugUITestUtilities.stopSession(m_sys, projectName);
 	}
 	
+	@Test
 	public void testComponentsInSessionExplorerTree() {
 		Component_c component = Component_c.getOneC_COnR8001(PackageableElement_c.getManyPE_PEsOnR8000(Package_c.getManyEP_PKGsOnR1405(m_sys)), new ClassQueryInterface_c() {
 
@@ -155,6 +162,7 @@ public class VerifierSessionExplorerTests extends BaseTest {
 		assertEquals(expected_results, result);
 	}
 	
+	@Test
 	public void testDeleteDisabledForModelElement() {
 		Component_c component = Component_c.getOneC_COnR8001(PackageableElement_c.getManyPE_PEsOnR8000(Package_c.getManyEP_PKGsOnR1405(m_sys)), new ClassQueryInterface_c() {
 
@@ -180,6 +188,7 @@ public class VerifierSessionExplorerTests extends BaseTest {
 				UITestingUtilities.getMenuItem(menu, "Delete") == null);
 	}
 
+	@Test
 	public void testRenameDisabledForModelElement() {
 		Component_c component = Component_c.getOneC_COnR8001(PackageableElement_c.getManyPE_PEsOnR8000(Package_c.getManyEP_PKGsOnR1405(m_sys)), new ClassQueryInterface_c() {
 
@@ -205,6 +214,7 @@ public class VerifierSessionExplorerTests extends BaseTest {
 				UITestingUtilities.getMenuItem(menu, "Rename") == null);
 	}
 	
+	@Test
 	public void testAssociationPhraseReflexiveSimpleFormalized() throws CoreException {
 		loadProject("AssociationPhraseTestModel");
 		Component_c component = Component_c
@@ -245,6 +255,7 @@ public class VerifierSessionExplorerTests extends BaseTest {
 		verifyTree("expected_results/session_tree/unrelate_simple_reflexive_formalized.txt");
 	}
 
+	@Test
 	public void testAssociationPhraseReflexiveSimpleUnformalized() throws CoreException {
 		loadProject("AssociationPhraseTestModel");
 		Component_c component = Component_c
@@ -285,6 +296,7 @@ public class VerifierSessionExplorerTests extends BaseTest {
 		verifyTree("expected_results/session_tree/unrelate_simple_reflexive_unformalized.txt");
 	}
 
+	@Test
 	public void testAssociationPhraseReflexiveLinkedAssociation() throws CoreException {
 		loadProject("AssociationPhraseTestModel");
 		Component_c component = Component_c
@@ -348,6 +360,7 @@ public class VerifierSessionExplorerTests extends BaseTest {
 	 * chgset-552666-608825-639559-646195-650061-656073-656078-681174, it needs 
 	 * to get fixed.
 	 * See dts0100656068
+	@Test
 	public void testInstanceViewingAndNavigation() {
 		Component_c component = Component_c.getOneC_COnR4608(ComponentPackage_c
 				.getManyCP_CPsOnR4606(m_sys), new ClassQueryInterface_c() {

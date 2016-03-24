@@ -20,7 +20,10 @@ import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
-
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.ComponentInstance_c;
 import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.CorePlugin;
@@ -34,23 +37,25 @@ import org.xtuml.bp.core.common.ModelRoot;
 import org.xtuml.bp.core.ui.Selection;
 import org.xtuml.bp.core.ui.perspective.BridgePointPerspective;
 import org.xtuml.bp.debug.ui.actions.ExecuteAction;
-import org.xtuml.bp.debug.ui.launch.BPDebugUtils;
 import org.xtuml.bp.debug.ui.test.DebugUITestUtilities;
 import org.xtuml.bp.test.TestUtil;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TestingUtilities;
 import org.xtuml.bp.test.common.UITestingUtilities;
 
+@RunWith(OrderedRunner.class)
 public class RealizedComponentTest extends BaseTest {
 	private static String projectName = "RealizedComponentTest";
 
 	static private boolean initialized = false;
 
-	public RealizedComponentTest(String testName) throws Exception {
-		super(null,testName);
+	public RealizedComponentTest() throws Exception {
+		super(null, null);
 	}
 
 	@Override
+	@Before
 	public void setUp() throws Exception {
 		super.setUp();
 		if (!initialized){
@@ -79,6 +84,7 @@ public class RealizedComponentTest extends BaseTest {
 		}
 	}
 	
+	@After
 	public void tearDown() throws Exception {
 		// terminate all launches
 		DebugUITestUtilities.terminateAllProcesses(m_sys);
@@ -95,6 +101,7 @@ public class RealizedComponentTest extends BaseTest {
 	
 	
 	
+	@Test
 	public void testRealizedComponentTest1() {
 	ModelRoot[] roots = Ooaofooa.getInstancesUnderSystem(projectName);
 	
@@ -132,6 +139,7 @@ public class RealizedComponentTest extends BaseTest {
 
 }
 
+	@Test
 	public void testRealizedComponentTest2() {
 		ModelRoot[] roots = Ooaofooa.getInstancesUnderSystem(projectName);
 		
@@ -169,6 +177,7 @@ public class RealizedComponentTest extends BaseTest {
 
 	}
 	
+	@Test
 	public void testRealizedComponentTest3() {
 		ModelRoot[] roots = Ooaofooa.getInstancesUnderSystem(projectName);
 		
@@ -206,6 +215,7 @@ public class RealizedComponentTest extends BaseTest {
 
 	}
 	
+	@Test
 	public void testRealizedComponentTest4() {
 		ModelRoot[] roots = Ooaofooa.getInstancesUnderSystem(projectName);
 		
@@ -243,6 +253,7 @@ public class RealizedComponentTest extends BaseTest {
 
 	}
 	
+	@Test
 	public void testRealizedComponentTest5() {
 		ModelRoot[] roots = Ooaofooa.getInstancesUnderSystem(projectName);
 		
@@ -280,6 +291,7 @@ public class RealizedComponentTest extends BaseTest {
 
 	}
 	
+	@Test
 	public void testRealizedComponentTest6 () {
 		ModelRoot[] roots = Ooaofooa.getInstancesUnderSystem(projectName);
 		
@@ -317,6 +329,7 @@ public class RealizedComponentTest extends BaseTest {
 
 	}
 	
+	@Test
 	public void testRealizedComponentTest7() {
 		ModelRoot[] roots = Ooaofooa.getInstancesUnderSystem(projectName);
 		

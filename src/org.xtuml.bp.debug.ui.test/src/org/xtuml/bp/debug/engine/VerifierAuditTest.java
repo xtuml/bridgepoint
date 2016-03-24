@@ -12,7 +12,10 @@ import org.eclipse.debug.internal.ui.preferences.IDebugPreferenceConstants;
 import org.eclipse.debug.ui.IDebugUIConstants;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.ui.PlatformUI;
-
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.ComponentInstance_c;
 import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.CorePlugin;
@@ -28,6 +31,7 @@ import org.xtuml.bp.debug.ui.launch.BPDebugUtils;
 import org.xtuml.bp.debug.ui.test.DebugUITestUtilities;
 import org.xtuml.bp.test.TestUtil;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TestingUtilities;
 
 //========================================================================
@@ -52,17 +56,19 @@ import org.xtuml.bp.test.common.TestingUtilities;
 // the License.
 //========================================================================
 
+@RunWith(OrderedRunner.class)
 public class VerifierAuditTest extends BaseTest {
 
 	private static String projectName = "AuditTestModel";
 
 	private boolean initialized = false;
 
-	public VerifierAuditTest(String testName) throws Exception {
-		super(null, testName);
+	public VerifierAuditTest() throws Exception {
+		super(null, null);
 	}
 
 	@Override
+	@Before
 	public void setUp() throws Exception {
 		super.setUp();
 
@@ -97,10 +103,12 @@ public class VerifierAuditTest extends BaseTest {
 		}
 	}
 
+	@After
 	public void tearDown() throws Exception {
 		DebugUITestUtilities.stopSession(m_sys, projectName);
 	}
 
+	@Test
 	public void testVerifierAudit()throws InterruptedException {
 		IPreferenceStore store = CorePlugin.getDefault().getPreferenceStore();
         store.setValue(BridgePointPreferencesStore.ENABLE_VERIFIER_AUDIT, true);
@@ -153,6 +161,7 @@ public class VerifierAuditTest extends BaseTest {
 		
 	}
 
+	@Test
 	public void testVerifierAudit_Warning()throws InterruptedException {
 		IPreferenceStore store = CorePlugin.getDefault().getPreferenceStore();
         store.setValue(BridgePointPreferencesStore.ENABLE_VERIFIER_AUDIT, true);
@@ -207,6 +216,7 @@ public class VerifierAuditTest extends BaseTest {
         
         
 	}
+	@Test
 	public void testVerifierAudit_Fatal()throws InterruptedException {
 		IPreferenceStore store = CorePlugin.getDefault().getPreferenceStore();
         store.setValue(BridgePointPreferencesStore.ENABLE_VERIFIER_AUDIT, true);
@@ -281,6 +291,7 @@ public class VerifierAuditTest extends BaseTest {
         
 	}
 	
+	@Test
 	public void testVerifierAudit_runAllTests()throws InterruptedException {
 		IPreferenceStore store = CorePlugin.getDefault().getPreferenceStore();
         store.setValue(BridgePointPreferencesStore.ENABLE_VERIFIER_AUDIT, true);
@@ -358,7 +369,8 @@ public class VerifierAuditTest extends BaseTest {
         
         
 	}
-	/*public void testOutput(){
+	/*@Test
+	public void testOutput(){
 		compareOutput("Audit_test");
 	}*/
 

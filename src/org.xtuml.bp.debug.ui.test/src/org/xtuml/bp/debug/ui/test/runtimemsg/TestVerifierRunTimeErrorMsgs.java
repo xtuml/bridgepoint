@@ -31,15 +31,14 @@ import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
-
+import org.junit.After;
+import org.junit.Before;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.ComponentInstance_c;
 import org.xtuml.bp.core.Component_c;
-import org.xtuml.bp.core.ExecutableProperty_c;
 import org.xtuml.bp.core.Function_c;
 import org.xtuml.bp.core.InterfaceReference_c;
 import org.xtuml.bp.core.Ooaofooa;
-import org.xtuml.bp.core.Package_c;
-import org.xtuml.bp.core.PackageableElement_c;
 import org.xtuml.bp.core.Port_c;
 import org.xtuml.bp.core.ProvidedExecutableProperty_c;
 import org.xtuml.bp.core.ProvidedOperation_c;
@@ -49,19 +48,19 @@ import org.xtuml.bp.core.RequiredExecutableProperty_c;
 import org.xtuml.bp.core.RequiredOperation_c;
 import org.xtuml.bp.core.RequiredSignal_c;
 import org.xtuml.bp.core.Requirement_c;
-import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.InstanceList;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.ui.Selection;
 import org.xtuml.bp.core.ui.perspective.BridgePointPerspective;
 import org.xtuml.bp.debug.ui.actions.ExecuteAction;
-import org.xtuml.bp.debug.ui.launch.BPDebugUtils;
 import org.xtuml.bp.debug.ui.test.DebugUITestUtilities;
 import org.xtuml.bp.test.TestUtil;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TestingUtilities;
 import org.xtuml.bp.test.common.UITestingUtilities;
 
+@RunWith(OrderedRunner.class)
 public class TestVerifierRunTimeErrorMsgs extends BaseTest {
     public static boolean generateResults = false;
     public static boolean useDrawResults = true;
@@ -83,11 +82,13 @@ public class TestVerifierRunTimeErrorMsgs extends BaseTest {
         return "test_" + count;
     }
 
-    public void setUp() throws Exception {
+    @Before
+	public void setUp() throws Exception {
         super.setUp();
     }
 
-    public void tearDown() throws Exception {
+    @After
+	public void tearDown() throws Exception {
         super.tearDown();
     }
 

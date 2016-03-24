@@ -9,7 +9,10 @@ import org.eclipse.debug.core.model.IBreakpoint;
 import org.eclipse.debug.internal.ui.DebugUIPlugin;
 import org.eclipse.debug.ui.IDebugUIConstants;
 import org.eclipse.ui.PlatformUI;
-
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.CreationTransition_c;
 import org.xtuml.bp.core.LocalEvent_c;
@@ -25,19 +28,22 @@ import org.xtuml.bp.core.common.PersistableModelComponent;
 import org.xtuml.bp.core.ui.Selection;
 import org.xtuml.bp.debug.ui.test.DebugUITestUtilities;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TestingUtilities;
 import org.xtuml.bp.ui.text.activity.ActivityEditor;
 
+@RunWith(OrderedRunner.class)
 public class BreakpointTest extends BaseTest {
 
 	private static String projectName = "BreakpointTest";
 	private boolean initialized = false;
 	
-	public BreakpointTest(String testName) throws Exception {
-		super(projectName, testName);
+	public BreakpointTest() throws Exception {
+		super(projectName, null);
 	}
 
 	@Override
+	@Before
 	public void setUp() throws Exception {
 		super.setUp();
 
@@ -73,11 +79,13 @@ public class BreakpointTest extends BaseTest {
 		}
 	}
 
+	@After
 	public void tearDown() throws Exception {
 		DebugUITestUtilities.stopSession(m_sys, projectName);
 	}
 	
-    public void testSetBreakpointOnNewStateTransitionWithLongEventDataList() {
+    @Test
+	public void testSetBreakpointOnNewStateTransitionWithLongEventDataList() {
 		StateMachineEvent_c evt = StateMachineEvent_c.StateMachineEventInstance(modelRoot, new ClassQueryInterface_c() {
 				
 					public boolean evaluate(Object candidate) {
@@ -95,7 +103,8 @@ public class BreakpointTest extends BaseTest {
         setAndConfirmBreakpoint(tr);        
     }
 
-    public void testSetBreakpointOnCreationTransitionWithLongEventDataList() {
+    @Test
+	public void testSetBreakpointOnCreationTransitionWithLongEventDataList() {
 		StateMachineEvent_c evt = StateMachineEvent_c.StateMachineEventInstance(modelRoot, new ClassQueryInterface_c() {
 				
 					public boolean evaluate(Object candidate) {

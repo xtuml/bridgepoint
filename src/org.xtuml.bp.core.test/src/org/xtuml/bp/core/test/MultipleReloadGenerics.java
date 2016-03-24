@@ -41,8 +41,8 @@ public class MultipleReloadGenerics extends BaseTest {
 	//private static final String projectName = "org.xtuml.bp.core.testGenerics"; //$NON-NLS-1$
 	private static final String modelName = "mfp_issue34"; //$NON-NLS-1$
 	private static boolean initialized = false;
-	public MultipleReloadGenerics(String name) throws Exception {
-		super("Default Project", name); //$NON-NLS-1$
+	public MultipleReloadGenerics() throws Exception {
+		super("Default Project", null); //$NON-NLS-1$
 	}
 
 	@Before

@@ -40,7 +40,10 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.ui.PlatformUI;
-
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.ComponentInstance_c;
 import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.CorePlugin;
@@ -58,9 +61,11 @@ import org.xtuml.bp.debug.ui.launch.BPDebugUtils;
 import org.xtuml.bp.debug.ui.test.DebugUITestUtilities;
 import org.xtuml.bp.test.TestUtil;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TestingUtilities;
 import org.xtuml.bp.test.common.UITestingUtilities;
 
+@RunWith(OrderedRunner.class)
 public class VerifierStaticVariablesInRealizedClassesTest extends BaseTest {
     public static boolean generateResults = false;
     public static String  launchComponentName="";
@@ -71,7 +76,8 @@ public class VerifierStaticVariablesInRealizedClassesTest extends BaseTest {
     private static SystemModel_c NoEE_sys;
 	
 	
- public void setUp() throws Exception {
+ @Before
+	public void setUp() throws Exception {
         
 		if (!initialized) {
 		super.setUp();
@@ -153,8 +159,8 @@ public class VerifierStaticVariablesInRealizedClassesTest extends BaseTest {
 
 
 
-    public VerifierStaticVariablesInRealizedClassesTest(String testName) {
-    	super(null, testName);
+    public VerifierStaticVariablesInRealizedClassesTest() {
+    	super(null, null);
     }
 
     protected String getTestId(String src, String dest, String count) {
@@ -162,7 +168,8 @@ public class VerifierStaticVariablesInRealizedClassesTest extends BaseTest {
     }
 
   
-    public void tearDown() throws Exception {
+    @After
+	public void tearDown() throws Exception {
     	DebugUITestUtilities.stopSession(DuplicateEE_sys, "EERealizedStaticDataTestLibraryDuplicateRealizedEE");
     	DebugUITestUtilities.stopSession(LocalEE_sys, "EERealizedStaticDataTestLocalRealizedEE");
     	DebugUITestUtilities.stopSession(NoEE_sys, "EERealizedStaticDataTestNoLocalRealizedEE");
@@ -203,18 +210,22 @@ public class VerifierStaticVariablesInRealizedClassesTest extends BaseTest {
 
 
 	 
+	@Test
 	public void testSingleProjectDualLocalComponents() {
 		doTest("DualLocalComponents", "RealizedStaticDataValuesSingleProjectDualLocalComponents.txt");
 	}
 	
+	@Test
 	public void testSingleProjectComponentAndReference() {
 		doTest("LocalComponentLocalReference", "RealizedStaticDataValuesSingleProjectComponentAndReference.txt");
 	}
 	
+	@Test
 	public void testDualProjectLocalComponentIPReferenceNoEE() {
 		doTest("LocalComponentIPReferenceNoEE", "RealizedStaticDataValuesDualProjectLocalComponentIPReferenceNoEE.txt");
 	}
 	
+	@Test
 	public void testDualProjectLocalComponentIPReferenceDuplicateEE() {
 		doTest("LocalComponentIPReferenceDuplicateEE", "RealizedStaticDataValuesDualProjectLocalComponentIPReferenceDuplicateEE.txt");
 	}
@@ -287,7 +298,8 @@ public class VerifierStaticVariablesInRealizedClassesTest extends BaseTest {
 
 	}
 	
-/*	public void testRealizedClassesWithSameNameDifferentImplementation(){
+/*	@Test
+	public void testRealizedClassesWithSameNameDifferentImplementation(){
 		NonRootModelElement[] systemComponent = findComponents(System_sys);
 		NonRootModelElement[] libraryComponent = findComponents(Library_sys);
 		NonRootModelElement[] preSelectedComponent = {systemComponent[0],libraryComponent[0]};

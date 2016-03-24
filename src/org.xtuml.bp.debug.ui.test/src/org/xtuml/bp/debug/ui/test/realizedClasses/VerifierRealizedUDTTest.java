@@ -12,7 +12,10 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.ui.PlatformUI;
-
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Function_c;
 import org.xtuml.bp.core.Ooaofooa;
@@ -28,21 +31,24 @@ import org.xtuml.bp.debug.ui.launch.BPDebugUtils;
 import org.xtuml.bp.debug.ui.test.DebugUITestUtilities;
 import org.xtuml.bp.test.TestUtil;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TestingUtilities;
 import org.xtuml.bp.test.common.UITestingUtilities;
 
+@RunWith(OrderedRunner.class)
 public class VerifierRealizedUDTTest extends BaseTest {
 
 	private static String projectName = "VerifierRealizedUDTTest";
 
-	private boolean initialized = false;
+	private static boolean initialized = false;
 
 	private boolean deterministicState = true;
-	public VerifierRealizedUDTTest(String testName) throws Exception {
-		super(null, testName);
+	public VerifierRealizedUDTTest() throws Exception {
+		super(null, null);
 	}
 
 	@Override
+	@Before
 	public void setUp() throws Exception {
 		super.setUp();
 
@@ -95,6 +101,7 @@ public class VerifierRealizedUDTTest extends BaseTest {
 		}
 	}
 
+	@After
 	public void tearDown() throws Exception {
 		// terminate all launches
 		DebugUITestUtilities.terminateAllProcesses(m_sys);
@@ -114,20 +121,16 @@ public class VerifierRealizedUDTTest extends BaseTest {
 
 	static String actualResults = null;
 
-	public void testVerifierRealizedUDTTests(){
-		this.doTestVerifyReadyToRun();
-		this.doTestRealizedUDTsInInterfaceOperations();
-		this.doTestRealizedUDTsInSignals();
-	}
-
-	public void doTestVerifyReadyToRun() {
+	@Test
+	public void testVerifyReadyToRun() {
         File checkFile = new File(getProject().getLocation().toString() + "/bin/library/RealizedUDTTest.class");
         assertTrue("This test requires that you build " + projectName + " in your workspace before it will succeed.",
         		checkFile.exists());
 
 	}
 	
-	public void doTestRealizedUDTsInInterfaceOperations() {
+	@Test
+	public void testRealizedUDTsInInterfaceOperations() {
 		String actual_results = performRealizedUDTTest("OperationTest");
 		File expectedResults = new File(m_workspace_path
 			       + "expected_results/binding/OperationTest.result");
@@ -136,7 +139,8 @@ public class VerifierRealizedUDTTest extends BaseTest {
 	    assertEquals(expected_results, actual_results);
 	}
 	
-	public void doTestRealizedUDTsInSignals() {
+	@Test
+	public void testRealizedUDTsInSignals() {
 		String actual_results = performRealizedUDTTest("SignalTest");
 		// Can't use comparison file with signals in not deterministic mode.
 		// There is a reference result file in expected_results/binding for this
