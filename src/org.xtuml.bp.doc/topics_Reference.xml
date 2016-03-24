@@ -114,8 +114,8 @@ the License.
       <topic label="The Translation Process in Detail" href="Reference/Translation/HTML/Detail.htm" />
     </topic>
     <topic label="MASL">
-      <topic label="DesignGuide" href="Reference/MASL/masl2xtuml/masl2xtuml.html"/>
-      <topic label="EditorGuide" href="Reference/MASL/masl2xtuml/masl2xtuml.html"/>
+      <topic label="BridgePoint MASL Guide" href="Reference/MASL/BridgePointMASLguide/BridgePointMASLguide.html"/>
+      <topic label="Guide to BridgePoint MASL Editor" href="Reference/MASL/GuidetoBridgePointMASLEditor/GuidetoBridgePointMASLEditor.html"/>
       <topic label="masl2xtuml" href="Reference/MASL/masl2xtuml/masl2xtuml.html"/>
       <topic label="xtuml2masl" href="Reference/MASL/xtuml2masl/xtuml2masl.html"/>
     </topic>
