@@ -324,10 +324,7 @@ INSERT INTO O_TFR
 
 select one sourceSpec related by self->GD_ES[R30];
 select one targetSpec related by self->GD_ES[R31];
-// We are only interested in connectors
-if (targetSpec.symbolType=="connector")
 
-  // see if this connector type can possibly be on this model root
   select any model related by self->GD_ES[R31]->GD_EMS[R11]->GD_MS[R11]->GD_MD[R9] where (selected.diagramId==param.diagram_id);
 
   select many graphicalElements related by model->GD_GE[R1];
@@ -338,6 +335,15 @@ if (targetSpec.symbolType=="connector")
                                            OOA_ID:graphicalElement.OOA_ID,
                                            OOA_Type:graphicalElement.OOA_Type );
     end if;
+
+	if (CL::traceGraphicsCreationIsEnabled()) 
+	  
+	  msg = "Looking for: " + 
+	  		targetSpec.Name + 
+	  		" in " + CL::getModelElementName(from:graphicalElement.represents);
+	  CL::logTraceMsg(filterType:LoggerType::OPERATION, filterValue:"use_string_buffer", message:msg);
+	end if;
+        
 
     // only check elements under the passed system
     if( CL::isContainedInSystem(element:graphicalElement.represents, system_id:param.system_id))
@@ -388,6 +394,23 @@ if (targetSpec.symbolType=="connector")
           connectorId = CL::getElementID(from:graphicalElement.represents,
                           index:j, using:self.Bridge_GetElementID);
         end if;
+		
+		// If we are tracing we actually do not perform the creation we are simply
+		// capturing the creation operations. This is only turned on via the
+		// BridgePoint debug tracing facility
+		if (CL::traceGraphicsCreationIsEnabled()) 
+		  connectorInstance = CL::getInstanceFromOOA_ID2(OOA_ID:connectorId, rootInst:model.represents);
+		  msg = targetSpec.Name + "in " + CL::getModelElementName(from:graphicalElement.represents) + " is needed. Creating it.";
+		  CL::logTraceMsg(filterType:LoggerType::OPERATION, filterValue:"use_string_buffer", message:msg);
+		end if;
+		
+		//TODO BOB FIXME: This is temporary why I get connectors working
+		bobdebug=true;
+		if (bobdebug)
+		  j=j+1;
+		  continue;
+        end if;
+        
         templateConId = OS::NULL_UNIQUE_ID();
         if self.Bridge_GetConnectorIDConditional != ""
           templateConId = CL::getConnectorID(from:graphicalElement.represents,
@@ -484,7 +507,6 @@ if (targetSpec.symbolType=="connector")
          
     end if; // if( CL::isContainedInSystem(element:graphicalElement.represents, system_id:param.system_id))   
   end for;
-end if;
 
 
 
@@ -971,9 +993,13 @@ while (i < numRoots)
         // This is where we reconcile all connectors in this container
         // note that this condition cound be set to symbolType=="container", but by doing the inverse
         // of the pass 1 select we are sure to get all the items not covered in pass 1
-        select many containerARSs related by model->GD_GE[R1]->GD_ES[R10]->GD_ARS[R31];
-        for each containerARS in containerARSs
-          containerARS.reconcileConnectorsNoExistingGraphics(diagram_id:model.diagramId, system_id:param.system_id);
+                
+        // This gets all the GD_ARS instances associated with 
+        // this container (graphical model root)  type
+        select many connectorSpecs related by model->GD_MS[R9]->GD_EMS[R11]->GD_ES[R11] where selected.symbolType=="connector";
+        select many connectorARSs related by connectorSpecs->GD_ARS[R31];
+        for each connectorARS in connectorARSs
+          connectorARS.reconcileConnectorsNoExistingGraphics(diagram_id:model.diagramId, system_id:param.system_id);
         end for;
       end if;          
     end if;

@@ -1073,14 +1073,6 @@ INSERT INTO O_TFR
 	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'reprocess = false;
-// If we are tracing we actually do not perform the creation we are simply
-// capturing the creation operations. This is only turned on via the
-// BridegePoint debug tracing facility
-if (CL::traceGraphicsCreationIsEnabled()) 
-  msg = "Connector needed: ";
-  CL::logTraceMsg(filterType:LoggerType::OPERATION, filterValue:"use_string_buffer", message:msg);
-  return reprocess;
-end if;
 if (param.existingGraphicsArePresent)
 select any ars related by self->GD_MS[R9]->GD_EMS[R11]->
                        GD_ES[R11]->GD_ARS[R29] where selected.Id == param.arsId;
