@@ -773,20 +773,20 @@ INSERT INTO O_TFR
 	'id = GD::NULL_UNIQUE_ID();
 // We''re preincrementing the index
 count = -1;
-select many transitions related by self->SM_NETXN[R508]->SM_TXN[R507];
-for each transition in transitions
+select many noEventTransitions related by self->SM_NETXN[R508]->SM_TXN[R507];
+for each noEventTransition in noEventTransitions
   count = count + 1;
   if (count == param.index)
-    id = transition.Trans_ID;
+    id = noEventTransition.Trans_ID;
     break;
   end if;
 end for; 
 if (id == GD::NULL_UNIQUE_ID())
-  select many transitions related by self->SM_SEME[R503]->SM_NSTXN[R504]->SM_TXN[R507];
-  for each transition in transitions
+  select many newStateTransitions related by self->SM_SEME[R503]->SM_NSTXN[R504]->SM_TXN[R507];
+  for each newStateTransition in newStateTransitions
     count = count + 1;
     if (count == param.index)
-      id = transition.Trans_ID;
+      id = newStateTransition.Trans_ID;
       break;
     end if;
   end for; 
