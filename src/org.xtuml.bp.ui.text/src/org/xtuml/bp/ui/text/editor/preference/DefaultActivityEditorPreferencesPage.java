@@ -1,14 +1,6 @@
 package org.xtuml.bp.ui.text.editor.preference;
 
 //========================================================================
-//
-//File:      $RCSfile: DefaultActivityEditorPreferencePage.java,v $
-//Version:   $Revision: 1.4 $
-//Modified:  $Date: 2012/01/23 21:28:10 $
-//
-//(c) Copyright 2007-2014 by Mentor Graphics Corp. All rights reserved.
-//
-//========================================================================
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not 
 // use this file except in compliance with the License.  You may obtain a copy 
 // of the License at
@@ -82,9 +74,8 @@ public class DefaultActivityEditorPreferencesPage extends PreferencePage impleme
 		activityEditorRadio.setText("&Activity Editor");
 		activityEditorRadio.setLayoutData(new GridData());
 
-                // TODO Levi disabled preference for testing
-		//model = new BridgePointPreferencesModel();
-                //model.getStore().loadModel(getPreferenceStore(), null, model);
+		model = new BridgePointPreferencesModel();
+        model.getStore().loadModel(getPreferenceStore(), null, model);
 
 		syncUIWithPreferences();
 		
@@ -93,8 +84,7 @@ public class DefaultActivityEditorPreferencesPage extends PreferencePage impleme
 
 	public void init(IWorkbench workbench) {
 		// Initialize the Core preference store
-                // TODO Levi disabled preference for testing
-		//setPreferenceStore(CorePlugin.getDefault().getPreferenceStore());
+		setPreferenceStore(CorePlugin.getDefault().getPreferenceStore());
 	}
 
 	public void createControl(Composite parent) {
@@ -112,8 +102,7 @@ public class DefaultActivityEditorPreferencesPage extends PreferencePage impleme
 		// store to be updated.  So we need to make sure our copy of the
 		// preferences model is up to date before we modify and save it.
 
-                /* TODO Levi disabled preference for testing
-                model.getStore().loadModel(getPreferenceStore(), null, model);
+        model.getStore().loadModel(getPreferenceStore(), null, model);
 
 		BridgePointPreferencesModel bpPrefs = (BridgePointPreferencesModel) model;
 		if (maslEditorRadio.getSelection()) {
@@ -123,20 +112,16 @@ public class DefaultActivityEditorPreferencesPage extends PreferencePage impleme
 		}
 
 		model.getStore().saveModel(getPreferenceStore(), model);
-                */
 		return true;
 	}
 
 	public void performDefaults() {
 		super.performDefaults();
-                /* TODO Levi disabled preference for testing
 		model.getStore().restoreModelDefaults(model);
 		syncUIWithPreferences();
-                */
 	}
 	
     private void syncUIWithPreferences() {
-        /* TODO Levi disabled preference for testing
         BridgePointPreferencesModel bpPrefs = (BridgePointPreferencesModel) model;
         
         // NOTE: We do NOT want to call model.loadModel(...) here.  The model will
@@ -155,7 +140,6 @@ public class DefaultActivityEditorPreferencesPage extends PreferencePage impleme
             maslEditorRadio.setSelection(false);
             activityEditorRadio.setSelection(true);
         }
-        */
     }
 
 }

@@ -179,6 +179,32 @@ This file is the plugin manifest for the BridgePoint core plugin.
       <objectContribution
             objectClass="org.xtuml.bp.core.RequiredOperation_c"
             adaptable="true"
+            id="org.xtuml.bp.ui.text.contribution1">
+         <action
+               label="MASL Editor"
+               icon="platform:/plugin/org.xtuml.bp.core/icons/edit_oal.gif"
+               class="org.xtuml.bp.ui.text.masl.ShowMASLAction"
+               menubarPath="org.xtuml.bp.ui.openroot/org.xtuml.bp.ui.openmenu"
+               enablesFor="1"
+               id="org.xtuml.bp.ui.text.masl.ShowMASLEditorAction1">
+         </action>
+      </objectContribution>
+      <objectContribution
+            objectClass="org.xtuml.bp.core.RequiredSignal_c"
+            adaptable="true"
+            id="org.xtuml.bp.ui.text.contribution2">
+         <action
+               label="MASL Editor"
+               icon="platform:/plugin/org.xtuml.bp.core/icons/edit_oal.gif"
+               class="org.xtuml.bp.ui.text.masl.ShowMASLAction"
+               menubarPath="org.xtuml.bp.ui.openroot/org.xtuml.bp.ui.openmenu"
+               enablesFor="1"
+               id="org.xtuml.bp.ui.text.masl.ShowMASLEditorAction2">
+         </action>
+      </objectContribution>
+      <objectContribution
+            objectClass="org.xtuml.bp.core.ProvidedOperation_c"
+            adaptable="true"
             id="org.xtuml.bp.ui.text.contribution3">
          <action
                label="MASL Editor"
@@ -190,7 +216,7 @@ This file is the plugin manifest for the BridgePoint core plugin.
          </action>
       </objectContribution>
       <objectContribution
-            objectClass="org.xtuml.bp.core.RequiredSignal_c"
+            objectClass="org.xtuml.bp.core.ProvidedSignal_c"
             adaptable="true"
             id="org.xtuml.bp.ui.text.contribution4">
          <action
