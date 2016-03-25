@@ -400,7 +400,7 @@ select one targetSpec related by self->GD_ES[R31];
 		// BridgePoint debug tracing facility
 		if (CL::traceGraphicsCreationIsEnabled()) 
 		  connectorInstance = CL::getInstanceFromOOA_ID2(OOA_ID:connectorId, rootInst:model.represents);
-		  msg = targetSpec.Name + "in " + CL::getModelElementName(from:graphicalElement.represents) + " is needed. Creating it.";
+		  msg = targetSpec.Name + " GD_GE associated with " + CL::getModelElementName(from:graphicalElement.represents) + " is needed. Creating it.";
 		  CL::logTraceMsg(filterType:LoggerType::OPERATION, filterValue:"use_string_buffer", message:msg);
 		end if;
 		
