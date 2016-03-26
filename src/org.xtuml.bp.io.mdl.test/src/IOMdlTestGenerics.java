@@ -32,7 +32,9 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.ui.PlatformUI;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TestName;
 import org.junit.runner.RunWith;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Package_c;
@@ -53,6 +55,8 @@ import junit.framework.TestCase;
 
 @RunWith(OrderedRunner.class)
 public class IOMdlTestGenerics extends TestCase {
+	
+	@Rule public TestName name = new TestName();
 
     GeneralPurposeLogger log1;  // log for core
     GeneralPurposeLogger log2;  // log for canvas
@@ -77,18 +81,20 @@ public class IOMdlTestGenerics extends TestCase {
      */
     private static boolean generateResults = false;
 
-	public IOMdlTestGenerics(String arg0) {
-		super(arg0);
+	public IOMdlTestGenerics() {
+		super(null);
 		// they all start with "test_"
-		m_domain_name = arg0.substring(5, arg0.length());
+//		m_domain_name = arg0.substring(5, arg0.length());
 	
 	}
 	@Before
 	public void setUp() throws Exception {
+		String methodName = name.getMethodName();
+		m_domain_name = methodName.substring(5, methodName.length());
 		PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().closeAllEditors(false);
 		while(PlatformUI.getWorkbench().getDisplay().readAndDispatch());
 		super.setUp();
-        IdAssigner.setSeedOfAllInstances(getName().hashCode(), true);
+        IdAssigner.setSeedOfAllInstances(methodName.hashCode(), true);
         if (m_workspace_path == null || m_workspace_path.equals(""))
         {
             m_workspace_path = System.getProperty("WORKSPACE_PATH");
