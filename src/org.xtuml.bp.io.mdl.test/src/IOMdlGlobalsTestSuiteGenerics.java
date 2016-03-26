@@ -25,6 +25,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.common.BridgePointPreferencesStore;
+import org.xtuml.bp.core.test.GlobalTestSetupClass;
 import org.xtuml.bp.io.mdl.test.IOMdlGlobalsTestGenerics;
 import org.xtuml.bp.io.mdl.test.IOMdlNestedTestGenerics;
 import org.xtuml.bp.io.mdl.test.IOMdlUnicodeTestGenerics;
@@ -37,6 +38,7 @@ import junit.framework.Test;
 import junit.framework.TestSuite;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
+   GlobalTestSetupClass.class,
    IOMdlGlobalsTestGenerics.class,
    IOMdlNestedTestGenerics.class,
    IOMdlTestGenerics.class,
@@ -48,19 +50,5 @@ import junit.framework.TestSuite;
 })
 public class IOMdlGlobalsTestSuiteGenerics extends TestSuite {
 
-	/**
-	 * Returns the suite.  This is required to
-	 * use the JUnit Launcher.
-	 */
-	public static Test suite() {
-		return new IOMdlGlobalsTestSuiteGenerics();
-	}
-	
-	/**
-	 * Construct the test suite.
-	 */
-	public IOMdlGlobalsTestSuiteGenerics()
-    { 
-		CorePlugin.getDefault().getPreferenceStore().setValue(BridgePointPreferencesStore.USE_DEFAULT_NAME_FOR_CREATION,true);
-    }	
+
 }
