@@ -465,13 +465,6 @@ while (j < connectorCount)
 	  CL::logTraceMsg(filterType:LoggerType::OPERATION, filterValue:"use_string_buffer", message:msg);
     end if;
 
-    //FIXME: Don''t call newconnector until ready
-    bobdebug = true;
-    if(bobdebug)
-      j=j+1;
-      continue;
-    end if;
-
     reprocess = model.newConnector(connector:otherSideElementID,
                        elementId:graphicalElement.elementId, arsId:self.Id,
                                                   representsId:connectorId,
