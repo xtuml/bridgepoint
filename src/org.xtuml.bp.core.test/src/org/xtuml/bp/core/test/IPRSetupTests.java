@@ -69,8 +69,13 @@ public class IPRSetupTests extends CanvasTest {
 				true);
 	}
 
+	private static boolean isFirstTime = true;
 	@Override
-	protected void initialSetup() throws Exception {
+	@Before
+	public void initialSetup() throws Exception {
+		if (!isFirstTime)
+			return;
+		isFirstTime = false;
 		// create the two test projects
 		projectOne = TestingUtilities.createProject("test_project_referencing");
 		projectTwo = TestingUtilities.createProject("test_project_referenced");

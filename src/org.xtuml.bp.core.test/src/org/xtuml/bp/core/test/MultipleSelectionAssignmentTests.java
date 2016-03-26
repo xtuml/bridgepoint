@@ -33,6 +33,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.ui.IObjectActionDelegate;
 import org.eclipse.ui.PlatformUI;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.xtuml.bp.core.Attribute_c;
@@ -93,8 +94,13 @@ public class MultipleSelectionAssignmentTests extends BaseTest {
 
 	private static final String TEST_PROJECT_NAME = "MultipleSelectionAssignmentTests";
 
+	private static boolean isFirstTime = true;
 	@Override
-	protected void initialSetup() throws Exception {
+	@Before
+	public void initialSetup() throws Exception {
+		if (!isFirstTime)
+			return;
+		isFirstTime = false;
 		// disable auto build
 		WorkspaceUtil.setAutobuilding(false);
 		// load the test model

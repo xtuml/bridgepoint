@@ -33,6 +33,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.xtuml.bp.core.CorePlugin;
@@ -54,8 +55,13 @@ public class ModelIntegrityTests extends BaseTest {
 	private String test_id;
 	private IntegrityManager_c manager;	
 
+	private static boolean isFirstTime = true;
 	@Override
-	protected void initialSetup() throws Exception {
+	@Before
+	public void initialSetup() throws Exception {
+		if (!isFirstTime)
+			return;
+		isFirstTime = false;
 		loadProject("ModelIntegrityTests");
 	}
 	
