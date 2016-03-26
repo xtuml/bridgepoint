@@ -2026,7 +2026,7 @@ public static void Settoolbarstate(boolean readonly) {
 	}	
 	
 	// This function gets the name of any NonRootModelElement
-    public static Object Getmodelelementname(final Object From) {
+    public static String Getmodelelementname(final Object From) {
     	return s_invoke(From, "getName", null, null);
     }
 }// End Cl_c

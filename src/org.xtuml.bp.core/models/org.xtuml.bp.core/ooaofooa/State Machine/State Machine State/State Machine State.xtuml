@@ -792,26 +792,7 @@ if (id == GD::NULL_UNIQUE_ID())
   end for; 
 end if;
 return id;
-
-
-
-
-
-
-
-
-
-select many transitions related by self->SM_TXN[R506];
-// We''re preincrementing the index
-count = -1;
-for each transition in transitions
-  count = count + 1;
-  if (count == param.index)
-    id = transition.Trans_ID;
-    break;
-  end if;
-end for; 
-return id;',
+',
 	1,
 	'',
 	"a87a0930-209e-47e6-b219-d11860329fa1");
