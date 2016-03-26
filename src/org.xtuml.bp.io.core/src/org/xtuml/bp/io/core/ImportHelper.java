@@ -88,6 +88,7 @@ import org.xtuml.bp.core.Lifespan_c;
 import org.xtuml.bp.core.Message_c;
 import org.xtuml.bp.core.ModelClass_c;
 import org.xtuml.bp.core.Modeleventnotification_c;
+import org.xtuml.bp.core.MooreActionHome_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.OperationParameter_c;
 import org.xtuml.bp.core.Operation_c;
@@ -109,6 +110,7 @@ import org.xtuml.bp.core.SatisfactionInComponent_c;
 import org.xtuml.bp.core.Satisfaction_c;
 import org.xtuml.bp.core.StateMachineEventDataItem_c;
 import org.xtuml.bp.core.StateMachineEvent_c;
+import org.xtuml.bp.core.StateMachineState_c;
 import org.xtuml.bp.core.StateMachine_c;
 import org.xtuml.bp.core.StructureMember_c;
 import org.xtuml.bp.core.SupplementalDataItems_c;
@@ -494,25 +496,35 @@ public class ImportHelper
             //System.out.println( el.getPersistableComponent() );
 
             // for each MASL activity object
-            if ( MASLEditorInput.isSupported( el ) ) {
+            if ( !( el instanceof Action_c ) && MASLEditorInput.isSupported( el ) ) {
 
 		TransactionUtil.TransactionGroup transactionGroup = TransactionUtil.startTransactionsOnSelectedModelRoots("Load MASL activity");
 		Ooaofooa.beginSaveOperation();
 
                 // get Action_Semantics_internal field
             	String action_semantics = "";
-            	try {
-					Method method = el.getClass().getMethod("getAction_semantics_internal", null);
-					action_semantics = (String)method.invoke((Object)el, null);
-            	} catch ( SecurityException e ) {
-            		System.out.println(e);
-            	} catch ( NoSuchMethodException e ) {
-            		System.out.println(e);
-            	} catch ( InvocationTargetException e ) {
-            		System.out.println(e);
-            	} catch (IllegalAccessException e) {
-            		System.out.println(e);
-            	}
+                if ( el instanceof StateMachineState_c ) {
+                    // select one sm_act related by sm_state->SM_MOAH[R511]->SM_AH[R513]->SM_ACT[R514];
+                    StateMachineState_c sm_state = (StateMachineState_c)el;
+                    Action_c sm_act = Action_c.getOneSM_ACTOnR514( ActionHome_c.getOneSM_AHOnR513( MooreActionHome_c.getOneSM_MOAHOnR511( sm_state ) ) );
+                    if ( sm_act != null ) {
+                        action_semantics = sm_act.getAction_semantics_internal();
+                    }
+                }
+                else {
+                    try {
+                                            Method method = el.getClass().getMethod("getAction_semantics_internal", null);
+                                            action_semantics = (String)method.invoke((Object)el, null);
+                    } catch ( SecurityException e ) {
+                            System.out.println(e);
+                    } catch ( NoSuchMethodException e ) {
+                            System.out.println(e);
+                    } catch ( InvocationTargetException e ) {
+                            System.out.println(e);
+                    } catch (IllegalAccessException e) {
+                            System.out.println(e);
+                    }
+                }
 
                 // parse codeblock
                 String filename = "";
@@ -520,17 +532,27 @@ public class ImportHelper
                     Matcher m = Pattern.compile( "codeblock:.*" ).matcher( action_semantics );
                     if ( m.find() ) {
                         filename = m.group().substring(10);
-            	        try {
-                            Method method = el.getClass().getMethod( "setAction_semantics_internal", String.class );
-                            method.invoke((Object)el, m.replaceAll("") );
-                        } catch ( SecurityException e ) {
-                                System.out.println(e);
-                        } catch ( NoSuchMethodException e ) {
-                                System.out.println(e);
-                        } catch ( InvocationTargetException e ) {
-                                System.out.println(e);
-                        } catch (IllegalAccessException e) {
-                                System.out.println(e);
+                        if ( el instanceof StateMachineState_c ) {
+                            // select one sm_act related by sm_state->SM_MOAH[R511]->SM_AH[R513]->SM_ACT[R514];
+                            StateMachineState_c sm_state = (StateMachineState_c)el;
+                            Action_c sm_act = Action_c.getOneSM_ACTOnR514( ActionHome_c.getOneSM_AHOnR513( MooreActionHome_c.getOneSM_MOAHOnR511( sm_state ) ) );
+                            if ( sm_act != null ) {
+                                sm_act.setAction_semantics_internal( m.replaceAll("") );
+                            }
+                        }
+                        else {
+                            try {
+                                Method method = el.getClass().getMethod( "setAction_semantics_internal", String.class );
+                                method.invoke((Object)el, m.replaceAll("") );
+                            } catch ( SecurityException e ) {
+                                    System.out.println(e);
+                            } catch ( NoSuchMethodException e ) {
+                                    System.out.println(e);
+                            } catch ( InvocationTargetException e ) {
+                                    System.out.println(e);
+                            } catch (IllegalAccessException e) {
+                                    System.out.println(e);
+                            }
                         }
                     }
                 }
