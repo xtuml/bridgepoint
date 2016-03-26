@@ -27,7 +27,6 @@ import org.junit.runners.Suite;
 import org.xtuml.bp.ui.properties.test.DeleteUDTWithPropertyShowing;
 import org.xtuml.bp.ui.properties.test.ElementOrderingTest;
 import org.xtuml.bp.ui.properties.test.EnumRangeTest;
-import org.xtuml.bp.ui.properties.test.FibonacciTest;
 import org.xtuml.bp.ui.properties.test.IsAllowedTypeTest;
 import org.xtuml.bp.ui.properties.test.NumberRangeTest;
 import org.xtuml.bp.ui.properties.test.PropertiesGlobalsTest;
@@ -45,7 +44,6 @@ import junit.framework.TestSuite;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-	 FibonacciTest.class,
 	 PropertiesGlobalsTest.class,
      IsAllowedTypeTest.class,
      NumberRangeTest.class,
