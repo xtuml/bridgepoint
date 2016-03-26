@@ -54,7 +54,8 @@ import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.views.properties.IPropertyDescriptor;
-
+import org.junit.Before;
+import org.junit.Test;
 import org.xtuml.bp.core.*;
 import org.xtuml.bp.test.common.BaseTest;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
