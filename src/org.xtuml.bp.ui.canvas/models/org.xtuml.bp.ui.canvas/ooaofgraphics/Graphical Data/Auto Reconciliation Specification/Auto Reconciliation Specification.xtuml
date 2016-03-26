@@ -403,7 +403,8 @@ while (j < connectorCount)
     // TODO: FIXME: This is not accounting for reflexives right now
     if ((connectorId == param.connector_ooa_id_to_find) and 
     	(graphicalElement.represents != param.shape_ooa_instance_to_find))
-      return connectorId;      
+      // We found the other side! Return the shape ID
+      return CL::getOOAId(from:graphicalElement.represents);      
     else 
       j = j + 1;
       continue;
@@ -428,9 +429,15 @@ while (j < connectorCount)
             						 system_id:param.system_id, element_id:shapeInPackage.elementId,
             						 		connector_ooa_id_to_find:connectorId,
             						 		shape_ooa_instance_to_find:graphicalElement.represents); 
+            	if (otherSideElementID != OS::NULL_UNIQUE_ID())
+            	  break;
+            	end if;
               end if;
             end if;
           end for;
+            if (otherSideElementID != OS::NULL_UNIQUE_ID())
+              break;
+            end if;
         end for;
 //Start old interface stuff 
 // I left this here because I''m not sure if I
@@ -447,9 +454,13 @@ while (j < connectorCount)
     if (CL::traceGraphicsCreationIsEnabled()) 
 	  otherSideElementInstance = CL::getInstanceFromOOA_ID2(OOA_ID:otherSideElementID, rootInst:model.represents);
 	  otherSideElementName = CL::getModelElementName(from:otherSideElementInstance);
+	  // get association name
+	  connectorInstance = CL::getInstanceFromOOA_ID2(OOA_ID:connectorId, rootInst:model.represents);
+	  connectorName = CL::getModelElementName(from:connectorInstance);
+	  
 	  msg = CL::getModelElementName(from:graphicalElement.represents) + 
 	        " participates in " +
-	        targetSpec.Name + 
+	        targetSpec.Name + " (" + connectorName + ") " +
 	        " Other side is: " + otherSideElementName;
 	  CL::logTraceMsg(filterType:LoggerType::OPERATION, filterValue:"use_string_buffer", message:msg);
     end if;
@@ -1026,10 +1037,11 @@ if (param.passNumber == 1)
   // TODO FIXME: This is just here so I can
   //   push upstream and be sure that my work
   //   in progress on connectors does not affect Raven
-  DONTCALLCONNECTORS=true;
-  if(DONTCALLCONNECTORS)
-    return;
-  end if;
+  //DONTCALLCONNECTORS=true;
+  //if(DONTCALLCONNECTORS)
+  //  return;
+  //end if;
+  
   // Recursively call to perform connector creation on the container
   GD_ARS::ReconcileAllGraphics(system_id:param.system_id,s_sys:param.s_sys, passNumber:2);
 end if;
