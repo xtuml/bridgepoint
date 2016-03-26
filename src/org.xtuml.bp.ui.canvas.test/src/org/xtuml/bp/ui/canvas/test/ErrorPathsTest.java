@@ -39,6 +39,7 @@ import org.xtuml.bp.core.common.IdAssigner;
 import org.xtuml.bp.test.common.BaseTest;
 import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.ui.canvas.Cl_c;
+import org.xtuml.bp.utilities.ui.ProjectUtilities;
 
 import junit.framework.TestCase;
 @RunWith(OrderedRunner.class)

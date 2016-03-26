@@ -103,90 +103,14 @@ public class CanvasStateMachineCopyPasteTests extends CanvasTest {
 		TestUtil.dialogText = "";
 		initialized = false;
 	}
-
-	/**
-	 * Specifically order tests
-	 */
-	
-	@Test
-	public void testStateMachineCopyPaste() throws Exception {
-		setUp();
-		doTestCopyPasteState();
-		tearDown();
-		setUp();
-		doTestPasteCreationTransitionNotAllowedInClassBasedMachine();
-		tearDown();
-		setUp();
-		doTestPasteCreationTransitionCreatesNewEventWhenExistingAlreadyAssignedToCRTXN();
-		tearDown();
-		setUp();
-		doTestPasteTransitionIntoInstanceMachineWithMatchingEvent();
-		tearDown();
-		setUp();
-		doTestPasteTransitionIntoClassBasedMachineWithMatchingEvent();
-		tearDown();
-		setUp();
-		doTestPasteTransitionIntoClassBasedMachineWithMatchingEventAndDataItem();
-		tearDown();
-		setUp();
-		doTestPasteTransitionIntoMachineWithMatchingEventAndDataItemWithoutTypeMatch();
-		tearDown();
-		setUp();
-		doTestPasteTransitionIntoMachineWithNoMatchingPoly();
-		tearDown();
-		setUp();
-		doTestPasteTransitionIntoMachineWithMatchingNonLocalEvent();
-		tearDown();
-		setUp();
-		doTestPasteTransitionIntoMachineWithDeclaredPoly();
-		tearDown();
-		setUp();
-		doTestPasteSubtypeWithoutSupertype();
-		tearDown();
-		setUp();
-		doTestPasteSubtypeAndSupertypeWithoutAssociation();
-		tearDown();
-		setUp();
-		doTestPasteSubtypeAndSupertypeWithAssociation();
-		tearDown();
-		setUp();
-		doTestPasteSubsystemWithImportedSupertypeWhereSupertypeCanBeResolved();
-		tearDown();
-		setUp();
-		doTestPasteSubsystemWithImportedSupertypeWhereSupertypeCanNotBeResolved();
-		tearDown();
-		setUp();
-		doTestPasteTransitionWhereSignalCanBeResolved();
-		tearDown();
-		setUp();
-		doTestPasteTransitionWhereSignalUnresolvableByName();
-		tearDown();
-		setUp();
-		doTestPasteTransitionWhereSignalUnresolvableByArgumentName();
-		tearDown();
-		setUp();
-		doTestPasteTransitionWhereSignalUnresolvableByArgumentType();
-		tearDown();
-		setUp();
-		doTestPasteTransitionWhereSignalUnresolvableTargetLessArguments();
-		tearDown();
-		setUp();
-		doTestPasteTransitionWhereSignalResolvableProvisionToRequirement();
-		tearDown();
-		setUp();
-		doTestPasteTransitionWhereSignalResolvableRequirementToProvision();
-		tearDown();
-		setUp();
-		doTestPasteTransitionWhereSignalResolvableTargetMoreArguments();
-		tearDown();
-	}
 	
 	/**
 	 * Tests that copying and pasting a state works correctly. Correctly = State
 	 * is added w/unique number
 	 * 
 	 */
-	public void doTestCopyPasteState() {
+	@Test
+	public void testCopyPasteState() {
 		test_id = "1";
 		ModelClass_c clazz = ModelClass_c.ModelClassInstance(modelRoot,
 				new ModelClass_by_name_c("Supertype"));
@@ -223,7 +147,8 @@ public class CanvasStateMachineCopyPasteTests extends CanvasTest {
 	 * is not allowed.
 	 * 
 	 */
-	public void doTestPasteCreationTransitionNotAllowedInClassBasedMachine() {
+	@Test
+	public void testPasteCreationTransitionNotAllowedInClassBasedMachine() {
 		ModelClass_c clazz = ModelClass_c.ModelClassInstance(modelRoot,
 				new ModelClass_by_name_c("Supertype"));
 		InstanceStateMachine_c ism = InstanceStateMachine_c
@@ -273,7 +198,8 @@ public class CanvasStateMachineCopyPasteTests extends CanvasTest {
 	 * the pasted event is used.
 	 * 
 	 */
-	public void doTestPasteCreationTransitionCreatesNewEventWhenExistingAlreadyAssignedToCRTXN() {
+	@Test
+	public void testPasteCreationTransitionCreatesNewEventWhenExistingAlreadyAssignedToCRTXN() {
 		test_id = "2";
 		ModelClass_c clazz = ModelClass_c.ModelClassInstance(modelRoot,
 				new ModelClass_by_name_c("Supertype"));
@@ -332,7 +258,8 @@ public class CanvasStateMachineCopyPasteTests extends CanvasTest {
 	 * Tests that a matching event is used when pasting a transition.
 	 * 
 	 */
-	public void doTestPasteTransitionIntoInstanceMachineWithMatchingEvent() {
+	@Test
+	public void testPasteTransitionIntoInstanceMachineWithMatchingEvent() {
 		test_id = "3";
 		ModelClass_c superClass = ModelClass_c.ModelClassInstance(modelRoot,
 				new ModelClass_by_name_c("Supertype"));
@@ -413,7 +340,8 @@ public class CanvasStateMachineCopyPasteTests extends CanvasTest {
 	 * class-based machine.
 	 * 
 	 */
-	public void doTestPasteTransitionIntoClassBasedMachineWithMatchingEvent() {
+	@Test
+	public void testPasteTransitionIntoClassBasedMachineWithMatchingEvent() {
 		test_id = "4";
 		ModelClass_c clazz = ModelClass_c.ModelClassInstance(modelRoot,
 				new ModelClass_by_name_c("Supertype"));
@@ -488,7 +416,8 @@ public class CanvasStateMachineCopyPasteTests extends CanvasTest {
 	 * class-based machine.
 	 * 
 	 */
-	public void doTestPasteTransitionIntoClassBasedMachineWithMatchingEventAndDataItem() {
+	@Test
+	public void testPasteTransitionIntoClassBasedMachineWithMatchingEventAndDataItem() {
 		test_id = "5";
 		ModelClass_c clazz = ModelClass_c.ModelClassInstance(modelRoot,
 				new ModelClass_by_name_c("Supertype"));
@@ -572,7 +501,8 @@ public class CanvasStateMachineCopyPasteTests extends CanvasTest {
 	 * Tests that data items are not resolved when no matching type.
 	 * 
 	 */
-	public void doTestPasteTransitionIntoMachineWithMatchingEventAndDataItemWithoutTypeMatch() {
+	@Test
+	public void testPasteTransitionIntoMachineWithMatchingEventAndDataItemWithoutTypeMatch() {
 		test_id = "7";
 		ModelClass_c clazz = ModelClass_c.ModelClassInstance(modelRoot,
 				new ModelClass_by_name_c("Supertype"));
@@ -662,7 +592,8 @@ public class CanvasStateMachineCopyPasteTests extends CanvasTest {
 	 * event
 	 * 
 	 */
-	public void doTestPasteTransitionIntoMachineWithNoMatchingPoly() {
+	@Test
+	public void testPasteTransitionIntoMachineWithNoMatchingPoly() {
 		test_id = "8";
 		ModelClass_c clazz = ModelClass_c.ModelClassInstance(modelRoot,
 				new ModelClass_by_name_c("Subtype 2 Level 1"));
@@ -729,7 +660,8 @@ public class CanvasStateMachineCopyPasteTests extends CanvasTest {
 	 * event exists works properly.
 	 * 
 	 */
-	public void doTestPasteTransitionIntoMachineWithMatchingNonLocalEvent() {
+	@Test
+	public void testPasteTransitionIntoMachineWithMatchingNonLocalEvent() {
 		test_id = "9";
 		ModelClass_c clazz = ModelClass_c.ModelClassInstance(modelRoot,
 				new ModelClass_by_name_c("Subtype 2 Level 1"));
@@ -783,7 +715,8 @@ public class CanvasStateMachineCopyPasteTests extends CanvasTest {
 	 * properly.
 	 * 
 	 */
-	public void doTestPasteTransitionIntoMachineWithDeclaredPoly() {
+	@Test
+	public void testPasteTransitionIntoMachineWithDeclaredPoly() {
 		test_id = "10";
 		ModelClass_c clazz = ModelClass_c.ModelClassInstance(modelRoot,
 				new ModelClass_by_name_c("Subtype 2 Level 1"));
@@ -850,7 +783,8 @@ public class CanvasStateMachineCopyPasteTests extends CanvasTest {
 	 * subtype inherits an event, shows a warning dialog.
 	 * 
 	 */
-	public void doTestPasteSubtypeWithoutSupertype() {
+	@Test
+	public void testPasteSubtypeWithoutSupertype() {
 		test_id = "11";
 		ModelClass_c clazz = ModelClass_c.ModelClassInstance(modelRoot,
 				new ModelClass_by_name_c("Subtype 2 Level 1"));
@@ -893,7 +827,8 @@ public class CanvasStateMachineCopyPasteTests extends CanvasTest {
 //	 * a warning dialog.
 //	 * 
 //	 */
-	public void doTestPasteSubtypeAndSupertypeWithoutAssociation() {
+	@Test
+	public void testPasteSubtypeAndSupertypeWithoutAssociation() {
 		test_id = "12";
 		ModelClass_c superClass = ModelClass_c.ModelClassInstance(modelRoot,
 				new ModelClass_by_name_c("Supertype"));
@@ -941,7 +876,8 @@ public class CanvasStateMachineCopyPasteTests extends CanvasTest {
 //	 * properly.
 //	 * 
 //	 */
-	public void doTestPasteSubtypeAndSupertypeWithAssociation() {
+	@Test
+	public void testPasteSubtypeAndSupertypeWithAssociation() {
 		test_id = "13";
 		ModelClass_c superClass = ModelClass_c.ModelClassInstance(modelRoot,
 				new ModelClass_by_name_c("Supertype"));
@@ -991,7 +927,8 @@ public class CanvasStateMachineCopyPasteTests extends CanvasTest {
 //	 * destination where that supertype can be resolved works properly.
 //	 * 
 //	 */
-	public void doTestPasteSubsystemWithImportedSupertypeWhereSupertypeCanBeResolved() {
+	@Test
+	public void testPasteSubsystemWithImportedSupertypeWhereSupertypeCanBeResolved() {
 		test_id = "14";
 		Package_c dom = Package_c.PackageInstance(modelRoot,
 				new Package_by_name_c("StateMachineCopyPasteTest"));
@@ -1030,7 +967,8 @@ public class CanvasStateMachineCopyPasteTests extends CanvasTest {
 //	 * dialog.
 //	 * 
 //	 */
-	public void doTestPasteSubsystemWithImportedSupertypeWhereSupertypeCanNotBeResolved() throws CoreException {
+	@Test
+	public void testPasteSubsystemWithImportedSupertypeWhereSupertypeCanNotBeResolved() throws CoreException {
 		test_id = "15";
 		Package_c dom = Package_c.PackageInstance(modelRoot,
 				new Package_by_name_c("StateMachineCopyPasteTest"));
@@ -1068,7 +1006,8 @@ public class CanvasStateMachineCopyPasteTests extends CanvasTest {
 	static IProject testProject = null;
 	static IProject testProjectDestination = null;
 
-	public void doTestPasteTransitionWhereSignalCanBeResolved()
+	@Test
+	public void testPasteTransitionWhereSignalCanBeResolved()
 			throws CoreException, IOException {
 		test_id = "16";
 		loadProject("testSignalAssignmentCCP");
@@ -1194,37 +1133,44 @@ public class CanvasStateMachineCopyPasteTests extends CanvasTest {
 		validateOrGenerateResults(destinationEditor, generateResults);
 	}
 	
-	public void doTestPasteTransitionWhereSignalUnresolvableByName() {
+	@Test
+	public void testPasteTransitionWhereSignalUnresolvableByName() {
 		test_id = "17";
 		performSignalTransitionPasteTest("TestTwo");
 	}
 
-	public void doTestPasteTransitionWhereSignalUnresolvableByArgumentName() {
+	@Test
+	public void testPasteTransitionWhereSignalUnresolvableByArgumentName() {
 		test_id = "18";
 		performSignalTransitionPasteTest("TestThree");
 	}
 
-	public void doTestPasteTransitionWhereSignalUnresolvableByArgumentType() {
+	@Test
+	public void testPasteTransitionWhereSignalUnresolvableByArgumentType() {
 		test_id = "19";
 		performSignalTransitionPasteTest("TestFour");
 	}
 
-	public void doTestPasteTransitionWhereSignalUnresolvableTargetLessArguments() {
+	@Test
+	public void testPasteTransitionWhereSignalUnresolvableTargetLessArguments() {
 		test_id = "20";
 		performSignalTransitionPasteTest("TestFive");
 	}
 
-	public void doTestPasteTransitionWhereSignalResolvableProvisionToRequirement() {
+	@Test
+	public void testPasteTransitionWhereSignalResolvableProvisionToRequirement() {
 		test_id = "21";
 		performSignalTransitionPasteTest("TestSeven", true);
 	}
 	
-	public void doTestPasteTransitionWhereSignalResolvableRequirementToProvision() {
+	@Test
+	public void testPasteTransitionWhereSignalResolvableRequirementToProvision() {
 		test_id = "22";
 		performSignalTransitionPasteTest("TestEight", true);
 	}
 	
-	public void doTestPasteTransitionWhereSignalResolvableTargetMoreArguments() {
+	@Test
+	public void testPasteTransitionWhereSignalResolvableTargetMoreArguments() {
 	    test_id = "23";
 	    performSignalTransitionPasteTest("TestSix", true);
 	}

@@ -1,5 +1,6 @@
 package org.xtuml.bp.ui.canvas.test;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.xtuml.bp.core.Component_c;
@@ -13,8 +14,13 @@ import org.xtuml.bp.test.common.OrderedRunner;
 @RunWith(OrderedRunner.class)
 public class RectilinearRoutingTests3 extends BaseTest {
 
+	private static boolean isFirstTime = true;
 	@Override
+//	@Before
 	public void initialSetup() throws Exception {
+		if (!isFirstTime)
+			return;
+		isFirstTime = false;
 		CorePlugin
 				.getDefault()
 				.getPreferenceStore()

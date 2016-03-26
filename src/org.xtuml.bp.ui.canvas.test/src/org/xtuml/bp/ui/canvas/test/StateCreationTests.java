@@ -47,8 +47,13 @@ public class StateCreationTests extends CanvasTest {
 		super.setUp();
 	}
 	
+	private static boolean isFirstTime = true;
 	@Override
-	protected void initialSetup() throws Exception {
+//	@Before
+	public void initialSetup() throws Exception {
+		if (!isFirstTime)
+			return;
+		isFirstTime = false;
 		setModelName("CanvasCreationModel");
 
 		Display d = Display.getCurrent();

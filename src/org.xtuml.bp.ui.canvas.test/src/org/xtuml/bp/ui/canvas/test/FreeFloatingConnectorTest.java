@@ -74,18 +74,13 @@ public class FreeFloatingConnectorTest extends CanvasTest {
 		}
 	}
 
-	// Enforce order the tests in this class are run
-	@Test
-	public void testFreeFloatingConnectors() {
-		dotestCreatingAndMovingFreeFloatingConnectors();
-		dotestMovingFreeFloatingConnectorsAtHighZoom();
-	}
 	
 	/**
 	 * Tests that free-floating connectors may be created and moved without
 	 * waypoints being created
 	 */
-	public void dotestCreatingAndMovingFreeFloatingConnectors() {
+	@Test
+	public void testCreatingAndMovingFreeFloatingConnectors() {
 		String diagramName = "FFT Communication";
 		Package_c communication = getCommunication(diagramName);
 		CanvasTestUtils.openCanvasEditor(communication);
@@ -136,7 +131,8 @@ public class FreeFloatingConnectorTest extends CanvasTest {
 	 * Tests that connectors connected to another remain connected after a
 	 * waypoint is moved
 	 */
-	public void dotestMovingFreeFloatingConnectorsAtHighZoom() {
+	@Test
+	public void testMovingFreeFloatingConnectorsAtHighZoom() {
 		test_id = "1";
 		String diagramName = "FFT Communication";
 		Package_c communication = getCommunication(diagramName);

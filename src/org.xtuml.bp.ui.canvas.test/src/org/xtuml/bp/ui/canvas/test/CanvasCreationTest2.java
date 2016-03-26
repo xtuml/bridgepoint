@@ -46,9 +46,13 @@ public class CanvasCreationTest2 extends CanvasTest {
 	public void setUp() throws Exception {
 		super.setUp();
 	}
-	
+	private static boolean isFirstTime = true;
 	@Override
-	protected void initialSetup() throws Exception {
+//	@Before
+	public void initialSetup() throws Exception {
+		if (!isFirstTime)
+			return;
+		isFirstTime = false;
 		setModelName("CanvasCreationModel");
 
 		Display d = Display.getCurrent();
@@ -74,18 +78,8 @@ public class CanvasCreationTest2 extends CanvasTest {
 
 	}
 
-	// Because of the way the draw logs are created, these tests need to
-	// run in a consistent order
 	@Test
-	public void testCanvasCreationTests2() {
-		dotestCreateModelClassInPackage();
-		dotestCreateImportedModelClassInSubsystem();
-		dotestCreateUserDatatypeInDataTypePackage();
-		dotestCreateEnumDatatypeInDataTypePackage();
-		dotestCreateEEInEEPackage();
-	}
-	
-	public void dotestCreateModelClassInPackage() {
+	public void testCreateModelClassInPackage() {
 		test_id = "test_8";
 		Package_c ss = Package_c.PackageInstance(modelRoot);
 		assertNotNull(ss);
@@ -111,7 +105,8 @@ public class CanvasCreationTest2 extends CanvasTest {
         validateOrGenerateResultsGenerics(ce, generateResults);
         UITestingUtilities.deactivateTool(tool);
 	}
-	public void dotestCreateImportedModelClassInSubsystem() {
+	@Test
+	public void testCreateImportedModelClassInSubsystem() {
 		test_id = "test_9";
 		Package_c ss = Package_c.PackageInstance(modelRoot);
 		assertNotNull(ss);
@@ -137,7 +132,8 @@ public class CanvasCreationTest2 extends CanvasTest {
         validateOrGenerateResultsGenerics(ce, generateResults); 
         UITestingUtilities.deactivateTool(tool);
 	}
-	public void dotestCreateUserDatatypeInDataTypePackage() {
+	@Test
+	public void testCreateUserDatatypeInDataTypePackage() {
 		test_id = "test_12";
 		Package_c []dpks = Package_c.PackageInstances(modelRoot);
 		assertEquals(2, dpks.length);
@@ -167,7 +163,8 @@ public class CanvasCreationTest2 extends CanvasTest {
         UITestingUtilities.deactivateTool(tool);
 	}
 
-	public void dotestCreateEnumDatatypeInDataTypePackage() {
+	@Test
+	public void testCreateEnumDatatypeInDataTypePackage() {
 		test_id = "test_13";
 		Package_c []dpks = Package_c.PackageInstances(modelRoot);
 		assertEquals(2, dpks.length);
@@ -197,7 +194,8 @@ public class CanvasCreationTest2 extends CanvasTest {
         UITestingUtilities.deactivateTool(tool);
 	}
 	
-	public void dotestCreateEEInEEPackage() {
+	@Test
+	public void testCreateEEInEEPackage() {
 		test_id = "test_14";
 		Package_c epk = Package_c.PackageInstance(modelRoot);
 		assertNotNull(epk);

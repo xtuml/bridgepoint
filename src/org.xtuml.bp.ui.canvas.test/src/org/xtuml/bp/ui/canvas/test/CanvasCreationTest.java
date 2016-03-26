@@ -27,7 +27,9 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.PlatformUI;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TestName;
 import org.junit.runner.RunWith;
 import org.xtuml.bp.core.ModelClass_c;
 import org.xtuml.bp.core.Ooaofooa;
@@ -52,6 +54,13 @@ public class CanvasCreationTest extends CanvasTest {
 	private static String test_id = "";
 	private static boolean initialized;
 	
+	@Rule public TestName name = new TestName();
+	private static boolean isFirstTime = true;
+	
+	
+	public String getName(){
+		return name.getMethodName();
+	}
 	public CanvasCreationTest() {
 		super(null, null);
 	}
@@ -63,7 +72,11 @@ public class CanvasCreationTest extends CanvasTest {
 	}
 	
 	@Override
-	protected void initialSetup() throws Exception {
+//	@Before
+	public void initialSetup() throws Exception {
+		if (!isFirstTime)
+			return;
+		isFirstTime = false;
 		setModelName("CanvasCreationModel");
 
 		Display d = Display.getCurrent();

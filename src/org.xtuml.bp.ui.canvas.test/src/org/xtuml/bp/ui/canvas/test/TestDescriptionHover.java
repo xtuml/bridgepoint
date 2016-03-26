@@ -25,6 +25,7 @@ import java.util.List;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
 import org.eclipse.gef.GraphicalEditPart;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.xtuml.bp.core.CreationTransition_c;
@@ -45,8 +46,13 @@ public class TestDescriptionHover extends BaseTest {
 	/* (non-Javadoc)
 	 * @see org.xtuml.bp.test.common.BaseTest#initialSetup()
 	 */
+	private static boolean isFirstTime = true;
 	@Override
-	protected void initialSetup() throws Exception {
+//	@Before
+	public void initialSetup() throws Exception {
+		if (!isFirstTime)
+			return;
+		isFirstTime = false;
 		loadProject("TestHoverDescriptions");
 	}
 

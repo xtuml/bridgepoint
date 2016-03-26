@@ -29,7 +29,9 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.PlatformUI;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TestName;
 import org.junit.runner.RunWith;
 import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.ConstantSpecification_c;
@@ -61,6 +63,8 @@ import org.xtuml.bp.ui.graphics.editor.GraphicalEditor;
 @RunWith(OrderedRunner.class)
 public class CanvasInitialNameTests extends BaseTest {
 
+	@Rule public TestName name = new TestName();
+	
 	private static final String INVALID_CHAR_ERROR = "* is an invalid character in resource name '*'.";
 	private static final String INVALID_UNIX_CHAR_ERROR = "/ is an invalid character in resource name '/'.";
 	private static final String EXISTING_FOLDER_ERROR = "A model element with the same name already exists.\r\n\r\n"
@@ -71,9 +75,14 @@ public class CanvasInitialNameTests extends BaseTest {
 	private static Package_c testPackage;
 	private static GraphicalEditor editor;
 
+	private static boolean isFirstTime = true;
 	@Override
+	@Before
 	public void initialSetup() throws CoreException {
 		// create test system
+		if (!isFirstTime)
+			return;
+		isFirstTime = false;
 		project = TestingUtilities.createProject("CanvasInitialNameTests");
 		m_sys = getSystemModel(project.getName());
 		m_sys.Newpackage();
@@ -100,6 +109,10 @@ public class CanvasInitialNameTests extends BaseTest {
 		UITestingUtilities.clearGraphicalSelection();
 		CorePlugin.getDefault().getPreferenceStore().setValue(BridgePointPreferencesStore.USE_DEFAULT_NAME_FOR_CREATION,true);
 		Ooaofooa.setPersistEnabled(false);
+	}
+	
+	public String getName(){
+		return name.getMethodName();
 	}
 
 	@Test

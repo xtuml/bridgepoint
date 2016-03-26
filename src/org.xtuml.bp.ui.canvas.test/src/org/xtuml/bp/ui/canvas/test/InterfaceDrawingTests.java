@@ -1,4 +1,5 @@
 package org.xtuml.bp.ui.canvas.test;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 //=====================================================================
@@ -25,8 +26,13 @@ public class InterfaceDrawingTests extends CanvasTest {
 	private String test_id;
 	private static boolean generate;
 
+	private static boolean isFirstTime = true;
 	@Override
-	protected void initialSetup() throws Exception {
+//	@Before
+	public void initialSetup() throws Exception {
+		if (!isFirstTime)
+			return;
+		isFirstTime = false;
 		super.initialSetup();
 		loadProject("testInterfaceDrawing");
 		testPackage = Package_c.getOneEP_PKGOnR1401(m_sys, new ClassQueryInterface_c() {

@@ -37,6 +37,7 @@ package org.xtuml.bp.ui.canvas.test;
 
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.viewers.ISelection;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.xtuml.bp.core.CorePlugin;
@@ -61,8 +62,13 @@ public class ODMSTest extends CanvasTest {
 	private static boolean generateResults = false;
 	private static String test_id = "ODMS";
 	
+	private static boolean isFirstTime = true;
 	@Override
+//	@Before
 	public void initialSetup() throws Exception {
+		if (!isFirstTime)
+			return;
+		isFirstTime = false;
 		setModelName("odms");
 
 		IPreferenceStore store = CorePlugin.getDefault().getPreferenceStore();

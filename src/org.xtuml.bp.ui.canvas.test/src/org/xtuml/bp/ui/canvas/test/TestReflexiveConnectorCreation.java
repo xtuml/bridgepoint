@@ -29,7 +29,9 @@ import org.eclipse.gef.tools.AbstractTool;
 import org.eclipse.ui.PlatformUI;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TestName;
 import org.junit.runner.RunWith;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Package_c;
@@ -40,6 +42,7 @@ import org.xtuml.bp.core.common.TransactionException;
 import org.xtuml.bp.core.util.WorkspaceUtil;
 import org.xtuml.bp.test.common.BaseTest;
 import org.xtuml.bp.test.common.OrderedRunner;
+import org.xtuml.bp.test.common.TestingUtilities;
 import org.xtuml.bp.test.common.UITestingUtilities;
 import org.xtuml.bp.ui.canvas.Connector_c;
 import org.xtuml.bp.ui.canvas.GraphicalElement_c;
@@ -52,8 +55,15 @@ import org.xtuml.bp.utilities.ui.CanvasUtilities;
 @RunWith(OrderedRunner.class)
 public class TestReflexiveConnectorCreation extends BaseTest {
 
+	@Rule public TestName name = new TestName();
+	private static boolean isFirstTime = true;
+	
 	@Override
-	protected void initialSetup() throws Exception {
+//	@Before
+	public void initialSetup() throws Exception {
+		if (!isFirstTime )
+			return;
+		isFirstTime = false;
 		// turn off auto build
 		WorkspaceUtil.setAutobuilding(false);
 		// disable grid snapping for easier testing
@@ -77,14 +87,14 @@ public class TestReflexiveConnectorCreation extends BaseTest {
 	}
 
 	// Enforce order of tests run in this class
-	@Test
-	public void testReflexiveConnectorCreation() throws TransactionException {
-		dotestReflexiveConnectorCreationOnMouseUp();
-		dotestReflexiveCornerNonIntersectionWithShape();
-		dotestReflexiveConnectorOnConnector();
-	}
 	
-	public void dotestReflexiveConnectorCreationOnMouseUp()
+//	public void testReflexiveConnectorCreation() throws TransactionException {
+//		testReflexiveConnectorCreationOnMouseUp();
+//		testReflexiveCornerNonIntersectionWithShape();
+//		testReflexiveConnectorOnConnector();
+//	}
+	@Test
+	public void testReflexiveConnectorCreationOnMouseUp()
 			throws TransactionException {
 		// create a generic package on the default project
 		SystemModel_c system = getSystemModel();
@@ -98,6 +108,7 @@ public class TestReflexiveConnectorCreation extends BaseTest {
 								"Unnamed Package");
 					}
 				});
+		TestingUtilities.allowJobCompletion();
 		CanvasUtilities.openCanvasEditor(testPackage);
 		AbstractTool classTool = UITestingUtilities.getTool("Classes", "Class");
 		UITestingUtilities.activateTool(classTool);
@@ -146,8 +157,8 @@ public class TestReflexiveConnectorCreation extends BaseTest {
 				"The finished location was not the same as during creation.",
 				bounds.getBottom().y - 20 == points.getLastPoint().y);
 	}
-
-	public void dotestReflexiveCornerNonIntersectionWithShape() {
+	@Test
+	public void testReflexiveCornerNonIntersectionWithShape() {
 		// create a generic package on the default project
 		SystemModel_c system = getSystemModel();
 		Package_c testPackage = Package_c.getOneEP_PKGOnR1405(system,
@@ -192,8 +203,8 @@ public class TestReflexiveConnectorCreation extends BaseTest {
 				points.size() == 5);
 		UITestingUtilities.deactivateTool(assocTool);
 	}
-	
-	public void dotestReflexiveConnectorOnConnector() {
+	@Test
+	public void testReflexiveConnectorOnConnector() {
 		// create a generic package on the default project
 		SystemModel_c system = getSystemModel();
 		system.Newpackage();

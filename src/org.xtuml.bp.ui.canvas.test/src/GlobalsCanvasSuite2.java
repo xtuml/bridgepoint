@@ -1,22 +1,22 @@
 
 //=====================================================================
 //
-//File:      $RCSfile: GlobalsCanvasSuite2.java,v $
+//File:      $RCSfile: GlobalsCanvasSuite2.javav $
 //Version:   $Revision: 1.3 $
 //Modified:  $Date: 2013/05/10 05:47:48 $
 //
 //(c) Copyright 2007-2014 by Mentor Graphics Corp. All rights reserved.
 //
 //=====================================================================
-// Licensed under the Apache License, Version 2.0 (the "License"); you may not 
+// Licensed under the Apache License Version 2.0 (the "License"); you may not 
 // use this file except in compliance with the License.  You may obtain a copy 
 // of the License at
 //
 //       http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software 
-// distributed under the License is distributed on an "AS IS" BASIS, WITHOUT 
-// WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the 
+// Unless required by applicable law or agreed to in writing software 
+// distributed under the License is distributed on an "AS IS" BASIS WITHOUT 
+// WARRANTIES OR CONDITIONS OF ANY KIND either express or implied.   See the 
 // License for the specific language governing permissions and limitations under
 // the License.
 //=====================================================================
@@ -59,28 +59,30 @@ import junit.framework.TestSuite;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
 	GlobalTestSetupClass.class,
-	GraphicalToolCreationTests.class,
-	GlobalsCanvasTestSuite2.class,
-	ConnectorPolicyTests.class,
-	I686ClearDatabaseTest.class,
-	I835OpenDiagramEditorWithSearchView.class,
-	MultipleSupertypeTest.class,
-	ClassToStateDiagramNavigationTest.class,
-	ConnectorsAsAnchorsTest.class,
-	FreeFloatingConnectorTest.class,
-	I2053F2RenameTest.class,
-	AutoReconciliationTests.class,
 	GraphicalAnchorTests_0.class,
-	ConnectorMoveTests_0.class,
 	TestReflexiveConnectorCreation.class,
-	RectilinearRoutingTests_0.class,
-	RectilinearRoutingTests.class,
-	RectilinearRoutingTests2.class,
-	RectilinearRoutingTests3.class,
-	RectilinearRoutingTests4.class,
-	InterfaceDrawingTests.class,
+    GraphicalToolCreationTests.class,
+	GlobalsCanvasTestSuite2.class,
+    ConnectorPolicyTests.class,
+    I686ClearDatabaseTest.class,
+    I835OpenDiagramEditorWithSearchView.class,
+    MultipleSupertypeTest.class,
+    ClassToStateDiagramNavigationTest.class,
+    ConnectorsAsAnchorsTest.class,
+    FreeFloatingConnectorTest.class,
+    I2053F2RenameTest.class,
+    AutoReconciliationTests.class,
+    ConnectorMoveTests_0.class,
+    RectilinearRoutingTests_0.class,
+    RectilinearRoutingTests.class,
+    RectilinearRoutingTests2.class,
+    RectilinearRoutingTests3.class,
+    RectilinearRoutingTests4.class,
+    InterfaceDrawingTests.class,
+	
+	
 })
 public class GlobalsCanvasSuite2 extends TestSuite {
 
-
+	
 }

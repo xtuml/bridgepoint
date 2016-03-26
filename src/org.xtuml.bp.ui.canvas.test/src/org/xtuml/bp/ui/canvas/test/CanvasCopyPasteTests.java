@@ -72,17 +72,8 @@ public class CanvasCopyPasteTests extends CanvasTest {
 			initialized = true;
 		}
 	}
-	
 	@Test
-	public void testCanvasCopyPasteTests() throws Exception {
-		doTestCopyPackageToSystem();
-		doTestCopySSWithNonSimpleAssociations();
-		doTestCopyClassesWithoutSelectingAssociationBetween();
-		doTestUndoRedoRestoresPastedElements();
-		doTestPasteOutsideOfGraphicsAllowsUpdateOfGraphicalElementModelRoots();
-	}
-	
-	public void doTestCopyPackageToSystem() {
+	public void testCopyPackageToSystem() {
 		test_id = "1";
 		Package_c domain = Package_c.getOneEP_PKGOnR1401(m_sys);
 		assertNotNull(domain);
@@ -125,7 +116,8 @@ public class CanvasCopyPasteTests extends CanvasTest {
 		validateOrGenerateResults(ce, generateResults);
 	}
 	
-	public void doTestCopySSWithNonSimpleAssociations() {
+	@Test
+	public void testCopySSWithNonSimpleAssociations() {
 // TODO: dts0100656082
 		test_id = "3";
 	    Package_c subsystem = Package_c.PackageInstance(modelRoot, new ClassQueryInterface_c() {
@@ -149,7 +141,8 @@ public class CanvasCopyPasteTests extends CanvasTest {
 		validateOrGenerateResults(ce,generateResults);
 	}
 	
-	public void doTestCopyClassesWithoutSelectingAssociationBetween() {
+	@Test
+	public void testCopyClassesWithoutSelectingAssociationBetween() {
 // TODO: dts0100656082
 		test_id = "4";
 	    Package_c subsystem = Package_c.PackageInstance(modelRoot, new ClassQueryInterface_c() {
@@ -188,7 +181,8 @@ public class CanvasCopyPasteTests extends CanvasTest {
 		validateOrGenerateResults(ce,generateResults);		
 	}
 	
-	public void doTestUndoRedoRestoresPastedElements() throws CoreException {
+	@Test
+	public void testUndoRedoRestoresPastedElements() throws CoreException {
 // TODO: dts0100656082
 //		ensureAvailableAndLoaded("Models", "microwave", false, true);
 //		Domain_c domain = Domain_c.DomainInstance(modelRoot, new ClassQueryInterface_c() {
@@ -227,7 +221,8 @@ public class CanvasCopyPasteTests extends CanvasTest {
 //		validateOrGenerateResults(ce, generateResults);
 	}
 	
-	public void doTestPasteOutsideOfGraphicsAllowsUpdateOfGraphicalElementModelRoots() {
+	@Test
+	public void testPasteOutsideOfGraphicsAllowsUpdateOfGraphicalElementModelRoots() {
 		// create a new package, with two classes
 		// do this inside of a transaction
 		Package_c testPackage = null;

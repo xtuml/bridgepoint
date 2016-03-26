@@ -31,8 +31,13 @@ import org.xtuml.bp.ui.graphics.figures.ShapeImageFigure;
 @RunWith(OrderedRunner.class)
 public class RectilinearRoutingTests extends BaseTest {
 
+	private static boolean isFirstTime = true;
 	@Override
+//	@Before
 	public void initialSetup() throws Exception {
+		if (!isFirstTime)
+			return;
+		isFirstTime = false;
 		loadProject("DelegationRectilinearRoutingTests");
 		CorePlugin
 				.getDefault()

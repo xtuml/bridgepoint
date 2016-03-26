@@ -5,6 +5,7 @@ import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.PointList;
 import org.eclipse.gef.GraphicalEditPart;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.xtuml.bp.core.Component_c;
@@ -21,8 +22,13 @@ import org.xtuml.bp.ui.canvas.GraphicalElement_c;
 @RunWith(OrderedRunner.class)
 public class RectilinearRoutingTests4 extends BaseTest {
 
+	private static boolean isFirstTime = true;
 	@Override
+//	@Before
 	public void initialSetup() throws Exception {
+		if (!isFirstTime)
+			return;
+		isFirstTime = false;
 		CorePlugin
 				.getDefault()
 				.getPreferenceStore()

@@ -105,7 +105,7 @@ public abstract class CanvasTest extends BaseTest {
 	  	      BridgePointPreferencesStore.SHOW_EVENT_PARAMETERS, true);
   }
   
-  protected void doTestDiagram(GraphicalEditor editor, final int model_type, boolean zoomGroup, boolean zoomSelected, boolean isHardCopy) throws Exception {
+	public void doTestDiagram(GraphicalEditor editor, final int model_type, boolean zoomGroup, boolean zoomSelected, boolean isHardCopy) throws Exception {
   		// create the unit under test (uut)
 		assertNotNull("Diagram not found", editor.getModel()); //$NON-NLS-1$
         
@@ -166,7 +166,7 @@ public abstract class CanvasTest extends BaseTest {
 			throw e;
 		}
   }
-  protected void doTestDiagramGenerics(GraphicalEditor editor, final int model_type, boolean zoomGroup, boolean zoomSelected, boolean isHardCopy) throws Exception {
+	public void doTestDiagramGenerics(GraphicalEditor editor, final int model_type, boolean zoomGroup, boolean zoomSelected, boolean isHardCopy) throws Exception {
 		// create the unit under test (uut)
 		assertNotNull("Diagram not found", editor.getModel()); //$NON-NLS-1$
       
