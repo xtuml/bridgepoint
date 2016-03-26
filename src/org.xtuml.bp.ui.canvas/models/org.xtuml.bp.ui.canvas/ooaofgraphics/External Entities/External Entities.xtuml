@@ -1622,7 +1622,7 @@ INSERT INTO S_BPARM
 INSERT INTO S_BRG
 	VALUES ("07e91c1d-a9bd-439b-9110-0b812e1b4098",
 	"f168c92b-6d64-4ecb-a677-5a1d7cce8352",
-	'getInstanceFromOOA_ID2',
+	'getOOAInstance',
 	'Will be supplied by realized code.
    
 --------------------------------------------------------------------------------
@@ -1637,7 +1637,7 @@ INSERT INTO S_BRG
 INSERT INTO S_BPARM
 	VALUES ("c219f9b6-7275-4679-a54e-c9bc4dfc62d4",
 	"07e91c1d-a9bd-439b-9110-0b812e1b4098",
-	'OOA_ID',
+	'from',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',

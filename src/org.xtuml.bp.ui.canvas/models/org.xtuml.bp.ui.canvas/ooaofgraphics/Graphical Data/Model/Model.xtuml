@@ -1078,12 +1078,12 @@ select any ars related by self->GD_MS[R9]->GD_EMS[R11]->
                        GD_ES[R11]->GD_ARS[R29] where selected.Id == param.arsId;
 select one elemSpec related by ars->GD_ES[R29];
 select any shapeEle related by elemSpec->GD_GE[R10]
-	where (selected.elementId == param.elementId);
+	where (selected.elementId == param.startingGD_GEId);
 select one canvas related by shapeEle->GD_MD[R1];
 select one existingSpec related by ars->GD_ES[R30];
 // get the connector we want to base the reconciliation on
 select any existingConnector related by  existingSpec->GD_GE[R10]->
-                         GD_CON[R2] where selected.elementId == param.connector;
+                         GD_CON[R2] where selected.elementId == param.elementIdOfExistingGD_CON;
 // detect possible corruption and skip reconciliation if found
 select one startEle related by existingConnector->DIM_ED[R20]->DIM_CON[R320];
 select one endEle related by existingConnector->DIM_ED[R20]->DIM_CON[R321];
@@ -1093,7 +1093,7 @@ if(empty startEle and empty endEle)
   // both sides, therefore this element is corrupted
   CL::logException(message:"Found an invalid connector as the base for" +
                   " reconciliation."+ OS::newLine() + "The connector id is: " +
-                                      OS::uniqueIdToString(id:param.connector)
+                                      OS::uniqueIdToString(id:param.elementIdOfExistingGD_CON)
                                      + OS::newLine() + "The connector path is: "
                                                   + existingGE.represents_path +
                             OS::newLine() + "The connector has been recreated");
@@ -1184,8 +1184,8 @@ else
   if reconcileToSpec != newSpec
     // we''re creating a diffent kind of element
     newConElem.represents = CL::getInstanceFromOOA_ID(rootInst:self.represents,
-                          OOA_ID:param.representsId, OOA_Type:newSpec.OOA_Type);
-    newConElem.OOA_ID = param.representsId;
+                          OOA_ID:param.ooaIdOfElementToConnectTo, OOA_Type:newSpec.OOA_Type);
+    newConElem.OOA_ID = param.ooaIdOfElementToConnectTo;
   else
     select one existingGE related by existingConnector->GD_GE[R2];
     newConElem.represents = existingGE.represents;
@@ -1207,15 +1207,15 @@ end if;
 if (not empty ars)
 select one sourceSpec related by ars->GD_ES[R30];
 select one targetSpec related by ars->GD_ES[R31];
-select any startElementGE related by self->GD_GE[R1] where (selected.elementId == param.elementId);
+select any startElementGE related by self->GD_GE[R1] where (selected.elementId == param.startingGD_GEId);
 // the graphical element the connector will be related to
 select one startElement related by startElementGE->GD_SHP[R2]->DIM_ND[R19]->DIM_GE[R301];
 startWidth = 2;
 startHeight = 2;
 if (not empty startElement)
   select one startElementNode related by startElementGE->GD_SHP[R2]->DIM_ND[R19];
-  defaultWidth = startElementNode.width;
-  defaultHeight = startElementNode.height;
+  startWidth = startElementNode.width;
+  startHeight = startElementNode.height;
 else
   select one startElement related by startElementGE->GD_CON[R2]->DIM_ED[R20]->DIM_GE[R301];
 end if;
@@ -1224,7 +1224,12 @@ end if;
 //
 endWidth = 2;
 endHeight = 2;
-select any endElementGE related by sourceSpec->GD_GE[R10];
+
+select any endElementGE related by self->GD_GE[R1] where (selected.elementId == param.endingGD_GEId);
+if (empty endElementGE)
+  select any endElementGE related by sourceSpec->GD_GE[R10];
+end if;
+
 select one endElement related by endElementGE->GD_SHP[R2]->DIM_ND[R19]->DIM_GE[R301];
 if (not empty endElement)
   select one endElementNode related by endElementGE->GD_SHP[R2]->DIM_ND[R19];
@@ -1352,7 +1357,7 @@ return reprocess;',
 INSERT INTO O_TPARM
 	VALUES ("f8989ef0-afab-4b3f-b5ee-a4137c7f7dcb",
 	"160b4ec5-2ccc-4a1f-ad27-9eea360878f2",
-	'elementId',
+	'startingGD_GEId',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
@@ -1361,7 +1366,7 @@ INSERT INTO O_TPARM
 INSERT INTO O_TPARM
 	VALUES ("ab5c456f-5675-4be9-9d48-7214f5ed4c47",
 	"160b4ec5-2ccc-4a1f-ad27-9eea360878f2",
-	'connector',
+	'elementIdOfExistingGD_CON',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
@@ -1379,7 +1384,7 @@ INSERT INTO O_TPARM
 INSERT INTO O_TPARM
 	VALUES ("1a45c3cb-9715-44d4-9873-a6ea916df586",
 	"160b4ec5-2ccc-4a1f-ad27-9eea360878f2",
-	'representsId',
+	'ooaIdOfElementToConnectTo',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
@@ -1393,6 +1398,15 @@ INSERT INTO O_TPARM
 	0,
 	'',
 	"1a45c3cb-9715-44d4-9873-a6ea916df586",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("31603e9e-41a1-48f4-bfb4-0965f133994f",
+	"160b4ec5-2ccc-4a1f-ad27-9eea360878f2",
+	'endingGD_GEId',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"77158963-1f78-4711-b050-d1a27ff5b28c",
 	'');
 INSERT INTO O_TFR
 	VALUES ("73bc8657-6063-4980-b3b8-a559b0113693",

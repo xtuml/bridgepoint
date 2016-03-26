@@ -332,7 +332,7 @@ public class Cl_c {
 		return HierarchyUtil.Getpath(element);
 	}
 
-	public static Object Getinstancefromooa_id2(final UUID Ooa_id,
+	public static Object Getooainstance(final UUID Ooa_id,
             final Object rootElement) {
 		Class<Ooatype_c> ooaTypeClass = (Class<Ooatype_c>)Ooatype_c.class;
 		Field[] fields = ooaTypeClass.getDeclaredFields();
