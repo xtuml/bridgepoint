@@ -267,7 +267,6 @@ public class BaseTest extends TestCase {
         String lineNumbers = AbstractDecoratedTextEditorPreferenceConstants.EDITOR_WARN_IF_INPUT_DERIVED;
         EditorsUI.getPreferenceStore().setValue(lineNumbers, false);
 	}
-	@Before
 	public void setUp() throws Exception {
 		super.setUp();
 		
