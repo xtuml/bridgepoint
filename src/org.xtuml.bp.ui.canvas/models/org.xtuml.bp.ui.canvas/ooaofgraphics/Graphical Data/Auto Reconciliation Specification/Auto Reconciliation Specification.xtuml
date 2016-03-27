@@ -317,186 +317,205 @@ INSERT INTO O_TFR
 	"0849862c-76a0-4d0f-bb84-cf5aef617874",
 	'reconcileConnectorsNoExistingGraphics',
 	'',
-	"ba5eda7a-def5-0000-0000-000000000000",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
-	'// This is being called for each GD_ARS instance associated with the
-// given GD_MD graphcial root (param.diagram_id)
+	'// Find missing graphical connectors associated with the given
+// ooaofooa shape which is specified by param.element_id
 
 select one sourceSpec related by self->GD_ES[R30];
 select one targetSpec related by self->GD_ES[R31];
-// We are only interested in connectors
-if (targetSpec.symbolType=="connector")
+select any model related by self->GD_ES[R31]->GD_EMS[R11]->GD_MS[R11]->GD_MD[R9] where (selected.diagramId==param.diagram_id);
+select any graphicalElement related by model->GD_GE[R1] where (selected.elementId==param.element_id);
 
-  // see if this connector type can possibly be on this model root
-  select any model related by self->GD_ES[R31]->GD_EMS[R11]->GD_MS[R11]->GD_MD[R9] where (selected.diagramId==param.diagram_id);
-
-  select many graphicalElements related by model->GD_GE[R1];
-  for each graphicalElement in graphicalElements
-    if (graphicalElement.represents == OS::NULL_INSTANCE())
-      graphicalElement.represents = CL::getInstanceFromOOA_ID(
-                                           rootInst:graphicalElement.convertToInstance(),
-                                           OOA_ID:graphicalElement.OOA_ID,
-                                           OOA_Type:graphicalElement.OOA_Type );
-    end if;
-
-    // only check elements under the passed system
-    if( CL::isContainedInSystem(element:graphicalElement.represents, system_id:param.system_id))
-    
-    
-     
-    
-    
-      select many startCons related by graphicalElement->DIM_GE[R23]->
-                            DIM_CON[R311]->DIM_ED[R320]->GD_CON[R20]->GD_GE[R2];
-      select many endCons related by graphicalElement->DIM_GE[R23]->
-                            DIM_CON[R311]->DIM_ED[R321]->GD_CON[R20]->GD_GE[R2];
-                            
-      connectorCount = 0;
-      // The pei data uses Bridge_NumElements to hold the ooaofooa operation name
-      // to call to get the count of these elements. However, sometimes this call
-      // uses a boolean paramater and sometimes it does not. The boolean
-      // is required for connector elements associated with delegations
-      // (where source spec and targetspec may not match).
-      useNumConnectorsBridge = true;
-      if (self.Bridge_ConnectorExists != "")
-            connectorCount = CL::numConnectors( from:graphicalElement.represents,
-                             elementTypesMatch:sourceSpec == targetSpec,
-                             using:self.Bridge_NumElements);
-      else
-            useNumConnectorsBridge = false;
-            connectorCount = CL::numElements( from:graphicalElement.represents,
-                             using:self.Bridge_NumElements);
-      end if;
-      CL::traceOperation(message:"Processing GD_GE.diagramId: " + OS::uniqueIdToString(id:graphicalElement.diagramId) + 
-     					"\nGD_GE.OOA_TYPE: " + OS::ooaTypeToString(id:graphicalElement.OOA_Type) +
-     					"\nGD_GE.representsPath: " + graphicalElement.represents_path +
-     					"\nARS.Bridge_NumElements: " + self.Bridge_NumElements + " was called on GD_GE.represents.getOOAId()=" + OS::uniqueIdToString(id:CL::getOOAId(from:graphicalElement.represents)) +
-      					"\nGD_ARS.Bridge_GetElementID: " + self.Bridge_GetElementID +
-      					"\nGD_ARS.Bridge_GetConnectorIDConditional: " + self.Bridge_GetConnectorIDConditional  +
-      					"\nGD_ARS.Bridge_ConnectorExists: " + self.Bridge_ConnectorExists +
-      					"\nNumberConnectors: " + OS::intToString(value:connectorCount)
-      					);
-      					
-      j = 0;
-      while (j < connectorCount)
-        connectorId = OS::NULL_UNIQUE_ID();
-        if (useNumConnectorsBridge)
-          connectorId = CL::getConnectorID(from:graphicalElement.represents,
-                          elementTypesMatch:sourceSpec == targetSpec,
-                          index:j, using:self.Bridge_GetElementID);
-        else 
-          connectorId = CL::getElementID(from:graphicalElement.represents,
-                          index:j, using:self.Bridge_GetElementID);
-        end if;
-        templateConId = OS::NULL_UNIQUE_ID();
-        if self.Bridge_GetConnectorIDConditional != ""
-          templateConId = CL::getConnectorID(from:graphicalElement.represents,
-                   index:j, elementTypesMatch:sourceSpec == targetSpec,
-                                              using:self.Bridge_GetConnectorIDConditional);
-        end if;
-        if templateConId == OS::NULL_UNIQUE_ID()
-          templateConId = connectorId;
-        end if;
-        foundMatchingStart = false;
-        for each startCon in startCons
-        
-        
-        
-        
-        
-        
-          if(startCon.OOA_ID == connectorId)
-            foundMatchingStart = true;
-            break;
-          end if;
-        end for;
-        foundMatchingEnd = false;
-
-        for each endCon in endCons
-
-
-
-
-
-
-          if(endCon.OOA_ID == connectorId)
-            foundMatchingEnd = true;
-            break;
-          end if;
-        end for;
-
-        if(foundMatchingStart or foundMatchingEnd)
-          // we do not need to worry as this element
-          // already has a connector matching the given
-          // id
-          j = j + 1;
-          continue;
-        end if;
-
-
-
-
-
-
-
-
-
-        if(not foundMatchingStart and not foundMatchingEnd )//and model.represents != graphicalElement.represents)
-          select one model related by graphicalElement->GD_MD[R1];
-          if (empty model)
-            msg = " GD_GE.diagramId: " + OS::uniqueIdToString(id:graphicalElement.diagramId) + 
-     					"\nGD_GE.OOA_TYPE: " + OS::ooaTypeToString(id:graphicalElement.OOA_Type) +
-     					"\nGD_GE.representsPath: " + graphicalElement.represents_path +
-     					"\nARS.Bridge_NumElements: " + self.Bridge_NumElements + " was called on GD_GE.represents.getOOAId()=" + OS::uniqueIdToString(id:CL::getOOAId(from:graphicalElement.represents)) +
-      					"\nGD_ARS.Bridge_GetElementID: " + self.Bridge_GetElementID +
-      					"\nGD_ARS.Bridge_GetConnectorIDConditional: " + self.Bridge_GetConnectorIDConditional  +
-      					"\nGD_ARS.Bridge_ConnectorExists: " + self.Bridge_ConnectorExists +
-      					"\nNumberConnectors: " + OS::intToString(value:connectorCount)
-      					;
-          
-            CL::logError(message:"GD_ARS:reconcileConnectorsStep2 GD_GE->GD_MD[R1] is empty for " + msg);
-          end if;
-          reprocess = model.newConnector(connector:templateConId,
-                           elementId:graphicalElement.elementId, arsId:self.Id,
-                                                          representsId:connectorId,
-                                                          existingGraphicsArePresent:false);
-
-          select one newConnector related by sourceSpec->GD_GE[R16];
-          //set the OOA_ID of the new GE created
-          newConnector.OOA_ID=connectorId;
-          newConnector.represents=CL::getInstanceFromOOA_ID(
-                                      rootInst: model.represents,
-                                      OOA_ID: newConnector.OOA_ID,
-                                      OOA_Type: newConnector.OOA_Type );
-
-          unrelate sourceSpec from newConnector across R16;
-        end if;
-        j = j + 1;
-      end while; // (j < connectorCount)
-      
-      
-      
-      
-      
-      
-      
-      
-         
-    end if; // if( CL::isContainedInSystem(element:graphicalElement.represents, system_id:param.system_id))   
-  end for;
+// TODO: FIXME: Interface connectors are note being reconciled yet. 
+//   This causes us to just ignore them for now.
+if ((targetSpec.Name=="Imported Provided Interface") or
+	(targetSpec.Name=="Imported Required Interface") or
+	(targetSpec.Name=="Provided Interface") or
+	(targetSpec.Name=="Required Interface")
+   )
+   return OS::NULL_UNIQUE_ID();
 end if;
 
+// This operation calls itself recursively to find
+// the "other side" of a connector. This return value is 
+// only used by the recursive call.
+searchingForSide2=false;
+if (param.connector_ooa_id_to_find != OS::NULL_UNIQUE_ID())
+  searchingForSide2=true;
+end if;
 
+if (CL::traceGraphicsCreationIsEnabled()) 	  
+  msg = "Looking for: ";
+  if (searchingForSide2)
+    msg = "Looking for the other side: "; 
+  end if;
+	msg = msg +
+	  		targetSpec.Name + 
+	  		" in " + CL::getModelElementName(from:graphicalElement.represents);
+  CL::logTraceMsg(filterType:LoggerType::OPERATION, filterValue:"use_string_buffer", message:msg);
+end if;
+    
+connectorCount = 0;
+// The pei data uses Bridge_NumElements to hold the ooaofooa operation name
+// to call to get the count of these elements. However, sometimes this call
+// uses a boolean paramater and sometimes it does not. The boolean
+// is required for connector elements associated with delegations
+// (where source spec and targetspec may not match).
+useNumConnectorsBridge = true;
+if (self.Bridge_ConnectorExists != "")
+      connectorCount = CL::numConnectors( from:graphicalElement.represents,
+                       elementTypesMatch:sourceSpec == targetSpec,
+                       using:self.Bridge_NumElements);
+else
+            useNumConnectorsBridge = false;
+      connectorCount = CL::numElements( from:graphicalElement.represents,
+                       using:self.Bridge_NumElements);
+end if;
+      					
+j = 0;
+while (j < connectorCount)
+  connectorOOAId = OS::NULL_UNIQUE_ID();
+  if (useNumConnectorsBridge)
+    connectorOOAId = CL::getConnectorID(from:graphicalElement.represents,
+                    elementTypesMatch:sourceSpec == targetSpec,
+                    index:j, using:self.Bridge_GetElementID);
+  else 
+    connectorOOAId = CL::getElementID(from:graphicalElement.represents,
+                    index:j, using:self.Bridge_GetElementID);
+  end if;
+  
+  // Check to see if this shape alreaday has a graphical connector 
+  // associated with this ooaofooa connectorID
+  // If it does, it means graphical for this already exist.
+  select many startCons related by graphicalElement->DIM_GE[R23]->
+                            DIM_CON[R311]->DIM_ED[R320]->GD_CON[R20]->GD_GE[R2];
+  select many endCons related by graphicalElement->DIM_GE[R23]->
+                            DIM_CON[R311]->DIM_ED[R321]->GD_CON[R20]->GD_GE[R2];                            
+  foundExistingStartConnector = false;
+  for each startCon in startCons
+    if(startCon.OOA_ID == connectorOOAId)
+      foundExistingStartConnector = true;
+      break;
+    end if;
+  end for;
+  
+  foundExistingEndConnector = false;
+  for each endCon in endCons
+    if(endCon.OOA_ID == connectorOOAId)
+      foundExistingEndConnector = true;
+      break;
+    end if;
+  end for;
 
+  if (searchingForSide2)
+    if ((connectorOOAId == param.connector_ooa_id_to_find))
+      if (graphicalElement.represents != param.shape_ooa_instance_to_find)
+        // We found the other side! Return the shape ID
+        return graphicalElement.elementId;      
+      else
+        // TODO: FIXME: We are not yet dealong with reflexives
+      end if;
+    end if;    
+    j = j + 1;
+    continue;
+  end if;
+  
+  if((not foundExistingStartConnector) and (not foundExistingEndConnector) )
+      side2_GD_GEId = OS::NULL_UNIQUE_ID();
+      // Search for the other side where the other side is the 
+      // model element that is on the other side of this connector
+      // (if there is one)
+      if (not searchingForSide2)
+        select many shapes related by model->GD_GE[R1];
+        for each shapeInPackage in shapes
+          // Get all the conenctor reconciliation specs for this shape type
+          select many shapeARSInstances related by shapeInPackage->GD_ES[R10]->GD_ARS[R30]->GD_ES[R31]->GD_ARS[R29];
+          for each shapeARSInstance in shapeARSInstances
+            select one connectorSpec related  by shapeARSInstance->GD_ES[R31];
+            if  (connectorSpec.symbolType=="connector")
+              if (not empty connectorSpec)
+                side2_GD_GEId = shapeARSInstance.reconcileConnectorsNoExistingGraphics(diagram_id:model.diagramId, 
+            						 system_id:param.system_id, element_id:shapeInPackage.elementId,
+            						 		connector_ooa_id_to_find:connectorOOAId,
+            						 		shape_ooa_instance_to_find:graphicalElement.represents); 
+            	if (side2_GD_GEId != OS::NULL_UNIQUE_ID())
+            	  break;
+            	end if;
+              end if;
+            end if;
+          end for;
+            if (side2_GD_GEId != OS::NULL_UNIQUE_ID())
+              break;
+            end if;
+        end for;
+//Start old interface stuff 
+// I left this here because I''m not sure if I
+// want to use it or not 
+//
+//    if self.Bridge_GetConnectorIDConditional != ""
+//      side2_GD_GEId = CL::getConnectorID(from:graphicalElement.represents,
+//             index:j, elementTypesMatch:sourceSpec == targetSpec,
+//             using:self.Bridge_GetConnectorIDConditional);
+//    end if;
+//end old interface stuff    
+      end if;
 
+    connectorAlreadyCreated = false;
+    // if the "other side" has already been reconciled we do not
+    // want to create this same connector again.
+    select any side2_GD_GE related by model->GD_GE[R1] where selected.elementId==side2_GD_GEId;
+    if (not empty side2_GD_GE and (side2_GD_GE.connectors_created_during_reconciliation))
+      connectorAlreadyCreated = true;
+    end if;
+    
+    if (CL::traceGraphicsCreationIsEnabled()) 
+      // get side2''s name      
+	  side2_ElementName = "";
+	  if (not empty side2_GD_GE) 
+	    side2_ElementName = CL::getModelElementName(from:side2_GD_GE.represents);
+	  end if;
+	  // get association name
+	  connectorInstance = CL::getOOAInstance(from:connectorOOAId, rootInst:model.represents);
+	  connectorName = CL::getModelElementName(from:connectorInstance);
+	  
+	  msg = CL::getModelElementName(from:graphicalElement.represents) + 
+	        " participates in " +
+	        targetSpec.Name + " (" + connectorName + ") " +
+	        " Other side is: " + side2_ElementName;
+	  if (connectorAlreadyCreated)
+	    msg = msg + "  (Already created, skipping)";
+	  end if;
+	  CL::logTraceMsg(filterType:LoggerType::OPERATION, filterValue:"use_string_buffer", message:msg);
+    end if;
 
+    if (not connectorAlreadyCreated)
+      side2_OOAID=OS::NULL_UNIQUE_ID();
+      side2_elementID=OS::NULL_UNIQUE_ID();;
+      if (not empty side2_GD_GE)
+        side2_elementID=side2_GD_GE.elementId;
+        side2_OOAID=CL::getOOAId(from:side2_GD_GE.represents);
+      end if;
+      
+      reprocess = model.newConnector(elementIdOfExistingGD_CON:connectorOOAId,
+                       startingGD_GEId:graphicalElement.elementId, arsId:self.Id,
+                                                  ooaIdOfElementToConnectTo:side2_OOAID,
+                                                  existingGraphicsArePresent:false,
+                                                  endingGD_GEId:side2_elementID); 
 
-
-
-
-
-
-
+      select one newConnector related by sourceSpec->GD_GE[R16];
+      //set the OOA_ID of the new GE created
+      newConnector.OOA_ID=connectorOOAId;
+      newConnector.represents=CL::getInstanceFromOOA_ID(
+                                    rootInst: model.represents,
+                                    OOA_ID: newConnector.OOA_ID,
+                                    OOA_Type: newConnector.OOA_Type );
+      unrelate sourceSpec from newConnector across R16;
+    end if;
+  end if;
+  j = j + 1;
+end while; // (j < connectorCount)
+return OS::NULL_UNIQUE_ID();
 ',
 	1,
 	'',
@@ -519,6 +538,40 @@ INSERT INTO O_TPARM
 	'',
 	"cd5179d3-74a4-498f-9076-7ef3c9076490",
 	'');
+INSERT INTO O_TPARM
+	VALUES ("502526fd-b88b-4c10-b715-26d316b18f78",
+	"8ffad301-a127-4be7-a504-064da8b3f9dc",
+	'element_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"f2a2187f-d76f-4abf-836d-f623af6a8938",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("65078753-20ee-46a9-9812-37f490b6a240",
+	"8ffad301-a127-4be7-a504-064da8b3f9dc",
+	'connector_ooa_id_to_find',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"502526fd-b88b-4c10-b715-26d316b18f78",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("d6e7ff0b-16fc-41da-917e-e6d4e4cc0fd4",
+	"8ffad301-a127-4be7-a504-064da8b3f9dc",
+	'shape_ooa_instance_to_find',
+	"68dedb08-fd5a-420e-9ec7-e7985ad0c856",
+	0,
+	'',
+	"65078753-20ee-46a9-9812-37f490b6a240",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("68dedb08-fd5a-420e-9ec7-e7985ad0c856",
+	"00000000-0000-0000-0000-000000000000",
+	'instance',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("d4306342-68fd-418b-9c81-c7573bdd3a9b",
 	"0849862c-76a0-4d0f-bb84-cf5aef617874",
@@ -661,25 +714,11 @@ if( CL::isContainedInSystem(element:graphicalElement.represents, system_id:param
           CL::logError(message:"GD_ARS:reconcileConnectorsStep2 GD_GE->GD_MD[R1] is empty for " + msg);
         end if;
   	    if conID != OS::NULL_UNIQUE_ID()
-  	      reprocess = model.newConnector(connector:conID,
-                           elementId:graphicalElement.elementId, arsId:self.Id,
-  	                                                  representsId:connectorId, 
-  	                                                  existingGraphicsArePresent:true);
-        else
-  	      reprocess = model.newConnector(connector:connectorId,
-                           elementId:graphicalElement.elementId, arsId:self.Id,
-  	                                                  representsId:connectorId, 
-  	                                                  existingGraphicsArePresent:false);
-  	      
-          select one newConnector related by sourceSpec->GD_GE[R16];
-          //set the OOA_ID of the new GE created
-          newConnector.OOA_ID=connectorId;
-          newConnector.represents=CL::getInstanceFromOOA_ID(
-                                      rootInst: model.represents,
-                                      OOA_ID: newConnector.OOA_ID,
-                                      OOA_Type: newConnector.OOA_Type );
-
-          unrelate sourceSpec from newConnector across R16;  	                                                  
+  	      reprocess = model.newConnector(elementIdOfExistingGD_CON:conID,
+                           startingGD_GEId:graphicalElement.elementId, arsId:self.Id,
+  	                                                  ooaIdOfElementToConnectTo:connectorId, 
+  	                                                  existingGraphicsArePresent:true,
+  	                                                  endingGD_GEId:OS::NULL_UNIQUE_ID());
   	     end if;  	    
 
 
@@ -971,9 +1010,30 @@ while (i < numRoots)
         // This is where we reconcile all connectors in this container
         // note that this condition cound be set to symbolType=="container", but by doing the inverse
         // of the pass 1 select we are sure to get all the items not covered in pass 1
-        select many containerARSs related by model->GD_GE[R1]->GD_ES[R10]->GD_ARS[R31];
-        for each containerARS in containerARSs
-          containerARS.reconcileConnectorsNoExistingGraphics(diagram_id:model.diagramId, system_id:param.system_id);
+                
+        // This gets all the GD_ARS instances associated with  this container type
+        // select many connectorSpecs related by model->GD_MS[R9]->GD_EMS[R11]->GD_ES[R11] where selected.symbolType=="connector";
+        
+        // Get all the shapes in this package 
+        select many shapes related by model->GD_GE[R1];
+        for each shapeInPackage in shapes
+          // Get all the conenctor reconciliation specs for this shape type
+          select many shapeARSInstances related by shapeInPackage->GD_ES[R10]->GD_ARS[R30]->GD_ES[R31]->GD_ARS[R29];
+          for each shapeARSInstance in shapeARSInstances
+            select one connectorSpec related  by shapeARSInstance->GD_ES[R31];
+            if  (connectorSpec.symbolType=="connector")
+              if (not empty connectorSpec)
+                // this "dummyID" is a dummy because it is only used during a single recursive call
+                // made by this operation
+                dummyID = shapeARSInstance.reconcileConnectorsNoExistingGraphics(diagram_id:model.diagramId, 
+            						 system_id:param.system_id, element_id:shapeInPackage.elementId,
+            						 connector_ooa_id_to_find:OS::NULL_UNIQUE_ID(),
+            						 shape_ooa_instance_to_find:OS::NULL_INSTANCE()); 
+              end if;
+            end if;
+          end for;
+          // mark this shape as having had its connectors created
+          shapeInPackage.connectors_created_during_reconciliation = true;
         end for;
       end if;          
     end if;
@@ -988,6 +1048,14 @@ if (CL::traceGraphicsCreationIsEnabled())
 end if;    
 
 if (param.passNumber == 1)
+  // TODO FIXME: This is just here so I can
+  //   push upstream and be sure that my work
+  //   in progress on connectors does not affect Raven
+  //DONTCALLCONNECTORS=true;
+  //if(DONTCALLCONNECTORS)
+  //  return;
+  //end if;
+  
   // Recursively call to perform connector creation on the container
   GD_ARS::ReconcileAllGraphics(system_id:param.system_id,s_sys:param.s_sys, passNumber:2);
 end if;
@@ -1013,13 +1081,6 @@ INSERT INTO O_TPARM
 	'',
 	"359667d7-e97c-4387-b488-8efdb1cbffdc",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("68dedb08-fd5a-420e-9ec7-e7985ad0c856",
-	"00000000-0000-0000-0000-000000000000",
-	'instance',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TPARM
 	VALUES ("b9f58e31-ac22-4035-8f2a-ba65a29afc4e",
 	"7e13f464-e15d-46f9-b10e-404018a1da48",

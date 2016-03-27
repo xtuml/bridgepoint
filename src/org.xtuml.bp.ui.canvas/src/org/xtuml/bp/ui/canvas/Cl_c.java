@@ -1,4 +1,5 @@
 package org.xtuml.bp.ui.canvas;
+import java.lang.reflect.Field;
 //=====================================================================
 //
 //File:      $RCSfile: Cl_c.java,v $
@@ -331,6 +332,30 @@ public class Cl_c {
 		return HierarchyUtil.Getpath(element);
 	}
 
+	public static Object Getooainstance(final UUID Ooa_id,
+            final Object rootElement) {
+		Class<Ooatype_c> ooaTypeClass = (Class<Ooatype_c>)Ooatype_c.class;
+		Field[] fields = ooaTypeClass.getDeclaredFields();
+		Object result = null;
+		for (int i = 0; i < fields.length;i++) {
+			String name = fields[i].getName();
+			if (!name.equalsIgnoreCase("OOA_UNINITIALIZED_ENUM")) {
+				Class cl = int.class;
+				int value = -1;
+				try {
+					value = (Integer)fields[i].get(cl);
+				} catch (IllegalArgumentException | IllegalAccessException e) {
+					CanvasPlugin.logError("Failed to find value for OOA_Type="+name, null);
+				}
+				result = Getinstancefromooa_id(Ooa_id, value
+	                     , rootElement);
+				if (result != null) {
+					break;
+				}
+			}
+		}
+		return result;
+	}
 	public static Object Getinstancefromooa_id(
             SystemModel_c system,
             final UUID Ooa_id,
@@ -1999,4 +2024,9 @@ public static void Settoolbarstate(boolean readonly) {
 			CanvasPlugin.writeTraceLog(filename);
 		}
 	}	
+	
+	// This function gets the name of any NonRootModelElement
+    public static String Getmodelelementname(final Object From) {
+    	return s_invoke(From, "getName", null, null);
+    }
 }// End Cl_c

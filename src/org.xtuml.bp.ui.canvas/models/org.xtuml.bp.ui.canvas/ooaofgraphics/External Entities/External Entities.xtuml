@@ -1619,6 +1619,58 @@ INSERT INTO S_BPARM
 	'',
 	"44d53d63-bbdb-4b1d-a28a-43704a4e6e2d",
 	'');
+INSERT INTO S_BRG
+	VALUES ("07e91c1d-a9bd-439b-9110-0b812e1b4098",
+	"f168c92b-6d64-4ecb-a677-5a1d7cce8352",
+	'getOOAInstance',
+	'Will be supplied by realized code.
+   
+--------------------------------------------------------------------------------
+',
+	0,
+	"68dedb08-fd5a-420e-9ec7-e7985ad0c856",
+	'
+
+',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("c219f9b6-7275-4679-a54e-c9bc4dfc62d4",
+	"07e91c1d-a9bd-439b-9110-0b812e1b4098",
+	'from',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("393b5176-a132-49f4-8be5-c6b5b34f608b",
+	"07e91c1d-a9bd-439b-9110-0b812e1b4098",
+	'rootInst',
+	"68dedb08-fd5a-420e-9ec7-e7985ad0c856",
+	0,
+	'',
+	"c219f9b6-7275-4679-a54e-c9bc4dfc62d4",
+	'');
+INSERT INTO S_BRG
+	VALUES ("9826bcdc-abce-4e78-ad6f-3adfbc70a76f",
+	"f168c92b-6d64-4ecb-a677-5a1d7cce8352",
+	'getModelElementName',
+	'',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000004",
+	'',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("cb026d8a-c4d1-4cb4-a320-0e4e2f4b060d",
+	"9826bcdc-abce-4e78-ad6f-3adfbc70a76f",
+	'from',
+	"68dedb08-fd5a-420e-9ec7-e7985ad0c856",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
 INSERT INTO PE_PE
 	VALUES ("f168c92b-6d64-4ecb-a677-5a1d7cce8352",
 	1,
