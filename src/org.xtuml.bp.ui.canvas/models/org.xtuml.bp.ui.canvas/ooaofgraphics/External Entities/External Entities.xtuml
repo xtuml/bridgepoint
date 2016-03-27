@@ -1671,6 +1671,25 @@ INSERT INTO S_BPARM
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
+INSERT INTO S_BRG
+	VALUES ("cd82f423-3cc5-46a2-baee-6a2fcbebcf88",
+	"f168c92b-6d64-4ecb-a677-5a1d7cce8352",
+	'isReflexive',
+	'',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000001",
+	'',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("bffa429a-d271-478c-b69e-586a2d4cdecf",
+	"cd82f423-3cc5-46a2-baee-6a2fcbebcf88",
+	'nrme',
+	"68dedb08-fd5a-420e-9ec7-e7985ad0c856",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
 INSERT INTO PE_PE
 	VALUES ("f168c92b-6d64-4ecb-a677-5a1d7cce8352",
 	1,
