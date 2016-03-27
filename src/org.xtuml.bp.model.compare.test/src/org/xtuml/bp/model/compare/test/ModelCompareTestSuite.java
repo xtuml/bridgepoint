@@ -37,10 +37,10 @@ import junit.framework.TestSuite;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
 	GlobalTestSetupClass.class,
+	ModelComparisonTests.class,
+	ElementOrderingTests.class,
 	ModelMergeTests.class,
 	ModelMergeTests2.class,
-	ElementOrderingTests.class,
-	ModelComparisonTests.class,
 })
 public class ModelCompareTestSuite extends TestSuite {
 

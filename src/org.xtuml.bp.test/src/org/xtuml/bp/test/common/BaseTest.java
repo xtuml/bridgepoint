@@ -207,10 +207,10 @@ public class BaseTest extends TestCase {
 
 	
 	public BaseTest(){
-		this(null, null);
+		this(null, "");
 	}
 	public BaseTest(String projectName, String name) {
-		super(name);
+		//super(name);
 		// disable synchronization decoration, costs too
 		// much test time
 		try {

@@ -33,7 +33,9 @@ import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.PlatformUI;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TestName;
 import org.junit.runner.RunWith;
 import org.xtuml.bp.core.ActionNode_c;
 import org.xtuml.bp.core.ActivityDiagramAction_c;
@@ -98,13 +100,24 @@ public class ModelMergeTests extends BaseTest {
 			.getFile()
 			+ "/" + "test_repositories";
 
+	@Rule public TestName name = new TestName();
+	
+	@Override
+	public String getName(){
+		return name.getMethodName();
+	}
 	/*
 	 * (non-Javadoc)
 	 * 
 	 * @see org.xtuml.bp.test.common.BaseTest#initialSetup()
 	 */
+	public static boolean isFirstTime = true;
 	@Override
-	protected void initialSetup() throws Exception {
+	@Before
+	public void initialSetup() throws Exception {
+		if(!isFirstTime)
+			return;
+		isFirstTime = false;		
 		CorePlugin
 				.getDefault()
 				.getPreferenceStore()

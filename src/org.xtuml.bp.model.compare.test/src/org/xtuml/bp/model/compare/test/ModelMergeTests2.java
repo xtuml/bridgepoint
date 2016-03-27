@@ -9,7 +9,11 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.ui.PlatformUI;
 import org.junit.After;
+import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TestName;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.Association_c;
 import org.xtuml.bp.core.AttributeReferenceInClass_c;
 import org.xtuml.bp.core.Attribute_c;
@@ -48,6 +52,7 @@ import org.xtuml.bp.test.TestUtil;
 import org.xtuml.bp.test.common.BaseTest;
 import org.xtuml.bp.test.common.CompareTestUtilities;
 import org.xtuml.bp.test.common.GitUtil;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TestingUtilities;
 import org.xtuml.bp.test.common.ZipUtil;
 import org.xtuml.bp.ui.canvas.GraphicalElement_c;
@@ -56,18 +61,30 @@ import org.xtuml.bp.ui.canvas.Ooaofgraphics;
 import org.xtuml.bp.ui.explorer.ModelContentProvider;
 import org.xtuml.bp.ui.explorer.ModelLabelProvider;
 
+@RunWith(OrderedRunner.class)
 public class ModelMergeTests2  extends BaseTest {
 	private String test_repositories = Platform.getInstanceLocation().getURL()
 			.getFile()
 			+ "/" + "test_repositories";
 
+	@Rule public TestName name = new TestName();
+	
+	@Override
+	public String getName(){
+		return name.getMethodName();
+	}
 	/*
 	 * (non-Javadoc)
 	 * 
 	 * @see org.xtuml.bp.test.common.BaseTest#initialSetup()
 	 */
+	public static boolean isFirstTime = true;
 	@Override
-	protected void initialSetup() throws Exception {
+	@Before
+	public void initialSetup() throws Exception {
+		if(!isFirstTime)
+			return;
+		isFirstTime = false;
 		CorePlugin
 				.getDefault()
 				.getPreferenceStore()

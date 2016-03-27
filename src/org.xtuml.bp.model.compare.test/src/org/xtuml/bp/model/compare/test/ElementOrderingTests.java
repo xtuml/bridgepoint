@@ -31,7 +31,10 @@ import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.PlatformUI;
 import org.junit.After;
+import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TestName;
 import org.junit.runner.RunWith;
 import org.xtuml.bp.core.Attribute_c;
 import org.xtuml.bp.core.BridgeParameter_c;
@@ -77,8 +80,21 @@ public class ElementOrderingTests extends BaseTest {
 
 	private static String projectName = "ElementOrderTesting";
 	
+	@Rule public TestName name = new TestName();
+	
 	@Override
+	public String getName(){
+		return name.getMethodName();
+	}
+	
+	private static boolean isFirstTime = true;
+
+	@Override
+	@Before
 	public void initialSetup() throws Exception {
+		if(!isFirstTime)
+			return;
+		isFirstTime = false;
 		loadProject(projectName);
 		modelRoot = Ooaofooa.getInstance("/ElementOrderTesting/models/ElementOrderTesting/Package/Package.xtuml");
 		StateMachine_c sm = StateMachine_c.StateMachineInstance(modelRoot);
