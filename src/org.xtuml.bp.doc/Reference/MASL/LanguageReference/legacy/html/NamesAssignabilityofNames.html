@@ -1,0 +1,91 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>13.5. Assignability of Names</title>
+<link rel="stylesheet" type="text/css" href="docbook.css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<meta name="keywords" content="MASL, Action Language, Action Semantics, UML, Unified Modelling Language, Shlaer Mellor">
+<link rel="home" href="index.html" title="MASL Reference Manual">
+<link rel="up" href="Names.html" title="Chapter 13. Names">
+<link rel="prev" href="NamesSlices.html" title="13.4. Slices">
+<link rel="next" href="Expressions.html" title="Chapter 14. Expressions">
+<link rel="preface" href="preface.html" title="Preface">
+<link rel="chapter" href="Grammars.html" title="Chapter 1. Grammars">
+<link rel="chapter" href="LexicalStructure.html" title="Chapter 2. Lexical Structure">
+<link rel="chapter" href="Types.html" title="Chapter 3. Types">
+<link rel="chapter" href="TypeConversion.html" title="Chapter 4. Type Conversion">
+<link rel="chapter" href="Domains.html" title="Chapter 5. Domains">
+<link rel="chapter" href="Objects.html" title="Chapter 6. Objects">
+<link rel="chapter" href="Relationships.html" title="Chapter 7. Relationships">
+<link rel="chapter" href="Lifecycles.html" title="Chapter 8. Lifecycles">
+<link rel="chapter" href="Functions.html" title="Chapter 9. Functions">
+<link rel="chapter" href="Services.html" title="Chapter 10. Services">
+<link rel="chapter" href="Exceptions.html" title="Chapter 11. Exceptions">
+<link rel="chapter" href="Statements.html" title="Chapter 12. Statements">
+<link rel="chapter" href="Names.html" title="Chapter 13. Names">
+<link rel="chapter" href="Expressions.html" title="Chapter 14. Expressions">
+<link rel="appendix" href="LanguageDefinedCharacteristics.html" title="Appendix A. Language Defined Characteristics">
+<link rel="appendix" href="SyntaxSummary.html" title="Appendix B. Syntax Summary">
+<link rel="index" href="ix01.html" title="Index">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div align="center">OFFICIAL</div>
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">13.5. Assignability of Names</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="NamesSlices.html">Prev</a> </td>
+<th width="60%" align="center">Chapter 13. Names</th>
+<td width="20%" align="right"> <a accesskey="n" href="Expressions.html">Next</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title">
+<a name="NamesAssignabilityofNames"></a>13.5. Assignability of Names</h2></div></div></div>
+<p>
+When a name is used on the left-hand side of an assignment or on the right-hand
+side of an input stream, a check is made that the name is assignable. If it is
+not a compile-time error occurs. An attribute name is assignable if the
+attribute it names is not preferred or referential.
+A parameter name is assignable if the parameter it names is of mode out.
+A variable name is assignable if the variable it names is not read only.
+<code class="literal">this</code> is not assignable.
+An <a class="link" href="NamesIndexedComponents.html" title="13.1. Indexed Components">indexed component</a>
+<a class="indexterm" name="idp68262752"></a>
+is assignable
+if its <a class="link" href="NamesIndexedComponents.html" title="13.1. Indexed Components">prefix</a>
+<a class="indexterm" name="idp68264816"></a>
+is assignable.
+A selected component is assignable if its
+<a class="link" href="NamesIndexedComponents.html" title="13.1. Indexed Components">prefix</a>
+<a class="indexterm" name="idp68266480"></a>
+is assignable. A selected attribute is assignable if the attribute it names is
+not preferred or referential.
+</p>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="NamesSlices.html">Prev</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="Names.html">Up</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="Expressions.html">Next</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">13.4. Slices </td>
+<td width="20%" align="center">
+<a accesskey="h" href="index.html">Home</a> | <a accesskey="t" href="bk01-toc.html">ToC</a>
+</td>
+<td width="40%" align="right" valign="top"> Chapter 14. Expressions</td>
+</tr>
+</table>
+</div>
+<div align="center">OFFICIAL</div>
+</body>
+</html>

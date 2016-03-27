@@ -129,6 +129,7 @@ configure_mcc_src()
     
     cp -fp $user_supplied_files/xtumlmc_build.exe ./bin
     cp -fp $user_supplied_files/gen_erate.exe     ./bin
+    cp -fp $user_supplied_files/gen_erate         ./bin/gen_erate.py
     cp -fp $user_supplied_files/mcmc              ./bin
     cp -fp $user_supplied_files/mcmc64            ./bin
     cp -fp $user_supplied_files/mcmc.exe          ./bin

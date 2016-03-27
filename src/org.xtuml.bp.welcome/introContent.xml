@@ -11,7 +11,7 @@
         <link id="arrow" label="Workbench" style-id="left" url="http://org.eclipse.ui.intro/close">
           <text>Close this page and go to the workbench.</text>
         </link>
-        <link id="video" label="Tutorial Videos" style-id="left" url="http://www.mentor.com/products/sm/multimedia/filters/bridgepoint-257221a1-p">
+        <link id="video" label="Tutorial Videos" style-id="left" url="http://www.youtube.com/user/xtUML">
           <text>Video tutorials to give you a jump-start using BridgePoint UML.</text>
         </link>
         <link id="quickstart" label="Quick Start" style-id="left" url="http://org.eclipse.ui.intro/showPage?id=quickstart&amp;standby=false">
@@ -39,7 +39,7 @@
     <group id="links-background">
       <group id="page-links">
         <anchor id="top"/>
-        <link id="video" label="Tutorial Videos" style-id="left" url="http://www.mentor.com/products/sm/multimedia/filters/bridgepoint-257221a1-p">
+        <link id="video" label="Tutorial Videos" style-id="left" url="http://www.youtube.com/user/xtUML">
           <text>Video tutorials to give you a jump-start using BridgePoint UML.</text>
         </link>
         <link id="quickstart" label="Quick Start" style-id="left" url="http://org.eclipse.ui.intro/showPage?id=quickstart&amp;standby=false">
@@ -99,7 +99,7 @@
         <link id="folder" label="Example Application - Microwave Oven" style-id="left" url="http://org.eclipse.ui.intro/runAction?pluginId=org.xtuml.bp.welcome&amp;class=org.xtuml.bp.welcome.gettingstarted.SampleProjectGettingStartedAction&amp;model=MicrowaveOven&amp;SingleFileModel=false">
           <text>Click here to create a project that includes a sample application model of a Microwave Oven.</text>
         </link>
-        <link  id="video" label="Video Demonstration" url="http://www.mentor.com/products/sm/events/bridgepoint_methodology.cfm">
+        <link  id="video" label="Video Demonstration" url="http://www.youtube.com/watch?v=a0eBRlTkTdg">
           <text>This 20 minute multimedia presentation includes chapters on System Level Modeling, Component Modeling, Model Execution, Code Generation and Target Execution.</text>
         </link>
         <link id="folder" label="Documentation Project - xtUML Metamodel" style-id="left" url="http://org.eclipse.ui.intro/runAction?pluginId=org.xtuml.bp.welcome&amp;class=org.xtuml.bp.welcome.gettingstarted.SampleProjectGettingStartedAction&amp;model=xtUML_Metamodel&amp;SingleFileModel=true">

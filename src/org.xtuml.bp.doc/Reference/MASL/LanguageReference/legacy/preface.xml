@@ -1,0 +1,290 @@
+<!-- 
+  UK Crown Copyright (c) 2016. All Rights Reserved
+-->
+<!-- Converted by db4-upgrade version 1.0 -->
+<preface xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="preface"><info><title>Preface</title></info>
+
+<para>
+Model Action Specification Language
+<indexterm>
+    <primary>Model Action Specification Language</primary>
+</indexterm>
+(
+<abbrev>MASL</abbrev>
+<indexterm>
+    <primary><abbrev>MASL</abbrev></primary>
+    <see>Model Action Specification Language</see>
+</indexterm>
+) is an implementation
+independent language for specifying processing within the context of executable
+Unified Modelling Language (<abbrev>xUML</abbrev>)
+<indexterm>
+    <primary>Executable Unified Modelling Language</primary>
+</indexterm>
+<indexterm>
+    <primary>executable UML</primary>
+    <see>Executable Unified Modelling Language</see>
+</indexterm>
+models and Model Driven Architecture
+<indexterm>
+    <primary>Model Driven Architecture</primary>
+</indexterm>
+(<abbrev>MDA</abbrev>)
+<indexterm>
+    <primary><abbrev>MDA</abbrev></primary>
+    <see>Model Driven Architecture</see>
+</indexterm>
+<xref linkend="Mellor02"/><xref linkend="OOA96"/>.
+<abbrev>MASL</abbrev>
+<indexterm>
+    <primary><abbrev>MASL</abbrev></primary>
+    <see>Model Action Specification Language</see>
+</indexterm>
+is intended as a replacement for the Action Specification Language
+<indexterm>
+    <primary>Action Specification Language</primary>
+</indexterm>
+(<abbrev>ASL</abbrev>
+<indexterm>
+    <primary><abbrev>ASL</abbrev></primary>
+    <see>Action Specification Language</see>
+</indexterm>
+) <xref linkend="ASL96"/>.
+</para>
+<para>
+The <abbrev>ASL</abbrev>
+<indexterm>
+    <primary><abbrev>ASL</abbrev></primary>
+    <see>Action Specification Language</see>
+</indexterm>
+was a direct replacement for Action Data Flow
+Diagrams
+<indexterm>
+    <primary>Action Data Flow Diagram</primary>
+</indexterm>
+(<abbrev>ADFD</abbrev>s)
+<indexterm>
+    <primary>ADFD</primary>
+    <see>Action Data Flow Diagram</see>
+</indexterm>
+and because of this,
+was found to be not sufficiently powerful enough to specify the
+solutions to some problems. This sometimes led to very verbose and unmanageable
+code, with analysts having to embed traditional languages, such as C++
+<indexterm>
+    <primary><abbrev>C++</abbrev></primary>
+</indexterm>
+, within their <abbrev>xUML</abbrev>
+<indexterm>
+    <primary><abbrev>xUML</abbrev></primary>
+    <see>Executable Unified Modelling Language</see>
+</indexterm>
+models.
+</para>
+<para>
+<abbrev>MASL</abbrev>
+<indexterm>
+    <primary><abbrev>MASL</abbrev></primary>
+    <see>Model Action Specification Language</see>
+</indexterm>
+combines the object oriented features of <abbrev>ASL</abbrev>
+<indexterm>
+    <primary><abbrev>ASL</abbrev></primary>
+    <see>Action Specification Language</see>
+</indexterm>
+, together with the more powerful program constructs from
+other OOD/OOP languages, such as Ada <xref linkend="Ada95"/>
+and Java <xref linkend="Gosling00"/>. In addition, the
+<abbrev>ASL</abbrev>
+<indexterm>
+    <primary><abbrev>ASL</abbrev></primary>
+    <see>Action Specification Language</see>
+</indexterm>
+only specified the dynamic processing of an <abbrev>xUML</abbrev> model.
+That is, the actions within the states and services. The static
+description of an <abbrev>xUML</abbrev>
+<indexterm>
+    <primary><abbrev>xUML</abbrev></primary>
+    <see>Executable Unified Modelling Language</see>
+</indexterm>
+model was described using a mixture of
+diagrams and lists. Using <abbrev>MASL</abbrev>,
+<indexterm>
+    <primary><abbrev>MASL</abbrev></primary>
+    <see>Model Action Specification Language</see>
+</indexterm>
+both the static and dynamic parts of <abbrev>xUML</abbrev>
+<indexterm>
+    <primary><abbrev>xUML</abbrev></primary>
+    <see>Executable Unified Modelling Language</see>
+</indexterm>
+models can be specified.
+</para>
+<para>
+The development of <abbrev>MASL</abbrev>
+<indexterm>
+    <primary><abbrev>MASL</abbrev></primary>
+    <see>Model Action Specification Language</see>
+</indexterm>
+has been influenced by the revisions and clarification provided in both
+Project Technology's "The OOA96 Report" and <xref linkend="OOA96"/>
+Kennedy Carter's technical note "OOA 97" <xref linkend="OOA97"/>.
+Project Technology's papers
+"Data Types in OOA" <xref linkend="Shlaer97"/> and their description of a
+text-based action language named
+<abbrev>SMALL</abbrev> <xref linkend="Shlaer88"/> were also of great use.
+<abbrev>MASL</abbrev>
+<indexterm>
+    <primary><abbrev>MASL</abbrev></primary>
+    <see>Model Action Specification Language</see>
+</indexterm>
+uses the naming of modelling artifacts as described
+in <xref linkend="Shlaer97"/> and <xref linkend="Shlaer88"/> rather than
+the newer UML naming.
+</para>
+<para>
+<abbrev>MASL</abbrev>
+<indexterm>
+    <primary><abbrev>MASL</abbrev></primary>
+    <see>Model Action Specification Language</see>
+</indexterm>
+increases the importance of the interfaces between
+<abbrev>xUML</abbrev>
+<indexterm>
+    <primary><abbrev>xUML</abbrev></primary>
+    <see>Executable Unified Modelling Language</see>
+</indexterm>
+ models. Most of these ideas come directly from the Common
+Object Request Broker Architecture (<abbrev>CORBA</abbrev>
+<indexterm>
+    <primary><abbrev>CORBA</abbrev></primary>
+</indexterm>
+) <xref linkend="OMG97"/> and its Interface Definition Language
+<indexterm>
+    <primary>Interface Definition Language</primary>
+    <see>IDL</see>
+</indexterm>
+(<abbrev>IDL</abbrev>).
+<indexterm>
+    <primary><abbrev>IDL</abbrev></primary>
+</indexterm>
+</para>
+<section xml:id="PrefaceOrganizationoftheManual"><info><title>Organization of the Manual</title></info>
+
+<para>
+The <abbrev>MASL</abbrev>
+<indexterm>
+    <primary><abbrev>MASL</abbrev></primary>
+    <see>Model Action Specification Language</see>
+</indexterm>
+Reference Manual is organized as described in the following paragraphs:
+</para>
+<para>
+<xref linkend="Grammars"/>
+describes the grammars and notation used to
+represent the lexical and syntactic grammars for <abbrev>MASL</abbrev>.
+<indexterm>
+    <primary><abbrev>MASL</abbrev></primary>
+    <see>Model Action Specification Language</see>
+</indexterm>
+</para>
+<para>
+<xref linkend="LexicalStructure"/>
+describes the lexical structure of the
+language.
+</para>
+<para>
+<xref linkend="Types"/>
+describes <abbrev>MASL</abbrev>
+<indexterm>
+    <primary><abbrev>MASL</abbrev></primary>
+    <see>Model Action Specification Language</see>
+</indexterm>
+types and variables.
+</para>
+<para>
+<xref linkend="TypeConversion"/>
+describes the type hierarchy formed by the set
+of types in a program and hence the implicit type conversions that can occur and
+the explicit type conversions that can be applied.
+</para>
+<para>
+<xref linkend="Domains"/>
+describes the structure of a system, which is
+organized into domains.
+</para>
+<para>
+<xref linkend="Objects"/>
+describes objects and their attributes, services
+and lifecycles.
+</para>
+<para>
+<xref linkend="Relationships"/>
+describes the modelling of relationships
+between objects in a domain.
+</para>
+<para>
+<xref linkend="Lifecycles"/>
+describes lifecycles of objects.
+</para>
+<para>
+<xref linkend="Functions"/>
+describes the functions provided by domains and
+objects.
+</para>
+<para>
+<xref linkend="Services"/>
+describes the services provided by domains and
+objects.
+</para>
+<para>
+<xref linkend="Exceptions"/>
+describes the <abbrev>MASL</abbrev>
+<indexterm>
+    <primary><abbrev>MASL</abbrev></primary>
+    <see>Model Action Specification Language</see>
+</indexterm>
+exception handling mechanisms.
+</para>
+<para>
+<xref linkend="Statements"/>
+describes <abbrev>MASL</abbrev>
+<indexterm>
+    <primary><abbrev>MASL</abbrev></primary>
+    <see>Model Action Specification Language</see>
+</indexterm>
+statements.
+</para>
+<para>
+<xref linkend="Names"/>
+describes the <abbrev>MASL</abbrev>
+<indexterm>
+    <primary><abbrev>MASL</abbrev></primary>
+    <see>Model Action Specification Language</see>
+</indexterm>
+naming system and how to determine what names denote.
+</para>
+<para>
+<xref linkend="Expressions"/>
+describes <abbrev>MASL</abbrev> expressions.
+<indexterm>
+    <primary><abbrev>MASL</abbrev></primary>
+    <see>Model Action Specification Language</see>
+</indexterm>
+</para>
+<para>
+<xref linkend="LanguageDefinedCharacteristics"/>
+provides a summary of the
+language characteristics defined elsewhere in the manual.
+</para>
+<para>
+<xref linkend="SyntaxSummary"/>
+presents the complete grammar for
+<abbrev>MASL</abbrev>.
+<indexterm>
+    <primary><abbrev>MASL</abbrev></primary>
+    <see>Model Action Specification Language</see>
+</indexterm>
+</para>
+</section>
+</preface>

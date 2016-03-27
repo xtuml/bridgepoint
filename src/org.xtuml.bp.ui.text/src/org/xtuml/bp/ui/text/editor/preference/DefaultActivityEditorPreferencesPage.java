@@ -1,14 +1,6 @@
 package org.xtuml.bp.ui.text.editor.preference;
 
 //========================================================================
-//
-//File:      $RCSfile: DefaultActivityEditorPreferencePage.java,v $
-//Version:   $Revision: 1.4 $
-//Modified:  $Date: 2012/01/23 21:28:10 $
-//
-//(c) Copyright 2007-2014 by Mentor Graphics Corp. All rights reserved.
-//
-//========================================================================
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not 
 // use this file except in compliance with the License.  You may obtain a copy 
 // of the License at
@@ -83,7 +75,7 @@ public class DefaultActivityEditorPreferencesPage extends PreferencePage impleme
 		activityEditorRadio.setLayoutData(new GridData());
 
 		model = new BridgePointPreferencesModel();
-                model.getStore().loadModel(getPreferenceStore(), null, model);
+        model.getStore().loadModel(getPreferenceStore(), null, model);
 
 		syncUIWithPreferences();
 		
@@ -109,7 +101,8 @@ public class DefaultActivityEditorPreferencesPage extends PreferencePage impleme
 		// viewed will be called.  Those other performOk()'s may have caused the
 		// store to be updated.  So we need to make sure our copy of the
 		// preferences model is up to date before we modify and save it.
-                model.getStore().loadModel(getPreferenceStore(), null, model);
+
+        model.getStore().loadModel(getPreferenceStore(), null, model);
 
 		BridgePointPreferencesModel bpPrefs = (BridgePointPreferencesModel) model;
 		if (maslEditorRadio.getSelection()) {

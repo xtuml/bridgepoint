@@ -893,8 +893,11 @@ public class ${viewer_name} extends ViewPart implements IModelViewerProvider {
                         }
                         else if ( ( OALempty && MASLempty ) || ( !OALempty && !MASLempty ) ) {
                             // check to see if MASL is the default
+                            /* TODO Levi disabled preference for testing
                             IPreferenceStore store = CorePlugin.getDefault().getPreferenceStore();
                             String option = store.getString(BridgePointPreferencesStore.DEFAULT_ACTIVITY_EDITOR);
+                            */
+                            String option = "MASL";     // hardcode MASL temporarily to avoid dependance on bp.core
                             if (option.equals("MASL")) {
                                     inputClass = bundle.loadClass("org.xtuml.bp.ui.text.masl.MASLEditorInput");
                                     try {

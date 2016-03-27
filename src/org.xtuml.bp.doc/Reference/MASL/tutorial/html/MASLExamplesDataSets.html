@@ -1,0 +1,192 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>8.3. Data Sets</title>
+<link rel="stylesheet" type="text/css" href="docbook.css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<meta name="keywords" content="MASL, Action Language, Action Semantics, UML, Unified Modelling Language, Shlaer Mellor">
+<link rel="home" href="index.html" title="MASL Tutorial">
+<link rel="up" href="MASLExamples.html" title="Chapter 8. MASL Examples">
+<link rel="prev" href="MASLExamplesCreationandNavigation.html" title="8.2. Creation and Navigation">
+<link rel="next" href="MASLExamplesStringManipulation.html" title="8.4. String Manipulation">
+<link rel="preface" href="preface.html" title="Preface">
+<link rel="chapter" href="Types.html" title="Chapter 1. Types">
+<link rel="chapter" href="ExecutionControl.html" title="Chapter 2. Execution Control">
+<link rel="chapter" href="CompositeTypes.html" title="Chapter 3. Composite Types">
+<link rel="chapter" href="Exceptions.html" title="Chapter 4. Exceptions">
+<link rel="chapter" href="ObjectsandRelationships.html" title="Chapter 5. Objects and Relationships">
+<link rel="chapter" href="Actions.html" title="Chapter 6. Actions">
+<link rel="chapter" href="DeviceIO.html" title="Chapter 7. Device Input/Output">
+<link rel="chapter" href="MASLExamples.html" title="Chapter 8. MASL Examples">
+<link rel="index" href="ix01.html" title="Index">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div align="center">UNCLASSIFIED</div>
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">8.3. Data Sets</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="MASLExamplesCreationandNavigation.html">Prev</a> </td>
+<th width="60%" align="center">Chapter 8. MASL Examples</th>
+<td width="20%" align="right"> <a accesskey="n" href="MASLExamplesStringManipulation.html">Next</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title">
+<a name="MASLExamplesDataSets"></a>8.3. Data Sets</h2></div></div></div>
+<p>
+</p>
+<pre class="programlisting">
+
+declare
+  i    : integer := 0;
+  r    : real    := 0.0;
+  t    : string  :="";
+  d1   : record_structure_type;
+  s1   : sequence of record_structure_type;
+  fs   : sequence of Server::fixed_size_structure_type;
+  date : Calendar::Date;
+  time : Calendar::Time_of_Day;
+begin
+  //create a sequence of structures
+  for x in 1..3 loop
+    d1.int_field  := x;
+    d1.real_field := real(x*1.1);
+    d1.text_field := x'image;
+    s1 := s1 &amp; d1;
+  end loop;
+  for x in s1'elements loop
+    i := i + x.int_field;
+    t := t &amp; x.text_field;
+  end loop;
+  if (i /= 6 or t /="123") then
+    raise Standard::constraint_error;
+  end if;
+
+  //normal order
+  s1 := s1 ordered_by(int_field);
+  t := "";
+  for x in s1'elements loop
+    t:=t &amp; x.text_field;
+  end loop;
+  if (t /="123") then
+    raise Standard::constraint_error;
+  end if;
+
+  //reverse order
+  s1 := s1 reverse_ordered_by(int_field);
+  t := "";
+  for x in s1'elements loop
+    t:=t &amp; x.text_field;
+  end loop;
+  if (t /="321") then
+    raise Standard::constraint_error;
+  end if;
+
+  //slice
+  d1 := s1[s1'last-1];
+  t := "";
+  for x in s1'elements loop
+    t:=t &amp; x.text_field;
+  end loop;
+  if (t /="321") then
+    raise Standard::constraint_error;
+  end if;
+  if (d1.text_field /= "2") then
+    raise Standard::constraint_error;
+  end if;
+
+  s1[s1'last-1].text_field := "two";
+  t := "";
+  for x in s1'elements loop
+    t:=t &amp; x.text_field;
+  end loop;
+  if (t /="3two1") then
+    raise Standard::constraint_error;
+  end if;
+
+  //normal order
+  s1 := s1 ordered_by(int_field);
+  t := "";
+  for x in s1'elements loop
+    t:=t &amp; x.text_field;
+  end loop;
+  if (t /="1two3") then
+    raise Standard::constraint_error;
+  end if;
+
+  //reverse order
+  s1 := s1 reverse_ordered_by(text_field);
+  t := "";
+  for x in s1'elements loop
+    t:=t &amp; x.text_field;
+  end loop;
+  if (t /="two31") then
+    raise Standard::constraint_error;
+  end if;
+
+  //multiple order
+  s1 :=      (3,1.2,"bla",date,time,blue);
+  s1 := s1 &amp; (1,1.0,"bla",date,time,blue);
+  s1 := s1 &amp; (4,1.0,"bla",date,time,blue);
+  s1 := s1 &amp; (2,1.0,"bbla",date,time,blue);
+  s1 := s1 &amp; (2,1.0,"bla",date,time,blue);
+  s1 := s1 &amp; (3,1.0,"bla",date,time,blue);
+  s1 := s1 ordered_by(int_field,real_field,text_field);
+  //for x in s1'elements loop
+  //  Text_IO::put_line(x'image);
+  //end loop;
+  if (s1[s1'first+1].text_field /= "bbla") then
+    raise Standard::constraint_error;
+  end if;
+
+  //structure comparisons, removed from language
+  //d1 := s1[s1'first];
+  //if (d1 /= s1[s1'first]) then
+  //  raise Standard::constraint_error;
+  //end if;
+  //d1.int_field := s1[s1'first].int_field &amp; 2;
+  //if (d1 = s1[s1'first]) then
+  //  raise Standard::constraint_error;
+  //end if;
+
+  //double nested normal order, testing cgen here
+  for x in s1'elements loop
+    s1 := s1 ordered_by(text_field);
+  end loop;
+  s1 := s1 ordered_by(text_field);
+
+  //other domain structure ordering, testing cgen here
+  fs := fs ordered_by(i);
+end service;
+
+</pre>
+<p>
+</p>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="MASLExamplesCreationandNavigation.html">Prev</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="MASLExamples.html">Up</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="MASLExamplesStringManipulation.html">Next</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">8.2. Creation and Navigation </td>
+<td width="20%" align="center">
+<a accesskey="h" href="index.html">Home</a> | <a accesskey="t" href="bk01-toc.html">ToC</a>
+</td>
+<td width="40%" align="right" valign="top"> 8.4. String Manipulation</td>
+</tr>
+</table>
+</div>
+<div align="center">UNCLASSIFIED</div>
+</body>
+</html>

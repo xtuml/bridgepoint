@@ -1,0 +1,219 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>14.11. Logical Operators</title>
+<link rel="stylesheet" type="text/css" href="docbook.css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<meta name="keywords" content="MASL, Action Language, Action Semantics, UML, Unified Modelling Language, Shlaer Mellor">
+<link rel="home" href="index.html" title="MASL Reference Manual">
+<link rel="up" href="Expressions.html" title="Chapter 14. Expressions">
+<link rel="prev" href="ExpressionsEqualityOperators.html" title="14.10. Equality Operators">
+<link rel="next" href="ExpressionsExpression.html" title="14.12. Expression">
+<link rel="preface" href="preface.html" title="Preface">
+<link rel="chapter" href="Grammars.html" title="Chapter 1. Grammars">
+<link rel="chapter" href="LexicalStructure.html" title="Chapter 2. Lexical Structure">
+<link rel="chapter" href="Types.html" title="Chapter 3. Types">
+<link rel="chapter" href="TypeConversion.html" title="Chapter 4. Type Conversion">
+<link rel="chapter" href="Domains.html" title="Chapter 5. Domains">
+<link rel="chapter" href="Objects.html" title="Chapter 6. Objects">
+<link rel="chapter" href="Relationships.html" title="Chapter 7. Relationships">
+<link rel="chapter" href="Lifecycles.html" title="Chapter 8. Lifecycles">
+<link rel="chapter" href="Functions.html" title="Chapter 9. Functions">
+<link rel="chapter" href="Services.html" title="Chapter 10. Services">
+<link rel="chapter" href="Exceptions.html" title="Chapter 11. Exceptions">
+<link rel="chapter" href="Statements.html" title="Chapter 12. Statements">
+<link rel="chapter" href="Names.html" title="Chapter 13. Names">
+<link rel="chapter" href="Expressions.html" title="Chapter 14. Expressions">
+<link rel="appendix" href="LanguageDefinedCharacteristics.html" title="Appendix A. Language Defined Characteristics">
+<link rel="appendix" href="SyntaxSummary.html" title="Appendix B. Syntax Summary">
+<link rel="index" href="ix01.html" title="Index">
+<link rel="subsection" href="ExpressionsLogicalOperators.html#ExpressionsShortCircuitEvaluationofLogicalOperators" title="14.11.1. Short Circuit Evaluation of Logical Operators">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div align="center">OFFICIAL</div>
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">14.11. Logical Operators</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ExpressionsEqualityOperators.html">Prev</a> </td>
+<th width="60%" align="center">Chapter 14. Expressions</th>
+<td width="20%" align="right"> <a accesskey="n" href="ExpressionsExpression.html">Next</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title">
+<a name="ExpressionsLogicalOperators"></a>14.11. Logical Operators</h2></div></div></div>
+<div class="toc"><dl class="toc"><dt><span class="section"><a href="ExpressionsLogicalOperators.html#ExpressionsShortCircuitEvaluationofLogicalOperators">14.11.1. Short Circuit Evaluation of Logical Operators</a></span></dt></dl></div>
+<p>
+The logical operators
+<a class="indexterm" name="idp72145696"></a>
+are the and operator <code class="literal">and</code>,
+<a class="indexterm" name="idp72147760"></a>
+the exclusive-or operator <code class="literal">xor</code>
+<a class="indexterm" name="idp72149200"></a>
+and the inclusive-or operator <code class="literal">or</code>.
+<a class="indexterm" name="idp72150688"></a>
+These operators have different precedence,
+<a class="indexterm" name="idp72151744"></a>
+with <code class="literal">and</code>
+<a class="indexterm" name="idp72153536"></a>
+having the highest precedence
+<a class="indexterm" name="idp72154576"></a>
+and
+<code class="literal">or</code>
+<a class="indexterm" name="idp72156368"></a>
+the lowest precedence.
+<a class="indexterm" name="idp72157408"></a>
+Each of these operators is syntactically
+left-associative
+<a class="indexterm" name="idp72158800"></a>
+and each groups left-to-right.
+<a class="indexterm" name="idp72160160"></a>
+Each operator is
+commutative and associative.
+</p>
+<a class="indexterm" name="idp72161696"></a><a class="indexterm" name="idp72162880"></a><a class="indexterm" name="idp72164064"></a><a class="indexterm" name="idp72165376"></a><a class="indexterm" name="idp72166560"></a><a class="indexterm" name="idp72167744"></a><a class="indexterm" name="idp72169056"></a><a class="indexterm" name="idp72170240"></a><a class="indexterm" name="idp72171424"></a><table width="100%" cellpadding="5" bgcolor="#F5DCB3" border="1" class="productionset" summary="EBNF"><tr><td><table border="0" width="99%" cellpadding="0" bgcolor="#F5DCB3" class="productionset" summary="EBNF productions">
+<tr>
+<td align="left" valign="top" width="3%">[209]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.logicalandexpression"></a>
+        logical and expression
+    </td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="ExpressionsEqualityOperators.html#ebnf.equalityexpression">equality expression</a> |
+        <a href="ExpressionsLogicalOperators.html#ebnf.logicalandexpression">logical and expression</a>,
+        'and',
+        <a href="ExpressionsEqualityOperators.html#ebnf.equalityexpression">equality expression</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[210]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.logicalxorexpression"></a>
+        logical xor expression
+    </td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="ExpressionsLogicalOperators.html#ebnf.logicalandexpression">logical and expression</a> |
+        <a href="ExpressionsLogicalOperators.html#ebnf.logicalxorexpression">logical xor expression</a>,
+        'xor',
+        <a href="ExpressionsLogicalOperators.html#ebnf.logicalandexpression">logical and expression</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[211]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.logicalorexpression"></a>
+        logical or expression
+    </td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="ExpressionsLogicalOperators.html#ebnf.logicalxorexpression">logical xor expression</a> |
+        <a href="ExpressionsLogicalOperators.html#ebnf.logicalorexpression">logical or expression</a>,
+        'or',
+        <a href="ExpressionsLogicalOperators.html#ebnf.logicalxorexpression">logical xor expression</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+</table></td></tr></table>
+<p>
+A compile-time error occurs if and of the following is true:
+</p>
+<div class="itemizedlist"><ul class="itemizedlist">
+<li class="listitem"><p>
+The types of both operands are not types or subtypes of
+<a class="link" href="TypesBuiltinTypes.html#TypesBooleanType" title="3.2.3. Boolean Type"><span class="type">boolean</span></a>.
+<a class="indexterm" name="idp72187504"></a>
+</p></li>
+<li class="listitem"><p>
+The type of the right-hand operand is not assignable to the type of the
+left-hand operand.
+</p></li>
+</ul></div>
+<p>
+The type of a logical expression is the base type of the left-hand operand.
+For <code class="literal">and</code>,
+<a class="indexterm" name="idp72190496"></a>
+the result is true if both operand values are true;
+otherwise, the result is false.
+For <code class="literal">xor</code>,
+<a class="indexterm" name="idp72192048"></a>
+the result is true if the operand values are
+different; otherwise, the result is false. For <code class="literal">or</code>,
+<a class="indexterm" name="idp72193600"></a>
+the result is false if both operand values are false; otherwise, the result is
+true.
+</p>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="ExpressionsShortCircuitEvaluationofLogicalOperators"></a>14.11.1. Short Circuit Evaluation of Logical Operators</h3></div></div></div>
+<p>
+The <code class="literal">and</code>
+<a class="indexterm" name="idp72196752"></a>
+operator evaluates is right-hand operand only if the
+value of its left-hand operand is true. It is syntactically left-associative
+<a class="indexterm" name="idp72197888"></a>
+and groups left-to-right.
+<a class="indexterm" name="idp72199248"></a>
+It is fully associative with respect to both side effects
+and result value; that is, for any expressions <span class="emphasis"><em>a</em></span>,
+<span class="emphasis"><em>b</em></span> and <span class="emphasis"><em>c</em></span>, evaluation of the expression
+<code class="literal">((</code><span class="emphasis"><em>a</em></span><code class="literal">) and (</code><span class="emphasis"><em>b</em></span><code class="literal">)) and (</code><span class="emphasis"><em>c</em></span><code class="literal">)</code>
+produces the same result as evaluation of the expression
+<code class="literal">(</code><span class="emphasis"><em>a</em></span><code class="literal">) and ((</code><span class="emphasis"><em>b</em></span><code class="literal">) and (</code><span class="emphasis"><em>c</em></span><code class="literal">))</code>.
+At run-time, the left-hand operand is evaluation first; if its value is
+false, the value of the expression is false and the right-hand operand
+expression is not evaluated. If the value of the left-hand operand is true,
+then the right-hand expression is evaluated and its value becomes the value of
+the expression.
+</p>
+<p>
+The <code class="literal">or</code>
+<a class="indexterm" name="idp72207648"></a>
+operator evaluates its right-hand operand only if the
+value of its left-hand operand is false. It is syntactically left-associative
+<a class="indexterm" name="idp72208784"></a>
+(it groups left-to-right).
+<a class="indexterm" name="idp72210144"></a>
+It is fully associative with respect to both side
+effects and result value; that is, for any expressions <code class="literal">a</code>,
+<code class="literal">b</code> and <code class="literal">c</code>, evaluation of the expression
+<code class="literal">((</code><span class="emphasis"><em>a</em></span><code class="literal">) or (</code><span class="emphasis"><em>b</em></span><code class="literal">)) or (</code><span class="emphasis"><em>c</em></span><code class="literal">)</code>
+produces the same result as evaluation of the expression
+<code class="literal">(</code><span class="emphasis"><em>a</em></span><code class="literal">) or ((</code><span class="emphasis"><em>b</em></span><code class="literal">) or (</code><span class="emphasis"><em>c</em></span><code class="literal">))</code>.
+At run-time, the left-hand operand expression is evaluated first; if its value
+is true, the value of the expression is true and the right-hand operand expression
+is not evaluated. If the value of the left-hand operand is false, then the
+right-hand expression is evaluated and it value becomes the value of the expression.
+</p>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ExpressionsEqualityOperators.html">Prev</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="Expressions.html">Up</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ExpressionsExpression.html">Next</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">14.10. Equality Operators </td>
+<td width="20%" align="center">
+<a accesskey="h" href="index.html">Home</a> | <a accesskey="t" href="bk01-toc.html">ToC</a>
+</td>
+<td width="40%" align="right" valign="top"> 14.12. Expression</td>
+</tr>
+</table>
+</div>
+<div align="center">OFFICIAL</div>
+</body>
+</html>

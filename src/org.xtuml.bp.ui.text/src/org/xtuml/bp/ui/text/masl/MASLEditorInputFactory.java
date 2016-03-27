@@ -41,6 +41,8 @@ public class MASLEditorInputFactory extends FileEditorInputFactory{
             supportedList = new Vector();
             supportedList.add("org.xtuml.bp.core.RequiredOperation_c"); //$NON-NLS-1$
             supportedList.add("org.xtuml.bp.core.RequiredSignal_c"); //$NON-NLS-1$
+            supportedList.add("org.xtuml.bp.core.ProvidedOperation_c"); //$NON-NLS-1$
+            supportedList.add("org.xtuml.bp.core.ProvidedSignal_c"); //$NON-NLS-1$
             supportedList.add("org.xtuml.bp.core.Bridge_c"); //$NON-NLS-1$
             supportedList.add("org.xtuml.bp.core.Function_c"); //$NON-NLS-1$
             supportedList.add("org.xtuml.bp.core.Operation_c"); //$NON-NLS-1$
@@ -254,7 +256,8 @@ public class MASLEditorInputFactory extends FileEditorInputFactory{
 
         // get name
         String name;
-        if ( ( modelElement instanceof RequiredOperation_c || modelElement instanceof RequiredSignal_c ) &&
+        if ( ( modelElement instanceof RequiredOperation_c || modelElement instanceof RequiredSignal_c || 
+               modelElement instanceof ProvidedOperation_c || modelElement instanceof ProvidedSignal_c ) &&
                 getParent(getParent(modelElement)) instanceof Port_c ) {
             name = getParent(getParent(modelElement)).getName() + "_" + modelElement.getName();
         }

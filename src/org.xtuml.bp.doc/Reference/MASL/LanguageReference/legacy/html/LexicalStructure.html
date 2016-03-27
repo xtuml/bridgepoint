@@ -1,0 +1,143 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Chapter 2. Lexical Structure</title>
+<link rel="stylesheet" type="text/css" href="docbook.css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<meta name="keywords" content="MASL, Action Language, Action Semantics, UML, Unified Modelling Language, Shlaer Mellor">
+<link rel="home" href="index.html" title="MASL Reference Manual">
+<link rel="up" href="index.html" title="MASL Reference Manual">
+<link rel="prev" href="GrammarsGrammerNotation.html" title="1.3. Grammar Notation">
+<link rel="next" href="LexicalStructureLineTerminators.html" title="2.1. Line Terminators">
+<link rel="preface" href="preface.html" title="Preface">
+<link rel="chapter" href="Grammars.html" title="Chapter 1. Grammars">
+<link rel="chapter" href="LexicalStructure.html" title="Chapter 2. Lexical Structure">
+<link rel="chapter" href="Types.html" title="Chapter 3. Types">
+<link rel="chapter" href="TypeConversion.html" title="Chapter 4. Type Conversion">
+<link rel="chapter" href="Domains.html" title="Chapter 5. Domains">
+<link rel="chapter" href="Objects.html" title="Chapter 6. Objects">
+<link rel="chapter" href="Relationships.html" title="Chapter 7. Relationships">
+<link rel="chapter" href="Lifecycles.html" title="Chapter 8. Lifecycles">
+<link rel="chapter" href="Functions.html" title="Chapter 9. Functions">
+<link rel="chapter" href="Services.html" title="Chapter 10. Services">
+<link rel="chapter" href="Exceptions.html" title="Chapter 11. Exceptions">
+<link rel="chapter" href="Statements.html" title="Chapter 12. Statements">
+<link rel="chapter" href="Names.html" title="Chapter 13. Names">
+<link rel="chapter" href="Expressions.html" title="Chapter 14. Expressions">
+<link rel="appendix" href="LanguageDefinedCharacteristics.html" title="Appendix A. Language Defined Characteristics">
+<link rel="appendix" href="SyntaxSummary.html" title="Appendix B. Syntax Summary">
+<link rel="index" href="ix01.html" title="Index">
+<link rel="section" href="LexicalStructureLineTerminators.html" title="2.1. Line Terminators">
+<link rel="section" href="LexicalStructureWhiteSpace.html" title="2.2. White Space">
+<link rel="section" href="LexicalStructuresComments.html" title="2.3. Comments">
+<link rel="section" href="LexicalStructureIdentifiers.html" title="2.4. Identifiers">
+<link rel="section" href="LexicalStructureReservedWords.html" title="2.5. Reserved Words">
+<link rel="section" href="LexicalStructureLiterals.html" title="2.6. Literals">
+<link rel="section" href="LexicalStructureSeparators.html" title="2.7. Separators">
+<link rel="section" href="LexicalStructureOperators.html" title="2.8. Operators">
+<link rel="section" href="LexicalStructurePragmas.html" title="2.9. Pragmas">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div align="center">OFFICIAL</div>
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">Chapter 2. Lexical Structure</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="GrammarsGrammerNotation.html">Prev</a> </td>
+<th width="60%" align="center"> </th>
+<td width="20%" align="right"> <a accesskey="n" href="LexicalStructureLineTerminators.html">Next</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="chapter">
+<div class="titlepage"><div><div><h1 class="title">
+<a name="LexicalStructure"></a>Chapter 2. Lexical Structure</h1></div></div></div>
+<div class="toc">
+<div class="toc-title">Table of Contents</div>
+<dl class="toc">
+<dt><span class="section"><a href="LexicalStructureLineTerminators.html">2.1. Line Terminators</a></span></dt>
+<dt><span class="section"><a href="LexicalStructureWhiteSpace.html">2.2. White Space</a></span></dt>
+<dt><span class="section"><a href="LexicalStructuresComments.html">2.3. Comments</a></span></dt>
+<dt><span class="section"><a href="LexicalStructureIdentifiers.html">2.4. Identifiers</a></span></dt>
+<dd><dl><dt><span class="section"><a href="LexicalStructureIdentifiers.html#LexicalStructureRelationshipNumbers">2.4.1. Relationship Numbers</a></span></dt></dl></dd>
+<dt><span class="section"><a href="LexicalStructureReservedWords.html">2.5. Reserved Words</a></span></dt>
+<dt><span class="section"><a href="LexicalStructureLiterals.html">2.6. Literals</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="LexicalStructureLiterals.html#LexicalStructureNumericLiterals">2.6.1. Numeric Literals</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="LexicalStructureLiterals.html#LexicalStructureDecimalLiterals">2.6.1.1. Decimal Literals</a></span></dt>
+<dt><span class="section"><a href="LexicalStructureLiterals.html#LexicalStructureBasedLiterals">2.6.1.2. Based Literals</a></span></dt>
+</dl></dd>
+<dt><span class="section"><a href="LexicalStructureLiterals.html#LexicalStructureCharacterLiterals">2.6.2. Character Literals</a></span></dt>
+<dt><span class="section"><a href="LexicalStructureLiterals.html#LexicalStructureStringLiterals">2.6.3. String Literals</a></span></dt>
+<dt><span class="section"><a href="LexicalStructureLiterals.html#LexicalStructureExcapeSequencesforCharacterandStringLiterals">2.6.4. Escape Sequences for Character and String Literals</a></span></dt>
+<dt><span class="section"><a href="LexicalStructureLiterals.html#LexicalStructureBooleanLiteral">2.6.5. Boolean Literals</a></span></dt>
+<dt><span class="section"><a href="LexicalStructureLiterals.html#LexicalStructureEnumeratorLiteral">2.6.6. Enumerator Literals</a></span></dt>
+<dt><span class="section"><a href="LexicalStructureLiterals.html#LexicalStructureTheNullLiteral">2.6.7. The Null Literal</a></span></dt>
+<dt><span class="section"><a href="LexicalStructureLiterals.html#LexicalStructureDeviceLiterals">2.6.8. Device Literal</a></span></dt>
+<dt><span class="section"><a href="LexicalStructureLiterals.html#LexicalStructureStreamLiterals">2.6.9. Stream Literals</a></span></dt>
+</dl></dd>
+<dt><span class="section"><a href="LexicalStructureSeparators.html">2.7. Separators</a></span></dt>
+<dt><span class="section"><a href="LexicalStructureOperators.html">2.8. Operators</a></span></dt>
+<dt><span class="section"><a href="LexicalStructurePragmas.html">2.9. Pragmas</a></span></dt>
+</dl>
+</div>
+<p>
+This chapter defines the lexical structure of the language.
+</p>
+<p>
+Programs are written using only character set defined in ISO/IEC 646:1991
+<a class="xref" href="Bibliography.html#CCS92">[CCS92]</a> and the C0 set of ISO/IEC 6429:1992
+<a class="xref" href="Bibliography.html#ASCII91">[ASCII91]</a> this combined character set is more commonly
+referenced to as
+<abbr class="abbrev">ASCII</abbr>.
+<a class="indexterm" name="idp63315600"></a>
+</p>
+<p>
+Line terminators
+<a class="indexterm" name="idp63317344"></a>
+are defined to support the different conventions of existing
+host systems while maintaining consistent line numbers.
+</p>
+<p>
+The character are reduced to a sequence of input elements, which are white space,
+comments and tokens. The tokens
+<a class="indexterm" name="idp63318880"></a>
+are the identifiers,
+<a class="indexterm" name="idp63319776"></a>
+reserved words,
+<a class="indexterm" name="idp63320672"></a>
+literals,
+<a class="indexterm" name="idp63321568"></a>
+separators
+<a class="indexterm" name="idp63336496"></a>
+and operators
+<a class="indexterm" name="idp63337392"></a>
+of the syntactic grammar.
+</p>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="GrammarsGrammerNotation.html">Prev</a> </td>
+<td width="20%" align="center"> </td>
+<td width="40%" align="right"> <a accesskey="n" href="LexicalStructureLineTerminators.html">Next</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">1.3. Grammar Notation </td>
+<td width="20%" align="center">
+<a accesskey="h" href="index.html">Home</a> | <a accesskey="t" href="bk01-toc.html">ToC</a>
+</td>
+<td width="40%" align="right" valign="top"> 2.1. Line Terminators</td>
+</tr>
+</table>
+</div>
+<div align="center">OFFICIAL</div>
+</body>
+</html>

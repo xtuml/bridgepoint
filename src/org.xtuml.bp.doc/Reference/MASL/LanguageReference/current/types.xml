@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+  UK Crown Copyright (c) 2016. All Rights Reserved
+-->
+<chapter xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+  xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg"
+  xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:html="http://www.w3.org/1999/xhtml"
+  xmlns:db="http://docbook.org/ns/docbook" version="5.0" xml:id="section.Types">
+  <title>Type System</title>
+  <para>MASL is a strongly typed language, which means that every
+    variable, attribute, parameter and expression has a type that is
+    known at compile-time. Types limit the values that a variable,
+    attributed and parameter can hold, or that an expression can
+    produce, limiting the operations supported on those values and
+    determine the meaning of the operations. A type is characterized by
+    a set of values and a set of operations, which implements the
+    fundamental aspects of its semantics. An entity of a given type is a
+    run-time entity that contains a value of the type.
+  </para>
+  <section xml:id="section.Types.TypeConversion">
+    <title>Type Conversion</title>
+    <para>To specify rules regarding type conversion in MASL we first
+      need to introduce some concepts which are used to determine which
+      conversions are possible
+    </para>
+    <section xml:id="Section.Types.PrimitiveType">
+      <title>Primitive Type</title>
+      <para>The primitive type of any type can be found by moving up
+        through the heirarchy of type declarations until a built in type
+        is reached, ignoring any constraints introduced by type
+        definitions along the way. Once a built in type is reached the
+        following table can be used to find the primitive type. If a
+        type does not appear in the table below, then it is a primitive
+        type itself.
+      </para>
+      <informaltable>
+        <thead>
+          <tr>
+            <td>Type</td>
+            <td>Primitive</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>
+            <code>byte</code>
+          </td>
+          <td>
+            <code>long_integer</code>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <code>integer</code>
+          </td>
+          <td>
+            <code>long_integer</code>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <code>string</code>
+          </td>
+          <td>
+            <code>sequence of character</code>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <code>set of T</code>
+          </td>
+          <td>
+            <code>sequence of T</code>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <code>bag of T</code>
+          </td>
+          <td>
+            <code>sequence of T</code>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <code>array of T</code>
+          </td>
+          <td>
+            <code>sequence of T</code>
+          </td>
+        </tr>
+      </informaltable>
+      <para>In addition, the primitive type of a structure is a
+        structure with anonymous components of the same type as the
+        components of the original structure. Any type defined to be an
+        enumeration is its own primitive type.
+      </para>
+    </section>
+    <section xml:id="section.Types.Anonymous">
+      <title>Anonymous Types</title>
+      <para>All variables, parameters, object attributes and structure
+        components have a known type which can be deduced from their
+        definition. There are a number of expressions, however, which
+        have a type which is never explicity specified, for example
+        literals, navigates and finds. These are known as anonymous
+        types, and they have slightly relaxed rules for assignability.
+        It is also possible to explicity declare a variable, parameter
+        etc as having an anonymous type, which can sometimes be useful
+        in specifiying generic interfaces.
+      </para>
+    </section>
+    <section xml:id="section.Types.Assignable">
+      <title>Assignable</title>
+      <itemizedlist>
+        <listitem>
+          <para>A named type is assigable to the same named type</para>
+        </listitem>
+        <listitem>
+          <para>An anonymous type is assignable to a named type if they
+            have the same primitive type
+          </para>
+        </listitem>
+        <listitem>
+          <para>An named type is assignable to an anonymous type if they
+            have the same primitive type
+          </para>
+        </listitem>
+        <listitem>
+          <para>An anonymous integer type is assignable to any type with
+            a primitive type of real
+          </para>
+        </listitem>
+        <listitem>
+          <para>An anonymous structure is assignable to a type with a
+            primitive type of a structure if the individual components
+            are assignable. If the primitive type of the expression to
+            be asssigned is not a structure, it should be promoted to an
+            anonymous structure with a single component of the original
+            expression before trying this test.
+          </para>
+        </listitem>
+        <listitem>
+          <para>An anonymous collection (set, array, bag or sequence) is
+            assigable to a type with a primitive type of sequence if the
+            contained elements are assignable. If the primitive type of
+            the expression to be asssigned is not a sequence, it should
+            be promoted to an anonymous sequence with a single element
+            of the original expression before trying this test.</para>
+        </listitem>
+      </itemizedlist>
+    </section>
+    <section xml:id="section.Types.Convertible">
+      <title>Convertible</title>
+      <para>to do</para>
+    </section>
+  </section>
+  <section xml:id="section.Types.Declaration">
+    <title>Type Declaration</title>
+    <para>to do</para>
+    <productionset>
+      <xi:include href="syntax.xml" xpointer="ebnf.typeDeclaration"/>
+      <xi:include href="syntax.xml" xpointer="ebnf.typeVisibility"/>
+      <xi:include href="syntax.xml" xpointer="ebnf.typeName"/>
+    </productionset>
+  </section>
+  <section xml:id="section.Types.Reference">
+    <title>Type References</title>
+    <para>to do</para>
+    <productionset>
+      <xi:include href="syntax.xml" xpointer="ebnf.typeRef"/>
+      <xi:include href="syntax.xml" xpointer="ebnf.namedTypeRef"/>
+    </productionset>
+  </section>
+  <section xml:id="section.Types.Definition">
+    <title>Type Definition</title>
+    <para>to do</para>
+    <productionset>
+      <xi:include href="syntax.xml" xpointer="ebnf.typeDefinition"/>
+      <productionrecap linkend="ebnf.typeRef"/>
+      <productionrecap linkend="ebnf.namedTypeRef"/>
+    </productionset>
+    <section xml:id="section.Types.Builtin">
+      <title>Builtin Types</title>
+      <para>to do</para>
+      <productionset>
+        <xi:include href="syntax.xml" xpointer="ebnf.builtinTypeRef"/>
+      </productionset>
+      <section xml:id="section.Types.Boolean">
+        <title>Boolean Type</title>
+        <para>to do</para>
+      </section>
+      <section xml:id="section.Types.Integer">
+        <title>Integer Types</title>
+        <para>to do</para>
+      </section>
+      <section xml:id="section.Types.Real">
+        <title>Real Type</title>
+        <para>to do</para>
+      </section>
+      <section xml:id="section.Types.Timestamp">
+        <title>Timestamp Type</title>
+        <para>to do</para>
+      </section>
+      <section xml:id="section.Types.Duration">
+        <title>Duration Type</title>
+        <para>to do</para>
+      </section>
+      <section xml:id="section.Types.String">
+        <title>String Type</title>
+        <para>to do</para>
+      </section>
+      <section xml:id="section.Types.Character">
+        <title>Character Type</title>
+        <para>to do</para>
+      </section>
+      <section xml:id="section.Types.Timer">
+        <title>Timer Type</title>
+        <para>to do</para>
+      </section>
+      <section xml:id="section.Types.Device">
+        <title>Device Type</title>
+        <para>to do</para>
+      </section>
+    </section>
+    <section xml:id="section.Types.UserDefined">
+      <title>User Defined Types</title>
+      <para>to do</para>
+      <productionset>
+        <xi:include href="syntax.xml" xpointer="ebnf.userDefinedTypeRef"/>
+      </productionset>
+    </section>
+    <section xml:id="section.Types.Enumeration">
+      <title>Enumeration Types</title>
+      <para>to do</para>
+      <productionset>
+        <xi:include href="syntax.xml" xpointer="ebnf.enumerationTypeDefinition"/>
+        <xi:include href="syntax.xml" xpointer="ebnf.enumerator"/>
+        <xi:include href="syntax.xml" xpointer="ebnf.enumeratorName"/>
+        <xi:include href="syntax.xml" xpointer="ebnf.enumeratorValue"/>
+      </productionset>
+    </section>
+    <section xml:id="section.Types.Structure">
+      <title>Structure Types</title>
+      <para>to do</para>
+      <productionset>
+        <xi:include href="syntax.xml" xpointer="ebnf.structureTypeDefinition"/>
+        <xi:include href="syntax.xml" xpointer="ebnf.structureComponentDefinition"/>
+        <xi:include href="syntax.xml" xpointer="ebnf.componentName"/>
+        <xi:include href="syntax.xml" xpointer="ebnf.componentDefaultValue"/>
+        <productionrecap linkend="ebnf.typeRef"/>
+      </productionset>
+    </section>
+    <section xml:id="section.Types.Instance">
+      <title>Instance Types</title>
+      <para>to do</para>
+      <productionset>
+        <xi:include href="syntax.xml" xpointer="ebnf.instanceTypeRef"/>
+        <productionrecap linkend="ebnf.objectName"/>
+      </productionset>
+    </section>
+    <section xml:id="section.Types.Collection">
+      <title>Collection Types</title>
+      <para>to do</para>
+      <productionset>
+        <xi:include href="syntax.xml" xpointer="ebnf.collectionTypeRef"/>
+        <xi:include href="syntax.xml" xpointer="ebnf.dictionaryKeyType"/>
+        <xi:include href="syntax.xml" xpointer="ebnf.arrayBounds"/>
+        <productionrecap linkend="ebnf.namedTypeRef"/>
+        <productionrecap linkend="ebnf.typeRef"/>
+      </productionset>
+    </section>
+    <section xml:id="section.Types.Constrained">
+      <title>Constrained Types</title>
+      <para>to do</para>
+      <productionset>
+        <xi:include href="syntax.xml" xpointer="ebnf.constrainedTypeDefinition"/>
+        <xi:include href="syntax.xml" xpointer="ebnf.typeConstraint"/>
+        <xi:include href="syntax.xml" xpointer="ebnf.rangeConstraint"/>
+        <xi:include href="syntax.xml" xpointer="ebnf.deltaConstraint"/>
+        <xi:include href="syntax.xml" xpointer="ebnf.digitsConstraint"/>
+      </productionset>
+    </section>
+  </section>
+</chapter>

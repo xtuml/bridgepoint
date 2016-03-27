@@ -1,8 +1,8 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: org.xtuml.bp.ui.xtext.masl.ui
-Bundle-Vendor: My Company
-Bundle-Version: 1.0.0.qualifier
+Bundle-Name: BridgePoint xText MASL UI
+Bundle-Vendor: xtUML.org
+Bundle-Version: 5.3.2
 Bundle-SymbolicName: org.xtuml.bp.ui.xtext.masl.ui; singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.xtuml.bp.ui.xtext.masl,
