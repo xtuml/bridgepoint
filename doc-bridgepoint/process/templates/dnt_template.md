@@ -99,17 +99,21 @@ deviations from the design as presented at the design review. Here is an example
 7.2.1 Example sub-item
 * Example List Element
 
-8. Unit Test
+8. User Documentation
+---------------------
+Describe the end user documentation that was added for this change. 
+
+9. Unit Test
 ------------
 Outline all the unit tests that need to pass and describe the method that you
 will use to design and perform the tests. Here is an example reference to the Document References section [[2.1]](#2.1)
 
-8.1 Item 1  
-8.1.1 Example sub-item
+9.1 Item 1  
+9.1.1 Example sub-item
 * Example List Element
 
-8.2 Item 2  
-8.2.1 Example sub-item
+9.2 Item 2  
+9.2.1 Example sub-item
 * Example List Element
 
 End
