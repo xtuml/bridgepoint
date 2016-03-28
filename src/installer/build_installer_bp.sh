@@ -87,32 +87,32 @@ if [ "${OS}" = "linux" ]; then
       mcplugin="./org.xtuml.bp.mc.c.binary_${BP_VERSION}/mc3020/bin"
       tr -d '\r' < ${mcplugin}/xtumlmc_build > ${mcplugin}/xtumlmc_build.exe
       cp -f ${mcplugin}/xtumlmc_build.exe ${mcplugin}/xtumlmc_build
-      cp -f ${mcplugin}/gen_erate.py ${mcplugin}/gen_erate
+      cp -f ${mcplugin}/gen_erate.py ${mcplugin}/gen_erate.pyz
 
       mcplugin="./org.xtuml.bp.mc.c.source_${BP_VERSION}/mc3020/bin"
       tr -d '\r' < ${mcplugin}/xtumlmc_build > ${mcplugin}/xtumlmc_build.exe
       cp -f ${mcplugin}/xtumlmc_build.exe ${mcplugin}/xtumlmc_build
-      cp -f ${mcplugin}/gen_erate.py ${mcplugin}/gen_erate
+      cp -f ${mcplugin}/gen_erate.py ${mcplugin}/gen_erate.pyz
 
       mcplugin="./org.xtuml.bp.mc.cpp.source_${BP_VERSION}/mc3020/bin"
       tr -d '\r' < ${mcplugin}/xtumlmc_build > ${mcplugin}/xtumlmc_build.exe
       cp -f ${mcplugin}/xtumlmc_build.exe ${mcplugin}/xtumlmc_build
-      cp -f ${mcplugin}/gen_erate.py ${mcplugin}/gen_erate
+      cp -f ${mcplugin}/gen_erate.py ${mcplugin}/gen_erate.pyz
 
       mcplugin="./org.xtuml.bp.mc.java.source_${BP_VERSION}/mc3020/bin"
       tr -d '\r' < ${mcplugin}/xtumlmc_build > ${mcplugin}/xtumlmc_build.exe
       cp -f ${mcplugin}/xtumlmc_build.exe ${mcplugin}/xtumlmc_build
-      cp -f ${mcplugin}/gen_erate.py ${mcplugin}/gen_erate
+      cp -f ${mcplugin}/gen_erate.py ${mcplugin}/gen_erate.pyz
 
       mcplugin="./org.xtuml.bp.mc.systemc.source_${BP_VERSION}/mc3020/bin"
       tr -d '\r' < ${mcplugin}/xtumlmc_build > ${mcplugin}/xtumlmc_build.exe
       cp -f ${mcplugin}/xtumlmc_build.exe ${mcplugin}/xtumlmc_build
-      cp -f ${mcplugin}/gen_erate.py ${mcplugin}/gen_erate
+      cp -f ${mcplugin}/gen_erate.py ${mcplugin}/gen_erate.pyz
 
       mcplugin="./org.xtuml.bp.mc.vhdl.source_${BP_VERSION}/mc3020/bin"
       tr -d '\r' < ${mcplugin}/xtumlmc_build > ${mcplugin}/xtumlmc_build.exe
       cp -f ${mcplugin}/xtumlmc_build.exe ${mcplugin}/xtumlmc_build
-      cp -f ${mcplugin}/gen_erate.py ${mcplugin}/gen_erate
+      cp -f ${mcplugin}/gen_erate.py ${mcplugin}/gen_erate.pyz
 else
       mcplugin="./org.xtuml.bp.mc.c.binary_${BP_VERSION}/mc3020/bin"
       mv -f ${mcplugin}/xtumlmc_build.exe.win ${mcplugin}/xtumlmc_build.exe
