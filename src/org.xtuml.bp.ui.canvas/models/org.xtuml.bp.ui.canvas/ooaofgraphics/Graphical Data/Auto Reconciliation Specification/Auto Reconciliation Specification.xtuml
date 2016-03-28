@@ -327,7 +327,7 @@ select one targetSpec related by self->GD_ES[R31];
 select any model related by self->GD_ES[R31]->GD_EMS[R11]->GD_MS[R11]->GD_MD[R9] where (selected.diagramId==param.diagram_id);
 select any graphicalElement related by model->GD_GE[R1] where (selected.elementId==param.element_id);
 
-// TODO: FIXME: Interface connectors are note being reconciled yet. 
+// TODO: FIXME: Interface connectors are not being reconciled yet. 
 //   This causes us to just ignore them for now.
 if ((targetSpec.Name=="Imported Provided Interface") or
 	(targetSpec.Name=="Imported Required Interface") or
@@ -341,7 +341,6 @@ end if;
 // the "other side" of a connector. This return value is 
 // only used by the recursive call.
 searchingForSide2=false;
-side2SearchLookingForReflexive=false;
 if (param.connector_ooa_id_to_find != OS::NULL_UNIQUE_ID())
   searchingForSide2=true;
 end if;
@@ -419,24 +418,41 @@ while (j < connectorCount)
     side2GDGEId=OS::NULL_UNIQUE_ID();
     if ((connectorOOAId == param.connector_ooa_id_to_find))
       if (graphicalElement.represents != param.shape_ooa_instance_to_find)
-        // We found the other side! 
-        side2GDGEId = graphicalElement.elementId;      
-      else
-        //check for reflexive
-        if (side2SearchLookingForReflexive)
-          side2GDGEId = param.element_id;
+        // if pass 3 then we are only here if shape_ooa_instance_to_find is the 
+        // ClassInLink. Since we are here looking for the other side, the 
+		// other side in this case will be one of the 2 classes in the linked
+        // association. If this is the case then we need to return the GD_GE
+        // of the connector, not the GD_GE of the shape
+        if (param.passNumber == 3 and CL::isOOALinkedAssocInstance(connectorOOAInstance:connectorInstance))
+          select any linkedAssocGDGEInstance related by model->GD_GE[R1] where selected.represents==connectorInstance;
+          if (not empty linkedAssocGDGEInstance)
+            side2GDGEId = linkedAssocGDGEInstance.elementId;
+          else
+				// Given this ooaoaoof id find the GD_GE of this assocation
+          		// See the note above. The GD_GE for this must have already
+          		// been created. If not this will fail.             
+          		CL::logError(message:"Failed to find the GD_GE instance for Linked Association (" + 
+            			CL::getModelElementName(from:graphicalElement.represents) + 
+            			"::" + 
+            			CL::getModelElementName(from:connectorInstance) +
+            			")");
+          end if;
+        else 
+          // We found the other side! 
+          side2GDGEId = graphicalElement.elementId;      
         end if;
+      else
         // Special case for reflexive, unformalized R_SIMP
         // and event to self
         isReflexive = CL::isReflexive(nrme:connectorInstance);
         if (isReflexive) 
           side2GDGEId = param.element_id;      
-        end if;         
+        end if;        
+        
       end if;
       if (side2GDGEId != OS::NULL_UNIQUE_ID())
         return side2GDGEId;
       end if;
-      side2SearchLookingForReflexive = true;            
     end if;    
     j = j + 1;
     continue;
@@ -459,7 +475,8 @@ while (j < connectorCount)
                 side2_GD_GEId = shapeARSInstance.reconcileConnectorsNoExistingGraphics(diagram_id:model.diagramId, 
             						 system_id:param.system_id, element_id:shapeInPackage.elementId,
             						 		connector_ooa_id_to_find:connectorOOAId,
-            						 		shape_ooa_instance_to_find:graphicalElement.represents); 
+            						 		shape_ooa_instance_to_find:graphicalElement.represents,
+            						 		passNumber:param.passNumber); 
             	if (side2_GD_GEId != OS::NULL_UNIQUE_ID())
             	  break;
             	end if;
@@ -491,7 +508,7 @@ while (j < connectorCount)
     end if;
     
     if (CL::traceGraphicsCreationIsEnabled()) 
-      // get side2''s name      
+      // get side2''s name
 	  side2_ElementName = "";
 	  if (not empty side2_GD_GE) 
 	    side2_ElementName = CL::getModelElementName(from:side2_GD_GE.represents);
@@ -534,7 +551,7 @@ while (j < connectorCount)
   j = j + 1;
 end while; // (j < connectorCount)
 return OS::NULL_UNIQUE_ID();
-',
+ ',
 	1,
 	'',
 	"d4306342-68fd-418b-9c81-c7573bdd3a9b");
@@ -590,6 +607,15 @@ INSERT INTO S_DT_PROXY
 	'',
 	'',
 	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TPARM
+	VALUES ("447c2aaa-2b3a-487f-820e-a0a2222ed9ae",
+	"8ffad301-a127-4be7-a504-064da8b3f9dc",
+	'passNumber',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"d6e7ff0b-16fc-41da-917e-e6d4e4cc0fd4",
+	'');
 INSERT INTO O_TFR
 	VALUES ("d4306342-68fd-418b-9c81-c7573bdd3a9b",
 	"0849862c-76a0-4d0f-bb84-cf5aef617874",
@@ -1024,7 +1050,7 @@ while (i < numRoots)
           end if;
         end for;
       else  
-        // pass 2 (connectors)                   
+        // Create connectors
         // This is where we reconcile all connectors in this container
         // note that this condition cound be set to symbolType=="container", but by doing the inverse
         // of the pass 1 select we are sure to get all the items not covered in pass 1
@@ -1041,12 +1067,25 @@ while (i < numRoots)
             select one connectorSpec related  by shapeARSInstance->GD_ES[R31];
             if  (connectorSpec.symbolType=="connector")
               if (not empty connectorSpec)
+                if (param.passNumber==2)
+                  if (shapeARSInstance.Bridge_NumElements=="Getclassaslinkcount")
+                    // We can''t create this until we get the association between the 2 linked class drawn
+                    continue;
+                  end if;
+                elif (param.passNumber==3)
+                  if (shapeARSInstance.Bridge_NumElements!="Getclassaslinkcount")
+                    // We only need to create the associative link drawn in this pass.
+                    continue;
+                  end if;
+                  
+                end if;
                 // this "dummyID" is a dummy because it is only used during a single recursive call
                 // made by this operation
                 dummyID = shapeARSInstance.reconcileConnectorsNoExistingGraphics(diagram_id:model.diagramId, 
             						 system_id:param.system_id, element_id:shapeInPackage.elementId,
             						 connector_ooa_id_to_find:OS::NULL_UNIQUE_ID(),
-            						 shape_ooa_instance_to_find:OS::NULL_INSTANCE()); 
+            						 shape_ooa_instance_to_find:OS::NULL_INSTANCE(),
+            						 passNumber:param.passNumber); 
               end if;
             end if;
           end for;
@@ -1066,18 +1105,15 @@ if (CL::traceGraphicsCreationIsEnabled())
 end if;    
 
 if (param.passNumber == 1)
-  // TODO FIXME: This is just here so I can
-  //   push upstream and be sure that my work
-  //   in progress on connectors does not affect Raven
-  //DONTCALLCONNECTORS=true;
-  //if(DONTCALLCONNECTORS)
-  //  return;
-  //end if;
-  
   // Recursively call to perform connector creation on the container
   GD_ARS::ReconcileAllGraphics(system_id:param.system_id,s_sys:param.s_sys, passNumber:2);
 end if;
-',
+if(param.passNumber==2)
+  // currently pass 3 is only for associative links. We have allow pass 2 to create the 
+  // Association between the R_AONE and the R_AOTH before we can create the associative
+  // link line between the R_ASSOC and the R_ASSR (Class as Link class)
+  GD_ARS::ReconcileAllGraphics(system_id:param.system_id,s_sys:param.s_sys, passNumber:3);
+end if;',
 	1,
 	'',
 	"8ffad301-a127-4be7-a504-064da8b3f9dc");
