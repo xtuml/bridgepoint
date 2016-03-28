@@ -341,6 +341,7 @@ end if;
 // the "other side" of a connector. This return value is 
 // only used by the recursive call.
 searchingForSide2=false;
+side2SearchLookingForReflexive=false;
 if (param.connector_ooa_id_to_find != OS::NULL_UNIQUE_ID())
   searchingForSide2=true;
 end if;
@@ -408,14 +409,34 @@ while (j < connectorCount)
     end if;
   end for;
 
+  // get association instance and name
+  connectorInstance = CL::getOOAInstance(from:connectorOOAId, rootInst:model.represents);
+  connectorName = CL::getModelElementName(from:connectorInstance);
+
+  // This is used only by the reflexive call, and
+  // the reflive call ends with this block.
   if (searchingForSide2)
+    side2GDGEId=OS::NULL_UNIQUE_ID();
     if ((connectorOOAId == param.connector_ooa_id_to_find))
       if (graphicalElement.represents != param.shape_ooa_instance_to_find)
-        // We found the other side! Return the shape ID
-        return graphicalElement.elementId;      
+        // We found the other side! 
+        side2GDGEId = graphicalElement.elementId;      
       else
-        // TODO: FIXME: We are not yet dealong with reflexives
+        //check for reflexive
+        if (side2SearchLookingForReflexive)
+          side2GDGEId = param.element_id;
+        end if;
+        // Special case for reflexive, unformalized R_SIMP
+        // and event to self
+        isReflexive = CL::isReflexive(nrme:connectorInstance);
+        if (isReflexive) 
+          side2GDGEId = param.element_id;      
+        end if;         
       end if;
+      if (side2GDGEId != OS::NULL_UNIQUE_ID())
+        return side2GDGEId;
+      end if;
+      side2SearchLookingForReflexive = true;            
     end if;    
     j = j + 1;
     continue;
@@ -475,9 +496,6 @@ while (j < connectorCount)
 	  if (not empty side2_GD_GE) 
 	    side2_ElementName = CL::getModelElementName(from:side2_GD_GE.represents);
 	  end if;
-	  // get association name
-	  connectorInstance = CL::getOOAInstance(from:connectorOOAId, rootInst:model.represents);
-	  connectorName = CL::getModelElementName(from:connectorInstance);
 	  
 	  msg = CL::getModelElementName(from:graphicalElement.represents) + 
 	        " participates in " +
