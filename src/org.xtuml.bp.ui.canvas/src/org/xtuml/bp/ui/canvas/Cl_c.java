@@ -44,6 +44,7 @@ import org.xtuml.bp.core.Association_c;
 import org.xtuml.bp.core.AsynchronousMessage_c;
 import org.xtuml.bp.core.BinaryAssociation_c;
 import org.xtuml.bp.core.ClassAsLink_c;
+import org.xtuml.bp.core.ClassAsSimpleFormalizer_c;
 import org.xtuml.bp.core.ClassAsSimpleParticipant_c;
 import org.xtuml.bp.core.ClassAsSubtype_c;
 import org.xtuml.bp.core.ClassInEngine_c;
@@ -80,6 +81,7 @@ import org.xtuml.bp.core.Lifespan_c;
 import org.xtuml.bp.core.LinkedAssociation_c;
 import org.xtuml.bp.core.ModelClass_c;
 import org.xtuml.bp.core.Monitor_c;
+import org.xtuml.bp.core.NewStateTransition_c;
 import org.xtuml.bp.core.NoEventTransition_c;
 import org.xtuml.bp.core.ObjectNode_c;
 import org.xtuml.bp.core.Ooaofooa;
@@ -90,6 +92,7 @@ import org.xtuml.bp.core.Requirement_c;
 import org.xtuml.bp.core.ReturnMessage_c;
 import org.xtuml.bp.core.SendSignal_c;
 import org.xtuml.bp.core.SimpleAssociation_c;
+import org.xtuml.bp.core.StateEventMatrixEntry_c;
 import org.xtuml.bp.core.StateMachineState_c;
 import org.xtuml.bp.core.StateMachine_c;
 import org.xtuml.bp.core.StructuredDataType_c;
@@ -2043,15 +2046,30 @@ public static void Settoolbarstate(boolean readonly) {
     		Association_c assoc = (Association_c)connectorInstance;
 			ClassAsSimpleParticipant_c[] parts = ClassAsSimpleParticipant_c
 					.getManyR_PARTsOnR207(SimpleAssociation_c.getOneR_SIMPOnR206(assoc));
-    		if (parts.length > 1) {
-    			isReflexive = true;
+			if (parts.length == 1) {
+				// check for formalized reflexive
+				ClassAsSimpleFormalizer_c form = ClassAsSimpleFormalizer_c
+						.getOneR_FORMOnR208(SimpleAssociation_c.getOneR_SIMPOnR206(assoc));
+				if (parts[0].getObj_id() ==form.getObj_id()) {
+					isReflexive = true;
+	  			}
+			} else if (parts.length > 1) {
+    			// check for unformalized reflexive
+    			if (parts[0].getObj_id() == parts[1].getObj_id()) {
+      			  isReflexive = true;
+    			}
     		}
     	} else if (connectorInstance instanceof Transition_c) {
 			Transition_c trans = (Transition_c) connectorInstance;
 			StateMachineState_c smsDest = StateMachineState_c.getOneSM_STATEOnR506(trans);
-			StateMachineState_c smsSource = StateMachineState_c
+			
+			StateMachineState_c smsSourceNoEventTrans = StateMachineState_c
 					.getOneSM_STATEOnR508(NoEventTransition_c.getOneSM_NETXNOnR507(trans));
-    		if (smsDest == smsSource) {
+			
+			StateMachineState_c smsSourceNewStateTrans = StateMachineState_c.getOneSM_STATEOnR503(
+					StateEventMatrixEntry_c.getOneSM_SEMEOnR504(NewStateTransition_c.getOneSM_NSTXNOnR507(trans)));
+					
+    		if ((smsDest != null) && (smsDest == smsSourceNoEventTrans || smsDest == smsSourceNewStateTrans)) {
     			isReflexive = true;
     		}
     	}
