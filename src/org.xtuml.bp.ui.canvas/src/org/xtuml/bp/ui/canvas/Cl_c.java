@@ -44,6 +44,7 @@ import org.xtuml.bp.core.Association_c;
 import org.xtuml.bp.core.AsynchronousMessage_c;
 import org.xtuml.bp.core.BinaryAssociation_c;
 import org.xtuml.bp.core.ClassAsLink_c;
+import org.xtuml.bp.core.ClassAsSimpleParticipant_c;
 import org.xtuml.bp.core.ClassAsSubtype_c;
 import org.xtuml.bp.core.ClassInEngine_c;
 import org.xtuml.bp.core.ClassInState_c;
@@ -79,6 +80,7 @@ import org.xtuml.bp.core.Lifespan_c;
 import org.xtuml.bp.core.LinkedAssociation_c;
 import org.xtuml.bp.core.ModelClass_c;
 import org.xtuml.bp.core.Monitor_c;
+import org.xtuml.bp.core.NoEventTransition_c;
 import org.xtuml.bp.core.ObjectNode_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.PackageParticipant_c;
@@ -87,6 +89,7 @@ import org.xtuml.bp.core.Provision_c;
 import org.xtuml.bp.core.Requirement_c;
 import org.xtuml.bp.core.ReturnMessage_c;
 import org.xtuml.bp.core.SendSignal_c;
+import org.xtuml.bp.core.SimpleAssociation_c;
 import org.xtuml.bp.core.StateMachineState_c;
 import org.xtuml.bp.core.StateMachine_c;
 import org.xtuml.bp.core.StructuredDataType_c;
@@ -2029,4 +2032,30 @@ public static void Settoolbarstate(boolean readonly) {
     public static String Getmodelelementname(final Object From) {
     	return s_invoke(From, "getName", null, null);
     }
+    
+    // This is really sort-of a hack around the ooag -> ooaofooa 
+    // interface for graphics reconciliation which is
+    // defined by GD_ARS. This is a special case for 
+    // reflexives
+    public static Boolean Isreflexive(final Object connectorInstance) {
+    	boolean isReflexive = false;
+    	if (connectorInstance instanceof Association_c) {
+    		Association_c assoc = (Association_c)connectorInstance;
+			ClassAsSimpleParticipant_c[] parts = ClassAsSimpleParticipant_c
+					.getManyR_PARTsOnR207(SimpleAssociation_c.getOneR_SIMPOnR206(assoc));
+    		if (parts.length > 1) {
+    			isReflexive = true;
+    		}
+    	} else if (connectorInstance instanceof Transition_c) {
+			Transition_c trans = (Transition_c) connectorInstance;
+			StateMachineState_c smsDest = StateMachineState_c.getOneSM_STATEOnR506(trans);
+			StateMachineState_c smsSource = StateMachineState_c
+					.getOneSM_STATEOnR508(NoEventTransition_c.getOneSM_NETXNOnR507(trans));
+    		if (smsDest == smsSource) {
+    			isReflexive = true;
+    		}
+    	}
+    	return isReflexive;
+    }
+    
 }// End Cl_c
