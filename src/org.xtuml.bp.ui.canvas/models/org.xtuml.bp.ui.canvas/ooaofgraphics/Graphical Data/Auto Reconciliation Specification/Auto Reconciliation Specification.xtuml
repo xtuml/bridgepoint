@@ -327,7 +327,7 @@ select one targetSpec related by self->GD_ES[R31];
 select any model related by self->GD_ES[R31]->GD_EMS[R11]->GD_MS[R11]->GD_MD[R9] where (selected.diagramId==param.diagram_id);
 select any graphicalElement related by model->GD_GE[R1] where (selected.elementId==param.element_id);
 
-// TODO: FIXME: Interface connectors are note being reconciled yet. 
+// TODO: FIXME: Interface connectors are not being reconciled yet. 
 //   This causes us to just ignore them for now.
 if ((targetSpec.Name=="Imported Provided Interface") or
 	(targetSpec.Name=="Imported Required Interface") or
@@ -335,6 +335,11 @@ if ((targetSpec.Name=="Imported Provided Interface") or
 	(targetSpec.Name=="Required Interface")
    )
    return OS::NULL_UNIQUE_ID();
+end if;
+//TODO: FIXME: Linked assoc are not being reconcilced yet
+if ((self.Bridge_NumElements=="Getassociativelinkonecount") or
+    (self.Bridge_NumElements=="Getassociativelinkothercount"))
+    return OS::NULL_UNIQUE_ID();
 end if;
 
 // This operation calls itself recursively to find
