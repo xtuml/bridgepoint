@@ -336,6 +336,11 @@ if ((targetSpec.Name=="Imported Provided Interface") or
    )
    return OS::NULL_UNIQUE_ID();
 end if;
+//TODO: FIXME: Linked assoc are not being reconcilced yet
+if ((self.Bridge_NumElements=="Getassociativelinkonecount") or
+    (self.Bridge_NumElements=="Getassociativelinkothercount"))
+    return OS::NULL_UNIQUE_ID();
+end if;
 
 // This operation calls itself recursively to find
 // the "other side" of a connector. This return value is 
