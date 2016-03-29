@@ -327,19 +327,13 @@ select one targetSpec related by self->GD_ES[R31];
 select any model related by self->GD_ES[R31]->GD_EMS[R11]->GD_MS[R11]->GD_MD[R9] where (selected.diagramId==param.diagram_id);
 select any graphicalElement related by model->GD_GE[R1] where (selected.elementId==param.element_id);
 
-// TODO: FIXME: Interface connectors are not being reconciled yet. 
-//   This causes us to just ignore them for now.
+//TODO: FIXME this disables interface connectors
 if ((targetSpec.Name=="Imported Provided Interface") or
-	(targetSpec.Name=="Imported Required Interface") or
-	(targetSpec.Name=="Provided Interface") or
-	(targetSpec.Name=="Required Interface")
-   )
-   return OS::NULL_UNIQUE_ID();
-end if;
-//TODO: FIXME: Linked assoc are not being reconcilced yet
-if ((self.Bridge_NumElements=="Getassociativelinkonecount") or
-    (self.Bridge_NumElements=="Getassociativelinkothercount"))
-    return OS::NULL_UNIQUE_ID();
+	      	(targetSpec.Name=="Imported Required Interface") or
+			(targetSpec.Name=="Provided Interface") or
+			(targetSpec.Name=="Required Interface")
+			)
+  return OS::NULL_UNIQUE_ID();
 end if;
 
 // This operation calls itself recursively to find
@@ -348,17 +342,6 @@ end if;
 searchingForSide2=false;
 if (param.connector_ooa_id_to_find != OS::NULL_UNIQUE_ID())
   searchingForSide2=true;
-end if;
-
-if (CL::traceGraphicsCreationIsEnabled()) 	  
-  msg = "Looking for: ";
-  if (searchingForSide2)
-    msg = "Looking for the other side: "; 
-  end if;
-	msg = msg +
-	  		targetSpec.Name + 
-	  		" in " + CL::getModelElementName(from:graphicalElement.represents);
-  CL::logTraceMsg(filterType:LoggerType::OPERATION, filterValue:"use_string_buffer", message:msg);
 end if;
     
 connectorCount = 0;
@@ -464,11 +447,23 @@ while (j < connectorCount)
   end if;
   
   if((not foundExistingStartConnector) and (not foundExistingEndConnector) )
-      side2_GD_GEId = OS::NULL_UNIQUE_ID();
-      // Search for the other side where the other side is the 
-      // model element that is on the other side of this connector
-      // (if there is one)
-      if (not searchingForSide2)
+    side2_GD_GEId = OS::NULL_UNIQUE_ID();
+    // Search for the other side where the other side is the 
+    // model element that is on the other side of this connector
+    // (if there is one)
+    if (not searchingForSide2)
+      // In cases where this operation is available (currently only interfaces) we do
+      // not have to perform an exhaustive search of the other side of the connector.
+      // Instead, we use the ooaofooa to give us the other side.
+      if ((targetSpec.Name=="Imported Provided Interface") or
+	      	(targetSpec.Name=="Imported Required Interface") or
+			(targetSpec.Name=="Provided Interface") or
+			(targetSpec.Name=="Required Interface")
+			)
+        side2_GD_GEId = CL::getConnectorID(from:graphicalElement.represents,
+             index:j, elementTypesMatch:sourceSpec == targetSpec,
+             using:self.Bridge_GetConnectorIDConditional);
+	  else // exhauseively search for the other side
         select many shapes related by model->GD_GE[R1];
         for each shapeInPackage in shapes
           // Get all the conenctor reconciliation specs for this shape type
@@ -488,21 +483,12 @@ while (j < connectorCount)
               end if;
             end if;
           end for;
-            if (side2_GD_GEId != OS::NULL_UNIQUE_ID())
-              break;
-            end if;
+          if (side2_GD_GEId != OS::NULL_UNIQUE_ID())
+            break;
+          end if;
         end for;
-//Start old interface stuff 
-// I left this here because I''m not sure if I
-// want to use it or not 
-//
-//    if self.Bridge_GetConnectorIDConditional != ""
-//      side2_GD_GEId = CL::getConnectorID(from:graphicalElement.represents,
-//             index:j, elementTypesMatch:sourceSpec == targetSpec,
-//             using:self.Bridge_GetConnectorIDConditional);
-//    end if;
-//end old interface stuff    
-      end if;
+      end if;      
+    end if;
 
     connectorAlreadyCreated = false;
     // if the "other side" has already been reconciled we do not
