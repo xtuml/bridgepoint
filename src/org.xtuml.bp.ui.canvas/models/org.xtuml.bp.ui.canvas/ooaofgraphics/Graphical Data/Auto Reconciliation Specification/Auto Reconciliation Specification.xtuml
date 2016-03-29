@@ -472,6 +472,10 @@ while (j < connectorCount)
             select one connectorSpec related  by shapeARSInstance->GD_ES[R31];
             if  (connectorSpec.symbolType=="connector")
               if (not empty connectorSpec)
+                // The Class As Link is only handled during the last pass after the other connectors have been created
+                if (param.passNumber!=3 and shapeARSInstance.Bridge_NumElements=="Getclassaslinkcount")
+                  continue;
+                end if;
                 side2_GD_GEId = shapeARSInstance.reconcileConnectorsNoExistingGraphics(diagram_id:model.diagramId, 
             						 system_id:param.system_id, element_id:shapeInPackage.elementId,
             						 		connector_ooa_id_to_find:connectorOOAId,
