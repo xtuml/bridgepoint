@@ -237,16 +237,18 @@
 			  Bridge_NumElements="Getassociativelinkonecount"
 			 
 			  Bridge_GetElementID="Getassociativelinkoneid"
-			  targetSymbol="Association"
-			  sourceSymbol="Associative Link"/>
-			 
+			  targetSymbol="Association"/>
+
 		 <autoReconcile
 			  Bridge_NumElements="Getassociativelinkothercount"
 			 
 			  Bridge_GetElementID="Getassociativelinkotherid"
-			  targetSymbol="Associative Link"
-			  sourceSymbol="Association"/>
-			  
+			  targetSymbol="Association"/>
+		 <autoReconcile
+			  Bridge_NumElements="Getclassaslinkcount"
+			 
+			  Bridge_GetElementID="Getclassaslinkid"
+			  targetSymbol="Associative Link"/>
          </symbol>
          <symbol
                class="org.xtuml.bp.core.ImportedClass_c"
@@ -343,6 +345,11 @@
 			  targetSymbol="Associative Link"
 			  sourceSymbol="Association"/>
 			  
+		 <autoReconcile
+			  Bridge_NumElements="Getclassaslinkcount"
+			 
+			  Bridge_GetElementID="Getclassaslinkid"
+			  targetSymbol="Associative Link"/>
          </symbol>
          <symbol
                class="org.xtuml.bp.core.Association_c"

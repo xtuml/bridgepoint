@@ -2058,6 +2058,50 @@ INSERT INTO O_TPARM
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
+INSERT INTO O_TFR
+	VALUES ("54ec81a4-2692-4fc3-bd95-946d3283337e",
+	"b7630071-9e2a-4183-9986-779dca14c275",
+	'getClassAsLinkCount',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	1,
+	'select many ClassAsLinks related by self->R_OIR[R201]->R_RGO[R203]->R_ASSR[R205];  
+return cardinality ClassAsLinks; 
+',
+	1,
+	'',
+	"21208744-b34c-46c1-a703-ebecfe462d73");
+INSERT INTO O_TFR
+	VALUES ("d14a6f60-5a6b-47d0-80ba-518b2780b970",
+	"b7630071-9e2a-4183-9986-779dca14c275",
+	'getClassAsLinkId',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	1,
+	'id = GD::NULL_UNIQUE_ID();
+select many classAsLinks related by self->R_OIR[R201]->R_RGO[R203]->R_ASSR[R205];  
+// We''re preincrementing the index
+count = -1;
+for each classAsLink in classAsLinks
+  count = count + 1;
+  if (count == param.index)
+    id = classAsLink.Rel_ID;
+    break;
+  end if;
+end for; 
+return id;',
+	1,
+	'',
+	"54ec81a4-2692-4fc3-bd95-946d3283337e");
+INSERT INTO O_TPARM
+	VALUES ("34712f57-9b02-4f86-a881-534e09bc223a",
+	"d14a6f60-5a6b-47d0-80ba-518b2780b970",
+	'index',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
 INSERT INTO O_NBATTR
 	VALUES ("abd8f188-4260-4e03-9844-41b21ef751b3",
 	"b7630071-9e2a-4183-9986-779dca14c275");
