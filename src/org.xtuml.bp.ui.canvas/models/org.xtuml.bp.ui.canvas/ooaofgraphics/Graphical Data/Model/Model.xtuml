@@ -1218,6 +1218,10 @@ select one targetSpec related by ars->GD_ES[R31];
 select any startElementGE related by self->GD_GE[R1] where (selected.elementId == param.startingGD_GEId);
 // the graphical element the connector will be related to
 select one startElement related by startElementGE->GD_SHP[R2]->DIM_ND[R19]->DIM_GE[R301];
+// if it is not a shape see if it is a connector
+if (empty startElement)
+  select one startElement related by startElementGE->GD_CON[R2]->DIM_ED[R20]->DIM_GE[R301];
+end if;
 startWidth = 2;
 startHeight = 2;
 if (not empty startElement)
@@ -1239,6 +1243,10 @@ if (empty endElementGE)
 end if;
 
 select one endElement related by endElementGE->GD_SHP[R2]->DIM_ND[R19]->DIM_GE[R301];
+// if it is not a shape see if it is a connector
+if (empty endElement)
+  select one endElement related by startElementGE->GD_CON[R2]->DIM_ED[R20]->DIM_GE[R301];
+end if;
 if (not empty endElement)
   select one endElementNode related by endElementGE->GD_SHP[R2]->DIM_ND[R19];
   endWidth = endElementNode.width;
