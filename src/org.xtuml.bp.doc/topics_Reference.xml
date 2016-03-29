@@ -115,7 +115,6 @@ the License.
     </topic>
     <topic label="MASL">
       <topic label="BridgePoint MASL Guide" href="Reference/MASL/BridgePointMASLguide/BridgePointMASLguide.html"/>
-      <topic label="Guide to BridgePoint MASL Editor" href="Reference/MASL/GuidetoBridgePointMASLEditor/GuidetoBridgePointMASLEditor.html"/>
       <topic label="MASL Reference Manual" href="Reference/MASL/LanguageReference/current/html/bk01-toc.html"/>
       <topic label="MASL Tutorial" href="Reference/MASL/tutorial/html/bk01-toc.html"/>
       <topic label="masl2xtuml" href="Reference/MASL/masl2xtuml/masl2xtuml.html"/>
