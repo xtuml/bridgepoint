@@ -101,10 +101,6 @@ if [ "${OS}" = "linux" ]; then
       mcplugin="./org.xtuml.bp.mc.systemc.source_${BP_VERSION}/mc3020/bin"
       tr -d '\r' < ${mcplugin}/xtumlmc_build > ${mcplugin}/xtumlmc_build.exe
       cp -f ${mcplugin}/xtumlmc_build.exe ${mcplugin}/xtumlmc_build
-
-      mcplugin="./org.xtuml.bp.mc.vhdl.source_${BP_VERSION}/mc3020/bin"
-      tr -d '\r' < ${mcplugin}/xtumlmc_build > ${mcplugin}/xtumlmc_build.exe
-      cp -f ${mcplugin}/xtumlmc_build.exe ${mcplugin}/xtumlmc_build
 else
       mcplugin="./org.xtuml.bp.mc.c.binary_${BP_VERSION}/mc3020/bin"
       mv -f ${mcplugin}/xtumlmc_build.exe.win ${mcplugin}/xtumlmc_build.exe
@@ -119,9 +115,6 @@ else
       mv -f ${mcplugin}/xtumlmc_build.exe.win ${mcplugin}/xtumlmc_build.exe
 
       mcplugin="./org.xtuml.bp.mc.systemc.source_${BP_VERSION}/mc3020/bin"
-      mv -f ${mcplugin}/xtumlmc_build.exe.win ${mcplugin}/xtumlmc_build.exe
-
-      mcplugin="./org.xtuml.bp.mc.vhdl.source_${BP_VERSION}/mc3020/bin"
       mv -f ${mcplugin}/xtumlmc_build.exe.win ${mcplugin}/xtumlmc_build.exe
 fi
 echo "INFO: Done."
