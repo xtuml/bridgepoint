@@ -47,9 +47,7 @@ if [ "${OS_ARG,,}" = "linux" ] || [ "${OS_ARG,,}" = "osx" ]; then
   DOCGEN_EXE="docgen"
 fi
 
-INSTALL_PROJECT="installer"
 TEMP_DIR="/tmp"
-SEQUENCE_CREATOR="org.xtuml.bp.sequencecapture_${BP_VERSION}.jar"
 SERVER="xtuml.org"
 EXT_SRC_FILE="${PRODUCT_NAME}_extension_${PRODUCT_BRANCH}.zip"
 INSTALLER_DATA_DIR="${BP_BASE_DIR}/EclipseDeliverables/eclipse"
