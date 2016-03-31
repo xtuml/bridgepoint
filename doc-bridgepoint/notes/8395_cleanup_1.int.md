@@ -51,6 +51,8 @@ This first phase of work handles the simplest cases.
 5.4.2  This issue is only partially completed as part of this promotion and will remain open for the remaining
   work.  
 
+5.5 The files moved to the graveyard are committed directly to master branch on that repository.  
+
 6. Implementation Comments
 --------------------------
 None.
@@ -66,7 +68,45 @@ Branch name: 8395_cleanup_1
 
 <pre>
 
-< Put the file list here >
+doc-bridgepoint/notes/8395_cleanup_1.int.md
+
+-installer/1F.png
+installer/build_installer_bp.sh
+-installer/build.sh
+-installer/create_shortcut.vbs
+-installer/done.html
+-installer/install_linux.xml
+-installer/install_windows.xml
+-installer/post_install_script.bat
+-installer/post_install_script.sh
+installer/README.md
+-installer/shortcutSpec.xml
+-installer/side-image.png
+-installer/TARGET_LINUX.txt
+-installer/TARGET_WINDOWS.txt
+-installer/welcome.html
+-installer/xtuml_puzzle.png
+
+org.xtuml.bp.bld.pkg-feature/feature.xml
+
+org.xtuml.bp.docgen/generate.xml
+
+-org.xtuml.bp.mc.mcpaas
+
+-org.xtuml.bp.mc.vhdl.source
+
+-org.xtuml.bp.qa.odometer
+
+-org.xtuml.bp.xtext.oal
+
+-org.xtuml.bp.xtext.oal.tests
+
+-org.xtuml.bp.xtext.oal.ui
+
+utilities/build/Build-Flow.txt
+utilities/build/configure_build_process.sh
+utilities/build/configure_external_dependencies.sh
+
 
 </pre>
 
