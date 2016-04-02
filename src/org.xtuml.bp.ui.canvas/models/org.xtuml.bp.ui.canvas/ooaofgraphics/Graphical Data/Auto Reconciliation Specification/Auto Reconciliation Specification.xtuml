@@ -324,17 +324,9 @@ INSERT INTO O_TFR
 
 select one sourceSpec related by self->GD_ES[R30];
 select one targetSpec related by self->GD_ES[R31];
-select any model related by self->GD_ES[R31]->GD_EMS[R11]->GD_MS[R11]->GD_MD[R9] where (selected.diagramId==param.diagram_id);
+select any model related by self->GD_ES[R29]->GD_ARS[R31]->GD_ES[R30]->GD_GE[R10]->GD_MD[R1]
+				where (selected.diagramId==param.diagram_id);
 select any graphicalElement related by model->GD_GE[R1] where (selected.elementId==param.element_id);
-
-//TODO: FIXME this disables interface connectors
-if ((targetSpec.Name=="Imported Provided Interface") or
-	      	(targetSpec.Name=="Imported Required Interface") or
-			(targetSpec.Name=="Provided Interface") or
-			(targetSpec.Name=="Required Interface")
-			)
-  return OS::NULL_UNIQUE_ID();
-end if;
 
 // This operation calls itself recursively to find
 // the "other side" of a connector. This return value is 
@@ -1058,7 +1050,7 @@ while (i < numRoots)
         for each shapeInPackage in shapes
           // Get all the conenctor reconciliation specs for this shape type
           select many shapeARSInstances related by shapeInPackage->GD_ES[R10]->GD_ARS[R30]->GD_ES[R31]->GD_ARS[R29];
-          for each shapeARSInstance in shapeARSInstances
+          for each shapeARSInstance in shapeARSInstances          
             select one connectorSpec related  by shapeARSInstance->GD_ES[R31];
             if  (connectorSpec.symbolType=="connector")
               if (not empty connectorSpec)
@@ -1076,11 +1068,13 @@ while (i < numRoots)
                 end if;
                 // this "dummyID" is a dummy because it is only used during a single recursive call
                 // made by this operation
-                dummyID = shapeARSInstance.reconcileConnectorsNoExistingGraphics(diagram_id:model.diagramId, 
-            						 system_id:param.system_id, element_id:shapeInPackage.elementId,
-            						 connector_ooa_id_to_find:OS::NULL_UNIQUE_ID(),
-            						 shape_ooa_instance_to_find:OS::NULL_INSTANCE(),
-            						 passNumber:param.passNumber); 
+                dummyID = shapeARSInstance.reconcileConnectorsNoExistingGraphics(
+									diagram_id:model.diagramId,						// The ID of the GD_MD instance
+									system_id:param.system_id,						// The ID of the ooaofooa SYS instance
+            						element_id:shapeInPackage.elementId,			// This is the shape we are creting connectors for
+            						connector_ooa_id_to_find:OS::NULL_UNIQUE_ID(),  // Used in recursive call only
+            						shape_ooa_instance_to_find:OS::NULL_INSTANCE(), // Used in recursive call only
+            						passNumber:param.passNumber);					// 
               end if;
             end if;
           end for;
@@ -1089,6 +1083,15 @@ while (i < numRoots)
         end for;
       end if;          
     end if;
+  else
+    if (CL::traceGraphicsCreationIsEnabled()) 
+      msg = "Error! GD_ARS.ReconcileAllGraphics() pass " + OS::intToString(value:param.passNumber) + ". ";
+      classType = OS::getClassType(instance:graphicalRoot);
+      msg = msg + "Unable able to find GD_MS for Class Type: " +
+      		classType;
+      CL::logTraceMsg(filterType:LoggerType::OPERATION, filterValue:"use_string_buffer", message:msg);
+      CL::writeTraceLog(filename:"GraphicsCreationLog.txt"); 
+    end if;     
   end if;
   i = i + 1;
 end while;
