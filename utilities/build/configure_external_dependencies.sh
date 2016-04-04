@@ -69,44 +69,6 @@ get_user_supplied_binaries ()
     return 0
 }
 
-configure_dap()
-{
-    echo ""
-    echo "Configuring the Data Access Package for build."
-
-    cd $dap/bridgepoint
-    mkdir log_dir
-    mkdir samples
-    mkdir samples/translate
-    mkdir win32
-    mkdir win32/client
-    mkdir win32/client/bin
-    mkdir win32/client/lib
-
-    cp -rp ${git_repo_root}/mc/etc/generator/bin ./bin
-
-    cd $dap/bridgepoint/samples
-    cp -fp ${git_repo_root}/mc/libTRANS/libTRANS.def ./translate/libTRANS.def
-    cp -fp ${git_repo_root}/mc/libTRANS/libTRANS.mk  ./translate/libTRANS.mk
-    cp -fp ${git_repo_root}/mc/libTRANS/pt_trans.c   ./translate/pt_trans.c
-    cp -fp ${git_repo_root}/mc/libTRANS/pt_trans.h   ./translate/pt_trans.h
-
-    cd $dap/bridgepoint
-    cp -fp $user_supplied_files/gen_erate.exe   ./win32/client/bin/gen_erate.exe
-    cp -fp $user_supplied_files/gen_erate.exe   ./win32/client/bin/gen_import.exe
-    cp -fp $user_supplied_files/gen_erate.exe   ./win32/client/bin/gen_file.exe
-    cp -fp $user_supplied_files/vgalaxy8.vr     ./win32/client/bin
-    cp -fp $user_supplied_files/msvcrt.dll      ./win32/client/bin
-    cp -fp $user_supplied_files/vgal8c.dll      ./win32/client/lib
-    cp -fp ${git_repo_root}/mc/schema/sql/xtumlmc_schema.sql ./xtumlmc_schema.sql
-    
-    cd $dap/bridgepoint/win32/client
-    cp -fp ${git_repo_root}/mc/libTRANS/libTRANS.dll ./lib/libTRANS.dll
-    
-    cd $dap/bridgepoint
-    chmod -R g+w .
-}
-
 configure_mcc_src()
 {
     echo ""
@@ -249,7 +211,6 @@ bp_src_dir=${git_repo_root}/bridgepoint/src
 # Define Locations for Components
 user_supplied_files=${git_repo_root}/packaging/build/extra_files
 bp_pkg=${bp_src_dir}/org.xtuml.bp.pkg
-dap=${bp_src_dir}/org.xtuml.bp.dap.pkg
 mcc_src=${bp_src_dir}/org.xtuml.bp.mc.c.source
 mcsystemc_src=${bp_src_dir}/org.xtuml.bp.mc.systemc.source
 mccpp_src=${bp_src_dir}/org.xtuml.bp.mc.cpp.source
@@ -262,8 +223,6 @@ if [ "$?" = "0" ];  then
   configure_mcsystemc_src
   configure_mccpp_src
   configure_java_src
-  
-  configure_dap
 fi
 
 echo -e "Exiting configure_external_dependencies.sh"
