@@ -162,23 +162,6 @@ configure_mcc_src()
     chmod -R g+w .
 }
 
-configure_mcc_bin()
-{
-    echo ""
-    echo "Configuring mcc_bin for build."
-
-    # Copy in the "bp.mc.c.source/mc3020/" dir
-    cd $mcc_bin
-    cp -rfp $mcc_src/mc3020 .
-    
-    # We brought across the C source arcs when we did this.  Remove.
-    cd mc3020
-    rm -rf ./arc
-
-    cd $mcc_bin/mc3020
-    chmod -R g+w .
-}
-
 configure_mcsystemc_src()
 {
     echo ""
@@ -236,9 +219,13 @@ configure_java_src()
     echo ""
     echo "Configuring java_src for build."
 
-    # Copy in the "bp.mc.c.binary/mc3020/" dir
+    # Copy in the "bp.mc.c.source/mc3020/" dir
     cd $mcjava_src
-    cp -rfp $mcc_bin/mc3020 .
+    cp -rfp $mcc_src/mc3020 .
+    
+    # We brought across the C source arcs when we did this.  Remove.
+    cd mc3020
+    rm -rf ./arc
     
     # We don't want the model-based MC for this version, so remove it
     rm -f ./mc3020/bin/mcmc
@@ -264,7 +251,6 @@ user_supplied_files=${git_repo_root}/packaging/build/extra_files
 bp_pkg=${bp_src_dir}/org.xtuml.bp.pkg
 dap=${bp_src_dir}/org.xtuml.bp.dap.pkg
 mcc_src=${bp_src_dir}/org.xtuml.bp.mc.c.source
-mcc_bin=${bp_src_dir}/org.xtuml.bp.mc.c.binary
 mcsystemc_src=${bp_src_dir}/org.xtuml.bp.mc.systemc.source
 mccpp_src=${bp_src_dir}/org.xtuml.bp.mc.cpp.source
 mcjava_src=${bp_src_dir}/org.xtuml.bp.mc.java.source
@@ -273,7 +259,6 @@ mc3020_help=${bp_src_dir}/org.xtuml.help.bp.mc
 get_user_supplied_binaries
 if [ "$?" = "0" ];  then
   configure_mcc_src
-  configure_mcc_bin
   configure_mcsystemc_src
   configure_mccpp_src
   configure_java_src

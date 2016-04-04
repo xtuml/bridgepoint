@@ -22,7 +22,7 @@
   <property name="mcj_path" value="../MC-Java" />
 
   <property name="eclipse-home" value="${basedir}/../.."/>
-  <property name="util_bin_dir" value="${eclipse-home}/src/org.xtuml.bp.mc.c.binary/mc3020/bin"/>
+  <property name="util_bin_dir" value="${eclipse-home}/src/org.xtuml.bp.mc.c.source/mc3020/bin"/>
 
   <property environment="env"/>
 

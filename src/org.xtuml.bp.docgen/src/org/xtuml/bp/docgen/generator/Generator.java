@@ -51,7 +51,7 @@ import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.common.PersistableModelComponent;
 import org.xtuml.bp.mc.AbstractActivator;
 import org.xtuml.bp.mc.AbstractNature;
-import org.xtuml.bp.mc.c.binary.ExportBuilder;
+import org.xtuml.bp.mc.c.source.ExportBuilder;
 
 public class Generator extends Task {
     
@@ -126,8 +126,8 @@ public class Generator extends Task {
                 AbstractNature nature = null;
                 AbstractActivator activator = null;
                 if ( project.hasNature(org.xtuml.bp.mc.c.binary.MCNature.MC_NATURE_ID) || project.hasNature(org.xtuml.bp.mc.c.binary.MCNature.MC_NATURE_ID_OLD) ) {
-                    nature = org.xtuml.bp.mc.c.binary.MCNature.getDefault();
-                    activator = org.xtuml.bp.mc.c.binary.Activator.getDefault();
+                    nature = org.xtuml.bp.mc.c.source.MCNature.getDefault();
+                    activator = org.xtuml.bp.mc.c.source.Activator.getDefault();
                 }
                 else if ( project.hasNature(org.xtuml.bp.mc.c.source.MCNature.MC_NATURE_ID) || project.hasNature(org.xtuml.bp.mc.c.source.MCNature.MC_NATURE_ID_OLD) ) {
                     nature = org.xtuml.bp.mc.c.source.MCNature.getDefault();

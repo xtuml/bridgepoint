@@ -90,7 +90,7 @@ git_bp="${git_repo_root}/bridgepoint"
 git_workspace_setup="${git_bp}/doc-bridgepoint/process/development-workspace-setup"
 install_project="installer"
 utilities_project="utilities"
-mc_project="org.xtuml.bp.mc.c.binary"
+mc_project="org.xtuml.bp.mc.c.source"
 mcjava_project="org.xtuml.bp.mc.java.source"
 eclipse_ver="4.5"
 
