@@ -45,7 +45,10 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.PlatformUI;
-
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.ComponentInstance_c;
 import org.xtuml.bp.core.ComponentReference_c;
 import org.xtuml.bp.core.Component_c;
@@ -68,21 +71,24 @@ import org.xtuml.bp.debug.ui.model.BPDebugTarget;
 import org.xtuml.bp.debug.ui.test.DebugUITestUtilities;
 import org.xtuml.bp.test.TestUtil;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TestingUtilities;
 import org.xtuml.bp.test.common.UITestingUtilities;
 import org.xtuml.bp.ui.text.activity.ActivityEditor;
 
+@RunWith(OrderedRunner.class)
 public class SendMessageOverDelegationTest extends BaseTest {
 	private static String projectName = "Delegation";
 
 	static private boolean initialized = false;
 
-	public SendMessageOverDelegationTest(String testName) throws Exception {
-		super(null, testName);
+	public SendMessageOverDelegationTest() throws Exception {
+		super(null, null);
 	}
 
 	@Override
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		if (!initialized){
 			super.setUp();
 			final IProject project = ResourcesPlugin.getWorkspace().getRoot()
@@ -108,10 +114,12 @@ public class SendMessageOverDelegationTest extends BaseTest {
 		}
 	}
 	
+	@After
 	public void tearDown() throws Exception {
 		DebugUITestUtilities.stopSession(m_sys, projectName);
 	}
 	
+	@Test
 	public void testSendInterfaceOperationOverDele() {
 		ModelRoot root = Ooaofooa.getInstance("/Delegation/models/Delegation/System/System.xtuml");
 		Function_c testFunc = Function_c.FunctionInstance(root,
@@ -140,6 +148,7 @@ public class SendMessageOverDelegationTest extends BaseTest {
 /* Test is commented until we support launch verifier with component and component reference 
 	preselected */
 	
+//	@Test
 //	public void testSendInterfaceOperationWithReturnOverDele() {
 //		ModelRoot [] roots = Ooaofooa.getInstancesUnderSystem(projectName);
 //		Function_c testFunc = Function_c.FunctionInstance(roots[3],
@@ -172,6 +181,7 @@ public class SendMessageOverDelegationTest extends BaseTest {
 //		
 //	}
 	
+	@Test
 	public void testSendInterfaceOperationWithReturnOverLongDele() {
 		ModelRoot root = Ooaofooa.getInstance("/Delegation/models/Delegation/System/System.xtuml");
 		Function_c testFunc = Function_c.FunctionInstance(root,
@@ -202,6 +212,7 @@ public class SendMessageOverDelegationTest extends BaseTest {
 	/* Test is commented until we support launch verifier with component and component reference 
 	preselected */
 	
+//	@Test
 //	public void testSendInterfaceOperationWithReturnOutOfDele() {
 //		ModelRoot [] roots = Ooaofooa.getInstancesUnderSystem(projectName);
 //		Function_c testFunc = Function_c.FunctionInstance(roots[1],
@@ -235,6 +246,7 @@ public class SendMessageOverDelegationTest extends BaseTest {
 //		
 //	}
 	
+	@Test
 	public void testSendInterfaceOperationWithReturnOutOfLongDele() {
 		ModelRoot [] roots = Ooaofooa.getInstancesUnderSystem(projectName);
 		Function_c testFunc = null;
@@ -270,6 +282,7 @@ public class SendMessageOverDelegationTest extends BaseTest {
 		
 	}
 	
+	@Test
 	public void testSendInterfaceSignalOverDele() {
 		ModelRoot root = Ooaofooa.getInstance("/Delegation/models/Delegation/System/System.xtuml");
 		Function_c testFunc = Function_c.FunctionInstance(root,

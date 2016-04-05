@@ -22,14 +22,13 @@
 //=====================================================================
 
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
-
 import org.eclipse.core.runtime.CoreException;
-
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.test.CopyPasteTestGlobals;
 import org.xtuml.bp.core.util.WorkspaceUtil;
+
+import junit.framework.Test;
+import junit.framework.TestSuite;
 
 /**
 * Test the system level areas of core.

@@ -22,17 +22,16 @@
 
 package org.xtuml.bp.ui.text.test.i589Test;
 
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+
 import junit.framework.TestSuite;
 
-
+@RunWith(Suite.class)
+@Suite.SuiteClasses({
+	AllEditorsDirtyTest.class,
+	ElementDeleteTest.class
+})
 public class I589TestSuite extends TestSuite {
-
-	
-	public I589TestSuite() {
-		
-		addTest(new TestSuite(AllEditorsDirtyTest.class));	
-		addTest(new TestSuite(ElementDeleteTest.class));
-	}
-
 	
 }

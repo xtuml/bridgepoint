@@ -20,11 +20,11 @@
 // the License.
 //=====================================================================
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
-
 import org.xtuml.bp.io.mdl.test.IOMdlResultCreator;
 import org.xtuml.bp.io.mdl.test.StaleProxyExportTestGenerics;
+
+import junit.framework.Test;
+import junit.framework.TestSuite;
 
 public class IOMdlTestResultSuiteGenerics extends TestSuite {
 

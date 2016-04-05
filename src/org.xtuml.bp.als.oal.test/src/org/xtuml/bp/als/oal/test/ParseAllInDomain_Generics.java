@@ -19,11 +19,12 @@ import java.io.StringReader;
 import java.util.UUID;
 
 import org.eclipse.jface.preference.IPreferenceStore;
-
-import antlr.RecognitionException;
-import antlr.TokenStreamException;
-import antlr.TokenStreamRecognitionException;
-
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.TestName;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.als.oal.OalLexer;
 import org.xtuml.bp.als.oal.OalParser;
 import org.xtuml.bp.als.oal.Oal_validate;
@@ -57,22 +58,30 @@ import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TestingUtilities;
 
+import antlr.RecognitionException;
+import antlr.TokenStreamException;
+import antlr.TokenStreamRecognitionException;
+
+@RunWith(OrderedRunner.class)
 public class ParseAllInDomain_Generics extends BaseTest {
+	
+	@Rule public TestName name = new TestName();
 
 	private String m_domain_name = "";
-	public ParseAllInDomain_Generics(String arg0) {
-      super("org.xtuml.bp.als.oal.test", arg0);
+	public ParseAllInDomain_Generics() {
+      super("org.xtuml.bp.als.oal.test", null);
       // they all start with "test_"
-      m_domain_name = arg0.substring(5, arg0.length());
       IPreferenceStore store = CorePlugin.getDefault().getPreferenceStore();
       store.setValue(
         BridgePointPreferencesStore.ALLOW_IMPLICIT_COMPONENT_ADDRESSING, true);
       store.setValue(
               BridgePointPreferencesStore.ALLOW_OPERATIONS_IN_WHERE, true);
 	}
-    public void test_ComponentSyntaxTest() { 
+    @Test
+	public void test_ComponentSyntaxTest() { 
     	// This test was written before the Interface Name preference was introduced.
     	// The expected error messages depend on the preference being disabled.
     	IPreferenceStore store = CorePlugin.getDefault().getPreferenceStore();
@@ -80,80 +89,151 @@ public class ParseAllInDomain_Generics extends BaseTest {
         parseAllActivities();
         store.setValue(BridgePointPreferencesStore.ALLOW_INTERFACE_NAME_IN_IC_MESSAGE, false);
     }
-    public void test_array_test() { parseAllActivities(); }
+    @Test
+	public void test_array_test() { parseAllActivities(); }
+	@Test
 	public void test_asc() { parseAllActivities(); }
-    public void test_BP50_evt() { parseAllActivities(); }
+    @Test
+	public void test_BP50_evt() { parseAllActivities(); }
+	@Test
 	public void test_BP50_evt2() { parseAllActivities(); }
+	@Test
 	public void test_br1() { parseAllActivities(); }
+	@Test
 	public void test_br2() { parseAllActivities(); }
+	@Test
 	public void test_br1f() { parseAllActivities(); }
+	@Test
 	public void test_br2f() { parseAllActivities(); }
+	@Test
 	public void test_bridges() { parseAllActivities(); }
+	@Test
 	public void test_cl() { parseAllActivities(); }
+	@Test
 	public void test_dogs() { parseAllActivities(); }
+	@Test
 	public void test_enum1() { parseAllActivities(); }
+	@Test
 	public void test_enum2() { parseAllActivities(); }
+	@Test
 	public void test_enum3() { parseAllActivities(); }
+	@Test
 	public void test_enum4() { parseAllActivities(); }
+	@Test
 	public void test_event() { parseAllActivities(); }
 
+	@Test
 	public void test_G_ALL_G_EVT_LE_precreated() { parseAllActivities(); }
+	@Test
 	public void test_G_ALL_R_BRG_tim() { parseAllActivities(); }
+	@Test
 	public void test_G_ALL_multiple_exit_return() { parseAllActivities(); }
+	@Test
 	public void test_G_ALL_nested_invoke() { parseAllActivities(); }
+	@Test
 	public void test_G_ALL_performance_test1() { parseAllActivities(); }
+	@Test
 	public void test_G_ALL_performance_test2() { parseAllActivities(); }
+	@Test
 	public void test_G_ALL_performance_test3() { parseAllActivities(); }
+	@Test
 	public void test_G_ALL_performance_test4() { parseAllActivities(); }
+	@Test
 	public void test_G_ALL_performance_test5() { parseAllActivities(); }
+	@Test
 	public void test_G_ALL_performance_test6() { parseAllActivities(); }
+	@Test
 	public void test_G_ALL_performance_test7() { parseAllActivities(); }
+	@Test
 	public void test_G_ALL_select_where_enum() { parseAllActivities(); }
+	@Test
 	public void test_G_BRG_G_ALL_interop() { parseAllActivities(); }
+	@Test
 	public void test_G_COP_R_ALL_interop() { parseAllActivities(); }
+	@Test
 	public void test_G_EVT_PE_G_EVT_NLE_nle_ignored() { parseAllActivities(); }
+	@Test
 	public void test_G_IOP_MDA_self_event() { parseAllActivities(); }
+	@Test
 	public void test_G_IOP_R_ALL_interop() { parseAllActivities(); }
+	@Test
 	public void test_G_MDA_R_ALL_interop() { parseAllActivities(); }
+	@Test
 	public void test_G_STE_G_COP_compare_date() { parseAllActivities(); }
+	@Test
 	public void test_G_STE_G_EVT_PE_to_creation() { parseAllActivities(); }
+	@Test
 	public void test_G_STE_G_STE_pe_le_same_state() { parseAllActivities(); }
+	@Test
 	public void test_G_STE_assoc_rel() { parseAllActivities(); }
+	@Test
 	public void test_G_STE_del_inst_mult() { parseAllActivities(); }
 
+	@Test
 	public void test_im1() { parseAllActivities(); }
+	@Test
 	public void test_im2() { parseAllActivities(); }
+	@Test
 	public void test_im3() { parseAllActivities(); }
+	@Test
 	public void test_im4() { parseAllActivities(); }
+	@Test
 	public void test_ims() { parseAllActivities(); }
+	@Test
 	public void test_ims2() { parseAllActivities(); }
+	@Test
 	public void test_imx() { parseAllActivities(); }
+	@Test
 	public void test_init1() { parseAllActivities(); }
+	@Test
 	public void test_init2() { parseAllActivities(); }
+	@Test
 	public void test_interop_otherdom() { parseAllActivities(); }
+	@Test
 	public void test_memleak() { parseAllActivities(); }
+	@Test
 	public void test_mt1() { parseAllActivities(); }
+	@Test
 	public void test_no_inst() { parseAllActivities(); }
+	@Test
 	public void test_poly() { parseAllActivities(); }
+	@Test
 	public void test_reflexive() { parseAllActivities(); }
-    public void test_sdt_test() { parseAllActivities(); }
+    @Test
+	public void test_sdt_test() { parseAllActivities(); }
+	@Test
 	public void test_select() { parseAllActivities(); }
+	@Test
 	public void test_self() { parseAllActivities(); }
+	@Test
 	public void test_sm() { parseAllActivities(); }
+	@Test
 	public void test_sync() { parseAllActivities(); }
+	@Test
 	public void test_syntax() { parseAllActivities(); }
+	@Test
 	public void test_trans() { parseAllActivities(); }
+	@Test
 	public void test_wim2() { parseAllActivities(); }
+	@Test
 	public void test_wim3() { parseAllActivities(); }
+	@Test
 	public void test_wims() { parseAllActivities(); }
+	@Test
 	public void test_wimx() { parseAllActivities(); }
 
 	// these are last becuase they take so long
-    public void test_ooaofooa() { parseAllActivities(); }
-    public void test_ooaofgraphics() { parseAllActivities(); }
+    @Test
+	public void test_ooaofooa() { parseAllActivities(); }
+    @Test
+	public void test_ooaofgraphics() { parseAllActivities(); }
+	@Test
 	public void test_ex1() { parseAllActivities(); }
+	@Test
 	public void test_ex2() { parseAllActivities(); }
+	@Test
 	public void test_ex3() { parseAllActivities(); }
+	@Test
 	public void test_udt_assignment() { parseAllActivities(); }
 
     private static String workspace_path = ""; //$NON-NLS-1$
@@ -162,7 +242,8 @@ public class ParseAllInDomain_Generics extends BaseTest {
 	/* (non-Javadoc)
 	 * @see junit.framework.TestCase#setUp()
 	 */
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 
         if (workspace_path == null || workspace_path.equals(""))//$NON-NLS-1$
@@ -175,7 +256,8 @@ public class ParseAllInDomain_Generics extends BaseTest {
             m_logfile_path = System.getProperty("LOGFILE_PATH");
         }
         assertNotNull( m_logfile_path );
-
+        String methodName = name.getMethodName();
+        m_domain_name = methodName.substring(5, methodName.length());
         if ( m_domain_name.equals( "ooaofooa" ) ) {
             ensureAvailableAndLoaded("org.xtuml.bp.core", m_domain_name, false, false);
         } else if ( m_domain_name.equals( "ooaofgraphics" ) ) {
@@ -193,7 +275,8 @@ public class ParseAllInDomain_Generics extends BaseTest {
 	/* (non-Javadoc)
 	 * @see junit.framework.TestCase#tearDown()
 	 */
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
         try {
             super.tearDown();
 

@@ -29,7 +29,10 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Iterator;
 import java.util.Set;
-
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.eclipse.compare.internal.CompareEditor;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
@@ -47,6 +50,7 @@ import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.ModelRoot;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.common.PersistableModelComponent;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.core.common.Transaction;
 import org.xtuml.bp.core.common.TransactionException;
 import org.xtuml.bp.core.common.TransactionManager;
@@ -68,6 +72,7 @@ import org.xtuml.bp.ui.canvas.Model_c;
 import org.xtuml.bp.ui.canvas.Ooaofgraphics;
 import org.xtuml.bp.ui.canvas.Waypoint_c;
 
+@RunWith(OrderedRunner.class)
 public class ModelComparisonTests extends BaseTest {
 
 	private static String modifyString = "_modified";
@@ -285,6 +290,7 @@ public class ModelComparisonTests extends BaseTest {
     /**
      *  Test modification of attribute: ${class.Name}:${attr.Name}
      */
+	@Test
 	public void testAttributeValueModification$_{class.Name}$_{attr.Name}() throws CoreException, SecurityException, IllegalArgumentException,
 			NoSuchMethodException, IllegalAccessException,
 			InvocationTargetException {

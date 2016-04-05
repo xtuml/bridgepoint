@@ -22,22 +22,28 @@
 
 package org.xtuml.bp.core.test;
 
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.Attribute_c;
 import org.xtuml.bp.core.Bridge_c;
 import org.xtuml.bp.core.OperationParameter_c;
 import org.xtuml.bp.core.common.ModelElement;
 import org.xtuml.bp.core.ui.RenameAction;
 import org.xtuml.bp.test.TestUtil;
+import org.xtuml.bp.test.common.OrderedRunner;
 
 /**
  * Contains other tests related to renaming model elements.
  */
+@RunWith(OrderedRunner.class)
 public class RenameTest2Generics extends CoreTest {
 	private static boolean initialized = false;
 	/* (non-Javadoc)
 	 * @see junit.framework.TestCase#setUp()
 	 */
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 
 		if (!initialized) {
@@ -51,6 +57,7 @@ public class RenameTest2Generics extends CoreTest {
 	 * Tests that the renaming of a model element to include a space in its 
 	 * name does not succeed for element types which don't support spaces.
 	 */
+	@Test
 	public void testSpaceInModelElementNamesNotAllowed() {
 		// try to rename an attribute with a space included
 		final Attribute_c attribute = Attribute_c.AttributeInstance(modelRoot);

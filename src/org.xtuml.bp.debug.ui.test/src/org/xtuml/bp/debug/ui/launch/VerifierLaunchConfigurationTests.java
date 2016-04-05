@@ -21,13 +21,9 @@
 //=====================================================================
 package org.xtuml.bp.debug.ui.launch;
 
-import java.io.File;
-
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.debug.ui.IDebugUIConstants;
-import org.eclipse.debug.ui.actions.OpenLaunchDialogAction;
 import org.eclipse.jface.dialogs.TitleAreaDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
@@ -40,20 +36,23 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.PlatformUI;
-
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.PersistableModelComponent;
 import org.xtuml.bp.core.ui.tree.ModelCheckedTreeViewer;
-import org.xtuml.bp.debug.ui.launch.VerifiableElementComposite;
 import org.xtuml.bp.debug.ui.test.DebugUITestUtilities;
-import org.xtuml.bp.test.TestUtil;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TestingUtilities;
 import org.xtuml.bp.test.common.UITestingUtilities;
 
+@RunWith(OrderedRunner.class)
 public class VerifierLaunchConfigurationTests extends BaseTest {
 
 	private static String projectName = "VerifierLaunchConfigurationTests";
@@ -62,12 +61,13 @@ public class VerifierLaunchConfigurationTests extends BaseTest {
 	private ModelCheckedTreeViewer treeViewer = null;
 	private String failureMessage = "";
 
-	public VerifierLaunchConfigurationTests(String testName) throws Exception {
-		super(null , testName);
+	public VerifierLaunchConfigurationTests() throws Exception {
+		super(null , null);
 	}
 	
 	@Override
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
         super.setUp();
         
     	if(!initialized) {    		
@@ -103,6 +103,7 @@ public class VerifierLaunchConfigurationTests extends BaseTest {
 	    	initialized = true;
     	}
 	}
+	@After
 	public void tearDown() throws Exception {
 		DebugUITestUtilities.stopSession(m_sys, projectName);
 	}
@@ -115,6 +116,7 @@ public class VerifierLaunchConfigurationTests extends BaseTest {
 	 * @throws Exception
 	 */
 	// Commenting out known failure tests.  See dts0100656068
+	@Test
 	public void testLaunchConfigurationTree() throws Exception {
 /*		checkLaunchConfigurationTree(500);
 		// open the launch configuration dialog

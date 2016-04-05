@@ -22,34 +22,24 @@
 
 package org.xtuml.bp.ui.text.test;
 
-import java.io.File;
-
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.jface.preference.IPreferenceStore;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.ui.editors.text.EditorsUI;
-import org.eclipse.ui.texteditor.AbstractDecoratedTextEditorPreferenceConstants;
-
-import org.xtuml.bp.core.CorePlugin;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.ExternalEntity_c;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.PackageableElement_c;
-import org.xtuml.bp.core.StateMachineState_c;
 import org.xtuml.bp.core.SystemModel_c;
-import org.xtuml.bp.core.common.BridgePointPreferencesStore;
-import org.xtuml.bp.core.common.ClassQueryInterface_c;
-import org.xtuml.bp.core.common.ComponentResourceListener;
 import org.xtuml.bp.core.common.IdAssigner;
 import org.xtuml.bp.core.common.PersistableModelComponent;
 import org.xtuml.bp.core.common.PersistenceManager;
 import org.xtuml.bp.core.ui.Selection;
-import org.xtuml.bp.test.TestUtil;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TestingUtilities;
 import org.xtuml.bp.test.common.TextEditorUtils;
 import org.xtuml.bp.ui.text.TextPlugin;
@@ -59,14 +49,19 @@ import org.xtuml.bp.ui.text.activity.ParseAllActivitiesAction;
  * Holds tests pertaining to the parse-all action that occurs when a model is
  * reloaded from disk.
  */
+@RunWith(OrderedRunner.class)
 public class ParseAllActivitiesOnSystemModelTest extends UITextTest {
+	public ParseAllActivitiesOnSystemModelTest() throws CoreException {
+		super();
+	}
+
 	/**
 	 * Constructor.
 	 */
-	public ParseAllActivitiesOnSystemModelTest(String name)
-			throws CoreException {
-		super(null, name);
-	}
+//	public ParseAllActivitiesOnSystemModelTest(String name)
+//			throws CoreException {
+//		super(null, name);
+//	}
 
 	String projOneName = "ProjectOne";
 	String projTwoName = "ProjectTwo";
@@ -77,7 +72,8 @@ public class ParseAllActivitiesOnSystemModelTest extends UITextTest {
 	SystemModel_c m_sysOne;
 	SystemModel_c m_sysTwo;
 
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 
 		if (!projectExists(projOneName)) {
@@ -130,6 +126,7 @@ public class ParseAllActivitiesOnSystemModelTest extends UITextTest {
 	 * For issue 863. Tests that a parse-all occurs when a model is reloaded
 	 * from disk due to its having changed outside of Eclipse.
 	 */
+	@Test
 	public void testParseAllActivitiesOnSystemModel() throws Exception {
 		// ensure the parse on resource change preference is enabled
 
