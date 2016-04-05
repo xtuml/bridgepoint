@@ -47,9 +47,7 @@ if [ "${OS_ARG,,}" = "linux" ] || [ "${OS_ARG,,}" = "osx" ]; then
   DOCGEN_EXE="docgen"
 fi
 
-INSTALL_PROJECT="installer"
 TEMP_DIR="/tmp"
-SEQUENCE_CREATOR="org.xtuml.bp.sequencecapture_${BP_VERSION}.jar"
 SERVER="xtuml.org"
 EXT_SRC_FILE="${PRODUCT_NAME}_extension_${PRODUCT_BRANCH}.zip"
 INSTALLER_DATA_DIR="${BP_BASE_DIR}/EclipseDeliverables/eclipse"
@@ -103,10 +101,6 @@ if [ "${OS}" = "linux" ]; then
       mcplugin="./org.xtuml.bp.mc.systemc.source_${BP_VERSION}/mc3020/bin"
       tr -d '\r' < ${mcplugin}/xtumlmc_build > ${mcplugin}/xtumlmc_build.exe
       cp -f ${mcplugin}/xtumlmc_build.exe ${mcplugin}/xtumlmc_build
-
-      mcplugin="./org.xtuml.bp.mc.vhdl.source_${BP_VERSION}/mc3020/bin"
-      tr -d '\r' < ${mcplugin}/xtumlmc_build > ${mcplugin}/xtumlmc_build.exe
-      cp -f ${mcplugin}/xtumlmc_build.exe ${mcplugin}/xtumlmc_build
 else
       mcplugin="./org.xtuml.bp.mc.c.binary_${BP_VERSION}/mc3020/bin"
       mv -f ${mcplugin}/xtumlmc_build.exe.win ${mcplugin}/xtumlmc_build.exe
@@ -121,9 +115,6 @@ else
       mv -f ${mcplugin}/xtumlmc_build.exe.win ${mcplugin}/xtumlmc_build.exe
 
       mcplugin="./org.xtuml.bp.mc.systemc.source_${BP_VERSION}/mc3020/bin"
-      mv -f ${mcplugin}/xtumlmc_build.exe.win ${mcplugin}/xtumlmc_build.exe
-
-      mcplugin="./org.xtuml.bp.mc.vhdl.source_${BP_VERSION}/mc3020/bin"
       mv -f ${mcplugin}/xtumlmc_build.exe.win ${mcplugin}/xtumlmc_build.exe
 fi
 echo "INFO: Done."

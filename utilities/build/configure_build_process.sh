@@ -45,7 +45,6 @@ function configure_installer_files {
     cp -f Launcher.bat ${eclipse_deliverables}/eclipse 2>>${error_file}
     cp -f CLI.bat ${eclipse_deliverables}/eclipse 2>>${error_file}
     mkdir -p ${bp_deliverables}/tools
-    cp -f create_shortcut.vbs ${bp_deliverables}/tools 2>>${error_file}
 
     # Next set up the linux files
     # Copy files and do the dos2unix translation.
