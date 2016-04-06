@@ -129,6 +129,11 @@ configure_mcc_src()
     
     cp -fp $user_supplied_files/xtumlmc_build.exe ./bin
     cp -fp $user_supplied_files/gen_erate.exe     ./bin
+    # The following line is just moving the linux generator out of the way so that the
+    # build server still uses the windows generator.  Once we get BP building with the linux
+    # python generator, the following line will not rename the file to .py and build_install_bp.sh should
+    # be modified to remove the copy file handling on gen_erate.py
+    cp -fp $user_supplied_files/gen_erate.pyz     ./bin/gen_erate.py
     cp -fp $user_supplied_files/mcmc              ./bin
     cp -fp $user_supplied_files/mcmc64            ./bin
     cp -fp $user_supplied_files/mcmc.exe          ./bin

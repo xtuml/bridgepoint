@@ -1,0 +1,136 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>5.1. Creating Instances</title>
+<link rel="stylesheet" type="text/css" href="docbook.css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<meta name="keywords" content="MASL, Action Language, Action Semantics, UML, Unified Modelling Language, Shlaer Mellor">
+<link rel="home" href="index.html" title="MASL Tutorial">
+<link rel="up" href="ObjectsandRelationships.html" title="Chapter 5. Objects and Relationships">
+<link rel="prev" href="ObjectsandRelationships.html" title="Chapter 5. Objects and Relationships">
+<link rel="next" href="ObjectsandRelationshipsObtainingInstances.html" title="5.2. Obtaining instances">
+<link rel="preface" href="preface.html" title="Preface">
+<link rel="chapter" href="Types.html" title="Chapter 1. Types">
+<link rel="chapter" href="ExecutionControl.html" title="Chapter 2. Execution Control">
+<link rel="chapter" href="CompositeTypes.html" title="Chapter 3. Composite Types">
+<link rel="chapter" href="Exceptions.html" title="Chapter 4. Exceptions">
+<link rel="chapter" href="ObjectsandRelationships.html" title="Chapter 5. Objects and Relationships">
+<link rel="chapter" href="Actions.html" title="Chapter 6. Actions">
+<link rel="chapter" href="DeviceIO.html" title="Chapter 7. Device Input/Output">
+<link rel="chapter" href="MASLExamples.html" title="Chapter 8. MASL Examples">
+<link rel="index" href="ix01.html" title="Index">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div align="center">UNCLASSIFIED</div>
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">5.1. Creating Instances</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ObjectsandRelationships.html">Prev</a> </td>
+<th width="60%" align="center">Chapter 5. Objects and Relationships</th>
+<td width="20%" align="right"> <a accesskey="n" href="ObjectsandRelationshipsObtainingInstances.html">Next</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title">
+<a name="ObjectsandRelationshipsCreatingInstances"></a>5.1. Creating Instances</h2></div></div></div>
+<p>An instance of an object is created by using a create expression. A
+    create expression starts with the reserved word <code class="literal">create</code>
+    followed by the name of an object and an object aggregate. The object
+    aggregate is a list of attribute associations, each of which consists of a
+    name of an attribute followed by <code class="literal">=&gt;</code> and then some
+    expression giving the initial value, all enclosed by brackets.</p>
+<div class="figure">
+<a name="ObjectsandRelationshipsAircraftObject"></a><div class="figure-title">Figure 5.1. Aircraft Object</div>
+<div class="figure-contents"><div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;"><tr><td align="center" valign="middle"><img src="images/aircraftclass.svg" align="middle"></td></tr></table></div></div>
+</div>
+<p><br class="figure-break"></p>
+<p>Given the <code class="classname">Aircraft</code> object shown in <a class="xref" href="ObjectsandRelationshipsCreatingInstances.html#ObjectsandRelationshipsAircraftObject" title="Figure 5.1. Aircraft Object">Figure 5.1, “Aircraft Object”</a> we might
+    write:</p>
+<div class="informalexample"><pre class="programlisting">  create Aircraft(serial_number =&gt; 76);</pre></div>
+<p>This creates a new Aircraft instance with a serial number of
+    <code class="literal">76</code>. The object aggregate must supply initial values for
+    all non-referential preferred attributes; otherwise, a compile-time error
+    will occur. If, at run-time, these initial values do not define a unique
+    instance, object instance with same preferred id(s) already exists, then
+    an exception will be raised.</p>
+<p>If the <code class="classname">Aircraft</code> object was an active object,
+    and hence instances of it had a <code class="varname">Current_State</code>
+    attribute, then the initial state of an instance must also be set when it
+    is created (this also includes creation states).</p>
+<div class="informalexample"><pre class="programlisting">  create Aircraft(serial_number =&gt; 76, Current_State =&gt; parked);</pre></div>
+<p>This creates a new <code class="classname">Aircraft</code>
+    instance with a serial number of <code class="literal">76</code>, in the initial
+    state <code class="literal">parked</code>.</p>
+<p>Having created an instance we might want to access its attributes.
+    We can do this by assigning the created instance to a variable of the
+    appropriate instance type. Each object within a model has a corresponding
+    instance type. Variables of a specific instance type can refer to specific
+    instances of the corresponding object. To declare a variable of the
+    instance type of the <code class="classname">Aircraft</code> object we might
+    write:</p>
+<div class="informalexample"><pre class="programlisting">  aircraft_instance : instance of Aircraft;</pre></div>
+<p>We could then assign the created instance to this
+    variable.</p>
+<div class="informalexample"><pre class="programlisting">  declare
+    aircraft_instance : instance of Aircraft;
+  begin
+    aircraft_instance := create Aircraft(serial_number =&gt; 76);
+  end;</pre></div>
+<p>Attributes of an instance can be denoted by following the instance
+    name with a dot and the attribute name. Therefore we might
+    write:</p>
+<div class="informalexample"><pre class="programlisting">  declare
+    serial_number : integer;
+  begin
+    aircraft_instance := create Aircraft(serial_number =&gt; 76);
+    serial_number := aircraft.serial_number;
+    aircraft_instance.speed := 0;
+  end;</pre></div>
+<p>Notice that we can both set and get the values of attributes.
+    Certain types of attributes cannot have their values set in this way. If
+    an attribute is either preferred or referential then its value cannot be
+    set in this manner.</p>
+<div class="figure">
+<a name="ObjectsandRelationshipsRelationshipbetweenPilotandAircraft"></a><div class="figure-title">Figure 5.2. Relationship between Pilot and Aircraft</div>
+<div class="figure-contents"><div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;"><tr><td align="center" valign="middle"><img src="images/relationshippilotandaircraft.svg" align="middle"></td></tr></table></div></div>
+</div>
+<br class="figure-break"><p>For example, given the relationship shown in <a class="xref" href="ObjectsandRelationshipsCreatingInstances.html#ObjectsandRelationshipsRelationshipbetweenPilotandAircraft" title="Figure 5.2. Relationship between Pilot and Aircraft">Figure 5.2, “Relationship between Pilot and Aircraft”</a>
+    the following assignments are illegal:</p>
+<div class="informalexample"><pre class="programlisting">  declare
+    aircraft_instance : instance of Aircraft;
+    pilot_instance    : instance of Pilot;
+  begin
+    aircraft_instance  := create Aircraft(serial_number =&gt; 76);
+    pilot_instance     := create Pilot(name =&gt; “Peter Smith”);
+
+    aircraft_instance.serial_number := 38;     // illegal : preferred id cannot be reset
+    aircraft_instance.pilot_name := "Fred";    // illegal : referential cannot be set
+  end;</pre></div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ObjectsandRelationships.html">Prev</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="ObjectsandRelationships.html">Up</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ObjectsandRelationshipsObtainingInstances.html">Next</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">Chapter 5. Objects and Relationships </td>
+<td width="20%" align="center">
+<a accesskey="h" href="index.html">Home</a> | <a accesskey="t" href="bk01-toc.html">ToC</a>
+</td>
+<td width="40%" align="right" valign="top"> 5.2. Obtaining instances</td>
+</tr>
+</table>
+</div>
+<div align="center">UNCLASSIFIED</div>
+</body>
+</html>

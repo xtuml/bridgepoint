@@ -1,0 +1,160 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>11.1. Exception Declarations</title>
+<link rel="stylesheet" type="text/css" href="docbook.css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<meta name="keywords" content="MASL, Action Language, Action Semantics, UML, Unified Modelling Language, Shlaer Mellor">
+<link rel="home" href="index.html" title="MASL Reference Manual">
+<link rel="up" href="Exceptions.html" title="Chapter 11. Exceptions">
+<link rel="prev" href="Exceptions.html" title="Chapter 11. Exceptions">
+<link rel="next" href="ExceptionsTheCausesofExceptions.html" title="11.2. The Causes of Exceptions">
+<link rel="preface" href="preface.html" title="Preface">
+<link rel="chapter" href="Grammars.html" title="Chapter 1. Grammars">
+<link rel="chapter" href="LexicalStructure.html" title="Chapter 2. Lexical Structure">
+<link rel="chapter" href="Types.html" title="Chapter 3. Types">
+<link rel="chapter" href="TypeConversion.html" title="Chapter 4. Type Conversion">
+<link rel="chapter" href="Domains.html" title="Chapter 5. Domains">
+<link rel="chapter" href="Objects.html" title="Chapter 6. Objects">
+<link rel="chapter" href="Relationships.html" title="Chapter 7. Relationships">
+<link rel="chapter" href="Lifecycles.html" title="Chapter 8. Lifecycles">
+<link rel="chapter" href="Functions.html" title="Chapter 9. Functions">
+<link rel="chapter" href="Services.html" title="Chapter 10. Services">
+<link rel="chapter" href="Exceptions.html" title="Chapter 11. Exceptions">
+<link rel="chapter" href="Statements.html" title="Chapter 12. Statements">
+<link rel="chapter" href="Names.html" title="Chapter 13. Names">
+<link rel="chapter" href="Expressions.html" title="Chapter 14. Expressions">
+<link rel="appendix" href="LanguageDefinedCharacteristics.html" title="Appendix A. Language Defined Characteristics">
+<link rel="appendix" href="SyntaxSummary.html" title="Appendix B. Syntax Summary">
+<link rel="index" href="ix01.html" title="Index">
+<link rel="subsection" href="ExceptionsExceptionDeclarations.html#ExceptionsExceptionModifiers" title="11.1.1. Exception Modifiers">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div align="center">OFFICIAL</div>
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">11.1. Exception Declarations</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="Exceptions.html">Prev</a> </td>
+<th width="60%" align="center">Chapter 11. Exceptions</th>
+<td width="20%" align="right"> <a accesskey="n" href="ExceptionsTheCausesofExceptions.html">Next</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title">
+<a name="ExceptionsExceptionDeclarations"></a>11.1. Exception Declarations</h2></div></div></div>
+<div class="toc"><dl class="toc">
+<dt><span class="section"><a href="ExceptionsExceptionDeclarations.html#ExceptionsExceptionModifiers">11.1.1. Exception Modifiers</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="ExceptionsExceptionDeclarations.html#ExceptionsPublicExceptions">11.1.1.1. Public Exceptions</a></span></dt>
+<dt><span class="section"><a href="ExceptionsExceptionDeclarations.html#ExceptionsPrivateExceptions">11.1.1.2. Private Exceptions</a></span></dt>
+</dl></dd>
+</dl></div>
+<p>
+An <a class="link" href="ExceptionsExceptionDeclarations.html#ebnf.exceptiondeclaration"><span class="emphasis"><em>exception declaration</em></span></a>
+<a class="indexterm" name="idp64290752"></a>
+declares a new exception type.
+<a class="indexterm" name="idp64292384"></a>
+<a class="indexterm" name="idp64293728"></a>
+The declaration specifies the name of the exception.
+<a class="indexterm" name="idp64295104"></a>
+</p>
+<a class="indexterm" name="idp64296160"></a><a class="indexterm" name="idp64297344"></a><a class="indexterm" name="idp64298528"></a><a class="indexterm" name="idp64299712"></a><a class="indexterm" name="idp64300880"></a><table width="100%" cellpadding="5" bgcolor="#F5DCB3" border="1" class="productionset" summary="EBNF"><tr><td><table border="0" width="99%" cellpadding="0" bgcolor="#F5DCB3" class="productionset" summary="EBNF productions">
+<tr>
+<td align="left" valign="top" width="3%">[142]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.exceptiondeclaration"></a>
+        exception declaration
+    </td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="ExceptionsExceptionDeclarations.html#ebnf.exceptionmodifier">exception modifier</a>,
+        'exception',
+        <a href="ExceptionsExceptionDeclarations.html#ebnf.exceptionname">exception name</a>,
+        ';'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[143]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.exceptionname"></a>
+        exception name
+    </td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="LexicalStructureIdentifiers.html#ebnf.identifier">identifier</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+</table></td></tr></table>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="ExceptionsExceptionModifiers"></a>11.1.1. Exception Modifiers</h3></div></div></div>
+<a class="indexterm" name="idp64309504"></a><a class="indexterm" name="idp64311120"></a><a class="indexterm" name="idp65310768"></a><a class="indexterm" name="idp65312064"></a><table width="100%" cellpadding="5" bgcolor="#F5DCB3" border="1" class="productionset" summary="EBNF"><tr><td><table border="0" width="99%" cellpadding="0" bgcolor="#F5DCB3" class="productionset" summary="EBNF productions"><tr>
+<td align="left" valign="top" width="3%">[144]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.exceptionmodifier"></a>
+        exception modifier
+    </td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        'public' | 'private'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr></table></td></tr></table>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="ExceptionsPublicExceptions"></a>11.1.1.1. Public Exceptions</h4></div></div></div>
+<p>
+If an exception
+<a class="indexterm" name="idp65317072"></a>
+is declared with the modifier
+<a class="link" href="ExceptionsExceptionDeclarations.html#ebnf.exceptionmodifier"><code class="literal">public</code></a>,
+<a class="indexterm" name="idp65319504"></a>
+then it may be accessed by any code that can access the domain in which it is
+declared. By default, all exceptions are declared
+<a class="link" href="ExceptionsExceptionDeclarations.html#ebnf.exceptionmodifier"><code class="literal">public</code></a>.
+<a class="indexterm" name="idp65321488"></a>
+</p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="ExceptionsPrivateExceptions"></a>11.1.1.2. Private Exceptions</h4></div></div></div>
+<p>
+If an exception
+<a class="indexterm" name="idp65324336"></a>
+is declared with the modifier
+<a class="link" href="ExceptionsExceptionDeclarations.html#ebnf.exceptionmodifier"><code class="literal">private</code></a>,
+<a class="indexterm" name="idp65326768"></a>
+then access is only permitted from within the domain in which it is declared.
+</p>
+</div>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="Exceptions.html">Prev</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="Exceptions.html">Up</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ExceptionsTheCausesofExceptions.html">Next</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">Chapter 11. Exceptions </td>
+<td width="20%" align="center">
+<a accesskey="h" href="index.html">Home</a> | <a accesskey="t" href="bk01-toc.html">ToC</a>
+</td>
+<td width="40%" align="right" valign="top"> 11.2. The Causes of Exceptions</td>
+</tr>
+</table>
+</div>
+<div align="center">OFFICIAL</div>
+</body>
+</html>

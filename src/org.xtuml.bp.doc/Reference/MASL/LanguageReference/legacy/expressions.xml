@@ -1,0 +1,5602 @@
+<!-- 
+  UK Crown Copyright (c) 2016. All Rights Reserved
+-->
+<!-- Converted by db4-upgrade version 1.0 -->
+<chapter xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="Expressions"><info><title>Expressions</title></info>
+
+<para>
+The rules applicable to the different forms of expression
+<indexterm significance="preferred">
+    <primary>expression</primary>
+</indexterm>
+and to their evaluation, are given in this chapter.
+</para>
+<section xml:id="ExpressionsEvaluationandResult"><info><title>Evaluation and Result</title></info>
+
+<para>
+When an expression
+<indexterm>
+    <primary>expression</primary>
+</indexterm>
+is evaluated, the result denotes a value. Each expression
+<indexterm>
+    <primary>expression</primary>
+</indexterm>
+occurs in the declaration
+<indexterm>
+    <primary>declaration</primary>
+</indexterm>
+of some type that is being declared or in a body of
+a state or service.
+</para>
+</section>
+<section xml:id="ExpressionsTypeofanExpression"><info><title>Type of an Expression</title></info>
+
+<para>
+An expression
+<indexterm>
+    <primary>expression</primary>
+</indexterm>
+has a type known at compile-time. The rules for determining the 
+type of an expression are explained separately below for each kind of
+expression.
+</para>
+</section>
+<section xml:id="ExpressionsNormalandAbruptCompletionofEvaluation"><info><title>Normal and Abrupt Completion of Evaluation</title></info>
+
+<para>
+Every expression has a mode of evaluation in which certain computational steps
+are carried out. The following sections describe the normal mode of evaluation
+for each kind of expression. If all the steps are carried out without an
+exception being raised, the expression is said to complete normally.
+<indexterm>
+    <primary>normal completion</primary>
+</indexterm>
+If, however, evaluation of an expression raises an exception,
+<indexterm>
+    <primary>exception</primary>
+</indexterm>
+then the expression is said to complete abruptly.
+<indexterm>
+    <primary>abrupt completion</primary>
+</indexterm>
+An abrupt completion always has an associated
+reason, which is always an exception with a given value.
+</para>
+<para>
+Run-time exceptions are thrown by the pre-defined operators as follows:
+<itemizedlist mark="bullet">
+<listitem>
+<para>
+A <link linkend="ExpressionsCreateExpressions">create expression</link>
+<indexterm>
+    <primary>expression</primary>
+    <secondary>create</secondary>
+    <tertiary>exception</tertiary>
+</indexterm>
+or concatenation operator expression raises an
+<link linkend="Exceptions">exception</link>
+<indexterm>
+    <primary>exception</primary>
+</indexterm>
+if there is insufficient memory available.
+</para>
+</listitem>
+<listitem>
+<para>
+A selected attribute expression raises an
+<link linkend="Exceptions">exception</link>
+<indexterm>
+    <primary>exception</primary>
+</indexterm>
+if the value of the instance prefix is <literal>null</literal>.
+<indexterm>
+    <primary><literal>null</literal></primary>
+</indexterm>
+</para>
+</listitem>
+<listitem>
+<para>
+An <link linkend="NamesIndexedComponents">indexed component</link>
+<indexterm>
+    <primary>indexed component</primary>
+</indexterm>
+expression
+raises an <link linkend="Exceptions">exception</link>
+<indexterm>
+    <primary>exception</primary>
+</indexterm>
+if the value of the
+index expression
+<indexterm>
+    <primary>indexed component</primary>
+</indexterm>
+is not within the bounds of the corresponding index type.
+<indexterm>
+    <primary>indexed type</primary>
+</indexterm>
+</para>
+</listitem>
+<listitem>
+<para>
+A <link linkend="TypeConversion">type conversion</link>
+<indexterm>
+    <primary>type conversion</primary>
+</indexterm>
+raises an
+<link linkend="Exceptions">exception</link>
+<indexterm>
+    <primary>exception</primary>
+</indexterm>
+if there is no value of the target type that corresponds to the operand
+value.
+</para>
+</listitem>
+<listitem>
+<para>
+An integer division or integer remainder raises an
+<link linkend="Exceptions">exception</link>
+<indexterm>
+    <primary>exception</primary>
+</indexterm>
+if the value of the right hand operand expression is zero.
+</para>
+</listitem>
+</itemizedlist>
+I an <link linkend="Exceptions">exception</link>
+<indexterm>
+    <primary>exception</primary>
+</indexterm>
+occurs, then evaluation of one
+or more expressions may be terminated before all steps of their normal mode
+of evaluation are complete; such expressions are said to complete abruptly.
+<indexterm>
+    <primary>abrupt completion</primary>
+</indexterm>
+The terms "complete normally"
+<indexterm>
+    <primary>normal completion</primary>
+</indexterm>
+and "complete abruptly"
+<indexterm>
+    <primary>abrupt completion</primary>
+</indexterm>
+are also applied to the
+execution of statements. A statement may complete abruptly for a variety of
+reasons, not just because an exception is raised.
+</para>
+<para>
+If evaluation of an expression requires evaluation of a sub-expression, abrupt
+completion of the sub-expression always causes the immediate abrupt completion
+<indexterm>
+    <primary>abrupt completion</primary>
+</indexterm>
+of the expression itself, with the same reason and all succeeding steps in the
+normal mode of evaluation are not performed.
+</para>
+</section>
+<section xml:id="ExpressionsPrimaryExpression"><info><title>Primary Expressions</title></info>
+
+<para>
+<link linkend="ebnf.primaryexpression"><emphasis>Primary expressions</emphasis></link>
+<indexterm>
+    <primary>expression</primary>
+    <secondary>primary</secondary>
+</indexterm>
+include most of the simplest kinds of expressions, from which all others are
+constructed. A parenthesized expression is also treated syntactically as a
+<link linkend="ebnf.primaryexpression"><emphasis>primary expression</emphasis></link>.
+<indexterm>
+    <primary>expression</primary>
+    <secondary>primary</secondary>
+</indexterm>
+</para>
+<indexterm zone="ebnf.primaryexpression">
+    <primary>primary expression</primary>
+</indexterm>
+<indexterm zone="ebnf.primaryexpression">
+    <primary>literal</primary>
+</indexterm>
+<indexterm zone="ebnf.primaryexpression">
+    <primary><literal>this</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.primaryexpression">
+    <primary>name as expression</primary>
+</indexterm>
+<indexterm zone="ebnf.primaryexpression">
+    <primary>characteristic reference</primary>
+</indexterm>
+<indexterm zone="ebnf.primaryexpression">
+    <primary>aggregate</primary>
+</indexterm>
+<indexterm zone="ebnf.primaryexpression">
+    <primary>service as expression</primary>
+</indexterm>
+<indexterm zone="ebnf.primaryexpression">
+    <primary>function invocation</primary>
+</indexterm>
+<indexterm zone="ebnf.primaryexpression">
+    <primary>expression</primary>
+    <secondary>event</secondary>
+</indexterm>
+<indexterm zone="ebnf.primaryexpression">
+    <primary>expression</primary>
+</indexterm>
+<indexterm significance="preferred" zone="ebnf.aggregate">
+    <primary>aggregate</primary>
+</indexterm>
+<indexterm zone="ebnf.aggregate">
+    <primary>structure aggregate</primary>
+</indexterm>
+<indexterm zone="ebnf.aggregate">
+    <primary>object aggregate</primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.primaryexpression">
+    <lhs>
+        primary expression
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.literal">literal</nonterminal> |
+        'this' |
+        <nonterminal def="#ebnf.nameasexpression">name as expression</nonterminal> |
+        <nonterminal def="#ebnf.characteristicreference">characteristic reference</nonterminal> |
+        <nonterminal def="#ebnf.aggregate">aggregate</nonterminal> |
+        <nonterminal def="#ebnf.serviceasexpression">service as expression</nonterminal> |
+        <nonterminal def="#ebnf.functioninvocation">function invocation</nonterminal> |
+        <nonterminal def="#ebnf.eventasexpression">event as expression</nonterminal> |
+        '(',
+        <nonterminal def="#ebnf.expression">expression</nonterminal>,
+        ')'
+    </rhs>
+</production>
+<production xml:id="ebnf.aggregate">
+    <lhs>
+        aggregate
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.structureaggregate">structure aggregate</nonterminal> |
+        <nonterminal def="#ebnf.objectaggregate">object aggregate</nonterminal>
+    </rhs>
+</production>
+</productionset>
+<section xml:id="ExpressionsLiterals"><info><title>Literals</title></info>
+
+<para>
+A <link linkend="LexicalStructureLiterals">literal</link>
+<indexterm significance="preferred">
+    <primary>literal</primary>
+</indexterm>
+represents a value
+literally, that is, by means of a notation suited to its kind. The following
+production is repeated from <xref linkend="LexicalStructureLiterals"/> to
+make the presentation clearer.
+</para>
+<productionset>
+<productionrecap linkend="ebnf.literal"/>
+</productionset>
+<para>
+The type of a literal is determined as follows:
+<itemizedlist>
+<listitem>
+<para>
+The type of a numeric literal is
+<link linkend="TypesNumericTypes"><type>numeric</type></link>.
+<indexterm>
+    <primary><type>numeric</type></primary>
+</indexterm>
+</para>
+</listitem>
+<listitem>
+<para>
+The type of a character literal is
+<link linkend="TypesWideCharacterType"><type>wcharacter</type></link>.
+<indexterm>
+    <primary><type>wcharacter</type></primary>
+</indexterm>
+</para>
+</listitem>
+<listitem>
+<para>
+The type of a string literal is
+<link linkend="TypesWideStringType"><type>string</type></link>.
+<indexterm>
+    <primary><type>string</type></primary>
+</indexterm>
+</para>
+</listitem>
+<listitem>
+<para>
+The type of a boolean literal is
+<link linkend="TypesBooleanType"><type>boolean</type></link>.
+<indexterm>
+    <primary><type>boolean</type></primary>
+</indexterm>
+</para>
+</listitem>
+<listitem>
+<para>
+The type of a enumeration literal is its
+<link linkend="TypesEnumerationTypes"><emphasis>enumeration type</emphasis></link>.
+<indexterm>
+    <primary>enumeration</primary>
+    <secondary>type</secondary>
+</indexterm>
+</para>
+</listitem>
+<listitem>
+<para>
+The type of the
+<link linkend="LexicalStructureTheNullLiteral">null literal</link>
+<indexterm>
+    <primary>null</primary>
+    <secondary>literal</secondary>
+</indexterm>
+is <link linkend="TypesInstanceTypes"><type>instance</type></link>.
+<indexterm>
+    <primary><type>instance</type></primary>
+</indexterm>
+</para>
+</listitem>
+<listitem>
+<para>
+The type of the
+<link linkend="TypesDeviceType">device literal</link>
+<indexterm>
+    <primary>device</primary>
+    <secondary>literal</secondary>
+</indexterm>
+is <link linkend="TypesInstanceTypes"><type>device</type></link>.
+<indexterm>
+    <primary><type>device</type></primary>
+</indexterm>
+</para>
+</listitem>
+</itemizedlist>
+Evaluation of a <link linkend="ebnf.literal"><emphasis>literal</emphasis></link>
+<indexterm>
+    <primary>literal</primary>
+</indexterm>
+yields the corresponding value of the type.
+Evaluation of a <link linkend="ebnf.literal"><emphasis>literal</emphasis></link>
+<indexterm>
+    <primary>literal</primary>
+</indexterm>
+always completes normally.
+</para>
+<section xml:id="ExpressionsEnumerationLiterals"><info><title>Enumeration Literals</title></info>
+
+<para>
+An <link linkend="ebnf.enumeratorliteral"><emphasis>enumeration literal</emphasis></link>
+<indexterm>
+    <primary>enumeration</primary>
+    <secondary>literal</secondary>
+</indexterm>
+represents a value of an enumeration type literally,
+that is, by means of the name given to one of its kind. The following
+production is repeated from <xref linkend="TypesEnumerationTypes"/> to
+make the presentation clearer.
+</para>
+<productionset>
+<productionrecap linkend="ebnf.enumeratorliteral"/>
+</productionset>
+<para>
+A compile-time error occurs if any of the following are true:
+<itemizedlist mark="bullet">
+<listitem>
+<para>
+In the form consisting of just an
+<link linkend="TypesEnumerationTypes">enumerator name</link>,
+<indexterm>
+    <primary>enumeration</primary>
+    <secondary>name</secondary>
+</indexterm>
+the <link linkend="TypesEnumerationTypes">enumerator name</link>
+<indexterm>
+    <primary>enumeration</primary>
+    <secondary>name</secondary>
+</indexterm>
+does not name an enumerator of an
+<link linkend="TypesEnumerationTypes">enumeration type</link>
+<indexterm>
+    <primary>enumeration</primary>
+    <secondary>type</secondary>
+</indexterm>
+in the enclosing domain.
+</para>
+</listitem>
+<listitem>
+<para>
+In the form
+<link linkend="TypesTypeDeclarations"><emphasis>type_name</emphasis></link><literal>.</literal><link linkend="TypesEnumerationTypes"><emphasis>enumerator_name</emphasis></link>,
+the <link linkend="TypesEnumerationTypes">enumerator name</link>
+<indexterm>
+    <primary>enumeration</primary>
+    <secondary>name</secondary>
+</indexterm>
+does not name an enumerator of an
+<link linkend="TypesEnumerationTypes">enumerator type</link>
+<indexterm>
+    <primary>enumeration</primary>
+    <secondary>type</secondary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary>enumeration</secondary>
+</indexterm>
+in the enclosing domain.
+</para>
+</listitem>
+<listitem>
+<para>
+In the form
+<link linkend="DomainsDomainDeclaration"><emphasis>domain_name</emphasis></link><literal>.</literal><link linkend="TypesEnumerationTypes"><emphasis>enumerator_name</emphasis></link>,
+the <link linkend="TypesEnumerationTypes">enumerator name</link>
+<indexterm>
+    <primary>enumeration</primary>
+    <secondary>name</secondary>
+</indexterm>
+does not name an enumerator of an
+<link linkend="TypesEnumerationTypes">enumerator type</link>
+<indexterm>
+    <primary>enumeration</primary>
+    <secondary>type</secondary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary>enumeration</secondary>
+</indexterm>
+in the domain named by the <link linkend="DomainsDomainDeclaration">domain name</link>.
+<indexterm>
+    <primary>domain</primary>
+    <secondary>name</secondary>
+</indexterm>
+</para>
+</listitem>
+<listitem>
+<para>
+The type of the enumerator is not accessible to the current scope.
+</para>
+</listitem>
+</itemizedlist>
+The the same
+<link linkend="TypesEnumerationTypes">enumerator name</link>
+<indexterm>
+    <primary>enumeration</primary>
+    <secondary>name</secondary>
+</indexterm>
+is specified for more than one
+<link linkend="TypesEnumerationTypes">enumerator type</link>
+<indexterm>
+    <primary>enumeration</primary>
+    <secondary>type</secondary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary>enumeration</secondary>
+</indexterm>
+definition in the same domain, the corresponding
+<link linkend="ebnf.enumeratorliteral"><emphasis>enumeration literals</emphasis></link>
+<indexterm>
+    <primary>enumeration</primary>
+    <secondary>literal</secondary>
+</indexterm>
+are said to be overloaded.
+If either of the the two forms of
+<link linkend="ebnf.enumeratorliteral"><emphasis>enumeration literal</emphasis></link>
+<indexterm>
+    <primary>enumeration</primary>
+    <secondary>literal</secondary>
+</indexterm>
+that don't specify a
+<link linkend="TypesTypeDeclarations">type name</link>
+<indexterm>
+    <primary>type name</primary>
+</indexterm>
+are used, this can cause an ambiguity. This ambiguity will be resolved if the
+<link linkend="ebnf.enumeratorliteral"><emphasis>enumeration literal</emphasis></link>
+<indexterm>
+    <primary>enumeration</primary>
+    <secondary>literal</secondary>
+</indexterm>
+is used as either:
+<itemizedlist mark="bullet">
+<listitem>
+<para>
+Part of a binary operation where the type of the other expression is not
+ambiguous.
+</para>
+</listitem>
+<listitem>
+<para>
+As part of an assignment.
+</para>
+</listitem>
+</itemizedlist>
+If the ambiguity cannot be resolved a compile-time error occurs.
+</para>
+<para>
+Evaluation of an
+<link linkend="ebnf.enumeratorliteral"><emphasis>enumeration literal</emphasis></link>
+<indexterm>
+    <primary>enumeration</primary>
+    <secondary>literal</secondary>
+</indexterm>
+yields the corresponding value of the type.
+Certain forms of
+<link linkend="ebnf.enumeratorliteral"><emphasis>enumeration literal</emphasis></link>
+<indexterm>
+    <primary>enumeration</primary>
+    <secondary>literal</secondary>
+</indexterm>
+include a
+<link linkend="TypesTypeDeclarations">type name</link>
+<indexterm>
+    <primary>type name</primary>
+</indexterm>
+or a <link linkend="DomainsDomainDeclaration">domain name</link>
+<indexterm>
+    <primary>domain</primary>
+    <secondary>name</secondary>
+</indexterm>
+of both. These forms are used to:
+<itemizedlist mark="bullet">
+<listitem>
+<para>
+Access enumerators from other domains, as in <literal>Calendar::MONDAY</literal>
+and  <type>Calendar::day_name_type</type>.
+</para>
+</listitem>
+<listitem>
+<para>
+Remove any ambiguity when two or more,
+<link linkend="TypesEnumerationTypes">enumerator types</link>
+<indexterm>
+    <primary>enumeration</primary>
+    <secondary>type</secondary>
+</indexterm>
+have enumerators of the same name, as in
+<literal>day_name_type.MONDAY</literal>
+and
+<literal>Calendar::day_name_type.MONDAY</literal>
+</para>
+</listitem>
+</itemizedlist>
+Use of these qualified forms, where the domain given is the enclosing domain
+or where no ambiguity exists, is allowed.
+</para>
+</section>
+</section>
+<section xml:id="Expressionsthis"><info><title>this</title></info>
+
+<para>
+The reserved word <link linkend="Names"><literal>this</literal></link>
+<indexterm>
+    <primary><literal>this</literal></primary>
+</indexterm>
+may be used in either the body of an object instance service (see
+<xref linkend="FunctionsInstanceObjectFunctions"/> and
+<xref linkend="ServicesInstanceObjectServices"/>) or the body of an instance
+state (see <xref linkend="LifecyclesStates"/>. If it appears anywhere else, a
+compile-time error occurs.
+</para>
+<para>
+The type of <link linkend="Expressionsthis"><literal>this</literal></link>
+<indexterm>
+    <primary><literal>this</literal></primary>
+</indexterm>
+is the <link linkend="TypesInstanceTypes">instance&gt;</link> type of the object
+within which the reserved word
+<indexterm>
+    <primary>reserved word</primary>
+</indexterm>
+<link linkend="Expressionsthis"><literal>this</literal></link>
+<indexterm>
+    <primary><literal>this</literal></primary>
+</indexterm>
+occurs. When used as a primary expression,
+<indexterm>
+    <primary>expression</primary>
+    <secondary>primary</secondary>
+</indexterm>
+the reserved word
+<indexterm>
+    <primary>reserved word</primary>
+</indexterm>
+<link linkend="Expressionsthis"><literal>this</literal></link>
+<indexterm>
+    <primary><literal>this</literal></primary>
+</indexterm>
+denotes a value that is a reference to the instance either for which the
+<link linkend="ServicesInstanceObjectServices">object instance service</link> was
+invoked or which has just moved into the current state.
+</para>
+</section>
+<section xml:id="ExpressionsNamesasExpressions"><info><title>Names as Expressions</title></info>
+
+<para>
+The value of a
+<link linkend="ExpressionsPrimaryExpression">primary expression</link> that is a
+name, is the value of the entity that the name denotes.
+</para>
+<indexterm significance="preferred" zone="ebnf.nameasexpression">
+    <primary>name as expression</primary>
+</indexterm>
+<indexterm zone="ebnf.nameasexpression">
+    <primary>name</primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.nameasexpression">
+    <lhs>
+        name as expression
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.name">name</nonterminal>,
+    </rhs>
+</production>
+</productionset>
+</section>
+<section xml:id="ExpressionsCharacteristicReferences"><info><title>Characteristic References</title></info>
+
+<para>
+A <link linkend="ebnf.characteristicreference"><emphasis>characteristic reference</emphasis></link>
+<indexterm significance="preferred">
+    <primary>characteristic reference</primary>
+</indexterm>
+is a characteristic of an entity that can be queried.
+</para>
+<indexterm zone="ebnf.characteristicreference">
+    <primary>characteristic reference</primary>
+</indexterm>
+<indexterm zone="ebnf.characteristicreference">
+    <primary>name</primary>
+</indexterm>
+<indexterm zone="ebnf.characteristicreference">
+    <primary>argument list</primary>
+</indexterm>
+<indexterm zone="ebnf.characteristicreference">
+    <primary>type</primary>
+</indexterm>
+<indexterm zone="ebnf.characteristicname">
+    <primary>characteristic name</primary>
+</indexterm>
+<indexterm zone="ebnf.characteristicname">
+    <primary>identifier</primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.characteristicreference">
+    <lhs>
+        characteristic reference
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.name">name</nonterminal>,
+        ''',
+        <nonterminal def="#ebnf.characteristicreference">characteristic reference</nonterminal>,
+        [('(',
+        <nonterminal def="#ebnf.argumentlist">argument list</nonterminal>,
+        ')'] |
+        <nonterminal def="#ebnf.type">type</nonterminal>,
+        ''',
+        <nonterminal def="#ebnf.characteristicreference">characteristic reference</nonterminal>,
+        [('(',
+        <nonterminal def="#ebnf.argumentlist">argument list</nonterminal>        
+    </rhs>
+</production>
+<production xml:id="ebnf.characteristicname">
+    <lhs>
+        characteristic name
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.identifier">identifier</nonterminal>  
+    </rhs>
+</production>
+</productionset>
+<para>
+A compile-time error occurs if any of the following is true:
+<itemizedlist mark="bullet">
+<listitem>
+<para>
+In the form
+<emphasis>name</emphasis><literal>'</literal><emphasis>characteristic_name</emphasis>,
+the type of the name does not define a value characteristic named by the
+<emphasis>characteristic name</emphasis>.
+<indexterm>
+    <primary>characteristic name</primary>
+</indexterm>
+</para>
+</listitem>
+<listitem>
+<para>
+In the form
+<emphasis>type</emphasis><literal>'</literal><emphasis>characteristic_name</emphasis>,
+the type does not define a type characteristic named by the
+<emphasis>characteristic name</emphasis>.
+<indexterm>
+    <primary>characteristic name</primary>
+</indexterm>
+</para>
+</listitem>
+</itemizedlist>
+The type of a characteristic reference
+<indexterm>
+    <primary>characteristic reference</primary>
+</indexterm>
+is defined by either the type of the name
+or the type. <xref linkend="Types"/> defines the value and type characteristics
+for all types.
+</para>
+</section>
+<section xml:id="ExpressionsStructureAggregates"><info><title>Structure Aggregates</title></info>
+
+<para>
+A <link linkend="ebnf.structureaggregate"><emphasis>structure aggregate</emphasis></link>
+<indexterm>
+    <primary>aggregate</primary>
+    <secondary>structure</secondary>
+</indexterm>
+<indexterm significance="preferred">
+    <primary>structure</primary>
+    <secondary>aggregate</secondary>
+</indexterm>
+combines component values into a composite type value of a
+<link linkend="TypesStructureTypes">structure type</link>.
+<indexterm>
+    <primary>structure</primary>
+    <secondary>type</secondary>
+</indexterm>
+</para>
+<indexterm zone="ebnf.structureaggregate">
+    <primary>aggregate structure</primary>
+</indexterm>
+<indexterm zone="ebnf.structureaggregate">
+    <primary>expression</primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.structureaggregate">
+    <lhs>
+        structure aggregate
+    </lhs>
+    <rhs>
+        '(',
+        <nonterminal def="#ebnf.expression">expression</nonterminal>,
+        ',',
+        <nonterminal def="#ebnf.expression">expression</nonterminal>,
+        {(',',
+        <nonterminal def="#ebnf.expression">expression</nonterminal>)},
+        ')'
+    </rhs>
+</production>
+</productionset>
+<para>
+For the evaluation of a
+<link linkend="ebnf.structureaggregate"><emphasis>structure aggregate</emphasis></link>,
+<indexterm>
+    <primary>structure</primary>
+    <secondary>aggregate</secondary>
+</indexterm>
+an anonymous structure
+<indexterm>
+    <primary>structure</primary>
+    <secondary>anonymous</secondary>
+</indexterm>
+is created and values for the components are obtained
+and assigned into the corresponding components of the anonymous structure.
+<indexterm>
+    <primary>structure</primary>
+    <secondary>anonymous</secondary>
+</indexterm>
+The value of the
+<link linkend="ebnf.structureaggregate"><emphasis>structure aggregate</emphasis></link>
+<indexterm>
+    <primary>structure</primary>
+    <secondary>aggregate</secondary>
+</indexterm>
+is the value of this anonymous structure.
+<indexterm>
+    <primary>structure</primary>
+    <secondary>anonymous</secondary>
+</indexterm>
+Applying an operator to the value or
+assigning the value to an entity, checks that the anonymous structure
+<indexterm>
+    <primary>structure</primary>
+    <secondary>anonymous</secondary>
+</indexterm>
+can be
+converted into a structure of an appropriate type. If this is not possible, a
+compile-time error occurs.
+</para>
+</section>
+<section xml:id="ExpressionsServicesasExpressions"><info><title>Services As Expressions</title></info>
+
+<para>
+A service expression
+<indexterm significance="preferred">
+    <primary>expression</primary>
+    <secondary>service</secondary>
+</indexterm>
+is used to represent an object service.
+<indexterm>
+    <primary>object</primary>
+    <secondary>service</secondary>
+</indexterm>
+</para>
+<indexterm zone="ebnf.serviceasexpression">
+    <primary>service as expression</primary>
+</indexterm>
+<indexterm zone="ebnf.serviceasexpression">
+    <primary>domain</primary>
+    <secondary>name</secondary>
+</indexterm>
+<indexterm zone="ebnf.serviceasexpression">
+    <primary>object</primary>
+    <secondary>name</secondary>
+</indexterm>
+<indexterm zone="ebnf.serviceasexpression">
+    <primary>service</primary>
+    <secondary>name</secondary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.serviceasexpression">
+    <lhs>
+        service as expression
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.domainname">domain name</nonterminal>,
+        '::',
+        <nonterminal def="#ebnf.objectname">object name</nonterminal>,
+        '.',
+        <nonterminal def="#ebnf.servicename">service name</nonterminal> |
+        <nonterminal def="#ebnf.domainname">domain name</nonterminal>,
+        '::',
+        <nonterminal def="#ebnf.servicename">service name</nonterminal> |
+        <nonterminal def="#ebnf.objectname">object name</nonterminal>,
+        '.',
+        <nonterminal def="#ebnf.servicename">service name</nonterminal> |
+        <nonterminal def="#ebnf.servicename">service name</nonterminal>
+    </rhs>
+</production>
+</productionset>
+<para>
+A compile-time error occurs if the service is not declared, by
+an service declaration, as a service of either:
+<itemizedlist>
+<listitem>
+<para>
+The domain named by the domain name, in the form
+<emphasis>domain_name</emphasis><literal>::</literal><emphasis>service_name</emphasis> or
+the enclosing domain, in the form consisting of just a
+<link linkend="ServicesDomainServices"><emphasis>service name</emphasis></link>.
+<indexterm>
+    <primary>object</primary>
+    <secondary>service</secondary>
+</indexterm>
+</para>
+</listitem>
+<listitem>
+<para>
+The object named by the 
+<link linkend="ObjectsObjectDeclaration">object name</link>,
+<indexterm>
+    <primary>object</primary>
+    <secondary>name</secondary>
+</indexterm>
+in the domain named by the
+<link linkend="DomainsDomainDeclaration">domain name</link>,
+<indexterm>
+    <primary>domain</primary>
+    <secondary>name</secondary>
+</indexterm>
+in the form
+<emphasis>domain_name</emphasis><literal>::</literal><emphasis>object_name</emphasis><literal>.</literal><emphasis>service_name</emphasis>.
+</para>
+</listitem>
+<listitem>
+<para>
+The object named by the 
+<link linkend="ObjectsObjectDeclaration">object name</link>,
+<indexterm>
+    <primary>object</primary>
+    <secondary>name</secondary>
+</indexterm>
+in the enclosing domain, in the form
+<emphasis>object_name</emphasis><literal>.</literal><emphasis>service_name</emphasis>.
+</para>
+</listitem>
+<listitem>
+<para>
+The enclosing object, in the form consisting of just a
+<link linkend="ServicesDomainServices"><emphasis>service name</emphasis></link>.
+<indexterm>
+    <primary>object</primary>
+    <secondary>service</secondary>
+</indexterm>
+</para>
+</listitem>
+</itemizedlist>
+</para>
+</section>
+
+<section xml:id="ExpressionsEventsAsExpressions"><info><title>Events As Expressions</title></info>
+
+<para>
+An <link linkend="ebnf.eventasexpression">
+<emphasis>event as expression</emphasis></link>
+<indexterm>
+    <primary>expression</primary>
+    <secondary>event</secondary>
+</indexterm>
+represents an event.
+</para>
+<indexterm zone="ebnf.eventasexpression">
+    <primary>event as expression</primary>
+</indexterm>
+<indexterm zone="ebnf.eventasexpression">
+    <primary>object name</primary>
+</indexterm>
+<indexterm zone="ebnf.eventasexpression">
+    <primary>event name</primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.eventasexpression">
+    <lhs>
+        event as expression
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.objectname">object name</nonterminal>,
+        '.',
+        <nonterminal def="#ebnf.eventname">event name</nonterminal> |
+        <nonterminal def="#ebnf.eventname">event name</nonterminal>,
+    </rhs>
+</production>
+</productionset>
+<para>
+A compile-time error occurs if the event is not declared by an event
+declaration, as an event of either:
+<itemizedlist mark="bullet">
+<listitem>
+<para>
+the object, in the enclosing domain, named by the object name, in the form
+<type>object_name.event_name</type> or
+</para>
+</listitem>
+<listitem>
+<para>
+the enclosing object, in the form consisting of just an event name.
+</para>
+</listitem>
+</itemizedlist>
+</para>
+</section>
+<section xml:id="ExpressionsFunctionInvocation"><info><title>Function Invocation</title></info>
+
+<para>
+A <link linkend="ebnf.functioninvocation">function invocation</link>
+<indexterm significance="preferred">
+    <primary>function</primary>
+    <secondary>invocation</secondary>
+</indexterm>
+as an
+expression is the evaluation of the invocation of the function. The type of the
+expression is given by the type of the return parameter.
+</para>
+<indexterm zone="ebnf.functioninvocation">
+    <primary>function invocation</primary>
+</indexterm>
+<indexterm zone="ebnf.functioninvocation">
+    <primary>domain function invocation</primary>
+</indexterm>
+<indexterm zone="ebnf.functioninvocation">
+    <primary>object function invocation</primary>
+</indexterm>
+<indexterm zone="ebnf.functioninvocation">
+    <primary>instance function invocation</primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.functioninvocation">
+    <lhs>
+        function invocation
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.domainfunctioninvocation">domain function invocation</nonterminal> |
+        <nonterminal def="#ebnf.objectfunctioninvocation">object function invocation</nonterminal> |
+        <nonterminal def="#ebnf.instancefunctioninvocation">instance function invocation</nonterminal>
+    </rhs>
+</production>
+</productionset>
+</section>
+<section xml:id="ExpressionsDomainFunctionInvocation"><info><title>Domain Function Invocation</title></info>
+
+<para>
+A <link linkend="ebnf.domainfunctioninvocation"><emphasis>domain function invocation</emphasis></link>
+<indexterm significance="preferred">
+    <primary>domain</primary>
+    <secondary>function</secondary>
+    <tertiary>invocation</tertiary>
+</indexterm>
+is used to invoked a domain function.
+<indexterm>
+    <primary>domain</primary>
+    <secondary>function</secondary>
+</indexterm>
+</para>
+<indexterm zone="ebnf.domainfunctioninvocation">
+    <primary>domain name</primary>
+</indexterm>
+<indexterm zone="ebnf.domainfunctioninvocation">
+    <primary>function name</primary>
+</indexterm>
+<indexterm zone="ebnf.domainfunctioninvocation">
+    <primary>argument list</primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.domainfunctioninvocation">
+    <lhs>
+        domain function invocation
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.domainname">domain name</nonterminal>,
+        '::',
+        <nonterminal def="#ebnf.functionname">function name</nonterminal>,
+        '(',
+        <nonterminal def="#ebnf.argumentlist">argument list</nonterminal>,
+        ')',';' |
+        <nonterminal def="#ebnf.functionname">function name</nonterminal>,
+        '(',
+        <nonterminal def="#ebnf.argumentlist">argument list</nonterminal>,
+        ')',';' 
+    </rhs>
+</production>
+</productionset>
+<para>
+A compile-time errors occurs if either of the following is true:
+<itemizedlist>
+<listitem>
+<para>
+The <link linkend="FunctionsDomainFunctionSignatures">signature</link> of the
+<link linkend="ebnf.domainfunctioninvocation"><emphasis>domain function invocation</emphasis></link>
+<indexterm>
+    <primary>domain</primary>
+    <secondary>function</secondary>
+    <tertiary>signature</tertiary>
+</indexterm>
+to be invoked, named by the function name together with the
+<link linkend="FunctionsDomainFunctionFormalParameters">argument list</link>
+<indexterm>
+    <primary>argument</primary>
+    <secondary>list</secondary>
+</indexterm>
+has not been declared, by a
+<link linkend="FunctionsDomainFunctions">domain function declaration</link>,
+<indexterm>
+    <primary>domain</primary>
+    <secondary>function</secondary>
+    <tertiary>declaration</tertiary>
+</indexterm>
+as a function of either:
+<itemizedlist mark="opencircle">
+<listitem>
+<para>
+The domain named by the domain name, in the form
+<emphasis>domain_name</emphasis><literal>::</literal><emphasis>function_name</emphasis>.
+</para>
+</listitem>
+<listitem>
+<para>
+The enclosing domain, in the form consisting of just a <emphasis>function name</emphasis>.
+</para>
+</listitem>
+</itemizedlist>
+</para>
+</listitem>
+<listitem>
+<para>
+The <link linkend="FunctionsDomainFunctions">domain function declaration</link>
+<indexterm>
+    <primary>domain</primary>
+    <secondary>function</secondary>
+    <tertiary>declaration</tertiary>
+</indexterm>
+is not accessible
+(see <xref linkend="ExpressionsCompileTimeProcessingofFunctionCalls"/>) to the
+invocation statement.
+</para>
+</listitem>
+</itemizedlist>
+A <link linkend="ebnf.domainfunctioninvocation"><emphasis>domain function invocation</emphasis></link>
+<indexterm>
+    <primary>domain</primary>
+    <secondary>function</secondary>
+    <tertiary>invocation</tertiary>
+</indexterm>
+is executed by evaluating the argument expressions. If the evaluation of any
+argument expression completes abruptly, then the
+<link linkend="ebnf.domainfunctioninvocation"><emphasis>domain function invocation</emphasis></link>
+<indexterm>
+    <primary>domain</primary>
+    <secondary>function</secondary>
+    <tertiary>invocation</tertiary>
+</indexterm>
+completes abruptly for the same reason. Otherwise, the
+<link linkend="ebnf.domainfunctioninvocation"><emphasis>domain function invocation</emphasis></link>
+<indexterm>
+    <primary>domain</primary>
+    <secondary>function</secondary>
+    <tertiary>invocation</tertiary>
+</indexterm>
+is then executed. If this complete normally, the evaluation of the expression
+return parameter is performed.
+</para>
+</section>
+<section xml:id="ExpressionsObjectFunctionInvocation"><info><title>Object Function Invocation</title></info>
+
+<para>
+A <link linkend="ebnf.objectfunctioninvocation"><emphasis>object function invocation</emphasis></link>
+<indexterm significance="preferred">
+    <primary>object</primary>
+    <secondary>function</secondary>
+    <tertiary>invocation</tertiary>
+</indexterm>
+is used to invoked a domain function.
+<indexterm>
+    <primary>object</primary>
+    <secondary>function</secondary>
+</indexterm></para>
+<indexterm zone="ebnf.objectfunctioninvocation">
+    <primary>object function invocation</primary>
+</indexterm>
+<indexterm zone="ebnf.objectfunctioninvocation">
+    <primary>object name</primary>
+</indexterm>
+<indexterm zone="ebnf.objectfunctioninvocation">
+    <primary>function name</primary>
+</indexterm>
+<indexterm zone="ebnf.objectfunctioninvocation">
+    <primary>argument list</primary>
+</indexterm>
+<indexterm zone="ebnf.objectfunctioninvocation">
+    <primary>expression instance</primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.objectfunctioninvocation">
+    <lhs>
+        object function invocation
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.objectname">object name</nonterminal>,
+        '.',
+        <nonterminal def="#ebnf.functionname">function name</nonterminal>,
+        '(',
+        <nonterminal def="#ebnf.argumentlist">argument list</nonterminal>,
+        ')',';' |
+        <nonterminal def="#ebnf.instanceexpression">instance expression</nonterminal>,
+        '.',
+        <nonterminal def="#ebnf.functionname">function name</nonterminal>,
+        '(',
+        <nonterminal def="#ebnf.argumentlist">argument list</nonterminal>,
+        ')',';' |
+        <nonterminal def="#ebnf.functionname">function name</nonterminal>,
+        '(',
+        <nonterminal def="#ebnf.argumentlist">argument list</nonterminal>,
+        ')',';'
+    </rhs>
+</production>
+</productionset>
+<para>
+A compile-time errors occurs if either of the following is true:
+<itemizedlist>
+<listitem>
+<para>
+The <link linkend="FunctionsObjectFunctionSignatures">signature</link> of the
+<link linkend="ebnf.objectfunctioninvocation"><emphasis>object function invocation</emphasis></link>
+<indexterm>
+    <primary>object</primary>
+    <secondary>function</secondary>
+    <tertiary>signature</tertiary>
+</indexterm>
+to be invoked, named by the function name
+<indexterm>
+    <primary>function</primary>
+    <secondary>name</secondary>
+</indexterm>
+together with the
+<link linkend="FunctionsObjectFunctionFormalParameters">argument list</link>
+<indexterm>
+    <primary>argument</primary>
+    <secondary>list</secondary>
+</indexterm>
+has not been declared, by an
+<link linkend="FunctionsDomainFunctions">object function declaration</link>,
+<indexterm>
+    <primary>object</primary>
+    <secondary>function</secondary>
+    <tertiary>declaration</tertiary>
+</indexterm>
+as a non-instance function of either:
+<itemizedlist mark="opencircle">
+<listitem>
+<para>
+The object, in the enclosing domain, named by the object name, in the form
+<emphasis>object_name</emphasis><literal>.</literal><emphasis>function_name</emphasis>.
+</para>
+</listitem>
+<listitem>
+<para>
+The object, given by the object of the
+<link linkend="TypesInstanceTypes">instance type</link>
+<indexterm>
+    <primary>instance</primary>
+    <secondary>type</secondary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary>instance</secondary>
+</indexterm>
+of the
+<link linkend="ExpressionsInstanceandInstanceCollectionExpressions">instance expression</link>,
+<indexterm>
+    <primary>instance</primary>
+    <secondary>expression</secondary>
+</indexterm>
+<indexterm>
+    <primary>expression</primary>
+    <secondary>instance</secondary>
+</indexterm>
+in the form
+<emphasis>instance_expression</emphasis><literal>.</literal><emphasis>function_name</emphasis>.
+</para>
+</listitem>
+<listitem>
+<para>
+The enclosing object, in the form consisting of just a <emphasis>function name</emphasis>.
+<indexterm>
+    <primary>function</primary>
+    <secondary>name</secondary>
+</indexterm>
+</para>
+</listitem>
+</itemizedlist>
+</para>
+</listitem>
+<listitem>
+<para>
+The <link linkend="FunctionsObjectFunctions">object function declaration</link>
+<indexterm>
+    <primary>object</primary>
+    <secondary>function</secondary>
+    <tertiary>declaration</tertiary>
+</indexterm>
+is not accessible
+(see <xref linkend="ExpressionsCompileTimeProcessingofFunctionCalls"/>) to the
+invocation statement.
+</para>
+</listitem>
+</itemizedlist>
+A <link linkend="ebnf.objectfunctioninvocation"><emphasis>object function invocation</emphasis></link>
+is executed by evaluating the argument expressions.
+<indexterm>
+    <primary>expression</primary>
+    <secondary>argument</secondary>
+</indexterm>
+If the evaluation of any
+argument expression
+<indexterm>
+    <primary>expression</primary>
+    <secondary>argument</secondary>
+</indexterm>
+completes abruptly, then the
+<link linkend="ebnf.objectfunctioninvocation"><emphasis>object function invocation</emphasis></link>
+completes abruptly for the same reason. Note, that for an 
+<link linkend="ebnf.objectfunctioninvocation"><emphasis>object function invocation</emphasis></link>
+of the form
+<emphasis>instance_expression</emphasis><literal>.</literal><emphasis>function_name</emphasis>,
+the <link linkend="ExpressionsInstanceandInstanceCollectionExpressions">instance expression</link>
+is not evaluated.
+If the argument expression
+<indexterm>
+    <primary>expression</primary>
+    <secondary>argument</secondary>
+</indexterm>
+complete normally, the
+<link linkend="FunctionsObjectFunctionDefinition"><emphasis>object function definition</emphasis></link>
+<indexterm>
+    <primary>object</primary>
+    <secondary>function</secondary>
+    <tertiary>definition</tertiary>
+</indexterm>
+is then executed. If this complete normally, the evaluation of the expression
+return parameter is performed.
+</para>
+</section>
+<section xml:id="ExpressionsInstanceFunctionInvocation"><info><title>Instance Function Invocation</title></info>
+
+<para>
+An <link linkend="ebnf.instancefunctioninvocation"><emphasis>instance function invocation</emphasis></link>
+<indexterm>
+    <primary>instance</primary>
+    <secondary>function</secondary>
+    <tertiary>invocation</tertiary>
+</indexterm>
+is used to invoke an object instance function.
+</para>
+<indexterm zone="ebnf.instancefunctioninvocation">
+    <primary>instance function invocation</primary>
+</indexterm>
+<indexterm zone="ebnf.instancefunctioninvocation">
+    <primary>instance expression</primary>
+</indexterm>
+<indexterm zone="ebnf.instancefunctioninvocation">
+    <primary>function name</primary>
+</indexterm>
+<indexterm zone="ebnf.instancefunctioninvocation">
+    <primary>argument list</primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.instancefunctioninvocation">
+    <lhs>
+        instance function invocation
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.instanceexpression">instance expression</nonterminal>,
+        '.',
+        <nonterminal def="#ebnf.functionname">function name</nonterminal>,
+        '(',
+        <nonterminal def="#ebnf.argumentlist">argument list</nonterminal>,
+        ')',';' |
+        <nonterminal def="#ebnf.functionname">function name</nonterminal>,
+        '(',
+        <nonterminal def="#ebnf.argumentlist">argument list</nonterminal>,
+        ')',';'
+    </rhs>
+</production>
+</productionset>
+<para>
+A compile-time errors occurs if either of the following is true:
+<itemizedlist mark="bullet">
+<listitem>
+<para>
+The <link linkend="FunctionsObjectFunctionSignatures">signature</link>
+<indexterm>
+    <primary>object</primary>
+    <secondary>function</secondary>
+    <tertiary>signature</tertiary>
+</indexterm>
+of the
+<link linkend="ebnf.instancefunctioninvocation"><emphasis>object instance function invocation</emphasis></link>
+<indexterm>
+    <primary>instance</primary>
+    <secondary>function</secondary>
+    <tertiary>definition</tertiary>
+</indexterm>
+to be invoked, named by the function name together with the
+<link linkend="FunctionsObjectFunctionFormalParameters">argument list</link>
+<indexterm>
+    <primary>argument</primary>
+    <secondary>list</secondary>
+</indexterm>
+has not been declared, by an
+<link linkend="FunctionsDomainFunctions">object function declaration</link>,
+<indexterm>
+    <primary>object</primary>
+    <secondary>function</secondary>
+    <tertiary>declaration</tertiary>
+</indexterm>
+as a instance function of either:
+<itemizedlist mark="opencircle">
+<listitem>
+<para>
+The object, given by the object of the
+<link linkend="TypesInstanceTypes">instance type</link> of the
+<indexterm>
+    <primary>instance</primary>
+    <secondary>type</secondary>
+</indexterm>
+<link linkend="ExpressionsInstanceandInstanceCollectionExpressions">instance expression</link>,
+<indexterm>
+    <primary>expression</primary>
+    <secondary>instance</secondary>
+</indexterm>
+<indexterm>
+    <primary>instance</primary>
+    <secondary>expression</secondary>
+</indexterm>
+in the form
+<emphasis>instance_expression</emphasis><literal>.</literal><emphasis>function_name</emphasis>.
+</para>
+</listitem>
+<listitem>
+<para>
+The enclosing object, in the form consisting of just a
+<emphasis>function name</emphasis>.
+<indexterm>
+    <primary>function</primary>
+    <secondary>name</secondary>
+</indexterm>
+</para>
+</listitem>
+</itemizedlist>
+</para>
+</listitem>
+<listitem>
+<para>
+The <link linkend="FunctionsObjectFunctions">object instance function declaration</link>
+<indexterm>
+    <primary>instance</primary>
+    <secondary>function</secondary>
+    <tertiary>declaration</tertiary>
+</indexterm>
+is not accessible
+(see <xref linkend="ExpressionsCompileTimeProcessingofFunctionCalls"/>) to the
+invocation statement.
+</para>
+</listitem>
+</itemizedlist>
+A <link linkend="ebnf.instancefunctioninvocation"><emphasis>object instance function invocation</emphasis></link>
+<indexterm>
+    <primary>instance</primary>
+    <secondary>function</secondary>
+    <tertiary>definition</tertiary>
+</indexterm>
+is executed by evaluating either:
+<itemizedlist mark="bullet">
+<listitem>
+<para>
+The <link linkend="ExpressionsInstanceandInstanceCollectionExpressions">instance expression</link>
+<indexterm>
+    <primary>expression</primary>
+    <secondary>instance</secondary>
+</indexterm>
+<indexterm>
+    <primary>instance</primary>
+    <secondary>expression</secondary>
+</indexterm>
+in the form
+<emphasis>instance_expression</emphasis><literal>.</literal><emphasis>function_name</emphasis>.
+</para>
+</listitem>
+<listitem>
+<para>
+The reserved word <link linkend="Expressionsthis"><literal>this</literal></link> in the form
+<indexterm>
+    <primary><literal>this</literal></primary>
+</indexterm>
+of just a <emphasis>function name</emphasis>.
+<indexterm>
+    <primary>function</primary>
+    <secondary>name</secondary>
+</indexterm>
+</para>
+</listitem>
+</itemizedlist>
+The result of this evaluation is known as the target reference.
+If evaluation of either the
+<link linkend="ExpressionsInstanceandInstanceCollectionExpressions">instance expression</link>
+<indexterm>
+    <primary>expression</primary>
+    <secondary>instance</secondary>
+</indexterm>
+<indexterm>
+    <primary>instance</primary>
+    <secondary>expression</secondary>
+</indexterm>
+or the reserved word
+<link linkend="Expressionsthis"><literal>this</literal></link>
+<indexterm>
+    <primary><literal>this</literal></primary>
+</indexterm>
+completes abruptly
+or the evaluation results in the <literal>null</literal>
+<indexterm>
+    <primary><literal>null</literal></primary>
+</indexterm>
+instance, then the
+function call completes abruptly
+<indexterm>
+    <primary>abrupt completion</primary>
+</indexterm>
+for the same reason. The argument expressions
+are then evaluated. If the evaluation of any argument expression completes
+abruptly, then the function call completes abruptly
+<indexterm>
+    <primary>abrupt completion</primary>
+</indexterm>
+for the same reason.
+The
+<link linkend="FunctionsObjectFunctionDefinition"><emphasis>object instance function definition</emphasis></link>
+<indexterm>
+    <primary>instance</primary>
+    <secondary>function</secondary>
+    <tertiary>definition</tertiary>
+</indexterm>
+for the target reference is then executed. If this completes normally.
+<indexterm>
+    <primary>normal completion</primary>
+</indexterm>
+The
+evaluation of the expression return parameter is then performed.
+</para>
+</section>
+<section xml:id="ExpressionsCompileTimeProcessingofFunctionCalls"><info><title>Compile-Time Processing of Function Calls</title></info>
+
+<para>
+Although the invocation of
+<link linkend="FunctionsDomainFunctions">domain</link>,
+<indexterm>
+    <primary>domain</primary>
+    <secondary>function</secondary>
+    <tertiary>invocation</tertiary>
+</indexterm>
+<link linkend="FunctionsObjectFunctions">object</link> and
+<indexterm>
+    <primary>object</primary>
+    <secondary>function</secondary>
+    <tertiary>invocation</tertiary>
+</indexterm>
+<link linkend="FunctionsInstanceObjectFunctions">instance</link> functions
+<indexterm>
+    <primary>instance</primary>
+    <secondary>function</secondary>
+    <tertiary>invocation</tertiary>
+</indexterm>
+are
+split in the grammar, the three type of invocation are in may ways inseparable.
+This is because of the ambiguity between the three types, that is only
+resolved using the current scope of the
+<link linkend="ExpressionsFunctionInvocation">invocation statement</link>.
+<indexterm>
+    <primary>statement</primary>
+    <secondary>invocation</secondary>
+</indexterm>
+Determining the function that will be invoked in a function call involves
+the following steps:
+<orderedlist numeration="arabic">
+<listitem>
+<para>
+If the form is
+<emphasis>domain_name</emphasis><literal>::</literal><emphasis>function_name</emphasis>,
+then the function call is a
+<link linkend="ExpressionsDomainFunctionInvocation">domain function invocation</link>.
+<indexterm>
+    <primary>domain</primary>
+    <secondary>function</secondary>
+    <tertiary>invocation</tertiary>
+</indexterm>
+</para>
+</listitem>
+<listitem>
+<para>
+If the form is
+<emphasis>object_name</emphasis><literal>.</literal><emphasis>function_name</emphasis>,
+then the function call is a
+<link linkend="ExpressionsObjectFunctionInvocation">domain function invocation</link>.
+<indexterm>
+    <primary>domain</primary>
+    <secondary>function</secondary>
+    <tertiary>invocation</tertiary>
+</indexterm>
+</para>
+</listitem>
+<listitem>
+<para>
+If the form is
+<emphasis>instance_expression</emphasis><literal>.</literal><emphasis>function_name</emphasis>,
+then:
+<itemizedlist mark="opencircle">
+<listitem>
+<para>
+If there is an instance function declared by the object, given by the object of
+the <link linkend="TypesInstanceTypes">instance type</link> of the
+<link linkend="ExpressionsInstanceandInstanceCollectionExpressions">instance expression</link>,
+<indexterm>
+    <primary>expression</primary>
+    <secondary>instance</secondary>
+</indexterm>
+that is applicable and accessible, then the function call is a
+<link linkend="ebnf.instancefunctioninvocation"><emphasis>instance function invocation</emphasis></link>.
+<indexterm>
+    <primary>instance</primary>
+    <secondary>function</secondary>
+    <tertiary>invocation</tertiary>
+</indexterm>
+</para>
+</listitem>
+<listitem>
+<para>
+Otherwise the function call is an
+<link linkend="ebnf.objectfunctioninvocation"><emphasis>object function invocation</emphasis></link>.
+<indexterm>
+    <primary>object</primary>
+    <secondary>function</secondary>
+    <tertiary>invocation</tertiary>
+</indexterm>
+</para>
+</listitem>
+</itemizedlist>
+</para>
+</listitem>
+<listitem>
+<para>
+If the form consists of just a <emphasis>function name</emphasis>, then:
+<itemizedlist mark="opencircle">
+<listitem>
+<para>
+If the function call is in an
+<link linkend="LifecyclesInstanceStates">instance state</link>
+<indexterm>
+    <primary>instance</primary>
+    <secondary>state</secondary>
+</indexterm>
+or
+<link linkend="ServicesInstanceObjectServices">instance service</link>
+<indexterm>
+    <primary>instance</primary>
+    <secondary>service</secondary>
+</indexterm>
+and there
+is an instance function declared by the enclosing object that is applicable
+and accessible, then the
+<link linkend="ExpressionsFunctionInvocation">function call</link>
+<indexterm>
+    <primary>object</primary>
+    <secondary>function</secondary>
+    <tertiary>invocation</tertiary>
+</indexterm>
+is an
+<link linkend="ExpressionsInstanceFunctionInvocation">instance function invocation</link>.
+<indexterm>
+    <primary>instance</primary>
+    <secondary>function</secondary>
+    <tertiary>invocation</tertiary>
+</indexterm>
+</para>
+</listitem>
+<listitem>
+<para>
+If the function call is in a state or an
+<link linkend="ServicesObjectServices">object service</link>
+<indexterm>
+    <primary>object</primary>
+    <secondary>service</secondary>
+</indexterm>
+and there is a
+non-instance function declared by the enclosing object that is applicable
+and accessible, the the
+<link linkend="ExpressionsFunctionInvocation">function call</link> is an
+<link linkend="ExpressionsObjectFunctionInvocation">object function invocation</link>.
+<indexterm>
+    <primary>object</primary>
+    <secondary>function</secondary>
+    <tertiary>invocation</tertiary>
+</indexterm>
+</para>
+</listitem>
+<listitem>
+<para>
+The invocation statement is a
+<link linkend="ExpressionsDomainFunctionInvocation">domain function invocation</link>.
+<indexterm>
+    <primary>domain</primary>
+    <secondary>function</secondary>
+    <tertiary>invocation</tertiary>
+</indexterm>
+</para>
+</listitem>
+</itemizedlist>
+</para>
+</listitem>
+</orderedlist>
+A function declaration is applicable to a function call if and only if both of
+the following are true:
+<itemizedlist mark="bullet">
+<listitem>
+<para>
+The number of parameters in the
+<link linkend="FunctionsObjectFunctionDefinition">function declaration</link>
+<indexterm>
+    <primary>function</primary>
+    <secondary>declaration</secondary>
+</indexterm>
+is the same as the number of argument expressions in the
+<link linkend="ExpressionsFunctionInvocation">function invocation</link>.
+<indexterm>
+    <primary>function</primary>
+    <secondary>invocation</secondary>
+</indexterm>
+</para>
+</listitem>
+<listitem>
+<para>
+The type of each actual argument is assignable to the type of the corresponding
+parameter.
+</para>
+</listitem>
+</itemizedlist>
+Whether a
+<link linkend="FunctionsObjectFunctionDefinition">function declaration</link>
+<indexterm>
+    <primary>function</primary>
+    <secondary>declaration</secondary>
+</indexterm>
+is accessible to a
+<link linkend="ExpressionsFunctionInvocation">function invocation</link>
+<indexterm>
+    <primary>function</primary>
+    <secondary>invocation</secondary>
+</indexterm>
+depends upon the access modifier (see
+<xref linkend="FunctionsDomainFunctionModifiers"/> and
+<xref linkend="FunctionsObjectFunctionModifiers"/>) in the function declaration
+in relation to the function call.
+</para>
+</section>
+<section xml:id="ExpressionsParenthesisedExpressions"><info><title>Parenthesized Expressions</title></info>
+
+<para>
+A parenthesized expression is a
+<link linkend="ExpressionsPrimaryExpression">primary expression</link>
+<indexterm>
+    <primary>expression</primary>
+    <secondary>primary</secondary>
+</indexterm>
+whose type is the type of the contained expression and whose value is the
+value of the contained expression.
+</para>
+</section>
+</section>
+<section xml:id="ExpressionsUnaryOperators"><info><title>Unary Operators</title></info>
+
+<para>
+The <link linkend="ebnf.unaryexpression">unary operators</link>
+<indexterm significance="preferred">
+    <primary>unary operators</primary>
+</indexterm>
+are
+<literal>+</literal>,
+<indexterm>
+    <primary><literal>+</literal></primary>
+    <seealso>unary operators</seealso>
+</indexterm>
+<literal>-</literal>,
+<indexterm>
+    <primary><literal>-</literal></primary>
+    <seealso>unary operators</seealso>
+</indexterm>
+<literal>not</literal>
+<indexterm>
+    <primary><literal>not</literal></primary>
+    <seealso>unary operators</seealso>
+</indexterm>
+and <literal>abs</literal>.
+<indexterm>
+    <primary><literal>abs</literal></primary>
+    <seealso>unary operators</seealso>
+</indexterm>
+Expressions with unary operators
+<indexterm significance="preferred">
+    <primary>unary operators</primary>
+</indexterm>
+group right-to-left,
+<indexterm>
+    <primary>operator</primary>
+    <secondary>grouping</secondary>
+</indexterm>
+so that
+<literal>-+</literal><emphasis>x</emphasis> has the same meaning as
+<literal>-(+</literal><emphasis>x</emphasis><literal>)</literal>.
+</para>
+<indexterm zone="ebnf.unaryexpression">
+    <primary>unary expression</primary>
+</indexterm>
+<indexterm zone="ebnf.unaryexpression">
+    <primary>type conversion</primary>
+</indexterm>
+<indexterm zone="ebnf.unaryexpression">
+    <primary>unary expression</primary>
+</indexterm>
+<indexterm zone="ebnf.unaryexpression">
+    <primary>primary expression</primary>
+</indexterm>
+<indexterm zone="ebnf.unaryexpression">
+    <primary><literal>-</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.unaryexpression">
+    <primary><literal>+</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.unaryexpression">
+    <primary><literal>not</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.unaryexpression">
+    <primary><literal>abs</literal></primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.unaryexpression">
+    <lhs>
+        unary expression
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.typeconversion">type conversion</nonterminal> |
+        '-', <nonterminal def="#ebnf.unaryexpression">unary expression</nonterminal> |
+        '+', <nonterminal def="#ebnf.unaryexpression">unary expression</nonterminal> |
+        'not', <nonterminal def="#ebnf.unaryexpression">unary expression</nonterminal> |
+        'abs', <nonterminal def="#ebnf.unaryexpression">unary expression</nonterminal> |
+        <nonterminal def="#ebnf.primaryexpression">primary expression</nonterminal>
+    </rhs>
+</production>
+</productionset>
+<para>
+Evaluation of an <link linkend="ebnf.unaryexpression">unary operator expression</link>
+first evaluates the unary expression, then its operand and finally applies the operator.
+<indexterm significance="preferred">
+    <primary>expression</primary>
+    <secondary>unary operator</secondary>
+</indexterm>
+</para>
+<section xml:id="ExpressionsUnaryPlusandMinusOperators"><info><title>Unary Plus and Minus Operators</title></info>
+
+<para>
+A compile-time error occurs if the type of the expression of the
+<literal>+</literal>
+<indexterm>
+    <primary><literal>+</literal></primary>
+</indexterm>
+and <literal>-</literal>
+<indexterm>
+    <primary><literal>-</literal></primary>
+</indexterm>
+operators is not a
+<link linkend="TypesNumericTypes"><type>numeric</type></link>
+<indexterm>
+    <primary><type>numeric</type></primary>
+</indexterm>
+type.
+The type of an unary <literal>+</literal>
+<indexterm>
+    <primary><literal>+</literal></primary>
+</indexterm>
+or <literal>-</literal>
+<indexterm>
+    <primary><literal>-</literal></primary>
+</indexterm>
+expression is
+the type of the operand. Unary <literal>+</literal>
+<indexterm>
+    <primary><literal>+</literal></primary>
+</indexterm>
+and <literal>-</literal>
+<indexterm>
+    <primary><literal>-</literal></primary>
+</indexterm>
+have their conventional meaning.
+</para>
+</section>
+<section xml:id="ExpressionsLogicalNegationOperator"><info><title>Logical Negation Operator</title></info>
+
+<para>
+A compile-time error occurs if the type of the expression of the
+<literal>not</literal>
+<indexterm significance="preferred">
+    <primary><literal>not</literal></primary>
+</indexterm>
+operator is not a
+<link linkend="TypesBooleanType"><type>boolean</type></link>
+<indexterm>
+    <primary><type>boolean</type></primary>
+</indexterm>
+type.
+The unary <literal>not</literal>
+<indexterm>
+    <primary><literal>not</literal></primary>
+</indexterm>
+operator yields the logical negation of the
+operand. Hence, its value is true if its operand is false, and false if 
+its operand is true.
+</para>
+</section>
+<section xml:id="ExpressionsAbsoluteValueOperator"><info><title>Absolute Value Operator</title></info>
+
+<para>
+A compile-time error occurs if the type of the expression of the
+<literal>abs</literal>
+<indexterm significance="preferred">
+    <primary><literal>abs</literal></primary>
+</indexterm>
+operator is not a
+<link linkend="TypesNumericTypes"><type>numeric</type></link> type.
+<indexterm>
+    <primary><type>numeric</type></primary>
+</indexterm>
+The type of the unary <literal>abs</literal>
+<indexterm zone="ebnf.unaryexpression">
+    <primary><literal>abs</literal></primary>
+</indexterm>
+expression is the type of the
+operand. The unary <literal>abs</literal>
+<indexterm zone="ebnf.unaryexpression">
+    <primary><literal>abs</literal></primary>
+</indexterm>
+operator yields the absolute value of the operand.
+</para>
+</section>
+</section>
+<section xml:id="ExpressionsTypeConversion"><info><title>Type Conversion</title></info>
+
+<para>
+A <link linkend="TypeConversion">type conversion</link>
+<indexterm>
+    <primary>type conversion</primary>
+</indexterm>
+converts a value from
+one type to a value of another type. Whether one type is convertible to a
+second type is defined in <xref linkend="TypeConversion"/>.
+</para>
+<indexterm zone="ebnf.typeconversion">
+    <primary>type conversion</primary>
+</indexterm>
+<indexterm zone="ebnf.typeconversion">
+    <primary>type</primary>
+</indexterm>
+<indexterm zone="ebnf.typeconversion">
+    <primary>expression</primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.typeconversion">
+    <lhs>
+        type conversion
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.type">type</nonterminal>, '(',
+        <nonterminal def="#ebnf.expression">expression</nonterminal>,
+        ')'
+    </rhs>
+</production>
+</productionset>
+<para>
+A compile-time error occurs if the type of the unary expression
+<indexterm>
+    <primary>expression</primary>
+    <secondary>unary</secondary>
+</indexterm>
+is not convertible to the specified type. The type of the type conversion
+<indexterm>
+    <primary>type conversion</primary>
+</indexterm>
+is the type
+whose name appears within the parentheses. The parentheses and the type they
+contain are sometimes called the coercion operator. The result of a type
+conversion is a value of the unary expression in the specified type. At
+run-time, the operand value is converted to the type specified by the
+coercion operator.
+</para>
+<para>
+For evaluation of a type conversion,
+<indexterm>
+    <primary>type conversion</primary>
+</indexterm>
+the operand is evaluated and then the
+value of the operand is converted to a corresponding value of the target
+type. If there is no value of the target type that corresponds to operand
+value, an exception is raised.
+<indexterm>
+    <primary>exception</primary>
+    <secondary>raised</secondary>
+</indexterm>
+If the result of the conversion fails to
+satisfy a constraint imposed by the target type, then an exception is
+raised.
+<indexterm>
+    <primary>exception</primary>
+    <secondary>raised</secondary>
+</indexterm>
+</para>
+</section>
+<section xml:id="ExpressionsMulitplicativeOperators"><info><title>Multiplicative Operators</title></info>
+
+<para>
+The operators <literal>*</literal>, <literal>/</literal>, 
+<literal>mod</literal>, <literal>**</literal>, <literal>rem</literal>,
+<literal>intersection</literal>, <literal>intersection</literal>
+and <literal>disunion</literal> are called the multiplicative operators.
+They have the same precedence
+<indexterm>
+    <primary>operator</primary>
+    <secondary>precedence</secondary>
+</indexterm>
+and are syntactically left-associative
+<indexterm>
+    <primary>operator</primary>
+    <secondary>associativity</secondary>
+</indexterm>
+and group left-to-right.
+<indexterm>
+    <primary>operator</primary>
+    <secondary>grouping</secondary>
+</indexterm>
+</para>
+<indexterm zone="ebnf.multiplicativeexpression">
+    <primary>multiplicative expression</primary>
+</indexterm>
+<indexterm zone="ebnf.multiplicativeexpression">
+    <primary><literal>*</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.multiplicativeexpression">
+    <primary><literal>/</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.multiplicativeexpression">
+    <primary><literal>mod</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.multiplicativeexpression">
+    <primary><literal>++</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.multiplicativeexpression">
+    <primary><literal>rem</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.multiplicativeexpression">
+    <primary><literal>intersection</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.multiplicativeexpression">
+    <primary><literal>disunion</literal></primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.multiplicativeexpression">
+    <lhs>
+        multiplicative expression
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.unaryexpression">unary expression</nonterminal> |
+        <nonterminal def="#ebnf.multiplicativeexpression">multiplicative expression</nonterminal>,
+        '*',
+        <nonterminal def="#ebnf.unaryexpression">unary expression</nonterminal> |
+        <nonterminal def="#ebnf.multiplicativeexpression">multiplicative expression</nonterminal>,
+        '/',
+        <nonterminal def="#ebnf.unaryexpression">unary expression</nonterminal> |
+        <nonterminal def="#ebnf.multiplicativeexpression">multiplicative expression</nonterminal>,
+        'mod',
+        <nonterminal def="#ebnf.unaryexpression">unary expression</nonterminal> |
+        <nonterminal def="#ebnf.multiplicativeexpression">multiplicative expression</nonterminal>,
+        '**',
+        <nonterminal def="#ebnf.unaryexpression">unary expression</nonterminal> |
+        <nonterminal def="#ebnf.multiplicativeexpression">multiplicative expression</nonterminal>,
+        'rem',
+        <nonterminal def="#ebnf.unaryexpression">unary expression</nonterminal> |
+        <nonterminal def="#ebnf.multiplicativeexpression">multiplicative expression</nonterminal>,
+        'intersection',
+        <nonterminal def="#ebnf.unaryexpression">unary expression</nonterminal> |
+        <nonterminal def="#ebnf.multiplicativeexpression">multiplicative expression</nonterminal>,
+        'disunion',
+        <nonterminal def="#ebnf.unaryexpression">unary expression</nonterminal>
+    </rhs>
+</production>
+</productionset>
+<para>
+A compile-time error occurs if any of the following are true:
+<itemizedlist>
+<listitem>
+<para>
+The type of both operands of the <literal>*</literal>,
+<indexterm>
+    <primary>*</primary>
+</indexterm>
+<literal>/</literal>,
+<indexterm>
+    <primary>/</primary>
+</indexterm>
+<literal>mod</literal>,
+<indexterm>
+    <primary>mod</primary>
+</indexterm>
+<literal>**</literal>
+<indexterm>
+    <primary>**</primary>
+</indexterm>
+and <literal>rem</literal>
+<indexterm>
+    <primary>rem</primary>
+</indexterm>
+operators are not types of subtype of a
+<link linkend="TypesNumericTypes"><type>numeric</type></link> type.
+<indexterm>
+    <primary><type>numeric</type></primary>
+</indexterm>
+</para>
+</listitem>
+<listitem>
+<para>
+The types of both operands of the <literal>intersection</literal>
+<indexterm>
+    <primary><literal>intersection</literal></primary>
+</indexterm>
+and
+<literal>disunion</literal>
+<indexterm>
+    <primary><literal>disunion</literal></primary>
+</indexterm>
+in the operators are not type or subtypes of a
+<link linkend="TypesSetTypes"><type>set</type></link> type.
+<indexterm>
+    <primary><type>set</type></primary>
+</indexterm>
+</para>
+</listitem>
+<listitem>
+<para>
+For the <literal>*</literal>
+<indexterm>
+    <primary><literal>*</literal></primary>
+</indexterm>
+and <literal>/</literal>
+<indexterm>
+    <primary><literal>/</literal></primary>
+</indexterm>operators, the type of
+the right-hand operand is not convertible to the type of the left-hand operand.
+</para>
+</listitem>
+<listitem>
+<para>
+For all the other operators, the type of the right-hand operand is not
+assignable to the type of the left-hand operand.
+</para>
+</listitem>
+</itemizedlist>
+</para>
+<section xml:id="ExpressionsMulitplicationandDivisionOperators"><info><title>Multiplication and Division Operators</title></info>
+
+<para>
+If the type of the right-hand operand is assignable to the type of left-hand
+operand then the type of a <literal>*</literal>
+<indexterm>
+    <primary><literal>*</literal></primary>
+</indexterm>
+or <literal>/</literal>
+<indexterm>
+    <primary><literal>/</literal></primary>
+</indexterm>
+expression is the base type of the left-hand side operand. Otherwise, it is the
+basis type of the left-hand side operand.
+</para>
+<para>
+The <literal>*</literal>
+<indexterm>
+    <primary><literal>*</literal></primary>
+</indexterm>
+operator performs multiplication, producing the
+product of the operands.
+</para>
+<para>
+The <literal>/</literal>
+<indexterm>
+    <primary><literal>/</literal></primary>
+</indexterm>
+operator performs division producing the
+quotient of the operands.
+</para>
+<para>
+The multiplication and division operators for floating-point types
+<indexterm>
+    <primary>type</primary>
+    <secondary>floating-point</secondary>
+</indexterm>
+have their
+conventional meaning. The accuracy of the result is determined by the precision
+of the result type. Signed integer division has it's conventional meaning.
+Signed integer division and remainder are defined by the relation:
+<programlisting>
+<emphasis>A</emphasis> <literal>= (</literal><emphasis>A</emphasis><literal>/</literal><emphasis>B</emphasis><literal>) * </literal><emphasis>B</emphasis><literal> + (</literal><emphasis>A</emphasis><literal> rem </literal><emphasis>B</emphasis><literal>)</literal>
+</programlisting>
+where <literal>(</literal><emphasis>A</emphasis><literal> rem </literal><emphasis>B</emphasis><literal>)</literal>
+has the sign of <emphasis>A</emphasis> and an absolute value less than the
+absolute value of <emphasis>B</emphasis>.
+</para>
+<para>
+Signed integer division the identity:
+<programlisting>
+<literal>(-</literal><emphasis>A</emphasis><literal>/</literal><emphasis>B</emphasis><literal>) = -(</literal><emphasis>A</emphasis><literal>/</literal><emphasis>B</emphasis><literal>) = </literal><emphasis>A</emphasis><literal>/(-</literal><emphasis>B</emphasis><literal>)</literal>
+</programlisting>
+An exception is raised if the right-hand side operand of a division expression
+is zero.
+</para>
+</section>
+<section xml:id="ExpressionsRemainderandModulusOperators"><info><title>Remainder and Modulus Operators</title></info>
+
+<para>
+The type of a <literal>rem</literal>
+<indexterm significance="preferred">
+    <primary><literal>rem</literal></primary>
+</indexterm>
+or <literal>mod</literal>
+<indexterm significance="preferred">
+    <primary><literal>mod</literal></primary>
+</indexterm>
+expression is the
+base type of the left-hand side operand. The <literal>rem</literal>
+<indexterm>
+    <primary><literal>rem</literal></primary>
+</indexterm>
+yields the
+remainder of the operand from an implied division. The signed integer modulus
+operator is defined such that the result of
+<emphasis>A</emphasis> <literal>mod</literal> <emphasis>B</emphasis> has a sign
+of <emphasis>B</emphasis> and an absolute value less then the absolute value of
+<emphasis>B</emphasis>. In addition, for some signed integer value
+<emphasis>N</emphasis>, this result satisfies the relation:
+<programlisting>
+<emphasis>A</emphasis><literal> = </literal><emphasis>B</emphasis><literal>*</literal><emphasis>N</emphasis><literal> + (</literal><emphasis>A</emphasis><literal> mod </literal><emphasis>B</emphasis><literal>)</literal>
+</programlisting>
+An exception is raised if the right-hand side operand of either a
+<literal>rem</literal>
+<indexterm>
+    <primary><literal>rem</literal></primary>
+</indexterm>
+or a <literal>mod</literal>
+<indexterm>
+    <primary><literal>mod</literal></primary>
+</indexterm>
+expression is zero.
+</para>
+<para>
+The <xref linkend="RelationBetweenDivRemandMod"/> gives examples of the
+use of the <literal>rem</literal>
+<indexterm>
+    <primary><literal>rem</literal></primary>
+</indexterm>
+and <literal>mod</literal>
+<indexterm>
+    <primary><literal>mod</literal></primary>
+</indexterm>
+operators.
+<table xml:id="RelationBetweenDivRemandMod" frame="all"><info><title>Relations between <literal>/</literal>, <literal>rem</literal> and <literal>mod</literal></title></info>
+
+<tgroup cols="5" align="left" colsep="1" rowsep="1">
+<colspec colname="A"/>
+<colspec colname="B"/>
+<colspec colname="A/B"/>
+<colspec colname="A rem B"/>
+<colspec colname="A mod B"/>
+<thead>
+<row>
+    <entry><emphasis>A</emphasis></entry>
+    <entry><emphasis>B</emphasis></entry>
+    <entry><emphasis>A</emphasis> <literal>/</literal> <emphasis>B</emphasis></entry>
+    <entry><emphasis>A</emphasis> <literal>rem</literal> <emphasis>B</emphasis></entry>
+    <entry><emphasis>A</emphasis> <literal>mod</literal> <emphasis>B</emphasis></entry>
+</row>
+</thead>
+<tbody>
+<row>
+    <entry>10</entry>
+    <entry>5</entry>
+    <entry>2</entry>
+    <entry>0</entry>
+    <entry>0</entry>
+</row>
+<row>
+    <entry>11</entry>
+    <entry>5</entry>
+    <entry>2</entry>
+    <entry>1</entry>
+    <entry>1</entry>
+</row>
+<row>
+    <entry>12</entry>
+    <entry>5</entry>
+    <entry>2</entry>
+    <entry>2</entry>
+    <entry>2</entry>
+</row>
+<row>
+    <entry>13</entry>
+    <entry>5</entry>
+    <entry>2</entry>
+    <entry>3</entry>
+    <entry>3</entry>
+</row>
+<row>
+    <entry>14</entry>
+    <entry>5</entry>
+    <entry>2</entry>
+    <entry>4</entry>
+    <entry>4</entry>
+</row>
+<row>
+    <entry>10</entry>
+    <entry>-5</entry>
+    <entry>-2</entry>
+    <entry>0</entry>
+    <entry>0</entry>
+</row>
+<row>
+    <entry>11</entry>
+    <entry>-5</entry>
+    <entry>-2</entry>
+    <entry>1</entry>
+    <entry>-4</entry>
+</row>
+<row>
+    <entry>12</entry>
+    <entry>-5</entry>
+    <entry>-2</entry>
+    <entry>2</entry>
+    <entry>-3</entry>
+</row>
+<row>
+    <entry>13</entry>
+    <entry>-5</entry>
+    <entry>-2</entry>
+    <entry>3</entry>
+    <entry>-2</entry>
+</row>
+<row>
+    <entry>14</entry>
+    <entry>-5</entry>
+    <entry>-2</entry>
+    <entry>4</entry>
+    <entry>-1</entry>
+</row>
+<row>
+    <entry>-10</entry>
+    <entry>5</entry>
+    <entry>-2</entry>
+    <entry>0</entry>
+    <entry>0</entry>
+</row>
+<row>
+    <entry>-11</entry>
+    <entry>5</entry>
+    <entry>-2</entry>
+    <entry>-1</entry>
+    <entry>4</entry>
+</row>
+<row>
+    <entry>-12</entry>
+    <entry>5</entry>
+    <entry>-2</entry>
+    <entry>-2</entry>
+    <entry>3</entry>
+</row>
+<row>
+    <entry>-13</entry>
+    <entry>5</entry>
+    <entry>-2</entry>
+    <entry>-3</entry>
+    <entry>2</entry>
+</row>
+<row>
+    <entry>-14</entry>
+    <entry>5</entry>
+    <entry>-2</entry>
+    <entry>-4</entry>
+    <entry>1</entry>
+</row>
+<row>
+    <entry>-10</entry>
+    <entry>-5</entry>
+    <entry>2</entry>
+    <entry>0</entry>
+    <entry>0</entry>
+</row>
+<row>
+    <entry>-11</entry>
+    <entry>-5</entry>
+    <entry>2</entry>
+    <entry>-1</entry>
+    <entry>-1</entry>
+</row>
+<row>
+    <entry>-12</entry>
+    <entry>-5</entry>
+    <entry>2</entry>
+    <entry>-2</entry>
+    <entry>-2</entry>
+</row>
+<row>
+    <entry>-13</entry>
+    <entry>-5</entry>
+    <entry>2</entry>
+    <entry>-3</entry>
+    <entry>-3</entry>
+</row>
+<row>
+    <entry>-14</entry>
+    <entry>-5</entry>
+    <entry>2</entry>
+    <entry>-4</entry>
+    <entry>-4</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</para>
+</section>
+<section xml:id="ExpressionsExponentationOperator"><info><title>Exponentiation Operator</title></info>
+
+<para>
+The type of a <literal>**</literal>
+<indexterm>
+    <primary><literal>**</literal></primary>
+</indexterm>
+expression is the base type of the
+left-hand side operand. The <literal>**</literal>
+<indexterm>
+    <primary><literal>**</literal></primary>
+</indexterm>
+operator performs
+exponentiation, producing the value of the left-hand operand multiplied by
+itself <emphasis>n</emphasis>, where <emphasis>n</emphasis> is the value of
+the right-hand operand.
+</para>
+</section>
+<section xml:id="ExpressionsSetIntersectionandDisunionOperators"><info><title>Set Intersection and Disunion Operators</title></info>
+
+<para>
+The type of a intersection and disunion expression is the base type of the
+left-hand side operand. The base type of a
+<link linkend="TypesSetTypes"><type>set</type></link>
+<indexterm>
+    <primary><type>set</type></primary>
+</indexterm>
+type is the
+<link linkend="TypesSetTypes"><type>set</type></link>
+<indexterm>
+    <primary><type>set</type></primary>
+</indexterm>
+type whose element type is the base type of the original element type.
+The <literal>intersection</literal>
+<indexterm>
+    <primary><literal>intersection</literal></primary>
+</indexterm>
+and <literal>disunion</literal>
+<indexterm>
+    <primary><literal>disunion</literal></primary>
+</indexterm>
+operators yield the set intersection
+<indexterm>
+    <primary>intersection</primary>
+</indexterm>
+and set disunion
+<indexterm>
+    <primary>disunion</primary>
+</indexterm>
+of the operands.
+</para>
+</section>
+</section>
+<section xml:id="ExpressionsAdditiveOperators"><info><title>Additive Operators</title></info>
+
+<para>
+The operators <literal>+</literal>,
+<indexterm>
+    <primary><literal>+</literal></primary>
+</indexterm>
+<literal>-</literal>,
+<indexterm>
+    <primary><literal>-</literal></primary>
+</indexterm>
+<literal>&amp;</literal>,
+<indexterm>
+    <primary><literal>&amp;</literal></primary>
+</indexterm>
+<literal>union</literal>
+<indexterm>
+    <primary><literal>union</literal></primary>
+</indexterm>
+and <literal>not_in</literal>
+<indexterm>
+    <primary><literal>not_in</literal></primary>
+</indexterm>
+are called the additive operators.
+<indexterm>
+    <primary>additive operators</primary>
+</indexterm>
+They have the same precedence
+<indexterm>
+    <primary>operator</primary>
+    <secondary>precedence</secondary>
+</indexterm>
+and are
+syntactically left-associative
+<indexterm>
+    <primary>operator</primary>
+    <secondary>associativity</secondary>
+</indexterm>
+and group left-to-right.
+<indexterm>
+    <primary>operator</primary>
+    <secondary>grouping</secondary>
+</indexterm>
+</para>
+<indexterm zone="ebnf.additiveexpression">
+    <primary>additive expression</primary>
+</indexterm>
+<indexterm zone="ebnf.additiveexpression">
+    <primary><literal>+</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.additiveexpression">
+    <primary><literal>-</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.additiveexpression">
+    <primary><literal>&amp;</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.additiveexpression">
+    <primary><literal>union</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.additiveexpression">
+    <primary><literal>not_in</literal></primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.additiveexpression">
+    <lhs>
+        additive expression
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.multiplicativeexpression">multiplicative expression</nonterminal> |
+        <nonterminal def="#ebnf.additiveexpression">additive expression</nonterminal>,
+        '+',
+        <nonterminal def="#ebnf.multiplicativeexpression">multiplicative expression</nonterminal> |
+        <nonterminal def="#ebnf.additiveexpression">additive expression</nonterminal>,
+        '-',
+        <nonterminal def="#ebnf.multiplicativeexpression">multiplicative expression</nonterminal> |
+        <nonterminal def="#ebnf.additiveexpression">additive expression</nonterminal>,
+        '&amp;',
+        <nonterminal def="#ebnf.multiplicativeexpression">multiplicative expression</nonterminal> |
+        <nonterminal def="#ebnf.additiveexpression">additive expression</nonterminal>,
+        'union',
+        <nonterminal def="#ebnf.multiplicativeexpression">multiplicative expression</nonterminal> |
+        <nonterminal def="#ebnf.additiveexpression">additive expression</nonterminal>,
+        'not_in',
+        <nonterminal def="#ebnf.multiplicativeexpression">multiplicative expression</nonterminal>
+    </rhs>
+</production>
+</productionset>
+<para>
+A compile-time error occurs if any of the following are true:
+<itemizedlist mark="bullet">
+<listitem>
+<para>
+The types of both operands of the <literal>+</literal>
+<indexterm>
+    <primary><literal>+</literal></primary>
+</indexterm>
+and <literal>-</literal>
+<indexterm>
+    <primary><literal>-</literal></primary>
+</indexterm>
+operators are not types or subtypes of a
+<link linkend="TypesNumericTypes"><type>numeric</type></link>
+<indexterm>
+    <primary><type>numeric</type></primary>
+</indexterm>
+type.
+</para>
+</listitem>
+<listitem>
+<para>
+The types of both operands of the <literal>&amp;</literal>
+<indexterm>
+    <primary><literal>&amp;</literal></primary>
+</indexterm>
+operator are not types or subtypes of
+<link linkend="TypesStringType"><type>string</type></link>,
+<indexterm>
+    <primary><type>string</type></primary>
+</indexterm>
+<link linkend="TypesWideStringType"><type>wstring</type></link>,
+<indexterm>
+    <primary><type>wstring</type></primary>
+</indexterm>
+<link linkend="TypesSetTypes">set</link>,
+<indexterm>
+    <primary><type>set</type></primary>
+</indexterm>
+<link linkend="TypesBagTypes">bag</link>
+<indexterm>
+    <primary><type>bag</type></primary>
+</indexterm>
+or
+<link linkend="TypesSequenceTypes">sequence</link>
+<indexterm>
+    <primary><type>sequence</type></primary>
+</indexterm>
+types.
+</para>
+</listitem>
+<listitem>
+<para>
+The types of both operands of the <literal>union</literal>
+<indexterm>
+    <primary><literal>union</literal></primary>
+</indexterm>
+and
+<literal>not_in</literal>
+<indexterm>
+    <primary><literal>not_in</literal></primary>
+</indexterm>
+operators are not types or subtypes of a
+<link linkend="TypesSetTypes">set</link>
+<indexterm>
+    <primary><type>set</type></primary>
+</indexterm>
+type.
+</para>
+</listitem>
+<listitem>
+<para>
+The type of the right-hand operand is not assignable to the type of the
+left-hand side operand.
+</para>
+</listitem>
+</itemizedlist>
+</para>
+<section xml:id="ExpressionsAdditiveOperatorsforNumericTypes"><info><title>Additive Operators for Numeric Types</title></info>
+
+<para>
+The type of a <literal>+</literal>
+<indexterm>
+    <primary><literal>+</literal></primary>
+</indexterm>
+or <literal>-</literal>
+<indexterm>
+    <primary><literal>-</literal></primary>
+</indexterm>
+expression for
+<link linkend="TypesNumericTypes"><type>numeric</type></link>
+<indexterm>
+    <primary><type>numeric</type></primary>
+</indexterm>
+types is the
+base type of the left-hand side operand. The <literal>+</literal>
+<indexterm>
+    <primary><literal>+</literal></primary>
+</indexterm>
+and
+<literal>-</literal>
+<indexterm>
+    <primary><literal>-</literal></primary>
+</indexterm>
+operators for
+<link linkend="TypesNumericTypes"><type>numeric</type></link>
+<indexterm>
+    <primary><type>numeric</type></primary>
+</indexterm>
+types have their conventional meaning.
+</para>
+</section>
+<section xml:id="ExpressionsStringConcatenationOperator"><info><title>String Concatenation Operator</title></info>
+
+<para>
+The type of a
+<link linkend="WideStringConcatenation"><emphasis>string concatenation</emphasis></link>
+<indexterm>
+    <primary>string</primary>
+    <secondary>concatenation</secondary>
+</indexterm>
+expression is the base type of the left-hand side operand. String concatenation
+yields a new string that is the concatenation of the operand strings.
+</para>
+</section>
+<section xml:id="ExpressionsCollectionAdditionOperator"><info><title>Collection Addition Operator</title></info>
+
+<para>
+The type of a collection addition expression is the base type of the left-hand
+side operand. The base type of a
+<link linkend="TypesSetTypes">set</link>
+<indexterm>
+    <primary><type>set</type></primary>
+</indexterm>
+type is the
+<link linkend="TypesSetTypes">set</link>
+<indexterm>
+    <primary><type>set</type></primary>
+</indexterm>
+type whose element type is the base type of the original element type. The base
+type of a
+<link linkend="TypesBagTypes">bag</link>
+<indexterm>
+    <primary><type>bag</type></primary>
+</indexterm>
+type is the
+<link linkend="TypesBagTypes">bag</link>
+<indexterm>
+    <primary><type>bag</type></primary>
+</indexterm>
+type whose element type is the base
+type of the original element type. The base type of a
+<link linkend="TypesSequenceTypes">sequence</link>
+<indexterm>
+    <primary><type>sequence</type></primary>
+</indexterm>
+type is the
+<link linkend="TypesSequenceTypes">sequence</link>
+<indexterm>
+    <primary><type>sequence</type></primary>
+</indexterm>
+type whose element type is
+the base type of the original element type.
+Collection addition yields a new collection that contains all the elements of 
+both operands:
+<itemizedlist mark="bullet">
+<listitem>
+<para>
+For <link linkend="TypesSetTypes"><type>set</type></link>s,
+<indexterm>
+    <primary><type>set</type></primary>
+</indexterm>
+duplicates are
+removed and there is no order.
+</para>
+</listitem>
+<listitem>
+<para>
+For <link linkend="TypesBagTypes"><type>bag</type></link>s,
+<indexterm>
+    <primary><type>bag</type></primary>
+</indexterm>
+duplicates are
+preserved and there is no order.
+</para>
+</listitem>
+<listitem>
+<para>
+For <link linkend="TypesSequenceTypes"><type>sequence</type></link>,
+<indexterm>
+    <primary><type>sequence</type></primary>
+</indexterm>
+duplicates are preserved and the order is also preserved.
+</para>
+</listitem>
+</itemizedlist>
+</para>
+</section>
+<section xml:id="ExpressionsSetUnionandNotInOperators"><info><title>Set Union and Not In Operators</title></info>
+
+<para>
+The <literal>union</literal>
+<indexterm>
+    <primary><literal>union</literal></primary>
+</indexterm>
+and <literal>not_in</literal>
+<indexterm>
+    <primary><literal>not_in</literal></primary>
+</indexterm>
+expression is the
+base type of the left-hand side operand. The base type of a
+<link linkend="TypesSetTypes">set</link>
+<indexterm>
+    <primary><type>set</type></primary>
+</indexterm>
+type is the
+<link linkend="TypesSetTypes">set</link>
+<indexterm>
+    <primary><type>set</type></primary>
+</indexterm>
+type whose element type is the base
+type of the original element type.
+The <literal>union</literal>
+<indexterm>
+    <primary><literal>union</literal></primary>
+</indexterm>
+and <literal>not_in</literal>
+<indexterm>
+    <primary><literal>not_in</literal></primary>
+</indexterm>
+operators yield
+the set union and set subtraction of the operands.
+</para>
+</section>
+</section>
+<section xml:id="ExpressionsRelationalOperators"><info><title>Relational Operators</title></info>
+
+<para>
+The operators <literal>&lt;</literal>
+<indexterm>
+    <primary><literal>&lt;</literal></primary>
+</indexterm>
+, <literal>&gt;</literal>
+<indexterm>
+    <primary><literal>&gt;</literal></primary>
+</indexterm>
+,<literal>&lt;=</literal>
+<indexterm>
+    <primary><literal>&lt;=</literal></primary>
+</indexterm>
+and <literal>&gt;=</literal>
+<indexterm>
+    <primary><literal>&gt;=</literal></primary>
+</indexterm>
+are called relational
+operators.
+</para>
+<indexterm zone="ebnf.relationalexpression">
+    <primary>relational expression</primary>
+</indexterm>
+<indexterm zone="ebnf.relationalexpression">
+    <primary>additive expression</primary>
+</indexterm>
+<indexterm zone="ebnf.relationalexpression">
+    <primary><literal>&lt;</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.relationalexpression">
+    <primary><literal>&gt;</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.relationalexpression">
+    <primary><literal>&lt;=</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.relationalexpression">
+    <primary><literal>&gt;=</literal></primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.relationalexpression">
+    <lhs>
+        relational expression
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.additiveexpression">additive expression</nonterminal> |
+        <nonterminal def="#ebnf.additiveexpression">additive expression</nonterminal>,
+        '&lt;',
+        <nonterminal def="#ebnf.additiveexpression">additive expression</nonterminal> |
+        <nonterminal def="#ebnf.additiveexpression">additive expression</nonterminal>,
+        '&gt;',
+        <nonterminal def="#ebnf.additiveexpression">additive expression</nonterminal> |
+        <nonterminal def="#ebnf.additiveexpression">additive expression</nonterminal>,
+        '&lt;=',
+        <nonterminal def="#ebnf.additiveexpression">additive expression</nonterminal> |
+        <nonterminal def="#ebnf.additiveexpression">additive expression</nonterminal>,
+        '&gt;=',
+        <nonterminal def="#ebnf.additiveexpression">additive expression</nonterminal>
+    </rhs>
+</production>
+</productionset>
+<para>
+A compile-time error occurs if any of the following are true:
+<itemizedlist>
+<listitem>
+<para>
+The types of both operands are not types or subtypes of
+<link linkend="TypesCharacterType"><type>character</type></link>,
+<indexterm>
+    <primary><type>character</type></primary>
+</indexterm>
+<link linkend="TypesWideCharacterType"><type>wcharacter</type></link>,
+<indexterm>
+    <primary><type>wcharacter</type></primary>
+</indexterm>
+<link linkend="TypesStringType"><type>string</type></link>,
+<indexterm>
+    <primary><type>string</type></primary>
+</indexterm>
+<link linkend="TypesWideStringType"><type>wstring</type></link>,
+<indexterm>
+    <primary><type>wstring</type></primary>
+</indexterm>
+<link linkend="TypesNumericTypes"><type>numeric</type></link>
+<indexterm>
+    <primary><type>numeric</type></primary>
+</indexterm>
+or <link linkend="TypesEnumerationTypes"><type>enumeration</type></link>
+<indexterm>
+    <primary><type>enumeration</type></primary>
+</indexterm>
+types.
+</para>
+</listitem>
+<listitem>
+<para>
+The type of the right-hand operand is not assignable to type of the left-hand
+operand.
+</para>
+</listitem>
+</itemizedlist>
+The type of a relational expression is always
+<link linkend="TypesBooleanType"><type>boolean</type></link>.
+<indexterm>
+    <primary><type>boolean</type></primary>
+</indexterm>
+The relational operators for meaning is as follows:
+<itemizedlist>
+<listitem>
+<para>
+The relational operators for two 
+<link linkend="TypesCharacterType"><type>character</type></link>
+<indexterm>
+    <primary><type>character</type></primary>
+</indexterm>
+or <link linkend="TypesWideCharacterType"><type>wcharacter</type></link>
+<indexterm>
+    <primary><type>wcharacter</type></primary>
+</indexterm>
+values have their conventional numeric meaning.
+</para>
+</listitem>
+<listitem>
+<para>
+The relational operators for two 
+<link linkend="TypesStringType"><type>string</type></link>
+<indexterm>
+    <primary><type>string</type></primary>
+</indexterm>
+or
+<link linkend="TypesWideStringType"><type>wstring</type></link>
+<indexterm>
+    <primary><type>wstring</type></primary>
+</indexterm>
+values have their conventional lexicographical meaning.
+</para>
+</listitem>
+<listitem>
+<para>
+The relational operators for two 
+<link linkend="TypesNumericTypes"><type>numeric</type></link>
+<indexterm>
+    <primary><type>numeric</type></primary>
+</indexterm>
+values have their conventional lexicographical meaning.
+</para>
+</listitem>
+<listitem>
+<para>
+The relational operators for two 
+<link linkend="TypesEnumerationTypes"><type>enumeration</type></link>
+<indexterm>
+    <primary><type>enumeration</type></primary>
+</indexterm>
+have their meaning defined by the order in which the enumerators of an
+enumeration type are defined (see
+<xref linkend="TypesEnumerationTypes"/>).
+</para>
+</listitem>
+</itemizedlist>
+</para>
+</section>
+<section xml:id="ExpressionsEqualityOperators"><info><title>Equality Operators</title></info>
+
+<para>
+The <literal>=</literal>
+<indexterm>
+    <primary><literal>=</literal></primary>
+</indexterm>
+(equal to) and the <literal>/=</literal>
+<indexterm>
+    <primary><literal>/=</literal></primary>
+</indexterm>(not equal to)
+operators are analogous to the relational operators except for their lower
+precedence.
+<indexterm>
+    <primary>operator</primary>
+    <secondary>precedence</secondary>
+</indexterm>
+Thus,
+<emphasis>a</emphasis><literal>&lt;</literal><emphasis>b</emphasis><literal>=</literal><emphasis>c</emphasis><literal>&lt;</literal><emphasis>d</emphasis>
+is true whenever
+<emphasis>a</emphasis><literal>&lt;</literal><emphasis>b</emphasis> and
+<emphasis>c</emphasis><literal>&lt;</literal><emphasis>d</emphasis>
+have the same truth value.
+</para>
+<indexterm zone="ebnf.equalityexpression">
+    <primary>equality expression</primary>
+</indexterm>
+<indexterm zone="ebnf.equalityexpression">
+    <primary>relational expression</primary>
+</indexterm>
+<indexterm zone="ebnf.equalityexpression">
+    <primary><literal>/=</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.equalityexpression">
+    <primary><literal>=</literal></primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.equalityexpression">
+    <lhs>
+        equality expression
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.relationalexpression">relational expression</nonterminal> |
+        <nonterminal def="#ebnf.relationalexpression">relational expression</nonterminal>,
+        '/=',
+        <nonterminal def="#ebnf.relationalexpression">relational expression</nonterminal> |
+        <nonterminal def="#ebnf.relationalexpression">relational expression</nonterminal>,
+        '=',
+        <nonterminal def="#ebnf.relationalexpression">relational expression</nonterminal>
+    </rhs>
+</production>
+</productionset>
+<para>
+The equality operators may be used to compare two operands of the compatible
+types. A compile-time error occurs if any of the following are true:
+<itemizedlist>
+<listitem>
+<para>
+The types of both operands are not types or subtypes of built-in, instance,
+<link linkend="TypesNumericTypes"><type>numeric</type></link>
+<indexterm>
+    <primary><type>numeric</type></primary>
+</indexterm>
+or <link linkend="TypesEnumerationTypes"><type>enumeration</type></link>
+<indexterm>
+    <primary><type>enumeration</type></primary>
+</indexterm>
+types.
+</para>
+</listitem>
+<listitem>
+<para>
+The type of the right-hand operand is not assignable to the type of the
+left-hand operand.
+</para>
+</listitem>
+</itemizedlist>
+The <link linkend="ebnf.equalityexpression"><emphasis>equality expression</emphasis></link>
+<indexterm>
+    <primary>expression</primary>
+    <secondary>equality</secondary>
+</indexterm>
+are not defined for
+<link linkend="TypesStructureTypes"><type>structure</type></link>
+<indexterm>
+    <primary><type>structure</type></primary>
+</indexterm>
+or <link linkend="TypesCollectionTypes">collection</link>
+<indexterm>
+    <primary>collection</primary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary>collection</secondary>
+</indexterm>types.
+The type of an 
+<link linkend="ebnf.equalityexpression"><emphasis>equality expression</emphasis></link>
+<indexterm>
+    <primary>expression</primary>
+    <secondary>equality</secondary>
+</indexterm>
+is always <link linkend="TypesBooleanType"><type>boolean</type></link>.
+<indexterm>
+    <primary><type>boolean</type></primary>
+</indexterm>
+</para>
+<para>
+Two <link linkend="TypesCharacterType"><type>character</type></link>,
+<indexterm>
+    <primary><type>character</type></primary>
+</indexterm>
+<link linkend="TypesWideCharacterType"><type>wcharacter</type></link>,
+<indexterm>
+    <primary><type>wcharacter</type></primary>
+</indexterm>
+<link linkend="TypesBooleanType"><type>boolean</type></link>,
+<indexterm>
+    <primary><type>boolean</type></primary>
+</indexterm>
+<link linkend="TypesByteType"><type>byte</type></link>,
+<indexterm>
+    <primary><type>byte</type></primary>
+</indexterm>
+<link linkend="TypesNumericTypes"><type>numeric</type></link>
+<indexterm>
+    <primary><type>numeric</type></primary>
+</indexterm>
+or <link linkend="TypesEnumerationTypes"><type>enumeration</type></link>
+<indexterm>
+    <primary><type>enumeration</type></primary>
+</indexterm>
+values are equal if they have the same value.
+</para>
+<para>
+Two <link linkend="TypesStringType"><type>string</type></link>
+<indexterm>
+    <primary><type>string</type></primary>
+</indexterm>
+or <link linkend="TypesWideStringType"><type>wstring</type></link>
+<indexterm>
+    <primary><type>wstring</type></primary>
+</indexterm>
+values are equal if they contain the same sequence of elements in the same
+order.
+</para>
+<para>
+Two instances are equal if they refer to the same instance.
+</para>
+<para>
+In all cases, <emphasis>a</emphasis><literal>/=</literal><emphasis>b</emphasis>
+produces the same result as
+<literal>not(</literal><emphasis>a</emphasis><literal>=</literal><emphasis>b</emphasis><literal>)</literal>.
+</para>
+</section>
+<section xml:id="ExpressionsLogicalOperators"><info><title>Logical Operators</title></info>
+
+<para>
+The logical operators
+<indexterm significance="preferred">
+    <primary>operator</primary>
+    <secondary>logical</secondary>
+</indexterm>
+are the and operator <literal>and</literal>,
+<indexterm>
+    <primary><literal>and</literal></primary>
+</indexterm>
+the exclusive-or operator <literal>xor</literal>
+<indexterm>
+    <primary><literal>xor</literal></primary>
+</indexterm>
+and the inclusive-or operator <literal>or</literal>.
+<indexterm>
+    <primary><literal>or</literal></primary>
+</indexterm>
+These operators have different precedence,
+<indexterm>
+    <primary>operator</primary>
+    <secondary>precedence</secondary>
+</indexterm>
+with <literal>and</literal>
+<indexterm>
+    <primary><literal>and</literal></primary>
+</indexterm>
+having the highest precedence
+<indexterm>
+    <primary>operator</primary>
+    <secondary>precedence</secondary>
+</indexterm>
+and
+<literal>or</literal>
+<indexterm>
+    <primary><literal>or</literal></primary>
+</indexterm>
+the lowest precedence.
+<indexterm>
+    <primary>operator</primary>
+    <secondary>precedence</secondary>
+</indexterm>
+Each of these operators is syntactically
+left-associative
+<indexterm>
+    <primary>operator</primary>
+    <secondary>associativity</secondary>
+</indexterm>
+and each groups left-to-right.
+<indexterm>
+    <primary>operator</primary>
+    <secondary>grouping</secondary>
+</indexterm>
+Each operator is
+commutative and associative.
+</para>
+<indexterm zone="ebnf.logicalandexpression">
+    <primary>logical and expression</primary>
+</indexterm>
+<indexterm zone="ebnf.logicalandexpression">
+    <primary>equality expression</primary>
+</indexterm>
+<indexterm zone="ebnf.logicalandexpression">
+    <primary><literal>and</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.logicalxorexpression">
+    <primary>logical xor expression</primary>
+</indexterm>
+<indexterm zone="ebnf.logicalxorexpression">
+    <primary>logical and expression</primary>
+</indexterm>
+<indexterm zone="ebnf.logicalxorexpression">
+    <primary><literal>xor</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.logicalorexpression">
+    <primary>logical or expression</primary>
+</indexterm>
+<indexterm zone="ebnf.logicalorexpression">
+    <primary>logical xor expression</primary>
+</indexterm>
+<indexterm zone="ebnf.logicalorexpression">
+    <primary><literal>or</literal></primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.logicalandexpression">
+    <lhs>
+        logical and expression
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.equalityexpression">equality expression</nonterminal> |
+        <nonterminal def="#ebnf.logicalandexpression">logical and expression</nonterminal>,
+        'and',
+        <nonterminal def="#ebnf.equalityexpression">equality expression</nonterminal>
+    </rhs>
+</production>
+<production xml:id="ebnf.logicalxorexpression">
+    <lhs>
+        logical xor expression
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.logicalandexpression">logical and expression</nonterminal> |
+        <nonterminal def="#ebnf.logicalxorexpression">logical xor expression</nonterminal>,
+        'xor',
+        <nonterminal def="#ebnf.logicalandexpression">logical and expression</nonterminal>
+    </rhs>
+</production>
+<production xml:id="ebnf.logicalorexpression">
+    <lhs>
+        logical or expression
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.logicalxorexpression">logical xor expression</nonterminal> |
+        <nonterminal def="#ebnf.logicalorexpression">logical or expression</nonterminal>,
+        'or',
+        <nonterminal def="#ebnf.logicalxorexpression">logical xor expression</nonterminal>
+    </rhs>
+</production>
+</productionset>
+<para>
+A compile-time error occurs if and of the following is true:
+<itemizedlist mark="bullet">
+<listitem>
+<para>
+The types of both operands are not types or subtypes of
+<link linkend="TypesBooleanType"><type>boolean</type></link>.
+<indexterm>
+    <primary><type>boolean</type></primary>
+</indexterm>
+</para>
+</listitem>
+<listitem>
+<para>
+The type of the right-hand operand is not assignable to the type of the
+left-hand operand.
+</para>
+</listitem>
+</itemizedlist>
+The type of a logical expression is the base type of the left-hand operand.
+For <literal>and</literal>,
+<indexterm>
+    <primary><literal>and</literal></primary>
+</indexterm>
+the result is true if both operand values are true;
+otherwise, the result is false.
+For <literal>xor</literal>,
+<indexterm>
+    <primary><literal>xor</literal></primary>
+</indexterm>
+the result is true if the operand values are
+different; otherwise, the result is false. For <literal>or</literal>,
+<indexterm>
+    <primary><literal>or</literal></primary>
+</indexterm>
+the result is false if both operand values are false; otherwise, the result is
+true.
+</para>
+<section xml:id="ExpressionsShortCircuitEvaluationofLogicalOperators"><info><title>Short Circuit Evaluation of Logical Operators</title></info>
+
+<para>
+The <literal>and</literal>
+<indexterm>
+    <primary><literal>and</literal></primary>
+</indexterm>
+operator evaluates is right-hand operand only if the
+value of its left-hand operand is true. It is syntactically left-associative
+<indexterm>
+    <primary>operator</primary>
+    <secondary>associativity</secondary>
+</indexterm>
+and groups left-to-right.
+<indexterm>
+    <primary>operator</primary>
+    <secondary>grouping</secondary>
+</indexterm>
+It is fully associative with respect to both side effects
+and result value; that is, for any expressions <emphasis>a</emphasis>,
+<emphasis>b</emphasis> and <emphasis>c</emphasis>, evaluation of the expression
+<literal>((</literal><emphasis>a</emphasis><literal>) and (</literal><emphasis>b</emphasis><literal>)) and (</literal><emphasis>c</emphasis><literal>)</literal>
+produces the same result as evaluation of the expression
+<literal>(</literal><emphasis>a</emphasis><literal>) and ((</literal><emphasis>b</emphasis><literal>) and (</literal><emphasis>c</emphasis><literal>))</literal>.
+At run-time, the left-hand operand is evaluation first; if its value is
+false, the value of the expression is false and the right-hand operand
+expression is not evaluated. If the value of the left-hand operand is true,
+then the right-hand expression is evaluated and its value becomes the value of
+the expression.
+</para>
+<para>
+The <literal>or</literal>
+<indexterm>
+    <primary><literal>or</literal></primary>
+</indexterm>
+operator evaluates its right-hand operand only if the
+value of its left-hand operand is false. It is syntactically left-associative
+<indexterm>
+    <primary>operator</primary>
+    <secondary>associativity</secondary>
+</indexterm>
+(it groups left-to-right).
+<indexterm>
+    <primary>operator</primary>
+    <secondary>grouping</secondary>
+</indexterm>
+It is fully associative with respect to both side
+effects and result value; that is, for any expressions <literal>a</literal>,
+<literal>b</literal> and <literal>c</literal>, evaluation of the expression
+<literal>((</literal><emphasis>a</emphasis><literal>) or (</literal><emphasis>b</emphasis><literal>)) or (</literal><emphasis>c</emphasis><literal>)</literal>
+produces the same result as evaluation of the expression
+<literal>(</literal><emphasis>a</emphasis><literal>) or ((</literal><emphasis>b</emphasis><literal>) or (</literal><emphasis>c</emphasis><literal>))</literal>.
+At run-time, the left-hand operand expression is evaluated first; if its value
+is true, the value of the expression is true and the right-hand operand expression
+is not evaluated. If the value of the left-hand operand is false, then the
+right-hand expression is evaluated and it value becomes the value of the expression.
+</para>
+</section>
+</section>
+<section xml:id="ExpressionsExpression"><info><title>Expression</title></info>
+
+<para>
+An <link linkend="ebnf.expression">expression</link> is any
+<link linkend="ebnf.logicalorexpression">logical or expression</link>.
+</para>
+<indexterm zone="ebnf.expression">
+    <primary>expression</primary>
+</indexterm>
+<indexterm zone="ebnf.expression">
+    <primary>logical or expression</primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.expression">
+    <lhs>
+        expression
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.logicalorexpression">logical or expression</nonterminal>
+    </rhs>
+</production>
+</productionset>
+</section>
+<section xml:id="ExpressionsConditions"><info><title>Conditions</title></info>
+
+<para>
+<link linkend="ebnf.condition"><emphasis>Conditions</emphasis></link>
+<indexterm significance="preferred">
+    <primary>condition</primary>
+</indexterm>
+are syntactically any
+<link linkend="ExpressionsExpression"><emphasis>expression</emphasis></link>.
+<indexterm>
+    <primary>expression</primary>
+</indexterm>
+</para>
+<indexterm zone="ebnf.condition">
+    <primary>condition</primary>
+</indexterm>
+<indexterm zone="ebnf.condition">
+    <primary>expression</primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.condition">
+    <lhs>
+        condition
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.expression">expression</nonterminal>
+    </rhs>
+</production>
+</productionset>
+<para>
+A compile-time error occurs is the type of the expression is not assignable to
+<link linkend="TypesBooleanType"><type>boolean</type></link>.
+<indexterm>
+    <primary><type>boolean</type></primary>
+</indexterm>
+The type of a condition is the type of the expression. A condition yields the
+value of the expression.
+</para>
+</section>
+<section xml:id="ExpressionsInstanceandInstanceCollectionExpressions"><info><title>Instance and Instance Collection Expressions</title></info>
+
+<para>
+<link linkend="ebnf.instanceexpression">Instance expressions</link>
+<indexterm>
+    <primary>expression</primary>
+    <secondary>instance</secondary>
+</indexterm>
+are syntactically any name of the reserved word
+<indexterm>
+    <primary>reserved word</primary>
+</indexterm>
+<link linkend="Names"><literal>this</literal></link>.
+<indexterm>
+    <primary><literal>this</literal></primary>
+</indexterm>
+Instance collections
+<indexterm>
+    <primary>instance</primary>
+    <secondary>collections</secondary>
+</indexterm>
+are syntactically any name.
+</para>
+<indexterm zone="ebnf.instanceexpression">
+    <primary>instance expression</primary>
+</indexterm>
+<indexterm zone="ebnf.instanceexpression">
+    <primary>name</primary>
+</indexterm>
+<indexterm zone="ebnf.instanceexpression">
+    <primary><literal>this</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.instancecollectionexpression">
+    <primary>instance collection expression</primary>
+</indexterm>
+<indexterm zone="ebnf.instancecollectionexpression">
+    <primary>name</primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.instanceexpression">
+    <lhs>
+        instance expression
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.name">name</nonterminal> |
+        'this'
+    </rhs>
+</production>
+<production xml:id="ebnf.instancecollectionexpression">
+    <lhs>
+        instance collection expression
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.name">name</nonterminal>
+    </rhs>
+</production>
+</productionset>
+<para>
+A compile-time error occurs if in an instance expression,
+<indexterm>
+    <primary>expression</primary>
+    <secondary>instance</secondary>
+</indexterm>
+the type of the name
+is not an <link linkend="TypesInstanceTypes">instance type</link>.
+<indexterm>
+    <primary>type</primary>
+    <secondary>instance</secondary>
+</indexterm>
+A compile-time error also occurs if in an
+<link linkend="ebnf.instancecollectionexpression"><emphasis>instance collection expression</emphasis></link>,
+<indexterm>
+    <primary>expression</primary>
+    <secondary>instance</secondary>
+    <tertiary>collection</tertiary>
+</indexterm>
+the type of the name is not a
+<link linkend="TypesCollectionTypes">collection type</link> whose
+<indexterm>
+    <primary>type</primary>
+    <secondary>collection</secondary>
+</indexterm>
+component type is an <link linkend="TypesInstanceTypes">instance type</link>.
+<indexterm>
+    <primary>type</primary>
+    <secondary>instance</secondary>
+</indexterm>
+The type of an
+<link linkend="ebnf.instanceexpression"><emphasis>instance expression</emphasis></link>
+<indexterm>
+    <primary>expression</primary>
+    <secondary>instance</secondary>
+</indexterm>
+and an
+<link linkend="ebnf.instancecollectionexpression"><emphasis>instance collection expression</emphasis></link>
+<indexterm>
+    <primary>expression</primary>
+    <secondary>instance</secondary>
+    <tertiary>collection</tertiary>
+</indexterm>
+is the type of the name or the reserved word
+<indexterm>
+    <primary>reserved word</primary>
+</indexterm>
+<link linkend="Names"><literal>this</literal></link>.
+<indexterm>
+    <primary><literal>this</literal></primary>
+</indexterm>
+An
+<link linkend="ebnf.instanceexpression"><emphasis>instance expression</emphasis></link>
+<indexterm>
+    <primary>expression</primary>
+    <secondary>instance</secondary>
+</indexterm>
+and an
+<link linkend="ebnf.instancecollectionexpression"><emphasis>instance collection expression</emphasis></link>,
+<indexterm>
+    <primary>expression</primary>
+    <secondary>instance</secondary>
+    <tertiary>collection</tertiary>
+</indexterm>
+both yield the value of the
+name or the reserved word
+<indexterm>
+    <primary>reserved word</primary>
+</indexterm>
+<link linkend="Names"><literal>this</literal></link>.
+<indexterm>
+    <primary><literal>this</literal></primary>
+</indexterm>
+</para>
+</section>
+<section xml:id="ExpressionsConstantExpressions"><info><title>Constant Expressions</title></info>
+
+<para>
+Certain expression are defined to be constant.
+<indexterm significance="preferred">
+    <primary>expression</primary>
+    <secondary>constant</secondary>
+</indexterm>
+Constant means determinable at
+compile-time, using the declared properties or values of entities.
+<link linkend="ebnf.constantexpression"><emphasis>Constant expressions</emphasis></link>
+<indexterm>
+    <primary>expression</primary>
+    <secondary>constant</secondary>
+</indexterm>
+are syntactically any expression.
+<indexterm>
+    <primary>expression</primary>
+</indexterm>
+</para>
+<indexterm zone="ebnf.constantexpression">
+    <primary>constant expression</primary>
+</indexterm>
+<indexterm zone="ebnf.constantexpression">
+    <primary>expression</primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.constantexpression">
+    <lhs>
+        constant expression
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.expression">expression</nonterminal>
+    </rhs>
+</production>
+</productionset>
+<para>
+The type of a
+<link linkend="ebnf.constantexpression"><emphasis>constant expression</emphasis></link>
+<indexterm>
+    <primary>expression</primary>
+    <secondary>constant</secondary>
+</indexterm>
+is the type of the expression. A
+<link linkend="ebnf.constantexpression"><emphasis>constant expression</emphasis></link>
+<indexterm>
+    <primary>expression</primary>
+    <secondary>constant</secondary>
+</indexterm>
+yields the value of the expression.
+</para>
+<para>
+A <link linkend="ebnf.constantexpression"><emphasis>constant expression</emphasis></link>
+<indexterm>
+    <primary>expression</primary>
+    <secondary>constant</secondary>
+</indexterm>
+is an expression that is composed using only the following:
+<itemizedlist mark="bullet">
+<listitem>
+<para>
+A <link linkend="LexicalStructureNumericLiterals"><type>numeric</type></link>,
+<indexterm>
+    <primary><type>numeric</type></primary>
+</indexterm>
+<link linkend="LexicalStructureCharacterLiterals"><type>character</type></link>,
+<indexterm>
+    <primary><type>character</type></primary>
+</indexterm>
+<link linkend="LexicalStructureStringLiterals"><type>string</type></link>,
+<indexterm>
+    <primary><type>string</type></primary>
+</indexterm>
+<link linkend="LexicalStructureBooleanLiteral"><type>boolean</type></link>,
+<indexterm>
+    <primary><type>boolean</type></primary>
+</indexterm>
+<link linkend="LexicalStructureEnumeratorLiteral"><type>enumeration</type></link> or
+<indexterm>
+    <primary><type>enumeration</type></primary>
+</indexterm>
+<link linkend="LexicalStructureTheNullLiteral">null</link>
+<indexterm>
+    <primary>null</primary>
+</indexterm>
+literal.
+</para>
+</listitem>
+<listitem>
+<para>
+A name that denotes a <link linkend="TypesModifiers">read only</link>
+<indexterm>
+    <primary>read only</primary>
+</indexterm>
+variable whose initializer is a
+<link linkend="ebnf.constantexpression"><emphasis>constant expression</emphasis></link>.
+<indexterm>
+    <primary>expression</primary>
+    <secondary>constant</secondary>
+</indexterm>
+</para>
+</listitem>
+<listitem>
+<para>
+An <link linkend="NamesIndexedComponents">indexed component</link> whose
+<indexterm>
+    <primary>component</primary>
+    <secondary>indexed</secondary>
+</indexterm>
+<link linkend="NamesIndexedComponents">prefix</link>
+<indexterm>
+    <primary>prefix</primary>
+</indexterm>
+and expression are both
+<link linkend="ebnf.constantexpression"><emphasis>constant expressions</emphasis></link>.
+<indexterm>
+    <primary>expression</primary>
+    <secondary>constant</secondary>
+</indexterm>
+</para>
+</listitem>
+<listitem>
+<para>
+A <link linkend="NamesSelectedComponents">selected component</link>
+<indexterm>
+    <primary>component</primary>
+    <secondary>selected</secondary>
+</indexterm>
+whose <link linkend="NamesIndexedComponents">prefix</link>
+<indexterm>
+    <primary>prefix</primary>
+</indexterm>
+is a
+<link linkend="ebnf.constantexpression"><emphasis>constant expression</emphasis></link>.
+<indexterm>
+    <primary>expression</primary>
+    <secondary>constant</secondary>
+</indexterm>
+</para>
+</listitem>
+<listitem>
+<para>
+A <link linkend="NamesSlices">slice</link>
+<indexterm>
+    <primary>slice</primary>
+</indexterm>
+whose <link linkend="NamesIndexedComponents">prefix</link>
+<indexterm>
+    <primary>prefix</primary>
+</indexterm>
+and <link linkend="TypesNumericTypes">range</link>
+<indexterm>
+    <primary>range</primary>
+</indexterm>
+are both constant.
+</para>
+</listitem>
+<listitem>
+<para>
+A <link linkend="ExpressionsStructureAggregates">structure aggregate</link>
+<indexterm>
+    <primary>aggregate</primary>
+    <secondary>structure</secondary>
+</indexterm>
+<indexterm>
+    <primary>structure</primary>
+    <secondary>aggregate</secondary>
+</indexterm>
+whose component values are all
+<link linkend="ebnf.constantexpression"><emphasis>constant expressions</emphasis></link>.
+<indexterm>
+    <primary>expression</primary>
+    <secondary>constant</secondary>
+</indexterm>
+</para>
+</listitem>
+<listitem>
+<para>
+A <link linkend="ebnf.constantexpression"><emphasis>constant expressions</emphasis></link>
+<indexterm>
+    <primary>expression</primary>
+    <secondary>constant</secondary>
+</indexterm>
+enclosed in parentheses.
+</para>
+</listitem>
+<listitem>
+<para>
+A <link linkend="TypeConversion">type conversion</link>
+<indexterm>
+    <primary>type</primary>
+    <secondary>conversion</secondary>
+</indexterm>
+whose operand is a constant expression.
+<indexterm>
+    <primary>expression</primary>
+    <secondary>constant</secondary>
+</indexterm>
+</para>
+</listitem>
+<listitem>
+<para>
+An <link linkend="ExpressionsUnaryOperators">unary</link>
+<indexterm>
+    <primary>operator</primary>
+    <secondary>unary</secondary>
+</indexterm>
+<literal>+</literal>,
+<indexterm>
+    <primary><literal>+</literal></primary>
+</indexterm>
+<literal>-</literal>,
+<indexterm>
+    <primary><literal>-</literal></primary>
+</indexterm>
+<literal>not</literal>
+<indexterm>
+    <primary><literal>not</literal></primary>
+</indexterm>
+or <literal>abs</literal>
+<indexterm>
+    <primary><literal>abs</literal></primary>
+</indexterm>
+operator whose operand is a 
+<link linkend="ebnf.constantexpression"><emphasis>constant expression</emphasis></link>.
+<indexterm>
+    <primary>expression</primary>
+    <secondary>constant</secondary>
+</indexterm>
+</para>
+</listitem>
+<listitem>
+<para>
+A multiplicative <literal>*</literal>,
+<indexterm>
+    <primary><literal>*</literal></primary>
+</indexterm>
+<literal>/</literal>,
+<indexterm>
+    <primary><literal>/</literal></primary>
+</indexterm>
+<literal>mod</literal>,
+<indexterm>
+    <primary><literal>mod</literal></primary>
+</indexterm>
+<literal>**</literal>,
+<indexterm>
+    <primary><literal>**</literal></primary>
+</indexterm>
+<literal>rem</literal>,
+<indexterm>
+    <primary><literal>rem</literal></primary>
+</indexterm>
+<literal>intersection</literal>
+<indexterm>
+    <primary><literal>intersection</literal></primary>
+</indexterm>
+or <literal>disunion</literal>
+<indexterm>
+    <primary><literal>disunion</literal></primary>
+</indexterm>
+operator whose operands are both
+<link linkend="ebnf.constantexpression"><emphasis>constant expressions</emphasis></link>.
+<indexterm>
+    <primary>expression</primary>
+    <secondary>constant</secondary>
+</indexterm>
+</para>
+</listitem>
+<listitem>
+<para>
+An additive <literal>+</literal>,
+<indexterm>
+    <primary><literal>+</literal></primary>
+</indexterm>
+<literal>-</literal>,
+<indexterm>
+    <primary><literal>-</literal></primary>
+</indexterm>
+<literal>&amp;</literal>,
+<indexterm>
+    <primary><literal>&amp;</literal></primary>
+</indexterm>
+<literal>union</literal>
+<indexterm>
+    <primary><literal>union</literal></primary>
+</indexterm>
+or <literal>not_in</literal>
+<indexterm>
+    <primary><literal>not_in</literal></primary>
+</indexterm>
+operator whose operands are both
+<link linkend="ebnf.constantexpression"><emphasis>constant expressions</emphasis></link>.
+<indexterm>
+    <primary>expression</primary>
+    <secondary>constant</secondary>
+</indexterm>
+</para>
+</listitem>
+<listitem>
+<para>
+A relational <literal>&lt;</literal>,
+<indexterm>
+    <primary><literal>&lt;</literal></primary>
+</indexterm>
+<literal>&gt;</literal>,
+<indexterm>
+    <primary><literal>&gt;</literal></primary>
+</indexterm>
+<literal>&lt;=</literal>
+<indexterm>
+    <primary><literal>&lt;=</literal></primary>
+</indexterm>
+or <literal>&gt;=</literal>
+<indexterm>
+    <primary><literal>&gt;=</literal></primary>
+</indexterm>
+operator whose operands are both
+<link linkend="ebnf.constantexpression"><emphasis>constant expressions</emphasis></link>.
+<indexterm>
+    <primary>expression</primary>
+    <secondary>constant</secondary>
+</indexterm>
+</para>
+</listitem>
+<listitem>
+<para>
+An equality <literal>=</literal>
+<indexterm>
+    <primary><literal>=</literal></primary>
+</indexterm>
+or <literal>/=</literal>,
+<indexterm>
+    <primary><literal>/=</literal></primary>
+</indexterm>
+operator whose operands are both
+<link linkend="ebnf.constantexpression"><emphasis>constant expressions</emphasis></link>.
+<indexterm>
+    <primary>expression</primary>
+    <secondary>constant</secondary>
+</indexterm>
+</para>
+</listitem>
+<listitem>
+<para>
+A logical <literal>and</literal>,
+<indexterm>
+    <primary><literal>and</literal></primary>
+</indexterm>
+<literal>xor</literal>
+<indexterm>
+    <primary><literal>xor</literal></primary>
+</indexterm>
+or <literal>or</literal>
+<indexterm>
+    <primary><literal>or</literal></primary>
+</indexterm>
+operator whose operands are both
+<link linkend="ebnf.constantexpression"><emphasis>constant expressions</emphasis></link>.
+<indexterm>
+    <primary>expression</primary>
+    <secondary>constant</secondary>
+</indexterm>
+</para>
+</listitem>
+</itemizedlist>
+</para>
+</section>
+<section xml:id="ExpressionsExecutableUMLExpressions"><info><title>Executable UML Expressions</title></info>
+
+<para>
+All of the types of expression described so far have been type of expression that
+are not specific to executable UML models.
+<indexterm significance="preferred">
+    <primary>expression</primary>
+    <secondary>executable UML</secondary>
+</indexterm>
+An <link linkend="ebnf.extendedexpression">extended expression</link>
+<indexterm significance="preferred">
+    <primary>expression</primary>
+    <secondary>extended</secondary>
+</indexterm>
+is any of the
+types of expression described so far, together with the types of expression that
+are specific to executable UML models.
+</para>
+<indexterm zone="ebnf.extendedexpression">
+    <primary>extended expression</primary>
+</indexterm>
+<indexterm zone="ebnf.extendedexpression">
+    <primary>create expression</primary>
+</indexterm>
+<indexterm zone="ebnf.extendedexpression">
+    <primary>find expression</primary>
+</indexterm>
+<indexterm zone="ebnf.extendedexpression">
+    <primary>relationship navigation</primary>
+</indexterm>
+<indexterm zone="ebnf.extendedexpression">
+    <primary>correlated relationship navigation</primary>
+</indexterm>
+<indexterm zone="ebnf.extendedexpression">
+    <primary>ordering expression</primary>
+</indexterm>
+<indexterm zone="ebnf.extendedexpression">
+    <primary>expression</primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.extendedexpression">
+    <lhs>
+        extended expression
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.createexpression">create expression</nonterminal> |
+        <nonterminal def="#ebnf.findexpression">find expression</nonterminal> |
+        <nonterminal def="#ebnf.relationshipnavigation">relationship navigation</nonterminal> |
+        <nonterminal def="#ebnf.correlatedrelationshipnavigation">correlated relationship navigation</nonterminal> |
+        <nonterminal def="#ebnf.orderingexpression">ordering expression</nonterminal> |
+        <nonterminal def="#ebnf.expression">expression</nonterminal>
+    </rhs>
+</production>
+</productionset>
+<para>
+The places where
+<link linkend="ebnf.extendedexpression">extended expression</link>
+<indexterm>
+    <primary>expression</primary>
+    <secondary>extended</secondary>
+</indexterm>
+can be used is restricted to the right-hand side of an assignment. In addition,
+the results obtained from extended expression must be assigned to a variable
+or parameter and hence must be given a name.
+</para>
+<section xml:id="ExpressionsCreateExpressions"><info><title>Create Expressions</title></info>
+
+<para>
+A <link linkend="ebnf.createexpression"><emphasis>create expression</emphasis></link>
+<indexterm significance="preferred">
+    <primary>expression</primary>
+    <secondary>create</secondary>
+</indexterm>
+is used to create new instances of objects.
+</para>
+<indexterm zone="ebnf.createexpression">
+    <primary>create expression</primary>
+</indexterm>
+<indexterm zone="ebnf.createexpression">
+    <primary><literal>create</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.createexpression">
+    <primary><literal>unique</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.createexpression">
+    <primary>object name</primary>
+</indexterm>
+<indexterm zone="ebnf.createexpression">
+    <primary>object aggregate</primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.createexpression">
+    <lhs>
+        create expression
+    </lhs>
+    <rhs>
+        'create',
+        '.',
+        [ 'unique' ],
+        <nonterminal def="#ebnf.objectname">object name</nonterminal>,
+        '(',
+        <nonterminal def="#ebnf.objectaggregate">object aggregate</nonterminal>,
+        ')'
+    </rhs>
+</production>
+</productionset>
+<para>
+For create expressions where the optional
+<link linkend="ebnf.createexpression"><literal>unique</literal></link>
+<indexterm>
+    <primary><literal>unique</literal></primary>
+</indexterm>
+is not used, the
+<link linkend="ExpressionsCreateExpressions">object aggregate</link>
+<indexterm>
+    <primary>aggregate</primary>
+    <secondary>object</secondary>
+</indexterm>
+<indexterm>
+    <primary>object</primary>
+    <secondary>aggregate</secondary>
+</indexterm>
+must supply initial values for all non-referential preferred attributes,
+<indexterm>
+    <primary>attribute</primary>
+    <secondary>preferred</secondary>
+</indexterm>
+otherwise a compile-time error occurs.
+</para>
+<para>
+For create expressions where the optional
+<link linkend="ebnf.createexpression"><literal>unique</literal></link>
+<indexterm>
+    <primary><literal>unique</literal></primary>
+</indexterm>
+is used,
+any non-referential attributes that are not given initial values, are given by
+the architecture, suitable values that make the created instance unique. If
+suitable values cannot by found, then an exception is raised.
+</para>
+<para>
+A compile-time error occurs if the object name does not name an object that has
+already been declared in the enclosing domain.
+</para>
+<para>
+The type of a
+<link linkend="ebnf.createexpression"><emphasis>create expression</emphasis></link>
+<indexterm>
+    <primary>expression</primary>
+    <secondary>create</secondary>
+</indexterm>
+is the <link linkend="TypesInstanceTypes">instance type</link>
+<indexterm>
+    <primary>type</primary>
+    <secondary>instance</secondary>
+</indexterm>
+of the object designated by the object name. For the evaluation of a
+<link linkend="ebnf.createexpression"><emphasis>create expression</emphasis></link>,
+<indexterm>
+    <primary>expression</primary>
+    <secondary>creates</secondary>
+</indexterm>
+the elaboration of the object name is performed first. An instance of the
+designated object is created and values for the
+<link linkend="ObjectsAttributes">attributes</link>
+<indexterm>
+    <primary>attribute</primary>
+</indexterm>
+are obtained and
+assigned into the corresponding attributes of the instance. The create
+expression yields a value that designates the created instance. The only
+exception to this is in the body of a
+<link linkend="LifecyclesCreationStates">creation state</link>
+<indexterm>
+    <primary>state</primary>
+    <secondary>creation</secondary>
+</indexterm>
+of the object.
+If an initial value for the state of the created instance is not given, then the
+initial state of the created instance is set to the enclosing
+<link linkend="LifecyclesCreationStates">creation state</link>.
+<indexterm>
+    <primary>state</primary>
+    <secondary>creation</secondary>
+</indexterm>
+</para>
+<section xml:id="ExpressionsObjectAggregates"><info><title>Object Aggregates</title></info>
+
+<para>
+An <link linkend="ebnf.objectaggregate"><emphasis>object aggregate</emphasis></link>
+<indexterm significance="preferred">
+    <primary>object</primary>
+    <secondary>aggregate</secondary>
+</indexterm>
+<indexterm>
+    <primary>aggregate</primary>
+    <secondary>object</secondary>
+</indexterm>
+gives initial values for attributes and the state of the created instance in a
+<link linkend="ExpressionsCreateExpressions">create expression</link>.
+<indexterm>
+    <primary>expression</primary>
+    <secondary>create</secondary>
+</indexterm>
+</para>
+<indexterm zone="ebnf.objectaggregate">
+    <primary>object aggregate</primary>
+</indexterm>
+<indexterm zone="ebnf.objectaggregate">
+    <primary>attribute association</primary>
+</indexterm>
+<indexterm zone="ebnf.attributeassociation">
+    <primary>attribute association</primary>
+</indexterm>
+<indexterm zone="ebnf.attributeassociation">
+    <primary>expression</primary>
+</indexterm>
+<indexterm zone="ebnf.attributeassociation">
+    <primary><literal>=&gt;</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.attributeassociation">
+    <primary><literal>Current_State</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.attributeassociation">
+    <primary>state name</primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.objectaggregate">
+    <lhs>
+        object aggregate
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.attributeassociation">attribute association</nonterminal>,
+        {(',',
+        <nonterminal def="#ebnf.attributeassociation">attribute association</nonterminal>)}
+    </rhs>
+</production>
+<production xml:id="ebnf.attributeassociation">
+    <lhs>
+        attribute association
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.attributename">attribute name</nonterminal>,
+        '=&gt;',
+        <nonterminal def="#ebnf.expression">expression</nonterminal> |
+        'Current_State', '=&gt;',
+        <nonterminal def="#ebnf.statename">state name</nonterminal>
+    </rhs>
+</production>
+</productionset>
+<para>
+All of the following must be true or a compile-time error will result:
+<itemizedlist mark="bullet">
+<listitem>
+<para>
+The <link linkend="ObjectsAttributes">attribute name</link>,
+<indexterm>
+    <primary>attribute</primary>
+    <secondary>name</secondary>
+</indexterm>
+in an
+<link linkend="ebnf.attributeassociation">attribute association</link>,
+<indexterm>
+    <primary>attribute</primary>
+    <secondary>association</secondary>
+</indexterm>
+names an attribute of the object being created.
+</para>
+</listitem>
+<listitem>
+<para>
+The type of the expression, in an
+<link linkend="ebnf.attributeassociation">attribute association</link>,
+<indexterm>
+    <primary>attribute</primary>
+    <secondary>association</secondary>
+</indexterm>
+is assignable to the type of the attribute named by the
+<link linkend="ObjectsAttributes">attribute name</link>.
+<indexterm>
+    <primary>attribute</primary>
+    <secondary>name</secondary>
+</indexterm>
+</para>
+</listitem>
+<listitem>
+<para>
+The attribute named by the
+<link linkend="ObjectsAttributes">attribute name</link>,
+<indexterm>
+    <primary>attribute</primary>
+    <secondary>name</secondary>
+</indexterm>
+in an
+<link linkend="ebnf.attributeassociation">attribute association</link>,
+<indexterm>
+    <primary>attribute</primary>
+    <secondary>association</secondary>
+</indexterm>
+is assignable (see <xref linkend="NamesAssignabilityofNames"/>).
+</para>
+</listitem>
+<listitem>
+<para>
+The <link linkend="LifecyclesStateDefinition">state name</link>,
+<indexterm>
+    <primary>state</primary>
+    <secondary>name</secondary>
+</indexterm>
+in an
+<link linkend="ebnf.attributeassociation">attribute association</link>,
+<indexterm>
+    <primary>attribute</primary>
+    <secondary>association</secondary>
+</indexterm>
+names an
+<link linkend="LifecyclesInstanceStates">instance</link>
+<indexterm>
+    <primary>instance</primary>
+</indexterm>
+or
+<link linkend="LifecyclesCreationStates">creation state</link>
+<indexterm>
+    <primary>state</primary>
+    <secondary>creation</secondary>
+</indexterm>
+of the object being created.
+</para>
+</listitem>
+<listitem>
+<para>
+There is only one
+<link linkend="ebnf.attributeassociation">attribute association</link>
+<indexterm>
+    <primary>attribute</primary>
+    <secondary>association</secondary>
+</indexterm>
+for an attribute.
+</para>
+</listitem>
+<listitem>
+<para>
+There is only one
+<link linkend="ebnf.attributeassociation">attribute association</link>
+<indexterm>
+    <primary>attribute</primary>
+    <secondary>association</secondary>
+</indexterm>
+for the <literal>Current_State</literal>.
+<indexterm>
+    <primary><literal>Current_State</literal></primary>
+</indexterm>
+</para>
+</listitem>
+<listitem>
+<para>
+If an attribute is of a type which is an
+<link linkend="TypesUnconstrainedArrayTypes">unconstrained array</link>
+<indexterm>
+    <primary>array</primary>
+    <secondary>unconstrained</secondary>
+</indexterm>
+type, then
+an <link linkend="ebnf.attributeassociation">attribute association</link>
+<indexterm>
+    <primary>attribute</primary>
+    <secondary>association</secondary>
+</indexterm>
+must exit to formally constrain the attribute.
+</para>
+</listitem>
+</itemizedlist>
+</para>
+</section>
+</section>
+<section xml:id="ExpressionsFindExpressions"><info><title>Find Expressions</title></info>
+
+<para>
+Instances of an object can be obtained using a
+<link linkend="ebnf.findexpression"><emphasis>find expression</emphasis></link>.
+<indexterm significance="preferred">
+    <primary>expression</primary>
+    <secondary>find</secondary>
+</indexterm>
+</para>
+<indexterm zone="ebnf.findexpression">
+    <primary>find expression</primary>
+</indexterm>
+<indexterm zone="ebnf.findexpression">
+    <primary><literal>find</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.findexpression">
+    <primary>find specification</primary>
+</indexterm>
+<indexterm zone="ebnf.findexpression">
+    <primary>find condition</primary>
+</indexterm>
+<indexterm zone="ebnf.findexpression">
+    <primary><literal>find_all</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.findexpression">
+    <primary><literal>find_one</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.findexpression">
+    <primary><literal>find_only</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.findspecification">
+    <primary>find specification</primary>
+</indexterm>
+<indexterm zone="ebnf.findspecification">
+    <primary>scoped object name</primary>
+</indexterm>
+<indexterm zone="ebnf.findspecification">
+    <primary>instance collection expression</primary>
+</indexterm>
+<indexterm zone="ebnf.scopedobjectname">
+    <primary>scoped object name</primary>
+</indexterm>
+<indexterm zone="ebnf.scopedobjectname">
+    <primary>scoped name</primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.findexpression">
+    <lhs>
+        find expression
+    </lhs>
+    <rhs>
+        'find',
+        <nonterminal def="#ebnf.findspecification">find specification</nonterminal>,
+        '(',
+        <nonterminal def="#ebnf.findcondition">find condition</nonterminal>,
+        ')' |
+        'find_all',
+        <nonterminal def="#ebnf.findspecification">find specification</nonterminal>,
+        '(', ')' |
+        'find_one',
+        <nonterminal def="#ebnf.findspecification">find specification</nonterminal>,
+        '(',
+        [<nonterminal def="#ebnf.findcondition">find condition</nonterminal>],
+        ')' |
+        'find_only',
+        <nonterminal def="#ebnf.findspecification">find specification</nonterminal>,
+        '(',
+        [<nonterminal def="#ebnf.findcondition">find condition</nonterminal>],
+        ')'
+    </rhs>
+</production>
+<production xml:id="ebnf.findspecification">
+    <lhs>
+        find specification
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.scopedobjectname">scoped object name</nonterminal> |
+        <nonterminal def="#ebnf.instancecollectionexpression">instance collection expression</nonterminal>
+    </rhs>
+</production>
+<production xml:id="ebnf.scopedobjectname">
+    <lhs>
+        scoped object name
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.scopedname">scoped name</nonterminal>
+    </rhs>
+</production>
+</productionset>
+<para>
+There are two kinds of
+<link linkend="ebnf.findexpression"><emphasis>find expression</emphasis></link>
+<indexterm>
+    <primary>expression</primary>
+    <secondary>find</secondary>
+</indexterm>
+The first, finds all the
+<link linkend="ExpressionsInstanceandInstanceCollectionExpressions">instances</link>
+<indexterm>
+    <primary>instance</primary>
+</indexterm>
+of an object that satisfy a
+<link linkend="ExpressionsConditions">condition</link>.
+<indexterm>
+    <primary>condition</primary>
+</indexterm>
+The second, finds all the instances in an
+<link linkend="ExpressionsInstanceandInstanceCollectionExpressions">instance collection</link>
+<indexterm>
+    <primary>instance</primary>
+    <secondary>collection</secondary>
+</indexterm>
+that satisfy a condition. For both kinds of
+<link linkend="ebnf.findexpression"><emphasis>find expression</emphasis></link>
+<indexterm>
+    <primary>expression</primary>
+    <secondary>find</secondary>
+</indexterm>
+there are four forms:
+<itemizedlist mark="bullet">
+<listitem>
+<para>
+<literal>find</literal> finds a
+<link linkend="TypesSetTypes"><type>set</type></link>
+<indexterm>
+    <primary><type>set</type></primary>
+</indexterm>
+of instances satisfying a
+<link linkend="ExpressionsConditions">condition</link>.
+<indexterm>
+    <primary>condition</primary>
+</indexterm>
+</para>
+</listitem>
+<listitem>
+<para>
+<literal>find_all</literal> finds all the instances.
+<indexterm>
+    <primary><literal>find_all</literal></primary>
+</indexterm>
+</para>
+</listitem>
+<listitem>
+<para>
+<literal>find_one</literal>
+<indexterm>
+    <primary><literal>find_one</literal></primary>
+</indexterm>
+finds an arbitrary instance satisfying an optional
+<link linkend="ExpressionsConditions">condition</link>.
+<indexterm>
+    <primary>condition</primary>
+</indexterm>
+</para>
+</listitem>
+<listitem>
+<para>
+<literal>find_only</literal>
+<indexterm>
+    <primary><literal>find_only</literal></primary>
+</indexterm>
+finds the only instance satisfying an optional
+<link linkend="ExpressionsConditions">condition</link>.
+<indexterm>
+    <primary>condition</primary>
+</indexterm>
+</para>
+</listitem>
+</itemizedlist>
+A compile-time error occurs if the
+<link linkend="ebnf.scopedobjectname"><emphasis>scoped name</emphasis></link>
+<indexterm>
+    <primary>scoped name</primary>
+</indexterm>
+does not name an object that has already been declared.
+</para>
+<para>
+The evaluation of a find expression proceeds in two steps:
+<orderedlist numeration="arabic">
+<listitem>
+<para>
+First a target <link linkend="TypesSetTypes"><type>set</type></link>
+<indexterm>
+    <primary><type>set</type></primary>
+</indexterm>
+is constructed. For a
+<link linkend="ebnf.findexpression"><emphasis>find expression</emphasis></link>
+<indexterm>
+    <primary>expression</primary>
+    <secondary>find</secondary>
+</indexterm>
+whose
+<link linkend="ebnf.findspecification">find specification</link>
+<indexterm>
+    <primary>find specification</primary>
+</indexterm>
+is either:
+<itemizedlist mark="opencircle">
+<listitem>
+<para>
+<link linkend="ebnf.scopedobjectname"><emphasis>Scoped object name</emphasis></link>,
+<indexterm>
+    <primary>object</primary>
+    <secondary>scoped name</secondary>
+</indexterm>
+the target
+<link linkend="TypesSetTypes"><type>set</type></link>
+<indexterm>
+    <primary><type>set</type></primary>
+</indexterm>
+contains all the instances of the designated object.
+</para>
+</listitem>
+<listitem>
+<para>
+An instance
+<link linkend="ExpressionsInstanceandInstanceCollectionExpressions">instance collection expression</link>,
+<indexterm>
+    <primary>expression</primary>
+    <secondary>instance</secondary>
+    <tertiary>collection</tertiary>
+</indexterm>
+<indexterm>
+    <primary>instance</primary>
+    <secondary>collection</secondary>
+    <tertiary>expression</tertiary>
+</indexterm>
+the target set contains all the instances of the collection.
+</para>
+</listitem>
+</itemizedlist>
+</para>
+</listitem>
+<listitem>
+<para>
+The instances of this target
+<link linkend="TypesSetTypes"><type>set</type></link>
+<indexterm>
+    <primary><type>set</type></primary>
+</indexterm>
+are then used to yield the result of the
+<link linkend="ebnf.findexpression"><emphasis>find expression</emphasis></link>.
+<indexterm>
+    <primary>expression</primary>
+    <secondary>find</secondary>
+</indexterm>
+For results for each type of
+<link linkend="ebnf.findexpression"><emphasis>find expression</emphasis></link>
+<indexterm>
+    <primary>expression</primary>
+    <secondary>find</secondary>
+</indexterm>
+are as follows:
+<itemizedlist mark="opencircle">
+<listitem>
+<para>
+For <literal>find</literal>, the
+<link linkend="ebnf.findexpression"><emphasis>find expression</emphasis></link> 
+<indexterm>
+    <primary>expression</primary>
+    <secondary>find</secondary>
+</indexterm>
+yields all the instances in the target
+<link linkend="TypesSetTypes"><type>set</type></link>
+<indexterm>
+    <primary><type>set</type></primary>
+</indexterm>
+that satisfy the find
+<link linkend="ExpressionsConditions">condition</link>.
+<indexterm>
+    <primary>condition</primary>
+</indexterm>
+</para>
+</listitem>
+<listitem>
+<para>
+For <literal>find_all</literal>, the
+<link linkend="ebnf.findexpression"><emphasis>find expression</emphasis></link> 
+<indexterm>
+    <primary>expression</primary>
+    <secondary>find</secondary>
+</indexterm>
+yields all the instances in the target
+<link linkend="TypesSetTypes"><type>set</type></link>.
+<indexterm>
+    <primary><type>set</type></primary>
+</indexterm>
+</para>
+</listitem>
+<listitem>
+<para>
+For <literal>find_one</literal>, the
+<link linkend="ebnf.findexpression"><emphasis>find expression</emphasis></link> 
+<indexterm>
+    <primary>expression</primary>
+    <secondary>find</secondary>
+</indexterm>
+yields an arbitrary instance in the target
+<link linkend="TypesSetTypes"><type>set</type></link>.
+<indexterm>
+    <primary><type>set</type></primary>
+</indexterm>
+that satisfies the optional
+<link linkend="ExpressionsConditions">find condition</link>.
+<indexterm>
+    <primary>condition</primary>
+    <secondary>find</secondary>
+</indexterm>
+If there
+are no instances the satisfy the optional
+<link linkend="ExpressionsConditions">condition</link>,
+<indexterm>
+    <primary>condition</primary>
+</indexterm>
+then the
+<link linkend="ebnf.findexpression"><emphasis>find expression</emphasis></link>
+<indexterm>
+    <primary>expression</primary>
+    <secondary>find</secondary>
+</indexterm>
+yields a <literal>null</literal> instance.
+<indexterm>
+    <primary><literal>null</literal></primary>
+</indexterm>
+</para>
+</listitem>
+<listitem>
+<para>
+For <literal>find_only</literal>,
+<indexterm>
+    <primary><literal>find_only</literal></primary>
+</indexterm>
+the
+<link linkend="ebnf.findexpression"><emphasis>find expression</emphasis></link> 
+<indexterm>
+    <primary>expression</primary>
+    <secondary>find</secondary>
+</indexterm>
+yields the only instance in the target
+<link linkend="TypesSetTypes"><type>set</type></link>
+<indexterm>
+    <primary><type>set</type></primary>
+</indexterm>
+that satisfies the
+optional <link linkend="ExpressionsConditions">find condition</link>.
+<indexterm>
+    <primary>condition</primary>
+    <secondary>find</secondary>
+</indexterm>
+If there are more an one instance the satisfy the optional
+<link linkend="ExpressionsConditions">condition</link>,
+<indexterm>
+    <primary>condition</primary>
+</indexterm>
+then an <link linkend="Exceptions">exception</link> is raised.
+<indexterm>
+    <primary>exception</primary>
+    <secondary>raised</secondary>
+</indexterm>
+</para>
+</listitem>
+</itemizedlist>
+</para>
+</listitem>
+</orderedlist>
+The type of a <literal>find</literal>
+<indexterm>
+    <primary><literal>find</literal></primary>
+</indexterm>
+and <literal>find_all</literal>
+<indexterm>
+    <primary><literal>find</literal></primary>
+</indexterm>
+expression is the <link linkend="TypesSetTypes"><type>set</type></link>
+<indexterm>
+    <primary><type>set</type></primary>
+</indexterm>
+type whose element type is the
+<link linkend="TypesInstanceTypes">instance type</link>
+<indexterm>
+    <primary><type>instance</type></primary>
+</indexterm>
+of the object being found.
+</para>
+<section xml:id="ExpressionsFindConditions"><info><title>Find Conditions</title></info>
+
+<para>
+A <link linkend="ebnf.findcondition"><emphasis>find condition</emphasis></link>
+<indexterm significance="preferred">
+    <primary>condition</primary>
+    <secondary>find</secondary>
+</indexterm>
+is used to specify which instances are found by a
+<link linkend="ExpressionsFindExpressions">find expression</link>.
+<indexterm>
+    <primary>expression</primary>
+    <secondary>find</secondary>
+</indexterm>
+</para>
+<indexterm zone="ebnf.findcondition">
+    <primary>find condition</primary>
+</indexterm>
+<indexterm zone="ebnf.findcondition">
+    <primary>find xor condition</primary>
+</indexterm>
+<indexterm zone="ebnf.findcondition">
+    <primary><literal>or</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.findxorcondition">
+    <primary>find xor condition</primary>
+</indexterm>
+<indexterm zone="ebnf.findxorcondition">
+    <primary>find and condition</primary>
+</indexterm>
+<indexterm zone="ebnf.findxorcondition">
+    <primary><literal>xor</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.findandcondition">
+    <primary>find and condition</primary>
+</indexterm>
+<indexterm zone="ebnf.findandcondition">
+    <primary>find equality condition</primary>
+</indexterm>
+<indexterm zone="ebnf.findandcondition">
+    <primary><literal>and</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.findequalitycondition">
+    <primary>find equality condition</primary>
+</indexterm>
+<indexterm zone="ebnf.findequalitycondition">
+    <primary>find relational condition</primary>
+</indexterm>
+<indexterm zone="ebnf.findequalitycondition">
+    <primary>name</primary>
+</indexterm>
+<indexterm zone="ebnf.findandcondition">
+    <primary><literal>/=</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.findequalitycondition">
+    <primary>relational expression</primary>
+</indexterm>
+<indexterm zone="ebnf.findrelationalcondition">
+    <primary>find relational condition</primary>
+</indexterm>
+<indexterm zone="ebnf.findrelationalcondition">
+    <primary>find unary condition</primary>
+</indexterm>
+<indexterm zone="ebnf.findrelationalcondition">
+    <primary>name</primary>
+</indexterm>
+<indexterm zone="ebnf.findandcondition">
+    <primary><literal>&lt;</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.findandcondition">
+    <primary>additive expression</primary>
+</indexterm>
+<indexterm zone="ebnf.findandcondition">
+    <primary><literal>&gt;</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.findandcondition">
+    <primary><literal>&lt;=</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.findandcondition">
+    <primary><literal>&gt;=</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.findunarycondition">
+    <primary>find unary condition</primary>
+</indexterm>
+<indexterm zone="ebnf.findandcondition">
+    <primary><literal>not</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.findunarycondition">
+    <primary>find condition</primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.findcondition">
+    <lhs>
+        find condition
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.findxorcondition">find xor condition</nonterminal> |
+        <nonterminal def="#ebnf.findcondition">find condition</nonterminal>,
+        'or',
+        <nonterminal def="#ebnf.findxorcondition">find xor condition</nonterminal>
+    </rhs>
+</production>
+<production xml:id="ebnf.findxorcondition">
+    <lhs>
+        find xor condition
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.findandcondition">find and condition</nonterminal> |
+        <nonterminal def="#ebnf.findxorcondition">find xor condition</nonterminal>,
+        'xor',
+        <nonterminal def="#ebnf.findandcondition">find and condition</nonterminal>
+    </rhs>
+</production>
+<production xml:id="ebnf.findandcondition">
+    <lhs>
+        find and condition
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.findequalitycondition">find equality condition</nonterminal> |
+        <nonterminal def="#ebnf.findandcondition">find and condition</nonterminal>,
+        'and',
+        <nonterminal def="#ebnf.findequalitycondition">find equality condition</nonterminal>
+    </rhs>
+</production>
+<production xml:id="ebnf.findequalitycondition">
+    <lhs>
+        find equality condition
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.findrelationalcondition">find relational condition</nonterminal> |
+        <nonterminal def="#ebnf.name">name</nonterminal>,
+        '/=',
+        <nonterminal def="#ebnf.relationalexpression">relational expression</nonterminal> |
+        <nonterminal def="#ebnf.name">name</nonterminal>,
+        '=',
+        <nonterminal def="#ebnf.relationalexpression">relational expression</nonterminal>
+    </rhs>
+</production>
+<production xml:id="ebnf.findrelationalcondition">
+    <lhs>
+        find relational condition
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.findunarycondition">find unary condition</nonterminal> |
+        <nonterminal def="#ebnf.name">name</nonterminal>,
+        '&lt;',
+        <nonterminal def="#ebnf.additiveexpression">additive expression</nonterminal> |
+        <nonterminal def="#ebnf.name">name</nonterminal>,
+        '&gt;',
+        <nonterminal def="#ebnf.additiveexpression">additive expression</nonterminal> |
+        <nonterminal def="#ebnf.name">name</nonterminal>,
+        '&lt;=',
+        <nonterminal def="#ebnf.additiveexpression">additive expression</nonterminal> |
+        <nonterminal def="#ebnf.name">name</nonterminal>,
+        '&gt;=',
+        <nonterminal def="#ebnf.additiveexpression">additive expression</nonterminal>
+    </rhs>
+</production>
+<production xml:id="ebnf.findunarycondition">
+    <lhs>
+        find unary condition
+    </lhs>
+    <rhs>
+        'not',
+        <nonterminal def="#ebnf.findunarycondition">find unary condition</nonterminal> |
+        '(',
+        <nonterminal def="#ebnf.findcondition">find condition</nonterminal>,
+        ')'
+    </rhs>
+</production>
+</productionset>
+<para>
+A <link linkend="ebnf.findcondition"><emphasis>find condition</emphasis></link>
+<indexterm>
+    <primary>condition</primary>
+    <secondary>find</secondary>
+</indexterm>
+is a restricted <link linkend="ExpressionsConditions">condition</link>
+<indexterm>
+    <primary>condition</primary>
+</indexterm>
+that is evaluated in the scope of the instance being checked. This means that in
+addition to all the entities that were in scope, all of the attributes of the
+instance being checked are also in scope.
+</para>
+<para>
+A compile-tome error occurs if the name on the left-hand side does not name
+an attribute or sub-component (using either
+<link linkend="ebnf.indexedcomponent">indexed</link>
+<indexterm>
+    <primary>component</primary>
+    <secondary>indexed</secondary>
+</indexterm>
+or <link linkend="NamesSelectedComponents">selected component</link>)
+<indexterm>
+    <primary>component</primary>
+    <secondary>selected</secondary>
+</indexterm>
+of an attribute of the object being found.
+The type of a
+<link linkend="ebnf.findcondition"><emphasis>find condition</emphasis></link>,
+<indexterm>
+    <primary>condition</primary>
+    <secondary>find</secondary>
+</indexterm>
+<link linkend="ebnf.findxorcondition"><emphasis>find xor condition</emphasis></link>,
+<indexterm>
+    <primary>condition</primary>
+    <secondary>find</secondary>
+    <tertiary>xor</tertiary>
+</indexterm>
+<link linkend="ebnf.findandcondition"><emphasis>find and condition</emphasis></link>,
+<indexterm>
+    <primary>condition</primary>
+    <secondary>find</secondary>
+    <tertiary>and</tertiary>
+</indexterm>
+<link linkend="ebnf.findequalitycondition"><emphasis>find equality condition</emphasis></link>,
+<indexterm>
+    <primary>condition</primary>
+    <secondary>find</secondary>
+    <tertiary>equality</tertiary>
+</indexterm>
+<link linkend="ebnf.findrelationalcondition"><emphasis>find relational condition</emphasis></link>
+<indexterm>
+    <primary>condition</primary>
+    <secondary>find</secondary>
+    <tertiary>relational</tertiary>
+</indexterm>
+and 
+<link linkend="ebnf.findunarycondition"><emphasis>find unary condition</emphasis></link>
+<indexterm>
+    <primary>condition</primary>
+    <secondary>find</secondary>
+    <tertiary>unary</tertiary>
+</indexterm>
+is always
+<link linkend="TypesBooleanType"><type>boolean</type></link>.
+<indexterm>
+    <primary><type>boolean</type></primary>
+</indexterm>
+For evaluation of a
+<link linkend="ebnf.findcondition"><emphasis>find condition</emphasis></link>
+<indexterm>
+    <primary>condition</primary>
+    <secondary>find</secondary>
+</indexterm>
+for a specific instance, the
+<link linkend="ebnf.findcondition"><emphasis>find condition</emphasis></link>
+<indexterm>
+    <primary>condition</primary>
+    <secondary>find</secondary>
+</indexterm>
+is evaluated on the instance. The
+<link linkend="ebnf.findcondition"><emphasis>find condition</emphasis></link>
+<indexterm>
+    <primary>condition</primary>
+    <secondary>find</secondary>
+</indexterm>
+yields either true or false depending upon whether the instance satisfies the
+<link linkend="ebnf.findcondition"><emphasis>find condition</emphasis></link>.
+<indexterm>
+    <primary>condition</primary>
+    <secondary>find</secondary>
+</indexterm>
+</para>
+</section>
+</section>
+<section xml:id="ExpressionsRelationshipNavigation"><info><title>Relationship Navigation</title></info>
+
+<para>
+A <link linkend="ebnf.relationshipnavigation"><emphasis>relationship navigation</emphasis></link>
+<indexterm>
+    <primary>relationship</primary>
+    <secondary>navigation</secondary>
+</indexterm>
+allows relationships specified between objects to be read in order to determine
+the <link linkend="ExpressionsInstanceandInstanceCollectionExpressions">instance or collection of instances</link>
+<indexterm>
+    <primary>instance</primary>
+</indexterm>
+<indexterm>
+    <primary>instance</primary>
+    <secondary>collection of</secondary>
+</indexterm>
+that are related to an
+<link linkend="ExpressionsInstanceandInstanceCollectionExpressions">instance or collection of instances</link>
+<indexterm>
+    <primary>instance</primary>
+</indexterm>
+<indexterm>
+    <primary>instance</primary>
+    <secondary>collection of</secondary>
+</indexterm>
+of interest.
+</para>
+<indexterm zone="ebnf.relationshipnavigation">
+    <primary>relationship navigation</primary>
+</indexterm>
+<indexterm zone="ebnf.relationshipnavigation">
+    <primary>instance expression</primary>
+</indexterm>
+<indexterm zone="ebnf.relationshipnavigation">
+    <primary><literal>-&gt;</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.relationshipnavigation">
+    <primary>relationship specification</primary>
+</indexterm>
+<indexterm zone="ebnf.relationshipnavigation">
+    <primary>instance collection expression</primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.relationshipnavigation">
+    <lhs>
+        relationship navigation
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.instanceexpression">instance expression</nonterminal>,
+        '-&gt;',
+        <nonterminal def="#ebnf.relationshipspecification">relationship specification</nonterminal>,
+        {('-&gt;',
+        <nonterminal def="#ebnf.relationshipspecification">relationship specification</nonterminal>)} |
+        <nonterminal def="#ebnf.instancecollectionexpression">instance collection expression</nonterminal>,
+        '-&gt;',
+        <nonterminal def="#ebnf.relationshipspecification">relationship specification</nonterminal>,
+        {('-&gt;',
+        <nonterminal def="#ebnf.relationshipspecification">relationship specification</nonterminal>)}
+    </rhs>
+</production>
+</productionset>
+<para>
+A compile-time error occurs if the
+<link linkend="RelationshipsRelationshipSpecifications">relationship specification</link>
+<indexterm>
+    <primary>relationship</primary>
+    <secondary>specification</secondary>
+</indexterm>
+is invalid for the type being navigated from. The rules for this are described
+in <xref linkend="RelationshipsRelationshipSpecifications"/>.
+The type of relationship navigation is
+described in <xref linkend="RelationshipsRelationshipSpecifications"/>.
+A <link linkend="ebnf.relationshipnavigation"><emphasis>relationship navigation</emphasis></link>
+<indexterm>
+    <primary>relationship</primary>
+    <secondary>navigation</secondary>
+</indexterm>
+yields either the
+<link linkend="ExpressionsInstanceandInstanceCollectionExpressions">instance or collection of instances</link>
+<indexterm>
+    <primary>expression</primary>
+    <secondary>instance</secondary>
+    <tertiary>collection</tertiary>
+</indexterm>
+<indexterm>
+    <primary>instance</primary>
+    <secondary>collection</secondary>
+    <tertiary>expression</tertiary>
+</indexterm>
+that the given
+<link linkend="ExpressionsInstanceandInstanceCollectionExpressions">instance or collection of instances</link>
+<indexterm>
+    <primary>expression</primary>
+    <secondary>instance</secondary>
+    <tertiary>collection</tertiary>
+</indexterm>
+<indexterm>
+    <primary>instance</primary>
+    <secondary>collection</secondary>
+    <tertiary>expression</tertiary>
+</indexterm>
+are related to using the
+<link linkend="RelationshipsRelationshipSpecifications">relationship specification</link>.
+<indexterm>
+    <primary>relationship</primary>
+    <secondary>specification</secondary>
+</indexterm>
+equivalent to doing the first navigation, taking the result of this and then
+doing the second navigation and so on.
+If a navigation is performed from a <literal>null</literal>
+<indexterm>
+    <primary><literal>null</literal></primary>
+</indexterm>
+instance then result is either a <literal>null</literal>
+<indexterm>
+    <primary><literal>null</literal></primary>
+</indexterm>
+<link linkend="ExpressionsInstanceandInstanceCollectionExpressions">instance or collection of instances.</link>
+<indexterm>
+    <primary>expression</primary>
+    <secondary>instance</secondary>
+    <tertiary>collection</tertiary>
+</indexterm>
+<indexterm>
+    <primary>instance</primary>
+    <secondary>collection</secondary>
+    <tertiary>expression</tertiary>
+</indexterm>
+</para>
+</section>
+<section xml:id="ExpressionsCorrelatedRelationshipNavigation"><info><title>Correlated Relationship Navigation</title></info>
+
+<para>
+A <link linkend="ebnf.correlatedrelationshipnavigation"><emphasis>correlated navigation</emphasis></link>
+<indexterm>
+    <primary>relationship</primary>
+    <secondary>navigation</secondary>
+    <tertiary>correlated</tertiary>
+</indexterm>
+navigation allows
+<link linkend="RegularRelationships">associative relationships</link>
+<indexterm>
+    <primary>relationship</primary>
+    <secondary>associative</secondary>
+</indexterm>
+specified between objects to be read in order to determine the instance or set
+of instances of the associative object
+<indexterm>
+    <primary>object</primary>
+    <secondary>associative</secondary>
+</indexterm>
+that are related to a pair of related instances.
+</para>
+<indexterm zone="ebnf.correlatedrelationshipnavigation">
+    <primary>correlated relationship navigation</primary>
+</indexterm>
+<indexterm zone="ebnf.correlatedrelationshipnavigation">
+    <primary><literal>-&gt;</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.correlatedrelationshipnavigation">
+    <primary>instance expression</primary>
+</indexterm>
+<indexterm zone="ebnf.correlatedrelationshipnavigation">
+    <primary>correlated relationship navigation</primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.correlatedrelationshipnavigation">
+    <lhs>
+        correlated relationship navigation
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.instanceexpression">instance expression</nonterminal>,
+        'with',
+        <nonterminal def="#ebnf.instanceexpression">instance expression</nonterminal>,
+        '-&gt;',
+        <nonterminal def="#ebnf.relationshipspecification">relationship specification</nonterminal>
+    </rhs>
+</production>
+</productionset>
+<para>
+A compile-time error occurs if the
+<link linkend="RelationshipsCorrelatedRelationshipSpecification">correlated relationship specification</link>
+<indexterm>
+    <primary>relationship</primary>
+    <secondary>navigation</secondary>
+    <tertiary>correlated</tertiary>
+</indexterm>
+is invalid for the two <link linkend="TypesInstanceTypes">instance types</link>
+<indexterm>
+    <primary>type</primary>
+    <secondary>instance</secondary>
+</indexterm>
+being navigation from. The rules for this are described in
+<xref linkend="RelationshipsCorrelatedRelationshipSpecification"/>.
+Evaluation of a
+<link linkend="RelationshipsCorrelatedRelationshipSpecification">correlated relationship specification</link>
+<indexterm>
+    <primary>relationship</primary>
+    <secondary>specification</secondary>
+    <tertiary>correlated</tertiary>
+</indexterm>
+consists of evaluation of both of the
+<link linkend="ExpressionsInstanceandInstanceCollectionExpressions">instance expressions</link>.
+<indexterm>
+    <primary>expression</primary>
+    <secondary>instance</secondary>
+</indexterm>
+<indexterm>
+    <primary>instance</primary>
+    <secondary>expression</secondary>
+</indexterm>
+The correlated relationship navigation yields either the
+<link linkend="ExpressionsInstanceandInstanceCollectionExpressions">instance or <type>set</type> of instances</link>
+<indexterm>
+    <primary>instance</primary>
+</indexterm>
+<indexterm>
+    <primary><type>set</type></primary>
+    <secondary>instance</secondary>
+</indexterm>
+that the given instances are related to, using the
+<link linkend="RelationshipsCorrelatedRelationshipSpecification">correlated relationship specification</link>.
+<indexterm>
+    <primary>relationship</primary>
+    <secondary>specification</secondary>
+    <tertiary>correlated</tertiary>
+</indexterm>
+</para>
+</section>
+<section xml:id="ExpressionsOrderingExpressions"><info><title>Ordering Expressions</title></info>
+
+<para>
+An <link linkend="ebnf.orderingexpression">ordering expression</link>
+<indexterm significance="preferred">
+    <primary>expression</primary>
+    <secondary>ordering</secondary>
+</indexterm>
+allows the analyst to order a
+<link linkend="TypesCollectionTypes">collection</link>
+<indexterm>
+    <primary>collection</primary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary>collection</secondary>
+</indexterm>
+of <link linkend="TypesInstanceTypes">instances</link>
+<indexterm>
+    <primary>instances</primary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary>instances</secondary>
+</indexterm>
+or a <link linkend="TypesCollectionTypes">collection</link>
+<indexterm>
+    <primary>collection</primary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary>collection</secondary>
+</indexterm>
+of <link linkend="TypesStructureTypes"><type>structures</type></link>.
+<indexterm>
+    <primary><type>structure</type></primary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary>structure</secondary>
+</indexterm>
+</para>
+<indexterm zone="ebnf.orderingexpression">
+    <primary>ordering expression</primary>
+</indexterm>
+<indexterm zone="ebnf.orderingexpression">
+    <primary>instance ordering expression</primary>
+</indexterm>
+<indexterm zone="ebnf.orderingexpression">
+    <primary>structure ordering expression</primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.orderingexpression">
+    <lhs>
+        ordering expression
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.instanceorderingexpression">instance ordering expression</nonterminal> |
+        <nonterminal def="#ebnf.structureorderingexpression">structure ordering expression</nonterminal>
+    </rhs>
+</production>
+</productionset>
+<section xml:id="ExpressionsInstanceOrderingExpressions"><info><title>Instance Ordering Expressions</title></info>
+
+<para>
+The elements in an <link linkend="TypesInstanceTypes">instance</link>
+<link linkend="TypesCollectionTypes">collection</link>
+<indexterm>
+    <primary>instance</primary>
+    <secondary>collection</secondary>
+</indexterm>
+can be explicitly ordered using an
+<link linkend="ebnf.instanceorderingexpression"><emphasis>instance ordering expression</emphasis></link>.
+<indexterm significance="preferred">
+    <primary>expression</primary>
+    <secondary>instance</secondary>
+    <tertiary>ordering</tertiary>
+</indexterm>
+<indexterm significance="preferred">
+    <primary>instance</primary>
+    <secondary>expression</secondary>
+    <tertiary>ordering</tertiary>
+</indexterm>
+</para>
+<indexterm zone="ebnf.instanceorderingexpression">
+    <primary>instance ordering expression</primary>
+</indexterm>
+<indexterm zone="ebnf.instanceorderingexpression">
+    <primary><literal>ordered_by</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.instanceorderingexpression">
+    <primary>instance collection expression</primary>
+</indexterm>
+<indexterm zone="ebnf.instanceorderingexpression">
+    <primary>instance ordering</primary>
+</indexterm>
+<indexterm zone="ebnf.instanceorderingexpression">
+    <primary><literal>reverse_ordered_by</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.instanceorderingexpression">
+    <primary>find expression</primary>
+</indexterm>
+<indexterm zone="ebnf.instanceordering">
+    <primary>attribute name</primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.instanceorderingexpression">
+    <lhs>
+        instance ordering expression
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.instancecollectionexpression">instance collection expression</nonterminal>,
+        'ordered_by', '(',
+        <nonterminal def="#ebnf.instanceordering">instance ordering</nonterminal>,
+        ')' |
+        <nonterminal def="#ebnf.instancecollectionexpression">instance collection expression</nonterminal>,
+        'reverse ordered_by', '(',
+        <nonterminal def="#ebnf.instanceordering">instance ordering</nonterminal>,
+        ')' |
+        <nonterminal def="#ebnf.findexpression">find expression</nonterminal>,
+        'ordered_by', '(',
+        <nonterminal def="#ebnf.instanceordering">instance ordering</nonterminal>,
+        ')' |
+        <nonterminal def="#ebnf.findexpression">find expression</nonterminal>,
+        'reverse_ordered_by', '(',
+        <nonterminal def="#ebnf.instanceordering">instance ordering</nonterminal>,
+        ')'
+    </rhs>
+</production>
+<production xml:id="ebnf.instanceordering">
+    <lhs>
+        instance ordering
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.attributename">attribute name</nonterminal>,
+        {(''',
+        <nonterminal def="#ebnf.attributename">attribute name</nonterminal>)}
+    </rhs>
+</production>
+</productionset>
+<para>
+A compile-time error occurs if:
+<itemizedlist mark="bullet">
+<listitem>
+<para>
+The type of the
+<link linkend="ExpressionsFindExpressions">find expression</link>
+<indexterm>
+    <primary>expression</primary>
+    <secondary>find</secondary>
+</indexterm>
+is not an
+<link linkend="TypesInstanceTypes">instance</link>
+<link linkend="TypesCollectionTypes">collection</link> type.
+<indexterm>
+    <primary>type</primary>
+    <secondary>collection</secondary>
+    <tertiary>instance</tertiary>
+</indexterm>
+<indexterm>
+    <primary>instance</primary>
+    <secondary>collection</secondary>
+    <tertiary>type</tertiary>
+</indexterm>
+</para>
+</listitem>
+<listitem>
+<para>
+An attribute name in an
+<link linkend="ebnf.instanceordering"><emphasis>instance ordering</emphasis></link>
+<indexterm>
+    <primary>instance</primary>
+    <secondary>ordering</secondary>
+</indexterm>
+does not name an attribute of the object whose instances are being ordered.
+</para>
+</listitem>
+<listitem>
+<para>
+An attribute is named more than once in an
+<link linkend="ebnf.instanceordering"><emphasis>instance ordering</emphasis></link>.
+<indexterm>
+    <primary>instance</primary>
+    <secondary>ordering</secondary>
+</indexterm>
+</para>
+</listitem>
+</itemizedlist>
+</para>
+<para>
+The type of an
+<link linkend="ebnf.instanceordering"><emphasis>instance ordering</emphasis></link>
+<indexterm>
+    <primary>instance</primary>
+    <secondary>ordering</secondary>
+</indexterm>
+expression is the <link linkend="TypesSequenceTypes"><type>sequence</type></link>
+type whose element type is the element type of the collection being ordered.
+Evaluation of an
+<link linkend="ebnf.instanceordering"><emphasis>instance ordering</emphasis></link>
+<indexterm>
+    <primary>instance</primary>
+    <secondary>ordering</secondary>
+</indexterm>
+expression first evaluates the <link linkend="TypesInstanceTypes">instance</link>
+<link linkend="TypesCollectionTypes">collection</link>
+<indexterm>
+    <primary>instance</primary>
+    <secondary>collection</secondary>
+    <tertiary>expression</tertiary>
+</indexterm>
+<indexterm>
+    <primary>expression</primary>
+    <secondary>instance</secondary>
+    <tertiary>collection</tertiary>
+</indexterm>
+expression or
+<link linkend="ExpressionsFindExpressions">find expression</link>.
+<indexterm>
+    <primary>expression</primary>
+    <secondary>find</secondary>
+</indexterm>
+Evaluation of an
+<link linkend="ebnf.instanceordering"><emphasis>instance ordering</emphasis></link>
+<indexterm>
+    <primary>instance</primary>
+    <secondary>ordering</secondary>
+</indexterm>
+yields a <link linkend="TypesSequenceTypes"><type>sequence</type></link> that
+<indexterm>
+    <primary><type>sequence</type></primary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary>sequence</secondary>
+</indexterm>
+contains all the elements of the resultant
+<link linkend="TypesCollectionTypes">collection</link> in a specific order.
+In the case of <literal>ordered_by</literal>,
+<indexterm>
+    <primary><literal>ordered_by</literal></primary>
+</indexterm>
+the ordering will be such that
+for each successive element in the sequence, the first will be the element
+with lowest value of the first attribute in the instance ordering.
+In the case of <literal>reverse_ordered_by</literal>,
+<indexterm>
+    <primary><literal>reverse_ordered_by</literal></primary>
+</indexterm>
+the ordering will be such
+that for each successive element in the sequence, the first will be the element
+with highest value of the first attribute in the instance ordering.
+Where ordering on multiple attributes is specified, the sequence will be sorted
+by the first attribute and then within each value of this, by the second
+attribute and so on.
+</para>
+</section>
+<section xml:id="ExpressionsStructureOrderingExpressions"><info><title>Structure Ordering Expressions</title></info>
+
+<para>
+The components in a
+<link linkend="TypesStructureTypes"><type>structure</type></link>
+<link linkend="TypesCollectionTypes">collection</link>
+<indexterm significance="preferred">
+    <primary>structure</primary>
+    <secondary>collection</secondary>
+</indexterm>
+can be explicitly ordered using a
+<link linkend="ebnf.structureorderingexpression"><emphasis>structure ordering expression</emphasis></link>.
+<indexterm significance="preferred">
+    <primary>expression</primary>
+    <secondary>structure</secondary>
+    <tertiary>ordering</tertiary>
+</indexterm>
+</para>
+<indexterm zone="ebnf.structureorderingexpression">
+    <primary>structure ordering expression</primary>
+</indexterm>
+<indexterm zone="ebnf.structureorderingexpression">
+    <primary>prefix</primary>
+</indexterm>
+<indexterm zone="ebnf.structureorderingexpression">
+    <primary><literal>ordered_by</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.structureorderingexpression">
+    <primary>structure ordering</primary>
+</indexterm>
+<indexterm zone="ebnf.structureorderingexpression">
+    <primary><literal>reverse_ordered_by</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.structureordering">
+    <primary>structure ordering</primary>
+</indexterm>
+<indexterm zone="ebnf.structureordering">
+    <primary>component name</primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.structureorderingexpression">
+    <lhs>
+        structure ordering expression
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.prefix">prefix</nonterminal>,
+        'ordered_by','(',
+        <nonterminal def="#ebnf.structureordering">structure ordering</nonterminal>,
+        ')' |
+        <nonterminal def="#ebnf.prefix">prefix</nonterminal>,
+        'reverse_ordered_by','(',
+        <nonterminal def="#ebnf.structureordering">structure ordering</nonterminal>,
+        ')'
+    </rhs>
+</production>
+<production xml:id="ebnf.structureordering">
+    <lhs>
+        structure ordering
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.componentname">component name</nonterminal>,
+        {(',',
+        <nonterminal def="#ebnf.componentname">component name</nonterminal>)}
+    </rhs>
+</production>
+</productionset>
+<para>
+A compile-time error occurs if:
+<itemizedlist mark="bullet">
+<listitem>
+<para>
+The type of the <link linkend="NamesIndexedComponents">prefix</link>
+<indexterm>
+    <primary>prefix</primary>
+</indexterm>
+is not a <link linkend="TypesStructureTypes"><type>structure</type></link>
+<link linkend="TypesCollectionTypes">collection</link> type.
+<indexterm>
+    <primary>type</primary>
+    <secondary>structure</secondary>
+    <tertiary>collection</tertiary>
+</indexterm>
+<indexterm>
+    <primary>structure</primary>
+    <secondary>collection</secondary>
+    <tertiary>type</tertiary>
+</indexterm>
+</para>
+</listitem>
+<listitem>
+<para>
+A <link linkend="TypesStructureTypes">component name</link>
+<indexterm>
+    <primary>component</primary>
+    <secondary>name</secondary>
+</indexterm>
+in a
+<link linkend="ebnf.structureordering"><emphasis>structure ordering</emphasis></link>
+<indexterm>
+    <primary>structure</primary>
+    <secondary>ordering</secondary>
+</indexterm>
+does not name a component of the
+<link linkend="TypesStructureTypes"><type>structure</type></link>
+<indexterm>
+    <primary>structure</primary>
+    <secondary>component</secondary>
+</indexterm>
+whose values are being ordered.
+</para>
+</listitem>
+<listitem>
+<para>
+A <link linkend="TypesStructureTypes">component</link>
+<indexterm>
+    <primary>component</primary>
+</indexterm>
+is named more than once in a structure ordering.
+</para>
+</listitem>
+</itemizedlist>
+</para>
+<para>
+The type of a
+<link linkend="ebnf.structureorderingexpression"><emphasis>structure ordering expression</emphasis></link>
+<indexterm>
+    <primary>expression</primary>
+    <secondary>structure</secondary>
+    <tertiary>ordering</tertiary>
+</indexterm>
+is the <link linkend="TypesSequenceTypes"><type>sequence</type></link> type
+<indexterm>
+    <primary><type>sequence</type></primary>
+</indexterm>
+whose element is the element type of the
+<link linkend="TypesCollectionTypes">collection</link>
+<indexterm>
+    <primary>collection</primary>
+</indexterm>
+being ordered. Evaluation of a
+<link linkend="ebnf.structureorderingexpression"><emphasis>structure ordering expression</emphasis></link>
+<indexterm>
+    <primary>expression</primary>
+    <secondary>structure</secondary>
+    <tertiary>ordering</tertiary>
+</indexterm>
+first evaluates the <link linkend="NamesIndexedComponents">prefix</link>.
+<indexterm>
+    <primary>prefix</primary>
+</indexterm>
+Evaluation of a
+<link linkend="ebnf.structureorderingexpression"><emphasis>structure ordering expression</emphasis></link>
+<indexterm>
+    <primary>expression</primary>
+    <secondary>structure</secondary>
+    <tertiary>ordering</tertiary>
+</indexterm>
+yields a <link linkend="TypesSequenceTypes"><type>sequence</type></link>
+<indexterm>
+    <primary><type>sequence</type></primary>
+</indexterm>
+that contains all the elements of the resultant
+<link linkend="TypesCollectionTypes">collection</link>
+<indexterm>
+    <primary>collection</primary>
+</indexterm>
+in a specific order.
+</para>
+<para>
+In the case of <literal>ordered_by</literal>,
+<indexterm>
+    <primary><literal>ordered_by</literal></primary>
+</indexterm>
+the ordering will be such that for each successive element in the
+<link linkend="TypesSequenceTypes"><type>sequence</type></link>,
+<indexterm>
+    <primary><type>sequence</type></primary>
+</indexterm>
+the first will be the element with the lowest value of the first component in
+the structure ordering.
+In the case of <literal>reverse_ordered_by</literal>,
+<indexterm>
+    <primary><literal>reverse_ordered_by</literal></primary>
+</indexterm>
+the ordering will be such that for each successive element in the
+<link linkend="TypesSequenceTypes"><type>sequence</type></link>,
+<indexterm>
+    <primary><type>sequence</type></primary>
+</indexterm>
+the first will be the element with the highest value of the first component in
+the structure ordering.
+Where ordering on multiple <link linkend="TypesStructureTypes">component</link>
+<indexterm>
+    <primary>component</primary>
+</indexterm>
+is specified, the
+<link linkend="TypesSequenceTypes"><type>sequence</type></link>
+<indexterm>
+    <primary><type>sequence</type></primary>
+</indexterm>
+will be sorted by the first component and then within each value of this,
+by the second component and so on.
+</para>
+</section>
+</section>
+</section>
+</chapter>

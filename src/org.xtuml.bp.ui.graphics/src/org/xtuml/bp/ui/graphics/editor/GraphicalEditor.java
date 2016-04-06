@@ -467,7 +467,7 @@ public class GraphicalEditor extends GraphicalEditorWithFlyoutPalette implements
 			GraphicalEditorInput canvasInput = (GraphicalEditorInput) input;
 			fModel = canvasInput.getInput();
 			fEditorListener = new GraphicsEditorListener(this);
-			CanvasModelListener.setGraphicalRepresents(fModel);
+			CanvasPlugin.setGraphicalRepresents(fModel);
 			Ooaofooa.getDefaultInstance().addModelChangeListener(
 					fEditorListener);
 			Ooaofgraphics.getDefaultInstance().addModelChangeListener(

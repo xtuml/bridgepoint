@@ -1,0 +1,357 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>7.2. Regular Relationships</title>
+<link rel="stylesheet" type="text/css" href="docbook.css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<meta name="keywords" content="MASL, Action Language, Action Semantics, UML, Unified Modelling Language, Shlaer Mellor">
+<link rel="home" href="index.html" title="MASL Reference Manual">
+<link rel="up" href="Relationships.html" title="Chapter 7. Relationships">
+<link rel="prev" href="RelationshipsRelationshipDeclarations.html" title="7.1. Relationship Declarations">
+<link rel="next" href="RelationshipsSubtypeRelationships.html" title="7.3. Subtype Relationships">
+<link rel="preface" href="preface.html" title="Preface">
+<link rel="chapter" href="Grammars.html" title="Chapter 1. Grammars">
+<link rel="chapter" href="LexicalStructure.html" title="Chapter 2. Lexical Structure">
+<link rel="chapter" href="Types.html" title="Chapter 3. Types">
+<link rel="chapter" href="TypeConversion.html" title="Chapter 4. Type Conversion">
+<link rel="chapter" href="Domains.html" title="Chapter 5. Domains">
+<link rel="chapter" href="Objects.html" title="Chapter 6. Objects">
+<link rel="chapter" href="Relationships.html" title="Chapter 7. Relationships">
+<link rel="chapter" href="Lifecycles.html" title="Chapter 8. Lifecycles">
+<link rel="chapter" href="Functions.html" title="Chapter 9. Functions">
+<link rel="chapter" href="Services.html" title="Chapter 10. Services">
+<link rel="chapter" href="Exceptions.html" title="Chapter 11. Exceptions">
+<link rel="chapter" href="Statements.html" title="Chapter 12. Statements">
+<link rel="chapter" href="Names.html" title="Chapter 13. Names">
+<link rel="chapter" href="Expressions.html" title="Chapter 14. Expressions">
+<link rel="appendix" href="LanguageDefinedCharacteristics.html" title="Appendix A. Language Defined Characteristics">
+<link rel="appendix" href="SyntaxSummary.html" title="Appendix B. Syntax Summary">
+<link rel="index" href="ix01.html" title="Index">
+<link rel="subsection" href="RegularRelationships.html#RelationshipsUnconditionalRelationships" title="7.2.1. Unconditional Relationships">
+<link rel="subsection" href="RegularRelationships.html#RelationshipsConditionalRelationships" title="7.2.2. Conditional Relationships">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div align="center">OFFICIAL</div>
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">7.2. Regular Relationships</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="RelationshipsRelationshipDeclarations.html">Prev</a> </td>
+<th width="60%" align="center">Chapter 7. Relationships</th>
+<td width="20%" align="right"> <a accesskey="n" href="RelationshipsSubtypeRelationships.html">Next</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title">
+<a name="RegularRelationships"></a>7.2. Regular Relationships</h2></div></div></div>
+<div class="toc"><dl class="toc">
+<dt><span class="section"><a href="RegularRelationships.html#RelationshipsUnconditionalRelationships">7.2.1. Unconditional Relationships</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="RegularRelationships.html#RelationshipsOnetoOneRelationships">7.2.1.1. One-to-one Relationships</a></span></dt>
+<dt><span class="section"><a href="RegularRelationships.html#RelationshipsOnetoManyRelationships">7.2.1.2. One-to-many Relationships</a></span></dt>
+<dt><span class="section"><a href="RegularRelationships.html#RelationshipsManytoManyRelationships">7.2.1.3. Many-to-many Relationships</a></span></dt>
+<dt><span class="section"><a href="RegularRelationships.html#RelationshipsReflexiveRelationsips">7.2.1.4. Reflexive Relationships</a></span></dt>
+</dl></dd>
+<dt><span class="section"><a href="RegularRelationships.html#RelationshipsConditionalRelationships">7.2.2. Conditional Relationships</a></span></dt>
+</dl></div>
+<p>
+A <a class="link" href="RegularRelationships.html#ebnf.regularrelationshipdefinition"><span class="emphasis"><em>regular relationship definition</em></span></a>
+<a class="indexterm" name="idp65356000"></a>
+specifies a relationship between two objects in a domain, together with an
+optional
+<a class="link" href="RegularRelationships.html#ebnf.associativerelationship"><span class="emphasis"><em>associative relationship</em></span></a>
+<a class="indexterm" name="idp65358464"></a>
+that specifies the object that formalizes the relationship.
+</p>
+<a class="indexterm" name="idp65360288"></a><a class="indexterm" name="idp65361488"></a><a class="indexterm" name="idp65362688"></a><a class="indexterm" name="idp65363888"></a><a class="indexterm" name="idp65365088"></a><a class="indexterm" name="idp65366272"></a><a class="indexterm" name="idp65367472"></a><a class="indexterm" name="idp65368656"></a><a class="indexterm" name="idp65369856"></a><a class="indexterm" name="idp65371024"></a><a class="indexterm" name="idp65372192"></a><a class="indexterm" name="idp65373392"></a><a class="indexterm" name="idp65374704"></a><a class="indexterm" name="idp65376016"></a><a class="indexterm" name="idp65377216"></a><a class="indexterm" name="idp65378528"></a><a class="indexterm" name="idp65379840"></a><a class="indexterm" name="idp65381040"></a><a class="indexterm" name="idp65382352"></a><a class="indexterm" name="idp65383552"></a><table width="100%" cellpadding="5" bgcolor="#F5DCB3" border="1" class="productionset" summary="EBNF"><tr><td><table border="0" width="99%" cellpadding="0" bgcolor="#F5DCB3" class="productionset" summary="EBNF productions">
+<tr>
+<td align="left" valign="top" width="3%">[94]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.regularrelationshipdefinition"></a>
+        regular relationship definition
+    </td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="RegularRelationships.html#ebnf.relationshipdescription">relationship description</a>,
+        ',',
+        <a href="RegularRelationships.html#ebnf.relationshipdescription">relationship description</a>,
+        [<a href="RegularRelationships.html#ebnf.associativerelationship">associative relationship</a>]
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[95]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.relationshipdescription"></a>
+        relationship description
+    </td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="ObjectsObjectDeclaration.html#ebnf.objectname">object name</a>,
+        <a href="RegularRelationships.html#ebnf.relationshipconditionality">relationship conditionality</a>,
+        <a href="RegularRelationships.html#ebnf.rolename">role name</a>,
+        <a href="RegularRelationships.html#ebnf.relationshipmultiplicity">relationship multiplicity</a>,
+        <a href="ObjectsObjectDeclaration.html#ebnf.objectname">object name</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[96]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.rolename"></a>
+        role name
+    </td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="LexicalStructureIdentifiers.html#ebnf.identifier">identifier</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[97]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.relationshipconditionality"></a>
+        relationship conditionality
+    </td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        'unconditionally' | 'conditionally'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[98]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.relationshipmultiplicity"></a>
+        relationship multiplicity
+    </td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        'one' | 'many'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[99]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.associativerelationship"></a>
+        associative relationship
+    </td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        'using',
+        <a href="RegularRelationships.html#ebnf.relationshipmultiplicity">relationship multiplicity</a>,
+        <a href="ObjectsObjectDeclaration.html#ebnf.objectname">object name</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+</table></td></tr></table>
+<p>
+A <a class="link" href="RegularRelationships.html#ebnf.regularrelationshipdefinition"><span class="emphasis"><em>regular relationship definition</em></span></a>
+<a class="indexterm" name="idp65405200"></a>
+defines the relationship from the
+perspective of each of the participating objects. Therefore two relationships
+specifications are defined.
+</p>
+<p>
+A compile-time error occurs if any of the following are not true:
+</p>
+<div class="itemizedlist"><ul class="itemizedlist">
+<li class="listitem"><p>
+Both of the object names in a
+<a class="link" href="RegularRelationships.html#ebnf.relationshipdescription"><span class="emphasis"><em>relationship description</em></span></a>
+<a class="indexterm" name="idp65409200"></a>
+must name an object that has already been declared, or pre-declared, in the
+enclosing domain.
+</p></li>
+<li class="listitem"><p>
+In a <a class="link" href="RegularRelationships.html#ebnf.regularrelationshipdefinition"><span class="emphasis"><em>regular relationship definition</em></span></a>,
+<a class="indexterm" name="idp65412400"></a>
+the first object in the first
+<a class="link" href="RegularRelationships.html#ebnf.relationshipdescription"><span class="emphasis"><em>relationship description</em></span></a>
+<a class="indexterm" name="idp65414640"></a>
+must be the same object as the second object in the second relationship description.
+<a class="indexterm" name="idp65415952"></a>
+</p></li>
+<li class="listitem"><p>
+In a <a class="link" href="RegularRelationships.html#ebnf.regularrelationshipdefinition"><span class="emphasis"><em>regular relationship definition</em></span></a>,
+<a class="indexterm" name="idp65419072"></a>
+the second object in the first
+<a class="link" href="RegularRelationships.html#ebnf.relationshipdescription"><span class="emphasis"><em>relationship description</em></span></a>
+<a class="indexterm" name="idp65421312"></a>
+must be the same object as the first object in the second relationship description.
+</p></li>
+<li class="listitem"><p>
+The object name in an
+<a class="link" href="RegularRelationships.html#ebnf.associativerelationship"><span class="emphasis"><em>associative relationship</em></span></a>
+<a class="indexterm" name="idp64801104"></a>
+must name an object that has already been declared or pre-declared in the
+enclosing domain.
+</p></li>
+<li class="listitem"><p>
+The object in an
+<a class="link" href="RegularRelationships.html#ebnf.associativerelationship"><span class="emphasis"><em>associative relationship</em></span></a>
+<a class="indexterm" name="idp64804576"></a>
+cannot have already been specified as an associative object in another
+relationship.
+</p></li>
+<li class="listitem"><p>
+The multiplicity of an
+<a class="link" href="RegularRelationships.html#ebnf.associativerelationship"><span class="emphasis"><em>associative relationship</em></span></a>
+<a class="indexterm" name="idp64807680"></a>
+can only be one.
+</p></li>
+</ul></div>
+<p>
+Notice that the multiplicity of each end of a relationship is not declared
+using an integer interval, but instead using a conditionality together with
+a multiplicity.
+</p>
+<p>
+<a class="xref" href="RegularRelationships.html#MappingsforIntegerIntervalstoConditionalityandMultiplicity" title="Table 7.1. Mappings for Integer Intervals to Conditionality and Multiplicity">Table 7.1, “Mappings for Integer Intervals to Conditionality and Multiplicity”</a> gives
+the mapping between integer intervals and conditionality and multiplicity.
+Notice that this restricts the multiplicity that relationship ends can have.
+<a class="indexterm" name="idp64810864"></a>
+</p>
+<div class="table">
+<a name="MappingsforIntegerIntervalstoConditionalityandMultiplicity"></a><div class="table-title">Table 7.1. Mappings for Integer Intervals to Conditionality and Multiplicity</div>
+<div class="table-contents"><table class="table" border="1">
+<colgroup>
+<col align="left" class="Integer Interval">
+<col align="left" class="Conditionality">
+<col align="left" class="Multiplicity">
+</colgroup>
+<thead><tr>
+<th align="left">Integer Interval</th>
+<th align="left">Conditionality</th>
+<th align="left">Multiplicity</th>
+</tr></thead>
+<tbody>
+<tr>
+<td align="left"><code class="literal">1</code></td>
+<td align="left">unconditionally</td>
+<td align="left">one</td>
+</tr>
+<tr>
+<td align="left"><code class="literal">0 .. 1</code></td>
+<td align="left">conditionally</td>
+<td align="left">one</td>
+</tr>
+<tr>
+<td align="left"><code class="literal">1 .. *</code></td>
+<td align="left">unconditionally</td>
+<td align="left">many</td>
+</tr>
+<tr>
+<td align="left"><code class="literal">0 .. *</code></td>
+<td align="left">conditionally</td>
+<td align="left">many</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p><br class="table-break">
+Each relationship description is meant to read as a meaningful sentence.
+</p>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="RelationshipsUnconditionalRelationships"></a>7.2.1. Unconditional Relationships</h3></div></div></div>
+<p>
+There are three basic kinds of relationship; one-to-one,
+<a class="indexterm" name="idp64829184"></a>
+one-to-many
+<a class="indexterm" name="idp64830528"></a>
+and many-to-many.
+<a class="indexterm" name="idp64831872"></a>
+These basic relationships are unconditional
+<a class="indexterm" name="idp64833248"></a>
+because every instance
+of both objects must participate in the relationship.
+</p>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="RelationshipsOnetoOneRelationships"></a>7.2.1.1. One-to-one Relationships</h4></div></div></div>
+<p>
+A one-to-one relationship
+<a class="indexterm" name="idp64836240"></a>
+exists when a single instance of
+an object is associated with a single instance of another.
+</p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="RelationshipsOnetoManyRelationships"></a>7.2.1.2. One-to-many Relationships</h4></div></div></div>
+<p>
+A one-to-many relationship
+<a class="indexterm" name="idp64839680"></a>
+exists when a single instance of
+an object is associated with one or more instances of another and each instance
+of the second object is associated with just one instance of the first.
+</p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="RelationshipsManytoManyRelationships"></a>7.2.1.3. Many-to-many Relationships</h4></div></div></div>
+<p>
+A many-to-many relationship
+<a class="indexterm" name="idp64843280"></a>
+exists when a single instance
+of an object is associated with one or more instances of another and each
+instance of the second object is associated with one or more instances of the
+first.
+</p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="RelationshipsReflexiveRelationsips"></a>7.2.1.4. Reflexive Relationships</h4></div></div></div>
+<p>
+A reflexive relationship
+<a class="indexterm" name="idp64846864"></a>
+exists where instances of an object are related to instances of the same object.
+</p>
+</div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="RelationshipsConditionalRelationships"></a>7.2.2. Conditional Relationships</h3></div></div></div>
+<p>
+In unconditional relationships,
+<a class="indexterm" name="idp64850512"></a>
+every instance of the objects is required to participate in the relationship.
+In a conditional relationship there can be instances of the
+objects that do not participate. A conditional relationship
+<a class="indexterm" name="idp64852032"></a>
+is declared using the reserved word
+<a class="link" href="RegularRelationships.html#ebnf.relationshipconditionality"><code class="literal">conditionally</code></a>
+<a class="indexterm" name="idp64854528"></a>
+in the relationship conditionality.
+<a class="indexterm" name="idp64855840"></a>
+</p>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="RelationshipsRelationshipDeclarations.html">Prev</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="Relationships.html">Up</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="RelationshipsSubtypeRelationships.html">Next</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">7.1. Relationship Declarations </td>
+<td width="20%" align="center">
+<a accesskey="h" href="index.html">Home</a> | <a accesskey="t" href="bk01-toc.html">ToC</a>
+</td>
+<td width="40%" align="right" valign="top"> 7.3. Subtype Relationships</td>
+</tr>
+</table>
+</div>
+<div align="center">OFFICIAL</div>
+</body>
+</html>

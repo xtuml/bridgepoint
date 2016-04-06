@@ -1,0 +1,280 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>8.5. Object Services and Functions</title>
+<link rel="stylesheet" type="text/css" href="docbook.css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<meta name="keywords" content="MASL, Action Language, Action Semantics, UML, Unified Modelling Language, Shlaer Mellor">
+<link rel="home" href="index.html" title="MASL Reference Manual">
+<link rel="up" href="section.Objects.html" title="Chapter 8. Objects">
+<link rel="prev" href="section.Objects.Identifiers.html" title="8.4. Object Identifiers">
+<link rel="next" href="section.Objects.Lifecycles.html" title="8.6. Object Lifecycles">
+<link rel="chapter" href="section.LexicalStructure.html" title="Chapter 1. Lexical Structure">
+<link rel="chapter" href="section.Types.html" title="Chapter 2. Type System">
+<link rel="chapter" href="section.Domains.html" title="Chapter 3. Domains">
+<link rel="chapter" href="section.Services.html" title="Chapter 4. Services, Functions and State Actions">
+<link rel="chapter" href="section.Relationships.html" title="Chapter 5. Relationships">
+<link rel="chapter" href="section.Exceptions.html" title="Chapter 6. Exceptions">
+<link rel="chapter" href="section.Terminators.html" title="Chapter 7. Terminators">
+<link rel="chapter" href="section.Objects.html" title="Chapter 8. Objects">
+<link rel="chapter" href="section.Statements.html" title="Chapter 9. Statements">
+<link rel="chapter" href="section.Expressions.html" title="Chapter 10. Expressions">
+<link rel="chapter" href="section.Projects.html" title="Chapter 11. Projects">
+<link rel="chapter" href="section.Pragmas.html" title="Chapter 12. Pragmas">
+<link rel="appendix" href="AlphabeticalSyntaxReference.html" title="Appendix A. Alphabetical Syntax Reference">
+<link rel="index" href="ix01.html" title="Index">
+<link rel="subsection" href="section.Objects.Services.html#section.Objects.Services.Declaration" title="8.5.1. Object Service Declaration">
+<link rel="subsection" href="section.Objects.Services.html#section.Objects.Services.Instance" title="8.5.2. Instance Based Services and Functions">
+<link rel="subsection" href="section.Objects.Services.html#section.Objects.Services.Definition" title="8.5.3. Object Service Action Defintion">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div align="center">OFFICIAL</div>
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">8.5. Object Services and Functions</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="section.Objects.Identifiers.html">Prev</a> </td>
+<th width="60%" align="center">Chapter 8. Objects</th>
+<td width="20%" align="right"> <a accesskey="n" href="section.Objects.Lifecycles.html">Next</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title">
+<a name="section.Objects.Services"></a>8.5. Object Services and Functions</h2></div></div></div>
+<div class="toc"><dl class="toc">
+<dt><span class="section"><a href="section.Objects.Services.html#section.Objects.Services.Declaration">8.5.1. Object Service Declaration</a></span></dt>
+<dt><span class="section"><a href="section.Objects.Services.html#section.Objects.Services.Instance">8.5.2. Instance Based Services and Functions</a></span></dt>
+<dd><dl><dt><span class="section"><a href="section.Objects.Services.html#section.Objects.Services.Deferred">8.5.2.1. Instance Service Deferral</a></span></dt></dl></dd>
+<dt><span class="section"><a href="section.Objects.Services.html#section.Objects.Services.Definition">8.5.3. Object Service Action Defintion</a></span></dt>
+</dl></div>
+<p>
+      Object services and functions define the interface to an object, and may be instance or non-instance based. Further details 
+      on services and functions in general can be found in <a class="xref" href="section.Services.html" title="Chapter 4. Services, Functions and State Actions">Chapter 4, <i>Services, Functions and State Actions</i></a>, so this section will just 
+      highlight where object services differ. 
+    </p>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="section.Objects.Services.Declaration"></a>8.5.1. Object Service Declaration</h3></div></div></div>
+<p>
+        Object services and functions are declared within an object definition. In addition to the standard service and function 
+        declaration information detailed in <a class="xref" href="section.Services.Declaration.html" title="4.1. Service, Function and State Declarations">Section 4.1, “Service, Function and State Declarations”</a> an object service or function 
+        declaration also specifies whether it is <a class="link" href="section.Objects.Services.html#section.Objects.Services.Instance" title="8.5.2. Instance Based Services and Functions">instance based</a> or
+        <a class="link" href="section.Objects.Services.html#section.Objects.Services.Deferred" title="8.5.2.1. Instance Service Deferral">deferred</a>. An object may overload service declarations with the 
+        same name based on parameter types as with the general case, but must not declare both instance and object based services 
+        with the same name. 
+      </p>
+<table width="100%" cellpadding="5" bgcolor="#F5DCB3" border="1" class="productionset" summary="EBNF"><tr><td><table border="0" width="99%" cellpadding="0" bgcolor="#F5DCB3" class="productionset" summary="EBNF productions">
+<tr>
+<td align="left" valign="top" width="3%">[111]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.objectServiceDeclaration"></a>object service declaration</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">[ <a href="section.Services.Declaration.html#ebnf.serviceVisibility">service visibility</a> ] , [ <a href="section.Objects.Services.html#ebnf.serviceType">service type</a> ] , 'service' ,
+      <a href="section.Services.Declaration.html#ebnf.serviceName">service name</a> , <a href="section.Services.Declaration.html#ebnf.parameterList">parameter list</a> , ';' , <a href="section.Pragmas.html#ebnf.pragmaList">pragma list</a>;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[112]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.objectFunctionDeclaration"></a>object function declaration</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">[ <a href="section.Services.Declaration.html#ebnf.serviceVisibility">service visibility</a> ] , [ <a href="section.Objects.Services.html#ebnf.serviceType">service type</a> ] , 'function' ,
+      <a href="section.Services.Declaration.html#ebnf.serviceName">service name</a> , <a href="section.Services.Declaration.html#ebnf.parameterList">parameter list</a> , 'return' , <a href="section.Services.Declaration.html#ebnf.returnType">return type</a> , ';' , <a href="section.Pragmas.html#ebnf.pragmaList">pragma list</a>;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[113]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.serviceType"></a>service type</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">'instance' , [ 'deferred' , '(' , <a href="section.Relationships.Definition.html#ebnf.relationshipName">relationship name</a> , ')' ];</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[69]</td>
+<td align="right" valign="top" width="10%"><a href="section.Services.Declaration.html#ebnf.serviceVisibility">service visibility</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">'private' | 'public';</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[70]</td>
+<td align="right" valign="top" width="10%"><a href="section.Services.Declaration.html#ebnf.serviceName">service name</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="section.Tokenization.html#ebnf.Identifier">identifier</a>
+      ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[73]</td>
+<td align="right" valign="top" width="10%"><a href="section.Services.Declaration.html#ebnf.parameterList">parameter list</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">'(' , [ <a href="section.Services.Declaration.html#ebnf.parameterDefinition">parameter definition</a> ] , { ',' , <a href="section.Services.Declaration.html#ebnf.parameterDefinition">parameter definition</a> } , ')';</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[74]</td>
+<td align="right" valign="top" width="10%"><a href="section.Services.Declaration.html#ebnf.parameterDefinition">parameter definition</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+<a href="section.Services.Declaration.html#ebnf.parameterName">parameter name</a> , ':' , <a href="section.Services.Declaration.html#ebnf.parameterMode">parameter mode</a> , <a href="section.Services.Declaration.html#ebnf.parameterType">parameter type</a>;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[75]</td>
+<td align="right" valign="top" width="10%"><a href="section.Services.Declaration.html#ebnf.parameterName">parameter name</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="section.Tokenization.html#ebnf.Identifier">identifier</a>
+      ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[76]</td>
+<td align="right" valign="top" width="10%"><a href="section.Services.Declaration.html#ebnf.parameterMode">parameter mode</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">'in' | 'out';</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[77]</td>
+<td align="right" valign="top" width="10%"><a href="section.Services.Declaration.html#ebnf.parameterType">parameter type</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="section.Types.Reference.html#ebnf.typeRef">type ref</a>
+      ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[78]</td>
+<td align="right" valign="top" width="10%"><a href="section.Services.Declaration.html#ebnf.returnType">return type</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="section.Types.Reference.html#ebnf.typeRef">type ref</a>
+      ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+</table></td></tr></table>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="section.Objects.Services.Instance"></a>8.5.2. Instance Based Services and Functions</h3></div></div></div>
+<p>
+        Object Services and functions may be instance or non-instance based. Instance based services act upon a given instance of 
+        the object, whereas non-instance based services act at the level of the of the instance population as a whole. To declare 
+        a service or function as instance based, the <code class="code">instance</code> qualifier must be used in the declaration. 
+      </p>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="section.Objects.Services.Deferred"></a>8.5.2.1. Instance Service Deferral</h4></div></div></div>
+<p>
+          An instance based service or function which is declared with the <code class="code">deferred</code> modifier is called a deferred 
+          service. Deferred services do not have a definition themselves, but defer the definition to another object further down 
+          a subtype hierarchy. The relationship sepcified in the deferal declaration must be a subtype relationship, with the 
+          current object as the supertype. All subtypes of that relationship must also declare a service or function with exactly 
+          the same signature as the deferred service. Those subtypes may in turn defer definition to their own subtypes. 
+        </p>
+<p>
+          When a deferred service or function is invoked, the instance's currently active subtype is examined. That subtype then 
+          becomes the current instance, and the equivalent service is invoked. 
+        </p>
+</div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="section.Objects.Services.Definition"></a>8.5.3. Object Service Action Defintion</h3></div></div></div>
+<p>
+        An object service or function definition defines the action to be performed when the service or function is called. In 
+        addition to the standard action definition features detailed in <a class="xref" href="section.Services.Definition.html" title="4.2. Service, Function and State Action Definitions">Section 4.2, “Service, Function and State Action Definitions”</a>, object 
+        based services work within the scope of their enclosing object, so all object services, functions, and events may be 
+        referred to by name without being qualified by the object name. Note that any parameters or local variables with 
+        identical names will hide these object level names. Instance services and functions allow reference to attributes, 
+        services and functions of the current instance by name, and introduce the name <code class="code">this</code> which may be used to 
+        refer to the current instance explicity. 
+      </p>
+<table width="100%" cellpadding="5" bgcolor="#F5DCB3" border="1" class="productionset" summary="EBNF"><tr><td><table border="0" width="99%" cellpadding="0" bgcolor="#F5DCB3" class="productionset" summary="EBNF productions">
+<tr>
+<td align="left" valign="top" width="3%">[114]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.objectServiceDefinition"></a>object service definition</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">[ <a href="section.Services.Declaration.html#ebnf.serviceVisibility">service visibility</a> ] , [ 'instance' ] , 'service' , <a href="section.Domains.Definition.html#ebnf.domainName">domain name</a> , '::' , <a href="section.Objects.Declaration.html#ebnf.objectName">object name</a> , '.' , <a href="section.Services.Declaration.html#ebnf.serviceName">service name</a> , <a href="section.Services.Declaration.html#ebnf.parameterList">parameter list</a> , 'is' , <a href="section.Services.Definition.html#ebnf.codeBlock">code block</a>
+      , 'end' , [ 'service' ] , ';' , <a href="section.Pragmas.html#ebnf.pragmaList">pragma list</a>;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[115]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.objectFunctionDefinition"></a>object function definition</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">[ <a href="section.Services.Declaration.html#ebnf.serviceVisibility">service visibility</a> ] , <a href="section.Objects.Services.html#ebnf.serviceType">service type</a> , 'function' ,
+      <a href="section.Domains.Definition.html#ebnf.domainName">domain name</a> , '::' , <a href="section.Objects.Declaration.html#ebnf.objectName">object name</a> , '.' , <a href="section.Services.Declaration.html#ebnf.serviceName">service name</a> , <a href="section.Services.Declaration.html#ebnf.parameterList">parameter list</a> , 'return' , <a href="section.Services.Declaration.html#ebnf.returnType">return type</a> , 'is' , <a href="section.Services.Definition.html#ebnf.codeBlock">code block</a> , 'end' , [ 'function' ] , ';' ,
+      <a href="section.Pragmas.html#ebnf.pragmaList">pragma list</a>;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[63]</td>
+<td align="right" valign="top" width="10%"><a href="section.Domains.Definition.html#ebnf.domainName">domain name</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="section.Tokenization.html#ebnf.Identifier">identifier</a>
+      ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[101]</td>
+<td align="right" valign="top" width="10%"><a href="section.Objects.Declaration.html#ebnf.objectName">object name</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="section.Tokenization.html#ebnf.Identifier">identifier</a>
+      ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[70]</td>
+<td align="right" valign="top" width="10%"><a href="section.Services.Declaration.html#ebnf.serviceName">service name</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="section.Tokenization.html#ebnf.Identifier">identifier</a>
+      ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[79]</td>
+<td align="right" valign="top" width="10%"><a href="section.Services.Definition.html#ebnf.codeBlock">code block</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">{ <a href="section.Statements.CodeBlock.html#ebnf.variableDeclaration">variable declaration</a> } , 'begin' , <a href="section.Statements.html#ebnf.statementSequence">statement sequence</a> , [
+      'exception' , { <a href="section.Statements.CodeBlock.html#ebnf.exceptionHandler">exception handler</a> } , [ <a href="section.Statements.CodeBlock.html#ebnf.otherHandler">other handler</a> ]
+      ];</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+</table></td></tr></table>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="section.Objects.Identifiers.html">Prev</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="section.Objects.html">Up</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="section.Objects.Lifecycles.html">Next</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">8.4. Object Identifiers </td>
+<td width="20%" align="center">
+<a accesskey="h" href="index.html">Home</a> | <a accesskey="t" href="bk01-toc.html">ToC</a>
+</td>
+<td width="40%" align="right" valign="top"> 8.6. Object Lifecycles</td>
+</tr>
+</table>
+</div>
+<div align="center">OFFICIAL</div>
+</body>
+</html>

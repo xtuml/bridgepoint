@@ -1,0 +1,616 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>3.2. Built-in Types</title>
+<link rel="stylesheet" type="text/css" href="docbook.css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<meta name="keywords" content="MASL, Action Language, Action Semantics, UML, Unified Modelling Language, Shlaer Mellor">
+<link rel="home" href="index.html" title="MASL Reference Manual">
+<link rel="up" href="Types.html" title="Chapter 3. Types">
+<link rel="prev" href="TypesTypeSpecification.html" title="3.1. Type Specifications">
+<link rel="next" href="TypesCollectionTypes.html" title="3.3. Collection Types">
+<link rel="preface" href="preface.html" title="Preface">
+<link rel="chapter" href="Grammars.html" title="Chapter 1. Grammars">
+<link rel="chapter" href="LexicalStructure.html" title="Chapter 2. Lexical Structure">
+<link rel="chapter" href="Types.html" title="Chapter 3. Types">
+<link rel="chapter" href="TypeConversion.html" title="Chapter 4. Type Conversion">
+<link rel="chapter" href="Domains.html" title="Chapter 5. Domains">
+<link rel="chapter" href="Objects.html" title="Chapter 6. Objects">
+<link rel="chapter" href="Relationships.html" title="Chapter 7. Relationships">
+<link rel="chapter" href="Lifecycles.html" title="Chapter 8. Lifecycles">
+<link rel="chapter" href="Functions.html" title="Chapter 9. Functions">
+<link rel="chapter" href="Services.html" title="Chapter 10. Services">
+<link rel="chapter" href="Exceptions.html" title="Chapter 11. Exceptions">
+<link rel="chapter" href="Statements.html" title="Chapter 12. Statements">
+<link rel="chapter" href="Names.html" title="Chapter 13. Names">
+<link rel="chapter" href="Expressions.html" title="Chapter 14. Expressions">
+<link rel="appendix" href="LanguageDefinedCharacteristics.html" title="Appendix A. Language Defined Characteristics">
+<link rel="appendix" href="SyntaxSummary.html" title="Appendix B. Syntax Summary">
+<link rel="index" href="ix01.html" title="Index">
+<link rel="subsection" href="TypesBuiltinTypes.html#TypesCharacterType" title="3.2.1. Character Type">
+<link rel="subsection" href="TypesBuiltinTypes.html#TypesWideCharacterType" title="3.2.2. Wide Character Type">
+<link rel="subsection" href="TypesBuiltinTypes.html#TypesBooleanType" title="3.2.3. Boolean Type">
+<link rel="subsection" href="TypesBuiltinTypes.html#TypesByteType" title="3.2.4. Byte Type">
+<link rel="subsection" href="TypesBuiltinTypes.html#TypesStringType" title="3.2.5. String Type">
+<link rel="subsection" href="TypesBuiltinTypes.html#TypesWideStringType" title="3.2.6. Wide String Type">
+<link rel="subsection" href="TypesBuiltinTypes.html#TypesDeviceType" title="3.2.7. Device Type">
+<link rel="subsection" href="TypesBuiltinTypes.html#TypesAnonymousEnumType" title="3.2.8. Anonymous Enum Type">
+<link rel="subsection" href="TypesBuiltinTypes.html#TypesAnonymousEventType" title="3.2.9. Anonymous Event Type">
+<link rel="subsection" href="TypesBuiltinTypes.html#TypesAnonymousInstanceType" title="3.2.10. Anonymous Instance Type">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div align="center">OFFICIAL</div>
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">3.2. Built-in Types</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="TypesTypeSpecification.html">Prev</a> </td>
+<th width="60%" align="center">Chapter 3. Types</th>
+<td width="20%" align="right"> <a accesskey="n" href="TypesCollectionTypes.html">Next</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title">
+<a name="TypesBuiltinTypes"></a>3.2. Built-in Types</h2></div></div></div>
+<div class="toc"><dl class="toc">
+<dt><span class="section"><a href="TypesBuiltinTypes.html#TypesCharacterType">3.2.1. Character Type</a></span></dt>
+<dt><span class="section"><a href="TypesBuiltinTypes.html#TypesWideCharacterType">3.2.2. Wide Character Type</a></span></dt>
+<dt><span class="section"><a href="TypesBuiltinTypes.html#TypesBooleanType">3.2.3. Boolean Type</a></span></dt>
+<dt><span class="section"><a href="TypesBuiltinTypes.html#TypesByteType">3.2.4. Byte Type</a></span></dt>
+<dt><span class="section"><a href="TypesBuiltinTypes.html#TypesStringType">3.2.5. String Type</a></span></dt>
+<dt><span class="section"><a href="TypesBuiltinTypes.html#TypesWideStringType">3.2.6. Wide String Type</a></span></dt>
+<dt><span class="section"><a href="TypesBuiltinTypes.html#TypesDeviceType">3.2.7. Device Type</a></span></dt>
+<dt><span class="section"><a href="TypesBuiltinTypes.html#TypesAnonymousEnumType">3.2.8. Anonymous Enum Type</a></span></dt>
+<dt><span class="section"><a href="TypesBuiltinTypes.html#TypesAnonymousEventType">3.2.9. Anonymous Event Type</a></span></dt>
+<dt><span class="section"><a href="TypesBuiltinTypes.html#TypesAnonymousInstanceType">3.2.10. Anonymous Instance Type</a></span></dt>
+</dl></div>
+<p>
+A built-in type is pre-defined by the language and named by its reserved word.
+</p>
+<a class="indexterm" name="idp63679104"></a><a class="indexterm" name="idp63680272"></a><a class="indexterm" name="idp63681568"></a><a class="indexterm" name="idp63682864"></a><a class="indexterm" name="idp63684160"></a><a class="indexterm" name="idp63685456"></a><a class="indexterm" name="idp63686752"></a><a class="indexterm" name="idp63688048"></a><table width="100%" cellpadding="5" bgcolor="#F5DCB3" border="1" class="productionset" summary="EBNF"><tr><td><table border="0" width="99%" cellpadding="0" bgcolor="#F5DCB3" class="productionset" summary="EBNF productions"><tr>
+<td align="left" valign="top" width="3%">[44]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.builtintype"></a>built-in type</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        'character' |
+        'wcharacter' |
+        'boolean' |
+        'byte' |
+        'string' |
+        'wstring' |
+        'device' |
+        'enum' |
+        'event' |
+        'instance'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr></table></td></tr></table>
+<p>
+Notice that there are no built-in
+<a class="link" href="TypesFullDeclarations.html#TypesNumericTypes" title="3.7.1. Numeric Types">numeric types</a>.
+<a class="indexterm" name="idp63692656"></a>
+<a class="indexterm" name="idp63693552"></a>
+Numeric types are discussed in
+<a class="xref" href="TypesFullDeclarations.html#TypesNumericTypes" title="3.7.1. Numeric Types">Section 3.7.1, “Numeric Types”</a>.
+</p>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="TypesCharacterType"></a>3.2.1. Character Type</h3></div></div></div>
+<p>
+The <span class="type">character</span>
+<a class="indexterm" name="idp65462992"></a>
+<a class="indexterm" name="idp65464288"></a>
+type is an 8-bit quantity which encodes a single-byte character from any
+byte-oriented code set.
+</p>
+<p>
+The features of the <code class="literal">character</code>
+<a class="indexterm" name="idp65467008"></a>
+<a class="indexterm" name="idp65468304"></a>
+type are the same as the features of the
+<a class="link" href="TypesBuiltinTypes.html#TypesWideCharacterType" title="3.2.2. Wide Character Type"><span class="type">wcharacter</span></a>
+<a class="indexterm" name="idp65470928"></a>
+<a class="indexterm" name="idp65471952"></a>
+type (see <a class="xref" href="TypesBuiltinTypes.html#TypesWideCharacterType" title="3.2.2. Wide Character Type">Section 3.2.2, “Wide Character Type”</a>).
+</p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="TypesWideCharacterType"></a>3.2.2. Wide Character Type</h3></div></div></div>
+<p>
+The <code class="literal">wcharacter</code>
+<a class="indexterm" name="idp65476176"></a>
+<a class="indexterm" name="idp65477472"></a>
+type encodes wide characters from any character set.
+</p>
+<p>
+The features of the <code class="literal">wcharacter</code> type
+<a class="indexterm" name="idp65480144"></a>
+<a class="indexterm" name="idp65481168"></a>
+are given in 
+<a class="xref" href="TypesBuiltinTypes.html#WideCharacterTypeFeatures" title="Table 3.1. Wide Character Type Features">Table 3.1, “Wide Character Type Features”</a>,
+where <code class="varname">c</code> and <code class="varname">c2</code> represent entities of
+type on which the feature is applied.
+</p>
+<div class="table">
+<a name="WideCharacterTypeFeatures"></a><div class="table-title">Table 3.1. Wide Character Type Features</div>
+<div class="table-contents"><table class="table" border="1">
+<colgroup>
+<col align="left" class="Feature">
+<col align="left" class="Description">
+</colgroup>
+<thead><tr>
+<th align="left">Feature</th>
+<th align="left">Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td align="left">
+        <code class="literal">=</code>
+        <a class="indexterm" name="idp65491760"></a>
+    </td>
+<td align="left">
+    Returns <code class="literal">true</code>
+    <a class="indexterm" name="idp65493680"></a>
+    if <code class="varname">c</code> is equal to
+    <code class="varname">c2</code>.
+    </td>
+</tr>
+<tr>
+<td align="left">
+        <code class="literal">/=</code>
+        <a class="indexterm" name="idp65496944"></a>
+    </td>
+<td align="left">
+    Returns <code class="literal">true</code>
+    <a class="indexterm" name="idp65498864"></a>
+    if <code class="varname">c</code> is not equal to
+    <code class="varname">c2</code>.
+    </td>
+</tr>
+<tr>
+<td align="left">
+        <code class="literal">&lt;</code>
+        <a class="indexterm" name="idp65502128"></a>
+    </td>
+<td align="left">
+    Returns <code class="literal">true</code>
+    <a class="indexterm" name="idp65504048"></a>
+    if <code class="varname">c</code> is less than
+    <code class="varname">c2</code>.
+    </td>
+</tr>
+<tr>
+<td align="left">
+        <code class="literal">&gt;</code>
+        <a class="indexterm" name="idp65507312"></a>
+    </td>
+<td align="left">
+    Returns <code class="literal">true</code>
+    <a class="indexterm" name="idp65509232"></a>
+    if <code class="varname">c</code> is greater than
+    <code class="varname">c2</code>.
+    </td>
+</tr>
+<tr>
+<td align="left">
+        <code class="literal">&lt;=</code>
+        <a class="indexterm" name="idp65512496"></a>
+    </td>
+<td align="left">
+    Returns <code class="literal">true</code>
+    <a class="indexterm" name="idp65514416"></a>
+    if <code class="varname">c</code> is less than or
+    equal to <code class="varname">c2</code>.
+    </td>
+</tr>
+<tr>
+<td align="left">
+        <code class="literal">&gt;=</code>
+        <a class="indexterm" name="idp65517696"></a>
+    </td>
+<td align="left">
+    Returns <code class="literal">true</code>
+    <a class="indexterm" name="idp65519616"></a>
+    if <code class="varname">c</code> is greater than or
+    equal to <code class="varname">c2</code>.
+    </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p><br class="table-break">
+</p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="TypesBooleanType"></a>3.2.3. Boolean Type</h3></div></div></div>
+<p>
+The <code class="literal">boolean</code>
+<a class="indexterm" name="idp65524544"></a>
+<a class="indexterm" name="idp65525840"></a>
+type is used to denote a data item that can only
+take one of the values <code class="literal">true</code>
+<a class="indexterm" name="idp65528000"></a>
+or <code class="literal">false</code>.
+<a class="indexterm" name="idp65529472"></a>
+</p>
+<p>
+The features of the <code class="literal">boolean</code>
+<a class="indexterm" name="idp65531392"></a>
+<a class="indexterm" name="idp65532416"></a>
+type are given in
+<a class="xref" href="TypesBuiltinTypes.html#BooleanTypeFeatures" title="Table 3.2. Boolean Type Features">Table 3.2, “Boolean Type Features”</a>,
+where <code class="varname">b</code> and <code class="varname">b2</code> represent entities of
+the type on which the feature is applied.
+</p>
+<div class="table">
+<a name="BooleanTypeFeatures"></a><div class="table-title">Table 3.2. Boolean Type Features</div>
+<div class="table-contents"><table class="table" border="1">
+<colgroup>
+<col align="left" class="Feature">
+<col align="left" class="Description">
+</colgroup>
+<thead><tr>
+<th align="left">Feature</th>
+<th align="left">Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td align="left">
+        <code class="literal">=</code>
+        <a class="indexterm" name="idp65542880"></a>
+    </td>
+<td align="left">
+    Returns <code class="literal">true</code>
+    <a class="indexterm" name="idp65544800"></a>
+    if <code class="varname">b</code> is equal to <code class="varname">b2</code>.
+    </td>
+</tr>
+<tr>
+<td align="left">
+        <code class="literal">/=</code>
+        <a class="indexterm" name="idp65548064"></a>
+    </td>
+<td align="left">
+    Returns <code class="literal">true</code>
+    <a class="indexterm" name="idp65549984"></a>
+    if <code class="varname">b</code> is not equal to <code class="varname">b2</code>.
+    </td>
+</tr>
+<tr>
+<td align="left">
+        <code class="literal">and</code>
+        <a class="indexterm" name="idp65553248"></a>
+    </td>
+<td align="left">
+    Returns <code class="literal">true</code> if both <code class="varname">b</code> and
+    <code class="varname">b2</code> are <code class="literal">true</code>.
+    </td>
+</tr>
+<tr>
+<td align="left">
+        <code class="literal">xor</code>
+        <a class="indexterm" name="idp65557856"></a>
+    </td>
+<td align="left">
+    Returns <code class="literal">true</code>
+    <a class="indexterm" name="idp65559776"></a>
+    if either <code class="varname">b</code> or
+    <code class="varname">b2</code> is <code class="literal">true</code>, but not both.
+    </td>
+</tr>
+<tr>
+<td align="left">
+        <code class="literal">or</code>
+        <a class="indexterm" name="idp65563488"></a>
+    </td>
+<td align="left">
+    Returns <code class="literal">true</code> if either <code class="varname">b</code> or
+    <code class="varname">b2</code> is
+    <code class="literal">true</code>.
+    <a class="indexterm" name="idp65566752"></a>
+    </td>
+</tr>
+<tr>
+<td align="left">
+        <code class="literal">not</code>
+        <a class="indexterm" name="idp65569120"></a>
+    </td>
+<td align="left">
+    Returns <code class="literal">true</code>
+    <a class="indexterm" name="idp65571040"></a>
+    if either <code class="varname">b</code> is
+    <code class="literal">false</code>.
+    <a class="indexterm" name="idp65572960"></a>
+    </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p><br class="table-break">
+</p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="TypesByteType"></a>3.2.4. Byte Type</h3></div></div></div>
+<p>
+The <span class="type">byte</span> type
+<a class="indexterm" name="idp65576912"></a>
+<a class="indexterm" name="idp65578208"></a>
+is an 8-bit quantity that is guaranteed not to
+undergo any conversion when transmitted by the communication system.
+</p>
+<p>
+The features of the <span class="type">byte</span>
+<a class="indexterm" name="idp65580944"></a>
+<a class="indexterm" name="idp65581968"></a>
+type are the same as the features of
+any <a class="link" href="TypesFullDeclarations.html#TypesNumericTypes" title="3.7.1. Numeric Types">numeric type</a>
+<a class="indexterm" name="idp65584192"></a>
+<a class="indexterm" name="idp65585216"></a>
+(see <a class="xref" href="TypesFullDeclarations.html#TypesNumericTypes" title="3.7.1. Numeric Types">Section 3.7.1, “Numeric Types”</a>).
+</p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="TypesStringType"></a>3.2.5. String Type</h3></div></div></div>
+<p>
+The <span class="type">string</span> type
+<a class="indexterm" name="idp65589376"></a>
+<a class="indexterm" name="idp65590672"></a>
+is similar to a
+<a class="link" href="TypesCollectionTypes.html#TypesSequenceTypes" title="3.3.3. Sequence Types"><span class="type">sequence of character</span></a>.
+<a class="indexterm" name="idp65593264"></a>
+<a class="indexterm" name="idp65594288"></a>
+Strings are singled out as a
+separate type because they have certain special properties that make them
+distinct.
+</p>
+<p>
+The features of the <span class="type">string</span>
+<a class="indexterm" name="idp65597328"></a>
+<a class="indexterm" name="idp65598352"></a>
+type are the same as the features
+of the
+<a class="link" href="TypesBuiltinTypes.html#TypesWideCharacterType" title="3.2.2. Wide Character Type"><code class="literal">wstring</code></a>
+<a class="indexterm" name="idp65600704"></a>
+<a class="indexterm" name="idp65601728"></a>
+type (see <a class="xref" href="TypesBuiltinTypes.html#TypesWideStringType" title="3.2.6. Wide String Type">Section 3.2.6, “Wide String Type”</a>).
+</p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="TypesWideStringType"></a>3.2.6. Wide String Type</h3></div></div></div>
+<p>
+The <span class="type">wstring</span>
+<a class="indexterm" name="idp65605952"></a>
+<a class="indexterm" name="idp65607248"></a>
+type encodes wide characters from any character set.
+</p>
+<p>
+The features of the <span class="type">wcharacter</span>
+<a class="indexterm" name="idp65609920"></a>
+<a class="indexterm" name="idp65611216"></a>
+type is similar to a
+<a class="link" href="TypesCollectionTypes.html#TypesSequenceTypes" title="3.3.3. Sequence Types"><span class="type">sequence of wcharacter</span></a>.
+Wide strings are singled out
+as a separate type because they have certain special properties that make
+them distinct from a
+<a class="link" href="TypesCollectionTypes.html#TypesSequenceTypes" title="3.3.3. Sequence Types"><span class="type">sequence of wcharacter</span></a>
+<a class="indexterm" name="idp65614768"></a>
+<a class="indexterm" name="idp65615792"></a>
+</p>
+<p>
+The features of the <span class="type">wstring</span>
+<a class="indexterm" name="idp65618736"></a>
+<a class="indexterm" name="idp65619760"></a>
+are given in 
+<a class="xref" href="TypesBuiltinTypes.html#WideStringTypeFeatures" title="Table 3.3. Wide String Type Features">Table 3.3, “Wide String Type Features”</a>,
+where <code class="varname">s</code> and <code class="varname">s2</code> represent entities of
+the type on which the feature is applied.
+</p>
+<div class="table">
+<a name="WideStringTypeFeatures"></a><div class="table-title">Table 3.3. Wide String Type Features</div>
+<div class="table-contents"><table class="table" border="1">
+<colgroup>
+<col align="left" class="Feature">
+<col align="left" class="Description">
+</colgroup>
+<thead><tr>
+<th align="left">Feature</th>
+<th align="left">Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td align="left">
+        <code class="literal">=</code>
+        <a class="indexterm" name="idp65630816"></a>
+    </td>
+<td align="left">
+    Returns <code class="literal">true</code> if <code class="varname">s</code> is equal to
+    <code class="varname">s2</code>.
+    </td>
+</tr>
+<tr>
+<td align="left">
+        <code class="literal">/=</code>
+        <a class="indexterm" name="idp65634976"></a>
+    </td>
+<td align="left">
+    Returns <code class="literal">true</code> if <code class="varname">s</code> is not equal to
+    <code class="varname">s2</code>.
+    </td>
+</tr>
+<tr>
+<td align="left">
+        <code class="literal">&lt;</code>
+        <a class="indexterm" name="idp65639136"></a>
+    </td>
+<td align="left">
+    Returns <code class="literal">true</code> if <code class="varname">s</code> is less than
+    <code class="varname">s2</code>.
+    </td>
+</tr>
+<tr>
+<td align="left">
+        <code class="literal">&gt;</code>
+        <a class="indexterm" name="idp65643296"></a>
+    </td>
+<td align="left">
+    Returns <code class="literal">true</code> if <code class="varname">s</code> is greater than
+    <code class="varname">s2</code>.
+    </td>
+</tr>
+<tr>
+<td align="left">
+        <code class="literal">&lt;=</code>
+        <a class="indexterm" name="idp65647456"></a>
+    </td>
+<td align="left">
+    Returns <code class="literal">true</code> if <code class="varname">s</code> is less than or
+    equal to <code class="varname">s2</code>.
+    </td>
+</tr>
+<tr>
+<td align="left">
+        <code class="literal">&gt;=</code>
+        <a class="indexterm" name="idp65651632"></a>
+    </td>
+<td align="left">
+    Returns <code class="literal">true</code> if <code class="varname">s</code> is greater than or
+    equal to <code class="varname">s2</code>.
+    </td>
+</tr>
+<tr>
+<td align="left">
+        <a name="WideStringConcatenation"></a>
+        <code class="literal">&amp;</code>
+        <a class="indexterm" name="idp65656528"></a>
+        <a class="indexterm" name="idp65657552"></a>
+    </td>
+<td align="left">
+    Returns the concatenation of <code class="varname">s2</code> to end of
+    <code class="varname">s</code>.
+    </td>
+</tr>
+<tr>
+<td align="left">
+        <code class="literal">[]</code>
+        <a class="indexterm" name="idp65661152"></a>
+    </td>
+<td align="left">
+    Returns either the element of <code class="varname">s</code> at a specific index or
+    the slice of <code class="varname">s</code> given by a range in indices.
+    </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p><br class="table-break">
+</p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="TypesDeviceType"></a>3.2.7. Device Type</h3></div></div></div>
+<p>
+The <span class="type">device</span> type
+<a class="indexterm" name="idp65666512"></a>
+<a class="indexterm" name="idp65667808"></a>
+denotes a user defined input/output device stream. The features
+of the type are fully described in
+<a class="xref" href="StatementsOutputStream.html" title="12.6. Output Stream">Section 12.6, “Output Stream”</a>,
+<a class="xref" href="StatementsInputStream.html" title="12.7. Input Stream">Section 12.7, “Input Stream”</a> and
+<a class="xref" href="StatementsInputLineStream.html" title="12.8. Input Line Stream">Section 12.8, “Input Line Stream”</a>.
+</p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="TypesAnonymousEnumType"></a>3.2.8. Anonymous Enum Type</h3></div></div></div>
+<p>
+The <span class="type">enum</span> type
+<a class="indexterm" name="idp65673456"></a>
+<a class="indexterm" name="idp65674752"></a>
+is the basis of all enumeration types. Used to pass anonymous enumeration
+values in the <span class="package">Text_IO</span> domain.
+</p>
+<div class="caution">
+<h3 class="title">Caution</h3>
+<p>
+The anonymous <span class="type">enum</span> type is a deprecated language feature and will
+be removed in a future version of MASL.
+<a class="indexterm" name="idp65678288"></a>
+</p>
+</div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="TypesAnonymousEventType"></a>3.2.9. Anonymous Event Type</h3></div></div></div>
+<p>
+The anonymous <span class="type">event</span> type
+<a class="indexterm" name="idp65681760"></a>
+<a class="indexterm" name="idp65683056"></a>
+is the type of all events. It is used to pass events in the
+<span class="package">SM_TIMER</span>
+<a class="indexterm" name="idp65685296"></a>
+domain.
+</p>
+<div class="caution">
+<h3 class="title">Caution</h3>
+<p>
+The anonymous <span class="type">event</span> type is a deprecated language feature and will
+be removed in a future version of MASL.
+<a class="indexterm" name="idp65687584"></a>
+</p>
+</div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="TypesAnonymousInstanceType"></a>3.2.10. Anonymous Instance Type</h3></div></div></div>
+<p>
+The anonymous <span class="type">instance</span> type
+<a class="indexterm" name="idp65691136"></a>
+<a class="indexterm" name="idp65692432"></a>
+is the type of all <a class="link" href="TypesInstanceTypes.html" title="3.4. Instance Types">instance type</a>s.
+<a class="indexterm" name="idp65694896"></a>
+Used to pass anonymous instances in the <span class="package">SM_TIMER</span>
+<a class="indexterm" name="idp65696400"></a>
+domain.
+</p>
+<div class="caution">
+<h3 class="title">Caution</h3>
+<p>
+The anonymous <span class="type">instance</span> type is a deprecated language feature and will be removed
+in a future version of MASL.
+<a class="indexterm" name="idp65698688"></a>
+</p>
+</div>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="TypesTypeSpecification.html">Prev</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="Types.html">Up</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="TypesCollectionTypes.html">Next</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">3.1. Type Specifications </td>
+<td width="20%" align="center">
+<a accesskey="h" href="index.html">Home</a> | <a accesskey="t" href="bk01-toc.html">ToC</a>
+</td>
+<td width="40%" align="right" valign="top"> 3.3. Collection Types</td>
+</tr>
+</table>
+</div>
+<div align="center">OFFICIAL</div>
+</body>
+</html>

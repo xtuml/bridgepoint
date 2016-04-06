@@ -1,0 +1,124 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>1.4. Subtypes</title>
+<link rel="stylesheet" type="text/css" href="docbook.css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<meta name="keywords" content="MASL, Action Language, Action Semantics, UML, Unified Modelling Language, Shlaer Mellor">
+<link rel="home" href="index.html" title="MASL Tutorial">
+<link rel="up" href="Types.html" title="Chapter 1. Types">
+<link rel="prev" href="TypesTypes.html" title="1.3. Types">
+<link rel="next" href="TypesSimpleNumericTypes.html" title="1.5. Simple Numeric Types">
+<link rel="preface" href="preface.html" title="Preface">
+<link rel="chapter" href="Types.html" title="Chapter 1. Types">
+<link rel="chapter" href="ExecutionControl.html" title="Chapter 2. Execution Control">
+<link rel="chapter" href="CompositeTypes.html" title="Chapter 3. Composite Types">
+<link rel="chapter" href="Exceptions.html" title="Chapter 4. Exceptions">
+<link rel="chapter" href="ObjectsandRelationships.html" title="Chapter 5. Objects and Relationships">
+<link rel="chapter" href="Actions.html" title="Chapter 6. Actions">
+<link rel="chapter" href="DeviceIO.html" title="Chapter 7. Device Input/Output">
+<link rel="chapter" href="MASLExamples.html" title="Chapter 8. MASL Examples">
+<link rel="index" href="ix01.html" title="Index">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div align="center">UNCLASSIFIED</div>
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">1.4. Subtypes</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="TypesTypes.html">Prev</a> </td>
+<th width="60%" align="center">Chapter 1. Types</th>
+<td width="20%" align="right"> <a accesskey="n" href="TypesSimpleNumericTypes.html">Next</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title">
+<a name="TypesSubtypes"></a>1.4. Subtypes</h2></div></div></div>
+<p>We now introduce subtypes and constraints. A subtype, as its name
+    suggests, characterises a set of values, which is just a subset of the
+    values of some other type known as the base type. The subset is defined by
+    means of a constraint. Constraints take various forms according to the
+    category of the base type. As is usual with subsets, the subset may be the
+    complete set. There is, however, no way of restricting this set of
+    operations of the base type. The subtype takes all the operations; sub
+    setting applies only to the values. As an example, we declare a subtype
+    thus:</p>
+<div class="informalexample"><pre class="programlisting">  subtype day_number_type is integer range 1 .. 31;</pre></div>
+<p>We can then declare variables and constants using the
+    subtype identifier in exactly the same way as a type
+    identifier:</p>
+<div class="informalexample"><pre class="programlisting">  d : day_number_type;</pre></div>
+<p>We are then assured that the variable <code class="varname">d</code> can take
+    only integer values from <code class="literal">1</code> to <code class="literal">31</code>
+    inclusive. The compiler will insert run-time checks if necessary to ensure
+    that this is so; if a check fails then an exception is raised.</p>
+<p>It is important to realise that a subtype declaration does not
+    introduce a new distinct type. An entity such as <code class="varname">d</code> is
+    of type <span class="type">integer</span> and so the following is perfectly legal from
+    the syntactic point of view.</p>
+<div class="informalexample"><pre class="programlisting">  declare
+    d : day_number_type;
+    i : integer;
+  begin
+    d := i;
+  end;</pre></div>
+<p>Of course, on execution, the value of i may or may not
+    lie in the range 1 ..31.If it does, then all is well; if not then an
+    exception will be raised. Assignment in the other
+    direction:</p>
+<div class="informalexample"><pre class="programlisting">  i := d;</pre></div>
+<p> will always work. It is not always necessary to
+    impose a constraint. It is perfectly legal to write: </p>
+<div class="informalexample"><pre class="programlisting">  subtype unconstrained_day_number_type is integer;</pre></div>
+<p>although in this instance it is not of much value. A
+    subtype may be defined in terms of a previous subtype:</p>
+<div class="informalexample"><pre class="programlisting">  subtype february_day_number_type is day_number_type range 1 .. 29;</pre></div>
+<p>Any additional constraint must of course satisfy
+    existing constraints:</p>
+<div class="informalexample"><pre class="programlisting">  subtype illegal_type is day_number_type range 0 .. 10;        // illegal</pre></div>
+<p>would be incorrect and cause a compile-time
+    error.</p>
+<p>We conclude this section by summarising the assignment statement and
+    the rules of strong typing. Assignment has the form: </p>
+<div class="informalexample"><pre class="programlisting">  variable := expression;</pre></div>
+<p>and the two rules are:</p>
+<div class="itemizedlist"><ul class="itemizedlist">
+<li class="listitem"><p>Both sides must have the same base type.</p></li>
+<li class="listitem"><p>The expression must satisfy any constraints on the variables;
+          if it does not, the assignment does not take place and an exception
+          is raised instead.</p></li>
+</ul></div>
+<div class="note">
+<h3 class="title">Note</h3>
+<p>The general principle is that type errors (violations of the first
+      rule) are detected during compilation whereas subtype errors (violations
+      of the second rule) are detected during execution by the raising of an
+      exception.</p>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="TypesTypes.html">Prev</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="Types.html">Up</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="TypesSimpleNumericTypes.html">Next</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">1.3. Types </td>
+<td width="20%" align="center">
+<a accesskey="h" href="index.html">Home</a> | <a accesskey="t" href="bk01-toc.html">ToC</a>
+</td>
+<td width="40%" align="right" valign="top"> 1.5. Simple Numeric Types</td>
+</tr>
+</table>
+</div>
+<div align="center">UNCLASSIFIED</div>
+</body>
+</html>

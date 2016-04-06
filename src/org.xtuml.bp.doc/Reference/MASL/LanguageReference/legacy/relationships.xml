@@ -1,0 +1,894 @@
+<!-- 
+  UK Crown Copyright (c) 2016. All Rights Reserved
+-->
+<!-- Converted by db4-upgrade version 1.0 -->
+<chapter xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="Relationships"><info><title>Relationships</title></info>
+
+<para>
+Associations
+<indexterm significance="preferred">
+    <primary>association</primary>
+</indexterm>
+between objects
+<indexterm>
+    <primary>object</primary>
+</indexterm>
+in a domain
+<indexterm>
+    <primary>domain</primary>
+</indexterm>
+provide information about the way
+instances of the objects are related to one another. Such associations are
+modeled as relationships
+<indexterm significance="preferred">
+    <primary>relationship</primary>
+</indexterm>
+between the respective objects.
+</para>
+<para>
+Every relationship has a unique relationship number.
+<indexterm>
+    <primary>relationship</primary>
+    <secondary>number</secondary>
+</indexterm>
+At each end the relationship has:
+<itemizedlist mark="bullet">
+<listitem>
+<para>
+A role phrase.
+<indexterm>
+    <primary>relationship</primary>
+    <secondary>role phrase</secondary>
+</indexterm>
+</para>
+</listitem>
+<listitem>
+<para>
+A multiplicity
+<indexterm>
+    <primary>relationship</primary>
+    <secondary>multiplicity</secondary>
+</indexterm>
+</para>
+</listitem>
+</itemizedlist>
+</para>
+<para>
+The role phrase
+<indexterm>
+    <primary>relationship</primary>
+    <secondary>role phrase</secondary>
+</indexterm>
+indicates the role played by the object
+<indexterm>
+    <primary>object</primary>
+</indexterm>
+attached to the end of
+the relationship near the role phrase.
+<indexterm>
+    <primary>relationship</primary>
+    <secondary>role phrase</secondary>
+</indexterm>
+</para>
+<para>
+The multiplicity
+<indexterm>
+    <primary>relationship</primary>
+    <secondary>multiplicity</secondary>
+</indexterm>
+specifies the range of allowable cardinalities that a set may
+assume. A multiplicity specification
+<indexterm>
+    <primary>relationship</primary>
+    <secondary>multiplicity</secondary>
+</indexterm>
+is shown as one or many.
+</para>
+<section xml:id="RelationshipsRelationshipDeclarations"><info><title>Relationship Declarations</title></info>
+
+<para>
+A <link linkend="ebnf.relationshipdeclaration"><emphasis>relationship declaration</emphasis></link>
+<indexterm significance="preferred">
+    <primary>relationship</primary>
+    <secondary>declaration</secondary>
+</indexterm>
+declares a relationship between objects in a domain. The declaration
+specifies the relationship number
+<indexterm>
+    <primary>relationship</primary>
+    <secondary>number</secondary>
+</indexterm>
+of the relationship together with its definition.
+</para>
+<indexterm zone="ebnf.relationshipdeclaration">
+    <primary>relationship declaration</primary>
+</indexterm>
+<indexterm zone="ebnf.relationshipdeclaration">
+    <primary><literal>relationship</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.relationshipdeclaration">
+    <primary>relationship definition</primary>
+</indexterm>
+<indexterm zone="ebnf.relationshipdefinition">
+    <primary>relationship definition</primary>
+</indexterm>
+<indexterm zone="ebnf.relationshipdefinition">
+    <primary>subtype relationship definition</primary>
+</indexterm>
+<indexterm zone="ebnf.relationshipdefinition">
+    <primary>regular relationship definition</primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.relationshipdeclaration">
+    <lhs>
+        relationship declaration
+    </lhs>
+    <rhs>
+        'relationship',
+        <nonterminal def="#ebnf.relationshipnumber">relationship number</nonterminal>,
+        'is',
+        <nonterminal def="#ebnf.relationshipdefinition">relationship definition</nonterminal>,
+        ';'
+    </rhs>
+</production>
+<production xml:id="ebnf.relationshipdefinition">
+    <lhs>
+        relationship definition
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.subtyperelationshipdefinition">subtype relationship definition</nonterminal> |
+        <nonterminal def="#ebnf.regularrelationshipdefinition">regular relationship definition</nonterminal>
+    </rhs>
+</production>
+</productionset>
+<para>
+The definition of a relationship can either be a subtype relationship
+<indexterm>
+    <primary>relationship</primary>
+    <secondary>subtype</secondary>
+</indexterm>
+definition, in which case the relationship models a super/sub type hierarchy
+or a regular relationship definition,
+<indexterm>
+    <primary>relationship</primary>
+    <secondary>regular</secondary>
+</indexterm>
+in which case the relationship models
+a regular relationship.
+<indexterm>
+    <primary>relationship</primary>
+    <secondary>regular</secondary>
+</indexterm>
+</para>
+<para>
+A compile-time error occurs if the relationship number
+<indexterm>
+    <primary>relationship</primary>
+    <secondary>number</secondary>
+</indexterm>
+naming a relationship is already declared as a relationship in the enclosing domain.
+</para>
+</section>
+<section xml:id="RegularRelationships"><info><title>Regular Relationships</title></info>
+
+<para>
+A <link linkend="ebnf.regularrelationshipdefinition"><emphasis>regular relationship definition</emphasis></link>
+<indexterm significance="preferred">
+    <primary>relationship</primary>
+    <secondary>regular</secondary>
+</indexterm>
+specifies a relationship between two objects in a domain, together with an
+optional
+<link linkend="ebnf.associativerelationship"><emphasis>associative relationship</emphasis></link>
+<indexterm significance="preferred">
+    <primary>relationship</primary>
+    <secondary>associative</secondary>
+</indexterm>
+that specifies the object that formalizes the relationship.
+</para>
+<indexterm zone="ebnf.regularrelationshipdefinition">
+    <primary>regular relationship definition</primary>
+</indexterm>
+<indexterm zone="ebnf.regularrelationshipdefinition">
+    <primary>relationship description</primary>
+</indexterm>
+<indexterm zone="ebnf.regularrelationshipdefinition">
+    <primary>associative relationship</primary>
+</indexterm>
+<indexterm zone="ebnf.relationshipdescription">
+    <primary>relationship description</primary>
+</indexterm>
+<indexterm zone="ebnf.relationshipdescription">
+    <primary>object name</primary>
+</indexterm>
+<indexterm zone="ebnf.relationshipdescription">
+    <primary>relationship conditionality</primary>
+</indexterm>
+<indexterm zone="ebnf.relationshipdescription">
+    <primary>role name</primary>
+</indexterm>
+<indexterm zone="ebnf.relationshipdescription">
+    <primary>relationship multiplicity</primary>
+</indexterm>
+<indexterm zone="ebnf.rolename">
+    <primary>role name</primary>
+</indexterm>
+<indexterm zone="ebnf.rolename">
+    <primary>identifier</primary>
+</indexterm>
+<indexterm zone="ebnf.relationshipconditionality">
+    <primary>relationship conditionality</primary>
+</indexterm>
+<indexterm zone="ebnf.relationshipconditionality">
+    <primary><literal>unconditionally</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.relationshipconditionality">
+    <primary><literal>conditionally</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.relationshipconditionality">
+    <primary>relationship multiplicity</primary>
+</indexterm>
+<indexterm zone="ebnf.relationshipconditionality">
+    <primary><literal>one</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.relationshipconditionality">
+    <primary><literal>many</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.associativerelationship">
+    <primary>associative relationship</primary>
+</indexterm>
+<indexterm zone="ebnf.associativerelationship">
+    <primary><literal>using</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.associativerelationship">
+    <primary>relationship multiplicity</primary>
+</indexterm>
+<indexterm zone="ebnf.associativerelationship">
+    <primary>object name</primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.regularrelationshipdefinition">
+    <lhs>
+        regular relationship definition
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.relationshipdescription">relationship description</nonterminal>,
+        ',',
+        <nonterminal def="#ebnf.relationshipdescription">relationship description</nonterminal>,
+        [<nonterminal def="#ebnf.associativerelationship">associative relationship</nonterminal>]
+    </rhs>
+</production>
+<production xml:id="ebnf.relationshipdescription">
+    <lhs>
+        relationship description
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.objectname">object name</nonterminal>,
+        <nonterminal def="#ebnf.relationshipconditionality">relationship conditionality</nonterminal>,
+        <nonterminal def="#ebnf.rolename">role name</nonterminal>,
+        <nonterminal def="#ebnf.relationshipmultiplicity">relationship multiplicity</nonterminal>,
+        <nonterminal def="#ebnf.objectname">object name</nonterminal>
+    </rhs>
+</production>
+<production xml:id="ebnf.rolename">
+    <lhs>
+        role name
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.identifier">identifier</nonterminal>
+    </rhs>
+</production>
+<production xml:id="ebnf.relationshipconditionality">
+    <lhs>
+        relationship conditionality
+    </lhs>
+    <rhs>
+        'unconditionally' | 'conditionally'
+    </rhs>
+</production>
+<production xml:id="ebnf.relationshipmultiplicity">
+    <lhs>
+        relationship multiplicity
+    </lhs>
+    <rhs>
+        'one' | 'many'
+    </rhs>
+</production>
+<production xml:id="ebnf.associativerelationship">
+    <lhs>
+        associative relationship
+    </lhs>
+    <rhs>
+        'using',
+        <nonterminal def="#ebnf.relationshipmultiplicity">relationship multiplicity</nonterminal>,
+        <nonterminal def="#ebnf.objectname">object name</nonterminal>
+    </rhs>
+</production>
+</productionset>
+<para>
+A <link linkend="ebnf.regularrelationshipdefinition"><emphasis>regular relationship definition</emphasis></link>
+<indexterm>
+    <primary>relationship</primary>
+    <secondary>regular</secondary>
+</indexterm>
+defines the relationship from the
+perspective of each of the participating objects. Therefore two relationships
+specifications are defined.
+</para>
+<para>
+A compile-time error occurs if any of the following are not true:
+<itemizedlist mark="bullet">
+<listitem>
+<para>
+Both of the object names in a
+<link linkend="ebnf.relationshipdescription"><emphasis>relationship description</emphasis></link>
+<indexterm>
+    <primary>relationship</primary>
+    <secondary>description</secondary>
+</indexterm>
+must name an object that has already been declared, or pre-declared, in the
+enclosing domain.
+</para>
+</listitem>
+<listitem>
+<para>
+In a <link linkend="ebnf.regularrelationshipdefinition"><emphasis>regular relationship definition</emphasis></link>,
+<indexterm>
+    <primary>relationship</primary>
+    <secondary>regular</secondary>
+</indexterm>
+the first object in the first
+<link linkend="ebnf.relationshipdescription"><emphasis>relationship description</emphasis></link>
+<indexterm>
+    <primary>relationship</primary>
+    <secondary>description</secondary>
+</indexterm>
+must be the same object as the second object in the second relationship description.
+<indexterm>
+    <primary>relationship</primary>
+    <secondary>description</secondary>
+</indexterm>
+</para>
+</listitem>
+<listitem>
+<para>
+In a <link linkend="ebnf.regularrelationshipdefinition"><emphasis>regular relationship definition</emphasis></link>,
+<indexterm>
+    <primary>relationship</primary>
+    <secondary>regular</secondary>
+</indexterm>
+the second object in the first
+<link linkend="ebnf.relationshipdescription"><emphasis>relationship description</emphasis></link>
+<indexterm>
+    <primary>relationship</primary>
+    <secondary>description</secondary>
+</indexterm>
+must be the same object as the first object in the second relationship description.
+</para>
+</listitem>
+<listitem>
+<para>
+The object name in an
+<link linkend="ebnf.associativerelationship"><emphasis>associative relationship</emphasis></link>
+<indexterm>
+    <primary>relationship</primary>
+    <secondary>associative</secondary>
+</indexterm>
+must name an object that has already been declared or pre-declared in the
+enclosing domain.
+</para>
+</listitem>
+<listitem>
+<para RevisionFlag="deleted">
+The object in an
+<link linkend="ebnf.associativerelationship"><emphasis>associative relationship</emphasis></link>
+<indexterm>
+    <primary>relationship</primary>
+    <secondary>associative</secondary>
+</indexterm>
+cannot have already been specified as an associative object in another
+relationship.
+</para>
+</listitem>
+<listitem>
+<para>
+The multiplicity of an
+<link linkend="ebnf.associativerelationship"><emphasis>associative relationship</emphasis></link>
+<indexterm>
+    <primary>relationship</primary>
+    <secondary>associative</secondary>
+</indexterm>
+can only be one.
+</para>
+</listitem>
+</itemizedlist>
+Notice that the multiplicity of each end of a relationship is not declared
+using an integer interval, but instead using a conditionality together with
+a multiplicity.
+</para>
+<para>
+<xref linkend="MappingsforIntegerIntervalstoConditionalityandMultiplicity"/> gives
+the mapping between integer intervals and conditionality and multiplicity.
+Notice that this restricts the multiplicity that relationship ends can have.
+<indexterm>
+    <primary>relationship</primary>
+    <secondary>multiplicity</secondary>
+</indexterm>
+<table xml:id="MappingsforIntegerIntervalstoConditionalityandMultiplicity" frame="all"><info><title>Mappings for Integer Intervals to Conditionality and Multiplicity</title></info>
+
+<tgroup cols="3" align="left" colsep="1" rowsep="1">
+<colspec colname="Integer Interval"/>
+<colspec colname="Conditionality"/>
+<colspec colname="Multiplicity"/>
+<thead>
+<row>
+    <entry>Integer Interval</entry>
+    <entry>Conditionality</entry>
+    <entry>Multiplicity</entry>
+</row>
+</thead>
+<tbody>
+<row>
+    <entry><literal>1</literal></entry>
+    <entry>unconditionally</entry>
+    <entry>one</entry>
+</row>
+<row>
+    <entry><literal>0 .. 1</literal></entry>
+    <entry>conditionally</entry>
+    <entry>one</entry>
+</row>
+<row>
+    <entry><literal>1 .. *</literal></entry>
+    <entry>unconditionally</entry>
+    <entry>many</entry>
+</row>
+<row>
+    <entry><literal>0 .. *</literal></entry>
+    <entry>conditionally</entry>
+    <entry>many</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+Each relationship description is meant to read as a meaningful sentence.
+</para>
+<section xml:id="RelationshipsUnconditionalRelationships"><info><title>Unconditional Relationships</title></info>
+
+<para>
+There are three basic kinds of relationship; one-to-one,
+<indexterm>
+    <primary>relationship</primary>
+    <secondary>one-to-one</secondary>
+</indexterm>
+one-to-many
+<indexterm>
+    <primary>relationship</primary>
+    <secondary>one-to-many</secondary>
+</indexterm>
+and many-to-many.
+<indexterm>
+    <primary>relationship</primary>
+    <secondary>many-to-many.</secondary>
+</indexterm>
+These basic relationships are unconditional
+<indexterm>
+    <primary>relationship</primary>
+    <secondary>unconditional</secondary>
+</indexterm>
+because every instance
+of both objects must participate in the relationship.
+</para>
+<section xml:id="RelationshipsOnetoOneRelationships"><info><title>One-to-one Relationships</title></info>
+
+<para>
+A one-to-one relationship
+<indexterm significance="preferred">
+    <primary>relationship</primary>
+    <secondary>one-to-one</secondary>
+</indexterm>
+exists when a single instance of
+an object is associated with a single instance of another.
+</para>
+</section>
+<section xml:id="RelationshipsOnetoManyRelationships"><info><title>One-to-many Relationships</title></info>
+
+<para>
+A one-to-many relationship
+<indexterm significance="preferred">
+    <primary>relationship</primary>
+    <secondary>one-to-many</secondary>
+</indexterm>
+exists when a single instance of
+an object is associated with one or more instances of another and each instance
+of the second object is associated with just one instance of the first.
+</para>
+</section>
+<section xml:id="RelationshipsManytoManyRelationships"><info><title>Many-to-many Relationships</title></info>
+
+<para>
+A many-to-many relationship
+<indexterm significance="preferred">
+    <primary>relationship</primary>
+    <secondary>many-to-many</secondary>
+</indexterm>
+exists when a single instance
+of an object is associated with one or more instances of another and each
+instance of the second object is associated with one or more instances of the
+first.
+</para>
+</section>
+<section xml:id="RelationshipsReflexiveRelationsips"><info><title>Reflexive Relationships</title></info>
+
+<para>
+A reflexive relationship
+<indexterm significance="preferred">
+    <primary>relationship</primary>
+    <secondary>reflexive</secondary>
+</indexterm>
+exists where instances of an object are related to instances of the same object.
+</para>
+</section>
+</section>
+<section xml:id="RelationshipsConditionalRelationships"><info><title>Conditional Relationships</title></info>
+
+<para>
+In unconditional relationships,
+<indexterm>
+    <primary>relationship</primary>
+    <secondary>unconditional</secondary>
+</indexterm>
+every instance of the objects is required to participate in the relationship.
+In a conditional relationship there can be instances of the
+objects that do not participate. A conditional relationship
+<indexterm significance="preferred">
+    <primary>relationship</primary>
+    <secondary>conditional</secondary>
+</indexterm>
+is declared using the reserved word
+<link linkend="ebnf.relationshipconditionality"><literal>conditionally</literal></link>
+<indexterm significance="preferred">
+    <primary><literal>conditionally</literal></primary>
+</indexterm>
+in the relationship conditionality.
+<indexterm significance="preferred">
+    <primary>relationship</primary>
+    <secondary>conditionality.</secondary>
+</indexterm>
+</para>
+</section>
+</section>
+<section xml:id="RelationshipsSubtypeRelationships"><info><title>Subtype Relationships</title></info>
+
+<para>
+In many problems you find distinct specialized objects that have certain
+attributes in common. In this case, we abstract a more general object to
+represent the characteristics shared by the original specialized objects.
+These objects related through a subtype relationship.
+</para>
+<para>
+A <link linkend="ebnf.subtyperelationshipdefinition"><emphasis>subtype relationship definition</emphasis></link>
+<indexterm significance="preferred">
+    <primary>relationship</primary>
+    <secondary>subtype</secondary>
+</indexterm>
+defines a subtype relationship between an object and one or more other objects
+in a domain.
+</para>
+<indexterm zone="ebnf.subtyperelationshipdefinition">
+    <primary>subtype relationship definition</primary>
+</indexterm>
+<indexterm zone="ebnf.subtyperelationshipdefinition">
+    <primary>object name</primary>
+</indexterm>
+<indexterm zone="ebnf.subtyperelationshipdefinition">
+    <primary><literal>is_a</literal></primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.subtyperelationshipdefinition">
+    <lhs>
+        subtype relationship definition
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.objectname">object name</nonterminal>,
+        'is_a', '(',
+        <nonterminal def="#ebnf.objectname">object name</nonterminal>,
+        {(',',
+        <nonterminal def="#ebnf.objectname">object name</nonterminal>},
+        ')'
+    </rhs>
+</production>
+</productionset>
+<para>
+A compile-time error occurs if the object names do not name objects that have
+already been declared or pre-declared in the enclosing domain.
+</para>
+<para>
+The order of the subtype objects
+<indexterm>
+    <primary>object</primary>
+    <secondary>subtype</secondary>
+</indexterm>
+in a subtype relationship definition
+<indexterm>
+    <primary>relationship</primary>
+    <secondary>subtype</secondary>
+</indexterm>
+is arbitrary. An object can be the super-type in multiple sub-type
+relationships. An object can also be the subtype of multiple other objects.
+</para>
+<section xml:id="RelationshipsInvalidSubtypeRelationships"><info><title>Invalid Subtype Relationships</title></info>
+
+<para>
+Certain groups of subtype relationship
+<indexterm>
+    <primary>relationship</primary>
+    <secondary>subtype</secondary>
+</indexterm>
+are invalid. It is important to remember that, if a subtype object has a subtype
+relationship, then all of its subtypes are subtypes of its super-type.
+</para>
+<para>
+A subtype relationship
+<indexterm>
+    <primary>relationship</primary>
+    <secondary>subtype</secondary>
+</indexterm>
+is invalid and hence causes a compile-time error to
+occur if a super-type object is a subtype of one of its subtypes or a subtype
+object is a subtype of its super-type using more than one subtype relationship.
+</para>
+</section>
+</section>
+<section xml:id="RelationshipsRelationshipSpecifications"><info><title>Relationship Specification</title></info>
+
+<para>
+A <link linkend="ebnf.relationshipspecification"><emphasis>relationship specification</emphasis></link>
+<indexterm>
+    <primary>relationship</primary>
+    <secondary>specification</secondary>
+</indexterm>
+specifies which relationship is required to be created, navigated or deleted.
+</para>
+<indexterm zone="ebnf.relationshipspecification">
+    <primary>relationship specification</primary>
+</indexterm>
+<indexterm zone="ebnf.relationshipspecification">
+    <primary>relationship number</primary>
+</indexterm>
+<indexterm zone="ebnf.relationshipspecification">
+    <primary>role</primary>
+</indexterm>
+<indexterm zone="ebnf.relationshipspecification">
+    <primary>object name</primary>
+</indexterm>
+<indexterm zone="ebnf.role">
+    <primary>role</primary>
+</indexterm>
+<indexterm zone="ebnf.role">
+    <primary>role name</primary>
+</indexterm>
+<indexterm zone="ebnf.role">
+    <primary><literal>is_a</literal></primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.relationshipspecification">
+    <lhs>
+        relationship specification
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.relationshipnumber">relationship number</nonterminal>,
+        '.',
+        <nonterminal def="#ebnf.role">role</nonterminal>,
+        '.',
+        <nonterminal def="#ebnf.objectname">object name</nonterminal> |
+        <nonterminal def="#ebnf.relationshipnumber">relationship number</nonterminal>,
+        '.',
+        <nonterminal def="#ebnf.role">role</nonterminal> |
+        <nonterminal def="#ebnf.relationshipnumber">relationship number</nonterminal>,
+        '.',
+        <nonterminal def="#ebnf.objectname">object name</nonterminal> |
+        <nonterminal def="#ebnf.relationshipnumber">relationship number</nonterminal>
+    </rhs>
+</production>
+<production xml:id="ebnf.role">
+    <lhs>
+        role
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.rolename">role name</nonterminal> |
+        'is_a'
+    </rhs>
+</production>
+</productionset>
+<para>
+There are four forms of relationship specification. The analyst must ensure that
+the following are unambiguously specified:
+<itemizedlist mark="bullet">
+<listitem>
+<para>
+The relationship.
+<indexterm>
+    <primary>relationship</primary>
+</indexterm>
+</para>
+</listitem>
+<listitem>
+<para>
+The direction of the navigation.
+<indexterm>
+    <primary>relationship</primary>
+    <secondary>direction of navigation</secondary>
+</indexterm>
+</para>
+</listitem>
+<listitem>
+<para>
+The destination object.
+<indexterm>
+    <primary>relationship</primary>
+    <secondary>destination object</secondary>
+</indexterm>
+</para>
+</listitem>
+</itemizedlist>
+The relationship can be specified by:
+<itemizedlist mark="bullet">
+<listitem>
+<para>
+The relationship number.
+<indexterm>
+    <primary>relationship</primary>
+    <secondary>number</secondary>
+</indexterm>
+</para>
+</listitem>
+<listitem>
+<para>
+The relationship role,
+<indexterm>
+    <primary>relationship</primary>
+    <secondary>role</secondary>
+</indexterm>
+if it is unambiguous.
+</para>
+</listitem>
+</itemizedlist>
+The direction of navigation
+<indexterm>
+    <primary>relationship</primary>
+    <secondary>direction of navigation</secondary>
+</indexterm>
+can be specified by:
+<itemizedlist mark="bullet">
+<listitem>
+<para>
+Default (in non-reflexive relationships).
+</para>
+</listitem>
+<listitem>
+<para>
+Relationship role,
+<indexterm>
+    <primary>relationship</primary>
+    <secondary>role</secondary>
+</indexterm>
+if it is unambiguous.
+</para>
+</listitem>
+<listitem>
+<para>
+Object name, in non-reflexive relationships.
+<indexterm>
+    <primary>object</primary>
+    <secondary>name</secondary>
+</indexterm>
+</para>
+</listitem>
+</itemizedlist>
+The destination object can be specified by:
+<itemizedlist mark="bullet">
+<listitem>
+<para>
+Default (in non-reflexive relationships).
+</para>
+</listitem>
+<listitem>
+<para>
+Relationship role.
+<indexterm>
+    <primary>relationship</primary>
+    <secondary>role</secondary>
+</indexterm>
+</para>
+</listitem>
+<listitem>
+<para>
+Object name.
+<indexterm>
+    <primary>object</primary>
+    <secondary>name</secondary>
+</indexterm>
+</para>
+</listitem>
+</itemizedlist>
+</para>
+<para>
+A compile-time error occurs if insufficient information is provided to identify
+all the necessary parameters.
+</para>
+</section>
+<section xml:id="RelationshipsCorrelatedRelationshipSpecification"><info><title>Correlated Relationship Specification</title></info>
+
+<para>
+A correlated relationship navigation finds the instance or instances, of the
+associative object that is related to a pair of corresponding instances. A
+<link linkend="ebnf.correlatedrelationshipspecification"><emphasis>correlated relationship specification</emphasis></link>
+<indexterm>
+    <primary>relationship</primary>
+    <secondary>correlated</secondary>
+</indexterm>
+specifies which relationship is required to be correlatively navigated.
+<indexterm>
+    <primary>relationship</primary>
+    <secondary>correlative navigation</secondary>
+</indexterm>
+</para>
+<indexterm zone="ebnf.correlatedrelationshipspecification">
+    <primary>correlated relationship specification</primary>
+</indexterm>
+<indexterm zone="ebnf.correlatedrelationshipspecification">
+    <primary>relationship number</primary>
+</indexterm>
+<indexterm zone="ebnf.correlatedrelationshipspecification">
+    <primary>role name</primary>
+</indexterm>
+<indexterm zone="ebnf.correlatedrelationshipspecification">
+    <primary>relationship number</primary>
+</indexterm>
+<indexterm zone="ebnf.correlatedrelationshipspecification">
+    <primary>object name</primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.correlatedrelationshipspecification">
+    <lhs>
+        correlated relationship specification
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.relationshipnumber">relationship number</nonterminal>,
+        '.',
+        <nonterminal def="#ebnf.rolename">role name</nonterminal>,
+        '.',
+        <nonterminal def="#ebnf.objectname">object name</nonterminal> |
+        <nonterminal def="#ebnf.relationshipnumber">relationship number</nonterminal>,
+        '.',
+        <nonterminal def="#ebnf.rolename">role name</nonterminal> |
+        <nonterminal def="#ebnf.relationshipnumber">relationship number</nonterminal>,
+        '.',
+        <nonterminal def="#ebnf.objectname">object name</nonterminal> |
+        <nonterminal def="#ebnf.relationshipnumber">relationship number</nonterminal>
+    </rhs>
+</production>
+</productionset>
+<para>
+There are four forms of correlated relationship specification.
+<indexterm>
+    <primary>relationship</primary>
+    <secondary>correlated</secondary>
+</indexterm>
+The relationship must be unambiguously specified. If an object name is specified
+then it must be the name of the associative objects
+<indexterm>
+    <primary>object</primary>
+    <secondary>associative</secondary>
+</indexterm>
+being navigated to. If a role name
+<indexterm>
+    <primary>relationship</primary>
+    <secondary>role name</secondary>
+</indexterm>
+is specified then it must be the role at the destination end of the relationship
+for the first instance specified.
+</para>
+</section>
+</chapter>

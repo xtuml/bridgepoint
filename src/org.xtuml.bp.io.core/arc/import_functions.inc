@@ -827,10 +827,6 @@ ${setSize.body}
         helper.fixUpGraphicalData();
         Ooaofooa.Removeinconsistentnonlocalevents(getModelRoot());
     .end if
-        .if(multilevel)
-    if(actualVersion.equals(bp7_1_3VersionNumber))
-        helper.migrateComponents(getModelRoot());
-        .end if
         setGraphicalRepresents();
         pm.done();
     .end if
