@@ -101,7 +101,11 @@ will use to design and perform the tests. Here is an example reference to the Do
 7.2.1 Example sub-item
 * Example List Element
 
-8. Code Changes
+8. User Documentation
+---------------------
+Describe the end user documentation that was added for this change. 
+
+9. Code Changes
 ---------------
 Branch name: < enter your branch name here >
 
