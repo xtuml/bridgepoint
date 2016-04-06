@@ -13,59 +13,33 @@
 //========================================================================
 package org.xtuml.bp.core.test;
 
-import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Platform;
-import org.eclipse.gef.tools.AbstractTool;
-import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.TreeItem;
-import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.views.properties.IPropertyDescriptor;
-import org.xtuml.bp.core.ComponentReference_c;
-import org.xtuml.bp.core.Component_c;
-import org.xtuml.bp.core.DataType_c;
-import org.xtuml.bp.core.ExecutableProperty_c;
-import org.xtuml.bp.core.InterfaceOperation_c;
-import org.xtuml.bp.core.InterfaceReference_c;
-import org.xtuml.bp.core.Interface_c;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.ModelClass_c;
 import org.xtuml.bp.core.Ooaofooa;
-import org.xtuml.bp.core.Operation_c;
 import org.xtuml.bp.core.Package_c;
-import org.xtuml.bp.core.PackageableElement_c;
-import org.xtuml.bp.core.Port_c;
-import org.xtuml.bp.core.PropertyParameter_c;
-import org.xtuml.bp.core.Provision_c;
-import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
-import org.xtuml.bp.core.common.Transaction;
-import org.xtuml.bp.core.ui.Selection;
 import org.xtuml.bp.test.TestUtil;
 import org.xtuml.bp.test.common.ExplorerUtil;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.UITestingUtilities;
-import org.xtuml.bp.ui.canvas.Cl_c;
-import org.xtuml.bp.ui.canvas.Ooaofgraphics;
 import org.xtuml.bp.ui.canvas.test.CanvasTest;
-import org.xtuml.bp.ui.canvas.test.CanvasTestResult;
-import org.xtuml.bp.ui.canvas.test.CanvasTestUtilities;
-import org.xtuml.bp.ui.graphics.editor.GraphicalEditor;
 import org.xtuml.bp.ui.graphics.editor.GraphicalEditorInput;
-import org.xtuml.bp.ui.graphics.editor.ModelEditor;
-import org.xtuml.bp.ui.properties.ChooserPropertyDescriptor;
-import org.xtuml.bp.ui.properties.OperationsC_IOPropertySource;
-import org.xtuml.bp.ui.properties.ParametersC_PPPropertySource;
-import org.xtuml.bp.ui.text.activity.ActivityEditorInputFactory;
-import org.xtuml.bp.ui.text.description.DescriptionEditorInputFactory;
-import org.xtuml.bp.utilities.ui.CanvasUtilities;
 
+@RunWith(OrderedRunner.class)
 public class ExistingProjectsInitialChecks extends CanvasTest {
 
 	String test_id = null;
@@ -82,8 +56,8 @@ public class ExistingProjectsInitialChecks extends CanvasTest {
 		}
 	}
 
-	public ExistingProjectsInitialChecks(String name) {
-		super("org.xtuml.bp.core.test", name);
+	public ExistingProjectsInitialChecks() {
+		super("org.xtuml.bp.core.test", null);
 		if (Platform.getOS().contains("win")) {
 			expected_string = new String[]{"drawRectangle(16416, 12384, 384, 432)",
 					"drawText(" + String.valueOf('"') + "Unnamed ..." + String.valueOf('"') + ", 16432, 12397, true)",
@@ -98,13 +72,15 @@ public class ExistingProjectsInitialChecks extends CanvasTest {
 		return "TigerNatureTest" + "_" + test_id;
 	}
 
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		Display d = Display.getCurrent();
 		while (d.readAndDispatch());
 	}
 
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject("Test Project 3");
 		if (project != null) {
 			project.delete(true, true, new NullProgressMonitor());
@@ -148,6 +124,7 @@ public class ExistingProjectsInitialChecks extends CanvasTest {
 		return null;
 	}
 
+	@Test
 	public void testXTUMLProjectsExist() {
 		assertTrue("Did not find existing project, Test Project 1, in the explorer view",
 				checkForTreeItem("Test Project 1"));
@@ -158,6 +135,7 @@ public class ExistingProjectsInitialChecks extends CanvasTest {
 	}
 
 	// Test that the tree is opened to the selected class
+	@Test
 	public void testLinkWithEditor() {
 		IEditorPart ss = checkForOpenEditors("TestSS");
 		assertNotNull(ss);
@@ -240,7 +218,8 @@ public class ExistingProjectsInitialChecks extends CanvasTest {
 			}
 		}
 	
-		public void testEditorsRemainOpenAfterClose() {
+		@Test
+	public void testEditorsRemainOpenAfterClose() {
 			assertNotNull("Editor, TestSS: Class Diagram, did not correctly restore", checkForOpenEditors("TestSS"));
 			assertNotNull("Editor, testOp: Operation Activity, did not correctly restore",
 					checkForOpenEditors("TestClass1::testOp"));
@@ -248,7 +227,8 @@ public class ExistingProjectsInitialChecks extends CanvasTest {
 					checkForOpenEditors("TestClass1"));
 		}
 	
-		public void testPlacholderInstances() {
+		@Test
+	public void testPlacholderInstances() {
 			IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject("Test Project 1");
 	
 			String modelRootId = Ooaofooa.createModelRootId(project, "testDomain1", true);
@@ -295,7 +275,8 @@ public class ExistingProjectsInitialChecks extends CanvasTest {
 	
 		}
 	
-		public void testInterfaceAssignmentInterfaceContainedInDifferentPackageRoot() {
+		@Test
+	public void testInterfaceAssignmentInterfaceContainedInDifferentPackageRoot() {
 			test_id = "InterfaceAssignment";
 			// open the pre-created component package
 			final String projectName = "Package Test Project";
@@ -352,7 +333,8 @@ public class ExistingProjectsInitialChecks extends CanvasTest {
 			validateOrGenerateResults(ce, generateResults, true);
 		}
 	
-		public void testComponentAssignmentComponentContainedInDifferentPackageRoot() {
+		@Test
+	public void testComponentAssignmentComponentContainedInDifferentPackageRoot() {
 			test_id = "ComponentAssignment";
 			// open the pre-created component package
 			final String projectName = "Package Test Project";
@@ -410,7 +392,8 @@ public class ExistingProjectsInitialChecks extends CanvasTest {
 			validateOrGenerateResults(ce, generateResults, true);
 		}
 	
-		public void testDataTypeAssignmentInterfaceOperationInDifferentPackageRoot() {
+		@Test
+	public void testDataTypeAssignmentInterfaceOperationInDifferentPackageRoot() {
 			test_id = "DataTypeAssignmentInterfaceOperation";
 			// open the pre-created component package
 			final String projectName = "Package Test Project";
@@ -474,7 +457,8 @@ public class ExistingProjectsInitialChecks extends CanvasTest {
 					dt.getName().equals("DataTypeAssignmentSetup"));
 		}
 	
-		public void testDataTypeAssignmentPropertyParameterInDifferentPackageRoot() {
+		@Test
+	public void testDataTypeAssignmentPropertyParameterInDifferentPackageRoot() {
 			test_id = "DataTypeAssignmentPropertyParameter";
 			// open the pre-created component package
 			final String projectName = "Package Test Project";
@@ -806,7 +790,8 @@ public class ExistingProjectsInitialChecks extends CanvasTest {
 		//				result != -1);
 		//	}
 	
-		public void testUseCasePackageOnRestart() {
+		@Test
+	public void testUseCasePackageOnRestart() {
 			test_id = "LoadUseCaseDiagramOnRestart";
 			final String projectName = "Package Test Project";
 			SystemModel_c system = SystemModel_c.SystemModelInstance(Ooaofooa.getDefaultInstance(),
@@ -835,7 +820,8 @@ public class ExistingProjectsInitialChecks extends CanvasTest {
 			validateOrGenerateResults(ce, generateResults, true);
 		}
 	
-		public void testPackageParticipantFormalizedToIPREditorRestoration() {
+		@Test
+	public void testPackageParticipantFormalizedToIPREditorRestoration() {
 			test_id = "PackageParticipantFormalizationIPR";
 			// locate the editors in question
 			IEditorReference[] editorReferences = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
@@ -853,7 +839,8 @@ public class ExistingProjectsInitialChecks extends CanvasTest {
 			validateOrGenerateResults(gEditor, generateResults);
 		}
 	
-		public void testComponentParticipantFormalizedToIPREditorRestoration() {
+		@Test
+	public void testComponentParticipantFormalizedToIPREditorRestoration() {
 			test_id = "ComponentParticipantFormalizationIPR";
 			// locate the editors in question
 			IEditorReference[] editorReferences = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
@@ -871,7 +858,8 @@ public class ExistingProjectsInitialChecks extends CanvasTest {
 			validateOrGenerateResults(gEditor, generateResults);
 		}
 	
-		public void testExternalEntityParticipantFormalizedToIPREditorRestoration() {
+		@Test
+	public void testExternalEntityParticipantFormalizedToIPREditorRestoration() {
 			test_id = "EEParticipantFormalizationIPR";
 			// locate the editors in question
 			IEditorReference[] editorReferences = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
@@ -889,7 +877,8 @@ public class ExistingProjectsInitialChecks extends CanvasTest {
 			validateOrGenerateResults(gEditor, generateResults);
 		}
 	
-		public void testClassParticipantFormalizedToIPREditorRestoration() {
+		@Test
+	public void testClassParticipantFormalizedToIPREditorRestoration() {
 			test_id = "ClassParticipantFormalizationIPR";
 			// locate the editors in question
 			IEditorReference[] editorReferences = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
@@ -907,7 +896,8 @@ public class ExistingProjectsInitialChecks extends CanvasTest {
 			validateOrGenerateResults(gEditor, generateResults);
 		}
 	
-		public void testClassInstanceParticipantFormalizedToIPREditorRestoration() {
+		@Test
+	public void testClassInstanceParticipantFormalizedToIPREditorRestoration() {
 			test_id = "ClassInstParticipantFormalizationIPR";
 			// locate the editors in question
 			IEditorReference[] editorReferences = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()

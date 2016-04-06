@@ -29,13 +29,10 @@ import java.util.Map;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
-import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspaceRunnable;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.IDocument;
@@ -47,7 +44,6 @@ import org.eclipse.jface.text.source.ISourceViewer;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IPageLayout;
 import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IWorkbenchPage;
@@ -55,14 +51,11 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.ide.IDE;
 import org.eclipse.ui.texteditor.MarkerUtilities;
-
-import org.xtuml.bp.core.Bridge_c;
+import org.junit.After;
+import org.junit.Before;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Function_c;
-import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Package_c;
-import org.xtuml.bp.test.TestUtil;
-import org.xtuml.bp.test.common.TestingUtilities;
 import org.xtuml.bp.test.common.TextEditorUtils;
 import org.xtuml.bp.ui.text.EditorAnnotationIterator;
 import org.xtuml.bp.ui.text.EditorHover;
@@ -119,7 +112,8 @@ public class ActivityEditorInteraction extends UITextTest {
 		dotestSaveAfterErrorRemoved();
 	}
 	
-    protected void setUp() throws Exception {
+    @Before
+	public void setUp() throws Exception {
     	super.setUp();
     	if ( firstSetup ) {
         	loadProject(testModelName);
@@ -131,7 +125,8 @@ public class ActivityEditorInteraction extends UITextTest {
         }
     }	
 
-    protected void tearDown() throws Exception {
+    @After
+	public void tearDown() throws Exception {
     	
     	// parse all activities after performing test
     	// to verify it doesn't affect editor/problem list state

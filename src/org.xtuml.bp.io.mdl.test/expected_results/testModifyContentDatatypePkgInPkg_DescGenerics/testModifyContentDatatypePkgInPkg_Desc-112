@@ -1,5 +1,5 @@
 drawRectangle(...)
-drawText("+«enumeration»", ...)
+drawText("+«enumerati...", ...)
 drawText("test", ...)
 drawline(...)
 drawText("one", ...)

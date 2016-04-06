@@ -22,43 +22,49 @@
 //=====================================================================
 
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
-
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.common.BridgePointPreferencesStore;
-import org.xtuml.bp.ui.canvas.test.CanvasCCPGlobalsTest;
 import org.xtuml.bp.ui.canvas.test.CanvasCCPTestsSuite;
 import org.xtuml.bp.ui.canvas.test.CanvasCopyPasteTests;
 import org.xtuml.bp.ui.canvas.test.CanvasCopyTests;
 import org.xtuml.bp.ui.canvas.test.CanvasCutTests;
 import org.xtuml.bp.ui.canvas.test.CanvasStateMachineCopyPasteTests;
+import org.xtuml.bp.ui.canvas.test.GlobalTestSetupClass;
+
+import junit.framework.Test;
+import junit.framework.TestSuite;
 
 /**
  * Test cut, copy, and paste within the canvas.
  */
+@RunWith(Suite.class)
+@Suite.SuiteClasses({
+//	GlobalTestSetupClass.class,
+	CanvasCCPTestsSuite.class,
+	CanvasCutTests.class,
+	CanvasCopyTests.class,
+	CanvasCopyPasteTests.class,
+})
 public class CanvasCCPGlobalsTestSuite extends TestSuite {
 
-	/**
-	 * Returns the suite.  This is required to
-	 * use the JUnit Launcher.
-	 */
-	public static Test suite() {
-		return new CanvasCCPGlobalsTestSuite();
-	}
-	
-	/**
-	 * Construct the test suite.
-	 */
-	public CanvasCCPGlobalsTestSuite() {
-		CorePlugin.getDefault().getPreferenceStore().setValue(BridgePointPreferencesStore.USE_DEFAULT_NAME_FOR_CREATION,true);
-		addTestSuite(CanvasCCPTestsSuite.class);
-		addTestSuite(CanvasCutTests.class);
-		addTestSuite(CanvasCopyTests.class);
-		addTestSuite(CanvasCopyPasteTests.class);
-		addTestSuite(CanvasStateMachineCopyPasteTests.class);
-		TestSuite testSuite = new ModelRecreationTestSuite();
-		addTest(testSuite);
-	}
+//	/**
+//	 * Returns the suite.  This is required to
+//	 * use the JUnit Launcher.
+//	 */
+//	public static Test suite() {
+//		return new CanvasCCPGlobalsTestSuite();
+//	}
+//	
+//	/**
+//	 * Construct the test suite.
+//	 */
+//	public CanvasCCPGlobalsTestSuite() {
+//		CorePlugin.getDefault().getPreferenceStore().setValue(BridgePointPreferencesStore.USE_DEFAULT_NAME_FOR_CREATION,true);
+//		addTestSuite(CanvasStateMachineCopyPasteTests.class);
+//		TestSuite testSuite = new ModelRecreationTestSuite();
+//		addTest(testSuite);
+//	}
 
 }

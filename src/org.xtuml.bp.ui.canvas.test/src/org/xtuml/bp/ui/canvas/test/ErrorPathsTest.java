@@ -20,11 +20,11 @@ package org.xtuml.bp.ui.canvas.test;
 import java.io.File;
 import java.util.UUID;
 
-import junit.framework.TestCase;
-
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
-
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.AccessPath_c;
 import org.xtuml.bp.core.Association_c;
 import org.xtuml.bp.core.CommunicationPath_c;
@@ -37,7 +37,12 @@ import org.xtuml.bp.core.StateMachineState_c;
 import org.xtuml.bp.core.Transition_c;
 import org.xtuml.bp.core.common.IdAssigner;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.ui.canvas.Cl_c;
+import org.xtuml.bp.utilities.ui.ProjectUtilities;
+
+import junit.framework.TestCase;
+@RunWith(OrderedRunner.class)
 public class ErrorPathsTest extends TestCase {
   Ooaofooa modelRoot = BaseTest.getDefaultTestInstance(); 
   private static String m_logfile_path = "";
@@ -45,10 +50,8 @@ public class ErrorPathsTest extends TestCase {
   public ErrorPathsTest() {
     super();
   }
-  public ErrorPathsTest(String arg0) {
-    super(arg0);
-  }
-  protected void setUp() throws Exception {
+  @Before
+	public void setUp() throws Exception {
     super.setUp();
     if (m_logfile_path == null || m_logfile_path.equals(""))
     {
@@ -68,7 +71,8 @@ public class ErrorPathsTest extends TestCase {
 	  return ret_val;
   }
   
-  public void testGetConnectorText() throws Exception {
+  @Test
+	public void testGetConnectorText() throws Exception {
     // Method not implemented
     String text = Cl_c.Getconnectortext(0, IdAssigner.NULL_UUID, false, new Object(), IdAssigner.NULL_UUID);
     assertEquals("", text);
@@ -92,7 +96,8 @@ public class ErrorPathsTest extends TestCase {
     assertEquals("", text);
     assertTrue("Log file is not present", logFilePresent());
   }
-  public void testGetCompartmentText() throws Exception {
+  @Test
+	public void testGetCompartmentText() throws Exception {
     // Method not implemented
     String text = Cl_c.Getcompartmenttext(0, 0, 0, new Object());
     assertEquals("", text);
@@ -116,7 +121,8 @@ public class ErrorPathsTest extends TestCase {
     assertEquals("", text);
     assertTrue("Log file is not present", logFilePresent());
   }
-  public void testGetCompartments() throws Exception {
+  @Test
+	public void testGetCompartments() throws Exception {
     int testVal = -1;
     testVal = Cl_c.Getcompartments(new Object());
     assertEquals(0, testVal);
@@ -140,7 +146,8 @@ public class ErrorPathsTest extends TestCase {
     assertEquals(0, testVal);
     assertTrue("Log file is not present", logFilePresent());
   }
-  public void testGetConnectorStyle() throws Exception {
+  @Test
+	public void testGetConnectorStyle() throws Exception {
     int testVal = -1;
     testVal = Cl_c.Getconnectorstyle(0, new Object());
     assertEquals(0, testVal);
@@ -164,6 +171,7 @@ public class ErrorPathsTest extends TestCase {
     assertEquals(0, testVal);
     assertTrue("Log file is not present", logFilePresent());
   }
+	@Test
 	public void testGetOOA_IDfromInstance() throws Exception {
     ExternalEntity_c ee = new ExternalEntity_c(modelRoot);
     UUID ee_id = Cl_c.Getooa_idfrominstance(ee);

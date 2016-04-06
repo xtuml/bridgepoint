@@ -25,28 +25,36 @@ import java.util.UUID;
 
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
-
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 
+@RunWith(OrderedRunner.class)
 public class IOMdlTestSuiteIGenerics extends BaseTest {
 
     IWorkbenchPage m_wp = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
     static SystemModel_c m_system = new SystemModel_c(Ooaofooa.getDefaultInstance(), new UUID(0,1), "", false);
     
-	public IOMdlTestSuiteIGenerics(String arg0) {
-		super(null, arg0);
+	public IOMdlTestSuiteIGenerics(){
+		super(null, null);
 	}
 	
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 	}
 
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		super.tearDown();
 	}
 	
+	@Test
 	public void testIOMdlTestSuiteI() {
 	    assert(true);
     }

@@ -23,8 +23,11 @@
 package org.xtuml.bp.ui.canvas.test;
 
 
+import org.junit.runner.RunWith;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 
+@RunWith(OrderedRunner.class)
 public class ReadonlyToolbarActionTests extends BaseTest {
 //
 //	public ReadonlyToolbarActionTests(String arg0) {

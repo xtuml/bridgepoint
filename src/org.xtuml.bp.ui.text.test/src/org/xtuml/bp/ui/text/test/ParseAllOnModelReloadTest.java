@@ -31,13 +31,16 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.swt.widgets.Display;
-
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.StateMachineState_c;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.PersistableModelComponent;
 import org.xtuml.bp.core.common.PersistenceManager;
 import org.xtuml.bp.test.TestUtil;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TestingUtilities;
 import org.xtuml.bp.test.common.TextEditorUtils;
 import org.xtuml.bp.ui.text.TextPlugin;
@@ -46,17 +49,23 @@ import org.xtuml.bp.ui.text.TextPlugin;
  * Holds tests pertaining to the parse-all action that occurs 
  * when a model is reloaded from disk.
  */
+@RunWith(OrderedRunner.class)
 public class ParseAllOnModelReloadTest extends UITextTest
 {
-    /**
+    public ParseAllOnModelReloadTest() throws CoreException {
+		super();
+	}
+
+	/**
      * Constructor.
      */
-    public ParseAllOnModelReloadTest(String name) throws CoreException
-    {
-        super(null, name);
-    }
+//    public ParseAllOnModelReloadTest(String name) throws CoreException
+//    {
+//        super(null, name);
+//    }
     
-    protected void setUp() throws Exception {
+    @Before
+	public void setUp() throws Exception {
         super.setUp();
         loadProject("small");
     }    
@@ -65,7 +74,8 @@ public class ParseAllOnModelReloadTest extends UITextTest
      * For issue 863.  Tests that a parse-all occurs when a model is reloaded
      * from disk due to its having changed outside of Eclipse.
      */
-    public void testParseAllOccursOnModelReload() throws Exception
+    @Test
+	public void testParseAllOccursOnModelReload() throws Exception
     {
         // ensure the parse on resource change preference is enabled
         CorePlugin.enableParseAllOnResourceChange();

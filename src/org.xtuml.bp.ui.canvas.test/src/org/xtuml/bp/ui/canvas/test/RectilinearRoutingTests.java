@@ -5,6 +5,9 @@ import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.PointList;
 import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gmf.runtime.draw2d.ui.internal.routers.OrthogonalRouterUtilities;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.InterfaceReference_c;
@@ -16,6 +19,7 @@ import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.UITestingUtilities;
 import org.xtuml.bp.ui.canvas.Connector_c;
 import org.xtuml.bp.ui.canvas.GraphicalElement_c;
@@ -24,10 +28,16 @@ import org.xtuml.bp.ui.canvas.Shape_c;
 import org.xtuml.bp.ui.graphics.editor.GraphicalEditor;
 import org.xtuml.bp.ui.graphics.figures.ShapeImageFigure;
 
+@RunWith(OrderedRunner.class)
 public class RectilinearRoutingTests extends BaseTest {
 
+	private static boolean isFirstTime = true;
 	@Override
+//	@Before
 	public void initialSetup() throws Exception {
+		if (!isFirstTime)
+			return;
+		isFirstTime = false;
 		loadProject("DelegationRectilinearRoutingTests");
 		CorePlugin
 				.getDefault()
@@ -36,7 +46,8 @@ public class RectilinearRoutingTests extends BaseTest {
 						BridgePointPreferencesStore.RECTILINEAR_ROUTING);
 	}
 
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		BaseTest.dispatchEvents(0);
 	}
@@ -170,6 +181,7 @@ public class RectilinearRoutingTests extends BaseTest {
 		return element;
 	}
 	
+	@Test
 	public void testDelegationCreationFromOuterEast() {
 		Component_c outerComponent = locateAndOpenComponent("WithInnerReferences");
 		Provision_c sourceProvision = locateProvision("OuterEast",
@@ -182,6 +194,7 @@ public class RectilinearRoutingTests extends BaseTest {
 		drawAndValidateDelegation(sourceProvision, destinationProvision);
 	}
 
+	@Test
 	public void testDelegationCreationFromOuterWest() {
 		Component_c outerComponent = locateAndOpenComponent("WithInnerReferences");
 		Provision_c sourceProvision = locateProvision("OuterWest",
@@ -194,6 +207,7 @@ public class RectilinearRoutingTests extends BaseTest {
 		drawAndValidateDelegation(sourceProvision, destinationProvision);
 	}
 
+	@Test
 	public void testDelegationCreationFromOuterNorth() {
 		Component_c outerComponent = locateAndOpenComponent("WithInnerReferences");
 		Provision_c sourceProvision = locateProvision("OuterNorth",
@@ -206,6 +220,7 @@ public class RectilinearRoutingTests extends BaseTest {
 		drawAndValidateDelegation(sourceProvision, destinationProvision);
 	}
 
+	@Test
 	public void testDelegationCreationFromOuterSouth() {
 		Component_c outerComponent = locateAndOpenComponent("WithInnerReferences");
 		Provision_c sourceProvision = locateProvision("OuterSouth",

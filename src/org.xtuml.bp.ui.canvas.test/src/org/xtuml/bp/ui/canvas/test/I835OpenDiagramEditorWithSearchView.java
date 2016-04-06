@@ -32,22 +32,27 @@ import org.eclipse.search.ui.NewSearchUI;
 import org.eclipse.search.ui.text.FileTextSearchScope;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IViewPart;
-
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.test.common.BaseTest;
 import org.xtuml.bp.test.common.CanvasTestUtils;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TestingUtilities;
 import org.xtuml.bp.ui.graphics.editor.GraphicalEditor;
 
+@RunWith(OrderedRunner.class)
 public class I835OpenDiagramEditorWithSearchView extends BaseTest {
 
-	public I835OpenDiagramEditorWithSearchView(String name)	throws CoreException {
-		super("OpenEditorWithSearchView", name);
+	public I835OpenDiagramEditorWithSearchView()	throws CoreException {
+		super("OpenEditorWithSearchView", null);
 	}
 	
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
         super.setUp();
 				
 		TestingUtilities.importModelUsingWizard(m_sys, new Path(
@@ -56,6 +61,7 @@ public class I835OpenDiagramEditorWithSearchView extends BaseTest {
 		modelRoot = Ooaofooa.getInstance(Ooaofooa.createModelRootId(m_sys.getName(), "ooaofooa", true));
 	}
 	
+	@Test
 	public void testOpenDiagramEditorWithSearchView() throws CoreException{
 		
 		BaseTest.dispatchEvents(0);

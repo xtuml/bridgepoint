@@ -436,7 +436,9 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.ui.PlatformUI;
-
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.*;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.ui.Selection;
@@ -449,11 +451,13 @@ import org.xtuml.bp.ui.canvas.GraphicalElement_c;
 import org.xtuml.bp.ui.canvas.Shape_c;
 import org.xtuml.bp.utilities.ui.CanvasUtilities;
 import org.xtuml.bp.test.common.CanvasTestUtils;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.CanvasEditorUtils;
 
 /**
  * Contains various tests involving context menu behavior
  */
+@RunWith(OrderedRunner.class)
 public class ContextMenuTestsGenerics extends BaseTest
 {
     /**
@@ -473,15 +477,15 @@ public class ContextMenuTestsGenerics extends BaseTest
      * Constructor.
      */
 
-    public ContextMenuTestsGenerics(String name)
-    {
-        super(null, name);
-    }
+    public ContextMenuTestsGenerics(){
+		super(null, null);
+	}
 
     /* (non-Javadoc)
      * @see junit.framework.TestCase#setUp()
      */
-    public void setUp() throws Exception
+    @Before
+	public void setUp() throws Exception
     {
     	super.setUp();
 
@@ -498,7 +502,8 @@ public class ContextMenuTestsGenerics extends BaseTest
         }
     }
     
-    public void testComparePaletteWithCME(){
+    @Test
+	public void testComparePaletteWithCME(){
     	Package_c obj = Package_c.PackageInstance(modelRoot , new Package_by_name_c("Test Subsystem"));
     	IFile file = obj.getFile();
     	TestUtil.changeFileReadonlyStatus(m_readonly, file);
@@ -669,7 +674,8 @@ public class ContextMenuTestsGenerics extends BaseTest
       .assign actionName = cme_entry.Label;
     .end if
     .if ( cme_entry.Specialism != "Specialized Package")
-    public void testContextMenu$r{cme_entry.Specialism}$r{cme_entry.Label}ActionOn${cme_entry.Key_Lett}() {
+    @Test
+	public void testContextMenu$r{cme_entry.Specialism}$r{cme_entry.Label}ActionOn${cme_entry.Key_Lett}() {
    
     .select any obj from instances of O_OBJ where (selected.Key_Lett == cme_entry.Key_Lett)
        .if  (obj.Key_Lett == "S_DOM" ) 
@@ -788,7 +794,8 @@ ${result.body}
      * Test the clearing of redo/undo stacks
      * after using replace with functionality
      */
-    public void testClearingUndoRedoStacksAfterReplaceWith() throws CoreException {
+    @Test
+	public void testClearingUndoRedoStacksAfterReplaceWith() throws CoreException {
         if(m_readonly){
             //Under MFP, this unit test is disabled as all the editors dont
             //allow editing if under lying file is read-only. This test was
@@ -898,6 +905,8 @@ ${result.body}
 
 package org.xtuml.bp.core.test.ui;
 
+import org.junit.Before;
+
 /**
  * Extends the ContextMenuTests class
  * used to test context menu actions
@@ -907,13 +916,14 @@ public class ${type}ContextMenuTestGenerics extends ContextMenuTestsGenerics
 {
 
     static boolean my_first_time = true;
-	public ${type}ContextMenuTestGenerics(String name) {
-		super(name);
+	public ${type}ContextMenuTestGenerics() {
+		super();
 		.if(type == "Readonly")
 		super.m_readonly = true;
 		.end if
 	}
-    public void setUp() throws Exception
+    @Before
+	public void setUp() throws Exception
     {
         ContextMenuTestsGenerics.first_time = my_first_time;
         super.setUp();

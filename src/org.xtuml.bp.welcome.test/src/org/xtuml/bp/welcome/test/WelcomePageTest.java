@@ -23,8 +23,6 @@ package org.xtuml.bp.welcome.test;
 
 import java.util.Properties;
 
-import junit.framework.TestCase;
-
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -32,17 +30,21 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
-
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.ExternalEntity_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.XtUMLNature;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TestingUtilities;
 import org.xtuml.bp.welcome.gettingstarted.GettingStartedLiveHelpAction;
 import org.xtuml.bp.welcome.gettingstarted.SampleProjectGettingStartedAction;
 
+import junit.framework.TestCase;
+@RunWith(OrderedRunner.class)
 public class WelcomePageTest extends TestCase {
 
 	private IProject project;
@@ -65,12 +67,13 @@ public class WelcomePageTest extends TestCase {
 		super();
 	}
 
-	// enforce ordering of tests in this class
-	public void testWelcomePageMicrowaveProject() throws CoreException, Exception {
-		dotestProjectCreation();
-		dotestExternalEntityDefaults();
-		dotestExternalEntityDefaultsTemplateProject();
-	}
+//	// enforce ordering of tests in this class
+//	@Test
+//	public void testWelcomePageMicrowaveProject() throws CoreException, Exception {
+//		testProjectCreation();
+//		testExternalEntityDefaults();
+//		testExternalEntityDefaultsTemplateProject();
+//	}
 
 	public void runGettingStartedAction() {
 		// create and run new instances of GettingStartedAction
@@ -119,13 +122,14 @@ public class WelcomePageTest extends TestCase {
 		if (projectExists)
 			containsProjectMembers();
 	}
-
-	public void dotestProjectCreation() {
+	@Test
+	public void testProjectCreation() {
+		runGettingStartedAction();
 		runGettingStartedAction();
 		verifyProjectCreated();
 	}
-	
-	public void dotestExternalEntityDefaults() throws CoreException {
+	@Test
+	public void testExternalEntityDefaults() throws CoreException {
 		IProject existing = ResourcesPlugin.getWorkspace().getRoot().getProject("MicrowaveOven");
 		if(existing.exists()) {
 			existing.delete(true, new NullProgressMonitor());
@@ -164,8 +168,8 @@ public class WelcomePageTest extends TestCase {
 			}
 		}
 	}
-	
-	public void dotestExternalEntityDefaultsTemplateProject() {
+	@Test
+	public void testExternalEntityDefaultsTemplateProject() {
 		// get handle to help shell in order to display after completing below actions
 		SampleProjectGettingStartedAction action = new SampleProjectGettingStartedAction();
 		Properties props = new Properties();
