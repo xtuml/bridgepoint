@@ -106,7 +106,6 @@ if [ "${OS}" = "linux" ]; then
       tr -d '\r' < ${mcplugin}/xtumlmc_build > ${mcplugin}/xtumlmc_build.exe
       cp -f ${mcplugin}/xtumlmc_build.exe ${mcplugin}/xtumlmc_build
       mv -f ${mcplugin}/gen_erate.py ${mcplugin}/gen_erate.pyz
-      mv -f ${mcplugin}/gen_erate.py ${mcplugin}/gen_erate.pyz
 else
       mcplugin="./org.xtuml.bp.mc.c.binary_${BP_VERSION}/mc3020/bin"
       mv -f ${mcplugin}/xtumlmc_build.exe.win ${mcplugin}/xtumlmc_build.exe
