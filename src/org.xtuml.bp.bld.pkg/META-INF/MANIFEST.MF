@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: BridgePoint Builder
 Bundle-SymbolicName: org.xtuml.bp.bld.pkg;singleton:=true
-Bundle-Version: 5.3.0
+Bundle-Version: 5.3.2
 Bundle-ClassPath: pkg.jar
 Bundle-Activator: org.xtuml.bp.bld.pkg.Unreferenced
 Bundle-Vendor: xtUML.org

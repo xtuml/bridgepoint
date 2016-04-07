@@ -1,0 +1,322 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>4.1. Types and their Subtypes</title>
+<link rel="stylesheet" type="text/css" href="docbook.css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<meta name="keywords" content="MASL, Action Language, Action Semantics, UML, Unified Modelling Language, Shlaer Mellor">
+<link rel="home" href="index.html" title="MASL Reference Manual">
+<link rel="up" href="TypeConversion.html" title="Chapter 4. Type Conversion">
+<link rel="prev" href="TypeConversion.html" title="Chapter 4. Type Conversion">
+<link rel="next" href="TypeConversionBuiltinTypes.html" title="4.2. Built-in Types">
+<link rel="preface" href="preface.html" title="Preface">
+<link rel="chapter" href="Grammars.html" title="Chapter 1. Grammars">
+<link rel="chapter" href="LexicalStructure.html" title="Chapter 2. Lexical Structure">
+<link rel="chapter" href="Types.html" title="Chapter 3. Types">
+<link rel="chapter" href="TypeConversion.html" title="Chapter 4. Type Conversion">
+<link rel="chapter" href="Domains.html" title="Chapter 5. Domains">
+<link rel="chapter" href="Objects.html" title="Chapter 6. Objects">
+<link rel="chapter" href="Relationships.html" title="Chapter 7. Relationships">
+<link rel="chapter" href="Lifecycles.html" title="Chapter 8. Lifecycles">
+<link rel="chapter" href="Functions.html" title="Chapter 9. Functions">
+<link rel="chapter" href="Services.html" title="Chapter 10. Services">
+<link rel="chapter" href="Exceptions.html" title="Chapter 11. Exceptions">
+<link rel="chapter" href="Statements.html" title="Chapter 12. Statements">
+<link rel="chapter" href="Names.html" title="Chapter 13. Names">
+<link rel="chapter" href="Expressions.html" title="Chapter 14. Expressions">
+<link rel="appendix" href="LanguageDefinedCharacteristics.html" title="Appendix A. Language Defined Characteristics">
+<link rel="appendix" href="SyntaxSummary.html" title="Appendix B. Syntax Summary">
+<link rel="index" href="ix01.html" title="Index">
+<link rel="subsection" href="TypeConversionTypesanstheirSubtypes.html#TypeConversionTypesandtheirSubtypes" title="4.1.1. Types and their Subtypes">
+<link rel="subsection" href="TypeConversionTypesanstheirSubtypes.html#TypeConversionPropertiesofTypes" title="4.1.2. Properties of Types">
+<link rel="subsection" href="TypeConversionTypesanstheirSubtypes.html#TypeConversionBaseandBasisTypes" title="4.1.3. Base and Basis Types">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div align="center">OFFICIAL</div>
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">4.1. Types and their Subtypes</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="TypeConversion.html">Prev</a> </td>
+<th width="60%" align="center">Chapter 4. Type Conversion</th>
+<td width="20%" align="right"> <a accesskey="n" href="TypeConversionBuiltinTypes.html">Next</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title">
+<a name="TypeConversionTypesanstheirSubtypes"></a>4.1. Types and their Subtypes</h2></div></div></div>
+<div class="toc"><dl class="toc">
+<dt><span class="section"><a href="TypeConversionTypesanstheirSubtypes.html#TypeConversionTypesandtheirSubtypes">4.1.1. Types and their Subtypes</a></span></dt>
+<dt><span class="section"><a href="TypeConversionTypesanstheirSubtypes.html#TypeConversionPropertiesofTypes">4.1.2. Properties of Types</a></span></dt>
+<dt><span class="section"><a href="TypeConversionTypesanstheirSubtypes.html#TypeConversionBaseandBasisTypes">4.1.3. Base and Basis Types</a></span></dt>
+</dl></div>
+<p>
+The set of types in a program form a type hierarchy.
+<a class="indexterm" name="idp63759872"></a>
+This type hierarchy defines:
+</p>
+<div class="itemizedlist"><ul class="itemizedlist">
+<li class="listitem"><p>
+The implicit type conversions
+<a class="indexterm" name="idp63762656"></a>
+that can occur.
+</p></li>
+<li class="listitem"><p>
+The explicit type conversions
+<a class="indexterm" name="idp63718928"></a>
+that can be applied.
+</p></li>
+</ul></div>
+<p>
+</p>
+<p>
+When an expression of one type is used where an expression of another type
+is expected.
+</p>
+<p>
+The first section of this chapter describes the general rules for implicit
+and explicit type conversions between types in the type hierarchy. The rest
+of the chapter describes the pre-defined type hierarchy for the built-in types,
+the collection types and the special case of numeric types.
+</p>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="TypeConversionTypesandtheirSubtypes"></a>4.1.1. Types and their Subtypes</h3></div></div></div>
+<p>
+If a type is a
+<a class="link" href="TypesTypeDeclarations.html" title="3.6. Type Declarations"><code class="literal">subtype</code></a>
+<a class="indexterm" name="idp63724864"></a>
+of another
+<a class="link" href="TypesTypeSpecification.html" title="3.1. Type Specifications"><code class="literal">type</code></a>,
+<a class="indexterm" name="idp65452368"></a>
+then there is an implicit conversion
+that occurs when an expression of the
+<a class="link" href="TypesTypeDeclarations.html" title="3.6. Type Declarations"><code class="literal">subtype</code></a>
+<a class="indexterm" name="idp65454080"></a>
+is used where an expression of the original
+<a class="link" href="TypesTypeSpecification.html" title="3.1. Type Specifications"><code class="literal">type</code></a>
+<a class="indexterm" name="idp65455792"></a>
+is expected. In addition, there is an implicit conversion that
+occurs when an expression of the original
+<a class="link" href="TypesTypeSpecification.html" title="3.1. Type Specifications"><code class="literal">type</code></a>
+<a class="indexterm" name="idp65457632"></a>
+is used where an expression of the
+<a class="link" href="TypesTypeDeclarations.html" title="3.6. Type Declarations"><code class="literal">subtype</code></a>
+<a class="indexterm" name="idp65459392"></a>
+is expected. When this
+<a class="link" href="TypesTypeSpecification.html" title="3.1. Type Specifications"><code class="literal">type</code></a>
+<a class="indexterm" name="idp63430928"></a>
+conversion is evaluated, the value of
+the expression is converted to the corresponding value of the target
+<a class="link" href="TypesTypeSpecification.html" title="3.1. Type Specifications"><code class="literal">type</code></a>
+<a class="indexterm" name="idp63432768"></a>
+if any. If there is no value of the target
+<a class="link" href="TypesTypeSpecification.html" title="3.1. Type Specifications"><code class="literal">type</code></a>
+<a class="indexterm" name="idp63434544"></a>
+that corresponds to the value, an exception is raised.
+</p>
+<p>
+A subtype of a
+<a class="link" href="TypesTypeSpecification.html" title="3.1. Type Specifications"><code class="literal">type</code></a>
+that is itself a
+<a class="link" href="TypesTypeDeclarations.html" title="3.6. Type Declarations"><code class="literal">subtype</code></a>
+of another, is also a
+<a class="link" href="TypesTypeDeclarations.html" title="3.6. Type Declarations"><code class="literal">subtype</code></a> of
+this <a class="link" href="TypesTypeSpecification.html" title="3.1. Type Specifications"><code class="literal">type</code></a>.
+</p>
+<p>
+If a <a class="link" href="TypesTypeSpecification.html" title="3.1. Type Specifications"><code class="literal">type</code></a>
+<a class="indexterm" name="idp63440544"></a>
+is defined in terms of another
+<a class="link" href="TypesTypeSpecification.html" title="3.1. Type Specifications"><code class="literal">type</code></a>
+<a class="indexterm" name="idp63442304"></a>
+then an explicit type conversion can be used to convert a value of one
+<a class="link" href="TypesTypeSpecification.html" title="3.1. Type Specifications"><code class="literal">type</code></a>
+<a class="indexterm" name="idp63444016"></a>
+into a value of the other. If there is no value of the target
+<a class="link" href="TypesTypeSpecification.html" title="3.1. Type Specifications"><code class="literal">type</code></a>
+<a class="indexterm" name="idp63445728"></a>
+that corresponds to the value, an exception is raised.
+</p>
+<p>
+</p>
+<div class="example">
+<a name="TypeConversionTypeandSubtypeDeclarations"></a><div class="example-title">Example 4.1. Type and Subtype Declarations</div>
+<div class="example-contents"><pre class="programlisting">
+
+type A is enum (REDM BLUE, GREEN);
+type B is enum (RED, YELLOW, BLUE);
+subtype C is A;
+subtype D is A;
+type E is A;
+subtype F is C;
+
+</pre></div>
+</div>
+<p><br class="example-break">
+</p>
+<p>
+If we declare variables <code class="varname">a</code> to <code class="varname">f</code> of types
+<code class="varname">A</code> to <code class="varname">F</code> respectively, then 
+<a class="xref" href="TypeConversionTypesanstheirSubtypes.html#TypeConversionTypeConversionExample" title="Example 4.2. Simple type hierarchy conversions">Example 4.2, “Simple type hierarchy conversions”</a> shows, for each
+possible assignment between the variables, which conversion is valid.
+</p>
+<p>
+Note that even though type <code class="varname">A</code> and <code class="varname">B</code> have
+literals of the same lexical form, there are no valid type conversions between
+values of one type to another.
+</p>
+<div class="example">
+<a name="TypeConversionTypeConversionExample"></a><div class="example-title">Example 4.2. Simple type hierarchy conversions</div>
+<div class="example-contents"><pre class="programlisting">
+
+a := a;     // no conversion required
+a := b;     // invalid
+a := c;     // implicit conversion
+a := d;     // implicit conversion
+a := e;     // invalid, an explicit conversion of the form
+            // a := A(e) is required
+a := f;     // implicit conversion
+
+b := a;     // invalid
+b := b;     // no conversion required
+b := c;     // invalid
+b := d;     // invalid
+b := e;     // invalid
+b := f;     // invalid
+
+c := a;     // implicit conversion that may raise an exception
+c := b;     // invalid
+c := c;     // no conversion required
+c := d;     // implicit conversion that may raise an exception
+c := e;     // invalid, an explicit conversion of the form
+            // c := C(e) or c := (A)e is required that may
+            // raise an exception
+c := f;     // implicit conversion
+
+d := a;     // implicit conversion that may raise an exception
+d := b;     // invalid
+d := c;     // implicit conversion that may raise an exception
+d := d;     // no conversion required
+d := e;     // invalid, an explicit conversion of the form
+            // d := D(e) is required that may raise an
+            // exception
+d := f;     // implicit conversion that may raise an exception
+
+e := a;     // invalid, an explicit conversion of the form
+            // e := E(a) is required that may raise an
+            // exception
+e := b;     // invalid
+e := c;     // invalid, an explicit conversion of the form
+            // e := E(c) is required that may raise an
+            // exception
+e := d;     // invalid, an explicit conversion of the form
+            // e := E(d) is required that may raise an
+            // exception
+e := e;     // no conversion required
+e := f;     // invalid, an explicit conversion of the form
+            // e := E(f) is required that may raise an
+            // exception
+
+f := a;     // implicit conversion that may raise an exception
+f := b;     // invalid
+f := c;     // implicit conversion that may raise an exception
+f := d;     // implicit conversion that may raise an exception
+f := e;     // invalid, an explicit conversion of the form
+            // f := F(e) or f := A(e) is required that may
+            // raise an exception
+f := f;     // no conversion required
+
+</pre></div>
+</div>
+<p><br class="example-break">
+</p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="TypeConversionPropertiesofTypes"></a>4.1.2. Properties of Types</h3></div></div></div>
+<p>
+The properties that are defined by a type hierarchy
+<a class="indexterm" name="idp65228960"></a>
+also define the implicit conversion
+<a class="indexterm" name="idp65230720"></a>
+that can occur. The explicit type conversions
+<a class="indexterm" name="idp65232544"></a>
+that can be applied
+are known as assignable and convertible.
+</p>
+<p>
+A value of type <span class="type">T</span> is convertible to a type
+<span class="type">S</span> if <span class="type">T</span> and <span class="type">S</span> share a
+common type. Converting a value of type <code class="varname">T</code> to an entity of
+type <span class="type">S</span> will not raise an exception if navigating the type
+hierarchy from type <span class="type">T</span> to this common type passes over the
+type <span class="type">S</span>. In all other case the conversion may raise an
+exception.
+</p>
+<p>
+A value of type <span class="type">T</span> is assignable to a type
+<span class="type">S</span> if <span class="type">T</span> and <span class="type">S</span> share a
+common subtype. Assigning a value of type <span class="type">T</span> to an entity of
+type <span class="type">S</span> will not raise an exception if navigating the type
+hierarchy from type <span class="type">T</span> to this common subtype passes over the
+type <span class="type">S</span>. In all other case the conversion may raise an
+exception.
+</p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="TypeConversionBaseandBasisTypes"></a>4.1.3. Base and Basis Types</h3></div></div></div>
+<p>
+The <span class="emphasis"><em>base type</em></span>
+<a class="indexterm" name="idp65244848"></a>
+<a class="indexterm" name="idp65246192"></a>
+of a type <span class="type">T</span> is the type
+obtained by navigating up the type hierarchy as far as possible using only
+subtype relationships.
+</p>
+<p>
+The <span class="emphasis"><em>basis type</em></span>
+<a class="indexterm" name="idp65248528"></a>
+<a class="indexterm" name="idp65249872"></a>
+of a type <span class="type">T</span> is the type
+obtained by navigating up the type hierarchy as far as possible using both
+subtype and type relationships.
+</p>
+<p>
+Both <a class="link" href="TypesTypeSpecification.html" title="3.1. Type Specifications"><span class="emphasis"><em>base types</em></span></a>
+<a class="indexterm" name="idp65252624"></a>
+<a class="indexterm" name="idp65253968"></a>
+and <a class="link" href="TypesTypeSpecification.html" title="3.1. Type Specifications"><span class="emphasis"><em>basis types</em></span></a>
+<a class="indexterm" name="idp65255712"></a>
+<a class="indexterm" name="idp63606144"></a>
+are used to describe the types of the values returned by expressions.
+</p>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="TypeConversion.html">Prev</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="TypeConversion.html">Up</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="TypeConversionBuiltinTypes.html">Next</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">Chapter 4. Type Conversion </td>
+<td width="20%" align="center">
+<a accesskey="h" href="index.html">Home</a> | <a accesskey="t" href="bk01-toc.html">ToC</a>
+</td>
+<td width="40%" align="right" valign="top"> 4.2. Built-in Types</td>
+</tr>
+</table>
+</div>
+<div align="center">OFFICIAL</div>
+</body>
+</html>

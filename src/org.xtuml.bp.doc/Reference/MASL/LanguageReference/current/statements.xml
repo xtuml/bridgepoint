@@ -1,0 +1,730 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+  UK Crown Copyright (c) 2016. All Rights Reserved
+-->
+<chapter version="5.0" xml:id="section.Statements" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML"
+         xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
+  <title>Statements</title>
+
+  <para>A statement defines an action to be performed upon its execution. Some statements contain other statements as
+  part of their structure; such other statements are sub-statements of the statement. In the same manner, some
+  statements contain <link linkend="section.Expressions">expressions</link> as part of their structure.</para>
+
+  <para>A statement will always complete the action specified in the following sections unless any of the sub-statements
+  or sub-expressions cause an exception to be raised or an exit or return statement are encountered as sub-statements.
+  In this case the statement is deemed to have completed unsuccessfully. A statement sequence will complete each of the
+  statements it contains in that order, unless once of those statements does not complete successfully. In this case,
+  any remaining statements in the sequence will not be performed, and the sequence is also deemed to have completed
+  unsucessfully.</para>
+
+  <productionset>
+    <xi:include href="syntax.xml" xpointer="ebnf.statementSequence"/>
+
+    <xi:include href="syntax.xml" xpointer="ebnf.statement"/>
+  </productionset>
+
+  <section xml:id="section.Statements.CodeBlock">
+    <title>Code Block</title>
+
+    <para>A code block firstly executes each of the variable declarations, and then executes the sequence of statements
+    as described above. If the sequence of statements is not sucessfully completed due to an exception being raised,
+    then each of the <nonterminal def="#ebnf.exceptionHandler"/>s are examined in turn. If the exception name of the
+    handler matches the exception that was raised, then the statement sequence defined for that handler is performed and
+    the code block is deemed to have completed successfully. If no handler matches the exception, and an <nonterminal
+    def="#ebnf.otherHandler"/> is present, then the statement sequence for the other handler is performed and the code
+    block is deemed to have completed successfully.</para>
+
+    <productionset>
+      <xi:include href="syntax.xml" xpointer="ebnf.codeBlockStatement"/>
+
+      <xi:include href="syntax.xml" xpointer="ebnf.variableDeclaration"/>
+
+      <xi:include href="syntax.xml" xpointer="ebnf.exceptionHandler"/>
+
+      <xi:include href="syntax.xml" xpointer="ebnf.otherHandler"/>
+
+      <xi:include href="syntax.xml" xpointer="ebnf.qualifiedExceptionName"/>
+
+      <productionrecap linkend="ebnf.variableName"/>
+
+      <productionrecap linkend="ebnf.typeRef"/>
+
+      <productionrecap linkend="ebnf.domainName"/>
+
+      <productionrecap linkend="ebnf.exceptionName"/>
+    </productionset>
+  </section>
+
+  <section xml:id="section.Statements.EmptyStatement">
+    <title>Empty Statement</title>
+
+    <para>An empty or null statement has no effect.</para>
+
+    <productionset>
+      <xi:include href="syntax.xml" xpointer="ebnf.emptyStatement"/>
+
+      <xi:include href="syntax.xml" xpointer="ebnf.nullStatement"/>
+    </productionset>
+  </section>
+
+  <section xml:id="section.Statements.Assignment">
+    <title>Assignment</title>
+
+    <para>An assignment statement assigns the value of the rhs expression to the lhs expression. The following
+    conditions must be met:</para>
+
+    <itemizedlist>
+      <listitem>
+        <simpara>The right hand side expression must be <link linkend="section.Types.Assignable">assignable</link> to
+        the left hand side expression.</simpara>
+      </listitem>
+
+      <listitem>
+        <simpara>The left hand side expression must be <link
+        linkend="section.Expressions.Writeable">writeable</link>.</simpara>
+      </listitem>
+    </itemizedlist>
+
+    <productionset>
+      <xi:include href="syntax.xml" xpointer="ebnf.assignStatement"/>
+    </productionset>
+  </section>
+
+  <section xml:id="section.Statements.Stream">
+    <title>Stream</title>
+
+    <para>A stream statement streams (i.e. reads or writes) data to or from a device. The following condition must be
+    met:</para>
+
+    <itemizedlist>
+      <listitem>
+        <simpara>The <nonterminal def="#ebnf.streamValue"/> expression must be <link
+        linkend="section.Types.Assignable">assignable</link> to <code>anonymous device</code>.</simpara>
+      </listitem>
+    </itemizedlist>
+
+    <para>Four streaming operators are available:</para>
+
+    <variablelist>
+      <varlistentry>
+        <term><code>&gt;&gt;</code></term>
+
+        <listitem>
+          <para>Skips any leading whitespace, reads a text representation of a value of the same type as the
+          <nonterminal def="#ebnf.streamValue"/> expression and assigns this value to the expression. No more characters
+          are read from the stream once the next character to be read does not form part of a valid text representation,
+          or, in the case of a string value, is a whitespace character. The following conditions must be met:</para>
+
+          <itemizedlist>
+            <listitem>
+              <simpara>The <nonterminal def="#ebnf.streamValue"/> expression must be <link
+              linkend="section.Expressions.Writeable">writeable</link>.</simpara>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><code>&gt;&gt;&gt;</code></term>
+
+        <listitem>
+          <para>Reads all data from the device until the next newline character, and writes it to the <nonterminal
+          def="#ebnf.streamValue"/> expression. The following conditions must be met:</para>
+
+          <itemizedlist>
+            <listitem>
+              <simpara>The <nonterminal def="#ebnf.streamValue"/> expression must be <link
+              linkend="section.Expressions.Writeable">writeable</link>.</simpara>
+            </listitem>
+
+            <listitem>
+              <simpara>The <nonterminal def="#ebnf.streamValue"/> expression must be <link
+              linkend="section.Types.Assignable">assignable</link> to <code>anonymous string</code>.</simpara>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><code>&lt;&lt;</code></term>
+
+        <listitem>
+          <para>Writes a text representation of the <nonterminal def="#ebnf.streamValue"/> expression to the
+          device.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><code>&lt;&lt;&lt;</code></term>
+
+        <listitem>
+          <para>Writes a text representation of the <nonterminal def="#ebnf.streamValue"/> expression to the device
+          followed by a newline character.</para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+
+    <productionset>
+      <xi:include href="syntax.xml" xpointer="ebnf.streamStatement"/>
+
+      <xi:include href="syntax.xml" xpointer="ebnf.streamValue"/>
+
+      <xi:include href="syntax.xml" xpointer="ebnf.deviceExpression"/>
+    </productionset>
+  </section>
+
+  <section xml:id="section.Statements.ServiceCall">
+    <title>Service Call</title>
+
+    <para>A service call invokes the action defined by a matching service definition of the correct type. Any arguments
+    supplied in the call are passed to the action as parameters. A matching service is defined by the following
+    rules:</para>
+
+    <itemizedlist>
+      <listitem>
+        <simpara>The <nonterminal def="#ebnf.serviceName"/> in the call must be the same as the name in the service
+        declaration.</simpara>
+      </listitem>
+
+      <listitem>
+        <simpara>The number of <nonterminal def="#ebnf.argument"/>s in the call must be the same as the number of
+        <nonterminal def="#ebnf.parameterDefinition">parameters</nonterminal> in the service declaration.</simpara>
+      </listitem>
+
+      <listitem>
+        <simpara>Each of the <nonterminal def="#ebnf.argument"/>s in the call must be <link
+        linkend="section.Types.Assignable">assignable</link> to the corresponding <nonterminal
+        def="#ebnf.parameterType"/> of the service declaration.</simpara>
+      </listitem>
+
+      <listitem>
+        <simpara>Any arguments which correspond to a parameter with a <nonterminal def="#ebnf.parameterMode"/> of
+        <code>out</code> must be <link linkend="section.Expressions.Writeable">writeable</link>.</simpara>
+      </listitem>
+
+      <listitem>
+        <simpara>The service must be the only service for which the previous rules apply.</simpara>
+      </listitem>
+    </itemizedlist>
+
+    <para>The type of service to be invoked cannot be inferred by syntax alone, so the following rules will be
+    applied:</para>
+
+    <itemizedlist>
+      <listitem>
+        <simpara>If the call prefix is of the form <code>domainName::serviceName</code> then the call is a domain
+        service call to a matching service on the named domain.</simpara>
+      </listitem>
+
+      <listitem>
+        <simpara>If the call prefix is of the form <code>terminatorName~&gt;serviceName</code> then the call is a
+        terminator service call to a matching service on the named terminator.</simpara>
+      </listitem>
+
+      <listitem>
+        <simpara>If the call prefix is of the form <code>objectName.serviceName</code> then the call is an object
+        service call to a matching object service on the named object.</simpara>
+      </listitem>
+
+      <listitem>
+        <simpara>If the call prefix is of the form <code>expression.serviceName</code> then the call is an instance
+        service call to a matching instance service on the instance type of the expression. The expression must be of an
+        instance type. The name <code>this</code> inside the service action will resolve to the same instance as the
+        expression.</simpara>
+      </listitem>
+
+      <listitem>
+        <simpara>If the call prefix is of the form <code>serviceName</code>, then the following rules are applied in
+        order.</simpara>
+
+        <orderedlist>
+          <listitem>
+            <simpara>If the enclosing scope is an instance based service, function or state, and an instance or object
+            service with the same name is declared on the enclosing object, then the call is an instance service call to
+            a matching instance service on the enclosing object. The name <code>this</code> inside the service action
+            will resolve to the same instance as <code>this</code> in the current scope.</simpara>
+          </listitem>
+
+          <listitem>
+            <simpara>If the enclosing scope is an object based service, function or state, and an instance or object
+            service with the same name is declared on the enclosing object, then the call is an object service call to a
+            matching object service on the enclosing object.</simpara>
+          </listitem>
+
+          <listitem>
+            <simpara>Otherwise, the call is a domain service call to a matching domain service on the enclosing
+            domain.</simpara>
+          </listitem>
+        </orderedlist>
+      </listitem>
+    </itemizedlist>
+
+    <productionset>
+      <xi:include href="syntax.xml" xpointer="ebnf.callStatement"/>
+
+      <xi:include href="syntax.xml" xpointer="ebnf.domainServiceCall"/>
+
+      <xi:include href="syntax.xml" xpointer="ebnf.terminatorServiceCall"/>
+
+      <xi:include href="syntax.xml" xpointer="ebnf.objectServiceCall"/>
+
+      <xi:include href="syntax.xml" xpointer="ebnf.instanceServiceCall"/>
+
+      <productionrecap linkend="ebnf.domainName"/>
+
+      <productionrecap linkend="ebnf.terminatorName"/>
+
+      <productionrecap linkend="ebnf.objectName"/>
+
+      <productionrecap linkend="ebnf.serviceName"/>
+
+      <productionrecap linkend="ebnf.argumentList"/>
+
+      <productionrecap linkend="ebnf.argument"/>
+    </productionset>
+  </section>
+
+  <section xml:id="section.Statements.Exit">
+    <title>Exit Statement</title>
+
+    <para>An exit statement causes control to transfer immediately from the current sequence of statements to the
+    innermost enclosing <link linkend="section.Statements.While">while</link> or <link
+    linkend="section.Statements.While">for</link> statement. If a <code>when</code> clause is present, this transfer of
+    control only happens when the supplied condition evaluates to <code>true</code>. The enclosing <code>while</code> or
+    <code>for</code> statement is then deemed to have completed normally.</para>
+
+    <para>The following conditions must be met:</para>
+
+    <itemizedlist>
+      <listitem>
+        <simpara>The statement must be a enclosed by a <link linkend="section.Statements.While">while</link> or <link
+        linkend="section.Statements.While">for</link> statement.</simpara>
+      </listitem>
+
+      <listitem>
+        <simpara>If present, the <nonterminal def="#ebnf.condition"/> expression must be <link
+        linkend="section.Types.Assignable">assignable</link> to <code>anonymous boolean</code>.</simpara>
+      </listitem>
+    </itemizedlist>
+
+    <productionset>
+      <xi:include href="syntax.xml" xpointer="ebnf.exitStatement"/>
+
+      <productionrecap linkend="ebnf.condition"/>
+    </productionset>
+  </section>
+
+  <section xml:id="section.Statements.Return">
+    <title>Return Statement</title>
+
+    <para>A return statement causes control to transfer immediately from the current sequence of statements to the end
+    of the current function action definition. The action definition is deemed to have completed normally, and the
+    return value of the function is set to the supplied expression.</para>
+
+    <para>The following conditions must be met:</para>
+
+    <itemizedlist>
+      <listitem>
+        <simpara>The statement must be enclosed in a function action definition.</simpara>
+      </listitem>
+
+      <listitem>
+        <simpara>The <nonterminal def="#ebnf.expression"/> must be <link
+        linkend="section.Types.Assignable">assignable</link> to the return type of the enclosing function.</simpara>
+      </listitem>
+    </itemizedlist>
+
+    <productionset>
+      <xi:include href="syntax.xml" xpointer="ebnf.returnStatement"/>
+    </productionset>
+  </section>
+
+  <section xml:id="section.Statements.Delay">
+    <title>Delay Statement</title>
+
+    <para>A delay statement causes the current process to pause for duration of the supplied expression.</para>
+
+    <para>The following conditions must be met:</para>
+
+    <itemizedlist>
+      <listitem>
+        <simpara>The <nonterminal def="#ebnf.expression"/> must be <link
+        linkend="section.Types.Assignable">assignable</link> to <code>anonymous duration</code>.</simpara>
+      </listitem>
+    </itemizedlist>
+
+    <productionset>
+      <xi:include href="syntax.xml" xpointer="ebnf.delayStatement"/>
+    </productionset>
+  </section>
+
+  <section xml:id="section.Statements.Raise">
+    <title>Raise Exception</title>
+
+    <para>A raise statement causes an exception to be raised, and the statement is deemed to have completed
+    unsuccessfully.</para>
+
+    <productionset>
+      <xi:include href="syntax.xml" xpointer="ebnf.raiseStatement"/>
+    </productionset>
+  </section>
+
+  <section xml:id="section.Statements.Delete">
+    <title>Delete Instance</title>
+
+    <para>A delete instance statement causes the instance or instances referred to by the expression to be deleted.
+    Attempting to delete a null instance has no effect. If the expression is an instance type, then it will be set to
+    null on completion of the statement, and if a collection it will contain no elements.</para>
+
+    <para>If an instances to be deleted is linked to other instances, then that instance will not be deleted, an
+    exception will be raised and the statement will be deemed to have completed unsuccessfully. If the deletion is of an
+    ordered collection of instances (eg a <code>sequence</code>), then any instances that precede the instance in
+    question will be deleted, but any instances following will not. If the collection is unordered, then no guarantees
+    are made regarding which instances will be deleted, other than that the instance in question will not be
+    deleted.</para>
+
+    <para>The following conditions must be met:</para>
+
+    <itemizedlist>
+      <listitem>
+        <simpara>The <nonterminal def="#ebnf.expression"/> must be <link
+        linkend="section.Types.Assignable">assignable</link> to an instance type or a collection of instance
+        types.</simpara>
+
+        <simpara>The <nonterminal def="#ebnf.expression"/> must be <link
+        linkend="section.Expressions.Writeable">writeable</link>.</simpara>
+      </listitem>
+    </itemizedlist>
+
+    <productionset>
+      <xi:include href="syntax.xml" xpointer="ebnf.deleteStatement"/>
+    </productionset>
+  </section>
+
+  <section xml:id="section.Statements.Link">
+    <title>Link Instances</title>
+
+    <para>The <code>link</code> statement causes a relationship between two or more instances to be formed.</para>
+
+    <productionset>
+      <xi:include href="syntax.xml" xpointer="ebnf.linkStatement"/>
+    </productionset>
+
+    <section xml:id="section.Statements.Link.Simple">
+      <title>Simple Relationships</title>
+
+      <para>This section describes link statements where the <nonterminal def="#ebnf.relationshipSpec"/> specifies a
+      navigation along a <link linkend="section.Relationships.Simple">simple relationship</link> from object A to object
+      B.</para>
+
+      <para>The link statement causes a relationship to be formed between the instance or instances referenced by the
+      first expression and the instance or instances referenced by the second expression. If <link
+      linkend="section.Relationships.ReferentialIntegrity">referential integrity</link> is compromised by any of the
+      requested relationships an exception will be raised and the relationship will not be created. If a relationship
+      already exists between any pair of instances then an exception will be raised. If an exception is raised during
+      the linking of a collection of instances it is undefined which, if any, of the other requested relationships will
+      have been successfully formed if the exception is subsequently handled.</para>
+
+      <para>The following conditions must be met:</para>
+
+      <itemizedlist>
+        <listitem>
+          <simpara>The <code>using</code> clause must not be present.</simpara>
+        </listitem>
+
+        <listitem>
+          <simpara>The first instance expression must be <link linkend="section.Types.Assignable">assignable</link> to
+          <code>anonymous instance of A</code> or, when the cardinality of A in the relationship is <code>many</code>,
+          the first instance expression may also be <link linkend="section.Types.Assignable">assignable</link> to
+          <code>anonymous sequence of anonymous instance of A</code>.</simpara>
+        </listitem>
+
+        <listitem>
+          <simpara>The second instance expression must be <link linkend="section.Types.Assignable">assignable</link> to
+          <code>anonymous instance of B</code> or, when the cardinality of B in the relationship is <code>many</code>,
+          the second instance expression may also be <link linkend="section.Types.Assignable">assignable</link> to
+          <code>anonymous sequence of anonymous instance of B</code>.</simpara>
+        </listitem>
+      </itemizedlist>
+    </section>
+
+    <section xml:id="section.Statements.Link.Associative">
+      <title>Associative Relationships</title>
+
+      <para>This section describes link statements where the <nonterminal def="#ebnf.relationshipSpec"/> specifies a
+      navigation along an <link linkend="section.Relationships.Associative">associative relationship</link> from object
+      A to object B with associative object C. See also the <link linkend="section.Expressions.LinkExpression">link
+      expression</link> for details of linking collections of instances in associative relationships, and for details of
+      linking without explicitly specifying an associative instance.</para>
+
+      <para>The link statement causes a relationship to be formed between the instance referenced by the first
+      expression and the instance referenced by the second expression using the instance referenced by the third
+      expression as an associative. If <link linkend="section.Relationships.ReferentialIntegrity">referential
+      integrity</link> is compromised the requested relationship an exception will be raised and the relationship will
+      not be created. If a relationship already exists between the instances then an exception will be raised.</para>
+
+      <para>The following conditions must be met:</para>
+
+      <itemizedlist>
+        <listitem>
+          <simpara>The <code>using</code> clause must be present.</simpara>
+        </listitem>
+
+        <listitem>
+          <simpara>The first instance expression must be <link linkend="section.Types.Assignable">assignable</link> to
+          <code>anonymous instance of A</code>.</simpara>
+        </listitem>
+
+        <listitem>
+          <simpara>The second instance expression must be <link linkend="section.Types.Assignable">assignable</link> to
+          <code>anonymous instance of B</code>.</simpara>
+        </listitem>
+
+        <listitem>
+          <simpara>The third instance expression must be <link linkend="section.Types.Assignable">assignable</link> to
+          <code>anonymous instance of C</code>.</simpara>
+        </listitem>
+      </itemizedlist>
+    </section>
+
+    <section xml:id="section.Statements.Link.Supertype">
+      <title>Supertype Relationships</title>
+
+      <para>This section describes link statements where the <nonterminal def="#ebnf.relationshipSpec"/> specifies a
+      navigation along a <link linkend="section.Relationships.Supertype">supertype relationship</link> from object A to
+      object B.</para>
+
+      <para>The link statement causes a relationship to be formed between the instance referenced by the first
+      expression and the instance referenced by the second expression. If <link
+      linkend="section.Relationships.ReferentialIntegrity">referential integrity</link> is compromised the requested
+      relationship an exception will be raised and the relationship will not be created. If a relationship already
+      exists between the instance acting as a supertype and any instance acting as a subtype in the same relationship,
+      then an exception will be raised and the relationship will not be created.</para>
+
+      <para>The following conditions must be met:</para>
+
+      <itemizedlist>
+        <listitem>
+          <simpara>The <code>using</code> clause must not be present.</simpara>
+        </listitem>
+
+        <listitem>
+          <simpara>The first instance expression must be <link linkend="section.Types.Assignable">assignable</link> to
+          <code>anonymous instance of A</code>.</simpara>
+        </listitem>
+
+        <listitem>
+          <simpara>The second instance expression must be <link linkend="section.Types.Assignable">assignable</link> to
+          <code>anonymous instance of B</code>.</simpara>
+        </listitem>
+      </itemizedlist>
+    </section>
+  </section>
+
+  <section xml:id="section.Statements.Unlink">
+    <title>Unlink Instances</title>
+
+    <para>The <code>unlink</code> statement causes a relationship between two or more instances to be removed.</para>
+
+    <productionset>
+      <xi:include href="syntax.xml" xpointer="ebnf.unlinkStatement"/>
+    </productionset>
+
+    <section xml:id="section.Statements.Unink.Simple">
+      <title>Simple Relationships</title>
+
+      <para>This section describes unlink statements where the <nonterminal def="#ebnf.relationshipSpec"/> specifies a
+      navigation along a <link linkend="section.Relationships.Simple">simple relationship</link> from object A to object
+      B.</para>
+
+      <para>If the second expression is present, the unlink statement causes a relationship to be removed between the
+      instance or instances referenced by the first expression and the instance or instances referenced by the second
+      expression. If a relationship does not already exist between any pair of instances then an exception will be
+      raised. If an exception is raised during the unlinking of a collection of instances it is undefined which, if any,
+      of the other requested relationships will have been successfully removed if the exception is subsequently
+      handled.</para>
+
+      <para>If the second expression not is present, the unlink statement causes a relationship to be removed between
+      the instance or instances referenced by the first expression and all instances found by navigating from those
+      instances along the <nonterminal def="#ebnf.relationshipSpec"/>.</para>
+
+      <para>The following conditions must be met:</para>
+
+      <itemizedlist>
+        <listitem>
+          <simpara>The <code>using</code> clause must not be present.</simpara>
+        </listitem>
+
+        <listitem>
+          <simpara>The first instance expression must be <link linkend="section.Types.Assignable">assignable</link> to
+          <code>anonymous instance of A</code> or, when the cardinality of A in the relationship is <code>many</code>,
+          the first instance expression may also be <link linkend="section.Types.Assignable">assignable</link> to
+          <code>anonymous sequence of anonymous instance of A</code>.</simpara>
+        </listitem>
+
+        <listitem>
+          <simpara>If present, the second instance expression must be <link
+          linkend="section.Types.Assignable">assignable</link> to <code>anonymous instance of B</code> or, when the
+          cardinality of B in the relationship is <code>many</code>, the second instance expression may also be <link
+          linkend="section.Types.Assignable">assignable</link> to <code>anonymous sequence of anonymous instance of
+          B</code>.</simpara>
+        </listitem>
+      </itemizedlist>
+    </section>
+
+    <section xml:id="section.Statements.Unink.Associative">
+      <title>Associative Relationships</title>
+
+      <para>This section describes unlink statements where the <nonterminal def="#ebnf.relationshipSpec"/> specifies a
+      navigation along an <link linkend="section.Relationships.Associative">associative relationship</link> from object
+      A to object B with associative object C. See also the <link linkend="section.Expressions.UnlinkExpression">link
+      expression</link> for details of unlinking collections of instances in associative relationships, and for details
+      of unlinking without explicitly specifying an associative instance.</para>
+
+      <para>The unlink statement causes a relationship to be removed between the instance referenced by the first
+      expression and the instance referenced by the second expression using the instance referenced by the third
+      expression as an associative. If a relationship does not already exist between the instances then an exception
+      will be raised.</para>
+
+      <para>The following conditions must be met:</para>
+
+      <itemizedlist>
+        <listitem>
+          <simpara>The second instance expression and <code>using</code> clause must be present.</simpara>
+        </listitem>
+
+        <listitem>
+          <simpara>The first instance expression must be <link linkend="section.Types.Assignable">assignable</link> to
+          <code>anonymous instance of A</code>.</simpara>
+        </listitem>
+
+        <listitem>
+          <simpara>The second instance expression must be <link linkend="section.Types.Assignable">assignable</link> to
+          <code>anonymous instance of B</code>.</simpara>
+        </listitem>
+
+        <listitem>
+          <simpara>The third instance expression must be <link linkend="section.Types.Assignable">assignable</link> to
+          <code>anonymous instance of C</code>.</simpara>
+        </listitem>
+      </itemizedlist>
+    </section>
+
+    <section xml:id="section.Statements.Unlink.Supertype">
+      <title>Supertype Relationships</title>
+
+      <para>This section describes unlink statements where the <nonterminal def="#ebnf.relationshipSpec"/> specifies a
+      navigation along a <link linkend="section.Relationships.Supertype">supertype relationship</link> from object A to
+      object B (either A or B may be the supertype).</para>
+
+      <para>If the second expression is present, the unlink statement causes a relationship to be removed between the
+      instance referenced by the first expression and the instance referenced by the second expression. If a
+      relationship does not already exist between the instances then an exception will be raised.</para>
+
+      <para>If the second expression not is present, the unlink statement causes a relationship to be removed between
+      the instance referenced by the first expression and the instance found by navigating from that instances along the
+      <nonterminal def="#ebnf.relationshipSpec"/>. If the first instance is the supertype in the relationship, this
+      means that the relationship to any subtype will be removed.</para>
+
+      <para>The following conditions must be met:</para>
+
+      <itemizedlist>
+        <listitem>
+          <simpara>The <code>using</code> clause must not be present.</simpara>
+        </listitem>
+
+        <listitem>
+          <simpara>The first instance expression must be <link linkend="section.Types.Assignable">assignable</link> to
+          <code>anonymous instance of A</code>.</simpara>
+        </listitem>
+
+        <listitem>
+          <simpara>The second instance expression must be <link linkend="section.Types.Assignable">assignable</link> to
+          <code>anonymous instance of B</code>.</simpara>
+        </listitem>
+      </itemizedlist>
+    </section>
+  </section>
+
+  <section xml:id="section.Statements.EventGeneration">
+    <title>Event Generation</title>
+
+    <para>todo</para>
+
+    <productionset>
+      <xi:include href="syntax.xml" xpointer="ebnf.generateStatement"/>
+
+      <xi:include href="syntax.xml" xpointer="ebnf.scheduleStatement"/>
+
+      <xi:include href="syntax.xml" xpointer="ebnf.cancelTimerStatement"/>
+
+      <xi:include href="syntax.xml" xpointer="ebnf.timerId"/>
+
+      <xi:include href="syntax.xml" xpointer="ebnf.qualifiedEventName"/>
+
+      <productionrecap linkend="ebnf.eventName"/>
+
+      <productionrecap linkend="ebnf.objectName"/>
+
+      <productionrecap linkend="ebnf.argumentList"/>
+
+      <productionrecap linkend="ebnf.argument"/>
+    </productionset>
+  </section>
+
+  <section xml:id="section.Statements.ConditionalProcessing">
+    <title>Conditional Processing</title>
+
+    <para>todo</para>
+
+    <productionset>
+      <xi:include href="syntax.xml" xpointer="ebnf.ifStatement"/>
+
+      <xi:include href="syntax.xml" xpointer="ebnf.elsifBlock"/>
+
+      <xi:include href="syntax.xml" xpointer="ebnf.elseBlock"/>
+
+      <xi:include href="syntax.xml" xpointer="ebnf.caseStatement"/>
+
+      <xi:include href="syntax.xml" xpointer="ebnf.caseAlternative"/>
+
+      <xi:include href="syntax.xml" xpointer="ebnf.caseOthers"/>
+
+      <xi:include href="syntax.xml" xpointer="ebnf.choiceList"/>
+
+      <productionrecap linkend="ebnf.condition"/>
+    </productionset>
+  </section>
+
+  <section xml:id="section.Statements.Looping">
+    <title>Looping</title>
+
+    <para>todo</para>
+
+    <section xml:id="section.Statements.While">
+      <title>While Statement</title>
+
+      <para>todo</para>
+
+      <productionset>
+        <xi:include href="syntax.xml" xpointer="ebnf.whileStatement"/>
+
+        <productionrecap linkend="ebnf.condition"/>
+      </productionset>
+    </section>
+
+    <section xml:id="section.Statements.For">
+      <title>For Statement</title>
+
+      <para>todo</para>
+
+      <productionset>
+        <xi:include href="syntax.xml" xpointer="ebnf.forStatement"/>
+
+        <xi:include href="syntax.xml" xpointer="ebnf.loopVariableSpec"/>
+      </productionset>
+    </section>
+  </section>
+</chapter>

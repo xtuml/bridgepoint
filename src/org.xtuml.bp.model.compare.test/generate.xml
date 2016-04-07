@@ -68,7 +68,8 @@ the License.
 		ElementOrderingTests.java,
 		ModelCompareTestSuite.java,
 		ModelMergeTests.java,
-		ModelMergeTests2.java" />
+		ModelMergeTests2.java,
+		GlobalTestSetupClass.java" />
 
 	<target name="clean_all"
 	        description="Clean entire project"

@@ -32,7 +32,10 @@ import org.eclipse.ui.IViewReference;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.views.contentoutline.ContentOutline;
-
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.Function_c;
 import org.xtuml.bp.core.ModelClass_c;
 import org.xtuml.bp.core.Operation_c;
@@ -40,8 +43,10 @@ import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.test.common.CanvasTestUtils;
 import org.xtuml.bp.test.common.ExplorerUtil;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.ui.graphics.outline.GraphicalOutlinePage;
 
+@RunWith(OrderedRunner.class)
 public class OperationsTestGenerics extends CoreTest {
 
 	static ContentOutline outlineView = null;
@@ -58,7 +63,8 @@ public class OperationsTestGenerics extends CoreTest {
 		super();
 	}
 
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		if (!initialized) {
 
@@ -68,7 +74,8 @@ public class OperationsTestGenerics extends CoreTest {
 		}
 	}
 
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		if (isDone) {
 			if (modelRoot != null) {
 				modelRoot.clearDatabase(new NullProgressMonitor());
@@ -175,6 +182,7 @@ public class OperationsTestGenerics extends CoreTest {
 		}
 	} //End Outline view Helper methods  
 
+	@Test
 	public void testOperationDefaultType() {
 		//test_id = "1";
 		openTestPKGDiagram("TestOperations");
@@ -185,6 +193,7 @@ public class OperationsTestGenerics extends CoreTest {
 		assertTrue(op.getInstance_based() == 1);
 	}
 
+	@Test
 	public void testHideStaticMembersExplorerView() {
 		//test_id = "2";	
 		boolean instOperationIsVisible = false;
@@ -205,6 +214,7 @@ public class OperationsTestGenerics extends CoreTest {
 		assertTrue(instOperationIsVisible);
 	}
 
+	@Test
 	public void testHideStaticMembersOutlineView() {
 		//test_id = "2";	 
 		boolean instOperationIsVisible = false;

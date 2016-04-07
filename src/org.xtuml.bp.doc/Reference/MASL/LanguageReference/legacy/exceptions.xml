@@ -1,0 +1,704 @@
+<!-- 
+  UK Crown Copyright (c) 2016. All Rights Reserved
+-->
+<!-- Converted by db4-upgrade version 1.0 -->
+<chapter xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="Exceptions"><info><title>Exceptions</title></info>
+
+<para>
+When a program violates the semantic constraints of the language, an error is
+signaled as an <emphasis>exception</emphasis>.
+<indexterm significance="preferred">
+    <primary>exception</primary>
+</indexterm>
+An example of such a violation
+is an attempt to index outside the bounds of an array. This causes a non-local
+transfer of control from the point where the <emphasis>exception</emphasis>
+<indexterm>
+    <primary>exception</primary>
+</indexterm>
+occurred to a point that can be specified by the analyst. An 
+<emphasis>exception</emphasis>
+<indexterm>
+    <primary>exception</primary>
+</indexterm>
+is said to be
+<link linkend="ebnf.raisestatement"><emphasis>raised</emphasis></link>
+<indexterm>
+    <primary>exception</primary>
+    <secondary>raised</secondary>
+</indexterm>
+from the point where it occurred and is said to be
+<link linkend="ebnf.exceptionhandler"><emphasis>caught</emphasis></link>
+<indexterm>
+    <primary>exception</primary>
+    <secondary>catch</secondary>
+</indexterm>
+at the point to which control is transferred.
+Analysts can also raise exceptions explicitly, using
+<link linkend="ebnf.raisestatement"><literal>raise</literal></link>
+<indexterm>
+    <primary>exception</primary>
+    <secondary><literal>raise</literal></secondary>
+</indexterm>
+statements.
+</para>
+<para>
+Every exception
+<indexterm>
+    <primary>exception</primary>
+</indexterm>
+is represented by an exception type.
+<indexterm>
+    <primary>exception</primary>
+    <secondary>type</secondary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary>exception</secondary>
+</indexterm>
+Handlers are established
+by exception handlers,
+<indexterm>
+    <primary>exception</primary>
+    <secondary>handler</secondary>
+</indexterm>
+which consist of handled sequence of statements.
+<indexterm>
+    <primary>exception</primary>
+    <secondary>handled sequence of statements</secondary>
+</indexterm>
+During
+the process of raising an exception,
+<indexterm>
+    <primary>exception</primary>
+</indexterm>
+the software architecture abruptly
+completes
+<indexterm>
+    <primary>abrupt completion</primary>
+</indexterm>
+one by one, any expressions, statements invocations and initializers
+that have begun but not completed execution in the current thread.
+<indexterm>
+    <primary>thread</primary>
+</indexterm>
+This process
+continues until a handler
+<indexterm>
+    <primary>exception</primary>
+    <secondary>handler</secondary>
+</indexterm>
+is found that indicates that it handles that
+particular exception by naming the exception type.
+<indexterm>
+    <primary>exception</primary>
+    <secondary>type</secondary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary>exception</secondary>
+</indexterm>
+If no such handler
+<indexterm>
+    <primary>exception</primary>
+    <secondary>handler</secondary>
+</indexterm>
+is found, then the software architecture is notified.
+</para>
+<para>
+This chapter describes the different causes of exceptions.
+<indexterm>
+    <primary>exception</primary>
+</indexterm>
+It details how exceptions
+<indexterm>
+    <primary>exception</primary>
+</indexterm>
+are checked at compile-time
+<indexterm>
+    <primary>exception</primary>
+    <secondary>compile-time checking</secondary>
+</indexterm>
+and processed at run-time.
+<indexterm>
+    <primary>exception</primary>
+    <secondary>processing</secondary>
+</indexterm>
+</para>
+<section xml:id="ExceptionsExceptionDeclarations"><info><title>Exception Declarations</title></info>
+
+<para>
+An <link linkend="ebnf.exceptiondeclaration"><emphasis>exception declaration</emphasis></link>
+<indexterm significance="preferred">
+    <primary>exception</primary>
+    <secondary>declaration</secondary>
+</indexterm>
+declares a new exception type.
+<indexterm>
+    <primary>exception</primary>
+    <secondary>type</secondary>
+</indexterm>
+<indexterm>
+    <primary>type</primary>
+    <secondary>exception</secondary>
+</indexterm>
+The declaration specifies the name of the exception.
+<indexterm>
+    <primary>exception</primary>
+</indexterm>
+</para>
+<indexterm zone="ebnf.exceptiondeclaration">
+    <primary>exception declaration</primary>
+</indexterm>
+<indexterm zone="ebnf.exceptiondeclaration">
+    <primary>exception modifier</primary>
+</indexterm>
+<indexterm zone="ebnf.exceptiondeclaration">
+    <primary>exception name</primary>
+</indexterm>
+<indexterm zone="ebnf.exceptionname">
+    <primary>exception name</primary>
+</indexterm>
+<indexterm zone="ebnf.exceptionname">
+    <primary>identifier</primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.exceptiondeclaration">
+    <lhs>
+        exception declaration
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.exceptionmodifier">exception modifier</nonterminal>,
+        'exception',
+        <nonterminal def="#ebnf.exceptionname">exception name</nonterminal>,
+        ';'
+    </rhs>
+</production>
+<production xml:id="ebnf.exceptionname">
+    <lhs>
+        exception name
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.identifier">identifier</nonterminal>
+    </rhs>
+</production>
+</productionset>
+<section xml:id="ExceptionsExceptionModifiers"><info><title>Exception Modifiers</title></info>
+
+<indexterm significance="preferred">
+    <primary>exception</primary>
+    <secondary>modifier</secondary>
+</indexterm>
+<indexterm zone="ebnf.exceptionmodifier">
+    <primary>exception modifier</primary>
+</indexterm>
+<indexterm zone="ebnf.exceptionmodifier">
+    <primary><literal>public</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.exceptionmodifier">
+    <primary><literal>private</literal></primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.exceptionmodifier">
+    <lhs>
+        exception modifier
+    </lhs>
+    <rhs>
+        'public' | 'private'
+    </rhs>
+</production>
+</productionset>
+<section xml:id="ExceptionsPublicExceptions"><info><title>Public Exceptions</title></info>
+
+<para>
+If an exception
+<indexterm significance="preferred">
+    <primary>exception</primary>
+    <secondary>public</secondary>
+</indexterm>
+is declared with the modifier
+<link linkend="ebnf.exceptionmodifier"><literal>public</literal></link>,
+<indexterm>
+    <primary><literal>public</literal></primary>
+</indexterm>
+then it may be accessed by any code that can access the domain in which it is
+declared. By default, all exceptions are declared
+<link linkend="ebnf.exceptionmodifier"><literal>public</literal></link>.
+<indexterm>
+    <primary><literal>public</literal></primary>
+</indexterm>
+</para>
+</section>
+<section xml:id="ExceptionsPrivateExceptions"><info><title>Private Exceptions</title></info>
+
+<para>
+If an exception
+<indexterm significance="preferred">
+    <primary>exception</primary>
+    <secondary>private</secondary>
+</indexterm>
+is declared with the modifier
+<link linkend="ebnf.exceptionmodifier"><literal>private</literal></link>,
+<indexterm>
+    <primary><literal>private</literal></primary>
+</indexterm>
+then access is only permitted from within the domain in which it is declared.
+</para>
+</section>
+</section>
+</section>
+<section xml:id="ExceptionsTheCausesofExceptions"><info><title>The Causes of Exceptions</title></info>
+
+<para>
+An exception
+<indexterm significance="preferred">
+    <primary>exception</primary>
+    <secondary>causes</secondary>
+</indexterm>
+is thrown for one of two reasons.
+<itemizedlist mark="bullet">
+<listitem>
+<para>
+An abnormal execution condition was synchronously detected by the software
+architecture. Such conditions arise because:
+<itemizedlist mark="opencircle">
+<listitem>
+<para>
+Evaluation of an expression violates the normal semantics of the language, such
+as an integer divided by zero.
+</para>
+</listitem>
+<listitem>
+<para>
+Some limitation of a resource is exceeded, such as using too much memory.
+</para>
+</listitem>
+</itemizedlist>
+These exceptions are not raised
+<indexterm significance="preferred">
+    <primary>exception</primary>
+    <secondary>raised</secondary>
+</indexterm>
+at an arbitrary point in the program, but rather
+at a point where they are specified or as possible result of an expression
+evaluation
+<indexterm>
+    <primary>expression</primary>
+    <secondary>evaluation</secondary>
+</indexterm>
+or statement execution.
+<indexterm>
+    <primary>statement</primary>
+    <secondary>execution.</secondary>
+</indexterm>
+</para>
+</listitem>
+<listitem>
+<para>
+A <link linkend="ebnf.raisestatement"><literal>raise</literal></link>
+<indexterm significance="preferred">
+    <primary>exception</primary>
+    <secondary><literal>raise</literal></secondary>
+</indexterm>
+statement was executed.
+</para>
+</listitem>
+</itemizedlist>
+</para>
+</section>
+<section xml:id="ExceptionCompileTimeCheckingofExceptions"><info><title>Compile-Time Checking of Exceptions</title></info>
+
+<para>
+The language checks at compile-time,
+<indexterm significance="preferred">
+    <primary>exception</primary>
+    <secondary>compile-time checking</secondary>
+</indexterm>
+that a program contains handlers
+<indexterm>
+    <primary>exception</primary>
+    <secondary>handler</secondary>
+</indexterm>
+for exception types,
+<indexterm>
+    <primary>exception</primary>
+    <secondary>type</secondary>
+</indexterm>
+by analyzing which exceptions can result from execution of
+a service. For each exception type, which is a possible result, the raises
+expression for the service must mention the exception type.
+<indexterm>
+    <primary>exception</primary>
+    <secondary>type</secondary>
+</indexterm>
+The standard language defines a number of exception types.
+<indexterm>
+    <primary>exception</primary>
+    <secondary>type</secondary>
+</indexterm>
+An analyst may declare additional exception types.
+<indexterm>
+    <primary>exception</primary>
+    <secondary>type</secondary>
+</indexterm>
+</para>
+</section>
+<section xml:id="ExceptionsHandlingofanException"><info><title>Handling of an Exception</title></info>
+
+<para>
+When an exception is raised,
+<indexterm>
+    <primary>exception</primary>
+    <secondary>raised</secondary>
+</indexterm>
+control is transferred from the code that caused
+the exception
+<indexterm>
+    <primary>exception</primary>
+</indexterm>
+to the nearest dynamically-enclosing handler
+<indexterm>
+    <primary>exception</primary>
+    <secondary>handler</secondary>
+</indexterm>
+of a handled sequence of statements
+<indexterm>
+    <primary>exception</primary>
+    <secondary>handled sequence of statements</secondary>
+</indexterm>
+that handles the exception.
+</para>
+<indexterm zone="ebnf.handledsequenceofstatements">
+    <primary>handled sequence of statements</primary>
+</indexterm>
+<indexterm zone="ebnf.handledsequenceofstatements">
+    <primary>sequence of statements</primary>
+</indexterm>
+<indexterm zone="ebnf.handledsequenceofstatements">
+    <primary><literal>exception</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.handledsequenceofstatements">
+    <primary>exception handler</primary>
+</indexterm>
+<indexterm zone="ebnf.handledsequenceofstatements">
+    <primary>exception others handler</primary>
+</indexterm>
+<indexterm zone="ebnf.exceptionhandler">
+    <primary>exception handler</primary>
+</indexterm>
+<indexterm zone="ebnf.exceptionhandler">
+    <primary><literal>when</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.exceptionhandler">
+    <primary>exception choice</primary>
+</indexterm>
+<indexterm zone="ebnf.exceptionhandler">
+    <primary><literal>=&gt;</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.exceptionhandler">
+    <primary>sequence of statements</primary>
+</indexterm>
+<indexterm zone="ebnf.exceptionothershandler">
+    <primary>exception others handler</primary>
+</indexterm>
+<indexterm zone="ebnf.exceptionothershandler">
+    <primary><literal>when</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.exceptionothershandler">
+    <primary><literal>others</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.exceptionothershandler">
+    <primary><literal>=&gt;</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.exceptionothershandler">
+    <primary>sequence of statements</primary>
+</indexterm>
+<indexterm zone="ebnf.exceptionchoice">
+    <primary>exception choice</primary>
+</indexterm>
+<indexterm zone="ebnf.exceptionchoice">
+    <primary>exception specification</primary>
+</indexterm>
+<indexterm zone="ebnf.exceptionspecification">
+    <primary>exception specification</primary>
+</indexterm>
+<indexterm zone="ebnf.exceptionspecification">
+    <primary>domain name</primary>
+</indexterm>
+<indexterm zone="ebnf.exceptionspecification">
+    <primary><literal>::</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.exceptionspecification">
+    <primary>exception name</primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.handledsequenceofstatements">
+    <lhs>
+        handled sequence of statements
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.sequenceofstatements">sequence of statements</nonterminal>,
+        [('exception',
+        {<nonterminal def="#ebnf.exceptionhandler">exception handler</nonterminal>},
+        [<nonterminal def="#ebnf.exceptionothershandler">exception others handler</nonterminal>]]
+    </rhs>
+</production>
+<production xml:id="ebnf.exceptionhandler">
+    <lhs>
+        exception handler
+    </lhs>
+    <rhs>
+        'when',
+        <nonterminal def="#ebnf.exceptionchoice">exception choice</nonterminal>,
+        '=&gt;',
+        <nonterminal def="#ebnf.sequenceofstatements">sequence of statements</nonterminal>
+    </rhs>
+</production>
+<production xml:id="ebnf.exceptionothershandler">
+    <lhs>
+        exception others handler
+    </lhs>
+    <rhs>
+        'when', 'others', '=&gt;',
+        <nonterminal def="#ebnf.sequenceofstatements">sequence of statements</nonterminal>
+    </rhs>
+</production>
+<production xml:id="ebnf.exceptionchoice">
+    <lhs>
+        exception choice
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.exceptionspecification">exception specification</nonterminal>
+    </rhs>
+</production>
+<production xml:id="ebnf.exceptionspecification">
+    <lhs>
+        exception specification
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.domainname">domain name</nonterminal>,
+        '::',
+        <nonterminal def="#ebnf.exceptionname">exception name</nonterminal> |
+        <nonterminal def="#ebnf.exceptionname">exception name</nonterminal>
+    </rhs>
+</production>
+</productionset>
+<para>
+A statement or expression is dynamically enclosed by an
+<link linkend="ebnf.exceptionhandler">exception handler</link>
+<indexterm>
+    <primary>exception</primary>
+    <secondary>handler</secondary>
+</indexterm>
+if either of the following are true:
+<itemizedlist mark="bullet">
+<listitem>
+<para>
+It appears within the sequence of statements of which the
+<link linkend="ebnf.exceptionhandler">exception handler</link>
+<indexterm>
+    <primary>exception</primary>
+    <secondary>handler</secondary>
+</indexterm>
+is a part.
+</para>
+</listitem>
+<listitem>
+<para>
+If the caller of the statement or expression is dynamically enclosed by the
+<link linkend="ebnf.exceptionhandler">exception handler</link>.
+<indexterm>
+    <primary>exception</primary>
+    <secondary>handler</secondary>
+</indexterm>
+</para>
+</listitem>
+<listitem>
+<para>
+The caller of a statement or expression is the service invocation statement
+that was executed to cause the service to be invoked.
+</para>
+</listitem>
+</itemizedlist>
+</para>
+<para>
+Whether a particular
+<link linkend="ebnf.exceptionhandler">exception handler</link>
+<indexterm>
+    <primary>exception</primary>
+    <secondary>handler</secondary>
+</indexterm>
+handles an exception is determined by
+comparing the name of the exception
+<indexterm>
+    <primary>exception</primary>
+</indexterm>
+to the name of the exception
+<indexterm>
+    <primary>exception</primary>
+</indexterm>
+given in the <link linkend="ebnf.exceptionhandler">exception handler</link>.
+<indexterm>
+    <primary>exception</primary>
+    <secondary>handler</secondary>
+</indexterm>
+</para>
+<para>
+At most one
+<exceptionname>others</exceptionname>
+<indexterm significance="preferred">
+    <primary>exception</primary>
+    <secondary>others</secondary>
+</indexterm>
+exception is allowed at the end of the
+exception handler list.
+<indexterm>
+    <primary>exception</primary>
+    <secondary>handler</secondary>
+    <tertiary>list</tertiary>
+</indexterm>
+This handler handles any exception that has not already
+been handled in the subsequent handlers
+<indexterm>
+    <primary>exception</primary>
+    <secondary>handler</secondary>
+</indexterm>
+within the list.
+</para>
+<para>
+The control transfer that occurs when an exception
+<indexterm>
+    <primary>exception</primary>
+</indexterm>
+is thrown causes abrupt completion
+<indexterm>
+    <primary>abrupt completion</primary>
+</indexterm>
+of expressions and statements until an exception handler
+<indexterm>
+    <primary>exception</primary>
+    <secondary>handler</secondary>
+</indexterm>
+is encountered that can handle the exception. Execution then continues by
+executing the sequence of statements of that exception handler.
+<indexterm>
+    <primary>exception</primary>
+    <secondary>handler</secondary>
+</indexterm>
+The code that caused the exception is never resumed.
+</para>
+<para>
+If no exception handler
+<indexterm>
+    <primary>exception</primary>
+    <secondary>handler</secondary>
+</indexterm>
+can be found, then the current thread
+<indexterm>
+    <primary>thread</primary>
+</indexterm>
+(the thread that
+encountered the exception) is terminated, but only after the software
+architecture is notified. The exact rules for abrupt completion
+<indexterm>
+    <primary>abrupt completion</primary>
+</indexterm>
+and for the catching of exceptions
+<indexterm>
+    <primary>exception</primary>
+    <secondary>catch</secondary>
+</indexterm>
+are specified in detail within the specification of
+each statement (see <xref linkend="Statements"/>).
+</para>
+<section xml:id="ExceptionsHandlingExceptionAcrossAsynchronousBoundaries"><info><title>Handling Exceptions Across Asynchronous Boundaries</title></info>
+
+<para>
+There are certain statements that cause asynchronous control. These are:
+<itemizedlist mark="bullet">
+<listitem>
+<para>
+Event generation.
+<indexterm>
+    <primary>event</primary>
+    <secondary>generation</secondary>
+</indexterm>
+</para>
+</listitem>
+<listitem>
+<para>
+Asynchronous service invocation of a domain service of another domain.
+<indexterm>
+    <primary>domain</primary>
+    <secondary>service</secondary>
+    <tertiary>invocation</tertiary>
+</indexterm>
+</para>
+</listitem>
+</itemizedlist>
+If an exception is raised
+<indexterm>
+    <primary>exception</primary>
+    <secondary>raised</secondary>
+</indexterm>
+as a result of consuming an event
+<indexterm>
+    <primary>event</primary>
+    <secondary>consumption</secondary>
+</indexterm>
+and the exception
+<indexterm>
+    <primary>exception</primary>
+</indexterm>
+is not handled, then the exception<indexterm>
+    <primary>exception</primary>
+    <secondary>raised</secondary>
+</indexterm>
+is not propagated back to the original event generation.
+<indexterm>
+    <primary>event</primary>
+    <secondary>generation</secondary>
+</indexterm>
+Similarly, for the asynchronous invocation of a domain service.
+<indexterm>
+    <primary>domain</primary>
+    <secondary>service</secondary>
+    <tertiary>invocation</tertiary>
+</indexterm>
+This is the opposite of synchronous invocation of a domain
+<indexterm>
+    <primary>domain</primary>
+    <secondary>service</secondary>
+    <tertiary>invocation</tertiary>
+</indexterm>
+or object service,
+<indexterm>
+    <primary>object</primary>
+    <secondary>service</secondary>
+    <tertiary>invocation</tertiary>
+</indexterm>
+where the exception is propagated back to the caller. Hence, if an exception is
+raised
+<indexterm>
+    <primary>exception</primary>
+    <secondary>raised</secondary>
+</indexterm>
+in a state action
+<indexterm>
+    <primary>state</primary>
+    <secondary>action</secondary>
+</indexterm>
+and this exception
+<indexterm>
+    <primary>exception</primary>
+</indexterm>
+is not caught within this state
+action then the exception
+<indexterm>
+    <primary>exception</primary>
+</indexterm>
+is passed to the software architecture.
+</para>
+</section>
+</section>
+</chapter>

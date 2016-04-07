@@ -24,15 +24,16 @@ package org.xtuml.bp.ui.canvas.test;
 
 import java.io.IOException;
 
-import junit.framework.TestCase;
-
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFileState;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Display;
-
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.InstanceStateMachine_c;
 import org.xtuml.bp.core.ModelClass_c;
@@ -44,6 +45,7 @@ import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.test.common.BaseTest;
 import org.xtuml.bp.test.common.CanvasTestUtils;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.UITestingUtilities;
 import org.xtuml.bp.ui.canvas.GraphicalElement_c;
 import org.xtuml.bp.ui.canvas.Model_c;
@@ -51,10 +53,13 @@ import org.xtuml.bp.ui.canvas.Ooaofgraphics;
 import org.xtuml.bp.ui.canvas.Shape_c;
 import org.xtuml.bp.ui.graphics.editor.GraphicalEditor;
 
+import junit.framework.TestCase;
+
 /**
  * Performs tests related to the updating of an editor's 
  * contents when a model is reloaded from disk.
  */
+@RunWith(OrderedRunner.class)
 public class CanvasEditorReloadContentsTest extends CanvasTest
 {
     /**
@@ -65,9 +70,9 @@ public class CanvasEditorReloadContentsTest extends CanvasTest
     /**
      * Constructor.
      */
-    public CanvasEditorReloadContentsTest(String name)
+    public CanvasEditorReloadContentsTest()
     {
-        super(null, name);
+        super(null, null);
     }
     
     /* (non-Javadoc)
@@ -79,12 +84,14 @@ public class CanvasEditorReloadContentsTest extends CanvasTest
     }
     
     @Override
-    public void setUp() throws Exception {
+    @Before
+	public void setUp() throws Exception {
     	super.setUp();
     	Ooaofooa.setPersistEnabled(true);
     }
 
-    public void tearDown() throws Exception {
+    @After
+	public void tearDown() throws Exception {
     	super.tearDown();
     	Ooaofooa.setPersistEnabled(false);
     }
@@ -97,7 +104,8 @@ public class CanvasEditorReloadContentsTest extends CanvasTest
      * @throws IOException 
      * @throws CoreException 
      */
-    public void testEditorUpdatesOnReload() throws CoreException, IOException
+    @Test
+	public void testEditorUpdatesOnReload() throws CoreException, IOException
     {
         // make sure the user isn't prompted to do a parse all
         CorePlugin.enableParseAllOnResourceChange();
@@ -169,7 +177,8 @@ public class CanvasEditorReloadContentsTest extends CanvasTest
      * @throws IOException 
      * @throws CoreException 
      */
-    public void testISMEditorStaysOpenOnReload() throws CoreException, IOException
+    @Test
+	public void testISMEditorStaysOpenOnReload() throws CoreException, IOException
     {
 		// setup the test project and model
 		loadProject(testModelName);

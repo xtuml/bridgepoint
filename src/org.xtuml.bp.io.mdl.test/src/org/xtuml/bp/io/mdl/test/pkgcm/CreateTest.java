@@ -25,7 +25,6 @@ package org.xtuml.bp.io.mdl.test.pkgcm;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.PlatformUI;
-
 import org.xtuml.bp.core.InstanceStateMachine_c;
 import org.xtuml.bp.core.ModelClass_c;
 import org.xtuml.bp.core.SystemModel_c;

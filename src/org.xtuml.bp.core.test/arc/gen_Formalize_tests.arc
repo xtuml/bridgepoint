@@ -222,19 +222,63 @@ import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.PlatformUI;
-
-import org.xtuml.bp.core.*;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.xtuml.bp.core.Association_c;
+import org.xtuml.bp.core.AttributeReferenceInClass_c;
+import org.xtuml.bp.core.Attribute_c;
+import org.xtuml.bp.core.ClassAsLink_c;
+import org.xtuml.bp.core.ClassAsSubtype_c;
+import org.xtuml.bp.core.ClassAsSupertype_c;
+import org.xtuml.bp.core.ClassIdentifierAttribute_c;
+import org.xtuml.bp.core.ClassInAssociation_c;
+import org.xtuml.bp.core.ImportedClass_c;
+import org.xtuml.bp.core.LinkedAssociation_c;
+import org.xtuml.bp.core.ModelClass_c;
+import org.xtuml.bp.core.Ooaofooa;
+import org.xtuml.bp.core.Package_c;
+import org.xtuml.bp.core.PackageableElement_c;
+import org.xtuml.bp.core.ReferentialAttribute_c;
+import org.xtuml.bp.core.ReferredToClassInAssoc_c;
+import org.xtuml.bp.core.ReferredToIdentifierAttribute_c;
+import org.xtuml.bp.core.ReferringClassInAssoc_c;
+import org.xtuml.bp.core.SubtypeSupertypeAssociation_c;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
+import org.xtuml.bp.core.ui.BinaryFormalizeOnR_RELAction;
+import org.xtuml.bp.core.ui.BinaryFormalizeOnR_RELWizardPage1;
+import org.xtuml.bp.core.ui.BinaryFormalizeOnR_RELWizardPage2;
+import org.xtuml.bp.core.ui.DeleteAction;
+import org.xtuml.bp.core.ui.InheritanceFormalizeOnR_RELAction;
+import org.xtuml.bp.core.ui.InheritanceFormalizeOnR_RELWizardPage1;
+import org.xtuml.bp.core.ui.InheritanceFormalizeOnR_SUBAction;
+import org.xtuml.bp.core.ui.InheritanceFormalizeOnR_SUBWizardPage1;
+import org.xtuml.bp.core.ui.LinkedFormalizeOnR_ASSRAction;
+import org.xtuml.bp.core.ui.LinkedFormalizeOnR_ASSRWizardPage1;
+import org.xtuml.bp.core.ui.LinkedFormalizeOnR_RELAction;
+import org.xtuml.bp.core.ui.LinkedFormalizeOnR_RELWizardPage1;
+import org.xtuml.bp.core.ui.Selection;
+import org.xtuml.bp.core.ui.UnformalizeOnR_ASSRAction;
+import org.xtuml.bp.core.ui.UnformalizeOnR_RELAction;
+import org.xtuml.bp.core.ui.UnformalizeOnR_SUBAction;
 import org.xtuml.bp.test.TestUtil;
 import org.xtuml.bp.test.common.CanvasTestUtils;
 import org.xtuml.bp.test.common.ExplorerUtil;
-import org.xtuml.bp.test.common.TestingUtilities;
-import org.xtuml.bp.core.ui.*;
-import org.xtuml.bp.ui.canvas.*;
-import org.xtuml.bp.ui.graphics.editor.*;
+import org.xtuml.bp.test.common.OrderedRunner;
+import org.xtuml.bp.ui.canvas.Cl_c;
+import org.xtuml.bp.ui.canvas.Connector_c;
+import org.xtuml.bp.ui.canvas.Graphconnector_c;
+import org.xtuml.bp.ui.canvas.Graphedge_c;
+import org.xtuml.bp.ui.canvas.Graphelement_c;
+import org.xtuml.bp.ui.canvas.GraphicalElement_c;
+import org.xtuml.bp.ui.canvas.Shape_c;
 import org.xtuml.bp.ui.canvas.test.CanvasTest;
+import org.xtuml.bp.ui.graphics.editor.GraphicalEditor;
+import org.xtuml.bp.ui.graphics.editor.ModelEditor;
 import org.xtuml.bp.utilities.ui.CanvasUtilities;
 
+@RunWith(OrderedRunner.class)
 public class FormalizeUnformalizeTestGenerics extends CanvasTest {
 
 	String test_id = null;
@@ -246,8 +290,8 @@ public class FormalizeUnformalizeTestGenerics extends CanvasTest {
 	
     private static Selection selection = Selection.getInstance();
 
-	public FormalizeUnformalizeTestGenerics(String name) {
-		super("Default Project", name);
+	public FormalizeUnformalizeTestGenerics(){
+		super("Default Project", null);
 	}
 
 	protected String getResultName() {
@@ -258,7 +302,8 @@ public class FormalizeUnformalizeTestGenerics extends CanvasTest {
         reloadModel = val;
     }
     
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		Display d = Display.getCurrent();
 		while (d.readAndDispatch());
@@ -273,7 +318,8 @@ public class FormalizeUnformalizeTestGenerics extends CanvasTest {
 	
 	}
 
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		super.tearDown();
 	}
 	public class Package_by_name_c implements ClassQueryInterface_c {
@@ -356,10 +402,10 @@ public class FormalizeUnformalizeTestGenerics extends CanvasTest {
 			this.setUp();
 .select many classes from instances of O_OBJ where (selected.KEY_LETT == "T_FORM")
 .for each class in classes
-  			this.doTest$r{class.Name}();
+  			this.test$r{class.Name}();
 .end for
 .for each class in classes
-			this.doTestUn$r{class.Name}();
+			this.testUn$r{class.Name}();
 .end for
 .//
 .// test formalize and unformalize on ClassAsLink and ClassAsSubtype
@@ -372,7 +418,7 @@ public class FormalizeUnformalizeTestGenerics extends CanvasTest {
   	.select one ss related by ic->PE_PE[R8001]->EP_PKG[R8000]
   .end if
   .if ((ss.Name == "FSS Tests") or (ss.Name == "FAL Tests"))
-  	       this.doTest$r{class.Name}Special();
+  	       this.test$r{class.Name}Special();
   .end if
 .end for
 .for each class in classes
@@ -382,12 +428,12 @@ public class FormalizeUnformalizeTestGenerics extends CanvasTest {
   	.select one ss related by ic->PE_PE[R8001]->EP_PKG[R8000]
   .end if
   .if ((ss.Name == "FSS Tests") or (ss.Name == "FAL Tests"))
-  		   this.doTestUn$r{class.Name}Special();
+  		   this.testUn$r{class.Name}Special();
   .end if
 .end for
 .select many classes from instances of O_OBJ where (selected.KEY_LETT == "T_UNFORM")
 .for each class in classes
-			this.doTest$r{class.Name}();
+			this.test$r{class.Name}();
 .end for
 		} catch (Exception e) {
 			System.out.println(
@@ -395,49 +441,13 @@ public class FormalizeUnformalizeTestGenerics extends CanvasTest {
 		}
 
 	}
-	public void testFormalizeUnformalize() {
-.select many classes from instances of O_OBJ where (selected.KEY_LETT == "T_FORM")
-.for each class in classes
-  			this.doTest$r{class.Name}();
-.end for
-.for each class in classes
-			this.doTestUn$r{class.Name}();
-.end for
-.//
-.// test formalize and unformalize on ClassAsLink and ClassAsSubtype
-.// use new test result, as GEF auto-shifts scroll
-.//
-.for each class in classes
-  .select one ss related by class->PE_PE[R8001]->EP_PKG[R8000]
-  .if (class.Descrip == "Imported Class")
-    .select one ic related by class->O_IOBJ[R101]
-  	.select one ss related by ic->PE_PE[R8001]->EP_PKG[R8000]
-  .end if
-  .if ((ss.Name == "FSS Tests") or (ss.Name == "FAL Tests"))
-  	       this.doTest$r{class.Name}Special();
-  .end if
-.end for
-.for each class in classes
-  .select one ss related by class->PE_PE[R8001]->EP_PKG[R8000]
-  .if (class.Descrip == "Imported Class")
-    .select one ic related by class->O_IOBJ[R101]
-  	.select one ss related by ic->PE_PE[R8001]->EP_PKG[R8000]
-  .end if
-  .if ((ss.Name == "FSS Tests") or (ss.Name == "FAL Tests"))
-  		   this.doTestUn$r{class.Name}Special();
-  .end if
-.end for
-.select many classes from instances of O_OBJ where (selected.KEY_LETT == "T_UNFORM")
-.for each class in classes
-			this.doTest$r{class.Name}();
-.end for
-	}
 	
 .assign count = 0
 .select many classes from instances of O_OBJ where (selected.KEY_LETT == "T_FORM")
 .for each class in classes
   .assign count = count + 1
-  	public void doTest$r{class.Name}() {
+  	@Test
+	public void test$r{class.Name}() {
   		test_id = "test_${count}";
   .invoke ft = formalize_test_generics( class, false )
 ${ft.body}\
@@ -445,7 +455,8 @@ ${ft.body}\
 .end for
 .for each class in classes
   .assign count = count + 1
-  	public void doTestUn$r{class.Name}() {
+  	@Test
+	public void testUn$r{class.Name}() {
   		test_id = "test_${count}";
   .invoke ft = unformalize_test_generics( class, false )
 ${ft.body}\
@@ -464,7 +475,8 @@ ${ft.body}\
   	.select one ss related by ic->PE_PE[R8001]->EP_PKG[R8000]
   .end if
   .if ((ss.Name == "FSS Tests") or (ss.Name == "FAL Tests"))
-  	public void doTest$r{class.Name}Special() {
+  	@Test
+	public void test$r{class.Name}Special() {
   		test_id = "test_Special_${count}";
     .invoke ft = formalize_test_generics( class, true )
 ${ft.body}\
@@ -479,7 +491,8 @@ ${ft.body}\
   	.select one ss related by ic->PE_PE[R8001]->EP_PKG[R8000]
   .end if
   .if ((ss.Name == "FSS Tests") or (ss.Name == "FAL Tests"))
-  	public void doTestUn$r{class.Name}Special() {
+  	@Test
+	public void testUn$r{class.Name}Special() {
   	    // for special tests do not reuse the
   	    // existing result
   		test_id = "test_Special_${count}";
@@ -493,7 +506,8 @@ ${ft.body}\
 .for each class in classes
   .assign count = count + 1
   .select one ss related by class->PE_PE[R8001]->EP_PKG[R8000]
-  	public void doTest$r{class.Name}() {
+  	@Test
+	public void test$r{class.Name}() {
   		test_id = "test_${count}";
   .if (class.Descrip == "Imported Class")
     .select one ic related by class->O_IOBJ[R101]
@@ -534,7 +548,8 @@ ${ft.body}\
         false, false, false, 
         false, true };
 
-    public void doTestFormalizeActionFilter() {
+    @Test
+	public void testFormalizeActionFilter() {
 		Package_c uut = Package_c.PackageInstance(modelRoot,
 				new Package_by_name_c("actionFilter Tests"));
 		Association_c[] assoc_set = Association_c.getManyR_RELsOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(uut));
@@ -554,7 +569,8 @@ ${ft.body}\
      * dts0100909056
      * The test steps are descriped in dts0100909056.dnt section 10.1
      * */
-    public void doTestDeletingForwardedIdentifierAttr()
+    @Test
+	public void testDeletingForwardedIdentifierAttr()
     {
         String projectName = "orphaned_ref_attribute";
         try {

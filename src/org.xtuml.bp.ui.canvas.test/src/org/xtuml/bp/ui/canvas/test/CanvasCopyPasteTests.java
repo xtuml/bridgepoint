@@ -26,7 +26,9 @@ import org.eclipse.gef.editparts.ZoomManager;
 import org.eclipse.gef.tools.AbstractTool;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.ui.PlatformUI;
-
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.Association_c;
 import org.xtuml.bp.core.ModelClass_c;
 import org.xtuml.bp.core.Ooaofooa;
@@ -38,7 +40,7 @@ import org.xtuml.bp.core.common.Transaction;
 import org.xtuml.bp.core.common.TransactionException;
 import org.xtuml.bp.core.common.TransactionManager;
 import org.xtuml.bp.core.ui.Selection;
-import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.UITestingUtilities;
 import org.xtuml.bp.ui.canvas.GraphicalElement_c;
 import org.xtuml.bp.ui.canvas.Model_c;
@@ -49,6 +51,7 @@ import org.xtuml.bp.ui.graphics.editor.GraphicalEditor;
 import org.xtuml.bp.ui.graphics.editor.ModelEditor;
 import org.xtuml.bp.utilities.ui.CanvasUtilities;
 
+@RunWith(OrderedRunner.class)
 public class CanvasCopyPasteTests extends CanvasTest {
 	
 	private String testModelName = "CopyPasteTestModel";
@@ -56,10 +59,11 @@ public class CanvasCopyPasteTests extends CanvasTest {
 	private String test_id;
 	public static boolean generateResults = false;
 
-	public CanvasCopyPasteTests(String name) {
-		super(null, name);	
+	public CanvasCopyPasteTests() {
+		super(null, null);	
 	}
 
+	@Before
 	public void setUp() throws Exception {
 		super.setUp();
 		if(!initialized) {
@@ -68,16 +72,8 @@ public class CanvasCopyPasteTests extends CanvasTest {
 			initialized = true;
 		}
 	}
-	
-	public void testCanvasCopyPasteTests() throws Exception {
-		doTestCopyPackageToSystem();
-		doTestCopySSWithNonSimpleAssociations();
-		doTestCopyClassesWithoutSelectingAssociationBetween();
-		doTestUndoRedoRestoresPastedElements();
-		doTestPasteOutsideOfGraphicsAllowsUpdateOfGraphicalElementModelRoots();
-	}
-	
-	public void doTestCopyPackageToSystem() {
+	@Test
+	public void testCopyPackageToSystem() {
 		test_id = "1";
 		Package_c domain = Package_c.getOneEP_PKGOnR1401(m_sys);
 		assertNotNull(domain);
@@ -120,7 +116,8 @@ public class CanvasCopyPasteTests extends CanvasTest {
 		validateOrGenerateResults(ce, generateResults);
 	}
 	
-	public void doTestCopySSWithNonSimpleAssociations() {
+	@Test
+	public void testCopySSWithNonSimpleAssociations() {
 // TODO: dts0100656082
 		test_id = "3";
 	    Package_c subsystem = Package_c.PackageInstance(modelRoot, new ClassQueryInterface_c() {
@@ -144,7 +141,8 @@ public class CanvasCopyPasteTests extends CanvasTest {
 		validateOrGenerateResults(ce,generateResults);
 	}
 	
-	public void doTestCopyClassesWithoutSelectingAssociationBetween() {
+	@Test
+	public void testCopyClassesWithoutSelectingAssociationBetween() {
 // TODO: dts0100656082
 		test_id = "4";
 	    Package_c subsystem = Package_c.PackageInstance(modelRoot, new ClassQueryInterface_c() {
@@ -183,7 +181,8 @@ public class CanvasCopyPasteTests extends CanvasTest {
 		validateOrGenerateResults(ce,generateResults);		
 	}
 	
-	public void doTestUndoRedoRestoresPastedElements() throws CoreException {
+	@Test
+	public void testUndoRedoRestoresPastedElements() throws CoreException {
 // TODO: dts0100656082
 //		ensureAvailableAndLoaded("Models", "microwave", false, true);
 //		Domain_c domain = Domain_c.DomainInstance(modelRoot, new ClassQueryInterface_c() {
@@ -222,7 +221,8 @@ public class CanvasCopyPasteTests extends CanvasTest {
 //		validateOrGenerateResults(ce, generateResults);
 	}
 	
-	public void doTestPasteOutsideOfGraphicsAllowsUpdateOfGraphicalElementModelRoots() {
+	@Test
+	public void testPasteOutsideOfGraphicsAllowsUpdateOfGraphicalElementModelRoots() {
 		// create a new package, with two classes
 		// do this inside of a transaction
 		Package_c testPackage = null;

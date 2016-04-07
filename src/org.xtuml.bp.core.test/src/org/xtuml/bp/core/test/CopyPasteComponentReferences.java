@@ -26,8 +26,9 @@ import org.eclipse.core.resources.ProjectScope;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.preferences.IScopeContext;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.osgi.service.prefs.Preferences;
-
 import org.xtuml.bp.core.ComponentReference_c;
 import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.Gd_c;
@@ -53,9 +54,11 @@ import org.xtuml.bp.core.ui.Selection;
 import org.xtuml.bp.core.ui.preferences.BridgePointProjectPreferences;
 import org.xtuml.bp.core.ui.preferences.BridgePointProjectReferencesPreferences;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TestingUtilities;
 import org.xtuml.bp.test.common.UITestingUtilities;
 
+@RunWith(OrderedRunner.class)
 public class CopyPasteComponentReferences extends BaseTest {
 
 	private static IProject destinationProject;
@@ -141,6 +144,7 @@ public class CopyPasteComponentReferences extends BaseTest {
 		}
 	}
 
+	@Test
 	public void testSatisfactionCreatedProperly() throws CoreException {
 		// close the target project and reopen
 		destinationProject.close(new NullProgressMonitor());
@@ -165,6 +169,7 @@ public class CopyPasteComponentReferences extends BaseTest {
 				satisfaction);
 	}
 
+	@Test
 	public void testCopyPasteOfComponentReferences() {
 		SystemModel_c destSystem = getSystemModel("component_ref_destination");
 		Package_c[] pkgs = Package_c.getManyEP_PKGsOnR1401(destSystem);

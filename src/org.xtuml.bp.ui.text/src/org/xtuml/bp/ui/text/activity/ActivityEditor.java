@@ -327,10 +327,9 @@ public class ActivityEditor extends OALEditor
 	
 	public void run(){
     	// If user has selected not to parse on edit, then ignore
-    	if (!Pref_c.Getboolean(BridgePointPreferencesStore.ENABLE_PARSE_WHILE_EDITING)) {
+    	if (!Pref_c.Getboolean(BridgePointPreferencesStore.ENABLE_PARSE_ON_ACTIVITY_EDITS)) {
     		return;
     	}
-    	
 		
         if(previousThread != null && previousThread.isAlive())
 		{

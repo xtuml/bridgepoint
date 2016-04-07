@@ -109,4 +109,18 @@ public class ActivityEditorInput extends AbstractModelElementPropertyEditorInput
    		  }
 		}
 	}
+
+        /**
+         * checks if the OAL activity for the model element is empty or not
+         */
+        public static boolean activityEmpty(Object modelElementObject) throws CoreException {
+            ActivityEditorInput input = createInstance(modelElementObject);
+            
+            boolean empty = false;
+
+	    ModelElementPropertyStorage storage = new ModelElementPropertyStorage(input, "Action_semantics_internal");
+            empty = storage.getPropertyValue().isEmpty();
+            
+            return empty;
+        }
 }

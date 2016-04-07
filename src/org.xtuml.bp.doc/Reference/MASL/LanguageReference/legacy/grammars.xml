@@ -1,0 +1,122 @@
+<!-- 
+  UK Crown Copyright (c) 2016. All Rights Reserved
+-->
+<!-- Converted by db4-upgrade version 1.0 -->
+<chapter xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="Grammars"><info><title>Grammars</title></info>
+
+<para>
+This chapter describes the grammars,
+<indexterm significance="preferred">
+    <primary>grammar</primary>
+</indexterm>
+used to define the lexical and syntactic
+structure of a program.
+</para>
+<para>
+A grammar consists of a number of productions.
+<indexterm>
+    <primary>production</primary>
+</indexterm>
+Each production has an abstract symbol called a non-terminal
+<indexterm significance="preferred">
+    <primary>non-terminal symbol</primary>
+</indexterm>
+as its left-hand side and a sequence of one or more non-terminal and terminal
+symbols
+<indexterm significance="preferred">
+    <primary>terminal symbol</primary>
+</indexterm>
+ as its right-hand side. For each
+grammar, the terminal symbols are drawn from a specified alphabet.
+</para>
+<para>
+Starting from a sentence consisting of a single distinguished non-terminal
+called the goal symbol,
+<indexterm>
+    <primary>goal symbol</primary>
+</indexterm>
+a given grammar specifies a language, namely, the infinite set of possible
+sequences of terminal symbols that can result from repeatedly replacing any
+non-terminal in the sequence with a right-hand side of a production for which
+the non-terminal is the left-hand side.
+</para>
+<section xml:id="GrammarsLexicalGrammar"><info><title>The Lexical Grammar</title></info>
+
+<para>
+The lexical grammar is given in <xref linkend="LexicalStructure"/>. This grammar
+has as its terminal symbols the characters of a character set.
+<indexterm significance="preferred">
+    <primary>character set</primary>
+</indexterm>
+It defines a set
+of productions that describe how sequences of characters are translated into
+sequences of input elements.
+</para>
+<para>
+These input elements, with white space and comments discarded, form the
+terminal symbols
+<indexterm significance="preferred">
+    <primary>terminal symbol</primary>
+</indexterm>
+for the syntactic grammar and are called tokens.
+<indexterm significance="preferred">
+    <primary>token</primary>
+</indexterm>
+These tokens are the identifiers, reserved words, literals, separators and
+operators of the language.
+</para>
+</section>
+<section xml:id="GrammarsSyntacticGrammar"><info><title>The Syntactic Grammar</title></info>
+
+<para>
+The syntactic grammar is given in <xref linkend="Types"/> to
+<xref linkend="Names"/>. This grammar has tokens defined by the lexical grammar
+as its terminal symbols. It defines a set of productions,
+<indexterm significance="preferred">
+    <primary>production</primary>
+</indexterm>
+starting from the goal symbol
+<indexterm significance="preferred">
+    <primary>goal symbol</primary>
+</indexterm>
+that describes how sequences of tokens can form syntactically
+correct programs.
+</para>
+<indexterm zone="ebnf.goal">
+    <primary>goal</primary>
+</indexterm>
+<indexterm zone="ebnf.goal">
+    <primary>compilation unit</primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.goal">
+    <lhs>goal</lhs>
+    <rhs>
+        <nonterminal def="#ebnf.goal">compilation unit</nonterminal>
+    </rhs>
+</production>
+</productionset>
+<para>
+Compilations units are described in <xref linkend="DomainsCompilationUnits"/>.
+<indexterm>
+    <primary>compilation units</primary>
+</indexterm>
+</para>
+</section>
+<section xml:id="GrammarsGrammerNotation"><info><title>Grammar Notation</title></info>
+
+<para>
+The <abbrev>EBNF</abbrev>
+<indexterm>
+    <primary><abbrev>EBNF</abbrev></primary>
+</indexterm>
+notation is used for the grammar
+<xref linkend="EBNF96"/>. The <abbrev>EBNF</abbrev>
+<indexterm>
+    <primary><abbrev>EBNF</abbrev></primary>
+</indexterm>
+notation provides a standardized, simple and unambiguous means of expressing the
+grammar of a language.
+</para>
+</section>
+</chapter>

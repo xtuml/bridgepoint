@@ -28,22 +28,26 @@ import org.eclipse.jface.wizard.IWizard;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.PlatformUI;
-
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.Attribute_c;
 import org.xtuml.bp.core.ModelClass_c;
 import org.xtuml.bp.core.Package_c;
-
 import org.xtuml.bp.core.ui.CombineWithOnO_ATTRAction;
 import org.xtuml.bp.core.ui.CombineWithOnO_ATTRWizardPage1;
 import org.xtuml.bp.core.ui.Selection;
 import org.xtuml.bp.core.ui.SplitOnO_ATTRAction;
 import org.xtuml.bp.core.ui.SplitOnO_ATTRWizardPage1;
 import org.xtuml.bp.test.common.CanvasTestUtils;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.ui.canvas.Cl_c;
 import org.xtuml.bp.ui.canvas.test.CanvasTest;
 import org.xtuml.bp.ui.graphics.editor.GraphicalEditor;
 import org.xtuml.bp.ui.graphics.editor.ModelEditor;
 
+@RunWith(OrderedRunner.class)
 public class CombineSplitReferentialsTestGenerics extends CanvasTest {
 
 	String test_id = null;
@@ -51,15 +55,16 @@ public class CombineSplitReferentialsTestGenerics extends CanvasTest {
 	private static boolean initialized = false;
 	private static Selection selection = Selection.getInstance();
 
-	public CombineSplitReferentialsTestGenerics(String name) {
-		super(null, name);
+	public CombineSplitReferentialsTestGenerics(){
+		super(null, null);
 	}
 
 	protected String getResultName() {
 		return "CombineSplitReferentials" + "_" + test_id;
 	}
 
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		if (!initialized) {
 			loadProject("CombineSplitReferentialsTest");
@@ -69,27 +74,28 @@ public class CombineSplitReferentialsTestGenerics extends CanvasTest {
 		while (d.readAndDispatch());
 	}
 
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		super.tearDown();
 	}
 	public void setGenerateResults() {
 		try {
 			generateResults = true;
 			setUp();
-			doTestSelectNonReferentialAttribute();
-			doTestClassWithOneReferentialAttribute();
-			doTestReferentialAttributesWithDiffBaseTypes();
-			doTestTwoReferentialAttributesWithSameBaseTypes();
-			doTestSelectCombinedReferentialAttributes();
-			doTestTwoReferentialAttributesSameBaseTypesOneDifferent();
-			doTestTwoCombinedReferentials();
-			doTestThreeReferentials();
-			doTestCombineTwoCombinedRefs();
-			doTestCombineRefWithIDRef();
-			doTestSplitNameLoopGood();
-			doTestSplitNameLoopBad();
-			doTestSplitPrefixLoopGood();
-			doTestSplitPrefixLoopBad();
+			testSelectNonReferentialAttribute();
+			testClassWithOneReferentialAttribute();
+			testReferentialAttributesWithDiffBaseTypes();
+			testTwoReferentialAttributesWithSameBaseTypes();
+			testSelectCombinedReferentialAttributes();
+			testTwoReferentialAttributesSameBaseTypesOneDifferent();
+			testTwoCombinedReferentials();
+			testThreeReferentials();
+			testCombineTwoCombinedRefs();
+			testCombineRefWithIDRef();
+			testSplitNameLoopGood();
+			testSplitNameLoopBad();
+			testSplitPrefixLoopGood();
+			testSplitPrefixLoopBad();
 		} catch (Exception e) {
 			System.out.println("Exception encountered by test result creator: "
 					+ e);
@@ -103,24 +109,26 @@ public class CombineSplitReferentialsTestGenerics extends CanvasTest {
 		CanvasTestUtils.openCanvasEditor(uut);
 	}
 	
-	public void testCombineSplitReferentialsTest(){
-		 doTestSelectNonReferentialAttribute();
-	      doTestClassWithOneReferentialAttribute();
-	      doTestReferentialAttributesWithDiffBaseTypes();
-	      doTestTwoReferentialAttributesWithSameBaseTypes();
-	      doTestSelectCombinedReferentialAttributes();
-	      doTestTwoReferentialAttributesSameBaseTypesOneDifferent();
-	      doTestTwoCombinedReferentials();
-	      doTestThreeReferentials();
-	      doTestCombineTwoCombinedRefs();
-	      doTestCombineRefWithIDRef();
-	      doTestSplitNameLoopGood();
-	      doTestSplitNameLoopBad();
-	      doTestSplitPrefixLoopGood();
-	      doTestSplitPrefixLoopBad();
-	}
+//	@Test
+//	public void testCombineSplitReferentialsTest(){
+//		 doTestSelectNonReferentialAttribute();
+//	      doTestClassWithOneReferentialAttribute();
+//	      doTestReferentialAttributesWithDiffBaseTypes();
+//	      doTestTwoReferentialAttributesWithSameBaseTypes();
+//	      doTestSelectCombinedReferentialAttributes();
+//	      doTestTwoReferentialAttributesSameBaseTypesOneDifferent();
+//	      doTestTwoCombinedReferentials();
+//	      doTestThreeReferentials();
+//	      doTestCombineTwoCombinedRefs();
+//	      doTestCombineRefWithIDRef();
+//	      doTestSplitNameLoopGood();
+//	      doTestSplitNameLoopBad();
+//	      doTestSplitPrefixLoopGood();
+//	      doTestSplitPrefixLoopBad();
+//	}
 
-	public void doTestSelectNonReferentialAttribute() {
+	@Test
+	public void testSelectNonReferentialAttribute() {
 		test_id = "1";
 
 		openTestPKGDiagram("TestCombineSplitReferentials");
@@ -131,7 +139,8 @@ public class CombineSplitReferentialsTestGenerics extends CanvasTest {
 		assertFalse(uut.Actionfilter("can", "split"));
 	}
 
-	public void doTestClassWithOneReferentialAttribute() {
+	@Test
+	public void testClassWithOneReferentialAttribute() {
 		// only 1 referential attribute in class
 		test_id = "2";
 
@@ -144,7 +153,8 @@ public class CombineSplitReferentialsTestGenerics extends CanvasTest {
 		assertFalse(ref_attr.Actionfilter("can", "split"));
 	}
 
-	public void doTestReferentialAttributesWithDiffBaseTypes() {
+	@Test
+	public void testReferentialAttributesWithDiffBaseTypes() {
 		test_id = "3";
 
 		openTestPKGDiagram("TestCombineSplitReferentials");
@@ -156,7 +166,8 @@ public class CombineSplitReferentialsTestGenerics extends CanvasTest {
 		assertFalse(ref_attr.Actionfilter("can", "split"));
 	}
 
-	public void doTestTwoReferentialAttributesWithSameBaseTypes() {
+	@Test
+	public void testTwoReferentialAttributesWithSameBaseTypes() {
 		openTestPKGDiagram("TestCombineSplitReferentials");
 		ModelClass_c mc = ModelClass_c.ModelClassInstance(modelRoot,
 				new ModelClass_by_name_c("testTwoRefAttr"));
@@ -189,7 +200,8 @@ public class CombineSplitReferentialsTestGenerics extends CanvasTest {
 
 	}
 
-	public void doTestSelectCombinedReferentialAttributes() {
+	@Test
+	public void testSelectCombinedReferentialAttributes() {
 		openTestPKGDiagram("TestCombineSplitReferentials");
 		ModelClass_c mc = ModelClass_c.ModelClassInstance(modelRoot,
 				new ModelClass_by_name_c("testTwoRefAttr"));
@@ -223,7 +235,8 @@ public class CombineSplitReferentialsTestGenerics extends CanvasTest {
 
 	}
 
-	public void doTestTwoReferentialAttributesSameBaseTypesOneDifferent() {
+	@Test
+	public void testTwoReferentialAttributesSameBaseTypesOneDifferent() {
 		openTestPKGDiagram("TestCombineSplitReferentials");
 		ModelClass_c mc = ModelClass_c
 				.ModelClassInstance(modelRoot, new ModelClass_by_name_c(
@@ -256,7 +269,8 @@ public class CombineSplitReferentialsTestGenerics extends CanvasTest {
 		performTest("6");
 	}
 
-	public void doTestTwoCombinedReferentials() {
+	@Test
+	public void testTwoCombinedReferentials() {
 		openTestPKGDiagram("TestCombineSplitReferentials");
 		ModelClass_c mc = ModelClass_c.ModelClassInstance(modelRoot,
 				new ModelClass_by_name_c("testTwoCombinedRefAttrs"));
@@ -290,7 +304,8 @@ public class CombineSplitReferentialsTestGenerics extends CanvasTest {
 
 	}
 
-	public void doTestThreeReferentials() {
+	@Test
+	public void testThreeReferentials() {
 		openTestPKGDiagram("TestCombineSplitReferentials");
 		ModelClass_c mc = ModelClass_c.ModelClassInstance(modelRoot,
 				new ModelClass_by_name_c("testThreeRefAttrs"));
@@ -397,7 +412,8 @@ public class CombineSplitReferentialsTestGenerics extends CanvasTest {
 
 	}
 
-	public void doTestCombineTwoCombinedRefs() {
+	@Test
+	public void testCombineTwoCombinedRefs() {
 		openTestPKGDiagram("TestCombineSplitReferentials");
 		ModelClass_c mc = ModelClass_c.ModelClassInstance(modelRoot,
 				new ModelClass_by_name_c("testTwoCombinedRefAttrs"));
@@ -430,7 +446,8 @@ public class CombineSplitReferentialsTestGenerics extends CanvasTest {
 
 	}
 
-	public void doTestCombineRefWithIDRef() {
+	@Test
+	public void testCombineRefWithIDRef() {
 		openTestPKGDiagram("TestCombineSplitReferentials");
 		ModelClass_c mc = ModelClass_c.ModelClassInstance(modelRoot,
 				new ModelClass_by_name_c("testCombineRefWithIDRef"));
@@ -462,29 +479,33 @@ public class CombineSplitReferentialsTestGenerics extends CanvasTest {
 		performTest("13");
 	}
 
-	public void doTestSplitNameLoopGood() {
-		doTestSplitLoop("testSplitNameLoopGood", new String[]{
+	@Test
+	public void testSplitNameLoopGood() {
+		testSplitLoop("testSplitNameLoopGood", new String[]{
 				"i1051-name.id(R29)", "testSplitNameLoopGood.id(R30)"}, 1, "14");
 	}
 
-	public void doTestSplitNameLoopBad() {
-		doTestSplitLoop("testSplitNameLoopBad", new String[]{
+	@Test
+	public void testSplitNameLoopBad() {
+		testSplitLoop("testSplitNameLoopBad", new String[]{
 				"i1051-name.id(R31)", "testSplitNameLoopBad.id(R32)"}, 0, "15");
 	}
 
-	public void doTestSplitPrefixLoopGood() {
-		doTestSplitLoop("testSplitPrefixLoopGood", new String[]{
+	@Test
+	public void testSplitPrefixLoopGood() {
+		testSplitLoop("testSplitPrefixLoopGood", new String[]{
 				"i1051-prefix.prefix_root(R33)",
 				"testSplitPrefixLoopGood.prefix_local(R34)"}, 1, "16");
 	}
 
-	public void doTestSplitPrefixLoopBad() {
-		doTestSplitLoop("testSplitPrefixLoopBad", new String[]{
+	@Test
+	public void testSplitPrefixLoopBad() {
+		testSplitLoop("testSplitPrefixLoopBad", new String[]{
 				"i1051-prefix.prefix_root(R35)",
 				"testSplitPrefixLoopBad.prefix_local(R36)"}, 0, "17");
 	}
 
-	private void doTestSplitLoop(String className, String[] itemValues,
+	public void testSplitLoop(String className, String[] itemValues,
 			int testItem, String testNum) {
 		openTestPKGDiagram("TestCombineSplitReferentials");
 		ModelClass_c mc = ModelClass_c.ModelClassInstance(modelRoot,

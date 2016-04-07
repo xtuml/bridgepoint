@@ -1,0 +1,156 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>9.12. Unlink Instances</title>
+<link rel="stylesheet" type="text/css" href="docbook.css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<meta name="keywords" content="MASL, Action Language, Action Semantics, UML, Unified Modelling Language, Shlaer Mellor">
+<link rel="home" href="index.html" title="MASL Reference Manual">
+<link rel="up" href="section.Statements.html" title="Chapter 9. Statements">
+<link rel="prev" href="section.Statements.Link.html" title="9.11. Link Instances">
+<link rel="next" href="section.Statements.EventGeneration.html" title="9.13. Event Generation">
+<link rel="chapter" href="section.LexicalStructure.html" title="Chapter 1. Lexical Structure">
+<link rel="chapter" href="section.Types.html" title="Chapter 2. Type System">
+<link rel="chapter" href="section.Domains.html" title="Chapter 3. Domains">
+<link rel="chapter" href="section.Services.html" title="Chapter 4. Services, Functions and State Actions">
+<link rel="chapter" href="section.Relationships.html" title="Chapter 5. Relationships">
+<link rel="chapter" href="section.Exceptions.html" title="Chapter 6. Exceptions">
+<link rel="chapter" href="section.Terminators.html" title="Chapter 7. Terminators">
+<link rel="chapter" href="section.Objects.html" title="Chapter 8. Objects">
+<link rel="chapter" href="section.Statements.html" title="Chapter 9. Statements">
+<link rel="chapter" href="section.Expressions.html" title="Chapter 10. Expressions">
+<link rel="chapter" href="section.Projects.html" title="Chapter 11. Projects">
+<link rel="chapter" href="section.Pragmas.html" title="Chapter 12. Pragmas">
+<link rel="appendix" href="AlphabeticalSyntaxReference.html" title="Appendix A. Alphabetical Syntax Reference">
+<link rel="index" href="ix01.html" title="Index">
+<link rel="subsection" href="section.Statements.Unlink.html#section.Statements.Unink.Simple" title="9.12.1. Simple Relationships">
+<link rel="subsection" href="section.Statements.Unlink.html#section.Statements.Unink.Associative" title="9.12.2. Associative Relationships">
+<link rel="subsection" href="section.Statements.Unlink.html#section.Statements.Unlink.Supertype" title="9.12.3. Supertype Relationships">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div align="center">OFFICIAL</div>
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">9.12. Unlink Instances</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="section.Statements.Link.html">Prev</a> </td>
+<th width="60%" align="center">Chapter 9. Statements</th>
+<td width="20%" align="right"> <a accesskey="n" href="section.Statements.EventGeneration.html">Next</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title">
+<a name="section.Statements.Unlink"></a>9.12. Unlink Instances</h2></div></div></div>
+<div class="toc"><dl class="toc">
+<dt><span class="section"><a href="section.Statements.Unlink.html#section.Statements.Unink.Simple">9.12.1. Simple Relationships</a></span></dt>
+<dt><span class="section"><a href="section.Statements.Unlink.html#section.Statements.Unink.Associative">9.12.2. Associative Relationships</a></span></dt>
+<dt><span class="section"><a href="section.Statements.Unlink.html#section.Statements.Unlink.Supertype">9.12.3. Supertype Relationships</a></span></dt>
+</dl></div>
+<p>The <code class="code">unlink</code> statement causes a relationship between two or more instances to be removed.</p>
+<table width="100%" cellpadding="5" bgcolor="#F5DCB3" border="1" class="productionset" summary="EBNF"><tr><td><table border="0" width="99%" cellpadding="0" bgcolor="#F5DCB3" class="productionset" summary="EBNF productions"><tr>
+<td align="left" valign="top" width="3%">[151]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.unlinkStatement"></a>unlink statement</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">'unlink' , <a href="section.Expressions.RelationshipNavigation.html#ebnf.navigateExpression">navigate expression</a> , <a href="section.Expressions.RelationshipNavigation.html#ebnf.relationshipSpec">relationship spec</a> , [ <a href="section.Expressions.RelationshipNavigation.html#ebnf.navigateExpression">navigate expression</a> , [ 'using' , <a href="section.Expressions.RelationshipNavigation.html#ebnf.navigateExpression">navigate expression</a> ] ];</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr></table></td></tr></table>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="section.Statements.Unink.Simple"></a>9.12.1. Simple Relationships</h3></div></div></div>
+<p>This section describes unlink statements where the <a href="section.Expressions.RelationshipNavigation.html#ebnf.relationshipSpec">relationship spec</a> specifies a
+      navigation along a <a class="link" href="section.Relationships.Simple.html" title="5.2. Simple Relationships">simple relationship</a> from object A to object
+      B.</p>
+<p>If the second expression is present, the unlink statement causes a relationship to be removed between the
+      instance or instances referenced by the first expression and the instance or instances referenced by the second
+      expression. If a relationship does not already exist between any pair of instances then an exception will be
+      raised. If an exception is raised during the unlinking of a collection of instances it is undefined which, if any,
+      of the other requested relationships will have been successfully removed if the exception is subsequently
+      handled.</p>
+<p>If the second expression not is present, the unlink statement causes a relationship to be removed between
+      the instance or instances referenced by the first expression and all instances found by navigating from those
+      instances along the <a href="section.Expressions.RelationshipNavigation.html#ebnf.relationshipSpec">relationship spec</a>.</p>
+<p>The following conditions must be met:</p>
+<div class="itemizedlist"><ul class="itemizedlist">
+<li class="listitem">The <code class="code">using</code> clause must not be present.</li>
+<li class="listitem">The first instance expression must be <a class="link" href="section.Types.TypeConversion.html#section.Types.Assignable" title="2.1.3. Assignable">assignable</a> to
+          <code class="code">anonymous instance of A</code> or, when the cardinality of A in the relationship is <code class="code">many</code>,
+          the first instance expression may also be <a class="link" href="section.Types.TypeConversion.html#section.Types.Assignable" title="2.1.3. Assignable">assignable</a> to
+          <code class="code">anonymous sequence of anonymous instance of A</code>.</li>
+<li class="listitem">If present, the second instance expression must be <a class="link" href="section.Types.TypeConversion.html#section.Types.Assignable" title="2.1.3. Assignable">assignable</a> to <code class="code">anonymous instance of B</code> or, when the
+          cardinality of B in the relationship is <code class="code">many</code>, the second instance expression may also be <a class="link" href="section.Types.TypeConversion.html#section.Types.Assignable" title="2.1.3. Assignable">assignable</a> to <code class="code">anonymous sequence of anonymous instance of
+          B</code>.</li>
+</ul></div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="section.Statements.Unink.Associative"></a>9.12.2. Associative Relationships</h3></div></div></div>
+<p>This section describes unlink statements where the <a href="section.Expressions.RelationshipNavigation.html#ebnf.relationshipSpec">relationship spec</a> specifies a
+      navigation along an <a class="link" href="section.Relationships.Associative.html" title="5.3. Associative Relationships">associative relationship</a> from object
+      A to object B with associative object C. See also the <a class="link" href="section.Expressions.RelationshipLinking.html#section.Expressions.UnlinkExpression" title="10.8.2. Unlink Expression">link
+      expression</a> for details of unlinking collections of instances in associative relationships, and for details
+      of unlinking without explicitly specifying an associative instance.</p>
+<p>The unlink statement causes a relationship to be removed between the instance referenced by the first
+      expression and the instance referenced by the second expression using the instance referenced by the third
+      expression as an associative. If a relationship does not already exist between the instances then an exception
+      will be raised.</p>
+<p>The following conditions must be met:</p>
+<div class="itemizedlist"><ul class="itemizedlist">
+<li class="listitem">The second instance expression and <code class="code">using</code> clause must be present.</li>
+<li class="listitem">The first instance expression must be <a class="link" href="section.Types.TypeConversion.html#section.Types.Assignable" title="2.1.3. Assignable">assignable</a> to
+          <code class="code">anonymous instance of A</code>.</li>
+<li class="listitem">The second instance expression must be <a class="link" href="section.Types.TypeConversion.html#section.Types.Assignable" title="2.1.3. Assignable">assignable</a> to
+          <code class="code">anonymous instance of B</code>.</li>
+<li class="listitem">The third instance expression must be <a class="link" href="section.Types.TypeConversion.html#section.Types.Assignable" title="2.1.3. Assignable">assignable</a> to
+          <code class="code">anonymous instance of C</code>.</li>
+</ul></div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="section.Statements.Unlink.Supertype"></a>9.12.3. Supertype Relationships</h3></div></div></div>
+<p>This section describes unlink statements where the <a href="section.Expressions.RelationshipNavigation.html#ebnf.relationshipSpec">relationship spec</a> specifies a
+      navigation along a <a class="link" href="section.Relationships.Supertype.html" title="5.4. Supertype Relationships">supertype relationship</a> from object A to
+      object B (either A or B may be the supertype).</p>
+<p>If the second expression is present, the unlink statement causes a relationship to be removed between the
+      instance referenced by the first expression and the instance referenced by the second expression. If a
+      relationship does not already exist between the instances then an exception will be raised.</p>
+<p>If the second expression not is present, the unlink statement causes a relationship to be removed between
+      the instance referenced by the first expression and the instance found by navigating from that instances along the
+      <a href="section.Expressions.RelationshipNavigation.html#ebnf.relationshipSpec">relationship spec</a>. If the first instance is the supertype in the relationship, this
+      means that the relationship to any subtype will be removed.</p>
+<p>The following conditions must be met:</p>
+<div class="itemizedlist"><ul class="itemizedlist">
+<li class="listitem">The <code class="code">using</code> clause must not be present.</li>
+<li class="listitem">The first instance expression must be <a class="link" href="section.Types.TypeConversion.html#section.Types.Assignable" title="2.1.3. Assignable">assignable</a> to
+          <code class="code">anonymous instance of A</code>.</li>
+<li class="listitem">The second instance expression must be <a class="link" href="section.Types.TypeConversion.html#section.Types.Assignable" title="2.1.3. Assignable">assignable</a> to
+          <code class="code">anonymous instance of B</code>.</li>
+</ul></div>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="section.Statements.Link.html">Prev</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="section.Statements.html">Up</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="section.Statements.EventGeneration.html">Next</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">9.11. Link Instances </td>
+<td width="20%" align="center">
+<a accesskey="h" href="index.html">Home</a> | <a accesskey="t" href="bk01-toc.html">ToC</a>
+</td>
+<td width="40%" align="right" valign="top"> 9.13. Event Generation</td>
+</tr>
+</table>
+</div>
+<div align="center">OFFICIAL</div>
+</body>
+</html>

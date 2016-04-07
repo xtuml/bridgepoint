@@ -29,33 +29,42 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.PlatformUI;
-
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Operation_c;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.common.TransactionManager;
 import org.xtuml.bp.core.ui.DeleteAction;
 import org.xtuml.bp.core.ui.Selection;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.ui.text.placeholder.PlaceHolderEntry;
 import org.xtuml.bp.ui.text.test.activity.ActivityEditorInteraction;
 import org.xtuml.bp.ui.text.test.description.DescriptionEditorInteraction;
 
+@RunWith(OrderedRunner.class)
 public class DomainDeleteTestI744 extends UITextTest{
     
-    /**
+    public DomainDeleteTestI744() throws CoreException {
+		super();
+	}
+
+	/**
      * The name of the test domain used during these tests.
      */
     private static final String testModelName = "testDescrip1";
 
-	public DomainDeleteTestI744(String projectName, String name) throws CoreException {
-		super(null, name);	 //$NON-NLS-1$
-	}
-
-    public DomainDeleteTestI744(String name) throws CoreException {
-		super(null, name);	 //$NON-NLS-1$
-	}
+//	public DomainDeleteTestI744(String projectName, String name) throws CoreException {
+//		super(null, name);	 //$NON-NLS-1$
+//	}
+//
+//    public DomainDeleteTestI744(String name) throws CoreException {
+//		super(null, name);	 //$NON-NLS-1$
+//	}
     
-    protected void setUp() throws Exception {
+    @Before
+	public void setUp() throws Exception {
     	super.setUp();
     	
     	// close all existing editors.
@@ -64,7 +73,8 @@ public class DomainDeleteTestI744 extends UITextTest{
     	loadProject(testModelName);
     }
     
-    public void testPackageDelete() throws Exception {
+    @Test
+	public void testPackageDelete() throws Exception {
         Ooaofooa.setInUnitTest(true);
 		Operation_c op = Operation_c.OperationInstance(modelRoot);
 		assertNotNull(op);

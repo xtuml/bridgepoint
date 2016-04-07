@@ -15,9 +15,13 @@
 package org.xtuml.bp.ui.canvas.test;
 
 import org.eclipse.swt.graphics.Point;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.test.common.BaseTest;
 import org.xtuml.bp.test.common.CanvasTestUtils;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.ui.canvas.Connector_c;
 import org.xtuml.bp.ui.canvas.Model_c;
 import org.xtuml.bp.ui.canvas.Shape_c;
@@ -26,18 +30,20 @@ import org.xtuml.bp.ui.graphics.editor.GraphicalEditor;
 /**
  * Contains various tests involving the resizing of shapes on diagrams.
  */
+@RunWith(OrderedRunner.class)
 public class ShapeResizeTest extends BaseTest
 {
     private static boolean firstTest = true;
     /**
      * Constructor.
      */
-    public ShapeResizeTest(String name)
+    public ShapeResizeTest()
     {
-        super(null, name);
+        super(null, null);
     }
 
-    public void setUp() throws Exception {
+    @Before
+	public void setUp() throws Exception {
         
         super.setUp();
         if(firstTest){
@@ -53,7 +59,8 @@ public class ShapeResizeTest extends BaseTest
      * four corners, then checks all attached connectors to make sure
      * their ends have been adjusted to still lie on the state's boundary.
      */
-    public void testConnectorsAttachedAfterShapeResize()
+    @Test
+	public void testConnectorsAttachedAfterShapeResize()
     {
         // open an existing state diagram
         CanvasTestUtils.openInstanceStateDiagram(modelRoot, "Dialing Monitor");

@@ -15,6 +15,9 @@ package org.xtuml.bp.core.test;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.swt.widgets.Menu;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.ComponentReference_c;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.ImportedProvision_c;
@@ -28,9 +31,11 @@ import org.xtuml.bp.core.Requirement_c;
 import org.xtuml.bp.test.TestUtil;
 import org.xtuml.bp.test.common.BaseTest;
 import org.xtuml.bp.test.common.CanvasTestUtils;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.UITestingUtilities;
 import org.xtuml.bp.ui.graphics.editor.GraphicalEditor;
 
+@RunWith(OrderedRunner.class)
 public class ComponentContextMenuTests extends BaseTest {
 	/**
 	 * The editor upon which these tests operate.
@@ -49,13 +54,14 @@ public class ComponentContextMenuTests extends BaseTest {
 	 * Constructor.
 	 */
 
-	public ComponentContextMenuTests(String name) {
-		super(null, name);
+	public ComponentContextMenuTests(){
+		super(null, null);
 	}
 
 	/* (non-Javadoc)
 	 * @see junit.framework.TestCase#setUp()
 	 */
+	@Before
 	public void setUp() throws Exception {
 		super.setUp();
 
@@ -78,7 +84,8 @@ public class ComponentContextMenuTests extends BaseTest {
 			first_time = false;
 		}
 	}
-	  public void testContextMenuDisconnectActionOnCL_IR() {
+	  @Test
+	public void testContextMenuDisconnectActionOnCL_IR() {
 			ImportedRequirement_c obj = ImportedRequirement_c.ImportedRequirementInstance(modelRoot);
 
 				IFile file = obj.getFile();
@@ -94,7 +101,8 @@ public class ComponentContextMenuTests extends BaseTest {
 	    	// check the status of the action
 	    	assertTrue(UITestingUtilities.checkItemStatusInContextMenu(menu, "Disconnect", "", m_readonly));
 	    }
-	    public void testContextMenuDisconnectActionOnCL_IP() {
+	    @Test
+	public void testContextMenuDisconnectActionOnCL_IP() {
 			ImportedProvision_c obj = ImportedProvision_c.ImportedProvisionInstance(modelRoot);
 
 				IFile file = obj.getFile();
@@ -110,7 +118,8 @@ public class ComponentContextMenuTests extends BaseTest {
 	    	// check the status of the action
 	    	assertTrue(UITestingUtilities.checkItemStatusInContextMenu(menu, "Disconnect", "", m_readonly));
 	    }
-	    public void testContextMenuDisconnectActionOnC_P() {
+	    @Test
+	public void testContextMenuDisconnectActionOnC_P() {
 			Provision_c obj = Provision_c.ProvisionInstance(modelRoot);
 
 				IFile file = obj.getFile();
@@ -126,7 +135,8 @@ public class ComponentContextMenuTests extends BaseTest {
 	    	// check the status of the action
 	    	assertTrue(UITestingUtilities.checkItemStatusInContextMenu(menu, "Disconnect", "", m_readonly));
 	    }
-	    public void testContextMenuDisconnectActionOnC_R() {
+	    @Test
+	public void testContextMenuDisconnectActionOnC_R() {
 			Requirement_c obj = Requirement_c.RequirementInstance(modelRoot);
 
 				IFile file = obj.getFile();
@@ -142,7 +152,8 @@ public class ComponentContextMenuTests extends BaseTest {
 	    	// check the status of the action
 	    	assertTrue(UITestingUtilities.checkItemStatusInContextMenu(menu, "Disconnect", "", m_readonly));
 	    }
-		public void testContextMenuDeleteActionOnCL_IC() {
+		@Test
+	public void testContextMenuDeleteActionOnCL_IC() {
 			ComponentReference_c obj = ComponentReference_c
 					.ComponentReferenceInstance(modelRoot);
 
@@ -159,6 +170,7 @@ public class ComponentContextMenuTests extends BaseTest {
 			assertTrue(UITestingUtilities.checkItemStatusInContextMenu(menu,
 					"Delete", "", m_readonly));
 		}
+	@Test
 	public void testContextMenuUnassignActionOnCL_IC() {
 		ComponentReference_c obj = ComponentReference_c
 				.ComponentReferenceInstance(modelRoot);
@@ -176,6 +188,7 @@ public class ComponentContextMenuTests extends BaseTest {
 		assertTrue(UITestingUtilities.checkItemStatusInContextMenu(menu,
 				"Unassign", "", m_readonly));
 	}
+	@Test
 	public void testContextMenuDeleteActionOnIP_IP() {
 		Package_c obj = Package_c
 				.PackageInstance(modelRoot);
@@ -191,6 +204,7 @@ public class ComponentContextMenuTests extends BaseTest {
 		assertTrue(UITestingUtilities.checkItemStatusInContextMenu(menu,
 				"Delete", "", m_readonly));
 	}
+	@Test
 	public void testContextMenuRenameActionOnEP_PKG() {
 		Package_c obj = Package_c
 				.PackageInstance(modelRoot);

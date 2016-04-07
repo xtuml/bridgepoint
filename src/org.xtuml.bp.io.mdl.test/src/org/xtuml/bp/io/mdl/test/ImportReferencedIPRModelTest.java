@@ -28,31 +28,31 @@ package org.xtuml.bp.io.mdl.test;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.jface.wizard.WizardDialog;
-import org.eclipse.ui.PlatformUI;
-
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
-import org.xtuml.bp.core.ui.Selection;
-import org.xtuml.bp.io.mdl.wizards.ModelImportPage;
-import org.xtuml.bp.io.mdl.wizards.ModelImportWizard;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TestingUtilities;
 
+@RunWith(OrderedRunner.class)
 public class ImportReferencedIPRModelTest extends BaseTest {
 	
 	private static boolean initialized = false;
 	private String projectName = "Library";
 	
 
-	public ImportReferencedIPRModelTest(String testName) throws Exception {
-		super(null,testName);
+	public ImportReferencedIPRModelTest() throws Exception {
+		super(null,null);
 	}
 	
 	@Override
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		if (!initialized){
 			// Load from git
@@ -82,6 +82,7 @@ public class ImportReferencedIPRModelTest extends BaseTest {
 		}
 	}
 	
+	@Test
 	public void test_nothing() throws CoreException{
 			assertTrue(true);
 	}

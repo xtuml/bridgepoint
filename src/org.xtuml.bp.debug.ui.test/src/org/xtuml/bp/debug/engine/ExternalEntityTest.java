@@ -3,7 +3,8 @@ package org.xtuml.bp.debug.engine;
 import java.io.File;
 
 import org.eclipse.core.runtime.CoreException;
-
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.ExternalEntity_c;
 import org.xtuml.bp.core.Function_c;
@@ -14,6 +15,7 @@ import org.xtuml.bp.debug.test.VerifierTest;
 import org.xtuml.bp.debug.ui.launch.BPDebugUtils;
 import org.xtuml.bp.debug.ui.test.DebugUITestUtilities;
 import org.xtuml.bp.test.TestUtil;
+import org.xtuml.bp.test.common.OrderedRunner;
 
 
 //========================================================================
@@ -38,12 +40,14 @@ import org.xtuml.bp.test.TestUtil;
 // the License.
 //========================================================================
 
+@RunWith(OrderedRunner.class)
 public class ExternalEntityTest extends VerifierTest {
 
 	public ExternalEntityTest() {
 		super("EE_Test");
 	}
 
+	@Test
 	public void testBasicEE()throws InterruptedException {
 	    redirectOutput("EE_Test");
 		executeModel();
@@ -51,6 +55,7 @@ public class ExternalEntityTest extends VerifierTest {
 		compareOutput("EE_Test");
 	}
 	
+	@Test
 	public void testIsRealizedFlag() throws CoreException {
 		loadProject("ExternalEntityRealizedTests");
 		File checkFile = new File(getProject().getLocation().toString()

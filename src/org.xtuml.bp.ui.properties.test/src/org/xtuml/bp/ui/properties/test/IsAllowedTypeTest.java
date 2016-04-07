@@ -21,6 +21,9 @@ package org.xtuml.bp.ui.properties.test;
 // the License.
 //=====================================================================
 
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.Attribute_c;
 import org.xtuml.bp.core.BaseAttribute_c;
 import org.xtuml.bp.core.BridgeParameter_c;
@@ -51,16 +54,19 @@ import org.xtuml.bp.core.UserDataType_c;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.PersistableModelComponent;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 
+@RunWith(OrderedRunner.class)
 public class IsAllowedTypeTest extends BaseTest
 {
-    public IsAllowedTypeTest(String name) {
-        super(null, name);
-    }
+    public IsAllowedTypeTest(){
+		super(null, null);
+	}
 
     static boolean initialized = false;
 
-    protected void setUp() throws Exception {
+    @Before
+	public void setUp() throws Exception {
         super.setUp();
         if ( !initialized )
         {
@@ -110,7 +116,8 @@ public class IsAllowedTypeTest extends BaseTest
         "boolean", "integer", "real", "string", "unique_id",
         "inst<Event>", "state<State_Model>", "component_ref"
     };
-    public void testAttributeIsAllowedType() throws Exception
+    @Test
+	public void testAttributeIsAllowedType() throws Exception
     {
         BaseAttribute_c battr = BaseAttribute_c.BaseAttributeInstance(modelRoot);
         Attribute_c attr = Attribute_c.getOneO_ATTROnR106(battr);
@@ -144,7 +151,8 @@ public class IsAllowedTypeTest extends BaseTest
 	private static final String refAttributeAllowedCoreTypes[] = {
         "integer"   // the type of the referred to attribute
     };
-    public void testRefAttributeIsAllowedType() throws Exception
+    @Test
+	public void testRefAttributeIsAllowedType() throws Exception
     {
         ReferentialAttribute_c rattr = ReferentialAttribute_c.ReferentialAttributeInstance(modelRoot);
         Attribute_c attr = Attribute_c.getOneO_ATTROnR106(rattr);
@@ -159,7 +167,8 @@ public class IsAllowedTypeTest extends BaseTest
         "void", "boolean", "integer", "real", "string", "unique_id",
         "inst<Event>", "component_ref"
     };
-    public void testBridgeIsAllowedReturnType() throws Exception
+    @Test
+	public void testBridgeIsAllowedReturnType() throws Exception
     {
         Bridge_c brg = Bridge_c.BridgeInstance(modelRoot);
         DataType_c [] dt_set = getDataTypes(PackageableElement_c.getOnePE_PEOnR8001(ExternalEntity_c.getOneS_EEOnR19(brg)));
@@ -169,7 +178,8 @@ public class IsAllowedTypeTest extends BaseTest
             checkAllowedType(dt_set[i], invocationAllowedReturnTypes, x, true);
         }
     }
-    public void testFunctionIsAllowedReturnType() throws Exception
+    @Test
+	public void testFunctionIsAllowedReturnType() throws Exception
     {
         Function_c func = Function_c.FunctionInstance(modelRoot);
         DataType_c [] dt_set = getDataTypes(PackageableElement_c.getOnePE_PEOnR8001(func));
@@ -179,7 +189,8 @@ public class IsAllowedTypeTest extends BaseTest
             checkAllowedType(dt_set[i], invocationAllowedReturnTypes, x, true);
         }
     }
-    public void testOperationIsAllowedReturnType() throws Exception
+    @Test
+	public void testOperationIsAllowedReturnType() throws Exception
     {
         Operation_c op = Operation_c.OperationInstance(modelRoot);
         DataType_c [] dt_set = getDataTypes(PackageableElement_c.getOnePE_PEOnR8001(ModelClass_c.getOneO_OBJOnR115(op)));
@@ -193,7 +204,8 @@ public class IsAllowedTypeTest extends BaseTest
         "boolean", "integer", "real", "string", "unique_id",
         "inst<Event>", "component_ref"
     };
-    public void testBridgeParameterIsAllowedType()
+    @Test
+	public void testBridgeParameterIsAllowedType()
     {
         BridgeParameter_c brg = BridgeParameter_c.BridgeParameterInstance(modelRoot);
         DataType_c [] dt_set = getDataTypes(PackageableElement_c.getOnePE_PEOnR8001(ExternalEntity_c.getOneS_EEOnR19(Bridge_c.getOneS_BRGOnR21(brg))));
@@ -203,7 +215,8 @@ public class IsAllowedTypeTest extends BaseTest
             checkAllowedType(dt_set[i], parameterAllowedCoreTypes, x, true);
         }
     }
-    public void testFunctionParameterIsAllowedType()
+    @Test
+	public void testFunctionParameterIsAllowedType()
     {
         FunctionParameter_c func = FunctionParameter_c.FunctionParameterInstance(modelRoot);
         DataType_c [] dt_set = getDataTypes(PackageableElement_c.getOnePE_PEOnR8001(Function_c.getOneS_SYNCOnR24(func)));
@@ -213,7 +226,8 @@ public class IsAllowedTypeTest extends BaseTest
             checkAllowedType(dt_set[i], parameterAllowedCoreTypes, x, true);
         }
     }
-    public void testOperationParameterIsAllowedType()
+    @Test
+	public void testOperationParameterIsAllowedType()
     {
         OperationParameter_c op = OperationParameter_c.OperationParameterInstance(modelRoot);
         DataType_c [] dt_set = getDataTypes(PackageableElement_c.getOnePE_PEOnR8001(ModelClass_c.getOneO_OBJOnR115(Operation_c.getOneO_TFROnR117(op))));
@@ -224,7 +238,8 @@ public class IsAllowedTypeTest extends BaseTest
         }
     }
 
-    public void testStateMachineEventDataItemIsAllowedType()
+    @Test
+	public void testStateMachineEventDataItemIsAllowedType()
     {
         StateMachineEventDataItem_c edi = StateMachineEventDataItem_c.StateMachineEventDataItemInstance(modelRoot);
 		DataType_c[] dt_set = getDataTypes(PackageableElement_c
@@ -243,7 +258,8 @@ public class IsAllowedTypeTest extends BaseTest
         "boolean", "integer", "real", "string", "unique_id",
         "inst<Mapping>", "inst_ref<Mapping>", "component_ref"
     };
-    public void testUserDataTypeIsAllowedCoreType()
+    @Test
+	public void testUserDataTypeIsAllowedCoreType()
     {
         UserDataType_c udt = UserDataType_c.UserDataTypeInstance(modelRoot);
         DataType_c [] dt_set = getDataTypes(PackageableElement_c.getOnePE_PEOnR8001(DataType_c.getOneS_DTOnR17(udt)));

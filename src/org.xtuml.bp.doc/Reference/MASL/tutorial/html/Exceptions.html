@@ -1,0 +1,249 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Chapter 4. Exceptions</title>
+<link rel="stylesheet" type="text/css" href="docbook.css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<meta name="keywords" content="MASL, Action Language, Action Semantics, UML, Unified Modelling Language, Shlaer Mellor">
+<link rel="home" href="index.html" title="MASL Tutorial">
+<link rel="up" href="index.html" title="MASL Tutorial">
+<link rel="prev" href="CompositeTypesSummary.html" title="3.5. Summary">
+<link rel="next" href="ObjectsandRelationships.html" title="Chapter 5. Objects and Relationships">
+<link rel="preface" href="preface.html" title="Preface">
+<link rel="chapter" href="Types.html" title="Chapter 1. Types">
+<link rel="chapter" href="ExecutionControl.html" title="Chapter 2. Execution Control">
+<link rel="chapter" href="CompositeTypes.html" title="Chapter 3. Composite Types">
+<link rel="chapter" href="Exceptions.html" title="Chapter 4. Exceptions">
+<link rel="chapter" href="ObjectsandRelationships.html" title="Chapter 5. Objects and Relationships">
+<link rel="chapter" href="Actions.html" title="Chapter 6. Actions">
+<link rel="chapter" href="DeviceIO.html" title="Chapter 7. Device Input/Output">
+<link rel="chapter" href="MASLExamples.html" title="Chapter 8. MASL Examples">
+<link rel="index" href="ix01.html" title="Index">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div align="center">UNCLASSIFIED</div>
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">Chapter 4. Exceptions</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="CompositeTypesSummary.html">Prev</a> </td>
+<th width="60%" align="center"> </th>
+<td width="20%" align="right"> <a accesskey="n" href="ObjectsandRelationships.html">Next</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="chapter">
+<div class="titlepage"><div><div><h1 class="title">
+<a name="Exceptions"></a>Chapter 4. Exceptions</h1></div></div></div>
+<p><abbr class="abbrev">MASL</abbr>, like many other programming languages, provides
+  an exception-handling mechanism for reporting and processing run-time error
+  conditions during the execution of an application. This also means that the
+  error handling code blocks are explicitly separated from the core business
+  logic of the application.</p>
+<p>When a <abbr class="abbrev">MASL</abbr> program violates the semantic constraints
+  of the language, i.e. navigation via a null instance handle or indexing
+  outside the bounds of an array, a run-time exception is raised by the
+  architecture to signal the violation to the application. The exception will
+  subsequently propagate up the call stack, starting from the point where it
+  occurred, until one of two things happens. Either the exception is handled
+  by a user defined exception block or if none are found, by the architectures
+  own internal exception handling code blocks; these will determine the
+  severity of the exception and either terminate or continue the execution of
+  the application. </p>
+<p><abbr class="abbrev">MASL</abbr> provides several keywords for dealing with
+  exceptions. A user-defined exception is declared using the
+  <code class="literal">exception</code> keyword, while an exception is raised using the
+  <code class="literal">raise</code> statement and handled using a combination of the
+  <code class="literal">exception</code> and <code class="literal">when</code> statements. See
+  <a class="xref" href="Exceptions.html#ExceptionsDeclarationRaisingandHandlingofaUserDefinedException" title="Example 4.1. Declaration, raising and handling of a user defined exception.">Example 4.1, “Declaration, raising and handling of a user defined
+      exception.”</a>.</p>
+<div class="example">
+<a name="ExceptionsDeclarationRaisingandHandlingofaUserDefinedException"></a><div class="example-title">Example 4.1. Declaration, raising and handling of a user defined
+      exception.</div>
+<div class="example-contents">
+<p>Declaration of an exception (defined within the type section of a
+      mod file):</p>
+<pre class="programlisting">  exception my_exception;</pre>
+<p>Use and handling of <span class="type">my_exception</span>:</p>
+<pre class="programlisting">  begin
+    // undertake required operation(s)
+    …
+    // program determines application error encountered
+    // raise a user defined exception.
+    raise my_exception;
+
+    // Exception handling code
+    exception
+      when my_exception =&gt;
+        // log some error and clean-up;
+end;</pre>
+</div>
+</div>
+<p><br class="example-break"></p>
+<p><abbr class="abbrev">MASL</abbr> has several pre-defined
+  <code class="literal">exception</code> types, that may be encountered during the
+  execution of an application, they are listed below: </p>
+<div class="itemizedlist"><ul class="itemizedlist">
+<li class="listitem"><p><code class="literal">constraint_error</code></p></li>
+<li class="listitem"><p><code class="literal">io_error</code></p></li>
+<li class="listitem"><p><code class="literal">IOP_error</code></p></li>
+<li class="listitem"><p><code class="literal">program_error</code></p></li>
+<li class="listitem"><p><code class="literal">relationship_error</code></p></li>
+<li class="listitem"><p><code class="literal">referential_access_error</code></p></li>
+<li class="listitem"><p><code class="literal">storage_error</code></p></li>
+<li class="listitem"><p><code class="literal">system_error</code></p></li>
+</ul></div>
+<p>Just as a user-defined exception can be raised and caught by the
+  application, the built in <code class="literal">exception</code> types can also be
+  raised by the application and handled by a used defined code block. Putting
+  it all together gives the following example:</p>
+<div class="informalexample"><pre class="programlisting">  file_open : boolean := false;
+
+  begin
+
+    // Attempt to open a file
+    Text_IO::open(…);
+    if file_open = true then
+      // undertake further file processing
+      …
+      // error encountered during processing
+      raise my_exception;
+    end if;
+
+    Text_IO::close(…);
+
+    exception
+      when Standard::program_error =&gt;
+        // Architecture reported run-time error.
+
+      when Standard::io_error =&gt;
+        // File IO error occurred, must have happened on the open
+        // close the file. ( this does not throw)
+        Text_IO::close(…);
+          
+        // propagate the error back up the application
+        raise;
+
+      when my_exception  =&gt;
+        Text_IO::close(…);
+  end;</pre></div>
+<p><a class="xref" href="Exceptions.html#ExceptionsExceptionTypes" title="Table 4.1. Exception Types">Table 4.1, “Exception Types”</a>below describes each of the
+  built in exception types and provides details on when and why these
+  exceptions are raised by the architecture.</p>
+<div class="table">
+<a name="ExceptionsExceptionTypes"></a><div class="table-title">Table 4.1. Exception Types</div>
+<div class="table-contents"><table class="table" border="1">
+<colgroup>
+<col>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th align="center">Exception</th>
+<th align="center">Description</th>
+<th align="center">Example</th>
+</tr></thead>
+<tbody>
+<tr>
+<td><code class="literal">constraint_error</code></td>
+<td>Raised on breach of an architecture constraint.</td>
+<td><div class="itemizedlist"><ul class="itemizedlist">
+<li class="listitem"><p>Out of bounds access to a container </p></li>
+<li class="listitem"><p><code class="literal">find_only</code> returns more than single
+                instance</p></li>
+<li class="listitem"><p>Any operation on a null instance; i.e. navigation,
+                attribute access, etc.</p></li>
+</ul></div></td>
+</tr>
+<tr>
+<td><code class="literal">io_error</code></td>
+<td>Raised by a file access or file manipulation error.</td>
+<td>Cannot open file.</td>
+</tr>
+<tr>
+<td><code class="literal">IOP_error</code></td>
+<td>
+<p></p>
+<div class="itemizedlist"><ul class="itemizedlist">
+<li class="listitem"><p>Raised as a wrapper for CORBA IOP errors. </p></li>
+<li class="listitem"><p>Raised on a pack/unpack error for MessageBus.</p></li>
+</ul></div>
+</td>
+<td>See CORBA specification.</td>
+</tr>
+<tr>
+<td><code class="literal">program_error</code></td>
+<td><div class="itemizedlist"><ul class="itemizedlist">
+<li class="listitem"><p>Raised on architecture and code-generator
+                inconsistencies . </p></li>
+<li class="listitem"><p>Raised on state model errors.</p></li>
+<li class="listitem"><p>Raised as a wrapper for C++ exceptions.</p></li>
+<li class="listitem"><p>Raised on certain polymorphic operations.</p></li>
+</ul></div></td>
+<td><div class="itemizedlist"><ul class="itemizedlist">
+<li class="listitem"><p>Cannot Happen within a State Model.</p></li>
+<li class="listitem"><p>Creation events directed at wrong objects.</p></li>
+<li class="listitem"><p>No active subtype for deferred polymorphic
+                service.</p></li>
+</ul></div></td>
+</tr>
+<tr>
+<td><code class="literal">relationship_error</code></td>
+<td>Raised on relationship errors.</td>
+<td><div class="itemizedlist"><ul class="itemizedlist">
+<li class="listitem"><p>Deleting object instance, which is still linked to other
+                object instances(s).</p></li>
+<li class="listitem"><p>Double link to same instance.</p></li>
+<li class="listitem"><p>Unlink of object which is not currently linked.</p></li>
+</ul></div></td>
+</tr>
+<tr>
+<td><code class="literal">referential_access_error</code></td>
+<td>Raised on errors regarding referentials.</td>
+<td><div class="itemizedlist"><ul class="itemizedlist">
+<li class="listitem"><p>Inconsistent values for merged referentials.</p></li>
+<li class="listitem"><p>Reading referentials for non-existent relationship
+                instances.</p></li>
+</ul></div></td>
+</tr>
+<tr>
+<td><code class="literal">storage_error</code></td>
+<td>Raised on allocation failure</td>
+<td>Failure of create expression</td>
+</tr>
+<tr>
+<td><code class="literal">system_error</code></td>
+<td>Any system error condition affecting the executing
+          model.</td>
+<td> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<br class="table-break">
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="CompositeTypesSummary.html">Prev</a> </td>
+<td width="20%" align="center"> </td>
+<td width="40%" align="right"> <a accesskey="n" href="ObjectsandRelationships.html">Next</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">3.5. Summary </td>
+<td width="20%" align="center">
+<a accesskey="h" href="index.html">Home</a> | <a accesskey="t" href="bk01-toc.html">ToC</a>
+</td>
+<td width="40%" align="right" valign="top"> Chapter 5. Objects and Relationships</td>
+</tr>
+</table>
+</div>
+<div align="center">UNCLASSIFIED</div>
+</body>
+</html>

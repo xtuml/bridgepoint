@@ -6,7 +6,9 @@ import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.tools.AbstractTool;
 import org.eclipse.ui.PlatformUI;
-
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.Message_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Package_c;
@@ -15,6 +17,7 @@ import org.xtuml.bp.core.SynchronousMessage_c;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.test.common.BaseTest;
 import org.xtuml.bp.test.common.CanvasTestUtils;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TestingUtilities;
 import org.xtuml.bp.test.common.UITestingUtilities;
 import org.xtuml.bp.ui.canvas.Connector_c;
@@ -22,13 +25,15 @@ import org.xtuml.bp.ui.canvas.GraphicalElement_c;
 import org.xtuml.bp.ui.canvas.Model_c;
 import org.xtuml.bp.ui.graphics.editor.GraphicalEditor;
 
+@RunWith(OrderedRunner.class)
 public class ConnectorPolicyTests extends BaseTest {
 
 	private static final String TestContainerName = "ConnectorPolicyTestModel";
 	private static boolean initialized;
 
 	@Override
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		if (!initialized) {
 			// load the test model
@@ -39,6 +44,7 @@ public class ConnectorPolicyTests extends BaseTest {
 		}
 	}
 
+	@Test
 	public void testOverlappingTargetsForCreateRequestsStart() {
 		Package_c testPackage = Package_c.getOneEP_PKGOnR1405(m_sys,
 				new ClassQueryInterface_c() {
@@ -102,6 +108,7 @@ public class ConnectorPolicyTests extends BaseTest {
 				connectorCountAfter - connectorCount == 1);
 	}
 
+	@Test
 	public void testOverlappingTargetsForCreateRequestsEnd() {
 		Package_c testPackage = Package_c.getOneEP_PKGOnR1405(m_sys,
 				new ClassQueryInterface_c() {
@@ -157,6 +164,7 @@ public class ConnectorPolicyTests extends BaseTest {
 				connectorCountAfter - connectorCount == 1);
 	}
 
+	@Test
 	public void testOverlappingTargetsForUpdateEndRequestsStart() {
 		Package_c testPackage = Package_c.getOneEP_PKGOnR1405(m_sys,
 				new ClassQueryInterface_c() {
@@ -243,6 +251,7 @@ public class ConnectorPolicyTests extends BaseTest {
 				firstPoint.x == lastPoint.x && lastPoint.y - firstPoint.y < 5);
 	}
 
+	@Test
 	public void testOverlappingTargetsForUpdateEndRequestsEnd() {
 		Package_c testPackage = Package_c.getOneEP_PKGOnR1405(m_sys,
 				new ClassQueryInterface_c() {

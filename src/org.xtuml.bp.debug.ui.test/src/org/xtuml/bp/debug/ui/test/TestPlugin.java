@@ -1,7 +1,8 @@
 package org.xtuml.bp.debug.ui.test;
 
-import org.eclipse.core.runtime.*;
-
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Plugin;
+import org.eclipse.core.runtime.Status;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.Constants;
 

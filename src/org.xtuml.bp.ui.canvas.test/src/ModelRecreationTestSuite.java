@@ -20,14 +20,11 @@
 // the License.
 //=====================================================================
 import java.io.File;
-import java.io.FileFilter;
+
+import org.xtuml.bp.ui.canvas.test.ModelRecreationTests;
 
 import junit.framework.Test;
 import junit.framework.TestSuite;
-
-import org.xtuml.bp.core.Ooaofooa;
-import org.xtuml.bp.test.common.BaseTest;
-import org.xtuml.bp.ui.canvas.test.ModelRecreationTests;
 
 public class ModelRecreationTestSuite extends TestSuite {
 
@@ -48,7 +45,7 @@ public class ModelRecreationTestSuite extends TestSuite {
 		File[] testModels = ModelRecreationTests.getTestModelNames();
 		int modelCount = testModels.length;
 		for(int i = 0; i < modelCount; i++) {
-			ModelRecreationTests test = new ModelRecreationTests("testRecreateModel");
+			ModelRecreationTests test = new ModelRecreationTests();
 			test.modelNumber = i;
 			test.testModel = testModels[i];
 			suite.addTest(test);

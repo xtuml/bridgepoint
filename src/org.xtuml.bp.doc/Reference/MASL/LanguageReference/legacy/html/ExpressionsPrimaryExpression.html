@@ -1,0 +1,1138 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>14.4. Primary Expressions</title>
+<link rel="stylesheet" type="text/css" href="docbook.css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<meta name="keywords" content="MASL, Action Language, Action Semantics, UML, Unified Modelling Language, Shlaer Mellor">
+<link rel="home" href="index.html" title="MASL Reference Manual">
+<link rel="up" href="Expressions.html" title="Chapter 14. Expressions">
+<link rel="prev" href="ExpressionsNormalandAbruptCompletionofEvaluation.html" title="14.3. Normal and Abrupt Completion of Evaluation">
+<link rel="next" href="ExpressionsUnaryOperators.html" title="14.5. Unary Operators">
+<link rel="preface" href="preface.html" title="Preface">
+<link rel="chapter" href="Grammars.html" title="Chapter 1. Grammars">
+<link rel="chapter" href="LexicalStructure.html" title="Chapter 2. Lexical Structure">
+<link rel="chapter" href="Types.html" title="Chapter 3. Types">
+<link rel="chapter" href="TypeConversion.html" title="Chapter 4. Type Conversion">
+<link rel="chapter" href="Domains.html" title="Chapter 5. Domains">
+<link rel="chapter" href="Objects.html" title="Chapter 6. Objects">
+<link rel="chapter" href="Relationships.html" title="Chapter 7. Relationships">
+<link rel="chapter" href="Lifecycles.html" title="Chapter 8. Lifecycles">
+<link rel="chapter" href="Functions.html" title="Chapter 9. Functions">
+<link rel="chapter" href="Services.html" title="Chapter 10. Services">
+<link rel="chapter" href="Exceptions.html" title="Chapter 11. Exceptions">
+<link rel="chapter" href="Statements.html" title="Chapter 12. Statements">
+<link rel="chapter" href="Names.html" title="Chapter 13. Names">
+<link rel="chapter" href="Expressions.html" title="Chapter 14. Expressions">
+<link rel="appendix" href="LanguageDefinedCharacteristics.html" title="Appendix A. Language Defined Characteristics">
+<link rel="appendix" href="SyntaxSummary.html" title="Appendix B. Syntax Summary">
+<link rel="index" href="ix01.html" title="Index">
+<link rel="subsection" href="ExpressionsPrimaryExpression.html#ExpressionsLiterals" title="14.4.1. Literals">
+<link rel="subsection" href="ExpressionsPrimaryExpression.html#Expressionsthis" title="14.4.2. this">
+<link rel="subsection" href="ExpressionsPrimaryExpression.html#ExpressionsNamesasExpressions" title="14.4.3. Names as Expressions">
+<link rel="subsection" href="ExpressionsPrimaryExpression.html#ExpressionsCharacteristicReferences" title="14.4.4. Characteristic References">
+<link rel="subsection" href="ExpressionsPrimaryExpression.html#ExpressionsStructureAggregates" title="14.4.5. Structure Aggregates">
+<link rel="subsection" href="ExpressionsPrimaryExpression.html#ExpressionsServicesasExpressions" title="14.4.6. Services As Expressions">
+<link rel="subsection" href="ExpressionsPrimaryExpression.html#ExpressionsEventsAsExpressions" title="14.4.7. Events As Expressions">
+<link rel="subsection" href="ExpressionsPrimaryExpression.html#ExpressionsFunctionInvocation" title="14.4.8. Function Invocation">
+<link rel="subsection" href="ExpressionsPrimaryExpression.html#ExpressionsDomainFunctionInvocation" title="14.4.9. Domain Function Invocation">
+<link rel="subsection" href="ExpressionsPrimaryExpression.html#ExpressionsObjectFunctionInvocation" title="14.4.10. Object Function Invocation">
+<link rel="subsection" href="ExpressionsPrimaryExpression.html#ExpressionsInstanceFunctionInvocation" title="14.4.11. Instance Function Invocation">
+<link rel="subsection" href="ExpressionsPrimaryExpression.html#ExpressionsCompileTimeProcessingofFunctionCalls" title="14.4.12. Compile-Time Processing of Function Calls">
+<link rel="subsection" href="ExpressionsPrimaryExpression.html#ExpressionsParenthesisedExpressions" title="14.4.13. Parenthesized Expressions">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div align="center">OFFICIAL</div>
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">14.4. Primary Expressions</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ExpressionsNormalandAbruptCompletionofEvaluation.html">Prev</a> </td>
+<th width="60%" align="center">Chapter 14. Expressions</th>
+<td width="20%" align="right"> <a accesskey="n" href="ExpressionsUnaryOperators.html">Next</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title">
+<a name="ExpressionsPrimaryExpression"></a>14.4. Primary Expressions</h2></div></div></div>
+<div class="toc"><dl class="toc">
+<dt><span class="section"><a href="ExpressionsPrimaryExpression.html#ExpressionsLiterals">14.4.1. Literals</a></span></dt>
+<dd><dl><dt><span class="section"><a href="ExpressionsPrimaryExpression.html#ExpressionsEnumerationLiterals">14.4.1.1. Enumeration Literals</a></span></dt></dl></dd>
+<dt><span class="section"><a href="ExpressionsPrimaryExpression.html#Expressionsthis">14.4.2. this</a></span></dt>
+<dt><span class="section"><a href="ExpressionsPrimaryExpression.html#ExpressionsNamesasExpressions">14.4.3. Names as Expressions</a></span></dt>
+<dt><span class="section"><a href="ExpressionsPrimaryExpression.html#ExpressionsCharacteristicReferences">14.4.4. Characteristic References</a></span></dt>
+<dt><span class="section"><a href="ExpressionsPrimaryExpression.html#ExpressionsStructureAggregates">14.4.5. Structure Aggregates</a></span></dt>
+<dt><span class="section"><a href="ExpressionsPrimaryExpression.html#ExpressionsServicesasExpressions">14.4.6. Services As Expressions</a></span></dt>
+<dt><span class="section"><a href="ExpressionsPrimaryExpression.html#ExpressionsEventsAsExpressions">14.4.7. Events As Expressions</a></span></dt>
+<dt><span class="section"><a href="ExpressionsPrimaryExpression.html#ExpressionsFunctionInvocation">14.4.8. Function Invocation</a></span></dt>
+<dt><span class="section"><a href="ExpressionsPrimaryExpression.html#ExpressionsDomainFunctionInvocation">14.4.9. Domain Function Invocation</a></span></dt>
+<dt><span class="section"><a href="ExpressionsPrimaryExpression.html#ExpressionsObjectFunctionInvocation">14.4.10. Object Function Invocation</a></span></dt>
+<dt><span class="section"><a href="ExpressionsPrimaryExpression.html#ExpressionsInstanceFunctionInvocation">14.4.11. Instance Function Invocation</a></span></dt>
+<dt><span class="section"><a href="ExpressionsPrimaryExpression.html#ExpressionsCompileTimeProcessingofFunctionCalls">14.4.12. Compile-Time Processing of Function Calls</a></span></dt>
+<dt><span class="section"><a href="ExpressionsPrimaryExpression.html#ExpressionsParenthesisedExpressions">14.4.13. Parenthesized Expressions</a></span></dt>
+</dl></div>
+<p>
+<a class="link" href="ExpressionsPrimaryExpression.html#ebnf.primaryexpression"><span class="emphasis"><em>Primary expressions</em></span></a>
+<a class="indexterm" name="idp71068416"></a>
+include most of the simplest kinds of expressions, from which all others are
+constructed. A parenthesized expression is also treated syntactically as a
+<a class="link" href="ExpressionsPrimaryExpression.html#ebnf.primaryexpression"><span class="emphasis"><em>primary expression</em></span></a>.
+<a class="indexterm" name="idp71070752"></a>
+</p>
+<a class="indexterm" name="idp71072256"></a><a class="indexterm" name="idp71073424"></a><a class="indexterm" name="idp71074592"></a><a class="indexterm" name="idp71075888"></a><a class="indexterm" name="idp71077056"></a><a class="indexterm" name="idp71078192"></a><a class="indexterm" name="idp71079360"></a><a class="indexterm" name="idp71080528"></a><a class="indexterm" name="idp71081696"></a><a class="indexterm" name="idp71083312"></a><a class="indexterm" name="idp71084480"></a><a class="indexterm" name="idp71085920"></a><a class="indexterm" name="idp71087088"></a><table width="100%" cellpadding="5" bgcolor="#F5DCB3" border="1" class="productionset" summary="EBNF"><tr><td><table border="0" width="99%" cellpadding="0" bgcolor="#F5DCB3" class="productionset" summary="EBNF productions">
+<tr>
+<td align="left" valign="top" width="3%">[191]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.primaryexpression"></a>
+        primary expression
+    </td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="LexicalStructureLiterals.html#ebnf.literal">literal</a> |
+        'this' |
+        <a href="ExpressionsPrimaryExpression.html#ebnf.nameasexpression">name as expression</a> |
+        <a href="ExpressionsPrimaryExpression.html#ebnf.characteristicreference">characteristic reference</a> |
+        <a href="ExpressionsPrimaryExpression.html#ebnf.aggregate">aggregate</a> |
+        <a href="ExpressionsPrimaryExpression.html#ebnf.serviceasexpression">service as expression</a> |
+        <a href="ExpressionsPrimaryExpression.html#ebnf.functioninvocation">function invocation</a> |
+        <a href="ExpressionsPrimaryExpression.html#ebnf.eventasexpression">event as expression</a> |
+        '(',
+        <a href="ExpressionsExpression.html#ebnf.expression">expression</a>,
+        ')'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[192]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.aggregate"></a>
+        aggregate
+    </td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="ExpressionsPrimaryExpression.html#ebnf.structureaggregate">structure aggregate</a> |
+        <a href="ExpressionsExecutableUMLExpressions.html#ebnf.objectaggregate">object aggregate</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+</table></td></tr></table>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="ExpressionsLiterals"></a>14.4.1. Literals</h3></div></div></div>
+<p>
+A <a class="link" href="LexicalStructureLiterals.html" title="2.6. Literals">literal</a>
+<a class="indexterm" name="idp63094848"></a>
+represents a value
+literally, that is, by means of a notation suited to its kind. The following
+production is repeated from <a class="xref" href="LexicalStructureLiterals.html" title="2.6. Literals">Section 2.6, “Literals”</a> to
+make the presentation clearer.
+</p>
+<table width="100%" cellpadding="5" bgcolor="#F5DCB3" border="1" class="productionset" summary="EBNF"><tr><td><table border="0" width="99%" cellpadding="0" bgcolor="#F5DCB3" class="productionset" summary="EBNF productions"><tr>
+<td align="left" valign="top" width="3%">[14]</td>
+<td align="right" valign="top" width="10%"><a href="LexicalStructureLiterals.html#ebnf.literal">literal</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="LexicalStructureLiterals.html#ebnf.numericliteral">numeric literal</a> |
+        <a href="LexicalStructureLiterals.html#ebnf.characterliteral">character literal</a> |
+        <a href="LexicalStructureLiterals.html#ebnf.stringliteral">string literal</a> |
+        <a href="LexicalStructureLiterals.html#ebnf.booleanliteral">boolean literal</a> |
+        <a href="TypesFullDeclarations.html#ebnf.enumeratorliteral">enumerator literal</a> |
+        <a href="LexicalStructureLiterals.html#ebnf.nullliteral">null literal</a> |
+        <a href="LexicalStructureLiterals.html#ebnf.deviceliteral">device literal</a> |
+        <a href="LexicalStructureLiterals.html#ebnf.streamliteral">stream literal</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr></table></td></tr></table>
+<p>
+The type of a literal is determined as follows:
+</p>
+<div class="itemizedlist"><ul class="itemizedlist">
+<li class="listitem"><p>
+The type of a numeric literal is
+<a class="link" href="TypesFullDeclarations.html#TypesNumericTypes" title="3.7.1. Numeric Types"><span class="type">numeric</span></a>.
+<a class="indexterm" name="idp63099872"></a>
+</p></li>
+<li class="listitem"><p>
+The type of a character literal is
+<a class="link" href="TypesBuiltinTypes.html#TypesWideCharacterType" title="3.2.2. Wide Character Type"><span class="type">wcharacter</span></a>.
+<a class="indexterm" name="idp63102656"></a>
+</p></li>
+<li class="listitem"><p>
+The type of a string literal is
+<a class="link" href="TypesBuiltinTypes.html#TypesWideStringType" title="3.2.6. Wide String Type"><span class="type">string</span></a>.
+<a class="indexterm" name="idp63105440"></a>
+</p></li>
+<li class="listitem"><p>
+The type of a boolean literal is
+<a class="link" href="TypesBuiltinTypes.html#TypesBooleanType" title="3.2.3. Boolean Type"><span class="type">boolean</span></a>.
+<a class="indexterm" name="idp71201056"></a>
+</p></li>
+<li class="listitem"><p>
+The type of a enumeration literal is its
+<a class="link" href="TypesFullDeclarations.html#TypesEnumerationTypes" title="3.7.3. Enumeration Types"><span class="emphasis"><em>enumeration type</em></span></a>.
+<a class="indexterm" name="idp71203792"></a>
+</p></li>
+<li class="listitem"><p>
+The type of the
+<a class="link" href="LexicalStructureLiterals.html#LexicalStructureTheNullLiteral" title="2.6.7. The Null Literal">null literal</a>
+<a class="indexterm" name="idp71206768"></a>
+is <a class="link" href="TypesInstanceTypes.html" title="3.4. Instance Types"><span class="type">instance</span></a>.
+<a class="indexterm" name="idp71208960"></a>
+</p></li>
+<li class="listitem"><p>
+The type of the
+<a class="link" href="TypesBuiltinTypes.html#TypesDeviceType" title="3.2.7. Device Type">device literal</a>
+<a class="indexterm" name="idp71211600"></a>
+is <a class="link" href="TypesInstanceTypes.html" title="3.4. Instance Types"><span class="type">device</span></a>.
+<a class="indexterm" name="idp71213792"></a>
+</p></li>
+</ul></div>
+<p>
+Evaluation of a <a class="link" href="LexicalStructureLiterals.html#ebnf.literal"><span class="emphasis"><em>literal</em></span></a>
+<a class="indexterm" name="idp71216144"></a>
+yields the corresponding value of the type.
+Evaluation of a <a class="link" href="LexicalStructureLiterals.html#ebnf.literal"><span class="emphasis"><em>literal</em></span></a>
+<a class="indexterm" name="idp71217856"></a>
+always completes normally.
+</p>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="ExpressionsEnumerationLiterals"></a>14.4.1.1. Enumeration Literals</h4></div></div></div>
+<p>
+An <a class="link" href="TypesFullDeclarations.html#ebnf.enumeratorliteral"><span class="emphasis"><em>enumeration literal</em></span></a>
+<a class="indexterm" name="idp71221152"></a>
+represents a value of an enumeration type literally,
+that is, by means of the name given to one of its kind. The following
+production is repeated from <a class="xref" href="TypesFullDeclarations.html#TypesEnumerationTypes" title="3.7.3. Enumeration Types">Section 3.7.3, “Enumeration Types”</a> to
+make the presentation clearer.
+</p>
+<table width="100%" cellpadding="5" bgcolor="#F5DCB3" border="1" class="productionset" summary="EBNF"><tr><td><table border="0" width="99%" cellpadding="0" bgcolor="#F5DCB3" class="productionset" summary="EBNF productions"><tr>
+<td align="left" valign="top" width="3%">[68]</td>
+<td align="right" valign="top" width="10%"><a href="TypesFullDeclarations.html#ebnf.enumeratorliteral">enumerator literal</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="TypesFullDeclarations.html#ebnf.enumeratorname">enumerator name</a> |
+        <a href="TypesTypeDeclarations.html#ebnf.typename">type name</a>,
+        '.',
+        <a href="TypesFullDeclarations.html#ebnf.enumeratorname">enumerator name</a> |
+        <a href="DomainsDomainDeclaration.html#ebnf.domainname">domain name</a>,
+        '::',
+        <a href="TypesFullDeclarations.html#ebnf.enumeratorname">enumerator name</a> |
+        <a href="DomainsDomainDeclaration.html#ebnf.domainname">domain name</a>,
+        '::',
+        <a href="TypesTypeDeclarations.html#ebnf.typename">type name</a>,
+        '.',
+        <a href="TypesFullDeclarations.html#ebnf.enumeratorname">enumerator name</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr></table></td></tr></table>
+<p>
+A compile-time error occurs if any of the following are true:
+</p>
+<div class="itemizedlist"><ul class="itemizedlist">
+<li class="listitem"><p>
+In the form consisting of just an
+<a class="link" href="TypesFullDeclarations.html#TypesEnumerationTypes" title="3.7.3. Enumeration Types">enumerator name</a>,
+<a class="indexterm" name="idp71226544"></a>
+the <a class="link" href="TypesFullDeclarations.html#TypesEnumerationTypes" title="3.7.3. Enumeration Types">enumerator name</a>
+<a class="indexterm" name="idp71228608"></a>
+does not name an enumerator of an
+<a class="link" href="TypesFullDeclarations.html#TypesEnumerationTypes" title="3.7.3. Enumeration Types">enumeration type</a>
+<a class="indexterm" name="idp71230688"></a>
+in the enclosing domain.
+</p></li>
+<li class="listitem"><p>
+In the form
+<a class="link" href="TypesTypeDeclarations.html" title="3.6. Type Declarations"><span class="emphasis"><em>type_name</em></span></a><code class="literal">.</code><a class="link" href="TypesFullDeclarations.html#TypesEnumerationTypes" title="3.7.3. Enumeration Types"><span class="emphasis"><em>enumerator_name</em></span></a>,
+the <a class="link" href="TypesFullDeclarations.html#TypesEnumerationTypes" title="3.7.3. Enumeration Types">enumerator name</a>
+<a class="indexterm" name="idp71235488"></a>
+does not name an enumerator of an
+<a class="link" href="TypesFullDeclarations.html#TypesEnumerationTypes" title="3.7.3. Enumeration Types">enumerator type</a>
+<a class="indexterm" name="idp71237568"></a>
+<a class="indexterm" name="idp71238912"></a>
+in the enclosing domain.
+</p></li>
+<li class="listitem"><p>
+In the form
+<a class="link" href="DomainsDomainDeclaration.html" title="5.3. Domain Declaration"><span class="emphasis"><em>domain_name</em></span></a><code class="literal">.</code><a class="link" href="TypesFullDeclarations.html#TypesEnumerationTypes" title="3.7.3. Enumeration Types"><span class="emphasis"><em>enumerator_name</em></span></a>,
+the <a class="link" href="TypesFullDeclarations.html#TypesEnumerationTypes" title="3.7.3. Enumeration Types">enumerator name</a>
+<a class="indexterm" name="idp71243728"></a>
+does not name an enumerator of an
+<a class="link" href="TypesFullDeclarations.html#TypesEnumerationTypes" title="3.7.3. Enumeration Types">enumerator type</a>
+<a class="indexterm" name="idp71245808"></a>
+<a class="indexterm" name="idp71247152"></a>
+in the domain named by the <a class="link" href="DomainsDomainDeclaration.html" title="5.3. Domain Declaration">domain name</a>.
+<a class="indexterm" name="idp71249248"></a>
+</p></li>
+<li class="listitem"><p>
+The type of the enumerator is not accessible to the current scope.
+</p></li>
+</ul></div>
+<p>
+The the same
+<a class="link" href="TypesFullDeclarations.html#TypesEnumerationTypes" title="3.7.3. Enumeration Types">enumerator name</a>
+<a class="indexterm" name="idp71252736"></a>
+is specified for more than one
+<a class="link" href="TypesFullDeclarations.html#TypesEnumerationTypes" title="3.7.3. Enumeration Types">enumerator type</a>
+<a class="indexterm" name="idp71254816"></a>
+<a class="indexterm" name="idp71256160"></a>
+definition in the same domain, the corresponding
+<a class="link" href="TypesFullDeclarations.html#ebnf.enumeratorliteral"><span class="emphasis"><em>enumeration literals</em></span></a>
+<a class="indexterm" name="idp71258320"></a>
+are said to be overloaded.
+If either of the the two forms of
+<a class="link" href="TypesFullDeclarations.html#ebnf.enumeratorliteral"><span class="emphasis"><em>enumeration literal</em></span></a>
+<a class="indexterm" name="idp71260560"></a>
+that don't specify a
+<a class="link" href="TypesTypeDeclarations.html" title="3.6. Type Declarations">type name</a>
+<a class="indexterm" name="idp71262624"></a>
+are used, this can cause an ambiguity. This ambiguity will be resolved if the
+<a class="link" href="TypesFullDeclarations.html#ebnf.enumeratorliteral"><span class="emphasis"><em>enumeration literal</em></span></a>
+<a class="indexterm" name="idp71264432"></a>
+is used as either:
+</p>
+<div class="itemizedlist"><ul class="itemizedlist">
+<li class="listitem"><p>
+Part of a binary operation where the type of the other expression is not
+ambiguous.
+</p></li>
+<li class="listitem"><p>
+As part of an assignment.
+</p></li>
+</ul></div>
+<p>
+If the ambiguity cannot be resolved a compile-time error occurs.
+</p>
+<p>
+Evaluation of an
+<a class="link" href="TypesFullDeclarations.html#ebnf.enumeratorliteral"><span class="emphasis"><em>enumeration literal</em></span></a>
+<a class="indexterm" name="idp71269712"></a>
+yields the corresponding value of the type.
+Certain forms of
+<a class="link" href="TypesFullDeclarations.html#ebnf.enumeratorliteral"><span class="emphasis"><em>enumeration literal</em></span></a>
+<a class="indexterm" name="idp71271952"></a>
+include a
+<a class="link" href="TypesTypeDeclarations.html" title="3.6. Type Declarations">type name</a>
+<a class="indexterm" name="idp71274016"></a>
+or a <a class="link" href="DomainsDomainDeclaration.html" title="5.3. Domain Declaration">domain name</a>
+<a class="indexterm" name="idp71275648"></a>
+of both. These forms are used to:
+</p>
+<div class="itemizedlist"><ul class="itemizedlist">
+<li class="listitem"><p>
+Access enumerators from other domains, as in <code class="literal">Calendar::MONDAY</code>
+and  <span class="type">Calendar::day_name_type</span>.
+</p></li>
+<li class="listitem"><p>
+Remove any ambiguity when two or more,
+<a class="link" href="TypesFullDeclarations.html#TypesEnumerationTypes" title="3.7.3. Enumeration Types">enumerator types</a>
+<a class="indexterm" name="idp71280592"></a>
+have enumerators of the same name, as in
+<code class="literal">day_name_type.MONDAY</code>
+and
+<code class="literal">Calendar::day_name_type.MONDAY</code>
+</p></li>
+</ul></div>
+<p>
+Use of these qualified forms, where the domain given is the enclosing domain
+or where no ambiguity exists, is allowed.
+</p>
+</div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="Expressionsthis"></a>14.4.2. this</h3></div></div></div>
+<p>
+The reserved word <a class="link" href="Names.html" title="Chapter 13. Names"><code class="literal">this</code></a>
+<a class="indexterm" name="idp71286032"></a>
+may be used in either the body of an object instance service (see
+<a class="xref" href="FunctionsObjectFunctions.html#FunctionsInstanceObjectFunctions" title="9.2.1.3. Instance Object Functions">Section 9.2.1.3, “Instance Object Functions”</a> and
+<a class="xref" href="ServicesObjectServices.html#ServicesInstanceObjectServices" title="10.2.1.3. Instance Object Services">Section 10.2.1.3, “Instance Object Services”</a>) or the body of an instance
+state (see <a class="xref" href="LifecyclesStates.html" title="8.1. States">Section 8.1, “States”</a>. If it appears anywhere else, a
+compile-time error occurs.
+</p>
+<p>
+The type of <a class="link" href="ExpressionsPrimaryExpression.html#Expressionsthis" title="14.4.2. this"><code class="literal">this</code></a>
+<a class="indexterm" name="idp71290128"></a>
+is the <a class="link" href="TypesInstanceTypes.html" title="3.4. Instance Types">instance&gt;</a> type of the object
+within which the reserved word
+<a class="indexterm" name="idp71291840"></a>
+<a class="link" href="ExpressionsPrimaryExpression.html#Expressionsthis" title="14.4.2. this"><code class="literal">this</code></a>
+<a class="indexterm" name="idp71293584"></a>
+occurs. When used as a primary expression,
+<a class="indexterm" name="idp71294576"></a>
+the reserved word
+<a class="indexterm" name="idp71295920"></a>
+<a class="link" href="ExpressionsPrimaryExpression.html#Expressionsthis" title="14.4.2. this"><code class="literal">this</code></a>
+<a class="indexterm" name="idp71297664"></a>
+denotes a value that is a reference to the instance either for which the
+<a class="link" href="ServicesObjectServices.html#ServicesInstanceObjectServices" title="10.2.1.3. Instance Object Services">object instance service</a> was
+invoked or which has just moved into the current state.
+</p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="ExpressionsNamesasExpressions"></a>14.4.3. Names as Expressions</h3></div></div></div>
+<p>
+The value of a
+<a class="link" href="ExpressionsPrimaryExpression.html" title="14.4. Primary Expressions">primary expression</a> that is a
+name, is the value of the entity that the name denotes.
+</p>
+<a class="indexterm" name="idp71302128"></a><a class="indexterm" name="idp71303568"></a><table width="100%" cellpadding="5" bgcolor="#F5DCB3" border="1" class="productionset" summary="EBNF"><tr><td><table border="0" width="99%" cellpadding="0" bgcolor="#F5DCB3" class="productionset" summary="EBNF productions"><tr>
+<td align="left" valign="top" width="3%">[193]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.nameasexpression"></a>
+        name as expression
+    </td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="Names.html#ebnf.name">name</a>,
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr></table></td></tr></table>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="ExpressionsCharacteristicReferences"></a>14.4.4. Characteristic References</h3></div></div></div>
+<p>
+A <a class="link" href="ExpressionsPrimaryExpression.html#ebnf.characteristicreference"><span class="emphasis"><em>characteristic reference</em></span></a>
+<a class="indexterm" name="idp71309952"></a>
+is a characteristic of an entity that can be queried.
+</p>
+<a class="indexterm" name="idp71311264"></a><a class="indexterm" name="idp71312464"></a><a class="indexterm" name="idp71313648"></a><a class="indexterm" name="idp71314832"></a><a class="indexterm" name="idp71316016"></a><a class="indexterm" name="idp71317184"></a><table width="100%" cellpadding="5" bgcolor="#F5DCB3" border="1" class="productionset" summary="EBNF"><tr><td><table border="0" width="99%" cellpadding="0" bgcolor="#F5DCB3" class="productionset" summary="EBNF productions">
+<tr>
+<td align="left" valign="top" width="3%">[194]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.characteristicreference"></a>
+        characteristic reference
+    </td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="Names.html#ebnf.name">name</a>,
+        ''',
+        <a href="ExpressionsPrimaryExpression.html#ebnf.characteristicreference">characteristic reference</a>,
+        [('(',
+        <a href="StatementsInvocationStatement.html#ebnf.argumentlist">argument list</a>,
+        ')'] |
+        <a href="TypesTypeSpecification.html#ebnf.type">type</a>,
+        ''',
+        <a href="ExpressionsPrimaryExpression.html#ebnf.characteristicreference">characteristic reference</a>,
+        [('(',
+        <a href="StatementsInvocationStatement.html#ebnf.argumentlist">argument list</a>        
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[195]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.characteristicname"></a>
+        characteristic name
+    </td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="LexicalStructureIdentifiers.html#ebnf.identifier">identifier</a>  
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+</table></td></tr></table>
+<p>
+A compile-time error occurs if any of the following is true:
+</p>
+<div class="itemizedlist"><ul class="itemizedlist">
+<li class="listitem"><p>
+In the form
+<span class="emphasis"><em>name</em></span><code class="literal">'</code><span class="emphasis"><em>characteristic_name</em></span>,
+the type of the name does not define a value characteristic named by the
+<span class="emphasis"><em>characteristic name</em></span>.
+<a class="indexterm" name="idp71330320"></a>
+</p></li>
+<li class="listitem"><p>
+In the form
+<span class="emphasis"><em>type</em></span><code class="literal">'</code><span class="emphasis"><em>characteristic_name</em></span>,
+the type does not define a type characteristic named by the
+<span class="emphasis"><em>characteristic name</em></span>.
+<a class="indexterm" name="idp71333632"></a>
+</p></li>
+</ul></div>
+<p>
+The type of a characteristic reference
+<a class="indexterm" name="idp71334976"></a>
+is defined by either the type of the name
+or the type. <a class="xref" href="Types.html" title="Chapter 3. Types">Chapter 3, <i>Types</i></a> defines the value and type characteristics
+for all types.
+</p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="ExpressionsStructureAggregates"></a>14.4.5. Structure Aggregates</h3></div></div></div>
+<p>
+A <a class="link" href="ExpressionsPrimaryExpression.html#ebnf.structureaggregate"><span class="emphasis"><em>structure aggregate</em></span></a>
+<a class="indexterm" name="idp71339088"></a>
+<a class="indexterm" name="idp71340432"></a>
+combines component values into a composite type value of a
+<a class="link" href="TypesFullDeclarations.html#TypesStructureTypes" title="3.7.2. Structure Types">structure type</a>.
+<a class="indexterm" name="idp71342816"></a>
+</p>
+<a class="indexterm" name="idp71344320"></a><a class="indexterm" name="idp71345488"></a><table width="100%" cellpadding="5" bgcolor="#F5DCB3" border="1" class="productionset" summary="EBNF"><tr><td><table border="0" width="99%" cellpadding="0" bgcolor="#F5DCB3" class="productionset" summary="EBNF productions"><tr>
+<td align="left" valign="top" width="3%">[196]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.structureaggregate"></a>
+        structure aggregate
+    </td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        '(',
+        <a href="ExpressionsExpression.html#ebnf.expression">expression</a>,
+        ',',
+        <a href="ExpressionsExpression.html#ebnf.expression">expression</a>,
+        {(',',
+        <a href="ExpressionsExpression.html#ebnf.expression">expression</a>)},
+        ')'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr></table></td></tr></table>
+<p>
+For the evaluation of a
+<a class="link" href="ExpressionsPrimaryExpression.html#ebnf.structureaggregate"><span class="emphasis"><em>structure aggregate</em></span></a>,
+<a class="indexterm" name="idp71352048"></a>
+an anonymous structure
+<a class="indexterm" name="idp71353408"></a>
+is created and values for the components are obtained
+and assigned into the corresponding components of the anonymous structure.
+<a class="indexterm" name="idp71354864"></a>
+The value of the
+<a class="link" href="ExpressionsPrimaryExpression.html#ebnf.structureaggregate"><span class="emphasis"><em>structure aggregate</em></span></a>
+<a class="indexterm" name="idp71357056"></a>
+is the value of this anonymous structure.
+<a class="indexterm" name="idp71358368"></a>
+Applying an operator to the value or
+assigning the value to an entity, checks that the anonymous structure
+<a class="indexterm" name="idp71359808"></a>
+can be
+converted into a structure of an appropriate type. If this is not possible, a
+compile-time error occurs.
+</p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="ExpressionsServicesasExpressions"></a>14.4.6. Services As Expressions</h3></div></div></div>
+<p>
+A service expression
+<a class="indexterm" name="idp71362944"></a>
+is used to represent an object service.
+<a class="indexterm" name="idp71364528"></a>
+</p>
+<a class="indexterm" name="idp71366032"></a><a class="indexterm" name="idp71367168"></a><a class="indexterm" name="idp71368800"></a><a class="indexterm" name="idp71370432"></a><table width="100%" cellpadding="5" bgcolor="#F5DCB3" border="1" class="productionset" summary="EBNF"><tr><td><table border="0" width="99%" cellpadding="0" bgcolor="#F5DCB3" class="productionset" summary="EBNF productions"><tr>
+<td align="left" valign="top" width="3%">[197]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.serviceasexpression"></a>
+        service as expression
+    </td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="DomainsDomainDeclaration.html#ebnf.domainname">domain name</a>,
+        '::',
+        <a href="ObjectsObjectDeclaration.html#ebnf.objectname">object name</a>,
+        '.',
+        <a href="ServicesDomainServices.html#ebnf.servicename">service name</a> |
+        <a href="DomainsDomainDeclaration.html#ebnf.domainname">domain name</a>,
+        '::',
+        <a href="ServicesDomainServices.html#ebnf.servicename">service name</a> |
+        <a href="ObjectsObjectDeclaration.html#ebnf.objectname">object name</a>,
+        '.',
+        <a href="ServicesDomainServices.html#ebnf.servicename">service name</a> |
+        <a href="ServicesDomainServices.html#ebnf.servicename">service name</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr></table></td></tr></table>
+<p>
+A compile-time error occurs if the service is not declared, by
+an service declaration, as a service of either:
+</p>
+<div class="itemizedlist"><ul class="itemizedlist">
+<li class="listitem"><p>
+The domain named by the domain name, in the form
+<span class="emphasis"><em>domain_name</em></span><code class="literal">::</code><span class="emphasis"><em>service_name</em></span> or
+the enclosing domain, in the form consisting of just a
+<a class="link" href="ServicesDomainServices.html" title="10.1. Domain Services"><span class="emphasis"><em>service name</em></span></a>.
+<a class="indexterm" name="idp71383136"></a>
+</p></li>
+<li class="listitem"><p>
+The object named by the 
+<a class="link" href="ObjectsObjectDeclaration.html" title="6.1. Object Declaration">object name</a>,
+<a class="indexterm" name="idp71386128"></a>
+in the domain named by the
+<a class="link" href="DomainsDomainDeclaration.html" title="5.3. Domain Declaration">domain name</a>,
+<a class="indexterm" name="idp71388224"></a>
+in the form
+<span class="emphasis"><em>domain_name</em></span><code class="literal">::</code><span class="emphasis"><em>object_name</em></span><code class="literal">.</code><span class="emphasis"><em>service_name</em></span>.
+</p></li>
+<li class="listitem"><p>
+The object named by the 
+<a class="link" href="ObjectsObjectDeclaration.html" title="6.1. Object Declaration">object name</a>,
+<a class="indexterm" name="idp71392816"></a>
+in the enclosing domain, in the form
+<span class="emphasis"><em>object_name</em></span><code class="literal">.</code><span class="emphasis"><em>service_name</em></span>.
+</p></li>
+<li class="listitem"><p>
+The enclosing object, in the form consisting of just a
+<a class="link" href="ServicesDomainServices.html" title="10.1. Domain Services"><span class="emphasis"><em>service name</em></span></a>.
+<a class="indexterm" name="idp71396992"></a>
+</p></li>
+</ul></div>
+<p>
+</p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="ExpressionsEventsAsExpressions"></a>14.4.7. Events As Expressions</h3></div></div></div>
+<p>
+An <a class="link" href="ExpressionsPrimaryExpression.html#ebnf.eventasexpression">
+<span class="emphasis"><em>event as expression</em></span></a>
+<a class="indexterm" name="idp71401520"></a>
+represents an event.
+</p>
+<a class="indexterm" name="idp71403024"></a><a class="indexterm" name="idp71404192"></a><a class="indexterm" name="idp71405360"></a><table width="100%" cellpadding="5" bgcolor="#F5DCB3" border="1" class="productionset" summary="EBNF"><tr><td><table border="0" width="99%" cellpadding="0" bgcolor="#F5DCB3" class="productionset" summary="EBNF productions"><tr>
+<td align="left" valign="top" width="3%">[198]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.eventasexpression"></a>
+        event as expression
+    </td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="ObjectsObjectDeclaration.html#ebnf.objectname">object name</a>,
+        '.',
+        <a href="LifecyclesEvents.html#ebnf.eventname">event name</a> |
+        <a href="LifecyclesEvents.html#ebnf.eventname">event name</a>,
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr></table></td></tr></table>
+<p>
+A compile-time error occurs if the event is not declared by an event
+declaration, as an event of either:
+</p>
+<div class="itemizedlist"><ul class="itemizedlist">
+<li class="listitem"><p>
+the object, in the enclosing domain, named by the object name, in the form
+<span class="type">object_name.event_name</span> or
+</p></li>
+<li class="listitem"><p>
+the enclosing object, in the form consisting of just an event name.
+</p></li>
+</ul></div>
+<p>
+</p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="ExpressionsFunctionInvocation"></a>14.4.8. Function Invocation</h3></div></div></div>
+<p>
+A <a class="link" href="ExpressionsPrimaryExpression.html#ebnf.functioninvocation">function invocation</a>
+<a class="indexterm" name="idp71416624"></a>
+as an
+expression is the evaluation of the invocation of the function. The type of the
+expression is given by the type of the return parameter.
+</p>
+<a class="indexterm" name="idp71418528"></a><a class="indexterm" name="idp71419696"></a><a class="indexterm" name="idp71420832"></a><a class="indexterm" name="idp71422016"></a><table width="100%" cellpadding="5" bgcolor="#F5DCB3" border="1" class="productionset" summary="EBNF"><tr><td><table border="0" width="99%" cellpadding="0" bgcolor="#F5DCB3" class="productionset" summary="EBNF productions"><tr>
+<td align="left" valign="top" width="3%">[199]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.functioninvocation"></a>
+        function invocation
+    </td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="ExpressionsPrimaryExpression.html#ebnf.domainfunctioninvocation">domain function invocation</a> |
+        <a href="ExpressionsPrimaryExpression.html#ebnf.objectfunctioninvocation">object function invocation</a> |
+        <a href="ExpressionsPrimaryExpression.html#ebnf.instancefunctioninvocation">instance function invocation</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr></table></td></tr></table>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="ExpressionsDomainFunctionInvocation"></a>14.4.9. Domain Function Invocation</h3></div></div></div>
+<p>
+A <a class="link" href="ExpressionsPrimaryExpression.html#ebnf.domainfunctioninvocation"><span class="emphasis"><em>domain function invocation</em></span></a>
+<a class="indexterm" name="idp71429952"></a>
+is used to invoked a domain function.
+<a class="indexterm" name="idp71432032"></a>
+</p>
+<a class="indexterm" name="idp71433536"></a><a class="indexterm" name="idp71434720"></a><a class="indexterm" name="idp71435904"></a><table width="100%" cellpadding="5" bgcolor="#F5DCB3" border="1" class="productionset" summary="EBNF"><tr><td><table border="0" width="99%" cellpadding="0" bgcolor="#F5DCB3" class="productionset" summary="EBNF productions"><tr>
+<td align="left" valign="top" width="3%">[200]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.domainfunctioninvocation"></a>
+        domain function invocation
+    </td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="DomainsDomainDeclaration.html#ebnf.domainname">domain name</a>,
+        '::',
+        <a href="FunctionsDomainFunctions.html#ebnf.functionname">function name</a>,
+        '(',
+        <a href="StatementsInvocationStatement.html#ebnf.argumentlist">argument list</a>,
+        ')',';' |
+        <a href="FunctionsDomainFunctions.html#ebnf.functionname">function name</a>,
+        '(',
+        <a href="StatementsInvocationStatement.html#ebnf.argumentlist">argument list</a>,
+        ')',';' 
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr></table></td></tr></table>
+<p>
+A compile-time errors occurs if either of the following is true:
+</p>
+<div class="itemizedlist"><ul class="itemizedlist">
+<li class="listitem">
+<p>
+The <a class="link" href="FunctionsDomainFunctions.html#FunctionsDomainFunctionSignatures" title="9.1.3. Function Signatures">signature</a> of the
+<a class="link" href="ExpressionsPrimaryExpression.html#ebnf.domainfunctioninvocation"><span class="emphasis"><em>domain function invocation</em></span></a>
+<a class="indexterm" name="idp71445632"></a>
+to be invoked, named by the function name together with the
+<a class="link" href="FunctionsDomainFunctions.html#FunctionsDomainFunctionFormalParameters" title="9.1.2. Formal Parameters">argument list</a>
+<a class="indexterm" name="idp71448208"></a>
+has not been declared, by a
+<a class="link" href="FunctionsDomainFunctions.html" title="9.1. Domain Functions">domain function declaration</a>,
+<a class="indexterm" name="idp71450320"></a>
+as a function of either:
+</p>
+<div class="itemizedlist"><ul class="itemizedlist">
+<li class="listitem"><p>
+The domain named by the domain name, in the form
+<span class="emphasis"><em>domain_name</em></span><code class="literal">::</code><span class="emphasis"><em>function_name</em></span>.
+</p></li>
+<li class="listitem"><p>
+The enclosing domain, in the form consisting of just a <span class="emphasis"><em>function name</em></span>.
+</p></li>
+</ul></div>
+<p>
+</p>
+</li>
+<li class="listitem"><p>
+The <a class="link" href="FunctionsDomainFunctions.html" title="9.1. Domain Functions">domain function declaration</a>
+<a class="indexterm" name="idp71457776"></a>
+is not accessible
+(see <a class="xref" href="ExpressionsPrimaryExpression.html#ExpressionsCompileTimeProcessingofFunctionCalls" title="14.4.12. Compile-Time Processing of Function Calls">Section 14.4.12, “Compile-Time Processing of Function Calls”</a>) to the
+invocation statement.
+</p></li>
+</ul></div>
+<p>
+A <a class="link" href="ExpressionsPrimaryExpression.html#ebnf.domainfunctioninvocation"><span class="emphasis"><em>domain function invocation</em></span></a>
+<a class="indexterm" name="idp71461488"></a>
+is executed by evaluating the argument expressions. If the evaluation of any
+argument expression completes abruptly, then the
+<a class="link" href="ExpressionsPrimaryExpression.html#ebnf.domainfunctioninvocation"><span class="emphasis"><em>domain function invocation</em></span></a>
+<a class="indexterm" name="idp71464272"></a>
+completes abruptly for the same reason. Otherwise, the
+<a class="link" href="ExpressionsPrimaryExpression.html#ebnf.domainfunctioninvocation"><span class="emphasis"><em>domain function invocation</em></span></a>
+<a class="indexterm" name="idp71466992"></a>
+is then executed. If this complete normally, the evaluation of the expression
+return parameter is performed.
+</p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="ExpressionsObjectFunctionInvocation"></a>14.4.10. Object Function Invocation</h3></div></div></div>
+<p>
+A <a class="link" href="ExpressionsPrimaryExpression.html#ebnf.objectfunctioninvocation"><span class="emphasis"><em>object function invocation</em></span></a>
+<a class="indexterm" name="idp71471424"></a>
+is used to invoked a domain function.
+<a class="indexterm" name="idp71473504"></a></p>
+<a class="indexterm" name="idp71474848"></a><a class="indexterm" name="idp71476048"></a><a class="indexterm" name="idp71477232"></a><a class="indexterm" name="idp71478416"></a><a class="indexterm" name="idp71479600"></a><table width="100%" cellpadding="5" bgcolor="#F5DCB3" border="1" class="productionset" summary="EBNF"><tr><td><table border="0" width="99%" cellpadding="0" bgcolor="#F5DCB3" class="productionset" summary="EBNF productions"><tr>
+<td align="left" valign="top" width="3%">[201]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.objectfunctioninvocation"></a>
+        object function invocation
+    </td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="ObjectsObjectDeclaration.html#ebnf.objectname">object name</a>,
+        '.',
+        <a href="FunctionsDomainFunctions.html#ebnf.functionname">function name</a>,
+        '(',
+        <a href="StatementsInvocationStatement.html#ebnf.argumentlist">argument list</a>,
+        ')',';' |
+        <a href="ExpressionsInstanceandInstanceCollectionExpressions.html#ebnf.instanceexpression">instance expression</a>,
+        '.',
+        <a href="FunctionsDomainFunctions.html#ebnf.functionname">function name</a>,
+        '(',
+        <a href="StatementsInvocationStatement.html#ebnf.argumentlist">argument list</a>,
+        ')',';' |
+        <a href="FunctionsDomainFunctions.html#ebnf.functionname">function name</a>,
+        '(',
+        <a href="StatementsInvocationStatement.html#ebnf.argumentlist">argument list</a>,
+        ')',';'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr></table></td></tr></table>
+<p>
+A compile-time errors occurs if either of the following is true:
+</p>
+<div class="itemizedlist"><ul class="itemizedlist">
+<li class="listitem">
+<p>
+The <a class="link" href="FunctionsObjectFunctions.html#FunctionsObjectFunctionSignatures" title="9.2.3. Function Signatures">signature</a> of the
+<a class="link" href="ExpressionsPrimaryExpression.html#ebnf.objectfunctioninvocation"><span class="emphasis"><em>object function invocation</em></span></a>
+<a class="indexterm" name="idp71491504"></a>
+to be invoked, named by the function name
+<a class="indexterm" name="idp71493264"></a>
+together with the
+<a class="link" href="FunctionsObjectFunctions.html#FunctionsObjectFunctionFormalParameters" title="9.2.2. Formal Parameters">argument list</a>
+<a class="indexterm" name="idp71495344"></a>
+has not been declared, by an
+<a class="link" href="FunctionsDomainFunctions.html" title="9.1. Domain Functions">object function declaration</a>,
+<a class="indexterm" name="idp71497456"></a>
+as a non-instance function of either:
+</p>
+<div class="itemizedlist"><ul class="itemizedlist">
+<li class="listitem"><p>
+The object, in the enclosing domain, named by the object name, in the form
+<span class="emphasis"><em>object_name</em></span><code class="literal">.</code><span class="emphasis"><em>function_name</em></span>.
+</p></li>
+<li class="listitem"><p>
+The object, given by the object of the
+<a class="link" href="TypesInstanceTypes.html" title="3.4. Instance Types">instance type</a>
+<a class="indexterm" name="idp71503072"></a>
+<a class="indexterm" name="idp71504416"></a>
+of the
+<a class="link" href="ExpressionsInstanceandInstanceCollectionExpressions.html" title="14.14. Instance and Instance Collection Expressions">instance expression</a>,
+<a class="indexterm" name="idp71506448"></a>
+<a class="indexterm" name="idp71507792"></a>
+in the form
+<span class="emphasis"><em>instance_expression</em></span><code class="literal">.</code><span class="emphasis"><em>function_name</em></span>.
+</p></li>
+<li class="listitem"><p>
+The enclosing object, in the form consisting of just a <span class="emphasis"><em>function name</em></span>.
+<a class="indexterm" name="idp71511552"></a>
+</p></li>
+</ul></div>
+<p>
+</p>
+</li>
+<li class="listitem"><p>
+The <a class="link" href="FunctionsObjectFunctions.html" title="9.2. Object Functions">object function declaration</a>
+<a class="indexterm" name="idp71515024"></a>
+is not accessible
+(see <a class="xref" href="ExpressionsPrimaryExpression.html#ExpressionsCompileTimeProcessingofFunctionCalls" title="14.4.12. Compile-Time Processing of Function Calls">Section 14.4.12, “Compile-Time Processing of Function Calls”</a>) to the
+invocation statement.
+</p></li>
+</ul></div>
+<p>
+A <a class="link" href="ExpressionsPrimaryExpression.html#ebnf.objectfunctioninvocation"><span class="emphasis"><em>object function invocation</em></span></a>
+is executed by evaluating the argument expressions.
+<a class="indexterm" name="idp71518704"></a>
+If the evaluation of any
+argument expression
+<a class="indexterm" name="idp71520016"></a>
+completes abruptly, then the
+<a class="link" href="ExpressionsPrimaryExpression.html#ebnf.objectfunctioninvocation"><span class="emphasis"><em>object function invocation</em></span></a>
+completes abruptly for the same reason. Note, that for an 
+<a class="link" href="ExpressionsPrimaryExpression.html#ebnf.objectfunctioninvocation"><span class="emphasis"><em>object function invocation</em></span></a>
+of the form
+<span class="emphasis"><em>instance_expression</em></span><code class="literal">.</code><span class="emphasis"><em>function_name</em></span>,
+the <a class="link" href="ExpressionsInstanceandInstanceCollectionExpressions.html" title="14.14. Instance and Instance Collection Expressions">instance expression</a>
+is not evaluated.
+If the argument expression
+<a class="indexterm" name="idp71524864"></a>
+complete normally, the
+<a class="link" href="FunctionsObjectFunctions.html#FunctionsObjectFunctionDefinition" title="9.2.6. Object Function Definition"><span class="emphasis"><em>object function definition</em></span></a>
+<a class="indexterm" name="idp71527104"></a>
+is then executed. If this complete normally, the evaluation of the expression
+return parameter is performed.
+</p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="ExpressionsInstanceFunctionInvocation"></a>14.4.11. Instance Function Invocation</h3></div></div></div>
+<p>
+An <a class="link" href="ExpressionsPrimaryExpression.html#ebnf.instancefunctioninvocation"><span class="emphasis"><em>instance function invocation</em></span></a>
+<a class="indexterm" name="idp71531536"></a>
+is used to invoke an object instance function.
+</p>
+<a class="indexterm" name="idp71533456"></a><a class="indexterm" name="idp71534656"></a><a class="indexterm" name="idp71535840"></a><a class="indexterm" name="idp71537024"></a><table width="100%" cellpadding="5" bgcolor="#F5DCB3" border="1" class="productionset" summary="EBNF"><tr><td><table border="0" width="99%" cellpadding="0" bgcolor="#F5DCB3" class="productionset" summary="EBNF productions"><tr>
+<td align="left" valign="top" width="3%">[202]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.instancefunctioninvocation"></a>
+        instance function invocation
+    </td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="ExpressionsInstanceandInstanceCollectionExpressions.html#ebnf.instanceexpression">instance expression</a>,
+        '.',
+        <a href="FunctionsDomainFunctions.html#ebnf.functionname">function name</a>,
+        '(',
+        <a href="StatementsInvocationStatement.html#ebnf.argumentlist">argument list</a>,
+        ')',';' |
+        <a href="FunctionsDomainFunctions.html#ebnf.functionname">function name</a>,
+        '(',
+        <a href="StatementsInvocationStatement.html#ebnf.argumentlist">argument list</a>,
+        ')',';'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr></table></td></tr></table>
+<p>
+A compile-time errors occurs if either of the following is true:
+</p>
+<div class="itemizedlist"><ul class="itemizedlist">
+<li class="listitem">
+<p>
+The <a class="link" href="FunctionsObjectFunctions.html#FunctionsObjectFunctionSignatures" title="9.2.3. Function Signatures">signature</a>
+<a class="indexterm" name="idp71546144"></a>
+of the
+<a class="link" href="ExpressionsPrimaryExpression.html#ebnf.instancefunctioninvocation"><span class="emphasis"><em>object instance function invocation</em></span></a>
+<a class="indexterm" name="idp71548720"></a>
+to be invoked, named by the function name together with the
+<a class="link" href="FunctionsObjectFunctions.html#FunctionsObjectFunctionFormalParameters" title="9.2.2. Formal Parameters">argument list</a>
+<a class="indexterm" name="idp71550960"></a>
+has not been declared, by an
+<a class="link" href="FunctionsDomainFunctions.html" title="9.1. Domain Functions">object function declaration</a>,
+<a class="indexterm" name="idp71552736"></a>
+as a instance function of either:
+</p>
+<div class="itemizedlist"><ul class="itemizedlist">
+<li class="listitem"><p>
+The object, given by the object of the
+<a class="link" href="TypesInstanceTypes.html" title="3.4. Instance Types">instance type</a> of the
+<a class="indexterm" name="idp71555904"></a>
+<a class="link" href="ExpressionsInstanceandInstanceCollectionExpressions.html" title="14.14. Instance and Instance Collection Expressions">instance expression</a>,
+<a class="indexterm" name="idp71557680"></a>
+<a class="indexterm" name="idp71558832"></a>
+in the form
+<span class="emphasis"><em>instance_expression</em></span><code class="literal">.</code><span class="emphasis"><em>function_name</em></span>.
+</p></li>
+<li class="listitem"><p>
+The enclosing object, in the form consisting of just a
+<span class="emphasis"><em>function name</em></span>.
+<a class="indexterm" name="idp71562112"></a>
+</p></li>
+</ul></div>
+<p>
+</p>
+</li>
+<li class="listitem"><p>
+The <a class="link" href="FunctionsObjectFunctions.html" title="9.2. Object Functions">object instance function declaration</a>
+<a class="indexterm" name="idp71565040"></a>
+is not accessible
+(see <a class="xref" href="ExpressionsPrimaryExpression.html#ExpressionsCompileTimeProcessingofFunctionCalls" title="14.4.12. Compile-Time Processing of Function Calls">Section 14.4.12, “Compile-Time Processing of Function Calls”</a>) to the
+invocation statement.
+</p></li>
+</ul></div>
+<p>
+A <a class="link" href="ExpressionsPrimaryExpression.html#ebnf.instancefunctioninvocation"><span class="emphasis"><em>object instance function invocation</em></span></a>
+<a class="indexterm" name="idp71568208"></a>
+is executed by evaluating either:
+</p>
+<div class="itemizedlist"><ul class="itemizedlist">
+<li class="listitem"><p>
+The <a class="link" href="ExpressionsInstanceandInstanceCollectionExpressions.html" title="14.14. Instance and Instance Collection Expressions">instance expression</a>
+<a class="indexterm" name="idp71571376"></a>
+<a class="indexterm" name="idp71572528"></a>
+in the form
+<span class="emphasis"><em>instance_expression</em></span><code class="literal">.</code><span class="emphasis"><em>function_name</em></span>.
+</p></li>
+<li class="listitem"><p>
+The reserved word <a class="link" href="ExpressionsPrimaryExpression.html#Expressionsthis" title="14.4.2. this"><code class="literal">this</code></a> in the form
+<a class="indexterm" name="idp71576096"></a>
+of just a <span class="emphasis"><em>function name</em></span>.
+<a class="indexterm" name="idp71577376"></a>
+</p></li>
+</ul></div>
+<p>
+The result of this evaluation is known as the target reference.
+If evaluation of either the
+<a class="link" href="ExpressionsInstanceandInstanceCollectionExpressions.html" title="14.14. Instance and Instance Collection Expressions">instance expression</a>
+<a class="indexterm" name="idp71579648"></a>
+<a class="indexterm" name="idp71580800"></a>
+or the reserved word
+<a class="link" href="ExpressionsPrimaryExpression.html#Expressionsthis" title="14.4.2. this"><code class="literal">this</code></a>
+<a class="indexterm" name="idp71582704"></a>
+completes abruptly
+or the evaluation results in the <code class="literal">null</code>
+<a class="indexterm" name="idp71583984"></a>
+instance, then the
+function call completes abruptly
+<a class="indexterm" name="idp71584880"></a>
+for the same reason. The argument expressions
+are then evaluated. If the evaluation of any argument expression completes
+abruptly, then the function call completes abruptly
+<a class="indexterm" name="idp71585840"></a>
+for the same reason.
+The
+<a class="link" href="FunctionsObjectFunctions.html#FunctionsObjectFunctionDefinition" title="9.2.6. Object Function Definition"><span class="emphasis"><em>object instance function definition</em></span></a>
+<a class="indexterm" name="idp71587360"></a>
+for the target reference is then executed. If this completes normally.
+<a class="indexterm" name="idp71588896"></a>
+The
+evaluation of the expression return parameter is then performed.
+</p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="ExpressionsCompileTimeProcessingofFunctionCalls"></a>14.4.12. Compile-Time Processing of Function Calls</h3></div></div></div>
+<p>
+Although the invocation of
+<a class="link" href="FunctionsDomainFunctions.html" title="9.1. Domain Functions">domain</a>,
+<a class="indexterm" name="idp71591760"></a>
+<a class="link" href="FunctionsObjectFunctions.html" title="9.2. Object Functions">object</a> and
+<a class="indexterm" name="idp71593920"></a>
+<a class="link" href="FunctionsObjectFunctions.html#FunctionsInstanceObjectFunctions" title="9.2.1.3. Instance Object Functions">instance</a> functions
+<a class="indexterm" name="idp71596080"></a>
+are
+split in the grammar, the three type of invocation are in may ways inseparable.
+This is because of the ambiguity between the three types, that is only
+resolved using the current scope of the
+<a class="link" href="ExpressionsPrimaryExpression.html#ExpressionsFunctionInvocation" title="14.4.8. Function Invocation">invocation statement</a>.
+<a class="indexterm" name="idp71598448"></a>
+Determining the function that will be invoked in a function call involves
+the following steps:
+</p>
+<div class="orderedlist"><ol class="orderedlist" type="1">
+<li class="listitem"><p>
+If the form is
+<span class="emphasis"><em>domain_name</em></span><code class="literal">::</code><span class="emphasis"><em>function_name</em></span>,
+then the function call is a
+<a class="link" href="ExpressionsPrimaryExpression.html#ExpressionsDomainFunctionInvocation" title="14.4.9. Domain Function Invocation">domain function invocation</a>.
+<a class="indexterm" name="idp71602608"></a>
+</p></li>
+<li class="listitem"><p>
+If the form is
+<span class="emphasis"><em>object_name</em></span><code class="literal">.</code><span class="emphasis"><em>function_name</em></span>,
+then the function call is a
+<a class="link" href="ExpressionsPrimaryExpression.html#ExpressionsObjectFunctionInvocation" title="14.4.10. Object Function Invocation">domain function invocation</a>.
+<a class="indexterm" name="idp71607088"></a>
+</p></li>
+<li class="listitem">
+<p>
+If the form is
+<span class="emphasis"><em>instance_expression</em></span><code class="literal">.</code><span class="emphasis"><em>function_name</em></span>,
+then:
+</p>
+<div class="itemizedlist"><ul class="itemizedlist">
+<li class="listitem"><p>
+If there is an instance function declared by the object, given by the object of
+the <a class="link" href="TypesInstanceTypes.html" title="3.4. Instance Types">instance type</a> of the
+<a class="link" href="ExpressionsInstanceandInstanceCollectionExpressions.html" title="14.14. Instance and Instance Collection Expressions">instance expression</a>,
+<a class="indexterm" name="idp71613472"></a>
+that is applicable and accessible, then the function call is a
+<a class="link" href="ExpressionsPrimaryExpression.html#ebnf.instancefunctioninvocation"><span class="emphasis"><em>instance function invocation</em></span></a>.
+<a class="indexterm" name="idp71615744"></a>
+</p></li>
+<li class="listitem"><p>
+Otherwise the function call is an
+<a class="link" href="ExpressionsPrimaryExpression.html#ebnf.objectfunctioninvocation"><span class="emphasis"><em>object function invocation</em></span></a>.
+<a class="indexterm" name="idp71619328"></a>
+</p></li>
+</ul></div>
+<p>
+</p>
+</li>
+<li class="listitem">
+<p>
+If the form consists of just a <span class="emphasis"><em>function name</em></span>, then:
+</p>
+<div class="itemizedlist"><ul class="itemizedlist">
+<li class="listitem"><p>
+If the function call is in an
+<a class="link" href="LifecyclesStates.html#LifecyclesInstanceStates" title="8.1.1.4. Instance States">instance state</a>
+<a class="indexterm" name="idp71624848"></a>
+or
+<a class="link" href="ServicesObjectServices.html#ServicesInstanceObjectServices" title="10.2.1.3. Instance Object Services">instance service</a>
+<a class="indexterm" name="idp71626928"></a>
+and there
+is an instance function declared by the enclosing object that is applicable
+and accessible, then the
+<a class="link" href="ExpressionsPrimaryExpression.html#ExpressionsFunctionInvocation" title="14.4.8. Function Invocation">function call</a>
+<a class="indexterm" name="idp71629104"></a>
+is an
+<a class="link" href="ExpressionsPrimaryExpression.html#ExpressionsInstanceFunctionInvocation" title="14.4.11. Instance Function Invocation">instance function invocation</a>.
+<a class="indexterm" name="idp71631648"></a>
+</p></li>
+<li class="listitem"><p>
+If the function call is in a state or an
+<a class="link" href="ServicesObjectServices.html" title="10.2. Object Services">object service</a>
+<a class="indexterm" name="idp71635088"></a>
+and there is a
+non-instance function declared by the enclosing object that is applicable
+and accessible, the the
+<a class="link" href="ExpressionsPrimaryExpression.html#ExpressionsFunctionInvocation" title="14.4.8. Function Invocation">function call</a> is an
+<a class="link" href="ExpressionsPrimaryExpression.html#ExpressionsObjectFunctionInvocation" title="14.4.10. Object Function Invocation">object function invocation</a>.
+<a class="indexterm" name="idp71638016"></a>
+</p></li>
+<li class="listitem"><p>
+The invocation statement is a
+<a class="link" href="ExpressionsPrimaryExpression.html#ExpressionsDomainFunctionInvocation" title="14.4.9. Domain Function Invocation">domain function invocation</a>.
+<a class="indexterm" name="idp71641472"></a>
+</p></li>
+</ul></div>
+<p>
+</p>
+</li>
+</ol></div>
+<p>
+A function declaration is applicable to a function call if and only if both of
+the following are true:
+</p>
+<div class="itemizedlist"><ul class="itemizedlist">
+<li class="listitem"><p>
+The number of parameters in the
+<a class="link" href="FunctionsObjectFunctions.html#FunctionsObjectFunctionDefinition" title="9.2.6. Object Function Definition">function declaration</a>
+<a class="indexterm" name="idp71646208"></a>
+is the same as the number of argument expressions in the
+<a class="link" href="ExpressionsPrimaryExpression.html#ExpressionsFunctionInvocation" title="14.4.8. Function Invocation">function invocation</a>.
+<a class="indexterm" name="idp71648336"></a>
+</p></li>
+<li class="listitem"><p>
+The type of each actual argument is assignable to the type of the corresponding
+parameter.
+</p></li>
+</ul></div>
+<p>
+Whether a
+<a class="link" href="FunctionsObjectFunctions.html#FunctionsObjectFunctionDefinition" title="9.2.6. Object Function Definition">function declaration</a>
+<a class="indexterm" name="idp71651872"></a>
+is accessible to a
+<a class="link" href="ExpressionsPrimaryExpression.html#ExpressionsFunctionInvocation" title="14.4.8. Function Invocation">function invocation</a>
+<a class="indexterm" name="idp71653952"></a>
+depends upon the access modifier (see
+<a class="xref" href="FunctionsDomainFunctions.html#FunctionsDomainFunctionModifiers" title="9.1.1. Domain Function Modifiers">Section 9.1.1, “Domain Function Modifiers”</a> and
+<a class="xref" href="FunctionsObjectFunctions.html#FunctionsObjectFunctionModifiers" title="9.2.1. Object Function Modifiers">Section 9.2.1, “Object Function Modifiers”</a>) in the function declaration
+in relation to the function call.
+</p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="ExpressionsParenthesisedExpressions"></a>14.4.13. Parenthesized Expressions</h3></div></div></div>
+<p>
+A parenthesized expression is a
+<a class="link" href="ExpressionsPrimaryExpression.html" title="14.4. Primary Expressions">primary expression</a>
+<a class="indexterm" name="idp71659056"></a>
+whose type is the type of the contained expression and whose value is the
+value of the contained expression.
+</p>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ExpressionsNormalandAbruptCompletionofEvaluation.html">Prev</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="Expressions.html">Up</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ExpressionsUnaryOperators.html">Next</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">14.3. Normal and Abrupt Completion of Evaluation </td>
+<td width="20%" align="center">
+<a accesskey="h" href="index.html">Home</a> | <a accesskey="t" href="bk01-toc.html">ToC</a>
+</td>
+<td width="40%" align="right" valign="top"> 14.5. Unary Operators</td>
+</tr>
+</table>
+</div>
+<div align="center">OFFICIAL</div>
+</body>
+</html>

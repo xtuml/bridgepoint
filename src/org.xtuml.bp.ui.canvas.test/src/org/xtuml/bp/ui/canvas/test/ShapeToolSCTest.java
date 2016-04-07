@@ -22,6 +22,8 @@
 //
 package org.xtuml.bp.ui.canvas.test;
 
+import org.junit.runner.RunWith;
+import org.xtuml.bp.test.common.OrderedRunner;
 
 /**
  * Performs automated testing of the more interesting transitions between states
@@ -30,6 +32,7 @@ package org.xtuml.bp.ui.canvas.test;
  * Note that the tests contained herein are meant to be run sequentially in the order of their
  * declaration, each one using as its initial state the final state of the previous test. 
  */
+@RunWith(OrderedRunner.class)
 public class ShapeToolSCTest extends StatechartTest
 {
 //	/**
@@ -57,9 +60,9 @@ public class ShapeToolSCTest extends StatechartTest
 	/**
 	 * Constructor
 	 */
-	public ShapeToolSCTest(String arg0)
+	public ShapeToolSCTest()
 	{
-		super(arg0);
+		super();
 	}
 //
 //	/**

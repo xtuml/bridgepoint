@@ -1,0 +1,532 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+  UK Crown Copyright (c) 2016. All Rights Reserved
+-->
+<chapter xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook" version="5.0" xml:id="section.Objects">
+  <title>Objects</title>
+  <para>
+    Objects are entities such that all the instances of the entities have the same characteristics and are subject to and conform 
+    to the same set of rules and policies.
+  </para>
+  <para>
+    Typically, an object contains declarations of the attributes that instances of the object contain, the declarations of 
+    services provided by the object and a description of the lifecycle of an instance of the object, if any.
+  </para>
+  <section xml:id="section.Objects.Declaration">
+    <title>Object Declaration</title>
+    <para>
+      An object declaration declares a new object. The declaration specifies the name of the object only, to enable the object to 
+      be used in relationship and type definitions before it has been fully defined in an 
+      <link linkend="section.Objects.Definition">object definition</link>. 
+    </para>
+    <para>
+      A compile-time errors occurs if the name of the object is already in use within the current domain scope.
+    </para>
+    <productionset>
+      <xi:include href="syntax.xml" xpointer="ebnf.objectDeclaration"/>
+      <xi:include href="syntax.xml" xpointer="ebnf.objectName"/>
+    </productionset>
+  </section>
+  <section xml:id="section.Objects.Definition">
+    <title>Object Definition</title>
+    <para>
+      An object definition defines an object that has previously been declared. The definition specifies the name of the object 
+      together with the declarations and definitions of its members, that is, attribute definitions, identifier definitions, 
+      service declarations, function declarations, event declarations, state declarations, and lifecycle definitions. 
+    </para>
+    <para>
+      A compile-time error occurs if the name of the object has not already been declared as an object within the current domain 
+      scope by means of an <link linkend="section.Objects.Declaration">object declaration</link>. 
+    </para>
+    <productionset>
+      <xi:include href="syntax.xml" xpointer="ebnf.objectDefinition"/>
+      <productionrecap linkend="ebnf.objectName"/>
+      <xi:include href="syntax.xml" xpointer="ebnf.objectMember"/>
+    </productionset>
+  </section>
+  <section xml:id="section.Objects.Attributes">
+    <title>Object Attributes</title>
+    <para>
+      Object attributes are used to store the internal state of an object. The type of an attribute is used to determine the 
+      values that the attribute can hold. An attribute's type may not be
+      <link linkend="section.Types.Convertible">convertible</link> to an 
+      <link linkend="section.Types.Instance">instance type</link>, or be a structure or collection 
+      containing an <link linkend="section.Types.Instance">instance type</link>
+    </para>
+    <para>
+      A compile-time errors occurs if the name of the attribute is already in use within the current object scope.
+    </para>
+    <productionset>
+      <xi:include href="syntax.xml" xpointer="ebnf.attributeDefinition"/>
+      <xi:include href="syntax.xml" xpointer="ebnf.attributeName"/>
+      <xi:include href="syntax.xml" xpointer="ebnf.attributeType"/>
+    </productionset>
+    <section xml:id="section.Objects.Attributes.Preferred">
+      <title>Preferred Attribute</title>
+      <para> An attribute should be marked as <code>preferred</code> if it forms part of the
+        preferred <link linkend="section.Objects.Identifiers">identifier</link> for the object. Note
+        that the preferred identifier is not specified explicity using an identifier definition, but
+        is formed implicitly from the attributes marked as preferred. As an object must have a
+        preferred identifier, at least one attribute of each object must be marked as
+          <code>preferred</code>. </para>
+    </section>
+    <section xml:id="section.Objects.Attributes.Unique">
+      <title>Unique Attribute</title>
+      <para> An attribute should be marked as <code>unique</code> if the actual value of the
+        attribute is unimportant, but required to be unique within all instances of the current
+        object. This is typically the case when an object has no natural combination of attributes
+        to form an identifier, and an artificial identifier must be created. The type of a preferred
+        identifier attribute must be <link linkend="section.Types.Convertible">convertible</link> to
+        an <link linkend="section.Types.Integer">integer</link>. </para>
+    </section>
+    <section xml:id="section.Objects.Attributes.DefaultValue">
+      <title>Default Value</title>
+      <para> If a default value is specified, then the expression is evaluated and assigned to the
+        attribute each time an instance of the object is created using an <link linkend="section.Expressions.InstanceCreation">instance creation
+          expression</link>, and an explicit value is not supplied for the attribute. The expression
+        must be valid within the scope of the current object. </para>
+      <para>
+        A compile time error occurs if the default value is not <link linkend="section.Types.Assignable">assignable</link> to
+        the attribute. 
+      </para>
+      <productionset>
+        <xi:include href="syntax.xml" xpointer="ebnf.attributeDefaultValue"/>
+      </productionset>
+    </section>
+    <section xml:id="section.Objects.Attributes.Referential">
+      <title>Referential Attributes</title>
+      <para>
+        A <link linkend="section.Relationships">relationship</link> between two or more objects must be formalized using 
+        referential attributes. The object or objects that formalize the relationship must specify referential attributes for 
+        each of the <link linkend="section.Objects.Identifiers">identifier attributes</link> of one identifier of the other 
+        objects participating in the relationship. Each attribute may specify <link linkend="ebnf.attReferentials"> multiple 
+        referentials</link>, which indicates that the matching identifier attributes must all have the same value for the 
+        relationship to be valid. Each <link linkend="ebnf.attReferentials">referential</link> must specify which relationship it 
+        refers to, along with the name of the identifier attribute that it formalizes. Further details on formalizing 
+        relationships may be found in <xref linkend="section.Relationships.Formalism"/>. 
+      </para>
+      <para>
+        The value of a referential attribute is automatically set when the first relationship which it formalizes is formed, or 
+        on instance creation if it is also an identifier. A non-identifier attribute has an undefined value if it is not involved 
+        in formalizing any relationships. An attempt to read an undefined value will result in an exception being raised. Once 
+        the attribute has a defined value, any further relationships formed with the instance must cause the attribute to have 
+        the same value. The value may not be set manually, other than during instance creation for an identifier attribute. 
+      </para>
+      <productionset>
+        <xi:include href="syntax.xml" xpointer="ebnf.attReferentials"/>
+        <xi:include href="syntax.xml" xpointer="ebnf.attReferential"/>
+      </productionset>
+    </section>
+  </section>
+  <section xml:id="section.Objects.Identifiers">
+    <title>Object Identifiers</title>
+    <para>
+      An identifier defines the set of attributes which uniquely identify an instance. All identifier attributes must be set when 
+      the instance is created, and may not be changed after that point. Identifiers are used in the 
+      <link linkend="section.Relationships.Formalism">formalizing</link> of
+      <link linkend="section.Relationships">relationships</link> to set the value of any 
+      <link linkend="section.Objects.Attributes.Referential">referential attributes</link> which refer to 
+      them.
+    </para>
+    <productionset>
+      <xi:include href="syntax.xml" xpointer="ebnf.identifierDefinition"/>
+    </productionset>
+    <section xml:id="section.Objects.PreferredIdentifier">
+      <title>Preferred Identifier</title>
+      <para>
+        Every object must have exactly one preferred identifier, which is specified by marking the participating 
+        <link linkend="section.Objects.Attributes">attributes</link> as 
+        <link linkend="section.Objects.Attributes.Preferred">preferred</link>. No special status is attached to the preferred 
+        identifier, other than denoting that it is the identifier which will most usually be used to refer to the object. In 
+        addition if an <link linkend="section.Expressions.OrderingExpression">ordering expression</link> is used to sort a 
+        collection of instances, but no attributes are supplied to denote the order, then the preferred identifier will be used 
+        in the order the attributes are defined on the object. 
+      </para>
+    </section>
+  </section>
+  <section xml:id="section.Objects.Services">
+    <title>Object Services and Functions</title>
+    <para>
+      Object services and functions define the interface to an object, and may be instance or non-instance based. Further details 
+      on services and functions in general can be found in <xref linkend="section.Services"/>, so this section will just 
+      highlight where object services differ. 
+    </para>
+    <section xml:id="section.Objects.Services.Declaration">
+      <title>Object Service Declaration</title>
+      <para>
+        Object services and functions are declared within an object definition. In addition to the standard service and function 
+        declaration information detailed in <xref linkend="section.Services.Declaration"/> an object service or function 
+        declaration also specifies whether it is <link linkend="section.Objects.Services.Instance">instance based</link> or
+        <link linkend="section.Objects.Services.Deferred">deferred</link>. An object may overload service declarations with the 
+        same name based on parameter types as with the general case, but must not declare both instance and object based services 
+        with the same name. 
+      </para>
+      <productionset>
+        <xi:include href="syntax.xml" xpointer="ebnf.objectServiceDeclaration"/>
+        <xi:include href="syntax.xml" xpointer="ebnf.objectFunctionDeclaration"/>
+        <xi:include href="syntax.xml" xpointer="ebnf.serviceType"/>
+        <productionrecap linkend="ebnf.serviceVisibility"/>
+        <productionrecap linkend="ebnf.serviceName"/>
+        <productionrecap linkend="ebnf.parameterList"/>
+        <productionrecap linkend="ebnf.parameterDefinition"/>
+        <productionrecap linkend="ebnf.parameterName"/>
+        <productionrecap linkend="ebnf.parameterMode"/>
+        <productionrecap linkend="ebnf.parameterType"/>
+        <productionrecap linkend="ebnf.returnType"/>
+      </productionset>
+    </section>
+    <section xml:id="section.Objects.Services.Instance">
+      <title>Instance Based Services and Functions</title>
+      <para>
+        Object Services and functions may be instance or non-instance based. Instance based services act upon a given instance of 
+        the object, whereas non-instance based services act at the level of the of the instance population as a whole. To declare 
+        a service or function as instance based, the <code>instance</code> qualifier must be used in the declaration. 
+      </para>
+      <section xml:id="section.Objects.Services.Deferred">
+        <title>Instance Service Deferral</title>
+        <para>
+          An instance based service or function which is declared with the <code>deferred</code> modifier is called a deferred 
+          service. Deferred services do not have a definition themselves, but defer the definition to another object further down 
+          a subtype hierarchy. The relationship sepcified in the deferal declaration must be a subtype relationship, with the 
+          current object as the supertype. All subtypes of that relationship must also declare a service or function with exactly 
+          the same signature as the deferred service. Those subtypes may in turn defer definition to their own subtypes. 
+        </para>
+        <para>
+          When a deferred service or function is invoked, the instance's currently active subtype is examined. That subtype then 
+          becomes the current instance, and the equivalent service is invoked. 
+        </para>
+      </section>
+    </section>
+    <section xml:id="section.Objects.Services.Definition">
+      <title>Object Service Action Defintion</title>
+      <para>
+        An object service or function definition defines the action to be performed when the service or function is called. In 
+        addition to the standard action definition features detailed in <xref linkend="section.Services.Definition"/>, object 
+        based services work within the scope of their enclosing object, so all object services, functions, and events may be 
+        referred to by name without being qualified by the object name. Note that any parameters or local variables with 
+        identical names will hide these object level names. Instance services and functions allow reference to attributes, 
+        services and functions of the current instance by name, and introduce the name <code>this</code> which may be used to 
+        refer to the current instance explicity. 
+      </para>
+      <productionset>
+        <xi:include href="syntax.xml" xpointer="ebnf.objectServiceDefinition"/>
+        <xi:include href="syntax.xml" xpointer="ebnf.objectFunctionDefinition"/>
+        <productionrecap linkend="ebnf.domainName"/>
+        <productionrecap linkend="ebnf.objectName"/>
+        <productionrecap linkend="ebnf.serviceName"/>
+        <productionrecap linkend="ebnf.codeBlock"/>
+      </productionset>
+    </section>
+  </section>
+  <section xml:id="section.Objects.Lifecycles">
+    <title>Object Lifecycles</title>
+    <para>
+      An object may be either passive or active. Active objects have a lifecycle that is modelled using
+      <link linkend="section.Objects.States">states</link> and <link linkend="section.Objects.Events">events</link>. A 
+      state represents a stage within the lifecycle, and has an action associated with it that is carried out upon entry to the 
+      state. An event causes and instance or assigner to change from one state to another, and can carry data to the state 
+      action. The state that is entered on receipt of a particular event is defined in the
+      <link linkend="section.Objects.TransitionTable">state transition table</link>. 
+    </para>
+    <para>
+      Any object may define an instance lifecycle. In this case every instance of the object has a lifecycle.
+    </para>
+    <para>
+      Associative objects may also have an assigner lifecycle. Assigner lifecycles provide a single point of control through 
+      which competing requests are serialized. They are used to manage the associations formed by relationship that the 
+      associative object formalizes. Because of this, there is only one copy of an assigner lifecycle for all instances of an 
+      object. 
+    </para>
+    <section xml:id="section.Objects.States">
+      <title>States</title>
+      <para>
+        A state represents a stage in an instance or assigner lifecycle. Further details on services, functions and state actions 
+        in general can be found in <xref linkend="section.Services"/>, so this section will just highlight where state actions 
+        differ from the general case. 
+      </para>
+      <section xml:id="section.Objects.States.Declaration">
+        <title>State Declaration</title>
+        <para>
+          A state declaration declares a state in the lifecycle of an object instance or assigner object. It specifies the type 
+          and name of the state, and any parameters which must be passed to the state action by any events which the
+          <link linkend="section.Objects.TransitionTable">state transition table</link> shows as causing the state to be entered. 
+          As states are always entered asynchronously, they must not declare parameters with a mode of <code>out</code>. 
+        </para>
+        <productionset>
+          <xi:include href="syntax.xml" xpointer="ebnf.stateDeclaration"/>
+          <productionrecap linkend="ebnf.stateName"/>
+          <productionrecap linkend="ebnf.stateType"/>
+          <productionrecap linkend="ebnf.parameterList"/>
+          <productionrecap linkend="ebnf.parameterDefinition"/>
+          <productionrecap linkend="ebnf.parameterMode"/>
+          <productionrecap linkend="ebnf.parameterName"/>
+          <productionrecap linkend="ebnf.parameterType"/>
+        </productionset>
+        <section xml:id="section.Objects.States.Creation">
+          <title>Creation States</title>
+          <para>
+            A state that is declared as <code>creation</code> is entered when a creation event is sent to an object. It does not 
+            have an associated instance, but would typically result in an instance of the object being created with its current 
+            state set to the creation state. 
+          </para>
+          <caution>
+            <title>Deprecated</title>
+            <para>
+              Use of creation states is deprecated, and they are likely to be removed in a future version of the language. 
+              Synchronous creation of instances should be preferred. 
+            </para>
+          </caution>
+        </section>
+        <section xml:id="section.Objects.States.Instance">
+          <title>Instance States</title>
+          <para>
+            A state that is declared without a state type is an instance state. An instance state is always entered with respect to 
+            a particular instance, which becomes the instance to which the name <code>this</code> refers within the
+            <link linkend="section.Objects.States.Definition">state definition</link>. 
+          </para>
+        </section>
+        <section xml:id="section.Objects.States.Terminal">
+          <title>Terminal States</title>
+          <para>
+            A state that is declared as <code>terminal</code> is an instance state which represents a state in which an instance 
+            will be deleted. A terminal state is always entered with respect to a particular instance, which becomes the instance 
+            to which the name <code>this</code> refers within the
+            <link linkend="section.Objects.States.Definition">state definition</link>.
+          </para>
+        </section>
+        <section xml:id="section.Objects.States.AssignerStart">
+          <title>Assigner Start States</title>
+          <para>
+            A state that is declared as <code>assigner start</code> is an an assigner state which represents the state in which an 
+            assigner lifecycle begins. Exactly one state of an assigner lifecycle must be declared as a start state. Once the 
+            lifecycle is active, the start state acts exactly as any other assigner state. 
+          </para>
+        </section>
+        <section xml:id="section.Objects.States.Assigner">
+          <title>Assigner States</title>
+          <para>
+            A state that is declared as <code>assigner</code> is an an assigner state which represents any state of an 
+            assigner lifecycle other than the start state.
+          </para>
+        </section>
+      </section>
+      <section xml:id="section.Objects.States.Definition">
+        <title>State Action Defintion</title>
+        <para>
+          A state definition defines a state action to be performed upon entry to the state. In addition to the standard action 
+          definition features detailed in <xref linkend="section.Services.Definition"/>, state actions work within the scope of 
+          their enclosing object, so all object services, functions, and events may be referred to by name without being 
+          qualified by the object name. Note that any parameters or local variables with identical names will hide these object 
+          level names. Instance state actions allow reference to attributes, services and functions of the current instance by 
+          name, and introduce the name <code>this</code> which may be used to refer to the current instance explicity. At the end 
+          of the state action, the lifecycle of the instance or assigner is defined to be in the relevant 
+          state. 
+        </para>
+        <productionset>
+          <xi:include href="syntax.xml" xpointer="ebnf.stateDefinition"/>
+          <productionrecap linkend="ebnf.domainName"/>
+          <productionrecap linkend="ebnf.objectName"/>
+          <productionrecap linkend="ebnf.stateName"/>
+          <productionrecap linkend="ebnf.stateType"/>
+          <productionrecap linkend="ebnf.codeBlock"/>
+        </productionset>
+      </section>
+    </section>
+    <section xml:id="section.Objects.Events">
+      <title>Events</title>
+      <para>
+        An event signals to an instance or assigner that its lifecyle should move from one state to another. An event can carry 
+        data to the destination state for its state action to act upon. The
+        <link linkend="section.Objects.TransitionTable">state transition table</link> shows which state the lifecyle should move 
+        into depending on which state it is already in. An event is generated to an instance or assigner by an action by means of 
+        an <link linkend="section.Statements.EventGeneration">event generation</link> statement. 
+      </para>
+      <productionset>
+        <xi:include href="syntax.xml" xpointer="ebnf.eventDefinition"/>
+        <xi:include href="syntax.xml" xpointer="ebnf.eventName"/>
+        <xi:include href="syntax.xml" xpointer="ebnf.eventType"/>
+        <productionrecap linkend="ebnf.parameterList"/>
+        <productionrecap linkend="ebnf.parameterDefinition"/>
+      </productionset>
+      <section xml:id="section.Objects.Events.Creation">
+        <title>Creation Events</title>
+        <para>
+          An event that is defined as an <code>creation</code> event is always generated without reference to a particular 
+          instance, and causes a creation state to be entered. 
+        </para>
+        <caution>
+          <title>Deprecated</title>
+          <para>
+          Use of creation events is deprecated, and they are likely to be removed in a future version of the language. 
+          Synchronous creation of instances should be preferred. 
+        </para>
+        </caution>
+      </section>
+      <section xml:id="section.Objects.Events.Instance">
+        <title>Instance Events</title>
+        <para>
+          An event that is defined without an event type is an instance event. An instance event is always generated with respect to 
+          a particular instance, and is destined for the lifecyle of that instance. 
+        </para>
+      </section>
+      <section xml:id="section.Objects.Events.Polymorphic">
+        <title>Polymorphic Events</title>
+        <para>
+          Any instance events that are defined on a <link linkend="section.Relationships.Supertype">supertype object</link> are 
+          inherited by all subtypes. Once the state action (if any) for the supertype has completed, the event is passed on to 
+          any subtypes. Polymorphic events are not defined on the subtype, but referenced in the subtype's state transition table 
+          by prefixing them with the supertype object name. 
+        </para>
+      </section>
+      <section xml:id="section.Objects.Events.Assigner">
+        <title>Assigner Events</title>
+        <para>
+          An event that is defined as an <code>assigner</code> event is always generated without reference to a particular 
+          instance, and is destined for the assigner lifecyle of the containing object. 
+        </para>
+      </section>
+    </section>
+    <section xml:id="section.Objects.TransitionTable">
+      <title>State Transition Table</title>
+      <para>
+        A state transition table defines the transitions in the lifecycle of an instance or assigner object. Given any starting 
+        state, it specifies whether a particular event is valid for a lifecycle in that state, and if so whether the event should 
+        cause transition to another state or be ignored.
+      </para>
+      <para>
+        The following conditions must be met for any object:
+      </para>
+      <para>
+        <itemizedlist>
+          <listitem>
+            <simpara>
+              If any creation, instance or terminal states are declared, the object must define exactly one instance state 
+              transition table. 
+            </simpara>
+          </listitem>
+          <listitem>
+            <simpara>
+              If any assigner or assigner start states are declared, the object must define exactly one assigner state 
+              transition table. 
+            </simpara>
+          </listitem>
+        </itemizedlist>
+      </para>
+      <para>
+        The following conditions must be met in any instance state transition table:
+      </para>
+      <para>
+        <itemizedlist>
+          <listitem>
+            <simpara>
+              Every instance, creation or terminal state declared by the object must occur as a
+              <nonterminal def="#ebnf.startState"/> in exactly one row of the instance state transition table. 
+            </simpara>
+          </listitem>
+          <listitem>
+            <simpara>
+              Assigner or assigner start states must not occur as a <nonterminal def="#ebnf.startState"/>. 
+            </simpara>
+          </listitem>
+          <listitem>
+            <simpara>
+              Exactly one row must have a <nonterminal def="#ebnf.startState"/> of <code>Non_Existent</code>.
+            </simpara>
+          </listitem>
+          <listitem>
+            <simpara>
+              Every row must contain a <nonterminal def="#ebnf.transitionOption"/> for each instance or creation event defined in 
+              the enclosing object.
+            </simpara>
+          </listitem>
+          <listitem>
+            <simpara>
+              Every row must contain a <nonterminal def="#ebnf.transitionOption"/> for each polymorphic event defined in 
+              every supertype of the enclosing object.
+            </simpara>
+          </listitem>
+          <listitem>
+            <simpara>
+              For the <code>Non_Existent</code> <nonterminal def="#ebnf.startState"/>, all transition options for instance or 
+              terminal events must be marked as <code>Cannot_Happen</code> 
+            </simpara>
+          </listitem>
+          <listitem>
+            <simpara>
+              For the <code>Non_Existent</code> <nonterminal def="#ebnf.startState"/>, all transition options for creation events 
+              must result in a creation state. 
+            </simpara>
+          </listitem>
+          <listitem>
+            <simpara>
+              All transitions from creation, instance or terminal <nonterminal def="#ebnf.startState"/>s for creation events must 
+              be marked as <code>Cannot_Happen</code> 
+            </simpara>
+          </listitem>
+          <listitem>
+            <simpara>
+              All transitions from creation, instance or terminal <nonterminal def="#ebnf.startState"/>s for instance or 
+              polymorphic events must not result in a creation state. 
+            </simpara>
+          </listitem>
+          <listitem>
+            <simpara>
+              All transitions from a terminal <nonterminal def="#ebnf.startState"/> must be marked as <code>Ignore</code> or 
+              <code>Cannot_Happen</code>.
+            </simpara>
+          </listitem>
+          <listitem>
+            <simpara>
+              Each <nonterminal def="#ebnf.incomingEvent"/> with parameter types that do not match exactly the parameter types of 
+              the <nonterminal def="#ebnf.endState"/> must be marked as <code>Ignore</code> or <code>Cannot_Happen</code>. 
+            </simpara>
+          </listitem>
+        </itemizedlist>
+      </para>
+      <para>
+        The following conditions must be met in any assigner state transition table:
+      </para>
+      <para>
+        <itemizedlist>
+          <listitem>
+            <simpara>
+              Every assigner or assigner start state declared by the enclosing object must occur as a
+              <nonterminal def="#ebnf.startState"/> in exactly one row of the assigner transition table. 
+            </simpara>
+          </listitem>
+          <listitem>
+            <simpara>
+              Instance, creation or terminal states must not occur as a <nonterminal def="#ebnf.startState"/>. 
+            </simpara>
+          </listitem>
+          <listitem>
+            <simpara>
+              All rows must not have a <nonterminal def="#ebnf.startState"/> of <code>Non_Existent</code>.
+            </simpara>
+          </listitem>
+          <listitem>
+            <simpara>
+              All rows must contain exactly one <nonterminal def="#ebnf.transitionOption"/> for each assigner event defined in the 
+              enclosing object. 
+            </simpara>
+          </listitem>
+          <listitem>
+            <simpara>
+              Each <nonterminal def="#ebnf.incomingEvent"/> with parameter types that do not match exactly the
+              <nonterminal def="#ebnf.endState"/> parameter types must be marked as <code>Ignore</code> or 
+              <code>Cannot_Happen</code>. 
+            </simpara>
+          </listitem>
+        </itemizedlist>
+      </para>
+      <productionset>
+        <xi:include href="syntax.xml" xpointer="ebnf.transitionTable"/>
+        <xi:include href="syntax.xml" xpointer="ebnf.transitionRow"/>
+        <xi:include href="syntax.xml" xpointer="ebnf.transitionOption"/>
+        <xi:include href="syntax.xml" xpointer="ebnf.incomingEvent"/>
+        <xi:include href="syntax.xml" xpointer="ebnf.startState"/>
+        <xi:include href="syntax.xml" xpointer="ebnf.endState"/>
+      </productionset>
+    </section>
+  </section>
+</chapter>

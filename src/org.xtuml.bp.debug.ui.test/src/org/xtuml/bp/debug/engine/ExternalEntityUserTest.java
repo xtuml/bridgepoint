@@ -2,9 +2,11 @@ package org.xtuml.bp.debug.engine;
 
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.runtime.CoreException;
-
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.debug.test.VerifierTest;
 import org.xtuml.bp.test.TestUtil;
+import org.xtuml.bp.test.common.OrderedRunner;
 
 //========================================================================
 //
@@ -28,12 +30,14 @@ import org.xtuml.bp.test.TestUtil;
 // the License.
 //========================================================================
 
+@RunWith(OrderedRunner.class)
 public class ExternalEntityUserTest extends VerifierTest {
 
 	public ExternalEntityUserTest() {
 		super("EE_Test");
 	}
 
+	@Test
 	public void testUserEE() throws InterruptedException {
 		IFolder binFolder = project.getFolder("bin");
 		IFolder libFolder = null;
@@ -80,6 +84,7 @@ public class ExternalEntityUserTest extends VerifierTest {
 		}
 	}
 	
+	@Test
 	public void testOutput(){
 		compareOutput("User_EE_test");
 	}

@@ -1,0 +1,216 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>6.4. States and Events</title>
+<link rel="stylesheet" type="text/css" href="docbook.css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<meta name="keywords" content="MASL, Action Language, Action Semantics, UML, Unified Modelling Language, Shlaer Mellor">
+<link rel="home" href="index.html" title="MASL Tutorial">
+<link rel="up" href="Actions.html" title="Chapter 6. Actions">
+<link rel="prev" href="ActionsPolymorphicServices.html" title="6.3. Polymorphic Services">
+<link rel="next" href="DeviceIO.html" title="Chapter 7. Device Input/Output">
+<link rel="preface" href="preface.html" title="Preface">
+<link rel="chapter" href="Types.html" title="Chapter 1. Types">
+<link rel="chapter" href="ExecutionControl.html" title="Chapter 2. Execution Control">
+<link rel="chapter" href="CompositeTypes.html" title="Chapter 3. Composite Types">
+<link rel="chapter" href="Exceptions.html" title="Chapter 4. Exceptions">
+<link rel="chapter" href="ObjectsandRelationships.html" title="Chapter 5. Objects and Relationships">
+<link rel="chapter" href="Actions.html" title="Chapter 6. Actions">
+<link rel="chapter" href="DeviceIO.html" title="Chapter 7. Device Input/Output">
+<link rel="chapter" href="MASLExamples.html" title="Chapter 8. MASL Examples">
+<link rel="index" href="ix01.html" title="Index">
+<link rel="subsection" href="ActionsStatesandEvents.html#ActionsPolymorphicEvents" title="6.4.1. Polymorphic Events">
+<link rel="subsection" href="ActionsStatesandEvents.html#ActionsCreationEvents" title="6.4.2. Creation Events">
+<link rel="subsection" href="ActionsStatesandEvents.html#ActionsAssignerEvents" title="6.4.3. Assigner Events">
+<link rel="subsection" href="ActionsStatesandEvents.html#ActionsTerminalStates" title="6.4.4. Terminal States">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div align="center">UNCLASSIFIED</div>
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">6.4. States and Events</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ActionsPolymorphicServices.html">Prev</a> </td>
+<th width="60%" align="center">Chapter 6. Actions</th>
+<td width="20%" align="right"> <a accesskey="n" href="DeviceIO.html">Next</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title">
+<a name="ActionsStatesandEvents"></a>6.4. States and Events</h2></div></div></div>
+<div class="toc"><dl class="toc">
+<dt><span class="section"><a href="ActionsStatesandEvents.html#ActionsPolymorphicEvents">6.4.1. Polymorphic Events</a></span></dt>
+<dt><span class="section"><a href="ActionsStatesandEvents.html#ActionsCreationEvents">6.4.2. Creation Events</a></span></dt>
+<dt><span class="section"><a href="ActionsStatesandEvents.html#ActionsAssignerEvents">6.4.3. Assigner Events</a></span></dt>
+<dt><span class="section"><a href="ActionsStatesandEvents.html#ActionsTerminalStates">6.4.4. Terminal States</a></span></dt>
+</dl></div>
+<p>States are actions that are associated with the life cycle of either
+    a specific instance or an assigner. Again, like all actions, the exact
+    form of a state definition is unimportant as it is automatically generated
+    from the case tool. The code that is placed in the definition looks
+    exactly like a block as described above.</p>
+<div class="figure">
+<a name="ActionsLifecycleofanAircraft"></a><div class="figure-title">Figure 6.1. Life cycle of an Aircraft</div>
+<div class="figure-contents"><div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;"><tr><td align="center" valign="middle"><img src="images/aircraftlifecycle.svg" align="middle"></td></tr></table></div></div>
+</div>
+<p><br class="figure-break">Given the lifecycle shown in <a class="xref" href="ActionsStatesandEvents.html#ActionsLifecycleofanAircraft" title="Figure 6.1. Life cycle of an Aircraft">Figure 6.1, “Life cycle of an Aircraft”</a> the state definition of the
+    parked state might look something like:</p>
+<div class="informalexample"><pre class="programlisting">  state Air_Management::Aircraft.parked(airport_name : in string, gate_number : in integer) is
+    gate : instance of Airport_Gate;
+  begin
+    speed := 0;
+    gate := find_only Airport_Gate(airport_name = airport_name and
+    number = gate_number);
+    link this R15 gate;
+  end state;</pre></div>
+<p>Like instance services, inside the body of the state, all of the
+    attributes of the instance are available as if declared as variables. The
+    same rules about assignment of values to preferred and referential
+    attributes apply. Again, the reserved word <code class="literal">this</code> denotes
+    the instance that has moved into the state. Unlike services, states cannot
+    be invoked directly. Instead we generate events to specific instances to
+    move the instance to a new state. So we might write:</p>
+<div class="informalexample"><pre class="programlisting">  aircraft_instance : instance of Aircraft;
+  …
+  generate Aircraft.land("Heathrow", 5) to aircraft_instance;</pre></div>
+<p>If the specific instance was currently flying then this event would
+    cause it to move into the parked state and the action associated with this
+    state would be invoked. Note that this invocation is asynchronous. The
+    number and types of the parameters of an event that causes an instance to
+    move into a particular state must match the number and types of the
+    parameters of that state.</p>
+<p>The values of the arguments in a <code class="literal">generate</code>
+    statement are evaluated, at the time of the generate, and assigned to the
+    matching parameters of the state when it is actioned. Because, the
+    <code class="literal">generate</code> and the corresponding actioning of the state
+    is asynchronous only input parameters on events and hence states are
+    allowed. If we wanted to generate an event from an action defined by the
+    object we could drop the object name and the dot from the generation. So
+    if the generate statement above was in an action defined by the aircraft
+    object we could have written:</p>
+<div class="informalexample"><pre class="programlisting">  generate land("Heathrow", 5) to aircraft_instance;</pre></div>
+<p>Notice that we still need to provide the specific instance that we
+    are generating the event to. We could use the reserved word
+    <code class="literal">this</code> if it is defined by the action. </p>
+<p>There are two types of events can be generated without providing a
+    specific instance; creation events and assigner events. Before we discuss
+    these, a quick discussion about polymorphic events is required.</p>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="ActionsPolymorphicEvents"></a>6.4.1. Polymorphic Events</h3></div></div></div>
+<p>Polymorphic events are special type of event that, as well as
+      causing a specific instance to move to a new state, also cause the
+      current subtype of the instance to move to a new state.</p>
+<p>When a polymorphic event is consumed, the specific instance that
+      the event was generated to, moves to a new state and the action
+      associated with this state is invoked. The event is then propagated to
+      the current subtype of the instance. This causes the subtype instance to
+      move to a new state and the action associated with this state to be
+      invoked. This is repeated all the way down the subtype hierarchy.</p>
+<p>Note that, for some instances in the subtype hierarchy, including
+      the first one, the polymorphic event could be ignored. In this case the
+      instance does not move to a new state and no action is invoked. The
+      event is propagated as before.</p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="ActionsCreationEvents"></a>6.4.2. Creation Events</h3></div></div></div>
+<p>Creation events are used to create instances of an object
+      asynchronously. For example, we would generate the commission event in
+      <a class="xref" href="ActionsStatesandEvents.html#ActionsLifecycleofanAircraft" title="Figure 6.1. Life cycle of an Aircraft">Figure 6.1, “Life cycle of an Aircraft”</a> by
+      writing:</p>
+<div class="informalexample"><pre class="programlisting">  generate Aircraft.commission();</pre></div>
+<p>Again, if we wanted to generate the creation event
+      from an action defined by the object we could drop the object name and
+      the dot from the <code class="literal">generate</code> statement. </p>
+<div class="informalexample"><pre class="programlisting">  generate commission();</pre></div>
+<p>Unlike normal states, creation states do not have access to a
+      specific instance. It is up to the body of the creation state to create
+      an instance. For example, the definition of the commissioned state might
+      look something like the following:</p>
+<div class="informalexample"><pre class="programlisting">  creation state Air_Management::Aircraft.commissioned() is
+    new_aircraft : instance of Aircraft;
+  begin
+    new_aircraft := create unique Aircraft(Current_State =&gt; commissioned);
+  end state;</pre></div>
+<p>Notice that the create expression specifies the
+      state that the created instance starts in. This will usually be the
+      creation state.</p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="ActionsAssignerEvents"></a>6.4.3. Assigner Events</h3></div></div></div>
+<p>Each associative object in a domain can have an assigner life
+      cycle. Assigner life cycles provide a single point of control through
+      which competing requests are serialised. Because of this, there is only
+      one copy of an assigner life cycle for all instances of the associative
+      object.</p>
+<div class="figure">
+<a name="ActionsAssignerClass"></a><div class="figure-title">Figure 6.2. Assigner Object</div>
+<div class="figure-contents"><div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;"><tr><td align="center" valign="middle"><img src="images/assignerclass.svg" align="middle"></td></tr></table></div></div>
+</div>
+<p><br class="figure-break"></p>
+<div class="figure">
+<a name="ActionsLifecycleofaRunwayAllocationAssigner"></a><div class="figure-title">Figure 6.3. Life cycle of a Runway Allocation Assigner</div>
+<div class="figure-contents"><div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;"><tr><td align="center" valign="middle"><img src="images/allocationassigner.svg" align="middle"></td></tr></table></div></div>
+</div>
+<p><br class="figure-break">Given the relationship shown in <a class="xref" href="ActionsStatesandEvents.html#ActionsAssignerClass" title="Figure 6.2. Assigner Object">Figure 6.2, “Assigner Object”</a>and the corresponding assigner life
+      cycle shown in <a class="xref" href="ActionsStatesandEvents.html#ActionsLifecycleofaRunwayAllocationAssigner" title="Figure 6.3. Life cycle of a Runway Allocation Assigner">Figure 6.3, “Life cycle of a Runway Allocation Assigner”</a>, we might write:</p>
+<div class="informalexample"><pre class="programlisting">  generate Runway_Allocation.aircraft_waiting();</pre></div>
+<p>Again, if we wanted to generate the assigner event
+      from an action defined by the corresponding associative object we could
+      drop the object name and the dot from the <code class="literal">generate</code>
+      statement.</p>
+<div class="informalexample"><pre class="programlisting">  generate aircraft_waiting();</pre></div>
+<p>Like creation states, assigner states do not have
+      access to a specific instance.</p>
+<p>Notice that one state in an assigner life cycle is tagged as the
+      start, or initial, state. This is the state in which the assigner starts
+      in. Other than this fact there is nothing special about this state
+      compared with other assigner states.d</p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="ActionsTerminalStates"></a>6.4.4. Terminal States</h3></div></div></div>
+<p>Finally, to finish this section a quick discussion about terminal
+      states. Going back to our example of the <code class="classname">Aircraft</code>
+      life cycle, we can see that the <span class="emphasis"><em>out of service</em></span>
+      state is a terminal state. A terminal state does not necessarily imply
+      that an instance in this state must cease to exist, it could simply hang
+      around in this state for historic purposes.</p>
+<p>However, what is special about terminal states is that they are
+      the only type of instance states, that is a non-creation states in a
+      non-assigner life cycle, where we are allowed to delete the current
+      instance. That is, in a terminal state we are allowed to
+      write:</p>
+<div class="informalexample"><pre class="programlisting">  delete this;</pre></div>
+<p>It is invalid to try and do this is any non-terminal
+      state.</p>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ActionsPolymorphicServices.html">Prev</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="Actions.html">Up</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="DeviceIO.html">Next</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">6.3. Polymorphic Services </td>
+<td width="20%" align="center">
+<a accesskey="h" href="index.html">Home</a> | <a accesskey="t" href="bk01-toc.html">ToC</a>
+</td>
+<td width="40%" align="right" valign="top"> Chapter 7. Device Input/Output</td>
+</tr>
+</table>
+</div>
+<div align="center">UNCLASSIFIED</div>
+</body>
+</html>
