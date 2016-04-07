@@ -78,10 +78,4 @@ public class UITextGlobalsSuite extends TestSuite {
 		return new UITextGlobalsSuite();
 	}
 	
-	/**
-	 * Construct the test suite.
-	 */
-	public UITextGlobalsSuite() {
-        
-	}
 }
