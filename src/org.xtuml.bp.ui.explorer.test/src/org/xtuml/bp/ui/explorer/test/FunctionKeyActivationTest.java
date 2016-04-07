@@ -29,7 +29,9 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.widgets.Menu;
-
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.InstanceStateMachine_c;
 import org.xtuml.bp.core.ModelClass_c;
@@ -43,13 +45,18 @@ import org.xtuml.bp.core.util.UIUtil;
 import org.xtuml.bp.test.common.BaseTest;
 import org.xtuml.bp.test.common.CanvasTestUtils;
 import org.xtuml.bp.test.common.ExplorerUtil;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.UITestingUtilities;
 import org.xtuml.bp.ui.explorer.ExplorerView;
 
-public class FunctionKeyActivationTest extends BaseTest {
+@RunWith(OrderedRunner.class)
+	public class FunctionKeyActivationTest extends BaseTest {
 	
-	public FunctionKeyActivationTest(String name) {
-		super(packageName, name);
+//	public FunctionKeyActivationTest(String name) {
+//		super(packageName, name);
+//	}
+	public FunctionKeyActivationTest() {
+		super(packageName, null);
 	}
 	/**
      * The name of the test domain used during most of these tests.
@@ -71,7 +78,8 @@ public class FunctionKeyActivationTest extends BaseTest {
     static {
         ExplorerUtil.showModelExplorer();
     }
-    protected void setUp() throws Exception
+    @Before
+	public void setUp() throws Exception
     {
         super.setUp();
         
@@ -80,7 +88,8 @@ public class FunctionKeyActivationTest extends BaseTest {
         CorePlugin.disableParseAllOnResourceChange();
         }
     
-    protected void tearDown() throws Exception 
+    @Before
+	public void tearDown() throws Exception 
     {
         // fail if any errors were written to the log file
         if (new Path(logPath).toFile().exists()) {
@@ -89,7 +98,8 @@ public class FunctionKeyActivationTest extends BaseTest {
     }
     
     // Enforce ordering of the tests in this class
-    public void testFunctionKeys() throws CoreException,IOException {
+    @Test
+	public void testFunctionKeys() throws CoreException,IOException {
     	dotestF2Activation();
     	dotestDeleteActivation();
     }

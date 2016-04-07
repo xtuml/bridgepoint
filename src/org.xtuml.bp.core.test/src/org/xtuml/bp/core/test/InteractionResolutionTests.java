@@ -6,8 +6,9 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ProjectScope;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.preferences.IScopeContext;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.osgi.service.prefs.Preferences;
-
 import org.xtuml.bp.core.ClassInstanceParticipant_c;
 import org.xtuml.bp.core.ClassParticipant_c;
 import org.xtuml.bp.core.ComponentParticipant_c;
@@ -26,9 +27,11 @@ import org.xtuml.bp.core.ui.preferences.BridgePointProjectPreferences;
 import org.xtuml.bp.core.ui.preferences.BridgePointProjectReferencesPreferences;
 import org.xtuml.bp.core.util.WorkspaceUtil;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TestingUtilities;
 import org.xtuml.bp.test.common.UITestingUtilities;
 
+@RunWith(OrderedRunner.class)
 public class InteractionResolutionTests extends BaseTest {
 
 	private static SystemModel_c inscopeOtherProject;
@@ -69,6 +72,7 @@ public class InteractionResolutionTests extends BaseTest {
 		inscopeOtherProject.Newpackage();
 	}
 	
+	@Test
 	public void testComponentParticipantResolution() {
 		Package_c pkgInOtherSys = Package_c.getOneEP_PKGOnR1401(inscopeOtherProject);
 		pkgInOtherSys.Newcomponent();
@@ -98,6 +102,7 @@ public class InteractionResolutionTests extends BaseTest {
 		assertTrue("On paste the referred to element was not reassociated.",
 				Component_c.getOneC_COnR955(part) == elementInOtherProject);
 	}
+	@Test
 	public void testPackageParticipantResolution() {
 		Package_c pkgInOtherSys = Package_c.getOneEP_PKGOnR1401(inscopeOtherProject);
 		pkgInOtherSys.Newpackage();
@@ -127,6 +132,7 @@ public class InteractionResolutionTests extends BaseTest {
 		assertTrue("On paste the referred to element was not reassociated.",
 				Package_c.getOneEP_PKGOnR956(part) == elementInOtherProject);
 	}
+	@Test
 	public void testClassParticipantResolution() {
 		Package_c pkgInOtherSys = Package_c.getOneEP_PKGOnR1401(inscopeOtherProject);
 		pkgInOtherSys.Newclass();
@@ -157,6 +163,7 @@ public class InteractionResolutionTests extends BaseTest {
 		assertTrue("On paste the referred to element was not reassociated.",
 				ModelClass_c.getOneO_OBJOnR939(part) == elementInOtherProject);
 	}
+	@Test
 	public void testClassInstanceParticipantResolution() {
 		Package_c pkgInOtherSys = Package_c.getOneEP_PKGOnR1401(inscopeOtherProject);
 		ModelClass_c elementInOtherProject = ModelClass_c
@@ -185,6 +192,7 @@ public class InteractionResolutionTests extends BaseTest {
 		assertTrue("On paste the referred to element was not reassociated.",
 				ModelClass_c.getOneO_OBJOnR934(part) == elementInOtherProject);
 	}
+	@Test
 	public void testExternalEntityParticipantResolution() {
 		Package_c pkgInOtherSys = Package_c.getOneEP_PKGOnR1401(inscopeOtherProject);
 		pkgInOtherSys.Newexternalentity();

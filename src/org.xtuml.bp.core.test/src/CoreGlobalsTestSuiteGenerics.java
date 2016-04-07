@@ -22,11 +22,10 @@
 //=====================================================================
 
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
-
 import org.eclipse.core.runtime.CoreException;
-
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 import org.xtuml.bp.core.test.ActionTestGenerics;
@@ -42,8 +41,8 @@ import org.xtuml.bp.core.test.DeleteTestGenerics;
 import org.xtuml.bp.core.test.DerivedAttributeTestGenerics;
 import org.xtuml.bp.core.test.DisposeTestGenerics;
 import org.xtuml.bp.core.test.FormalizeUnformalizeTestGenerics;
-import org.xtuml.bp.core.test.FormalizeUnformalizeWithPrefixTestGenerics;
 import org.xtuml.bp.core.test.GetNameTestGenerics;
+import org.xtuml.bp.core.test.GlobalTestSetupClass;
 import org.xtuml.bp.core.test.MultipleReloadGenerics;
 import org.xtuml.bp.core.test.NumberingTestGenerics;
 import org.xtuml.bp.core.test.OperationsTestGenerics;
@@ -54,9 +53,38 @@ import org.xtuml.bp.core.test.SetTypeTestGenerics;
 import org.xtuml.bp.core.test.TigerNatureTestGenerics;
 import org.xtuml.bp.core.util.WorkspaceUtil;
 
+import junit.framework.TestSuite;
+
 /**
 * Test all areas of the core
 */
+
+@RunWith(Suite.class)
+@Suite.SuiteClasses({
+		GlobalTestSetupClass.class,
+		CoreGlobalsTestSuiteIGenerics.class,
+		CoreTestSuiteIGenerics.class,
+		SetTypeTestGenerics.class,
+		AssignComponentTestGenerics.class,		
+		AssignClassTestGenerics.class,		
+		MultipleReloadGenerics.class,
+		NumberingTestGenerics.class,
+		DisposeTestGenerics.class,
+		ActionTestGenerics.class,
+		RenameTestGenerics.class,
+		RenameTest2Generics.class,
+		DeleteAttributesTestGenerics.class,
+		GetNameTestGenerics.class,
+		DerivedAttributeTestGenerics.class,
+		FormalizeUnformalizeTestGenerics.class,
+		AttributeMenuItemTestGenerics.class,
+		AssignRemoveEventsGenerics.class, 
+		CantHappenEvtIgnoreEvtTestsGenerics.class,
+		OperationsTestGenerics.class,
+		DeleteTestGenerics.class,
+		TigerNatureTestGenerics.class,
+		PreferencesTests.class,
+})
 public class CoreGlobalsTestSuiteGenerics extends TestSuite {
 
 	/**
@@ -64,40 +92,22 @@ public class CoreGlobalsTestSuiteGenerics extends TestSuite {
 	 * use the JUnit Launcher.
 	 * @throws CoreException
 	 */
-	public static Test suite() throws CoreException {
-		return new CoreGlobalsTestSuiteGenerics();
-	}
+//	public static Test suite() throws CoreException {
+//		return new CoreGlobalsTestSuiteGenerics();
+//	}
+//	
+//	/**
+//	 * Construct the test suite.
+//	 */
+//	public CoreGlobalsTestSuiteGenerics() throws CoreException {
+//
+//	}
 	
-	/**
-	 * Construct the test suite.
-	 */
-	public CoreGlobalsTestSuiteGenerics() throws CoreException {
-		
+	@Test
+	public void prepare() throws CoreException{
 		// turn off autobuild to stop MC-3020 builders from running
 		WorkspaceUtil.setAutobuilding(false); // throws CoreException
 		CorePlugin.getDefault().getPreferenceStore().setValue(BridgePointPreferencesStore.USE_DEFAULT_NAME_FOR_CREATION, true);
 		
-        addTest(new TestSuite(CoreGlobalsTestSuiteIGenerics.class));
-        addTest(new TestSuite(CoreTestSuiteIGenerics.class));
-		addTest(new TestSuite(SetTypeTestGenerics.class));
-		addTest(new TestSuite(AssignComponentTestGenerics.class));		
-		addTest(new TestSuite(AssignClassTestGenerics.class));		
-        addTest(new TestSuite(MultipleReloadGenerics.class));
-		addTest(new TestSuite(NumberingTestGenerics.class));
-		addTest(new TestSuite(DisposeTestGenerics.class));
-		addTest(new TestSuite(ActionTestGenerics.class));
-        addTest(new TestSuite(RenameTestGenerics.class));
-		addTest(new TestSuite(RenameTest2Generics.class));
-		addTest(new TestSuite(DeleteAttributesTestGenerics.class));
-		addTest(new TestSuite(GetNameTestGenerics.class));
-		addTest(new TestSuite(DerivedAttributeTestGenerics.class));
-		addTest(new TestSuite(FormalizeUnformalizeTestGenerics.class));
-		addTest(new TestSuite(AttributeMenuItemTestGenerics.class));
-		addTest(new TestSuite(AssignRemoveEventsGenerics.class)); 
-		addTest(new TestSuite(CantHappenEvtIgnoreEvtTestsGenerics.class));
-		addTest(new TestSuite(OperationsTestGenerics.class));
-		addTest(new TestSuite(DeleteTestGenerics.class));
-		addTest(new TestSuite(TigerNatureTestGenerics.class));
-        addTest(new TestSuite(PreferencesTests.class));
 	}
 }

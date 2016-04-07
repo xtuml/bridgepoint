@@ -22,38 +22,47 @@
 
 package org.xtuml.bp.ui.text.test.activity;
 
-import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.text.TextViewer;
 import org.eclipse.swt.custom.StyleRange;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
-
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Function_c;
-import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.common.InstanceList;
-import org.xtuml.bp.core.common.PersistableModelComponent;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.ui.text.activity.ActivityEditor;
 
+@RunWith(OrderedRunner.class)
 public class I643OALKeywordsHighlightingTest extends BaseTest {
 
-	public I643OALKeywordsHighlightingTest(String name) throws CoreException {
-		super("HighlightingTest", name); 
-	}
 
-	public I643OALKeywordsHighlightingTest(String projectName, String name)
-			throws CoreException {
-		super(projectName, name);
-
+	public I643OALKeywordsHighlightingTest(){
+//		super("HighlightingTest", null); 
+		super();
+		// TODO Auto-generated constructor stub
 	}
+	
+//	public I643OALKeywordsHighlightingTest(String name) throws CoreException {
+//		super("HighlightingTest", name); 
+//	}
+//
+//	public I643OALKeywordsHighlightingTest(String projectName, String name)
+//			throws CoreException {
+//		super(projectName, name);
+//
+//	}
 
 	private static boolean firstSetup = true;
 	private static final String testModelName = "testDescrip1";
 	
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 
 		if ( firstSetup ) {
@@ -66,7 +75,8 @@ public class I643OALKeywordsHighlightingTest extends BaseTest {
         }
 	}
 
-    public void testHighlighting() {
+    @Test
+	public void testHighlighting() {
 		
 		InstanceList instList = modelRoot.getInstanceList(Function_c.class);
 				

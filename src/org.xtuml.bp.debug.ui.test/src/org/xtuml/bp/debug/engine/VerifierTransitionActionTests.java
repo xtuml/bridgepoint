@@ -29,7 +29,10 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.debug.internal.ui.DebugUIPlugin;
 import org.eclipse.debug.ui.IDebugUIConstants;
 import org.eclipse.ui.PlatformUI;
-
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.ComponentInstance_c;
 import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.CorePlugin;
@@ -48,21 +51,24 @@ import org.xtuml.bp.debug.ui.launch.BPDebugUtils;
 import org.xtuml.bp.debug.ui.test.DebugUITestUtilities;
 import org.xtuml.bp.test.TestUtil;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TestingUtilities;
 import org.xtuml.bp.ui.text.activity.ActivityEditor;
 
+@RunWith(OrderedRunner.class)
 public class VerifierTransitionActionTests extends BaseTest {
 
 	private static String projectName = "VerifierTransitionActionTest";
 
 	private boolean initialized = false;
 
-	public VerifierTransitionActionTests(String testName) throws Exception {
-		super(projectName, testName);
+	public VerifierTransitionActionTests() throws Exception {
+		super(projectName, null);
 	}
 
 	@Override
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 
 		if (!initialized) {
@@ -121,10 +127,12 @@ public class VerifierTransitionActionTests extends BaseTest {
 		}
 	}
 
+	@After
 	public void tearDown() throws Exception {
 		DebugUITestUtilities.stopSession(m_sys, projectName);
 	}
 
+	@Test
 	public void testTransitionActions() {
 		Package_c dom = Package_c.getOneEP_PKGOnR1401(m_sys, new ClassQueryInterface_c() {
 			
@@ -195,10 +203,12 @@ public class VerifierTransitionActionTests extends BaseTest {
 				.getConsoleText(expected_results);
 		assertEquals(expected_results, actual_results);
 	}
+	@Test
 	public void testISMTransitionAction() {
 		checkTransitionActionBreakPoint("Idle::UUT1: Perform Test 1",
                                         "ISM_BP_Transition_Action_test.result");
 	}
+	@Test
 	public void testCSMTransitionAction() {
 		checkTransitionActionBreakPoint("Test Complete",
                                         "CSM_BP_Transition_Action_test.result");

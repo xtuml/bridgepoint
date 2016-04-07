@@ -1,0 +1,289 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>14.8. Additive Operators</title>
+<link rel="stylesheet" type="text/css" href="docbook.css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<meta name="keywords" content="MASL, Action Language, Action Semantics, UML, Unified Modelling Language, Shlaer Mellor">
+<link rel="home" href="index.html" title="MASL Reference Manual">
+<link rel="up" href="Expressions.html" title="Chapter 14. Expressions">
+<link rel="prev" href="ExpressionsMulitplicativeOperators.html" title="14.7. Multiplicative Operators">
+<link rel="next" href="ExpressionsRelationalOperators.html" title="14.9. Relational Operators">
+<link rel="preface" href="preface.html" title="Preface">
+<link rel="chapter" href="Grammars.html" title="Chapter 1. Grammars">
+<link rel="chapter" href="LexicalStructure.html" title="Chapter 2. Lexical Structure">
+<link rel="chapter" href="Types.html" title="Chapter 3. Types">
+<link rel="chapter" href="TypeConversion.html" title="Chapter 4. Type Conversion">
+<link rel="chapter" href="Domains.html" title="Chapter 5. Domains">
+<link rel="chapter" href="Objects.html" title="Chapter 6. Objects">
+<link rel="chapter" href="Relationships.html" title="Chapter 7. Relationships">
+<link rel="chapter" href="Lifecycles.html" title="Chapter 8. Lifecycles">
+<link rel="chapter" href="Functions.html" title="Chapter 9. Functions">
+<link rel="chapter" href="Services.html" title="Chapter 10. Services">
+<link rel="chapter" href="Exceptions.html" title="Chapter 11. Exceptions">
+<link rel="chapter" href="Statements.html" title="Chapter 12. Statements">
+<link rel="chapter" href="Names.html" title="Chapter 13. Names">
+<link rel="chapter" href="Expressions.html" title="Chapter 14. Expressions">
+<link rel="appendix" href="LanguageDefinedCharacteristics.html" title="Appendix A. Language Defined Characteristics">
+<link rel="appendix" href="SyntaxSummary.html" title="Appendix B. Syntax Summary">
+<link rel="index" href="ix01.html" title="Index">
+<link rel="subsection" href="ExpressionsAdditiveOperators.html#ExpressionsAdditiveOperatorsforNumericTypes" title="14.8.1. Additive Operators for Numeric Types">
+<link rel="subsection" href="ExpressionsAdditiveOperators.html#ExpressionsStringConcatenationOperator" title="14.8.2. String Concatenation Operator">
+<link rel="subsection" href="ExpressionsAdditiveOperators.html#ExpressionsCollectionAdditionOperator" title="14.8.3. Collection Addition Operator">
+<link rel="subsection" href="ExpressionsAdditiveOperators.html#ExpressionsSetUnionandNotInOperators" title="14.8.4. Set Union and Not In Operators">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div align="center">OFFICIAL</div>
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">14.8. Additive Operators</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ExpressionsMulitplicativeOperators.html">Prev</a> </td>
+<th width="60%" align="center">Chapter 14. Expressions</th>
+<td width="20%" align="right"> <a accesskey="n" href="ExpressionsRelationalOperators.html">Next</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title">
+<a name="ExpressionsAdditiveOperators"></a>14.8. Additive Operators</h2></div></div></div>
+<div class="toc"><dl class="toc">
+<dt><span class="section"><a href="ExpressionsAdditiveOperators.html#ExpressionsAdditiveOperatorsforNumericTypes">14.8.1. Additive Operators for Numeric Types</a></span></dt>
+<dt><span class="section"><a href="ExpressionsAdditiveOperators.html#ExpressionsStringConcatenationOperator">14.8.2. String Concatenation Operator</a></span></dt>
+<dt><span class="section"><a href="ExpressionsAdditiveOperators.html#ExpressionsCollectionAdditionOperator">14.8.3. Collection Addition Operator</a></span></dt>
+<dt><span class="section"><a href="ExpressionsAdditiveOperators.html#ExpressionsSetUnionandNotInOperators">14.8.4. Set Union and Not In Operators</a></span></dt>
+</dl></div>
+<p>
+The operators <code class="literal">+</code>,
+<a class="indexterm" name="idp71925760"></a>
+<code class="literal">-</code>,
+<a class="indexterm" name="idp71927232"></a>
+<code class="literal">&amp;</code>,
+<a class="indexterm" name="idp71928704"></a>
+<code class="literal">union</code>
+<a class="indexterm" name="idp71930176"></a>
+and <code class="literal">not_in</code>
+<a class="indexterm" name="idp71931648"></a>
+are called the additive operators.
+<a class="indexterm" name="idp71932640"></a>
+They have the same precedence
+<a class="indexterm" name="idp71933552"></a>
+and are
+syntactically left-associative
+<a class="indexterm" name="idp71934928"></a>
+and group left-to-right.
+<a class="indexterm" name="idp71936288"></a>
+</p>
+<a class="indexterm" name="idp71937792"></a><a class="indexterm" name="idp71938960"></a><a class="indexterm" name="idp71940256"></a><a class="indexterm" name="idp71941552"></a><a class="indexterm" name="idp71942848"></a><a class="indexterm" name="idp71944144"></a><table width="100%" cellpadding="5" bgcolor="#F5DCB3" border="1" class="productionset" summary="EBNF"><tr><td><table border="0" width="99%" cellpadding="0" bgcolor="#F5DCB3" class="productionset" summary="EBNF productions"><tr>
+<td align="left" valign="top" width="3%">[206]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.additiveexpression"></a>
+        additive expression
+    </td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="ExpressionsMulitplicativeOperators.html#ebnf.multiplicativeexpression">multiplicative expression</a> |
+        <a href="ExpressionsAdditiveOperators.html#ebnf.additiveexpression">additive expression</a>,
+        '+',
+        <a href="ExpressionsMulitplicativeOperators.html#ebnf.multiplicativeexpression">multiplicative expression</a> |
+        <a href="ExpressionsAdditiveOperators.html#ebnf.additiveexpression">additive expression</a>,
+        '-',
+        <a href="ExpressionsMulitplicativeOperators.html#ebnf.multiplicativeexpression">multiplicative expression</a> |
+        <a href="ExpressionsAdditiveOperators.html#ebnf.additiveexpression">additive expression</a>,
+        '&amp;',
+        <a href="ExpressionsMulitplicativeOperators.html#ebnf.multiplicativeexpression">multiplicative expression</a> |
+        <a href="ExpressionsAdditiveOperators.html#ebnf.additiveexpression">additive expression</a>,
+        'union',
+        <a href="ExpressionsMulitplicativeOperators.html#ebnf.multiplicativeexpression">multiplicative expression</a> |
+        <a href="ExpressionsAdditiveOperators.html#ebnf.additiveexpression">additive expression</a>,
+        'not_in',
+        <a href="ExpressionsMulitplicativeOperators.html#ebnf.multiplicativeexpression">multiplicative expression</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr></table></td></tr></table>
+<p>
+A compile-time error occurs if any of the following are true:
+</p>
+<div class="itemizedlist"><ul class="itemizedlist">
+<li class="listitem"><p>
+The types of both operands of the <code class="literal">+</code>
+<a class="indexterm" name="idp71957776"></a>
+and <code class="literal">-</code>
+<a class="indexterm" name="idp71959248"></a>
+operators are not types or subtypes of a
+<a class="link" href="TypesFullDeclarations.html#TypesNumericTypes" title="3.7.1. Numeric Types"><span class="type">numeric</span></a>
+<a class="indexterm" name="idp71961152"></a>
+type.
+</p></li>
+<li class="listitem"><p>
+The types of both operands of the <code class="literal">&amp;</code>
+<a class="indexterm" name="idp71963536"></a>
+operator are not types or subtypes of
+<a class="link" href="TypesBuiltinTypes.html#TypesStringType" title="3.2.5. String Type"><span class="type">string</span></a>,
+<a class="indexterm" name="idp71965424"></a>
+<a class="link" href="TypesBuiltinTypes.html#TypesWideStringType" title="3.2.6. Wide String Type"><span class="type">wstring</span></a>,
+<a class="indexterm" name="idp71967296"></a>
+<a class="link" href="TypesCollectionTypes.html#TypesSetTypes" title="3.3.1. Set Types">set</a>,
+<a class="indexterm" name="idp71969040"></a>
+<a class="link" href="TypesCollectionTypes.html#TypesBagTypes" title="3.3.2. Bag Types">bag</a>
+<a class="indexterm" name="idp71970784"></a>
+or
+<a class="link" href="TypesCollectionTypes.html#TypesSequenceTypes" title="3.3.3. Sequence Types">sequence</a>
+<a class="indexterm" name="idp71972528"></a>
+types.
+</p></li>
+<li class="listitem"><p>
+The types of both operands of the <code class="literal">union</code>
+<a class="indexterm" name="idp71974912"></a>
+and
+<code class="literal">not_in</code>
+<a class="indexterm" name="idp71976384"></a>
+operators are not types or subtypes of a
+<a class="link" href="TypesCollectionTypes.html#TypesSetTypes" title="3.3.1. Set Types">set</a>
+<a class="indexterm" name="idp71978160"></a>
+type.
+</p></li>
+<li class="listitem"><p>
+The type of the right-hand operand is not assignable to the type of the
+left-hand side operand.
+</p></li>
+</ul></div>
+<p>
+</p>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="ExpressionsAdditiveOperatorsforNumericTypes"></a>14.8.1. Additive Operators for Numeric Types</h3></div></div></div>
+<p>
+The type of a <code class="literal">+</code>
+<a class="indexterm" name="idp71982752"></a>
+or <code class="literal">-</code>
+<a class="indexterm" name="idp71984224"></a>
+expression for
+<a class="link" href="TypesFullDeclarations.html#TypesNumericTypes" title="3.7.1. Numeric Types"><span class="type">numeric</span></a>
+<a class="indexterm" name="idp71986096"></a>
+types is the
+base type of the left-hand side operand. The <code class="literal">+</code>
+<a class="indexterm" name="idp71987616"></a>
+and
+<code class="literal">-</code>
+<a class="indexterm" name="idp71989088"></a>
+operators for
+<a class="link" href="TypesFullDeclarations.html#TypesNumericTypes" title="3.7.1. Numeric Types"><span class="type">numeric</span></a>
+<a class="indexterm" name="idp71990960"></a>
+types have their conventional meaning.
+</p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="ExpressionsStringConcatenationOperator"></a>14.8.2. String Concatenation Operator</h3></div></div></div>
+<p>
+The type of a
+<a class="link" href="TypesBuiltinTypes.html#WideStringConcatenation"><span class="emphasis"><em>string concatenation</em></span></a>
+<a class="indexterm" name="idp71994528"></a>
+expression is the base type of the left-hand side operand. String concatenation
+yields a new string that is the concatenation of the operand strings.
+</p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="ExpressionsCollectionAdditionOperator"></a>14.8.3. Collection Addition Operator</h3></div></div></div>
+<p>
+The type of a collection addition expression is the base type of the left-hand
+side operand. The base type of a
+<a class="link" href="TypesCollectionTypes.html#TypesSetTypes" title="3.3.1. Set Types">set</a>
+<a class="indexterm" name="idp71998544"></a>
+type is the
+<a class="link" href="TypesCollectionTypes.html#TypesSetTypes" title="3.3.1. Set Types">set</a>
+<a class="indexterm" name="idp72000288"></a>
+type whose element type is the base type of the original element type. The base
+type of a
+<a class="link" href="TypesCollectionTypes.html#TypesBagTypes" title="3.3.2. Bag Types">bag</a>
+<a class="indexterm" name="idp72002112"></a>
+type is the
+<a class="link" href="TypesCollectionTypes.html#TypesBagTypes" title="3.3.2. Bag Types">bag</a>
+<a class="indexterm" name="idp72003856"></a>
+type whose element type is the base
+type of the original element type. The base type of a
+<a class="link" href="TypesCollectionTypes.html#TypesSequenceTypes" title="3.3.3. Sequence Types">sequence</a>
+<a class="indexterm" name="idp72005680"></a>
+type is the
+<a class="link" href="TypesCollectionTypes.html#TypesSequenceTypes" title="3.3.3. Sequence Types">sequence</a>
+<a class="indexterm" name="idp72007424"></a>
+type whose element type is
+the base type of the original element type.
+Collection addition yields a new collection that contains all the elements of 
+both operands:
+</p>
+<div class="itemizedlist"><ul class="itemizedlist">
+<li class="listitem"><p>
+For <a class="link" href="TypesCollectionTypes.html#TypesSetTypes" title="3.3.1. Set Types"><span class="type">set</span></a>s,
+<a class="indexterm" name="idp72010576"></a>
+duplicates are
+removed and there is no order.
+</p></li>
+<li class="listitem"><p>
+For <a class="link" href="TypesCollectionTypes.html#TypesBagTypes" title="3.3.2. Bag Types"><span class="type">bag</span></a>s,
+<a class="indexterm" name="idp72013376"></a>
+duplicates are
+preserved and there is no order.
+</p></li>
+<li class="listitem"><p>
+For <a class="link" href="TypesCollectionTypes.html#TypesSequenceTypes" title="3.3.3. Sequence Types"><span class="type">sequence</span></a>,
+<a class="indexterm" name="idp72016176"></a>
+duplicates are preserved and the order is also preserved.
+</p></li>
+</ul></div>
+<p>
+</p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="ExpressionsSetUnionandNotInOperators"></a>14.8.4. Set Union and Not In Operators</h3></div></div></div>
+<p>
+The <code class="literal">union</code>
+<a class="indexterm" name="idp72019904"></a>
+and <code class="literal">not_in</code>
+<a class="indexterm" name="idp72021376"></a>
+expression is the
+base type of the left-hand side operand. The base type of a
+<a class="link" href="TypesCollectionTypes.html#TypesSetTypes" title="3.3.1. Set Types">set</a>
+<a class="indexterm" name="idp72023184"></a>
+type is the
+<a class="link" href="TypesCollectionTypes.html#TypesSetTypes" title="3.3.1. Set Types">set</a>
+<a class="indexterm" name="idp72024928"></a>
+type whose element type is the base
+type of the original element type.
+The <code class="literal">union</code>
+<a class="indexterm" name="idp72026464"></a>
+and <code class="literal">not_in</code>
+<a class="indexterm" name="idp72027936"></a>
+operators yield
+the set union and set subtraction of the operands.
+</p>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ExpressionsMulitplicativeOperators.html">Prev</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="Expressions.html">Up</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ExpressionsRelationalOperators.html">Next</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">14.7. Multiplicative Operators </td>
+<td width="20%" align="center">
+<a accesskey="h" href="index.html">Home</a> | <a accesskey="t" href="bk01-toc.html">ToC</a>
+</td>
+<td width="40%" align="right" valign="top"> 14.9. Relational Operators</td>
+</tr>
+</table>
+</div>
+<div align="center">OFFICIAL</div>
+</body>
+</html>

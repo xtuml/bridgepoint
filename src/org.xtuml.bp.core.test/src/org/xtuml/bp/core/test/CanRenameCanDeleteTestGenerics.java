@@ -22,7 +22,10 @@
 package org.xtuml.bp.core.test;
 
 import org.eclipse.core.runtime.NullProgressMonitor;
-
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.Attribute_c;
 import org.xtuml.bp.core.DataType_c;
 import org.xtuml.bp.core.ModelClass_c;
@@ -30,7 +33,9 @@ import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.PackageableElement_c;
 import org.xtuml.bp.core.UserDataType_c;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
+import org.xtuml.bp.test.common.OrderedRunner;
 
+@RunWith(OrderedRunner.class)
 public class CanRenameCanDeleteTestGenerics extends CoreTest {
 
 	static boolean isDone = false;
@@ -38,7 +43,8 @@ public class CanRenameCanDeleteTestGenerics extends CoreTest {
 	static ModelClass_c testClass = null; //Class having test Attributes
 
 	private static boolean initialized = false;
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		if (!initialized) {
 
@@ -46,7 +52,8 @@ public class CanRenameCanDeleteTestGenerics extends CoreTest {
 			initialized = true;
 		}
 	}
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		if (isDone) {
 			if (modelRoot != null) {
 				modelRoot.clearDatabase(new NullProgressMonitor());
@@ -61,6 +68,7 @@ public class CanRenameCanDeleteTestGenerics extends CoreTest {
 		super();
 	}
 
+	@Test
 	public void testCanRenameAndCanDeleteUserDatatype() {
 
 		class findUserDatatype implements ClassQueryInterface_c {
@@ -101,6 +109,7 @@ public class CanRenameCanDeleteTestGenerics extends CoreTest {
 		}
 	}
 
+	@Test
 	public void testCanRenameAndCanDeleteReferentialAttribute() {
 		class findModelClassUsingName implements ClassQueryInterface_c {
 
@@ -148,6 +157,7 @@ public class CanRenameCanDeleteTestGenerics extends CoreTest {
 		assertFalse(attr_ren.Candelete());
 	}
 
+	@Test
 	public void testCanRenameAndCanDeleteCurrentStateAttribute() {
 		Attribute_c attr[] = Attribute_c.getManyO_ATTRsOnR102(testClass,
 				new findAttributeUsingName("current_state")); //$NON-NLS-1$

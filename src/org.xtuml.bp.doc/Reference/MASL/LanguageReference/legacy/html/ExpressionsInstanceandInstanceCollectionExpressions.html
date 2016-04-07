@@ -1,0 +1,145 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>14.14. Instance and Instance Collection Expressions</title>
+<link rel="stylesheet" type="text/css" href="docbook.css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<meta name="keywords" content="MASL, Action Language, Action Semantics, UML, Unified Modelling Language, Shlaer Mellor">
+<link rel="home" href="index.html" title="MASL Reference Manual">
+<link rel="up" href="Expressions.html" title="Chapter 14. Expressions">
+<link rel="prev" href="ExpressionsConditions.html" title="14.13. Conditions">
+<link rel="next" href="ExpressionsConstantExpressions.html" title="14.15. Constant Expressions">
+<link rel="preface" href="preface.html" title="Preface">
+<link rel="chapter" href="Grammars.html" title="Chapter 1. Grammars">
+<link rel="chapter" href="LexicalStructure.html" title="Chapter 2. Lexical Structure">
+<link rel="chapter" href="Types.html" title="Chapter 3. Types">
+<link rel="chapter" href="TypeConversion.html" title="Chapter 4. Type Conversion">
+<link rel="chapter" href="Domains.html" title="Chapter 5. Domains">
+<link rel="chapter" href="Objects.html" title="Chapter 6. Objects">
+<link rel="chapter" href="Relationships.html" title="Chapter 7. Relationships">
+<link rel="chapter" href="Lifecycles.html" title="Chapter 8. Lifecycles">
+<link rel="chapter" href="Functions.html" title="Chapter 9. Functions">
+<link rel="chapter" href="Services.html" title="Chapter 10. Services">
+<link rel="chapter" href="Exceptions.html" title="Chapter 11. Exceptions">
+<link rel="chapter" href="Statements.html" title="Chapter 12. Statements">
+<link rel="chapter" href="Names.html" title="Chapter 13. Names">
+<link rel="chapter" href="Expressions.html" title="Chapter 14. Expressions">
+<link rel="appendix" href="LanguageDefinedCharacteristics.html" title="Appendix A. Language Defined Characteristics">
+<link rel="appendix" href="SyntaxSummary.html" title="Appendix B. Syntax Summary">
+<link rel="index" href="ix01.html" title="Index">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div align="center">OFFICIAL</div>
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">14.14. Instance and Instance Collection Expressions</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ExpressionsConditions.html">Prev</a> </td>
+<th width="60%" align="center">Chapter 14. Expressions</th>
+<td width="20%" align="right"> <a accesskey="n" href="ExpressionsConstantExpressions.html">Next</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title">
+<a name="ExpressionsInstanceandInstanceCollectionExpressions"></a>14.14. Instance and Instance Collection Expressions</h2></div></div></div>
+<p>
+<a class="link" href="ExpressionsInstanceandInstanceCollectionExpressions.html#ebnf.instanceexpression">Instance expressions</a>
+<a class="indexterm" name="idp72241824"></a>
+are syntactically any name of the reserved word
+<a class="indexterm" name="idp72243200"></a>
+<a class="link" href="Names.html" title="Chapter 13. Names"><code class="literal">this</code></a>.
+<a class="indexterm" name="idp72244944"></a>
+Instance collections
+<a class="indexterm" name="idp72245968"></a>
+are syntactically any name.
+</p>
+<a class="indexterm" name="idp72247488"></a><a class="indexterm" name="idp72248656"></a><a class="indexterm" name="idp72249824"></a><a class="indexterm" name="idp72251120"></a><a class="indexterm" name="idp72252320"></a><table width="100%" cellpadding="5" bgcolor="#F5DCB3" border="1" class="productionset" summary="EBNF"><tr><td><table border="0" width="99%" cellpadding="0" bgcolor="#F5DCB3" class="productionset" summary="EBNF productions">
+<tr>
+<td align="left" valign="top" width="3%">[214]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.instanceexpression"></a>
+        instance expression
+    </td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="Names.html#ebnf.name">name</a> |
+        'this'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[215]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.instancecollectionexpression"></a>
+        instance collection expression
+    </td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="Names.html#ebnf.name">name</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+</table></td></tr></table>
+<p>
+A compile-time error occurs if in an instance expression,
+<a class="indexterm" name="idp72259344"></a>
+the type of the name
+is not an <a class="link" href="TypesInstanceTypes.html" title="3.4. Instance Types">instance type</a>.
+<a class="indexterm" name="idp72261376"></a>
+A compile-time error also occurs if in an
+<a class="link" href="ExpressionsInstanceandInstanceCollectionExpressions.html#ebnf.instancecollectionexpression"><span class="emphasis"><em>instance collection expression</em></span></a>,
+<a class="indexterm" name="idp72263632"></a>
+the type of the name is not a
+<a class="link" href="TypesCollectionTypes.html" title="3.3. Collection Types">collection type</a> whose
+<a class="indexterm" name="idp72266160"></a>
+component type is an <a class="link" href="TypesInstanceTypes.html" title="3.4. Instance Types">instance type</a>.
+<a class="indexterm" name="idp72268224"></a>
+The type of an
+<a class="link" href="ExpressionsInstanceandInstanceCollectionExpressions.html#ebnf.instanceexpression"><span class="emphasis"><em>instance expression</em></span></a>
+<a class="indexterm" name="idp72270416"></a>
+and an
+<a class="link" href="ExpressionsInstanceandInstanceCollectionExpressions.html#ebnf.instancecollectionexpression"><span class="emphasis"><em>instance collection expression</em></span></a>
+<a class="indexterm" name="idp72272640"></a>
+is the type of the name or the reserved word
+<a class="indexterm" name="idp72274464"></a>
+<a class="link" href="Names.html" title="Chapter 13. Names"><code class="literal">this</code></a>.
+<a class="indexterm" name="idp72276208"></a>
+An
+<a class="link" href="ExpressionsInstanceandInstanceCollectionExpressions.html#ebnf.instanceexpression"><span class="emphasis"><em>instance expression</em></span></a>
+<a class="indexterm" name="idp72278080"></a>
+and an
+<a class="link" href="ExpressionsInstanceandInstanceCollectionExpressions.html#ebnf.instancecollectionexpression"><span class="emphasis"><em>instance collection expression</em></span></a>,
+<a class="indexterm" name="idp72280304"></a>
+both yield the value of the
+name or the reserved word
+<a class="indexterm" name="idp72282128"></a>
+<a class="link" href="Names.html" title="Chapter 13. Names"><code class="literal">this</code></a>.
+<a class="indexterm" name="idp72283872"></a>
+</p>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ExpressionsConditions.html">Prev</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="Expressions.html">Up</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ExpressionsConstantExpressions.html">Next</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">14.13. Conditions </td>
+<td width="20%" align="center">
+<a accesskey="h" href="index.html">Home</a> | <a accesskey="t" href="bk01-toc.html">ToC</a>
+</td>
+<td width="40%" align="right" valign="top"> 14.15. Constant Expressions</td>
+</tr>
+</table>
+</div>
+<div align="center">OFFICIAL</div>
+</body>
+</html>

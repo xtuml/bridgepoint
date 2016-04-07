@@ -16,7 +16,7 @@ if [ $# -lt 5 ]; then
     echo "      staging_path -- path to the location of the Eclipse bases and BridgePoint deliverables"
     echo "      output_dir -- path to the location to output the installers"
     echo "      os - windows, linux or osx"
-    echo "      release_version -- e.g. 5.3.0"
+    echo "      release_version -- e.g. 5.3.2"
     echo "   optional:"
     echo "      SCP_UPLOAD_FOLDER_SPEC -- folder specification for scp upload: user@myserver.com:/myfolder"
     echo
@@ -79,28 +79,34 @@ else
 fi
 echo "INFO: Done."
 
-echo "INFO: Configuring correct xtumlmc_build.exe for ${OS}."
+echo "INFO: Configuring correct mc build tools for ${OS}."
 cd "${PRODUCT_NAME}/eclipse/plugins"
 if [ "${OS}" = "linux" ]; then
       mcplugin="./org.xtuml.bp.mc.c.binary_${BP_VERSION}/mc3020/bin"
       tr -d '\r' < ${mcplugin}/xtumlmc_build > ${mcplugin}/xtumlmc_build.exe
       cp -f ${mcplugin}/xtumlmc_build.exe ${mcplugin}/xtumlmc_build
+      mv -f ${mcplugin}/gen_erate.py ${mcplugin}/gen_erate.pyz
 
       mcplugin="./org.xtuml.bp.mc.c.source_${BP_VERSION}/mc3020/bin"
       tr -d '\r' < ${mcplugin}/xtumlmc_build > ${mcplugin}/xtumlmc_build.exe
       cp -f ${mcplugin}/xtumlmc_build.exe ${mcplugin}/xtumlmc_build
+      mv -f ${mcplugin}/gen_erate.py ${mcplugin}/gen_erate.pyz
 
       mcplugin="./org.xtuml.bp.mc.cpp.source_${BP_VERSION}/mc3020/bin"
       tr -d '\r' < ${mcplugin}/xtumlmc_build > ${mcplugin}/xtumlmc_build.exe
       cp -f ${mcplugin}/xtumlmc_build.exe ${mcplugin}/xtumlmc_build
+      mv -f ${mcplugin}/gen_erate.py ${mcplugin}/gen_erate.pyz
 
       mcplugin="./org.xtuml.bp.mc.java.source_${BP_VERSION}/mc3020/bin"
       tr -d '\r' < ${mcplugin}/xtumlmc_build > ${mcplugin}/xtumlmc_build.exe
       cp -f ${mcplugin}/xtumlmc_build.exe ${mcplugin}/xtumlmc_build
+      mv -f ${mcplugin}/gen_erate.py ${mcplugin}/gen_erate.pyz
 
       mcplugin="./org.xtuml.bp.mc.systemc.source_${BP_VERSION}/mc3020/bin"
       tr -d '\r' < ${mcplugin}/xtumlmc_build > ${mcplugin}/xtumlmc_build.exe
       cp -f ${mcplugin}/xtumlmc_build.exe ${mcplugin}/xtumlmc_build
+      mv -f ${mcplugin}/gen_erate.py ${mcplugin}/gen_erate.pyz
+      mv -f ${mcplugin}/gen_erate.py ${mcplugin}/gen_erate.pyz
 else
       mcplugin="./org.xtuml.bp.mc.c.binary_${BP_VERSION}/mc3020/bin"
       mv -f ${mcplugin}/xtumlmc_build.exe.win ${mcplugin}/xtumlmc_build.exe

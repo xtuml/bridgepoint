@@ -25,8 +25,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
-import junit.framework.TestCase;
-
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspaceRunnable;
@@ -62,7 +60,10 @@ import org.eclipse.ui.dialogs.WizardNewProjectCreationPage;
 import org.eclipse.ui.navigator.CommonNavigator;
 import org.eclipse.ui.views.properties.PropertySheet;
 import org.eclipse.ui.views.properties.PropertySheetPage;
-
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.Attribute_c;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.ModelClass_c;
@@ -87,11 +88,10 @@ import org.xtuml.bp.core.ui.RenameAction;
 import org.xtuml.bp.core.ui.Selection;
 import org.xtuml.bp.test.TestUtil;
 import org.xtuml.bp.test.common.BaseTest;
-import org.xtuml.bp.test.common.CVSUtils;
 import org.xtuml.bp.test.common.CanvasTestUtils;
 import org.xtuml.bp.test.common.ExplorerUtil;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.UITestingUtilities;
-import org.xtuml.bp.ui.canvas.CanvasTransactionListener;
 import org.xtuml.bp.ui.canvas.Connector_c;
 import org.xtuml.bp.ui.canvas.GraphicalElement_c;
 import org.xtuml.bp.ui.canvas.Ooaofgraphics;
@@ -105,14 +105,17 @@ import org.xtuml.bp.ui.text.description.DescriptionEditor;
 import org.xtuml.bp.ui.text.description.ShowDescriptionAction;
 import org.xtuml.bp.utilities.ui.CanvasUtilities;
 
+import junit.framework.TestCase;
+
+@RunWith(OrderedRunner.class)
 public class TigerNatureTestGenerics extends CanvasTest {
 
 	String test_id = null;
 
 	private static Selection selection = Selection.getInstance();
 
-	public TigerNatureTestGenerics(String name) {
-		super("Default Project", name);
+	public TigerNatureTestGenerics() {
+		super("Default Project", null);
 	}
 
 	protected String getResultName() {
@@ -161,14 +164,16 @@ public class TigerNatureTestGenerics extends CanvasTest {
 		CorePlugin.getDefault().getPreferenceStore().setValue(BridgePointPreferencesStore.USE_DEFAULT_NAME_FOR_CREATION, true);
 	}
 
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		Display d = Display.getCurrent();
 		while (d.readAndDispatch());
 		BaseTest.dispatchEvents(0);
 	}
 
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		BaseTest.dispatchEvents(0);
 		super.tearDown();
 	}
@@ -428,21 +433,23 @@ public class TigerNatureTestGenerics extends CanvasTest {
 		return false;
 	}
 
-	public void testTigerNatureTestGenerics() throws Exception{
-		   doTestNewProjectDefaultPath(); 
-		      doTestNewProjectNonDefaultPath(); 
-		      doTestPKGPersistence(); 
-		      doTestActivityPersistence(); 
-		      doTestDescriptionPersistence(); 
-		      doTestCancelAddToIdentifier(); 
-		      doTestDeletePersistence(); 
-		      doTestConnectorPersistence(); 
-		      doTestRenamePersistence(); 
-		      doTestSelectionToolPersistence(); 
-		      doTestPropertiesViewPersistence(); 
-	}
+//	@Test
+//	public void testTigerNatureTestGenerics() throws Exception{
+//		   doTestNewProjectDefaultPath(); 
+//		      doTestNewProjectNonDefaultPath(); 
+//		      doTestPKGPersistence(); 
+//		      doTestActivityPersistence(); 
+//		      doTestDescriptionPersistence(); 
+//		      doTestCancelAddToIdentifier(); 
+//		      doTestDeletePersistence(); 
+//		      doTestConnectorPersistence(); 
+//		      doTestRenamePersistence(); 
+//		      doTestSelectionToolPersistence(); 
+//		      doTestPropertiesViewPersistence(); 
+//	}
 
-	public void doTestNewProjectDefaultPath() throws Exception {
+	@Test
+	public void testNewProjectDefaultPath() throws Exception {
 		IProject testProject = createXtUMLProject("Test Project Defaults");
 		// wait on any previous events to process
 		BaseTest.dispatchEvents(0);
@@ -457,7 +464,8 @@ public class TigerNatureTestGenerics extends CanvasTest {
 				checkResourceNavForxtUMLProject("Test Project Defaults"));
 	}
 
-	public void doTestNewProjectNonDefaultPath() throws Exception {
+	@Test
+	public void testNewProjectNonDefaultPath() throws Exception {
 		String location = "c:\\tiger_test";
 		if(!Platform.getOS().contains("win")) {
 			location = Platform.getInstanceLocation().getURL().toString()
@@ -807,7 +815,8 @@ public class TigerNatureTestGenerics extends CanvasTest {
 	//	}
 	//
 	//	
-	public void doTestPKGPersistence() throws Exception {
+	@Test
+	public void testPKGPersistence() throws Exception {
 		final IProject corePersistenceProject = createXtUMLProject("CorePersistenceTestProject");
 		SystemModel_c sysMod = SystemModel_c.SystemModelInstance(Ooaofooa
 				.getDefaultInstance(), new ClassQueryInterface_c() {
@@ -842,7 +851,8 @@ public class TigerNatureTestGenerics extends CanvasTest {
 		UITestingUtilities.deactivateTool(tool);
 	}
 
-	public void doTestActivityPersistence() throws Exception {
+	@Test
+	public void testActivityPersistence() throws Exception {
 		final IProject activityPersistenceProject = createXtUMLProject("ActivityPersistenceTestProject");
 		SystemModel_c sysMod = SystemModel_c.SystemModelInstance(Ooaofooa
 				.getDefaultInstance(), new ClassQueryInterface_c() {
@@ -913,7 +923,8 @@ public class TigerNatureTestGenerics extends CanvasTest {
 						getOperationString(activity)));
 	}
 
-	public void doTestDescriptionPersistence() throws Exception {
+	@Test
+	public void testDescriptionPersistence() throws Exception {
 		final IProject descriptionPersistenceProject = createXtUMLProject("DescriptionPersistenceTestProject");
 		SystemModel_c sysMod = SystemModel_c.SystemModelInstance(Ooaofooa
 				.getDefaultInstance(), new ClassQueryInterface_c() {
@@ -981,7 +992,8 @@ public class TigerNatureTestGenerics extends CanvasTest {
 				checkIfPersisted(descriptionPersistenceProject, testclass,
 						getClassString(testclass)));
 	}
-	public void doTestCancelAddToIdentifier() throws Exception {
+	@Test
+	public void testCancelAddToIdentifier() throws Exception {
 
 		IProject descriptionPersistenceProject = ResourcesPlugin.getWorkspace()
 				.getRoot().getProject("DescriptionPersistenceTestProject");
@@ -1037,7 +1049,8 @@ public class TigerNatureTestGenerics extends CanvasTest {
 
 	}
 
-	public void doTestDeletePersistence() throws Exception {
+	@Test
+	public void testDeletePersistence() throws Exception {
 		Ooaofooa.setPersistEnabled(true);
 		final IProject deletePersistenceProject = createXtUMLProject("DeletePersistenceTestProject");
 		SystemModel_c sysMod = SystemModel_c.SystemModelInstance(Ooaofooa
@@ -1107,7 +1120,8 @@ public class TigerNatureTestGenerics extends CanvasTest {
 				.exists());
 	}
 
-	public void doTestConnectorPersistence() throws IOException,
+	@Test
+	public void testConnectorPersistence() throws IOException,
 			TransactionException {
 		Ooaofooa.setPersistEnabled(true);
 		final IProject connectorPersistenceProject = createXtUMLProject("ConnectorPersistenceTestProject");
@@ -1201,7 +1215,8 @@ public class TigerNatureTestGenerics extends CanvasTest {
 				connectorPersistenceProject, con, conStmt));
 	}
 
-	public void doTestRenamePersistence() throws IOException,
+	@Test
+	public void testRenamePersistence() throws IOException,
 			TransactionException {
 		Ooaofooa.setPersistEnabled(true);
 		final IProject renamePersistenceProject = createXtUMLProject("RenamePersistenceTestProject");
@@ -1269,7 +1284,8 @@ public class TigerNatureTestGenerics extends CanvasTest {
 				renamePersistenceProject, testclass, testclassStmt));
 	}
 
-	public void doTestSelectionToolPersistence() throws IOException,
+	@Test
+	public void testSelectionToolPersistence() throws IOException,
 			TransactionException {
 		Ooaofooa.setPersistEnabled(true);
 		final IProject selectiontoolPersistenceProject = createXtUMLProject("SelectionToolPersistenceTestProject");
@@ -1333,7 +1349,8 @@ public class TigerNatureTestGenerics extends CanvasTest {
 				selectiontoolPersistenceProject, ge, geStmt));
 	}
 
-	public void doTestPropertiesViewPersistence() throws IOException,
+	@Test
+	public void testPropertiesViewPersistence() throws IOException,
 			PartInitException, TransactionException {
 		Ooaofooa.setPersistEnabled(true);
 		final IProject propertiesPersistenceProject = createXtUMLProject("PropertiesPersistenceTestProject");

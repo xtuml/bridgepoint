@@ -24,20 +24,28 @@
 package org.xtuml.bp.ui.text.test.activity;
 
 import org.eclipse.core.runtime.CoreException;
-
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TextEditorUtils;
 import org.xtuml.bp.ui.text.activity.ActivityEditor;
 import org.xtuml.bp.ui.text.test.UITextTest;
 
+@RunWith(OrderedRunner.class)
 public class CloseActivityEditor extends UITextTest {
 
-	public CloseActivityEditor(String projectName, String name) throws CoreException {
-		super("test", name); //$NON-NLS-1$
+	public CloseActivityEditor() throws CoreException {
+//		super("test", null); //$NON-NLS-1$
+		super();
+		// TODO Auto-generated constructor stub
 	}
-	
-	public CloseActivityEditor(String name) throws CoreException {
-		super("test", name); //$NON-NLS-1$
-	}
+	//	public CloseActivityEditor(String projectName, String name) throws CoreException {
+//		super("test", name); //$NON-NLS-1$
+//	}
+//	
+//	public CloseActivityEditor(String name) throws CoreException {
+//		super("test", name); //$NON-NLS-1$
+//	}
 	private void closeActivityEditor( String title )
 	{
 		ActivityEditor ae = TextEditorUtils.getActivityEditor(title);
@@ -51,48 +59,57 @@ public class CloseActivityEditor extends UITextTest {
 			fail("Unable to find editor with title: " + title);
 		}
 	}
+	@Test
 	public void testCloseBridgeActivity()
 	{	
 		closeActivityEditor( "Test External Entity::test_bridge" );
 	}
 	
+	@Test
 	public void testCloseFunctionActivity()
 	{	
 		closeActivityEditor( "Functions::test_function");
 	}
 	
+	@Test
 	public void testCloseInstanceOperationActivity()
 	{	
 		closeActivityEditor("Test Class::op1");
 	}
 	
+	@Test
 	public void testCloseClassOperationActivity()
 	{	
 		closeActivityEditor("Test Class::op2");
 	}
 
 
+	@Test
 	public void testCloseAttributeActivity()
 	{	
 		closeActivityEditor("Test Class::mda");
 	}
 	
 
+	@Test
 	public void testCloseInstanceActionActivity()
 	{	
 		closeActivityEditor("Test Class::ISM State");
 	}
 	
+	@Test
 	public void testCloseInstanceTransitionActionActivity()
 	{	
 		closeActivityEditor("Test Class::ISM State::T_T3: third");
 	}
 	
+	@Test
 	public void testCloseClassActionActivity()
 	{	
 		closeActivityEditor("Test Class::CSM State");
 	}
 	
+	@Test
 	public void testCloseClassTransitionActionActivity()
 	{	
 		closeActivityEditor("Test Class::CSM State::T_T_A3: third class");

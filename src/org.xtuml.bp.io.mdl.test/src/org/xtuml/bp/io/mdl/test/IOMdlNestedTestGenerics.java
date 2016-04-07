@@ -21,16 +21,16 @@
 // the License.
 //=====================================================================
 
-import junit.framework.Assert;
-
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspaceRunnable;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.gef.tools.AbstractTool;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.ui.PlatformUI;
-
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.Attribute_c;
 import org.xtuml.bp.core.DataType_c;
 import org.xtuml.bp.core.InstanceReferenceDataType_c;
@@ -39,15 +39,16 @@ import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.ui.perspective.BridgePointPerspective;
-import org.xtuml.bp.test.common.CanvasTestUtils;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TestingUtilities;
-import org.xtuml.bp.test.common.UITestingUtilities;
 import org.xtuml.bp.ui.canvas.CanvasPlugin;
 import org.xtuml.bp.ui.canvas.Ooaofgraphics;
 import org.xtuml.bp.ui.canvas.test.CanvasTest;
 import org.xtuml.bp.ui.explorer.ExplorerView;
-import org.xtuml.bp.ui.graphics.editor.GraphicalEditor;
 
+import junit.framework.Assert;
+
+@RunWith(OrderedRunner.class)
 public class IOMdlNestedTestGenerics extends CanvasTest {
 
 	static ExplorerView m_bp_view = null;
@@ -60,14 +61,15 @@ public class IOMdlNestedTestGenerics extends CanvasTest {
     
 
     
-	public IOMdlNestedTestGenerics(String arg0) {
-		super("org.xtuml.bp.io.mdl.test", arg0);
+	public IOMdlNestedTestGenerics() {
+		super("org.xtuml.bp.io.mdl.test", null);
 	}
 	protected String getResultName() {
 		return "Nested" + "_Generics_" + test_id;
 	}	
 
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		if (workspace_path == null || workspace_path.equals(""))
 		{
@@ -113,7 +115,8 @@ public class IOMdlNestedTestGenerics extends CanvasTest {
 	 
 	}
 
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		super.tearDown();
 	}
 	public void setGenerateResults() {
@@ -129,6 +132,7 @@ public class IOMdlNestedTestGenerics extends CanvasTest {
 
 	
 
+	@Test
 	public void testUpgradeModelWithPublishReference() throws Exception{
 		// Load from git
 		this.loadProject("InstanceReferenceTestMatrixModel");

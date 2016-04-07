@@ -1,0 +1,366 @@
+<!-- 
+  UK Crown Copyright (c) 2016. All Rights Reserved
+-->
+<!-- Converted by db4-upgrade version 1.0 -->
+<chapter xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="ExecutionControl"><info><title>Execution Control</title></info>
+  
+
+  <para>This chapter describes the three sequential control structures of
+  <abbrev>MASL</abbrev>. These are the <literal>if</literal> statement, the
+  <literal>case</literal> statement and the <literal>loop</literal>
+  statements.</para>
+
+  <section xml:id="ExecutionControlIfStatement"><info><title><literal>if</literal> Statement</title></info>
+    
+
+    <para>The <literal>if</literal> statement is probably the most basic way
+    to control program flow. The simplest form of <literal>if</literal>
+    statement starts with the reserved word if followed by a condition and the
+    reserved word then. This is then followed by a sequence of statements,
+    which will be executed if the condition turns out to the true. The end of
+    the sequence is indicated by the closing <literal>end if</literal>. The
+    condition can, be of arbitrary complexity and the sequence of statements
+    can be of arbitrary length. A simple example is:<informalexample>
+        <programlisting>  declare
+    danger : Boolean := false;
+  begin
+    if danger then
+      run();
+    end if;
+  end;</programlisting>
+      </informalexample>In this, <varname>danger</varname> is a
+    <type>boolean</type> variable and run is a service describing the details
+    of the running activity. The statement <literal>run();</literal> merely
+    calls the service (services are dealt with in <xref linkend="Actions"/>).
+    The effect of this if statement is that should the variable
+    <varname>danger</varname> be true then we invoke the service run,
+    otherwise we do nothing. In either case we then obey the statement
+    following the <literal>if</literal> statement.</para>
+
+    <para>As we have said there could be a long sequence between
+    <literal>then</literal> and <literal>end if</literal>. Therefoer we might
+    breeak the process into more detail.<informalexample>
+        <programlisting>  declare
+    danger : boolean;
+  begin
+    if danger then
+      think();
+      discuss();
+      run();
+    end if;
+  end;</programlisting>
+      </informalexample>Note how we indent the statements to show the flow
+    structure of the code. This is most important since it enables the program
+    to be understood so much more easily also be aware that the end if will
+    always be followed by a semicolon. This is because semicolons terminate
+    statements rather than separate them as in other languages.</para>
+
+    <para>Often we will want to do alternative actions according to the value
+    of the condition. In this case we add <literal>else</literal> followed by
+    the alternative sequence to be obeyed if the condition is
+    false.<informalexample>
+        <programlisting>  declare
+    today : day_type;
+    tomorrow : day_type;
+  begin
+    if today = SUN then
+      tomorrow := MON;
+    else
+      tomorrow := today’succ;
+   end if;
+end;</programlisting>
+      </informalexample></para>
+
+    <para>The statements in the sequences after then and else can be quite
+    arbitrary and so could be further nested <literal>if</literal>
+    statements.<informalexample>
+        <programlisting>  declare
+    a : real; b : real;
+    c : real; d : real;
+    root : real;
+  begin
+    if a = 0.0 then
+      root := -c/b;
+    else
+      if b**2 - 4.0*a*c &gt;= 0.0 then
+        solveRealRoots();
+      else
+        solveComplexRoots();
+      end if;
+    end if;
+  end;</programlisting>
+      </informalexample>Observe the repetition of <literal>end if</literal>.
+    This is rather ugly and occurs sufficiently frequently to justify an
+    additional construction. This uses the reserved word
+    <literal>elsif</literal> as follows:<informalexample>
+        <programlisting>  declare
+    a : real; b : real;
+    c : real; d : real;
+    root : real;
+  begin
+    if a = 0.0 then
+      root := -c/b;
+    elsif b**2 - 4.0*a*c &gt;= 0.0 then
+      solveRealRoots();
+    else
+      solveComplexRoots();
+    end if;
+  end;</programlisting>
+      </informalexample>This construction emphasised the essentially equal
+    status of the three cases and also the sequential nature of the tests. The
+    <literal>elsif</literal> part can be repeated an arbitrary number of times
+    and the final else part is optional. The behaviour is simply that each
+    condition is evaluated in turn until one that is true is encounted; the
+    corresponding sequence is then obeyed. In none of the conditions turns out
+    to be true then the else part, if any, is taken; if there is no else part
+    then none of the sequences are obeyed.</para>
+
+    <note>
+      <para>The spelling of <literal>elsif</literal> and the layout – we align
+      <literal>elsif</literal> and <literal>else</literal> with the
+      <literal>if</literal> and <literal>end if</literal> and all the
+      sequences are indented equally.</para>
+    </note>
+  </section>
+
+  <section xml:id="ExecutionControlCaseStatement"><info><title><literal>case</literal> Statement</title></info>
+    
+
+    <para>A <literal>case</literal> statement allows a choice between several
+    possible sequences of statements according to the value of an expression.
+    For instance, an example could be:<informalexample>
+        <programlisting>  declare
+    signal : signal_colour_type;
+  begin
+    case signal is
+      when RED =&gt;
+        stop();
+      when AMBER =&gt;
+        null;
+      when GREEN =&gt;
+        go();
+    end case;
+  end;</programlisting>
+      </informalexample></para>
+
+    <para>All possible values of the expression must be provided for in order
+    to guard against accidental omissions. If, as in this example, no action
+    is required for one or more values then the <literal>null</literal>
+    statement can to be used.</para>
+
+    <para>The null statement, written :<programlisting>  null;</programlisting></para>
+
+    <para>does absolutely nothing but its presence indicates that we truly
+    want to do nothing. The sequence of statements here, as in the if
+    statement, must contain at least one statement. It often happens that the
+    same action is desired for several values of the expression. Consider the
+    following:<informalexample>
+        <programlisting>  declare
+    key : character;
+  begin
+    key := 's';
+    case key is
+      when 'a' | 'b' | 'c' | 'd' =&gt;
+        output(key);
+      when 'e' =&gt;
+        output(key);  process(key);
+      when 's' =&gt;
+        ignore(key);
+    end case;
+  end;</programlisting>
+      </informalexample>The alternative values are separated by the vertical
+    bar character (<literal>|</literal>). Note again the use of the
+    <literal>null</literal> statement. Another example, shown below,
+    demonstrates the use of the others key word, this is used to indicate that
+    all other possibilities are covered by this case (<literal>SAT</literal>
+    and <literal>SUN</literal>). <informalexample>
+        <programlisting>  declare
+    today : day_type;
+  begin
+    case today is
+      when MON | TUE | WED | THU =&gt;
+        work();
+      when FRI =&gt;
+        work(); party();
+      when others =&gt;
+        null;
+    end case;
+  end;</programlisting>
+      </informalexample></para>
+
+    <para>There are several restrictions in the use of <literal>case</literal>
+    statements. One is that if we use <literal>others</literal> then it must
+    appear alone and as the last alternative. As already stated it covers all
+    values not explicitly covered by the previous alternatives. It should also
+    be noted that there is an implied break at the end of each when block; the
+    execution cannot fall through to subsequent case statements as in C/C++.
+    Another very important restriction is that all the choices must be
+    constant so that they can be evaluated at compilation time. Finally, all
+    possible values of the expression after the <literal>case</literal> must
+    be provided for. This usually means all values of the type of the
+    expression after the reserved word <literal>case</literal>.</para>
+  </section>
+
+  <section xml:id="ExecutionControlLoopStatements"><info><title> Loop Statements</title></info>
+    
+
+    <para><abbrev>MASL</abbrev> has two forms of loop statement; the
+    <literal>while</literal> statement and the <literal>for</literal>
+    statement. Both repeat a sequence of statements. The
+    <literal>while</literal> statement starts with the reserved word while
+    followed by a condition and the reserved word <literal>loop</literal>.
+    This is then followed by a sequence of statements, which will be executed
+    at each iteration of the loop. The end of the sequence is indicated by the
+    closing <literal>end loop</literal>.A simple example is:<informalexample>
+        <programlisting>  declare
+    n : integer;
+    i : integer;
+    term : real;
+    e : real;
+  begin
+    while i /= n loop
+      i :=i+1;
+      term := term / i;
+      e := e + term;
+    end loop;
+  end;</programlisting>
+      </informalexample></para>
+
+    <para>At each iteration of the loop, the condition is tested, in this case
+    <literal>i /=n</literal>, and if true the sequence of statements is
+    executed. If the condition is false then the loop terminates at once and
+    control passes to the point immediately after end loop. Note that if the
+    condition is false the first time it is evaluated, then the sequence of
+    statements is never executed. </para>
+
+    <para>Sometimes it is necessary to break out of a loop prematurely. We can
+    do this with the <literal>exit</literal> statement:<programlisting>  exit;</programlisting></para>
+
+    <para>If this is executed inside a loop then the loop terminates at once
+    and control passes to the point immediately after the end loop. Suppose we
+    decide to stop when term is equal to zero. We can do this as
+    follows:<informalexample>
+        <programlisting>  declare
+    n : integer; i : integer;
+    term : real; e : real;
+  begin
+    while i /= n loop
+      i :=i+1;
+      term := term / i;
+      if term = 0.0 then
+        exit;
+      end if;
+      e := e + term;
+    end loop;
+  end;</programlisting>
+      </informalexample></para>
+
+    <para>The construction:<informalexample>
+        <programlisting>  if condition then
+    exit;
+  end if;</programlisting>
+      </informalexample>is so common that a special shorthand is provided
+    <literal>exit</literal> when condition. So we could have written the loop
+    as:<informalexample>
+        <programlisting>  declare
+    n : integer; i : integer;
+    term : real; e : real;
+  begin
+    while i /= n loop
+      i :=i+1;
+      term := term / i;
+      exit when term = 0.0;
+      e := e + term;
+    end loop;
+  end;</programlisting>
+      </informalexample></para>
+
+    <para>The <literal>for</literal> statement allows a specific number of
+    iterations with a loop parameter taking in turn all the values of a
+    discrete range. Our example could be recast as:<informalexample>
+        <programlisting>  declare
+    n : integer;
+    term : real; 
+    e : real;
+  begin
+    for i in 1 .. n loop
+      term := term / i;
+      e := e + term;
+    end loop;
+  end;</programlisting>
+      </informalexample>where <varname>i</varname> takes the values
+    <literal>1</literal>, <literal>2</literal>, <literal>3</literal>, ...
+    <literal>n</literal>. The variable <varname>i</varname> is declared by its
+    appearance in the iteration scheme and does not have to be declared
+    outside of the for statement. It takes its type from the discrete range
+    and within the loop behaves as a constant so that it cannot be changed
+    except by the loop mechanism itself. When we leave the loop (by whatever
+    means) <varname>i</varname> ceases to exist (because it was declared by
+    the loop) and so we cannot read its final value from outside.</para>
+
+    <para>The values of the discrete range are normally taken in ascending
+    order. Descending order can be specified by writing:<informalexample>
+        <literallayout>for i in reverse 1 .. n loop</literallayout>
+      </informalexample></para>
+
+    <para>but the range itself is always written in ascending order. It is not
+    possible to specify a numeric step size other than one. This should not be
+    a problem since the vast majority of loops go up by steps of one and
+    almost all the rest go down by steps of one. The very few which do behave
+    otherwise can be explicitly programmed using the while form of
+    loop.</para>
+
+    <para>The range can be null (this would happen if <varname>n</varname> was
+    zero or negative in our example) in which case the sequence of statements
+    will not be executed at all. Of course, the range itself is evaluated only
+    once and cannot be changed inside the loop. Thus declare:<informalexample>
+        <programlisting>    n : integer;
+  begin
+    n := 4;
+    for i in 1 .. n loop
+      // …
+      n := 10;
+    end loop;
+  end;</programlisting>
+      </informalexample>results in the loop being executed just four times
+    despite the fact that the value of <varname>n</varname> is changed to
+    ten.</para>
+
+    <para>Our examples have all shown the lower bound of the range being
+    <literal>1</literal>. This, of course, need not be the case. Both bounds
+    can be arbitrary dynamically evaluated expressions. Furthermore the loop
+    parameter need not be of <type>integer</type> type. We could, for
+    instance, simulate a week’s activity by:<informalexample>
+        <programlisting>  for today in MON .. SUN loop
+    // …
+  end loop;</programlisting>
+      </informalexample></para>
+
+    <para>This declares today to be of type day and obeys the loop with the
+    values <literal>MON</literal>, <literal>TUE</literal>,… <type>SUN</type>
+    in turn. Other forms of discrete range are of advantage here. The essence
+    of <literal>MON .. SUN</literal> is that it embraces all the values of
+    type day. It is therefore better to write the loop using a form of
+    discrete range that conveys the idea of completeness. For
+    example:<informalexample>
+        <programlisting>  for today in day_type'range loop
+    // …
+  end loop;</programlisting>
+      </informalexample></para>
+
+    <para>As already stated, the type of the loop parameter is determined from
+    the type of the discrete range after the reserved word
+    <literal>in</literal>. It is therefore necessary for the type of the
+    discrete range to be unambiguous in the <literal>for</literal> statement.
+    This is usually the case but if we had two enumeration types with two
+    overloaded literals such as:<informalexample>
+        <programlisting>  type colour_type is enum (BLUE, RED, GREEN);
+  type signal_colour_type is enum (RED, AMBER, GREEN);</programlisting>
+      </informalexample>then:<informalexample>
+        <programlisting>for s in RED .. GREEN loop</programlisting>
+      </informalexample>would be ambiguous. We could resolve the problem be
+    qualifying either of the expressions. For example:<informalexample>
+        <programlisting>for s in signal_colour_type.RED .. GREEN loop</programlisting>
+      </informalexample></para>
+  </section>
+</chapter>

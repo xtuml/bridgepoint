@@ -1,0 +1,416 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>MASL Reference Manual</title>
+<link rel="stylesheet" type="text/css" href="docbook.css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<meta name="description" content="This document is the definitive language specification and reference for MASL.">
+<meta name="keywords" content="MASL, Action Language, Action Semantics, UML, Unified Modelling Language, Shlaer Mellor">
+<link rel="home" href="index.html" title="MASL Reference Manual">
+<link rel="preface" href="preface.html" title="Preface">
+<link rel="chapter" href="Grammars.html" title="Chapter 1. Grammars">
+<link rel="chapter" href="LexicalStructure.html" title="Chapter 2. Lexical Structure">
+<link rel="chapter" href="Types.html" title="Chapter 3. Types">
+<link rel="chapter" href="TypeConversion.html" title="Chapter 4. Type Conversion">
+<link rel="chapter" href="Domains.html" title="Chapter 5. Domains">
+<link rel="chapter" href="Objects.html" title="Chapter 6. Objects">
+<link rel="chapter" href="Relationships.html" title="Chapter 7. Relationships">
+<link rel="chapter" href="Lifecycles.html" title="Chapter 8. Lifecycles">
+<link rel="chapter" href="Functions.html" title="Chapter 9. Functions">
+<link rel="chapter" href="Services.html" title="Chapter 10. Services">
+<link rel="chapter" href="Exceptions.html" title="Chapter 11. Exceptions">
+<link rel="chapter" href="Statements.html" title="Chapter 12. Statements">
+<link rel="chapter" href="Names.html" title="Chapter 13. Names">
+<link rel="chapter" href="Expressions.html" title="Chapter 14. Expressions">
+<link rel="appendix" href="LanguageDefinedCharacteristics.html" title="Appendix A. Language Defined Characteristics">
+<link rel="appendix" href="SyntaxSummary.html" title="Appendix B. Syntax Summary">
+<link rel="index" href="ix01.html" title="Index">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div align="center">OFFICIAL</div>
+<div class="navheader">
+<table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">MASL Reference Manual</th></tr></table>
+<hr>
+</div>
+<h1>MASL Reference Manual</h1>
+<div class="toc">
+<div class="toc-title">Table of Contents</div>
+<dl class="toc">
+<dt><span class="preface"><a href="preface.html">Preface</a></span></dt>
+<dd><dl><dt><span class="section"><a href="PrefaceOrganizationoftheManual.html">1. Organization of the Manual</a></span></dt></dl></dd>
+<dt><span class="bibliography"><a href="Bibliography.html">Bibliography</a></span></dt>
+<dt><span class="chapter"><a href="Grammars.html">1. Grammars</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="GrammarsLexicalGrammar.html">1.1. The Lexical Grammar</a></span></dt>
+<dt><span class="section"><a href="GrammarsSyntacticGrammar.html">1.2. The Syntactic Grammar</a></span></dt>
+<dt><span class="section"><a href="GrammarsGrammerNotation.html">1.3. Grammar Notation</a></span></dt>
+</dl></dd>
+<dt><span class="chapter"><a href="LexicalStructure.html">2. Lexical Structure</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="LexicalStructureLineTerminators.html">2.1. Line Terminators</a></span></dt>
+<dt><span class="section"><a href="LexicalStructureWhiteSpace.html">2.2. White Space</a></span></dt>
+<dt><span class="section"><a href="LexicalStructuresComments.html">2.3. Comments</a></span></dt>
+<dt><span class="section"><a href="LexicalStructureIdentifiers.html">2.4. Identifiers</a></span></dt>
+<dd><dl><dt><span class="section"><a href="LexicalStructureIdentifiers.html#LexicalStructureRelationshipNumbers">2.4.1. Relationship Numbers</a></span></dt></dl></dd>
+<dt><span class="section"><a href="LexicalStructureReservedWords.html">2.5. Reserved Words</a></span></dt>
+<dt><span class="section"><a href="LexicalStructureLiterals.html">2.6. Literals</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="LexicalStructureLiterals.html#LexicalStructureNumericLiterals">2.6.1. Numeric Literals</a></span></dt>
+<dt><span class="section"><a href="LexicalStructureLiterals.html#LexicalStructureCharacterLiterals">2.6.2. Character Literals</a></span></dt>
+<dt><span class="section"><a href="LexicalStructureLiterals.html#LexicalStructureStringLiterals">2.6.3. String Literals</a></span></dt>
+<dt><span class="section"><a href="LexicalStructureLiterals.html#LexicalStructureExcapeSequencesforCharacterandStringLiterals">2.6.4. Escape Sequences for Character and String Literals</a></span></dt>
+<dt><span class="section"><a href="LexicalStructureLiterals.html#LexicalStructureBooleanLiteral">2.6.5. Boolean Literals</a></span></dt>
+<dt><span class="section"><a href="LexicalStructureLiterals.html#LexicalStructureEnumeratorLiteral">2.6.6. Enumerator Literals</a></span></dt>
+<dt><span class="section"><a href="LexicalStructureLiterals.html#LexicalStructureTheNullLiteral">2.6.7. The Null Literal</a></span></dt>
+<dt><span class="section"><a href="LexicalStructureLiterals.html#LexicalStructureDeviceLiterals">2.6.8. Device Literal</a></span></dt>
+<dt><span class="section"><a href="LexicalStructureLiterals.html#LexicalStructureStreamLiterals">2.6.9. Stream Literals</a></span></dt>
+</dl></dd>
+<dt><span class="section"><a href="LexicalStructureSeparators.html">2.7. Separators</a></span></dt>
+<dt><span class="section"><a href="LexicalStructureOperators.html">2.8. Operators</a></span></dt>
+<dt><span class="section"><a href="LexicalStructurePragmas.html">2.9. Pragmas</a></span></dt>
+</dl></dd>
+<dt><span class="chapter"><a href="Types.html">3. Types</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="TypesTypeSpecification.html">3.1. Type Specifications</a></span></dt>
+<dt><span class="section"><a href="TypesBuiltinTypes.html">3.2. Built-in Types</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="TypesBuiltinTypes.html#TypesCharacterType">3.2.1. Character Type</a></span></dt>
+<dt><span class="section"><a href="TypesBuiltinTypes.html#TypesWideCharacterType">3.2.2. Wide Character Type</a></span></dt>
+<dt><span class="section"><a href="TypesBuiltinTypes.html#TypesBooleanType">3.2.3. Boolean Type</a></span></dt>
+<dt><span class="section"><a href="TypesBuiltinTypes.html#TypesByteType">3.2.4. Byte Type</a></span></dt>
+<dt><span class="section"><a href="TypesBuiltinTypes.html#TypesStringType">3.2.5. String Type</a></span></dt>
+<dt><span class="section"><a href="TypesBuiltinTypes.html#TypesWideStringType">3.2.6. Wide String Type</a></span></dt>
+<dt><span class="section"><a href="TypesBuiltinTypes.html#TypesDeviceType">3.2.7. Device Type</a></span></dt>
+<dt><span class="section"><a href="TypesBuiltinTypes.html#TypesAnonymousEnumType">3.2.8. Anonymous Enum Type</a></span></dt>
+<dt><span class="section"><a href="TypesBuiltinTypes.html#TypesAnonymousEventType">3.2.9. Anonymous Event Type</a></span></dt>
+<dt><span class="section"><a href="TypesBuiltinTypes.html#TypesAnonymousInstanceType">3.2.10. Anonymous Instance Type</a></span></dt>
+</dl></dd>
+<dt><span class="section"><a href="TypesCollectionTypes.html">3.3. Collection Types</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="TypesCollectionTypes.html#TypesSetTypes">3.3.1. Set Types</a></span></dt>
+<dt><span class="section"><a href="TypesCollectionTypes.html#TypesBagTypes">3.3.2. Bag Types</a></span></dt>
+<dt><span class="section"><a href="TypesCollectionTypes.html#TypesSequenceTypes">3.3.3. Sequence Types</a></span></dt>
+<dt><span class="section"><a href="TypesCollectionTypes.html#TypesArrayTypes">3.3.4. Array Types</a></span></dt>
+</dl></dd>
+<dt><span class="section"><a href="TypesInstanceTypes.html">3.4. Instance Types</a></span></dt>
+<dt><span class="section"><a href="TypesUserDefinedTypes.html">3.5. User Defined Types</a></span></dt>
+<dt><span class="section"><a href="TypesTypeDeclarations.html">3.6. Type Declarations</a></span></dt>
+<dd><dl><dt><span class="section"><a href="TypesTypeDeclarations.html#TypesTypeModifiers">3.6.1. Type Modifiers</a></span></dt></dl></dd>
+<dt><span class="section"><a href="TypesFullDeclarations.html">3.7. Full Type Declarations</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="TypesFullDeclarations.html#TypesNumericTypes">3.7.1. Numeric Types</a></span></dt>
+<dt><span class="section"><a href="TypesFullDeclarations.html#TypesStructureTypes">3.7.2. Structure Types</a></span></dt>
+<dt><span class="section"><a href="TypesFullDeclarations.html#TypesEnumerationTypes">3.7.3. Enumeration Types</a></span></dt>
+<dt><span class="section"><a href="TypesFullDeclarations.html#TypesUnconstrainedArrayTypes">3.7.4. Unconstrained Array Types</a></span></dt>
+</dl></dd>
+<dt><span class="section"><a href="TypesSubtypeDeclarations.html">3.8. Subtype Declarations</a></span></dt>
+<dt><span class="section"><a href="TypesVariableDeclarations.html">3.9. Variable Declarations</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="TypesVariableDeclarations.html#TypesModifiers">3.9.1. Modifiers</a></span></dt>
+<dt><span class="section"><a href="TypesVariableDeclarations.html#TypesScopeofDeclarations">3.9.2. Scope of Variable Declarations</a></span></dt>
+<dt><span class="section"><a href="TypesVariableDeclarations.html#TypesHidingifNamesbyLocalVariables">3.9.3. Hiding of Names by Local Variables</a></span></dt>
+<dt><span class="section"><a href="TypesVariableDeclarations.html#TypesExecutionofLocalVariableDeclarations">3.9.4. Execution of Local Variable Declarations</a></span></dt>
+</dl></dd>
+</dl></dd>
+<dt><span class="chapter"><a href="TypeConversion.html">4. Type Conversion</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="TypeConversionTypesanstheirSubtypes.html">4.1. Types and their Subtypes</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="TypeConversionTypesanstheirSubtypes.html#TypeConversionTypesandtheirSubtypes">4.1.1. Types and their Subtypes</a></span></dt>
+<dt><span class="section"><a href="TypeConversionTypesanstheirSubtypes.html#TypeConversionPropertiesofTypes">4.1.2. Properties of Types</a></span></dt>
+<dt><span class="section"><a href="TypeConversionTypesanstheirSubtypes.html#TypeConversionBaseandBasisTypes">4.1.3. Base and Basis Types</a></span></dt>
+</dl></dd>
+<dt><span class="section"><a href="TypeConversionBuiltinTypes.html">4.2. Built-in Types</a></span></dt>
+<dt><span class="section"><a href="TypeConversionCollectionTypes.html">4.3. Collection Types</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="TypeConversionCollectionTypes.html#TypeConversionCollectionTypesofSubtypes">4.3.1. Collection Types of Subtypes</a></span></dt>
+<dt><span class="section"><a href="TypeConversionCollectionTypes.html#TypeConversionCollectionElementTypes">4.3.2. Collection Element Types</a></span></dt>
+</dl></dd>
+<dt><span class="section"><a href="TypeConversionStructureTypes.html">4.4. Structure Types</a></span></dt>
+<dt><span class="section"><a href="TypeConversionNumericTypes.html">4.5. Numeric Types</a></span></dt>
+</dl></dd>
+<dt><span class="chapter"><a href="Domains.html">5. Domains</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="DomainsCompilationUnits.html">5.1. Compilation Units</a></span></dt>
+<dt><span class="section"><a href="DomainsProjectDeclaration.html">5.2. Project Declaration</a></span></dt>
+<dt><span class="section"><a href="DomainsDomainDeclaration.html">5.3. Domain Declaration</a></span></dt>
+<dt><span class="section"><a href="DomainsDomainMembers.html">5.4. Domain Members</a></span></dt>
+<dt><span class="section"><a href="DomainsDomainDefintions.html">5.5. Domain Definitions</a></span></dt>
+<dt><span class="section"><a href="DomainsNamesandScoping.html">5.6. Names and Scoping</a></span></dt>
+</dl></dd>
+<dt><span class="chapter"><a href="Objects.html">6. Objects</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="ObjectsObjectDeclaration.html">6.1. Object Declaration</a></span></dt>
+<dt><span class="section"><a href="ObjectsObjectPredeclaration.html">6.2. Object Pre-declaration</a></span></dt>
+<dt><span class="section"><a href="ObjectsObjectMembers.html">6.3. Object Members</a></span></dt>
+<dt><span class="section"><a href="ObjectsAttributes.html">6.4. Attributes</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="ObjectsAttributes.html#ObjectsInitializationofAttributes">6.4.1. Initialization of Attributes</a></span></dt>
+<dt><span class="section"><a href="ObjectsAttributes.html#ObjectsAttributeModifiers">6.4.2. Attribute Modifiers</a></span></dt>
+</dl></dd>
+</dl></dd>
+<dt><span class="chapter"><a href="Relationships.html">7. Relationships</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="RelationshipsRelationshipDeclarations.html">7.1. Relationship Declarations</a></span></dt>
+<dt><span class="section"><a href="RegularRelationships.html">7.2. Regular Relationships</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="RegularRelationships.html#RelationshipsUnconditionalRelationships">7.2.1. Unconditional Relationships</a></span></dt>
+<dt><span class="section"><a href="RegularRelationships.html#RelationshipsConditionalRelationships">7.2.2. Conditional Relationships</a></span></dt>
+</dl></dd>
+<dt><span class="section"><a href="RelationshipsSubtypeRelationships.html">7.3. Subtype Relationships</a></span></dt>
+<dd><dl><dt><span class="section"><a href="RelationshipsSubtypeRelationships.html#RelationshipsInvalidSubtypeRelationships">7.3.1. Invalid Subtype Relationships</a></span></dt></dl></dd>
+<dt><span class="section"><a href="RelationshipsRelationshipSpecifications.html">7.4. Relationship Specification</a></span></dt>
+<dt><span class="section"><a href="RelationshipsCorrelatedRelationshipSpecification.html">7.5. Correlated Relationship Specification</a></span></dt>
+</dl></dd>
+<dt><span class="chapter"><a href="Lifecycles.html">8. Lifecycles</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="LifecyclesStates.html">8.1. States</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="LifecyclesStates.html#LifecyclesStateModifiers">8.1.1. State Modifiers</a></span></dt>
+<dt><span class="section"><a href="LifecyclesStates.html#LifecyclesFormalStateParameters">8.1.2. Formal State Parameters</a></span></dt>
+<dt><span class="section"><a href="LifecyclesStates.html#LifecyclesStateSignature">8.1.3. State Signature</a></span></dt>
+<dt><span class="section"><a href="LifecyclesStates.html#LifecyclesStateDefinition">8.1.4. State Definition</a></span></dt>
+</dl></dd>
+<dt><span class="section"><a href="LifecyclesEvents.html">8.2. Events</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="LifecyclesEvents.html#LifecyclesEventModifiers">8.2.1. Event Modifiers</a></span></dt>
+<dt><span class="section"><a href="LifecyclesEvents.html#FormalEventParameters">8.2.2. Formal Event Parameters</a></span></dt>
+<dt><span class="section"><a href="LifecyclesEvents.html#LifecyclesEventSignature">8.2.3. Event Signature</a></span></dt>
+</dl></dd>
+<dt><span class="section"><a href="LifecyclesTransitions.html">8.3. Transitions</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="LifecyclesTransitions.html#LifecyclesTransitionModifiers">8.3.1. Transition Modifiers</a></span></dt>
+<dt><span class="section"><a href="LifecyclesTransitions.html#LifecyclesTransitionRows">8.3.2. Transition Rows</a></span></dt>
+</dl></dd>
+</dl></dd>
+<dt><span class="chapter"><a href="Functions.html">9. Functions</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="FunctionsDomainFunctions.html">9.1. Domain Functions</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="FunctionsDomainFunctions.html#FunctionsDomainFunctionModifiers">9.1.1. Domain Function Modifiers</a></span></dt>
+<dt><span class="section"><a href="FunctionsDomainFunctions.html#FunctionsDomainFunctionFormalParameters">9.1.2. Formal Parameters</a></span></dt>
+<dt><span class="section"><a href="FunctionsDomainFunctions.html#FunctionsDomainFunctionSignatures">9.1.3. Function Signatures</a></span></dt>
+<dt><span class="section"><a href="FunctionsDomainFunctions.html#FunctionsDomainFunctionOverloading">9.1.4. Overloading</a></span></dt>
+<dt><span class="section"><a href="FunctionsDomainFunctions.html#FunctionsDomainFunctionRaisesExpression">9.1.5. Raises Expression</a></span></dt>
+<dt><span class="section"><a href="FunctionsDomainFunctions.html#FunctionsDomainFunctionDefinition">9.1.6. Domain Function Definition</a></span></dt>
+</dl></dd>
+<dt><span class="section"><a href="FunctionsObjectFunctions.html">9.2. Object Functions</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="FunctionsObjectFunctions.html#FunctionsObjectFunctionModifiers">9.2.1. Object Function Modifiers</a></span></dt>
+<dt><span class="section"><a href="FunctionsObjectFunctions.html#FunctionsObjectFunctionFormalParameters">9.2.2. Formal Parameters</a></span></dt>
+<dt><span class="section"><a href="FunctionsObjectFunctions.html#FunctionsObjectFunctionSignatures">9.2.3. Function Signatures</a></span></dt>
+<dt><span class="section"><a href="FunctionsObjectFunctions.html#FunctionsObjectFunctionOverloading">9.2.4. Overloading</a></span></dt>
+<dt><span class="section"><a href="FunctionsObjectFunctions.html#FunctionsObjectFunctionRaisesExpression">9.2.5. Raises Expression</a></span></dt>
+<dt><span class="section"><a href="FunctionsObjectFunctions.html#FunctionsObjectFunctionDefinition">9.2.6. Object Function Definition</a></span></dt>
+</dl></dd>
+</dl></dd>
+<dt><span class="chapter"><a href="Services.html">10. Services</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="ServicesDomainServices.html">10.1. Domain Services</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="ServicesDomainServices.html#ServicesDomainServiceModifiers">10.1.1. Domain Service Modifiers</a></span></dt>
+<dt><span class="section"><a href="ServicesDomainServices.html#ServicesDomainServiceFormalParameters">10.1.2. Formal Parameters</a></span></dt>
+<dt><span class="section"><a href="ServicesDomainServices.html#ServicesDomainServiceSignature">10.1.3. Service Signature</a></span></dt>
+<dt><span class="section"><a href="ServicesDomainServices.html#ServicesOverloading">10.1.4. Overloading</a></span></dt>
+<dt><span class="section"><a href="ServicesDomainServices.html#ServicesDomainServiceRaisesExpression">10.1.5. Raises Expression</a></span></dt>
+<dt><span class="section"><a href="ServicesDomainServices.html#ServicesDomainServiceDefinition">10.1.6. Domain Service Definition</a></span></dt>
+</dl></dd>
+<dt><span class="section"><a href="ServicesObjectServices.html">10.2. Object Services</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="ServicesObjectServices.html#ServicesObjectServiceModifiers">10.2.1. Object Service Modifiers</a></span></dt>
+<dt><span class="section"><a href="ServicesObjectServices.html#ServicesObjectServiceFormalParameters">10.2.2. Formal Parameters</a></span></dt>
+<dt><span class="section"><a href="ServicesObjectServices.html#ServicesObjectServiceSignature">10.2.3. Service Signature</a></span></dt>
+<dt><span class="section"><a href="ServicesObjectServices.html#ServiceOverloading">10.2.4. Overloading</a></span></dt>
+<dt><span class="section"><a href="ServicesObjectServices.html#ServicesObjectServiceRaisesExpression">10.2.5. Raises Expression</a></span></dt>
+<dt><span class="section"><a href="ServicesObjectServices.html#ServicesObjectServiceDefinition">10.2.6. Object Service Definition</a></span></dt>
+</dl></dd>
+</dl></dd>
+<dt><span class="chapter"><a href="Exceptions.html">11. Exceptions</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="ExceptionsExceptionDeclarations.html">11.1. Exception Declarations</a></span></dt>
+<dd><dl><dt><span class="section"><a href="ExceptionsExceptionDeclarations.html#ExceptionsExceptionModifiers">11.1.1. Exception Modifiers</a></span></dt></dl></dd>
+<dt><span class="section"><a href="ExceptionsTheCausesofExceptions.html">11.2. The Causes of Exceptions</a></span></dt>
+<dt><span class="section"><a href="ExceptionCompileTimeCheckingofExceptions.html">11.3. Compile-Time Checking of Exceptions</a></span></dt>
+<dt><span class="section"><a href="ExceptionsHandlingofanException.html">11.4. Handling of an Exception</a></span></dt>
+<dd><dl><dt><span class="section"><a href="ExceptionsHandlingofanException.html#ExceptionsHandlingExceptionAcrossAsynchronousBoundaries">11.4.1. Handling Exceptions Across Asynchronous Boundaries</a></span></dt></dl></dd>
+</dl></dd>
+<dt><span class="chapter"><a href="Statements.html">12. Statements</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="StatementsNormalandAbruptCompletionofStatements.html">12.1. Normal and Abrupt Completion of Statements</a></span></dt>
+<dt><span class="section"><a href="StatementsSequenceofStatements.html">12.2. Sequence of Statements</a></span></dt>
+<dt><span class="section"><a href="StatementsStatements.html">12.3. Statements</a></span></dt>
+<dt><span class="section"><a href="StatementsTheNullStatement.html">12.4. The Null Statement</a></span></dt>
+<dt><span class="section"><a href="StatementsAssignment.html">12.5. Assignment</a></span></dt>
+<dt><span class="section"><a href="StatementsOutputStream.html">12.6. Output Stream</a></span></dt>
+<dt><span class="section"><a href="StatementsInputStream.html">12.7. Input Stream</a></span></dt>
+<dt><span class="section"><a href="StatementsInputLineStream.html">12.8. Input Line Stream</a></span></dt>
+<dt><span class="section"><a href="StatementsInvocationStatement.html">12.9. Invocation Statements</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="StatementsInvocationStatement.html#StatementsDomainServiceInvocation">12.9.1. Domain Service Invocation</a></span></dt>
+<dt><span class="section"><a href="StatementsInvocationStatement.html#StatementsObjectServiceInvocation">12.9.2. Object Service Invocation</a></span></dt>
+<dt><span class="section"><a href="StatementsInvocationStatement.html#StatementsInstanceServiceInvocation">12.9.3. Instance Service Invocation</a></span></dt>
+<dt><span class="section"><a href="StatementsInvocationStatement.html#StatementsCompileTimeProcessingofServiceInvocations">12.9.4. Compile-Time Processing of Service Invocations</a></span></dt>
+<dt><span class="section"><a href="StatementsInvocationStatement.html#StatementsArgumentLists">12.9.5. Argument Lists</a></span></dt>
+</dl></dd>
+<dt><span class="section"><a href="StatementsBlocks.html">12.10. Blocks</a></span></dt>
+<dt><span class="section"><a href="StatementsTheIfStatement.html">12.11. The If Statement</a></span></dt>
+<dt><span class="section"><a href="StatementsTheCaseStatement.html">12.12. The Case Statement</a></span></dt>
+<dt><span class="section"><a href="StatementsTheWhileStatement.html">12.13. The While Statement</a></span></dt>
+<dd><dl><dt><span class="section"><a href="StatementsTheWhileStatement.html#StatementsWhileAbruptCompletion">12.13.1. Abrupt Completion</a></span></dt></dl></dd>
+<dt><span class="section"><a href="StatementsTheForStatement.html">12.14. The For Statement</a></span></dt>
+<dd><dl><dt><span class="section"><a href="StatementsTheForStatement.html#StatementsForAbruptCompletion">12.14.1. Abrupt Completion</a></span></dt></dl></dd>
+<dt><span class="section"><a href="StatementsTheExitStatement.html">12.15. The Exit Statement</a></span></dt>
+<dt><span class="section"><a href="StatementsTheRaiseStatement.html">12.16. The Raise Statement</a></span></dt>
+<dt><span class="section"><a href="StatementsTheDeleteStatement.html">12.17. The Delete Statement</a></span></dt>
+<dt><span class="section"><a href="StatementsTheDelayStatement.html">12.18. The Delay Statement</a></span></dt>
+<dt><span class="section"><a href="StatementsTheLinkStatement.html">12.19. The Link Statement</a></span></dt>
+<dt><span class="section"><a href="StatementsTheUnlinkStatement.html">12.20. The Unlink Statement</a></span></dt>
+<dt><span class="section"><a href="StatementsTheAssociateStatement.html">12.21. The Associate Statement</a></span></dt>
+<dt><span class="section"><a href="StatementsTheUnassociateStatement.html">12.22. The Unassociate Statement</a></span></dt>
+<dt><span class="section"><a href="StatementsTheGenerateStatement.html">12.23. The Generate Statement</a></span></dt>
+<dt><span class="section"><a href="StatementsThePragmaStatement.html">12.24. The Pragma Statement</a></span></dt>
+</dl></dd>
+<dt><span class="chapter"><a href="Names.html">13. Names</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="NamesIndexedComponents.html">13.1. Indexed Components</a></span></dt>
+<dt><span class="section"><a href="NamesSelectedComponents.html">13.2. Selected Components</a></span></dt>
+<dt><span class="section"><a href="NamesSelectedAttributes.html">13.3. Selected Attributes</a></span></dt>
+<dt><span class="section"><a href="NamesSlices.html">13.4. Slices</a></span></dt>
+<dt><span class="section"><a href="NamesAssignabilityofNames.html">13.5. Assignability of Names</a></span></dt>
+</dl></dd>
+<dt><span class="chapter"><a href="Expressions.html">14. Expressions</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="ExpressionsEvaluationandResult.html">14.1. Evaluation and Result</a></span></dt>
+<dt><span class="section"><a href="ExpressionsTypeofanExpression.html">14.2. Type of an Expression</a></span></dt>
+<dt><span class="section"><a href="ExpressionsNormalandAbruptCompletionofEvaluation.html">14.3. Normal and Abrupt Completion of Evaluation</a></span></dt>
+<dt><span class="section"><a href="ExpressionsPrimaryExpression.html">14.4. Primary Expressions</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="ExpressionsPrimaryExpression.html#ExpressionsLiterals">14.4.1. Literals</a></span></dt>
+<dt><span class="section"><a href="ExpressionsPrimaryExpression.html#Expressionsthis">14.4.2. this</a></span></dt>
+<dt><span class="section"><a href="ExpressionsPrimaryExpression.html#ExpressionsNamesasExpressions">14.4.3. Names as Expressions</a></span></dt>
+<dt><span class="section"><a href="ExpressionsPrimaryExpression.html#ExpressionsCharacteristicReferences">14.4.4. Characteristic References</a></span></dt>
+<dt><span class="section"><a href="ExpressionsPrimaryExpression.html#ExpressionsStructureAggregates">14.4.5. Structure Aggregates</a></span></dt>
+<dt><span class="section"><a href="ExpressionsPrimaryExpression.html#ExpressionsServicesasExpressions">14.4.6. Services As Expressions</a></span></dt>
+<dt><span class="section"><a href="ExpressionsPrimaryExpression.html#ExpressionsEventsAsExpressions">14.4.7. Events As Expressions</a></span></dt>
+<dt><span class="section"><a href="ExpressionsPrimaryExpression.html#ExpressionsFunctionInvocation">14.4.8. Function Invocation</a></span></dt>
+<dt><span class="section"><a href="ExpressionsPrimaryExpression.html#ExpressionsDomainFunctionInvocation">14.4.9. Domain Function Invocation</a></span></dt>
+<dt><span class="section"><a href="ExpressionsPrimaryExpression.html#ExpressionsObjectFunctionInvocation">14.4.10. Object Function Invocation</a></span></dt>
+<dt><span class="section"><a href="ExpressionsPrimaryExpression.html#ExpressionsInstanceFunctionInvocation">14.4.11. Instance Function Invocation</a></span></dt>
+<dt><span class="section"><a href="ExpressionsPrimaryExpression.html#ExpressionsCompileTimeProcessingofFunctionCalls">14.4.12. Compile-Time Processing of Function Calls</a></span></dt>
+<dt><span class="section"><a href="ExpressionsPrimaryExpression.html#ExpressionsParenthesisedExpressions">14.4.13. Parenthesized Expressions</a></span></dt>
+</dl></dd>
+<dt><span class="section"><a href="ExpressionsUnaryOperators.html">14.5. Unary Operators</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="ExpressionsUnaryOperators.html#ExpressionsUnaryPlusandMinusOperators">14.5.1. Unary Plus and Minus Operators</a></span></dt>
+<dt><span class="section"><a href="ExpressionsUnaryOperators.html#ExpressionsLogicalNegationOperator">14.5.2. Logical Negation Operator</a></span></dt>
+<dt><span class="section"><a href="ExpressionsUnaryOperators.html#ExpressionsAbsoluteValueOperator">14.5.3. Absolute Value Operator</a></span></dt>
+</dl></dd>
+<dt><span class="section"><a href="ExpressionsTypeConversion.html">14.6. Type Conversion</a></span></dt>
+<dt><span class="section"><a href="ExpressionsMulitplicativeOperators.html">14.7. Multiplicative Operators</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="ExpressionsMulitplicativeOperators.html#ExpressionsMulitplicationandDivisionOperators">14.7.1. Multiplication and Division Operators</a></span></dt>
+<dt><span class="section"><a href="ExpressionsMulitplicativeOperators.html#ExpressionsRemainderandModulusOperators">14.7.2. Remainder and Modulus Operators</a></span></dt>
+<dt><span class="section"><a href="ExpressionsMulitplicativeOperators.html#ExpressionsExponentationOperator">14.7.3. Exponentiation Operator</a></span></dt>
+<dt><span class="section"><a href="ExpressionsMulitplicativeOperators.html#ExpressionsSetIntersectionandDisunionOperators">14.7.4. Set Intersection and Disunion Operators</a></span></dt>
+</dl></dd>
+<dt><span class="section"><a href="ExpressionsAdditiveOperators.html">14.8. Additive Operators</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="ExpressionsAdditiveOperators.html#ExpressionsAdditiveOperatorsforNumericTypes">14.8.1. Additive Operators for Numeric Types</a></span></dt>
+<dt><span class="section"><a href="ExpressionsAdditiveOperators.html#ExpressionsStringConcatenationOperator">14.8.2. String Concatenation Operator</a></span></dt>
+<dt><span class="section"><a href="ExpressionsAdditiveOperators.html#ExpressionsCollectionAdditionOperator">14.8.3. Collection Addition Operator</a></span></dt>
+<dt><span class="section"><a href="ExpressionsAdditiveOperators.html#ExpressionsSetUnionandNotInOperators">14.8.4. Set Union and Not In Operators</a></span></dt>
+</dl></dd>
+<dt><span class="section"><a href="ExpressionsRelationalOperators.html">14.9. Relational Operators</a></span></dt>
+<dt><span class="section"><a href="ExpressionsEqualityOperators.html">14.10. Equality Operators</a></span></dt>
+<dt><span class="section"><a href="ExpressionsLogicalOperators.html">14.11. Logical Operators</a></span></dt>
+<dd><dl><dt><span class="section"><a href="ExpressionsLogicalOperators.html#ExpressionsShortCircuitEvaluationofLogicalOperators">14.11.1. Short Circuit Evaluation of Logical Operators</a></span></dt></dl></dd>
+<dt><span class="section"><a href="ExpressionsExpression.html">14.12. Expression</a></span></dt>
+<dt><span class="section"><a href="ExpressionsConditions.html">14.13. Conditions</a></span></dt>
+<dt><span class="section"><a href="ExpressionsInstanceandInstanceCollectionExpressions.html">14.14. Instance and Instance Collection Expressions</a></span></dt>
+<dt><span class="section"><a href="ExpressionsConstantExpressions.html">14.15. Constant Expressions</a></span></dt>
+<dt><span class="section"><a href="ExpressionsExecutableUMLExpressions.html">14.16. Executable UML Expressions</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="ExpressionsExecutableUMLExpressions.html#ExpressionsCreateExpressions">14.16.1. Create Expressions</a></span></dt>
+<dt><span class="section"><a href="ExpressionsExecutableUMLExpressions.html#ExpressionsFindExpressions">14.16.2. Find Expressions</a></span></dt>
+<dt><span class="section"><a href="ExpressionsExecutableUMLExpressions.html#ExpressionsRelationshipNavigation">14.16.3. Relationship Navigation</a></span></dt>
+<dt><span class="section"><a href="ExpressionsExecutableUMLExpressions.html#ExpressionsCorrelatedRelationshipNavigation">14.16.4. Correlated Relationship Navigation</a></span></dt>
+<dt><span class="section"><a href="ExpressionsExecutableUMLExpressions.html#ExpressionsOrderingExpressions">14.16.5. Ordering Expressions</a></span></dt>
+</dl></dd>
+</dl></dd>
+<dt><span class="appendix"><a href="LanguageDefinedCharacteristics.html">A. Language Defined Characteristics</a></span></dt>
+<dt><span class="appendix"><a href="SyntaxSummary.html">B. Syntax Summary</a></span></dt>
+<dt><span class="index"><a href="ix01.html">Index</a></span></dt>
+</dl>
+</div>
+<div class="list-of-figures">
+<div class="toc-title">List of Figures</div>
+<dl><dt>4.1. <a href="TypeConversionCollectionTypes.html#CollectionTypeHierarchy">Collection Type Hierarchy</a>
+</dt></dl>
+</div>
+<div class="list-of-tables">
+<div class="toc-title">List of Tables</div>
+<dl>
+<dt>3.1. <a href="TypesBuiltinTypes.html#WideCharacterTypeFeatures">Wide Character Type Features</a>
+</dt>
+<dt>3.2. <a href="TypesBuiltinTypes.html#BooleanTypeFeatures">Boolean Type Features</a>
+</dt>
+<dt>3.3. <a href="TypesBuiltinTypes.html#WideStringTypeFeatures">Wide String Type Features</a>
+</dt>
+<dt>3.4. <a href="TypesCollectionTypes.html#CollectionTypesFeatures">Collection Type Features</a>
+</dt>
+<dt>3.5. <a href="TypesCollectionTypes.html#SetTypeFeatures">Set Type Features</a>
+</dt>
+<dt>3.6. <a href="TypesCollectionTypes.html#BagTypeFeatures">Bag Type Features</a>
+</dt>
+<dt>3.7. <a href="TypesCollectionTypes.html#SequenceTypeFeatures">Sequence Type Features</a>
+</dt>
+<dt>3.8. <a href="TypesCollectionTypes.html#ArrayTypeFeatures">Array Type Features</a>
+</dt>
+<dt>3.9. <a href="TypesInstanceTypes.html#InstanceTypeFeatures">Instance Type Features</a>
+</dt>
+<dt>3.10. <a href="TypesFullDeclarations.html#NumericTypeFeatures">Numeric Type Features</a>
+</dt>
+<dt>3.11. <a href="TypesFullDeclarations.html#EnumerationTypeFeatures">Enumeration Type Features</a>
+</dt>
+<dt>4.1. <a href="TypeConversionCollectionTypes.html#ConversionsforaCollectionTypeHierarchy">Conversions for a Collection Type Hierarchy</a>
+</dt>
+<dt>4.2. <a href="TypeConversionCollectionTypes.html#TypeConversionsforCollectionTypeHierarchy">Type conversions for Collection Type Hierarchy</a>
+</dt>
+<dt>4.3. <a href="TypeConversionNumericTypes.html#ConversionsforaNumericHierarchy">Conversions for a Numeric Hierarchy</a>
+</dt>
+<dt>7.1. <a href="RegularRelationships.html#MappingsforIntegerIntervalstoConditionalityandMultiplicity">Mappings for Integer Intervals to Conditionality and Multiplicity</a>
+</dt>
+<dt>8.1. <a href="LifecyclesTransitions.html#ReservedStates">Reserved States</a>
+</dt>
+<dt>14.1. <a href="ExpressionsMulitplicativeOperators.html#RelationBetweenDivRemandMod">Relations between <code class="literal">/</code>, <code class="literal">rem</code> and <code class="literal">mod</code></a>
+</dt>
+</dl>
+</div>
+<div class="list-of-examples">
+<div class="toc-title">List of Examples</div>
+<dl>
+<dt>4.1. <a href="TypeConversionTypesanstheirSubtypes.html#TypeConversionTypeandSubtypeDeclarations">Type and Subtype Declarations</a>
+</dt>
+<dt>4.2. <a href="TypeConversionTypesanstheirSubtypes.html#TypeConversionTypeConversionExample">Simple type hierarchy conversions</a>
+</dt>
+<dt>4.3. <a href="TypeConversionCollectionTypes.html#TypeConversionCollectionTypeofaSubtype">Collection Type of a Subtype</a>
+</dt>
+<dt>4.4. <a href="TypeConversionCollectionTypes.html#TypeConversionCollectionElementTypeConversion">Collection Element Type Conversion</a>
+</dt>
+<dt>4.5. <a href="TypeConversionStructureTypes.html#TypeConversionStructureTypeTypeConversion">Structure Type, Type Conversion</a>
+</dt>
+<dt>4.6. <a href="TypeConversionNumericTypes.html#TypeConversionNumericTypeDeclaration">Numeric Type Declaration</a>
+</dt>
+</dl>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer"><tr>
+<td width="40%" align="left" valign="top"> </td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+<td width="40%" align="right" valign="top"> </td>
+</tr></table>
+</div>
+<div align="center">OFFICIAL</div>
+</body>
+</html>

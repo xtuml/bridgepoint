@@ -29,7 +29,6 @@ import java.util.Map;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IWorkspaceRunnable;
-import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
@@ -43,15 +42,13 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.ui.ide.IGotoMarker;
 import org.eclipse.ui.texteditor.MarkerUtilities;
-
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Package_c;
-import org.xtuml.bp.core.Ooaofooa;
-import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
-import org.xtuml.bp.core.common.PersistableModelComponent;
-import org.xtuml.bp.test.TestUtil;
-import org.xtuml.bp.test.common.TestingUtilities;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TextEditorUtils;
 import org.xtuml.bp.ui.text.EditorHover;
 import org.xtuml.bp.ui.text.description.DescriptionEditor;
@@ -60,41 +57,47 @@ import org.xtuml.bp.ui.text.description.ShowDescriptionAction;
 import org.xtuml.bp.ui.text.test.TextTestPlugin;
 import org.xtuml.bp.ui.text.test.UITextTest;
 
+@RunWith(OrderedRunner.class)
 public class DescriptionEditorInteraction extends UITextTest {
+
+	public DescriptionEditorInteraction() throws CoreException {
+		super();
+	}
 
 	private static boolean firstSetup = true;
 	private static String testModelName = "testDescrip1";
 	
-	public DescriptionEditorInteraction(String projectName, String name) throws CoreException {
-		super(null, name);
-	}
-	
-	public DescriptionEditorInteraction(String name) throws CoreException {
-		super(null, name);
-	}
+//	public DescriptionEditorInteraction(String projectName, String name) throws CoreException {
+//		super(null, name);
+//	}
+//	
+//	public DescriptionEditorInteraction(String name) throws CoreException {
+//		super(null, name);
+//	}
 
 	private static String m_oldDescrip; 
 	private final static String m_updateText = "New Line \n";
 	private static long m_markerId[] = new long [4];
 	private static int numMarkers = 0;
 	
-	// enforce order in which these tests are run
-    public void testDescriptionEditorInteraction() {
-    	dotestDirtyFlag();
-    	dotestUndo();
-    	dotestRevert();
-    	dotestSave();
-    	dotestOpenChangedDescription();
-    	dotestAddBookmark();
-    	dotestBookmarkHoverText();
-    	dotestAddTaskMarker();
-    	dotestMultipleMarkerHoverText();
-    	dotestDeleteBookmark();
-    	dotestTaskHoverText();
-    	dotestDeleteTask();
-    }
+//	// enforce order in which these tests are run
+//    public void testDescriptionEditorInteraction() {
+//    	dotestDirtyFlag();
+//    	dotestUndo();
+//    	dotestRevert();
+//    	dotestSave();
+//    	dotestOpenChangedDescription();
+//    	dotestAddBookmark();
+//    	dotestBookmarkHoverText();
+//    	dotestAddTaskMarker();
+//    	dotestMultipleMarkerHoverText();
+//    	dotestDeleteBookmark();
+//    	dotestTaskHoverText();
+//    	dotestDeleteTask();
+//    }
     
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
     	super.setUp();
 
         if ( firstSetup ) {
@@ -186,7 +189,8 @@ public class DescriptionEditorInteraction extends UITextTest {
 		}
 	}
 
-	public void dotestDirtyFlag()
+	@Test
+	public void testDirtyFlag()
 	{	
 		DescriptionEditor de = openPackageDescriptionEditor();
 		
@@ -200,7 +204,8 @@ public class DescriptionEditorInteraction extends UITextTest {
 		assertTrue( de.isDirty() );
 	}
 
-	public void dotestUndo()
+	@Test
+	public void testUndo()
 	{	
 		DescriptionEditor de = getPackageDescriptionEditor();
 		
@@ -215,7 +220,8 @@ public class DescriptionEditorInteraction extends UITextTest {
 
 	}
 	
-	public void dotestRevert()
+	@Test
+	public void testRevert()
 	{	
 		DescriptionEditor de = getPackageDescriptionEditor();
 		
@@ -228,7 +234,8 @@ public class DescriptionEditorInteraction extends UITextTest {
 		assertEquals( uut.getDescrip(), de.getDocumentProvider().getDocument(de.getEditorInput()).get());
 	}
 	
-	public void dotestSave()
+	@Test
+	public void testSave()
 	{	
 		DescriptionEditor de = getPackageDescriptionEditor();
 		Package_c uut = getTopPackage();
@@ -248,7 +255,8 @@ public class DescriptionEditorInteraction extends UITextTest {
 		de.getSite().getPage().closeEditor(de, false);
 	}
 	
-	public void dotestOpenChangedDescription()
+	@Test
+	public void testOpenChangedDescription()
 	{
 		DescriptionEditor de = openPackageDescriptionEditor();
 		assertFalse( de.isSaveOnCloseNeeded() );
@@ -258,7 +266,8 @@ public class DescriptionEditorInteraction extends UITextTest {
 	
 	private final int marker_line = 3;
 	
-	public void dotestAddBookmark()
+	@Test
+	public void testAddBookmark()
 	{
 		DescriptionEditor de = getPackageDescriptionEditor();
 		DescriptionEditorInput editorInput = (DescriptionEditorInput)de.getEditorInput();
@@ -281,7 +290,8 @@ public class DescriptionEditorInteraction extends UITextTest {
 		assertTrue(m2.getResource().isAccessible());
 	}
 
-	public void dotestBookmarkHoverText()
+	@Test
+	public void testBookmarkHoverText()
 	{
 		DescriptionEditor de = openPackageDescriptionEditor();
 
@@ -303,7 +313,8 @@ public class DescriptionEditorInteraction extends UITextTest {
 		String hoverText = eh.getHoverInfo((ISourceViewer)de.getTextViewer(), marker_line-1);
 		assertEquals( "test bookmark", hoverText);
 	}
-	public void dotestAddTaskMarker()
+	@Test
+	public void testAddTaskMarker()
 	{
 		DescriptionEditor de = getPackageDescriptionEditor();
 		DescriptionEditorInput editorInput = (DescriptionEditorInput)de.getEditorInput();
@@ -325,7 +336,8 @@ public class DescriptionEditorInteraction extends UITextTest {
 	  catch (CoreException e) {	fail("Core Exception in DescriptionEditorInteraction.testAddBookmark " + e.toString()); }
 		assertTrue(m2.getResource().isAccessible());
 	}
-	public void dotestMultipleMarkerHoverText()
+	@Test
+	public void testMultipleMarkerHoverText()
 	{
 		DescriptionEditor de = openPackageDescriptionEditor();
 
@@ -339,7 +351,8 @@ public class DescriptionEditorInteraction extends UITextTest {
         }        
 		assertFalse(true);
 	}
-	public void dotestDeleteBookmark()
+	@Test
+	public void testDeleteBookmark()
 	{
 		DescriptionEditor de = getPackageDescriptionEditor();
 		DescriptionEditorInput editorInput = (DescriptionEditorInput)de.getEditorInput();
@@ -354,7 +367,8 @@ public class DescriptionEditorInteraction extends UITextTest {
 		m2 = file.getMarker(m_markerId[0]);
 		assertFalse(m2.exists());
 	}
-	public void dotestTaskHoverText()
+	@Test
+	public void testTaskHoverText()
 	{
 		DescriptionEditor de = getPackageDescriptionEditor();
 
@@ -363,7 +377,8 @@ public class DescriptionEditorInteraction extends UITextTest {
 		String hoverText = eh.getHoverInfo((ISourceViewer)de.getTextViewer(), marker_line-1);
 		assertEquals( "test task", hoverText);
 	}
-	public void dotestDeleteTask()
+	@Test
+	public void testDeleteTask()
 	{
 		DescriptionEditor de = getPackageDescriptionEditor();
 		DescriptionEditorInput editorInput = (DescriptionEditorInput)de.getEditorInput();
