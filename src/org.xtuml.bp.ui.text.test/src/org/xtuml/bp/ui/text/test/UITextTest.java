@@ -82,7 +82,7 @@ public class UITextTest extends BaseTest
 		super(projectName, name);	
 		
 		// Historically, these tests were written in a way that expected parse on editing.  So turn on parser pref on
-		CorePlugin.getDefault().getPreferenceStore().setValue(BridgePointPreferencesStore.ENABLE_PARSE_WHILE_EDITING,
+		CorePlugin.getDefault().getPreferenceStore().setValue(BridgePointPreferencesStore.ENABLE_PARSE_ON_ACTIVITY_EDITS,
 				true);
 	}
     public UITextTest() throws CoreException {

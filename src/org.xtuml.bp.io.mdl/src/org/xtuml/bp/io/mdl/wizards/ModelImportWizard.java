@@ -174,6 +174,8 @@ public class ModelImportWizard extends Wizard implements IImportWizard {
 				return false;
 			}
 			try {
+				// turn off model change listeners
+				ModelRoot.disableChangeNotification();
 				IPath sourceFileDirectory = templatePath.removeLastSegments(1);
 				ImportStreamStatus iss = new ImportStreamStatus(inStream);
 				if (getContainer() == null) {
@@ -190,6 +192,9 @@ public class ModelImportWizard extends Wizard implements IImportWizard {
 				org.xtuml.bp.io.core.CorePlugin.logError(
 						"Internal error: plugin.doLoad not found", e); //$NON-NLS-1$
 				return false;
+			} 
+			finally {
+				ModelRoot.enableChangeNotification();	
 			}
 
             // resolve component references and formalize interfaces in MASL projects
@@ -234,10 +239,7 @@ public class ModelImportWizard extends Wizard implements IImportWizard {
 								Ooaofooa.CLIPBOARD_MODEL_ROOT_NAME, false),
 						true, fSystem.getPersistableComponent().getFile().getFullPath());
 				  fProcessor.runImporter(fImporter, monitor);
-				}
-				finally {
-				  ModelRoot.enableChangeNotification();
-				}
+
 				fProcessor.processFirstStep(monitor);
 				handleImportedGraphicalElements();
 				fProcessor.processSecondStep(monitor);
