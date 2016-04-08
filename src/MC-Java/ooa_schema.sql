@@ -368,6 +368,15 @@ CREATE TABLE COMM_LNK (
 	     EndVisibility	INTEGER,
 	     Start_Part_ID	UNIQUE_ID,
 	     Destination_Part_ID	UNIQUE_ID );
+CREATE TABLE CL_IC (
+	     Id	UNIQUE_ID,
+	     AssignedComp_Id	UNIQUE_ID,
+	     ParentComp_Id	UNIQUE_ID,
+	     Component_Package_ID	UNIQUE_ID,
+	     Mult	INTEGER,
+	     ClassifierName	STRING,
+	     Name	STRING,
+	     Descrip	STRING );
 CREATE TABLE CL_IPINS (
 	     Satisfaction_Id	UNIQUE_ID,
 	     ImportedProvision_Id	UNIQUE_ID );
@@ -392,15 +401,6 @@ CREATE TABLE CL_POR (
 	     C_PO_Id	UNIQUE_ID,
 	     Name	STRING,
 	     Id	UNIQUE_ID );
-CREATE TABLE CL_IC (
-	     Id	UNIQUE_ID,
-	     AssignedComp_Id	UNIQUE_ID,
-	     ParentComp_Id	UNIQUE_ID,
-	     Component_Package_ID	UNIQUE_ID,
-	     Mult	INTEGER,
-	     ClassifierName	STRING,
-	     Name	STRING,
-	     Descrip	STRING );
 CREATE TABLE SPR_PEP (
 	     Id	UNIQUE_ID,
 	     ExecutableProperty_Id	UNIQUE_ID,
