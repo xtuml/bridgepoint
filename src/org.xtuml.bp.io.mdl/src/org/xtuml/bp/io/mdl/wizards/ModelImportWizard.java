@@ -295,7 +295,6 @@ public class ModelImportWizard extends Wizard implements IImportWizard {
 				finally {
 				  ModelRoot.enableChangeNotification();
 				}
-				convertCoreTypesToProxies();
 				fProcessor.processFirstStep(monitor);
 				handleImportedGraphicalElements();
 				fProcessor.processSecondStep(monitor);
@@ -346,10 +345,6 @@ public class ModelImportWizard extends Wizard implements IImportWizard {
 		String getMessage() {
 			return fMessage;
 		}
-	}
-
-	public void convertCoreTypesToProxies() {
-		// TODO: Bob Fixme
 	}
 
 	private GraphicalElement_c getGraphicalElementFor(NonRootModelElement element) {

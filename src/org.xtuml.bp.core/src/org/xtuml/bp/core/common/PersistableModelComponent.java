@@ -1075,18 +1075,6 @@ public class PersistableModelComponent implements Comparable {
             thisMe.updateContentPath(underlyingResource.getFullPath());
         }
     }
-
-    public static void ensureCoreDataTypesAvailable(ModelRoot modelRoot) {
-    	//TODO: BOB REmove this obsolete function
-    }    
-
-    public static void ensureSystemCoreDataTypesAvailable(final SystemModel_c system) {
-    	//TODO: BOB REmove this obsolete function
-    }
-    
-    public static void ensureComponentCoreDataTypesAvailable(Component_c component) {
-    	//TODO: BOB REmove this obsolete function
-    }
     
     public static void ensureDataTypesAvailable(ModelRoot modelRoot) {
         PersistenceManager.ensureAllInstancesLoaded(modelRoot, DataType_c.class);
