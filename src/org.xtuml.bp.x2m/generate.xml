@@ -35,11 +35,9 @@
         <pathelement path="../org.xtuml.bp.core/bin" />
         <pathelement path="../org.xtuml.bp.ui.explorer/bin" />
        	<pathelement path="../org.xtuml.bp.mc/bin" />
-       	<pathelement path="../org.xtuml.bp.mc.c.binary/bin" />
        	<pathelement path="../org.xtuml.bp.mc.c.source/bin" />
        	<pathelement path="../org.xtuml.bp.mc.cpp.source/bin" />
        	<pathelement path="../org.xtuml.bp.mc.systemc.source/bin" />
-       	<pathelement path="../org.xtuml.bp.mc.vhdl.source/bin" />
         <pathelement path="../org.xtuml.bp.io.image/bin" />
         <fileset dir="${eclipse-home}/plugins" casesensitive="yes">
        	  <include name="**/org.eclipse.equinox.common_*.jar"/>
