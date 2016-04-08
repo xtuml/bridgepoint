@@ -141,10 +141,6 @@ public class Generator extends Task {
                     nature = org.xtuml.bp.mc.systemc.source.MCNature.getDefault();
                     activator = org.xtuml.bp.mc.systemc.source.Activator.getDefault();
                 }
-                else if ( project.hasNature(org.xtuml.bp.mc.vhdl.source.MCNature.MC_NATURE_ID) || project.hasNature(org.xtuml.bp.mc.vhdl.source.MCNature.MC_NATURE_ID_OLD) ) {
-                    nature = org.xtuml.bp.mc.vhdl.source.MCNature.getDefault();
-                    activator = org.xtuml.bp.mc.vhdl.source.Activator.getDefault();
-                }
                 org.xtuml.bp.mc.MCBuilderArgumentHandler argHandlerAbstract = new org.xtuml.bp.mc.MCBuilderArgumentHandler(
                         project, activator, nature);
                 argHandlerAbstract.setArguments(nature.getBuilderID());                
