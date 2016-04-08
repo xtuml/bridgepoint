@@ -23,28 +23,37 @@
 
 package org.xtuml.bp.ui.text.test.description;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
-
 /**
  * Test all areas of the UI API.
  */
+
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+
+import junit.framework.TestSuite;
+
+@RunWith(Suite.class)
+@Suite.SuiteClasses({
+	OpenDescriptionEditor.class,
+	CloseDescriptionEditor.class,
+	DescriptionEditorInteraction.class
+})
 public class DescriptionEditorTestSuite extends TestSuite {
 
-	/**
-	 * Returns the suite.  This is required to
-	 * use the JUnit Launcher.
-	 */
-	public static Test suite() {
-		return new DescriptionEditorTestSuite();
-	}
-	
-	/**
-	 * Construct the test suite.
-	 */
-	public DescriptionEditorTestSuite() {
-		addTest(new TestSuite(OpenDescriptionEditor.class));	
-		addTest(new TestSuite(CloseDescriptionEditor.class));	
-		addTest(new TestSuite(DescriptionEditorInteraction.class));	
-	}
+//	/**
+//	 * Returns the suite.  This is required to
+//	 * use the JUnit Launcher.
+//	 */
+//	public static Test suite() {
+//		return new DescriptionEditorTestSuite();
+//	}
+//	
+//	/**
+//	 * Construct the test suite.
+//	 */
+//	public DescriptionEditorTestSuite() {
+//		addTest(new TestSuite(OpenDescriptionEditor.class));	
+//		addTest(new TestSuite(CloseDescriptionEditor.class));	
+//		addTest(new TestSuite(DescriptionEditorInteraction.class));	
+//	}
 }

@@ -31,32 +31,40 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.swt.widgets.Display;
-
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.CreationTransition_c;
 import org.xtuml.bp.core.Function_c;
 import org.xtuml.bp.core.Transition_c;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TextEditorUtils;
 import org.xtuml.bp.ui.text.activity.ActivityEditor;
 import org.xtuml.bp.ui.text.activity.ActivityEditorInput;
 import org.xtuml.bp.ui.text.test.UITextTest;
 
+@RunWith(OrderedRunner.class)
 public class I697OpenActivityEditorFromMarker extends UITextTest {
 
+	public I697OpenActivityEditorFromMarker() throws CoreException {
+		super();
+	}
 	private static boolean firstSetup = true;
 	private static String testModelName = "testDescrip1";
 	
-	public I697OpenActivityEditorFromMarker(String projectName, String name) throws CoreException {
-		super(null, name);
-	}
-	
-	public I697OpenActivityEditorFromMarker(String name) throws CoreException {
-		super(null, name);
-	}
+//	public I697OpenActivityEditorFromMarker(String projectName, String name) throws CoreException {
+//		super(null, name);
+//	}
+//	
+//	public I697OpenActivityEditorFromMarker(String name) throws CoreException {
+//		super(null, name);
+//	}
 
 	private static IMarker currentMarker = null;
 		
-    protected void setUp() throws Exception {
+    @Before
+	public void setUp() throws Exception {
     	super.setUp();
     	if ( firstSetup ) {
         	loadProject(testModelName);
@@ -122,6 +130,7 @@ public class I697OpenActivityEditorFromMarker extends UITextTest {
 		}
 	}
 	
+	@Test
 	public void testOpenActivityEditorFromBookmark(){
 		
 		openFuncActivityEditorAndAddMarker("test bookmark", IMarker.BOOKMARK, 1); //$NON-NLS-1$
@@ -132,6 +141,7 @@ public class I697OpenActivityEditorFromMarker extends UITextTest {
 		deleteCurrentMarker();
 	}
 	
+	@Test
 	public void testOpenActivityEditorFromTask(){
 		openFuncActivityEditorAndAddMarker("test task", IMarker.TASK, 1); //$NON-NLS-1$
 		
@@ -145,14 +155,17 @@ public class I697OpenActivityEditorFromMarker extends UITextTest {
 		deleteCurrentMarker();
 	}
 	
+	@Test
 	public void testOpenActivityEditorFromProblem(){
 		ActivityEditor ae = openFunctionActivityEditor();
 		handleOpenActivityEditorTest(ae);
 	}	
+	@Test
 	public void testOpenTransitionActivityEditorFromProblem(){
 		ActivityEditor ae = openTransitionActivityEditor();
 		handleOpenActivityEditorTest(ae);
 	}
+	@Test
 	public void testOpenCreationTransitionActivityEditorFromProblem(){
 		ActivityEditor ae = openCreationTransitionActivityEditor();
 		handleOpenActivityEditorTest(ae);

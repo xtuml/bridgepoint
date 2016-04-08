@@ -38,6 +38,7 @@ import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.common.Transaction;
 import org.xtuml.bp.core.common.TransactionManager;
 import org.xtuml.bp.ui.canvas.CanvasModelListener;
+import org.xtuml.bp.ui.canvas.CanvasPlugin;
 import org.xtuml.bp.ui.canvas.Cl_c;
 import org.xtuml.bp.ui.canvas.GraphicalElement_c;
 import org.xtuml.bp.ui.canvas.Model_c;
@@ -119,7 +120,7 @@ public class GraphicsModelTransactionListener implements ITransactionListener {
 				for (int i = 0; i < newMdls.length; i++) {
 					if (GraphicsEditorListener.classInView(newMdls[i],
 							modelElement)) {
-						CanvasModelListener.setGraphicalRepresents(newMdls[i]);
+						CanvasPlugin.setGraphicalRepresents(newMdls[i]);
 						newMdls[i].Elementdeleted(modelElement);
 					} else {
 						UUID id = Cl_c.Getooa_idfrominstance(modelElement);
@@ -130,7 +131,7 @@ public class GraphicsModelTransactionListener implements ITransactionListener {
 
 						if (newMdls[i].getOoa_id().equals(id)
 								&& newMdls[i].getOoa_type() == type) {
-							CanvasModelListener
+							CanvasPlugin
 									.setGraphicalRepresents(newMdls[i]);
 							newMdls[i].setRepresents(modelElement);
 							newMdls[i].Elementdeleted(modelElement);

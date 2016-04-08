@@ -4,11 +4,9 @@ import java.io.StringReader;
 import java.util.UUID;
 
 import org.eclipse.jface.preference.IPreferenceStore;
-
-import antlr.RecognitionException;
-import antlr.TokenStreamException;
-import antlr.TokenStreamRecognitionException;
-
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.als.oal.OalLexer;
 import org.xtuml.bp.als.oal.OalParser;
 import org.xtuml.bp.als.oal.Oal_validate;
@@ -30,8 +28,14 @@ import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.util.ContainerUtil;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TestingUtilities;
 
+import antlr.RecognitionException;
+import antlr.TokenStreamException;
+import antlr.TokenStreamRecognitionException;
+
+@RunWith(OrderedRunner.class)
 public class ComponentParamTest_Generics extends BaseTest {
 
   private static String m_workspace_path = ""; //$NON-NLS-1$
@@ -43,7 +47,8 @@ public class ComponentParamTest_Generics extends BaseTest {
   /* (non-Javadoc)
    * @see junit.framework.TestCase#setUp()
    */
-  protected void setUp() throws Exception {
+  @Before
+	public void setUp() throws Exception {
 	  super.setUp();
 
 	  if (m_workspace_path.equals(""))//$NON-NLS-1$
@@ -69,79 +74,92 @@ public class ComponentParamTest_Generics extends BaseTest {
 	  populateStateMachineActivityInstances();
   }
 	
-  public void testNoIncomingTransitions() {
+  @Test
+	public void testNoIncomingTransitions() {
     String x = parseAction("testVar = rcvd_evt.a;", STATE_NO_INCOMING_TRANSITIONS);
     assertEquals("Unexpected error:", ":1:20-20: Attempted to access parameter ->a<- when there are no incoming transitions.\nline 1:22: unexpected token: null\nline 1:22: expecting Semicolon, found 'null'\n", x);
     x = parseAction("testVar = param.a;", STATE_NO_INCOMING_TRANSITIONS);
     assertEquals("Unexpected error:", ":1:17-17: Attempted to access parameter ->a<- when there are no incoming transitions.\nline 1:19: unexpected token: null\nline 1:19: expecting Semicolon, found 'null'\n", x);
   }
-  public void testNoParms() {
+  @Test
+	public void testNoParms() {
     String x = parseAction("testVar = rcvd_evt.a;", STATE_NO_SIGNAL_PARMS);
     assertEquals("Unexpected error:", ":1:20-20: The following incoming messages do not carry required parameter ->a<- noParms1, noParms2\nline 1:22: unexpected token: null\nline 1:22: expecting Semicolon, found 'null'\n", x);
     x = parseAction("testVar = param.a;", STATE_NO_SIGNAL_PARMS);
     assertEquals("Unexpected error:", ":1:17-17: The following incoming messages do not carry required parameter ->a<- noParms1, noParms2\nline 1:19: unexpected token: null\nline 1:19: expecting Semicolon, found 'null'\n", x);
   }
-  public void testMatchingParms() {
+  @Test
+	public void testMatchingParms() {
     String x = parseAction("testVar1 = rcvd_evt.a; testVar2 = rcvd_evt.b;", STATE_MATCHING_SIGNAL_PARMS);
     assertEquals("Unexpected error:", "", x);
     x = parseAction("testVar1 = param.a; testVar2 = param.b;", STATE_MATCHING_SIGNAL_PARMS);
     assertEquals("Unexpected error:", "", x);
   }
-  public void testMatchingParmsTestParmInSubset() {
+  @Test
+	public void testMatchingParmsTestParmInSubset() {
     String x = parseAction("testVar = rcvd_evt.a;", STATE_NON_MATCHING_WITH_SUBSET_SIGNAL_PARMS);
     assertEquals("Unexpected error:", "", x);
     x = parseAction("testVar = param.a;", STATE_NON_MATCHING_WITH_SUBSET_SIGNAL_PARMS);
     assertEquals("Unexpected error:", "", x);
   }
-  public void testMatchingParmsTestParmNotInSubset() {
+  @Test
+	public void testMatchingParmsTestParmNotInSubset() {
     String x = parseAction("testVar = rcvd_evt.b;", STATE_NON_MATCHING_WITH_SUBSET_SIGNAL_PARMS);
     assertEquals("Unexpected error:", ":1:20-20: The following incoming messages do not carry required parameter ->b<- TwoParms2\nline 1:22: unexpected token: null\nline 1:22: expecting Semicolon, found 'null'\n", x);
     x = parseAction("testVar = param.b;", STATE_NON_MATCHING_WITH_SUBSET_SIGNAL_PARMS);
     assertEquals("Unexpected error:", ":1:17-17: The following incoming messages do not carry required parameter ->b<- TwoParms2\nline 1:19: unexpected token: null\nline 1:19: expecting Semicolon, found 'null'\n", x);
   }
-  public void testOneNoEventTransition() {
+  @Test
+	public void testOneNoEventTransition() {
     String x = parseAction("testVar = rcvd_evt.a;", STATE_ONE_NO_EVENT_TRANSITION);
     assertEquals("Unexpected error:", ":1:20-20: Attempted to access parameter ->a<- when one or more incoming transitions do not have events assigned.\nline 1:22: unexpected token: null\nline 1:22: expecting Semicolon, found 'null'\n", x);
     x = parseAction("testVar = param.a;", STATE_ONE_NO_EVENT_TRANSITION);
     assertEquals("Unexpected error:", ":1:17-17: Attempted to access parameter ->a<- when one or more incoming transitions do not have events assigned.\nline 1:19: unexpected token: null\nline 1:19: expecting Semicolon, found 'null'\n", x);
   }
-  public void testAllNoEventTransitions() {
+  @Test
+	public void testAllNoEventTransitions() {
     String x = parseAction("testVar = rcvd_evt.a;", STATE_ALL_NO_EVENT_TRANSITIONS);
     assertEquals("Unexpected error:", ":1:20-20: Attempted to access parameter ->a<- when one or more incoming transitions do not have events assigned.\nline 1:22: unexpected token: null\nline 1:22: expecting Semicolon, found 'null'\n", x);
     x = parseAction("testVar = param.a;", STATE_ALL_NO_EVENT_TRANSITIONS);
     assertEquals("Unexpected error:", ":1:17-17: Attempted to access parameter ->a<- when one or more incoming transitions do not have events assigned.\nline 1:19: unexpected token: null\nline 1:19: expecting Semicolon, found 'null'\n", x);
   }
-  public void testNoEventTransitionAction() {
+  @Test
+	public void testNoEventTransitionAction() {
     String x = parseAction("testVar = rcvd_evt.a; testVar2 = testVar;", TRANS_NO_SIGNAL);
     assertEquals("Unexpected error:", ":1:20-20: Attempted to access parameter ->a<- when associated transition does not have an event assigned.\nline 1:23: expecting Semicolon, found 'testVar2'\nline 1:34: unexpected token: testVar\n", x);
     x = parseAction("testVar = param.a; testVar2 = testVar;", TRANS_NO_SIGNAL);
     assertEquals("Unexpected error:", ":1:17-17: Attempted to access parameter ->a<- when associated transition does not have an event assigned.\nline 1:20: expecting Semicolon, found 'testVar2'\nline 1:31: unexpected token: testVar\n", x);
   }
-  public void testNoParmTransitionAction() {
+  @Test
+	public void testNoParmTransitionAction() {
     String x = parseAction("testVar = rcvd_evt.a; testVar2 = testVar;", TRANS_NO_SIGNAL_PARMS);
     assertEquals("Unexpected error:", ":1:20-20: Parameter ->a<- is not carried by signal noParms1\nline 1:23: expecting Semicolon, found 'testVar2'\nline 1:34: unexpected token: testVar\n", x);
     x = parseAction("testVar = param.a; testVar2 = testVar;", TRANS_NO_SIGNAL_PARMS);
     assertEquals("Unexpected error:", ":1:17-17: Parameter ->a<- is not carried by signal noParms1\nline 1:20: expecting Semicolon, found 'testVar2'\nline 1:31: unexpected token: testVar\n", x);
   }
-  public void testOneParmTransitionActionParmExists() {
+  @Test
+	public void testOneParmTransitionActionParmExists() {
     String x = parseAction("testVar = rcvd_evt.a; testVar2 = testVar;", TRANS_ONE_SIGNAL_PARM);
     assertEquals("Unexpected error:", "", x);
     x = parseAction("testVar = param.a; testVar2 = testVar;", TRANS_ONE_SIGNAL_PARM);
     assertEquals("Unexpected error:", "", x);
   }
-  public void testOneParmTransitionActionParmDoesNotExist() {
+  @Test
+	public void testOneParmTransitionActionParmDoesNotExist() {
     String x = parseAction("testVar = rcvd_evt.b; testVar2 = testVar;", TRANS_ONE_SIGNAL_PARM);
     assertEquals("Unexpected error:", ":1:20-20: Parameter ->b<- is not carried by signal OneParm\nline 1:23: expecting Semicolon, found 'testVar2'\nline 1:34: unexpected token: testVar\n", x);
     x = parseAction("testVar = param.b; testVar2 = testVar;", TRANS_ONE_SIGNAL_PARM);
     assertEquals("Unexpected error:", ":1:17-17: Parameter ->b<- is not carried by signal OneParm\nline 1:20: expecting Semicolon, found 'testVar2'\nline 1:31: unexpected token: testVar\n", x);
   }
-  public void testTwoParmTransitionActionParmsExist() {
+  @Test
+	public void testTwoParmTransitionActionParmsExist() {
     String x = parseAction("testVar1 = rcvd_evt.a; testVar2 = rcvd_evt.b; testVar3 = testVar1 + testVar2;", TRANS_TWO_SIGNAL_PARMS);
     assertEquals("Unexpected error:", "", x);
     x = parseAction("testVar1 = param.a; testVar2 = param.b; testVar3 = testVar1 + testVar2;", TRANS_TWO_SIGNAL_PARMS);
     assertEquals("Unexpected error:", "", x);
   }
-  public void testTwoParmTransitionActionOneParmDoesNotExist() {
+  @Test
+	public void testTwoParmTransitionActionOneParmDoesNotExist() {
     String x = parseAction("testVar1 = rcvd_evt.a; testVar2 = rcvd_evt.c; testVar3 = testVar1 + testVar2;", TRANS_TWO_SIGNAL_PARMS);
     assertEquals("Unexpected error:", ":1:44-44: Parameter ->c<- is not carried by signal TwoParms1\nline 1:47: expecting Semicolon, found 'testVar3'\nline 1:58: unexpected token: testVar1\nline 1:69: unexpected token: testVar2\n", x);
     x = parseAction("testVar1 = param.a; testVar2 = param.c; testVar3 = testVar1 + testVar2;", TRANS_TWO_SIGNAL_PARMS);

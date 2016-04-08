@@ -20,6 +20,8 @@
 // the License.
 //========================================================================
 
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 import org.xtuml.bp.als.oal.test.ComponentParamTest_Generics;
 import org.xtuml.bp.als.oal.test.ComponentScopeTest_Generics;
 import org.xtuml.bp.als.oal.test.ComponentSyntaxTest_Generics;
@@ -76,65 +78,60 @@ import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
+@RunWith(Suite.class)
+@Suite.SuiteClasses({
+	
+	ParseErrorForEmptySynchronousMessagesTests.class,
+	OalParserGlobalsTest_Generics.class,
+	OalParserTest_Generics.class,
+	TestArray_Generics.class,
+	TestInvocation_Generics.class,
+	TestBPPrefAllowPromotion_Generics.class,
+	TestBPPrefStrictTyping_Generics.class,
+	TestAssign_Generics.class,
+	TestExpr_Generics.class,
+	TestAttribute_Generics.class,
+	TestControl_Generics.class,
+	TestCRUD_Generics.class,
+	TestEvent_Generics.class,
+	TestSelectWhere_Generics.class,
+	TestSelectWhere_OpNotAllowed.class,
+	TestSelect_Generics.class,
+	TestSelect_Generics_Ordered.class,
+	TestLineNumbers_Generics.class,
+	TestStructuredDataType_Generics.class,
+	SingleDimensionFixedArrayAssigmentTest_0_Generics.class,
+	SingleDimensionFixedArrayAssigmentTest_1_Generics.class,
+	SingleDimensionFixedArrayAssigmentTest_2_Generics.class,
+	SingleDimensionFixedArrayAssigmentTest_3_Generics.class,
+	SingleDimensionFixedArrayAssigmentTest_4_Generics.class,
+	SingleDimensionFixedArrayAssigmentTest_5_Generics.class,
+	SingleDimensionFixedArrayAssigmentTest_6_Generics.class,
+	SingleDimensionFixedArrayAssigmentTest_7_Generics.class,
+	SingleDimensionFixedArrayAssigmentTest_8_Generics.class,
+	SingleDimensionFixedArrayAssigmentTest_9_Generics.class,
+	SingleDimensionFixedArrayAssigmentTest_10_Generics.class,
+	SingleDimensionFixedArrayAssigmentTest_11_Generics.class,
+	SingleDimensionFixedArrayAssigmentTest_12_Generics.class,
+	SingleDimensionFixedArrayAssigmentTest_13_Generics.class,
+	SingleDimensionFixedArrayAssigmentTest_14_Generics.class,
+	SingleDimensionFixedArrayAssigmentTest_15_Generics.class,
+	SingleDimensionFixedArrayAssigmentTest_16_Generics.class,
+	SingleDimensionFixedArrayAssigmentTest_17_Generics.class,
+	SingleDimensionFixedArrayAssigmentTest_18_Generics.class,
+	SingleDimensionFixedArrayAssigmentTest_19_Generics.class,
+	ParseAllInDomain_Generics.class,
+	VisibilityParserTest.class,
+	ComponentSyntaxTest_Generics.class,
+	ImplicitComponentAddressTest_Generics.class,
+	RelaxedSameDataTest_Generics.class,
+	ComponentParamTest_Generics.class,
+	ComponentScopeTest_Generics.class,
+	TestConstant_Generics.class,
+	TestAllowInterfaceNameInICMsg_Generics.class,
+	PolyEventTest.class,
+	SupportConstantsViaIPRTests.class,
+})
 public class OALGlobalsTestSuite_Generics extends TestSuite {
 
-	public static Test suite() {
-		return new OALGlobalsTestSuite_Generics();
-	}
-	public OALGlobalsTestSuite_Generics() {
-		// Historically, these tests were written in a way that expected parse on editing.  So turn on parser pref on
-		CorePlugin.getDefault().getPreferenceStore().setValue(BridgePointPreferencesStore.ENABLE_PARSE_WHILE_EDITING,
-				true);
-
-	    addTest(new TestSuite(ParseErrorForEmptySynchronousMessagesTests.class));
-		addTest(new TestSuite(OalParserGlobalsTest_Generics.class));
-		addTest(new TestSuite(OalParserTest_Generics.class));
-		addTest(new TestSuite(TestArray_Generics.class));
-		addTest(new TestSuite(TestInvocation_Generics.class));
-		addTest(new TestSuite(TestBPPrefAllowPromotion_Generics.class));
-		addTest(new TestSuite(TestBPPrefStrictTyping_Generics.class));
-		addTest(new TestSuite(TestAssign_Generics.class));
-		addTest(new TestSuite(TestExpr_Generics.class));
-		addTest(new TestSuite(TestAttribute_Generics.class));
-		addTest(new TestSuite(TestControl_Generics.class));
-		addTest(new TestSuite(TestCRUD_Generics.class));
-		addTest(new TestSuite(TestEvent_Generics.class));
-	    addTest(new TestSuite(TestSelectWhere_Generics.class));
-	    addTest(new TestSuite(TestSelectWhere_OpNotAllowed.class));
-		addTest(new TestSuite(TestSelect_Generics.class));
-	    addTest(new TestSuite(TestSelect_Generics_Ordered.class));
-		addTest(new TestSuite(TestLineNumbers_Generics.class));
-		addTest(new TestSuite(TestStructuredDataType_Generics.class));
-		addTest(new TestSuite(SingleDimensionFixedArrayAssigmentTest_0_Generics.class));
-		addTest(new TestSuite(SingleDimensionFixedArrayAssigmentTest_1_Generics.class));
-		addTest(new TestSuite(SingleDimensionFixedArrayAssigmentTest_2_Generics.class));
-		addTest(new TestSuite(SingleDimensionFixedArrayAssigmentTest_3_Generics.class));
-		addTest(new TestSuite(SingleDimensionFixedArrayAssigmentTest_4_Generics.class));
-		addTest(new TestSuite(SingleDimensionFixedArrayAssigmentTest_5_Generics.class));
-		addTest(new TestSuite(SingleDimensionFixedArrayAssigmentTest_6_Generics.class));
-		addTest(new TestSuite(SingleDimensionFixedArrayAssigmentTest_7_Generics.class));
-		addTest(new TestSuite(SingleDimensionFixedArrayAssigmentTest_8_Generics.class));
-		addTest(new TestSuite(SingleDimensionFixedArrayAssigmentTest_9_Generics.class));
-		addTest(new TestSuite(SingleDimensionFixedArrayAssigmentTest_10_Generics.class));
-		addTest(new TestSuite(SingleDimensionFixedArrayAssigmentTest_11_Generics.class));
-		addTest(new TestSuite(SingleDimensionFixedArrayAssigmentTest_12_Generics.class));
-		addTest(new TestSuite(SingleDimensionFixedArrayAssigmentTest_13_Generics.class));
-		addTest(new TestSuite(SingleDimensionFixedArrayAssigmentTest_14_Generics.class));
-		addTest(new TestSuite(SingleDimensionFixedArrayAssigmentTest_15_Generics.class));
-		addTest(new TestSuite(SingleDimensionFixedArrayAssigmentTest_16_Generics.class));
-		addTest(new TestSuite(SingleDimensionFixedArrayAssigmentTest_17_Generics.class));
-		addTest(new TestSuite(SingleDimensionFixedArrayAssigmentTest_18_Generics.class));
-		addTest(new TestSuite(SingleDimensionFixedArrayAssigmentTest_19_Generics.class));
-		addTest(new TestSuite(ParseAllInDomain_Generics.class));
-		addTest(new TestSuite(VisibilityParserTest.class));
-		addTest(new TestSuite(ComponentSyntaxTest_Generics.class));
-		addTest(new TestSuite(ImplicitComponentAddressTest_Generics.class));
-		addTest(new TestSuite(RelaxedSameDataTest_Generics.class));
-		addTest(new TestSuite(ComponentParamTest_Generics.class));
-		addTest(new TestSuite(ComponentScopeTest_Generics.class));
-		addTest(new TestSuite(TestConstant_Generics.class));
-		addTest(new TestSuite(TestAllowInterfaceNameInICMsg_Generics.class));
-	    addTest(new TestSuite(PolyEventTest.class));
-	    addTest(new TestSuite(SupportConstantsViaIPRTests.class));
-	}
 }

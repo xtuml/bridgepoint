@@ -26,11 +26,10 @@ import java.util.UUID;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
-
-import antlr.RecognitionException;
-import antlr.TokenStreamException;
-import antlr.TokenStreamRecognitionException;
-
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.als.oal.OalLexer;
 import org.xtuml.bp.als.oal.OalParser;
 import org.xtuml.bp.als.oal.Oal_validate;
@@ -46,20 +45,27 @@ import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.util.ContainerUtil;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TestingUtilities;
 
+import antlr.RecognitionException;
+import antlr.TokenStreamException;
+import antlr.TokenStreamRecognitionException;
+
+@RunWith(OrderedRunner.class)
 public class PolyEventTest extends BaseTest {
 	
 	private static String projectName = "PolyEventTest";
 
 	static private boolean initialized = false;
 	
-	public PolyEventTest(String testName) throws Exception {
-		super(null,testName);
+	public PolyEventTest() throws Exception {
+		super(null,  null);
 	}
 
 	@Override
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		if (!initialized){
 			TestingUtilities .importTestingProjectIntoWorkspace("PolyEventTest");
@@ -91,10 +97,12 @@ public class PolyEventTest extends BaseTest {
 		}
 	}
 	
+	@After
 	public void tearDown() throws Exception {
 		super.tearDown();
 	}
 	
+	@Test
 	public void testSendNonPolyEventToSubType(){
 		String x = parseAction("create object instance super of SuperType;" +
 				"\ncreate object instance sub of SubType1;" +
@@ -105,6 +113,7 @@ public class PolyEventTest extends BaseTest {
 		assertEquals(errMsg, x);
 
 	}
+	@Test
 	public void testValidPolyEventGeneration(){
 		String x = parseAction("create object instance super of SuperType;" +
 				"\ncreate object instance sub of SubType1; " + 
@@ -113,6 +122,7 @@ public class PolyEventTest extends BaseTest {
 		assertEquals(errMsg, x);
 		
 	}
+	@Test
 	public void testSendPolyEventToSuperType(){
 		String x = parseAction("create object instance super of SuperType;" +
 				"\ncreate object instance sub of SubType1; " + 

@@ -1,0 +1,501 @@
+<!-- 
+  UK Crown Copyright (c) 2016. All Rights Reserved
+-->
+<!-- Converted by db4-upgrade version 1.0 -->
+<chapter xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="Domains"><info><title>Domains</title></info>
+
+<para>
+In building large software systems, the analyst has to deal with a number of
+distinctly different subject matters or domains.
+<indexterm significance="preferred">
+    <primary>domain</primary>
+</indexterm>
+A domain
+<indexterm>
+    <primary>domain</primary>
+</indexterm>
+is a separate world
+inhabited by a distinct set of objects that behave according to the rules and policies
+characteristic of the domain.
+</para>
+<para>
+Domains
+<indexterm>
+    <primary>domain</primary>
+</indexterm>
+allow the specification of groups of logically related entities.
+Typically, a domain
+<indexterm>
+    <primary>domain</primary>
+</indexterm>
+contains the declaration of a number of services, which can
+be called from outside the domain, whilst the inner workings of the domain
+<indexterm>
+    <primary>domain</primary>
+</indexterm>
+remain hidden from outside users.
+</para>
+<section xml:id="DomainsCompilationUnits"><info><title>Compilation Units</title></info>
+
+<para>
+A <link linkend="ebnf.compilationunit"><emphasis>compilation unit</emphasis>
+<indexterm significance="preferred">
+    <primary>compilation unit</primary>
+</indexterm>
+</link> is the goal symbol
+<indexterm>
+    <primary>goal symbol</primary>
+</indexterm>
+for syntactic grammar.
+</para>
+<indexterm zone="ebnf.compilationunit">
+    <primary>compilation unit</primary>
+</indexterm>
+<indexterm zone="ebnf.compilationunit">
+    <primary>project declaration</primary>
+</indexterm>
+<indexterm zone="ebnf.compilationunit">
+    <primary>domain declaration</primary>
+</indexterm>
+<indexterm zone="ebnf.compilationunit">
+    <primary>project definition</primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.compilationunit">
+    <lhs>
+        compilation unit
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.projectdeclaration">project declaration</nonterminal> |
+        <nonterminal def="#ebnf.domaindeclaration">domain declaration</nonterminal> |
+        <nonterminal def="#ebnf.domaindefinition">domain definition</nonterminal>
+    </rhs>
+</production>
+</productionset>
+<para>
+A <link linkend="ebnf.compilationunit"><emphasis>compilation unit</emphasis></link>
+<indexterm>
+    <primary>compilation unit</primary>
+</indexterm>
+is either the declaration of a domain
+or the definition of a state,
+<indexterm>
+    <primary>state</primary>
+</indexterm>
+domain service
+<indexterm>
+    <primary>domain</primary>
+    <secondary>service</secondary>
+</indexterm>
+or object service.
+<indexterm>
+    <primary>object</primary>
+    <secondary>service</secondary>
+</indexterm>
+</para>
+</section>
+<section xml:id="DomainsProjectDeclaration"><info><title>Project Declaration</title></info>
+
+<para>
+Projects are used to organize the development of applications. A
+<link linkend="ebnf.projectdeclaration"><emphasis>project declaration</emphasis></link>
+<indexterm significance="preferred">
+    <primary>project declaration</primary>
+</indexterm>
+declares a new project. The
+declaration specifies the name of the project together with declarations of
+its members, that is, the domains that make up a project.
+</para>
+<indexterm zone="ebnf.projectdeclaration">
+    <primary>project declaration</primary>
+</indexterm>
+<indexterm zone="ebnf.projectdeclaration">
+    <primary><literal>project</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.projectdeclaration">
+    <primary>project name</primary>
+</indexterm>
+<indexterm zone="ebnf.projectdeclaration">
+    <primary><literal>is</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.projectdeclaration">
+    <primary>project declarative item</primary>
+</indexterm>
+<indexterm zone="ebnf.projectdeclaration">
+    <primary><literal>end</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.projectname">
+    <primary>project name</primary>
+</indexterm>
+<indexterm zone="ebnf.projectname">
+    <primary>identifier</primary>
+</indexterm>
+<indexterm zone="ebnf.projectdeclarativeitem">
+    <primary>project declarative item</primary>
+</indexterm>
+<indexterm zone="ebnf.projectdeclarativeitem">
+    <primary><literal>domain</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.projectdeclarativeitem">
+    <primary>domain name</primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.projectdeclaration">
+    <lhs>
+        project declaration
+    </lhs>
+    <rhs>
+        'project',
+        <nonterminal def="#ebnf.projectname">project name</nonterminal>,
+        'is',
+        {<nonterminal def="#ebnf.projectdeclarativeitem">project declarative item</nonterminal>},
+        'end', ['project'], ';'
+    </rhs>
+</production>
+<production xml:id="ebnf.projectname">
+    <lhs>
+        project name
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.identifier">identifier</nonterminal>
+    </rhs>
+</production>
+<production xml:id="ebnf.projectdeclarativeitem">
+    <lhs>
+        project declaration item
+    </lhs>
+    <rhs>
+        'domain',
+        <nonterminal def="#ebnf.domainname">domain name</nonterminal>,
+        ';'
+    </rhs>
+</production>
+</productionset>
+<para>
+A compile-time error occurs if the domain named by the
+<link linkend="ebnf.domainname"><emphasis>domain name</emphasis></link>
+<indexterm>
+    <primary>domain</primary>
+    <secondary>name</secondary>
+</indexterm>
+in a project declaration does not exist.
+</para>
+</section>
+<section xml:id="DomainsDomainDeclaration"><info><title>Domain Declaration</title></info>
+
+<para>
+A <link linkend="ebnf.domaindeclaration"><emphasis>domain declaration</emphasis></link>
+<indexterm>
+    <primary>domain</primary>
+    <secondary>declaration</secondary>
+</indexterm>
+declares a new domain.
+<indexterm>
+    <primary>domain</primary>
+</indexterm>
+The declaration
+specifies the name of the domain together with declarations of its members, that
+is, types, exceptions, objects, domain services and relationships.
+</para>
+<indexterm zone="ebnf.domaindeclaration">
+    <primary>domain declaration</primary>
+</indexterm>
+<indexterm zone="ebnf.domaindeclaration">
+    <primary><literal>domain</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.domaindeclaration">
+    <primary>domain name</primary>
+</indexterm>
+<indexterm zone="ebnf.domaindeclaration">
+    <primary><literal>is</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.domaindeclaration">
+    <primary>domain declarative item</primary>
+</indexterm>
+<indexterm zone="ebnf.domaindeclaration">
+    <primary><literal>end</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.domaindeclaration">
+    <primary><literal>domain</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.domainname">
+    <primary>domain name</primary>
+</indexterm>
+<indexterm zone="ebnf.domainname">
+    <primary>identifier</primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.domaindeclaration">
+    <lhs>
+        domain declaration
+    </lhs>
+    <rhs>
+        'domain',
+        <nonterminal def="#ebnf.domainname">domain name</nonterminal>,
+        'is',
+        {<nonterminal def="#ebnf.domaindeclarativeitem">domain declarative item</nonterminal>},
+        'end', ['domain'], ';'
+    </rhs>
+</production>
+<production xml:id="ebnf.domainname">
+    <lhs>
+        domain name
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.identifier">identifier</nonterminal>,
+    </rhs>
+</production>
+</productionset>
+</section>
+<section xml:id="DomainsDomainMembers"><info><title>Domain Members</title></info>
+
+<para>
+The members of a domain
+<indexterm significance="preferred">
+    <primary>domain</primary>
+    <secondary>members</secondary>
+</indexterm>
+are introduced by
+<link linkend="ebnf.domaindeclarativeitem">
+<emphasis>domain declarative item</emphasis>s</link>.
+<indexterm significance="preferred">
+    <primary>domain</primary>
+    <secondary>declarative item</secondary>
+</indexterm>
+</para>
+<indexterm zone="ebnf.domaindeclarativeitem">
+    <primary>domain declarative item</primary>
+</indexterm>
+<indexterm zone="ebnf.domaindeclarativeitem">
+    <primary>type declaration</primary>
+</indexterm>
+<indexterm zone="ebnf.domaindeclarativeitem">
+    <primary>exception declaration</primary>
+</indexterm>
+<indexterm zone="ebnf.domaindeclarativeitem">
+    <primary>object declaration</primary>
+</indexterm>
+<indexterm zone="ebnf.domaindeclarativeitem">
+    <primary>domain service declaration</primary>
+</indexterm>
+<indexterm zone="ebnf.domaindeclarativeitem">
+    <primary>domain function declaration</primary>
+</indexterm>
+<indexterm zone="ebnf.domaindeclarativeitem">
+    <primary>object predeclaration</primary>
+</indexterm>
+<indexterm zone="ebnf.domaindeclarativeitem">
+    <primary>relationship declaration</primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.domaindeclarativeitem">
+    <lhs>
+        domain declarative item
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.typedeclaration">type declaration</nonterminal> |
+        <nonterminal def="#ebnf.exceptiondeclaration">exception declaration</nonterminal> |
+        <nonterminal def="#ebnf.objectdeclaration">object declaration</nonterminal> |
+        <nonterminal def="#ebnf.domainservicedeclaration">domain service declaration</nonterminal> |
+        <nonterminal def="#ebnf.domainfunctiondeclaration">domain function declaration</nonterminal> |
+        <nonterminal def="#ebnf.objectpredeclaration">object predeclaration</nonterminal> |
+        <nonterminal def="#ebnf.relationshipdeclaration">relationship declaration</nonterminal>
+    </rhs>
+</production>
+</productionset>
+<para>
+Type declarations
+<indexterm>
+    <primary>type</primary>
+    <secondary>declaration</secondary>
+</indexterm>
+are described in
+<xref linkend="TypesTypeDeclarations"/>, exception declarations
+<indexterm>
+    <primary>exception</primary>
+    <secondary>declaration</secondary>
+</indexterm>
+in
+<xref linkend="ExceptionsExceptionDeclarations"/>, object declarations
+<indexterm>
+    <primary>object</primary>
+    <secondary>declaration</secondary>
+</indexterm>
+in
+<xref linkend="ObjectsObjectDeclaration"/>, domain service declarations
+<indexterm>
+    <primary>domain</primary>
+    <secondary>service</secondary>
+    <tertiary>declaration</tertiary>
+</indexterm>
+in
+<xref linkend="ServicesDomainServices"/>, domain function declarations
+<indexterm>
+    <primary>domain</primary>
+    <secondary>function</secondary>
+    <tertiary>declaration</tertiary>
+</indexterm>
+in
+<xref linkend="FunctionsDomainFunctions"/>, object pre-declarations
+<indexterm>
+    <primary>object</primary>
+    <secondary>pre-declarations</secondary>
+</indexterm>
+in
+<xref linkend="ObjectsObjectPredeclaration"/> and relationship declarations
+<indexterm>
+    <primary>relationship</primary>
+    <secondary>declaration</secondary>
+</indexterm>
+in
+<xref linkend="RelationshipsRelationshipDeclarations"/>.
+</para>
+</section>
+<section xml:id="DomainsDomainDefintions"><info><title>Domain Definitions</title></info>
+
+<para>
+A <link linkend="ebnf.domaindefinition"><emphasis>domain definition</emphasis></link>
+<indexterm significance="preferred">
+    <primary>domain</primary>
+    <secondary>definition</secondary>
+</indexterm>
+is either the definition of the block
+of code that implements a state, an object service or a domain service.
+</para>
+<indexterm zone="ebnf.domaindefinition">
+    <primary>domain definition</primary>
+</indexterm>
+<indexterm zone="ebnf.domaindefinition">
+    <primary>state definition</primary>
+</indexterm>
+<indexterm zone="ebnf.domaindefinition">
+    <primary>object service definition</primary>
+</indexterm>
+<indexterm zone="ebnf.domaindefinition">
+    <primary>domain service definition</primary>
+</indexterm>
+<indexterm zone="ebnf.domaindefinition">
+    <primary>domain function definition</primary>
+</indexterm>
+<indexterm zone="ebnf.domaindefinition">
+    <primary>object function definition</primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.domaindefinition">
+    <lhs>
+        domain definition
+    </lhs>
+    <rhs>
+        <nonterminal def="#ebnf.statedefinition">state definition</nonterminal> |
+        <nonterminal def="#ebnf.objectservicedefinition">object service definition</nonterminal> |
+        <nonterminal def="#ebnf.domainservicedefinition">domain service definition</nonterminal> |
+        <nonterminal def="#ebnf.domainfunctiondefinition">domain function definition</nonterminal> |
+        <nonterminal def="#ebnf.objectfunctiondefinition">object function definition</nonterminal> 
+    </rhs>
+</production>
+</productionset>
+<para>
+<link linkend="ebnf.domaindefinition"><emphasis>Domain definition</emphasis>s</link>
+<indexterm>
+    <primary>domain</primary>
+    <secondary>definition</secondary>
+</indexterm>
+are described in
+<xref linkend="LifecyclesStateDefinition"/>,in
+<xref linkend="FunctionsObjectFunctionDefinition"/>, in
+<xref linkend="ServicesObjectServiceDefinition"/>, in
+<xref linkend="FunctionsDomainFunctionDefinition"/> and
+<xref linkend="ServicesDomainServiceDefinition"/>.
+</para>
+</section>
+<section xml:id="DomainsNamesandScoping"><info><title>Names and Scoping</title></info>
+
+<para>
+Identifiers for the following kinds of definition are scoped:
+<indexterm significance="preferred">
+    <primary>name scope</primary>
+</indexterm>
+<itemizedlist>
+<listitem>
+<para>
+types
+</para>
+</listitem>
+<listitem>
+<para>
+domain services
+</para>
+</listitem>
+<listitem>
+<para>
+objects
+</para>
+</listitem>
+<listitem>
+<para>
+exceptions
+</para>
+</listitem>
+<listitem>
+<para>
+enumeration values
+</para>
+</listitem>
+</itemizedlist>
+</para>
+<para>
+A name can be used in an unqualified form within a particular scope;
+<indexterm>
+    <primary>name scope</primary>
+</indexterm>
+it will be
+resolved by successively searching farther out in enclosing scopes.
+<indexterm>
+    <primary>name scope</primary>
+</indexterm>
+A qualified name (one of the form
+<link linkend="ebnf.scopedname"><literal>scoped_name</literal></link><literal>::</literal><link linkend="ebnf.identifier"><emphasis>identifier</emphasis></link>)
+is resolved by first resolving the qualifier
+<link linkend="ebnf.scopedname">scoped name</link>
+to a scope <classname>S</classname> and then locating the definition
+of <link linkend="ebnf.identifier"><emphasis>identifier</emphasis></link> with
+<classname>S</classname>. The identifier
+must be directly defined in <classname>S</classname>. The identifier is not
+searched for in enclosing scopes.
+<indexterm>
+    <primary>name scope</primary>
+</indexterm>
+</para>
+<para>
+When a qualified name begins with <literal>::</literal>, the resolution starts
+with current scope and locates subsequent identifiers in the qualified name
+by the rule described in the previous paragraph. A scoped name is used to refer
+to entities defined outside of the current scope.
+</para>
+<indexterm zone="ebnf.scopedname">
+    <primary>scoped name</primary>
+</indexterm>
+<indexterm zone="ebnf.scopedname">
+    <primary>identifier</primary>
+</indexterm>
+<indexterm zone="ebnf.scopedname">
+    <primary><literal>::</literal></primary>
+</indexterm>
+<indexterm zone="ebnf.scopedname">
+    <primary>scoped name</primary>
+</indexterm>
+<productionset>
+<production xml:id="ebnf.scopedname">
+    <lhs>scoped name</lhs>
+    <rhs>
+        <nonterminal def="#ebnf.identifier">identifier</nonterminal> |
+        ('::',
+        <nonterminal def="#ebnf.identifier">identifier</nonterminal>) |
+        (<nonterminal def="#ebnf.scopedname">scoped name</nonterminal>,
+        '::',
+        <nonterminal def="#ebnf.identifier">identifier</nonterminal>)
+    </rhs>
+</production>
+</productionset>
+</section>
+</chapter>

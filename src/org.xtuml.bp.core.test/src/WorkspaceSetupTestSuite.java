@@ -14,7 +14,10 @@
 
 
 import org.eclipse.core.runtime.CoreException;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 import org.xtuml.bp.core.CorePlugin;
+import org.xtuml.bp.core.test.GlobalTestSetupClass;
 import org.xtuml.bp.core.test.IPRSetupTests;
 import org.xtuml.bp.core.test.SetupCreationTests;
 import org.xtuml.bp.core.test.TigerNatureWorkspaceSetupTestGenerics;
@@ -26,29 +29,13 @@ import junit.framework.TestSuite;
 /**
 * Test the system level areas of core.
 */
+@RunWith(Suite.class)
+@Suite.SuiteClasses({
+	GlobalTestSetupClass.class,
+    IPRSetupTests.class,
+    SetupCreationTests.class,
+    TigerNatureWorkspaceSetupTestGenerics.class,
+})
 public class WorkspaceSetupTestSuite extends TestSuite {
 
-	/**
-	 * Returns the suite.  This is required to
-	 * use the JUnit Launcher.
-	 * @throws CoreException
-	 */
-	public static Test suite() throws CoreException {
-		return new WorkspaceSetupTestSuite();
-	}
-
-	/**
-	 * Construct the test suite.
-	 */
-	public WorkspaceSetupTestSuite() throws CoreException {
-
-		// turn off autobuild to stop MC-3020 builders from running
-		WorkspaceUtil.setAutobuilding(false);;   // throws CoreException
-
-		CorePlugin.disableParseAllOnResourceChange();
-
-        addTest(new TestSuite(IPRSetupTests.class));
-        addTest(new TestSuite(SetupCreationTests.class));
-        addTest(new TestSuite(TigerNatureWorkspaceSetupTestGenerics.class));
-	}
 }

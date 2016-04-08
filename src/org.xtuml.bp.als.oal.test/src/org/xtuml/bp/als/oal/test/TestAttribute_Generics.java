@@ -24,10 +24,9 @@ package org.xtuml.bp.als.oal.test;
 
 import java.util.UUID;
 
-import junit.framework.TestCase;
-import antlr.RecognitionException;
-import antlr.TokenStreamException;
-
+import org.junit.After;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.AssignToMember_c;
 import org.xtuml.bp.core.AttributeValueReference_c;
 import org.xtuml.bp.core.Attribute_c;
@@ -38,11 +37,17 @@ import org.xtuml.bp.core.Statement_c;
 import org.xtuml.bp.core.Value_c;
 import org.xtuml.bp.core.Variable_c;
 import org.xtuml.bp.test.common.BaseTest;
-import org.xtuml.bp.core.common.IdAssigner;
+import org.xtuml.bp.test.common.OrderedRunner;
 
+import antlr.RecognitionException;
+import antlr.TokenStreamException;
+import junit.framework.TestCase;
+
+@RunWith(OrderedRunner.class)
 public class TestAttribute_Generics extends TestCase {
 
-    protected void tearDown() throws Exception {
+    @After
+	public void tearDown() throws Exception {
         try {
             super.tearDown();
             OalParserTest_Generics.tearDownActionData();
@@ -80,14 +85,17 @@ public class TestAttribute_Generics extends TestCase {
 		Statement_c[] st = Statement_c.StatementInstances(OalParserTest_Generics.modelRoot);
 		assertEquals(2, st.length);
 	}
+	@Test
 	public void testAttributeRead() throws RecognitionException, TokenStreamException {
 		String [] vars = { "d1", "x" };
 		validateAttributeRead("create object instance d1 of D_D; \nx = d1.Disk_ID;", "D_D", "integer", vars);
 	}
+	@Test
 	public void testAttributeReadWithUnderscores() throws RecognitionException, TokenStreamException {
 		String [] vars = { "d1", "x" };
 		validateAttributeRead("create object instance d1 of _T; \nx = d1._attr;", "_T", "_testUdt", vars);
 	}
+	@Test
 	public void testBadAttributeRead() throws RecognitionException, TokenStreamException {
 		String x = OalParserTest_Generics.parseAction("create object instance d1 of D_D; \nx = d1.Bad_Attribute;", OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM); //$NON-NLS-1$
 		String lines[] = x.split("\n");//$NON-NLS-1$
@@ -109,13 +117,15 @@ public class TestAttribute_Generics extends TestCase {
 		Statement_c[] st = Statement_c.StatementInstances(OalParserTest_Generics.modelRoot);
 		assertEquals(1, st.length);
 	}
-	 public void testAttributeWrite() throws RecognitionException, TokenStreamException {
+	 @Test
+	public void testAttributeWrite() throws RecognitionException, TokenStreamException {
 		String x = OalParserTest_Generics.parseAction("create object instance d1 of D_D; \nd1.Disk_ID = 1;", OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM); //$NON-NLS-1$
 		assertEquals("", x);//$NON-NLS-1$
 		UUID intId = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "integer");//91//$NON-NLS-1$
 		goodAttrWriteCheck("Disk_ID", intId, "d1", "D_D", 2);//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
 		OalParserTest_Generics.clearActionData(OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	}
+	@Test
 	public void testAttributeWriteWithUnderscores() throws RecognitionException, TokenStreamException {
 		String x = OalParserTest_Generics.parseAction("create object instance d1 of _T; \nd1._attr = 1;", OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM); //$NON-NLS-1$
 		assertEquals("", x);//$NON-NLS-1$
@@ -123,6 +133,7 @@ public class TestAttribute_Generics extends TestCase {
 		goodAttrWriteCheck("_attr", intId, "d1", "_T", 2);//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
 		OalParserTest_Generics.clearActionData(OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	}
+	@Test
 	public void testAttributeWriteSelf() throws RecognitionException, TokenStreamException {
 		String x = OalParserTest_Generics.parseAction("self.Row_Number = 1;", OalParserTest_Generics.ACTIVITY_TYPE_IB_OP, OalParserTest_Generics.TEST_VOID_NO_PARM); //$NON-NLS-1$
 		assertEquals("", x);//$NON-NLS-1$
@@ -130,6 +141,7 @@ public class TestAttribute_Generics extends TestCase {
 		goodAttrWriteCheck("Row_Number", intId, "self", "D_H", 1);//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
 		OalParserTest_Generics.clearActionData(OalParserTest_Generics.ACTIVITY_TYPE_IB_OP, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	}
+	@Test
 	public void testAttributeWriteSelfFromTransition() throws RecognitionException, TokenStreamException {
 		String x = OalParserTest_Generics.parseAction("self.u_int = 1;", OalParserTest_Generics.ACTIVITY_TYPE_TRANSITION, OalParserTest_Generics.TRANS_ISM_NONE); //$NON-NLS-1$
 		assertEquals("", x);//$NON-NLS-1$
@@ -165,12 +177,14 @@ public class TestAttribute_Generics extends TestCase {
 		assertEquals(numStmt, st.length);
 		assertEquals(st[numStmt-1].getStatement_id(), ata[0].getStatement_id());
 	}
+	@Test
 	public void testAttributeWriteI2R() throws RecognitionException, TokenStreamException {
 		String x = OalParserTest_Generics.parseAction("create object instance d1 of D_D; \nd1.real_attr = 1;", OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM); //$NON-NLS-1$
 		assertEquals("", x);//$NON-NLS-1$
 		UUID intId = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "integer");//91//$NON-NLS-1$
 		goodAttrWriteCheck("real_attr", intId, "d1", "D_D", 2);//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
 	}
+	@Test
 	public void testAttributeWriteR2I() throws RecognitionException, TokenStreamException {
 		String x = OalParserTest_Generics.parseAction("create object instance d1 of D_D; \nd1.Disk_ID = 1.1;", OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM); //$NON-NLS-1$
 		assertEquals("", x);//$NON-NLS-1$
@@ -198,6 +212,7 @@ public class TestAttribute_Generics extends TestCase {
 		Statement_c[] st = Statement_c.StatementInstances(OalParserTest_Generics.modelRoot);
 		assertEquals(numStmts, st.length);
 	}
+	@Test
 	public void testAttributeWriteBadName() throws RecognitionException, TokenStreamException {
 		String x = OalParserTest_Generics.parseAction("create object instance d1 of D_D; \nd1.Bad_Attribute = 1;", OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM); //$NON-NLS-1$
 		String lines[] = x.split("\n");//$NON-NLS-1$
@@ -206,6 +221,7 @@ public class TestAttribute_Generics extends TestCase {
 		assertEquals("line 2:22: expecting Semicolon, found 'null'", lines[2]); //$NON-NLS-1$
 		badAttrWriteCheck(1, 1, 0);
 	}
+	@Test
 	public void testAttributeWriteBad2CurrentState() throws RecognitionException, TokenStreamException {
 		String x = OalParserTest_Generics.parseAction("create object instance d1 of D_D; \nd1.current_state = 1;", OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM); //$NON-NLS-1$
 		String lines[] = x.split("\n");//$NON-NLS-1$
@@ -213,6 +229,7 @@ public class TestAttribute_Generics extends TestCase {
 		assertEquals("line 2:22: expecting Semicolon, found 'null'", lines[1]); //$NON-NLS-1$
 		badAttrWriteCheck(1, 1, 2);
 	}
+	@Test
 	public void testAttributeWriteBad2RefAttr() throws RecognitionException, TokenStreamException {
 		String x = OalParserTest_Generics.parseAction("create object instance d1 of D_D; \nd1.Row_Number = 2;", OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM); //$NON-NLS-1$
 		String lines[] = x.split("\n");//$NON-NLS-1$
@@ -220,6 +237,7 @@ public class TestAttribute_Generics extends TestCase {
 		assertEquals("line 2:19: expecting Semicolon, found 'null'", lines[1]); //$NON-NLS-1$
 		badAttrWriteCheck(1, 1, 2);
 	}
+	@Test
 	public void testAttributeWriteBad2MDA() throws RecognitionException, TokenStreamException {
 		String x = OalParserTest_Generics.parseAction("create object instance d1 of D_D; \nd1.mda = \"bad\";", OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM); //$NON-NLS-1$
 		String lines[] = x.split("\n");//$NON-NLS-1$
@@ -227,6 +245,7 @@ public class TestAttribute_Generics extends TestCase {
 		assertEquals("line 2:16: expecting Semicolon, found 'null'", lines[1]); //$NON-NLS-1$
 		badAttrWriteCheck(1, 1, 2);
 	}
+	@Test
 	public void testAttributeWriteBad2ID() throws RecognitionException, TokenStreamException {
 		String x = OalParserTest_Generics.parseAction("create object instance d1 of D_D; \ncreate object instance d2 of D_D;\nd1.id2 = d2.id2;", OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM); //$NON-NLS-1$
 		String lines[] = x.split("\n");//$NON-NLS-1$
@@ -234,6 +253,7 @@ public class TestAttribute_Generics extends TestCase {
 		assertEquals("line 3:17: expecting Semicolon, found 'null'", lines[1]); //$NON-NLS-1$
 		badAttrWriteCheck(2, 2, 3);
 	}
+	@Test
 	public void testAttributeWriteS2I() throws RecognitionException, TokenStreamException {
 		String x = OalParserTest_Generics.parseAction("create object instance d1 of D_D; \nd1.Disk_ID = \"x\";", OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM); //$NON-NLS-1$
 		String lines[] = x.split("\n");//$NON-NLS-1$

@@ -1,0 +1,67 @@
+<?xml version='1.0'?>
+<!-- 
+  UK Crown Copyright (c) 2016. All Rights Reserved
+-->
+<book security="OFFICIAL" version="5.0"
+  xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+  xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg"
+  xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:html="http://www.w3.org/1999/xhtml"
+  xmlns:db="http://docbook.org/ns/docbook">
+    <title>MASL Reference Manual</title>    
+    <info>
+        <title>MASL Reference Manual</title>
+        <copyright>
+            <year>2000-2007</year>
+            <holder>Crown Copyright</holder>
+        </copyright>
+        <pubdate>September 2007</pubdate>
+        <releaseinfo>Version 1.4 </releaseinfo>
+        <subjectset scheme="IEEE">
+            <subject>
+                <subjectterm>Computer language</subjectterm>
+            </subject>
+            <subject>
+                <subjectterm>Computer aided software engineering</subjectterm>
+            </subject>
+            <subject>
+                <subjectterm>Programming</subjectterm>
+            </subject>
+            <subject>
+                <subjectterm>Modelling</subjectterm>
+            </subject>
+        </subjectset>
+        <keywordset>
+            <keyword>MASL</keyword>
+            <keyword>Action Language</keyword>
+            <keyword>Action Semantics</keyword>
+            <keyword>UML</keyword>
+            <keyword>Unified Modelling Language</keyword>
+            <keyword>Shlaer Mellor</keyword>
+        </keywordset>
+        <abstract>
+            <para>
+                This document is the definitive language specification and
+                reference for MASL.
+            </para>
+        </abstract>
+    </info>
+    <xi:include href="preface.xml"/>
+    <xi:include href="bibliography.xml"/>
+    <xi:include href="grammars.xml"/>
+    <xi:include href="lexicalstructure.xml"/>
+    <xi:include href="types.xml"/>
+    <xi:include href="typeconversion.xml"/>
+    <xi:include href="domains.xml"/>
+    <xi:include href="objects.xml"/>
+    <xi:include href="relationships.xml"/>
+    <xi:include href="lifecycles.xml"/>
+    <xi:include href="functions.xml"/>
+    <xi:include href="services.xml"/>
+    <xi:include href="exceptions.xml"/>
+    <xi:include href="statements.xml"/>
+    <xi:include href="names.xml"/>
+    <xi:include href="expressions.xml"/>
+    <xi:include href="languagedefinedcharacteristics.xml"/>
+    <xi:include href="syntaxsummary.xml"/>
+    <index/>
+</book>

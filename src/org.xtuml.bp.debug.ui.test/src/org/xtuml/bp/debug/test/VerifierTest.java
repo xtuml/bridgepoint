@@ -31,8 +31,6 @@ import java.io.OutputStream;
 import java.io.PrintStream;
 import java.util.Vector;
 
-import junit.framework.Assert;
-
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.NullProgressMonitor;
@@ -40,8 +38,9 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.debug.core.DebugException;
 import org.eclipse.debug.core.Launch;
 import org.eclipse.jface.viewers.StructuredSelection;
-import org.eclipse.ui.PlatformUI;
-
+import org.junit.After;
+import org.junit.Before;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.Block_c;
 import org.xtuml.bp.core.Body_c;
 import org.xtuml.bp.core.ComponentInstance_c;
@@ -64,7 +63,11 @@ import org.xtuml.bp.debug.ui.model.BPDebugTarget;
 import org.xtuml.bp.debug.ui.test.DebugUITestUtilities;
 import org.xtuml.bp.test.TestUtil;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 
+import junit.framework.Assert;
+
+@RunWith(OrderedRunner.class)
 public class VerifierTest extends BaseTest {
 
 	private Ooaofooa thisRoot = null;
@@ -104,7 +107,8 @@ public class VerifierTest extends BaseTest {
 		
 	}
 		
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		// if we haven't yet imported the model used for these tests
 		if (!result) {
@@ -263,7 +267,8 @@ public class VerifierTest extends BaseTest {
   	    Ooaofooa.endVerifierExecution(ee.getExecution_engine_id());
 	}
 
-	protected void tearDown() throws InterruptedException {
+	@After
+	public void tearDown() throws InterruptedException {
 		DebugUITestUtilities.clearDebugView();
 	}
 

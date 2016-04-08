@@ -354,7 +354,8 @@
   	ExistingProjectsInitialChecks.java,
 	IPRSetupTests.java,
   	NewShapeAfterRestart.java,
-  	SetupCreationTests.java"
+  	SetupCreationTests.java,
+	GlobalTestSetupClass.java"
   	
     />
 	

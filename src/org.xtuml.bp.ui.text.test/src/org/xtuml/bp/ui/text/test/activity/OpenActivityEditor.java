@@ -27,7 +27,9 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
-
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.ActionHome_c;
 import org.xtuml.bp.core.Action_c;
 import org.xtuml.bp.core.Attribute_c;
@@ -41,7 +43,6 @@ import org.xtuml.bp.core.Function_c;
 import org.xtuml.bp.core.InstanceStateMachine_c;
 import org.xtuml.bp.core.ModelClass_c;
 import org.xtuml.bp.core.MooreActionHome_c;
-import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Operation_c;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.PackageableElement_c;
@@ -50,28 +51,33 @@ import org.xtuml.bp.core.StateMachine_c;
 import org.xtuml.bp.core.TransitionActionHome_c;
 import org.xtuml.bp.core.Transition_c;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
-import org.xtuml.bp.core.common.PersistableModelComponent;
-import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.ui.text.activity.ActivityEditor;
 import org.xtuml.bp.ui.text.activity.AllActivityModifier;
 import org.xtuml.bp.ui.text.test.UITextTest;
 
+@RunWith(OrderedRunner.class)
 public class OpenActivityEditor extends UITextTest {
+
+	public OpenActivityEditor() throws CoreException {
+		super();
+	}
 
 	private static boolean firstSetup = true;
 	private static String testModelName = "testDescrip1";
 	
-	public OpenActivityEditor(String projectName, String name) throws CoreException {
-		super(null, name); //$NON-NLS-1$
-	}
-	
-	public OpenActivityEditor(String name) throws CoreException {
-		super(null, name); //$NON-NLS-1$
-	}
+//	public OpenActivityEditor(String projectName, String name) throws CoreException {
+//		super(null, name); //$NON-NLS-1$
+//	}
+//	
+//	public OpenActivityEditor(String name) throws CoreException {
+//		super(null, name); //$NON-NLS-1$
+//	}
 
 	static IWorkbenchPage m_wp = null;
 	
-    protected void setUp() throws Exception {
+    @Before
+	public void setUp() throws Exception {
         super.setUp();
         if ( firstSetup ) {
         	loadProject(testModelName);
@@ -98,6 +104,7 @@ public class OpenActivityEditor extends UITextTest {
 
 	}
 	
+	@Test
 	public void testOpenBridgeActivity()
 	{	
 		final Bridge_c uut = Bridge_c.BridgeInstance(modelRoot);
@@ -108,6 +115,7 @@ public class OpenActivityEditor extends UITextTest {
 		validateActivityEditor( parent.getName() +"::" +"test_bridge", uut.getAction_semantics());
 	}
 	
+	@Test
 	public void testOpenFunctionActivity()
 	{	
 		final Function_c uut = Function_c.FunctionInstance(modelRoot);
@@ -118,6 +126,7 @@ public class OpenActivityEditor extends UITextTest {
 		validateActivityEditor(parent.getName() +"::" + "test_function", uut.getAction_semantics());
 	}
 	
+	@Test
 	public void testOpenInstanceOperationActivity()
 	{	
 		class findop1
@@ -135,6 +144,7 @@ public class OpenActivityEditor extends UITextTest {
 		validateActivityEditor(parent.getName() + "::" + "op1", uut.getAction_semantics());
 	}
 	
+	@Test
 	public void testOpenClassOperationActivity()
 	{	
 		class findop2
@@ -153,6 +163,7 @@ public class OpenActivityEditor extends UITextTest {
 	}
 
 
+	@Test
 	public void testOpenAttributeActivity()
 	{	
 		class findmda
@@ -173,6 +184,7 @@ public class OpenActivityEditor extends UITextTest {
 	}
 	
 
+	@Test
 	public void testOpenInstanceActionActivity()
 	{	
         // Adding query to find out right SME since after issue 845
@@ -197,6 +209,7 @@ public class OpenActivityEditor extends UITextTest {
 		validateActivityEditor(parent.getName() +"::" +"ISM State", source.getAction_semantics());
 	}
 	
+	@Test
 	public void testOpenInstanceTransitionActionActivity()
 	{	
 		InstanceStateMachine_c ism = InstanceStateMachine_c.InstanceStateMachineInstance(modelRoot);
@@ -211,6 +224,7 @@ public class OpenActivityEditor extends UITextTest {
 		validateActivityEditor("Test Class::ISM State::T_T3: third", source.getAction_semantics());
 	}
 	
+	@Test
 	public void testOpenClassActionActivity()
 	{	
 		final ClassStateMachine_c csm = ClassStateMachine_c.ClassStateMachineInstance(modelRoot);
@@ -226,6 +240,7 @@ public class OpenActivityEditor extends UITextTest {
 		validateActivityEditor(parent.getName() +"::" +"CSM State", source.getAction_semantics());
 	}
 
+	@Test
 	public void testOpenClassActionTransitionActivity()
 	{	
 		final ClassStateMachine_c csm = ClassStateMachine_c.ClassStateMachineInstance(modelRoot);

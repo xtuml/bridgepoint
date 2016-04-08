@@ -427,6 +427,63 @@ INSERT INTO S_DT_PROXY
 	'',
 	'',
 	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("840582e7-bd31-466e-aa90-6e9902468c64",
+	"5735d0f8-e286-4832-975e-04887e18a036",
+	'getGraphicalRootCount',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	1,
+	'//
+// This gets a count of the ooaofooa elements that need GD_MD
+// instances. This works together with S_SYS.getGraphicalRoot() to 
+// recursively get all roots.
+//
+count = 1; // This SystemModel is a graphical root
+select many pkgs related by self->EP_PKG[R1401];
+for each pkg in pkgs
+  count = count + pkg.getGraphicalRootCount();
+end for;
+return count;
+',
+	1,
+	'',
+	"f806d992-50d4-4c47-b377-67f0dd6ff70d");
+INSERT INTO O_TFR
+	VALUES ("db03a722-9abe-43e5-ad13-bb2796cf75a9",
+	"5735d0f8-e286-4832-975e-04887e18a036",
+	'getGraphicalRoot',
+	'',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	1,
+	'// This Systemodel is a graphical root. 
+// It is index 0
+i = 0; 
+if (i==param.index)
+  return self.convertToInstance();
+end if;
+select many pkgs related by self->EP_PKG[R1401];
+for each pkg in pkgs
+  id = pkg.getGraphicalRoot(indexToFind:param.index, currentPosition:i);
+  if (id != GD::NULL_INSTANCE()) 
+    return id;
+  end if; 
+  i = i + pkg.getGraphicalRootCount();
+end for;
+return GD::NULL_INSTANCE();
+',
+	1,
+	'',
+	"840582e7-bd31-466e-aa90-6e9902468c64");
+INSERT INTO O_TPARM
+	VALUES ("46695358-f4a2-4393-8067-ebcf833c4459",
+	"db03a722-9abe-43e5-ad13-bb2796cf75a9",
+	'index',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
 INSERT INTO O_NBATTR
 	VALUES ("9a4da692-4fa6-494b-80c1-90dc7da16bd7",
 	"5735d0f8-e286-4832-975e-04887e18a036");

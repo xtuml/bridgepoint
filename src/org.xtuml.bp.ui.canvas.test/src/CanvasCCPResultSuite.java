@@ -19,23 +19,14 @@
 // License for the specific language governing permissions and limitations under
 // the License.
 //=====================================================================
-import junit.framework.Test;
-import junit.framework.TestSuite;
-
 import org.xtuml.bp.ui.canvas.test.CanvasCopyPasteTests;
 import org.xtuml.bp.ui.canvas.test.CanvasCopyTests;
-import org.xtuml.bp.ui.canvas.test.CanvasCreationTest;
 import org.xtuml.bp.ui.canvas.test.CanvasCutTests;
 import org.xtuml.bp.ui.canvas.test.CanvasStateMachineCopyPasteTests;
-import org.xtuml.bp.ui.canvas.test.CanvasTestResultCreator;
-import org.xtuml.bp.ui.canvas.test.ConnectorToolSCTest;
-import org.xtuml.bp.ui.canvas.test.FreeFloatingConnectorTest;
 import org.xtuml.bp.ui.canvas.test.ModelRecreationTests;
-import org.xtuml.bp.ui.canvas.test.ModelToolSCTest;
-import org.xtuml.bp.ui.canvas.test.ScrollToolSCTest;
-import org.xtuml.bp.ui.canvas.test.SelectionToolSCTest;
-import org.xtuml.bp.ui.canvas.test.ShapeToolSCTest;
-import org.xtuml.bp.ui.canvas.test.StatechartTest;
+
+import junit.framework.Test;
+import junit.framework.TestSuite;
 
 public class CanvasCCPResultSuite extends TestSuite {
 

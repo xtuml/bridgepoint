@@ -1,14 +1,5 @@
 //========================================================================
-//
-//File:      $RCSfile: AbstractNature.java,v $
-//Version:   $Revision: 1.13 $
-//Modified:  $Date: 2013/06/12 13:07:58 $
-//
-//(c) Copyright 2005-2014 by Mentor Graphics Corp. All rights reserved.
-//
-//========================================================================
-//This document contains information proprietary and confidential to
-//Mentor Graphics Corp. and is not for external distribution.
+//File:      AbstractNature.java
 //========================================================================
 package org.xtuml.bp.mc;
 
@@ -83,10 +74,6 @@ public abstract class AbstractNature implements IProjectNature {
 	// This file is used to identify the fact that the SystemC model compiler is
 	// present
 	public static final String SystemC_Archetype = "t.sysc_main.c"; //$NON-NLS-1$
-
-	// This file is used to identify the fact that the VHDL model compiler is
-	// present
-	public static final String VHDL_Archetype = "t.sys_main.vhd"; //$NON-NLS-1$
 
 	public static String LAUNCH_ATTR_TOOL_LOCATION = "org.eclipse.ui.externaltools.ATTR_LOCATION"; //$NON-NLS-1$
     public static String LAUNCH_ATTR_TOOL_ARGS = "org.eclipse.ui.externaltools.ATTR_TOOL_ARGUMENTS"; //$NON-NLS-1$

@@ -1,0 +1,156 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>12.1. Normal and Abrupt Completion of Statements</title>
+<link rel="stylesheet" type="text/css" href="docbook.css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<meta name="keywords" content="MASL, Action Language, Action Semantics, UML, Unified Modelling Language, Shlaer Mellor">
+<link rel="home" href="index.html" title="MASL Reference Manual">
+<link rel="up" href="Statements.html" title="Chapter 12. Statements">
+<link rel="prev" href="Statements.html" title="Chapter 12. Statements">
+<link rel="next" href="StatementsSequenceofStatements.html" title="12.2. Sequence of Statements">
+<link rel="preface" href="preface.html" title="Preface">
+<link rel="chapter" href="Grammars.html" title="Chapter 1. Grammars">
+<link rel="chapter" href="LexicalStructure.html" title="Chapter 2. Lexical Structure">
+<link rel="chapter" href="Types.html" title="Chapter 3. Types">
+<link rel="chapter" href="TypeConversion.html" title="Chapter 4. Type Conversion">
+<link rel="chapter" href="Domains.html" title="Chapter 5. Domains">
+<link rel="chapter" href="Objects.html" title="Chapter 6. Objects">
+<link rel="chapter" href="Relationships.html" title="Chapter 7. Relationships">
+<link rel="chapter" href="Lifecycles.html" title="Chapter 8. Lifecycles">
+<link rel="chapter" href="Functions.html" title="Chapter 9. Functions">
+<link rel="chapter" href="Services.html" title="Chapter 10. Services">
+<link rel="chapter" href="Exceptions.html" title="Chapter 11. Exceptions">
+<link rel="chapter" href="Statements.html" title="Chapter 12. Statements">
+<link rel="chapter" href="Names.html" title="Chapter 13. Names">
+<link rel="chapter" href="Expressions.html" title="Chapter 14. Expressions">
+<link rel="appendix" href="LanguageDefinedCharacteristics.html" title="Appendix A. Language Defined Characteristics">
+<link rel="appendix" href="SyntaxSummary.html" title="Appendix B. Syntax Summary">
+<link rel="index" href="ix01.html" title="Index">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div align="center">OFFICIAL</div>
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">12.1. Normal and Abrupt Completion of Statements</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="Statements.html">Prev</a> </td>
+<th width="60%" align="center">Chapter 12. Statements</th>
+<td width="20%" align="right"> <a accesskey="n" href="StatementsSequenceofStatements.html">Next</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title">
+<a name="StatementsNormalandAbruptCompletionofStatements"></a>12.1. Normal and Abrupt Completion of Statements</h2></div></div></div>
+<p>
+Every statement has a normal mode of execution in which certain computational
+steps are carried out. The following sections describe the normal mode of
+execution for each kind of statement. If all the steps are carried out as
+described, with no indication of abrupt completion,
+<a class="indexterm" name="idp64326128"></a>
+<a class="indexterm" name="idp67632656"></a>
+the statement is said to
+complete normally.
+<a class="indexterm" name="idp67633856"></a>
+However, certain events may prevent a statement from
+completing normally:
+<a class="indexterm" name="idp67634720"></a>
+</p>
+<div class="itemizedlist"><ul class="itemizedlist">
+<li class="listitem"><p>
+The <a class="link" href="StatementsTheExitStatement.html" title="12.15. The Exit Statement"><code class="literal">exit</code></a> statement
+<a class="indexterm" name="idp67637616"></a>
+causes a transfer of control that may prevent normal completion
+<a class="indexterm" name="idp67639328"></a>
+of statements that contain them.
+</p></li>
+<li class="listitem"><p>
+Evaluation of certain expressions may raise exceptions; these exceptions are
+summarized in
+<a class="xref" href="ExpressionsNormalandAbruptCompletionofEvaluation.html" title="14.3. Normal and Abrupt Completion of Evaluation">Section 14.3, “Normal and Abrupt Completion of Evaluation”</a>. An explicit
+<a class="link" href="StatementsTheRaiseStatement.html#ebnf.raisestatement"><code class="literal">raise</code></a> statement
+<a class="indexterm" name="idp67505792"></a>
+also results in an exception. An exception causes a transfer of
+control that may prevent normal completion
+<a class="indexterm" name="idp67506912"></a>
+of statements.
+</p></li>
+</ul></div>
+<p>
+</p>
+<p>
+If such an event occurs, then execution of one or more statements may be
+terminated before all steps of their normal mode of execution have completed;
+such statements are said to complete abruptly.
+<a class="indexterm" name="idp67508912"></a>
+</p>
+<p>
+The terms complete normally and complete abruptly
+<a class="indexterm" name="idp67510288"></a>
+also apply to the evaluation of
+expressions. The only reason an expression can complete abruptly
+<a class="indexterm" name="idp67511264"></a>
+is that an
+exception is raised because of a run-time exception or error.
+</p>
+<p>
+If statement evaluates an expression, abrupt completion
+<a class="indexterm" name="idp68027472"></a>
+of the expression always
+causes the immediate abrupt completion
+<a class="indexterm" name="idp68028416"></a>
+of the statement, with the same reason.
+All succeeding steps in the normal mode of execution are not performed.
+</p>
+<p>
+Unless otherwise specified in this chapter, abrupt completion
+<a class="indexterm" name="idp68029904"></a>
+of a expression
+causes the immediate abrupt completion
+<a class="indexterm" name="idp68030848"></a>
+of the statement itself, with the
+same reason and all succeeding steps in the normal mode of execution of the
+statement are not performed.
+</p>
+<p>
+Unless otherwise specified in this chapter, abrupt completion
+<a class="indexterm" name="idp68032368"></a>
+of a sub-statement
+<a class="indexterm" name="idp68033264"></a>
+cause the immediate abrupt completion
+<a class="indexterm" name="idp68034176"></a>
+of the statement itself, with the same
+reason and all succeeding steps in the normal mode of execution of the statement
+are not performed.
+</p>
+<p>
+Unless otherwise specified, a statement completes normally if all expressions it
+evaluates and all sub-statements it executes, complete normally.
+</p>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="Statements.html">Prev</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="Statements.html">Up</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="StatementsSequenceofStatements.html">Next</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">Chapter 12. Statements </td>
+<td width="20%" align="center">
+<a accesskey="h" href="index.html">Home</a> | <a accesskey="t" href="bk01-toc.html">ToC</a>
+</td>
+<td width="40%" align="right" valign="top"> 12.2. Sequence of Statements</td>
+</tr>
+</table>
+</div>
+<div align="center">OFFICIAL</div>
+</body>
+</html>

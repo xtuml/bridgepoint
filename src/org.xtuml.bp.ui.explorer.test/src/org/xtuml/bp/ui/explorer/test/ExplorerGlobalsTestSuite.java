@@ -22,9 +22,24 @@
 
 package org.xtuml.bp.ui.explorer.test;
 
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
+
+@RunWith(Suite.class)
+@Suite.SuiteClasses({
+	ExplorerGlobalsTest.class,
+	ExplorerTest.class,
+	ProjectManipulationTests.class,
+	I634ExplorerEmptySelectionTest.class,
+	FunctionKeyActivationTest.class,
+	//this test should run at the end of all others as it removes
+	// any existing projects before its run
+	AlphaSortingTest.class
+})
 public class ExplorerGlobalsTestSuite extends TestSuite {
 
     /**
@@ -35,18 +50,4 @@ public class ExplorerGlobalsTestSuite extends TestSuite {
         return new ExplorerGlobalsTestSuite();
     }
     
-    /**
-     * Constructs the test suite.
-     */
-    public ExplorerGlobalsTestSuite() {
-        addTest(new TestSuite(ExplorerGlobalsTest.class));
-        addTest(new TestSuite(ExplorerTest.class));
-        addTest(new TestSuite(ProjectManipulationTests.class));
-        addTest(new TestSuite(I634ExplorerEmptySelectionTest.class));
-        addTest(new TestSuite(FunctionKeyActivationTest.class));
-        //this test should run at the end of all others as it removes
-        // any existing projects before its run
-        addTest(new TestSuite(AlphaSortingTest.class));
-    	
-    }
 }

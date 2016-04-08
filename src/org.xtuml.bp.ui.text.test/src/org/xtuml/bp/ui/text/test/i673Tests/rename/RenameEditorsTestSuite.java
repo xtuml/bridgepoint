@@ -21,12 +21,16 @@
 //=====================================================================
 package org.xtuml.bp.ui.text.test.i673Tests.rename;
 
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+
 import junit.framework.TestSuite;
 
-public class RenameEditorsTestSuite extends TestSuite {
+@RunWith(Suite.class)
+@Suite.SuiteClasses({
+	I673RenameObjectsAndTestDescriptionEditors.class,
+	I673RenameObjectsAndTestActivityEditors.class
+})
+public class RenameEditorsTestSuite {
 
-	public RenameEditorsTestSuite() {		
-		addTest(new TestSuite(I673RenameObjectsAndTestDescriptionEditors.class));
-		addTest(new TestSuite(I673RenameObjectsAndTestActivityEditors.class));		
-	}
 }

@@ -32,7 +32,10 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
-
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.IntegrityIssue_c;
 import org.xtuml.bp.core.IntegrityManager_c;
@@ -42,21 +45,29 @@ import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.IntegrityChecker;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TestingUtilities;
 
+@RunWith(OrderedRunner.class)
 public class ModelIntegrityTests extends BaseTest {
 
 	private boolean generateResults = false;
 	private String test_id;
 	private IntegrityManager_c manager;	
 
+	private static boolean isFirstTime = true;
 	@Override
-	protected void initialSetup() throws Exception {
+	@Before
+	public void initialSetup() throws Exception {
+		if (!isFirstTime)
+			return;
+		isFirstTime = false;
 		loadProject("ModelIntegrityTests");
 	}
 	
 	@Override
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		super.tearDown();
 		SystemModel_c system = SystemModel_c.getOneS_SYSOnR1301(manager);
 		if(system != null) {
@@ -69,6 +80,7 @@ public class ModelIntegrityTests extends BaseTest {
 		manager.delete();
 	}
 
+	@Test
 	public void testAssociationIntegrityChecks() throws IOException {
 		test_id = "Association_Integrity"; 
 		Package_c pkg = getPackage("Association Tests");
@@ -80,6 +92,7 @@ public class ModelIntegrityTests extends BaseTest {
 		}
 	}
 
+	@Test
 	public void testInterfaceOperationIntegrityChecks() throws IOException {
 		test_id = "Interface_Operation_Integrity";
 		Package_c pkg = getPackage("Interface Operation Tests");
@@ -91,6 +104,7 @@ public class ModelIntegrityTests extends BaseTest {
 		}
 	}
 
+	@Test
 	public void testInterfaceSignalIntegrityChecks() throws IOException {
 		test_id = "Interface_Signal_Integrity";
 		Package_c pkg = getPackage("Interface Signal Tests");
@@ -102,6 +116,7 @@ public class ModelIntegrityTests extends BaseTest {
 		}
 	}
 	
+	@Test
 	public void testPortIntegrityChecks() throws IOException {
 		test_id = "Port_Integrity";
 		Package_c pkg = getPackage("Port Tests");
@@ -113,6 +128,7 @@ public class ModelIntegrityTests extends BaseTest {
 		}
 	}
 
+	@Test
 	public void testAttributeIntegrityChecks() throws IOException {
 		test_id = "Attribute_Integrity";
 		Package_c pkg = getPackage("Attribute Tests");
@@ -124,6 +140,7 @@ public class ModelIntegrityTests extends BaseTest {
 		}
 	}
 
+	@Test
 	public void testBridgeParameterIntegrityChecks() throws IOException {
 		test_id = "Bridge_Parameter_Integrity";
 		Package_c pkg = getPackage("Bridge Parameter Tests");
@@ -135,6 +152,7 @@ public class ModelIntegrityTests extends BaseTest {
 		}
 	}
 
+	@Test
 	public void testBridgeIntegrityChecks() throws IOException {
 		test_id = "Bridge_Integrity";
 		Package_c pkg = getPackage("Bridge Tests");
@@ -146,6 +164,7 @@ public class ModelIntegrityTests extends BaseTest {
 		}
 	}
 	
+	@Test
 	public void testClassIntegrityChecks() throws IOException {
 		test_id = "Class_Integrity";
 		Package_c pkg = getPackage("Class Tests");
@@ -157,6 +176,7 @@ public class ModelIntegrityTests extends BaseTest {
 		}
 	}
 
+	@Test
 	public void testEnumerationDataTypeIntegrityChecks() throws IOException {
 		test_id = "Enumeration_Data_Type_Integrity";
 		Package_c pkg = getPackage("Enumeration Data Type Tests");
@@ -168,6 +188,7 @@ public class ModelIntegrityTests extends BaseTest {
 		}
 	}
 
+	@Test
 	public void testEnumeratorIntegrityChecks() throws IOException {
 		test_id = "Enumerator_Integrity";
 		Package_c pkg = getPackage("Enumerator Tests");
@@ -179,6 +200,7 @@ public class ModelIntegrityTests extends BaseTest {
 		}
 	}
 
+	@Test
 	public void testFunctionParameterIntegrityChecks() throws IOException {
 		test_id = "Function_Parameter_Integrity";
 		Package_c pkg = getPackage("Function Parameter Tests");
@@ -190,6 +212,7 @@ public class ModelIntegrityTests extends BaseTest {
 		}
 	}
 	
+	@Test
 	public void testFunctionIntegrityChecks() throws IOException {
 		test_id = "Function_Integrity";
 		Package_c pkg = getPackage("Function Tests");
@@ -201,6 +224,7 @@ public class ModelIntegrityTests extends BaseTest {
 		}
 	}
 
+	@Test
 	public void testOperationParameterIntegrityChecks() throws IOException {
 		test_id = "Operation_Parameter_Integrity";
 		Package_c pkg = getPackage("Operation Parameter Tests");
@@ -212,6 +236,7 @@ public class ModelIntegrityTests extends BaseTest {
 		}
 	}
 
+	@Test
 	public void testOperationIntegrityChecks() throws IOException {
 		test_id = "Operation_Integrity";
 		Package_c pkg = getPackage("Operation Tests");
@@ -223,6 +248,7 @@ public class ModelIntegrityTests extends BaseTest {
 		}
 	}
 
+	@Test
 	public void testPropertyParameterIntegrityChecks() throws IOException {
 		test_id = "Property_Parameter_Integrity";
 		Package_c pkg = getPackage("Property Parameter Tests");
@@ -234,6 +260,7 @@ public class ModelIntegrityTests extends BaseTest {
 		}
 	}
 
+	@Test
 	public void testStateMachineEventDataItemIntegrityChecks() throws IOException {
 		test_id = "State_Machine_Event_Data_Item_Integrity";
 		Package_c pkg = getPackage("State Machine Event Data Item Tests");
@@ -245,6 +272,7 @@ public class ModelIntegrityTests extends BaseTest {
 		}
 	}
 
+	@Test
 	public void testStateMachineEventIntegrityChecks() throws IOException {
 		test_id = "State_Machine_Event_Integrity";
 		Package_c pkg = getPackage("State Machine Event Tests");
@@ -256,6 +284,7 @@ public class ModelIntegrityTests extends BaseTest {
 		}
 	}
 
+	@Test
 	public void testStateMachineStateIntegrityChecks() throws IOException {
 		test_id = "State_Machine_State_Integrity";
 		Package_c pkg = getPackage("State Machine State Tests");
@@ -267,6 +296,7 @@ public class ModelIntegrityTests extends BaseTest {
 		}
 	}
 
+	@Test
 	public void testStructureMemberIntegrityChecks() throws IOException {
 		test_id = "Structure_Member_Integrity";
 		Package_c pkg = getPackage("Structure Member Tests");
@@ -278,6 +308,7 @@ public class ModelIntegrityTests extends BaseTest {
 		}
 	}
 
+	@Test
 	public void testStructuredDataTypeIntegrityChecks() throws IOException {
 		test_id = "Structured_Data_Type_Integrity";
 		Package_c pkg = getPackage("Structured Data Type Tests");
@@ -289,6 +320,7 @@ public class ModelIntegrityTests extends BaseTest {
 		}
 	}
 
+	@Test
 	public void testSymbolicConstantIntegrityChecks() throws IOException {
 		test_id = "Symbolic_Constant_Integrity";
 		Package_c pkg = getPackage("Symbolic Constant Tests");
@@ -300,6 +332,7 @@ public class ModelIntegrityTests extends BaseTest {
 		}
 	}
 
+	@Test
 	public void testUserDataTypeIntegrityChecks() throws IOException {
 		test_id = "User_Data_Type_Integrity";
 		Package_c pkg = getPackage("User Data Type Tests");
@@ -311,6 +344,7 @@ public class ModelIntegrityTests extends BaseTest {
 		}
 	}
 
+	@Test
 	public void testDanglingReferenceIntegrityChecks() throws IOException {
 		test_id = "Dangling_Reference_Integrity";
 		Package_c pkg = getPackage("Dangling Reference Tests");

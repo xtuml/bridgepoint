@@ -14,9 +14,12 @@
 
 
 import org.eclipse.core.runtime.CoreException;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.test.ComponentContextMenuTests;
 import org.xtuml.bp.core.test.ComponentContextMenuTests2;
+import org.xtuml.bp.core.test.GlobalTestSetupClass;
 import org.xtuml.bp.core.test.ImportedComponentIFTests;
 import org.xtuml.bp.core.test.RemoveSignalTests;
 import org.xtuml.bp.core.test.SystemLevelGlobalsTest;
@@ -28,31 +31,16 @@ import junit.framework.TestSuite;
 /**
 * Test the system level areas of core.
 */
+@RunWith(Suite.class)
+@Suite.SuiteClasses({
+		GlobalTestSetupClass.class,
+		SystemLevelGlobalsTest.class,
+		ComponentContextMenuTests.class, 
+		ComponentContextMenuTests2.class, 
+		ImportedComponentIFTests.class, 
+		RemoveSignalTests.class,
+})
 public class SystemLevelGlobalsTestSuite extends TestSuite {
 
-	/**
-	 * Returns the suite.  This is required to
-	 * use the JUnit Launcher.
-	 * @throws CoreException
-	 */
-	public static Test suite() throws CoreException {
-		return new SystemLevelGlobalsTestSuite();
-	}
 
-	/**
-	 * Construct the test suite.
-	 */
-	public SystemLevelGlobalsTestSuite() throws CoreException {
-
-		// turn off autobuild to stop MC-3020 builders from running
-		WorkspaceUtil.setAutobuilding(false);;   // throws CoreException
-
-		CorePlugin.disableParseAllOnResourceChange();
-
-        addTest(new TestSuite(SystemLevelGlobalsTest.class));
-        addTest(new TestSuite(ComponentContextMenuTests.class));
-        addTest(new TestSuite(ComponentContextMenuTests2.class));
-        addTest(new TestSuite(ImportedComponentIFTests.class));
-        addTest(new TestSuite(RemoveSignalTests.class));        
-	}
 }

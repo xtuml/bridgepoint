@@ -1,0 +1,54 @@
+<!-- 
+  UK Crown Copyright (c) 2016. All Rights Reserved
+-->
+<!-- Converted by db4-upgrade version 1.0 -->
+<bibliography xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="Bibliography"><info><title>Bibliography</title></info>
+
+ 
+<bibliodiv xml:id="BibliographyBooks"><info><title>Books</title></info>
+
+
+<biblioentry xml:id="MASL06">
+    <citetitle>MASL Reference Manual</citetitle>
+    <pubdate>2006</pubdate>
+</biblioentry>
+
+<biblioentry xml:id="Mellor02">
+    <citetitle>Executable UML</citetitle>
+    <subtitle>A Foundation for Model-Driven Architecture</subtitle>
+    <authorgroup>
+        <author><personname><firstname>Stephen</firstname><surname>Mellor</surname></personname></author>        <author><personname><firstname>Marc</firstname><surname>Balcer</surname></personname></author>
+    </authorgroup>
+    <pubdate>2002</pubdate>
+    <biblioid class="isbn">ISBN 0-201-74804-5</biblioid>
+    <publisher>
+        <publishername>Addison Wesley Professional.</publishername>
+    </publisher>
+</biblioentry>
+
+<biblioentry xml:id="Shlaer88">
+    <citetitle>Object Oriented Analysis: Modeling the World in Data</citetitle>
+    <authorgroup>
+        <author><personname><firstname>Sally</firstname><surname>Shlaer</surname></personname></author>
+        <author><personname><firstname>Stephen</firstname><surname>Mellor</surname></personname></author>    </authorgroup>
+    <pubdate>1988</pubdate>
+    <biblioid class="isbn">ISBN 0-13-629023-X</biblioid>
+    <publisher>
+        <publishername>Prentice Hall, Inc.</publishername>
+    </publisher>
+</biblioentry>
+ 
+<biblioentry xml:id="Shlaer92">
+    <citetitle>Object Oriented Analysis: Modeling the World in States</citetitle>
+    <authorgroup>
+        <author><personname><firstname>Sally</firstname><surname>Shlaer</surname></personname></author>
+        <author><personname><firstname>Stephen</firstname><surname>Mellor</surname></personname></author>    </authorgroup>
+    <pubdate>1992</pubdate>
+    <biblioid class="isbn">ISBN 0-13-629940-7</biblioid>
+    <publisher>
+        <publishername>Prentice Hall, Inc.</publishername>
+    </publisher>
+</biblioentry>
+
+</bibliodiv>
+</bibliography>

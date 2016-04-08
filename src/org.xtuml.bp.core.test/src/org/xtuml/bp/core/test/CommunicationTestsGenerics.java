@@ -24,36 +24,34 @@ package org.xtuml.bp.core.test;
 
 import java.lang.reflect.Method;
 
-import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.WizardDialog;
-import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.PlatformUI;
-
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.CommunicationLink_c;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.ui.LinkFormalizeOnCOMM_LNKWizard;
 import org.xtuml.bp.core.ui.LinkFormalizeOnCOMM_LNKWizardPage2;
 import org.xtuml.bp.core.ui.Selection;
-import org.xtuml.bp.test.common.UITestingUtilities;
-import org.xtuml.bp.ui.canvas.Ooaofgraphics;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.ui.canvas.test.CanvasTest;
-import org.xtuml.bp.ui.canvas.test.CanvasTestUtilities;
-import org.xtuml.bp.ui.graphics.editor.GraphicalEditor;
 
 /**
  * Contains tests that exercise the functionality of communication diagrams.
  */
+@RunWith(OrderedRunner.class)
 public class CommunicationTestsGenerics extends CanvasTest {
 	private String test_id;
 
 	private boolean generateResults = false;
 
-	public CommunicationTestsGenerics(String arg0) {
-		super(arg0);
+	public CommunicationTestsGenerics() {
+		super(null);
 	}
 
 	/**
@@ -72,7 +70,8 @@ public class CommunicationTestsGenerics extends CanvasTest {
 	 * 
 	 * @see junit.framework.TestCase#setUp()
 	 */
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 
 		// if it's the first test of this class that's being setup
@@ -87,6 +86,7 @@ public class CommunicationTestsGenerics extends CanvasTest {
 	/**
 	 * Tests that communications can be drawn in a domain
 	 */
+	@Test
 	public void testCommunicationInDomain() {
 		test_id = "1";
 //		String diagramName = "CommunicationTestModel";
@@ -107,6 +107,7 @@ public class CommunicationTestsGenerics extends CanvasTest {
 	/**
 	 * Tests that communications can be drawn in a subsystem
 	 */
+	@Test
 	public void testCommunicationInSubsystem() {
 		test_id = "3";
 //		String diagramName = "Subsystem";
@@ -128,6 +129,7 @@ public class CommunicationTestsGenerics extends CanvasTest {
 	 * Tests that MC-Java will not return duplicates when the same instance is
 	 * contained across an association more that once.
 	 */
+	@Test
 	public void testGetManyReturnsNoDuplicates() {
 		CommunicationLink_c link = CommunicationLink_c
 				.CommunicationLinkInstance(modelRoot,

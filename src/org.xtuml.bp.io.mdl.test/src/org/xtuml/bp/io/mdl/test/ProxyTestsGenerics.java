@@ -1,44 +1,24 @@
 package org.xtuml.bp.io.mdl.test;
 
-//=====================================================================
-//
-//File:      $RCSfile: ProxyTestsGenerics.java,v $
-//Version:   $Revision: 1.4 $
-//Modified:  $Date: 2013/01/10 23:12:54 $
-//
-//(c) Copyright 2004-2014 by Mentor Graphics Corp. All rights reserved.
-//
-//=====================================================================
-// Licensed under the Apache License, Version 2.0 (the "License"); you may not 
-// use this file except in compliance with the License.  You may obtain a copy 
-// of the License at
-//
-//       http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software 
-// distributed under the License is distributed on an "AS IS" BASIS, WITHOUT 
-// WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the 
-// License for the specific language governing permissions and limitations under
-// the License.
-//=====================================================================
-import org.xtuml.bp.core.Attribute_c;
-import org.xtuml.bp.core.BaseAttribute_c;
-import org.xtuml.bp.core.ModelClass_c;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.Ooaofooa;
-import org.xtuml.bp.core.Package_c;
-import org.xtuml.bp.core.PackageableElement_c;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TestingUtilities;
 
+@RunWith(OrderedRunner.class)
 public class ProxyTestsGenerics extends BaseTest {
 
     private static String projectName = "ProxyTests";
 
-    public ProxyTestsGenerics(String name) {
-        super(projectName, name);
+    public ProxyTestsGenerics() {
+        super(projectName, null);
     }
 
-    protected void setUp() throws Exception {
+    @Before
+	public void setUp() throws Exception {
         super.setUp();
         //ensureAvailableAndLoaded("Proxy", false);
         String loc = m_workspace_path +Ooaofooa.MODELS_DIRNAME+"/ProxyGenerics"+"." + Ooaofooa.MODELS_EXT;//$NON-NLS-1$
@@ -51,7 +31,8 @@ public class ProxyTestsGenerics extends BaseTest {
 // problem that will allow this test to be enable in the future.  The issue
 // raised is dts0100770280 - Fix error due to attempt to persist non persistent Packageable Element
 //	
-    public void testConvertToProxyAfterComponentUnload() throws Exception {
+    @Test
+	public void testConvertToProxyAfterComponentUnload() throws Exception {
 
 //        ModelClass_c rtoClass = ModelClass_c.ModelClassInstance(modelRoot,
 //                new ModelClass_by_name_c("RTOClass"));

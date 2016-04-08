@@ -38,7 +38,7 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
     public static final String ALLOW_OPERATIONS_IN_WHERE = PREFIX + "allow_operations_in_where"; //$NON-NLS-1$
     public static final String ALLOW_INTERFACE_NAME_IN_IC_MESSAGE = PREFIX + "allow_interface_name_in_ic_message"; //$NON-NLS-1$
     public static final String ALLOW_IMPLICIT_COMPONENT_ADDRESSING = PREFIX + "allow_implicit_component_addressing"; //$NON-NLS-1$
-    public static final String ENABLE_PARSE_WHILE_EDITING = PREFIX + "enable_parse_on_activity_edits"; //$NON-NLS-1$
+    public static final String ENABLE_PARSE_ON_ACTIVITY_EDITS = PREFIX + "enable_parse_on_activity_edits"; //$NON-NLS-1$
     public static final String ENABLE_ERROR_FOR_EMPTY_SYNCHRONOUS_MESSAGE = PREFIX + "enable_error_for_empty_synchronous_message"; //$NON-NLS-1$
     public static final String ENABLE_ERROR_FOR_EMPTY_SYNCHRONOUS_MESSAGE_REALIZED = PREFIX + "enable_error_for_empty_synchronous_message_realized"; //$NON-NLS-1$
     public static final String DISABLE_GRADIENTS = PREFIX + "disable_gradients"; //$NON-NLS-1$
@@ -47,6 +47,7 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
     public static final String EXPORT_OAL = PREFIX + "export_oal"; //$NON-NLS-1$
     public static final String EXPORT_GRAPHICS = PREFIX + "export_graphics"; //$NON-NLS-1$
     public static final String MESSAGE_DIRECTION = PREFIX + "message_direction";
+    public static final String DEFAULT_ACTIVITY_EDITOR = PREFIX + "default_activity_editor";
     public static final String SHOW_TRANSITION_ACTIONS = PREFIX + "show_transition_actions"; //$NON-NLS-1$
     public static final String SHOW_EVENT_PARAMETERS = PREFIX + "show_event_parameters"; //$NON-NLS-1$
     public static final String ENABLE_FIXED_LENGTH_ARRAYS = PREFIX + "enable_fixed_length_arrays"; //$NON-NLS-1$
@@ -75,6 +76,7 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
 
 	public static final String TO_PROVIDER = "to provider"; //$NON-NLS-1$
 	
+	public static final String OAL_EDITOR = "OAL"; //$NON-NLS-1$
 		
     public Class getModelClass() {
         return BridgePointPreferencesModel.class;
@@ -91,7 +93,7 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
         store.setValue(ALLOW_INT_TO_REAL_PROMOTION, prefs.allowIntToRealPromotion);
         store.setValue(ALLOW_REAL_TO_INT_COERCION, prefs.allowRealToIntCoercion);
         store.setValue(ALLOW_IMPLICIT_COMPONENT_ADDRESSING, prefs.allowImplicitComponentAddressing);
-        store.setValue(ENABLE_PARSE_WHILE_EDITING, prefs.enableParseOnActivtyEdits);
+        store.setValue(ENABLE_PARSE_ON_ACTIVITY_EDITS, prefs.enableParseOnActivtyEdits);
         store.setValue(ALLOW_OPERATIONS_IN_WHERE, prefs.allowOperationsInWhere);
         store.setValue(ALLOW_INTERFACE_NAME_IN_IC_MESSAGE, prefs.allowInterfaceNameInICMessage);
         store.setValue(ENABLE_ERROR_FOR_EMPTY_SYNCHRONOUS_MESSAGE, prefs.enableErrorForEmptySynchronousMessage);
@@ -102,6 +104,7 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
         store.setValue(EXPORT_OAL, prefs.exportOAL);
         store.setValue(EXPORT_GRAPHICS, prefs.exportGraphics);
         store.setValue(MESSAGE_DIRECTION, prefs.messageDirection); 
+        store.setValue(DEFAULT_ACTIVITY_EDITOR, prefs.defaultActivityEditor); 
         store.setValue(SHOW_TRANSITION_ACTIONS, prefs.showTransitionActions);
         store.setValue(SHOW_EVENT_PARAMETERS, prefs.showEventParameters);
         store.setValue(ENABLE_FIXED_LENGTH_ARRAYS, prefs.enableFLAs);
@@ -148,7 +151,7 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
         prefs.allowImplicitComponentAddressing =
             store.getBoolean(BridgePointPreferencesStore.ALLOW_IMPLICIT_COMPONENT_ADDRESSING);
         prefs.enableParseOnActivtyEdits =
-                store.getBoolean(BridgePointPreferencesStore.ENABLE_PARSE_WHILE_EDITING);
+                store.getBoolean(BridgePointPreferencesStore.ENABLE_PARSE_ON_ACTIVITY_EDITS);
         prefs.allowOperationsInWhere =
             store.getBoolean(BridgePointPreferencesStore.ALLOW_OPERATIONS_IN_WHERE);
         prefs.allowInterfaceNameInICMessage = 
@@ -172,6 +175,8 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
             store.getString(BridgePointPreferencesStore.EXPORT_GRAPHICS);
         prefs.messageDirection =
             store.getString(BridgePointPreferencesStore.MESSAGE_DIRECTION);
+        prefs.defaultActivityEditor =
+            store.getString(BridgePointPreferencesStore.DEFAULT_ACTIVITY_EDITOR);
         prefs.showTransitionActions =
             store.getBoolean(BridgePointPreferencesStore.SHOW_TRANSITION_ACTIONS);
         prefs.showEventParameters =
@@ -248,6 +253,7 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
         prefs.exportOAL = MessageDialogWithToggle.NEVER;
         prefs.exportGraphics = MessageDialogWithToggle.ALWAYS;
         prefs.messageDirection = TO_PROVIDER;
+        prefs.defaultActivityEditor = OAL_EDITOR;
         
         prefs.enableVerifierAudit = false;
         prefs.enableSelectAudit = 1;

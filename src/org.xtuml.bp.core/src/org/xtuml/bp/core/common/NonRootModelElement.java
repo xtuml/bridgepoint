@@ -120,7 +120,7 @@ public abstract class NonRootModelElement extends ModelElement implements IAdapt
 		return root;
 	}
 
-    private NonRootModelElement getSystemModelFromName(final String name) {
+    public NonRootModelElement getSystemModelFromName(final String name) {
     	return SystemModel_c.SystemModelInstance(Ooaofooa.getDefaultInstance(),
 				new ClassQueryInterface_c() {
 					public boolean evaluate(Object candidate) {

@@ -1,0 +1,99 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>1.3. Types</title>
+<link rel="stylesheet" type="text/css" href="docbook.css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<meta name="keywords" content="MASL, Action Language, Action Semantics, UML, Unified Modelling Language, Shlaer Mellor">
+<link rel="home" href="index.html" title="MASL Tutorial">
+<link rel="up" href="Types.html" title="Chapter 1. Types">
+<link rel="prev" href="TypesBlocksandScope.html" title="1.2. Blocks and Scopes">
+<link rel="next" href="TypesSubtypes.html" title="1.4. Subtypes">
+<link rel="preface" href="preface.html" title="Preface">
+<link rel="chapter" href="Types.html" title="Chapter 1. Types">
+<link rel="chapter" href="ExecutionControl.html" title="Chapter 2. Execution Control">
+<link rel="chapter" href="CompositeTypes.html" title="Chapter 3. Composite Types">
+<link rel="chapter" href="Exceptions.html" title="Chapter 4. Exceptions">
+<link rel="chapter" href="ObjectsandRelationships.html" title="Chapter 5. Objects and Relationships">
+<link rel="chapter" href="Actions.html" title="Chapter 6. Actions">
+<link rel="chapter" href="DeviceIO.html" title="Chapter 7. Device Input/Output">
+<link rel="chapter" href="MASLExamples.html" title="Chapter 8. MASL Examples">
+<link rel="index" href="ix01.html" title="Index">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div align="center">UNCLASSIFIED</div>
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">1.3. Types</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="TypesBlocksandScope.html">Prev</a> </td>
+<th width="60%" align="center">Chapter 1. Types</th>
+<td width="20%" align="right"> <a accesskey="n" href="TypesSubtypes.html">Next</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title">
+<a name="TypesTypes"></a>1.3. Types</h2></div></div></div>
+<p>A type is characterised by a set of values, and a set of operations,
+    which implement the fundamental aspects of its semantics. Every type has a
+    name, which is introduced in a type declaration. Moreover, every type
+    declaration introduces a new type quite distinct from any other type. The
+    set of values belonging to two distinct types are themselves quite
+    distinct al-though in some cases the actual lexical form of the values may
+    be identical – which one is meant at any point is determined by the
+    context. Values of one type cannot be assigned to variables of another
+    type. This is the fundamental rule of strong typing.</p>
+<p>A type declaration consists of the reserved word
+    <code class="literal">type</code>, the identifier to be associated with the type,
+    the reserved word <code class="literal">is</code> and then the definition of the
+    type followed by the terminating semicolon. The type definition between
+    <code class="literal">is</code> and the semicolon gives in some way the set of
+    values belonging to the type. As a concrete example, consider the
+    following:</p>
+<div class="informalexample"><pre class="programlisting">  type colour type is enum (BLUE, RED, GREEN);</pre></div>
+<p>This introduces a new type called
+    <span class="type">colour_type</span>. Moreover, it states that there are only three
+    values of this type and they are denoted by the identifiers
+    <code class="literal">BLUE</code>, <code class="literal">RED</code> and
+    <code class="literal">GREEN</code>. Variables of this type can then be declared in
+    the usual ways:</p>
+<div class="informalexample"><pre class="programlisting">  c : colour_type;
+  d : colour_type := RED;               // initial value can be supplied
+  e : readonly colour_type := BLUE;     // a constant can be declared</pre></div>
+<p>We have stated that values (or variables) of one type
+    cannot be assigned to variables of another type. Therefore, one cannot
+    assign colours to integers and so the assignment shown below is
+    illegal.</p>
+<div class="informalexample"><pre class="programlisting">  declare
+    i : integer;
+    c : colour_type := RED;
+  begin
+    i := c;     //  illegal
+  end;</pre></div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="TypesBlocksandScope.html">Prev</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="Types.html">Up</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="TypesSubtypes.html">Next</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">1.2. Blocks and Scopes </td>
+<td width="20%" align="center">
+<a accesskey="h" href="index.html">Home</a> | <a accesskey="t" href="bk01-toc.html">ToC</a>
+</td>
+<td width="40%" align="right" valign="top"> 1.4. Subtypes</td>
+</tr>
+</table>
+</div>
+<div align="center">UNCLASSIFIED</div>
+</body>
+</html>

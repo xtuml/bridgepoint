@@ -1,6 +1,9 @@
 package org.xtuml.bp.debug.engine;
 
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.debug.test.VerifierTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 
 //========================================================================
 //
@@ -24,17 +27,20 @@ import org.xtuml.bp.debug.test.VerifierTest;
 // the License.
 //========================================================================
 
+@RunWith(OrderedRunner.class)
 public class RingTimerTest extends VerifierTest {
 	public RingTimerTest() {
 		super("ring_timers");
 	}
 
+	@Test
 	public void testTimer()throws InterruptedException {
 	    redirectOutput("ring_timers");
 		executeModel();
 		endRedirection();
 	}
 	
+	@Test
 	public void testOutput(){
 		compareOutput("ring_timers");
 	}

@@ -24,28 +24,37 @@ package org.xtuml.bp.ui.text.test.i673Tests.rename;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.PlatformUI;
-
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.Attribute_c;
 import org.xtuml.bp.core.BaseAttribute_c;
 import org.xtuml.bp.core.Bridge_c;
-import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.DerivedBaseAttribute_c;
 import org.xtuml.bp.core.Function_c;
 import org.xtuml.bp.core.Operation_c;
 import org.xtuml.bp.core.StateMachineState_c;
+import org.xtuml.bp.core.common.ClassQueryInterface_c;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TextEditorUtils;
 import org.xtuml.bp.ui.text.activity.ActivityEditor;
 import org.xtuml.bp.ui.text.test.UITextTest;
 import org.xtuml.bp.ui.text.test.activity.ActivityEditorInteraction;
 
+@RunWith(OrderedRunner.class)
 public class I673RenameObjectsAndTestActivityEditors extends UITextTest {
 	
-	public I673RenameObjectsAndTestActivityEditors(String projectName, String name) throws CoreException {
-		super("test", name); //$NON-NLS-1$
-	}
-	
-	public I673RenameObjectsAndTestActivityEditors(String name) throws CoreException {
-		super("test", name); //$NON-NLS-1$
+//	public I673RenameObjectsAndTestActivityEditors(String projectName, String name) throws CoreException {
+//		super("test", name); //$NON-NLS-1$
+//	}
+//	
+//	public I673RenameObjectsAndTestActivityEditors(String name) throws CoreException {
+//		super("test", name); //$NON-NLS-1$
+//	}
+
+	public I673RenameObjectsAndTestActivityEditors() throws CoreException {
+//		super("test", null); //$NON-NLS-1$
+//		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	IEditorPart renameObjectAndCheckActivityEditor(String editorTitlePreFix, Object obj){
@@ -68,6 +77,7 @@ public class I673RenameObjectsAndTestActivityEditors extends UITextTest {
 		return PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
 	}
 	
+	@Test
 	public void testRenameBridge(){
 		Bridge_c brg = Bridge_c.BridgeInstance(modelRoot);
 		assertNotNull(brg);
@@ -76,6 +86,7 @@ public class I673RenameObjectsAndTestActivityEditors extends UITextTest {
 		PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().closeEditor(ed, false);
 	}
 	
+	@Test
 	public void testRenameFunction(){
 		Function_c func = Function_c.FunctionInstance(modelRoot);
 		assertNotNull(func);
@@ -84,6 +95,7 @@ public class I673RenameObjectsAndTestActivityEditors extends UITextTest {
 		PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().closeEditor(ed, false);
 	}
 	
+	@Test
 	public void testRenameOperation(){
 		Operation_c op = Operation_c.OperationInstance(modelRoot);
 		assertNotNull(op);
@@ -92,6 +104,7 @@ public class I673RenameObjectsAndTestActivityEditors extends UITextTest {
 		PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().closeEditor(ed, false);
 	}
 	
+	@Test
 	public void testRenameStateMachineState(){
 		StateMachineState_c state = StateMachineState_c.StateMachineStateInstance(modelRoot);
 		assertNotNull(state);
@@ -100,6 +113,7 @@ public class I673RenameObjectsAndTestActivityEditors extends UITextTest {
 		PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().closeEditor(ed, false);
 	}
 	
+	@Test
 	public void testRenameAttribute(){
 		class FindDerviedAttribute implements ClassQueryInterface_c{
 

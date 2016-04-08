@@ -156,11 +156,11 @@ public class ActionLanguagePreferences
     enableParseOnActivtyEdits = new Button(composite, SWT.CHECK | SWT.LEFT);
     enableParseOnActivtyEdits.setText("Parse while editing OAL activities");
     enableParseOnActivtyEdits.setToolTipText("Enabling this option causes the parser to run as you edit OAL.\n" +
-			"When enabled, syntax errors are shown as you type. The\n" +
-			"disadvantage is that large action bodies may take a long time to parse.\n" +
-			"When disabled, you must manually parse the OAL using the \n" +
-			" Parse All Activities option found in the context menu.");
-    
+    										"When enabled, syntax errors are shown as you type. The\n" +
+    										"disadvantage is that large action bodies may take a long time to parse.\n" +
+    										"When disabled, you must manually parse the OAL using the \n" +
+    										" Parse All Activities option found in the context menu.");
+
     allowOperationsInWhere = new Button(composite, SWT.CHECK | SWT.LEFT);
     allowOperationsInWhere.setText("Allow operations inside where clauses of select statements");
     allowOperationsInWhere.setToolTipText(

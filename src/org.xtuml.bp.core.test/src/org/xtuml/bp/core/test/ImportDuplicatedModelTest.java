@@ -25,7 +25,8 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.TreeItem;
-
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.SystemModel_c;
@@ -38,9 +39,12 @@ import org.xtuml.bp.test.TestUtil;
 import org.xtuml.bp.test.common.BaseTest;
 import org.xtuml.bp.test.common.CVSUtils;
 import org.xtuml.bp.test.common.ExplorerUtil;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TestingUtilities;
 
+@RunWith(OrderedRunner.class)
 public class ImportDuplicatedModelTest extends BaseTest {
+	@Test
 	public void testImportDuplicatedModels() throws Exception {
             TestingUtilities
                     .importDevelopmentProjectIntoWorkspace("Looper");
@@ -81,6 +85,7 @@ public class ImportDuplicatedModelTest extends BaseTest {
              project = ResourcesPlugin.getWorkspace().getRoot().getProject("Looperz");
              assertNotNull(project);
         }
+	@Test
 	public void testCheckoutDuplicatedModel() throws Exception {
         CorePlugin.enableParseAllOnResourceChange();
 

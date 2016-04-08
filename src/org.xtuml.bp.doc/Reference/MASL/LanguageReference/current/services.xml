@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+  UK Crown Copyright (c) 2016. All Rights Reserved
+-->
+<chapter xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook" version="5.0" xml:id="section.Services">
+  <title>Services, Functions and State Actions</title>
+  <section xml:id="section.Services.Declaration">
+    <title>Service, Function and State Declarations</title>
+    <para>to do</para>
+    <productionset>
+      <productionrecap linkend="ebnf.domainServiceDeclaration"/>
+      <productionrecap linkend="ebnf.domainFunctionDeclaration"/>
+      <productionrecap linkend="ebnf.terminatorServiceDeclaration"/>
+      <productionrecap linkend="ebnf.terminatorFunctionDeclaration"/>
+      <productionrecap linkend="ebnf.objectServiceDeclaration"/>
+      <productionrecap linkend="ebnf.objectFunctionDeclaration"/>
+      <productionrecap linkend="ebnf.stateDeclaration"/>
+      <xi:include href="syntax.xml" xpointer="ebnf.serviceVisibility"/>
+      <xi:include href="syntax.xml" xpointer="ebnf.serviceName"/>
+      <xi:include href="syntax.xml" xpointer="ebnf.stateType"/>
+      <xi:include href="syntax.xml" xpointer="ebnf.stateName"/>
+      <xi:include href="syntax.xml" xpointer="ebnf.parameterList"/>
+      <xi:include href="syntax.xml" xpointer="ebnf.parameterDefinition"/>
+      <xi:include href="syntax.xml" xpointer="ebnf.parameterName"/>
+      <xi:include href="syntax.xml" xpointer="ebnf.parameterMode"/>
+      <xi:include href="syntax.xml" xpointer="ebnf.parameterType"/>
+      <xi:include href="syntax.xml" xpointer="ebnf.returnType"/>
+    </productionset>
+  </section>
+  <section xml:id="section.Services.Definition">
+    <title>Service, Function and State Action Definitions</title>
+    <para>to do</para>
+    <productionset>
+      <productionrecap linkend="ebnf.domainServiceDefinition"/>
+      <productionrecap linkend="ebnf.domainFunctionDefinition"/>
+      <productionrecap linkend="ebnf.terminatorServiceDefinition"/>
+      <productionrecap linkend="ebnf.terminatorFunctionDefinition"/>
+      <productionrecap linkend="ebnf.objectServiceDefinition"/>
+      <productionrecap linkend="ebnf.objectFunctionDefinition"/>
+      <productionrecap linkend="ebnf.stateDefinition"/>
+      <productionrecap linkend="ebnf.serviceVisibility"/>
+      <productionrecap linkend="ebnf.domainName"/>
+      <productionrecap linkend="ebnf.terminatorName"/>
+      <productionrecap linkend="ebnf.objectName"/>
+      <productionrecap linkend="ebnf.serviceName"/>
+      <productionrecap linkend="ebnf.stateType"/>
+      <productionrecap linkend="ebnf.stateName"/>
+      <productionrecap linkend="ebnf.parameterList"/>
+      <productionrecap linkend="ebnf.parameterDefinition"/>
+      <productionrecap linkend="ebnf.parameterName"/>
+      <productionrecap linkend="ebnf.parameterMode"/>
+      <productionrecap linkend="ebnf.parameterType"/>
+      <productionrecap linkend="ebnf.returnType"/>
+      <xi:include href="syntax.xml" xpointer="ebnf.codeBlock"/>
+    </productionset>
+  </section>
+</chapter>

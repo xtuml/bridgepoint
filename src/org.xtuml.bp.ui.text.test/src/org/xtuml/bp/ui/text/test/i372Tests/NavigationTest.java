@@ -32,17 +32,19 @@ import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.editors.text.TextEditor;
-import org.eclipse.ui.internal.NavigationHistory;
 import org.eclipse.ui.internal.NavigationHistoryAction;
 import org.eclipse.ui.internal.WorkbenchPage;
 import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.texteditor.AbstractTextEditor;
-
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.Attribute_c;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Operation_c;
 import org.xtuml.bp.core.common.InstanceList;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.ui.text.AbstractModelElementEditorInput;
 import org.xtuml.bp.ui.text.activity.ActivityEditor;
 import org.xtuml.bp.ui.text.activity.ActivityEditorInput;
@@ -52,24 +54,26 @@ import org.xtuml.bp.ui.text.test.activity.ActivityEditorInteraction;
 import org.xtuml.bp.ui.text.test.description.DescriptionEditorInteraction;
 
 
+@RunWith(OrderedRunner.class)
 public class NavigationTest extends BaseTest {
 	private static boolean firstSetup = true;
 	private static String testModelName = "testDescrip1";
 	
 	static IFile testModel = null;	
-	public NavigationTest(String name) throws CoreException {
-		super(null, name);
-	}
+//	public NavigationTest(String name) throws CoreException {
+//		super(null, name);
+//	}
 
-	// enforce order in which the tests in this class run
-	public void testNavigation() {
-		dotestForwardNavigationforDescriptionEditor();
-		dotestForwardNavigationforActivityEditor();
-		dotestBackwardNavigationWithOutMarkers();
-		dotestBackwardNavigationWithMarkers();
-	}
+//	// enforce order in which the tests in this class run
+//	public void testNavigation() {
+//		dotestForwardNavigationforDescriptionEditor();
+//		dotestForwardNavigationforActivityEditor();
+//		dotestBackwardNavigationWithOutMarkers();
+//		dotestBackwardNavigationWithMarkers();
+//	}
 	
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		if ( firstSetup ) {
         	loadProject(testModelName);
@@ -86,7 +90,8 @@ public class NavigationTest extends BaseTest {
 		page.closeAllEditors(false);
 	}
 	
-	public void dotestForwardNavigationforDescriptionEditor()
+	@Test
+	public void testForwardNavigationforDescriptionEditor()
 	{
 		InstanceList instList =  modelRoot.getInstanceList(Attribute_c.class);
 		// there should be at least two attributes
@@ -98,7 +103,8 @@ public class NavigationTest extends BaseTest {
 		checkForwardNavigation(attr1, attr2, DescriptionEditorInput.EDITOR_ID);
 	}
 	
-	public void dotestForwardNavigationforActivityEditor()
+	@Test
+	public void testForwardNavigationforActivityEditor()
 	{
 		InstanceList instList =  modelRoot.getInstanceList(Operation_c.class);
 		// there should be at least two attributes
@@ -173,13 +179,15 @@ public class NavigationTest extends BaseTest {
 		validateEditor(modelElement2, EDITOR_ID);
 	}
 		
-	public void dotestBackwardNavigationWithOutMarkers()
+	@Test
+	public void testBackwardNavigationWithOutMarkers()
 	{
 	// check the Navigation with out markers, pass parameter as false
 		checkBackwardNavigation(false);
 	}
 	
-	public void dotestBackwardNavigationWithMarkers()
+	@Test
+	public void testBackwardNavigationWithMarkers()
 	{
 	// test the Navigation with markers
 		checkBackwardNavigation(true);

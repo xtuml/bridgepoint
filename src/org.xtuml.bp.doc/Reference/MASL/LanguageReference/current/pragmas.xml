@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!-- 
+  UK Crown Copyright (c) 2016. All Rights Reserved
+-->
+<chapter xmlns="http://docbook.org/ns/docbook" xmlns:xi="http://www.w3.org/2001/XInclude" xml:id="section.Pragmas" version="5.0">
+  <title>Pragmas</title>
+  <para>
+    Pragmas may be attached to any definition, declaration or statement. They have no meaning in the language, but may be used by 
+    compilers for any purpose. 
+  </para>
+  <productionset>
+    <xi:include href="syntax.xml" xpointer="ebnf.pragmaList"/>
+    <xi:include href="syntax.xml" xpointer="ebnf.pragma"/>
+    <xi:include href="syntax.xml" xpointer="ebnf.pragmaValue"/>
+    <xi:include href="syntax.xml" xpointer="ebnf.pragmaName"/>
+  </productionset>
+</chapter>

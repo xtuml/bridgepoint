@@ -1,0 +1,866 @@
+= Finds = 
+
+== <code>find</code> and <code>find_all</code> ==
+<code>find_all</code> and <code>find</code> have been merged into a single <code>find</code> which has an optional condition. If the condition is omitted, the behaviour is exactly as <code>find_all</code> previously. For backwards compatibility, <code>find_all</code> is retained as a deprecated synonym for <code>find</code>.
+
+
+= Expressions =
+
+Expressions can now be arbitrarily complex. Previously, navigates, finds and creates could only appear as the RHS of an assignment statement. They can now form part of more complex expressions, which would previously have required a number of temporary variables.
+
+e.g.
+
+ no_adults := (find Person ( age > 21 ))'length;
+ adult_stats := (find Person (age > 21))->R1.Statistics;
+ complex_corr := (this->R1->R2) with (this->R3->R4) -> R7;
+ for adult in (find Person ( age > 21 )) loop ...
+
+= Replacement for Calendar domain =
+== Context ==
+
+The old MASL has no support for time and date handling built into the language. Everything is handled using a floating point number representing seconds since the epoch, and a Calendar domain is used to manipulate this number in various ways into some user defined structures representing date and time.
+
+=== Limitations ===
+* Using a floating point number to represent time does not provide sufficient resolution for many applications, especially if millisecond or better precision is needed on a date.
+
+* The Calendar domain is very clunky and awkward to use
+
+* Holding dates and times in structures breaks third normal form when used as class attributes.
+
+
+= New <code>duration</code> and <code>timestamp</code> Types =
+
+New types <code>duration</code> and <code>timestamp</code> have been introduced to represent a period of time and an instant in time respectively.
+In the following definitions, <code>timestamp</code> means the timestamp type name itself, <code>Timestamp</code> means any type with a primitive type of <code>timestamp</code>, and <code>tX</code> means any expression with a primitive type of <code>timestamp</code>. Similarly for duration.  
+
+== Literals ==
+
+Literals for timestamps and durations may be specified in [[wp:ISO 8601|ISO 8601]] date-time format, surrounded by '@' characters.
+
+<code>@yyyy-mm-ddThh:mm:ssZ@</code>, <code>@yyyy-Www-dThh:mm:ssZ@</code> or <code>@yyyy-dddThh:mm:ssZ@</code> represents a timestamp - less significant figures of the time portion may be dropped in order, and the least significant figure of the time portion may specify a decimal fraction. The timesone must be present and in the form <code>Z</code>, <code>±hh</code> or <code>±hh:mm</code>. The basic format of all of these forms (ie without the punctuation) may also be used. Note that as a timezone must be specified, the time separator must be present (even if hours are dropped), and the date must be fully specified.
+
+<code>@PdDThHmMsS@</code> or <code>@PwW@</code> represents a duration - any figures may be dropped (but the 'T' must be present if any of H M or S are specified, and the least significant figure may specify a decimal fraction. Note that the year and month fields allowed by ISO 8601 are not allowed here, as they do not specify an unambiguous duration.
+ 
+=== Examples ===
+
+{|class="wikitable"
+!literal !! meaning
+|-
+| @2009-06-26T16:00:00Z@ || 4pm on 26th June 2009
+|-
+| @2009-01-01TZ@ || midnight, 1st Jan 2009
+|-
+| @2009-06-26T16.5Z@ || 4:30pm on 26th June 2009
+|-
+| @P1D@ || 1 day
+|-
+| @P1DT12H@ || 36 hours
+|-
+| @PT36H@ || 36 hours
+|-
+| @PT1.5M@ || 90 seconds
+|}
+
+= Expressions =
+
+
+
+== Binary Expressions == 
+
+The following combinations are valid unless marked as "invalid" - any combinations not listed are also invalid. Note in particular that many operations are not commutative.
+
+{|class="wikitable"
+|-
+! LHS Type !! Operator !! RHS Type !! Result Type
+|-
+| Timestamp    || + || any duration  ||   Timestamp
+|-
+| any duration || + || Timestamp    ||  Timestamp
+|-
+| colspan="4" |
+|-
+| Timestamp   || -  ||  Timestamp    ||  anon duration
+|-
+| Timestamp   || - ||   any duration  ||  Timestamp
+|-
+| colspan="4" |
+|-
+| DurationA     || + or - ||  DurationA      || DurationA
+|-
+| DurationA     || + or - ||  DurationB      || invalid
+|-
+| DurationA     || + or - ||  anon duration  || DurationA
+|-
+| anon duration || + or - ||  DurationA      || DurationA
+|-
+| anon duration || + or - ||  anon duration  || anon duration
+|-
+| colspan="4" |
+|-
+|Duration   ||   *  ||  any numeric     ||    Duration
+|-
+| any numeric     ||   *  ||  Duration   ||    Duration
+|-
+|Duration   ||   /  ||  any numeric     ||    Duration
+|-
+|}
+
+== Characteristics ==
+
+{| class="wikitable"
+! type characteristic !! result type !! description
+|-
+| Timestamp'now || Timestamp || The date and time now
+|-
+| t'date || timestamp || A timestamp representing midnight at the start of the specified day
+|-
+| t'time || duration || A duration representing the duration since midnight in the specifed timestamp
+|-
+| colspan="2" |
+|-
+| t'split_[suffix] || sequence of integer || A sequence of integers representing the timestamp broken down into fields. See below for detailed explanation of the suffixes and fields available
+|-
+| d'split_[suffix] || sequence of integer  || A sequence of integers representing the duration broken down into fields. See below for detailed explanation of the suffixes and fields available
+|-
+| Timestamp'combine_[suffix](integer... ) || Timestamp || A timestamp formed by combining the given fields. See below for detailed explanation of the suffixes and fields available. Only those combinations which supply the date part may be used. Any non-derived fields which are not supplied will be set to the smallest possible value given the values of the supplied fields. 
+|-
+| Duration'combine_[suffix](integer... ) || Duration || A duration formed by combining the given fields. See below for detailed explanation of the suffixes and fields available. Supplied values may be larger than the maximum value for the field, in which case they will overflow into the next higher field.
+|-
+| t'add_years(integer) || timestamp || A timestamp formed by adding the given number of years to the timestamp. If the date in the current year is not valid in the resulting year, then the days of the month will overflow into the next month. Eg @2008-02-29@'add_years(1) = @2009-03-01@
+|-
+| t'add_months(integer) || timestamp || A timestamp formed by adding the given number of months to the timestamp. If the day in the current month is not valid in the resulting month, then the days of the month will overflow into the next month. Eg @2008-01-31@'add_months(1) = @2008-03-02@ and @2009-01-31@'add_months(1) = @2009-03-03@. 
+|-
+| colspan="2" |
+|-
+| t'year || integer || The calendar year ( eg 2008)
+|-
+| t'month_of_year || integer || The month (Jan = 1, Dec = 12)
+|-
+| t'day_of_month  || integer || The day of the month (1-31)
+|-
+| t'day_of_year  || integer || The day of the year (1-366)
+|-
+| t'week_year  || integer || The year relating to the week_of_year characteristic. May not be equal to the calendar year for the first and last weeks of the calendar year.
+|-
+| t'week_of_year  || integer || The week of the year according to ISO 8601 (0-54)
+|-
+| t/d'day_of_week || integer || The day of the week (Mon = 1, Sun = 7 for timestamps, number of days modulo number of weeks for duration)
+|-
+| t/d'hour_of_day  || integer || The hour of the day (0-23)
+|-
+| t/d'minute_of_hour || integer || The minute of the hour (0-59)
+|-
+| t/d'second_of_minute  || integer || The seconds of the minute (0-59)
+|-
+| t/d'millisecond_of_second  || integer || The millsecond of the second (0-999)
+|-
+| t/d'microsecond_of_second  || integer || The microsecond of the second (0-999999)
+|-
+| t/d'nanosecond_of_second  || integer || The nanosecond of the second (0-999999999)
+|-
+| t/d'microsecond_of_millisecond  || integer || The microsecond of the millisecond (0-999)
+|-
+| t/d'nanosecond_of_millisecond  || integer || The nanosecond of the millisecond (0-999999)
+|-
+| t/d'nanosecond_of_microsecond  || integer || The nanosecond of the microsecond (0-999)
+|-
+| colspan="2" |
+|-
+| Duration'days(n) || Duration || A duration of the specified number of days
+|-
+| Duration'hours(n) || Duration || A duration of the specified number of hours
+|-
+| Duration'minutes(n) || Duration || A duration of the specified number of minutes
+|-
+| Duration'seconds(n) || Duration || A duration of the specified number of seconds
+|-
+| Duration'milliseconds(n) || Duration || A duration of the specified number of milliseconds
+|-
+| Duration'microseconds(n) || Duration || A duration of the specified number of microseconds
+|-
+| Duration'nanoseconds(n) || Duration || A duration of the specified number of nanoseconds
+|-
+| colspan="2" |
+|-
+| d'weeks || integer || The duration expressed as a number of weeks, rounded towards zero
+|-
+| d'days || integer || The duration expressed as a number of days, rounded towards zero
+|-
+| d'hours || integer || The duration expressed as a number of hours, rounded towards zero
+|-
+| d'minutes || integer || The duration expressed as a number of minutes, rounded towards zero
+|-
+| d'seconds || integer || The duration expressed as a number of seconds rounded towards zero
+|-
+| d'milliseconds || integer || The duration expressed as a number of milliseconds rounded towards zero
+|-
+| d'microseconds || integer || The duration expressed as a number of microseconds, rounded towards zero
+|-
+| d'nanoseconds || integer || The duration expressed as a number of nanoseconds rounded towards zero
+|-
+| colspan="2" |
+|}
+
+
+=== Split characteristic ===
+
+The split characteristic can take a number of suffixes to define which fields are required in the split aggregate. The suffixes and their meanings are defined by the tables below.
+
+==== timestamp ====
+
+The suffix consists of a date part followed by a time part. The any number of less significant fields may be ommitted. The date part may also be omitted in its entirety if only the time fields are required. The fractional seconds part may only be present if the seconds field of the time part is present.
+
+
+{| class="wikitable"
+|+ Date Part
+! suffix || y || m || w || d
+|-
+! y, ym, ymd 
+| year || month_of_year || || day_of_month 
+|-
+! yd 
+| year || || || day_of_year
+|-
+! yw, ywd
+| week_year || || week_of_year || day_of_week
+|}
+
+
+
+{| class="wikitable"
+|+ Time Part
+! suffix || h || m || s
+|-
+! th, thm, thms 
+| hour_of_day || minute_of_hour || second_of_minute 
+|}
+
+
+{| class="wikitable"
+|+ Fractional second part (if seconds present in time part)
+! suffix || m || u || n
+|-
+! fm, fmu, fmun 
+| millisecond_of_second || microsecond_of_millisecond || nanosecond_of_microsecond 
+|-
+! fmn 
+| millisecond_of_second || || nanosecond_of_millisecond 
+|-
+! fu, fun
+| || microsecond_of_second || nanosecond_of_microsecond 
+|-
+! fn 
+| || || nanosecond_of_second 
+|}
+
+==== duration ====
+
+The duration split suffix consists of one of the following suffixes.
+
+{| class="wikitable"
+|-
+! suffix !! w !! d !! h !! m !! s !! !! suffix !! m !! u !! n
+|-
+! w, wd, wdth, wdthm, wdthms 
+| weeks || day_of_week || rowspan="2" | hour_of_day || rowspan="3" | minute_of_hour || rowspan="4" | second_of_minute  
+! rowspan="5" | + 
+! fm, fmu, fmun 
+| millisecond_of_second || microsecond_of_millisecond || nanosecond_of_microsecond 
+|-
+! d, dh, dthm, dthms 
+|  || days 
+! fmn 
+| millisecond_of_second || || nanosecond_of_millisecond 
+|-
+! th, thm, thms 
+| colspan="2" | || hours 
+! fu, fun
+| || microsecond_of_second || nanosecond_of_microsecond 
+|-
+! tm, tms 
+| colspan="3" | || minutes 
+! fn 
+| colspan="2" | || nanosecond_of_second 
+|-
+! ts 
+| colspan="4" | || seconds
+! 
+| colspan="3" | 
+|-
+! fm, fmu, fmun
+| colspan="7" | || milliseconds || microsecond_of_millisecond || nanosecond_of_microsecond 
+|-
+! fmn 
+|colspan="7" | || milliseconds || || nanosecond_of_millisecond 
+|-
+! fu, fun
+| colspan="8" | || microseconds || nanosecond_of_microsecond 
+|-
+! fn 
+|colspan="9" |  || nanoseconds 
+|}
+
+==== Examples ====
+
+{| class="wikitable"
+|-
+|@2009-08-07T06:05:04.300200100@'split_ymd || (2009, 8, 7)
+|-
+|@2009-08-07T06:05:04.300200100@'split_ymdh || (2009, 8, 7, 6)
+|-
+|@2009-08-07T06:05:04.300200100@'split_hms || (6, 5, 4)
+|-
+|@2009-08-07T06:05:04.300200100@'split_hmsmn || (6, 5, 4, 300, 200100)
+|-
+|@2009-08-07T06:05:04.300200100@'split_ydhm || (2009, 129, 6, 5)
+|-
+|colspan="2" |
+|-
+|@PT1H2M3.4005006S@'split_hms || ( 1, 2, 3 )
+|-
+|@PT1H2M3.4005006S@'split_msn || ( 62, 3, 400500600 )
+|-
+|@PT1H2M3.4005006S@'split_dhm || ( 0, 1, 2 )
+|-
+|@PT1H2M3.4005006S@'split_dhmsmun || ( 0, 1, 2, 3, 400, 500, 600 )
+|-
+|@PT1H2M3.4005006S@'split_dhmsun || ( 0, 1, 2, 3, 400500, 600 )
+|}
+
+= Scheduling Timer Events =
+The current SM_TIMER implementation provides the functionality required to support delayed signals and timer events within Executable UML Models. This functionality is based on the orginal interface provided by ASL and its SM_TIMER domain, as such the timer functionality is not part of the MASL language. For HALLOWED the ability to schedule events at a future time is build into the MASL language, and use of the SM_TIMER domain, and anonymous instance and event types is deprecated.
+
+== Summary ==
+
+Introduce a new built in type <code>timer</code>
+
+Introduce <code>schedule</code> and <code>cancel</code> commands with the following syntax:
+ <code>'''schedule''' a_timer '''generate''' event_name'''('''params''')''' ['''to''' instance] ('''at''' a_time|'''delay''' a_duration) ['''delta''' a_duration];'''</code>
+ <code>'''cancel''' a_timer''';'''</code>
+
+== Semantics ==
+
+<pre>
++----------+                schedule
+|          |               +-------+
+|          |               |       V 
+|          |   schedule   +---------+ delta_expire 
+|          |------------->|         |--------+
+|          |    cancel    | Active  |        |
+|          |<-------------|         |<-------+
+|          |              +---------+
+| Inactive |               |       ^
+|          |               |expire | 
+|          |               |       |schedule
+|          |               V       |
+|          |              +---------+  
+|          |    cancel    |         |  
+|          |<-------------| Expired |  
+|          |              |         |  
++----------+              +---------+     
+</pre> 
+
+{|class="wikitable"
+! rowspan="2" | State 
+! colspan="4" | Event
+|-
+! schedule !! expire !! delta_expire !! cancel
+|-
+| Inactive
+| Active || Cannot Happen || Cannot_Happen || Ignore
+|-
+| Active
+| Active  || Expired || Active || Inactive
+|-
+| Expired
+| Active  || Cannot Happen || Cannot_Happen || Inactive
+|}
+
+
+A timer is inactive on creation. The expire transition does not occur until processing of the event has actually started (as opposed to when the requested timeout time has passed), so a timer which has passed its timeout time can still be cancelled or rescheduled and the original expiry will not occur. If a timer is scheduled with a delta period be scheduled to expire continually at the interval specified until it is cancelled. If an expiration is not processed until after more expirations are due, then only the first will be processed. An indication of how many were missed will be available in the <code>'missed</code> characteristic until the next expiration or cancellation. 
+
+== Characteristics ==
+
+{|class="wikitable"
+! Characteristic !! Return type !! Description
+|-
+| 'expired || boolean || Returns true if the timer has expired at least once since its last schedule
+|-
+| 'expired_at || timestamp || Returns the time of the last expiry. Throws an exception if 'expired is false
+|-
+| 'scheduled || boolean || Returns true if the timer is scheduled (ie in the Active state)
+|-
+| 'scheduled_at || timestamp || Returns the time of the next expiry. Throws an exception if 'scheduled is false
+|- 
+| 'missed || integer || Returns the number of expirations that were missed after the last expiration
+|-
+| 'delta || duration || Returns the delta specified on the last schedule, or <code>@PT0S@</code> if none.
+|-
+|}
+
+== SM_TIMER equivalents ==
+
+{|class="wikitable"
+|-
+! Current Syntax !! Revised Syntax
+|-
+|<code>timer_handle : Integer</code>||<code>timer_handle : timer</code>
+|-
+|<code>Create_Timer()</code> || not required
+|-
+|<code>Delete_Timer()</code> || not required
+|-
+|<code>Get_Time_Remaining(timer_handle,time_left)</code> || never used, so not supported
+|-
+|<code>Reset_Timer(timer_handle)</code> || <code>cancel timer_handle</code>
+|-
+|<code>Set_Absolute_Timer(timer_handle,date,time,event,target)</code> || <code>schedule timer_handle generate event to target at date + time</code>
+|-
+|<code>Set_Absolute_Timer2(timer_handle,time,event,target)</code> || <code>schedule timer_handle generate event to target at time</code>
+|-
+|<code>Set_Timer(timer_handle,time,time_units,event,target)</code> ||<code>schedule timer_handle generate event to target delay duration'</code>time_units<code>(time)</code>
+|}
+
+== Example Usage ==
+
+<pre>
+object SomeObject is
+   timer1 : timer;
+   timer2 : timer;
+end object;
+
+object StatefulObject is
+:
+:
+ event an_event ( param1 : in integer );
+ event another_event ( param1 : in integer );
+:
+:
+end object;
+
+
+declare
+  someInstance : instance of SomeObject;
+  stateful     : instance of StatefulObject;
+
+  timer_delay : duration;
+  absolute_time : duration;
+
+begin
+
+  :
+  :
+
+  schedule someInstance.timer1 generate an_event(3) to stateful delay timer_delay;
+
+  schedule someInstance.timer2 generate another_event(42) to stateful at absolute_time;
+
+  cancel someInstance.timer1;
+
+end;
+</pre>
+
+== SM_TIMER comparison ==
+
+{|class="wikitable"
+! Current Syntax 
+! Proposed Syntax
+|-
+|
+<pre class="simple">
+  mytimer : Integer;
+begin
+  SM_TIMER::Create_Timer(mytimer);
+  SM_TIMER::Set_Timer(mytimer,10,Calendar::SECONDS,SomeEvent,this);
+  SM_TIMER::Reset(mytimer);
+  SM_TIMER::Set_Timer(mytimer,20,Calendar::SECONDS,SomeEvent,this);
+  SM_TIMER::Reset(mytimer);
+  SM_TIMER::Set_Timer(mytimer,20,Calendar::SECONDS,AnotherEvent,another_instance);
+  SM_TIMER::Reset(mytimer);
+  SM_TIMER::Delete(mytimer);
+end;
+</pre>
+|
+<pre class=simple>
+  mytimer : timer;
+begin
+  schedule mytimer generate SomeEvent() to this delay duration'seconds(10);
+  cancel mytimer;
+  schedule mytimer generate SomeEvent() to this delay duration'seconds(20);
+  cancel mytimer;
+  mytimer := schedule generate AnotherEvent() to another_instance in duration'seconds(10);
+  cancel mytimer;
+end;
+</pre>
+|}
+
+= deletes, links and unlinks on collections =
+
+It used to be very awkward to perform deletes, links and unlinks on collections of instances, with temporary variables and loops having to be manually coded in masl. The types allowed on these commands has been relaxed to allow operations collections to be performed in one command.
+
+== delete ==
+
+ for dog in dogs loop 
+   delete dog; 
+ end loop;
+
+can be replaced with
+
+ delete dogs;
+
+== link/unlink simple relationships ==
+
+New constructs have been introduced which are effectively a shorthand for much lengthier code under old MASL, but with the potential for much more aggressive optimisation in the database. As well as allowing collections for either argument in a link or unlink, a new form "<code>unlink x R1;</code>" has been introduced which will unlink <code>x</code> from all instances at the other end of R1. If the cardinality of the relationship makes it impossible for a (size > 1) collection to be valid to link to, then using a collection for this argument will be a compile time error.
+
+=== Examples ===
+
+In these examples, the following definitions are used.
+ a : instance of A;
+ b : instance of B;
+ aa : sequence of instance of A;
+ bb : sequence of instance of B;
+
+{|class="wikitable"
+|+
+<math>A\tfrac{1\quad R1 \quad 1}{}B</math>
+|-
+! New form !! Equivalent
+|-
+|unlink a  R1;                || unlink a R1 a->R1.B; 
+|-
+|unlink aa R1;                || for a in aa loop; unlink a R1 b->R1.A; end loop; 
+|-
+|}
+
+
+
+{|class="wikitable"
+|+
+<math>A\tfrac{1\quad R1 \quad *}{}B</math>
+|-
+! New form !! Equivalent
+|-
+| link a  R1 bb;  || rowspan="2" |for b in bb loop; link a R1 b; end loop;
+|-
+| link bb R1 a;  
+|-
+| colspan="2" |
+|-
+| unlink a  R1 bb;  || rowspan="2" | for b in bb loop; unlink a R1 b; end loop; 
+|-
+| unlink bb R1 a;  
+|-
+| colspan="2" |
+|-
+| unlink a  R1;                ||  for b in a->R1.B loop; unlink a R1 b; end loop; 
+|-
+| unlink aa R1;               ||   for a in aa loop; for b in a->R1.B loop; unlink a R1 b; end loop; end loop; 
+|-
+| unlink b  R1;               ||   unlink b R1 b->R1.A;
+|-
+| unlink bb R1;               ||   for b in bb loop; unlink b R1 b->R1.A; end loop; 
+|}
+
+== link/unlink associative relationships ==
+
+For associative relationship, simply allowing collections for the arguments does not work, because of the need to specify associative instances. Instead, a link/unlink expression has been introduced which removes the need to supply an associative instance. 
+
+For links, any required associative objects will be automatically created and returned as the result of the expression. This will only be possible if the associative object identifier is wholly made up of referential attributes from the two main objects. This instance can then be used to set any additional non-identifier attributes. A compile time error will be produced if the associative identifier cannot be deduced. Similarly, if the object has a state model then the Current State cannot be deduced, and a compile time error will occur.
+
+An unlink expression will unlink the supplied instances and return the associative instances which were previously linking them. Usually these will then just be deleted, in which case the <code>delete</code> statement can take the unlink expression as its argument directly, as in the [[#Deleting Associative Instances|examples below]]. Unlike links, there are no restrictions on which associative relationships can be unlinked in this way.
+
+{|class="wikitable"
+|+
+<math>A\frac{{}_{1\quad R1 \quad 1}}{\begin{matrix}:\\C\end{matrix}}B</math>
+|-
+! New form !! Equivalent
+|-
+|c  := link a  R1 b;       || rowspan="2" |  c := create C ( a.id, b.id ); link a R1 b using c;   
+|-
+|c  := link b  R1 a;      
+|-
+| colspan="2" |
+|-
+|c  := unlink a  R1 b;      || rowspan="2" |   c := a with B -> R1; unlink a R1 b using c;
+|-
+|c  := unlink a  R1 b;     
+|-
+| colspan="2" |
+|-
+|c  := unlink a R1;         ||    c := a->R1.C; unlink a R1 a->R1.B using c;
+|-
+|cc := unlink aa R1;        ||    for a in aa loop; c := a->R1.C; unlink a R1 a->R1.B using c; cc := cc & c; end loop;
+|}
+
+{|class="wikitable"
+|+
+<math>A\frac{{}_{1\quad R1 \quad *}}{\begin{matrix}:\\C\end{matrix}}B</math>
+|-
+! New form !! Equivalent
+|-
+| c  := link a  R1 b;         ||  rowspan="2" | c := create C ( a.id, b.id ); link a R1 b using c;   
+|-
+| c  := link b  R1 a;        
+|-
+| cc := link a  R1 bb;        ||  rowspan="2" | for b in bb loop;  c := create C ( a.id, b.id ); link a R1 b using c; cc := cc & c; end loop;
+|-
+| cc := link bb  R1 a;        
+|-
+| colspan="2" |
+|-
+| c  := unlink a  R1 b;       || rowspan="2" |  c := a with B -> R1; unlink a R1 b using c;
+|-
+| c  := unlink b  R1 a;      
+|-
+| cc := unlink a  R1 bb;      || rowspan="2" |  for b in bb loop; c := a with b -> R1; unlink a R1 b using c; cc := cc & c; end loop;
+|-
+| cc := unlink bb  R1 a;    
+|-
+| colspan="2" |
+|-
+| cc := unlink a R1;          ||   for b in a->R1.B; c := a->R1.C; unlink a R1 b using c; cc := cc & c; end loop;
+|-
+| cc := unlink aa R1;         ||   for a in aa loop; for b in a->R1.B loop; c := a with b -> R1; unlink a R1 b using c; cc := cc & c; end loop; end loop;
+|-
+| c  := unlink b R1;          ||   a := b->R1.A; c := a with b -> R1; unlink a R1 a->R1.B using c;
+|-
+| cc := unlink bb R1;         ||   for b in bb loop; a := b->R1.A; c := a with b -> R1; cc := cc & c; unlink a R1 b using c; end loop;
+|}
+
+
+{|class="wikitable"
+|+
+<math>A\frac{{}_{*\quad R1 \quad *}}{\begin{matrix}:\\C\end{matrix}}B</math>
+|-
+! New form !! Equivalent
+|-
+|c  := link a  R1 b;          ||  c := create C ( a.id, b.id ); link a R1 b using c;   
+|-
+|cc := link a  R1 bb;         ||  for b in bb loop;  c := create C ( a.id, b.id ); link a R1 b using c; cc := cc & c; end loop;
+|-
+|cc := link aa R1 b;          ||  for a in aa loop;  c := create C ( a.id, b.id ); link a R1 b using c; cc := cc & c; end loop;
+|-
+|cc := link aa R1 bb;         ||  for a in aa loop; for b in bb loop; c := create C ( a.id, b.id ); link a R1 b using c; cc := cc & c; end loop; end loop;
+|-
+| colspan="2" |
+|-
+|c  := unlink a  R1 b;        ||  c := a with B -> R1; unlink a R1 b using c;
+|-
+|cc := unlink a  R1 bb;       ||  for b in bb loop; c := a with b -> R1; unlink a R1 b using c; cc := cc & c; end loop;
+|-
+|cc := unlink aa R1 b;        ||  for a in aa loop; c := a with b -> R1; unlink a R1 b using c; cc := cc & c; end loop;
+|-
+|cc := unlink aa R1 bb;       ||  for a in aa loop; for b in bb loop; c := a with b -> R1; unlink a R1 b using c; cc := cc & c; end loop; end loop;
+|-
+| colspan="2" |
+|-
+|cc := unlink a R1;           ||  for b in a->R1.B loop; c := a with b -> R1; unlink a R1 b using c; cc := cc & c; end loop; 
+|-
+|cc := unlink aa R1;          ||  for a in aa loop; for b in a->R1.B loop; c := a with b -> R1; unlink a R1 b using c; cc := cc & c; end loop; end loop;
+|}
+
+=== Deleting Associative Instances ===
+
+The above syntax may be combined with collection deletes to automatically delete associative instances on an unlink, removing the need for a variable to store the associative instances.
+
+{|class="wikitable"
+|+
+<math>A\frac{{}_{1\quad R1 \quad 1}}{\begin{matrix}:\\C\end{matrix}}B</math>
+|-
+! New form !! Equivalent
+|-
+|delete unlink a  R1 b;      || rowspan="2" |   c := a with B -> R1; unlink a R1 b using c; delete c;
+|-
+|delete unlink a  R1 b;     
+|-
+| colspan="2" |
+|-
+|delete unlink a R1;         ||    c := a->R1.C; unlink a R1 a->R1.B using c; delete c;
+|-
+|delete unlink aa R1;        ||    for a in aa loop; c := a->R1.C; unlink a R1 a->R1.B using c; delete c; end loop;
+|}
+
+{|class="wikitable"
+|+
+<math>A\frac{{}_{1\quad R1 \quad *}}{\begin{matrix}:\\C\end{matrix}}B</math>
+|-
+! New form !! Equivalent
+|-
+| delete unlink a  R1 b;       || rowspan="2" |  c := a with B -> R1; unlink a R1 b using c; delete c;
+|-
+| delete unlink b  R1 a;      
+|-
+| delete unlink a  R1 bb;      || rowspan="2" |  for b in bb loop; c := a with b -> R1; unlink a R1 b using c; delete c; end loop;
+|-
+| delete unlink bb  R1 a;    
+|-
+| colspan="2" |
+|-
+| delete unlink a R1;          ||   for b in a->R1.B; c := a->R1.C; unlink a R1 b using c; delete c; end loop;
+|-
+| delete unlink aa R1;         ||   for a in aa loop; for b in a->R1.B loop; c := a with b -> R1; unlink a R1 b using c; delete c; end loop; end loop;
+|-
+| delete unlink b R1;          ||   a := b->R1.A; c := a with b -> R1; unlink a R1 a->R1.B using c; delete c;
+|-
+| delete unlink bb R1;         ||   for b in bb loop; a := b->R1.A; c := a with b -> R1; cc := cc & c; unlink a R1 b using c; delete c; end loop;
+|}
+
+
+{|class="wikitable"
+|+
+<math>A\frac{{}_{*\quad R1 \quad *}}{\begin{matrix}:\\C\end{matrix}}B</math>
+|-
+! New form !! Equivalent
+|-
+|delete unlink a  R1 b;        ||  c := a with B -> R1; unlink a R1 b using c; delete c;
+|-
+|delete unlink a  R1 bb;       ||  for b in bb loop; c := a with b -> R1; unlink a R1 b using c; delete c; end loop;
+|-
+|delete unlink aa R1 b;        ||  for a in aa loop; c := a with b -> R1; unlink a R1 b using c; delete c; end loop;
+|-
+|delete unlink aa R1 bb;       ||  for a in aa loop; for b in bb loop; c := a with b -> R1; unlink a R1 b using c; delete c; end loop; end loop;
+|-
+| colspan="2" |
+|-
+|delete unlink a R1;           ||  for b in a->R1.B loop; c := a with b -> R1; unlink a R1 b using c; delete c; end loop; 
+|-
+|delete unlink aa R1;          ||  for a in aa loop; for b in a->R1.B loop; c := a with b -> R1; unlink a R1 b using c; delete c; end loop; end loop;
+|}
+
+=== Correlated navigations ===
+
+Correlated navigations have also be expanded to cope with collection arguments. Similarly to normal navigates, any null instances will not be included in the resultant set.
+
+
+{|class="wikitable"
+|+
+<math>A\frac{{}_{\quad R1 \quad}}{\begin{matrix}:\\C\end{matrix}}B</math>
+|-
+! New form !! Equivalent
+|-
+| cc := a with bb -> R1; || for b in bb loop; cc := cc & a with b -> R1; end loop;
+|-
+| cc := aa with b -> R1; || for a in aa loop; cc := cc & a with b -> R1; end loop;
+|-
+| cc := aa with bb -> R1; || for a in aa loop; for b in bb loop; cc := cc & a with b -> R1; end loop; end loop;
+|}
+
+= Conditions on Navigates =
+
+The ability to add a find condition on a navigate has been added, meaning that
+  bb := a->R1(att = 4 or att = 5)
+is shorthand for
+  bb := find (a->R1)(att=4 or att = 5)
+
+This might not look like much of a saving, but is much easier to read when performing nested navigates, so 
+  cc := a->R1(att = 4 or att = 5)->R2(att=3)
+is shorthand for
+  cc := find ( (find (A->R1)(att=4 or att = 5))->R2 ) ( att = 3 )
+which is so obtuse to read that it would probably have been written using temporary variables - I'm only 50% sure I got the brackets right anyway!
+
+The shorthand also works for single instance navigates, so
+  b := a->R1(att = 4 or att = 5)
+is shorthand for
+  if a->R1 /= null and ( a->R1.att = 4 or a->R1.att = 5 )
+    b:= a->R1;
+  else
+    b:= null;
+  end if;
+
+It can also potentially be optimised in the database (saving having to pull back the full set of instances), but this is not done yet for Sqlite (there may be minor improvements already for transient, but it depends how good the C++ optimiser was before…)
+
+= Dictionaries =
+
+A new type <code>dictionary</code> has been added to masl. This enables lookups to be easily implemented.
+
+== Declaring dictionaries ==
+
+A dictionary type may be declared using the type <code>dictionary <em>key_typr</em> of <em>value_type</em></code>. Either or both of <code><em>key_type</em>>code> or <code>of <em>value_type</em></code> may be omitted, and will default to an <code>anonymous string</code>.
+
+So 
+  type my_dict1 is dictionary;
+  type my_dict2 is dictionary string;
+  type my_dict3 is dictionary string of string;
+  type my_dict4 is dictionary of string;
+
+is equivalent to
+  type my_dict1 is dictionary anonymous string of anonymous string;
+  type my_dict2 is dictionary string of anonymous string;
+  type my_dict3 is dictionary string of string;
+  type my_dict4 is dictionary anonymous string of string;
+
+The key type must be a named type (including primitive types), and the value type may be any type.
+
+So the following are valid
+
+  type integer_pair_type is structure
+    first : integer;
+    second : integer;
+  end structure;
+  
+  type some_structure_type is structure
+    a : string;
+    b : sequence of string;
+    c : integer_pair_type;
+  end structure;
+  
+  type my_dict5 is dictionary integer of set of string;
+  type my_dict6 is dictionary integer_pair_type of sequence of some_structure_type;
+
+
+A dictionary type may also be used directly when declaring a variable.
+
+    mylookup : dictionary integer of string;
+
+== Adding values to dictionaries ==
+
+A value can be added to a dictionary using square bracket notation.
+
+  declare
+    addresses : dictionary;
+    birthdays : dictionary of timestamp;
+    numbers   : dictionary integer;
+  begin
+    addresses["Mr Ben"] := "52 Festive Road";
+    addresses["Sherlock Holmes"] := "221B Baker Street";
+    addresses["John Wellington Wells"] := "70 St Mary Axe";
+  
+    birthdays["Hugh Grant"] := @1960-09-09@;
+    birthdays["Queen Elizabeth II"] := @1926-04-21@;
+  
+    numbers[1] := "one";
+    numbers[42] := "forty two";
+
+== Removing values from dictionaries ==
+An element may be removed from a dictionary using the <code>erase</code> statement. If the key does not exist then the statement has no effect.
+
+    erase numbers[1];
+
+== Reading Values ==
+
+=== By Key ===
+
+A value with a particular key may be read using square bracket notation. If the specified key does not exist in the dictionary a <code>ProgramError</code> will be raised.
+
+    my_birthday := birthdays["Me"];
+
+=== Existence Check ===
+
+To check whether a particular key exists, use the <code>'contains</code> characteristic.
+
+    if not numbers'contains(100) then
+      numbers[100] := "one hundred";
+    end if;
+
+=== All elements ===
+
+The characteristic <code>'keys</code> will return the set of all keys currently present in the dictionary.
+The characteristic <code>'values</code> will return a bag of all values currently present in the dictionary.
+  
+    for person in addresses'keys loop
+      console << person << " lives at " << addresses[person] << "\n" << flush;
+    end loop;
+  
+    for date in birthdays'values loop
+      consle << "I know someone was born on " << date << "\n" << flush;
+    end loop;

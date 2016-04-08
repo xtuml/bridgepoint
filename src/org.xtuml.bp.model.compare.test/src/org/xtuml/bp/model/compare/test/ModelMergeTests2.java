@@ -8,7 +8,12 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.ui.PlatformUI;
-
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.TestName;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.Association_c;
 import org.xtuml.bp.core.AttributeReferenceInClass_c;
 import org.xtuml.bp.core.Attribute_c;
@@ -47,6 +52,7 @@ import org.xtuml.bp.test.TestUtil;
 import org.xtuml.bp.test.common.BaseTest;
 import org.xtuml.bp.test.common.CompareTestUtilities;
 import org.xtuml.bp.test.common.GitUtil;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TestingUtilities;
 import org.xtuml.bp.test.common.ZipUtil;
 import org.xtuml.bp.ui.canvas.GraphicalElement_c;
@@ -55,18 +61,30 @@ import org.xtuml.bp.ui.canvas.Ooaofgraphics;
 import org.xtuml.bp.ui.explorer.ModelContentProvider;
 import org.xtuml.bp.ui.explorer.ModelLabelProvider;
 
+@RunWith(OrderedRunner.class)
 public class ModelMergeTests2  extends BaseTest {
 	private String test_repositories = Platform.getInstanceLocation().getURL()
 			.getFile()
 			+ "/" + "test_repositories";
 
+	@Rule public TestName name = new TestName();
+	
+	@Override
+	public String getName(){
+		return name.getMethodName();
+	}
 	/*
 	 * (non-Javadoc)
 	 * 
 	 * @see org.xtuml.bp.test.common.BaseTest#initialSetup()
 	 */
+	public static boolean isFirstTime = true;
 	@Override
-	protected void initialSetup() throws Exception {
+	@Before
+	public void initialSetup() throws Exception {
+		if(!isFirstTime)
+			return;
+		isFirstTime = false;
 		CorePlugin
 				.getDefault()
 				.getPreferenceStore()
@@ -92,6 +110,7 @@ public class ModelMergeTests2  extends BaseTest {
 	}
 
 	@Override
+	@After
 	public void tearDown() throws Exception {
 		super.tearDown();
 		PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
@@ -99,6 +118,7 @@ public class ModelMergeTests2  extends BaseTest {
 		BaseTest.dispatchEvents(0);
 	}
 
+	@Test
 	public void testMergeInterfaceSortedElements() throws Exception {
 		String projectName = "GPS Watch";
 		// import git repository from models repo
@@ -142,6 +162,7 @@ public class ModelMergeTests2  extends BaseTest {
 		// There should be no error log entries (shutdown will verify this)
 	}
 
+	@Test
 	public void testMergeClassSortedElements() throws Exception {
 		String projectName = "GPS Watch";
 		// import git repository from models repo
@@ -184,6 +205,7 @@ public class ModelMergeTests2  extends BaseTest {
 		// There should be no error log entries (shutdown will verify this)
 	}
 
+	@Test
 	public void testMergeClassSortedElementsWithMiddleAddition() throws Exception {
 		// Merge Library::Tracking::WorkoutTimer (1 incoming change in master, 1 outgoing change from slave)
 		String projectName = "GPS Watch";
@@ -224,6 +246,7 @@ public class ModelMergeTests2  extends BaseTest {
 	}
 	
 	
+	@Test
 	public void testMergeInterfaceSortedElementsOneAddition() throws Exception {
 		// Merge test1::iface1 (1 incoming change in master, 1 outgoing change from slave)
 		String projectName = "GPS Watch";
@@ -263,6 +286,7 @@ public class ModelMergeTests2  extends BaseTest {
 		// There should be no error log entries (shutdown will verify this)
 	}
 	
+	@Test
 	public void testCompareWith() throws Exception {
 		String projectName = "GPS Watch";
 		// import git repository from models repo
@@ -307,6 +331,7 @@ public class ModelMergeTests2  extends BaseTest {
 		// There should be no error log entries (shutdown will verify this)
 	}
 	
+	@Test
 	public void testFormalizedAssociationMerge() throws CoreException {
 		// load the MO project from getting started
 		loadProject("MicrowaveOven");
@@ -391,6 +416,7 @@ public class ModelMergeTests2  extends BaseTest {
 		}
 	}
 	
+	@Test
 	public void testClassMergeWhenParticipatingInFormalizedAssociation() throws CoreException {
 		loadProject("MicrowaveOven");
 		BaseTest.dispatchEvents(0);
@@ -443,6 +469,7 @@ public class ModelMergeTests2  extends BaseTest {
 		}
 	}
 	
+	@Test
 	public void testContainerChangeMerging() throws Exception {
 		loadProject("MicrowaveOven");
 		BaseTest.dispatchEvents(0);
@@ -554,6 +581,7 @@ public class ModelMergeTests2  extends BaseTest {
 		}		
 	}
 	
+	@Test
 	public void testOrderingWithDeletionAndAddition() throws Exception {
 		String projectName = "testNewStateOrdering";
 		// import git repository from models repo
@@ -574,6 +602,7 @@ public class ModelMergeTests2  extends BaseTest {
 
 	}
 	
+	@Test
 	public void testStateMachineMergeWithPolys() throws Exception {
 		loadProject("poly");
 		Package_c pkg = Package_c.getOneEP_PKGOnR1405(m_sys, new ClassQueryInterface_c() {
@@ -635,6 +664,7 @@ public class ModelMergeTests2  extends BaseTest {
 		}
 	}
 	
+	@Test
 	public void testTwoWayGraphicalMerginging() throws Exception {
 		BaseTest.dispatchEvents(0);
 		IProject newProject = TestingUtilities.createProject("TestTwoWayMerge");

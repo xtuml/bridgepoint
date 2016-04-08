@@ -1,0 +1,492 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>8.3. Transitions</title>
+<link rel="stylesheet" type="text/css" href="docbook.css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<meta name="keywords" content="MASL, Action Language, Action Semantics, UML, Unified Modelling Language, Shlaer Mellor">
+<link rel="home" href="index.html" title="MASL Reference Manual">
+<link rel="up" href="Lifecycles.html" title="Chapter 8. Lifecycles">
+<link rel="prev" href="LifecyclesEvents.html" title="8.2. Events">
+<link rel="next" href="Functions.html" title="Chapter 9. Functions">
+<link rel="preface" href="preface.html" title="Preface">
+<link rel="chapter" href="Grammars.html" title="Chapter 1. Grammars">
+<link rel="chapter" href="LexicalStructure.html" title="Chapter 2. Lexical Structure">
+<link rel="chapter" href="Types.html" title="Chapter 3. Types">
+<link rel="chapter" href="TypeConversion.html" title="Chapter 4. Type Conversion">
+<link rel="chapter" href="Domains.html" title="Chapter 5. Domains">
+<link rel="chapter" href="Objects.html" title="Chapter 6. Objects">
+<link rel="chapter" href="Relationships.html" title="Chapter 7. Relationships">
+<link rel="chapter" href="Lifecycles.html" title="Chapter 8. Lifecycles">
+<link rel="chapter" href="Functions.html" title="Chapter 9. Functions">
+<link rel="chapter" href="Services.html" title="Chapter 10. Services">
+<link rel="chapter" href="Exceptions.html" title="Chapter 11. Exceptions">
+<link rel="chapter" href="Statements.html" title="Chapter 12. Statements">
+<link rel="chapter" href="Names.html" title="Chapter 13. Names">
+<link rel="chapter" href="Expressions.html" title="Chapter 14. Expressions">
+<link rel="appendix" href="LanguageDefinedCharacteristics.html" title="Appendix A. Language Defined Characteristics">
+<link rel="appendix" href="SyntaxSummary.html" title="Appendix B. Syntax Summary">
+<link rel="index" href="ix01.html" title="Index">
+<link rel="subsection" href="LifecyclesTransitions.html#LifecyclesTransitionModifiers" title="8.3.1. Transition Modifiers">
+<link rel="subsection" href="LifecyclesTransitions.html#LifecyclesTransitionRows" title="8.3.2. Transition Rows">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div align="center">OFFICIAL</div>
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">8.3. Transitions</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="LifecyclesEvents.html">Prev</a> </td>
+<th width="60%" align="center">Chapter 8. Lifecycles</th>
+<td width="20%" align="right"> <a accesskey="n" href="Functions.html">Next</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title">
+<a name="LifecyclesTransitions"></a>8.3. Transitions</h2></div></div></div>
+<div class="toc"><dl class="toc">
+<dt><span class="section"><a href="LifecyclesTransitions.html#LifecyclesTransitionModifiers">8.3.1. Transition Modifiers</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="LifecyclesTransitions.html#LifecyclesAssignerTransitions">8.3.1.1. Assigner Transitions</a></span></dt>
+<dt><span class="section"><a href="LifecyclesTransitions.html#LifecyclesInstanceTransitions">8.3.1.2. Instance Transitions</a></span></dt>
+</dl></dd>
+<dt><span class="section"><a href="LifecyclesTransitions.html#LifecyclesTransitionRows">8.3.2. Transition Rows</a></span></dt>
+</dl></div>
+<p>
+A transition table declaration
+<a class="indexterm" name="idp67114432"></a>
+defines the transitions
+<a class="indexterm" name="idp67116064"></a>
+in the lifecycle of an
+object instance or an assigner object.
+</p>
+<a class="indexterm" name="idp67117888"></a><a class="indexterm" name="idp67119088"></a><a class="indexterm" name="idp67120272"></a><a class="indexterm" name="idp67121584"></a><a class="indexterm" name="idp67122896"></a><a class="indexterm" name="idp67124080"></a><a class="indexterm" name="idp67125392"></a><table width="100%" cellpadding="5" bgcolor="#F5DCB3" border="1" class="productionset" summary="EBNF"><tr><td><table border="0" width="99%" cellpadding="0" bgcolor="#F5DCB3" class="productionset" summary="EBNF productions"><tr>
+<td align="left" valign="top" width="3%">[111]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.transitiontabledeclaration"></a>
+        transition table declaration
+    </td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="LifecyclesTransitions.html#ebnf.transitionmodifier">transition modifier</a>,
+        'transition', 'is',
+        <a href="LifecyclesTransitions.html#ebnf.transitionrow">transition row</a>,
+        {<a href="LifecyclesTransitions.html#ebnf.transitionrow">transition row</a>},
+        'end', ['transition'], ';'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr></table></td></tr></table>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="LifecyclesTransitionModifiers"></a>8.3.1. Transition Modifiers</h3></div></div></div>
+<a class="indexterm" name="idp67132368"></a><a class="indexterm" name="idp67134432"></a><a class="indexterm" name="idp67135600"></a><table width="100%" cellpadding="5" bgcolor="#F5DCB3" border="1" class="productionset" summary="EBNF"><tr><td><table border="0" width="99%" cellpadding="0" bgcolor="#F5DCB3" class="productionset" summary="EBNF productions"><tr>
+<td align="left" valign="top" width="3%">[112]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.transitionmodifier"></a>
+        transition modifier
+    </td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        'assigner'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr></table></td></tr></table>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="LifecyclesAssignerTransitions"></a>8.3.1.1. Assigner Transitions</h4></div></div></div>
+<p>
+A transition table
+<a class="indexterm" name="idp67140480"></a>
+that is declared with the modifier
+<code class="literal">assigner</code> specifies the assigner lifecycle for an object.
+</p>
+<p>
+A compile-time error occurs if the enclosing object is not an associative
+object. In addition, a compile-time error occurs if an associative object
+declares more than one assigner transition table.
+</p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="LifecyclesInstanceTransitions"></a>8.3.1.2. Instance Transitions</h4></div></div></div>
+<p>
+A transition table
+<a class="indexterm" name="idp67145440"></a>
+that is not declared with the modifier
+<code class="literal">assigner</code> specifies the instance lifecycle for an object.
+</p>
+<p>
+A compile-time error occurs if the object declares more than one instance
+transition table.
+</p>
+</div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="LifecyclesTransitionRows"></a>8.3.2. Transition Rows</h3></div></div></div>
+<p>
+Each <span class="emphasis"><em>transition row</em></span>
+<a class="indexterm" name="idp67150928"></a>
+in a transition table declaration
+<a class="indexterm" name="idp67152512"></a>
+specifies the resultant state achieved when an event is received by either:
+</p>
+<div class="itemizedlist"><ul class="itemizedlist">
+<li class="listitem"><p>
+An instance in a given state.
+</p></li>
+<li class="listitem"><p>
+An assigner object in a given state.
+</p></li>
+<li class="listitem"><p>
+An object, for a <a class="link" href="LifecyclesEvents.html#LifecyclesCreationEvents" title="8.2.1.2. Creation Events">creation events</a>.
+</p></li>
+</ul></div>
+<p>
+</p>
+<a class="indexterm" name="idp67158528"></a><a class="indexterm" name="idp67159696"></a><a class="indexterm" name="idp67160864"></a><a class="indexterm" name="idp67162032"></a><a class="indexterm" name="idp67163200"></a><a class="indexterm" name="idp67164496"></a><a class="indexterm" name="idp67165664"></a><a class="indexterm" name="idp67166832"></a><a class="indexterm" name="idp67168000"></a><a class="indexterm" name="idp67169616"></a><a class="indexterm" name="idp67170912"></a><a class="indexterm" name="idp67172080"></a><a class="indexterm" name="idp67173248"></a><a class="indexterm" name="idp67174416"></a><a class="indexterm" name="idp67175584"></a><a class="indexterm" name="idp67176752"></a><a class="indexterm" name="idp67178048"></a><a class="indexterm" name="idp67179344"></a><table width="100%" cellpadding="5" bgcolor="#F5DCB3" border="1" class="productionset" summary="EBNF"><tr><td><table border="0" width="99%" cellpadding="0" bgcolor="#F5DCB3" class="productionset" summary="EBNF productions">
+<tr>
+<td align="left" valign="top" width="3%">[113]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.transitionrow"></a>
+        transition row
+    </td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="LifecyclesTransitions.html#ebnf.initialstate">initial state</a>,
+        '(',
+        <a href="LifecyclesTransitions.html#ebnf.transition">transition</a>,
+        {(',',
+        <a href="LifecyclesTransitions.html#ebnf.transition">transition</a>)},
+        ';'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[114]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.initialstate"></a>
+        initial state
+    </td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        'Non_Existent' |
+        <a href="LifecyclesStates.html#ebnf.statename">state name</a>)  
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[115]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.transition"></a>
+        transition
+    </td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="LifecyclesTransitions.html#ebnf.incomingevent">incoming event</a>,
+        '=&gt;',
+        <a href="LifecyclesTransitions.html#ebnf.resultantstate">resultant state</a>                
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[116]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.incomingevent"></a>
+        incoming event
+    </td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="ObjectsObjectDeclaration.html#ebnf.objectname">object name</a>,
+        '.',
+        <a href="LifecyclesEvents.html#ebnf.eventname">event name</a> |
+        <a href="LifecyclesEvents.html#ebnf.eventname">event name</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[117]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.resultantstate"></a>
+        resultant state
+    </td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        'Ignore' | 'Cannot_Happen' |
+        <a href="LifecyclesStates.html#ebnf.statename">state name</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+</table></td></tr></table>
+<p>
+For a non-assigner state transition table, a compile-time error occurs if the
+following is not true for each transition row:
+</p>
+<div class="itemizedlist"><ul class="itemizedlist">
+<li class="listitem"><p>
+The initial state must name either an
+<a class="link" href="LifecyclesStates.html#LifecyclesInstanceStates" title="8.1.1.4. Instance States">instance</a>,
+<a class="indexterm" name="idp67199424"></a>
+<a class="link" href="LifecyclesStates.html#LifecyclesCreationStates" title="8.1.1.3. Creation States">creation</a>
+<a class="indexterm" name="idp67201504"></a>
+or <a class="link" href="LifecyclesStates.html#LifecyclesTerminalStates" title="8.1.1.5. Terminal States">terminal state</a>
+<a class="indexterm" name="idp67203584"></a>
+of the enclosing object or be the reserved word <code class="literal">Non_Existent</code>.
+<a class="indexterm" name="idp67205408"></a>
+</p></li>
+<li class="listitem">
+<p>
+For each transition within a transition row,
+<a class="indexterm" name="idp67207360"></a>
+</p>
+<div class="itemizedlist"><ul class="itemizedlist">
+<li class="listitem"><p>
+The incoming event must name either an
+<a class="link" href="LifecyclesEvents.html#LifecyclesInstanceEvents" title="8.2.1.3. Instance Events">instance</a> or
+<a class="indexterm" name="idp67210160"></a>
+<a class="link" href="LifecyclesEvents.html#LifecyclesCreationEvents" title="8.2.1.2. Creation Events">creation event</a> of the
+<a class="indexterm" name="idp67212240"></a>
+enclosing object or a
+<a class="link" href="LifecyclesEvents.html#LifecyclesPolymorphicEvents" title="8.2.1.4. Polymorphic Events">polymorphic event</a>
+<a class="indexterm" name="idp67214320"></a>
+from a super-type of the enclosing object.
+</p></li>
+<li class="listitem"><p>
+The resultant state must name either an
+<a class="link" href="LifecyclesStates.html#LifecyclesInstanceStates" title="8.1.1.4. Instance States">instance</a> or
+<a class="indexterm" name="idp67217360"></a>
+<a class="link" href="LifecyclesStates.html#LifecyclesTerminalStates" title="8.1.1.5. Terminal States">terminal state</a> of the
+<a class="indexterm" name="idp67219440"></a>
+enclosing object or be one of the reserved words <code class="literal">Ignore</code>
+<a class="indexterm" name="idp67221264"></a>
+or <code class="literal">Cannot_Happen</code>.
+<a class="indexterm" name="idp67222736"></a>
+</p></li>
+<li class="listitem"><p>
+If the resultant state is either an
+<a class="link" href="LifecyclesStates.html#LifecyclesInstanceStates" title="8.1.1.4. Instance States">instance</a> or
+<a class="link" href="LifecyclesStates.html#LifecyclesTerminalStates" title="8.1.1.5. Terminal States">terminal state</a>, then the
+parameter declaration list of the incoming event must match the parameter
+declaration list of the resultant state.
+</p></li>
+</ul></div>
+<p>
+</p>
+</li>
+<li class="listitem"><p>
+There must be one and only one, transition for every instance or
+<a class="link" href="LifecyclesEvents.html#LifecyclesCreationEvents" title="8.2.1.2. Creation Events">creation events</a>
+<a class="indexterm" name="idp67228416"></a>
+of the enclosing object.
+</p></li>
+<li class="listitem"><p>
+There must be one and only one, transition for every
+<a class="link" href="LifecyclesEvents.html#LifecyclesPolymorphicEvents" title="8.2.1.4. Polymorphic Events">polymorphic event</a>
+<a class="indexterm" name="idp67231440"></a>
+of every super-type of the enclosing object.
+</p></li>
+<li class="listitem"><p>
+If the initial state of a transition row is the reserved word
+<code class="literal">Non_Existent</code>, then all of the transitions with
+<a class="link" href="LifecyclesEvents.html#LifecyclesCreationEvents" title="8.2.1.2. Creation Events">creation events</a>
+<a class="indexterm" name="idp67234960"></a>
+must result in a <a class="link" href="LifecyclesStates.html#LifecyclesCreationStates" title="8.1.1.3. Creation States">creation state</a>.
+<a class="indexterm" name="idp67237040"></a>
+In addition, all of the the transitions with
+<a class="link" href="LifecyclesEvents.html#LifecyclesInstanceEvents" title="8.2.1.3. Instance Events">instance</a> or
+<a class="indexterm" name="idp67239152"></a>
+<a class="link" href="LifecyclesEvents.html#LifecyclesPolymorphicEvents" title="8.2.1.4. Polymorphic Events">polymorphic event</a>
+<a class="indexterm" name="idp67241232"></a>
+must result in the reserved word
+<code class="literal">Cannot_Happen</code>.
+<a class="indexterm" name="idp67243040"></a>
+</p></li>
+<li class="listitem"><p>
+If the initial state of a transition row
+<a class="indexterm" name="idp67244992"></a>
+is the reserved word <code class="literal">Non_Existent</code>,
+<a class="indexterm" name="idp67246784"></a>
+then all of the transitions with
+<a class="link" href="LifecyclesEvents.html#LifecyclesInstanceEvents" title="8.2.1.3. Instance Events">instance</a>
+<a class="indexterm" name="idp67248560"></a>
+or <a class="link" href="LifecyclesEvents.html#LifecyclesPolymorphicEvents" title="8.2.1.4. Polymorphic Events">polymorphic events</a>
+<a class="indexterm" name="idp67250192"></a>
+must result in the reserved word
+<code class="literal">Cannot_Happen</code>.
+<a class="indexterm" name="idp67252000"></a>
+</p></li>
+<li class="listitem"><p>
+If the initial state of a transition row is either an
+<a class="link" href="LifecyclesStates.html#LifecyclesInstanceStates" title="8.1.1.4. Instance States">instance</a>
+<a class="indexterm" name="idp67254688"></a>
+or <a class="link" href="LifecyclesStates.html#LifecyclesCreationStates" title="8.1.1.3. Creation States">creation state</a>,
+<a class="indexterm" name="idp67256320"></a>
+then all of the transitions with 
+<a class="link" href="LifecyclesEvents.html#LifecyclesCreationEvents" title="8.2.1.2. Creation Events">creation events</a>
+<a class="indexterm" name="idp67258416"></a>
+must result in the reserved word <code class="literal">Cannot_Happen</code>.
+<a class="indexterm" name="idp67260224"></a>
+</p></li>
+<li class="listitem"><p>
+If the initial state of a transition row
+<a class="indexterm" name="idp67262176"></a>
+is a <a class="link" href="LifecyclesStates.html#LifecyclesTerminalStates" title="8.1.1.5. Terminal States">terminal state</a>,
+<a class="indexterm" name="idp67264256"></a>
+then all of the transitions must result in either of the reserved words
+<code class="literal">Ignore</code>
+<a class="indexterm" name="idp67266112"></a>
+or
+<code class="literal">Cannot_Happen</code>.
+<a class="indexterm" name="idp67267584"></a>
+</p></li>
+</ul></div>
+<p>
+In addition a compiler error also occurs if the following is not true:
+</p>
+<div class="itemizedlist"><ul class="itemizedlist">
+<li class="listitem"><p>
+There must be one and only one, transition row for every
+<a class="link" href="LifecyclesStates.html#LifecyclesInstanceStates" title="8.1.1.4. Instance States">instance</a>,
+<a class="indexterm" name="idp67270800"></a>
+<a class="link" href="LifecyclesStates.html#LifecyclesCreationStates" title="8.1.1.3. Creation States">creation</a>
+<a class="indexterm" name="idp67272880"></a>
+and <a class="link" href="LifecyclesStates.html#LifecyclesTerminalStates" title="8.1.1.5. Terminal States">terminal state</a>
+<a class="indexterm" name="idp67274960"></a>
+of the enclosing object.
+</p></li>
+<li class="listitem"><p>
+There must be one and only one, transition row for the reserved word
+<code class="literal">Non_Existent</code>.
+<a class="indexterm" name="idp67277712"></a>
+</p></li>
+</ul></div>
+<p>
+</p>
+<p>
+Similarly, for an assigner transition table, a compile-time error occurs if the
+following is not true for each transition row:
+</p>
+<div class="itemizedlist"><ul class="itemizedlist">
+<li class="listitem"><p>
+The initial state must name an assigner state of the enclosing object.
+</p></li>
+<li class="listitem">
+<p>
+For each transition with a transition row:
+</p>
+<div class="itemizedlist"><ul class="itemizedlist">
+<li class="listitem"><p>
+The incoming event must name an assigner event of the enclosing object.
+</p></li>
+<li class="listitem"><p>
+The resultant state must name either an assigner state of the enclosing object
+or be one of the reserved words <code class="literal">Ignore</code>
+<a class="indexterm" name="idp67284544"></a>
+or <code class="literal">Cannot_Happen</code>.
+<a class="indexterm" name="idp67286016"></a>
+</p></li>
+<li class="listitem"><p>
+If the resultant state is an assigner state, then the parameter declaration list
+of the incoming event must match the parameter declaration list of the
+resultant state.
+</p></li>
+</ul></div>
+<p>
+</p>
+</li>
+<li class="listitem"><p>
+There must be one and only one transition for every assigner state
+<a class="indexterm" name="idp67289520"></a>
+of the enclosing object.
+</p></li>
+</ul></div>
+<p>
+Additionally, for an assigner state transition table, 
+<a class="indexterm" name="idp67291408"></a>
+a compile-time error occurs if there is not one and only one transition row
+for every assigner state of the enclosing object.
+</p>
+<p>
+The meaning of the reserved words <code class="literal">Cannot_Happen</code>,
+<a class="indexterm" name="idp67294224"></a>
+<code class="literal">Ignore</code>
+<a class="indexterm" name="idp67295696"></a>
+and <code class="literal">Non_Existent</code>
+<a class="indexterm" name="idp67297168"></a>
+is described in
+<a class="xref" href="LifecyclesTransitions.html#ReservedStates" title="Table 8.1. Reserved States">Table 8.1, “Reserved States”</a>.
+</p>
+<div class="table">
+<a name="ReservedStates"></a><div class="table-title">Table 8.1. Reserved States</div>
+<div class="table-contents"><table class="table" border="1">
+<colgroup>
+<col align="left" class="Name">
+<col align="left" class="Description">
+</colgroup>
+<thead><tr>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td align="left">
+        <code class="literal">Cannot_Happen</code>
+        <a class="indexterm" name="idp67306304"></a>
+    </td>
+<td align="left">
+    Specifies that an exception is raised to indicate that an illegal event
+    has happened.
+    </td>
+</tr>
+<tr>
+<td align="left">
+        <code class="literal">Ignore</code>
+        <a class="indexterm" name="idp67309200"></a>
+    </td>
+<td align="left">
+    Specifies the event is ignored.
+    </td>
+</tr>
+<tr>
+<td align="left">
+        <code class="literal">Non_Existent</code>
+        <a class="indexterm" name="idp67312048"></a>
+    </td>
+<td align="left">
+    Specifies for a non-assigner state transition table that the instance
+    does not yet exist.
+    </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p><br class="table-break">
+</p>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="LifecyclesEvents.html">Prev</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="Lifecycles.html">Up</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="Functions.html">Next</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">8.2. Events </td>
+<td width="20%" align="center">
+<a accesskey="h" href="index.html">Home</a> | <a accesskey="t" href="bk01-toc.html">ToC</a>
+</td>
+<td width="40%" align="right" valign="top"> Chapter 9. Functions</td>
+</tr>
+</table>
+</div>
+<div align="center">OFFICIAL</div>
+</body>
+</html>
