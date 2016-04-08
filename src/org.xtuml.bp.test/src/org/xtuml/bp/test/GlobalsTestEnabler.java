@@ -25,7 +25,7 @@ public class GlobalsTestEnabler extends BaseTest {
   @Test
   public void testGlobally() {
 		testGlobals = true;
-	  if(name.getMethodName().contains("FormalizeUnformalizeTestGenerics")) {
+	  if(name != null && name.getMethodName() != null && name.getMethodName().contains("FormalizeUnformalizeTestGenerics")) {
 		  testGlobals = false;
 	  }
   }
