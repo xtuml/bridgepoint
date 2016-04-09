@@ -44,10 +44,10 @@ migrated as well to use the custom test run order.
 
 7.2 JUnit 4 test class must have single zero-argument constructor.  
 7.2.1 To get the test method name -was passed to class constructor as argument 
-in JUnit 3- @Rule TestName is used as in org.xtuml.bp.als.oal.test.ParseAllInDomain_Generics  
+in JUnit 3- @Rule TestName is used as in [ParseAllInDomain_Generics](https://github.com/nmohamad/bridgepoint/blob/8005_Test_Orderring/src/org.xtuml.bp.als.oal.test/src/org/xtuml/bp/als/oal/test/ParseAllInDomain_Generics.java)  
 7.2.2 Argument constructor is used for parameterized test (a test that has test 
 method or more will run with different data set). An example for parameterized
-test in org.xtuml.bp.io.mdl.test.MCModelConsistencyGenericsGlobals  
+test in [MCModelConsistencyGenericsGlobals](https://github.com/nmohamad/bridgepoint/blob/8005_Test_Orderring/src/org.xtuml.bp.io.mdl.test/src/org/xtuml/bp/io/mdl/test/MCModelConsistencyGenericsGlobals.java)  
 
 7.3 It is not possible to use @BeforeClass for out initialSetup as the function
 implementation depend on objects existence, while JUnit @BeforeClass requires a 
