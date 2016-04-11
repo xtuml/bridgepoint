@@ -47,6 +47,8 @@ import org.xtuml.bp.core.Block_c;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Parsestatus_c;
+import org.xtuml.bp.core.Pref_c;
+import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 import org.xtuml.bp.core.common.IModelDelta;
 import org.xtuml.bp.core.common.ModelChangeAdapter;
 import org.xtuml.bp.core.common.ModelChangedEvent;
@@ -324,6 +326,12 @@ public class ActivityEditor extends OALEditor
 	}
 	
 	public void run(){
+    	// If user has selected not to parse on edit, then ignore
+    	if (!Pref_c.Getboolean(BridgePointPreferencesStore.ENABLE_PARSE_WHILE_EDITING)) {
+    		return;
+    	}
+    	
+		
         if(previousThread != null && previousThread.isAlive())
 		{
 			try {
