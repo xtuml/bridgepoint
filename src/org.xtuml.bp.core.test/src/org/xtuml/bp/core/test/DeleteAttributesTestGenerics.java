@@ -23,7 +23,9 @@
 package org.xtuml.bp.core.test;
 
 import org.eclipse.jface.viewers.StructuredSelection;
-
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.Attribute_c;
 import org.xtuml.bp.core.ModelClass_c;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
@@ -31,10 +33,12 @@ import org.xtuml.bp.core.ui.DeleteAction;
 import org.xtuml.bp.core.ui.Selection;
 import org.xtuml.bp.test.TestUtil;
 import org.xtuml.bp.test.common.CanvasTestUtils;
+import org.xtuml.bp.test.common.OrderedRunner;
 
 /**
  * Performs tests that involve deleting attributes from classes.
  */
+@RunWith(OrderedRunner.class)
 public class DeleteAttributesTestGenerics extends CoreTest {
 	/**
 	 * The model used throughout these tests.
@@ -45,7 +49,8 @@ public class DeleteAttributesTestGenerics extends CoreTest {
 	/* (non-Javadoc)
 	 * @see junit.framework.TestCase#setUp()
 	 */
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		if (!initialized) {
 			loadProject("odms");
@@ -127,6 +132,7 @@ public class DeleteAttributesTestGenerics extends CoreTest {
 	/**
 	 * Checks that the only attribute of a referenced identifier may not be deleted.
 	 */
+	@Test
 	public void testDeletionOfOnlyIdentifierAttribute() {
 		AttributePath[] paths = {new AttributePath("Disk", "Disk_ID")};
 		doDeletionTest(paths);
@@ -135,6 +141,7 @@ public class DeleteAttributesTestGenerics extends CoreTest {
 	/**
 	 * Checks that the only two attributes of a referenced identifier may not be deleted.
 	 */
+	@Test
 	public void testDeletionOfOnlyIdentifierAttributes() {
 		String className = "Permanent Home in Library";
 		AttributePath[] paths = {new AttributePath(className, "Row_Number"),
@@ -147,6 +154,7 @@ public class DeleteAttributesTestGenerics extends CoreTest {
 	 * if that attribute is selected along with another one whose deletion would otherwise
 	 * be ok.  
 	 */
+	@Test
 	public void testDeletionOfOnlyIdentifierAttributeWithNonIdentifierAttribute() {
 		AttributePath[] paths = {new AttributePath("Disk", "Disk_ID"),
 				new AttributePath("Disk", "Serial_Number")};

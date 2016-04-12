@@ -23,13 +23,6 @@ package org.xtuml.bp.ui.canvas.test;
 
 import java.util.UUID;
 
-import junit.framework.TestCase;
-
-import org.eclipse.core.resources.IWorkspaceRunnable;
-import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.jface.action.Action;
-import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.SWT;
@@ -42,7 +35,6 @@ import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
-
 import org.xtuml.bp.core.Association_c;
 import org.xtuml.bp.core.ClassAsSubtype_c;
 import org.xtuml.bp.core.CorePlugin;
@@ -76,8 +68,9 @@ import org.xtuml.bp.ui.canvas.Waypoint_c;
 import org.xtuml.bp.ui.explorer.ExplorerView;
 import org.xtuml.bp.ui.graphics.editor.GraphicalEditor;
 import org.xtuml.bp.ui.graphics.editor.ModelEditor;
-import org.xtuml.bp.ui.text.activity.ShowActivityAction;
 import org.xtuml.bp.utilities.ui.CanvasUtilities;
+
+import junit.framework.TestCase;
 
 public class CanvasTestUtilities {
 	

@@ -8,7 +8,10 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
-
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.ClassStateMachine_c;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.InstanceStateMachine_c;
@@ -16,17 +19,19 @@ import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.test.TransitionActionTestGenerics;
 import org.xtuml.bp.core.util.WorkspaceUtil;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TestingUtilities;
 import org.xtuml.bp.ui.canvas.test.CanvasTest;
 import org.xtuml.bp.utilities.ui.CanvasUtilities;
 
+@RunWith(OrderedRunner.class)
 public class TransitionActionPersistenceTests extends CanvasTest {
 	
 	private String test_id;
 	public static boolean generateResults = false;
 
-	public TransitionActionPersistenceTests(String arg0) {
-		super(arg0);
+	public TransitionActionPersistenceTests() {
+		super(null);
 
 		// turn off autobuild to stop MC-3020 builders from running
 		try {
@@ -36,7 +41,8 @@ public class TransitionActionPersistenceTests extends CanvasTest {
 		}
 	}
 
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
       super.setUp();
       IProject testProject = TestingUtilities.createProject("TransitionActionTest");
       File sourceProject = new File(m_workspace_path + "../TransitionActionTest");
@@ -51,7 +57,8 @@ public class TransitionActionPersistenceTests extends CanvasTest {
       }
       BaseTest.waitForJobs();
 	}
-    public void testISMTransitionActionPersistence() {
+    @Test
+	public void testISMTransitionActionPersistence() {
 		test_id = "1";
 		String modelPath = "/TransitionActionTest/models/TransitionActionTest/";
         modelRoot = TransitionActionTestGenerics.getInitializedTestModelRoot(
@@ -85,7 +92,8 @@ public class TransitionActionPersistenceTests extends CanvasTest {
         }
         TransitionActionTestGenerics.handleTearDown();
     }
-    public void testCSMTransitionActionPersistence() {
+    @Test
+	public void testCSMTransitionActionPersistence() {
 		test_id = "2";
 		String modelPath = "/TransitionActionTest/models/TransitionActionTest/";
         modelRoot = TransitionActionTestGenerics.getInitializedTestModelRoot(
@@ -118,7 +126,8 @@ public class TransitionActionPersistenceTests extends CanvasTest {
         }
         TransitionActionTestGenerics.handleTearDown();
     }
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		super.tearDown();
         IPath in_path = new Path(m_logfile_path);
         File in_fh = in_path.toFile();

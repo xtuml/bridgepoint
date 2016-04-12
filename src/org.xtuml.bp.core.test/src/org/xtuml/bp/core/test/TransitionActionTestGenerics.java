@@ -21,8 +21,6 @@
 //=====================================================================
 package org.xtuml.bp.core.test;
 
-import java.io.File;
-
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
@@ -31,11 +29,12 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.gef.tools.AbstractTool;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.ui.PlatformUI;
-
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.ActionHome_c;
 import org.xtuml.bp.core.Action_c;
 import org.xtuml.bp.core.ClassStateMachine_c;
-import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.CreationTransition_c;
 import org.xtuml.bp.core.InstanceStateMachine_c;
 import org.xtuml.bp.core.NewStateTransition_c;
@@ -47,7 +46,7 @@ import org.xtuml.bp.core.util.OoaofgraphicsUtil;
 import org.xtuml.bp.core.util.WorkspaceUtil;
 import org.xtuml.bp.test.common.BaseTest;
 import org.xtuml.bp.test.common.CanvasTestUtils;
-import org.xtuml.bp.test.common.TestingUtilities;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.UITestingUtilities;
 import org.xtuml.bp.ui.canvas.Ooaofgraphics;
 import org.xtuml.bp.ui.canvas.Shape_c;
@@ -56,13 +55,14 @@ import org.xtuml.bp.ui.graphics.editor.GraphicalEditor;
 import org.xtuml.bp.ui.graphics.editor.ModelEditor;
 import org.xtuml.bp.utilities.ui.CanvasUtilities;
 
+@RunWith(OrderedRunner.class)
 public class TransitionActionTestGenerics extends CanvasTest {
 	
 	private String test_id;
 	public static boolean generateResults = false;
 	private static boolean initialized = false;
-	public TransitionActionTestGenerics(String arg0) {
-		super(arg0);
+	public TransitionActionTestGenerics() {
+		super(null);
 
 		// turn off autobuild to stop MC-3020 builders from running		
 		try {
@@ -72,7 +72,8 @@ public class TransitionActionTestGenerics extends CanvasTest {
 		}
 	}
 
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
       super.setUp();
 //      IProject testProject = TestingUtilities.createProject("TransitionActionTest");
 //      File sourceProject = new File(m_workspace_path + "../TransitionActionTest");
@@ -102,6 +103,7 @@ public class TransitionActionTestGenerics extends CanvasTest {
 		return "TransitionActionTest" + "_" + test_id;
 	}
 
+	@Test
 	public void testISMCreationTransition() {
 		test_id = "1";
         modelRoot = getInitializedTestModelRoot("/TransitionActionTest/" +
@@ -115,6 +117,7 @@ public class TransitionActionTestGenerics extends CanvasTest {
         handleCreationTransitionTestPostconditions();
         handleTearDown();
 	}
+	@Test
 	public void testISMTransition() {
 		test_id = "2";
         modelRoot = getInitializedTestModelRoot("/TransitionActionTest/" +
@@ -128,6 +131,7 @@ public class TransitionActionTestGenerics extends CanvasTest {
         handleTransitionTestPostconditions();
         handleTearDown();
 	}
+	@Test
 	public void testASMTransition() {
 		test_id = "3";
         modelRoot = getInitializedTestModelRoot("/TransitionActionTest/" +

@@ -26,7 +26,9 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.ui.PlatformUI;
-
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.Function_c;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.ui.DeleteAction;
@@ -35,21 +37,24 @@ import org.xtuml.bp.test.TestUtil;
 import org.xtuml.bp.test.common.BaseTest;
 import org.xtuml.bp.test.common.CanvasTestUtils;
 import org.xtuml.bp.test.common.ExplorerUtil;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.ui.canvas.Shape_c;
 import org.xtuml.bp.ui.canvas.test.CanvasTestUtilities;
 import org.xtuml.bp.ui.graphics.editor.GraphicalEditor;
 import org.xtuml.bp.ui.text.activity.ActivityEditor;
 import org.xtuml.bp.utilities.ui.CanvasUtilities;
 
+@RunWith(OrderedRunner.class)
 public class ModificationValidationTestsGenerics extends BaseTest {
 
-	public ModificationValidationTestsGenerics(String arg0) {
-		super(null, arg0);
+	public ModificationValidationTestsGenerics(){
+		super(null, null);
 	}
 
 	static private boolean firstTime = true;
 	static private boolean initialized = false;
 
+	@Before
 	public void setUp() throws Exception {
 		super.setUp();
 		if (firstTime) {
@@ -63,6 +68,7 @@ public class ModificationValidationTestsGenerics extends BaseTest {
 
 	}
 
+	@Test
 	public void testMovementOfShapeOnReadonlyDiagram() {
 		Package_c domain = Package_c.PackageInstance(modelRoot,
 				new Package_by_name_c("ModificationValidationTests"));
@@ -124,6 +130,7 @@ public class ModificationValidationTestsGenerics extends BaseTest {
 		TestUtil.changeFileReadonlyStatus(false, domain.getFile());
 	}
 
+	@Test
 	public void testRenameOfReadonlyComponent() {
 		Package_c ee = Package_c.PackageInstance(modelRoot,
 				new Package_by_name_c("External Entities"));
@@ -143,6 +150,7 @@ public class ModificationValidationTestsGenerics extends BaseTest {
 				.getName().equals("ee"));
 	}
 
+	@Test
 	public void testDeletionOfReadonlyComponent() {
 		Package_c ee = Package_c.PackageInstance(modelRoot,
 				new Package_by_name_c("ee"));
@@ -162,6 +170,7 @@ public class ModificationValidationTestsGenerics extends BaseTest {
 				.isOrphaned());
 	}
 
+	@Test
 	public void testModificationOfReadonlyActivity() {
 		Package_c fpk = Package_c.PackageInstance(modelRoot,
 				new Package_by_name_c("Test FPK"));

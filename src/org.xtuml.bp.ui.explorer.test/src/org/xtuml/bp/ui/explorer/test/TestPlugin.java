@@ -22,12 +22,15 @@
 
 package org.xtuml.bp.ui.explorer.test;
 
-import org.eclipse.ui.plugin.*;
-import org.eclipse.core.runtime.*;
-import org.eclipse.core.resources.*;
-import org.osgi.framework.Constants;
+import java.util.MissingResourceException;
+import java.util.ResourceBundle;
 
-import java.util.*;
+import org.eclipse.core.resources.IWorkspace;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.ui.plugin.AbstractUIPlugin;
+import org.osgi.framework.Constants;
 
 /**
  * The main plugin class to be used in the desktop.

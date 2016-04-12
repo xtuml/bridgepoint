@@ -28,18 +28,23 @@ import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.INavigationLocation;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
-
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Operation_c;
 import org.xtuml.bp.core.common.InstanceList;
 import org.xtuml.bp.core.ui.Selection;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.ui.text.activity.ActivityEditor;
 import org.xtuml.bp.ui.text.description.DescriptionEditor;
 import org.xtuml.bp.ui.text.test.activity.ActivityEditorInteraction;
 import org.xtuml.bp.ui.text.test.description.DescriptionEditorInteraction;
 
 
+@RunWith(OrderedRunner.class)
 public class NavigationAfterModelElementDeletionTest extends BaseTest {
 	static Ooaofooa modelRoot = null;
 	static Operation_c uut;
@@ -47,6 +52,7 @@ public class NavigationAfterModelElementDeletionTest extends BaseTest {
 	protected IEditorInput dEditorInput= null;
 	protected IEditorInput aEditorInput= null;
 	
+	@Before
 	public void setUp(){
 		modelRoot = BaseTest.getModelRootOfTestDomain();
 		uut =  Operation_c.OperationInstance(modelRoot);
@@ -55,10 +61,12 @@ public class NavigationAfterModelElementDeletionTest extends BaseTest {
 		
 	}
 
-    protected void tearDown() throws Exception {
+    @After
+	public void tearDown() throws Exception {
         super.tearDown();        
     }
 
+	@Test
 	public void testNavigationLocationRemovalOnModelElementDeletion(){
 		while ( display.readAndDispatch() ) ;
 		

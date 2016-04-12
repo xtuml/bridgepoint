@@ -22,10 +22,10 @@
 //
 package org.xtuml.bp.als.oal.test;
 
-import junit.framework.TestCase;
-import antlr.RecognitionException;
-import antlr.TokenStreamException;
-
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.ActualParameter_c;
 import org.xtuml.bp.core.AttributeValueReference_c;
 import org.xtuml.bp.core.Attribute_c;
@@ -52,13 +52,19 @@ import org.xtuml.bp.core.StateMachineEvent_c;
 import org.xtuml.bp.core.TransientValueReference_c;
 import org.xtuml.bp.core.Value_c;
 import org.xtuml.bp.core.Variable_c;
-import org.xtuml.bp.core.common.IdAssigner;
+import org.xtuml.bp.test.common.OrderedRunner;
 
+import antlr.RecognitionException;
+import antlr.TokenStreamException;
+import junit.framework.TestCase;
+
+@RunWith(OrderedRunner.class)
 public class TestEvent_Generics extends TestCase {
 	
 		
 	@Override
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		Value_c[] values = Value_c.ValueInstances(OalParserTest_Generics.modelRoot);
 		for(int i = 0; i < values.length; i++) {
@@ -253,248 +259,289 @@ public class TestEvent_Generics extends TestCase {
 			validateEvent(create_act, evtType+4, numStmts+1, numVal+parms.length, label, parms);
 		}
 
-		public void testEventNoParmsToInstance() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testEventNoParmsToInstance() throws RecognitionException, TokenStreamException {
 			String act = "select any t from instances of D_TST;  generate D_TST1 to t;"; //$NON-NLS-1$
 			String parms[] = {};
 			validateEventGenerateAndCreate(act, "D_TST1", parms, //$NON-NLS-1$
 				"create event instance e1 of D_TST1 to t; create ", 0, 2, 0);//$NON-NLS-1$
 		}
-		public void testPolyEventNoParmsToSuper() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testPolyEventNoParmsToSuper() throws RecognitionException, TokenStreamException {
 			String act = "select any tst from instances of D_TST;  generate D_TST7* to tst;"; //$NON-NLS-1$
 			String parms[] = {};
 			validateEventGenerateAndCreate(act, "D_TST7", parms, //$NON-NLS-1$
 				"create event instance e1 of D_TST7* to tst; create ", 0, 2, 0);//$NON-NLS-1$
 		}
-		public void testPolyEventNoParmsToSub() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testPolyEventNoParmsToSub() throws RecognitionException, TokenStreamException {
 			String act = "select any tp from instances of D_TP;  generate D_TST7* to tp;"; //$NON-NLS-1$
 			String parms[] = {};
 			validateEventGenerateAndCreate(act, "D_TST7", parms, //$NON-NLS-1$
 				"create event instance e1 of D_TST7* to tp; create ", 0, 2, 0);//$NON-NLS-1$
 		}
-		public void testEventNoParmsToAssigner() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testEventNoParmsToAssigner() throws RecognitionException, TokenStreamException {
 			String act = "generate D_TST_A1 to D_TST assigner;"; //$NON-NLS-1$
 			String parms[] = {};
 			validateEventGenerateAndCreate(act, "D_TST_A1", parms, //$NON-NLS-1$
 				"create event instance e1 of D_TST_A1 to D_TST class; create ", 1, 1, 0);//$NON-NLS-1$
 		}
-		public void testEventNoParmsToCreator() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testEventNoParmsToCreator() throws RecognitionException, TokenStreamException {
 			String act = "generate D_TST1 to D_TST creator;"; //$NON-NLS-1$
 			String parms[] = {};
 			validateEventGenerateAndCreate(act, "D_TST1", parms, //$NON-NLS-1$
 				"create event instance e1 of D_TST1 to D_TST creator; create ", 2, 1, 0);//$NON-NLS-1$
 		}
-		public void testInstEventNoParmsToInstanceWithMeaning() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testInstEventNoParmsToInstanceWithMeaning() throws RecognitionException, TokenStreamException {
 			String act = "select any t from instances of D_TST;  generate D_TST1:'none' to t;"; //$NON-NLS-1$
 			String parms[] = {};
 			validateEventGenerateAndCreate(act, "D_TST1", parms, //$NON-NLS-1$
 				"create event instance e1 of D_TST1:'none' to t; create ", 0, 2, 0);//$NON-NLS-1$
 		}
-		public void testEventNoParmsToAssignerWithMeaning() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testEventNoParmsToAssignerWithMeaning() throws RecognitionException, TokenStreamException {
 			String act = "generate D_TST_A1:'none' to D_TST assigner;"; //$NON-NLS-1$
 			String parms[] = {};
 			validateEventGenerateAndCreate(act, "D_TST_A1", parms, //$NON-NLS-1$
 				"create event instance e1 of D_TST_A1:'none' to D_TST class; create ", 1, 1, 0);//$NON-NLS-1$
 		}
-		public void testEventNoParmsToCreatorWithMeaning() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testEventNoParmsToCreatorWithMeaning() throws RecognitionException, TokenStreamException {
 			String act = "generate D_TST1:'none' to D_TST creator;"; //$NON-NLS-1$
 			String parms[] = {};
 			validateEventGenerateAndCreate(act, "D_TST1", parms, //$NON-NLS-1$
 				"create event instance e1 of D_TST1:'none' to D_TST creator; create ", 2, 1, 0);//$NON-NLS-1$
 		}
-		public void testEventOneParmToInstance() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testEventOneParmToInstance() throws RecognitionException, TokenStreamException {
 			String act = "select any t from instances of D_TST;  generate D_TST2(i: 7) to t;"; //$NON-NLS-1$
 			String parms[] = {"i"};//$NON-NLS-1$
 			validateEventGenerateAndCreate(act, "D_TST2", parms, //$NON-NLS-1$
 				"create event instance e1 of D_TST2(i:7) to t; create ", 0, 2, 1);//$NON-NLS-1$
 		}
-		public void testEventOneParmToAssigner() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testEventOneParmToAssigner() throws RecognitionException, TokenStreamException {
 			String act = "generate D_TST_A2(i:8) to D_TST assigner;"; //$NON-NLS-1$
 			String parms[] = {"i"};//$NON-NLS-1$
 			validateEventGenerateAndCreate(act, "D_TST_A2", parms, //$NON-NLS-1$
 				"create event instance e1 of D_TST_A2(i:8) to D_TST class; create ", 1, 1, 1);//$NON-NLS-1$
 		}
-		public void testEventOneParmToCreator() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testEventOneParmToCreator() throws RecognitionException, TokenStreamException {
 			String act = "generate D_TST2(i:8) to D_TST creator;"; //$NON-NLS-1$
 			String parms[] = {"i"};//$NON-NLS-1$
 			validateEventGenerateAndCreate(act, "D_TST2", parms, //$NON-NLS-1$
 				"create event instance e1 of D_TST2(i:8) to D_TST creator; create ", 2, 1, 1);//$NON-NLS-1$
 		}
-		public void testEventOneParmToInstanceWithUnderscore() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testEventOneParmToInstanceWithUnderscore() throws RecognitionException, TokenStreamException {
 			String act = "select any t from instances of _T;  generate _T1(_edi: 7) to t;"; //$NON-NLS-1$
 			String parms[] = {"_edi"};//$NON-NLS-1$
 			validateEventGenerateAndCreate(act, "_T1", parms, //$NON-NLS-1$
 				"create event instance e1 of _T1(_edi:7) to t; create ", 0, 2, 1);//$NON-NLS-1$
 		}
-		public void testEventOneParmToAssignerWithUnderscore() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testEventOneParmToAssignerWithUnderscore() throws RecognitionException, TokenStreamException {
 			String act = "generate _T_A1(_edi:8) to _T assigner;"; //$NON-NLS-1$
 			String parms[] = {"_edi"};//$NON-NLS-1$
 			validateEventGenerateAndCreate(act, "_T_A1", parms, //$NON-NLS-1$
 				"create event instance e1 of _T_A1(_edi:8) to _T class; create ", 1, 1, 1);//$NON-NLS-1$
 		}
-		public void testEventOneParmToCreatorWithUnderscore() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testEventOneParmToCreatorWithUnderscore() throws RecognitionException, TokenStreamException {
 			String act = "generate _T1(_edi:8) to _T creator;"; //$NON-NLS-1$
 			String parms[] = {"_edi"};//$NON-NLS-1$
 			validateEventGenerateAndCreate(act, "_T1", parms, //$NON-NLS-1$
 				"create event instance e1 of _T1(_edi:8) to _T creator; create ", 2, 1, 1);//$NON-NLS-1$
 		}
-		public void testInstEventOneParmToInstanceWithMeaning() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testInstEventOneParmToInstanceWithMeaning() throws RecognitionException, TokenStreamException {
 			String act = "select any t from instances of D_TST;  generate D_TST2:'one'(i:8) to t;"; //$NON-NLS-1$
 			String parms[] = {"i"};//$NON-NLS-1$
 			validateEventGenerateAndCreate(act, "D_TST2", parms, //$NON-NLS-1$
 				"create event instance e1 of D_TST2:'one'(i:8) to t; create ", 0, 2, 1);//$NON-NLS-1$
 		}
-		public void testEventOneParmToAssignerWithMeaning() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testEventOneParmToAssignerWithMeaning() throws RecognitionException, TokenStreamException {
 			String act = "generate D_TST_A2:'one'(i:8) to D_TST assigner;"; //$NON-NLS-1$
 			String parms[] = {"i"};//$NON-NLS-1$
 			validateEventGenerateAndCreate(act, "D_TST_A2", parms, //$NON-NLS-1$
 				"create event instance e1 of D_TST_A2:'one'(i:8) to D_TST class; create ", 1, 1, 1);//$NON-NLS-1$
 		}
-		public void testEventOneParmToCreatorWithMeaning() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testEventOneParmToCreatorWithMeaning() throws RecognitionException, TokenStreamException {
 			String act = "generate D_TST2:'one'(i:8) to D_TST creator;"; //$NON-NLS-1$
 			String parms[] = {"i"};//$NON-NLS-1$
 			validateEventGenerateAndCreate(act, "D_TST2", parms, //$NON-NLS-1$
 				"create event instance e1 of D_TST2:'one'(i:8) to D_TST creator; create ", 2, 1, 1);//$NON-NLS-1$
 		}
-		public void testEventOneParmToInstanceWithMeaningWithUnderscore() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testEventOneParmToInstanceWithMeaningWithUnderscore() throws RecognitionException, TokenStreamException {
 			String act = "select any t from instances of _T;  generate _T1:'_test'(_edi: 7) to t;"; //$NON-NLS-1$
 			String parms[] = {"_edi"};//$NON-NLS-1$
 			validateEventGenerateAndCreate(act, "_T1", parms, //$NON-NLS-1$
 				"create event instance e1 of _T1:'_test'(_edi:7) to t; create ", 0, 2, 1);//$NON-NLS-1$
 		}
-		public void testEventOneParmToAssignerWithMeaningWithUnderscore() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testEventOneParmToAssignerWithMeaningWithUnderscore() throws RecognitionException, TokenStreamException {
 			String act = "generate _T_A1:'_test'(_edi:8) to _T assigner;"; //$NON-NLS-1$
 			String parms[] = {"_edi"};//$NON-NLS-1$
 			validateEventGenerateAndCreate(act, "_T_A1", parms, //$NON-NLS-1$
 				"create event instance e1 of _T_A1:'_test'(_edi:8) to _T class; create ", 1, 1, 1);//$NON-NLS-1$
 		}
-		public void testEventOneParmToCreatorWithMeaningWithUnderscore() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testEventOneParmToCreatorWithMeaningWithUnderscore() throws RecognitionException, TokenStreamException {
 			String act = "generate _T1:'_test'(_edi:8) to _T creator;"; //$NON-NLS-1$
 			String parms[] = {"_edi"};//$NON-NLS-1$
 			validateEventGenerateAndCreate(act, "_T1", parms, //$NON-NLS-1$
 				"create event instance e1 of _T1:'_test'(_edi:8) to _T creator; create ", 2, 1, 1);//$NON-NLS-1$
 		}
-		public void testEventTwoParmsToInstance() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testEventTwoParmsToInstance() throws RecognitionException, TokenStreamException {
 			String act = "select any t from instances of D_TST;  generate D_TST3(i: 7, s:\"ok\") to t;"; //$NON-NLS-1$
 			String parms[] = {"i", "s"};//$NON-NLS-1$//$NON-NLS-2$
 			validateEventGenerateAndCreate(act, "D_TST3", parms, //$NON-NLS-1$
 				"create event instance e1 of D_TST3(i:7, s:\"ok\") to t; create ", 0, 2, 2);//$NON-NLS-1$
 		}
-		public void testEventTwoParmsToInstanceWithBridgeParms() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testEventTwoParmsToInstanceWithBridgeParms() throws RecognitionException, TokenStreamException {
 			String act = "select any t from instances of D_TST;  generate D_TST3(i: T::testIntNoParm(), s:T::testStringNoParm()) to t;"; //$NON-NLS-1$
 			String parms[] = {"i", "s"};//$NON-NLS-1$//$NON-NLS-2$
 			validateEventGenerateAndCreate(act, "D_TST3", parms, //$NON-NLS-1$
 				"create event instance e1 of D_TST3(i:T::testIntNoParm(), s:T::testStringNoParm()) to t; create ", 0, 2, 2);//$NON-NLS-1$
 		}
-		public void testEventTwoParmsToAssigner() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testEventTwoParmsToAssigner() throws RecognitionException, TokenStreamException {
 			String act = "generate D_TST_A3(i:8, s:\"ok\") to D_TST assigner;"; //$NON-NLS-1$
 			String parms[] = {"i", "s"};//$NON-NLS-1$//$NON-NLS-2$
 			validateEventGenerateAndCreate(act, "D_TST_A3", parms, //$NON-NLS-1$
 				"create event instance e1 of D_TST_A3(i:8, s:\"ok\") to D_TST class; create ", 1, 1, 2);//$NON-NLS-1$
 		}
-		public void testEventTwoParmsToAssignerWithBridgeParms() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testEventTwoParmsToAssignerWithBridgeParms() throws RecognitionException, TokenStreamException {
 			String act = "generate D_TST_A3(i:T::testIntNoParm(), s:T::testStringNoParm()) to D_TST assigner;"; //$NON-NLS-1$
 			String parms[] = {"i", "s"};//$NON-NLS-1$//$NON-NLS-2$
 			validateEventGenerateAndCreate(act, "D_TST_A3", parms, //$NON-NLS-1$
 				"create event instance e1 of D_TST_A3(i:T::testIntNoParm(), s:T::testStringNoParm()) to D_TST class; create ", 1, 1, 2);//$NON-NLS-1$
 		}
-		public void testEventTwoParmsToCreator() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testEventTwoParmsToCreator() throws RecognitionException, TokenStreamException {
 			String act = "generate D_TST3(i:8, s:\"ok\") to D_TST creator;"; //$NON-NLS-1$
 			String parms[] = {"i", "s"};//$NON-NLS-1$//$NON-NLS-2$
 			validateEventGenerateAndCreate(act, "D_TST3", parms, //$NON-NLS-1$
 				"create event instance e1 of D_TST3(i:8, s:\"ok\") to D_TST creator; create ", 2, 1, 2);//$NON-NLS-1$
 		}
-		public void testEventTwoParmsToCreatorWithBridgeParms() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testEventTwoParmsToCreatorWithBridgeParms() throws RecognitionException, TokenStreamException {
 			String act = "generate D_TST3(i:T::testIntNoParm(), s:T::testStringNoParm()) to D_TST creator;"; //$NON-NLS-1$
 			String parms[] = {"i", "s"};//$NON-NLS-1$//$NON-NLS-2$
 			validateEventGenerateAndCreate(act, "D_TST3", parms, //$NON-NLS-1$
 				"create event instance e1 of D_TST3(i:T::testIntNoParm(), s:T::testStringNoParm()) to D_TST creator; create ", 2, 1, 2);//$NON-NLS-1$
 		}
-		public void testInstEventTwoParmsToInstanceWithMeaning() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testInstEventTwoParmsToInstanceWithMeaning() throws RecognitionException, TokenStreamException {
 			String act = "select any t from instances of D_TST;  generate D_TST3:'two'(i:8, s:\"ok\") to t;"; //$NON-NLS-1$
 			String parms[] = {"i", "s"};//$NON-NLS-1$//$NON-NLS-2$
 			validateEventGenerateAndCreate(act, "D_TST3", parms, //$NON-NLS-1$
 				"create event instance e1 of D_TST3:'two'(i:8, s:\"ok\") to t; create ", 0, 2, 2);//$NON-NLS-1$
 		}
-		public void testEventTwoParmsToAssignerWithMeaning() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testEventTwoParmsToAssignerWithMeaning() throws RecognitionException, TokenStreamException {
 			String act = "generate D_TST_A3:'two'(i:8, s:\"ok\") to D_TST assigner;"; //$NON-NLS-1$
 			String parms[] = {"i", "s"};//$NON-NLS-1$//$NON-NLS-2$
 			validateEventGenerateAndCreate(act, "D_TST_A3", parms, //$NON-NLS-1$
 				"create event instance e1 of D_TST_A3:'two'(i:8, s:\"ok\") to D_TST class; create ", 1, 1, 2);//$NON-NLS-1$
 		}
-		public void testEventTwoParmsToCreatorWithMeaning() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testEventTwoParmsToCreatorWithMeaning() throws RecognitionException, TokenStreamException {
 			String act = "generate D_TST3:'two'(i:8, s:\"ok\") to D_TST creator;"; //$NON-NLS-1$
 			String parms[] = {"i", "s"};//$NON-NLS-1$//$NON-NLS-2$
 			validateEventGenerateAndCreate(act, "D_TST3", parms, //$NON-NLS-1$
 				"create event instance e1 of D_TST3:'two'(i:8, s:\"ok\") to D_TST creator; create ", 2, 1, 2);//$NON-NLS-1$
 		}
-		public void testEventTwoParmsToInstanceOtherOrder() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testEventTwoParmsToInstanceOtherOrder() throws RecognitionException, TokenStreamException {
 			String act = "select any t from instances of D_TST;  generate D_TST3(s:\"ok\", i:6) to t;"; //$NON-NLS-1$
 			String parms[] = {"s", "i"};//$NON-NLS-1$//$NON-NLS-2$
 			validateEventGenerateAndCreate(act, "D_TST3", parms, //$NON-NLS-1$
 				"create event instance e1 of D_TST3(s:\"ok2\", i:6) to t; create ", 0, 2, 2);//$NON-NLS-1$
 		}
-		public void testEventTwoParmsToAssignerOtherOrder() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testEventTwoParmsToAssignerOtherOrder() throws RecognitionException, TokenStreamException {
 			String act = "generate D_TST_A3(s:\"ok2\", i:6) to D_TST assigner;"; //$NON-NLS-1$
 			String parms[] = {"s", "i"};//$NON-NLS-1$//$NON-NLS-2$
 			validateEventGenerateAndCreate(act, "D_TST_A3", parms, //$NON-NLS-1$
 				"create event instance e1 of D_TST_A3(s:\"ok2\", i:6) to D_TST class; create ", 1, 1, 2);//$NON-NLS-1$
 		}
-		public void testEventTwoParmsToCreatorOtherOrder() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testEventTwoParmsToCreatorOtherOrder() throws RecognitionException, TokenStreamException {
 			String act = "generate D_TST3(s:\"ok2\", i:6) to D_TST creator;"; //$NON-NLS-1$
 			String parms[] = {"s", "i"};//$NON-NLS-1$//$NON-NLS-2$
 			validateEventGenerateAndCreate(act, "D_TST3", parms, //$NON-NLS-1$
 				"create event instance e1 of D_TST3(s:\"ok2\", i:6) to D_TST creator; create ", 2, 1, 2);//$NON-NLS-1$
 		}
-		public void testEventThreeParmsToInstance() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testEventThreeParmsToInstance() throws RecognitionException, TokenStreamException {
 			String act = "select any t from instances of D_TST;  generate D_TST4(i: 7, s:\"ok\", r:2.1) to t;"; //$NON-NLS-1$
 			String parms[] = {"i", "s", "r"};//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
 			validateEventGenerateAndCreate(act, "D_TST4", parms, //$NON-NLS-1$
 				"create event instance e1 of D_TST4(i:7, s:\"ok\", r:2.1) to t; create ", 0, 2, 3);//$NON-NLS-1$
 		}
-		public void testEventThreeParmsToAssigner() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testEventThreeParmsToAssigner() throws RecognitionException, TokenStreamException {
 			String act = "generate D_TST_A4(i:8, s:\"ok\", r:2.1) to D_TST assigner;"; //$NON-NLS-1$
 			String parms[] = {"i", "s", "r"};//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
 			validateEventGenerateAndCreate(act, "D_TST_A4", parms, //$NON-NLS-1$
 				"create event instance e1 of D_TST_A4(i:8, s:\"ok\", r:2.1) to D_TST class; create ", 1, 1, 3);//$NON-NLS-1$
 		}
-		public void testEventThreeParmsToCreator() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testEventThreeParmsToCreator() throws RecognitionException, TokenStreamException {
 			String act = "generate D_TST4(i:8, s:\"ok\", r:2.1) to D_TST creator;"; //$NON-NLS-1$
 			String parms[] = {"i", "s", "r"};//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
 			validateEventGenerateAndCreate(act, "D_TST4", parms, //$NON-NLS-1$
 				"create event instance e1 of D_TST4(i:8, s:\"ok\", r:2.1) to D_TST creator; create ", 2, 1, 3);//$NON-NLS-1$
 		}
-		public void testEventThreeParmsToInstanceOtherOrder() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testEventThreeParmsToInstanceOtherOrder() throws RecognitionException, TokenStreamException {
 			String act = "select any t from instances of D_TST;  generate D_TST4(s:\"ok\", r:2.1, i:8) to t;"; //$NON-NLS-1$
 			String parms[] = {"s", "r", "i"};//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
 			validateEventGenerateAndCreate(act, "D_TST4", parms, //$NON-NLS-1$
 				"create event instance e1 of D_TST4(s:\"ok\", r:2.1, i:8) to t; create ", 0, 2, 3);//$NON-NLS-1$
 		}
-		public void testEventThreeParmsToAssignerOtherOrder() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testEventThreeParmsToAssignerOtherOrder() throws RecognitionException, TokenStreamException {
 			String act = "generate D_TST_A4(s:\"ok\", r:2.1, i:8) to D_TST assigner;"; //$NON-NLS-1$
 			String parms[] = {"s", "r", "i"};//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
 			validateEventGenerateAndCreate(act, "D_TST_A4", parms, //$NON-NLS-1$
 				"create event instance e1 of D_TST_A4(s:\"ok\", r:2.1, i:8) to D_TST class; create ", 1, 1, 3);//$NON-NLS-1$
 		}
-		public void testEventThreeParmsToCreatorOtherOrder() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testEventThreeParmsToCreatorOtherOrder() throws RecognitionException, TokenStreamException {
 			String act = "generate D_TST4(s:\"ok\", r:2.1, i:8) to D_TST creator;"; //$NON-NLS-1$
 			String parms[] = {"s", "r", "i"};//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
 			validateEventGenerateAndCreate(act, "D_TST4", parms, //$NON-NLS-1$
 				"create event instance e1 of D_TST4(s:\"ok\", r:2.1, i:8) to D_TST creator; create ", 2, 1, 3);//$NON-NLS-1$
 		}
-		public void testPolyEventTwoParmsToSuper() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testPolyEventTwoParmsToSuper() throws RecognitionException, TokenStreamException {
 			String act = "select any t from instances of D_TST;  generate D_TST8*(i:2, r: 1.1) to t;"; //$NON-NLS-1$
 			String parms[] = {"i", "r"};//$NON-NLS-1$//$NON-NLS-2$
 			validateEventGenerateAndCreate(act, "D_TST8", parms, //$NON-NLS-1$
 				"create event instance e1 of D_TST8*(i:2, r: 1.1) to t; create ", 0, 2, 2);//$NON-NLS-1$
 		}
-		public void testPolyEventTwoParmsToSub() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testPolyEventTwoParmsToSub() throws RecognitionException, TokenStreamException {
 			String act = "select any t from instances of D_TP;  generate D_TST8*(i:2, r: 1.1) to t;"; //$NON-NLS-1$
 			String parms[] = {"i", "r"};//$NON-NLS-1$//$NON-NLS-2$
 			validateEventGenerateAndCreate(act, "D_TST8", parms, //$NON-NLS-1$
 				"create event instance e1 of D_TST8*(i:2, r: 1.1) to t; create ", 0, 2, 2);//$NON-NLS-1$
 		}
 
-		public void testGeneratePreExistingFromVar() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testGeneratePreExistingFromVar() throws RecognitionException, TokenStreamException {
 			String act = "create event instance x of D_TST1 to D_TST creator; generate x;"; //$NON-NLS-1$
 			String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM); //$NON-NLS-1$
 			assertEquals("", x); //$NON-NLS-1$
@@ -511,7 +558,8 @@ public class TestEvent_Generics extends TestCase {
 			assertNull(attrVal);
 		}
 
-		public void testGeneratePreExistingFromAttr() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testGeneratePreExistingFromAttr() throws RecognitionException, TokenStreamException {
 			String act = "select any t from instances of D_TST; generate t.evt_inst;"; //$NON-NLS-1$
 			String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM); //$NON-NLS-1$
 			assertEquals("", x); //$NON-NLS-1$
@@ -531,11 +579,13 @@ public class TestEvent_Generics extends TestCase {
 			OalParserTest_Generics.clearActionData(OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 		}
 
-		public void testGenerateEventToSelf() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testGenerateEventToSelf() throws RecognitionException, TokenStreamException {
 			generateEventToSelf(OalParserTest_Generics.ACTIVITY_TYPE_STATE);
 		}
 
-		public void testGenerateEventToSelfFromTransition() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testGenerateEventToSelfFromTransition() throws RecognitionException, TokenStreamException {
 			generateEventToSelf(OalParserTest_Generics.ACTIVITY_TYPE_TRANSITION);
 		}
 
@@ -555,11 +605,13 @@ public class TestEvent_Generics extends TestCase {
 			GenerateSmEventStatement_c gsme = GenerateSmEventStatement_c.getOneE_GSMEOnR705(gen[0]);
 		}
 
-		public void testCreateEventToSelf() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testCreateEventToSelf() throws RecognitionException, TokenStreamException {
 			createEventToSelf(OalParserTest_Generics.ACTIVITY_TYPE_STATE);
 		}
 
-		public void testCreateEventToSelfInTransition() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testCreateEventToSelfInTransition() throws RecognitionException, TokenStreamException {
 			createEventToSelf(OalParserTest_Generics.ACTIVITY_TYPE_TRANSITION);
 		}
 
@@ -620,75 +672,89 @@ public class TestEvent_Generics extends TestCase {
 			ActualParameter_c parms[] = ActualParameter_c.ActualParameterInstances(OalParserTest_Generics.modelRoot);
 			assertEquals(0, parms.length);
 		}
-		public void testGenerateEventNoParmsToSelfFromFunction() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testGenerateEventNoParmsToSelfFromFunction() throws RecognitionException, TokenStreamException {
 			String act = "generate D_TST1 to self;"; //$NON-NLS-1$
 			String[] err = { ":1:20-23: Keyword ->self<- cannot be used in function AL specifications.",//$NON-NLS-1$
 			   "line 1:25: expecting Semicolon, found 'null'" };//$NON-NLS-1$
 			validateBadGenEvent(act, err, 0, 0);
 		}
-		public void testCreateEventNoParmsToSelfFromFunction() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testCreateEventNoParmsToSelfFromFunction() throws RecognitionException, TokenStreamException {
 			String act = "x=1; create event instance e1 of D_TST1 to self;"; //$NON-NLS-1$
 			String[] err = { ":1:44-47: Keyword ->self<- cannot be used in function AL specifications.",//$NON-NLS-1$
 			   "line 1:49: expecting Semicolon, found 'null'" };//$NON-NLS-1$
 			validateBadGenEvent(act, err, 1, 2);
 		}
 
-		public void testGenerateNoSuchEvent() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testGenerateNoSuchEvent() throws RecognitionException, TokenStreamException {
 			String act = "select any t from instances of D_TST;  generate D_TST12 to t;"; //$NON-NLS-1$
 			String[] err = { ":1:49-55: Cannot find event for event label ->D_TST12<-" };//$NON-NLS-1$
 			validateBadGenEvent(act, err, 1, 0);
 		}
-		public void testGenerateNoSuchEventToAssigner() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testGenerateNoSuchEventToAssigner() throws RecognitionException, TokenStreamException {
 			String act = "generate D_TST_A10 to D_TST assigner;"; //$NON-NLS-1$
 			String[] err = { ":1:10-18: Cannot find event for event label ->D_TST_A10<-" };//$NON-NLS-1$
 			validateBadGenEvent(act, err, 0, 0);
 		}
-		public void testGenerateNoSuchEventToCreator() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testGenerateNoSuchEventToCreator() throws RecognitionException, TokenStreamException {
 			String act = "generate D_TST12 to D_TST creator;"; //$NON-NLS-1$
 			String[] err = { ":1:10-16: Cannot find event for event label ->D_TST12<-" };//$NON-NLS-1$
 			validateBadGenEvent(act, err, 0, 0);
 		}
-		public void testGenerateNoSuchEventToEE() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testGenerateNoSuchEventToEE() throws RecognitionException, TokenStreamException {
 			String act = "generate T9 to T;"; //$NON-NLS-1$
 			String[] err = { ":1:10-11: Cannot find event for event label ->T9<-" };//$NON-NLS-1$
 			validateBadGenEvent(act, err, 0, 0);
 		}
-		public void testGenerateNoSuchEventAndMeaning() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testGenerateNoSuchEventAndMeaning() throws RecognitionException, TokenStreamException {
 			String act = "select any t from instances of D_TST;  generate D_TST12:'none' to t;"; //$NON-NLS-1$
 			String[] err = { ":1:49-55: Cannot find event for event label ->D_TST12<-" };//$NON-NLS-1$
 			validateBadGenEvent(act, err, 1, 0);
 		}
-		public void testGenerateNoSuchEventAndMeaningToAssigner() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testGenerateNoSuchEventAndMeaningToAssigner() throws RecognitionException, TokenStreamException {
 			String act = "generate D_TST_A10:'none' to D_TST assigner;"; //$NON-NLS-1$
 			String[] err = { ":1:10-18: Cannot find event for event label ->D_TST_A10<-" };//$NON-NLS-1$
 			validateBadGenEvent(act, err, 0, 0);
 		}
-		public void testGenerateNoSuchEventAndMeaningToCreator() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testGenerateNoSuchEventAndMeaningToCreator() throws RecognitionException, TokenStreamException {
 			String act = "generate D_TST12:'none' to D_TST creator;"; //$NON-NLS-1$
 			String[] err = { ":1:10-16: Cannot find event for event label ->D_TST12<-" };//$NON-NLS-1$
 			validateBadGenEvent(act, err, 0, 0);
 		}
-		public void testGenerateNoSuchEventAndMeaningToEE() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testGenerateNoSuchEventAndMeaningToEE() throws RecognitionException, TokenStreamException {
 			String act = "generate T9:'none' to T;"; //$NON-NLS-1$
 			String[] err = { ":1:10-11: Cannot find event for event label ->T9<-" };//$NON-NLS-1$
 			validateBadGenEvent(act, err, 0, 0);
 		}
-		public void testGenerateWrongMeaning() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testGenerateWrongMeaning() throws RecognitionException, TokenStreamException {
 			String act = "select any t from instances of D_TST;  generate D_TST1:'one' to t;"; //$NON-NLS-1$
 			String[] err = { ":1:56-60: Event meaning ->'one'<- is not associated with event label ->D_TST1<-" };//$NON-NLS-1$
 			validateBadGenEvent(act, err, 1, 0);
 		}
-		public void testGenerateWrongMeaningToAssigner() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testGenerateWrongMeaningToAssigner() throws RecognitionException, TokenStreamException {
 			String act = "generate D_TST_A1:'one' to D_TST class;"; //$NON-NLS-1$
 			String[] err = { ":1:19-23: Event meaning ->'one'<- is not associated with event label ->D_TST_A1<-" };//$NON-NLS-1$
 			validateBadGenEvent(act, err, 0, 0);
 		}
-		public void testGenerateWrongMeaningToCreator() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testGenerateWrongMeaningToCreator() throws RecognitionException, TokenStreamException {
 			String act = "generate D_TST1:'one' to D_TST creator;"; //$NON-NLS-1$
 			String[] err = { ":1:17-21: Event meaning ->'one'<- is not associated with event label ->D_TST1<-" };//$NON-NLS-1$
 			validateBadGenEvent(act, err, 0, 0);
 		}
-		public void testGenerateWrongSMEventToInstance() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testGenerateWrongSMEventToInstance() throws RecognitionException, TokenStreamException {
 			String act = "select any t from instances of D_TST;  generate D_TP1 to t;"; //$NON-NLS-1$
 			String[] err =
 				{
@@ -696,7 +762,8 @@ public class TestEvent_Generics extends TestCase {
 					"line 1:60: expecting Semicolon, found 'null'" };//$NON-NLS-1$
 			validateBadGenEvent(act, err, 1, 0);
 		}
-		public void testGenerateWrongSMEventToAssigner() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testGenerateWrongSMEventToAssigner() throws RecognitionException, TokenStreamException {
 			String act = "generate D_TP1 to D_TST class;"; //$NON-NLS-1$
 			String[] err =
 				{
@@ -704,7 +771,8 @@ public class TestEvent_Generics extends TestCase {
 					"line 1:31: expecting Semicolon, found 'null'" };//$NON-NLS-1$
 			validateBadGenEvent(act, err, 0, 0);
 		}
-		public void testGenerateWrongSMEventToCreator() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testGenerateWrongSMEventToCreator() throws RecognitionException, TokenStreamException {
 			String act = "generate D_TP1 to D_TST creator;"; //$NON-NLS-1$
 			String[] err =
 				{
@@ -712,7 +780,8 @@ public class TestEvent_Generics extends TestCase {
 					"line 1:33: expecting Semicolon, found 'null'" };//$NON-NLS-1$
 			validateBadGenEvent(act, err, 0, 0);
 		}
-		public void testGenerateWrongSMEventToEE() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testGenerateWrongSMEventToEE() throws RecognitionException, TokenStreamException {
 			String act = "generate D_TP1 to T;"; //$NON-NLS-1$
 			String[] err =
 				{
@@ -720,25 +789,29 @@ public class TestEvent_Generics extends TestCase {
 					"line 1:21: expecting Semicolon, found 'null'" };//$NON-NLS-1$
 			validateBadGenEvent(act, err, 0, 0);
 		}
-		public void testGenerateMultDefinedEvent() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testGenerateMultDefinedEvent() throws RecognitionException, TokenStreamException {
 			String act = "select any t from instances of D_TST;  generate D_TST5:'mult' to t;"; //$NON-NLS-1$
 			String[] err =
 				{ ":1:49-54: More than one event with label ->D_TST5<- You will need to eventually run the audit and/or clear this up" };//$NON-NLS-1$
 			validateBadGenEvent(act, err, 1, 0);
 		}
-		public void testGenerateMultDefinedEventToAssigner() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testGenerateMultDefinedEventToAssigner() throws RecognitionException, TokenStreamException {
 			String act = "generate D_TST_A5:'mult' to D_TST class;"; //$NON-NLS-1$
 			String[] err =
 				{ ":1:10-17: More than one event with label ->D_TST_A5<- You will need to eventually run the audit and/or clear this up" };//$NON-NLS-1$
 			validateBadGenEvent(act, err, 0, 0);
 		}
-		public void testGenerateMultDefinedEventToCreator() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testGenerateMultDefinedEventToCreator() throws RecognitionException, TokenStreamException {
 			String act = "generate D_TST5:'mult' to D_TST creator;"; //$NON-NLS-1$
 			String[] err =
 				{ ":1:10-15: More than one event with label ->D_TST5<- You will need to eventually run the audit and/or clear this up" };//$NON-NLS-1$
 			validateBadGenEvent(act, err, 0, 0);
 		}
-		public void testCreateEventToInstanceWithBadType() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testCreateEventToInstanceWithBadType() throws RecognitionException, TokenStreamException {
 			String act = "select any t from instances of D_TST; x = 1; create event instance x of D_TST1 to t;"; //$NON-NLS-1$
 			String[] err =
 				{
@@ -746,7 +819,8 @@ public class TestEvent_Generics extends TestCase {
 					"line 1:85: expecting Semicolon, found 'null'" };//$NON-NLS-1$
 			validateBadGenEvent(act, err, 2, 2);
 		}
-		public void testCreateEventToAssignerWithBadType() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testCreateEventToAssignerWithBadType() throws RecognitionException, TokenStreamException {
 			String act = "x = 1; create event instance x of D_TST_A1 to D_TST class;"; //$NON-NLS-1$
 			String[] err =
 				{
@@ -754,7 +828,8 @@ public class TestEvent_Generics extends TestCase {
 					"line 1:59: expecting Semicolon, found 'null'" };//$NON-NLS-1$
 			validateBadGenEvent(act, err, 1, 2);
 		}
-		public void testCreateEventToCreatorWithBadType() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testCreateEventToCreatorWithBadType() throws RecognitionException, TokenStreamException {
 			String act = "x = 1; create event instance x of D_TST1 to D_TST creator;"; //$NON-NLS-1$
 			String[] err =
 				{
@@ -762,7 +837,8 @@ public class TestEvent_Generics extends TestCase {
 					"line 1:59: expecting Semicolon, found 'null'" };//$NON-NLS-1$
 			validateBadGenEvent(act, err, 1, 2);
 		}
-		public void testGenerateToInstanceWithBadVar() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testGenerateToInstanceWithBadVar() throws RecognitionException, TokenStreamException {
 			String act = "generate D_TST1 to x;"; //$NON-NLS-1$
 			String[] err =
 				{
@@ -771,7 +847,8 @@ public class TestEvent_Generics extends TestCase {
 			validateBadGenEvent(act, err, 0, 0);
 		}
 
-	    public void testGenerateToInstanceWithWrongVar() throws RecognitionException, TokenStreamException {
+	    @Test
+	public void testGenerateToInstanceWithWrongVar() throws RecognitionException, TokenStreamException {
 	        String act = "zz = 1; generate D_TST1 to zz;"; //$NON-NLS-1$
 	        String[] err =
 	            {
@@ -779,7 +856,8 @@ public class TestEvent_Generics extends TestCase {
 	                "line 1:31: expecting Semicolon, found 'null'" };//$NON-NLS-1$
 	        validateBadGenEvent(act, err, 1, 2);
 	    }
-		public void testGeneratePolyEventToCreator() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testGeneratePolyEventToCreator() throws RecognitionException, TokenStreamException {
 			String act = "generate D_TST7 to D_TST creator;"; //$NON-NLS-1$
 			String[] err =
 				{
@@ -787,7 +865,8 @@ public class TestEvent_Generics extends TestCase {
 					"line 1:34: expecting Semicolon, found 'null'" };//$NON-NLS-1$
 			validateBadGenEvent(act, err, 0, 0);
 		}
-		public void testGenerateNLEventToCreator() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testGenerateNLEventToCreator() throws RecognitionException, TokenStreamException {
 			String act = "generate D_TST7 to D_TP creator;"; //$NON-NLS-1$
 			String[] err =
 				{
@@ -796,7 +875,8 @@ public class TestEvent_Generics extends TestCase {
 			validateBadGenEvent(act, err, 0, 0);
 		}
 
-		public void testGenerateNonCreationEventToCreator() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testGenerateNonCreationEventToCreator() throws RecognitionException, TokenStreamException {
 			String act = "generate D_D1 to D_D creator;"; //$NON-NLS-1$
 			String[] err =
 				{
@@ -805,7 +885,8 @@ public class TestEvent_Generics extends TestCase {
 			validateBadGenEvent(act, err, 0, 0);
 		}
 
-		public void testGeneratePolyMarkedNonPolyEventToInstance() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testGeneratePolyMarkedNonPolyEventToInstance() throws RecognitionException, TokenStreamException {
 			String act = "select any t from instances of D_TST; generate D_TST1* to t;"; //$NON-NLS-1$
 			String[] err =
 				{
@@ -814,7 +895,8 @@ public class TestEvent_Generics extends TestCase {
 			validateBadGenEvent(act, err, 1, 0);
 		}
 
-		public void testGeneratePolyMarkedNonPolyEventToCreator() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testGeneratePolyMarkedNonPolyEventToCreator() throws RecognitionException, TokenStreamException {
 			String act = "generate D_TST1* to D_TST creator;"; //$NON-NLS-1$
 			String[] err =
 				{
@@ -823,7 +905,8 @@ public class TestEvent_Generics extends TestCase {
 			validateBadGenEvent(act, err, 0, 0);
 		}
 
-		public void testGeneratePolyMarkedNonPolyEventToClass() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testGeneratePolyMarkedNonPolyEventToClass() throws RecognitionException, TokenStreamException {
 			String act = "generate D_TST_A1* to D_TST class;"; //$NON-NLS-1$
 			String[] err =
 				{
@@ -831,7 +914,8 @@ public class TestEvent_Generics extends TestCase {
 					"line 1:35: expecting Semicolon, found 'null'" };//$NON-NLS-1$
 			validateBadGenEvent(act, err, 0, 0);
 		}
-		public void testGeneratePreExistingFromUnknownVar() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testGeneratePreExistingFromUnknownVar() throws RecognitionException, TokenStreamException {
 			String act = "generate x;"; //$NON-NLS-1$
 			String[] err =
 				{
@@ -840,14 +924,16 @@ public class TestEvent_Generics extends TestCase {
 			validateBadGenEvent(act, err, 0, 0);
 		}
 
-		public void testGeneratePreExistingFromWrongVar() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testGeneratePreExistingFromWrongVar() throws RecognitionException, TokenStreamException {
 			String act = "x = 1; generate x;"; //$NON-NLS-1$
 			String[] err = { ":1:17-17: Variable ->x<- must be of type inst<Event>",//$NON-NLS-1$
 				"line 1:19: expecting Semicolon, found 'null'" };//$NON-NLS-1$
 			validateBadGenEvent(act, err, 1, 2);
 		}
 
-		public void testGeneratePreExistingFromUnknownAttr() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testGeneratePreExistingFromUnknownAttr() throws RecognitionException, TokenStreamException {
 			String act = "select any t from instances of D_TST; generate t.bad;"; //$NON-NLS-1$
 			String[] err =
 				{
@@ -855,105 +941,122 @@ public class TestEvent_Generics extends TestCase {
 					"line 1:54: expecting Semicolon, found 'null'" };//$NON-NLS-1$
 			validateBadGenEvent(act, err, 1, 0);
 		}
-		public void testGeneratePreExistingFromWrongAttr() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testGeneratePreExistingFromWrongAttr() throws RecognitionException, TokenStreamException {
 			String act = "select any t from instances of D_TST; generate t.id;"; //$NON-NLS-1$
 			String[] err = { ":1:50-51: Attribute ->id<- must be of type inst<Event>",//$NON-NLS-1$
 				"line 1:53: expecting Semicolon, found 'null'" };//$NON-NLS-1$
 			validateBadGenEvent(act, err, 1, 1);
 		}
 
-		public void testSMEventNoParmsWithParm() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testSMEventNoParmsWithParm() throws RecognitionException, TokenStreamException {
 			String act = "select any t from instances of D_TST; generate D_TST1( x: true ) to t;"; //$NON-NLS-1$
 			String[] err = { ":1:69-69: Parameter ->x<- is not associated with state machine event with label ->D_TST1<-",//$NON-NLS-1$
 				"line 1:71: expecting Semicolon, found 'null'" };//$NON-NLS-1$
 			validateBadGenEvent(act, err, 1, 0);
 		}
-		public void testSMEventOneParmWithoutParm() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testSMEventOneParmWithoutParm() throws RecognitionException, TokenStreamException {
 			String act = "select any t from instances of D_TST; generate D_TST2() to t;"; //$NON-NLS-1$
 			String[] err = { ":1:60-60: State machine event with label ->D_TST2<- is missing corresponding parameter ->i<-",//$NON-NLS-1$
 				"line 1:62: expecting Semicolon, found 'null'" };//$NON-NLS-1$
 			validateBadGenEvent(act, err, 1, 0);
 		}
-		public void testSMEventOneParmUnknownParm() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testSMEventOneParmUnknownParm() throws RecognitionException, TokenStreamException {
 			String act = "select any t from instances of D_TST; generate D_TST2(i: x) to t;"; //$NON-NLS-1$
 			String[] err = { ":1:58-58: Variable ->x<- used in context where it must already exist.",//$NON-NLS-1$
 				"line 1:61: expecting TOK_RPAREN, found 'to'" };//$NON-NLS-1$
 			validateBadGenEvent(act, err, 1, 0);
 		}
-		public void testSMEventTwoParmsSecondUnknownParm() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testSMEventTwoParmsSecondUnknownParm() throws RecognitionException, TokenStreamException {
 			String act = "select any t from instances of D_TST; generate D_TST3( i: 7, s: z ) to t;"; //$NON-NLS-1$
 			String[] err = { ":1:65-65: Variable ->z<- used in context where it must already exist.",//$NON-NLS-1$
 				"line 1:69: expecting TOK_RPAREN, found 'to'" };//$NON-NLS-1$
 			validateBadGenEvent(act, err, 1, 0);
 		}
-		public void testSMEventOneParmExtraParm() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testSMEventOneParmExtraParm() throws RecognitionException, TokenStreamException {
 			String act = "select any t from instances of D_TST; generate D_TST2( i: 2, r: 3.14 ) to t;"; //$NON-NLS-1$
 			String[] err = { ":1:75-75: Parameter ->r<- is not associated with state machine event with label ->D_TST2<-",//$NON-NLS-1$
 				"line 1:77: expecting Semicolon, found 'null'" };//$NON-NLS-1$
 			validateBadGenEvent(act, err, 1, 0);
 		}
-		public void testSMEventOneParmDupParm() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testSMEventOneParmDupParm() throws RecognitionException, TokenStreamException {
 			String act = "select any t from instances of D_TST; generate D_TST2( i: 2, i: 1 ) to t;"; //$NON-NLS-1$
 			String[] err = { ":1:72-72: State machine event with label ->D_TST2<- has redundant parameters",//$NON-NLS-1$
 				"line 1:74: expecting Semicolon, found 'null'" };//$NON-NLS-1$
 			validateBadGenEvent(act, err, 1, 0);
 		}
-		public void testSMEventOneParmExtraParmDiffOrder() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testSMEventOneParmExtraParmDiffOrder() throws RecognitionException, TokenStreamException {
 			String act = "select any t from instances of D_TST; generate D_TST2( r: 3.14, i:2) to t;"; //$NON-NLS-1$
 			String[] err = { ":1:73-73: Parameter ->r<- is not associated with state machine event with label ->D_TST2<-",//$NON-NLS-1$
 				"line 1:75: expecting Semicolon, found 'null'" };//$NON-NLS-1$
 			validateBadGenEvent(act, err, 1, 0);
 		}
-		public void testSMEventOneParmWrongType() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testSMEventOneParmWrongType() throws RecognitionException, TokenStreamException {
 			String act = "select any t from instances of D_TST; generate D_TST2( i:true ) to t;"; //$NON-NLS-1$
 			String[] err = { ":1:68-68: Parameter ->i<- has been assigned value of different type",//$NON-NLS-1$
 				"line 1:70: expecting Semicolon, found 'null'" };//$NON-NLS-1$
 			validateBadGenEvent(act, err, 1, 0);
 		}
-		public void testSMEventTwoParmsWrongTypeFirst() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testSMEventTwoParmsWrongTypeFirst() throws RecognitionException, TokenStreamException {
 			String act = "select any t from instances of D_TST; generate D_TST3( i: false, s:\"good\" ) to t;"; //$NON-NLS-1$
 			String[] err = { ":1:80-80: Parameter ->i<- has been assigned value of different type",//$NON-NLS-1$
 				"line 1:82: expecting Semicolon, found 'null'" };//$NON-NLS-1$
 			validateBadGenEvent(act, err, 1, 0);
 		}
-		public void testSMEventTwoParmsWrongTypeSecond() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testSMEventTwoParmsWrongTypeSecond() throws RecognitionException, TokenStreamException {
 			String act = "select any t from instances of D_TST; generate D_TST3( i: 7, s:true ) to t;"; //$NON-NLS-1$
 			String[] err = { ":1:74-74: Parameter ->s<- has been assigned value of different type",//$NON-NLS-1$
 				"line 1:76: expecting Semicolon, found 'null'" };//$NON-NLS-1$
 			validateBadGenEvent(act, err, 1, 0);
 		}
-		public void testSMEventTwoParmsWrongTypeFirstDiffOrder() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testSMEventTwoParmsWrongTypeFirstDiffOrder() throws RecognitionException, TokenStreamException {
 			String act = "select any t from instances of D_TST; generate D_TST3( s:true, i:7 ) to t;"; //$NON-NLS-1$
 			String[] err = { ":1:73-73: Parameter ->s<- has been assigned value of different type",//$NON-NLS-1$
 				"line 1:75: expecting Semicolon, found 'null'" };//$NON-NLS-1$
 			validateBadGenEvent(act, err, 1, 0);
 		}
-		public void testSMEventTwoParmsWrongTypeSecondDiffOrder() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testSMEventTwoParmsWrongTypeSecondDiffOrder() throws RecognitionException, TokenStreamException {
 			String act = "select any t from instances of D_TST; generate D_TST3( s:\"good\", i:false ) to t;"; //$NON-NLS-1$
 			String[] err = { ":1:79-79: Parameter ->i<- has been assigned value of different type",//$NON-NLS-1$
 				"line 1:81: expecting Semicolon, found 'null'" };//$NON-NLS-1$
 			validateBadGenEvent(act, err, 1, 0);
 		}
-		public void testSMEventDupParms() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testSMEventDupParms() throws RecognitionException, TokenStreamException {
 			String act = "select any t from instances of D_TST; generate D_TST6( a: 7 ) to t;"; //$NON-NLS-1$
 			String[] err = { ":1:66-66: More than one parameter with name ->a<-",//$NON-NLS-1$
 				"line 1:68: expecting Semicolon, found 'null'" };//$NON-NLS-1$
 			validateBadGenEvent(act, err, 1, 0);
 		}
-		public void testSMEventThreeParmsToInstanceBadSecond() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testSMEventThreeParmsToInstanceBadSecond() throws RecognitionException, TokenStreamException {
 			String act = "select any t from instances of D_TST;  generate D_TST4(i: 7, s:t.s, r:2.1) to t;"; //$NON-NLS-1$
 			String[] err = { ":1:66-66: ->s<- is not an attribute of class ->Test<-.",//$NON-NLS-1$
 			"line 1:69: expecting TOK_RPAREN, found 'r'" };//$NON-NLS-1$
 			validateBadGenEvent(act, err, 1, 0);
 		}
 
-		public void testISMEventToClassWithoutCSM() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testISMEventToClassWithoutCSM() throws RecognitionException, TokenStreamException {
 			String act = "generate D_S1 to D_S class;"; //$NON-NLS-1$
 			String[] err = { ":1:22-26: Cannot find Class State Machine for class ->Slot<-",//$NON-NLS-1$
 				"line 1:28: expecting Semicolon, found 'null'" };//$NON-NLS-1$
 			validateBadGenEvent(act, err, 0, 0);
 		}
-		public void testCSMEventToInstanceWithoutISM() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testCSMEventToInstanceWithoutISM() throws RecognitionException, TokenStreamException {
 			String act = "select any sda from instances of D_SDA; generate D_SDA_A1 to sda;"; //$NON-NLS-1$
 			String[] err = { ":1:62-64: Cannot find Instance State Machine for class ->Slot_Disk Assignment<-", //$NON-NLS-1$
 				"line 1:66: expecting Semicolon, found 'null'" };//$NON-NLS-1$
@@ -980,7 +1083,8 @@ public class TestEvent_Generics extends TestCase {
 			OalParserTest_Generics.clearActionData(activityType, actNum);
 		}
 
-		public void testRead1EvtData() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testRead1EvtData() throws RecognitionException, TokenStreamException {
 			OalParserTest_Generics.clearActionData(OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 			String act = "x = rcvd_evt.i;"; //$NON-NLS-1$
 			String names[] = { "i" };//$NON-NLS-1$
@@ -989,7 +1093,8 @@ public class TestEvent_Generics extends TestCase {
 			validateEvtParam( OalParserTest_Generics.ACTIVITY_TYPE_TRANSITION, act, OalParserTest_Generics.TRANS_ISM_ONE, 1, 2, 1, 1, names);
 			validateEvtParam( OalParserTest_Generics.ACTIVITY_TYPE_TRANSITION, act, OalParserTest_Generics.TRANS_CSM_ONE, 1, 2, 1, 1, names);
 		}
-		public void testRead1EvtParms() throws RecognitionException, TokenStreamException { 
+		@Test
+	public void testRead1EvtParms() throws RecognitionException, TokenStreamException { 
 			OalParserTest_Generics.clearActionData(OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 			String act = "x = param.i;"; //$NON-NLS-1$
 			String names[] = { "i" };//$NON-NLS-1$
@@ -999,7 +1104,8 @@ public class TestEvent_Generics extends TestCase {
 			validateEvtParam( OalParserTest_Generics.ACTIVITY_TYPE_TRANSITION, act, OalParserTest_Generics.TRANS_CSM_ONE, 1, 2, 1, 1, names);
 		}
 		
-		public void testRead1SDTEvtData() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testRead1SDTEvtData() throws RecognitionException, TokenStreamException {
 			OalParserTest_Generics.clearActionData(OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 			String act = "x = rcvd_evt.SDT_e.age;"; //$NON-NLS-1$
 			String names[] = { "SDT_e" };//$NON-NLS-1$
@@ -1008,7 +1114,8 @@ public class TestEvent_Generics extends TestCase {
 			validateEvtParam( OalParserTest_Generics.ACTIVITY_TYPE_TRANSITION, act, OalParserTest_Generics.TRANS_ISM_SDTTest, 1, 3, 1, 1, names);
 			validateEvtParam( OalParserTest_Generics.ACTIVITY_TYPE_TRANSITION, act, OalParserTest_Generics.TRANS_CSM_SDTTest, 1, 3, 1, 1, names);
 		}
-		public void testRead1SDTEvtParms() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testRead1SDTEvtParms() throws RecognitionException, TokenStreamException {
 			OalParserTest_Generics.clearActionData(OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 			String act = "x = param.SDT_e.age;"; //$NON-NLS-1$
 			String names[] = { "SDT_e" };//$NON-NLS-1$
@@ -1017,7 +1124,8 @@ public class TestEvent_Generics extends TestCase {
 			validateEvtParam( OalParserTest_Generics.ACTIVITY_TYPE_TRANSITION, act, OalParserTest_Generics.TRANS_ISM_SDTTest, 1, 3, 1, 1, names);
 			validateEvtParam( OalParserTest_Generics.ACTIVITY_TYPE_TRANSITION, act, OalParserTest_Generics.TRANS_CSM_SDTTest, 1, 3, 1, 1, names);
 		}
-		public void testRead1SDTMultLvlEvtData() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testRead1SDTMultLvlEvtData() throws RecognitionException, TokenStreamException {
 			OalParserTest_Generics.clearActionData(OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 			String act = "x = rcvd_evt.SDT_e.person.age;"; //$NON-NLS-1$
 			String names[] = { "SDT_e" };//$NON-NLS-1$
@@ -1026,7 +1134,8 @@ public class TestEvent_Generics extends TestCase {
 			validateEvtParam( OalParserTest_Generics.ACTIVITY_TYPE_TRANSITION, act, OalParserTest_Generics.TRANS_ISM_SDTMultLvlTest, 1, 4, 1, 1, names);
 			validateEvtParam( OalParserTest_Generics.ACTIVITY_TYPE_TRANSITION, act, OalParserTest_Generics.TRANS_CSM_SDTMultLvlTest, 1, 4, 1, 1, names);
 		}
-		public void testRead1SDTMultLvlEvtParms() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testRead1SDTMultLvlEvtParms() throws RecognitionException, TokenStreamException {
 			OalParserTest_Generics.clearActionData(OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 			String act = "x = param.SDT_e.person.age;"; //$NON-NLS-1$
 			String names[] = { "SDT_e" };//$NON-NLS-1$
@@ -1036,7 +1145,8 @@ public class TestEvent_Generics extends TestCase {
 			validateEvtParam( OalParserTest_Generics.ACTIVITY_TYPE_TRANSITION, act, OalParserTest_Generics.TRANS_CSM_SDTMultLvlTest, 1, 4, 1, 1, names);
 		}
 		
-		public void testRead2EvtData() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testRead2EvtData() throws RecognitionException, TokenStreamException {
 			String act = "x = rcvd_evt.s; y = rcvd_evt.i;"; //$NON-NLS-1$
 			String names[] = { "s", "i" };//$NON-NLS-1$//$NON-NLS-2$
 			validateEvtParam( OalParserTest_Generics.ACTIVITY_TYPE_STATE, act, OalParserTest_Generics.STATE_ISM_TWO, 2, 4, 2, 2, names);
@@ -1044,7 +1154,8 @@ public class TestEvent_Generics extends TestCase {
 			validateEvtParam( OalParserTest_Generics.ACTIVITY_TYPE_TRANSITION, act, OalParserTest_Generics.TRANS_ISM_TWO, 2, 4, 2, 2, names);
 			validateEvtParam( OalParserTest_Generics.ACTIVITY_TYPE_TRANSITION, act, OalParserTest_Generics.TRANS_CSM_TWO, 2, 4, 2, 2, names);
 		}
-		public void testRead2EvtParms() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testRead2EvtParms() throws RecognitionException, TokenStreamException {
 			String act = "x = param.s; y = param.i;"; //$NON-NLS-1$
 			String names[] = { "s", "i" };//$NON-NLS-1$//$NON-NLS-2$
 			validateEvtParam( OalParserTest_Generics.ACTIVITY_TYPE_STATE, act, OalParserTest_Generics.STATE_ISM_TWO, 2, 4, 2, 2, names);
@@ -1052,7 +1163,8 @@ public class TestEvent_Generics extends TestCase {
 			validateEvtParam( OalParserTest_Generics.ACTIVITY_TYPE_TRANSITION, act, OalParserTest_Generics.TRANS_ISM_TWO, 2, 4, 2, 2, names);
 			validateEvtParam( OalParserTest_Generics.ACTIVITY_TYPE_TRANSITION, act, OalParserTest_Generics.TRANS_CSM_TWO, 2, 4, 2, 2, names);
 		}
-		public void testRead3EvtData() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testRead3EvtData() throws RecognitionException, TokenStreamException {
 			String act = "v = rcvd_evt.r; x = rcvd_evt.s; y = rcvd_evt.i;"; //$NON-NLS-1$
 			String names[] = { "r", "s", "i" };//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
 			validateEvtParam( OalParserTest_Generics.ACTIVITY_TYPE_STATE, act, OalParserTest_Generics.STATE_ISM_THREE, 3, 6, 3, 3, names);
@@ -1060,7 +1172,8 @@ public class TestEvent_Generics extends TestCase {
 			validateEvtParam( OalParserTest_Generics.ACTIVITY_TYPE_TRANSITION, act, OalParserTest_Generics.TRANS_ISM_THREE, 3, 6, 3, 3, names);
 			validateEvtParam( OalParserTest_Generics.ACTIVITY_TYPE_TRANSITION, act, OalParserTest_Generics.TRANS_CSM_THREE, 3, 6, 3, 3, names);
 		}
-		public void testRead3EvtParms() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testRead3EvtParms() throws RecognitionException, TokenStreamException {
 			String act = "v = param.r; x = param.s; y = param.i;"; //$NON-NLS-1$
 			String names[] = { "r", "s", "i" };//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
 			validateEvtParam( OalParserTest_Generics.ACTIVITY_TYPE_STATE, act, OalParserTest_Generics.STATE_ISM_THREE, 3, 6, 3, 3, names);
@@ -1068,7 +1181,8 @@ public class TestEvent_Generics extends TestCase {
 			validateEvtParam( OalParserTest_Generics.ACTIVITY_TYPE_TRANSITION, act, OalParserTest_Generics.TRANS_ISM_THREE, 3, 6, 3, 3, names);
 			validateEvtParam( OalParserTest_Generics.ACTIVITY_TYPE_TRANSITION, act, OalParserTest_Generics.TRANS_CSM_THREE, 3, 6, 3, 3, names);
 		}
-		public void testRead3EvtDataParmsMix() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testRead3EvtDataParmsMix() throws RecognitionException, TokenStreamException {
 			String act = "v = rcvd_evt.r; x = param.s; y = rcvd_evt.i;"; //$NON-NLS-1$
 			String names[] = { "r", "s", "i" };//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
 			validateEvtParam( OalParserTest_Generics.ACTIVITY_TYPE_STATE, act, OalParserTest_Generics.STATE_ISM_THREE, 3, 6, 3, 3, names);
@@ -1076,14 +1190,16 @@ public class TestEvent_Generics extends TestCase {
 			validateEvtParam( OalParserTest_Generics.ACTIVITY_TYPE_TRANSITION, act, OalParserTest_Generics.TRANS_ISM_THREE, 3, 6, 3, 3, names);
 			validateEvtParam( OalParserTest_Generics.ACTIVITY_TYPE_TRANSITION, act, OalParserTest_Generics.TRANS_CSM_THREE, 3, 6, 3, 3, names);
 		}
-		public void testReadPolyEvtData() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testReadPolyEvtData() throws RecognitionException, TokenStreamException {
 			OalParserTest_Generics.clearActionData(OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 			String act = "x = rcvd_evt.r;"; //$NON-NLS-1$
 			String names[] = { "r" };//$NON-NLS-1$
 			validateEvtParam( OalParserTest_Generics.ACTIVITY_TYPE_STATE, act, OalParserTest_Generics.STATE_ISM_POLYTWO, 1, 2, 1, 1, names);
 			validateEvtParam( OalParserTest_Generics.ACTIVITY_TYPE_TRANSITION, act, OalParserTest_Generics.TRANS_ISM_POLYTWO, 1, 2, 1, 1, names);
 		}
-		public void testReadPolyEvtParms() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testReadPolyEvtParms() throws RecognitionException, TokenStreamException {
 			OalParserTest_Generics.clearActionData(OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 			String act = "x = param.r;"; //$NON-NLS-1$
 			String names[] = { "r" };//$NON-NLS-1$
@@ -1107,7 +1223,8 @@ public class TestEvent_Generics extends TestCase {
 			OalParserTest_Generics.clearActionData(activityType, actNum);
 		}
 
-		public void testReadNoSuchEvtData() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testReadNoSuchEvtData() throws RecognitionException, TokenStreamException {
 			String act = "x = rcvd_evt.x;"; //$NON-NLS-1$
 			String[] err_msg = { ":1:14-14: The following incoming messages do not carry required parameter ->x<- one",//$NON-NLS-1$
 				"line 1:16: unexpected token: null",//$NON-NLS-1$
@@ -1118,7 +1235,8 @@ public class TestEvent_Generics extends TestCase {
 			validateEvtParamError( OalParserTest_Generics.ACTIVITY_TYPE_TRANSITION, act, err_msg, OalParserTest_Generics.TRANS_ISM_ONE, 0, 2, 1, 1 );// 
 			validateEvtParamError( OalParserTest_Generics.ACTIVITY_TYPE_TRANSITION, act, err_msg, OalParserTest_Generics.TRANS_CSM_ONE, 0, 2, 1, 1 );
 		}
-		public void testReadNoSuchEvtParms() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testReadNoSuchEvtParms() throws RecognitionException, TokenStreamException {
 			String act = "x = param.x;"; //$NON-NLS-1$
 			String[] err_msg = { ":1:11-11: The following incoming messages do not carry required parameter ->x<- one",//$NON-NLS-1$
 				"line 1:13: unexpected token: null",//$NON-NLS-1$
@@ -1129,7 +1247,8 @@ public class TestEvent_Generics extends TestCase {
 			validateEvtParamError( OalParserTest_Generics.ACTIVITY_TYPE_TRANSITION, act, err_msg, OalParserTest_Generics.TRANS_ISM_ONE, 0, 2, 1, 1 );// 
 			validateEvtParamError( OalParserTest_Generics.ACTIVITY_TYPE_TRANSITION, act, err_msg, OalParserTest_Generics.TRANS_CSM_ONE, 0, 2, 1, 1 );
 		}
-		public void testWriteEvtData() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testWriteEvtData() throws RecognitionException, TokenStreamException {
 			String act = "rcvd_evt.i = 1;"; //$NON-NLS-1$
 			String[] err_msg = { "line 1:1: unexpected token: rcvd_evt" };//$NON-NLS-1$
 			validateEvtParamError( OalParserTest_Generics.ACTIVITY_TYPE_STATE, act, err_msg, OalParserTest_Generics.STATE_ISM_ONE, 1, 2, 1, 0 );
@@ -1137,7 +1256,8 @@ public class TestEvent_Generics extends TestCase {
 			validateEvtParamError( OalParserTest_Generics.ACTIVITY_TYPE_TRANSITION, act, err_msg, OalParserTest_Generics.TRANS_ISM_ONE, 1, 2, 1, 0 );
 			validateEvtParamError( OalParserTest_Generics.ACTIVITY_TYPE_TRANSITION, act, err_msg, OalParserTest_Generics.TRANS_CSM_ONE, 1, 2, 1, 0 );
 		}
-		public void testWriteEvtParms() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testWriteEvtParms() throws RecognitionException, TokenStreamException {
 			String act = "param.i = 1;"; //$NON-NLS-1$
 			String[] err_msg = { ":1:7-7: Event parameters are not assignable",
 					"line 1:12: expecting TOK_EQUAL, found ';'", //$NON-NLS-1$
@@ -1147,7 +1267,8 @@ public class TestEvent_Generics extends TestCase {
 			validateEvtParamError( OalParserTest_Generics.ACTIVITY_TYPE_TRANSITION, act, err_msg, OalParserTest_Generics.TRANS_ISM_ONE, 0, 0, 0, 0 );
 			validateEvtParamError( OalParserTest_Generics.ACTIVITY_TYPE_TRANSITION, act, err_msg, OalParserTest_Generics.TRANS_CSM_ONE, 0, 0, 0, 0 );
 		}
-		public void testWriteEvtDataMultData() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testWriteEvtDataMultData() throws RecognitionException, TokenStreamException {
 			String act = "rcvd_evt.s = \"bad\";"; //$NON-NLS-1$
 			String[] err_msg = { "line 1:1: unexpected token: rcvd_evt" };//$NON-NLS-1$
 			validateEvtParamError( OalParserTest_Generics.ACTIVITY_TYPE_STATE, act, err_msg, OalParserTest_Generics.STATE_ISM_TWO, 1, 2, 1, 0 );
@@ -1155,7 +1276,8 @@ public class TestEvent_Generics extends TestCase {
 			validateEvtParamError( OalParserTest_Generics.ACTIVITY_TYPE_TRANSITION, act, err_msg, OalParserTest_Generics.TRANS_ISM_TWO, 1, 2, 1, 0 );
 			validateEvtParamError( OalParserTest_Generics.ACTIVITY_TYPE_TRANSITION, act, err_msg, OalParserTest_Generics.TRANS_CSM_TWO, 1, 2, 1, 0 );
 		}
-		public void testWriteEvtParmsMultParms() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testWriteEvtParmsMultParms() throws RecognitionException, TokenStreamException {
 			String act = "param.s = \"bad\";"; //$NON-NLS-1$
 			String[] err_msg = { ":1:7-7: Event parameters are not assignable",
 					"line 1:16: expecting TOK_EQUAL, found ';'", //$NON-NLS-1$
@@ -1165,7 +1287,8 @@ public class TestEvent_Generics extends TestCase {
 			validateEvtParamError( OalParserTest_Generics.ACTIVITY_TYPE_TRANSITION, act, err_msg, OalParserTest_Generics.TRANS_ISM_TWO, 0, 0, 0, 0 );
 			validateEvtParamError( OalParserTest_Generics.ACTIVITY_TYPE_TRANSITION, act, err_msg, OalParserTest_Generics.TRANS_CSM_TWO, 0, 0, 0, 0 );
 		}
-		public void testWriteEvtDataWrongType() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testWriteEvtDataWrongType() throws RecognitionException, TokenStreamException {
 			String act = "rcvd_evt.i = true;"; //$NON-NLS-1$
 			String[] err_msg = { "line 1:1: unexpected token: rcvd_evt" };//$NON-NLS-1$
 			validateEvtParamError( OalParserTest_Generics.ACTIVITY_TYPE_STATE, act, err_msg, OalParserTest_Generics.STATE_ISM_ONE, 1, 2, 1, 0 );
@@ -1173,7 +1296,8 @@ public class TestEvent_Generics extends TestCase {
 			validateEvtParamError( OalParserTest_Generics.ACTIVITY_TYPE_TRANSITION, act, err_msg, OalParserTest_Generics.TRANS_ISM_ONE, 1, 2, 1, 0 );
 			validateEvtParamError( OalParserTest_Generics.ACTIVITY_TYPE_TRANSITION, act, err_msg, OalParserTest_Generics.TRANS_CSM_ONE, 1, 2, 1, 0 );
 		}
-		public void testWriteEvtParmWrongType() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testWriteEvtParmWrongType() throws RecognitionException, TokenStreamException {
 			String act = "param.i = true;"; //$NON-NLS-1$
 			String[] err_msg = { ":1:7-7: Event parameters are not assignable",   //$NON-NLS-1$
 					             "line 1:11: expecting TOK_EQUAL, found 'true'" };//$NON-NLS-1$
@@ -1182,7 +1306,8 @@ public class TestEvent_Generics extends TestCase {
 			validateEvtParamError( OalParserTest_Generics.ACTIVITY_TYPE_TRANSITION, act, err_msg, OalParserTest_Generics.TRANS_ISM_ONE, 0, 0, 0, 0 );
 			validateEvtParamError( OalParserTest_Generics.ACTIVITY_TYPE_TRANSITION, act, err_msg, OalParserTest_Generics.TRANS_CSM_ONE, 0, 0, 0, 0 );
 		}
-		public void testWriteEvtDataWrongTypeMultData() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testWriteEvtDataWrongTypeMultData() throws RecognitionException, TokenStreamException {
 			String act = "rcvd_evt.s = 2.1;"; //$NON-NLS-1$
 			String[] err_msg = { "line 1:1: unexpected token: rcvd_evt" };//$NON-NLS-1$
 			validateEvtParamError( OalParserTest_Generics.ACTIVITY_TYPE_STATE, act, err_msg, OalParserTest_Generics.STATE_ISM_THREE, 1, 2, 1, 0 );
@@ -1190,7 +1315,8 @@ public class TestEvent_Generics extends TestCase {
 			validateEvtParamError( OalParserTest_Generics.ACTIVITY_TYPE_TRANSITION, act, err_msg, OalParserTest_Generics.TRANS_ISM_THREE, 1, 2, 1, 0 );
 			validateEvtParamError( OalParserTest_Generics.ACTIVITY_TYPE_TRANSITION, act, err_msg, OalParserTest_Generics.TRANS_CSM_THREE, 1, 2, 1, 0 );
 		}
-		public void testWriteEvtParmWrongTypeMultParm() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testWriteEvtParmWrongTypeMultParm() throws RecognitionException, TokenStreamException {
 			String act = "param.s = 2.1;"; //$NON-NLS-1$
 			String[] err_msg = { ":1:7-7: Event parameters are not assignable", //$NON-NLS-1$
 					             "line 1:14: expecting TOK_EQUAL, found ';'", //$NON-NLS-1$
@@ -1200,7 +1326,8 @@ public class TestEvent_Generics extends TestCase {
 			validateEvtParamError( OalParserTest_Generics.ACTIVITY_TYPE_TRANSITION, act, err_msg, OalParserTest_Generics.TRANS_ISM_THREE, 0, 0, 0, 0 );
 			validateEvtParamError( OalParserTest_Generics.ACTIVITY_TYPE_TRANSITION, act, err_msg, OalParserTest_Generics.TRANS_CSM_THREE, 0, 0, 0, 0 );
 		}
-		public void testReadEvtDataWrongType() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testReadEvtDataWrongType() throws RecognitionException, TokenStreamException {
 			String act = "x = true; x = rcvd_evt.i;"; //$NON-NLS-1$
 			String[] err_msg = { ":1:24-24: Variable ->x<- already exists as a different type",//$NON-NLS-1$
 				"line 1:26: expecting Semicolon, found 'null'" };//$NON-NLS-1$
@@ -1209,7 +1336,8 @@ public class TestEvent_Generics extends TestCase {
 			validateEvtParamError( OalParserTest_Generics.ACTIVITY_TYPE_TRANSITION, act, err_msg, OalParserTest_Generics.TRANS_ISM_ONE, 1, 3, 1, 0 );
 			validateEvtParamError( OalParserTest_Generics.ACTIVITY_TYPE_TRANSITION, act, err_msg, OalParserTest_Generics.TRANS_CSM_ONE, 1, 3, 1, 0 );
 		 }
-		public void testReadEvtParmWrongType() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testReadEvtParmWrongType() throws RecognitionException, TokenStreamException {
 			String act = "x = true; x = param.i;"; //$NON-NLS-1$
 			String[] err_msg = { ":1:21-21: Variable ->x<- already exists as a different type",//$NON-NLS-1$
 				"line 1:23: expecting Semicolon, found 'null'" };//$NON-NLS-1$
@@ -1218,7 +1346,8 @@ public class TestEvent_Generics extends TestCase {
 			validateEvtParamError( OalParserTest_Generics.ACTIVITY_TYPE_TRANSITION, act, err_msg, OalParserTest_Generics.TRANS_ISM_ONE, 1, 3, 1, 0 );
 			validateEvtParamError( OalParserTest_Generics.ACTIVITY_TYPE_TRANSITION, act, err_msg, OalParserTest_Generics.TRANS_CSM_ONE, 1, 3, 1, 0 );
 		 }
-		public void testReadEvtDataWrongTypeMultParms() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testReadEvtDataWrongTypeMultParms() throws RecognitionException, TokenStreamException {
 			String act = "x = true; x = rcvd_evt.r;"; //$NON-NLS-1$
 			String[] err_msg = { ":1:24-24: Variable ->x<- already exists as a different type",//$NON-NLS-1$
 				"line 1:26: expecting Semicolon, found 'null'" };//$NON-NLS-1$
@@ -1227,7 +1356,8 @@ public class TestEvent_Generics extends TestCase {
 			validateEvtParamError( OalParserTest_Generics.ACTIVITY_TYPE_TRANSITION, act, err_msg, OalParserTest_Generics.TRANS_ISM_THREE, 1, 3, 1, 0 );
 			validateEvtParamError( OalParserTest_Generics.ACTIVITY_TYPE_TRANSITION, act, err_msg, OalParserTest_Generics.TRANS_CSM_THREE, 1, 3, 1, 0 );
 		}
-		public void testReadEvtParmWrongTypeMultParms() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testReadEvtParmWrongTypeMultParms() throws RecognitionException, TokenStreamException {
 			String act = "x = true; x = param.r;"; //$NON-NLS-1$
 			String[] err_msg = { ":1:21-21: Variable ->x<- already exists as a different type",//$NON-NLS-1$
 				"line 1:23: expecting Semicolon, found 'null'" };//$NON-NLS-1$
@@ -1236,7 +1366,8 @@ public class TestEvent_Generics extends TestCase {
 			validateEvtParamError( OalParserTest_Generics.ACTIVITY_TYPE_TRANSITION, act, err_msg, OalParserTest_Generics.TRANS_ISM_THREE, 1, 3, 1, 0 );
 			validateEvtParamError( OalParserTest_Generics.ACTIVITY_TYPE_TRANSITION, act, err_msg, OalParserTest_Generics.TRANS_CSM_THREE, 1, 3, 1, 0 );
 		}
-		public void testReadNoSuchPolyEvtData() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testReadNoSuchPolyEvtData() throws RecognitionException, TokenStreamException {
 			String act = "x = rcvd_evt.x;"; //$NON-NLS-1$
 			String[] err_msg = { ":1:14-14: The following incoming messages do not carry required parameter ->x<- poly_data",//$NON-NLS-1$
 				"line 1:16: unexpected token: null",//$NON-NLS-1$
@@ -1245,7 +1376,8 @@ public class TestEvent_Generics extends TestCase {
 			err_msg[0] = ":1:14-14: Parameter ->x<- is not carried by event poly_data";
 			validateEvtParamError( OalParserTest_Generics.ACTIVITY_TYPE_TRANSITION, act, err_msg, OalParserTest_Generics.TRANS_ISM_POLYTWO, 0, 2, 1, 1 );
 		}
-		public void testReadNoSuchPolyEvtParm() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testReadNoSuchPolyEvtParm() throws RecognitionException, TokenStreamException {
 			String act = "x = param.x;"; //$NON-NLS-1$
 			String[] err_msg = { ":1:11-11: The following incoming messages do not carry required parameter ->x<- poly_data",//$NON-NLS-1$
 				"line 1:13: unexpected token: null",//$NON-NLS-1$
@@ -1254,7 +1386,8 @@ public class TestEvent_Generics extends TestCase {
 			err_msg[0] = ":1:11-11: Parameter ->x<- is not carried by event poly_data";
 			validateEvtParamError( OalParserTest_Generics.ACTIVITY_TYPE_TRANSITION, act, err_msg, OalParserTest_Generics.TRANS_ISM_POLYTWO, 0, 2, 1, 1 );
 		}
-		public void testReadOrphanedPolyEvtData() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testReadOrphanedPolyEvtData() throws RecognitionException, TokenStreamException {
 			String act = "x = rcvd_evt.r;"; //$NON-NLS-1$
 			String[] err_msg = { ":1:14-14: Parameter ->r<- belongs to a Polymorphic Event that is no longer defined in supertype",//$NON-NLS-1$
 				"line 1:16: unexpected token: null",//$NON-NLS-1$
@@ -1262,7 +1395,8 @@ public class TestEvent_Generics extends TestCase {
 			validateEvtParamError( OalParserTest_Generics.ACTIVITY_TYPE_STATE, act, err_msg, OalParserTest_Generics.STATE_ISM_POLYORPHANED, 0, 2, 1, 1 );
 			validateEvtParamError( OalParserTest_Generics.ACTIVITY_TYPE_TRANSITION, act, err_msg, OalParserTest_Generics.TRANS_ISM_POLYORPHANED, 0, 2, 1, 1 );
 		}
-		public void testReadOrphanedPolyEvtParm() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testReadOrphanedPolyEvtParm() throws RecognitionException, TokenStreamException {
 			String act = "x = param.r;"; //$NON-NLS-1$
 			String[] err_msg = { ":1:11-11: Parameter ->r<- belongs to a Polymorphic Event that is no longer defined in supertype",//$NON-NLS-1$
 				"line 1:13: unexpected token: null",//$NON-NLS-1$
@@ -1270,27 +1404,31 @@ public class TestEvent_Generics extends TestCase {
 			validateEvtParamError( OalParserTest_Generics.ACTIVITY_TYPE_STATE, act, err_msg, OalParserTest_Generics.STATE_ISM_POLYORPHANED, 0, 2, 1, 1 );
 			validateEvtParamError( OalParserTest_Generics.ACTIVITY_TYPE_TRANSITION, act, err_msg, OalParserTest_Generics.TRANS_ISM_POLYORPHANED, 0, 2, 1, 1 );
 		}
-		public void testReadPolyEvtDataWrongType() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testReadPolyEvtDataWrongType() throws RecognitionException, TokenStreamException {
 			String act = "x = true; x = rcvd_evt.r;"; //$NON-NLS-1$
 			String[] err_msg = { ":1:24-24: Variable ->x<- already exists as a different type",//$NON-NLS-1$
 				"line 1:26: expecting Semicolon, found 'null'" };//$NON-NLS-1$
 			validateEvtParamError( OalParserTest_Generics.ACTIVITY_TYPE_STATE, act, err_msg, OalParserTest_Generics.STATE_ISM_POLYTWO, 1, 3, 1, 0 );
 			validateEvtParamError( OalParserTest_Generics.ACTIVITY_TYPE_TRANSITION, act, err_msg, OalParserTest_Generics.TRANS_ISM_POLYTWO, 1, 3, 1, 0 );
 		 }
-		public void testReadPolyEvtParmWrongType() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testReadPolyEvtParmWrongType() throws RecognitionException, TokenStreamException {
 			String act = "x = true; x = param.r;"; //$NON-NLS-1$
 			String[] err_msg = { ":1:21-21: Variable ->x<- already exists as a different type",//$NON-NLS-1$
 				"line 1:23: expecting Semicolon, found 'null'" };//$NON-NLS-1$
 			validateEvtParamError( OalParserTest_Generics.ACTIVITY_TYPE_STATE, act, err_msg, OalParserTest_Generics.STATE_ISM_POLYTWO, 1, 3, 1, 0 );
 			validateEvtParamError( OalParserTest_Generics.ACTIVITY_TYPE_TRANSITION, act, err_msg, OalParserTest_Generics.TRANS_ISM_POLYTWO, 1, 3, 1, 0 );
 		 }
-		public void testWritePolyEvtData() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testWritePolyEvtData() throws RecognitionException, TokenStreamException {
 			String act = "rcvd_evt.r = 1.1;"; //$NON-NLS-1$
 			String[] err_msg = { "line 1:1: unexpected token: rcvd_evt" };//$NON-NLS-1$
 			validateEvtParamError( OalParserTest_Generics.ACTIVITY_TYPE_STATE, act, err_msg, OalParserTest_Generics.STATE_ISM_POLYTWO, 1, 2, 1, 0 );
 			validateEvtParamError( OalParserTest_Generics.ACTIVITY_TYPE_TRANSITION, act, err_msg, OalParserTest_Generics.TRANS_ISM_POLYTWO, 1, 2, 1, 0 );
 		}
-		public void testWritePolyEvtParm() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testWritePolyEvtParm() throws RecognitionException, TokenStreamException {
 			String act = "param.r = 1.1;"; //$NON-NLS-1$
 			String[] err_msg = { ":1:7-7: Event parameters are not assignable", //$NON-NLS-1$
 		             "line 1:14: expecting TOK_EQUAL, found ';'", //$NON-NLS-1$
@@ -1298,13 +1436,15 @@ public class TestEvent_Generics extends TestCase {
 			validateEvtParamError( OalParserTest_Generics.ACTIVITY_TYPE_STATE, act, err_msg, OalParserTest_Generics.STATE_ISM_POLYTWO, 0, 0, 0, 0 );
 			validateEvtParamError( OalParserTest_Generics.ACTIVITY_TYPE_TRANSITION, act, err_msg, OalParserTest_Generics.TRANS_ISM_POLYTWO, 0, 0, 0, 0 );
 		}
-		public void testWritePolyEvtDataWrongType() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testWritePolyEvtDataWrongType() throws RecognitionException, TokenStreamException {
 			String act = "rcvd_evt.r = \"bad\";"; //$NON-NLS-1$
 			String[] err_msg = { "line 1:1: unexpected token: rcvd_evt" };//$NON-NLS-1$
 			validateEvtParamError( OalParserTest_Generics.ACTIVITY_TYPE_STATE, act, err_msg, OalParserTest_Generics.STATE_ISM_POLYTWO, 1, 2, 1, 0 );
 			validateEvtParamError( OalParserTest_Generics.ACTIVITY_TYPE_TRANSITION, act, err_msg, OalParserTest_Generics.TRANS_ISM_POLYTWO, 1, 2, 1, 0 );
 		}
-		public void testWritePolyEvtParmWrongType() throws RecognitionException, TokenStreamException {
+		@Test
+	public void testWritePolyEvtParmWrongType() throws RecognitionException, TokenStreamException {
 			String act = "param.r = \"bad\";"; //$NON-NLS-1$
 			String[] err_msg = { ":1:7-7: Event parameters are not assignable", //$NON-NLS-1$
 		             "line 1:16: expecting TOK_EQUAL, found ';'",     //$NON-NLS-1$
@@ -1312,7 +1452,8 @@ public class TestEvent_Generics extends TestCase {
 			validateEvtParamError( OalParserTest_Generics.ACTIVITY_TYPE_STATE, act, err_msg, OalParserTest_Generics.STATE_ISM_POLYTWO, 0, 0, 0, 0 );
 			validateEvtParamError( OalParserTest_Generics.ACTIVITY_TYPE_TRANSITION, act, err_msg, OalParserTest_Generics.TRANS_ISM_POLYTWO, 0, 0, 0, 0 );
 		}
-		public void tearDown() {
+		@After
+	public void tearDown() {
 			try {
 			  OalParserTest_Generics.tearDownActionData();
 			}

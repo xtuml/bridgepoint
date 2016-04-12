@@ -18,7 +18,9 @@ import org.eclipse.swt.widgets.Tree;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
-
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.AsynchronousMessage_c;
 import org.xtuml.bp.core.ClassInstanceParticipant_c;
 import org.xtuml.bp.core.ClassParticipant_c;
@@ -31,6 +33,7 @@ import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.ui.Selection;
 import org.xtuml.bp.core.util.UIUtil;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.ui.canvas.test.CanvasTestUtilities;
 import org.xtuml.bp.ui.explorer.ExplorerView;
 import org.xtuml.bp.utilities.ui.CanvasUtilities;
@@ -38,6 +41,7 @@ import org.xtuml.bp.utilities.ui.CanvasUtilities;
 /**
  * Contains tests that exercise various aspects of the properties view.
  */
+@RunWith(OrderedRunner.class)
 public class RefreshTestProp extends BaseTest {
 	/**
 	 * Whether the first test of this class is the one that's currently being
@@ -46,15 +50,16 @@ public class RefreshTestProp extends BaseTest {
 	private static boolean firstTest = true;
 
 
-    public RefreshTestProp(String arg0){
-        super("RefreshTest", arg0);
-    }
+    public RefreshTestProp(){
+		super("RefreshTest", null);
+	}
 	/*
 	 * (non-Javadoc)
 	 * 
 	 * @see junit.framework.TestCase#setUp()
 	 */
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 
 		// if it's the first test of this class that's being setup
@@ -69,6 +74,7 @@ public class RefreshTestProp extends BaseTest {
 	 * a child under 'Operation'
 	 * @throws PartInitException 
 	 */
+	@Test
 	public void testPropertiesFormalClassOperationMessage() throws PartInitException {
 		// open the canvas editor to test on
 		String diagramName = "Test SQ";
@@ -112,6 +118,7 @@ public class RefreshTestProp extends BaseTest {
 	 * a child under 'Bridges'
 	 * @throws PartInitException 
 	 */
+	@Test
 	public void testPropertiesFormalBridgeOperationMessage() throws PartInitException {
 		// open the canvas editor to test on
 		String diagramName = "Test SQ";
@@ -153,6 +160,7 @@ public class RefreshTestProp extends BaseTest {
 	 * under 'Events'
 	 * @throws PartInitException 
 	 */
+	@Test
 	public void testPropertiesFormalEventMessage() throws PartInitException {
 		// open the canvas editor to test on
 		String diagramName = "Test SQ";
@@ -193,6 +201,7 @@ public class RefreshTestProp extends BaseTest {
 	 * under 'Functions'
 	 * @throws PartInitException 
 	 */
+	@Test
 	public void testPropertiesFormalFunctionMessage() throws PartInitException {
 		// open the canvas editor to test on
 		String diagramName = "Test SQ";
@@ -234,6 +243,7 @@ public class RefreshTestProp extends BaseTest {
 	 * under 'Classes'
 	 * @throws PartInitException 
 	 */
+	@Test
 	public void testPropertiesFormalInstanceEntity() throws PartInitException {
 		// open the canvas editor to test on
 		String diagramName = "Test SQ";
@@ -275,6 +285,7 @@ public class RefreshTestProp extends BaseTest {
 	 * a child under 'External Entities'
 	 * @throws PartInitException 
 	 */
+	@Test
 	public void testPropertiesFormalExternalEntity() throws PartInitException {
 		// open the canvas editor to test on
 		String diagramName = "Test SQ";
@@ -317,6 +328,7 @@ public class RefreshTestProp extends BaseTest {
 	 * under 'Classes'
 	 * @throws PartInitException 
 	 */
+	@Test
 	public void testPropertiesFormalClassEntity() throws PartInitException {
 		// open the canvas editor to test on
 		String diagramName = "Test SQ";
@@ -357,6 +369,7 @@ public class RefreshTestProp extends BaseTest {
 	 * a child under 'Function Packages'
 	 * @throws PartInitException 
 	 */
+	@Test
 	public void testPropertiesFormalFunctionPkgEntity() throws PartInitException {
 		// open the canvas editor to test on
 		String diagramName = "Test SQ";
@@ -398,6 +411,7 @@ public class RefreshTestProp extends BaseTest {
 	 * Display as a child under 'Operation Parameters'
 	 * @throws PartInitException 
 	 */
+	@Test
 	public void testPropertiesFormalClassOperationMessageArgument() throws PartInitException {
 		// open the canvas editor to test on
 		String diagramName = "Test SQ";
@@ -440,6 +454,7 @@ public class RefreshTestProp extends BaseTest {
 	 * Display as a child under 'Bridge Parameters'
 	 * @throws PartInitException 
 	 */
+	@Test
 	public void testPropertiesFormalBridgeOperationMessageArgument() throws PartInitException {
 		// open the canvas editor to test on
 		String diagramName = "Test SQ";
@@ -481,6 +496,7 @@ public class RefreshTestProp extends BaseTest {
 	 * a child under 'Event Data'
 	 * @throws PartInitException 
 	 */
+	@Test
 	public void testPropertiesFormalEventMessageArgument() throws PartInitException {
 		// open the canvas editor to test on
 		String diagramName = "Test SQ";
@@ -521,6 +537,7 @@ public class RefreshTestProp extends BaseTest {
 	 * as a child under 'Function Parameters'
 	 * @throws PartInitException 
 	 */
+	@Test
 	public void testPropertiesFormalFunctionMessageArgument() throws PartInitException {
 		// open the canvas editor to test on
 		String diagramName = "Test SQ";

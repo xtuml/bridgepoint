@@ -30,7 +30,9 @@ import org.eclipse.jface.text.Region;
 import org.eclipse.jface.text.source.ISourceViewer;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
-
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.ActionHome_c;
 import org.xtuml.bp.core.Action_c;
 import org.xtuml.bp.core.Bridge_c;
@@ -48,27 +50,34 @@ import org.xtuml.bp.core.StateMachine_c;
 import org.xtuml.bp.core.TransitionActionHome_c;
 import org.xtuml.bp.core.Transition_c;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
-import org.xtuml.bp.core.common.PersistableModelComponent;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.ui.text.EditorHover;
 import org.xtuml.bp.ui.text.activity.ActivityEditor;
 import org.xtuml.bp.ui.text.test.UITextTest;
 
+@RunWith(OrderedRunner.class)
 public class ParseActivity extends UITextTest {
+
+	public ParseActivity() throws CoreException {
+		super();
+	}
+
 
 	private static boolean firstSetup = true;
 	private static String testModelName = "testDescrip1";
 	
-	public ParseActivity(String projectName, String name) throws CoreException {
-		super(null, name); //$NON-NLS-1$
-	}
-	
-	public ParseActivity(String name) throws CoreException {
-		super(null, name); //$NON-NLS-1$
-	}
+//	public ParseActivity(String projectName, String name) throws CoreException {
+//		super(null, name); //$NON-NLS-1$
+//	}
+//	
+//	public ParseActivity(String name) throws CoreException {
+//		super(null, name); //$NON-NLS-1$
+//	}
 
 	static IWorkbenchPage m_wp = null;
 	
-    protected void setUp() throws Exception {
+    @Before
+	public void setUp() throws Exception {
     	super.setUp();
     	if ( firstSetup ) {
         	loadProject(testModelName);
@@ -129,6 +138,7 @@ public class ParseActivity extends UITextTest {
 		assertFalse(ae.isDirty());
 	}
 	
+	@Test
 	public void testParseBridgeActivity()
 	{	
 		final Bridge_c uut = Bridge_c.BridgeInstance(modelRoot);
@@ -142,6 +152,7 @@ public class ParseActivity extends UITextTest {
         uut.setSuc_pars(Parsestatus_c.parseSuccessful);
 	}
 	
+	@Test
 	public void testParseFunctionActivity()
 	{	
 		final Function_c uut = Function_c.FunctionInstance(modelRoot);
@@ -155,6 +166,7 @@ public class ParseActivity extends UITextTest {
         uut.setSuc_pars(Parsestatus_c.parseSuccessful);
     }
 	
+	@Test
 	public void testParseInstanceOperationActivity()
 	{	
 		class findop1
@@ -175,6 +187,7 @@ public class ParseActivity extends UITextTest {
         uut.setSuc_pars(Parsestatus_c.parseSuccessful);
 	}
 	
+	@Test
 	public void testParseClassOperationActivity()
 	{	
 		class findop2
@@ -195,6 +208,7 @@ public class ParseActivity extends UITextTest {
         uut.setSuc_pars(Parsestatus_c.parseSuccessful);
 	}
 
+	@Test
 	public void testParseInstanceActionActivity()
 	{	
 //		 Adding query to find out right SME since after issue 845
@@ -227,6 +241,7 @@ public class ParseActivity extends UITextTest {
         source.setSuc_pars(Parsestatus_c.parseSuccessful);
 	}
 	
+	@Test
 	public void testParseInstanceTransitionActionActivity()
 	{	
 		final InstanceStateMachine_c ism = InstanceStateMachine_c.InstanceStateMachineInstance(modelRoot);
@@ -245,6 +260,7 @@ public class ParseActivity extends UITextTest {
         source.setSuc_pars(Parsestatus_c.parseSuccessful);
 	}
 	
+	@Test
 	public void testParseCreationTransitionActionActivity()
 	{	
 		final CreationTransition_c uut = CreationTransition_c.CreationTransitionInstance(modelRoot);
@@ -263,6 +279,7 @@ public class ParseActivity extends UITextTest {
         source.setSuc_pars(Parsestatus_c.parseSuccessful);
 	}
 	
+	@Test
 	public void testParseClassActionActivity()
 	{	
 		final ClassStateMachine_c csm = ClassStateMachine_c.ClassStateMachineInstance(modelRoot);
@@ -282,6 +299,7 @@ public class ParseActivity extends UITextTest {
 	}
 	
 	
+	@Test
 	public void testParseClassTransitionActionActivity()
 	{	
 		final ClassStateMachine_c csm = ClassStateMachine_c.ClassStateMachineInstance(modelRoot);

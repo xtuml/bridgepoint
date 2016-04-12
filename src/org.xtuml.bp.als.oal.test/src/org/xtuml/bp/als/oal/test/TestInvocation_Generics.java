@@ -25,11 +25,9 @@ import java.util.UUID;
 
 import org.eclipse.jface.dialogs.MessageDialogWithToggle;
 import org.eclipse.jface.preference.IPreferenceStore;
-
-import junit.framework.TestCase;
-import antlr.RecognitionException;
-import antlr.TokenStreamException;
-
+import org.junit.After;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.ActualParameter_c;
 import org.xtuml.bp.core.AssignToMember_c;
 import org.xtuml.bp.core.AttributeValueReference_c;
@@ -58,7 +56,13 @@ import org.xtuml.bp.core.Variable_c;
 import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 import org.xtuml.bp.core.common.IdAssigner;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 
+import antlr.RecognitionException;
+import antlr.TokenStreamException;
+import junit.framework.TestCase;
+
+@RunWith(OrderedRunner.class)
 public class TestInvocation_Generics extends TestCase {
 	private String[] m_invocation_prefix =
 	{ "::", "bridge T::", "bridge S::",//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-1
@@ -353,59 +357,69 @@ public void invocationRvalTest(
 		}
 	}
 }
-public void testInvocationRetVoidParmNone() throws RecognitionException, TokenStreamException {
+@Test
+	public void testInvocationRetVoidParmNone() throws RecognitionException, TokenStreamException {
 	String parms[] = {
 	};
 	String parmVals[] = {
 	};
 	invocationTest("test1();", "test1", parms, parmVals, 0, 0, 0);//$NON-NLS-1$//$NON-NLS-2$
 }
-public void testInvocationRetVoidParmInt() throws RecognitionException, TokenStreamException {
+@Test
+	public void testInvocationRetVoidParmInt() throws RecognitionException, TokenStreamException {
 	String parms[] = { "i" };//$NON-NLS-1$
 	String parmVals[] = { "2" };//$NON-NLS-1$
 	invocationTest("test2( i: 2 );", "test2", parms, parmVals, 1, 0, 0);//$NON-NLS-1$//$NON-NLS-2$
 }
-public void testInvocationRetVoidParmIntWithUnderscores() throws RecognitionException, TokenStreamException {
+@Test
+	public void testInvocationRetVoidParmIntWithUnderscores() throws RecognitionException, TokenStreamException {
 	String parms[] = { "_parm" };//$NON-NLS-1$
 	String parmVals[] = { "2" };//$NON-NLS-1$
 	invocationTest("_test( _parm: 2 );", "_test", parms, parmVals, 1, 0, 0);//$NON-NLS-1$//$NON-NLS-2$
 }
-public void testInvocationRetVoidParmStringInt() throws RecognitionException, TokenStreamException {
+@Test
+	public void testInvocationRetVoidParmStringInt() throws RecognitionException, TokenStreamException {
 	String parms[] = { "i", "s" };//$NON-NLS-1$//$NON-NLS-2$
 	String parmVals[] = { "2", "t" };//$NON-NLS-1$//$NON-NLS-2$
 	invocationTest("test3( i: 2, s: \"t\" );", "test3", parms, parmVals, 2, 0, 1); //$NON-NLS-1$//$NON-NLS-2$
 }
-public void testInvocationRetVoidParmStringIntOtherOrder() throws RecognitionException, TokenStreamException {
+@Test
+	public void testInvocationRetVoidParmStringIntOtherOrder() throws RecognitionException, TokenStreamException {
 	String parms[] = { "s", "i" };//$NON-NLS-1$//$NON-NLS-2$
 	String parmVals[] = { "u", "3" };//$NON-NLS-1$//$NON-NLS-2$
 	invocationTest("test3( s: \"u\", i: 3 );", "test3", parms, parmVals, 2, 1, 0); //$NON-NLS-1$//$NON-NLS-2$
 }
-public void testInvocationRetIntParmNone() throws RecognitionException, TokenStreamException {
+@Test
+	public void testInvocationRetIntParmNone() throws RecognitionException, TokenStreamException {
 	String parms[] = {};
 	String parmVals[] = {};
 //	UUID intId = BaseTest.getTypeID(OalParserTest_Generics.modelRoot, "integer");//91//$NON-NLS-1$
 	UUID intId = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "integer");//91//$NON-NLS-1$
 	invocationRvalTest("", "x", "test4();", "test4", intId, parms, parmVals, 1, 2, 0, 0, 0);//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$//$NON-NLS-4$
 }
-public void testInvocationRetIntParmInt() throws RecognitionException, TokenStreamException {
+@Test
+	public void testInvocationRetIntParmInt() throws RecognitionException, TokenStreamException {
 	String parms[] = { "i" };//$NON-NLS-1$
 	String parmVals[] = { "2" };//$NON-NLS-1$
 	UUID intId = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "integer");//91//$NON-NLS-1$
 	invocationRvalTest("", "x", "test5( i: 2 );", "test5", intId, parms, parmVals, 1, 3, 0, 0, 0);//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$//$NON-NLS-4$
 }
-public void testInvocationRetStringParmStringInt() throws RecognitionException, TokenStreamException {
+@Test
+	public void testInvocationRetStringParmStringInt() throws RecognitionException, TokenStreamException {
 	String parms[] = { "i", "s" };//$NON-NLS-1$//$NON-NLS-2$
 	String parmVals[] = { "6", "t2" };//$NON-NLS-1$//$NON-NLS-2$
 	UUID strId = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "string");//93//$NON-NLS-1$
 	invocationRvalTest("", "x", "test6( i: 6, s: \"t2\" );", "test6", strId, parms, parmVals, 1, 4, 0, 1, 0);//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$//$NON-NLS-4$
 }
-public void testInvocationRetStringParmStringIntOtherOrder() throws RecognitionException, TokenStreamException {
+@Test
+	public void testInvocationRetStringParmStringIntOtherOrder() throws RecognitionException, TokenStreamException {
 	String parms[] = { "s", "i" };//$NON-NLS-1$//$NON-NLS-2$
 	String parmVals[] = { "t3", "7" };//$NON-NLS-1$//$NON-NLS-2$
 	UUID strId = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "string");//93//$NON-NLS-1$
 	invocationRvalTest("", "x", "test6( s: \"t3\", i: 7  );", "test6", strId, parms, parmVals, 1, 4, 1, 0, 0);//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$//$NON-NLS-4$
 }
-public void testInvocationRetBooleanParmRealStringInt() throws RecognitionException, TokenStreamException {
+@Test
+	public void testInvocationRetBooleanParmRealStringInt() throws RecognitionException, TokenStreamException {
 	String parms[] = { "r", "s", "i" };//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
 	String parmVals[] = { "2.1718", "t3", "7" };//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
 	UUID boolId = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "boolean");//90//$NON-NLS-1$
@@ -423,7 +437,8 @@ public void testInvocationRetBooleanParmRealStringInt() throws RecognitionExcept
 		1,
 		0);
 }
-public void testInvocationRetBooleanParmRealStringIntReverseOrder()
+@Test
+	public void testInvocationRetBooleanParmRealStringIntReverseOrder()
 	throws RecognitionException, TokenStreamException {
 	String parms[] = { "i", "s", "r" };//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
 	String parmVals[] = { "7", "t3", "2.1718" };//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
@@ -442,7 +457,8 @@ public void testInvocationRetBooleanParmRealStringIntReverseOrder()
 		1,
 		2);
 }
-public void testInvocationRetBooleanParmRealStringIntBadSecond()
+@Test
+	public void testInvocationRetBooleanParmRealStringIntBadSecond()
 throws RecognitionException, TokenStreamException {
 	String act = "test7( i: 7, s: x.s, r: 2.1718 );"; //$NON-NLS-1$
 	String err_msgs[] =
@@ -459,7 +475,8 @@ throws RecognitionException, TokenStreamException {
 	int num_stmts[] = { 1, 1, 1, 1, 1, 1, 1, 1, 2 };
 	invocationRvalErrorTest("select any x from instances of D_TST;\n", "t", act, err_msgs, num_stmts, 2);//$NON-NLS-1$//$NON-NLS-2$
 }
-public void testInvocationAttrWriteInt() throws RecognitionException, TokenStreamException {
+@Test
+	public void testInvocationAttrWriteInt() throws RecognitionException, TokenStreamException {
 	String parms[] = {
 	};
 	String parmVals[] = {
@@ -536,7 +553,8 @@ private void invocationRvalErrorTest(
 		assertEquals(0, tfr.length);
 	}
 }
-public void testInvocationRetVoidNoParmsWithParm() throws RecognitionException, TokenStreamException {
+@Test
+	public void testInvocationRetVoidNoParmsWithParm() throws RecognitionException, TokenStreamException {
 	String act = "test1( x: true );"; //$NON-NLS-1$
 	String err_msgs[] =
 		{
@@ -550,7 +568,8 @@ public void testInvocationRetVoidNoParmsWithParm() throws RecognitionException, 
 	int[] numStmts = { 0, 0, 0, 1, 1, 1, 1 };
 	invocationErrorTest(act, err_msgs, 0, 1, "", "", numStmts);//$NON-NLS-1$//$NON-NLS-2$
 }
-public void testInvocationRetVoidParmIntWithoutParm() throws RecognitionException, TokenStreamException {
+@Test
+	public void testInvocationRetVoidParmIntWithoutParm() throws RecognitionException, TokenStreamException {
 	String act = "test2();"; //$NON-NLS-1$
 	String err_msgs[] =
 		{
@@ -564,7 +583,8 @@ public void testInvocationRetVoidParmIntWithoutParm() throws RecognitionExceptio
 	int[] numStmts = { 0, 0, 0, 1, 1, 1, 1 };
 	invocationErrorTest(act, err_msgs, 0, 2, "expecting Semicolon, found 'null'", "", numStmts);//$NON-NLS-1$//$NON-NLS-2$
 }
-public void testInvocationRetVoidParmIntUnknownParm() throws RecognitionException, TokenStreamException {
+@Test
+	public void testInvocationRetVoidParmIntUnknownParm() throws RecognitionException, TokenStreamException {
 	String act = "test2( i: x );"; //$NON-NLS-1$
 	String err_msgs[] =
 		{
@@ -585,7 +605,8 @@ public void testInvocationRetVoidParmIntUnknownParm() throws RecognitionExceptio
 		"expecting Semicolon, found 'null'",//$NON-NLS-1$
 		numStmts);
 }
-public void testInvocationRetVoidParmIntStringSecondUnknownParm()
+@Test
+	public void testInvocationRetVoidParmIntStringSecondUnknownParm()
 	throws RecognitionException, TokenStreamException {
 	String act = "test3( i: 7, s: z );"; //$NON-NLS-1$
 	String err_msgs[] =
@@ -607,7 +628,8 @@ public void testInvocationRetVoidParmIntStringSecondUnknownParm()
 		"expecting Semicolon, found 'null'",//$NON-NLS-1$
 		numStmts);
 }
-public void testInvocationRetVoidParmIntExtraParm() throws RecognitionException, TokenStreamException {
+@Test
+	public void testInvocationRetVoidParmIntExtraParm() throws RecognitionException, TokenStreamException {
 	String act = "test2( i: 2, r: 3.14  );"; //$NON-NLS-1$
 	String err_msgs[] =
 		{
@@ -621,7 +643,8 @@ public void testInvocationRetVoidParmIntExtraParm() throws RecognitionException,
 	int[] numStmts = { 0, 0, 0, 1, 1, 1, 1 };
 	invocationErrorTest(act, err_msgs, 1, 1, "", "", numStmts);//$NON-NLS-1$//$NON-NLS-2$
 }
-public void testInvocationRetVoidParmIntDupParm() throws RecognitionException, TokenStreamException {
+@Test
+	public void testInvocationRetVoidParmIntDupParm() throws RecognitionException, TokenStreamException {
 	String act = "test2( i: 2, i: 1 );"; //$NON-NLS-1$
 	String err_msgs[] =
 		{
@@ -635,7 +658,8 @@ public void testInvocationRetVoidParmIntDupParm() throws RecognitionException, T
 	int[] numStmts = { 0, 0, 0, 1, 1, 1, 1 };
 	invocationErrorTest(act, err_msgs, 0, 2, "expecting Semicolon, found 'null'", "", numStmts);//$NON-NLS-1$//$NON-NLS-2$
 }
-public void testInvocationRetVoidParmIntExtraParmDiffOrder() throws RecognitionException, TokenStreamException {
+@Test
+	public void testInvocationRetVoidParmIntExtraParmDiffOrder() throws RecognitionException, TokenStreamException {
 	String act = "test2( r: 3.14, i:2   );"; //$NON-NLS-1$
 	String err_msgs[] =
 		{
@@ -649,7 +673,8 @@ public void testInvocationRetVoidParmIntExtraParmDiffOrder() throws RecognitionE
 	int[] numStmts = { 0, 0, 0, 1, 1, 1, 1 };
 	invocationErrorTest(act, err_msgs, 0, 1, "", "", numStmts);//$NON-NLS-1$//$NON-NLS-2$
 }
-public void testInvocationRetVoidParmIntWrongType() throws RecognitionException, TokenStreamException {
+@Test
+	public void testInvocationRetVoidParmIntWrongType() throws RecognitionException, TokenStreamException {
 	String act = "test2( i:true );"; //$NON-NLS-1$
 	String err_msgs[] =
 		{
@@ -663,7 +688,8 @@ public void testInvocationRetVoidParmIntWrongType() throws RecognitionException,
 	int[] numStmts = { 0, 0, 0, 1, 1, 1, 1 };
 	invocationErrorTest(act, err_msgs, 0, 2, "expecting Semicolon, found 'null'", "", numStmts);//$NON-NLS-1$//$NON-NLS-2$
 }
-public void testInvocationRetVoidParmIntStringWrongType() throws RecognitionException, TokenStreamException {
+@Test
+	public void testInvocationRetVoidParmIntStringWrongType() throws RecognitionException, TokenStreamException {
 	String act = "test3( i: 7, s:true );"; //$NON-NLS-1$
 	String err_msgs[] =
 		{
@@ -677,7 +703,8 @@ public void testInvocationRetVoidParmIntStringWrongType() throws RecognitionExce
 	int[] numStmts = { 0, 0, 0, 1, 1, 1, 1 };
 	invocationErrorTest(act, err_msgs, 0, 2, "expecting Semicolon, found 'null'", "", numStmts);//$NON-NLS-1$//$NON-NLS-2$
 }
-public void testInvocationRetVoidParmIntStringWrongTypeDiffOrder()
+@Test
+	public void testInvocationRetVoidParmIntStringWrongTypeDiffOrder()
 	throws RecognitionException, TokenStreamException {
 	String act = "test3( s:true, i:7 );"; //$NON-NLS-1$
 	String err_msgs[] =
@@ -692,7 +719,8 @@ public void testInvocationRetVoidParmIntStringWrongTypeDiffOrder()
 	int[] numStmts = { 0, 0, 0, 1, 1, 1, 1 };
 	invocationErrorTest(act, err_msgs, 0, 2, "expecting Semicolon, found 'null'", "", numStmts);//$NON-NLS-1$//$NON-NLS-2$
 }
-public void testInvocationRetVoidNoParmUnknown() throws RecognitionException, TokenStreamException {
+@Test
+	public void testInvocationRetVoidNoParmUnknown() throws RecognitionException, TokenStreamException {
 	String act = "bad1();"; //$NON-NLS-1$
 	String err_msgs[] =
 		{
@@ -706,7 +734,8 @@ public void testInvocationRetVoidNoParmUnknown() throws RecognitionException, To
 	int[] numStmts = { 0, 0, 0, 1, 1, 1, 1 };
 	invocationErrorTest(act, err_msgs, 0, 2, "expecting Semicolon, found ')'", "", numStmts);//$NON-NLS-1$//$NON-NLS-2$
 }
-public void testInvocationRetVoidNoParmMult() throws RecognitionException, TokenStreamException {
+@Test
+	public void testInvocationRetVoidNoParmMult() throws RecognitionException, TokenStreamException {
 	String act = "mult_func1();"; //$NON-NLS-1$
 	String err_msgs[] =
 		{
@@ -720,7 +749,8 @@ public void testInvocationRetVoidNoParmMult() throws RecognitionException, Token
 	int[] numStmts = { 0, 0, 0, 1, 1, 1, 1 };
 	invocationErrorTest(act, err_msgs, 0, 2, "expecting Semicolon, found ')'", "", numStmts);//$NON-NLS-1$//$NON-NLS-2$
 }
-public void testInvocationRetRealNoParmUnknown() throws RecognitionException, TokenStreamException {
+@Test
+	public void testInvocationRetRealNoParmUnknown() throws RecognitionException, TokenStreamException {
 	String act = "bad2();"; //$NON-NLS-1$
 	String err_msgs[] =
 		{
@@ -736,7 +766,8 @@ public void testInvocationRetRealNoParmUnknown() throws RecognitionException, To
 	int num_stmts[] = { 1, 0, 0, 0, 0, 0, 0, 0, 1 };
 	invocationRvalErrorTest("", "x", act, err_msgs, num_stmts, 1);//$NON-NLS-1$//$NON-NLS-2$
 }
-public void testInvocationRetRealNoParmMult() throws RecognitionException, TokenStreamException {
+@Test
+	public void testInvocationRetRealNoParmMult() throws RecognitionException, TokenStreamException {
 	String act = "mult_func2();"; //$NON-NLS-1$
 	String err_msgs[] =
 		{
@@ -752,7 +783,8 @@ public void testInvocationRetRealNoParmMult() throws RecognitionException, Token
 	int num_stmts[] = { 1, 0, 0, 0, 0, 0, 0, 0, 1 };
 	invocationRvalErrorTest("", "x", act, err_msgs, num_stmts, 1);//$NON-NLS-1$//$NON-NLS-2$
 }
-public void testInvocationRetVoidDupParms() throws RecognitionException, TokenStreamException {
+@Test
+	public void testInvocationRetVoidDupParms() throws RecognitionException, TokenStreamException {
 	String act = "mult_parms( a: 7 );"; //$NON-NLS-1$
 	String err_msgs[] =
 		{
@@ -768,7 +800,8 @@ public void testInvocationRetVoidDupParms() throws RecognitionException, TokenSt
 	int num_stmts[] = { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
 	invocationRvalErrorTest("", "x", act, err_msgs, num_stmts, 1);//$NON-NLS-1$//$NON-NLS-2$
 }
-public void testInvocationRetVoidNoParmsAsRval() throws RecognitionException, TokenStreamException {
+@Test
+	public void testInvocationRetVoidNoParmsAsRval() throws RecognitionException, TokenStreamException {
 	String act = "test1();"; //$NON-NLS-1$
 	String err_msgs[] =
 		{
@@ -784,7 +817,8 @@ public void testInvocationRetVoidNoParmsAsRval() throws RecognitionException, To
 	int num_stmts[] = { 0, 1, 1, 0, 0, 0, 0, 0, 1 };
 	invocationRvalErrorTest("", "x", act, err_msgs, num_stmts, 1);//$NON-NLS-1$//$NON-NLS-2$
 }
-public void testInvocationRetVoidParmIntAsRval() throws RecognitionException, TokenStreamException {
+@Test
+	public void testInvocationRetVoidParmIntAsRval() throws RecognitionException, TokenStreamException {
 	String act = "test2( i: 2 );"; //$NON-NLS-1$
 	String err_msgs[] =
 		{
@@ -800,7 +834,8 @@ public void testInvocationRetVoidParmIntAsRval() throws RecognitionException, To
 	int num_stmts[] = { 0, 1, 1, 0, 0, 0, 0, 0, 1 };
 	invocationRvalErrorTest("", "x", act, err_msgs, num_stmts, 1);//$NON-NLS-1$//$NON-NLS-2$
 }
-public void testInvocationRetVoidParmStringIntAsRval() throws RecognitionException, TokenStreamException {
+@Test
+	public void testInvocationRetVoidParmStringIntAsRval() throws RecognitionException, TokenStreamException {
 	String act = "test3( i: 2, s: \"t\" );"; //$NON-NLS-1$
 	String err_msgs[] =
 		{
@@ -816,7 +851,8 @@ public void testInvocationRetVoidParmStringIntAsRval() throws RecognitionExcepti
 	int num_stmts[] = { 0, 1, 1, 0, 0, 0, 0, 0, 1 };
 	invocationRvalErrorTest("", "x", act, err_msgs, num_stmts, 1);//$NON-NLS-1$//$NON-NLS-2$
 }
-public void testInvocationRetVoidParmStringIntOtherOrderAsRval()
+@Test
+	public void testInvocationRetVoidParmStringIntOtherOrderAsRval()
 	throws RecognitionException, TokenStreamException {
 	String act = "test3( s: \"u\", i: 3 );"; //$NON-NLS-1$
 	String err_msgs[] =
@@ -833,7 +869,8 @@ public void testInvocationRetVoidParmStringIntOtherOrderAsRval()
 	int num_stmts[] = { 0, 1, 1, 0, 0, 0, 0, 0, 1 };
 	invocationRvalErrorTest("", "x", act, err_msgs, num_stmts, 1);//$NON-NLS-1$//$NON-NLS-2$
 }
-public void testInvocationRetIntNoParmsAsVoid() throws RecognitionException, TokenStreamException {
+@Test
+	public void testInvocationRetIntNoParmsAsVoid() throws RecognitionException, TokenStreamException {
 	String act = "test4();"; //$NON-NLS-1$
 	String err_msgs[] =
 		{
@@ -847,7 +884,8 @@ public void testInvocationRetIntNoParmsAsVoid() throws RecognitionException, Tok
 	int[] numStmts = { 0, 1, 1, 1, 1, 1, 2 };
 	invocationErrorTest(act, err_msgs, 0, 2, "expecting Semicolon, found 'null'", "", numStmts);//$NON-NLS-1$//$NON-NLS-2$
 }
-public void testInvocationRetIntParmIntAsVoid() throws RecognitionException, TokenStreamException {
+@Test
+	public void testInvocationRetIntParmIntAsVoid() throws RecognitionException, TokenStreamException {
 	String act = "test5( i: 2 );"; //$NON-NLS-1$
 	String err_msgs[] =
 		{
@@ -861,7 +899,8 @@ public void testInvocationRetIntParmIntAsVoid() throws RecognitionException, Tok
 	int[] numStmts = { 0, 1, 1, 1, 1, 1, 2 };
 	invocationErrorTest(act, err_msgs, 0, 2, "expecting Semicolon, found 'null'", "", numStmts);//$NON-NLS-1$//$NON-NLS-2$
 }
-public void testInvocationRetStringParmStringIntAsVoid() throws RecognitionException, TokenStreamException {
+@Test
+	public void testInvocationRetStringParmStringIntAsVoid() throws RecognitionException, TokenStreamException {
 	String act = "test6( i: 6, s: \"t2\" );"; //$NON-NLS-1$
 	String err_msgs[] =
 		{
@@ -875,7 +914,8 @@ public void testInvocationRetStringParmStringIntAsVoid() throws RecognitionExcep
 	int[] numStmts = { 0, 1, 1, 1, 1, 1, 2 };
 	invocationErrorTest(act, err_msgs, 0, 2, "expecting Semicolon, found 'null'", "", numStmts);//$NON-NLS-1$//$NON-NLS-2$
 }
-public void testInvocationRetStringParmStringIntOtherOrderAsVoid()
+@Test
+	public void testInvocationRetStringParmStringIntOtherOrderAsVoid()
 	throws RecognitionException, TokenStreamException {
 	String act = "test6( s: \"t3\", i: 7 );"; //$NON-NLS-1$
 	String err_msgs[] =
@@ -890,7 +930,8 @@ public void testInvocationRetStringParmStringIntOtherOrderAsVoid()
 	int[] numStmts = { 0, 1, 1, 1, 1, 1, 2 };
 	invocationErrorTest(act, err_msgs, 0, 2, "expecting Semicolon, found 'null'", "", numStmts);//$NON-NLS-1$//$NON-NLS-2$
 }
-public void testInvocationRetIntNoParmTypeMismatch() throws RecognitionException, TokenStreamException {
+@Test
+	public void testInvocationRetIntNoParmTypeMismatch() throws RecognitionException, TokenStreamException {
 	String act = "test4();"; //$NON-NLS-1$
 	String err_msgs[] =
 		{
@@ -906,7 +947,8 @@ public void testInvocationRetIntNoParmTypeMismatch() throws RecognitionException
 	int num_stmts[] = { 1, 1, 1, 1, 1, 1, 1, 1, 2 };
 	invocationRvalErrorTest("x = \"x\"; ", "x", act, err_msgs, num_stmts, 3);//$NON-NLS-1$//$NON-NLS-2$
 }
-public void testInvocationRetIntParmIntTypeMismatch() throws RecognitionException, TokenStreamException {
+@Test
+	public void testInvocationRetIntParmIntTypeMismatch() throws RecognitionException, TokenStreamException {
 	String act = "test5( i: 2 );"; //$NON-NLS-1$
 	String err_msgs[] =
 		{
@@ -922,7 +964,8 @@ public void testInvocationRetIntParmIntTypeMismatch() throws RecognitionExceptio
 	int num_stmts[] = { 1, 1, 1, 1, 1, 1, 1, 1, 2 };
 	invocationRvalErrorTest("x = \"x\"; ", "x", act, err_msgs, num_stmts, 3);//$NON-NLS-1$//$NON-NLS-2$
 }
-public void testInvocationRetStringParmStringIntTypeMismatch() throws RecognitionException, TokenStreamException {
+@Test
+	public void testInvocationRetStringParmStringIntTypeMismatch() throws RecognitionException, TokenStreamException {
 	String act = "test6( i: 6, s: \"t2\" );"; //$NON-NLS-1$
 	String err_msgs[] =
 		{
@@ -938,7 +981,8 @@ public void testInvocationRetStringParmStringIntTypeMismatch() throws Recognitio
 	int num_stmts[] = { 1, 1, 1, 1, 1, 1, 1, 1, 2 };
 	invocationRvalErrorTest("x = 22; ", "x", act, err_msgs, num_stmts, 3);//$NON-NLS-1$//$NON-NLS-2$
 }
-public void testInvocationRetStringParmStringIntOtherOrderTypeMismatch()
+@Test
+	public void testInvocationRetStringParmStringIntOtherOrderTypeMismatch()
 	throws RecognitionException, TokenStreamException {
 	String act = "test6( s: \"t3\", i: 7 );"; //$NON-NLS-1$
 	String err_msgs[] =
@@ -956,7 +1000,8 @@ public void testInvocationRetStringParmStringIntOtherOrderTypeMismatch()
 	int num_stmts[] = { 1, 1, 1, 1, 1, 1, 1, 1, 2 };
 	invocationRvalErrorTest("x = true; ", "x", act, err_msgs, num_stmts, 3);//$NON-NLS-1$//$NON-NLS-2$
 }
-public void testMissingBridgeWithExistingOperation() throws RecognitionException, TokenStreamException {
+@Test
+	public void testMissingBridgeWithExistingOperation() throws RecognitionException, TokenStreamException {
 	String act = "T::noSuchBrg();"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	String lines[] = x.split("\n");//$NON-NLS-1$
@@ -967,7 +1012,8 @@ public void testMissingBridgeWithExistingOperation() throws RecognitionException
 	BridgeInvocation_c[] brg = BridgeInvocation_c.BridgeInvocationInstances(OalParserTest_Generics.modelRoot);
 	assertEquals(0, brg.length);
 }
-public void testMissingOperationWithExistingBridge() throws RecognitionException, TokenStreamException {
+@Test
+	public void testMissingOperationWithExistingBridge() throws RecognitionException, TokenStreamException {
 	String act = "D_D::noSuchOp();"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	String lines[] = x.split("\n");//$NON-NLS-1$
@@ -978,7 +1024,8 @@ public void testMissingOperationWithExistingBridge() throws RecognitionException
 	OperationInvocation_c[] tfr = OperationInvocation_c.OperationInvocationInstances(OalParserTest_Generics.modelRoot);
 	assertEquals(0, tfr.length);
 }
-public void testIBOperationWithCBSyntax() throws RecognitionException, TokenStreamException {
+@Test
+	public void testIBOperationWithCBSyntax() throws RecognitionException, TokenStreamException {
 	String act = "D_H::test1();"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	String lines[] = x.split("\n");//$NON-NLS-1$
@@ -989,7 +1036,8 @@ public void testIBOperationWithCBSyntax() throws RecognitionException, TokenStre
 	OperationInvocation_c[] tfr = OperationInvocation_c.OperationInvocationInstances(OalParserTest_Generics.modelRoot);
 	assertEquals(0, tfr.length);
 }
-public void testRvalIBOperationWithCBSyntax() throws RecognitionException, TokenStreamException {
+@Test
+	public void testRvalIBOperationWithCBSyntax() throws RecognitionException, TokenStreamException {
 	String act = "x = D_H::test4();"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	String lines[] = x.split("\n");//$NON-NLS-1$
@@ -1000,7 +1048,8 @@ public void testRvalIBOperationWithCBSyntax() throws RecognitionException, Token
 	OperationInvocation_c[] tfr = OperationInvocation_c.OperationInvocationInstances(OalParserTest_Generics.modelRoot);
 	assertEquals(0, tfr.length);
 }
-public void testCBOperationWithIBSyntax() throws RecognitionException, TokenStreamException {
+@Test
+	public void testCBOperationWithIBSyntax() throws RecognitionException, TokenStreamException {
 	String act = "select any d from instances of D_D;  d.test1();"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	String lines[] = x.split("\n");//$NON-NLS-1$
@@ -1011,7 +1060,8 @@ public void testCBOperationWithIBSyntax() throws RecognitionException, TokenStre
 	OperationInvocation_c[] tfr = OperationInvocation_c.OperationInvocationInstances(OalParserTest_Generics.modelRoot);
 	assertEquals(0, tfr.length);
 }
-public void testRvalCBOperationWithIBSyntax() throws RecognitionException, TokenStreamException {
+@Test
+	public void testRvalCBOperationWithIBSyntax() throws RecognitionException, TokenStreamException {
 	String act = "select any d from instances of D_D;  x = d.test4();"; //$NON-NLS-1$
 	String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	String lines[] = x.split("\n");//$NON-NLS-1$
@@ -1167,39 +1217,48 @@ private void paramErrorTestwithNonStdAssignmentPattern(
 		OalParserTest_Generics.clearActionData(i, funcNum);
 	}
 }
-public void testReadByValParam() throws RecognitionException, TokenStreamException {
+@Test
+	public void testReadByValParam() throws RecognitionException, TokenStreamException {
 	String parmList[] = { "i" };//$NON-NLS-1$
 	paramRvalTest("if ( param.i == 1) end if;", OalParserTest_Generics.PARAM_VAL, parmList); //$NON-NLS-1$
 }
-public void testReadByRefParam() throws RecognitionException, TokenStreamException {
+@Test
+	public void testReadByRefParam() throws RecognitionException, TokenStreamException {
 	String parmList[] = { "s" };//$NON-NLS-1$
 	paramRvalTest("x = param.s;", OalParserTest_Generics.PARAM_REF, parmList); //$NON-NLS-1$
 }
-public void testRead2ByValParam() throws RecognitionException, TokenStreamException {
+@Test
+	public void testRead2ByValParam() throws RecognitionException, TokenStreamException {
 	String parmList[] = { "i", "b" };//$NON-NLS-1$//$NON-NLS-2$
 	paramRvalTest("x = param.i; y = param.b;", OalParserTest_Generics.PARAM_VAL_VAL, parmList); //$NON-NLS-1$
 }
-public void testReadByRefByValParam() throws RecognitionException, TokenStreamException {
+@Test
+	public void testReadByRefByValParam() throws RecognitionException, TokenStreamException {
 	String parmList[] = { "r", "i" };//$NON-NLS-1$//$NON-NLS-2$
 	paramRvalTest("x = param.r; y = param.i;", OalParserTest_Generics.PARAM_VAL_REF, parmList); //$NON-NLS-1$
 }
-public void testRead2ByRefParam() throws RecognitionException, TokenStreamException {
+@Test
+	public void testRead2ByRefParam() throws RecognitionException, TokenStreamException {
 	String parmList[] = { "s", "r" };//$NON-NLS-1$//$NON-NLS-2$
 	paramRvalTest("x = param.s; y = param.r;", OalParserTest_Generics.PARAM_REF_REF, parmList); //$NON-NLS-1$
 }
-public void testWriteByRefParam() throws RecognitionException, TokenStreamException {
+@Test
+	public void testWriteByRefParam() throws RecognitionException, TokenStreamException {
 	String parmList[] = { "s" };//$NON-NLS-1$
 	paramWriteTest("param.s = \"test\";", OalParserTest_Generics.PARAM_REF, parmList); //$NON-NLS-1$
 }
-public void testWriteByRefParamWithUnderscores() throws RecognitionException, TokenStreamException {
+@Test
+	public void testWriteByRefParamWithUnderscores() throws RecognitionException, TokenStreamException {
 	String parmList[] = { "_ref" };//$NON-NLS-1$
 	paramWriteTest("param._ref = 1;", OalParserTest_Generics._TEST_REF, parmList); //$NON-NLS-1$
 }
-public void testWrite2ByRefParam() throws RecognitionException, TokenStreamException {
+@Test
+	public void testWrite2ByRefParam() throws RecognitionException, TokenStreamException {
 	String parmList[] = { "s", "r" };//$NON-NLS-1$//$NON-NLS-2$
 	paramWriteTest("param.s = \"test\"; param.r = 2.2;", OalParserTest_Generics.PARAM_REF_REF, parmList); //$NON-NLS-1$
 }
-public void testInvocationPassVarToByRef() throws RecognitionException, TokenStreamException {
+@Test
+	public void testInvocationPassVarToByRef() throws RecognitionException, TokenStreamException {
 	String act = "paramRef(s: x);"; //$NON-NLS-1$
 	for (int i = 0; i < m_invocation_prefix.length; ++i) {
 		String x =
@@ -1207,7 +1266,8 @@ public void testInvocationPassVarToByRef() throws RecognitionException, TokenStr
 		assertEquals("", x);//$NON-NLS-1$
 	}
 }
-public void testInvocationPassVarToByRefWithUnderscores() throws RecognitionException, TokenStreamException {
+@Test
+	public void testInvocationPassVarToByRefWithUnderscores() throws RecognitionException, TokenStreamException {
 	String act = "_testRef(_ref: x);"; //$NON-NLS-1$
 	for (int i = 0; i < m_invocation_prefix.length; ++i) {
 		String x =
@@ -1215,7 +1275,8 @@ public void testInvocationPassVarToByRefWithUnderscores() throws RecognitionExce
 		assertEquals("", x);//$NON-NLS-1$
 	}
 }
-public void testInvocationPassVarToByRefWithUnderscoresInParm() throws RecognitionException, TokenStreamException {
+@Test
+	public void testInvocationPassVarToByRefWithUnderscoresInParm() throws RecognitionException, TokenStreamException {
 	String act = "_testRef(_ref: _x);"; //$NON-NLS-1$
 	for (int i = 0; i < m_invocation_prefix.length; ++i) {
 		String x =
@@ -1223,7 +1284,8 @@ public void testInvocationPassVarToByRefWithUnderscoresInParm() throws Recogniti
 		assertEquals("", x);//$NON-NLS-1$
 	}
 }
-public void testInvocationPassAttributeToByRef() throws RecognitionException, TokenStreamException {
+@Test
+	public void testInvocationPassAttributeToByRef() throws RecognitionException, TokenStreamException {
 	String act = "paramRef(s: d.string_attr);"; //$NON-NLS-1$
 	for (int i = 0; i < m_invocation_prefix.length; ++i) {
 		String x =
@@ -1234,7 +1296,8 @@ public void testInvocationPassAttributeToByRef() throws RecognitionException, To
 		assertEquals("", x);//$NON-NLS-1$
 	}
 }
-public void testInvocationPassByRefToByRef() throws RecognitionException, TokenStreamException {
+@Test
+	public void testInvocationPassByRefToByRef() throws RecognitionException, TokenStreamException {
 	String act = "paramRef(s: param.s);"; //$NON-NLS-1$
 	for (int op_type = OalParserTest_Generics.ACTIVITY_TYPE_FUNC; op_type <= OalParserTest_Generics.ACTIVITY_TYPE_IB_OP; ++op_type) {
 		for (int i = 0; i < m_invocation_prefix.length; ++i) {
@@ -1248,7 +1311,8 @@ public void testInvocationPassByRefToByRef() throws RecognitionException, TokenS
 		}
 	}
 }
-public void testInvocationPassR2I() throws RecognitionException, TokenStreamException {
+@Test
+	public void testInvocationPassR2I() throws RecognitionException, TokenStreamException {
     // Make sure the prefs are set to catch this error
     IPreferenceStore store = CorePlugin.getDefault().getPreferenceStore();
     String i2rp = store.getString(BridgePointPreferencesStore.ALLOW_INT_TO_REAL_PROMOTION);
@@ -1266,7 +1330,8 @@ public void testInvocationPassR2I() throws RecognitionException, TokenStreamExce
     store.setValue(BridgePointPreferencesStore.ALLOW_INT_TO_REAL_PROMOTION, i2rp);
     store.setValue(BridgePointPreferencesStore.ALLOW_REAL_TO_INT_COERCION, r2ic);
 }
-public void testInvocationPassI2R() throws RecognitionException, TokenStreamException {
+@Test
+	public void testInvocationPassI2R() throws RecognitionException, TokenStreamException {
     // Make sure the prefs are set to catch this error
     IPreferenceStore store = CorePlugin.getDefault().getPreferenceStore();
     String i2rp = store.getString(BridgePointPreferencesStore.ALLOW_INT_TO_REAL_PROMOTION);
@@ -1285,7 +1350,8 @@ public void testInvocationPassI2R() throws RecognitionException, TokenStreamExce
     store.setValue(BridgePointPreferencesStore.ALLOW_INT_TO_REAL_PROMOTION, i2rp);
     store.setValue(BridgePointPreferencesStore.ALLOW_REAL_TO_INT_COERCION, r2ic);
 }
-public void testInvocationBridgeAsParm() throws RecognitionException, TokenStreamException {
+@Test
+	public void testInvocationBridgeAsParm() throws RecognitionException, TokenStreamException {
 	String act = "paramValVal( i: T::test4(), b: T::test7(i:1, s:\"\", r:0.0) );"; //$NON-NLS-1$
 	for (int i = 0; i < m_invocation_prefix.length; ++i) {
 		String x = OalParserTest_Generics.parseAction(m_invocation_prefix[i] + act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);//$NON-NLS-1$
@@ -1293,13 +1359,15 @@ public void testInvocationBridgeAsParm() throws RecognitionException, TokenStrea
 	}
 	OalParserTest_Generics.clearActionData(OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 }
-public void testInvocationBridgeWithUnderscores() throws RecognitionException, TokenStreamException {
+@Test
+	public void testInvocationBridgeWithUnderscores() throws RecognitionException, TokenStreamException {
 	String act = "_T::_test(_parm: 1);"; //$NON-NLS-1$
     String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	assertEquals("", x);//$NON-NLS-1$
 	OalParserTest_Generics.clearActionData(OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 }
-public void testReadNoSuchParam() throws RecognitionException, TokenStreamException {
+@Test
+	public void testReadNoSuchParam() throws RecognitionException, TokenStreamException {
 	String act = "x = param.s;"; //$NON-NLS-1$
 	String err_msgs[] =
 		{
@@ -1320,7 +1388,8 @@ public void testReadNoSuchParam() throws RecognitionException, TokenStreamExcept
 		"expecting Semicolon, found 'null'",//$NON-NLS-1$
 		numStmts);
 }
-public void testWriteNoSuchParam() throws RecognitionException, TokenStreamException {
+@Test
+	public void testWriteNoSuchParam() throws RecognitionException, TokenStreamException {
 	String act = "param.s = \"bad\";"; //$NON-NLS-1$
 	String err_msgs[] =
 		{
@@ -1341,7 +1410,8 @@ public void testWriteNoSuchParam() throws RecognitionException, TokenStreamExcep
 		"expecting Semicolon, found 'null'",//$NON-NLS-1$
 		numStmts);
 }
-public void testWriteByValParam() throws RecognitionException, TokenStreamException {
+@Test
+	public void testWriteByValParam() throws RecognitionException, TokenStreamException {
 	String act = "param.i = 1;"; //$NON-NLS-1$
 	String err_msgs[] =
 		{
@@ -1362,7 +1432,8 @@ public void testWriteByValParam() throws RecognitionException, TokenStreamExcept
 		"expecting Semicolon, found 'null'",//$NON-NLS-1$
 		numStmts);
 }
-public void testWriteByValParamMultParms() throws RecognitionException, TokenStreamException {
+@Test
+	public void testWriteByValParamMultParms() throws RecognitionException, TokenStreamException {
 	String act = "param.i = 1;"; //$NON-NLS-1$
 	String err_msgs[] =
 		{
@@ -1383,7 +1454,8 @@ public void testWriteByValParamMultParms() throws RecognitionException, TokenStr
 		"expecting Semicolon, found 'null'",//$NON-NLS-1$
 		numStmts);
 }
-public void testWriteByValParamWrongType() throws RecognitionException, TokenStreamException {
+@Test
+	public void testWriteByValParamWrongType() throws RecognitionException, TokenStreamException {
 	String act = "param.i = 2.1;"; //$NON-NLS-1$
 	String err_msgs[] =
 		{
@@ -1404,7 +1476,8 @@ public void testWriteByValParamWrongType() throws RecognitionException, TokenStr
 		"expecting Semicolon, found 'null'",//$NON-NLS-1$
 		numStmts);
 }
-public void testWriteByValParamWrongTypeMultParms() throws RecognitionException, TokenStreamException {
+@Test
+	public void testWriteByValParamWrongTypeMultParms() throws RecognitionException, TokenStreamException {
 	String act = "param.i = 2.1;"; //$NON-NLS-1$
 	String err_msgs[] =
 		{
@@ -1425,7 +1498,8 @@ public void testWriteByValParamWrongTypeMultParms() throws RecognitionException,
 		"expecting Semicolon, found 'null'",//$NON-NLS-1$
 		numStmts);
 }
-public void testReadByValParamWrongType() throws RecognitionException, TokenStreamException {
+@Test
+	public void testReadByValParamWrongType() throws RecognitionException, TokenStreamException {
 	String act = "x = true; x = param.i;"; //$NON-NLS-1$
 	String err_msgs[] =
 		{
@@ -1437,7 +1511,8 @@ public void testReadByValParamWrongType() throws RecognitionException, TokenStre
 	int[] numStmts = { 1, 1, 1, 1, 1 };
 	paramErrorTestwithNonStdAssignmentPattern(act, OalParserTest_Generics.PARAM_VAL, err_msgs, 3, 2, 0, 1, "expecting Semicolon, found 'null'", "", numStmts);//$NON-NLS-1$//$NON-NLS-2$
 }
-public void testReadByValParamWrongTypeMultParms() throws RecognitionException, TokenStreamException {
+@Test
+	public void testReadByValParamWrongTypeMultParms() throws RecognitionException, TokenStreamException {
 	String act = "x = true; x = param.i;"; //$NON-NLS-1$
 	String err_msgs[] =
 		{
@@ -1449,7 +1524,8 @@ public void testReadByValParamWrongTypeMultParms() throws RecognitionException, 
 	int[] numStmts = { 1, 1, 1, 1, 1 };
 	paramErrorTestwithNonStdAssignmentPattern(act, OalParserTest_Generics.PARAM_VAL_VAL, err_msgs, 3, 2, 0, 1, "expecting Semicolon, found 'null'", "", numStmts);//$NON-NLS-1$//$NON-NLS-2$
 }
-public void testReadByRefParamWrongType() throws RecognitionException, TokenStreamException {
+@Test
+	public void testReadByRefParamWrongType() throws RecognitionException, TokenStreamException {
 	String act = "x = 2.1; x = param.s;"; //$NON-NLS-1$
 	String err_msgs[] =
 		{
@@ -1461,7 +1537,8 @@ public void testReadByRefParamWrongType() throws RecognitionException, TokenStre
 	int[] numStmts = { 1, 1, 1, 1, 1 };
 	paramErrorTestwithNonStdAssignmentPattern(act, OalParserTest_Generics.PARAM_REF, err_msgs, 3, 2, 0, 1, "expecting Semicolon, found 'null'", "", numStmts);//$NON-NLS-1$//$NON-NLS-2$
 }
-public void testReadByRefParamWrongTypeMultParms() throws RecognitionException, TokenStreamException {
+@Test
+	public void testReadByRefParamWrongTypeMultParms() throws RecognitionException, TokenStreamException {
 	String act = "x = 2.1; x = param.s;"; //$NON-NLS-1$
 	String err_msgs[] =
 		{
@@ -1473,7 +1550,8 @@ public void testReadByRefParamWrongTypeMultParms() throws RecognitionException, 
 	int[] numStmts = { 1, 1, 1, 1, 1 };
 	paramErrorTestwithNonStdAssignmentPattern(act, OalParserTest_Generics.PARAM_REF_REF, err_msgs, 3, 2, 0, 1, "expecting Semicolon, found 'null'", "", numStmts);//$NON-NLS-1$//$NON-NLS-2$
 }
-public void testWriteByRefParamWrongType() throws RecognitionException, TokenStreamException {
+@Test
+	public void testWriteByRefParamWrongType() throws RecognitionException, TokenStreamException {
 	String act = "param.s = 1.1;"; //$NON-NLS-1$
 	String err_msgs[] =
 		{
@@ -1485,7 +1563,8 @@ public void testWriteByRefParamWrongType() throws RecognitionException, TokenStr
 	int[] numStmts = { 0, 0, 0, 0, 0 };
 	paramErrorTest(act, OalParserTest_Generics.PARAM_REF, err_msgs, 0, 2, 0, "expecting Semicolon, found 'null'", "", numStmts);//$NON-NLS-1$//$NON-NLS-2$
 }
-public void testInvocationPassLiteralToByRef() throws RecognitionException, TokenStreamException {
+@Test
+	public void testInvocationPassLiteralToByRef() throws RecognitionException, TokenStreamException {
 	String act = "paramRef(s: \"bad\");"; //$NON-NLS-1$
 	String err_msgs[] =
 		{
@@ -1499,7 +1578,8 @@ public void testInvocationPassLiteralToByRef() throws RecognitionException, Toke
 	int[] numStmts = { 0, 0, 0, 1, 1, 1, 1 };
 	invocationErrorTest(act, err_msgs, 0, 2, "expecting Semicolon, found 'null'", "", numStmts);//$NON-NLS-1$//$NON-NLS-2$
 }
-public void testInvocationPassExpressionToByRef() throws RecognitionException, TokenStreamException {
+@Test
+	public void testInvocationPassExpressionToByRef() throws RecognitionException, TokenStreamException {
 	String act = "paramRef(s: \"really \" + \"bad\" );"; //$NON-NLS-1$
 	String err_msgs[] =
 		{
@@ -1514,7 +1594,8 @@ public void testInvocationPassExpressionToByRef() throws RecognitionException, T
 	invocationErrorTest(act, err_msgs, 0, 2, "expecting Semicolon, found 'null'", "", numStmts);//$NON-NLS-1$//$NON-NLS-2$
 }
 
-public void tearDown() {
+@After
+	public void tearDown() {
 	try {
 	  OalParserTest_Generics.tearDownActionData();
 	}
