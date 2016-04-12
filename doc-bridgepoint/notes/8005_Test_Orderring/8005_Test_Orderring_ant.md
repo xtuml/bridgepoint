@@ -12,7 +12,7 @@ This work is licensed under the Creative Commons CC0 License
 1. Abstract
 -----------
 JUnit test methods execution order is modified since the migration to Eclipse 
-Mars. This causes many tests failure.
+`Mars. This causes many tests failure.
 This document describe how to restore the test methods execution order back to 
 avoid these failures. 
 
@@ -22,6 +22,7 @@ avoid these failures.
 <a id="2.2"></a>2.2 [How to Extend Runner Class](http://intellijava.blogspot.com.eg/2012/05/junit-and-java-7.html): A developer blog describe how to extend runner class to introduce new test method invocations order  
 <a id="2.3"></a>2.3 [Add new annotation to JUnit 4](http://blog.jiffle.net/post/41125006846/extending-junit-functionality-with-additional): An article that describes how to add new annotation to JUnit 4  
 <a id="2.4"></a>2.4  [JUnit 4 Test execution order](https://github.com/junit-team/junit/wiki/Test-execution-order): The available test method invocations order options in JUnit 4  
+<a id="2.5"></a>2.5  [Timeout for tests](https://github.com/junit-team/junit4/wiki/Timeout-for-tests): How to implement timout for JUnit 4  
 
 3. Background
 -------------
@@ -34,13 +35,13 @@ be performed in an arbitrary order. This new behavior causes number of tests
 failure, since our tests are not always independent on each others, so
 changing the invocation order causes failures.
 
-JUnit states that will-written test code would not assume any order, but it is 
+JUnit states that well-written test code would not assume any order, but it is 
 very hard to refactor our tests to resolve their dependencies.
 
 4. Requirements
 ---------------
 <a id="4.1"></a>4.1 JUnit test methods shall be invoked in the same order as they are written in
-	the source file.
+	the source file. New Junit Test may not 
 
 5. Analysis
 -----------
@@ -64,13 +65,13 @@ invocation order. These options are [[2.4]](#2.4):
 		JVM:  Leaves the test methods in the order returned by the JVM. This order may vary from run to run.  
 		Default:  a deterministic, but not predictable order, and it basically uses hashing to define the test invocation order.  
 	The Name Ascending option sounds suitable, but it has two down sides:  
-	- All test functions need to renamed to add a prefix that achieve the required test order (e.g. test_A1_foo(), Test_A2_goo(), etc).  
+	- All test functions need to renamed to add a prefix that achieve the required test order (e.g. test_A1_foo(), test_A2_goo(), etc).  
 	- Name Ascending order will execute test_A11_ before test_A2_ and it make it more uglier, and harder to rename the test methods
 	to achieve the required order.  
 
 <a id="5.3"></a>5.3 Using JUnit 4, and by extending the runner class (BlockJUnit4ClassRunner) [[2.2]](#2.2), and override computeTestMethods()
 	method, it is possible to define any test methods invocation order. Test Classes needs to be annotated with RunWith
-	to used the extended runner class.
+	to use the extended runner class.
 
 <a id="5.4"></a>5.4 Similar to [[5.3]](#5.3) , it is possible to add a new custom annotation (e.g. Order) [[2.3]](#2.3), and use it to determined the test 
 	invocation order, which increase the flexibility to change the order more easily.
@@ -98,6 +99,14 @@ The required work:
 class generator as well.  
 
 6.4 No changes are required for Test Suite classes.  
+
+6.5 modify all the places where "dotest" was added.  Roll back the "doTest" 
+    change in favor of the new annotations and ordering.  
+
+6.6 Modify Junit Plugin Test Launchers to use JUnit 4 instead of JUnit 3  
+
+6.7 JUnit 4 offers test timeout for time restriction test or skip hanging test,
+for more information about how to use [[2.5]](#2.5)
 
 7. Acceptance Test
 ------------------
