@@ -14,8 +14,9 @@ Present:  Keith,Levi,Bob
 <pre>
 
 -- Num Type  Who  Section  Comment
-_- 01  min   Bob  n/a      consider removing the metamodel project from the bp.welcome.test project at this time
-
+x- 01  min   Bob  n/a      consider removing the metamodel project from the bp.welcome.test project at this time
+           SKB: opened #8437
+           
 </pre>
    
 No major observations, a re-review is not required.
