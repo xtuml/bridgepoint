@@ -67,23 +67,29 @@ BridgePoint version.
 From:
 `<classpathentry kind="var" path="ECLIPSE_HOME/plugins/org.xtuml.bp.core_5.3.4/core.jar"/>`
 To:
-`<classpathentry kind="var" path="BP_CORE_HOME/core.jar"/>`  
+`<classpathentry kind="var" path="BP_CORE_HOME/core.jar"/>`   
 
-  
+5.5 There is one down-side to this approach.  When we launch BridgePoint from
+  a debug configuration, the BP_CORE_HOME variable resolves to the source code
+  path of `org.xtuml.bp.core` in the host environment.  Since the compiled 
+  source here is always class files and not a packaged JAR file, the end result
+  is that the classpath entry to `core.jar` does not resolve and must be 
+  manually fixed if the developer wishes to perform Java builds on GPS Watch 
+  inside the debug environment. Here is an example of the error:
+  ```Project 'GPS Watch' is missing required library: '/home/kbrown/git2/bridgepoint/src/org.xtuml.bp.core/core.jar' ``` 
+
+  Of course, due to the hardcoded version number, the path often had to be
+  updated by the developer in the same scenario under the old method, so this
+  is not an introduction of an error as much as it is simply a failure to fix
+  this scenario.  
+    
 6. Implementation Comments
 --------------------------
 
 7. Unit Test
 ------------
-7.1 Manual Test
-```
-- Launch BP application
-- Create GPS Watch
-- Verify no errors on classpath
-```
-
-7.2 Automated Test   
-7.2.1  Verify bp.welcome does not throw any classpath-related errors  
+7.1 Automated Test   
+7.1.1  Verify bp.welcome does not throw any classpath-related errors  
 
 8. User Documentation
 ---------------------
