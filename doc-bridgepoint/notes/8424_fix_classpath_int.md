@@ -18,6 +18,7 @@ BridgePoint version number into the classpath for the GPS Watch example project.
 ----------------------
 <a id="2.1"></a>2.1 [BridgePoint DEI #8424](https://support.onefact.net/issues/8424) - Headline issue  
 <a id="2.2"></a>2.2 [ANTLR plugin for Eclipse](http://antlreclipse.sourceforge.net/)  
+<a id="2.3"></a>2.3 [HOWTO Update the BP version number](../process/HOWTO-update-the-BP-version-number.md)
 
 3. Background
 -------------
@@ -52,7 +53,7 @@ BridgePoint version.
   inside the eclipse installation. This variable provides exactly the same 
   functionality we are looking for here.      
 
-5.2 Pulled the source code for antlreclipse [2] and grep'ed the code to see
+5.2 Pulled the source code for antlreclipse [2.2] and grep'ed the code to see
   how `ANTLR_HOME` is configured.  It is done programmatically when the plugins
   start.  There is some code that sets this classpath variable inside the Java
   core infrastructure of the current runtime.  
@@ -64,10 +65,10 @@ BridgePoint version.
   
 5.4 The `org.xtuml.bp.welcome/models/GPS Watch.zip/.classpath` file is modified
   to use this variable.  
-From:
-`<classpathentry kind="var" path="ECLIPSE_HOME/plugins/org.xtuml.bp.core_5.3.4/core.jar"/>`
-To:
-`<classpathentry kind="var" path="BP_CORE_HOME/core.jar"/>`   
+From:  
+`<classpathentry kind="var" path="ECLIPSE_HOME/plugins/org.xtuml.bp.core_5.3.4/core.jar"/>`  
+To:  
+`<classpathentry kind="var" path="BP_CORE_HOME/core.jar"/>`     
 
 5.5 There is one down-side to this approach.  When we launch BridgePoint from
   a debug configuration, the BP_CORE_HOME variable resolves to the source code
@@ -83,6 +84,13 @@ To:
   is not an introduction of an error as much as it is simply a failure to fix
   this scenario.  
     
+5.6 Update the models in the `models` and `modelsmg` repositories to use the 
+  new variable.  Look for `core.jar` references in `.classpath` files and update
+  them to the new line as in 5.4.  
+  
+5.7 Update the version bump HOWTO doc [2.3] to remove the instructions to update
+  `GPS Watch.zip` for the version number change.  
+  
 6. Implementation Comments
 --------------------------
 
@@ -96,11 +104,12 @@ To:
 
 9. Code Changes
 ---------------
-Repository:  bridgepoint
-Branch name: 8424_fix_classpath
+Repository:  bridgepoint  
+Branch name: 8424_fix_classpath  
 
 <pre>
 doc-bridgepoint/notes/8424_fix_classpath_int.md
+doc-bridgepoint/process/HOWTO-update-the-BP-version-number.md
 src/org.xtuml.bp.core/META-INF/MANIFEST.MF
 src/org.xtuml.bp.core/arc/create_core_plugin_class.arc
 src/org.xtuml.bp.welcome/models/GPS Watch.zip
@@ -108,8 +117,8 @@ src/org.xtuml.bp.welcome.test/src/org/xtuml/bp/welcome/test/WelcomePageTestMetam
 src/org.xtuml.bp.welcome.test/src/org/xtuml/bp/welcome/test/WelcomePageTest.java
 </pre>
 
-Repository:  models
-Branch name: 8424_fix_classpath
+Repository:  models  
+Branch name: 8424_fix_classpath  
 
 <pre>
 applications/Operational Theatre/.classpath
@@ -129,8 +138,8 @@ test/VerifierRealizedUDTTest/.classpath
 
 </pre>
 
-Repository:  modelsmg
-Branch name: 8424_fix_classpath
+Repository:  modelsmg  
+Branch name: 8424_fix_classpath  
 
 <pre>
 test/dts0100959004/.classpath
