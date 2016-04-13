@@ -39,8 +39,8 @@ import junit.framework.TestSuite;
 @Suite.SuiteClasses({
 	
 	GlobalTestSetupClass.class,
-//	WelcomePageTestGPS.class,
-//	WelcomePageTest.class,
+	WelcomePageTestGPS.class,
+	WelcomePageTest.class,
 	WelcomePageTestMetamodel.class,	
 })
 public class WelcomeTestSuite extends TestSuite {

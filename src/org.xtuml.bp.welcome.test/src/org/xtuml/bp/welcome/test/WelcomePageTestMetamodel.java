@@ -64,7 +64,7 @@ public class WelcomePageTestMetamodel extends TestCase {
 			"models/" + ProjectName + "/xtUML_Metamodel.xtuml", 
 			"models/" + ProjectName + "/ooaofooa/Activity/Activity.xtuml",
             "models/" + ProjectName + "/ooaofooa/Domain/Domain.xtuml",
-            "models/" + ProjectName + "/ooaofooa/Component/Component Nesting/Component Nesting.xtuml",
+            "models/" + ProjectName + "/ooaofooa/Component/Component Library/Component Library.xtuml",
             "models/" + ProjectName + "/ooaofooa/Value/Value.xtuml"};
 
 	private String[] expectedFiles = expectedXtUMLFiles;
