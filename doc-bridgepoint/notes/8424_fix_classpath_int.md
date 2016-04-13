@@ -98,6 +98,8 @@ doc-bridgepoint/notes/8424_fix_classpath_int.md
 src/org.xtuml.bp.core/META-INF/MANIFEST.MF
 src/org.xtuml.bp.core/arc/create_core_plugin_class.arc
 src/org.xtuml.bp.welcome/models/GPS Watch.zip
+src/org.xtuml.bp.welcome.test/src/org/xtuml/bp/welcome/test/WelcomePageTestMetamodel.java
+src/org.xtuml.bp.welcome.test/src/org/xtuml/bp/welcome/test/WelcomePageTest.java
 </pre>
 
 Repository:  models
