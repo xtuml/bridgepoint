@@ -1,0 +1,118 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>1.2. Blocks and Scopes</title>
+<link rel="stylesheet" type="text/css" href="docbook.css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<meta name="keywords" content="MASL, Action Language, Action Semantics, UML, Unified Modelling Language, Shlaer Mellor">
+<link rel="home" href="index.html" title="MASL Tutorial">
+<link rel="up" href="Types.html" title="Chapter 1. Types">
+<link rel="prev" href="TypesDeclarationsandAssignments.html" title="1.1. Declarations and Assignments">
+<link rel="next" href="TypesTypes.html" title="1.3. Types">
+<link rel="preface" href="preface.html" title="Preface">
+<link rel="chapter" href="Types.html" title="Chapter 1. Types">
+<link rel="chapter" href="ExecutionControl.html" title="Chapter 2. Execution Control">
+<link rel="chapter" href="CompositeTypes.html" title="Chapter 3. Composite Types">
+<link rel="chapter" href="Exceptions.html" title="Chapter 4. Exceptions">
+<link rel="chapter" href="ObjectsandRelationships.html" title="Chapter 5. Objects and Relationships">
+<link rel="chapter" href="Actions.html" title="Chapter 6. Actions">
+<link rel="chapter" href="DeviceIO.html" title="Chapter 7. Device Input/Output">
+<link rel="chapter" href="MASLExamples.html" title="Chapter 8. MASL Examples">
+<link rel="index" href="ix01.html" title="Index">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div align="center">UNCLASSIFIED</div>
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">1.2. Blocks and Scopes</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="TypesDeclarationsandAssignments.html">Prev</a> </td>
+<th width="60%" align="center">Chapter 1. Types</th>
+<td width="20%" align="right"> <a accesskey="n" href="TypesTypes.html">Next</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title">
+<a name="TypesBlocksandScope"></a>1.2. Blocks and Scopes</h2></div></div></div>
+<p><abbr class="abbrev">MASL</abbr> carefully distinguishes between declarations,
+    which introduce new identifiers, and statements that do not. It is clearly
+    only sensible that the declarations which introduce new identifiers should
+    precede the statements which manipulate them. Accordingly, declarations
+    and statements occur in separate places in the program text. The simplest
+    fragment of text, which includes declarations and statements, is a block.
+    A block commences with the reserved word declare, some declarations,
+    begin, some statements and concludes with the reserved word end and the
+    terminating semi-colon. A trivial example is: </p>
+<div class="informalexample"><pre class="programlisting">  declare
+    x : integer := 2;       // declarations here
+  begin
+    x := x + 63;            // statements here
+  end;</pre></div>
+<p>A block is itself an example of a statement and so one of the
+    statements in its body could be another block. This textual nesting of
+    blocks can continue indefinitely. Since a block is a statement it can be
+    executed like any other statement. When this happens the declarations in
+    its declarative part (the bit between the <code class="literal">declare</code> and
+    the <code class="literal">begin</code>) are elaborated in order and then the
+    statements in the body (between the <code class="literal">begin</code> and the
+    <code class="literal">end</code>) are executed in the usual way. Note the
+    terminology, we elaborate declarations and execute statements. All that
+    the elaboration of a declaration does is make the thing being declared
+    come into existence and then evaluate and assign any initial value to it.
+    When we come to the end of the block all the things, which were declared
+    in the block automatically, cease to exist.</p>
+<p>The scope determines both the visibility and lifetime of names
+    defined within that scope. For example:</p>
+<div class="informalexample"><pre class="programlisting">  declare
+    x : integer := 47;
+  begin
+    // only x available
+    declare
+      y : integer := 3;
+    begin
+      // both x and y available
+    end;
+    // only x available, y out of scope
+  end;</pre></div>
+<p>A variable declared within a scope is available only
+    to the end of that scope. Note that you can do the
+    following:</p>
+<div class="informalexample"><div class="literallayout"><p>  declare<br>
+    x : integer := 12;<br>
+  begin<br>
+    declare<br>
+      x : integer := 96;   // previous x hidden<br>
+    begin<br>
+<br>
+    end;<br>
+  end;</p></div></div>
+<p>The redeclaration of <code class="varname">x</code> in the inner
+    block is allowed, but this hides the previous declaration, contained in
+    the outer scope.</p>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="TypesDeclarationsandAssignments.html">Prev</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="Types.html">Up</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="TypesTypes.html">Next</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">1.1. Declarations and Assignments </td>
+<td width="20%" align="center">
+<a accesskey="h" href="index.html">Home</a> | <a accesskey="t" href="bk01-toc.html">ToC</a>
+</td>
+<td width="40%" align="right" valign="top"> 1.3. Types</td>
+</tr>
+</table>
+</div>
+<div align="center">UNCLASSIFIED</div>
+</body>
+</html>

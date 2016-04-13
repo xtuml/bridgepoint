@@ -14,12 +14,10 @@
 package org.xtuml.bp.core.test;
 
 import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.ui.PlatformUI;
-
-import org.xtuml.bp.core.CorePlugin;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.ModelClass_c;
-import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.common.ComponentResourceListener;
 import org.xtuml.bp.core.common.InstanceList;
@@ -27,28 +25,28 @@ import org.xtuml.bp.core.common.ModelRoot;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.common.PersistableModelComponent;
 import org.xtuml.bp.core.common.PersistenceManager;
-import org.xtuml.bp.test.TestUtil;
 import org.xtuml.bp.test.common.BaseTest;
-import org.xtuml.bp.test.common.TestingUtilities;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.ui.canvas.Connector_c;
 import org.xtuml.bp.ui.canvas.ElementInResize_c;
 import org.xtuml.bp.ui.canvas.FloatingText_c;
 import org.xtuml.bp.ui.canvas.GraphicalElement_c;
 import org.xtuml.bp.ui.canvas.LineSegment_c;
 import org.xtuml.bp.ui.canvas.Model_c;
-import org.xtuml.bp.ui.canvas.Ooaofgraphics;
 import org.xtuml.bp.ui.canvas.Shape_c;
 
+@RunWith(OrderedRunner.class)
 public class MultipleReloadGenerics extends BaseTest {
 
 	//private static final String projectName = "org.xtuml.bp.core.testGenerics"; //$NON-NLS-1$
 	private static final String modelName = "mfp_issue34"; //$NON-NLS-1$
 	private static boolean initialized = false;
-	public MultipleReloadGenerics(String name) throws Exception {
-		super("Default Project", name); //$NON-NLS-1$
+	public MultipleReloadGenerics() throws Exception {
+		super("Default Project", null); //$NON-NLS-1$
 	}
 
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		if (!initialized) {
 			loadProject(modelName);
@@ -56,6 +54,7 @@ public class MultipleReloadGenerics extends BaseTest {
 		}
 	}
 
+	@Test
 	public void testMultipleUnloadsAndLoads() {
 		m_bp_tree.expandAll();
 

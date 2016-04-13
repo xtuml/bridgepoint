@@ -129,6 +129,11 @@ configure_mcc_src()
     
     cp -fp $user_supplied_files/xtumlmc_build.exe ./bin
     cp -fp $user_supplied_files/gen_erate.exe     ./bin
+    # The following line is just moving the linux generator out of the way so that the
+    # build server still uses the windows generator.  Once we get BP building with the linux
+    # python generator, the following line will not rename the file to .py and build_install_bp.sh should
+    # be modified to remove the copy file handling on gen_erate.py
+    cp -fp $user_supplied_files/gen_erate.pyz     ./bin/gen_erate.py
     cp -fp $user_supplied_files/mcmc              ./bin
     cp -fp $user_supplied_files/mcmc64            ./bin
     cp -fp $user_supplied_files/mcmc.exe          ./bin
@@ -231,25 +236,6 @@ configure_mccpp_src()
     chmod -R g+w .
 }
 
-configure_vhdl_src()
-{
-    echo ""
-    echo "Configuring mcvhdl_src for build."
-
-    # Copy in the "bp.mc.c.binary/mc3020/" dir
-    cd $mcvhdl_src
-    cp -rfp $mcc_bin/mc3020 .
-    
-    # We don't want the model-based MC for this version, so remove it
-    rm -f ./mc3020/bin/mcmc
-    rm -f ./mc3020/bin/mcmc64
-    rm -f ./mc3020/bin/mcmc.exe
-
-    cd $mcvhdl_src/mc3020
-    chmod -R g+w .
-}
-
-
 configure_java_src()
 {
     echo ""
@@ -286,7 +272,6 @@ mcc_src=${bp_src_dir}/org.xtuml.bp.mc.c.source
 mcc_bin=${bp_src_dir}/org.xtuml.bp.mc.c.binary
 mcsystemc_src=${bp_src_dir}/org.xtuml.bp.mc.systemc.source
 mccpp_src=${bp_src_dir}/org.xtuml.bp.mc.cpp.source
-mcvhdl_src=${bp_src_dir}/org.xtuml.bp.mc.vhdl.source
 mcjava_src=${bp_src_dir}/org.xtuml.bp.mc.java.source
 mc3020_help=${bp_src_dir}/org.xtuml.help.bp.mc
 
@@ -296,7 +281,6 @@ if [ "$?" = "0" ];  then
   configure_mcc_bin
   configure_mcsystemc_src
   configure_mccpp_src
-  configure_vhdl_src
   configure_java_src
   
   configure_dap

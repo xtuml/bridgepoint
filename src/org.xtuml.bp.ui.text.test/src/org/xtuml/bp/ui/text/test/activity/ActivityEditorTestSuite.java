@@ -43,11 +43,11 @@ public class ActivityEditorTestSuite extends TestSuite {
 	 * Construct the test suite.
 	 */
 	public ActivityEditorTestSuite() {
-		addTest(new TestSuite(OpenActivityEditor.class));	
-		addTest(new TestSuite(CloseActivityEditor.class));	
-		addTest(new TestSuite(ActivityEditorInteraction.class));	
-		addTest(new TestSuite(ParseActivity.class));
-		addTest(new TestSuite(I697OpenActivityEditorFromMarker.class));
-		addTest(new TestSuite(ProcessAllActivitiesTest.class));
+//		addTest(new TestSuite(OpenActivityEditor.class));	
+//		addTest(new TestSuite(CloseActivityEditor.class));	
+		addTest(new TestSuite(ActivityEditorInteraction2.class));	
+//		addTest(new TestSuite(ParseActivity.class));
+//		addTest(new TestSuite(I697OpenActivityEditorFromMarker.class));
+//		addTest(new TestSuite(ProcessAllActivitiesTest.class));
 	}
 }

@@ -1,0 +1,101 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>6.1. Object Services</title>
+<link rel="stylesheet" type="text/css" href="docbook.css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<meta name="keywords" content="MASL, Action Language, Action Semantics, UML, Unified Modelling Language, Shlaer Mellor">
+<link rel="home" href="index.html" title="MASL Tutorial">
+<link rel="up" href="Actions.html" title="Chapter 6. Actions">
+<link rel="prev" href="Actions.html" title="Chapter 6. Actions">
+<link rel="next" href="ActionsInstanceServices.html" title="6.2. Instance Services">
+<link rel="preface" href="preface.html" title="Preface">
+<link rel="chapter" href="Types.html" title="Chapter 1. Types">
+<link rel="chapter" href="ExecutionControl.html" title="Chapter 2. Execution Control">
+<link rel="chapter" href="CompositeTypes.html" title="Chapter 3. Composite Types">
+<link rel="chapter" href="Exceptions.html" title="Chapter 4. Exceptions">
+<link rel="chapter" href="ObjectsandRelationships.html" title="Chapter 5. Objects and Relationships">
+<link rel="chapter" href="Actions.html" title="Chapter 6. Actions">
+<link rel="chapter" href="DeviceIO.html" title="Chapter 7. Device Input/Output">
+<link rel="chapter" href="MASLExamples.html" title="Chapter 8. MASL Examples">
+<link rel="index" href="ix01.html" title="Index">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div align="center">UNCLASSIFIED</div>
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">6.1. Object Services</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="Actions.html">Prev</a> </td>
+<th width="60%" align="center">Chapter 6. Actions</th>
+<td width="20%" align="right"> <a accesskey="n" href="ActionsInstanceServices.html">Next</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title">
+<a name="ActionsObjectServices"></a>6.1. Object Services</h2></div></div></div>
+<p>Object services are actions that are associated with an object, but
+    not a specific instance of that object. The exact form of a object service
+    definition is unimportant as it is automatically generated from the case
+    tool. The code that is placed in the definition looks exactly like a block
+    as described in Section 2.2 except that the reserved word
+    <code class="literal">declare</code> is not needed. For example, the
+    <code class="classname">Aircraft</code> object seen previously might provide an
+    object service called <code class="function">get_fast_pilots</code> that returns
+    the set of pilots who are flying aircraft, which are going very fast. The
+    object service definition might look something like:</p>
+<div class="informalexample"><pre class="programlisting">  public service Air_Management::Aircraft.get_fast_pilots( pilot_set : out set of instance of Pilot) is
+    aircraft_set : set of instance of Aircraft;
+    pilot_bag : bag of instance of Pilot;
+  begin
+    aircraft_set := find Aircraft(speed &gt;= 3 * (10 ** 8));
+    pilot_bag := aircraft_set -&gt; R1;
+    pilot_set := set of instance of Pilot(pilot_bag);
+  end service;</pre></div>
+<p>Notice the use of the reserved word <code class="literal">public</code> that
+    states that the service may be accessed by any code that can access the
+    object. An object service can also be declared as
+    <code class="literal">private</code>, in which case access is permitted only from
+    actions defined by the object. Also the parameters of the service are
+    tagged with the reserved words <code class="literal">in</code> or
+    <code class="literal">out</code> which conveys the direction of information
+    transfer. We could invoke this service by writing:</p>
+<div class="informalexample"><pre class="programlisting">  pilot_set : set of instance of Pilot;
+  ...
+  Aircraft.get_fast_pilots(pilot_set);</pre></div>
+<p>If we wanted to call an object service from an action
+    defined by the object we could drop the object name and the dot from the
+    invocation. So if the invocation above was in an action defined by the
+    <code class="classname">Aircraft</code> object we could have
+    written:</p>
+<div class="informalexample"><pre class="programlisting">  aircraft_instance.get_fast_pilots(pilot_set);</pre></div>
+<p>Note that the service body does not have access to
+    this specific instance. Hence, invoking the object service on any other
+    Aircraft instance would have the same result.</p>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="Actions.html">Prev</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="Actions.html">Up</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ActionsInstanceServices.html">Next</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">Chapter 6. Actions </td>
+<td width="20%" align="center">
+<a accesskey="h" href="index.html">Home</a> | <a accesskey="t" href="bk01-toc.html">ToC</a>
+</td>
+<td width="40%" align="right" valign="top"> 6.2. Instance Services</td>
+</tr>
+</table>
+</div>
+<div align="center">UNCLASSIFIED</div>
+</body>
+</html>

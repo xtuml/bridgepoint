@@ -19,10 +19,10 @@
 // License for the specific language governing permissions and limitations under
 // the License.
 //=====================================================================
+import org.xtuml.bp.ui.canvas.test.ModelRecreationTests;
+
 import junit.framework.Test;
 import junit.framework.TestSuite;
-
-import org.xtuml.bp.ui.canvas.test.ModelRecreationTests;
 
 public class ModelRecreationResultSuite extends TestSuite {
 

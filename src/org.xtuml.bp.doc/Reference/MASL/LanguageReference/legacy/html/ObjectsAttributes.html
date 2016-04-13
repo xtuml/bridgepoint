@@ -1,0 +1,327 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>6.4. Attributes</title>
+<link rel="stylesheet" type="text/css" href="docbook.css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<meta name="keywords" content="MASL, Action Language, Action Semantics, UML, Unified Modelling Language, Shlaer Mellor">
+<link rel="home" href="index.html" title="MASL Reference Manual">
+<link rel="up" href="Objects.html" title="Chapter 6. Objects">
+<link rel="prev" href="ObjectsObjectMembers.html" title="6.3. Object Members">
+<link rel="next" href="Relationships.html" title="Chapter 7. Relationships">
+<link rel="preface" href="preface.html" title="Preface">
+<link rel="chapter" href="Grammars.html" title="Chapter 1. Grammars">
+<link rel="chapter" href="LexicalStructure.html" title="Chapter 2. Lexical Structure">
+<link rel="chapter" href="Types.html" title="Chapter 3. Types">
+<link rel="chapter" href="TypeConversion.html" title="Chapter 4. Type Conversion">
+<link rel="chapter" href="Domains.html" title="Chapter 5. Domains">
+<link rel="chapter" href="Objects.html" title="Chapter 6. Objects">
+<link rel="chapter" href="Relationships.html" title="Chapter 7. Relationships">
+<link rel="chapter" href="Lifecycles.html" title="Chapter 8. Lifecycles">
+<link rel="chapter" href="Functions.html" title="Chapter 9. Functions">
+<link rel="chapter" href="Services.html" title="Chapter 10. Services">
+<link rel="chapter" href="Exceptions.html" title="Chapter 11. Exceptions">
+<link rel="chapter" href="Statements.html" title="Chapter 12. Statements">
+<link rel="chapter" href="Names.html" title="Chapter 13. Names">
+<link rel="chapter" href="Expressions.html" title="Chapter 14. Expressions">
+<link rel="appendix" href="LanguageDefinedCharacteristics.html" title="Appendix A. Language Defined Characteristics">
+<link rel="appendix" href="SyntaxSummary.html" title="Appendix B. Syntax Summary">
+<link rel="index" href="ix01.html" title="Index">
+<link rel="subsection" href="ObjectsAttributes.html#ObjectsInitializationofAttributes" title="6.4.1. Initialization of Attributes">
+<link rel="subsection" href="ObjectsAttributes.html#ObjectsAttributeModifiers" title="6.4.2. Attribute Modifiers">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div align="center">OFFICIAL</div>
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">6.4. Attributes</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ObjectsObjectMembers.html">Prev</a> </td>
+<th width="60%" align="center">Chapter 6. Objects</th>
+<td width="20%" align="right"> <a accesskey="n" href="Relationships.html">Next</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title">
+<a name="ObjectsAttributes"></a>6.4. Attributes</h2></div></div></div>
+<div class="toc"><dl class="toc">
+<dt><span class="section"><a href="ObjectsAttributes.html#ObjectsInitializationofAttributes">6.4.1. Initialization of Attributes</a></span></dt>
+<dt><span class="section"><a href="ObjectsAttributes.html#ObjectsAttributeModifiers">6.4.2. Attribute Modifiers</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="ObjectsAttributes.html#ObjectsPreferredAttributes">6.4.2.1. Preferred Attributes</a></span></dt>
+<dt><span class="section"><a href="ObjectsAttributes.html#ObjectsReferentialAttributes">6.4.2.2. Referential Attributes</a></span></dt>
+</dl></dd>
+</dl></div>
+<p>
+The attributes of an object
+<a class="indexterm" name="idp64565728"></a>
+are introduced by
+<a class="link" href="ObjectsAttributes.html#ebnf.attributedeclaration"><span class="emphasis"><em>attribute declarations</em></span></a>.
+<a class="indexterm" name="idp64568208"></a>
+</p>
+<a class="indexterm" name="idp64569984"></a><a class="indexterm" name="idp64572048"></a><a class="indexterm" name="idp64573232"></a><a class="indexterm" name="idp64574416"></a><a class="indexterm" name="idp64575600"></a><a class="indexterm" name="idp64576784"></a><a class="indexterm" name="idp64577968"></a><a class="indexterm" name="idp64579152"></a><a class="indexterm" name="idp64580320"></a><table width="100%" cellpadding="5" bgcolor="#F5DCB3" border="1" class="productionset" summary="EBNF"><tr><td><table border="0" width="99%" cellpadding="0" bgcolor="#F5DCB3" class="productionset" summary="EBNF productions">
+<tr>
+<td align="left" valign="top" width="3%">[87]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.attributedeclaration"></a>
+        attribute declaration
+    </td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="ObjectsAttributes.html#ebnf.attributename">attribute name</a>,
+        ':',
+        <a href="ObjectsAttributes.html#ebnf.attributemodifier">attribute modifier</a>,
+        <a href="TypesTypeSpecification.html#ebnf.type">type</a>,
+        [('(',
+        <a href="TypesFullDeclarations.html#ebnf.range">range</a>
+        , ')'], [(':=',
+        <a href="ExpressionsConstantExpressions.html#ebnf.constantexpression">constant expression</a>)],
+        ';'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[88]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.attributename"></a>
+        attribute name
+    </td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="LexicalStructureIdentifiers.html#ebnf.identifier">identifier</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+</table></td></tr></table>
+<p>
+The attribute name in an
+<a class="link" href="ObjectsAttributes.html#ebnf.attributedeclaration"><span class="emphasis"><em>attribute declaration</em></span></a>
+<a class="indexterm" name="idp64591088"></a>
+may be used to refer to the attribute. A compile-time error occurs if:
+</p>
+<div class="itemizedlist"><ul class="itemizedlist">
+<li class="listitem"><p>
+The type of an attribute is in terms of some
+<a class="link" href="TypesInstanceTypes.html" title="3.4. Instance Types">instance type</a>.
+<a class="indexterm" name="idp64594288"></a>
+<a class="indexterm" name="idp64595632"></a>
+</p></li>
+<li class="listitem"><p>
+An object declaration contains two attributes with the same name.
+</p></li>
+<li class="listitem"><p>
+The type of the optional constant expression
+<a class="indexterm" name="idp64598848"></a>
+in the declaration of an attribute is not assignable to the type of the
+attribute.
+</p></li>
+<li class="listitem"><p>
+The optional range
+<a class="indexterm" name="idp64601056"></a>
+constraint is imposed on a type which is not a constrained array type.
+<a class="indexterm" name="idp64602048"></a>
+</p></li>
+</ul></div>
+<p>
+</p>
+<p>
+The individual attributes of a variable with an
+<a class="link" href="TypesInstanceTypes.html" title="3.4. Instance Types">instance type</a>
+<a class="indexterm" name="idp64605072"></a>
+<a class="indexterm" name="idp64606416"></a>
+as its type can be denoted by following the variable name
+<a class="indexterm" name="idp64607808"></a>
+with a dot and the attribute name.
+</p>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="ObjectsInitializationofAttributes"></a>6.4.1. Initialization of Attributes</h3></div></div></div>
+<p>
+It is possible to give defaults for some or all of the attributes.
+<a class="indexterm" name="idp64610784"></a>
+</p>
+<p>
+If an
+<a class="link" href="ObjectsAttributes.html#ebnf.attributedeclaration"><span class="emphasis"><em>attribute declaration</em></span></a>
+<a class="indexterm" name="idp64613712"></a>
+contains a constant expression,
+<a class="indexterm" name="idp64615072"></a>
+then it has the semantics of an assignment to the declared attribute and the
+expression is evaluated and the assignment performed each time an instance of
+the object is created.
+</p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="ObjectsAttributeModifiers"></a>6.4.2. Attribute Modifiers</h3></div></div></div>
+<a class="indexterm" name="idp64618048"></a><a class="indexterm" name="idp64619664"></a><a class="indexterm" name="idp64620832"></a><a class="indexterm" name="idp64622128"></a><a class="indexterm" name="idp64623424"></a><table width="100%" cellpadding="5" bgcolor="#F5DCB3" border="1" class="productionset" summary="EBNF"><tr><td><table border="0" width="99%" cellpadding="0" bgcolor="#F5DCB3" class="productionset" summary="EBNF productions"><tr>
+<td align="left" valign="top" width="3%">[89]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.attributemodifier"></a>
+        attribute modifier
+    </td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        ['preferred'], [('referential',
+        <a href="LexicalStructureIdentifiers.html#ebnf.identifier">relationship formalization</a>)]
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr></table></td></tr></table>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="ObjectsPreferredAttributes"></a>6.4.2.1. Preferred Attributes</h4></div></div></div>
+<p>
+<a class="link" href="ObjectsAttributes.html#ebnf.identifierdeclaration"><span class="emphasis"><em>Preferred attributes</em></span></a>
+<a class="indexterm" name="idp64630016"></a>
+are part of an objects preferred
+identifier. The preferred identifier
+<a class="indexterm" name="idp64631680"></a>
+of an object, is the set of one or more
+of its attributes whose values uniquely distinguish each instance of the object.
+</p>
+<a class="indexterm" name="idp64633120"></a><a class="indexterm" name="idp64634304"></a><a class="indexterm" name="idp64635488"></a><table width="100%" cellpadding="5" bgcolor="#F5DCB3" border="1" class="productionset" summary="EBNF"><tr><td><table border="0" width="99%" cellpadding="0" bgcolor="#F5DCB3" class="productionset" summary="EBNF productions"><tr>
+<td align="left" valign="top" width="3%">[90]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.identifierdeclaration"></a>
+        identifier declaration
+    </td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="LexicalStructureIdentifiers.html#ebnf.identifier">identifier</a>,
+        'is', '(',
+        <a href="ObjectsAttributes.html#ebnf.attributename">attribute name</a>,
+        {(',',
+        <a href="ObjectsAttributes.html#ebnf.attributename">attribute name</a>)},
+        ')', ';'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr></table></td></tr></table>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="ObjectsReferentialAttributes"></a>6.4.2.2. Referential Attributes</h4></div></div></div>
+<p>
+A <a class="link" href="ObjectsAttributes.html#ebnf.relationshipformalization"><span class="emphasis"><em>referential attribute</em></span></a>
+<a class="indexterm" name="idp64643632"></a>
+is the formalization of a relationship.
+<a class="indexterm" name="idp64645280"></a>
+</p>
+<a class="indexterm" name="idp64647056"></a><a class="indexterm" name="idp64648256"></a><a class="indexterm" name="idp64649456"></a><table width="100%" cellpadding="5" bgcolor="#F5DCB3" border="1" class="productionset" summary="EBNF"><tr><td><table border="0" width="99%" cellpadding="0" bgcolor="#F5DCB3" class="productionset" summary="EBNF productions"><tr>
+<td align="left" valign="top" width="3%">[91]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.relationshipformalization"></a>
+        relationship formalization
+    </td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        '(',
+        <a href="RelationshipsRelationshipSpecifications.html#ebnf.relationshipspecification">relationship specification</a>,
+        '.',
+        <a href="ObjectsAttributes.html#ebnf.attributename">attribute name</a>,
+        {(',',
+        <a href="RelationshipsRelationshipSpecifications.html#ebnf.relationshipspecification">relationship specification</a>,
+        '.',
+        <a href="ObjectsAttributes.html#ebnf.attributename">attribute name</a>)},
+        ')'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr></table></td></tr></table>
+<p>
+A compile-time error occurs if any of the following are not true:
+</p>
+<div class="itemizedlist"><ul class="itemizedlist">
+<li class="listitem"><p>
+Each <a class="link" href="RelationshipsRelationshipSpecifications.html#ebnf.relationshipspecification"><span class="emphasis"><em>relationship specification</em></span></a>
+<a class="indexterm" name="idp64657904"></a>
+in the
+<a class="link" href="ObjectsAttributes.html#ebnf.relationshipformalization"><span class="emphasis"><em>relationship formalization</em></span></a>
+<a class="indexterm" name="idp64660128"></a>
+must specify a valid navigation form the object being declared to a single
+instance of another object.
+</p></li>
+<li class="listitem"><p>
+Each <a class="link" href="ObjectsAttributes.html#ebnf.attributename"><span class="emphasis"><em>attribute name</em></span></a>
+<a class="indexterm" name="idp64663312"></a>
+must name an attribute of the object navigated to by the preceding
+<a class="link" href="RelationshipsRelationshipSpecifications.html#ebnf.relationshipspecification"><span class="emphasis"><em>relationship specification</em></span></a>.
+<a class="indexterm" name="idp64665584"></a>
+</p></li>
+<li class="listitem"><p>
+Each attribute named by the
+<a class="link" href="ObjectsAttributes.html#ebnf.attributename"><span class="emphasis"><em>attribute name</em></span></a>,
+<a class="indexterm" name="idp64668688"></a>
+of the object navigated to by the preceding
+<a class="link" href="RelationshipsRelationshipSpecifications.html#ebnf.relationshipspecification"><span class="emphasis"><em>relationship specification</em></span></a>,
+<a class="indexterm" name="idp64670944"></a>
+must have the same type as the attribute being declared.
+</p></li>
+</ul></div>
+<p>
+In addition:
+</p>
+<div class="itemizedlist"><ul class="itemizedlist">
+<li class="listitem"><p>
+All of the
+<a class="link" href="ObjectsAttributes.html#ebnf.relationshipformalization"><span class="emphasis"><em>referential attributes</em></span></a>
+<a class="indexterm" name="idp64674544"></a>
+of an object that formalize a specific
+relationship, i.e. the ones that have a
+<a class="link" href="RelationshipsRelationshipSpecifications.html#ebnf.relationshipspecification"><span class="emphasis"><em>relationship specification</em></span></a>
+<a class="indexterm" name="idp64676736"></a>
+that navigates the same relationship, to the same object, must together form an
+identifier of the object being navigated to.
+</p></li>
+<li class="listitem"><p>
+A non-associative one-to-one relationship
+<a class="indexterm" name="idp64679120"></a>
+must be formalized in one and only one, of the participating objects.
+</p></li>
+<li class="listitem"><p>
+A non-associative one-to-many relationship
+<a class="indexterm" name="idp64681440"></a>
+must be formalized in the object on the many sided and nowhere else.
+</p></li>
+<li class="listitem"><p>
+A associative relationship
+<a class="indexterm" name="idp64683744"></a>
+must be formalized in the associative object and nowhere else.
+</p></li>
+<li class="listitem"><p>
+A associative object
+<a class="indexterm" name="idp64686032"></a>
+must be formalized in the associative relationship
+<a class="indexterm" name="idp64687408"></a>
+in both directions.
+</p></li>
+</ul></div>
+<p>
+</p>
+</div>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ObjectsObjectMembers.html">Prev</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="Objects.html">Up</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="Relationships.html">Next</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">6.3. Object Members </td>
+<td width="20%" align="center">
+<a accesskey="h" href="index.html">Home</a> | <a accesskey="t" href="bk01-toc.html">ToC</a>
+</td>
+<td width="40%" align="right" valign="top"> Chapter 7. Relationships</td>
+</tr>
+</table>
+</div>
+<div align="center">OFFICIAL</div>
+</body>
+</html>

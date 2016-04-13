@@ -24,11 +24,10 @@ import java.io.StringReader;
 import java.util.UUID;
 
 import org.eclipse.core.resources.ResourcesPlugin;
-
-import antlr.RecognitionException;
-import antlr.TokenStreamException;
-import antlr.TokenStreamRecognitionException;
-
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.als.oal.OalLexer;
 import org.xtuml.bp.als.oal.OalParser;
 import org.xtuml.bp.als.oal.Oal_validate;
@@ -74,8 +73,14 @@ import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.IdAssigner;
 import org.xtuml.bp.core.util.ContainerUtil;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TestingUtilities;
 
+import antlr.RecognitionException;
+import antlr.TokenStreamException;
+import antlr.TokenStreamRecognitionException;
+
+@RunWith(OrderedRunner.class)
 public class OalParserTest_Generics extends BaseTest {
 
 	private static boolean m_requiresClear = false;
@@ -83,14 +88,15 @@ public class OalParserTest_Generics extends BaseTest {
 	private static int m_funcNum = 0;
 	private static boolean firstSetup = false;
 	static public Ooaofooa modelRoot = BaseTest.getDefaultTestInstance();
-	public OalParserTest_Generics(String arg0) {
-		super(null, arg0);
+	public OalParserTest_Generics() {
+		super(null, null);
 	}
 
 	/* (non-Javadoc)
 	 * @see junit.framework.TestCase#setUp()
 	 */
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 
 		if (!firstSetup)
@@ -135,7 +141,8 @@ public class OalParserTest_Generics extends BaseTest {
 	/* (non-Javadoc)
 	 * @see junit.framework.TestCase#tearDown()
 	 */
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
         try {
             super.tearDown();
             OalParserTest_Generics.tearDownActionData();
@@ -146,12 +153,14 @@ public class OalParserTest_Generics extends BaseTest {
         }
 	}
 	
+	@Test
 	public void testAttributeWriteIssue176_3() throws RecognitionException, TokenStreamException {
 		// this test must be first, so that the id assigner values are correct
 		String x = parseAction("create object instance d1 of D_D; \nx = 5 + 1; d1.Disk_ID = 2;", ACTIVITY_TYPE_FUNC, TEST_VOID_NO_PARM); //$NON-NLS-1$
 		assertEquals("", x); //$NON-NLS-1$
 	}
 
+	@Test
 	public void testEmptyAction() throws RecognitionException, TokenStreamException {
 		String x = parseAction("", ACTIVITY_TYPE_FUNC, TEST_VOID_NO_PARM); //$NON-NLS-1$
 		assertEquals("", x); //$NON-NLS-1$
@@ -159,6 +168,7 @@ public class OalParserTest_Generics extends BaseTest {
 		clearActionData(ACTIVITY_TYPE_FUNC, TEST_VOID_NO_PARM);
 	}
 
+	@Test
 	public void testParseMDA() throws RecognitionException, TokenStreamException {
 		String act = "self.test_mda = 1;"; //$NON-NLS-1$
 		String x = parseAction(act, ACTIVITY_TYPE_MDA, TEST_MDA);
@@ -167,6 +177,7 @@ public class OalParserTest_Generics extends BaseTest {
 		Variable_c [] vars = Variable_c.VariableInstances(modelRoot);
 		assertEquals( 1, vars.length );
 	}
+	@Test
 	public void testParseMDAReturn() throws RecognitionException, TokenStreamException {
 		String act = "self.test_mda = 1; return;"; //$NON-NLS-1$
 		String x = parseAction(act, ACTIVITY_TYPE_MDA, TEST_MDA);
@@ -175,6 +186,7 @@ public class OalParserTest_Generics extends BaseTest {
 		Variable_c [] vars = Variable_c.VariableInstances(modelRoot);
 		assertEquals( 1, vars.length );
 	}
+	@Test
 	public void testParseMDAWrongAttr() throws RecognitionException, TokenStreamException {
 		String act = "self.test_mda = 1;  self.test_mda2 = 2;"; //$NON-NLS-1$
 		String x = parseAction(act, ACTIVITY_TYPE_MDA, TEST_MDA);
@@ -186,6 +198,7 @@ public class OalParserTest_Generics extends BaseTest {
 		Variable_c [] vars = Variable_c.VariableInstances(modelRoot);
 		assertEquals( 1, vars.length );
 	}
+	@Test
 	public void testMDANotAssigned() throws RecognitionException, TokenStreamException {
 		String act = "x = 1;"; //$NON-NLS-1$
 		String x = parseAction(act, ACTIVITY_TYPE_MDA, TEST_MDA);
@@ -196,6 +209,7 @@ public class OalParserTest_Generics extends BaseTest {
 		Variable_c [] vars = Variable_c.VariableInstances(modelRoot);
 		assertEquals( 1, vars.length );
 	}
+	@Test
 	public void testParseMDAReturnValue() throws RecognitionException, TokenStreamException {
 		String act = "self.test_mda = 1; return 5;"; //$NON-NLS-1$
 		String x = parseAction(act, ACTIVITY_TYPE_MDA, TEST_MDA);
@@ -208,6 +222,7 @@ public class OalParserTest_Generics extends BaseTest {
 		assertEquals( 1, vars.length );
 		clearActionData(ACTIVITY_TYPE_MDA, TEST_MDA);
 	}
+	@Test
 	public void testAssignUnparsedMDA() throws RecognitionException, TokenStreamException {
 		String act = "select any t from instances of D_TST; t.unparsed_mda = 3;"; //$NON-NLS-1$
 		String x = parseAction(act, ACTIVITY_TYPE_FUNC, TEST_VOID_NO_PARM);
@@ -217,6 +232,7 @@ public class OalParserTest_Generics extends BaseTest {
 		assertEquals( 1, vars.length );
 		clearActionData(ACTIVITY_TYPE_FUNC, TEST_VOID_NO_PARM);
 	}
+	@Test
 	public void testDebugStatements() throws RecognitionException, TokenStreamException {
 		String act = "_debug _on; _debug _off; _debug _stat; _debug _dump _off; _debug _dump _on; _debug _trace _off; _debug _trace _on; _debug _sor _off; _debug _sor _on;"; //$NON-NLS-1$
 		String x = parseAction(act, ACTIVITY_TYPE_FUNC, TEST_VOID_NO_PARM);

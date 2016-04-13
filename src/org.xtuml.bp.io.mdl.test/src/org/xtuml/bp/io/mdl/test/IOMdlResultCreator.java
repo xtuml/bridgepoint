@@ -1,5 +1,7 @@
 package org.xtuml.bp.io.mdl.test;
 
+import org.junit.Test;
+
 import junit.framework.TestCase;
 
 /**
@@ -11,11 +13,12 @@ import junit.framework.TestCase;
  */
 public class IOMdlResultCreator extends TestCase {
 
+	@Test
 	public void testCreateTestResults() throws Exception{
 		
 	try {
 	
-	IOMdlUnicodeTestGenerics ut = new IOMdlUnicodeTestGenerics("Unicode test Result Creator");
+	IOMdlUnicodeTestGenerics ut = new IOMdlUnicodeTestGenerics();
     ut.setUp();
     ut.setGenerateResults();
 	  System.out.println("IOMdlTestResultCreator: Test results created OK");

@@ -27,7 +27,10 @@ import java.io.FileFilter;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.ui.PlatformUI;
-
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Package_c;
@@ -39,6 +42,7 @@ import org.xtuml.bp.core.common.TransactionManager;
 import org.xtuml.bp.core.ui.Selection;
 import org.xtuml.bp.test.common.BaseTest;
 import org.xtuml.bp.test.common.CompareTestUtilities;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.ui.canvas.Ooaofgraphics;
 import org.xtuml.bp.ui.graphics.actions.CanvasCopyAction;
 import org.xtuml.bp.ui.graphics.actions.CanvasPasteAction;
@@ -47,6 +51,7 @@ import org.xtuml.bp.ui.graphics.editor.ModelEditor;
 import org.xtuml.bp.utilities.ui.CanvasUtilities;
 import org.xtuml.bp.utilities.ui.ProjectUtilities;
 
+@RunWith(OrderedRunner.class)
 public class ModelRecreationTests extends CanvasTest {
 
 	private static String testProjectName = "ModelRecreationTest";
@@ -155,10 +160,11 @@ public class ModelRecreationTests extends CanvasTest {
 		"wimx"
 	};
 	
-	public ModelRecreationTests(String name) {
-		super(testProjectName , name);	
+	public ModelRecreationTests() {
+		super(testProjectName , null);	
 	}
 
+	@Before
 	public void setUp() throws Exception {
 		super.setUp();
 		if(!initialized) {
@@ -167,6 +173,7 @@ public class ModelRecreationTests extends CanvasTest {
 		}
 	}
 	
+	@After
 	public void tearDown() throws Exception {
 		super.tearDown();
 		if ( getName().contains("testRecreateModel")) {
@@ -186,6 +193,7 @@ public class ModelRecreationTests extends CanvasTest {
 		loadProject(getDomainName(testModel));
 	}
 	
+	@Test
 	public void testRecreateModel() throws CoreException {
 		if (!isModelToTest(testModel.getName())) {
 			recreate_passed = true;

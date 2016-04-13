@@ -1,0 +1,285 @@
+<!-- 
+  UK Crown Copyright (c) 2016. All Rights Reserved
+-->
+<!-- Converted by db4-upgrade version 1.0 -->
+<chapter xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="Exceptions"><info><title>Exceptions</title></info>
+  
+
+  <para><abbrev>MASL</abbrev>, like many other programming languages, provides
+  an exception-handling mechanism for reporting and processing run-time error
+  conditions during the execution of an application. This also means that the
+  error handling code blocks are explicitly separated from the core business
+  logic of the application.</para>
+
+  <para>When a <abbrev>MASL</abbrev> program violates the semantic constraints
+  of the language, i.e. navigation via a null instance handle or indexing
+  outside the bounds of an array, a run-time exception is raised by the
+  architecture to signal the violation to the application. The exception will
+  subsequently propagate up the call stack, starting from the point where it
+  occurred, until one of two things happens. Either the exception is handled
+  by a user defined exception block or if none are found, by the architectures
+  own internal exception handling code blocks; these will determine the
+  severity of the exception and either terminate or continue the execution of
+  the application. </para>
+
+  <para><abbrev>MASL</abbrev> provides several keywords for dealing with
+  exceptions. A user-defined exception is declared using the
+  <literal>exception</literal> keyword, while an exception is raised using the
+  <literal>raise</literal> statement and handled using a combination of the
+  <literal>exception</literal> and <literal>when</literal> statements. See
+  <xref linkend="ExceptionsDeclarationRaisingandHandlingofaUserDefinedException"/>.<example xml:id="ExceptionsDeclarationRaisingandHandlingofaUserDefinedException"><info><title>Declaration, raising and handling of a user defined
+      exception.</title></info>
+      
+
+      <para>Declaration of an exception (defined within the type section of a
+      mod file):<programlisting>  exception my_exception;</programlisting></para>
+
+      <para>Use and handling of <type>my_exception</type>:<programlisting>  begin
+    // undertake required operation(s)
+    …
+    // program determines application error encountered
+    // raise a user defined exception.
+    raise my_exception;
+
+    // Exception handling code
+    exception
+      when my_exception =&gt;
+        // log some error and clean-up;
+end;</programlisting></para>
+    </example></para>
+
+  <para><abbrev>MASL</abbrev> has several pre-defined
+  <literal>exception</literal> types, that may be encountered during the
+  execution of an application, they are listed below: </para>
+
+  <itemizedlist>
+    <listitem>
+      <para><literal>constraint_error</literal></para>
+    </listitem>
+
+    <listitem>
+      <para><literal>io_error</literal></para>
+    </listitem>
+
+    <listitem>
+      <para><literal>IOP_error</literal></para>
+    </listitem>
+
+    <listitem>
+      <para><literal>program_error</literal></para>
+    </listitem>
+
+    <listitem>
+      <para><literal>relationship_error</literal></para>
+    </listitem>
+
+    <listitem>
+      <para><literal>referential_access_error</literal></para>
+    </listitem>
+
+    <listitem>
+      <para><literal>storage_error</literal></para>
+    </listitem>
+
+    <listitem>
+      <para><literal>system_error</literal></para>
+    </listitem>
+  </itemizedlist>
+
+  <para>Just as a user-defined exception can be raised and caught by the
+  application, the built in <literal>exception</literal> types can also be
+  raised by the application and handled by a used defined code block. Putting
+  it all together gives the following example:<informalexample>
+      <programlisting>  file_open : boolean := false;
+
+  begin
+
+    // Attempt to open a file
+    Text_IO::open(…);
+    if file_open = true then
+      // undertake further file processing
+      …
+      // error encountered during processing
+      raise my_exception;
+    end if;
+
+    Text_IO::close(…);
+
+    exception
+      when Standard::program_error =&gt;
+        // Architecture reported run-time error.
+
+      when Standard::io_error =&gt;
+        // File IO error occurred, must have happened on the open
+        // close the file. ( this does not throw)
+        Text_IO::close(…);
+          
+        // propagate the error back up the application
+        raise;
+
+      when my_exception  =&gt;
+        Text_IO::close(…);
+  end;</programlisting>
+    </informalexample></para>
+
+  <para><xref linkend="ExceptionsExceptionTypes"/>below describes each of the
+  built in exception types and provides details on when and why these
+  exceptions are raised by the architecture.</para>
+
+  <table xml:id="ExceptionsExceptionTypes"><info><title>Exception Types</title></info>
+    
+
+    <tgroup cols="3">
+      <thead>
+        <row>
+          <entry align="center">Exception</entry>
+
+          <entry align="center">Description</entry>
+
+          <entry align="center">Example</entry>
+        </row>
+      </thead>
+
+      <tbody>
+        <row>
+          <entry><literal>constraint_error</literal></entry>
+
+          <entry>Raised on breach of an architecture constraint.</entry>
+
+          <entry><itemizedlist>
+              <listitem>
+                <para>Out of bounds access to a container </para>
+              </listitem>
+
+              <listitem>
+                <para><literal>find_only</literal> returns more than single
+                instance</para>
+              </listitem>
+
+              <listitem>
+                <para>Any operation on a null instance; i.e. navigation,
+                attribute access, etc.</para>
+              </listitem>
+            </itemizedlist></entry>
+        </row>
+
+        <row>
+          <entry><literal>io_error</literal></entry>
+
+          <entry>Raised by a file access or file manipulation error.</entry>
+
+          <entry>Cannot open file.</entry>
+        </row>
+
+        <row>
+          <entry><literal>IOP_error</literal></entry>
+
+          <entry><para/><itemizedlist>
+              <listitem>
+                <para>Raised as a wrapper for CORBA IOP errors. </para>
+              </listitem>
+
+              <listitem>
+                <para>Raised on a pack/unpack error for MessageBus.</para>
+              </listitem>
+            </itemizedlist></entry>
+
+          <entry>See CORBA specification.</entry>
+        </row>
+
+        <row>
+          <entry><literal>program_error</literal></entry>
+
+          <entry><itemizedlist>
+              <listitem>
+                <para>Raised on architecture and code-generator
+                inconsistencies . </para>
+              </listitem>
+
+              <listitem>
+                <para>Raised on state model errors.</para>
+              </listitem>
+
+              <listitem>
+                <para>Raised as a wrapper for C++ exceptions.</para>
+              </listitem>
+
+              <listitem>
+                <para>Raised on certain polymorphic operations.</para>
+              </listitem>
+            </itemizedlist></entry>
+
+          <entry><itemizedlist>
+              <listitem>
+                <para>Cannot Happen within a State Model.</para>
+              </listitem>
+
+              <listitem>
+                <para>Creation events directed at wrong objects.</para>
+              </listitem>
+
+              <listitem>
+                <para>No active subtype for deferred polymorphic
+                service.</para>
+              </listitem>
+            </itemizedlist></entry>
+        </row>
+
+        <row>
+          <entry><literal>relationship_error</literal></entry>
+
+          <entry>Raised on relationship errors.</entry>
+
+          <entry><itemizedlist>
+              <listitem>
+                <para>Deleting object instance, which is still linked to other
+                object instances(s).</para>
+              </listitem>
+
+              <listitem>
+                <para>Double link to same instance.</para>
+              </listitem>
+
+              <listitem>
+                <para>Unlink of object which is not currently linked.</para>
+              </listitem>
+            </itemizedlist></entry>
+        </row>
+
+        <row>
+          <entry><literal>referential_access_error</literal></entry>
+
+          <entry>Raised on errors regarding referentials.</entry>
+
+          <entry><itemizedlist>
+              <listitem>
+                <para>Inconsistent values for merged referentials.</para>
+              </listitem>
+
+              <listitem>
+                <para>Reading referentials for non-existent relationship
+                instances.</para>
+              </listitem>
+            </itemizedlist></entry>
+        </row>
+
+        <row>
+          <entry><literal>storage_error</literal></entry>
+
+          <entry>Raised on allocation failure</entry>
+
+          <entry>Failure of create expression</entry>
+        </row>
+
+        <row>
+          <entry><literal>system_error</literal></entry>
+
+          <entry>Any system error condition affecting the executing
+          model.</entry>
+
+          <entry/>
+        </row>
+      </tbody>
+    </tgroup>
+  </table>
+</chapter>

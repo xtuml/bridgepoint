@@ -131,7 +131,7 @@ public class BridgePointPreferences
     useDefaultNamesForNewModelElements.setToolTipText("Shows the rename dialog automatically during new model element creation when not enabled.");
 
     createGraphicsDuringImport = new Button(composite, SWT.CHECK | SWT.LEFT);
-    createGraphicsDuringImport.setText("Greate graphics during import");
+    createGraphicsDuringImport.setText("Create graphics during import");
     createGraphicsDuringImport.setLayoutData(new GridData());
     createGraphicsDuringImport.setToolTipText("This option will reconcile model elements with their corresponding graphical elements during model import and will create and any missing graphical elements.");
         

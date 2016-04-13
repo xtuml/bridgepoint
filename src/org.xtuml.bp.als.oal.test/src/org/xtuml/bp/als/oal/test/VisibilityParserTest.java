@@ -24,11 +24,9 @@ package org.xtuml.bp.als.oal.test;
 import java.io.StringReader;
 
 import org.eclipse.core.resources.ResourcesPlugin;
-
-import antlr.RecognitionException;
-import antlr.TokenStreamException;
-import antlr.TokenStreamRecognitionException;
-
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.als.oal.OalLexer;
 import org.xtuml.bp.als.oal.OalParser;
 import org.xtuml.bp.als.oal.Oal_validate;
@@ -40,20 +38,27 @@ import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.PackageableElement_c;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TestingUtilities;
 
+import antlr.RecognitionException;
+import antlr.TokenStreamException;
+import antlr.TokenStreamRecognitionException;
+
+@RunWith(OrderedRunner.class)
 public class VisibilityParserTest extends BaseTest {
 
 	private static boolean initialized = false;
-    public VisibilityParserTest(String testName) throws Exception {
-    	super(null, testName);
+    public VisibilityParserTest() throws Exception {
+    	super(null, null);
 	}
 	
 	/* (non-Javadoc)
 	 * @see junit.framework.TestCase#setUp()
 	 */
 	@Override
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		
 		if (!initialized){
@@ -69,48 +74,56 @@ public class VisibilityParserTest extends BaseTest {
 		}
 	}
 	
+	@Test
 	public void testInValidAttributeAccess(){
 		String x = parseAction("create object instance obj of Classes;\nobj.attrA = 1;" , "CompB");
 		String errMsg = ":2:5-9: ->attrA<- is not an attribute of class ->Classes<-.\nline 2:14: expecting TOK_EQUAL, found ';'\nline 2:15: expecting Semicolon, found 'null'\n";	
 		assertEquals(errMsg, x);
 		
 	}
+	@Test
 	public void testValidAttributeAccess(){
 		String x = parseAction("create object instance obj of Classes;\nobj.attrB = 1;" , "CompB");
 		String errMsg = "";
 		assertEquals(errMsg, x);
 		
 	}
+	@Test
 	public void testInValidInstanceOperationAccess(){
 		String x = parseAction("create object instance obj of Classes;\nobj.instOpA();" , "CompB");
 		String errMsg = ":2:5-11: Cannot find specified operation ->Classes::instOpA<-\nline 2:13: expecting Semicolon, found ')'\n";	
 		assertEquals(errMsg, x);
 		
 	}
+	@Test
 	public void testValidInstanceOperationAccess(){
 		String x = parseAction("create object instance obj of Classes;\nobj.instOpB();" , "CompB");
 		String errMsg = "";
 		assertEquals(errMsg, x);
 		
 	}
+	@Test
 	public void testInValidClassOperationAccess(){
 		String x = parseAction("Classes::classOpA();" , "CompB");
 		String errMsg = ":1:10-17: Cannot find bridge, operation or message ->Classes::classOpA<-\nline 1:19: expecting Semicolon, found ')'\n";
 		assertEquals(errMsg, x);
 		
 	}
+	@Test
 	public void testValidClassOperationAccess(){
 		String x = parseAction("Classes::classOpB();" , "CompB");
 		String errMsg = "";
 		assertEquals(errMsg, x);
 		
 	}
+	@Test
 	public void testInValidBridgeAccess(){
 		String x = parseAction("External::bridgeA();" , "CompB");
 		String errMsg = ":1:11-17: Cannot find bridge, operation or message ->External::bridgeA<-\nline 1:19: expecting Semicolon, found ')'\n";
 		assertEquals(errMsg, x);
 		
 	}
+	@Test
 	public void testValidBridgeAccess(){
 		String x = parseAction("External::bridgeB();" , "CompB");
 		String errMsg = "";

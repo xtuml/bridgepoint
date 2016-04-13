@@ -14,6 +14,109 @@
             name="xtUML Graphical Editor">
       </editor>
    </extension>
+   <!--
+                                      **** README ****
+	This section defines the graphics pei data. It populates the bp.ui.canvas/ooaofrgaphics model. The
+	code that parses this data and loads the model is CanvasPlugin.java::initialize() (hand written). That
+	function gets called as part of  loading the Canvas plugin. After loading this data into the model the 
+	Model and Canvas Transaction listener hooks are called to cause the graphics code to get invoked
+	when the model elements are changed.
+
+    GD_ARS has 5 attributes that hold names of ooaofooa operations to call in order to reconcile the 
+    type of graphic called out in the ARS instance. These "interface operations" get called via 
+    ooaofgraphics::Client bridges. These bridges specify the parameters expected by these calls.      
+    The data in this plugin assigns the actual ooaofooa operation names to these attributes.
+    
+    *** tag descriptions ***:
+	<symbol>:	Each symbol corresponds to a model element in the ooaofooa. 
+         	class:	The fully qualified name of the generated model element. In 
+         			this case "fully qualified" refers to the fact that the package 
+         			name is included. (example: org.xtuml.bp.core.ModelClass_c)
+         	createMethod: 	The operation called to create a new instance of this 
+         					ooaofooa element
+         	elemType:	The ooaofooa type, as specified by the enum defined in 
+         				both the ooaofooa and in the 
+         	icon: the name of the icon associated with this element			
+         	name: The name associated with this model element
+         	symbolType:	This is currently set to one of 3 values
+         				shape - This is used when the model element is a shape
+         				connector - This is used when the model element is a 
+         				container - A container may hold other model elements. Additionally,
+         							a container may also be listed in the pei data as a 
+         							shape. For example, a Component_c is both a shape and a
+         							container.  
+         				
+			<color>: This section defines the defaults color for the symbol (255,255,255 is black)
+            	b: Default blue
+            	g: Default greeen
+            	r: Default red
+            </color>         				
+            
+            <terminator>: These sections are present for connectors
+                  end="start"
+                  name="Start Class"
+                  symbol="Class"
+                  symbolClass="org.xtuml.bp.core.ModelClass_c"
+                  type="shape">
+            </terminator>
+            
+           <dependsOn>: This section defines model elements that must be loaded 
+           				before the "symbol" can be used.
+                  class:	The fully qualified name of the generated model element. In 
+         					this case "fully qualified" refers to the fact that the package 
+         					name is included. (example: org.xtuml.bp.core.ModelClass_c)
+
+            </dependsOn>
+            
+       		<autoReconcile>: This section defines the information needed to reconcile 
+       					graphics that exist inside this model element (defaultfor: class)
+       					where reconciling refers to both creation and 
+       					deletion of graphical shapes and/or connectors to assure
+       					the graphical data properly represents the actual
+       					ooaofooa model elements.
+				
+               	targetSymbol:	This is the name is the "name" of the target model 
+               					element type to reconcile
+               	Bridge_NumElements:	This is the name of the operation, found in the ooaofooa 
+               					container we are reconciling , that is used to find out home
+               					many of this type of targetSymbol exist in the container.
+               					These operations are of the form: Get<symbol>count
+               	Bridge_GetElementID:	This is the name of the operation, found in the ooaofooa 
+               					container we are reconciling , that is used to return an 
+               					identifier for the model element at the provided index (the 
+               					index is sent as a parameter and we know how many elements exist
+               					based on use of the count operation)
+               					These operations are of the form: Get<symbol>id
+               	Bridge_ConnectorExists: 	If not used then this has a value of 
+               							"". Otherwise, this is the name 
+               							of an operation that test for the existence of 
+               							any of the model elements of type targetSymbol in 
+               							the container. This is currently only used when 
+               							reconciling connectors.
+               							These operations are of the form: Has<symbol>id
+               	Bridge_GetConnectorIDConditional: This is the same as Bridge_GetElementID, but this operation
+               	                        uses an additional paramater of type boolean
+    		</autoreconcile>
+	</symbol>         				
+
+	<defaultFor>: 
+		class:	The fully qualified name of the generated model element. In 
+         		this case "fully qualified" refers to the fact that the package 
+         		name is included. (example: org.xtuml.bp.core.ModelClass_c)
+        modelType: 
+        	"org.xtuml.bp.ui.canvas.Modeltype_c.SystemModelPackage"
+        name: The name associated with this model element
+               name="System Model Package Diagram"
+               ooaType="org.xtuml.bp.ui.canvas.Ooatype_c.SystemModel">
+               
+		<color>: See the color section above for "symbol", it is the same
+        </color>	
+        		
+		<autoreconcile>: See the autoreconcile section above for "symbol", it is the same
+        </autoreconcile>	
+
+	</defaultFor>
+   -->
    <extension
          id="org.xtuml.bp.ui.graphics.editor"
          name="Diagram Editor"
@@ -106,6 +209,46 @@
             <dependsOn
                   class="org.xtuml.bp.core.ReferredToIdentifierAttribute_c">
             </dependsOn>
+		 <autoReconcile
+			  Bridge_NumElements="Getsimpleassociationpartcount"
+			 
+			  Bridge_GetElementID="Getsimpleassociationpartid"
+			  targetSymbol="Association"/>
+			
+		 <autoReconcile
+			  Bridge_NumElements="Getsimpleassociationformcount"
+			 
+			  Bridge_GetElementID="Getsimpleassociationformid"
+			  targetSymbol="Association"/>
+			
+		 <autoReconcile
+			  Bridge_NumElements="Getsupertypecount"
+			 
+			  Bridge_GetElementID="Getsupertypeid"
+			  targetSymbol="Supertype"/>
+			
+		 <autoReconcile
+			  Bridge_NumElements="Getsubtypecount"
+			 
+			  Bridge_GetElementID="Getsubtypeid"
+			  targetSymbol="Subtype"/>
+			
+		 <autoReconcile
+			  Bridge_NumElements="Getassociativelinkonecount"
+			 
+			  Bridge_GetElementID="Getassociativelinkoneid"
+			  targetSymbol="Association"/>
+
+		 <autoReconcile
+			  Bridge_NumElements="Getassociativelinkothercount"
+			 
+			  Bridge_GetElementID="Getassociativelinkotherid"
+			  targetSymbol="Association"/>
+		 <autoReconcile
+			  Bridge_NumElements="Getclassaslinkcount"
+			 
+			  Bridge_GetElementID="Getclassaslinkid"
+			  targetSymbol="Associative Link"/>
          </symbol>
          <symbol
                class="org.xtuml.bp.core.ImportedClass_c"
@@ -164,6 +307,49 @@
             <dependsOn
                   class="org.xtuml.bp.core.ReferredToIdentifierAttribute_c">
             </dependsOn>
+		 <autoReconcile
+			  Bridge_NumElements="Getsimpleassociationpartcount"
+			 
+			  Bridge_GetElementID="Getsimpleassociationpartid"
+			  targetSymbol="Association"/>
+			
+		 <autoReconcile
+			  Bridge_NumElements="Getsimpleassociationformcount"
+			 
+			  Bridge_GetElementID="Getsimpleassociationformid"
+			  targetSymbol="Association"/>
+			
+		 <autoReconcile
+			  Bridge_NumElements="Getsupertypecount"
+			 
+			  Bridge_GetElementID="Getsupertypeid"
+			  targetSymbol="Supertype"/>
+			
+		 <autoReconcile
+			  Bridge_NumElements="Getsubtypecount"
+			 
+			  Bridge_GetElementID="Getsubtypeid"
+			  targetSymbol="Subtype"/>
+			
+		 <autoReconcile
+			  Bridge_NumElements="Getassociativelinkonecount"
+			 
+			  Bridge_GetElementID="Getassociativelinkoneid"
+			  targetSymbol="Association"
+			  sourceSymbol="Associative Link"/>
+			 
+		 <autoReconcile
+			  Bridge_NumElements="Getassociativelinkothercount"
+			 
+			  Bridge_GetElementID="Getassociativelinkotherid"
+			  targetSymbol="Associative Link"
+			  sourceSymbol="Association"/>
+			  
+		 <autoReconcile
+			  Bridge_NumElements="Getclassaslinkcount"
+			 
+			  Bridge_GetElementID="Getclassaslinkid"
+			  targetSymbol="Associative Link"/>
          </symbol>
          <symbol
                class="org.xtuml.bp.core.Association_c"
@@ -334,6 +520,14 @@
             <dependsOn
                   class="org.xtuml.bp.core.Action_c">
             </dependsOn>
+			<autoReconcile
+			   targetSymbol="Transition"
+			    Bridge_NumElements="Gettransitionsourcecount"
+			    Bridge_GetElementID="Gettransitionsourceid"/>
+			<autoReconcile
+			   targetSymbol="Transition"
+			    Bridge_NumElements="Gettransitiondestinationcount"
+			    Bridge_GetElementID="Gettransitiondestinationid"/>
          </symbol>
          <symbol
                class="org.xtuml.bp.core.Transition_c"
@@ -1756,32 +1950,32 @@
                   r="255">
             </color>
             <autoReconcile
-                  countMethod="Getprovisioncount"
-                  elementExistsMethod="Parenthasprovision"
-                  elementMethod="Getprovisionid"
+                  Bridge_NumElements="Getprovisioncount"
+                  Bridge_ConnectorExists="Parenthasprovision"
+                  Bridge_GetElementID="Getprovisionid"
                   targetSymbol="Provided Interface">
             </autoReconcile>
             <autoReconcile
-                  countMethod="Getrequirementcount"
-                  elementExistsMethod="Parenthasrequirement"
-                  elementMethod="Getrequirementid"
+                  Bridge_NumElements="Getrequirementcount"
+                  Bridge_ConnectorExists="Parenthasrequirement"
+                  Bridge_GetElementID="Getrequirementid"
                   targetSymbol="Required Interface">
             </autoReconcile>
             <autoReconcile
-                  countMethod="Getprovisioncount"
-                  elementExistsMethod="Parenthasprovision"
-                  elementMethod="Getprovisionid"
+                  Bridge_NumElements="Getprovisioncount"
+                  Bridge_ConnectorExists="Parenthasprovision"
+                  Bridge_GetElementID="Getprovisionid"
                   sourceSymbol="Delegation"
                   targetSymbol="Provided Interface"
-                  templateElementMethod="Getprovisiondelegationid">
+                  Bridge_GetConnectorIDConditional="Getprovisiondelegationid">
             </autoReconcile>
             <autoReconcile
-                  countMethod="Getrequirementcount"
-                  elementExistsMethod="Parenthasrequirement"
-                  elementMethod="Getrequirementid"
+                  Bridge_NumElements="Getrequirementcount"
+                  Bridge_ConnectorExists="Parenthasrequirement"
+                  Bridge_GetElementID="Getrequirementid"
                   sourceSymbol="Delegation"
                   targetSymbol="Required Interface"
-                  templateElementMethod="Getrequirementdelegationid">
+                  Bridge_GetConnectorIDConditional="Getrequirementdelegationid">
             </autoReconcile>
          </symbol>
          <symbol
@@ -1797,15 +1991,15 @@
                   r="255">
             </color>
             <autoReconcile
-                  countMethod="Getprovisioncount"
-                  elementExistsMethod="Hasprovision"
-                  elementMethod="Getprovisionid"
+                  Bridge_NumElements="Getprovisioncount"
+                  Bridge_ConnectorExists="Hasprovision"
+                  Bridge_GetElementID="Getprovisionid"
                   targetSymbol="Provided Interface">
             </autoReconcile>
             <autoReconcile
-                  countMethod="Getrequirementcount"
-                  elementExistsMethod="Hasrequirement"
-                  elementMethod="Getrequirementid"
+                  Bridge_NumElements="Getrequirementcount"
+                  Bridge_ConnectorExists="Hasrequirement"
+                  Bridge_GetElementID="Getrequirementid"
                   targetSymbol="Required Interface">
             </autoReconcile>
          </symbol>
@@ -1825,34 +2019,34 @@
                   class="org.xtuml.bp.core.Component_c">
             </dependsOn>
             <autoReconcile
-                  countMethod="Getimportedprovisioncount"
-                  elementExistsMethod="Hasimportedprovision"
-                  elementMethod="Getimportedprovisionid"
+                  Bridge_NumElements="Getimportedprovisioncount"
+                  Bridge_ConnectorExists="Hasimportedprovision"
+                  Bridge_GetElementID="Getimportedprovisionid"
                   sourceSymbol="Provided Interface"
                   targetSymbol="Imported Provided Interface"
-                  templateElementMethod="Getimportedprovisionprovisionid">
+                  Bridge_GetConnectorIDConditional="Getimportedprovisionprovisionid">
             </autoReconcile>
             <autoReconcile
-                  countMethod="Getimportedrequirementcount"
-                  elementExistsMethod="Hasimportedrequirement"
-                  elementMethod="Getimportedrequirementid"
+                  Bridge_NumElements="Getimportedrequirementcount"
+                  Bridge_ConnectorExists="Hasimportedrequirement"
+                  Bridge_GetElementID="Getimportedrequirementid"
                   sourceSymbol="Required Interface"
                   targetSymbol="Imported Required Interface"
-                  templateElementMethod="Getimportedrequirementrequirementid">
+                  Bridge_GetConnectorIDConditional="Getimportedrequirementrequirementid">
             </autoReconcile>
             <autoReconcile
-                  countMethod="Getimportedprovisioncount"
-                  elementExistsMethod="Hasimportedprovision"
-                  elementMethod="Getimportedprovisionid"
+                  Bridge_NumElements="Getimportedprovisioncount"
+                  Bridge_ConnectorExists="Hasimportedprovision"
+                  Bridge_GetElementID="Getimportedprovisionid"
                   targetSymbol="Imported Provided Interface"
-                  templateElementMethod="Getimportedprovisionprovisionid">
+                  Bridge_GetConnectorIDConditional="Getimportedprovisionprovisionid">
             </autoReconcile>
             <autoReconcile
-                  countMethod="Getimportedrequirementcount"
-                  elementExistsMethod="Hasimportedrequirement"
-                  elementMethod="Getimportedrequirementid"
+                  Bridge_NumElements="Getimportedrequirementcount"
+                  Bridge_ConnectorExists="Hasimportedrequirement"
+                  Bridge_GetElementID="Getimportedrequirementid"
                   targetSymbol="Imported Required Interface"
-                  templateElementMethod="Getimportedrequirementrequirementid">
+                  Bridge_GetConnectorIDConditional="Getimportedrequirementrequirementid">
             </autoReconcile>
          </symbol>
          <symbol
@@ -2078,15 +2272,15 @@
                   class="org.xtuml.bp.core.Port_c">
             </dependsOn>
             <autoReconcile
-                  countMethod="Getsatisfactioncount"
-                  elementExistsMethod="not used"
-                  elementMethod="not used"
+                  Bridge_NumElements="Getsatisfactioncount"
+                  Bridge_ConnectorExists="marker for boolean paramater"
+                  Bridge_GetElementID=""
                   targetSymbol="Provided Interface">
             </autoReconcile>
             <autoReconcile
-                  countMethod="Getsatisfactioncount"
-                  elementExistsMethod="not used"
-                  elementMethod="not used"
+                  Bridge_NumElements="Getsatisfactioncount"
+                  Bridge_ConnectorExists="marker for boolean paramater"
+                  Bridge_GetElementID=""
                   targetSymbol="Imported Provided Interface">
             </autoReconcile>
          </symbol>
@@ -2188,15 +2382,15 @@
                   class="org.xtuml.bp.core.Requirement_c">
             </dependsOn>
             <autoReconcile
-                  countMethod="Getsatisfactioncount"
-                  elementExistsMethod="not used"
-                  elementMethod="not used"
+                  Bridge_NumElements="Getsatisfactioncount"
+                  Bridge_ConnectorExists="marker for boolean paramater"
+                  Bridge_GetElementID=""
                   targetSymbol="Provided Interface">
             </autoReconcile>
             <autoReconcile
-                  countMethod="Getsatisfactioncount"
-                  elementExistsMethod="not used"
-                  elementMethod="not used"
+                  Bridge_NumElements="Getsatisfactioncount"
+                  Bridge_ConnectorExists="marker for boolean paramater"
+                  Bridge_GetElementID=""
                   targetSymbol="Imported Provided Interface">
             </autoReconcile>
          </symbol>
@@ -2245,11 +2439,11 @@
             <validSymbol
                   name="Package">
             </validSymbol>
-       <autoReconcile
+            <autoReconcile
                targetSymbol="Package"
-               countMethod="Getpckgcount"
-               elementMethod="Getpckgid"
-               elementExistsMethod="not used"/>
+               Bridge_NumElements="Getpckgcount"
+               Bridge_GetElementID="Getpckgid"
+               />
          </defaultFor>
          <defaultFor
                class="org.xtuml.bp.core.Package_c"
@@ -2261,197 +2455,224 @@
                   g="209"
                   r="191">
             </color>
-            <validSymbol
-                  name="Package">
+            <validSymbol name="Package" />
+            <validSymbol name="User Data Type" 			tool_category="Types"/>
+            <validSymbol name="Constant Specification" 	tool_category="Types"/>
+            <validSymbol name="Structured Data Type" 	tool_category="Types"/>
+            <validSymbol name="Enumeration Data Type" 	tool_category="Types"/>            
+            <validSymbol name="External Entity" 		tool_category="External" class="org.xtuml.bp.core.ExternalEntity_c"/>
+            <validSymbol name="Class" 					tool_category="Classes"/>
+            <validSymbol name="Imported Class" 			tool_category="Classes"/>
+            <validSymbol name="Association" 			tool_category="Classes"/>
+            <validSymbol name="Associative Link" 		tool_category="Classes"/>
+            <validSymbol name="Supertype" 				tool_category="Classes"/>
+            <validSymbol name="Subtype" 				tool_category="Classes"/>
+            <validSymbol 
+            											name="Component" 				
+            											tool_category="Components" 
+            											elemType="org.xtuml.bp.ui.canvas.Ooatype_c.Component" 
+            											class="org.xtuml.bp.core.Component_c">
             </validSymbol>
-            <validSymbol name="Accept Event Action" tool_category="Activity"/>
+            <validSymbol name="Component Reference" 	tool_category="Components"/>
+            <validSymbol name="Provided Interface" 		tool_category="Components"/>
+            <validSymbol name="Required Interface" 		tool_category="Components"/>
+            <validSymbol name="Interface" 				tool_category="Components"/>
+            <validSymbol name="Accept Event Action" 	tool_category="Activity"/>
             <validSymbol name="Accept Time Event Action" tool_category="Activity"/>
-            <validSymbol name="Action" tool_category="Activity"/>
-            <validSymbol name="Send Signal Action" tool_category="Activity"/>
-            <validSymbol name="Object Node" tool_category="Activity"/>
-            <validSymbol name="Decision/Merge Node" tool_category="Activity"/>
-            <validSymbol name="Initial Node" tool_category="Activity"/>
-            <validSymbol name="Activity Final Node" tool_category="Activity"/>
-            <validSymbol name="Flow Final Node" tool_category="Activity"/>
-            <validSymbol name="Activity Partition" tool_category="Activity"/>
-            <validSymbol name="Activity Edge" tool_category="Activity"/>
-            <validSymbol name="Fork/Join Node" tool_category="Activity"/>
-            <validSymbol name="Class" tool_category="Classes"/>
-            <validSymbol name="Imported Class" tool_category="Classes"/>
-            <validSymbol name="Association" tool_category="Classes"/>
-            <validSymbol name="Associative Link" tool_category="Classes"/>
-            <validSymbol name="Supertype" tool_category="Classes"/>
-            <validSymbol name="Subtype" tool_category="Classes"/>
-            <validSymbol name="Link" tool_category="Communication"/>
-            <validSymbol name="Component" elemType="org.xtuml.bp.ui.canvas.Ooatype_c.Component" class="org.xtuml.bp.core.Component_c" tool_category="Components"/>
-            <validSymbol name="Component Reference" tool_category="Components"/>
-            <validSymbol name="Provided Interface" tool_category="Components"/>
-            <validSymbol name="Required Interface" tool_category="Components"/>
-            <validSymbol name="Interface" tool_category="Components"/>
-            <validSymbol name="External Entity" class="org.xtuml.bp.core.ExternalEntity_c" tool_category="External"/>
-            <validSymbol name="Actor" tool_category="Interaction"/>
-            <validSymbol name="Component" class="org.xtuml.bp.core.ComponentParticipant_c" tool_category="Interaction"/>
-            <validSymbol name="Instance" tool_category="Interaction"/>
-            <validSymbol name="External Entity" class="org.xtuml.bp.core.ExternalEntityParticipant_c" tool_category="Interaction"/>
-            <validSymbol name="Package Participant" class="org.xtuml.bp.core.PackageParticipant_c" tool_category="Interaction"/>
-            <validSymbol name="Class" class="org.xtuml.bp.core.ClassParticipant_c" tool_category="Interaction"/>
-            <validSymbol name="Synchronous Message"  tool_category="Interaction" elemType="org.xtuml.bp.ui.canvas.Ooatype_c.SynchronousMessage"/>
-            <validSymbol name="Asynchronous Message" tool_category="Interaction" elemType="org.xtuml.bp.ui.canvas.Ooatype_c.AsynchronousMessage"/>
-            <validSymbol name="Return Message"       tool_category="Interaction" elemType="org.xtuml.bp.ui.canvas.Ooatype_c.ReturnMessage"/>
-            <validSymbol name="Communication Line" tool_category="Sequence"/>
-            <validSymbol name="Timing Mark" tool_category="Sequence"/>
-            <validSymbol name="Time Span" tool_category="Sequence"/>
-            <validSymbol name="User Data Type" tool_category="Types"/>
-            <validSymbol name="Constant Specification" tool_category="Types"/>
-            <validSymbol name="Structured Data Type" tool_category="Types"/>
-            <validSymbol name="Enumeration Data Type" tool_category="Types"/>            
-            <validSymbol name="Use Case" tool_category="Use Case"/>
-            <validSymbol name="Association" class="org.xtuml.bp.core.BinaryAssociation_c" tool_category="Use Case"/>
-            <validSymbol name="Generalization" tool_category="Use Case"/>
-            <validSymbol name="Include" tool_category="Use Case"/>
-            <validSymbol name="Extend" tool_category="Use Case"/>
+            <validSymbol name="Action" 					tool_category="Activity"/>
+            <validSymbol name="Send Signal Action" 		tool_category="Activity"/>
+            <validSymbol name="Object Node" 			tool_category="Activity"/>
+            <validSymbol name="Decision/Merge Node" 	tool_category="Activity"/>
+            <validSymbol name="Initial Node" 			tool_category="Activity"/>
+            <validSymbol name="Activity Final Node" 	tool_category="Activity"/>
+            <validSymbol name="Flow Final Node" 		tool_category="Activity"/>
+            <validSymbol name="Activity Partition" 		tool_category="Activity"/>
+            <validSymbol name="Activity Edge" 			tool_category="Activity"/>
+            <validSymbol name="Fork/Join Node" 			tool_category="Activity"/>
+            <validSymbol name="Link" 					tool_category="Communication"/>
+            <validSymbol name="Actor" 					tool_category="Interaction"/>
+            <validSymbol name="Component" 				tool_category="Interaction" class="org.xtuml.bp.core.ComponentParticipant_c"/>
+            <validSymbol name="Instance" 				tool_category="Interaction"/>
+            <validSymbol name="External Entity" 		tool_category="Interaction" class="org.xtuml.bp.core.ExternalEntityParticipant_c"/>
+            <validSymbol name="Package Participant" 	tool_category="Interaction" class="org.xtuml.bp.core.PackageParticipant_c"/>
+            <validSymbol name="Class" 					tool_category="Interaction" class="org.xtuml.bp.core.ClassParticipant_c"/>
+            <validSymbol name="Synchronous Message"  	tool_category="Interaction" elemType="org.xtuml.bp.ui.canvas.Ooatype_c.SynchronousMessage"/>
+            <validSymbol name="Asynchronous Message" 	tool_category="Interaction" elemType="org.xtuml.bp.ui.canvas.Ooatype_c.AsynchronousMessage"/>
+            <validSymbol name="Return Message"      	tool_category="Interaction" elemType="org.xtuml.bp.ui.canvas.Ooatype_c.ReturnMessage"/>
+            <validSymbol name="Communication Line" 		tool_category="Sequence"/>
+            <validSymbol name="Timing Mark" 			tool_category="Sequence"/>
+            <validSymbol name="Time Span" 				tool_category="Sequence"/>
+            <validSymbol name="Use Case" 				tool_category="Use Case"/>
+            <validSymbol name="Association" 			tool_category="Use Case" class="org.xtuml.bp.core.BinaryAssociation_c"/>
+            <validSymbol name="Generalization" 			tool_category="Use Case"/>
+            <validSymbol name="Include" 				tool_category="Use Case"/>
+            <validSymbol name="Extend" 					tool_category="Use Case"/>
             <autoReconcile
                targetSymbol="User Data Type"
-               countMethod="Getudtcount"
-               elementMethod="Getudtid"
-               elementExistsMethod="not used"/> 
+               Bridge_NumElements="Getudtcount"
+               Bridge_GetElementID="Getudtid"
+               /> 
             <autoReconcile
                targetSymbol="Actor"
-               countMethod="Getactorcount"
-               elementMethod="Getactorid"
-               elementExistsMethod="not used"/> 
+               Bridge_NumElements="Getactorcount"
+               Bridge_GetElementID="Getactorid"
+               /> 
             <autoReconcile
                targetSymbol="Use Case"
-               countMethod="Getusecasecount"
-               elementMethod="Getusecaseid"
-               elementExistsMethod="not used"/> 
+               Bridge_NumElements="Getusecasecount"
+               Bridge_GetElementID="Getusecaseid"
+               /> 
             <autoReconcile
                targetSymbol="Send Signal Action"
-               countMethod="Getsendsigactioncount"
-               elementMethod="Getsendsigactionid"
-               elementExistsMethod="not used"/>
+               Bridge_NumElements="Getsendsigactioncount"
+               Bridge_GetElementID="Getsendsigactionid"
+               />
             <autoReconcile
                targetSymbol="Accept Event Action"
-               countMethod="Getacceptevtactioncount"
-               elementMethod="Getacceptevtactionid"
-               elementExistsMethod="not used"/>  
+               Bridge_NumElements="Getacceptevtactioncount"
+               Bridge_GetElementID="Getacceptevtactionid"
+               />  
             <autoReconcile
                targetSymbol="Accept Time Event Action"
-               countMethod="Getaccepttimeevtactioncount"
-               elementMethod="Getaccepttimeevtactionid"
-               elementExistsMethod="not used"/>
+               Bridge_NumElements="Getaccepttimeevtactioncount"
+               Bridge_GetElementID="Getaccepttimeevtactionid"
+               />
             <autoReconcile
                targetSymbol="Action"
-               countMethod="Getactioncount"
-               elementMethod="Getactionid"
-               elementExistsMethod="not used"/>
+               Bridge_NumElements="Getactioncount"
+               Bridge_GetElementID="Getactionid"
+               />
             <autoReconcile
                targetSymbol="Class"
-               countMethod="Getclasscount"
-               elementMethod="Getclassid"
-               elementExistsMethod="not used"
+               Bridge_NumElements="Getclasscount"
+               Bridge_GetElementID="Getclassid"
+               
                class="org.xtuml.bp.core.ModelClass_c" />     
             <autoReconcile
                targetSymbol="Component"
-               countMethod="Getcomponentcount"
-               elementMethod="Getcomponentid"
-               elementExistsMethod="not used"
+               Bridge_NumElements="Getcomponentcount"
+               Bridge_GetElementID="Getcomponentid"
+               
                class="org.xtuml.bp.core.Component_c"/>     
             <autoReconcile
                targetSymbol="Component Reference"
-               countMethod="Getcomprefcount"
-               elementMethod="Getcomprefid"
-               elementExistsMethod="not used"/>     
+               Bridge_NumElements="Getcomprefcount"
+               Bridge_GetElementID="Getcomprefid"
+               />     
             <autoReconcile
                targetSymbol="Interface"
-               countMethod="Getifacecount"
-               elementMethod="Getifaceid"
-               elementExistsMethod="not used"/>     
+               Bridge_NumElements="Getifacecount"
+               Bridge_GetElementID="Getifaceid"
+               />     
             <autoReconcile
                targetSymbol="Constant Specification"
-               countMethod="Getconstspeccount"
-               elementMethod="Getconstspecid"
-               elementExistsMethod="not used"/>     
+               Bridge_NumElements="Getconstspeccount"
+               Bridge_GetElementID="Getconstspecid"
+               />     
             <autoReconcile
                targetSymbol="Structured Data Type"
-               countMethod="Getsdtcount"
-               elementMethod="Getsdtid"
-               elementExistsMethod="not used"/>     
+               Bridge_NumElements="Getsdtcount"
+               Bridge_GetElementID="Getsdtid"
+               />     
             <autoReconcile
                targetSymbol="Enumeration Data Type"
-               countMethod="Getedtcount"
-               elementMethod="Getedtid"
-               elementExistsMethod="not used"/>     
+               Bridge_NumElements="Getedtcount"
+               Bridge_GetElementID="Getedtid"
+               />     
             <autoReconcile
                targetSymbol="Component"
-               countMethod="Getcomppartcount"
-               elementMethod="Getcomppartid"
-               elementExistsMethod="not used"
+               Bridge_NumElements="Getcomppartcount"
+               Bridge_GetElementID="Getcomppartid"
+               
                class="org.xtuml.bp.core.ComponentParticipant_c"/>     
             <autoReconcile
                targetSymbol="Instance"
-               countMethod="Getinstancecount"
-               elementMethod="Getinstanceid"
-               elementExistsMethod="not used"/>     
+               Bridge_NumElements="Getinstancecount"
+               Bridge_GetElementID="Getinstanceid"
+               />     
             <autoReconcile
                targetSymbol="External Entity"
-               countMethod="Geteecount"
-               elementMethod="Geteeid"
-               elementExistsMethod="not used"
+               Bridge_NumElements="Geteecount"
+               Bridge_GetElementID="Geteeid"
+               
                class="org.xtuml.bp.core.ExternalEntity_c" />   
             <autoReconcile
                targetSymbol="Package Participant"
-               countMethod="Getpkgpartcount"
-               elementMethod="Getpkgpartid"
-               elementExistsMethod="not used"/>   
+               Bridge_NumElements="Getpkgpartcount"
+               Bridge_GetElementID="Getpkgpartid"
+               />   
             <autoReconcile
                targetSymbol="Class"
-               countMethod="Getclasspartcount"
-               elementMethod="Getclasspartid"
-               elementExistsMethod="not used"
+               Bridge_NumElements="Getclasspartcount"
+               Bridge_GetElementID="Getclasspartid"
+               
                class="org.xtuml.bp.core.ClassParticipant_c" />   
             <autoReconcile
                targetSymbol="Object Node"
-               countMethod="Getobjectnodecount"
-               elementMethod="Getobjectnodeid"
-               elementExistsMethod="not used"/>   
+               Bridge_NumElements="Getobjectnodecount"
+               Bridge_GetElementID="Getobjectnodeid"
+               />   
             <autoReconcile
                targetSymbol="Decision/Merge Node"
-               countMethod="Getdecmergenodecount"
-               elementMethod="Getdecmergenodeid"
-               elementExistsMethod="not used"/>   
+               Bridge_NumElements="Getdecmergenodecount"
+               Bridge_GetElementID="Getdecmergenodeid"
+               />   
             <autoReconcile
                targetSymbol="Initial Node"
-               countMethod="Getinitnodecount"
-               elementMethod="Getinitnodeid"
-               elementExistsMethod="not used"/>   
+               Bridge_NumElements="Getinitnodecount"
+               Bridge_GetElementID="Getinitnodeid"
+               />   
             <autoReconcile
                targetSymbol="Activity Final Node"
-               countMethod="Getactfinalnodecount"
-               elementMethod="Getactfinalnodeid"
-               elementExistsMethod="not used"/>   
+               Bridge_NumElements="Getactfinalnodecount"
+               Bridge_GetElementID="Getactfinalnodeid"
+               />   
             <autoReconcile
                targetSymbol="Flow Final Node"
-               countMethod="Getflowfinalnodecount"
-               elementMethod="Getflowfinalnodeid"
-               elementExistsMethod="not used"/>   
+               Bridge_NumElements="Getflowfinalnodecount"
+               Bridge_GetElementID="Getflowfinalnodeid"
+               />   
             <autoReconcile
                targetSymbol="Imported Class"
-               countMethod="Geticlasscount"
-               elementMethod="Geticlassid"
-               elementExistsMethod="not used"/>              
+               Bridge_NumElements="Geticlasscount"
+               Bridge_GetElementID="Geticlassid"
+               />              
             <autoReconcile
                targetSymbol="External Entity"
-               countMethod="Geteepartcount"
-               elementMethod="Geteepartid"
-               elementExistsMethod="not used"
+               Bridge_NumElements="Geteepartcount"
+               Bridge_GetElementID="Geteepartid"
+               
                class="org.xtuml.bp.core.ExternalEntityParticipant_c" />              
             <autoReconcile
                targetSymbol="Package"
-               countMethod="Getpckgcount"
-               elementMethod="Getpckgid"
-               elementExistsMethod="not used"
+               Bridge_NumElements="Getpckgcount"
+               Bridge_GetElementID="Getpckgid"
+               
                class="org.xtuml.bp.core.Package_c" />              
+           <autoReconcile
+               targetSymbol="Provided Interface"
+               Bridge_NumElements="Getprovisioncount"
+               Bridge_GetElementID="Getprovisionid"
+               Bridge_ConnectorExists="Hasprovision"/>
+          <autoReconcile
+               targetSymbol="Required Interface"
+               Bridge_NumElements="Getrequirementcount"
+               Bridge_GetElementID="Getrequirementid"
+               Bridge_ConnectorExists="Hasrequirement"/>
+     
+         <autoReconcile
+               targetSymbol="Imported Provided Interface"
+               Bridge_NumElements="Getimportedprovisioncount"
+               Bridge_GetElementID="Getimportedprovisionid"
+               Bridge_ConnectorExists="Hasimportedprovision"
+               Bridge_GetConnectorIDConditional="Getimportedprovisionprovisionid"/>
+         <autoReconcile
+               targetSymbol="Imported Required Interface"
+               Bridge_NumElements="Getimportedrequirementcount"
+               Bridge_GetElementID="Getimportedrequirementid"
+               Bridge_ConnectorExists="Hasimportedrequirement"
+               Bridge_GetConnectorIDConditional="Getimportedrequirementrequirementid"/>
+               
          </defaultFor>
          <defaultFor
                class="org.xtuml.bp.core.Component_c"
@@ -2500,29 +2721,52 @@
             <autoReconcile
                targetSymbol="Component"
                class="org.xtuml.bp.core.Component_c"
-               countMethod="Getcomponentcount"
-               elementMethod="Getcomponentid"
-               elementExistsMethod="not used"/>  
+               Bridge_NumElements="Getcomponentcount"
+               Bridge_GetElementID="Getcomponentid"
+               />  
             <autoReconcile
                targetSymbol="Component Reference"
-               countMethod="Getcomponentrefcount"
-               elementMethod="Getcomponentrefid"
-               elementExistsMethod="not used"/>       
+               Bridge_NumElements="Getcomponentrefcount"
+               Bridge_GetElementID="Getcomponentrefid"
+               />       
             <autoReconcile
                targetSymbol="Package"
-               countMethod="Getpkgcount"
-               elementMethod="Getpkgid"
-               elementExistsMethod="not used"/>       
+               Bridge_NumElements="Getpkgcount"
+               Bridge_GetElementID="Getpkgid"
+               />       
             <autoReconcile
                targetSymbol="Interface"
-               countMethod="Getifacecount"
-               elementMethod="Getifaceid"
-               elementExistsMethod="not used"/>       
+               Bridge_NumElements="Getifacecount"
+               Bridge_GetElementID="Getifaceid"
+               />       
             <autoReconcile
                targetSymbol="User Data Type"
-               countMethod="Getudtcount"
-               elementMethod="Getudtid"
-               elementExistsMethod="not used"/>       
+               Bridge_NumElements="Getudtcount"
+               Bridge_GetElementID="Getudtid"
+               />       
+            <autoReconcile
+               targetSymbol="Provided Interface"
+               Bridge_NumElements="Getprovisioncount"
+               Bridge_GetElementID="Getprovisionid"
+               Bridge_ConnectorExists="Hasimportedprovision"/>
+            <autoReconcile
+               targetSymbol="Required Interface"
+               Bridge_NumElements="Getrequirementcount"
+               Bridge_GetElementID="Getrequirementid"
+               Bridge_ConnectorExists="Hasimportedrequirement"/>
+
+          <autoReconcile
+               targetSymbol="Imported Provided Interface"
+               Bridge_NumElements="Getimportedprovisioncount"
+               Bridge_GetElementID="Getimportedprovisionid"
+               Bridge_ConnectorExists="Hasimportedprovision"
+              />
+          <autoReconcile
+               targetSymbol="Imported Required Interface"
+               Bridge_NumElements="Getimportedrequirementcount"
+               Bridge_GetElementID="Getimportedrequirementid"
+               Bridge_ConnectorExists="Hasimportedrequirement"
+               />               
          </defaultFor>
          <defaultFor
                class="org.xtuml.bp.core.InstanceStateMachine_c"
@@ -2545,9 +2789,9 @@
             </validSymbol>
             <autoReconcile
                targetSymbol="State"
-               countMethod="Getstatecount"
-               elementMethod="Getstateid"
-               elementExistsMethod="not used"/>  
+               Bridge_NumElements="Getstatecount"
+               Bridge_GetElementID="Getstateid"
+               />  
          </defaultFor>
          <defaultFor
                class="org.xtuml.bp.core.ClassStateMachine_c"
@@ -2567,12 +2811,22 @@
             </validSymbol>
             <autoReconcile
                targetSymbol="State"
-               countMethod="Getstatecount"
-               elementMethod="Getstateid"
-               elementExistsMethod="not used"/>   
+               Bridge_NumElements="Getstatecount"
+               Bridge_GetElementID="Getstateid"/>   
          </defaultFor>
       </editor>
+      
+   <!-- ****** This is the end of the diagram editor extension ***** -->      
    </extension>
+   
+   <!--
+                        ************ READ ME ************
+                        
+	Below This point you find extensions used to manipulate the graphic preferences.
+	You will find that the extensions below point into the org.xtuml.bp.graphics
+	plugin which is where rendering currently happens in BP.
+                        
+   -->
    <extension
          id="org.xtuml.bp.ui.graphics.CanvasEditorAction"
          name="Diagram Editor"

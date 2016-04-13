@@ -33,10 +33,11 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.preferences.IScopeContext;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.osgi.framework.Bundle;
 import org.osgi.service.prefs.BackingStoreException;
 import org.osgi.service.prefs.Preferences;
-
 import org.xtuml.bp.core.Bridge_c;
 import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.CorePlugin;
@@ -49,7 +50,9 @@ import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.ui.preferences.BridgePointProjectActionLanguagePreferences;
 import org.xtuml.bp.core.ui.preferences.BridgePointProjectPreferences;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 
+@RunWith(OrderedRunner.class)
 public class ParseErrorForEmptySynchronousMessagesTests extends BaseTest {
 	String projectName = "testParseErrorForEmptySynchronousMessage";
 
@@ -62,6 +65,7 @@ public class ParseErrorForEmptySynchronousMessagesTests extends BaseTest {
 	 * These tests must be ordered, do not change the order
 	 * 
 	 */
+	@Test
 	public void testParseErrorForEmptySynchronousMessagesTest()  throws Exception {
 		doTestParseErrorPreferencesPackage();
 		doTestParseErrorPreferencesComponent();

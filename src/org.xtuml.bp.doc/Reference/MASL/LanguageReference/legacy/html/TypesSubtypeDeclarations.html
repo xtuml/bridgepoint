@@ -1,0 +1,178 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>3.8. Subtype Declarations</title>
+<link rel="stylesheet" type="text/css" href="docbook.css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<meta name="keywords" content="MASL, Action Language, Action Semantics, UML, Unified Modelling Language, Shlaer Mellor">
+<link rel="home" href="index.html" title="MASL Reference Manual">
+<link rel="up" href="Types.html" title="Chapter 3. Types">
+<link rel="prev" href="TypesFullDeclarations.html" title="3.7. Full Type Declarations">
+<link rel="next" href="TypesVariableDeclarations.html" title="3.9. Variable Declarations">
+<link rel="preface" href="preface.html" title="Preface">
+<link rel="chapter" href="Grammars.html" title="Chapter 1. Grammars">
+<link rel="chapter" href="LexicalStructure.html" title="Chapter 2. Lexical Structure">
+<link rel="chapter" href="Types.html" title="Chapter 3. Types">
+<link rel="chapter" href="TypeConversion.html" title="Chapter 4. Type Conversion">
+<link rel="chapter" href="Domains.html" title="Chapter 5. Domains">
+<link rel="chapter" href="Objects.html" title="Chapter 6. Objects">
+<link rel="chapter" href="Relationships.html" title="Chapter 7. Relationships">
+<link rel="chapter" href="Lifecycles.html" title="Chapter 8. Lifecycles">
+<link rel="chapter" href="Functions.html" title="Chapter 9. Functions">
+<link rel="chapter" href="Services.html" title="Chapter 10. Services">
+<link rel="chapter" href="Exceptions.html" title="Chapter 11. Exceptions">
+<link rel="chapter" href="Statements.html" title="Chapter 12. Statements">
+<link rel="chapter" href="Names.html" title="Chapter 13. Names">
+<link rel="chapter" href="Expressions.html" title="Chapter 14. Expressions">
+<link rel="appendix" href="LanguageDefinedCharacteristics.html" title="Appendix A. Language Defined Characteristics">
+<link rel="appendix" href="SyntaxSummary.html" title="Appendix B. Syntax Summary">
+<link rel="index" href="ix01.html" title="Index">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div align="center">OFFICIAL</div>
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">3.8. Subtype Declarations</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="TypesFullDeclarations.html">Prev</a> </td>
+<th width="60%" align="center">Chapter 3. Types</th>
+<td width="20%" align="right"> <a accesskey="n" href="TypesVariableDeclarations.html">Next</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title">
+<a name="TypesSubtypeDeclarations"></a>3.8. Subtype Declarations</h2></div></div></div>
+<p>
+A <code class="literal">subtype</code>
+<a class="indexterm" name="idp66852496"></a>
+declaration introduces a type that is
+characterized by a set of values, which are a subset of the values of
+another type.
+</p>
+<p>
+A <code class="literal">subtype</code>
+<a class="indexterm" name="idp66855120"></a>
+declaration does not introduce a new
+distinct type. Hence, assigning the value of a variable declared to have
+this subtype to a variable having the original type is valid. However, the
+reverse can be invalid, causing a run-time exception to be raised, since
+the value of the original type may be outside the range of the subtype.
+</p>
+<p>
+A subtype definition gives the definition of a new subtype.
+</p>
+<a class="indexterm" name="idp66857712"></a><a class="indexterm" name="idp66858880"></a><a class="indexterm" name="idp66860048"></a><a class="indexterm" name="idp66861216"></a><a class="indexterm" name="idp66862384"></a><table width="100%" cellpadding="5" bgcolor="#F5DCB3" border="1" class="productionset" summary="EBNF"><tr><td><table border="0" width="99%" cellpadding="0" bgcolor="#F5DCB3" class="productionset" summary="EBNF productions"><tr>
+<td align="left" valign="top" width="3%">[70]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.subtypedefinition"></a>
+        subtype definition
+    </td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="TypesUserDefinedTypes.html#ebnf.userdefinedtype">user defined type</a>,
+        '(',
+        <a href="TypesFullDeclarations.html#ebnf.range">range</a>,
+        ')', ';' |
+        <a href="TypesTypeSpecification.html#ebnf.type">type</a>,
+        [<a href="TypesFullDeclarations.html#ebnf.constraint">constraint</a>],
+        ';'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr></table></td></tr></table>
+<p>
+A compile-time error occurs if:
+</p>
+<div class="itemizedlist"><ul class="itemizedlist">
+<li class="listitem"><p>
+A subtype is declared in terms of some
+<a class="link" href="TypesInstanceTypes.html" title="3.4. Instance Types"><span class="type">instance</span></a> type.
+<a class="indexterm" name="idp66870896"></a>
+<a class="indexterm" name="idp66871920"></a>
+</p></li>
+<li class="listitem"><p>
+The optional constraint defines a range of values that is not a subset of the
+range of values of the original type.
+</p></li>
+<li class="listitem"><p>
+The range is not defined for a user defined type which is an
+<a class="link" href="TypesFullDeclarations.html#ebnf.unconstrainedarraytypedefinition"><span class="emphasis"><em>unconstrained array type</em></span></a>
+<a class="indexterm" name="idp66876208"></a>
+<a class="indexterm" name="idp66877680"></a>
+type.
+</p></li>
+</ul></div>
+<p>
+</p>
+<p>
+Specifically,
+</p>
+<div class="itemizedlist"><ul class="itemizedlist">
+<li class="listitem"><p>
+The range of values given by a
+<a class="link" href="TypesFullDeclarations.html#ebnf.rangeconstraint">range constraint</a>
+<a class="indexterm" name="idp66882400"></a>
+must all be values of the original type.
+</p></li>
+<li class="listitem"><p>
+A digit constraint can only be given if the original type has a
+<a class="link" href="TypesFullDeclarations.html#ebnf.digitsconstraint">digits constraint</a>.
+<a class="indexterm" name="idp66885440"></a>
+In addition the value of the
+<a class="link" href="TypesFullDeclarations.html#ebnf.digitsconstraint">digits constraint</a>
+<a class="indexterm" name="idp66887520"></a>
+must be less than or equal to the original
+<a class="link" href="TypesFullDeclarations.html#ebnf.digitsconstraint">digits constraint</a>.
+<a class="indexterm" name="idp66889616"></a>
+</p></li>
+<li class="listitem">
+<p>
+A <a class="link" href="TypesFullDeclarations.html#ebnf.deltaconstraint">delta constraint</a>
+<a class="indexterm" name="idp66892576"></a>
+can only be given if the original type has a
+<a class="link" href="TypesFullDeclarations.html#ebnf.deltaconstraint">delta constraint</a>.
+<a class="indexterm" name="idp66894672"></a>
+In addition the value of the delta constraint must be less than or equal to the
+original <a class="link" href="TypesFullDeclarations.html#ebnf.deltaconstraint">delta constraint</a>.
+<a class="indexterm" name="idp66896816"></a>
+</p>
+<p>
+In practice the optional constraint can only be given for subtypes of
+<a class="link" href="TypesFullDeclarations.html#TypesNumericTypes" title="3.7.1. Numeric Types">numeric type</a>
+<a class="indexterm" name="idp66899376"></a>
+<a class="indexterm" name="idp66900400"></a>
+and
+<a class="link" href="TypesFullDeclarations.html#TypesEnumerationTypes" title="3.7.3. Enumeration Types"><span class="type">enumeration</span></a> types.
+<a class="indexterm" name="idp66902720"></a>
+<a class="indexterm" name="idp66903744"></a>
+</p>
+</li>
+</ul></div>
+<p>
+</p>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="TypesFullDeclarations.html">Prev</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="Types.html">Up</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="TypesVariableDeclarations.html">Next</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">3.7. Full Type Declarations </td>
+<td width="20%" align="center">
+<a accesskey="h" href="index.html">Home</a> | <a accesskey="t" href="bk01-toc.html">ToC</a>
+</td>
+<td width="40%" align="right" valign="top"> 3.9. Variable Declarations</td>
+</tr>
+</table>
+</div>
+<div align="center">OFFICIAL</div>
+</body>
+</html>

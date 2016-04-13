@@ -1,0 +1,167 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>2.1. if Statement</title>
+<link rel="stylesheet" type="text/css" href="docbook.css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<meta name="keywords" content="MASL, Action Language, Action Semantics, UML, Unified Modelling Language, Shlaer Mellor">
+<link rel="home" href="index.html" title="MASL Tutorial">
+<link rel="up" href="ExecutionControl.html" title="Chapter 2. Execution Control">
+<link rel="prev" href="ExecutionControl.html" title="Chapter 2. Execution Control">
+<link rel="next" href="ExecutionControlCaseStatement.html" title="2.2. case Statement">
+<link rel="preface" href="preface.html" title="Preface">
+<link rel="chapter" href="Types.html" title="Chapter 1. Types">
+<link rel="chapter" href="ExecutionControl.html" title="Chapter 2. Execution Control">
+<link rel="chapter" href="CompositeTypes.html" title="Chapter 3. Composite Types">
+<link rel="chapter" href="Exceptions.html" title="Chapter 4. Exceptions">
+<link rel="chapter" href="ObjectsandRelationships.html" title="Chapter 5. Objects and Relationships">
+<link rel="chapter" href="Actions.html" title="Chapter 6. Actions">
+<link rel="chapter" href="DeviceIO.html" title="Chapter 7. Device Input/Output">
+<link rel="chapter" href="MASLExamples.html" title="Chapter 8. MASL Examples">
+<link rel="index" href="ix01.html" title="Index">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div align="center">UNCLASSIFIED</div>
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">2.1. <code class="literal">if</code> Statement</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ExecutionControl.html">Prev</a> </td>
+<th width="60%" align="center">Chapter 2. Execution Control</th>
+<td width="20%" align="right"> <a accesskey="n" href="ExecutionControlCaseStatement.html">Next</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title">
+<a name="ExecutionControlIfStatement"></a>2.1. <code class="literal">if</code> Statement</h2></div></div></div>
+<p>The <code class="literal">if</code> statement is probably the most basic way
+    to control program flow. The simplest form of <code class="literal">if</code>
+    statement starts with the reserved word if followed by a condition and the
+    reserved word then. This is then followed by a sequence of statements,
+    which will be executed if the condition turns out to the true. The end of
+    the sequence is indicated by the closing <code class="literal">end if</code>. The
+    condition can, be of arbitrary complexity and the sequence of statements
+    can be of arbitrary length. A simple example is:</p>
+<div class="informalexample"><pre class="programlisting">  declare
+    danger : Boolean := false;
+  begin
+    if danger then
+      run();
+    end if;
+  end;</pre></div>
+<p>In this, <code class="varname">danger</code> is a
+    <span class="type">boolean</span> variable and run is a service describing the details
+    of the running activity. The statement <code class="literal">run();</code> merely
+    calls the service (services are dealt with in <a class="xref" href="Actions.html" title="Chapter 6. Actions">Chapter 6, <i>Actions</i></a>).
+    The effect of this if statement is that should the variable
+    <code class="varname">danger</code> be true then we invoke the service run,
+    otherwise we do nothing. In either case we then obey the statement
+    following the <code class="literal">if</code> statement.</p>
+<p>As we have said there could be a long sequence between
+    <code class="literal">then</code> and <code class="literal">end if</code>. Therefoer we might
+    breeak the process into more detail.</p>
+<div class="informalexample"><pre class="programlisting">  declare
+    danger : boolean;
+  begin
+    if danger then
+      think();
+      discuss();
+      run();
+    end if;
+  end;</pre></div>
+<p>Note how we indent the statements to show the flow
+    structure of the code. This is most important since it enables the program
+    to be understood so much more easily also be aware that the end if will
+    always be followed by a semicolon. This is because semicolons terminate
+    statements rather than separate them as in other languages.</p>
+<p>Often we will want to do alternative actions according to the value
+    of the condition. In this case we add <code class="literal">else</code> followed by
+    the alternative sequence to be obeyed if the condition is
+    false.</p>
+<div class="informalexample"><pre class="programlisting">  declare
+    today : day_type;
+    tomorrow : day_type;
+  begin
+    if today = SUN then
+      tomorrow := MON;
+    else
+      tomorrow := today’succ;
+   end if;
+end;</pre></div>
+<p>The statements in the sequences after then and else can be quite
+    arbitrary and so could be further nested <code class="literal">if</code>
+    statements.</p>
+<div class="informalexample"><pre class="programlisting">  declare
+    a : real; b : real;
+    c : real; d : real;
+    root : real;
+  begin
+    if a = 0.0 then
+      root := -c/b;
+    else
+      if b**2 - 4.0*a*c &gt;= 0.0 then
+        solveRealRoots();
+      else
+        solveComplexRoots();
+      end if;
+    end if;
+  end;</pre></div>
+<p>Observe the repetition of <code class="literal">end if</code>.
+    This is rather ugly and occurs sufficiently frequently to justify an
+    additional construction. This uses the reserved word
+    <code class="literal">elsif</code> as follows:</p>
+<div class="informalexample"><pre class="programlisting">  declare
+    a : real; b : real;
+    c : real; d : real;
+    root : real;
+  begin
+    if a = 0.0 then
+      root := -c/b;
+    elsif b**2 - 4.0*a*c &gt;= 0.0 then
+      solveRealRoots();
+    else
+      solveComplexRoots();
+    end if;
+  end;</pre></div>
+<p>This construction emphasised the essentially equal
+    status of the three cases and also the sequential nature of the tests. The
+    <code class="literal">elsif</code> part can be repeated an arbitrary number of times
+    and the final else part is optional. The behaviour is simply that each
+    condition is evaluated in turn until one that is true is encounted; the
+    corresponding sequence is then obeyed. In none of the conditions turns out
+    to be true then the else part, if any, is taken; if there is no else part
+    then none of the sequences are obeyed.</p>
+<div class="note">
+<h3 class="title">Note</h3>
+<p>The spelling of <code class="literal">elsif</code> and the layout – we align
+      <code class="literal">elsif</code> and <code class="literal">else</code> with the
+      <code class="literal">if</code> and <code class="literal">end if</code> and all the
+      sequences are indented equally.</p>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ExecutionControl.html">Prev</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="ExecutionControl.html">Up</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ExecutionControlCaseStatement.html">Next</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">Chapter 2. Execution Control </td>
+<td width="20%" align="center">
+<a accesskey="h" href="index.html">Home</a> | <a accesskey="t" href="bk01-toc.html">ToC</a>
+</td>
+<td width="40%" align="right" valign="top"> 2.2. <code class="literal">case</code> Statement</td>
+</tr>
+</table>
+</div>
+<div align="center">UNCLASSIFIED</div>
+</body>
+</html>

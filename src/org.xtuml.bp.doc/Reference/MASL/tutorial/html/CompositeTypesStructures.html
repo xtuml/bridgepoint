@@ -1,0 +1,108 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>3.1. Structures</title>
+<link rel="stylesheet" type="text/css" href="docbook.css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<meta name="keywords" content="MASL, Action Language, Action Semantics, UML, Unified Modelling Language, Shlaer Mellor">
+<link rel="home" href="index.html" title="MASL Tutorial">
+<link rel="up" href="CompositeTypes.html" title="Chapter 3. Composite Types">
+<link rel="prev" href="CompositeTypes.html" title="Chapter 3. Composite Types">
+<link rel="next" href="CompositeTypesCollections.html" title="3.2. Collections">
+<link rel="preface" href="preface.html" title="Preface">
+<link rel="chapter" href="Types.html" title="Chapter 1. Types">
+<link rel="chapter" href="ExecutionControl.html" title="Chapter 2. Execution Control">
+<link rel="chapter" href="CompositeTypes.html" title="Chapter 3. Composite Types">
+<link rel="chapter" href="Exceptions.html" title="Chapter 4. Exceptions">
+<link rel="chapter" href="ObjectsandRelationships.html" title="Chapter 5. Objects and Relationships">
+<link rel="chapter" href="Actions.html" title="Chapter 6. Actions">
+<link rel="chapter" href="DeviceIO.html" title="Chapter 7. Device Input/Output">
+<link rel="chapter" href="MASLExamples.html" title="Chapter 8. MASL Examples">
+<link rel="index" href="ix01.html" title="Index">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div align="center">UNCLASSIFIED</div>
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">3.1. Structures</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="CompositeTypes.html">Prev</a> </td>
+<th width="60%" align="center">Chapter 3. Composite Types</th>
+<td width="20%" align="right"> <a accesskey="n" href="CompositeTypesCollections.html">Next</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title">
+<a name="CompositeTypesStructures"></a>3.1. Structures</h2></div></div></div>
+<p>A structure is a composite entity consisting of named components
+    which may be of different types. Consider the following:</p>
+<div class="informalexample"><pre class="programlisting">  subtype day_number_type is integer range 1 .. 31;
+  type month_name_type is enum (JAN, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, NOV, DEC);
+
+  type date is structure
+    day : day_number_type;
+    month : month_name_type;
+    year : integer;
+  end structure;</pre></div>
+<p>This declares the type date to be a structure containing three named
+    components: <code class="varname">day</code>,
+    <code class="varname">month</code> and <code class="varname">year</code>. We
+    can declare variables and constants of structure types in the usual
+    way.</p>
+<div class="informalexample"><pre class="programlisting">  d : date;</pre></div>
+<p>declares a variable <code class="varname">d</code> which is a
+    <span class="type">date</span>. The individual components of <code class="varname">d</code> can
+    be denoted by following <code class="varname">d</code> with a dot and the component
+    name. Therefore we could write:</p>
+<div class="informalexample"><pre class="programlisting">  d.day := 20;
+  d.month := SEP;
+  d.year := 1969;</pre></div>
+<p>in order to assign new values to the individual
+    components. Structures can be manipulated as whole entities. Literal
+    values can be written as aggregates. So we could write:</p>
+<div class="informalexample"><pre class="programlisting">  d : date := (20, SEP, 1969);
+  e : date;</pre></div>
+<p>and then:</p>
+<div class="informalexample"><pre class="programlisting">  e := d;</pre></div>
+<p>or:</p>
+<div class="informalexample"><pre class="programlisting">  e := (20, SEP, 1969);</pre></div>
+<p>It is possible to give default expression for some or
+    all of the components in the type definition. Therefore:</p>
+<div class="informalexample"><pre class="programlisting">  type complex_type is structure
+    real : integer := 0;
+    image : integer := 0;
+  end structure;</pre></div>
+<p>declares a structure type containing two components of
+    type integer and gives a default expression of 0 for each. The components
+    of a structure can be of any type except those in terms of some instance
+    type <a class="xref" href="Bibliography.html#MASL06">[MASL06]</a>.</p>
+<p>It is important to note that variables declared as a structure type
+    cannot be subsequently used in statements that incorporate the comparison
+    operators.</p>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="CompositeTypes.html">Prev</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="CompositeTypes.html">Up</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="CompositeTypesCollections.html">Next</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">Chapter 3. Composite Types </td>
+<td width="20%" align="center">
+<a accesskey="h" href="index.html">Home</a> | <a accesskey="t" href="bk01-toc.html">ToC</a>
+</td>
+<td width="40%" align="right" valign="top"> 3.2. Collections</td>
+</tr>
+</table>
+</div>
+<div align="center">UNCLASSIFIED</div>
+</body>
+</html>

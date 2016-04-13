@@ -22,23 +22,26 @@ package org.xtuml.bp.ui.properties.test;
 //=====================================================================
 
 import org.eclipse.ui.views.properties.IPropertyDescriptor;
-
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.Association_c;
 import org.xtuml.bp.core.ModelClass_c;
 import org.xtuml.bp.core.StateMachineEvent_c;
 import org.xtuml.bp.core.StateMachineState_c;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.ui.properties.AssociationR_RELPropertySource;
 import org.xtuml.bp.ui.properties.ClassO_OBJPropertySource;
 import org.xtuml.bp.ui.properties.EventSM_EVTPropertySource;
 import org.xtuml.bp.ui.properties.IntegerPropertyDescriptor;
 import org.xtuml.bp.ui.properties.StateSM_STATEPropertySource;
 
+@RunWith(OrderedRunner.class)
 public class NumberRangeTest extends BaseTest
 {
-    public NumberRangeTest(String name) {
-        super(null, name);
-    }
+    public NumberRangeTest(){
+		super(null, null);
+	}
     private void verifyRange(String prop, IPropertyDescriptor[] pd_set)
     {
         for ( int i = 0; i < pd_set.length; ++i)
@@ -66,7 +69,8 @@ public class NumberRangeTest extends BaseTest
             }
         }
     }
-    public void testModelClass() throws Exception
+    @Test
+	public void testModelClass() throws Exception
     {
         // Numb: 0 .. 9999
         ModelClass_c inst = ModelClass_c.ModelClassInstance(modelRoot);
@@ -74,7 +78,8 @@ public class NumberRangeTest extends BaseTest
         IPropertyDescriptor[] pd_set = ps.getPropertyDescriptors();
 		verifyRange("Numb", pd_set);
     }
-    public void testAssociation() throws Exception
+    @Test
+	public void testAssociation() throws Exception
     {
         // Numb: 0 .. 9999
         Association_c inst = Association_c.AssociationInstance(modelRoot);
@@ -82,7 +87,8 @@ public class NumberRangeTest extends BaseTest
         IPropertyDescriptor[] pd_set = ps.getPropertyDescriptors();
         verifyRange("Numb", pd_set);
     }
-    public void testStateMachineEvent() throws Exception
+    @Test
+	public void testStateMachineEvent() throws Exception
     {
         // Numb: 0 .. 9999
         StateMachineEvent_c inst = StateMachineEvent_c.StateMachineEventInstance(modelRoot);
@@ -90,7 +96,8 @@ public class NumberRangeTest extends BaseTest
         IPropertyDescriptor[] pd_set = ps.getPropertyDescriptors();
         verifyRange("Numb", pd_set);
     }
-    public void testStateMachineState() throws Exception
+    @Test
+	public void testStateMachineState() throws Exception
     {
         // Numb: 0 .. 9999
         StateMachineState_c inst = StateMachineState_c.StateMachineStateInstance(modelRoot);
@@ -98,7 +105,8 @@ public class NumberRangeTest extends BaseTest
         IPropertyDescriptor[] pd_set = ps.getPropertyDescriptors();
         verifyRange("Numb", pd_set);
     }
-    public void testStateMachineConfig_ID() throws Exception
+    @Test
+	public void testStateMachineConfig_ID() throws Exception
     {
       // readonly ... no tests
     }

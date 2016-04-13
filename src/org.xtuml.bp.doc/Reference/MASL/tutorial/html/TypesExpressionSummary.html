@@ -1,0 +1,174 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>1.11. Expression Summary</title>
+<link rel="stylesheet" type="text/css" href="docbook.css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<meta name="keywords" content="MASL, Action Language, Action Semantics, UML, Unified Modelling Language, Shlaer Mellor">
+<link rel="home" href="index.html" title="MASL Tutorial">
+<link rel="up" href="Types.html" title="Chapter 1. Types">
+<link rel="prev" href="TypesDateandTime.html" title="1.10. Date and Time">
+<link rel="next" href="ExecutionControl.html" title="Chapter 2. Execution Control">
+<link rel="preface" href="preface.html" title="Preface">
+<link rel="chapter" href="Types.html" title="Chapter 1. Types">
+<link rel="chapter" href="ExecutionControl.html" title="Chapter 2. Execution Control">
+<link rel="chapter" href="CompositeTypes.html" title="Chapter 3. Composite Types">
+<link rel="chapter" href="Exceptions.html" title="Chapter 4. Exceptions">
+<link rel="chapter" href="ObjectsandRelationships.html" title="Chapter 5. Objects and Relationships">
+<link rel="chapter" href="Actions.html" title="Chapter 6. Actions">
+<link rel="chapter" href="DeviceIO.html" title="Chapter 7. Device Input/Output">
+<link rel="chapter" href="MASLExamples.html" title="Chapter 8. MASL Examples">
+<link rel="index" href="ix01.html" title="Index">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div align="center">UNCLASSIFIED</div>
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">1.11. Expression Summary</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="TypesDateandTime.html">Prev</a> </td>
+<th width="60%" align="center">Chapter 1. Types</th>
+<td width="20%" align="right"> <a accesskey="n" href="ExecutionControl.html">Next</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title">
+<a name="TypesExpressionSummary"></a>1.11. Expression Summary</h2></div></div></div>
+<p>All the operators introduced so far are shown in <a class="xref" href="TypesExpressionSummary.html#TypesOperatorsTable" title="Table 1.3. Operators">Table 1.3, “Operators”</a> , grouped by precedence level. In all the
+    cases of binary operators, except for multiplication
+    (<code class="literal">*</code>) and division (<code class="literal">/</code>), the two
+    operands must have same base type. For multiplication and division, the
+    two operands must have the same basis type.</p>
+<div class="table">
+<a name="TypesOperatorsTable"></a><div class="table-title">Table 1.3. Operators</div>
+<div class="table-contents"><table class="table" border="1">
+<colgroup>
+<col>
+<col>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th align="center">Operator</th>
+<th align="center">Operation</th>
+<th align="center">Operand(s)</th>
+<th align="center">Result</th>
+</tr></thead>
+<tbody>
+<tr>
+<td><code class="literal">or</code></td>
+<td>inclusive or</td>
+<td><span class="type">boolean</span></td>
+<td><span class="type">boolean</span></td>
+</tr>
+<tr>
+<td><code class="literal">xor</code></td>
+<td>exclusive or</td>
+<td><span class="type">boolean</span></td>
+<td><span class="type">boolean</span></td>
+</tr>
+<tr>
+<td><code class="literal">and</code></td>
+<td>conjunction</td>
+<td><span class="type">boolean</span></td>
+<td><span class="type">boolean</span></td>
+</tr>
+<tr>
+<td>=</td>
+<td>equality</td>
+<td align="left">
+<span class="type">boolean</span>, <span class="type">numeric</span>,
+            enumeration, <span class="type">character</span>, <span class="type">wcharacter</span> ,
+            <span class="type">string</span>, <span class="type">wstring</span>,
+            <span class="type">byte</span>
+</td>
+<td><span class="type">boolean</span></td>
+</tr>
+<tr>
+<td><code class="literal">/=</code></td>
+<td>inequality</td>
+<td align="left">
+<span class="type">boolean</span>, <span class="type">numeric</span>,
+            enumeration, <span class="type">character</span>, <span class="type">wcharacter</span> ,
+            <span class="type">string</span>, <span class="type">wstring</span>,
+            <span class="type">byte</span>
+</td>
+<td><span class="type">boolean</span></td>
+</tr>
+<tr>
+<td><code class="literal">&lt;</code></td>
+<td>less than</td>
+<td align="left">
+<span class="type">numeric</span>, enumeration,
+            <span class="type">character</span>, <span class="type">wcharacter</span> ,
+            <span class="type">string</span>, <span class="type">wstring</span>
+</td>
+<td><span class="type">boolean</span></td>
+</tr>
+<tr>
+<td><code class="literal">&gt;</code></td>
+<td>greater than</td>
+<td align="left">
+<span class="type">numeric</span>, enumeration,
+            <span class="type">character</span>, <span class="type">wcharacter</span> ,
+            <span class="type">string</span>, <span class="type">wstring</span>
+</td>
+<td><span class="type">boolean</span></td>
+</tr>
+<tr>
+<td><code class="literal">&lt;=</code></td>
+<td>less than or equal</td>
+<td align="left">
+<span class="type">numeric</span>, enumeration,
+            <span class="type">character</span>, <span class="type">wcharacter</span> ,
+            <span class="type">string</span>, <span class="type">wstring</span>
+</td>
+<td><span class="type">boolean</span></td>
+</tr>
+<tr>
+<td><code class="literal">&gt;=</code></td>
+<td>greater than or equal</td>
+<td align="left">
+<span class="type">numeric</span>, enumeration,
+            <span class="type">character</span>, <span class="type">wcharacter</span> ,
+            <span class="type">string</span>, <span class="type">wstring</span>
+</td>
+<td><span class="type">boolean</span></td>
+</tr>
+<tr>
+<td><code class="literal">+</code></td>
+<td>addition</td>
+<td align="left"><span class="type">numeric</span></td>
+<td><span class="emphasis"><em>same</em></span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<br class="table-break">
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="TypesDateandTime.html">Prev</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="Types.html">Up</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ExecutionControl.html">Next</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">1.10. Date and Time </td>
+<td width="20%" align="center">
+<a accesskey="h" href="index.html">Home</a> | <a accesskey="t" href="bk01-toc.html">ToC</a>
+</td>
+<td width="40%" align="right" valign="top"> Chapter 2. Execution Control</td>
+</tr>
+</table>
+</div>
+<div align="center">UNCLASSIFIED</div>
+</body>
+</html>

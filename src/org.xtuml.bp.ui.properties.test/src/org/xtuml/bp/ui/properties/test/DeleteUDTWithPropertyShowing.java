@@ -22,19 +22,23 @@ package org.xtuml.bp.ui.properties.test;
 //=====================================================================
 
 import org.eclipse.swt.widgets.Display;
-
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.UserDataType_c;
 import org.xtuml.bp.core.ui.DeleteAction;
 import org.xtuml.bp.core.ui.Selection;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 
+@RunWith(OrderedRunner.class)
 public class DeleteUDTWithPropertyShowing extends BaseTest
 {
-	public DeleteUDTWithPropertyShowing(String name) {
-        super(null, name);
-    }
+	public DeleteUDTWithPropertyShowing(){
+		super(null, null);
+	}
 
+	@Test
 	public void testDeleteUDT() throws Exception
     {
 		Ooaofooa.setPersistEnabled(false);
