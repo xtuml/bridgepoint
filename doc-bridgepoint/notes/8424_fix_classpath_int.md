@@ -83,7 +83,7 @@ To:
 ```
 
 7.2 Automated Test   
-7.2.1  Verify bp.welcome test runs  
+7.2.1  Verify bp.welcome does not throw any classpath-related errors  
 
 8. User Documentation
 ---------------------
@@ -119,6 +119,13 @@ test/VerifierBindingTest/.classpath
 test/VerifierMessageTestGlobals/.classpath
 test/VerifierRealizedUDTTest/.classpath
 
+</pre>
+
+Repository:  modelsmg
+Branch name: 8424_fix_classpath
+
+<pre>
+test/dts0100959004/.classpath
 </pre>
 
 End
