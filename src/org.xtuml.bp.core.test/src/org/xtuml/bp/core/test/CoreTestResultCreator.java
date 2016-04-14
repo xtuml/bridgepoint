@@ -21,50 +21,42 @@ public class CoreTestResultCreator extends TestCase {
 
 		try {
 
-			DeleteTestGenerics dt = new DeleteTestGenerics("Core Delete Test Result Creator");
+			DeleteTestGenerics dt = new DeleteTestGenerics();
 			dt.setUp();
 			dt.setGenerateResults();
 
-			AssignClassTestGenerics act = new AssignClassTestGenerics(
-					"Core Assign Class Test Result Creator");
+			AssignClassTestGenerics act = new AssignClassTestGenerics();
 			act.setUp();
 			act.setGenerateResults();
 
-			AssignRemoveEventsGenerics are = new AssignRemoveEventsGenerics(
-					"Core Assign Remove Events and Transitions");
+			AssignRemoveEventsGenerics are = new AssignRemoveEventsGenerics();
 			are.setUp();
 			are.setGenerateResults();
 
-			AttributeMenuItemTestGenerics ami = new AttributeMenuItemTestGenerics(
-					"Attribute Menu Item Test Result Creator");
+			AttributeMenuItemTestGenerics ami = new AttributeMenuItemTestGenerics();
 			ami.setUp();
 			ami.setGenerateResults();
 
-			CombineSplitReferentialsTestGenerics csr = new CombineSplitReferentialsTestGenerics(
-					"Combine Split Referentials Test Result Creator");
+			CombineSplitReferentialsTestGenerics csr = new CombineSplitReferentialsTestGenerics();
 			csr.setUp();
 			csr.setGenerateResults();
 
-			ModelTransactionTestGenerics mtt = new ModelTransactionTestGenerics("test");
+			ModelTransactionTestGenerics mtt = new ModelTransactionTestGenerics();
 			mtt.setUp();
 
-			SequenceTestsGenerics st = new SequenceTestsGenerics("Sequence Test Results");
+			SequenceTestsGenerics st = new SequenceTestsGenerics();
 			st.setGenerateResults();
 
-			CommunicationLinkTestsGenerics clt = new CommunicationLinkTestsGenerics(
-					"Communication Link Test Results");
+			CommunicationLinkTestsGenerics clt = new CommunicationLinkTestsGenerics();
 			clt.setGenerateResults();
 
-			CommunicationMessageTestsGenerics cmt = new CommunicationMessageTestsGenerics(
-					"Communication Message Test Results");
+			CommunicationMessageTestsGenerics cmt = new CommunicationMessageTestsGenerics();
 			cmt.setGenerateResults();
 
-			CommunicationTestsGenerics cts = new CommunicationTestsGenerics(
-					"Communication Test Results");
+			CommunicationTestsGenerics cts = new CommunicationTestsGenerics();
 			cts.setGenerateResults();
 
-            ModifyNonFullyLoadedModelTestsGenerics mnflm = new ModifyNonFullyLoadedModelTestsGenerics(
-                "Modify Non Fully Loaded Test Results");
+            ModifyNonFullyLoadedModelTestsGenerics mnflm = new ModifyNonFullyLoadedModelTestsGenerics();
             mnflm.setGenerateResults();
             
 			System.out

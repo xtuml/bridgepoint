@@ -23,13 +23,14 @@
 package org.xtuml.bp.core.test;
 
 import org.eclipse.swt.widgets.Display;
-
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.AttributeReferenceInClass_c;
 import org.xtuml.bp.core.Attribute_c;
 import org.xtuml.bp.core.BaseAttribute_c;
 import org.xtuml.bp.core.ClassIdentifierAttribute_c;
 import org.xtuml.bp.core.ClassStateMachine_c;
-import org.xtuml.bp.core.ExternalEntityEvent_c;
 import org.xtuml.bp.core.ImportedClass_c;
 import org.xtuml.bp.core.InstanceStateMachine_c;
 import org.xtuml.bp.core.ModelClass_c;
@@ -39,17 +40,19 @@ import org.xtuml.bp.core.StateMachineEvent_c;
 import org.xtuml.bp.core.StateMachine_c;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.IdAssigner;
-import org.xtuml.bp.test.TestUtil;
+import org.xtuml.bp.test.common.OrderedRunner;
 
+@RunWith(OrderedRunner.class)
 public class DerivedAttributeTestGenerics extends CoreTest {
 
 	static boolean firstTime = true;
 
-	public DerivedAttributeTestGenerics(String name) {
-		super("Default Project", name);
+	public DerivedAttributeTestGenerics() {
+		super("Default Project", null);
 	}
 
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		if (firstTime) {
 			Display d = Display.getCurrent();
@@ -58,6 +61,7 @@ public class DerivedAttributeTestGenerics extends CoreTest {
 		}
 	}
 
+	@Test
 	public void testImportedObjectObj_Name() throws Exception {
 		ImportedClass_c[] ic = ImportedClass_c
 				.ImportedClassInstances(modelRoot);
@@ -65,6 +69,7 @@ public class DerivedAttributeTestGenerics extends CoreTest {
 		// changed by rename test
 		assertEquals("Test Class", result);
 	}
+	@Test
 	public void testImportedObjectObj_KL() throws Exception {
 		ImportedClass_c ic = ImportedClass_c.ImportedClassInstance(modelRoot);
 		String result = ic.getObj_kl();
@@ -76,6 +81,7 @@ public class DerivedAttributeTestGenerics extends CoreTest {
 			return selected.getObj_id().equals(IdAssigner.NULL_UUID);
 		}
 	}
+	@Test
 	public void testUnassignedImportedObjectObj_Name() throws Exception {
 
 		ImportedClass_c ic = ImportedClass_c.ImportedClassInstance(modelRoot,
@@ -83,12 +89,14 @@ public class DerivedAttributeTestGenerics extends CoreTest {
 		String result = ic.getObj_name();
 		assertEquals("Unassigned Imported Class", result);
 	}
+	@Test
 	public void testUnassignedImportedObjectObj_KL() throws Exception {
 		ImportedClass_c ic = ImportedClass_c.ImportedClassInstance(modelRoot,
 				new findUnassignedImportedClass());
 		String result = ic.getObj_kl();
 		assertEquals("ORPH", result);
 	}
+	@Test
 	public void testBaseAttributeName() throws Exception {
 		// Pfx_Mode = "No Prefix", "Prefix", "Referred To Prefix" 
 
@@ -106,6 +114,7 @@ public class DerivedAttributeTestGenerics extends CoreTest {
 		result = attr.getName();
 		assertEquals("Orphaned", result);
 	}
+	@Test
 	public void testReferentialAttributeName() throws Exception {
 		// Ref_mode = "Local Attribute", "Referred To Attribute"
 
@@ -144,6 +153,7 @@ public class DerivedAttributeTestGenerics extends CoreTest {
 		result = attr.getName();
 		assertEquals("ref_test", result);
 	}
+	@Test
 	public void testStateMachineEventDrv_LblInstance() throws Exception {
 		// Drv_lbl = "Class Keyletters", "Custom Keyletters"
 		InstanceStateMachine_c ism = InstanceStateMachine_c
@@ -159,6 +169,7 @@ public class DerivedAttributeTestGenerics extends CoreTest {
 		result = evt.getDrv_lbl();
 		assertEquals("X1", result);
 	}
+	@Test
 	public void testStateMachineEventDrv_LblClass() throws Exception {
 		// Drv_lbl = "Class Keyletters", "Custom Keyletters"
 		ClassStateMachine_c csm = ClassStateMachine_c

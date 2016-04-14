@@ -1,0 +1,305 @@
+<!-- 
+  UK Crown Copyright (c) 2016. All Rights Reserved
+-->
+<!-- Converted by db4-upgrade version 1.0 -->
+<chapter xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="Actions"><info><title>Actions</title></info>
+  
+
+  <para>Actions are the places where statements, together with appropriate
+  declarations, that encapsulate a set of processes are held. These can then
+  be invoked from within the processing of any thread of control. Essentially,
+  there are three types of actions; object services, instance services and
+  states. There are also two special types of actions known as externals and
+  scenarios.</para>
+
+  <section xml:id="ActionsObjectServices"><info><title>Object Services</title></info>
+    
+
+    <para>Object services are actions that are associated with an object, but
+    not a specific instance of that object. The exact form of a object service
+    definition is unimportant as it is automatically generated from the case
+    tool. The code that is placed in the definition looks exactly like a block
+    as described in Section 2.2 except that the reserved word
+    <literal>declare</literal> is not needed. For example, the
+    <classname>Aircraft</classname> object seen previously might provide an
+    object service called <function>get_fast_pilots</function> that returns
+    the set of pilots who are flying aircraft, which are going very fast. The
+    object service definition might look something like:<informalexample>
+        <programlisting>  public service Air_Management::Aircraft.get_fast_pilots( pilot_set : out set of instance of Pilot) is
+    aircraft_set : set of instance of Aircraft;
+    pilot_bag : bag of instance of Pilot;
+  begin
+    aircraft_set := find Aircraft(speed &gt;= 3 * (10 ** 8));
+    pilot_bag := aircraft_set -&gt; R1;
+    pilot_set := set of instance of Pilot(pilot_bag);
+  end service;</programlisting>
+      </informalexample></para>
+
+    <para>Notice the use of the reserved word <literal>public</literal> that
+    states that the service may be accessed by any code that can access the
+    object. An object service can also be declared as
+    <literal>private</literal>, in which case access is permitted only from
+    actions defined by the object. Also the parameters of the service are
+    tagged with the reserved words <literal>in</literal> or
+    <literal>out</literal> which conveys the direction of information
+    transfer. We could invoke this service by writing:<informalexample>
+        <programlisting>  pilot_set : set of instance of Pilot;
+  ...
+  Aircraft.get_fast_pilots(pilot_set);</programlisting>
+      </informalexample>If we wanted to call an object service from an action
+    defined by the object we could drop the object name and the dot from the
+    invocation. So if the invocation above was in an action defined by the
+    <classname>Aircraft</classname> object we could have
+    written:<informalexample>
+        <programlisting>  aircraft_instance.get_fast_pilots(pilot_set);</programlisting>
+      </informalexample>Note that the service body does not have access to
+    this specific instance. Hence, invoking the object service on any other
+    Aircraft instance would have the same result.</para>
+  </section>
+
+  <section xml:id="ActionsInstanceServices"><info><title>Instance Services</title></info>
+    
+
+    <para>Instance services are actions that are associated with a specific
+    instance of an object. Like object services, the exact form of an instance
+    service definition is unimportant as it is automatically generated from
+    the case tool. The code that is placed in the definition looks exactly
+    like a block as described before. For example, the
+    <classname>Aircraft</classname> object seen previously might provide an
+    instance service called <methodname>increase_speed</methodname> that
+    increases the speed of a specific <classname>Aircraft</classname>
+    instance. The instance service definition might look something
+    like:<informalexample>
+        <programlisting>  public instance service Air_Management::Aircraft.increase_speed(increase : in integer) is
+  begin
+    speed := speed + increase;
+  end service;</programlisting>
+      </informalexample>Again notice the use of the reserved word public. It
+    has the same meaning as object services. Also the use of the reserved
+    words in or out are as before. We could invoke this service by
+    writing:<informalexample>
+        <programlisting>  aircraft_instance : instance of Aircraft;
+  …
+  aircraft_instance.increase_speed(61);</programlisting>
+      </informalexample>On calling <methodname>increase_speed</methodname>,
+    the expression <literal>61</literal> is evaluated and assigned to the
+    parameter increase, which behaves as a constant. The value of the
+    attribute <varname>speed</varname> is then added to the parameter
+    <varname>increase</varname> and assigned to the attribute
+    <varname>speed</varname>.</para>
+
+    <para>Inside the body of the instance service, all of the attributes of
+    the instance are available as if declared as variables. If an attribute is
+    not a preferred or referential attribute then its value can be set by
+    using an assignment statement. Values of preferred and referential
+    attributes can only be read. This matches the rules described in <xref linkend="ObjectsandRelationshipsCreatingInstances"/>. In addition, the
+    reserved word this denotes the instance that the service was invoked upon.
+    Therefore, we could have written the assignment in our example
+    as:<informalexample>
+        <programlisting>  this.speed := this.speed + increase;</programlisting>
+      </informalexample></para>
+
+    <para>If we wanted to call an instance service from an action being
+    performed on a specific instance, we could drop the instance and the dot
+    from the invocation. So if the invocation above was in an action being
+    performed on a specific <classname>Aircraft</classname> instance we could
+    have written:<informalexample>
+        <programlisting>  increase_speed(61);</programlisting>
+      </informalexample>This invokes the service on the instance that the
+    action is been performed on.</para>
+  </section>
+
+  <section xml:id="ActionsPolymorphicServices"><info><title>Polymorphic Services</title></info>
+    
+
+    <para>A polymorphic service is an instance service whose implementation is
+    deferred to a subtype of an object. When a polymorphic service is invoked,
+    which action is actually executed depends on the current subtype of the
+    instance that the service is invoked on. Within the body of a polymorphic
+    service, the same rules as normal instance services apply. In particular,
+    the attributes of the current subtype instance are available as if
+    declared as variables. Also, the reserved word <literal>this</literal>
+    denotes the current subtype instance of the instance that the service was
+    invoked upon.</para>
+
+    <para>Note that a polymorphic service can also be deferred, by a subtype,
+    to one of its subtype hierarchies.</para>
+  </section>
+
+  <section xml:id="ActionsStatesandEvents"><info><title>States and Events</title></info>
+    
+
+    <para>States are actions that are associated with the life cycle of either
+    a specific instance or an assigner. Again, like all actions, the exact
+    form of a state definition is unimportant as it is automatically generated
+    from the case tool. The code that is placed in the definition looks
+    exactly like a block as described above.<figure xml:id="ActionsLifecycleofanAircraft"><info><title>Life cycle of an Aircraft</title></info>
+        
+
+        <mediaobject>
+          <imageobject>
+            <imagedata align="center" fileref="images/aircraftlifecycle.svg" format="svg" valign="middle"/>
+          </imageobject>
+        </mediaobject>
+      </figure>Given the lifecycle shown in <xref linkend="ActionsLifecycleofanAircraft"/> the state definition of the
+    parked state might look something like:<informalexample>
+        <programlisting>  state Air_Management::Aircraft.parked(airport_name : in string, gate_number : in integer) is
+    gate : instance of Airport_Gate;
+  begin
+    speed := 0;
+    gate := find_only Airport_Gate(airport_name = airport_name and
+    number = gate_number);
+    link this R15 gate;
+  end state;</programlisting>
+      </informalexample></para>
+
+    <para>Like instance services, inside the body of the state, all of the
+    attributes of the instance are available as if declared as variables. The
+    same rules about assignment of values to preferred and referential
+    attributes apply. Again, the reserved word <literal>this</literal> denotes
+    the instance that has moved into the state. Unlike services, states cannot
+    be invoked directly. Instead we generate events to specific instances to
+    move the instance to a new state. So we might write:<informalexample>
+        <programlisting>  aircraft_instance : instance of Aircraft;
+  …
+  generate Aircraft.land("Heathrow", 5) to aircraft_instance;</programlisting>
+      </informalexample></para>
+
+    <para>If the specific instance was currently flying then this event would
+    cause it to move into the parked state and the action associated with this
+    state would be invoked. Note that this invocation is asynchronous. The
+    number and types of the parameters of an event that causes an instance to
+    move into a particular state must match the number and types of the
+    parameters of that state.</para>
+
+    <para>The values of the arguments in a <literal>generate</literal>
+    statement are evaluated, at the time of the generate, and assigned to the
+    matching parameters of the state when it is actioned. Because, the
+    <literal>generate</literal> and the corresponding actioning of the state
+    is asynchronous only input parameters on events and hence states are
+    allowed. If we wanted to generate an event from an action defined by the
+    object we could drop the object name and the dot from the generation. So
+    if the generate statement above was in an action defined by the aircraft
+    object we could have written:<informalexample>
+        <programlisting>  generate land("Heathrow", 5) to aircraft_instance;</programlisting>
+      </informalexample></para>
+
+    <para>Notice that we still need to provide the specific instance that we
+    are generating the event to. We could use the reserved word
+    <literal>this</literal> if it is defined by the action. </para>
+
+    <para>There are two types of events can be generated without providing a
+    specific instance; creation events and assigner events. Before we discuss
+    these, a quick discussion about polymorphic events is required.</para>
+
+    <section xml:id="ActionsPolymorphicEvents"><info><title>Polymorphic Events</title></info>
+      
+
+      <para>Polymorphic events are special type of event that, as well as
+      causing a specific instance to move to a new state, also cause the
+      current subtype of the instance to move to a new state.</para>
+
+      <para>When a polymorphic event is consumed, the specific instance that
+      the event was generated to, moves to a new state and the action
+      associated with this state is invoked. The event is then propagated to
+      the current subtype of the instance. This causes the subtype instance to
+      move to a new state and the action associated with this state to be
+      invoked. This is repeated all the way down the subtype hierarchy.</para>
+
+      <para>Note that, for some instances in the subtype hierarchy, including
+      the first one, the polymorphic event could be ignored. In this case the
+      instance does not move to a new state and no action is invoked. The
+      event is propagated as before.</para>
+    </section>
+
+    <section xml:id="ActionsCreationEvents"><info><title>Creation Events</title></info>
+      
+
+      <para>Creation events are used to create instances of an object
+      asynchronously. For example, we would generate the commission event in
+      <xref linkend="ActionsLifecycleofanAircraft"/> by
+      writing:<informalexample>
+          <programlisting>  generate Aircraft.commission();</programlisting>
+        </informalexample>Again, if we wanted to generate the creation event
+      from an action defined by the object we could drop the object name and
+      the dot from the <literal>generate</literal> statement. <informalexample>
+          <programlisting>  generate commission();</programlisting>
+        </informalexample></para>
+
+      <para>Unlike normal states, creation states do not have access to a
+      specific instance. It is up to the body of the creation state to create
+      an instance. For example, the definition of the commissioned state might
+      look something like the following:<informalexample>
+          <programlisting>  creation state Air_Management::Aircraft.commissioned() is
+    new_aircraft : instance of Aircraft;
+  begin
+    new_aircraft := create unique Aircraft(Current_State =&gt; commissioned);
+  end state;</programlisting>
+        </informalexample>Notice that the create expression specifies the
+      state that the created instance starts in. This will usually be the
+      creation state.</para>
+    </section>
+
+    <section xml:id="ActionsAssignerEvents"><info><title>Assigner Events</title></info>
+      
+
+      <para>Each associative object in a domain can have an assigner life
+      cycle. Assigner life cycles provide a single point of control through
+      which competing requests are serialised. Because of this, there is only
+      one copy of an assigner life cycle for all instances of the associative
+      object.</para>
+
+      <para><figure xml:id="ActionsAssignerClass"><info><title>Assigner Object</title></info>
+          
+
+          <mediaobject>
+            <imageobject>
+              <imagedata align="center" fileref="images/assignerclass.svg" format="svg" valign="middle"/>
+            </imageobject>
+          </mediaobject>
+        </figure><figure xml:id="ActionsLifecycleofaRunwayAllocationAssigner"><info><title>Life cycle of a Runway Allocation Assigner</title></info>
+          
+
+          <mediaobject>
+            <imageobject>
+              <imagedata align="center" fileref="images/allocationassigner.svg" format="svg" valign="middle"/>
+            </imageobject>
+          </mediaobject>
+        </figure>Given the relationship shown in <xref linkend="ActionsAssignerClass"/>and the corresponding assigner life
+      cycle shown in <xref linkend="ActionsLifecycleofaRunwayAllocationAssigner"/>, we might write:<informalexample>
+          <programlisting>  generate Runway_Allocation.aircraft_waiting();</programlisting>
+        </informalexample>Again, if we wanted to generate the assigner event
+      from an action defined by the corresponding associative object we could
+      drop the object name and the dot from the <literal>generate</literal>
+      statement.<informalexample>
+          <programlisting>  generate aircraft_waiting();</programlisting>
+        </informalexample>Like creation states, assigner states do not have
+      access to a specific instance.</para>
+
+      <para>Notice that one state in an assigner life cycle is tagged as the
+      start, or initial, state. This is the state in which the assigner starts
+      in. Other than this fact there is nothing special about this state
+      compared with other assigner states.d</para>
+    </section>
+
+    <section xml:id="ActionsTerminalStates"><info><title>Terminal States</title></info>
+      
+
+      <para>Finally, to finish this section a quick discussion about terminal
+      states. Going back to our example of the <classname>Aircraft</classname>
+      life cycle, we can see that the <emphasis>out of service</emphasis>
+      state is a terminal state. A terminal state does not necessarily imply
+      that an instance in this state must cease to exist, it could simply hang
+      around in this state for historic purposes.</para>
+
+      <para>However, what is special about terminal states is that they are
+      the only type of instance states, that is a non-creation states in a
+      non-assigner life cycle, where we are allowed to delete the current
+      instance. That is, in a terminal state we are allowed to
+      write:<informalexample>
+          <programlisting>  delete this;</programlisting>
+        </informalexample>It is invalid to try and do this is any non-terminal
+      state.</para>
+    </section>
+  </section>
+</chapter>

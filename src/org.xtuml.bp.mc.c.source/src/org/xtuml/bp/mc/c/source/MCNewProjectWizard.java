@@ -19,7 +19,7 @@ import org.eclipse.ui.IWorkbenchWizard;
 import org.xtuml.bp.mc.AbstractNewProjectWizard;
 
 /**
- * This is the class that implements the com.mentor.bp.core.model-compilers
+ * This is the class that implements the org.xtuml.bp.core.model-compilers
  * extension point. 
  * 
  */

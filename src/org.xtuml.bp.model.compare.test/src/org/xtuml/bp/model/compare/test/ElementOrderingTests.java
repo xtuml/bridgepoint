@@ -30,7 +30,12 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.PlatformUI;
-
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.TestName;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.Attribute_c;
 import org.xtuml.bp.core.BridgeParameter_c;
 import org.xtuml.bp.core.Bridge_c;
@@ -66,15 +71,30 @@ import org.xtuml.bp.model.compare.providers.NonRootModelElementComparable;
 import org.xtuml.bp.test.TestUtil;
 import org.xtuml.bp.test.common.BaseTest;
 import org.xtuml.bp.test.common.CompareTestUtilities;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.UITestingUtilities;
 import org.xtuml.bp.ui.canvas.Ooaofgraphics;
 
+@RunWith(OrderedRunner.class)
 public class ElementOrderingTests extends BaseTest {
 
 	private static String projectName = "ElementOrderTesting";
 	
+	@Rule public TestName name = new TestName();
+	
 	@Override
+	public String getName(){
+		return name.getMethodName();
+	}
+	
+	private static boolean isFirstTime = true;
+
+	@Override
+	@Before
 	public void initialSetup() throws Exception {
+		if(!isFirstTime)
+			return;
+		isFirstTime = false;
 		loadProject(projectName);
 		modelRoot = Ooaofooa.getInstance("/ElementOrderTesting/models/ElementOrderTesting/Package/Package.xtuml");
 		StateMachine_c sm = StateMachine_c.StateMachineInstance(modelRoot);
@@ -89,11 +109,13 @@ public class ElementOrderingTests extends BaseTest {
 	}
 	
 	@Override
+	@After
 	public void tearDown() {
 		PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
 				.closeAllEditors(false);
 	}
 	
+	@Test
 	public void testFunctionParameterOrder() {
 		Function_c function = Function_c.FunctionInstance(modelRoot);
 		ITreeDifferencerProvider provider = new ModelCompareContentProvider();
@@ -109,6 +131,7 @@ public class ElementOrderingTests extends BaseTest {
 				.getName().contains("three"));
 	}
 	
+	@Test
 	public void testOperationOrder() {
 		ModelClass_c clazz = ModelClass_c.ModelClassInstance(modelRoot);
 		ITreeDifferencerProvider provider = new ModelCompareContentProvider();
@@ -124,6 +147,7 @@ public class ElementOrderingTests extends BaseTest {
 				.getName().contains("three"));
 	}
 
+	@Test
 	public void testOperationParameterParameterOrder() {
 		Operation_c op = Operation_c.OperationInstance(modelRoot);
 		ITreeDifferencerProvider provider = new ModelCompareContentProvider();
@@ -139,6 +163,7 @@ public class ElementOrderingTests extends BaseTest {
 				.getName().contains("three"));
 	}
 	
+	@Test
 	public void testEventParameterOrder() {
 		StateMachineEvent_c evt = StateMachineEvent_c.StateMachineEventInstance(modelRoot);
 		ITreeDifferencerProvider provider = new ModelCompareContentProvider();
@@ -154,6 +179,7 @@ public class ElementOrderingTests extends BaseTest {
 				.getName().contains("three"));
 	}
 	
+	@Test
 	public void testAttributeOrder() {
 		ModelClass_c clazz = ModelClass_c.ModelClassInstance(modelRoot);
 		ITreeDifferencerProvider provider = new ModelCompareContentProvider();
@@ -169,6 +195,7 @@ public class ElementOrderingTests extends BaseTest {
 				.getName().contains("three"));
 	}
 	
+	@Test
 	public void testEnumeratorOrder() {
 		EnumerationDataType_c edt = EnumerationDataType_c.EnumerationDataTypeInstance(modelRoot);
 		ITreeDifferencerProvider provider = new ModelCompareContentProvider();
@@ -184,6 +211,7 @@ public class ElementOrderingTests extends BaseTest {
 				.getName().contains("three"));
 	}
 	
+	@Test
 	public void testBridgeParameterOrder() {
 		Bridge_c brg = Bridge_c.BridgeInstance(modelRoot);
 		ITreeDifferencerProvider provider = new ModelCompareContentProvider();
@@ -199,6 +227,7 @@ public class ElementOrderingTests extends BaseTest {
 				.getName().contains("three"));
 	}
 
+	@Test
 	public void testSignalOrder() {
 		Interface_c iface = Interface_c.InterfaceInstance(modelRoot);
 		ITreeDifferencerProvider provider = new ModelCompareContentProvider();
@@ -214,6 +243,7 @@ public class ElementOrderingTests extends BaseTest {
 				.getName().contains("three"));
 	}
 	
+	@Test
 	public void testInterfaceOperationOrder() {
 		Interface_c iface = Interface_c.InterfaceInstance(modelRoot);
 		ITreeDifferencerProvider provider = new ModelCompareContentProvider();
@@ -229,6 +259,7 @@ public class ElementOrderingTests extends BaseTest {
 				.getName().contains("three"));
 	}
 	
+	@Test
 	public void testPropertyParameterOrder() {
 		InterfaceOperation_c op = InterfaceOperation_c.InterfaceOperationInstance(modelRoot);
 		ITreeDifferencerProvider provider = new ModelCompareContentProvider();
@@ -244,6 +275,7 @@ public class ElementOrderingTests extends BaseTest {
 				.getName().contains("three"));
 	}
 	
+	@Test
 	public void testMemberOrder() {
 		StructuredDataType_c sdt = StructuredDataType_c.StructuredDataTypeInstance(modelRoot);
 		ITreeDifferencerProvider provider = new ModelCompareContentProvider();
@@ -259,6 +291,7 @@ public class ElementOrderingTests extends BaseTest {
 				.getName().contains("three"));
 	}
 	
+	@Test
 	public void testMergePositionalChangeTop() throws CoreException {
 		ModelClass_c clazz = ModelClass_c.ModelClassInstance(modelRoot);
 		// persist the class file to upgrade any new attributes added
@@ -281,6 +314,7 @@ public class ElementOrderingTests extends BaseTest {
 		performMergeTest(op.getFile());
 	}
 	
+	@Test
 	public void testMergePositionalChangeBottom() throws CoreException {
 		ModelClass_c clazz = ModelClass_c.ModelClassInstance(modelRoot);
 		Operation_c[] ops = Operation_c.getManyO_TFRsOnR115(clazz);
@@ -301,6 +335,7 @@ public class ElementOrderingTests extends BaseTest {
 		performMergeTest(op.getFile());		
 	}
 	
+	@Test
 	public void testMoveUpNotAvailable() throws CoreException {
 		ModelClass_c clazz = ModelClass_c.ModelClassInstance(modelRoot);
 		Operation_c[] ops = Operation_c.getManyO_TFRsOnR115(clazz);
@@ -333,6 +368,7 @@ public class ElementOrderingTests extends BaseTest {
 		}
 	}
 
+	@Test
 	public void testMoveDownNotAvailable() throws CoreException {
 		loadProject(projectName);
 		modelRoot = Ooaofooa.getInstance("/ElementOrderTesting/models/ElementOrderTesting/Package/Package.xtuml");
@@ -383,6 +419,7 @@ public class ElementOrderingTests extends BaseTest {
 		}
 	}
 
+	@Test
 	public void testNonWritableMoveUpAndDown() throws CoreException {
 		ModelClass_c clazz = ModelClass_c.ModelClassInstance(modelRoot);
 		Operation_c[] ops = Operation_c.getManyO_TFRsOnR115(clazz);
@@ -430,6 +467,7 @@ public class ElementOrderingTests extends BaseTest {
 		}
 	}
 
+	@Test
 	public void testFunctionParameterMoveUpandDown() throws CoreException {
 		Function_c function = Function_c.FunctionInstance(modelRoot);
 		ITreeDifferencerProvider provider = new ModelCompareContentProvider();
@@ -488,6 +526,7 @@ public class ElementOrderingTests extends BaseTest {
 		}
 	}
 	
+	@Test
 	public void testOperationMoveUpandDown() throws CoreException {
 		loadProject(projectName);
 		modelRoot = Ooaofooa.getInstance("/ElementOrderTesting/models/ElementOrderTesting/Package/Package.xtuml");
@@ -556,6 +595,7 @@ public class ElementOrderingTests extends BaseTest {
 		}
 	}
 
+	@Test
 	public void testOperationParameterMoveUpAndDown() throws CoreException {
 		Operation_c op = Operation_c.OperationInstance(modelRoot);
 		ITreeDifferencerProvider provider = new ModelCompareContentProvider();
@@ -613,6 +653,7 @@ public class ElementOrderingTests extends BaseTest {
 		}
 	}
 	
+	@Test
 	public void testEventParameterMoveUpAndDown() throws CoreException {
 		StateMachineEvent_c evt = StateMachineEvent_c.StateMachineEventInstance(modelRoot);
 		ITreeDifferencerProvider provider = new ModelCompareContentProvider();
@@ -670,6 +711,7 @@ public class ElementOrderingTests extends BaseTest {
 		}
 	}
 	
+	@Test
 	public void testAttributeMoveUpAndDown() throws CoreException {
 		ModelClass_c clazz = ModelClass_c.ModelClassInstance(modelRoot);
 		ITreeDifferencerProvider provider = new ModelCompareContentProvider();
@@ -727,6 +769,7 @@ public class ElementOrderingTests extends BaseTest {
 		}
 	}
 	
+	@Test
 	public void testEnumeratorMoveUpAndDown() throws CoreException {
 		EnumerationDataType_c edt = EnumerationDataType_c.EnumerationDataTypeInstance(modelRoot);
 		ITreeDifferencerProvider provider = new ModelCompareContentProvider();
@@ -784,6 +827,7 @@ public class ElementOrderingTests extends BaseTest {
 		}
 	}
 	
+	@Test
 	public void testBridgeParameterMoveUpAndDown() throws CoreException {
 		Bridge_c brg = Bridge_c.BridgeInstance(modelRoot);
 		ITreeDifferencerProvider provider = new ModelCompareContentProvider();
@@ -841,6 +885,7 @@ public class ElementOrderingTests extends BaseTest {
 		}
 	}
 
+	@Test
 	public void testSignalMoveUpAndDown() throws CoreException {
 		Interface_c iface = Interface_c.InterfaceInstance(modelRoot);
 		ITreeDifferencerProvider provider = new ModelCompareContentProvider();
@@ -898,6 +943,7 @@ public class ElementOrderingTests extends BaseTest {
 		}
 	}
 	
+	@Test
 	public void testInterfaceOperationMoveUpAndDown() throws CoreException {
 		Interface_c iface = Interface_c.InterfaceInstance(modelRoot);
 		ITreeDifferencerProvider provider = new ModelCompareContentProvider();
@@ -955,6 +1001,7 @@ public class ElementOrderingTests extends BaseTest {
 		}
 	}
 	
+	@Test
 	public void testPropertyParameterMoveUpAndDown() throws CoreException {
 		InterfaceOperation_c iface = InterfaceOperation_c.InterfaceOperationInstance(modelRoot);
 		ITreeDifferencerProvider provider = new ModelCompareContentProvider();
@@ -1012,6 +1059,7 @@ public class ElementOrderingTests extends BaseTest {
 		}
 	}
 	
+	@Test
 	public void testMemberMoveUpAndDown() throws CoreException {
 		StructuredDataType_c iface = StructuredDataType_c.StructuredDataTypeInstance(modelRoot);
 		ITreeDifferencerProvider provider = new ModelCompareContentProvider();

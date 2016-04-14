@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: SystemC Model Compiler (Source)
 Bundle-SymbolicName: org.xtuml.bp.mc.systemc.source; singleton:=true
-Bundle-Version: 5.2.0
+Bundle-Version: 5.3.4
 Bundle-Activator: org.xtuml.bp.mc.systemc.source.Activator
 Bundle-Vendor: xtUML.org
 Require-Bundle: org.eclipse.ui,
@@ -12,7 +12,6 @@ Require-Bundle: org.eclipse.ui,
  org.xtuml.bp.core,
  org.xtuml.bp.io.core,
  org.xtuml.bp.mc,
- org.xtuml.bp.mc.xmiexport,
  org.eclipse.debug.ui,
  org.eclipse.ui.ide,
  org.eclipse.cdt.core,

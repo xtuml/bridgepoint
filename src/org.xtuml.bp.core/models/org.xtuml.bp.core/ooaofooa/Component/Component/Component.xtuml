@@ -2860,6 +2860,381 @@ INSERT INTO O_TFR
 	1,
 	'',
 	"9ae3a682-8f82-4c9e-bbaf-6ad487d4de7f");
+INSERT INTO O_TFR
+	VALUES ("20078830-114f-496f-999b-82da4c2eb1ba",
+	"2786d973-1537-44a1-81d6-3ddbd2377865",
+	'getImportedProvisionCount',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	1,
+	'select many importedReferences related by self->PE_PE[R8003]->CL_IC[R8001]->CL_POR[R4707]->CL_IIR[R4708]->CL_IP[R4703];
+return cardinality importedReferences;',
+	1,
+	'',
+	"ae596120-bf75-41d6-817e-a686ce998d8c");
+INSERT INTO O_TPARM
+	VALUES ("c07eb6d1-b9de-43cf-bb47-d7e17e517406",
+	"20078830-114f-496f-999b-82da4c2eb1ba",
+	'includeDelegations',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("ded8757c-28b2-4010-9ca4-c58eca11e0c9",
+	"2786d973-1537-44a1-81d6-3ddbd2377865",
+	'getImportedProvisionID',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	1,
+	'id = GD::NULL_UNIQUE_ID();
+select many importedRefs related by self->PE_PE[R8003]->CL_IC[R8001]->CL_POR[R4707]->CL_IIR[R4708]->CL_IP[R4703];
+// We''re preincrementing the index
+count = -1;
+for each importedRef in importedRefs
+  count = count+1;
+  if (count == param.index)
+    return importedRef.Id;
+  end if;
+end for; 
+return id; ',
+	1,
+	'',
+	"20078830-114f-496f-999b-82da4c2eb1ba");
+INSERT INTO O_TPARM
+	VALUES ("0801bbe0-069e-413e-973c-cd91c7d90283",
+	"ded8757c-28b2-4010-9ca4-c58eca11e0c9",
+	'filterDelegations',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("8f073bc1-85a4-4683-a9e0-c78733b273ec",
+	"ded8757c-28b2-4010-9ca4-c58eca11e0c9",
+	'index',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"0801bbe0-069e-413e-973c-cd91c7d90283",
+	'');
+INSERT INTO O_TFR
+	VALUES ("3e7396d8-575b-4bb5-83cb-a7da46918c09",
+	"2786d973-1537-44a1-81d6-3ddbd2377865",
+	'getImportedProvisionProvisionID',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	1,
+	'id = GD::NULL_UNIQUE_ID();
+select many importedRefs related by self->PE_PE[R8003]->CL_IC[R8001]->CL_POR[R4707]->CL_IIR[R4708]->CL_IP[R4703];
+// We''re preincrementing the index
+count = -1;
+for each importedRef in importedRefs
+  count = count+1;
+  if (count == param.index)
+    select one provision related by importedRef->CL_IIR[R4703]->C_IR[R4701]
+    															   ->C_P[R4009];
+    select one delegation related by importedRef->CL_IIR[R4703]->C_DG[R4704];
+    if(not_empty delegation)
+      return delegation.Id;
+    end if;
+    if(not_empty provision)
+      return provision.Provision_Id;
+    end if;
+  end if;
+end for;
+return id;',
+	1,
+	'',
+	"ded8757c-28b2-4010-9ca4-c58eca11e0c9");
+INSERT INTO O_TPARM
+	VALUES ("c344f214-f5b1-4cbf-ba54-8f49ebee02df",
+	"3e7396d8-575b-4bb5-83cb-a7da46918c09",
+	'filterDelegations',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("02e751f6-b8ec-43c6-b338-54c735187c7c",
+	"3e7396d8-575b-4bb5-83cb-a7da46918c09",
+	'index',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"c344f214-f5b1-4cbf-ba54-8f49ebee02df",
+	'');
+INSERT INTO O_TFR
+	VALUES ("93ed2e40-3d1e-4047-992d-4a246770e8b2",
+	"2786d973-1537-44a1-81d6-3ddbd2377865",
+	'getImportedRequirementCount',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	1,
+	'select many importedReferences related by self->PE_PE[R8003]->CL_IC[R8001]->CL_POR[R4707]->CL_IIR[R4708]->CL_IR[R4703];
+return cardinality importedReferences;',
+	1,
+	'',
+	"3e7396d8-575b-4bb5-83cb-a7da46918c09");
+INSERT INTO O_TPARM
+	VALUES ("929bb77b-25d7-4b66-82eb-8cb51b81eb84",
+	"93ed2e40-3d1e-4047-992d-4a246770e8b2",
+	'includeDelegations',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("93eceec5-ee6e-40bb-b526-dcedd4dae5f0",
+	"2786d973-1537-44a1-81d6-3ddbd2377865",
+	'getImportedRequirementID',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	1,
+	'id = GD::NULL_UNIQUE_ID();
+select many importedRefs related by self->PE_PE[R8003]->CL_IC[R8001]->CL_POR[R4707]->CL_IIR[R4708]->CL_IR[R4703];
+// We''re preincrementing the index
+count = -1;
+for each importedRef in importedRefs
+  count = count+1;
+  if (count == param.index)
+    return importedRef.Id;
+  end if;
+end for; 
+return id; ',
+	1,
+	'',
+	"93ed2e40-3d1e-4047-992d-4a246770e8b2");
+INSERT INTO O_TPARM
+	VALUES ("b563dcef-dc4d-4205-8ed0-451f28fedba9",
+	"93eceec5-ee6e-40bb-b526-dcedd4dae5f0",
+	'filterDelegations',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("adc582da-829c-4588-be60-fd48ad436c4a",
+	"93eceec5-ee6e-40bb-b526-dcedd4dae5f0",
+	'index',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"b563dcef-dc4d-4205-8ed0-451f28fedba9",
+	'');
+INSERT INTO O_TFR
+	VALUES ("113d0f4e-e1fe-4ec6-9a1b-6719fd94a8ab",
+	"2786d973-1537-44a1-81d6-3ddbd2377865",
+	'getImportedRequirementRequirementID',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	1,
+	'id = GD::NULL_UNIQUE_ID();
+select many importedRefs related by self->PE_PE[R8003]->CL_IC[R8001]->CL_POR[R4707]->CL_IIR[R4708]->CL_IR[R4703];
+// We''re preincrementing the index
+count = -1;
+for each importedRef in importedRefs
+  count = count+1;
+  if (count == param.index)
+    select one requirement related by importedRef->CL_IIR[R4703]->C_IR[R4701]
+    															   ->C_R[R4009];
+    select one delegation related by importedRef->CL_IIR[R4703]->C_DG[R4704];
+    if(not_empty delegation)
+      return delegation.Id;
+    end if;
+    if(not_empty requirement)
+      return requirement.Requirement_Id;
+    end if;
+  end if;
+end for;
+return id; ',
+	1,
+	'',
+	"93eceec5-ee6e-40bb-b526-dcedd4dae5f0");
+INSERT INTO O_TPARM
+	VALUES ("9fc292f0-1b41-4403-b28e-5f68642594aa",
+	"113d0f4e-e1fe-4ec6-9a1b-6719fd94a8ab",
+	'index',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"7a86c60b-2926-4059-9959-f33106b9b6c1",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("7a86c60b-2926-4059-9959-f33106b9b6c1",
+	"113d0f4e-e1fe-4ec6-9a1b-6719fd94a8ab",
+	'filterDelegations',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("3bba9b64-913a-4792-b521-60572c2e2c80",
+	"2786d973-1537-44a1-81d6-3ddbd2377865",
+	'hasImportedProvision',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	1,
+	'select any importedPro related by self->PE_PE[R8003]->CL_IC[R8001]->CL_POR[R4707]->CL_IIR[R4708]->CL_IP[R4703]
+	where (selected.Id == param.id);
+if(not_empty importedPro)
+  if(param.considerDelegations)
+    select one delegation related by importedPro->CL_IIR[R4703]->C_DG[R4704];
+    if(not_empty delegation)
+      return false;
+    end if;
+  end if;
+  return true;
+end if; 
+return false;',
+	1,
+	'',
+	"113d0f4e-e1fe-4ec6-9a1b-6719fd94a8ab");
+INSERT INTO O_TPARM
+	VALUES ("502eef32-3c72-4c37-b350-0cb364d2a787",
+	"3bba9b64-913a-4792-b521-60572c2e2c80",
+	'id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"4b0b6993-5e36-432d-8502-148b1323abba",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("4b0b6993-5e36-432d-8502-148b1323abba",
+	"3bba9b64-913a-4792-b521-60572c2e2c80",
+	'considerDelegations',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("bba4eee2-21de-4dc4-a855-05320f880747",
+	"2786d973-1537-44a1-81d6-3ddbd2377865",
+	'hasImportedRequirement',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	1,
+	'select any importedReq related by self->PE_PE[R8003]->CL_IC[R8001]->CL_POR[R4707]->CL_IIR[R4708]->CL_IR[R4703]
+	where (selected.Id == param.id);
+if(not_empty importedReq)
+  if(param.considerDelegations)
+    select one delegation related by importedReq->CL_IIR[R4703]->C_DG[R4704];
+    if(not_empty delegation)
+      return false;
+    end if;
+  end if;
+  return true;
+end if; 
+return false;',
+	1,
+	'',
+	"3bba9b64-913a-4792-b521-60572c2e2c80");
+INSERT INTO O_TPARM
+	VALUES ("1bda8107-4e2b-4a85-ade4-d4ebd0420ad4",
+	"bba4eee2-21de-4dc4-a855-05320f880747",
+	'id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"37a95006-7648-444b-9047-ee30044c0a39",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("37a95006-7648-444b-9047-ee30044c0a39",
+	"bba4eee2-21de-4dc4-a855-05320f880747",
+	'considerDelegations',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("55360f67-8a93-4c82-8101-f0235cd3573b",
+	"2786d973-1537-44a1-81d6-3ddbd2377865",
+	'getGraphicalRootCount',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	1,
+	'// The count starts with 1 because we count this component
+count = 1;
+// find nested components
+select many comps related by self->PE_PE[R8003]->C_C[R8001];
+if (not_empty comps)
+  for each comp in comps
+    count = count + comp.getGraphicalRootCount();
+  end for;
+end if;
+// find packages
+select many pkgs related by self->PE_PE[R8003]->EP_PKG[R8001];
+for each pkg in pkgs
+  count = count + pkg.getGraphicalRootCount();
+end for;
+return count;
+',
+	1,
+	'',
+	"bba4eee2-21de-4dc4-a855-05320f880747");
+INSERT INTO O_TFR
+	VALUES ("eb42ec03-f0d3-49b9-9ef6-784b43bbeb81",
+	"2786d973-1537-44a1-81d6-3ddbd2377865",
+	'getGraphicalRoot',
+	'',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	1,
+	'// The count starts with 1 because we count this component
+count = param.currentPosition + 1;
+if count == param.indexToFind
+  return self.convertToInstance();
+end if;
+// find nested components
+select many comps related by self->PE_PE[R8003]->C_C[R8001];
+if (not_empty comps)
+  for each comp in comps
+    id = comp.getGraphicalRoot(indexToFind:param.indexToFind, currentPosition:count);
+    if (id != GD::NULL_INSTANCE()) 
+      return id;
+    end if;
+    count = count + comp.getGraphicalRootCount();
+  end for;
+end if;
+// find packages
+select many pkgs related by self->PE_PE[R8003]->EP_PKG[R8001];
+for each pkg in pkgs
+  id = pkg.getGraphicalRoot(indexToFind:param.indexToFind, currentPosition:count);
+  if (id != GD::NULL_INSTANCE())
+    return id;
+  end if;
+  count = count + pkg.getGraphicalRootCount();
+end for;
+return GD::NULL_INSTANCE();
+',
+	1,
+	'',
+	"55360f67-8a93-4c82-8101-f0235cd3573b");
+INSERT INTO O_TPARM
+	VALUES ("8c055273-1f60-4597-bc1f-979ddc7814b9",
+	"eb42ec03-f0d3-49b9-9ef6-784b43bbeb81",
+	'indexToFind',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("6e334fae-c5b7-4398-8e72-f84ac07c64df",
+	"eb42ec03-f0d3-49b9-9ef6-784b43bbeb81",
+	'currentPosition',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"8c055273-1f60-4597-bc1f-979ddc7814b9",
+	'');
 INSERT INTO O_NBATTR
 	VALUES ("44ad7e17-9251-42cf-aa73-ac271023c8a3",
 	"2786d973-1537-44a1-81d6-3ddbd2377865");

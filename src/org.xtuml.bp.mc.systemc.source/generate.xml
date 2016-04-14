@@ -34,7 +34,6 @@
        <classpath>
          <pathelement path="../org.xtuml.bp.core/bin" />
          <pathelement path="../org.xtuml.bp.io.core/bin" />
-         <pathelement path="../org.xtuml.bp.mc.xmiexport/bin" />
          <pathelement path="../org.xtuml.bp.mc/bin" />
          <fileset dir="${eclipse-home}/plugins" casesensitive="yes">
            <include name="**/org.eclipse.ui.ide_*.jar" />

@@ -21,40 +21,20 @@
 //=====================================================================
 package org.xtuml.bp.debug.ui.launch;
 
-import junit.framework.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+
 import junit.framework.TestSuite;
-
-import org.eclipse.core.resources.IWorkspace;
-import org.eclipse.core.resources.IWorkspaceDescription;
-import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.CoreException;
-
-import org.xtuml.bp.core.util.WorkspaceUtil;
-import org.xtuml.bp.test.common.TestingUtilities;
 
 /**
 * Test all areas of the core
 */
+@RunWith(Suite.class)
+@Suite.SuiteClasses({
+	VerifierLaunchConfigurationTests.class,
+	VerifierLaunchActionTests.class,
+	
+})
 public class VerifierLaunchTestSuite extends TestSuite {
 
-	/**
-	 * Returns the suite.  This is required to
-	 * use the JUnit Launcher.
-	 * @throws CoreException
-	 */
-	public static Test suite() throws CoreException {
-		return new VerifierLaunchTestSuite();
-	}
-	
-	/**
-	 * Construct the test suite.
-	 */
-	public VerifierLaunchTestSuite() throws CoreException {
-		
-		// turn off auto-build to stop MC-3020 builders from running
-		WorkspaceUtil.setAutobuilding(false);   // throws CoreException
-		
-		addTest(new TestSuite(VerifierLaunchConfigurationTests.class));
-		addTest(new TestSuite(VerifierLaunchActionTests.class));
-	}
 }

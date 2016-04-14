@@ -702,6 +702,109 @@ return action.Descrip;',
 	1,
 	'',
 	"d0c5877b-18e9-4c93-8b50-0a7a5e918a23");
+INSERT INTO O_TFR
+	VALUES ("19162a22-069c-46ed-a8d4-93b144f93327",
+	"aee0c0bf-2bc2-41e5-b9ad-01341d2944be",
+	'getTransitionDestinationCount',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	1,
+	'select many transitions related by self->SM_TXN[R506];
+return cardinality transitions; ',
+	1,
+	'',
+	"eb01618a-4f49-43d3-aa61-c89c8d8f408e");
+INSERT INTO O_TFR
+	VALUES ("feca178a-c67a-4ad1-8c6a-aa39dbf6bdb5",
+	"aee0c0bf-2bc2-41e5-b9ad-01341d2944be",
+	'getTransitionDestinationId',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	1,
+	'id = GD::NULL_UNIQUE_ID();
+select many transitions related by self->SM_TXN[R506];
+// We''re preincrementing the index
+count = -1;
+for each transition in transitions
+  count = count + 1;
+  if (count == param.index)
+    id = transition.Trans_ID;
+    break;
+  end if;
+end for; 
+return id;',
+	1,
+	'',
+	"19162a22-069c-46ed-a8d4-93b144f93327");
+INSERT INTO O_TPARM
+	VALUES ("2370ee8f-042c-43e7-8922-c188d2d12ce8",
+	"feca178a-c67a-4ad1-8c6a-aa39dbf6bdb5",
+	'index',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("a87a0930-209e-47e6-b219-d11860329fa1",
+	"aee0c0bf-2bc2-41e5-b9ad-01341d2944be",
+	'getTransitionSourceCount',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	1,
+	'//Give me the count of all state for which this state is the source
+count = 0;
+select many transitions related by self->SM_NETXN[R508]->SM_TXN[R507];
+count = count + cardinality transitions;
+select many transitions related by self->SM_SEME[R503]->SM_NSTXN[R504]->SM_TXN[R507];
+count = count + cardinality transitions;
+return count;
+',
+	1,
+	'',
+	"feca178a-c67a-4ad1-8c6a-aa39dbf6bdb5");
+INSERT INTO O_TFR
+	VALUES ("07a6dc75-57c1-4bb6-99d7-9eae83b5fba2",
+	"aee0c0bf-2bc2-41e5-b9ad-01341d2944be",
+	'getTransitionSourceId',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	1,
+	'id = GD::NULL_UNIQUE_ID();
+// We''re preincrementing the index
+count = -1;
+select many noEventTransitions related by self->SM_NETXN[R508]->SM_TXN[R507];
+for each noEventTransition in noEventTransitions
+  count = count + 1;
+  if (count == param.index)
+    id = noEventTransition.Trans_ID;
+    break;
+  end if;
+end for; 
+if (id == GD::NULL_UNIQUE_ID())
+  select many newStateTransitions related by self->SM_SEME[R503]->SM_NSTXN[R504]->SM_TXN[R507];
+  for each newStateTransition in newStateTransitions
+    count = count + 1;
+    if (count == param.index)
+      id = newStateTransition.Trans_ID;
+      break;
+    end if;
+  end for; 
+end if;
+return id;
+',
+	1,
+	'',
+	"a87a0930-209e-47e6-b219-d11860329fa1");
+INSERT INTO O_TPARM
+	VALUES ("745b88f0-5196-4626-9578-0bb799cae5ea",
+	"07a6dc75-57c1-4bb6-99d7-9eae83b5fba2",
+	'index',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
 INSERT INTO O_NBATTR
 	VALUES ("c1895e17-60ab-46d5-b6a1-e61e34c67638",
 	"aee0c0bf-2bc2-41e5-b9ad-01341d2944be");

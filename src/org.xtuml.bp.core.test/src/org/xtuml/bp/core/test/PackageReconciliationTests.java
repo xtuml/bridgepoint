@@ -1,5 +1,7 @@
 package org.xtuml.bp.core.test;
 
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.AcceptEventAction_c;
 import org.xtuml.bp.core.AcceptEvent_c;
 import org.xtuml.bp.core.AcceptTimeEventAction_c;
@@ -37,6 +39,7 @@ import org.xtuml.bp.core.UserDataType_c;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.ui.Selection;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.UITestingUtilities;
 import org.xtuml.bp.ui.canvas.ElementInModelSpecification_c;
 import org.xtuml.bp.ui.canvas.ElementSpecification_c;
@@ -45,8 +48,10 @@ import org.xtuml.bp.ui.canvas.ModelSpecification_c;
 import org.xtuml.bp.ui.canvas.Model_c;
 import org.xtuml.bp.ui.canvas.Ooaofgraphics;
 
+@RunWith(OrderedRunner.class)
 public class PackageReconciliationTests extends BaseTest {
 
+	@Test
 	public void testReconciliationUnderPackage() {
 		// create the test package
 		m_sys.Newpackage();

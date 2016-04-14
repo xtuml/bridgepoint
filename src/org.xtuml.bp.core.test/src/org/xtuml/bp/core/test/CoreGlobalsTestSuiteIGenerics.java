@@ -4,8 +4,8 @@ import org.xtuml.bp.test.GlobalsTestEnabler;
 
 public class CoreGlobalsTestSuiteIGenerics extends GlobalsTestEnabler {
 
-	public CoreGlobalsTestSuiteIGenerics(String name) {
-		super(null, name);
+	public CoreGlobalsTestSuiteIGenerics(){
+		super(null, null);
 	}
 
 }

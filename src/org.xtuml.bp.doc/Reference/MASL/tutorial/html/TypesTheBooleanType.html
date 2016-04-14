@@ -1,0 +1,167 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>1.7. The Boolean Type</title>
+<link rel="stylesheet" type="text/css" href="docbook.css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<meta name="keywords" content="MASL, Action Language, Action Semantics, UML, Unified Modelling Language, Shlaer Mellor">
+<link rel="home" href="index.html" title="MASL Tutorial">
+<link rel="up" href="Types.html" title="Chapter 1. Types">
+<link rel="prev" href="TypesEnumerationTypes.html" title="1.6. Enumeration Types">
+<link rel="next" href="TypesCharactersandStrings.html" title="1.8. Characters and Strings">
+<link rel="preface" href="preface.html" title="Preface">
+<link rel="chapter" href="Types.html" title="Chapter 1. Types">
+<link rel="chapter" href="ExecutionControl.html" title="Chapter 2. Execution Control">
+<link rel="chapter" href="CompositeTypes.html" title="Chapter 3. Composite Types">
+<link rel="chapter" href="Exceptions.html" title="Chapter 4. Exceptions">
+<link rel="chapter" href="ObjectsandRelationships.html" title="Chapter 5. Objects and Relationships">
+<link rel="chapter" href="Actions.html" title="Chapter 6. Actions">
+<link rel="chapter" href="DeviceIO.html" title="Chapter 7. Device Input/Output">
+<link rel="chapter" href="MASLExamples.html" title="Chapter 8. MASL Examples">
+<link rel="index" href="ix01.html" title="Index">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div align="center">UNCLASSIFIED</div>
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">1.7. The Boolean Type</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="TypesEnumerationTypes.html">Prev</a> </td>
+<th width="60%" align="center">Chapter 1. Types</th>
+<td width="20%" align="right"> <a accesskey="n" href="TypesCharactersandStrings.html">Next</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title">
+<a name="TypesTheBooleanType"></a>1.7. The Boolean Type</h2></div></div></div>
+<p>The <span class="type">boolean</span> type is a predefined enumeration type whose
+    declaration is considered to be:</p>
+<div class="informalexample"><pre class="programlisting">  type boolean is enum (false, true);</pre></div>
+<p>Boolean values are used in constructions such as the if statement
+    that we will meet later. Boolean values are produced by the operators
+    <code class="literal">=</code>, <code class="literal">/=</code>, <code class="literal">&lt;</code>,
+    <code class="literal">&lt;=</code>, <code class="literal">&gt;</code> and
+    <code class="literal">&gt;=</code> which have their expected meaning and apply to
+    many types. So we can write constructions such as:</p>
+<div class="informalexample"><pre class="programlisting">  declare
+    today : day_type;
+    tomorrow : day_type;
+  begin
+    if today = SUN then
+      tomorrow := MON;
+    end if;
+  end;</pre></div>
+<p>The equality operators <code class="literal">=</code> and
+    <code class="literal">/=</code> apply to values of the <span class="type">boolean</span> type and
+    have the obvious meaning. The <span class="type">boolean</span> type also has other
+    operators which are as follows :</p>
+<div class="table">
+<a name="TypesBooleanTypeOperators"></a><div class="table-title">Table 1.2. <span class="type">boolean</span> Type Operators</div>
+<div class="table-contents"><table class="table" border="1">
+<colgroup>
+<col class="operator">
+<col class="description">
+</colgroup>
+<thead><tr>
+<th>Operator</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td><code class="literal">not</code></td>
+<td>This is an unary operator and changes
+            <code class="literal">true</code> to <code class="literal">false</code> and vice
+            versa.</td>
+</tr>
+<tr>
+<td><code class="literal">and</code></td>
+<td>This is a binary operator. The result is
+            <code class="literal">true</code> if both operands are
+            <code class="literal">true</code>, and <code class="literal">false</code>
+            otherwise.</td>
+</tr>
+<tr>
+<td><code class="literal">or</code></td>
+<td>This is a binary operator. The result is
+            <code class="literal">true</code> if one or other or both operands are
+            <code class="literal">true</code>, and <code class="literal">false</code> only if they
+            are both <code class="literal">false</code>.</td>
+</tr>
+<tr>
+<td><code class="literal">xor</code></td>
+<td>This is a binary operator. The result is
+            <code class="literal">true</code> if one or other operand but not both are
+            <code class="literal">true</code>. (Hence the name eXclusive OR). Another
+            way of looking as it is to note that the result is
+            <code class="literal">true</code> if and only if the operands are
+            different.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<br class="table-break"><p>In the case of <code class="literal">and</code> and <code class="literal">or</code> the
+    left hand operand is always evaluated first and the right hand operand is
+    only evaluated if it is necessary in order to determine the result. So
+    in:</p>
+<div class="informalexample"><div class="literallayout"><p>  X and Y</p></div></div>
+<p>X is evaluated first. If X is false, the answer is
+    false whatever the value of Y and so Y is not evaluated. If X is true, Y
+    has to be evaluated and the value of Y is the answer. Similarly
+    in:</p>
+<div class="informalexample"><div class="literallayout"><p>  X or Y</p></div></div>
+<p>X is evaluated first. If X is true, the answer is true
+    whatever the value of Y and so Y is not evaluated. If X is false, Y has to
+    be evaluated and the value of Y is the answer.</p>
+<p>The precedences of <code class="literal">and</code>, <code class="literal">xor</code>
+    and <code class="literal">or</code> are in that order (from high to low) and lower
+    than that of any other operator. In particular they are of lower
+    precedence than the relational operators <code class="literal">=</code>,
+    <code class="literal">/=</code>, <code class="literal">&lt;</code>, <code class="literal">&lt;=</code>,
+    <code class="literal">&gt;</code> and <code class="literal">&gt;=</code>.</p>
+<p>In particular the precedence of <code class="literal">not</code> is higher
+    than <code class="literal">and</code>, <code class="literal">or</code> and
+    <code class="literal">xor</code> and so :</p>
+<div class="informalexample"><div class="literallayout"><p>  not A or B</p></div></div>
+<p>means</p>
+<div class="informalexample"><div class="literallayout"><p>  (not A) or B</p></div></div>
+<p>Boolean variables and constants can be declared and manipulated in
+    the usual way.</p>
+<div class="informalexample"><pre class="programlisting">  declare
+    danger : boolean;
+    signal : colour_type;
+  begin
+    danger := (signal = RED);
+  end;</pre></div>
+<p>The variable <code class="varname">danger</code> is then
+    <code class="literal">true</code> if the <code class="varname">signal</code> is
+    <code class="literal">RED</code>. We can then write:</p>
+<div class="informalexample"><pre class="programlisting">  if danger then
+    // …
+  end if;</pre></div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="TypesEnumerationTypes.html">Prev</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="Types.html">Up</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="TypesCharactersandStrings.html">Next</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">1.6. Enumeration Types </td>
+<td width="20%" align="center">
+<a accesskey="h" href="index.html">Home</a> | <a accesskey="t" href="bk01-toc.html">ToC</a>
+</td>
+<td width="40%" align="right" valign="top"> 1.8. Characters and Strings</td>
+</tr>
+</table>
+</div>
+<div align="center">UNCLASSIFIED</div>
+</body>
+</html>

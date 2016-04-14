@@ -10,7 +10,9 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.ui.PlatformUI;
-
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.Function_c;
 import org.xtuml.bp.core.Package_c;
@@ -22,6 +24,7 @@ import org.xtuml.bp.debug.ui.launch.BPDebugUtils;
 import org.xtuml.bp.debug.ui.test.DebugUITestUtilities;
 import org.xtuml.bp.test.TestUtil;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TestingUtilities;
 import org.xtuml.bp.test.common.UITestingUtilities;
 
@@ -47,16 +50,19 @@ import org.xtuml.bp.test.common.UITestingUtilities;
 //the License.
 //=====================================================================
 
+@RunWith(OrderedRunner.class)
 public class DateLoggingTests extends BaseTest {
 
 	private static IProject project;
 	
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		loadProject("LogDateFormat");
 	
 	}
 
+	@Test
 	public void testDateIsLoggedInTheCorrectFormat() {
 		Package_c rootpkg = Package_c.getOneEP_PKGOnR1405(m_sys,
 				new Package_by_name_c("root"));

@@ -777,10 +777,7 @@ public class ${class_name} extends CoreImport
             if(actualVersion.equals(bp7_1_4VersionNumber)) {
             	  helper.associateSatisfactionsThroughIdentifier(getModelRoot());
             }
-            if (m_component.getComponentType().equals("Component") && actualVersion.equals(bp7_1_3VersionNumber))
-	            helper.migrateComponents(getModelRoot());
             helper.upgradeDSAs(getModelRoot());
-            helper.associateDTsWithDomain(getModelRoot());
             helper.upgradeElementOrder(getModelRoot());
 			loadedInstances.addAll(helper.upgradeDatatypes(loadedInstances));
 			helper.fixSatisfactionAssociations(loadedInstances);
@@ -872,7 +869,7 @@ ${result.body}\
     public void processStatement(${var.main_class_name} modelRoot, String table, Vector parms, Vector rawParms, int numParms, IProgressMonitor pm ) {
       .// Note that this code only creates the instances in memory
       .// The relationship pointers are not initialized until later.
-        ModelRoot.disableChangeNotification();
+          ModelRoot.disableChangeNotification();
       try {
     	.if (class_name == "ImportModelStream")
     	if (!modelRoot.isCompareRoot() && !initialCheck && table.contains("_PROXY" )){
@@ -895,7 +892,7 @@ ${result.body}\
 ${result.body}\
         pm.worked(1);
         } finally {
-                    ModelRoot.enableChangeNotification();
+                      ModelRoot.enableChangeNotification();
         }
     }
 

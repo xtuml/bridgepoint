@@ -1,4 +1,7 @@
 package org.xtuml.bp.ui.canvas.test;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 //=====================================================================
 //
 //File:      $RCSfile: ListenerTest.java,v $
@@ -56,17 +59,20 @@ import org.xtuml.bp.core.Select_c;
 import org.xtuml.bp.core.StateMachineState_c;
 import org.xtuml.bp.core.Statement_c;
 import org.xtuml.bp.core.UserDataType_c;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.UITestingUtilities;
 import org.xtuml.bp.ui.canvas.Model_c;
 import org.xtuml.bp.ui.graphics.editor.GraphicalEditor;
 import org.xtuml.bp.ui.graphics.listeners.GraphicsEditorListener;
 
+@RunWith(OrderedRunner.class)
 public class ListenerTest extends CanvasTest {
-  public ListenerTest(String arg0) {
-    super("org.xtuml.bp.ui.canvas.test", arg0);
+  public ListenerTest() {
+    super("org.xtuml.bp.ui.canvas.test", null);
   }
   
-  public void setUp() throws Exception {
+  @Before
+	public void setUp() throws Exception {
     super.setUp();
     
     loadProject("odms");
@@ -75,7 +81,8 @@ public class ListenerTest extends CanvasTest {
     return super.getModelName();
   }
 
-  public void testPackageListener() {
+  @Test
+	public void testPackageListener() {
     Package_c pkg = Package_c.PackageInstance(modelRoot);
     assertNotNull(pkg);
     GraphicalEditor editor = UITestingUtilities.getGraphicalEditorFor(pkg, true);
@@ -113,7 +120,8 @@ public class ListenerTest extends CanvasTest {
     validateIgnoreActivityChanges(uut);
   }
 
-  public void testISDListener() {
+  @Test
+	public void testISDListener() {
 	InstanceStateMachine_c pkg = InstanceStateMachine_c.InstanceStateMachineInstance(modelRoot);
 	assertNotNull(pkg);
 	GraphicalEditor editor = UITestingUtilities.getGraphicalEditorFor(pkg, true);
@@ -130,7 +138,8 @@ public class ListenerTest extends CanvasTest {
     validateIgnoreExternalEntityPackageChanges(uut);
   }
   
-  public void testCSDListener() {
+  @Test
+	public void testCSDListener() {
 	ClassStateMachine_c pkg = ClassStateMachine_c.ClassStateMachineInstance(modelRoot);
 	assertNotNull(pkg);
 	GraphicalEditor editor = UITestingUtilities.getGraphicalEditorFor(pkg, true);

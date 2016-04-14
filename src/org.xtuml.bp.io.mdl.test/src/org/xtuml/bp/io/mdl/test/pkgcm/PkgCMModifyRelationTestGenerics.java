@@ -23,13 +23,15 @@
 package org.xtuml.bp.io.mdl.test.pkgcm;
 
 import org.eclipse.core.runtime.CoreException;
-
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Ooaofooa;
-import org.xtuml.bp.test.common.BaseTest;
-import org.xtuml.bp.test.common.TestingUtilities;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.ui.canvas.Ooaofgraphics;
 
+@RunWith(OrderedRunner.class)
 public class PkgCMModifyRelationTestGenerics extends ModifyRelationTest {
 
     protected static String projectName = "MultiLevelModelSystem";
@@ -41,11 +43,12 @@ public class PkgCMModifyRelationTestGenerics extends ModifyRelationTest {
     protected static boolean reCopy_modRel = true;
     protected static boolean firstTime = true;
     
-    public PkgCMModifyRelationTestGenerics(String name) {
-        super(projectName,name);
+    public PkgCMModifyRelationTestGenerics() {
+        super(projectName,null);
     }
 
-    protected void setUp() throws Exception {
+    @Before
+	public void setUp() throws Exception {
         super.setUp();
         setupProjectAndTestModel();
     }
@@ -75,11 +78,13 @@ public class PkgCMModifyRelationTestGenerics extends ModifyRelationTest {
 //        performModifyComponentGenerics("Package", "SS1", "Class",false,true, 4, new String[] {"SSInSS1", "SSInSS12"});
 //    }
     
-    public void testModifyDomainPackageWithChildren() throws Exception {    	
+    @Test
+	public void testModifyDomainPackageWithChildren() throws Exception {    	
         performModifyComponentGenerics("Package", "MultiLevelModel", "Package", false, true, 5, new String[] {"External Entities", "SS1"});
     }
 
-    public void testModifyDatatypePackageWithChildren() throws Exception {
+    @Test
+	public void testModifyDatatypePackageWithChildren() throws Exception {
         performModifyComponentGenerics("Package", "Datatypes", "Package",false,true, 4, new String[] {"SubDataTypes", "SubDataTypes2"});
     }
     

@@ -1,0 +1,131 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>2.2. case Statement</title>
+<link rel="stylesheet" type="text/css" href="docbook.css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<meta name="keywords" content="MASL, Action Language, Action Semantics, UML, Unified Modelling Language, Shlaer Mellor">
+<link rel="home" href="index.html" title="MASL Tutorial">
+<link rel="up" href="ExecutionControl.html" title="Chapter 2. Execution Control">
+<link rel="prev" href="ExecutionControlIfStatement.html" title="2.1. if Statement">
+<link rel="next" href="ExecutionControlLoopStatements.html" title="2.3.  Loop Statements">
+<link rel="preface" href="preface.html" title="Preface">
+<link rel="chapter" href="Types.html" title="Chapter 1. Types">
+<link rel="chapter" href="ExecutionControl.html" title="Chapter 2. Execution Control">
+<link rel="chapter" href="CompositeTypes.html" title="Chapter 3. Composite Types">
+<link rel="chapter" href="Exceptions.html" title="Chapter 4. Exceptions">
+<link rel="chapter" href="ObjectsandRelationships.html" title="Chapter 5. Objects and Relationships">
+<link rel="chapter" href="Actions.html" title="Chapter 6. Actions">
+<link rel="chapter" href="DeviceIO.html" title="Chapter 7. Device Input/Output">
+<link rel="chapter" href="MASLExamples.html" title="Chapter 8. MASL Examples">
+<link rel="index" href="ix01.html" title="Index">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div align="center">UNCLASSIFIED</div>
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">2.2. <code class="literal">case</code> Statement</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ExecutionControlIfStatement.html">Prev</a> </td>
+<th width="60%" align="center">Chapter 2. Execution Control</th>
+<td width="20%" align="right"> <a accesskey="n" href="ExecutionControlLoopStatements.html">Next</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title">
+<a name="ExecutionControlCaseStatement"></a>2.2. <code class="literal">case</code> Statement</h2></div></div></div>
+<p>A <code class="literal">case</code> statement allows a choice between several
+    possible sequences of statements according to the value of an expression.
+    For instance, an example could be:</p>
+<div class="informalexample"><pre class="programlisting">  declare
+    signal : signal_colour_type;
+  begin
+    case signal is
+      when RED =&gt;
+        stop();
+      when AMBER =&gt;
+        null;
+      when GREEN =&gt;
+        go();
+    end case;
+  end;</pre></div>
+<p>All possible values of the expression must be provided for in order
+    to guard against accidental omissions. If, as in this example, no action
+    is required for one or more values then the <code class="literal">null</code>
+    statement can to be used.</p>
+<p>The null statement, written :</p>
+<pre class="programlisting">  null;</pre>
+<p>does absolutely nothing but its presence indicates that we truly
+    want to do nothing. The sequence of statements here, as in the if
+    statement, must contain at least one statement. It often happens that the
+    same action is desired for several values of the expression. Consider the
+    following:</p>
+<div class="informalexample"><pre class="programlisting">  declare
+    key : character;
+  begin
+    key := 's';
+    case key is
+      when 'a' | 'b' | 'c' | 'd' =&gt;
+        output(key);
+      when 'e' =&gt;
+        output(key);  process(key);
+      when 's' =&gt;
+        ignore(key);
+    end case;
+  end;</pre></div>
+<p>The alternative values are separated by the vertical
+    bar character (<code class="literal">|</code>). Note again the use of the
+    <code class="literal">null</code> statement. Another example, shown below,
+    demonstrates the use of the others key word, this is used to indicate that
+    all other possibilities are covered by this case (<code class="literal">SAT</code>
+    and <code class="literal">SUN</code>). </p>
+<div class="informalexample"><pre class="programlisting">  declare
+    today : day_type;
+  begin
+    case today is
+      when MON | TUE | WED | THU =&gt;
+        work();
+      when FRI =&gt;
+        work(); party();
+      when others =&gt;
+        null;
+    end case;
+  end;</pre></div>
+<p>There are several restrictions in the use of <code class="literal">case</code>
+    statements. One is that if we use <code class="literal">others</code> then it must
+    appear alone and as the last alternative. As already stated it covers all
+    values not explicitly covered by the previous alternatives. It should also
+    be noted that there is an implied break at the end of each when block; the
+    execution cannot fall through to subsequent case statements as in C/C++.
+    Another very important restriction is that all the choices must be
+    constant so that they can be evaluated at compilation time. Finally, all
+    possible values of the expression after the <code class="literal">case</code> must
+    be provided for. This usually means all values of the type of the
+    expression after the reserved word <code class="literal">case</code>.</p>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ExecutionControlIfStatement.html">Prev</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="ExecutionControl.html">Up</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ExecutionControlLoopStatements.html">Next</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">2.1. <code class="literal">if</code> Statement </td>
+<td width="20%" align="center">
+<a accesskey="h" href="index.html">Home</a> | <a accesskey="t" href="bk01-toc.html">ToC</a>
+</td>
+<td width="40%" align="right" valign="top"> 2.3.  Loop Statements</td>
+</tr>
+</table>
+</div>
+<div align="center">UNCLASSIFIED</div>
+</body>
+</html>

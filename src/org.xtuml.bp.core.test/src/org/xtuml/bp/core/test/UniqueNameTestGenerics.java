@@ -23,7 +23,10 @@ package org.xtuml.bp.core.test;
 
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.swt.widgets.Display;
-
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.ModelClass_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Package_c;
@@ -32,7 +35,9 @@ import org.xtuml.bp.core.common.PersistableModelComponent;
 import org.xtuml.bp.core.common.Transaction;
 import org.xtuml.bp.core.common.TransactionManager;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 
+@RunWith(OrderedRunner.class)
 public class UniqueNameTestGenerics extends BaseTest {
 
 	static boolean isDone = false;
@@ -43,7 +48,8 @@ public class UniqueNameTestGenerics extends BaseTest {
 	private static boolean initialized = false;
 	private static boolean oldValue;
 
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		if (firstTime) {
 			setupProject("uniqueNameTest");
@@ -66,7 +72,8 @@ public class UniqueNameTestGenerics extends BaseTest {
 		}
 	}
 
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		if (isDone) {
 			if (modelRoot != null) {
 				modelRoot.clearDatabase(new NullProgressMonitor());
@@ -85,6 +92,7 @@ public class UniqueNameTestGenerics extends BaseTest {
 	 * Issue 2437
 	 * @throws Exception
 	 */
+	@Test
 	public void testUniqueSubsystemName() throws Exception {
 
 		Package_c dom = Package_c.PackageInstance(modelRoot,
@@ -116,6 +124,7 @@ public class UniqueNameTestGenerics extends BaseTest {
 		assertEquals("Unnamed Package-1", sss2[sss2.length - 1].getName());
 	}
 
+	@Test
 	public void testUniqueModelClassName() throws Exception {
 		//test unique model class name
 		ModelClass_c[] mcs1 = ModelClass_c.ModelClassInstances(modelRoot);

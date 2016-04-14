@@ -1,0 +1,116 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>12.10. Blocks</title>
+<link rel="stylesheet" type="text/css" href="docbook.css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<meta name="keywords" content="MASL, Action Language, Action Semantics, UML, Unified Modelling Language, Shlaer Mellor">
+<link rel="home" href="index.html" title="MASL Reference Manual">
+<link rel="up" href="Statements.html" title="Chapter 12. Statements">
+<link rel="prev" href="StatementsInvocationStatement.html" title="12.9. Invocation Statements">
+<link rel="next" href="StatementsTheIfStatement.html" title="12.11. The If Statement">
+<link rel="preface" href="preface.html" title="Preface">
+<link rel="chapter" href="Grammars.html" title="Chapter 1. Grammars">
+<link rel="chapter" href="LexicalStructure.html" title="Chapter 2. Lexical Structure">
+<link rel="chapter" href="Types.html" title="Chapter 3. Types">
+<link rel="chapter" href="TypeConversion.html" title="Chapter 4. Type Conversion">
+<link rel="chapter" href="Domains.html" title="Chapter 5. Domains">
+<link rel="chapter" href="Objects.html" title="Chapter 6. Objects">
+<link rel="chapter" href="Relationships.html" title="Chapter 7. Relationships">
+<link rel="chapter" href="Lifecycles.html" title="Chapter 8. Lifecycles">
+<link rel="chapter" href="Functions.html" title="Chapter 9. Functions">
+<link rel="chapter" href="Services.html" title="Chapter 10. Services">
+<link rel="chapter" href="Exceptions.html" title="Chapter 11. Exceptions">
+<link rel="chapter" href="Statements.html" title="Chapter 12. Statements">
+<link rel="chapter" href="Names.html" title="Chapter 13. Names">
+<link rel="chapter" href="Expressions.html" title="Chapter 14. Expressions">
+<link rel="appendix" href="LanguageDefinedCharacteristics.html" title="Appendix A. Language Defined Characteristics">
+<link rel="appendix" href="SyntaxSummary.html" title="Appendix B. Syntax Summary">
+<link rel="index" href="ix01.html" title="Index">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div align="center">OFFICIAL</div>
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">12.10. Blocks</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="StatementsInvocationStatement.html">Prev</a> </td>
+<th width="60%" align="center">Chapter 12. Statements</th>
+<td width="20%" align="right"> <a accesskey="n" href="StatementsTheIfStatement.html">Next</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title">
+<a name="StatementsBlocks"></a>12.10. Blocks</h2></div></div></div>
+<p>
+A <a class="link" href="StatementsBlocks.html#ebnf.blockstatement"><span class="emphasis"><em>block statement</em></span></a>
+<a class="indexterm" name="idp69347424"></a>
+<a class="indexterm" name="idp69349040"></a>
+is a sequence of
+<a class="link" href="TypesVariableDeclarations.html#ebnf.variabledeclaration">variable declarations</a>
+<a class="indexterm" name="idp69350944"></a>
+followed by a
+<a class="link" href="ExceptionsHandlingofanException.html#ebnf.handledsequenceofstatements">handled sequence of statements</a>.
+<a class="indexterm" name="idp69353040"></a>
+</p>
+<a class="indexterm" name="idp69354544"></a><a class="indexterm" name="idp69355712"></a><a class="indexterm" name="idp69356880"></a><table width="100%" cellpadding="5" bgcolor="#F5DCB3" border="1" class="productionset" summary="EBNF"><tr><td><table border="0" width="99%" cellpadding="0" bgcolor="#F5DCB3" class="productionset" summary="EBNF productions"><tr>
+<td align="left" valign="top" width="3%">[165]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.blockstatement"></a>
+        block statement
+    </td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        ['declare',
+        <a href="TypesVariableDeclarations.html#ebnf.variabledeclaration">variable declaration</a>,
+        {<a href="TypesVariableDeclarations.html#ebnf.variabledeclaration">variable declaration</a>}],
+        'begin',
+        <a href="ExceptionsHandlingofanException.html#ebnf.handledsequenceofstatements">handled sequence of statements</a>,
+        'end', ';'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr></table></td></tr></table>
+<p>
+A block statement
+<a class="indexterm" name="idp69362864"></a>
+is executed by executing each of the variable declarations
+in order from first to last, followed by the execution of the handled sequence
+of statements. If all of these complete normally,
+<a class="indexterm" name="idp69364208"></a>
+then the block statement
+completes normally.
+<a class="indexterm" name="idp69365136"></a>
+If any of these complete abruptly
+<a class="indexterm" name="idp69366048"></a>
+for any reason, then the
+block statement completes abruptly
+<a class="indexterm" name="idp69366992"></a>
+for the same reason.
+</p>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="StatementsInvocationStatement.html">Prev</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="Statements.html">Up</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="StatementsTheIfStatement.html">Next</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">12.9. Invocation Statements </td>
+<td width="20%" align="center">
+<a accesskey="h" href="index.html">Home</a> | <a accesskey="t" href="bk01-toc.html">ToC</a>
+</td>
+<td width="40%" align="right" valign="top"> 12.11. The If Statement</td>
+</tr>
+</table>
+</div>
+<div align="center">OFFICIAL</div>
+</body>
+</html>

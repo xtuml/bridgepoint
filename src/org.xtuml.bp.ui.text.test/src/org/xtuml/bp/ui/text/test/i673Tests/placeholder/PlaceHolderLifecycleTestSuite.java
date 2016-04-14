@@ -22,14 +22,17 @@
  
 package org.xtuml.bp.ui.text.test.i673Tests.placeholder;
 
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+
 import junit.framework.TestSuite;
 
+@RunWith(Suite.class)
+@Suite.SuiteClasses({
+	MarkerBasedPlaceholderLifecyleTest.class,
+	PlaceholderLifecycleForProjectTest.class,
+	PlaceholderLifecyleForDeleteModelElementTest.class
+})
 public class PlaceHolderLifecycleTestSuite extends TestSuite {
-
-	public PlaceHolderLifecycleTestSuite() {
-		addTest(new TestSuite(MarkerBasedPlaceholderLifecyleTest.class));
-		addTest(new TestSuite(PlaceholderLifecycleForProjectTest.class));
-		addTest(new TestSuite(PlaceholderLifecyleForDeleteModelElementTest.class));
-	}
 
 }

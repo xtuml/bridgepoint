@@ -29,7 +29,11 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
-
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.TestName;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.Association_c;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.ModelClass_c;
@@ -37,18 +41,26 @@ import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.PackageableElement_c;
 import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.UITestingUtilities;
 import org.xtuml.bp.ui.graphics.editor.GraphicalEditor;
 import org.xtuml.bp.ui.graphics.editor.ModelEditor;
 import org.xtuml.bp.ui.graphics.tools.GraphicalPanningSelectionTool;
 
+@RunWith(OrderedRunner.class)
 public class GraphicalToolCreationTests extends BaseTest {
 
 	private static Package_c testPackage;
 	protected boolean checkDialogComplete;
 
+	private static boolean isFirstTime = true;
+	
 	@Override
-	protected void initialSetup() throws Exception {
+//	@Before
+	public void initialSetup() throws Exception {
+		if(!isFirstTime)
+			return;
+		isFirstTime = false;
 		// create a test package and open the diagram
 		m_sys.Newpackage();
 		Package_c[] pkgs = Package_c.getManyEP_PKGsOnR1405(m_sys);
@@ -61,13 +73,8 @@ public class GraphicalToolCreationTests extends BaseTest {
 		while(PlatformUI.getWorkbench().getDisplay().readAndDispatch());
 	}
 
-	// Enforce ordering of the test runs in this class
-	public void testGraphicalToolCreation() {
-		dotestShapeCreationStickyModeUseDefaultNamesDisabled();
-		dotestShapeCreationStickyModeUseDefaultNamesEnabled();
-	}
-	
-	public void dotestShapeCreationStickyModeUseDefaultNamesDisabled() {
+	@Test
+	public void testShapeCreationStickyModeUseDefaultNamesDisabled() {
 		CorePlugin.getDefault().getPreferenceStore().setValue(
 				BridgePointPreferencesStore.USE_DEFAULT_NAME_FOR_CREATION, false);
 		AbstractTool tool = UITestingUtilities.getTool("Classes", "Class");
@@ -136,7 +143,8 @@ public class GraphicalToolCreationTests extends BaseTest {
 		checkDialogComplete = false;
 	}
 
-	public void dotestShapeCreationStickyModeUseDefaultNamesEnabled() {
+	@Test
+	public void testShapeCreationStickyModeUseDefaultNamesEnabled() {
 		testPackage.Dispose();
 		m_sys.Newpackage();
 		Package_c[] pkgs = Package_c.getManyEP_PKGsOnR1405(m_sys);

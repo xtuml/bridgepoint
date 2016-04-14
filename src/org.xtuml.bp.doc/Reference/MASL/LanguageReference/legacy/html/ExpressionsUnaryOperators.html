@@ -1,0 +1,182 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>14.5. Unary Operators</title>
+<link rel="stylesheet" type="text/css" href="docbook.css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<meta name="keywords" content="MASL, Action Language, Action Semantics, UML, Unified Modelling Language, Shlaer Mellor">
+<link rel="home" href="index.html" title="MASL Reference Manual">
+<link rel="up" href="Expressions.html" title="Chapter 14. Expressions">
+<link rel="prev" href="ExpressionsPrimaryExpression.html" title="14.4. Primary Expressions">
+<link rel="next" href="ExpressionsTypeConversion.html" title="14.6. Type Conversion">
+<link rel="preface" href="preface.html" title="Preface">
+<link rel="chapter" href="Grammars.html" title="Chapter 1. Grammars">
+<link rel="chapter" href="LexicalStructure.html" title="Chapter 2. Lexical Structure">
+<link rel="chapter" href="Types.html" title="Chapter 3. Types">
+<link rel="chapter" href="TypeConversion.html" title="Chapter 4. Type Conversion">
+<link rel="chapter" href="Domains.html" title="Chapter 5. Domains">
+<link rel="chapter" href="Objects.html" title="Chapter 6. Objects">
+<link rel="chapter" href="Relationships.html" title="Chapter 7. Relationships">
+<link rel="chapter" href="Lifecycles.html" title="Chapter 8. Lifecycles">
+<link rel="chapter" href="Functions.html" title="Chapter 9. Functions">
+<link rel="chapter" href="Services.html" title="Chapter 10. Services">
+<link rel="chapter" href="Exceptions.html" title="Chapter 11. Exceptions">
+<link rel="chapter" href="Statements.html" title="Chapter 12. Statements">
+<link rel="chapter" href="Names.html" title="Chapter 13. Names">
+<link rel="chapter" href="Expressions.html" title="Chapter 14. Expressions">
+<link rel="appendix" href="LanguageDefinedCharacteristics.html" title="Appendix A. Language Defined Characteristics">
+<link rel="appendix" href="SyntaxSummary.html" title="Appendix B. Syntax Summary">
+<link rel="index" href="ix01.html" title="Index">
+<link rel="subsection" href="ExpressionsUnaryOperators.html#ExpressionsUnaryPlusandMinusOperators" title="14.5.1. Unary Plus and Minus Operators">
+<link rel="subsection" href="ExpressionsUnaryOperators.html#ExpressionsLogicalNegationOperator" title="14.5.2. Logical Negation Operator">
+<link rel="subsection" href="ExpressionsUnaryOperators.html#ExpressionsAbsoluteValueOperator" title="14.5.3. Absolute Value Operator">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div align="center">OFFICIAL</div>
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">14.5. Unary Operators</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ExpressionsPrimaryExpression.html">Prev</a> </td>
+<th width="60%" align="center">Chapter 14. Expressions</th>
+<td width="20%" align="right"> <a accesskey="n" href="ExpressionsTypeConversion.html">Next</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title">
+<a name="ExpressionsUnaryOperators"></a>14.5. Unary Operators</h2></div></div></div>
+<div class="toc"><dl class="toc">
+<dt><span class="section"><a href="ExpressionsUnaryOperators.html#ExpressionsUnaryPlusandMinusOperators">14.5.1. Unary Plus and Minus Operators</a></span></dt>
+<dt><span class="section"><a href="ExpressionsUnaryOperators.html#ExpressionsLogicalNegationOperator">14.5.2. Logical Negation Operator</a></span></dt>
+<dt><span class="section"><a href="ExpressionsUnaryOperators.html#ExpressionsAbsoluteValueOperator">14.5.3. Absolute Value Operator</a></span></dt>
+</dl></div>
+<p>
+The <a class="link" href="ExpressionsUnaryOperators.html#ebnf.unaryexpression">unary operators</a>
+<a class="indexterm" name="idp71663136"></a>
+are
+<code class="literal">+</code>,
+<a class="indexterm" name="idp71664752"></a>
+<code class="literal">-</code>,
+<a class="indexterm" name="idp71666672"></a>
+<code class="literal">not</code>
+<a class="indexterm" name="idp71668592"></a>
+and <code class="literal">abs</code>.
+<a class="indexterm" name="idp71670512"></a>
+Expressions with unary operators
+<a class="indexterm" name="idp71671952"></a>
+group right-to-left,
+<a class="indexterm" name="idp71673120"></a>
+so that
+<code class="literal">-+</code><span class="emphasis"><em>x</em></span> has the same meaning as
+<code class="literal">-(+</code><span class="emphasis"><em>x</em></span><code class="literal">)</code>.
+</p>
+<a class="indexterm" name="idp71676400"></a><a class="indexterm" name="idp71677568"></a><a class="indexterm" name="idp71678736"></a><a class="indexterm" name="idp71679904"></a><a class="indexterm" name="idp71681072"></a><a class="indexterm" name="idp71682368"></a><a class="indexterm" name="idp71683664"></a><a class="indexterm" name="idp71684960"></a><table width="100%" cellpadding="5" bgcolor="#F5DCB3" border="1" class="productionset" summary="EBNF"><tr><td><table border="0" width="99%" cellpadding="0" bgcolor="#F5DCB3" class="productionset" summary="EBNF productions"><tr>
+<td align="left" valign="top" width="3%">[203]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.unaryexpression"></a>
+        unary expression
+    </td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="ExpressionsTypeConversion.html#ebnf.typeconversion">type conversion</a> |
+        '-', <a href="ExpressionsUnaryOperators.html#ebnf.unaryexpression">unary expression</a> |
+        '+', <a href="ExpressionsUnaryOperators.html#ebnf.unaryexpression">unary expression</a> |
+        'not', <a href="ExpressionsUnaryOperators.html#ebnf.unaryexpression">unary expression</a> |
+        'abs', <a href="ExpressionsUnaryOperators.html#ebnf.unaryexpression">unary expression</a> |
+        <a href="ExpressionsPrimaryExpression.html#ebnf.primaryexpression">primary expression</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr></table></td></tr></table>
+<p>
+Evaluation of an <a class="link" href="ExpressionsUnaryOperators.html#ebnf.unaryexpression">unary operator expression</a>
+first evaluates the unary expression, then its operand and finally applies the operator.
+<a class="indexterm" name="idp71693856"></a>
+</p>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="ExpressionsUnaryPlusandMinusOperators"></a>14.5.1. Unary Plus and Minus Operators</h3></div></div></div>
+<p>
+A compile-time error occurs if the type of the expression of the
+<code class="literal">+</code>
+<a class="indexterm" name="idp71697536"></a>
+and <code class="literal">-</code>
+<a class="indexterm" name="idp71699008"></a>
+operators is not a
+<a class="link" href="TypesFullDeclarations.html#TypesNumericTypes" title="3.7.1. Numeric Types"><span class="type">numeric</span></a>
+<a class="indexterm" name="idp71700880"></a>
+type.
+The type of an unary <code class="literal">+</code>
+<a class="indexterm" name="idp71702368"></a>
+or <code class="literal">-</code>
+<a class="indexterm" name="idp71703840"></a>
+expression is
+the type of the operand. Unary <code class="literal">+</code>
+<a class="indexterm" name="idp71705344"></a>
+and <code class="literal">-</code>
+<a class="indexterm" name="idp71706816"></a>
+have their conventional meaning.
+</p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="ExpressionsLogicalNegationOperator"></a>14.5.2. Logical Negation Operator</h3></div></div></div>
+<p>
+A compile-time error occurs if the type of the expression of the
+<code class="literal">not</code>
+<a class="indexterm" name="idp71710080"></a>
+operator is not a
+<a class="link" href="TypesBuiltinTypes.html#TypesBooleanType" title="3.2.3. Boolean Type"><span class="type">boolean</span></a>
+<a class="indexterm" name="idp71712224"></a>
+type.
+The unary <code class="literal">not</code>
+<a class="indexterm" name="idp71713696"></a>
+operator yields the logical negation of the
+operand. Hence, its value is true if its operand is false, and false if 
+its operand is true.
+</p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="ExpressionsAbsoluteValueOperator"></a>14.5.3. Absolute Value Operator</h3></div></div></div>
+<p>
+A compile-time error occurs if the type of the expression of the
+<code class="literal">abs</code>
+<a class="indexterm" name="idp71717168"></a>
+operator is not a
+<a class="link" href="TypesFullDeclarations.html#TypesNumericTypes" title="3.7.1. Numeric Types"><span class="type">numeric</span></a> type.
+<a class="indexterm" name="idp71719312"></a>
+The type of the unary <code class="literal">abs</code>
+<a class="indexterm" name="idp71720784"></a>
+expression is the type of the
+operand. The unary <code class="literal">abs</code>
+<a class="indexterm" name="idp71722560"></a>
+operator yields the absolute value of the operand.
+</p>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ExpressionsPrimaryExpression.html">Prev</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="Expressions.html">Up</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ExpressionsTypeConversion.html">Next</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">14.4. Primary Expressions </td>
+<td width="20%" align="center">
+<a accesskey="h" href="index.html">Home</a> | <a accesskey="t" href="bk01-toc.html">ToC</a>
+</td>
+<td width="40%" align="right" valign="top"> 14.6. Type Conversion</td>
+</tr>
+</table>
+</div>
+<div align="center">OFFICIAL</div>
+</body>
+</html>

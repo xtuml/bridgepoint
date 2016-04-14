@@ -1,0 +1,219 @@
+========================================================================
+
+File:      $RCSfile: dts0100655903.dnt,v $
+Version:   $Revision: 1.11 $
+Modified:  $Date: 2010/04/01 15:47:18 $
+
+(c) Copyright 2007-2010 by Mentor Graphics Corp. All rights reserved.
+
+========================================================================
+This document contains information proprietary and confidential to
+Mentor Graphics Corp., and is not for external distribution.
+========================================================================
+
+BridgePoint Project Design Note
+Support drawing of missed xtuml connectors on canvas
+
+1. Abstract
+-----------
+This note describes how the connectors will appear on the canvas after the 
+arxml->xtuml transformation took place.
+
+2. History
+----------
+none.
+
+3. Document References
+----------------------
+
+[1] ClearQuest DEI dts0100655903
+[2] ClearQuest DEI dts0100573206-Consistent context menu for creating model 
+elements 
+[3] /Documentation/internal/technical/notes/dts0100655903/Arxml files
+/AUTOSAR_ApplicationInterfaces_ForXMLSchema_R3.0-24473.arxml
+Complex Model - can benefit in showing the layout policy since it have lots of 
+connectors
+[4]/Documentation/internal/technical/notes/dts0100655903/Arxml files/
+Simple.arxml
+Simple Model 
+[5]/Documentation/internal/technical/notes/dts0100655903/Arxml files/Tick.arxml
+Tick model
+[6] ClearQuest DEI dts0100679521-The connectors whose reconciliation is untested
+[7] /Documentation/internal/technical/notes/dts0100655903/layout1.JPG
+    Screen shot of the connected connectors in Tick model
+4. Background
+-------------
+arxml->xtuml transformation using the arxml import in BridgePoint transforms 
+arxml files to xtuml files , First the graphics didn't appear on canvas but the
+work done in [2] made the shapes drawn but not the connectors , by work in [1]
+completed the connectors also will appear on the canvas.  
+
+5. Analysis
+-----------
+5.1 plugin.xml file of com.mentor.nucleus.bp.ui.graphics project misses some 
+tags to define the connectors in the 'default for' tags of the component. 
+5.2 AutoReconcileSpecification :: updateAllElements() misses a part to handle
+the connectors produced from the arxml->xtuml transformation, there was two 
+passes before one to handle the reconcilation of the shapes and one to create 
+connectors,A third pass is required to connect the just drawn connectors.
+5.3 AutoReconcileSpecification :: updateAllElements() should include third pass 
+to connect the just drawn connectors as needed.
+5.4 issue [6] is opened to show the rest of connectors that have to be 
+reconciled and tested after this work is promoted.
+6. Design 
+---------
+6.1 Add tags that define the connectors in the 'default for' tag that defines 
+component diagram and Component package .
+example of the tags :
+             <autoReconcile
+               targetSymbol="Provided Interface"
+               countMethod="Getprovisioncount"
+               elementMethod="Getprovisionid"
+               elementExistsMethod="not used"/>
+knowing that those methods referred in the tag are previously defined in  
+'provision' class due to the auto reconcile work of connectors existing in 
+'updateAllElements' operation .
+
+6.2 Update the 'updateAllElements' operation in 'Auto Reconciliation 
+Specification' class to handle the created connector by arxml->xtuml 
+transformation ,this code will call 'newArxmlConnector'operation newly created 
+in the 'Model' class.
+
+6.3   Add code to connect the connected imported connectors after they're drawn 
+6.3.1 Satisfaction instance will exist if an imported provision is connected to 
+imported requirement, so a new operation to be added  in imported provision and 
+imported requirement classes named 'getConnectedId' that returns the id of the 
+other connector connected to the imported provision and imported requirement 
+through the Satisfaction instance.
+
+'getConnectedId' operation in the imported Requirement class ,it's similar to 
+that in imported Provision:
+
+select one satisfactionInstance related by self->C_SF[R4706] ;
+if(not empty satisfactionInstance)
+  select one interfaceReference related by 
+  satisfactionInstance->C_P[R4002]->C_IR[R4009] ;
+  select any importedReference related by interfaceReference->CL_IIR[R4701] 
+  where selected.Ref_Id==satisfactionInstance.Provision_Id;
+  return importedReference.Id;
+else 
+  return GD::NULL_UNIQUE_ID();
+end if;
+
+see [6] to describe the missing part in this operation.
+
+6.3.2 Add a function in 'Client' external entity which will be the bridge 
+that is called from the 'updateAllElements' operation and takes as parameters 
+the id of the connector that is expected to have another connector connected to 
+it and it's mission to call 'getConnectedId' operations in imported provision 
+and imported requirement classes
+
+public static UUID Getthetargetconnectorid(final UUID Ooa_id,final int Ooa_type, 
+                                      final Object system)
+    {
+    	UUID id= null;
+    	Object connector = Getinstancefromooa_id(Ooa_id ,
+                Ooa_type,
+                system
+               );
+    	Class[] argTypes = new Class[0];
+    	Object[] args = new Object[0];
+    	return uuid_invoke(connector,"Getconnectedid", argTypes, args);
+    }
+    
+6.3.3 After getting the both IDs connected to each other ,get their 
+corresponding graphical elements and connect them to each other by moving their 
+x,y positions to look connected and create (DIM_CON) and relate it through the 
+connected connector through R311 and related  DIM_CON with the edge of that 
+connector through R321.   
+
+6.4   Do layout policy for the connectors
+6.4.1 The connectors should be drawn spaced from each other to be readable ,this 
+layout isn't necessary since autoLayout manager will be implemented soon in 
+BP ..it's necessary just for testing the feature.
+6.4.2 Simple layout to be implemented :the spacing between connectors is minimum 
+size.when the connectors increased than the component side,pile the remaining 
+connectors on the top of each other.
+
+
+7. Design Comments
+------------------
+none.
+
+8. Work Required
+----------------
+stated in the design section.
+
+9. Unit Test
+------------
+
+9.1 Repeat this test with [3],[4] and [5].
+    _- Create an xtuml project
+    _- Import->Other->Arxml 
+    _- Choose the project just created
+    _- Browse the arxml file 
+    _- Check an AUTOSAR component from the tree appear in the wizard of the 
+       import
+       (This component u check is the component you want to import)
+    _- Click finish
+    _R The project just created now contain 2 component packages and interface
+    package
+    _- Open the interface package 
+    _R Interfaces in this interface package found in ME are drawn on canvas
+    _- Open the component packages
+    _R Components found in the ME appear on canvas with the connectors connected 
+       to those components
+    _R Connected connectors are connected(see [7] for tick model)
+    _- Move the components from their place
+    _R Connectors connected to the components are moved with the them
+    _- Move the connectors that connected  
+    _R Both connected connectors move not only one of them
+    
+End
+---
+
+$Log: dts0100655903.dnt,v $
+Revision 1.11  2010/04/01 15:47:18  hessam
+job:dts0100655903
+observation addressed
+
+Revision 1.10  2010/04/01 14:20:57  hessam
+job:dts0100655903
+some comments addressed
+
+Revision 1.9  2010/04/01 07:59:56  hessam
+job:dts0100655903
+saying why the Reference 3 is complex
+
+Revision 1.8  2010/03/31 12:55:55  hessam
+job:dts0100655903
+Clarifying the Unit test section
+
+Revision 1.7  2010/03/31 12:27:41  hessam
+job:dts0100655903
+Clarifying the Unit test section
+
+Revision 1.6  2010/03/31 11:30:36  hessam
+job:dts0100655903
+Edits in the dnt addressed by Campbell
+
+Revision 1.5  2010/03/31 09:54:55  hessam
+job:dts0100655903
+Added Reference to the new issue opened
+
+Revision 1.4  2010/03/30 09:27:03  hessam
+job:dts0100655903
+Edited design section and added some code
+
+Revision 1.3  2010/03/29 09:51:10  hessam
+job:dts0100655903
+Added the unit test section
+
+Revision 1.2  2010/03/28 16:02:48  hessam
+job:dts0100655903
+not complete dnt ,missing the unit test section
+
+Revision 1.1  2010/03/25 14:56:19  hessam
+job:dts0100655903
+empty dnt of the issue
+

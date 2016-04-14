@@ -22,26 +22,26 @@
 //
 package org.xtuml.bp.als.oal.test;
 
-import junit.framework.TestCase;
-import antlr.RecognitionException;
-import antlr.TokenStreamException;
-
+import org.junit.After;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.AssignToMember_c;
 import org.xtuml.bp.core.Block_c;
-import org.xtuml.bp.core.Body_c;
-import org.xtuml.bp.core.BridgeBody_c;
-import org.xtuml.bp.core.DerivedAttributeBody_c;
-import org.xtuml.bp.core.FunctionBody_c;
-import org.xtuml.bp.core.OperationBody_c;
-import org.xtuml.bp.core.StateActionBody_c;
 import org.xtuml.bp.core.Statement_c;
 import org.xtuml.bp.core.Value_c;
 import org.xtuml.bp.core.VariableLocation_c;
 import org.xtuml.bp.core.Variable_c;
+import org.xtuml.bp.test.common.OrderedRunner;
 
+import antlr.RecognitionException;
+import antlr.TokenStreamException;
+import junit.framework.TestCase;
+
+@RunWith(OrderedRunner.class)
 public class TestLineNumbers_Generics extends TestCase {
 
-    protected void tearDown() throws Exception {
+    @After
+	public void tearDown() throws Exception {
         try {
             super.tearDown();
             OalParserTest_Generics.tearDownActionData();
@@ -130,6 +130,7 @@ public class TestLineNumbers_Generics extends TestCase {
 		assertEquals(3, atp_set.length);
 	}
 
+	@Test
 	public void test_implicit_ib_transform_statement_LineNumbers() throws RecognitionException, TokenStreamException {
 		final int [][] stmtLine = {
 				{ 1, 1 },
@@ -164,6 +165,7 @@ public class TestLineNumbers_Generics extends TestCase {
 		  "param.s = h.testStringNoParm();\n";
 		validateStatementLineNumbers(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.PARAM_REF, 1, 5, 2, 7, stmtLine, varLineCol, varIdValue, valLineCol );
 	}
+	@Test
 	public void test_function_statement_LineNumbers() throws RecognitionException, TokenStreamException {
 		final int [][] stmtLine = { { 1, 1 } };
 		final int [][] varLineCol = null;
@@ -172,6 +174,7 @@ public class TestLineNumbers_Generics extends TestCase {
 		String act = "::test1();";
 		validateStatementLineNumbers(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST1, 1, 1, 0, 0, stmtLine, varLineCol, varIdValue, valLineCol );
 	}
+	@Test
 	public void test_implicit_assignment_statement_LineNumbers() throws RecognitionException, TokenStreamException {
 		final int [][] stmtLine = {
 				{ 1, 1 },
@@ -201,6 +204,7 @@ public class TestLineNumbers_Generics extends TestCase {
 		validateStatementLineNumbers(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.PARAM_REF, 1, 4, 2, 7, stmtLine, varLineCol, varIdValue, valLineCol );
 		validateAssignToMember(3, 1, 1);
 	}
+	@Test
 	public void test_implicit_bridge_or_transform_statement_LineNumbers() throws RecognitionException, TokenStreamException {
 		final int [][] stmtLine = { { 1, 2 }, { 2, 1 }, { 3, 1 }, { 4, 1 }, { 5, 1 }, { 6, 1 }, { 7, 1 }, { 8, 1 }, { 9, 1 } };
 		final int [][] varLineCol = {
@@ -238,6 +242,7 @@ public class TestLineNumbers_Generics extends TestCase {
 		  "param.s = T::testStringNoParm();\n";
 		validateStatementLineNumbers(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.PARAM_REF, 1, 9, 2, 14, stmtLine, varLineCol, varIdValue, valLineCol );
 	}
+	@Test
 	public void test_assignment_statement_LineNumbers() throws RecognitionException, TokenStreamException {
 		final int [][] stmtLine = {
 				{ 1, 1 },
@@ -267,6 +272,7 @@ public class TestLineNumbers_Generics extends TestCase {
 		validateStatementLineNumbers(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.PARAM_REF, 1, 4, 2, 7, stmtLine, varLineCol, varIdValue, valLineCol );
 		validateAssignToMember(4, 14, 14);
 	}
+	@Test
 	public void test_break_statement_LineNumbers() throws RecognitionException, TokenStreamException {
 		final int [][] stmtLine = { { 1, 1 }, { 2, 3 } };
 		final int [][] varLineCol = null;
@@ -279,6 +285,7 @@ public class TestLineNumbers_Generics extends TestCase {
 			"end while;";
 		validateStatementLineNumbers(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST1, 2, 2, 0, 1, stmtLine, varLineCol, varIdValue, valLineCol );
 	}
+	@Test
 	public void test_bridge_statement_LineNumbers() throws RecognitionException, TokenStreamException {
 		final int [][] stmtLine = { { 1, 1 }, { 2, 1 }, { 3, 1 }, { 4, 1 }, { 5, 1 } };
 		final int [][] varLineCol = {
@@ -303,6 +310,7 @@ public class TestLineNumbers_Generics extends TestCase {
 		  "bridge param.s = T::testStringNoParm();\n";
 		validateStatementLineNumbers(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.PARAM_REF, 1, 5, 2, 7, stmtLine, varLineCol, varIdValue, valLineCol );
 	}
+	@Test
 	public void test_continue_statement_LineNumbers() throws RecognitionException, TokenStreamException {
 		final int [][] stmtLine = { { 1, 1 }, { 2, 3 } };
 		final int [][] varLineCol = null;
@@ -315,6 +323,7 @@ public class TestLineNumbers_Generics extends TestCase {
 			"end while;";
 		validateStatementLineNumbers(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST1, 2, 2, 0, 1, stmtLine, varLineCol, varIdValue, valLineCol );
 	}
+	@Test
 	public void test_control_statement_LineNumbers() throws RecognitionException, TokenStreamException {
 		final int [][] stmtLine = { { 1, 1 } };
 		final int [][] varLineCol = null;
@@ -323,6 +332,7 @@ public class TestLineNumbers_Generics extends TestCase {
 		String act = "control stop;";
 		validateStatementLineNumbers(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST1, 1, 1, 0, 0, stmtLine, varLineCol, varIdValue, valLineCol );
 	}
+	@Test
 	public void test_create_object_statement_LineNumbers() throws RecognitionException, TokenStreamException {
 		final int [][] stmtLine = { { 1, 1 }, { 2, 1 }, { 3, 1 } };
 		final int [][] varLineCol = {
@@ -336,6 +346,7 @@ public class TestLineNumbers_Generics extends TestCase {
 			"create object instance of D_D;";
 		validateStatementLineNumbers(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST1, 1, 3, 1, 0, stmtLine, varLineCol, varIdValue, valLineCol );
 	}
+	@Test
 	public void test_create_event_statement_LineNumbers() throws RecognitionException, TokenStreamException {
 		final int [][] stmtLine = { { 1, 1 }, { 2, 1 }, { 3, 1 }, { 4, 1 } };
 		final int [][] varLineCol = {
@@ -353,6 +364,7 @@ public class TestLineNumbers_Generics extends TestCase {
 			"create event instance e of D_TST1 to D_TST creator;\n";
 		validateStatementLineNumbers(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST1, 1, 4, 2, 0, stmtLine, varLineCol, varIdValue, valLineCol );
 	}
+	@Test
 	public void test_delete_statement_LineNumbers() throws RecognitionException, TokenStreamException {
 		final int [][] stmtLine = { { 1, 1 }, { 2, 1 } };
 		final int [][] varLineCol = {
@@ -365,6 +377,7 @@ public class TestLineNumbers_Generics extends TestCase {
 			"delete object instance d;\n";
 		validateStatementLineNumbers(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST1, 1, 2, 1, 0, stmtLine, varLineCol, varIdValue, valLineCol );
 	}
+	@Test
 	public void test_for_statement_LineNumbers() throws RecognitionException, TokenStreamException {
 		final int [][] stmtLine = { { 1, 1 }, { 2, 1 } };
 		final int [][] varLineCol = {
@@ -379,6 +392,7 @@ public class TestLineNumbers_Generics extends TestCase {
 			"end for;";
 		validateStatementLineNumbers(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST1, 2, 2, 2, 0, stmtLine, varLineCol, varIdValue, valLineCol );
 	}
+	@Test
 	public void test_generate_statement_LineNumbers() throws RecognitionException, TokenStreamException {
 		final int [][] stmtLine = { { 1, 1 }, { 2, 1 }, { 3, 1 }, { 4, 1 }, { 5, 1 }, { 6, 1 }, { 7, 1 } };
 		final int [][] varLineCol = {
@@ -403,6 +417,7 @@ public class TestLineNumbers_Generics extends TestCase {
 			"generate t.evt_inst;";
 		validateStatementLineNumbers(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST1, 1, 7, 2, 3, stmtLine, varLineCol, varIdValue, valLineCol );
 	}
+	@Test
 	public void test_if_statement1_LineNumbers() throws RecognitionException, TokenStreamException {
 		final int [][] stmtLine = { { 1, 1 } };
 		final int [][] varLineCol = null;
@@ -414,6 +429,7 @@ public class TestLineNumbers_Generics extends TestCase {
 			"end if;";
 		validateStatementLineNumbers(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST1, 2, 1, 0, 1, stmtLine, varLineCol, varIdValue, valLineCol );
 	}
+	@Test
 	public void test_if_statement2_LineNumbers() throws RecognitionException, TokenStreamException {
 		final int [][] stmtLine = { { 1, 1 }, { 2, 1 } };
 		final int [][] varLineCol = null;
@@ -427,6 +443,7 @@ public class TestLineNumbers_Generics extends TestCase {
 			"end if;";
 		validateStatementLineNumbers(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST1, 3, 2, 0, 2, stmtLine, varLineCol, varIdValue, valLineCol );
 	}
+	@Test
 	public void test_if_statement3_LineNumbers() throws RecognitionException, TokenStreamException {
 		final int [][] stmtLine = { { 1, 1 }, { 2, 1 }, { 3, 1 } };
 		final int [][] varLineCol = null;
@@ -442,6 +459,7 @@ public class TestLineNumbers_Generics extends TestCase {
 			"end if;";
 		validateStatementLineNumbers(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST1, 4, 3, 0, 3, stmtLine, varLineCol, varIdValue, valLineCol );
 	}
+	@Test
 	public void test_if_statement4_LineNumbers() throws RecognitionException, TokenStreamException {
 		final int [][] stmtLine = { { 1, 1 }, { 2, 1 } };
 		final int [][] varLineCol = null;
@@ -454,6 +472,7 @@ public class TestLineNumbers_Generics extends TestCase {
 			"end if;";
 		validateStatementLineNumbers(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST1, 3, 2, 0, 1, stmtLine, varLineCol, varIdValue, valLineCol );
 	}
+	@Test
 	public void test_if_statement5_LineNumbers() throws RecognitionException, TokenStreamException {
 		final int [][] stmtLine = { { 1, 1 }, { 2, 1 }, { 3, 1 } };
 		final int [][] varLineCol = null;
@@ -468,6 +487,7 @@ public class TestLineNumbers_Generics extends TestCase {
 			"end if;";
 		validateStatementLineNumbers(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST1, 4, 3, 0, 2, stmtLine, varLineCol, varIdValue, valLineCol );
 	}
+	@Test
 	public void test_if_statement6_LineNumbers() throws RecognitionException, TokenStreamException {
 		final int [][] stmtLine = { { 1, 1 }, { 2, 1 }, { 3, 1 }, { 4, 1 } };
 		final int [][] varLineCol = null;
@@ -484,6 +504,7 @@ public class TestLineNumbers_Generics extends TestCase {
 			"end if;";
 		validateStatementLineNumbers(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST1, 5, 4, 0, 3, stmtLine, varLineCol, varIdValue, valLineCol );
 	}
+	@Test
 	public void test_relate_statement_LineNumbers() throws RecognitionException, TokenStreamException {
 		final int [][] stmtLine = { { 1, 1 }, { 2, 1 }, { 3, 1 }, { 4, 1 }, { 5, 1 }, { 6, 1 } };
 		final int [][] varLineCol = {
@@ -509,6 +530,7 @@ public class TestLineNumbers_Generics extends TestCase {
 
 		validateStatementLineNumbers(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST1, 1, 6, 4, 0, stmtLine, varLineCol, varIdValue, valLineCol );
 	}
+	@Test
 	public void test_returnvoid_statement_LineNumbers() throws RecognitionException, TokenStreamException {
 		final int [][] stmtLine = { { 1, 1 } };
 		final int [][] varLineCol = null;
@@ -517,6 +539,7 @@ public class TestLineNumbers_Generics extends TestCase {
 		String act = "return;";
 		validateStatementLineNumbers(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST1, 1, 1, 0, 0, stmtLine, varLineCol, varIdValue, valLineCol );
 	}
+	@Test
 	public void test_returnint_statement_LineNumbers() throws RecognitionException, TokenStreamException {
 		final int [][] stmtLine = { { 1, 1 } };
 		final int [][] varLineCol = null;
@@ -525,6 +548,7 @@ public class TestLineNumbers_Generics extends TestCase {
 		String act = "return 1;";
 		validateStatementLineNumbers(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST4, 1, 1, 0, 1, stmtLine, varLineCol, varIdValue, valLineCol );
 	}
+	@Test
 	public void test_select_statement_LineNumbers() throws RecognitionException, TokenStreamException {
 		final int [][] stmtLine = { { 1, 1 }, { 2, 1 }, { 3, 1 }, { 4, 1 }, { 5, 1 },
 				{ 6, 1 }, { 7, 1 }, { 8, 1 }, { 9, 1 }, { 10, 1 } };
@@ -563,6 +587,7 @@ public class TestLineNumbers_Generics extends TestCase {
 
 		validateStatementLineNumbers(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST1, 1, 10, 5, 6, stmtLine, varLineCol, varIdValue, valLineCol );
 	}
+	@Test
 	public void test_transform_statement_LineNumbers() throws RecognitionException, TokenStreamException {
 		final int [][] stmtLine = {
 				{ 1, 1 }, { 2, 1 }, { 3, 1 }, { 4, 1 }, { 5, 1 },
@@ -590,6 +615,7 @@ public class TestLineNumbers_Generics extends TestCase {
 		validateStatementLineNumbers(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.PARAM_REF, 1, 5, 2, 7, stmtLine, varLineCol, varIdValue, valLineCol );
 		validateAssignToMember(4, 11, 11);
 	}
+	@Test
 	public void test_unrelate_statement_LineNumbers() throws RecognitionException, TokenStreamException {
 		final int [][] stmtLine = { { 1, 1 }, { 2, 1 }, { 3, 1 }, { 4, 1 }, { 5, 1 }, { 6, 1 } };
 		final int [][] varLineCol = {
@@ -615,6 +641,7 @@ public class TestLineNumbers_Generics extends TestCase {
 
 		validateStatementLineNumbers(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST1, 1, 6, 4, 0, stmtLine, varLineCol, varIdValue, valLineCol );
 	}
+	@Test
 	public void test_while_statement_LineNumbers() throws RecognitionException, TokenStreamException {
 		final int [][] stmtLine = { { 1, 1 } };
 		final int [][] varLineCol = null;
@@ -626,6 +653,7 @@ public class TestLineNumbers_Generics extends TestCase {
 			"end while;";
 		validateStatementLineNumbers(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST1, 2, 1, 0, 1, stmtLine, varLineCol, varIdValue, valLineCol );
 	}
+	@Test
 	public void test_debug_statement_LineNumbers() throws RecognitionException, TokenStreamException {
 		final int [][] stmtLine = null;
 		final int [][] varLineCol = null;
@@ -634,6 +662,7 @@ public class TestLineNumbers_Generics extends TestCase {
 		String act = "_debug _on;";
 		validateStatementLineNumbers(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST1, 1, 0, 0, 0, stmtLine, varLineCol, varIdValue, valLineCol );
 	}
+	@Test
 	public void testStatementLineNumbersInFunction() throws RecognitionException, TokenStreamException {
 		final int [][] stmtLine = {
 			{ 1, 1 },   // 0
@@ -694,6 +723,7 @@ public class TestLineNumbers_Generics extends TestCase {
 			"select any t from instances of D_TST;  generate D_TST2(i: s) to t; "; //$NON-NLS-1$
 		validateStatementLineNumbers(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST2, 1, 10, 7, 17, stmtLine, varLineCol, varIdValue, valLineCol );
 	}
+	@Test
 	public void testStatementLineNumbersInState() throws RecognitionException, TokenStreamException {
 		final int [][] stmtLine = {
 			{ 1, 1 },
@@ -716,6 +746,7 @@ public class TestLineNumbers_Generics extends TestCase {
 		validateStatementLineNumbers(act, OalParserTest_Generics.ACTIVITY_TYPE_STATE, OalParserTest_Generics.STATE_ISM_ONE, 1, 2, 3, 5, stmtLine, varLineCol, varIdValue, valLineCol );
 	}
 
+	@Test
 	public void testStatementLineNumbersInOperation() throws RecognitionException, TokenStreamException {
 		final int [][] stmtLine = {
 				{ 1, 1 }
@@ -732,6 +763,7 @@ public class TestLineNumbers_Generics extends TestCase {
 		validateStatementLineNumbers(act, OalParserTest_Generics.ACTIVITY_TYPE_CB_OP, OalParserTest_Generics.TEST2, 1, 1, 1, 2, stmtLine, varLineCol, varIdValue, valLineCol );
 	}
 
+	@Test
 	public void testStatementLineNumbersInBridge() throws RecognitionException, TokenStreamException {
 		final int [][] stmtLine = {
 				{ 1, 1 }

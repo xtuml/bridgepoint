@@ -12,7 +12,7 @@
 	<property name="mcj_path" value="../MC-Java" />
 	<property name="eclipse-home" value="${basedir}/../.."/>
 	<property name="plugins-home" value="${ant.home}/../.."/>
-    <property name="util_bin_dir" value="${eclipse-home}/src/org.xtuml.bp.mc.c.binary/mc3020/bin"/>
+    <property name="util_bin_dir" value="${eclipse-home}/src/org.xtuml.bp.mc.c.source/mc3020/bin"/>
 
 	<target name="nb_all" description="Generate all code for this project" depends="gen_testClass, generate_graphical_anchor_matrix_tests, generate_connector_move_matrix_tests, generate_rectilinear_matrix_tests">
 	</target>

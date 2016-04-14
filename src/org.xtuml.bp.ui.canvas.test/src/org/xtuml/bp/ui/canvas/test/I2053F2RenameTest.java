@@ -32,14 +32,18 @@ import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.commands.ICommandService;
-
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.ui.Selection;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.ui.graphics.editor.GraphicalEditor;
 import org.xtuml.bp.ui.graphics.editor.ModelEditor;
 
+@RunWith(OrderedRunner.class)
 public class I2053F2RenameTest extends BaseTest {
 
     /**
@@ -48,10 +52,11 @@ public class I2053F2RenameTest extends BaseTest {
      */
     private static boolean firstTest = true;
     
-	public I2053F2RenameTest(String arg0) {
-		super("I2053F2RenameTest", arg0);
+	public I2053F2RenameTest() {
+		super("I2053F2RenameTest", null);
 	}
 
+	@Before
 	public void setUp() throws Exception {
         super.setUp();
 		if (firstTest) {
@@ -59,7 +64,8 @@ public class I2053F2RenameTest extends BaseTest {
             firstTest = false;
 		}
 	}
-    public void testContextF2RenameSelection() {
+    @Test
+	public void testContextF2RenameSelection() {
 		
     	// clear the current selection to prepare for test
 		Selection.getInstance().clear();

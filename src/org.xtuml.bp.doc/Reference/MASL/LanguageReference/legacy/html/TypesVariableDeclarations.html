@@ -1,0 +1,226 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>3.9. Variable Declarations</title>
+<link rel="stylesheet" type="text/css" href="docbook.css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<meta name="keywords" content="MASL, Action Language, Action Semantics, UML, Unified Modelling Language, Shlaer Mellor">
+<link rel="home" href="index.html" title="MASL Reference Manual">
+<link rel="up" href="Types.html" title="Chapter 3. Types">
+<link rel="prev" href="TypesSubtypeDeclarations.html" title="3.8. Subtype Declarations">
+<link rel="next" href="TypeConversion.html" title="Chapter 4. Type Conversion">
+<link rel="preface" href="preface.html" title="Preface">
+<link rel="chapter" href="Grammars.html" title="Chapter 1. Grammars">
+<link rel="chapter" href="LexicalStructure.html" title="Chapter 2. Lexical Structure">
+<link rel="chapter" href="Types.html" title="Chapter 3. Types">
+<link rel="chapter" href="TypeConversion.html" title="Chapter 4. Type Conversion">
+<link rel="chapter" href="Domains.html" title="Chapter 5. Domains">
+<link rel="chapter" href="Objects.html" title="Chapter 6. Objects">
+<link rel="chapter" href="Relationships.html" title="Chapter 7. Relationships">
+<link rel="chapter" href="Lifecycles.html" title="Chapter 8. Lifecycles">
+<link rel="chapter" href="Functions.html" title="Chapter 9. Functions">
+<link rel="chapter" href="Services.html" title="Chapter 10. Services">
+<link rel="chapter" href="Exceptions.html" title="Chapter 11. Exceptions">
+<link rel="chapter" href="Statements.html" title="Chapter 12. Statements">
+<link rel="chapter" href="Names.html" title="Chapter 13. Names">
+<link rel="chapter" href="Expressions.html" title="Chapter 14. Expressions">
+<link rel="appendix" href="LanguageDefinedCharacteristics.html" title="Appendix A. Language Defined Characteristics">
+<link rel="appendix" href="SyntaxSummary.html" title="Appendix B. Syntax Summary">
+<link rel="index" href="ix01.html" title="Index">
+<link rel="subsection" href="TypesVariableDeclarations.html#TypesModifiers" title="3.9.1. Modifiers">
+<link rel="subsection" href="TypesVariableDeclarations.html#TypesScopeofDeclarations" title="3.9.2. Scope of Variable Declarations">
+<link rel="subsection" href="TypesVariableDeclarations.html#TypesHidingifNamesbyLocalVariables" title="3.9.3. Hiding of Names by Local Variables">
+<link rel="subsection" href="TypesVariableDeclarations.html#TypesExecutionofLocalVariableDeclarations" title="3.9.4. Execution of Local Variable Declarations">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div align="center">OFFICIAL</div>
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">3.9. Variable Declarations</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="TypesSubtypeDeclarations.html">Prev</a> </td>
+<th width="60%" align="center">Chapter 3. Types</th>
+<td width="20%" align="right"> <a accesskey="n" href="TypeConversion.html">Next</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title">
+<a name="TypesVariableDeclarations"></a>3.9. Variable Declarations</h2></div></div></div>
+<div class="toc"><dl class="toc">
+<dt><span class="section"><a href="TypesVariableDeclarations.html#TypesModifiers">3.9.1. Modifiers</a></span></dt>
+<dt><span class="section"><a href="TypesVariableDeclarations.html#TypesScopeofDeclarations">3.9.2. Scope of Variable Declarations</a></span></dt>
+<dt><span class="section"><a href="TypesVariableDeclarations.html#TypesHidingifNamesbyLocalVariables">3.9.3. Hiding of Names by Local Variables</a></span></dt>
+<dt><span class="section"><a href="TypesVariableDeclarations.html#TypesExecutionofLocalVariableDeclarations">3.9.4. Execution of Local Variable Declarations</a></span></dt>
+</dl></div>
+<p>
+A <a class="link" href="TypesVariableDeclarations.html#ebnf.variabledeclaration"><span class="emphasis"><em>variable declaration</em></span></a>
+<a class="indexterm" name="idp66908336"></a>
+declares a local variable.
+</p>
+<a class="indexterm" name="idp66909856"></a><a class="indexterm" name="idp66911040"></a><a class="indexterm" name="idp66912224"></a><a class="indexterm" name="idp66913408"></a><a class="indexterm" name="idp66914592"></a><a class="indexterm" name="idp66915776"></a><a class="indexterm" name="idp66916960"></a><a class="indexterm" name="idp66918128"></a><table width="100%" cellpadding="5" bgcolor="#F5DCB3" border="1" class="productionset" summary="EBNF"><tr><td><table border="0" width="99%" cellpadding="0" bgcolor="#F5DCB3" class="productionset" summary="EBNF productions">
+<tr>
+<td align="left" valign="top" width="3%">[71]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.variabledeclaration"></a>
+        variable declaration
+    </td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="TypesVariableDeclarations.html#ebnf.variablename">variable name</a>,
+        ':',
+        [<a href="TypesVariableDeclarations.html#ebnf.modifier">modifier</a>],
+        <a href="TypesTypeSpecification.html#ebnf.type">type</a>,
+        [('(',
+        <a href="TypesFullDeclarations.html#ebnf.range">range</a>,
+        ')')], [(':=',
+        [<a href="ExpressionsExecutableUMLExpressions.html#ebnf.extendedexpression">extended expression</a>],
+        ';'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[72]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.variablename"></a>
+        variable name
+    </td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="LexicalStructureIdentifiers.html#ebnf.identifier">identifier</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+</table></td></tr></table>
+<p>
+Each <a class="link" href="TypesVariableDeclarations.html#ebnf.variabledeclaration"><span class="emphasis"><em>variable declaration</em></span></a>
+<a class="indexterm" name="idp66928768"></a>
+declares one local variable, whose name is given by the
+<a class="link" href="TypesVariableDeclarations.html#ebnf.variablename"><span class="emphasis"><em>variable name</em></span></a>.
+<a class="indexterm" name="idp66931008"></a>
+</p>
+<p>
+The type of the variable is denoted by the type. There are no restrictions on
+the type of a variable.
+<a class="indexterm" name="idp66932880"></a>
+</p>
+<p>
+A compile-time error occurs if:
+</p>
+<div class="itemizedlist"><ul class="itemizedlist">
+<li class="listitem"><p>
+The type of the optional extended expression
+<a class="indexterm" name="idp66935856"></a>
+is not assignable to the type of the variable.
+<a class="indexterm" name="idp66937232"></a>
+</p></li>
+<li class="listitem"><p>
+A <code class="literal">readonly</code> variable
+<a class="indexterm" name="idp66939920"></a>
+<a class="indexterm" name="idp66940944"></a>
+does not have an initial value given by the optional extended expression.
+<a class="indexterm" name="idp66942480"></a>
+</p></li>
+<li class="listitem"><p>
+The type of the variable is an
+<a class="link" href="TypesFullDeclarations.html#ebnf.unconstrainedarraytypedefinition">unconstrained array type</a>
+<a class="indexterm" name="idp66945488"></a>
+<a class="indexterm" name="idp66946960"></a>
+which does not impose the optional
+<a class="link" href="TypesFullDeclarations.html#ebnf.rangeconstraint">range constraint</a>.
+<a class="indexterm" name="idp66949616"></a>
+</p></li>
+<li class="listitem"><p>
+The optional <a class="link" href="TypesFullDeclarations.html#ebnf.rangeconstraint">range constraint</a>
+<a class="indexterm" name="idp66952576"></a>
+is imposed on a type which is not an
+<a class="link" href="TypesFullDeclarations.html#ebnf.unconstrainedarraytypedefinition">unconstrained array type</a>.
+<a class="indexterm" name="idp66954688"></a>
+<a class="indexterm" name="idp66956160"></a>
+</p></li>
+</ul></div>
+<p>
+</p>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="TypesModifiers"></a>3.9.1. Modifiers</h3></div></div></div>
+<a class="indexterm" name="idp66959856"></a><a class="indexterm" name="idp66961472"></a><a class="indexterm" name="idp66962640"></a><table width="100%" cellpadding="5" bgcolor="#F5DCB3" border="1" class="productionset" summary="EBNF"><tr><td><table border="0" width="99%" cellpadding="0" bgcolor="#F5DCB3" class="productionset" summary="EBNF productions"><tr>
+<td align="left" valign="top" width="3%">[73]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.modifier"></a>
+        modifier
+    </td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        'readonly'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr></table></td></tr></table>
+<p>
+Any attempt to assign to a <code class="literal">readonly</code> variable
+<a class="indexterm" name="idp66966928"></a>
+<a class="indexterm" name="idp66967952"></a>
+results in a compile-time error. Therefore, once a <code class="literal">readonly</code>
+variable
+<a class="indexterm" name="idp66969904"></a>
+<a class="indexterm" name="idp66970928"></a>
+has been initialized, it always contains the same value.
+</p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="TypesScopeofDeclarations"></a>3.9.2. Scope of Variable Declarations</h3></div></div></div>
+<p>
+The scope of a variable declaration
+<a class="indexterm" name="idp66974192"></a>
+is the rest of the block in which the declaration appears.
+</p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="TypesHidingifNamesbyLocalVariables"></a>3.9.3. Hiding of Names by Local Variables</h3></div></div></div>
+<p>
+<a class="indexterm" name="idp66977376"></a>
+If a name declared as a local variable is already declared as another variable
+in an outer scope, then that outer declaration is hidden throughout the scope of
+the local variable. The outer variable can almost always still be accessed using
+an appropriately qualified name.
+</p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="TypesExecutionofLocalVariableDeclarations"></a>3.9.4. Execution of Local Variable Declarations</h3></div></div></div>
+<p>
+<a class="indexterm" name="idp66981472"></a>
+A local variable declaration is, in some aspects, an executable statement.
+<a class="indexterm" name="idp66983600"></a>
+If a variable declaration has an initialization expression, the expression is
+evaluated and its value is assigned to the variable.
+</p>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="TypesSubtypeDeclarations.html">Prev</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="Types.html">Up</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="TypeConversion.html">Next</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">3.8. Subtype Declarations </td>
+<td width="20%" align="center">
+<a accesskey="h" href="index.html">Home</a> | <a accesskey="t" href="bk01-toc.html">ToC</a>
+</td>
+<td width="40%" align="right" valign="top"> Chapter 4. Type Conversion</td>
+</tr>
+</table>
+</div>
+<div align="center">OFFICIAL</div>
+</body>
+</html>

@@ -25,11 +25,10 @@ import java.io.StringReader;
 
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.jface.preference.IPreferenceStore;
-
-import antlr.RecognitionException;
-import antlr.TokenStreamException;
-import antlr.TokenStreamRecognitionException;
-
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.als.oal.OalLexer;
 import org.xtuml.bp.als.oal.OalParser;
 import org.xtuml.bp.als.oal.Oal_validate;
@@ -53,8 +52,14 @@ import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.IdAssigner;
 import org.xtuml.bp.core.util.ContainerUtil;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TestingUtilities;
 
+import antlr.RecognitionException;
+import antlr.TokenStreamException;
+import antlr.TokenStreamRecognitionException;
+
+@RunWith(OrderedRunner.class)
 public class TestSelectWhere_Generics extends BaseTest {
 
     private static boolean m_requiresClear = false;
@@ -64,16 +69,17 @@ public class TestSelectWhere_Generics extends BaseTest {
     private static boolean firstSetup = false;
     static public Ooaofooa modelRoot = BaseTest.getDefaultTestInstance();
 
-    public TestSelectWhere_Generics(String arg0) {
-        super(null, arg0);
-    }
+    public TestSelectWhere_Generics() {
+        super(null, null);
+	}
 
     /*
      * (non-Javadoc)
      * 
      * @see junit.framework.TestCase#setUp()
      */
-    protected void setUp() throws Exception {
+    @Before
+	public void setUp() throws Exception {
         super.setUp();
 
         if (!firstSetup) {
@@ -113,7 +119,8 @@ public class TestSelectWhere_Generics extends BaseTest {
      * 
      * @see junit.framework.TestCase#tearDown()
      */
-    protected void tearDown() throws Exception {
+    @After
+	public void tearDown() throws Exception {
         try {
             super.tearDown();
             TestSelectWhere_Generics.tearDownActionData();
@@ -126,7 +133,8 @@ public class TestSelectWhere_Generics extends BaseTest {
         }
     }
 
-    public void testSelectAnyFromWhereSelectedMsgSig() throws RecognitionException, TokenStreamException {
+    @Test
+	public void testSelectAnyFromWhereSelectedMsgSig() throws RecognitionException, TokenStreamException {
         String act = "select any My_Class from instances of The_Class where (my_if::if_sig());"; //$NON-NLS-1$
         String x = parseAction(act, ACTIVITY_TYPE_FUNC, TEST_OAL);
         String lines[] = x.split("\n");//$NON-NLS-1$
@@ -140,109 +148,127 @@ public class TestSelectWhere_Generics extends BaseTest {
 
     // Now we test the above selects with the preference set to allow the behavior
     // and expect to not get syntax errors reported
-    public void testSelectAnyFromWhereSelectedIOp1Allowed() throws RecognitionException, TokenStreamException {
+    @Test
+	public void testSelectAnyFromWhereSelectedIOp1Allowed() throws RecognitionException, TokenStreamException {
         String act = "select any My_Class from instances of The_Class where (selected.get_A() == 0);"; //$NON-NLS-1$
         String x = parseAction(act, ACTIVITY_TYPE_FUNC, TEST_OAL);
         assertEquals("", x); //$NON-NLS-1$
     }
 
-    public void testSelectAnyFromWhereSelectedIOp2Allowed() throws RecognitionException, TokenStreamException {
+    @Test
+	public void testSelectAnyFromWhereSelectedIOp2Allowed() throws RecognitionException, TokenStreamException {
         String act = "select any My_Class from instances of The_Class where (0 == selected.get_A());"; //$NON-NLS-1$
         String x = parseAction(act, ACTIVITY_TYPE_FUNC, TEST_OAL);
         assertEquals("", x); //$NON-NLS-1$
     }
 
-    public void testSelectAnyFromWhereSelectedIOp3Allowed() throws RecognitionException, TokenStreamException {
+    @Test
+	public void testSelectAnyFromWhereSelectedIOp3Allowed() throws RecognitionException, TokenStreamException {
         String act = "select any My_Class from instances of The_Class where (selected.getTrue());"; //$NON-NLS-1$
         String x = parseAction(act, ACTIVITY_TYPE_FUNC, TEST_OAL);
         assertEquals("", x); //$NON-NLS-1$
     }
 
-    public void testSelectAnyFromWhereSelectedCOp1Allowed() throws RecognitionException, TokenStreamException {
+    @Test
+	public void testSelectAnyFromWhereSelectedCOp1Allowed() throws RecognitionException, TokenStreamException {
         String act = "select any My_Class from instances of The_Class where (The_Class::class_based_op() == true);"; //$NON-NLS-1$
         String x = parseAction(act, ACTIVITY_TYPE_FUNC, TEST_OAL);
         assertEquals("", x); //$NON-NLS-1$
     }
 
-    public void testSelectAnyFromWhereSelectedCOp2Allowed() throws RecognitionException, TokenStreamException {
+    @Test
+	public void testSelectAnyFromWhereSelectedCOp2Allowed() throws RecognitionException, TokenStreamException {
         String act = "select any My_Class from instances of The_Class where (true == The_Class::class_based_op());"; //$NON-NLS-1$
         String x = parseAction(act, ACTIVITY_TYPE_FUNC, TEST_OAL);
         assertEquals("", x); //$NON-NLS-1$
     }
 
-    public void testSelectAnyFromWhereSelectedCOp3Allowed() throws RecognitionException, TokenStreamException {
+    @Test
+	public void testSelectAnyFromWhereSelectedCOp3Allowed() throws RecognitionException, TokenStreamException {
         String act = "select any My_Class from instances of The_Class where (The_Class::class_based_op());"; //$NON-NLS-1$
         String x = parseAction(act, ACTIVITY_TYPE_FUNC, TEST_OAL);
         assertEquals("", x); //$NON-NLS-1$
     }
 
-    public void testSelectAnyFromWhereSelectedMDA1Allowed() throws RecognitionException, TokenStreamException {
+    @Test
+	public void testSelectAnyFromWhereSelectedMDA1Allowed() throws RecognitionException, TokenStreamException {
         String act = "select any My_Class from instances of The_Class where (selected.Attr_B == 10);"; //$NON-NLS-1$
         String x = parseAction(act, ACTIVITY_TYPE_FUNC, TEST_OAL);
         assertEquals("", x); //$NON-NLS-1$
     }
 
-    public void testSelectAnyFromWhereSelectedMDA2Allowed() throws RecognitionException, TokenStreamException {
+    @Test
+	public void testSelectAnyFromWhereSelectedMDA2Allowed() throws RecognitionException, TokenStreamException {
         String act = "select any My_Class from instances of The_Class where (10 == selected.Attr_B);"; //$NON-NLS-1$
         String x = parseAction(act, ACTIVITY_TYPE_FUNC, TEST_OAL);
         assertEquals("", x); //$NON-NLS-1$
     }
 
-    public void testSelectAnyFromWhereSelectedMDA3Allowed() throws RecognitionException, TokenStreamException {
+    @Test
+	public void testSelectAnyFromWhereSelectedMDA3Allowed() throws RecognitionException, TokenStreamException {
         String act = "select any My_Class from instances of The_Class where (selected.Attr_true);"; //$NON-NLS-1$
         String x = parseAction(act, ACTIVITY_TYPE_FUNC, TEST_OAL);
         assertEquals("", x); //$NON-NLS-1$
     }
 
-    public void testSelectAnyFromWhereSelectedDomFunc1Allowed() throws RecognitionException, TokenStreamException {
+    @Test
+	public void testSelectAnyFromWhereSelectedDomFunc1Allowed() throws RecognitionException, TokenStreamException {
         String act = "select any My_Class from instances of The_Class where (::gfunc() == true);"; //$NON-NLS-1$
         String x = parseAction(act, ACTIVITY_TYPE_FUNC, TEST_OAL);
         assertEquals("", x); //$NON-NLS-1$
     }
 
-    public void testSelectAnyFromWhereSelectedDomFunc2Allowed() throws RecognitionException, TokenStreamException {
+    @Test
+	public void testSelectAnyFromWhereSelectedDomFunc2Allowed() throws RecognitionException, TokenStreamException {
         String act = "select any My_Class from instances of The_Class where (true == ::gfunc());"; //$NON-NLS-1$
         String x = parseAction(act, ACTIVITY_TYPE_FUNC, TEST_OAL);
         assertEquals("", x); //$NON-NLS-1$
     }
 
-    public void testSelectAnyFromWhereSelectedDomFunc3Allowed() throws RecognitionException, TokenStreamException {
+    @Test
+	public void testSelectAnyFromWhereSelectedDomFunc3Allowed() throws RecognitionException, TokenStreamException {
         String act = "select any My_Class from instances of The_Class where (::gfunc());"; //$NON-NLS-1$
         String x = parseAction(act, ACTIVITY_TYPE_FUNC, TEST_OAL);
         assertEquals("", x); //$NON-NLS-1$
     }
 
-    public void testSelectAnyFromWhereSelectedBrg1Allowed() throws RecognitionException, TokenStreamException {
+    @Test
+	public void testSelectAnyFromWhereSelectedBrg1Allowed() throws RecognitionException, TokenStreamException {
         String act = "select any My_Class from instances of The_Class where (TEST::getTrue() == true);"; //$NON-NLS-1$
         String x = parseAction(act, ACTIVITY_TYPE_FUNC, TEST_OAL);
         assertEquals("", x); //$NON-NLS-1$
     }
 
-    public void testSelectAnyFromWhereSelectedBrg2Allowed() throws RecognitionException, TokenStreamException {
+    @Test
+	public void testSelectAnyFromWhereSelectedBrg2Allowed() throws RecognitionException, TokenStreamException {
         String act = "select any My_Class from instances of The_Class where (true == TEST::getTrue());"; //$NON-NLS-1$
         String x = parseAction(act, ACTIVITY_TYPE_FUNC, TEST_OAL);
         assertEquals("", x); //$NON-NLS-1$
     }
     
-    public void testSelectAnyFromWhereSelectedBrg3Allowed() throws RecognitionException, TokenStreamException {
+    @Test
+	public void testSelectAnyFromWhereSelectedBrg3Allowed() throws RecognitionException, TokenStreamException {
         String act = "select any My_Class from instances of The_Class where (TEST::getTrue());"; //$NON-NLS-1$
         String x = parseAction(act, ACTIVITY_TYPE_FUNC, TEST_OAL);
         assertEquals("", x); //$NON-NLS-1$
     }
 
-    public void testSelectAnyFromWhereSelectedMsgOp1Allowed() throws RecognitionException, TokenStreamException {
+    @Test
+	public void testSelectAnyFromWhereSelectedMsgOp1Allowed() throws RecognitionException, TokenStreamException {
         String act = "select any My_Class from instances of The_Class where (my_if::if_op() == true);"; //$NON-NLS-1$
         String x = parseAction(act, ACTIVITY_TYPE_FUNC, TEST_OAL);
         assertEquals("", x); //$NON-NLS-1$
     }
 
-    public void testSelectAnyFromWhereSelectedMsgOp2Allowed() throws RecognitionException, TokenStreamException {
+    @Test
+	public void testSelectAnyFromWhereSelectedMsgOp2Allowed() throws RecognitionException, TokenStreamException {
         String act = "select any My_Class from instances of The_Class where (true == my_if::if_op());"; //$NON-NLS-1$
         String x = parseAction(act, ACTIVITY_TYPE_FUNC, TEST_OAL);
         assertEquals("", x); //$NON-NLS-1$
     }
 
-    public void testSelectAnyFromWhereSelectedMsgOp3Allowed() throws RecognitionException, TokenStreamException {
+    @Test
+	public void testSelectAnyFromWhereSelectedMsgOp3Allowed() throws RecognitionException, TokenStreamException {
         String act = "select any My_Class from instances of The_Class where (my_if::if_op());"; //$NON-NLS-1$
         String x = parseAction(act, ACTIVITY_TYPE_FUNC, TEST_OAL);
         assertEquals("", x); //$NON-NLS-1$

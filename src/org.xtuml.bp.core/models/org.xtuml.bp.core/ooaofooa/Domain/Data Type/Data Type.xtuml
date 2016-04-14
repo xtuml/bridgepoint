@@ -283,49 +283,7 @@ end if;
 return false;',
 	1,
 	'',
-	"ebeb9217-5098-4c6f-82e4-b7a4d33406c2");
-INSERT INTO O_TFR
-	VALUES ("ebeb9217-5098-4c6f-82e4-b7a4d33406c2",
-	"ead52fac-9782-434b-a35c-c07452c3b26d",
-	'isAllowedReturnType',
-	'',
-	"ba5eda7a-def5-0000-0000-000000000001",
-	0,
-	'// this operation assumes that the caller is
-// within a domain context
-// TODO: BOB Check to see if this is needed anymore since GP removal.
-  select any dt from instances of S_DT where (selected.Name == param.typeName);
-
-if not_empty dt 
-  if ( dt.isCommonAllowedType() )
-    return true;
-  elif ( param.typeName == "void"  )
-    return true;
-  end if;
-end if;
-  
-return false;',
-	1,
-	'',
 	"b3bb0f76-820b-4040-a53b-141dcdc6e300");
-INSERT INTO O_TPARM
-	VALUES ("80c99cbe-2bc5-4ac0-8699-a9302056eb4b",
-	"ebeb9217-5098-4c6f-82e4-b7a4d33406c2",
-	'typeName',
-	"ba5eda7a-def5-0000-0000-000000000004",
-	0,
-	'',
-	"00000000-0000-0000-0000-000000000000",
-	'');
-INSERT INTO O_TPARM
-	VALUES ("9353a1d6-e9d3-45ce-b13d-34a42868f47d",
-	"ebeb9217-5098-4c6f-82e4-b7a4d33406c2",
-	'dom_id',
-	"ba5eda7a-def5-0000-0000-000000000005",
-	0,
-	'',
-	"80c99cbe-2bc5-4ac0-8699-a9302056eb4b",
-	'');
 INSERT INTO O_TFR
 	VALUES ("223070b1-d040-4076-bcc0-cb4c2145e1b4",
 	"ead52fac-9782-434b-a35c-c07452c3b26d",

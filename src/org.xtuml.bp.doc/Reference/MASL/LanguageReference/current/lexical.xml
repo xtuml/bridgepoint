@@ -1,0 +1,513 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+  UK Crown Copyright (c) 2016. All Rights Reserved
+-->
+<chapter version="5.0" xml:id="section.LexicalStructure" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML"
+         xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
+  <title>Lexical Structure</title>
+     <indexterm significance="preferred"><primary>lexical analysis</primary></indexterm>
+
+  <section xml:id="section.CharacterSet">
+    <title>Character Set</title>
+    <indexterm significance="preferred"><primary>character set</primary></indexterm>
+
+    <para>The valid character set of a MASL program is the set of printable characters in the ISO/IEC 646-US character
+    set (commonly known as ASCII<indexterm><primary>ASCII</primary></indexterm>), plus the tab, form feed, line feed and carriage return control characters.</para>
+
+    <productionset>
+      <xi:include href="syntax.xml" xpointer="ebnf.CharacterSet"/>
+
+      <xi:include href="syntax.xml" xpointer="ebnf.Digit"/>
+
+      <xi:include href="syntax.xml" xpointer="ebnf.Letter"/>
+
+      <xi:include href="syntax.xml" xpointer="ebnf.PunctuationCharacter"/>
+
+      <xi:include href="syntax.xml" xpointer="ebnf.WhitespaceCharacter"/>
+
+      <xi:include href="syntax.xml" xpointer="ebnf.InlineWhitespaceCharacter"/>
+
+      <xi:include href="syntax.xml" xpointer="ebnf.EndOfLineCharacter"/>
+    </productionset>
+  </section>
+
+
+  <section xml:id="section.Tokenization">
+    <title>Tokenization</title>
+    <indexterm significance="preferred"><primary>token</primary></indexterm>
+    <indexterm significance="preferred"><primary>tokenisation</primary></indexterm>
+
+    <para>A MASL program is first lexically analysed to break it down into a series of tokens. Once this tokenization is
+    complete, whitepace and comment tokens are discarded before the syntatic analysis is performed. The following tokens
+    types are defined.</para>
+
+    <section xml:id="section.CommentToken">
+      <title>Comments</title>
+      <indexterm significance="preferred"><primary>token</primary><secondary>comment</secondary></indexterm>
+      <indexterm significance="preferred"><primary>comment</primary></indexterm>
+
+      <para>A MASL comment consists of the character sequence "//" followed by any other characters from the character
+      set up to and including the first end of line character sequence</para>
+
+      <productionset>
+        <xi:include href="syntax.xml" xpointer="ebnf.Comment"/>
+
+        <xi:include href="syntax.xml" xpointer="ebnf.SingleLineCharacter"/>
+
+        <xi:include href="syntax.xml" xpointer="ebnf.EndOfLine"/>
+      </productionset>
+    </section>
+
+    <section xml:id="section.WhitespaceToken">
+      <title>Whitespace</title>
+      <indexterm significance="preferred"><primary>token</primary><secondary>whitespace</secondary></indexterm>
+      <indexterm significance="preferred"><primary>whitespace</primary></indexterm>
+
+      <para>A whitespace token consists of any number of contiguous whitespace characters</para>
+
+      <productionset>
+        <xi:include href="syntax.xml" xpointer="ebnf.Whitespace"/>
+
+        <productionrecap linkend="ebnf.WhitespaceCharacter"/>
+
+        <productionrecap linkend="ebnf.InlineWhitespaceCharacter"/>
+
+        <productionrecap linkend="ebnf.EndOfLineCharacter"/>
+      </productionset>
+    </section>
+
+    <section xml:id="section.ReservedWordToken">
+      <title>Reserved Words</title>
+      <indexterm significance="preferred"><primary>token</primary><secondary>reserved word</secondary></indexterm>
+      <indexterm significance="preferred"><primary>reserved word</primary></indexterm>
+
+      <para>MASL reserves a number of character sequences to help define the syntactic structure. These reserved words
+      may not be used as <link linkend="section.IdentifierToken">identifiers</link>.</para>
+
+      <productionset>
+        <xi:include href="syntax.xml" xpointer="ebnf.ReservedWord"/>
+      </productionset>
+    </section>
+
+    <section xml:id="section.PunctuatorToken">
+      <title>Punctuators</title>
+      <indexterm significance="preferred"><primary>token</primary><secondary>punctuator</secondary></indexterm>
+      <indexterm significance="preferred"><primary>punctuator token</primary></indexterm>
+
+      <para>MASL uses a number of character sequences to help define the syntactic structure by separating other tokens
+      from each other.</para>
+
+      <productionset>
+        <xi:include href="syntax.xml" xpointer="ebnf.Punctuator"/>
+      </productionset>
+    </section>
+
+    <section xml:id="section.LiteralToken">
+      <title>Literals</title>
+      <indexterm significance="preferred"><primary>token</primary><secondary>literal</secondary></indexterm>
+      <indexterm significance="preferred"><primary>literal</primary></indexterm>
+
+      <para>A number of character sequences are used to denote a literal value of an underlying type. For example, the
+      sequence <code language="masl">123</code> denotes the integer 123, and the sequence <code
+      language="masl">@2010-05-27T16:02:45+01@</code> denotes the current time of writing.</para>
+
+      <section xml:id="section.NumericLiterals">
+        <title>Numeric Literals</title>
+        <indexterm significance="preferred"><primary>numeric literal</primary></indexterm>
+        <indexterm significance="preferred"><primary>literal</primary><secondary>numeric</secondary></indexterm>
+
+        <para>A numeric literal represents a number. If the literal contains a decimal point or an exponent, then it is
+        interpreted as a real number, otherwise it is interpreted as an integer.</para>
+
+        <para>By default, a literal is defined in base 10, but a different base (up to 36) may also be specified with a
+        prefix. In this case, digits with value (decimal) 10 up to the new base are represented by the letters (A-Z or,
+        equivalently, a-z) as appropriate. An exponent for a real number is always specified in decimal, regardless of
+        the base for the mantissa, and the resultant number is interpreted as <inlineequation>
+            <alt>mantissa x ( base ** exponent )</alt>
+
+            <mathphrase>mantissa×base<superscript>exponent</superscript></mathphrase>
+          </inlineequation></para>
+
+        <example xml:id="example.NumericLiteral">
+          <title>Numeric Literal Examples</title>
+
+          <para>The following examples are some of the many different ways of representing the decimal value 251</para>
+
+          <itemizedlist>
+            <listitem>
+              <simpara><code language="masl">251</code></simpara>
+            </listitem>
+
+            <listitem>
+              <simpara><code language="masl">2#11111011</code></simpara>
+            </listitem>
+
+            <listitem>
+              <simpara><code language="masl">16#FB</code></simpara>
+            </listitem>
+
+            <listitem>
+              <simpara><code language="masl">36#6Z</code></simpara>
+            </listitem>
+          </itemizedlist>
+
+          <para>The following examples are some of the many different ways of representing the decimal value
+          10.25</para>
+
+          <itemizedlist>
+            <listitem>
+              <simpara><code language="masl">10.25</code></simpara>
+            </listitem>
+
+            <listitem>
+              <simpara><code language="masl">1025e-2</code></simpara>
+            </listitem>
+
+            <listitem>
+              <simpara><code language="masl">1.025e1</code></simpara>
+            </listitem>
+
+            <listitem>
+              <simpara><code language="masl">2#1010.01</code></simpara>
+            </listitem>
+
+            <listitem>
+              <simpara><code language="masl">2#1.01001#+3</code></simpara>
+            </listitem>
+
+            <listitem>
+              <simpara><code language="masl">16#A.4</code></simpara>
+            </listitem>
+
+            <listitem>
+              <simpara><code language="masl">16#A4#-1</code></simpara>
+            </listitem>
+
+            <listitem>
+              <simpara><code language="masl">36#A.9</code></simpara>
+            </listitem>
+
+            <listitem>
+              <simpara><code language="masl">36#0.0A9#2</code></simpara>
+            </listitem>
+          </itemizedlist>
+        </example>
+
+        <note>
+          <para>Note that negative values cannot be specified lexically (other than in the exponent), but can be
+          represented syntactically with a unary expression.</para>
+        </note>
+
+        <productionset>
+          <xi:include href="syntax.xml" xpointer="ebnf.IntegerLiteral"/>
+
+          <xi:include href="syntax.xml" xpointer="ebnf.RealLiteral"/>
+
+          <xi:include href="syntax.xml" xpointer="ebnf.Digits"/>
+
+          <xi:include href="syntax.xml" xpointer="ebnf.Exponent"/>
+
+          <xi:include href="syntax.xml" xpointer="ebnf.Base"/>
+
+          <xi:include href="syntax.xml" xpointer="ebnf.BasedDigit"/>
+
+          <xi:include href="syntax.xml" xpointer="ebnf.BasedDigits"/>
+
+          <xi:include href="syntax.xml" xpointer="ebnf.BasedExponent"/>
+        </productionset>
+      </section>
+
+      <section xml:id="section.DateAndTimeLiterals">
+        <title>Date and Time Literals</title>
+
+        <para>Date and time literals can represent either an instant in time (known as a timestamp), or a period of time
+        (known as a duration). These literals are represented in MASL in a subset of ISO 8601:2004 format, surrounded by
+        '@' characters.</para>
+
+        <section xml:id="section.TimestampLiterals">
+          <title>Timestamp Literals</title>
+          <indexterm><primary>date</primary></indexterm>
+          <indexterm><primary>time</primary></indexterm>
+          <indexterm significance="preferred"><primary>timestamp literal</primary></indexterm>
+          <indexterm significance="preferred"><primary>literal</primary><secondary>timestamp</secondary></indexterm>
+
+          <para>Timestamp literals are specified in ISO 8601:2004 Date or Date and Time format, as detailed in section
+          4.1 and 4.3 of the standard. A summary is provided below, but the standard should be considered the definitive
+          guide. Reduced accuracy representations are allowed, and will be interpreted as the earliest instant within
+          the interval covered by the accuracy loss. If no time is specified, then it will be interpreted as midnight
+          UTC. e.g. <code language="masl">@2010-05@</code> is the same instant as <code
+          language="masl">@2010-05-10T00:00:00Z@</code>. Expanded representations (which cover years after 9999AD) are
+          not permitted. Handling of dates prior to 1582 is undefined.</para>
+
+          <para>All the complete representations consist of a date followed by a 'T' character followed by the time of
+          day. Representations with reduced accuracy may drop the least significant fields. If any time fields are
+          present, then both the 'T' separator and timezone must be present. Both extended (separator characters between
+          fields) and extended (no separators) formats are accepted.</para>
+
+          <para>Dates may be specified in calendar date (YYYY-MM-DD), ordinal date (YYYY-DDD) or week date (YYYY-Www-D)
+          formats. In calendar date format, January is represented as month 01, and so on. In ordinal date format,
+          January 1st is represented as day 001, and so on. In week date format, week W01 represents the week that
+          contains the first Thursday of the year, day 1 represents the Monday of that week, and day 7 the
+          Sunday.</para>
+
+          <para>Times are specified in hh:mm:ss.s+hh:mm format. The least significant field supplied may be an arbitrary
+          precison decimal. Timezones are interpreted as the number of hours ahead of UTC. UTC may be specified as
+          either <code language="masl">+00</code> (and variations thereof) or <code language="masl">Z</code> .</para>
+
+          <example xml:id="example.TimestampLiteral">
+            <title>Timestamp Literal Examples</title>
+
+            <para>The following examples are some of the many different ways of representing 1am BST on 28th May
+            2010.</para>
+
+            <itemizedlist>
+              <listitem>
+                <simpara><code language="masl">@2010-05-28T01:00:00+01@</code></simpara>
+              </listitem>
+
+              <listitem>
+                <simpara><code language="masl">@20100528T010000+01@</code></simpara>
+              </listitem>
+
+              <listitem>
+                <simpara><code language="masl">@2010-05-28T00:00:00Z@</code></simpara>
+              </listitem>
+
+              <listitem>
+                <simpara><code language="masl">@2010-05-28T00:00@</code></simpara>
+              </listitem>
+
+              <listitem>
+                <simpara><code language="masl">@2010-05-27T24:00@</code></simpara>
+              </listitem>
+
+              <listitem>
+                <simpara><code language="masl">@2010-05-28@</code></simpara>
+              </listitem>
+
+              <listitem>
+                <simpara><code language="masl">@2010-148@</code></simpara>
+              </listitem>
+
+              <listitem>
+                <simpara><code language="masl">@2010-W21-5T00Z@</code></simpara>
+              </listitem>
+
+              <listitem>
+                <simpara><code language="masl">@2010W215T00Z@</code></simpara>
+              </listitem>
+            </itemizedlist>
+          </example>
+
+          <productionset>
+            <xi:include href="syntax.xml" xpointer="ebnf.TimestampLiteral"/>
+          </productionset>
+        </section>
+
+        <section xml:id="section.DurationLiterals">
+          <title>Duration Literals</title>
+          <indexterm><primary>time</primary></indexterm>
+          <indexterm significance="preferred"><primary>duration literal</primary></indexterm>
+          <indexterm significance="preferred"><primary>literal</primary><secondary>duration</secondary></indexterm>
+
+          <para>Duration literals are represented in ISO 8601:2004 Duration format with designators and context
+          information, as detailed in section 4.4.3.2 of the standard. Note in particular that the alternative format
+          (from section 4.4.3.3) is not supported. A summary is provided below, but the standard should be considered
+          the definitive guide. MASL does not support the use of year and month designators, as they cannot give a
+          determinate date without context information.</para>
+
+          <para>The representations consist of the character 'P' (standing for 'period') followed by a series of fields
+          with following identifiers. All fields must be in descending order of significance, and if any fields shorter
+          than a day are present they must be preceded by the character 'T' (standing for 'time'). The least significant
+          field present may be specified as an arbitrary precision decimal. If the week field is present, it must be the
+          only field. At least one field must be present, but may be zero. Additionally a zero duration may be
+          represented as the <link linkend="section.NumericLiterals">integer literal</link> <code
+          language="masl">0</code>.</para>
+
+          <para>The field identifiers are: 'W' = week, 'D' = day, 'H' = hours, 'M' = minutes and 'S' = seconds.</para>
+
+          <example xml:id="example.DurationLiteral">
+            <title>Duration Literal Examples</title>
+
+            <para>The following examples are some of the many different ways of representing 1 day, 2 hours, 3 minutes
+            and 4.5 seconds</para>
+
+            <itemizedlist>
+              <listitem>
+                <simpara><code language="masl">@P1DT2H3M4.50000S@</code></simpara>
+              </listitem>
+
+              <listitem>
+                <simpara><code language="masl">@PT26H3M4.5S@</code></simpara>
+              </listitem>
+
+              <listitem>
+                <simpara><code language="masl">@PT93784.5S@</code></simpara>
+              </listitem>
+
+              <listitem>
+                <simpara><code language="masl">@PT93784.5S@</code></simpara>
+              </listitem>
+
+              <listitem>
+                <simpara><code language="masl">@P1DT2.05125H@</code></simpara>
+              </listitem>
+
+              <listitem>
+                <simpara><code language="masl">@PT26.05125H@</code></simpara>
+              </listitem>
+
+              <listitem>
+                <simpara><code language="masl">@P1.08546875D@</code></simpara>
+              </listitem>
+
+              <listitem>
+                <simpara><code language="masl">@P0.155066964W@</code></simpara>
+              </listitem>
+            </itemizedlist>
+          </example>
+
+          <productionset>
+            <xi:include href="syntax.xml" xpointer="ebnf.DurationLiteral"/>
+          </productionset>
+        </section>
+      </section>
+
+      <section xml:id="section.TextLiterals">
+        <title>Text Literals</title>
+        <indexterm significance="preferred"><primary>text literal</primary></indexterm>
+        <indexterm significance="preferred"><primary>literal</primary><secondary>text</secondary></indexterm>
+
+        <para>A character literal consists of a single character or escape sequence surrounded by single quotes. A
+        string literal consists of a sequence of characters or escape sequences surrounded by double quotes. Any
+        character in the <nonterminal def="#ebnf.CharacterSet"/> other than an <nonterminal
+        def="#ebnf.EndOfLineCharacter"/> , the <nonterminal def="#ebnf.EscapeCharacter"/>, a <nonterminal
+        def="#ebnf.DoubleQuoteCharacter"/> in a string literal or <nonterminal def="#ebnf.SingleQuoteCharacter"/> in a
+        characer literal may be specified using its raw character. Any character not in this set must be specified using
+        an <nonterminal def="#ebnf.EscapeSequence"/>.</para>
+
+        <example xml:id="example.TextLiteral">
+          <title>Text Literal Examples</title>
+
+          <para>The following examples are some of the different ways of representing the string 'Hello World!'</para>
+
+          <itemizedlist>
+            <listitem>
+              <simpara><code language="masl">"Hello World!"</code></simpara>
+            </listitem>
+
+            <listitem>
+              <simpara><code language="masl">"Hello World\041"</code></simpara>
+            </listitem>
+
+            <listitem>
+              <simpara><code language="masl">"Hello World\u0021"</code></simpara>
+            </listitem>
+          </itemizedlist>
+
+          <para>The following examples are some of the different ways of representing the backslash character</para>
+
+          <itemizedlist>
+            <listitem>
+              <simpara><code language="masl">'\\'</code></simpara>
+            </listitem>
+
+            <listitem>
+              <simpara><code language="masl">'\134'</code></simpara>
+            </listitem>
+
+            <listitem>
+              <simpara><code language="masl">'\u005c'</code></simpara>
+            </listitem>
+          </itemizedlist>
+        </example>
+
+        <productionset>
+          <xi:include href="syntax.xml" xpointer="ebnf.CharacterLiteral"/>
+
+          <xi:include href="syntax.xml" xpointer="ebnf.StringLiteral"/>
+
+          <xi:include href="syntax.xml" xpointer="ebnf.EscapeCharacter"/>
+
+          <xi:include href="syntax.xml" xpointer="ebnf.EscapeSequence"/>
+
+          <xi:include href="syntax.xml" xpointer="ebnf.UnicodeEscape"/>
+
+          <xi:include href="syntax.xml" xpointer="ebnf.OctalEscape"/>
+
+          <xi:include href="syntax.xml" xpointer="ebnf.HexDigit"/>
+
+          <xi:include href="syntax.xml" xpointer="ebnf.OctalFirstDigit"/>
+
+          <xi:include href="syntax.xml" xpointer="ebnf.OctalDigit"/>
+
+          <xi:include href="syntax.xml" xpointer="ebnf.DoubleQuoteCharacter"/>
+
+          <xi:include href="syntax.xml" xpointer="ebnf.SingleQuoteCharacter"/>
+        </productionset>
+      </section>
+
+      <section xml:id="section.IdentifierToken">
+        <title>Identifiers and Relationship Numbers</title>
+        <indexterm significance="preferred"><primary>identifier token</primary></indexterm>
+        <indexterm significance="preferred"><primary>token</primary><secondary>identifier</secondary></indexterm>
+
+        <para>Identifiers consist of a letter followed by any number of letters, digits or underscores, where the
+        resultant word is not a <link linkend="section.ReservedWordToken">reserved word</link> or a relationship number.
+        A relationship number consists of the letter 'R' followed by a number.</para>
+
+        <example xml:id="example.Identifier">
+          <title>Identifier Examples</title>
+
+          <para>The following examples are all valid and distinct identifiers.</para>
+
+          <itemizedlist>
+            <listitem>
+              <simpara><code language="masl">i</code></simpara>
+            </listitem>
+
+            <listitem>
+              <simpara><code language="masl">fred</code></simpara>
+            </listitem>
+
+            <listitem>
+              <simpara><code language="masl">Fred</code></simpara>
+            </listitem>
+
+            <listitem>
+              <simpara><code language="masl">a_very_long_identifier_2</code></simpara>
+            </listitem>
+
+            <listitem>
+              <simpara><code language="masl">AVeryLongIdentifer2</code></simpara>
+            </listitem>
+          </itemizedlist>
+
+          <para>The following examples are all valid relationship identifiers</para>
+
+          <itemizedlist>
+            <listitem>
+              <simpara><code language="masl">R1</code></simpara>
+            </listitem>
+
+            <listitem>
+              <simpara><code language="masl">R12</code></simpara>
+            </listitem>
+
+            <listitem>
+              <simpara><code language="masl">R12345678</code></simpara>
+            </listitem>
+          </itemizedlist>
+        </example>
+
+        <productionset>
+          <xi:include href="syntax.xml" xpointer="ebnf.Identifier"/>
+
+          <xi:include href="syntax.xml" xpointer="ebnf.RelationshipName"/>
+        </productionset>
+      </section>
+    </section>
+  </section>
+</chapter>

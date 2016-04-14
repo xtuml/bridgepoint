@@ -1,0 +1,517 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>10.1. Domain Services</title>
+<link rel="stylesheet" type="text/css" href="docbook.css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<meta name="keywords" content="MASL, Action Language, Action Semantics, UML, Unified Modelling Language, Shlaer Mellor">
+<link rel="home" href="index.html" title="MASL Reference Manual">
+<link rel="up" href="Services.html" title="Chapter 10. Services">
+<link rel="prev" href="Services.html" title="Chapter 10. Services">
+<link rel="next" href="ServicesObjectServices.html" title="10.2. Object Services">
+<link rel="preface" href="preface.html" title="Preface">
+<link rel="chapter" href="Grammars.html" title="Chapter 1. Grammars">
+<link rel="chapter" href="LexicalStructure.html" title="Chapter 2. Lexical Structure">
+<link rel="chapter" href="Types.html" title="Chapter 3. Types">
+<link rel="chapter" href="TypeConversion.html" title="Chapter 4. Type Conversion">
+<link rel="chapter" href="Domains.html" title="Chapter 5. Domains">
+<link rel="chapter" href="Objects.html" title="Chapter 6. Objects">
+<link rel="chapter" href="Relationships.html" title="Chapter 7. Relationships">
+<link rel="chapter" href="Lifecycles.html" title="Chapter 8. Lifecycles">
+<link rel="chapter" href="Functions.html" title="Chapter 9. Functions">
+<link rel="chapter" href="Services.html" title="Chapter 10. Services">
+<link rel="chapter" href="Exceptions.html" title="Chapter 11. Exceptions">
+<link rel="chapter" href="Statements.html" title="Chapter 12. Statements">
+<link rel="chapter" href="Names.html" title="Chapter 13. Names">
+<link rel="chapter" href="Expressions.html" title="Chapter 14. Expressions">
+<link rel="appendix" href="LanguageDefinedCharacteristics.html" title="Appendix A. Language Defined Characteristics">
+<link rel="appendix" href="SyntaxSummary.html" title="Appendix B. Syntax Summary">
+<link rel="index" href="ix01.html" title="Index">
+<link rel="subsection" href="ServicesDomainServices.html#ServicesDomainServiceModifiers" title="10.1.1. Domain Service Modifiers">
+<link rel="subsection" href="ServicesDomainServices.html#ServicesDomainServiceFormalParameters" title="10.1.2. Formal Parameters">
+<link rel="subsection" href="ServicesDomainServices.html#ServicesDomainServiceSignature" title="10.1.3. Service Signature">
+<link rel="subsection" href="ServicesDomainServices.html#ServicesOverloading" title="10.1.4. Overloading">
+<link rel="subsection" href="ServicesDomainServices.html#ServicesDomainServiceRaisesExpression" title="10.1.5. Raises Expression">
+<link rel="subsection" href="ServicesDomainServices.html#ServicesDomainServiceDefinition" title="10.1.6. Domain Service Definition">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div align="center">OFFICIAL</div>
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">10.1. Domain Services</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="Services.html">Prev</a> </td>
+<th width="60%" align="center">Chapter 10. Services</th>
+<td width="20%" align="right"> <a accesskey="n" href="ServicesObjectServices.html">Next</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title">
+<a name="ServicesDomainServices"></a>10.1. Domain Services</h2></div></div></div>
+<div class="toc"><dl class="toc">
+<dt><span class="section"><a href="ServicesDomainServices.html#ServicesDomainServiceModifiers">10.1.1. Domain Service Modifiers</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="ServicesDomainServices.html#ServicesPublicDomainServices">10.1.1.1. Public Domain Services</a></span></dt>
+<dt><span class="section"><a href="ServicesDomainServices.html#ServicesPrivateDomainServices">10.1.1.2. Private Domain Services</a></span></dt>
+<dt><span class="section"><a href="ServicesDomainServices.html#ServicesNativeDomainServices">10.1.1.3. Native Domain Services</a></span></dt>
+</dl></dd>
+<dt><span class="section"><a href="ServicesDomainServices.html#ServicesDomainServiceFormalParameters">10.1.2. Formal Parameters</a></span></dt>
+<dd><dl><dt><span class="section"><a href="ServicesDomainServices.html#ServicesDomainServiceFormalParameterModes">10.1.2.1. Formal Parameter Modes</a></span></dt></dl></dd>
+<dt><span class="section"><a href="ServicesDomainServices.html#ServicesDomainServiceSignature">10.1.3. Service Signature</a></span></dt>
+<dt><span class="section"><a href="ServicesDomainServices.html#ServicesOverloading">10.1.4. Overloading</a></span></dt>
+<dt><span class="section"><a href="ServicesDomainServices.html#ServicesDomainServiceRaisesExpression">10.1.5. Raises Expression</a></span></dt>
+<dt><span class="section"><a href="ServicesDomainServices.html#ServicesDomainServiceDefinition">10.1.6. Domain Service Definition</a></span></dt>
+</dl></div>
+<p>
+A domain service
+<a class="indexterm" name="idp64963952"></a>
+allows a domain to be thought of
+as a black box. Domain services provide an interface to entities outside of
+the domain.
+</p>
+<p>
+A <a class="link" href="ServicesDomainServices.html#ebnf.domainservicedeclaration"><span class="emphasis"><em>domain service declaration</em></span></a>
+<a class="indexterm" name="idp64967008"></a>
+declares a domain service.
+</p>
+<a class="indexterm" name="idp64350688"></a><a class="indexterm" name="idp64351888"></a><a class="indexterm" name="idp64353072"></a><a class="indexterm" name="idp64354384"></a><a class="indexterm" name="idp64355568"></a><a class="indexterm" name="idp64356768"></a><a class="indexterm" name="idp64357952"></a><a class="indexterm" name="idp65300192"></a><table width="100%" cellpadding="5" bgcolor="#F5DCB3" border="1" class="productionset" summary="EBNF"><tr><td><table border="0" width="99%" cellpadding="0" bgcolor="#F5DCB3" class="productionset" summary="EBNF productions">
+<tr>
+<td align="left" valign="top" width="3%">[128]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.domainservicedeclaration"></a>
+        domain service declaration
+    </td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="ServicesDomainServices.html#ebnf.domainservicemodifier">domain service modifier</a>,
+        'service',
+        <a href="ServicesDomainServices.html#ebnf.servicename">service name</a>,
+        '(',
+        <a href="FunctionsDomainFunctions.html#ebnf.functionparameterdeclarationlist">parameter declaration list</a>,
+        ')',
+        [<a href="ServicesDomainServices.html#ebnf.raisesexpression">raises expression</a>],
+        ';'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[129]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.servicename"></a>
+        service name
+    </td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="LexicalStructureIdentifiers.html#ebnf.identifier">identifier</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+</table></td></tr></table>
+<p>
+The service name in a
+<a class="link" href="ServicesDomainServices.html#ebnf.domainservicemodifier"><span class="emphasis"><em>domain service declaration</em></span></a>
+<a class="indexterm" name="idp64453680"></a>
+may be used to refer to the service.
+</p>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="ServicesDomainServiceModifiers"></a>10.1.1. Domain Service Modifiers</h3></div></div></div>
+<a class="indexterm" name="idp64457120"></a><a class="indexterm" name="idp64458304"></a><a class="indexterm" name="idp64459616"></a><a class="indexterm" name="idp64460928"></a><table width="100%" cellpadding="5" bgcolor="#F5DCB3" border="1" class="productionset" summary="EBNF"><tr><td><table border="0" width="99%" cellpadding="0" bgcolor="#F5DCB3" class="productionset" summary="EBNF productions"><tr>
+<td align="left" valign="top" width="3%">[130]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.domainservicemodifier"></a>
+        domain service modifier
+    </td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        'public' | 'private' | 'native'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr></table></td></tr></table>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="ServicesPublicDomainServices"></a>10.1.1.1. Public Domain Services</h4></div></div></div>
+<p>
+If a domain service
+<a class="indexterm" name="idp64465920"></a>
+is declared with the modifier
+<a class="link" href="ServicesDomainServices.html#ebnf.domainservicemodifier"><code class="literal">public</code></a>,
+<a class="indexterm" name="idp67642432"></a>
+then it may be accessed by any code that can access the domain in which it
+is declared. By default, all domain services are declared public.
+</p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="ServicesPrivateDomainServices"></a>10.1.1.2. Private Domain Services</h4></div></div></div>
+<p>
+If a domain service
+<a class="indexterm" name="idp67645408"></a>
+is declared with the modifier
+<a class="link" href="ServicesDomainServices.html#ebnf.domainservicemodifier"><code class="literal">private</code></a>,
+<a class="indexterm" name="idp67648304"></a>
+then access is permitted only when it occurs from within the domain in which
+it is declared.
+</p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="ServicesNativeDomainServices"></a>10.1.1.3. Native Domain Services</h4></div></div></div>
+<p>
+If a domain service is declared with the modifier
+<a class="link" href="ServicesDomainServices.html#ebnf.domainservicemodifier"><code class="literal">native</code></a>,
+<a class="indexterm" name="idp67652080"></a>
+then it may be accessed by an code that can access the domain in which it is
+declared. The body of the service is implemented in a native language.
+</p>
+</div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="ServicesDomainServiceFormalParameters"></a>10.1.2. Formal Parameters</h3></div></div></div>
+<p>
+The <a class="link" href="ServicesDomainServices.html#ebnf.parameterdeclarationlist"><code class="literal">formal parameters</code></a>
+<a class="indexterm" name="idp67655968"></a>
+of a domain service, if any, are specified by a list of comma-separated
+<a class="link" href="ServicesDomainServices.html#ebnf.parameterdeclaration"><span class="emphasis"><em>parameter declarations</em></span></a>.
+<a class="indexterm" name="idp67658592"></a>
+Each
+<a class="link" href="ServicesDomainServices.html#ebnf.parameterdeclaration"><span class="emphasis"><em>parameter declaration</em></span></a>
+consists of a name the specifies the
+<a class="link" href="ServicesDomainServices.html#ebnf.parametername">name of the parameter</a>,
+<a class="indexterm" name="idp67661984"></a>
+a <a class="link" href="ServicesDomainServices.html#ServicesDomainServiceFormalParameterModes" title="10.1.2.1. Formal Parameter Modes">parameter mode</a>
+and type.
+<a class="indexterm" name="idp67664080"></a>
+</p>
+<a class="indexterm" name="idp67665584"></a><a class="indexterm" name="idp67666784"></a><a class="indexterm" name="idp67667968"></a><a class="indexterm" name="idp67669152"></a><a class="indexterm" name="idp67670336"></a><a class="indexterm" name="idp67671504"></a><table width="100%" cellpadding="5" bgcolor="#F5DCB3" border="1" class="productionset" summary="EBNF"><tr><td><table border="0" width="99%" cellpadding="0" bgcolor="#F5DCB3" class="productionset" summary="EBNF productions">
+<tr>
+<td align="left" valign="top" width="3%">[131]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.parameterdeclarationlist"></a>
+        parameter declaration list
+    </td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="FunctionsDomainFunctions.html#ebnf.functionparameterdeclaration">parameter declaration</a>,
+        {(',',
+        <a href="FunctionsDomainFunctions.html#ebnf.functionparameterdeclaration">parameter declaration</a>)}
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[132]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.parameterdeclaration"></a>
+        parameter declaration
+    </td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="ServicesDomainServices.html#ebnf.parametername">parameter name</a>,
+        ':'
+        <a href="ServicesDomainServices.html#ebnf.parametermodetype">parameter mode type</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[133]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.parametername"></a>
+        parameter name
+    </td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="LexicalStructureIdentifiers.html#ebnf.identifier">identifier</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+</table></td></tr></table>
+<p>
+If a service has no parameters, only an empty pair of parentheses appears in the
+services declaration.
+</p>
+<p>
+A compile-time occurs if any two parameters are declared to have the same name,
+or if a parameter of mode out is declared as an
+<a class="link" href="TypesFullDeclarations.html#ebnf.unconstrainedarraytypedefinition">unconstrained array type</a>.
+<a class="indexterm" name="idp67683856"></a>
+</p>
+<p>
+When the service is invoked
+<a class="indexterm" name="idp67685664"></a>
+(see <a class="xref" href="StatementsInvocationStatement.html" title="12.9. Invocation Statements">Section 12.9, “Invocation Statements”</a>, the
+values of the actual argument expressions initialize newly created parameter
+variables, each of the declared type, before execution of the body of the
+service. The parameter name that appears in the parameter declaration may be
+used as a simple name in the body of the service to refer to the parameter.
+</p>
+<p>
+The scope of the parameter names is the entire body of the service.
+</p>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="ServicesDomainServiceFormalParameterModes"></a>10.1.2.1. Formal Parameter Modes</h4></div></div></div>
+<p>
+The mode of a formal parameter
+<a class="indexterm" name="idp67690400"></a>
+conveys the direction of information transfer of the actual parameter.
+</p>
+<a class="indexterm" name="idp67692320"></a><a class="indexterm" name="idp67693488"></a><a class="indexterm" name="idp67694784"></a><table width="100%" cellpadding="5" bgcolor="#F5DCB3" border="1" class="productionset" summary="EBNF"><tr><td><table border="0" width="99%" cellpadding="0" bgcolor="#F5DCB3" class="productionset" summary="EBNF productions"><tr>
+<td align="left" valign="top" width="3%">[134]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.parametermodetype"></a>
+        parameter mode type
+    </td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        'in' | 'out'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr></table></td></tr></table>
+<p>
+Formal parameters of mode <code class="literal">in</code>
+<a class="indexterm" name="idp67699024"></a>
+are passed from the caller to
+the service. The service is not allowed to change the value of a formal
+parameter of mode <code class="literal">in</code>.
+<a class="indexterm" name="idp67700608"></a>
+</p>
+<p>
+Formal parameters of mode <code class="literal">out</code>
+<a class="indexterm" name="idp67702544"></a>
+are passed from the service
+back to the caller on completion of the service. This means that the caller
+must supply an expression that denotes a variable as the value of the actual
+argument expression. On completion of the service the value of the formal
+parameter is assigned to the supplied variable.
+</p>
+</div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="ServicesDomainServiceSignature"></a>10.1.3. Service Signature</h3></div></div></div>
+<p>
+The signature of a domain service
+<a class="indexterm" name="idp67705808"></a>
+consists of the name of the service and the name and types of parameters to the
+service.
+</p>
+<p>
+A compile-time error occurs if a domain declares two domain services with
+the same signature.
+</p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="ServicesOverloading"></a>10.1.4. Overloading</h3></div></div></div>
+<p>
+If two services of a domain have the same but different signatures,
+<a class="indexterm" name="idp67710272"></a>
+then the service is said to be overloaded.
+<a class="indexterm" name="idp67712096"></a>
+When a domain service
+is invoked (see <a class="xref" href="StatementsInvocationStatement.html" title="12.9. Invocation Statements">Section 12.9, “Invocation Statements”</a>), the number of
+arguments
+<a class="indexterm" name="idp67714768"></a>
+and the compile-time types of the arguments are used to determine the
+signature of the service
+<a class="indexterm" name="idp67715744"></a>
+that will be invoked.
+</p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="ServicesDomainServiceRaisesExpression"></a>10.1.5. Raises Expression</h3></div></div></div>
+<p>
+A <a class="link" href="ServicesDomainServices.html#ebnf.raisesexpression"><span class="emphasis"><em>raises expression</em></span></a>
+<a class="indexterm" name="idp67720144"></a>
+is used to declare any exceptions
+(see <a class="xref" href="ExceptionCompileTimeCheckingofExceptions.html" title="11.3. Compile-Time Checking of Exceptions">Section 11.3, “Compile-Time Checking of Exceptions”</a>) that can result
+from the execution of a service.
+</p>
+<a class="indexterm" name="idp67722304"></a><a class="indexterm" name="idp67723472"></a><a class="indexterm" name="idp67724768"></a><table width="100%" cellpadding="5" bgcolor="#F5DCB3" border="1" class="productionset" summary="EBNF"><tr><td><table border="0" width="99%" cellpadding="0" bgcolor="#F5DCB3" class="productionset" summary="EBNF productions"><tr>
+<td align="left" valign="top" width="3%">[135]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.raisesexpression"></a>
+        raises expression
+    </td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        'raises', '(',
+        <a href="ExceptionsHandlingofanException.html#ebnf.exceptionspecification">exception specification</a>,
+        {<a href="ExceptionsHandlingofanException.html#ebnf.exceptionspecification">exception specification</a>},
+        ')'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr></table></td></tr></table>
+<p>
+The following production is repeated from 
+<a class="xref" href="ExceptionsHandlingofanException.html" title="11.4. Handling of an Exception">Section 11.4, “Handling of an Exception”</a> to make the presentation
+here clearer.
+</p>
+<table width="100%" cellpadding="5" bgcolor="#F5DCB3" border="1" class="productionset" summary="EBNF"><tr><td><table border="0" width="99%" cellpadding="0" bgcolor="#F5DCB3" class="productionset" summary="EBNF productions"><tr>
+<td align="left" valign="top" width="3%">[149]</td>
+<td align="right" valign="top" width="10%"><a href="ExceptionsHandlingofanException.html#ebnf.exceptionspecification">
+        exception specification
+    </a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="DomainsDomainDeclaration.html#ebnf.domainname">domain name</a>,
+        '::',
+        <a href="ExceptionsExceptionDeclarations.html#ebnf.exceptionname">exception name</a> |
+        <a href="ExceptionsExceptionDeclarations.html#ebnf.exceptionname">exception name</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr></table></td></tr></table>
+<p>
+A compile-time error occurs if an exception that can result from the
+execution of the body of a service is not mentioned in the raises
+expression in the declaration of the service.
+</p>
+<p>
+See <a class="xref" href="Exceptions.html" title="Chapter 11. Exceptions">Chapter 11, <i>Exceptions</i></a> for more information about exceptions.
+</p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="ServicesDomainServiceDefinition"></a>10.1.6. Domain Service Definition</h3></div></div></div>
+<p>
+A
+<a class="link" href="ServicesDomainServices.html#ebnf.domainservicedefinition"><span class="emphasis"><em>domain service definition</em></span></a>
+<a class="indexterm" name="idp67735824"></a>
+provides the specification of the behaviour of a domain service.
+</p>
+<a class="indexterm" name="idp67737824"></a><a class="indexterm" name="idp67739024"></a><a class="indexterm" name="idp67740336"></a><a class="indexterm" name="idp67741648"></a><a class="indexterm" name="idp67742832"></a><a class="indexterm" name="idp67744144"></a><a class="indexterm" name="idp67745328"></a><a class="indexterm" name="idp67746528"></a><a class="indexterm" name="idp67747712"></a><a class="indexterm" name="idp67749024"></a><a class="indexterm" name="idp67750208"></a><a class="indexterm" name="idp67751392"></a><a class="indexterm" name="idp67752576"></a><a class="indexterm" name="idp67753888"></a><a class="indexterm" name="idp67755088"></a><a class="indexterm" name="idp67756400"></a><a class="indexterm" name="idp67757568"></a><a class="indexterm" name="idp67758864"></a><a class="indexterm" name="idp67760032"></a><a class="indexterm" name="idp67761200"></a><a class="indexterm" name="idp67762496"></a><a class="indexterm" name="idp67763664"></a><a class="indexterm" name="idp67764832"></a><a class="indexterm" name="idp67766000"></a><a class="indexterm" name="idp67767168"></a><a class="indexterm" name="idp67768336"></a><a class="indexterm" name="idp67769504"></a><a class="indexterm" name="idp67770672"></a><table width="100%" cellpadding="5" bgcolor="#F5DCB3" border="1" class="productionset" summary="EBNF"><tr><td><table border="0" width="99%" cellpadding="0" bgcolor="#F5DCB3" class="productionset" summary="EBNF productions">
+<tr>
+<td align="left" valign="top" width="3%">[136]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.domainservicedefinition"></a>
+       domain service definition
+    </td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        ('native', 'service',
+        <a href="DomainsDomainDeclaration.html#ebnf.domainname">domain name</a>,
+        '::',
+        <a href="ServicesDomainServices.html#ebnf.servicename">service name</a>,
+        '(',
+        <a href="ServicesDomainServices.html#ebnf.parameterdeclarationlist">parameter declaration list</a>,
+        ')',
+        [<a href="ServicesDomainServices.html#ebnf.raisesexpression">raises expression</a>],
+        'is',
+        <a href="ServicesDomainServices.html#ebnf.nativecode">native code</a>) |
+        (<a href="ServicesDomainServices.html#ebnf.domainservicemodifier">domain service modifier</a>,
+        'service',
+        <a href="DomainsDomainDeclaration.html#ebnf.domainname">domain name</a>,
+        '::',
+        <a href="ServicesDomainServices.html#ebnf.servicename">service name</a>,
+        '(',
+        <a href="ServicesDomainServices.html#ebnf.parameterdeclarationlist">parameter declaration list</a>,
+        ')',
+        [<a href="ServicesDomainServices.html#ebnf.raisesexpression">raise expression</a>],
+        'is',        
+        {<a href="TypesVariableDeclarations.html#ebnf.variabledeclaration">variable declaration</a>},
+        'begin',
+        <a href="ExceptionsHandlingofanException.html#ebnf.handledsequenceofstatements">handled sequence of statements</a>,
+        'end', ['service'], ';'
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[137]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.nativecode"></a>
+       native code
+    </td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        '$NATIVE',
+        <a href="LexicalStructureLineTerminators.html#ebnf.lineterminator">line terminator</a>,
+        {<a href="ServicesDomainServices.html#ebnf.nativecodeline">native code line</a>},
+        '$ENDNATIVE',
+        <a href="LexicalStructureLineTerminators.html#ebnf.lineterminator">line terminator</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[138]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.nativecodeline"></a>
+       native code line
+    </td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        {(<a href="LexicalStructuresComments.html#ebnf.letter">letter</a> |
+        <a href="LexicalStructuresComments.html#ebnf.digit">digit</a> |
+        <a href="LexicalStructuresComments.html#ebnf.othercharacter">other character</a> |
+        <a href="LexicalStructureIdentifiers.html#ebnf.underscore">underscore</a> |
+        <a href="LexicalStructureWhiteSpace.html#ebnf.whitespace">white space</a>)},
+        <a href="LexicalStructureLineTerminators.html#ebnf.lineterminator">line terminator</a>
+    ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+</table></td></tr></table>
+<p>
+The native code is a sequence of code statements embraced by
+<a class="link" href="ServicesDomainServices.html#ebnf.nativecode"><code class="literal">$NATIVE</code></a>
+<a class="indexterm" name="idp67794320"></a>
+and <a class="link" href="ServicesDomainServices.html#ebnf.nativecode"><code class="literal">$ENDNATIVE</code></a>.
+<a class="indexterm" name="idp67796064"></a>
+All statements between these two markers are ignored for the purposes of MASL
+parsing.
+</p>
+<p>
+A compile-time error occurs if:
+</p>
+<div class="itemizedlist"><ul class="itemizedlist">
+<li class="listitem"><p>
+The signature of the service,
+<a class="indexterm" name="idp67798656"></a>
+named by the service name together with the
+parameter declaration list has not already been declared by a domain service
+declaration.
+</p></li>
+<li class="listitem"><p>
+The modifiers
+<a class="indexterm" name="idp67801456"></a>
+do not match the modifiers of the corresponding domain service
+declaration.
+</p></li>
+<li class="listitem"><p>
+The raises expression
+<a class="indexterm" name="idp67804112"></a>
+does not match the raise expression of the corresponding domain service
+declaration.
+<a class="indexterm" name="idp67805424"></a>
+</p></li>
+</ul></div>
+<p>
+</p>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="Services.html">Prev</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="Services.html">Up</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ServicesObjectServices.html">Next</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">Chapter 10. Services </td>
+<td width="20%" align="center">
+<a accesskey="h" href="index.html">Home</a> | <a accesskey="t" href="bk01-toc.html">ToC</a>
+</td>
+<td width="40%" align="right" valign="top"> 10.2. Object Services</td>
+</tr>
+</table>
+</div>
+<div align="center">OFFICIAL</div>
+</body>
+</html>

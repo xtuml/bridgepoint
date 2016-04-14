@@ -21,7 +21,7 @@
 
   <property name="eclipse-home" value="${basedir}/../.."/>
   <property name="plugins-home" value="${ant.home}/../.."/>
-  <property name="util_bin_dir" value="${eclipse-home}/src/org.xtuml.bp.mc.c.binary/mc3020/bin"/>
+  <property name="util_bin_dir" value="${eclipse-home}/src/org.xtuml.bp.mc.c.source/mc3020/bin"/>
 
   <property name="sql.input" value="models/org.xtuml.bp.ui.canvas/ooaofgraphics" />
   <property name="sql.output" value="ooaofgraphics.sql" />
@@ -274,7 +274,7 @@
 			
   <property name="cvs_java_files" value="preferences/*,Canvas*.java, GCDelegate.java, Gr_c.java,
     ModelContentOutlinePage.java, ShowCanvasAction.java, Cl_c.java, ToolAction.java,
-    ICanvasHelpContextIds.java, OoaofgraphicsBase.java, util/*, IEditorTabFactory.java" />
+    ICanvasHelpContextIds.java, OoaofgraphicsBase.java, util/*, IEditorTabFactory.java, GraphicsReconcilerLauncher.java" />
 
   <target name="format_java" description="Format the generated java source" >
     <taskdef name="PTCodeFormat" classname="PTCodeFormatterTask" >

@@ -1,0 +1,107 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>6.2. Instance Services</title>
+<link rel="stylesheet" type="text/css" href="docbook.css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<meta name="keywords" content="MASL, Action Language, Action Semantics, UML, Unified Modelling Language, Shlaer Mellor">
+<link rel="home" href="index.html" title="MASL Tutorial">
+<link rel="up" href="Actions.html" title="Chapter 6. Actions">
+<link rel="prev" href="ActionsObjectServices.html" title="6.1. Object Services">
+<link rel="next" href="ActionsPolymorphicServices.html" title="6.3. Polymorphic Services">
+<link rel="preface" href="preface.html" title="Preface">
+<link rel="chapter" href="Types.html" title="Chapter 1. Types">
+<link rel="chapter" href="ExecutionControl.html" title="Chapter 2. Execution Control">
+<link rel="chapter" href="CompositeTypes.html" title="Chapter 3. Composite Types">
+<link rel="chapter" href="Exceptions.html" title="Chapter 4. Exceptions">
+<link rel="chapter" href="ObjectsandRelationships.html" title="Chapter 5. Objects and Relationships">
+<link rel="chapter" href="Actions.html" title="Chapter 6. Actions">
+<link rel="chapter" href="DeviceIO.html" title="Chapter 7. Device Input/Output">
+<link rel="chapter" href="MASLExamples.html" title="Chapter 8. MASL Examples">
+<link rel="index" href="ix01.html" title="Index">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div align="center">UNCLASSIFIED</div>
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">6.2. Instance Services</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ActionsObjectServices.html">Prev</a> </td>
+<th width="60%" align="center">Chapter 6. Actions</th>
+<td width="20%" align="right"> <a accesskey="n" href="ActionsPolymorphicServices.html">Next</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title">
+<a name="ActionsInstanceServices"></a>6.2. Instance Services</h2></div></div></div>
+<p>Instance services are actions that are associated with a specific
+    instance of an object. Like object services, the exact form of an instance
+    service definition is unimportant as it is automatically generated from
+    the case tool. The code that is placed in the definition looks exactly
+    like a block as described before. For example, the
+    <code class="classname">Aircraft</code> object seen previously might provide an
+    instance service called <code class="methodname">increase_speed</code> that
+    increases the speed of a specific <code class="classname">Aircraft</code>
+    instance. The instance service definition might look something
+    like:</p>
+<div class="informalexample"><pre class="programlisting">  public instance service Air_Management::Aircraft.increase_speed(increase : in integer) is
+  begin
+    speed := speed + increase;
+  end service;</pre></div>
+<p>Again notice the use of the reserved word public. It
+    has the same meaning as object services. Also the use of the reserved
+    words in or out are as before. We could invoke this service by
+    writing:</p>
+<div class="informalexample"><pre class="programlisting">  aircraft_instance : instance of Aircraft;
+  …
+  aircraft_instance.increase_speed(61);</pre></div>
+<p>On calling <code class="methodname">increase_speed</code>,
+    the expression <code class="literal">61</code> is evaluated and assigned to the
+    parameter increase, which behaves as a constant. The value of the
+    attribute <code class="varname">speed</code> is then added to the parameter
+    <code class="varname">increase</code> and assigned to the attribute
+    <code class="varname">speed</code>.</p>
+<p>Inside the body of the instance service, all of the attributes of
+    the instance are available as if declared as variables. If an attribute is
+    not a preferred or referential attribute then its value can be set by
+    using an assignment statement. Values of preferred and referential
+    attributes can only be read. This matches the rules described in <a class="xref" href="ObjectsandRelationshipsCreatingInstances.html" title="5.1. Creating Instances">Section 5.1, “Creating Instances”</a>. In addition, the
+    reserved word this denotes the instance that the service was invoked upon.
+    Therefore, we could have written the assignment in our example
+    as:</p>
+<div class="informalexample"><pre class="programlisting">  this.speed := this.speed + increase;</pre></div>
+<p>If we wanted to call an instance service from an action being
+    performed on a specific instance, we could drop the instance and the dot
+    from the invocation. So if the invocation above was in an action being
+    performed on a specific <code class="classname">Aircraft</code> instance we could
+    have written:</p>
+<div class="informalexample"><pre class="programlisting">  increase_speed(61);</pre></div>
+<p>This invokes the service on the instance that the
+    action is been performed on.</p>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ActionsObjectServices.html">Prev</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="Actions.html">Up</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ActionsPolymorphicServices.html">Next</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">6.1. Object Services </td>
+<td width="20%" align="center">
+<a accesskey="h" href="index.html">Home</a> | <a accesskey="t" href="bk01-toc.html">ToC</a>
+</td>
+<td width="40%" align="right" valign="top"> 6.3. Polymorphic Services</td>
+</tr>
+</table>
+</div>
+<div align="center">UNCLASSIFIED</div>
+</body>
+</html>

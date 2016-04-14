@@ -47,6 +47,9 @@ import org.eclipse.gmf.runtime.draw2d.ui.geometry.PointListUtilities;
 import org.eclipse.gmf.runtime.draw2d.ui.geometry.PrecisionPointList;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.PlatformUI;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.common.BridgePointPreferencesStore;
@@ -56,6 +59,7 @@ import org.xtuml.bp.core.common.PersistableModelComponent;
 import org.xtuml.bp.core.util.WorkspaceUtil;
 import org.xtuml.bp.test.common.BaseTest;
 import org.xtuml.bp.test.common.CanvasTestUtils;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.UITestingUtilities;
 import org.xtuml.bp.ui.canvas.Connector_c;
 import org.xtuml.bp.ui.canvas.GraphicalElement_c;
@@ -69,6 +73,7 @@ import org.xtuml.bp.ui.graphics.parts.DiagramEditPart;
 import org.xtuml.bp.ui.graphics.parts.ShapeEditPart;
 import org.xtuml.bp.utilities.ui.CanvasUtilities;
 
+@RunWith(OrderedRunner.class)
 public class GraphicalAnchorTests extends CanvasTest {
 	public static boolean generateResults = false;
 	public static boolean useDrawResults = false;
@@ -98,7 +103,7 @@ public class GraphicalAnchorTests extends CanvasTest {
 	}
 
 	public GraphicalAnchorTests(String subTypeClassName, String subTypeArg0) {
-		super(null, subTypeArg0);
+		super(null, null);
 	}
 
 	/**
@@ -114,7 +119,8 @@ public class GraphicalAnchorTests extends CanvasTest {
 		return "test_" + src + "_" + dest + "_" + count;
 	}
 
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		testPart = null;
 		// import the test model for the first
@@ -143,7 +149,8 @@ public class GraphicalAnchorTests extends CanvasTest {
 		BaseTest.dispatchEvents(0);
 	}
 
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		super.tearDown();
 		PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
 				.closeAllEditors(false);

@@ -28,7 +28,6 @@ package org.xtuml.bp.core.test.cpts;
 import java.util.Iterator;
 
 import org.eclipse.core.runtime.Path;
-
 import org.xtuml.bp.core.ClassStateMachine_c;
 import org.xtuml.bp.core.InstanceStateMachine_c;
 import org.xtuml.bp.core.ModelClass_c;
