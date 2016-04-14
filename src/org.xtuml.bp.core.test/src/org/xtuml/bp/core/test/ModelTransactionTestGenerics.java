@@ -42,12 +42,14 @@ import org.eclipse.ui.PlatformUI;
 import org.xtuml.bp.core.Association_c;
 import org.xtuml.bp.core.Attribute_c;
 import org.xtuml.bp.core.ClassIdentifier_c;
+import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.EventIgnored_c;
 import org.xtuml.bp.core.Function_c;
 import org.xtuml.bp.core.ModelClass_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.SystemModel_c;
+import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.IdAssigner;
 import org.xtuml.bp.core.common.TransactionManager;
@@ -101,7 +103,8 @@ public class ModelTransactionTestGenerics extends BaseTest {
 			result_folder = new String(m_workspace_path
 					+ "/expected_results/TransactionTest/"); //$NON-NLS-1$			
 		}
-
+		CorePlugin.getDefault().getPluginPreferences().setValue(
+		  	      BridgePointPreferencesStore.USE_DEFAULT_NAME_FOR_CREATION, true);
 		CanvasTransactionListener.disableReconciler();
 	}
 
@@ -112,16 +115,37 @@ public class ModelTransactionTestGenerics extends BaseTest {
 	
 	public void testModelTransactionTest() throws Exception{
 	      doTestEarlyReturnExitTransactionWizard();
+	      tearDown();
+	      setUp();
 	      doTestEarlyReturnExitTransaction();
+	      tearDown();
+	      setUp();
 	      doTestEarlyExceptionExitTransactionInProperties();
+	      tearDown();
+	      setUp();
 	      doTestShapeCreationTransactionThruCanvas();
+	      tearDown();
+	      setUp();
 	      doTestPropertyChangeTransaction();
+	      tearDown();
+	      setUp();
 	      doTestDescriptorEditorChangeTransaction();
+	      tearDown();
+	      setUp();
 	      doTestActivityEditorChangeTransaction();
+	      tearDown();
+	      setUp();
 	      doTestRenamingTransactionOnExplorer();
+	      tearDown();
+	      setUp();
 	      doTestDeleteClassTransactionFromExplorer();
+	      tearDown();
+	      setUp();
 	      doTestFormalizeSimpleAssociationTransaction();
+	      tearDown();
+	      setUp();
 	      doTestMenuItemUserAction();
+	      tearDown();
 	}
 
 	public void doTestEarlyReturnExitTransactionWizard() {

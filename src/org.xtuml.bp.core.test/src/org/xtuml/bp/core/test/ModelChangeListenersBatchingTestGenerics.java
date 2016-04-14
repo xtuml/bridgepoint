@@ -41,9 +41,16 @@ public class ModelChangeListenersBatchingTestGenerics extends CoreTest {
 
 	public void testModelCHange() throws Exception{
 		doTestCreateModelElement();
+		tearDown();
+		setUp();
 		doTestDeleteModelElement();
+		tearDown();
+		setUp();
 		doTestRenameSQ_CP();
+		tearDown();
+		setUp();
 		doTestRenameO_ATTR();
+		tearDown();
 	}
 
 	public void doTestCreateModelElement() throws Exception {
