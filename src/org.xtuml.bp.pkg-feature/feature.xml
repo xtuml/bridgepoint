@@ -30,11 +30,6 @@ the License.
          name="BridgePoint Builder"/>
 
    <includes
-         id="org.xtuml.bp.dap.pkg"
-         version="5.3.4"
-         name="BridgePoint Data Access Package"/>
-
-   <includes
          id="org.xtuml.bp.verifier.pkg"
          version="5.3.4"
          name="BridgePoint Verifier"/>

@@ -1,12 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-
- File:      $RCSfile$
- Version:   $Revision$
- Modified:  $Date$
-
-(c) Copyright 2006-2014 by Mentor Graphics Corp. All rights reserved.
-
   ========================================================================
 Licensed under the Apache License, Version 2.0 (the "License"); you may not 
 use this file except in compliance with the License.  You may obtain a copy 
@@ -30,7 +23,7 @@ the License.
   </target>
 
   <property name="eclipse-home" value="${basedir}/../.."/>
-  <property name="util_bin_dir" value="${eclipse-home}/src/org.xtuml.bp.mc.c.binary/mc3020/bin"/>
+  <property name="util_bin_dir" value="${eclipse-home}/src/org.xtuml.bp.mc.c.source/mc3020/bin"/>
 
   <property name="sql.input" value="models/org.xtuml.bp.ui.tree/UITree" />
   <property name="sql.output" value="uitree.sql" />
