@@ -39,11 +39,11 @@ ECLIPSE_VER="4.5"
 OS="windows"
 BP_BASE_DIR="${STAGING_PATH}/${PRODUCT_NAME}_e${ECLIPSE_VER}"
 DOCGEN_EXE="docgen.exe"
-MCMC_EXE="org.xtuml.bp.mc.c.binary_${BP_VERSION}/mc3020/bin/mcmc.exe"
+MCMC_EXE="org.xtuml.bp.mc.c.source_${BP_VERSION}/mc3020/bin/mcmc.exe"
 if [ "${OS_ARG,,}" = "linux" ] || [ "${OS_ARG,,}" = "osx" ]; then
   OS="linux"
   BP_BASE_DIR="${STAGING_PATH}/${PRODUCT_NAME}_for_Linux_e${ECLIPSE_VER}"
-  MCMC_EXE="org.xtuml.bp.mc.c.binary_${BP_VERSION}/mc3020/bin/mcmc"
+  MCMC_EXE="org.xtuml.bp.mc.c.source_${BP_VERSION}/mc3020/bin/mcmc"
   DOCGEN_EXE="docgen"
 fi
 
