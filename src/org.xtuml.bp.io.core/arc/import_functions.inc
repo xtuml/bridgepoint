@@ -794,7 +794,7 @@ ${setSize.body}
         if((!actualVersion.equals("7.1.2")) && (!actualVersion.equals("7.1.3")))
             helper.createAnchorsOnSegmentsForPre7_1_2Connectors();
         .end if
-    .if(setComponent or (not multilevel and not setComponent))
+    .if(setComponent or ((not multilevel) and (not setComponent)))
       .if ( multilevel )
         PersistableModelComponent parentComp = m_component.getParent();
         SystemModel_c parent = null;

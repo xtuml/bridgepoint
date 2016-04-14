@@ -38,10 +38,10 @@
   .if ("${page.Parent_Step_Id}" != "un-initialized")
     .// get the step associated with the page
     .assign stepId = page.Step_ID
-    .select any step from instances of W_STEP where selected.Step_ID == stepId
+    .select any step from instances of W_STEP where (selected.Step_ID == stepId)
     .//
     .// for each step belonging to the same workflow as the page's step
-	.select many steps from instances of W_STEP where selected.Workflow_Name == step.Workflow_Name
+	.select many steps from instances of W_STEP where (selected.Workflow_Name == step.Workflow_Name)
 	.assign pageNum = 1
     .invoke result = STRING_TO_INTEGER(stepId)
     .assign stepIdInt = result.result

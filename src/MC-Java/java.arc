@@ -243,20 +243,20 @@ abstract class EV_$u_{object.Name}${class_sm_tag} extends genericEvent_c
     .for each parameter in parameters
     incoming_event.edi_$l_{parameter.Name} = p_$l_{parameter.Name} ;
     .end for
-	if (self_directed == true) {
-	  selfEventQueue.addElement(incoming_event) ;
-	}
-	else {
+    if (self_directed == true) {
+      selfEventQueue.addElement(incoming_event) ;
+    }
+    else {
       eventQueue.addElement(incoming_event) ;
-	}
-	${instance_handle}notify() ;
+    }
+    ${instance_handle}notify() ;
   }
   .end for
 
   public synchronized void takeEvent(genericEvent_c incoming_event)
   {
     eventQueue.addElement(incoming_event) ;
-	${instance_handle}notify() ;
+    ${instance_handle}notify() ;
   }
 
   public synchronized void procEvent()
@@ -267,17 +267,17 @@ abstract class EV_$u_{object.Name}${class_sm_tag} extends genericEvent_c
     ModelRoot modelRoot = getModelRoot();
   .end if
     EV_$u_{object.Name}${class_sm_tag} currentEvent ;
-	if (selfEventQueue.size() != 0) {
-	  currentEvent = (EV_$u_{object.Name}${class_sm_tag})selfEventQueue.firstElement() ;
-	  selfEventQueue.removeElement(currentEvent) ;
-	}
-	else {
+    if (selfEventQueue.size() != 0) {
+      currentEvent = (EV_$u_{object.Name}${class_sm_tag})selfEventQueue.firstElement() ;
+      selfEventQueue.removeElement(currentEvent) ;
+    }
+    else {
       currentEvent = (EV_$u_{object.Name}${class_sm_tag})eventQueue.firstElement() ;
       if (currentEvent != null) {
         eventQueue.removeElement(currentEvent) ;
-	  }
-	}
-	if (currentEvent != null) {
+      }
+    }
+    if (currentEvent != null) {
       switch (currentEvent.getEvtcode())
       {
   .for each event in events
@@ -307,7 +307,7 @@ ${blck.body}
             break ;
       .elif (not_empty evtIgnored)
                case ST_$u_{object.Name}_$u_{state.Name}:
-              	// Event Ignored
+                // Event Ignored
                break ;
       .end if
     .end for
@@ -315,7 +315,7 @@ ${blck.body}
     .if ( package.is_eclipse_plugin )
           ${package.plugin_classname}.logError(" Can't Happen:  ${object.Name}${class_sm_tag} state = " + state + " event = ${event.Drv_Lbl}:${event.Mning}", null);
     .else
-	      System.err.println(" Can't Happen:  ${object.Name}${class_sm_tag} state = " + state + " event = ${event.Drv_Lbl}:${event.Mning}") ; 
+          System.err.println(" Can't Happen:  ${object.Name}${class_sm_tag} state = " + state + " event = ${event.Drv_Lbl}:${event.Mning}") ; 
     .end if
           // throw cantHappenException here ;
           }  // end state switch
@@ -323,7 +323,7 @@ ${blck.body}
         }
   .end for
       } // end currentEvent switch
-	} // end if currentEvent valid
+    } // end if currentEvent valid
   } // end ${object.Name} procEvent
 .end function
 .//
@@ -421,41 +421,41 @@ p_${an.body}\
         .//
         .assign attr_var_name = "unknown"
         .//
-	    .select any frm_ref_end related by rgo->R_FORM[R205]
-	    .if (not_empty frm_ref_end)
-		  .select any spc_rel related by frm_ref_end->R_SIMP[R208]
-		  .select any tar_rel_end related by spc_rel->R_PART[R207]
-		  .select any rto related by tar_rel_end->R_RTO[R204]
-		  .select any tar_obj related by rto->R_OIR[R203]->O_OBJ[R201]
-		  .assign tar_txt_phrs = "${tar_rel_end.Txt_Phrs}"
-		  .invoke grvn = get_referential_var_name( tar_obj, tar_txt_phrs )
-		  .assign attr_var_name = "${grvn.body}"
-		.end if
-		.select any ass_rel_end related by rgo->R_ASSR[R205]
-		.if (not_empty ass_rel_end)
-		  .select any spc_rel related by ass_rel_end->R_ASSOC[R211]
-		  .select any tar_rel_aoth_end related by spc_rel->R_AOTH[R210]
-		  .assign tar_txt_phrs = "${tar_rel_aoth_end.Txt_Phrs}"
-		  .select any tar_rto related by tar_rel_aoth_end->R_RTO[R204]
-		  .if ( tar_rto.OIR_ID != rtida.OIR_ID )
-		    .select any tar_rel_aone_end related by spc_rel->R_AONE[R209] 
-		    .assign tar_txt_phrs = "${tar_rel_aone_end.Txt_Phrs}"
-		    .select any tar_rto related by tar_rel_aone_end->R_RTO[R204]
-		  .end if
-		  .select any tar_obj related by tar_rto->R_OIR[R203]->O_OBJ[R201]
-		  .invoke grvn = get_referential_var_name( tar_obj, tar_txt_phrs )
-		  .assign attr_var_name = "${grvn.body}"
-		.end if
-		.select any sub_rel_end related by rgo->R_SUB[R205]
-		.if (not_empty sub_rel_end)
-		  .select any spc_rel related by sub_rel_end->R_SUBSUP[R213]
-		  .select any tar_rel_end related by spc_rel->R_SUPER[R212]
-		  .select any rto related by tar_rel_end->R_RTO[R204]
-		  .select any tar_obj related by rto->R_OIR[R203]->O_OBJ[R201]
-		  .assign tar_txt_phrs = "is supertype"
-		  .invoke grvn = get_referential_var_name( tar_obj, tar_txt_phrs )
-		  .assign attr_var_name = "${grvn.body}"
-		.end if
+        .select any frm_ref_end related by rgo->R_FORM[R205]
+        .if (not_empty frm_ref_end)
+          .select any spc_rel related by frm_ref_end->R_SIMP[R208]
+          .select any tar_rel_end related by spc_rel->R_PART[R207]
+          .select any rto related by tar_rel_end->R_RTO[R204]
+          .select any tar_obj related by rto->R_OIR[R203]->O_OBJ[R201]
+          .assign tar_txt_phrs = "${tar_rel_end.Txt_Phrs}"
+          .invoke grvn = get_referential_var_name( tar_obj, tar_txt_phrs )
+          .assign attr_var_name = "${grvn.body}"
+        .end if
+        .select any ass_rel_end related by rgo->R_ASSR[R205]
+        .if (not_empty ass_rel_end)
+          .select any spc_rel related by ass_rel_end->R_ASSOC[R211]
+          .select any tar_rel_aoth_end related by spc_rel->R_AOTH[R210]
+          .assign tar_txt_phrs = "${tar_rel_aoth_end.Txt_Phrs}"
+          .select any tar_rto related by tar_rel_aoth_end->R_RTO[R204]
+          .if ( tar_rto.OIR_ID != rtida.OIR_ID )
+            .select any tar_rel_aone_end related by spc_rel->R_AONE[R209] 
+            .assign tar_txt_phrs = "${tar_rel_aone_end.Txt_Phrs}"
+            .select any tar_rto related by tar_rel_aone_end->R_RTO[R204]
+          .end if
+          .select any tar_obj related by tar_rto->R_OIR[R203]->O_OBJ[R201]
+          .invoke grvn = get_referential_var_name( tar_obj, tar_txt_phrs )
+          .assign attr_var_name = "${grvn.body}"
+        .end if
+        .select any sub_rel_end related by rgo->R_SUB[R205]
+        .if (not_empty sub_rel_end)
+          .select any spc_rel related by sub_rel_end->R_SUBSUP[R213]
+          .select any tar_rel_end related by spc_rel->R_SUPER[R212]
+          .select any rto related by tar_rel_end->R_RTO[R204]
+          .select any tar_obj related by rto->R_OIR[R203]->O_OBJ[R201]
+          .assign tar_txt_phrs = "is supertype"
+          .invoke grvn = get_referential_var_name( tar_obj, tar_txt_phrs )
+          .assign attr_var_name = "${grvn.body}"
+        .end if
   .end function
 .//
 .//====================================================================
@@ -473,23 +473,23 @@ p_${an.body}\
         .//
         .assign attr_var_name = "unknown"
         .//
-		.select any sub_rel_end related by rgo->R_SUB[R205]
-		.if (not_empty sub_rel_end)
-		  .select any spc_rel related by sub_rel_end->R_SUBSUP[R213]
-		  .select any tar_rel_end related by spc_rel->R_SUPER[R212]
-		  .select any rto related by tar_rel_end->R_RTO[R204]
-		  .select any tar_obj related by rto->R_OIR[R203]->O_OBJ[R201]
-		  .assign tar_txt_phrs = "is supertype"
-		  .invoke grvn = get_referential_var_name( tar_obj, tar_txt_phrs )
-		  .assign attr_var_name = "${grvn.body}"
-		.end if
+        .select any sub_rel_end related by rgo->R_SUB[R205]
+        .if (not_empty sub_rel_end)
+          .select any spc_rel related by sub_rel_end->R_SUBSUP[R213]
+          .select any tar_rel_end related by spc_rel->R_SUPER[R212]
+          .select any rto related by tar_rel_end->R_RTO[R204]
+          .select any tar_obj related by rto->R_OIR[R203]->O_OBJ[R201]
+          .assign tar_txt_phrs = "is supertype"
+          .invoke grvn = get_referential_var_name( tar_obj, tar_txt_phrs )
+          .assign attr_var_name = "${grvn.body}"
+        .end if
   .end function
 .//
 .//====================================================================
 .//
 .select any root_pkg from instances of EP_PKG where (selected.Name == mc_root_pkg)
 .invoke rpn_result = get_root_pkg_name( root_pkg )
-.include "color/${rpn_result.body}_package_spec.clr"
+.include "color/$l{rpn_result.body}_package_spec.clr"
 .invoke package = get_package()
 .assign application_root_class = package.application_root_class
 .if(application_root_class == "Ooaofooa")
@@ -598,7 +598,7 @@ ${blck.body}
   .// End External Entities
   .//
 .end if 
-.include "${project_root}/color/${rpn_result.body}_import_spec.clr"
+.include "${project_root}/color/$l{rpn_result.body}_import_spec.clr"
 .// Generate a class for each object
 .//
 .select many packages from instances of EP_PKG
@@ -716,18 +716,18 @@ ${cfcb.body}\
 ${cfca.body}, String p_contentPath, IPath p_localPath)
   {
             .if ( object.AdapterName == "IProject" )
-		if (!modelRoot.isCompareRoot()
-				&& !modelRoot.getId().equals(
-						ModelRoot.CLIPBOARD_MODEL_ROOT_NAME)) {
-      	modelRoot=((ModelRoot) Ooaofooa.getDefaultInstance());
+        if (!modelRoot.isCompareRoot()
+                && !modelRoot.getId().equals(
+                        ModelRoot.CLIPBOARD_MODEL_ROOT_NAME)) {
+        modelRoot=((ModelRoot) Ooaofooa.getDefaultInstance());
       }
             .end if
-	  ModelRoot resolvedModelRoot = ModelRoot.findModelRoot(modelRoot, p_contentPath, p_localPath);
-	  // if a model root was not resolved it is most likely
-	  // due to a missing file of the proxy, defualt back to
-	  // the original model root
-	  if(resolvedModelRoot != null)
-	  	modelRoot = resolvedModelRoot;
+      ModelRoot resolvedModelRoot = ModelRoot.findModelRoot(modelRoot, p_contentPath, p_localPath);
+      // if a model root was not resolved it is most likely
+      // due to a missing file of the proxy, defualt back to
+      // the original model root
+      if(resolvedModelRoot != null)
+        modelRoot = resolvedModelRoot;
       InstanceList instances = modelRoot.getInstanceList(${class_name}.class);
       ${class_name} new_inst = null;
       synchronized(instances) {
@@ -740,35 +740,35 @@ ${cfca.body}, String p_contentPath, IPath p_localPath)
           new_inst = (${class_name}) instances.get(key) ;
             .end if
         }
-	String contentPath = PersistenceUtil.resolveRelativePath(
-			p_localPath,
-			new Path(p_contentPath));
-	if(modelRoot.isNewCompareRoot()) {
-	      // for comparisons we do not want to change
-	      // the content path
-	      contentPath = p_contentPath;
-	}
-	if ( new_inst != null && !modelRoot.isCompareRoot()) {
-		PersistableModelComponent pmc = new_inst.getPersistableComponent();
-		if (pmc == null) {
-			// dangling reference, redo this instance
-			new_inst.batchUnrelate();
+    String contentPath = PersistenceUtil.resolveRelativePath(
+            p_localPath,
+            new Path(p_contentPath));
+    if(modelRoot.isNewCompareRoot()) {
+          // for comparisons we do not want to change
+          // the content path
+          contentPath = p_contentPath;
+    }
+    if ( new_inst != null && !modelRoot.isCompareRoot()) {
+        PersistableModelComponent pmc = new_inst.getPersistableComponent();
+        if (pmc == null) {
+            // dangling reference, redo this instance
+            new_inst.batchUnrelate();
             .invoke cfcb = create_full_constructor_body(attributes, false, "new_inst." )
 ${cfcb.body}\
-		}
-	}
-	if ( new_inst == null ) {
-		// there is no instance matching the id, create a proxy
-		// if the resource doesn't exist then this will be a dangling reference
-    	new_inst = new ${class_name}(modelRoot,
+        }
+    }
+    if ( new_inst == null ) {
+        // there is no instance matching the id, create a proxy
+        // if the resource doesn't exist then this will be a dangling reference
+        new_inst = new ${class_name}(modelRoot,
             .invoke cfca_nt = create_full_constructor_arguments(object, false)
 ${cfca_nt.body}
 );
-		new_inst.m_contentPath = contentPath;
+        new_inst.m_contentPath = contentPath;
             .if ( object.AdapterName == "IFile" )
     new_inst.setComponent(null);
             .end if
-	}
+    }
     return new_inst;
   }
 
@@ -777,7 +777,7 @@ ${cfca.body}\
 ){
             .if ( object.AdapterName == "IProject" )
       if(!modelRoot.isCompareRoot()) {
-      	modelRoot=((ModelRoot) Ooaofooa.getDefaultInstance());
+        modelRoot=((ModelRoot) Ooaofooa.getDefaultInstance());
       }
             .end if
             .assign cached = ""
@@ -880,46 +880,46 @@ ${cfca_nt.body}
         .if(key_result.found_key)
   public Object getInstanceKey() {
     Object [] key =  ${key_result.key};
-		return key;
+        return key;
   }
   
   public boolean setInstanceKey(UUID p_newKey){
   
-  	.invoke idResult = find_id(object)
+    .invoke idResult = find_id(object)
     .assign object_id = idResult.id
     .select many id_attributes related by object_id->O_OIDA[R105]->O_ATTR[R105]
-  	boolean changed = false;
-	.for each attr in id_attributes
-		// round p1
-		.invoke aip = attr_is_persistent(attr)
-		// round p2
-		.if(aip.result)
-		// round p3
-			.select one datatype related by attr->S_DT[R114]
-			.assign type = datatype.Name
-			.invoke gan = get_attribute_name ( attr )
-			.assign attrName = gan.body
-			.select one refAttr related by attr->O_RATTR[R106]
-			.if(not_empty refAttr)
-			// round p4
-				.select one rtAttr related by refAttr->O_BATTR[R113]->O_ATTR[R106]
-				.select one datatype related by rtAttr->S_DT[R114]
-				.assign type = datatype.Name
-			.end if
-			.if(type == "unique_id")
-			// round p5
-	if (${attrName} !=  p_newKey ){
-	
-		${attrName} = p_newKey; 	
-		changed = true;
-	}
-			.break for	
-			.end if
-			// round p6
-		.end if
-		// round p7
-	.end for  
-  	return changed;
+    boolean changed = false;
+    .for each attr in id_attributes
+        // round p1
+        .invoke aip = attr_is_persistent(attr)
+        // round p2
+        .if(aip.result)
+        // round p3
+            .select one datatype related by attr->S_DT[R114]
+            .assign type = datatype.Name
+            .invoke gan = get_attribute_name ( attr )
+            .assign attrName = gan.body
+            .select one refAttr related by attr->O_RATTR[R106]
+            .if(not_empty refAttr)
+            // round p4
+                .select one rtAttr related by refAttr->O_BATTR[R113]->O_ATTR[R106]
+                .select one datatype related by rtAttr->S_DT[R114]
+                .assign type = datatype.Name
+            .end if
+            .if(type == "unique_id")
+            // round p5
+    if (${attrName} !=  p_newKey ){
+    
+        ${attrName} = p_newKey;     
+        changed = true;
+    }
+            .break for  
+            .end if
+            // round p6
+        .end if
+        // round p7
+    .end for  
+    return changed;
   }
   
 
@@ -947,11 +947,11 @@ ${gen_RGO_resolution.body}\
      if (!(elem instanceof ${class_name})) {
          return false;
      }
-	    // check that the model-roots are the same
-    	if (((NonRootModelElement)elem).getModelRoot() != getModelRoot() && !getModelRoot().isCompareRoot()) {
-    		return false;
-    	}
-    	
+        // check that the model-roots are the same
+        if (((NonRootModelElement)elem).getModelRoot() != getModelRoot() && !getModelRoot().isCompareRoot()) {
+            return false;
+        }
+        
      return identityEquals(elem);
   }
   
@@ -984,7 +984,7 @@ ${gen_RGO_resolution.body}\
       // in this case, use whether the two instances are actually the same 
       // one in memory, instead
       if (!getModelRoot().isCompareRoot() && ((IdAssigner.NULL_UUID.equals(${selfIdGetter}()) || IdAssigner.NULL_UUID.equals(${elemIdGetter}())) && this != elem)) {
-      	return false;
+        return false;
       }
       if (!${selfIdGetter}().equals(${elemIdGetter}())) return false;
           .elif(isString)
@@ -1078,7 +1078,7 @@ ${gen_RGO_resolution.body}\
         .end if
         .//
       
-	    .select many ref_rel_set related by object->R_OIR[R201]->R_RGO[R203]
+        .select many ref_rel_set related by object->R_OIR[R201]->R_RGO[R203]
   public void batchRelate(ModelRoot modelRoot, boolean notifyChanges, boolean searchAllRoots)
   {
       batchRelate(modelRoot, false, notifyChanges, searchAllRoots);
@@ -1086,31 +1086,31 @@ ${gen_RGO_resolution.body}\
   
   public void batchRelate(ModelRoot modelRoot, boolean relateProxies, boolean notifyChanges, boolean searchAllRoots)
   {
-	    .if ( not_empty ref_rel_set )
+        .if ( not_empty ref_rel_set )
         InstanceList instances=null;
         ModelRoot baseRoot = modelRoot;
           .for each ref_rel in ref_rel_set
 
-		    .select any frm_ref_end related by ref_rel->R_FORM[R205]
-			.assign notAlreadyRelatedTest = ""
-			.if (not_empty frm_ref_end)
-			  .select any spc_rel related by frm_ref_end->R_SIMP[R208]
-			  .select any tar_rel_end related by spc_rel->R_PART[R207]
-			  .select any rto related by tar_rel_end->R_RTO[R204]
-			  .select any tar_obj related by rto->R_OIR[R203]->O_OBJ[R201]
-			  .assign tar_txt_phrs = "${tar_rel_end.Txt_Phrs}"
-			  .invoke grvn = get_referential_var_name( tar_obj, tar_txt_phrs )
-			  .assign ref_var_name = "${grvn.body}"
-			  .assign notAlreadyRelatedTest = "${grvn.body} == null"
-	if (${notAlreadyRelatedTest}) {          
-			.end if
-	        .select one rel related by ref_rel->R_OIR[R203]->R_REL[R201]
-	        .select many rto_set related by rel->R_OIR[R201]->R_RTO[R203]
+            .select any frm_ref_end related by ref_rel->R_FORM[R205]
+            .assign notAlreadyRelatedTest = ""
+            .if (not_empty frm_ref_end)
+              .select any spc_rel related by frm_ref_end->R_SIMP[R208]
+              .select any tar_rel_end related by spc_rel->R_PART[R207]
+              .select any rto related by tar_rel_end->R_RTO[R204]
+              .select any tar_obj related by rto->R_OIR[R203]->O_OBJ[R201]
+              .assign tar_txt_phrs = "${tar_rel_end.Txt_Phrs}"
+              .invoke grvn = get_referential_var_name( tar_obj, tar_txt_phrs )
+              .assign ref_var_name = "${grvn.body}"
+              .assign notAlreadyRelatedTest = "${grvn.body} == null"
+    if (${notAlreadyRelatedTest}) {          
+            .end if
+            .select one rel related by ref_rel->R_OIR[R203]->R_REL[R201]
+            .select many rto_set related by rel->R_OIR[R201]->R_RTO[R203]
       // R${rel.Numb}
             .for each rto in rto_set
               .select one rto_obj related by rto->R_OIR[R203]->O_OBJ[R201]
               .invoke rcn = get_class_name( rto_obj )
-			  .invoke guk = get_unique_instance_key_from_rto(object, rto)
+              .invoke guk = get_unique_instance_key_from_rto(object, rto)
               .assign rel_inst_var_name = "relInst${info.unique_num}"
               .if ("${rto_obj.Descrip:PEI}" == "true")
       baseRoot = ${package.application_root_class}.getDefaultInstance();
@@ -1119,7 +1119,7 @@ ${gen_RGO_resolution.body}\
       }
               .end if
               .if(not guk.found_key)
-	  instances = baseRoot.getInstanceList(${rcn.body}.class);
+      instances = baseRoot.getInstanceList(${rcn.body}.class);
       ${rcn.body} ${rel_inst_var_name} = null;
       synchronized(instances) {
         Iterator<NonRootModelElement> cursor = instances.iterator() ;
@@ -1127,18 +1127,18 @@ ${gen_RGO_resolution.body}\
         {
            ${rcn.body} source = (${rcn.body})cursor.next() ;
            if (\
-	            .select many rtida_set related by rto->O_RTIDA[R110]
-		        .for each rtida in rtida_set
-		          .select one idAttr related by rtida->O_OIDA[R110]->O_ATTR[R105]
+                .select many rtida_set related by rto->O_RTIDA[R110]
+                .for each rtida in rtida_set
+                  .select one idAttr related by rtida->O_OIDA[R110]->O_ATTR[R105]
                   .// we need a where clause here for subtype supertype
-	              .// (multiple ref attrs map to one id attr)
-		          .select any refAttr related by rtida->O_REF[R111]->O_RATTR[R108]->O_ATTR[R106] where ( selected.Obj_ID == object.Obj_ID )
-		          .invoke idaaa = get_attribute_accessor( idAttr )
-		          .select one idrefattr related by idAttr->O_RATTR[R106]
-		          .assign value_str = ""
-		          .if ( not_empty idrefattr )
-		            .assign value_str = "CachedValue"
-		          .end if
+                  .// (multiple ref attrs map to one id attr)
+                  .select any refAttr related by rtida->O_REF[R111]->O_RATTR[R108]->O_ATTR[R106] where ( selected.Obj_ID == object.Obj_ID )
+                  .invoke idaaa = get_attribute_accessor( idAttr )
+                  .select one idrefattr related by idAttr->O_RATTR[R106]
+                  .assign value_str = ""
+                  .if ( not_empty idrefattr )
+                    .assign value_str = "CachedValue"
+                  .end if
                   .invoke refan = get_attribute_name( refAttr )
                   .invoke ibaaui = is_base_attribute_a_unique_id(idAttr)
                   .if(ibaaui.is_unique_id)
@@ -1150,36 +1150,36 @@ ${gen_RGO_resolution.body}\
 && 
                   .end if
                 .end for
-		){
-  		${rel_inst_var_name} = source;
-			break;
-		  }
-	  }
+        ){
+        ${rel_inst_var_name} = source;
+            break;
+          }
+      }
      }//synchronized
               .else
       ${rcn.body} ${rel_inst_var_name} = (${rcn.body}) baseRoot.getInstanceList(${rcn.body}.class).get(new Object[] ${guk.key});
             // if there was no local element, check for any global elements
             // failing that proceed to check other model roots
-      		if (${rel_inst_var_name} == null) {
-      			${rel_inst_var_name} = (${rcn.body}) Ooaofooa.getDefaultInstance().getInstanceList(${rcn.body}.class).get(new Object[] ${guk.key});
-      		}
+            if (${rel_inst_var_name} == null) {
+                ${rel_inst_var_name} = (${rcn.body}) Ooaofooa.getDefaultInstance().getInstanceList(${rcn.body}.class).get(new Object[] ${guk.key});
+            }
                 .assign search_all_model_roots = package.search_all_model_roots
                 .if(search_all_model_roots)
-			if (${rel_inst_var_name} == null && searchAllRoots && !baseRoot.isCompareRoot()) {
-				${application_root_class}[] roots = ${application_root_class}.getInstances();
-				for (int i = 0; i < roots.length; i++) {
-				    if(roots[i].isCompareRoot()) {
-				         // never use elements from any compare root
-				         continue;
-				    }
-					${rel_inst_var_name} = (${rcn.body}) roots[i].getInstanceList(${rcn.body}.class).get(new Object[] ${guk.key});
-					if (${rel_inst_var_name} != null)
-						break;
-				}
-			}
-        		.end if
+            if (${rel_inst_var_name} == null && searchAllRoots && !baseRoot.isCompareRoot()) {
+                ${application_root_class}[] roots = ${application_root_class}.getInstances();
+                for (int i = 0; i < roots.length; i++) {
+                    if(roots[i].isCompareRoot()) {
+                         // never use elements from any compare root
+                         continue;
+                    }
+                    ${rel_inst_var_name} = (${rcn.body}) roots[i].getInstanceList(${rcn.body}.class).get(new Object[] ${guk.key});
+                    if (${rel_inst_var_name} != null)
+                        break;
+                }
+            }
+                .end if
               .end if
-			//synchronized
+            //synchronized
       if ( ${rel_inst_var_name} != null )
       {
               .invoke grf = get_reflexive_phrase( rel, rto, false )
@@ -1187,34 +1187,34 @@ ${gen_RGO_resolution.body}\
               .if ( package.is_eclipse_plugin )
           if (relateProxies || !isProxy() || (inSameComponent(this, ${rel_inst_var_name}) && !isProxy())) {
               .end if
-	      ${rel_inst_var_name}.relateAcrossR${rel.Numb}To${func_suffix}(this, notifyChanges);
+          ${rel_inst_var_name}.relateAcrossR${rel.Numb}To${func_suffix}(this, notifyChanges);
               .if ( package.is_eclipse_plugin )
-	  }
-	          .end if
-	          .if ((package.is_root) and ("${rto_obj.Key_Lett}" == "S_SYS"))
-	      // set the root in the Domain's model root, not the System Model's
-	      // modelRoot is the SystemModel's root when we are loading a Domain proxy
-	      ((Ooaofooa)getModelRoot()).setRoot(${rel_inst_var_name});
-	          .end if
-	  }
+      }
+              .end if
+              .if ((package.is_root) and ("${rto_obj.Key_Lett}" == "S_SYS"))
+          // set the root in the Domain's model root, not the System Model's
+          // modelRoot is the SystemModel's root when we are loading a Domain proxy
+          ((Ooaofooa)getModelRoot()).setRoot(${rel_inst_var_name});
+              .end if
+      }
               .if ("${rto_obj.Descrip:PEI}" == "true")
           baseRoot = modelRoot;
               .end if
-	          .if (notAlreadyRelatedTest != "")
-	}
-			  .end if
-	          
+              .if (notAlreadyRelatedTest != "")
+    }
+              .end if
+              
             .end for
           .end for
-	    .end if
-	}
+        .end if
+    }
   public void batchUnrelate(boolean notifyChanges)
   {
-	    .if ( not_empty ref_rel_set )
-		NonRootModelElement inst=null;
+        .if ( not_empty ref_rel_set )
+        NonRootModelElement inst=null;
           .for each ref_rel in ref_rel_set
-	        .select one rel related by ref_rel->R_OIR[R203]->R_REL[R201]
-	        .select many rto_set related by rel->R_OIR[R201]->R_RTO[R203]
+            .select one rel related by ref_rel->R_OIR[R203]->R_REL[R201]
+            .select many rto_set related by rel->R_OIR[R201]->R_RTO[R203]
       // R${rel.Numb}
             .for each rto in rto_set
               .select one rto_obj related by rto->R_OIR[R203]->O_OBJ[R201]
@@ -1236,36 +1236,36 @@ ${gen_RGO_resolution.body}\
               .if (not_empty super )
                 .assign phrase = "Is Supertype"
               .end if
-		  inst=$cr{phrase}$cr{rto_obj.Name};
+          inst=$cr{phrase}$cr{rto_obj.Name};
               .invoke grf = get_reflexive_phrase( rel, rto, true )
               .assign func_suffix = grf.result
-			unrelateAcrossR${rel.Numb}From${func_suffix}($cr{phrase}$cr{rto_obj.Name}, notifyChanges);
-		      .if ( package.is_eclipse_plugin )
+            unrelateAcrossR${rel.Numb}From${func_suffix}($cr{phrase}$cr{rto_obj.Name}, notifyChanges);
+              .if ( package.is_eclipse_plugin )
           if ( inst != null ) {
-			   inst.removeRef();
-	      }
-		      .end if
+               inst.removeRef();
+          }
+              .end if
             .end for
           .end for
-	    .end if
-	}
+        .end if
+    }
   public static void batchRelateAll(ModelRoot modelRoot, boolean notifyChanges, boolean searchAllRoots) {
-		batchRelateAll(modelRoot, notifyChanges, searchAllRoots, false);
-  }	  
+        batchRelateAll(modelRoot, notifyChanges, searchAllRoots, false);
+  }   
   public static void batchRelateAll(ModelRoot modelRoot, boolean notifyChanges, boolean searchAllRoots, boolean relateProxies)
   {
-	    .if ( not_empty ref_rel_set )
-	InstanceList instances = modelRoot.getInstanceList(${class_name}.class);
+        .if ( not_empty ref_rel_set )
+    InstanceList instances = modelRoot.getInstanceList(${class_name}.class);
     synchronized(instances) {
         Iterator<NonRootModelElement> cursor = instances.iterator() ;
-    	while (cursor.hasNext())
-	    {
+        while (cursor.hasNext())
+        {
             final ${class_name} inst = (${class_name})cursor.next() ;
-	        inst.batchRelate(modelRoot, relateProxies, notifyChanges, searchAllRoots );
-	    }
-	}
-	    .else
-	    
+            inst.batchRelate(modelRoot, relateProxies, notifyChanges, searchAllRoots );
+        }
+    }
+        .else
+        
       // class has no referential attributes
   
         .end if   .// if not_empty ref_rel_set
@@ -1284,45 +1284,45 @@ ${gen_RGO_resolution.body}\
 
   public static ${class_name} $cr{object.Name}Instance(ModelRoot modelRoot, ${tcn.body} test, boolean loadComponent)
   {
-  		${class_name} result=find$cr{object.Name}Instance(modelRoot,test,loadComponent);
+        ${class_name} result=find$cr{object.Name}Instance(modelRoot,test,loadComponent);
         .if (package.is_root AND  persistent) .//lazy loading is only for persistable elements
-  		if(result==null && loadComponent){
+        if(result==null && loadComponent){
      List pmcs =  PersistenceManager.findAllComponents(modelRoot,${class_name}.class);
-		for (int i = 0; i < pmcs.size(); i++) {
-			PersistableModelComponent component = (PersistableModelComponent) pmcs
-				..get(i);
-			if (!component.isLoaded()) {
-				try {
-					component.load(new NullProgressMonitor());
-					 result=find$cr{object.Name}Instance(modelRoot,test,loadComponent);
-					 if(result!=null) return result;
-				} catch (Exception e) {
-					CorePlugin.logError("Error Loading component", e);
-				}
-			}
-		}
-	    }
-	    if(result!=null && loadComponent){
-    	    result.loadProxy();
-	    }
-	    .end if
-	  return result;  
+        for (int i = 0; i < pmcs.size(); i++) {
+            PersistableModelComponent component = (PersistableModelComponent) pmcs
+                ..get(i);
+            if (!component.isLoaded()) {
+                try {
+                    component.load(new NullProgressMonitor());
+                     result=find$cr{object.Name}Instance(modelRoot,test,loadComponent);
+                     if(result!=null) return result;
+                } catch (Exception e) {
+                    CorePlugin.logError("Error Loading component", e);
+                }
+            }
+        }
+        }
+        if(result!=null && loadComponent){
+            result.loadProxy();
+        }
+        .end if
+      return result;  
   }
 private static ${class_name} find$cr{object.Name}Instance(ModelRoot modelRoot, ${tcn.body} test, boolean loadComponent)
 {
-	InstanceList instances = modelRoot.getInstanceList(${class_name}.class);
-		synchronized (instances) {
+    InstanceList instances = modelRoot.getInstanceList(${class_name}.class);
+        synchronized (instances) {
             for (int i = 0; i < instances.size(); ++i) {
-				${class_name} x = (${class_name}) instances.get(i);
-				if (test==null || test.evaluate(x)){
-		.if (package.is_root AND  persistent)
-					if(x.ensureLoaded(loadComponent))
-		.end if
-					return x;
-			}
-		}
-		}
-			return null;
+                ${class_name} x = (${class_name}) instances.get(i);
+                if (test==null || test.evaluate(x)){
+        .if (package.is_root AND  persistent)
+                    if(x.ensureLoaded(loadComponent))
+        .end if
+                    return x;
+            }
+        }
+        }
+            return null;
 }
   public static ${class_name} $cr{object.Name}Instance(ModelRoot modelRoot, ${tcn.body} test){
      return $cr{object.Name}Instance(modelRoot,test,true);
@@ -1330,43 +1330,43 @@ private static ${class_name} find$cr{object.Name}Instance(ModelRoot modelRoot, $
   
   public static ${class_name} $cr{object.Name}Instance(ModelRoot modelRoot)
   {
-	 return $cr{object.Name}Instance(modelRoot,null,true);
+     return $cr{object.Name}Instance(modelRoot,null,true);
   }
 
   public static ${class_name} [] $cr{object.Name}Instances(ModelRoot modelRoot, ${tcn.body} test, boolean loadComponent)
-  {	
+  { 
         .if (package.is_root AND  persistent) .//lazy loading is only for persistable elements
             if(loadComponent){
-  			   PersistenceManager.ensureAllInstancesLoaded(modelRoot, ${class_name}.class);
-  			}
-        .end if	
-		    InstanceList instances = modelRoot.getInstanceList(${class_name}.class);
-			Vector matches = new Vector();
-			synchronized (instances) {
+               PersistenceManager.ensureAllInstancesLoaded(modelRoot, ${class_name}.class);
+            }
+        .end if 
+            InstanceList instances = modelRoot.getInstanceList(${class_name}.class);
+            Vector matches = new Vector();
+            synchronized (instances) {
                 for (int i = 0; i < instances.size(); ++i) {
-					${class_name} x = (${class_name}) instances.get(i);
-					if (test==null ||test.evaluate(x)){
-		.if (package.is_root AND  persistent)
-						if(x.ensureLoaded(loadComponent))
-		.end if
-						matches.add(x);
-			    }
-				}
-			if (matches.size() > 0) {
-				${class_name}[] ret_set = new ${class_name}[matches.size()];
-				matches.copyInto(ret_set);
-				return ret_set;
-			} else {
-				return new ${class_name}[0];
-			}		
-		} 
+                    ${class_name} x = (${class_name}) instances.get(i);
+                    if (test==null ||test.evaluate(x)){
+        .if (package.is_root AND  persistent)
+                        if(x.ensureLoaded(loadComponent))
+        .end if
+                        matches.add(x);
+                }
+                }
+            if (matches.size() > 0) {
+                ${class_name}[] ret_set = new ${class_name}[matches.size()];
+                matches.copyInto(ret_set);
+                return ret_set;
+            } else {
+                return new ${class_name}[0];
+            }       
+        } 
   }
   public static ${class_name} [] $cr{object.Name}Instances(ModelRoot modelRoot, ${tcn.body} test){
     return  $cr{object.Name}Instances(modelRoot,test,true);
   }
   public static ${class_name} [] $cr{object.Name}Instances(ModelRoot modelRoot)
   {
-	return $cr{object.Name}Instances(modelRoot,null,true);
+    return $cr{object.Name}Instances(modelRoot,null,true);
   }
 
         .select any ism related by object->SM_ISM[R518]
@@ -1376,124 +1376,124 @@ private static ${class_name} find$cr{object.Name}Instance(ModelRoot modelRoot, $
         .if (not_empty ism)
     Activepoller_c.unRegister(this) ;
         .end if      
-	boolean delete_error = false;
-	String errorMsg = "The following relationships were not torn down by the ${object.Name}.dispose call: ";
+    boolean delete_error = false;
+    String errorMsg = "The following relationships were not torn down by the ${object.Name}.dispose call: ";
         .select many rels related by object->R_OIR[R201]->R_REL[R201]
         .for each rel in rels
           .assign printcode = ""
-		  .assign delete_check_boolean = "delete_error = true;"
+          .assign delete_check_boolean = "delete_error = true;"
           .// simple association tests
           .select one simp related by rel->R_SIMP[R206]
           .if(not_empty simp)
-		    .select one part related by simp->R_PART[R207]
+            .select one part related by simp->R_PART[R207]
             .select one form related by simp->R_FORM[R208]
-		    .select one part_obj related by part->R_RTO[R204]->R_OIR[R203]->O_OBJ[R201]
-		    .select one form_obj related by form->R_RGO[R205]->R_OIR[R203]->O_OBJ[R201]
-		    .assign phrase = ""
-		    .assign class_type = ""
-		    .if(part_obj == object)
-		      .invoke gnfn = get_nav_func_name( form_obj, rel, "one" )
-	 	      .invoke fcn = get_class_name( form_obj )
-	 	      .assign class_type = fcn.body
+            .select one part_obj related by part->R_RTO[R204]->R_OIR[R203]->O_OBJ[R201]
+            .select one form_obj related by form->R_RGO[R205]->R_OIR[R203]->O_OBJ[R201]
+            .assign phrase = ""
+            .assign class_type = ""
+            .if(part_obj == object)
+              .invoke gnfn = get_nav_func_name( form_obj, rel, "one" )
+              .invoke fcn = get_class_name( form_obj )
+              .assign class_type = fcn.body
               .if(part_obj == form_obj)
                 .// reflexive association
                 .assign phrase = form.Txt_Phrs
               .end if
-	${class_type} testR${rel.Numb}Inst = ${fcn.body}.${gnfn.body}$cr{phrase}(this, false);
+    ${class_type} testR${rel.Numb}Inst = ${fcn.body}.${gnfn.body}$cr{phrase}(this, false);
 
-	if ( testR${rel.Numb}Inst != null )
-	{
-	${delete_check_boolean}
-	errorMsg = errorMsg + "${rel.Numb} ";	
-	}
-	        .end if
-	        .if(form_obj == object)
-		      .invoke gnfn = get_nav_func_name( part_obj, rel, "one" )
-		      .invoke fcn = get_class_name( part_obj )
-			  .assign class_type = fcn.body
-			  .if(part_obj == form_obj)
-		  	    .// reflexive association
-		  	    .assign phrase = part.Txt_Phrs
-		  	    .// we processed the part from the reflexive
-		  	    .// now set class name to none so there
-		  	    .// are no duplicate variables
-		  	    .assign class_type = ""
-			  .end if
-	${class_type} testR${rel.Numb}Inst = ${fcn.body}.${gnfn.body}$cr{phrase}(this, false);
+    if ( testR${rel.Numb}Inst != null )
+    {
+    ${delete_check_boolean}
+    errorMsg = errorMsg + "${rel.Numb} ";   
+    }
+            .end if
+            .if(form_obj == object)
+              .invoke gnfn = get_nav_func_name( part_obj, rel, "one" )
+              .invoke fcn = get_class_name( part_obj )
+              .assign class_type = fcn.body
+              .if(part_obj == form_obj)
+                .// reflexive association
+                .assign phrase = part.Txt_Phrs
+                .// we processed the part from the reflexive
+                .// now set class name to none so there
+                .// are no duplicate variables
+                .assign class_type = ""
+              .end if
+    ${class_type} testR${rel.Numb}Inst = ${fcn.body}.${gnfn.body}$cr{phrase}(this, false);
 
-	if ( testR${rel.Numb}Inst != null )
-	{
-   	${delete_check_boolean}	        
-	errorMsg = errorMsg + "${rel.Numb} ";
-	}
+    if ( testR${rel.Numb}Inst != null )
+    {
+    ${delete_check_boolean}         
+    errorMsg = errorMsg + "${rel.Numb} ";
+    }
             .end if
           .end if
           .// end simple association tests
-		  .// linked association tests
-		  .select one assoc related by rel->R_ASSOC[R206]
-		  .if(not_empty assoc)
-		    .select one aone related by assoc->R_AONE[R209]
-		    .select one aoth related by assoc->R_AOTH[R210]
-		    .select one assr related by assoc->R_ASSR[R211]
-		    .select one aone_obj related by aone->R_RTO[R204]->R_OIR[R203]->O_OBJ[R201]
-		    .select one aoth_obj related by aoth->R_RTO[R204]->R_OIR[R203]->O_OBJ[R201]
-		    .select one assr_obj related by assr->R_RGO[R205]->R_OIR[R203]->O_OBJ[R201]
-		    .assign phrase = ""
-		    .assign class_type = ""
-		    .if(aone_obj == object)
-		      .invoke gnfn = get_nav_func_name( assr_obj, rel, "one" )
-		      .invoke fcn = get_class_name( assr_obj )
-		      .assign class_type = fcn.body
-		      .if(aone.Obj_ID == aoth.Obj_ID)
-		        .// reflexive association
-		        .assign phrase = aoth.Txt_Phrs
-		      .end if
-	${class_type} testR${rel.Numb}Inst = ${fcn.body}.${gnfn.body}$cr{phrase}(this, false);
+          .// linked association tests
+          .select one assoc related by rel->R_ASSOC[R206]
+          .if(not_empty assoc)
+            .select one aone related by assoc->R_AONE[R209]
+            .select one aoth related by assoc->R_AOTH[R210]
+            .select one assr related by assoc->R_ASSR[R211]
+            .select one aone_obj related by aone->R_RTO[R204]->R_OIR[R203]->O_OBJ[R201]
+            .select one aoth_obj related by aoth->R_RTO[R204]->R_OIR[R203]->O_OBJ[R201]
+            .select one assr_obj related by assr->R_RGO[R205]->R_OIR[R203]->O_OBJ[R201]
+            .assign phrase = ""
+            .assign class_type = ""
+            .if(aone_obj == object)
+              .invoke gnfn = get_nav_func_name( assr_obj, rel, "one" )
+              .invoke fcn = get_class_name( assr_obj )
+              .assign class_type = fcn.body
+              .if(aone.Obj_ID == aoth.Obj_ID)
+                .// reflexive association
+                .assign phrase = aoth.Txt_Phrs
+              .end if
+    ${class_type} testR${rel.Numb}Inst = ${fcn.body}.${gnfn.body}$cr{phrase}(this, false);
 
-	if ( testR${rel.Numb}Inst != null )
-	{
-   	${delete_check_boolean}	        
-	errorMsg = errorMsg + "${rel.Numb} ";
-	}
-   	        .end if
-		    .if(aoth_obj == object)
-		      .invoke gnfn = get_nav_func_name( assr_obj, rel, "one" )
-		      .invoke fcn = get_class_name( assr_obj )
-		      .assign class_type = fcn.body
-		      .if(aone.Obj_ID == aoth.Obj_ID)
-		        .// reflexive association
-		        .assign phrase = aone.Txt_Phrs
-		        .// we processed the aone from the reflexive
-		        .// now set class name to none so there
-		        .// are no duplicate variables
-		        .assign class_type = ""
-		      .end if
- 	${class_type} testR${rel.Numb}Inst = ${fcn.body}.${gnfn.body}$cr{phrase}(this, false);
+    if ( testR${rel.Numb}Inst != null )
+    {
+    ${delete_check_boolean}         
+    errorMsg = errorMsg + "${rel.Numb} ";
+    }
+            .end if
+            .if(aoth_obj == object)
+              .invoke gnfn = get_nav_func_name( assr_obj, rel, "one" )
+              .invoke fcn = get_class_name( assr_obj )
+              .assign class_type = fcn.body
+              .if(aone.Obj_ID == aoth.Obj_ID)
+                .// reflexive association
+                .assign phrase = aone.Txt_Phrs
+                .// we processed the aone from the reflexive
+                .// now set class name to none so there
+                .// are no duplicate variables
+                .assign class_type = ""
+              .end if
+    ${class_type} testR${rel.Numb}Inst = ${fcn.body}.${gnfn.body}$cr{phrase}(this, false);
 
- 	if ( testR${rel.Numb}Inst != null )
-	{
- 	${delete_check_boolean}
-	errorMsg = errorMsg + "${rel.Numb} ";
- 	}
-		    .end if
-		    .if(assr_obj == object)
-		      .assign phrase_one = ""
-		      .assign phrase_oth = ""
-		      .invoke gnfn = get_nav_func_name( aone_obj, rel, "one" )
-		      .invoke fcn = get_class_name( aone_obj )
-		      .if(aone.Obj_ID == aoth.Obj_ID)
-		        .assign phrase_one = aone.Txt_Phrs
-    		    .assign phrase_oth = aoth.Txt_Phrs
-		      .end if
-		      .invoke gnfn_aoth = get_nav_func_name( aoth_obj, rel, "one" )
-		      .invoke fcn_aoth = get_class_name( aoth_obj )
-	${fcn.body} testR${rel.Numb}Inst = ${fcn.body}.${gnfn.body}$cr{phrase_one}(this, false);
+    if ( testR${rel.Numb}Inst != null )
+    {
+    ${delete_check_boolean}
+    errorMsg = errorMsg + "${rel.Numb} ";
+    }
+            .end if
+            .if(assr_obj == object)
+              .assign phrase_one = ""
+              .assign phrase_oth = ""
+              .invoke gnfn = get_nav_func_name( aone_obj, rel, "one" )
+              .invoke fcn = get_class_name( aone_obj )
+              .if(aone.Obj_ID == aoth.Obj_ID)
+                .assign phrase_one = aone.Txt_Phrs
+                .assign phrase_oth = aoth.Txt_Phrs
+              .end if
+              .invoke gnfn_aoth = get_nav_func_name( aoth_obj, rel, "one" )
+              .invoke fcn_aoth = get_class_name( aoth_obj )
+    ${fcn.body} testR${rel.Numb}Inst = ${fcn.body}.${gnfn.body}$cr{phrase_one}(this, false);
 
-	if ( testR${rel.Numb}Inst != null )
-	{
-	${delete_check_boolean}	        
-	errorMsg = errorMsg + "${rel.Numb} ";	
- 	}
+    if ( testR${rel.Numb}Inst != null )
+    {
+    ${delete_check_boolean}         
+    errorMsg = errorMsg + "${rel.Numb} ";   
+    }
 
    ${fcn_aoth.body} testR${rel.Numb}InstOth = ${fcn_aoth.body}.${gnfn_aoth.body}$cr{phrase_oth}(this, false);
 
@@ -1501,126 +1501,126 @@ private static ${class_name} find$cr{object.Name}Instance(ModelRoot modelRoot, $
    {
    ${delete_check_boolean}
    errorMsg = errorMsg + "${rel.Numb} ";   
-	}		    
-		    .end if
-		  .end if
-		  .// end linked association tests
-		  .// Subtype/Supertype tests
-		  .select one subsup related by rel->R_SUBSUP[R206]
-		  .if(not_empty subsup)
-		    .select one super related by subsup->R_SUPER[R212]
-		    .select many subs related by subsup->R_SUB[R213]
-		    .select one super_obj related by super->R_RTO[R204]->R_OIR[R203]->O_OBJ[R201]
-		    .assign sub_count = 0 
-		    .for each sub in subs
-		      .assign sub_count = sub_count + 1
-		      .select one sub_obj related by sub->R_RGO[R205]->R_OIR[R203]->O_OBJ[R201]
-		      .if(super_obj == object)
-		        .invoke gnfn = get_nav_func_name( sub_obj, rel, "one" )
-		        .invoke fcn = get_class_name( sub_obj )
-	${fcn.body} testR${rel.Numb}Inst${sub_count} = ${fcn.body}.${gnfn.body}(this, false);
+    }           
+            .end if
+          .end if
+          .// end linked association tests
+          .// Subtype/Supertype tests
+          .select one subsup related by rel->R_SUBSUP[R206]
+          .if(not_empty subsup)
+            .select one super related by subsup->R_SUPER[R212]
+            .select many subs related by subsup->R_SUB[R213]
+            .select one super_obj related by super->R_RTO[R204]->R_OIR[R203]->O_OBJ[R201]
+            .assign sub_count = 0 
+            .for each sub in subs
+              .assign sub_count = sub_count + 1
+              .select one sub_obj related by sub->R_RGO[R205]->R_OIR[R203]->O_OBJ[R201]
+              .if(super_obj == object)
+                .invoke gnfn = get_nav_func_name( sub_obj, rel, "one" )
+                .invoke fcn = get_class_name( sub_obj )
+    ${fcn.body} testR${rel.Numb}Inst${sub_count} = ${fcn.body}.${gnfn.body}(this, false);
 
-	if ( testR${rel.Numb}Inst${sub_count} != null )
-	{
-	${delete_check_boolean}
-	errorMsg = errorMsg + "${rel.Numb} ";
-	}
-   	          .end if
-		      .if(sub_obj == object)
-			    .invoke gnfn = get_nav_func_name( super_obj, rel, "one" )
-			    .invoke fcn = get_class_name( super_obj )
-	${fcn.body} testR${rel.Numb}Inst${sub_count} = ${fcn.body}.${gnfn.body}(this, false);
+    if ( testR${rel.Numb}Inst${sub_count} != null )
+    {
+    ${delete_check_boolean}
+    errorMsg = errorMsg + "${rel.Numb} ";
+    }
+              .end if
+              .if(sub_obj == object)
+                .invoke gnfn = get_nav_func_name( super_obj, rel, "one" )
+                .invoke fcn = get_class_name( super_obj )
+    ${fcn.body} testR${rel.Numb}Inst${sub_count} = ${fcn.body}.${gnfn.body}(this, false);
 
-	if ( testR${rel.Numb}Inst${sub_count} != null )
-	{
-	${delete_check_boolean}	        
-	errorMsg = errorMsg + "${rel.Numb} ";
-	}
-		      .end if
-		    .end for
-		  .end if
-		  .// end Subtype/Supertype tests
-		  .// Composition Association tests
-		  .select one comp related by rel->R_COMP[R206]
-		  .if(not_empty comp)
-		    .select one cone related by comp->R_CONE[R214]
-		    .select one coth related by comp->R_COTH[R215]
-		    .select one cone_obj related by cone->R_OIR[R203]->O_OBJ[R201]
-		    .select one coth_obj related by coth-.R_OIR[R203]->O_OBJ[R201]
-		    .assign phrase = ""
-		    .assign class_type = ""
-		    .if(cone_obj == object)
-		      .invoke gnfn = get_nav_func_name( coth_obj, rel, "one" )
-			  .invoke fcn = get_class_name( coth_obj )
-			  .assign class_type = fcn.body
-			  .if(cone_obj == coth_obj)
-		  	    .// reflexive association
-		  	    .assign phrase = coth.Txt_Phrs
-			  .end if
-	${class_type} testR${rel.Numb}Inst = ${fcn.body}.${gnfn.body}$cr{phrase}(this, false);
+    if ( testR${rel.Numb}Inst${sub_count} != null )
+    {
+    ${delete_check_boolean}         
+    errorMsg = errorMsg + "${rel.Numb} ";
+    }
+              .end if
+            .end for
+          .end if
+          .// end Subtype/Supertype tests
+          .// Composition Association tests
+          .select one comp related by rel->R_COMP[R206]
+          .if(not_empty comp)
+            .select one cone related by comp->R_CONE[R214]
+            .select one coth related by comp->R_COTH[R215]
+            .select one cone_obj related by cone->R_OIR[R203]->O_OBJ[R201]
+            .select one coth_obj related by coth->R_OIR[R203]->O_OBJ[R201]
+            .assign phrase = ""
+            .assign class_type = ""
+            .if(cone_obj == object)
+              .invoke gnfn = get_nav_func_name( coth_obj, rel, "one" )
+              .invoke fcn = get_class_name( coth_obj )
+              .assign class_type = fcn.body
+              .if(cone_obj == coth_obj)
+                .// reflexive association
+                .assign phrase = coth.Txt_Phrs
+              .end if
+    ${class_type} testR${rel.Numb}Inst = ${fcn.body}.${gnfn.body}$cr{phrase}(this, false);
 
-	if ( testR${rel.Numb}Inst != null )
-	{
-   	${delete_check_boolean}
-	errorMsg = errorMsg + "${rel.Numb} ";       
-	}		  
-		    .end if
-		    .if(coth_obj == object)
-			  .invoke gnfn = get_nav_func_name( coth_obj, rel, "one" )
-			  .invoke fcn = get_class_name( coth_obj )
-			  .assign class_type = fcn.body
-			  .if(cone_obj == coth_obj)
-		  	    .// reflexive association
-		  	    .assign phrase = cone.Txt_Phrs
-			    .// we processed the cone from the reflexive
-			    .// now set class name to none so there
-			    .// are no duplicate variables
-			    .assign class_type = ""
-			  .end if
-	${class_type} testR${rel.Numb}Inst = ${fcn.body}.${gnfn.body}$cr{phrase}(this, false);
+    if ( testR${rel.Numb}Inst != null )
+    {
+    ${delete_check_boolean}
+    errorMsg = errorMsg + "${rel.Numb} ";       
+    }         
+            .end if
+            .if(coth_obj == object)
+              .invoke gnfn = get_nav_func_name( coth_obj, rel, "one" )
+              .invoke fcn = get_class_name( coth_obj )
+              .assign class_type = fcn.body
+              .if(cone_obj == coth_obj)
+                .// reflexive association
+                .assign phrase = cone.Txt_Phrs
+                .// we processed the cone from the reflexive
+                .// now set class name to none so there
+                .// are no duplicate variables
+                .assign class_type = ""
+              .end if
+    ${class_type} testR${rel.Numb}Inst = ${fcn.body}.${gnfn.body}$cr{phrase}(this, false);
 
-	if ( testR${rel.Numb}Inst != null )
-	{
-	${delete_check_boolean}
-	errorMsg = errorMsg + "${rel.Numb} ";
-	}		  		  
-		    .end if
-		  .end if
-		  .// end Composition Association tests
+    if ( testR${rel.Numb}Inst != null )
+    {
+    ${delete_check_boolean}
+    errorMsg = errorMsg + "${rel.Numb} ";
+    }                 
+            .end if
+          .end if
+          .// end Composition Association tests
         .end for
-	if(delete_error == true) {
+    if(delete_error == true) {
 
-		.if(package.is_eclipse_plugin)
-		if(${package.plugin_classname}.getDefault().isDebugging()) {
-			${package.application_root_class}.log.println(ILogger.DELETE, "${object.Name}", errorMsg);
-		}
-		else {
-			Exception e = new Exception();
+        .if(package.is_eclipse_plugin)
+        if(${package.plugin_classname}.getDefault().isDebugging()) {
+            ${package.application_root_class}.log.println(ILogger.DELETE, "${object.Name}", errorMsg);
+        }
+        else {
+            Exception e = new Exception();
             e.fillInStackTrace();
-			${package.plugin_classname}.logError(errorMsg, e);
-		}
-		.else
-		System.out.println(errorMsg);
-		.end if
-	}
-	return result;
+            ${package.plugin_classname}.logError(errorMsg, e);
+        }
+        .else
+        System.out.println(errorMsg);
+        .end if
+    }
+    return result;
   }
 
         .invoke hia = has_id_assigner( attributes )
         .if ( hia.result )
-	/**
-	 * Assigns IDs to instances of this class.
-	 */
+    /**
+     * Assigns IDs to instances of this class.
+     */
     private static IdAssigner idAssigner = new IdAssigner();
     
-	/**
-	 * See field.
-	 */
+    /**
+     * See field.
+     */
     public IdAssigner getIdAssigner() {return idAssigner;}
 
-	/**
-	 * See field.
-	 */
+    /**
+     * See field.
+     */
     public static IdAssigner getIdAssigner_() {return idAssigner;}
         .end if
   // end declare instance pool
@@ -1639,10 +1639,10 @@ private static ${class_name} find$cr{object.Name}Instance(ModelRoot modelRoot, $
       return false;      
   }      
           .if(package.is_root AND persistent)
-	        .invoke id_result = find_id(object)
+            .invoke id_result = find_id(object)
             .assign id = id_result.id
             .select many id_attrs related by id->O_OIDA[R105]->O_ATTR[R105]
-	        .if(not_empty id_attrs)
+            .if(not_empty id_attrs)
  public String getCompUniqueID(){
     UUID tempID=null;
     long longID=0L;
@@ -1660,11 +1660,11 @@ private static ${class_name} find$cr{object.Name}Instance(ModelRoot modelRoot, $
                 .end if
                 .select any referential related by id_attr->O_RATTR[R106]
     
-	            .if(not_empty referential)
+                .if(not_empty referential)
                   .if (not check_primitive_java.isPrimitive) 
         if(IdAssigner.NULL_UUID.equals(tempID))
-	      tempID=${aa.body}CachedValue(); 
-	              .else
+          tempID=${aa.body}CachedValue(); 
+                  .else
                     .// special case of Oid_ID as the value
                     .// will be -1 if not associated with ClassIdentifier
                     .if(id_attr.Name == "Oid_ID")
@@ -1672,15 +1672,15 @@ private static ${class_name} find$cr{object.Name}Instance(ModelRoot modelRoot, $
                     .else
         if(longID==0L)
                     .end if
-	      longID=${aa.body}CachedValue(); 
-	              .end if    
-	            .end if
-	            .if (not check_primitive_java.isPrimitive) 
-	      result.append(Long.toHexString(tempID.getMostSignificantBits()));
+          longID=${aa.body}CachedValue(); 
+                  .end if    
+                .end if
+                .if (not check_primitive_java.isPrimitive) 
+          result.append(Long.toHexString(tempID.getMostSignificantBits()));
           result.append(Long.toHexString(tempID.getLeastSignificantBits()));
-	            .else
-	      result.append(longID+"_");
-	            .end if     
+                .else
+          result.append(longID+"_");
+                .end if     
               .end for
     return result.toString();
  }
@@ -1705,7 +1705,7 @@ private static ${class_name} find$cr{object.Name}Instance(ModelRoot modelRoot, $
   public long ${aa.body}LongBased()
   {
     if(${an1.body}LongBased == 0 && !IdAssigner.NULL_UUID.equals(${an1.body})){
-    	return 0xfffffff & ${an1.body}.getLeastSignificantBits();
+        return 0xfffffff & ${an1.body}.getLeastSignificantBits();
     }
     return ${an1.body}LongBased ;
   }
@@ -1779,7 +1779,7 @@ ${blck.body}
               .end if
   }
 
-  		      .if ( empty dbattr )
+              .if ( empty dbattr )
                 .if ( not_empty referential )
                   .select many oref_set related by referential->O_REF[R108]
                   .for each oref in oref_set
@@ -1790,7 +1790,7 @@ ${blck.body}
                       .if ( foundSuperType == false )
                         .assign foundSuperType = true
  public boolean hasSuperType(){
- 	return  ( ${ref_var_name} != null );
+    return  ( ${ref_var_name} != null );
  
  }                  
                       .end if
@@ -1802,8 +1802,8 @@ ${blck.body}
               .if ( not_empty referential )
   public $r{typedecl.body} ${aa.body}CachedValue()
   {
-			    .// generate a check to see if the attribute value is the one
-			    .// for non-participation (if such a value has been defined)
+                .// generate a check to see if the attribute value is the one
+                .// for non-participation (if such a value has been defined)
                 .assign default_value = "${attribute.Descrip:Not_participating_value}"
                 .assign checkReference = true
                 .if (type.Name == "string")
@@ -1837,7 +1837,7 @@ ${blck.body}
               .// add it to the collection of unique ids for
               .// this class
               .if((iuia.result) and (empty referential))
-			    .assign uniqueids = uniqueids | attribute     
+                .assign uniqueids = uniqueids | attribute     
               .end if
               .select many tmp_oref_set related by referential->O_REF[R108]
               .assign oref_cnt = cardinality tmp_oref_set
@@ -1855,30 +1855,30 @@ ${blck.body}
     if(${an1.body} == newValue){
         return;
     }
-	AttributeChangeModelDelta change = new AttributeChangeModelDelta(Modeleventnotification_c.DELTA_ATTRIBUTE_CHANGE, this, "$cr{attribute.Name}", ${an1.body}, newValue,$l{persistent}); 
+    AttributeChangeModelDelta change = new AttributeChangeModelDelta(Modeleventnotification_c.DELTA_ATTRIBUTE_CHANGE, this, "$cr{attribute.Name}", ${an1.body}, newValue,$l{persistent}); 
                   .else                
                     .invoke check_primitive_java = is_java_primitive_type(type)
                     .if (check_primitive_java.isPrimitive)
-			          .invoke java_type = get_java_wrapper_type(type)
+                      .invoke java_type = get_java_wrapper_type(type)
     if(${an1.body} == newValue){
         return;
     }
     AttributeChangeModelDelta change = new AttributeChangeModelDelta(Modeleventnotification_c.DELTA_ATTRIBUTE_CHANGE, this, "$cr{attribute.Name}", new ${java_type.javaType}(${an1.body}), new ${java_type.javaType}(newValue),$l{persistent});
 
                       .// Since this is not a java primitve type, we dont need to send a 'new' warpper instance and hence we can send the object as it is
-    		        .else 
-	if(newValue != null){
-	    if(newValue.equals(${an1.body})){
-	        return;
-	    }
-	}else if(${an1.body} != null){
-	    if(${an1.body}.equals(newValue)){
-	        return;
-	    }
-	}else{
-	    return;
-	}
-	AttributeChangeModelDelta change = new AttributeChangeModelDelta(Modeleventnotification_c.DELTA_ATTRIBUTE_CHANGE, this, "$cr{attribute.Name}", ${an1.body}, newValue,$l{persistent}); 
+                    .else 
+    if(newValue != null){
+        if(newValue.equals(${an1.body})){
+            return;
+        }
+    }else if(${an1.body} != null){
+        if(${an1.body}.equals(newValue)){
+            return;
+        }
+    }else{
+        return;
+    }
+    AttributeChangeModelDelta change = new AttributeChangeModelDelta(Modeleventnotification_c.DELTA_ATTRIBUTE_CHANGE, this, "$cr{attribute.Name}", ${an1.body}, newValue,$l{persistent}); 
                     .end if  .// isPrimitive
                   .end if  .// type.name == "instance"
                 .end if   .// package....
@@ -1889,21 +1889,21 @@ ${blck.body}
    ${an1.body} = newValue ;
                 .end if
                 .if ((package.is_eclipse_plugin and prop_delta.result) and (not iuia.result))
-	              .if ((class_name == "SystemModel_c") and (attribute.Name == "Name"))				
-	    
+                  .if ((class_name == "SystemModel_c") and (attribute.Name == "Name"))              
+        
         // for each model-root in existence
         ${application_root_class}[] modelRoots = ${application_root_class}.getInstances();
         for (int i = 0; i < modelRoots.length; i++) {
-					Package_c[] pkgs = Package_c.PackageInstances(modelRoots[i], null, false);
-					for(int j = 0; j < pkgs.length; j++) {
-						Package_c pkg = pkgs[j];
-						if(SystemModel_c.getOneS_SYSOnR1401(pkg) == this) {
-							((Ooaofooa) (pkg.getModelRoot())).updateId(pkg.getName());
-						}
-					}
-        }
-	
-		          .end if
+                    Package_c[] pkgs = Package_c.PackageInstances(modelRoots[i], null, false);
+                    for(int j = 0; j < pkgs.length; j++) {
+                        Package_c pkg = pkgs[j];
+                        if(SystemModel_c.getOneS_SYSOnR1401(pkg) == this) {
+                            ((Ooaofooa) (pkg.getModelRoot())).updateId(pkg.getName());
+                        }
+                    }
+                    }
+    
+                  .end if
     ${package.application_root_class}.getDefaultInstance().fireModelElementAttributeChanged(change);
                 .end if
   }
@@ -1986,7 +1986,7 @@ ${gsm.body}\
   public Object getAdapter(Class adapter) {
     Object superAdapter = super.getAdapter(adapter);
     if(superAdapter != null) {
-    	return superAdapter;
+        return superAdapter;
     }
           .if ( not_empty filterOp )
     if (adapter == IActionFilter.class)
@@ -1996,54 +1996,54 @@ ${gsm.body}\
     }
           .end if
           .if ( object.AdapterName == "IFile" )
-	if (adapter == org.eclipse.core.resources.IResource.class) {
+    if (adapter == org.eclipse.core.resources.IResource.class) {
         PersistableModelComponent comp = getPersistableComponent(false);
         if ( comp != null )
         {
-        	return comp.getFile().getParent();
+            return comp.getFile().getParent();
         }
-	}else if(adapter == org.eclipse.core.resources.IFile.class) {
+    }else if(adapter == org.eclipse.core.resources.IFile.class) {
         PersistableModelComponent comp = getPersistableComponent(false);
         if ( comp != null )
         {
             return comp.getFile();
         }
-	}
-	      .end if
+    }
+          .end if
           .if ( object.AdapterName == "IProject" )
-	if (adapter == org.eclipse.core.resources.IResource.class
-		|| adapter == org.eclipse.core.resources.IProject.class) {
-		IProject[] project_set = CorePlugin.getWorkspace().getRoot().getProjects();
-		for (int i = 0; i < project_set.length; ++i) {
-			if (XtUMLNature.hasNature(project_set[i])) {
-				if (project_set[i].getName().equals(getName())) {
-					return project_set[i];	
-				}
-			}
-		}
-	} else if (adapter == org.eclipse.core.resources.IFile.class) {
-		return getFile();
-	} 
-	          .end if
-	  return null;
+    if (adapter == org.eclipse.core.resources.IResource.class
+        || adapter == org.eclipse.core.resources.IProject.class) {
+        IProject[] project_set = CorePlugin.getWorkspace().getRoot().getProjects();
+        for (int i = 0; i < project_set.length; ++i) {
+            if (XtUMLNature.hasNature(project_set[i])) {
+                if (project_set[i].getName().equals(getName())) {
+                    return project_set[i];  
+                }
+            }
+        }
+    } else if (adapter == org.eclipse.core.resources.IFile.class) {
+        return getFile();
+    } 
+              .end if
+      return null;
   }
           .if ( object.AdapterName == "IProject" )
-   	public Object[] getChildren() {
-		return getChildren(true);
-   	}
-	public Object[] getChildren(boolean load) {
+    public Object[] getChildren() {
+        return getChildren(true);
+    }
+    public Object[] getChildren(boolean load) {
 		// TODO: BOB remove this obsolete function
         List dom_set = new ArrayList();
         Object[] obj_set = dom_set.toArray();
         return obj_set;
-	}
-	public boolean hasChildren() {
-		return 	hasChildren(true);
-	}
-	public boolean hasChildren(boolean load) {
+    }
+    public boolean hasChildren() {
+        return  hasChildren(true);
+    }
+    public boolean hasChildren(boolean load) {
 		// TODO: BOB remove this obsolete function
-		return false;
-	}
+        return false;
+    }
           .end if
         .end if   .// eclipse plugin
 } // end ${object.Name}
@@ -2059,23 +2059,23 @@ import ${package.name}.${class_name};
 
 public class ${gafcn.body} implements IActionFilter
 {
-	private static ${gafcn.body} singleton;
+    private static ${gafcn.body} singleton;
 
-	public static ${gafcn.body} getSingleton()
-	{
-		if (singleton == null)
-			singleton = new ${gafcn.body}();
-		return singleton;
-	}
+    public static ${gafcn.body} getSingleton()
+    {
+        if (singleton == null)
+            singleton = new ${gafcn.body}();
+        return singleton;
+    }
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.ui.IActionFilter#testAttribute(java.lang.Object, java.lang.String, java.lang.String)
-	 */
-	public boolean testAttribute(Object target, String name, String value)
-	{
-		${class_name} x = (${class_name}) target;
+    /* (non-Javadoc)
+     * @see org.eclipse.ui.IActionFilter#testAttribute(java.lang.Object, java.lang.String, java.lang.String)
+     */
+    public boolean testAttribute(Object target, String name, String value)
+    {
+        ${class_name} x = (${class_name}) target;
         return x.Actionfilter( name, value); 
-	}
+    }
 
 }
           .emit to file "${project_root}/${package.location}/${gafcn.body}.java"
@@ -2111,7 +2111,7 @@ public class $cr{object.Name}_assgner_c extends Thread
         procEvent() ;
       }
       yield() ;
-	  //try{wait() ;} catch (Exception e){}	  	
+      //try{wait() ;} catch (Exception e){}     
     } while (true) ;
   }
   private static $cr{object.Name}_assgner_c instance = new $cr{object.Name}_assgner_c();
@@ -2137,7 +2137,7 @@ package ${package.name};
 
   .if (package.is_eclipse_plugin)
     .if (package.is_root)
-	  .// Ooaofooa imports
+      .// Ooaofooa imports
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
@@ -2145,7 +2145,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.xtuml.bp.core.util.UIUtil;
 import org.eclipse.core.runtime.IProgressMonitor;
     .else
-	  .// Ooaofgraphics imports
+      .// Ooaofgraphics imports
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.xtuml.bp.core.*;
     .end if
@@ -2162,9 +2162,9 @@ import ${package.name}.common.*;
 public class ${application_root_class} 
   .if (package.is_eclipse_plugin)
     .if (package.is_root)
-	extends Eclipse${application_root_class}
+    extends Eclipse${application_root_class}
     .else
-	extends ${application_root_class}Base 
+    extends ${application_root_class}Base 
     .end if
   .else
     extends ModelRoot
@@ -2172,60 +2172,60 @@ public class ${application_root_class}
 {
   .if ((package.is_eclipse_plugin) and (package.is_root))
   // To modify these counters the caller must first acquire
-	// the appropriate semaphore.  These should not be directly 
-	// manipulated, use the helper functions defined below.
-	// These are used to prevent verifier execution during save operations
-	// while allowing multiple saves or multiple verifier threads to run
+    // the appropriate semaphore.  These should not be directly 
+    // manipulated, use the helper functions defined below.
+    // These are used to prevent verifier execution during save operations
+    // while allowing multiple saves or multiple verifier threads to run
   // concurrently.  In order to prevent multiple threads running against
   // the same Execution Engine at the same time, we keep a map of
   // currently running I_EXEs. Subsequent threads running against an 
   // already running I_EXE must wait until the former is finished.
-	public static volatile int verifiersRunning = 0;
-	public static Object verifiersRunningSemaphore = new Object();
-	public static volatile int threadsSaving = 0;
-	public static Object threadsSavingSemaphore = new Object();
+    public static volatile int verifiersRunning = 0;
+    public static Object verifiersRunningSemaphore = new Object();
+    public static volatile int threadsSaving = 0;
+    public static Object threadsSavingSemaphore = new Object();
   public static Map<UUID,Integer> verifiersRunningMap = new ConcurrentHashMap<UUID,Integer>();
 
-	public static void beginSaveOperation() {
-		synchronized (threadsSavingSemaphore) {
-			if (threadsSaving == 0) {
-				while (verifiersRunning > 0) {
-					try {
-						synchronized (verifiersRunningSemaphore) {
-							verifiersRunningSemaphore.wait();
-						}
-					} catch (InterruptedException e) {
+    public static void beginSaveOperation() {
+        synchronized (threadsSavingSemaphore) {
+            if (threadsSaving == 0) {
+                while (verifiersRunning > 0) {
+                    try {
+                        synchronized (verifiersRunningSemaphore) {
+                            verifiersRunningSemaphore.wait();
+                        }
+                    } catch (InterruptedException e) {
 
-					}
-				}
-			}
+                    }
+                }
+            }
 
-			threadsSaving++;
-		}
-	}
+            threadsSaving++;
+        }
+    }
 
-	public static void endSaveOperation() {
-		synchronized (threadsSavingSemaphore) {
-			threadsSaving--;
-			if (threadsSaving == 0) {
-				threadsSavingSemaphore.notify();
-			}
-		}
-	}
+    public static void endSaveOperation() {
+        synchronized (threadsSavingSemaphore) {
+            threadsSaving--;
+            if (threadsSaving == 0) {
+                threadsSavingSemaphore.notify();
+            }
+        }
+    }
 
     public static void beginVerifierExecution(UUID engineID) {
         try {
-		synchronized (verifiersRunningSemaphore) {
-			if (verifiersRunning == 0) {
-				while (threadsSaving > 0) {
-						synchronized (threadsSavingSemaphore) {
-							threadsSavingSemaphore.wait();
+        synchronized (verifiersRunningSemaphore) {
+            if (verifiersRunning == 0) {
+                while (threadsSaving > 0) {
+                        synchronized (threadsSavingSemaphore) {
+                            threadsSavingSemaphore.wait();
                         }
                     }
                 }
 
                 verifiersRunning++;
-						}
+                        }
 
             synchronized (engineID) {
                 if ( !verifiersRunningMap.containsKey(engineID) ) {
@@ -2234,9 +2234,9 @@ public class ${application_root_class}
                     if ( verifiersRunningMap.containsKey(engineID) ) {
                         engineID.wait();
                         verifiersRunningMap.put(engineID, 0);
-					}
-				}
-			}
+                    }
+                }
+            }
         } catch (InterruptedException e) {
         }
     }
@@ -2245,20 +2245,20 @@ public class ${application_root_class}
         synchronized (engineID) {
             verifiersRunningMap.remove(engineID);
             engineID.notify();
-		}
+        }
 
-		synchronized (verifiersRunningSemaphore) {
-			verifiersRunning--;
-			if (verifiersRunning == 0) {
-				verifiersRunningSemaphore.notifyAll();
-			}
-		}
-	}
+        synchronized (verifiersRunningSemaphore) {
+            verifiersRunning--;
+            if (verifiersRunning == 0) {
+                verifiersRunningSemaphore.notifyAll();
+            }
+        }
+    }
 
   .end if
     protected ${application_root_class}(String aRootId)
     {
-    	super(aRootId);
+        super(aRootId);
   .if (not package.is_eclipse_plugin)
         log = new ${package.logger}Logger();
   .end if
@@ -2272,12 +2272,12 @@ IProgressMonitor pm\
   {
   .select many total_class_set from instances of O_OBJ
   .select many pei_classes from instances of O_OBJ where ("${selected.Descrip:PEI}" == "true")
-  .assign num_classes = cardinality total_class_set - cardinality pei_classes
+  .assign num_classes = ((cardinality total_class_set) - (cardinality pei_classes))
   .if (package.is_eclipse_plugin)
-	pm.beginTask("Clearing database...", ${num_classes});
-  .end if	
+    pm.beginTask("Clearing database...", ${num_classes});
+  .end if   
   .if (package.ui_root_class_name != "" )
-  	setRoot( null );
+    setRoot( null );
   .end if
   .select many class_set from instances of O_OBJ;
   .for each class in class_set
@@ -2292,8 +2292,8 @@ IProgressMonitor pm\
     
   .if (package.is_eclipse_plugin)
     .if (package.is_root) 
-	 	super.clearDatabase(pm);  
-	.end if 
+        super.clearDatabase(pm);  
+    .end if 
   .end if
   }
   //
@@ -2341,7 +2341,7 @@ ${blck.body}
   .end for
   // End Domain functions
 
-	/**
+    /**
      * The single model-root that used to be accessed by most of the code
      * back when only one domain could be loaded into the product at a time.
      * 
@@ -2352,49 +2352,49 @@ ${blck.body}
      */
     protected static ${application_root_class} m_default_instance = null;
 
-	public static ${application_root_class} getDefaultInstance() 
-	{
+    public static ${application_root_class} getDefaultInstance() 
+    {
         if (m_default_instance == null) {
             m_default_instance = getInstance(DEFAULT_WORKING_MODELSPACE);
         }
         return m_default_instance;
     }
-	
-	public static ${application_root_class} getInstance(String id) 
-	{
-		${application_root_class} modelRoot = (${application_root_class}) rootInstanceMap.get(id);
-		if (modelRoot == null) {
-			modelRoot = new ${application_root_class}(id);
-			if (DEFAULT_WORKING_MODELSPACE.equals(id)) {
-				m_default_instance = modelRoot;
-				init();
-			}
-		}
-				
-		return modelRoot;
-	}
+    
+    public static ${application_root_class} getInstance(String id) 
+    {
+        ${application_root_class} modelRoot = (${application_root_class}) rootInstanceMap.get(id);
+        if (modelRoot == null) {
+            modelRoot = new ${application_root_class}(id);
+            if (DEFAULT_WORKING_MODELSPACE.equals(id)) {
+                m_default_instance = modelRoot;
+                init();
+            }
+        }
+                
+        return modelRoot;
+    }
 
   .if ( not package.is_eclipse_plugin )
     protected static Map rootInstanceMap = new Hashtable();
   
   public static void main(String[] args)
   {
-  	// this will start it all off
-	  ${application_root_class}.getDefaultInstance();
+    // this will start it all off
+      ${application_root_class}.getDefaultInstance();
   }
   
   .end if
-	static private masterTimer_c m_myMasterTimer;
+    static private masterTimer_c m_myMasterTimer;
   .if (package.threading_model=="polling")  
-	static private Activepoller_c m_myPoller ;
+    static private Activepoller_c m_myPoller ;
 
   .end if
   protected static void init()
   {
 
   .if (package.threading_model=="polling")  
-	m_myPoller = new Activepoller_c() ;
-	m_myPoller.start() ;
+    m_myPoller = new Activepoller_c() ;
+    m_myPoller.start() ;
 
   .end if
     if(m_myMasterTimer != null){
@@ -2402,7 +2402,7 @@ ${blck.body}
         m_myMasterTimer.start() ;
     }
 
-  .include "${project_root}/color/${rpn_result.body}_startspec.clr"
+  .include "${project_root}/color/$l{rpn_result.body}_startspec.clr"
   .invoke result = define_startspec()
   .if (result.init_class != "")
     .assign init_class_name = "${result.init_class}_c"
@@ -2433,7 +2433,7 @@ ${blck.body}
    }
   .if (package.threading_model=="polling")  
     if (m_myPoller != null) {
-    	m_myPoller.halt() ;
+        m_myPoller.halt() ;
     }
   .end if
   }

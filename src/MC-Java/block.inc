@@ -22,6 +22,7 @@
   .select many elif_statements  related by blck->ACT_SMT[R602]->ACT_EL[R603]->ACT_SMT[R603]
   .assign statements = statements - else_statements
   .assign statements = statements - elif_statements
+  .select any last_statement from instances of ACT_SMT where (false)
   .for each last_statement in statements
     .if (last_statement.Previous_Statement_Id == 0)
       .break for
