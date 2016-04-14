@@ -285,10 +285,10 @@ ${test_error.body}
           Exception e = new Exception();
           ${package.plugin_classname}.logError("${error_message}" ${identifier_string}, e); //$$NON-NLS-1$$
       }
-    .end if
       .else
       System.out.println("${error_message}" ${identifier_string}); //$$NON-NLS-1$$
       .end if
+    .end if
   .end if
       retval = false;
 .end function
