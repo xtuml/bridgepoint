@@ -37,13 +37,13 @@ This document describes the MC-Java implementation.
 Proxies were introduced into BridgePoint when multi-file persistence (PLCM) was introduced. The following 
 engineering documents describe this:  
 
-<a id="2.7.1"></a>2.7.1 [PLCM Technical Note](i8455.tnt)  
+<a id="2.7.1"></a>2.7.1 [PLCM Technical Note](i845.tnt)  
 This note captures the initial brain-storming done regarding the PLCM project.  
 
 <a id="2.7.2"></a>2.7.2 [PLCM Final Analysis Note](i845-PLCM_1_0.ant)  
 This is the final PLCM analysis note. The PLCM project was long-lived, and there was an initial analysis note but this one was created at the time the project was split into smaller deliverables.  
 
-<a id="2.7.3"></a>2.7.3 [PLCM Design Note for milestone 2](i8455-2.dnt)  
+<a id="2.7.3"></a>2.7.3 [PLCM Design Note for milestone 2](i845-2.dnt)  
 This note captures the design note of PLCM as related to proxies.  
 
 
