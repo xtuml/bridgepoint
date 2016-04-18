@@ -31,6 +31,21 @@ Proxy paths are not written consistently.
 <a id="2.5"></a>2.5 [MC-Java Implementation Document](https://github.com/xtuml/bridgepoint/blob/master/src/MC-Java/README.TXT)  
 This document describes the MC-Java implementation.  
 
+<a id="2.6"></a>2.6 [Remove dead code assocaited with proxies](https://support.onefact.net/issues/8455)  
+  
+<a id="2.7"></a>2.7 Documentation associated with the introduction of proxies in BridgePoint  
+Proxies were introduced into BridgePoint when multi-file persistence (PLCM) was introduced. The following 
+engineering documents describe this:  
+
+<a id="2.7.1"></a>2.7.1 [PLCM Technical Note](i8455.tnt)  
+This note captures the initial brain-storming done regarding the PLCM project.  
+
+<a id="2.7.2"></a>2.7.2 [PLCM Final Analysis Note](i845-PLCM_1_0.ant)  
+This is the final PLCM analysis note. The PLCM project was long-lived, and there was an initial analysis note but this one was created at the time the project was split into smaller deliverables.  
+
+<a id="2.7.3"></a>2.7.3 [PLCM Design Note for milestone 2](i8455-2.dnt)  
+This note captures the design note of PLCM as related to proxies.  
+
 
 3. Background   
 -------------     
