@@ -14,10 +14,10 @@ Move functionality in BridgePoint.
 
 2. Document References     
 ----------------------   
-<a id="2.1"></a>2.1 [BridgePoint DEI #8321](https://support.onefact.net/redmine/issues/8321) 
+<a id="2.1"></a>2.1 [BridgePoint DEI #8321](https://support.onefact.net/issues/8321) 
 This is a link to this issue in the issue tracking system.  
 
-<a id="2.2"></a>2.2 [Analysis of Model Element Move #8031](https://support.onefact.net/redmine/issues/8031) 
+<a id="2.2"></a>2.2 [Analysis of Model Element Move #8031](https://support.onefact.net/issues/8031) 
 The [analysis produced by this work allowed]
 (../8031_Analyze_Model_Element_Move/8031_Analyze_Model_Element_Move.ant.md) was used 
 during the SOW creation to help define the requirements for this project.  
