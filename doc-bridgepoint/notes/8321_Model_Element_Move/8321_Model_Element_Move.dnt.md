@@ -14,10 +14,10 @@ Move functionality in BridgePoint.
 
 2. Document References     
 ----------------------   
-<a id="2.1"></a>2.1 [BridgePoint DEI #8321](https://support.onefact.net/redmine/issues/8321) 
+<a id="2.1"></a>2.1 [BridgePoint DEI #8321](https://support.onefact.net/issues/8321) 
 This is a link to this issue in the issue tracking system.  
 
-<a id="2.2"></a>2.2 [Analysis of Model Element Move #8031](https://support.onefact.net/redmine/issues/8031) 
+<a id="2.2"></a>2.2 [Analysis of Model Element Move #8031](https://support.onefact.net/issues/8031) 
 The [analysis produced by this work allowed]
 (../8031_Analyze_Model_Element_Move/8031_Analyze_Model_Element_Move.ant.md) was used 
 during the SOW creation to help define the requirements for this project.  
@@ -25,21 +25,37 @@ during the SOW creation to help define the requirements for this project.
 <a id="2.3"></a>2.3 [Statement of Work](https://docs.google.com/document/d/1_T4H7StO-VM8zfIFjr-V7VwUQMXML1c7nFJJofU0vGs/edit)  
 This is a link to this issue's Statement of Work document.  
 
-<a id="2.4"></a>2.4 [Statement of Work](https://docs.google.com/document/d/1_T4H7StO-VM8zfIFjr-V7VwUQMXML1c7nFJJofU0vGs/edit)  
-This is a link to this issue's Statement of Work document.  
+<a id="2.4"></a>2.4 [Inconsistent proxy paths](https://support.onefact.net/issues/8454)  
+Proxy paths are not written consistently.  
 
-<a id="2.5"></a>2.5 [Inconsistent proxy paths](https://support.onefact.net/issues/8454)  
-Proxy paths are written consistently.  
+<a id="2.5"></a>2.5 [MC-Java Implementation Document](https://github.com/xtuml/bridgepoint/blob/master/src/MC-Java/README.TXT)  
+This document describes the MC-Java implementation.  
+
+<a id="2.6"></a>2.6 [Remove dead code associated with proxies](https://support.onefact.net/issues/8455)  
+  
+<a id="2.7"></a>2.7 Documentation associated with the introduction of proxies in BridgePoint  
+Proxies were introduced into BridgePoint when multi-file persistence (PLCM) was introduced. The following 
+engineering documents describe this:  
+
+<a id="2.7.1"></a>2.7.1 [PLCM Technical Note](i845.tnt)  
+This note captures the initial brain-storming done regarding the PLCM project.  
+
+<a id="2.7.2"></a>2.7.2 [PLCM Final Analysis Note](i845-PLCM_1_0.ant)  
+This is the final PLCM analysis note. The PLCM project was long-lived, and there was an initial analysis note but this one was created at the time the project was split into smaller deliverables.  
+
+<a id="2.7.3"></a>2.7.3 [PLCM Design Note for milestone 2](i845-2.dnt)  
+This note captures the design note of PLCM as related to proxies.  
+
 
 3. Background   
 -------------     
 
-See the background in [[2.2]](#2.2) as well as the background in the SOW [[2.3]](#2.3).
+See the background in [the analysis note](../8031_Analyze_Model_Element_Move/8031_Analyze_Model_Element_Move.ant.md).
 
 4. Requirements   
 ---------------   
-The requirements are defined in this issue's SOW [[2.3]](#2.3). For convenience, 
-the requirement defined in the SOW are being carried forward here. This design 
+The requirements are defined in this issue's [Statement of Work](#2.3). For convenience, 
+the requirements defined in the SOW are being carried forward here. This design 
 shall create some additional requirements based on the selected implementation. 
 These additional requirements shall be placed after the last requirement copied  
 from the SOW.  
@@ -78,8 +94,51 @@ not a valid move selection.
 
 5. Analysis   
 -----------   
-See [[2.2]](#2.2)
+See the [Analysis Note](../8031_Analyze_Model_Element_Move/8031_Analyze_Model_Element_Move.ant.md). Here we will add some addtional proxy analysis. We do this because it is observed that there are mulitple ways to perform the implemenataion for this task, and we want to assure we look at overall product roadmap as we perform this task to leverage the work to move us toward longer term product goals that may be related. Specfically, it is desirable to remove proxies.
 
+5.1 Proxy analysis with an eye to proxy removal  
+Section 1 of the [PLCM design note for proxies](i845-2.dnt) describes the proxy implementation. The reader should review it before proceeding.  
+
+The BridgePoint NonRootModelElement.java class contains an opertion, boolean isProxy(), used to determine 
+if an in-memory instance is a proxy or not. To determine if the element is a proxy, it looks at the string attribute
+NonRootModelElement.java::m_contentPath and if that attribute is not null then the element IS a proxy.
+
+5.1.1 As described in the [PLCM design note for proxies](i845-2.dnt), proxies are implemented with the followed generated operations:  
+*  createProxy(..[all parameters].., String filePath)  
+Returns an instance.  
+*  resolveInstance(..[all parameters]..)   
+Searches, by UUID for a matching instance and returns the instance if found. If not found, creates a new instance.  
+* convertToProxy()  
+Convert a real instance to a proxy.
+* convertToRealInstance(..[all parameters]..)  
+Convert a proxy to a real instance.  
+
+5.1.2 Things proxies are currently used for
+* lazy loading
+
+5.1.3 Removal of proxies  
+5.1.3.1 Remove generated code used to persist proxies  
+* remove convertToProxy()
+* Stop generarting the operations that write proxies
+** io.core/arc/export_functions.inc
+** io.mdl/arc/gen_stream_export_.arc
+
+5.1.3.2 Load the whole model at startup
+```
+// nrme is the NonRootModelElement associated with the SystemModel_c instance
+PersistableModelComponent pmc = nrme.getPersistableComponent();
+			pmc.loadComponentAndChildren(new NullProgressMonitor());
+```  
+5.1.3.3 Remove generation of convertFromProxy() and delayed problem marker code  
+```java
+    public void convertFromProxy() {
+        if (isProxy()) {
+            m_contentPath = null;
+            UmlProblem.proxyResolved(this);
+        }
+    }
+```  
+5.1.3.4 Remove generation of convertToRealInstance()  
 
 6. Design   
 ----------------   
@@ -139,7 +198,24 @@ the atomic move take place.
 
 7. Design Comments   
 ------------------   
-none  
+7.1 Remove dead code associated with proxies  
+During proxy analysis it was observed that opertation in the coloring file 
+bp.core/color/ooaofooa_package_spec.clr that were used in the past to 
+specify proxy class containment are no longer used. This was found while 
+looking at a reference to how proxies were initially  
+[i845 Technical note section 2.1.1 ](i845.tnt) in combination with a review
+of the [MC-Java Implementation Document](https://github.com/xtuml/bridgepoint/blob/master/src/MC-Java/README.TXT). 
+An issue was raised to remove this dead code []() and the task was performed.
+7.1.1 Remove the following opertions from bp.core/color/ooaofooa_package_spec.clr
+* markComponentsAndContainments
+* markComponentRoot
+* markContainmentAssociation
+7.1.2 Remove places where markComponentsAndContainments() was called. 
+
+
+
+
+
 
 7. Acceptance Test   
 ------------------  
