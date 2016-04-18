@@ -25,11 +25,12 @@ during the SOW creation to help define the requirements for this project.
 <a id="2.3"></a>2.3 [Statement of Work](https://docs.google.com/document/d/1_T4H7StO-VM8zfIFjr-V7VwUQMXML1c7nFJJofU0vGs/edit)  
 This is a link to this issue's Statement of Work document.  
 
-<a id="2.4"></a>2.4 [Statement of Work](https://docs.google.com/document/d/1_T4H7StO-VM8zfIFjr-V7VwUQMXML1c7nFJJofU0vGs/edit)  
-This is a link to this issue's Statement of Work document.  
+<a id="2.4"></a>2.4 [Inconsistent proxy paths](https://support.onefact.net/issues/8454)  
+Proxy paths are not written consistently.  
 
-<a id="2.5"></a>2.5 [Inconsistent proxy paths](https://support.onefact.net/issues/8454)  
-Proxy paths are written consistently.  
+<a id="2.5"></a>2.5 [MC-Java Implementation Document](https://github.com/xtuml/bridgepoint/blob/master/src/MC-Java/README.TXT)  
+This document describes the MC-Java implementation.  
+
 
 3. Background   
 -------------     
@@ -155,11 +156,15 @@ the atomic move take place.
 7.1 Remove dead code associated with proxies  
 During proxy analysis it was observed that the coloring file 
 bp.core/color/ooaofooa_package_spec.clr that was used in the past to 
-specify proxy classes is no longer used. This was found looking at a reference to 
-how proxies were modified during the implementation of multi file persistence 
+specify proxy classes contained operations no longer used. This was found while 
+looking at a reference to how proxies were initially  
 [i845 Technical note section 2.1.1 ](i845.tnt).  An issue was reaised to remove 
 this dead code []() and the task was performed.
-
+7.1.1 Remove the following opertions from bp.core/color/ooaofooa_package_spec.clr
+* markComponentsAndContainments
+* markComponentRoot
+* markContainmentAssociation
+7.1.2 Remove places where markComponentsAndContainments() was called. 
 
 
 
