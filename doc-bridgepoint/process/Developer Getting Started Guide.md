@@ -50,7 +50,7 @@ Instructions
     
   - Prepare the development environment to call gen_erate. In the command below replace "\<version\>" with the version of the product:
   ```
-  cp -Rp ~/xtuml/BridgePoint/eclipse/plugins/org.xtuml.bp.mc.c.binary_<version>/mc3020/* ~/git/bridgepoint/src/org.xtuml.bp.mc.c.binary/mc3020
+  cp -Rp ~/xtuml/BridgePoint/eclipse/plugins/org.xtuml.bp.mc.c.source_<version>/mc3020/* ~/git/bridgepoint/src/org.xtuml.bp.mc.c.source/mc3020
   ```
   - Prepare your development workspace with the required preferences. 
   ```

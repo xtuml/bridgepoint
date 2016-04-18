@@ -29,6 +29,6 @@ Require-Bundle: org.eclipse.core.runtime,
  org.xtuml.bp.io.mdl,
  org.eclipse.team.ui,
  org.xtuml.bp.mc,
- org.xtuml.bp.mc.c.binary
+ org.xtuml.bp.mc.c.source
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy

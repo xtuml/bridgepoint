@@ -51,7 +51,7 @@ import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.common.PersistableModelComponent;
 import org.xtuml.bp.mc.AbstractActivator;
 import org.xtuml.bp.mc.AbstractNature;
-import org.xtuml.bp.mc.c.binary.ExportBuilder;
+import org.xtuml.bp.mc.c.source.ExportBuilder;
 
 public class Generator extends Task {
     
@@ -125,9 +125,14 @@ public class Generator extends Task {
                 // we can invoke xtumlmc_build properly.
                 AbstractNature nature = null;
                 AbstractActivator activator = null;
-                if ( project.hasNature(org.xtuml.bp.mc.c.binary.MCNature.MC_NATURE_ID) || project.hasNature(org.xtuml.bp.mc.c.binary.MCNature.MC_NATURE_ID_OLD) ) {
-                    nature = org.xtuml.bp.mc.c.binary.MCNature.getDefault();
-                    activator = org.xtuml.bp.mc.c.binary.Activator.getDefault();
+                
+                // These are used for backwards compatibility in the newer BP without a binary MC
+            	final String BIN_C_MC_NATURE_ID = "org.xtuml.bp.mc.c.binary.MCNature"; //NON-NLS-1
+            	final String BIN_C_MC_NATURE_ID_OLD = "com.mentor.nucleus.bp.mc.c.binary.MCNature"; //NON-NLS-1
+
+                if ( project.hasNature(BIN_C_MC_NATURE_ID) || project.hasNature(BIN_C_MC_NATURE_ID_OLD) ) {
+                    nature = org.xtuml.bp.mc.c.source.MCNature.getDefault();
+                    activator = org.xtuml.bp.mc.c.source.Activator.getDefault();
                 }
                 else if ( project.hasNature(org.xtuml.bp.mc.c.source.MCNature.MC_NATURE_ID) || project.hasNature(org.xtuml.bp.mc.c.source.MCNature.MC_NATURE_ID_OLD) ) {
                     nature = org.xtuml.bp.mc.c.source.MCNature.getDefault();

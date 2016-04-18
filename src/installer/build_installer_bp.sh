@@ -39,11 +39,11 @@ ECLIPSE_VER="4.5"
 OS="windows"
 BP_BASE_DIR="${STAGING_PATH}/${PRODUCT_NAME}_e${ECLIPSE_VER}"
 DOCGEN_EXE="docgen.exe"
-MCMC_EXE="org.xtuml.bp.mc.c.binary_${BP_VERSION}/mc3020/bin/mcmc.exe"
+MCMC_EXE="org.xtuml.bp.mc.c.source_${BP_VERSION}/mc3020/bin/mcmc.exe"
 if [ "${OS_ARG,,}" = "linux" ] || [ "${OS_ARG,,}" = "osx" ]; then
   OS="linux"
   BP_BASE_DIR="${STAGING_PATH}/${PRODUCT_NAME}_for_Linux_e${ECLIPSE_VER}"
-  MCMC_EXE="org.xtuml.bp.mc.c.binary_${BP_VERSION}/mc3020/bin/mcmc"
+  MCMC_EXE="org.xtuml.bp.mc.c.source_${BP_VERSION}/mc3020/bin/mcmc"
   DOCGEN_EXE="docgen"
 fi
 
@@ -82,11 +82,6 @@ echo "INFO: Done."
 echo "INFO: Configuring correct mc build tools for ${OS}."
 cd "${PRODUCT_NAME}/eclipse/plugins"
 if [ "${OS}" = "linux" ]; then
-      mcplugin="./org.xtuml.bp.mc.c.binary_${BP_VERSION}/mc3020/bin"
-      tr -d '\r' < ${mcplugin}/xtumlmc_build > ${mcplugin}/xtumlmc_build.exe
-      cp -f ${mcplugin}/xtumlmc_build.exe ${mcplugin}/xtumlmc_build
-      mv -f ${mcplugin}/gen_erate.py ${mcplugin}/gen_erate.pyz
-
       mcplugin="./org.xtuml.bp.mc.c.source_${BP_VERSION}/mc3020/bin"
       tr -d '\r' < ${mcplugin}/xtumlmc_build > ${mcplugin}/xtumlmc_build.exe
       cp -f ${mcplugin}/xtumlmc_build.exe ${mcplugin}/xtumlmc_build
@@ -107,9 +102,6 @@ if [ "${OS}" = "linux" ]; then
       cp -f ${mcplugin}/xtumlmc_build.exe ${mcplugin}/xtumlmc_build
       mv -f ${mcplugin}/gen_erate.py ${mcplugin}/gen_erate.pyz
 else
-      mcplugin="./org.xtuml.bp.mc.c.binary_${BP_VERSION}/mc3020/bin"
-      mv -f ${mcplugin}/xtumlmc_build.exe.win ${mcplugin}/xtumlmc_build.exe
-
       mcplugin="./org.xtuml.bp.mc.c.source_${BP_VERSION}/mc3020/bin"
       mv -f ${mcplugin}/xtumlmc_build.exe.win ${mcplugin}/xtumlmc_build.exe
 

@@ -46,10 +46,6 @@ Steps
 
   - Select all projects in the workspace, refresh them to pick up the changes
   
-  - Update the version inside the `.classpath` file inside `org.xtuml.bp.welcome/models/GPS Watch.zip`
-    - We have found that graphical zipfile editors (like the built-in Archive Manager tool on Ubuntu) allow
-      you to open the zipfile, then edit the `.classpath` file in place.
-    
   R Version update is now complete, all files that must be modified are now
    "dirty" in your workspace.   
 
