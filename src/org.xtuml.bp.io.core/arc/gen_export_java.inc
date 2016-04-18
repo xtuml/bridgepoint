@@ -14,7 +14,6 @@
 .//====================================================================
 .//
 .//
-.include "../org.xtuml.bp.core/color/ooaofooa_package_spec.clr"
 .include "../org.xtuml.bp.io.core/arc/export_functions.inc"
 .//
 .//====================================================================

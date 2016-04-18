@@ -492,9 +492,6 @@ p_${an.body}\
 .include "color/${rpn_result.body}_package_spec.clr"
 .invoke package = get_package()
 .assign application_root_class = package.application_root_class
-.if(application_root_class == "Ooaofooa")
-  .invoke containment = markComponentsAndContainments()
-.end if
 .//
 
 .//

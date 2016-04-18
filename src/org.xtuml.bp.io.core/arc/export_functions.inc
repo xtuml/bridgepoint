@@ -20,9 +20,6 @@
 .//
 .function sourceVariables
   .invoke package = get_package()
-  .if(package.application_root_class == "Ooaofooa")
-    .invoke compMark = markComponentsAndContainments()
-  .end if
   .assign attr_main_class_name = "${package.application_root_class}"
   .// Subordinate package: Canvas
   .assign attr_sub_class_name = "Ooaofgraphics"

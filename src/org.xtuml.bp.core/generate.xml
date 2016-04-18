@@ -149,7 +149,7 @@
   </target>
 
   <property name="java.sql.dep" value="${sql.output}" />
-  <property name="java.color.dep" value="ooaofooa_startspec.clr,ooaofooa_import_spec.clr,ooaofooa_package_spec.clr" />
+  <property name="java.color.dep" value="ooaofooa_startspec.clr,ooaofooa_import_spec.clr" />
   <property name="java.tj.dep" value="ooa_schema.sql,${java.arc.depends}" />
 
   <property name="java.output" value="src/org/xtuml/bp/core/Ooaofooa.java" />

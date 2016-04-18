@@ -75,7 +75,6 @@
        <srcfiles dir = "arc"        includes = "gen_import_java.arc,gen_xtuml_import_java.arc, gen_stream_import.arc"/>
        <srcfiles dir = "${iocore_path}/arc"		includes = "gen_import_java.inc,import_functions.inc,generate_configurable_components.inc" />
        <srcfiles dir = "${iocore_path}/sql"		includes = "${schema}" />
-     <srcfiles dir = "${core_path}/color" includes = "ooaofooa_package_spec.clr" />
      <srcfiles dir = "${core_path}/sql" includes = "${sql.output}" />
        <srcfiles dir = "sql"        includes = "${class2table.output},file_io.pei.sql"/>
        <srcfiles dir = "${mcj_path}" includes = "arch_utils.inc"/>
@@ -91,7 +90,6 @@
        <srcfiles dir = "arc"        includes = "gen_export_java.arc,gen_xtuml_export_java.arc"/>
        <srcfiles dir = "${iocore_path}/arc"		includes = "gen_export_java.inc,export_functions.inc,generate_configurable_components.inc" />
        <srcfiles dir = "${iocore_path}/sql"		includes = "${schema}" />
-     <srcfiles dir = "${core_path}/color" includes = "ooaofooa_package_spec.clr" />
      <srcfiles dir = "${core_path}/sql" includes = "${sql.output}" />
        <srcfiles dir = "sql"        includes = "${class2table.output},file_io.pei.sql"/>
        <srcfiles dir = "${mcj_path}" includes = "arch_utils.inc"/>
@@ -103,7 +101,6 @@
        <srcfiles dir = "arc"        includes = "gen_stream_export.arc"/>
        <srcfiles dir = "${iocore_path}/arc"		includes = "gen_export_java.inc, export_functions.inc,generate_configurable_components.inc" />
        <srcfiles dir = "${iocore_path}/sql"		includes = "${schema}" />
-        <srcfiles dir = "${core_path}/color" includes = "ooaofooa_package_spec.clr" />
        <srcfiles dir = "${core_path}/sql" includes = "${sql.output}" />
        <srcfiles dir = "${core_path}/arc" includes = "parse_chain.inc" />
        <srcfiles dir = "sql"        includes = "${class2table.output},stream.pei.sql"/>
@@ -118,7 +115,6 @@
          <srcfiles dir = "arc"        includes = "create_persistence_meta_data.arc,"/>
          <srcfiles dir = "${iocore_path}/arc"		includes = "generate_configurable_components.inc" />
          <srcfiles dir = "${iocore_path}/sql"		includes = "${schema}" />
-       <srcfiles dir = "${core_path}/color" includes = "ooaofooa_package_spec.clr" />
        <srcfiles dir = "${core_path}/sql" includes = "${sql.output}" />
          <srcfiles dir = "sql"        includes = "${class2table.output},file_io.pei.sql"/>
          <srcfiles dir = "${mcj_path}" includes = "arch_utils.inc"/>
@@ -132,7 +128,6 @@
          <srcfiles dir = "arc"        includes = "gen_uuid_convert_util.arc"/>
          <srcfiles dir = "${iocore_path}/arc"		includes = "generate_configurable_components.inc" />
          <srcfiles dir = "${iocore_path}/sql"		includes = "${schema}" />
-       <srcfiles dir = "${core_path}/color" includes = "ooaofooa_package_spec.clr" />
          <srcfiles dir = "sql"        includes = "${class2table.output},file_io.pei.sql"/>
          <srcfiles dir = "${mcj_path}" includes = "arch_utils.inc"/>
       </uptodate>
@@ -270,7 +265,6 @@
          <srcfiles dir = "arc"        includes = "create_external_link_evaluator.arc"/>
          <srcfiles dir = "${iocore_path}/arc"		includes = "generate_configurable_components.inc" />
          <srcfiles dir = "${iocore_path}/sql"		includes = "${schema}" />
-       <srcfiles dir = "${core_path}/color" includes = "ooaofooa_package_spec.clr" />
        <srcfiles dir = "${core_path}/sql" includes = "${sql.output}" />
          <srcfiles dir = "sql"        includes = "${class2table.output},file_io.pei.sql"/>
          <srcfiles dir = "${mcj_path}" includes = "arch_utils.inc"/>

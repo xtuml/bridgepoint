@@ -30,13 +30,11 @@
   .exit 100
 .end if
 .//
-.include "../org.xtuml.bp.core/color/ooaofooa_package_spec.clr"
 .include "${mc_archetypes}/mfp_utils.inc"
 .include "${mc_archetypes}/arch_utils.inc"
 .//
 .//
 .invoke package = get_package()
-.invoke compMark = markComponentsAndContainments()
 .invoke chain_util_env = GET_ENV_VAR( "CHAIN_UTIL_DIR" )
 .assign chain_util = chain_util_env.result
 .if ( chain_util == "" )
