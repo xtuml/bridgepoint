@@ -94,21 +94,51 @@ not a valid move selection.
 
 5. Analysis   
 -----------   
-See [[2.2]](#2.2)
+See the [Analysis Note](../8031_Analyze_Model_Element_Move/8031_Analyze_Model_Element_Move.ant.md). Here we will add some addtional proxy analysis. We do this because it is observed that there are mulitple ways to perform the implemenataion for this task, and we want to assure we look at overall product roadmap as we perform this task to leverage the work to move us toward longer term product goals that may be related. Specfically, it is desirable to remove proxies.
 
-5.1 Proxy Analysis  
-5.1.1 NonRoot model elements have the following operations generated in them:  
-5.1.1.1 isProxy()   
-Returns 'true' if the model element is not yet loaded.  When a model element 
-class is not marked as supporting proxies, the class is generated with an 
-implementaion of isProxy() that always returns false.  
-5.1.1.2 migrateFromProxy()  
-Loads the associated configured component from the resource. When a model 
-element class is not marked as supporting proxies, the class is generated 
-with an implementation of migrateFromProxy() that does nothing.
+5.1 Proxy analysis with an eye to proxy removal  
+Section 1 of the [PLCM design note for proxies](i845-2.dnt) describes the proxy implementation. The reader should review it before proceeding.  
 
+The BridgePoint NonRootModelElement.java class contains an opertion, boolean isProxy(), used to determine 
+if an in-memory instance is a proxy or not. To determine if the element is a proxy, it looks at the string attribute
+NonRootModelElement.java::m_contentPath and if that attribute is not null then the element IS a proxy.
 
+5.1.1 As described in the [PLCM design note for proxies](i845-2.dnt), proxies are implemented with the followed generated operations:  
+*  createProxy(..[all parameters].., String filePath)  
+Returns an instance.  
+*  resolveInstance(..[all parameters]..)   
+Searches, by UUID for a matching instance and returns the instance if found. If not found, creates a new instance.  
+* convertToProxy()  
+Convert a real instance to a proxy.
+* convertToRealInstance(..[all parameters]..)  
+Convert a proxy to a real instance.  
 
+5.1.2 Things proxies are currently used for
+* lazy loading
+
+5.1.3 Removal of proxies  
+5.1.3.1 Remove generated code used to persist proxies  
+* remove convertToProxy()
+* Stop generarting the operations that write proxies
+** io.core/arc/export_functions.inc
+** io.mdl/arc/gen_stream_export_.arc
+
+5.1.3.2 Load the whole model at startup
+```
+// nrme is the NonRootModelElement associated with the SystemModel_c instance
+PersistableModelComponent pmc = nrme.getPersistableComponent();
+			pmc.loadComponentAndChildren(new NullProgressMonitor());
+```  
+5.1.3.3 Remove generation of convertFromProxy() and delayed problem marker code  
+```java
+    public void convertFromProxy() {
+        if (isProxy()) {
+            m_contentPath = null;
+            UmlProblem.proxyResolved(this);
+        }
+    }
+```  
+5.1.3.4 Remove generation of convertToRealInstance()  
 
 6. Design   
 ----------------   
