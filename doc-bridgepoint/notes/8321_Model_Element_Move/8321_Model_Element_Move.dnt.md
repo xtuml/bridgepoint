@@ -40,7 +40,7 @@ See the background in [[2.2]](#2.2) as well as the background in the SOW [[2.3]]
 4. Requirements   
 ---------------   
 The requirements are defined in this issue's SOW [[2.3]](#2.3). For convenience, 
-the requirement defined in the SOW are being carried forward here. This design 
+the requirements defined in the SOW are being carried forward here. This design 
 shall create some additional requirements based on the selected implementation. 
 These additional requirements shall be placed after the last requirement copied  
 from the SOW.  
@@ -154,12 +154,13 @@ the atomic move take place.
 7. Design Comments   
 ------------------   
 7.1 Remove dead code associated with proxies  
-During proxy analysis it was observed that the coloring file 
-bp.core/color/ooaofooa_package_spec.clr that was used in the past to 
-specify proxy classes contained operations no longer used. This was found while 
+During proxy analysis it was observed that opertation in the coloring file 
+bp.core/color/ooaofooa_package_spec.clr that were used in the past to 
+specify proxy class containment are no longer used. This was found while 
 looking at a reference to how proxies were initially  
-[i845 Technical note section 2.1.1 ](i845.tnt).  An issue was reaised to remove 
-this dead code []() and the task was performed.
+[i845 Technical note section 2.1.1 ](i845.tnt) in combination with a review
+of the [MC-Java Implementation Document](https://github.com/xtuml/bridgepoint/blob/master/src/MC-Java/README.TXT). 
+An issue was raised to remove this dead code []() and the task was performed.
 7.1.1 Remove the following opertions from bp.core/color/ooaofooa_package_spec.clr
 * markComponentsAndContainments
 * markComponentRoot
