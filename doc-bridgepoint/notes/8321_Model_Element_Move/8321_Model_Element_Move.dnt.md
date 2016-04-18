@@ -80,6 +80,19 @@ not a valid move selection.
 -----------   
 See [[2.2]](#2.2)
 
+5.1 Proxy Analysis  
+5.1.1 NonRoot model elements have the following operations generated in them:  
+5.1.1.1 isProxy()   
+Returns 'true' if the model element is not yet loaded.  When a model element 
+class is not marked as supporting proxies, the class is generated with an 
+implementaion of isProxy() that always returns false.  
+5.1.1.2 migrateFromProxy()  
+Loads the associated configured component from the resource. When a model 
+element class is not marked as supporting proxies, the class is generated 
+with an implementation of migrateFromProxy() that does nothing.
+
+
+
 
 6. Design   
 ----------------   
@@ -139,7 +152,19 @@ the atomic move take place.
 
 7. Design Comments   
 ------------------   
-none  
+7.1 Remove dead code associated with proxies  
+During proxy analysis it was observed that the coloring file 
+bp.core/color/ooaofooa_package_spec.clr that was used in the past to 
+specify proxy classes is no longer used. This was found looking at a reference to 
+how proxies were modified during the implementation of multi file persistence 
+[i845 Technical note section 2.1.1 ](i845.tnt).  An issue was reaised to remove 
+this dead code []() and the task was performed.
+
+
+
+
+
+
 
 7. Acceptance Test   
 ------------------  
