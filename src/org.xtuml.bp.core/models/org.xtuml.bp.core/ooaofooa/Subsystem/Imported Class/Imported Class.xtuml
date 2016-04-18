@@ -323,7 +323,7 @@ INSERT INTO O_TFR
                          type:ElementTypeConstants::CLASS, descending:false,
                                       originatingContainerID:package.Package_ID,
                                           delegatingPkgID:GD::NULL_UNIQUE_ID(),
-                                                         collectGlobally:false);
+                                                         collectGlobally:true);
       select many srs related by package->PE_SRS[R8005]
                            where (selected.Type == ElementTypeConstants::CLASS);
       select many pes related by srs->PE_VIS[R8006]->PE_PE[R8002];

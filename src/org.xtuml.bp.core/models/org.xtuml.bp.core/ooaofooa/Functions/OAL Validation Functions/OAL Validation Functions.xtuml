@@ -3161,13 +3161,13 @@ if isInGenericPackage
          type:ElementTypeConstants::CLASS,
                           originatingContainerID:component.Id,
                                    delegatingContainerID:GD::NULL_UNIQUE_ID(),
-                                                         collectGlobally:false);
+                                                         collectGlobally:true);
   else
     package.collectVisibleElementsForName(name:param.a3_text,
          type:ElementTypeConstants::CLASS, descending:false,
                            originatingContainerID:package.Package_ID,
                                           delegatingPkgID:GD::NULL_UNIQUE_ID(),
-                                                         collectGlobally:false);
+                                                         collectGlobally:true);
   end if;
   select any resultSet related by component->PE_CRS[R8007] where
                                     selected.Name == param.a3_text and 
@@ -6789,13 +6789,13 @@ if isInGenericPackage
          type:ElementTypeConstants::ASSOCIATION,
                           originatingContainerID:component.Id,
                                    delegatingContainerID:GD::NULL_UNIQUE_ID(),
-                                                         collectGlobally:false);
+                                                         collectGlobally:true);
   else
     package.collectVisibleElementsForName(name:param.a3_text,
          type:ElementTypeConstants::ASSOCIATION, descending:false,
                            originatingContainerID:package.Package_ID,
                                           delegatingPkgID:GD::NULL_UNIQUE_ID(),
-                                                         collectGlobally:false);
+                                                         collectGlobally:true);
   end if;
   select any resultSet related by component->PE_CRS[R8007] where
                                      selected.Name == param.a3_text and 
@@ -10360,13 +10360,13 @@ if isInGenericPackage
          type:ElementTypeConstants::CLASS,
                           originatingContainerID:comp.Id,
                                    delegatingContainerID:GD::NULL_UNIQUE_ID(),
-                                                         collectGlobally:false);
+                                                         collectGlobally:true);
   else
     pkg.collectVisibleElementsForName(name:param.a3_text,
          type:ElementTypeConstants::CLASS, descending:false,
                            originatingContainerID:pkg.Package_ID,
                                           delegatingPkgID:GD::NULL_UNIQUE_ID(),
-                                                         collectGlobally:false);
+                                                         collectGlobally:true);
   end if;
   select any resultSet related by comp->PE_CRS[R8007] where
                                       selected.Name == param.a3_text and 
@@ -10623,13 +10623,13 @@ if isInGenericPackage
          type:ElementTypeConstants::CLASS,
                           originatingContainerID:component.Id,
                                    delegatingContainerID:GD::NULL_UNIQUE_ID(),
-                                                         collectGlobally:false);
+                                                         collectGlobally:true);
   else
     package.collectVisibleElementsForName(name:identifier,
          type:ElementTypeConstants::CLASS, descending:false,
                            originatingContainerID:package.Package_ID,
                                           delegatingPkgID:GD::NULL_UNIQUE_ID(),
-                                                         collectGlobally:false);
+                                                         collectGlobally:true);
   end if;
   select any resultSet related by component->PE_CRS[R8007] where
                                    selected.Name == identifier and 
@@ -16268,13 +16268,13 @@ if isInGenericPackage
          type:ElementTypeConstants::FUNCTION,
                           originatingContainerID:component.Id,
                                    delegatingContainerID:GD::NULL_UNIQUE_ID(),
-                                                         collectGlobally:false);
+                                                         collectGlobally:true);
   else
     package.collectVisibleElementsForName(name:param.a3_text,
          type:ElementTypeConstants::FUNCTION, descending:false,
                            originatingContainerID:package.Package_ID,
                                           delegatingPkgID:GD::NULL_UNIQUE_ID(),
-                                                         collectGlobally:false);
+                                                         collectGlobally:true);
   end if;
   select any resultSet related by component->PE_CRS[R8007] where
                                  selected.Name == param.a3_text and 

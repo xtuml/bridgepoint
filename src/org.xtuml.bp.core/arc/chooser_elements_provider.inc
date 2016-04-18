@@ -97,10 +97,7 @@ public static ${cn.body}[] getElements(${contextClName.body} v_${firstContextIte
       .if ((peTraversal != "") and (not cme.EnableVisibilityFiltering))
         .invoke typeName = get_ooa_type_name(class.Key_Lett)
 		.assign tn = typeName.result
-		.assign globalEnable = "false"
-		.if (tn != "CLASS")
-		  .assign globalEnable = "true"
-		.end if
+		.assign globalEnable = "true"
 	  }
       else {
 	  	PackageableElement_c[] pes = null;
