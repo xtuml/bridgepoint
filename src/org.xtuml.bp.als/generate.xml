@@ -95,12 +95,14 @@
     </java>
   </target>
 
+  <property name="ge.clr.dep" value="ooaofooa_package_spec.clr" />
   <property name="ge.arc.dep" value="grammar_enhancer.arc,get_names.inc,als_sql.inc" />
   <property name="ge.mcj.dep" value="do_type.inc, arch_utils.inc, enums.inc" />
   <property name="ge.output" value="../org.xtuml.bp.als.oal/src/org/xtuml/bp/als/oal/oal.g" />
 
   <target name="grammar_enhancer.depends" >
     <uptodate property="grammar_enhancer.buildNotNeeded" targetfile="${ge.output}">
+       <srcfiles dir = "arc"        includes = "${ge.arc.dep}"/>
        <srcfiles dir = "../org.xtuml.bp.core/color"  includes = "${ge.clr.dep}"/>
        <srcfiles dir = "sql"        includes = "${schema.output},udt.sql,oal_grammar.sql"/>
        <srcfiles dir = "${mcj_path}" includes = "${ge.mcj.dep}"/>

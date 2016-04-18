@@ -21,8 +21,13 @@
 .end if
 .include "../org.xtuml.bp.io.core/arc/import_functions.inc"
 .//
+.include "../org.xtuml.bp.core/color/ooaofooa_package_spec.clr"
+.//
 .function sourceVariables
   .invoke package = get_package()
+  .if(package.application_root_class == "Ooaofooa")
+    .invoke compMark = markComponentsAndContainments()
+  .end if
   .assign attr_main_class_name = "${package.application_root_class}"
   .// Subordinate package: Canvas
   .assign attr_sub_class_name = "Ooaofgraphics"
@@ -369,6 +374,7 @@
   .param boolean setComponent
     .invoke var = sourceVariables()
     .invoke package = get_package()
+    .invoke compMark = markComponentsAndContainments()
     .assign suite = "BP"
     .assign tool = version
     .if (callingProject == "BP")

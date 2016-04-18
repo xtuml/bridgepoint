@@ -35,6 +35,7 @@
 .assign mc_root_pkg = mc_root_pkg_name.result
 .//
 .include "${mc_archetypes}/arch_utils.inc"
+.include "color/ooaofooa_package_spec.clr"
 .//
 .// Fill the Processing subsystem with code
 .//
@@ -59,6 +60,7 @@
 .//
 .// First, populate the generation database with generated code
 .//
+.invoke containment = markComponentsAndContainments()
 .invoke result = translate_all_oal("ooaofooa", "Ooaofooa", true)
 .//
 .invoke result = create_global_action(path, "delete")

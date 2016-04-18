@@ -46,6 +46,8 @@
   .print "\nERROR: Environment variable CORE_COLOR_DIR not set."
   .exit 100
 .end if
+.include "${core_color}/ooaofooa_package_spec.clr"
+.invoke compMark = markComponentsAndContainments()
 .//
 .function get_property_class_name
   .param inst_ref node  .// T_TNS
