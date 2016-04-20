@@ -205,16 +205,18 @@ The comparison is not graphical, but it is structural based on the meta-model
 (it is more than a simple textual compare). This functionality has been modified 
 quite a bit to all features and introduce bug fixes [2.9](#2.9). This feature 
 does utilize proxies. Further analysis of the use of proxies by model compare 
-and merge will be required in order to remove proxies from the tool. The issue
-with this analysis is that there were a lot of the features/fixes in this area, 
-and it may be easiest to analysis this by removing the proxy functionality first.
+and merge will be required in order to remove proxies from the tool. There 
+were a lot of the features/fixes in this area, and will be easiest to 
+analysis this further by removing the proxy functionality first.  Therefore, no
+further analysis of this is done at this time.  
 
 6. Design   
 ----------------   
 
 As described in the analysis section, the copy/paste infrastructure shall be 
 used in order to take advantage of it's ability to perform selection 
-and target validation. This section describes how we will modify this existing
+and target validation as well as minimize changes to the BridgePoint user 
+interface. This section describes how we will modify this existing
 infrastructure to change the behavior of cut/paste so that it is analogous with
 move.  
 
@@ -231,14 +233,17 @@ extend this shall also be modified as required for this change. These are:
 changes, but functionality shall not be changed.
 * core/ui/CutAction.java - The deletion of selected elements will no longer be 
 performed during cut. Instead, this deletion will be moved to the paste 
-operation so that no change is actually made until paste occurs.
-* core/ui/PasteAction.java - This shall be modified to perform 
-both the paste (which is currently does) and the deletion of the elements. 
-The deletion shall occur before the paste.  
+operation so that no change is actually made until paste occurs.  
+
+Additionally, core/ui/PasteAction.java, which extends Action as opposed to 
+CopyCutAction.java shall be modified to perform both the paste (which is 
+currently already does) and the deletion of the elements. The deletion 
+shall occur before the paste.  
 
 6.2 Enhance the current infrastructure to not change element IDs during a 
-paste operation that is associated with a cut operation.  The copy/paste 
-behavior shall not be changed.  
+paste operation that is associated with a cut operation.  
+
+The copy/paste behavior shall not be changed during this change.  
 
 The paste operation behavior is implemented in the generated 
 file io/mdl/ImportModelStream.java (generated from io/mdl/arc/gen_stream_import.arc). 
@@ -255,7 +260,7 @@ assures:
 6.3 Reuse the current tree view that shows Model Elements affected by the 
 paste  
 
-There should be no action here. This dialog and tree view is sufficient.  
+There should be no action here. The current dialog and tree view is sufficient.  
 
 6.4 Modify all resolution operations to first search by ID  instead of name  
 
