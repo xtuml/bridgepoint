@@ -251,23 +251,7 @@ fixing the bug in the existing proxy code [6.8.2].
 
 7. Design Comments   
 ------------------   
-7.1 Remove dead code associated with proxies  
-During proxy analysis it was observed that opertation in the coloring file 
-bp.core/color/ooaofooa_package_spec.clr that were used in the past to 
-specify proxy class containment are no longer used. This was found while 
-looking at a reference to how proxies were initially  
-[i845 Technical note section 2.1.1 ](i845.tnt) in combination with a review
-of the [MC-Java Implementation Document](https://github.com/xtuml/bridgepoint/blob/master/src/MC-Java/README.TXT). 
-An issue was raised to remove this dead code []() and the task was performed.
-7.1.1 Remove the following opertions from bp.core/color/ooaofooa_package_spec.clr
-* markComponentsAndContainments
-* markComponentRoot
-* markContainmentAssociation
-7.1.2 Remove places where markComponentsAndContainments() was called. 
-
-
-
-
+none  
 
 
 7. Acceptance Test   
