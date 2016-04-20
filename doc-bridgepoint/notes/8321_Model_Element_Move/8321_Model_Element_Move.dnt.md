@@ -105,7 +105,7 @@ not a valid move selection.
 -----------   
 See the [Analysis Note](../8031_Analyze_Model_Element_Move/8031_Analyze_Model_Element_Move.ant.md). 
 Here we will add some additional proxy analysis. We do this because it is 
-observed that there are mulitple ways to perform the implementation for this 
+observed that there are multiple ways to perform the implementation for this 
 task, and we want to assure we look at overall product roadmap as we perform 
 this task to leverage the work to move us toward longer term product goals that 
 may be related. Specifically, it is desirable to remove proxies.
@@ -168,11 +168,11 @@ What the One Fact team believes, and has shown with tests of model load time,
 is that the amount of time to load a model, even a large model is not 
 significant when compared to the architectural clutter at the persistence layer
 introduced by proxies. Over time maintenance around proxies issues has been
-high. Furthermore, it is observed, even in the orginal note that introduced 
+high. Furthermore, it is observed, even in the original note that introduced 
 proxies that lazy-loading had limitations []. Over time what has been observed
 is that lazy loading has done more harm than good. This section examines the 
-possiblity of removing lazy laoding as a solution to [].  [] is a blocker to 
-this issue because if proxies remain and are not persisted consitently the 
+possibility of removing lazy loading as a solution to [].  [] is a blocker to 
+this issue because if proxies remain and are not persisted consistently the 
 move operation will have failures caused by the inconsistent proxies paths.
  
 
@@ -202,15 +202,14 @@ and it may be easiest to analysis this by removing the proxy functionality first
 As described in the analysis section, the copy/paste infrastructure shall be 
 used in order to take advantage of it's ability to perform selection 
 and target validation. This section describes how we will modified this existing
-infrastructure to change the behavior of cut/paste so that it is analagous with
+infrastructure to change the behavior of cut/paste so that it is analogous with
 move.  
 
 6.1 Modify the cut/paste operation to be analogous to "move" by making it a 
 single long-lived transaction that adheres to ACID properties of a transaction.
 
-6.1.1 The current infrastructure uses an abstract class: 
-```core/ui/CopyCutAction.java extends org.eclipse.jface.action.Action  
-```
+6.1.1 The current infrastructure uses an abstract class, 
+core/ui/CopyCutAction.java extends org.eclipse.jface.action.Action, 
 to define the behavior of cut/copy operations this interface shall be modified 
 to allow the cut/paste operation to be a single transaction as opposed to 2 
 separate transactions. In addition to this abstract class, the classes that 
@@ -236,9 +235,9 @@ There should be no action here. This dialog and tree view is sufficient.
 
 6.4 Modify all resolution operations to first search by ID  instead of name  
 
-TODO: finsih looking at this ????:
-This note's secrtoin 6.2 descibes how resolution operations were introduced to
-perform this search by ID. I do not thinnk there is further action to take this,
+TODO: finish looking at this ????:
+This note's section 6.2 describes how resolution operations were introduced to
+perform this search by ID. I do not think there is further action to take this,
 but if there is, this is the pattern to follow to complete this task
  de8031_Analyze_Model_Element_Move/i3532.dnt
 
