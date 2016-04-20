@@ -46,6 +46,13 @@ This is the final PLCM analysis note. The PLCM project was long-lived, and there
 <a id="2.7.3"></a>2.7.3 [PLCM Design Note for milestone 2](i845-2.dnt)  
 This note captures the design note of PLCM as related to proxies.  
 
+<a id="2.8"></a>2.8 [BridgePoint DEI #8458](https://support.onefact.net/issues/8458) 
+Create test cases for Model Element Move.  
+
+<a id="2.9"></a>2.9 Documentation associated with use of proxies for model compare and merge  
+<a id="2.9.1"></a>2.9.1 [Fix corruption caused by class merges](244_class_merge.dnt.md)  
+
+  
 
 3. Background   
 -------------     
@@ -92,14 +99,21 @@ the move capability.
 4.5.1 The option to move shall be present but disabled when a selection is 
 not a valid move selection.  
 
+4.6 Proxy paths are currently written inconsistently [[2.2](#2.2)]. This bug shall be resolved.
+
 5. Analysis   
 -----------   
-See the [Analysis Note](../8031_Analyze_Model_Element_Move/8031_Analyze_Model_Element_Move.ant.md). Here we will add some addtional proxy analysis. We do this because it is observed that there are mulitple ways to perform the implemenataion for this task, and we want to assure we look at overall product roadmap as we perform this task to leverage the work to move us toward longer term product goals that may be related. Specfically, it is desirable to remove proxies.
+See the [Analysis Note](../8031_Analyze_Model_Element_Move/8031_Analyze_Model_Element_Move.ant.md). 
+Here we will add some additional proxy analysis. We do this because it is 
+observed that there are mulitple ways to perform the implementation for this 
+task, and we want to assure we look at overall product roadmap as we perform 
+this task to leverage the work to move us toward longer term product goals that 
+may be related. Specifically, it is desirable to remove proxies.
 
 5.1 Proxy analysis with an eye to proxy removal  
 Section 1 of the [PLCM design note for proxies](i845-2.dnt) describes the proxy implementation. The reader should review it before proceeding.  
 
-The BridgePoint NonRootModelElement.java class contains an opertion, boolean isProxy(), used to determine 
+The BridgePoint NonRootModelElement.java class contains an operation, boolean isProxy(), used to determine 
 if an in-memory instance is a proxy or not. To determine if the element is a proxy, it looks at the string attribute
 NonRootModelElement.java::m_contentPath and if that attribute is not null then the element IS a proxy.
 
@@ -113,8 +127,26 @@ Convert a real instance to a proxy.
 * convertToRealInstance(..[all parameters]..)  
 Convert a proxy to a real instance.  
 
-5.1.2 Things proxies are currently used for
-* lazy loading
+5.1.2 Proxy uses
+5.1.2.1 lazy loading  
+Lazy loading policy provides that data for the parent (RTO) is not loaded unless
+needed. However, in many cases immediate loading of parent data  
+triggered. For example, a class diagram shows the type of its
+attributes and so unless there are no attributes to display, the
+corresponding data type data must be loaded. 
+
+This issue shall takes the approach that maintenance and problems
+around lazy loading support are not worthy of the feature benefits.  
+
+5.1.2.1 Model Compare  
+Model Compare and merge provides comparison of changes on a per-file basis. 
+The comparison is not graphical, but it is structural based on the meta-model 
+(it is more than a simple textual compare). This functionality has been modified 
+quite a bit to all feartures and introduce bug fixes [2.9](#2.9). This feature 
+does utilize proxies. Further annalysis of the use of proxies by model compare 
+and merge will be required in order to remove proxies from the tool. The issue
+with this analysis is that there were a lot of the features/fixes in this area, 
+and it may be easiest to analysis this by removing the proxy functionality first.
 
 5.1.3 Removal of proxies  
 5.1.3.1 Remove generated code used to persist proxies  
@@ -147,54 +179,75 @@ PersistableModelComponent pmc = nrme.getPersistableComponent();
 6.1.2 The copy/paste infrastructure shall be used for it's ability to perform 
 selection and target validation. 
 
-6.1.3 Avoid using the current infrastructure's use of the clipboard if possible.  
+6.2.3 Avoid using the current infrastructure's use of the clipboard if possible.  
 
-6.1.4 While doing this work, consider modifying the current cut/paste operation 
+6.3.4 While doing this work, consider modifying the current cut/paste operation 
 to no longer change IDs during paste.   
 
-6.2 Modify all resolution operations to first search by ID  instead of name  
+6.4 Modify all resolution operations to first search by ID  instead of name  
 
-6.3 Introduce a new CME named Move...  
+6.5 Introduce a new CME named Move...  
 
-6.3.1 Introduce the Move... CME in Model Explorer  
+6.5.1 Introduce the Move... CME in Model Explorer  
 
-6.3.2 Introduce the Move... CME in the canvas  
+6.5.2 Introduce the Move... CME in the canvas  
 
-6.3.3 Assure the Move... CME is only enabled when there is a valid selection  
+6.5.3 Assure the Move... CME is only enabled when there is a valid selection  
 
-6.3.4 The BridgePoint Move... CME shall be similar to the 
+6.5.4 The BridgePoint Move... CME shall be similar to the 
 Java > Refactor >Move... wizard, but where the Java Move CME contains a project 
 tree to select the destination, the BridgePoint > Move... dialog shall contain 
 a Model explorer tree.  
 
-6.3.5 The BridgePoint Move... shall be implemented as a wizard.  
+6.5.5 The BridgePoint Move... shall be implemented as a wizard.  
 
-6.3.5 Move... Wizard Page 1  
+6.5.5.0 Move... Wizard Page 1  
 
-6.3.5.1 Select Destination  
+6.5.5.1 Select Destination  
 
-6.3.5.1.1 This item shall contain a Model Explorer tree and the user shall be 
+6.5.5.1.1 This item shall contain a Model Explorer tree and the user shall be 
 allowed to select a single location  
 
-6.3.5.1.2 Only valid destinations shall be enabled, invalid destinations shall 
+6.5.5.1.2 Only valid destinations shall be enabled, invalid destinations shall 
 be disabled  
 
-6.3.6 Move... Wizard Page 2  
+6.5.6 Move... Wizard Page 2  
 
-6.3.6.1 Referring Model Elements affected by the move operation  
+6.5.6.1 Referring Model Elements affected by the move operation  
 
-6.3.6.2 A tree view showing the Model Elements that will be affected by the 
+6.5.6.2 A tree view showing the Model Elements that will be affected by the 
 move with a description of how they will be affected  
 
-6.3.6.3 An option to save this list shall be presented  
+6.5.6.3 An option to save this list shall be presented  
 
-6.3.6.4 An option to print this list shall be presented  
+6.5.6.4 An option to print this list shall be presented  
 
-6.4 The user may cancel the Move... at any time before selecting Finish, and 
+6.6 The user may cancel the Move... at any time before selecting Finish, and 
 no action shall be taken.  
 
-6.5 Only when and if the user selects the Move... wizard's Finish button shall 
+6.7 Only when and if the user selects the Move... wizard's Finish button shall 
 the atomic move take place.  
+
+6.8 Fix inconsistent proxy paths [[2.2](#2.2)]  
+
+It is desirable to resolve this problem by simply removing proxies from 
+BridgePoint as described in the analysis section. However, doing so may 
+be beyond the scope of this project. The primary concern is around unexpected 
+consequences involving self hosting. However, it should not be difficult to 
+perform a test of proxy removal, and the steps to do so shall be outlined here 
+[6.8.1]. This task of resolving the inconsistent proxy paths is intentionally 
+left as the last task in the project. If the attempt to remove proxies results
+in unexpected problems that time constraints do not allow us to resolve then 
+these problems shall be recored and we shall resolve this requirement by 
+fixing the bug in the existing proxy code [6.8.2].
+
+6.8.1 Remove proxy writes from BridgePoint  
+
+
+6.8.2 Write proxy paths consistently  
+
+
+
 
 7. Design Comments   
 ------------------   
@@ -219,6 +272,9 @@ An issue was raised to remove this dead code []() and the task was performed.
 
 7. Acceptance Test   
 ------------------  
+
+The unit test model(s) and use cases for the items below shall 
+be further described by [[2.8](#2.8)].
  
 7.1 Test to assure that the move operation is atomic  
 
@@ -237,6 +293,10 @@ model elements to be maintained proper defaults are used.
 7.5 Test to assure the model-element move capability is only enabled for 
 valid model element selections and is present but disabled otherwise.
 
+7.6 Assure that proxy paths are written consistently.  
+Include use cases in this issue's test model(s) that cause the proxy path 
+problems described by [[2.2](#2.2)]. Run these use cases to assure these 
+problem are resolved.  
 
 End
 ---
