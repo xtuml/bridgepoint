@@ -127,7 +127,55 @@ Convert a real instance to a proxy.
 * convertToRealInstance(..[all parameters]..)  
 Convert a proxy to a real instance.  
 
-5.1.2 Proxy uses
+5.1 Choice of options from the analysis.
+
+The option to use the existing infrastructure, , shall be used. This option takes 
+advantage of both the existing UI infrastructure and the infrastructure that is used
+to perform target selection and validation. 
+
+5.1.1 Atomic transaction requirement
+
+The prior analysis wrote that the choice to modify the implementation of 
+the cut/paste operation such that IDs would not be change would 
+result in a transaction that was not atomic. However, the implementation 
+proposed by this note will result in an atomic transaction. It will result 
+in a move that adheres to the ACID properties of transactions. That is, 
+the move implemented via cut/paste shall be atomic, consistent, isolated, 
+and durable. 
+
+5.1.1.1 Making the cut/paste (move) an ACID-compliant transaction in BridgePoint.
+
+The copy/paste infrastructure uses the clipboard to store the copied selection.[]. 
+In this work we shall allow the cut transaction to be long-lived.  
+
+5.1.1.2 The move transaction shall not terminate until either:
+5.1.1.2.1 The paste is performed
+5.1.1.2.2 The transaction is terminated before paste is performed  
+The move transaction shall be canceled if any other transaction is initiated
+before the paste operation is completed.  
+
+5.1.2 Proxy analysis with an eye toward proxy removal  
+
+Experience working with BridgePoint over the years has led the One Fact team 
+to believe that the introduction of proxies when multi-file persistence (PLCM) 
+was added to the tool was a mistake. Proxies were introduced with the idea 
+that they would help validate the distributed files introduced during the PLCM
+project. Additionally, the concept of lazy loading of model files was made 
+possible by proxies and it was seen as a great benefit because users no longer
+needed to wait for a model to load the fist time that opened a model element. 
+
+What the One Fact team believes, and has shown with tests of model load time, 
+is that the amount of time to load a model, even a large model is not 
+significant when compared to the architectural clutter at the persistence layer
+introduced by proxies. Over time maintenance around proxies issues has been
+high. Furthermore, it is observed, even in the orginal note that introduced 
+proxies that lazy-loading had limitations []. Over time what has been observed
+is that lazy loading has done more harm than good. This section examines the 
+possiblity of removing lazy laoding as a solution to [].  [] is a blocker to 
+this issue because if proxies remain and are not persisted consitently the 
+move operation will have failures caused by the inconsistent proxies paths.
+ 
+
 5.1.2.1 lazy loading  
 Lazy loading policy provides that data for the parent (RTO) is not loaded unless
 needed. However, in many cases immediate loading of parent data  
@@ -142,93 +190,59 @@ around lazy loading support are not worthy of the feature benefits.
 Model Compare and merge provides comparison of changes on a per-file basis. 
 The comparison is not graphical, but it is structural based on the meta-model 
 (it is more than a simple textual compare). This functionality has been modified 
-quite a bit to all feartures and introduce bug fixes [2.9](#2.9). This feature 
-does utilize proxies. Further annalysis of the use of proxies by model compare 
+quite a bit to all features and introduce bug fixes [2.9](#2.9). This feature 
+does utilize proxies. Further analysis of the use of proxies by model compare 
 and merge will be required in order to remove proxies from the tool. The issue
 with this analysis is that there were a lot of the features/fixes in this area, 
 and it may be easiest to analysis this by removing the proxy functionality first.
 
-5.1.3 Removal of proxies  
-5.1.3.1 Remove generated code used to persist proxies  
-* remove convertToProxy()
-* Stop generarting the operations that write proxies
-** io.core/arc/export_functions.inc
-** io.mdl/arc/gen_stream_export_.arc
-
-5.1.3.2 Load the whole model at startup
-```
-// nrme is the NonRootModelElement associated with the SystemModel_c instance
-PersistableModelComponent pmc = nrme.getPersistableComponent();
-			pmc.loadComponentAndChildren(new NullProgressMonitor());
-```  
-5.1.3.3 Remove generation of convertFromProxy() and delayed problem marker code  
-```java
-    public void convertFromProxy() {
-        if (isProxy()) {
-            m_contentPath = null;
-            UmlProblem.proxyResolved(this);
-        }
-    }
-```  
-5.1.3.4 Remove generation of convertToRealInstance()  
-
 6. Design   
 ----------------   
-6.1 Enhance the current infrastructure to not change element IDs during move.  
 
-6.1.2 The copy/paste infrastructure shall be used for it's ability to perform 
-selection and target validation. 
+As described in the analysis section, the copy/paste infrastructure shall be 
+used in order to take advantage of it's ability to perform selection 
+and target validation. This section describes how we will modified this existing
+infrastructure to change the behavior of cut/paste so that it is analagous with
+move.  
 
-6.2.3 Avoid using the current infrastructure's use of the clipboard if possible.  
+6.1 Modify the cut/paste operation to be analogous to "move" by making it a 
+single long-lived transaction that adheres to ACID properties of a transaction.
 
-6.3.4 While doing this work, consider modifying the current cut/paste operation 
-to no longer change IDs during paste.   
+6.1.1 The current infrastructure uses an abstract class: 
+```core/ui/CopyCutAction.java extends org.eclipse.jface.action.Action  
+```
+to define the behavior of cut/copy operations this interface shall be modified 
+to allow the cut/paste operation to be a single transaction as opposed to 2 
+separate transactions. In addition to this abstract class, the classes that 
+extend this shall also be modified as required for this change. These are:  
+* core/ui/CopyAction.java - This shall be modified as needed to adhere to interface 
+changes, but functionality shall not be changed.
+* core/ui/CutAction.java - The deletion of selected elements will no longer be 
+performed during cut. Instead, this deletion will be moved to the paste 
+operation so that no change is actually made until paste occurs.
+* core/ui/PasteAction.java - This shall be modified to perform 
+both the paste (which is currently does) and the deletion of the elements. 
+The deletion shall occur before the paste.  
+
+6.2 Enhance the current infrastructure to not change element IDs during a 
+paste operation that is associated with a cut operation.  The copy/paste 
+behavior shall not be changed.
+
+
+6.3 Reuse the current tree view that shows Model Elements affected by the 
+paste  
+
+There should be no action here. This dialog and tree view is sufficient.  
 
 6.4 Modify all resolution operations to first search by ID  instead of name  
 
-6.5 Introduce a new CME named Move...  
+TODO: finsih looking at this ????:
+This note's secrtoin 6.2 descibes how resolution operations were introduced to
+perform this search by ID. I do not thinnk there is further action to take this,
+but if there is, this is the pattern to follow to complete this task
+ de8031_Analyze_Model_Element_Move/i3532.dnt
 
-6.5.1 Introduce the Move... CME in Model Explorer  
-
-6.5.2 Introduce the Move... CME in the canvas  
-
-6.5.3 Assure the Move... CME is only enabled when there is a valid selection  
-
-6.5.4 The BridgePoint Move... CME shall be similar to the 
-Java > Refactor >Move... wizard, but where the Java Move CME contains a project 
-tree to select the destination, the BridgePoint > Move... dialog shall contain 
-a Model explorer tree.  
-
-6.5.5 The BridgePoint Move... shall be implemented as a wizard.  
-
-6.5.5.0 Move... Wizard Page 1  
-
-6.5.5.1 Select Destination  
-
-6.5.5.1.1 This item shall contain a Model Explorer tree and the user shall be 
-allowed to select a single location  
-
-6.5.5.1.2 Only valid destinations shall be enabled, invalid destinations shall 
-be disabled  
-
-6.5.6 Move... Wizard Page 2  
-
-6.5.6.1 Referring Model Elements affected by the move operation  
-
-6.5.6.2 A tree view showing the Model Elements that will be affected by the 
-move with a description of how they will be affected  
-
-6.5.6.3 An option to save this list shall be presented  
-
-6.5.6.4 An option to print this list shall be presented  
-
-6.6 The user may cancel the Move... at any time before selecting Finish, and 
-no action shall be taken.  
-
-6.7 Only when and if the user selects the Move... wizard's Finish button shall 
-the atomic move take place.  
-
-6.8 Fix inconsistent proxy paths [[2.2](#2.2)]  
+6.5 Fix inconsistent proxy paths [[2.4](#2.4)]  
 
 It is desirable to resolve this problem by simply removing proxies from 
 BridgePoint as described in the analysis section. However, doing so may 
@@ -241,12 +255,46 @@ in unexpected problems that time constraints do not allow us to resolve then
 these problems shall be recored and we shall resolve this requirement by 
 fixing the bug in the existing proxy code [6.8.2].
 
-6.8.1 Remove proxy writes from BridgePoint  
+6.5.1 Remove proxies from BridgePoint  
+
+6.5.1.1 Remove generated code used to read and write proxies  
+* remove convertToProxy()
+* Stop generating the operations that read/write proxies
+** io.core/arc/import_functions.inc
+** io.core/arc/export_functions.inc
+** io.mdl/arc/gen_stream_import_.arc
+** io.mdl/arc/gen_stream_export_.arc
+
+6.5.1.2 Load the whole model at startup
+```
+// nrme is the NonRootModelElement associated with the SystemModel_c instance
+PersistableModelComponent pmc = nrme.getPersistableComponent();
+			pmc.loadComponentAndChildren(new NullProgressMonitor());
+```  
+6.5.1.3 Remove generation of convertFromProxy() and delayed problem marker code  
+```java
+    public void convertFromProxy() {
+        if (isProxy()) {
+            m_contentPath = null;
+            UmlProblem.proxyResolved(this);
+        }
+    }
+```  
+6.5.1.4 Remove generation of convertToRealInstance()  
+6.5.1.5 Remove generation of createProxy()  
+6.5.1.6 Test and fix fallout of proxy removal on compare and merge  
 
 
-6.8.2 Write proxy paths consistently  
+6.5.2 Write proxy paths consistently  
 
-
+If the proxy removal encounters problems then this path to 
+resolve [[2.4](#2.4)] shall be taken. The proxy path is 
+obtained by 
+bp.core.util.PersistenceUtil.java::resolveRelativePath(currentPath, relativePath). 
+This routine gets called by the createProxy() operation which is generated for all 
+NonRootModelElements. The RSL for this is found in MC-Java/java.arc::createProxy 
+(around line 743 you can find the call to resolveRelativePath()). This code will be
+debug and the problem found and fixed.  
 
 
 7. Design Comments   
