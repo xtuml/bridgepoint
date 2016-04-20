@@ -15,8 +15,8 @@ It considers the current approach and offers other potential approaches.
 2. Document References     
 ----------------------   
 [1] [BridgePoint DEI #8031](https://support.onefact.net/redmine/issues/8031) - Analyze Model Element Move    
-[2] [Initial copy/cut/paste support](i2803.dnt)   
-[3] [Support data type move capabilities through cut, copy, paste] (i3532.dnt)    
+[2] [Design note for initial copy/cut/paste support](i2803.dnt)   
+[3] [Design note for Supporting data type move capabilities through cut, copy, paste] (i3532.dnt)    
 [4] https://docs.google.com/document/d/1_T4H7StO-VM8zfIFjr-V7VwUQMXML1c7nFJJofU0vGs/edit - Statement of work   
 
 
