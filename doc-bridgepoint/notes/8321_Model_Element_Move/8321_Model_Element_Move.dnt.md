@@ -235,13 +235,7 @@ changes, but functionality shall not be changed.
 performed during cut. Instead, this deletion will be moved to the paste 
 operation so that no change is actually made until paste occurs.  
 
-Additionally, core/ui/PasteAction.java, which extends Action as opposed to 
-CopyCutAction.java shall be modified to perform both the paste (which is 
-currently already does) and the deletion of the elements. The deletion 
-shall occur before the paste.  
-
-6.2 Enhance the current infrastructure to not change element IDs during a 
-paste operation that is associated with a cut operation.  
+6.2 Modify the paste action.  
 
 The copy/paste behavior shall not be changed during this change.  
 
@@ -255,7 +249,15 @@ a flag will be introduced to indicate that paste is being performed. When paste 
 indicate the generated model element constructor calls will be made in a way that 
 assures:  
 6.2.1 The source element ID(s) shall be used and no new IDs shall be created  
-6.2.2 The element is created in the target model root  
+6.2.2 The element is created in the target model root.  
+6.2.3 The when model root(s) are included in the selection being moved, the paste 
+action shall perform the move in a way that facilites the ability of the team interface 
+to handle the action as a move as opposed to a cut/paste (whic would lose RCS history). This is 
+where requirement 4.2 is handled.  
+6.2.4 Where deletion of elements is required (paste is performed to a different model root) 
+the deletion of the source elements will occur. The deletion shall occur after the paste to
+faciliate 6.2.3.  
+
 
 6.3 Reuse the current tree view that shows Model Elements affected by the 
 paste  
