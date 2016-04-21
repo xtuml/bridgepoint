@@ -122,7 +122,7 @@ the infrastructure that is used to perform target selection and validation.
 5.1.1 Atomic transaction requirement
 
 The analysis note, [2.2](#2.2), wrote that the choice to modify the implementation of 
-the cut/paste operation such that IDs would not be change would 
+the cut/paste operation such that IDs would not be changed would 
 result in a transaction that was not atomic. This was true. However, the implementation 
 proposed by this design will result in an atomic transaction. It will result 
 in a move that adheres to the ACID properties of transactions. That is, 
@@ -144,9 +144,9 @@ before the paste operation is completed.
 
 5.2 Proxy analysis with an eye to proxy removal  
 Requirement 4.6 calls out a bug in proxy implementation. This design note shall describe
-2 ways to resolve this problem. One way proxy removal. This is the desired approach. 
-This section provides an analysis of this approach. The design section of this note
-describes how we will determine which approach to take.  
+2 ways to resolve this problem. One way is proxy removal. This is the desired approach. 
+This section provides an analysis of this proxy removal approach. The design section 
+of this note describes how we will determine which approach to take.  
 
 Section 1 of the [PLCM design note for proxies](i845-2.dnt) describes the BridgePoint 
 proxy implementation.  
@@ -168,13 +168,18 @@ needed to wait for a model to load the fist time that opened a model element.
 What the One Fact team believes, and has shown with tests of model load time, 
 is that the amount of time to load a model, even a large model is not 
 significant when compared to the architectural clutter at the persistence layer
-introduced by proxies. Over time maintenance around proxies issues has been
-high. Furthermore, it is observed, even in the original note that introduced 
-proxies that lazy-loading had limitations []. Over time what has been observed
-is that lazy loading has done more harm than good. This section examines the 
-possibility of removing lazy loading as a solution to [].  [] is a blocker to 
-this issue because if proxies remain and are not persisted consistently the 
-move operation will have failures caused by the inconsistent proxies paths.  
+introduced by proxies. Over time maintenance around proxy issues has been
+high. Furthermore, it is observed even in the [original note that introduced 
+proxies (section 3.3)](i845-PLCM_1_0.ant), that lazy-loading had limitations. 
+Over time what has been observed is that lazy loading has done more harm 
+than good.  
+
+[[4.6](#4.6)] is a blocker to this issue because if 
+proxies remain and are not persisted consistently the move operation will have 
+failures caused by the inconsistent proxies paths. The following section 
+examines proxy usage with an eye to the possibility of removing proxies 
+as a solution to [[4.6](#4.6)]. Section 6.5 describes the steps to perform 
+this removal.  
 
 5.2.1 Proxy implemenation  
 As described in the [PLCM design note for proxies](i845-2.dnt), proxies are 
