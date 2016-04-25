@@ -1,10 +1,6 @@
 .//=====================================================================
 .//
-.// File:      $RCSfile: create_global_action.inc,v $
-.// Version:   $Revision: 1.38 $
-.// Modified:  $Date: 2013/01/10 22:54:05 $
-.//
-.// (c) Copyright 2005-2014 by Mentor Graphics Corp. All rights reserved.
+.// File:      create_global_action.inc
 .//
 .//=====================================================================
 .// Licensed under the Apache License, Version 2.0 (the "License"); you may not

@@ -1,10 +1,6 @@
 .//====================================================================
 .//
-.// File:      $RCSfile: wizard.inc,v $
-.// Version:   $Revision: 1.22 $
-.// Modified:  $Date: 2013/05/12 00:16:21 $
-.//
-.// (c) Copyright 2004-2014 by Mentor Graphics Corp.  All rights reserved.
+.// File:      wizard.inc
 .//
 .//=======================================================================
 .// Licensed under the Apache License, Version 2.0 (the "License"); you may not
@@ -153,6 +149,7 @@ public class ${wizard_class_name} extends Wizard
 
   // cache for contextual selections (public for use by unit tests)
   .select many context_items related by wfl->W_CTI[R2003]
+  .select any context_item from instances of W_CTI where ( false )
   .for each context_item in context_items
     .select any class from instances of O_OBJ where (selected.Key_Lett == context_item.Key_Lett)
     .assign class_name = class.Name
@@ -241,6 +238,7 @@ public class ${wizard_class_name} extends Wizard
 	public boolean canFinish()
 	{
       boolean pagesComplete = true;
+  .select any field from instances of W_FLD where ( false )
   .for each step in steps
     .select any field related by step->W_FLD[R2009]
     .if (not_empty field)

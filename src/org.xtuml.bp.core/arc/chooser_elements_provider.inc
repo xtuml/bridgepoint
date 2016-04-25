@@ -1,10 +1,6 @@
 .//=====================================================================
 .//
-.// File:      $RCSfile: chooser_elements_provider.inc,v $
-.// Version:   $Revision: 1.5 $
-.// Modified:  $Date: 2013/01/10 22:54:05 $
-.//
-.// (c) Copyright 2005-2014 by Mentor Graphics Corp. All rights reserved.
+.// File:      chooser_elements_provider.inc
 .//
 .//=====================================================================
 .// Licensed under the Apache License, Version 2.0 (the "License"); you may not
@@ -21,13 +17,13 @@
 .//=====================================================================
 .//
 .// The function declared below is responsible for creating the body
-.// of a method that delivers the list of elemenst to be presented in a chooser.
+.// of a method that delivers the list of elements to be presented in a chooser.
 .//
 .//
 .function generate_chooser_element_function
   .param inst_ref function
   .select one wfl related by function->W_WOF[R2001]
-  .select one cme related by wfl->CME[R2012]
+  .select any cme from instances of CME where ((selected.Specialism == wfl.Specialism) and (selected.Label == wfl.Label) and (selected.Key_Lett == wfl.Key_Lett))
   .print "Generating chooser element provider for ${cme}"
   .if (not_empty wfl)
       .assign sel_decl = "IStructuredSelection"

@@ -1,10 +1,6 @@
 .//=====================================================================
 .//
-.// File:      $RCSfile: function_body.inc,v $
-.// Version:   $Revision: 1.45.80.1 $
-.// Modified:  $Date: 2013/07/19 12:25:14 $
-.//
-.// (c) Copyright 2005-2014 by Mentor Graphics Corp. All rights reserved.
+.// File:      function_body.inc
 .//
 .//=====================================================================
 .// Licensed under the Apache License, Version 2.0 (the "License"); you may not
@@ -29,7 +25,7 @@
   .// obtain the workflow corresponding to the passed function
   .//
   .select one wfl related by function->W_WOF[R2001]
-  .select one cme related by wfl->CME[R2012]
+  .select any cme from instances of CME where ((selected.Specialism == wfl.Specialism) and (selected.Label == wfl.Label) and (selected.Key_Lett == wfl.Key_Lett))
   .if (not_empty wfl)
     .select any field related by wfl->W_STEP[R2005]->W_FLD[R2009]
     .if (not_empty field)
@@ -317,7 +313,7 @@ for(Iterator<?> iterator = selection.iterator(); iterator.hasNext();) {
   .param string class_name
 .//  
   .assign attr_name = ""
-  .select one cme related by wfl->CME[R2012]
+  .select any cme from instances of CME where ((selected.Specialism == wfl.Specialism) and (selected.Label == wfl.Label) and (selected.Key_Lett == wfl.Key_Lett))
   .if (not_empty cme)
     .if (cme.Specialism != "")
       .if (cme.Label != "")
