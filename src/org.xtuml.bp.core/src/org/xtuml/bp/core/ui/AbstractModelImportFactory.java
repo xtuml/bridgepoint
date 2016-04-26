@@ -43,7 +43,8 @@ public abstract class AbstractModelImportFactory {
 		SystemModel_c system,
 		boolean parseAll,
 		boolean clearDatabase,
-		boolean isTemplate) throws FileNotFoundException;
+		boolean isTemplate,
+		boolean createUniqueIdDuringImport) throws FileNotFoundException;
 
 	public abstract IModelImport create(
 		InputStream inStream,
@@ -52,7 +53,8 @@ public abstract class AbstractModelImportFactory {
 		boolean parseAll,
 		boolean clearDatabase,
 		boolean parseGraphics,
-		boolean isTemplate) throws IOException;
+		boolean isTemplate,
+		boolean createUniqueIdDuringImport) throws IOException;
 	
 	public abstract IModelImport create(
 			IFile file,
@@ -61,7 +63,8 @@ public abstract class AbstractModelImportFactory {
 			boolean parseAll,
 			boolean clearDatabase,
 			boolean parseGraphics,
-			boolean isTemplate) throws IOException;
+			boolean isTemplate,
+			boolean createUniqueIdDuringImport) throws IOException;
 
 	public static AbstractModelImportFactory getInstance(
 		String bundle,

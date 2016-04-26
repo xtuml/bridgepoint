@@ -32,14 +32,9 @@ public abstract class CutAction extends CopyCutAction {
 	}
 
 	public void postRun() {
-		((DeleteAction)CorePlugin.getDeleteAction()).setStartTransaction(false);
-		((DeleteAction) CorePlugin.getDeleteAction()).deleteSelection(Selection.getInstance().getStructuredSelection());
-		((DeleteAction)CorePlugin.getDeleteAction()).setStartTransaction(true);
 	}
 
 	protected int getActionType() {
 		return CUT_TYPE;
 	}
-
-	public abstract TransactionManager getTransactionManager();
 }
