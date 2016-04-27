@@ -43,47 +43,105 @@ see [Design note for Model Element Move](8321_Model_Element_Move.dnt.md)
 
 5. Work Required
 ----------------
-Elaborate on each point of the Work Required section of the design note and
-describe how you implemented each step.  
-If there is no design note, this section, breaks out the consequential work 
-(as a numbered list) needed to meet the requirements specified in the 
-Requirements section. Here is an example reference to the Document References section [[2.1]](#2.1)
+6.1 Modify cut/paste operation to be analogous to "move" by making it a 
+single long-lived transaction. This shall adhere to the ACID properties 
+of transactions.  
 
-5.1 Item 1  
-5.1.1 Example sub-item
-* Example List Element
+I introduced a new abstract class, `CutCopyPasteAction extends Action`, and
+I modified the  existing `CutCopyAction` and `PasteAction` classes
+to extend this new class instead of extending Action directly as they were doing befire this
+change. This allowed me to move some common implementation from `CutCopyAction` "up" into this new
+class. This allowed PasteAction to know when the user has selected cut vs
+copy and to performed the cut/paste in a single transaction that occurs
+in PasteAction (previously cut was performed in a transaction of its own). I 
+moved the code that was deleting elements out of `CutAction.java::postRun()`
+and put this into `PasteAction::run()` at the point AFTER the move has taken place. 
+I added an attribute to CutCopyPasteAction named ELEMENT_MOVE_SOURCE_SELECTION that 
+holds the IStructuredSelection made by the user during cut. This allows us to
+deleted the selection without concern that the user may have pasted some
+element under the same model root that it was cut from. It also removes
+any other potential problems with lookup by ID that may have problems
+because the element IDs are not changed.  In order to prevent the
+element IDs from being changed I modified `bp/io/CoreImport` constructors
+to pass a new parameter, `boolean createIDsDuringModelImport`. This flag
+is used in the generated file `ImportModelStream.java::finishLoad()` to
+prevent the code that changes the IDs from running. There was a quite a
+bit of fallout from this change because the change was made to an
+archetype that generates a lot of different types of import classes. For 
+example, this generaates the import classes for both stream and file 
+import. This change is specific to the stream import, but the archetype 
+generates both.  
 
-5.2 Item 2  
-5.2.1 Example sub-item
-* Example List Element
+Each place that instantiated one of these import class objects had to be 
+modified to account for the new parameter. Note that in almost all cases 
+the value of this new parameter is set to true, because we DO update the 
+IDs in most cases. In addition to this new case just added, the only other 
+cases where we were not updating IDs are in model merge.  
+
+6.2 Modify the paste action (`core/ui/PasteAction.java`).  
+@see 6.1  
+
+6.2.1 The source element ID(s) shall be used and no new IDs shall be created  
+@see 6.1  
+
+6.2.2 The element is created in the target model root.  
+@see 6.1 and 6.2.3
+
+6.2.3 This is where requirement 4.2 is handled.  
+As described in the design note, the desire is that we could have a situation 
+where diff, after move of a model root, would show no changes and thus have a 
+good chance for RCS system to handle it as a move. After move, there are changes 
+in the target. The specific changes follow.  6.2.3.1 is the biggest hurdle to 
+this WRT trying to be RCS friendly. Of course the changeset of the move from 
+a diff point of view now that IDs are not changed is very small, but it is a diff. 
+However, these diffs do not deter RCS systems that implements move from treating 
+this as a move.  
+6.2.3.1 The model root has changed. This means, for example, if moving a package 
+from under one package to another, the PE_PE.Package_ID changes accordingly  
+6.2.3.2 Proxies get updated (when we are able to remove proxies, this change this will go away)  
+6.2.3.3 graphics - GD_GE instances contain a path to the location of the ooaofooa model element they represent (GD_GE.represents_path). This path gets updated with the move.  
+
+6.2.4 Where deletion of elements is required (paste is performed to a different model root) 
+the deletion of the source elements will occur. The deletion shall occur after the paste to
+faciliate 6.2.3.  
+@see 6.1  
+
+6.2.5 An attempt to paste to the same location that the copy was made from is considered an 
+invalid selection and shall not be allowed.  
+
+TODO: Add implementation detail  
+
+Note that same location does not mean same model root. A move should be allowed to the 
+same model root as long as it is not the exact same location inside that root.  
+
+6.3 Reuse the current tree view that shows Model Elements affected by the 
+cut/paste operation  
+TODO: Add implementation detail  
+
+6.3.1 The dialog shall allow the user to cancel   
+TODO: Add implementation detail  
+
+6.3.2 In the type demotion dialog, consider adding text to tell the user to consider turning on IPRs or checking package visibility.  
+TODO: Add implementation detail  
+
+6.3.3 As per the SOW [[2.3](#2.3)], the dialog needs to have save and print optons added.  
+TODO: Add implementation detail  
+
+6.4 Modify all resolution operations to first search by ID  instead of name  
+TODO: Add implementation detail  
+
+6.5 Fix inconsistent proxy paths [[2.4](#2.4)]  
+TODO: Add implementation detail  
 
 6. Implementation Comments
 --------------------------
-If the design cannot be implemented as written or if it needs some modification,
-enumerate the changes to the design in this section.  If there was no preceding
-design note, then this section documents any deviations from the implementation
-as presented at the pre-implementation engineering review. Here is an example reference to the Document References section [[2.1]](#2.1)
+NONE
 
-6.1 Item 1  
-```java
-    // java code example
-    public void clearDatabase(IProgressMonitor pm) 
-    {
-        // clear the corresponding graphics-root's database
-        OoaofgraphicsUtil.clearGraphicsDatabase(rootId, pm);
-
-        Ooaofooa.getDefaultInstance().fireModelElementUnloaded(this);
-    }
-```
-6.1.1 Example sub-item
-* Example List Element
-
-6.2 Item 2  
-6.2.1 Example sub-item
-* Example List Element
 
 7. Unit Test
 ------------
+TODO: Add implementation detail  
+
 7.1 Use the [[test generation utility]](#2.2) to generate tests for all source and target permutations. Note that documentation for this utility is found in the header of this perl script.  The goal of these generated tests is to assure all requirements are satisfied for each generated test. This assure that requirements are satisfied for each test permutation.  
 
 7.1.1 Create a test matrix that defines all possible "degrees of freedom" for source and target selection.   
@@ -108,7 +166,7 @@ as presented at the pre-implementation engineering review. Here is an example re
 
 8. User Documentation
 ---------------------
-Describe the end user documentation that was added for this change. 
+TODO: Describe the end user documentation that was added for this change. 
 
 9. Code Changes
 ---------------
