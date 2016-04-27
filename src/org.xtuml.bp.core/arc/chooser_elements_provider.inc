@@ -24,7 +24,6 @@
   .param inst_ref function
   .select one wfl related by function->W_WOF[R2001]
   .select any cme from instances of CME where ((selected.Specialism == wfl.Specialism) and (selected.Label == wfl.Label) and (selected.Key_Lett == wfl.Key_Lett))
-  .print "Generating chooser element provider for ${cme}"
   .if (not_empty wfl)
       .assign sel_decl = "IStructuredSelection"
       .assign iteration_req = false
@@ -48,8 +47,6 @@ public static ${cn.body}[] getElements(${contextClName.body} v_${firstContextIte
 	  .invoke traversal = get_pe_traversal(elemClass.Key_Lett)
 	  .assign peTraversal = traversal.result
 	  .assign secondaryPETraversal = traversal.result2
-	  .print "${class.Key_Lett} peTraversal: ${peTraversal}"
-	  .print "elemClass: ${elemClass.Key_Lett}"
 	  .if (peTraversal != "")
       PackageableElement_c pe = PackageableElement_c.getOnePE_PEOnR8001(${peTraversal});
 	    .if(secondaryPETraversal != "")
