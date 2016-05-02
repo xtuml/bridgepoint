@@ -40,7 +40,7 @@
 		<echo >Generating ${sql.output} ...</echo>
 		<copy file="../org.xtuml.bp.pkg/globals/Globals.xtuml" tofile="${sql.input}/Globals.xtuml" />
 		<exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
-			<arg line="xtumlmc_cleanse_for_BridgePoint ${sql.input} sql/${sql.output} ${subsystems_to_remove}" />
+			<arg line="xtumlmc_cleanse_for_BridgePoint -u 500000 ${sql.input} sql/${sql.output} ${subsystems_to_remove}" />
 		</exec>
 		<delete file="${sql.input}/Globals.xtuml" />
 	</target>
@@ -113,6 +113,7 @@
 			<property name="param2" value="Ooaofgraphics" />
 			<property name="param3" value="${mcj_path}" />
 			<property name="verify_selects" value="false" />
+			<property name="UUID_Seed" value="-u 500000" />
 			<property name="mcjava.project.root" value="${basedir}"/>
 		</ant>
 		<!-- Need to touch the output file for the case where the input data
