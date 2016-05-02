@@ -94,7 +94,7 @@
     <echo>Building from: gen/code_generation/${param1}.sql</echo>
     <copy file="gen/code_generation/${param1}.sql" tofile="gen/code_generation/${param1}.xtuml"/>
     <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
-          <arg line="xtumlmc_cleanse_for_BridgePoint ${mcjava.project.root}/gen/code_generation sql/${param1}.sql" />
+          <arg line="xtumlmc_cleanse_for_BridgePoint ${UUID_Seed} ${mcjava.project.root}/gen/code_generation sql/${param1}.sql" />
     </exec>
     <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
 	    <env key="PTC_MC_ARC_DIR" value="${param3}" />
