@@ -49,112 +49,113 @@ See the [Analysis Note](#2.4).
 
 7. Test Cases  
 ------------------  
-Setup: *NOTE: Names are for test case illustration only!* xtUML Project with 2 Packages, 
-A & B. Each Package has a Component, AD1 & BD1. Package A is the source for move 
-operations, Package B is the destination for move operations. Visibility rules for 
-BridgePoint dictate that elements in Package A are visible in Package B and vice versa, 
-but elements in AD1 aren't visible in Package B and vice versa (BD1 to A). 
 
 7.1 Use Case 4.1  
-1. User Datatype in A, ADT1, of core type is moved to B.  
->* Result is successful move with no option menu shown for list of lost visibility 
-items.  
-2. User Datatype in A, ADT1, of type of peer user datatype in A, ADT2, is moved to B.  
->* Result is successful move with no option menu shown for list of lost visibility 
-items.  
-3. User Datatype in AD1, AD1DT1, of peer user datatype in AD1, AD1DT2, is moved to B.  
->* Result is AD1DT1 is changed to type integer, and option menu is shown for 
-displaying all items in AD1 that were set to type AD1DT1.  
-4. User Datatype in AD1, AD1DT2, of core type is moved to BD1.  
->* Option menu is shown for displaying all items in AD1 that were set to type AD1DT2.  
+1. VisibleDataType in Source package is moved to Destination package.  
+>* Result is successful move with no option menu shown for list of lost 
+visibility items.  
+2. VisibleDataType in Source package is moved to DestinationComponentPackage.  
+>* Options menu is shown for displaying all items typed to VisibleDataType, that
+are now going to be set to the default type.  
 
 7.2 Use Case 4.2  
-1. Interface in A, AI1, is moved to B.  
->* Result is successful move with no option menu shown for list of lost visibility 
-items.  
-2. Interface in A, AI1, is moved to BD1.  
->* Result is successful move with no option menu shown for list of lost visibility 
-items.  
-3. Interface in AD1, AD1P1I1, is moved to B.  
->* Result is successful move with no option menu shown for list of lost visibility 
-items.  
-4. Interface in AD1, AD1P1I1, is moved to BD1.   
->* Option menu is shown for displaying all ports in AD1 that referenced AD1P1I1.  
+1. VisibleInterface in Source package is moved to Destination package.  
+>* Result is successful move with no option menu shown for list of lost 
+visibility items.  
+2. VisibleInterface in Source package is moved to DestinationComponentPackage.  
+>* Option menu is shown for displaying all ports that referenced 
+VisibleInterface.  
 
 7.3 Use Case 4.3  
-1. Component in A, AD1, is moved to B.  
->* Result is successful move with no option menu shown for list of lost visibility 
-items.  
-2. Component in A, AD1, is moved to package in B, BP1.  
->* Result is successful move with no option menu shown for list of lost visibility 
-items.  
-3. Component in AP1, AP1D1, is moved to B.  
->* Option menu is shown for displaying all items in AP1, that were referenced by AP1D1.  
+1. ComponentMovePass1 in Source package FailureCasesComponentPackage is moved 
+to Destination package.  
+>* Result is successful move with no option menu shown for list of lost 
+visibility items.  
+2. FailureMoveComponent1 in Source package is moved to Destination package.  
+>* Option menu is shown for displaying FailureMoveClass.attribute1 set to 
+default type and FailureMoveComponent1Port InvisibleInterface no longer visible.
+A parse of FailureMoveClass.operation1 will result in failure due to EE no
+longer visible.  
 
 7.4 Use Case 4.4  
-1. Component in A, AD2, is moved to component in A, AD1.  
->* Result is successful move with no option menu shown for list of lost visibility 
-items.  
-2. Component in A, AD2, is moved to component in BP1, BP1D1.  
->* Result is successful move with no option menu shown for list of lost visibility 
-items.  
-3. Component in AP1, AP1D1, is moved to component in A, AD1.  
->* Option menu is shown for displaying all items in AP1, that were referenced by AP1D1.  
+1. ComponentMovePass2 in Source package is moved to DestinationComponent in 
+Destination package.  
+>* Result is successful move with no option menu shown for list of lost 
+visibility items.  
+2. FailureMoveComponent1 in Source package is moved to DestinationComponent in 
+Destination package.  
+>* Option menu is shown for displaying FailureMoveClass.attribute1 set to 
+default type and FailureMoveComponent1Port InvisibleInterface no longer visible.
+A parse of FailureMoveClass.operation1 will result in failure due to EE no
+longer visible.  
 
 7.5 Use Case 4.5  
-1. Component in A in component AD1, AD1D1, moved to A.  
->* Option menu is shown for displaying all items in AD1 that were referenced by AD1D1.  
-2. Component in AP1 in component AP1D1, AP1D1D1, moved to A.  
->* Option menu is shown for displaying all items in AP1D1 that were referenced by AP1D1D1 
-and all items in AP1 that were referenced by AP1D1D1.  
+1. ComponentInComponentMovePass in ComponentMovePass2 in Source package is 
+moved to Destination package.  
+>* Result is successful move with no option menu shown for list of lost 
+visibility items.  
+2. FailureMoveComponentInComponent in FailureMoveComponent1 in Source package 
+is moved to Destination package.  
+>* Option menu is shown for displaying FailureMoveComponent1Port 
+InvisibleInterface no longer visible.  
 
 7.6 Use Case 4.6  
-1. Component in A in component AD1, AD1D1, is moved to component in A, AD2.  
->* Option menu is shown for displaying all items in AD1 that were referenced by AD1D1.  
-2. Component in AP1 in component AP1D1, AP1D1D1, is moved to component in A, AD2.  
->* Option menu is shown for displaying all items in AP1D1 that were referenced by AP1D1D1 
-and all items in AP1 that were referenced by AP1D1D1.  
+1. ComponentInComponentMovePass in ComponentMovePass2 in Source package is 
+moved to DestinationComponent in Destination package.  
+>* Result is successful move with no option menu shown for list of lost 
+visibility items.  
+2. FailureMoveComponentInComponent in FailureMoveComponent1 in Source package 
+is moved to DestinationComponent in Destination package.  
+>* Option menu is shown for displaying FailureMoveComponent1Port 
+InvisibleInterface no longer visible.  
 
 7.7 Use Case 4.7  
-1. Component in A, AD3, containing component referencing AD2, is moved to B.  
->* Result is successful move with no option menu shown for list of lost visibility 
-items.  
-2. Component in AP1, AP1D2, containing component referencing AP1D1, is moved to B.  
->* Option menu is shown for displaying all items that were referenced by AP1D2 
-and the missing reference to AP1D1.  
+1. ComponentMovePass3 in Source package is moved to Destination package.  
+>* Result is successful move with no option menu shown for list of lost 
+visibility items.  
+2. FailureMoveComponent2 in Source package is moved to Destination package.  
+>* Option menu is shown for displaying that contained component reference has
+lost visibility to the referred component.  
 
 7.8 Use Case 4.8  
-1. Class with no associations in A, AC1, is moved to B.  
->* Result is successful move with no option menu shown for list of lost visibility 
-items.  
-2. Class with no associations and one attribute typed as AP1DT1 in AP1, AP1C1, is moved
- to BP1.  
->* Attribute typed as AP1DT1 is now typed as integer. Options menu is shown for displaying 
-the attribute type change.  
-3. Imported, from A class AC1, class with no associations in AP1 is moved to B.  
->* Result is successful move with no option menu shown for list of lost visibility 
-items.  
-4. Imported, from AP1 class AP1C1, class with no associations in AP1P1 is moved to BP1.  
->* Options menu is shown for displaying the move resulted in removal of the imported class.  
+1. SingleClassPass in Source package is moved to Destination package.  
+>* Result is successful move with no option menu shown for list of lost 
+visibility items.  
+2. FailureMoveClass in Source package is moved to Destination package.
+>* Options menu is shown for displaying that FailureMoveClass.failureAttribute
+has been set to the default data type.  
 
 7.9 Use Case 4.9  
-1. Class in A, AC2, and class in A, AC3, and association R1 from AC2 to AC are all moved 
-to B.  
->* Result is successful move with no option menu shown for list of lost visibility 
-items.  
-2. Class in AP1, AP1C2 with attribute typed ADT1, and class in AP1, AP1C3 with attribute 
-typed AP1DT1, related by R1 from AP1C2 to AP1C3 are all moved to BP1.  
->* Attribute typed AP1DT1 is changed to integer. Options menu is shown for displaying 
-AP1C3 attribute type change.  
+1. Class2RelatedTo3Pass, Class3RelatedTo2Pass, and R1 in Source package is moved
+to Destination package.  
+>* Result is successful move with no option menu shown for list of lost 
+visibility items.  
 
 7.10 Use Case 4.10  
-1. Class in A, AC4, and class in A, AC5, and association R2 from AC4 to AC5 are all moved 
-to B without including class in A, AC6, which is related to AC5 across R3.  
->* Warning is displayed stating that AC6 and R3 must be included in the move. Move isn't 
-permitted.  
+1. ClusterClass4Fail, ClusterClass5Fail, and R2 in Source package is moved to 
+Destination package.  
+>* Warning is displayed stating that ClusterClass6Fail and R3 must be included 
+in the move. Move isn't permitted.  
 
 7.11 Use Case 4.11  
-1. 
+1. ComponentMovePass4 in Source package is moved to Destination package.  
+>* Result is successful move with no option menu shown for list of lost 
+visibility items.  
+2. FailureMoveComponent3 in Source package is moved to Destination package.  
+>* Options menu is shown for displaying information that both components 
+referenced and the interface formalized to the port connection are no longer 
+visible.  
+
+7.12 Use Case 4.12  
+1. ImportedClassPass1, ImportedClassPass2, R4, R5, and the imported class
+related across R5 in Source package is moved to Destination package.  
+>* Result is successful move with no option menu shown for list of lost 
+visibility items.  
+2. ImportFailClass1, ImportFailClass2, R1, R2, and the imported class related 
+across R3 in Source package is moved to Destination package.  
+>* Options menu is shown for displaying information of the removal of the 
+imported class.  
+
  
 End
 ---
