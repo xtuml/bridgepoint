@@ -4,18 +4,14 @@ This work is licensed under the Creative Commons CC0 License
 
 ---
 
-# Title goes here
+# Build BridgePoint with pyrsl/pyxtuml
 ### xtUML Project Design Note
 
 
-Note: Each section has a description that states the purpose of that section.
-Delete these section descriptions before checking in your note.  Delete this
-note as well.
-
 1. Abstract
 -----------
-In this section, give a summary of the design that this note aims to
-describe.
+This note describes the work performed to allow BridgePoint to be built
+with the new generator.
 
 2. Document References
 ----------------------
@@ -27,9 +23,13 @@ Give the full path to reference a file.
 
 3. Background
 -------------
-In this section, outline the important points relating to this issue/bug that
-the reader would need to know in order to understand the rest of this
-document. Here is an example reference to the Document References section [[2.1]](#2.1)
+BridgePoint is deprecating the VC++-based generator in favor of a new python-
+based generator (pyrsl/pyxtuml).  BridgePoint Community Edition 5.3.4 installs
+gen_erate.pyz as the default generator on Linux. This generator has proven to
+successfully generate code over the past several months.   
+
+However, one issue remains: BridgePoint itself cannot be built with the new
+generator.  There are more
 
 4. Requirements
 ---------------

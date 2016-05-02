@@ -276,10 +276,10 @@ public class ModelComparisonTests extends BaseTest {
 .function isGraphicalCheck
   .param inst_ref class
     .assign attr_isGraphical = false
-    .select one ss related by class->S_SS[R2];
-    .select one dom related by ss->S_DOM[R1];
-    .if(not_empty dom)
-      .if(dom.Name == "ooaofgraphics")
+    .select one parentPkg related by class->PE_PE[R8001]->EP_PKG[R8000]
+    .select one grandParentPkg related by parentPkg->PE_PE[R8001]->EP_PKG[R8000]
+    .if(not_empty grandParentPkg)
+      .if(grandParentPkg.Name == "ooaofgraphics")
         .assign attr_isGraphical = true
       .end if
     .end if
