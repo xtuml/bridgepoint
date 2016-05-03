@@ -19,6 +19,7 @@ with the new generator (pyrsl/pyxtuml).
 <a id="2.2"></a>2.2 [pyrsl](https://github.com/xtuml/pyrsl) pyrsl github repository  
 <a id="2.3"></a>2.3 [pyxtuml](https://github.com/xtuml/pyxtuml) pyxtuml github  repository
 <a id="2.4"></a>2.4 [VC++-based generator](https://github.com/xtuml/generator) generator github  repository  
+<a id="2.5"></a>2.5 [SMspd_ID removal instructions](https://support.onefact.net/issues/7751#note-18)   
 
 3. Background
 -------------
@@ -117,7 +118,9 @@ of the referential attributes are empty.
 6.6  In `ui.properties.test/arc/create_view_test.arc` we changed R525 related-
   by selections to "select any where" selections with referential attribute 
   equality checks.  `SM_EVT.SMspd_ID` is 0 in our PEI data and cannot be used in
-  the new generator for "select related by" traversals.  
+  the new generator for "select related by" traversals.  Note that in the MC
+  schema `SMspd_ID` has been deprecated.  Eventually we will do the same in 
+  the BridgePoint metamodel following the instructions in [2.5].
 
 6.7  In some of the plug-in builds the exported ooaofooa (from bp.core) model 
   data is used along with the exported ooaofgraphics (from bp.ui.canvas) model
@@ -164,25 +167,67 @@ INSERT INTO O_OBJ
   $SF_Out = xtumlmc_open( ">" . shift );
   @ClassesToRemove = @_;
 ```  
+  
+6.8  The default python interpreter is very slow when running generator on
+  bp.core.  With old generator the build time was about 20 mins for that plugin. 
+  With the new generator the build time ballooned to 85 mins.  John Tornblom 
+  suggested using a different python interpreter named "pypy".  I modified 
+  `xtumlmc_build.exe` to invoke gen_erate.pyz using pypy if pypy is available
+  on the host system.  
 
+```
+# HOWTO install pypy on ubuntu 14.04 LTS
+$ sudo add-apt-repository ppa:pypy/ppa
+$ sudo apt-get update
+$ sudo apt-get install pypy pypy-dev
+# Put the updated <git>/mc/bin/xtumlmc_build (from branch 8442_build_bp_pyrsl) 
+# into ~/git/bridgepoint/src/org.xtuml.bp.mc.c.source/mc3020/bin/xtumlmc_build.exe 
+```   
+  
+  Using pypy the bp.core build time went down to ~25 mins.  
+
+6.9  On several archetype files, new generator threw and error about unexpected
+  EOF.  The issue was resolved by adding a newline onto the last RSL 
+  statement.
+
+  
 - fixed (not_)[first | last] operators in pyrsl.  Updated pyrsl tests for these operators
 
 - modified pyxtuml to not treat derived attributes as a special case when giving new class instance attributes default values
 
-
-pypy call in xtumlmc_build.exe
-
-? add newline on last statement RSL statement in files
-
 7. Design Comments
 ------------------
+7.1  Instructions for getting set up to develop and build new generator:   
+```
+# Fork xtuml/pyrsl and xtuml/pyxtuml github repositories to my user account
+$ sudo apt-get install python-ply
+$ git clone https://github.com/keithbrown/pyxtuml.git
+$ cd pyxtuml
+$ sudo python setup.py install
+$ git clone https://github.xtuml/keithbrown/pyrsl.git
+$ cd pyrsl
+$ sudo python setup.py install
+# Create branch on pyxtuml (and pyrsl) as appropriate
+# Make changes, commit and push them
+$ cd <git>/pyrsl
+$ ./package_pyz.sh -pyxtuml <git branch name> -pyrsl <git branch name>
+- Copy created gen_erate.pyz into mc3020/bin folder to use it
+```  
+  
 
 8. User Documentation
 ---------------------
 
 9. Unit Test
 ------------
-9.1  The JUnit tests of the BridgePoint plug-ins shall complete with the same 
+9.1  Run built-in unit tests for pyrsl.
+```
+$ git clone https://github.com/xtuml/pyrsl.git
+$ cd pyrsl
+$ python setup.py test
+```   
+
+9.2  The JUnit tests of the BridgePoint plug-ins shall complete with the same 
   success rate as a current build of the testing branch.  
 
 End
