@@ -31,6 +31,9 @@ from a defined test matrix.
 
 <a id="2.5"></a>2.5 [Design note for Model Element Move](8321_Model_Element_Move.dnt.md)  
 
+<a id="2.6"></a>2.6 [Milestone 1 -  #8491](https://support.onefact.net/issues/8491)  
+This is a delivery milestone for the project. What is included in this intermediate, internal deliverable 
+is defined in (the Work Required section below)[#milestone1].  
 
 3. Background
 -------------
@@ -97,14 +100,16 @@ a diff point of view now that IDs are not changed is very small, but it is a dif
 However, these diffs do not deter RCS systems that implements move from treating 
 this as a move.  
 6.2.3.1 The model root has changed. This means, for example, if moving a package 
-from under one package to another, the PE_PE.Package_ID changes accordingly  
-6.2.3.2 Proxies get updated (when we are able to remove proxies, this change this will go away)  
+from under one package to another, the PE_PE.Package_ID changes accordingly   
+6.2.3.2 Proxies get updated (when we are able to remove proxies, this change this will go away)   
 6.2.3.3 graphics - GD_GE instances contain a path to the location of the ooaofooa model element they represent (GD_GE.represents_path). This path gets updated with the move.  
 
 6.2.4 Where deletion of elements is required (paste is performed to a different model root) 
 the deletion of the source elements will occur. The deletion shall occur after the paste to
 faciliate 6.2.3.  
 @see 6.1  
+
+<a id="milestone1"></a>(Milestone 1) [#2.6] - Everything above this point is included in Milestone 1.
 
 6.2.5 An attempt to paste to the same location that the copy was made from is considered an 
 invalid selection and shall not be allowed.  
