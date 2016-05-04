@@ -224,11 +224,11 @@ public class ${modelAdapterClass}
 	    .assign found = true
 	    .break for
 	  .end if
-	  .for each oal in oal_set
-	  	.if ( obj.Key_Lett == oal.Key_Lett)
-	  		.assign is_oal = true;
-	  	.end if
-	  .end for    
+	.end for    
+	.for each oal in oal_set
+	  .if ( obj.Key_Lett == oal.Key_Lett)
+	  	.assign is_oal = true;
+	  .end if
 	.end for    
 	.if (not found )
 	private static String m_getNameValid = "no"; //$$NON-NLS-1$$
@@ -361,7 +361,7 @@ public class ${modelAdapterClass}
   .for each attr in id_attr_set
     .invoke result = get_core_datatype(attr)
     .assign cdt = result.cdt
-    .if (cdt.core_typ == 4)   .// string
+    .if (cdt.core_typ == 4)
       id.add($cr{attr.name});
     .else
       id.add(String.valueOf($cr{attr.name}));
