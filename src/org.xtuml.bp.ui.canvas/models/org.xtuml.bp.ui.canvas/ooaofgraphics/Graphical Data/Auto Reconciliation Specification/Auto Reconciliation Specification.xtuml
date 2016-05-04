@@ -16,25 +16,21 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
-	'if (param.connectorID != OS::NULL_UNIQUE_ID())
-  return OS::NULL_UNIQUE_ID();
-end if;
+	'select any model related by self->GD_ES[R29]->GD_EMS[R11]->
+                                                          GD_MS[R11]->GD_MD[R9];
 select one spec related by self->GD_ES[R30];
 select many connectors related by  spec->GD_GE[R10]->GD_CON[R2];
 for each connector in connectors
   select one ge related by connector->GD_GE[R2];
-  if (CL::isContainedInSystem( element:ge.represents,
-                                 system_id:param.system_id))
-    if (ge.represents == OS::NULL_INSTANCE())
-      ge.represents = CL::getInstanceFromOOA_ID(
+  if (ge.represents == OS::NULL_INSTANCE())
+    ge.represents = CL::getInstanceFromOOA_ID(
   	                                   rootInst:ge.convertToInstance(),
   	                                   OOA_ID:ge.OOA_ID, 
   	                                   OOA_Type:ge.OOA_Type );
-    end if;
-    id = CL::getOOAId(from:ge.represents);
-    if (id == param.connectorID)
-      return ge.elementId;
-    end if;
+  end if;
+  id = CL::getOOAId(from:ge.represents);
+  if (id == param.connectorID)
+    return ge.elementId;
   end if;
 end for;
 return OS::NULL_UNIQUE_ID();',
@@ -49,15 +45,6 @@ INSERT INTO O_TPARM
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
-	'');
-INSERT INTO O_TPARM
-	VALUES ("e778441b-bf81-4f84-8a91-3c13411da5f1",
-	"01e90c90-3e42-4325-9395-f04aa3dcdeec",
-	'system_id',
-	"ba5eda7a-def5-0000-0000-000000000005",
-	0,
-	'',
-	"42d98f22-42d8-42d9-bcdb-0c595e38daa3",
 	'');
 INSERT INTO O_TFR
 	VALUES ("c02376d4-138e-44c1-8e19-e42d4e5bdff4",
@@ -742,7 +729,7 @@ if( CL::isContainedInSystem(element:graphicalElement.represents, system_id:param
   	      templateConId = connectorId;
   	    end if;
   	    
-  	    conID = self.findConnector(connectorID:templateConId, system_id:param.system_id);
+  	    conID = self.findConnector(connectorID:templateConId);
   	    select one model related by graphicalElement->GD_MD[R1];
         if (empty model)
           msg = " GD_GE.diagramId: " + OS::uniqueIdToString(id:graphicalElement.diagramId) + 
