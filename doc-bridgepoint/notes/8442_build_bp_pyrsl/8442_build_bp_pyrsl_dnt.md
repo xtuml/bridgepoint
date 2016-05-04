@@ -17,9 +17,12 @@ with the new generator (pyrsl/pyxtuml).
 ----------------------
 <a id="2.1"></a>2.1 [BridgePoint DEI #8442](https://support.onefact.net/issues/8442) Headline issue  
 <a id="2.2"></a>2.2 [pyrsl](https://github.com/xtuml/pyrsl) pyrsl github repository  
-<a id="2.3"></a>2.3 [pyxtuml](https://github.com/xtuml/pyxtuml) pyxtuml github  repository
+<a id="2.3"></a>2.3 [pyxtuml](https://github.com/xtuml/pyxtuml) pyxtuml github  repository  
 <a id="2.4"></a>2.4 [VC++-based generator](https://github.com/xtuml/generator) generator github  repository  
 <a id="2.5"></a>2.5 [SMspd_ID removal instructions](https://support.onefact.net/issues/7751#note-18)   
+<a id="2.6"></a>2.6 [MC-Java: various syntax errors encountered by pyrsl](https://support.onefact.net/issues/8442) - branch john-tornblom:7940_mc_java_fixes_for_pyrsl   
+<a id="2.7"></a>2.7 [Syntax fix for unbalanced if statement](https://support.onefact.net/issues/7969)   
+<a id="2.8"></a>2.8 [last and not_last do not seem to work](https://github.com/xtuml/pyrsl/issues/2)   
 
 3. Background
 -------------
@@ -44,7 +47,7 @@ of the referential attributes are empty.
 5. Analysis
 -----------
 5.1  John Tornblom identified some problems in MC-Java archetypes using the new 
-  generator [TODO] [TODO].  The new working branch `8442_build_bp_pyrsl` shall
+  generator [2.6] & [2.7].  The new working branch `8442_build_bp_pyrsl` shall
   either start with these changes or take them under advisement.    
 
 
@@ -190,10 +193,39 @@ $ sudo apt-get install pypy pypy-dev
   EOF.  The issue was resolved by adding a newline onto the last RSL 
   statement.
 
-  
-- fixed (not_)[first | last] operators in pyrsl.  Updated pyrsl tests for these operators
+6.10  Modified `bp.ui.text/arc/create_modeladapter_java.arc`  
+  Moved nested for loop out to be a sibling for loop.  The nested loop did not 
+  need to be nested, and in fact, was not being processed by the pyrsl build
+  because the set of elements in the outer loop was being processed in a 
+  different order than old generator.  When I move the loop out, the generated 
+  code is identical between new and old generator.   
 
-- modified pyxtuml to not treat derived attributes as a special case when giving new class instance attributes default values
+6.11  Modified pyxtuml to not treat derived attributes as a special case when 
+  giving new class instance attributes default values.  
+  
+  The problem I hit is due to the fact that `T_TPS.Prev_TPS_ID` is a referential
+  attribute and thus is a derived attribute. Our PEI data in 
+  `ooaofooa_heirarch.pei.sql` does not specify values for every field. When 
+  pyxtuml loads the data it sets the value of `T_TPS.Prev_TPS_ID` to the python 
+  value "None" rather than "0", even though the field is an INTEGER. It does 
+  this because it is a derived attribute (see https://github.com/keithbrown/pyxtuml/blob/8442_build_bp_pyrsl/xtuml/model.py#L480). 
+  Here `inst.__a__` is the set of attributes and `inst.__d__` is the set of 
+  derived attributes in a given class (refer to line 280 in the same file).  
+
+  pyxtuml behaviour is different than old generator behavior here, so I think 
+  that pyxtuml should not treat derived attributes specially and should just use
+  whatever type-based default is done for non-derived attributes.  
+
+  We could update our PEI data to include values for all fields instead of 
+  relying to generator to do the right thing. A script or small parser could 
+  make sure it was fully filled out. However, sometimes it is just cleaner to 
+  read to leave out empty fields. A post-processing to go from readable/editable
+  to syntactically correct is probably a good way to go (given time).  
+    
+6.12  Fixed (not_)[first | last] operators in pyrsl.  Updated pyrsl tests for 
+  these operators. [2.8]  The internal symbols used by the for loop were 
+  conflicting with "select where" and nested for loops.    
+
 
 7. Design Comments
 ------------------
