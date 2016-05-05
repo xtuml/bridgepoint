@@ -487,7 +487,7 @@ public class PersistableModelComponent implements Comparable {
     }
     
     public boolean isLoaded() {
-        return !(componentRootME == null || componentRootME.isProxy());
+        return !(componentRootME == null);
     }
     
     public boolean isOrphaned(){
