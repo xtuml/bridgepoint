@@ -57,15 +57,12 @@ import org.xtuml.bp.core.common.TransactionManager;
 import org.xtuml.bp.core.util.OoaofgraphicsUtil;
 import org.xtuml.bp.core.util.UIUtil;
 
-public abstract class PasteAction extends Action {
+public abstract class PasteAction extends CutCopyPasteAction  {
 
 	protected HashMap<NonRootModelElement, ModelStreamProcessor> processorMap = new HashMap<NonRootModelElement, ModelStreamProcessor>();
 	
 	public PasteAction() {
-		setImageDescriptor(PlatformUI.getWorkbench().getSharedImages()
-				.getImageDescriptor(ISharedImages.IMG_TOOL_PASTE));
-		setText("Paste");
-		setToolTipText("Paste elements from the clipboard");
+		super();
 	}
 
 	public void run() {
@@ -89,6 +86,7 @@ public abstract class PasteAction extends Action {
 											Ooaofooa.DEFAULT_WORKING_MODELSPACE,
 											OoaofgraphicsUtil
 											.getGraphicsClass()) });
+					Ooaofooa.beginSaveOperation();
 					for (NonRootModelElement destination : destinations) {
 						ModelStreamProcessor processor = new ModelStreamProcessor();
 						processorMap.put(destination, processor);
@@ -111,12 +109,20 @@ public abstract class PasteAction extends Action {
 											true,
 											destination
 													.getPersistableComponent()
-													.getFile().getFullPath());
+													.getFile().getFullPath(), !MOVE_IS_IN_PROGRESS);
 							processor.runImporter(importer, monitor);
 							processor.processFirstStep(monitor);
 							runSubtypeProcessing(destination);
 							processor.processSecondStep(monitor);
 						}
+					}
+					// The elements have been pasted, so now is this is a cut/paste delete the source elements
+					if (MOVE_IS_IN_PROGRESS) {
+						// Delete the source elements. We use the saved IStructuredSelection that was made by the used
+						// during the cut operation because since the UUIDs were not changed during paste, if 
+						// an element was pasted to the same model root there would be a problem searching by ID
+						((DeleteAction) CorePlugin.getDeleteAction()).deleteSelection(ELEMENT_MOVE_SOURCE_SELECTION);
+						ELEMENT_MOVE_SOURCE_SELECTION = null;
 					}
 				} catch (Exception e) {
 					CorePlugin
@@ -127,8 +133,10 @@ public abstract class PasteAction extends Action {
 						transaction = null;
 					}
 				} finally {
-					if (transaction != null)
+					if (transaction != null) {
 						manager.endTransaction(transaction);
+					}
+					Ooaofooa.endSaveOperation();
 				}
 				if(transaction != null) {
 					// only perform finishing work if the transaction
@@ -156,7 +164,7 @@ public abstract class PasteAction extends Action {
 						for(IPasteListener listener : CorePlugin.getPasteListeners()) {
 							listener.pasteCompleted(destination, instances);
 						}
-					}
+					}					
 				}
 			}
 
@@ -169,6 +177,13 @@ public abstract class PasteAction extends Action {
 			CorePlugin.logError("Unable to import contents from clipboard.", e); //$NON-NLS-1$
 		} catch (InterruptedException e) {
 			CorePlugin.logError("Unable to import contents from clipboard.", e); //$NON-NLS-1$
+		} finally {
+			// Regadless of if this was a move or not we can reset this flag now.
+			if (MOVE_IS_IN_PROGRESS) {
+				// Clear the clipboard to prevent another paste
+				CorePlugin.getSystemClipboard().clearContents();
+				MOVE_IS_IN_PROGRESS = false;
+			}
 		}
 	}
 
@@ -258,7 +273,6 @@ public abstract class PasteAction extends Action {
 				.getContents(TextTransfer.getInstance());
 		if(contents instanceof String) {
 			String stringContents = (String) contents;
-			boolean isGenericPackagingCopy = stringContents.contains(CopyCutAction.GENERIC_PACKAGE_HEADER);
 			List<NonRootModelElement> destinations = getDestinations();
 			List<NonRootModelElement> removals = new ArrayList<NonRootModelElement>();
 			for(NonRootModelElement element : destinations) {
@@ -278,4 +292,13 @@ public abstract class PasteAction extends Action {
 		return true;
 	}
 	
+	@Override
+	protected int getActionType() {
+		return PASTE_TYPE;
+	}
+	
+	@Override
+	public void postRun() {
+	}
+
 }
