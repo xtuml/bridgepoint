@@ -1,0 +1,470 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>8.6. Find Statements</title>
+<link rel="stylesheet" type="text/css" href="docbook.css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<meta name="keywords" content="MASL, Action Language, Action Semantics, UML, Unified Modelling Language, Shlaer Mellor">
+<link rel="home" href="index.html" title="MASL Tutorial">
+<link rel="up" href="MASLExamples.html" title="Chapter 8. MASL Examples">
+<link rel="prev" href="MASLExamplesStringLiterals.html" title="8.5. String Literals">
+<link rel="next" href="MASLExamplesControlStatements.html" title="8.7. Control Statements">
+<link rel="preface" href="preface.html" title="Preface">
+<link rel="chapter" href="Types.html" title="Chapter 1. Types">
+<link rel="chapter" href="ExecutionControl.html" title="Chapter 2. Execution Control">
+<link rel="chapter" href="CompositeTypes.html" title="Chapter 3. Composite Types">
+<link rel="chapter" href="Exceptions.html" title="Chapter 4. Exceptions">
+<link rel="chapter" href="ObjectsandRelationships.html" title="Chapter 5. Objects and Relationships">
+<link rel="chapter" href="Actions.html" title="Chapter 6. Actions">
+<link rel="chapter" href="DeviceIO.html" title="Chapter 7. Device Input/Output">
+<link rel="chapter" href="MASLExamples.html" title="Chapter 8. MASL Examples">
+<link rel="index" href="ix01.html" title="Index">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div align="center">UNCLASSIFIED</div>
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">8.6. Find Statements</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="MASLExamplesStringLiterals.html">Prev</a> </td>
+<th width="60%" align="center">Chapter 8. MASL Examples</th>
+<td width="20%" align="right"> <a accesskey="n" href="MASLExamplesControlStatements.html">Next</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title">
+<a name="MASLExamplesFindStatements"></a>8.6. Find Statements</h2></div></div></div>
+<p>
+</p>
+<pre class="programlisting">
+
+declare
+  pilot     : instance of Pilot;
+  pilots    : sequence of instance of Pilot;
+  xpilots   : sequence of instance of Pilot;
+  total_age : integer := 0;
+  temp      : integer := 0;
+  today     : Calendar::date_type;
+begin
+  //find one on no population
+  pilot := find_one Pilot(age=5);
+  if (pilot/=null) then
+    raise Standard::constraint_error;
+  end if;
+
+  //find one on single population
+  pilot := create Pilot(age=&gt;10,qualified=&gt;today);
+  pilot := find_one Pilot(age=5 and qualified.year=today.year);
+  if (pilot/=null) then
+    raise Standard::constraint_error;
+  end if;
+  pilot := find_one Pilot(age=10);
+  if (pilot=null or pilot.age /=10) then
+    raise Standard::constraint_error;
+  end if;
+
+  //find one on small population
+  pilot := create Pilot(age=&gt;20);
+  pilot := create Pilot(age=&gt;30);
+  pilot := find_one Pilot(age=5);
+  if (pilot/=null) then
+    raise Standard::constraint_error;
+  end if;
+  pilot := find_one Pilot(age=10);
+  if (pilot=null or pilot.age /= 10) then
+    raise Standard::constraint_error;
+  end if;
+  pilot := find_one Pilot(age=20);
+  if (pilot=null or pilot.age /= 20) then
+    raise Standard::constraint_error;
+  end if;
+  pilot := find_one Pilot(age=30);
+  if (pilot=null or pilot.age /= 30) then
+    raise Standard::constraint_error;
+  end if;
+
+  //find one on large population
+  for age in 1..100 loop
+    pilot := create Pilot(age=&gt;age);
+  end loop;
+  pilot := find_one Pilot(age=1);
+  if (pilot=null or pilot.age /= 1) then
+    raise Standard::constraint_error;
+  end if;
+  pilot := find_one Pilot(age=100);
+  if (pilot=null or pilot.age /= 100) then
+    raise Standard::constraint_error;
+  end if;
+
+  //cleanup
+  pilot := find_one Pilot();
+  while (pilot /= null) loop
+    delete pilot;
+    pilot := find_one Pilot();
+  end loop;
+  pilot := find_one Pilot();
+  if (pilot/=null) then
+    raise Standard::constraint_error;
+  end if;
+
+  //find all on no population
+  pilots := find_all Pilot();
+  if (pilots'length /= 0) then
+    raise Standard::constraint_error;
+  end if;
+
+  //find all on single population
+  pilot := create Pilot(age=&gt;10);
+  pilots := find_all Pilot();
+  if (pilots'length /= 1 or pilots[pilots'first].age /= 10) then
+    raise Standard::constraint_error;
+  end if;
+
+  //find all on small population
+  pilot := create Pilot(age=&gt;20);
+  pilot := create Pilot(age=&gt;30);
+  pilots := find_all Pilot();
+  if (pilots'length /= 3 or pilots[pilots'first+0].age /= 10
+                       or pilots[pilots'first+1].age /= 20
+                       or pilots[pilots'first+2].age /= 30) then
+    raise Standard::constraint_error;
+  end if;
+
+  //find all on large population
+  delete pilots;
+  total_age := 0;
+  for age in 1..100 loop
+    pilot := create Pilot(age=&gt;age);
+    total_age := total_age+age;
+  end loop;
+  pilots := find_all Pilot();
+  temp := 0;
+  for pilot in pilots'elements loop
+    temp := temp + pilot.age;
+  end loop;
+  if (total_age /= temp) then
+    raise Standard::constraint_error;
+  end if;
+
+  //cleanup
+  pilots := find_all Pilot();
+  delete pilots;
+
+  //find on no population
+  pilots := find Pilot(age=4);
+  if (pilots'length /= 0) then
+    raise Standard::constraint_error;
+  end if;
+
+  //find on single population
+  pilot := create Pilot(age=&gt;10);
+  pilots := find Pilot(age=10);
+  if (pilots'length /= 1 or pilots[pilots'first].age /= 10) then
+    raise Standard::constraint_error;
+  end if;
+  pilots := find Pilot(age=100);
+  if (pilots'length /= 0) then
+    raise Standard::constraint_error;
+  end if;
+
+  //find on small population
+  pilot := create Pilot(age=&gt;20);
+  pilot := create Pilot(age=&gt;30);
+  pilots := find Pilot(age&gt;10);
+  if (pilots'length /= 2 or pilots[pilots'first+0].age /= 20
+                       or pilots[pilots'first+1].age /= 30) then
+    raise Standard::constraint_error;
+  end if;
+  pilots := find Pilot(age&lt;=10);
+  if (pilots'length /= 1 or pilots[pilots'first+0].age /= 10) then
+    raise Standard::constraint_error;
+  end if;
+  pilots := find Pilot(age&lt;1);
+  if (pilots'length /= 0) then
+    raise Standard::constraint_error;
+  end if;
+
+  //find on large population
+  delete pilots;
+  for age in 1..100 loop
+    pilot := create Pilot(age=&gt;age);
+  end loop;
+  pilots := find Pilot(age&gt;50);
+  if (pilots'length /= 50) then
+    raise Standard::constraint_error;
+  end if;
+
+  //cleanup
+  pilots := find_all Pilot();
+  delete pilots;
+
+  //*************************************************************************
+  //find only no population
+  pilot := find_only Pilot(age=4);
+  if (pilot /= null) then
+    raise Standard::constraint_error;
+  end if;
+
+  //find on single population
+  pilot := create Pilot(age=&gt;10);
+  pilot := find_only Pilot(age=10);
+  if (pilot.age /= 10) then
+    raise Standard::constraint_error;
+  end if;
+  pilot := find_only Pilot(age=100);
+  if (pilot /= null) then
+    raise Standard::constraint_error;
+  end if;
+
+  //find on small population
+  pilot := create Pilot(age=&gt;20);
+  pilot := create Pilot(age=&gt;30);
+  pilot := find_only Pilot(age=20);
+  if (pilot.age /= 20) then
+    raise Standard::constraint_error;
+  end if;
+  begin
+    pilot := find_only Pilot(age&gt;=10);
+  exception
+    when Standard::constraint_error =&gt;
+      pilot := find_only Pilot(age=30);
+  end;
+  if (pilot.age /= 30) then
+    raise Standard::constraint_error;
+  end if;
+
+  //cleanup
+  pilots := find_all Pilot();
+  delete pilots;
+
+  //find over empty collections
+  if (xpilots'length /= 0) then
+    raise Standard::constraint_error;
+  end if;
+  pilots := find_all xpilots();
+  if (pilots'length /= 0) then
+    raise Standard::constraint_error;
+  end if;
+
+  //find on single element collection
+  pilot   := create Pilot(age=&gt;10);
+  xpilots := find_all Pilot();
+  pilots  := find xpilots(age=10);
+  if (pilots'length /= 1 or pilots[pilots'first].age /= 10) then
+    raise Standard::constraint_error;
+  end if;
+  pilots := find xpilots(age=100);
+  if (pilots'length /= 0) then
+    raise Standard::constraint_error;
+  end if;
+
+  //find over small collections
+  pilot := create Pilot(age=&gt;20);
+  pilot := create Pilot(age=&gt;30);
+  xpilots := find_all Pilot();
+  pilots := find xpilots(age&gt;10);
+  if (pilots'length /= 2 or pilots[pilots'first+0].age /= 20
+                       or pilots[pilots'first+1].age /= 30) then
+    raise Standard::constraint_error;
+  end if;
+  pilots := find xpilots(age&lt;=10);
+  if (pilots'length /= 1 or pilots[pilots'first+0].age /= 10) then
+    raise Standard::constraint_error;
+  end if;
+  pilots := find xpilots(age&lt;1);
+  if (pilots'length /= 0) then
+    raise Standard::constraint_error;
+  end if;
+
+  //find over large collections
+  pilots := find_all Pilot();
+  delete pilots;
+  for age in 1..100 loop
+    pilot := create Pilot(age=&gt;age);
+  end loop;
+  xpilots := find_all Pilot();
+  pilots := find xpilots(age&gt;50);
+  if (pilots'length /= 50) then
+    raise Standard::constraint_error;
+  end if;
+
+  //cleanup
+  pilots := find_all Pilot();
+  delete pilots;
+
+  //various find conditions
+  pilot := create Pilot(age=&gt;10);
+  pilot := create Pilot(age=&gt;20);
+
+  pilots := find Pilot(age/=10);
+  if (pilots'length /= 1 or pilots[pilots'first].age /= 20) then
+    raise Standard::constraint_error;
+  end if;
+  pilots := find Pilot(age=10);
+  if (pilots'length /= 1 or pilots[pilots'first].age /= 10) then
+    raise Standard::constraint_error;
+  end if;
+  pilots := find Pilot(age&lt;10);
+  if (pilots'length /= 0) then
+    raise Standard::constraint_error;
+  end if;
+  pilots := find Pilot(age&gt;20);
+  if (pilots'length /= 0) then
+    raise Standard::constraint_error;
+  end if;
+  pilots := find Pilot(age&lt;=20);
+  if (pilots'length /= 2) then
+    raise Standard::constraint_error;
+  end if;
+  pilots := find Pilot(age&gt;=20);
+  if (pilots'length /= 1 or pilots[pilots'first].age /= 20) then
+    raise Standard::constraint_error;
+  end if;
+  pilots := find Pilot(not (age=10));
+  if (pilots'length /= 1 or pilots[pilots'first].age /= 20) then
+    raise Standard::constraint_error;
+  end if;
+  pilots := find Pilot(age=10 or age=20);
+  if (pilots'length /= 2) then
+    raise Standard::constraint_error;
+  end if;
+  pilots := find Pilot(age=10 or age=20 or age&gt;1);
+  if (pilots'length /= 2) then
+    raise Standard::constraint_error;
+  end if;
+  pilots := find Pilot(age=10 and age=20);
+  if (pilots'length /= 0) then
+    raise Standard::constraint_error;
+  end if;
+  pilots := find Pilot(age=10 xor age/=10);
+  if (pilots'length /= 2) then
+    raise Standard::constraint_error;
+  end if;
+  pilots := find Pilot(age=10 xor age=10 and age&gt;1);
+  if (pilots'length /= 0) then
+    raise Standard::constraint_error;
+  end if;
+
+  //cleanup
+  pilots := find_all Pilot();
+  delete pilots;
+
+  //various ordered_by conditions on finds
+  pilot := create Pilot(age=&gt;7);
+  pilot := create Pilot(age=&gt;3);
+  pilot := create Pilot(age=&gt;8);
+  pilot := create Pilot(age=&gt;1);
+  pilot := create Pilot(age=&gt;6);
+  pilot := create Pilot(age=&gt;2);
+  pilot := create Pilot(age=&gt;5);
+  pilot := create Pilot(age=&gt;4);
+  pilot := create Pilot(age=&gt;10);
+  pilot := create Pilot(age=&gt;9);
+
+  xpilots := find_all Pilot() ordered_by(age);
+  temp := 1;
+  for pilot in xpilots'elements loop
+    if (pilot.age /= temp) then
+      raise Standard::constraint_error;
+    end if;
+    temp := temp+1;
+  end loop;
+
+  xpilots := find_all Pilot() reverse_ordered_by(age);
+  temp := 1;
+  for pilot in xpilots'elements loop
+    if (pilot.age = temp) then
+      raise Standard::constraint_error;
+    end if;
+    temp := temp+1;
+  end loop;
+
+  pilots := find_all Pilot();
+  xpilots := pilots ordered_by(age);
+  temp := 1;
+  for pilot in xpilots'elements loop
+    if (pilot.age /= temp) then
+      raise Standard::constraint_error;
+    end if;
+    temp := temp+1;
+  end loop;
+
+  pilots := find_all Pilot();
+  xpilots := pilots reverse_ordered_by(age);
+  temp := 1;
+  for pilot in xpilots'elements loop
+    if (pilot.age = temp) then
+      raise Standard::constraint_error;
+    end if;
+    temp := temp+1;
+  end loop;
+
+  //cleanup
+  pilots := find_all Pilot();
+  delete pilots;
+
+
+  //*************************************************************************
+  //various multiple ordered_by conditions on finds
+  pilot := create Pilot(age=&gt;3, NI=&gt;455, name=&gt;"fred",     qualified=&gt;today);
+  pilot := create Pilot(age=&gt;3, NI=&gt;222, name=&gt;"fred",     qualified=&gt;today);
+  pilot := create Pilot(age=&gt;8, NI=&gt;455, name=&gt;"sid",      qualified=&gt;today);
+  pilot := create Pilot(age=&gt;8, NI=&gt;455, name=&gt;"bill",     qualified=&gt;today);
+  pilot := create Pilot(age=&gt;6, NI=&gt;455, name=&gt;"harvey",   qualified=&gt;today);
+  pilot := create Pilot(age=&gt;2, NI=&gt;455, name=&gt;"bob",      qualified=&gt;today);
+  pilot := create Pilot(age=&gt;5, NI=&gt;455, name=&gt;"bernard",  qualified=&gt;today);
+  pilot := create Pilot(age=&gt;4, NI=&gt;455, name=&gt;"baldrick", qualified=&gt;today);
+  pilot := create Pilot(age=&gt;4, NI=&gt;455, name=&gt;"bonsai",   qualified=&gt;today);
+  pilot := create Pilot(age=&gt;9, NI=&gt;455, name=&gt;"biggles",  qualified=&gt;today);
+
+  xpilots := find_all Pilot() ordered_by(age,name,NI);
+
+  for x in 0..8 loop
+    if (xpilots[x].age &gt; xpilots[x+1].age) then
+      raise Standard::constraint_error;
+    end if;
+  end loop;
+  if (xpilots[1].NI /= 222) then
+    raise Standard::constraint_error;
+  end if;
+  if (xpilots[8].name /= "sid") then
+    raise Standard::constraint_error;
+  end if;
+
+  //xpilots := find_all Pilot() ordered_by(age,name,NI,qualified);
+
+  xpilots := find_all Pilot() ordered_by(age,name,NI,qualified.year);
+
+  xpilots := xpilots reverse_ordered_by(age,name,NI,qualified.year);
+end;
+
+</pre>
+<p>
+</p>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="MASLExamplesStringLiterals.html">Prev</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="MASLExamples.html">Up</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="MASLExamplesControlStatements.html">Next</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">8.5. String Literals </td>
+<td width="20%" align="center">
+<a accesskey="h" href="index.html">Home</a> | <a accesskey="t" href="bk01-toc.html">ToC</a>
+</td>
+<td width="40%" align="right" valign="top"> 8.7. Control Statements</td>
+</tr>
+</table>
+</div>
+<div align="center">UNCLASSIFIED</div>
+</body>
+</html>

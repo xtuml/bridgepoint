@@ -24,37 +24,27 @@ package org.xtuml.bp.debug.test;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.Platform;
 import org.eclipse.debug.core.DebugPlugin;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchManager;
 import org.eclipse.debug.ui.DebugUITools;
-import org.eclipse.jface.viewers.StructuredSelection;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.Menu;
-import org.eclipse.swt.widgets.MenuItem;
-
-import org.xtuml.bp.core.ComponentInstance_c;
-import org.xtuml.bp.core.Component_c;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Function_c;
 import org.xtuml.bp.core.Ooaofooa;
-import org.xtuml.bp.core.Package_c;
-import org.xtuml.bp.core.PackageableElement_c;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.ModelRoot;
-import org.xtuml.bp.core.ui.Selection;
-import org.xtuml.bp.core.ui.perspective.BridgePointPerspective;
-import org.xtuml.bp.debug.ui.actions.ExecuteAction;
 import org.xtuml.bp.debug.ui.launch.BPDebugUtils;
 import org.xtuml.bp.debug.ui.test.DebugUITestUtilities;
-import org.xtuml.bp.test.TestUtil;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TestingUtilities;
-import org.xtuml.bp.test.common.UITestingUtilities;
-import org.xtuml.bp.test.common.BaseTest.Function_by_name_c;
 
+@RunWith(OrderedRunner.class)
 public class RealizedClassRelaunchTest extends BaseTest {
 	private static String projectName1 = "InterProjectRealizedClass";
 	private static String projectName2 = "RealizedClassOnwer";
@@ -64,12 +54,13 @@ public class RealizedClassRelaunchTest extends BaseTest {
 	private SystemModel_c m_sys2;
 	private SystemModel_c m_sys1;
 
-	public RealizedClassRelaunchTest(String testName) throws Exception {
-		super(null,testName);
+	public RealizedClassRelaunchTest() throws Exception {
+		super(null, null);
 	}
 
 	@Override
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		if (!initialized){
 			loadProject(projectName1);
@@ -122,6 +113,7 @@ public class RealizedClassRelaunchTest extends BaseTest {
 		}
 	}
 	
+	@After
 	public void tearDown() throws Exception {
 		// terminate all launches
 		DebugUITestUtilities.terminateAllProcesses(m_sys1);
@@ -137,7 +129,8 @@ public class RealizedClassRelaunchTest extends BaseTest {
 	}
 	
 	
-    public void testOwnerAndInterProjectSimulation() throws CoreException{
+    @Test
+	public void testOwnerAndInterProjectSimulation() throws CoreException{
 
     	// Select the root needed to find the test function
 		ModelRoot[] roots = Ooaofooa.getInstancesUnderSystem(projectName1);
@@ -223,7 +216,8 @@ public class RealizedClassRelaunchTest extends BaseTest {
     	assertEquals(expectedConsoleText2, actualConsoleText2);
     }
     
-    public void testRelaunchInterProjectOnly() throws CoreException{
+    @Test
+	public void testRelaunchInterProjectOnly() throws CoreException{
     	ModelRoot[] roots = Ooaofooa.getInstancesUnderSystem(projectName1);
 
     	ModelRoot root = null;

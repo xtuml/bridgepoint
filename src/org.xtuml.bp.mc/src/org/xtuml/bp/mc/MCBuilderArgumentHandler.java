@@ -1,15 +1,6 @@
 // ========================================================================
-//
-//File: $RCSfile: MCBuilderArgumentHandler.java,v $
-//Version: $Revision: 1.11 $
-//Modified: $Date: 2013/06/12 13:07:58 $
-//
-//(c) Copyright 2005-2014 by Mentor Graphics Corp. All rights reserved.
-//
-//========================================================================
-//This document contains information proprietary and confidential to
-//Mentor Graphics Corp. and is not for external distribution.
-//========================================================================
+// File: MCBuilderArgumentHandler.java
+// ========================================================================
 package org.xtuml.bp.mc;
 
 import java.io.File;
@@ -24,7 +15,6 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 
 import org.xtuml.bp.core.util.UIUtil;
-import org.xtuml.bp.mc.xmiexport.XMIExportBuilder;
 import org.xtuml.bp.utilities.build.BuilderManagement;
 
 
@@ -104,13 +94,11 @@ public class MCBuilderArgumentHandler {
 	}
 
 	/**
-	 * This routine determines if we need a -i (XMIExport) and/or a 
-	 * -c (builder not specified) argument
+	 * This routine determines if we need a -c (builder not specified) argument
 	 * 
 	 */
 	private String getBuilderDependantArguments() {
 		String builderDepdantArgs = "";
-		boolean foundXMI = false;
 		boolean builderSupplied = false;
 		
 		try {
@@ -118,30 +106,14 @@ public class MCBuilderArgumentHandler {
 			for (int j = 0; j < cmds.length; j++) {
 				Map<?,?> args = cmds[j].getArguments();
 
-				String builderName = cmds[j].getBuilderName();
-				// when eclipse disables a builder which is not an
-				// external tool builder it converts it to a temporary
-				// external tool builder which has a name other than what
-				// the builder was initially configured with, therefore
-				// anytime the builder's name is the id of the XMIExportBuilder
-				// the XMI build should be performed
-				if (!foundXMI && builderName.equals(XMIExportBuilder.BUILDER_ID)) {
-					builderDepdantArgs += " -i "; // $NON-NLS-1$
-					foundXMI = true;
-				} else {
-					String launchSpec = (String) args.get("LaunchConfigHandle"); //$NON-NLS-1$
-					if (launchSpec != null) {
-						if (launchSpec.indexOf(AbstractNature.MC_LAUNCH_ID) == -1
-								// do not treat XMI builder as a supplied
-								// builder
-								&& launchSpec
-										.indexOf(XMIExportBuilder.BUILDER_ID) == -1) {
-							builderSupplied = true;
-						}
-					} else { // The builder has no launch spec, we must
-						// assume it can build MC-3020 code.
+				String launchSpec = (String) args.get("LaunchConfigHandle"); //$NON-NLS-1$
+				if (launchSpec != null) {
+					if (launchSpec.indexOf(AbstractNature.MC_LAUNCH_ID) == -1) {
 						builderSupplied = true;
 					}
+				} else { // The builder has no launch spec, we must
+					// assume it can build MC-3020 code.
+					builderSupplied = true;
 				}
 			}
 			
@@ -169,13 +141,11 @@ public class MCBuilderArgumentHandler {
     	if (builderIDSelected.startsWith(AbstractNature.C_SOURCE_MC_ID) || builderIDSelected.startsWith(AbstractNature.C_SOURCE_MC_ID_OLD)) {
     		licenseString = " -l3s ";
     	} else if (builderIDSelected.startsWith(AbstractNature.C_BINARY_MC_ID) || builderIDSelected.startsWith(AbstractNature.C_BINARY_MC_ID_OLD)) {
-    		licenseString = " -l3b ";
+    		licenseString = " -l3s ";
     	} else if (builderIDSelected.startsWith(AbstractNature.SYSTEMC_SOURCE_MC_ID) || builderIDSelected.startsWith(AbstractNature.SYSTEMC_SOURCE_MC_ID_OLD)) {
     		licenseString = " -lSCs ";
     	} else if (builderIDSelected.startsWith(AbstractNature.CPP_SOURCE_MC_ID) || builderIDSelected.startsWith(AbstractNature.CPP_SOURCE_MC_ID_OLD)) {
     		licenseString = " -l2s ";    		
-    	} else if (builderIDSelected.startsWith(AbstractNature.VHDL_SOURCE_MC_ID) || builderIDSelected.startsWith(AbstractNature.VHDL_SOURCE_MC_ID_OLD)) {
-    		licenseString = " -lVHs ";    		
     	} else {
         	// If it was not one of our MCs selected, then there it must be a 
         	// custom MC.  In this case, we do not pass any -l option to the 

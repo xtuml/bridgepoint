@@ -1,0 +1,487 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Appendix A. Language Defined Characteristics</title>
+<link rel="stylesheet" type="text/css" href="docbook.css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<meta name="keywords" content="MASL, Action Language, Action Semantics, UML, Unified Modelling Language, Shlaer Mellor">
+<link rel="home" href="index.html" title="MASL Reference Manual">
+<link rel="up" href="index.html" title="MASL Reference Manual">
+<link rel="prev" href="ExpressionsExecutableUMLExpressions.html" title="14.16. Executable UML Expressions">
+<link rel="next" href="SyntaxSummary.html" title="Appendix B. Syntax Summary">
+<link rel="preface" href="preface.html" title="Preface">
+<link rel="chapter" href="Grammars.html" title="Chapter 1. Grammars">
+<link rel="chapter" href="LexicalStructure.html" title="Chapter 2. Lexical Structure">
+<link rel="chapter" href="Types.html" title="Chapter 3. Types">
+<link rel="chapter" href="TypeConversion.html" title="Chapter 4. Type Conversion">
+<link rel="chapter" href="Domains.html" title="Chapter 5. Domains">
+<link rel="chapter" href="Objects.html" title="Chapter 6. Objects">
+<link rel="chapter" href="Relationships.html" title="Chapter 7. Relationships">
+<link rel="chapter" href="Lifecycles.html" title="Chapter 8. Lifecycles">
+<link rel="chapter" href="Functions.html" title="Chapter 9. Functions">
+<link rel="chapter" href="Services.html" title="Chapter 10. Services">
+<link rel="chapter" href="Exceptions.html" title="Chapter 11. Exceptions">
+<link rel="chapter" href="Statements.html" title="Chapter 12. Statements">
+<link rel="chapter" href="Names.html" title="Chapter 13. Names">
+<link rel="chapter" href="Expressions.html" title="Chapter 14. Expressions">
+<link rel="appendix" href="LanguageDefinedCharacteristics.html" title="Appendix A. Language Defined Characteristics">
+<link rel="appendix" href="SyntaxSummary.html" title="Appendix B. Syntax Summary">
+<link rel="index" href="ix01.html" title="Index">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div align="center">OFFICIAL</div>
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">Appendix A. Language Defined Characteristics</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ExpressionsExecutableUMLExpressions.html">Prev</a> </td>
+<th width="60%" align="center"> </th>
+<td width="20%" align="right"> <a accesskey="n" href="SyntaxSummary.html">Next</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="appendix">
+<div class="titlepage"><div><div><h1 class="title">
+<a name="LanguageDefinedCharacteristics"></a>Language Defined Characteristics</h1></div></div></div>
+<p>
+This appendix summarizes the definitions given elsewhere of the
+language-defined characteristics.
+</p>
+<div class="itemizedlist"><ul class="itemizedlist">
+<li class="listitem">
+<p>
+<code class="varname">N</code><code class="literal">'get_unique</code>
+<a class="indexterm" name="idp63323744"></a>
+for a name whose type is a
+<span class="type">bag</span>,
+<a class="indexterm" name="idp63325232"></a>
+<span class="type">sequence</span>
+<a class="indexterm" name="idp63326704"></a>
+or <span class="type">array</span>
+<a class="indexterm" name="idp68102720"></a>
+types:
+</p>
+<p>
+<code class="varname">N</code><code class="literal">'get_unique</code>
+<a class="indexterm" name="idp68104928"></a>
+returns a <span class="type">set</span>
+<a class="indexterm" name="idp68106400"></a>
+containing all the elements of the collection; its type is the <span class="type">set</span>
+<a class="indexterm" name="idp68107840"></a>
+type whose element type is the element of the collection.
+</p>
+</li>
+<li class="listitem">
+<p>
+<code class="varname">N</code><code class="literal">'elements</code>
+<a class="indexterm" name="idp68069280"></a>
+for a name
+<code class="varname">N</code>, whose type is a
+<span class="type">string</span>,
+<a class="indexterm" name="idp68071200"></a>
+<span class="type">wstring</span>,
+<a class="indexterm" name="idp68072672"></a>
+<span class="type">sequence</span>
+<a class="indexterm" name="idp68074144"></a>
+or <span class="type">array</span>
+<a class="indexterm" name="idp68060688"></a>
+type:
+</p>
+<p>
+<code class="varname">N</code><code class="literal">'elements</code>
+<a class="indexterm" name="idp68062896"></a>
+returns a <span class="type">sequence</span>
+<a class="indexterm" name="idp68064368"></a>
+containing all the elements of the value in the order defined by the value.
+</p>
+</li>
+<li class="listitem">
+<p>
+<code class="varname">N</code><code class="literal">'elements</code>
+<a class="indexterm" name="idp68848272"></a>
+for a name
+<code class="varname">N</code>, whose type is a <span class="type">set</span>
+<a class="indexterm" name="idp68850192"></a>
+or <span class="type">bag</span>
+<a class="indexterm" name="idp68851664"></a>
+type:
+</p>
+<p>
+<code class="varname">N</code><code class="literal">'elements</code>
+<a class="indexterm" name="idp68853872"></a>
+returns a <span class="type">sequence</span>
+<a class="indexterm" name="idp68855344"></a>
+containing all the elements of the value in an arbitrary order.
+</p>
+</li>
+<li class="listitem">
+<p>
+<code class="varname">N</code><code class="literal">'first</code>
+<a class="indexterm" name="idp68860064"></a>
+for a name <code class="varname">N</code>,
+whose type is a <span class="type">string</span>,
+<a class="indexterm" name="idp68861984"></a>
+<span class="type">wstring</span>,
+<a class="indexterm" name="idp68863456"></a>
+<span class="type">sequence</span>
+<a class="indexterm" name="idp68864928"></a>
+or <span class="type">array</span>
+<a class="indexterm" name="idp70102816"></a>
+type:
+</p>
+<p>
+<code class="varname">N</code><code class="literal">'first</code>
+<a class="indexterm" name="idp70105024"></a>
+returns the index value of the
+first element of the value; its type is the corresponding index type.
+<a class="indexterm" name="idp70106016"></a>
+An exception
+<a class="indexterm" name="idp70106912"></a>
+is raised if the value is empty.
+</p>
+</li>
+<li class="listitem">
+<p>
+<span class="type">T</span><code class="literal">'first</code>
+<a class="indexterm" name="idp70109456"></a>
+for a type <span class="type">T</span>, that is an
+<span class="type">array</span>
+<a class="indexterm" name="idp70111376"></a>
+type:
+</p>
+<p>
+<span class="type">T</span><code class="literal">'first</code>
+<a class="indexterm" name="idp68284512"></a>
+returns the first index of the type; its
+type is the corresponding index type.
+<a class="indexterm" name="idp68285504"></a>
+</p>
+</li>
+<li class="listitem">
+<p>
+<span class="type">T</span><code class="literal">'first</code>
+<a class="indexterm" name="idp68288032"></a>
+for a type <span class="type">T</span>, that is a
+<span class="type">numeric</span>
+<a class="indexterm" name="idp68289952"></a>
+or <span class="type">enumeration</span>
+<a class="indexterm" name="idp68291424"></a>
+type:
+</p>
+<p>
+<span class="type">T</span><code class="literal">'first</code>
+<a class="indexterm" name="idp68293632"></a>
+returns the first value that an entity
+of that type can take; its type is the type <span class="type">T</span>.
+</p>
+</li>
+<li class="listitem">
+<p>
+<code class="varname">N</code><code class="literal">'image</code>
+<a class="indexterm" name="idp68296704"></a>
+for a name <code class="varname">N</code>
+whose type is a <span class="type">character</span>,
+<a class="indexterm" name="idp68298672"></a>
+<span class="type">wcharacter</span>,
+<a class="indexterm" name="idp68300144"></a>
+<span class="type">boolean</span>,
+<a class="indexterm" name="idp68301616"></a>
+<span class="type">byte</span>,
+<a class="indexterm" name="idp68303088"></a>
+<span class="type">numeric</span>,
+<a class="indexterm" name="idp68304560"></a>
+<span class="type">structure</span>,
+<a class="indexterm" name="idp68306032"></a>
+<span class="type">enumeration</span>
+<a class="indexterm" name="idp68307504"></a>
+or <span class="type">collection</span>
+<a class="indexterm" name="idp68308976"></a>
+type whose
+element type is one of the afore mentioned:
+</p>
+<p>
+<code class="varname">N</code><code class="literal">'image</code>
+<a class="indexterm" name="idp68311024"></a>
+returns the string representation
+of the value; its type is <span class="type">string</span>.
+<a class="indexterm" name="idp68312544"></a>
+</p>
+</li>
+<li class="listitem">
+<p>
+<code class="varname">N</code><code class="literal">'last</code>
+<a class="indexterm" name="idp70836384"></a>
+for a name <code class="varname">N</code>
+whose type is a <span class="type">string</span>,
+<a class="indexterm" name="idp70838304"></a>
+<span class="type">wstring</span>,
+<a class="indexterm" name="idp70839776"></a>
+<span class="type">sequence</span>
+<a class="indexterm" name="idp70841248"></a>
+or <span class="type">array</span> type:
+</p>
+<p>
+<code class="varname">N</code><code class="literal">'last</code>
+<a class="indexterm" name="idp70843904"></a>
+returns the index value of the last
+element of the value; its type is the corresponding index type. An exception is
+raised if the value is empty.
+</p>
+</li>
+<li class="listitem">
+<p>
+<span class="type">T</span><code class="literal">'last</code>
+<a class="indexterm" name="idp70846688"></a>
+for a type <span class="type">T</span>, that is an
+<span class="type">array</span>
+<a class="indexterm" name="idp70848608"></a>
+type:
+</p>
+<p>
+<span class="type">T</span><code class="literal">'last</code>
+<a class="indexterm" name="idp70850816"></a>
+returns the last index of the type; its
+type is the corresponding index type.
+</p>
+</li>
+<li class="listitem">
+<p>
+<span class="type">T</span><code class="literal">'last</code>
+<a class="indexterm" name="idp70853440"></a>
+for a type <span class="type">T</span>, that is a
+<span class="type">numeric</span>
+<a class="indexterm" name="idp70855360"></a>
+or <span class="type">enumeration</span> type:
+<a class="indexterm" name="idp70856832"></a>
+</p>
+<p>
+<span class="type">T</span><code class="literal">'last</code>
+<a class="indexterm" name="idp70500352"></a>
+returns the last value that an entity of
+that type can take; its type is the type <span class="type">T</span>.
+</p>
+</li>
+<li class="listitem">
+<p>
+<code class="varname">N</code><code class="literal">'pred</code>
+<a class="indexterm" name="idp70503424"></a>
+for a name <code class="varname">N</code>,
+that is an <span class="type">enumeration</span>
+<a class="indexterm" name="idp70505344"></a>
+type:
+</p>
+<p>
+<code class="varname">N</code><code class="literal">'pred</code>
+<a class="indexterm" name="idp70507552"></a>
+returns the value whose position
+number is one less than that of the value; its type is the same type as
+<code class="varname">N</code>.
+An exception
+<a class="indexterm" name="idp70509120"></a>
+is raised if no such value exists.
+</p>
+</li>
+<li class="listitem">
+<p>
+<code class="varname">N</code><code class="literal">'range</code>
+<a class="indexterm" name="idp70511616"></a>
+for a name <code class="varname">N</code>,
+whose type is a <span class="type">string</span>,
+<a class="indexterm" name="idp70513536"></a>
+<span class="type">wstring</span>,
+<a class="indexterm" name="idp70515008"></a>
+<span class="type">sequence</span>
+<a class="indexterm" name="idp70516480"></a>
+or <span class="type">array</span> type:
+<a class="indexterm" name="idp70517952"></a>
+</p>
+<p>
+<code class="varname">N</code><code class="literal">'range</code>
+<a class="indexterm" name="idp70520160"></a>
+returns the range of indices of
+the value; its type is the sequence type whose element type is the corresponding
+index type. The order of the elements in the range matches the order in the
+value.
+</p>
+</li>
+<li class="listitem">
+<p>
+<span class="type">T</span><code class="literal">'range</code>
+<a class="indexterm" name="idp70522992"></a>
+for a type <span class="type">T</span> that is an
+array type:
+</p>
+<p>
+<span class="type">T</span><code class="literal">'range</code>
+<a class="indexterm" name="idp68773264"></a>
+returns the range of indices of the
+type; its type is the sequence type whose element type is the corresponding
+index type. The order of the elements in the range matches the order given by
+the index type.
+</p>
+</li>
+<li class="listitem">
+<p>
+<span class="type">T</span><code class="literal">'range</code>
+<a class="indexterm" name="idp68776112"></a>
+for the type <span class="type">T</span> that is a
+<span class="type">numeric</span>
+<a class="indexterm" name="idp68778032"></a>
+or <span class="type">enumeration</span>
+<a class="indexterm" name="idp68779504"></a>
+type:
+</p>
+<p>
+<span class="type">T</span><code class="literal">'range</code>
+<a class="indexterm" name="idp68781712"></a>
+returns the range values that an entity
+of that type can take; its type is the sequence type whose element type is the
+type. The order of the elements in the range matches the order given by the
+type.
+</p>
+</li>
+<li class="listitem">
+<p>
+<code class="varname">N</code><code class="literal">'succ</code>
+<a class="indexterm" name="idp68784560"></a>
+for a name <code class="varname">N</code>,
+whose type is an <span class="type">enumeration</span>
+<a class="indexterm" name="idp68786480"></a>
+type:
+</p>
+<p>
+<code class="varname">N</code><code class="literal">'succ</code>
+<a class="indexterm" name="idp68788688"></a>
+returns the value whose position
+number is one more
+than that of the value; its type is the same type as <code class="varname">N</code>.
+An exception is raised if no such value exists.
+</p>
+</li>
+<li class="listitem">
+<p>
+<code class="varname">N</code><code class="literal">'length</code>
+<a class="indexterm" name="idp68791856"></a>
+for a name <code class="varname">N</code>,
+whose type is a <span class="type">string</span>,
+<span class="type">wstring</span>,
+<a class="indexterm" name="idp68794224"></a>
+<span class="type">set</span>,
+<a class="indexterm" name="idp68795696"></a>
+<span class="type">bag</span>,
+<a class="indexterm" name="idp68797168"></a>
+<span class="type">sequence</span>
+<a class="indexterm" name="idp68798640"></a>
+or <span class="type">array</span>
+<a class="indexterm" name="idp68402624"></a>
+type:
+</p>
+<p>
+<code class="varname">N</code><code class="literal">'length</code>
+<a class="indexterm" name="idp68404832"></a>
+returns the length of the value,
+its type is <span class="type">integer</span>.
+<a class="indexterm" name="idp68406272"></a>
+</p>
+</li>
+<li class="listitem">
+<p>
+<code class="varname">N</code><code class="literal">'upper</code>
+<a class="indexterm" name="idp68408928"></a>
+for a name <code class="varname">N</code>, whose type is a
+<span class="type">string</span>
+<a class="indexterm" name="idp68410848"></a>
+or <span class="type">wstring</span>
+<a class="indexterm" name="idp68412320"></a>
+type:
+</p>
+<p>
+<code class="varname">N</code><code class="literal">'upper</code>
+<a class="indexterm" name="idp68414528"></a>
+returns an item of the same type with all the characters converted to upper
+case.
+</p>
+</li>
+<li class="listitem">
+<p>
+<code class="varname">N</code><code class="literal">'lower</code>
+<a class="indexterm" name="idp68417152"></a>
+for a name <code class="varname">N</code>, whose type is a
+<span class="type">string</span>
+<a class="indexterm" name="idp68419072"></a>
+or <span class="type">wstring</span>
+<a class="indexterm" name="idp68420544"></a>
+type:
+</p>
+<p>
+<code class="varname">N</code><code class="literal">'lower</code>
+<a class="indexterm" name="idp68422752"></a>
+returns an item of the same type with all the characters converted to lower
+case.
+</p>
+</li>
+<li class="listitem">
+<p>
+<code class="varname">N</code><code class="literal">'firstcharpos</code> for a name
+<a class="indexterm" name="idp68425376"></a>
+<code class="varname">N</code>, whose type
+is a <span class="type">string</span>
+<a class="indexterm" name="idp68427296"></a>
+or <span class="type">wstring</span>
+<a class="indexterm" name="idp68428768"></a>
+type:
+</p>
+<p>
+<code class="varname">N</code><code class="literal">'firstcharpos(c)</code>
+<a class="indexterm" name="idp68430976"></a>
+returns an index to the first instance of
+the given character
+<a class="indexterm" name="idp68432048"></a>
+<code class="varname">c</code> in the name <code class="varname">N</code>.
+</p>
+</li>
+<li class="listitem">
+<p>
+<span class="type">T</span><code class="literal">'value(s)</code>
+<a class="indexterm" name="idp70860496"></a>
+for a type
+<span class="type">T</span> that is an <span class="type">enumeration</span>
+<a class="indexterm" name="idp70862416"></a>
+type:
+</p>
+<p>
+<span class="type">T</span><code class="literal">'value(s)</code>
+<a class="indexterm" name="idp70864624"></a>
+returns the enumerate value
+corresponding to <code class="varname">s</code>.
+</p>
+</li>
+</ul></div>
+<p>
+</p>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ExpressionsExecutableUMLExpressions.html">Prev</a> </td>
+<td width="20%" align="center"> </td>
+<td width="40%" align="right"> <a accesskey="n" href="SyntaxSummary.html">Next</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">14.16. Executable UML Expressions </td>
+<td width="20%" align="center">
+<a accesskey="h" href="index.html">Home</a> | <a accesskey="t" href="bk01-toc.html">ToC</a>
+</td>
+<td width="40%" align="right" valign="top"> Appendix B. Syntax Summary</td>
+</tr>
+</table>
+</div>
+<div align="center">OFFICIAL</div>
+</body>
+</html>

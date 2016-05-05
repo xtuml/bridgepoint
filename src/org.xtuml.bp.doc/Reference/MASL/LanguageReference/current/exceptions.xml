@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+  UK Crown Copyright (c) 2016. All Rights Reserved
+-->
+<chapter version="5.0" xml:id="section.Exceptions" xmlns="http://docbook.org/ns/docbook"
+  xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
+  xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML"
+  xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
+  <title>Exceptions</title>
+
+  <section xml:id="section.Exceptions.Declaration">
+    <title>Declaration</title>
+    <para>to do</para>
+
+    <productionset>
+      <xi:include href="syntax.xml" xpointer="ebnf.exceptionDeclaration"/>
+      <xi:include href="syntax.xml" xpointer="ebnf.exceptionName"/>
+      <xi:include href="syntax.xml" xpointer="ebnf.exceptionVisibility"/>
+    </productionset>
+
+  </section>
+
+
+</chapter>

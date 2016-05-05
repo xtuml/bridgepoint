@@ -2,7 +2,7 @@
 <feature
       id="org.xtuml.bp.verifier.pkg"
       label="BridgePoint Verifier"
-      version="5.3.0"
+      version="5.3.4"
       provider-name="xtUML.org">
 
    <copyright>
@@ -27,12 +27,12 @@ the License.
          id="org.xtuml.bp.verifier.pkg"
          download-size="0"
          install-size="0"
-         version="5.3.0"/>
+         version="5.3.4"/>
 
    <plugin
          id="org.xtuml.bp.debug.ui"
          download-size="0"
          install-size="0"
-         version="5.3.0"/>
+         version="5.3.4"/>
 
 </feature>

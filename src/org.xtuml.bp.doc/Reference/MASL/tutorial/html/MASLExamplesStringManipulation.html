@@ -1,0 +1,206 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>8.4. String Manipulation</title>
+<link rel="stylesheet" type="text/css" href="docbook.css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<meta name="keywords" content="MASL, Action Language, Action Semantics, UML, Unified Modelling Language, Shlaer Mellor">
+<link rel="home" href="index.html" title="MASL Tutorial">
+<link rel="up" href="MASLExamples.html" title="Chapter 8. MASL Examples">
+<link rel="prev" href="MASLExamplesDataSets.html" title="8.3. Data Sets">
+<link rel="next" href="MASLExamplesStringLiterals.html" title="8.5. String Literals">
+<link rel="preface" href="preface.html" title="Preface">
+<link rel="chapter" href="Types.html" title="Chapter 1. Types">
+<link rel="chapter" href="ExecutionControl.html" title="Chapter 2. Execution Control">
+<link rel="chapter" href="CompositeTypes.html" title="Chapter 3. Composite Types">
+<link rel="chapter" href="Exceptions.html" title="Chapter 4. Exceptions">
+<link rel="chapter" href="ObjectsandRelationships.html" title="Chapter 5. Objects and Relationships">
+<link rel="chapter" href="Actions.html" title="Chapter 6. Actions">
+<link rel="chapter" href="DeviceIO.html" title="Chapter 7. Device Input/Output">
+<link rel="chapter" href="MASLExamples.html" title="Chapter 8. MASL Examples">
+<link rel="index" href="ix01.html" title="Index">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div align="center">UNCLASSIFIED</div>
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">8.4. String Manipulation</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="MASLExamplesDataSets.html">Prev</a> </td>
+<th width="60%" align="center">Chapter 8. MASL Examples</th>
+<td width="20%" align="right"> <a accesskey="n" href="MASLExamplesStringLiterals.html">Next</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title">
+<a name="MASLExamplesStringManipulation"></a>8.4. String Manipulation</h2></div></div></div>
+<p>
+</p>
+<pre class="programlisting">
+
+declare 
+  text   : string  := "";
+  text2  : string  := "";
+  passed : boolean := false;
+begin
+  text := "hello";
+  for c in text'elements loop
+    text2 := text2 &amp; c;
+  end loop;
+  if (text2 /= "hello") then
+    raise Standard::constraint_error;
+  end if;
+
+  text := "hello";
+  for c in reverse text'elements loop
+    text2 := text2 &amp; c;
+  end loop;
+  if (text2 /= "helloolleh") then
+    raise Standard::constraint_error;
+  end if;
+
+  text  := "hello";
+  text2 := "";
+  for i in text'range loop
+    text2 := text2 &amp; text[i];
+  end loop;
+  if (text2 /= "hello") then
+    raise Standard::constraint_error;
+  end if;
+
+  text := "hello";
+  for i in reverse text'range loop
+    text2 := text2 &amp; text[i];
+  end loop;
+  if (text2 /= "helloolleh") then
+    raise Standard::constraint_error;
+  end if;
+
+  text := "hello";
+  if (text /= "hello") then
+    raise Standard::constraint_error;
+  end if;
+
+  text := "hello";
+  text := text[text'first];
+  if (text /= "h") then
+    raise Standard::constraint_error;
+  end if;
+
+  text := "hello";
+  text := text[text'last];
+  if (text /= "o") then
+    raise Standard::constraint_error;
+  end if;
+
+  text[text'first] := 'h';
+  if (text /= "h") then
+    raise Standard::constraint_error;
+  end if;
+
+  text := text &amp; "ello";
+  if (text /= "hello") then
+    raise Standard::constraint_error;
+  end if;
+
+  text := "hello";
+  if (text &lt; "goodbye") then
+    raise Standard::constraint_error;
+  end if;
+  if ("goodbye" &gt; text) then
+    raise Standard::constraint_error;
+  end if;
+
+  text := "hello";
+  text := text[0..2];
+  if (text /= "hel") then
+    raise Standard::constraint_error;
+  end if;
+
+  //should all raise exceptions 
+  begin
+    passed := false;
+    text := text[text'first-1];
+  exception
+    when Standard::constraint_error =&gt;
+      passed := true;
+  end;
+  if (passed = false) then
+    raise Standard::constraint_error;
+  end if;
+
+  begin
+    passed := false;
+    text := text[text'length];
+  exception
+    when Standard::constraint_error =&gt;
+      passed := true;
+  end;
+  if (passed = false) then
+    raise Standard::constraint_error;
+  end if;
+
+ begin
+    passed := false;
+    text[text'length]  := 'h';
+  exception
+    when Standard::constraint_error =&gt;
+      passed := true;
+  end;
+  if (passed = false) then
+    raise Standard::constraint_error;
+  end if;
+
+ begin
+    passed := false;
+    text[text'first-1] := 'h';
+  exception
+    when Standard::constraint_error =&gt;
+      passed := true;
+  end;
+  if (passed = false) then
+    raise Standard::constraint_error;
+  end if;
+
+ begin
+    passed := false;
+    text := text[100..2];
+  exception
+    when Standard::constraint_error =&gt;
+      passed := true;
+  end;
+  if (passed = false) then
+    raise Standard::constraint_error;
+  end if;
+end service;
+
+</pre>
+<p>
+</p>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="MASLExamplesDataSets.html">Prev</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="MASLExamples.html">Up</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="MASLExamplesStringLiterals.html">Next</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">8.3. Data Sets </td>
+<td width="20%" align="center">
+<a accesskey="h" href="index.html">Home</a> | <a accesskey="t" href="bk01-toc.html">ToC</a>
+</td>
+<td width="40%" align="right" valign="top"> 8.5. String Literals</td>
+</tr>
+</table>
+</div>
+<div align="center">UNCLASSIFIED</div>
+</body>
+</html>

@@ -1200,7 +1200,7 @@ INSERT INTO S_BRG
 	0,
 	"ba5eda7a-def5-0000-0000-000000000001",
 	'',
-	3,
+	0,
 	'');
 INSERT INTO S_BPARM
 	VALUES ("ed77c3a3-ac01-45c8-ad74-d49fc47cf197",
@@ -1411,13 +1411,300 @@ INSERT INTO S_BRG
 	0,
 	"ba5eda7a-def5-0000-0000-000000000000",
 	'',
-	3,
+	0,
 	'');
 INSERT INTO S_BPARM
 	VALUES ("93344b2d-ff31-4d7e-9824-8d78885640e6",
 	"36ecb2ad-2b0e-436f-bcc1-f13a7f2c3524",
 	'message',
 	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BRG
+	VALUES ("6636cf62-0ac9-4cc6-89d0-2e560672c1ea",
+	"f168c92b-6d64-4ecb-a677-5a1d7cce8352",
+	'getTheTargetConnectorId',
+	'Will be supplied by realized code.
+   
+--------------------------------------------------------------------------------',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000005",
+	'// implementation will supplied by native code',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("84b744ba-40cc-46cd-b124-cb33cd91bc3b",
+	"6636cf62-0ac9-4cc6-89d0-2e560672c1ea",
+	'OOA_ID',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("ca5f9224-6bd4-4a9a-8ac9-7cc0ef08d0dd",
+	"6636cf62-0ac9-4cc6-89d0-2e560672c1ea",
+	'OOA_Type',
+	"89cd32c4-a73f-44f5-ac4f-6468ce4ae2bb",
+	0,
+	'',
+	"84b744ba-40cc-46cd-b124-cb33cd91bc3b",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("e7b54d56-42a4-4976-9cbd-4ecfc81e7fe4",
+	"6636cf62-0ac9-4cc6-89d0-2e560672c1ea",
+	'rootInst',
+	"68dedb08-fd5a-420e-9ec7-e7985ad0c856",
+	0,
+	'',
+	"ca5f9224-6bd4-4a9a-8ac9-7cc0ef08d0dd",
+	'');
+INSERT INTO S_BRG
+	VALUES ("fbdc1473-f695-46cc-8225-03aa60506c41",
+	"f168c92b-6d64-4ecb-a677-5a1d7cce8352",
+	'logTraceMsg',
+	'This bridge interfaces to BridgePoint trace logging facility. This is 
+implemented via bp/core/common/TraceLogger.java. ',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000000",
+	'',
+	1,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("bfbd6067-2411-4630-90e7-f863373a5141",
+	"fbdc1473-f695-46cc-8225-03aa60506c41",
+	'filterValue',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"432eff70-7625-4900-9a33-e0d4f1c38875",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("68749d01-4270-43df-a477-f91801cb5b66",
+	"fbdc1473-f695-46cc-8225-03aa60506c41",
+	'message',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"bfbd6067-2411-4630-90e7-f863373a5141",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("432eff70-7625-4900-9a33-e0d4f1c38875",
+	"fbdc1473-f695-46cc-8225-03aa60506c41",
+	'filterType',
+	"f5459df2-3331-4f4e-ba72-4fbdb9f1c148",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("f5459df2-3331-4f4e-ba72-4fbdb9f1c148",
+	"00000000-0000-0000-0000-000000000000",
+	'LoggerType',
+	'This is used by the trace log feature. The vlaues here mirror what are 
+found in bp/core/common/ILogger.java. Note that this is taking advantage 
+of the fact that MCJava''s implemenation defines enumerators at int, and
+it gives them their value staring with the value 1 in the order they
+appear in the tool.',
+	'',
+	'../Datatypes/Datatypes.xtuml');
+INSERT INTO S_BRG
+	VALUES ("9b0a0e52-9901-470a-8efe-2086c83d2486",
+	"f168c92b-6d64-4ecb-a677-5a1d7cce8352",
+	'traceOperation',
+	'',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000000",
+	'CL::logTraceMsg(filterType:LoggerType::OPERATION, filterValue:"", 
+				message:param.message);',
+	1,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("62a6302f-55ab-4b14-bbd5-08c93ad5cfc2",
+	"9b0a0e52-9901-470a-8efe-2086c83d2486",
+	'message',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BRG
+	VALUES ("bd9f8b2d-7cc4-444a-89e2-d4c2335b8808",
+	"f168c92b-6d64-4ecb-a677-5a1d7cce8352",
+	'getModelRootName',
+	'',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000004",
+	'',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("1e834810-0c9b-47e0-ba8f-0376533ebb5c",
+	"bd9f8b2d-7cc4-444a-89e2-d4c2335b8808",
+	'from',
+	"68dedb08-fd5a-420e-9ec7-e7985ad0c856",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BRG
+	VALUES ("659ea060-f934-438c-94b0-46907a761119",
+	"f168c92b-6d64-4ecb-a677-5a1d7cce8352",
+	'traceGraphicsCreationIsEnabled',
+	'This is only turned on via the BridegePoint debug tracing facility. 
+What this means is it is enabled via a debug launch configuration or other
+similar means. To learn more see BridgePoint''s bp/core/common/TraceLogger.java 
+and/or the FAQ item on this subject: 
+https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/FAQ.md#tracing',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000001",
+	'',
+	0,
+	'');
+INSERT INTO S_BRG
+	VALUES ("1bd141bc-0e4a-4522-b588-f41a917bcaca",
+	"f168c92b-6d64-4ecb-a677-5a1d7cce8352",
+	'writeTraceLog',
+	'',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000000",
+	'',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("25dbd062-e30a-4700-998a-15797d4b47a6",
+	"1bd141bc-0e4a-4522-b588-f41a917bcaca",
+	'filename',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BRG
+	VALUES ("8f466ea3-a45e-4ad1-b64f-b4299ef5a554",
+	"f168c92b-6d64-4ecb-a677-5a1d7cce8352",
+	'getElementInstance',
+	'',
+	0,
+	"68dedb08-fd5a-420e-9ec7-e7985ad0c856",
+	'',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("e1994d8e-12c6-4339-93f0-d21d3ca6c8a5",
+	"8f466ea3-a45e-4ad1-b64f-b4299ef5a554",
+	'from',
+	"68dedb08-fd5a-420e-9ec7-e7985ad0c856",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("44d53d63-bbdb-4b1d-a28a-43704a4e6e2d",
+	"8f466ea3-a45e-4ad1-b64f-b4299ef5a554",
+	'index',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"e1994d8e-12c6-4339-93f0-d21d3ca6c8a5",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("4f830a25-279f-4898-b706-4aaf447af416",
+	"8f466ea3-a45e-4ad1-b64f-b4299ef5a554",
+	'using',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"44d53d63-bbdb-4b1d-a28a-43704a4e6e2d",
+	'');
+INSERT INTO S_BRG
+	VALUES ("07e91c1d-a9bd-439b-9110-0b812e1b4098",
+	"f168c92b-6d64-4ecb-a677-5a1d7cce8352",
+	'getOOAInstance',
+	'Will be supplied by realized code.
+   
+--------------------------------------------------------------------------------
+',
+	0,
+	"68dedb08-fd5a-420e-9ec7-e7985ad0c856",
+	'
+
+',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("c219f9b6-7275-4679-a54e-c9bc4dfc62d4",
+	"07e91c1d-a9bd-439b-9110-0b812e1b4098",
+	'from',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("393b5176-a132-49f4-8be5-c6b5b34f608b",
+	"07e91c1d-a9bd-439b-9110-0b812e1b4098",
+	'rootInst',
+	"68dedb08-fd5a-420e-9ec7-e7985ad0c856",
+	0,
+	'',
+	"c219f9b6-7275-4679-a54e-c9bc4dfc62d4",
+	'');
+INSERT INTO S_BRG
+	VALUES ("9826bcdc-abce-4e78-ad6f-3adfbc70a76f",
+	"f168c92b-6d64-4ecb-a677-5a1d7cce8352",
+	'getModelElementName',
+	'',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000004",
+	'',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("cb026d8a-c4d1-4cb4-a320-0e4e2f4b060d",
+	"9826bcdc-abce-4e78-ad6f-3adfbc70a76f",
+	'from',
+	"68dedb08-fd5a-420e-9ec7-e7985ad0c856",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BRG
+	VALUES ("cd82f423-3cc5-46a2-baee-6a2fcbebcf88",
+	"f168c92b-6d64-4ecb-a677-5a1d7cce8352",
+	'isReflexive',
+	'',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000001",
+	'',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("bffa429a-d271-478c-b69e-586a2d4cdecf",
+	"cd82f423-3cc5-46a2-baee-6a2fcbebcf88",
+	'nrme',
+	"68dedb08-fd5a-420e-9ec7-e7985ad0c856",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BRG
+	VALUES ("94009a26-ffdc-4196-bc0f-2325ca36374f",
+	"f168c92b-6d64-4ecb-a677-5a1d7cce8352",
+	'isOOALinkedAssocInstance',
+	'',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000001",
+	'',
+	1,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("096e0824-874f-45d2-9c60-aa992047f9ef",
+	"94009a26-ffdc-4196-bc0f-2325ca36374f",
+	'connectorOOAInstance',
+	"68dedb08-fd5a-420e-9ec7-e7985ad0c856",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -3827,6 +4114,120 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000004",
 	'return System.getProperty("line.separator");',
 	0,
+	'');
+INSERT INTO S_BRG
+	VALUES ("03b3fe43-03e5-49d8-809d-f894d2952639",
+	"7a07d0b6-c286-468d-a0e8-167f0791be9c",
+	'intToString',
+	'Translate:native',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000004",
+	'return Integer.toString(p_Value);',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("8c86ccf1-bf99-4950-9e1f-cb6592d1c296",
+	"03b3fe43-03e5-49d8-809d-f894d2952639",
+	'value',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BRG
+	VALUES ("14dbf6af-539f-47e7-81f4-2fc1157d8321",
+	"7a07d0b6-c286-468d-a0e8-167f0791be9c",
+	'modelTypeToString',
+	'Translate:native',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000004",
+	'return Integer.toString(p_Id);',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("6877c901-fc14-42a7-adad-6902b6129aaa",
+	"14dbf6af-539f-47e7-81f4-2fc1157d8321",
+	'id',
+	"19ffeea1-9c90-4fe5-ae39-362e353bf6c9",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("19ffeea1-9c90-4fe5-ae39-362e353bf6c9",
+	"00000000-0000-0000-0000-000000000000",
+	'ModelType',
+	'',
+	'',
+	'../Datatypes/Datatypes.xtuml');
+INSERT INTO S_BRG
+	VALUES ("afcf1282-9966-4c26-bdfa-c2eacc4e590b",
+	"7a07d0b6-c286-468d-a0e8-167f0791be9c",
+	'ooaTypeToString',
+	'Translate:native',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000004",
+	'return Integer.toString(p_Id);',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("ce202bfd-c079-4409-af89-340ad494753d",
+	"afcf1282-9966-4c26-bdfa-c2eacc4e590b",
+	'id',
+	"89cd32c4-a73f-44f5-ac4f-6468ce4ae2bb",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BRG
+	VALUES ("3ac557bb-f09d-4a22-8e7d-4c8c0103185c",
+	"7a07d0b6-c286-468d-a0e8-167f0791be9c",
+	'getClassType',
+	'Translate:native
+Return the Class type instance for the given Object instance',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000004",
+	'		if (p_Instance != null) {
+			return p_Instance.getClass().toString();
+		} else {
+			return "";
+		}		
+',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("df423203-92a7-4e17-9605-e45e0a6104ef",
+	"3ac557bb-f09d-4a22-8e7d-4c8c0103185c",
+	'instance',
+	"68dedb08-fd5a-420e-9ec7-e7985ad0c856",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BRG
+	VALUES ("93b6bd90-3277-49d8-9c1b-b56d1e72c9a1",
+	"7a07d0b6-c286-468d-a0e8-167f0791be9c",
+	'getClass',
+	'Translate:native
+Return the Class type instance for the given Object instance',
+	0,
+	"68dedb08-fd5a-420e-9ec7-e7985ad0c856",
+	'		if (p_Instance != null) {
+			return p_Instance.getClass();
+		} else {
+			return null;
+		}		
+',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("5f5e22ae-c995-4ba4-bf2d-9626c700fcc3",
+	"93b6bd90-3277-49d8-9c1b-b56d1e72c9a1",
+	'instance',
+	"68dedb08-fd5a-420e-9ec7-e7985ad0c856",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
 	'');
 INSERT INTO PE_PE
 	VALUES ("7a07d0b6-c286-468d-a0e8-167f0791be9c",

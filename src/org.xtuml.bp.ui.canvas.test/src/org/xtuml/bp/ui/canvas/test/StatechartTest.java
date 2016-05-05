@@ -26,7 +26,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.eclipse.swt.graphics.Point;
-
+import org.junit.Before;
 import org.xtuml.bp.core.common.Activepoller_c;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.test.common.CanvasTestUtils;
@@ -75,14 +75,15 @@ public abstract class StatechartTest extends CanvasTest
 	/**
 	 * Constructor
 	 */
-	public StatechartTest(String name)
+	public StatechartTest()
 	{
-		super("org.xtuml.bp.ui.canvas.test", name);
+		super("org.xtuml.bp.ui.canvas.test", null);
 	}
 
 	/**
 	 * See parent method overridden.
 	 */
+	@Before
 	public void setUp() throws Exception
 	{
 		setModelName("odms");

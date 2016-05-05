@@ -23,7 +23,8 @@
 
 
 import org.eclipse.core.runtime.CoreException;
-
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 import org.xtuml.bp.core.test.ActivityTestsGenerics;
@@ -37,6 +38,7 @@ import org.xtuml.bp.core.test.CoreGlobalsTestSuiteIIGenerics;
 import org.xtuml.bp.core.test.CreationTransitionEventReassignmentTestGenerics;
 import org.xtuml.bp.core.test.DeleteDatatypesTestGenerics;
 import org.xtuml.bp.core.test.FormalizeUnformalizeWithPrefixTestGenerics;
+import org.xtuml.bp.core.test.GlobalTestSetupClass;
 import org.xtuml.bp.core.test.I810_SlowDeletionTestGenerics;
 import org.xtuml.bp.core.test.IntegrityIssueTests;
 import org.xtuml.bp.core.test.ModelChangeListenersBatchingTestGenerics;
@@ -63,53 +65,40 @@ import junit.framework.TestSuite;
 /**
 * Test all areas of the core
 */
+@RunWith(Suite.class)
+@Suite.SuiteClasses({
+		GlobalTestSetupClass.class,
+		CoreGlobalsTestSuiteIIGenerics.class,
+		MultipleSelectionAssignmentTests.class,
+		FormalizeUnformalizeWithPrefixTestGenerics.class,
+		IntegrityIssueTests.class,
+		SequenceTestsGenerics.class,
+		CommunicationMessageTestsGenerics.class,/*3*/
+		CommunicationTestsGenerics.class,
+		CommunicationLinkTestsGenerics.class,
+		ModelTransactionTestGenerics.class,/*2*/
+		DeleteDatatypesTestGenerics.class,
+		CanRenameCanDeleteTestGenerics.class,
+		CombineSplitReferentialsTestGenerics.class,
+		RenameInvolvingResourceTestGenerics.class,
+		TwoModelsSelectionTestGenerics.class,/*1*/
+		ModelChangeListenersBatchingTestGenerics.class,
+		WritableContextMenuTestGenerics.class,
+		CreationTransitionEventReassignmentTestGenerics.class,
+//		PolymorphicEventAssignmentTestGenerics.class,
+		UndoRedoTestGenerics.class,
+		UseCaseTestsGenerics.class,
+		RefreshTestCoreGenerics.class,
+		ModificationValidationTestsGenerics.class,
+		UniqueNameTestGenerics.class,
+		ModifyNonFullyLoadedModelTestsGenerics.class,
+		I810_SlowDeletionTestGenerics.class,
+		TransitionActionTestGenerics.class,
+		ActivityTestsGenerics.class,
+		ModelIntegrityTests.class,
+		ClassKeyLetters.class,
+			
+})
 public class CoreGlobalsTestSuite2Generics extends TestSuite {
 
-	/**
-	 * Returns the suite.  This is required to
-	 * use the JUnit Launcher.
-	 * @throws CoreException
-	 */
-	public static Test suite() throws CoreException {
-		return new CoreGlobalsTestSuite2Generics();
-	}
-
-	/**
-	 * Construct the test suite.
-	 */
-	public CoreGlobalsTestSuite2Generics() throws CoreException {
-
-		// turn off autobuild to stop MC-3020 builders from running
-		WorkspaceUtil.setAutobuilding(false);   // throws CoreException
-		CorePlugin.getDefault().getPreferenceStore().setValue(BridgePointPreferencesStore.USE_DEFAULT_NAME_FOR_CREATION, true);
-		addTest(new TestSuite(CoreGlobalsTestSuiteIIGenerics.class));
-		addTest(new TestSuite(MultipleSelectionAssignmentTests.class));
-		addTest(new TestSuite(FormalizeUnformalizeWithPrefixTestGenerics.class));
-        addTest(new TestSuite(IntegrityIssueTests.class));
-        addTest(new TestSuite(SequenceTestsGenerics.class));
-	    addTest(new TestSuite(CommunicationMessageTestsGenerics.class));/*3*/
-	    addTest(new TestSuite(CommunicationTestsGenerics.class));
-	    addTest(new TestSuite(CommunicationLinkTestsGenerics.class));
-        addTest(new TestSuite(ModelTransactionTestGenerics.class));/*2*/
-        addTest(new TestSuite(DeleteDatatypesTestGenerics.class));
-		addTest(new TestSuite(CanRenameCanDeleteTestGenerics.class));
-  		addTest(new TestSuite(CombineSplitReferentialsTestGenerics.class));
-     	addTest(new TestSuite(RenameInvolvingResourceTestGenerics.class));
-     	addTest(new TestSuite(TwoModelsSelectionTestGenerics.class));/*1*/
-    	addTest(new TestSuite(ModelChangeListenersBatchingTestGenerics.class));
-		addTest(new TestSuite(WritableContextMenuTestGenerics.class));
-		addTest(new TestSuite(CreationTransitionEventReassignmentTestGenerics.class));
-		addTest(new TestSuite(PolymorphicEventAssignmentTestGenerics.class));
-        addTest(new TestSuite(UndoRedoTestGenerics.class));
-  	    addTest(new TestSuite(UseCaseTestsGenerics.class));
-        addTest(new TestSuite(RefreshTestCoreGenerics.class));
- 	    addTest(new TestSuite(ModificationValidationTestsGenerics.class));
-        addTest(new TestSuite(UniqueNameTestGenerics.class));
-        addTest(new TestSuite(ModifyNonFullyLoadedModelTestsGenerics.class));
-        addTest(new TestSuite(I810_SlowDeletionTestGenerics.class));
-        addTest(new TestSuite(TransitionActionTestGenerics.class));
-        addTest(new TestSuite(ActivityTestsGenerics.class));
-        addTest(new TestSuite(ModelIntegrityTests.class));
-        addTest(new TestSuite(ClassKeyLetters.class));
-	}
 }

@@ -21,22 +21,31 @@ package org.xtuml.bp.ui.canvas.test;
 // the License.
 //=====================================================================
 
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 
+@RunWith(OrderedRunner.class)
 public class CanvasCCPTestsSuite extends BaseTest {
 
-	public CanvasCCPTestsSuite(String arg0) {
-		super(null, arg0);
+	public CanvasCCPTestsSuite() {
+		super(null, null);
 	}
 
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 	}
 
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		super.tearDown();
 	}
 
+	@Test
 	public void testCanvasCCPTestSuite() {
 		assert(true);
 	}

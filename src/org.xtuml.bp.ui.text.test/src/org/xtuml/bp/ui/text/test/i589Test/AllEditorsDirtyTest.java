@@ -28,25 +28,35 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.editors.text.TextEditor;
-
+import org.junit.After;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.ui.text.activity.ActivityEditor;
 import org.xtuml.bp.ui.text.description.DescriptionEditor;
 import org.xtuml.bp.ui.text.test.UITextTest;
 
 
+@RunWith(OrderedRunner.class)
 public class AllEditorsDirtyTest extends UITextTest {
-	public AllEditorsDirtyTest(String projectName, String name) throws CoreException {
-		super(null, name);
+//	public AllEditorsDirtyTest(String projectName, String name) throws CoreException {
+//		super(null, name);
+//	}
+//
+//	public AllEditorsDirtyTest(String name) throws CoreException {
+//		super(null, name);
+//	}
+	
+	public AllEditorsDirtyTest() throws CoreException {
+		super();
 	}
 
-	public AllEditorsDirtyTest(String name) throws CoreException {
-		super(null, name);
-	}
-	
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		super.tearDown();
 	}
 
+	@Test
 	public void testMakeAllEditorsDirty()
 	{
 		IWorkbenchWindow[] windows =

@@ -538,6 +538,308 @@ return self.convertToInstance();',
 	1,
 	'',
 	"4d1f1e3b-fef4-41b9-9ab1-82f165f5ad34");
+INSERT INTO O_TFR
+	VALUES ("af2ef0ca-7ecc-4e76-a1b1-5a8dd3e17006",
+	"fcc05ac4-6434-449e-9045-c76c52ee8c78",
+	'getSimpleAssociationPartCount',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	1,
+	'select many rsimpParticipants related by self->R_OIR[R202]->R_RTO[R203]->R_PART[R204]->R_SIMP[R207];
+return cardinality rsimpParticipants; ',
+	1,
+	'',
+	"3191a426-dbbb-4691-b0f9-10628b7051b6");
+INSERT INTO O_TFR
+	VALUES ("21c8dc5d-a56b-4a63-8902-b8d51b75f637",
+	"fcc05ac4-6434-449e-9045-c76c52ee8c78",
+	'getSimpleAssociationPartId',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	1,
+	'id = GD::NULL_UNIQUE_ID();
+select many rsimpParticipants related by self->R_OIR[R202]->R_RTO[R203]->R_PART[R204]->R_SIMP[R207];
+// We''re preincrementing the index
+count = -1;
+for each rsimp in rsimpParticipants
+  count = count + 1;
+  if (count == param.index)
+    id = rsimp.Rel_ID;
+    break;
+  end if;
+end for; 
+return id;',
+	1,
+	'',
+	"af2ef0ca-7ecc-4e76-a1b1-5a8dd3e17006");
+INSERT INTO O_TPARM
+	VALUES ("6fa501a1-ec97-4442-b15f-3a9da7b80f3f",
+	"21c8dc5d-a56b-4a63-8902-b8d51b75f637",
+	'index',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("4072bf62-3db9-446d-8b9c-f56918c65560",
+	"fcc05ac4-6434-449e-9045-c76c52ee8c78",
+	'getSupertypeCount',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	1,
+	'select many rSupers related by self->R_OIR[R202]->R_RTO[R203]->R_SUPER[R204];
+return cardinality rSupers; ',
+	1,
+	'',
+	"21c8dc5d-a56b-4a63-8902-b8d51b75f637");
+INSERT INTO O_TFR
+	VALUES ("ddababda-86c8-46d3-9c5a-ae4b86a2c9d3",
+	"fcc05ac4-6434-449e-9045-c76c52ee8c78",
+	'getSupertypeId',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	1,
+	'id = GD::NULL_UNIQUE_ID();
+select many rSupers related by self->R_OIR[R202]->R_RTO[R203]->R_SUPER[R204];
+// We''re preincrementing the index
+count = -1;
+for each rsuper in rSupers
+  count = count + 1;
+  if (count == param.index)
+    id = rsuper.Rel_ID;
+    break;
+  end if;
+end for; 
+return id;',
+	1,
+	'',
+	"4072bf62-3db9-446d-8b9c-f56918c65560");
+INSERT INTO O_TPARM
+	VALUES ("25a39b3a-0747-45f3-9a54-166b5ae6954b",
+	"ddababda-86c8-46d3-9c5a-ae4b86a2c9d3",
+	'index',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("4c05edac-d592-473a-98cf-26308922b9b4",
+	"fcc05ac4-6434-449e-9045-c76c52ee8c78",
+	'getSubtypeCount',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	1,
+	'select many rSubtypes related by self->R_OIR[R202]->R_RGO[R203]->R_SUB[R205];  
+return cardinality rSubtypes; ',
+	1,
+	'',
+	"ddababda-86c8-46d3-9c5a-ae4b86a2c9d3");
+INSERT INTO O_TFR
+	VALUES ("8bdc3e83-63a0-4949-8c3e-4fb9b15cde52",
+	"fcc05ac4-6434-449e-9045-c76c52ee8c78",
+	'getSubtypeId',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	1,
+	'id = GD::NULL_UNIQUE_ID();
+select many rSubtypes related by self->R_OIR[R202]->R_RGO[R203]->R_SUB[R205];  
+// We''re preincrementing the index
+count = -1;
+for each rsub in rSubtypes
+  count = count + 1;
+  if (count == param.index)
+    id = rsub.Rel_ID;
+    break;
+  end if;
+end for; 
+return id;',
+	1,
+	'',
+	"4c05edac-d592-473a-98cf-26308922b9b4");
+INSERT INTO O_TPARM
+	VALUES ("555cb647-6825-489f-857a-dd1828106d4f",
+	"8bdc3e83-63a0-4949-8c3e-4fb9b15cde52",
+	'index',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("983c1f0d-04cf-4c60-b080-caf65d72ecbe",
+	"fcc05ac4-6434-449e-9045-c76c52ee8c78",
+	'getAssociativeLinkOneCount',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	1,
+	'select many rAssocOnes related by self->R_OIR[R202]->R_RTO[R203]->R_AONE[R204]->R_ASSOC[R209];
+return cardinality rAssocOnes; ',
+	1,
+	'',
+	"8bdc3e83-63a0-4949-8c3e-4fb9b15cde52");
+INSERT INTO O_TFR
+	VALUES ("ee9706ab-871c-4161-bf74-9d890cd32893",
+	"fcc05ac4-6434-449e-9045-c76c52ee8c78",
+	'getAssociativeLinkOneId',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	1,
+	'id = GD::NULL_UNIQUE_ID();
+select many rAssocOnes related by self->R_OIR[R202]->R_RTO[R203]->R_AONE[R204]->R_ASSOC[R209];
+// We''re preincrementing the index
+count = -1;
+for each rAssocOne in rAssocOnes
+  count = count + 1;
+  if (count == param.index)
+    id = rAssocOne.Rel_ID;
+    break;
+  end if;
+end for; 
+return id;',
+	1,
+	'',
+	"983c1f0d-04cf-4c60-b080-caf65d72ecbe");
+INSERT INTO O_TPARM
+	VALUES ("63e8e9a9-aff3-47f1-b39b-9c07cec845a8",
+	"ee9706ab-871c-4161-bf74-9d890cd32893",
+	'index',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("fd2be20b-0979-435e-b0a5-05e68b2f5889",
+	"fcc05ac4-6434-449e-9045-c76c52ee8c78",
+	'getSimpleAssociationFormCount',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	1,
+	'select many rsimpFormalizers related by self->R_OIR[R202]->R_RGO[R203]->R_FORM[R205]->R_SIMP[R208];
+return cardinality rsimpFormalizers; ',
+	1,
+	'',
+	"ee9706ab-871c-4161-bf74-9d890cd32893");
+INSERT INTO O_TFR
+	VALUES ("ff6170b7-41eb-4702-a8d9-31f260154fb2",
+	"fcc05ac4-6434-449e-9045-c76c52ee8c78",
+	'getSimpleAssociationFormId',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	1,
+	'id = GD::NULL_UNIQUE_ID();
+select many rsimpFormalizers related by self->R_OIR[R202]->R_RGO[R203]->R_FORM[R205]->R_SIMP[R208];
+// We''re preincrementing the index
+count = -1;
+for each rsimp in rsimpFormalizers
+  count = count + 1;
+  if (count == param.index)
+    id = rsimp.Rel_ID;
+    break;
+  end if;
+end for; 
+return id;',
+	1,
+	'',
+	"fd2be20b-0979-435e-b0a5-05e68b2f5889");
+INSERT INTO O_TPARM
+	VALUES ("cd6078b9-2266-43b2-8728-47265503cd20",
+	"ff6170b7-41eb-4702-a8d9-31f260154fb2",
+	'index',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("77736335-3fc8-41a5-82eb-5b81633cce42",
+	"fcc05ac4-6434-449e-9045-c76c52ee8c78",
+	'getAssociativeLinkOtherCount',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	1,
+	'select many rAssocOthers related by self->R_OIR[R202]->R_RTO[R203]->R_AOTH[R204]->R_ASSOC[R210];
+return cardinality rAssocOthers; ',
+	1,
+	'',
+	"ff6170b7-41eb-4702-a8d9-31f260154fb2");
+INSERT INTO O_TFR
+	VALUES ("d267768b-d798-499f-84be-9591d5f61455",
+	"fcc05ac4-6434-449e-9045-c76c52ee8c78",
+	'getAssociativeLinkOtherId',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	1,
+	'id = GD::NULL_UNIQUE_ID();
+select many rAssocOthers related by self->R_OIR[R202]->R_RTO[R203]->R_AOTH[R204]->R_ASSOC[R210];
+// We''re preincrementing the index
+count = -1;
+for each rAssocOther in rAssocOthers
+  count = count + 1;
+  if (count == param.index)
+    id = rAssocOther.Rel_ID;
+    break;
+  end if;
+end for; 
+return id;',
+	1,
+	'',
+	"77736335-3fc8-41a5-82eb-5b81633cce42");
+INSERT INTO O_TPARM
+	VALUES ("33bdbec1-fff7-4d31-b46c-8687129f8cd5",
+	"d267768b-d798-499f-84be-9591d5f61455",
+	'index',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("6cdfb814-f4d0-4ed6-a53f-235eecc25c96",
+	"fcc05ac4-6434-449e-9045-c76c52ee8c78",
+	'getClassAsLinkCount',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	1,
+	'select many ClassAsLinks related by self->R_OIR[R202]->R_RGO[R203]->R_ASSR[R205];  
+return cardinality ClassAsLinks; 
+',
+	1,
+	'',
+	"d267768b-d798-499f-84be-9591d5f61455");
+INSERT INTO O_TFR
+	VALUES ("8116a10e-3e77-4ef4-9e77-32ee055678d9",
+	"fcc05ac4-6434-449e-9045-c76c52ee8c78",
+	'getClassAsLinkId',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	1,
+	'id = GD::NULL_UNIQUE_ID();
+select many classAsLinks related by self->R_OIR[R202]->R_RGO[R203]->R_ASSR[R205];  
+// We''re preincrementing the index
+count = -1;
+for each classAsLink in classAsLinks
+  count = count + 1;
+  if (count == param.index)
+    id = classAsLink.Rel_ID;
+    break;
+  end if;
+end for; 
+return id;',
+	1,
+	'',
+	"6cdfb814-f4d0-4ed6-a53f-235eecc25c96");
+INSERT INTO O_TPARM
+	VALUES ("960d59ef-01d2-4943-b18f-95626297114e",
+	"8116a10e-3e77-4ef4-9e77-32ee055678d9",
+	'index',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
 INSERT INTO O_NBATTR
 	VALUES ("a94ea28b-2350-4269-9287-788cea2336c6",
 	"fcc05ac4-6434-449e-9045-c76c52ee8c78");

@@ -1,0 +1,274 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>10.13. Suffix Expressions</title>
+<link rel="stylesheet" type="text/css" href="docbook.css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<meta name="keywords" content="MASL, Action Language, Action Semantics, UML, Unified Modelling Language, Shlaer Mellor">
+<link rel="home" href="index.html" title="MASL Reference Manual">
+<link rel="up" href="section.Expressions.html" title="Chapter 10. Expressions">
+<link rel="prev" href="section.Expressions.Finds.html" title="10.12. Finds">
+<link rel="next" href="section.Expressions.PrimaryExpressions.html" title="10.14. Primary Expressions">
+<link rel="chapter" href="section.LexicalStructure.html" title="Chapter 1. Lexical Structure">
+<link rel="chapter" href="section.Types.html" title="Chapter 2. Type System">
+<link rel="chapter" href="section.Domains.html" title="Chapter 3. Domains">
+<link rel="chapter" href="section.Services.html" title="Chapter 4. Services, Functions and State Actions">
+<link rel="chapter" href="section.Relationships.html" title="Chapter 5. Relationships">
+<link rel="chapter" href="section.Exceptions.html" title="Chapter 6. Exceptions">
+<link rel="chapter" href="section.Terminators.html" title="Chapter 7. Terminators">
+<link rel="chapter" href="section.Objects.html" title="Chapter 8. Objects">
+<link rel="chapter" href="section.Statements.html" title="Chapter 9. Statements">
+<link rel="chapter" href="section.Expressions.html" title="Chapter 10. Expressions">
+<link rel="chapter" href="section.Projects.html" title="Chapter 11. Projects">
+<link rel="chapter" href="section.Pragmas.html" title="Chapter 12. Pragmas">
+<link rel="appendix" href="AlphabeticalSyntaxReference.html" title="Appendix A. Alphabetical Syntax Reference">
+<link rel="index" href="ix01.html" title="Index">
+<link rel="subsection" href="section.Expressions.SuffixExpressions.html#section.Expressions.FunctionCalls" title="10.13.1. Function Calls">
+<link rel="subsection" href="section.Expressions.SuffixExpressions.html#section.Expressions.AccessExpressions" title="10.13.2. Attribute, Component and Collection Accessors">
+<link rel="subsection" href="section.Expressions.SuffixExpressions.html#section.Expressions.CharacteristicExpressions" title="10.13.3. Characteristics">
+<link rel="subsection" href="section.Expressions.SuffixExpressions.html#section.Expressions.TypeCasts" title="10.13.4. Type Casts">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div align="center">OFFICIAL</div>
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">10.13. Suffix Expressions</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="section.Expressions.Finds.html">Prev</a> </td>
+<th width="60%" align="center">Chapter 10. Expressions</th>
+<td width="20%" align="right"> <a accesskey="n" href="section.Expressions.PrimaryExpressions.html">Next</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title">
+<a name="section.Expressions.SuffixExpressions"></a>10.13. Suffix Expressions</h2></div></div></div>
+<div class="toc"><dl class="toc">
+<dt><span class="section"><a href="section.Expressions.SuffixExpressions.html#section.Expressions.FunctionCalls">10.13.1. Function Calls</a></span></dt>
+<dt><span class="section"><a href="section.Expressions.SuffixExpressions.html#section.Expressions.AccessExpressions">10.13.2. Attribute, Component and Collection Accessors</a></span></dt>
+<dt><span class="section"><a href="section.Expressions.SuffixExpressions.html#section.Expressions.CharacteristicExpressions">10.13.3. Characteristics</a></span></dt>
+<dt><span class="section"><a href="section.Expressions.SuffixExpressions.html#section.Expressions.TypeCasts">10.13.4. Type Casts</a></span></dt>
+</dl></div>
+<p>todo</p>
+<table width="100%" cellpadding="5" bgcolor="#F5DCB3" border="1" class="productionset" summary="EBNF"><tr><td><table border="0" width="99%" cellpadding="0" bgcolor="#F5DCB3" class="productionset" summary="EBNF productions">
+<tr>
+<td align="left" valign="top" width="3%">[203]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.suffixExpression"></a>suffix expression</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+<a href="section.Expressions.PrimaryExpressions.html#ebnf.primaryExpression">primary expression</a> | <a href="section.Expressions.SuffixExpressions.html#ebnf.componentAccessExpression">component access expression</a> |
+      <a href="section.Expressions.SuffixExpressions.html#ebnf.attributeAccessExpression">attribute access expression</a> | <a href="section.Expressions.SuffixExpressions.html#ebnf.sliceExpression">slice expression</a> | <a href="section.Expressions.SuffixExpressions.html#ebnf.characteristicExpression">characteristic expression</a> | <a href="section.Expressions.SuffixExpressions.html#ebnf.castExpression">cast expression</a> | <a href="section.Expressions.SuffixExpressions.html#ebnf.instanceFncallExpression">instance fn call expression</a> | <a href="section.Expressions.SuffixExpressions.html#ebnf.objectFncallExpression">object fn call expression</a> | <a href="section.Expressions.SuffixExpressions.html#ebnf.domainFncallExpression">domain fn call expression</a> | <a href="section.Expressions.SuffixExpressions.html#ebnf.terminatorFncallExpression">terminator fn call expression</a>;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[204]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.suffixExpressionNC"></a>suffix expression nc</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+<a href="section.Expressions.PrimaryExpressions.html#ebnf.primaryExpression">primary expression</a> | <a href="section.Expressions.SuffixExpressions.html#ebnf.componentAccessExpressionNC">component access expression nc</a> |
+      <a href="section.Expressions.SuffixExpressions.html#ebnf.attributeAccessExpressionNC">attribute access expression nc</a> | <a href="section.Expressions.SuffixExpressions.html#ebnf.sliceExpressionNC">slice expression nc</a> |
+      <a href="section.Expressions.SuffixExpressions.html#ebnf.characteristicExpressionNC">characteristic expression nc</a>;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+</table></td></tr></table>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="section.Expressions.FunctionCalls"></a>10.13.1. Function Calls</h3></div></div></div>
+<p>todo</p>
+<table width="100%" cellpadding="5" bgcolor="#F5DCB3" border="1" class="productionset" summary="EBNF"><tr><td><table border="0" width="99%" cellpadding="0" bgcolor="#F5DCB3" class="productionset" summary="EBNF productions">
+<tr>
+<td align="left" valign="top" width="3%">[205]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.instanceFncallExpression"></a>instance fn call expression</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">[ <a href="section.Expressions.SuffixExpressions.html#ebnf.suffixExpression">suffix expression</a> , '.' ] , <a href="section.Services.Declaration.html#ebnf.serviceName">service name</a> , '(' , [
+      <a href="section.Expressions.SuffixExpressions.html#ebnf.argumentList">argument list</a> ] , ')';</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[206]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.objectFncallExpression"></a>object fn call expression</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">[ <a href="section.Objects.Declaration.html#ebnf.objectName">object name</a> , '.' ] , <a href="section.Services.Declaration.html#ebnf.serviceName">service name</a>, '(' , [
+      <a href="section.Expressions.SuffixExpressions.html#ebnf.argumentList">argument list</a> ] , ')';</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[207]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.domainFncallExpression"></a>domain fn call expression</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">[ <a href="section.Domains.Definition.html#ebnf.domainName">domain name</a> , '::' ] , <a href="section.Services.Declaration.html#ebnf.serviceName">service name</a>, '(' , [
+      <a href="section.Expressions.SuffixExpressions.html#ebnf.argumentList">argument list</a> ] , ')';</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[208]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.terminatorFncallExpression"></a>terminator fn call expression</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+<a href="section.Terminators.Definition.html#ebnf.terminatorName">terminator name</a> , '~&gt;' , <a href="section.Services.Declaration.html#ebnf.serviceName">service name</a>, '(' , [
+      <a href="section.Expressions.SuffixExpressions.html#ebnf.argumentList">argument list</a> ] , ')';</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[209]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.argumentList"></a>argument list</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+<a href="section.Expressions.SuffixExpressions.html#ebnf.argument">argument</a> , { ',' , <a href="section.Expressions.SuffixExpressions.html#ebnf.argument">argument</a> };</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[210]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.argument"></a>argument</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+<a href="section.Expressions.html#ebnf.expression">expression</a>;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+</table></td></tr></table>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="section.Expressions.AccessExpressions"></a>10.13.2. Attribute, Component and Collection Accessors</h3></div></div></div>
+<p>todo</p>
+<table width="100%" cellpadding="5" bgcolor="#F5DCB3" border="1" class="productionset" summary="EBNF"><tr><td><table border="0" width="99%" cellpadding="0" bgcolor="#F5DCB3" class="productionset" summary="EBNF productions">
+<tr>
+<td align="left" valign="top" width="3%">[211]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.sliceExpression"></a>slice expression</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+<a href="section.Expressions.SuffixExpressions.html#ebnf.suffixExpression">suffix expression</a> , '[' , <a href="section.Expressions.Finds.html#ebnf.index">index</a> , ']';</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[212]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.sliceExpressionNC"></a>slice expression nc</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+<a href="section.Expressions.SuffixExpressions.html#ebnf.suffixExpressionNC">suffix expression nc</a> , '[' , <a href="section.Expressions.Finds.html#ebnf.index">index</a> , ']';</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[213]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.attributeAccessExpression"></a>attribute access expression</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+<a href="section.Expressions.SuffixExpressions.html#ebnf.suffixExpression">suffix expression</a> , '.' , <a href="section.Types.Definition.html#ebnf.componentName">component name</a>;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[214]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.attributeAccessExpressionNC"></a>attribute access expression nc</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+<a href="section.Expressions.SuffixExpressions.html#ebnf.suffixExpressionNC">suffix expression nc</a> , '.' , <a href="section.Objects.Attributes.html#ebnf.attributeName">attribute name</a>;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[215]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.componentAccessExpression"></a>component access expression</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+<a href="section.Expressions.SuffixExpressions.html#ebnf.suffixExpression">suffix expression</a> , '.' , <a href="section.Objects.Attributes.html#ebnf.attributeName">attribute name</a>;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[216]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.componentAccessExpressionNC"></a>component access expression nc</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+<a href="section.Expressions.SuffixExpressions.html#ebnf.suffixExpressionNC">suffix expression nc</a> , '.' , <a href="section.Types.Definition.html#ebnf.componentName">component name</a>;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+</table></td></tr></table>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="section.Expressions.CharacteristicExpressions"></a>10.13.3. Characteristics</h3></div></div></div>
+<p>todo</p>
+<table width="100%" cellpadding="5" bgcolor="#F5DCB3" border="1" class="productionset" summary="EBNF"><tr><td><table border="0" width="99%" cellpadding="0" bgcolor="#F5DCB3" class="productionset" summary="EBNF productions">
+<tr>
+<td align="left" valign="top" width="3%">[217]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.characteristicExpression"></a>characteristic expression</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+<a href="section.Expressions.SuffixExpressions.html#ebnf.suffixExpression">suffix expression</a> , ''' , <a href="section.Expressions.SuffixExpressions.html#ebnf.characteristic">characteristic</a> , [ '(' , [
+      <a href="section.Expressions.SuffixExpressions.html#ebnf.argumentList">argument list</a> ] , ')' ];</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[218]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.characteristicExpressionNC"></a>characteristic expression nc</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+<a href="section.Expressions.SuffixExpressions.html#ebnf.suffixExpressionNC">suffix expression nc</a> , ''' , <a href="section.Expressions.SuffixExpressions.html#ebnf.characteristic">characteristic</a>;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[219]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.characteristic"></a>characteristic</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+        <a href="section.Tokenization.html#ebnf.Identifier">identifier</a>
+      ;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+</table></td></tr></table>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="section.Expressions.TypeCasts"></a>10.13.4. Type Casts</h3></div></div></div>
+<p>todo</p>
+<table width="100%" cellpadding="5" bgcolor="#F5DCB3" border="1" class="productionset" summary="EBNF"><tr><td><table border="0" width="99%" cellpadding="0" bgcolor="#F5DCB3" class="productionset" summary="EBNF productions"><tr>
+<td align="left" valign="top" width="3%">[220]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.castExpression"></a>cast expression</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+<a href="section.Types.Reference.html#ebnf.typeRef">type ref</a> , '(' , <a href="section.Expressions.html#ebnf.expression">expression</a> , ')';</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr></table></td></tr></table>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="section.Expressions.Finds.html">Prev</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="section.Expressions.html">Up</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="section.Expressions.PrimaryExpressions.html">Next</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">10.12. Finds </td>
+<td width="20%" align="center">
+<a accesskey="h" href="index.html">Home</a> | <a accesskey="t" href="bk01-toc.html">ToC</a>
+</td>
+<td width="40%" align="right" valign="top"> 10.14. Primary Expressions</td>
+</tr>
+</table>
+</div>
+<div align="center">OFFICIAL</div>
+</body>
+</html>

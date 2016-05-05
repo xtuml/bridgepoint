@@ -26,7 +26,9 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.TreeItem;
-
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.ExecutableProperty_c;
 import org.xtuml.bp.core.InterfaceReference_c;
@@ -44,9 +46,11 @@ import org.xtuml.bp.test.TestUtil;
 import org.xtuml.bp.test.common.BaseTest;
 import org.xtuml.bp.test.common.CanvasTestUtils;
 import org.xtuml.bp.test.common.ExplorerUtil;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.UITestingUtilities;
 import org.xtuml.bp.ui.graphics.editor.GraphicalEditor;
 
+@RunWith(OrderedRunner.class)
 public class RemoveSignalTests extends BaseTest {
 	/**
 	 * The editor upon which these tests operate.
@@ -65,8 +69,8 @@ public class RemoveSignalTests extends BaseTest {
 	 * Constructor.
 	 */
 
-	public RemoveSignalTests(String name) {
-		super(null, name);
+	public RemoveSignalTests(){
+		super(null, null);
 	}
 
 	/*
@@ -74,6 +78,7 @@ public class RemoveSignalTests extends BaseTest {
 	 * 
 	 * @see junit.framework.TestCase#setUp()
 	 */
+	@Before
 	public void setUp() throws Exception {
 		super.setUp();
 
@@ -96,6 +101,7 @@ public class RemoveSignalTests extends BaseTest {
 		}
 	}
 
+	@Test
 	public void testRemoveSignal() {
 		/*
 		 * _- Find class TC's class based state machine _- Locate a transition
@@ -210,6 +216,7 @@ public class RemoveSignalTests extends BaseTest {
 			;
 	}
 
+	@Test
 	public void testDeleteTransitionThatHasAnAssignedSignal() {
 		/*
 		 * _- Find class TC's class based state machine _- Locate a transition

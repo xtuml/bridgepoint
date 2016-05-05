@@ -24,14 +24,12 @@ package org.xtuml.bp.als.oal.test;
 
 import java.util.UUID;
 
-import junit.framework.TestCase;
-
 import org.eclipse.jface.dialogs.MessageDialogWithToggle;
 import org.eclipse.jface.preference.IPreferenceStore;
-
-import antlr.RecognitionException;
-import antlr.TokenStreamException;
-
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.AttributeValueReference_c;
 import org.xtuml.bp.core.Block_c;
 import org.xtuml.bp.core.Body_c;
@@ -51,10 +49,17 @@ import org.xtuml.bp.core.TransitionActionBody_c;
 import org.xtuml.bp.core.Variable_c;
 import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 
+import antlr.RecognitionException;
+import antlr.TokenStreamException;
+import junit.framework.TestCase;
+
+@RunWith(OrderedRunner.class)
 public class TestAssign_Generics extends TestCase {
 
-    protected void setUp() throws Exception {
+    @Before
+	public void setUp() throws Exception {
         super.setUp();
 
         IPreferenceStore store = CorePlugin.getDefault().getPreferenceStore();
@@ -64,7 +69,8 @@ public class TestAssign_Generics extends TestCase {
                 MessageDialogWithToggle.ALWAYS);
     }
 
-    protected void tearDown() throws Exception {
+    @After
+	public void tearDown() throws Exception {
         try {
             super.tearDown();
             OalParserTest_Generics.tearDownActionData();
@@ -117,6 +123,7 @@ public class TestAssign_Generics extends TestCase {
 		OalParserTest_Generics.clearActionData(OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	}
 
+	@Test
 	public void testAssignTypeBooleanV2V() throws RecognitionException,
 			TokenStreamException {
 		UUID id = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "boolean");//$NON-NLS-1$
@@ -124,6 +131,7 @@ public class TestAssign_Generics extends TestCase {
 				"assign x = true; assign y = false; assign x = y; ", id, id, 2, 0, 0); //$NON-NLS-1$
 	}
 
+	@Test
 	public void testAssignTypeIntV2V() throws RecognitionException,
 			TokenStreamException {
 		UUID id = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "integer");//$NON-NLS-1$
@@ -131,6 +139,7 @@ public class TestAssign_Generics extends TestCase {
 				"assign x = 1; assign y = 27; assign x = y; ", id, id, 2, 0, 0); //$NON-NLS-1$
 	}
 
+	@Test
 	public void testAssignTypeStringV2V() throws RecognitionException,
 			TokenStreamException {
 		UUID id = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "string");//$NON-NLS-1$
@@ -138,6 +147,7 @@ public class TestAssign_Generics extends TestCase {
 				"assign x = \"a\"; assign y = \"b\"; assign x = y; ", id, id, 2, 0, 0); //$NON-NLS-1$
 	}
 
+	@Test
 	public void testAssignTypeRealV2V() throws RecognitionException,
 			TokenStreamException {
 		UUID id = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "real");//$NON-NLS-1$
@@ -145,6 +155,7 @@ public class TestAssign_Generics extends TestCase {
 				"assign x = 1.3; assign y = 2.7; assign x = y; ", id, id, 2, 0, 0); //$NON-NLS-1$
 	}
 
+	@Test
 	public void testAssignTypeIRO2IRO() throws RecognitionException,
 			TokenStreamException {
 		UUID id = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "inst_ref<Object>");//$NON-NLS-1$
@@ -152,6 +163,7 @@ public class TestAssign_Generics extends TestCase {
 				"select any x from instances of D_D; select any y from instances of D_D; assign x = y; ", id, id, 0, 2, 0); //$NON-NLS-1$
 	}
 
+	@Test
 	public void testAssignTypeIRS2IRS() throws RecognitionException,
 			TokenStreamException {
 		UUID id = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "inst_ref<Object>");//$NON-NLS-1$
@@ -159,6 +171,7 @@ public class TestAssign_Generics extends TestCase {
 				"select many x from instances of D_D; select many y from instances of D_D; assign x = y; ", id, id, 0, 0, 2); //$NON-NLS-1$
 	}
 
+	@Test
 	public void testAssignTypeIRO2IROImplicit() throws RecognitionException,
 			TokenStreamException {
 		String x = OalParserTest_Generics
@@ -184,6 +197,7 @@ public class TestAssign_Generics extends TestCase {
 		assertEquals(1, attr_val.length);
 	}
 
+	@Test
 	public void testAssignTypeIRS2IRSImplicit() throws RecognitionException,
 			TokenStreamException {
 		String x = OalParserTest_Generics
@@ -217,6 +231,7 @@ public class TestAssign_Generics extends TestCase {
 		assertEquals(0, val.length);
 	}
 
+	@Test
 	public void testIAssignTypeBooleanV2V() throws RecognitionException,
 			TokenStreamException {
 		UUID id = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "boolean");//$NON-NLS-1$
@@ -224,12 +239,14 @@ public class TestAssign_Generics extends TestCase {
 				"x = true; y = false; x = y; ", id, id, 2, 0, 0); //$NON-NLS-1$
 	}
 
+	@Test
 	public void testIAssignTypeIntV2V() throws RecognitionException,
 			TokenStreamException {
 		UUID id = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "integer");//$NON-NLS-1$
 		AssignTypeV2Vtest("x = 1; y = 27; x = y; ", id, id, 2, 0, 0); //$NON-NLS-1$
 	}
 
+	@Test
 	public void testIAssignTypeStringV2V() throws RecognitionException,
 			TokenStreamException {
 		UUID id = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "string");//$NON-NLS-1$
@@ -237,12 +254,14 @@ public class TestAssign_Generics extends TestCase {
 				"x = \"a\"; y = \"b\"; x = y; ", id, id, 2, 0, 0); //$NON-NLS-1$
 	}
 
+	@Test
 	public void testIAssignTypeRealV2V() throws RecognitionException,
 			TokenStreamException {
 		UUID id = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "real");//$NON-NLS-1$
 		AssignTypeV2Vtest("x = 1.3; y = 2.7; x = y; ", id, id, 2, 0, 0); //$NON-NLS-1$
 	}
 
+	@Test
 	public void testIAssignTypeIV2RV() throws RecognitionException,
 			TokenStreamException {
 		UUID id1 = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "real");//$NON-NLS-1$
@@ -250,6 +269,7 @@ public class TestAssign_Generics extends TestCase {
 		AssignTypeV2Vtest("x = 5.13; y = 99; x = y; ", id1, id2, 2, 0, 0); //$NON-NLS-1$
 	}
 
+	@Test
 	public void testIAssignTypeRV2IV() throws RecognitionException,
 			TokenStreamException {
 		UUID id1 = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "real");//$NON-NLS-1$
@@ -257,6 +277,7 @@ public class TestAssign_Generics extends TestCase {
 		AssignTypeV2Vtest("x = 1; y = 3.14; x = y; ", id2, id1, 2, 0, 0); //$NON-NLS-1$
 	}
 
+	@Test
 	public void testIAssignTypeIRO2IRO() throws RecognitionException,
 			TokenStreamException {
 		UUID id = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "inst_ref<Object>");//$NON-NLS-1$
@@ -264,12 +285,14 @@ public class TestAssign_Generics extends TestCase {
 				"select any x from instances of D_D; select any y from instances of D_D; x = y; ", id, id, 0, 2, 0); //$NON-NLS-1$
 	}
 
+	@Test
 	public void testIAssignTypeIRS2IRS() throws RecognitionException,
 			TokenStreamException {
 		UUID id = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "inst_ref<Object>");//$NON-NLS-1$
 		AssignTypeV2Vtest(
 				"select many x from instances of D_D; select many y from instances of D_D; x = y; ", id, id, 0, 0, 2); //$NON-NLS-1$
 	}
+	@Test
 	public void testTransValPop() throws RecognitionException, TokenStreamException {
 		String x = OalParserTest_Generics.parseAction("x = 1; y = x; z = y; z = x;", OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM); //$NON-NLS-1$
 		assertEquals("", x); //$NON-NLS-1$
@@ -334,6 +357,7 @@ public class TestAssign_Generics extends TestCase {
 		assertEquals(numIRS, isv.length);
 	}
 
+	@Test
 	public void testAssignTypeMismatchB2I() throws RecognitionException,
 			TokenStreamException {
 		UUID intId = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "integer");//$NON-NLS-1$
@@ -343,6 +367,7 @@ public class TestAssign_Generics extends TestCase {
 				"x = 1;\ny = true;\nx = y;\n ", intId, boolId, 2, 0, 0); //$NON-NLS-1$
 	}
 
+	@Test
 	public void testAssignTypeMismatchS2I() throws RecognitionException,
 			TokenStreamException {
 		UUID intId = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "integer");//91//$NON-NLS-1$
@@ -351,6 +376,7 @@ public class TestAssign_Generics extends TestCase {
 				"x = 1;\ny = \"test\";\nx = y;\n ", intId, strId, 2, 0, 0); //$NON-NLS-1$
 	}
 
+	@Test
 	public void testAssignTypeMismatchB2S() throws RecognitionException,
 			TokenStreamException {
 		UUID strId = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "string");//93//$NON-NLS-1$
@@ -359,6 +385,7 @@ public class TestAssign_Generics extends TestCase {
 				"x = \"test\";\ny = false;\nx = y;\n ", strId, boolId, 2, 0, 0); //$NON-NLS-1$
 	}
 
+	@Test
 	public void testAssignTypeMismatchI2S() throws RecognitionException,
 			TokenStreamException {
 		UUID strId = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "string");//93//$NON-NLS-1$
@@ -367,6 +394,7 @@ public class TestAssign_Generics extends TestCase {
 				"x = \"test\";\ny = 2;\nx = y;\n ", strId, intId, 2, 0, 0); //$NON-NLS-1$
 	}
 
+	@Test
 	public void testAssignTypeMismatchR2S() throws RecognitionException,
 			TokenStreamException {
 			UUID strId = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "string");//93//$NON-NLS-1$
@@ -375,6 +403,7 @@ public class TestAssign_Generics extends TestCase {
 				"x = \"test\";\ny = 2.17;\nx = y;\n ", strId, realId, 2, 0, 0); //$NON-NLS-1$
 	}
 
+	@Test
 	public void testAssignTypeMismatchB2R() throws RecognitionException,
 			TokenStreamException {
 		UUID boolId = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "boolean");//90//$NON-NLS-1$
@@ -383,6 +412,7 @@ public class TestAssign_Generics extends TestCase {
 				"x = 5.13;\ny = false;\nx = y;\n ", realId, boolId, 2, 0, 0); //$NON-NLS-1$
 	}
 
+	@Test
 	public void testAssignTypeMismatchS2R() throws RecognitionException,
 			TokenStreamException {
 		UUID realId = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "real");//92//$NON-NLS-1$
@@ -391,6 +421,7 @@ public class TestAssign_Generics extends TestCase {
 				"x = 99.0001;\ny = \"test\";\nx = y;\n ", realId, strId, 2, 0, 0); //$NON-NLS-1$
 	}
 
+	@Test
 	public void testAssignTypeMismatchI2B() throws RecognitionException,
 			TokenStreamException {
 		UUID boolId = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "boolean");//90//$NON-NLS-1$
@@ -399,6 +430,7 @@ public class TestAssign_Generics extends TestCase {
 				"x = false;\ny = 1;\nx = y;\n ", boolId, intId, 2, 0, 0); //$NON-NLS-1$
 	}
 
+	@Test
 	public void testAssignTypeMismatchR2B() throws RecognitionException,
 			TokenStreamException {
 		UUID boolId = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "boolean");//90//$NON-NLS-1$
@@ -407,6 +439,7 @@ public class TestAssign_Generics extends TestCase {
 				"x = false;\ny = 1.1111;\nx = y;\n ", boolId, realId, 2, 0, 0); //$NON-NLS-1$
 	}
 
+	@Test
 	public void testAssignTypeMismatchS2B() throws RecognitionException,
 			TokenStreamException {
 		UUID boolId = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "boolean");//90//$NON-NLS-1$
@@ -415,6 +448,7 @@ public class TestAssign_Generics extends TestCase {
 				"x = true;\ny = \"test\";\nx = y;\n ", boolId, strId, 2, 0, 0); //$NON-NLS-1$
 	}
 
+	@Test
 	public void testAssignTypeMismatchIRO2IRO() throws RecognitionException,
 			TokenStreamException {
 		UUID id = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "inst_ref<Object>");//97//$NON-NLS-1$
@@ -422,6 +456,7 @@ public class TestAssign_Generics extends TestCase {
 				"create object instance x of D_D;\n create object instance y of D_H;\nx = y;\n ", id, id, 0, 2, 0); //$NON-NLS-1$
 	}
 
+	@Test
 	public void testAssignTypeMismatchIRO2IRS() throws RecognitionException,
 			TokenStreamException {
 		UUID id = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "inst_ref<Object>");//$NON-NLS-1$
@@ -429,6 +464,7 @@ public class TestAssign_Generics extends TestCase {
 				"select many x from instances of D_D;\n select any y from instances of D_D;\nx = y;\n ", id, id, 0, 1, 1); //$NON-NLS-1$
 	}
 
+	@Test
 	public void testAssignTypeMismatchIRS2IRO() throws RecognitionException,
 			TokenStreamException {
 		UUID id = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "inst_ref<Object>");//$NON-NLS-1$
@@ -436,6 +472,7 @@ public class TestAssign_Generics extends TestCase {
 				"select any x from instances of D_D;\n select many y from instances of D_D;\nx = y;\n ", id, id, 0, 1, 1); //$NON-NLS-1$
 	}
 
+	@Test
 	public void testAssignTypeMismatchIRO2IRSClass()
 			throws RecognitionException, TokenStreamException {
 		UUID id = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "inst_ref<Object>");//$NON-NLS-1$
@@ -443,6 +480,7 @@ public class TestAssign_Generics extends TestCase {
 				"select many x from instances of D_D;\n select any y from instances of D_H;\nx = y;\n ", id, id, 0, 1, 1); //$NON-NLS-1$
 	}
 
+	@Test
 	public void testAssignTypeMismatchIRS2IROClass()
 			throws RecognitionException, TokenStreamException {
 		UUID id = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "inst_ref<Object>");//$NON-NLS-1$
@@ -450,12 +488,14 @@ public class TestAssign_Generics extends TestCase {
 				"select any x from instances of D_D;\n select many y from instances of D_H;\nx = y;\n ", id, id, 0, 1, 1); //$NON-NLS-1$
 	}
 
+	@Test
 	public void testAssignTypeMismatchIRS2IRS() throws RecognitionException,
 			TokenStreamException {
 		UUID id = BaseTest.getTypeID_Generic(OalParserTest_Generics.modelRoot, "inst_ref<Object>");//$NON-NLS-1$
 		assignTypeMismatchTest(
 				"select many x from instances of D_D;\n select many y from instances of D_H;\nx = y;\n ", id, id, 0, 0, 2); //$NON-NLS-1$
 	}
+	@Test
 	public void testAccessSelfFromFunction() throws RecognitionException, TokenStreamException {
 		String x = OalParserTest_Generics.parseAction("sr2 = Self;", OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM); //$NON-NLS-1$
 		String lines[] = x.split("\n"); //$NON-NLS-1$
@@ -463,6 +503,7 @@ public class TestAssign_Generics extends TestCase {
 		Statement_c[] st = Statement_c.StatementInstances(OalParserTest_Generics.modelRoot);
 		assertEquals(0, st.length);
 	}
+	@Test
 	public void testAssignToSelf() throws RecognitionException, TokenStreamException {
 		String x = OalParserTest_Generics.parseAction("self = self;", OalParserTest_Generics.ACTIVITY_TYPE_IB_OP, OalParserTest_Generics.TEST_VOID_NO_PARM); //$NON-NLS-1$
 		String lines[] = x.split("\n"); //$NON-NLS-1$
@@ -471,6 +512,7 @@ public class TestAssign_Generics extends TestCase {
 		assertEquals(0, st.length);
 		OalParserTest_Generics.clearActionData(OalParserTest_Generics.ACTIVITY_TYPE_IB_OP, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	}
+	@Test
 	public void testVarNotKnown() throws RecognitionException, TokenStreamException {
 		String x = OalParserTest_Generics.parseAction("x = y;", OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM); //$NON-NLS-1$
 		String lines[] = x.split("\n"); //$NON-NLS-1$
@@ -479,6 +521,7 @@ public class TestAssign_Generics extends TestCase {
 		assertEquals(0, st.length);
 		OalParserTest_Generics.clearActionData(OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	}
+	@Test
 	public void testAccessSelfFromBridge() throws RecognitionException, TokenStreamException {
 		String x = OalParserTest_Generics.parseAction("sr2 = Self;", OalParserTest_Generics.ACTIVITY_TYPE_BRG, OalParserTest_Generics.TEST_VOID_NO_PARM); //$NON-NLS-1$
 		String lines[] = x.split("\n");//$NON-NLS-1$
@@ -490,6 +533,7 @@ public class TestAssign_Generics extends TestCase {
 		assertEquals(0, st.length);
 		OalParserTest_Generics.clearActionData(OalParserTest_Generics.ACTIVITY_TYPE_BRG, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	}
+	@Test
 	public void testAccessSelfFromCBOp() throws RecognitionException, TokenStreamException {
 		String x = OalParserTest_Generics.parseAction("sr2 = Self;", OalParserTest_Generics.ACTIVITY_TYPE_CB_OP, OalParserTest_Generics.TEST_VOID_NO_PARM); //$NON-NLS-1$
 		String lines[] = x.split("\n");//$NON-NLS-1$
@@ -501,6 +545,7 @@ public class TestAssign_Generics extends TestCase {
 		assertEquals(0, st.length);
 		OalParserTest_Generics.clearActionData(OalParserTest_Generics.ACTIVITY_TYPE_CB_OP, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	}
+	@Test
 	public void testAccessSelfFromClassAction() throws RecognitionException, TokenStreamException {
 		String x = OalParserTest_Generics.parseAction("sr2 = Self;", OalParserTest_Generics.ACTIVITY_TYPE_STATE, OalParserTest_Generics.STATE_ASM_ONE); //$NON-NLS-1$
 		String lines[] = x.split("\n");//$NON-NLS-1$
@@ -512,6 +557,7 @@ public class TestAssign_Generics extends TestCase {
 		assertEquals(0, st.length);
 		OalParserTest_Generics.clearActionData(OalParserTest_Generics.ACTIVITY_TYPE_STATE, OalParserTest_Generics.STATE_ASM_ONE);
 	}
+	@Test
 	public void testAccessSelfFromClassTransitionAction() throws RecognitionException, TokenStreamException {
 		String x = OalParserTest_Generics.parseAction("sr2 = Self;", OalParserTest_Generics.ACTIVITY_TYPE_TRANSITION, OalParserTest_Generics.STATE_ASM_ONE); //$NON-NLS-1$
 		String lines[] = x.split("\n");//$NON-NLS-1$
@@ -523,6 +569,7 @@ public class TestAssign_Generics extends TestCase {
 		assertEquals(0, st.length);
 		OalParserTest_Generics.clearActionData(OalParserTest_Generics.ACTIVITY_TYPE_TRANSITION, OalParserTest_Generics.STATE_ASM_ONE);
 	}
+	@Test
 	public void testAccessSelfFromIBOp() throws RecognitionException, TokenStreamException {
 		OalParserTest_Generics.clearActionData(OalParserTest_Generics.ACTIVITY_TYPE_IB_OP, OalParserTest_Generics.TEST_VOID_NO_PARM);
 		String x = OalParserTest_Generics.parseAction("sr2 = Self;", OalParserTest_Generics.ACTIVITY_TYPE_IB_OP, OalParserTest_Generics.TEST_VOID_NO_PARM); //$NON-NLS-1$
@@ -530,90 +577,105 @@ public class TestAssign_Generics extends TestCase {
 		OalParserTest_Generics.validateBlkStmtVal(1, 1, 2);
 		OalParserTest_Generics.clearActionData(OalParserTest_Generics.ACTIVITY_TYPE_IB_OP, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	}
+	@Test
 	public void testAccessSelfFromInstanceAction() throws RecognitionException, TokenStreamException {
 		String x = OalParserTest_Generics.parseAction("sr2 = Self;", OalParserTest_Generics.ACTIVITY_TYPE_STATE, OalParserTest_Generics.STATE_ISM_ONE); //$NON-NLS-1$
 		assertEquals("", x); //$NON-NLS-1$
 		OalParserTest_Generics.validateBlkStmtVal(1, 1, 2);
 		OalParserTest_Generics.clearActionData(OalParserTest_Generics.ACTIVITY_TYPE_STATE, OalParserTest_Generics.STATE_ISM_ONE);
 	}
+	@Test
 	public void testAccessSelfFromTransitionAction() throws RecognitionException, TokenStreamException {
 		String x = OalParserTest_Generics.parseAction("sr2 = Self;", OalParserTest_Generics.ACTIVITY_TYPE_TRANSITION, OalParserTest_Generics.STATE_ISM_ONE); //$NON-NLS-1$
 		assertEquals("", x); //$NON-NLS-1$
 		OalParserTest_Generics.validateBlkStmtVal(1, 1, 2);
 		OalParserTest_Generics.clearActionData(OalParserTest_Generics.ACTIVITY_TYPE_TRANSITION, OalParserTest_Generics.STATE_ISM_ONE);
 	}
+	@Test
 	public void testAssignBool2UDT() throws RecognitionException, TokenStreamException {
 		String act = "select any t from instances of D_TST; t.u_bool = false;"; //$NON-NLS-1$
 		String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 		assertEquals("", x); //$NON-NLS-1$
 		OalParserTest_Generics.validateBlkStmtVal( 1, 2, 3 );
 	}
+	@Test
 	public void testAssignUDT2Bool() throws RecognitionException, TokenStreamException {
 		String act = "select any t from instances of D_TST; x = true; x = t.u_bool;"; //$NON-NLS-1$
 		String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 		assertEquals("", x); //$NON-NLS-1$
 		OalParserTest_Generics.validateBlkStmtVal( 1, 3, 5 );
 	}
+	@Test
 	public void testAssignInt2UDT() throws RecognitionException, TokenStreamException {
 		String act = "select any t from instances of D_TST; t.u_int = 13;"; //$NON-NLS-1$
 		String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 		assertEquals("", x); //$NON-NLS-1$
 		OalParserTest_Generics.validateBlkStmtVal( 1, 2, 3 );
 	}
+	@Test
 	public void testAssignUDT2Int() throws RecognitionException, TokenStreamException {
 		String act = "select any t from instances of D_TST; x = 12; x = t.u_int;"; //$NON-NLS-1$
 		String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 		assertEquals("", x); //$NON-NLS-1$
 		OalParserTest_Generics.validateBlkStmtVal( 1, 3, 5 );
 	}
+	@Test
 	public void testAssignReal2UDT() throws RecognitionException, TokenStreamException {
 		String act = "select any t from instances of D_TST; t.u_real = 1.3;"; //$NON-NLS-1$
 		String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 		assertEquals("", x); //$NON-NLS-1$
 		OalParserTest_Generics.validateBlkStmtVal( 1, 2, 3 );
 	}
+	@Test
 	public void testAssignUDT2Real() throws RecognitionException, TokenStreamException {
 		String act = "select any t from instances of D_TST; x = 1.2; x = t.u_real;"; //$NON-NLS-1$
 		String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 		assertEquals("", x); //$NON-NLS-1$
 		OalParserTest_Generics.validateBlkStmtVal( 1, 3, 5 );
 	}
- 	public void testAssignInt2RealUDT() throws RecognitionException, TokenStreamException {
+ 	@Test
+	public void testAssignInt2RealUDT() throws RecognitionException, TokenStreamException {
 		String act = "select any t from instances of D_TST; t.u_real = 13;"; //$NON-NLS-1$
 		String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 		assertEquals("", x); //$NON-NLS-1$
 		OalParserTest_Generics.validateBlkStmtVal( 1, 2, 3 );
 	}
+	@Test
 	public void testAssignRealUDT2Int() throws RecognitionException, TokenStreamException {
 		String act = "select any t from instances of D_TST; x = 12; x = t.u_real;"; //$NON-NLS-1$
 		String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 		assertEquals("", x); //$NON-NLS-1$
 		OalParserTest_Generics.validateBlkStmtVal( 1, 3, 5 );
 	}
+	@Test
 	public void testAssignReal2IntUDT() throws RecognitionException, TokenStreamException {
 		String act = "select any t from instances of D_TST; t.u_int = 1.3;"; //$NON-NLS-1$
 		String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 		assertEquals("", x); //$NON-NLS-1$
 		OalParserTest_Generics.validateBlkStmtVal( 1, 2, 3 );
 	}
+	@Test
 	public void testAssignIntUDT2Real() throws RecognitionException, TokenStreamException {
 		String act = "select any t from instances of D_TST; x = 1.2; x = t.u_int;"; //$NON-NLS-1$
 		String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 		assertEquals("", x); //$NON-NLS-1$
 		OalParserTest_Generics.validateBlkStmtVal( 1, 3, 5 );
 	}
+	@Test
 	public void testAssignString2UDT() throws RecognitionException, TokenStreamException {
 		String act = "select any t from instances of D_TST; t.u_str = \"test\";"; //$NON-NLS-1$
 		String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 		assertEquals("", x); //$NON-NLS-1$
 		OalParserTest_Generics.validateBlkStmtVal( 1, 2, 3 );
 	}
+	@Test
 	public void testAssignUDT2String() throws RecognitionException, TokenStreamException {
 		String act = "select any t from instances of D_TST; x = \"\"; x = t.u_str;"; //$NON-NLS-1$
 		String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 		assertEquals("", x); //$NON-NLS-1$
 		OalParserTest_Generics.validateBlkStmtVal( 1, 3, 5 );
 	}
+	@Test
 	public void testAssignInt2StringUDT() throws RecognitionException, TokenStreamException {
 		String act = "select any t from instances of D_TST; t.u_str = 23;"; //$NON-NLS-1$
 		String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
@@ -623,6 +685,7 @@ public class TestAssign_Generics extends TestCase {
 		assertEquals("line 1:52: expecting Semicolon, found 'null'", lines[1]);
 		OalParserTest_Generics.validateBlkStmtVal( 1, 1, 2 );
 	}
+	@Test
 	public void testAssignBool2StringUDT() throws RecognitionException, TokenStreamException {
 		String act = "select any t from instances of D_TST; t.u_str = true;"; //$NON-NLS-1$
 		String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
@@ -632,6 +695,7 @@ public class TestAssign_Generics extends TestCase {
 		assertEquals("line 1:54: expecting Semicolon, found 'null'", lines[1]);
 		OalParserTest_Generics.validateBlkStmtVal( 1, 1, 2 );
 	}
+	@Test
 	public void testAssignReal2StringUDT() throws RecognitionException, TokenStreamException {
 		String act = "select any t from instances of D_TST; t.u_str = 2.3;"; //$NON-NLS-1$
 		String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
@@ -641,6 +705,7 @@ public class TestAssign_Generics extends TestCase {
 		assertEquals("line 1:53: expecting Semicolon, found 'null'", lines[1]);
 		OalParserTest_Generics.validateBlkStmtVal( 1, 1, 2 );
 	}
+	@Test
 	public void testAssignString2IntUDT() throws RecognitionException, TokenStreamException {
 		String act = "select any t from instances of D_TST; t.u_int = \"test\";"; //$NON-NLS-1$
 		String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
@@ -650,6 +715,7 @@ public class TestAssign_Generics extends TestCase {
 		assertEquals("line 1:56: expecting Semicolon, found 'null'", lines[1]);
 		OalParserTest_Generics.validateBlkStmtVal( 1, 1, 2 );
 	}
+	@Test
 	public void testAssignBool2IntUDT() throws RecognitionException, TokenStreamException {
 		String act = "select any t from instances of D_TST; t.u_int = true;"; //$NON-NLS-1$
 		String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
@@ -659,6 +725,7 @@ public class TestAssign_Generics extends TestCase {
 		assertEquals("line 1:54: expecting Semicolon, found 'null'", lines[1]);
 		OalParserTest_Generics.validateBlkStmtVal( 1, 1, 2 );
 	}
+	@Test
 	public void testAssignString2RealUDT() throws RecognitionException, TokenStreamException {
 		String act = "select any t from instances of D_TST; t.u_real = \"test\";"; //$NON-NLS-1$
 		String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
@@ -668,6 +735,7 @@ public class TestAssign_Generics extends TestCase {
 		assertEquals("line 1:57: expecting Semicolon, found 'null'", lines[1]);
 		OalParserTest_Generics.validateBlkStmtVal( 1, 1, 2 );
 	}
+	@Test
 	public void testAssignBool2RealUDT() throws RecognitionException, TokenStreamException {
 		String act = "select any t from instances of D_TST; t.u_real = true;"; //$NON-NLS-1$
 		String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
@@ -677,18 +745,21 @@ public class TestAssign_Generics extends TestCase {
 		assertEquals("line 1:55: expecting Semicolon, found 'null'", lines[1]);
 		OalParserTest_Generics.validateBlkStmtVal( 1, 1, 2 );
 	}
+	@Test
 	public void testAssignTime2Date() throws RecognitionException, TokenStreamException {
 		String act = "d = TIM::current_date(); t = TIM::current_clock(); d = t;"; //$NON-NLS-1$
 		String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 		assertEquals("", x);
 		OalParserTest_Generics.validateBlkStmtVal( 1, 3, 6 );
 	}
+	@Test
 	public void testAssignDate2Time() throws RecognitionException, TokenStreamException {
 		String act = "d = TIM::current_date(); t = TIM::current_clock(); t = d;"; //$NON-NLS-1$
 		String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 		assertEquals("", x);
 		OalParserTest_Generics.validateBlkStmtVal( 1, 3, 6 );
 	}
+	@Test
 	public void testAssignUDT2DiffUDTSameCore() throws RecognitionException, TokenStreamException {
 		String act = "select any dt from instances of D_DT; select any t from instances of D_TST; t.u_str = dt.Status;"; //$NON-NLS-1$
 		String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
@@ -696,6 +767,7 @@ public class TestAssign_Generics extends TestCase {
 		OalParserTest_Generics.validateBlkStmtVal( 1, 3, 4 );
 	}
 
+	@Test
 	public void testIllegalStringLiteral() throws RecognitionException, TokenStreamException {
 		String act = "assign x = \"test;"; //$NON-NLS-1$
 		String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
@@ -704,6 +776,7 @@ public class TestAssign_Generics extends TestCase {
 		assertEquals("line 1:18: expecting '\"', found '<EOF>'", lines[0]);
 		OalParserTest_Generics.validateBlkStmtVal( 0, 0, 0 );
 	}
+	@Test
 	public void testIllegalStringLiteral2() throws RecognitionException, TokenStreamException {
 		String act = "assign x = test\";"; //$NON-NLS-1$
 		String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
@@ -713,24 +786,28 @@ public class TestAssign_Generics extends TestCase {
 		OalParserTest_Generics.validateBlkStmtVal( 0, 0, 0 );
 	}
 
+	@Test
 	public void testReservedWordAsEnumDTName() throws RecognitionException, TokenStreamException {
 		String act = "x = End::Start;"; //$NON-NLS-1$
 		String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 		assertEquals("", x);
 		OalParserTest_Generics.validateBlkStmtVal( 1, 1, 2 );
 	}
+	@Test
 	public void testReservedWordAsEnumeratorName() throws RecognitionException, TokenStreamException {
 		String act = "x = End::End;"; //$NON-NLS-1$
 		String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 		assertEquals("", x);
 		OalParserTest_Generics.validateBlkStmtVal( 1, 1, 2 );
 	}
+	@Test
 	public void testEnumeratorWithUnderscore() throws RecognitionException, TokenStreamException {
 		String act = "x = _testEnum::_test;"; //$NON-NLS-1$
 		String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 		assertEquals("", x);
 		OalParserTest_Generics.validateBlkStmtVal( 1, 1, 2 );
 	}
+	@Test
 	public void testVarCaseSensitivity() throws RecognitionException, TokenStreamException {
 		String act = "thiS = 1; thIs = 1.1;"; //$NON-NLS-1$
 		String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
@@ -739,6 +816,7 @@ public class TestAssign_Generics extends TestCase {
 		Variable_c [] vars = Variable_c.VariableInstances(OalParserTest_Generics.modelRoot);
 		assertEquals( 2, vars.length );
 	}
+	@Test
 	public void testVarStartingWithRelid() throws RecognitionException, TokenStreamException {
 		String act = "r1rel = 1;"; //$NON-NLS-1$
 		String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
@@ -747,6 +825,7 @@ public class TestAssign_Generics extends TestCase {
 		Variable_c [] vars = Variable_c.VariableInstances(OalParserTest_Generics.modelRoot);
 		assertEquals( 1, vars.length );
 	}
+	@Test
 	public void testVarStartingWithRelid2() throws RecognitionException, TokenStreamException {
 		String act = "r12rel = 1;"; //$NON-NLS-1$
 		String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
@@ -755,6 +834,7 @@ public class TestAssign_Generics extends TestCase {
 		Variable_c [] vars = Variable_c.VariableInstances(OalParserTest_Generics.modelRoot);
 		assertEquals( 1, vars.length );
 	}
+	@Test
 	public void testVarStartingWithKeyword1() throws RecognitionException, TokenStreamException {
 		String act = "inbox = 1;"; //$NON-NLS-1$
 		String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
@@ -763,6 +843,7 @@ public class TestAssign_Generics extends TestCase {
 		Variable_c [] vars = Variable_c.VariableInstances(OalParserTest_Generics.modelRoot);
 		assertEquals( 1, vars.length );
 	}
+	@Test
 	public void testVarStartingWithKeyword2() throws RecognitionException, TokenStreamException {
 		String act = "notok = 1;"; //$NON-NLS-1$
 		String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
@@ -771,6 +852,7 @@ public class TestAssign_Generics extends TestCase {
 		Variable_c [] vars = Variable_c.VariableInstances(OalParserTest_Generics.modelRoot);
 		assertEquals( 1, vars.length );
 	}
+	@Test
 	public void testVarStartingWithKeyword3() throws RecognitionException, TokenStreamException {
 		String act = "selfish = 1;"; //$NON-NLS-1$
 		String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
@@ -779,6 +861,7 @@ public class TestAssign_Generics extends TestCase {
 		Variable_c [] vars = Variable_c.VariableInstances(OalParserTest_Generics.modelRoot);
 		assertEquals( 1, vars.length );
 	}
+	@Test
 	public void testVarStartingWithKeyword4() throws RecognitionException, TokenStreamException {
 		String act = "oracle = 1;"; //$NON-NLS-1$
 		String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
@@ -787,6 +870,7 @@ public class TestAssign_Generics extends TestCase {
 		Variable_c [] vars = Variable_c.VariableInstances(OalParserTest_Generics.modelRoot);
 		assertEquals( 1, vars.length );
 	}
+	@Test
 	public void testVarStartingWithUnderscore() throws RecognitionException, TokenStreamException {
 		String act = "_x = 1;"; //$NON-NLS-1$
 		String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
@@ -795,6 +879,7 @@ public class TestAssign_Generics extends TestCase {
 		Variable_c [] vars = Variable_c.VariableInstances(OalParserTest_Generics.modelRoot);
 		assertEquals( 1, vars.length );
 	}
+	@Test
 	public void testDebugKeywordAsVar() throws RecognitionException, TokenStreamException {
 		String act = "debug = 1; trace = 2; on = 3; off = 4; dump = 5; sor = 6;"; //$NON-NLS-1$
 		String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
@@ -803,6 +888,7 @@ public class TestAssign_Generics extends TestCase {
 		Variable_c [] vars = Variable_c.VariableInstances(OalParserTest_Generics.modelRoot);
 		assertEquals( 6, vars.length );
 	}
+	@Test
 	public void testInvalidVarName() throws RecognitionException, TokenStreamException {
 		String act = "1bad = 23;"; //$NON-NLS-1$
 		String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
@@ -813,6 +899,7 @@ public class TestAssign_Generics extends TestCase {
 		Variable_c [] vars = Variable_c.VariableInstances(OalParserTest_Generics.modelRoot);
 		assertEquals( 0, vars.length );
 	}
+	@Test
 	public void testAssignUDTUniqueID() throws RecognitionException, TokenStreamException {
 		String act = "select any t from instances of D_TST; t.u_uid = 5;"; //$NON-NLS-1$
 		String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
@@ -825,6 +912,7 @@ public class TestAssign_Generics extends TestCase {
 		assertEquals( 1, vars.length );
 		OalParserTest_Generics.clearActionData(OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST_VOID_NO_PARM);
 	}
+	@Test
 	public void testParamCaseSensitivity() throws RecognitionException, TokenStreamException {
 		String act = "x = param.I;"; //$NON-NLS-1$
 		String x = OalParserTest_Generics.parseAction(act, OalParserTest_Generics.ACTIVITY_TYPE_FUNC, OalParserTest_Generics.TEST2);

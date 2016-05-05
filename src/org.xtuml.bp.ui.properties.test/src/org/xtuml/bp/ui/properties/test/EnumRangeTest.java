@@ -22,7 +22,8 @@ package org.xtuml.bp.ui.properties.test;
 //=====================================================================
 
 import org.eclipse.ui.views.properties.IPropertyDescriptor;
-
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.Action_c;
 import org.xtuml.bp.core.Association_c;
 import org.xtuml.bp.core.Attribute_c;
@@ -50,6 +51,7 @@ import org.xtuml.bp.core.StateMachineState_c;
 import org.xtuml.bp.core.UserDataType_c;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.ui.properties.ActionSM_ACTPropertySource;
 import org.xtuml.bp.ui.properties.AssociationFormalizerEndR_FORMPropertySource;
 import org.xtuml.bp.ui.properties.AssociationParticipantEndR_PARTPropertySource;
@@ -74,11 +76,12 @@ import org.xtuml.bp.ui.properties.ReferentialAttributeO_RATTRPropertySource;
 import org.xtuml.bp.ui.properties.StateSM_STATEPropertySource;
 import org.xtuml.bp.ui.properties.UserDefinedDataTypeS_UDTPropertySource;
 
+@RunWith(OrderedRunner.class)
 public class EnumRangeTest extends BaseTest
 {
-    public EnumRangeTest(String name) {
-        super(null, name);
-    }
+    public EnumRangeTest(){
+		super(null, null);
+	}
     public static final String[] Return_Dimensions_vals =
     {
         "None",
@@ -186,7 +189,8 @@ public class EnumRangeTest extends BaseTest
         validateEnumVals("Cond", pd_set, Cond_vals);
     }
     
-    public void testAttributePfx_Mode() throws Exception
+    @Test
+	public void testAttributePfx_Mode() throws Exception
     {
         Attribute_c inst = Attribute_c.AttributeInstance(modelRoot);
         AttributeO_ATTRPropertySource ps = new AttributeO_ATTRPropertySource(inst);
@@ -194,7 +198,8 @@ public class EnumRangeTest extends BaseTest
         validateEnumVals("Pfx_Mode", pd_set, Pfx_Mode_vals);
     }
 
-    public void testReferentialAttributeRef_Mode() throws Exception
+    @Test
+	public void testReferentialAttributeRef_Mode() throws Exception
     {
         ReferentialAttribute_c inst = ReferentialAttribute_c.ReferentialAttributeInstance(modelRoot);
         ReferentialAttributeO_RATTRPropertySource ps = new ReferentialAttributeO_RATTRPropertySource(inst);
@@ -202,7 +207,8 @@ public class EnumRangeTest extends BaseTest
         validateEnumVals("Ref_Mode", pd_set, Ref_Mode_vals);
     }
 
-    public void testOperationInstance_Based() throws Exception
+    @Test
+	public void testOperationInstance_Based() throws Exception
     {
         Operation_c inst = Operation_c.OperationInstance(modelRoot);
         OperationO_TFRPropertySource ps = new OperationO_TFRPropertySource(inst);
@@ -210,7 +216,8 @@ public class EnumRangeTest extends BaseTest
         validateEnumVals("Instance_Based", pd_set, Instance_Based_vals);
     }
 
-    public void testStateMachineEventIs_Lbl_U() throws Exception
+    @Test
+	public void testStateMachineEventIs_Lbl_U() throws Exception
     {
         StateMachineEvent_c inst = StateMachineEvent_c.StateMachineEventInstance(modelRoot);
         EventSM_EVTPropertySource ps = new EventSM_EVTPropertySource(inst);
@@ -218,7 +225,8 @@ public class EnumRangeTest extends BaseTest
         validateEnumVals("Is_Lbl_U", pd_set, SM_EVT_Is_Lbl_U_vals);
     }
 
-    public void testStateMachineStateFinal() throws Exception
+    @Test
+	public void testStateMachineStateFinal() throws Exception
     {
         StateMachineState_c inst = StateMachineState_c.StateMachineStateInstance(modelRoot);
         StateSM_STATEPropertySource ps = new StateSM_STATEPropertySource(inst);
@@ -226,7 +234,8 @@ public class EnumRangeTest extends BaseTest
         validateEnumVals("Final", pd_set, Final_vals);
     }
 
-    public void testDerivedBaseAttributeSuc_Pars() throws Exception
+    @Test
+	public void testDerivedBaseAttributeSuc_Pars() throws Exception
     {
         DerivedBaseAttribute_c inst = DerivedBaseAttribute_c.DerivedBaseAttributeInstance(modelRoot);
         DerivedAttributeO_DBATTRPropertySource ps = new DerivedAttributeO_DBATTRPropertySource(inst);
@@ -234,13 +243,15 @@ public class EnumRangeTest extends BaseTest
         validateSuc_Pars(pd_set);
     }
 
-    public void testImportedClassModl_Typ() throws Exception
+    @Test
+	public void testImportedClassModl_Typ() throws Exception
     {
         // readonly ... no tests
         // also the enum values are 5, 6, 7 which aren't supported 
         // by the archetypes currently
     }
-    public void testOperationParameterBy_Ref() throws Exception
+    @Test
+	public void testOperationParameterBy_Ref() throws Exception
     {
         OperationParameter_c inst = OperationParameter_c.OperationParameterInstance(modelRoot);
         OperationParameterO_TPARMPropertySource ps = new OperationParameterO_TPARMPropertySource(inst);
@@ -248,7 +259,8 @@ public class EnumRangeTest extends BaseTest
         validateBy_Ref(pd_set);
     }
 
-    public void testOperationSuc_Pars() throws Exception
+    @Test
+	public void testOperationSuc_Pars() throws Exception
     {
         Operation_c inst = Operation_c.OperationInstance(modelRoot);
         OperationO_TFRPropertySource ps = new OperationO_TFRPropertySource(inst);
@@ -256,7 +268,8 @@ public class EnumRangeTest extends BaseTest
         validateSuc_Pars(pd_set);
     }
 
-    public void testAoneMultCond() throws Exception
+    @Test
+	public void testAoneMultCond() throws Exception
     {
         ClassAsAssociatedOneSide_c inst = ClassAsAssociatedOneSide_c.ClassAsAssociatedOneSideInstance(modelRoot);
         AssociativeOneEndR_AONEPropertySource ps = new AssociativeOneEndR_AONEPropertySource(inst);
@@ -265,7 +278,8 @@ public class EnumRangeTest extends BaseTest
         validateCond(pd_set);
     }
 
-    public void testAOthMultCond() throws Exception
+    @Test
+	public void testAOthMultCond() throws Exception
     {
         ClassAsAssociatedOtherSide_c inst = ClassAsAssociatedOtherSide_c.ClassAsAssociatedOtherSideInstance(modelRoot);
         AssociativeOtherEndR_AOTHPropertySource ps = new AssociativeOtherEndR_AOTHPropertySource(inst);
@@ -274,7 +288,8 @@ public class EnumRangeTest extends BaseTest
         validateCond(pd_set);
     }
 
-    public void testCOneMultCond() throws Exception
+    @Test
+	public void testCOneMultCond() throws Exception
     {
         ClassAsDerivedOneSide_c inst = ClassAsDerivedOneSide_c.ClassAsDerivedOneSideInstance(modelRoot);
         DerivedOneEndR_CONEPropertySource ps = new DerivedOneEndR_CONEPropertySource(inst);
@@ -283,7 +298,8 @@ public class EnumRangeTest extends BaseTest
         validateCond(pd_set);
     }
 
-    public void testCOthMult() throws Exception
+    @Test
+	public void testCOthMult() throws Exception
     {
         ClassAsDerivedOtherSide_c inst = ClassAsDerivedOtherSide_c.ClassAsDerivedOtherSideInstance(modelRoot);
         DerivedOtherEndR_COTHPropertySource ps = new DerivedOtherEndR_COTHPropertySource(inst);
@@ -292,7 +308,8 @@ public class EnumRangeTest extends BaseTest
         validateCond(pd_set);
     }
 
-    public void testLinkMult() throws Exception
+    @Test
+	public void testLinkMult() throws Exception
     {
         ClassAsLink_c inst = ClassAsLink_c.ClassAsLinkInstance(modelRoot);
         AssociativeR_ASSRPropertySource ps = new AssociativeR_ASSRPropertySource(inst);
@@ -300,7 +317,8 @@ public class EnumRangeTest extends BaseTest
         validateMult(pd_set);
     }
 
-    public void testPartMultCond() throws Exception
+    @Test
+	public void testPartMultCond() throws Exception
     {
         ClassAsSimpleParticipant_c inst = ClassAsSimpleParticipant_c.ClassAsSimpleParticipantInstance(modelRoot);
         AssociationParticipantEndR_PARTPropertySource ps = new AssociationParticipantEndR_PARTPropertySource(inst);
@@ -347,7 +365,8 @@ public class EnumRangeTest extends BaseTest
         assertFalse( assoc.Actionfilter("type", "unform simp") );
     }
 
-    public void testFormMultCond() throws Exception
+    @Test
+	public void testFormMultCond() throws Exception
     {
         ClassAsSimpleFormalizer_c inst = ClassAsSimpleFormalizer_c.ClassAsSimpleFormalizerInstance(modelRoot);
         AssociationFormalizerEndR_FORMPropertySource ps = new AssociationFormalizerEndR_FORMPropertySource(inst);
@@ -356,7 +375,8 @@ public class EnumRangeTest extends BaseTest
         validateCond(pd_set);
     }
 
-    public void testBridgeParameterBy_Ref() throws Exception
+    @Test
+	public void testBridgeParameterBy_Ref() throws Exception
     {
         BridgeParameter_c inst = BridgeParameter_c.BridgeParameterInstance(modelRoot);
         BridgeParameterS_BPARMPropertySource ps = new BridgeParameterS_BPARMPropertySource(inst);
@@ -364,14 +384,16 @@ public class EnumRangeTest extends BaseTest
         validateBy_Ref(pd_set);
     }
 
-    public void testBridgeBrg_Typ() throws Exception
+    @Test
+	public void testBridgeBrg_Typ() throws Exception
     {
         Bridge_c inst = Bridge_c.BridgeInstance(modelRoot);
         BridgeS_BRGPropertySource ps = new BridgeS_BRGPropertySource(inst);
         IPropertyDescriptor[] pd_set = ps.getPropertyDescriptors();
         validateEnumVals("Brg_Typ", pd_set, Brg_Typ_vals);
     }
-    public void testBridgeSuc_Pars() throws Exception
+    @Test
+	public void testBridgeSuc_Pars() throws Exception
     {
         Bridge_c inst = Bridge_c.BridgeInstance(modelRoot);
         BridgeS_BRGPropertySource ps = new BridgeS_BRGPropertySource(inst);
@@ -379,7 +401,8 @@ public class EnumRangeTest extends BaseTest
         validateSuc_Pars(pd_set);
     }
 
-    public void testCoreDataTypeCore_Typ() throws Exception
+    @Test
+	public void testCoreDataTypeCore_Typ() throws Exception
     {
         CoreDataType_c inst = CoreDataType_c.CoreDataTypeInstance(Ooaofooa.getDefaultInstance());
         CoreDataTypeS_CDTPropertySource ps = new CoreDataTypeS_CDTPropertySource(inst);
@@ -387,7 +410,8 @@ public class EnumRangeTest extends BaseTest
         validateEnumVals("Core_Typ", pd_set, Core_Typ_vals);
     }
 
-    public void testFunctionParameterBy_Ref() throws Exception
+    @Test
+	public void testFunctionParameterBy_Ref() throws Exception
     {
         FunctionParameter_c inst = FunctionParameter_c.FunctionParameterInstance(modelRoot);
         FunctionParameterS_SPARMPropertySource ps = new FunctionParameterS_SPARMPropertySource(inst);
@@ -395,7 +419,8 @@ public class EnumRangeTest extends BaseTest
         validateBy_Ref(pd_set);
     }
 
-    public void testFunctionSuc_Pars() throws Exception
+    @Test
+	public void testFunctionSuc_Pars() throws Exception
     {
         Function_c inst = Function_c.FunctionInstance(modelRoot);
         FunctionS_SYNCPropertySource ps = new FunctionS_SYNCPropertySource(inst);
@@ -403,28 +428,32 @@ public class EnumRangeTest extends BaseTest
         validateSuc_Pars(pd_set);
     }
 
-    public void testUserDataTypeGen_Type() throws Exception
+    @Test
+	public void testUserDataTypeGen_Type() throws Exception
     {
         UserDataType_c inst = UserDataType_c.UserDataTypeInstance(modelRoot);
         UserDefinedDataTypeS_UDTPropertySource ps = new UserDefinedDataTypeS_UDTPropertySource(inst);
         IPropertyDescriptor[] pd_set = ps.getPropertyDescriptors();
         validateEnumVals("Gen_Type", pd_set, Gen_Type_vals);
     }
-    public void testActionSuc_Pars() throws Exception
+    @Test
+	public void testActionSuc_Pars() throws Exception
     {
         Action_c inst = Action_c.ActionInstance(modelRoot);
         ActionSM_ACTPropertySource ps = new ActionSM_ACTPropertySource(inst);
         IPropertyDescriptor[] pd_set = ps.getPropertyDescriptors();
         validateSuc_Pars(pd_set);
     }
-    public void testLinkStartVisibility() throws Exception
+    @Test
+	public void testLinkStartVisibility() throws Exception
     {
     	CommunicationLink_c inst = CommunicationLink_c.CommunicationLinkInstance(modelRoot);
     	CommunicationLinksCOMM_LNKPropertySource ps = new CommunicationLinksCOMM_LNKPropertySource(inst);
     	IPropertyDescriptor[] pd_set = ps.getPropertyDescriptors();
     	validateEnumVals("StartVisibility", pd_set, StartVisibility_vals);
     }
-    public void testLinkEndVisibility() throws Exception
+    @Test
+	public void testLinkEndVisibility() throws Exception
     {
     	CommunicationLink_c inst = CommunicationLink_c.CommunicationLinkInstance(modelRoot);
     	CommunicationLinksCOMM_LNKPropertySource ps = new CommunicationLinksCOMM_LNKPropertySource(inst);

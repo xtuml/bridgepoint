@@ -827,10 +827,6 @@ ${setSize.body}
         helper.fixUpGraphicalData();
         Ooaofooa.Removeinconsistentnonlocalevents(getModelRoot());
     .end if
-        .if(multilevel)
-    if(actualVersion.equals(bp7_1_3VersionNumber))
-        helper.migrateComponents(getModelRoot());
-        .end if
         setGraphicalRepresents();
         pm.done();
     .end if
@@ -840,9 +836,6 @@ ${setSize.body}
 		  mr.disableDeltaCollection();
 		  gmr.disableDeltaCollection();
           helper.upgradeDSAs(getModelRoot());
-        helper.associateDTsWithDomain(getModelRoot());
-        helper.formalizeExternalEntityPackageLinkingAssociations(getModelRoot());
-        helper.formalizeFunctionPackageLinkingAssociations(getModelRoot());
         helper.createShapeSubtypes(getGraphicsModelRoot());
         loadedInstances.addAll(helper.upgradeTransitions(loadedInstances));
         helper.upgradeEventData(getModelRoot(), getRootModelElement());

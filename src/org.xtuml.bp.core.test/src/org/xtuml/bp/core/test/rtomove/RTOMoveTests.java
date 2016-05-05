@@ -36,6 +36,9 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ProjectScope;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.preferences.IScopeContext;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.runner.RunWith;
 import org.osgi.service.prefs.Preferences;
 import org.xtuml.bp.core.ComponentReference_c;
 import org.xtuml.bp.core.DataType_c;
@@ -67,11 +70,13 @@ import org.xtuml.bp.core.ui.preferences.BridgePointProjectReferencesPreferences;
 import org.xtuml.bp.core.util.WorkspaceUtil;
 import org.xtuml.bp.test.TestUtil;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TestingUtilities;
 import org.xtuml.bp.test.common.UITestingUtilities;
 import org.xtuml.bp.ui.canvas.test.CanvasTest;
 import org.xtuml.bp.ui.graphics.editor.GraphicalEditor;
 
+@RunWith(OrderedRunner.class)
 public class RTOMoveTests extends CanvasTest {
 	public static boolean generateResults = false;
 	public static boolean useDrawResults = true;
@@ -136,12 +141,14 @@ public class RTOMoveTests extends CanvasTest {
 		outOfScopeOtherProject.Newpackage();
 	}
 
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		Ooaofooa.setPersistEnabled(true);
 		super.setUp();
 	}
 
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		// undo paste
 		if(pasteSuccessful) {
 			if(!TransactionManager.getSingleton().getUndoStack().isEmpty()) {
@@ -325,14 +332,14 @@ public class RTOMoveTests extends CanvasTest {
 		}
 		UITestingUtilities.pasteClipboardContentsInExplorer(destination);
 		pasteSuccessful = true;
-		rto = getElement(getMethodName().replaceAll("doTest", ""), rto.getClass(),
+		rto = getElement(getMethodName().replaceAll("test", ""), rto.getClass(),
 				false);
 	}
 
 	private String getMethodName() {
 		StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
 		for(int i = 0; i < stackTrace.length; i++) {
-			if(stackTrace[i].getMethodName().contains("doTest")) {
+			if(stackTrace[i].getMethodName().contains("test")) {
 				return stackTrace[i].getMethodName();
 			}
 		}
@@ -423,8 +430,8 @@ public class RTOMoveTests extends CanvasTest {
 		TransactionManager manager = TransactionManager.getSingleton();
 		Transaction transaction = null;
 		String association = ElementMap.getAssociationFor(getMethodName().replaceAll(
-				"doTest", ""));
-		NonRootModelElement newRto = getElement(getMethodName().replaceAll("doTest",
+				"test", ""));
+		NonRootModelElement newRto = getElement(getMethodName().replaceAll("test",
 				""), rto.getClass(), true);
 		try {
 			transaction = manager.startTransaction("Adjust RGO", new Ooaofooa[] {Ooaofooa.getDefaultInstance()});
@@ -554,7 +561,7 @@ public class RTOMoveTests extends CanvasTest {
 	private Method getAccessorMethod(NonRootModelElement rgo,
 			NonRootModelElement rto) {
 		String association = ElementMap.getAssociationFor(getMethodName().replaceAll(
-				"doTest", ""));
+				"test", ""));
 		Method[] methods = rto.getClass().getMethods();
 		for (Method method : methods) {
 			if (method.getName().matches("getOne.*OnR" + association)) {

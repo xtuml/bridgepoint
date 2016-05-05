@@ -22,9 +22,10 @@
 //
 package org.xtuml.bp.als.oal.test;
 
-import antlr.RecognitionException;
-import antlr.TokenStreamException;
-
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.ActionHome_c;
 import org.xtuml.bp.core.Action_c;
 import org.xtuml.bp.core.MooreActionHome_c;
@@ -32,8 +33,13 @@ import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.StateMachineState_c;
 import org.xtuml.bp.core.StateMachine_c;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TestingUtilities;
 
+import antlr.RecognitionException;
+import antlr.TokenStreamException;
+
+@RunWith(OrderedRunner.class)
 public class RelaxedSameDataTest_Generics extends BaseTest {
   public static boolean configured = false;
   public RelaxedSameDataTest_Generics() {
@@ -53,7 +59,8 @@ public class RelaxedSameDataTest_Generics extends BaseTest {
   final int ONE_NO_EVENT_TRANSITION = 5;
   final int ALL_NO_EVENT_TRANSITION = 6;
   
-  protected void setUp() throws Exception {
+  @Before
+	public void setUp() throws Exception {
 	  if (configured) {
 		  return;
 	  }
@@ -68,12 +75,14 @@ public class RelaxedSameDataTest_Generics extends BaseTest {
   }
 
   // The tests themselves
-  public void testNoTransitionsNoParameterAccess() {
+  @Test
+	public void testNoTransitionsNoParameterAccess() {
 	String x = OalParserTest_Generics.parseAction(NO_PARAMETER_ACCESS,
 			   OalParserTest_Generics.ACTIVITY_TYPE_STATE, NO_TRANSITIONS); //$NON-NLS-1$
 	assertTrue("Unexpected error encountered: " + x, x.length() == 0);
   }
-  public void testNoTransitionsNonExistentParameterAccess() {
+  @Test
+	public void testNoTransitionsNonExistentParameterAccess() {
 	String x = OalParserTest_Generics.parseAction(NON_EXISTENT_PARAMETER_ACCESS,
                OalParserTest_Generics.ACTIVITY_TYPE_STATE, NO_TRANSITIONS); //$NON-NLS-1$
 	String [] lines = x.split("\\n");
@@ -82,12 +91,14 @@ public class RelaxedSameDataTest_Generics extends BaseTest {
 	assertEquals("line 1:19: expecting Semicolon, found 'bar'",lines[1]);//$NON-NLS-1$
 	assertEquals("line 1:25: unexpected token: foo", lines[2]);//$NON-NLS-1$
   }
-  public void testNoEventParametersNoParameterAccess() {
+  @Test
+	public void testNoEventParametersNoParameterAccess() {
     String x = OalParserTest_Generics.parseAction(NO_PARAMETER_ACCESS,
           OalParserTest_Generics.ACTIVITY_TYPE_STATE, NO_EVENT_PARAMETERS); //$NON-NLS-1$
     assertTrue("Unexpected error encountered: " + x, x.length() == 0);
   }
-  public void testNoEventParametersNonExistentParameterAccess() {
+  @Test
+	public void testNoEventParametersNonExistentParameterAccess() {
 	String x = OalParserTest_Generics.parseAction(NON_EXISTENT_PARAMETER_ACCESS,
                OalParserTest_Generics.ACTIVITY_TYPE_STATE, NO_EVENT_PARAMETERS); //$NON-NLS-1$
 	String [] lines = x.split("\\n");
@@ -96,19 +107,22 @@ public class RelaxedSameDataTest_Generics extends BaseTest {
 	assertEquals("line 1:19: expecting Semicolon, found 'bar'",lines[1]);//$NON-NLS-1$
 	assertEquals("line 1:25: unexpected token: foo", lines[2]);//$NON-NLS-1$
   }
-  public void testMatchingEventParametersNoParameterAccess() {
+  @Test
+	public void testMatchingEventParametersNoParameterAccess() {
     String x = OalParserTest_Generics.parseAction(NO_PARAMETER_ACCESS,
                                OalParserTest_Generics.ACTIVITY_TYPE_STATE,
                                        MATCHING_EVENT_PARAMETERS); //$NON-NLS-1$
     assertTrue("Unexpected error encountered: " + x, x.length() == 0);
   }
-  public void testMatchingEventParametersExistingParameterAccess() {
+  @Test
+	public void testMatchingEventParametersExistingParameterAccess() {
     String x = OalParserTest_Generics.parseAction(EXISTING_PARAMETER_ACCESS,
                                    OalParserTest_Generics.ACTIVITY_TYPE_STATE,
                                        MATCHING_EVENT_PARAMETERS); //$NON-NLS-1$
     assertTrue("Unexpected error encountered: " + x, x.length() == 0);
   }
-  public void testMatchingEventParametersNonExistentParameterAccess() {
+  @Test
+	public void testMatchingEventParametersNonExistentParameterAccess() {
     String x = OalParserTest_Generics.parseAction(NON_EXISTENT_PARAMETER_ACCESS,
                                        OalParserTest_Generics.ACTIVITY_TYPE_STATE,
                                        MATCHING_EVENT_PARAMETERS); //$NON-NLS-1$
@@ -118,19 +132,22 @@ public class RelaxedSameDataTest_Generics extends BaseTest {
     assertEquals("line 1:19: expecting Semicolon, found 'bar'",lines[1]);//$NON-NLS-1$
     assertEquals("line 1:25: unexpected token: foo", lines[2]);//$NON-NLS-1$
   }
-  public void testNonMatchingEventParametersWithSubsetNoParameterAccess() {
+  @Test
+	public void testNonMatchingEventParametersWithSubsetNoParameterAccess() {
     String x = OalParserTest_Generics.parseAction(NO_PARAMETER_ACCESS,
                              OalParserTest_Generics.ACTIVITY_TYPE_STATE,
                        NON_MATCHING_EVENT_PARAMETERS_WITH_SUBSET); //$NON-NLS-1$
     assertTrue("Unexpected error encountered: " + x, x.length() == 0);
   }
-  public void testNonMatchingEventParametersWithSubsetSubsetParameterAccess() {
+  @Test
+	public void testNonMatchingEventParametersWithSubsetSubsetParameterAccess() {
     String x = OalParserTest_Generics.parseAction(EXISTING_PARAMETER_ACCESS,
                                    OalParserTest_Generics.ACTIVITY_TYPE_STATE,
                        NON_MATCHING_EVENT_PARAMETERS_WITH_SUBSET); //$NON-NLS-1$
     assertTrue("Unexpected error encountered: " + x, x.length() == 0);
   }
-  public void testNonMatchingEventParametersWithSubsetNonSubsetParameterAccess() {
+  @Test
+	public void testNonMatchingEventParametersWithSubsetNonSubsetParameterAccess() {
     String x = OalParserTest_Generics.parseAction(NON_SUBSET_PARAMETER_ACCESS,
                                        OalParserTest_Generics.ACTIVITY_TYPE_STATE,
                        NON_MATCHING_EVENT_PARAMETERS_WITH_SUBSET); //$NON-NLS-1$
@@ -140,7 +157,8 @@ public class RelaxedSameDataTest_Generics extends BaseTest {
     assertEquals("line 1:19: expecting Semicolon, found 'bar'",lines[1]);//$NON-NLS-1$
     assertEquals("line 1:25: unexpected token: foo", lines[2]);//$NON-NLS-1$
   }
-  public void testNonMatchingEventParametersWithSubsetNonExistentParameterAccess() {
+  @Test
+	public void testNonMatchingEventParametersWithSubsetNonExistentParameterAccess() {
     String x = OalParserTest_Generics.parseAction(NON_EXISTENT_PARAMETER_ACCESS,
                                        OalParserTest_Generics.ACTIVITY_TYPE_STATE,
                        NON_MATCHING_EVENT_PARAMETERS_WITH_SUBSET); //$NON-NLS-1$
@@ -150,13 +168,15 @@ public class RelaxedSameDataTest_Generics extends BaseTest {
     assertEquals("line 1:19: expecting Semicolon, found 'bar'",lines[1]);//$NON-NLS-1$
     assertEquals("line 1:25: unexpected token: foo", lines[2]);//$NON-NLS-1$
   }
-  public void testNonMatchingEventParametersNoSubsetNoParameterAccess() {
+  @Test
+	public void testNonMatchingEventParametersNoSubsetNoParameterAccess() {
     String x = OalParserTest_Generics.parseAction(NO_PARAMETER_ACCESS,
                              OalParserTest_Generics.ACTIVITY_TYPE_STATE,
                          NON_MATCHING_EVENT_PARAMETERS_NO_SUBSET); //$NON-NLS-1$
     assertTrue("Unexpected error encountered: " + x, x.length() == 0);
   }
-  public void testNonMatchingEventParametersNoSubsetExistingParameterAccess() {
+  @Test
+	public void testNonMatchingEventParametersNoSubsetExistingParameterAccess() {
     String x = OalParserTest_Generics.parseAction(EXISTING_PARAMETER_ACCESS,
                                    OalParserTest_Generics.ACTIVITY_TYPE_STATE,
                          NON_MATCHING_EVENT_PARAMETERS_NO_SUBSET); //$NON-NLS-1$
@@ -166,7 +186,8 @@ public class RelaxedSameDataTest_Generics extends BaseTest {
     assertEquals("line 1:19: expecting Semicolon, found 'bar'",lines[1]);//$NON-NLS-1$
     assertEquals("line 1:25: unexpected token: foo", lines[2]);//$NON-NLS-1$
   }
-  public void testNonMatchingEventParametersNoSubsetNonExistentParameterAccess() {
+  @Test
+	public void testNonMatchingEventParametersNoSubsetNonExistentParameterAccess() {
     String x = OalParserTest_Generics.parseAction(NON_EXISTENT_PARAMETER_ACCESS,
                                        OalParserTest_Generics.ACTIVITY_TYPE_STATE,
                          NON_MATCHING_EVENT_PARAMETERS_NO_SUBSET); //$NON-NLS-1$
@@ -176,13 +197,15 @@ public class RelaxedSameDataTest_Generics extends BaseTest {
     assertEquals("line 1:19: expecting Semicolon, found 'bar'",lines[1]);//$NON-NLS-1$
     assertEquals("line 1:25: unexpected token: foo", lines[2]);//$NON-NLS-1$
   }
-  public void testOneNoEventTransitionNoParameterAccess() {
+  @Test
+	public void testOneNoEventTransitionNoParameterAccess() {
     String x = OalParserTest_Generics.parseAction(NO_PARAMETER_ACCESS,
                              OalParserTest_Generics.ACTIVITY_TYPE_STATE,
                                          ONE_NO_EVENT_TRANSITION); //$NON-NLS-1$
     assertTrue("Unexpected error encountered: " + x, x.length() == 0);
   }
-  public void testOneNoEventTransitionExistingParameterAccess() {
+  @Test
+	public void testOneNoEventTransitionExistingParameterAccess() {
     String x = OalParserTest_Generics.parseAction(EXISTING_PARAMETER_ACCESS,
                                    OalParserTest_Generics.ACTIVITY_TYPE_STATE,
                                          ONE_NO_EVENT_TRANSITION); //$NON-NLS-1$
@@ -192,7 +215,8 @@ public class RelaxedSameDataTest_Generics extends BaseTest {
     assertEquals("line 1:19: expecting Semicolon, found 'bar'",lines[1]);//$NON-NLS-1$
     assertEquals("line 1:25: unexpected token: foo", lines[2]);//$NON-NLS-1$
   }
-  public void testOneNoEventTransitionNonExistentParameterAccess() {
+  @Test
+	public void testOneNoEventTransitionNonExistentParameterAccess() {
     String x = OalParserTest_Generics.parseAction(NON_EXISTENT_PARAMETER_ACCESS,
                                        OalParserTest_Generics.ACTIVITY_TYPE_STATE,
                                          ONE_NO_EVENT_TRANSITION); //$NON-NLS-1$
@@ -202,13 +226,15 @@ public class RelaxedSameDataTest_Generics extends BaseTest {
     assertEquals("line 1:19: expecting Semicolon, found 'bar'",lines[1]);//$NON-NLS-1$
     assertEquals("line 1:25: unexpected token: foo", lines[2]);//$NON-NLS-1$
   }
-  public void testAllNoEventTransitionNoParameterAccess() {
+  @Test
+	public void testAllNoEventTransitionNoParameterAccess() {
     String x = OalParserTest_Generics.parseAction(NO_PARAMETER_ACCESS,
                              OalParserTest_Generics.ACTIVITY_TYPE_STATE,
                                          ALL_NO_EVENT_TRANSITION); //$NON-NLS-1$
     assertTrue("Unexpected error encountered: " + x, x.length() == 0);
   }
-  public void testAllNoEventTransitionNonExistentParameterAccess() {
+  @Test
+	public void testAllNoEventTransitionNonExistentParameterAccess() {
     String x = OalParserTest_Generics.parseAction(NON_EXISTENT_PARAMETER_ACCESS,
                                        OalParserTest_Generics.ACTIVITY_TYPE_STATE,
                                          ALL_NO_EVENT_TRANSITION); //$NON-NLS-1$
@@ -243,7 +269,8 @@ public class RelaxedSameDataTest_Generics extends BaseTest {
   /* (non-Javadoc)
    * @see junit.framework.TestCase#tearDown()
    */
-  protected void tearDown() throws Exception {
+  @After
+	public void tearDown() throws Exception {
     try {
       super.tearDown();
       OalParserTest_Generics.tearDownActionData();

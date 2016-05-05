@@ -1,0 +1,584 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>1.2. Tokenization</title>
+<link rel="stylesheet" type="text/css" href="docbook.css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<meta name="keywords" content="MASL, Action Language, Action Semantics, UML, Unified Modelling Language, Shlaer Mellor">
+<link rel="home" href="index.html" title="MASL Reference Manual">
+<link rel="up" href="section.LexicalStructure.html" title="Chapter 1. Lexical Structure">
+<link rel="prev" href="section.CharacterSet.html" title="1.1. Character Set">
+<link rel="next" href="section.Types.html" title="Chapter 2. Type System">
+<link rel="chapter" href="section.LexicalStructure.html" title="Chapter 1. Lexical Structure">
+<link rel="chapter" href="section.Types.html" title="Chapter 2. Type System">
+<link rel="chapter" href="section.Domains.html" title="Chapter 3. Domains">
+<link rel="chapter" href="section.Services.html" title="Chapter 4. Services, Functions and State Actions">
+<link rel="chapter" href="section.Relationships.html" title="Chapter 5. Relationships">
+<link rel="chapter" href="section.Exceptions.html" title="Chapter 6. Exceptions">
+<link rel="chapter" href="section.Terminators.html" title="Chapter 7. Terminators">
+<link rel="chapter" href="section.Objects.html" title="Chapter 8. Objects">
+<link rel="chapter" href="section.Statements.html" title="Chapter 9. Statements">
+<link rel="chapter" href="section.Expressions.html" title="Chapter 10. Expressions">
+<link rel="chapter" href="section.Projects.html" title="Chapter 11. Projects">
+<link rel="chapter" href="section.Pragmas.html" title="Chapter 12. Pragmas">
+<link rel="appendix" href="AlphabeticalSyntaxReference.html" title="Appendix A. Alphabetical Syntax Reference">
+<link rel="index" href="ix01.html" title="Index">
+<link rel="subsection" href="section.Tokenization.html#section.CommentToken" title="1.2.1. Comments">
+<link rel="subsection" href="section.Tokenization.html#section.WhitespaceToken" title="1.2.2. Whitespace">
+<link rel="subsection" href="section.Tokenization.html#section.ReservedWordToken" title="1.2.3. Reserved Words">
+<link rel="subsection" href="section.Tokenization.html#section.PunctuatorToken" title="1.2.4. Punctuators">
+<link rel="subsection" href="section.Tokenization.html#section.LiteralToken" title="1.2.5. Literals">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div align="center">OFFICIAL</div>
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">1.2. Tokenization</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="section.CharacterSet.html">Prev</a> </td>
+<th width="60%" align="center">Chapter 1. Lexical Structure</th>
+<td width="20%" align="right"> <a accesskey="n" href="section.Types.html">Next</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title">
+<a name="section.Tokenization"></a>1.2. Tokenization</h2></div></div></div>
+<div class="toc"><dl class="toc">
+<dt><span class="section"><a href="section.Tokenization.html#section.CommentToken">1.2.1. Comments</a></span></dt>
+<dt><span class="section"><a href="section.Tokenization.html#section.WhitespaceToken">1.2.2. Whitespace</a></span></dt>
+<dt><span class="section"><a href="section.Tokenization.html#section.ReservedWordToken">1.2.3. Reserved Words</a></span></dt>
+<dt><span class="section"><a href="section.Tokenization.html#section.PunctuatorToken">1.2.4. Punctuators</a></span></dt>
+<dt><span class="section"><a href="section.Tokenization.html#section.LiteralToken">1.2.5. Literals</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="section.Tokenization.html#section.NumericLiterals">1.2.5.1. Numeric Literals</a></span></dt>
+<dt><span class="section"><a href="section.Tokenization.html#section.DateAndTimeLiterals">1.2.5.2. Date and Time Literals</a></span></dt>
+<dt><span class="section"><a href="section.Tokenization.html#section.TextLiterals">1.2.5.3. Text Literals</a></span></dt>
+<dt><span class="section"><a href="section.Tokenization.html#section.IdentifierToken">1.2.5.4. Identifiers and Relationship Numbers</a></span></dt>
+</dl></dd>
+</dl></div>
+<a class="indexterm" name="idp64053760"></a><a class="indexterm" name="idp64051616"></a><p>A MASL program is first lexically analysed to break it down into a series of tokens. Once this tokenization is
+    complete, whitepace and comment tokens are discarded before the syntatic analysis is performed. The following tokens
+    types are defined.</p>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="section.CommentToken"></a>1.2.1. Comments</h3></div></div></div>
+<a class="indexterm" name="idp64050208"></a><a class="indexterm" name="idp64048976"></a><p>A MASL comment consists of the character sequence "//" followed by any other characters from the character
+      set up to and including the first end of line character sequence</p>
+<table width="100%" cellpadding="5" bgcolor="#F5DCB3" border="1" class="productionset" summary="EBNF"><tr><td><table border="0" width="99%" cellpadding="0" bgcolor="#F5DCB3" class="productionset" summary="EBNF productions">
+<tr>
+<td align="left" valign="top" width="3%">[8]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.Comment"></a>comment</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">'/' , '/' , { <a href="section.Tokenization.html#ebnf.SingleLineCharacter">single line character</a> } , <a href="section.Tokenization.html#ebnf.EndOfLine">end of line</a>;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[9]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.SingleLineCharacter"></a>single line character</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+<a href="section.CharacterSet.html#ebnf.Digit">digit</a> | <a href="section.CharacterSet.html#ebnf.Letter">letter</a> | <a href="section.CharacterSet.html#ebnf.PunctuationCharacter">punctuation character</a> | <a href="section.CharacterSet.html#ebnf.InlineWhitespaceCharacter">inline whitespace character</a>;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[10]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.EndOfLine"></a>end of line</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">? ISO 646 CR character ? |<br> ? ISO 646 LF character ? | <br> ? ISO 646 CR character ? , ? ISO 646 LF
+      character ?;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+</table></td></tr></table>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="section.WhitespaceToken"></a>1.2.2. Whitespace</h3></div></div></div>
+<a class="indexterm" name="idp64036144"></a><a class="indexterm" name="idp64031760"></a><p>A whitespace token consists of any number of contiguous whitespace characters</p>
+<table width="100%" cellpadding="5" bgcolor="#F5DCB3" border="1" class="productionset" summary="EBNF"><tr><td><table border="0" width="99%" cellpadding="0" bgcolor="#F5DCB3" class="productionset" summary="EBNF productions">
+<tr>
+<td align="left" valign="top" width="3%">[11]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.Whitespace"></a>whitespace</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+<a href="section.CharacterSet.html#ebnf.WhitespaceCharacter">whitespace character</a> , { <a href="section.CharacterSet.html#ebnf.WhitespaceCharacter">whitespace character</a> };</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[5]</td>
+<td align="right" valign="top" width="10%"><a href="section.CharacterSet.html#ebnf.WhitespaceCharacter">whitespace character</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+<a href="section.CharacterSet.html#ebnf.InlineWhitespaceCharacter">inline whitespace character</a> | <a href="section.CharacterSet.html#ebnf.EndOfLineCharacter">end of line character</a>;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[6]</td>
+<td align="right" valign="top" width="10%"><a href="section.CharacterSet.html#ebnf.InlineWhitespaceCharacter">inline whitespace character</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">? ISO 646 SP character ? |<br> ? ISO 646 HT character ? |<br> ? ISO 646 FF character ?;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[7]</td>
+<td align="right" valign="top" width="10%"><a href="section.CharacterSet.html#ebnf.EndOfLineCharacter">end of line character</a></td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">? ISO 646 CR character ? |<br> ? ISO 646 LF character ?;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+</table></td></tr></table>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="section.ReservedWordToken"></a>1.2.3. Reserved Words</h3></div></div></div>
+<a class="indexterm" name="idp64027216"></a><a class="indexterm" name="idp64025472"></a><p>MASL reserves a number of character sequences to help define the syntactic structure. These reserved words
+      may not be used as <a class="link" href="section.Tokenization.html#section.IdentifierToken" title="1.2.5.4. Identifiers and Relationship Numbers">identifiers</a>.</p>
+<table width="100%" cellpadding="5" bgcolor="#F5DCB3" border="1" class="productionset" summary="EBNF"><tr><td><table border="0" width="99%" cellpadding="0" bgcolor="#F5DCB3" class="productionset" summary="EBNF productions"><tr>
+<td align="left" valign="top" width="3%">[12]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.ReservedWord"></a>reserved word</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">'Cannot_Happen' | 'Current_State' | 'Ignore' | 'Non_Existent' | 'anonymous' | 'array' | 'assigner' | 'at' |
+      'bag' | 'begin' | 'cancel' | 'case' | 'conditionally' | 'console' | 'create' | 'creation' | 'declare' | 'deferred'
+      | 'delay' | 'delete' | 'delta' | 'digits' | 'domain' | 'else' | 'elsif' | 'end' | 'endl' | 'enum' | 'event' |
+      'exception' | 'exit' | 'false' | 'find' | 'find_one' | 'find_only' | 'flush' | 'for' | 'function' | 'generate' |
+      'identifier' | 'if' | 'in' | 'instance' | 'is' | 'is_a' | 'link' | 'loop' | 'many' | 'null' | 'object' | 'of' |
+      'one' | 'ordered_by' | 'others' | 'out' | 'pragma' | 'preferred' | 'private' | 'project' | 'public' | 'raise' |
+      'range' | 'readonly' | 'referential' | 'relationship' | 'return' | 'reverse' | 'reverse_ordered_by' | 'schedule' |
+      'sequence' | 'service' | 'set' | 'start' | 'state' | 'structure' | 'terminal' | 'terminator' | 'then' | 'this' |
+      'to' | 'transition' | 'true' | 'type' | 'unconditionally' | 'unique' | 'unlink' | 'using' | 'when' | 'while' |
+      'with';</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr></table></td></tr></table>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="section.PunctuatorToken"></a>1.2.4. Punctuators</h3></div></div></div>
+<a class="indexterm" name="idp63099888"></a><a class="indexterm" name="idp63389312"></a><p>MASL uses a number of character sequences to help define the syntactic structure by separating other tokens
+      from each other.</p>
+<table width="100%" cellpadding="5" bgcolor="#F5DCB3" border="1" class="productionset" summary="EBNF"><tr><td><table border="0" width="99%" cellpadding="0" bgcolor="#F5DCB3" class="productionset" summary="EBNF productions"><tr>
+<td align="left" valign="top" width="3%">[13]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.Punctuator"></a>punctuator</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">'+' | '-' | '&amp;' | '/' | '*' | '**' | '=' | '/=' | '&gt;' | &gt;=' | '&lt;' | '&lt;=' | '&gt;&gt;'
+      |'&gt;&gt;&gt;' | '&lt;&lt;' |'&lt;&lt;&lt;' | ':=' | ':' | ',' | '.' | '&lt;&gt;' | ''' | '..' | '(' | ')' | '['
+      | ']' | '::' | ';' | '=&gt;' | '-&gt;' | '~&gt;' | '|';</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr></table></td></tr></table>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="section.LiteralToken"></a>1.2.5. Literals</h3></div></div></div>
+<a class="indexterm" name="idp64011440"></a><a class="indexterm" name="idp64010528"></a><p>A number of character sequences are used to denote a literal value of an underlying type. For example, the
+      sequence <code class="code">123</code> denotes the integer 123, and the sequence <code class="code">@2010-05-27T16:02:45+01@</code> denotes the current time of writing.</p>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="section.NumericLiterals"></a>1.2.5.1. Numeric Literals</h4></div></div></div>
+<a class="indexterm" name="idp64003632"></a><a class="indexterm" name="idp63995184"></a><p>A numeric literal represents a number. If the literal contains a decimal point or an exponent, then it is
+        interpreted as a real number, otherwise it is interpreted as an integer.</p>
+<p>By default, a literal is defined in base 10, but a different base (up to 36) may also be specified with a
+        prefix. In this case, digits with value (decimal) 10 up to the new base are represented by the letters (A-Z or,
+        equivalently, a-z) as appropriate. An exponent for a real number is always specified in decimal, regardless of
+        the base for the mantissa, and the resultant number is interpreted as <span class="mathphrase">mantissa×base<sup>exponent</sup></span></p>
+<div class="example">
+<a name="example.NumericLiteral"></a><div class="example-title">Example 1.1. Numeric Literal Examples</div>
+<div class="example-contents">
+<p>The following examples are some of the many different ways of representing the decimal value 251</p>
+<div class="itemizedlist"><ul class="itemizedlist">
+<li class="listitem"><code class="code">251</code></li>
+<li class="listitem"><code class="code">2#11111011</code></li>
+<li class="listitem"><code class="code">16#FB</code></li>
+<li class="listitem"><code class="code">36#6Z</code></li>
+</ul></div>
+<p>The following examples are some of the many different ways of representing the decimal value
+          10.25</p>
+<div class="itemizedlist"><ul class="itemizedlist">
+<li class="listitem"><code class="code">10.25</code></li>
+<li class="listitem"><code class="code">1025e-2</code></li>
+<li class="listitem"><code class="code">1.025e1</code></li>
+<li class="listitem"><code class="code">2#1010.01</code></li>
+<li class="listitem"><code class="code">2#1.01001#+3</code></li>
+<li class="listitem"><code class="code">16#A.4</code></li>
+<li class="listitem"><code class="code">16#A4#-1</code></li>
+<li class="listitem"><code class="code">36#A.9</code></li>
+<li class="listitem"><code class="code">36#0.0A9#2</code></li>
+</ul></div>
+</div>
+</div>
+<br class="example-break"><div class="note">
+<h3 class="title">Note</h3>
+<p>Note that negative values cannot be specified lexically (other than in the exponent), but can be
+          represented syntactically with a unary expression.</p>
+</div>
+<table width="100%" cellpadding="5" bgcolor="#F5DCB3" border="1" class="productionset" summary="EBNF"><tr><td><table border="0" width="99%" cellpadding="0" bgcolor="#F5DCB3" class="productionset" summary="EBNF productions">
+<tr>
+<td align="left" valign="top" width="3%">[14]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.IntegerLiteral"></a>integer literal</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+<a href="section.Tokenization.html#ebnf.Digits">digits</a> | <a href="section.Tokenization.html#ebnf.Base">base</a> , <a href="section.Tokenization.html#ebnf.BasedDigits">based digits</a>;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[15]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.RealLiteral"></a>real literal</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">[ <a href="section.Tokenization.html#ebnf.Digits">digits</a> ] , '.' , <a href="section.Tokenization.html#ebnf.Digits">digits</a> , [ <a href="section.Tokenization.html#ebnf.Exponent">exponent</a> ] |<br> <a href="section.Tokenization.html#ebnf.Digits">digits</a> , [ '.' , <a href="section.Tokenization.html#ebnf.Digits">digits</a> ] ,
+      <a href="section.Tokenization.html#ebnf.Exponent">exponent</a> |<br> <a href="section.Tokenization.html#ebnf.Base">base</a> , [ <a href="section.Tokenization.html#ebnf.BasedDigits">based digits</a> ] , '.' , <a href="section.Tokenization.html#ebnf.BasedDigits">based digits</a> , [ <a href="section.Tokenization.html#ebnf.BasedExponent">based exponent</a> ] |<br> <a href="section.Tokenization.html#ebnf.Base">base</a> , <a href="section.Tokenization.html#ebnf.BasedDigits">based digits</a> , [
+      '.' , <a href="section.Tokenization.html#ebnf.BasedDigits">based digits</a> ] , <a href="section.Tokenization.html#ebnf.BasedExponent">based exponent</a>;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[16]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.Digits"></a>digits</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+<a href="section.CharacterSet.html#ebnf.Digit">digit</a> , { <a href="section.CharacterSet.html#ebnf.Digit">digit</a> };</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[17]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.Exponent"></a>exponent</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">('e' | 'E') , [ '+' | '-' ] , <a href="section.Tokenization.html#ebnf.Digits">digits</a>;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[18]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.Base"></a>base</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+<a href="section.Tokenization.html#ebnf.Digits">digits</a> , [ <a href="section.Tokenization.html#ebnf.Digits">digits</a> ], '#';</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[19]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.BasedDigit"></a>based digit</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+<a href="section.CharacterSet.html#ebnf.Digit">digit</a> | <a href="section.CharacterSet.html#ebnf.Letter">letter</a>;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[20]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.BasedDigits"></a>based digits</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+<a href="section.Tokenization.html#ebnf.BasedDigit">based digit</a> , { <a href="section.Tokenization.html#ebnf.BasedDigit">based digit</a> };</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[21]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.BasedExponent"></a>based exponent</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">'#' [ '+' | '-' ] , <a href="section.Tokenization.html#ebnf.Digits">digits</a>;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+</table></td></tr></table>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="section.DateAndTimeLiterals"></a>1.2.5.2. Date and Time Literals</h4></div></div></div>
+<p>Date and time literals can represent either an instant in time (known as a timestamp), or a period of time
+        (known as a duration). These literals are represented in MASL in a subset of ISO 8601:2004 format, surrounded by
+        '@' characters.</p>
+<div class="section">
+<div class="titlepage"><div><div><h5 class="title">
+<a name="section.TimestampLiterals"></a>1.2.5.2.1. Timestamp Literals</h5></div></div></div>
+<a class="indexterm" name="idp63468416"></a><a class="indexterm" name="idp63468992"></a><a class="indexterm" name="idp64001040"></a><a class="indexterm" name="idp64001888"></a><p>Timestamp literals are specified in ISO 8601:2004 Date or Date and Time format, as detailed in section
+          4.1 and 4.3 of the standard. A summary is provided below, but the standard should be considered the definitive
+          guide. Reduced accuracy representations are allowed, and will be interpreted as the earliest instant within
+          the interval covered by the accuracy loss. If no time is specified, then it will be interpreted as midnight
+          UTC. e.g. <code class="code">@2010-05@</code> is the same instant as <code class="code">@2010-05-10T00:00:00Z@</code>. Expanded representations (which cover years after 9999AD) are
+          not permitted. Handling of dates prior to 1582 is undefined.</p>
+<p>All the complete representations consist of a date followed by a 'T' character followed by the time of
+          day. Representations with reduced accuracy may drop the least significant fields. If any time fields are
+          present, then both the 'T' separator and timezone must be present. Both extended (separator characters between
+          fields) and extended (no separators) formats are accepted.</p>
+<p>Dates may be specified in calendar date (YYYY-MM-DD), ordinal date (YYYY-DDD) or week date (YYYY-Www-D)
+          formats. In calendar date format, January is represented as month 01, and so on. In ordinal date format,
+          January 1st is represented as day 001, and so on. In week date format, week W01 represents the week that
+          contains the first Thursday of the year, day 1 represents the Monday of that week, and day 7 the
+          Sunday.</p>
+<p>Times are specified in hh:mm:ss.s+hh:mm format. The least significant field supplied may be an arbitrary
+          precison decimal. Timezones are interpreted as the number of hours ahead of UTC. UTC may be specified as
+          either <code class="code">+00</code> (and variations thereof) or <code class="code">Z</code> .</p>
+<div class="example">
+<a name="example.TimestampLiteral"></a><div class="example-title">Example 1.2. Timestamp Literal Examples</div>
+<div class="example-contents">
+<p>The following examples are some of the many different ways of representing 1am BST on 28th May
+            2010.</p>
+<div class="itemizedlist"><ul class="itemizedlist">
+<li class="listitem"><code class="code">@2010-05-28T01:00:00+01@</code></li>
+<li class="listitem"><code class="code">@20100528T010000+01@</code></li>
+<li class="listitem"><code class="code">@2010-05-28T00:00:00Z@</code></li>
+<li class="listitem"><code class="code">@2010-05-28T00:00@</code></li>
+<li class="listitem"><code class="code">@2010-05-27T24:00@</code></li>
+<li class="listitem"><code class="code">@2010-05-28@</code></li>
+<li class="listitem"><code class="code">@2010-148@</code></li>
+<li class="listitem"><code class="code">@2010-W21-5T00Z@</code></li>
+<li class="listitem"><code class="code">@2010W215T00Z@</code></li>
+</ul></div>
+</div>
+</div>
+<br class="example-break"><table width="100%" cellpadding="5" bgcolor="#F5DCB3" border="1" class="productionset" summary="EBNF"><tr><td><table border="0" width="99%" cellpadding="0" bgcolor="#F5DCB3" class="productionset" summary="EBNF productions"><tr>
+<td align="left" valign="top" width="3%">[22]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.TimestampLiteral"></a>timestamp literal</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">'@' , ? ISO 8601:2004 Date Format (non-expanded) (Section 4.1) ? , '@' | <br>'@' , ? ISO 8601:2004 Date and
+      Time of Day Format (non-expanded) (Section 4.3) ? , '@';</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr></table></td></tr></table>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h5 class="title">
+<a name="section.DurationLiterals"></a>1.2.5.2.2. Duration Literals</h5></div></div></div>
+<a class="indexterm" name="idp63914576"></a><a class="indexterm" name="idp63954784"></a><a class="indexterm" name="idp63955520"></a><p>Duration literals are represented in ISO 8601:2004 Duration format with designators and context
+          information, as detailed in section 4.4.3.2 of the standard. Note in particular that the alternative format
+          (from section 4.4.3.3) is not supported. A summary is provided below, but the standard should be considered
+          the definitive guide. MASL does not support the use of year and month designators, as they cannot give a
+          determinate date without context information.</p>
+<p>The representations consist of the character 'P' (standing for 'period') followed by a series of fields
+          with following identifiers. All fields must be in descending order of significance, and if any fields shorter
+          than a day are present they must be preceded by the character 'T' (standing for 'time'). The least significant
+          field present may be specified as an arbitrary precision decimal. If the week field is present, it must be the
+          only field. At least one field must be present, but may be zero. Additionally a zero duration may be
+          represented as the <a class="link" href="section.Tokenization.html#section.NumericLiterals" title="1.2.5.1. Numeric Literals">integer literal</a> <code class="code">0</code>.</p>
+<p>The field identifiers are: 'W' = week, 'D' = day, 'H' = hours, 'M' = minutes and 'S' = seconds.</p>
+<div class="example">
+<a name="example.DurationLiteral"></a><div class="example-title">Example 1.3. Duration Literal Examples</div>
+<div class="example-contents">
+<p>The following examples are some of the many different ways of representing 1 day, 2 hours, 3 minutes
+            and 4.5 seconds</p>
+<div class="itemizedlist"><ul class="itemizedlist">
+<li class="listitem"><code class="code">@P1DT2H3M4.50000S@</code></li>
+<li class="listitem"><code class="code">@PT26H3M4.5S@</code></li>
+<li class="listitem"><code class="code">@PT93784.5S@</code></li>
+<li class="listitem"><code class="code">@PT93784.5S@</code></li>
+<li class="listitem"><code class="code">@P1DT2.05125H@</code></li>
+<li class="listitem"><code class="code">@PT26.05125H@</code></li>
+<li class="listitem"><code class="code">@P1.08546875D@</code></li>
+<li class="listitem"><code class="code">@P0.155066964W@</code></li>
+</ul></div>
+</div>
+</div>
+<br class="example-break"><table width="100%" cellpadding="5" bgcolor="#F5DCB3" border="1" class="productionset" summary="EBNF"><tr><td><table border="0" width="99%" cellpadding="0" bgcolor="#F5DCB3" class="productionset" summary="EBNF productions"><tr>
+<td align="left" valign="top" width="3%">[23]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.DurationLiteral"></a>duration literal</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">'@' , ? ISO 8601:2004 Duration General Format with Designators (Section 4.4.3.2) ? , '@';</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr></table></td></tr></table>
+</div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="section.TextLiterals"></a>1.2.5.3. Text Literals</h4></div></div></div>
+<a class="indexterm" name="idp63558128"></a><a class="indexterm" name="idp63937856"></a><p>A character literal consists of a single character or escape sequence surrounded by single quotes. A
+        string literal consists of a sequence of characters or escape sequences surrounded by double quotes. Any
+        character in the <a href="section.CharacterSet.html#ebnf.CharacterSet">character set</a> other than an <a href="section.CharacterSet.html#ebnf.EndOfLineCharacter">end of line character</a> , the <a href="section.Tokenization.html#ebnf.EscapeCharacter">escape character</a>, a <a href="section.Tokenization.html#ebnf.DoubleQuoteCharacter">double quote character</a> in a string literal or <a href="section.Tokenization.html#ebnf.SingleQuoteCharacter">single quote character</a> in a
+        characer literal may be specified using its raw character. Any character not in this set must be specified using
+        an <a href="section.Tokenization.html#ebnf.EscapeSequence">escape sequence</a>.</p>
+<div class="example">
+<a name="example.TextLiteral"></a><div class="example-title">Example 1.4. Text Literal Examples</div>
+<div class="example-contents">
+<p>The following examples are some of the different ways of representing the string 'Hello World!'</p>
+<div class="itemizedlist"><ul class="itemizedlist">
+<li class="listitem"><code class="code">"Hello World!"</code></li>
+<li class="listitem"><code class="code">"Hello World\041"</code></li>
+<li class="listitem"><code class="code">"Hello World\u0021"</code></li>
+</ul></div>
+<p>The following examples are some of the different ways of representing the backslash character</p>
+<div class="itemizedlist"><ul class="itemizedlist">
+<li class="listitem"><code class="code">'\\'</code></li>
+<li class="listitem"><code class="code">'\134'</code></li>
+<li class="listitem"><code class="code">'\u005c'</code></li>
+</ul></div>
+</div>
+</div>
+<br class="example-break"><table width="100%" cellpadding="5" bgcolor="#F5DCB3" border="1" class="productionset" summary="EBNF"><tr><td><table border="0" width="99%" cellpadding="0" bgcolor="#F5DCB3" class="productionset" summary="EBNF productions">
+<tr>
+<td align="left" valign="top" width="3%">[24]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.CharacterLiteral"></a>character literal</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+<a href="section.Tokenization.html#ebnf.SingleQuoteCharacter">single quote character</a> , ( <a href="section.CharacterSet.html#ebnf.CharacterSet">character set</a> - ( <a href="section.Tokenization.html#ebnf.EscapeCharacter">escape character</a> | <a href="section.Tokenization.html#ebnf.SingleQuoteCharacter">single quote character</a> |
+      <a href="section.CharacterSet.html#ebnf.EndOfLineCharacter">end of line character</a> ) | <a href="section.Tokenization.html#ebnf.EscapeSequence">escape sequence</a> ) , <a href="section.Tokenization.html#ebnf.SingleQuoteCharacter">single quote character</a>;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[25]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.StringLiteral"></a>string literal</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+<a href="section.Tokenization.html#ebnf.DoubleQuoteCharacter">double quote character</a> , ( <a href="section.CharacterSet.html#ebnf.CharacterSet">character set</a> - ( <a href="section.Tokenization.html#ebnf.EscapeCharacter">escape character</a> | <a href="section.Tokenization.html#ebnf.DoubleQuoteCharacter">double quote character</a> |
+      <a href="section.CharacterSet.html#ebnf.EndOfLineCharacter">end of line character</a> ) | <a href="section.Tokenization.html#ebnf.EscapeSequence">escape sequence</a> ) , <a href="section.Tokenization.html#ebnf.DoubleQuoteCharacter">double quote character</a>;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[26]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.EscapeCharacter"></a>escape character</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">'\';</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[27]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.EscapeSequence"></a>escape sequence</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+<a href="section.Tokenization.html#ebnf.EscapeCharacter">escape character</a> , ( 'b' | 't' | 'n' | 'f' | 'r' | '"' | ''' | '\' ) | <a href="section.Tokenization.html#ebnf.UnicodeEscape">unicode escape</a> | <a href="section.Tokenization.html#ebnf.OctalEscape">octal escape</a>;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[28]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.UnicodeEscape"></a>unicode escape</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+<a href="section.Tokenization.html#ebnf.EscapeCharacter">escape character</a> , 'u' , <a href="section.Tokenization.html#ebnf.HexDigit">hex digit</a> , <a href="section.Tokenization.html#ebnf.HexDigit">hex digit</a> , <a href="section.Tokenization.html#ebnf.HexDigit">hex digit</a> , <a href="section.Tokenization.html#ebnf.HexDigit">hex digit</a>;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[29]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.OctalEscape"></a>octal escape</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+<a href="section.Tokenization.html#ebnf.EscapeCharacter">escape character</a> , [ <a href="section.Tokenization.html#ebnf.OctalFirstDigit">octal first digit</a> ] , [ <a href="section.Tokenization.html#ebnf.OctalDigit">octal digit</a> ] , <a href="section.Tokenization.html#ebnf.OctalDigit">octal digit</a>;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[30]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.HexDigit"></a>hex digit</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">
+<a href="section.CharacterSet.html#ebnf.Digit">digit</a> | 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'A' | 'B' | 'C' | 'D' | 'E' |
+      'F';</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[31]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.OctalFirstDigit"></a>octal first digit</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">'0' | '1' | '2' | '3';</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[32]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.OctalDigit"></a>octal digit</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">'0' | '1' | '2' | '3' | '4' | '5' | '6' | '7';</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[33]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.DoubleQuoteCharacter"></a>double quote character</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">'"';</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[34]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.SingleQuoteCharacter"></a>single quote character</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">''';</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+</table></td></tr></table>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="section.IdentifierToken"></a>1.2.5.4. Identifiers and Relationship Numbers</h4></div></div></div>
+<a class="indexterm" name="idp63793792"></a><a class="indexterm" name="idp63794640"></a><p>Identifiers consist of a letter followed by any number of letters, digits or underscores, where the
+        resultant word is not a <a class="link" href="section.Tokenization.html#section.ReservedWordToken" title="1.2.3. Reserved Words">reserved word</a> or a relationship number.
+        A relationship number consists of the letter 'R' followed by a number.</p>
+<div class="example">
+<a name="example.Identifier"></a><div class="example-title">Example 1.5. Identifier Examples</div>
+<div class="example-contents">
+<p>The following examples are all valid and distinct identifiers.</p>
+<div class="itemizedlist"><ul class="itemizedlist">
+<li class="listitem"><code class="code">i</code></li>
+<li class="listitem"><code class="code">fred</code></li>
+<li class="listitem"><code class="code">Fred</code></li>
+<li class="listitem"><code class="code">a_very_long_identifier_2</code></li>
+<li class="listitem"><code class="code">AVeryLongIdentifer2</code></li>
+</ul></div>
+<p>The following examples are all valid relationship identifiers</p>
+<div class="itemizedlist"><ul class="itemizedlist">
+<li class="listitem"><code class="code">R1</code></li>
+<li class="listitem"><code class="code">R12</code></li>
+<li class="listitem"><code class="code">R12345678</code></li>
+</ul></div>
+</div>
+</div>
+<br class="example-break"><table width="100%" cellpadding="5" bgcolor="#F5DCB3" border="1" class="productionset" summary="EBNF"><tr><td><table border="0" width="99%" cellpadding="0" bgcolor="#F5DCB3" class="productionset" summary="EBNF productions">
+<tr>
+<td align="left" valign="top" width="3%">[35]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.Identifier"></a>identifier</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">( ( <a href="section.CharacterSet.html#ebnf.Letter">letter</a> | '_' ) , { <a href="section.CharacterSet.html#ebnf.Letter">letter</a> | <a href="section.CharacterSet.html#ebnf.Digit">digit</a> | '_' } ) - <a href="section.Tokenization.html#ebnf.ReservedWord">reserved word</a> - <a href="section.Tokenization.html#ebnf.RelationshipName">relationship name</a>;</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="3%">[36]</td>
+<td align="right" valign="top" width="10%">
+<a name="ebnf.RelationshipName"></a>relationship name</td>
+<td valign="top" width="5%" align="center">=</td>
+<td valign="top" width="52%">'R' , ( <a href="section.CharacterSet.html#ebnf.Digit">digit</a> - '0' ) , { <a href="section.CharacterSet.html#ebnf.Digit">digit</a> };</td>
+<td align="left" valign="top" width="30%"> </td>
+</tr>
+</table></td></tr></table>
+</div>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="section.CharacterSet.html">Prev</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="section.LexicalStructure.html">Up</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="section.Types.html">Next</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">1.1. Character Set </td>
+<td width="20%" align="center">
+<a accesskey="h" href="index.html">Home</a> | <a accesskey="t" href="bk01-toc.html">ToC</a>
+</td>
+<td width="40%" align="right" valign="top"> Chapter 2. Type System</td>
+</tr>
+</table>
+</div>
+<div align="center">OFFICIAL</div>
+</body>
+</html>

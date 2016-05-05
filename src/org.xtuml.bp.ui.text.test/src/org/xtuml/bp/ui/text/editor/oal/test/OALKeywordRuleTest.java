@@ -26,7 +26,9 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.text.Document;
 import org.eclipse.jface.text.rules.IToken;
 import org.eclipse.jface.text.rules.RuleBasedScanner;
-
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.ui.text.OALEditorPlugin;
 import org.xtuml.bp.ui.text.editor.SyntaxHighlightingPreferences;
 import org.xtuml.bp.ui.text.editor.oal.OALKeywordRule;
@@ -36,20 +38,28 @@ import org.xtuml.bp.ui.text.test.UITextTest;
 /**
  * Unit tests of the like-named class.
  */
+@RunWith(OrderedRunner.class)
 public class OALKeywordRuleTest extends UITextTest 
 {
-    public OALKeywordRuleTest(String projectName, String name) throws CoreException {
-		super("test", name);	 //$NON-NLS-1$
-	}
-    public OALKeywordRuleTest( String name) throws CoreException {
-		super("test", name);	 //$NON-NLS-1$
+//    public OALKeywordRuleTest(String projectName, String name) throws CoreException {
+//		super("test", name);	 //$NON-NLS-1$
+//	}
+//    public OALKeywordRuleTest( String name) throws CoreException {
+//		super("test", name);	 //$NON-NLS-1$
+//	}
+
+	public OALKeywordRuleTest() throws CoreException {
+		super();
+//		super("test", null);	//$NON-NLS-1$
+		// TODO Auto-generated constructor stub
 	}
 
 	/**
      * Tests whether an oal-keyword-rule correctly recognizes
      * keywords of different capitalizations.
      */
-    public void testEvaluate()
+    @Test
+	public void testEvaluate()
     {
         // create a test document
         Document document = new Document();

@@ -8,24 +8,33 @@ import org.eclipse.core.resources.IncrementalProjectBuilder;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.dialogs.MessageDialogWithToggle;
 import org.eclipse.jface.preference.IPreferenceStore;
-
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.TestName;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
+import org.xtuml.bp.core.common.GeneralPurposeLogger;
 import org.xtuml.bp.core.common.IdAssigner;
 import org.xtuml.bp.core.common.OALPersistenceUtil;
 import org.xtuml.bp.core.ui.Selection;
 import org.xtuml.bp.test.TestUtil;
 import org.xtuml.bp.test.common.BaseTest;
-import org.xtuml.bp.test.common.GeneralPurposeLogger;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TestingUtilities;
 import org.xtuml.bp.ui.canvas.Ooaofgraphics;
 import org.xtuml.bp.ui.text.activity.ParseAllActivitiesAction;
 
+@RunWith(OrderedRunner.class)
 public class OALPersistenceTestsGenerics extends BaseTest {
+	
+	@Rule public TestName name = new TestName();
 	
     GeneralPurposeLogger log1;  // log for core
     GeneralPurposeLogger log2;  // log for canvas
@@ -43,9 +52,10 @@ public class OALPersistenceTestsGenerics extends BaseTest {
      */
     private static boolean generateResults = false;
 
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
-        IdAssigner.setSeedOfAllInstances(getName().hashCode(), true);
+        IdAssigner.setSeedOfAllInstances(name.getMethodName().hashCode(), true);
         if (m_workspace_path == null || m_workspace_path.equals(""))
         {
             m_workspace_path = System.getProperty("WORKSPACE_PATH");
@@ -69,20 +79,22 @@ public class OALPersistenceTestsGenerics extends BaseTest {
 		Ooaofgraphics.log = log2;
 	}
     
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		BaseTest.staticTearDown();
 		super.tearDown();
 	}
 
-	// As of Java7 and JUnit 4, the ordering of test functions is not guaranteed to be the order
-	// in the file.  Thus, we add this public test to enforce ordering
-	public void testOALPersistence() throws FileNotFoundException, CoreException {
-		dotestPersistOAL();
-		dotestOALInstancesCreatedWhileBuild();
-		dotestOALInstancesExportedProperly();
-	}
-	
-	private void dotestPersistOAL() throws FileNotFoundException, CoreException {
+//	// As of Java7 and JUnit 4, the ordering of test functions is not guaranteed to be the order
+//	// in the file.  Thus, we add this public test to enforce ordering
+//	@Test
+//	public void testOALPersistence() throws FileNotFoundException, CoreException {
+//		dotestPersistOAL();
+//		dotestOALInstancesCreatedWhileBuild();
+//		dotestOALInstancesExportedProperly();
+//	}
+	@Test
+	public void testPersistOAL() throws FileNotFoundException, CoreException {
 		try {
 			IdAssigner.setSeedOfAllInstances(1, true);
 			final String domainName = "testOAL1";
@@ -135,8 +147,8 @@ public class OALPersistenceTestsGenerics extends BaseTest {
             fail( f.toString() );
         }
         }
-   
-	private void dotestOALInstancesCreatedWhileBuild() throws FileNotFoundException, CoreException {
+   @Test
+	public void testOALInstancesCreatedWhileBuild() throws FileNotFoundException, CoreException {
 		try {
 			IdAssigner.setSeedOfAllInstances(2, true);
 			String domainName = "testOAL1";
@@ -161,8 +173,8 @@ public class OALPersistenceTestsGenerics extends BaseTest {
 			fail(f.toString());
 		}
     }
-
-	private void dotestOALInstancesExportedProperly()
+   @Test
+	public void testOALInstancesExportedProperly()
 			throws FileNotFoundException, CoreException {
 		try {
 			String testProjectName = "Integration";

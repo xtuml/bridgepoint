@@ -22,11 +22,14 @@
 
 package org.xtuml.bp.ui.canvas.test;
 
+import org.junit.runner.RunWith;
 import org.xtuml.bp.test.common.BaseTest;
+import org.xtuml.bp.test.common.OrderedRunner;
 
 /**
  * Contains various tests involving the snap-to-grid behavior of the canvas.
  */
+@RunWith(OrderedRunner.class)
 public class GridSnapTest extends BaseTest
 {
 //    /**

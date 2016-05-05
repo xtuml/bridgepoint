@@ -27,9 +27,12 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.PlatformUI;
-
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Operation_c;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TestingUtilities;
 import org.xtuml.bp.ui.text.activity.ActivityEditorInputFactory;
 import org.xtuml.bp.ui.text.description.DescriptionEditorInputFactory;
@@ -39,22 +42,27 @@ import org.xtuml.bp.ui.text.test.UITextTest;
 import org.xtuml.bp.ui.text.test.activity.ActivityEditorInteraction;
 import org.xtuml.bp.ui.text.test.description.DescriptionEditorInteraction;
 
+@RunWith(OrderedRunner.class)
 public class MarkerBasedPlaceholderLifecyleTest extends UITextTest {
 
+	public MarkerBasedPlaceholderLifecyleTest() throws CoreException {
+		super();
+	}
 	private static boolean firstSetup = true;
 	private static String testModelName = "testDescrip1";
 	
-	public MarkerBasedPlaceholderLifecyleTest(String projectName, String name)
-			throws CoreException {
-		super(null, name);
-	}
-	
-	public MarkerBasedPlaceholderLifecyleTest(String name)
-		throws CoreException {
-		super(null, name);
-	}
+//	public MarkerBasedPlaceholderLifecyleTest(String projectName, String name)
+//			throws CoreException {
+//		super(null, name);
+//	}
+//	
+//	public MarkerBasedPlaceholderLifecyleTest(String name)
+//		throws CoreException {
+//		super(null, name);
+//	}
 
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		
 		PlaceHolderManager.getDefaultInstance();
@@ -69,10 +77,12 @@ public class MarkerBasedPlaceholderLifecyleTest extends UITextTest {
         	firstSetup = false;
         }
 	}
+	@Test
 	public void testMarkerBasedPlaceholderLifecyleForDescriptionEditor(){
 		markerLifecycleForEditor(DescriptionEditorInputFactory.PLACEHOLDER_EXTENSION);
 	}
 	
+	@Test
 	public void testMarkerBasedPlaceholderLifecylceForActivityEditor(){
 		markerLifecycleForEditor(ActivityEditorInputFactory.PLACEHOLDER_EXTENSION);
 	}

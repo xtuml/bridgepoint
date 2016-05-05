@@ -1,0 +1,147 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>7.1. Console Device</title>
+<link rel="stylesheet" type="text/css" href="docbook.css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<meta name="keywords" content="MASL, Action Language, Action Semantics, UML, Unified Modelling Language, Shlaer Mellor">
+<link rel="home" href="index.html" title="MASL Tutorial">
+<link rel="up" href="DeviceIO.html" title="Chapter 7. Device Input/Output">
+<link rel="prev" href="DeviceIO.html" title="Chapter 7. Device Input/Output">
+<link rel="next" href="MASLExamples.html" title="Chapter 8. MASL Examples">
+<link rel="preface" href="preface.html" title="Preface">
+<link rel="chapter" href="Types.html" title="Chapter 1. Types">
+<link rel="chapter" href="ExecutionControl.html" title="Chapter 2. Execution Control">
+<link rel="chapter" href="CompositeTypes.html" title="Chapter 3. Composite Types">
+<link rel="chapter" href="Exceptions.html" title="Chapter 4. Exceptions">
+<link rel="chapter" href="ObjectsandRelationships.html" title="Chapter 5. Objects and Relationships">
+<link rel="chapter" href="Actions.html" title="Chapter 6. Actions">
+<link rel="chapter" href="DeviceIO.html" title="Chapter 7. Device Input/Output">
+<link rel="chapter" href="MASLExamples.html" title="Chapter 8. MASL Examples">
+<link rel="index" href="ix01.html" title="Index">
+<link rel="subsection" href="DeviceIOConsoleDevice.html#DeviceIOConsoleOutput" title="7.1.1. Console Output">
+<link rel="subsection" href="DeviceIOConsoleDevice.html#DeviceIOConsoleInput" title="7.1.2. Console Input">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div align="center">UNCLASSIFIED</div>
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">7.1. Console Device</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="DeviceIO.html">Prev</a> </td>
+<th width="60%" align="center">Chapter 7. Device Input/Output</th>
+<td width="20%" align="right"> <a accesskey="n" href="MASLExamples.html">Next</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title">
+<a name="DeviceIOConsoleDevice"></a>7.1. Console Device</h2></div></div></div>
+<div class="toc"><dl class="toc">
+<dt><span class="section"><a href="DeviceIOConsoleDevice.html#DeviceIOConsoleOutput">7.1.1. Console Output</a></span></dt>
+<dt><span class="section"><a href="DeviceIOConsoleDevice.html#DeviceIOConsoleInput">7.1.2. Console Input</a></span></dt>
+</dl></div>
+<p>The <code class="varname">console</code> device is a built in device type used
+    for streaming data to the output device or for reading data from the input
+    device. It does not need to be defined within any statement blocks, it can
+    just be used as in the examples in <a class="xref" href="DeviceIOConsoleDevice.html#DeviceIOConsoleOutput" title="7.1.1. Console Output">Section 7.1.1, “Console Output”</a> and <a class="xref" href="DeviceIOConsoleDevice.html#DeviceIOConsoleInput" title="7.1.2. Console Input">Section 7.1.2, “Console Input”</a> below.</p>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="DeviceIOConsoleOutput"></a>7.1.1. Console Output</h3></div></div></div>
+<p>Console output is available for all types (i.e.
+      <span class="type">boolean</span>, <span class="type">string</span>etc.) except instance handles
+      where the address of the handle is streamed and container types where
+      the number of elements held is streamed; this is basically garbage
+      output for these types. The current output for container types and
+      instance handles might change in the future and so applications should
+      not become dependent upon their current format. The example below shows
+      how the console device can be used for several types. The output for the
+      <span class="type">boolean</span> type will be streamed in its textual
+      form.</p>
+<div class="informalexample"><pre class="programlisting">    int_out  : Integer := 10000;
+    real_out : real    := 1.2345;
+    bool_out : Boolean := false;
+  begin
+    console &lt;&lt;  “TEST STARTED ”;
+    console &lt;&lt; "- TEST PASSED" &lt;&lt; endl;
+    console &lt;&lt; int_out &lt;&lt; “  “ &lt;&lt; real_out  &lt;&lt; “  “&lt;&lt; bool_out &lt;&lt; endl;
+  end;</pre></div>
+<p>The output produced from the above code is shown
+      below :</p>
+<div class="informalexample"><pre class="programlisting">  TEST STARTED - TEST PASSED
+  10000 1.2345 false</pre></div>
+<p>Several manipulators are currently supported,
+      <code class="literal">endl</code> and <code class="literal">flush</code>. The
+      <code class="literal">endl</code> manipulator will stream out a new line
+      character, while the <code class="literal">flush</code> manipulator will flush the
+      current contents of the device’s stream buffer (should any buffering be
+      provided by the device).</p>
+<p>No exceptions are raised when streaming data out to the console
+      device.</p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="DeviceIOConsoleInput"></a>7.1.2. Console Input</h3></div></div></div>
+<p>The console device can also be used to read data from standard
+      input. This only applies for non-composite defined types. It can
+      therefore not be used for container or user defined composite types. An
+      example of its use is shown below.</p>
+<div class="informalexample"><pre class="programlisting">    name_string     : string;
+    person_age      : integer;
+    employed_status : boolean;
+    childs_name     : string;
+    childs_age      : integer;
+    childs_height   : real;
+    childs_weight   : real;
+
+  begin
+    begin
+      console &lt;&lt; “Enter name  ”;     
+      console &gt;&gt; name_string;          // read in name
+
+      console &lt;&lt; “Enter Age “;
+      console  &gt;&gt;  person_age;        // read in age
+
+      console &lt;&lt; “Enter Employeed (true/false)  ”;
+      console  &gt;&gt; employed_status;
+
+      console &lt;&lt; “Enter child details  “;
+      console &gt;&gt; childs_name &gt;&gt; childs_age &gt;&gt; childs_height &gt;&gt; childs_weight;
+    end;
+
+  exception
+    when Standard::program_error =&gt;
+      // Stream error encountered…
+      // i.e entered a float for the age when integer expected.
+  end;</pre></div>
+<p>Should an error occur while reading data in from the
+      <code class="literal">console</code> device, a <abbr class="abbrev">MASL</abbr> program error
+      will be thrown. This can be caught by the application and processed
+      accordingly.</p>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="DeviceIO.html">Prev</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="DeviceIO.html">Up</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="MASLExamples.html">Next</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">Chapter 7. Device Input/Output </td>
+<td width="20%" align="center">
+<a accesskey="h" href="index.html">Home</a> | <a accesskey="t" href="bk01-toc.html">ToC</a>
+</td>
+<td width="40%" align="right" valign="top"> Chapter 8. MASL Examples</td>
+</tr>
+</table>
+</div>
+<div align="center">UNCLASSIFIED</div>
+</body>
+</html>

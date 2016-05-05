@@ -23,9 +23,8 @@
 
 import java.io.File;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
-
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.common.BridgePointPreferencesStore;
@@ -37,8 +36,22 @@ import org.xtuml.bp.io.mdl.test.MCModelConsistencyGenericsGlobals;
 import org.xtuml.bp.io.mdl.test.OALPersistenceTestsGenerics;
 import org.xtuml.bp.io.mdl.test.SLDTTestsGenerics;
 import org.xtuml.bp.io.mdl.test.wizards.ImportWizardTestsGenerics;
-import org.xtuml.bp.ui.canvas.test.ModelRecreationTests;
 
+import junit.framework.Test;
+import junit.framework.TestSuite;
+
+@RunWith(Suite.class)
+@Suite.SuiteClasses({
+	IOMdlIIGlobalsTestGenerics.class,
+    IOMdlTestSuiteIIGenerics.class,
+    ImportWizardTestsGenerics.class,
+    MCModelConsistencyGenericsGlobals.class,
+    OALPersistenceTestsGenerics.class,
+    SLDTTestsGenerics.class,
+    DataUpgradeCreatesNoDeltasTestGenerics.class,
+    
+    
+})
 public class IOMdlGlobalsTestSuite2Generics extends TestSuite {
 	
 	/**
@@ -55,17 +68,7 @@ public class IOMdlGlobalsTestSuite2Generics extends TestSuite {
 	public IOMdlGlobalsTestSuite2Generics()
     {
 		CorePlugin.getDefault().getPreferenceStore().setValue(BridgePointPreferencesStore.USE_DEFAULT_NAME_FOR_CREATION,true);
-	    addTest(new TestSuite(IOMdlIIGlobalsTestGenerics.class));
-	    addTest(new TestSuite(IOMdlTestSuiteIIGenerics.class));
-        addTest(new TestSuite(ImportWizardTestsGenerics.class));
-        
-        TestSuite testSuite = new ConsistencyTestSuite();
-		addTest(testSuite);        
-        
-        addTest(new TestSuite(OALPersistenceTestsGenerics.class));
-        addTest(new TestSuite(SLDTTestsGenerics.class));
-        addTest(new TestSuite(DataUpgradeCreatesNoDeltasTestGenerics.class));
-        
+
         // if the actual-results folders don't already exist
         String folderPath = System.getProperty("WORKSPACE_PATH") + 
             "actual_results/" + Ooaofooa.MODELS_DIRNAME + "/";

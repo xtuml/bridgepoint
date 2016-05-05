@@ -26,7 +26,9 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.ui.PlatformUI;
-
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.ModelClass_c;
 import org.xtuml.bp.core.Ooaofooa;
@@ -35,22 +37,25 @@ import org.xtuml.bp.core.PackageableElement_c;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.ui.Selection;
 import org.xtuml.bp.test.common.CanvasTestUtils;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.UITestingUtilities;
 import org.xtuml.bp.ui.graphics.actions.CanvasCopyAction;
 import org.xtuml.bp.ui.graphics.editor.GraphicalEditor;
 import org.xtuml.bp.ui.graphics.editor.ModelEditor;
 import org.xtuml.bp.utilities.ui.CanvasUtilities;
 
+@RunWith(OrderedRunner.class)
 public class CanvasCopyTests extends CanvasTest {
 
 	private static boolean initialized;
 	private String test_id;
 	public static boolean generateResults = false;
 
-	public CanvasCopyTests(String name) {
-		super(null, name);	
+	public CanvasCopyTests() {
+		super(null, null);	
 	}
 
+	@Before
 	public void setUp() throws Exception {
 		super.setUp();
 		if(!initialized) {
@@ -61,6 +66,7 @@ public class CanvasCopyTests extends CanvasTest {
 		}
 	}
 	
+	@Test
 	public void testCopyAllClasses() {
 		test_id = "1";
 		
@@ -91,6 +97,7 @@ public class CanvasCopyTests extends CanvasTest {
 		validateOrGenerateResults(ce,generateResults);
 	}
 	
+	@Test
 	public void testCopyAvailableAfterReload() {
 		Package_c ss = Package_c.PackageInstance(modelRoot, new ClassQueryInterface_c() {
 			

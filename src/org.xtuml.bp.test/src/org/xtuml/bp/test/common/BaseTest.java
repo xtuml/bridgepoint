@@ -42,8 +42,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import junit.framework.TestCase;
-
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
@@ -79,8 +77,9 @@ import org.eclipse.ui.internal.views.log.AbstractEntry;
 import org.eclipse.ui.internal.views.log.LogEntry;
 import org.eclipse.ui.internal.views.log.LogView;
 import org.eclipse.ui.texteditor.AbstractDecoratedTextEditorPreferenceConstants;
+import org.junit.After;
+import org.junit.Before;
 import org.osgi.framework.Constants;
-
 import org.xtuml.bp.core.Attribute_c;
 import org.xtuml.bp.core.BridgeParameter_c;
 import org.xtuml.bp.core.Bridge_c;
@@ -89,7 +88,6 @@ import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.DataType_c;
 import org.xtuml.bp.core.Elementtypeconstants_c;
-import org.xtuml.bp.core.EnumerationDataType_c;
 import org.xtuml.bp.core.FunctionParameter_c;
 import org.xtuml.bp.core.Function_c;
 import org.xtuml.bp.core.Gd_c;
@@ -110,7 +108,6 @@ import org.xtuml.bp.core.ReferentialAttribute_c;
 import org.xtuml.bp.core.StateMachineEventDataItem_c;
 import org.xtuml.bp.core.StateMachineState_c;
 import org.xtuml.bp.core.StructureMember_c;
-import org.xtuml.bp.core.StructuredDataType_c;
 import org.xtuml.bp.core.SymbolicConstant_c;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.UserDataType_c;
@@ -118,7 +115,6 @@ import org.xtuml.bp.core.Visibility_c;
 import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.ComponentResourceListener;
-import org.xtuml.bp.core.common.IPersistenceHierarchyMetaData;
 import org.xtuml.bp.core.common.IdAssigner;
 import org.xtuml.bp.core.common.ModelElement;
 import org.xtuml.bp.core.common.ModelRoot;
@@ -127,20 +123,17 @@ import org.xtuml.bp.core.common.PersistableModelComponent;
 import org.xtuml.bp.core.common.PersistenceManager;
 import org.xtuml.bp.core.common.Transaction;
 import org.xtuml.bp.core.common.TransactionManager;
-import org.xtuml.bp.core.inspector.IModelClassInspector;
-import org.xtuml.bp.core.inspector.ModelInspector;
-import org.xtuml.bp.core.inspector.ObjectElement;
 import org.xtuml.bp.core.ui.perspective.BridgePointPerspective;
 import org.xtuml.bp.io.mdl.ImportModel;
 import org.xtuml.bp.test.GlobalsTestEnabler;
 import org.xtuml.bp.test.TestUtil;
-import org.xtuml.bp.ui.canvas.Cl_c;
 import org.xtuml.bp.ui.canvas.Ooaofgraphics;
-import org.xtuml.bp.ui.canvas.Ooatype_c;
 import org.xtuml.bp.ui.explorer.ExplorerView;
 import org.xtuml.bp.ui.explorer.decorators.SynchronizationDecorator;
 import org.xtuml.bp.ui.text.placeholder.PlaceHolderManager;
 import org.xtuml.bp.utilities.ui.ProjectUtilities;
+
+import junit.framework.TestCase;
 
 
 public class BaseTest extends TestCase {
@@ -214,10 +207,10 @@ public class BaseTest extends TestCase {
 
 	
 	public BaseTest(){
-		this(null, null);
+		this(null, "");
 	}
 	public BaseTest(String projectName, String name) {
-		super(name);
+		//super(name);
 		// disable synchronization decoration, costs too
 		// much test time
 		try {
@@ -273,8 +266,11 @@ public class BaseTest extends TestCase {
         // Never show the  "editing derived input" confirmation dialog during unit tests.
         String lineNumbers = AbstractDecoratedTextEditorPreferenceConstants.EDITOR_WARN_IF_INPUT_DERIVED;
         EditorsUI.getPreferenceStore().setValue(lineNumbers, false);
+        
+        // Unit tests expect parse errors to show during edit
+		store.setValue(BridgePointPreferencesStore.ENABLE_PARSE_ON_ACTIVITY_EDITS, true);
 	}
-	protected void setUp() throws Exception {
+	public void setUp() throws Exception {
 		super.setUp();
 		
 		Ooaofooa.setInUnitTest(true);
@@ -339,7 +335,8 @@ public class BaseTest extends TestCase {
 		assertTrue("Saving threads left hanging", Ooaofooa.threadsSaving < 1);
 	}
 	
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		BaseTest.staticTearDown();
 	}
 	
@@ -506,6 +503,7 @@ public class BaseTest extends TestCase {
 			TestingUtilities.importTestingProjectIntoWorkspace(projectName);
 			project = ResourcesPlugin.getWorkspace().getRoot().getProject(
 					projectName);
+			TestingUtilities.allowJobCompletion();
 			m_sys = getSystemModel(projectName);
 		}
 		String modelRootId = Ooaofooa.createModelRootId(project, projectName, true);

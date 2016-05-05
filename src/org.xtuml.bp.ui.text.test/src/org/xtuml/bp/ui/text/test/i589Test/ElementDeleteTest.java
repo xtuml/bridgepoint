@@ -23,7 +23,6 @@
 package org.xtuml.bp.ui.text.test.i589Test;
 
 
-import java.io.File;
 import java.util.List;
 import java.util.Vector;
 
@@ -35,42 +34,48 @@ import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
-
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Package_c;
-import org.xtuml.bp.core.common.PersistableModelComponent;
 import org.xtuml.bp.core.common.Transaction;
 import org.xtuml.bp.core.common.TransactionManager;
-import org.xtuml.bp.test.TestUtil;
 import org.xtuml.bp.test.common.BaseTest;
-import org.xtuml.bp.test.common.TestingUtilities;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.ui.text.AbstractModelElementEditorInput;
 import org.xtuml.bp.ui.text.activity.ActivityEditor;
 import org.xtuml.bp.ui.text.description.DescriptionEditor;
 import org.xtuml.bp.ui.text.test.UITextTest;
 
+@RunWith(OrderedRunner.class)
 public class ElementDeleteTest extends UITextTest {
 	
+	public ElementDeleteTest() throws CoreException {
+		super();
+	}
+
 	private static boolean firstSetup = true;
 	private static String testModelName = "testDescrip1";
 	
-	public ElementDeleteTest(String projectName, String name) throws CoreException {
-		super(null, name);
-	}
+//	public ElementDeleteTest(String projectName, String name) throws CoreException {
+//		super(null, name);
+//	}
+//
+//	public ElementDeleteTest(String name) throws CoreException {
+//		super(null, name);
+//	}
 
-	public ElementDeleteTest(String name) throws CoreException {
-		super(null, name);
-	}
-
-    protected void setUp() throws Exception {
+    @Before
+	public void setUp() throws Exception {
         super.setUp();
         if ( firstSetup ) {
         	loadProject(testModelName);
@@ -82,10 +87,12 @@ public class ElementDeleteTest extends UITextTest {
         }
     }
 
-    protected void tearDown() throws Exception {
+    @After
+	public void tearDown() throws Exception {
         super.tearDown();
     }
 
+	@Test
 	public void testDeleteElement() throws Exception
 		{
         Ooaofooa.setInUnitTest(true);

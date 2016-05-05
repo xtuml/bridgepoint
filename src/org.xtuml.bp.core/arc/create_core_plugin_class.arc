@@ -80,6 +80,8 @@ import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.core.runtime.preferences.IEclipsePreferences;
 import org.eclipse.core.runtime.preferences.IEclipsePreferences.IPreferenceChangeListener;
 import org.eclipse.core.runtime.preferences.IScopeContext;
+import org.eclipse.jdt.core.JavaCore;
+import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
@@ -144,7 +146,8 @@ public class CorePlugin extends AbstractUIPlugin {
 	public static final String DANGLING_REFERENCE_DECORATOR_ID = "org.xtuml.bp.ui.explorer.decorators.danglingreferencedecorator"; //$$NON-NLS-1$$
 	public static final Object UPGRADE_FAMILY = "UPGRADE_FAMILY"; //$$NON-NLS-1$$
     public static PrintStream out = System.out;
-
+    public static final String BP_CORE_HOME = "BP_CORE_HOME";
+    
     public static PrintStream err = System.err;
 
     public static boolean loggingEnabled = true;
@@ -751,6 +754,31 @@ public class CorePlugin extends AbstractUIPlugin {
 		}
     	
     }
+
+    protected void createClasspathVariable(final String pluginName, final String variableName) {
+        Bundle bundle = Platform.getBundle(pluginName); //$$NON-NLS-1$$
+ 
+        if (bundle == null) {
+            JavaCore.removeClasspathVariable(variableName, null);
+            return;
+        }
+        else {
+            URL installLocation = bundle.getEntry("/"); //$$NON-NLS-1$$
+            URL local = null;
+            try {
+                local = Platform.asLocalURL(installLocation);
+            } catch (IOException e) {
+                JavaCore.removeClasspathVariable(variableName, null);
+                return;
+            }
+            try {
+                String fullPath = new File(local.getPath()).getAbsolutePath();
+                JavaCore.setClasspathVariable(variableName, new Path(fullPath), null);
+            } catch (JavaModelException e1) {
+                JavaCore.removeClasspathVariable(variableName, null);
+            }
+        }
+    }
         
 	/* (non-Javadoc)
 	 * @see org.osgi.framework.BundleActivator#start(org.osgi.framework.BundleContext)
@@ -772,6 +800,8 @@ public class CorePlugin extends AbstractUIPlugin {
 		scheduler.setSystem(true);
 		scheduler.setRule(ResourcesPlugin.getWorkspace().getRoot());
 		scheduler.schedule(30000);
+		
+		createClasspathVariable("org.xtuml.bp.core", BP_CORE_HOME);
 	}
 	public void stop(BundleContext context) throws Exception {
 		Ooaofooa.removeModelChangeListenerFromAll(problemListener);

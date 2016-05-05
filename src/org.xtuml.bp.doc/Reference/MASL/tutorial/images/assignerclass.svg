@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   version="1.0"
+   width="531.49603"
+   height="354.33069"
+   id="svg2">
+  <defs
+     id="defs4" />
+  <rect
+     width="129.25111"
+     height="29.251114"
+     x="50.374435"
+     y="204.70514"
+     style="fill:white;fill-opacity:1;stroke:black;stroke-width:0.74888563;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+     id="rect1997" />
+  <rect
+     width="129.29843"
+     height="39.298462"
+     x="50.350769"
+     y="234.68147"
+     style="fill:white;fill-opacity:1;stroke:black;stroke-width:0.7015518;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+     id="rect2884" />
+  <text
+     x="114.89647"
+     y="224.16664"
+     style="font-size:14px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:black;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Helvetica"
+     id="text2886"
+     xml:space="preserve"><tspan
+       x="114.89647"
+       y="224.16664"
+       id="tspan2888">Aircraft</tspan></text>
+  <text
+     x="54.630852"
+     y="246.80531"
+     style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:black;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Helvetica"
+     id="text2890"
+     xml:space="preserve"><tspan
+       x="54.630852"
+       y="246.80531"
+       id="tspan2892">serial number {I=(*1)}</tspan></text>
+  <rect
+     width="129.25111"
+     height="29.251114"
+     x="355.37445"
+     y="204.70514"
+     style="fill:white;fill-opacity:1;stroke:black;stroke-width:0.74888563;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+     id="rect2914" />
+  <rect
+     width="129.29843"
+     height="39.298447"
+     x="355.3508"
+     y="234.68147"
+     style="fill:white;fill-opacity:1;stroke:black;stroke-width:0.70155168;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+     id="rect2916" />
+  <text
+     x="419.14355"
+     y="224.16664"
+     style="font-size:14px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:black;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Helvetica"
+     id="text2918"
+     xml:space="preserve"><tspan
+       x="419.14355"
+       y="224.16664"
+       id="tspan2920">Runway</tspan></text>
+  <text
+     x="359.63089"
+     y="246.80531"
+     style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:black;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Helvetica"
+     id="text2922"
+     xml:space="preserve"><tspan
+       x="359.63089"
+       y="246.80531"
+       id="tspan2924">airport name {I=(*1)}</tspan></text>
+  <path
+     d="M 179.99999,249.33071 C 354.99999,249.33071 354.99999,249.33071 354.99999,249.33071"
+     style="fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:black;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+     id="path2950" />
+  <text
+     x="182.19336"
+     y="242.95569"
+     style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:black;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Helvetica"
+     id="text2952"
+     xml:space="preserve"><tspan
+       x="182.19336"
+       y="242.95569"
+       style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:100%;writing-mode:lr-tb;text-anchor:start;font-family:Helvetica"
+       id="tspan2954">0..1</tspan></text>
+  <text
+     x="352.20898"
+     y="242.95569"
+     style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:end;line-height:100%;writing-mode:lr-tb;text-anchor:end;fill:black;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Helvetica"
+     id="text2956"
+     xml:space="preserve"><tspan
+       x="352.20898"
+       y="242.95569"
+       style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:end;line-height:100%;writing-mode:lr-tb;text-anchor:end;font-family:Helvetica"
+       id="tspan2958">0..1</tspan></text>
+  <text
+     x="185.77734"
+     y="263.06702"
+     style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:black;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Helvetica"
+     id="text2960"
+     xml:space="preserve"><tspan
+       x="185.77734"
+       y="263.06702"
+       id="tspan2962">is allocated to</tspan></text>
+  <text
+     x="350.10547"
+     y="263.06702"
+     style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:end;line-height:100%;writing-mode:lr-tb;text-anchor:end;fill:black;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Helvetica"
+     id="text2964"
+     xml:space="preserve"><tspan
+       x="350.10547"
+       y="263.06702"
+       id="tspan2966">has allocated</tspan></text>
+  <text
+     x="279.4707"
+     y="242.95569"
+     style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:100%;writing-mode:lr-tb;text-anchor:middle;fill:black;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Helvetica"
+     id="text2968"
+     xml:space="preserve"><tspan
+       x="279.4707"
+       y="242.95569"
+       id="tspan2970">R15</tspan></text>
+  <rect
+     width="199.07343"
+     height="29.073423"
+     x="165.46329"
+     y="69.793976"
+     style="fill:white;fill-opacity:1;stroke:black;stroke-width:0.92657775;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+     id="rect3162" />
+  <rect
+     width="198.98"
+     height="53.979996"
+     x="165.51001"
+     y="99.840698"
+     style="fill:white;fill-opacity:1;stroke:black;stroke-width:1.01999128;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+     id="rect3164" />
+  <text
+     x="263.18457"
+     y="89.523079"
+     style="font-size:14px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:black;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Helvetica"
+     id="text3166"
+     xml:space="preserve"><tspan
+       x="263.18457"
+       y="89.523079"
+       id="tspan3168">Runway Allocation</tspan></text>
+  <text
+     x="169.2207"
+     y="126.8053"
+     style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:black;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Helvetica"
+     id="text3170"
+     xml:space="preserve"><tspan
+       x="169.2207"
+       y="126.8053"
+       id="tspan3172">runway number {I=(*1),R=(R15)}</tspan></text>
+  <text
+     x="169.63086"
+     y="111.80531"
+     style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:black;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Helvetica"
+     id="text3186"
+     xml:space="preserve"><tspan
+       x="169.63086"
+       y="111.80531"
+       id="tspan3188">airport name {I=(*1),R=(R15)}</tspan></text>
+  <path
+     d="M 264.75,154.76087 C 264.75,249.40052 264.75,249.40052 264.75,249.40052"
+     style="fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:black;stroke-width:0.65588784;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:2.62355129, 2.62355129;stroke-dashoffset:0;stroke-opacity:1"
+     id="path3190" />
+  <text
+     x="169.63086"
+     y="141.8053"
+     style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:black;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Helvetica"
+     id="text4110"
+     xml:space="preserve"><tspan
+       x="169.63086"
+       y="141.8053"
+       id="tspan4112">serial number {R=(R15)}</tspan></text>
+  <text
+     x="359.56641"
+     y="261.8053"
+     style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:black;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Helvetica"
+     id="text4114"
+     xml:space="preserve"><tspan
+       x="359.56641"
+       y="261.8053"
+       id="tspan4116">runway number {I=(*1)}</tspan></text>
+</svg>

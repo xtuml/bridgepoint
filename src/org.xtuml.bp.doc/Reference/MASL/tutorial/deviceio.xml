@@ -1,0 +1,104 @@
+<!-- 
+  UK Crown Copyright (c) 2016. All Rights Reserved
+-->
+<!-- Converted by db4-upgrade version 1.0 -->
+<chapter xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="DeviceIO"><info><title>Device Input/Output</title></info>
+  
+
+  <para><abbrev>MASL</abbrev> provides a mechanism for streaming data into and
+  out of a series of built in or user defined devices. To achieve this a
+  device type has been defined by the language. A built-in <type>device</type>
+  called <varname>console</varname> is provided, which enables data to be
+  streamed to standard output and from standard input respectively. The
+  following sections describe each of these in turn.</para>
+
+  <section xml:id="DeviceIOConsoleDevice"><info><title>Console Device</title></info>
+    
+
+    <para>The <varname>console</varname> device is a built in device type used
+    for streaming data to the output device or for reading data from the input
+    device. It does not need to be defined within any statement blocks, it can
+    just be used as in the examples in <xref linkend="DeviceIOConsoleOutput"/> and <xref linkend="DeviceIOConsoleInput"/> below.</para>
+
+    <section xml:id="DeviceIOConsoleOutput"><info><title>Console Output</title></info>
+      
+
+      <para>Console output is available for all types (i.e.
+      <type>boolean</type>, <type>string</type>etc.) except instance handles
+      where the address of the handle is streamed and container types where
+      the number of elements held is streamed; this is basically garbage
+      output for these types. The current output for container types and
+      instance handles might change in the future and so applications should
+      not become dependent upon their current format. The example below shows
+      how the console device can be used for several types. The output for the
+      <type>boolean</type> type will be streamed in its textual
+      form.<informalexample>
+          <programlisting>    int_out  : Integer := 10000;
+    real_out : real    := 1.2345;
+    bool_out : Boolean := false;
+  begin
+    console &lt;&lt;  “TEST STARTED ”;
+    console &lt;&lt; "- TEST PASSED" &lt;&lt; endl;
+    console &lt;&lt; int_out &lt;&lt; “  “ &lt;&lt; real_out  &lt;&lt; “  “&lt;&lt; bool_out &lt;&lt; endl;
+  end;</programlisting>
+        </informalexample>The output produced from the above code is shown
+      below :<informalexample>
+          <programlisting>  TEST STARTED - TEST PASSED
+  10000 1.2345 false</programlisting>
+        </informalexample></para>
+
+      <para>Several manipulators are currently supported,
+      <literal>endl</literal> and <literal>flush</literal>. The
+      <literal>endl</literal> manipulator will stream out a new line
+      character, while the <literal>flush</literal> manipulator will flush the
+      current contents of the device’s stream buffer (should any buffering be
+      provided by the device).</para>
+
+      <para>No exceptions are raised when streaming data out to the console
+      device.</para>
+    </section>
+
+    <section xml:id="DeviceIOConsoleInput"><info><title>Console Input</title></info>
+      
+
+      <para>The console device can also be used to read data from standard
+      input. This only applies for non-composite defined types. It can
+      therefore not be used for container or user defined composite types. An
+      example of its use is shown below.<informalexample>
+          <programlisting>    name_string     : string;
+    person_age      : integer;
+    employed_status : boolean;
+    childs_name     : string;
+    childs_age      : integer;
+    childs_height   : real;
+    childs_weight   : real;
+
+  begin
+    begin
+      console &lt;&lt; “Enter name  ”;     
+      console &gt;&gt; name_string;          // read in name
+
+      console &lt;&lt; “Enter Age “;
+      console  &gt;&gt;  person_age;        // read in age
+
+      console &lt;&lt; “Enter Employeed (true/false)  ”;
+      console  &gt;&gt; employed_status;
+
+      console &lt;&lt; “Enter child details  “;
+      console &gt;&gt; childs_name &gt;&gt; childs_age &gt;&gt; childs_height &gt;&gt; childs_weight;
+    end;
+
+  exception
+    when Standard::program_error =&gt;
+      // Stream error encountered…
+      // i.e entered a float for the age when integer expected.
+  end;</programlisting>
+        </informalexample></para>
+
+      <para>Should an error occur while reading data in from the
+      <literal>console</literal> device, a <abbrev>MASL</abbrev> program error
+      will be thrown. This can be caught by the application and processed
+      accordingly.</para>
+    </section>
+  </section>
+</chapter>

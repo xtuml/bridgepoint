@@ -30,13 +30,16 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.ide.IDE;
-
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.Transaction;
 import org.xtuml.bp.core.common.TransactionManager;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TextEditorUtils;
 import org.xtuml.bp.ui.explorer.ExplorerPlugin;
 import org.xtuml.bp.ui.text.activity.ActivityEditor;
@@ -52,8 +55,13 @@ import org.xtuml.bp.ui.text.test.description.DescriptionEditorInteraction;
  * activities and descriptions are properly updated when 
  * necessary.
  */
+@RunWith(OrderedRunner.class)
 public class PlaceHolderUpdateTest extends UITextTest
 {
+	public PlaceHolderUpdateTest() throws CoreException {
+		super();
+	}
+
 	private static boolean firstSetup = true;
 
     /**
@@ -66,15 +74,16 @@ public class PlaceHolderUpdateTest extends UITextTest
     /**
      * Constructor.
      */
-    public PlaceHolderUpdateTest(String name) throws CoreException 
-    {
-        super(null, name);  
-    }
+//    public PlaceHolderUpdateTest(String name) throws CoreException 
+//    {
+//        super(null, name);  
+//    }
     
     /* (non-Javadoc)
      * @see junit.framework.TestCase#setUp()
      */
-    protected void setUp() throws Exception
+    @Before
+	public void setUp() throws Exception
     {
         super.setUp();
         
@@ -95,7 +104,8 @@ public class PlaceHolderUpdateTest extends UITextTest
      * model-root ID stored within the activity's place-holder
      * file was updated during the rename.
      */
-    public void testPackageRenameUpdatesPlaceHolders() throws Exception
+    @Test
+	public void testPackageRenameUpdatesPlaceHolders() throws Exception
     {
         // open an editor on an activity in the domain
         String stateName = "Waiting for a Disk Request";
@@ -169,7 +179,8 @@ public class PlaceHolderUpdateTest extends UITextTest
      * model-root ID stored within the description's place-holder
      * file was updated during the rename.
      */
-    public void testSystemRenameUpdatesPlaceHolders() throws Exception
+    @Test
+	public void testSystemRenameUpdatesPlaceHolders() throws Exception
     {
         // open a description editor on the package
         DescriptionEditor editor = 

@@ -23,7 +23,10 @@
 package org.xtuml.bp.core.test;
 
 import org.eclipse.core.runtime.CoreException;
-
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.xtuml.bp.core.DataType_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.OperationParameter_c;
@@ -39,7 +42,7 @@ import org.xtuml.bp.core.common.TransactionManager;
 import org.xtuml.bp.core.ui.DeleteAction;
 import org.xtuml.bp.core.ui.Selection;
 import org.xtuml.bp.core.util.WorkspaceUtil;
-import org.xtuml.bp.test.TestUtil;
+import org.xtuml.bp.test.common.OrderedRunner;
 import org.xtuml.bp.test.common.TestingUtilities;
 import org.xtuml.bp.ui.canvas.Cl_c;
 import org.xtuml.bp.ui.canvas.Ooaofgraphics;
@@ -50,15 +53,16 @@ import org.xtuml.bp.ui.canvas.test.CanvasTest;
  * packages and verifying the places that use these datatypes are reverted back
  * to integer and void appropriately.
  */
+@RunWith(OrderedRunner.class)
 public class DeleteDatatypesTestGenerics extends CanvasTest {
 	private static Selection selection = Selection.getInstance();
 	private static String projectName = "DatatypeTest";
     private String test_id;
     private static Ooaofooa testRoot;
 
-    public DeleteDatatypesTestGenerics(String arg0) {
-        super(null, arg0);
-    }
+    public DeleteDatatypesTestGenerics(){
+		super(null, null);
+	}
 
     @Override
     protected String getResultName() {
@@ -71,7 +75,8 @@ public class DeleteDatatypesTestGenerics extends CanvasTest {
 	 * Since we are deleting elements out of the model with each test, we
 	 * reload the model for each test and delete it after each test.
 	 */
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
         // Turn off autobuild to stop MC-3020 builders from running
 		WorkspaceUtil.setAutobuilding(false);
@@ -85,7 +90,8 @@ public class DeleteDatatypesTestGenerics extends CanvasTest {
         TransactionManager.getSingleton().disableDialog = true;
 	}
 
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		try {
 			TestingUtilities.deleteProject(projectName);
 			TransactionManager.getSingleton().disableDialog = false;
@@ -142,6 +148,7 @@ public class DeleteDatatypesTestGenerics extends CanvasTest {
 	 * The following group of tests deletes at the various points in the
 	 * heirarchy.
 	 */
+	@Test
 	public void testDeletionOfUDT1() {
         test_id = "1";
 
@@ -172,6 +179,7 @@ public class DeleteDatatypesTestGenerics extends CanvasTest {
 		checkDatatypesReverted();
 	}
 
+	@Test
 	public void testDeletionOfUDT1ByDeletingDtp2() {
         test_id = "2";
 		Package_c dtp2 = Package_c.PackageInstance(
@@ -190,6 +198,7 @@ public class DeleteDatatypesTestGenerics extends CanvasTest {
 		checkDatatypesReverted();
 	}
 
+	@Test
 	public void testDeletionOfUDTByDeletingDtp1() {
         test_id = "3";
 		Package_c dtp1 = Package_c.PackageInstance(
@@ -208,6 +217,7 @@ public class DeleteDatatypesTestGenerics extends CanvasTest {
 		checkDatatypesReverted();
 	}
 
+	@Test
 	public void testDeletionOfUDTByDeletingPkgQ() {
         test_id = "4";
 
@@ -226,6 +236,7 @@ public class DeleteDatatypesTestGenerics extends CanvasTest {
 		checkDatatypesReverted();
 	}
 
+	@Test
 	public void testDeletionOfUDTByDeletingPkgP() {
         test_id = "5";
 
@@ -244,6 +255,7 @@ public class DeleteDatatypesTestGenerics extends CanvasTest {
 		checkDatatypesReverted();
 	}
 	
+	@Test
 	public void testDeletionOfUDTAssignedToUDT() {
 		Transaction transaction = null;
 		try {

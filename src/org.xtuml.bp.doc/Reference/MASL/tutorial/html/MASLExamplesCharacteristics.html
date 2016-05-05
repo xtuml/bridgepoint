@@ -1,0 +1,247 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>8.1. Characteristics</title>
+<link rel="stylesheet" type="text/css" href="docbook.css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<meta name="keywords" content="MASL, Action Language, Action Semantics, UML, Unified Modelling Language, Shlaer Mellor">
+<link rel="home" href="index.html" title="MASL Tutorial">
+<link rel="up" href="MASLExamples.html" title="Chapter 8. MASL Examples">
+<link rel="prev" href="MASLExamples.html" title="Chapter 8. MASL Examples">
+<link rel="next" href="MASLExamplesCreationandNavigation.html" title="8.2. Creation and Navigation">
+<link rel="preface" href="preface.html" title="Preface">
+<link rel="chapter" href="Types.html" title="Chapter 1. Types">
+<link rel="chapter" href="ExecutionControl.html" title="Chapter 2. Execution Control">
+<link rel="chapter" href="CompositeTypes.html" title="Chapter 3. Composite Types">
+<link rel="chapter" href="Exceptions.html" title="Chapter 4. Exceptions">
+<link rel="chapter" href="ObjectsandRelationships.html" title="Chapter 5. Objects and Relationships">
+<link rel="chapter" href="Actions.html" title="Chapter 6. Actions">
+<link rel="chapter" href="DeviceIO.html" title="Chapter 7. Device Input/Output">
+<link rel="chapter" href="MASLExamples.html" title="Chapter 8. MASL Examples">
+<link rel="index" href="ix01.html" title="Index">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div align="center">UNCLASSIFIED</div>
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">8.1. Characteristics</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="MASLExamples.html">Prev</a> </td>
+<th width="60%" align="center">Chapter 8. MASL Examples</th>
+<td width="20%" align="right"> <a accesskey="n" href="MASLExamplesCreationandNavigation.html">Next</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title">
+<a name="MASLExamplesCharacteristics"></a>8.1. Characteristics</h2></div></div></div>
+<p>
+</p>
+<pre class="programlisting">
+
+  t  : string;
+  i  : integer   := 1;
+  r  : real      := -99.9;
+  e  : Time_Unit := DAY;
+  b  : boolean   := false;
+  d  : record_structure_type;
+  ds : sequence of record_structure_type;
+  p  : instance of Pilot;
+  ps : sequence of instance of Pilot;
+
+begin
+   //image
+  t := i'image;
+  if (t/="1") then
+    raise Standard::constraint_error;
+  end if;
+  t := r'image;
+  if (t/="-99.900002") then
+    raise Standard::constraint_error;
+  end if;
+  t := b'image;
+  if (t/="FALSE") then
+    raise Standard::constraint_error;
+  end if;
+  t := e'image;
+  if (t/="DAY") then
+    raise Standard::constraint_error;
+  end if;
+
+  //upper
+  t := "loWer";
+  t := t'upper;
+  if (t/="LOWER") then
+    raise Standard::constraint_error;
+  end if;
+
+  //lower
+  t := "UppER";
+  t := t'lower;
+  if (t/="upper") then
+    raise Standard::constraint_error;
+  end if;
+
+  //firstcharpos
+  t := "upper";
+  i := t'firstcharpos('u');
+  if (i/=t'first) then
+    raise Standard::constraint_error;
+  end if;
+  i := t'firstcharpos('r');
+  if (i/=t'last) then
+    raise Standard::constraint_error;
+  end if;
+  t := t[t'firstcharpos('p')..t'firstcharpos('e')];
+  if (t/="ppe") then
+    raise Standard::constraint_error;
+  end if;
+  begin
+    t := t[t'firstcharpos('p')..t'firstcharpos('x')];
+    t := "error";
+  exception
+    when Standard::constraint_error =&gt;
+      null;
+  end;
+  if (t = "error") then
+    raise Standard::constraint_error;
+  end if;
+
+  //type first,last
+  if (Time_Unit'first/=MILLISECOND) then
+    raise Standard::constraint_error;
+  end if;
+  if (Time_Unit'last/=DAY) then
+    raise Standard::constraint_error;
+  end if;
+  if (octal_type'first/=0) then
+    raise Standard::constraint_error;
+  end if;
+  if (octal_type'last/=7) then
+    raise Standard::constraint_error;
+  end if;
+
+
+  //string first,last,size
+  t := "";
+  if (t'first/=0 or t'last&gt;=0 or t'length/=0)  then
+    raise Standard::constraint_error;
+  end if;
+  t := t &amp; " ";
+  if (t'first/=0 or t'last/=0 or t'length/=1)  then
+    raise Standard::constraint_error;
+  end if;
+  t := t &amp; " ";
+  if (t'first/=0 or t'last/=1 or t'length/=2)  then
+    raise Standard::constraint_error;
+  end if;
+
+
+  //collection first,last,size
+  if (ds'first/=0 or ds'last&gt;=0 or ds'length/=0)  then
+    raise Standard::constraint_error;
+  end if;
+  ds := ds &amp; d;
+  if (ds'first/=0 or ds'last/=0 or ds'length/=1)  then
+    raise Standard::constraint_error;
+  end if;
+  ds := ds &amp; d;
+  if (ds'first/=0 or ds'last/=1 or ds'length/=2)  then
+    raise Standard::constraint_error;
+  end if;
+  p := create Pilot (age=&gt;33);
+  if (ps'first/=0 or ps'last&gt;=0 or ps'length/=0)  then
+    raise Standard::constraint_error;
+  end if;
+  ps := ps &amp; p;
+  if (ps'first/=0 or ps'last/=0 or ps'length/=1)  then
+    raise Standard::constraint_error;
+  end if;
+  ps := ps &amp; p;
+  if (ps'first/=0 or ps'last/=1 or ps'length/=2)  then
+    raise Standard::constraint_error;
+  end if;
+
+  //pred,succ
+  e := MILLISECOND;
+  if (e'succ/=SECOND) then
+    raise Standard::constraint_error;
+  end if;
+  e := e'succ;
+  if (e'pred/=MILLISECOND) then
+    raise Standard::constraint_error;
+  end if;
+
+  i := 0;
+  begin
+    e := MILLISECOND;
+    e := e'pred;
+  exception
+    when Standard::constraint_error =&gt;
+      i := i + 1;
+  end;
+  begin
+    e := DAY;
+    e := e'succ;
+  exception
+    when Standard::constraint_error =&gt;
+      i := i + 1;
+  end;
+  if (i /= 2) then
+    raise Standard::constraint_error;
+  end if;
+
+  //pos
+  //i := Time_Unit'pos(MILLISECOND);
+  //if (i/=1) then
+  //  raise Standard::constraint_error;
+  //end if;
+
+  //value
+  //e := Time_Unit'value("MILLISECOND");
+  //if (e/=MILLISECOND) then
+  //  raise Standard::constraint_error;
+  //end if;
+  //t := "DAY";
+  //e := Time_Unit'value(t);
+  //if (e/=DAY) then
+  //  raise Standard::constraint_error;
+  //end if;
+
+  //find length
+  //i := find_all Pilot ()'length;
+  //if (i=0)  then
+  //  raise Standard::constraint_error;
+  //end if;
+
+end;
+
+</pre>
+<p>
+</p>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="MASLExamples.html">Prev</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="MASLExamples.html">Up</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="MASLExamplesCreationandNavigation.html">Next</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">Chapter 8. MASL Examples </td>
+<td width="20%" align="center">
+<a accesskey="h" href="index.html">Home</a> | <a accesskey="t" href="bk01-toc.html">ToC</a>
+</td>
+<td width="40%" align="right" valign="top"> 8.2. Creation and Navigation</td>
+</tr>
+</table>
+</div>
+<div align="center">UNCLASSIFIED</div>
+</body>
+</html>
