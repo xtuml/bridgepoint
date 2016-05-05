@@ -184,6 +184,9 @@ public class ${action_name} extends Action {
     .assign test = "if"
     .select many menu_entries from instances of CME
      public void deleteSelection(IStructuredSelection selection) {
+	   if (selection == null) {
+		   return;
+	   }
     .for each menu_entry in menu_entries
       .if ("$lr{menu_entry.Specialism}" == "$lr{type}")
         .invoke fn = get_func_name(menu_entry)

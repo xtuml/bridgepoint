@@ -1807,8 +1807,19 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000002",
 	1,
-	'select many rsimpParticipants related by self->R_OIR[R201]->R_RTO[R203]->R_PART[R204]->R_SIMP[R207];
-return cardinality rsimpParticipants; ',
+	'// Find the count of the relationships associated with this O_OBJ that are in the same package
+count = 0;
+select one classPkg related by self->PE_PE[R8001]->EP_PKG[R8000];
+select many rsimpParticipants related by self->R_OIR[R201]->R_RTO[R203]->R_PART[R204]->R_SIMP[R207];
+for each rsimpParticipant in rsimpParticipants
+  select one relPkg related by rsimpParticipant->R_REL[R206]->PE_PE[R8001]->EP_PKG[R8000];
+  if (classPkg.Package_ID == relPkg.Package_ID)
+    count = count+1;
+  end if;
+end for;
+return count; 
+
+',
 	1,
 	'',
 	"ee548b22-87a3-41b0-96e4-501ea5511865");
@@ -1820,16 +1831,20 @@ INSERT INTO O_TFR
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'id = GD::NULL_UNIQUE_ID();
-select many rsimpParticipants related by self->R_OIR[R201]->R_RTO[R203]->R_PART[R204]->R_SIMP[R207];
 // We''re preincrementing the index
 count = -1;
-for each rsimp in rsimpParticipants
-  count = count + 1;
-  if (count == param.index)
-    id = rsimp.Rel_ID;
-    break;
+select one classPkg related by self->PE_PE[R8001]->EP_PKG[R8000];
+select many rsimpParticipants related by self->R_OIR[R201]->R_RTO[R203]->R_PART[R204]->R_SIMP[R207];
+for each rsimpParticipant in rsimpParticipants
+  select one relPkg related by rsimpParticipant->R_REL[R206]->PE_PE[R8001]->EP_PKG[R8000];
+  if (classPkg.Package_ID == relPkg.Package_ID)
+    count = count+1;
+    if (count == param.index)
+      id = rsimpParticipant.Rel_ID;
+      break;
+    end if;
   end if;
-end for; 
+end for;
 return id;',
 	1,
 	'',
@@ -1850,8 +1865,18 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000002",
 	1,
-	'select many rSupers related by self->R_OIR[R201]->R_RTO[R203]->R_SUPER[R204];
-return cardinality rSupers; ',
+	'// Find the count of the relationships associated with this O_OBJ that are in the same package
+count = 0;
+select one classPkg related by self->PE_PE[R8001]->EP_PKG[R8000];
+select many rSupers related by self->R_OIR[R201]->R_RTO[R203]->R_SUPER[R204];
+for each rSuper in rSupers
+  select one relPkg related by rSuper->R_SUBSUP[R212]->R_REL[R206]->PE_PE[R8001]->EP_PKG[R8000];
+  if (classPkg.Package_ID == relPkg.Package_ID)
+    count = count+1;
+  end if;
+end for;
+return count; 
+',
 	1,
 	'',
 	"a277ff05-b735-4675-909f-94dbb86d789a");
@@ -1863,16 +1888,20 @@ INSERT INTO O_TFR
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'id = GD::NULL_UNIQUE_ID();
-select many rSupers related by self->R_OIR[R201]->R_RTO[R203]->R_SUPER[R204];
 // We''re preincrementing the index
 count = -1;
-for each rsuper in rSupers
-  count = count + 1;
-  if (count == param.index)
-    id = rsuper.Rel_ID;
-    break;
+select one classPkg related by self->PE_PE[R8001]->EP_PKG[R8000];
+select many rSupers related by self->R_OIR[R201]->R_RTO[R203]->R_SUPER[R204];
+for each rSuper in rSupers
+  select one relPkg related by rSuper->R_SUBSUP[R212]->R_REL[R206]->PE_PE[R8001]->EP_PKG[R8000];
+  if (classPkg.Package_ID == relPkg.Package_ID)
+    count = count+1;
+    if (count == param.index)
+      id = rSuper.Rel_ID;
+      break;
+    end if;
   end if;
-end for; 
+end for;
 return id;',
 	1,
 	'',
@@ -1893,8 +1922,18 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000002",
 	1,
-	'select many rSubtypes related by self->R_OIR[R201]->R_RGO[R203]->R_SUB[R205];  
-return cardinality rSubtypes; ',
+	'// Find the count of the relationships associated with this O_OBJ that are in the same package
+count = 0;
+select one classPkg related by self->PE_PE[R8001]->EP_PKG[R8000];
+select many rSubtypes related by self->R_OIR[R201]->R_RGO[R203]->R_SUB[R205];  
+for each rSubtype in rSubtypes
+  select one relPkg related by rSubtype->R_SUBSUP[R213]->R_REL[R206]->PE_PE[R8001]->EP_PKG[R8000];
+  if (classPkg.Package_ID == relPkg.Package_ID)
+    count = count+1;
+  end if;
+end for;
+return count; 
+',
 	1,
 	'',
 	"697d5d0d-8242-4d2a-83f4-1b29713f745b");
@@ -1906,16 +1945,20 @@ INSERT INTO O_TFR
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'id = GD::NULL_UNIQUE_ID();
-select many rSubtypes related by self->R_OIR[R201]->R_RGO[R203]->R_SUB[R205];  
 // We''re preincrementing the index
 count = -1;
-for each rsub in rSubtypes
-  count = count + 1;
-  if (count == param.index)
-    id = rsub.Rel_ID;
-    break;
+select one classPkg related by self->PE_PE[R8001]->EP_PKG[R8000];
+select many rSubtypes related by self->R_OIR[R201]->R_RGO[R203]->R_SUB[R205];  
+for each rSubtype in rSubtypes
+  select one relPkg related by rSubtype->R_SUBSUP[R213]->R_REL[R206]->PE_PE[R8001]->EP_PKG[R8000];
+  if (classPkg.Package_ID == relPkg.Package_ID)
+    count = count+1;
+    if (count == param.index)
+      id = rSubtype.Rel_ID;
+      break;
+    end if;
   end if;
-end for; 
+end for;
 return id;',
 	1,
 	'',
@@ -1936,8 +1979,18 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000002",
 	1,
-	'select many rAssocOnes related by self->R_OIR[R201]->R_RTO[R203]->R_AONE[R204]->R_ASSOC[R209];
-return cardinality rAssocOnes; ',
+	'// Find the count of the relationships associated with this O_OBJ that are in the same package
+count = 0;
+select one classPkg related by self->PE_PE[R8001]->EP_PKG[R8000];
+select many rAssocOnes related by self->R_OIR[R201]->R_RTO[R203]->R_AONE[R204]->R_ASSOC[R209];
+for each rAssocOne in rAssocOnes
+  select one relPkg related by rAssocOne->R_REL[R206]->PE_PE[R8001]->EP_PKG[R8000];
+  if (classPkg.Package_ID == relPkg.Package_ID)
+    count = count+1;
+  end if;
+end for;
+return count; 
+',
 	1,
 	'',
 	"9fd4648d-e8ac-4210-a160-049149f61380");
@@ -1949,16 +2002,20 @@ INSERT INTO O_TFR
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'id = GD::NULL_UNIQUE_ID();
-select many rAssocOnes related by self->R_OIR[R201]->R_RTO[R203]->R_AONE[R204]->R_ASSOC[R209];
 // We''re preincrementing the index
 count = -1;
+select one classPkg related by self->PE_PE[R8001]->EP_PKG[R8000];
+select many rAssocOnes related by self->R_OIR[R201]->R_RTO[R203]->R_AONE[R204]->R_ASSOC[R209];
 for each rAssocOne in rAssocOnes
-  count = count + 1;
-  if (count == param.index)
-    id = rAssocOne.Rel_ID;
-    break;
+  select one relPkg related by rAssocOne->R_REL[R206]->PE_PE[R8001]->EP_PKG[R8000];
+  if (classPkg.Package_ID == relPkg.Package_ID)
+    count = count+1;
+    if (count == param.index)
+      id = rAssocOne.Rel_ID;
+      break;
+    end if;
   end if;
-end for; 
+end for;
 return id;',
 	1,
 	'',
@@ -1979,8 +2036,18 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000002",
 	1,
-	'select many rsimpFormalizers related by self->R_OIR[R201]->R_RGO[R203]->R_FORM[R205]->R_SIMP[R208];
-return cardinality rsimpFormalizers; ',
+	'// Find the count of the relationships associated with this O_OBJ that are in the same package
+count = 0;
+select one classPkg related by self->PE_PE[R8001]->EP_PKG[R8000];
+select many rsimpFormalizers related by self->R_OIR[R201]->R_RGO[R203]->R_FORM[R205]->R_SIMP[R208];
+for each rsimpFormalizer in rsimpFormalizers
+  select one relPkg related by rsimpFormalizer->R_REL[R206]->PE_PE[R8001]->EP_PKG[R8000];
+  if (classPkg.Package_ID == relPkg.Package_ID)
+    count = count+1;
+  end if;
+end for;
+return count; 
+',
 	1,
 	'',
 	"c4bae28f-7061-4a5e-97c8-7cd2f5ba072d");
@@ -1992,16 +2059,20 @@ INSERT INTO O_TFR
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'id = GD::NULL_UNIQUE_ID();
-select many rsimpFormalizers related by self->R_OIR[R201]->R_RGO[R203]->R_FORM[R205]->R_SIMP[R208];
 // We''re preincrementing the index
 count = -1;
-for each rsimp in rsimpFormalizers
-  count = count + 1;
-  if (count == param.index)
-    id = rsimp.Rel_ID;
-    break;
+select one classPkg related by self->PE_PE[R8001]->EP_PKG[R8000];
+select many rsimpFormalizers related by self->R_OIR[R201]->R_RGO[R203]->R_FORM[R205]->R_SIMP[R208];
+for each rsimpFormalizer in rsimpFormalizers
+  select one relPkg related by rsimpFormalizer->R_REL[R206]->PE_PE[R8001]->EP_PKG[R8000];
+  if (classPkg.Package_ID == relPkg.Package_ID)
+    count = count+1;
+    if (count == param.index)
+      id = rsimpFormalizer.Rel_ID;
+      break;
+    end if;
   end if;
-end for; 
+end for;
 return id;',
 	1,
 	'',
@@ -2022,8 +2093,18 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000002",
 	1,
-	'select many rAssocOthers related by self->R_OIR[R201]->R_RTO[R203]->R_AOTH[R204]->R_ASSOC[R210];
-return cardinality rAssocOthers; ',
+	'// Find the count of the relationships associated with this O_OBJ that are in the same package
+count = 0;
+select one classPkg related by self->PE_PE[R8001]->EP_PKG[R8000];
+select many rAssocOthers related by self->R_OIR[R201]->R_RTO[R203]->R_AOTH[R204]->R_ASSOC[R210];
+for each rAssocOther in rAssocOthers
+  select one relPkg related by rAssocOther->R_REL[R206]->PE_PE[R8001]->EP_PKG[R8000];
+  if (classPkg.Package_ID == relPkg.Package_ID)
+    count = count+1;
+  end if;
+end for;
+return count; 
+',
 	1,
 	'',
 	"7f972570-39d9-4ced-8095-1e3164456e27");
@@ -2035,16 +2116,20 @@ INSERT INTO O_TFR
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'id = GD::NULL_UNIQUE_ID();
-select many rAssocOthers related by self->R_OIR[R201]->R_RTO[R203]->R_AOTH[R204]->R_ASSOC[R210];
 // We''re preincrementing the index
 count = -1;
+select one classPkg related by self->PE_PE[R8001]->EP_PKG[R8000];
+select many rAssocOthers related by self->R_OIR[R201]->R_RTO[R203]->R_AOTH[R204]->R_ASSOC[R210];
 for each rAssocOther in rAssocOthers
-  count = count + 1;
-  if (count == param.index)
-    id = rAssocOther.Rel_ID;
-    break;
+  select one relPkg related by rAssocOther->R_REL[R206]->PE_PE[R8001]->EP_PKG[R8000];
+  if (classPkg.Package_ID == relPkg.Package_ID)
+    count = count+1;
+    if (count == param.index)
+      id = rAssocOther.Rel_ID;
+      break;
+    end if;
   end if;
-end for; 
+end for;
 return id;',
 	1,
 	'',
@@ -2065,8 +2150,17 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000002",
 	1,
-	'select many ClassAsLinks related by self->R_OIR[R201]->R_RGO[R203]->R_ASSR[R205];  
-return cardinality ClassAsLinks; 
+	'// Find the count of the relationships associated with this O_OBJ that are in the same package
+count = 0;
+select one classPkg related by self->PE_PE[R8001]->EP_PKG[R8000];
+select many classAsLinks related by self->R_OIR[R201]->R_RGO[R203]->R_ASSR[R205];  
+for each classAsLink in classAsLinks
+  select one relPkg related by classAsLink->R_ASSOC[R211]->R_REL[R206]->PE_PE[R8001]->EP_PKG[R8000];
+  if (classPkg.Package_ID == relPkg.Package_ID)
+    count = count+1;
+  end if;
+end for;
+return count; 
 ',
 	1,
 	'',
@@ -2079,16 +2173,20 @@ INSERT INTO O_TFR
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'id = GD::NULL_UNIQUE_ID();
-select many classAsLinks related by self->R_OIR[R201]->R_RGO[R203]->R_ASSR[R205];  
 // We''re preincrementing the index
 count = -1;
+select one classPkg related by self->PE_PE[R8001]->EP_PKG[R8000];
+select many classAsLinks related by self->R_OIR[R201]->R_RGO[R203]->R_ASSR[R205];  
 for each classAsLink in classAsLinks
-  count = count + 1;
-  if (count == param.index)
-    id = classAsLink.Rel_ID;
-    break;
+  select one relPkg related by classAsLink->R_ASSOC[R211]->R_REL[R206]->PE_PE[R8001]->EP_PKG[R8000];
+  if (classPkg.Package_ID == relPkg.Package_ID)
+    count = count+1;
+    if (count == param.index)
+      id = classAsLink.Rel_ID;
+      break;
+    end if;
   end if;
-end for; 
+end for;
 return id;',
 	1,
 	'',

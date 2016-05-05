@@ -1002,7 +1002,7 @@ public class PersistenceManager {
 		try {
 			importer = CorePlugin.getModelImportFactory().create(
 					pmc.getFile(), Ooaofooa.getDefaultInstance(),
-					pmc, false, false, false, false);
+					pmc, false, false, false, false, true);
 			return importer.getHeader();
 		} catch (IOException e) {
 			CorePlugin.logError("Unable to retrieve file format version.",

@@ -789,9 +789,8 @@ public class ModelMergeProcessor {
 		processor.setDestinationElement(parent);
 		ByteArrayInputStream in = new ByteArrayInputStream(export.getBytes());
 		try {
-			CoreImport.createUniqueIds = false;
 			IModelImport importer = CorePlugin.getStreamImportFactory().create(
-					in, modelRoot, false, Path.EMPTY);
+					in, modelRoot, false, Path.EMPTY, false);
 			processor.runImporter(importer, new NullProgressMonitor());
 			// locate the new object from the loaded instances
 			NonRootModelElement[] loadedInstances = importer
@@ -852,9 +851,7 @@ public class ModelMergeProcessor {
 			}
 		} catch (IOException e) {
 			CorePlugin.logError("Unable to import external merge data.", e);
-		} finally {
-			CoreImport.createUniqueIds = true;
-		}
+		} 
 		return newObject;
 	}
 
@@ -1512,9 +1509,8 @@ public class ModelMergeProcessor {
 		processor.setContents(export);
 		ByteArrayInputStream in = new ByteArrayInputStream(export.getBytes());
 		try {
-			CoreImport.createUniqueIds = false;
 			IModelImport importer = CorePlugin.getStreamImportFactory().create(
-					in, Ooaofooa.getInstance(modelRoot.getId()), false, Path.EMPTY);
+					in, Ooaofooa.getInstance(modelRoot.getId()), false, Path.EMPTY, false);
 			processor.runImporter(importer, new NullProgressMonitor());
 			// locate the new object from the loaded instances
 			NonRootModelElement[] loadedInstances = importer
@@ -1530,9 +1526,7 @@ public class ModelMergeProcessor {
 			}
 		} catch (IOException e) {
             CorePlugin.logError("Unable to import copy", e);
-		} finally {
-			CoreImport.createUniqueIds = true;
-		}
+		} 
         return newObject;
 	}
 

@@ -532,8 +532,17 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000002",
 	1,
-	'select many satisfactions related by self->C_SF[R4002];
-return cardinality satisfactions;',
+	'count = 0;
+select one outerPkg related by self->C_IR[R4009]->C_PO[R4016]->C_C[R4010]->PE_PE[R8001]->EP_PKG[R8000];
+select many satisfactions related by self->C_SF[R4002];
+for each satisfaction in satisfactions
+  select one sPkg related by satisfaction->PE_PE[R8001]->EP_PKG[R8000];
+  if (outerPkg.Package_ID == sPkg.Package_ID)
+    count = count+1;
+  end if;
+end for;
+return count;
+',
 	1,
 	'',
 	"ace34cf1-b65a-413a-a966-ced6165ba2bd");

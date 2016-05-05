@@ -55,6 +55,7 @@ public abstract class CopyAction extends CopyCutAction {
 		return COPY_TYPE;
 	}
 
+	@Override
 	protected void postRun() {
 		// do nothing yet
 	}

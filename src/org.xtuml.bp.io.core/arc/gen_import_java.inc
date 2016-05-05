@@ -505,8 +505,8 @@ public class ${class_name} extends CoreImport
             .assign parentC = "SystemModel_c"
       .end if
     .if(multilevel and setComponent)
-    public ${class_name}(IFile file, ${var.main_class_name} aModelRoot, PersistableModelComponent component, boolean parseAll, boolean clearDatabase, boolean parseGraphics, boolean isTemplate) throws IOException {
-        super(aModelRoot, file.getLocation().toOSString(), clearDatabase, isTemplate);
+    public ${class_name}(IFile file, ${var.main_class_name} aModelRoot, PersistableModelComponent component, boolean parseAll, boolean clearDatabase, boolean parseGraphics, boolean isTemplate, boolean createUniqueIdDuringImport) throws IOException {
+        super(aModelRoot, file.getLocation().toOSString(), clearDatabase, isTemplate, createUniqueIdDuringImport);
         m_component = component;
         m_parseAll = parseAll;
         m_parseGraphics = parseGraphics;
@@ -523,8 +523,8 @@ public class ${class_name} extends CoreImport
                 }
         }
     }
-    public ${class_name}(InputStream inStream, ${var.main_class_name} aModelRoot, PersistableModelComponent component, boolean parseAll, boolean clearDatabase, boolean parseGraphics, boolean isTemplate) throws IOException {
-        super(aModelRoot, inStream, clearDatabase, isTemplate);
+    public ${class_name}(InputStream inStream, ${var.main_class_name} aModelRoot, PersistableModelComponent component, boolean parseAll, boolean clearDatabase, boolean parseGraphics, boolean isTemplate, boolean createUniqueIdDuringImport) throws IOException {
+        super(aModelRoot, inStream, clearDatabase, isTemplate, createUniqueIdDuringImport);
         m_parseAll = parseAll;
         m_inFile = streamFileName;
         m_parseGraphics = parseGraphics;
@@ -533,24 +533,24 @@ public class ${class_name} extends CoreImport
     .else
         .if (callingProject == "NBP")
           .if(not multilevel)
-    public ${class_name}(InputStream inStream, ${var.main_class_name} aModelRoot, ${parentC} parent, boolean parseAll, boolean clearDatabase, boolean parseGraphics, boolean isTemplate) throws IOException {
-        super(aModelRoot, inStream, clearDatabase, isTemplate);
+    public ${class_name}(InputStream inStream, ${var.main_class_name} aModelRoot, ${parentC} parent, boolean parseAll, boolean clearDatabase, boolean parseGraphics, boolean isTemplate, boolean createUniqueIdDuringImport) throws IOException {
+        super(aModelRoot, inStream, clearDatabase, isTemplate, createUniqueIdDuringImport);
         m_parseAll = parseAll;
         m_inFile = streamFileName;
         m_parseGraphics = parseGraphics;
         m_parent = parent;
     }
             .else
-    public ${class_name}(InputStream inStream, ${var.main_class_name} aModelRoot, boolean clearDatabase, IPath projectRelativePath) throws IOException {
-        super(aModelRoot, inStream, clearDatabase, false);
+    public ${class_name}(InputStream inStream, ${var.main_class_name} aModelRoot, boolean clearDatabase, IPath projectRelativePath, boolean createUniqueIdDuringImport) throws IOException {
+        super(aModelRoot, inStream, clearDatabase, false, createUniqueIdDuringImport);
         m_inFile = streamFileName;
         projRelPath = projectRelativePath;
     }
             .end if
         .end if
         .if(not multilevel)
-    public ${class_name}(String fileName, ${var.main_class_name} aModelRoot, ${parentC} parent, boolean parseAll, boolean clearDatabase, boolean isTemplate) throws FileNotFoundException {
-        super(aModelRoot, fileName, clearDatabase, isTemplate);
+    public ${class_name}(String fileName, ${var.main_class_name} aModelRoot, ${parentC} parent, boolean parseAll, boolean clearDatabase, boolean isTemplate, boolean createUniqueIdDuringImport) throws FileNotFoundException {
+        super(aModelRoot, fileName, clearDatabase, isTemplate, createUniqueIdDuringImport);
         m_inFile = fileName;
         m_parseAll = parseAll;
         m_parent = parent;

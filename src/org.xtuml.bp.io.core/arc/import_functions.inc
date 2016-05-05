@@ -741,7 +741,7 @@ ${setSize.body}
                 	}
                 }
                 helper.addPortReferenceInstances(loadedInstances);
-                if(createUniqueIds) {                
+                if(m_createUniqueIdDuringImport) {
 	                // then for every loaded instance update
 	                // any unique id UUID value
 	                for (int i = 0; i < loadedInstances.size(); i++) {
