@@ -245,7 +245,10 @@ $ cd <git>/pyrsl
 $ ./package_pyz.sh -gituser <github username> -pyxtuml <git branch name> -pyrsl <git branch name>
 - Copy created gen_erate.pyz into mc3020/bin folder to use it
 ```  
-  
+
+7.2 Updated the build scripts to stop moving `gen_erate.pyz` out of the way for
+  the linux-based server build.  We now have the ability to use it to build
+  BridgePoint on linux, so this change leaves it in place where it can be used.  
 
 8. User Documentation
 ---------------------
