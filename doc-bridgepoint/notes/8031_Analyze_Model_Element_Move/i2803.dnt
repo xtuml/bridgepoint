@@ -1,0 +1,339 @@
+========================================================================
+
+File:      $RCSfile$
+Version:   $Revision$
+Modified:  $Date$
+
+(c) Copyright 2007-2009 by Mentor Graphics Corp. All rights reserved.
+
+========================================================================
+This document contains information proprietary and confidential to
+Mentor Graphics Corp., and is not for external distribution.
+========================================================================
+
+BridgePoint Project Design Note
+Initial copy/cut/paste support
+
+1. Abstract
+-----------
+This note describes the changes required to implement infrastructure for
+supporting copy/cut/paste.
+
+It also describes the changes required to support the following elements:
+
+Data Type Package
+User Data Type
+Enumeration Data Type
+External Entity Package
+External Entity
+Subsystem
+Model Class
+Imported Class
+Association
+
+2. History
+----------
+
+3. Document References
+----------------------
+[1] Bugzilla item 2375
+    http://tucson.wv.mentorg.com//bugzilla/show_bug.cgi?id=2375
+[2] Bugzilla item 2803
+    http://tucson.wv.mentorg.com//bugzilla/show_bug.cgi?id=2803
+[3] Documentation/internal/technical/notes/i2375.ant
+[4] Documentation/internal/technical/notes/i2375-01.int
+    
+4. Background
+-------------
+The BridgePoint tool code named Tiger, has never had copy/cut/paste support.
+
+5. Analysis
+-----------
+See [3].
+
+6. Design
+---------
+6.1 Infrastructure
+
+6.1.1 Copying elements to the system clipboard
+
+It was decided that we would leverage the io code to export SQL statements to
+the clipboard.  This has it's advantages in that it allows for copying across
+multiple BridgePoint instances as well as across different computer systems.
+
+The eclipse TextTransfer class is used to store the SQL output to the clipboard.
+
+In addition to the SQL statements a header is appended to the output with the
+following format:
+
+-- ClipboardData types-contained: Element Types (comma separated)
+
+This allows us to determine when infact the clipboard contains BridgePoint
+paste-able SQL statements.  The Element Types part is used to determine what
+elements are actually being pasted.
+
+When cutting we simply call the dispose operation of the selected elements after
+copying the data to the clipboard.
+
+6.1.2 Define stream pei data
+
+We wanted to prevent the need for creating yet another pei data structure for
+this work.  However it was not possible.  This is due to the following facts:
+
+1) The stream data needs to be organized differently (not something that can
+	 simply be resolved through coloring data)
+2) The stream data must have different proxy boundaries.
+
+A new pei data structure, stream.pei.sql, is created to handle this.
+
+6.1.3 Guarantee uniqueness
+
+Two things occur to guarantee uniqueness for newly pasted elements.  During the
+import process all elements have newly created ids.
+
+During the pasting operations in the ooaofooa unique names are determined and
+set.
+
+6.1.4 Resolve proxies to elements in destination
+
+During the paste operation proxies are processed.  This processing gets a list
+of all referring objects of a proxy.  For each of them a call is made to a
+similar operation, if existent, in the ooaofooa.  These operations have the
+following format for their names:
+
+resolve<Element Name>, i.e, resolveDataType.
+
+It is the responsibility of these operations to handle the resolution.
+
+6.1.5 Handle graphical placement of pasted elements
+
+For this version of paste we are only supporting copying of graphical elements.
+This allows us to have a subtype of the common paste action in the canvas
+plugin.  The supertype action calls a method named runSubtypeProcessing.  This
+method in the canvas plugin will determine, from the elements copied, an offset
+to move the newly pasted elements with respect to the paste mouse location.  The
+rules for determining this offset are:
+
+1) Determine the extent of the selected elements
+2) Determine the offset based on the top left most corner of the extent and the
+   mouse down position
+
+6.2 Support intial elements
+
+The following oeprations have been added:
+
+Domain.pasteDataTypePackage
+Domain.pasteExternalEntityPackage
+Domain.pasteFunctionPackage
+Domain.pasteSubsystem
+
+Data Type Package.pasteDatatypePackage
+Data Type Package.pasteEnumerationData
+Data Type Package.pasteUserDataType
+Data Type Package.handleUserDataTypeResolution
+Data Type Package.canCopyUserDataType
+Data Type Package.associateDTSWithDomain
+Data Type Package.associateDTSWithSystem
+Data Type Package.getDomainId
+Data Type Package.getSystemId
+
+Data Type.associateDTWithDomain
+Data Type.associateDTWithSystem
+
+Bridge.resolveDatatype
+
+Bridge Parameter.resolveDatatype
+
+External Entity Package.associateChildPackagesToDomain
+External Entity Package.pasteExternalEntity
+External Entity Package.pasteExternalEntityPackage
+
+Function.resolveDatatype
+
+Function Package.pasteFunctionPackage
+
+Function Parameter.resolveDatatype
+
+Subsystem.pasteAssociation
+Subsystem.pasteClassAsLink
+Subsystem.pasteClassAsSubtype
+Subsystem.pasteImportedClass
+Subsystem.pasteModelClass
+Subsystem.pasteSubsystem
+Subsystem.associateChildSubsystemToDomain
+
+System Model.pasteDatatypePackage
+
+User Data Type.resolveDatatype
+
+Attribute.resolveDatatype
+
+Imported Class.resolveModelClass
+
+Model Class.pasteAttribute
+
+Operation.resolveDatatype
+
+Operation Parameter.resolveDatatype
+
+All operations do as their name suggests.
+
+6.3 Parse copied activities
+
+The paste action is designed to start a second transaction after the initial
+paste transaction has occured.  This transaction is responsible for parsing all
+element's which contain activity.  The transaction must be run after the initial
+transaction so that all elements are persisted before any problem markers are
+created.
+
+7. Design Comments
+------------------
+
+8. Work Required
+----------------
+Refer to Design section.
+
+9. Unit Test
+------------
+_- For each MC test model
+  _- Copy all subsystems
+  _- Paste all subsystems into a new model
+  _- Copy all data type packages
+  _- Paste all data type packages into a new model
+  _- Copy all EE packages 
+  _- Paste all EE packages into a new model
+  _- Copy all function packages
+  _- Paste all function packages into a new model
+  _- Compare the original model to the copie
+  _R There are no structural differences
+  
+_- Cut an element
+_R The original element is removed  
+_- Undo the cut operation
+_R The original element is restored
+
+_- Right click over the default "Datatypes" dt package
+_R The Cut menu item is not available
+
+_- Select the default "Datatypes" dt package
+_- Add a SS to the selection
+_- Right click
+_R The cut and copy menu items are not available
+
+_- Copy all classes from the Microwave Oven subsystem
+_- Paste all classes into the same subsystem
+_R All elements are pasted
+_R All class names are unique
+_R All associations have unique numbers
+_- Undo the paste
+_R All pasted elements are removed
+_- Redo the paste
+_R All pasted elements are restored
+
+_- Copy a Data Type Package from a domain
+_- Paste the Data Type Package into the system diagram
+_R The package is pasted correctly
+
+_- Right click on a UDT with a gen type other than 0
+_R The Cut/Copy menu items are not available
+
+_- Select two classes without selecting an association between them
+_- Copy the selection
+_- Paste the copy
+_R Only the two classes are pasted
+
+_- Select two classes and a supertype and subtype between them
+_- Copy and paste the selection
+_R The Supertype and subtype lines are pasted
+
+_- Select three classes which utilize a linked association
+_- Copy and paste the selection
+_R The linked association is pasted
+
+_- Copy a UDT
+_- Paste the UDT
+_R The original core type is resolved
+
+_- Copy an EDT
+_- Paste the EDT
+_R The EDT is pasted correctly
+
+_- Copy a Subsystem w/children
+_- Paste a Subsystem w/children
+_R The Subsystem is pasted correctly
+_R The children are pasted as well
+
+_- Copy an External Entity Package w/children
+_- Paste the package
+_R The package and children are pasted correctly
+
+_- Copy an External Entity
+_- Paste the External Entity
+_R The External Entity is pasted correctly
+_R The bridge operations point at valid core data types
+_R The bridge operation parameters point at valid core data types
+
+_- Copy a class with operations
+_- Paste the class
+_R The class is pasted correctly
+_R The classes operations and operation parameters point at valid core data
+   types
+
+_- Copy all elements from the Microwave Oven domain except for the Datatypes
+   package
+_- Paste all elements into a new empty domain
+_R Problem markers are created, which are related to the missing tube_wattage
+   enumeration data type
+_R Persisted OAL instances exist in the model files
+
+End
+---
+
+$Log$
+Revision 1.3  2009/01/01 23:12:57  rmulvey
+Job:4060
+Batch promotion of copyright changes from Review-i4060 and Review-i4060-01.
+
+Revision 1.2.4.1  2008/12/31 16:10:00  rmulvey
+Job:4060
+This is a batch commit of 2009 copyright changes to branch Review-i4060.  This includes the
+report that outlines all changes made (before/after for each line changed).  This report is found here: <cvs>/Documentation/internal/test_results/R2_1_2/i4060/update-copyright-results.txt.
+
+Revision 1.2  2007/08/31 21:26:35  rmulvey
+Job:2673
+Moved the notes associated with closed issue into Documentation/technical/archive/20070830/notes
+
+Revision 1.7  2007/03/22 20:51:29  rmulvey
+Job:2803
+Removed invalid unit test.
+
+Revision 1.6  2007/03/21 22:02:26  tlondon
+Job: 2803
+
+Remove test to copy the default dt package as it is not allowed by the tool.
+
+Revision 1.5  2007/03/21 21:34:17  tlondon
+Job: 2803
+
+Note that MC copied models are compared and the MC tests are not run.
+
+Revision 1.4  2007/03/20 23:06:07  tlondon
+Job: 2803
+
+Add entry for parsing
+Add test for parsing
+
+Revision 1.3  2007/03/20 16:59:14  tlondon
+Job: 2803
+
+Add a couple of menu item tests
+
+Revision 1.2  2007/03/16 18:47:29  tlondon
+Job: 2803
+
+Add a few more tests.
+
+Revision 1.1  2007/03/15 23:02:55  tlondon
+Job: 2803
+
+Initial.

@@ -1,0 +1,194 @@
+========================================================================
+
+File:      $RCSfile: dts0100911019.dnt,v $
+Version:   $Revision: 1991 $
+Modified:  $Date: 2012-11-02 14:29:43 -0700 (Fri, 02 Nov 2012) $
+
+(c) Copyright 2007-2012 by Mentor Graphics Corp. All rights reserved.
+
+========================================================================
+This document contains information proprietary and confidential to
+Mentor Graphics Corp., and is not for external distribution.
+========================================================================
+
+BridgePoint Project Design Note
+Initial element naming succeeds but ClearCase plugin still detects default name
+
+1. Abstract
+-----------
+A customer that is using ClearCase as their RCS reported that when the name 
+provided for an element is invalid the element is created anyway and given the
+default name.   In this specific case the reason the given name was invalid 
+was that the element was already in use.  The customer believes no element
+should be created in this situation.
+
+2. History
+----------
+
+
+3. Document References
+----------------------
+[1] ClearQuest DEI dts0100911019
+[2] ClearQuest DEI dts0100750573
+    Prompt user for model element name upon creation
+
+4. Background
+-------------
+In the work that was done to implement the ability to provide a specified name
+for elements during creation [2] the approach taken was to simply invoke the
+rename dialog at the time an element is created.  The design note [2] called-out
+just 3 places that had to be modified to implement that solution.   The root 
+cause of the problem described by this issue is that it is simply not right 
+to create an element before the user-provided name has been verified.   Right
+now some of the code implemented by [2] does create a element with the
+default name before the name provided by the user has been validated.
+ 
+
+5. Requirements
+---------------
+5.1 Element name selection and validation must occur before persistence.
+5.2 The cancel of a rename operation must leave the model unchanged.
+
+
+6. Analysis
+-----------
+6.1 When Creating a new element while the option "Use default names for model 
+    elements" is disabled, a pop up dialog shows for the usee to enter a new 
+    name for the newly created element. 
+    
+    The above process occurs in two separate steps.  
+6.1.1 The first step is creating and persisting the new element with the 
+    default name "Unnamed <element>". 
+6.1.2 The second step is renaming that element with the new name entered in the 
+    dialog using the method RenameAction.handleRename().
+6.2 The problem with the above approach is as follows:         
+6.2.1 The rename dialog is shown after persistence for the element with the 
+    default name has already occurred.
+6.2.2 The cancel button in the rename dialog would cancel the renaming
+    transaction itself and not the creation transaction, leaving the model 
+    with an element created with the default name.     
+6.3 The above behavior causes problems when dealing with a project that lives in 
+    a resource configuration management system, so it's modified as shown in the 
+    design section.    
+
+
+7. Design
+---------
+7.1 Instead of handling rename in a separate transaction, rename is handled 
+    during element creation. While element is being initialized, it gets its 
+    default name set. During initialization a method call for handling rename is
+    added as shown below:
+    
+7.1.1 A new native java function is added named "handleRenameWhileCreation()"
+      it has three parameters:
+      - Object instance : convert the element to instance
+      - String name : is the default name for naming the element 
+      - boolean validateName: that enables or disables name validation because
+                              informal elements don't need name validation
+      
+      This function checks for the USE_DEFAULT_NAME_FOR_CREATION option and if 
+      it is not set, it displays a rename dialog for the user.
+      If the user enters an invalid name, or cancels the dialog box, the newly 
+      created element gets disposed. In case of invalid name entered, an error
+      message pops up showing the reason why the entered name is invalid.
+      The function returns the new entered name if it's valid, or it returns 
+      null in case of invalid name or canceling the rename dialog.
+      If the USE_DEFAULT_NAME_FOR_CREATION option is not set the function 
+      returns the default unique name for the element.
+            
+7.1.2 The operation responsible for setting the default name for the element is 
+      the class operation "initialize()".
+      It gets called in each new*() operation.
+      The "initialize()" operation for each element that has the 
+      rename_while_creation feature, gets modified.
+      A call to "handleRenameWhileCreation ()" function is added.
+      Then check for the return value of that function and if the returned value
+      is null then the element gets disposed, else the name gets set with the 
+      return string value.
+      
+7.2 Remove the work done for handling rename after creation. Remove the calls 
+    for the RenameAction.handleRename() method from all the New*actions.
+    Remove the call from ShapeCreationCommand.excute() as well.
+
+
+8. Design Comments
+------------------
+8.1 The following solution was the first proposed solution:
+8.1.1 Do not to start a transaction in the rename dialog.  Instead just leave 
+     the creation transaction open.  
+    By leaving the creation transaction open no element is persisted until after
+    the user provides a name AND a cancel rolls back the entire operation.
+    
+8.1.2 Add support for canceling the transaction depending on the result 
+    from the "rename" (validation of the name provided by the user).
+
+8.2 The Above solution had two major problems:
+8.2.1 It included changing the execution for the rename query from being
+      asynchronous to be synchronous. While it was asynchronous to make sure 
+      that the operation that triggered the action is completed. Otherwise this
+	  leads to problems when the icon of the item being renamed
+      is clicked (i.e., which causes the rename text widget
+	  to lose focus and trigger this method).
+	  
+ 8.2.2 The creation of elements using the pallet was not done within  a 
+       transaction and the only transaction was creation for "new*()" method
+       call. 
+    
+9. Work Required
+----------------
+Stated in the Design section
+
+
+10. Unit Test
+------------
+10.1 Rerun the unit tests create for [2] and assure they still pass.
+10.2 Assure no modification occurs to a model before the successful rename 
+     action.
+_- Start with a model checked-out from a RCS that is using pessimistic 
+   locking
+   svn://tucson.wv.mentorg.com/arch1/products/tiger/doc_repository/trunk/Models/
+         Test/SVNPessimisticLocking
+_- Create an element from the palette
+_R Rename dialog appears
+_R No check out dialog appears
+_R On the file system, no new element is created
+_- Enter a name that is invalid (already in use)
+_R No check out dialog appears
+_R On the file system, no new element is created
+_- enter a valid name and select OK
+_R the new element is created
+        
+10.3 Assure that if a rename operation is canceled the model is not modified. 
+_- Start with a model checked-out from a RCS that is using pessimistic 
+   locking
+   svn://tucson.wv.mentorg.com/arch1/products/tiger/doc_repository/trunk/Models/
+   Test/SVNPessimisticLocking
+_- Create an element from the palette
+_R Rename dialog appears
+_R No check out dialog appears
+_R On the file system, no new element is created
+_- Select cancel
+_R The model is not marked dirty
+_R On the file system, no new element is created
+     
+
+
+End
+---
+
+$Log: dts0100911019.dnt,v $
+Revision 1.4  2012/09/12 16:11:10  hkhaled
+job:dts0100911019
+handle Rename while creation dnt modified after review
+
+Revision 1.3  2012/09/12 14:08:01  hkhaled
+job:dts0100911019
+handle Rename while creation dnt
+
+Revision 1.2  2012/08/30 16:33:27  rmulvey
+job:dts0100911019
+Made changes while pre-reviewing this document.
+
+Revision 1.1  2012/08/30 15:52:39  hkhaled
+job:dts0100911019
+draft

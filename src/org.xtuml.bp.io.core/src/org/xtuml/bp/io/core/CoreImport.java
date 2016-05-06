@@ -67,14 +67,15 @@ public abstract class CoreImport implements IModelImport {
     protected boolean m_templateFile;
 
     protected NonRootModelElement rootModelElement = null;
-    public static boolean createUniqueIds = true;
 
+    protected boolean m_createUniqueIdDuringImport = true;
+    
     /**
      * The version string found in BP SQL model files.
      */
     public static String bpSqlVersion = "6.1D";
     
-    public CoreImport(Ooaofooa modelRoot, InputStream inStream, boolean clearDatabase, boolean templateFile)
+    public CoreImport(Ooaofooa modelRoot, InputStream inStream, boolean clearDatabase, boolean templateFile, boolean createUniqueIdDuringImport)
             throws IOException {
         m_success = false;
         m_errorMessage = ""; //$NON-NLS-1$
@@ -82,10 +83,11 @@ public abstract class CoreImport implements IModelImport {
         m_fileName = "";
         m_clear_database = clearDatabase;
         m_templateFile = templateFile;
+        m_createUniqueIdDuringImport = createUniqueIdDuringImport;
         read(inStream);
     }
 
-    public CoreImport(Ooaofooa modelRoot, String inFile, boolean clearDatabase, boolean templateFile)
+    public CoreImport(Ooaofooa modelRoot, String inFile, boolean clearDatabase, boolean templateFile, boolean createUniqueIdDuringImport)
             throws FileNotFoundException {
         m_success = false;
         m_errorMessage = ""; //$NON-NLS-1$
@@ -94,6 +96,7 @@ public abstract class CoreImport implements IModelImport {
         m_inFile = new File(inFile);
         m_clear_database = clearDatabase;
         m_templateFile = templateFile;
+        m_createUniqueIdDuringImport = createUniqueIdDuringImport;
         if (!m_inFile.exists() || !m_inFile.isFile())
             throw new FileNotFoundException(inFile + " not found");
     }
