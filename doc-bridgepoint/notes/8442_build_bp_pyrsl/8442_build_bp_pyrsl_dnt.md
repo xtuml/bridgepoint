@@ -242,7 +242,7 @@ $ sudo python setup.py install
 # Create branch on pyxtuml (and pyrsl) as appropriate
 # Make changes, commit and push them
 $ cd <git>/pyrsl
-$ ./package_pyz.sh -pyxtuml <git branch name> -pyrsl <git branch name>
+$ ./package_pyz.sh -gituser <github username> -pyxtuml <git branch name> -pyrsl <git branch name>
 - Copy created gen_erate.pyz into mc3020/bin folder to use it
 ```  
   
