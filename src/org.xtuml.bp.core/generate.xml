@@ -11,12 +11,12 @@
 <project name="bp.core" default="all" basedir=".">
   <target name="all"
           description="Generate all code for this project"
-          depends="sql,schema,java,cme,cme_schema,cme_menus,inspector.java, cell_modifiers,generate_supertype_subtype_util, action_language_description_util, generate_rto_util, format_java">
+          depends="sql,java,cme,cme_schema,cme_menus,inspector.java, cell_modifiers,generate_supertype_subtype_util, action_language_description_util, generate_rto_util, format_java">
   </target>
 
   <target name="nb_all"
           description="Generate all code for this project"
-          depends="sql,schema,java,cme,cme_schema,cme_menus,inspector.java, cell_modifiers,generate_supertype_subtype_util, action_language_description_util, generate_rto_util">
+          depends="sql,java,cme,cme_schema,cme_menus,inspector.java, cell_modifiers,generate_supertype_subtype_util, action_language_description_util, generate_rto_util">
   </target>
 
   <property name="eclipse-home" value="${basedir}/../.."/>
@@ -167,7 +167,7 @@
           depends="java.depends"
           unless="java.buildNotNeeded" >
     <echo >Generating java files ...</echo>
-  	<!--<parallel>-->
+  	<!--<parallel>  -->
   <ant antfile="${mcj_path}/build.xml" target="generate-with-file_io.java" >
     <property name="param1" value="ooaofooa" />
     <property name="param2" value="Ooaofooa" />

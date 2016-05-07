@@ -1,10 +1,6 @@
 .//====================================================================
 .//
-.// File:      $RCSfile: page.inc,v $
-.// Version:   $Revision: 1.18 $
-.// Modified:  $Date: 2013/05/12 00:16:21 $
-.//
-.// (c) Copyright 2004-2014 by Mentor Graphics Corp.  All rights reserved.
+.// File:      page.inc
 .//
 .//=======================================================================
 .// Licensed under the Apache License, Version 2.0 (the "License"); you may not
@@ -165,10 +161,10 @@ public class ${page_class_name} extends PtWizardPage implements Listener
   
   .select one outer_block related by action->ACT_BLK[R601] where (selected.Block_Id == action.Block_Id)
   .select many context_items related by wfl->W_CTI[R2003]
-  .select one cme_inst related by wfl->CME[R2012];
+  .select any cme from instances of CME where ((selected.Specialism == wfl.Specialism) and (selected.Label == wfl.Label) and (selected.Key_Lett == wfl.Key_Lett))
   private void init() {
-    setTitle("${cme_inst.Label}");
-    setDescription("${cme_inst.WizardDescription}");
+    setTitle("${cme.Label}");
+    setDescription("${cme.WizardDescription}");
   }
   
   public void onPageEntry() {

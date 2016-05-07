@@ -36,12 +36,12 @@
   .else
 	.select one var related by link->ACT_SEL[R637]->V_VAR[R613]
 	.select any inst related by var->V_INT[R814]
-	.select one class related by inst->O_OBJ[R818]
-	.if(empty class)
+	.select one clazz related by inst->O_OBJ[R818]
+	.if(empty clazz)
 		.select one class1 related by var->V_INS[R814]->O_OBJ[R819]
-		.assign class = class1
+		.assign clazz = class1
 	.end if
-	.if(class.Key_Lett == from_Key_Lett)
+	.if(clazz.Key_Lett == from_Key_Lett)
 		.assign attr_found = TRUE
 	.end if
   .end if
