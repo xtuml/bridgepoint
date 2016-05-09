@@ -128,9 +128,6 @@
            "",
            Gd_c.Null_unique_id()\
           .assign special_case = true
-        .elif ((col.Name == "Previous_Tfr_ID") and (callingProject == "NBP"))
-           parms.elementAt(${attr_col_num}) != null && IdAssigner.isUUID((String)parms.elementAt(${attr_col_num}))?IdAssigner.createUUIDFromString((String)parms.elementAt(${attr_col_num})):Gd_c.Null_unique_id()\
-           .assign special_case = true
         .end if
       .elif ( ((table.Key_Lett == "S_BRG") OR (table.Key_Lett == "S_SYNC")) )
         .if ((col.Name == "Suc_Pars") and (callingProject == "BP"))
@@ -149,11 +146,6 @@
            Gd_c.Null_unique_id(),
            ""\
           .assign special_case = true
-        .elif (callingProject == "NBP")
-          .if ( ((col.Name == "Previous_BParm_ID") OR (col.Name == "Previous_SParm_ID")) OR (col.Name == "Previous_TParm_ID") )
-           parms.elementAt(${attr_col_num}) != null && IdAssigner.isUUID((String)parms.elementAt(${attr_col_num}))?IdAssigner.createUUIDFromString((String)parms.elementAt(${attr_col_num})):Gd_c.Null_unique_id()\
-           .assign special_case = true
-          .end if
         .end if
       .elif (table.Key_Lett == "C_IO")
         .if ((col.Name == "Direction") and (callingProject == "NBP"))
@@ -161,9 +153,6 @@
           .// this column is special, we may need to add a new default attribute value
           parms.elementAt(${attr_col_num}) != null && ImportInteger.isInt(parms.elementAt(${attr_col_num})) ?Integer.parseInt((String)parms.elementAt(${attr_col_num})):0\
           .assign special_case = true
-        .elif ((col.Name == "Previous_Id") and (callingProject == "NBP"))
-          parms.elementAt(${attr_col_num}) != null && IdAssigner.isUUID((String)parms.elementAt(${attr_col_num}))?IdAssigner.createUUIDFromString((String)parms.elementAt(${attr_col_num})):Gd_c.Null_unique_id()\
-          .assign special_case = true          
         .end if
       .elif ( (table.Key_Lett == "C_EP") )
         .if ((col.Name == "Direction") and (callingProject == "NBP"))
@@ -190,9 +179,6 @@
           .// this column is special, we may need to add a new default attribute value
            parms.elementAt(${attr_col_num}) != null && ImportInteger.isInt(parms.elementAt(${attr_col_num})) ?Integer.parseInt((String)parms.elementAt(${attr_col_num})):0
           .assign special_case = true          
-        .elif ((col.Name == "Previous_Id") and (callingProject == "NBP"))
-          parms.elementAt(${attr_col_num}) != null && IdAssigner.isUUID((String)parms.elementAt(${attr_col_num}))?IdAssigner.createUUIDFromString((String)parms.elementAt(${attr_col_num})):Gd_c.Null_unique_id()\
-          .assign special_case = true          
         .end if
       .elif (table.Key_Lett == "C_DG")
         .if(col.Name == "Name")
@@ -214,11 +200,6 @@
            ""\
           .assign special_case = true
         .end if
-      .elif (table.Key_Lett == "C_PP")
-        .if ((col.Name == "Previous_PP_Id") and (callingProject == "NBP"))
-        parms.elementAt(${attr_col_num}) != null && IdAssigner.isUUID((String)parms.elementAt(${attr_col_num}))?IdAssigner.createUUIDFromString((String)parms.elementAt(${attr_col_num})):Gd_c.Null_unique_id()\
-          .assign special_case = true
-        .end if
       .elif (table.Key_Lett == "SM_EVTDI")
         .if ((col.Name == "DT_ID") and (callingProject == "BP"))
            .//
@@ -227,16 +208,6 @@
            "",
            IdAssigner.NULL_UUID,
            IdAssigner.NULL_UUID\
-          .assign special_case = true
-        .elif ((col.Name == "SMevt_ID") and (callingProject == "NBP"))
-          .//
-          .// this column is special, we may need to add a new default attribute value
-           parms.elementAt(${attr_col_num}) != null && IdAssigner.isUUID((String)parms.elementAt(${attr_col_num}))?IdAssigner
-                            ..createUUIDFromString((String)parms.elementAt(${attr_col_num})):Gd_c.Null_unique_id()\
-          .assign special_case = true
-        .elif ((col.Name == "Previous_SMedi_ID") and (callingProject == "NBP"))
-           parms.elementAt(${attr_col_num}) != null && IdAssigner.isUUID((String)parms.elementAt(${attr_col_num}))?IdAssigner
-                            ..createUUIDFromString((String)parms.elementAt(${attr_col_num})):Gd_c.Null_unique_id()\
           .assign special_case = true
         .end if
       .elif (table.Key_Lett == "V_VAR")
@@ -277,9 +248,6 @@
           IdAssigner.createUUIDFromString((String)parms.elementAt(${attr_col_num}), true),
           Gd_c.Null_unique_id()\
           .assign special_case = true
-        .elif ((col.Name == "Previous_Enum_ID") and (callingProject == "NBP"))
-           parms.elementAt(${attr_col_num}) != null && IdAssigner.isUUID((String)parms.elementAt(${attr_col_num}))?IdAssigner.createUUIDFromString((String)parms.elementAt(${attr_col_num})):Gd_c.Null_unique_id()\
-           .assign special_case = true
         .end if
       .elif ( (table.Key_Lett == "EP_PKG") )        
         .if ((col.Name == "Num_Rng") and (callingProject == "NBP"))

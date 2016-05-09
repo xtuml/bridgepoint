@@ -514,6 +514,10 @@ public class PersistenceManager {
 		if (handler.requirements != null && !handler.requirements.isEmpty()) {
 			handler.performUpgrade();
 		}
+		// Fully load all models
+		for (int i = 0; i < roots.length; ++i) {
+			roots[i].loadComponentAndChildren(new NullProgressMonitor());
+		}
         initializing = false;
         
     }

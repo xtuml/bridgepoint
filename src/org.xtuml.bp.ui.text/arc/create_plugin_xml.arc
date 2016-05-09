@@ -290,7 +290,7 @@ This file is the plugin manifest for the BridgePoint core plugin.
             class="org.xtuml.bp.ui.text.activity.ActivityEditor">
 .assign dflt_oal_obj_set = oal_obj_set
 .assign dflt_oal_obj_set = dflt_oal_obj_set - canvas_oal_obj_set
-.select any attribute_class from instances of O_OBJ where selected.Key_Lett == "O_ATTR"
+.select any attribute_class from instances of O_OBJ where (selected.Key_Lett == "O_ATTR")
 .assign dflt_oal_obj_set = dflt_oal_obj_set
 .assign index = 0
 .for each obj in dflt_oal_obj_set

@@ -1,10 +1,6 @@
 .//=====================================================================
 .//
-.// File:      $RCSfile: create_core_plugin.inc,v $
-.// Version:   $Revision: 1.131 $
-.// Modified:  $Date: 2013/06/24 14:47:52 $
-.//
-.// Copyright (c) 2004-2014 Mentor Graphics Corporation.  All rights reserved.
+.// File:      create_core_plugin.inc
 .//
 .//=====================================================================
 .// Licensed under the Apache License, Version 2.0 (the "License"); you may not
@@ -99,7 +95,7 @@ This file is the plugin manifest for the BridgePoint core plugin.
         .assign menubar_path = "org.xtuml.bp.ui.newroot/org.xtuml.bp.ui.usecaseroot/org.xtuml.bp.ui.newusecasemenu"
       .end if
       .assign has_wizard = ""
-      .select one wfl related by menu_entry->W_WOF[R2012]
+      .select any wfl from instances of W_WOF where ((selected.Specialism == menu_entry.Specialism) and (selected.Label == menu_entry.Label) and (selected.Key_Lett == menu_entry.Key_Lett))
       .if (not_empty wfl)
         .select any field related by wfl->W_STEP[R2005]->W_FLD[R2009]
         .if ( not_empty field )
