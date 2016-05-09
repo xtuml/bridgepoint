@@ -455,6 +455,7 @@
       <property name="param3" value="${mcj_path}" />
       <property name="mcc" value="true" />
       <property name="mcjava.project.root" value="${basedir}"/>
+      <property name="UUID_Seed" value="-u 1"/>
     </ant>
   </target>
 

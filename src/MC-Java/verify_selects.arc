@@ -155,7 +155,7 @@
 	.assign attr_ignored = ppex.ignored
 	.assign attr_is_safe_empty_test = ppex.is_safe_empty_test
   .end if
-  .if(attr_ignored != true) OR (attr_is_safe_empty_test != true)
+  .if((attr_ignored != true) OR (attr_is_safe_empty_test != true))
     .select one right_side_uop related by bin_op->V_VAL[R803]->V_UNY[R801]
     .select one right_side_bop related by bin_op->V_VAL[R803]->V_BIN[R801]
     .select one right_side_pex related by bin_op->V_VAL[R803]->V_PEX[R801]
@@ -199,7 +199,7 @@
     .end if
   .elif(uop.Operator == "NOT")
 	.select one nested_uop related by uop->V_VAL[R804]->V_UNY[R801]
-	.if(not_empty nested_uop) AND (nested_uop.Operator == "empty")
+	.if((not_empty nested_uop) AND (nested_uop.Operator == "empty"))
       .select one instance_ref related by nested_uop->V_VAL[R804]->V_IRF[R801]
       .if(not_empty instance_ref)
         .select one inst_ref_var related by instance_ref->V_VAR[R808]
@@ -673,7 +673,7 @@
         .end if
       .end if
     .end for
-    .if(stmt_result.is_safe_empty_test == false) OR (elif_stmt_chk.is_safe_empty_test == false)
+    .if((stmt_result.is_safe_empty_test == false) OR (elif_stmt_chk.is_safe_empty_test == false))
       .select one else_stmt related by if_stmt->ACT_E[R683]
       .select one else_blk related by else_stmt->ACT_BLK[R606]
       .if(not_empty else_blk)
