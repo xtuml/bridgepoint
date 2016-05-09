@@ -104,8 +104,8 @@ public class ScrolledTextDialog extends Dialog {
 	@Override
 	protected Control createDialogArea(Composite container) {
 		Point size = new Point(600, 400);
-		if (PlatformUI.getWorkbench().getDisplay().getActiveShell() != null)
-			size = PlatformUI.getWorkbench().getDisplay().getActiveShell()
+		if (PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell() != null)
+			size = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell()
 					.getSize();
         Composite parent = (Composite) super.createDialogArea(container);
 		((GridData) parent.getLayoutData()).widthHint = Math.max(size.x / 4,
