@@ -95,15 +95,9 @@ The instructions in this section describe how to use command line scripts on Lin
   ```
   cd ~
   mkdir -p build/work
-  ```   
-
-  - Download [run_build.sh](https://raw.githubusercontent.com/xtuml/bridgepoint/master/utilities/build/run_build.sh) and [init_git_repositories.sh](https://raw.githubusercontent.com/xtuml/bridgepoint/master/utilities/build/init_git_repositories.sh)
-
-  - Put the downloaded files in place
-  ```
-  cd ~/build/work
-  cp ~/Downloads/run_build.sh .
-  cp ~/Download/init_git_repositories.sh .
+  cd build/work
+  wget https://raw.githubusercontent.com/xtuml/bridgepoint/master/utilities/build/run_build.sh
+  wget https://raw.githubusercontent.com/xtuml/bridgepoint/master/utilities/build/init_git_repositories.sh
   chmod 755 *.sh
   ```   
 
