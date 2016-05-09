@@ -34,7 +34,14 @@ Instructions
     different Linux distribution you must use the [commands appropriate for your Linux distribution](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/FAQ.md#linux).
     ```
     sudo apt-get install libxtst6:i386 libgtk2.0-0:i386 gtk2-engines:i386 gtk2-engines-*:i386 --reinstall unity-gtk2-module:i386 libgtkmm-2.4-1c2:i386 libcanberra-gtk-module:i386 tofrodos wine libstdc++5 g++ ant git default-jdk  
-    ```
+    ```  
+    The build runs __a lot__ faster if the pypy python tool is available.  We recommend it be installed:
+```
+$ sudo add-apt-repository ppa:pypy/ppa
+$ sudo apt-get update
+$ sudo apt-get install pypy pypy-dev
+```   
+
     - __WINDOWS__
       - Perl ([We recommend strawberry perl.](http://strawberryperl.com/ "strawberry perl"))
       - [JDK](http://www.oracle.com/technetwork/java/javase/downloads/index.html "Oracle JDK")
