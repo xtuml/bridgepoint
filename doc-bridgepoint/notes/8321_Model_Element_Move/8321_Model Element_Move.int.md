@@ -35,6 +35,11 @@ from a defined test matrix.
 This is a delivery milestone for the project. What is included in this intermediate, internal deliverable 
 is defined in (the Work Required section below)[#milestone1].  
 
+<a id="2.7"></a>2.7 [Milestone 2 -  #8492](https://support.onefact.net/issues/8492)  
+This is a delivery milestone for the project. I covers the work to update GUI 
+dialogs to account for changes due to this new functionality and add 
+enhancements to the dialog.     
+
 3. Background
 -------------
 
@@ -129,8 +134,20 @@ TODO: Add implementation detail
 6.3.2 In the type demotion dialog, consider adding text to tell the user to consider turning on IPRs or checking package visibility.  
 TODO: Add implementation detail  
 
-6.3.3 As per the SOW [[2.3](#2.3)], the dialog needs to have save and print optons added.  
-TODO: Add implementation detail  
+6.3.3 As per the SOW [[2.3](#2.3)], the dialog needs to have save and print options added.  
+6.3.3.1  Updated `ScrolledTextDialog.java` to take a new parameter in the
+  constructor that indicates if the save and print buttons shall be used.  
+6.3.3.2  Updated the existing callers of ScrolledTextDialog such that the 
+  `TransactionManager.java` is the only one that uses save and print.  Other 
+  users retain existing behavior and do not use save and print.  
+6.3.3.3  Added code to implement button "Save...".  This button opens a modal
+  dialog that allows the user to select a file to save into.  The contents of 
+  the list box (the affected elements) are written to the file if the user 
+  completes the dialog.  No action is taken if the user cancels the dialog.   
+6.3.3.4  Added code to implement button "Print...".  This button opens a modal
+  printer selection dialog.  The contents of the list box (the affected 
+  elements) are sent to the printer if the user completes the dialog.  No action
+  is taken if the user cancels the dialog.  
 
 6.4 Modify all resolution operations to first search by ID  instead of name  
 TODO: Add implementation detail  

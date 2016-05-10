@@ -22,6 +22,9 @@
 //
 package org.xtuml.bp.core.ui.dialogs;
 
+import java.io.FileWriter;
+import java.io.IOException;
+
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.resource.JFaceResources;
@@ -39,6 +42,8 @@ import org.eclipse.swt.printing.PrinterData;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
@@ -84,24 +89,50 @@ public class ScrolledTextDialog extends Dialog {
 			printButton.setFont(JFaceResources.getDialogFont());
 			printButton.addSelectionListener(new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent e) {
-
-					Shell shell = new Shell();
-					PrintDialog dialog = new PrintDialog(shell);
+					PrintDialog dialog = new PrintDialog(Display.getCurrent().getActiveShell());
 					PrinterData data = dialog.open();
-					Printer printer = new Printer(data);
+					if ( null != data ) {
+						Printer printer = new Printer(data);
 
-					if (printer.startJob("DowngradeList-Print")) {
-						GC gc = new GC(printer);
-						if (printer.startPage()) {
-							gc.drawText(textContents, 0, 0);
-							printer.endPage();
+						if (printer.startJob("DowngradeList-Print")) {
+							GC gc = new GC(printer);
+							if (printer.startPage()) {
+								gc.drawText(textContents, 0, 0);
+								printer.endPage();
+							}
+							printer.endJob();
 						}
-						printer.endJob();
+						printer.dispose();
 					}
-					printer.dispose();
 				}
 			});
 			setButtonLayoutData(printButton);
+			
+			((GridLayout) parent.getLayout()).numColumns++;
+			Button saveasButton;
+			saveasButton = new Button(parent, SWT.PUSH);
+			saveasButton.setText("Save...");
+			saveasButton.setFont(JFaceResources.getDialogFont());
+			saveasButton.addSelectionListener(new SelectionAdapter() {
+				public void widgetSelected(SelectionEvent e) {
+					FileDialog dialog = new FileDialog(Display.getCurrent().getActiveShell(), SWT.SAVE);
+					String filename = dialog.open();
+					if ( !filename.isEmpty() ) {
+						FileWriter writer = null;
+						try {
+							writer = new FileWriter(filename);
+							writer.write(textContents);
+						}
+						catch (IOException ioe) {
+							System.err.println("Exception occured: File not saved!");
+						}
+						finally {
+							try { writer.close(); } catch (Exception ex) {}
+						} 
+					}
+				}
+			});
+			setButtonLayoutData(saveasButton);
 		}
 		if(optionalText != null) {
 			((GridLayout) parent.getLayout()).numColumns++;
