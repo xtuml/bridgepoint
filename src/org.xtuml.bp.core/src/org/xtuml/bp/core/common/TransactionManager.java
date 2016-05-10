@@ -341,7 +341,7 @@ public class TransactionManager {
 					"The following elements will have their type reset to the default type  as a result of this operation." +
 					"\nWould you like to proceed ?",
 					null,
-					BridgePointPreferencesStore.SHOW_SYNC_DELETION_DIALOG, true);			
+					BridgePointPreferencesStore.SHOW_SYNC_DELETION_DIALOG, true, true);			
 			if(!result) {
 				return false;
 			}

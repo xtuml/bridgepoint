@@ -123,7 +123,7 @@ public class PullSynchronizationChanges implements IActionDelegate {
 					.getWorkbench().getDisplay().getActiveShell(), true,
 					"Confirm Changes", removalList, message,
 					"Do not ask again",
-					BridgePointPreferencesStore.SHOW_SYNC_DELETION_DIALOG, true);
+					BridgePointPreferencesStore.SHOW_SYNC_DELETION_DIALOG, true, false);
 			return result;
 		}
 		return true;
@@ -197,7 +197,7 @@ public class PullSynchronizationChanges implements IActionDelegate {
 					"Operation Complete", list,
 					"The following elements have been synchronized",
 					"Do not show again",
-					BridgePointPreferencesStore.SHOW_SYNC_REPORT, true);
+					BridgePointPreferencesStore.SHOW_SYNC_REPORT, true, false);
 		}
 	}
 

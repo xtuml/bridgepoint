@@ -74,7 +74,7 @@ public class AuditRealizedCodeAction implements IViewActionDelegate {
 		}
 		UIUtil.openScrollableTextDialog(PlatformUI.getWorkbench().getDisplay()
 				.getActiveShell(), false, "Audit Complete", result,
-				"The following checks were made:", null, null, true);
+				"The following checks were made:", null, null, true, false);
 	}
 
 	/**
