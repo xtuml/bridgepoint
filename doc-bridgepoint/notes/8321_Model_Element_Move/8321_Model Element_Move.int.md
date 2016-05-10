@@ -141,12 +141,11 @@ if the source and target PMCs match paste is not enabled.
 6.2.5.2. In PasteAction.java::isEnabled() if a move is in progress do not allow more than 1 
 selected destination. This is another chage that is specific to move and is still allowed by copy/paste.  
 
-6.3 Reuse the current tree view that shows Model Elements affected by the 
-cut/paste operation  
-TODO: Add implementation detail  
-
-6.3.1 The dialog shall allow the user to cancel   
-TODO: Add implementation detail  
+6.3 Reuse the current list view that shows Model Elements affected by the 
+cut/paste operation.  This dialog is implemented in `org.xtuml.bp.core/src/org/xtuml/bp/core/ui/dialogs/ScrolledTextDialog.java`.    
+  
+6.3.1 The dialog allows the user to cancel.  On cancel, no action is performed
+  on the underlying model data.   
 
 6.3.2 In the type demotion dialog, consider adding text to tell the user to consider turning on IPRs or checking package visibility.  
 TODO: Add implementation detail  
