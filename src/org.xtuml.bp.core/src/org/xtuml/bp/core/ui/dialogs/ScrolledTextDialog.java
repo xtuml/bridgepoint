@@ -91,17 +91,19 @@ public class ScrolledTextDialog extends Dialog {
 				public void widgetSelected(SelectionEvent e) {
 					PrintDialog dialog = new PrintDialog(Display.getCurrent().getActiveShell());
 					PrinterData data = dialog.open();
-					Printer printer = new Printer(data);
+					if ( null != data ) {
+						Printer printer = new Printer(data);
 
-					if (printer.startJob("DowngradeList-Print")) {
-						GC gc = new GC(printer);
-						if (printer.startPage()) {
-							gc.drawText(textContents, 0, 0);
-							printer.endPage();
+						if (printer.startJob("DowngradeList-Print")) {
+							GC gc = new GC(printer);
+							if (printer.startPage()) {
+								gc.drawText(textContents, 0, 0);
+								printer.endPage();
+							}
+							printer.endJob();
 						}
-						printer.endJob();
+						printer.dispose();
 					}
-					printer.dispose();
 				}
 			});
 			setButtonLayoutData(printButton);
