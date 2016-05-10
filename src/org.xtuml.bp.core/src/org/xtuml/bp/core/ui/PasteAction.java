@@ -117,7 +117,7 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 						}
 					}
 					// The elements have been pasted, so now is this is a cut/paste delete the source elements
-					if (MOVE_IS_IN_PROGRESS) {
+					if (MOVE_IS_IN_PROGRESS && ELEMENT_MOVE_SOURCE_SELECTION != null ) {
 						// Delete the source elements. We use the saved IStructuredSelection that was made by the used
 						// during the cut operation because since the UUIDs were not changed during paste, if 
 						// an element was pasted to the same model root there would be a problem searching by ID
@@ -247,7 +247,7 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 		ModelStreamProcessor.addElementToProblemsList(message, elementname);
 	}
 
-	protected String[] getClipboardTypes(String contents, NonRootModelElement destination) {
+	private String[] getClipboardTypes(String contents, NonRootModelElement destination) {
 		return ModelStreamProcessor.getExportedTypes(contents);
 	}
 
@@ -262,34 +262,41 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 
 	@Override
 	public boolean isEnabled() {
-		// do not allow enablement unless
-		// the packaging for the source is
-		// the same as the destination
+		boolean isEnabled = false;
 		Clipboard cb = CorePlugin.getSystemClipboard();
-		if(cb == null || cb.isDisposed()) {
-			return false;
-		}
-		Object contents = cb
-				.getContents(TextTransfer.getInstance());
-		if(contents instanceof String) {
-			String stringContents = (String) contents;
-			List<NonRootModelElement> destinations = getDestinations();
-			List<NonRootModelElement> removals = new ArrayList<NonRootModelElement>();
-			for(NonRootModelElement element : destinations) {
-				if(element instanceof SystemModel_c) {
-					// system model is special, it supports both flavors
-					// therefore remove it from the destinations to check
-					removals.add(element);
+		if (cb != null && !cb.isDisposed()) {
+			Object contents = cb.getContents(TextTransfer.getInstance());
+			if (contents instanceof String) {
+				String stringContents = (String) contents;
+				List<NonRootModelElement> destinations = getDestinations();
+				// If this is a move. only 1 destination is allowed
+				if (MOVE_IS_IN_PROGRESS && destinations.size() > 1) {
+					return false;
 				}
-			}
-			destinations.removeAll(removals);
-			if(destinations.isEmpty()) {
-				return true;
-			}
-		} else {
-			return false;
+				for (NonRootModelElement destination : destinations) {
+					String types[] = getClipboardTypes((String) contents, destination);
+					if(types.length > 0) {
+						for (int i = 0; i < types.length; i++) {
+							if (MOVE_IS_IN_PROGRESS) {								
+								// If this is a move, the source and destination can not be the same.
+								NonRootModelElement[] sourceElements = Selection.getSelectedNonRootModelElements(ELEMENT_MOVE_SOURCE_SELECTION);
+								for (int j = 0;  j < sourceElements.length; j++) {
+									NonRootModelElement sourceElement = sourceElements[j];
+									if (destination.getPersistableComponent() == sourceElement.getPersistableComponent()) {
+										return false;
+									}
+								}
+							}
+							isEnabled = supportsPaste(destination, types[i]);
+							if(!isEnabled) {
+								break;
+							}
+						}
+					}
+				}
+			}			
 		}
-		return true;
+		return isEnabled;
 	}
 	
 	@Override
@@ -301,4 +308,5 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 	public void postRun() {
 	}
 
+	protected abstract boolean supportsPaste(Object target, String child);
 }

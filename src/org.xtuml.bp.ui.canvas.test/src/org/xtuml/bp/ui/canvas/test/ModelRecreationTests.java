@@ -273,7 +273,7 @@ public class ModelRecreationTests extends CanvasTest {
 		CanvasTestUtilities.doMouseMove(10, 10);
 		CanvasTestUtilities.doMouseContextPress(10, 10);
 		CanvasPasteAction canvaspasteaction = new CanvasPasteAction(ce);
-		if(canvaspasteaction.clipboardContainsPastableModelElements()) {
+		if(ce != null && canvaspasteaction.isEnabled()) {
 			canvaspasteaction.run();
 			waitForTransaction();
 			waitForJobs();

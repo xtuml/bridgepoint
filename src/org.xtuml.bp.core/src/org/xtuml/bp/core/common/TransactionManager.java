@@ -81,7 +81,7 @@ public class TransactionManager {
 	private Action redoAction;
 	private Action undoAction;
 
-	static ArrayList<String> affectedModelElementsNames = new ArrayList<String>();
+	static private ArrayList<String> affectedModelElementsNames = new ArrayList<String>();
 	private Transaction lastTransaction;
 
 	private boolean ignoreResourceChanges = false;
