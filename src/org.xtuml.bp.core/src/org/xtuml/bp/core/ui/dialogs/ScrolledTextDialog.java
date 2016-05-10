@@ -27,9 +27,15 @@ import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.ScrolledComposite;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.printing.PrintDialog;
+import org.eclipse.swt.printing.Printer;
+import org.eclipse.swt.printing.PrinterData;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
@@ -37,7 +43,6 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.PlatformUI;
-
 import org.xtuml.bp.core.CorePlugin;
 
 public class ScrolledTextDialog extends Dialog {
@@ -49,9 +54,10 @@ public class ScrolledTextDialog extends Dialog {
 	private String optionalText;
 	private Button optionalButton;
 	private String preferenceKey;
+	private boolean usePrintAndSave;
 
 	public ScrolledTextDialog(Shell parentShell, boolean allowCancel,
-			String title, String textContents, String message, String optionalText, String preferenceKey) {
+			String title, String textContents, String message, String optionalText, String preferenceKey, boolean usePrintAndSave) {
 		super(parentShell);
 		this.title = title;
 		this.textContents = textContents;
@@ -59,6 +65,7 @@ public class ScrolledTextDialog extends Dialog {
 		this.allowCancel = allowCancel;
 		this.optionalText = optionalText;
 		this.preferenceKey = preferenceKey;
+		this.usePrintAndSave = usePrintAndSave;
 	}
 
 	@Override
@@ -69,6 +76,33 @@ public class ScrolledTextDialog extends Dialog {
 
 	@Override
 	protected void createButtonsForButtonBar(Composite parent) {
+		if(usePrintAndSave) {
+			((GridLayout) parent.getLayout()).numColumns++;
+			Button printButton;
+			printButton = new Button(parent, SWT.PUSH);
+			printButton.setText("Print...");
+			printButton.setFont(JFaceResources.getDialogFont());
+			printButton.addSelectionListener(new SelectionAdapter() {
+				public void widgetSelected(SelectionEvent e) {
+
+					Shell shell = new Shell();
+					PrintDialog dialog = new PrintDialog(shell);
+					PrinterData data = dialog.open();
+					Printer printer = new Printer(data);
+
+					if (printer.startJob("DowngradeList-Print")) {
+						GC gc = new GC(printer);
+						if (printer.startPage()) {
+							gc.drawText(textContents, 0, 0);
+							printer.endPage();
+						}
+						printer.endJob();
+					}
+					printer.dispose();
+				}
+			});
+			setButtonLayoutData(printButton);
+		}
 		if(optionalText != null) {
 			((GridLayout) parent.getLayout()).numColumns++;
 			optionalButton = new Button(parent, SWT.CHECK);
@@ -104,8 +138,8 @@ public class ScrolledTextDialog extends Dialog {
 	@Override
 	protected Control createDialogArea(Composite container) {
 		Point size = new Point(600, 400);
-		if (PlatformUI.getWorkbench().getDisplay().getActiveShell() != null)
-			size = PlatformUI.getWorkbench().getDisplay().getActiveShell()
+		if (PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell() != null)
+			size = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell()
 					.getSize();
         Composite parent = (Composite) super.createDialogArea(container);
 		((GridData) parent.getLayoutData()).widthHint = Math.max(size.x / 4,
