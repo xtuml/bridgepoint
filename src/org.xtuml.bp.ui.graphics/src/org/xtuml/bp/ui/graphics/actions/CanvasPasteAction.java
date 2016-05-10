@@ -462,33 +462,9 @@ public class CanvasPasteAction extends PasteAction {
 		return nw;
 	}
 	
-	/**
-	 * Determines whether or not the clipboard contains any model elements
-	 * that may be pasted into the current editor.
-	 */
-	public boolean clipboardContainsPastableModelElements() {
-		Clipboard cb = CorePlugin.getSystemClipboard();
-		if(m_editor == null) return false;
-		if(cb == null || cb.isDisposed()) return false;
-		boolean result = true;
-		Object contents = cb
-				.getContents(TextTransfer.getInstance());
-		for(NonRootModelElement destination : getDestinations()) {
-			if (contents instanceof String) {
-				String types[] = getClipboardTypes((String) contents, destination);
-				for (int i = 0; i < types.length; i++) {
-					result = Cl_c.supportsPaste(destination, types[i]);
-					if(!result)
-						break;
-				}
-				if(types.length == 0) {
-					result = false;
-				}
-			} else {
-				result = false;
-			}
-		}
-		return result;
+	@Override
+	protected boolean supportsPaste(Object target, String child) {
+		return Cl_c.supportsPaste(target, child);
 	}
 	
 	public TransactionManager getTransactionManager() {
@@ -529,9 +505,9 @@ public class CanvasPasteAction extends PasteAction {
 
 	@Override
 	public boolean isEnabled() {
-		if(!super.isEnabled()) {
+		if(!super.isEnabled() || (m_editor == null) ) {
 			return false;
 		}
-		return clipboardContainsPastableModelElements();
+		return true;
 	}
 }
