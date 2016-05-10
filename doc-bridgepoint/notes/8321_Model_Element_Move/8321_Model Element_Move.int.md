@@ -119,10 +119,27 @@ faciliate 6.2.3.
 6.2.5 An attempt to paste to the same location that the copy was made from is considered an 
 invalid selection and shall not be allowed.  
 
-TODO: Add implementation detail  
-
-Note that same location does not mean same model root. A move should be allowed to the 
-same model root as long as it is not the exact same location inside that root.  
+6.2.5.1. Disable paste when the selected target is the same as the source.  
+6.2.5.1.1. `bp/ui/explorer/actions/ui/Explorer{Cut | Copy | Paste}Action.java::isEnabled()` 
+implements this behavior on behalf of the org.eclipse.jface.action.Action abstract class. 
+This is where BridgePoint determines if the CME should be enabled or not. Note that there 
+is an analogous implementation for canvas in 
+`bp.ui.graphics.actions/Canvas{Cut | Copy | Paste}Action.java::isEnabled()`  
+6.2.5.1.2. The operation called out in the prior step is implemented to check the source and destination to
+see if the CME should be enabled or not.  
+6.2.5.1.3. In the PasteAction case, the operations look to see if the destination allows paste for 
+elements in the source being pasted to the target. It does this by calling an ooaofooa 
+operation that is of the form {target model element instance}.Paste{Source Model Element Name}
+. The structure of this code was such that this behavior 
+was essentially duplicated in `{Explorer | Canvas}PasteAction.java`. I refactored this and 
+"moved up" an operation named `clipboardContainsPastableModelElements()` into the parent class
+`core/ui/PasteAction.java` to facilitate adding the check to assure that on move the
+if the source and target PMCs match paste is not enabled.  
+6.2.5.1.4 The actual code added to assure paste is disabled if the source and target PMCs match was added to the refactored
+`core/ui/PasteAction.java::isEnabled()` function.  
+6.2.5.1.4.1 The change was specific to move, copy/paste still allows paste into the same PMC as it did before this change.  
+6.2.5.2. In PasteAction.java::isEnabled() if a move is in progress do not allow more than 1 
+selected destination. This is another chage that is specific to move and is still allowed by copy/paste.  
 
 6.3 Reuse the current tree view that shows Model Elements affected by the 
 cut/paste operation  
@@ -153,7 +170,28 @@ TODO: Add implementation detail
 TODO: Add implementation detail  
 
 6.5 Fix inconsistent proxy paths [[2.4](#2.4)]  
-TODO: Add implementation detail  
+I removed all generated code from the operations that load and write the proxies.
+This was a very small change. The change to stub out proxies writes was in:
+`io/core/arc/export_functions.inc::public void write_${r.body}_proxy_sql(${r.body} inst)`
+
+The change to stub out proxies load was in:
+`io/core/arc/import_functions.inc::private void create${stn.body} (${main_class_name} modelRoot, String table, Vector parms, Vector rawParms, int numParms, IProgressMonitor pm)`.  
+
+I also modified io/core/arc/gen_import_java.inc and removed a List variable generated into
+each of the import classes that is no longer used. It's name was:
+    `private List<NonRootModelElement> loadedProxies = new Vector<NonRootModelElement>();`  
+
+I manually tested this by:
+* run the tool in a workspace with GPS Watch
+* search the model for all occurrences of "INSERT INTO .*PROXY" in *.xtuml
+* result is lots of hits
+* open Model Explorer, select GPS Watch, right click -> BridgePoint Utilities -> Load and Persist
+* result is all files are marked dirty
+* search the model for all occurrences of "INSERT INTO .*PROXY" in *.xtuml
+* result is 0 occurrences 
+* exit and restart
+* assure there are no errors loading GPS Watch
+  
 
 6. Implementation Comments
 --------------------------

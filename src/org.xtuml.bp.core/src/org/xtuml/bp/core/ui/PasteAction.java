@@ -116,9 +116,9 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 							processor.processSecondStep(monitor);
 						}
 					}
-					// The elements have been pasted, so now is this is a cut/paste delete the source elements
+					// The elements have been pasted, so now if this is a cut/paste, delete the source elements
 					if (MOVE_IS_IN_PROGRESS && ELEMENT_MOVE_SOURCE_SELECTION != null ) {
-						// Delete the source elements. We use the saved IStructuredSelection that was made by the used
+						// Delete the source elements. We use the saved IStructuredSelection that was made by the user
 						// during the cut operation because since the UUIDs were not changed during paste, if 
 						// an element was pasted to the same model root there would be a problem searching by ID
 						((DeleteAction) CorePlugin.getDeleteAction()).deleteSelection(ELEMENT_MOVE_SOURCE_SELECTION);
