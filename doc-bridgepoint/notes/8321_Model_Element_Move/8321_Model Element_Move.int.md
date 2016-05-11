@@ -38,7 +38,10 @@ is defined in (the Work Required section below)[#milestone1].
 <a id="2.7"></a>2.7 [Milestone 2 -  #8492](https://support.onefact.net/issues/8492)  
 This is a delivery milestone for the project. I covers the work to update GUI 
 dialogs to account for changes due to this new functionality and add 
-enhancements to the dialog.     
+enhancements to the dialog.  
+
+<a id="2.8"></a>2.8 [Test Model Creation -  #8458](https://support.onefact.net/issues/8458)  
+Test model(s) for this issue.  
 
 3. Background
 -------------
@@ -145,7 +148,7 @@ selected destination. This is another chage that is specific to move and is stil
   on the underlying model data.   
 
 6.3.2 In the type demotion dialog, consider adding text to tell the user to consider turning on IPRs or checking package visibility.  
-TODO: Add implementation detail  
+@see 6.4  
 
 6.3.3 As per the SOW [[2.3](#2.3)], the dialog needs to have save and print options added.  
 6.3.3.1  Updated `ScrolledTextDialog.java` to take a new parameter in the
@@ -163,7 +166,29 @@ TODO: Add implementation detail
   is taken if the user cancels the dialog.  
 
 6.4 Modify all resolution operations to first search by ID  instead of name  
-TODO: Add implementation detail  
+
+During paste, after the elements are put in their new destination, the source elements must be
+cleaned-up from the previous location. In the existing cut/paste implementation this meant 
+performing a delete.  It is during the delete that elements (Datatypes) are "downgraded". 
+In S_DT.Dispose() as a datatype is disposed the OAL disconnects the datatype, reconnects to 
+the default type, and then calls a bridge that is used to record the "downgrade" so that 
+it may be reported to the user. An example of what this looks like for one datatype, 
+Bridges, is as follows:  
+```
+select many brgs related by self->S_BRG[R20];
+for each brg in brgs
+  unrelate self from brg across R20;
+  relate brg to voidDt across R20;
+  Util::collectModelElementsNames(elementType:"- Bridge : ",elementName:brg.Name);
+end for;
+```  
+
+6.4.1 TODO: Add the implementation details.  
+Modify the PasteAction code that is deleting the instance to pass a flag to indicate 
+that move is in progress. When move is in progress we do not want to disconnect the 
+instances.
+
+6.4.2 TODO: In the type demotion dialog, consider adding text to tell the user to consider turning on IPRs or checking package visibility (if needed).
 
 6.5 Fix inconsistent proxy paths [[2.4](#2.4)]  
 I removed all generated code from the operations that load and write the proxies.
@@ -196,7 +221,7 @@ NONE
 
 7. Unit Test
 ------------
-TODO: Add implementation detail  
+The test model is found with the [Test Model Creation Issue](#2.8).  
 
 7.1 Use the [[test generation utility]](#2.2) to generate tests for all source and target permutations. Note that documentation for this utility is found in the header of this perl script.  The goal of these generated tests is to assure all requirements are satisfied for each generated test. This assure that requirements are satisfied for each test permutation.  
 
