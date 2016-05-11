@@ -5097,7 +5097,7 @@ INSERT INTO O_OBJ_PROXY
 	VALUES ("f7cd37b4-309c-4a8d-b621-602317676050",
 	'Exception',
 	37,
-	'Exception',
+	'S_EXP',
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'../Domain/Exception/Exception.xtuml');
