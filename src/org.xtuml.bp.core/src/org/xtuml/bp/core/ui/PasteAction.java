@@ -178,7 +178,7 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 		} catch (InterruptedException e) {
 			CorePlugin.logError("Unable to import contents from clipboard.", e); //$NON-NLS-1$
 		} finally {
-			// Regadless of if this was a move or not we can reset this flag now.
+			// Regardless of if this was a move or not we can reset this flag now.
 			if (MOVE_IS_IN_PROGRESS) {
 				// Clear the clipboard to prevent another paste
 				CorePlugin.getSystemClipboard().clearContents();
