@@ -739,7 +739,7 @@ public abstract class NonRootModelElement extends ModelElement implements IAdapt
     }
 
     public boolean isProxy() {
-        return m_contentPath != null;
+        return false;
     }
 
     public void removeRef() {
