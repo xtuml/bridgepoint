@@ -191,18 +191,18 @@ instances.
 6.4.2 TODO: In the type demotion dialog, consider adding text to tell the user to consider turning on IPRs or checking package visibility (if needed).
 
 6.5 Fix inconsistent proxy paths [[2.4](#2.4)]  
-I removed all generated code from the operations that load and write the proxies.
+6.5.1 I removed all generated code from the operations that load and write the proxies.  
 This was a very small change. The change to stub out proxies writes was in:
 `io/core/arc/export_functions.inc::public void write_${r.body}_proxy_sql(${r.body} inst)`
 
 The change to stub out proxies load was in:
 `io/core/arc/import_functions.inc::private void create${stn.body} (${main_class_name} modelRoot, String table, Vector parms, Vector rawParms, int numParms, IProgressMonitor pm)`.  
 
-I also modified io/core/arc/gen_import_java.inc and removed a List variable generated into
+6.5.2 I also modified io/core/arc/gen_import_java.inc and removed a List variable generated into
 each of the import classes that is no longer used. It's name was:
     `private List<NonRootModelElement> loadedProxies = new Vector<NonRootModelElement>();`  
-
-I manually tested this by:
+6.5.3 I modified NonRootModelElement.java::isProxy() to always return false.  
+6.5.4 I manually tested this by:  
 * run the tool in a workspace with GPS Watch
 * search the model for all occurrences of "INSERT INTO .*PROXY" in *.xtuml
 * result is lots of hits
