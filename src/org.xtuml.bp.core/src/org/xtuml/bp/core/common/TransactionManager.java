@@ -339,9 +339,7 @@ public class TransactionManager {
 					.getWorkbench().getDisplay().getActiveShell(), true,
 					"Confirm Changes", message, 
 					"The following elements will have their type reset to the default type  as a result of this operation." +
-					"\nWould you like to proceed?\n\n" +
-					"Note that you may need to turn on inter-project references or modify package visibility settings\n" +
-					"if you see unexpected changes in this list.",
+					"\nWould you like to proceed?",
 					null,
 					BridgePointPreferencesStore.SHOW_SYNC_DELETION_DIALOG, true, true);			
 			if(!result) {
