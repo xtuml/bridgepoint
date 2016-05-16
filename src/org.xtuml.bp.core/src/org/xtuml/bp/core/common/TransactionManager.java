@@ -75,13 +75,13 @@ public class TransactionManager {
 	ArrayList<Transaction> undoStack = new ArrayList<Transaction>();
 	ArrayList<Transaction> redoStack = new ArrayList<Transaction>();
 
-	static ArrayList<IFile> affectedComponents = new ArrayList<IFile>();
+	private static ArrayList<IFile> affectedComponents = new ArrayList<IFile>();
 
 	ListenerList transactionListeners = new ListenerList();
 	private Action redoAction;
 	private Action undoAction;
 
-	static private ArrayList<String> affectedModelElementsNames = new ArrayList<String>();
+	private static ArrayList<String> affectedModelElementsNames = new ArrayList<String>();
 	private Transaction lastTransaction;
 
 	private boolean ignoreResourceChanges = false;
