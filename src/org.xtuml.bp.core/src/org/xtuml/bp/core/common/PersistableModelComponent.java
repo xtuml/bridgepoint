@@ -43,14 +43,12 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.ui.WorkbenchException;
-
 import org.xtuml.bp.core.ActionHome_c;
 import org.xtuml.bp.core.Action_c;
 import org.xtuml.bp.core.Body_c;
 import org.xtuml.bp.core.BridgeBody_c;
 import org.xtuml.bp.core.Bridge_c;
 import org.xtuml.bp.core.ClassStateMachine_c;
-import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.DataType_c;
 import org.xtuml.bp.core.DerivedAttributeBody_c;
@@ -762,11 +760,6 @@ public class PersistableModelComponent implements Comparable {
             }
         }
         if(rootME != null){
-            if (rootME == null) {
-                throw new WorkbenchException(
-                        "Component's Root Model Element does not exist:"
-                        + getFullPath());
-            }
             if( ! (rootME instanceof SystemModel_c )) {
                 NonRootModelElement myParentRootME = PersistenceManager.getHierarchyMetaData().getParentComponentRootModelElement(rootME,false);
                 if (myParentRootME != null){// in case of component is being created and not yet relate with others.
