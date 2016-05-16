@@ -2277,18 +2277,6 @@ INSERT INTO S_BPARM
 	'',
 	"d4edd0a0-eb44-4195-9698-81dd3b2d47a8",
 	'');
-INSERT INTO S_BRG
-	VALUES ("90a0ba6b-36df-4062-9840-f021dd90f453",
-	"b69262ac-62eb-4030-b329-b967033f0ee0",
-	'moveIsInProgress',
-	'This bridge allows returns true when a move operation (cut/paste) is in process.
-Translate:native
-',
-	0,
-	"ba5eda7a-def5-0000-0000-000000000002",
-	'return CutCopyPasteAction.moveIsInProgress();',
-	0,
-	'');
 INSERT INTO PE_PE
 	VALUES ("b69262ac-62eb-4030-b329-b967033f0ee0",
 	1,
