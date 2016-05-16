@@ -643,6 +643,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.xtuml.bp.core.util.PersistenceUtil;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.xtuml.bp.core.ui.CutCopyPasteAction;
 import org.xtuml.bp.core.ui.marker.UmlProblem;
           .select one filterOp related by object->O_TFR[R115] where (selected.Name == "actionFilter")
           .if ( not_empty filterOp )
@@ -1377,6 +1378,7 @@ private static ${class_name} find$cr{object.Name}Instance(ModelRoot modelRoot, $
     Activepoller_c.unRegister(this) ;
         .end if      
     boolean delete_error = false;
+    if (!CutCopyPasteAction.moveIsInProgress()) {
     String errorMsg = "The following relationships were not torn down by the ${object.Name}.dispose call: ";
         .select many rels related by object->R_OIR[R201]->R_REL[R201]
         .for each rel in rels
@@ -1602,6 +1604,7 @@ private static ${class_name} find$cr{object.Name}Instance(ModelRoot modelRoot, $
         .else
         System.out.println(errorMsg);
         .end if
+    }
     }
     return result;
   }
