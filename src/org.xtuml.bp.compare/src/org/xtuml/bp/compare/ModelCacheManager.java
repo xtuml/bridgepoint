@@ -192,7 +192,7 @@ public class ModelCacheManager {
 						new ImportModelComponent(
 							sca,
 							compareRoot, com,
-							false, true, false, false);
+							false, true, false, false,true);
                     final int ret_val = modelInputLoader.countAndValidateInsertStatements();
                     if (ret_val > 0) {
                     	if(processRunner == null) {

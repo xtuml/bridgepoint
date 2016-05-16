@@ -514,6 +514,10 @@ public class PersistenceManager {
 		if (handler.requirements != null && !handler.requirements.isEmpty()) {
 			handler.performUpgrade();
 		}
+		// Fully load all models
+		for (int i = 0; i < roots.length; ++i) {
+			roots[i].loadComponentAndChildren(new NullProgressMonitor());
+		}
         initializing = false;
         
     }
@@ -1002,7 +1006,7 @@ public class PersistenceManager {
 		try {
 			importer = CorePlugin.getModelImportFactory().create(
 					pmc.getFile(), Ooaofooa.getDefaultInstance(),
-					pmc, false, false, false, false);
+					pmc, false, false, false, false, true);
 			return importer.getHeader();
 		} catch (IOException e) {
 			CorePlugin.logError("Unable to retrieve file format version.",

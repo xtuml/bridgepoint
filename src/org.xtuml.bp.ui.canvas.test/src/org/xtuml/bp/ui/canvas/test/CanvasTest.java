@@ -279,7 +279,7 @@ public abstract class CanvasTest extends BaseTest {
   protected void doLoadSql(String inFile) throws FileNotFoundException{
 	String x = m_workspace_path + Ooaofooa.MODELS_DIRNAME + "/" + inFile + "." + Ooaofooa.MODELS_EXT; //$NON-NLS-1$ //$NON-NLS-2$
     System.out.println("Loading :" + x); //$NON-NLS-1$
-    ImportModel importer = new ImportModel(x, modelRoot, getSystemModel(), true, true, false);
+    ImportModel importer = new ImportModel(x, modelRoot, getSystemModel(), true, true, false, true);
     int i = importer.countAndValidateInsertStatements();
     assertTrue ( i > 0 );
     importer.run(new NullProgressMonitor());
@@ -509,7 +509,6 @@ public abstract class CanvasTest extends BaseTest {
      */
     public void validateOrGenerateResults(GraphicalEditor editor, boolean generate)
     {
-    	//generate = true;
     	BaseTest.dispatchEvents(0);
         validateOrGenerateResults(editor, generate, false);
     }
@@ -574,7 +573,6 @@ public abstract class CanvasTest extends BaseTest {
     public void validateOrGenerateResultsGenerics(GraphicalEditor editor, boolean generate,
             boolean preserveDiagramValues)
         {
-    		generate = true;
     		// remember the diagram zoom and viewport location values, 
     		// as they will be changed during the calls below
     		Diagram_c diagram = Diagram_c.getOneDIM_DIAOnR18(editor.getModel());

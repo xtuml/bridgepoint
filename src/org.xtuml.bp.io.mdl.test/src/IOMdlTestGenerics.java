@@ -29,6 +29,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.ui.PlatformUI;
 import org.junit.After;
 import org.junit.Before;
@@ -36,9 +37,11 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TestName;
 import org.junit.runner.RunWith;
+import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.SystemModel_c;
+import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.GeneralPurposeLogger;
 import org.xtuml.bp.core.common.IdAssigner;
@@ -85,7 +88,11 @@ public class IOMdlTestGenerics extends TestCase {
 		super(null);
 		// they all start with "test_"
 //		m_domain_name = arg0.substring(5, arg0.length());
-	
+		
+		// Change default for the parse on resource change preference to
+		// "always"
+		IPreferenceStore store = CorePlugin.getDefault().getPreferenceStore();
+		store.setValue(BridgePointPreferencesStore.EXPORT_GRAPHICS, "always"); //$NON-NLS-1$
 	}
 	@Before
 	public void setUp() throws Exception {
@@ -287,7 +294,7 @@ public class IOMdlTestGenerics extends TestCase {
 	@Test
 	public void testImportSyntaxError() throws FileNotFoundException
 	{
-		ImportModel impMod = new ImportModel(m_workspace_path + Ooaofooa.MODELS_DIRNAME + "/badGenerics." + Ooaofooa.MODELS_EXT, modelRoot, m_system, true, true, false); //$NON-NLS-1$
+		ImportModel impMod = new ImportModel(m_workspace_path + Ooaofooa.MODELS_DIRNAME + "/badGenerics." + Ooaofooa.MODELS_EXT, modelRoot, m_system, true, true, false, true); //$NON-NLS-1$
 		impMod.run(new NullProgressMonitor());
 		assertEquals( false, impMod.m_success );
 		assertEquals( "line 7:1: expecting \"values\", found 'null'\n", //$NON-NLS-1$
@@ -303,7 +310,7 @@ public class IOMdlTestGenerics extends TestCase {
             importSuccess = TestingUtilities
                     .importModelUsingWizard(m_system, loc,
                             false);
-            ImportModel impMod = new ImportModel("odms.xxx", modelRoot, m_system, true, true, false);  //$NON-NLS-1$
+            ImportModel impMod = new ImportModel("odms.xxx", modelRoot, m_system, true, true, false, true);  //$NON-NLS-1$
             int i = impMod.countAndValidateInsertStatements();
             assertTrue ( i > 0 );
             impMod.run(new NullProgressMonitor());
@@ -321,7 +328,7 @@ public class IOMdlTestGenerics extends TestCase {
         String m_errorMessage = null;
         try {
             ImportModel impMod = new ImportModel(
-                    "mdl", modelRoot, m_system, true, true, false); //$NON-NLS-1$
+                    "mdl", modelRoot, m_system, true, true, false, true); //$NON-NLS-1$
             int i = impMod.countAndValidateInsertStatements();
             assertTrue(i > 0);
             impMod.run(new NullProgressMonitor());

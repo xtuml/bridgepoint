@@ -82,7 +82,9 @@ import org.xtuml.bp.core.TimeSpan_c;
 import org.xtuml.bp.core.TimingMark_c;
 import org.xtuml.bp.core.Transition_c;
 import org.xtuml.bp.core.UserDataType_c;
+import org.xtuml.bp.core.ui.DeleteAction;
 import org.xtuml.bp.core.ui.IModelImport;
+import org.xtuml.bp.core.ui.Selection;
 import org.xtuml.bp.core.util.OoaofgraphicsUtil;
 import org.xtuml.bp.core.util.SupertypeSubtypeUtil;
 
@@ -707,6 +709,7 @@ public class ModelStreamProcessor {
 		callPasteOperations(monitor);
 		setComponents();
 		callResolutionOperations(monitor);
+		
 	}
 
 	public IModelImport getImporter() {

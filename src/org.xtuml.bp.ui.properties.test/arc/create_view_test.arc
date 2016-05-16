@@ -83,9 +83,12 @@
     ..end for
             "$${result}" + ")" },
   .elif ( child_node.Key_Lett == "SM_EVT" )
-    ..select one nlevt related by SM_EVTclass->SM_SEVT[R525]->SM_NLEVT[R526]
+    ..select any smsevt from instances of SM_SEVT where ((selected.SMevt_ID == SM_EVTclass.SMevt_ID) and (selected.SM_ID == SM_EVTclass.SM_ID) and (selected.SMspd_ID == SM_EVTclass.SMspd_ID)) 
+    ..select one nlevt related by smsevt->SM_NLEVT[R526]
     ..if(not_empty nlevt)
-      ..select one obj related by nlevt->SM_PEVT[R527]->SM_EVT[R525]->SM_SM[R502]->SM_ISM[R517]->O_OBJ[R518]
+      ..select one smpevt related by nlevt->SM_PEVT[R527]
+      ..select any smevt from instances of SM_EVT where ((selected.SMevt_ID == smpevt.SMevt_ID) and (selected.SM_ID == smpevt.SM_ID) and (selected.SMspd_ID == smpevt.SMspd_ID))
+      ..select one obj related by smevt->SM_SM[R502]->SM_ISM[R517]->O_OBJ[R518]
             "$${SM_EVTclass.Mning}::$${obj.Name}" },
     ..else
       ..select one obj related by SM_EVTclass->SM_SM[R502]->SM_ISM[R517]->O_OBJ[R518]
@@ -97,7 +100,8 @@
       ..end if
     ..end if
   .elif ( child_node.Key_Lett == "SM_SEME" )
-      ..select one evt related by SM_SEMEclass->SM_SEVT[R503]->SM_EVT[R525]
+      ..select one smsevt related by SM_SEMEclass->SM_SEVT[R503]
+      ..select any evt from instances of SM_EVT where ((selected.SMevt_ID == smsevt.SMevt_ID) and (selected.SM_ID == smsevt.SM_ID) and (selected.SMspd_ID == smsevt.SMspd_ID))
       ..select one state related by SM_SEMEclass->SM_STATE[R503]
             "State Event Matrix Entry (test_poly::B Class)" },
   .elif ( child_node.Key_Lett == "SM_ACT" )
@@ -123,7 +127,8 @@
       ..select one obj related by R_FORMclass->R_RGO[R205]->R_OIR[R203]->O_OBJ[R201]
             "$${obj.Name}" },
   .elif ( child_node.Key_Lett == "SM_CH" )
-      ..select one evt related by SM_CHclass->SM_SEME[R504]->SM_SEVT[R503]->SM_EVT[R525]
+      ..select one smsevt related by SM_CHclass->SM_SEME[R504]->SM_SEVT[R503]
+      ..select any evt from instances of SM_EVT where ((selected.SMevt_ID == smsevt.SMevt_ID) and (selected.SM_ID == smsevt.SM_ID) and (selected.SMspd_ID == smsevt.SMspd_ID))
       ..select one state related by SM_CHclass->SM_SEME[R504]->SM_STATE[R503]
             "$${evt.Drv_Lbl}/$${state.Name}" },
   .elif ( child_node.Key_Lett == "R_CONE" )
@@ -534,8 +539,11 @@ public class ${class_name}Data
           .else
               .if(node.Key_Lett == "SM_NLEVT")
                 .if(attr.Name == "Name")
-        ..select one polyClass related by ${mm_obj_var}->SM_PEVT[R527]->SM_EVT[R525]->SM_SM[R502]->SM_ISM[R517]->O_OBJ[R518]
-        ..select one evt related by ${mm_obj_var}->SM_SEVT[R526]->SM_EVT[R525]
+        ..select one smpevt related by ${mm_obj_var}->SM_PEVT[R527]
+        ..select any smevt from instances of SM_EVT where ((selected.SMevt_ID == smpevt.SMevt_ID) and (selected.SM_ID == smpevt.SM_ID) and (selected.SMspd_ID == smpevt.SMspd_ID))
+        ..select one polyClass related by smevt->SM_SM[R502]->SM_ISM[R517]->O_OBJ[R518]
+        ..select any smsevt from instances of SM_SEVT where ((selected.SMevt_ID == ${mm_obj_var}.SMevt_ID) and (selected.SM_ID == ${mm_obj_var}.SM_ID) and (selected.SMspd_ID == ${mm_obj_var}.SMspd_ID))
+        ..select any evt from instances of SM_EVT where ((selected.SMevt_ID == smsevt.SMevt_ID) and (selected.SM_ID == smsevt.SM_ID) and (selected.SMspd_ID == smsevt.SMspd_ID))
 				"$${evt.Mning}::$${polyClass.Name}" },
                 .end if
               .else

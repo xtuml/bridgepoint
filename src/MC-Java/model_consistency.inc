@@ -98,11 +98,11 @@ ${gd_ge_error.body}
           .assign is_referring = false
           .invoke class_body = create_test_class(object, id_attrs, is_referring)
           .invoke string_params = create_test_class_print_params(id_attrs)
-          .invoke id_test_select = create_test_class_select(object, class_body, class_body, obarraynum.body, package.application_root_class)
+          .invoke id_test_select = create_test_class_select(object, class_body, class_body, obarraynum, package.application_root_class)
           .assign zero_error_message = " Cardinality of an identifier is zero. "
-          .invoke id_test_zero = create_test_class_test(object, obarraynum.body, "zero", zero_error_message.body, "", "array", package)
+          .invoke id_test_zero = create_test_class_test(object, obarraynum, "zero", zero_error_message, "", "array", package)
           .assign gt_one_error_message = " Cardinality of an identifier is greater than 1. "
-          .invoke id_test_gt_one = create_test_class_test(object, obarraynum.body, "greater_than_one", gt_one_error_message.body, string_params.body, "array", package)
+          .invoke id_test_gt_one = create_test_class_test(object, obarraynum, "greater_than_one", gt_one_error_message, string_params.body, "array", package)
 ${class_body.body}
 ${id_test_select.body}
 ${id_test_zero.body}
@@ -130,11 +130,11 @@ ${id_test_gt_one.body}
                 .assign is_referring = true
                 .invoke op_class_body = create_test_class(part_obj, ref_attrs, is_referring)
                 .invoke string_params = create_test_class_print_params(ref_attrs)
-                .invoke op_test_select = create_test_class_select(part_obj, op_class_body, op_class_body, oparraynum.body, package.application_root_class)
+                .invoke op_test_select = create_test_class_select(part_obj, op_class_body, op_class_body, oparraynum, package.application_root_class)
                 .assign zero_error_message = " Association: ${rel.Numb}: Cardinality of a participant is 0. "
-                .invoke id_test_zero = create_test_class_test(object, oparraynum.body, "zero", zero_error_message.body, "", "array", package)
+                .invoke id_test_zero = create_test_class_test(object, oparraynum, "zero", zero_error_message, "", "array", package)
                 .assign ne_one_error_message = " Association: ${rel.Numb}: Cardinality of a participant is not equal to 1. "
-                .invoke id_test_ne_one = create_test_class_test(object, oparraynum.body, "not_equal_one", ne_one_error_message.body, string_params.body, "array", package)
+                .invoke id_test_ne_one = create_test_class_test(object, oparraynum, "not_equal_one", ne_one_error_message, string_params.body, "array", package)
           // The participating class is: ${part_obj.Name}
                 .assign deprecated = "${part_obj.Descrip:Deprecated}"
                 .if ("$lr{deprecated}" == "true") 
@@ -153,7 +153,7 @@ ${id_test_zero.body}
                     .end if .//participant multiplicity is 1
                   .elif (participant.Mult == 0 ) .// conditional but multiplicity is one
                     .assign gt_one_error_message = " Association: ${rel.Numb}: Cardinality of a participant is greater than 1. "
-                    .invoke id_test_gt_one = create_test_class_test(object, oparraynum.body, "greater_than_one", gt_one_error_message.body, string_params.body, "array", package)
+                    .invoke id_test_gt_one = create_test_class_test(object, oparraynum, "greater_than_one", gt_one_error_message, string_params.body, "array", package)
 ${id_test_gt_one.body}                
                   .end if .// participant is unconditional
                 .end if .// participant is not deprecated
@@ -176,11 +176,11 @@ ${id_test_gt_one.body}
                 .assign onarraynum = "${info.unique_num}"
                 .assign is_referring = true
                 .invoke on_class_body = create_test_class(aone_obj, on_attrs, is_referring)
-                .invoke on_test_select = create_test_class_select(aone_obj, on_class_body, on_class_body, onarraynum.body, package.application_root_class)
+                .invoke on_test_select = create_test_class_select(aone_obj, on_class_body, on_class_body, onarraynum, package.application_root_class)
                 .assign zero_error_message = " Association: ${rel.Numb}: Cardinality of unconditional one side of link is equal to zero. "
-                .invoke id_test_zero = create_test_class_test(object, onarraynum.body, "zero", zero_error_message.body, "", "array", package)
+                .invoke id_test_zero = create_test_class_test(object, onarraynum, "zero", zero_error_message, "", "array", package)
                 .assign ne_one_error_message = " Association: ${rel.Numb}: Cardinality of one side of link is not equal to 1. "
-                .invoke id_test_ne_one = create_test_class_test(object, onarraynum.body, "not_equal_one", ne_one_error_message.body, "", "array", package)
+                .invoke id_test_ne_one = create_test_class_test(object, onarraynum, "not_equal_one", ne_one_error_message, "", "array", package)
           // The one side class in the association is: ${aone_obj.Name}
                 .assign deprecated = "${aone_obj.Descrip:Deprecated}"
                 .if ("$lr{deprecated}" == "true") 
@@ -191,7 +191,7 @@ ${on_class_body.body}
 ${on_test_select.body}
                   .if (one_assoc.Cond == 0 ) .// it is unconditional
           // The one side class is unconditional
-                    .if (one_assoc.Mult == 0) ) .// Is unconditional and multiplicity is 1 
+                    .if (one_assoc.Mult == 0) .// Is unconditional and multiplicity is 1 
           // The multiplicity of the one side class is one
 ${id_test_ne_one.body}
                     .else
@@ -199,7 +199,7 @@ ${id_test_zero.body}
                     .end if .// multiplicity is one
                   .elif (one_assoc.Mult == 0) .// conditional but multiplicity is one
                     .assign gt_one_error_message = " Association: ${rel.Numb}: Cardinality of one side of link is greater than 1. "
-                    .invoke id_test_gt_one = create_test_class_test(object, onarraynum.body, "greater_than_one", gt_one_error_message.body, "", "array", package)
+                    .invoke id_test_gt_one = create_test_class_test(object, onarraynum, "greater_than_one", gt_one_error_message, "", "array", package)
 ${id_test_gt_one.body}
                   .end if .// is unconditional
                 .end if .// aone_obj is not deprecated
@@ -218,11 +218,11 @@ ${id_test_gt_one.body}
                 .assign otarraynum = "${info.unique_num}"
                 .assign is_referring = true
                 .invoke ot_class_body = create_test_class(aoth_obj, ot_attrs, is_referring)
-                .invoke ot_test_select = create_test_class_select(aoth_obj, ot_class_body, ot_class_body, otarraynum.body, package.application_root_class)
+                .invoke ot_test_select = create_test_class_select(aoth_obj, ot_class_body, ot_class_body, otarraynum, package.application_root_class)
                 .assign zero_error_message = " Association: ${rel.Numb}: Cardinality of unconditional other side of link is equal to zero. "
-                .invoke id_test_zero = create_test_class_test(object, otarraynum.body, "zero", zero_error_message.body, "", "array", package)
+                .invoke id_test_zero = create_test_class_test(object, otarraynum, "zero", zero_error_message, "", "array", package)
                 .assign ne_one_error_message = " Association: ${rel.Numb}: Cardinality of other side of link is not equal to 1. "
-                .invoke id_test_ne_one = create_test_class_test(object, otarraynum.body, "not_equal_one", ne_one_error_message.body, "", "array", package)
+                .invoke id_test_ne_one = create_test_class_test(object, otarraynum, "not_equal_one", ne_one_error_message, "", "array", package)
           // The other side class in the association is: ${aoth_obj.Name}
                 .assign deprecated = "${aoth_obj.Descrip:Deprecated}"
                 .if ("$lr{deprecated}" == "true") 
@@ -241,7 +241,7 @@ ${id_test_zero.body}
                     .end if .// multiplicity is 1
                   .elif (oth_assoc.Mult == 0)  .// conditional but multiplicity is 1
                     .assign gt_one_error_message = " Association: ${rel.Numb}: Cardinality of other side of link is greater than 1. "
-                    .invoke id_test_gt_one = create_test_class_test(object, otarraynum.body, "greater_than_one", gt_one_error_message.body, "", "array", package)
+                    .invoke id_test_gt_one = create_test_class_test(object, otarraynum, "greater_than_one", gt_one_error_message, "", "array", package)
 ${id_test_gt_one.body}                
                   .end if .// is unconditional
                 .end if .// aoth_obj is not deprecated
@@ -259,9 +259,9 @@ ${id_test_gt_one.body}
               .assign starraynum = "${info.unique_num}"
               .assign is_referring = true
               .invoke st_class_body = create_test_class(supt_obj, ref_attrs, is_referring)
-              .invoke st_test_select = create_test_class_select(supt_obj, st_class_body, st_class_body, starraynum.body, package.application_root_class)
+              .invoke st_test_select = create_test_class_select(supt_obj, st_class_body, st_class_body, starraynum, package.application_root_class)
               .assign ne_one_error_message = " Association: ${rel.Numb}: Cardinality of a supertype is not equal to 1. "
-              .invoke id_test_ne_one = create_test_class_test(object, starraynum.body, "not_equal_one", ne_one_error_message.body, "", "array", package)
+              .invoke id_test_ne_one = create_test_class_test(object, starraynum, "not_equal_one", ne_one_error_message, "", "array", package)
           // The supertype class is: ${supt_obj.Name}
 .// Exclude the test for supertype on R8001.
 .if ( (rel.Numb == 8001) and (supt_obj.Name == "Packageable Element") )
@@ -308,11 +308,11 @@ ${id_test_ne_one.body}
                 .invoke part_class_body = create_test_class(ref_attr_obj, part_attrs, is_referring)
                 .invoke param_body = create_test_class_parameters(part_attrs, false)
                 .invoke string_params = create_test_class_print_params(part_attrs)
-                .invoke pt_test_select = create_test_class_select(ref_attr_obj, part_class_body, param_body, ptarraynum.body, package.application_root_class)
+                .invoke pt_test_select = create_test_class_select(ref_attr_obj, part_class_body, param_body, ptarraynum, package.application_root_class)
                 .assign zero_error_message = " Association: ${rel.Numb}: Cardinality of an unconditional formalizer is equal to zero. "
-                .invoke id_test_zero = create_test_class_test(object, ptarraynum.body, "zero", zero_error_message.body, "", "array", package)
+                .invoke id_test_zero = create_test_class_test(object, ptarraynum, "zero", zero_error_message, "", "array", package)
                 .assign ne_one_error_message = " Association: ${rel.Numb}: Cardinality of a formalizer is not equal to one. "
-                .invoke id_test_ne_one = create_test_class_test(object, ptarraynum.body, "not_equal_one", ne_one_error_message.body, "","array", package)
+                .invoke id_test_ne_one = create_test_class_test(object, ptarraynum, "not_equal_one", ne_one_error_message, "","array", package)
 ${part_class_body.body}
 ${pt_test_select.body}
                 .if (formalizer.Cond == 0) .// it is unconditional
@@ -323,7 +323,7 @@ ${id_test_zero.body}
                   .end if  .// unconditional and multiplicity is 1
                 .elif (formalizer.Mult == 0) .// conditional but multiplicity is one
                   .assign gt_one_error_message = " Association: ${rel.Numb}: Cardinality of a formalizer is greater than 1. "
-                  .invoke id_test_gt_one = create_test_class_test(object, ptarraynum.body, "greater_than_one", gt_one_error_message.body, "","array", package)
+                  .invoke id_test_gt_one = create_test_class_test(object, ptarraynum, "greater_than_one", gt_one_error_message, "","array", package)
 ${id_test_gt_one.body}
                 .end if  .// is unconditional
               .end if .// a selector is needed
@@ -354,11 +354,11 @@ ${id_test_gt_one.body}
               .end if
               .invoke param_body = create_test_class_parameters(lnk_ref_attrs, false)
               .assign cl_lnk_arraynum = "${info.unique_num}"
-              .invoke lk_test_select = create_test_class_select(link_ref_attr_obj, link_class_body, param_body, cl_lnk_arraynum.body, package.application_root_class)
+              .invoke lk_test_select = create_test_class_select(link_ref_attr_obj, link_class_body, param_body, cl_lnk_arraynum, package.application_root_class)
               .assign zero_error_message = " Association: ${rel.Numb}: Cardinality of a link is equal to zero. "
-              .invoke id_test_zero = create_test_class_test(object, cl_lnk_arraynum.body, "zero", zero_error_message.body, "", "array", package)
+              .invoke id_test_zero = create_test_class_test(object, cl_lnk_arraynum, "zero", zero_error_message, "", "array", package)
               .assign ne_one_error_message = " Association: ${rel.Numb}: Cardinality of a link is not equal to 1. "
-              .invoke id_test_ne_one = create_test_class_test(object, cl_lnk_arraynum.body, "not_equal_one", ne_one_error_message.body, "", "array", package)
+              .invoke id_test_ne_one = create_test_class_test(object, cl_lnk_arraynum, "not_equal_one", ne_one_error_message, "", "array", package)
 ${link_class_body.body}
 ${lk_test_select.body}
 ${id_test_zero.body}
@@ -388,11 +388,11 @@ ${id_test_ne_one.body}
               .end if
               .invoke param_body = create_test_class_parameters(lnk_ref_attrs, false)
               .assign cl_lnk_arraynum = "${info.unique_num}"
-              .invoke lk_test_select = create_test_class_select(link_ref_attr_obj, link_class_body, param_body, cl_lnk_arraynum.body, package.application_root_class)
+              .invoke lk_test_select = create_test_class_select(link_ref_attr_obj, link_class_body, param_body, cl_lnk_arraynum, package.application_root_class)
               .assign zero_error_message = " Association: ${rel.Numb}: Cardinality of a link is equal to zero. "
-              .invoke id_test_zero = create_test_class_test(object, cl_lnk_arraynum.body, "zero", zero_error_message.body, "", "array", package)
+              .invoke id_test_zero = create_test_class_test(object, cl_lnk_arraynum, "zero", zero_error_message, "", "array", package)
               .assign ne_one_error_message = " Association: ${rel.Numb}: Cardinality of a link is not equal to 1. "
-              .invoke id_test_ne_one = create_test_class_test(object, cl_lnk_arraynum.body, "not_equal_one", ne_one_error_message.body, "", "array", package)
+              .invoke id_test_ne_one = create_test_class_test(object, cl_lnk_arraynum, "not_equal_one", ne_one_error_message, "", "array", package)
 ${link_class_body.body}
 ${lk_test_select.body}
 ${id_test_zero.body}
@@ -418,14 +418,14 @@ ${id_test_ne_one.body}
               .invoke part_class_body = create_test_class(ref_attr_obj, ref_attrs, is_referring)
               .invoke param_body = create_test_class_parameters(ref_attrs, false)
               .assign subtarraynum = "${info.unique_num}"
-              .invoke st_test_select = create_test_class_select(ref_attr_obj, part_class_body, param_body, subtarraynum.body, package.application_root_class)
+              .invoke st_test_select = create_test_class_select(ref_attr_obj, part_class_body, param_body, subtarraynum, package.application_root_class)
 ${part_class_body.body}
 ${st_test_select.body} 
     objs${subcounter} = objs${subcounter} + objs${subtarraynum}.length;
             .end if
           .end for
           .assign ne_one_error_message = " Association: ${rel.Numb}: Cardinality of subtype is not equal to 1. "
-          .invoke id_test_ne_one = create_test_class_test(object, subcounter.body, "not_equal_one", ne_one_error_message.body, "","int", package)
+          .invoke id_test_ne_one = create_test_class_test(object, subcounter, "not_equal_one", ne_one_error_message, "","int", package)
 ${id_test_ne_one.body}
         .end if
       .end for .// each rto in rtos

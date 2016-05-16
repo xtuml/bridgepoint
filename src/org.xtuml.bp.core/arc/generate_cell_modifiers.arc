@@ -102,8 +102,8 @@
             }
         .end if
         }
-      .end if   // empty dbattr
-    .end if  // asa.result
+      .end if   .// empty dbattr
+    .end if  .// asa.result
   .end for
 .end function
 .function get_validmult_decl
