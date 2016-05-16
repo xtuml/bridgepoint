@@ -166,7 +166,7 @@ selected destination. This is another chage that is specific to move and is stil
   is taken if the user cancels the dialog.  
 
 6.4 Modify all resolution operations to first search by ID  instead of name  
-
+6.4.1 Analysis of this problem  
 During paste, after the elements are put in their new destination, the source elements must be
 cleaned-up from the previous location. In the existing cut/paste implementation this meant 
 performing a delete.  It is during the delete that elements (Datatypes) are "downgraded". 
@@ -183,12 +183,45 @@ for each brg in brgs
 end for;
 ```  
 
-6.4.1 TODO: Add the implementation details.  
-Modify the PasteAction code that is deleting the instance to pass a flag to indicate 
-that move is in progress. When move is in progress we do not want to disconnect the 
-instances.
+`PasteAction.java::run()` is responsible for paste in both the copy/paste and cut/paste senarios. When a cut/paste occurs, after the elements are moved to their new home they most be removed from their source home. In this senario, where the elements were simple moved (their IDs are the same) we do NOT want to call the ooaofooa Dispose operations on the elements. However, we DO need to perfom some cleanup. The cleanup needed is:  
+* Remove the elements from the source root's instance list  
+* remove the files  
+  * This happens in the Transaction end operation. The ComponentTransactionListener.transactionEnded() operation looks to see if there were deletions in the transaction, and if so, it calls PersistableModelComponent.deleteSelfAndChildren()  
 
-6.4.2 TODO: In the type demotion dialog, consider adding text to tell the user to consider turning on IPRs or checking package visibility (if needed).
+6.4.1.1. core/ui/DeleteAction(ISelection) is generated. It deletes the model types in the given selection in a specific order (starting with S_SYS).  The archetype generates code that finds the count of a given type (example EP_PKG) in the selection and then iterates over them one at a time calling <Element instance>.Dispose() on each one.  
+6.4.1.2. <Element Instance>.Dispose() is of course generated from MC-Java and of course each model element in ooaofooa has a Dispose operation. MC-Java adds some code to the bottom of each of these operations that looks like this:  
+```
+    if (delete()) {
+			Ooaofooa.getDefaultInstance()
+					.fireModelElementDeleted(new BaseModelDelta(Modeleventnotification_c.DELTA_DELETE, this));
+		}
+```  
+6.4.1.2.1 the delete() operation is generated for each model element.  
+6.4.1.2.1.1 What this does first is to call super.delete() (NonRootModelElement.java::delete()), which assures the element is not orphaned. (Being orphanded means the element does not exist in the root's instance list.), and if not orphanded we remove the elements from this roots instance list (and return true. Additionally, it is worth noting there is a special case in this situation for merge. It looks like this:  
+```
+      ...
+			// During merge we do not convert elements, they are moved
+			// as is from one side to the other.  During a merge undo we
+			// can hit a case where RTOs are removed before the RGO, causing
+			// the check for external references to be true.
+			if(hasExternalRefs && !getModelRoot().isCompareRoot()) {
+				convertToProxy();
+			} else {
+				delete_unchecked();
+			}
+			return true;
+			...
+```  
+6.4.1.2.1.1.1 Note that delete_unchecked() is where we remove the elements from the roots instance list as described 
+in 2.1.  
+6.4.1.2.1.2 delete() then has code that tests to assure relationships were torn down by the element's Dispose() properly, and reports non-fatal errors is the relationships were not properly disposed.  
+
+6.4.2 Resolution for cut/paste's problem of "downgrading" model elements and improper element "deletion" on move.  
+6.4.2.1  modify MC-Java's handling of the Dispose() operation and wrap the body of the OAL action in a conditional expression that check to see if a move is in progress, and do NOT call the action body if a move is in progress.  
+6.4.2.2 modify the generated delete() operations to check to see if a move is in progress and if a move is in progress do not report the error about relationships not being torn down.  
+6.4.2.3 Investigate the "convertToProxy()" used in NonRootModelElement.delete()   
+
+6.4.3 In the type demotion dialog, we considered adding text to tell the user to consider turning on IPRs or checking package visibility and decided against it for now since the issue at hand actual does not include IPR support.  
 
 6.5 Fix inconsistent proxy paths [[2.4](#2.4)]  
 6.5.1 I removed all generated code from the operations that load and write the proxies.  
