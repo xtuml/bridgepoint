@@ -963,16 +963,12 @@ public class TransactionManager {
 		return persisting;
 	}
 
-	public static void reportElementDowngraded(Object p_rgodowngraded, Object p_rto, String p_relationship) {		
-		NonRootModelElement rto = (NonRootModelElement) p_rto;
-
-		if (p_rgodowngraded != null) {
-			NonRootModelElement rgo = (NonRootModelElement) p_rgodowngraded;
-			String qualifedName = rgo.getPath();
-			if (!qualifedName.isEmpty() && !affectedModelElementsNames.contains(qualifedName)) {
-				affectedModelElementsNames.add(qualifedName);
-			}
-		}
+	public static void collectModelElementsNames(String elementType,
+			String elementName) {
+		if (!elementName.isEmpty()
+				&& !affectedModelElementsNames.contains(elementType
+						+ elementName))
+			affectedModelElementsNames.add(elementType + elementName);
 	}
 
 	/**

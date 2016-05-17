@@ -1945,7 +1945,7 @@ Translate:native
 ',
 	0,
 	"ba5eda7a-def5-0000-0000-000000000000",
-	'TransactionManager.reportElementDowngraded(p_Rgodowngraded,p_Rto,p_Relationship);',
+	'TransactionManager.collectModelElementsNames(p_Elementtype,p_Elementname);',
 	0,
 	'');
 INSERT INTO S_BPARM
