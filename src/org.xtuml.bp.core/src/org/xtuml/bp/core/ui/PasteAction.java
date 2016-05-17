@@ -52,6 +52,7 @@ import org.xtuml.bp.core.common.IPasteListener;
 import org.xtuml.bp.core.common.ModelRoot;
 import org.xtuml.bp.core.common.ModelStreamProcessor;
 import org.xtuml.bp.core.common.NonRootModelElement;
+import org.xtuml.bp.core.common.RGOResolver;
 import org.xtuml.bp.core.common.Transaction;
 import org.xtuml.bp.core.common.TransactionManager;
 import org.xtuml.bp.core.util.OoaofgraphicsUtil;
@@ -59,8 +60,16 @@ import org.xtuml.bp.core.util.UIUtil;
 
 public abstract class PasteAction extends CutCopyPasteAction  {
 
+	// This varible is only specified here because it calls a public
+	// static function that clears the list of downgraded
+	// elements prior to paste running. While it is really not necessary,
+	// it is good for the static to have a clear place or origin, and this
+	// is that place.
+    @SuppressWarnings("unused")
+	private RGOResolver rgoResolver;
+    
 	protected HashMap<NonRootModelElement, ModelStreamProcessor> processorMap = new HashMap<NonRootModelElement, ModelStreamProcessor>();
-	
+
 	public PasteAction() {
 		super();
 	}
@@ -68,6 +77,7 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 	public void run() {
 		// clear the processor map
 		processorMap.clear();
+		RGOResolver.clearDowngradedElementsList();
 		IRunnableWithProgress runnable = new IRunnableWithProgress() {
 
 			public void run(final IProgressMonitor monitor)
@@ -121,8 +131,8 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 													.getFile().getFullPath(), !MOVE_IS_IN_PROGRESS);
 							processor.runImporter(importer, monitor);
 							processor.processFirstStep(monitor);
-							runSubtypeProcessing(destination);
-							processor.processSecondStep(monitor);
+							processGraphics(destination);
+							processor.finishImport(monitor);
 						}
 					}
 				} catch (Exception e) {
@@ -237,7 +247,12 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 		return true;
 	}
 
-	public abstract void runSubtypeProcessing(NonRootModelElement destination);
+	/**
+	 * hook up the pasted graphics to the destination roots
+	 * 
+	 * @param destination
+	 */
+	public abstract void processGraphics(NonRootModelElement destination);
 
 	public abstract TransactionManager getTransactionManager();
 

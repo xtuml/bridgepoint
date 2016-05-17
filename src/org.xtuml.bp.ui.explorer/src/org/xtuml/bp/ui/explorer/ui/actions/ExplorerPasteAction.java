@@ -58,7 +58,7 @@ public class ExplorerPasteAction extends PasteAction {
 	}
 
 	@Override
-	public void runSubtypeProcessing(NonRootModelElement destination) {
+	public void processGraphics(NonRootModelElement destination) {
 		// move graphical data if present
 		Class<?> canvasPasteActionClass = OoaofgraphicsUtil
 				.getCanvasPasteActionClass();
