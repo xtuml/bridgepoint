@@ -58,6 +58,10 @@ public abstract class CutCopyPasteAction extends Action {
 	
 	}
 	
+	public static boolean moveIsInProgress() {
+		return MOVE_IS_IN_PROGRESS;
+	}
+	
 	protected abstract void postRun();
 	
 	protected abstract int getActionType();

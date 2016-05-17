@@ -44,67 +44,67 @@ select many brgs related by self->S_BRG[R20];
 for each brg in brgs
   unrelate self from brg across R20;
   relate brg to voidDt across R20;
-  Util::collectModelElementsNames(elementType:"- Bridge : ",elementName:brg.Name);
+  Util::reportElementDowngraded(rto:self.convertToInstance(), rgoDowngraded:brg.convertToInstance(), relationship:"R20"); 
 end for;
 select many bparms related by self->S_BPARM[R22];
 for each bparm in bparms
   unrelate self from bparm across R22;
   relate bparm to intdt across R22;
-  Util::collectModelElementsNames(elementType:"- Bridge Parameter : ",elementName:bparm.Name);
+  Util::reportElementDowngraded(rto:self.convertToInstance(), rgoDowngraded:bparm.convertToInstance(), relationship:"R22");
 end for;
 select many eedis related by self->S_EEDI[R15];
 for each eedi in eedis
   unrelate self from eedi across R15;
   relate eedi to intdt across R15;
-  Util::collectModelElementsNames(elementType:"- External Entity : ",elementName:eedi.Name);
+  Util::reportElementDowngraded(rto:self.convertToInstance(), rgoDowngraded:eedi.convertToInstance(), relationship:"R15");
 end for;
 select many eeedis related by self->S_EEEDI[R16];
 for each eeedi in eeedis
   unrelate self from eeedi across R16;
   relate eeedi to intdt across R16;
-  Util::collectModelElementsNames(elementType:"- External Entity Event DataItem : ",elementName:eeedi.Name);
+  Util::reportElementDowngraded(rto:self.convertToInstance(), rgoDowngraded:eeedi.convertToInstance(), relationship:"R16"); 
 end for;
 select many sparms related by self->S_SPARM[R26];
 for each sparm in sparms
   unrelate self from sparm across R26;
   relate sparm to intdt across R26;
-  Util::collectModelElementsNames(elementType:"- Function Parameter : ",elementName:sparm.Name);
+  Util::reportElementDowngraded(rto:self.convertToInstance(), rgoDowngraded:sparm.convertToInstance(), relationship:"R26");
 end for;
 select many fns related by self->S_SYNC[R25];
 for each fn in fns
   unrelate self from fn across R25;
   relate fn to voidDt across R25;
-  Util::collectModelElementsNames(elementType:"- Function : ",elementName:fn.Name);
+  Util::reportElementDowngraded(rto:self.convertToInstance(), rgoDowngraded:fn.convertToInstance(), relationship:"R25");
 end for;
 select many evtdis related by self->SM_EVTDI[R524];
 for each evtdi in evtdis
   unrelate self from evtdi across R524;
   relate evtdi to intdt across R524;
- Util::collectModelElementsNames(elementType:"- State Machine Event DataItem : ",elementName:evtdi.Name);
+ Util::reportElementDowngraded(rto:self.convertToInstance(), rgoDowngraded:evtdi.convertToInstance(), relationship:"R524");
 end for;
 select many opers related by self->O_TFR[R116];
 for each oper in opers
   unrelate self from oper across R116;
   relate oper to voidDt across R116;
-  Util::collectModelElementsNames(elementType:"- Operation : ",elementName:oper.Name);
+  Util::reportElementDowngraded(rto:self.convertToInstance(), rgoDowngraded:oper.convertToInstance(), relationship:"R116");
 end for;
 select many oparms related by self->O_TPARM[R118];
 for each oparm in oparms
   unrelate self from oparm across R118;
   relate oparm to intdt across R118;
-  Util::collectModelElementsNames(elementType:"- Operation Parameter : ",elementName:oparm.Name);
+  Util::reportElementDowngraded(rto:self.convertToInstance(), rgoDowngraded:oparm.convertToInstance(), relationship:"R118");
 end for;
 select many attrs related by self->O_ATTR[R114];
 for each attr in attrs
   unrelate self from attr across R114;
   relate attr to intdt across R114;
-   Util::collectModelElementsNames(elementType:"- Attribute : ",elementName:attr.Name);
+   Util::reportElementDowngraded(rto:self.convertToInstance(), rgoDowngraded:attr.convertToInstance(), relationship:"R114");
 end for;
 select many members related by self->S_MBR[R45];
 for each member in members
   unrelate self from member across R45;
   relate member to intdt across R45;
-  Util::collectModelElementsNames(elementType:"- Structure Member : ",elementName:member.Name);
+  Util::reportElementDowngraded(rto:self.convertToInstance(), rgoDowngraded:member.convertToInstance(), relationship:"R45");
 end for;
 select one udt related by self->S_UDT[R17];
 select one edt related by self->S_EDT[R17];
@@ -126,7 +126,7 @@ end if;
 select many sycs related by self->CNST_SYC[R1500];
 for each syc in sycs
   syc.setToDefaultDatatype();
-  Util::collectModelElementsNames(elementType:"- Symbolic Constant : ",elementName:syc.Name);
+  Util::reportElementDowngraded(rto:self.convertToInstance(), rgoDowngraded:syc.convertToInstance(), relationship:"R1500");
 end for;
 //
 // Value Subsystem
@@ -144,21 +144,21 @@ select many vvars related by self->V_VAR[R848];
 for each vvar in vvars
   unrelate self from vvar across R848;
   relate vvar to intdt across R848;
-  Util::collectModelElementsNames(elementType:"- Variable : ",elementName:vvar.Name);
+  Util::reportElementDowngraded(rto:self.convertToInstance(), rgoDowngraded:vvar.convertToInstance(), relationship:"R848");
 end for;
 //
 select many ios related by self->C_IO[R4008];
 for each io in ios
   unrelate self from io across R4008;
   relate io to voidDt across R4008;
-    Util::collectModelElementsNames(elementType:"- Interface Operation : ",elementName:io.Name);
+    Util::reportElementDowngraded(rto:self.convertToInstance(), rgoDowngraded:io.convertToInstance(), relationship:"R4008");
 end for;
 
 select many pps related by self->C_PP[R4007];
 for each pp in pps
   unrelate self from pp across R4007;
   relate pp to intdt across R4007;
-  Util::collectModelElementsNames(elementType:"- Property Parameter : ",elementName:pp.Name);
+  Util::reportElementDowngraded(rto:self.convertToInstance(), rgoDowngraded:pp.convertToInstance(), relationship:"R4007");
 end for;
 
 select many runtimeVals related by self->RV_RVL[R3307];
@@ -173,8 +173,7 @@ for each udt in udts
   udt.changeCoreType(typeName:"integer");
   select one udtDt related by udt->S_DT[R17];
   if(not isCoreType and not_empty udtDt)
-    Util::collectModelElementsNames(elementType:"- User Data Type : ",
-                                                        elementName:udtDt.Name);
+    Util::reportElementDowngraded(rto:self.convertToInstance(), rgoDowngraded:udtDt.convertToInstance(), relationship:"R17");
   end if;
 end for;
 

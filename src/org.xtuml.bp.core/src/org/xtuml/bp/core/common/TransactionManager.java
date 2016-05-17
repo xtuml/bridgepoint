@@ -75,13 +75,13 @@ public class TransactionManager {
 	ArrayList<Transaction> undoStack = new ArrayList<Transaction>();
 	ArrayList<Transaction> redoStack = new ArrayList<Transaction>();
 
-	static ArrayList<IFile> affectedComponents = new ArrayList<IFile>();
+	private static ArrayList<IFile> affectedComponents = new ArrayList<IFile>();
 
 	ListenerList transactionListeners = new ListenerList();
 	private Action redoAction;
 	private Action undoAction;
 
-	static private ArrayList<String> affectedModelElementsNames = new ArrayList<String>();
+	private static ArrayList<String> affectedModelElementsNames = new ArrayList<String>();
 	private Transaction lastTransaction;
 
 	private boolean ignoreResourceChanges = false;
@@ -963,12 +963,16 @@ public class TransactionManager {
 		return persisting;
 	}
 
-	public static void collectModelElementsNames(String elementType,
-			String elementName) {
-		if (!elementName.isEmpty()
-				&& !affectedModelElementsNames.contains(elementType
-						+ elementName))
-			affectedModelElementsNames.add(elementType + elementName);
+	public static void reportElementDowngraded(Object p_rgodowngraded, Object p_rto, String p_relationship) {		
+		NonRootModelElement rto = (NonRootModelElement) p_rto;
+
+		if (p_rgodowngraded != null) {
+			NonRootModelElement rgo = (NonRootModelElement) p_rgodowngraded;
+			String qualifedName = rgo.getPath();
+			if (!qualifedName.isEmpty() && !affectedModelElementsNames.contains(qualifedName)) {
+				affectedModelElementsNames.add(qualifedName);
+			}
+		}
 	}
 
 	/**
