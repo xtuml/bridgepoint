@@ -91,7 +91,6 @@ public class IntegrityChecker {
 			checkPMCContents(elementToCheck);
 		} else {
 			elementToCheck.Checkintegrity();
-			elementToCheck.checkReferentialIntegrity();
 			ObjectElement[] children = inspector.getChildRelations(elementToCheck);
 			checkChildrenIntegrity(children, checkDuringLoad);
 		}
@@ -103,14 +102,12 @@ public class IntegrityChecker {
 	
 	private static void checkPMCContents(NonRootModelElement elementToCheck) {
 		elementToCheck.Checkintegrity();
-		elementToCheck.checkReferentialIntegrity();
 		List<?> children = PersistenceManager.getHierarchyMetaData()
 				.getChildren(elementToCheck, true);
 		for(Object child : children) {
 			if(child instanceof NonRootModelElement) {
 				NonRootModelElement element = (NonRootModelElement) child;
 				element.Checkintegrity();
-				elementToCheck.checkReferentialIntegrity();
 			}
 		}
 	}
@@ -132,7 +129,6 @@ public class IntegrityChecker {
 				}
 			}
 			nrme.Checkintegrity();
-			nrme.checkReferentialIntegrity();
 			checkChildrenIntegrity(inspector.getChildRelations(nrme), checkDuringLoad);
 		}
 	}
