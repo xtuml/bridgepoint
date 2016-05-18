@@ -568,7 +568,14 @@ ${nav_string.body}\
 
 		final ModelRoot modelRoot = ((NonRootModelElement) element).getModelRoot();
 
-		if (!(Ooaofooa.Getuniqueinitialname(modelRoot, name, element).equals(name))) {
+                .select many sig_op_set from instances of O_TFR where (selected.name == "getSignature")
+                .select many sig_obj_set related by sig_op_set->O_OBJ[R115]
+		if ( 
+                .for each sig_obj in sig_obj_set
+                  .invoke cn = get_class_name(sig_obj)
+                   !(element instanceof ${cn.body}) &&
+                .end for
+                    !(Ooaofooa.Getuniqueinitialname(modelRoot, name, element).equals(name))) {
 			return CorePlugin.DUPLICATE_NAME_ERROR;
 		}
 		
