@@ -776,29 +776,6 @@ public class ${class_name} extends CoreImport
                ((ReferentialAttribute_c) loadedInstance).Setdatatype();
           }
       }
-            ModelRoot.disableChangeNotification();
-          try {
-            for (int i = 0; i < loadedGraphicsInstances.size(); i++) {
-              if (loadedGraphicsInstances.get(i) instanceof Model_c) {
-                Model_c model = (Model_c) loadedGraphicsInstances.get(i);
-                model.setRepresents(Cl_c.Getinstancefromooa_id(
-                       getModelRoot(), model.getOoa_id(), model.getOoa_type()));
-              }
-              if(loadedGraphicsInstances.get(i) instanceof GraphicalElement_c) {
-					GraphicalElement_c element = (GraphicalElement_c) loadedGraphicsInstances.get(i);
-						element.setRepresents(Cl_c.Getinstancefromooa_id(
-								getModelRoot(), element.getOoa_id(), element.getOoa_type()));
-              }
-          }
-            pm.done();
-            if (m_parseAll) {
-                AllActivityModifier aam = new AllActivityModifier(rootModelElement, pm);
-                aam.processAllActivities(AllActivityModifier.PARSE);
-            }
-          }
-          finally {
-                        ModelRoot.enableChangeNotification();
-        }
     }
     }
     .end if
