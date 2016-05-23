@@ -95,7 +95,8 @@ public class CanvasPasteAction extends PasteAction {
 		super.runWithEvent(event);
 	}
 
-	public void runSubtypeProcessing(NonRootModelElement destination) {
+	@Override 
+	public void processGraphics(NonRootModelElement destination) {
 		// we only want to do graphical processing
 		// if the destination is the diagram
 		if (getDestinations().size() == 1

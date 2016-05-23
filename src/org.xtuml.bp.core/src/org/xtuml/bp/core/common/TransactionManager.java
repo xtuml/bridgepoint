@@ -57,6 +57,7 @@ import org.xtuml.bp.core.Modeleventnotification_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.PropertyViewListener;
 import org.xtuml.bp.core.SystemModel_c;
+import org.xtuml.bp.core.ui.CutCopyPasteAction;
 import org.xtuml.bp.core.ui.Selection;
 import org.xtuml.bp.core.ui.marker.DelayedMarkerJob;
 import org.xtuml.bp.core.util.CoreUtil;
@@ -338,8 +339,9 @@ public class TransactionManager {
 			boolean result = UIUtil.openScrollableTextDialog(PlatformUI
 					.getWorkbench().getDisplay().getActiveShell(), true,
 					"Confirm Changes", message, 
-					"The following elements will have their type reset to the default type  as a result of this operation." +
-					"\nWould you like to proceed?",
+					"The following elements on the right side of each sentence will have\n" +
+					"their type reset to the default type as a result of this operation.\n" +
+					"Would you like to proceed ?",
 					null,
 					BridgePointPreferencesStore.SHOW_SYNC_DELETION_DIALOG, true, true);			
 			if(!result) {
@@ -963,16 +965,29 @@ public class TransactionManager {
 		return persisting;
 	}
 
-	public static void reportElementDowngraded(Object p_rgodowngraded, Object p_rto, String p_relationship) {		
-		NonRootModelElement rto = (NonRootModelElement) p_rto;
-
-		if (p_rgodowngraded != null) {
-			NonRootModelElement rgo = (NonRootModelElement) p_rgodowngraded;
-			String qualifedName = rgo.getPath();
-			if (!qualifedName.isEmpty() && !affectedModelElementsNames.contains(qualifedName)) {
-				affectedModelElementsNames.add(qualifedName);
+	public static void reportElementDowngraded(Object p_rgodowngraded, Object p_rto, String p_relationship,
+			boolean failedToReconnectRGO) {
+		if (p_rgodowngraded != null) {	
+			if (CutCopyPasteAction.moveIsInProgress() && !failedToReconnectRGO) {
+				// If move is in progress then we are going to attempt to stitch-up
+				// the RGO during paste. If successful we do not need to tell the user
+				// it was downgraded, but it we fail we do need to report it.
+				RGOResolver.addDownGradedElement((NonRootModelElement)p_rto, (NonRootModelElement)p_rgodowngraded, p_relationship);
+			} else {
+				String qualifedName = "";
+				if (p_rgodowngraded != null) {
+					qualifedName = ((NonRootModelElement)p_rgodowngraded).getPath();
+				}
+				if (!qualifedName.isEmpty() && !affectedModelElementsNames.contains(qualifedName)) {
+					String message = ((NonRootModelElement)p_rto).getPath() + "  is referred to by  " + qualifedName;
+					affectedModelElementsNames.add(message); 
+				}
 			}
-		}
+		}		
+	}
+	
+	public static void reportElementDowngraded(Object p_rgodowngraded, Object p_rto, String p_relationship) {		
+		reportElementDowngraded(p_rgodowngraded, p_rto, p_relationship, false);
 	}
 
 	/**
