@@ -45,7 +45,7 @@ import org.xtuml.bp.core.Severity_c;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.inspector.ModelInspector;
 import org.xtuml.bp.core.inspector.ObjectElement;
-import org.xtuml.bp.core.ui.preferences.BridgePointProjectPreferences;
+import org.xtuml.bp.core.ui.preferences.BridgePointProjectPreferences; 
 
 /**
  * This is a utility class which will trigger generation of any integrity issues
