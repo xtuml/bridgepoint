@@ -47,6 +47,7 @@ public class BridgePointPreferences
     private Button showReferenceSynchronizationReport;
     private Button useDefaultNamesForNewModelElements;
     private Button createGraphicsDuringImport;
+    private Button enableModelIntegrityCheck;
     
     protected IPreferenceModel model;
 
@@ -134,6 +135,11 @@ public class BridgePointPreferences
     createGraphicsDuringImport.setText("Create graphics during import");
     createGraphicsDuringImport.setLayoutData(new GridData());
     createGraphicsDuringImport.setToolTipText("This option will reconcile model elements with their corresponding graphical elements during model import and will create and any missing graphical elements.");
+
+    enableModelIntegrityCheck = new Button(composite, SWT.CHECK | SWT.LEFT);
+    enableModelIntegrityCheck.setText("Enable model integrity checks");
+    enableModelIntegrityCheck.setLayoutData(new GridData());
+    enableModelIntegrityCheck.setToolTipText(BridgePointProjectModelIntegrityPreferences.enableModelIntegrityToolTip);
         
     model = new BridgePointPreferencesModel();
     model.getStore().loadModel(getPreferenceStore(), null, model);
@@ -180,6 +186,7 @@ public class BridgePointPreferences
         bpPrefs.showReferenceSyncReport = showReferenceSynchronizationReport.getSelection();
         bpPrefs.useDefaultNamesForNewModelElements = useDefaultNamesForNewModelElements.getSelection();
         bpPrefs.createGraphicsDuringImport = createGraphicsDuringImport.getSelection();
+        bpPrefs.enableModelIntegrityCheck = enableModelIntegrityCheck.getSelection();
         model.getStore().saveModel(getPreferenceStore(), model);
         return true;
 	}
@@ -221,6 +228,7 @@ public class BridgePointPreferences
         showReferenceSynchronizationReport.setSelection(bpPrefs.showReferenceSyncReport);
         useDefaultNamesForNewModelElements.setSelection(bpPrefs.useDefaultNamesForNewModelElements);          
         createGraphicsDuringImport.setSelection(bpPrefs.createGraphicsDuringImport);          
+        enableModelIntegrityCheck.setSelection(bpPrefs.enableModelIntegrityCheck);          
     }
 
     public IPreferenceStore getPreferenceStore() {

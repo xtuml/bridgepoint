@@ -24,13 +24,13 @@ package org.xtuml.bp.core.common;
 
 import org.eclipse.jface.dialogs.MessageDialogWithToggle;
 import org.eclipse.jface.preference.IPreferenceStore;
-
+import org.xtuml.bp.core.ui.preferences.BridgePointProjectModelIntegrityPreferences;
 import org.xtuml.bp.ui.preference.BasePlugin;
 import org.xtuml.bp.ui.preference.IPreferenceModel;
 import org.xtuml.bp.ui.preference.IPreferenceModelStore;
 
 public class BridgePointPreferencesStore implements IPreferenceModelStore {
-    private static final String PREFIX = "bridgepoint_prefs_";  //$NON-NLS-1$
+    public static final String PREFIX = "bridgepoint_prefs_";  //$NON-NLS-1$
 
     public static final String PARSE_ALL_ON_RESOURCE_CHANGE = PREFIX + "parse_all_on_resource_change"; //$NON-NLS-1$
     public static final String ALLOW_INT_TO_REAL_PROMOTION = PREFIX + "allow_int_to_real_promotion"; //$NON-NLS-1$
@@ -69,6 +69,7 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
     public static final String SHOW_SYNC_REPORT = PREFIX + "show_reference_sync_report"; //$NON-NLS-1$
     public static final String USE_DEFAULT_NAME_FOR_CREATION = PREFIX + "use_default_name_for_new_element_creation"; //$NON-NLS-1$
     public static final String CREATE_GRAPHICS_DURING_IMPORT = PREFIX + "create_graphics_during_import"; //$NON-NLS-1$
+    public static final String ENABLE_MODEL_INTEGRITY_CHECK = PREFIX + "enable_model_integrity_check"; //$NON-NLS-1$
 
 	public static final String RECTILINEAR_ROUTING = "RECTILINEAR_ROUTING"; //$NON-NLS-1$
 
@@ -111,6 +112,9 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
         store.setValue(ENABLE_DYNAMICALLY_SIZED_ARRAYS, prefs.enableDSAs);
         store.setValue(ENABLE_DETERMINISTIC_VERIFIER, prefs.enableDeterministicVerifier);
         store.setValue(ENABLE_INSTANCE_REFERENCES, prefs.enableInstanceReferences);
+        store.setValue(ENABLE_MODEL_INTEGRITY_CHECK, prefs.enableModelIntegrityCheck);
+        
+                
 
         store.setValue(ENABLE_VERIFIER_AUDIT, prefs.enableVerifierAudit);
         store.setValue(ENABLE_SELECT_AUDIT, prefs.enableSelectAudit);
@@ -193,6 +197,9 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
         prefs.enableInstanceReferences =
             store.getBoolean(BridgePointPreferencesStore.ENABLE_INSTANCE_REFERENCES);
         
+        prefs.enableModelIntegrityCheck =
+                store.getBoolean(ENABLE_MODEL_INTEGRITY_CHECK);
+        
         prefs.enableVerifierAudit =
           store.getBoolean(BridgePointPreferencesStore.ENABLE_VERIFIER_AUDIT);
         prefs.enableSelectAudit =
@@ -249,6 +256,7 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
         prefs.enableFLAs = true;
         prefs.enableDSAs = true;
         prefs.enableInstanceReferences = true;
+        prefs.enableModelIntegrityCheck = BridgePointProjectModelIntegrityPreferences.MODEL_INTEGRITY_DEFAULT;
         prefs.emitRTOData = true;        
         prefs.exportOAL = MessageDialogWithToggle.NEVER;
         prefs.exportGraphics = MessageDialogWithToggle.ALWAYS;
