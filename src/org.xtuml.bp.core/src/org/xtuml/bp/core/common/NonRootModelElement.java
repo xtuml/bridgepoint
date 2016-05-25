@@ -134,6 +134,138 @@ public abstract class NonRootModelElement extends ModelElement implements IAdapt
     	// do nothing let subtypes override
     }
     
+	public void checkReferentialIntegrity() {
+		// gather all rtos and for any that are not
+		// resolvable create an integrity issue
+		List<NonRootModelElement> rtos = RTOUtil.getRTOs(this);
+		for (NonRootModelElement rto : rtos) {
+			/* TODO SKB - Is this right?
+			if (rto.isProxy()) {
+				// before going further try to load the proxy
+				rto.loadProxy();
+				if (rto.isProxy()) {
+					// should have been loaded, we have a dangling
+					// reference
+					// first load the entire workspace and then search
+					// globally for the element, if found batchRelate
+					// the rto*/
+					synchronized (getPersistableComponent()) {
+						final NonRootModelElement element = (NonRootModelElement) Ooaofooa
+								.getDefaultInstance()
+								.getInstanceList(rto.getClass())
+								.getGlobal(rto.getInstanceKey(), false);
+						if (element != null && !element.isProxy()) {
+							// honor IPR settings if this element is not in
+							// the same system
+							if (!getRoot().equals(element.getRoot())
+									&& getRoot() instanceof SystemModel_c) {
+								if (!Pref_c
+										.Getsystemboolean(
+												BridgePointProjectReferencesPreferences.BP_PROJECT_REFERENCES_ID,
+												getRoot().getName())) {
+									continue;
+								}
+							}
+							NonRootModelElement[] results = null;
+							// now we must honor visibility settings
+							Package_c parentPackage = getParentPackage();
+							if (parentPackage != null) {
+								parentPackage.Clearscope();
+								parentPackage.Collectvisibleelementsforname(
+										((SystemModel_c) getRoot())
+												.getUseglobals(), Gd_c
+												.Null_unique_id(), false, element.getName(),
+										parentPackage.getPackage_id(),
+										element.getElementType());
+								class SearchResultSet_test455_c implements
+										ClassQueryInterface_c {
+									public boolean evaluate(Object candidate) {
+										SearchResultSet_c selected = (SearchResultSet_c) candidate;
+										return ((selected.getName().equals(element.getName())) && (selected
+												.getType() == element.getElementType()));
+									}
+								}
+								SearchResultSet_c srs = SearchResultSet_c
+										.getOnePE_SRSOnR8005(parentPackage,
+												new SearchResultSet_test455_c());
+
+								results = PackageableElement_c
+										.getManyPE_PEsOnR8002(ElementVisibility_c
+												.getManyPE_VISsOnR8006(srs));
+							}
+							Component_c parentComponent = getFirstParentComponent();
+							if (parentComponent != null) {
+								parentComponent.Clearscope();
+								parentComponent.Collectvisibleelementsforname(
+										((SystemModel_c) getRoot())
+												.getUseglobals(), Gd_c
+												.Null_unique_id(), element.getName(),
+										parentComponent.getId(),
+										element.getElementType());
+								class ComponentResultSet_test456_c implements
+										ClassQueryInterface_c {
+									public boolean evaluate(Object candidate) {
+										ComponentResultSet_c selected = (ComponentResultSet_c) candidate;
+										return ((selected.getName().equals(element.getName())) && (selected
+												.getType() == element.getElementType()));
+									}
+								}
+								ComponentResultSet_c compResultSet = ComponentResultSet_c
+										.getOnePE_CRSOnR8007(
+												parentComponent,
+												new ComponentResultSet_test456_c());
+
+								results = PackageableElement_c
+										.getManyPE_PEsOnR8004(ComponentVisibility_c
+												.getManyPE_CVSsOnR8008(compResultSet));
+
+							}
+							// if the element does not exist in the result
+							// set, then it is not visible
+							boolean foundValidElement = false;
+							for (NonRootModelElement result : results) {
+								List<NonRootModelElement> subtypes = SupertypeSubtypeUtil.getSubtypes(result);
+								// should only be one just check the first element
+								if (element.equals(subtypes.get(0))) {
+									foundValidElement = true;
+									break;
+								}
+							}
+							if (!foundValidElement) {
+								continue;
+							}
+							// first unrelate, here we do not know the
+							// association so we unrelate all
+							batchUnrelate();
+							// delete the proxy that was created
+							rto.delete_unchecked();
+							// now re-associate all elements
+							batchRelate(getModelRoot(), false, true, true);
+							// need to clear any synchronization flags
+							UIUtil.refresh(null);
+						} else {
+							// still could not find the element, log the
+							// integrity issue
+							IntegrityManager_c
+									.Createissue(
+											getModelRoot(),
+											"Found a dangling reference.  An element with the following attributes could not be found:\n\n"
+													+ "Referenced Element ID: "
+													+ rto.Get_ooa_id()
+													+ "\n"
+													+ "Referenced Element file: "
+													+ rto.getContent(), this,
+											Get_ooa_id(), getName(), getPath(),
+											Severity_c.Error,
+											((SystemModel_c) getRoot())
+													.getSys_id());
+						}
+					}
+				}
+			// TODO SKB }
+		// TODO SKB }
+	}
+    
 	private int getElementType() {
 		PackageableElement_c pe = PackageableElement_c.getOnePE_PEOnR8000(getFirstParentPackage());
 		if(pe == null) {
@@ -489,28 +621,6 @@ public abstract class NonRootModelElement extends ModelElement implements IAdapt
     public static boolean shouldWriteProxy(NonRootModelElement i1,
             NonRootModelElement i2) {
     	boolean shouldWriteProxy = false;
-    	/* TODO SKB - remove
-		if (i1 != null && i2 != null) {
-	        PersistableModelComponent pmc1 = i1.getPersistableComponent();
-	        PersistableModelComponent pmc2 = i2.getPersistableComponent();
-	        // Only if neither pmc is null and the componets are different should
-	        // we write the proxy
-			if (pmc1 != null && pmc2 != null && pmc1 != pmc2) {
-    			shouldWriteProxy = true;
-			}
-			// if one of the element's pmc is null but is a proxy allow writing the
-			// proxy
-			if(pmc1 == null && i1.isProxy() && pmc2 != null) {
-				shouldWriteProxy = true;
-			}
-			if(pmc1 != null && pmc2 == null && i2.isProxy()) {
-				shouldWriteProxy = true;
-			}
-			// if dealing with a compare root, write as long as i1 is a proxy
-			if(i1.getModelRoot().isCompareRoot() && i1.isProxy()) {
-				shouldWriteProxy = true;
-			}
-    	}*/
     	return shouldWriteProxy;
     }
 
@@ -578,19 +688,10 @@ public abstract class NonRootModelElement extends ModelElement implements IAdapt
 
     public boolean loadProxy() {
         boolean result = true;
-		if (isProxy()
-				&& (!getModelRoot().getId().equals(
-						Ooaofooa.COMPARE_MODEL_ROOT_NAME) && !getModelRoot().isCompareRoot())) {
-            result = PersistenceManager.loadAndFinishComponent(m_contentPath);
-            }
         return result;
         }
 
     public void convertFromProxy() {
-        if (isProxy()) {
-            m_contentPath = null;
-            UmlProblem.proxyResolved(this);
-        }
     }
 
     public boolean isProxy() {
