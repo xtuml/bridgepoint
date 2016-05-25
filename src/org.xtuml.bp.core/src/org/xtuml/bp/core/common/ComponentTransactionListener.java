@@ -200,40 +200,11 @@ public class ComponentTransactionListener implements ITransactionListener {
 				}
 			}
 		}
-		Component_c comp = null;
-		SystemModel_c sys = null;
 		Ooaofooa[] instances = Ooaofooa.getInstances();
 		for(int i = 0; i < instances.length; i++) {
 			instances[i].clearUnreferencedProxies();
 		}
-		// run this in a workspace job so that it does not
-		// interfere with our file writing
-		WorkspaceJob job = new WorkspaceJob("Create integrity issues") {
-			
-			/* (non-Javadoc)
-			 * @see org.eclipse.core.runtime.jobs.Job#belongsTo(java.lang.Object)
-			 */
-			@Override
-			public boolean belongsTo(Object family) {
-				return family.equals(IntegrityCheckScheduler.INTEGRITY_ISSUE_JOB_FAMILY);
-			}
-
-			@Override
-			public IStatus runInWorkspace(IProgressMonitor monitor)
-					throws CoreException {
-				// for all persisted files run an integrity check
-				for(PersistableModelComponent component: persisted) {
-					// deletions will have a null root element
-					if(component.getRootModelElement() != null) {
-						IntegrityChecker.createIntegrityIssues(component.getRootModelElement());
-					}
-				}
-				return Status.OK_STATUS;
-			}
-		};
-		job.setPriority(Job.DECORATE);
-		job.setRule(ResourcesPlugin.getWorkspace().getRoot());
-		job.schedule();
+		IntegrityChecker.startIntegrityChecker(persisted);
 	}
     private IPath[] getFoldersToBeRemoved(PersistableModelComponent pmc) {
     	Collection children = getChildrenOfDomainPMC(pmc);
