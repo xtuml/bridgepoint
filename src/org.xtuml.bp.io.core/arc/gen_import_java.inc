@@ -776,6 +776,17 @@ public class ${class_name} extends CoreImport
                ((ReferentialAttribute_c) loadedInstance).Setdatatype();
           }
       }
+            ModelRoot.disableChangeNotification();
+          try {
+            pm.done();
+            if (m_parseAll) {
+                AllActivityModifier aam = new AllActivityModifier(rootModelElement, pm);
+                aam.processAllActivities(AllActivityModifier.PARSE);
+            }
+          }
+          finally {
+                        ModelRoot.enableChangeNotification();
+        }
     }
     }
     .end if
