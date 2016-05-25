@@ -129,7 +129,7 @@ public abstract class ModelRoot extends ModelElement implements IModelChangeProv
         return m_fullModelLoad;
     }
     
-    protected static Map<Class, InstanceList> instanceListMap = new Hashtable<Class, InstanceList>();
+    protected Map<Class, InstanceList> instanceListMap = new Hashtable<Class, InstanceList>();
     
     // List of meta-model classes which particpate exclusively at
     // Verifier runtime. We use this list to allocate an instance
