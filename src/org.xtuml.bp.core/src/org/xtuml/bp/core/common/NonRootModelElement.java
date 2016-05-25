@@ -139,6 +139,7 @@ public abstract class NonRootModelElement extends ModelElement implements IAdapt
 		// resolvable create an integrity issue
 		List<NonRootModelElement> rtos = RTOUtil.getRTOs(this);
 		for (NonRootModelElement rto : rtos) {
+			/* TODO SKB - Is this right?
 			if (rto.isProxy()) {
 				// before going further try to load the proxy
 				rto.loadProxy();
@@ -147,7 +148,7 @@ public abstract class NonRootModelElement extends ModelElement implements IAdapt
 					// reference
 					// first load the entire workspace and then search
 					// globally for the element, if found batchRelate
-					// the rto
+					// the rto*/
 					synchronized (getPersistableComponent()) {
 						final NonRootModelElement element = (NonRootModelElement) Ooaofooa
 								.getDefaultInstance()
@@ -261,8 +262,8 @@ public abstract class NonRootModelElement extends ModelElement implements IAdapt
 						}
 					}
 				}
-			}
-		}
+			// TODO SKB }
+		// TODO SKB }
 	}
     
 	private int getElementType() {
@@ -388,11 +389,15 @@ public abstract class NonRootModelElement extends ModelElement implements IAdapt
 			// as is from one side to the other.  During a merge undo we
 			// can hit a case where RTOs are removed before the RGO, causing
 			// the check for external references to be true.
-			if(hasExternalRefs && !getModelRoot().isCompareRoot()) {
+			//
+			// TODO SKB - Not really sure what the proper response to the comment above is
+			//   in the face of proxy removals.  Do we somehow have to make sure the RGOs
+			//   are handled before the RTOs?
+			/*if(hasExternalRefs && !getModelRoot().isCompareRoot()) {
 				convertToProxy();
-			} else {
+			} else {*/
 				delete_unchecked();
-			}
+			//}
             return true;
 		}
         return false;
@@ -616,27 +621,6 @@ public abstract class NonRootModelElement extends ModelElement implements IAdapt
     public static boolean shouldWriteProxy(NonRootModelElement i1,
             NonRootModelElement i2) {
     	boolean shouldWriteProxy = false;
-		if (i1 != null && i2 != null) {
-	        PersistableModelComponent pmc1 = i1.getPersistableComponent();
-	        PersistableModelComponent pmc2 = i2.getPersistableComponent();
-	        // Only if neither pmc is null and the componets are different should
-	        // we write the proxy
-			if (pmc1 != null && pmc2 != null && pmc1 != pmc2) {
-    			shouldWriteProxy = true;
-			}
-			// if one of the element's pmc is null but is a proxy allow writing the
-			// proxy
-			if(pmc1 == null && i1.isProxy() && pmc2 != null) {
-				shouldWriteProxy = true;
-			}
-			if(pmc1 != null && pmc2 == null && i2.isProxy()) {
-				shouldWriteProxy = true;
-			}
-			// if dealing with a compare root, write as long as i1 is a proxy
-			if(i1.getModelRoot().isCompareRoot() && i1.isProxy()) {
-				shouldWriteProxy = true;
-			}
-    	}
     	return shouldWriteProxy;
     }
 
@@ -702,40 +686,12 @@ public abstract class NonRootModelElement extends ModelElement implements IAdapt
     	m_contentPath = path;
     }
 
-    public void convertToProxy() {
-        if (!isProxy()) {
-            PersistableModelComponent pmc = getPersistableComponent();
-            if (pmc != null) {
-                m_contentPath = pmc.getFullPath().toString();
-                UmlProblem.convertedToProxy(this);
-            } else {
-            	// do not throw exception if under testing
-            	// some test elements are not configured fully
-            	if(!Ooaofooa.inUnitTest()) {
-	                Exception e = new IllegalStateException();
-	                e.fillInStackTrace();
-	                CorePlugin.logError("Conversion to proxy failed", e);
-            	}
-            }
-            component = null;
-        }
-    }
-
     public boolean loadProxy() {
         boolean result = true;
-		if (isProxy()
-				&& (!getModelRoot().getId().equals(
-						Ooaofooa.COMPARE_MODEL_ROOT_NAME) && !getModelRoot().isCompareRoot())) {
-            result = PersistenceManager.loadAndFinishComponent(m_contentPath);
-            }
         return result;
         }
 
     public void convertFromProxy() {
-        if (isProxy()) {
-            m_contentPath = null;
-            UmlProblem.proxyResolved(this);
-        }
     }
 
     public boolean isProxy() {

@@ -43,14 +43,12 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.ui.WorkbenchException;
-
 import org.xtuml.bp.core.ActionHome_c;
 import org.xtuml.bp.core.Action_c;
 import org.xtuml.bp.core.Body_c;
 import org.xtuml.bp.core.BridgeBody_c;
 import org.xtuml.bp.core.Bridge_c;
 import org.xtuml.bp.core.ClassStateMachine_c;
-import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.DataType_c;
 import org.xtuml.bp.core.DerivedAttributeBody_c;
@@ -643,7 +641,7 @@ public class PersistableModelComponent implements Comparable {
             throws CoreException {
         if (status == STATUS_LOADING) {
             // recursive call from some where
-            // any code causing cotrol to reach here should be addressed
+            // any code causing control to reach here should be addressed
             // probably it requires disabled lazy loading
             return;
           }
@@ -682,6 +680,14 @@ public class PersistableModelComponent implements Comparable {
     	// do not load if the persistence version is not acceptable
     	if(!PersistenceManager.isPersistenceVersionAcceptable(this)) {
     		return;
+    	}
+    	
+    	// Make sure the parent PMC is loaded before trying to load this PMC
+    	PersistableModelComponent parent_pmc = getParent();
+    	if ( null != parent_pmc ) {
+    		if ( !parent_pmc.isLoaded() ) {
+    			parent_pmc.load(monitor);
+    		}
     	}
     	
         int oldStatus = status;
@@ -762,11 +768,6 @@ public class PersistableModelComponent implements Comparable {
             }
         }
         if(rootME != null){
-            if (rootME == null) {
-                throw new WorkbenchException(
-                        "Component's Root Model Element does not exist:"
-                        + getFullPath());
-            }
             if( ! (rootME instanceof SystemModel_c )) {
                 NonRootModelElement myParentRootME = PersistenceManager.getHierarchyMetaData().getParentComponentRootModelElement(rootME,false);
                 if (myParentRootME != null){// in case of component is being created and not yet relate with others.
@@ -1025,18 +1026,12 @@ public class PersistableModelComponent implements Comparable {
 		IPersistenceHierarchyMetaData metaData = PersistenceManager
 				.getHierarchyMetaData();
 
-		List<?> findExternalRGOs = metaData.findExternalRGOs(me, false);
-		boolean hasExternalRGO = !findExternalRGOs.isEmpty();
 		List<?> children = metaData.getChildren(me, true);
 		for (int i = 0; i < children.size(); i++) {
 			NonRootModelElement child = (NonRootModelElement) children.get(i);
 			deleteME(child);
 		}
-		if (hasExternalRGO) {
-			me.convertToProxy();
-		} else {
-			me.delete_unchecked();
-		}
+		me.delete_unchecked();
 		me.batchUnrelate();
 	}
     
