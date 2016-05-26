@@ -64,24 +64,21 @@ public abstract class CopyCutAction extends CutCopyPasteAction {
 			return;
 		}
 		try {
-			// only start a transaction for a cut, this allows for
-			// restoration via undo
+			List<NonRootModelElement> elementList = Arrays.asList(getElementsToBeCopied(true));
 			if (getActionType() == CUT_TYPE) {
 				MOVE_IS_IN_PROGRESS = true;
-				ELEMENT_MOVE_SOURCE_SELECTION = Selection.getInstance().getStructuredSelection();
+				ELEMENT_MOVE_SOURCE_SELECTION = elementList;
 			} else {
 				MOVE_IS_IN_PROGRESS = false;	
-				ELEMENT_MOVE_SOURCE_SELECTION = null;
 			}
 				
 			ByteArrayOutputStream out = new ByteArrayOutputStream();
 			String streamContents = "";
-			NonRootModelElement[] elements = getElementsToBeCopied(true);
-			List<NonRootModelElement> elementList = Arrays.asList(elements);
 			String packagingHeader = getPackagingHeaderFromElements(elementList);
+			NonRootModelElement[] nrmeList = new NonRootModelElement[elementList.size()];
 			IRunnableWithProgress progress = CorePlugin
 						.getStreamExportFactory()
-						.create(out, elements, true, false);
+						.create(out, elementList.toArray(nrmeList), true, false);
 			progress.run(new NullProgressMonitor());
 			out.close();
 			streamContents = new String(out.toByteArray());

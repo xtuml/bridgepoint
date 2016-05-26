@@ -58,6 +58,7 @@ import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.PropertyViewListener;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.ui.CutCopyPasteAction;
+import org.xtuml.bp.core.ui.PasteAction;
 import org.xtuml.bp.core.ui.Selection;
 import org.xtuml.bp.core.ui.marker.DelayedMarkerJob;
 import org.xtuml.bp.core.util.CoreUtil;
@@ -972,7 +973,7 @@ public class TransactionManager {
 				// If move is in progress then we are going to attempt to stitch-up
 				// the RGO during paste. If successful we do not need to tell the user
 				// it was downgraded, but it we fail we do need to report it.
-				RGOResolver.addDownGradedElement((NonRootModelElement)p_rto, (NonRootModelElement)p_rgodowngraded, p_relationship);
+				PasteAction.addDownGradedElement((NonRootModelElement)p_rto, (NonRootModelElement)p_rgodowngraded, p_relationship);
 			} else {
 				String qualifedName = "";
 				if (p_rgodowngraded != null) {

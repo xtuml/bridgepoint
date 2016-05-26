@@ -242,7 +242,7 @@ public class ModelImportWizard extends Wizard implements IImportWizard {
 
 				fProcessor.processFirstStep(monitor);
 				handleImportedGraphicalElements();
-				fProcessor.finishImport(monitor);
+				fProcessor.processSecondStep(monitor);
 				IPreferenceStore store = CorePlugin.getDefault().getPreferenceStore();
 				if (fImportPage.parseOnImport()) {
 					// this must be run on the display thread

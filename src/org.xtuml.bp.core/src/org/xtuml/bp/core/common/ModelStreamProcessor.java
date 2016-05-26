@@ -97,8 +97,6 @@ public class ModelStreamProcessor {
 	private NonRootModelElement fDestinationElement;
 	private String fContents;
 	private static String fHeaderId = "root-types-contained";
-	private static boolean parseDisabled;
-    private RGOResolver rgoResolver = new RGOResolver();
 
 	public void setContents(String contents) {
 		fContents = contents;
@@ -200,12 +198,120 @@ public class ModelStreamProcessor {
 		return objects.toArray();
 	}
 
+	private void callResolutionOperations(IProgressMonitor monitor) {
+		NonRootModelElement[] elements = getProxies();
+		monitor.beginTask("Resolving referred to elements...", elements.length
+				* 2 + fImporter.getLoadedInstances().length);
+		for (int i = 0; i < elements.length; i++) {
+			List<?> list = PersistenceManager.getHierarchyMetaData()
+					.findExternalRGOs(elements[i], false, false);
+			for (int j = 0; j < list.size(); j++) {
+				String refClassName = elements[i].getClass().getSimpleName()
+						.replaceAll("_c", "").toLowerCase();
+				try {
+					Method resolutionMethod = list.get(j).getClass().getMethod(
+							"Resolve" + refClassName, new Class[] {});
+					resolutionMethod.invoke(list.get(j), new Object[] {});
+				} catch (SecurityException e) {
+					// do nothing
+				} catch (NoSuchMethodException e) {
+					// do nothing
+				} catch (IllegalArgumentException e) {
+					// do nothing
+				} catch (IllegalAccessException e) {
+					// do nothing
+				} catch (InvocationTargetException e) {
+					CorePlugin.logError("Unable to invoke resolution method.", e);
+				}
+			}
+			monitor.worked(1);
+		}
+		// resolve RGOs
+		NonRootModelElement[] exportedElements = fImporter.getLoadedInstances();
+		for (int i = 0; i < exportedElements.length; i++) {
+			NonRootModelElement element = getRTOElementForResolution(exportedElements[i]);
+			// if the old proxy map contains an element
+			// we must use it to find the RGOs
+			NonRootModelElement oldProxy = fOldProxyMap
+					.get(exportedElements[i]);
+			HashMap<String, List<NonRootModelElement>> list = null;
+			if (oldProxy != null) {
+				list = PersistenceManager.getHierarchyMetaData()
+						.getAssociationMapOfExternalRGOs(oldProxy);
+			} else {
+				list = PersistenceManager.getHierarchyMetaData()
+						.getAssociationMapOfExternalRGOs(element);
+			}
+			Set<String> keySet = list.keySet();
+			for(String key : keySet) {
+				List<NonRootModelElement> elementList = list.get(key);
+	 			for (int j = 0; j < elementList.size(); j++) {
+					NonRootModelElement proxyElement = (NonRootModelElement) elementList
+							.get(j);
+					if (proxyElement.isProxy()) {
+						String refClassName = proxyElement.getClass()
+								.getSimpleName().replaceAll("_c", "").toLowerCase();
+						try {
+							Method resolutionMethod = element.getClass().getMethod(
+									"Resolve" + refClassName + "for" + key,
+									new Class[] { NonRootModelElement.class });
+							resolutionMethod.invoke(element,
+									new Object[] { proxyElement });
+						} catch (SecurityException e) {
+							// do nothing
+						} catch (NoSuchMethodException e) {
+							// do nothing
+						} catch (IllegalArgumentException e) {
+							// do nothing
+						} catch (IllegalAccessException e) {
+							// do nothing
+						} catch (InvocationTargetException e) {
+							// do nothing
+						}
+					}
+				}
+			}
+			monitor.worked(1);
+		}
+		for (int i = 0; i < elements.length; i++) {
+			// clean up all proxies
+			elements[i].batchUnrelate();
+			elements[i].delete_unchecked();
+			monitor.worked(1);
+		}
+	}
 
-	/**
-	 * Set the PersistableModelComponent for the pasted elements
-	 * @see PersistableModelComponent
-	 */
-	private void setPMCs() {
+	private NonRootModelElement getRTOElementForResolution(
+			NonRootModelElement element) {
+		if (element instanceof UserDataType_c) {
+			DataType_c dt = DataType_c
+					.getOneS_DTOnR17((UserDataType_c) element);
+			return dt;
+		} else if (element instanceof StructuredDataType_c) {
+			DataType_c dt = DataType_c
+					.getOneS_DTOnR17((StructuredDataType_c) element);
+			return dt;
+		} else if (element instanceof EnumerationDataType_c) {
+			DataType_c dt = DataType_c
+					.getOneS_DTOnR17((EnumerationDataType_c) element);
+			return dt;
+		} else {
+			return element;
+		}
+	}
+
+	public NonRootModelElement[] getProxies() {
+		NonRootModelElement[] loadedInstances = fImporter.getLoadedInstances();
+		ArrayList<NonRootModelElement> list = new ArrayList<NonRootModelElement>();
+		for (int i = 0; i < loadedInstances.length; i++) {
+			if (loadedInstances[i].isProxy()) {
+				list.add(loadedInstances[i]);
+			}
+		}
+		return list.toArray(new NonRootModelElement[list.size()]);
+	}
+
+	private void setComponents() {
 		NonRootModelElement[] elements = fImporter.getLoadedInstances();
 		for (int i = 0; i < elements.length; i++) {
 			if (!elements[i].isProxy())
@@ -296,17 +402,6 @@ public class ModelStreamProcessor {
 		return types;
 	}
 
-	/**
-	 * Initialize local variables and then hook up the elements
-	 * to the destination model root
-	 * @param monitor
-	 */
-	public void processFirstStep(IProgressMonitor monitor) {
-		fExportedElements = getExportedElements();
-		fActivities = getActivityElements();
-		moveElementsToDestinationRoot(monitor);
-	}
-	
 	private void moveElementsToDestinationRoot(IProgressMonitor monitor) {
 		NonRootModelElement[] elements = fImporter.getLoadedInstances();
 		monitor.beginTask("Connecting elements to destination...",
@@ -485,7 +580,7 @@ public class ModelStreamProcessor {
 	public void callPasteOperations(IProgressMonitor monitor) {
 		monitor.beginTask("Connecting elements to destination...",
 				fExportedElements.length);
-		rgoResolver.fOldProxyMap.clear();
+		fOldProxyMap.clear();
 		for (int i = 0; i < fExportedElements.length; i++) {
 			try {
 				storeProxyElement(fExportedElements[i]);
@@ -544,6 +639,9 @@ public class ModelStreamProcessor {
 		}
 	}
 
+	private HashMap<NonRootModelElement, NonRootModelElement> fOldProxyMap = new HashMap<NonRootModelElement, NonRootModelElement>();
+	private static boolean parseDisabled;
+
 	private void storeProxyElement(NonRootModelElement element) {
 		// if the element is a subtype of data type
 		// store the dt proxy, so that RGO resolution
@@ -551,15 +649,15 @@ public class ModelStreamProcessor {
 		if (element instanceof UserDataType_c) {
 			DataType_c dt = DataType_c
 					.getOneS_DTOnR17((UserDataType_c) element);
-			rgoResolver.fOldProxyMap.put(element, dt);
+			fOldProxyMap.put(element, dt);
 		} else if (element instanceof StructuredDataType_c) {
 			DataType_c dt = DataType_c
 					.getOneS_DTOnR17((StructuredDataType_c) element);
-			rgoResolver.fOldProxyMap.put(element, dt);
+			fOldProxyMap.put(element, dt);
 		} else if (element instanceof EnumerationDataType_c) {
 			DataType_c dt = DataType_c
 					.getOneS_DTOnR17((EnumerationDataType_c) element);
-			rgoResolver.fOldProxyMap.put(element, dt);
+			fOldProxyMap.put(element, dt);
 		}
 	}
 
@@ -601,19 +699,17 @@ public class ModelStreamProcessor {
 		}
 	}
 
-	/**
-	 * When this routine gets call elements will have been moved from the clipboard 
-	 * into the destination model root. This rountine call the 
-	 * <model element instance>.Paste<Element Type> operations for each pasted element 
-	 * to allow the ooaofooa operations to hook up the element. It sets the pasted elements
-	 * PMC, and it hooks up RGO and RTOs
-	 * 
-	 * @param monitor
-	 */
-	public void finishImport(IProgressMonitor monitor) {
+	public void processFirstStep(IProgressMonitor monitor) {
+		fExportedElements = getExportedElements();
+		fActivities = getActivityElements();
+		moveElementsToDestinationRoot(monitor);
+	}
+
+	public void processSecondStep(IProgressMonitor monitor) {
 		callPasteOperations(monitor);
-		setPMCs();
-		rgoResolver.callResolutionOperations(monitor, fImporter);
+		setComponents();
+		callResolutionOperations(monitor);
+		
 	}
 
 	public IModelImport getImporter() {

@@ -25,12 +25,14 @@ package org.xtuml.bp.core.ui;
 
 import java.io.ByteArrayInputStream;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.action.Action;
@@ -46,13 +48,15 @@ import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
 
 import org.xtuml.bp.core.CorePlugin;
+import org.xtuml.bp.core.Modeleventnotification_c;
 import org.xtuml.bp.core.Ooaofooa;
+import org.xtuml.bp.core.PackageableElement_c;
 import org.xtuml.bp.core.SystemModel_c;
+import org.xtuml.bp.core.common.BaseModelDelta;
 import org.xtuml.bp.core.common.IPasteListener;
 import org.xtuml.bp.core.common.ModelRoot;
 import org.xtuml.bp.core.common.ModelStreamProcessor;
 import org.xtuml.bp.core.common.NonRootModelElement;
-import org.xtuml.bp.core.common.RGOResolver;
 import org.xtuml.bp.core.common.Transaction;
 import org.xtuml.bp.core.common.TransactionManager;
 import org.xtuml.bp.core.util.OoaofgraphicsUtil;
@@ -66,10 +70,25 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 	// it is good for the static to have a clear place or origin, and this
 	// is that place.
     @SuppressWarnings("unused")
-	private RGOResolver rgoResolver;
     
 	protected HashMap<NonRootModelElement, ModelStreamProcessor> processorMap = new HashMap<NonRootModelElement, ModelStreamProcessor>();
 
+	/**
+	 * This is how we add elements to the list to be hooked back up during paste.
+	 * Note that we clear this list
+	 */
+	private static ArrayList<DowngradedElement> downgradedElements = new ArrayList<DowngradedElement>(); 
+	static class DowngradedElement {
+		DowngradedElement(NonRootModelElement rto, NonRootModelElement rgo, String associationDowngraded) {
+			this.rto = rto;
+			this.rgo = rgo;
+			this.associationDowngraded = associationDowngraded;
+		}
+		NonRootModelElement rto;
+		NonRootModelElement rgo;
+		String associationDowngraded;
+	}
+    
 	public PasteAction() {
 		super();
 	}
@@ -77,7 +96,6 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 	public void run() {
 		// clear the processor map
 		processorMap.clear();
-		RGOResolver.clearDowngradedElementsList();
 		IRunnableWithProgress runnable = new IRunnableWithProgress() {
 
 			public void run(final IProgressMonitor monitor)
@@ -97,42 +115,76 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 											OoaofgraphicsUtil
 											.getGraphicsClass()) });
 					Ooaofooa.beginSaveOperation();
-					// The elements have been pasted, so now if this is a cut/paste, delete the source elements
-					if (MOVE_IS_IN_PROGRESS && ELEMENT_MOVE_SOURCE_SELECTION != null ) {
-						// Delete the source elements. We use the saved IStructuredSelection that was made by the user
-						// during the cut operation because since the UUIDs were not changed during paste, if 
-						// an element was pasted to the same model root there would be a problem searching by ID
-						((DeleteAction) CorePlugin.getDeleteAction()).deleteSelection(ELEMENT_MOVE_SOURCE_SELECTION);
-						ELEMENT_MOVE_SOURCE_SELECTION = null;
-					} 
 					
 					for (NonRootModelElement destination : destinations) {
-						ModelStreamProcessor processor = new ModelStreamProcessor();
-						processorMap.put(destination, processor);
-						processor.setDestinationElement(destination);
-						Object contents = CorePlugin.getSystemClipboard()
-								.getContents(TextTransfer.getInstance());
-						if (contents instanceof String) {
-							String clipboardContents = (String) contents;
-							processor.setContents(clipboardContents);
-							String modelContents = clipboardContents
-									.substring(clipboardContents.indexOf("\n") + 1);
-							ByteArrayInputStream in = new ByteArrayInputStream(
-									modelContents.getBytes());
-							IModelImport importer = CorePlugin
-									.getStreamImportFactory()
-									.create(
-											in,
-											Ooaofooa
-													.getInstance(Ooaofooa.CLIPBOARD_MODEL_ROOT_NAME),
-											true,
-											destination
-													.getPersistableComponent()
-													.getFile().getFullPath(), !MOVE_IS_IN_PROGRESS);
-							processor.runImporter(importer, monitor);
-							processor.processFirstStep(monitor);
-							processGraphics(destination);
-							processor.finishImport(monitor);
+						if (MOVE_IS_IN_PROGRESS ) {
+							// determine the destination's PE_PE (destPE_PE)
+							PackageableElement_c destPE = PackageableElement_c
+									.getOnePE_PEOnR8000(destination.getFirstParentPackage());
+							if (destPE == null) {
+								destPE = PackageableElement_c.getOnePE_PEOnR8003(destination.getFirstParentComponent());
+							}
+							
+							// Iterate over each element that was selected. Note that
+							// this is the actual selection. This is NOT using the "importer"
+							// to suck in all dependent elements
+							for (NonRootModelElement sourceElement : ELEMENT_MOVE_SOURCE_SELECTION) {
+								
+								// Switch the model root.
+								sourceElement.updateRootForSelfAndChildren(sourceElement.getModelRoot(), destination.getModelRoot());
+
+								// Determine the destination class type (we need
+								// its name)
+								Class<?> clazz = destination.getClass();
+								String destClassName = sourceElement.getClass().getSimpleName();
+								String classPart = destClassName.substring(0, destClassName.length() - 2).toLowerCase();
+
+								// relate this source element with the destination container
+								try {
+
+									String opName = "Paste" + classPart; //$NON-NLS-1$
+									Method pasteMethod = clazz.getMethod(opName, new Class[] { UUID.class });
+									pasteMethod.invoke(destination,
+											new Object[] { sourceElement.Get_ooa_id() });
+								} catch (Throwable e) {
+									CorePlugin.logError("Unable to execute paste operation.", e); //$NON-NLS-1$
+								}
+
+								// Assure the transactionmanager cleans up any stale files.
+								Ooaofooa.getDefaultInstance()
+											.fireModelElementDeleted(new BaseModelDelta(Modeleventnotification_c.DELTA_DELETE, sourceElement));
+								
+								monitor.worked(1);
+							}
+
+						} else {
+							ModelStreamProcessor processor = new ModelStreamProcessor();
+							processorMap.put(destination, processor);
+							processor.setDestinationElement(destination);
+							Object contents = CorePlugin.getSystemClipboard()
+									.getContents(TextTransfer.getInstance());
+							if (contents instanceof String) {
+								String clipboardContents = (String) contents;
+								processor.setContents(clipboardContents);
+								String modelContents = clipboardContents
+										.substring(clipboardContents.indexOf("\n") + 1);
+								ByteArrayInputStream in = new ByteArrayInputStream(
+										modelContents.getBytes());
+								IModelImport importer = CorePlugin
+										.getStreamImportFactory()
+										.create(
+												in,
+												Ooaofooa
+														.getInstance(Ooaofooa.CLIPBOARD_MODEL_ROOT_NAME),
+												true,
+												destination
+														.getPersistableComponent()
+														.getFile().getFullPath(), !MOVE_IS_IN_PROGRESS);
+								processor.runImporter(importer, monitor);
+								processor.processFirstStep(monitor);
+								processGraphics(destination);
+								processor.processSecondStep(monitor);
+							}
 						}
 					}
 				} catch (Exception e) {
@@ -152,26 +204,34 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 				if(transaction != null) {
 					// only perform finishing work if the transaction
 					// was successful
-					boolean result = displayProblemDialog(manager, transaction, monitor);
-					if(!result) {
+					boolean continueProcessing = displayProblemDialog(manager, transaction, monitor);
+					if(!continueProcessing) {
 						// return as the user has cancelled the paste
 						return;
 					}
 					transaction = null;
 					for(NonRootModelElement destination : destinations) {
-						ModelStreamProcessor processor = processorMap.get(destination);
-						processor.runParseOnImportedElements(manager, monitor);
+						if (MOVE_IS_IN_PROGRESS) {
+							CorePlugin.parseAll(destination, monitor);
+						} else {
+							ModelStreamProcessor processor = processorMap.get(destination);
+							processor.runParseOnImportedElements(manager, monitor);
+						}
 					}
 					// gather all of the loaded instances, including graphical
 					for(NonRootModelElement destination : destinations) {
-						ModelStreamProcessor processor = processorMap.get(destination);
-						NonRootModelElement[] loadedInstances = processor
-								.getImporter().getLoadedInstances();
-						NonRootModelElement[] loadedGraphicalInstances = processor
-								.getImporter().getLoadedGraphicalInstances();
 						List<NonRootModelElement> instances = new ArrayList<NonRootModelElement>();
-						instances.addAll(Arrays.asList(loadedInstances));
-						instances.addAll(Arrays.asList(loadedGraphicalInstances));
+						if (MOVE_IS_IN_PROGRESS) {
+							instances.addAll(ELEMENT_MOVE_SOURCE_SELECTION);
+						} else {							
+							ModelStreamProcessor processor = processorMap.get(destination);
+							NonRootModelElement[] loadedInstances = processor
+									.getImporter().getLoadedInstances();
+							NonRootModelElement[] loadedGraphicalInstances = processor
+									.getImporter().getLoadedGraphicalInstances();
+							instances.addAll(Arrays.asList(loadedInstances));
+							instances.addAll(Arrays.asList(loadedGraphicalInstances));
+						}
 						for(IPasteListener listener : CorePlugin.getPasteListeners()) {
 							listener.pasteCompleted(destination, instances);
 						}
@@ -184,15 +244,14 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 				.getWorkbench().getActiveWorkbenchWindow().getShell());
 		try {
 			dialog.run(false, false, runnable);
-		} catch (InvocationTargetException e) {
-			CorePlugin.logError("Unable to import contents from clipboard.", e); //$NON-NLS-1$
-		} catch (InterruptedException e) {
+		} catch (Throwable e) {
 			CorePlugin.logError("Unable to import contents from clipboard.", e); //$NON-NLS-1$
 		} finally {
 			// Regardless of if this was a move or not we can reset this flag now.
 			if (MOVE_IS_IN_PROGRESS) {
 				// Clear the clipboard to prevent another paste
 				CorePlugin.getSystemClipboard().clearContents();
+				ELEMENT_MOVE_SOURCE_SELECTION = new ArrayList<NonRootModelElement>();
 				MOVE_IS_IN_PROGRESS = false;
 			}
 		}
@@ -295,9 +354,7 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 						for (int i = 0; i < types.length; i++) {
 							if (MOVE_IS_IN_PROGRESS) {								
 								// If this is a move, the source and destination can not be the same.
-								NonRootModelElement[] sourceElements = Selection.getSelectedNonRootModelElements(ELEMENT_MOVE_SOURCE_SELECTION);
-								for (int j = 0;  j < sourceElements.length; j++) {
-									NonRootModelElement sourceElement = sourceElements[j];
+								for (NonRootModelElement sourceElement : ELEMENT_MOVE_SOURCE_SELECTION ) {
 									if (destination.getPersistableComponent() == sourceElement.getPersistableComponent()) {
 										return false;
 									}
@@ -313,6 +370,11 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 			}			
 		}
 		return isEnabled;
+	}
+		
+	public static void addDownGradedElement(NonRootModelElement rto, NonRootModelElement rgo, String associationDowngraded) {
+		DowngradedElement element = new DowngradedElement(rto, rgo, associationDowngraded);
+		downgradedElements.add(element);
 	}
 	
 	@Override
