@@ -686,7 +686,7 @@ public class PersistableModelComponent implements Comparable {
     	PersistableModelComponent parent_pmc = getParent();
     	if ( null != parent_pmc ) {
     		if ( !parent_pmc.isLoaded() ) {
-    			parent_pmc.load(monitor);
+    			parent_pmc.load(monitor, parseOal, reload);
     		}
     	}
     	
