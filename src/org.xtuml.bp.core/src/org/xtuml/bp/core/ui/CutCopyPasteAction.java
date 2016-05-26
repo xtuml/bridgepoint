@@ -15,10 +15,15 @@
 //
 package org.xtuml.bp.core.ui;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
+import org.xtuml.bp.core.common.NonRootModelElement;
 
 /**
  *
@@ -33,9 +38,8 @@ public abstract class CutCopyPasteAction extends Action {
 	protected String transactioName;
 	
 	protected static boolean MOVE_IS_IN_PROGRESS = false;
-	
-	protected static IStructuredSelection ELEMENT_MOVE_SOURCE_SELECTION = null;
 
+	protected static List<NonRootModelElement> ELEMENT_MOVE_SOURCE_SELECTION = new ArrayList<NonRootModelElement>();
 	public CutCopyPasteAction() {
 		if (getActionType() == CUT_TYPE) {
 			setImageDescriptor(PlatformUI.getWorkbench().getSharedImages()

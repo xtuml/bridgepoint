@@ -68,7 +68,7 @@ public class CreateBuiltInExternalEntitiesAction implements IActionDelegate {
 											.getFile().getFullPath(), true);
 				processor.runImporter(importer, new NullProgressMonitor());
 				processor.processFirstStep(new NullProgressMonitor());
-				processor.finishImport(new NullProgressMonitor());
+				processor.processSecondStep(new NullProgressMonitor());
 				TransactionManager.getSingleton().endTransaction(transaction);
 			}
 		} catch (Exception e) {
