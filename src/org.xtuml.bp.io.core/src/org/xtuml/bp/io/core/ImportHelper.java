@@ -453,7 +453,7 @@ public class ImportHelper
                 // copy the codeblock locations into the descrips of the new formalized provision
                 String description = c_p.getDescrip();
 
-                // parse codeblock mapping (op name, filename)
+                // parse codeblock mapping (op signature, filename)
                 if ( !description.isEmpty() ) {
                     Matcher m = Pattern.compile( "routine:(.*),(codeblock:.*)" ).matcher( description );
                     while ( m.find() ) {
@@ -462,7 +462,12 @@ public class ImportHelper
                         ProvidedExecutableProperty_c[] spr_peps = ProvidedExecutableProperty_c.getManySPR_PEPsOnR4501( c_p );
                         for ( ProvidedExecutableProperty_c spr_pep : spr_peps ) {
                             spr_po = ProvidedOperation_c.getOneSPR_POOnR4503( spr_pep );
-                            if ( spr_po != null && spr_po.getName().equals( m.group(1) ) ) break;
+                            if ( spr_po != null ) {
+                                InterfaceOperation_c c_io = InterfaceOperation_c.getOneC_IOOnR4004(
+                                                            ExecutableProperty_c.getOneC_EPOnR4501(
+                                                            ProvidedExecutableProperty_c.getOneSPR_PEPOnR4503(spr_po)));
+                                if ( c_io.Getsignature(1).equals( m.group(1) ) ) break;
+                            }
                         }
 
                         // put the codeblock in the action semantics field
