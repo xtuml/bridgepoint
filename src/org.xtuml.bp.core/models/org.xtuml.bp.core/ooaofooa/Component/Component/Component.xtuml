@@ -3167,6 +3167,8 @@ if(not_empty importedPro and (outerPkg.Package_ID == innerPkg.Package_ID))
         return true;
       end if;    
     end if;
+  else
+    return true;
   end if;
 end if; 
 return false;',
@@ -3214,6 +3216,8 @@ if(not_empty importedReq and (outerPkg.Package_ID == innerPkg.Package_ID))
         return true;
       end if;    
     end if;
+  else
+    return true;
   end if;
 end if; 
 return false;',
