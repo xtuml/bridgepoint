@@ -860,13 +860,10 @@ for each importedRef in importedRefs
       end if;    
     end if;
     if(not_empty provision)
-      select one provisionPkg related by provision->C_IR[R4009]->C_PO[R4016]->C_C[R4010]->PE_PE[R8001]->EP_PKG[R8000];
-      if (not_empty provisionPkg and outerPkg.Package_ID == provisionPkg.Package_ID)
         count = count + 1;
         if (count == param.index)
           return provision.Provision_Id;
         end if;
-      end if;
     end if;
 end for;
 return id;',
@@ -917,13 +914,10 @@ for each importedRef in importedRefs
       end if;    
     end if;
     if(not_empty requirement)
-      select one rPkg related by requirement->C_IR[R4009]->C_PO[R4016]->C_C[R4010]->PE_PE[R8001]->EP_PKG[R8000];
-      if (not_empty rPkg and outerPkg.Package_ID == rPkg.Package_ID)
         count = count + 1;
         if (count == param.index)
           return requirement.Requirement_Id;
         end if;
-      end if;
     end if;
 end for;
 return id;',
