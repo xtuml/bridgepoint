@@ -103,7 +103,7 @@ public class PersistableModelComponent implements Comparable {
     // and component type is determined by reading the header of the file.
     private String componentType;
 
-    protected IFile underlyingResource;
+    private IFile underlyingResource;
 
     // instance of ME when component is loaded otherwise it will be null;
     private NonRootModelElement componentRootME;
@@ -1051,6 +1051,7 @@ public class PersistableModelComponent implements Comparable {
     public void updateResource(IFile newFile) {
         updateResource(newFile, getChildren());
     }
+
     private void updateResource(IFile newFile, Collection children) {
         // remap component as key(path) has been changed
         NonRootModelElement thisMe = getRootModelElement();
