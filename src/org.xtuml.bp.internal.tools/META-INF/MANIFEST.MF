@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: BridgePoint Tools Plug-in
 Bundle-SymbolicName: org.xtuml.bp.internal.tools; singleton:=true
-Bundle-Version: 5.3.4
+Bundle-Version: 5.3.5
 Bundle-ClassPath: tools.jar
 Bundle-Activator: org.xtuml.bp.internal.tools.mcjava.Activator
 Bundle-Vendor: xtUML.org
