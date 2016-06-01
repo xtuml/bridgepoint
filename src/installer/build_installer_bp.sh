@@ -39,11 +39,11 @@ ECLIPSE_VER="4.5"
 OS="windows"
 BP_BASE_DIR="${STAGING_PATH}/${PRODUCT_NAME}_e${ECLIPSE_VER}"
 DOCGEN_EXE="docgen.exe"
-MCMC_EXE="org.xtuml.bp.mc.c.source_${BP_VERSION}/mc3020/bin/mcmc.exe"
+DOCGEN_SRC_EXE="org.xtuml.bp.mc.c.source_${BP_VERSION}/mc3020/bin/docgen.exe"
 if [ "${OS_ARG,,}" = "linux" ] || [ "${OS_ARG,,}" = "osx" ]; then
   OS="linux"
   BP_BASE_DIR="${STAGING_PATH}/${PRODUCT_NAME}_for_Linux_e${ECLIPSE_VER}"
-  MCMC_EXE="org.xtuml.bp.mc.c.source_${BP_VERSION}/mc3020/bin/mcmc"
+  DOCGEN_SRC_EXE="org.xtuml.bp.mc.c.source_${BP_VERSION}/mc3020/bin/docgen"
   DOCGEN_EXE="docgen"
 fi
 
@@ -121,7 +121,7 @@ echo "INFO: Done."
 
 echo "INFO: Setting up docgen executable"
 cd "${BP_BASE_DIR}/BridgePointDeliverables/tools/docgen"
-cp -f "${INSTALLER_DATA_DIR}/plugins/${MCMC_EXE}" ${DOCGEN_EXE}
+cp -f "${INSTALLER_DATA_DIR}/plugins/${DOCGEN_SRC_EXE}" ${DOCGEN_EXE}
 cp -f "./docgen.xsl" "./docbook/docbook-xsl-1.75.1/xhtml/"
 echo "INFO: Done."
 

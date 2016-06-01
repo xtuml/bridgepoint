@@ -61,6 +61,14 @@ get_user_supplied_binaries ()
         missing_files+="./mcmc.exe"
     fi
     
+    if [ ! -e  ./docgen ]; then
+        missing_files+="./docgen"
+    fi
+
+    if [ ! -e  ./docgen.exe ]; then
+        missing_files+="./docgen.exe"
+    fi
+    
     if [ "$missing_files" != "" ]; then
        echo -e "Error!: Missing files: $missing_files"
        return 1
@@ -92,6 +100,8 @@ configure_mcc_src()
     cp -fp $user_supplied_files/xtumlmc_build.exe ./bin
     cp -fp $user_supplied_files/gen_erate.exe     ./bin
     cp -fp $user_supplied_files/gen_erate.pyz     ./bin
+    cp -fp $user_supplied_files/docgen            ./bin
+    cp -fp $user_supplied_files/docgen.exe        ./bin
     cp -fp $user_supplied_files/mcmc              ./bin
     cp -fp $user_supplied_files/mcmc64            ./bin
     cp -fp $user_supplied_files/mcmc.exe          ./bin
@@ -113,6 +123,7 @@ configure_mcc_src()
     chmod a+x ./bin/xtumlmc_build*
 	chmod a+x ./bin/gen_erate*
 	chmod a+x ./bin/mcmc*
+	chmod a+x ./bin/docgen*
     
     cd ${bp_src_dir}
     cp -fp $user_supplied_files/mc3020_doc.zip $mc3020_help/doc.zip
