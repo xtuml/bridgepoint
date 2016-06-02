@@ -50,6 +50,7 @@ import org.eclipse.ui.PlatformUI;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Modeleventnotification_c;
 import org.xtuml.bp.core.Ooaofooa;
+import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.PackageableElement_c;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.common.BaseModelDelta;
@@ -57,6 +58,7 @@ import org.xtuml.bp.core.common.IPasteListener;
 import org.xtuml.bp.core.common.ModelRoot;
 import org.xtuml.bp.core.common.ModelStreamProcessor;
 import org.xtuml.bp.core.common.NonRootModelElement;
+import org.xtuml.bp.core.common.PersistableModelComponent;
 import org.xtuml.bp.core.common.Transaction;
 import org.xtuml.bp.core.common.TransactionManager;
 import org.xtuml.bp.core.util.OoaofgraphicsUtil;
@@ -118,42 +120,71 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 					
 					for (NonRootModelElement destination : destinations) {
 						if (MOVE_IS_IN_PROGRESS ) {
-							// determine the destination's PE_PE (destPE_PE)
-							PackageableElement_c destPE = PackageableElement_c
-									.getOnePE_PEOnR8000(destination.getFirstParentPackage());
-							if (destPE == null) {
-								destPE = PackageableElement_c.getOnePE_PEOnR8003(destination.getFirstParentComponent());
-							}
-							
 							// Iterate over each element that was selected. Note that
 							// this is the actual selection. This is NOT using the "importer"
 							// to suck in all dependent elements
 							for (NonRootModelElement sourceElement : ELEMENT_MOVE_SOURCE_SELECTION) {
 								
-								// Switch the model root.
-								sourceElement.updateRootForSelfAndChildren(sourceElement.getModelRoot(), destination.getModelRoot());
+								// Determine the source class type 
+								String srcClassType = sourceElement.getClass().getSimpleName();
+								String srcClassPart = srcClassType.substring(0, srcClassType.length() - 2).toLowerCase();
+								
+								PersistableModelComponent srcPMC = sourceElement.getPersistableComponent(true);
+								PersistableModelComponent srcParentPMC = srcPMC.getParent();
+								NonRootModelElement srcParentModelRoot = srcParentPMC.getRootModelElement();
 
-								// Determine the destination class type (we need
-								// its name)
-								Class<?> clazz = destination.getClass();
-								String destClassName = sourceElement.getClass().getSimpleName();
-								String classPart = destClassName.substring(0, destClassName.length() - 2).toLowerCase();
-
-								// relate this source element with the destination container
+								// update the model root for the destination. This is what causes the 
+								// element to be moved form the old instance list to the new one.
+								// It is the equivalent of what is done by processor.processFirstStep(monitor)
+								// in the copy/paste case.
+								srcParentModelRoot.updateRootForSelfAndChildren(srcParentModelRoot.getModelRoot(), destination.getModelRoot());
+								
+								// disconnect
 								try {
+									String getPEopName = "getOnePE_PEOnR8001";
+									Class<?> getPEclazz = PackageableElement_c.class;
+									Method getPEMethod = getPEclazz.getMethod(getPEopName,
+											new Class[] { sourceElement.getClass() });
+									Object result = getPEMethod.invoke(null, new Object[] { sourceElement });
+									PackageableElement_c srcPE = null;
+									if (result != null) {
+										srcPE = (PackageableElement_c) result;
+									
+										String opName = "unrelateAcrossR8000From";
+										if (srcClassPart == "component") {
+											opName = "unrelateAcrossR8003From";
+										}
+										Class<?> clazz = srcPE.getClass();
+										Method unrelateMethod = clazz.getMethod(opName,
+												new Class[] { srcParentModelRoot.getClass(), boolean.class });
+										unrelateMethod.invoke(srcPE, new Object[] { srcParentModelRoot, true });
+										srcParentPMC.persistSelfAndChildren();
+									}
 
-									String opName = "Paste" + classPart; //$NON-NLS-1$
-									Method pasteMethod = clazz.getMethod(opName, new Class[] { UUID.class });
-									pasteMethod.invoke(destination,
-											new Object[] { sourceElement.Get_ooa_id() });
-								} catch (Throwable e) {
-									CorePlugin.logError("Unable to execute paste operation.", e); //$NON-NLS-1$
+								} catch (Exception e) {
+									CorePlugin.logError(
+											"Unable to disconnect " + srcClassPart + "  (" + sourceElement.getName() //$NON-NLS-1$
+													+ ") from " + srcParentModelRoot.getClass().getSimpleName() + " ("
+													+ srcParentModelRoot.getName() + ") ",
+											e);
+									throw e;
 								}
 
-								// Assure the transactionmanager cleans up any stale files.
-								Ooaofooa.getDefaultInstance()
-											.fireModelElementDeleted(new BaseModelDelta(Modeleventnotification_c.DELTA_DELETE, sourceElement));
-								
+								// connect
+								try {
+									String opName = "Paste" + srcClassPart; //$NON-NLS-1$
+									Class<?> clazz = destination.getClass();
+									Method pasteMethod = clazz.getMethod(opName, new Class[] { UUID.class });
+									pasteMethod.invoke(destination, new Object[] { sourceElement.Get_ooa_id() });
+									destination.getPersistableComponent(true).persistSelfAndChildren();
+									
+								} catch (Exception e) {
+									CorePlugin.logError("Unable to connect " + srcClassPart + "  (" //$NON-NLS-1$
+											+ sourceElement.getName() + ") to " + destination.getClass().getSimpleName()
+											+ " (" + destination.getName() + ") ", e);
+									throw e;
+								}
+																								
 								monitor.worked(1);
 							}
 
@@ -189,7 +220,7 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 					}
 				} catch (Exception e) {
 					CorePlugin
-							.logError("Unable to start Paste transaction.", e); //$NON-NLS-1$
+							.logError("Paste failed.", e); //$NON-NLS-1$
 					if (transaction != null && manager != null
 							&& manager.getActiveTransaction() == transaction) {
 						manager.cancelTransaction(transaction, e);
