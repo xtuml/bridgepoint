@@ -37,6 +37,7 @@ public interface IModelChangeListener {
 	void modelElementCreated(ModelChangedEvent event, IModelDelta delta);
 	void modelElementRecreated(ModelChangedEvent event, IModelDelta delta);
 	void modelElementRelationChanged(ModelChangedEvent event, IModelDelta delta);
+	void modelElementMoved(ModelChangedEvent event, IModelDelta delta);
 	
 	void modelElementLoaded(ModelChangedEvent event);
 	void modelElementUnloaded(ModelChangedEvent event);
