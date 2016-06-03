@@ -417,25 +417,34 @@ public class ComponentTransactionListener implements ITransactionListener {
 	private static void movePMC(NonRootModelElement elementMoved, NonRootModelElement destination) {
 		try {
 			final IWorkspaceRoot wsRoot = ResourcesPlugin.getWorkspace().getRoot();
-
-			// This is the PMC associated with the xtuml file
-			PersistableModelComponent elementPMC = elementMoved.getPersistableComponent(true);
 			
-			// This is folder that the xtuml file is in
-			IPath elementParentDirectory = elementPMC.getContainingDirectoryPath();
-			IFolder elementContainingFolder = wsRoot.getFolder(elementParentDirectory);			
-
-			// Now get the destination folder
-			PersistableModelComponent destinationPMC = destination.getPersistableComponent(true);
-			IPath destPath = destinationPMC.getContainingDirectoryPath();
-
-			// move the fodler from the orginal location to the destination folder
-			elementContainingFolder.move(destPath, true, null);
-			
-			// Update the underlaying resource and it children (if any)
-			String elementName = elementMoved.getName();
-			IFile newFile = wsRoot.getFile(PersistableModelComponent.getRootComponentPath(elementName));
-			elementMoved.getPersistableComponent(true).updateResource(newFile);
+			IPersistenceHierarchyMetaData metadata = PersistenceManager.getHierarchyMetaData();
+			if (metadata.isComponentRoot(elementMoved)) {
+				// This is the PMC associated with the xtuml file
+				PersistableModelComponent elementPMC = elementMoved.getPersistableComponent(true);
+				
+				// This is folder that the xtuml file is in
+				IPath elementParentDirectory = elementPMC.getContainingDirectoryPath();
+				IFolder containingFolder = wsRoot.getFolder(elementParentDirectory);			
+	
+				// Now get the destination folder
+				PersistableModelComponent destinationPMC = destination.getPersistableComponent(true);
+				IPath destPath = destinationPMC.getContainingDirectoryPath().append(elementMoved.getName());
+				IFolder destFolder = wsRoot.getFolder(destPath);			
+	
+				// move the folder from the original location to the destination folder
+				// allow the move to keep the local history
+				containingFolder.move(destPath, true, true, null);
+				
+				// Update the underlying resource and it children (if any)
+				String elementName = elementMoved.getName();
+				IFile newFile = wsRoot
+						.getFile(destPath.append(elementName + "/" + elementName + "." + Ooaofooa.MODELS_EXT));
+				elementPMC.updateResource(newFile);
+				destinationPMC.clearDatabase();
+				NullProgressMonitor nullMon = new NullProgressMonitor();
+				destinationPMC.load(nullMon);
+			}
 		} catch (Exception e) {
 			CorePlugin.logError("Could not move file resources for " + elementMoved.getName(), e);
 		}
