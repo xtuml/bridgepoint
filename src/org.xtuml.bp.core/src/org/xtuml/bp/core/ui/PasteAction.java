@@ -34,6 +34,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.action.Action;
 
@@ -53,12 +54,16 @@ import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.PackageableElement_c;
 import org.xtuml.bp.core.SystemModel_c;
+import org.xtuml.bp.core.common.AttributeChangeModelDelta;
 import org.xtuml.bp.core.common.BaseModelDelta;
 import org.xtuml.bp.core.common.IPasteListener;
+import org.xtuml.bp.core.common.IPersistenceHierarchyMetaData;
+import org.xtuml.bp.core.common.ModelElementMovedModelDelta;
 import org.xtuml.bp.core.common.ModelRoot;
 import org.xtuml.bp.core.common.ModelStreamProcessor;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.common.PersistableModelComponent;
+import org.xtuml.bp.core.common.PersistenceManager;
 import org.xtuml.bp.core.common.Transaction;
 import org.xtuml.bp.core.common.TransactionManager;
 import org.xtuml.bp.core.util.OoaofgraphicsUtil;
@@ -124,48 +129,46 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 							// this is the actual selection. This is NOT using the "importer"
 							// to suck in all dependent elements
 							for (NonRootModelElement sourceElement : ELEMENT_MOVE_SOURCE_SELECTION) {
-								
-								// Determine the source class type 
+
 								String srcClassType = sourceElement.getClass().getSimpleName();
 								String srcClassPart = srcClassType.substring(0, srcClassType.length() - 2).toLowerCase();
-								
+							
 								PersistableModelComponent srcPMC = sourceElement.getPersistableComponent(true);
-								PersistableModelComponent srcParentPMC = srcPMC.getParent();
-								NonRootModelElement srcParentModelRoot = srcParentPMC.getRootModelElement();
-
-								// update the model root for the destination. This is what causes the 
-								// element to be moved form the old instance list to the new one.
-								// It is the equivalent of what is done by processor.processFirstStep(monitor)
-								// in the copy/paste case.
-								srcParentModelRoot.updateRootForSelfAndChildren(srcParentModelRoot.getModelRoot(), destination.getModelRoot());
+								IPersistenceHierarchyMetaData hmd = PersistenceManager.getHierarchyMetaData();
+								IPath srcPMCPath = null;
+								if (hmd.isComponentRoot(sourceElement)) {
+									// This gives us the path to a PMC that will be removed after the move 
+									srcPMCPath = srcPMC.getFullPath();
+									srcPMC = srcPMC.getParent();
+								}
+								NonRootModelElement srcModelRoot = srcPMC.getRootModelElement();
 								
 								// disconnect
 								try {
-									String getPEopName = "getOnePE_PEOnR8001";
-									Class<?> getPEclazz = PackageableElement_c.class;
-									Method getPEMethod = getPEclazz.getMethod(getPEopName,
-											new Class[] { sourceElement.getClass() });
-									Object result = getPEMethod.invoke(null, new Object[] { sourceElement });
-									PackageableElement_c srcPE = null;
-									if (result != null) {
-										srcPE = (PackageableElement_c) result;
+									PackageableElement_c srcPE = sourceElement.getPE();
+
+									if (srcPE != null) {
 									
+										// update the model root. This is what causes the 
+										// element to be moved from the old instance list to the new one.
+										srcModelRoot.updateModelRoot(destination.getModelRoot());	
+
 										String opName = "unrelateAcrossR8000From";
 										if (srcClassPart == "component") {
 											opName = "unrelateAcrossR8003From";
 										}
 										Class<?> clazz = srcPE.getClass();
 										Method unrelateMethod = clazz.getMethod(opName,
-												new Class[] { srcParentModelRoot.getClass(), boolean.class });
-										unrelateMethod.invoke(srcPE, new Object[] { srcParentModelRoot, true });
-										srcParentPMC.persistSelfAndChildren();
+												new Class[] { srcModelRoot.getClass(), boolean.class });
+										unrelateMethod.invoke(srcPE, new Object[] { srcModelRoot, true });
+										srcPMC.persistSelfAndChildren();
 									}
 
 								} catch (Exception e) {
 									CorePlugin.logError(
 											"Unable to disconnect " + srcClassPart + "  (" + sourceElement.getName() //$NON-NLS-1$
-													+ ") from " + srcParentModelRoot.getClass().getSimpleName() + " ("
-													+ srcParentModelRoot.getName() + ") ",
+													+ ") from " + srcModelRoot.getClass().getSimpleName() + " ("
+													+ srcModelRoot.getName() + ") ",
 											e);
 									throw e;
 								}
@@ -176,7 +179,6 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 									Class<?> clazz = destination.getClass();
 									Method pasteMethod = clazz.getMethod(opName, new Class[] { UUID.class });
 									pasteMethod.invoke(destination, new Object[] { sourceElement.Get_ooa_id() });
-									destination.getPersistableComponent(true).persistSelfAndChildren();
 									
 								} catch (Exception e) {
 									CorePlugin.logError("Unable to connect " + srcClassPart + "  (" //$NON-NLS-1$
@@ -184,10 +186,16 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 											+ " (" + destination.getName() + ") ", e);
 									throw e;
 								}
-																								
+
+								// All the work prior to this changed the in memory model.
+								// The transaction processing for this type of transaction 
+								// will update the files on disk as needed.
+								ModelElementMovedModelDelta change = new ModelElementMovedModelDelta(sourceElement
+										,destination);
+								Ooaofooa.getDefaultInstance().fireModelElementAttributeChanged(change);
+								
 								monitor.worked(1);
 							}
-
 						} else {
 							ModelStreamProcessor processor = new ModelStreamProcessor();
 							processorMap.put(destination, processor);

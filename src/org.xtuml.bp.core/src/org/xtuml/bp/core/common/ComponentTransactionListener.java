@@ -170,6 +170,19 @@ public class ComponentTransactionListener implements ITransactionListener {
 												element));
 						}
 						persist(target);
+					} else if (delta instanceof ModelElementMovedModelDelta) {
+						NonRootModelElement element = (NonRootModelElement) delta.getModelElement();
+						target = PersistenceManager.findElementComponent(element, true);
+						if (target != null) {
+							ModelElementMovedModelDelta modelDelta = (ModelElementMovedModelDelta) delta;
+							NonRootModelElement elementMoved=(NonRootModelElement) delta.getModelElement();
+							// In this case the file name has not changed so we
+							// use the same value for old and new file names
+							ComponentTransactionListener.movePMC(elementMoved, 
+									modelDelta.getDestination());
+							PersistableModelComponent pmcToPersist = modelDelta.getDestination().getPersistableComponent(true);
+							persistRenamedME(persisted, elementMoved);
+						}
                     } else if (delta instanceof AttributeChangeModelDelta) {
                         NonRootModelElement element=(NonRootModelElement) delta.getModelElement();
 						target = PersistenceManager.findElementComponent(element, true);
@@ -385,6 +398,49 @@ public class ComponentTransactionListener implements ITransactionListener {
 		}
 	}
 
+	/**
+	 * Move the PMC from the source to the destination
+	 * 
+	 * Example:
+	 * 		Before:
+	 * 			source_package/
+	 * 							source_package.xtuml
+	 * 							component1/component1.xtuml
+	 * 		After:
+	 * 			destination_package/
+	 * 								destination_package.xtuml
+	 * 								component1/component1.xtuml
+	 * 
+	 * @param elementMoved This is the NonRootModelElement being moved
+	 * @param destination This is the destination selected by the user
+	 */
+	private static void movePMC(NonRootModelElement elementMoved, NonRootModelElement destination) {
+		try {
+			final IWorkspaceRoot wsRoot = ResourcesPlugin.getWorkspace().getRoot();
+
+			// This is the PMC associated with the xtuml file
+			PersistableModelComponent elementPMC = elementMoved.getPersistableComponent(true);
+			
+			// This is folder that the xtuml file is in
+			IPath elementParentDirectory = elementPMC.getContainingDirectoryPath();
+			IFolder elementContainingFolder = wsRoot.getFolder(elementParentDirectory);			
+
+			// Now get the destination folder
+			PersistableModelComponent destinationPMC = destination.getPersistableComponent(true);
+			IPath destPath = destinationPMC.getContainingDirectoryPath();
+
+			// move the fodler from the orginal location to the destination folder
+			elementContainingFolder.move(destPath, true, null);
+			
+			// Update the underlaying resource and it children (if any)
+			String elementName = elementMoved.getName();
+			IFile newFile = wsRoot.getFile(PersistableModelComponent.getRootComponentPath(elementName));
+			elementMoved.getPersistableComponent(true).updateResource(newFile);
+		} catch (Exception e) {
+			CorePlugin.logError("Could not move file resources for " + elementMoved.getName(), e);
+		}
+	}
+	
 	public static void setDontMakeResourceChanges(boolean newValue) {
 		dontMakeResourceChanges = newValue;
 	}

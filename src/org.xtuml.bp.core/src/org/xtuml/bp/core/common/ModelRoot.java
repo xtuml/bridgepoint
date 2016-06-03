@@ -424,6 +424,18 @@ public abstract class ModelRoot extends ModelElement implements IModelChangeProv
         }
     }
     
+    public void fireModelElementMoved(IModelDelta modelDelta){
+        getDeltaCollector().waitIfLocked();
+        if(doFirePrework(modelDelta)){
+            ListenerMethodInvoker listenerMethod = new ListenerMethodInvoker(new ModelChangedEvent(this, modelDelta)){
+                public void invoke(IModelChangeListener listener) {
+                    listener.modelElementMoved(getEvent(), getEvent().getModelDelta());
+                }                   
+            };
+            callFireMethod(listenerMethod);
+        }
+    }
+    
     public void fireModelElementRelationChanged(IModelDelta modelDelta){
         getDeltaCollector().waitIfLocked();
         if(doFirePrework(modelDelta)){
