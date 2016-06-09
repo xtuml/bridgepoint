@@ -161,7 +161,6 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 										Method unrelateMethod = clazz.getMethod(opName,
 												new Class[] { srcModelRoot.getClass(), boolean.class });
 										unrelateMethod.invoke(srcPE, new Object[] { srcModelRoot, true });
-										srcPMC.persistSelfAndChildren();
 									}
 
 								} catch (Exception e) {
@@ -218,7 +217,7 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 												true,
 												destination
 														.getPersistableComponent()
-														.getFile().getFullPath(), !MOVE_IS_IN_PROGRESS);
+														.getFile().getFullPath(), true);
 								processor.runImporter(importer, monitor);
 								processor.processFirstStep(monitor);
 								processGraphics(destination);
