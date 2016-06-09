@@ -124,7 +124,8 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 					Ooaofooa.beginSaveOperation();
 					
 					for (NonRootModelElement destination : destinations) {
-						if (MOVE_IS_IN_PROGRESS ) {
+						
+						if (MOVE_IS_IN_PROGRESS ) {							
 							// Iterate over each element that was selected. Note that
 							// this is the actual selection. This is NOT using the "importer"
 							// to suck in all dependent elements
@@ -191,7 +192,7 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 								// will update the files on disk as needed.
 								ModelElementMovedModelDelta change = new ModelElementMovedModelDelta(sourceElement
 										,destination);
-								Ooaofooa.getDefaultInstance().fireModelElementAttributeChanged(change);
+								Ooaofooa.getDefaultInstance().fireModelElementMoved(change);
 								
 								monitor.worked(1);
 							}
@@ -217,12 +218,16 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 												true,
 												destination
 														.getPersistableComponent()
-														.getFile().getFullPath(), true);
-								processor.runImporter(importer, monitor);
-								processor.processFirstStep(monitor);
-								processGraphics(destination);
-								processor.processSecondStep(monitor);
+														.getFile().getFullPath(), !MOVE_IS_IN_PROGRESS);
+								// Import elements from the clipboard creating new UUIDs for the elements
+								processor.runImporter(importer, monitor); 
+								// Move imported elements to the destination model root
+								processor.processFirstStep(monitor); 
+								// move the imported graphical elements to the new model roots
+								processGraphics(destination); 
 							}
+							// call paste* operation to connect the model element, set the PMC, and call resolution operation to batch relate
+							processor.processSecondStep(monitor); 
 						}
 					}
 				} catch (Exception e) {
