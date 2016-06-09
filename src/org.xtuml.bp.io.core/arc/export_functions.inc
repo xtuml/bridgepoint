@@ -299,7 +299,19 @@ ${attrs.body}\
 public void write_${r.body}_proxy_sql(${r.body} inst)
 throws IOException
 {
-    // we are no longer writing proxies
+    .if(stream)
+  if ( inst != null && !writtenProxies.contains(inst) && !writtenInstances.contains(inst))
+    .else
+  if ( inst != null && !writtenProxies.contains(inst))
+    .end if
+  {
+  writtenProxies.add(inst);
+    m_fh.print( "INSERT INTO ${table.Key_Lett}_PROXY\n\tVALUES (" ); //$$NON-NLS-1$$
+    write_${r.body}_attr_sql(inst);
+    m_fh.print(",\n\t"); //$$NON-NLS-1$$
+    m_fh.print("'" + (!inst.getModelRoot().isCompareRoot() ? inst.getContent(m_inst.getPersistableComponent().getFullPath()):inst.getContent()) + "'");
+    m_fh.print(");\n"); //$$NON-NLS-1$$
+  }
 }
 
 private void write_${r.body}_attr_sql(${r.body} inst)

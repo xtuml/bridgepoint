@@ -686,7 +686,7 @@ public class PersistableModelComponent implements Comparable {
     	PersistableModelComponent parent_pmc = getParent();
     	if ( null != parent_pmc ) {
     		if ( !parent_pmc.isLoaded() ) {
-    			parent_pmc.load(monitor);
+    			parent_pmc.load(monitor, parseOal, reload);
     		}
     	}
     	
@@ -1026,12 +1026,18 @@ public class PersistableModelComponent implements Comparable {
 		IPersistenceHierarchyMetaData metaData = PersistenceManager
 				.getHierarchyMetaData();
 
+		List<?> findExternalRGOs = metaData.findExternalRGOs(me, false);
+		boolean hasExternalRGO = !findExternalRGOs.isEmpty();
 		List<?> children = metaData.getChildren(me, true);
 		for (int i = 0; i < children.size(); i++) {
 			NonRootModelElement child = (NonRootModelElement) children.get(i);
 			deleteME(child);
 		}
-		me.delete_unchecked();
+		if (hasExternalRGO) {
+			me.convertToProxy();
+		} else {
+			me.delete_unchecked();
+		}
 		me.batchUnrelate();
 	}
     

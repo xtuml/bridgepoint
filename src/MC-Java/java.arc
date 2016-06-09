@@ -712,9 +712,66 @@ ${cfcb.body}\
           .end if
   }
           .if (package.is_eclipse_plugin)
+  static public ${class_name} createProxy(ModelRoot modelRoot,
+${cfca.body}, String p_contentPath, IPath p_localPath)
+  {
+            .if ( object.AdapterName == "IProject" )
+        if (!modelRoot.isCompareRoot()
+                && !modelRoot.getId().equals(
+                        ModelRoot.CLIPBOARD_MODEL_ROOT_NAME)) {
+        modelRoot=((ModelRoot) Ooaofooa.getDefaultInstance());
+      }
+            .end if
+      ModelRoot resolvedModelRoot = ModelRoot.findModelRoot(modelRoot, p_contentPath, p_localPath);
+      // if a model root was not resolved it is most likely
+      // due to a missing file of the proxy, defualt back to
+      // the original model root
+      if(resolvedModelRoot != null)
+        modelRoot = resolvedModelRoot;
+      InstanceList instances = modelRoot.getInstanceList(${class_name}.class);
+      ${class_name} new_inst = null;
+      synchronized(instances) {
             .invoke id_result = find_id(object)
             .assign id = id_result.id
             .select many id_attrs related by id->O_OIDA[R105]->O_ATTR[R105]
+            .invoke local_key_result = get_unique_instance_key(id_attrs,"p_");
+            .if(local_key_result.found_key)
+          Object[] key = ${local_key_result.key};
+          new_inst = (${class_name}) instances.get(key) ;
+            .end if
+        }
+    String contentPath = PersistenceUtil.resolveRelativePath(
+            p_localPath,
+            new Path(p_contentPath));
+    if(modelRoot.isNewCompareRoot()) {
+          // for comparisons we do not want to change
+          // the content path
+          contentPath = p_contentPath;
+    }
+    if ( new_inst != null && !modelRoot.isCompareRoot()) {
+        PersistableModelComponent pmc = new_inst.getPersistableComponent();
+        if (pmc == null) {
+            // dangling reference, redo this instance
+            new_inst.batchUnrelate();
+            .invoke cfcb = create_full_constructor_body(attributes, false, "new_inst." )
+${cfcb.body}\
+        }
+    }
+    if ( new_inst == null ) {
+        // there is no instance matching the id, create a proxy
+        // if the resource doesn't exist then this will be a dangling reference
+        new_inst = new ${class_name}(modelRoot,
+            .invoke cfca_nt = create_full_constructor_arguments(object, false)
+${cfca_nt.body}
+);
+        new_inst.m_contentPath = contentPath;
+            .if ( object.AdapterName == "IFile" )
+    new_inst.setComponent(null);
+            .end if
+    }
+    return new_inst;
+  }
+
   static public ${class_name} resolveInstance(ModelRoot modelRoot,
 ${cfca.body}\
 ){
@@ -761,7 +818,6 @@ ${cfcb_source.body}\
         }
       }
       // there is no instance matching the id
-      .invoke cfca_nt = create_full_constructor_arguments(object, false)
     ${class_name} new_inst = new ${class_name}(modelRoot,
 ${cfca_nt.body}
 );
@@ -1976,7 +2032,7 @@ ${gsm.body}\
         return getChildren(true);
     }
     public Object[] getChildren(boolean load) {
-		// TODO: BOB remove this obsolete function
+        // TODO: BOB remove this obsolete function
         List dom_set = new ArrayList();
         Object[] obj_set = dom_set.toArray();
         return obj_set;
@@ -1985,7 +2041,7 @@ ${gsm.body}\
         return  hasChildren(true);
     }
     public boolean hasChildren(boolean load) {
-		// TODO: BOB remove this obsolete function
+        // TODO: BOB remove this obsolete function
         return false;
     }
           .end if
