@@ -265,7 +265,27 @@
       ${else_str}if ( table.equalsIgnoreCase("${stn.body}_PROXY") ) //$$NON-NLS-1$$
       .end if
       {
-        // we no longer load proxies
+      .invoke earlyReturnResult = shouldReturnEarlyIfNotCurrent(table.Key_Lett);
+      .if(earlyReturnResult.result != "")
+    ${earlyReturnResult.result}
+      .end if
+    String path = (String)parms.lastElement();
+    .invoke setSize = backwardCompatibilitySizeAdjustment(table, true)
+    .if (setSize.body != "")
+${setSize.body}
+    .end if
+      .invoke cn = get_class_name ( table )
+        ${local_var} ${cn.body}.createProxy(modelRoot,
+      .invoke paramsText = generate_params( table, callingProject )
+    ${paramsText.body}\
+, removeTics(path), projRelPath);
+        if (newInst.isProxy()) {
+          loadedInstances.add(newInst);
+		  pm.worked(1);
+        } else {
+          loadedProxies.add(newInst);
+        }
+        // newInst component is set during createProxy()
       }
     .end if
   }
