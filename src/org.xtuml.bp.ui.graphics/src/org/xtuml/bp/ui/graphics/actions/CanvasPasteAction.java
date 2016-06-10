@@ -291,10 +291,10 @@ public class CanvasPasteAction extends PasteAction {
 			}
 			InstanceList parentList = modelRoot
 					.getInstanceList(elements[i].getClass());
-			synchronized (list) {
+			synchronized (parentList) {
 				parentList.add(elements[i]);
+				parentList.put(elements[i].getInstanceKey(), elements[i]);
 			}
-			parentList.put(elements[i].getInstanceKey(), elements[i]);
 			elements[i].setModelRoot(modelRoot);
 		}
 	}
