@@ -122,10 +122,20 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 											OoaofgraphicsUtil
 											.getGraphicsClass()) });
 					Ooaofooa.beginSaveOperation();
-					
+
+					// Note that for MOVE there is only 1 destination, but the loop 
+					// handles the copy/paste situation too
 					for (NonRootModelElement destination : destinations) {
 						
-						if (MOVE_IS_IN_PROGRESS ) {							
+						if (MOVE_IS_IN_PROGRESS ) {	
+							// Move imported elements to the destination model root
+							for (NonRootModelElement sourceElement : ELEMENT_MOVE_SOURCE_SELECTION) {
+								sourceElement.updateModelRoot(destination.getModelRoot()); 
+							}
+							
+							// Move the graphics to their graphical model root
+							processGraphics(destination); 
+							
 							// Iterate over each element that was selected. Note that
 							// this is the actual selection. This is NOT using the "importer"
 							// to suck in all dependent elements

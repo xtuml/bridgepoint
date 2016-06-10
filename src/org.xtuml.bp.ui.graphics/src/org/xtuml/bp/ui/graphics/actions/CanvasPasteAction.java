@@ -48,6 +48,7 @@ import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.common.TransactionManager;
 import org.xtuml.bp.core.ui.PasteAction;
 import org.xtuml.bp.core.ui.Selection;
+import org.xtuml.bp.ui.canvas.CanvasPlugin;
 import org.xtuml.bp.ui.canvas.Cl_c;
 import org.xtuml.bp.ui.canvas.Connector_c;
 import org.xtuml.bp.ui.canvas.ContainingShape_c;
@@ -143,24 +144,39 @@ public class CanvasPasteAction extends PasteAction {
 		if (model == null) {
 			return;
 		}
-		GraphicalElement_c[] pastedGraphicalElements = getPastedGraphicalElements(
-				destination, processorMap);
-		NonRootModelElement[] loadedGraphicalElements = processorMap.get(
-				destination).getImporter().getLoadedGraphicalInstances();
-		updateGraphicalElementRoots(loadedGraphicalElements, model.getModelRoot());
-		for (GraphicalElement_c element : pastedGraphicalElements) {
-			element.relateAcrossR1To(model);
-			updateContainement(model, element);
-		}
-		// move the elements so they do not overlap any existing elements
-		moveGraphicalElementsToPreventOverlapping(pastedGraphicalElements, model);
-		if (model.Hascontainersymbol()) {
-			Shape_c container = Shape_c.getOneGD_SHPOnR2(GraphicalElement_c
-					.getOneGD_GEOnR1(model));
-			ContainingShape_c cs = ContainingShape_c
-					.getOneGD_CTROnR28(container);
-			if (cs != null) {
-				cs.Autoresize();
+		if (MOVE_IS_IN_PROGRESS) {
+			NonRootModelElement[] loadedGraphicalElements = new NonRootModelElement[ELEMENT_MOVE_SOURCE_SELECTION
+					.size()];
+			loadedGraphicalElements = ELEMENT_MOVE_SOURCE_SELECTION.toArray(loadedGraphicalElements);
+			updateGraphicalElementRoots(loadedGraphicalElements, model.getModelRoot());
+			
+			Ooaofgraphics ooaofg = Ooaofgraphics.getDefaultInstance();
+			for (NonRootModelElement nrme : ELEMENT_MOVE_SOURCE_SELECTION) {
+				GraphicalElement_c ge = CanvasPlugin.getGraphicalElement(ooaofg, nrme);
+				ge.relateAcrossR1To(model);
+				updateContainement(model, ge);
+			}
+			
+		} else {
+	 		GraphicalElement_c[] pastedGraphicalElements = getPastedGraphicalElements(
+					destination, processorMap);
+			NonRootModelElement[] loadedGraphicalElements = processorMap.get(
+					destination).getImporter().getLoadedGraphicalInstances();
+			updateGraphicalElementRoots(loadedGraphicalElements, model.getModelRoot());
+			for (GraphicalElement_c element : pastedGraphicalElements) {
+				element.relateAcrossR1To(model);
+				updateContainement(model, element);
+			}
+			// move the elements so they do not overlap any existing elements
+			moveGraphicalElementsToPreventOverlapping(pastedGraphicalElements, model);
+			if (model.Hascontainersymbol()) {
+				Shape_c container = Shape_c.getOneGD_SHPOnR2(GraphicalElement_c
+						.getOneGD_GEOnR1(model));
+				ContainingShape_c cs = ContainingShape_c
+						.getOneGD_CTROnR28(container);
+				if (cs != null) {
+					cs.Autoresize();
+				}
 			}
 		}
 	}
