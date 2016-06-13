@@ -291,6 +291,10 @@ public class MASLEditorInputFactory extends FileEditorInputFactory{
         else if ( modelElement instanceof Bridge_c && getParent(modelElement) instanceof ExternalEntity_c ) {                   // Bridges
             name.append( getParent(modelElement).getName() + "_" + modelElementGetSignature( modelElement, 1 ) );
         }
+        else if ( modelElement instanceof StateMachineState_c ) {                                                               // States (do not have signatures)
+            StateMachineState_c sm_state = (StateMachineState_c)modelElement;
+            name.append( sm_state.getName() );
+        }
         else {                                                                                                                  // Functions, operations, states
             name.append( modelElementGetSignature( modelElement, 1 ) );
         }
