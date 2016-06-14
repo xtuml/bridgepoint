@@ -148,13 +148,18 @@ public class CanvasPasteAction extends PasteAction {
 			NonRootModelElement[] loadedGraphicalElements = new NonRootModelElement[ELEMENT_MOVE_SOURCE_SELECTION
 					.size()];
 			loadedGraphicalElements = ELEMENT_MOVE_SOURCE_SELECTION.toArray(loadedGraphicalElements);
+			
 			updateGraphicalElementRoots(loadedGraphicalElements, model.getModelRoot());
 			
-			Ooaofgraphics ooaofg = Ooaofgraphics.getDefaultInstance();
 			for (NonRootModelElement nrme : ELEMENT_MOVE_SOURCE_SELECTION) {
-				GraphicalElement_c ge = CanvasPlugin.getGraphicalElement(ooaofg, nrme);
-				ge.relateAcrossR1To(model);
-				updateContainement(model, ge);
+				// If the selection was made from the canvas we have a graphical element
+				if (nrme instanceof GraphicalElement_c) {
+					// Get the source root
+					Ooaofgraphics ooaofg = Ooaofgraphics.getInstance(nrme.getModelRoot().getId());
+					GraphicalElement_c ge = CanvasPlugin.getGraphicalElement(ooaofg, nrme);
+					ge.relateAcrossR1To(model);
+					updateContainement(model, ge);
+				}
 			}
 			
 		} else {
