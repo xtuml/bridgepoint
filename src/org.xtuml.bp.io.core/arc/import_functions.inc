@@ -741,7 +741,7 @@ ${setSize.body}
                 	}
                 }
                 helper.addPortReferenceInstances(loadedInstances);
-                if(m_createUniqueIdDuringImport) {
+
 	                // then for every loaded instance update
 	                // any unique id UUID value
 	                for (int i = 0; i < loadedInstances.size(); i++) {
@@ -786,7 +786,6 @@ ${setSize.body}
 	                        ges[i].setOoa_id(newId);
 	                    }
 	                }
-	           }
         .else
         helper.importPreBP7_1LineSegments();
         helper.importPreBP7_1Connectors();

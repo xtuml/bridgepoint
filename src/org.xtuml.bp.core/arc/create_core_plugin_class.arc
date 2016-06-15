@@ -228,7 +228,7 @@ public class CorePlugin extends AbstractUIPlugin {
 		AbstractModelImportFactory mif = CorePlugin.getModelImportFactory();
 		try {
 		  IModelImport importer = mif.create(fileName,
-                        Ooaofooa.getDefaultInstance(), null, false, true, true, true);
+                        Ooaofooa.getDefaultInstance(), null, false, true, true);
 		  importer.run(new NullProgressMonitor());
 		  loadedGlobals = importer.getLoadedInstances();
 		}
@@ -296,7 +296,7 @@ public class CorePlugin extends AbstractUIPlugin {
 				Ooaofooa.getInstance(rootId, false),
 				system,
 				parseAll,
-				true, isTemplate, true);
+				true, isTemplate);
 			int validate_result = im.countAndValidateInsertStatements();
 			if (validate_result > 0) {
 				im.run(monitor);
@@ -320,7 +320,7 @@ public class CorePlugin extends AbstractUIPlugin {
 		boolean parseAll, boolean isTemplate) {
 		try {
 			IModelImport im = importFactory.create(model, Ooaofooa
-				..getInstance(rootId, false), system, parseAll, true, true, isTemplate, true);
+				..getInstance(rootId, false), system, parseAll, true, true, isTemplate);
 			int validate_result = im.countAndValidateInsertStatements();
 			if (validate_result > 0) {
 				im.run(monitor);

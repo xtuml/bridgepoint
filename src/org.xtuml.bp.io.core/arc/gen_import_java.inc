@@ -473,8 +473,8 @@ public class ${class_name} extends CoreImport
             .assign parentC = "SystemModel_c"
       .end if
     .if(multilevel and setComponent)
-    public ${class_name}(IFile file, ${var.main_class_name} aModelRoot, PersistableModelComponent component, boolean parseAll, boolean clearDatabase, boolean parseGraphics, boolean isTemplate, boolean createUniqueIdDuringImport) throws IOException {
-        super(aModelRoot, file.getLocation().toOSString(), clearDatabase, isTemplate, createUniqueIdDuringImport);
+    public ${class_name}(IFile file, ${var.main_class_name} aModelRoot, PersistableModelComponent component, boolean parseAll, boolean clearDatabase, boolean parseGraphics, boolean isTemplate) throws IOException {
+        super(aModelRoot, file.getLocation().toOSString(), clearDatabase, isTemplate);
         m_component = component;
         m_parseAll = parseAll;
         m_parseGraphics = parseGraphics;
@@ -491,8 +491,8 @@ public class ${class_name} extends CoreImport
                 }
         }
     }
-    public ${class_name}(InputStream inStream, ${var.main_class_name} aModelRoot, PersistableModelComponent component, boolean parseAll, boolean clearDatabase, boolean parseGraphics, boolean isTemplate, boolean createUniqueIdDuringImport) throws IOException {
-        super(aModelRoot, inStream, clearDatabase, isTemplate, createUniqueIdDuringImport);
+    public ${class_name}(InputStream inStream, ${var.main_class_name} aModelRoot, PersistableModelComponent component, boolean parseAll, boolean clearDatabase, boolean parseGraphics, boolean isTemplate) throws IOException {
+        super(aModelRoot, inStream, clearDatabase, isTemplate);
         m_parseAll = parseAll;
         m_inFile = streamFileName;
         m_parseGraphics = parseGraphics;
@@ -501,24 +501,24 @@ public class ${class_name} extends CoreImport
     .else
         .if (callingProject == "NBP")
           .if(not multilevel)
-    public ${class_name}(InputStream inStream, ${var.main_class_name} aModelRoot, ${parentC} parent, boolean parseAll, boolean clearDatabase, boolean parseGraphics, boolean isTemplate, boolean createUniqueIdDuringImport) throws IOException {
-        super(aModelRoot, inStream, clearDatabase, isTemplate, createUniqueIdDuringImport);
+    public ${class_name}(InputStream inStream, ${var.main_class_name} aModelRoot, ${parentC} parent, boolean parseAll, boolean clearDatabase, boolean parseGraphics, boolean isTemplate) throws IOException {
+        super(aModelRoot, inStream, clearDatabase, isTemplate);
         m_parseAll = parseAll;
         m_inFile = streamFileName;
         m_parseGraphics = parseGraphics;
         m_parent = parent;
     }
             .else
-    public ${class_name}(InputStream inStream, ${var.main_class_name} aModelRoot, boolean clearDatabase, IPath projectRelativePath, boolean createUniqueIdDuringImport) throws IOException {
-        super(aModelRoot, inStream, clearDatabase, false, createUniqueIdDuringImport);
+    public ${class_name}(InputStream inStream, ${var.main_class_name} aModelRoot, boolean clearDatabase, IPath projectRelativePath) throws IOException {
+        super(aModelRoot, inStream, clearDatabase, false);
         m_inFile = streamFileName;
         projRelPath = projectRelativePath;
     }
             .end if
         .end if
         .if(not multilevel)
-    public ${class_name}(String fileName, ${var.main_class_name} aModelRoot, ${parentC} parent, boolean parseAll, boolean clearDatabase, boolean isTemplate, boolean createUniqueIdDuringImport) throws FileNotFoundException {
-        super(aModelRoot, fileName, clearDatabase, isTemplate, createUniqueIdDuringImport);
+    public ${class_name}(String fileName, ${var.main_class_name} aModelRoot, ${parentC} parent, boolean parseAll, boolean clearDatabase, boolean isTemplate) throws FileNotFoundException {
+        super(aModelRoot, fileName, clearDatabase, isTemplate);
         m_inFile = fileName;
         m_parseAll = parseAll;
         m_parent = parent;
@@ -779,6 +779,18 @@ public class ${class_name} extends CoreImport
       }
             ModelRoot.disableChangeNotification();
           try {
+            for (int i = 0; i < loadedGraphicsInstances.size(); i++) {
+              if (loadedGraphicsInstances.get(i) instanceof Model_c) {
+                Model_c model = (Model_c) loadedGraphicsInstances.get(i);
+                model.setRepresents(Cl_c.Getinstancefromooa_id(
+                       getModelRoot(), model.getOoa_id(), model.getOoa_type()));
+              }
+              if(loadedGraphicsInstances.get(i) instanceof GraphicalElement_c) {
+					GraphicalElement_c element = (GraphicalElement_c) loadedGraphicsInstances.get(i);
+						element.setRepresents(Cl_c.Getinstancefromooa_id(
+								getModelRoot(), element.getOoa_id(), element.getOoa_type()));
+              }
+          }
             pm.done();
             if (m_parseAll) {
                 AllActivityModifier aam = new AllActivityModifier(rootModelElement, pm);

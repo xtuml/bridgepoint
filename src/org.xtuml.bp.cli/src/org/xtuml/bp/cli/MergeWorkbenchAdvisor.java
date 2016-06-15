@@ -104,21 +104,21 @@ public class MergeWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
 			left.read(leftBytes);
 			IModelImport leftImporter = streamImportFactory.create(
 					new ByteArrayInputStream(leftBytes), leftCompareRoot, true,
-					new Path(""), false);
+					new Path(""));
 			RandomAccessFile right = new RandomAccessFile(new File(rightFile),
 					"r");
 			byte[] rightBytes = new byte[(int) right.length()];
 			right.read(rightBytes);
 			IModelImport rightImporter = streamImportFactory.create(
 					new ByteArrayInputStream(rightBytes), rightCompareRoot,
-					true, new Path(""), false);
+					true, new Path(""));
 			RandomAccessFile ancestor = new RandomAccessFile(new File(
 					ancestorFile), "r");
 			byte[] ancestorBytes = new byte[(int) ancestor.length()];
 			ancestor.read(ancestorBytes);
 			IModelImport ancestorImporter = streamImportFactory.create(
 					new ByteArrayInputStream(ancestorBytes),
-					ancestorCompareRoot, true, new Path(""), false);
+					ancestorCompareRoot, true, new Path(""));
 			SystemModel_c sys = new SystemModel_c(Ooaofooa.getDefaultInstance());
 			ImportHelper helper = new ImportHelper(null);
 			helper.setUpGlobals(sys);

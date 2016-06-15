@@ -231,7 +231,7 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 												true,
 												destination
 														.getPersistableComponent()
-														.getFile().getFullPath(), !MOVE_IS_IN_PROGRESS);
+														.getFile().getFullPath());
 								// Import elements from the clipboard creating new UUIDs for the elements
 								processor.runImporter(importer, monitor); 
 								// Move imported elements to the destination model root

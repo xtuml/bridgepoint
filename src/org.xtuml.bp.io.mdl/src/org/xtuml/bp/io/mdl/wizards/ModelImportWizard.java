@@ -237,7 +237,7 @@ public class ModelImportWizard extends Wizard implements IImportWizard {
 						is,
 						Ooaofooa.getInstance(
 								Ooaofooa.CLIPBOARD_MODEL_ROOT_NAME, false),
-						true, fSystem.getPersistableComponent().getFile().getFullPath(), true);
+						true, fSystem.getPersistableComponent().getFile().getFullPath());
 				  fProcessor.runImporter(fImporter, monitor);
 
 				fProcessor.processFirstStep(monitor);

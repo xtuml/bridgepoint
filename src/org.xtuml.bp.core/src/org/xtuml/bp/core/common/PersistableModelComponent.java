@@ -815,7 +815,7 @@ public class PersistableModelComponent implements Comparable {
         }
         
         return factory.create(file, modelRoot, this, parseOal, true, true,
-                false, true);
+                false);
     }
     
     private IModelImport createImporter(Ooaofooa modelRoot, boolean parseOal)
