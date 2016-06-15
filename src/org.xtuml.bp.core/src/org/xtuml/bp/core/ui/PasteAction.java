@@ -123,93 +123,81 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 											.getGraphicsClass()) });
 					Ooaofooa.beginSaveOperation();
 
-					// Note that for MOVE there is only 1 destination, but the loop 
-					// handles the copy/paste situation too
-					for (NonRootModelElement destination : destinations) {
 						
-						if (MOVE_IS_IN_PROGRESS ) {
-							if (destination.getPE() == null) {										
-								RuntimeException rte = new RuntimeException("Destination element is not allowed in move.  name: " + 
-										destination.getName() + "  type: " +  destination.getClass().getSimpleName());
-								throw rte;
-							}
+					if (MOVE_IS_IN_PROGRESS ) {
+						// Move only allows a single destination
+						NonRootModelElement destination = destinations.get(0);
 							
-							// Move imported elements to the destination model root
-							for (NonRootModelElement sourceElement : ELEMENT_MOVE_SOURCE_SELECTION) {
-								sourceElement.updateModelRoot(destination.getModelRoot()); 
-							}
-							
-							// Move the graphics to their graphical model root
-							processGraphics(destination); 
-							
-							// Iterate over each element that was selected. Note that
-							// this is the actual selection. This is NOT using the "importer"
-							// to suck in all dependent elements
-							for (NonRootModelElement sourceElement : ELEMENT_MOVE_SOURCE_SELECTION) {
-								PackageableElement_c srcPE = sourceElement.getPE();
-								if (srcPE != null) {
+						// Iterate over each element that was selected. Note that
+						// this is the actual selection. This is NOT using the "importer"
+						// to suck in all dependent elements
+						for (NonRootModelElement sourceElement : ELEMENT_MOVE_SOURCE_SELECTION) {
+							PackageableElement_c srcPE = sourceElement.getPE();
 
-									String srcClassType = sourceElement.getClass().getSimpleName();
-									String srcClassPart = srcClassType.substring(0, srcClassType.length() - 2).toLowerCase();
-								
-									// disconnect
-									try {
-	
-										PersistableModelComponent srcPMC = sourceElement.getPersistableComponent(true);
-										IPersistenceHierarchyMetaData hmd = PersistenceManager.getHierarchyMetaData();
-										// If this element is a model root then we will unrelate from the parent
-										if (hmd.isComponentRoot(sourceElement)) {
-											// This gives us the path to a PMC that will be removed after the move 
-											IPath srcPMCPath = srcPMC.getFullPath();
-											srcPMC = srcPMC.getParent();
-										}
-										NonRootModelElement srcModelRoot = srcPMC.getRootModelElement();
-										
-										
-										String opName = "unrelateAcrossR8000From";
-										if (srcClassPart == "component") {
-											opName = "unrelateAcrossR8003From";
-										}
-										Class<?> clazz = srcPE.getClass();
-										Method unrelateMethod = clazz.getMethod(opName,
-												new Class[] { srcModelRoot.getClass(), boolean.class });
-										unrelateMethod.invoke(srcPE, new Object[] { srcModelRoot, true });	
-									} catch (Exception e) {
-										CorePlugin.logError(
-												"Unable to disconnect " + srcClassPart + "  (" + sourceElement.getName() //$NON-NLS-1$
-														+ ") from its PE_PE", e);
-										throw e;
-									}
-	
-									// connect
-									try {
-										String opName = "Paste" + srcClassPart; //$NON-NLS-1$
-										Class<?> clazz = destination.getClass();
-										Method pasteMethod = clazz.getMethod(opName, new Class[] { UUID.class });
-										pasteMethod.invoke(destination, new Object[] { sourceElement.Get_ooa_id() });
-										
-									} catch (Exception e) {
-										CorePlugin.logError("Unable to connect " + srcClassPart + "  (" //$NON-NLS-1$
-												+ sourceElement.getName() + ") to " + destination.getClass().getSimpleName()
-												+ " (" + destination.getName() + ") ", e);
-										throw e;
-									}
-	
-									// All the work prior to this changed the in memory model.
-									// The transaction processing for this type of transaction 
-									// will update the files on disk as needed.
-									ModelElementMovedModelDelta change = new ModelElementMovedModelDelta(sourceElement
-											,destination);
-									Ooaofooa.getDefaultInstance().fireModelElementMoved(change);
-									
-									monitor.worked(1);
-								} else {
-									RuntimeException rte = new RuntimeException("Source element is not allowed in move.  name: " + 
-												sourceElement.getName() + "  type: " +  sourceElement.getClass().getSimpleName());
-									throw rte;
+							// disconnect
+							try {	
+								PersistableModelComponent srcPMC = sourceElement.getPersistableComponent(true);
+								IPersistenceHierarchyMetaData hmd = PersistenceManager.getHierarchyMetaData();
+								// If this element is a model root then we will unrelate from the parent
+								if (hmd.isComponentRoot(sourceElement)) {
+									// This gives us the path to a PMC that will be removed after the move 
+									IPath srcPMCPath = srcPMC.getFullPath();
+									srcPMC = srcPMC.getParent();
 								}
+								NonRootModelElement srcModelRoot = srcPMC.getRootModelElement();
+										
+										
+								String opName = "unrelateAcrossR8000From";
+								if (getClassName(sourceElement) == "component") {
+									opName = "unrelateAcrossR8003From";
+								}
+								Class<?> clazz = srcPE.getClass();
+								Method unrelateMethod = clazz.getMethod(opName,
+											new Class[] { srcModelRoot.getClass(), boolean.class });
+								unrelateMethod.invoke(srcPE, new Object[] { srcModelRoot, true });	
+							} catch (Exception e) {
+								CorePlugin.logError(
+										"Unable to disconnect " + getClassName(sourceElement) + "  (" + sourceElement.getName() //$NON-NLS-1$
+												+ ") from its PE_PE", e);
+								throw e;
 							}
-						} else {
+						}
+							
+						// Move imported elements to the destination model root
+						for (NonRootModelElement sourceElement : ELEMENT_MOVE_SOURCE_SELECTION) {
+							sourceElement.updateModelRoot(destination.getModelRoot()); 
+						}
+									
+						// Move the graphics to their graphical model root
+						processGraphics(destination); 
+									
+
+	
+						// connect the selected elements to their destination
+						for (NonRootModelElement sourceElement : ELEMENT_MOVE_SOURCE_SELECTION) {
+							try {
+								String opName = "Paste" + getClassName(sourceElement); //$NON-NLS-1$
+								Class<?> clazz = destination.getClass();
+								Method pasteMethod = clazz.getMethod(opName, new Class[] { UUID.class });
+								pasteMethod.invoke(destination, new Object[] { sourceElement.Get_ooa_id() });
+										
+							} catch (Exception e) {
+								CorePlugin.logError("Unable to connect " + getClassName(sourceElement) + "  (" //$NON-NLS-1$
+										+ sourceElement.getName() + ") to " + destination.getClass().getSimpleName()
+										+ " (" + destination.getName() + ") ", e);
+								throw e;
+							}
+	
+							// All the work prior to this changed the in memory model.
+							// The transaction processing for this type of transaction 
+							// will update the files on disk as needed.
+							ModelElementMovedModelDelta change = new ModelElementMovedModelDelta(sourceElement
+									,destination);
+							Ooaofooa.getDefaultInstance().fireModelElementMoved(change);									
+						} 
+					} else {
+							for (NonRootModelElement destination : destinations) {
+
 							ModelStreamProcessor processor = new ModelStreamProcessor();
 							processorMap.put(destination, processor);
 							processor.setDestinationElement(destination);
@@ -313,6 +301,12 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 		}
 	}
 
+	private static String getClassName(NonRootModelElement sourceElement) {
+		String srcClassType = sourceElement.getClass().getSimpleName();
+		String srcClassPart = srcClassType.substring(0, srcClassType.length() - 2).toLowerCase();
+		return srcClassPart;
+	}
+	
 	/**
 	 * Displays a dialog if the problems map is not empty
 	 * 
