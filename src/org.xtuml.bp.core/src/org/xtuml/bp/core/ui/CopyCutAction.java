@@ -70,26 +70,27 @@ public abstract class CopyCutAction extends CutCopyPasteAction {
 				ELEMENT_MOVE_SOURCE_SELECTION = elementList;
 			} else {
 				MOVE_IS_IN_PROGRESS = false;	
-				
-				ByteArrayOutputStream out = new ByteArrayOutputStream();
-				String streamContents = "";
-				String packagingHeader = getPackagingHeaderFromElements(elementList);
-				NonRootModelElement[] nrmeList = new NonRootModelElement[elementList.size()];
-				IRunnableWithProgress progress = CorePlugin
+			}
+			
+			ByteArrayOutputStream out = new ByteArrayOutputStream();
+			String streamContents = "";
+			String packagingHeader = getPackagingHeaderFromElements(elementList);
+			NonRootModelElement[] nrmeList = new NonRootModelElement[elementList.size()];
+			IRunnableWithProgress progress = CorePlugin
 							.getStreamExportFactory()
 							.create(out, elementList.toArray(nrmeList), true, false);
-				progress.run(new NullProgressMonitor());
-				out.close();
-				streamContents = new String(out.toByteArray());
-				streamContents = streamContents.replaceFirst("\n", "\n" + packagingHeader + "\n");
-				if(secondary == null) {
-					cb.setContents(new Object[] { streamContents },
-							new Transfer[] { TextTransfer.getInstance() });
-				} else {
-					cb.setContents(new Object[] { streamContents, secondary },
-							new Transfer[] { TextTransfer.getInstance(), getSecondaryTransfer()});
-				}
+			progress.run(new NullProgressMonitor());
+			out.close();
+			streamContents = new String(out.toByteArray());
+			streamContents = streamContents.replaceFirst("\n", "\n" + packagingHeader + "\n");
+			if(secondary == null) {
+				cb.setContents(new Object[] { streamContents },
+						new Transfer[] { TextTransfer.getInstance() });
+			} else {
+				cb.setContents(new Object[] { streamContents, secondary },
+						new Transfer[] { TextTransfer.getInstance(), getSecondaryTransfer()});
 			}
+
 			postRun();
 		} catch (Exception e) {
 			// log error
