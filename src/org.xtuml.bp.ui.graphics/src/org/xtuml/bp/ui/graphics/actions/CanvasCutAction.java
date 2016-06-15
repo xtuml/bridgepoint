@@ -53,21 +53,24 @@ public class CanvasCutAction extends CutAction {
 
 	/**
 	 * Determines whether or not the selection
-	 * contains elements which are may be cut
+	 * contains elements which may be cut
 	 */
 	public boolean isSelectionCuttable() {
 		if(m_editor == null) return false;
-		boolean copiable = CanvasCopyAction.isSelectionCopiable(m_editor.getModel());
+		boolean cuttable = CanvasCopyAction.isSelectionCopiable(m_editor.getModel());
 		// only ask the delete action if the selection contains only
 		// NonRootModelElement represented graphics
 		if(selectionContainsOnlyCoreElements()) {
 			if(!DeleteAction.canDeleteAction()) {
-				copiable = false;
+				cuttable = false;
+			}
+			if (cuttable) {
+				cuttable = selectionContainsOnlyPEs();
 			}
 		} else {
 			return false;
 		}
-		return copiable;
+		return cuttable;
 	}
 
 	public static boolean selectionContainsOnlyCoreElements() {

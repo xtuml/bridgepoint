@@ -60,16 +60,10 @@ public class ExplorerCutAction extends CutAction {
 
 	@Override
 	public boolean isEnabled() {
-		NonRootModelElement[] selectedNRMEs = getElementsToBeCopied(false);
 		boolean cuttable = ExplorerCopyAction.isSelectionCopiable(viewer,
-				selectedNRMEs);
+				getElementsToBeCopied(false));
 		if(cuttable) {
-			for(int i = 0; i < selectedNRMEs.length; i++) {
-				PackageableElement_c pe_pe = selectedNRMEs[i].getPE();
-				if (null == pe_pe) {
-					return false;
-				} 
-			}
+			cuttable = selectionContainsOnlyPEs();
 		}
 		return cuttable;
 	}
