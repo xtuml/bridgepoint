@@ -23,6 +23,7 @@ import org.eclipse.jface.action.Action;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
+import org.xtuml.bp.core.PackageableElement_c;
 import org.xtuml.bp.core.common.NonRootModelElement;
 
 /**
@@ -64,6 +65,17 @@ public abstract class CutCopyPasteAction extends Action {
 	
 	public static boolean moveIsInProgress() {
 		return MOVE_IS_IN_PROGRESS;
+	}
+	
+	public static boolean selectionContainsOnlyPEs() {
+		NonRootModelElement[] selectedNRMEs = Selection.getInstance().getSelectedNonRootModelElements();;
+		for(int i = 0; i < selectedNRMEs.length; i++) {
+			PackageableElement_c pe_pe = selectedNRMEs[i].getPE();
+			if (null == pe_pe) {
+				return false;
+			} 
+		}
+		return true;
 	}
 	
 	protected abstract void postRun();
