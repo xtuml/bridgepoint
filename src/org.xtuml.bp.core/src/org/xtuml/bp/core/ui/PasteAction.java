@@ -157,8 +157,8 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 								unrelateMethod.invoke(srcPE, new Object[] { srcModelRoot, true });	
 							} catch (Exception e) {
 								CorePlugin.logError(
-										"Unable to disconnect " + getClassName(sourceElement) + "  (" + sourceElement.getName() //$NON-NLS-1$
-												+ ") from its PE_PE", e);
+										"Unable to disconnect the PE_PE for " + getClassName(sourceElement) + "  (" + sourceElement.getName() //$NON-NLS-1$
+												+ ") from its parent container.", e);
 								throw e;
 							}
 						}
@@ -170,8 +170,6 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 									
 						// Move the graphics to their graphical model root
 						processGraphics(destination); 
-									
-
 	
 						// connect the selected elements to their destination
 						for (NonRootModelElement sourceElement : ELEMENT_MOVE_SOURCE_SELECTION) {
@@ -196,7 +194,7 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 							Ooaofooa.getDefaultInstance().fireModelElementMoved(change);									
 						} 
 					} else {
-							for (NonRootModelElement destination : destinations) {
+						for (NonRootModelElement destination : destinations) {
 
 							ModelStreamProcessor processor = new ModelStreamProcessor();
 							processorMap.put(destination, processor);
