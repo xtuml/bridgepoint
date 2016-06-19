@@ -176,12 +176,9 @@ public class ComponentTransactionListener implements ITransactionListener {
 						if (target != null) {
 							ModelElementMovedModelDelta modelDelta = (ModelElementMovedModelDelta) delta;
 							NonRootModelElement elementMoved=(NonRootModelElement) delta.getModelElement();
-							// In this case the file name has not changed so we
-							// use the same value for old and new file names
-							ComponentTransactionListener.movePMC(elementMoved, 
-									modelDelta.getDestination());
+							ComponentTransactionListener.movePMC(elementMoved, modelDelta.getDestination());
 							PersistableModelComponent pmcToPersist = modelDelta.getDestination().getPersistableComponent(true);
-							persistRenamedME(persisted, elementMoved);
+							persistRenamedME(persisted, modelDelta.getDestination());
 						}
                     } else if (delta instanceof AttributeChangeModelDelta) {
                         NonRootModelElement element=(NonRootModelElement) delta.getModelElement();
@@ -436,14 +433,11 @@ public class ComponentTransactionListener implements ITransactionListener {
 				// allow the move to keep the local history
 				containingFolder.move(destPath, true, true, null);
 				
-				// Update the underlying resource and it children (if any)
+				// Update the underlying resource and its children (if any)
 				String elementName = elementMoved.getName();
 				IFile newFile = wsRoot
 						.getFile(destPath.append(elementName + "/" + elementName + "." + Ooaofooa.MODELS_EXT));
 				elementPMC.updateResource(newFile);
-				destinationPMC.clearDatabase();
-				NullProgressMonitor nullMon = new NullProgressMonitor();
-				destinationPMC.load(nullMon);
 			}
 		} catch (Exception e) {
 			CorePlugin.logError("Could not move file resources for " + elementMoved.getName(), e);
