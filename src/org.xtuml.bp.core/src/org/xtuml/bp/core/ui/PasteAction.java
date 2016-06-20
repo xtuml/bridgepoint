@@ -151,10 +151,10 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 								if (getClassName(sourceElement) == "component") {
 									opName = "unrelateAcrossR8003From";
 								}
-								Class<?> clazz = srcPE.getClass();
-								Method unrelateMethod = clazz.getMethod(opName,
+									Class<?> clazz = srcPE.getClass();
+									Method unrelateMethod = clazz.getMethod(opName,
 											new Class[] { srcModelRoot.getClass(), boolean.class });
-								unrelateMethod.invoke(srcPE, new Object[] { srcModelRoot, true });	
+									unrelateMethod.invoke(srcPE, new Object[] { srcModelRoot, true });	
 							} catch (Exception e) {
 								CorePlugin.logError(
 										"Unable to disconnect " + getClassName(sourceElement) + "  (" + sourceElement.getName() //$NON-NLS-1$
@@ -163,15 +163,13 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 							}
 						}
 							
-						// Move imported elements to the destination model root
-						for (NonRootModelElement sourceElement : ELEMENT_MOVE_SOURCE_SELECTION) {
-							sourceElement.updateModelRoot(destination.getModelRoot()); 
-						}
-									
 						// Move the graphics to their graphical model root
 						processGraphics(destination); 
 									
-
+						// Move imported elements to the destination model root
+						for (NonRootModelElement sourceElement : ELEMENT_MOVE_SOURCE_SELECTION) {
+							sourceElement.updateModelRoot(destination.getModelRoot()); 
+						}									
 	
 						// connect the selected elements to their destination
 						for (NonRootModelElement sourceElement : ELEMENT_MOVE_SOURCE_SELECTION) {
@@ -360,8 +358,9 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 	 * hook up the pasted graphics to the destination roots
 	 * 
 	 * @param destination
+	 * @throws Exception 
 	 */
-	public abstract void processGraphics(NonRootModelElement destination);
+	public abstract void processGraphics(NonRootModelElement destination) throws Exception;
 
 	public abstract TransactionManager getTransactionManager();
 
