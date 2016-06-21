@@ -145,16 +145,35 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 									srcPMC = srcPMC.getParent();
 								}
 								NonRootModelElement srcModelRoot = srcPMC.getRootModelElement();
-										
-										
-								String opName = "unrelateAcrossR8000From";
-								if (getClassName(sourceElement) == "component") {
-									opName = "unrelateAcrossR8003From";
+
+								// If a "disconnect" operation exists on this source class type then 
+								// we will use it.
+								Class<?> clazz = sourceElement.getClass();
+								String opName = "Disconnect";
+								Method disconnectMethod = null;
+								Method[] methods = clazz.getMethods();
+								for (int i = 0; disconnectMethod==null && i < methods.length; i++) {
+									if (methods[i].getName() == opName) {
+										disconnectMethod = methods[i];
+									}
 								}
-									Class<?> clazz = srcPE.getClass();
-									Method unrelateMethod = clazz.getMethod(opName,
+								
+								// If there is no "disconnect" operation then we will simply
+								// use the generated operation for disconnecting the PE
+								if (disconnectMethod==null) {
+									opName = "unrelateAcrossR8000From";
+									if (getClassName(sourceElement) == "component") {
+										opName = "unrelateAcrossR8003From";
+									}
+									clazz = srcPE.getClass();
+									disconnectMethod = clazz.getMethod(opName,
 											new Class[] { srcModelRoot.getClass(), boolean.class });
-									unrelateMethod.invoke(srcPE, new Object[] { srcModelRoot, true });	
+									disconnectMethod.invoke(srcPE, new Object[] { srcModelRoot, true });	
+								} else {
+									disconnectMethod.invoke(sourceElement);	
+								}
+								
+																
 							} catch (Exception e) {
 								CorePlugin.logError(
 										"Unable to disconnect " + getClassName(sourceElement) + "  (" + sourceElement.getName() //$NON-NLS-1$

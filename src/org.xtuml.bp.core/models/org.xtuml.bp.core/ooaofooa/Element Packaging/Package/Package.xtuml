@@ -6198,6 +6198,27 @@ INSERT INTO O_TPARM
 	'',
 	"2b5f4723-f8c7-4853-bddf-a19aae07e6c6",
 	'');
+INSERT INTO O_TFR
+	VALUES ("71f25991-161d-4092-b684-a166114dab97",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'disconnect',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'select one system related by self->S_SYS[R1401];
+if(not_empty system)
+  unrelate self from system across R1401;
+end if;
+
+select one system related by self->S_SYS[R1405];
+if(not_empty system)
+  unrelate self from system across R1405;
+end if;
+
+',
+	1,
+	'',
+	"dfa9714c-ef5e-4e85-86f2-8f62a4fb12d7");
 INSERT INTO O_NBATTR
 	VALUES ("bceab74d-6f82-4823-b3be-7791bab58106",
 	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e");
