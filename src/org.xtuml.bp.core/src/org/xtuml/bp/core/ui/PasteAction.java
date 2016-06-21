@@ -135,16 +135,8 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 							PackageableElement_c srcPE = sourceElement.getPE();
 
 							// disconnect
-							try {	
-								PersistableModelComponent srcPMC = sourceElement.getPersistableComponent(true);
-								IPersistenceHierarchyMetaData hmd = PersistenceManager.getHierarchyMetaData();
-								// If this element is a model root then we will unrelate from the parent
-								if (hmd.isComponentRoot(sourceElement)) {
-									// This gives us the path to a PMC that will be removed after the move 
-									IPath srcPMCPath = srcPMC.getFullPath();
-									srcPMC = srcPMC.getParent();
-								}
-								NonRootModelElement srcModelRoot = srcPMC.getRootModelElement();
+							try {
+								NonRootModelElement srcModelRoot = getContainerForMove(sourceElement);
 
 								// If a "disconnect" operation exists on this source class type then 
 								// we will use it.
@@ -318,6 +310,18 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 		}
 	}
 
+	private static NonRootModelElement getContainerForMove(NonRootModelElement sourceElement) {
+		PersistableModelComponent srcPMC = sourceElement.getPersistableComponent(true);
+		IPersistenceHierarchyMetaData hmd = PersistenceManager.getHierarchyMetaData();
+		// If this element is a model root then we will unrelate from the parent
+		if (hmd.isComponentRoot(sourceElement)) {
+			// This gives us the path to a PMC that will be removed after the move 
+			srcPMC = srcPMC.getParent();
+		}
+		NonRootModelElement srcModelRoot = srcPMC.getRootModelElement();
+		return srcModelRoot;
+	}
+	
 	private static String getClassName(NonRootModelElement sourceElement) {
 		String srcClassType = sourceElement.getClass().getSimpleName();
 		String srcClassPart = srcClassType.substring(0, srcClassType.length() - 2).toLowerCase();
@@ -422,8 +426,10 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 						for (int i = 0; i < types.length; i++) {
 							if (MOVE_IS_IN_PROGRESS) {								
 								// If this is a move, the source and destination can not be the same.
+								boolean destinationIsSys = getClassName(destination)=="systemmodel";
 								for (NonRootModelElement sourceElement : ELEMENT_MOVE_SOURCE_SELECTION ) {
-									if (destination.getPersistableComponent() == sourceElement.getPersistableComponent()) {
+									if (destination == getContainerForMove(sourceElement))
+									{
 										return false;
 									}
 								}
