@@ -64,12 +64,16 @@ public abstract class CopyCutAction extends CutCopyPasteAction {
 			return;
 		}
 		try {
-			List<NonRootModelElement> elementList = Arrays.asList(getElementsToBeCopied(true));
+			List<NonRootModelElement> elementList = null;
 			if (getActionType() == CUT_TYPE) {
 				MOVE_IS_IN_PROGRESS = true;
+				// In move we do not include graphical elements in the list.
+				// We don't need them, we go get them.
+				elementList = Arrays.asList(getElementsToBeCopied(false));
 				ELEMENT_MOVE_SOURCE_SELECTION = elementList;
 			} else {
-				MOVE_IS_IN_PROGRESS = false;	
+				MOVE_IS_IN_PROGRESS = false;
+				elementList = Arrays.asList(getElementsToBeCopied(true));
 			}
 			
 			ByteArrayOutputStream out = new ByteArrayOutputStream();
