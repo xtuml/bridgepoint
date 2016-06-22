@@ -49,6 +49,7 @@ import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
 
 import org.xtuml.bp.core.CorePlugin;
+import org.xtuml.bp.core.Gd_c;
 import org.xtuml.bp.core.Modeleventnotification_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Package_c;
@@ -428,8 +429,17 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 								// If this is a move, the source and destination can not be the same.
 								boolean destinationIsSys = getClassName(destination)=="systemmodel";
 								for (NonRootModelElement sourceElement : ELEMENT_MOVE_SOURCE_SELECTION ) {
-									if (destination == getContainerForMove(sourceElement))
-									{
+									NonRootModelElement sourceContainer = getContainerForMove(sourceElement);
+									if (destination == sourceContainer) {
+										return false;
+									}
+
+									// If the destination is not visible to the source BEFORE the
+									// move then we will not allow this move to occur.
+									PackageableElement_c sourcePE = sourceElement.getPE();
+									PackageableElement_c destPE = destination.getPE();
+									if (!sourcePE.Iselementvisibletoself(destination.Get_ooa_id(),
+											destPE.getType())) {
 										return false;
 									}
 								}
