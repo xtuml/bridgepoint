@@ -427,20 +427,22 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 						for (int i = 0; i < types.length; i++) {
 							if (MOVE_IS_IN_PROGRESS) {								
 								// If this is a move, the source and destination can not be the same.
-								boolean destinationIsSys = getClassName(destination)=="systemmodel";
+								boolean destinationIsSys = getClassName(destination).equals("systemmodel");
 								for (NonRootModelElement sourceElement : ELEMENT_MOVE_SOURCE_SELECTION ) {
 									NonRootModelElement sourceContainer = getContainerForMove(sourceElement);
 									if (destination == sourceContainer) {
 										return false;
 									}
 
-									// If the destination is not visible to the source BEFORE the
-									// move then we will not allow this move to occur.
-									PackageableElement_c sourcePE = sourceElement.getPE();
-									PackageableElement_c destPE = destination.getPE();
-									if (!sourcePE.Iselementvisibletoself(destination.Get_ooa_id(),
-											destPE.getType())) {
-										return false;
+									if (!destinationIsSys) {
+										// If the destination is not visible to the source BEFORE the
+										// move then we will not allow this move to occur.
+										PackageableElement_c sourcePE = sourceElement.getPE();
+										PackageableElement_c destPE = destination.getPE();
+										if (!sourcePE.Iselementvisibletoself(destination.Get_ooa_id(),
+												destPE.getType())) {
+											return false;
+										}
 									}
 								}
 							}
