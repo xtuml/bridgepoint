@@ -1,8 +1,6 @@
 //========================================================================
 //
-//File:      $RCSfile: PasteAction.java,v $
-//Version:   $Revision: 1.18 $
-//Modified:  $Date: 2012/10/15 22:08:50 $
+//File:      PasteAction.java
 //
 //(c) Copyright 2007-2014 by Mentor Graphics Corp. All rights reserved.
 //
@@ -72,7 +70,7 @@ import org.xtuml.bp.core.util.UIUtil;
 
 public abstract class PasteAction extends CutCopyPasteAction  {
 
-	// This varible is only specified here because it calls a public
+	// This variable is only specified here because it calls a public
 	// static function that clears the list of downgraded
 	// elements prior to paste running. While it is really not necessary,
 	// it is good for the static to have a clear place or origin, and this
