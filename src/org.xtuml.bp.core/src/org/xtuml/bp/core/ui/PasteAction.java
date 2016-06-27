@@ -146,7 +146,7 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 								Method disconnectMethod = null;
 								Method[] methods = clazz.getMethods();
 								for (int i = 0; disconnectMethod==null && i < methods.length; i++) {
-									if (methods[i].getName() == opName) {
+									if (methods[i].getName().equals(opName)) {
 										disconnectMethod = methods[i];
 									}
 								}
@@ -155,7 +155,7 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 								// use the generated operation for disconnecting the PE
 								if (disconnectMethod==null) {
 									opName = "unrelateAcrossR8000From";
-									if (getClassName(sourceElement) == "component") {
+									if (getClassName(sourceElement).equals("component")) {
 										opName = "unrelateAcrossR8003From";
 									}
 									clazz = srcPE.getClass();
