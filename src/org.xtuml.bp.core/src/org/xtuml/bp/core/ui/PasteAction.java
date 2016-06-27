@@ -137,7 +137,7 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 
 							// disconnect
 							try {
-								NonRootModelElement srcModelRoot = getContainerForMove(sourceElement);
+								NonRootModelElement parentNRME = getContainerForMove(sourceElement);
 
 								// If a "disconnect" operation exists on this source class type then 
 								// we will use it.
@@ -148,24 +148,19 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 								for (int i = 0; disconnectMethod==null && i < methods.length; i++) {
 									if (methods[i].getName().equals(opName)) {
 										disconnectMethod = methods[i];
+										disconnectMethod.invoke(sourceElement);
 									}
 								}
 								
-								// If there is no "disconnect" operation then we will simply
-								// use the generated operation for disconnecting the PE
-								if (disconnectMethod==null) {
-									opName = "unrelateAcrossR8000From";
-									if (getClassName(sourceElement).equals("component")) {
-										opName = "unrelateAcrossR8003From";
-									}
-									clazz = srcPE.getClass();
-									disconnectMethod = clazz.getMethod(opName,
-											new Class[] { srcModelRoot.getClass(), boolean.class });
-									disconnectMethod.invoke(srcPE, new Object[] { srcModelRoot, true });	
-								} else {
-									disconnectMethod.invoke(sourceElement);	
+								// Now, use the generated operation for disconnecting the PE
+								opName = "unrelateAcrossR8000From";
+								if (getClassName(sourceElement).equals("component")) {
+									opName = "unrelateAcrossR8003From";
 								}
-								
+								clazz = srcPE.getClass();
+								disconnectMethod = clazz.getMethod(opName,
+										new Class[] { parentNRME.getClass(), boolean.class });
+								disconnectMethod.invoke(srcPE, new Object[] { parentNRME, true });	
 																
 							} catch (Exception e) {
 								CorePlugin.logError(
