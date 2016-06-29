@@ -36,11 +36,13 @@ INSERT INTO EO VALUES ( '23.24',  '1.6.4.1.1', '23.25',  'External Entity', -1, 
 INSERT INTO EO VALUES ( '23.25',  '1.7.4.1.1', '23.26',  'Function', -1, 'many', 'first', false, false, '', false, false, '->PE_PE[R8000]->S_SYNC[R8001]'  );
 INSERT INTO EO VALUES ( '23.26',  '10.4.1.1', '23.27',  'Use Case Association', -1, 'many', 'first', false, false, '', false, false, '->PE_PE[R8000]->UC_UCA[R8001]'  );
 INSERT INTO EO VALUES ( '23.27',  '23.27.1',        '23.28',  'Satisfaction', -1, 'many', 'first', false, false, '', false, false, '->PE_PE[R8000]->C_SF[R8001]'  );
-INSERT INTO EO VALUES ( '23.28',  '12.4.9.1.1', '23.29',       'Delegation', -1, 'many', 'first', false, false, '', false, false, '->PE_PE[R8000]->C_DG[R8001]'  );
+INSERT INTO EO VALUES ( '23.28',  '12.4.9.1.1', '23.30',       'Delegation', -1, 'many', 'first', false, false, '', false, false, '->PE_PE[R8000]->C_DG[R8001]'  );
+INSERT INTO EO VALUES ( '23.30',  '23.30.1', '23.29',  'Exception', -1, 'many', 'first', false, false, '', false, false, '->PE_PE[R8000]->S_EXP[R8001]'  );
 INSERT INTO EO VALUES ( '23.19.1',    '', '', 'Packageable Element', 8001, 'one', 'first', false );
 INSERT INTO EO VALUES ( '23.20.1',    '', '', 'Packageable Element', 8001, 'one', 'first', false );
 INSERT INTO EO VALUES ( '23.23.1',    '', '', 'Packageable Element', 8001, 'one', 'first', false );
 INSERT INTO EO VALUES ( '23.27.1',    '', '', 'Packageable Element', 8001, 'one', 'first', false );
+INSERT INTO EO VALUES ( '23.30.1',    '', '', 'Packageable Element', 8001, 'one', 'first', false );
 INSERT INTO EO VALUES ( '23.29',      '', '', 'Packageable Element', 8001, 'one', 'first', false );
 
 INSERT INTO EO VALUES ( '12.4.1',       '',    '12.4.3',     'ComponentDiagram', 0, '', 'first', false );
@@ -86,7 +88,8 @@ INSERT INTO EO VALUES ( '12.4.30',  '1.6.4.1.1', '12.4.31',  'External Entity', 
 INSERT INTO EO VALUES ( '12.4.31',  '1.7.4.1.1', '12.4.32',  'Function', -1, 'many', 'first', false, false, '', false, false, '->PE_PE[R8003]->S_SYNC[R8001]'  );
 INSERT INTO EO VALUES ( '12.4.32',  '10.4.1.1', '12.4.33',  'Use Case Association', -1, 'many', 'first', false, false, '', false, false, '->PE_PE[R8003]->UC_UCA[R8001]'  );
 INSERT INTO EO VALUES ( '12.4.33',  '23.27.1',        '12.4.34',  'Satisfaction', -1, 'many', 'first', false, false, '', false, false, '->PE_PE[R8003]->C_SF[R8001]'  );
-INSERT INTO EO VALUES ( '12.4.34',  '12.4.9.1.1', '',       'Delegation', -1, 'many', 'first', false, false, '', false, false, '->PE_PE[R8003]->C_DG[R8001]'  );
+INSERT INTO EO VALUES ( '12.4.34',  '12.4.9.1.1', '12.4.35',       'Delegation', -1, 'many', 'first', false, false, '', false, false, '->PE_PE[R8003]->C_DG[R8001]'  );
+INSERT INTO EO VALUES ( '12.4.35',  '23.30.1', '',  'Exception', -1, 'many', 'first', false, false, '', false, false, '->PE_PE[R8003]->S_EXP[R8001]'  );
 
 INSERT INTO EO VALUES ( '14.1.3.1',	'14.1.3.1.1',	  '14.1.3.2',     'Executable Property', 4003, 'many', 'first', false );
 INSERT INTO EO VALUES ( '14.1.3.1.1', '', '14.1.3.1.2',     'Interface Signal', 4004, 'one', 'first', false );
