@@ -268,6 +268,7 @@ public class ModelContentOutlinePage extends ContentOutlinePage {
     MenuManager openMenuManager = new MenuManager("Open With", "org.xtuml.bp.ui.openroot"); //$NON-NLS-2$    
 	final MenuManager classesMenu = new MenuManager("Classes", "org.xtuml.bp.ui.classroot"); //$NON-NLS-2$
 	final MenuManager componentsMenu = new MenuManager("Components", "org.xtuml.bp.ui.componentroot"); //$NON-NLS-2$
+	final MenuManager exceptionMenu = new MenuManager("Exceptions", "org.xtuml.bp.ui.exceptionroot"); //$$NON-NLS-2$$
 	final MenuManager externalMenu = new MenuManager("External", "org.xtuml.bp.ui.externalroot"); //$NON-NLS-2$
 	final MenuManager interactionMenu = new MenuManager("Interaction", "org.xtuml.bp.ui.interactionroot"); //$NON-NLS-2$
 	final MenuManager activityMenu = new MenuManager("Activity", "org.xtuml.bp.ui.activityroot"); //$NON-NLS-2$
@@ -289,6 +290,10 @@ public class ModelContentOutlinePage extends ContentOutlinePage {
 	createMenuManager.add(componentsMenu);
 	componentsMenu.removeAll();
 	componentsMenu.add(new GroupMarker("org.xtuml.bp.ui.newcomponentmenu") );
+
+        createMenuManager.add(exceptionMenu);
+        exceptionMenu.removeAll();
+        exceptionMenu.add(new GroupMarker("org.xtuml.bp.ui.newexceptionmenu") );
 	
 	createMenuManager.add(externalMenu);
 	externalMenu.removeAll();
