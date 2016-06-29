@@ -150,16 +150,19 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 									}
 								}
 								
-								// Now, use the generated operation for disconnecting the PE
-								opName = "unrelateAcrossR8000From";
-								if (getClassName(sourceElement).equals("component")) {
-									opName = "unrelateAcrossR8003From";
-								}
-								clazz = srcPE.getClass();
-								disconnectMethod = clazz.getMethod(opName,
-										new Class[] { parentNRME.getClass(), boolean.class });
-								disconnectMethod.invoke(srcPE, new Object[] { parentNRME, true });	
-																
+								// Now, use the generated operation for disconnecting the PE from parent 
+								// package or component, skip if we're directly under the System
+								boolean destinationIsSys = parentNRME instanceof SystemModel_c;
+								if ( !destinationIsSys ) {
+									opName = "unrelateAcrossR8000From";
+									if (getClassName(sourceElement).equals("component")) {
+										opName = "unrelateAcrossR8003From";
+									}
+									clazz = srcPE.getClass();
+									disconnectMethod = clazz.getMethod(opName,
+											new Class[] { parentNRME.getClass(), boolean.class });
+									disconnectMethod.invoke(srcPE, new Object[] { parentNRME, true });	
+								}							
 							} catch (Exception e) {
 								CorePlugin.logError(
 										"Unable to disconnect the PE_PE for " + getClassName(sourceElement) + "  (" + sourceElement.getName() //$NON-NLS-1$
