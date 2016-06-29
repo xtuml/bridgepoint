@@ -415,6 +415,7 @@ public class ComponentTransactionListener implements ITransactionListener {
 		try {
 			final IWorkspaceRoot wsRoot = ResourcesPlugin.getWorkspace().getRoot();
 			
+			PersistableModelComponent destinationPMC = destination.getPersistableComponent(true);
 			IPersistenceHierarchyMetaData metadata = PersistenceManager.getHierarchyMetaData();
 			if (metadata.isComponentRoot(elementMoved)) {
 				// This is the PMC associated with the xtuml file
@@ -425,9 +426,7 @@ public class ComponentTransactionListener implements ITransactionListener {
 				IFolder containingFolder = wsRoot.getFolder(elementParentDirectory);			
 	
 				// Now get the destination folder
-				PersistableModelComponent destinationPMC = destination.getPersistableComponent(true);
 				IPath destPath = destinationPMC.getContainingDirectoryPath().append(elementMoved.getName());
-				IFolder destFolder = wsRoot.getFolder(destPath);			
 	
 				// move the folder from the original location to the destination folder
 				// allow the move to keep the local history
@@ -436,8 +435,11 @@ public class ComponentTransactionListener implements ITransactionListener {
 				// Update the underlying resource and its children (if any)
 				String elementName = elementMoved.getName();
 				IFile newFile = wsRoot
-						.getFile(destPath.append(elementName + "/" + elementName + "." + Ooaofooa.MODELS_EXT));
+						.getFile(destPath.append(elementName + "." + Ooaofooa.MODELS_EXT));
 				elementPMC.updateResource(newFile);
+			} else {
+				// We're just a normal element, update our containing PMC
+				elementMoved.setComponent(destinationPMC);
 			}
 		} catch (Exception e) {
 			CorePlugin.logError("Could not move file resources for " + elementMoved.getName(), e);
