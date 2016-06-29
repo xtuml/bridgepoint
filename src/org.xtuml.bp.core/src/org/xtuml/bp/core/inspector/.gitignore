@@ -52,6 +52,7 @@ EnumerationDataTypeInspector.java
 EnumeratorInspector.java
 EventIgnoredInspector.java
 EventMessageInspector.java
+ExceptionInspector.java
 ExtendInspector.java
 ExternalEntityDataItemInspector.java
 ExternalEntityEventDataInspector.java
