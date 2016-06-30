@@ -152,10 +152,10 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 								
 								// Now, use the generated operation for disconnecting the PE from parent 
 								// package or component, skip if we're directly under the System
-								boolean destinationIsSys = parentNRME instanceof SystemModel_c;
-								if ( !destinationIsSys ) {
+								boolean parentIsSys = parentNRME instanceof SystemModel_c;
+								if ( !parentIsSys ) {
 									opName = "unrelateAcrossR8000From";
-									if (getClassName(sourceElement).equals("component")) {
+									if (getClassName(parentNRME).equals("component")) {
 										opName = "unrelateAcrossR8003From";
 									}
 									clazz = srcPE.getClass();
@@ -435,8 +435,10 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 										// move then we will not allow this move to occur.
 										PackageableElement_c sourcePE = sourceElement.getPE();
 										PackageableElement_c destPE = destination.getPE();
-										if (!sourcePE.Iselementvisibletoself(destination.Get_ooa_id(),
-												destPE.getType())) {
+										if ((sourcePE != null) &&
+											(destPE != null) &&
+											(!sourcePE.Iselementvisibletoself(destination.Get_ooa_id(),
+												destPE.getType())) ) {
 											return false;
 										}
 									}
