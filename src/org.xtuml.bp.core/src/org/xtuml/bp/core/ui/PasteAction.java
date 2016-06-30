@@ -1,8 +1,6 @@
 //========================================================================
 //
-//File:      $RCSfile: PasteAction.java,v $
-//Version:   $Revision: 1.18 $
-//Modified:  $Date: 2012/10/15 22:08:50 $
+//File:      PasteAction.java
 //
 //(c) Copyright 2007-2014 by Mentor Graphics Corp. All rights reserved.
 //
@@ -72,7 +70,7 @@ import org.xtuml.bp.core.util.UIUtil;
 
 public abstract class PasteAction extends CutCopyPasteAction  {
 
-	// This varible is only specified here because it calls a public
+	// This variable is only specified here because it calls a public
 	// static function that clears the list of downgraded
 	// elements prior to paste running. While it is really not necessary,
 	// it is good for the static to have a clear place or origin, and this
@@ -137,7 +135,7 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 
 							// disconnect
 							try {
-								NonRootModelElement srcModelRoot = getContainerForMove(sourceElement);
+								NonRootModelElement parentNRME = getContainerForMove(sourceElement);
 
 								// If a "disconnect" operation exists on this source class type then 
 								// we will use it.
@@ -146,31 +144,29 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 								Method disconnectMethod = null;
 								Method[] methods = clazz.getMethods();
 								for (int i = 0; disconnectMethod==null && i < methods.length; i++) {
-									if (methods[i].getName() == opName) {
+									if (methods[i].getName().equals(opName)) {
 										disconnectMethod = methods[i];
+										disconnectMethod.invoke(sourceElement);
 									}
 								}
 								
-								// If there is no "disconnect" operation then we will simply
-								// use the generated operation for disconnecting the PE
-								if (disconnectMethod==null) {
+								// Now, use the generated operation for disconnecting the PE from parent 
+								// package or component, skip if we're directly under the System
+								boolean parentIsSys = parentNRME instanceof SystemModel_c;
+								if ( !parentIsSys ) {
 									opName = "unrelateAcrossR8000From";
-									if (getClassName(sourceElement) == "component") {
+									if (getClassName(parentNRME).equals("component")) {
 										opName = "unrelateAcrossR8003From";
 									}
 									clazz = srcPE.getClass();
 									disconnectMethod = clazz.getMethod(opName,
-											new Class[] { srcModelRoot.getClass(), boolean.class });
-									disconnectMethod.invoke(srcPE, new Object[] { srcModelRoot, true });	
-								} else {
-									disconnectMethod.invoke(sourceElement);	
-								}
-								
-																
+											new Class[] { parentNRME.getClass(), boolean.class });
+									disconnectMethod.invoke(srcPE, new Object[] { parentNRME, true });	
+								}							
 							} catch (Exception e) {
 								CorePlugin.logError(
-										"Unable to disconnect " + getClassName(sourceElement) + "  (" + sourceElement.getName() //$NON-NLS-1$
-												+ ") from its PE_PE", e);
+										"Unable to disconnect the PE_PE for " + getClassName(sourceElement) + "  (" + sourceElement.getName() //$NON-NLS-1$
+												+ ") from its parent container.", e);
 								throw e;
 							}
 						}
@@ -206,7 +202,7 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 							Ooaofooa.getDefaultInstance().fireModelElementMoved(change);									
 						} 
 					} else {
-							for (NonRootModelElement destination : destinations) {
+						for (NonRootModelElement destination : destinations) {
 
 							ModelStreamProcessor processor = new ModelStreamProcessor();
 							processorMap.put(destination, processor);
@@ -427,20 +423,24 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 						for (int i = 0; i < types.length; i++) {
 							if (MOVE_IS_IN_PROGRESS) {								
 								// If this is a move, the source and destination can not be the same.
-								boolean destinationIsSys = getClassName(destination)=="systemmodel";
+								boolean destinationIsSys = getClassName(destination).equals("systemmodel");
 								for (NonRootModelElement sourceElement : ELEMENT_MOVE_SOURCE_SELECTION ) {
 									NonRootModelElement sourceContainer = getContainerForMove(sourceElement);
 									if (destination == sourceContainer) {
 										return false;
 									}
 
-									// If the destination is not visible to the source BEFORE the
-									// move then we will not allow this move to occur.
-									PackageableElement_c sourcePE = sourceElement.getPE();
-									PackageableElement_c destPE = destination.getPE();
-									if (!sourcePE.Iselementvisibletoself(destination.Get_ooa_id(),
-											destPE.getType())) {
-										return false;
+									if (!destinationIsSys) {
+										// If the destination is not visible to the source BEFORE the
+										// move then we will not allow this move to occur.
+										PackageableElement_c sourcePE = sourceElement.getPE();
+										PackageableElement_c destPE = destination.getPE();
+										if ((sourcePE != null) &&
+											(destPE != null) &&
+											(!sourcePE.Iselementvisibletoself(destination.Get_ooa_id(),
+												destPE.getType())) ) {
+											return false;
+										}
 									}
 								}
 							}

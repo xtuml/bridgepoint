@@ -274,6 +274,10 @@ public abstract class NonRootModelElement extends ModelElement implements IAdapt
 	public PackageableElement_c getPE() {
 		InstanceList instances = getModelRoot().getInstanceList(PackageableElement_c.class);
 		PackageableElement_c result = (PackageableElement_c)instances.get(this.Get_ooa_id());
+		if ( result == null ) {
+			instances = getParentRoot().getInstanceList(PackageableElement_c.class);
+		    result = (PackageableElement_c)instances.get(this.Get_ooa_id());
+		}
 		return result;
 	}
 	
