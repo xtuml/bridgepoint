@@ -185,6 +185,27 @@ delete object instance self;',
 	1,
 	'',
 	"1c45cd96-a73d-4ea8-9bcb-46e44a267510");
+INSERT INTO O_TFR
+	VALUES ("4aca5bc4-6cb0-4877-b3ad-bc943714f970",
+	"f7cd37b4-309c-4a8d-b621-602317676050",
+	'convertToInstance',
+	'A utility operation to cast an instance of this type to the
+instance datatype.
+
+Translate: native',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	1,
+	'return this;',
+	0,
+	'',
+	"f3d8c62e-dbb7-40b0-808e-3a2189a3e0a2");
+INSERT INTO S_DT_PROXY
+	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
+	"00000000-0000-0000-0000-000000000000",
+	'instance',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("f7cd37b4-309c-4a8d-b621-602317676050",
 	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",

@@ -6258,6 +6258,32 @@ INSERT INTO O_TPARM
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
+INSERT INTO O_TFR
+	VALUES ("106f6a4c-e49b-4879-ad83-2f3e652b18d1",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'pasteException',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'select any exp from instances of S_EXP where (selected.Exception_ID == param.id);
+if(not_empty exp)
+  select one pe related by exp->PE_PE[R8001];
+  relate self to pe across R8000;
+  exp.Name = ::getUniqueInitialNameInParent(instance:exp.convertToInstance(), 
+    name:exp.Name, parent:self.convertToInstance());
+end if;',
+	1,
+	'',
+	"7b731598-427b-4d98-9ca0-63f51c7db39c");
+INSERT INTO O_TPARM
+	VALUES ("0b6cc56a-d182-4b34-87a7-085066bba585",
+	"106f6a4c-e49b-4879-ad83-2f3e652b18d1",
+	'id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
 INSERT INTO O_NBATTR
 	VALUES ("bceab74d-6f82-4823-b3be-7791bab58106",
 	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e");
