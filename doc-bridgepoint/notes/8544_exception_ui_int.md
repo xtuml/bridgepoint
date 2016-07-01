@@ -175,6 +175,30 @@ elements.
 7. Unit Test
 ------------
 
+7.1 Verify that an exception can be created  
+7.1.1 Create an exception on the palette on the canvas for a package   
+7.1.2 Create an exception from the CME on the canvas for a package  
+7.1.3 Create an exception from the CME in the model explorer on a package  
+
+7.2 Verify that an exception can be renamed  
+7.2.1 Rename an exception from the CME on the exception from the canvas  
+7.2.2 Rename an exception from the CME on the exception from the model explorer  
+
+7.3 Verify that an exception can be deleted  
+7.3.1 Delete an exception from the CME on the exception from the canvas  
+7.3.2 Delete an exception from the CME on the exception from the model explorer  
+
+7.4 Verify in all cases that the auto-reconciler appropriately updates graphics
+for create, delete, and rename actions  
+7.5 Copy and paste an exception into a new package. Verify that the graphics are
+created and the new exception can be seen in the model explorer  
+7.6 Copy and paste a package containing an exception. Verify that the graphics
+are created and the new exception can be seen in the model explorer  
+7.7 Export a model containing exceptions. Re-import the model and verify that
+the exceptions are in the right places and the graphics are present  
+7.8 Create an exception, exit BridgePoint, restart BridgePoint and verify that
+the exception was loaded properly  
+
 8. Code Changes
 ---------------
 Branch name: 8544_exceptions
