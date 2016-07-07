@@ -86,7 +86,9 @@ public class CanvasCutAction extends CutAction {
 
 	@Override
 	public boolean isEnabled() {
-		return isSelectionCuttable();
+// TODO FIXME: this is disabled while move functionality is completed.
+return false;		
+//		return isSelectionCuttable();
 	}
 
 	@Override
