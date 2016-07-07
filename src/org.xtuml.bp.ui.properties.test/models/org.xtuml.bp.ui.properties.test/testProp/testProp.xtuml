@@ -1,4 +1,4 @@
--- BP 7.1 content: Package syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: Package syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO EP_PKG
 	VALUES ("e92dcb49-50f9-45ec-bf2f-2a524e6f5b4a",
@@ -21,18 +21,18 @@ INSERT INTO GD_MD
 	0,
 	0,
 	0,
-	0,
-	0,
+	200,
+	150,
 	0,
 	'',
-	'testProp');
+	'org.xtuml.bp.ui.properties.test::testProp');
 INSERT INTO GD_GE
 	VALUES ("87e0b370-ded0-4904-b380-061a609c201b",
 	"0f171858-9d62-414f-a546-00a26d81b0a5",
 	"86681ee5-566b-49c9-960c-c162593a3767",
 	108,
 	0,
-	'testProp::Unnamed Subsystem');
+	'org.xtuml.bp.ui.properties.test::testProp::Unnamed Subsystem');
 INSERT INTO GD_SHP
 	VALUES ("87e0b370-ded0-4904-b380-061a609c201b");
 INSERT INTO GD_NCS
@@ -56,7 +56,7 @@ INSERT INTO GD_GE
 	"e2591827-a059-4d2c-9aca-d526fa339611",
 	108,
 	0,
-	'testProp::Import Subsystem');
+	'org.xtuml.bp.ui.properties.test::testProp::Import Subsystem');
 INSERT INTO GD_SHP
 	VALUES ("099bd73a-61df-49d3-97a6-374bc540d3d8");
 INSERT INTO GD_NCS
@@ -80,7 +80,7 @@ INSERT INTO GD_GE
 	"70736af1-c7c7-4d16-98db-43290b9b74e6",
 	108,
 	0,
-	'testProp::Datatypes');
+	'org.xtuml.bp.ui.properties.test::testProp::Datatypes');
 INSERT INTO GD_SHP
 	VALUES ("f0b7fb33-e3e9-44c5-8211-5df75908ac82");
 INSERT INTO GD_NCS
@@ -104,7 +104,7 @@ INSERT INTO GD_GE
 	"bc67cd1a-08a2-4b58-9432-bf10b34d8afb",
 	108,
 	0,
-	'testProp::Functions');
+	'org.xtuml.bp.ui.properties.test::testProp::Functions');
 INSERT INTO GD_SHP
 	VALUES ("9c4f6ae0-9ae1-4ce3-9cc9-86cf92f02526");
 INSERT INTO GD_NCS
@@ -128,7 +128,7 @@ INSERT INTO GD_GE
 	"f42f903e-283d-4bba-8a80-6758322a2694",
 	108,
 	0,
-	'testProp::External Entities');
+	'org.xtuml.bp.ui.properties.test::testProp::External Entities');
 INSERT INTO GD_SHP
 	VALUES ("e468db6d-29b4-4f0b-8a79-1c28d86c41e4");
 INSERT INTO GD_NCS
@@ -152,7 +152,7 @@ INSERT INTO GD_GE
 	"baacbec7-99dc-4752-8f7b-8600b5674ef1",
 	108,
 	0,
-	'testProp::Test Communication');
+	'org.xtuml.bp.ui.properties.test::testProp::Test Communication');
 INSERT INTO GD_SHP
 	VALUES ("8c5293a1-dd47-4bdb-8181-67084dcaf849");
 INSERT INTO GD_NCS
@@ -176,7 +176,7 @@ INSERT INTO GD_GE
 	"8d019412-86e4-451a-ba59-2441feb46a1e",
 	108,
 	0,
-	'testProp::Test SQ');
+	'org.xtuml.bp.ui.properties.test::testProp::Test SQ');
 INSERT INTO GD_SHP
 	VALUES ("6abe7f4d-d1a7-41fb-9351-f5e1fad12925");
 INSERT INTO GD_NCS
@@ -200,7 +200,7 @@ INSERT INTO GD_GE
 	"87685a52-3339-4847-a2e7-c17e19d04748",
 	108,
 	0,
-	'testProp::UC Package');
+	'org.xtuml.bp.ui.properties.test::testProp::UC Package');
 INSERT INTO GD_SHP
 	VALUES ("e5043493-9e40-4072-81bf-eea1db4cdf94");
 INSERT INTO GD_NCS
@@ -224,7 +224,7 @@ INSERT INTO GD_GE
 	"364a279b-6119-4a27-b86e-ac4fef06192b",
 	108,
 	0,
-	'testProp::Activity');
+	'org.xtuml.bp.ui.properties.test::testProp::Activity');
 INSERT INTO GD_SHP
 	VALUES ("1812b33a-642d-47a0-9588-d7a43a5b5278");
 INSERT INTO GD_NCS
@@ -240,6 +240,30 @@ INSERT INTO DIM_GE
 	"00000000-0000-0000-0000-000000000000");
 INSERT INTO DIM_ELE
 	VALUES ("1812b33a-642d-47a0-9588-d7a43a5b5278",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_GE
+	VALUES ("0ac8cb71-3b8d-4cde-af3d-525791fbe36c",
+	"0f171858-9d62-414f-a546-00a26d81b0a5",
+	"0e74c114-d4e7-41ed-a4c0-e82d01830dfe",
+	108,
+	0,
+	'org.xtuml.bp.ui.properties.test::testProp::Exceptions');
+INSERT INTO GD_SHP
+	VALUES ("0ac8cb71-3b8d-4cde-af3d-525791fbe36c");
+INSERT INTO GD_NCS
+	VALUES ("0ac8cb71-3b8d-4cde-af3d-525791fbe36c");
+INSERT INTO DIM_ND
+	VALUES (200.000000,
+	150.000000,
+	"0ac8cb71-3b8d-4cde-af3d-525791fbe36c");
+INSERT INTO DIM_GE
+	VALUES (2800.000000,
+	1248.000000,
+	"0ac8cb71-3b8d-4cde-af3d-525791fbe36c",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("0ac8cb71-3b8d-4cde-af3d-525791fbe36c",
 	0,
 	"00000000-0000-0000-0000-000000000000");
 INSERT INTO DIM_DIA

@@ -70,6 +70,7 @@ NewArgumentOnMSG_MAction.java
 NewAttributeOnSQ_CIPAction.java
 ClassFormalizeOnSQ_CP*
 ClassUnformalizeOnSQ_CPAction.java
+ExceptionsExceptionOnEP_PKGAction.java
 ExternalEntityFormalizeOnSQ_EEP*
 ExternalEntityUnformalizeOnSQ_EEPAction.java
 InstanceFormalizeOnSQ_CIP*

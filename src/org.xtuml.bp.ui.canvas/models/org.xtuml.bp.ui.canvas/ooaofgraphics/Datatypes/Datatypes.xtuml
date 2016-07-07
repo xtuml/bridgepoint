@@ -1510,6 +1510,12 @@ INSERT INTO S_ENUM
 	'Value:802',
 	"89cd32c4-a73f-44f5-ac4f-6468ce4ae2bb",
 	"9ae71a0c-fc77-48c1-be04-3341f2a367b0");
+INSERT INTO S_ENUM
+	VALUES ("d86b95a7-f176-4e7c-976a-3fdbdf338930",
+	'Exception',
+	'Value:207',
+	"89cd32c4-a73f-44f5-ac4f-6468ce4ae2bb",
+	"20c255bb-cc91-458b-8ebb-45204f0f0328");
 INSERT INTO PE_PE
 	VALUES ("89cd32c4-a73f-44f5-ac4f-6468ce4ae2bb",
 	1,
