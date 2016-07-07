@@ -83,6 +83,8 @@ This file is the plugin manifest for the BridgePoint core plugin.
         .assign menubar_path = "org.xtuml.bp.ui.newroot/org.xtuml.bp.ui.classroot/org.xtuml.bp.ui.newclassmenu"
       .elif  ("$lr{menu_entry.Specialism}" == "components")
         .assign menubar_path = "org.xtuml.bp.ui.newroot/org.xtuml.bp.ui.componentroot/org.xtuml.bp.ui.newcomponentmenu"
+      .elif  ("$lr{menu_entry.Specialism}" == "exceptions")
+        .assign menubar_path = "org.xtuml.bp.ui.newroot/org.xtuml.bp.ui.exceptionroot/org.xtuml.bp.ui.newexceptionmenu"
       .elif  ("$lr{menu_entry.Specialism}" == "external")
         .assign menubar_path = "org.xtuml.bp.ui.newroot/org.xtuml.bp.ui.externalroot/org.xtuml.bp.ui.newexternalmenu"
       .elif  ("$lr{menu_entry.Specialism}" == "interaction")
