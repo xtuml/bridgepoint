@@ -276,7 +276,6 @@
       -import sql/${cme_schema.output}
       -import sql/${cme_actions.input}
       -arch arc/wfl_pop.arc
-      -d 0 -import sql/wfl.pei.sql
       -import sql/ooaofooa_hierarchy_schema.sql
       -import sql/ooaofooa_hierarchy.pei.sql
       -arch arc/create_context_menus.arc
