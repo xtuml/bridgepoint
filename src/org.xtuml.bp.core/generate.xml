@@ -654,7 +654,7 @@
 
     <echo>Removing generated sql files ...</echo>
     <delete verbose="true">
-      <fileset dir="sql" includes="Context_menu.bpi.sql, wfl.pei.sql" />
+      <fileset dir="sql" includes="Context_menu.bpi.sql" />
     </delete>
 
   </target>

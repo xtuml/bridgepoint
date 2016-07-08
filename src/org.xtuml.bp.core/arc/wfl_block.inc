@@ -37,7 +37,6 @@ INSERT INTO W_WOF VALUES ( '${name}', ${s_sync.Sync_ID}, '${cme.Key_Lett}', \
   .param string parent_id
   .param string prev_id
   .//
-  .assign attr_wfl_name = wfl.name
   .assign attr_wfl = wfl
   .assign attr_id = "${info.unique_num}"
 INSERT INTO W_STEP VALUES ('${attr_id}', '${wfl.name}', '${blk.Block_Id}', \
