@@ -13,17 +13,17 @@
 .//====================================================================
 .function create_wfl
   .param string name
-  .param unique_id sync_id
+  .param inst_ref s_sync
   .param inst_ref cme
   .//
   .assign attr_name = name
-INSERT INTO W_WOF VALUES ( '${name}', ${sync_id}, '${cme.Key_Lett}', \
+INSERT INTO W_WOF VALUES ( '${name}', ${s_sync.Sync_ID}, '${cme.Key_Lett}', \
 '${cme.Specialism}', '${cme.Label}');\
   .create object instance w_wof of W_WOF
   .assign w_wof.Name = name
-  .assign w_wof.Sync_ID = sync_id
+  .assign w_wof.Sync_ID = s_sync.Sync_ID
   .assign w_wof.Key_Lett = cme.Key_Lett
-  .assign w_wof.Specialism = cmd.Specialism
+  .assign w_wof.Specialism = cme.Specialism
   .assign w_wof.Label = cme.Label
 .end function
 .//====================================================================

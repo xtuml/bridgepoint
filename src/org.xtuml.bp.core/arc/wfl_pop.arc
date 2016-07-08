@@ -36,7 +36,7 @@
     .if ( "${function.Descrip:Translate}" == "native" )
       .print "WARNING: Function ${function.Name} has a native implementation; nothing done"
     .else
-      .invoke wkfl = create_wfl(fn.body, function.Sync_Id, cme)
+      .invoke wkfl = create_wfl(fn.body, function, cme)
       .select one action related by function->ACT_FNB[R695]->ACT_ACT[R698]
       .if (not_empty action)
         .select any outer_blk related by action->ACT_BLK[R601] where (selected.Block_Id == action.Block_Id)
