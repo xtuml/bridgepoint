@@ -6199,6 +6199,92 @@ INSERT INTO O_TPARM
 	"2b5f4723-f8c7-4853-bddf-a19aae07e6c6",
 	'');
 INSERT INTO O_TFR
+	VALUES ("2d4b5ffc-b16e-40f5-8286-83b145b60d01",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'newException',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'create object instance exp of S_EXP;
+// create Packageable Element supertype and hook up to this package.
+create object instance pe of PE_PE;
+relate exp to pe across R8001;
+relate pe to self across R8000;
+pe.type = ElementTypeConstants::EXCEPTION;
+pe.initialize();
+exp.Name = "Unnamed Exception";',
+	1,
+	'',
+	"dfa9714c-ef5e-4e85-86f2-8f62a4fb12d7");
+INSERT INTO O_TFR
+	VALUES ("822ca9c2-a273-4dfd-ad18-36ef6b429b75",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'getExceptionCount',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	1,
+	'select many elems related by self->PE_PE[R8000]->S_EXP[R8001];
+return cardinality elems;',
+	1,
+	'',
+	"2d4b5ffc-b16e-40f5-8286-83b145b60d01");
+INSERT INTO O_TFR
+	VALUES ("7b731598-427b-4d98-9ca0-63f51c7db39c",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'getExceptionId',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	1,
+	'id = GD::NULL_UNIQUE_ID();
+select many elems related by self->PE_PE[R8000]->S_EXP[R8001];
+// We''re preincrementing the index
+count = -1;
+for each elem in elems
+  count = count + 1;
+  if(count == param.index)
+    return elem.get_ooa_id();  
+  end if;
+end for;
+return id;',
+	1,
+	'',
+	"822ca9c2-a273-4dfd-ad18-36ef6b429b75");
+INSERT INTO O_TPARM
+	VALUES ("3023917b-dd65-4f25-aa27-de814a20b1cd",
+	"7b731598-427b-4d98-9ca0-63f51c7db39c",
+	'index',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("106f6a4c-e49b-4879-ad83-2f3e652b18d1",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'pasteException',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'select any exp from instances of S_EXP where (selected.Exception_ID == param.id);
+if(not_empty exp)
+  select one pe related by exp->PE_PE[R8001];
+  relate self to pe across R8000;
+  exp.Name = ::getUniqueInitialNameInParent(instance:exp.convertToInstance(), 
+    name:exp.Name, parent:self.convertToInstance());
+end if;',
+	1,
+	'',
+	"7b731598-427b-4d98-9ca0-63f51c7db39c");
+INSERT INTO O_TPARM
+	VALUES ("0b6cc56a-d182-4b34-87a7-085066bba585",
+	"106f6a4c-e49b-4879-ad83-2f3e652b18d1",
+	'id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
 	VALUES ("71f25991-161d-4092-b684-a166114dab97",
 	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
 	'disconnect',
@@ -6218,7 +6304,7 @@ end if;
 ',
 	1,
 	'',
-	"dfa9714c-ef5e-4e85-86f2-8f62a4fb12d7");
+	"106f6a4c-e49b-4879-ad83-2f3e652b18d1");
 INSERT INTO O_NBATTR
 	VALUES ("bceab74d-6f82-4823-b3be-7791bab58106",
 	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e");

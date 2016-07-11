@@ -60,12 +60,14 @@ public class ExplorerCutAction extends CutAction {
 
 	@Override
 	public boolean isEnabled() {
-		boolean cuttable = ExplorerCopyAction.isSelectionCopiable(viewer,
-				getElementsToBeCopied(false));
-		if(cuttable) {
-			cuttable = selectionContainsOnlyPEs();
-		}
-		return cuttable;
+// TODO FIXME: this is disabled while move functionality is completed.
+return false;		
+//		boolean cuttable = ExplorerCopyAction.isSelectionCopiable(viewer,
+//				getElementsToBeCopied(false));
+//		if(cuttable) {
+//			cuttable = selectionContainsOnlyPEs();
+//		}
+//		return cuttable;
 	}
 
 	@Override

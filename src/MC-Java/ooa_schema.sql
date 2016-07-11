@@ -1482,6 +1482,11 @@ CREATE TABLE S_ENUM (
     EDT_DT_ID UNIQUE_ID,
     Previous_Enum_ID UNIQUE_ID
 );
+CREATE TABLE S_EXP (
+    Exception_ID UNIQUE_ID,
+    Name STRING,
+    Descrip STRING
+);
 CREATE TABLE S_IRDT (
     DT_ID UNIQUE_ID,
     isSet BOOLEAN,

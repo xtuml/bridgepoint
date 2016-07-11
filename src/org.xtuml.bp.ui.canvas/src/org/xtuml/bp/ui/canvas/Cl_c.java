@@ -66,6 +66,7 @@ import org.xtuml.bp.core.CreationTransition_c;
 import org.xtuml.bp.core.DecisionMergeNode_c;
 import org.xtuml.bp.core.Delegation_c;
 import org.xtuml.bp.core.EnumerationDataType_c;
+import org.xtuml.bp.core.Exception_c;
 import org.xtuml.bp.core.Extend_c;
 import org.xtuml.bp.core.ExternalEntityParticipant_c;
 import org.xtuml.bp.core.ExternalEntity_c;
@@ -1458,6 +1459,25 @@ public class Cl_c {
 	
 	            result = PackageParticipant_c.PackageParticipantInstance(modelRoot,
 	                    new PackageParticipant_Query_c());
+            }
+            return result;
+        } else if (Ooa_type == Ooatype_c.Exception) {
+            Object result = modelRoot.getInstanceList(Exception_c.class).get(
+                    Ooa_id);
+            if (result == null) {
+	            class Exception_Query_c implements ClassQueryInterface_c {
+	                public boolean evaluate(Object candidate) {
+	                    if (((Exception_c) candidate).Get_ooa_id().equals(
+	                            Ooa_id)) {
+	                        return true;
+	                    }
+	
+	                    return false;
+	                }
+	            }
+	
+	            result = Exception_c.ExceptionInstance(modelRoot,
+	                    new Exception_Query_c());
             }
             return result;
         } else {
