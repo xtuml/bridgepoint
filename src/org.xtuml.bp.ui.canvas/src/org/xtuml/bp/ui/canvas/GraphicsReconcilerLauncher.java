@@ -62,7 +62,7 @@ public class GraphicsReconcilerLauncher {
 
 	public static void reconcileThisTransaction(Transaction transaction, boolean syncExec, final boolean removeElements) {
 		if (!transaction.getType().equals(Transaction.AUTORECONCILE_TYPE)) {
-			if (containsCreateOrDeleteDelta(transaction)) {
+			if (elementsMustBeReconciled(transaction)) {
 				if (transaction.getTransactionManager().getActiveTransaction() == null) {
 					List<NonRootModelElement> rootElements =  getAffectedElements(transaction);	
 					GraphicsReconcilerLauncher reconciler = new GraphicsReconcilerLauncher(rootElements);
@@ -140,14 +140,16 @@ public class GraphicsReconcilerLauncher {
 		return elementsInTransaction;
 	}
 
-	private static boolean containsCreateOrDeleteDelta(Transaction transaction) {
+	private static boolean elementsMustBeReconciled(Transaction transaction) {
 		IModelDelta[] deltas = transaction.getDeltas(Ooaofooa.getDefaultInstance());
 		if (deltas != null) {
 			for (int i = 0; i < deltas.length; i++) {
 				if (deltas[i].getKind() == Modeleventnotification_c.DELTA_NEW
 						|| deltas[i].getKind() == Modeleventnotification_c.DELTA_DELETE
 						|| deltas[i].getKind() == Modeleventnotification_c.DELTA_ELEMENT_RELATED
-						|| deltas[i].getKind() == Modeleventnotification_c.DELTA_ELEMENT_UNRELATED) {
+						|| deltas[i].getKind() == Modeleventnotification_c.DELTA_ELEMENT_UNRELATED 
+						|| deltas[i].getKind() == Modeleventnotification_c.DELTA_MODEL_ELEMENT_MOVE) 
+				{
 					return true;
 				}
 			}

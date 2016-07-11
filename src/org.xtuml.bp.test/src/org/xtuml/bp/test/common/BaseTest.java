@@ -992,7 +992,7 @@ public class BaseTest extends TestCase {
 	}
 	
 	protected void importModel(IProgressMonitor progressMonitor, SystemModel_c sysModel, IFile mdlFile, Ooaofooa modelRoot, boolean parseAllActivities, boolean clearDatabase, boolean parserGraphics) throws CoreException, IOException{
-		ImportModel impBP = new ImportModel(mdlFile.getContents(true), modelRoot, sysModel, parseAllActivities, clearDatabase, parserGraphics, false, true); //$NON-NLS-1$
+		ImportModel impBP = new ImportModel(mdlFile.getContents(true), modelRoot, sysModel, parseAllActivities, clearDatabase, parserGraphics, false); //$NON-NLS-1$
 		int i = impBP.countAndValidateInsertStatements();
 		assertTrue(i > 0);
 		impBP.run(progressMonitor);

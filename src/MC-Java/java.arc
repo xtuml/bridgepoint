@@ -2032,7 +2032,7 @@ ${gsm.body}\
         return getChildren(true);
     }
     public Object[] getChildren(boolean load) {
-		// TODO: BOB remove this obsolete function
+        // TODO: BOB remove this obsolete function
         List dom_set = new ArrayList();
         Object[] obj_set = dom_set.toArray();
         return obj_set;
@@ -2041,7 +2041,7 @@ ${gsm.body}\
         return  hasChildren(true);
     }
     public boolean hasChildren(boolean load) {
-		// TODO: BOB remove this obsolete function
+        // TODO: BOB remove this obsolete function
         return false;
     }
           .end if

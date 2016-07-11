@@ -42,8 +42,7 @@ public class ImportModelFactory extends AbstractModelImportFactory {
 		SystemModel_c system,
 		boolean parseAll,
 		boolean clearDatabase,
-		boolean isTemplate,
-		boolean createUniqueIdDuringImport) throws FileNotFoundException {
+		boolean isTemplate) throws FileNotFoundException {
 		// not supported by this package
 
 		return new ImportModel(
@@ -52,8 +51,7 @@ public class ImportModelFactory extends AbstractModelImportFactory {
 				system,
 				parseAll,
 				clearDatabase,
-				isTemplate,
-				createUniqueIdDuringImport);
+				isTemplate);
 	}
 
 	public IModelImport create(
@@ -63,8 +61,7 @@ public class ImportModelFactory extends AbstractModelImportFactory {
 			boolean parseAll,
 			boolean clearDatabase,
 			boolean parseGraphics,
-			boolean isTemplate,
-			boolean createUniqueIdDuringImport ) throws IOException {
+			boolean isTemplate ) throws IOException {
 			return new ImportModel(
 				inStream,
 				aModelRoot,
@@ -72,8 +69,7 @@ public class ImportModelFactory extends AbstractModelImportFactory {
 				parseAll,
 				clearDatabase,
 				parseGraphics,
-				isTemplate,
-				createUniqueIdDuringImport);
+				isTemplate);
 		}
 	
 	public IModelImport create(
@@ -83,8 +79,7 @@ public class ImportModelFactory extends AbstractModelImportFactory {
 			boolean parseAll,
 			boolean clearDatabase,
 			boolean parseGraphics,
-			boolean isTemplate,
-			boolean createUniqueIdDuringImport ) throws IOException {
+			boolean isTemplate ) throws IOException {
 			return new ImportModelComponent(
 				file,
 				aModelRoot,
@@ -92,8 +87,7 @@ public class ImportModelFactory extends AbstractModelImportFactory {
 				parseAll,
 				clearDatabase,
 				parseGraphics,
-				isTemplate,
-				createUniqueIdDuringImport);
+				isTemplate);
 			
 			
 	}

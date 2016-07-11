@@ -170,6 +170,16 @@ public class ComponentTransactionListener implements ITransactionListener {
 												element));
 						}
 						persist(target);
+					} else if (delta instanceof ModelElementMovedModelDelta) {
+						NonRootModelElement element = (NonRootModelElement) delta.getModelElement();
+						target = PersistenceManager.findElementComponent(element, true);
+						if (target != null) {
+							ModelElementMovedModelDelta modelDelta = (ModelElementMovedModelDelta) delta;
+							NonRootModelElement elementMoved=(NonRootModelElement) delta.getModelElement();
+							ComponentTransactionListener.movePMC(elementMoved, modelDelta.getDestination());
+							PersistableModelComponent pmcToPersist = modelDelta.getDestination().getPersistableComponent(true);
+							persistRenamedME(persisted, modelDelta.getDestination());
+						}
                     } else if (delta instanceof AttributeChangeModelDelta) {
                         NonRootModelElement element=(NonRootModelElement) delta.getModelElement();
 						target = PersistenceManager.findElementComponent(element, true);
@@ -200,40 +210,11 @@ public class ComponentTransactionListener implements ITransactionListener {
 				}
 			}
 		}
-		Component_c comp = null;
-		SystemModel_c sys = null;
 		Ooaofooa[] instances = Ooaofooa.getInstances();
 		for(int i = 0; i < instances.length; i++) {
 			instances[i].clearUnreferencedProxies();
 		}
-		// run this in a workspace job so that it does not
-		// interfere with our file writing
-		WorkspaceJob job = new WorkspaceJob("Create integrity issues") {
-			
-			/* (non-Javadoc)
-			 * @see org.eclipse.core.runtime.jobs.Job#belongsTo(java.lang.Object)
-			 */
-			@Override
-			public boolean belongsTo(Object family) {
-				return family.equals(IntegrityCheckScheduler.INTEGRITY_ISSUE_JOB_FAMILY);
-			}
-
-			@Override
-			public IStatus runInWorkspace(IProgressMonitor monitor)
-					throws CoreException {
-				// for all persisted files run an integrity check
-				for(PersistableModelComponent component: persisted) {
-					// deletions will have a null root element
-					if(component.getRootModelElement() != null) {
-						IntegrityChecker.createIntegrityIssues(component.getRootModelElement());
-					}
-				}
-				return Status.OK_STATUS;
-			}
-		};
-		job.setPriority(Job.DECORATE);
-		job.setRule(ResourcesPlugin.getWorkspace().getRoot());
-		job.schedule();
+		IntegrityChecker.startIntegrityChecker(persisted);
 	}
     private IPath[] getFoldersToBeRemoved(PersistableModelComponent pmc) {
     	Collection children = getChildrenOfDomainPMC(pmc);
@@ -414,6 +395,57 @@ public class ComponentTransactionListener implements ITransactionListener {
 		}
 	}
 
+	/**
+	 * Move the PMC from the source to the destination
+	 * 
+	 * Example:
+	 * 		Before:
+	 * 			source_package/
+	 * 							source_package.xtuml
+	 * 							component1/component1.xtuml
+	 * 		After:
+	 * 			destination_package/
+	 * 								destination_package.xtuml
+	 * 								component1/component1.xtuml
+	 * 
+	 * @param elementMoved This is the NonRootModelElement being moved
+	 * @param destination This is the destination selected by the user
+	 */
+	private static void movePMC(NonRootModelElement elementMoved, NonRootModelElement destination) {
+		try {
+			final IWorkspaceRoot wsRoot = ResourcesPlugin.getWorkspace().getRoot();
+			
+			PersistableModelComponent destinationPMC = destination.getPersistableComponent(true);
+			IPersistenceHierarchyMetaData metadata = PersistenceManager.getHierarchyMetaData();
+			if (metadata.isComponentRoot(elementMoved)) {
+				// This is the PMC associated with the xtuml file
+				PersistableModelComponent elementPMC = elementMoved.getPersistableComponent(true);
+				
+				// This is folder that the xtuml file is in
+				IPath elementParentDirectory = elementPMC.getContainingDirectoryPath();
+				IFolder containingFolder = wsRoot.getFolder(elementParentDirectory);			
+	
+				// Now get the destination folder
+				IPath destPath = destinationPMC.getContainingDirectoryPath().append(elementMoved.getName());
+	
+				// move the folder from the original location to the destination folder
+				// allow the move to keep the local history
+				containingFolder.move(destPath, true, true, null);
+				
+				// Update the underlying resource and its children (if any)
+				String elementName = elementMoved.getName();
+				IFile newFile = wsRoot
+						.getFile(destPath.append(elementName + "." + Ooaofooa.MODELS_EXT));
+				elementPMC.updateResource(newFile);
+			} else {
+				// We're just a normal element, update our containing PMC
+				elementMoved.setComponent(destinationPMC);
+			}
+		} catch (Exception e) {
+			CorePlugin.logError("Could not move file resources for " + elementMoved.getName(), e);
+		}
+	}
+	
 	public static void setDontMakeResourceChanges(boolean newValue) {
 		dontMakeResourceChanges = newValue;
 	}

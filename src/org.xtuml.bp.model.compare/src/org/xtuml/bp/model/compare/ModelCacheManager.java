@@ -580,7 +580,7 @@ public class ModelCacheManager {
 					PersistableModelComponent com = new PersistableModelComponent(
 							sys);
 					IModelImport modelInputLoader = new ImportModelComponent(
-							sca, compareRoot, com, false, false, true, false,true);
+							sca, compareRoot, com, false, false, true, false);
 					boolean isSingleFile = isSingleFile((CoreImport) modelInputLoader);
 					boolean isSingleFileOld = isSingleFileOld((CoreImport) modelInputLoader);
 					if (isSingleFile) {
@@ -597,7 +597,7 @@ public class ModelCacheManager {
 						sca = ((IStreamContentAccessor) input).getContents();
 						streamProcessor = new ModelStreamProcessor();
 						modelInputLoader = CorePlugin.getStreamImportFactory()
-								.create(sca, compareRoot, true, new Path(""), false);
+								.create(sca, compareRoot, true, new Path(""));
 						streamProcessor.setContents(contents);
 						streamProcessor.setImporter(modelInputLoader);
 					}
@@ -608,7 +608,7 @@ public class ModelCacheManager {
 						// dealing with old single file models
 						modelInputLoader = CorePlugin.getModelImportFactory()
 								.create(sca, compareRoot, sys, false, false,
-										true, false, true);
+										true, false);
 					}
 					int ret_val = 0;
 					if (!isSingleFile) {
