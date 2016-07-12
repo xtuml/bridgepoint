@@ -87,31 +87,10 @@ The instructions in this section describe how to use the eclipse BridgePoint UI 
     - This will cause each project in the workspace to build.  The builder will build dependent projects first. Since all projects are being processed, the build will take a while and should finish successfully.
     - Note: During ongoing development, if you are going to modify model files, you likely want to turn Build Automatically off because of the long build times of models.  If you are just modifying Java files, you likely want to have Build Automatically on since java files rebuild quickly.
 
-Command line Build Instructions
-------------
-The instructions in this section describe how to use command line scripts on Linux to build the BridgePoint plug-ins and package them into a full zipfile.  These instructions assume the build area will be under the user home folder.        
-
-  - Set up the build folder
-  ```
-  cd ~
-  mkdir -p build/work
-  cd build/work
-  wget https://raw.githubusercontent.com/xtuml/bridgepoint/master/utilities/build/run_build.sh
-  wget https://raw.githubusercontent.com/xtuml/bridgepoint/master/utilities/build/init_git_repositories.sh
-  chmod 755 *.sh
-  ```   
-
-  -  Once the previous instructions have set up your environment, you can now launch the build repeatedly with a command like the following.  See the header of run_build.sh for descriptions of the arguments.
-  ```
-  nohup ./run_build.sh /home/kbrown/xtuml/BridgePoint/ /home/kbrown/ testing xtuml "" no yes
-  ```   
-  
-  This will clone the repositories into `~/build/git` if they do not exist locally, switch to the correct branch to build (here "testing") and run the build and packaging.   After the build is done, you can inspect the build workspace that was used.  Simply launch BridgePoint and choose the workspace (e.g. `/home/kbrown/build/work/testing`)   
-  
-  
 ### Congratulations!  Your environment is now built and ready for BridgePoint development.
 
   - If you have had any problems building, or have questions, check the [FAQ](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/FAQ.md#bpdevelopers) or post to the [xtUML.org Forums] (https://xtuml.org/community/forum/xtuml-forum/) for help.
   - If you want to run BridgePoint unit tests, instructions are available in [HOWTO Run the BridgePoint Unit Tests](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/HOWTO-run-bridgepoint-unit-tests.md)
    
 
+NOTE: Information about running the BridgePoint build via the command line may be found [in the FAQ](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/FAQ.md#clibuild).
